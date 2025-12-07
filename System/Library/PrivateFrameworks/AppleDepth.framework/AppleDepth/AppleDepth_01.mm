@@ -1,13 +1,13 @@
-uint64_t dbdsqr_(uint64_t *a1, uint64_t *a2, unint64_t *a3, double *a4, double *a5, double *a6, uint64_t *a7, double *a8, double a9, int8x16_t a10, int8x16_t a11, int8x16_t a12, int8x16_t a13, double a14, double a15, int8x16_t a16, uint64_t *a17, double *a18, uint64_t *a19)
+uint64_t dbdsqr_(uint64_t *a1, uint64_t *a2, unint64_t *a3, double *a4, double *a5, double *a6, uint64_t *a7, double *a8, double a9, int8x16_t a10, int8x16_t q2_0, int8x16_t q3_0, int8x16_t q4_0, double a14, double a15, int8x16_t a16, uint64_t *a11, double *a12, uint64_t *a13)
 {
   v340 = 0.0;
-  v20 = *a17;
+  v20 = *a11;
   v344 = 0.0;
   v345 = 0.0;
   v342 = 0.0;
   v343 = 0.0;
   v341 = 0.0;
-  *a19 = 0;
+  *a13 = 0;
   v21 = *a1;
   if (!*a1)
   {
@@ -38,8 +38,8 @@ uint64_t dbdsqr_(uint64_t *a1, uint64_t *a2, unint64_t *a3, double *a4, double *
       v295 = *v292++;
       v296 = fabs(v295);
       v297 = *v293++;
-      *a12.i64 = v294 + fabs(v297);
-      v294 = v296 * (v294 / *a12.i64);
+      *q3_0.i64 = v294 + fabs(v297);
+      v294 = v296 * (v294 / *q3_0.i64);
       if (v27 >= v294)
       {
         v27 = v294;
@@ -68,22 +68,22 @@ uint64_t dbdsqr_(uint64_t *a1, uint64_t *a2, unint64_t *a3, double *a4, double *
   v305 = a8;
   v319 = &a8[~v20 + 1];
   v314 = a4 + 1;
-  v316 = &a18[2 * v25];
-  v317 = a18 - 1;
+  v316 = &a12[2 * v25];
+  v317 = a12 - 1;
   v306 = 3 * v25;
-  v315 = &a18[3 * v25];
-  v103 = &a18[v21 - 1];
+  v315 = &a12[3 * v25];
+  v103 = &a12[v21 - 1];
   v332 = a5 - 2;
   v333 = a4 - 2;
-  v104 = &a18[3 * v21];
+  v104 = &a12[3 * v21];
   v311 = v104 - 5;
-  v105 = &a18[2 * v21];
-  v309 = &a18[v21 - 3];
+  v105 = &a12[2 * v21];
+  v309 = &a12[v21 - 3];
   v310 = v105 - 4;
   v312 = v105 - 2;
   v313 = v104 - 3;
   v303 = v104 - 4;
-  v301 = &a18[v21 - 2];
+  v301 = &a12[v21 - 2];
   v302 = v105 - 3;
   v106 = -1;
   v19.i64[0] = 1.0;
@@ -119,7 +119,7 @@ LABEL_69:
     {
       while (1)
       {
-        *a11.i64 = fabs(v24[v112]);
+        *q2_0.i64 = fabs(v24[v112]);
         v120 = &v332[v112];
         v121 = &v333[v112];
         v122 = v112 - 1;
@@ -133,19 +133,19 @@ LABEL_69:
 
           v123 = *v121--;
           *a10.i64 = fabs(v123);
-          if (*a11.i64 > *a10.i64)
+          if (*q2_0.i64 > *a10.i64)
           {
-            a10.i64[0] = a11.i64[0];
+            a10.i64[0] = q2_0.i64[0];
           }
 
           if (*a10.i64 <= v108.f64[0])
           {
-            *a11.i64 = v108.f64[0];
+            *q2_0.i64 = v108.f64[0];
           }
 
           else
           {
-            a11.i64[0] = a10.i64[0];
+            q2_0.i64[0] = a10.i64[0];
           }
 
           --v120;
@@ -169,7 +169,7 @@ LABEL_80:
           v327 = v101;
           v321 = v100;
           v130 = &v102[v112 - 1];
-          dlasv2_(&v24[v118], v119, &v24[v117], &v341, &v340, &v342, &v343, &v344, v108, a10, a11, a12, a13, a14, a15, a16, &v345);
+          dlasv2_(&v24[v118], v119, &v24[v117], &v341, &v340, &v342, &v343, &v344, v108, a10, q2_0, q3_0, q4_0, a14, a15, a16, &v345);
           v19.i64[0] = 1.0;
           v100 = v321;
           a7 = v326;
@@ -240,10 +240,10 @@ LABEL_80:
             do
             {
               v145 = *v140;
-              a11 = *v141;
-              a12 = vmlaq_f64(vmulq_n_f64(*v141, v115.f64[0]), *v140, v108);
-              *v140++ = a12;
-              a10 = vmlaq_f64(vmulq_n_f64(vnegq_f64(v145), v115.f64[0]), a11, v108);
+              q2_0 = *v141;
+              q3_0 = vmlaq_f64(vmulq_n_f64(*v141, v115.f64[0]), *v140, v108);
+              *v140++ = q3_0;
+              a10 = vmlaq_f64(vmulq_n_f64(vnegq_f64(v145), v115.f64[0]), q2_0, v108);
               *v141++ = a10;
               v144 -= 2;
             }
@@ -556,7 +556,7 @@ LABEL_63:
         if (v101 == 1)
         {
           *a10.i64 = v24[v112];
-          *a13.i64 = fabs(*a10.i64);
+          *q4_0.i64 = fabs(*a10.i64);
           goto LABEL_87;
         }
 
@@ -565,12 +565,12 @@ LABEL_63:
 LABEL_97:
         v128 = &v26[v122];
         *a10.i64 = fabs(*v128);
-        a13.i64[0] = 0x3D06800000000000;
-        *a12.i64 = v124 * 9.99200722e-15;
-        if (*a10.i64 > *a12.i64)
+        q4_0.i64[0] = 0x3D06800000000000;
+        *q3_0.i64 = v124 * 9.99200722e-15;
+        if (*a10.i64 > *q3_0.i64)
         {
           *a10.i64 = v24[v112];
-          *a12.i64 = fabs(*a10.i64);
+          *q3_0.i64 = fabs(*a10.i64);
           if (v118 <= v122)
           {
 LABEL_134:
@@ -579,20 +579,20 @@ LABEL_134:
           }
 
           v129 = v112 - 2;
-          a13.i64[0] = a12.i64[0];
+          q4_0.i64[0] = q3_0.i64[0];
           while (1)
           {
             a14 = fabs(v26[v129]);
-            a15 = *a13.i64 * 9.99200722e-15;
-            if (a14 <= *a13.i64 * 9.99200722e-15)
+            a15 = *q4_0.i64 * 9.99200722e-15;
+            if (a14 <= *q4_0.i64 * 9.99200722e-15)
             {
               break;
             }
 
-            *a13.i64 = *a13.i64 / (*a13.i64 + a14) * fabs(a4[v129]);
-            if (*a12.i64 >= *a13.i64)
+            *q4_0.i64 = *q4_0.i64 / (*q4_0.i64 + a14) * fabs(a4[v129]);
+            if (*q3_0.i64 >= *q4_0.i64)
             {
-              a12.i64[0] = a13.i64[0];
+              q3_0.i64[0] = q4_0.i64[0];
             }
 
             v28 = v129-- <= v122;
@@ -613,16 +613,16 @@ LABEL_106:
       v108.f64[0] = a4[v122];
       v124 = fabs(v108.f64[0]);
       *a10.i64 = v24[v112];
-      *a13.i64 = fabs(*a10.i64);
-      if (v124 < *a13.i64)
+      *q4_0.i64 = fabs(*a10.i64);
+      if (v124 < *q4_0.i64)
       {
         v101 = 2;
         goto LABEL_97;
       }
 
 LABEL_87:
-      *a12.i64 = *a13.i64 * 9.99200722e-15;
-      if (fabs(*v119) <= *a13.i64 * 9.99200722e-15)
+      *q3_0.i64 = *q4_0.i64 * 9.99200722e-15;
+      if (fabs(*v119) <= *q4_0.i64 * 9.99200722e-15)
       {
         v128 = &v102[v112 - 1];
         v101 = 1;
@@ -630,7 +630,7 @@ LABEL_87:
       }
 
       v108.f64[0] = a4[v122];
-      *a12.i64 = fabs(v108.f64[0]);
+      *q3_0.i64 = fabs(v108.f64[0]);
       if (v112 <= v106)
       {
         v151 = 1;
@@ -638,7 +638,7 @@ LABEL_87:
 LABEL_135:
         v152 = ~v122;
         v153 = *a1;
-        if (*a12.i64 / *a11.i64 * (*a1 * 9.99200722e-15) <= 1.11022302e-16)
+        if (*q3_0.i64 / *q2_0.i64 * (*a1 * 9.99200722e-15) <= 1.11022302e-16)
         {
           goto LABEL_234;
         }
@@ -731,9 +731,9 @@ LABEL_299:
               v284 = v228 + 1;
               v346[0] = v228 + 1;
               v285 = &v102[v112 - 1];
-              dlasr_("L", "F", v346, v338, a18, &v317[v153], &v324[v122], a7);
+              dlasr_("L", "F", v346, v338, a12, &v317[v153], &v324[v122], a7);
               v346[0] = v284;
-              dlasr_("R", "F", a3, v346, v316, v315, &v319[v106 * v337], a17);
+              dlasr_("R", "F", a3, v346, v316, v315, &v319[v106 * v337], a11);
               v286 = v285;
               v102 = v325;
               a7 = v326;
@@ -860,7 +860,7 @@ LABEL_239:
               }
 
               ++v233;
-              a18[v229] = v227;
+              a12[v229] = v227;
               v103[v229] = v238;
               v312[v229] = v232;
               v313[v229++] = v111;
@@ -1042,7 +1042,7 @@ LABEL_301:
           v346[0] = v112 - v106 + 1;
           dlasr_("L", "B", v346, v338, v316, v315, &v324[v288], a7);
           v346[0] = v112 - v106 + 1;
-          dlasr_("R", "B", a3, v346, a18, &v317[*a1], &v319[v106 * v337], a17);
+          dlasr_("R", "B", a3, v346, a12, &v317[*a1], &v319[v106 * v337], a11);
           v102 = v325;
           a7 = v326;
           v287 = fabs(*v286) > v30;
@@ -1261,7 +1261,7 @@ LABEL_156:
 
               ++v174;
               v169 = v183 * v115.f64[0] + v116.f64[0] * v188;
-              a18[v170] = v110;
+              a12[v170] = v110;
               v103[v170] = v109;
               v312[v170] = v116.f64[0];
               v313[v170++] = v115.f64[0];
@@ -1280,9 +1280,9 @@ LABEL_156:
           v193 = v101;
           v346[0] = v112 - v122;
           v194 = v167;
-          dlasr_("L", "F", v346, v338, a18, &v317[v153], &v324[v122], a7);
+          dlasr_("L", "F", v346, v338, a12, &v317[v153], &v324[v122], a7);
           v346[0] = v112 - v106 + 1;
-          dlasr_("R", "F", a3, v346, v316, v315, &v319[v106 * v337], a17);
+          dlasr_("R", "F", a3, v346, v316, v315, &v319[v106 * v337], a11);
           v195 = v168;
           v101 = v193;
           v19.i64[0] = 1.0;
@@ -1310,7 +1310,7 @@ LABEL_156:
             v197 = &v311[-v122];
             v198 = &v310[-v122];
             v199 = &v309[-v122];
-            v200 = &a18[-v122 - 2];
+            v200 = &a12[-v122 - 2];
             v201 = v102;
             v202 = v333;
             v203 = v112;
@@ -1458,7 +1458,7 @@ LABEL_208:
             v191 = a1;
             v328 = v101;
             v322 = v167;
-            v192 = a18 - 1;
+            v192 = a12 - 1;
             v222 = &v317[v203 - v106];
             *v222 = v110;
             v222[v308] = v219;
@@ -1471,7 +1471,7 @@ LABEL_208:
             v191 = a1;
             v328 = v101;
             v322 = v100 + v112 + v152;
-            v192 = a18 - 1;
+            v192 = a12 - 1;
           }
 
           v342 = v109;
@@ -1490,7 +1490,7 @@ LABEL_208:
           v346[0] = v112 - v106 + 1;
           dlasr_("L", "B", v346, v338, v316, v315, &v324[v223], a7);
           v346[0] = v112 - v106 + 1;
-          dlasr_("R", "B", a3, v346, a18, &v192[*v191], &v319[v106 * v337], a17);
+          dlasr_("R", "B", a3, v346, a12, &v192[*v191], &v319[v106 * v337], a11);
           v102 = v325;
           a7 = v326;
           v113 = v106;
@@ -1506,21 +1506,21 @@ LABEL_208:
 
       v125 = &v26[v122];
       v126 = v122 + 1;
-      a13.i64[0] = a12.i64[0];
+      q4_0.i64[0] = q3_0.i64[0];
       while (1)
       {
         a14 = fabs(*v125);
-        a15 = *a13.i64 * 9.99200722e-15;
-        if (a14 <= *a13.i64 * 9.99200722e-15)
+        a15 = *q4_0.i64 * 9.99200722e-15;
+        if (a14 <= *q4_0.i64 * 9.99200722e-15)
         {
           break;
         }
 
         v127 = v126 + 1;
-        *a13.i64 = *a13.i64 / (*a13.i64 + a14) * fabs(a4[v126]);
-        if (*a12.i64 >= *a13.i64)
+        *q4_0.i64 = *q4_0.i64 / (*q4_0.i64 + a14) * fabs(a4[v126]);
+        if (*q3_0.i64 >= *q4_0.i64)
         {
-          a12.i64[0] = a13.i64[0];
+          q3_0.i64[0] = q4_0.i64[0];
         }
 
         ++v125;
@@ -1539,7 +1539,7 @@ LABEL_109:
     }
   }
 
-  *a19 = 0;
+  *a13 = 0;
   if (*a1 < 2)
   {
     return 0;
@@ -1552,7 +1552,7 @@ LABEL_109:
   {
     if (*v26 != 0.0)
     {
-      *a19 = ++v299;
+      *a13 = ++v299;
     }
 
     ++v26;
@@ -1872,7 +1872,7 @@ uint64_t dlasr_(const char *a1, const char *a2, uint64_t *a3, uint64_t *a4, doub
 
         v43 = v8 + 1 - v36;
         v44 = 8 * v36;
-        v45 = &v31[v36];
+        v45 = &v31[8 * v36];
         v46 = v27 - 8 + v44;
         do
         {
@@ -1888,7 +1888,7 @@ uint64_t dlasr_(const char *a1, const char *a2, uint64_t *a3, uint64_t *a4, doub
 LABEL_35:
         ++v32;
         a7 = (a7 + v27);
-        v31 = (v31 + v27);
+        v31 += v27;
         if (v32 == v9)
         {
           return 0;
@@ -1902,7 +1902,7 @@ LABEL_35:
     }
 
     v59 = (a7 + v12 * (8 * v9 - 8));
-    v60 = &a7->f64[v8 + v12];
+    v60 = (a7 + 8 * v8 + 8 * v12);
     v61 = -8 * v12;
     v62 = (a7 + v12 * (8 * v9 - 16));
     v65 = v59 < &a7->f64[v8] && v62 < v60 || v61 < 0 || v8 == 1;
@@ -2277,7 +2277,7 @@ float CRandomGenerator::NormalRand(CRandomGenerator *this, float a2)
   return ((v18 * sqrtf((logf(v19 + (v18 * v18)) * -2.0) / v20)) * a2) + 0.0;
 }
 
-void GeomUtils::DistortRadialLiteInternal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+void GeomUtils::DistortRadialLiteInternal(uint64_t a1, uint64_t a2, uint64_t a3, char a4, int a5, int a6, double a7)
 {
   if (*(a1 + 16) == 2)
   {
@@ -2288,19 +2288,19 @@ void GeomUtils::DistortRadialLiteInternal(uint64_t a1, uint64_t a2, uint64_t a3,
 
     if (a6)
     {
-      v6 = "xqSorted.GetNumOfPoints() > 1";
-      v7 = 1381;
-      v8 = "Interp1SortedWithExtrap";
+      v7 = "xqSorted.GetNumOfPoints() > 1";
+      v8 = 1381;
+      v9 = "Interp1SortedWithExtrap";
     }
 
     else
     {
-      v6 = "xq.GetNumOfPoints() > 0";
-      v7 = 1285;
-      v8 = "Interp1WithExtrap";
+      v7 = "xq.GetNumOfPoints() > 0";
+      v8 = 1285;
+      v9 = "Interp1WithExtrap";
     }
 
-    __assert_rtn(v8, "Algo.hpp", v7, v6);
+    __assert_rtn(v9, "Algo.hpp", v8, v7);
   }
 
   __assert_rtn("DistortRadialLiteInternal", "GeomUtils.cpp", 542, "pts.Rows() == 2");
@@ -2493,17 +2493,6 @@ LABEL_30:
   }
 
   return result;
-}
-
-uint64_t GeomUtils::DistortRadialLite<double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
-{
-  GeomUtils::DistortRadialLiteInternal(a1, a2, a3, 0, a4, a5);
-  return 0;
-}
-
-{
-  GeomUtils::DistortRadialLiteInternal(a1, a2, a3, 1, a4, a5);
-  return 0;
 }
 
 void GeomUtils::ToHomg(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -3124,7 +3113,7 @@ LABEL_24:
   operator new[]();
 }
 
-void sub_24030D088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t (**a28)(), uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t (**a43)(), uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t (**a48)(), uint64_t a49, uint64_t a50, char a51)
+void sub_24030D088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t (**a28)(), uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t (**a43)(), uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t (**a48)(), uint64_t a49, uint64_t a50, char a51)
 {
   Matrix<double>::~Matrix(&a18);
   Matrix<double>::~Matrix(&a13);
@@ -3396,16 +3385,16 @@ LABEL_30:
   }
 }
 
-void sub_24030D8F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24030D8F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Matrix<double>::~Matrix(va);
   _Unwind_Resume(a1);
 }
 
-void sub_24030DB7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24030DB7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Matrix<double>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -3419,9 +3408,9 @@ void Matrix<double>::Matrix(uint64_t a1, uint64_t a2)
   operator new[]();
 }
 
-void sub_24030DC9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24030DC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Matrix<double>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -3433,7 +3422,7 @@ void sub_24030DEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     if (a17 == 1)
     {
       v18 = a1;
-      MEMORY[0x245CBFC90](a15, v17);
+      MEMORY[0x245CBFC90](a15, v17, a3, a4, a5, a6, a7, a8);
       a1 = v18;
     }
   }
@@ -3441,19 +3430,19 @@ void sub_24030DEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void GeomUtils::homography2d(void *a1@<X8>)
+void GeomUtils::homography2d(void *a3@<X8>)
 {
-  v10 = 0;
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
   v8 = 0u;
   v9 = 0u;
+  v7 = 0;
+  v5 = 0u;
   v6 = 0u;
-  v7 = 0u;
-  v5 = 0;
   v3 = 0u;
   v4 = 0u;
-  v1 = 0u;
-  v2 = 0u;
-  *a1 = off_285231258;
+  *a3 = off_285231258;
   operator new[]();
 }
 
@@ -3462,21 +3451,21 @@ void sub_24030E1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   if (a17 && a19 == 1)
   {
     v32 = a1;
-    MEMORY[0x245CBFC90](a17, v30);
+    MEMORY[0x245CBFC90](a17, v30, a3, a4, a5, a6, a7, a8);
     a1 = v32;
   }
 
   if (a22 && a24 == 1)
   {
     v33 = a1;
-    MEMORY[0x245CBFC90](a22, v30);
+    MEMORY[0x245CBFC90](a22, v30, a3, a4, a5, a6, a7, a8);
     a1 = v33;
   }
 
   if (a27 && a29 == 1)
   {
     v34 = a1;
-    MEMORY[0x245CBFC90](a27, v30);
+    MEMORY[0x245CBFC90](a27, v30, a3, a4, a5, a6, a7, a8);
     a1 = v34;
   }
 
@@ -3486,7 +3475,7 @@ void sub_24030E1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     if (*(v29 + 24) == 1)
     {
       v35 = a1;
-      MEMORY[0x245CBFC90](*(v29 + 8), v30);
+      MEMORY[0x245CBFC90](*(v29 + 8), v30, a3, a4, a5, a6, a7, a8);
       a1 = v35;
       *(v29 + 8) = 0;
       *(v29 + 32) = 0;
@@ -3498,97 +3487,113 @@ void sub_24030E1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void GeomUtils::ransacComputeHomography(uint64_t a1, uint64_t a2)
+void GeomUtils::ransacComputeHomography(uint64_t a1, uint64_t a2, double a3, uint64_t a4, uint64_t a5, unsigned int *a6, uint64_t a7)
 {
-  if (*(a1 + 20))
+  v19 = 0;
+  memset(v18, 0, sizeof(v18));
+  v17 = 0;
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7 = *(a1 + 20);
+  v8[0] = off_285231258;
+  if (v7)
   {
     operator new[]();
   }
 
+  v9 = 3;
+  v10 = 0;
+  v11 = 0;
+  v12 = 24 * v7;
+  v8[0] = &unk_2852312D8;
+  v8[1] = 0;
   if (*(a2 + 20))
   {
     operator new[]();
   }
 
-  Algo::Normalize2DPts();
+  Algo::Normalize2DPts(a1, v8, v18);
 }
 
-void sub_24030F69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_24030F69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
+  va_start(va, a37);
   MatrixNxPts<3u,double>::~MatrixNxPts(&a17);
   MatrixNxPts<2u,double>::~MatrixNxPts(&a12);
   MatrixNxPts<3u,double>::~MatrixNxPts(&a23);
   MatrixNxPts<3u,double>::~MatrixNxPts(&a28);
   MatrixNxPts<3u,double>::~MatrixNxPts(&a33);
-  MatrixNxPts<3u,double>::~MatrixNxPts(&a38);
+  MatrixNxPts<3u,double>::~MatrixNxPts(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t GeomUtils::ransacFitPlane(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, unsigned int *a5, _DWORD *a6)
+uint64_t GeomUtils::ransacFitPlane(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, unsigned int *a5, _DWORD *a6, double a7)
 {
-  result = Algo::RansacPlane(a1, 3, 10, 50, 1u, a4, a5, a6);
-  v11 = *a5;
+  result = Algo::RansacPlane(a1, 3u, 0xAu, 0x32u, 1u, a4, a5, a6, a7);
+  v12 = *a5;
   if (*a5 > 2)
   {
-    if (v11 == 3)
+    if (v12 == 3)
     {
-      v12 = 4;
+      v13 = 4;
     }
 
     else
     {
-      v12 = v11;
+      v13 = v12;
     }
 
-    if (4 * v12)
+    if (4 * v13)
     {
       operator new[]();
     }
 
-    if (!v11)
+    if (!v12)
     {
       goto LABEL_9;
     }
 
-    v14 = *(a1 + 16);
-    v13 = *(a1 + 20);
-    if (v14)
+    v15 = *(a1 + 16);
+    v14 = *(a1 + 20);
+    if (v15)
     {
-      if (v14 == 1)
+      if (v15 == 1)
       {
-        v20 = **(a4 + 8);
-        if (v13 > v20)
+        v21 = **(a4 + 8);
+        if (v14 > v21)
         {
-          MEMORY[0] = *(*(a1 + 8) + 8 * v20);
+          MEMORY[0] = *(*(a1 + 8) + 8 * v21);
         }
       }
 
       else
       {
-        if (v14 >= 3)
+        if (v15 >= 3)
         {
-          v15 = 0;
+          v16 = 0;
           do
           {
-            v16 = *(*(a4 + 8) + v15);
-            if (v13 <= v16 || 4 * v12 == v15)
+            v17 = *(*(a4 + 8) + v16);
+            if (v14 <= v17 || 4 * v13 == v16)
             {
               goto LABEL_26;
             }
 
-            v18 = 8 * v16;
-            v19 = ((8 * v15) & 0x7FFFFFFE0);
-            *v19 = *(*(a1 + 8) + v18);
-            v19[1] = *(*(a1 + 8) + v18 + 8 * v13);
-            v19[2] = *(*(a1 + 8) + v18 + 8 * (2 * v13));
-            v19[3] = 0x3FF0000000000000;
-            v15 += 4;
+            v19 = 8 * v17;
+            v20 = ((8 * v16) & 0x7FFFFFFE0);
+            *v20 = *(*(a1 + 8) + v19);
+            v20[1] = *(*(a1 + 8) + v19 + 8 * v14);
+            v20[2] = *(*(a1 + 8) + v19 + 8 * (2 * v14));
+            v20[3] = 0x3FF0000000000000;
+            v16 += 4;
           }
 
-          while (4 * v11 != v15);
-          if (v11 == 3)
+          while (4 * v12 != v16);
+          if (v12 == 3)
           {
-            if (v12 <= 3)
+            if (v13 <= 3)
             {
               __assert_rtn("operator()", "Matrix.hpp", 120, "row < m_rows && col < m_cols");
             }
@@ -3601,12 +3606,12 @@ LABEL_9:
           __assert_rtn("Svd0LowestSingularVector", "Matrix.hpp", 2414, "false");
         }
 
-        v21 = **(a4 + 8);
-        if (v13 > v21)
+        v22 = **(a4 + 8);
+        if (v14 > v22)
         {
-          v22 = (*(a1 + 8) + 8 * v21);
-          MEMORY[0] = *v22;
-          MEMORY[8] = v22[v13];
+          v23 = (*(a1 + 8) + 8 * v22);
+          MEMORY[0] = *v23;
+          MEMORY[8] = v23[v14];
         }
       }
     }
@@ -3620,9 +3625,9 @@ LABEL_26:
   return result;
 }
 
-void sub_24030F9C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_24030F9C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   Matrix<double>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -3680,7 +3685,7 @@ void sub_240310104(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t GeomUtils::CalcRotTrans(__int128 *a1, double *a2, double *a3, double a4, double a5, float64x2_t a6, __n128 a7, float64x2_t a8, float64x2_t a9, float64x2_t a10, int8x16_t a11, uint64_t a12, float64x2_t *a13, float64x2_t *a14)
+uint64_t GeomUtils::CalcRotTrans(__int128 *a1, double *a2, double *a3, double a4, double a5, __n128 a6, __n128 a7, float64x2_t a8, uint64_t a9, float64x2_t *a10, float64x2_t *a11, float64x2_t a12, float64x2_t a13, int8x16_t a14)
 {
   v18 = a1[1];
   v80 = *a1;
@@ -3691,9 +3696,9 @@ uint64_t GeomUtils::CalcRotTrans(__int128 *a1, double *a2, double *a3, double a4
   v19.i64[0] = *(&v80 + 1);
   v20 = v81;
   a7.n128_u64[0] = v83.u64[1];
-  *&a6.f64[0] = v83.i64[0];
+  a6.n128_u64[0] = v83.i64[0];
   a8.f64[0] = *(&v81 + 1);
-  a9.f64[0] = *(&v82 + 1);
+  a12.f64[0] = *(&v82 + 1);
   *(&v80 + 1) = *(&v81 + 1);
   *&v81 = v83.i64[0];
   v79 = 0.0;
@@ -3710,7 +3715,7 @@ uint64_t GeomUtils::CalcRotTrans(__int128 *a1, double *a2, double *a3, double a4
   v84 = *(a1 + 8);
   *(&v81 + 1) = v19.i64[0];
   *(&v82 + 1) = a7.n128_u64[0];
-  svd_os(3, &v80, v77[0].f64, v71, &v72, v19, 0, a6, a7, a8, a9, a10, a11);
+  svd_os(3, &v80, v77[0].f64, v71, &v72, v19, 0, a6, a7, a8, a12, a13, a14);
   _Q0 = v78;
   v23 = v77[1].f64[0] * 0.0 + 0.0;
   v24 = v79;
@@ -3777,14 +3782,14 @@ uint64_t GeomUtils::CalcRotTrans(__int128 *a1, double *a2, double *a3, double a4
   _Q3.f64[0] = NAN;
   _Q3.f64[1] = NAN;
   v62 = *vbslq_s8(vnegq_f64(_Q3), v21, v38).i64;
-  a13->f64[0] = v38.f64[0] * v62;
-  a13->f64[1] = v62 * v52;
-  a13[1] = vmulq_n_f64(v51, v62);
-  a13[2].f64[0] = v62 * _D22;
-  a13[2].f64[1] = v62 * _D26;
-  a13[3].f64[0] = v49 * v62;
-  a13[3].f64[1] = v62 * v48;
-  a13[4].f64[0] = v62 * v47;
+  a10->f64[0] = v38.f64[0] * v62;
+  a10->f64[1] = v62 * v52;
+  a10[1] = vmulq_n_f64(v51, v62);
+  a10[2].f64[0] = v62 * _D22;
+  a10[2].f64[1] = v62 * _D26;
+  a10[3].f64[0] = v49 * v62;
+  a10[3].f64[1] = v62 * v48;
+  a10[4].f64[0] = v62 * v47;
   _Q3.f64[0] = a3[1] - a2[1];
   v63 = a3[2] - a2[2];
   v64 = sqrt((*a3 - *a2) * (*a3 - *a2) + 0.0 + _Q3.f64[0] * _Q3.f64[0] + v63 * v63);
@@ -3801,8 +3806,8 @@ uint64_t GeomUtils::CalcRotTrans(__int128 *a1, double *a2, double *a3, double a4
   v68 = vdup_n_s32(_NF);
   v69.i64[0] = v68.u32[0];
   v69.i64[1] = v68.u32[1];
-  *a14 = vmulq_n_f64(vbslq_s8(vcltzq_s64(vshlq_n_s64(v69, 0x3FuLL)), v67, _Q0), v64);
-  a14[1].f64[0] = v64 * v24;
+  *a11 = vmulq_n_f64(vbslq_s8(vcltzq_s64(vshlq_n_s64(v69, 0x3FuLL)), v67, _Q0), v64);
+  a11[1].f64[0] = v64 * v24;
   return 0;
 }
 
@@ -4160,7 +4165,7 @@ LABEL_49:
   return result;
 }
 
-void sub_240311208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_240311208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
 {
   MatrixNxPts<3u,double>::~MatrixNxPts(&a18);
   MatrixNxPts<2u,double>::~MatrixNxPts(&a13);
@@ -4309,7 +4314,7 @@ double GeomUtils::ExtrinsicsFromSimd4x3(float64x2_t *a1, float64x2_t *a2, int8x1
   return result;
 }
 
-void SparseMatrix::SparseMatrix(SparseMatrix *this, int a2, int a3, const int *a4, int a5, int a6)
+void SparseMatrix::SparseMatrix(SparseMatrix *this, int a2, int a3, int *a4, int a5, int a6)
 {
   *(this + 10) = a2;
   *(this + 11) = a6;
@@ -4318,7 +4323,7 @@ void SparseMatrix::SparseMatrix(SparseMatrix *this, int a2, int a3, const int *a
   operator new[]();
 }
 
-void SparseMatrix::SparseMatrix(SparseMatrix *a1, int a2, int a3, const int **a4, int a5)
+void SparseMatrix::SparseMatrix(SparseMatrix *a1, int a2, int a3, int **a4, int a5)
 {
   v7 = *a4;
   v8 = a4[1];
@@ -4685,22 +4690,22 @@ double SparseMatrix::operator()(uint64_t a1, int a2, int a3)
   return result;
 }
 
-uint64_t SparseMatrix::MultATagxB@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t SparseMatrix::MultATagxB@<X0>(uint64_t *a1@<X0>, uint64_t a3@<X8>)
 {
-  v2 = *(a1 + 36);
-  *a2 = off_285231258;
-  if (v2)
+  v3 = *(a1 + 9);
+  *a3 = off_285231258;
+  if (v3)
   {
     operator new[]();
   }
 
   result = 0;
-  *(a2 + 16) = 1;
-  *(a2 + 20) = 0;
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  *a2 = &unk_285231338;
-  *(a2 + 8) = 0;
+  *(a3 + 16) = 1;
+  *(a3 + 20) = 0;
+  *(a3 + 24) = 0;
+  *(a3 + 32) = 0;
+  *a3 = &unk_285231338;
+  *(a3 + 8) = 0;
   return result;
 }
 
@@ -5340,10 +5345,10 @@ LABEL_34:
   return this;
 }
 
-void SparseVector::operator-(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void SparseVector::operator-(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *(a1 + 24);
-  *(a3 + 16) = (*(a2 + 20) + *(a1 + 20));
+  *(a3 + 16) = (*(a2 + 5) + *(a1 + 20));
   *(a3 + 24) = v3;
   *(a3 + 28) = 1;
   *(a3 + 32) = 0;
@@ -5383,7 +5388,7 @@ double operator+=(uint64_t a1, uint64_t a2)
   return result;
 }
 
-double SparseVector::GetAsDenseVector@<D0>(SparseVector *this@<X0>, uint64_t a2@<X8>)
+double SparseVector::GetAsDenseVector@<D0>(double **this@<X0>, uint64_t a2@<X8>)
 {
   v4 = *(this + 6);
   *a2 = off_285231258;
@@ -5403,12 +5408,13 @@ double SparseVector::GetAsDenseVector@<D0>(SparseVector *this@<X0>, uint64_t a2@
   if (v6 >= 1)
   {
     v7 = *this;
-    v8 = *(this + 1);
+    v8 = this[1];
     do
     {
       v9 = *v7++;
       result = v9;
-      LODWORD(v9) = *v8++;
+      LODWORD(v9) = *v8;
+      v8 = (v8 + 4);
       *(*(a2 + 8) + 8 * LODWORD(v9)) = result;
       --v6;
     }
@@ -6002,35 +6008,36 @@ uint64_t Algo::cart2sph(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
   return 0;
 }
 
-void sub_240314C68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_240314C68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  Matrix<double>::~Matrix(v37 - 168);
-  Matrix<double>::~Matrix(v37 - 208);
-  Matrix<double>::~Matrix(&a37);
-  Matrix<double>::~Matrix(v37 - 248);
-  Matrix<double>::~Matrix(v37 - 128);
+  va_start(va, a36);
+  Matrix<double>::~Matrix(v36 - 168);
+  Matrix<double>::~Matrix(v36 - 208);
+  Matrix<double>::~Matrix(va);
+  Matrix<double>::~Matrix(v36 - 248);
+  Matrix<double>::~Matrix(v36 - 128);
   _Unwind_Resume(a1);
 }
 
-uint64_t Algo::LinearSpace@<X0>(Algo *this@<X0>, uint64_t a2@<X8>)
+double *Algo::LinearSpace@<X0>(Algo *this@<X0>, uint64_t a4@<X8>)
 {
-  *a2 = off_285231258;
+  *a4 = off_285231258;
   if (this)
   {
     operator new[]();
   }
 
   result = 0;
-  *(a2 + 16) = 1;
-  *(a2 + 20) = 0;
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  *a2 = &unk_285231338;
-  *(a2 + 8) = 0;
+  *(a4 + 16) = 1;
+  *(a4 + 20) = 0;
+  *(a4 + 24) = 0;
+  *(a4 + 32) = 0;
+  *a4 = &unk_285231338;
+  *(a4 + 8) = 0;
   return result;
 }
 
-uint64_t Algo::LinearSpaceByStep@<X0>(Algo *this@<X0>, double a2@<D0>, double a3@<D1>, uint64_t a4@<X8>)
+double *Algo::LinearSpaceByStep@<X0>(Algo *this@<X0>, double a2@<D0>, double a3@<D1>, uint64_t a4@<X8>)
 {
   v4 = (a3 - a2) / this;
   *a4 = off_285231258;
@@ -6075,121 +6082,121 @@ uint64_t Algo::Fspecial@<X0>(int a1@<W0>, unsigned int a2@<W1>, uint64_t a3@<X8>
 
   *(a3 + 16) = 0;
   *(a3 + 20) = 0;
-  v4 = *(a3 + 8);
-  v5 = (*(a3 + 20) * *(a3 + 16));
-  if (v5)
+  v5 = *(a3 + 8);
+  v6 = (*(a3 + 20) * *(a3 + 16));
+  if (v6)
   {
-    v6 = v4 + 8 * v5;
-    if (v6 <= v4 + 8)
+    v7 = v5 + 8 * v6;
+    if (v7 <= v5 + 8)
     {
-      v6 = v4 + 8;
+      v7 = v5 + 8;
     }
 
-    v7 = v6 + ~v4;
-    if (v7 >= 8)
+    v8 = v7 + ~v5;
+    if (v8 >= 8)
     {
-      v9 = (v7 >> 3) + 1;
-      v10 = *(a3 + 8);
-      v11 = v9 & 0x3FFFFFFFFFFFFFFELL;
+      v10 = (v8 >> 3) + 1;
+      v11 = *(a3 + 8);
+      v12 = v10 & 0x3FFFFFFFFFFFFFFELL;
       do
       {
-        __x = *v10;
-        v28 = exp(v10[1]);
-        *&v12 = exp(*&__x);
-        *(&v12 + 1) = v28;
-        *v10 = v12;
-        v10 += 2;
-        v11 -= 2;
+        __x = *v11;
+        v29 = exp(v11[1]);
+        *&v13 = exp(*&__x);
+        *(&v13 + 1) = v29;
+        *v11 = v13;
+        v11 += 2;
+        v12 -= 2;
       }
 
-      while (v11);
-      if (v9 == (v9 & 0x3FFFFFFFFFFFFFFELL))
+      while (v12);
+      if (v10 == (v10 & 0x3FFFFFFFFFFFFFFELL))
       {
 LABEL_18:
-        v4 = *(a3 + 8);
-        if (v5 >= 1)
+        v5 = *(a3 + 8);
+        if (v6 >= 1)
         {
-          v14 = -2147483650.0;
-          v15 = *(a3 + 8);
+          v15 = -2147483650.0;
+          v16 = *(a3 + 8);
           do
           {
-            v16 = *v15++;
-            v17 = v16;
-            if (v16 > v14)
+            v17 = *v16++;
+            v18 = v17;
+            if (v17 > v15)
             {
-              v14 = v17;
+              v15 = v18;
             }
           }
 
-          while (v15 < v4 + 8 * v5);
+          while (v16 < v5 + 8 * v6);
         }
 
         goto LABEL_23;
       }
 
-      v8 = (v4 + 8 * (v9 & 0x3FFFFFFFFFFFFFFELL));
+      v9 = (v5 + 8 * (v10 & 0x3FFFFFFFFFFFFFFELL));
     }
 
     else
     {
-      v8 = *(a3 + 8);
+      v9 = *(a3 + 8);
     }
 
-    v13 = (v4 + 8 * v5);
+    v14 = (v5 + 8 * v6);
     do
     {
-      *v8 = exp(*v8);
-      ++v8;
+      *v9 = exp(*v9);
+      ++v9;
     }
 
-    while (v8 < v13);
+    while (v9 < v14);
     goto LABEL_18;
   }
 
 LABEL_23:
-  if (!v5)
+  if (!v6)
   {
     return 0;
   }
 
-  v18 = v4 + 8 * v5;
-  v19 = (v4 + 8);
-  if (v18 > v4 + 8)
+  v19 = v5 + 8 * v6;
+  v20 = (v5 + 8);
+  if (v19 > v5 + 8)
   {
-    v19 = (v4 + 8 * v5);
+    v20 = (v5 + 8 * v6);
   }
 
-  v20 = v19 + ~v4;
-  if (v20 < 0x18)
+  v21 = v20 + ~v5;
+  if (v21 < 0x18)
   {
     goto LABEL_31;
   }
 
-  v21 = (v20 >> 3) + 1;
-  v22 = vdupq_lane_s64(0, 0);
-  v23 = (v4 + 16);
-  v24 = v21 & 0x3FFFFFFFFFFFFFFCLL;
+  v22 = (v21 >> 3) + 1;
+  v23 = vdupq_lane_s64(0, 0);
+  v24 = (v5 + 16);
+  v25 = v22 & 0x3FFFFFFFFFFFFFFCLL;
   do
   {
-    v25 = vdivq_f64(*v23, v22);
-    v23[-1] = vdivq_f64(v23[-1], v22);
-    *v23 = v25;
-    v23 += 2;
-    v24 -= 4;
+    v26 = vdivq_f64(*v24, v23);
+    v24[-1] = vdivq_f64(v24[-1], v23);
+    *v24 = v26;
+    v24 += 2;
+    v25 -= 4;
   }
 
-  while (v24);
-  if (v21 != (v21 & 0x3FFFFFFFFFFFFFFCLL))
+  while (v25);
+  if (v22 != (v22 & 0x3FFFFFFFFFFFFFFCLL))
   {
-    v4 += 8 * (v21 & 0x3FFFFFFFFFFFFFFCLL);
+    v5 += 8 * (v22 & 0x3FFFFFFFFFFFFFFCLL);
     do
     {
 LABEL_31:
-      *v4 = *v4 / 0.0;
-      v4 += 8;
+      *v5 = *v5 / 0.0;
+      v5 += 8;
     }
 
-    while (v4 < v18);
+    while (v5 < v19);
   }
 
   return 0;
@@ -6205,7 +6212,7 @@ void sub_240315F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t Algo::StdFilter(uint64_t a1, int a2, uint64_t a3)
+uint64_t Algo::StdFilter(uint64_t a1, unsigned int a2, uint64_t a3)
 {
   if (a2 <= 0)
   {
@@ -6402,14 +6409,14 @@ void sub_2403167A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   if (a13 && a15 == 1)
   {
     v25 = a1;
-    MEMORY[0x245CBFC90](a13, 0x1000C8000313F17);
+    MEMORY[0x245CBFC90](a13, 0x1000C8000313F17, a3, a4, a5, a6, a7, a8);
     a1 = v25;
   }
 
   if (a18 && a20 == 1)
   {
     v26 = a1;
-    MEMORY[0x245CBFC90](a18, 0x1000C8000313F17);
+    MEMORY[0x245CBFC90](a18, 0x1000C8000313F17, a3, a4, a5, a6, a7, a8);
     a1 = v26;
   }
 
@@ -6418,7 +6425,7 @@ void sub_2403167A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     if (a25 == 1)
     {
       v27 = a1;
-      MEMORY[0x245CBFC90](a23, 0x1000C8000313F17);
+      MEMORY[0x245CBFC90](a23, 0x1000C8000313F17, a3, a4, a5, a6, a7, a8);
       a1 = v27;
     }
   }
@@ -7157,19 +7164,42 @@ void sub_240317870(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void Algo::FundMatrix3x3(uint64_t a1, uint64_t a2)
+void Algo::FundMatrix3x3(uint64_t a1, uint64_t a2, void *a3, BOOL *a4, double *a5, double a6)
 {
-  if (*(a1 + 20))
+  v6 = *(a1 + 20);
+  v20 = off_285231258;
+  if (v6)
   {
     operator new[]();
   }
 
-  if (*(a2 + 20))
+  v21 = 0;
+  v22 = 9;
+  v23 = 0;
+  v24 = 0;
+  v25 = 72 * v6;
+  v20 = &unk_2852312B8;
+  v15[1] = 0;
+  v17 = 0;
+  v18 = 0;
+  v19 = 24 * v6;
+  v15[0] = &unk_2852312D8;
+  v16 = 3;
+  v7 = *(a2 + 20);
+  v9 = off_285231258;
+  if (v7)
   {
     operator new[]();
   }
 
-  Algo::Normalize2DPts();
+  v10 = 0;
+  v11 = 3;
+  v12 = 0;
+  v13 = 0;
+  v14 = 24 * v7;
+  v9 = &unk_2852312D8;
+  memset(v8, 0, sizeof(v8));
+  Algo::Normalize2DPts(a1, v15, v8);
 }
 
 void sub_240319C10(_Unwind_Exception *a1)
@@ -7182,15 +7212,15 @@ void sub_240319C10(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_24031A2C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24031A2C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   MatrixNxPts<3u,double>::~MatrixNxPts(va);
   MatrixNxPts<3u,double>::~MatrixNxPts(va1);
   _Unwind_Resume(a1);
@@ -7490,7 +7520,7 @@ uint64_t MatrixNxPts<9u,double>::~MatrixNxPts(uint64_t result)
   return result;
 }
 
-uint64_t MatrixMxN<3u,3u,double>::operator*(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t MatrixMxN<3u,3u,double>::operator*(uint64_t result, double *a2, uint64_t a3)
 {
   v3 = result;
   if (*(a3 + 16) == 3)
@@ -7604,7 +7634,7 @@ LABEL_3:
   return 0;
 }
 
-uint64_t Algo::FundDist(uint64_t (***a1)(), uint64_t a2, uint64_t a3, uint64_t a4, unsigned int *a5, double a6)
+uint64_t Algo::FundDist(double *a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int *a5, double a6)
 {
   v11 = *(a2 + 20);
   v129 = off_285231258;
@@ -7624,23 +7654,23 @@ uint64_t Algo::FundDist(uint64_t (***a1)(), uint64_t a2, uint64_t a3, uint64_t a
   v126 = HIDWORD(v110);
   v127 = v111;
   v128 = v112;
-  v12 = a1[1];
-  v13 = a1[2];
-  v14 = a1[3];
+  v12 = *(a1 + 1);
+  v13 = *(a1 + 2);
+  v14 = *(a1 + 3);
   v108 = *a1;
   v109 = v14;
-  v15 = a1[4];
-  v16 = a1[5];
+  v15 = *(a1 + 4);
+  v16 = *(a1 + 5);
   v114 = v13;
   v115 = v16;
-  v17 = a1[7];
-  v110 = a1[6];
+  v17 = *(a1 + 7);
+  v110 = *(a1 + 6);
   v111 = v12;
   v123 = &unk_2852312D8;
   v125 = 3;
   v112 = v15;
   v113 = v17;
-  v116 = a1[8];
+  v116 = *(a1 + 8);
   MatrixMxN<3u,3u,double>::operator*(&v135, &v108, a3);
   v18 = v136;
   v19 = v138;
@@ -8065,132 +8095,132 @@ LABEL_95:
   return 0;
 }
 
-void sub_24031B6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_24031B6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   MatrixNxPts<3u,double>::~MatrixNxPts(&a24);
-  MatrixNxPts<3u,double>::~MatrixNxPts(&a29);
-  MatrixNxPts<1u,double>::~MatrixNxPts(v29 - 184);
+  MatrixNxPts<3u,double>::~MatrixNxPts(va);
+  MatrixNxPts<1u,double>::~MatrixNxPts(v28 - 184);
   _Unwind_Resume(a1);
 }
 
-void sub_24031B984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_24031B984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
   MatrixNxPts<1u,BOOL>::~MatrixNxPts(va);
   MatrixNxPts<1u,BOOL>::~MatrixNxPts(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t Algo::Ransac(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, int a7, double a8, uint64_t a9, uint64_t a10, unsigned int *a11)
+uint64_t Algo::Ransac(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, int a7, uint64_t a8, double a9, double a10, uint64_t a11, unsigned int *a12)
 {
-  v15 = *(a1 + 20);
-  v60 = &unk_285231298;
-  v16 = 5489;
-  v17 = 1;
+  v17 = *(a1 + 20);
+  v61 = &unk_285231298;
+  v18 = 5489;
+  v19 = 1;
   for (i = 3; i != 626; ++i)
   {
-    v19 = 1812433253 * (v16 ^ (v16 >> 30));
-    v16 = v19 + v17;
-    *(&v60 + i) = i + v19 - 2;
-    ++v17;
+    v21 = 1812433253 * (v18 ^ (v18 >> 30));
+    v18 = v21 + v19;
+    v62[i - 2] = i + v21 - 2;
+    ++v19;
   }
 
-  v61 = a6;
-  v20 = 1;
+  v62[0] = a6;
+  v22 = 1;
   for (j = 3; j != 626; ++j)
   {
-    v22 = 1812433253 * (a6 ^ (a6 >> 30));
-    a6 = v22 + v20;
-    *(&v60 + j) = j + v22 - 2;
-    ++v20;
+    v24 = 1812433253 * (a6 ^ (a6 >> 30));
+    a6 = v24 + v22;
+    v62[j - 2] = j + v24 - 2;
+    ++v22;
   }
 
-  v23 = 0;
-  v33 = 0;
-  v62 = 0;
-  *a11 = 0;
+  v25 = 0;
+  v35 = 0;
+  v63 = 0;
+  *a12 = 0;
+  v60 = 0;
   v59 = 0;
-  v58 = 0;
-  v38 = 24 * a3;
-  v32 = v15;
-  v24 = 1.0;
-  v37 = a3 != 0;
+  v40 = 24 * a3;
+  v34 = v17;
+  v26 = 1.0;
+  v39 = a3 != 0;
   do
   {
-    if (v24 <= v23)
+    if (v26 <= v25)
     {
       break;
     }
 
-    v35 = v23;
-    v57 = 0;
-    v40 = 1;
-    memset(v56, 0, sizeof(v56));
+    v37 = v25;
+    v42 = 1;
+    memset(v58, 0, 72);
     do
     {
-      v51 = off_285231218;
+      v53 = off_285231218;
       if (a3)
       {
         operator new[]();
       }
 
-      v53 = 1;
-      v54 = v37;
-      v55 = 0;
-      v51 = &unk_285231318;
+      v55 = 1;
+      v56 = v39;
+      v57 = 0;
+      v53 = &unk_285231318;
       __src = 0;
       if (!a7)
       {
-        v47 = 3;
-        v48 = 0;
-        v49 = v37;
-        v50 = v38;
-        v46[0] = &unk_2852312D8;
-        v46[1] = 0;
-        v42 = 3;
-        v43 = 0;
-        v44 = v37;
-        v45 = v38;
-        v41[0] = &unk_2852312D8;
-        v41[1] = 0;
-        Algo::FundMatrix3x3(v46, v41);
+        v49 = 3;
+        v50 = 0;
+        v51 = v39;
+        v52 = v40;
+        v48[0] = &unk_2852312D8;
+        v48[1] = 0;
+        v44 = 3;
+        v45 = 0;
+        v46 = v39;
+        v47 = v40;
+        v43[0] = &unk_2852312D8;
+        v43[1] = 0;
+        Algo::FundMatrix3x3(v48, v43, v58, &v59, &v60, a10);
       }
 
-      ++v40;
+      ++v42;
     }
 
-    while (v40 <= a4);
-    v25 = *(a1 + 20);
-    v51 = off_285231218;
-    if (v25)
+    while (v42 <= a4);
+    v27 = *(a1 + 20);
+    v53 = off_285231218;
+    if (v27)
     {
       operator new[]();
     }
 
-    v53 = 1;
-    v54 = 0;
-    v55 = 0;
-    v51 = &unk_285231318;
+    v55 = 1;
+    v56 = 0;
+    v57 = 0;
+    v53 = &unk_285231318;
     __src = 0;
-    LODWORD(v46[0]) = 0;
-    Algo::FundDist(v56, a1, a2, &v51, v46, a8);
-    v26 = v46[0];
-    if (LODWORD(v46[0]) > *a11)
+    LODWORD(v48[0]) = 0;
+    Algo::FundDist(v58, a1, a2, &v53, v48, a9);
+    v28 = v48[0];
+    if (LODWORD(v48[0]) > *a12)
     {
-      v27 = HIDWORD(v53);
-      v28 = 4 * v53 * HIDWORD(v53);
-      v29 = *(a10 + 8);
-      if (*(a10 + 32) < v28)
+      v29 = HIDWORD(v55);
+      v30 = 4 * v55 * HIDWORD(v55);
+      v31 = *(a11 + 8);
+      if (*(a11 + 32) < v30)
       {
-        if (v29)
+        if (v31)
         {
-          if (*(a10 + 24) == 1)
+          if (*(a11 + 24) == 1)
           {
             MEMORY[0x245CBFC90]();
           }
@@ -8199,26 +8229,26 @@ uint64_t Algo::Ransac(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4
         operator new[]();
       }
 
-      *(a10 + 16) = v53;
-      *(a10 + 20) = v27;
-      memcpy(v29, __src, v28);
-      *a11 = v26;
-      v30 = pow(v26 / v32, 0);
-      v33 = 1;
-      v24 = -6.90775528 / log(fmin(fmax(1.0 - v30, 2.22044605e-16), 1.0));
+      *(a11 + 16) = v55;
+      *(a11 + 20) = v29;
+      memcpy(v31, __src, v30);
+      *a12 = v28;
+      v32 = pow(v28 / v34, 0);
+      v35 = 1;
+      v26 = -6.90775528 / log(fmin(fmax(1.0 - v32, 2.22044605e-16), 1.0));
     }
 
-    v51 = off_285231218;
-    if (__src && v54)
+    v53 = off_285231218;
+    if (__src && v56)
     {
       MEMORY[0x245CBFC90]();
     }
 
-    v23 = v35 + 1;
+    v25 = v37 + 1;
   }
 
-  while (v35 + 1 <= a5);
-  return (v33 & 1u) - 1;
+  while (v37 + 1 <= a5);
+  return (v35 & 1u) - 1;
 }
 
 uint64_t MatrixNxPts<1u,BOOL>::~MatrixNxPts(uint64_t result)
@@ -8332,39 +8362,39 @@ void MatrixNxPts<1u,BOOL>::~MatrixNxPts(uint64_t a1)
   JUMPOUT(0x245CBFCB0);
 }
 
-uint64_t Algo::RansacHomography(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t a7, _DWORD *a8, _DWORD *a9)
+uint64_t Algo::RansacHomography(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, uint64_t a7, unsigned int *a8, double a9, _DWORD *a10)
 {
   *a8 = 0;
-  v17 = &unk_285231298;
-  v9 = 5489;
-  v10 = 1;
+  v18 = &unk_285231298;
+  v10 = 5489;
+  v11 = 1;
   for (i = 3; i != 626; ++i)
   {
-    v12 = 1812433253 * (v9 ^ (v9 >> 30));
-    v9 = v12 + v10;
-    *(&v17 + i) = i + v12 - 2;
-    ++v10;
+    v13 = 1812433253 * (v10 ^ (v10 >> 30));
+    v10 = v13 + v11;
+    v19[i - 2] = i + v13 - 2;
+    ++v11;
   }
 
-  v18 = a6;
-  v13 = 1;
+  v19[0] = a6;
+  v14 = 1;
   for (j = 3; j != 626; ++j)
   {
-    v15 = 1812433253 * (a6 ^ (a6 >> 30));
-    a6 = v15 + v13;
-    *(&v17 + j) = j + v15 - 2;
-    ++v13;
+    v16 = 1812433253 * (a6 ^ (a6 >> 30));
+    a6 = v16 + v14;
+    v19[j - 2] = j + v16 - 2;
+    ++v14;
   }
 
-  v19 = 0;
+  v20 = 0;
   if (0 < 1.0)
   {
     operator new[]();
   }
 
-  if (a9)
+  if (a10)
   {
-    *a9 = -1;
+    *a10 = -1;
   }
 
   return 0xFFFFFFFFLL;
@@ -8384,32 +8414,32 @@ void sub_24031D64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t Algo::RansacPlane(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, _DWORD *a7, _DWORD *a8)
+uint64_t Algo::RansacPlane(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, uint64_t a6, unsigned int *a7, _DWORD *a8, double a9)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   *a7 = 0;
-  v16 = &unk_285231298;
-  v8 = 5489;
-  v9 = 1;
+  v17 = &unk_285231298;
+  v9 = 5489;
+  v10 = 1;
   for (i = 3; i != 626; ++i)
   {
-    v11 = 1812433253 * (v8 ^ (v8 >> 30));
-    v8 = v11 + v9;
-    *(&v16 + i) = i + v11 - 2;
-    ++v9;
+    v12 = 1812433253 * (v9 ^ (v9 >> 30));
+    v9 = v12 + v10;
+    v18[i - 2] = i + v12 - 2;
+    ++v10;
   }
 
-  v17 = a5;
-  v12 = 1;
+  v18[0] = a5;
+  v13 = 1;
   for (j = 3; j != 626; ++j)
   {
-    v14 = 1812433253 * (a5 ^ (a5 >> 30));
-    a5 = v14 + v12;
-    *(&v16 + j) = j + v14 - 2;
-    ++v12;
+    v15 = 1812433253 * (a5 ^ (a5 >> 30));
+    a5 = v15 + v13;
+    v18[j - 2] = j + v15 - 2;
+    ++v13;
   }
 
-  v18 = 0;
+  v19 = 0;
   if (0 < 1.0)
   {
     operator new[]();
@@ -8461,9 +8491,9 @@ void sub_24031EAD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     MEMORY[0x245CBFC90]();
   }
 
-  if (a68)
+  if (a66)
   {
-    if (a70 == 1)
+    if (a67 == 1)
     {
       MEMORY[0x245CBFC90]();
     }
@@ -8705,7 +8735,7 @@ uint64_t Algo::Lcm(Algo *this, unsigned int a2)
   return this / v2 * a2;
 }
 
-void jpc::PORGMCJ_OutputValidation_Block::process(uint64_t a1, uint64_t a2, void *a3, id *a4, void *a5)
+void jpc::PORGMCJ_OutputValidation_Block::process(uint64_t a1, uint64_t a2, uint64_t *a3, id *a4, void *a5)
 {
   v10[96] = *MEMORY[0x277D85DE8];
   v8 = a5;
@@ -9101,9 +9131,9 @@ void sub_240320414(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2403209C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2403209C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   InstrumentsTraceGuard::~InstrumentsTraceGuard(va);
   _Unwind_Resume(a1);
 }
@@ -9117,14 +9147,14 @@ void InstrumentsTraceGuard::~InstrumentsTraceGuard(InstrumentsTraceGuard *this)
   kdebug_trace();
 }
 
-void sub_240320AE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240320AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   InstrumentsTraceGuard::~InstrumentsTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_240321450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_240321450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   if (v31 < 0)
   {
@@ -9200,14 +9230,14 @@ void filterDepthAndUncertainty<float,float,false>(__CVBuffer *a1, __CVBuffer *a2
 
   memset(&v76, 0, sizeof(v76));
   v37 = MEMORY[0x277CBF3A0];
-  PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v76);
+  PixelBufferUtils::asVImageBuffer(&v76, a1, *MEMORY[0x277CBF3A0]);
   memset(&v75, 0, sizeof(v75));
-  PixelBufferUtils::asVImageBuffer(a2, *v37, &v75);
+  PixelBufferUtils::asVImageBuffer(&v75, a2, *v37);
   memset(&v74, 0, sizeof(v74));
-  PixelBufferUtils::asVImageBuffer(a3, *v37, &v74);
+  PixelBufferUtils::asVImageBuffer(&v74, a3, *v37);
   if (a4)
   {
-    PixelBufferUtils::asVImageBuffer(a4, *v37, &v73);
+    PixelBufferUtils::asVImageBuffer(&v73, a4, *v37);
     data = v73.data;
     rowBytes = v73.rowBytes;
     if (a10 <= 0.0)
@@ -9526,14 +9556,14 @@ void filterDepthAndUncertainty<float,half,false>(__CVBuffer *a1, __CVBuffer *a2,
 
   memset(&v82, 0, sizeof(v82));
   v37 = MEMORY[0x277CBF3A0];
-  PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v82);
+  PixelBufferUtils::asVImageBuffer(&v82, a1, *MEMORY[0x277CBF3A0]);
   memset(&v81, 0, sizeof(v81));
-  PixelBufferUtils::asVImageBuffer(a2, *v37, &v81);
+  PixelBufferUtils::asVImageBuffer(&v81, a2, *v37);
   memset(&v80, 0, sizeof(v80));
-  PixelBufferUtils::asVImageBuffer(a3, *v37, &v80);
+  PixelBufferUtils::asVImageBuffer(&v80, a3, *v37);
   if (a4)
   {
-    PixelBufferUtils::asVImageBuffer(a4, *v37, &v79);
+    PixelBufferUtils::asVImageBuffer(&v79, a4, *v37);
     data = v79.data;
     rowBytes = v79.rowBytes;
     if (a10 <= 0.0)
@@ -9833,14 +9863,14 @@ void filterDepthAndUncertainty<float,float,true>(__CVBuffer *a1, __CVBuffer *a2,
 
   memset(&v79, 0, sizeof(v79));
   v37 = MEMORY[0x277CBF3A0];
-  PixelBufferUtils::asVImageBuffer(a1, *MEMORY[0x277CBF3A0], &v79);
+  PixelBufferUtils::asVImageBuffer(&v79, a1, *MEMORY[0x277CBF3A0]);
   memset(&v78, 0, sizeof(v78));
-  PixelBufferUtils::asVImageBuffer(a2, *v37, &v78);
+  PixelBufferUtils::asVImageBuffer(&v78, a2, *v37);
   memset(&v77, 0, sizeof(v77));
-  PixelBufferUtils::asVImageBuffer(a3, *v37, &v77);
+  PixelBufferUtils::asVImageBuffer(&v77, a3, *v37);
   if (a4)
   {
-    PixelBufferUtils::asVImageBuffer(a4, *v37, &v76);
+    PixelBufferUtils::asVImageBuffer(&v76, a4, *v37);
     data = v76.data;
     rowBytes = v76.rowBytes;
     if (a10 <= 0.0)

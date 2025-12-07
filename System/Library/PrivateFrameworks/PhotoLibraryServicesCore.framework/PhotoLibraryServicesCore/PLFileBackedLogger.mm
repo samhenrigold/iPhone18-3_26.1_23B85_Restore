@@ -364,17 +364,17 @@ LABEL_18:
       v18 = v31;
       if (!v17)
       {
-        v28 = PLBackendGetLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v29 = PLBackendGetLog();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           *&buf[4] = v18;
-          _os_log_impl(&dword_1AA9BD000, v28, OS_LOG_TYPE_ERROR, "PLFileBackedLogger: Failed to create logger record. Invalidating logger initialization. Error: %@", buf, 0xCu);
+          _os_log_impl(&dword_1AA9BD000, v29, OS_LOG_TYPE_ERROR, "PLFileBackedLogger: Failed to create logger record. Invalidating logger initialization. Error: %@", buf, 0xCu);
         }
 
         os_unfair_lock_unlock(&s_lock);
         v7 = 0;
-        goto LABEL_16;
+        goto LABEL_19;
       }
 
       [s_lock_loggers setObject:v17 forKeyedSubscript:lCopy];
@@ -438,22 +438,30 @@ LABEL_18:
         v38 = 0u;
         memset(buf, 0, sizeof(buf));
         v25 = PLBackendGetLog();
-        os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
-        v26 = [MEMORY[0x1E695DF00] now];
-        v34 = 138412290;
-        v35 = v26;
-        LODWORD(v30) = 12;
-        v27 = _os_log_send_and_compose_impl();
-
-        [(PLFileBackedLogger *)v7 logWithMessage:v27 fromCodeLocation:"PLFileBackedLog.m" type:188, 0, &v34, v30];
-        if (v27 != buf)
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          free(v27);
+          v26 = 3;
+        }
+
+        else
+        {
+          v26 = 2;
+        }
+
+        v27 = [MEMORY[0x1E695DF00] now];
+        v34 = 138412290;
+        v35 = v27;
+        v28 = _os_log_send_and_compose_impl(v26, 0, buf, 512, &dword_1AA9BD000, v25, 0, "Log archive recreated on %@", &v34, 12);
+
+        [(PLFileBackedLogger *)v7 logWithMessage:v28 fromCodeLocation:"PLFileBackedLog.m" type:188, 0];
+        if (v28 != buf)
+        {
+          free(v28);
         }
       }
     }
 
-LABEL_16:
+LABEL_19:
   }
 
   return v7;

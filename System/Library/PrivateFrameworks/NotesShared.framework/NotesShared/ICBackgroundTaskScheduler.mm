@@ -255,7 +255,7 @@ void __53__ICBackgroundTaskScheduler_scheduleTask_completion___block_invoke_cold
 {
   v1 = [*a1 identifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Already scheduled {id: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Already scheduled {id: %@}", v4, v5, v6, v7);
 }
 
 void __53__ICBackgroundTaskScheduler_scheduleTask_completion___block_invoke_cold_2(id *a1, uint64_t a2, NSObject *a3)
@@ -272,7 +272,7 @@ void __53__ICBackgroundTaskScheduler_scheduleTask_completion___block_invoke_cold
 {
   v1 = [*a1 identifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Scheduled {id: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Scheduled {id: %@}", v4, v5, v6, v7);
 }
 
 @end

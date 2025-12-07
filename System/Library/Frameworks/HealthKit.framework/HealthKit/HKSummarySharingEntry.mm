@@ -95,21 +95,21 @@
 
 - (id)description
 {
-  v16 = MEMORY[0x1E696AEC0];
+  v17 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   UUID = self->_UUID;
   primaryContactIdentifier = self->_primaryContactIdentifier;
   firstName = self->_firstName;
   lastName = self->_lastName;
-  v8 = HKWheelchairUseDisplayName(self->_userWheelchairMode);
-  v9 = HKStringForSharingType(self->_type);
-  v10 = HKStringForSharingStatus(self->_status);
-  v11 = HKStringForNotificationStatus(self->_notificationStatus);
-  v12 = HKStringForMessageDirection(self->_direction);
-  v13 = [v16 stringWithFormat:@"<%@:%p UUID=%@, primaryContactIdentifier=%@, firstName=%@, lastName=%@, userWheelchairMode=%@, type=%@, status=%@, notificationStatus=%@, direction=%@, modificationDate=%@, dateAccepted=%@, dateInvited=%@, CNContactIdentifier=%@, isPaused=%d>", v4, self, UUID, primaryContactIdentifier, firstName, lastName, v8, v9, v10, v11, v12, self->_modificationDate, self->_dateAccepted, self->_dateInvited, self->_CNContactIdentifier, self->_isPaused];
+  v9 = HKWheelchairUseDisplayName(self->_userWheelchairMode, v8);
+  v10 = HKStringForSharingType(self->_type);
+  v11 = HKStringForSharingStatus(self->_status);
+  v12 = HKStringForNotificationStatus(self->_notificationStatus);
+  v13 = HKStringForMessageDirection(self->_direction);
+  v14 = [v17 stringWithFormat:@"<%@:%p UUID=%@, primaryContactIdentifier=%@, firstName=%@, lastName=%@, userWheelchairMode=%@, type=%@, status=%@, notificationStatus=%@, direction=%@, modificationDate=%@, dateAccepted=%@, dateInvited=%@, CNContactIdentifier=%@, isPaused=%d>", v4, self, UUID, primaryContactIdentifier, firstName, lastName, v9, v10, v11, v12, v13, self->_modificationDate, self->_dateAccepted, self->_dateInvited, self->_CNContactIdentifier, self->_isPaused];
 
-  return v13;
+  return v14;
 }
 
 - (void)_setProfileIdentifier:(id)identifier

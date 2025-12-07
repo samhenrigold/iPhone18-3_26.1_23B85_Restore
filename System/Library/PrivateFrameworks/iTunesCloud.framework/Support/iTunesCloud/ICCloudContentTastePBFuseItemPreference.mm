@@ -196,12 +196,9 @@ LABEL_6:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  preference = self->_preference;
-  v11 = toCopy;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
-    adamId = self->_adamId;
     PBDataWriterWriteInt64Field();
   }
 
@@ -213,7 +210,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    createdOffsetMillis = self->_createdOffsetMillis;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -233,12 +229,10 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  preferenceType = self->_preferenceType;
   PBDataWriterWriteInt32Field();
   if (*&self->_has)
   {
 LABEL_8:
-    actionTimestampMillis = self->_actionTimestampMillis;
     PBDataWriterWriteInt64Field();
   }
 

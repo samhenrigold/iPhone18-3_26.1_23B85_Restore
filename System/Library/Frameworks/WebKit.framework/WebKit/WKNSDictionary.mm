@@ -23,7 +23,7 @@
   v3 = objc_opt_class();
   if ((WebCoreObjCScheduleDeallocateOnMainRunLoop(v3, self) & 1) == 0)
   {
-    [(WKNSDictionary *)self _protectedDictionary];
+    objc_msgSend__protectedDictionary(self);
     v5 = v8;
     v6 = *(v8 + 16);
     if (v6)
@@ -83,7 +83,7 @@ LABEL_5:
   v7 = v4;
   if (self)
   {
-    [(WKNSDictionary *)self _protectedDictionary];
+    objc_msgSend__protectedDictionary(self);
     self = v25;
   }
 
@@ -230,7 +230,7 @@ LABEL_33:
 {
   if (self)
   {
-    [(WKNSDictionary *)self _protectedDictionary];
+    objc_msgSend__protectedDictionary(self, a2);
     self = v8;
   }
 
@@ -239,10 +239,10 @@ LABEL_33:
     v8 = 0;
   }
 
-  API::Dictionary::keys(self, &v9);
+  API::Dictionary::keys(&v9, self);
   v2 = v9;
-  v3 = *(v9 + 1);
-  if (v3)
+  var1 = v9->var1;
+  if (var1)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -252,15 +252,15 @@ LABEL_33:
       return result;
     }
 
-    v4 = v3;
+    v4 = var1;
   }
 
-  objectEnumerator = [v3 objectEnumerator];
-  if (v3)
+  objectEnumerator = [var1 objectEnumerator];
+  if (var1)
   {
   }
 
-  CFRelease(*(v2 + 1));
+  CFRelease(v2->var1);
   v6 = v8;
   v8 = 0;
   if (v6)

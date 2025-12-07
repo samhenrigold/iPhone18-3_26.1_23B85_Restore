@@ -1870,52 +1870,52 @@ void __26__VUIPlaybackManager_init__block_invoke(uint64_t a1, uint64_t a2, void 
 
       v13 = objc_loadWeakRetained((a1 + 40));
       v14 = [v13 biomeSerialQueue];
-      v28 = MEMORY[0x1E69E9820];
-      v29 = 3221225472;
-      v30 = __26__VUIPlaybackManager_init__block_invoke_2;
-      v31 = &unk_1E872EDE0;
-      v33 = v11;
-      objc_copyWeak(&v32, (a1 + 40));
-      dispatch_async(v14, &v28);
+      v29 = MEMORY[0x1E69E9820];
+      v30 = 3221225472;
+      v31 = __26__VUIPlaybackManager_init__block_invoke_2;
+      v32 = &unk_1E872EDE0;
+      v34 = v11;
+      objc_copyWeak(&v33, (a1 + 40));
+      dispatch_async(v14, &v29);
 
-      objc_destroyWeak(&v32);
+      objc_destroyWeak(&v33);
     }
 
-    v15 = PIPStates();
+    v15 = PIPStates(v10);
     v16 = [v15 containsObject:v6];
 
-    v17 = PIPStates();
-    v18 = [v17 containsObject:v7];
+    v18 = PIPStates(v17);
+    v19 = [v18 containsObject:v7];
 
-    if (v16 != v18)
+    if (v16 != v19)
     {
-      v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v20 = [MEMORY[0x1E696AD98] numberWithBool:v18];
-      [v19 setObject:v20 forKey:VUIPlaybackManagerNotificationKeyIsPIPing[0]];
+      v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v21 = [MEMORY[0x1E696AD98] numberWithBool:v19];
+      [v20 setObject:v21 forKey:VUIPlaybackManagerNotificationKeyIsPIPing[0]];
 
-      v21 = [*(a1 + 32) activePlayer];
-      [v19 vui_setObjectIfNotNil:v21 forKey:VUIPlaybackManagerNotificationKeyPlayer[0]];
+      v22 = [*(a1 + 32) activePlayer];
+      [v20 vui_setObjectIfNotNil:v22 forKey:VUIPlaybackManagerNotificationKeyPlayer[0]];
 
-      v22 = [MEMORY[0x1E696AD88] defaultCenter];
-      [v22 postNotificationName:VUIPlaybackManagerIsPIPingDidChangeNotification[0] object:WeakRetained userInfo:v19];
+      v23 = [MEMORY[0x1E696AD88] defaultCenter];
+      [v23 postNotificationName:VUIPlaybackManagerIsPIPingDidChangeNotification[0] object:WeakRetained userInfo:v20];
     }
 
-    v23 = [VUIPlaybackManager _isFullScreenPlaybackState:v6, v28, v29, v30, v31];
-    if (v23 != [VUIPlaybackManager _isFullScreenPlaybackState:v7])
+    v24 = [VUIPlaybackManager _isFullScreenPlaybackState:v6, v29, v30, v31, v32];
+    if (v24 != [VUIPlaybackManager _isFullScreenPlaybackState:v7])
     {
-      v24 = [MEMORY[0x1E696AD88] defaultCenter];
-      [v24 postNotificationName:VUIPlaybackManagerFullscreenPlaybackUIDidChangeNotification[0] object:0];
+      v25 = [MEMORY[0x1E696AD88] defaultCenter];
+      [v25 postNotificationName:VUIPlaybackManagerFullscreenPlaybackUIDidChangeNotification[0] object:0];
     }
 
-    v25 = [VUIPlaybackManager _isShowingExtrasState:v6];
-    if (v25 != [VUIPlaybackManager _isShowingExtrasState:v7])
+    v26 = [VUIPlaybackManager _isShowingExtrasState:v6];
+    if (v26 != [VUIPlaybackManager _isShowingExtrasState:v7])
     {
-      v26 = [MEMORY[0x1E696AD88] defaultCenter];
-      [v26 postNotificationName:VUIPlaybackManagerShowingExtrasDidChangeNotification[0] object:0];
+      v27 = [MEMORY[0x1E696AD88] defaultCenter];
+      [v27 postNotificationName:VUIPlaybackManagerShowingExtrasDidChangeNotification[0] object:0];
     }
 
-    v27 = [v6 isEqualToString:@"Showing multiview playback"];
-    if (v27 != [v7 isEqualToString:@"Showing multiview playback"])
+    v28 = [v6 isEqualToString:@"Showing multiview playback"];
+    if (v28 != [v7 isEqualToString:@"Showing multiview playback"])
     {
       [WeakRetained _updateMultiviewReportingMetrics];
     }
@@ -2959,10 +2959,10 @@ LABEL_5:
   stateMachine = [(VUIPlaybackManager *)self stateMachine];
   currentState = [stateMachine currentState];
 
-  v4 = PIPStates();
-  v5 = [v4 containsObject:currentState];
+  v5 = PIPStates(v4);
+  v6 = [v5 containsObject:currentState];
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)isPIPingBackgroundPlayback
@@ -7772,44 +7772,44 @@ LABEL_20:
 
 void __106__VUIPlaybackManager__showTVRating_withRatingImage_photoSensitivityImage_highMotionWarningImage_animated___block_invoke(uint64_t a1, void *a2, void *a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15)
 {
-  v42 = a2;
-  v27 = a3;
+  v37 = a2;
+  v22 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v29 = [v42 traitCollection];
-  v30 = [v29 userInterfaceIdiom];
+  v24 = [v37 traitCollection];
+  v25 = [v24 userInterfaceIdiom];
 
-  if ((v30 || ([MEMORY[0x1E69DD2E8] vui_interfaceOrientation] - 1) >= 2) && !+[VUIUtilities isIpadPortrait](VUIUtilities, "isIpadPortrait"))
+  if ((v25 || ([MEMORY[0x1E69DD2E8] vui_interfaceOrientation] - 1) >= 2) && !+[VUIUtilities isIpadPortrait](VUIUtilities, "isIpadPortrait"))
   {
     a8 = a4;
     a9 = a5;
     a11 = a7;
   }
 
-  if ([v42 vuiIsRTL])
+  if ([v37 vuiIsRTL])
   {
-    [v42 sizeThatFits:{a14, a15}];
-    v32 = a14 - (a11 + v31);
+    [v37 sizeThatFits:{a14, a15}];
+    v27 = a14 - (a11 + v26);
   }
 
   else
   {
-    v32 = a12 + a9;
+    v27 = a12 + a9;
   }
 
-  v33 = a13 + a8;
-  [v42 sizeThatFits:{a14, a15}];
-  v35 = v34;
-  [v42 setFrame:{v32, v33, v36, v34}];
-  [v27 addSubview:v42];
+  v28 = a13 + a8;
+  [v37 sizeThatFits:{a14, a15}];
+  v30 = v29;
+  [v37 setFrame:{v27, v28, v31, v29}];
+  [v22 addSubview:v37];
 
-  [v42 layoutIfNeeded];
-  [v42 center];
-  v38 = v37;
-  v39 = [WeakRetained platterView];
-  [v39 setFrame:{v38, v33 + -10.0, 0.0, v35 + 20.0}];
+  [v37 layoutIfNeeded];
+  [v37 center];
+  v33 = v32;
+  v34 = [WeakRetained platterView];
+  [v34 setFrame:{v33, v28 + -10.0, 0.0, v30 + 20.0}];
 
-  v40 = [WeakRetained platterView];
-  [v40 layoutIfNeeded];
+  v35 = [WeakRetained platterView];
+  [v35 layoutIfNeeded];
 }
 
 void __106__VUIPlaybackManager__showTVRating_withRatingImage_photoSensitivityImage_highMotionWarningImage_animated___block_invoke_2(uint64_t a1)
@@ -9189,7 +9189,7 @@ LABEL_11:
 
   v10 = 1;
 LABEL_13:
-  [(VUIPlaybackManager *)self setShouldRestartIfAppHasBeenBackgroundedTooLong:v10, *v15];
+  [(VUIPlaybackManager *)self setShouldRestartIfAppHasBeenBackgroundedTooLong:v10, *v15, *&v15[8]];
 }
 
 - (void)_avPlayerViewControllerPresentationDidTimeout
@@ -12091,7 +12091,7 @@ void __51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_3_956(
 
 void __51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_4_957(uint64_t a1, void *a2)
 {
-  v26[3] = *MEMORY[0x1E69E9840];
+  v27[3] = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[VUIInterfaceFactory sharedInstance];
   v4 = [v3 controllerPresenter];
@@ -12104,33 +12104,33 @@ void __51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_4_957(
       v8 = [VUIMediaEntityFetchRequest alloc];
       v9 = MEMORY[0x1E695DFD8];
       v10 = +[VUIMediaEntityType movie];
-      v26[0] = v10;
+      v27[0] = v10;
       v11 = +[VUIMediaEntityType episode];
-      v26[1] = v11;
+      v27[1] = v11;
       v12 = +[VUIMediaEntityType movieRental];
-      v26[2] = v12;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:3];
+      v27[2] = v12;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:3];
       v14 = [v9 setWithArray:v13];
       v15 = [(VUIMediaEntityFetchRequest *)v8 initWithMediaEntityTypes:v14];
 
-      v16 = VUIMediaEntityFetchRequestAllPropertiesSet();
-      [(VUIMediaEntityFetchRequest *)v15 setProperties:v16];
+      v17 = VUIMediaEntityFetchRequestAllPropertiesSet(v16);
+      [(VUIMediaEntityFetchRequest *)v15 setProperties:v17];
 
-      v17 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v7, "longLongValue")}];
-      [(VUIMediaEntityFetchRequest *)v15 addAdamIdPredicate:v17];
+      v18 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v7, "longLongValue")}];
+      [(VUIMediaEntityFetchRequest *)v15 addAdamIdPredicate:v18];
 
-      v18 = +[VUIMediaLibraryManager defaultManager];
-      v19 = [v18 aggregateMediaLibrary];
+      v19 = +[VUIMediaLibraryManager defaultManager];
+      v20 = [v19 aggregateMediaLibrary];
 
-      v25 = v15;
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_5_963;
-      v22[3] = &unk_1E8731308;
-      v23 = v2;
-      v24 = v4;
-      v21 = [v19 enqueueFetchRequests:v20 completionHandler:v22];
+      v26 = v15;
+      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_5_963;
+      v23[3] = &unk_1E8731308;
+      v24 = v2;
+      v25 = v4;
+      v22 = [v20 enqueueFetchRequests:v21 completionHandler:v23];
     }
 
     else if (os_log_type_enabled(sLogObject_5, OS_LOG_TYPE_ERROR))
@@ -14324,7 +14324,7 @@ __CFString *__51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke
 
 __CFString *__51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_9_1049(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v6 = [a5 objectForKey:@"CompletionKey"];
+  v6 = [a5 objectForKey:{@"CompletionKey", a4}];
   (*(*(a1 + 32) + 16))();
 
   return @"Showing multiview playback";
@@ -14897,7 +14897,7 @@ __CFString *__51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke
 
 __CFString *__51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_25(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v6 = [a5 objectForKey:@"PlayerViewControllerKey"];
+  v6 = [a5 objectForKey:{@"PlayerViewControllerKey", a4}];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _muteAllMultiviewPlayersExcept:v6];
 
@@ -15222,7 +15222,7 @@ void __51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_1113(u
 
 __CFString *__51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_1114(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v6 = [a5 objectForKey:@"PlayerViewControllerKey"];
+  v6 = [a5 objectForKey:{@"PlayerViewControllerKey", a4}];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [v6 setDelegate:WeakRetained];
 
@@ -15263,7 +15263,7 @@ __CFString *__51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke
 
 __CFString *__51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_3_1116(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v5 = [a5 objectForKey:@"CompletionKey"];
+  v5 = [a5 objectForKey:{@"CompletionKey", a4}];
   v6 = v5;
   if (v5)
   {
@@ -15660,7 +15660,7 @@ __CFString *__51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke
 
 __CFString *__51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_8_1137(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v6 = [a5 objectForKeyedSubscript:@"PlayerViewControllerKey"];
+  v6 = [a5 objectForKeyedSubscript:{@"PlayerViewControllerKey", a4}];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v8 = [WeakRetained _multiviewInfoForPlayerViewController:v6];
 
@@ -15813,7 +15813,7 @@ LABEL_4:
   return v8;
 }
 
-id __51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_1154(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
+__CFString *__51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_1154(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
   v9 = a2;
   v76 = a3;
@@ -19730,7 +19730,7 @@ void __51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_1154_c
   WeakRetained = objc_loadWeakRetained(a3);
   v6 = [WeakRetained avPlayerViewController];
   OUTLINED_FUNCTION_1_42();
-  OUTLINED_FUNCTION_2_14(&dword_1E323F000, v7, v8, "Unable to restore AVPlayerViewController.  Presenting view controller is nil: %@, player view controller is nil: %@", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_2_14(&dword_1E323F000, v7, v8, "Unable to restore AVPlayerViewController.  Presenting view controller is nil: %@, player view controller is nil: %@", v9, v10, v11, v12);
 }
 
 void __51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_1158_cold_1(uint64_t a1, void *a2, id *a3)
@@ -19739,15 +19739,39 @@ void __51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_1158_c
   WeakRetained = objc_loadWeakRetained(a3);
   v6 = [WeakRetained avPlayerViewController];
   OUTLINED_FUNCTION_1_42();
-  OUTLINED_FUNCTION_2_14(&dword_1E323F000, v7, v8, "Unable to restore AVPlayerViewController.  Presenting view controller is nil: %@, player view controller is nil: %@", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_2_14(&dword_1E323F000, v7, v8, "Unable to restore AVPlayerViewController.  Presenting view controller is nil: %@, player view controller is nil: %@", v9, v10, v11, v12);
 }
 
 void __51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_1161_cold_1(uint64_t a1, void *a2, id *a3)
 {
-  v4 = a2;
+  if (a1)
+  {
+    v4 = @"YES";
+  }
+
+  else
+  {
+    v4 = @"NO";
+  }
+
+  v5 = a2;
   WeakRetained = objc_loadWeakRetained(a3);
-  v6 = [WeakRetained avPlayerViewController];
-  OUTLINED_FUNCTION_2_14(&dword_1E323F000, v7, v8, "Unable to restore AVPlayerViewController.  Presenting view controller is nil: %@, player view controller is nil: %@", v9, v10, v11, v12, 2u);
+  v13 = [WeakRetained avPlayerViewController];
+  if (v13)
+  {
+    v14 = @"NO";
+  }
+
+  else
+  {
+    v14 = @"YES";
+  }
+
+  *v15 = 138412546;
+  *&v15[4] = v4;
+  *&v15[12] = 2112;
+  *&v15[14] = v14;
+  OUTLINED_FUNCTION_2_14(&dword_1E323F000, v7, v8, "Unable to restore AVPlayerViewController.  Presenting view controller is nil: %@, player view controller is nil: %@", v9, v10, v11, v12, *v15, *&v15[8], *&v15[16]);
 }
 
 void __51__VUIPlaybackManager__registerStateMachineHandlers__block_invoke_9_1408_cold_1(uint64_t a1, NSObject *a2)

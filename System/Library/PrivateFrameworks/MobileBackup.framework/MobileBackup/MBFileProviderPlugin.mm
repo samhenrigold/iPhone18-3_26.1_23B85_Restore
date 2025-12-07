@@ -31,22 +31,22 @@
 
     properties2 = [engineCopy properties];
     buildVersion2 = [properties2 buildVersion];
-    _MBLog();
+    _MBLog(@"Df", "userURL:%@, buildVersion:%@, restorePolicy:%@", v9, buildVersion2, v11);
   }
 
-  v16 = dispatch_semaphore_create(0);
-  v17 = +[FPDaemonConnection sharedConnection];
+  v17 = dispatch_semaphore_create(0);
+  v18 = +[FPDaemonConnection sharedConnection];
   properties3 = [engineCopy properties];
   buildVersion3 = [properties3 buildVersion];
   v23[0] = _NSConcreteStackBlock;
   v23[1] = 3221225472;
   v23[2] = sub_100213660;
   v23[3] = &unk_1003C05E8;
-  v24 = v16;
-  v20 = v16;
-  [v17 restoreUserURL:v9 fromBuild:buildVersion3 restoreType:v11 completionHandler:v23];
+  v24 = v17;
+  v21 = v17;
+  [v18 restoreUserURL:v9 fromBuild:buildVersion3 restoreType:v11 completionHandler:v23];
 
-  dispatch_semaphore_wait(v20, 0xFFFFFFFFFFFFFFFFLL);
+  dispatch_semaphore_wait(v21, 0xFFFFFFFFFFFFFFFFLL);
   return 0;
 }
 

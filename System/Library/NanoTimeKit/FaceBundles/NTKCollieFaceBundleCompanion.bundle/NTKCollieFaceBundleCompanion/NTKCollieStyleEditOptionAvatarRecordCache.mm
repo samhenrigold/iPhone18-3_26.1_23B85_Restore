@@ -166,7 +166,7 @@
 
 + (id)_memojiManifestFilePath
 {
-  v2 = sub_2964();
+  v2 = sub_2964(self);
   v3 = [v2 stringByAppendingPathComponent:@"manifest.json"];
 
   return v3;
@@ -561,7 +561,7 @@ LABEL_12:
   directoryCopy = directory;
   if (listCopy)
   {
-    v7 = sub_2964();
+    v7 = sub_2964(listCopy);
     [self _pruneDirectory:v7 preserveList:listCopy];
   }
 
@@ -1479,18 +1479,18 @@ LABEL_21:
   directoryCopy = directory;
   v15 = [(NTKCollieStyleEditOptionAvatarRecordCache *)self _snapshotImageIdentifierForStyleName:nameCopy];
   v16 = [objc_opt_class() _basenameForSnapshotImageIdentifier:v15 poseType:type size:{width, height}];
-  if (([nameCopy isSharedMemojiStyleName] & 1) != 0 || objc_msgSend(nameCopy, "isRegularMemojiStyleName") && resourceDirectoryCopy)
+  if (([nameCopy isSharedMemojiStyleName] & 1) != 0 || (v17 = objc_msgSend(nameCopy, "isRegularMemojiStyleName"), v17) && resourceDirectoryCopy)
   {
-    v17 = [directoryCopy stringByAppendingPathComponent:v16];
+    v18 = [directoryCopy stringByAppendingPathComponent:v16];
   }
 
   else
   {
-    v18 = sub_2964();
-    v17 = [v18 stringByAppendingPathComponent:v16];
+    v19 = sub_2964(v17);
+    v18 = [v19 stringByAppendingPathComponent:v16];
   }
 
-  return v17;
+  return v18;
 }
 
 - (BOOL)isBridgeMemojiStyleName:(id)name

@@ -4,8 +4,11 @@
 - (BOOL)setProcessIdentifiersChecked:(id)checked;
 - (id)description;
 - (id)initBaseTapInternalWithFormat:(id)format;
+- (id)initPreSpatialAudioSessionTapWithFormat:(id)format sessionID:(unsigned int)d;
+- (id)initPreSpatialProcessTapWithFormat:(id)format PID:(int)d;
 - (id)initPreSpatialSessionTypeTapWithFormat:(id)format sessionType:(unsigned int)type;
 - (id)initPreSpatialTapInternalWithFormat:(id)format PIDs:(id)ds sessionID:(unsigned int)d sessionType:(unsigned int)type sceneID:(id)iD;
+- (id)initProcessTapWithFormat:(id)format PID:(int)d;
 - (id)initProcessTapWithFormat:(id)format PID:(int)d deviceUID:(id)iD;
 - (id)initScreenSharingTapWithFormat:(id)format;
 - (id)initSystemTapWithFormat:(id)format;
@@ -13,6 +16,7 @@
 - (id)initTapInternalWithFormat:(id)format PIDs:(id)ds;
 - (int)processIdentifier;
 - (void)encodeWithCoder:(id)coder;
+- (void)setProcessIdentifier:(int)identifier;
 - (void)setProcessIdentifiers:(id)identifiers;
 @end
 
@@ -150,16 +154,8 @@ LABEL_12:
         if ((v32 & 1) == 0)
         {
           sceneIdentifier3 = [(ATAudioTapDescription *)v5 sceneIdentifier];
-          if (!sceneIdentifier3)
+          if (!sceneIdentifier3 || (-[ATAudioTapDescription sceneIdentifier](self, "sceneIdentifier"), v24 = objc_claimAutoreleasedReturnValue(), v24, sceneIdentifier3, !v24) || (-[ATAudioTapDescription sceneIdentifier](v5, "sceneIdentifier"), v25 = objc_claimAutoreleasedReturnValue(), -[ATAudioTapDescription sceneIdentifier](self, "sceneIdentifier"), v26 = objc_claimAutoreleasedReturnValue(), v27 = [v25 isEqual:v26], v26, v25, (v27 & 1) != 0))
           {
-            goto LABEL_24;
-          }
-
-          sceneIdentifier4 = [(ATAudioTapDescription *)self sceneIdentifier];
-
-          if (!sceneIdentifier4 || (-[ATAudioTapDescription sceneIdentifier](v5, "sceneIdentifier"), v25 = objc_claimAutoreleasedReturnValue(), -[ATAudioTapDescription sceneIdentifier](self, "sceneIdentifier"), v26 = objc_claimAutoreleasedReturnValue(), v27 = [v25 isEqual:v26], v26, v25, (v27 & 1) != 0))
-          {
-LABEL_24:
             v28 = MEMORY[0x1E695DFD8];
             excludedPIDs = [(ATAudioTapDescription *)v5 excludedPIDs];
             name = [v28 setWithArray:excludedPIDs];
@@ -188,18 +184,18 @@ LABEL_20:
 
 - (ATAudioTapDescription)initWithCoder:(id)coder
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v25.receiver = self;
-  v25.super_class = ATAudioTapDescription;
-  v5 = [(ATAudioTapDescription *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = ATAudioTapDescription;
+  v5 = [(ATAudioTapDescription *)&v24 init];
   if (v5)
   {
     v5->_tapType = [coderCopy decodeIntForKey:@"tapType"];
     v6 = MEMORY[0x1E695DFD8];
-    v31[0] = objc_opt_class();
-    v31[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+    v30[0] = objc_opt_class();
+    v30[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"processIdentifiers"];
@@ -218,24 +214,24 @@ LABEL_20:
     UUID = v5->_UUID;
     v5->_UUID = v15;
 
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x2050000000;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x2050000000;
     v17 = getAVAudioFormatClass(void)::softClass;
-    v30 = getAVAudioFormatClass(void)::softClass;
+    v29 = getAVAudioFormatClass(void)::softClass;
     if (!getAVAudioFormatClass(void)::softClass)
     {
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = ___ZL21getAVAudioFormatClassv_block_invoke_12022;
-      v26[3] = &unk_1E7ED08E8;
-      v26[4] = &v27;
-      ___ZL21getAVAudioFormatClassv_block_invoke_12022(v26);
-      v17 = v28[3];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = ___ZL21getAVAudioFormatClassv_block_invoke_12022;
+      v25[3] = &unk_1E7ED08E8;
+      v25[4] = &v26;
+      ___ZL21getAVAudioFormatClassv_block_invoke_12022(v25);
+      v17 = v27[3];
     }
 
     v18 = v17;
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v26, 8);
     v19 = [coderCopy decodeObjectOfClass:v17 forKey:@"format"];
     format = v5->_format;
     v5->_format = v19;
@@ -250,7 +246,6 @@ LABEL_20:
     v5->_muteBehavior = [coderCopy decodeInt32ForKey:@"muteBehavior"];
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -272,24 +267,31 @@ LABEL_20:
 
 - (void)setProcessIdentifiers:(id)identifiers
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   if (![(ATAudioTapDescription *)self setProcessIdentifiersChecked:identifiersCopy])
   {
     v5 = gATAudioTapLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315650;
-      v8 = "ATAudioTap.mm";
-      v9 = 1024;
-      v10 = 275;
-      v11 = 2112;
-      v12 = identifiersCopy;
-      _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Error setting processIdentifiers: %@", &v7, 0x1Cu);
+      v6 = 136315650;
+      v7 = "ATAudioTap.mm";
+      v8 = 1024;
+      v9 = 275;
+      v10 = 2112;
+      v11 = identifiersCopy;
+      _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Error setting processIdentifiers: %@", &v6, 0x1Cu);
     }
   }
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (void)setProcessIdentifier:(int)identifier
+{
+  v6[1] = *MEMORY[0x1E69E9840];
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&identifier];
+  v6[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
+  [(ATAudioTapDescription *)self setProcessIdentifiers:v5];
 }
 
 - (int)processIdentifier
@@ -334,9 +336,40 @@ LABEL_20:
   return selfCopy;
 }
 
+- (id)initPreSpatialAudioSessionTapWithFormat:(id)format sessionID:(unsigned int)d
+{
+  v4 = *&d;
+  formatCopy = format;
+  if ((v4 - 1) > 0xFFFFFFFD)
+  {
+    selfCopy = 0;
+  }
+
+  else
+  {
+    self = [(ATAudioTapDescription *)self initPreSpatialTapInternalWithFormat:formatCopy PIDs:0 sessionID:v4 sessionType:0 sceneID:0];
+    selfCopy = self;
+  }
+
+  return selfCopy;
+}
+
+- (id)initPreSpatialProcessTapWithFormat:(id)format PID:(int)d
+{
+  v4 = *&d;
+  v11[1] = *MEMORY[0x1E69E9840];
+  formatCopy = format;
+  v7 = [MEMORY[0x1E696AD98] numberWithInt:v4];
+  v11[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v9 = [(ATAudioTapDescription *)self initPreSpatialTapInternalWithFormat:formatCopy PIDs:v8 sessionID:0 sessionType:0 sceneID:0];
+
+  return v9;
+}
+
 - (id)initPreSpatialTapInternalWithFormat:(id)format PIDs:(id)ds sessionID:(unsigned int)d sessionType:(unsigned int)type sceneID:(id)iD
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   formatCopy = format;
   dsCopy = ds;
   iDCopy = iD;
@@ -369,11 +402,11 @@ LABEL_20:
         v21 = gATAudioTapLog();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          v24 = 136315394;
-          v25 = "ATAudioTap.mm";
-          v26 = 1024;
-          v27 = 140;
-          _os_log_impl(&dword_1B9A08000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d Pre-spatial sytstem tap is not supported", &v24, 0x12u);
+          v23 = 136315394;
+          v24 = "ATAudioTap.mm";
+          v25 = 1024;
+          v26 = 140;
+          _os_log_impl(&dword_1B9A08000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d Pre-spatial sytstem tap is not supported", &v23, 0x12u);
         }
 
 LABEL_22:
@@ -408,7 +441,6 @@ LABEL_22:
 
 LABEL_23:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -437,6 +469,19 @@ LABEL_23:
   }
 
   return v4;
+}
+
+- (id)initProcessTapWithFormat:(id)format PID:(int)d
+{
+  v4 = *&d;
+  v11[1] = *MEMORY[0x1E69E9840];
+  formatCopy = format;
+  v7 = [MEMORY[0x1E696AD98] numberWithInt:v4];
+  v11[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v9 = [(ATAudioTapDescription *)self initTapInternalWithFormat:formatCopy PIDs:v8];
+
+  return v9;
 }
 
 - (id)initTapInternalWithFormat:(id)format PIDs:(id)ds
@@ -509,18 +554,17 @@ LABEL_23:
 
 - (id)initProcessTapWithFormat:(id)format PID:(int)d deviceUID:(id)iD
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = gATAudioTapLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v9 = 136315394;
-    v10 = "ATAudioTap.mm";
-    v11 = 1024;
-    v12 = 34;
-    _os_log_impl(&dword_1B9A08000, v6, OS_LOG_TYPE_INFO, "%25s:%-5d [ATAudioTapDescription initProcessTapWithFormat:PID:deviceUID] not implemented yet!", &v9, 0x12u);
+    v8 = 136315394;
+    v9 = "ATAudioTap.mm";
+    v10 = 1024;
+    v11 = 34;
+    _os_log_impl(&dword_1B9A08000, v6, OS_LOG_TYPE_INFO, "%25s:%-5d [ATAudioTapDescription initProcessTapWithFormat:PID:deviceUID] not implemented yet!", &v8, 0x12u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

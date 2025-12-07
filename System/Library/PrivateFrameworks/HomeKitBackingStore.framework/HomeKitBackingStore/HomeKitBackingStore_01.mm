@@ -1,15 +1,15 @@
 BOOL __reloadSQLQueryMetadata(void *a1, void *a2)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [v3 connection];
-  v28 = 0;
-  v5 = selectSQLite3(v4, "SELECT master.tbl_name, master.name, index_info.seqno, index_info.name FROM sqlite_master AS master, PRAGMA_INDEX_INFO(master.name) AS index_info WHERE master.type = 'index' AND master.tbl_name like 'queryable_%' ORDER BY master.tbl_name, master.name, index_info.seqno", MEMORY[0x277CBEC10], &v28);
-  v6 = v28;
+  v27 = 0;
+  v5 = selectSQLite3(v4, "SELECT master.tbl_name, master.name, index_info.seqno, index_info.name FROM sqlite_master AS master, PRAGMA_INDEX_INFO(master.name) AS index_info WHERE master.type = 'index' AND master.tbl_name like 'queryable_%' ORDER BY master.tbl_name, master.name, index_info.seqno", MEMORY[0x277CBEC10], &v27);
+  v6 = v27;
   v7 = [v3 connection];
-  v27 = v6;
-  v8 = selectSQLite3(v7, "SELECT master.name, table_info.name, table_info.type, master.sql FROM sqlite_master AS master, PRAGMA_TABLE_XINFO(master.name) AS table_info WHERE master.name LIKE 'queryable%' ORDER BY master.name, table_info.name", MEMORY[0x277CBEC10], &v27);
-  v9 = v27;
+  v26 = v6;
+  v8 = selectSQLite3(v7, "SELECT master.name, table_info.name, table_info.type, master.sql FROM sqlite_master AS master, PRAGMA_TABLE_XINFO(master.name) AS table_info WHERE master.name LIKE 'queryable%' ORDER BY master.name, table_info.name", MEMORY[0x277CBEC10], &v26);
+  v9 = v26;
 
   if (v9)
   {
@@ -38,31 +38,31 @@ BOOL __reloadSQLQueryMetadata(void *a1, void *a2)
   {
     v15 = v8;
     v16 = [MEMORY[0x277CBEB38] dictionary];
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x3032000000;
-    v34 = __Block_byref_object_copy__6493;
-    v35 = __Block_byref_object_dispose__6494;
-    v36 = 0;
-    v29[0] = 0;
-    v29[1] = v29;
-    v29[2] = 0x3032000000;
-    v29[3] = __Block_byref_object_copy__6493;
-    v29[4] = __Block_byref_object_dispose__6494;
     v30 = 0;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy__6493;
+    v34 = __Block_byref_object_dispose__6494;
+    v35 = 0;
+    v28[0] = 0;
+    v28[1] = v28;
+    v28[2] = 0x3032000000;
+    v28[3] = __Block_byref_object_copy__6493;
+    v28[4] = __Block_byref_object_dispose__6494;
+    v29 = 0;
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = ____parseExistingTables_block_invoke;
-    v38 = &unk_2786E1F40;
-    v40 = &v31;
-    v41 = v29;
+    v37 = &unk_2786E1F40;
+    v39 = &v30;
+    v40 = v28;
     v17 = v16;
-    v39 = v17;
+    v38 = v17;
     [v15 hmf_enumerateWithAutoreleasePoolUsingBlock:buf];
     v18 = [v17 na_dictionaryByMappingValues:&__block_literal_global_6495];
 
-    _Block_object_dispose(v29, 8);
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(v28, 8);
+    _Block_object_dispose(&v30, 8);
 
     [v3 setQueryTables:v18];
     v19 = [v3 queryTables];
@@ -72,42 +72,41 @@ BOOL __reloadSQLQueryMetadata(void *a1, void *a2)
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = ____parseExistingIndexes_block_invoke;
-    v38 = &unk_2786E1F88;
-    v39 = v22;
+    v37 = &unk_2786E1F88;
+    v38 = v22;
     v23 = v22;
     [v21 hmf_enumerateWithAutoreleasePoolUsingBlock:buf];
 
-    v31 = MEMORY[0x277D85DD0];
-    v32 = 3221225472;
-    v33 = ____parseExistingIndexes_block_invoke_2;
-    v34 = &unk_2786E1FD8;
-    v35 = v19;
+    v30 = MEMORY[0x277D85DD0];
+    v31 = 3221225472;
+    v32 = ____parseExistingIndexes_block_invoke_2;
+    v33 = &unk_2786E1FD8;
+    v34 = v19;
     v24 = v19;
-    [v23 enumerateKeysAndObjectsUsingBlock:&v31];
+    [v23 enumerateKeysAndObjectsUsingBlock:&v30];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v9 == 0;
 }
 
-void sub_22AD8F8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_22AD8F8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AD8FBB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AD8FBB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -121,7 +120,7 @@ uint64_t __Block_byref_object_copy__6493(uint64_t result, uint64_t a2)
 
 void ____parseExistingTables_block_invoke(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectAtIndex:0];
   objc_opt_class();
@@ -224,24 +223,24 @@ LABEL_31:
         v20 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v29 = HMFGetLogIdentifier();
-          v30 = v19;
+          v28 = HMFGetLogIdentifier();
+          v29 = v19;
           v21 = *(*(*(a1 + 40) + 8) + 40);
           [v15 containsString:@"CONSTRAINT fk_queryable_"];
           v22 = HMFBooleanToString();
           [v15 containsString:@"FOREIGN KEY (_record_id) REFERENCES record_v2 (id) ON DELETE CASCADE"];
           HMFBooleanToString();
           *buf = 138544386;
-          v32 = v29;
-          v33 = 2112;
-          v34 = v21;
-          v19 = v30;
-          v35 = 2112;
-          v36 = v12;
-          v37 = 2112;
-          v38 = v22;
-          v40 = v39 = 2112;
-          v23 = v40;
+          v31 = v28;
+          v32 = 2112;
+          v33 = v21;
+          v19 = v29;
+          v34 = 2112;
+          v35 = v12;
+          v36 = 2112;
+          v37 = v22;
+          v39 = v38 = 2112;
+          v23 = v39;
           _os_log_impl(&dword_22AD27000, v20, OS_LOG_TYPE_INFO, "%{public}@discarding existing index table %@ (%@ / %@ / %@)", buf, 0x34u);
         }
 
@@ -257,14 +256,12 @@ LABEL_31:
       *(v26 + 40) = 0;
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void ____parseExistingIndexes_block_invoke(uint64_t a1, void *a2)
 {
-  v18 = a2;
-  v3 = [v18 objectAtIndex:0];
+  v20 = a2;
+  v3 = [v20 objectAtIndex:0];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -278,7 +275,7 @@ void ____parseExistingIndexes_block_invoke(uint64_t a1, void *a2)
 
   v5 = v4;
 
-  v6 = [v18 objectAtIndex:1];
+  v6 = [v20 objectAtIndex:1];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -292,7 +289,7 @@ void ____parseExistingIndexes_block_invoke(uint64_t a1, void *a2)
 
   v8 = v7;
 
-  v9 = [v18 objectAtIndex:2];
+  v9 = [v20 objectAtIndex:2];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -306,7 +303,7 @@ void ____parseExistingIndexes_block_invoke(uint64_t a1, void *a2)
 
   v11 = v10;
 
-  v12 = [v18 objectAtIndex:3];
+  v12 = [v20 objectAtIndex:3];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -344,7 +341,7 @@ LABEL_28:
   {
 LABEL_29:
     v17 = _HMFPreconditionFailure();
-    ____parseExistingIndexes_block_invoke_2(v17);
+    ____parseExistingIndexes_block_invoke_2(v17, v18, v19);
     return;
   }
 
@@ -404,7 +401,7 @@ HMBLocalSQLContextQueryTable *____parseExistingTables_block_invoke_83(uint64_t a
 
 void __fetchUserRecord(void *a1, void *a2, void *a3, void *a4)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -416,75 +413,75 @@ void __fetchUserRecord(void *a1, void *a2, void *a3, void *a4)
     v9 = [v11 initWithName:v12 options:1];
   }
 
-  v41[0] = 0;
-  v41[1] = v41;
-  v41[2] = 0x3032000000;
-  v41[3] = __Block_byref_object_copy__6576;
-  v41[4] = __Block_byref_object_dispose__6577;
-  v42 = 0;
+  v40[0] = 0;
+  v40[1] = v40;
+  v40[2] = 0x3032000000;
+  v40[3] = __Block_byref_object_copy__6576;
+  v40[4] = __Block_byref_object_dispose__6577;
+  v41 = 0;
   v13 = [MEMORY[0x277CBC3E0] fetchCurrentUserRecordOperation];
   v14 = [v7 operationConfigurationWithProcessingOptions:0];
   [v13 setConfiguration:v14];
 
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = ____fetchUserRecord_block_invoke;
-  v37[3] = &unk_2786E20F0;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = ____fetchUserRecord_block_invoke;
+  v36[3] = &unk_2786E20F0;
   v15 = v7;
-  v38 = v15;
+  v37 = v15;
   v16 = v9;
-  v39 = v16;
-  v40 = v41;
-  [v13 setPerRecordCompletionBlock:v37];
+  v38 = v16;
+  v39 = v40;
+  [v13 setPerRecordCompletionBlock:v36];
   objc_initWeak(&location, v13);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = ____fetchUserRecord_block_invoke_34;
-  v29[3] = &unk_2786E2118;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = ____fetchUserRecord_block_invoke_34;
+  v28[3] = &unk_2786E2118;
   v17 = v15;
-  v30 = v17;
-  v28 = v16;
-  v31 = v28;
-  objc_copyWeak(&v35, &location);
+  v29 = v17;
+  v27 = v16;
+  v30 = v27;
+  objc_copyWeak(&v34, &location);
   v18 = v8;
-  v32 = v18;
+  v31 = v18;
   v19 = v10;
-  v33 = v19;
-  v34 = v41;
-  [v13 setFetchRecordsCompletionBlock:v29];
+  v32 = v19;
+  v33 = v40;
+  [v13 setFetchRecordsCompletionBlock:v28];
   v20 = objc_autoreleasePoolPush();
   v21 = v17;
   v22 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     v23 = HMFGetLogIdentifier();
-    v24 = [v28 identifier];
+    v24 = [v27 identifier];
     v25 = [v24 shortDescription];
     v26 = [v13 operationID];
     *buf = 138543874;
-    v44 = v23;
-    v45 = 2114;
-    v46 = v25;
-    v47 = 2114;
-    v48 = v26;
+    v43 = v23;
+    v44 = 2114;
+    v45 = v25;
+    v46 = 2114;
+    v47 = v26;
     _os_log_impl(&dword_22AD27000, v22, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Starting CKFetchRecordsOperation for current user record with operationID: %{public}@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v20);
   [v18 addOperation:v13];
 
-  objc_destroyWeak(&v35);
+  objc_destroyWeak(&v34);
   objc_destroyWeak(&location);
 
-  _Block_object_dispose(v41, 8);
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v40, 8);
 }
 
-void sub_22AD90C50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_22AD90C50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   objc_destroyWeak(&a20);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -497,7 +494,7 @@ uint64_t __Block_byref_object_copy__6576(uint64_t result, uint64_t a2)
 
 void ____fetchUserRecord_block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a3;
   v10 = a4;
@@ -511,17 +508,17 @@ void ____fetchUserRecord_block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
     {
       v15 = HMFGetLogIdentifier();
       [*(a1 + 40) identifier];
-      v16 = v22 = v9;
+      v16 = v21 = v9;
       v17 = [v16 shortDescription];
       *buf = 138543874;
-      v24 = v15;
-      v25 = 2114;
-      v26 = v17;
-      v27 = 2112;
-      v28 = v8;
+      v23 = v15;
+      v24 = 2114;
+      v25 = v17;
+      v26 = 2112;
+      v27 = v8;
       _os_log_impl(&dword_22AD27000, v14, OS_LOG_TYPE_DEBUG, "%{public}@[%{public}@] Fetched user record: %@", buf, 0x20u);
 
-      v9 = v22;
+      v9 = v21;
     }
 
     objc_autoreleasePoolPop(v11);
@@ -537,24 +534,22 @@ void ____fetchUserRecord_block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
       v19 = [*(a1 + 40) identifier];
       v20 = [v19 shortDescription];
       *buf = 138543874;
-      v24 = v18;
-      v25 = 2114;
-      v26 = v20;
-      v27 = 2112;
-      v28 = v10;
+      v23 = v18;
+      v24 = 2114;
+      v25 = v20;
+      v26 = 2112;
+      v27 = v10;
       _os_log_impl(&dword_22AD27000, v14, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to fetch user record: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
     [*(a1 + 40) markWithFormat:@"failed with error: %@", v10];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void ____fetchUserRecord_block_invoke_34(uint64_t a1, void *a2, void *a3)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -568,11 +563,11 @@ void ____fetchUserRecord_block_invoke_34(uint64_t a1, void *a2, void *a3)
       v11 = [*(a1 + 40) identifier];
       v12 = [v11 shortDescription];
       *buf = 138543874;
-      v50 = v10;
-      v51 = 2114;
-      v52 = v12;
-      v53 = 2114;
-      v54 = v6;
+      v49 = v10;
+      v50 = 2114;
+      v51 = v12;
+      v52 = 2114;
+      v53 = v6;
       _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] CKFetchRecordsOperation failed: %{public}@", buf, 0x20u);
     }
 
@@ -584,10 +579,10 @@ void ____fetchUserRecord_block_invoke_34(uint64_t a1, void *a2, void *a3)
     }
 
     v14 = WeakRetained;
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = ____fetchUserRecord_block_invoke_35;
-    v46[3] = &unk_2786E2050;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = ____fetchUserRecord_block_invoke_35;
+    v45[3] = &unk_2786E2050;
     v15 = *(a1 + 32);
     v16 = *(a1 + 48);
     v17 = *(a1 + 40);
@@ -596,9 +591,9 @@ void ____fetchUserRecord_block_invoke_34(uint64_t a1, void *a2, void *a3)
     *(&v19 + 1) = v18;
     *&v20 = v15;
     *(&v20 + 1) = v16;
-    v47 = v20;
-    v48 = v19;
-    v21 = [v15 retryCloudKitOperation:v14 afterError:v6 retryBlock:v46];
+    v46 = v20;
+    v47 = v19;
+    v21 = [v15 retryCloudKitOperation:v14 afterError:v6 retryBlock:v45];
     v22 = objc_autoreleasePoolPush();
     v23 = *(a1 + 32);
     v24 = HMFGetOSLogHandle();
@@ -611,9 +606,9 @@ void ____fetchUserRecord_block_invoke_34(uint64_t a1, void *a2, void *a3)
         v27 = [*(a1 + 40) identifier];
         v28 = [v27 shortDescription];
         *buf = 138543618;
-        v50 = v26;
-        v51 = 2114;
-        v52 = v28;
+        v49 = v26;
+        v50 = 2114;
+        v51 = v28;
         _os_log_impl(&dword_22AD27000, v25, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] CKFetchRecordsOperation will be retried", buf, 0x16u);
       }
 
@@ -629,11 +624,11 @@ void ____fetchUserRecord_block_invoke_34(uint64_t a1, void *a2, void *a3)
         v39 = [*(a1 + 40) identifier];
         v40 = [v39 shortDescription];
         *buf = 138543874;
-        v50 = v38;
-        v51 = 2114;
-        v52 = v40;
-        v53 = 2114;
-        v54 = v6;
+        v49 = v38;
+        v50 = 2114;
+        v51 = v40;
+        v52 = 2114;
+        v53 = v6;
         _os_log_impl(&dword_22AD27000, v25, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] CKFetchRecordsOperation failed and cannot be retried: %{public}@", buf, 0x20u);
       }
 
@@ -655,20 +650,20 @@ LABEL_17:
   {
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      v42 = HMFGetLogIdentifier();
-      v43 = [*(a1 + 40) identifier];
-      v44 = [v43 shortDescription];
+      v41 = HMFGetLogIdentifier();
+      v42 = [*(a1 + 40) identifier];
+      v43 = [v42 shortDescription];
       *buf = 138543618;
-      v50 = v42;
-      v51 = 2114;
-      v52 = v44;
+      v49 = v41;
+      v50 = 2114;
+      v51 = v43;
       _os_log_impl(&dword_22AD27000, v33, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] CKFetchRecordsOperation did not retrieve user record, but no error was returned", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v30);
-    v45 = *(a1 + 56);
+    v44 = *(a1 + 56);
     v14 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
-    [v45 finishWithError:v14];
+    [v44 finishWithError:v14];
     goto LABEL_17;
   }
 
@@ -679,24 +674,22 @@ LABEL_17:
     v36 = [v35 shortDescription];
     v37 = *(*(*(a1 + 64) + 8) + 40);
     *buf = 138543874;
-    v50 = v34;
-    v51 = 2114;
-    v52 = v36;
-    v53 = 2112;
-    v54 = v37;
+    v49 = v34;
+    v50 = 2114;
+    v51 = v36;
+    v52 = 2112;
+    v53 = v37;
     _os_log_impl(&dword_22AD27000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] CKFetchRecordsOperation succeeded with record: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v30);
   [*(a1 + 56) finishWithResult:*(*(*(a1 + 64) + 8) + 40)];
 LABEL_18:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __acceptInvitation(void *a1, void *a2, void *a3, void *a4)
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -708,46 +701,46 @@ void __acceptInvitation(void *a1, void *a2, void *a3, void *a4)
     v9 = [v11 initWithName:v12 options:1];
   }
 
-  v43[0] = 0;
-  v43[1] = v43;
-  v43[2] = 0x3032000000;
-  v43[3] = __Block_byref_object_copy__6576;
-  v43[4] = __Block_byref_object_dispose__6577;
-  v44 = 0;
+  v42[0] = 0;
+  v42[1] = v42;
+  v42[2] = 0x3032000000;
+  v42[3] = __Block_byref_object_copy__6576;
+  v42[4] = __Block_byref_object_dispose__6577;
+  v43 = 0;
   v13 = objc_alloc_init(MEMORY[0x277CBC158]);
   v14 = [v7 operationConfigurationWithProcessingOptions:0];
   [v13 setConfiguration:v14];
 
-  v53[0] = v8;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
+  v52[0] = v8;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:1];
   [v13 setShareMetadatas:v15];
 
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = ____acceptInvitation_block_invoke;
-  v39[3] = &unk_2786E20C8;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = ____acceptInvitation_block_invoke;
+  v38[3] = &unk_2786E20C8;
   v16 = v7;
-  v40 = v16;
+  v39 = v16;
   v17 = v9;
-  v41 = v17;
-  v42 = v43;
-  [v13 setPerShareCompletionBlock:v39];
+  v40 = v17;
+  v41 = v42;
+  [v13 setPerShareCompletionBlock:v38];
   objc_initWeak(&location, v13);
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = ____acceptInvitation_block_invoke_30;
-  v31[3] = &unk_2786E2078;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = ____acceptInvitation_block_invoke_30;
+  v30[3] = &unk_2786E2078;
   v18 = v16;
-  v32 = v18;
+  v31 = v18;
   v19 = v17;
-  v33 = v19;
-  objc_copyWeak(&v37, &location);
+  v32 = v19;
+  objc_copyWeak(&v36, &location);
   v20 = v8;
-  v34 = v20;
-  v30 = v10;
-  v35 = v30;
-  v36 = v43;
-  [v13 setAcceptSharesCompletionBlock:v31];
+  v33 = v20;
+  v29 = v10;
+  v34 = v29;
+  v35 = v42;
+  [v13 setAcceptSharesCompletionBlock:v30];
   v21 = objc_autoreleasePoolPush();
   v22 = v18;
   v23 = HMFGetOSLogHandle();
@@ -758,13 +751,13 @@ void __acceptInvitation(void *a1, void *a2, void *a3, void *a4)
     v26 = [v25 shortDescription];
     v27 = [v13 operationID];
     *buf = 138544130;
-    v46 = v24;
-    v47 = 2114;
-    v48 = v26;
-    v49 = 2112;
-    v50 = v20;
-    v51 = 2114;
-    v52 = v27;
+    v45 = v24;
+    v46 = 2114;
+    v47 = v26;
+    v48 = 2112;
+    v49 = v20;
+    v50 = 2114;
+    v51 = v27;
     _os_log_impl(&dword_22AD27000, v23, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Starting CKAcceptSharesOperation with share metadata: %@ operationID: %{public}@", buf, 0x2Au);
   }
 
@@ -772,24 +765,24 @@ void __acceptInvitation(void *a1, void *a2, void *a3, void *a4)
   v28 = [v22 container];
   [v28 addOperation:v13];
 
-  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(&location);
 
-  _Block_object_dispose(v43, 8);
-  v29 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v42, 8);
 }
 
-void sub_22AD91960(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_22AD91960(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   objc_destroyWeak(&a20);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void ____acceptInvitation_block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -804,20 +797,20 @@ void ____acceptInvitation_block_invoke(uint64_t a1, void *a2, void *a3, void *a4
       v14 = HMFGetLogIdentifier();
       v15 = [*(a1 + 40) identifier];
       [v15 shortDescription];
-      v22 = v10;
+      v21 = v10;
       v17 = v16 = v9;
       *buf = 138544130;
-      v24 = v14;
-      v25 = 2114;
-      v26 = v17;
-      v27 = 2112;
-      v28 = v7;
-      v29 = 2112;
-      v30 = v8;
+      v23 = v14;
+      v24 = 2114;
+      v25 = v17;
+      v26 = 2112;
+      v27 = v7;
+      v28 = 2112;
+      v29 = v8;
       _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_DEBUG, "%{public}@[%{public}@] Successfully accepted share for share metadata %@: %@", buf, 0x2Au);
 
       v9 = v16;
-      v10 = v22;
+      v10 = v21;
     }
 
     objc_autoreleasePoolPop(v10);
@@ -832,25 +825,23 @@ void ____acceptInvitation_block_invoke(uint64_t a1, void *a2, void *a3, void *a4
       v19 = [*(a1 + 40) identifier];
       v20 = [v19 shortDescription];
       *buf = 138544130;
-      v24 = v18;
-      v25 = 2114;
-      v26 = v20;
-      v27 = 2112;
-      v28 = v7;
-      v29 = 2112;
-      v30 = v9;
+      v23 = v18;
+      v24 = 2114;
+      v25 = v20;
+      v26 = 2112;
+      v27 = v7;
+      v28 = 2112;
+      v29 = v9;
       _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to accept share metadata %@: %@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void ____acceptInvitation_block_invoke_30(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -864,11 +855,11 @@ void ____acceptInvitation_block_invoke_30(uint64_t a1, void *a2)
       v9 = [*(a1 + 40) identifier];
       v10 = [v9 shortDescription];
       *buf = 138543874;
-      v39 = v8;
-      v40 = 2114;
-      v41 = v10;
-      v42 = 2114;
-      v43 = v3;
+      v38 = v8;
+      v39 = 2114;
+      v40 = v10;
+      v41 = 2114;
+      v42 = v3;
       _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] CKAcceptSharesOperation failed: %{public}@", buf, 0x20u);
     }
 
@@ -880,10 +871,10 @@ void ____acceptInvitation_block_invoke_30(uint64_t a1, void *a2)
     }
 
     v12 = WeakRetained;
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = ____acceptInvitation_block_invoke_31;
-    v35[3] = &unk_2786E2050;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = ____acceptInvitation_block_invoke_31;
+    v34[3] = &unk_2786E2050;
     v13 = *(a1 + 32);
     v14 = *(a1 + 48);
     v15 = *(a1 + 40);
@@ -892,9 +883,9 @@ void ____acceptInvitation_block_invoke_30(uint64_t a1, void *a2)
     *(&v17 + 1) = v16;
     *&v18 = v13;
     *(&v18 + 1) = v14;
-    v36 = v18;
-    v37 = v17;
-    v19 = [v13 retryCloudKitOperation:v12 afterError:v3 retryBlock:v35];
+    v35 = v18;
+    v36 = v17;
+    v19 = [v13 retryCloudKitOperation:v12 afterError:v3 retryBlock:v34];
     v20 = objc_autoreleasePoolPush();
     v21 = *(a1 + 32);
     v22 = HMFGetOSLogHandle();
@@ -907,9 +898,9 @@ void ____acceptInvitation_block_invoke_30(uint64_t a1, void *a2)
         v25 = [*(a1 + 40) identifier];
         v26 = [v25 shortDescription];
         *buf = 138543618;
-        v39 = v24;
-        v40 = 2114;
-        v41 = v26;
+        v38 = v24;
+        v39 = 2114;
+        v40 = v26;
         _os_log_impl(&dword_22AD27000, v23, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] CKAcceptSharesOperation will be retried", buf, 0x16u);
       }
 
@@ -925,11 +916,11 @@ void ____acceptInvitation_block_invoke_30(uint64_t a1, void *a2)
         v32 = [*(a1 + 40) identifier];
         v33 = [v32 shortDescription];
         *buf = 138543874;
-        v39 = v31;
-        v40 = 2114;
-        v41 = v33;
-        v42 = 2114;
-        v43 = v3;
+        v38 = v31;
+        v39 = 2114;
+        v40 = v33;
+        v41 = 2114;
+        v42 = v3;
         _os_log_impl(&dword_22AD27000, v23, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] CKAcceptSharesOperation failed and cannot be retried: %{public}@", buf, 0x20u);
       }
 
@@ -948,11 +939,11 @@ void ____acceptInvitation_block_invoke_30(uint64_t a1, void *a2)
       v29 = [v28 shortDescription];
       v30 = *(*(*(a1 + 64) + 8) + 40);
       *buf = 138543874;
-      v39 = v27;
-      v40 = 2114;
-      v41 = v29;
-      v42 = 2112;
-      v43 = v30;
+      v38 = v27;
+      v39 = 2114;
+      v40 = v29;
+      v41 = 2112;
+      v42 = v30;
       _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] CKAcceptSharesOperation succeeded with share: %@", buf, 0x20u);
     }
 
@@ -960,13 +951,11 @@ void ____acceptInvitation_block_invoke_30(uint64_t a1, void *a2)
     [*(a1 + 40) markWithFormat:@"finished"];
     [*(a1 + 56) finishWithResult:*(*(*(a1 + 64) + 8) + 40)];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __fetchShareMetadata(void *a1, void *a2, void *a3, void *a4)
 {
-  v59[1] = *MEMORY[0x277D85DE8];
+  v58[1] = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -978,54 +967,54 @@ void __fetchShareMetadata(void *a1, void *a2, void *a3, void *a4)
     v9 = [v11 initWithName:v12 options:1];
   }
 
-  v47[0] = 0;
-  v47[1] = v47;
-  v47[2] = 0x3032000000;
-  v47[3] = __Block_byref_object_copy__6576;
-  v47[4] = __Block_byref_object_dispose__6577;
-  v48 = 0;
+  v46[0] = 0;
+  v46[1] = v46;
+  v46[2] = 0x3032000000;
+  v46[3] = __Block_byref_object_copy__6576;
+  v46[4] = __Block_byref_object_dispose__6577;
+  v47 = 0;
   v13 = objc_alloc_init(MEMORY[0x277CBC3F8]);
   v14 = [v7 operationConfigurationWithProcessingOptions:0];
   [v13 setConfiguration:v14];
 
   v15 = [v8 shareURL];
-  v59[0] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:1];
+  v58[0] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:1];
   [v13 setShareURLs:v16];
 
   v17 = [v8 shareURL];
-  v57 = v17;
+  v56 = v17;
   v18 = [v8 token];
-  v58 = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+  v57 = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
   [v13 setShareInvitationTokensByShareURL:v19];
 
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = ____fetchShareMetadata_block_invoke;
-  v43[3] = &unk_2786E20A0;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = ____fetchShareMetadata_block_invoke;
+  v42[3] = &unk_2786E20A0;
   v20 = v7;
-  v44 = v20;
+  v43 = v20;
   v21 = v9;
-  v45 = v21;
-  v46 = v47;
-  [v13 setPerShareMetadataBlock:v43];
+  v44 = v21;
+  v45 = v46;
+  [v13 setPerShareMetadataBlock:v42];
   objc_initWeak(&location, v13);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = ____fetchShareMetadata_block_invoke_26;
-  v35[3] = &unk_2786E2078;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = ____fetchShareMetadata_block_invoke_26;
+  v34[3] = &unk_2786E2078;
   v22 = v20;
-  v36 = v22;
+  v35 = v22;
   v23 = v21;
-  v37 = v23;
-  objc_copyWeak(&v41, &location);
+  v36 = v23;
+  objc_copyWeak(&v40, &location);
   v24 = v8;
-  v38 = v24;
-  v34 = v10;
-  v39 = v34;
-  v40 = v47;
-  [v13 setFetchShareMetadataCompletionBlock:v35];
+  v37 = v24;
+  v33 = v10;
+  v38 = v33;
+  v39 = v46;
+  [v13 setFetchShareMetadataCompletionBlock:v34];
   v25 = objc_autoreleasePoolPush();
   v26 = v22;
   v27 = HMFGetOSLogHandle();
@@ -1036,13 +1025,13 @@ void __fetchShareMetadata(void *a1, void *a2, void *a3, void *a4)
     v30 = [v29 shortDescription];
     v31 = [v13 operationID];
     *buf = 138544130;
-    v50 = v28;
-    v51 = 2114;
-    v52 = v30;
-    v53 = 2112;
-    v54 = v24;
-    v55 = 2114;
-    v56 = v31;
+    v49 = v28;
+    v50 = 2114;
+    v51 = v30;
+    v52 = 2112;
+    v53 = v24;
+    v54 = 2114;
+    v55 = v31;
     _os_log_impl(&dword_22AD27000, v27, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Starting CKFetchShareMetadataOperation for invitation: %@ operationID: %{public}@", buf, 0x2Au);
   }
 
@@ -1050,24 +1039,24 @@ void __fetchShareMetadata(void *a1, void *a2, void *a3, void *a4)
   v32 = [v26 container];
   [v32 addOperation:v13];
 
-  objc_destroyWeak(&v41);
+  objc_destroyWeak(&v40);
   objc_destroyWeak(&location);
 
-  _Block_object_dispose(v47, 8);
-  v33 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v46, 8);
 }
 
-void sub_22AD925C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_22AD925C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   objc_destroyWeak(&a20);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void ____fetchShareMetadata_block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1082,20 +1071,20 @@ void ____fetchShareMetadata_block_invoke(uint64_t a1, void *a2, void *a3, void *
       v14 = HMFGetLogIdentifier();
       v15 = [*(a1 + 40) identifier];
       [v15 shortDescription];
-      v22 = v10;
+      v21 = v10;
       v17 = v16 = v9;
       *buf = 138544130;
-      v24 = v14;
-      v25 = 2114;
-      v26 = v17;
-      v27 = 2112;
-      v28 = v7;
-      v29 = 2112;
-      v30 = v8;
+      v23 = v14;
+      v24 = 2114;
+      v25 = v17;
+      v26 = 2112;
+      v27 = v7;
+      v28 = 2112;
+      v29 = v8;
       _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_DEBUG, "%{public}@[%{public}@] Fetched share metadata for url %@: %@", buf, 0x2Au);
 
       v9 = v16;
-      v10 = v22;
+      v10 = v21;
     }
 
     objc_autoreleasePoolPop(v10);
@@ -1110,25 +1099,23 @@ void ____fetchShareMetadata_block_invoke(uint64_t a1, void *a2, void *a3, void *
       v19 = [*(a1 + 40) identifier];
       v20 = [v19 shortDescription];
       *buf = 138544130;
-      v24 = v18;
-      v25 = 2114;
-      v26 = v20;
-      v27 = 2112;
-      v28 = v7;
-      v29 = 2114;
-      v30 = v9;
+      v23 = v18;
+      v24 = 2114;
+      v25 = v20;
+      v26 = 2112;
+      v27 = v7;
+      v28 = 2114;
+      v29 = v9;
       _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to fetch share metadata for url %@: %{public}@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void ____fetchShareMetadata_block_invoke_26(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1142,11 +1129,11 @@ void ____fetchShareMetadata_block_invoke_26(uint64_t a1, void *a2)
       v9 = [*(a1 + 40) identifier];
       v10 = [v9 shortDescription];
       *buf = 138543874;
-      v39 = v8;
-      v40 = 2114;
-      v41 = v10;
-      v42 = 2114;
-      v43 = v3;
+      v38 = v8;
+      v39 = 2114;
+      v40 = v10;
+      v41 = 2114;
+      v42 = v3;
       _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] CKFetchShareMetadataOperation failed: %{public}@", buf, 0x20u);
     }
 
@@ -1158,10 +1145,10 @@ void ____fetchShareMetadata_block_invoke_26(uint64_t a1, void *a2)
     }
 
     v12 = WeakRetained;
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = ____fetchShareMetadata_block_invoke_27;
-    v35[3] = &unk_2786E2050;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = ____fetchShareMetadata_block_invoke_27;
+    v34[3] = &unk_2786E2050;
     v13 = *(a1 + 32);
     v14 = *(a1 + 48);
     v15 = *(a1 + 40);
@@ -1170,9 +1157,9 @@ void ____fetchShareMetadata_block_invoke_26(uint64_t a1, void *a2)
     *(&v17 + 1) = v16;
     *&v18 = v13;
     *(&v18 + 1) = v14;
-    v36 = v18;
-    v37 = v17;
-    v19 = [v13 retryCloudKitOperation:v12 afterError:v3 retryBlock:v35];
+    v35 = v18;
+    v36 = v17;
+    v19 = [v13 retryCloudKitOperation:v12 afterError:v3 retryBlock:v34];
     v20 = objc_autoreleasePoolPush();
     v21 = *(a1 + 32);
     v22 = HMFGetOSLogHandle();
@@ -1185,9 +1172,9 @@ void ____fetchShareMetadata_block_invoke_26(uint64_t a1, void *a2)
         v25 = [*(a1 + 40) identifier];
         v26 = [v25 shortDescription];
         *buf = 138543618;
-        v39 = v24;
-        v40 = 2114;
-        v41 = v26;
+        v38 = v24;
+        v39 = 2114;
+        v40 = v26;
         _os_log_impl(&dword_22AD27000, v23, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] CKFetchShareMetadataOperation will be retried", buf, 0x16u);
       }
 
@@ -1203,11 +1190,11 @@ void ____fetchShareMetadata_block_invoke_26(uint64_t a1, void *a2)
         v32 = [*(a1 + 40) identifier];
         v33 = [v32 shortDescription];
         *buf = 138543874;
-        v39 = v31;
-        v40 = 2114;
-        v41 = v33;
-        v42 = 2114;
-        v43 = v3;
+        v38 = v31;
+        v39 = 2114;
+        v40 = v33;
+        v41 = 2114;
+        v42 = v3;
         _os_log_impl(&dword_22AD27000, v23, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] CKFetchShareMetadataOperation failed and cannot be retried: %{public}@", buf, 0x20u);
       }
 
@@ -1226,11 +1213,11 @@ void ____fetchShareMetadata_block_invoke_26(uint64_t a1, void *a2)
       v29 = [v28 shortDescription];
       v30 = *(*(*(a1 + 64) + 8) + 40);
       *buf = 138543874;
-      v39 = v27;
-      v40 = 2114;
-      v41 = v29;
-      v42 = 2112;
-      v43 = v30;
+      v38 = v27;
+      v39 = 2114;
+      v40 = v29;
+      v41 = 2112;
+      v42 = v30;
       _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] CKFetchShareMetadataOperation succeeded with share metadata: %@", buf, 0x20u);
     }
 
@@ -1238,13 +1225,11 @@ void ____fetchShareMetadata_block_invoke_26(uint64_t a1, void *a2)
     [*(a1 + 40) markWithFormat:@"finished"];
     [*(a1 + 56) finishWithResult:*(*(*(a1 + 64) + 8) + 40)];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __fetchParticipant(void *a1, void *a2, void *a3, void *a4)
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -1256,64 +1241,64 @@ void __fetchParticipant(void *a1, void *a2, void *a3, void *a4)
     v9 = [v11 initWithName:v12 options:1];
   }
 
-  v44[0] = 0;
-  v44[1] = v44;
-  v44[2] = 0x3032000000;
-  v44[3] = __Block_byref_object_copy__6576;
-  v44[4] = __Block_byref_object_dispose__6577;
-  v45 = 0;
+  v43[0] = 0;
+  v43[1] = v43;
+  v43[2] = 0x3032000000;
+  v43[3] = __Block_byref_object_copy__6576;
+  v43[4] = __Block_byref_object_dispose__6577;
+  v44 = 0;
   v13 = objc_alloc_init(MEMORY[0x277CBC410]);
   v14 = [v7 operationConfigurationWithProcessingOptions:0];
   [v13 setConfiguration:v14];
 
-  v54[0] = v8;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
+  v53[0] = v8;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
   [v13 setUserIdentityLookupInfos:v15];
 
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = ____fetchParticipant_block_invoke;
-  v40[3] = &unk_2786E2028;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = ____fetchParticipant_block_invoke;
+  v39[3] = &unk_2786E2028;
   v16 = v7;
-  v41 = v16;
+  v40 = v16;
   v17 = v9;
-  v42 = v17;
-  v43 = v44;
-  [v13 setShareParticipantFetchedBlock:v40];
+  v41 = v17;
+  v42 = v43;
+  [v13 setShareParticipantFetchedBlock:v39];
   objc_initWeak(&location, v13);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = ____fetchParticipant_block_invoke_9;
-  v32[3] = &unk_2786E2078;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = ____fetchParticipant_block_invoke_9;
+  v31[3] = &unk_2786E2078;
   v18 = v16;
-  v33 = v18;
-  v31 = v17;
-  v34 = v31;
-  objc_copyWeak(&v38, &location);
+  v32 = v18;
+  v30 = v17;
+  v33 = v30;
+  objc_copyWeak(&v37, &location);
   v19 = v8;
-  v35 = v19;
-  v30 = v10;
-  v36 = v30;
-  v37 = v44;
-  [v13 setFetchShareParticipantsCompletionBlock:v32];
+  v34 = v19;
+  v29 = v10;
+  v35 = v29;
+  v36 = v43;
+  [v13 setFetchShareParticipantsCompletionBlock:v31];
   v20 = objc_autoreleasePoolPush();
   v21 = v18;
   v22 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     v23 = HMFGetLogIdentifier();
-    v24 = [v31 identifier];
+    v24 = [v30 identifier];
     v25 = [v24 shortDescription];
     v26 = [v19 redactedDescription];
     v27 = [v13 operationID];
     *buf = 138544130;
-    v47 = v23;
-    v48 = 2114;
-    v49 = v25;
-    v50 = 2112;
-    v51 = v26;
-    v52 = 2114;
-    v53 = v27;
+    v46 = v23;
+    v47 = 2114;
+    v48 = v25;
+    v49 = 2112;
+    v50 = v26;
+    v51 = 2114;
+    v52 = v27;
     _os_log_impl(&dword_22AD27000, v22, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Starting CKFetchShareParticipantsOperation for lookup info: %@ operationID: %{public}@", buf, 0x2Au);
   }
 
@@ -1321,24 +1306,24 @@ void __fetchParticipant(void *a1, void *a2, void *a3, void *a4)
   v28 = [v21 container];
   [v28 addOperation:v13];
 
-  objc_destroyWeak(&v38);
+  objc_destroyWeak(&v37);
   objc_destroyWeak(&location);
 
-  _Block_object_dispose(v44, 8);
-  v29 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v43, 8);
 }
 
-void sub_22AD931CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_22AD931CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   objc_destroyWeak(&a20);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void ____fetchParticipant_block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1348,26 +1333,24 @@ void ____fetchParticipant_block_invoke(uint64_t a1, void *a2)
     v7 = HMFGetLogIdentifier();
     v8 = [*(a1 + 40) identifier];
     v9 = [v8 shortDescription];
-    v13 = 138543874;
-    v14 = v7;
-    v15 = 2114;
-    v16 = v9;
-    v17 = 2112;
-    v18 = v3;
-    _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] Fetched share participant: %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v7;
+    v14 = 2114;
+    v15 = v9;
+    v16 = 2112;
+    v17 = v3;
+    _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] Fetched share participant: %@", &v12, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
   v10 = *(*(a1 + 48) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v3;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void ____fetchParticipant_block_invoke_9(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1381,11 +1364,11 @@ void ____fetchParticipant_block_invoke_9(uint64_t a1, void *a2)
       v9 = [*(a1 + 40) identifier];
       v10 = [v9 shortDescription];
       *buf = 138543874;
-      v39 = v8;
-      v40 = 2114;
-      v41 = v10;
-      v42 = 2114;
-      v43 = v3;
+      v38 = v8;
+      v39 = 2114;
+      v40 = v10;
+      v41 = 2114;
+      v42 = v3;
       _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] CKFetchShareParticipantsOperation failed: %{public}@", buf, 0x20u);
     }
 
@@ -1397,10 +1380,10 @@ void ____fetchParticipant_block_invoke_9(uint64_t a1, void *a2)
     }
 
     v12 = WeakRetained;
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = ____fetchParticipant_block_invoke_11;
-    v35[3] = &unk_2786E2050;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = ____fetchParticipant_block_invoke_11;
+    v34[3] = &unk_2786E2050;
     v13 = *(a1 + 32);
     v14 = *(a1 + 48);
     v15 = *(a1 + 40);
@@ -1409,9 +1392,9 @@ void ____fetchParticipant_block_invoke_9(uint64_t a1, void *a2)
     *(&v17 + 1) = v16;
     *&v18 = v13;
     *(&v18 + 1) = v14;
-    v36 = v18;
-    v37 = v17;
-    v19 = [v13 retryCloudKitOperation:v12 afterError:v3 retryBlock:v35];
+    v35 = v18;
+    v36 = v17;
+    v19 = [v13 retryCloudKitOperation:v12 afterError:v3 retryBlock:v34];
     v20 = objc_autoreleasePoolPush();
     v21 = *(a1 + 32);
     v22 = HMFGetOSLogHandle();
@@ -1424,9 +1407,9 @@ void ____fetchParticipant_block_invoke_9(uint64_t a1, void *a2)
         v25 = [*(a1 + 40) identifier];
         v26 = [v25 shortDescription];
         *buf = 138543618;
-        v39 = v24;
-        v40 = 2114;
-        v41 = v26;
+        v38 = v24;
+        v39 = 2114;
+        v40 = v26;
         _os_log_impl(&dword_22AD27000, v23, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] CKFetchShareParticipantsOperation will be retried", buf, 0x16u);
       }
 
@@ -1442,11 +1425,11 @@ void ____fetchParticipant_block_invoke_9(uint64_t a1, void *a2)
         v32 = [*(a1 + 40) identifier];
         v33 = [v32 shortDescription];
         *buf = 138543874;
-        v39 = v31;
-        v40 = 2114;
-        v41 = v33;
-        v42 = 2114;
-        v43 = v3;
+        v38 = v31;
+        v39 = 2114;
+        v40 = v33;
+        v41 = 2114;
+        v42 = v3;
         _os_log_impl(&dword_22AD27000, v23, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] CKFetchShareParticipantsOperation failed and cannot be retried: %{public}@", buf, 0x20u);
       }
 
@@ -1465,11 +1448,11 @@ void ____fetchParticipant_block_invoke_9(uint64_t a1, void *a2)
       v29 = [v28 shortDescription];
       v30 = *(*(*(a1 + 64) + 8) + 40);
       *buf = 138543874;
-      v39 = v27;
-      v40 = 2114;
-      v41 = v29;
-      v42 = 2112;
-      v43 = v30;
+      v38 = v27;
+      v39 = 2114;
+      v40 = v29;
+      v41 = 2112;
+      v42 = v30;
       _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] CKFetchShareParticipantsOperation succeeded with participants: %@", buf, 0x20u);
     }
 
@@ -1477,13 +1460,11 @@ void ____fetchParticipant_block_invoke_9(uint64_t a1, void *a2)
     [*(a1 + 40) markWithReason:@"finished"];
     [*(a1 + 56) finishWithResult:*(*(*(a1 + 64) + 8) + 40)];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22AD94704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AD94704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1495,66 +1476,66 @@ uint64_t __Block_byref_object_copy__6785(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22AD948F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AD948F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AD94EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22AD94EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AD95128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22AD95128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AD95368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22AD95368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AD95678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22AD95678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AD95874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AD95874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AD95A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AD95A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __performCloudPull(void *a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   v9 = a1;
   v10 = a2;
   v11 = a3;
   v12 = a4;
-  v51 = a5;
+  v50 = a5;
   os_unfair_lock_lock_with_options();
   v13 = [v10 database];
-  v49 = [v10 hmbModelID];
+  v48 = [v10 hmbModelID];
   os_unfair_lock_unlock(v9 + 2);
   if (!v12)
   {
@@ -1563,8 +1544,8 @@ void __performCloudPull(void *a1, void *a2, void *a3, void *a4, void *a5)
     v12 = [v14 initWithName:v15 options:1];
   }
 
-  v47 = [MEMORY[0x277CBEB18] array];
-  v45 = [MEMORY[0x277CBEB18] array];
+  v46 = [MEMORY[0x277CBEB18] array];
+  v44 = [MEMORY[0x277CBEB18] array];
   v16 = [MEMORY[0x277CBEB18] array];
   v17 = [MEMORY[0x277CBEB18] array];
   v18 = [MEMORY[0x277CBEB18] array];
@@ -1573,63 +1554,63 @@ void __performCloudPull(void *a1, void *a2, void *a3, void *a4, void *a5)
   [v19 setConfiguration:v20];
 
   [v19 setFetchAllChanges:1];
-  v75[0] = MEMORY[0x277D85DD0];
-  v75[1] = 3221225472;
-  v75[2] = ____performCloudPull_block_invoke;
-  v75[3] = &unk_2786E22B0;
+  v74[0] = MEMORY[0x277D85DD0];
+  v74[1] = 3221225472;
+  v74[2] = ____performCloudPull_block_invoke;
+  v74[3] = &unk_2786E22B0;
   v21 = v9;
-  v76 = v21;
+  v75 = v21;
   v22 = v12;
-  v77 = v22;
+  v76 = v22;
   v23 = v13;
-  v78 = v23;
+  v77 = v23;
   v24 = v16;
-  v79 = v24;
-  [v19 setRecordZoneWithIDChangedBlock:v75];
-  v69[0] = MEMORY[0x277D85DD0];
-  v69[1] = 3221225472;
-  v69[2] = ____performCloudPull_block_invoke_11;
-  v69[3] = &unk_2786E22D8;
+  v78 = v24;
+  [v19 setRecordZoneWithIDChangedBlock:v74];
+  v68[0] = MEMORY[0x277D85DD0];
+  v68[1] = 3221225472;
+  v68[2] = ____performCloudPull_block_invoke_11;
+  v68[3] = &unk_2786E22D8;
   v25 = v21;
-  v70 = v25;
+  v69 = v25;
   v26 = v22;
-  v71 = v26;
-  v54 = v23;
-  v72 = v54;
+  v70 = v26;
+  v53 = v23;
+  v71 = v53;
   v27 = v17;
-  v73 = v27;
+  v72 = v27;
   v28 = v18;
-  v74 = v28;
-  [v19 setRecordZoneWithIDWasDeletedBlock:v69];
+  v73 = v28;
+  [v19 setRecordZoneWithIDWasDeletedBlock:v68];
   objc_initWeak(&location, v19);
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = ____performCloudPull_block_invoke_12;
-  v55[3] = &unk_2786E2328;
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = ____performCloudPull_block_invoke_12;
+  v54[3] = &unk_2786E2328;
   v29 = v25;
-  v56 = v29;
-  v53 = v26;
-  v57 = v53;
+  v55 = v29;
+  v52 = v26;
+  v56 = v52;
   v30 = v10;
-  v58 = v30;
-  v41 = v51;
-  v59 = v41;
-  objc_copyWeak(&v67, &location);
-  v52 = v11;
-  v60 = v52;
-  v44 = v24;
-  v61 = v44;
-  v42 = v49;
+  v57 = v30;
+  v40 = v50;
+  v58 = v40;
+  objc_copyWeak(&v66, &location);
+  v51 = v11;
+  v59 = v51;
+  v43 = v24;
+  v60 = v43;
+  v41 = v48;
+  v61 = v41;
+  v42 = v46;
   v62 = v42;
-  v43 = v47;
-  v63 = v43;
-  v46 = v45;
-  v64 = v46;
-  v48 = v27;
-  v65 = v48;
-  v50 = v28;
-  v66 = v50;
-  [v19 setFetchDatabaseChangesCompletionBlock:v55];
+  v45 = v44;
+  v63 = v45;
+  v47 = v27;
+  v64 = v47;
+  v49 = v28;
+  v65 = v49;
+  [v19 setFetchDatabaseChangesCompletionBlock:v54];
   v31 = objc_autoreleasePoolPush();
   v32 = v29;
   v33 = HMFGetOSLogHandle();
@@ -1637,32 +1618,30 @@ void __performCloudPull(void *a1, void *a2, void *a3, void *a4, void *a5)
   {
     v34 = v30;
     v35 = HMFGetLogIdentifier();
-    v36 = [v53 identifier];
+    v36 = [v52 identifier];
     v37 = [v36 shortDescription];
-    v38 = [v54 hmbDescription];
+    v38 = [v53 hmbDescription];
     v39 = [v19 operationID];
     *buf = 138544386;
-    v81 = v35;
-    v82 = 2114;
-    v83 = v37;
-    v84 = 2112;
-    v85 = v38;
-    v86 = 2112;
-    v87 = v52;
-    v88 = 2114;
-    v89 = v39;
+    v80 = v35;
+    v81 = 2114;
+    v82 = v37;
+    v83 = 2112;
+    v84 = v38;
+    v85 = 2112;
+    v86 = v51;
+    v87 = 2114;
+    v88 = v39;
     _os_log_impl(&dword_22AD27000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] Starting CKFetchDatabaseChangesOperation with database: %@ token: %@ operationID: %{public}@", buf, 0x34u);
 
     v30 = v34;
   }
 
   objc_autoreleasePoolPop(v31);
-  [v54 addOperation:v19];
+  [v53 addOperation:v19];
 
-  objc_destroyWeak(&v67);
+  objc_destroyWeak(&v66);
   objc_destroyWeak(&location);
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22AD98DF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id location)
@@ -1674,7 +1653,7 @@ void sub_22AD98DF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ____performCloudPull_block_invoke(id *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = a1[4];
@@ -1684,13 +1663,13 @@ void ____performCloudPull_block_invoke(id *a1, void *a2)
     v7 = HMFGetLogIdentifier();
     v8 = [a1[5] identifier];
     v9 = [v8 shortDescription];
-    v14 = 138543874;
-    v15 = v7;
-    v16 = 2114;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v3;
-    _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Zone with ID changed: %@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v7;
+    v15 = 2114;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v3;
+    _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Zone with ID changed: %@", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -1699,12 +1678,11 @@ void ____performCloudPull_block_invoke(id *a1, void *a2)
   v12 = -[HMBCloudZoneID initWithContainerID:scope:zoneID:](v10, "initWithContainerID:scope:zoneID:", v11, [a1[6] scope], v3);
 
   [a1[7] addObject:v12];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void ____performCloudPull_block_invoke_11(id *a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = a1[4];
@@ -1714,13 +1692,13 @@ void ____performCloudPull_block_invoke_11(id *a1, void *a2)
     v7 = HMFGetLogIdentifier();
     v8 = [a1[5] identifier];
     v9 = [v8 shortDescription];
-    v24 = 138543874;
-    v25 = v7;
-    v26 = 2114;
-    v27 = v9;
-    v28 = 2112;
-    v29 = v3;
-    _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Zone with ID was deleted: %@", &v24, 0x20u);
+    v23 = 138543874;
+    v24 = v7;
+    v25 = 2114;
+    v26 = v9;
+    v27 = 2112;
+    v28 = v3;
+    _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Zone with ID was deleted: %@", &v23, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -1751,28 +1729,26 @@ void ____performCloudPull_block_invoke_11(id *a1, void *a2)
       v20 = HMFGetLogIdentifier();
       v21 = [a1[5] identifier];
       v22 = [v21 shortDescription];
-      v24 = 138543874;
-      v25 = v20;
-      v26 = 2114;
-      v27 = v22;
-      v28 = 2112;
-      v29 = v12;
-      _os_log_impl(&dword_22AD27000, v19, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Got a zone deletion for a non-existent zone ID: %@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v20;
+      v25 = 2114;
+      v26 = v22;
+      v27 = 2112;
+      v28 = v12;
+      _os_log_impl(&dword_22AD27000, v19, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Got a zone deletion for a non-existent zone ID: %@", &v23, 0x20u);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void ____performCloudPull_block_invoke_12(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v110 = *MEMORY[0x277D85DE8];
-  v84 = a2;
-  v85 = a4;
+  v109 = *MEMORY[0x277D85DE8];
+  v83 = a2;
+  v84 = a4;
   v6 = objc_autoreleasePoolPush();
-  v87 = a1;
+  v86 = a1;
   v7 = *(a1 + 32);
   v8 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
@@ -1782,82 +1758,82 @@ void ____performCloudPull_block_invoke_12(uint64_t a1, void *a2, uint64_t a3, vo
     v11 = [v10 shortDescription];
     v12 = HMFBooleanToString();
     *buf = 138544386;
-    v101 = v9;
-    v102 = 2114;
-    v103 = v11;
-    v104 = 2112;
-    v105 = v84;
-    v106 = 2112;
-    v107 = v12;
-    v108 = 2114;
-    v109 = v85;
+    v100 = v9;
+    v101 = 2114;
+    v102 = v11;
+    v103 = 2112;
+    v104 = v83;
+    v105 = 2112;
+    v106 = v12;
+    v107 = 2114;
+    v108 = v84;
     _os_log_impl(&dword_22AD27000, v8, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Fetch database changes operation completed with token: %@ moreComing: %@ error: %{public}@", buf, 0x34u);
   }
 
   objc_autoreleasePoolPop(v6);
-  if (v85)
+  if (v84)
   {
     v13 = objc_autoreleasePoolPush();
-    v14 = *(v87 + 32);
+    v14 = *(v86 + 32);
     v15 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = HMFGetLogIdentifier();
-      v17 = [*(v87 + 40) identifier];
+      v17 = [*(v86 + 40) identifier];
       v18 = [v17 shortDescription];
       *buf = 138543874;
-      v101 = v16;
-      v102 = 2114;
-      v103 = v18;
-      v104 = 2114;
-      v105 = v85;
+      v100 = v16;
+      v101 = 2114;
+      v102 = v18;
+      v103 = 2114;
+      v104 = v84;
       _os_log_impl(&dword_22AD27000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] CKFetchDatabaseChangesOperation failed: %{public}@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
-    if ([v85 hmbIsCKChangeTokenExpiredError])
+    if ([v84 hmbIsCKChangeTokenExpiredError])
     {
       v19 = objc_autoreleasePoolPush();
-      v20 = *(v87 + 32);
+      v20 = *(v86 + 32);
       v21 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         v22 = HMFGetLogIdentifier();
-        v23 = [*(v87 + 40) identifier];
+        v23 = [*(v86 + 40) identifier];
         v24 = [v23 shortDescription];
         *buf = 138543618;
-        v101 = v22;
-        v102 = 2114;
-        v103 = v24;
+        v100 = v22;
+        v101 = 2114;
+        v102 = v24;
         _os_log_impl(&dword_22AD27000, v21, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Retrying CKFetchDatabaseChangesOperation with nil change token due to expired change token error", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v19);
-      __performCloudPull(*(v87 + 32), *(v87 + 48), 0, *(v87 + 40), *(v87 + 56));
+      __performCloudPull(*(v86 + 32), *(v86 + 48), 0, *(v86 + 40), *(v86 + 56));
     }
 
     else
     {
-      WeakRetained = objc_loadWeakRetained((v87 + 120));
+      WeakRetained = objc_loadWeakRetained((v86 + 120));
       if (!WeakRetained)
       {
         _HMFPreconditionFailure();
         __break(1u);
       }
 
-      v69 = *(v87 + 32);
-      v92[0] = MEMORY[0x277D85DD0];
-      v92[1] = 3221225472;
-      v92[2] = ____performCloudPull_block_invoke_14;
-      v92[3] = &unk_2786E2300;
-      v93 = v69;
-      v94 = *(v87 + 48);
-      v95 = *(v87 + 64);
-      v96 = *(v87 + 40);
-      v97 = *(v87 + 56);
-      v70 = [v93 retryCloudKitOperation:WeakRetained afterError:v85 retryBlock:v92];
+      v69 = *(v86 + 32);
+      v91[0] = MEMORY[0x277D85DD0];
+      v91[1] = 3221225472;
+      v91[2] = ____performCloudPull_block_invoke_14;
+      v91[3] = &unk_2786E2300;
+      v92 = v69;
+      v93 = *(v86 + 48);
+      v94 = *(v86 + 64);
+      v95 = *(v86 + 40);
+      v96 = *(v86 + 56);
+      v70 = [v92 retryCloudKitOperation:WeakRetained afterError:v84 retryBlock:v91];
       v71 = objc_autoreleasePoolPush();
-      v72 = *(v87 + 32);
+      v72 = *(v86 + 32);
       v73 = HMFGetOSLogHandle();
       v74 = v73;
       if (v70)
@@ -1865,17 +1841,17 @@ void ____performCloudPull_block_invoke_12(uint64_t a1, void *a2, uint64_t a3, vo
         if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
         {
           v75 = HMFGetLogIdentifier();
-          v76 = [*(v87 + 40) identifier];
+          v76 = [*(v86 + 40) identifier];
           v77 = [v76 shortDescription];
           *buf = 138543618;
-          v101 = v75;
-          v102 = 2114;
-          v103 = v77;
+          v100 = v75;
+          v101 = 2114;
+          v102 = v77;
           _os_log_impl(&dword_22AD27000, v74, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] CKFetchDatabaseChangesOperation will be retried", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v71);
-        [*(v87 + 40) markWithReason:@"deferred"];
+        [*(v86 + 40) markWithReason:@"deferred"];
       }
 
       else
@@ -1883,48 +1859,48 @@ void ____performCloudPull_block_invoke_12(uint64_t a1, void *a2, uint64_t a3, vo
         if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
         {
           v78 = HMFGetLogIdentifier();
-          v79 = [*(v87 + 40) identifier];
+          v79 = [*(v86 + 40) identifier];
           v80 = [v79 shortDescription];
           *buf = 138543874;
-          v101 = v78;
-          v102 = 2114;
-          v103 = v80;
-          v104 = 2114;
-          v105 = v85;
+          v100 = v78;
+          v101 = 2114;
+          v102 = v80;
+          v103 = 2114;
+          v104 = v84;
           _os_log_impl(&dword_22AD27000, v74, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] CKFetchDatabaseChangesOperation failed and cannot be retried: %{public}@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v71);
-        [*(v87 + 40) markWithFormat:@"failed with error: %@", v85];
-        [*(v87 + 56) finishWithError:v85];
+        [*(v86 + 40) markWithFormat:@"failed with error: %@", v84];
+        [*(v86 + 56) finishWithError:v84];
       }
     }
   }
 
   else
   {
-    v25 = v87;
-    lock = (*(v87 + 32) + 8);
+    v25 = v86;
+    lock = (*(v86 + 32) + 8);
     os_unfair_lock_lock_with_options();
-    v90 = 0u;
-    v91 = 0u;
-    v88 = 0u;
     v89 = 0u;
-    v26 = [*(v87 + 72) copy];
-    v27 = [v26 countByEnumeratingWithState:&v88 objects:v99 count:16];
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v26 = [*(v86 + 72) copy];
+    v27 = [v26 countByEnumeratingWithState:&v87 objects:v98 count:16];
     if (v27)
     {
-      v86 = *v89;
+      v85 = *v88;
       do
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v89 != v86)
+          if (*v88 != v85)
           {
             objc_enumerationMutation(v26);
           }
 
-          v29 = *(*(&v88 + 1) + 8 * i);
+          v29 = *(*(&v87 + 1) + 8 * i);
           v30 = [*(v25 + 32) zoneStateByZoneID];
           v31 = [v30 objectForKeyedSubscript:v29];
           v32 = v31 == 0;
@@ -1932,67 +1908,67 @@ void ____performCloudPull_block_invoke_12(uint64_t a1, void *a2, uint64_t a3, vo
           if (v32)
           {
             v33 = objc_autoreleasePoolPush();
-            v34 = *(v87 + 32);
+            v34 = *(v86 + 32);
             v35 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
             {
               v36 = HMFGetLogIdentifier();
-              v37 = [*(v87 + 40) identifier];
+              v37 = [*(v86 + 40) identifier];
               v38 = [v37 shortDescription];
               *buf = 138543874;
-              v101 = v36;
-              v102 = 2114;
-              v103 = v38;
-              v104 = 2112;
-              v105 = v29;
+              v100 = v36;
+              v101 = 2114;
+              v102 = v38;
+              v103 = 2112;
+              v104 = v29;
               _os_log_impl(&dword_22AD27000, v35, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Zone with ID was created: %@", buf, 0x20u);
             }
 
             objc_autoreleasePoolPop(v33);
             v39 = [HMBCloudZoneStateModel alloc];
             v40 = [v29 modelID];
-            v41 = [(HMBCloudZoneStateModel *)v39 initWithModelID:v40 parentModelID:*(v87 + 80)];
+            v41 = [(HMBCloudZoneStateModel *)v39 initWithModelID:v40 parentModelID:*(v86 + 80)];
 
             [(HMBCloudZoneStateModel *)v41 setZoneID:v29];
-            [*(v87 + 88) addObject:v29];
-            v42 = [*(v87 + 32) zoneStateByZoneID];
+            [*(v86 + 88) addObject:v29];
+            v42 = [*(v86 + 32) zoneStateByZoneID];
             [v42 setObject:v41 forKeyedSubscript:v29];
 
-            [*(v87 + 96) addObject:v41];
-            [*(v87 + 72) removeObject:v29];
+            [*(v86 + 96) addObject:v41];
+            [*(v86 + 72) removeObject:v29];
           }
 
-          v25 = v87;
+          v25 = v86;
         }
 
-        v27 = [v26 countByEnumeratingWithState:&v88 objects:v99 count:16];
+        v27 = [v26 countByEnumeratingWithState:&v87 objects:v98 count:16];
       }
 
       while (v27);
     }
 
-    v43 = [*(v87 + 32) stateZone];
-    v44 = [v43 update:*(v87 + 96)];
+    v43 = [*(v86 + 32) stateZone];
+    v44 = [v43 update:*(v86 + 96)];
 
     if (v44)
     {
       v45 = objc_autoreleasePoolPush();
-      v46 = *(v87 + 32);
+      v46 = *(v86 + 32);
       v47 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         v48 = HMFGetLogIdentifier();
-        v49 = [*(v87 + 40) identifier];
+        v49 = [*(v86 + 40) identifier];
         v50 = [v49 shortDescription];
-        v51 = *(v87 + 96);
+        v51 = *(v86 + 96);
         *buf = 138544130;
-        v101 = v48;
-        v102 = 2114;
-        v103 = v50;
-        v104 = 2112;
-        v105 = v51;
-        v106 = 2114;
-        v107 = v44;
+        v100 = v48;
+        v101 = 2114;
+        v102 = v50;
+        v103 = 2112;
+        v104 = v51;
+        v105 = 2114;
+        v106 = v44;
         _os_log_impl(&dword_22AD27000, v47, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to add created zone models to local DB %@: %{public}@", buf, 0x2Au);
       }
 
@@ -2000,40 +1976,40 @@ void ____performCloudPull_block_invoke_12(uint64_t a1, void *a2, uint64_t a3, vo
     }
 
     os_unfair_lock_unlock(lock);
-    [*(v87 + 32) handleRemovedZoneIDs:*(v87 + 104) userInitiated:0];
-    [*(v87 + 32) handleUpdatedZonesIDs:*(v87 + 72)];
-    [*(v87 + 32) handleCreatedZoneIDs:*(v87 + 88)];
-    locka = (*(v87 + 32) + 8);
+    [*(v86 + 32) handleRemovedZoneIDs:*(v86 + 104) userInitiated:0];
+    [*(v86 + 32) handleUpdatedZonesIDs:*(v86 + 72)];
+    [*(v86 + 32) handleCreatedZoneIDs:*(v86 + 88)];
+    locka = (*(v86 + 32) + 8);
     os_unfair_lock_lock_with_options();
-    if (v84)
+    if (v83)
     {
-      [*(v87 + 48) setServerChangeToken:?];
+      [*(v86 + 48) setServerChangeToken:?];
     }
 
-    v52 = [*(v87 + 32) stateZone];
-    v98 = *(v87 + 48);
-    v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v98 count:1];
-    v54 = [v52 update:v53 remove:*(v87 + 112)];
+    v52 = [*(v86 + 32) stateZone];
+    v97 = *(v86 + 48);
+    v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v97 count:1];
+    v54 = [v52 update:v53 remove:*(v86 + 112)];
 
     if (v54)
     {
       v55 = objc_autoreleasePoolPush();
-      v56 = *(v87 + 32);
+      v56 = *(v86 + 32);
       v57 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
       {
         v58 = HMFGetLogIdentifier();
-        v59 = [*(v87 + 40) identifier];
+        v59 = [*(v86 + 40) identifier];
         v60 = [v59 shortDescription];
-        v61 = *(v87 + 112);
+        v61 = *(v86 + 112);
         *buf = 138544130;
-        v101 = v58;
-        v102 = 2114;
-        v103 = v60;
-        v104 = 2112;
-        v105 = v61;
-        v106 = 2114;
-        v107 = v54;
+        v100 = v58;
+        v101 = 2114;
+        v102 = v60;
+        v103 = 2112;
+        v104 = v61;
+        v105 = 2114;
+        v106 = v54;
         _os_log_impl(&dword_22AD27000, v57, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to remove zone model IDs from local DB %@: %{public}@", buf, 0x2Au);
       }
 
@@ -2042,42 +2018,40 @@ void ____performCloudPull_block_invoke_12(uint64_t a1, void *a2, uint64_t a3, vo
 
     os_unfair_lock_unlock(locka);
     v62 = objc_autoreleasePoolPush();
-    v63 = *(v87 + 32);
+    v63 = *(v86 + 32);
     v64 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
     {
       v65 = HMFGetLogIdentifier();
-      v66 = [*(v87 + 40) identifier];
+      v66 = [*(v86 + 40) identifier];
       v67 = [v66 shortDescription];
       *buf = 138543618;
-      v101 = v65;
-      v102 = 2114;
-      v103 = v67;
+      v100 = v65;
+      v101 = 2114;
+      v102 = v67;
       _os_log_impl(&dword_22AD27000, v64, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] CKFetchDatabaseChangesOperation succeeded", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v62);
-    [*(v87 + 56) finishWithNoResult];
+    [*(v86 + 56) finishWithNoResult];
   }
-
-  v81 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __open(void *a1, void *a2)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v68 = 0;
-  v4 = __sqlite3Open(v3, 0, &v68);
-  v5 = v68;
+  v67 = 0;
+  v4 = __sqlite3Open(v3, 0, &v67);
+  v5 = v67;
   v6 = v5;
   if (v4)
   {
     [v3 setConnection:v4];
     v7 = [v3 connection];
-    v67 = v6;
-    v8 = selectSQLite3(v7, "PRAGMA user_version", MEMORY[0x277CBEC10], &v67);;
-    v9 = v67;
+    v66 = v6;
+    v8 = selectSQLite3(v7, "PRAGMA user_version", MEMORY[0x277CBEC10], &v66);;
+    v9 = v66;
 
     v10 = [v8 firstObject];
     v11 = [v10 firstObject];
@@ -2102,16 +2076,16 @@ uint64_t __open(void *a1, void *a2)
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v70 = v17;
-      v71 = 2112;
-      v72 = v13;
+      v69 = v17;
+      v70 = 2112;
+      v71 = v13;
       _os_log_impl(&dword_22AD27000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Current schema version: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
-    v66 = v9;
-    v18 = [v15 migrateFromSchemaVersion:objc_msgSend(v13 error:{"integerValue"), &v66}];
-    v6 = v66;
+    v65 = v9;
+    v18 = [v15 migrateFromSchemaVersion:objc_msgSend(v13 error:{"integerValue"), &v65}];
+    v6 = v65;
 
     if (v18 == 2)
     {
@@ -2122,9 +2096,9 @@ uint64_t __open(void *a1, void *a2)
       {
         v46 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v70 = v46;
-        v71 = 2112;
-        v72 = v40;
+        v69 = v46;
+        v70 = 2112;
+        v71 = v40;
         _os_log_impl(&dword_22AD27000, v45, OS_LOG_TYPE_DEFAULT, "%{public}@Migration needs reopen for context %@", buf, 0x16u);
       }
 
@@ -2150,11 +2124,11 @@ uint64_t __open(void *a1, void *a2)
           {
             v22 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v70 = v22;
-            v71 = 2112;
-            v72 = v20;
-            v73 = 2114;
-            v74 = v6;
+            v69 = v22;
+            v70 = 2112;
+            v71 = v20;
+            v72 = 2114;
+            v73 = v6;
             _os_log_impl(&dword_22AD27000, v21, OS_LOG_TYPE_ERROR, "%{public}@Migration failed for context %@: %{public}@", buf, 0x20u);
           }
 
@@ -2182,9 +2156,9 @@ uint64_t __open(void *a1, void *a2)
       {
         v42 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v70 = v42;
-        v71 = 2112;
-        v72 = v40;
+        v69 = v42;
+        v70 = 2112;
+        v71 = v40;
         _os_log_impl(&dword_22AD27000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@Migration needs re-init for context %@", buf, 0x16u);
       }
 
@@ -2220,18 +2194,18 @@ LABEL_50:
     goto LABEL_39;
   }
 
-  v65 = 0;
-  v28 = __sqlite3Open(v3, 1, &v65);
-  v29 = v65;
+  v64 = 0;
+  v28 = __sqlite3Open(v3, 1, &v64);
+  v29 = v64;
   v30 = [v3 url];
   v31 = [v30 scheme];
   v32 = [v31 isEqualToString:@"memory"];
 
   if ((v32 & 1) == 0)
   {
-    v64 = v29;
-    v33 = selectSQLite3(v28, "PRAGMA journal_mode=WAL", MEMORY[0x277CBEC10], &v64);;
-    v6 = v64;
+    v63 = v29;
+    v33 = selectSQLite3(v28, "PRAGMA journal_mode=WAL", MEMORY[0x277CBEC10], &v63);;
+    v6 = v63;
 
     if (v33)
     {
@@ -2242,17 +2216,17 @@ LABEL_50:
       {
         v37 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v70 = v37;
-        v71 = 2112;
-        v72 = v35;
+        v69 = v37;
+        v70 = 2112;
+        v71 = v35;
         _os_log_impl(&dword_22AD27000, v36, OS_LOG_TYPE_DEFAULT, "%{public}@Re-opening newly created database after successfully turning on WAL for context: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v34);
       sqlite3_close(v28);
-      v63 = v6;
-      v28 = __sqlite3Open(v35, 0, &v63);
-      v29 = v63;
+      v62 = v6;
+      v28 = __sqlite3Open(v35, 0, &v62);
+      v29 = v62;
 
       if (v28)
       {
@@ -2262,23 +2236,23 @@ LABEL_50:
 
       if (a2)
       {
-        v59 = v29;
+        v58 = v29;
         *a2 = v29;
       }
 
-      v55 = objc_autoreleasePoolPush();
-      v60 = v35;
-      v57 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v54 = objc_autoreleasePoolPush();
+      v59 = v35;
+      v56 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
       {
-        v61 = HMFGetLogIdentifier();
+        v60 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v70 = v61;
-        v71 = 2112;
-        v72 = v60;
-        v73 = 2114;
-        v74 = v29;
-        _os_log_impl(&dword_22AD27000, v57, OS_LOG_TYPE_ERROR, "%{public}@Failed re-open of WAL-enabled context %@: %{public}@", buf, 0x20u);
+        v69 = v60;
+        v70 = 2112;
+        v71 = v59;
+        v72 = 2114;
+        v73 = v29;
+        _os_log_impl(&dword_22AD27000, v56, OS_LOG_TYPE_ERROR, "%{public}@Failed re-open of WAL-enabled context %@: %{public}@", buf, 0x20u);
       }
 
       v6 = v29;
@@ -2288,35 +2262,35 @@ LABEL_50:
     {
       if (a2)
       {
-        v54 = v6;
+        v53 = v6;
         *a2 = v6;
       }
 
-      v55 = objc_autoreleasePoolPush();
-      v56 = v3;
-      v57 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v54 = objc_autoreleasePoolPush();
+      v55 = v3;
+      v56 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
       {
-        v58 = HMFGetLogIdentifier();
+        v57 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v70 = v58;
-        v71 = 2112;
-        v72 = v56;
-        v73 = 2114;
-        v74 = v6;
-        _os_log_impl(&dword_22AD27000, v57, OS_LOG_TYPE_ERROR, "%{public}@Failed to turn on WAL for context %@: %{public}@", buf, 0x20u);
+        v69 = v57;
+        v70 = 2112;
+        v71 = v55;
+        v72 = 2114;
+        v73 = v6;
+        _os_log_impl(&dword_22AD27000, v56, OS_LOG_TYPE_ERROR, "%{public}@Failed to turn on WAL for context %@: %{public}@", buf, 0x20u);
       }
     }
 
-    objc_autoreleasePoolPop(v55);
+    objc_autoreleasePoolPop(v54);
     goto LABEL_50;
   }
 
 LABEL_21:
   [v3 setConnection:v28];
-  v62 = v29;
-  v38 = [v3 initializeNewlyCreatedDatabaseWithError:&v62];
-  v6 = v62;
+  v61 = v29;
+  v38 = [v3 initializeNewlyCreatedDatabaseWithError:&v61];
+  v6 = v61;
 
   if ((v38 & 1) == 0)
   {
@@ -2327,11 +2301,11 @@ LABEL_21:
     {
       v50 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v70 = v50;
-      v71 = 2112;
-      v72 = v48;
-      v73 = 2112;
-      v74 = v6;
+      v69 = v50;
+      v70 = 2112;
+      v71 = v48;
+      v72 = 2112;
+      v73 = v6;
       _os_log_impl(&dword_22AD27000, v49, OS_LOG_TYPE_ERROR, "%{public}@Failed to initialize newly created database for context %@: %@", buf, 0x20u);
     }
 
@@ -2347,13 +2321,12 @@ LABEL_21:
   v24 = 1;
 LABEL_39:
 
-  v52 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 sqlite3 *__sqlite3Open(void *a1, int a2, void *a3)
 {
-  v50[1] = *MEMORY[0x277D85DE8];
+  v49[1] = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = v5;
   if (a2)
@@ -2382,7 +2355,7 @@ sqlite3 *__sqlite3Open(void *a1, int a2, void *a3)
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v42 = v33;
+        v41 = v33;
         _os_log_impl(&dword_22AD27000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@Unable to open memory database with create == NO", buf, 0xCu);
       }
 
@@ -2390,9 +2363,9 @@ sqlite3 *__sqlite3Open(void *a1, int a2, void *a3)
       if (a3)
       {
         v34 = MEMORY[0x277CCA9B8];
-        v49 = @"extcode";
-        v50[0] = &unk_283EB9EB8;
-        v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:&v49 count:1];
+        v48 = @"extcode";
+        v49[0] = &unk_283EB9EB8;
+        v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
         *a3 = [v34 hmfErrorWithCode:3 userInfo:v35];
       }
 
@@ -2427,13 +2400,13 @@ sqlite3 *__sqlite3Open(void *a1, int a2, void *a3)
       v20 = [v36 url];
       v21 = [MEMORY[0x277CCA9B8] hmbErrorWithSQLite3Status:14];
       *buf = 138544130;
-      v42 = v18;
-      v43 = 2048;
-      v44 = v37;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2114;
-      v48 = v21;
+      v41 = v18;
+      v42 = 2048;
+      v43 = v37;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2114;
+      v47 = v21;
       v22 = "%{public}@Can't open context %p without creating because no database exists already at %@: %{public}@";
       v23 = v17;
       v24 = OS_LOG_TYPE_DEFAULT;
@@ -2454,13 +2427,13 @@ sqlite3 *__sqlite3Open(void *a1, int a2, void *a3)
       v20 = [v16 url];
       v21 = [MEMORY[0x277CCA9B8] hmbErrorWithSQLite3Status:v14];
       *buf = 138544130;
-      v42 = v18;
-      v43 = 2048;
-      v44 = v19;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2114;
-      v48 = v21;
+      v41 = v18;
+      v42 = 2048;
+      v43 = v19;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2114;
+      v47 = v21;
       v22 = "%{public}@Failed to open context %p at %@: %{public}@";
       v23 = v17;
       v24 = OS_LOG_TYPE_ERROR;
@@ -2491,9 +2464,9 @@ LABEL_25:
   {
     v28 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v42 = v28;
-    v43 = 2112;
-    v44 = v26;
+    v41 = v28;
+    v42 = 2112;
+    v43 = v26;
     _os_log_impl(&dword_22AD27000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully opened sqlite database handle for context: %@", buf, 0x16u);
   }
 
@@ -2501,13 +2474,12 @@ LABEL_25:
   v29 = ppDb;
 LABEL_26:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
-id selectSQLite3(sqlite3 *a1, const char *a2, void *a3, void *a4)
+id selectSQLite3(sqlite3 *a1, const char *a2, void *a3, void *a4, ...)
 {
-  v68[3] = *MEMORY[0x277D85DE8];
+  v67[3] = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = __removeExtraWhitespace(a2);
   v9 = [v8 UTF8String];
@@ -2528,14 +2500,14 @@ id selectSQLite3(sqlite3 *a1, const char *a2, void *a3, void *a4)
     goto LABEL_54;
   }
 
-  v61 = v10;
+  v60 = v10;
   v13 = sqlite3_bind_parameter_count(ppStmt);
   if (v13 >= 2)
   {
     v14 = v13;
     v15 = 1;
     v16 = 0x277CCA000uLL;
-    v57 = *MEMORY[0x277D0F1A0];
+    v56 = *MEMORY[0x277D0F1A0];
     while (1)
     {
       if (*a4)
@@ -2547,16 +2519,16 @@ id selectSQLite3(sqlite3 *a1, const char *a2, void *a3, void *a4)
       if (!v17)
       {
         v43 = MEMORY[0x277CCA9B8];
-        v68[0] = &unk_283EB9EA0;
-        v67[0] = @"extcode";
-        v67[1] = @"text";
+        v67[0] = &unk_283EB9EA0;
+        v66[0] = @"extcode";
+        v66[1] = @"text";
         v44 = [*(v16 + 3240) stringWithFormat:@"statement cannot contain nameless parameters (%ld is nameless)", v15];
-        v68[1] = v44;
-        v67[2] = @"statement";
+        v67[1] = v44;
+        v66[2] = @"statement";
         v45 = [*(v16 + 3240) stringWithUTF8String:v9];
-        v68[2] = v45;
-        v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:3];
-        *a4 = [v43 errorWithDomain:v57 code:3 userInfo:v46];
+        v67[2] = v45;
+        v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:3];
+        *a4 = [v43 errorWithDomain:v56 code:3 userInfo:v46];
 
         goto LABEL_52;
       }
@@ -2596,7 +2568,7 @@ LABEL_25:
       v23 = 0;
     }
 
-    v60 = v23;
+    v59 = v23;
 
     if (isKindOfClass)
     {
@@ -2626,7 +2598,7 @@ LABEL_25:
         goto LABEL_23;
       }
 
-      v58 = v9;
+      v57 = v9;
       v28 = v24;
       objc_opt_class();
       v29 = objc_opt_isKindOfClass();
@@ -2646,25 +2618,25 @@ LABEL_25:
       {
         hmbBindIntSQLite3(ppStmt, v15, [v28 longLongValue], a4);
         v24 = 0;
-        v9 = v58;
+        v9 = v57;
         goto LABEL_24;
       }
 
-      v55 = MEMORY[0x277CCA9B8];
-      v66[0] = &unk_283EB9EA0;
-      v65[0] = @"extcode";
-      v65[1] = @"text";
+      v54 = MEMORY[0x277CCA9B8];
+      v65[0] = &unk_283EB9EA0;
+      v64[0] = @"extcode";
+      v64[1] = @"text";
       v32 = MEMORY[0x277CCACA8];
       v33 = objc_opt_class();
-      v56 = NSStringFromClass(v33);
-      v54 = [v32 stringWithFormat:@"bind parameter %s is not of a recognized type %@ is not a (NSNull, NSData, NSString, or NSNumber)", v18, v56];
-      v66[1] = v54;
-      v65[2] = @"statement";
-      v9 = v58;
-      v34 = [MEMORY[0x277CCACA8] stringWithUTF8String:v58];
-      v66[2] = v34;
-      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:3];
-      *a4 = [v55 errorWithDomain:v57 code:3 userInfo:v35];
+      v55 = NSStringFromClass(v33);
+      v53 = [v32 stringWithFormat:@"bind parameter %s is not of a recognized type %@ is not a (NSNull, NSData, NSString, or NSNumber)", v18, v55];
+      v65[1] = v53;
+      v64[2] = @"statement";
+      v9 = v57;
+      v34 = [MEMORY[0x277CCACA8] stringWithUTF8String:v57];
+      v65[2] = v34;
+      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:3];
+      *a4 = [v54 errorWithDomain:v56 code:3 userInfo:v35];
     }
 
     v24 = 0;
@@ -2684,7 +2656,7 @@ LABEL_52:
     goto LABEL_53;
   }
 
-  v59 = v9;
+  v58 = v9;
   v36 = 0;
   v37 = sqlite3_column_count(ppStmt);
   while (1)
@@ -2697,7 +2669,7 @@ LABEL_52:
         *a4 = [MEMORY[0x277CCA9B8] hmbErrorWithSQLite3Statement:ppStmt];
       }
 
-      v10 = v61;
+      v10 = v60;
       sqlite3_finalize(ppStmt);
       if (*a4)
       {
@@ -2706,7 +2678,7 @@ LABEL_52:
 
       else
       {
-        v12 = v61;
+        v12 = v60;
       }
 
       v11 = v36;
@@ -2721,7 +2693,7 @@ LABEL_52:
     }
 
 LABEL_50:
-    [v61 addObject:v11];
+    [v60 addObject:v11];
     v36 = v11;
   }
 
@@ -2773,97 +2745,95 @@ LABEL_49:
   }
 
 LABEL_57:
-  v49 = MEMORY[0x277CCA9B8];
-  v50 = *MEMORY[0x277D0F1A0];
-  v64[0] = &unk_283EB9EA0;
-  v63[0] = @"extcode";
-  v63[1] = @"text";
-  v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"column %ld is of SQLite3 type %ld (not recognized)", v39, v40];
-  v64[1] = v51;
-  v63[2] = @"statement";
-  v52 = [MEMORY[0x277CCACA8] stringWithUTF8String:v59];
-  v64[2] = v52;
-  v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:3];
-  *a4 = [v49 errorWithDomain:v50 code:3 userInfo:v53];
+  v48 = MEMORY[0x277CCA9B8];
+  v49 = *MEMORY[0x277D0F1A0];
+  v63[0] = &unk_283EB9EA0;
+  v62[0] = @"extcode";
+  v62[1] = @"text";
+  v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"column %ld is of SQLite3 type %ld (not recognized)", v39, v40];
+  v63[1] = v50;
+  v62[2] = @"statement";
+  v51 = [MEMORY[0x277CCACA8] stringWithUTF8String:v58];
+  v63[2] = v51;
+  v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:3];
+  *a4 = [v48 errorWithDomain:v49 code:3 userInfo:v52];
 
 LABEL_53:
   v12 = 0;
-  v10 = v61;
+  v10 = v60;
 LABEL_54:
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 void __clean(void *a1)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [v1 lastPathComponent];
   v4 = [v1 URLByDeletingLastPathComponent];
-  v44 = 0;
-  v5 = [v2 contentsOfDirectoryAtURL:v4 includingPropertiesForKeys:0 options:0 error:&v44];
-  v6 = v44;
-  v33 = v3;
+  v43 = 0;
+  v5 = [v2 contentsOfDirectoryAtURL:v4 includingPropertiesForKeys:0 options:0 error:&v43];
+  v6 = v43;
+  v32 = v3;
   if (v5)
   {
-    v27 = v4;
-    v28 = v1;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
+    v26 = v4;
+    v27 = v1;
     v41 = 0u;
-    v26 = v5;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v25 = v5;
     obj = v5;
-    v31 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
-    if (v31)
+    v30 = [obj countByEnumeratingWithState:&v39 objects:v46 count:16];
+    if (v30)
     {
-      v30 = *v41;
+      v29 = *v40;
       do
       {
         v7 = 0;
         do
         {
-          if (*v41 != v30)
+          if (*v40 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v32 = v7;
-          v8 = *(*(&v40 + 1) + 8 * v7);
+          v31 = v7;
+          v8 = *(*(&v39 + 1) + 8 * v7);
           v9 = [v8 lastPathComponent];
+          v35 = 0u;
           v36 = 0u;
           v37 = 0u;
           v38 = 0u;
-          v39 = 0u;
-          v45[0] = &stru_283EAC008;
-          v45[1] = @"-shm";
-          v45[2] = @"-wal";
-          v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:3];
-          v10 = [v34 countByEnumeratingWithState:&v36 objects:v46 count:16];
+          v44[0] = &stru_283EAC008;
+          v44[1] = @"-shm";
+          v44[2] = @"-wal";
+          v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
+          v10 = [v33 countByEnumeratingWithState:&v35 objects:v45 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v37;
+            v12 = *v36;
             do
             {
               for (i = 0; i != v11; ++i)
               {
-                if (*v37 != v12)
+                if (*v36 != v12)
                 {
-                  objc_enumerationMutation(v34);
+                  objc_enumerationMutation(v33);
                 }
 
-                v14 = [v3 stringByAppendingString:*(*(&v36 + 1) + 8 * i)];
+                v14 = [v3 stringByAppendingString:*(*(&v35 + 1) + 8 * i)];
                 v15 = [v9 isEqualToString:v14];
 
                 if (v15)
                 {
-                  v35 = v6;
-                  v16 = [v2 removeItemAtURL:v8 error:&v35];
-                  v17 = v35;
+                  v34 = v6;
+                  v16 = [v2 removeItemAtURL:v8 error:&v34];
+                  v17 = v34;
 
                   if ((v16 & 1) == 0)
                   {
@@ -2874,15 +2844,15 @@ void __clean(void *a1)
                       HMFGetLogIdentifier();
                       v21 = v20 = v2;
                       *buf = 138543874;
-                      v49 = v21;
-                      v50 = 2112;
-                      v51 = v8;
-                      v52 = 2112;
-                      v53 = v17;
+                      v48 = v21;
+                      v49 = 2112;
+                      v50 = v8;
+                      v51 = 2112;
+                      v52 = v17;
                       _os_log_impl(&dword_22AD27000, v19, OS_LOG_TYPE_ERROR, "%{public}@unable to remove %@: %@", buf, 0x20u);
 
                       v2 = v20;
-                      v3 = v33;
+                      v3 = v32;
                     }
 
                     objc_autoreleasePoolPop(v18);
@@ -2892,25 +2862,25 @@ void __clean(void *a1)
                 }
               }
 
-              v11 = [v34 countByEnumeratingWithState:&v36 objects:v46 count:16];
+              v11 = [v33 countByEnumeratingWithState:&v35 objects:v45 count:16];
             }
 
             while (v11);
           }
 
-          v7 = v32 + 1;
+          v7 = v31 + 1;
         }
 
-        while (v32 + 1 != v31);
-        v31 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
+        while (v31 + 1 != v30);
+        v30 = [obj countByEnumeratingWithState:&v39 objects:v46 count:16];
       }
 
-      while (v31);
+      while (v30);
     }
 
-    v4 = v27;
-    v1 = v28;
-    v5 = v26;
+    v4 = v26;
+    v1 = v27;
+    v5 = v25;
   }
 
   else
@@ -2921,20 +2891,18 @@ void __clean(void *a1)
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v49 = v24;
-      v50 = 2112;
-      v51 = v4;
-      v52 = 2112;
-      v53 = v6;
+      v48 = v24;
+      v49 = 2112;
+      v50 = v4;
+      v51 = 2112;
+      v52 = v6;
       _os_log_impl(&dword_22AD27000, v23, OS_LOG_TYPE_ERROR, "%{public}@unable to get files in %@ (%@)", buf, 0x20u);
 
-      v3 = v33;
+      v3 = v32;
     }
 
     objc_autoreleasePoolPop(v22);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 id __removeExtraWhitespace(const char *a1)
@@ -2944,7 +2912,7 @@ id __removeExtraWhitespace(const char *a1)
   if (*a1)
   {
     v4 = 0;
-    v5 = (a1 + 1);
+    v5 = a1 + 1;
     v6 = MEMORY[0x277D85DE0];
     do
     {
@@ -3078,7 +3046,7 @@ sqlite3_stmt *hmbBindIntSQLite3(sqlite3_stmt *result, int a2, sqlite3_int64 a3, 
 
 void hmbBindUUIDSQLite3(sqlite3_stmt *a1, int a2, void *a3, void *a4)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = v7;
   if (!*a4)
@@ -3093,10 +3061,10 @@ void hmbBindUUIDSQLite3(sqlite3_stmt *a1, int a2, void *a3, void *a4)
       goto LABEL_4;
     }
 
-    v10[0] = 0;
-    v10[1] = 0;
-    [v7 getUUIDBytes:v10];
-    if (sqlite3_bind_blob64(a1, a2, v10, 0x10uLL, 0xFFFFFFFFFFFFFFFFLL))
+    v9[0] = 0;
+    v9[1] = 0;
+    [v7 getUUIDBytes:v9];
+    if (sqlite3_bind_blob64(a1, a2, v9, 0x10uLL, 0xFFFFFFFFFFFFFFFFLL))
     {
 LABEL_4:
       *a4 = [MEMORY[0x277CCA9B8] hmbErrorWithSQLite3Statement:a1];
@@ -3104,8 +3072,6 @@ LABEL_4:
   }
 
 LABEL_5:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t hmbBindIntNumberSQLite3(sqlite3_stmt *a1, int a2, void *a3, void *a4)
@@ -3154,9 +3120,9 @@ sqlite3_stmt *prepareSQLite3(sqlite3 *a1, const char *a2, void *a3)
   return v7;
 }
 
-void sub_22AD9EC14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22AD9EC14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3168,79 +3134,79 @@ uint64_t __Block_byref_object_copy__7414(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22AD9F28C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AD9F28C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AD9F490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AD9F490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AD9F6BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AD9F6BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AD9F8A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AD9F8A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AD9FA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AD9FA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id __modelsFromRecords(void *a1, void *a2, uint64_t a3, void *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
-  v22 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v7, "count")}];
+  v21 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v7, "count")}];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v25;
+    v12 = *v24;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
         v14 = v11;
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * i);
+        v15 = *(*(&v23 + 1) + 8 * i);
         v16 = objc_autoreleasePoolPush();
-        v23 = v14;
-        v17 = [v6 modelFromRecord:v15 storageLocation:2 error:&v23];
-        v11 = v23;
+        v22 = v14;
+        v17 = [v6 modelFromRecord:v15 storageLocation:2 error:&v22];
+        v11 = v22;
 
         if (v17)
         {
           if (!a3 || (objc_opt_isKindOfClass() & 1) != 0)
           {
-            [v22 addObject:v17];
+            [v21 addObject:v17];
           }
         }
 
@@ -3254,7 +3220,7 @@ id __modelsFromRecords(void *a1, void *a2, uint64_t a3, void *a4)
         objc_autoreleasePoolPop(v16);
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v10)
       {
         continue;
@@ -3269,51 +3235,49 @@ id __modelsFromRecords(void *a1, void *a2, uint64_t a3, void *a4)
     v11 = 0;
   }
 
-  if (!v22)
+  if (!v21)
   {
 LABEL_16:
     if (a4)
     {
       v18 = v11;
-      v22 = 0;
+      v21 = 0;
       *a4 = v11;
     }
 
     else
     {
-      v22 = 0;
+      v21 = 0;
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
-void sub_22AD9FE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AD9FE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA00A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ADA00A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA02E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ADA02E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 BOOL __execAndSetError(void *a1, sqlite3_stmt *a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a3;
   if (!v8)
@@ -3334,13 +3298,13 @@ BOOL __execAndSetError(void *a1, sqlite3_stmt *a2, void *a3, void *a4)
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v13 = HMFGetLogIdentifier();
-    v17 = 138543874;
-    v18 = v13;
-    v19 = 2080;
-    v20 = sqlite3_sql(a2);
-    v21 = 2112;
-    v22 = v9;
-    _os_log_impl(&dword_22AD27000, v12, OS_LOG_TYPE_INFO, "%{public}@ignoring exec due to previous error %s: %@", &v17, 0x20u);
+    v16 = 138543874;
+    v17 = v13;
+    v18 = 2080;
+    v19 = sqlite3_sql(a2);
+    v20 = 2112;
+    v21 = v9;
+    _os_log_impl(&dword_22AD27000, v12, OS_LOG_TYPE_INFO, "%{public}@ignoring exec due to previous error %s: %@", &v16, 0x20u);
   }
 
   objc_autoreleasePoolPop(v10);
@@ -3356,20 +3320,19 @@ LABEL_7:
 
 LABEL_9:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9 == 0;
 }
 
-void sub_22ADA0D20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ADA0D20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA0F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ADA0F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3381,37 +3344,37 @@ uint64_t __Block_byref_object_copy__7598(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22ADA16BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ADA16BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA19A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ADA19A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA1C74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ADA1C74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA22E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_22ADA22E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __execRowAndSetError(void *a1, uint64_t a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a3;
   v9 = v8;
@@ -3432,91 +3395,90 @@ uint64_t __execRowAndSetError(void *a1, uint64_t a2, void *a3, void *a4)
 
   else
   {
-    v21 = 0;
-    v11 = [v7 insertSQLite3:a2 error:&v21];
-    v12 = v21;
+    v20 = 0;
+    v11 = [v7 insertSQLite3:a2 error:&v20];
+    v12 = v20;
     if (!v11)
     {
-      v15 = objc_autoreleasePoolPush();
-      v16 = v7;
-      v17 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v14 = objc_autoreleasePoolPush();
+      v15 = v7;
+      v16 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v18 = HMFGetLogIdentifier();
+        v17 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v23 = v18;
-        v24 = 2114;
-        v25 = v12;
-        _os_log_impl(&dword_22AD27000, v17, OS_LOG_TYPE_ERROR, "%{public}@Error executing statement: %{public}@", buf, 0x16u);
+        v22 = v17;
+        v23 = 2114;
+        v24 = v12;
+        _os_log_impl(&dword_22AD27000, v16, OS_LOG_TYPE_ERROR, "%{public}@Error executing statement: %{public}@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v15);
+      objc_autoreleasePoolPop(v14);
       if (a4)
       {
         if (v12)
         {
-          v19 = v12;
+          v18 = v12;
           *a4 = v12;
         }
 
         else
         {
-          v20 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
-          *a4 = v20;
+          v19 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
+          *a4 = v19;
         }
       }
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
-void sub_22ADA3010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_22ADA3010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA362C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ADA362C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA3900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ADA3900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA43A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ADA43A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA46D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ADA46D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA4B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ADA4B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA6F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ADA6F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3528,114 +3490,114 @@ uint64_t __Block_byref_object_copy__7867(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22ADA7264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ADA7264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA751C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ADA751C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA7834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ADA7834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA7B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ADA7B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA7EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ADA7EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA81BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ADA81BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA8478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ADA8478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA8744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ADA8744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA8A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ADA8A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA9930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ADA9930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA9B4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22ADA9B4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADA9D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22ADA9D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADAA168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22ADAA168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADAA3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ADAA3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADAA5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ADAA5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ADAA80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ADAA80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3657,7 +3619,7 @@ __CFString *HMBStringFromLoggingVisibility(unint64_t a1)
 
 id __unregisterSubscriptionForSubscriptionID(void *a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -3672,27 +3634,27 @@ id __unregisterSubscriptionForSubscriptionID(void *a1, void *a2, void *a3)
   os_unfair_lock_lock_with_options();
   v10 = [v7 subscriptions];
   os_unfair_lock_unlock(v5 + 2);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = ____unregisterSubscriptionForSubscriptionID_block_invoke;
-  v27[3] = &unk_2786E2C48;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = ____unregisterSubscriptionForSubscriptionID_block_invoke;
+  v26[3] = &unk_2786E2C48;
   v11 = v6;
-  v28 = v11;
-  if ([v10 na_any:v27])
+  v27 = v11;
+  if ([v10 na_any:v26])
   {
     v12 = [v7 database];
-    v29 = v11;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+    v28 = v11;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
     v14 = [(os_unfair_lock_s *)v5 pushSubscriptionsForDatabase:v12 subscriptionsToSave:MEMORY[0x277CBEBF8] subscriptionIDsToRemove:v13];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = ____unregisterSubscriptionForSubscriptionID_block_invoke_47;
-    v22[3] = &unk_2786E2BA8;
-    v23 = v5;
-    v24 = v7;
-    v25 = v10;
-    v26 = v11;
-    v15 = [v14 addSuccessBlock:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = ____unregisterSubscriptionForSubscriptionID_block_invoke_47;
+    v21[3] = &unk_2786E2BA8;
+    v22 = v5;
+    v23 = v7;
+    v24 = v10;
+    v25 = v11;
+    v15 = [v14 addSuccessBlock:v21];
   }
 
   else
@@ -3704,19 +3666,17 @@ id __unregisterSubscriptionForSubscriptionID(void *a1, void *a2, void *a3)
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v31 = v19;
-      v32 = 2112;
-      v33 = v11;
-      v34 = 2112;
-      v35 = v10;
+      v30 = v19;
+      v31 = 2112;
+      v32 = v11;
+      v33 = 2112;
+      v34 = v10;
       _os_log_impl(&dword_22AD27000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Not unregistering database subscription ID %@ because it is not in our list of existing database subscription: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v16);
     v15 = [MEMORY[0x277D2C900] futureWithNoResult];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -3731,22 +3691,22 @@ uint64_t ____unregisterSubscriptionForSubscriptionID_block_invoke(uint64_t a1, v
 
 void ____unregisterSubscriptionForSubscriptionID_block_invoke_47(uint64_t a1, void *a2)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   os_unfair_lock_lock_with_options();
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = ____unregisterSubscriptionForSubscriptionID_block_invoke_2;
-  v15[3] = &unk_2786E2C48;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = ____unregisterSubscriptionForSubscriptionID_block_invoke_2;
+  v14[3] = &unk_2786E2C48;
   v5 = *(a1 + 48);
-  v16 = *(a1 + 56);
-  v6 = [v5 na_filter:v15];
+  v15 = *(a1 + 56);
+  v6 = [v5 na_filter:v14];
   [*(a1 + 40) setSubscriptions:v6];
 
   v7 = [*(a1 + 32) stateZone];
-  v21[0] = *(a1 + 40);
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = *(a1 + 40);
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v9 = [v7 update:v8];
 
   if (v9)
@@ -3758,9 +3718,9 @@ void ____unregisterSubscriptionForSubscriptionID_block_invoke_47(uint64_t a1, vo
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v9;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v9;
       _os_log_impl(&dword_22AD27000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to update database state: %@", buf, 0x16u);
     }
 
@@ -3768,7 +3728,6 @@ void ____unregisterSubscriptionForSubscriptionID_block_invoke_47(uint64_t a1, vo
   }
 
   os_unfair_lock_unlock(v4 + 2);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ____unregisterSubscriptionForSubscriptionID_block_invoke_2(uint64_t a1, void *a2)
@@ -3781,15 +3740,15 @@ uint64_t ____unregisterSubscriptionForSubscriptionID_block_invoke_2(uint64_t a1,
 
 void __modifySubscriptions(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v11 = a1;
-  v35 = a2;
+  v34 = a2;
   v12 = a3;
-  v38 = a4;
+  v37 = a4;
   v13 = a5;
-  v36 = a6;
-  v37 = v12;
-  if ([v12 count] || objc_msgSend(v38, "count"))
+  v35 = a6;
+  v36 = v12;
+  if ([v12 count] || objc_msgSend(v37, "count"))
   {
     if (!v13)
     {
@@ -3803,75 +3762,73 @@ void __modifySubscriptions(void *a1, void *a2, void *a3, void *a4, void *a5, voi
     [v16 setConfiguration:v17];
 
     [v16 setSubscriptionsToSave:v12];
-    [v16 setSubscriptionIDsToDelete:v38];
+    [v16 setSubscriptionIDsToDelete:v37];
     objc_initWeak(&location, v16);
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = ____modifySubscriptions_block_invoke;
-    v39[3] = &unk_2786E2C98;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = ____modifySubscriptions_block_invoke;
+    v38[3] = &unk_2786E2C98;
     v18 = v11;
-    v40 = v18;
+    v39 = v18;
     v13 = v13;
-    v41 = v13;
-    objc_copyWeak(&v46, &location);
-    v34 = v35;
-    v42 = v34;
+    v40 = v13;
+    objc_copyWeak(&v45, &location);
+    v33 = v34;
+    v41 = v33;
     v19 = v12;
-    v43 = v19;
-    v20 = v38;
-    v44 = v20;
-    v45 = v36;
-    [v16 setModifySubscriptionsCompletionBlock:v39];
+    v42 = v19;
+    v20 = v37;
+    v43 = v20;
+    v44 = v35;
+    [v16 setModifySubscriptionsCompletionBlock:v38];
     context = objc_autoreleasePoolPush();
     v21 = v18;
     v22 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v32 = v11;
+      v31 = v11;
       v23 = HMFGetLogIdentifier();
       v24 = [v13 identifier];
       v25 = [v24 shortDescription];
       v26 = [v16 operationID];
       *buf = 138544386;
-      v49 = v23;
-      v50 = 2114;
-      v51 = v25;
-      v52 = 2112;
-      v53 = v19;
-      v54 = 2112;
-      v55 = v20;
-      v56 = 2114;
-      v57 = v26;
+      v48 = v23;
+      v49 = 2114;
+      v50 = v25;
+      v51 = 2112;
+      v52 = v19;
+      v53 = 2112;
+      v54 = v20;
+      v55 = 2114;
+      v56 = v26;
       _os_log_impl(&dword_22AD27000, v22, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Starting CKModifySubscriptionsOperation with subscriptionsToSave: %@ subscriptionIDsToRemove: %@ operationID: %{public}@", buf, 0x34u);
 
-      v11 = v32;
+      v11 = v31;
     }
 
     objc_autoreleasePoolPop(context);
-    [v34 addOperation:v16];
+    [v33 addOperation:v16];
 
-    objc_destroyWeak(&v46);
+    objc_destroyWeak(&v45);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v28 = objc_autoreleasePoolPush();
-    v29 = v11;
-    v30 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    v27 = objc_autoreleasePoolPush();
+    v28 = v11;
+    v29 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
-      v31 = HMFGetLogIdentifier();
+      v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v49 = v31;
-      _os_log_impl(&dword_22AD27000, v30, OS_LOG_TYPE_DEBUG, "%{public}@Skipping subscription modify for empty save and remove lists", buf, 0xCu);
+      v48 = v30;
+      _os_log_impl(&dword_22AD27000, v29, OS_LOG_TYPE_DEBUG, "%{public}@Skipping subscription modify for empty save and remove lists", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v28);
-    [v36 finishWithNoResult];
+    objc_autoreleasePoolPop(v27);
+    [v35 finishWithNoResult];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22ADAFED4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id location)
@@ -3883,7 +3840,7 @@ void sub_22ADAFED4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ____modifySubscriptions_block_invoke(id *a1, void *a2, void *a3, void *a4)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -3899,11 +3856,11 @@ void ____modifySubscriptions_block_invoke(id *a1, void *a2, void *a3, void *a4)
       v15 = [a1[5] identifier];
       v16 = [v15 shortDescription];
       *buf = 138543874;
-      v49 = v14;
-      v50 = 2114;
-      v51 = v16;
-      v52 = 2114;
-      v53 = v9;
+      v48 = v14;
+      v49 = 2114;
+      v50 = v16;
+      v51 = 2114;
+      v52 = v9;
       _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@[%{public}@] CKModifySubscriptionsOperation failed: %{public}@", buf, 0x20u);
     }
 
@@ -3916,17 +3873,17 @@ void ____modifySubscriptions_block_invoke(id *a1, void *a2, void *a3, void *a4)
 
     v18 = WeakRetained;
     v19 = a1[4];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = ____modifySubscriptions_block_invoke_35;
-    v41[3] = &unk_2786E2C70;
-    v42 = v19;
-    v43 = a1[6];
-    v44 = a1[7];
-    v45 = a1[8];
-    v46 = a1[5];
-    v47 = a1[9];
-    v20 = [v42 retryCloudKitOperation:v18 afterError:v9 retryBlock:v41];
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = ____modifySubscriptions_block_invoke_35;
+    v40[3] = &unk_2786E2C70;
+    v41 = v19;
+    v42 = a1[6];
+    v43 = a1[7];
+    v44 = a1[8];
+    v45 = a1[5];
+    v46 = a1[9];
+    v20 = [v41 retryCloudKitOperation:v18 afterError:v9 retryBlock:v40];
     v21 = objc_autoreleasePoolPush();
     v22 = a1[4];
     v23 = HMFGetOSLogHandle();
@@ -3938,16 +3895,16 @@ void ____modifySubscriptions_block_invoke(id *a1, void *a2, void *a3, void *a4)
         v25 = HMFGetLogIdentifier();
         v26 = [a1[5] identifier];
         [v26 shortDescription];
-        v39 = v8;
+        v38 = v8;
         v28 = v27 = v7;
         *buf = 138543618;
-        v49 = v25;
-        v50 = 2114;
-        v51 = v28;
+        v48 = v25;
+        v49 = 2114;
+        v50 = v28;
         _os_log_impl(&dword_22AD27000, v24, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] CKModifySubscriptionsOperation will be retried", buf, 0x16u);
 
         v7 = v27;
-        v8 = v39;
+        v8 = v38;
       }
 
       objc_autoreleasePoolPop(v21);
@@ -3959,20 +3916,20 @@ void ____modifySubscriptions_block_invoke(id *a1, void *a2, void *a3, void *a4)
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v40 = v8;
+        v39 = v8;
         v35 = v34 = v7;
         v36 = [a1[5] identifier];
         v37 = [v36 shortDescription];
         *buf = 138543874;
-        v49 = v35;
-        v50 = 2114;
-        v51 = v37;
-        v52 = 2114;
-        v53 = v9;
+        v48 = v35;
+        v49 = 2114;
+        v50 = v37;
+        v51 = 2114;
+        v52 = v9;
         _os_log_impl(&dword_22AD27000, v24, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] CKModifySubscriptionsOperation failed and cannot be retried: %{public}@", buf, 0x20u);
 
         v7 = v34;
-        v8 = v40;
+        v8 = v39;
       }
 
       objc_autoreleasePoolPop(v21);
@@ -3991,9 +3948,9 @@ void ____modifySubscriptions_block_invoke(id *a1, void *a2, void *a3, void *a4)
       v32 = [a1[5] identifier];
       v33 = [v32 shortDescription];
       *buf = 138543618;
-      v49 = v31;
-      v50 = 2114;
-      v51 = v33;
+      v48 = v31;
+      v49 = 2114;
+      v50 = v33;
       _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] CKModifySubscriptionsOperation succeeded", buf, 0x16u);
 
       v7 = v30;
@@ -4004,6 +3961,4 @@ void ____modifySubscriptions_block_invoke(id *a1, void *a2, void *a3, void *a4)
     [a1[5] markWithReason:@"succeeded"];
     [a1[9] finishWithNoResult];
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }

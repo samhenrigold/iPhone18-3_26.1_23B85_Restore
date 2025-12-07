@@ -7,56 +7,63 @@ ECHeaderAuthenticationResults *__78___ECHeaderAuthenticationResultsParser__authe
 {
   v3 = a2;
   v4 = [objc_alloc(MEMORY[0x277CCAC80]) initWithString:v3];
-  if ([*(a1 + 32) _skipCFWSWithScanner:v4])
+  v5 = [*(a1 + 32) _skipCFWSWithScanner:v4];
+  if (v5)
   {
-    v5 = *(a1 + 32);
-    v17 = 0;
-    v6 = [v5 _scanQuotedValueWithScanner:v4 intoString:&v17];
-    v7 = v17;
-    if (v6 && ([*(a1 + 32) _skipCFWSWithScanner:v4] & 1) != 0)
+    v6 = *(a1 + 32);
+    v19 = 0;
+    v7 = [v6 _scanQuotedValueWithScanner:v4 intoString:&v19];
+    v5 = v19;
+    v8 = v5;
+    if (v7)
     {
-      v8 = [*(a1 + 32) _versionWithScanner:v4];
-      v9 = *(a1 + 32);
-      v16 = 0;
-      v10 = [v9 _statementsWithScanner:v4 intoArray:&v16];
-      v11 = v16;
-      if (v10)
+      v5 = [*(a1 + 32) _skipCFWSWithScanner:v4];
+      if (v5)
       {
-        v12 = [ECHeaderAuthenticationResults alloc];
-        v13 = [v11 ef_notEmpty];
-        v14 = [(ECHeaderAuthenticationResults *)v12 initWithAuthenticationServiceIdentifier:v7 version:v8 statements:v13];
-      }
-
-      else
-      {
-        v13 = _ef_log_ECHeaderAuthenticationResults();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v9 = [*(a1 + 32) _versionWithScanner:v4];
+        v10 = *(a1 + 32);
+        v18 = 0;
+        v11 = [v10 _statementsWithScanner:v4 intoArray:&v18];
+        v12 = v18;
+        v13 = v12;
+        if (v11)
         {
-          __78___ECHeaderAuthenticationResultsParser__authenticationResultsForHeaderBodies___block_invoke_cold_2(v13);
+          v14 = [ECHeaderAuthenticationResults alloc];
+          v15 = [v13 ef_notEmpty];
+          v16 = [(ECHeaderAuthenticationResults *)v14 initWithAuthenticationServiceIdentifier:v8 version:v9 statements:v15];
         }
 
-        v14 = 0;
-      }
+        else
+        {
+          v15 = _ef_log_ECHeaderAuthenticationResults(v12);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          {
+            __78___ECHeaderAuthenticationResultsParser__authenticationResultsForHeaderBodies___block_invoke_cold_2(v15);
+          }
 
-      goto LABEL_10;
+          v16 = 0;
+        }
+
+        goto LABEL_10;
+      }
     }
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v11 = _ef_log_ECHeaderAuthenticationResults();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v13 = _ef_log_ECHeaderAuthenticationResults(v5);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    __78___ECHeaderAuthenticationResultsParser__authenticationResultsForHeaderBodies___block_invoke_cold_1(v11);
+    __78___ECHeaderAuthenticationResultsParser__authenticationResultsForHeaderBodies___block_invoke_cold_1(v13);
   }
 
-  v14 = 0;
+  v16 = 0;
 LABEL_10:
 
-  return v14;
+  return v16;
 }
 
 uint64_t __61___ECHeaderAuthenticationResultsParser__skipCFWSWithScanner___block_invoke()

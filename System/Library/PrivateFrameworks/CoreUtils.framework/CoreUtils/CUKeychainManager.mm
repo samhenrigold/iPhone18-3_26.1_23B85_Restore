@@ -167,7 +167,7 @@ LABEL_7:
       {
         if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize(category, 0x1Eu)))
         {
-          LogPrintF(category, "[CUKeychainManager addOrUpdateOrReAddItem:flags:logCategory:logLabel:error:]", 0x1Eu, "%@ updated: %@\n", v31, v32, v33, v34, labelCopy);
+          LogPrintF(category, "[CUKeychainManager addOrUpdateOrReAddItem:flags:logCategory:logLabel:error:]", 30, "%@ updated: %@\n", v31, v32, v33, v34, labelCopy);
         }
 
         goto LABEL_40;
@@ -175,7 +175,7 @@ LABEL_7:
 
       if (var0 <= 90 && (var0 != -1 || _LogCategory_Initialize(category, 0x5Au)))
       {
-        LogPrintF(category, "[CUKeychainManager addOrUpdateOrReAddItem:flags:logCategory:logLabel:error:]", 0x5Au, "### %@ update failed: %@, %{error}\n", v31, v32, v33, v34, labelCopy);
+        LogPrintF(category, "[CUKeychainManager addOrUpdateOrReAddItem:flags:logCategory:logLabel:error:]", 90, "### %@ update failed: %@, %{error}\n", v31, v32, v33, v34, labelCopy);
       }
     }
 
@@ -183,7 +183,7 @@ LABEL_7:
     {
       if (category->var0 <= 90 && (category->var0 != -1 || _LogCategory_Initialize(category, 0x5Au)))
       {
-        LogPrintF(category, "[CUKeychainManager addOrUpdateOrReAddItem:flags:logCategory:logLabel:error:]", 0x5Au, "### %@ add failed: %@, %{error}\n", v25, v26, v27, v28, labelCopy);
+        LogPrintF(category, "[CUKeychainManager addOrUpdateOrReAddItem:flags:logCategory:logLabel:error:]", 90, "### %@ add failed: %@, %{error}\n", v25, v26, v27, v28, labelCopy);
       }
 
       v30 = v19;
@@ -195,7 +195,7 @@ LABEL_7:
 
     if (!v37 && category->var0 <= 90 && (category->var0 != -1 || _LogCategory_Initialize(category, 0x5Au)))
     {
-      LogPrintF(category, "[CUKeychainManager addOrUpdateOrReAddItem:flags:logCategory:logLabel:error:]", 0x5Au, "### %@ delete to re-add failed: %@, %{error}\n", v39, v40, v41, v42, labelCopy);
+      LogPrintF(category, "[CUKeychainManager addOrUpdateOrReAddItem:flags:logCategory:logLabel:error:]", 90, "### %@ delete to re-add failed: %@, %{error}\n", v39, v40, v41, v42, labelCopy);
     }
 
     v51 = v38;
@@ -207,7 +207,7 @@ LABEL_7:
     {
       if (v48 <= 90 && (v48 != -1 || _LogCategory_Initialize(category, 0x5Au)))
       {
-        LogPrintF(category, "[CUKeychainManager addOrUpdateOrReAddItem:flags:logCategory:logLabel:error:]", 0x5Au, "### %@ re-add failed: %@, %{error}\n", v44, v45, v46, v47, labelCopy);
+        LogPrintF(category, "[CUKeychainManager addOrUpdateOrReAddItem:flags:logCategory:logLabel:error:]", 90, "### %@ re-add failed: %@, %{error}\n", v44, v45, v46, v47, labelCopy);
       }
 
       if (error)
@@ -227,7 +227,7 @@ LABEL_7:
 
     if (v48 <= 30 && (v48 != -1 || _LogCategory_Initialize(category, 0x1Eu)))
     {
-      LogPrintF(category, "[CUKeychainManager addOrUpdateOrReAddItem:flags:logCategory:logLabel:error:]", 0x1Eu, "%@ deleted and re-added: %@\n", v44, v45, v46, v47, labelCopy);
+      LogPrintF(category, "[CUKeychainManager addOrUpdateOrReAddItem:flags:logCategory:logLabel:error:]", 30, "%@ deleted and re-added: %@\n", v44, v45, v46, v47, labelCopy);
     }
 
 LABEL_40:
@@ -240,7 +240,7 @@ LABEL_41:
 
   if (category->var0 <= 30 && (category->var0 != -1 || _LogCategory_Initialize(category, 0x1Eu)))
   {
-    LogPrintF(category, "[CUKeychainManager addOrUpdateOrReAddItem:flags:logCategory:logLabel:error:]", 0x1Eu, "%@ added: %@\n", v15, v16, v17, v18, labelCopy);
+    LogPrintF(category, "[CUKeychainManager addOrUpdateOrReAddItem:flags:logCategory:logLabel:error:]", 30, "%@ added: %@\n", v15, v16, v17, v18, labelCopy);
   }
 
   v36 = 1;
@@ -429,7 +429,7 @@ LABEL_15:
 - (id)_copyItemsMatchingItemSeparate:(id)separate flags:(unsigned int)flags error:(id *)error
 {
   v6 = *&flags;
-  v51 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   separateCopy = separate;
   v9 = [(CUKeychainManager *)self _copyItemsMatchingItem:separateCopy flags:v6 & 0xFFFFFFFE error:error];
   v10 = v9;
@@ -450,32 +450,32 @@ LABEL_15:
       viewHint = [separateCopy viewHint];
       [(CUKeychainItem *)v11 setViewHint:viewHint];
 
-      v42 = separateCopy;
+      v36 = separateCopy;
       type2 = [separateCopy type];
 
-      v44 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v46 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v41 = v10;
+      v38 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v40 = 0u;
+      v41 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v35 = v10;
       v16 = v10;
-      v17 = [v16 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v40 objects:v44 count:16];
       if (v17)
       {
         v18 = v17;
-        v43 = 0;
-        v19 = *v47;
+        v37 = 0;
+        v19 = *v41;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v47 != v19)
+            if (*v41 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v46 + 1) + 8 * i);
+            v21 = *(*(&v40 + 1) + 8 * i);
             identifier = [v21 identifier];
 
             if (identifier)
@@ -492,23 +492,23 @@ LABEL_15:
               viewHint2 = [v21 viewHint];
               [(CUKeychainItem *)v11 setViewHint:viewHint2];
 
-              v45 = 0;
-              v26 = [(CUKeychainManager *)self copyItemMatchingItem:v11 flags:v6 error:&v45];
-              v27 = v45;
+              v39 = 0;
+              v26 = [(CUKeychainManager *)self copyItemMatchingItem:v11 flags:v6 error:&v39];
+              v27 = v39;
               v28 = v27;
               if (v26)
               {
-                [v44 addObject:v26];
+                [v38 addObject:v26];
               }
 
-              else if (!v43)
+              else if (!v37)
               {
-                v43 = v27;
+                v37 = v27;
               }
             }
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v46 objects:v50 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v40 objects:v44 count:16];
         }
 
         while (v18);
@@ -516,36 +516,35 @@ LABEL_15:
 
       else
       {
-        v43 = 0;
+        v37 = 0;
       }
 
-      if ([v44 count])
+      if ([v38 count])
       {
-        v29 = [v44 copy];
-        v10 = v41;
-        separateCopy = v42;
-        v35 = v43;
+        v29 = [v38 copy];
+        v10 = v35;
+        separateCopy = v36;
+        v30 = v37;
 LABEL_29:
 
         goto LABEL_30;
       }
 
-      v10 = v41;
-      separateCopy = v42;
-      v36 = errorCopy;
-      v35 = v43;
+      v10 = v35;
+      separateCopy = v36;
+      v30 = v37;
       if (errorCopy)
       {
-        if (v43)
+        if (v37)
         {
-          v37 = v43;
+          v31 = v37;
           v29 = 0;
-          *errorCopy = v43;
+          *errorCopy = v37;
           goto LABEL_29;
         }
 
-        v38 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "No data-accessible items", v30, v31, v32, v33, v34, errorCopy);
-        *v36 = v38;
+        v32 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "No data-accessible items");
+        *errorCopy = v32;
       }
 
       v29 = 0;

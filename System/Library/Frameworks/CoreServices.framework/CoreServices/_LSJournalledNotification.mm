@@ -38,9 +38,9 @@
 - (_LSJournalledNotification)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = _LSJournalledNotification;
-  v5 = [(_LSJournalledNotification *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = _LSJournalledNotification;
+  v5 = [(_LSJournalledNotification *)&v16 init];
   if (v5)
   {
     v5->_notification = [coderCopy decodeIntForKey:@"_notification"];
@@ -51,11 +51,12 @@
     bundleIDs = v5->_bundleIDs;
     v5->_bundleIDs = v9;
 
-    v5->_includePlugins = [coderCopy decodeBoolForKey:@"_includePlugins"];
-    v11 = XNSGetPropertyListClasses();
-    v12 = [coderCopy ls_decodeObjectOfClasses:v11 forKey:@"_options"];
+    v11 = [coderCopy decodeBoolForKey:@"_includePlugins"];
+    v5->_includePlugins = v11;
+    v12 = XNSGetPropertyListClasses(v11);
+    v13 = [coderCopy ls_decodeObjectOfClasses:v12 forKey:@"_options"];
     options = v5->_options;
-    v5->_options = v12;
+    v5->_options = v13;
   }
 
   return v5;

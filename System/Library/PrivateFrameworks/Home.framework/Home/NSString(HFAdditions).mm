@@ -3,13 +3,13 @@
 + (id)hf_stringWithFormat:()HFAdditions arguments:;
 - (BOOL)hf_containsOnlyDecimalDigits;
 - (BOOL)hf_isPhoneNumber;
+- (char)hf_countForSubstring:()HFAdditions;
 - (id)hf_SHA1;
 - (id)hf_SHA256;
 - (id)hf_extractDecimalDigits;
 - (id)hf_stringByTransformingFirstWordUsingBlock:()HFAdditions;
 - (id)hf_stringByTrimmingTrailingHexCode;
 - (id)hf_toHexString:()HFAdditions length:;
-- (uint64_t)hf_countForSubstring:()HFAdditions;
 - (uint64_t)hf_isEmail;
 @end
 
@@ -17,20 +17,18 @@
 
 - (id)hf_SHA1
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   CC_SHA1([self UTF8String], objc_msgSend(self, "hf_UTF8Length"), md);
   v2 = [self hf_toHexString:md length:20];
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (id)hf_SHA256
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   CC_SHA256([self UTF8String], objc_msgSend(self, "hf_UTF8Length"), md);
   v2 = [self hf_toHexString:md length:32];
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -180,7 +178,7 @@
   return v6;
 }
 
-- (uint64_t)hf_countForSubstring:()HFAdditions
+- (char)hf_countForSubstring:()HFAdditions
 {
   v1 = [self componentsSeparatedByString:?];
   v2 = [v1 count] - 1;

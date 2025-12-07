@@ -198,52 +198,53 @@
 
 - (void)finalizeDropIfNecessary
 {
-  v32 = *MEMORY[0x1E69E9840];
-  if ([(_MSStickerDragPreviewContainerView *)self dropAnimationIsComplete])
+  v33 = *MEMORY[0x1E69E9840];
+  dropAnimationIsComplete = [(_MSStickerDragPreviewContainerView *)self dropAnimationIsComplete];
+  if (dropAnimationIsComplete)
   {
     clientDropCompletion = [(_MSStickerDragPreviewContainerView *)self clientDropCompletion];
     if (clientDropCompletion)
     {
 
 LABEL_14:
-      v11 = ms_defaultLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = ms_defaultLog(dropAnimationIsComplete);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         if ([(_MSStickerDragPreviewContainerView *)self dropAnimationIsComplete])
         {
-          v12 = @"YES";
+          v13 = @"YES";
         }
 
         else
         {
-          v12 = @"NO";
+          v13 = @"NO";
         }
 
         clientDropCompletion2 = [(_MSStickerDragPreviewContainerView *)self clientDropCompletion];
-        v14 = _Block_copy(clientDropCompletion2);
+        v15 = _Block_copy(clientDropCompletion2);
         if ([(_MSStickerDragPreviewContainerView *)self defersFinalDropAnimationCompletion])
         {
-          v15 = @"YES";
+          v16 = @"YES";
         }
 
         else
         {
-          v15 = @"NO";
+          v16 = @"NO";
         }
 
         finalUIKitDropCompletion = [(_MSStickerDragPreviewContainerView *)self finalUIKitDropCompletion];
-        v17 = _Block_copy(finalUIKitDropCompletion);
-        v22 = 134219010;
+        v18 = _Block_copy(finalUIKitDropCompletion);
+        v23 = 134219010;
         selfCopy2 = self;
-        v24 = 2112;
-        v25 = v12;
-        v26 = 2112;
-        v27 = v14;
-        v28 = 2112;
-        v29 = v15;
-        v30 = 2112;
-        v31 = v17;
-        _os_log_impl(&dword_1CADE6000, v11, OS_LOG_TYPE_DEFAULT, "<_MSStickerDragPreviewContainerView: %p> finalizeDropIfNecessary finalizing drop. dropAnimationIsComplete: %@, clientDropCompletion: %@, defersFinalDropAnimationCompletion: %@, finalUIKitDropCompletion: %@", &v22, 0x34u);
+        v25 = 2112;
+        v26 = v13;
+        v27 = 2112;
+        v28 = v15;
+        v29 = 2112;
+        v30 = v16;
+        v31 = 2112;
+        v32 = v18;
+        _os_log_impl(&dword_1CADE6000, v12, OS_LOG_TYPE_DEFAULT, "<_MSStickerDragPreviewContainerView: %p> finalizeDropIfNecessary finalizing drop. dropAnimationIsComplete: %@, clientDropCompletion: %@, defersFinalDropAnimationCompletion: %@, finalUIKitDropCompletion: %@", &v23, 0x34u);
       }
 
       clientDropCompletion3 = [(_MSStickerDragPreviewContainerView *)self clientDropCompletion];
@@ -269,50 +270,51 @@ LABEL_14:
       return;
     }
 
-    if (![(_MSStickerDragPreviewContainerView *)self defersFinalDropAnimationCompletion])
+    dropAnimationIsComplete = [(_MSStickerDragPreviewContainerView *)self defersFinalDropAnimationCompletion];
+    if ((dropAnimationIsComplete & 1) == 0)
     {
       goto LABEL_14;
     }
   }
 
-  v4 = ms_defaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = ms_defaultLog(dropAnimationIsComplete);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if ([(_MSStickerDragPreviewContainerView *)self dropAnimationIsComplete])
     {
-      v5 = @"YES";
+      v6 = @"YES";
     }
 
     else
     {
-      v5 = @"NO";
+      v6 = @"NO";
     }
 
     clientDropCompletion5 = [(_MSStickerDragPreviewContainerView *)self clientDropCompletion];
-    v7 = _Block_copy(clientDropCompletion5);
+    v8 = _Block_copy(clientDropCompletion5);
     if ([(_MSStickerDragPreviewContainerView *)self defersFinalDropAnimationCompletion])
     {
-      v8 = @"YES";
+      v9 = @"YES";
     }
 
     else
     {
-      v8 = @"NO";
+      v9 = @"NO";
     }
 
     finalUIKitDropCompletion4 = [(_MSStickerDragPreviewContainerView *)self finalUIKitDropCompletion];
-    v10 = _Block_copy(finalUIKitDropCompletion4);
-    v22 = 134219010;
+    v11 = _Block_copy(finalUIKitDropCompletion4);
+    v23 = 134219010;
     selfCopy2 = self;
-    v24 = 2112;
-    v25 = v5;
-    v26 = 2112;
-    v27 = v7;
-    v28 = 2112;
-    v29 = v8;
-    v30 = 2112;
-    v31 = v10;
-    _os_log_impl(&dword_1CADE6000, v4, OS_LOG_TYPE_DEFAULT, "<_MSStickerDragPreviewContainerView: %p> finalizeDropIfNecessary not finalizing yet. dropAnimationIsComplete: %@, clientDropCompletion: %@, defersFinalDropAnimationCompletion: %@, finalUIKitDropCompletion: %@", &v22, 0x34u);
+    v25 = 2112;
+    v26 = v6;
+    v27 = 2112;
+    v28 = v8;
+    v29 = 2112;
+    v30 = v9;
+    v31 = 2112;
+    v32 = v11;
+    _os_log_impl(&dword_1CADE6000, v5, OS_LOG_TYPE_DEFAULT, "<_MSStickerDragPreviewContainerView: %p> finalizeDropIfNecessary not finalizing yet. dropAnimationIsComplete: %@, clientDropCompletion: %@, defersFinalDropAnimationCompletion: %@, finalUIKitDropCompletion: %@", &v23, 0x34u);
   }
 }
 
@@ -338,7 +340,7 @@ LABEL_14:
   if (self->_dropAnimationIsComplete != complete)
   {
     completeCopy = complete;
-    v5 = ms_defaultLog();
+    v5 = ms_defaultLog(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = @"NO";
@@ -762,7 +764,7 @@ LABEL_14:
     v125 = previewCopy;
     if (layer6)
     {
-      [layer6 transform];
+      objc_msgSend_transform(layer6);
     }
 
     else
@@ -970,7 +972,7 @@ LABEL_14:
   v14 = *MEMORY[0x1E69E9840];
   animatorCopy = animator;
   completionCopy = completion;
-  v8 = ms_defaultLog();
+  v8 = ms_defaultLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;

@@ -7,13 +7,13 @@
 
 + (BOOL)createSchemaInDatabase:(id)database
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   userVersion = [database userVersion];
   if (userVersion == 11201)
   {
-LABEL_83:
-    LOBYTE(v45) = 1;
-    return v45;
+LABEL_84:
+    LOBYTE(v47) = 1;
+    return v47;
   }
 
   userVersion3 = userVersion;
@@ -60,7 +60,7 @@ LABEL_46:
           objc_autoreleasePoolPop(v9);
 LABEL_48:
           v7 = 1;
-          goto LABEL_76;
+          goto LABEL_77;
       }
 
 LABEL_47:
@@ -99,7 +99,7 @@ LABEL_47:
 
     v7 = 1;
     userVersion3 = 10000;
-LABEL_76:
+LABEL_77:
     if (userVersion3 == 11201)
     {
       if (v7)
@@ -107,7 +107,7 @@ LABEL_76:
         [database setUserVersion:11201];
       }
 
-      goto LABEL_83;
+      goto LABEL_84;
     }
   }
 
@@ -134,7 +134,7 @@ LABEL_76:
 
     v7 = 1;
     userVersion3 = 8002;
-    goto LABEL_76;
+    goto LABEL_77;
   }
 
   if (!userVersion3)
@@ -152,79 +152,79 @@ LABEL_76:
     goto LABEL_47;
   }
 
-  v71 = 0;
-  v72 = &v71;
-  v73 = 0x2020000000;
-  v74 = 0;
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x2020000000;
+  v76 = 0;
   v10 = [database executeSQL:{@"CREATE TABLE IF NOT EXISTS app_purchase_history_accounts (account_unique_identifier INTEGER, local_revision INTEGER, PRIMARY KEY (account_unique_identifier));"}];
-  *(v72 + 24) = v10;
+  *(v74 + 24) = v10;
   if ((v10 & 1) == 0)
   {
-    _Block_object_dispose(&v71, 8);
+    _Block_object_dispose(&v73, 8);
     userVersion3 = 7000;
 LABEL_50:
     objc_autoreleasePoolPop(v9);
     goto LABEL_51;
   }
 
-  *v77 = 0;
-  *&v77[8] = v77;
-  *&v77[16] = 0x3052000000;
-  *&v77[24] = __Block_byref_object_copy__70;
-  *&v77[32] = __Block_byref_object_dispose__70;
-  v78 = 0;
-  v70[0] = MEMORY[0x1E69E9820];
-  v70[1] = 3221225472;
-  v70[2] = __updateAppPurchaseHistoryFrom7000to8000_block_invoke;
-  v70[3] = &unk_1E84B1E90;
-  v70[4] = database;
-  v70[5] = v77;
-  [database prepareStatementForSQL:@"SELECT value FROM db_properties WHERE key=app_purchase_history.localRevision;" cache:0 usingBlock:v70];
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x3052000000;
-  v67 = __Block_byref_object_copy__70;
-  v68 = __Block_byref_object_dispose__70;
-  v69 = 0;
-  v63[0] = MEMORY[0x1E69E9820];
-  v63[1] = 3221225472;
-  v63[2] = __updateAppPurchaseHistoryFrom7000to8000_block_invoke_2;
-  v63[3] = &unk_1E84B1E90;
-  v63[4] = database;
-  v63[5] = &v64;
-  [database prepareStatementForSQL:@"SELECT value FROM db_properties WHERE key=app_purchase_history.account_unique_identifier;" cache:0 usingBlock:v63];
-  v11 = v65[5];
+  *v79 = 0;
+  *&v79[8] = v79;
+  *&v79[16] = 0x3052000000;
+  *&v79[24] = __Block_byref_object_copy__70;
+  *&v79[32] = __Block_byref_object_dispose__70;
+  v80 = 0;
+  v72[0] = MEMORY[0x1E69E9820];
+  v72[1] = 3221225472;
+  v72[2] = __updateAppPurchaseHistoryFrom7000to8000_block_invoke;
+  v72[3] = &unk_1E84B1E90;
+  v72[4] = database;
+  v72[5] = v79;
+  [database prepareStatementForSQL:@"SELECT value FROM db_properties WHERE key=app_purchase_history.localRevision;" cache:0 usingBlock:v72];
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x3052000000;
+  v69 = __Block_byref_object_copy__70;
+  v70 = __Block_byref_object_dispose__70;
+  v71 = 0;
+  v65[0] = MEMORY[0x1E69E9820];
+  v65[1] = 3221225472;
+  v65[2] = __updateAppPurchaseHistoryFrom7000to8000_block_invoke_2;
+  v65[3] = &unk_1E84B1E90;
+  v65[4] = database;
+  v65[5] = &v66;
+  [database prepareStatementForSQL:@"SELECT value FROM db_properties WHERE key=app_purchase_history.account_unique_identifier;" cache:0 usingBlock:v65];
+  v11 = v67[5];
   if (v11)
   {
-    v12 = *(*&v77[8] + 40);
+    v12 = *(*&v79[8] + 40);
     if (v12)
     {
-      v75[0] = @"account_unique_identifier";
-      v75[1] = @"local_revision";
-      v76[0] = v11;
-      v76[1] = v12;
+      v77[0] = @"account_unique_identifier";
+      v77[1] = @"local_revision";
+      v78[0] = v11;
+      v78[1] = v12;
 
-      v11 = v65[5];
+      v11 = v67[5];
     }
   }
 
-  v62[0] = MEMORY[0x1E69E9820];
-  v62[1] = 3221225472;
-  v62[2] = __updateAppPurchaseHistoryFrom7000to8000_block_invoke_3;
-  v62[3] = &unk_1E84B3018;
-  v62[4] = database;
-  v62[5] = &v71;
-  [database prepareStatementForSQL:@"DELETE FROM db_properties WHERE key=app_purchase_history.localRevision;" cache:0 usingBlock:v62];
-  v13 = *(v72 + 24);
-  _Block_object_dispose(&v64, 8);
-  _Block_object_dispose(v77, 8);
-  _Block_object_dispose(&v71, 8);
+  v64[0] = MEMORY[0x1E69E9820];
+  v64[1] = 3221225472;
+  v64[2] = __updateAppPurchaseHistoryFrom7000to8000_block_invoke_3;
+  v64[3] = &unk_1E84B3018;
+  v64[4] = database;
+  v64[5] = &v73;
+  [database prepareStatementForSQL:@"DELETE FROM db_properties WHERE key=app_purchase_history.localRevision;" cache:0 usingBlock:v64];
+  v13 = *(v74 + 24);
+  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(v79, 8);
+  _Block_object_dispose(&v73, 8);
   objc_autoreleasePoolPop(v9);
   if (v13)
   {
     v7 = 1;
     userVersion3 = 8000;
-    goto LABEL_76;
+    goto LABEL_77;
   }
 
   userVersion3 = 8000;
@@ -233,58 +233,58 @@ LABEL_51:
   v17 = userVersion2;
   if (userVersion2 != userVersion3)
   {
-    v31 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v31)
+    v32 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v32)
     {
-      v31 = +[SSLogConfig sharedConfig];
+      v32 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v31 shouldLog];
-    if ([v31 shouldLogToDisk])
+    shouldLog = [v32 shouldLog];
+    if ([v32 shouldLogToDisk])
     {
-      v33 = shouldLog | 2;
-    }
-
-    else
-    {
-      v33 = shouldLog;
-    }
-
-    if (os_log_type_enabled([v31 OSLogObject], OS_LOG_TYPE_ERROR))
-    {
-      v34 = v33;
+      v34 = shouldLog | 2;
     }
 
     else
     {
-      v34 = v33 & 2;
+      v34 = shouldLog;
     }
 
-    if (v34)
+    oSLogObject = [v32 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      v35 = objc_opt_class();
-      *v77 = 138413058;
-      *&v77[4] = v35;
-      *&v77[12] = 1024;
-      *&v77[14] = userVersion3;
-      *&v77[18] = 1024;
-      *&v77[20] = 11201;
-      *&v77[24] = 1024;
-      *&v77[26] = v17;
-      LODWORD(v61) = 30;
-      v60 = v77;
-      v36 = _os_log_send_and_compose_impl();
-      if (v36)
+      v36 = v34;
+    }
+
+    else
+    {
+      v36 = v34 & 2;
+    }
+
+    if (v36)
+    {
+      v37 = objc_opt_class();
+      *v79 = 138413058;
+      *&v79[4] = v37;
+      *&v79[12] = 1024;
+      *&v79[14] = userVersion3;
+      *&v79[18] = 1024;
+      *&v79[20] = 11201;
+      *&v79[24] = 1024;
+      *&v79[26] = v17;
+      LODWORD(v63) = 30;
+      v38 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "[%@] Although database migration function failed from %d => %d -- The schema did change. Perhaps another process is updating the database: [Currently at: %d]", v79, v63);
+      if (v38)
       {
-        v37 = v36;
-        v38 = [MEMORY[0x1E696AEC0] stringWithCString:v36 encoding:{4, v77, v61}];
-        free(v37);
-        SSFileLog(v31, @"%@", v39, v40, v41, v42, v43, v44, v38);
+        v39 = v38;
+        v40 = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:4];
+        free(v39);
+        SSFileLog(v32, @"%@", v41, v42, v43, v44, v45, v46, v40);
       }
     }
 
     v6 = 0;
-    goto LABEL_75;
+    goto LABEL_76;
   }
 
   v18 = +[SSLogConfig sharedStoreServicesConfig];
@@ -293,103 +293,109 @@ LABEL_51:
     v18 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v18 shouldLog];
+  LODWORD(v19) = [v18 shouldLog];
   if ([v18 shouldLogToDisk])
   {
-    shouldLog2 |= 2u;
+    LODWORD(v19) = v19 | 2;
   }
 
-  v20 = v6 + 1;
-  if (!os_log_type_enabled([v18 OSLogObject], OS_LOG_TYPE_ERROR))
+  oSLogObject2 = [v18 OSLogObject];
+  v21 = v6 + 1;
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
   {
-    shouldLog2 &= 2u;
+    v19 = v19;
   }
 
-  if (shouldLog2)
+  else
   {
-    v21 = objc_opt_class();
-    *v77 = 138413058;
-    *&v77[4] = v21;
-    *&v77[12] = 2048;
-    *&v77[14] = userVersion3;
-    *&v77[22] = 2048;
-    *&v77[24] = 11201;
-    *&v77[32] = 1024;
-    *&v77[34] = v6 + 1;
-    LODWORD(v61) = 38;
-    v60 = v77;
-    v22 = _os_log_send_and_compose_impl();
-    if (v22)
+    v19 &= 2u;
+  }
+
+  if (v19)
+  {
+    v22 = objc_opt_class();
+    *v79 = 138413058;
+    *&v79[4] = v22;
+    *&v79[12] = 2048;
+    *&v79[14] = userVersion3;
+    *&v79[22] = 2048;
+    *&v79[24] = 11201;
+    *&v79[32] = 1024;
+    *&v79[34] = v6 + 1;
+    LODWORD(v63) = 38;
+    v23 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "[%@] Unsuccessful database migration function from %ld => %ld [Failure Count: %d]", v79, v63);
+    if (v23)
     {
-      v23 = v22;
-      v24 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, v77, v61}];
-      free(v23);
-      SSFileLog(v18, @"%@", v25, v26, v27, v28, v29, v30, v24);
+      v24 = v23;
+      v25 = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:4];
+      free(v24);
+      SSFileLog(v18, @"%@", v26, v27, v28, v29, v30, v31, v25);
     }
   }
 
   if (v6 < 5)
   {
     ++v6;
-LABEL_75:
+LABEL_76:
     userVersion3 = [database userVersion];
     v7 = 0;
-    goto LABEL_76;
+    goto LABEL_77;
   }
 
-  v46 = +[SSLogConfig sharedStoreServicesConfig];
-  if (!v46)
+  v48 = +[SSLogConfig sharedStoreServicesConfig];
+  if (!v48)
   {
-    v46 = +[SSLogConfig sharedConfig];
+    v48 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v46 shouldLog];
-  if ([v46 shouldLogToDisk])
+  shouldLog2 = [v48 shouldLog];
+  if ([v48 shouldLogToDisk])
   {
-    v48 = shouldLog3 | 2;
-  }
-
-  else
-  {
-    v48 = shouldLog3;
-  }
-
-  if (os_log_type_enabled([v46 OSLogObject], OS_LOG_TYPE_ERROR))
-  {
-    v49 = v48;
+    v50 = shouldLog2 | 2;
   }
 
   else
   {
-    v49 = v48 & 2;
+    v50 = shouldLog2;
   }
 
-  if (v49)
+  oSLogObject3 = [v48 OSLogObject];
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
   {
-    v50 = objc_opt_class();
-    *v77 = 138413058;
-    *&v77[4] = v50;
-    *&v77[12] = 1024;
-    *&v77[14] = v20;
-    *&v77[18] = 2048;
-    *&v77[20] = userVersion3;
-    *&v77[28] = 2048;
-    *&v77[30] = 11201;
-    LODWORD(v61) = 38;
-    v45 = _os_log_send_and_compose_impl();
-    if (!v45)
+    v52 = v50;
+  }
+
+  else
+  {
+    v52 = v50 & 2;
+  }
+
+  if (v52)
+  {
+    v53 = objc_opt_class();
+    *v79 = 138413058;
+    *&v79[4] = v53;
+    *&v79[12] = 1024;
+    *&v79[14] = v21;
+    *&v79[18] = 2048;
+    *&v79[20] = userVersion3;
+    *&v79[28] = 2048;
+    *&v79[30] = 11201;
+    LODWORD(v63) = 38;
+    v47 = _os_log_send_and_compose_impl(v52, 0, 0, 0, &dword_1D48BA000, oSLogObject3, 16, "[%@] Failed to migrate the DB %d times. [%ld vs %ld] Giving up, but nothing will work from this point forward. exit(1) crosses my mind, but probably not the right thing to do.", v79, v63);
+    if (!v47)
     {
-      return v45;
+      return v47;
     }
 
-    v51 = v45;
-    v52 = [MEMORY[0x1E696AEC0] stringWithCString:v45 encoding:{4, v77, v61}];
-    free(v51);
-    SSFileLog(v46, @"%@", v53, v54, v55, v56, v57, v58, v52);
+    v54 = v47;
+    v55 = [MEMORY[0x1E696AEC0] stringWithCString:v47 encoding:4];
+    free(v54);
+    SSFileLog(v48, @"%@", v56, v57, v58, v59, v60, v61, v55);
   }
 
-  LOBYTE(v45) = 0;
-  return v45;
+  LOBYTE(v47) = 0;
+  return v47;
 }
 
 + (id)databasePath

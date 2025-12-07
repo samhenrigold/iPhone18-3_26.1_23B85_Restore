@@ -34,15 +34,15 @@
 - (HFAccessoryLikeItemProvider)initWithRoom:(id)room
 {
   roomCopy = room;
-  home = [roomCopy home];
-  v6 = [(HFAccessoryLikeItemProvider *)self initWithAccessoryContainer:roomCopy inHome:home];
+  v5 = objc_msgSend_home(roomCopy);
+  v6 = [(HFAccessoryLikeItemProvider *)self initWithAccessoryContainer:roomCopy inHome:v5];
 
   return v6;
 }
 
 - (id)reloadItems
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   accessoryContainer = [(HFAccessoryLikeItemProvider *)self accessoryContainer];
   hf_accessoryLikeObjects = [accessoryContainer hf_accessoryLikeObjects];
 
@@ -71,8 +71,8 @@
     {
       *buf = 138412546;
       selfCopy = self;
-      v28 = 2112;
-      v29 = hf_demoModeAccessories;
+      v27 = 2112;
+      v28 = hf_demoModeAccessories;
       _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "%@: including demo mode accessories: %@", buf, 0x16u);
     }
 
@@ -93,25 +93,23 @@
     v7 = allObjects;
   }
 
-  v24[4] = self;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __42__HFAccessoryLikeItemProvider_reloadItems__block_invoke_3;
-  v25[3] = &unk_277DF5C10;
-  v25[4] = self;
+  v23[4] = self;
   v24[0] = MEMORY[0x277D85DD0];
   v24[1] = 3221225472;
-  v24[2] = __42__HFAccessoryLikeItemProvider_reloadItems__block_invoke_4;
-  v24[3] = &unk_277E01F48;
-  v19 = [(HFItemProvider *)self reloadItemsWithObjects:v7 keyAdaptor:&__block_literal_global_230 itemAdaptor:&__block_literal_global_51_4 filter:v25 itemMap:v24];
+  v24[2] = __42__HFAccessoryLikeItemProvider_reloadItems__block_invoke_3;
+  v24[3] = &unk_277DF5C10;
+  v24[4] = self;
   v23[0] = MEMORY[0x277D85DD0];
   v23[1] = 3221225472;
-  v23[2] = __42__HFAccessoryLikeItemProvider_reloadItems__block_invoke_5;
-  v23[3] = &unk_277DF6960;
-  v23[4] = self;
-  v20 = [v19 flatMap:v23];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v23[2] = __42__HFAccessoryLikeItemProvider_reloadItems__block_invoke_4;
+  v23[3] = &unk_277E01F48;
+  v19 = [(HFItemProvider *)self reloadItemsWithObjects:v7 keyAdaptor:&__block_literal_global_230 itemAdaptor:&__block_literal_global_51_4 filter:v24 itemMap:v23];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __42__HFAccessoryLikeItemProvider_reloadItems__block_invoke_5;
+  v22[3] = &unk_277DF6960;
+  v22[4] = self;
+  v20 = [v19 flatMap:v22];
 
   return v20;
 }

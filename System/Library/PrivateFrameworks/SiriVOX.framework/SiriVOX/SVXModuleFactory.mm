@@ -1,6 +1,7 @@
 @interface SVXModuleFactory
 - (SVXModuleFactory)initWithInstanceContext:(id)context preferences:(id)preferences analytics:(id)analytics;
 - (id)createModuleWithIdentifier:(id)identifier class:(Class)class performer:(id)performer;
+- (id)createModuleWithIdentifier:(id)identifier class:(Class)class qos:(unsigned int)qos;
 @end
 
 @implementation SVXModuleFactory
@@ -10,6 +11,16 @@
   performerCopy = performer;
   identifierCopy = identifier;
   v10 = [[SVXModule alloc] initWithIdentifier:identifierCopy instanceClass:class instanceContext:self->_instanceContext preferences:self->_preferences analytics:self->_analytics performer:performerCopy];
+
+  return v10;
+}
+
+- (id)createModuleWithIdentifier:(id)identifier class:(Class)class qos:(unsigned int)qos
+{
+  v5 = *&qos;
+  identifierCopy = identifier;
+  v9 = [[SVXQueuePerformer alloc] initWithIdentifier:identifierCopy qosClass:v5 relativePriority:0 options:2];
+  v10 = [(SVXModuleFactory *)self createModuleWithIdentifier:identifierCopy class:class performer:v9];
 
   return v10;
 }

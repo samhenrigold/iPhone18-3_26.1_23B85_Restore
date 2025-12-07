@@ -1,12 +1,16 @@
 @interface TKLocalSEPKey
++ (id)protectionForKeyClass:(int)class;
 + (int)keyClassForProtection:(id)protection;
++ (int)keybagHandleForceSystemSession:(BOOL)session;
 + (void)setContextErrorHandler:(id)handler;
 + (void)setupKeybagForTesting:(BOOL)testing;
 - (BOOL)callerHasEntitlement:(id)entitlement error:(id *)error;
+- (BOOL)error:(id *)error withAKSReturn:(int)return ACMHandle:(id)handle AKSOperation:(id)operation params:(id)params message:(id)message;
 - (BOOL)evaluateRequirementIgnoringAccessGroups:(__ACMRequirement *)groups;
 - (NSString)callerName;
 - (id)_initWithAuthContext:(id)context caller:(id)caller;
 - (id)_initWithKeyType:(id)type keySize:(int64_t)size accessControl:(__SecAccessControl *)control options:(id)options authContext:(id)context caller:(id)caller forceSystemSession:(BOOL)session error:(id *)self0;
+- (id)_initWithObjectID:(id)d authContext:(id)context caller:(id)caller forceSystemSession:(BOOL)session error:(id *)error;
 - (id)authContextWithError:(id *)error;
 - (id)encodedAccessGroups;
 - (id)parametersWithACMHandle:(id)handle;
@@ -70,7 +74,7 @@
       v5 = caller2;
       if (caller2)
       {
-        [caller2 auditToken];
+        objc_msgSend_auditToken(caller2);
       }
 
       else
@@ -160,7 +164,7 @@ SecTaskRef __37__TKLocalSEPKey_valueForEntitlement___block_invoke()
 
 void __76__TKLocalSEPKey_processAccessGroupsOfACLDictionary_intoGroups_callerGroups___block_invoke(id *a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if ([a2 isEqualToString:@"cag"])
   {
@@ -181,33 +185,33 @@ LABEL_17:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       v6 = v5;
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v14;
+        v9 = *v13;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v14 != v9)
+            if (*v13 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v11 = *(*(&v13 + 1) + 8 * i);
-            if ([a1[4] containsObject:{v11, v13}])
+            v11 = *(*(&v12 + 1) + 8 * i);
+            if ([a1[4] containsObject:{v11, v12}])
             {
               [a1[5] addObject:v11];
             }
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
         while (v8);
@@ -227,8 +231,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)parametersWithACMHandle:(id)handle
@@ -293,7 +295,7 @@ LABEL_18:
   }
 }
 
-uint64_t __57__TKLocalSEPKey_evaluateRequirementIgnoringAccessGroups___block_invoke(uint64_t a1, uint64_t a2)
+void *__57__TKLocalSEPKey_evaluateRequirementIgnoringAccessGroups___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) evaluateRequirementIgnoringAccessGroups:a2];
   if (result)
@@ -314,15 +316,207 @@ uint64_t __57__TKLocalSEPKey_evaluateRequirementIgnoringAccessGroups___block_inv
   return result;
 }
 
-uint64_t __75__TKLocalSEPKey_error_withAKSReturn_ACMHandle_AKSOperation_params_message___block_invoke(uint64_t result, int a2, char a3, uint64_t a4)
+- (BOOL)error:(id *)error withAKSReturn:(int)return ACMHandle:(id)handle AKSOperation:(id)operation params:(id)params message:(id)message
+{
+  v11 = *&return;
+  v61[1] = *MEMORY[0x1E69E9840];
+  handleCopy = handle;
+  operationCopy = operation;
+  paramsCopy = params;
+  messageCopy = message;
+  v16 = messageCopy;
+  if (!error)
+  {
+LABEL_34:
+    v42 = TK_LOG_sepkey_0(messageCopy);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    {
+      callerName = [(TKLocalSEPKey *)self callerName];
+      accessControl = [(TKLocalSEPKey *)self accessControl];
+      *buf = 138544898;
+      *&buf[4] = self;
+      *&buf[12] = 2114;
+      *&buf[14] = callerName;
+      *&buf[22] = 2114;
+      v54 = v16;
+      v55 = 1024;
+      *v56 = v11;
+      *&v56[4] = 1024;
+      *&v56[6] = v11;
+      *v57 = 2114;
+      *&v57[2] = accessControl;
+      v58 = 2114;
+      v59 = paramsCopy;
+      _os_log_error_impl(&dword_1DF413000, v42, OS_LOG_TYPE_ERROR, "%{public}@: (%{public}@) %{public}@: error %08x(%d) ACL=%{public}@ params=%{public}@", buf, 0x40u);
+    }
+
+    goto LABEL_36;
+  }
+
+  v60 = @"AKSError";
+  v17 = [MEMORY[0x1E696AD98] numberWithInt:v11];
+  v61[0] = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:&v60 count:1];
+  v19 = [v18 mutableCopy];
+
+  if (v16)
+  {
+    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %@", self, v16];
+    [v19 setObject:v21 forKeyedSubscript:*MEMORY[0x1E696A278]];
+  }
+
+  if (v11 == -536870174)
+  {
+    *error = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-25308 userInfo:v19];
+
+    goto LABEL_34;
+  }
+
+  if (v11 == -536363000 && operationCopy)
+  {
+    v22 = TK_LOG_sepkey_0(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    {
+      [TKLocalSEPKey error:withAKSReturn:ACMHandle:AKSOperation:params:message:];
+    }
+
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x2020000000;
+    LOBYTE(v54) = 0;
+    v23 = handleCopy;
+    v24 = ACMContextCreateWithExternalForm([handleCopy bytes], objc_msgSend(handleCopy, "length"));
+    v25 = v24;
+    if (v24)
+    {
+      v26 = [(TKLocalSEPKey *)self sac];
+      v48 = SecAccessControlGetConstraint();
+
+      v27 = [[TKBERTLVRecord alloc] initWithPropertyList:v48];
+      data = [(TKTLVRecord *)v27 data];
+
+      encodedAccessGroups = [(TKLocalSEPKey *)self encodedAccessGroups];
+      v52[0] = 3;
+      v30 = encodedAccessGroups;
+      v52[1] = [encodedAccessGroups bytes];
+      v52[2] = [encodedAccessGroups length];
+      v31 = data;
+      bytes = [data bytes];
+      v33 = [data length];
+      v51[0] = MEMORY[0x1E69E9820];
+      v51[1] = 3221225472;
+      v51[2] = __75__TKLocalSEPKey_error_withAKSReturn_ACMHandle_AKSOperation_params_message___block_invoke;
+      v51[3] = &unk_1E86B7938;
+      v51[4] = self;
+      v51[5] = buf;
+      ACMContextVerifyAclConstraint(v25, bytes, v33, 1, v52, 1, -1, v51);
+      ACMContextDelete(v25, 0);
+    }
+
+    if (*(*&buf[8] + 24) == 1)
+    {
+      v34 = TK_LOG_sepkey_0(v24);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+      {
+        [TKLocalSEPKey error:withAKSReturn:ACMHandle:AKSOperation:params:message:];
+      }
+
+      _Block_object_dispose(buf, 8);
+      v35 = -5;
+      goto LABEL_29;
+    }
+
+    _Block_object_dispose(buf, 8);
+    v36 = 0;
+  }
+
+  else
+  {
+    if (v11 == -536870170)
+    {
+      v35 = -1;
+    }
+
+    else
+    {
+      v35 = -3;
+    }
+
+    if (v11 != -536363000 && v11 != -536870194)
+    {
+      goto LABEL_29;
+    }
+
+    v36 = v11 == -536870194;
+    if (!operationCopy)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  [v19 setObject:operationCopy forKeyedSubscript:@"operation"];
+LABEL_25:
+  v35 = -9;
+  if (handleCopy)
+  {
+    if (v36)
+    {
+      v37 = handleCopy;
+      v38 = ACMContextCreateWithExternalForm([handleCopy bytes], objc_msgSend(handleCopy, "length"));
+      v39 = v38;
+      if (v38)
+      {
+        ACMContextRemovePassphraseCredentialsByPurposeAndScope(v38, 0, 1);
+        ACMContextDelete(v39, 0);
+      }
+    }
+  }
+
+LABEL_29:
+  if (!*error)
+  {
+    v40 = MEMORY[0x1E696ABC0];
+    v41 = [v19 copy];
+    *error = [v40 errorWithDomain:@"CryptoTokenKit" code:v35 userInfo:v41];
+  }
+
+  if (v35 != -9)
+  {
+    goto LABEL_34;
+  }
+
+  v42 = TK_LOG_sepkey_0(messageCopy);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+  {
+    callerName2 = [(TKLocalSEPKey *)self callerName];
+    accessControl2 = [(TKLocalSEPKey *)self accessControl];
+    *buf = 138544386;
+    *&buf[4] = self;
+    *&buf[12] = 2114;
+    *&buf[14] = callerName2;
+    *&buf[22] = 2114;
+    v54 = operationCopy;
+    v55 = 2114;
+    *v56 = accessControl2;
+    *&v56[8] = 2114;
+    *v57 = paramsCopy;
+    _os_log_debug_impl(&dword_1DF413000, v42, OS_LOG_TYPE_DEBUG, "%{public}@: (%{public}@) authentication needed for operation '%{public}@' ACL=%{public}@ params=%{public}@", buf, 0x34u);
+  }
+
+LABEL_36:
+
+  return 0;
+}
+
+id *__75__TKLocalSEPKey_error_withAKSReturn_ACMHandle_AKSOperation_params_message___block_invoke(id *result, int a2, char a3, uint64_t a4)
 {
   if (!a2 && (a3 & 1) == 0)
   {
     v4 = result;
-    result = [*(result + 32) evaluateRequirementIgnoringAccessGroups:a4];
+    result = [result[4] evaluateRequirementIgnoringAccessGroups:a4];
     if (result)
     {
-      *(*(*(v4 + 40) + 8) + 24) = 1;
+      *(*(v4[5] + 1) + 24) = 1;
     }
   }
 
@@ -331,7 +525,7 @@ uint64_t __75__TKLocalSEPKey_error_withAKSReturn_ACMHandle_AKSOperation_params_m
 
 - (id)authContextWithError:(id *)error
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   authContext = [(TKSEPKey *)self authContext];
   if (authContext)
   {
@@ -346,7 +540,7 @@ LABEL_7:
 
     else
     {
-      v10 = TK_LOG_sepkey_0();
+      v10 = TK_LOG_sepkey_0(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         [(TKLocalSEPKey *)v10 authContextWithError:v11, v12, v13, v14, v15, v16, v17];
@@ -355,9 +549,9 @@ LABEL_7:
       if (error)
       {
         v18 = MEMORY[0x1E696ABC0];
-        v22 = *MEMORY[0x1E696A578];
-        v23[0] = @"LAContext.externalizedContext failed";
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+        v21 = *MEMORY[0x1E696A578];
+        v22[0] = @"LAContext.externalizedContext failed";
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
         *error = [v18 errorWithDomain:@"CryptoTokenKit" code:-2 userInfo:v19];
       }
 
@@ -385,7 +579,7 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v5 = TK_LOG_sepkey_0();
+  v5 = TK_LOG_sepkey_0(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     [(TKLocalSEPKey *)error authContextWithError:v5];
@@ -393,8 +587,6 @@ LABEL_7:
 
   v9 = 0;
 LABEL_17:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -412,58 +604,90 @@ uint64_t __38__TKLocalSEPKey_authContextWithError___block_invoke()
   return [v2 setObjectDestroyedBlock:&__block_literal_global_141];
 }
 
-id __38__TKLocalSEPKey_authContextWithError___block_invoke_2()
+id __38__TKLocalSEPKey_authContextWithError___block_invoke_2(uint64_t a1)
 {
   atomic_fetch_add(TKAuthContextSerialNumber, 1u);
-  v0 = TK_LOG_sepkey_0();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = TK_LOG_sepkey_0(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __38__TKLocalSEPKey_authContextWithError___block_invoke_2_cold_1();
   }
 
-  gotLoadHelper_x8__OBJC_CLASS___LAContext(v1);
-  v3 = objc_alloc_init(*(v2 + 3664));
+  gotLoadHelper_x8__OBJC_CLASS___LAContext(v2);
+  v4 = objc_alloc_init(*(v3 + 3664));
 
-  return v3;
+  return v4;
 }
 
-void __38__TKLocalSEPKey_authContextWithError___block_invoke_138()
+void __38__TKLocalSEPKey_authContextWithError___block_invoke_138(uint64_t a1)
 {
-  v0 = TK_LOG_sepkey_0();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = TK_LOG_sepkey_0(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __38__TKLocalSEPKey_authContextWithError___block_invoke_138_cold_1();
   }
 }
 
++ (int)keybagHandleForceSystemSession:(BOOL)session
+{
+  if (_enableTesting == 1)
+  {
+    return _testingKeybagHandle;
+  }
+
+  v5 = _testing_keybagHandle;
+  if (_testing_keybagHandle)
+  {
+
+    return [v5 intValue];
+  }
+
+  else if (session)
+  {
+    v6 = TK_LOG_sepkey_0(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      +[TKLocalSEPKey keybagHandleForceSystemSession:];
+    }
+
+    return -6;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
 + (void)setupKeybagForTesting:(BOOL)testing
 {
-  v11 = *MEMORY[0x1E69E9840];
   if (testing)
   {
     if (!_testingKeybagHandle)
     {
-      if (aks_create_bag())
+      bag = aks_create_bag();
+      if (bag)
       {
-        v4 = TK_LOG_sepkey_0();
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-        {
-          +[TKLocalSEPKey setupKeybagForTesting:];
-        }
-      }
-
-      if (aks_ref_key_enable_test_keys())
-      {
-        v5 = TK_LOG_sepkey_0();
+        v5 = TK_LOG_sepkey_0(bag);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
         {
           +[TKLocalSEPKey setupKeybagForTesting:];
         }
       }
 
-      aks_get_device_state();
-      v6 = TK_LOG_sepkey_0();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+      v6 = aks_ref_key_enable_test_keys();
+      if (v6)
+      {
+        v7 = TK_LOG_sepkey_0(v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+        {
+          +[TKLocalSEPKey setupKeybagForTesting:];
+        }
+      }
+
+      device_state = aks_get_device_state();
+      v9 = TK_LOG_sepkey_0(device_state);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         +[TKLocalSEPKey setupKeybagForTesting:];
       }
@@ -472,28 +696,31 @@ void __38__TKLocalSEPKey_authContextWithError___block_invoke_138()
 
   else if (_testingKeybagHandle)
   {
-    if (aks_save_bag())
+    v10 = aks_save_bag();
+    if (v10)
     {
-      v7 = TK_LOG_sepkey_0();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v11 = TK_LOG_sepkey_0(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         +[TKLocalSEPKey setupKeybagForTesting:];
       }
     }
 
-    if (aks_unload_bag())
+    v12 = aks_unload_bag();
+    if (v12)
     {
-      v8 = TK_LOG_sepkey_0();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v13 = TK_LOG_sepkey_0(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         +[TKLocalSEPKey setupKeybagForTesting:];
       }
     }
 
-    if (aks_invalidate_bag())
+    v14 = aks_invalidate_bag();
+    if (v14)
     {
-      v9 = TK_LOG_sepkey_0();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v15 = TK_LOG_sepkey_0(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
         +[TKLocalSEPKey setupKeybagForTesting:];
       }
@@ -501,40 +728,64 @@ void __38__TKLocalSEPKey_authContextWithError___block_invoke_138()
   }
 
   _enableTesting = testing;
-  v10 = *MEMORY[0x1E69E9840];
+}
+
++ (id)protectionForKeyClass:(int)class
+{
+  v3 = *&class;
+  if (protectionForKeyClass__once != -1)
+  {
+    +[TKLocalSEPKey protectionForKeyClass:];
+  }
+
+  v4 = protectionForKeyClass__protections;
+  v5 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+  v6 = [v4 objectForKeyedSubscript:v5];
+
+  if (v6)
+  {
+    v7 = v6;
+  }
+
+  else
+  {
+    v7 = *MEMORY[0x1E697AC20];
+  }
+
+  v8 = v7;
+
+  return v7;
 }
 
 void __39__TKLocalSEPKey_protectionForKeyClass___block_invoke()
 {
-  v11[8] = *MEMORY[0x1E69E9840];
+  v10[8] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E697AC20];
-  v10[0] = &unk_1F5A84FD0;
-  v10[1] = &unk_1F5A84FE8;
+  v9[0] = &unk_1F5A84FD0;
+  v9[1] = &unk_1F5A84FE8;
   v1 = *MEMORY[0x1E697ABE0];
-  v11[0] = v0;
-  v11[1] = v1;
+  v10[0] = v0;
+  v10[1] = v1;
   v2 = *MEMORY[0x1E697ABF8];
-  v10[2] = &unk_1F5A85000;
-  v10[3] = &unk_1F5A85018;
+  v9[2] = &unk_1F5A85000;
+  v9[3] = &unk_1F5A85018;
   v3 = *MEMORY[0x1E697AC28];
-  v11[2] = v2;
-  v11[3] = v3;
+  v10[2] = v2;
+  v10[3] = v3;
   v4 = *MEMORY[0x1E697ABE8];
-  v10[4] = &unk_1F5A85030;
-  v10[5] = &unk_1F5A85048;
+  v9[4] = &unk_1F5A85030;
+  v9[5] = &unk_1F5A85048;
   v5 = *MEMORY[0x1E697AC08];
-  v11[4] = v4;
-  v11[5] = v5;
-  v10[6] = &unk_1F5A85060;
-  v10[7] = &unk_1F5A85078;
+  v10[4] = v4;
+  v10[5] = v5;
+  v9[6] = &unk_1F5A85060;
+  v9[7] = &unk_1F5A85078;
   v6 = *MEMORY[0x1E697AC10];
-  v11[6] = *MEMORY[0x1E697AC18];
-  v11[7] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:8];
+  v10[6] = *MEMORY[0x1E697AC18];
+  v10[7] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:8];
   v8 = protectionForKeyClass__protections;
   protectionForKeyClass__protections = v7;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (int)keyClassForProtection:(id)protection
@@ -575,32 +826,30 @@ LABEL_7:
 
 void __39__TKLocalSEPKey_keyClassForProtection___block_invoke()
 {
-  v8[8] = *MEMORY[0x1E69E9840];
+  v7[8] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E697ABE0];
-  v7[0] = *MEMORY[0x1E697AC20];
-  v7[1] = v0;
-  v8[0] = &unk_1F5A84FD0;
-  v8[1] = &unk_1F5A84FE8;
+  v6[0] = *MEMORY[0x1E697AC20];
+  v6[1] = v0;
+  v7[0] = &unk_1F5A84FD0;
+  v7[1] = &unk_1F5A84FE8;
   v1 = *MEMORY[0x1E697AC28];
-  v7[2] = *MEMORY[0x1E697ABF8];
-  v7[3] = v1;
-  v8[2] = &unk_1F5A85000;
-  v8[3] = &unk_1F5A85018;
+  v6[2] = *MEMORY[0x1E697ABF8];
+  v6[3] = v1;
+  v7[2] = &unk_1F5A85000;
+  v7[3] = &unk_1F5A85018;
   v2 = *MEMORY[0x1E697AC08];
-  v7[4] = *MEMORY[0x1E697ABE8];
-  v7[5] = v2;
-  v8[4] = &unk_1F5A85030;
-  v8[5] = &unk_1F5A85048;
+  v6[4] = *MEMORY[0x1E697ABE8];
+  v6[5] = v2;
+  v7[4] = &unk_1F5A85030;
+  v7[5] = &unk_1F5A85048;
   v3 = *MEMORY[0x1E697AC10];
-  v7[6] = *MEMORY[0x1E697AC18];
-  v7[7] = v3;
-  v8[6] = &unk_1F5A85060;
-  v8[7] = &unk_1F5A85078;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:8];
+  v6[6] = *MEMORY[0x1E697AC18];
+  v6[7] = v3;
+  v7[6] = &unk_1F5A85060;
+  v7[7] = &unk_1F5A85078;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:8];
   v5 = keyClassForProtection__protections;
   keyClassForProtection__protections = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_initWithAuthContext:(id)context caller:(id)caller
@@ -616,6 +865,31 @@ void __39__TKLocalSEPKey_keyClassForProtection___block_invoke()
   }
 
   return v9;
+}
+
+- (id)_initWithObjectID:(id)d authContext:(id)context caller:(id)caller forceSystemSession:(BOOL)session error:(id *)error
+{
+  sessionCopy = session;
+  dCopy = d;
+  contextCopy = context;
+  callerCopy = caller;
+  v17 = 0;
+  v15 = [[TKLocalSEPSystemKey alloc] _initWithObjectID:dCopy authContext:contextCopy caller:callerCopy isIDUnknown:&v17 error:error];
+
+  if (!v15)
+  {
+    if (v17 == 1)
+    {
+      v15 = [[TKLocalSEPRefKey alloc] _initWithObjectID:dCopy authContext:contextCopy caller:callerCopy forceSystemSession:sessionCopy error:error];
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+  }
+
+  return v15;
 }
 
 - (id)_initWithKeyType:(id)type keySize:(int64_t)size accessControl:(__SecAccessControl *)control options:(id)options authContext:(id)context caller:(id)caller forceSystemSession:(BOOL)session error:(id *)self0
@@ -635,15 +909,16 @@ void __39__TKLocalSEPKey_keyClassForProtection___block_invoke()
   entitlementCopy = entitlement;
   v7 = [(TKLocalSEPKey *)self valueForEntitlement:entitlementCopy];
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && ([v7 BOOLValue])
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass & 1) != 0 && (isKindOfClass = [v7 BOOLValue], (isKindOfClass))
   {
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v9 = TK_LOG_sepkey_0();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = TK_LOG_sepkey_0(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [TKLocalSEPKey callerHasEntitlement:error:];
     }
@@ -651,16 +926,16 @@ void __39__TKLocalSEPKey_keyClassForProtection___block_invoke()
     if (error)
     {
       [MEMORY[0x1E696ABC0] errorWithDomain:@"CryptoTokenKit" code:-6 userInfo:0];
-      *error = v8 = 0;
+      *error = v9 = 0;
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)error:withAKSReturn:ACMHandle:AKSOperation:params:message:.cold.1()
@@ -677,16 +952,9 @@ void __39__TKLocalSEPKey_keyClassForProtection___block_invoke()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)authContextWithError:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_2(&dword_1DF413000, a1, a3, "LAContext.externalizedContext(sn=%d) failed", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
 - (void)authContextWithError:(uint64_t *)a1 .cold.3(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = *a1;
@@ -697,27 +965,16 @@ void __39__TKLocalSEPKey_keyClassForProtection___block_invoke()
     v2 = 0;
   }
 
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_fault_impl(&dword_1DF413000, a2, OS_LOG_TYPE_FAULT, "failed to create shared resource: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __38__TKLocalSEPKey_authContextWithError___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_fault_impl(&dword_1DF413000, a2, OS_LOG_TYPE_FAULT, "failed to create shared resource: %{public}@", &v3, 0xCu);
 }
 
 void __38__TKLocalSEPKey_authContextWithError___block_invoke_138_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   atomic_load(TKAuthContextSerialNumber);
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)keybagHandleForceSystemSession:.cold.1()
@@ -727,57 +984,15 @@ void __38__TKLocalSEPKey_authContextWithError___block_invoke_138_cold_1()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-+ (void)setupKeybagForTesting:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_2(&dword_1DF413000, v0, v1, "Failed to save testing keybag, err=%08x", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)setupKeybagForTesting:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_2(&dword_1DF413000, v0, v1, "Failed to unload testing keybag, err=%08x", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)setupKeybagForTesting:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_2(&dword_1DF413000, v0, v1, "Failed to invalidate testing keybag, err=%08x", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)setupKeybagForTesting:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_2(&dword_1DF413000, v0, v1, "Failed to create testing keybag, err=%08x", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)setupKeybagForTesting:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_2(&dword_1DF413000, v0, v1, "Failed to enable test keys, err=%08x", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)callerHasEntitlement:error:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [v2 callerName];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_8_1();
-  v6 = v1;
-  _os_log_fault_impl(&dword_1DF413000, v0, OS_LOG_TYPE_FAULT, "Requested SEP key operation not allowed (%{public}@ is missing '%{public}@' entitlement)", v5, 0x16u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5 = v1;
+  _os_log_fault_impl(&dword_1DF413000, v0, OS_LOG_TYPE_FAULT, "Requested SEP key operation not allowed (%{public}@ is missing '%{public}@' entitlement)", v4, 0x16u);
 }
 
 @end

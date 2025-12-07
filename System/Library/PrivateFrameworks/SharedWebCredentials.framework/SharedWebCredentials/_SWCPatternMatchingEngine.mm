@@ -9,33 +9,32 @@
 
 - (_SWCPatternMatchingEngine)initWithPatternDictionaries:(id)dictionaries substitutionVariables:(id)variables
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   dictionariesCopy = dictionaries;
   variablesCopy = variables;
-  v17.receiver = self;
-  v17.super_class = _SWCPatternMatchingEngine;
-  v8 = [(_SWCPatternMatchingEngine *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = _SWCPatternMatchingEngine;
+  v8 = [(_SWCPatternMatchingEngine *)&v16 init];
   if (v8)
   {
-    v20 = @"components";
-    v21[0] = dictionariesCopy;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = @"components";
+    v20[0] = dictionariesCopy;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v10 = [_SWCPatternList patternListWithDetailsDictionary:v9];
     patternList = v8->_patternList;
     v8->_patternList = v10;
 
     if (variablesCopy)
     {
-      v18 = @"substitutionVariables";
-      v19 = variablesCopy;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+      v17 = @"substitutionVariables";
+      v18 = variablesCopy;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
       v13 = [_SWCSubstitutionVariableList substitutionVariableListWithDictionary:v12];
       subVarList = v8->_subVarList;
       v8->_subVarList = v13;
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

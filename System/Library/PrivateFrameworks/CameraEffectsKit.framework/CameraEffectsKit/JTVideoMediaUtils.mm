@@ -25,7 +25,7 @@
     tracks = [assetCopy tracks];
     if ([tracks count])
     {
-      [assetCopy duration];
+      objc_msgSend_duration(assetCopy);
 
       if (location[1] >= 1)
       {
@@ -60,11 +60,11 @@
         v22 = v10;
         [assetCopy loadTracksWithMediaCharacteristic:v9 completionHandler:v21];
         dispatch_semaphore_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
-        [assetCopy duration];
+        objc_msgSend_duration(assetCopy);
         *buf = v19;
         *&buf[16] = v20;
         [(JTVideoMediaUtils *)self setCachedPreciseAssetDuration:buf];
-        [(JTVideoMediaUtils *)self cachedPreciseAssetDuration];
+        objc_msgSend_cachedPreciseAssetDuration(self);
         CMTimeConvertScale(buf, &time, 30, kCMTimeRoundingMethod_QuickTime);
         [(JTVideoMediaUtils *)self setCachedDurationAt30fps:*buf];
         [(JTVideoMediaUtils *)self setCachedAudioTrackCount:0];
@@ -126,22 +126,22 @@ void __54__JTVideoMediaUtils_cacheTrackInformationWithAVAsset___block_invoke(uin
           [WeakRetained setCachedNaturalSize:?];
           [v10 nominalFrameRate];
           [WeakRetained setCachedFrameRate:?];
-          [v10 preferredTransform];
+          objc_msgSend_preferredTransform(v10);
           *lhs = *&v26[0].value;
           *&lhs[16] = *&v26[0].epoch;
           v24 = 0;
           v25 = 0;
           [WeakRetained setCachedTransform:lhs];
           memset(v26, 0, 24);
-          [v10 timeRange];
+          objc_msgSend_timeRange(v10);
           *lhs = v21;
           *&lhs[16] = v22;
-          [v10 timeRange];
+          objc_msgSend_timeRange(v10);
           rhs = v19;
           CMTimeAdd(v26, lhs, &rhs);
           if (WeakRetained)
           {
-            [WeakRetained cachedPreciseAssetDuration];
+            objc_msgSend_cachedPreciseAssetDuration(WeakRetained);
           }
 
           else
@@ -211,7 +211,7 @@ void __54__JTVideoMediaUtils_cacheTrackInformationWithAVAsset___block_invoke_2(u
       {
         if (WeakRetained)
         {
-          [WeakRetained cachedPreciseAssetDuration];
+          objc_msgSend_cachedPreciseAssetDuration(WeakRetained);
         }
 
         else

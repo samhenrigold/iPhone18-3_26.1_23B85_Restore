@@ -63,36 +63,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_teamId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_issueCategory)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_contextDictionaryData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    requestTime = self->_requestTime;
     PBDataWriterWriteUint64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_build)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -194,7 +193,6 @@
     }
   }
 
-  v8 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_requestTime != *(equalCopy + 1))
@@ -206,24 +204,24 @@
   else if (*(equalCopy + 48))
   {
 LABEL_15:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
   build = self->_build;
   if (build | *(equalCopy + 2))
   {
-    v10 = [(NSString *)build isEqual:?];
+    v9 = [(NSString *)build isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_16:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

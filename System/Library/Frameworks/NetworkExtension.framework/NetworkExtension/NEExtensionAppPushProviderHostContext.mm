@@ -7,6 +7,7 @@
 - (void)sendTimerEvent;
 - (void)setProviderConfiguration:(id)configuration;
 - (void)startConnectionWithProviderConfig:(id)config completionHandler:(id)handler;
+- (void)stopWithReason:(int)reason completionHandler:(id)handler;
 - (void)unmatchEthernet;
 @end
 
@@ -26,9 +27,11 @@
 
 uint64_t __72__NEExtensionAppPushProviderHostContext__extensionAuxiliaryHostProtocol__block_invoke()
 {
-  _extensionAuxiliaryHostProtocol_protocol_4639 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2FA0];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2FA0];
+  v1 = _extensionAuxiliaryHostProtocol_protocol_4639;
+  _extensionAuxiliaryHostProtocol_protocol_4639 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_extensionAuxiliaryVendorProtocol
@@ -45,9 +48,11 @@ uint64_t __72__NEExtensionAppPushProviderHostContext__extensionAuxiliaryHostProt
 
 uint64_t __74__NEExtensionAppPushProviderHostContext__extensionAuxiliaryVendorProtocol__block_invoke()
 {
-  _extensionAuxiliaryVendorProtocol_protocol_4643 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2F40];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2F40];
+  v1 = _extensionAuxiliaryVendorProtocol_protocol_4643;
+  _extensionAuxiliaryVendorProtocol_protocol_4643 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)unmatchEthernet
@@ -89,6 +94,14 @@ uint64_t __74__NEExtensionAppPushProviderHostContext__extensionAuxiliaryVendorPr
   configurationCopy = configuration;
   vendorContext = [(NEExtensionProviderHostContext *)&self->super.super.super.isa vendorContext];
   [vendorContext setProviderConfiguration:configurationCopy];
+}
+
+- (void)stopWithReason:(int)reason completionHandler:(id)handler
+{
+  v4 = *&reason;
+  handlerCopy = handler;
+  vendorContext = [(NEExtensionProviderHostContext *)&self->super.super.super.isa vendorContext];
+  [vendorContext stopWithReason:v4 completionHandler:handlerCopy];
 }
 
 - (void)startConnectionWithProviderConfig:(id)config completionHandler:(id)handler

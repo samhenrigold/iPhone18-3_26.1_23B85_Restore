@@ -1,64 +1,3 @@
-double cva::SO3AlgebraStorage<double,cva::MatrixRef<double const,3u,1u,false>>::SO3AlgebraStorage(void *a1, uint64_t a2)
-{
-  *a1 = a2;
-  *&result = 3;
-  a1[1] = 3;
-  return result;
-}
-
-{
-  *a1 = a2;
-  *&result = 3;
-  a1[1] = 3;
-  return result;
-}
-
-double cva::SO3AlgebraStorage<double,cva::MatrixRef<double const,3u,1u,false>>::exp@<D0>(double **a1@<X0>, double *a2@<X8>)
-{
-  v3 = **a1;
-  v4 = (*a1)[1];
-  v5 = (*a1)[2];
-  v6 = v3 * v3 + v4 * v4 + v5 * v5;
-  if (v6 >= 0.0000002635)
-  {
-    v10 = sqrt(v6);
-    v11 = __sincos_stret(v10);
-    cosval = v11.__cosval;
-    v8 = v11.__sinval / v10;
-    v7 = 1.0 / v6 * (1.0 - v11.__cosval);
-  }
-
-  else
-  {
-    v7 = 0.5 - v6 * (v6 / -720.0 + 0.0416666667);
-    v8 = 1.0 - v6 * (0.166666667 - v6 * (v6 / -5040.0 + 0.00833333333));
-    cosval = 1.0 - v6 * v7;
-  }
-
-  v12 = v3 * v7;
-  v13 = v4 * v7;
-  v14 = cosval + v3 * v7 * v3;
-  v15 = cosval + v5 * v7 * v5;
-  v16 = cosval + v13 * v4;
-  a2[8] = v15;
-  v17 = v4 * v12;
-  v18 = v5 * v12;
-  v19 = v5 * v13;
-  v20 = v3 * v8;
-  v21 = v4 * v8;
-  v22 = v5 * v8;
-  *a2 = v14;
-  a2[1] = v17 + v22;
-  a2[6] = v21 + v18;
-  a2[7] = v19 - v20;
-  a2[2] = v18 - v21;
-  a2[3] = v17 - v22;
-  result = v19 + v20;
-  a2[4] = v16;
-  a2[5] = v19 + v20;
-  return result;
-}
-
 __n128 cva::SO3GroupStorage<double,cva::Matrix<double,3u,3u,false>>::rplus(uint64_t a1, double *a2)
 {
   v4 = *a2;
@@ -134,7 +73,7 @@ double sub_245038224(uint64_t a1, double **a2)
   {
     v6 = 0uLL;
     v7 = 0;
-    sub_245038224(&v6);
+    sub_245038224(&v6, a2);
     result = *&v6;
     *a1 = v6;
     *(a1 + 16) = v7;
@@ -169,7 +108,7 @@ double sub_245038334(uint64_t a1, uint64_t a2)
   {
     v6 = 0uLL;
     v7 = 0;
-    sub_245038334(&v6);
+    sub_245038334(&v6, a2);
     result = *&v6;
     *a1 = v6;
     *(a1 + 16) = v7;
@@ -348,15 +287,14 @@ __n128 cva::SO3GroupStorage<double,cva::Matrix<double,3u,3u,false>>::adjoint@<Q0
 
 double cva::SO3GroupStorage<double,cva::Matrix<double,3u,3u,false>>::enforce(float64x2_t *a1)
 {
-  v29 = 0.0;
+  v29 = 0uLL;
   v30 = 0.0;
-  v31 = 0.0;
   sub_245037840(a1, &v29);
-  v3 = v29;
-  v2 = v30;
-  v4 = v2 * v2;
-  v5 = v31;
-  v6 = v2 * v2 + v3 * v3 + v5 * v5;
+  v2 = v29.f64[1];
+  v3 = v29.f64[0];
+  v4 = v29.f64[1] * v29.f64[1];
+  v5 = v30;
+  v6 = v29.f64[1] * v29.f64[1] + v3 * v3 + v5 * v5;
   if (v6 > 9.8696044)
   {
     v7 = sqrt(v6) / 3.14159265;
@@ -369,9 +307,9 @@ double cva::SO3GroupStorage<double,cva::Matrix<double,3u,3u,false>>::enforce(flo
     }
 
     v11 = v10 / v7;
-    v3 = v29 * v11;
-    v2 = v30 * v11;
-    v5 = v31 * v11;
+    v3 = v29.f64[0] * v11;
+    v2 = v29.f64[1] * v11;
+    v5 = v30 * v11;
     v4 = v2 * v2;
   }
 
@@ -510,17 +448,17 @@ float cva::SO3GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::angle
   return (sqrtf(((v3[0].f32[0] * v3[0].f32[0]) + v1.f32[0]) + v1.f32[1]) * 180.0) / 3.1416;
 }
 
-void sub_245038B04(float *a1, unsigned int a2, float *a3)
+void sub_245038B04(float *a1, unsigned int a2, float32x2_t *a3)
 {
   v5 = a2 + 2;
   v6 = (2 * a2) | 1;
   v7 = (a1[v5] - a1[v6]) * 0.5;
-  *a3 = v7;
+  a3->f32[0] = v7;
   v8 = &a1[2 * a2];
   v9 = (v8->f32[0] - a1[2]) * 0.5;
-  a3[1] = v9;
+  a3->f32[1] = v9;
   v10 = (a1[1] - a1[a2]) * 0.5;
-  a3[2] = v10;
+  a3[1].f32[0] = v10;
   v11 = a1[a2 + 1];
   v12 = *a1;
   v13 = a1[2 * a2 + 2];
@@ -533,8 +471,8 @@ void sub_245038B04(float *a1, unsigned int a2, float *a3)
     if (v15 > 0.99 || v19)
     {
       v20 = (v16 * ((v16 * (((v16 * 5.0) / 112.0) + 0.075)) + 0.16667)) + 1.0;
-      *a3 = v7 * v20;
-      a3[1] = v9 * v20;
+      a3->f32[0] = v7 * v20;
+      a3->f32[1] = v9 * v20;
     }
 
     else
@@ -546,11 +484,11 @@ void sub_245038B04(float *a1, unsigned int a2, float *a3)
       }
 
       v20 = acosf(v15) / sqrtf(v16);
-      *a3 = v7 * v20;
-      a3[1] = v9 * v20;
+      a3->f32[0] = v7 * v20;
+      a3->f32[1] = v9 * v20;
     }
 
-    a3[2] = v10 * v20;
+    a3[1].f32[0] = v10 * v20;
     return;
   }
 
@@ -572,7 +510,7 @@ LABEL_19:
         v38 = -v38;
       }
 
-      a3[2] = v38;
+      a3[1].f32[0] = v38;
       v39.f32[0] = a1[2];
       v39.f32[1] = a1[v5];
       *a3 = vmul_n_f32(vmul_n_f32(vadd_f32(*v8, v39), v31), 1.0 / v38);
@@ -586,11 +524,11 @@ LABEL_19:
         v32 = -v32;
       }
 
-      a3[1] = v32;
+      a3->f32[1] = v32;
       v33 = 1.0 / v32;
       v34 = a1[v6] + a1[v5];
-      *a3 = v33 * (v31 * (a1[v21] + a1[1]));
-      a3[2] = v33 * (v31 * v34);
+      a3->f32[0] = v33 * (v31 * (a1[v21] + a1[1]));
+      a3[1].f32[0] = v33 * (v31 * v34);
     }
   }
 
@@ -606,11 +544,11 @@ LABEL_19:
         v35 = -v35;
       }
 
-      a3[2] = v35;
+      a3[1].f32[0] = v35;
       v36 = 1.0 / v35;
       v37 = v36 * (v27 * (a1[v6] + a1[v5]));
-      *a3 = v36 * v28;
-      a3[1] = v37;
+      a3->f32[0] = v36 * v28;
+      a3->f32[1] = v37;
     }
 
     else
@@ -621,10 +559,10 @@ LABEL_19:
         v29 = -v29;
       }
 
-      *a3 = v29;
+      a3->f32[0] = v29;
       v30 = 1.0 / v29;
-      a3[1] = v30 * (v27 * (a1[v21] + a1[1]));
-      a3[2] = v30 * v28;
+      a3->f32[1] = v30 * (v27 * (a1[v21] + a1[1]));
+      a3[1].f32[0] = v30 * v28;
     }
   }
 }
@@ -637,9 +575,9 @@ float cva::SO3GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::angle
   return sqrtf(((v3[0].f32[0] * v3[0].f32[0]) + v1.f32[0]) + v1.f32[1]);
 }
 
-void cva::SO3GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::log(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void cva::SO3GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::log(uint64_t a1@<X0>, float32x2_t *a2@<X8>)
 {
-  *(a2 + 8) = 0;
+  a2[1].i32[0] = 0;
   *a2 = 0;
   sub_245038B04(*a1, *(a1 + 8), a2);
 }
@@ -661,7 +599,7 @@ float *sub_245038EEC(float *result, float **a2)
   {
     v21 = 0;
     v20 = 0;
-    result = sub_245038EEC(&v20);
+    result = sub_245038EEC(&v20, a2);
     *v2 = v20;
     *(v2 + 2) = v21;
   }
@@ -740,7 +678,7 @@ float *sub_245039034(float *result, uint64_t **a2)
   {
     v8 = 0;
     v7 = 0;
-    result = sub_245039034(&v7);
+    result = sub_245039034(&v7, a2);
     *v2 = v7;
     *(v2 + 2) = v8;
   }
@@ -816,20 +754,20 @@ int8x16_t cva::SO3GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::i
   return result;
 }
 
-float cva::SO3GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::logJacobian@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+float cva::SO3GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::logJacobian@<S0>(uint64_t a1@<X0>, float32x2_t *a2@<X8>)
 {
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 0u;
-  *a2 = 0u;
-  return sub_245039258(*a1, *(a1 + 8), a2, (a2 + 12));
+  *a2[2].f32 = 0u;
+  *a2[4].f32 = 0u;
+  *a2->f32 = 0u;
+  return sub_245039258(*a1, *(a1 + 8), a2, &a2[1] + 1);
 }
 
-float sub_245039258(float *a1, unsigned int a2, float *a3, float *a4)
+float sub_245039258(float *a1, unsigned int a2, float32x2_t *a3, float *a4)
 {
   sub_245038B04(a1, a2, a3);
-  v6 = *a3;
-  v7 = a3[1];
-  v8 = a3[2];
+  v6 = a3->f32[0];
+  v7 = a3->f32[1];
+  v8 = a3[1].f32[0];
   v9 = ((v6 * v6) + (v7 * v7)) + (v8 * v8);
   if (v9 >= 0.0061)
   {
@@ -860,14 +798,14 @@ float sub_245039258(float *a1, unsigned int a2, float *a3, float *a4)
   v19 = v6 * v17;
   v20 = v7 * v17;
   *a4 = v18 + ((v6 * v17) * v6);
-  a4[4] = v18 + ((v7 * v17) * a3[1]);
-  a4[8] = v18 + ((v8 * v17) * a3[2]);
-  v21 = a3[1];
+  a4[4] = v18 + ((v7 * v17) * a3->f32[1]);
+  a4[8] = v18 + ((v8 * v17) * a3[1].f32[0]);
+  v21 = a3->f32[1];
   v22 = v19 * v21;
-  v23 = a3[2];
+  v23 = a3[1].f32[0];
   v24 = v19 * v23;
   v25 = v20 * v23;
-  v26 = *a3 * -0.5;
+  v26 = a3->f32[0] * -0.5;
   v27 = v21 * -0.5;
   a4[6] = v27 + v24;
   a4[7] = v25 - v26;
@@ -949,36 +887,35 @@ int **cva::SO3GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::adjoi
   return result;
 }
 
-uint64_t cva::SO3GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::serialize(uint64_t result)
+uint64_t *cva::SO3GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::serialize(uint64_t *result, uint64_t a2)
 {
-  v1 = *(result + 8);
-  if (v1)
+  v2 = *(result + 2);
+  if (v2)
   {
-    v2 = *result;
-    v3 = *result + 4 * (3 * v1);
-    v4 = (v1 - 3) << 32;
+    v3 = *result;
+    v4 = *result + 4 * (3 * v2);
+    v5 = (v2 - 3) << 32;
     do
     {
-      v8 = *v2;
       result = std::ostream::write();
-      v5 = HIDWORD(v4);
-      if (v4 < 2)
+      v6 = HIDWORD(v5);
+      if (v5 < 2)
       {
-        v5 = 0;
+        v6 = 0;
       }
 
-      v6 = &v2[v5];
-      v7 = (v4 + 1);
-      if (v4 >= 2)
+      v7 = v3 + 4 * v6;
+      v8 = (v5 + 1);
+      if (v5 >= 2)
       {
-        v7 = 0;
+        v8 = 0;
       }
 
-      v4 = v7 | v4 & 0xFFFFFFFF00000000;
-      v2 = v6 + 1;
+      v5 = v8 | v5 & 0xFFFFFFFF00000000;
+      v3 = v7 + 4;
     }
 
-    while (v6 + 1 != v3);
+    while (v7 + 4 != v4);
   }
 
   return result;
@@ -1008,17 +945,17 @@ double cva::SO3GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::an
   return sqrt(v3 * v3 + v1.f64[0] + v1.f64[1]) * 180.0 / 3.14159265;
 }
 
-void sub_24503963C(double *a1, int a2, double *a3)
+void sub_24503963C(double *a1, int a2, float64x2_t *a3)
 {
   v6 = (a2 + 2);
   v7 = (2 * a2) | 1;
   v8 = (a1[v6] - a1[v7]) * 0.5;
-  *a3 = v8;
+  a3->f64[0] = v8;
   v9 = &a1[2 * a2];
   v10 = (v9->f64[0] - a1[2]) * 0.5;
-  a3[1] = v10;
+  a3->f64[1] = v10;
   v11 = (a1[1] - a1[a2]) * 0.5;
-  a3[2] = v11;
+  a3[1].f64[0] = v11;
   v12 = *a1;
   v13 = a1[a2 + 1];
   v14 = a1[2 * a2 + 2];
@@ -1049,9 +986,9 @@ void sub_24503963C(double *a1, int a2, double *a3)
       v29 = v17 * (v17 * (v17 * 5.0 / 112.0 + 0.075) + 0.166666667) + 1.0;
     }
 
-    *a3 = v8 * v29;
-    a3[1] = v10 * v29;
-    a3[2] = v11 * v29;
+    a3->f64[0] = v8 * v29;
+    a3->f64[1] = v10 * v29;
+    a3[1].f64[0] = v11 * v29;
     return;
   }
 
@@ -1072,7 +1009,7 @@ LABEL_3:
         v37 = -v37;
       }
 
-      a3[2] = v37;
+      a3[1].f64[0] = v37;
       v38.f64[0] = a1[2];
       v38.f64[1] = a1[v6];
       *a3 = vmulq_n_f64(vmulq_n_f64(vaddq_f64(*v9, v38), v30), 1.0 / v37);
@@ -1086,11 +1023,11 @@ LABEL_3:
         v31 = -v31;
       }
 
-      a3[1] = v31;
+      a3->f64[1] = v31;
       v32 = 1.0 / v31;
       v33 = a1[v7] + a1[v6];
-      *a3 = v32 * (v30 * (a1[a2] + a1[1]));
-      a3[2] = v32 * (v30 * v33);
+      a3->f64[0] = v32 * (v30 * (a1[a2] + a1[1]));
+      a3[1].f64[0] = v32 * (v30 * v33);
     }
   }
 
@@ -1106,11 +1043,11 @@ LABEL_3:
         v34 = -v34;
       }
 
-      a3[2] = v34;
+      a3[1].f64[0] = v34;
       v35 = 1.0 / v34;
       v36 = v35 * (v23 * (a1[v7] + a1[v6]));
-      *a3 = v35 * v24;
-      a3[1] = v36;
+      a3->f64[0] = v35 * v24;
+      a3->f64[1] = v36;
     }
 
     else
@@ -1121,10 +1058,10 @@ LABEL_3:
         v25 = -v25;
       }
 
-      *a3 = v25;
+      a3->f64[0] = v25;
       v26 = 1.0 / v25;
-      a3[1] = v26 * (v23 * (a1[a2] + a1[1]));
-      a3[2] = v26 * v24;
+      a3->f64[1] = v26 * (v23 * (a1[a2] + a1[1]));
+      a3[1].f64[0] = v26 * v24;
     }
   }
 }
@@ -1146,13 +1083,13 @@ void cva::SO3GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::log(
   sub_24503963C(*a1, *(a1 + 8), a2);
 }
 
-double *cva::SO3GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::transform@<X0>(double *a1@<X0>, double *a2@<X1>, uint64_t a3@<X8>)
+double *cva::SO3GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::transform@<X0>(double *a1@<X0>, double *a2@<X1>, double *a3@<X8>)
 {
   v4[0] = a1;
   v4[1] = a2;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  *a3 = 0;
+  a3[1] = 0.0;
+  a3[2] = 0.0;
+  *a3 = 0.0;
   return sub_245039A0C(a3, v4);
 }
 
@@ -1164,7 +1101,7 @@ double *sub_245039A0C(double *result, double **a2)
   {
     v20 = 0uLL;
     v21 = 0;
-    result = sub_245039A0C(&v20);
+    result = sub_245039A0C(&v20, a2);
     *v2 = v20;
     *(v2 + 2) = v21;
   }
@@ -1244,7 +1181,7 @@ double sub_245039B54(uint64_t a1, uint64_t **a2)
   {
     v8 = 0uLL;
     v9 = 0;
-    sub_245039B54(&v8);
+    sub_245039B54(&v8, a2);
     result = *&v8;
     *a1 = v8;
     *(a1 + 16) = v9;
@@ -1318,23 +1255,23 @@ double cva::SO3GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::in
   return result;
 }
 
-double cva::SO3GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::logJacobian@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double cva::SO3GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::logJacobian@<D0>(uint64_t a1@<X0>, float64x2_t *a2@<X8>)
 {
-  *(a2 + 64) = 0u;
-  *(a2 + 80) = 0u;
-  *(a2 + 32) = 0u;
-  *(a2 + 48) = 0u;
+  a2[4] = 0u;
+  a2[5] = 0u;
+  a2[2] = 0u;
+  a2[3] = 0u;
   *a2 = 0u;
-  *(a2 + 16) = 0u;
-  return sub_245039D5C(*a1, *(a1 + 8), a2, (a2 + 24));
+  a2[1] = 0u;
+  return sub_245039D5C(*a1, *(a1 + 8), a2, &a2[1].f64[1]);
 }
 
-double sub_245039D5C(double *a1, int a2, double *a3, double *a4)
+double sub_245039D5C(double *a1, int a2, float64x2_t *a3, double *a4)
 {
   sub_24503963C(a1, a2, a3);
-  v6 = *a3;
-  v7 = a3[1];
-  v8 = a3[2];
+  v6 = a3->f64[0];
+  v7 = a3->f64[1];
+  v8 = a3[1].f64[0];
   v9 = v6 * v6 + v7 * v7 + v8 * v8;
   if (v9 >= 0.0000002635)
   {
@@ -1365,14 +1302,14 @@ double sub_245039D5C(double *a1, int a2, double *a3, double *a4)
   v19 = v6 * v17;
   v20 = v7 * v17;
   *a4 = v18 + v6 * v17 * v6;
-  a4[4] = v18 + v7 * v17 * a3[1];
-  a4[8] = v18 + v8 * v17 * a3[2];
-  v21 = a3[1];
+  a4[4] = v18 + v7 * v17 * a3->f64[1];
+  a4[8] = v18 + v8 * v17 * a3[1].f64[0];
+  v21 = a3->f64[1];
   v22 = v19 * v21;
-  v23 = a3[2];
+  v23 = a3[1].f64[0];
   v24 = v19 * v23;
   v25 = v20 * v23;
-  v26 = *a3 * -0.5;
+  v26 = a3->f64[0] * -0.5;
   v27 = v21 * -0.5;
   a4[6] = v27 + v24;
   a4[7] = v25 - v26;
@@ -1422,9 +1359,9 @@ uint64_t **cva::SO3GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>
     v10 = *&v2[v9 + 3];
     v11 = v2[v9 + 5];
     v12 = &v2[v9 + 3 + v9];
-    v13 = v12[5];
+    v13 = *(v12 + 40);
     v14 = *(v2 + 1);
-    v15 = *(v12 + 3);
+    v15 = *(v12 + 24);
     *a2 = v4;
     *(a2 + 8) = v14;
     *(a2 + 24) = v10;
@@ -1454,36 +1391,35 @@ uint64_t **cva::SO3GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>
   return result;
 }
 
-uint64_t cva::SO3GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::serialize(uint64_t result)
+uint64_t *cva::SO3GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::serialize(uint64_t *result, uint64_t a2)
 {
-  v1 = *(result + 8);
-  if (v1)
+  v2 = *(result + 2);
+  if (v2)
   {
-    v2 = *result;
-    v3 = *result + 8 * (3 * v1);
-    v4 = (v1 - 3) << 32;
+    v3 = *result;
+    v4 = *result + 8 * (3 * v2);
+    v5 = (v2 - 3) << 32;
     do
     {
-      v8 = *v2;
       result = std::ostream::write();
-      v5 = HIDWORD(v4);
-      if (v4 < 2)
+      v6 = HIDWORD(v5);
+      if (v5 < 2)
       {
-        v5 = 0;
+        v6 = 0;
       }
 
-      v6 = &v2[v5];
-      v7 = (v4 + 1);
-      if (v4 >= 2)
+      v7 = v3 + 8 * v6;
+      v8 = (v5 + 1);
+      if (v5 >= 2)
       {
-        v7 = 0;
+        v8 = 0;
       }
 
-      v4 = v7 | v4 & 0xFFFFFFFF00000000;
-      v2 = v6 + 1;
+      v5 = v8 | v5 & 0xFFFFFFFF00000000;
+      v3 = v7 + 8;
     }
 
-    while (v6 + 1 != v3);
+    while (v7 + 8 != v4);
   }
 
   return result;
@@ -1757,7 +1693,7 @@ double cva::SO3AlgebraStorage<double,cva::Matrix<double,3u,1u,false>>::expJacobi
   return result;
 }
 
-float cva::SO3AlgebraStorage<float,cva::MatrixRef<float const,3u,1u,false>>::adjoint@<S0>(float **a1@<X0>, float32x2_t *a2@<X8>)
+float32_t cva::SO3AlgebraStorage<float,cva::MatrixRef<float const,3u,1u,false>>::adjoint@<S0>(float **a1@<X0>, float32x2_t *a2@<X8>)
 {
   v2 = *a1;
   result = **a1;
@@ -1773,7 +1709,7 @@ float cva::SO3AlgebraStorage<float,cva::MatrixRef<float const,3u,1u,false>>::adj
   return result;
 }
 
-float cva::SO3AlgebraStorage<float,cva::MatrixRef<float const,3u,1u,false>>::hat@<S0>(float **a1@<X0>, float32x2_t *a2@<X8>)
+float32_t cva::SO3AlgebraStorage<float,cva::MatrixRef<float const,3u,1u,false>>::hat@<S0>(float **a1@<X0>, float32x2_t *a2@<X8>)
 {
   v2 = *a1;
   result = **a1;
@@ -2463,52 +2399,44 @@ uint64_t sub_24503B4DC(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   if (*(a1 + 5) >= *(a1 + 4))
   {
-    v8 = *(a1 + 4);
+    v4 = *(a1 + 4);
   }
 
   else
   {
-    v8 = *(a1 + 5);
+    v4 = *(a1 + 5);
   }
 
-  if (4 * (8 * v8))
+  if (4 * (8 * v4))
   {
-    v9 = malloc_type_malloc(4 * (8 * v8), 0x100004052888210uLL);
+    v5 = malloc_type_malloc(4 * (8 * v4), 0x100004052888210uLL);
   }
 
   else
   {
-    v9 = 0;
+    v5 = 0;
   }
 
-  v10 = *a1;
-  v11 = *a2;
-  v12 = *a3;
-  v13 = *a4;
   sgesdd_NEWLAPACK();
   if (4 * 0.0)
   {
-    v14 = malloc_type_malloc(4 * 0.0, 0x100004052888210uLL);
+    v6 = malloc_type_malloc(4 * 0.0, 0x100004052888210uLL);
   }
 
   else
   {
-    v14 = 0;
+    v6 = 0;
   }
 
-  v15 = *a1;
-  v16 = *a2;
-  v17 = *a3;
-  v18 = *a4;
   sgesdd_NEWLAPACK();
-  if (v14)
+  if (v6)
   {
-    free(v14);
+    free(v6);
   }
 
-  if (v9)
+  if (v5)
   {
-    free(v9);
+    free(v5);
   }
 
   return 1;
@@ -3023,26 +2951,39 @@ LABEL_87:
 
 void cva::PCA<float>::project<cva::Matrix<float,0u,0u,false>,void>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = (a1 + 24);
   v6 = *(a2 + 16);
-  if (v6 == *(a3 + 16) && *(a1 + 44) == *(a3 + 20))
+  if (__PAIR64__(*(a1 + 44), v6) != *(a3 + 16))
   {
-LABEL_10:
-    v21 = a2;
-    v22 = v5;
-    v23 = 1065353216;
-    sub_24503BEEC(a3, &memptr);
-    goto LABEL_11;
-  }
+    v7 = *a3;
+    if (*a2 == *a3 || *v5 == v7)
+    {
+      v11 = (4 * *(a1 + 44) * v6 + 31) & 0x7FFFFFFE0;
+      v17 = v11 >> 2;
+      memptr = 0;
+      malloc_type_posix_memalign(&memptr, 0x20uLL, v11, 0xE1AC2527uLL);
+      v16 = memptr;
+      v13 = *(a1 + 44);
+      LODWORD(v18) = *(a2 + 16);
+      HIDWORD(v18) = v13;
+      v20 = a2;
+      v21 = v5;
+      v22 = 1065353216;
+      sub_24503BEEC(&v16, &memptr);
+      v14 = *a3;
+      v15 = v17;
+      *a3 = v16;
+      *(a3 + 8) = v15;
+      *(a3 + 16) = v18;
+      free(v14);
+      return;
+    }
 
-  v7 = *a3;
-  if (*a2 != *a3 && *v5 != v7)
-  {
     v8 = *(a1 + 44);
     *(a3 + 16) = v6;
     *(a3 + 20) = v8;
-    v9 = (v8 * v6);
+    v9 = v8 * v6;
     if (v9)
     {
       if (*(a3 + 8) < v9)
@@ -3063,30 +3004,12 @@ LABEL_10:
       *a3 = 0;
       *(a3 + 8) = 0;
     }
-
-    goto LABEL_10;
   }
 
-  v11 = (4 * (*(a1 + 44) * v6) + 31) & 0x7FFFFFFE0;
-  v18 = v11 >> 2;
-  memptr = 0;
-  malloc_type_posix_memalign(&memptr, 0x20uLL, v11, 0xE1AC2527uLL);
-  v17 = memptr;
-  v13 = *(a1 + 44);
-  LODWORD(v19) = *(a2 + 16);
-  HIDWORD(v19) = v13;
-  v21 = a2;
-  v22 = v5;
-  v23 = 1065353216;
-  sub_24503BEEC(&v17, &memptr);
-  v14 = *a3;
-  v15 = v18;
-  *a3 = v17;
-  *(a3 + 8) = v15;
-  *(a3 + 16) = v19;
-  free(v14);
-LABEL_11:
-  v16 = *MEMORY[0x277D85DE8];
+  v20 = a2;
+  v21 = v5;
+  v22 = 1065353216;
+  sub_24503BEEC(a3, &memptr);
 }
 
 void sub_24503BEEC(uint64_t a1, uint64_t a2)
@@ -3096,367 +3019,58 @@ void sub_24503BEEC(uint64_t a1, uint64_t a2)
   v6 = *(a2 + 16);
   if (*v5 == v4 || *v6 == v4)
   {
-    v8 = (4 * (*(v6 + 20) * *(v5 + 16)) + 31) & 0x7FFFFFFE0;
-    v17 = v8 >> 2;
+    v7 = (4 * (*(v6 + 20) * *(v5 + 16)) + 31) & 0x7FFFFFFE0;
+    v13 = v7 >> 2;
     memptr = 0;
-    malloc_type_posix_memalign(&memptr, 0x20uLL, v8, 0xE1AC2527uLL);
-    v16 = memptr;
-    v9 = *(*(a2 + 16) + 20);
-    LODWORD(v18) = *(*(a2 + 8) + 16);
-    HIDWORD(v18) = v9;
-    sub_24503BEEC(&v16, a2);
-    v10 = *a1;
-    v11 = v17;
-    *a1 = v16;
-    *(a1 + 8) = v11;
-    *(a1 + 16) = v18;
-    free(v10);
+    malloc_type_posix_memalign(&memptr, 0x20uLL, v7, 0xE1AC2527uLL);
+    v12 = memptr;
+    v8 = *(*(a2 + 16) + 20);
+    LODWORD(v14) = *(*(a2 + 8) + 16);
+    HIDWORD(v14) = v8;
+    sub_24503BEEC(&v12, a2);
+    v9 = *a1;
+    v10 = v13;
+    *a1 = v12;
+    *(a1 + 8) = v10;
+    *(a1 + 16) = v14;
+    free(v9);
   }
 
   else if (*(v5 + 20) * *(v5 + 16) && *(v6 + 20) * *(v6 + 16))
   {
-    v7 = *(a2 + 24);
-    v15 = *(a1 + 16);
-    v14 = *(v6 + 16);
-    v13 = *v6;
     cblas_sgemm_NEWLAPACK();
   }
 
   else
   {
-    v12 = *(a1 + 20) * *(a1 + 16);
-    if (v12)
+    v11 = *(a1 + 20) * *(a1 + 16);
+    if (v11)
     {
 
-      bzero(v4, 4 * v12);
+      bzero(v4, 4 * v11);
     }
   }
 }
 
 void cva::PCA<float>::project<cva::MatrixRef<float,0u,0u,false>,void>(uint64_t a1, int *a2, int *a3)
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v44 = a2;
-  v45 = a1 + 24;
-  v46 = 1065353216;
+  v41 = *MEMORY[0x277D85DE8];
+  v38 = a2;
+  v39 = a1 + 24;
+  v40 = 1065353216;
   v4 = *(a3 + 1);
   v5 = v4 - 4 * a3[5];
   if (*(a2 + 1) - 4 * a2[5] == v5 || *(a1 + 24) == v5)
   {
-    v7 = (4 * (*(a1 + 44) * *a2) + 31) & 0x7FFFFFFE0;
-    v39[1] = (v7 >> 2);
+    v6 = (4 * (*(a1 + 44) * *a2) + 31) & 0x7FFFFFFE0;
+    v33[1] = (v6 >> 2);
     memptr = 0;
-    malloc_type_posix_memalign(&memptr, 0x20uLL, v7, 0xE1AC2527uLL);
-    v39[0] = memptr;
-    v10 = *(a1 + 44);
-    v40 = *a2;
-    v41 = v10;
-    sub_24503C22C(v39, v43);
-    v11 = *a3;
-    v12 = a3[1];
-    v13 = v12 * *a3;
-    v14 = a3[4];
-    v15 = v13 == 0;
-    if (v13)
-    {
-      v16 = *(a3 + 1);
-    }
-
-    else
-    {
-      v16 = 0;
-    }
-
-    v17 = *(a3 + 1) + 4 * (v14 * v12);
-    if (v15)
-    {
-      v17 = 0;
-    }
-
-    v18 = v39[0];
-    if (v16 != v17)
-    {
-      v19 = 0;
-      v20 = v14 - v11;
-      v21 = v39[0];
-      do
-      {
-        v22 = *v21++;
-        *v16 = v22;
-        if (v19 + 1 >= v11)
-        {
-          v23 = v20;
-        }
-
-        else
-        {
-          v23 = 0;
-        }
-
-        v16 += v23 + 1;
-        if (v19 + 1 < v11)
-        {
-          ++v19;
-        }
-
-        else
-        {
-          v19 = 0;
-        }
-      }
-
-      while (v16 != v17);
-    }
-
-    free(v18);
-  }
-
-  else if (a2[1] * *a2 && *(a1 + 44) * *(a1 + 40))
-  {
-    v6 = a2[4];
-    v38 = a3[4];
-    v37 = *(a3 + 1);
-    v36 = *(a1 + 40);
-    v35 = *(a1 + 24);
-    cblas_sgemm_NEWLAPACK();
-  }
-
-  else
-  {
-    v25 = *a3;
-    v26 = a3[1];
-    v27 = v26 * *a3;
-    v28 = a3[4];
-    v29 = v27 == 0;
-    if (v27)
-    {
-      v30 = *(a3 + 1);
-    }
-
-    else
-    {
-      v30 = 0;
-    }
-
-    v31 = (v4 + 4 * (v28 * v26));
-    if (v29)
-    {
-      v31 = 0;
-    }
-
-    if (v30 != v31)
-    {
-      v32 = 0;
-      v33 = v28 - v25;
-      do
-      {
-        *v30 = 0;
-        if (v32 + 1 >= v25)
-        {
-          v34 = v33;
-        }
-
-        else
-        {
-          v34 = 0;
-        }
-
-        v30 += v34 + 1;
-        if (v32 + 1 < v25)
-        {
-          ++v32;
-        }
-
-        else
-        {
-          v32 = 0;
-        }
-      }
-
-      while (v30 != v31);
-    }
-  }
-
-  v24 = *MEMORY[0x277D85DE8];
-}
-
-void sub_24503C22C(uint64_t a1, uint64_t a2)
-{
-  v4 = *a1;
-  v5 = *(a2 + 8);
-  v6 = *(a2 + 16);
-  if ((*(v5 + 8) - 4 * *(v5 + 20)) == v4 || *v6 == v4)
-  {
-    v9 = (4 * (*(v6 + 20) * *v5) + 31) & 0x7FFFFFFE0;
-    v18 = v9 >> 2;
-    memptr = 0;
-    malloc_type_posix_memalign(&memptr, 0x20uLL, v9, 0xE1AC2527uLL);
-    v17 = memptr;
-    v10 = *(*(a2 + 16) + 20);
-    LODWORD(v19) = **(a2 + 8);
-    HIDWORD(v19) = v10;
-    sub_24503C22C(&v17, a2);
-    v11 = *a1;
-    v12 = v18;
-    *a1 = v17;
-    *(a1 + 8) = v12;
-    *(a1 + 16) = v19;
-    free(v11);
-  }
-
-  else if (*(v5 + 4) * *v5 && *(v6 + 20) * *(v6 + 16))
-  {
-    v7 = *(v5 + 16);
-    v8 = *(a2 + 24);
-    v16 = *(a1 + 16);
-    v15 = *(v6 + 16);
-    v14 = *v6;
-    cblas_sgemm_NEWLAPACK();
-  }
-
-  else
-  {
-    v13 = *(a1 + 20) * *(a1 + 16);
-    if (v13)
-    {
-
-      bzero(v4, 4 * v13);
-    }
-  }
-}
-
-void cva::PCA<float>::backProject<cva::Matrix<float,0u,0u,false>,void>(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v23 = *MEMORY[0x277D85DE8];
-  v15 = a1 + 24;
-  v5 = *(a2 + 16);
-  if (v5 == *(a3 + 16) && *(a1 + 40) == *(a3 + 20))
-  {
-LABEL_10:
-    v20 = a2;
-    v21 = &v15;
-    v22 = 1065353216;
-    sub_24503C51C(a3, &memptr);
-    goto LABEL_11;
-  }
-
-  v6 = *a3;
-  if (*a2 != *a3 && *(a1 + 24) != v6)
-  {
-    v7 = *(a1 + 40);
-    *(a3 + 16) = v5;
-    *(a3 + 20) = v7;
-    v8 = (v7 * v5);
-    if (v8)
-    {
-      if (*(a3 + 8) < v8)
-      {
-        free(v6);
-        v9 = (4 * v8 + 31) & 0x7FFFFFFE0;
-        *a3 = 0;
-        *(a3 + 8) = v9 >> 2;
-        memptr = 0;
-        malloc_type_posix_memalign(&memptr, 0x20uLL, v9, 0xE1AC2527uLL);
-        *a3 = memptr;
-      }
-    }
-
-    else
-    {
-      free(v6);
-      *a3 = 0;
-      *(a3 + 8) = 0;
-    }
-
-    goto LABEL_10;
-  }
-
-  v10 = (4 * (*(a1 + 40) * v5) + 31) & 0x7FFFFFFE0;
-  v17 = v10 >> 2;
-  memptr = 0;
-  malloc_type_posix_memalign(&memptr, 0x20uLL, v10, 0xE1AC2527uLL);
-  v16 = memptr;
-  v11 = *(v15 + 16);
-  LODWORD(v18) = *(a2 + 16);
-  HIDWORD(v18) = v11;
-  v20 = a2;
-  v21 = &v15;
-  v22 = 1065353216;
-  sub_24503C51C(&v16, &memptr);
-  v12 = *a3;
-  v13 = v17;
-  *a3 = v16;
-  *(a3 + 8) = v13;
-  *(a3 + 16) = v18;
-  free(v12);
-LABEL_11:
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-void sub_24503C51C(uint64_t a1, uint64_t a2)
-{
-  v4 = *a1;
-  v5 = *(a2 + 8);
-  v6 = **(a2 + 16);
-  if (*v5 == v4 || *v6 == v4)
-  {
-    v8 = (4 * (*(v6 + 16) * *(v5 + 16)) + 31) & 0x7FFFFFFE0;
-    v17 = v8 >> 2;
-    memptr = 0;
-    malloc_type_posix_memalign(&memptr, 0x20uLL, v8, 0xE1AC2527uLL);
-    v16 = memptr;
-    v9 = *(**(a2 + 16) + 16);
-    LODWORD(v18) = *(*(a2 + 8) + 16);
-    HIDWORD(v18) = v9;
-    sub_24503C51C(&v16, a2);
-    v10 = *a1;
-    v11 = v17;
-    *a1 = v16;
-    *(a1 + 8) = v11;
-    *(a1 + 16) = v18;
-    free(v10);
-  }
-
-  else if (*(v5 + 20) * *(v5 + 16) && *(v6 + 16) * *(v6 + 20))
-  {
-    v7 = *(a2 + 24);
-    v15 = *(a1 + 16);
-    v14 = *(v6 + 16);
-    v13 = *v6;
-    cblas_sgemm_NEWLAPACK();
-  }
-
-  else
-  {
-    v12 = *(a1 + 20) * *(a1 + 16);
-    if (v12)
-    {
-
-      bzero(v4, 4 * v12);
-    }
-  }
-}
-
-void cva::PCA<float>::backProject<cva::MatrixRef<float,0u,0u,false>,void>(uint64_t a1, int *a2, int *a3)
-{
-  v47 = *MEMORY[0x277D85DE8];
-  v38 = a1 + 24;
-  v44 = a2;
-  v45 = &v38;
-  v46 = 1065353216;
-  v4 = *(a3 + 1);
-  v5 = v4 - 4 * a3[5];
-  if (*(a2 + 1) - 4 * a2[5] == v5 || *(a1 + 24) == v5)
-  {
-    v7 = (4 * (*(a1 + 40) * *a2) + 31) & 0x7FFFFFFE0;
-    v39[1] = (v7 >> 2);
-    memptr = 0;
-    malloc_type_posix_memalign(&memptr, 0x20uLL, v7, 0xE1AC2527uLL);
-    v39[0] = memptr;
-    v9 = *(v38 + 16);
-    v40 = *a2;
-    v41 = v9;
-    sub_24503C864(v39, v43);
+    malloc_type_posix_memalign(&memptr, 0x20uLL, v6, 0xE1AC2527uLL);
+    v33[0] = memptr;
+    v9 = *(a1 + 44);
+    v34 = *a2;
+    v35 = v9;
+    sub_24503C22C(v33, v37);
     v10 = *a3;
     v11 = a3[1];
     v12 = v11 * *a3;
@@ -3478,12 +3092,12 @@ void cva::PCA<float>::backProject<cva::MatrixRef<float,0u,0u,false>,void>(uint64
       v16 = 0;
     }
 
-    v17 = v39[0];
+    v17 = v33[0];
     if (v15 != v16)
     {
       v18 = 0;
       v19 = v13 - v10;
-      v20 = v39[0];
+      v20 = v33[0];
       do
       {
         v21 = *v20++;
@@ -3516,73 +3130,350 @@ void cva::PCA<float>::backProject<cva::MatrixRef<float,0u,0u,false>,void>(uint64
     free(v17);
   }
 
-  else if (a2[1] * *a2 && *(a1 + 40) * *(a1 + 44))
+  else if (a2[1] * *a2 && *(a1 + 44) * *(a1 + 40))
   {
-    v6 = a2[4];
-    v37 = a3[4];
-    v36 = *(a3 + 1);
-    v35 = *(a1 + 40);
-    v34 = *(a1 + 24);
     cblas_sgemm_NEWLAPACK();
   }
 
   else
   {
-    v24 = *a3;
-    v25 = a3[1];
-    v26 = v25 * *a3;
-    v27 = a3[4];
-    v28 = v26 == 0;
-    if (v26)
+    v23 = *a3;
+    v24 = a3[1];
+    v25 = v24 * *a3;
+    v26 = a3[4];
+    v27 = v25 == 0;
+    if (v25)
     {
-      v29 = *(a3 + 1);
+      v28 = *(a3 + 1);
     }
 
     else
     {
+      v28 = 0;
+    }
+
+    v29 = (v4 + 4 * (v26 * v24));
+    if (v27)
+    {
       v29 = 0;
     }
 
-    v30 = (v4 + 4 * (v27 * v25));
-    if (v28)
+    if (v28 != v29)
     {
       v30 = 0;
-    }
-
-    if (v29 != v30)
-    {
-      v31 = 0;
-      v32 = v27 - v24;
+      v31 = v26 - v23;
       do
       {
-        *v29 = 0;
-        if (v31 + 1 >= v24)
+        *v28 = 0;
+        if (v30 + 1 >= v23)
         {
-          v33 = v32;
+          v32 = v31;
         }
 
         else
         {
-          v33 = 0;
+          v32 = 0;
         }
 
-        v29 += v33 + 1;
-        if (v31 + 1 < v24)
+        v28 += v32 + 1;
+        if (v30 + 1 < v23)
         {
-          ++v31;
+          ++v30;
+        }
+
+        else
+        {
+          v30 = 0;
+        }
+      }
+
+      while (v28 != v29);
+    }
+  }
+}
+
+void sub_24503C22C(uint64_t a1, uint64_t a2)
+{
+  v4 = *a1;
+  v5 = *(a2 + 8);
+  v6 = *(a2 + 16);
+  if ((*(v5 + 8) - 4 * *(v5 + 20)) == v4 || *v6 == v4)
+  {
+    v7 = (4 * (*(v6 + 20) * *v5) + 31) & 0x7FFFFFFE0;
+    v13 = v7 >> 2;
+    memptr = 0;
+    malloc_type_posix_memalign(&memptr, 0x20uLL, v7, 0xE1AC2527uLL);
+    v12 = memptr;
+    v8 = *(*(a2 + 16) + 20);
+    LODWORD(v14) = **(a2 + 8);
+    HIDWORD(v14) = v8;
+    sub_24503C22C(&v12, a2);
+    v9 = *a1;
+    v10 = v13;
+    *a1 = v12;
+    *(a1 + 8) = v10;
+    *(a1 + 16) = v14;
+    free(v9);
+  }
+
+  else if (*(v5 + 4) * *v5 && *(v6 + 20) * *(v6 + 16))
+  {
+    cblas_sgemm_NEWLAPACK();
+  }
+
+  else
+  {
+    v11 = *(a1 + 20) * *(a1 + 16);
+    if (v11)
+    {
+
+      bzero(v4, 4 * v11);
+    }
+  }
+}
+
+void cva::PCA<float>::backProject<cva::Matrix<float,0u,0u,false>,void>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v22 = *MEMORY[0x277D85DE8];
+  v14 = a1 + 24;
+  v5 = *(a2 + 16);
+  if (__PAIR64__(*(a1 + 40), v5) != *(a3 + 16))
+  {
+    v6 = *a3;
+    if (*a2 == *a3 || *(a1 + 24) == v6)
+    {
+      v10 = (4 * *(a1 + 40) * v5 + 31) & 0x7FFFFFFE0;
+      v16 = v10 >> 2;
+      memptr = 0;
+      malloc_type_posix_memalign(&memptr, 0x20uLL, v10, 0xE1AC2527uLL);
+      v15 = memptr;
+      v11 = *(v14 + 16);
+      LODWORD(v17) = *(a2 + 16);
+      HIDWORD(v17) = v11;
+      v19 = a2;
+      v20 = &v14;
+      v21 = 1065353216;
+      sub_24503C51C(&v15, &memptr);
+      v12 = *a3;
+      v13 = v16;
+      *a3 = v15;
+      *(a3 + 8) = v13;
+      *(a3 + 16) = v17;
+      free(v12);
+      return;
+    }
+
+    v7 = *(a1 + 40);
+    *(a3 + 16) = v5;
+    *(a3 + 20) = v7;
+    v8 = v7 * v5;
+    if (v8)
+    {
+      if (*(a3 + 8) < v8)
+      {
+        free(v6);
+        v9 = (4 * v8 + 31) & 0x7FFFFFFE0;
+        *a3 = 0;
+        *(a3 + 8) = v9 >> 2;
+        memptr = 0;
+        malloc_type_posix_memalign(&memptr, 0x20uLL, v9, 0xE1AC2527uLL);
+        *a3 = memptr;
+      }
+    }
+
+    else
+    {
+      free(v6);
+      *a3 = 0;
+      *(a3 + 8) = 0;
+    }
+  }
+
+  v19 = a2;
+  v20 = &v14;
+  v21 = 1065353216;
+  sub_24503C51C(a3, &memptr);
+}
+
+void sub_24503C51C(uint64_t a1, uint64_t a2)
+{
+  v4 = *a1;
+  v5 = *(a2 + 8);
+  v6 = **(a2 + 16);
+  if (*v5 == v4 || *v6 == v4)
+  {
+    v7 = (4 * (*(v6 + 16) * *(v5 + 16)) + 31) & 0x7FFFFFFE0;
+    v13 = v7 >> 2;
+    memptr = 0;
+    malloc_type_posix_memalign(&memptr, 0x20uLL, v7, 0xE1AC2527uLL);
+    v12 = memptr;
+    v8 = *(**(a2 + 16) + 16);
+    LODWORD(v14) = *(*(a2 + 8) + 16);
+    HIDWORD(v14) = v8;
+    sub_24503C51C(&v12, a2);
+    v9 = *a1;
+    v10 = v13;
+    *a1 = v12;
+    *(a1 + 8) = v10;
+    *(a1 + 16) = v14;
+    free(v9);
+  }
+
+  else if (*(v5 + 20) * *(v5 + 16) && *(v6 + 16) * *(v6 + 20))
+  {
+    cblas_sgemm_NEWLAPACK();
+  }
+
+  else
+  {
+    v11 = *(a1 + 20) * *(a1 + 16);
+    if (v11)
+    {
+
+      bzero(v4, 4 * v11);
+    }
+  }
+}
+
+void cva::PCA<float>::backProject<cva::MatrixRef<float,0u,0u,false>,void>(uint64_t a1, int *a2, int *a3)
+{
+  v41 = *MEMORY[0x277D85DE8];
+  v32 = a1 + 24;
+  v38 = a2;
+  v39 = &v32;
+  v40 = 1065353216;
+  v4 = *(a3 + 1);
+  v5 = v4 - 4 * a3[5];
+  if (*(a2 + 1) - 4 * a2[5] == v5 || *(a1 + 24) == v5)
+  {
+    v6 = (4 * (*(a1 + 40) * *a2) + 31) & 0x7FFFFFFE0;
+    v33[1] = (v6 >> 2);
+    memptr = 0;
+    malloc_type_posix_memalign(&memptr, 0x20uLL, v6, 0xE1AC2527uLL);
+    v33[0] = memptr;
+    v8 = *(v32 + 16);
+    v34 = *a2;
+    v35 = v8;
+    sub_24503C864(v33, v37);
+    v9 = *a3;
+    v10 = a3[1];
+    v11 = v10 * *a3;
+    v12 = a3[4];
+    v13 = v11 == 0;
+    if (v11)
+    {
+      v14 = *(a3 + 1);
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    v15 = *(a3 + 1) + 4 * (v12 * v10);
+    if (v13)
+    {
+      v15 = 0;
+    }
+
+    v16 = v33[0];
+    if (v14 != v15)
+    {
+      v17 = 0;
+      v18 = v12 - v9;
+      v19 = v33[0];
+      do
+      {
+        v20 = *v19++;
+        *v14 = v20;
+        if (v17 + 1 >= v9)
+        {
+          v21 = v18;
+        }
+
+        else
+        {
+          v21 = 0;
+        }
+
+        v14 += v21 + 1;
+        if (v17 + 1 < v9)
+        {
+          ++v17;
+        }
+
+        else
+        {
+          v17 = 0;
+        }
+      }
+
+      while (v14 != v15);
+    }
+
+    free(v16);
+  }
+
+  else if (a2[1] * *a2 && *(a1 + 40) * *(a1 + 44))
+  {
+    cblas_sgemm_NEWLAPACK();
+  }
+
+  else
+  {
+    v22 = *a3;
+    v23 = a3[1];
+    v24 = v23 * *a3;
+    v25 = a3[4];
+    v26 = v24 == 0;
+    if (v24)
+    {
+      v27 = *(a3 + 1);
+    }
+
+    else
+    {
+      v27 = 0;
+    }
+
+    v28 = (v4 + 4 * (v25 * v23));
+    if (v26)
+    {
+      v28 = 0;
+    }
+
+    if (v27 != v28)
+    {
+      v29 = 0;
+      v30 = v25 - v22;
+      do
+      {
+        *v27 = 0;
+        if (v29 + 1 >= v22)
+        {
+          v31 = v30;
         }
 
         else
         {
           v31 = 0;
         }
+
+        v27 += v31 + 1;
+        if (v29 + 1 < v22)
+        {
+          ++v29;
+        }
+
+        else
+        {
+          v29 = 0;
+        }
       }
 
-      while (v29 != v30);
+      while (v27 != v28);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24503C864(uint64_t a1, uint64_t a2)
@@ -3592,40 +3483,35 @@ void sub_24503C864(uint64_t a1, uint64_t a2)
   v6 = **(a2 + 16);
   if ((*(v5 + 8) - 4 * *(v5 + 20)) == v4 || *v6 == v4)
   {
-    v9 = (4 * (*(v6 + 16) * *v5) + 31) & 0x7FFFFFFE0;
-    v18 = v9 >> 2;
+    v7 = (4 * (*(v6 + 16) * *v5) + 31) & 0x7FFFFFFE0;
+    v13 = v7 >> 2;
     memptr = 0;
-    malloc_type_posix_memalign(&memptr, 0x20uLL, v9, 0xE1AC2527uLL);
-    v17 = memptr;
-    v10 = *(**(a2 + 16) + 16);
-    LODWORD(v19) = **(a2 + 8);
-    HIDWORD(v19) = v10;
-    sub_24503C864(&v17, a2);
-    v11 = *a1;
-    v12 = v18;
-    *a1 = v17;
-    *(a1 + 8) = v12;
-    *(a1 + 16) = v19;
-    free(v11);
+    malloc_type_posix_memalign(&memptr, 0x20uLL, v7, 0xE1AC2527uLL);
+    v12 = memptr;
+    v8 = *(**(a2 + 16) + 16);
+    LODWORD(v14) = **(a2 + 8);
+    HIDWORD(v14) = v8;
+    sub_24503C864(&v12, a2);
+    v9 = *a1;
+    v10 = v13;
+    *a1 = v12;
+    *(a1 + 8) = v10;
+    *(a1 + 16) = v14;
+    free(v9);
   }
 
   else if (*(v5 + 4) * *v5 && *(v6 + 16) * *(v6 + 20))
   {
-    v7 = *(v5 + 16);
-    v8 = *(a2 + 24);
-    v16 = *(a1 + 16);
-    v15 = *(v6 + 16);
-    v14 = *v6;
     cblas_sgemm_NEWLAPACK();
   }
 
   else
   {
-    v13 = *(a1 + 20) * *(a1 + 16);
-    if (v13)
+    v11 = *(a1 + 20) * *(a1 + 16);
+    if (v11)
     {
 
-      bzero(v4, 4 * v13);
+      bzero(v4, 4 * v11);
     }
   }
 }
@@ -3667,7 +3553,7 @@ char **cva::PCA<double>::operator()<cva::Matrix<double,0u,0u,false>,void>(void *
   if (*(a1 + 16) != v7 || (v8 = *(a2 + 16), v9 = *(a2 + 20), v10 = v8, *(a1 + 17) != v7))
   {
     v11 = (8 * v6 * v7 + 31) & 0xFFFFFFFE0;
-    v12 = v11 >> 3;
+    v12 = (v11 >> 3);
     memptr = 0;
     malloc_type_posix_memalign(&memptr, 0x20uLL, v11, 0xE1AC2527uLL);
     v13 = a1[6];
@@ -3698,7 +3584,7 @@ LABEL_7:
   if (*a2 == v14)
   {
     v17 = (8 * (v9 * v10) + 31) & 0xFFFFFFFE0;
-    v18 = v17 >> 3;
+    v18 = (v17 >> 3);
     memptr = 0;
     malloc_type_posix_memalign(&memptr, 0x20uLL, v17, 0xE1AC2527uLL);
     v19 = memptr;
@@ -3805,12 +3691,11 @@ LABEL_19:
   {
     v36 = v14;
 LABEL_27:
-    v44 = &v14[8 * v33];
+    v44 = v14 + v33;
     do
     {
       v45 = *v34++;
-      *v36 = v45;
-      v36 += 8;
+      *v36++ = v45;
     }
 
     while (v36 != v44);
@@ -3826,7 +3711,7 @@ LABEL_27:
   v37 = v35 + 1;
   v38 = (v35 + 1) & 0x3FFFFFFFFFFFFFFCLL;
   v39 = &v34[v38];
-  v40 = v14 + 16;
+  v40 = v14 + 1;
   v41 = (v34 + 2);
   v42 = v38;
   do
@@ -3842,7 +3727,7 @@ LABEL_27:
   while (v42);
   if (v37 != v38)
   {
-    v36 = &v14[8 * v38];
+    v36 = v14 + v38;
     v34 = v39;
     goto LABEL_27;
   }
@@ -3851,7 +3736,7 @@ LABEL_34:
   if (*(a1 + 22) != v7)
   {
     v49 = (8 * v7 * v7 + 31) & 0xFFFFFFFE0;
-    v50 = v49 >> 3;
+    v50 = (v49 >> 3);
     memptr = 0;
     malloc_type_posix_memalign(&memptr, 0x20uLL, v49, 0xE1AC2527uLL);
     v51 = a1[9];
@@ -3875,7 +3760,7 @@ LABEL_34:
   if (*(a1 + 28) != v52)
   {
     v53 = (8 * v52 + 31) & 0xFFFFFFFE0;
-    v54 = v53 >> 3;
+    v54 = (v53 >> 3);
     memptr = 0;
     malloc_type_posix_memalign(&memptr, 0x20uLL, v53, 0xE1AC2527uLL);
     v55 = a1[12];
@@ -3889,7 +3774,7 @@ LABEL_34:
   if (*(a1 + 34) != v6)
   {
     v56 = (8 * (v6 * v6) + 31) & 0xFFFFFFFE0;
-    v57 = v56 >> 3;
+    v57 = (v56 >> 3);
     memptr = 0;
     malloc_type_posix_memalign(&memptr, 0x20uLL, v56, 0xE1AC2527uLL);
     v58 = a1[15];
@@ -3915,7 +3800,7 @@ LABEL_34:
     if (*(a1 + 4) != v3)
     {
       v59 = (8 * v3 + 31) & 0xFFFFFFFE0;
-      v60 = v59 >> 3;
+      v60 = (v59 >> 3);
       memptr = 0;
       malloc_type_posix_memalign(&memptr, 0x20uLL, v59, 0xE1AC2527uLL);
       v61 = *a1;
@@ -3925,7 +3810,7 @@ LABEL_34:
       *(a1 + 5) = 1;
       free(v61);
       v62 = (8 * (v3 * v6) + 31) & 0xFFFFFFFE0;
-      v63 = v62 >> 3;
+      v63 = (v62 >> 3);
       memptr = 0;
       malloc_type_posix_memalign(&memptr, 0x20uLL, v62, 0xE1AC2527uLL);
       v64 = a1[3];
@@ -4008,7 +3893,7 @@ LABEL_55:
               v94 = v92[1];
               v95 = &v82[8 * v89];
               *v95 = v93;
-              *(v95 + 1) = v94;
+              v95[1] = v94;
               v91 += 4;
               v89 += 4;
               v90 -= 4;
@@ -4069,52 +3954,44 @@ uint64_t sub_24503CFB0(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   if (*(a1 + 5) >= *(a1 + 4))
   {
-    v8 = *(a1 + 4);
+    v4 = *(a1 + 4);
   }
 
   else
   {
-    v8 = *(a1 + 5);
+    v4 = *(a1 + 5);
   }
 
-  if (4 * (8 * v8))
+  if (4 * (8 * v4))
   {
-    v9 = malloc_type_malloc(4 * (8 * v8), 0x100004052888210uLL);
+    v5 = malloc_type_malloc(4 * (8 * v4), 0x100004052888210uLL);
   }
 
   else
   {
-    v9 = 0;
+    v5 = 0;
   }
 
-  v10 = *a1;
-  v11 = *a2;
-  v12 = *a3;
-  v13 = *a4;
   dgesdd_NEWLAPACK();
   if (8 * 0.0)
   {
-    v14 = malloc_type_malloc(8 * 0.0, 0x100004000313F17uLL);
+    v6 = malloc_type_malloc(8 * 0.0, 0x100004000313F17uLL);
   }
 
   else
   {
-    v14 = 0;
+    v6 = 0;
   }
 
-  v15 = *a1;
-  v16 = *a2;
-  v17 = *a3;
-  v18 = *a4;
   dgesdd_NEWLAPACK();
-  if (v14)
+  if (v6)
   {
-    free(v14);
+    free(v6);
   }
 
-  if (v9)
+  if (v5)
   {
-    free(v9);
+    free(v5);
   }
 
   return 1;
@@ -4127,7 +4004,7 @@ char **cva::PCA<double>::operator()<cva::MatrixRef<double,0u,0u,false>,void>(voi
   if (*(a1 + 16) != *a2 || (v8 = *a2, v9 = *(a2 + 4), v10 = *a2, *(a1 + 17) != v7))
   {
     v11 = (8 * v6 * v7 + 31) & 0xFFFFFFFE0;
-    v12 = v11 >> 3;
+    v12 = (v11 >> 3);
     memptr = 0;
     malloc_type_posix_memalign(&memptr, 0x20uLL, v11, 0xE1AC2527uLL);
     v13 = a1[6];
@@ -4303,7 +4180,7 @@ LABEL_23:
     v39 = *(a1 + 17);
     v40 = (v39 * v38);
     v41 = (8 * v40 + 31) & 0xFFFFFFFE0;
-    v42 = v41 >> 3;
+    v42 = (v41 >> 3);
     memptr = 0;
     malloc_type_posix_memalign(&memptr, 0x20uLL, v41, 0xE1AC2527uLL);
     v43 = memptr;
@@ -4380,8 +4257,7 @@ LABEL_62:
     v35 = 8 * v30;
     do
     {
-      *v14 = *v34;
-      v14 += 8;
+      *v14++ = *v34;
       if (v31 + 1 >= v32)
       {
         v36 = v33;
@@ -4414,7 +4290,7 @@ LABEL_63:
   if (*(a1 + 22) != v7)
   {
     v62 = (8 * v7 * v7 + 31) & 0xFFFFFFFE0;
-    v63 = v62 >> 3;
+    v63 = (v62 >> 3);
     memptr = 0;
     malloc_type_posix_memalign(&memptr, 0x20uLL, v62, 0xE1AC2527uLL);
     v64 = a1[9];
@@ -4438,7 +4314,7 @@ LABEL_63:
   if (*(a1 + 28) != v65)
   {
     v66 = (8 * v65 + 31) & 0xFFFFFFFE0;
-    v67 = v66 >> 3;
+    v67 = (v66 >> 3);
     memptr = 0;
     malloc_type_posix_memalign(&memptr, 0x20uLL, v66, 0xE1AC2527uLL);
     v68 = a1[12];
@@ -4452,7 +4328,7 @@ LABEL_63:
   if (*(a1 + 34) != v6)
   {
     v69 = (8 * (v6 * v6) + 31) & 0xFFFFFFFE0;
-    v70 = v69 >> 3;
+    v70 = (v69 >> 3);
     memptr = 0;
     malloc_type_posix_memalign(&memptr, 0x20uLL, v69, 0xE1AC2527uLL);
     v71 = a1[15];
@@ -4478,7 +4354,7 @@ LABEL_63:
     if (*(a1 + 4) != v72)
     {
       v73 = (8 * v72 + 31) & 0xFFFFFFFE0;
-      v74 = v73 >> 3;
+      v74 = (v73 >> 3);
       memptr = 0;
       malloc_type_posix_memalign(&memptr, 0x20uLL, v73, 0xE1AC2527uLL);
       v75 = *a1;
@@ -4488,7 +4364,7 @@ LABEL_63:
       *(a1 + 5) = 1;
       free(v75);
       v76 = (8 * (v72 * v6) + 31) & 0xFFFFFFFE0;
-      v77 = v76 >> 3;
+      v77 = (v76 >> 3);
       memptr = 0;
       malloc_type_posix_memalign(&memptr, 0x20uLL, v76, 0xE1AC2527uLL);
       v78 = a1[3];
@@ -4571,7 +4447,7 @@ LABEL_84:
               v108 = v106[1];
               v109 = &v96[8 * v103];
               *v109 = v107;
-              *(v109 + 1) = v108;
+              v109[1] = v108;
               v105 += 4;
               v103 += 4;
               v104 -= 4;
@@ -4630,26 +4506,39 @@ LABEL_87:
 
 void cva::PCA<double>::project<cva::Matrix<double,0u,0u,false>,void>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = (a1 + 24);
   v6 = *(a2 + 16);
-  if (v6 == *(a3 + 16) && *(a1 + 44) == *(a3 + 20))
+  if (__PAIR64__(*(a1 + 44), v6) != *(a3 + 16))
   {
-LABEL_10:
-    v21 = a2;
-    v22 = v5;
-    v23 = 0x3FF0000000000000;
-    sub_24503D9C4(a3, &memptr);
-    goto LABEL_11;
-  }
+    v7 = *a3;
+    if (*a2 == *a3 || *v5 == v7)
+    {
+      v11 = (8 * *(a1 + 44) * v6 + 31) & 0xFFFFFFFE0;
+      v17 = v11 >> 3;
+      memptr = 0;
+      malloc_type_posix_memalign(&memptr, 0x20uLL, v11, 0xE1AC2527uLL);
+      v16 = memptr;
+      v13 = *(a1 + 44);
+      LODWORD(v18) = *(a2 + 16);
+      HIDWORD(v18) = v13;
+      v20 = a2;
+      v21 = v5;
+      v22 = 0x3FF0000000000000;
+      sub_24503D9C4(&v16, &memptr);
+      v14 = *a3;
+      v15 = v17;
+      *a3 = v16;
+      *(a3 + 8) = v15;
+      *(a3 + 16) = v18;
+      free(v14);
+      return;
+    }
 
-  v7 = *a3;
-  if (*a2 != *a3 && *v5 != v7)
-  {
     v8 = *(a1 + 44);
     *(a3 + 16) = v6;
     *(a3 + 20) = v8;
-    v9 = (v8 * v6);
+    v9 = v8 * v6;
     if (v9)
     {
       if (*(a3 + 8) < v9)
@@ -4670,400 +4559,73 @@ LABEL_10:
       *a3 = 0;
       *(a3 + 8) = 0;
     }
-
-    goto LABEL_10;
   }
 
-  v11 = (8 * (*(a1 + 44) * v6) + 31) & 0xFFFFFFFE0;
-  v18 = v11 >> 3;
-  memptr = 0;
-  malloc_type_posix_memalign(&memptr, 0x20uLL, v11, 0xE1AC2527uLL);
-  v17 = memptr;
-  v13 = *(a1 + 44);
-  LODWORD(v19) = *(a2 + 16);
-  HIDWORD(v19) = v13;
-  v21 = a2;
-  v22 = v5;
-  v23 = 0x3FF0000000000000;
-  sub_24503D9C4(&v17, &memptr);
-  v14 = *a3;
-  v15 = v18;
-  *a3 = v17;
-  *(a3 + 8) = v15;
-  *(a3 + 16) = v19;
-  free(v14);
-LABEL_11:
-  v16 = *MEMORY[0x277D85DE8];
+  v20 = a2;
+  v21 = v5;
+  v22 = 0x3FF0000000000000;
+  sub_24503D9C4(a3, &memptr);
 }
 
-void sub_24503D9C4(uint64_t a1, void *a2)
+void sub_24503D9C4(uint64_t a1, uint64_t a2)
 {
   v4 = *a1;
-  v5 = a2[1];
-  v6 = a2[2];
+  v5 = *(a2 + 8);
+  v6 = *(a2 + 16);
   if (*v5 == v4 || *v6 == v4)
   {
-    v8 = (8 * (*(v6 + 20) * *(v5 + 16)) + 31) & 0xFFFFFFFE0;
-    v17 = v8 >> 3;
+    v7 = (8 * (*(v6 + 20) * *(v5 + 16)) + 31) & 0xFFFFFFFE0;
+    v13 = v7 >> 3;
     memptr = 0;
-    malloc_type_posix_memalign(&memptr, 0x20uLL, v8, 0xE1AC2527uLL);
-    v16 = memptr;
-    v9 = *(a2[2] + 20);
-    LODWORD(v18) = *(a2[1] + 16);
-    HIDWORD(v18) = v9;
-    sub_24503D9C4(&v16, a2);
-    v10 = *a1;
-    v11 = v17;
-    *a1 = v16;
-    *(a1 + 8) = v11;
-    *(a1 + 16) = v18;
-    free(v10);
+    malloc_type_posix_memalign(&memptr, 0x20uLL, v7, 0xE1AC2527uLL);
+    v12 = memptr;
+    v8 = *(*(a2 + 16) + 20);
+    LODWORD(v14) = *(*(a2 + 8) + 16);
+    HIDWORD(v14) = v8;
+    sub_24503D9C4(&v12, a2);
+    v9 = *a1;
+    v10 = v13;
+    *a1 = v12;
+    *(a1 + 8) = v10;
+    *(a1 + 16) = v14;
+    free(v9);
   }
 
   else if (*(v5 + 20) * *(v5 + 16) && *(v6 + 20) * *(v6 + 16))
   {
-    v7 = a2[3];
-    v15 = *(a1 + 16);
-    v14 = *(v6 + 16);
-    v13 = *v6;
     cblas_dgemm_NEWLAPACK();
   }
 
   else
   {
-    v12 = *(a1 + 20) * *(a1 + 16);
-    if (v12)
+    v11 = *(a1 + 20) * *(a1 + 16);
+    if (v11)
     {
 
-      bzero(v4, 8 * v12);
+      bzero(v4, 8 * v11);
     }
   }
 }
 
 void cva::PCA<double>::project<cva::MatrixRef<double,0u,0u,false>,void>(uint64_t a1, int *a2, int *a3)
 {
-  v43[4] = *MEMORY[0x277D85DE8];
-  v43[1] = a2;
-  v43[2] = a1 + 24;
-  v43[3] = 0x3FF0000000000000;
+  v41 = *MEMORY[0x277D85DE8];
+  v38 = a2;
+  v39 = a1 + 24;
+  v40 = 0x3FF0000000000000;
   v4 = *(a3 + 1);
   v5 = v4 - 8 * a3[5];
   if (*(a2 + 1) - 8 * a2[5] == v5 || *(a1 + 24) == v5)
   {
-    v7 = (8 * (*(a1 + 44) * *a2) + 31) & 0xFFFFFFFE0;
-    v39[1] = (v7 >> 3);
+    v6 = (8 * (*(a1 + 44) * *a2) + 31) & 0xFFFFFFFE0;
+    v33[1] = (v6 >> 3);
     memptr = 0;
-    malloc_type_posix_memalign(&memptr, 0x20uLL, v7, 0xE1AC2527uLL);
-    v39[0] = memptr;
-    v10 = *(a1 + 44);
-    v40 = *a2;
-    v41 = v10;
-    sub_24503DD04(v39, v43);
-    v11 = *a3;
-    v12 = a3[1];
-    v13 = v12 * *a3;
-    v14 = a3[4];
-    v15 = v13 == 0;
-    if (v13)
-    {
-      v16 = *(a3 + 1);
-    }
-
-    else
-    {
-      v16 = 0;
-    }
-
-    v17 = *(a3 + 1) + 8 * (v14 * v12);
-    if (v15)
-    {
-      v17 = 0;
-    }
-
-    v18 = v39[0];
-    if (v16 != v17)
-    {
-      v19 = 0;
-      v20 = v14 - v11;
-      v21 = v39[0];
-      do
-      {
-        v22 = *v21++;
-        *v16 = v22;
-        if (v19 + 1 >= v11)
-        {
-          v23 = v20;
-        }
-
-        else
-        {
-          v23 = 0;
-        }
-
-        v16 += v23 + 1;
-        if (v19 + 1 < v11)
-        {
-          ++v19;
-        }
-
-        else
-        {
-          v19 = 0;
-        }
-      }
-
-      while (v16 != v17);
-    }
-
-    free(v18);
-  }
-
-  else if (a2[1] * *a2 && *(a1 + 44) * *(a1 + 40))
-  {
-    v6 = a2[4];
-    v38 = a3[4];
-    v37 = *(a3 + 1);
-    v36 = *(a1 + 40);
-    v35 = *(a1 + 24);
-    cblas_dgemm_NEWLAPACK();
-  }
-
-  else
-  {
-    v25 = *a3;
-    v26 = a3[1];
-    v27 = v26 * *a3;
-    v28 = a3[4];
-    v29 = v27 == 0;
-    if (v27)
-    {
-      v30 = *(a3 + 1);
-    }
-
-    else
-    {
-      v30 = 0;
-    }
-
-    v31 = (v4 + 8 * (v28 * v26));
-    if (v29)
-    {
-      v31 = 0;
-    }
-
-    if (v30 != v31)
-    {
-      v32 = 0;
-      v33 = v28 - v25;
-      do
-      {
-        *v30 = 0;
-        if (v32 + 1 >= v25)
-        {
-          v34 = v33;
-        }
-
-        else
-        {
-          v34 = 0;
-        }
-
-        v30 += v34 + 1;
-        if (v32 + 1 < v25)
-        {
-          ++v32;
-        }
-
-        else
-        {
-          v32 = 0;
-        }
-      }
-
-      while (v30 != v31);
-    }
-  }
-
-  v24 = *MEMORY[0x277D85DE8];
-}
-
-void sub_24503DD04(uint64_t a1, void *a2)
-{
-  v4 = *a1;
-  v5 = a2[1];
-  v6 = a2[2];
-  if ((*(v5 + 8) - 8 * *(v5 + 20)) == v4 || *v6 == v4)
-  {
-    v9 = (8 * (*(v6 + 20) * *v5) + 31) & 0xFFFFFFFE0;
-    v18 = v9 >> 3;
-    memptr = 0;
-    malloc_type_posix_memalign(&memptr, 0x20uLL, v9, 0xE1AC2527uLL);
-    v17 = memptr;
-    v10 = *(a2[2] + 20);
-    LODWORD(v19) = *a2[1];
-    HIDWORD(v19) = v10;
-    sub_24503DD04(&v17, a2);
-    v11 = *a1;
-    v12 = v18;
-    *a1 = v17;
-    *(a1 + 8) = v12;
-    *(a1 + 16) = v19;
-    free(v11);
-  }
-
-  else if (*(v5 + 4) * *v5 && *(v6 + 20) * *(v6 + 16))
-  {
-    v7 = *(v5 + 16);
-    v8 = a2[3];
-    v16 = *(a1 + 16);
-    v15 = *(v6 + 16);
-    v14 = *v6;
-    cblas_dgemm_NEWLAPACK();
-  }
-
-  else
-  {
-    v13 = *(a1 + 20) * *(a1 + 16);
-    if (v13)
-    {
-
-      bzero(v4, 8 * v13);
-    }
-  }
-}
-
-void cva::PCA<double>::backProject<cva::Matrix<double,0u,0u,false>,void>(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v23 = *MEMORY[0x277D85DE8];
-  v15 = a1 + 24;
-  v5 = *(a2 + 16);
-  if (v5 == *(a3 + 16) && *(a1 + 40) == *(a3 + 20))
-  {
-LABEL_10:
-    v20 = a2;
-    v21 = &v15;
-    v22 = 0x3FF0000000000000;
-    sub_24503DFF4(a3, &memptr);
-    goto LABEL_11;
-  }
-
-  v6 = *a3;
-  if (*a2 != *a3 && *(a1 + 24) != v6)
-  {
-    v7 = *(a1 + 40);
-    *(a3 + 16) = v5;
-    *(a3 + 20) = v7;
-    v8 = (v7 * v5);
-    if (v8)
-    {
-      if (*(a3 + 8) < v8)
-      {
-        free(v6);
-        v9 = (8 * v8 + 31) & 0xFFFFFFFE0;
-        *a3 = 0;
-        *(a3 + 8) = v9 >> 3;
-        memptr = 0;
-        malloc_type_posix_memalign(&memptr, 0x20uLL, v9, 0xE1AC2527uLL);
-        *a3 = memptr;
-      }
-    }
-
-    else
-    {
-      free(v6);
-      *a3 = 0;
-      *(a3 + 8) = 0;
-    }
-
-    goto LABEL_10;
-  }
-
-  v10 = (8 * (*(a1 + 40) * v5) + 31) & 0xFFFFFFFE0;
-  v17 = v10 >> 3;
-  memptr = 0;
-  malloc_type_posix_memalign(&memptr, 0x20uLL, v10, 0xE1AC2527uLL);
-  v16 = memptr;
-  v11 = *(v15 + 16);
-  LODWORD(v18) = *(a2 + 16);
-  HIDWORD(v18) = v11;
-  v20 = a2;
-  v21 = &v15;
-  v22 = 0x3FF0000000000000;
-  sub_24503DFF4(&v16, &memptr);
-  v12 = *a3;
-  v13 = v17;
-  *a3 = v16;
-  *(a3 + 8) = v13;
-  *(a3 + 16) = v18;
-  free(v12);
-LABEL_11:
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-void sub_24503DFF4(uint64_t a1, uint64_t a2)
-{
-  v4 = *a1;
-  v5 = *(a2 + 8);
-  v6 = **(a2 + 16);
-  if (*v5 == v4 || *v6 == v4)
-  {
-    v8 = (8 * (*(v6 + 16) * *(v5 + 16)) + 31) & 0xFFFFFFFE0;
-    v17 = v8 >> 3;
-    memptr = 0;
-    malloc_type_posix_memalign(&memptr, 0x20uLL, v8, 0xE1AC2527uLL);
-    v16 = memptr;
-    v9 = *(**(a2 + 16) + 16);
-    LODWORD(v18) = *(*(a2 + 8) + 16);
-    HIDWORD(v18) = v9;
-    sub_24503DFF4(&v16, a2);
-    v10 = *a1;
-    v11 = v17;
-    *a1 = v16;
-    *(a1 + 8) = v11;
-    *(a1 + 16) = v18;
-    free(v10);
-  }
-
-  else if (*(v5 + 20) * *(v5 + 16) && *(v6 + 16) * *(v6 + 20))
-  {
-    v7 = *(a2 + 24);
-    v15 = *(a1 + 16);
-    v14 = *(v6 + 16);
-    v13 = *v6;
-    cblas_dgemm_NEWLAPACK();
-  }
-
-  else
-  {
-    v12 = *(a1 + 20) * *(a1 + 16);
-    if (v12)
-    {
-
-      bzero(v4, 8 * v12);
-    }
-  }
-}
-
-void cva::PCA<double>::backProject<cva::MatrixRef<double,0u,0u,false>,void>(uint64_t a1, int *a2, int *a3)
-{
-  v47 = *MEMORY[0x277D85DE8];
-  v38 = a1 + 24;
-  v44 = a2;
-  v45 = &v38;
-  v46 = 0x3FF0000000000000;
-  v4 = *(a3 + 1);
-  v5 = v4 - 8 * a3[5];
-  if (*(a2 + 1) - 8 * a2[5] == v5 || *(a1 + 24) == v5)
-  {
-    v7 = (8 * (*(a1 + 40) * *a2) + 31) & 0xFFFFFFFE0;
-    v39[1] = (v7 >> 3);
-    memptr = 0;
-    malloc_type_posix_memalign(&memptr, 0x20uLL, v7, 0xE1AC2527uLL);
-    v39[0] = memptr;
-    v9 = *(v38 + 16);
-    v40 = *a2;
-    v41 = v9;
-    sub_24503E33C(v39, v43);
+    malloc_type_posix_memalign(&memptr, 0x20uLL, v6, 0xE1AC2527uLL);
+    v33[0] = memptr;
+    v9 = *(a1 + 44);
+    v34 = *a2;
+    v35 = v9;
+    sub_24503DD04(v33, v37);
     v10 = *a3;
     v11 = a3[1];
     v12 = v11 * *a3;
@@ -5085,12 +4647,12 @@ void cva::PCA<double>::backProject<cva::MatrixRef<double,0u,0u,false>,void>(uint
       v16 = 0;
     }
 
-    v17 = v39[0];
+    v17 = v33[0];
     if (v15 != v16)
     {
       v18 = 0;
       v19 = v13 - v10;
-      v20 = v39[0];
+      v20 = v33[0];
       do
       {
         v21 = *v20++;
@@ -5123,73 +4685,350 @@ void cva::PCA<double>::backProject<cva::MatrixRef<double,0u,0u,false>,void>(uint
     free(v17);
   }
 
-  else if (a2[1] * *a2 && *(a1 + 40) * *(a1 + 44))
+  else if (a2[1] * *a2 && *(a1 + 44) * *(a1 + 40))
   {
-    v6 = a2[4];
-    v37 = a3[4];
-    v36 = *(a3 + 1);
-    v35 = *(a1 + 40);
-    v34 = *(a1 + 24);
     cblas_dgemm_NEWLAPACK();
   }
 
   else
   {
-    v24 = *a3;
-    v25 = a3[1];
-    v26 = v25 * *a3;
-    v27 = a3[4];
-    v28 = v26 == 0;
-    if (v26)
+    v23 = *a3;
+    v24 = a3[1];
+    v25 = v24 * *a3;
+    v26 = a3[4];
+    v27 = v25 == 0;
+    if (v25)
     {
-      v29 = *(a3 + 1);
+      v28 = *(a3 + 1);
     }
 
     else
     {
+      v28 = 0;
+    }
+
+    v29 = (v4 + 8 * (v26 * v24));
+    if (v27)
+    {
       v29 = 0;
     }
 
-    v30 = (v4 + 8 * (v27 * v25));
-    if (v28)
+    if (v28 != v29)
     {
       v30 = 0;
-    }
-
-    if (v29 != v30)
-    {
-      v31 = 0;
-      v32 = v27 - v24;
+      v31 = v26 - v23;
       do
       {
-        *v29 = 0;
-        if (v31 + 1 >= v24)
+        *v28 = 0;
+        if (v30 + 1 >= v23)
         {
-          v33 = v32;
+          v32 = v31;
         }
 
         else
         {
-          v33 = 0;
+          v32 = 0;
         }
 
-        v29 += v33 + 1;
-        if (v31 + 1 < v24)
+        v28 += v32 + 1;
+        if (v30 + 1 < v23)
         {
-          ++v31;
+          ++v30;
+        }
+
+        else
+        {
+          v30 = 0;
+        }
+      }
+
+      while (v28 != v29);
+    }
+  }
+}
+
+void sub_24503DD04(uint64_t a1, uint64_t a2)
+{
+  v4 = *a1;
+  v5 = *(a2 + 8);
+  v6 = *(a2 + 16);
+  if ((*(v5 + 8) - 8 * *(v5 + 20)) == v4 || *v6 == v4)
+  {
+    v7 = (8 * (*(v6 + 20) * *v5) + 31) & 0xFFFFFFFE0;
+    v13 = v7 >> 3;
+    memptr = 0;
+    malloc_type_posix_memalign(&memptr, 0x20uLL, v7, 0xE1AC2527uLL);
+    v12 = memptr;
+    v8 = *(*(a2 + 16) + 20);
+    LODWORD(v14) = **(a2 + 8);
+    HIDWORD(v14) = v8;
+    sub_24503DD04(&v12, a2);
+    v9 = *a1;
+    v10 = v13;
+    *a1 = v12;
+    *(a1 + 8) = v10;
+    *(a1 + 16) = v14;
+    free(v9);
+  }
+
+  else if (*(v5 + 4) * *v5 && *(v6 + 20) * *(v6 + 16))
+  {
+    cblas_dgemm_NEWLAPACK();
+  }
+
+  else
+  {
+    v11 = *(a1 + 20) * *(a1 + 16);
+    if (v11)
+    {
+
+      bzero(v4, 8 * v11);
+    }
+  }
+}
+
+void cva::PCA<double>::backProject<cva::Matrix<double,0u,0u,false>,void>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v22 = *MEMORY[0x277D85DE8];
+  v14 = a1 + 24;
+  v5 = *(a2 + 16);
+  if (__PAIR64__(*(a1 + 40), v5) != *(a3 + 16))
+  {
+    v6 = *a3;
+    if (*a2 == *a3 || *(a1 + 24) == v6)
+    {
+      v10 = (8 * *(a1 + 40) * v5 + 31) & 0xFFFFFFFE0;
+      v16 = v10 >> 3;
+      memptr = 0;
+      malloc_type_posix_memalign(&memptr, 0x20uLL, v10, 0xE1AC2527uLL);
+      v15 = memptr;
+      v11 = *(v14 + 16);
+      LODWORD(v17) = *(a2 + 16);
+      HIDWORD(v17) = v11;
+      v19 = a2;
+      v20 = &v14;
+      v21 = 0x3FF0000000000000;
+      sub_24503DFF4(&v15, &memptr);
+      v12 = *a3;
+      v13 = v16;
+      *a3 = v15;
+      *(a3 + 8) = v13;
+      *(a3 + 16) = v17;
+      free(v12);
+      return;
+    }
+
+    v7 = *(a1 + 40);
+    *(a3 + 16) = v5;
+    *(a3 + 20) = v7;
+    v8 = v7 * v5;
+    if (v8)
+    {
+      if (*(a3 + 8) < v8)
+      {
+        free(v6);
+        v9 = (8 * v8 + 31) & 0xFFFFFFFE0;
+        *a3 = 0;
+        *(a3 + 8) = v9 >> 3;
+        memptr = 0;
+        malloc_type_posix_memalign(&memptr, 0x20uLL, v9, 0xE1AC2527uLL);
+        *a3 = memptr;
+      }
+    }
+
+    else
+    {
+      free(v6);
+      *a3 = 0;
+      *(a3 + 8) = 0;
+    }
+  }
+
+  v19 = a2;
+  v20 = &v14;
+  v21 = 0x3FF0000000000000;
+  sub_24503DFF4(a3, &memptr);
+}
+
+void sub_24503DFF4(uint64_t a1, uint64_t a2)
+{
+  v4 = *a1;
+  v5 = *(a2 + 8);
+  v6 = **(a2 + 16);
+  if (*v5 == v4 || *v6 == v4)
+  {
+    v7 = (8 * (*(v6 + 16) * *(v5 + 16)) + 31) & 0xFFFFFFFE0;
+    v13 = v7 >> 3;
+    memptr = 0;
+    malloc_type_posix_memalign(&memptr, 0x20uLL, v7, 0xE1AC2527uLL);
+    v12 = memptr;
+    v8 = *(**(a2 + 16) + 16);
+    LODWORD(v14) = *(*(a2 + 8) + 16);
+    HIDWORD(v14) = v8;
+    sub_24503DFF4(&v12, a2);
+    v9 = *a1;
+    v10 = v13;
+    *a1 = v12;
+    *(a1 + 8) = v10;
+    *(a1 + 16) = v14;
+    free(v9);
+  }
+
+  else if (*(v5 + 20) * *(v5 + 16) && *(v6 + 16) * *(v6 + 20))
+  {
+    cblas_dgemm_NEWLAPACK();
+  }
+
+  else
+  {
+    v11 = *(a1 + 20) * *(a1 + 16);
+    if (v11)
+    {
+
+      bzero(v4, 8 * v11);
+    }
+  }
+}
+
+void cva::PCA<double>::backProject<cva::MatrixRef<double,0u,0u,false>,void>(uint64_t a1, int *a2, int *a3)
+{
+  v41 = *MEMORY[0x277D85DE8];
+  v32 = a1 + 24;
+  v38 = a2;
+  v39 = &v32;
+  v40 = 0x3FF0000000000000;
+  v4 = *(a3 + 1);
+  v5 = v4 - 8 * a3[5];
+  if (*(a2 + 1) - 8 * a2[5] == v5 || *(a1 + 24) == v5)
+  {
+    v6 = (8 * (*(a1 + 40) * *a2) + 31) & 0xFFFFFFFE0;
+    v33[1] = (v6 >> 3);
+    memptr = 0;
+    malloc_type_posix_memalign(&memptr, 0x20uLL, v6, 0xE1AC2527uLL);
+    v33[0] = memptr;
+    v8 = *(v32 + 16);
+    v34 = *a2;
+    v35 = v8;
+    sub_24503E33C(v33, v37);
+    v9 = *a3;
+    v10 = a3[1];
+    v11 = v10 * *a3;
+    v12 = a3[4];
+    v13 = v11 == 0;
+    if (v11)
+    {
+      v14 = *(a3 + 1);
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    v15 = *(a3 + 1) + 8 * (v12 * v10);
+    if (v13)
+    {
+      v15 = 0;
+    }
+
+    v16 = v33[0];
+    if (v14 != v15)
+    {
+      v17 = 0;
+      v18 = v12 - v9;
+      v19 = v33[0];
+      do
+      {
+        v20 = *v19++;
+        *v14 = v20;
+        if (v17 + 1 >= v9)
+        {
+          v21 = v18;
+        }
+
+        else
+        {
+          v21 = 0;
+        }
+
+        v14 += v21 + 1;
+        if (v17 + 1 < v9)
+        {
+          ++v17;
+        }
+
+        else
+        {
+          v17 = 0;
+        }
+      }
+
+      while (v14 != v15);
+    }
+
+    free(v16);
+  }
+
+  else if (a2[1] * *a2 && *(a1 + 40) * *(a1 + 44))
+  {
+    cblas_dgemm_NEWLAPACK();
+  }
+
+  else
+  {
+    v22 = *a3;
+    v23 = a3[1];
+    v24 = v23 * *a3;
+    v25 = a3[4];
+    v26 = v24 == 0;
+    if (v24)
+    {
+      v27 = *(a3 + 1);
+    }
+
+    else
+    {
+      v27 = 0;
+    }
+
+    v28 = (v4 + 8 * (v25 * v23));
+    if (v26)
+    {
+      v28 = 0;
+    }
+
+    if (v27 != v28)
+    {
+      v29 = 0;
+      v30 = v25 - v22;
+      do
+      {
+        *v27 = 0;
+        if (v29 + 1 >= v22)
+        {
+          v31 = v30;
         }
 
         else
         {
           v31 = 0;
         }
+
+        v27 += v31 + 1;
+        if (v29 + 1 < v22)
+        {
+          ++v29;
+        }
+
+        else
+        {
+          v29 = 0;
+        }
       }
 
-      while (v29 != v30);
+      while (v27 != v28);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24503E33C(uint64_t a1, uint64_t a2)
@@ -5199,40 +5038,35 @@ void sub_24503E33C(uint64_t a1, uint64_t a2)
   v6 = **(a2 + 16);
   if ((*(v5 + 8) - 8 * *(v5 + 20)) == v4 || *v6 == v4)
   {
-    v9 = (8 * (*(v6 + 16) * *v5) + 31) & 0xFFFFFFFE0;
-    v18 = v9 >> 3;
+    v7 = (8 * (*(v6 + 16) * *v5) + 31) & 0xFFFFFFFE0;
+    v13 = v7 >> 3;
     memptr = 0;
-    malloc_type_posix_memalign(&memptr, 0x20uLL, v9, 0xE1AC2527uLL);
-    v17 = memptr;
-    v10 = *(**(a2 + 16) + 16);
-    LODWORD(v19) = **(a2 + 8);
-    HIDWORD(v19) = v10;
-    sub_24503E33C(&v17, a2);
-    v11 = *a1;
-    v12 = v18;
-    *a1 = v17;
-    *(a1 + 8) = v12;
-    *(a1 + 16) = v19;
-    free(v11);
+    malloc_type_posix_memalign(&memptr, 0x20uLL, v7, 0xE1AC2527uLL);
+    v12 = memptr;
+    v8 = *(**(a2 + 16) + 16);
+    LODWORD(v14) = **(a2 + 8);
+    HIDWORD(v14) = v8;
+    sub_24503E33C(&v12, a2);
+    v9 = *a1;
+    v10 = v13;
+    *a1 = v12;
+    *(a1 + 8) = v10;
+    *(a1 + 16) = v14;
+    free(v9);
   }
 
   else if (*(v5 + 4) * *v5 && *(v6 + 16) * *(v6 + 20))
   {
-    v7 = *(v5 + 16);
-    v8 = *(a2 + 24);
-    v16 = *(a1 + 16);
-    v15 = *(v6 + 16);
-    v14 = *v6;
     cblas_dgemm_NEWLAPACK();
   }
 
   else
   {
-    v13 = *(a1 + 20) * *(a1 + 16);
-    if (v13)
+    v11 = *(a1 + 20) * *(a1 + 16);
+    if (v11)
     {
 
-      bzero(v4, 8 * v13);
+      bzero(v4, 8 * v11);
     }
   }
 }
@@ -5564,16 +5398,15 @@ double cva::SE2GroupStorage<float,cva::Matrix<float,3u,3u,false>>::rplus(uint64_
 
 float32x2_t cva::SE2GroupStorage<float,cva::Matrix<float,3u,3u,false>>::transform@<D0>(float32x2_t *a1@<X0>, float *a2@<X1>, float32x2_t *a3@<X8>)
 {
-  *&v9[7] = *MEMORY[0x277D85DE8];
-  v7[0] = a1;
-  v7[1] = 3;
-  v8[0] = v7;
-  v8[1] = a2;
-  *v9 = 0;
-  sub_24503EAF8(v9, v8);
-  result = vadd_f32(*v9, a1[3]);
+  *&v8[7] = *MEMORY[0x277D85DE8];
+  v6[0] = a1;
+  v6[1] = 3;
+  v7[0] = v6;
+  v7[1] = a2;
+  *v8 = 0;
+  sub_24503EAF8(v8, v7);
+  result = vadd_f32(*v8, a1[3]);
   *a3 = result;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5584,7 +5417,7 @@ float *sub_24503EAF8(float *result, float **a2)
   if ((v3 - 4 * *(*a2 + 3)) == result || (v4 = a2[1], v4 == result))
   {
     v17 = 0;
-    result = sub_24503EAF8(&v17);
+    result = sub_24503EAF8(&v17, a2);
     *v2 = v17;
   }
 
@@ -5663,7 +5496,7 @@ float *sub_24503EC68(float *result, uint64_t **a2)
   if (v3 == result)
   {
     v7 = 0;
-    result = sub_24503EC68(&v7);
+    result = sub_24503EC68(&v7, a2);
     *v2 = v7;
   }
 
@@ -5687,7 +5520,7 @@ float *sub_24503ECFC(float *result, uint64_t **a2)
   if ((*v3 - 4 * *(v3 + 3)) == result)
   {
     v8 = 0;
-    result = sub_24503ECFC(&v8);
+    result = sub_24503ECFC(&v8, a2);
     *v2 = v8;
   }
 
@@ -5846,7 +5679,7 @@ uint64_t cva::SE2AlgebraStorage<float,cva::Matrix<float,3u,1u,false>>::SE2Algebr
 
 void cva::SE2GroupStorage<float,cva::Matrix<float,3u,3u,false>>::logJacobian(float *a1@<X0>, uint64_t a2@<X8>)
 {
-  v40[2] = *MEMORY[0x277D85DE8];
+  v39[2] = *MEMORY[0x277D85DE8];
   *(a2 + 12) = 0u;
   v4 = (a2 + 12);
   *(a2 + 44) = 0;
@@ -5885,24 +5718,24 @@ void cva::SE2GroupStorage<float,cva::Matrix<float,3u,3u,false>>::logJacobian(flo
     v19 = v9 * v14;
     v20 = v14 * -v11;
     v21 = v11 * v14;
-    *v38 = v19;
-    *&v38[1] = v20;
-    *&v38[2] = v21;
-    *&v38[3] = v19;
+    *v37 = v19;
+    *&v37[1] = v20;
+    *&v37[2] = v21;
+    *&v37[3] = v19;
     v22 = (v10 * v17) + (v7 * v18);
     v23 = (v10 * v18) - (v7 * v17);
-    *v37 = v22;
-    *&v37[1] = v23;
+    *v36 = v22;
+    *&v36[1] = v23;
     *(a2 + 12) = 1065353216;
-    v40[0] = v38;
-    v36[0] = v40;
-    v36[1] = v37;
-    if (v37 == v4)
+    v39[0] = v37;
+    v35[0] = v39;
+    v35[1] = v36;
+    if (v36 == v4)
     {
-      v39 = 0;
-      sub_24503F23C(&v39, v36);
-      v25 = *(&v39 + 1);
-      v24 = *&v39;
+      v38 = 0;
+      sub_24503F23C(&v38, v35);
+      v25 = *(&v38 + 1);
+      v24 = *&v38;
     }
 
     else
@@ -5915,7 +5748,7 @@ void cva::SE2GroupStorage<float,cva::Matrix<float,3u,3u,false>>::logJacobian(flo
     *(a2 + 20) = v25;
     *(a2 + 24) = 0;
     v26 = 0x100000000;
-    v27 = v38;
+    v27 = v37;
     v28 = 16;
     *(a2 + 36) = 0;
     do
@@ -5943,8 +5776,6 @@ void cva::SE2GroupStorage<float,cva::Matrix<float,3u,3u,false>>::logJacobian(flo
 
     while (v28 != 40);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 float *sub_24503F23C(float *result, uint64_t a2)
@@ -5954,7 +5785,7 @@ float *sub_24503F23C(float *result, uint64_t a2)
   if (v3 == result)
   {
     v7 = 0;
-    result = sub_24503F23C(&v7);
+    result = sub_24503F23C(&v7, a2);
     *v2 = v7;
   }
 
@@ -6490,16 +6321,15 @@ __n128 cva::SE2GroupStorage<double,cva::Matrix<double,3u,3u,false>>::rplus(uint6
 
 float64x2_t cva::SE2GroupStorage<double,cva::Matrix<double,3u,3u,false>>::transform@<Q0>(float64x2_t *a1@<X0>, double *a2@<X1>, float64x2_t *a3@<X8>)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7[0] = a1;
-  v7[1] = 3;
-  v8[0] = v7;
-  v8[1] = a2;
-  v9[0] = 0uLL;
-  sub_24503FC18(v9[0].f64, v8);
-  result = vaddq_f64(v9[0], a1[3]);
+  v9 = *MEMORY[0x277D85DE8];
+  v6[0] = a1;
+  v6[1] = 3;
+  v7[0] = v6;
+  v7[1] = a2;
+  v8[0] = 0uLL;
+  sub_24503FC18(v8[0].f64, v7);
+  result = vaddq_f64(v8[0], a1[3]);
   *a3 = result;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6510,7 +6340,7 @@ double *sub_24503FC18(double *result, double **a2)
   if ((v3 - 8 * *(*a2 + 3)) == result || (v4 = a2[1], v4 == result))
   {
     v17 = 0uLL;
-    result = sub_24503FC18(&v17);
+    result = sub_24503FC18(&v17, a2);
     *v2 = v17;
   }
 
@@ -6561,26 +6391,25 @@ double *sub_24503FC18(double *result, double **a2)
 
 float64x2_t cva::SE2GroupStorage<double,cva::Matrix<double,3u,3u,false>>::inverseTransform@<Q0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, float64x2_t *a3@<X8>)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10[0] = a1;
-  v10[1] = 3;
-  v11 = v10;
-  v12[0] = &v11;
-  v12[1] = a2;
-  v7[0] = a1;
-  v7[1] = 3;
-  v8 = v7;
-  v6[0] = a1 + 48;
-  v6[1] = 0x600000003;
-  v9[0] = &v8;
-  v9[1] = v6;
+  v14 = *MEMORY[0x277D85DE8];
+  v9[0] = a1;
+  v9[1] = 3;
+  v10 = v9;
+  v11[0] = &v10;
+  v11[1] = a2;
+  v6[0] = a1;
+  v6[1] = 3;
+  v7 = v6;
+  v5[0] = a1 + 48;
+  v5[1] = 0x600000003;
+  v8[0] = &v7;
+  v8[1] = v5;
+  v12 = 0uLL;
+  sub_24503FDB0(v12.f64, v11);
   v13 = 0uLL;
-  sub_24503FDB0(v13.f64, v12);
-  v14 = 0uLL;
-  sub_24503FE44(&v14, v9);
-  result = vsubq_f64(v13, v14);
+  sub_24503FE44(&v13, v8);
+  result = vsubq_f64(v12, v13);
   *a3 = result;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6590,7 +6419,7 @@ double sub_24503FDB0(double *a1, uint64_t **a2)
   if (v3 == a1)
   {
     v8 = 0uLL;
-    sub_24503FDB0(&v8);
+    sub_24503FDB0(&v8, a2);
     result = *&v8;
     *a1 = v8;
   }
@@ -6615,7 +6444,7 @@ double sub_24503FE44(uint64_t a1, uint64_t **a2)
   if (*v3 - 8 * *(v3 + 3) == a1)
   {
     v9 = 0uLL;
-    sub_24503FE44(&v9);
+    sub_24503FE44(&v9, a2);
     result = *&v9;
     *a1 = v9;
   }
@@ -6778,7 +6607,7 @@ void *cva::SE2AlgebraStorage<double,cva::Matrix<double,3u,1u,false>>::SE2Algebra
 
 void cva::SE2GroupStorage<double,cva::Matrix<double,3u,3u,false>>::logJacobian(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v41[2] = *MEMORY[0x277D85DE8];
+  v40[2] = *MEMORY[0x277D85DE8];
   *(a2 + 24) = 0u;
   v4 = (a2 + 24);
   *(a2 + 88) = 0;
@@ -6819,25 +6648,25 @@ void cva::SE2GroupStorage<double,cva::Matrix<double,3u,3u,false>>::logJacobian(u
     v19 = v9 * v14;
     v20 = v14 * -v11;
     v21 = v11 * v14;
-    *v38 = v19;
-    *&v38[1] = v20;
-    *&v38[2] = v21;
-    *&v38[3] = v19;
+    *v37 = v19;
+    *&v37[1] = v20;
+    *&v37[2] = v21;
+    *&v37[3] = v19;
     v22 = v10 * v17 + v7 * v18;
     v23 = v10 * v18 - v7 * v17;
-    *v37 = v22;
-    *&v37[1] = v23;
+    *v36 = v22;
+    *&v36[1] = v23;
     *(a2 + 24) = 0x3FF0000000000000;
-    v41[0] = v38;
-    v36[0] = v41;
-    v36[1] = v37;
-    if (v37 == v4)
+    v40[0] = v37;
+    v35[0] = v40;
+    v35[1] = v36;
+    if (v36 == v4)
     {
+      v38 = 0.0;
       v39 = 0.0;
-      v40 = 0.0;
-      sub_245040388(&v39, v36);
-      v24 = v39;
-      v25 = v40;
+      sub_245040388(&v38, v35);
+      v24 = v38;
+      v25 = v39;
     }
 
     else
@@ -6850,7 +6679,7 @@ void cva::SE2GroupStorage<double,cva::Matrix<double,3u,3u,false>>::logJacobian(u
     *(a2 + 40) = v25;
     *(a2 + 48) = 0;
     v26 = 0x100000000;
-    v27 = v38;
+    v27 = v37;
     v28 = 32;
     *(a2 + 72) = 0;
     do
@@ -6878,8 +6707,6 @@ void cva::SE2GroupStorage<double,cva::Matrix<double,3u,3u,false>>::logJacobian(u
 
     while (v28 != 80);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 double sub_245040388(double *a1, uint64_t a2)
@@ -6888,7 +6715,7 @@ double sub_245040388(double *a1, uint64_t a2)
   if (v3 == a1)
   {
     v8 = 0uLL;
-    sub_245040388(&v8);
+    sub_245040388(&v8, a2);
     result = *&v8;
     *a1 = v8;
   }
@@ -7177,33 +7004,32 @@ uint64_t cva::SE2GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::af
 
 float *cva::SE2GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::transform@<X0>(uint64_t a1@<X0>, float *a2@<X1>, uint64_t a3@<X8>)
 {
-  *&v14[7] = *MEMORY[0x277D85DE8];
+  *&v13[7] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 8);
   v4 = *(a1 + 12);
   v6 = *a1 - 4 * v4;
-  v12[0] = *a1;
-  v12[1] = v5 | (v4 << 32);
-  v13[0] = v12;
-  v13[1] = a2;
+  v11[0] = *a1;
+  v11[1] = v5 | (v4 << 32);
+  v12[0] = v11;
+  v12[1] = a2;
   v7 = (v6 + 4 * (v4 + 2 * v5));
-  *v14 = 0;
-  result = sub_24503EAF8(v14, v13);
+  *v13 = 0;
+  result = sub_24503EAF8(v13, v12);
   *a3 = 0;
-  v9 = *v14 + *v7;
+  v9 = *v13 + *v7;
   if (v6 == a3)
   {
-    v10 = *&v14[1] + v7[1];
+    v10 = *&v13[1] + v7[1];
     *a3 = v9;
   }
 
   else
   {
     *a3 = v9;
-    v10 = *&v14[1] + v7[1];
+    v10 = *&v13[1] + v7[1];
   }
 
   *(a3 + 4) = v10;
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7368,7 +7194,7 @@ float cva::SE2GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::log@<
 
 void cva::SE2GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::logJacobian(float **a1@<X0>, uint64_t a2@<X8>)
 {
-  v42[2] = *MEMORY[0x277D85DE8];
+  v41[2] = *MEMORY[0x277D85DE8];
   *(a2 + 12) = 0u;
   v4 = (a2 + 12);
   *(a2 + 44) = 0;
@@ -7409,24 +7235,24 @@ void cva::SE2GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::logJac
     v21 = v10 * v15;
     v22 = v15 * -v12;
     v23 = v12 * v15;
-    *v40 = v21;
-    *&v40[1] = v22;
-    *&v40[2] = v23;
-    *&v40[3] = v21;
+    *v39 = v21;
+    *&v39[1] = v22;
+    *&v39[2] = v23;
+    *&v39[3] = v21;
     v24 = (v11 * v19) + (v8 * v20);
     v25 = (v11 * v20) - (v8 * v19);
-    *v39 = v24;
-    *&v39[1] = v25;
+    *v38 = v24;
+    *&v38[1] = v25;
     *(a2 + 12) = 1065353216;
-    v42[0] = v40;
-    v38[0] = v42;
-    v38[1] = v39;
-    if (v39 == v4)
+    v41[0] = v39;
+    v37[0] = v41;
+    v37[1] = v38;
+    if (v38 == v4)
     {
-      v41 = 0;
-      sub_24503F23C(&v41, v38);
-      v27 = *(&v41 + 1);
-      v26 = *&v41;
+      v40 = 0;
+      sub_24503F23C(&v40, v37);
+      v27 = *(&v40 + 1);
+      v26 = *&v40;
     }
 
     else
@@ -7439,7 +7265,7 @@ void cva::SE2GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::logJac
     *(a2 + 20) = v27;
     *(a2 + 24) = 0;
     v28 = 0x100000000;
-    v29 = v40;
+    v29 = v39;
     v30 = 16;
     *(a2 + 36) = 0;
     do
@@ -7467,8 +7293,6 @@ void cva::SE2GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::logJac
 
     while (v30 != 40);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 float cva::SE2GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::inverse@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -7588,36 +7412,35 @@ float cva::SE2GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::adjoi
   return result;
 }
 
-uint64_t cva::SE2GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::serialize(uint64_t result)
+uint64_t *cva::SE2GroupStorage<float,cva::MatrixRef<float const,3u,3u,false>>::serialize(uint64_t *result, uint64_t a2)
 {
-  v1 = *(result + 8);
-  if (v1)
+  v2 = *(result + 2);
+  if (v2)
   {
-    v2 = *result;
-    v3 = *result + 4 * (3 * v1);
-    v4 = (v1 - 3) << 32;
+    v3 = *result;
+    v4 = *result + 4 * (3 * v2);
+    v5 = (v2 - 3) << 32;
     do
     {
-      v8 = *v2;
       result = std::ostream::write();
-      v5 = HIDWORD(v4);
-      if (v4 < 2)
+      v6 = HIDWORD(v5);
+      if (v5 < 2)
       {
-        v5 = 0;
+        v6 = 0;
       }
 
-      v6 = &v2[v5];
-      v7 = (v4 + 1);
-      if (v4 >= 2)
+      v7 = v3 + 4 * v6;
+      v8 = (v5 + 1);
+      if (v5 >= 2)
       {
-        v7 = 0;
+        v8 = 0;
       }
 
-      v4 = v7 | v4 & 0xFFFFFFFF00000000;
-      v2 = v6 + 1;
+      v5 = v8 | v5 & 0xFFFFFFFF00000000;
+      v3 = v7 + 4;
     }
 
-    while (v6 + 1 != v3);
+    while (v7 + 4 != v4);
   }
 
   return result;
@@ -7699,62 +7522,60 @@ uint64_t cva::SE2GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::
 
 double *cva::SE2GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::transform@<X0>(uint64_t a1@<X0>, double *a2@<X1>, double *a3@<X8>)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 8);
   v4 = *(a1 + 12);
-  v6 = *a1 - 8 * v4;
-  v12[0] = *a1;
-  v12[1] = v5 | (v4 << 32);
-  v13[0] = v12;
-  v13[1] = a2;
-  v7 = (v6 + 8 * (v4 + 2 * v5));
+  v6 = (*a1 - 8 * v4);
+  v11[0] = *a1;
+  v11[1] = v5 | (v4 << 32);
+  v12[0] = v11;
+  v12[1] = a2;
+  v7 = &v6[(v4 + 2 * v5)];
+  v13 = 0.0;
   v14 = 0.0;
-  v15 = 0.0;
-  result = sub_24503FC18(&v14, v13);
-  v9 = v14 + *v7;
+  result = sub_24503FC18(&v13, v12);
+  v9 = v13 + *v7;
   if (v6 == a3)
   {
-    v10 = v15 + v7[1];
+    v10 = v14 + v7[1];
     *a3 = v9;
   }
 
   else
   {
     *a3 = v9;
-    v10 = v15 + v7[1];
+    v10 = v14 + v7[1];
   }
 
   a3[1] = v10;
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 float64x2_t cva::SE2GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::inverseTransform@<Q0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, float64x2_t *a3@<X8>)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 2);
   v4 = *(a1 + 3);
   v6 = *a1 - 8 * v4;
-  v14 = *a1;
-  v15 = v5 | (v4 << 32);
-  v16 = &v14;
-  v17[0] = &v16;
-  v17[1] = a2;
-  v11[0] = v14;
-  v11[1] = v15;
-  v12 = v11;
+  v13 = *a1;
+  v14 = v5 | (v4 << 32);
+  v15 = &v13;
+  v16[0] = &v15;
+  v16[1] = a2;
+  v10[0] = v13;
+  v10[1] = v14;
+  v11 = v10;
   v7 = (v4 + 2 * v5);
-  v10[0] = v6 + 8 * v7;
-  v10[1] = v5 | (v7 << 32);
-  v13[0] = &v12;
-  v13[1] = v10;
+  v9[0] = v6 + 8 * v7;
+  v9[1] = v5 | (v7 << 32);
+  v12[0] = &v11;
+  v12[1] = v9;
+  v17 = 0uLL;
+  sub_24503FDB0(v17.f64, v16);
   v18 = 0uLL;
-  sub_24503FDB0(v18.f64, v17);
-  v19 = 0uLL;
-  sub_24503FE44(&v19, v13);
-  result = vsubq_f64(v18, v19);
+  sub_24503FE44(&v18, v12);
+  result = vsubq_f64(v17, v18);
   *a3 = result;
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7889,7 +7710,7 @@ double cva::SE2GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::lo
 
 void cva::SE2GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::logJacobian(long double **a1@<X0>, uint64_t a2@<X8>)
 {
-  v43[2] = *MEMORY[0x277D85DE8];
+  v42[2] = *MEMORY[0x277D85DE8];
   *(a2 + 24) = 0u;
   v4 = (a2 + 24);
   *(a2 + 88) = 0;
@@ -7932,25 +7753,25 @@ void cva::SE2GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::logJ
     v21 = v10 * v15;
     v22 = v15 * -v12;
     v23 = v12 * v15;
-    *v40 = v21;
-    *&v40[1] = v22;
-    *&v40[2] = v23;
-    *&v40[3] = v21;
+    *v39 = v21;
+    *&v39[1] = v22;
+    *&v39[2] = v23;
+    *&v39[3] = v21;
     v24 = v11 * v19 + v8 * v20;
     v25 = v11 * v20 - v8 * v19;
-    *v39 = v24;
-    *&v39[1] = v25;
+    *v38 = v24;
+    *&v38[1] = v25;
     *(a2 + 24) = 0x3FF0000000000000;
-    v43[0] = v40;
-    v38[0] = v43;
-    v38[1] = v39;
-    if (v39 == v4)
+    v42[0] = v39;
+    v37[0] = v42;
+    v37[1] = v38;
+    if (v38 == v4)
     {
+      v40 = 0.0;
       v41 = 0.0;
-      v42 = 0.0;
-      sub_245040388(&v41, v38);
-      v26 = v41;
-      v27 = v42;
+      sub_245040388(&v40, v37);
+      v26 = v40;
+      v27 = v41;
     }
 
     else
@@ -7963,7 +7784,7 @@ void cva::SE2GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::logJ
     *(a2 + 40) = v27;
     *(a2 + 48) = 0;
     v28 = 0x100000000;
-    v29 = v40;
+    v29 = v39;
     v30 = 32;
     *(a2 + 72) = 0;
     do
@@ -7991,8 +7812,6 @@ void cva::SE2GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::logJ
 
     while (v30 != 80);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 double cva::SE2GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::inverse@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -8117,36 +7936,35 @@ double cva::SE2GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::ad
   return result;
 }
 
-uint64_t cva::SE2GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::serialize(uint64_t result)
+uint64_t *cva::SE2GroupStorage<double,cva::MatrixRef<double const,3u,3u,false>>::serialize(uint64_t *result, uint64_t a2)
 {
-  v1 = *(result + 8);
-  if (v1)
+  v2 = *(result + 2);
+  if (v2)
   {
-    v2 = *result;
-    v3 = *result + 8 * (3 * v1);
-    v4 = (v1 - 3) << 32;
+    v3 = *result;
+    v4 = *result + 8 * (3 * v2);
+    v5 = (v2 - 3) << 32;
     do
     {
-      v8 = *v2;
       result = std::ostream::write();
-      v5 = HIDWORD(v4);
-      if (v4 < 2)
+      v6 = HIDWORD(v5);
+      if (v5 < 2)
       {
-        v5 = 0;
+        v6 = 0;
       }
 
-      v6 = &v2[v5];
-      v7 = (v4 + 1);
-      if (v4 >= 2)
+      v7 = v3 + 8 * v6;
+      v8 = (v5 + 1);
+      if (v5 >= 2)
       {
-        v7 = 0;
+        v8 = 0;
       }
 
-      v4 = v7 | v4 & 0xFFFFFFFF00000000;
-      v2 = v6 + 1;
+      v5 = v8 | v5 & 0xFFFFFFFF00000000;
+      v3 = v7 + 8;
     }
 
-    while (v6 + 1 != v3);
+    while (v7 + 8 != v4);
   }
 
   return result;
@@ -8876,29 +8694,29 @@ uint64_t cva::SE3GroupStorage<float,cva::Matrix<float,4u,4u,false>>::T(uint64_t 
   return a1 + 48;
 }
 
-float32x4_t *cva::SE3GroupStorage<float,cva::Matrix<float,4u,4u,false>>::lplus(uint64_t a1, __int128 *a2, double a3, double a4, double a5)
+float32x4_t *cva::SE3GroupStorage<float,cva::Matrix<float,4u,4u,false>>::lplus(float32x4_t *a1, __int128 *a2, double a3, double a4, double a5)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v29 = *a2;
-  v30 = *(a2 + 2);
-  v22[0] = &v29;
-  v22[1] = 6;
-  v23[0] = xmmword_24508A9E0;
-  v23[1] = unk_24508A9F0;
-  v23[2] = xmmword_24508AA00;
-  v23[3] = unk_24508AA10;
-  v6 = vmul_f32(*(&v29 + 4), *(&v29 + 4));
-  *&a5 = ((*&v29 * *&v29) + v6.f32[0]) + v6.f32[1];
+  v30 = *MEMORY[0x277D85DE8];
+  v28 = *a2;
+  v29 = *(a2 + 2);
+  v21[0] = &v28;
+  v21[1] = 6;
+  v22[0] = xmmword_24508A9E0;
+  v22[1] = unk_24508A9F0;
+  v22[2] = xmmword_24508AA00;
+  v22[3] = unk_24508AA10;
+  v6 = vmul_f32(*(&v28 + 4), *(&v28 + 4));
+  *&a5 = ((*&v28 * *&v28) + v6.f32[0]) + v6.f32[1];
   if (*&a5 >= 0.0061)
   {
     v14 = sqrtf(*&a5);
-    v21 = ((*&v29 * *&v29) + v6.f32[0]) + v6.f32[1];
+    v20 = ((*&v28 * *&v28) + v6.f32[0]) + v6.f32[1];
     v15 = __sincosf_stret(v14);
     v13.f32[0] = v15.__cosval;
     v13.f32[1] = v15.__sinval / v14;
     __asm { FMOV            V0.2S, #1.0 }
 
-    v7 = vmul_n_f32(vsub_f32(_D0, v13), 1.0 / v21);
+    v7 = vmul_n_f32(vsub_f32(_D0, v13), 1.0 / v20);
   }
 
   else
@@ -8909,23 +8727,22 @@ float32x4_t *cva::SE3GroupStorage<float,cva::Matrix<float,4u,4u,false>>::lplus(u
     v13 = vmls_lane_f32(_D1, v7, *&a5, 0);
   }
 
-  *v25.f32 = v13;
-  *&v25.u32[2] = v7;
-  sub_245042AE4(v22, v25.f32, v23);
-  v24[0] = v23;
-  v24[1] = a1;
+  *v24.f32 = v13;
+  *&v24.u32[2] = v7;
+  sub_245042AE4(v21, v24.f32, v22);
+  v23[0] = v22;
+  v23[1] = a1;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  result = sub_245042CCC(&v25, v24);
-  v18 = v26;
-  *a1 = v25;
-  *(a1 + 16) = v18;
-  v19 = v28;
-  *(a1 + 32) = v27;
-  *(a1 + 48) = v19;
-  v20 = *MEMORY[0x277D85DE8];
+  result = sub_245042CCC(&v24, v23);
+  v18 = v25;
+  *a1 = v24;
+  a1[1] = v18;
+  v19 = v27;
+  a1[2] = v26;
+  a1[3] = v19;
   return result;
 }
 
@@ -8958,11 +8775,11 @@ uint64_t sub_245042AE4(uint64_t result, float *a2, float32x2_t *a3)
   a3[3].f32[0] = v15 + v16;
   v35 = *(result + 8);
   v19 = &v6[-HIDWORD(v35)];
-  v20 = &v19[HIDWORD(v35) + 3];
-  v21 = *(v20 + 1);
+  v20 = v19 + 4 * (HIDWORD(v35) + 3);
+  v21 = *(v20 + 4);
   v22.i32[0] = vdup_lane_s32(v21, 1).u32[0];
   v23 = *(v6 + 1);
-  v22.f32[1] = *v20;
+  v22.i32[1] = *v20;
   v24.i32[0] = vdup_lane_s32(v23, 1).u32[0];
   v24.f32[1] = *v6;
   v25 = vsub_f32(vmul_f32(v23, v22), vmul_f32(v24, v21));
@@ -8985,25 +8802,25 @@ uint64_t sub_245042AE4(uint64_t result, float *a2, float32x2_t *a3)
   else
   {
     a3[6].f32[0] = (*v20 + (v28 * v25.f32[0])) + (v27 * (vmuls_lane_f32(-v6[2], v25, 1) + (v6[1] * v26)));
-    a3[6].f32[1] = (v20[1] + vmuls_lane_f32(v28, v25, 1)) + (v27 * ((v6[2] * v25.f32[0]) - (*v6 * v26)));
-    v29 = (v20[2] + (v26 * v28)) + (v27 * ((*v6 * v25.f32[1]) - (v6[1] * v25.f32[0])));
+    a3[6].f32[1] = (*(v20 + 1) + vmuls_lane_f32(v28, v25, 1)) + (v27 * ((v6[2] * v25.f32[0]) - (*v6 * v26)));
+    v29 = (*(v20 + 2) + (v26 * v28)) + (v27 * ((*v6 * v25.f32[1]) - (v6[1] * v25.f32[0])));
   }
 
   a3[7].f32[0] = v29;
   return result;
 }
 
-float32x4_t *sub_245042CCC(float32x4_t *result, uint64_t a2)
+float32x4_t *sub_245042CCC(float32x4_t *result, float32x4_t **a2)
 {
   v2 = result;
   v3 = *a2;
-  if (*a2 == result || (v4 = *(a2 + 8), v4 == result))
+  if (*a2 == result || (v4 = a2[1], v4 == result))
   {
     v9 = 0u;
     v10 = 0u;
     v7 = 0u;
     v8 = 0u;
-    result = sub_245042CCC(&v7);
+    result = sub_245042CCC(&v7, a2);
     v6 = v8;
     *v2 = v7;
     v2[1] = v6;
@@ -9013,10 +8830,10 @@ float32x4_t *sub_245042CCC(float32x4_t *result, uint64_t a2)
 
   else
   {
-    *result = vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(0, *v3, *v4), v3[1], v4[1]), v3[2], v4[2]), v3[3], v4[3]);
-    result[1] = vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(0, *v3, v4[4]), v3[1], v4[5]), v3[2], v4[6]), v3[3], v4[7]);
-    result[2] = vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(0, *v3, v4[8]), v3[1], v4[9]), v3[2], v4[10]), v3[3], v4[11]);
-    v5 = vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(0, *v3, v4[12]), v3[1], v4[13]), v3[2], v4[14]), v3[3], v4[15]);
+    *result = vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(0, *v3, v4->f32[0]), v3[1], v4->f32[1]), v3[2], v4->f32[2]), v3[3], v4->f32[3]);
+    result[1] = vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(0, *v3, v4[1].f32[0]), v3[1], v4[1].f32[1]), v3[2], v4[1].f32[2]), v3[3], v4[1].f32[3]);
+    result[2] = vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(0, *v3, v4[2].f32[0]), v3[1], v4[2].f32[1]), v3[2], v4[2].f32[2]), v3[3], v4[2].f32[3]);
+    v5 = vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(0, *v3, v4[3].f32[0]), v3[1], v4[3].f32[1]), v3[2], v4[3].f32[2]), v3[3], v4[3].f32[3]);
   }
 
   v2[3] = v5;
@@ -9075,27 +8892,27 @@ uint64_t cva::SE3AlgebraStorage<float,cva::MatrixRef<float const,6u,1u,false>>::
 
 float32x4_t *cva::SE3GroupStorage<float,cva::Matrix<float,4u,4u,false>>::rplus(uint64_t a1, __int128 *a2, double a3, double a4, double a5)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v29 = *a2;
-  v30 = *(a2 + 2);
-  v22[0] = &v29;
-  v22[1] = 6;
-  v23[0] = xmmword_24508A9E0;
-  v23[1] = unk_24508A9F0;
-  v23[2] = xmmword_24508AA00;
-  v23[3] = unk_24508AA10;
-  v6 = vmul_f32(*(&v29 + 4), *(&v29 + 4));
-  *&a5 = ((*&v29 * *&v29) + v6.f32[0]) + v6.f32[1];
+  v30 = *MEMORY[0x277D85DE8];
+  v28 = *a2;
+  v29 = *(a2 + 2);
+  v21[0] = &v28;
+  v21[1] = 6;
+  v22[0] = xmmword_24508A9E0;
+  v22[1] = unk_24508A9F0;
+  v22[2] = xmmword_24508AA00;
+  v22[3] = unk_24508AA10;
+  v6 = vmul_f32(*(&v28 + 4), *(&v28 + 4));
+  *&a5 = ((*&v28 * *&v28) + v6.f32[0]) + v6.f32[1];
   if (*&a5 >= 0.0061)
   {
     v14 = sqrtf(*&a5);
-    v21 = ((*&v29 * *&v29) + v6.f32[0]) + v6.f32[1];
+    v20 = ((*&v28 * *&v28) + v6.f32[0]) + v6.f32[1];
     v15 = __sincosf_stret(v14);
     v13.f32[0] = v15.__cosval;
     v13.f32[1] = v15.__sinval / v14;
     __asm { FMOV            V0.2S, #1.0 }
 
-    v7 = vmul_n_f32(vsub_f32(_D0, v13), 1.0 / v21);
+    v7 = vmul_n_f32(vsub_f32(_D0, v13), 1.0 / v20);
   }
 
   else
@@ -9106,40 +8923,38 @@ float32x4_t *cva::SE3GroupStorage<float,cva::Matrix<float,4u,4u,false>>::rplus(u
     v13 = vmls_lane_f32(_D1, v7, *&a5, 0);
   }
 
-  *v25.f32 = v13;
-  *&v25.u32[2] = v7;
-  sub_245042AE4(v22, v25.f32, v23);
-  v24[0] = a1;
-  v24[1] = v23;
+  *v24.f32 = v13;
+  *&v24.u32[2] = v7;
+  sub_245042AE4(v21, v24.f32, v22);
+  v23[0] = a1;
+  v23[1] = v22;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  result = sub_245042CCC(&v25, v24);
-  v18 = v26;
-  *a1 = v25;
+  result = sub_245042CCC(&v24, v23);
+  v18 = v25;
+  *a1 = v24;
   *(a1 + 16) = v18;
-  v19 = v28;
-  *(a1 + 32) = v27;
+  v19 = v27;
+  *(a1 + 32) = v26;
   *(a1 + 48) = v19;
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 float32_t cva::SE3GroupStorage<float,cva::Matrix<float,4u,4u,false>>::transform@<S0>(float32x2_t *a1@<X0>, float *a2@<X1>, float32x2_t *a3@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = a1;
-  v7[1] = 4;
-  v8[0] = v7;
-  v8[1] = a2;
-  v9 = 0;
-  v10 = 0.0;
-  sub_245038EEC(&v9, v8);
-  result = v10 + a1[7].f32[0];
-  *a3 = vadd_f32(v9, a1[6]);
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = a1;
+  v6[1] = 4;
+  v7[0] = v6;
+  v7[1] = a2;
+  v8 = 0;
+  v9 = 0.0;
+  sub_245038EEC(&v8, v7);
+  result = v9 + a1[7].f32[0];
+  *a3 = vadd_f32(v8, a1[6]);
   a3[1].f32[0] = result;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9178,7 +8993,7 @@ float *sub_2450431AC(float *result, uint64_t **a2)
   {
     v9 = 0;
     v8 = 0;
-    result = sub_2450431AC(&v8);
+    result = sub_2450431AC(&v8, a2);
     *v2 = v8;
     *(v2 + 2) = v9;
   }
@@ -9487,6 +9302,67 @@ uint64_t sub_245043558(uint64_t result, uint64_t a2)
   return result;
 }
 
+void cva::SE3GroupStorage<float,cva::Matrix<float,4u,4u,false>>::log(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  sub_245038B04(a1, 4u, a2);
+  v6 = *a2;
+  v2.i32[0] = *(a2 + 8);
+  v7 = vaddv_f32(vmul_f32(v6, v6)) + (*v2.i32 * *v2.i32);
+  if (v7 >= 0.0061)
+  {
+    v11 = sqrtf(v7);
+    v12 = __sincosf_stret(v11);
+    v10 = v12.__sinval / v11;
+    v8 = (1.0 / v7) * (1.0 - v12.__cosval);
+    v9 = (1.0 / v7) * (1.0 - (v12.__sinval / v11));
+  }
+
+  else
+  {
+    v8 = 0.5 - (v7 * ((v7 / -720.0) + 0.041667));
+    v9 = 0.16667 - (v7 * ((v7 / -5040.0) + 0.0083333));
+    v10 = 1.0 - (v7 * v9);
+  }
+
+  if (v7 >= 0.00000149)
+  {
+    if (v7 <= 9.0)
+    {
+      v13 = -(v9 - (v8 * 0.5)) / v10;
+    }
+
+    else
+    {
+      v13 = (v8 + (v10 * -0.5)) / (v7 * v8);
+    }
+  }
+
+  else
+  {
+    v13 = ((v7 * 0.0013889) + 0.083333) + (v7 * 0.000033069);
+  }
+
+  v5.i32[0] = *(a1 + 48);
+  v14 = *(a1 + 52);
+  v15.i32[0] = vdup_lane_s32(v14, 1).u32[0];
+  v15.i32[1] = v5.i32[0];
+  v21 = COERCE_FLOAT(vmul_f32(v6, v14).i32[1]) - (*v2.i32 * v14.f32[0]);
+  v22 = vsub_f32(vmul_f32(vzip1_s32(v2, v6), vzip1_s32(v5, v14)), vmul_f32(v6, v15));
+  v16 = *(a2 + 4);
+  v17.i32[0] = vdup_lane_s32(v16, 1).u32[0];
+  v17.i32[1] = *a2;
+  v18 = vneg_f32(v17);
+  v17.i32[0] = vdup_lane_s32(v22, 1).u32[0];
+  v17.f32[1] = v21;
+  v19 = vadd_f32(vadd_f32(*(a1 + 48), vmul_f32(*&v21, 0xBF000000BF000000)), vmul_n_f32(vmla_f32(vmul_f32(v22, v18), v17, v16), v13));
+  v20 = (v13 * ((*a2 * v22.f32[0]) - (v16.f32[0] * v21))) + (v14.f32[1] + vmuls_lane_f32(-0.5, v22, 1));
+  *(a2 + 12) = v19;
+  *(a2 + 20) = v20;
+}
+
 void *cva::SE3AlgebraStorage<float,cva::Matrix<float,6u,1u,false>>::SE3AlgebraStorage(void *result)
 {
   *result = 0;
@@ -9517,151 +9393,151 @@ void cva::SE3GroupStorage<float,cva::Matrix<float,4u,4u,false>>::logJacobian(flo
   *(a2 + 12) = 0u;
   v80 = 0u;
   memset(v79, 0, sizeof(v79));
-  sub_245039258(a1, 4u, v79, (v79 | 0xC));
-  v4 = *&v79[0];
+  v4.n128_f32[0] = sub_245039258(a1, 4u, v79, (v79 | 0xC));
+  v5 = *&v79[0];
   *a2 = *&v79[0];
-  v5 = *(v79 + 2);
+  v6 = *(v79 + 2);
   *(a2 + 8) = DWORD2(v79[0]);
   v73 = a1 + 12;
   v74 = 0xC00000004;
   *&v81[0] = v79 | 0xC;
   *(&v81[0] + 1) = &v73;
-  v68 = v5;
-  v69 = v4;
+  v68 = v6;
+  v69 = v5;
   if ((v79 | 0xC) == a2 || a1 == a2)
   {
     LODWORD(v72) = 0;
     v71 = 0;
-    sub_245043E0C(&v71, v81);
-    v5 = v68;
-    v4 = v69;
-    v9 = v71;
-    v10 = *&v72;
+    sub_245043E0C(&v71, v81, v4);
+    v6 = v68;
+    v5 = v69;
+    v10 = v71;
+    v11 = *&v72;
   }
 
   else
   {
-    v6 = a1[12];
-    v7 = a1[13];
-    v8 = a1[14];
-    v9 = vmla_n_f32(vmla_n_f32(vmla_n_f32(0, *(v79 + 12), v6), *(&v79[1] + 8), v7), *(&v80 + 4), v8);
-    v10 = (((*(&v79[1] + 1) * v6) + 0.0) + (*&v80 * v7)) + (*(&v80 + 3) * v8);
+    v7 = a1[12];
+    v8 = a1[13];
+    v9 = a1[14];
+    v10 = vmla_n_f32(vmla_n_f32(vmla_n_f32(0, *(v79 + 12), v7), *(&v79[1] + 8), v8), *(&v80 + 4), v9);
+    v11 = (((*(&v79[1] + 1) * v7) + 0.0) + (*&v80 * v8)) + (*(&v80 + 3) * v9);
   }
 
-  *(a2 + 12) = v9;
-  *(a2 + 20) = v10;
-  v11 = vmul_f32(v4, v4);
-  v12 = v11.f32[1];
-  v13 = v5 * v5;
-  v14 = vaddv_f32(v11) + (v5 * v5);
-  if (v14 >= 0.0061)
+  *(a2 + 12) = v10;
+  *(a2 + 20) = v11;
+  v12 = vmul_f32(v5, v5);
+  v13 = v12.f32[1];
+  v14 = v6 * v6;
+  v15 = vaddv_f32(v12) + (v6 * v6);
+  if (v15 >= 0.0061)
   {
-    v20 = sqrtf(v14);
-    v66 = v10;
-    v67 = v9;
-    v65 = v11.i32[0];
-    v21 = __sincosf_stret(v20);
-    v11.i32[0] = v65;
-    v10 = v66;
-    v9 = v67;
-    v5 = v68;
-    v4 = v69;
-    v15 = (1.0 / v14) * (1.0 - v21.__cosval);
-    v16 = (1.0 / v14) * (1.0 - (v21.__sinval / v20));
-    v17 = v16 - v15;
-    v18 = (1.0 / v14) * ((v21.__sinval / v20) + (v15 * -2.0));
-    v19 = (1.0 / v14) * (v15 + (v16 * -3.0));
+    v21 = sqrtf(v15);
+    v66 = v11;
+    v67 = v10;
+    v65 = v12.i32[0];
+    v22 = __sincosf_stret(v21);
+    v12.i32[0] = v65;
+    v11 = v66;
+    v10 = v67;
+    v6 = v68;
+    v5 = v69;
+    v16 = (1.0 / v15) * (1.0 - v22.__cosval);
+    v17 = (1.0 / v15) * (1.0 - (v22.__sinval / v21));
+    v18 = v17 - v16;
+    v19 = (1.0 / v15) * ((v22.__sinval / v21) + (v16 * -2.0));
+    v20 = (1.0 / v15) * (v16 + (v17 * -3.0));
   }
 
   else
   {
-    v15 = 0.5 - (v14 * ((v14 / -720.0) + 0.041667));
-    v16 = 0.16667 - (v14 * ((v14 / -5040.0) + 0.0083333));
-    v17 = (v14 * ((v14 * -0.0011905) + 0.033333)) + -0.33333;
-    v18 = (v14 * ((v14 * -0.00014881) + 0.0055556)) + -0.083333;
-    v19 = (v14 * ((v14 * -0.000016534) + 0.00079365)) + -0.016667;
+    v16 = 0.5 - (v15 * ((v15 / -720.0) + 0.041667));
+    v17 = 0.16667 - (v15 * ((v15 / -5040.0) + 0.0083333));
+    v18 = (v15 * ((v15 * -0.0011905) + 0.033333)) + -0.33333;
+    v19 = (v15 * ((v15 * -0.00014881) + 0.0055556)) + -0.083333;
+    v20 = (v15 * ((v15 * -0.000016534) + 0.00079365)) + -0.016667;
   }
 
-  v22 = 0;
-  v23 = a2 + 24;
-  v24 = vmul_f32(v4, v9).f32[0];
-  v25 = vmuls_lane_f32(v4.f32[1], v9, 1);
-  v26 = (v24 + v25) + (v5 * v10);
-  v27 = ((v17 + (v19 * v11.f32[0])) * v26) + ((v16 + v16) * v24);
-  v28 = ((v17 + (v19 * v12)) * v26) + ((v16 + v16) * v25);
-  v29 = ((v17 + (v19 * v13)) * v26) + ((v16 + v16) * (v5 * v10));
-  v30 = v19 * v26;
-  v31 = v18 * v26;
-  v32 = (v5 * v31) + (v15 * v10);
-  v33 = vmul_n_f32(v4, v30);
-  v34 = vmuls_lane_f32(v33.f32[0], v4, 1) + (v16 * (vmuls_lane_f32(v4.f32[0], v9, 1) + (v9.f32[0] * v4.f32[1])));
-  v35 = vrev64_s32(vmla_n_f32(vmul_n_f32(v33, v5), vmla_n_f32(vmul_n_f32(v4, v10), v9, v5), v16));
-  v36 = vmla_n_f32(vmul_n_f32(v4, v31), v9, v15);
-  *(&v74 + 1) = v34 - v32;
-  v75 = v28;
-  *&v73 = v27;
-  *(&v73 + 1) = v32 + v34;
-  v37 = vsub_f32(v35, v36);
-  LODWORD(v74) = v37.i32[1];
-  v77 = v37.i32[0];
-  v78 = v29;
-  v76 = vadd_f32(v36, v35);
-  v38 = 0x300000000;
-  v39 = 12;
+  v23 = 0;
+  v24 = a2 + 24;
+  v25 = vmul_f32(v5, v10).f32[0];
+  v26 = vmuls_lane_f32(v5.f32[1], v10, 1);
+  v27 = (v25 + v26) + (v6 * v11);
+  v28 = ((v18 + (v20 * v12.f32[0])) * v27) + ((v17 + v17) * v25);
+  v29 = ((v18 + (v20 * v13)) * v27) + ((v17 + v17) * v26);
+  v30 = ((v18 + (v20 * v14)) * v27) + ((v17 + v17) * (v6 * v11));
+  v31 = v20 * v27;
+  v32 = v19 * v27;
+  v33 = (v6 * v32) + (v16 * v11);
+  v34 = vmul_n_f32(v5, v31);
+  v35 = vmuls_lane_f32(v34.f32[0], v5, 1) + (v17 * (vmuls_lane_f32(v5.f32[0], v10, 1) + (v10.f32[0] * v5.f32[1])));
+  v36 = vrev64_s32(vmla_n_f32(vmul_n_f32(v34, v6), vmla_n_f32(vmul_n_f32(v5, v11), v10, v6), v17));
+  v37 = vmla_n_f32(vmul_n_f32(v5, v32), v10, v16);
+  *(&v74 + 1) = v35 - v33;
+  v75 = v29;
+  *&v73 = v28;
+  *(&v73 + 1) = v33 + v35;
+  v38 = vsub_f32(v36, v37);
+  LODWORD(v74) = v38.i32[1];
+  v77 = v38.i32[0];
+  v78 = v30;
+  v76 = vadd_f32(v37, v36);
+  v39 = 0x300000000;
+  v40 = 12;
   do
   {
-    *(v23 + v22) = *(v79 + v39);
-    v40 = v38 < 2;
-    v41 = (v38 >> 30) & 0x3FFFFFFFCLL;
-    if (v38 < 2)
+    *(v24 + v23) = *(v79 + v40);
+    v41 = v39 < 2;
+    v42 = (v39 >> 30) & 0x3FFFFFFFCLL;
+    if (v39 < 2)
     {
-      v41 = 0;
+      v42 = 0;
     }
 
-    v42 = v22 + v41;
-    v43 = (v38 + 1);
-    v44 = v38 & 0xFFFFFFFF00000000;
-    if (!v40)
+    v43 = v23 + v42;
+    v44 = (v39 + 1);
+    v45 = v39 & 0xFFFFFFFF00000000;
+    if (!v41)
     {
-      v43 = 0;
+      v44 = 0;
     }
 
-    v38 = v43 | v44;
-    v22 = v42 + 4;
-    v39 += 4;
+    v39 = v44 | v45;
+    v23 = v43 + 4;
+    v40 += 4;
   }
 
-  while (v22 != 72);
-  v45 = *(a2 + 24);
-  HIDWORD(v45) = *(a2 + 48);
-  v46 = *(a2 + 52);
-  v47 = *(a2 + 72);
-  *(&v46 + 1) = *(a2 + 72);
-  v81[0] = v45;
-  v81[1] = v46;
-  v48 = v81;
-  v82 = DWORD2(v47);
-  v49 = 0x300000000;
-  for (i = 84; i != 156; i = v54 + 4)
+  while (v23 != 72);
+  v46 = *(a2 + 24);
+  HIDWORD(v46) = *(a2 + 48);
+  v47 = *(a2 + 52);
+  v48 = *(a2 + 72);
+  *(&v47 + 1) = *(a2 + 72);
+  v81[0] = v46;
+  v81[1] = v47;
+  v49 = v81;
+  v82 = DWORD2(v48);
+  v50 = 0x300000000;
+  for (i = 84; i != 156; i = v55 + 4)
   {
-    v51 = *v48++;
-    *(v23 + i) = v51;
-    v52 = v49 < 2;
-    v53 = (v49 >> 30) & 0x3FFFFFFFCLL;
-    if (v49 < 2)
+    v52 = *v49++;
+    *(v24 + i) = v52;
+    v53 = v50 < 2;
+    v54 = (v50 >> 30) & 0x3FFFFFFFCLL;
+    if (v50 < 2)
     {
-      v53 = 0;
+      v54 = 0;
     }
 
-    v54 = i + v53;
-    v55 = (v49 + 1);
-    v56 = v49 & 0xFFFFFFFF00000000;
-    if (!v52)
+    v55 = i + v54;
+    v56 = (v50 + 1);
+    v57 = v50 & 0xFFFFFFFF00000000;
+    if (!v53)
     {
-      v55 = 0;
+      v56 = 0;
     }
 
-    v49 = v55 | v56;
+    v50 = v56 | v57;
   }
 
   v83[0] = v79 | 0xC;
@@ -9672,49 +9548,47 @@ void cva::SE3GroupStorage<float,cva::Matrix<float,4u,4u,false>>::logJacobian(flo
   v70[0] = a2 + 36;
   v70[1] = 0x300000006;
   sub_245043EEC(v70, v81);
-  v57 = 0x300000000;
-  for (j = 72; j != 144; j = v61 + 4)
+  v58 = 0x300000000;
+  for (j = 72; j != 144; j = v62 + 4)
   {
-    *(v23 + j) = 0;
-    v59 = v57 < 2;
-    v60 = (v57 >> 30) & 0x3FFFFFFFCLL;
-    if (v57 < 2)
+    *(v24 + j) = 0;
+    v60 = v58 < 2;
+    v61 = (v58 >> 30) & 0x3FFFFFFFCLL;
+    if (v58 < 2)
     {
-      v60 = 0;
+      v61 = 0;
     }
 
-    v61 = j + v60;
-    v62 = (v57 + 1);
-    v63 = v57 & 0xFFFFFFFF00000000;
-    if (!v59)
+    v62 = j + v61;
+    v63 = (v58 + 1);
+    v64 = v58 & 0xFFFFFFFF00000000;
+    if (!v60)
     {
-      v62 = 0;
+      v63 = 0;
     }
 
-    v57 = v62 | v63;
+    v58 = v63 | v64;
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 }
 
-float *sub_245043E0C(float *result, uint64_t a2)
+float *sub_245043E0C(float *result, float **a2, __n128 a3)
 {
-  v2 = result;
-  v3 = *a2;
-  if (*a2 == result || (v4 = *(a2 + 8), v5 = *v4, (*v4 - 4 * *(v4 + 12)) == result))
+  v3 = result;
+  v4 = *a2;
+  if (*a2 == result || (v5 = a2[1], v6 = *v5, (*v5 - 4 * *(v5 + 3)) == result))
   {
+    v8 = 0;
     v7 = 0;
-    v6 = 0;
-    result = sub_245043E0C(&v6);
-    *v2 = v6;
-    *(v2 + 2) = v7;
+    result = sub_245043E0C(&v7, a2, a3);
+    *v3 = v7;
+    *(v3 + 2) = v8;
   }
 
   else
   {
-    *result = (((*v3 * *v5) + 0.0) + (v3[3] * v5[1])) + (v3[6] * v5[2]);
-    result[1] = (((v3[1] * *v5) + 0.0) + (v3[4] * v5[1])) + (v3[7] * v5[2]);
-    result[2] = (((v3[2] * *v5) + 0.0) + (v3[5] * v5[1])) + (v3[8] * v5[2]);
+    *result = (((*v4 * *v6) + 0.0) + (v4[3] * v6[1])) + (v4[6] * v6[2]);
+    result[1] = (((v4[1] * *v6) + 0.0) + (v4[4] * v6[1])) + (v4[7] * v6[2]);
+    result[2] = (((v4[2] * *v6) + 0.0) + (v4[5] * v6[1])) + (v4[8] * v6[2]);
   }
 
   return result;
@@ -9803,7 +9677,7 @@ __n64 sub_2450440C8(uint64_t a1, uint64_t *a2)
     v13 = 0.0;
     v11 = 0u;
     v12 = 0u;
-    sub_2450440C8(&v11);
+    sub_2450440C8(&v11, a2);
     result.n64_u64[0] = v11;
     v10 = v12;
     *a1 = v11;
@@ -9846,7 +9720,7 @@ double sub_24504422C(uint64_t a1, uint64_t a2)
     v18 = 0;
     v16 = 0u;
     v17 = 0u;
-    sub_24504422C(&v16);
+    sub_24504422C(&v16, a2);
     result = *&v16;
     v15 = v17;
     *a1 = v16;
@@ -9881,45 +9755,184 @@ double sub_24504422C(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t cva::SE3GroupStorage<float,cva::Matrix<float,4u,4u,false>>::inverse@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t cva::SE3GroupStorage<float,cva::Matrix<float,4u,4u,false>>::inverse@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   *a2 = xmmword_24508A9E0;
   *(a2 + 16) = unk_24508A9F0;
   *(a2 + 32) = xmmword_24508AA00;
   *(a2 + 48) = unk_24508AA10;
-  v13 = a1;
-  v14 = 4;
-  v17[0] = a2;
-  v17[1] = 4;
-  result = sub_2450444A8(v17, &v13);
-  v12[0] = a2;
-  v12[1] = 4;
-  v17[0] = v12;
-  v11[0] = a1 + 48;
-  v11[1] = 0xC00000004;
-  v13 = v17;
-  v14 = v11;
+  v12 = a1;
+  v13 = 4;
+  v16[0] = a2;
+  v16[1] = 4;
+  result = sub_2450444A8(v16, &v12);
+  v11[0] = a2;
+  v11[1] = 4;
+  v16[0] = v11;
+  v10[0] = a1 + 6;
+  v10[1] = 0xC00000004;
+  v12 = v16;
+  v13 = v10;
   if (a1 == a2)
   {
-    v16 = 0.0;
-    v15 = 0;
-    result = sub_2450445F0(&v15, &v13);
-    v8 = v15;
-    v9 = v16;
+    v15 = 0.0;
+    v14 = 0;
+    result = sub_2450445F0(&v14, &v12);
+    v8 = v14;
+    v9 = v15;
   }
 
   else
   {
-    v5.i32[0] = *(a1 + 48);
-    v6.i32[0] = *(a1 + 52);
-    v7.i32[0] = *(a1 + 56);
+    v5.i32[0] = *(a1 + 12);
+    v6.i32[0] = *(a1 + 13);
+    v7.i32[0] = *(a1 + 14);
     v8 = vmls_lane_f32(vmls_lane_f32(vmls_lane_f32(0, *a2, v5, 0), *(a2 + 16), v6, 0), *(a2 + 32), v7, 0);
     v9 = ((0.0 - (*(a2 + 8) * v5.f32[0])) - (*(a2 + 24) * v6.f32[0])) - (*(a2 + 40) * v7.f32[0]);
   }
 
   *(a2 + 48) = v8;
   *(a2 + 56) = v9;
-  v10 = *MEMORY[0x277D85DE8];
+  return result;
+}
+
+uint64_t sub_2450444A8(uint64_t result, uint64_t a2)
+{
+  v2 = *result;
+  v3 = *a2;
+  if (*a2 - 4 * *(a2 + 12) == *result - 4 * *(result + 12))
+  {
+    v14 = *(a2 + 8);
+    v15 = v3[v14];
+    v16 = v3[1];
+    v30[0] = *v3;
+    v30[1] = v15;
+    v17 = v3[(v14 + 1)];
+    v30[2] = v3[(2 * v14)];
+    v30[3] = v16;
+    v18 = v3[(2 * v14) | 1];
+    v30[4] = v17;
+    v30[5] = v18;
+    v19 = v3[(v14 + 2)];
+    v30[6] = v3[2];
+    v30[7] = v19;
+    v30[8] = v3[(2 * v14 + 2)];
+    v20 = *(result + 8);
+    if (v20)
+    {
+      v21 = &v2[3 * v20];
+      v22 = (v20 - 3) << 32;
+      v23 = v30;
+      do
+      {
+        v24 = *v23++;
+        *v2 = v24;
+        v25 = HIDWORD(v22);
+        v26 = v22 < 2;
+        if (v22 < 2)
+        {
+          v25 = 0;
+        }
+
+        v27 = &v2[v25];
+        v28 = (v22 + 1);
+        v29 = v22 & 0xFFFFFFFF00000000;
+        if (!v26)
+        {
+          v28 = 0;
+        }
+
+        v22 = v28 | v29;
+        v2 = v27 + 1;
+      }
+
+      while (v2 != v21);
+    }
+  }
+
+  else
+  {
+    v4 = *(result + 8);
+    if (v4)
+    {
+      v5 = 0;
+      v6 = &v2[3 * v4];
+      v7 = (v4 - 3) << 32;
+      v8 = *(a2 + 8);
+      do
+      {
+        *v2 = v3[(HIDWORD(v5) + v8 * v5)];
+        if (v5 >= 2)
+        {
+          v5 = (v5 & 0xFFFFFFFF00000000) + 0x100000000;
+        }
+
+        else
+        {
+          v5 = (v5 + 1) | v5 & 0xFFFFFFFF00000000;
+        }
+
+        v9 = HIDWORD(v7);
+        v10 = v7 < 2;
+        if (v7 < 2)
+        {
+          v9 = 0;
+        }
+
+        v11 = &v2[v9];
+        v12 = (v7 + 1);
+        v13 = v7 & 0xFFFFFFFF00000000;
+        if (!v10)
+        {
+          v12 = 0;
+        }
+
+        v7 = v12 | v13;
+        v2 = v11 + 1;
+      }
+
+      while (v2 != v6);
+    }
+  }
+
+  return result;
+}
+
+float *sub_2450445F0(float *result, uint64_t **a2)
+{
+  v2 = result;
+  v3 = a2[1];
+  v4 = *v3;
+  if ((*v3 - 4 * *(v3 + 3)) == result)
+  {
+    v19 = 0;
+    v18 = 0;
+    result = sub_2450445F0(&v18, a2);
+    *v2 = v18;
+    *(v2 + 2) = v19;
+  }
+
+  else
+  {
+    v5 = **a2;
+    v6 = *v5;
+    v7 = **v5;
+    v8 = *(*v5 + 4);
+    v9 = *(*v5 + 8);
+    v10 = (*(v5 + 8) - 3);
+    v11 = &v6[v10];
+    v12 = v11[3];
+    v13 = v11[4];
+    v11 += 3;
+    v14 = v11[2];
+    v15 = &v11[v10];
+    v16 = v15[4];
+    v17 = v15[5];
+    *result = ((0.0 - (v7 * *v4)) - (v12 * v4[1])) - (v15[3] * v4[2]);
+    result[1] = ((0.0 - (v8 * *v4)) - (v13 * v4[1])) - (v16 * v4[2]);
+    result[2] = ((0.0 - (v9 * *v4)) - (v14 * v4[1])) - (v17 * v4[2]);
+  }
+
   return result;
 }

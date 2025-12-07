@@ -161,7 +161,7 @@ LABEL_29:
 
 - (id)jsonDictionary
 {
-  v30[8] = *MEMORY[0x1E69E9840];
+  v29[8] = *MEMORY[0x1E69E9840];
   dialogID = [(BMLocalAuthenticationDialogs *)self dialogID];
   bundleID = [(BMLocalAuthenticationDialogs *)self bundleID];
   if ([(BMLocalAuthenticationDialogs *)self hasTimeSinceUpdate])
@@ -179,53 +179,53 @@ LABEL_29:
   _failedMechanismsJSONArray = [(BMLocalAuthenticationDialogs *)self _failedMechanismsJSONArray];
   _actionsJSONArray = [(BMLocalAuthenticationDialogs *)self _actionsJSONArray];
   v10 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMLocalAuthenticationDialogs failingAction](self, "failingAction")}];
-  v29[0] = @"dialogID";
+  v28[0] = @"dialogID";
   null = dialogID;
   if (!dialogID)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = null;
-  v30[0] = null;
-  v29[1] = @"bundleID";
+  v23 = null;
+  v29[0] = null;
+  v28[1] = @"bundleID";
   null2 = bundleID;
   if (!bundleID)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = null2;
-  v30[1] = null2;
-  v29[2] = @"timeSinceUpdate";
+  v22 = null2;
+  v29[1] = null2;
+  v28[2] = @"timeSinceUpdate";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28 = dialogID;
-  v22 = null3;
-  v30[2] = null3;
-  v29[3] = @"mechanisms";
+  v27 = dialogID;
+  v21 = null3;
+  v29[2] = null3;
+  v28[3] = @"mechanisms";
   null4 = _mechanismsJSONArray;
   if (!_mechanismsJSONArray)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = bundleID;
-  v30[3] = null4;
-  v29[4] = @"successfulMechanism";
+  v26 = bundleID;
+  v29[3] = null4;
+  v28[4] = @"successfulMechanism";
   null5 = v7;
   if (!v7)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26 = v5;
-  v30[4] = null5;
-  v29[5] = @"failedMechanisms";
+  v25 = v5;
+  v29[4] = null5;
+  v28[5] = @"failedMechanisms";
   null6 = _failedMechanismsJSONArray;
   if (!_failedMechanismsJSONArray)
   {
@@ -233,24 +233,24 @@ LABEL_29:
   }
 
   v17 = _mechanismsJSONArray;
-  v30[5] = null6;
-  v29[6] = @"actions";
+  v29[5] = null6;
+  v28[6] = @"actions";
   null7 = _actionsJSONArray;
   if (!_actionsJSONArray)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[6] = null7;
-  v29[7] = @"failingAction";
+  v29[6] = null7;
+  v28[7] = @"failingAction";
   null8 = v10;
   if (!v10)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[7] = null8;
-  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:8];
+  v29[7] = null8;
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:8];
   if (v10)
   {
     if (_actionsJSONArray)
@@ -290,16 +290,16 @@ LABEL_23:
   {
   }
 
-  if (v26)
+  if (v25)
   {
-    if (v27)
+    if (v26)
     {
       goto LABEL_29;
     }
 
 LABEL_37:
 
-    if (v28)
+    if (v27)
     {
       goto LABEL_30;
     }
@@ -307,13 +307,13 @@ LABEL_37:
     goto LABEL_38;
   }
 
-  if (!v27)
+  if (!v26)
   {
     goto LABEL_37;
   }
 
 LABEL_29:
-  if (v28)
+  if (v27)
   {
     goto LABEL_30;
   }
@@ -321,125 +321,118 @@ LABEL_29:
 LABEL_38:
 
 LABEL_30:
-  v20 = *MEMORY[0x1E69E9840];
 
-  return v25;
+  return v24;
 }
 
 - (id)_actionsJSONArray
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   actions = [(BMLocalAuthenticationDialogs *)self actions];
-  v5 = [actions countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [actions countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(actions);
         }
 
-        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [actions countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [actions countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)_failedMechanismsJSONArray
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   failedMechanisms = [(BMLocalAuthenticationDialogs *)self failedMechanisms];
-  v5 = [failedMechanisms countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [failedMechanisms countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(failedMechanisms);
         }
 
-        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [failedMechanisms countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [failedMechanisms countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)_mechanismsJSONArray
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   mechanisms = [(BMLocalAuthenticationDialogs *)self mechanisms];
-  v5 = [mechanisms countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [mechanisms countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(mechanisms);
         }
 
-        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [mechanisms countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [mechanisms countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMLocalAuthenticationDialogs)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v179[1] = *MEMORY[0x1E69E9840];
+  v178[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"dialogID"];
   if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -451,10 +444,10 @@ LABEL_30:
       {
         v32 = objc_alloc(MEMORY[0x1E696ABC0]);
         v33 = *MEMORY[0x1E698F240];
-        v178 = *MEMORY[0x1E696A578];
+        v177 = *MEMORY[0x1E696A578];
         v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"dialogID"];
-        v179[0] = v9;
-        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v179 forKeys:&v178 count:1];
+        v178[0] = v9;
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v178 forKeys:&v177 count:1];
         v35 = v33;
         v8 = v34;
         v7 = 0;
@@ -487,15 +480,15 @@ LABEL_30:
         v37 = objc_alloc(MEMORY[0x1E696ABC0]);
         v38 = v8;
         v39 = *MEMORY[0x1E698F240];
-        v176 = *MEMORY[0x1E696A578];
+        v175 = *MEMORY[0x1E696A578];
         selfCopy = self;
         v41 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v117 = objc_opt_class();
+        v116 = objc_opt_class();
         v42 = v41;
         self = selfCopy;
-        v12 = [v42 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v117, @"bundleID"];
-        v177 = v12;
-        v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v177 forKeys:&v176 count:1];
+        v12 = [v42 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v116, @"bundleID"];
+        v176 = v12;
+        v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v176 forKeys:&v175 count:1];
         v44 = v37;
         v11 = v43;
         v45 = v39;
@@ -520,9 +513,9 @@ LABEL_30:
   }
 
   v10 = [dictionaryCopy objectForKeyedSubscript:@"timeSinceUpdate"];
-  v131 = v7;
-  v132 = v10;
-  v130 = v6;
+  v130 = v7;
+  v131 = v10;
+  v129 = v6;
   if (v10 && (v11 = v10, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -534,12 +527,12 @@ LABEL_30:
         v47 = v9;
         v48 = v8;
         v49 = *MEMORY[0x1E698F240];
-        v174 = *MEMORY[0x1E696A578];
+        v173 = *MEMORY[0x1E696A578];
         v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"timeSinceUpdate"];
-        v175 = v13;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v175 forKeys:&v174 count:1];
+        v174 = v13;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v174 forKeys:&v173 count:1];
         v50 = v46;
-        v11 = v132;
+        v11 = v131;
         v51 = v49;
         v8 = v48;
         v9 = v47;
@@ -554,13 +547,13 @@ LABEL_30:
       goto LABEL_132;
     }
 
-    v129 = v8;
+    v128 = v8;
     v12 = v11;
   }
 
   else
   {
-    v129 = v8;
+    v128 = v8;
     v12 = 0;
   }
 
@@ -570,8 +563,8 @@ LABEL_30:
 
   if (v15)
   {
-    v127 = v12;
-    v128 = v9;
+    v126 = v12;
+    v127 = v9;
     selfCopy3 = self;
 
     v13 = 0;
@@ -587,54 +580,54 @@ LABEL_30:
         if (!error)
         {
           selfCopy4 = 0;
-          v8 = v129;
-          v11 = v132;
+          v8 = v128;
+          v11 = v131;
           goto LABEL_131;
         }
 
         v55 = objc_alloc(MEMORY[0x1E696ABC0]);
         v56 = *MEMORY[0x1E698F240];
-        v172 = *MEMORY[0x1E696A578];
+        v171 = *MEMORY[0x1E696A578];
         v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"mechanisms"];
-        v173 = v16;
-        v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v173 forKeys:&v172 count:1];
+        v172 = v16;
+        v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v172 forKeys:&v171 count:1];
         v57 = [v55 initWithDomain:v56 code:2 userInfo:v54];
         selfCopy4 = 0;
         *error = v57;
-        v8 = v129;
+        v8 = v128;
         goto LABEL_50;
       }
     }
 
-    v127 = v12;
-    v128 = v9;
+    v126 = v12;
+    v127 = v9;
     selfCopy3 = self;
   }
 
   v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v13, "count")}];
+  v144 = 0u;
   v145 = 0u;
   v146 = 0u;
   v147 = 0u;
-  v148 = 0u;
   v13 = v13;
-  v17 = [v13 countByEnumeratingWithState:&v145 objects:v171 count:16];
+  v17 = [v13 countByEnumeratingWithState:&v144 objects:v170 count:16];
   if (!v17)
   {
     goto LABEL_29;
   }
 
   v18 = v17;
-  v19 = *v146;
+  v19 = *v145;
   do
   {
     for (i = 0; i != v18; ++i)
     {
-      if (*v146 != v19)
+      if (*v145 != v19)
       {
         objc_enumerationMutation(v13);
       }
 
-      v21 = *(*(&v145 + 1) + 8 * i);
+      v21 = *(*(&v144 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -643,22 +636,22 @@ LABEL_30:
         {
           v27 = objc_alloc(MEMORY[0x1E696ABC0]);
           v28 = *MEMORY[0x1E698F240];
-          v169 = *MEMORY[0x1E696A578];
-          v124 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"mechanisms"];
-          v170 = v124;
-          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v170 forKeys:&v169 count:1];
+          v168 = *MEMORY[0x1E696A578];
+          v123 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"mechanisms"];
+          v169 = v123;
+          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v169 forKeys:&v168 count:1];
           v30 = v27;
           v31 = v28;
 LABEL_46:
-          v133 = v29;
+          v132 = v29;
           self = selfCopy3;
-          v12 = v127;
-          v9 = v128;
-          v11 = v132;
+          v12 = v126;
+          v9 = v127;
+          v11 = v131;
           selfCopy4 = 0;
           *errorCopy2 = [v30 initWithDomain:v31 code:2 userInfo:?];
           v54 = v13;
-          v8 = v129;
+          v8 = v128;
 
           goto LABEL_128;
         }
@@ -666,12 +659,12 @@ LABEL_46:
 LABEL_47:
         selfCopy4 = 0;
         v54 = v13;
-        v8 = v129;
+        v8 = v128;
         self = selfCopy3;
-        v12 = v127;
-        v9 = v128;
+        v12 = v126;
+        v9 = v127;
 LABEL_50:
-        v11 = v132;
+        v11 = v131;
         goto LABEL_129;
       }
 
@@ -691,10 +684,10 @@ LABEL_50:
           {
             v52 = objc_alloc(MEMORY[0x1E696ABC0]);
             v53 = *MEMORY[0x1E698F240];
-            v167 = *MEMORY[0x1E696A578];
-            v124 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"mechanisms"];
-            v168 = v124;
-            v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v168 forKeys:&v167 count:1];
+            v166 = *MEMORY[0x1E696A578];
+            v123 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"mechanisms"];
+            v167 = v123;
+            v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v167 forKeys:&v166 count:1];
             v30 = v52;
             v31 = v53;
             goto LABEL_46;
@@ -710,22 +703,22 @@ LABEL_50:
       [v16 addObject:v22];
     }
 
-    v18 = [v13 countByEnumeratingWithState:&v145 objects:v171 count:16];
+    v18 = [v13 countByEnumeratingWithState:&v144 objects:v170 count:16];
   }
 
   while (v18);
 LABEL_29:
 
   v24 = [dictionaryCopy objectForKeyedSubscript:@"successfulMechanism"];
-  v124 = v24;
+  v123 = v24;
   if (v24)
   {
     v25 = v24;
     objc_opt_class();
-    v11 = v132;
+    v11 = v131;
     if (objc_opt_isKindOfClass())
     {
-      v122 = 0;
+      v121 = 0;
     }
 
     else
@@ -733,7 +726,7 @@ LABEL_29:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v122 = v25;
+        v121 = v25;
       }
 
       else
@@ -745,42 +738,42 @@ LABEL_29:
           {
             v101 = objc_alloc(MEMORY[0x1E696ABC0]);
             v102 = *MEMORY[0x1E698F240];
-            v165 = *MEMORY[0x1E696A578];
+            v164 = *MEMORY[0x1E696A578];
             v103 = objc_alloc(MEMORY[0x1E696AEC0]);
-            v118 = objc_opt_class();
+            v117 = objc_opt_class();
             v104 = v103;
-            v11 = v132;
-            v134 = [v104 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", v118, @"successfulMechanism"];
-            v166 = v134;
-            v136 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v166 forKeys:&v165 count:1];
+            v11 = v131;
+            v133 = [v104 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", v117, @"successfulMechanism"];
+            v165 = v133;
+            v135 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v165 forKeys:&v164 count:1];
             v105 = [v101 initWithDomain:v102 code:2 userInfo:?];
             v54 = 0;
             selfCopy4 = 0;
             *error = v105;
             self = selfCopy3;
-            v9 = v128;
-            v8 = v129;
+            v9 = v127;
+            v8 = v128;
             goto LABEL_126;
           }
 
           v54 = 0;
           selfCopy4 = 0;
           self = selfCopy3;
-          v12 = v127;
-          v9 = v128;
-          v8 = v129;
+          v12 = v126;
+          v9 = v127;
+          v8 = v128;
           goto LABEL_128;
         }
 
-        v122 = [MEMORY[0x1E696AD98] numberWithInt:BMLocalAuthenticationDialogsMechanismFromString(v25)];
+        v121 = [MEMORY[0x1E696AD98] numberWithInt:BMLocalAuthenticationDialogsMechanismFromString(v25)];
       }
     }
   }
 
   else
   {
-    v122 = 0;
-    v11 = v132;
+    v121 = 0;
+    v11 = v131;
   }
 
   v58 = [dictionaryCopy objectForKeyedSubscript:@"failedMechanisms"];
@@ -793,33 +786,33 @@ LABEL_29:
     goto LABEL_65;
   }
 
-  v9 = v128;
+  v9 = v127;
   if (v58)
   {
     objc_opt_class();
-    v134 = v58;
+    v133 = v58;
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       if (!error)
       {
         selfCopy4 = 0;
         self = selfCopy3;
-        v12 = v127;
-        v8 = v129;
-        v54 = v122;
+        v12 = v126;
+        v8 = v128;
+        v54 = v121;
         goto LABEL_127;
       }
 
       v93 = objc_alloc(MEMORY[0x1E696ABC0]);
       v94 = *MEMORY[0x1E698F240];
-      v163 = *MEMORY[0x1E696A578];
-      v136 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"failedMechanisms"];
-      v164 = v136;
-      obj = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v164 forKeys:&v163 count:1];
+      v162 = *MEMORY[0x1E696A578];
+      v135 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"failedMechanisms"];
+      v163 = v135;
+      obj = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v163 forKeys:&v162 count:1];
       selfCopy4 = 0;
       *error = [v93 initWithDomain:v94 code:2 userInfo:?];
       self = selfCopy3;
-      v8 = v129;
+      v8 = v128;
       goto LABEL_106;
     }
 
@@ -832,32 +825,32 @@ LABEL_65:
     v61 = 0;
   }
 
-  v136 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v61, "count")}];
+  v135 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v61, "count")}];
+  v140 = 0u;
   v141 = 0u;
   v142 = 0u;
   v143 = 0u;
-  v144 = 0u;
   v62 = v61;
-  v63 = [v62 countByEnumeratingWithState:&v141 objects:v162 count:16];
-  v134 = v62;
+  v63 = [v62 countByEnumeratingWithState:&v140 objects:v161 count:16];
+  v133 = v62;
   if (!v63)
   {
     goto LABEL_78;
   }
 
   v64 = v63;
-  v65 = *v142;
+  v65 = *v141;
   while (2)
   {
     v66 = 0;
     while (2)
     {
-      if (*v142 != v65)
+      if (*v141 != v65)
       {
         objc_enumerationMutation(v62);
       }
 
-      v67 = *(*(&v141 + 1) + 8 * v66);
+      v67 = *(*(&v140 + 1) + 8 * v66);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -866,10 +859,10 @@ LABEL_65:
         {
           v77 = objc_alloc(MEMORY[0x1E696ABC0]);
           v78 = *MEMORY[0x1E698F240];
-          v160 = *MEMORY[0x1E696A578];
-          v125 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"failedMechanisms"];
-          v161 = v125;
-          v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v161 forKeys:&v160 count:1];
+          v159 = *MEMORY[0x1E696A578];
+          v124 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"failedMechanisms"];
+          v160 = v124;
+          v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v160 forKeys:&v159 count:1];
           v80 = v77;
           goto LABEL_84;
         }
@@ -877,13 +870,13 @@ LABEL_65:
 LABEL_85:
         selfCopy4 = 0;
         obj = v62;
-        v8 = v129;
+        v8 = v128;
         self = selfCopy3;
-        v9 = v128;
+        v9 = v127;
 LABEL_86:
-        v11 = v132;
+        v11 = v131;
 LABEL_106:
-        v54 = v122;
+        v54 = v121;
         goto LABEL_125;
       }
 
@@ -905,33 +898,33 @@ LABEL_106:
 
         v81 = objc_alloc(MEMORY[0x1E696ABC0]);
         v78 = *MEMORY[0x1E698F240];
-        v158 = *MEMORY[0x1E696A578];
-        v125 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"failedMechanisms"];
-        v159 = v125;
-        v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v159 forKeys:&v158 count:1];
+        v157 = *MEMORY[0x1E696A578];
+        v124 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"failedMechanisms"];
+        v158 = v124;
+        v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v158 forKeys:&v157 count:1];
         v80 = v81;
 LABEL_84:
-        v9 = v128;
-        v8 = v129;
-        v11 = v132;
+        v9 = v127;
+        v8 = v128;
+        v11 = v131;
         v82 = [v80 initWithDomain:v78 code:2 userInfo:v79];
         selfCopy4 = 0;
         *errorCopy4 = v82;
-        obj = v134;
+        obj = v133;
         self = selfCopy3;
 LABEL_119:
-        v54 = v122;
+        v54 = v121;
         goto LABEL_124;
       }
 
       v69 = MEMORY[0x1E696AD98];
       v70 = BMLocalAuthenticationDialogsMechanismFromString(v67);
       v71 = v69;
-      v62 = v134;
+      v62 = v133;
       v68 = [v71 numberWithInt:v70];
 LABEL_76:
       v72 = v68;
-      [v136 addObject:v68];
+      [v135 addObject:v68];
 
       if (v64 != ++v66)
       {
@@ -941,7 +934,7 @@ LABEL_76:
       break;
     }
 
-    v64 = [v62 countByEnumeratingWithState:&v141 objects:v162 count:16];
+    v64 = [v62 countByEnumeratingWithState:&v140 objects:v161 count:16];
     if (v64)
     {
       continue;
@@ -969,38 +962,38 @@ LABEL_78:
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       obj = v73;
-      v9 = v128;
+      v9 = v127;
       if (!error)
       {
         selfCopy4 = 0;
         self = selfCopy3;
-        v8 = v129;
+        v8 = v128;
         goto LABEL_86;
       }
 
       v108 = objc_alloc(MEMORY[0x1E696ABC0]);
       v109 = *MEMORY[0x1E698F240];
-      v156 = *MEMORY[0x1E696A578];
-      v125 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"actions"];
-      v157 = v125;
-      v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v157 forKeys:&v156 count:1];
+      v155 = *MEMORY[0x1E696A578];
+      v124 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"actions"];
+      v156 = v124;
+      v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v156 forKeys:&v155 count:1];
       v110 = [v108 initWithDomain:v109 code:2 userInfo:v79];
       selfCopy4 = 0;
       *error = v110;
       self = selfCopy3;
-      v8 = v129;
+      v8 = v128;
       goto LABEL_118;
     }
   }
 
 LABEL_89:
-  v125 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v73, "count")}];
+  v124 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v73, "count")}];
+  v136 = 0u;
   v137 = 0u;
   v138 = 0u;
   v139 = 0u;
-  v140 = 0u;
   v83 = v73;
-  v84 = [v83 countByEnumeratingWithState:&v137 objects:v155 count:16];
+  v84 = [v83 countByEnumeratingWithState:&v136 objects:v154 count:16];
   obj = v83;
   if (!v84)
   {
@@ -1008,18 +1001,18 @@ LABEL_89:
   }
 
   v85 = v84;
-  v86 = *v138;
+  v86 = *v137;
   while (2)
   {
     v87 = 0;
     while (2)
     {
-      if (*v138 != v86)
+      if (*v137 != v86)
       {
         objc_enumerationMutation(obj);
       }
 
-      v88 = *(*(&v137 + 1) + 8 * v87);
+      v88 = *(*(&v136 + 1) + 8 * v87);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -1028,20 +1021,20 @@ LABEL_89:
         {
           v96 = objc_alloc(MEMORY[0x1E696ABC0]);
           v97 = *MEMORY[0x1E698F240];
-          v153 = *MEMORY[0x1E696A578];
-          v121 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"actions"];
-          v154 = v121;
-          v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v154 forKeys:&v153 count:1];
+          v152 = *MEMORY[0x1E696A578];
+          v120 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"actions"];
+          v153 = v120;
+          v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v153 forKeys:&v152 count:1];
           v99 = v96;
           v100 = v97;
 LABEL_114:
-          v9 = v128;
-          v8 = v129;
-          v11 = v132;
+          v9 = v127;
+          v8 = v128;
+          v11 = v131;
           *errorCopy6 = [v99 initWithDomain:v100 code:2 userInfo:v98];
 
           selfCopy4 = 0;
-          v54 = v122;
+          v54 = v121;
           v79 = obj;
           self = selfCopy3;
           goto LABEL_123;
@@ -1065,10 +1058,10 @@ LABEL_114:
         {
           v106 = objc_alloc(MEMORY[0x1E696ABC0]);
           v107 = *MEMORY[0x1E698F240];
-          v151 = *MEMORY[0x1E696A578];
-          v121 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"actions"];
-          v152 = v121;
-          v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v152 forKeys:&v151 count:1];
+          v150 = *MEMORY[0x1E696A578];
+          v120 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"actions"];
+          v151 = v120;
+          v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v151 forKeys:&v150 count:1];
           v99 = v106;
           v100 = v107;
           goto LABEL_114;
@@ -1077,18 +1070,18 @@ LABEL_114:
 LABEL_115:
         selfCopy4 = 0;
         v79 = obj;
-        v8 = v129;
+        v8 = v128;
         self = selfCopy3;
-        v9 = v128;
+        v9 = v127;
 LABEL_118:
-        v11 = v132;
+        v11 = v131;
         goto LABEL_119;
       }
 
       v89 = [MEMORY[0x1E696AD98] numberWithInt:BMLocalAuthenticationDialogsActionFromString(v88)];
 LABEL_99:
       v90 = v89;
-      [v125 addObject:v89];
+      [v124 addObject:v89];
 
       if (v85 != ++v87)
       {
@@ -1099,7 +1092,7 @@ LABEL_99:
     }
 
     v83 = obj;
-    v85 = [obj countByEnumeratingWithState:&v137 objects:v155 count:16];
+    v85 = [obj countByEnumeratingWithState:&v136 objects:v154 count:16];
     if (v85)
     {
       continue;
@@ -1111,26 +1104,26 @@ LABEL_99:
 LABEL_101:
 
   v91 = [dictionaryCopy objectForKeyedSubscript:@"failingAction"];
-  v121 = v91;
+  v120 = v91;
   if (v91)
   {
     v92 = v91;
     objc_opt_class();
-    v8 = v129;
-    v11 = v132;
+    v8 = v128;
+    v11 = v131;
     if (objc_opt_isKindOfClass())
     {
       v79 = 0;
-      v9 = v128;
+      v9 = v127;
       goto LABEL_121;
     }
 
     objc_opt_class();
-    v54 = v122;
+    v54 = v121;
     if (objc_opt_isKindOfClass())
     {
       v79 = v92;
-      v9 = v128;
+      v9 = v127;
       goto LABEL_122;
     }
 
@@ -1138,41 +1131,41 @@ LABEL_101:
     if (objc_opt_isKindOfClass())
     {
       v79 = [MEMORY[0x1E696AD98] numberWithInt:BMLocalAuthenticationDialogsActionFromString(v92)];
-      v9 = v128;
-      v11 = v132;
+      v9 = v127;
+      v11 = v131;
       goto LABEL_122;
     }
 
     if (error)
     {
-      v120 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v114 = *MEMORY[0x1E698F240];
-      v149 = *MEMORY[0x1E696A578];
-      v115 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"failingAction"];
-      v150 = v115;
-      v116 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v150 forKeys:&v149 count:1];
-      *error = [v120 initWithDomain:v114 code:2 userInfo:v116];
+      v119 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v113 = *MEMORY[0x1E698F240];
+      v148 = *MEMORY[0x1E696A578];
+      v114 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"failingAction"];
+      v149 = v114;
+      v115 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v149 forKeys:&v148 count:1];
+      *error = [v119 initWithDomain:v113 code:2 userInfo:v115];
     }
 
     v79 = 0;
     selfCopy4 = 0;
     self = selfCopy3;
-    v9 = v128;
-    v11 = v132;
+    v9 = v127;
+    v11 = v131;
   }
 
   else
   {
     v79 = 0;
-    v9 = v128;
-    v8 = v129;
-    v11 = v132;
+    v9 = v127;
+    v8 = v128;
+    v11 = v131;
 LABEL_121:
-    v54 = v122;
+    v54 = v121;
 LABEL_122:
     intValue = [v54 intValue];
-    LODWORD(v119) = [v79 intValue];
-    self = [(BMLocalAuthenticationDialogs *)selfCopy3 initWithDialogID:v131 bundleID:v9 timeSinceUpdate:v127 mechanisms:v16 successfulMechanism:intValue failedMechanisms:v136 actions:v125 failingAction:v119];
+    LODWORD(v118) = [v79 intValue];
+    self = [(BMLocalAuthenticationDialogs *)selfCopy3 initWithDialogID:v130 bundleID:v9 timeSinceUpdate:v126 mechanisms:v16 successfulMechanism:intValue failedMechanisms:v135 actions:v124 failingAction:v118];
     selfCopy4 = self;
   }
 
@@ -1182,7 +1175,7 @@ LABEL_124:
 LABEL_125:
 
 LABEL_126:
-  v12 = v127;
+  v12 = v126;
 
 LABEL_127:
 LABEL_128:
@@ -1190,16 +1183,15 @@ LABEL_128:
 LABEL_129:
 LABEL_130:
 
-  v6 = v130;
+  v6 = v129;
 LABEL_131:
 
-  v7 = v131;
+  v7 = v130;
 LABEL_132:
 
 LABEL_133:
 LABEL_134:
 
-  v112 = *MEMORY[0x1E69E9840];
   return selfCopy4;
 }
 
@@ -1214,7 +1206,7 @@ LABEL_134:
 
 - (void)writeTo:(id)to
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_dialogID)
   {
@@ -1228,112 +1220,107 @@ LABEL_134:
 
   if (self->_hasTimeSinceUpdate)
   {
-    timeSinceUpdate = self->_timeSinceUpdate;
     PBDataWriterWriteUint32Field();
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v6 = self->_mechanisms;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v32 objects:v38 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = *v33;
-    do
-    {
-      v10 = 0;
-      do
-      {
-        if (*v33 != v9)
-        {
-          objc_enumerationMutation(v6);
-        }
-
-        [*(*(&v32 + 1) + 8 * v10) unsignedIntValue];
-        PBDataWriterWriteUint32Field();
-        ++v10;
-      }
-
-      while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v32 objects:v38 count:16];
-    }
-
-    while (v8);
-  }
-
-  successfulMechanism = self->_successfulMechanism;
-  PBDataWriterWriteUint32Field();
   v30 = 0u;
   v31 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v12 = self->_failedMechanisms;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v28 objects:v37 count:16];
-  if (v13)
+  v5 = self->_mechanisms;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  if (v6)
   {
-    v14 = v13;
-    v15 = *v29;
+    v7 = v6;
+    v8 = *v29;
     do
     {
-      v16 = 0;
+      v9 = 0;
       do
       {
-        if (*v29 != v15)
+        if (*v29 != v8)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v5);
         }
 
-        [*(*(&v28 + 1) + 8 * v16) unsignedIntValue];
+        [*(*(&v28 + 1) + 8 * v9) unsignedIntValue];
         PBDataWriterWriteUint32Field();
-        ++v16;
+        ++v9;
       }
 
-      while (v14 != v16);
-      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v28 objects:v37 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
-    while (v14);
+    while (v7);
   }
 
+  PBDataWriterWriteUint32Field();
   v26 = 0u;
   v27 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v17 = self->_actions;
-  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v24 objects:v36 count:16];
-  if (v18)
+  v10 = self->_failedMechanisms;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
+  if (v11)
   {
-    v19 = v18;
-    v20 = *v25;
+    v12 = v11;
+    v13 = *v25;
     do
     {
-      v21 = 0;
+      v14 = 0;
       do
       {
-        if (*v25 != v20)
+        if (*v25 != v13)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v10);
         }
 
-        [*(*(&v24 + 1) + 8 * v21) unsignedIntValue];
+        [*(*(&v24 + 1) + 8 * v14) unsignedIntValue];
         PBDataWriterWriteUint32Field();
-        ++v21;
+        ++v14;
       }
 
-      while (v19 != v21);
-      v19 = [(NSArray *)v17 countByEnumeratingWithState:&v24 objects:v36 count:16];
+      while (v12 != v14);
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
-    while (v19);
+    while (v12);
   }
 
-  failingAction = self->_failingAction;
-  PBDataWriterWriteUint32Field();
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v15 = self->_actions;
+  v16 = [(NSArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v21;
+    do
+    {
+      v19 = 0;
+      do
+      {
+        if (*v21 != v18)
+        {
+          objc_enumerationMutation(v15);
+        }
 
-  v23 = *MEMORY[0x1E69E9840];
+        [*(*(&v20 + 1) + 8 * v19) unsignedIntValue];
+        PBDataWriterWriteUint32Field();
+        ++v19;
+      }
+
+      while (v17 != v19);
+      v17 = [(NSArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+    }
+
+    while (v17);
+  }
+
+  PBDataWriterWriteUint32Field();
 }
 
 - (id)initByReadFrom:(id)from
@@ -1781,29 +1768,29 @@ LABEL_120:
 
 - (NSString)description
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   [v3 appendString:@"["];
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   mechanisms = [(BMLocalAuthenticationDialogs *)self mechanisms];
-  v5 = [mechanisms countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v5 = [mechanisms countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v45;
+    v7 = *v44;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v45 != v7)
+        if (*v44 != v7)
         {
           objc_enumerationMutation(mechanisms);
         }
 
-        v9 = *(*(&v44 + 1) + 8 * i);
+        v9 = *(*(&v43 + 1) + 8 * i);
         if ([v3 length] != 1)
         {
           [v3 appendString:{@", "}];
@@ -1813,7 +1800,7 @@ LABEL_120:
         [v3 appendString:v10];
       }
 
-      v6 = [mechanisms countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v6 = [mechanisms countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
     while (v6);
@@ -1822,26 +1809,26 @@ LABEL_120:
   [v3 appendString:@"]"];
   v11 = objc_opt_new();
   [v11 appendString:@"["];
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   failedMechanisms = [(BMLocalAuthenticationDialogs *)self failedMechanisms];
-  v13 = [failedMechanisms countByEnumeratingWithState:&v40 objects:v49 count:16];
+  v13 = [failedMechanisms countByEnumeratingWithState:&v39 objects:v48 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v41;
+    v15 = *v40;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v41 != v15)
+        if (*v40 != v15)
         {
           objc_enumerationMutation(failedMechanisms);
         }
 
-        v17 = *(*(&v40 + 1) + 8 * j);
+        v17 = *(*(&v39 + 1) + 8 * j);
         if ([v11 length] != 1)
         {
           [v11 appendString:{@", "}];
@@ -1851,7 +1838,7 @@ LABEL_120:
         [v11 appendString:v18];
       }
 
-      v14 = [failedMechanisms countByEnumeratingWithState:&v40 objects:v49 count:16];
+      v14 = [failedMechanisms countByEnumeratingWithState:&v39 objects:v48 count:16];
     }
 
     while (v14);
@@ -1860,26 +1847,26 @@ LABEL_120:
   [v11 appendString:@"]"];
   v19 = objc_opt_new();
   [v19 appendString:@"["];
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   actions = [(BMLocalAuthenticationDialogs *)self actions];
-  v21 = [actions countByEnumeratingWithState:&v36 objects:v48 count:16];
+  v21 = [actions countByEnumeratingWithState:&v35 objects:v47 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v37;
+    v23 = *v36;
     do
     {
       for (k = 0; k != v22; ++k)
       {
-        if (*v37 != v23)
+        if (*v36 != v23)
         {
           objc_enumerationMutation(actions);
         }
 
-        v25 = *(*(&v36 + 1) + 8 * k);
+        v25 = *(*(&v35 + 1) + 8 * k);
         if ([v19 length] != 1)
         {
           [v19 appendString:{@", "}];
@@ -1889,7 +1876,7 @@ LABEL_120:
         [v19 appendString:v26];
       }
 
-      v22 = [actions countByEnumeratingWithState:&v36 objects:v48 count:16];
+      v22 = [actions countByEnumeratingWithState:&v35 objects:v47 count:16];
     }
 
     while (v22);
@@ -1903,8 +1890,6 @@ LABEL_120:
   v31 = BMLocalAuthenticationDialogsMechanismAsString([(BMLocalAuthenticationDialogs *)self successfulMechanism]);
   v32 = BMLocalAuthenticationDialogsActionAsString([(BMLocalAuthenticationDialogs *)self failingAction]);
   v33 = [v27 initWithFormat:@"BMLocalAuthenticationDialogs with dialogID: %@, bundleID: %@, timeSinceUpdate: %@, mechanisms: %@, successfulMechanism: %@, failedMechanisms: %@, actions: %@, failingAction: %@", dialogID, bundleID, v30, v3, v31, v11, v19, v32];
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return v33;
 }
@@ -1950,33 +1935,31 @@ LABEL_120:
 
 + (id)protoFields
 {
-  v13[8] = *MEMORY[0x1E69E9840];
+  v12[8] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"dialogID" number:1 type:13 subMessageClass:0];
-  v13[0] = v2;
+  v12[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"bundleID" number:2 type:13 subMessageClass:0];
-  v13[1] = v3;
+  v12[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"timeSinceUpdate" number:3 type:4 subMessageClass:0];
-  v13[2] = v4;
+  v12[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"mechanisms" number:4 type:4 subMessageClass:0];
-  v13[3] = v5;
+  v12[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"successfulMechanism" number:5 type:4 subMessageClass:0];
-  v13[4] = v6;
+  v12[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"failedMechanisms" number:6 type:4 subMessageClass:0];
-  v13[5] = v7;
+  v12[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"actions" number:7 type:4 subMessageClass:0];
-  v13[6] = v8;
+  v12[6] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"failingAction" number:8 type:4 subMessageClass:0];
-  v13[7] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:8];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12[7] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:8];
 
   return v10;
 }
 
 + (id)columns
 {
-  v13[8] = *MEMORY[0x1E69E9840];
+  v12[8] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"dialogID" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"bundleID" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"timeSinceUpdate" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
@@ -1985,46 +1968,44 @@ LABEL_120:
   v7 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"failedMechanisms_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_119_102036];
   v8 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"actions_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_121];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"failingAction" dataType:0 requestOnly:0 fieldNumber:8 protoDataType:4 convertedType:0];
-  v13[0] = v2;
-  v13[1] = v3;
-  v13[2] = v4;
-  v13[3] = v5;
-  v13[4] = v6;
-  v13[5] = v7;
-  v13[6] = v8;
-  v13[7] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:8];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12[0] = v2;
+  v12[1] = v3;
+  v12[2] = v4;
+  v12[3] = v5;
+  v12[4] = v6;
+  v12[5] = v7;
+  v12[6] = v8;
+  v12[7] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:8];
 
   return v10;
 }
 
-id __39__BMLocalAuthenticationDialogs_columns__block_invoke_3(uint64_t a1, void *a2)
+id __39__BMLocalAuthenticationDialogs_columns__block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _actionsJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _actionsJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
-id __39__BMLocalAuthenticationDialogs_columns__block_invoke_2(uint64_t a1, void *a2)
+id __39__BMLocalAuthenticationDialogs_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _failedMechanismsJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _failedMechanismsJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
-id __39__BMLocalAuthenticationDialogs_columns__block_invoke(uint64_t a1, void *a2)
+id __39__BMLocalAuthenticationDialogs_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _mechanismsJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _mechanismsJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

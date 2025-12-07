@@ -18,6 +18,7 @@
 - (void)_selectPreviousMessageCommandInvoked:(id)invoked;
 - (void)_shrinkMessagesToBarButton:(id)button withInteraction:(id)interaction completionHandler:(id)handler;
 - (void)_updateFooterViewFrameForCell:(id)cell atIndexPath:(id)path;
+- (void)arrowControlsView:(id)view didTapButtonWithDirection:(int)direction;
 - (void)cancelAutomaticMarkAsReadForCellViewModel:(id)model;
 - (void)invalidateAutomaticMarkAsReadForAllMessages;
 - (void)messageViewController:(id)controller didTapRevealActionsButton:(id)button;
@@ -144,8 +145,8 @@ id __85__ConversationViewControllerAccessibility__accessibilityLoadAccessibility
 
 - (id)accessibilityCustomRotors
 {
-  v15[1] = *MEMORY[0x29EDCA608];
-  v14 = 0;
+  v14[1] = *MEMORY[0x29EDCA608];
+  v13 = 0;
   objc_opt_class();
   v3 = [(ConversationViewControllerAccessibility *)self safeValueForKey:@"collectionView"];
   v4 = __UIAccessibilityCastAsClass();
@@ -162,22 +163,20 @@ id __85__ConversationViewControllerAccessibility__accessibilityLoadAccessibility
     {
       v6 = objc_alloc(MEMORY[0x29EDC78E8]);
       v7 = accessibilityLocalizedString(@"thread.message.rotor.title");
-      v11[0] = MEMORY[0x29EDCA5F8];
-      v11[1] = 3221225472;
-      v11[2] = __68__ConversationViewControllerAccessibility_accessibilityCustomRotors__block_invoke;
-      v11[3] = &unk_29F2D3ED8;
-      v12 = v4;
+      v10[0] = MEMORY[0x29EDCA5F8];
+      v10[1] = 3221225472;
+      v10[2] = __68__ConversationViewControllerAccessibility_accessibilityCustomRotors__block_invoke;
+      v10[3] = &unk_29F2D3ED8;
+      v11 = v4;
       selfCopy = self;
-      v5 = [v6 initWithName:v7 itemSearchBlock:v11];
+      v5 = [v6 initWithName:v7 itemSearchBlock:v10];
 
       [(ConversationViewControllerAccessibility *)self _accessibilitySetRetainedValue:v5 forKey:@"MailConversationRotor"];
     }
 
-    v15[0] = v5;
-    v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v15 count:1];
+    v14[0] = v5;
+    v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v14 count:1];
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 
   return v8;
 }
@@ -641,10 +640,7 @@ uint64_t __64__ConversationViewControllerAccessibility__axMessageSubjectView__bl
 
 uint64_t __86__ConversationViewControllerAccessibility__accessibilityPerformLeadingActionWithCell___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) swipableCollectionViewLayout:*(a1 + 40) leadingSwipeActionsConfigurationForItemAtIndexPath:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) swipableCollectionViewLayout:*(a1 + 40) leadingSwipeActionsConfigurationForItemAtIndexPath:*(a1 + 48)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -725,6 +721,18 @@ void __104__ConversationViewControllerAccessibility__shrinkMessagesToBarButton_w
   [(ConversationViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 
   return arrowControlsView;
+}
+
+- (void)arrowControlsView:(id)view didTapButtonWithDirection:(int)direction
+{
+  v4 = *&direction;
+  viewCopy = view;
+  [(ConversationViewControllerAccessibility *)self _axSetSkipNextFocusOnMessage:1];
+  v7.receiver = self;
+  v7.super_class = ConversationViewControllerAccessibility;
+  [(ConversationViewControllerAccessibility *)&v7 arrowControlsView:viewCopy didTapButtonWithDirection:v4];
+
+  AXPerformBlockOnMainThreadAfterDelay();
 }
 
 void __87__ConversationViewControllerAccessibility_arrowControlsView_didTapButtonWithDirection___block_invoke(uint64_t a1)
@@ -827,10 +835,7 @@ LABEL_5:
 
 uint64_t __91__ConversationViewControllerAccessibility_messageViewController_didTapRevealActionsButton___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _visibleIndexPathForMessageViewController:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _visibleIndexPathForMessageViewController:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -910,7 +915,7 @@ uint64_t __91__ConversationViewControllerAccessibility_messageViewController_did
   }
 }
 
-uint64_t __81__ConversationViewControllerAccessibility_scheduleAutomaticMarkAsReadForMessage___block_invoke(uint64_t a1)
+void *__81__ConversationViewControllerAccessibility_scheduleAutomaticMarkAsReadForMessage___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _shouldAutomaticallyMarkAsReadMessage:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1030,10 +1035,7 @@ void __81__ConversationViewControllerAccessibility_scheduleAutomaticMarkAsReadFo
 
 uint64_t __87__ConversationViewControllerAccessibility__accessibilityTitleForLeadingActionWithCell___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _messageAtIndexPath:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _messageAtIndexPath:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }

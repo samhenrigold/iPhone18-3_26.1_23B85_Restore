@@ -25,14 +25,14 @@ void __75__UIApplication_PKUIUtilities__pkui_consumeSharedRootAuthenticationCont
   dispatch_async(MEMORY[0x1E69E96A0], v1);
 }
 
-uint64_t __75__UIApplication_PKUIUtilities__pkui_consumeSharedRootAuthenticationContext__block_invoke_3(uint64_t result)
+id *__75__UIApplication_PKUIUtilities__pkui_consumeSharedRootAuthenticationContext__block_invoke_3(id *result)
 {
   v1 = *MEMORY[0x1E69DDBE8];
-  if (*(*(*(result + 40) + 8) + 24) != *MEMORY[0x1E69DDBE8])
+  if (*(*(result[5] + 1) + 24) != *MEMORY[0x1E69DDBE8])
   {
     v2 = result;
-    result = [*(result + 32) endBackgroundTask:?];
-    *(*(*(v2 + 40) + 8) + 24) = v1;
+    result = [result[4] endBackgroundTask:?];
+    *(*(v2[5] + 1) + 24) = v1;
   }
 
   return result;
@@ -60,14 +60,14 @@ void __73__UIApplication_PKUIUtilities__pkui_resetSharedRootAuthenticationContex
   dispatch_async(MEMORY[0x1E69E96A0], v1);
 }
 
-uint64_t __73__UIApplication_PKUIUtilities__pkui_resetSharedRootAuthenticationContext__block_invoke_3(uint64_t result)
+id *__73__UIApplication_PKUIUtilities__pkui_resetSharedRootAuthenticationContext__block_invoke_3(id *result)
 {
   v1 = *MEMORY[0x1E69DDBE8];
-  if (*(*(*(result + 40) + 8) + 24) != *MEMORY[0x1E69DDBE8])
+  if (*(*(result[5] + 1) + 24) != *MEMORY[0x1E69DDBE8])
   {
     v2 = result;
-    result = [*(result + 32) endBackgroundTask:?];
-    *(*(*(v2 + 40) + 8) + 24) = v1;
+    result = [result[4] endBackgroundTask:?];
+    *(*(v2[5] + 1) + 24) = v1;
   }
 
   return result;

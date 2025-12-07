@@ -243,10 +243,10 @@ LABEL_8:
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = INCodableObjectAttribute;
-  v4 = [(INCodableAttribute *)&v15 dictionaryRepresentationWithLocalizer:localizer];
+  v16[1] = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = INCodableObjectAttribute;
+  v4 = [(INCodableAttribute *)&v14 dictionaryRepresentationWithLocalizer:localizer];
   typeName = [(INCodableObjectAttribute *)self typeName];
   if ([typeName isEqualToString:@"Double"])
   {
@@ -266,7 +266,7 @@ LABEL_8:
   typeName = v6;
 LABEL_6:
   __INCodableDescriptionTypeKey = [(INCodableObjectAttribute *)self __INCodableDescriptionTypeKey];
-  v16 = __INCodableDescriptionTypeKey;
+  v15 = __INCodableDescriptionTypeKey;
   originalTypeName = self->_originalTypeName;
   if (originalTypeName)
   {
@@ -285,8 +285,8 @@ LABEL_6:
     v9 = 1;
   }
 
-  v17[0] = originalTypeName;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v16[0] = originalTypeName;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   v11 = [v4 if_dictionaryByAddingEntriesFromDictionary:v10];
 
   if (v9)
@@ -294,8 +294,6 @@ LABEL_6:
   }
 
   if_dictionaryWithNonEmptyValues = [v11 if_dictionaryWithNonEmptyValues];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }

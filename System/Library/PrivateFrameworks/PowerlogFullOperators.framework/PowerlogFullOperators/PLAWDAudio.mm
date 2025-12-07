@@ -31,63 +31,59 @@
 
 + (id)entryAggregateDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"AudioMetrics";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"AudioMetrics";
   entryAggregateDefinitionAwdAudio = [self entryAggregateDefinitionAwdAudio];
-  v7[0] = entryAggregateDefinitionAwdAudio;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = entryAggregateDefinitionAwdAudio;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryAggregateDefinitionAwdAudio
 {
-  v29[4] = *MEMORY[0x277D85DE8];
-  v28[0] = *MEMORY[0x277D3F4E8];
+  v28[4] = *MEMORY[0x277D85DE8];
+  v27[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v26[0] = *MEMORY[0x277D3F568];
-  v26[1] = v2;
-  v27[0] = &unk_2870FEF20;
-  v27[1] = MEMORY[0x277CBEC28];
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
-  v29[0] = v18;
-  v28[1] = *MEMORY[0x277D3F540];
-  v24[0] = @"AudioRouting";
+  v25[0] = *MEMORY[0x277D3F568];
+  v25[1] = v2;
+  v26[0] = &unk_2870FEF20;
+  v26[1] = MEMORY[0x277CBEC28];
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+  v28[0] = v17;
+  v27[1] = *MEMORY[0x277D3F540];
+  v23[0] = @"AudioRouting";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v25[0] = commonTypeDict_IntegerFormat;
-  v24[1] = @"AudioVolume";
+  v24[0] = commonTypeDict_IntegerFormat;
+  v23[1] = @"AudioVolume";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v25[1] = commonTypeDict_IntegerFormat2;
-  v24[2] = @"AudioPower";
+  v24[1] = commonTypeDict_IntegerFormat2;
+  v23[2] = @"AudioPower";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat_aggregateFunction_sum = [mEMORY[0x277D3F198]3 commonTypeDict_RealFormat_aggregateFunction_sum];
-  v25[2] = commonTypeDict_RealFormat_aggregateFunction_sum;
-  v24[3] = @"AudioTime";
+  v24[2] = commonTypeDict_RealFormat_aggregateFunction_sum;
+  v23[3] = @"AudioTime";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat_aggregateFunction_sum2 = [mEMORY[0x277D3F198]4 commonTypeDict_RealFormat_aggregateFunction_sum];
-  v25[3] = commonTypeDict_RealFormat_aggregateFunction_sum2;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
-  v29[1] = v8;
-  v28[2] = *MEMORY[0x277D3F478];
-  v22 = &unk_2870FEF30;
-  v20 = *MEMORY[0x277D3F470];
+  v24[3] = commonTypeDict_RealFormat_aggregateFunction_sum2;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
+  v28[1] = v8;
+  v27[2] = *MEMORY[0x277D3F478];
   v21 = &unk_2870FEF30;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-  v23 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-  v29[2] = v10;
-  v28[3] = *MEMORY[0x277D3F488];
-  v19[0] = @"AudioTime";
-  v19[1] = @"AudioPower";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
-  v29[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D3F470];
+  v20 = &unk_2870FEF30;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+  v22 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v28[2] = v10;
+  v27[3] = *MEMORY[0x277D3F488];
+  v18[0] = @"AudioTime";
+  v18[1] = @"AudioPower";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v28[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
 
   return v12;
 }
@@ -131,7 +127,7 @@
 
 - (BOOL)submitDataToAWDServer:(id)server withAwdConn:(id)conn
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   connCopy = conn;
   v8 = [connCopy newMetricContainerWithIdentifier:{objc_msgSend(serverCopy, "unsignedIntValue")}];
@@ -150,13 +146,13 @@
       v15 = [(PLOperator *)PLAWDMetricsService entryKeyForType:*MEMORY[0x277D3F5B8] andName:@"AudioMetrics"];
       operator = [(PLAWDAuxMetrics *)self operator];
       storage = [operator storage];
-      v59 = v15;
+      v58 = v15;
       v18 = [storage aggregateEntriesForKey:v15 withBucketLength:86400.0 inTimeIntervalRange:{v12, v14 - v12}];
 
-      v64 = v18;
+      v63 = v18;
       v19 = [MEMORY[0x277D3F190] summarizeAggregateEntries:v18];
       v20 = objc_opt_new();
-      v63 = v20;
+      v62 = v20;
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v21 = objc_opt_class();
@@ -185,46 +181,46 @@
             [PLAWDDisplay startMetricCollection:];
           }
 
-          v20 = v63;
+          v20 = v62;
         }
       }
 
-      v60 = v8;
+      v59 = v8;
       selfCopy = self;
-      v62 = connCopy;
-      v73[0] = 0;
-      v73[1] = 0;
-      v74 = 0;
+      v61 = connCopy;
+      v72[0] = 0;
+      v72[1] = 0;
+      v73 = 0;
       [v20 setTimestamp:{objc_msgSend(connCopy, "getAWDTimestamp")}];
-      v69 = 0u;
-      v70 = 0u;
-      v67 = 0u;
       v68 = 0u;
+      v69 = 0u;
+      v66 = 0u;
+      v67 = 0u;
       obj = v19;
-      v28 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
+      v28 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
       if (!v28)
       {
         v30 = 0;
         v31 = 0;
-        v65 = 0;
+        v64 = 0;
         goto LABEL_25;
       }
 
       v29 = v28;
       v30 = 0;
       v31 = 0;
-      v65 = 0;
-      v32 = *v68;
+      v64 = 0;
+      v32 = *v67;
       while (1)
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v68 != v32)
+          if (*v67 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          v34 = *(*(&v67 + 1) + 8 * i);
+          v34 = *(*(&v66 + 1) + 8 * i);
           v35 = [v34 objectForKeyedSubscript:@"AudioRouting"];
           [v35 doubleValue];
           v37 = v36;
@@ -245,7 +241,7 @@
 
             v45 = [v34 objectForKeyedSubscript:@"AudioTime"];
             [v45 doubleValue];
-            *(v73 + v44) = v46;
+            *(v72 + v44) = v46;
           }
 
           else
@@ -261,11 +257,11 @@
 
             v50 = [v34 objectForKeyedSubscript:@"AudioTime"];
             [v50 doubleValue];
-            LODWORD(v65) = (v51 + v65);
+            LODWORD(v64) = (v51 + v64);
 
             v52 = [v34 objectForKeyedSubscript:@"AudioPower"];
             [v52 doubleValue];
-            HIDWORD(v65) = (v53 + HIDWORD(v65));
+            HIDWORD(v64) = (v53 + HIDWORD(v64));
 
             v54 = [v34 objectForKeyedSubscript:@"AudioVolume"];
             [v54 doubleValue];
@@ -275,20 +271,20 @@
           }
         }
 
-        v29 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
+        v29 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
         if (!v29)
         {
 LABEL_25:
 
-          [v63 setAudioHeadsetDuration:v30];
-          [v63 setAudioHeadsetPowerMicroWatt:v31];
-          [v63 setAudioSpeakerDuration:v65];
-          [v63 setAudioSpeakerPowerMicroWatt:HIDWORD(v65)];
-          [v63 setAudioVolumeLevelDurations:v73 count:5];
-          v8 = v60;
-          [v60 setMetric:v63];
+          [v62 setAudioHeadsetDuration:v30];
+          [v62 setAudioHeadsetPowerMicroWatt:v31];
+          [v62 setAudioSpeakerDuration:v64];
+          [v62 setAudioSpeakerPowerMicroWatt:HIDWORD(v64)];
+          [v62 setAudioVolumeLevelDurations:v72 count:5];
+          v8 = v59;
+          [v59 setMetric:v62];
 
-          connCopy = v62;
+          connCopy = v61;
           self = selfCopy;
           goto LABEL_26;
         }
@@ -308,11 +304,10 @@ LABEL_26:
     v55 = [connCopy submitMetric:v8];
   }
 
-  v57 = *MEMORY[0x277D85DE8];
   return v55;
 }
 
-uint64_t __48__PLAWDAudio_submitDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
+void *__48__PLAWDAudio_submitDataToAWDServer_withAwdConn___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   submitDataToAWDServer_withAwdConn__classDebugEnabled_3 = result;
@@ -604,21 +599,21 @@ LABEL_19:
 LABEL_32:
 }
 
-uint64_t __38__PLAWDAudio_handleAudioRailCallback___block_invoke(uint64_t a1)
+void *__38__PLAWDAudio_handleAudioRailCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleAudioRailCallback__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __38__PLAWDAudio_handleAudioRailCallback___block_invoke_64(uint64_t a1)
+void *__38__PLAWDAudio_handleAudioRailCallback___block_invoke_64(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleAudioRailCallback__classDebugEnabled_63 = result;
   return result;
 }
 
-uint64_t __38__PLAWDAudio_handleAudioRailCallback___block_invoke_70(uint64_t a1)
+void *__38__PLAWDAudio_handleAudioRailCallback___block_invoke_70(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleAudioRailCallback__classDebugEnabled_69 = result;

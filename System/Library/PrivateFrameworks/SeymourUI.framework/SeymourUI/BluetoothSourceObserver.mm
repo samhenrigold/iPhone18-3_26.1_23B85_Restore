@@ -8,7 +8,7 @@
 - (_TtC9SeymourUI23BluetoothSourceObserver)init
 {
   ObjectType = swift_getObjectType();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C772E88);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C772E88, &qword_20C18EBA8);
   v4 = swift_allocObject();
   *(v4 + 24) = 0;
   *(v4 + 32) = 0;
@@ -22,7 +22,7 @@
 
 - (void)handleUpdatedSourceList:(id)list
 {
-  sub_20B51C88C(0, &qword_27C772E78);
+  sub_20B51C88C(0, &qword_27C772E78, 0x277D13068);
   sub_20C0E0E4C();
   sub_20C13CF74();
   v4 = *(&self->super.isa + OBJC_IVAR____TtC9SeymourUI23BluetoothSourceObserver_state);

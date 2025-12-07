@@ -2,7 +2,9 @@
 - (BKUIJindoContainerScrollview)initWithFrame:(CGRect)frame buttonTray:(id)tray;
 - (BOOL)showsVerticalScrollIndicator;
 - (int64_t)indicatorStyle;
+- (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated;
 - (void)setIndicatorStyle:(int64_t)style;
+- (void)setShowsVerticalScrollIndicator:(BOOL)indicator;
 @end
 
 @implementation BKUIJindoContainerScrollview
@@ -13,11 +15,11 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v80[4] = *MEMORY[0x277D85DE8];
+  v79[4] = *MEMORY[0x277D85DE8];
   trayCopy = tray;
-  v77.receiver = self;
-  v77.super_class = BKUIJindoContainerScrollview;
-  height = [(BKUIJindoContainerScrollview *)&v77 initWithFrame:x, y, width, height];
+  v76.receiver = self;
+  v76.super_class = BKUIJindoContainerScrollview;
+  height = [(BKUIJindoContainerScrollview *)&v76 initWithFrame:x, y, width, height];
   if (height)
   {
     v12 = [objc_alloc(MEMORY[0x277D759D8]) initWithFrame:{x, y, width, height}];
@@ -36,28 +38,28 @@
     [(UIScrollView *)height->_scrollview addSubview:height->_scrollContentView];
     centerXAnchor = [(UIView *)height->_scrollContentView centerXAnchor];
     [(BKUIJindoContainerScrollview *)height centerXAnchor];
-    v18 = v76 = trayCopy;
+    v18 = v75 = trayCopy;
     v19 = [centerXAnchor constraintEqualToAnchor:v18];
     obj = tray;
     horizontalConstraint = height->_horizontalConstraint;
     height->_horizontalConstraint = v19;
 
-    v65 = MEMORY[0x277CCAAD0];
+    v64 = MEMORY[0x277CCAAD0];
     topAnchor = [(UIView *)height->_scrollContentView topAnchor];
     topAnchor2 = [(UIScrollView *)height->_scrollview topAnchor];
     v21 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v80[0] = v21;
+    v79[0] = v21;
     widthAnchor = [(UIView *)height->_scrollContentView widthAnchor];
     widthAnchor2 = [(UIScrollView *)height->_scrollview widthAnchor];
     v24 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-    v80[1] = v24;
+    v79[1] = v24;
     bottomAnchor = [(UIView *)height->_scrollContentView bottomAnchor];
     bottomAnchor2 = [(UIScrollView *)height->_scrollview bottomAnchor];
     v27 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v80[2] = v27;
-    v80[3] = height->_horizontalConstraint;
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:4];
-    [v65 activateConstraints:v28];
+    v79[2] = v27;
+    v79[3] = height->_horizontalConstraint;
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:4];
+    [v64 activateConstraints:v28];
 
     v29 = objc_alloc_init(BKUIPearlInstructionView);
     instructionView = height->_instructionView;
@@ -65,25 +67,25 @@
 
     [(BKUIPearlInstructionView *)height->_instructionView setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UIView *)height->_scrollContentView addSubview:height->_instructionView];
-    v61 = MEMORY[0x277CCAAD0];
+    v60 = MEMORY[0x277CCAAD0];
     topAnchor3 = [(BKUIPearlInstructionView *)height->_instructionView topAnchor];
     topAnchor4 = [(UIView *)height->_scrollContentView topAnchor];
-    v66 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-    v79[0] = v66;
+    v65 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
+    v78[0] = v65;
     leadingAnchor = [(BKUIPearlInstructionView *)height->_instructionView leadingAnchor];
     leadingAnchor2 = [(UIView *)height->_scrollContentView leadingAnchor];
     v32 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v79[1] = v32;
+    v78[1] = v32;
     trailingAnchor = [(BKUIPearlInstructionView *)height->_instructionView trailingAnchor];
     trailingAnchor2 = [(UIView *)height->_scrollContentView trailingAnchor];
     v35 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v79[2] = v35;
+    v78[2] = v35;
     bottomAnchor3 = [(BKUIPearlInstructionView *)height->_instructionView bottomAnchor];
     bottomAnchor4 = [(UIView *)height->_scrollContentView bottomAnchor];
     v38 = [bottomAnchor3 constraintLessThanOrEqualToAnchor:bottomAnchor4];
-    v79[3] = v38;
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:4];
-    [v61 activateConstraints:v39];
+    v78[3] = v38;
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:4];
+    [v60 activateConstraints:v39];
 
     objc_storeStrong(&height->_buttonTray, obj);
     [(BKUIButtonTray *)height->_buttonTray setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -94,36 +96,36 @@
     buttonTrayTopAnchor = height->_buttonTrayTopAnchor;
     height->_buttonTrayTopAnchor = v42;
 
-    v59 = MEMORY[0x277CCAAD0];
+    v58 = MEMORY[0x277CCAAD0];
     obja = [(UIScrollView *)height->_scrollview topAnchor];
     topAnchor6 = [(BKUIJindoContainerScrollview *)height topAnchor];
-    v70 = [obja constraintEqualToAnchor:topAnchor6];
-    v78[0] = v70;
+    v69 = [obja constraintEqualToAnchor:topAnchor6];
+    v77[0] = v69;
     leadingAnchor3 = [(UIScrollView *)height->_scrollview leadingAnchor];
     leadingAnchor4 = [(BKUIJindoContainerScrollview *)height leadingAnchor];
-    v62 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v78[1] = v62;
+    v61 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+    v77[1] = v61;
     trailingAnchor3 = [(UIScrollView *)height->_scrollview trailingAnchor];
     trailingAnchor4 = [(BKUIJindoContainerScrollview *)height trailingAnchor];
-    v57 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-    v78[2] = v57;
-    v78[3] = height->_buttonTrayTopAnchor;
+    v56 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+    v77[2] = v56;
+    v77[3] = height->_buttonTrayTopAnchor;
     bottomAnchor6 = [(BKUIButtonTray *)height->_buttonTray bottomAnchor];
     bottomAnchor7 = [(BKUIJindoContainerScrollview *)height bottomAnchor];
     v45 = [bottomAnchor6 constraintEqualToAnchor:bottomAnchor7];
-    v78[4] = v45;
+    v77[4] = v45;
     leadingAnchor5 = [(BKUIButtonTray *)height->_buttonTray leadingAnchor];
     leadingAnchor6 = [(UIView *)height->_scrollContentView leadingAnchor];
     v48 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-    v78[5] = v48;
+    v77[5] = v48;
     trailingAnchor5 = [(BKUIButtonTray *)height->_buttonTray trailingAnchor];
     trailingAnchor6 = [(UIView *)height->_scrollContentView trailingAnchor];
     v51 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-    v78[6] = v51;
-    v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:7];
-    [v59 activateConstraints:v52];
+    v77[6] = v51;
+    v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:7];
+    [v58 activateConstraints:v52];
 
-    trayCopy = v76;
+    trayCopy = v75;
     [(UIScrollView *)height->_scrollview setContentSize:*MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)];
     [(UIScrollView *)height->_scrollview setIndicatorStyle:2];
     [(UIScrollView *)height->_scrollview setContentInsetAdjustmentBehavior:2];
@@ -132,7 +134,6 @@
     [layer setMasksToBounds:1];
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return height;
 }
 
@@ -150,12 +151,28 @@
   return indicatorStyle;
 }
 
+- (void)setShowsVerticalScrollIndicator:(BOOL)indicator
+{
+  indicatorCopy = indicator;
+  scrollview = [(BKUIJindoContainerScrollview *)self scrollview];
+  [scrollview setShowsVerticalScrollIndicator:indicatorCopy];
+}
+
 - (BOOL)showsVerticalScrollIndicator
 {
   scrollview = [(BKUIJindoContainerScrollview *)self scrollview];
   showsVerticalScrollIndicator = [scrollview showsVerticalScrollIndicator];
 
   return showsVerticalScrollIndicator;
+}
+
+- (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  y = offset.y;
+  x = offset.x;
+  scrollview = [(BKUIJindoContainerScrollview *)self scrollview];
+  [scrollview setContentOffset:animatedCopy animated:{x, y}];
 }
 
 @end

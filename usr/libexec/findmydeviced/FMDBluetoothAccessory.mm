@@ -121,49 +121,50 @@
 {
   accessoryCopy = accessory;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002880(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_self();
+      v7 = objc_opt_self();
       *buf = 134218240;
       selfCopy = self;
-      v44 = 2048;
-      v45 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "FMDBluetoothAccessory(0x%lX) updateWithAccessory: FMDInternalAccessory(0x%lX)", buf, 0x16u);
+      v45 = 2048;
+      v46 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FMDBluetoothAccessory(0x%lX) updateWithAccessory: FMDInternalAccessory(0x%lX)", buf, 0x16u);
     }
 
-    v7 = accessoryCopy;
-    lastActiveTime = [v7 lastActiveTime];
+    v8 = accessoryCopy;
+    lastActiveTime = [v8 lastActiveTime];
     [lastActiveTime timeIntervalSinceReferenceDate];
-    v10 = v9;
+    v11 = v10;
     lastActiveTime2 = [(FMDBluetoothAccessory *)self lastActiveTime];
     [lastActiveTime2 timeIntervalSinceReferenceDate];
-    v13 = v12;
+    v14 = v13;
 
-    if (v10 > v13)
+    if (v11 > v14)
     {
       [(FMDBluetoothAccessory *)self setLastActiveTime:lastActiveTime];
     }
 
-    rssiUpdateDate = [v7 rssiUpdateDate];
+    rssiUpdateDate = [v8 rssiUpdateDate];
     [rssiUpdateDate timeIntervalSinceReferenceDate];
-    v16 = v15;
+    v17 = v16;
     rssiUpdateDate2 = [(FMDBluetoothAccessory *)self rssiUpdateDate];
     [rssiUpdateDate2 timeIntervalSinceReferenceDate];
-    v19 = v18;
+    v20 = v19;
 
-    if (v16 > v19)
+    if (v17 > v20)
     {
       [(FMDBluetoothAccessory *)self setRssiUpdateDate:rssiUpdateDate];
     }
 
-    beacons = [v7 beacons];
+    beacons = [v8 beacons];
     allValues = [beacons allValues];
     [(FMDBluetoothAccessory *)self updateBeaconsWithArray:allValues];
 
-    serialNumbers = [v7 serialNumbers];
+    serialNumbers = [v8 serialNumbers];
     serialNumbers2 = [(FMDBluetoothAccessory *)self serialNumbers];
 
     if (!serialNumbers2)
@@ -171,7 +172,7 @@
       [(FMDBluetoothAccessory *)self setSerialNumbers:serialNumbers];
     }
 
-    bluetoothColorCode = [v7 bluetoothColorCode];
+    bluetoothColorCode = [v8 bluetoothColorCode];
     bluetoothColorCode2 = [(FMDBluetoothAccessory *)self bluetoothColorCode];
 
     if (!bluetoothColorCode2)
@@ -179,7 +180,7 @@
       [(FMDBluetoothAccessory *)self setBluetoothColorCode:bluetoothColorCode];
     }
 
-    styleDescriptor = [v7 styleDescriptor];
+    styleDescriptor = [v8 styleDescriptor];
     styleDescriptor2 = [(FMDBluetoothAccessory *)self styleDescriptor];
 
     if (!styleDescriptor2)
@@ -187,39 +188,39 @@
       [(FMDBluetoothAccessory *)self setStyleDescriptor:styleDescriptor];
     }
 
-    v40 = styleDescriptor;
-    v41 = lastActiveTime;
-    audioAsset = [v7 audioAsset];
+    v41 = styleDescriptor;
+    v42 = lastActiveTime;
+    audioAsset = [v8 audioAsset];
     [(FMDBluetoothAccessory *)self setAudioAsset:audioAsset];
 
-    playbackChannels = [v7 playbackChannels];
+    playbackChannels = [v8 playbackChannels];
     [(FMDBluetoothAccessory *)self updatePlaybackChannels:playbackChannels];
 
-    baUUID = [v7 baUUID];
-    v31 = sub_100002880();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    baUUID = [v8 baUUID];
+    v32 = sub_100002880(baUUID);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       uUIDString = [baUUID UUIDString];
       baUUID2 = [(FMDBluetoothAccessory *)self baUUID];
-      [v7 name];
-      v34 = v39 = serialNumbers;
-      [v7 address];
-      v38 = bluetoothColorCode;
-      v36 = v35 = rssiUpdateDate;
+      [v8 name];
+      v35 = v40 = serialNumbers;
+      [v8 address];
+      v39 = bluetoothColorCode;
+      v37 = v36 = rssiUpdateDate;
       *buf = 138413058;
       selfCopy = uUIDString;
-      v44 = 2112;
-      v45 = baUUID2;
-      v46 = 2112;
-      v47 = v34;
-      v48 = 2112;
-      v49 = v36;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "FMDBluetoothAccessory existing baUUID: %@, new baUUID %@ for %@, %@", buf, 0x2Au);
+      v45 = 2112;
+      v46 = baUUID2;
+      v47 = 2112;
+      v48 = v35;
+      v49 = 2112;
+      v50 = v37;
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "FMDBluetoothAccessory existing baUUID: %@, new baUUID %@ for %@, %@", buf, 0x2Au);
 
-      rssiUpdateDate = v35;
-      bluetoothColorCode = v38;
+      rssiUpdateDate = v36;
+      bluetoothColorCode = v39;
 
-      serialNumbers = v39;
+      serialNumbers = v40;
     }
 
     baUUID3 = [(FMDBluetoothAccessory *)self baUUID];
@@ -265,8 +266,7 @@
   v11 = v7;
   [arrayCopy enumerateObjectsUsingBlock:v10];
 
-  [(FMDBluetoothAccessory *)self setAudioChannelInfo:v7];
-  v8 = sub_100002880();
+  v8 = sub_100002880([(FMDBluetoothAccessory *)self setAudioChannelInfo:v7]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     audioChannelInfo2 = [(FMDBluetoothAccessory *)self audioChannelInfo];
@@ -302,24 +302,23 @@
   if (bluetoothConnected)
   {
     lastActiveTime = +[NSDate date];
-    [(FMDBluetoothAccessory *)self setLastActiveTime:lastActiveTime];
-    v6 = sub_100002880();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100002880([(FMDBluetoothAccessory *)self setLastActiveTime:lastActiveTime]);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
+      v10 = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FMDBluetoothAccessory(0x%lX) updated lastActiveTime", &v9, 0xCu);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FMDBluetoothAccessory(0x%lX) updated lastActiveTime", &v10, 0xCu);
     }
   }
 
   else
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100002880(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
+      v10 = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FMDBluetoothAccessory(0x%lX) fetching cached lastActiveTime", &v9, 0xCu);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FMDBluetoothAccessory(0x%lX) fetching cached lastActiveTime", &v10, 0xCu);
     }
 
     lastActiveTime = [(FMDBluetoothAccessory *)self lastActiveTime];
@@ -470,8 +469,7 @@
   v10[3] = &unk_1002D0370;
   v10[4] = self;
   v10[5] = &v11;
-  [v5 enumerateObjectsUsingBlock:v10];
-  v6 = sub_100002880();
+  v6 = sub_100002880([v5 enumerateObjectsUsingBlock:v10]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v12[3];
@@ -564,15 +562,15 @@
   [(FMDBluetoothAccessory *)self setPlaybackChannels:channelsCopy];
   [(FMDBluetoothAccessory *)self updateAudioChannelPlayingState:channelsCopy];
 
-  v9 = sub_100002880();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100002880(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     audioChannelInfo = [(FMDBluetoothAccessory *)self audioChannelInfo];
-    v12 = 134218242;
+    v13 = 134218242;
     selfCopy = self;
-    v14 = 2112;
-    v15 = audioChannelInfo;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FMDBluetoothAccessory(0x%lX) setting channels %@", &v12, 0x16u);
+    v15 = 2112;
+    v16 = audioChannelInfo;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDBluetoothAccessory(0x%lX) setting channels %@", &v13, 0x16u);
   }
 
   return v8 ^ 1;

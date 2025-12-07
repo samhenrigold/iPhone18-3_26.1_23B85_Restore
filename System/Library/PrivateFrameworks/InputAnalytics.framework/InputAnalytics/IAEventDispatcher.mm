@@ -51,33 +51,32 @@
   v28 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   payloadCopy = payload;
-  if (objc_msgSend_isUnitTest(self, v8, v9))
+  isUnitTest = objc_msgSend_isUnitTest(self, v8, v9);
+  if (isUnitTest)
   {
-    v10 = sub_1D4621090();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_1D4621090(isUnitTest);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = objc_msgSend_description(payloadCopy, v11, v12);
+      v14 = objc_msgSend_description(payloadCopy, v12, v13);
       *buf = 138478083;
       v25 = eventCopy;
       v26 = 2117;
-      v27 = v13;
-      _os_log_impl(&dword_1D460F000, v10, OS_LOG_TYPE_DEFAULT, "Dispatching for test '%{private}@': %{sensitive}@", buf, 0x16u);
+      v27 = v14;
+      _os_log_impl(&dword_1D460F000, v11, OS_LOG_TYPE_DEFAULT, "Dispatching for test '%{private}@': %{sensitive}@", buf, 0x16u);
     }
 
-    v16 = objc_msgSend_mutableCopy(payloadCopy, v14, v15);
-    objc_msgSend_setObject_forKeyedSubscript_(v16, v17, eventCopy, @"IAEventDispatcherEventNameKey");
-    v20 = objc_msgSend_payloadsObservedForTesting(self, v18, v19);
-    objc_msgSend_addObject_(v20, v21, v16);
+    v17 = objc_msgSend_mutableCopy(payloadCopy, v15, v16);
+    objc_msgSend_setObject_forKeyedSubscript_(v17, v18, eventCopy, @"IAEventDispatcherEventNameKey");
+    v21 = objc_msgSend_payloadsObservedForTesting(self, v19, v20);
+    objc_msgSend_addObject_(v21, v22, v17);
   }
 
   else
   {
     v23 = payloadCopy;
     AnalyticsSendEventLazy();
-    v16 = v23;
+    v17 = v23;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 @end

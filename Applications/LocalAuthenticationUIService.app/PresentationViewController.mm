@@ -9,6 +9,7 @@
 - (NSString)preferredConfiguration;
 - (void)_checkDismissalCompletion;
 - (void)_dispatchElementUpdateAfterMinDisplayTime;
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion;
 - (void)presentOnParentViewController:(id)controller animated:(BOOL)animated completionHandler:(id)handler;
 - (void)presentableDidAppearAsBanner:(id)banner;
 - (void)presentableDidDisappearAsBanner:(id)banner withReason:(id)reason;
@@ -124,6 +125,23 @@ uint64_t __87__PresentationViewController_presentOnParentViewController_animated
   }
 
   return _objc_release_x1();
+}
+
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  if ([(PresentationViewController *)self isDynamicIslandAvailable])
+  {
+    [(PresentationViewController *)self revokePresentableWithCompletionHandler:completionCopy];
+  }
+
+  else
+  {
+    v7.receiver = self;
+    v7.super_class = PresentationViewController;
+    [(PresentationViewController *)&v7 dismissViewControllerAnimated:animatedCopy completion:completionCopy];
+  }
 }
 
 - (void)revokePresentableWithCompletionHandler:(id)handler
@@ -536,14 +554,14 @@ void __71__PresentationViewController__dispatchElementUpdateAfterMinDisplayTime_
 {
   [*a2 count];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&_mh_execute_header, v2, v3, "%{public}@ was revoked and will complete when the presentable disappears, tracking %u completion handlers.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&_mh_execute_header, v2, v3, "%{public}@ was revoked and will complete when the presentable disappears, tracking %u completion handlers.", v4, v5, v6, v7);
 }
 
 - (void)revokePresentableWithCompletionHandler:(uint64_t)a1 .cold.3(uint64_t a1, id *a2)
 {
   [*a2 count];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&_mh_execute_header, v2, v3, "%{public}@ already being revoked, tracking %u completion handlers.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&_mh_execute_header, v2, v3, "%{public}@ already being revoked, tracking %u completion handlers.", v4, v5, v6, v7);
 }
 
 @end

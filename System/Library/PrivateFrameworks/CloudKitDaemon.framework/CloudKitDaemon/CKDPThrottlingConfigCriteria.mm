@@ -1418,19 +1418,18 @@ LABEL_122:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_containerName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    containerEnvironment = self->_containerEnvironment;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -1449,46 +1448,44 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  operationType = self->_operationType;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    databaseType = self->_databaseType;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:
   if (self->_zoneName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_operationGroupName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_invernessServiceName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_invernessFunctionName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_bundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -1659,7 +1656,6 @@ LABEL_5:
     }
   }
 
-  v10 = *(equalCopy + 80);
   if (*&self->_has)
   {
     if ((equalCopy[10] & 1) == 0 || self->_containerEnvironment != *(equalCopy + 4))
@@ -1702,47 +1698,47 @@ LABEL_29:
   }
 
   zoneName = self->_zoneName;
-  v12 = equalCopy[9];
-  if (zoneName | v12 && !objc_msgSend_isEqual_(zoneName, v7, v12))
+  v11 = equalCopy[9];
+  if (zoneName | v11 && !objc_msgSend_isEqual_(zoneName, v7, v11))
   {
     goto LABEL_29;
   }
 
   operationGroupName = self->_operationGroupName;
-  v14 = equalCopy[7];
-  if (operationGroupName | v14)
+  v13 = equalCopy[7];
+  if (operationGroupName | v13)
   {
-    if (!objc_msgSend_isEqual_(operationGroupName, v7, v14))
+    if (!objc_msgSend_isEqual_(operationGroupName, v7, v13))
     {
       goto LABEL_29;
     }
   }
 
   invernessServiceName = self->_invernessServiceName;
-  v16 = equalCopy[6];
-  if (invernessServiceName | v16)
+  v15 = equalCopy[6];
+  if (invernessServiceName | v15)
   {
-    if (!objc_msgSend_isEqual_(invernessServiceName, v7, v16))
+    if (!objc_msgSend_isEqual_(invernessServiceName, v7, v15))
     {
       goto LABEL_29;
     }
   }
 
   invernessFunctionName = self->_invernessFunctionName;
-  v18 = equalCopy[5];
-  if (invernessFunctionName | v18)
+  v17 = equalCopy[5];
+  if (invernessFunctionName | v17)
   {
-    if (!objc_msgSend_isEqual_(invernessFunctionName, v7, v18))
+    if (!objc_msgSend_isEqual_(invernessFunctionName, v7, v17))
     {
       goto LABEL_29;
     }
   }
 
   bundleID = self->_bundleID;
-  v20 = equalCopy[1];
-  if (bundleID | v20)
+  v19 = equalCopy[1];
+  if (bundleID | v19)
   {
-    isEqual = objc_msgSend_isEqual_(bundleID, v7, v20);
+    isEqual = objc_msgSend_isEqual_(bundleID, v7, v19);
   }
 
   else

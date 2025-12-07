@@ -33,44 +33,16 @@ void sub_1000022DC(void *a1)
   v2 = [NSNumber numberWithInt:2];
   v3 = [v14 error];
   v4 = v3;
-  if (v3)
+  if (v3 && ([v3 domain], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isEqualToString:", NSCocoaErrorDomain), v5, v6) && objc_msgSend(v4, "code") == 3840 && (+[NSNumber numberWithInt:](NSNumber, "numberWithInt:", 3), (v7 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v14, "errorDescription"), v8 = objc_claimAutoreleasedReturnValue(), v8, v8) && (objc_msgSend(v14, "errorDescription"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v1, "setObject:forKeyedSubscript:", v9, @"oauth_error"), v9, +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", 2), (v7 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v5 = [v3 domain];
-    v6 = [v5 isEqualToString:NSCocoaErrorDomain];
-
-    if (v6)
-    {
-      if ([v4 code] == 3840)
-      {
-        v7 = [NSNumber numberWithInt:3];
-        if (v7)
-        {
-          goto LABEL_7;
-        }
-      }
-    }
-  }
-
-  v8 = [v14 errorDescription];
-
-  if (v8)
-  {
-    v9 = [v14 errorDescription];
-    [v1 setObject:v9 forKeyedSubscript:@"oauth_error"];
-
-    v7 = [NSNumber numberWithInt:2];
-    if (v7)
-    {
-LABEL_7:
-      v10 = v7;
+    v10 = v7;
 LABEL_11:
-      [v1 setObject:v2 forKeyedSubscript:@"status_domain"];
-      [v1 setObject:v10 forKeyedSubscript:@"status_code"];
-      v13 = [NSString stringWithUTF8String:"CarrierSpaceOAuthResult"];
-      AnalyticsSendEvent();
+    [v1 setObject:v2 forKeyedSubscript:@"status_domain"];
+    [v1 setObject:v10 forKeyedSubscript:@"status_code"];
+    v13 = [NSString stringWithUTF8String:"CarrierSpaceOAuthResult"];
+    AnalyticsSendEvent();
 
-      goto LABEL_12;
-    }
+    goto LABEL_12;
   }
 
   if ([v14 statusCode] == 200)
@@ -114,16 +86,16 @@ uint64_t start(int a1, char **a2)
   return v7;
 }
 
-id sub_100002CBC()
+id sub_100002CBC(uint64_t a1)
 {
   if (qword_100015DD8 != -1)
   {
     sub_100005750();
   }
 
-  v1 = qword_100015DD0;
+  v2 = qword_100015DD0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100002D00(id a1)
@@ -167,12 +139,12 @@ void sub_10000336C(uint64_t a1)
   }
 }
 
-id sub_100003414(uint64_t a1)
+uint64_t sub_100003414(uint64_t a1)
 {
   result = [*(a1 + 32) _loadAuthUrl];
   if ((result & 1) == 0)
   {
-    v3 = sub_100002CBC();
+    v3 = sub_100002CBC(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -210,7 +182,7 @@ void sub_100003D94(_Unwind_Exception *a1)
 
 void sub_100003DB0(uint64_t a1)
 {
-  v2 = sub_100002CBC();
+  v2 = sub_100002CBC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -329,17 +301,18 @@ id sub_100005238(uint64_t a1)
   return [v1 _sendAuthFailure:10 completion:v3];
 }
 
-void sub_100005730(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100005730(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100005764(void *a1)
 {
   v1 = [a1 error];
   sub_100005718();
-  sub_100005730(&_mh_execute_header, v2, v3, "Auth code exchange failed with error: %@", v4, v5, v6, v7, v8);
+  sub_100005730(&_mh_execute_header, v2, v3, "Auth code exchange failed with error: %@", v4, v5, v6, v7);
 }
 
 void sub_1000057E8()
@@ -396,5 +369,5 @@ void sub_100005A3C(void *a1)
 {
   [a1 statusCode];
   sub_100005718();
-  sub_100005730(&_mh_execute_header, v1, v2, "Server returned error in response: %ld", v3, v4, v5, v6, v7);
+  sub_100005730(&_mh_execute_header, v1, v2, "Server returned error in response: %ld", v3, v4, v5, v6);
 }

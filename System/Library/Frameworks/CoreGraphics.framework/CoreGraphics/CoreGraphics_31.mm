@@ -23,7 +23,7 @@ double *CGSScanconverterGetBoundingBox(double *result, _DWORD *a2, _DWORD *a3, _
   return result;
 }
 
-_WORD *delta_create(uint64_t a1, _DWORD *a2, _DWORD *a3, unint64_t *a4)
+char *delta_create(uint64_t a1, _DWORD *a2, _DWORD *a3, unint64_t *a4)
 {
   v97 = 0;
   v98 = 0;
@@ -68,11 +68,11 @@ _WORD *delta_create(uint64_t a1, _DWORD *a2, _DWORD *a3, unint64_t *a4)
     if (v17)
     {
       v18 = 0;
-      v19 = result + v15 * v14 - 2;
+      v19 = &result[v15 * v14 - 2];
       v20 = *a1;
       v96 = -4 * v10;
       v21 = v15 >> 1;
-      v95 = &result[-4 * v10 + 7];
+      v95 = &result[-8 * v10 + 14];
       v22 = 2 * (v15 >> 1);
       do
       {
@@ -88,7 +88,7 @@ _WORD *delta_create(uint64_t a1, _DWORD *a2, _DWORD *a3, unint64_t *a4)
           {
             v29 = vcvtmd_s64_f64(v28 * 65536.0 + 0.5);
             v30 = ((v29 + 0x8000) >> 16) - 2;
-            v31 = &result[(v30 - v12) * v21 + 7 + v26 + v96];
+            v31 = &result[2 * (v30 - v12) * v21 + 14 + 2 * v26 + 2 * v96];
             v32 = (v29 - (v30 << 16) + 512) >> 10;
             v33 = &vKernel + 12 * (v32 & 0x3F) + 2 * ((v32 + 192) >> 6);
             v34 = v23[2];
@@ -112,12 +112,12 @@ _WORD *delta_create(uint64_t a1, _DWORD *a2, _DWORD *a3, unint64_t *a4)
                       }
 
                       --v85;
-                      v84 = (v84 + v22);
+                      v84 += v22;
                       --v83;
                     }
 
                     while (v83);
-                    v87 = &v86[v21];
+                    v87 = &v86[2 * v21];
                     if (v87 >= result && v87 <= v19)
                     {
                       *v87 += *v85;
@@ -147,12 +147,12 @@ _WORD *delta_create(uint64_t a1, _DWORD *a2, _DWORD *a3, unint64_t *a4)
                     }
 
                     --v37;
-                    v36 = (v36 + v22);
+                    v36 += v22;
                     --v35;
                   }
 
                   while (v35);
-                  v39 = &v38[v21];
+                  v39 = &v38[2 * v21];
                   if (v39 >= result && v39 <= v19)
                   {
                     *v39 -= *v37;
@@ -187,7 +187,7 @@ _WORD *delta_create(uint64_t a1, _DWORD *a2, _DWORD *a3, unint64_t *a4)
                       }
 
                       --v90;
-                      v89 = (v89 + v22);
+                      v89 += v22;
                       --v88;
                     }
 
@@ -195,7 +195,7 @@ _WORD *delta_create(uint64_t a1, _DWORD *a2, _DWORD *a3, unint64_t *a4)
                     v62 -= 4;
                     if (v62 <= 5)
                     {
-                      v94 = &v91[v21];
+                      v94 = &v91[2 * v21];
                       if (v94 >= result && v94 <= v19)
                       {
                         *v94 += *v90;
@@ -226,7 +226,7 @@ _WORD *delta_create(uint64_t a1, _DWORD *a2, _DWORD *a3, unint64_t *a4)
                     }
 
                     --v65;
-                    v64 = (v64 + v22);
+                    v64 += v22;
                     --v63;
                   }
 
@@ -234,7 +234,7 @@ _WORD *delta_create(uint64_t a1, _DWORD *a2, _DWORD *a3, unint64_t *a4)
                   v62 -= 4;
                   if (v62 <= 5)
                   {
-                    v69 = &v66[v21];
+                    v69 = &v66[2 * v21];
                     if (v69 >= result && v69 <= v19)
                     {
                       *v69 -= *v65;
@@ -274,7 +274,7 @@ _WORD *delta_create(uint64_t a1, _DWORD *a2, _DWORD *a3, unint64_t *a4)
                 }
 
                 v70 = v26;
-                v71 = v95 + 2 * v26;
+                v71 = &v95[2 * v26];
                 while (2)
                 {
                   if (v44 > 0x3FFFFFFF || v45 > 0x3FFFFFFF)
@@ -286,7 +286,7 @@ _WORD *delta_create(uint64_t a1, _DWORD *a2, _DWORD *a3, unint64_t *a4)
                   v74 = (v73 - v12) * v21;
                   v75 = (v44 - (v73 << 16) + 512) >> 10;
                   v76 = (&vKernel + 12 * (v75 & 0x3F) + 2 * ((v75 + 192) >> 6));
-                  v77 = (v71 + 2 * v74);
+                  v77 = &v71[2 * v74];
                   if (((v75 + 192) & 0xFFFFFF80) == 0x100)
                   {
                     v78 = 4;
@@ -298,7 +298,7 @@ _WORD *delta_create(uint64_t a1, _DWORD *a2, _DWORD *a3, unint64_t *a4)
                       }
 
                       --v76;
-                      v77 = (v77 + v22);
+                      v77 += v22;
                       --v78;
                     }
 
@@ -316,7 +316,7 @@ _WORD *delta_create(uint64_t a1, _DWORD *a2, _DWORD *a3, unint64_t *a4)
                     }
 
                     --v76;
-                    v77 = (v77 + v22);
+                    v77 += v22;
                     --v80;
                   }
 
@@ -346,7 +346,7 @@ LABEL_110:
               if (v26 < v27)
               {
                 v47 = v26;
-                v48 = v95 + 2 * v26;
+                v48 = &v95[2 * v26];
                 do
                 {
                   if (v44 > 0x3FFFFFFF || v45 > 0x3FFFFFFF)
@@ -360,7 +360,7 @@ LABEL_110:
                   v53 = v52 + 192;
                   v54 = (&vKernel + 12 * (v52 & 0x3F) + 2 * ((v52 + 192) >> 6));
                   v55 = (v52 + 192) & 0xFFFFFF80;
-                  v56 = (v48 + 2 * v51);
+                  v56 = &v48[2 * v51];
                   if (v55 == 256)
                   {
                     v57 = 4;
@@ -372,7 +372,7 @@ LABEL_110:
                       }
 
                       --v54;
-                      v56 = (v56 + v22);
+                      v56 += v22;
                       --v57;
                     }
 
@@ -391,7 +391,7 @@ LABEL_110:
                       }
 
                       --v54;
-                      v56 = (v56 + v22);
+                      v56 += v22;
                       --v59;
                     }
 
@@ -1891,7 +1891,7 @@ LABEL_40:
         v107 = vqsub_u16(v104, v106);
         v108 = vqmovun_s32(vcvtnq_s32_f32(vmulq_f32(vsubq_f32(vaddq_f32(vaddq_f32(vcvtq_f32_u32(vmull_u16(v106, vmvn_s8(v103))), vcvtq_f32_u32(vmull_u16(v105, vmvn_s8(v104)))), vcvtq_f32_u32(vmull_lane_u16(v103, v101, 3))), vbicq_s8(vdivq_f32(vmulq_f32(vcvtq_f32_u32(vmovl_u16(v107)), vcvtq_f32_u32(vmull_lane_u16(v103, *v102.i8, 3))), vcvtq_f32_u32(vmovl_u16(v105))), vmovl_s16(vceqz_s16(v107)))), v99)));
         a14 = vrev16_s8(vbsl_s8(vceqz_s16(v103), v101, vbsl_s8(vceqz_s16(v104), *v102.i8, vmin_u16(v108, vdup_lane_s16(v108, 3)))));
-        v20->i64[0] = *&a14;
+        *v20->i8 = a14;
       }
 
       v109 = &v18->i8[8 * a6];
@@ -4023,7 +4023,7 @@ LABEL_40:
         v70 = vdup_lane_s16(*v69.i8, 3);
         v71 = vdup_lane_s16(v68, 3);
         a13 = vrev16_s8(vqsub_u16(vqadd_u16(v71, v70), vqadd_u16(vqsub_u16(v70, *v69.i8), vqsub_u16(v71, v68))));
-        v19->i64[0] = *&a13;
+        *v19->i8 = a13;
       }
 
       v72 = &v17->i8[8 * a6];
@@ -6317,7 +6317,7 @@ LABEL_33:
         v47 = vrev16_s8(*v20->i8);
         v48 = vaddq_s32(vminq_u32(vmull_u16(v47, vdup_lane_s8(a9, 0)), v45), v46);
         a9 = vrev16_s8(vqsub_u16(v47, vqshrn_n_u32(vsraq_n_u32(v48, v48, 0x10uLL), 0x10uLL)));
-        v20->i64[0] = *&a9;
+        *v20->i8 = a9;
       }
 
       v49 = v18 + 8 * a6;
@@ -8742,7 +8742,7 @@ uint64_t *VEC::template_mark_pixelshape_row<(CGCompositeOperation)0,_RGBA16_t>(u
   return result;
 }
 
-void sub_1840131E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_1840131E4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   if (a20 < 0)
   {
@@ -8754,7 +8754,7 @@ void sub_1840131E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a9);
   }
 
-  MEMORY[0x1865EE610](v20, v21);
+  MEMORY[0x1865EE610](v20, v21, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -8765,7 +8765,7 @@ void Type1C::~Type1C(Type1C *this)
   JUMPOUT(0x1865EE610);
 }
 
-uint64_t cmap_csr_set_create()
+_WORD *cmap_csr_set_create()
 {
   v0 = malloc_type_calloc(1uLL, 0x18uLL, 0x10200404BE0E0E6uLL);
   v1 = v0;
@@ -8813,20 +8813,21 @@ void cmap_csr_set_release(uint64_t a1)
   }
 }
 
-void cmap_csr_set_add_codespace_range(unsigned __int8 *a1, unsigned int a2, unsigned int a3, unsigned int a4)
+void cmap_csr_set_add_codespace_range(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a2;
   v6 = csr_create(a2, a3, a4);
   if (v6)
   {
     CFArrayAppendValue(*(a1 + 1), v6);
-    if (*a1 > a2)
+    if (*a1 > v4)
     {
-      *a1 = a2;
+      *a1 = v4;
     }
 
-    if (a1[1] < a2)
+    if (a1[1] < v4)
     {
-      a1[1] = a2;
+      a1[1] = v4;
     }
   }
 }
@@ -9061,7 +9062,7 @@ _DWORD *csr_create(unsigned int a1, unsigned int a2, unsigned int a3)
   return result;
 }
 
-BOOL check_dimension(_BOOL8 result, unsigned int a2, unsigned int a3)
+unint64_t check_dimension(unint64_t result, unsigned int a2, unsigned int a3)
 {
   if ((result - 5) < 0xFFFFFFFC)
   {
@@ -9149,9 +9150,9 @@ LABEL_15:
     return 1;
   }
 
-  if (!result)
+  if (result != 1)
   {
-    v10 = result - 1 - 1;
+    v10 = (result - 1) - 1;
     v11 = v19;
     v12 = v20;
     do
@@ -9609,7 +9610,9 @@ uint64_t CGPDFMarkedContentItemCreate(void)
     dispatch_once(&CGPDFMarkedContentItemGetTypeID(void)::onceToken, &__block_literal_global_966);
   }
 
-  return pdf_create_cftype();
+  v1 = CGPDFMarkedContentItemGetTypeID(void)::typeID;
+
+  return pdf_create_cftype(v1, 56);
 }
 
 uint64_t ___ZL31CGPDFMarkedContentItemGetTypeIDv_block_invoke()

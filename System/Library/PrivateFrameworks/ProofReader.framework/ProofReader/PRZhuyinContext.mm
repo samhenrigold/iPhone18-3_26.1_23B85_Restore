@@ -1,6 +1,5 @@
 @interface PRZhuyinContext
 - (PRZhuyinContext)init;
-- (id)description;
 - (void)_addDeletions;
 - (void)_addInsertions;
 - (void)_addReplacements;
@@ -8,6 +7,7 @@
 - (void)_advanceIndexes;
 - (void)_filterModifications;
 - (void)_removeModificationsAndMoveStartingPoint;
+- (void)addInputCharacter:(unsigned __int16)character geometryModel:(void *)model geometryData:(id)data;
 - (void)dealloc;
 - (void)removeNumberOfInputCharacters:(unint64_t)characters;
 - (void)reset;
@@ -38,14 +38,6 @@
   v3.receiver = self;
   v3.super_class = PRZhuyinContext;
   [(PRZhuyinContext *)&v3 dealloc];
-}
-
-- (id)description
-{
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:self->_buffer];
-  modifications = self->_modifications;
-  return [v3 stringWithFormat:@"%@\nmodifications:  %@\nprefixes:  %@", v4, modifications, self->_prefixes];
 }
 
 - (void)_removeModificationsAndMoveStartingPoint
@@ -298,7 +290,7 @@ LABEL_51:
 
 - (void)_addTranspositions
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   lastIndexes = self->_lastIndexes;
   if (self->_lastIndexes[1] >= self->_startIndex)
   {
@@ -315,7 +307,7 @@ LABEL_51:
   if (startIndex + 1 < endIndex)
   {
     selfCopy2 = self;
-    v44 = self->_lastIndexes;
+    v43 = self->_lastIndexes;
     while (1)
     {
       v7 = startIndex;
@@ -364,88 +356,85 @@ LABEL_51:
         goto LABEL_74;
       }
 
-      v59 = 0;
-      v60 = 0;
       v58 = 0;
+      v59 = 0;
       v57 = 0;
-      v56[0] = externalZhuyinFromInternal(v12);
-      v56[1] = externalZhuyinFromInternal(v9);
+      v56 = 0;
+      v55[0] = externalZhuyinFromInternal(v12);
+      v55[1] = externalZhuyinFromInternal(v9);
       selfCopy2->_buffer[v7] = v12;
       selfCopy2->_buffer[startIndex] = v9;
-      v51 = startIndex;
-      if (v7 >= *lastIndexes)
+      v50 = startIndex;
+      if (v7 >= *lastIndexes && findZhuyin(&selfCopy2->_buffer[*lastIndexes], selfCopy2->_endIndex - *lastIndexes, 0, 0, 0, 0, 0, &v59, &v58, &v57, &v56, selfCopy2->_syllableLengthArray))
       {
-        if (findZhuyin(&selfCopy2->_buffer[*lastIndexes], selfCopy2->_endIndex - *lastIndexes, 0, 0, 0, 0, 0, &v60, &v59, &v58, &v57, selfCopy2->_syllableLengthArray))
+        v13 = *lastIndexes;
+        if (v58 + *lastIndexes == selfCopy2->_endIndex)
         {
-          v13 = *lastIndexes;
-          if (v59 + *lastIndexes == selfCopy2->_endIndex)
+          if (v57)
           {
-            if (v58)
+            v14 = 0;
+            v15 = 0;
+            v16 = 0;
+            v17 = 0;
+            v18 = (selfCopy2->_syllableLengthArray + 1);
+            v19 = 0x7FFFFFFFFFFFFFFFLL;
+            v44 = v57;
+            while (1)
             {
-              v14 = 0;
-              v15 = 0;
-              v16 = 0;
-              v17 = 0;
-              v18 = (selfCopy2->_syllableLengthArray + 1);
-              v19 = 0x7FFFFFFFFFFFFFFFLL;
-              v45 = v58;
-              while (1)
+              v20 = *(v18 - 1);
+              v21 = v20 + v13;
+              if (v7 >= v13)
               {
-                v20 = *(v18 - 1);
-                v21 = v20 + v13;
-                if (v7 >= v13)
+                if (startIndex < v21)
                 {
-                  if (startIndex < v21)
+                  if (v56)
                   {
-                    if (v57)
-                    {
-                      v17 |= v58 - 1 == v14;
-                    }
-
-                    v15 = *(v18 - 1);
-                    v22 = v13;
-                    goto LABEL_29;
+                    v17 |= v57 - 1 == v14;
                   }
 
-                  if (v7 < v21)
-                  {
-                    v15 = *v18;
-                    if (v57)
-                    {
-                      v17 |= v58 - 2 == v14;
-                    }
-
-                    v16 = *(v18 - 1);
-                    v19 = v13;
-                    v22 = v20 + v13;
-                    goto LABEL_29;
-                  }
+                  v15 = *(v18 - 1);
+                  v22 = v13;
+                  goto LABEL_29;
                 }
 
-                v22 = 0x7FFFFFFFFFFFFFFFLL;
-LABEL_29:
-                if (v22 == 0x7FFFFFFFFFFFFFFFLL)
+                if (v7 < v21)
                 {
-                  ++v14;
-                  ++v18;
-                  v13 += v20;
-                  if (v14 < v58)
+                  v15 = *v18;
+                  if (v56)
                   {
-                    continue;
+                    v17 |= v57 - 2 == v14;
                   }
-                }
 
-                goto LABEL_56;
+                  v16 = *(v18 - 1);
+                  v19 = v13;
+                  v22 = v20 + v13;
+                  goto LABEL_29;
+                }
               }
+
+              v22 = 0x7FFFFFFFFFFFFFFFLL;
+LABEL_29:
+              if (v22 == 0x7FFFFFFFFFFFFFFFLL)
+              {
+                ++v14;
+                ++v18;
+                v13 += v20;
+                if (v14 < v57)
+                {
+                  continue;
+                }
+              }
+
+              goto LABEL_56;
             }
+          }
 
 LABEL_57:
-            v48 = 0;
-            v47 = 0;
-            v50 = 0;
-            v45 = 0;
-            goto LABEL_58;
-          }
+          v47 = 0;
+          v46 = 0;
+          v49 = 0;
+          v44 = 0;
+          goto LABEL_58;
         }
       }
 
@@ -455,50 +444,50 @@ LABEL_57:
         goto LABEL_57;
       }
 
-      if (!findZhuyin(&selfCopy2->_buffer[v24], selfCopy2->_endIndex - v24, 0, 0, 0, 0, 0, &v60, &v59, &v58, &v57, selfCopy2->_syllableLengthArray))
+      if (!findZhuyin(&selfCopy2->_buffer[v24], selfCopy2->_endIndex - v24, 0, 0, 0, 0, 0, &v59, &v58, &v57, &v56, selfCopy2->_syllableLengthArray))
       {
         goto LABEL_57;
       }
 
       v25 = lastIndexes[1];
-      if (v59 + v25 != selfCopy2->_length || v57 == 1 && v7 >= v60 + v25)
+      if (v58 + v25 != selfCopy2->_length || v56 == 1 && v7 >= v59 + v25)
       {
         goto LABEL_57;
       }
 
-      if (v58)
+      if (v57)
       {
         break;
       }
 
-      v48 = 0;
       v47 = 0;
-      v50 = 0;
-      v45 = -1;
+      v46 = 0;
+      v49 = 0;
+      v44 = -1;
 LABEL_58:
-      v46 = 0x7FFFFFFFFFFFFFFFLL;
+      v45 = 0x7FFFFFFFFFFFFFFFLL;
       v22 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_59:
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
       v53 = 0u;
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
       modifications = selfCopy2->_modifications;
-      v33 = [(NSMutableArray *)modifications countByEnumeratingWithState:&v52 objects:v61 count:16];
+      v33 = [(NSMutableArray *)modifications countByEnumeratingWithState:&v51 objects:v60 count:16];
       if (v33)
       {
         v34 = v33;
-        v35 = *v53;
+        v35 = *v52;
 LABEL_61:
         v36 = 0;
         while (1)
         {
-          if (*v53 != v35)
+          if (*v52 != v35)
           {
             objc_enumerationMutation(modifications);
           }
 
-          v37 = *(*(&v52 + 1) + 8 * v36);
+          v37 = *(*(&v51 + 1) + 8 * v36);
           if ([v37 modificationType] == 2)
           {
             v39 = v7 == [v37 range] && v38 == 2;
@@ -510,7 +499,7 @@ LABEL_61:
 
           if (v34 == ++v36)
           {
-            v34 = [(NSMutableArray *)modifications countByEnumeratingWithState:&v52 objects:v61 count:16];
+            v34 = [(NSMutableArray *)modifications countByEnumeratingWithState:&v51 objects:v60 count:16];
             if (v34)
             {
               goto LABEL_61;
@@ -524,11 +513,11 @@ LABEL_61:
       else
       {
 LABEL_71:
-        if (v50)
+        if (v49)
         {
-          v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCharacters:v56 length:2];
-          LOBYTE(v43) = v48 & 1;
-          v41 = [[PRZhuyinModification alloc] initWithRange:v7 replacementString:2 modificationType:v40 syllableRange:2 additionalSyllableRange:v22 modificationScore:v50 syllableCountScore:0.0 syllableLetters:v46 producesPartialSyllable:v47, v45, &self->_buffer[v22], v43];
+          v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCharacters:v55 length:2];
+          LOBYTE(v42) = v47 & 1;
+          v41 = [[PRZhuyinModification alloc] initWithRange:v7 replacementString:2 modificationType:v40 syllableRange:2 additionalSyllableRange:v22 modificationScore:v49 syllableCountScore:0.0 syllableLetters:v45 producesPartialSyllable:v46, v44, &self->_buffer[v22], v42];
           [(NSMutableArray *)self->_modifications addObject:v41];
           [(NSMutableArray *)self->_addedModifications addObject:v41];
         }
@@ -536,15 +525,15 @@ LABEL_71:
 
       selfCopy2 = self;
       self->_buffer[v7] = v9;
-      startIndex = v51;
-      self->_buffer[v51] = v12;
-      lastIndexes = v44;
+      startIndex = v50;
+      self->_buffer[v50] = v12;
+      lastIndexes = v43;
       endIndex = self->_endIndex;
 LABEL_74:
       v4 = startIndex + 1;
       if (startIndex + 1 >= endIndex)
       {
-        goto LABEL_77;
+        return;
       }
     }
 
@@ -554,8 +543,8 @@ LABEL_74:
     v26 = (selfCopy2->_syllableLengthArray + 1);
     v19 = 0x7FFFFFFFFFFFFFFFLL;
     v27 = 1;
-    v28 = v58 - 1;
-    v45 = v58 - 1;
+    v28 = v57 - 1;
+    v44 = v57 - 1;
     while (1)
     {
       v29 = *(v26 - 1);
@@ -564,7 +553,7 @@ LABEL_74:
       {
         if (startIndex < v30)
         {
-          if (v57)
+          if (v56)
           {
             v17 |= v28 == 0;
           }
@@ -577,7 +566,7 @@ LABEL_74:
         if (v7 < v30)
         {
           v15 = *v26;
-          if (v57)
+          if (v56)
           {
             v17 |= v28 == 1;
           }
@@ -596,28 +585,25 @@ LABEL_53:
         ++v26;
         --v28;
         v25 += v29;
-        if (v27++ < v58)
+        if (v27++ < v57)
         {
           continue;
         }
       }
 
 LABEL_56:
-      v46 = v19;
-      v47 = v16;
-      v50 = v15;
-      v48 = v17;
+      v45 = v19;
+      v46 = v16;
+      v49 = v15;
+      v47 = v17;
       goto LABEL_59;
     }
   }
-
-LABEL_77:
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addReplacements
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   startIndex = self->_startIndex;
   endIndex = self->_endIndex;
   if (startIndex < endIndex)
@@ -647,15 +633,15 @@ LABEL_77:
 LABEL_50:
       if (++startIndex >= endIndex)
       {
-        goto LABEL_51;
+        return;
       }
     }
 
     v5 = &adjacentMatchesForTones + 28 * (v4 - 49) + 4;
 LABEL_4:
     v6 = 0;
-    v34 = self->_buffer[startIndex];
-    v33 = v5;
+    v33 = self->_buffer[startIndex];
+    v32 = v5;
     while (1)
     {
       v7 = v5[4 * v6];
@@ -671,18 +657,18 @@ LABEL_4:
 
       if (!v8)
       {
-        v43 = 0;
-        v44 = 0;
         v42 = 0;
+        v43 = 0;
         v41 = 0;
-        v40 = externalZhuyinFromInternal(v7);
+        v40 = 0;
+        v39 = externalZhuyinFromInternal(v7);
         self->_buffer[startIndex] = v7;
-        if (findZhuyin(&self->_buffer[self->_lastIndexes[0]], self->_endIndex - self->_lastIndexes[0], 0, 0, 0, 0, 0, &v44, &v43, &v42, &v41, self->_syllableLengthArray))
+        if (findZhuyin(&self->_buffer[self->_lastIndexes[0]], self->_endIndex - self->_lastIndexes[0], 0, 0, 0, 0, 0, &v43, &v42, &v41, &v40, self->_syllableLengthArray))
         {
           v9 = self->_lastIndexes[0];
-          if (v43 + v9 == self->_endIndex)
+          if (v42 + v9 == self->_endIndex)
           {
-            if (v42)
+            if (v41)
             {
               v10 = 0;
               v11 = 0;
@@ -691,7 +677,7 @@ LABEL_4:
               while (startIndex < v9)
               {
                 v14 = 0x7FFFFFFFFFFFFFFFLL;
-                if (v41)
+                if (v40)
                 {
                   goto LABEL_22;
                 }
@@ -701,7 +687,7 @@ LABEL_23:
                 {
                   v16 = *syllableLengthArray++;
                   v9 += v16;
-                  if (v13++ < v42)
+                  if (v13++ < v41)
                   {
                     continue;
                   }
@@ -726,13 +712,13 @@ LABEL_23:
                 v11 = *syllableLengthArray;
               }
 
-              if (!v41)
+              if (!v40)
               {
                 goto LABEL_23;
               }
 
 LABEL_22:
-              v10 |= v42 == v13;
+              v10 |= v41 == v13;
               goto LABEL_23;
             }
 
@@ -740,30 +726,30 @@ LABEL_22:
             v10 = 0;
             v14 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_28:
-            v38 = 0u;
-            v39 = 0u;
-            v36 = 0u;
             v37 = 0u;
+            v38 = 0u;
+            v35 = 0u;
+            v36 = 0u;
             modifications = self->_modifications;
-            v19 = [(NSMutableArray *)modifications countByEnumeratingWithState:&v36 objects:v45 count:16];
+            v19 = [(NSMutableArray *)modifications countByEnumeratingWithState:&v35 objects:v44 count:16];
             if (v19)
             {
               v20 = v19;
-              v21 = *v37;
+              v21 = *v36;
 LABEL_30:
               v22 = 0;
               while (1)
               {
-                if (*v37 != v21)
+                if (*v36 != v21)
                 {
                   objc_enumerationMutation(modifications);
                 }
 
-                v23 = *(*(&v36 + 1) + 8 * v22);
+                v23 = *(*(&v35 + 1) + 8 * v22);
                 if ([v23 modificationType] == 1 && startIndex == objc_msgSend(v23, "range") && v24 == 1)
                 {
                   v26 = [objc_msgSend(v23 "replacementString")];
-                  if (v26 == v40)
+                  if (v26 == v39)
                   {
                     break;
                   }
@@ -771,7 +757,7 @@ LABEL_30:
 
                 if (v20 == ++v22)
                 {
-                  v20 = [(NSMutableArray *)modifications countByEnumeratingWithState:&v36 objects:v45 count:16];
+                  v20 = [(NSMutableArray *)modifications countByEnumeratingWithState:&v35 objects:v44 count:16];
                   if (v20)
                   {
                     goto LABEL_30;
@@ -787,10 +773,10 @@ LABEL_30:
 LABEL_42:
               if (v11)
               {
-                v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCharacters:&v40 length:1];
+                v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCharacters:&v39 length:1];
                 v28 = [PRZhuyinModification alloc];
-                LOBYTE(v32) = v10 & 1;
-                v29 = [(PRZhuyinModification *)v28 initWithRange:startIndex replacementString:1 modificationType:v27 syllableRange:1 modificationScore:v14 syllableCountScore:v11 syllableLetters:0.0 producesPartialSyllable:v42, &self->_buffer[v14], v32];
+                LOBYTE(v31) = v10 & 1;
+                v29 = [(PRZhuyinModification *)v28 initWithRange:startIndex replacementString:1 modificationType:v27 syllableRange:1 modificationScore:v14 syllableCountScore:v11 syllableLetters:0.0 producesPartialSyllable:v41, &self->_buffer[v14], v31];
                 [(NSMutableArray *)self->_modifications addObject:v29];
                 [(NSMutableArray *)self->_addedModifications addObject:v29];
               }
@@ -798,9 +784,9 @@ LABEL_42:
           }
         }
 
-        v4 = v34;
-        self->_buffer[startIndex] = v34;
-        v5 = v33;
+        v4 = v33;
+        self->_buffer[startIndex] = v33;
+        v5 = v32;
       }
 
       if (++v6 == 6)
@@ -810,18 +796,15 @@ LABEL_42:
       }
     }
   }
-
-LABEL_51:
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addInsertions
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   startIndex = self->_startIndex;
   if (startIndex >= self->_endIndex)
   {
-    goto LABEL_57;
+    return;
   }
 
   do
@@ -837,11 +820,11 @@ LABEL_51:
     {
       v7 = &insertionFollowersForLetter_insertionFollowers1;
 LABEL_11:
-      v39 = v7;
+      v38 = v7;
       goto LABEL_12;
     }
 
-    v39 = &insertionFollowersForLetter_insertionFollowers1;
+    v38 = &insertionFollowersForLetter_insertionFollowers1;
     if (v4 != 231)
     {
       v6 = memchr("bpmfdtnlgkhjqxzcs", v4, 0x12uLL);
@@ -867,25 +850,25 @@ LABEL_12:
     }
 
     v10 = 0;
-    v37 = startIndex;
+    v36 = startIndex;
     v5 = startIndex + 1;
     do
     {
-      v11 = v39[v10];
+      v11 = v38[v10];
       if (v11)
       {
-        v47 = 0;
-        v48 = 0;
         v46 = 0;
+        v47 = 0;
         v45 = 0;
-        v44 = externalZhuyinFromInternal(v11);
+        v44 = 0;
+        v43 = externalZhuyinFromInternal(v11);
         self->_buffer[v5] = v11;
-        if (findZhuyin(&self->_buffer[self->_lastIndexes[0]], self->_endIndex - self->_lastIndexes[0] + 1, 0, 0, 0, 0, 0, &v48, &v47, &v46, &v45, self->_syllableLengthArray))
+        if (findZhuyin(&self->_buffer[self->_lastIndexes[0]], self->_endIndex - self->_lastIndexes[0] + 1, 0, 0, 0, 0, 0, &v47, &v46, &v45, &v44, self->_syllableLengthArray))
         {
           v12 = self->_lastIndexes[0];
-          if (v47 + v12 == self->_endIndex + 1 && (v45 != 1 || v5 < v48 + v12))
+          if (v46 + v12 == self->_endIndex + 1 && (v44 != 1 || v5 < v47 + v12))
           {
-            if (v46)
+            if (v45)
             {
               v13 = 0;
               v14 = 0;
@@ -894,7 +877,7 @@ LABEL_12:
               while (v5 < v12)
               {
                 v17 = 0x7FFFFFFFFFFFFFFFLL;
-                if (v45)
+                if (v44)
                 {
                   goto LABEL_31;
                 }
@@ -904,7 +887,7 @@ LABEL_32:
                 {
                   v19 = *syllableLengthArray++;
                   v12 += v19;
-                  if (v16++ < v46)
+                  if (v16++ < v45)
                   {
                     continue;
                   }
@@ -929,13 +912,13 @@ LABEL_32:
                 v14 = *syllableLengthArray - 1;
               }
 
-              if (!v45)
+              if (!v44)
               {
                 goto LABEL_32;
               }
 
 LABEL_31:
-              v13 |= v46 == v16;
+              v13 |= v45 == v16;
               goto LABEL_32;
             }
 
@@ -943,31 +926,31 @@ LABEL_31:
             v13 = 0;
             v17 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_37:
-            v42 = 0u;
-            v43 = 0u;
-            v40 = 0u;
             v41 = 0u;
-            v38 = v14;
+            v42 = 0u;
+            v39 = 0u;
+            v40 = 0u;
+            v37 = v14;
             modifications = self->_modifications;
-            v22 = [(NSMutableArray *)modifications countByEnumeratingWithState:&v40 objects:v49 count:16];
+            v22 = [(NSMutableArray *)modifications countByEnumeratingWithState:&v39 objects:v48 count:16];
             if (v22)
             {
               v23 = v22;
-              v24 = *v41;
+              v24 = *v40;
 LABEL_39:
               v25 = 0;
               while (1)
               {
-                if (*v41 != v24)
+                if (*v40 != v24)
                 {
                   objc_enumerationMutation(modifications);
                 }
 
-                v26 = *(*(&v40 + 1) + 8 * v25);
+                v26 = *(*(&v39 + 1) + 8 * v25);
                 if ([v26 modificationType] == 3 && v5 == objc_msgSend(v26, "range") && v27 == 0)
                 {
                   v29 = [objc_msgSend(v26 "replacementString")];
-                  if (v29 == v44)
+                  if (v29 == v43)
                   {
                     break;
                   }
@@ -975,7 +958,7 @@ LABEL_39:
 
                 if (v23 == ++v25)
                 {
-                  v23 = [(NSMutableArray *)modifications countByEnumeratingWithState:&v40 objects:v49 count:16];
+                  v23 = [(NSMutableArray *)modifications countByEnumeratingWithState:&v39 objects:v48 count:16];
                   if (v23)
                   {
                     goto LABEL_39;
@@ -989,12 +972,12 @@ LABEL_39:
             else
             {
 LABEL_51:
-              if (v38)
+              if (v37)
               {
-                v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCharacters:&v44 length:1];
+                v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCharacters:&v43 length:1];
                 v31 = [PRZhuyinModification alloc];
-                LOBYTE(v36) = v13 & 1;
-                v32 = [(PRZhuyinModification *)v31 initWithRange:v5 replacementString:0 modificationType:v30 syllableRange:3 modificationScore:v17 syllableCountScore:v38 syllableLetters:0.0 producesPartialSyllable:v46, &self->_buffer[v17], v36];
+                LOBYTE(v35) = v13 & 1;
+                v32 = [(PRZhuyinModification *)v31 initWithRange:v5 replacementString:0 modificationType:v30 syllableRange:3 modificationScore:v17 syllableCountScore:v37 syllableLetters:0.0 producesPartialSyllable:v45, &self->_buffer[v17], v35];
                 [(NSMutableArray *)self->_modifications addObject:v32];
                 [(NSMutableArray *)self->_addedModifications addObject:v32];
               }
@@ -1007,8 +990,8 @@ LABEL_51:
     }
 
     while (v10 != 5);
-    v33 = v37;
-    if (v37 < self->_length)
+    v33 = v36;
+    if (v36 < self->_length)
     {
       do
       {
@@ -1025,13 +1008,11 @@ LABEL_56:
   }
 
   while (v5 < self->_endIndex);
-LABEL_57:
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addDeletions
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   startIndex = self->_startIndex;
   v3 = startIndex + 2;
   endIndex = self->_endIndex;
@@ -1062,8 +1043,8 @@ LABEL_57:
         if (v9 == v10)
         {
 LABEL_15:
-          v49 = v6;
-          v51 = 1;
+          v48 = v6;
+          v50 = 1;
           goto LABEL_21;
         }
 
@@ -1133,13 +1114,13 @@ LABEL_19:
       }
 
 LABEL_20:
-      v49 = v6;
-      v51 = 0;
+      v48 = v6;
+      v50 = 0;
 LABEL_21:
-      v58 = 0;
-      v59 = 0;
       v57 = 0;
+      v58 = 0;
       v56 = 0;
+      v55 = 0;
       if (v7 < self->_length)
       {
         v17 = startIndex;
@@ -1155,13 +1136,13 @@ LABEL_21:
         endIndex = self->_endIndex;
       }
 
-      v48 = startIndex;
-      if (findZhuyin(&buffer[self->_lastIndexes[0]], endIndex + ~self->_lastIndexes[0], 0, 0, 0, 0, 0, &v59, &v58, &v57, &v56, self->_syllableLengthArray))
+      v47 = startIndex;
+      if (findZhuyin(&buffer[self->_lastIndexes[0]], endIndex + ~self->_lastIndexes[0], 0, 0, 0, 0, 0, &v58, &v57, &v56, &v55, self->_syllableLengthArray))
       {
         v19 = self->_lastIndexes[0];
-        if (v58 + v19 == self->_endIndex - 1 && (v56 != 1 || v49 <= v59 + v19))
+        if (v57 + v19 == self->_endIndex - 1 && (v55 != 1 || v48 <= v58 + v19))
         {
-          if (v57)
+          if (v56)
           {
             v20 = 0;
             v21 = 0;
@@ -1170,7 +1151,7 @@ LABEL_21:
             while (v7 < v19)
             {
               v24 = 0x7FFFFFFFFFFFFFFFLL;
-              if (v56)
+              if (v55)
               {
                 goto LABEL_40;
               }
@@ -1180,7 +1161,7 @@ LABEL_41:
               {
                 v26 = *syllableLengthArray++;
                 v19 += v26;
-                if (v23++ < v57)
+                if (v23++ < v56)
                 {
                   continue;
                 }
@@ -1205,13 +1186,13 @@ LABEL_41:
               v21 = *syllableLengthArray + 1;
             }
 
-            if (!v56)
+            if (!v55)
             {
               goto LABEL_41;
             }
 
 LABEL_40:
-            v20 |= v57 == v23;
+            v20 |= v56 == v23;
             goto LABEL_41;
           }
 
@@ -1219,28 +1200,28 @@ LABEL_40:
           v20 = 0;
           v24 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_56:
-          v46 = v20;
-          v47 = v21;
-          v54 = 0u;
-          v55 = 0u;
-          v52 = 0u;
+          v45 = v20;
+          v46 = v21;
           v53 = 0u;
+          v54 = 0u;
+          v51 = 0u;
+          v52 = 0u;
           obj = self->_modifications;
-          v31 = [(NSMutableArray *)obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+          v31 = [(NSMutableArray *)obj countByEnumeratingWithState:&v51 objects:v59 count:16];
           if (v31)
           {
             v32 = v31;
-            v33 = *v53;
+            v33 = *v52;
 LABEL_58:
             v34 = 0;
             while (1)
             {
-              if (*v53 != v33)
+              if (*v52 != v33)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v35 = *(*(&v52 + 1) + 8 * v34);
+              v35 = *(*(&v51 + 1) + 8 * v34);
               if ([v35 modificationType] == 4)
               {
                 range = [v35 range];
@@ -1249,7 +1230,7 @@ LABEL_58:
                   break;
                 }
 
-                v39 = v37 == 1 ? v51 : 0;
+                v39 = v37 == 1 ? v50 : 0;
                 if (v39 == 1 && range + 1 == v7)
                 {
                   break;
@@ -1258,7 +1239,7 @@ LABEL_58:
 
               if (v32 == ++v34)
               {
-                v32 = [(NSMutableArray *)obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+                v32 = [(NSMutableArray *)obj countByEnumeratingWithState:&v51 objects:v59 count:16];
                 if (v32)
                 {
                   goto LABEL_58;
@@ -1272,11 +1253,11 @@ LABEL_58:
           else
           {
 LABEL_75:
-            if (v47 >= 2)
+            if (v46 >= 2)
             {
               v41 = [PRZhuyinModification alloc];
-              LOBYTE(v45) = v46 & 1;
-              v42 = [(PRZhuyinModification *)v41 initWithRange:v7 replacementString:1 modificationType:&stru_1F4E0A7A0 syllableRange:4 modificationScore:v24 syllableCountScore:v47 syllableLetters:0.0 producesPartialSyllable:v57, &self->_buffer[v24], v45];
+              LOBYTE(v44) = v45 & 1;
+              v42 = [(PRZhuyinModification *)v41 initWithRange:v7 replacementString:1 modificationType:&stru_1F4E0A7A0 syllableRange:4 modificationScore:v24 syllableCountScore:v46 syllableLetters:0.0 producesPartialSyllable:v56, &self->_buffer[v24], v44];
               [(NSMutableArray *)self->_modifications addObject:v42];
               [(NSMutableArray *)self->_addedModifications addObject:v42];
             }
@@ -1288,9 +1269,9 @@ LABEL_75:
       }
 
       self->_buffer[v7] = v9;
-      startIndex = v48;
+      startIndex = v47;
       endIndex = self->_endIndex;
-      v6 = v49;
+      v6 = v48;
 LABEL_81:
       v3 = v6 + 1;
       ++startIndex;
@@ -1298,44 +1279,42 @@ LABEL_81:
 
     while (v6 + 1 < endIndex);
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_filterModifications
 {
   selfCopy = self;
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v3 = [(NSMutableArray *)self->_addedModifications count];
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
   addedModifications = selfCopy->_addedModifications;
-  v5 = [(NSMutableArray *)addedModifications countByEnumeratingWithState:&v64 objects:v71 count:16];
+  v5 = [(NSMutableArray *)addedModifications countByEnumeratingWithState:&v63 objects:v70 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = selfCopy;
     v8 = 0;
-    v9 = *v65;
+    v9 = *v64;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v65 != v9)
+        if (*v64 != v9)
         {
           objc_enumerationMutation(addedModifications);
         }
 
-        syllableCountScore = [*(*(&v64 + 1) + 8 * i) syllableCountScore];
+        syllableCountScore = [*(*(&v63 + 1) + 8 * i) syllableCountScore];
         if (v8 - 1 >= syllableCountScore)
         {
           v8 = syllableCountScore;
         }
       }
 
-      v6 = [(NSMutableArray *)addedModifications countByEnumeratingWithState:&v64 objects:v71 count:16];
+      v6 = [(NSMutableArray *)addedModifications countByEnumeratingWithState:&v63 objects:v70 count:16];
     }
 
     while (v6);
@@ -1373,42 +1352,42 @@ LABEL_81:
   if (v15)
   {
     v16 = v15;
-    v49 = selfCopy;
+    v48 = selfCopy;
     do
     {
       while (1)
       {
-        v50 = v16 - 1;
+        v49 = v16 - 1;
         v17 = [(NSMutableArray *)selfCopy->_modifications objectAtIndex:v16 - 1];
         [v17 modificationType];
         [v17 range];
         combinedSyllableRange = [v17 combinedSyllableRange];
         v20 = v19;
         syllableCountScore2 = [v17 syllableCountScore];
+        v59 = 0u;
         v60 = 0u;
         v61 = 0u;
         v62 = 0u;
-        v63 = 0u;
         obj = selfCopy->_modifications;
-        v22 = [(NSMutableArray *)obj countByEnumeratingWithState:&v60 objects:v70 count:16];
+        v22 = [(NSMutableArray *)obj countByEnumeratingWithState:&v59 objects:v69 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v61;
+          v24 = *v60;
           v25 = combinedSyllableRange + v20;
           while (2)
           {
             for (j = 0; j != v23; ++j)
             {
-              if (*v61 != v24)
+              if (*v60 != v24)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v27 = *(*(&v60 + 1) + 8 * j);
+              v27 = *(*(&v59 + 1) + 8 * j);
               if (v27 != v17)
               {
-                [*(*(&v60 + 1) + 8 * j) modificationType];
+                [*(*(&v59 + 1) + 8 * j) modificationType];
                 v28 = v17;
                 combinedSyllableRange2 = [v27 combinedSyllableRange];
                 v31 = v30;
@@ -1417,25 +1396,25 @@ LABEL_81:
                 v17 = v28;
                 if (v33)
                 {
-                  selfCopy = v49;
-                  v44 = [(NSMutableArray *)v49->_addedModifications indexOfObjectIdenticalTo:v28];
+                  selfCopy = v48;
+                  v44 = [(NSMutableArray *)v48->_addedModifications indexOfObjectIdenticalTo:v28];
                   if (v44 == 0x7FFFFFFFFFFFFFFFLL)
                   {
-                    [(NSMutableArray *)v49->_removedModifications addObject:v28];
+                    [(NSMutableArray *)v48->_removedModifications addObject:v28];
                   }
 
                   else
                   {
-                    [(NSMutableArray *)v49->_addedModifications removeObjectAtIndex:v44];
+                    [(NSMutableArray *)v48->_addedModifications removeObjectAtIndex:v44];
                   }
 
-                  v16 = v50;
+                  v16 = v49;
                   goto LABEL_63;
                 }
               }
             }
 
-            v23 = [(NSMutableArray *)obj countByEnumeratingWithState:&v60 objects:v70 count:16];
+            v23 = [(NSMutableArray *)obj countByEnumeratingWithState:&v59 objects:v69 count:16];
             if (v23)
             {
               continue;
@@ -1445,34 +1424,34 @@ LABEL_81:
           }
         }
 
-        v58 = 0u;
-        v59 = 0u;
-        v56 = 0u;
         v57 = 0u;
-        selfCopy = v49;
-        removedModifications = v49->_removedModifications;
-        v35 = [(NSMutableArray *)removedModifications countByEnumeratingWithState:&v56 objects:v69 count:16];
-        v16 = v50;
+        v58 = 0u;
+        v55 = 0u;
+        v56 = 0u;
+        selfCopy = v48;
+        removedModifications = v48->_removedModifications;
+        v35 = [(NSMutableArray *)removedModifications countByEnumeratingWithState:&v55 objects:v68 count:16];
+        v16 = v49;
         if (v35)
         {
           v36 = v35;
-          v37 = *v57;
+          v37 = *v56;
           while (2)
           {
             for (k = 0; k != v36; ++k)
             {
-              if (*v57 != v37)
+              if (*v56 != v37)
               {
                 objc_enumerationMutation(removedModifications);
               }
 
-              if ([*(*(&v56 + 1) + 8 * k) isEqual:v17])
+              if ([*(*(&v55 + 1) + 8 * k) isEqual:v17])
               {
-                v45 = [(NSMutableArray *)v49->_addedModifications indexOfObjectIdenticalTo:v17];
+                v45 = [(NSMutableArray *)v48->_addedModifications indexOfObjectIdenticalTo:v17];
                 if (v45 != 0x7FFFFFFFFFFFFFFFLL)
                 {
-                  [(NSMutableArray *)v49->_addedModifications removeObjectAtIndex:v45];
-                  addedRemovedModifications = v49->_addedRemovedModifications;
+                  [(NSMutableArray *)v48->_addedModifications removeObjectAtIndex:v45];
+                  addedRemovedModifications = v48->_addedRemovedModifications;
 LABEL_61:
                   [(NSMutableArray *)addedRemovedModifications addObject:v17];
                 }
@@ -1481,7 +1460,7 @@ LABEL_61:
               }
             }
 
-            v36 = [(NSMutableArray *)removedModifications countByEnumeratingWithState:&v56 objects:v69 count:16];
+            v36 = [(NSMutableArray *)removedModifications countByEnumeratingWithState:&v55 objects:v68 count:16];
             if (v36)
             {
               continue;
@@ -1491,43 +1470,43 @@ LABEL_61:
           }
         }
 
-        v54 = 0u;
-        v55 = 0u;
-        v52 = 0u;
         v53 = 0u;
-        v39 = v49->_addedRemovedModifications;
-        v40 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v52 objects:v68 count:16];
+        v54 = 0u;
+        v51 = 0u;
+        v52 = 0u;
+        v39 = v48->_addedRemovedModifications;
+        v40 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v51 objects:v67 count:16];
         if (v40)
         {
           break;
         }
 
 LABEL_51:
-        if (!v50)
+        if (!v49)
         {
-          goto LABEL_64;
+          return;
         }
       }
 
       v41 = v40;
-      v42 = *v53;
+      v42 = *v52;
 LABEL_45:
       v43 = 0;
       while (1)
       {
-        if (*v53 != v42)
+        if (*v52 != v42)
         {
           objc_enumerationMutation(v39);
         }
 
-        if ([*(*(&v52 + 1) + 8 * v43) isEqual:v17])
+        if ([*(*(&v51 + 1) + 8 * v43) isEqual:v17])
         {
           break;
         }
 
         if (v41 == ++v43)
         {
-          v41 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v52 objects:v68 count:16];
+          v41 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v51 objects:v67 count:16];
           if (v41)
           {
             goto LABEL_45;
@@ -1537,23 +1516,60 @@ LABEL_45:
         }
       }
 
-      v47 = [(NSMutableArray *)v49->_addedModifications indexOfObjectIdenticalTo:v17];
+      v47 = [(NSMutableArray *)v48->_addedModifications indexOfObjectIdenticalTo:v17];
       if (v47 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        addedRemovedModifications = v49->_removedModifications;
+        addedRemovedModifications = v48->_removedModifications;
         goto LABEL_61;
       }
 
-      [(NSMutableArray *)v49->_addedModifications removeObjectAtIndex:v47];
+      [(NSMutableArray *)v48->_addedModifications removeObjectAtIndex:v47];
 LABEL_63:
       [(NSMutableArray *)selfCopy->_modifications removeObjectAtIndex:v16];
     }
 
     while (v16);
   }
+}
 
-LABEL_64:
-  v48 = *MEMORY[0x1E69E9840];
+- (void)addInputCharacter:(unsigned __int16)character geometryModel:(void *)model geometryData:(id)data
+{
+  characterCopy = character;
+  [(NSMutableArray *)self->_addedModifications removeAllObjects:character];
+  [(NSMutableArray *)self->_removedModifications removeAllObjects];
+  if (self->_length <= 0xFE)
+  {
+    v7 = internalFromExternalZhuyin(characterCopy);
+    buffer = self->_buffer;
+    length = self->_length;
+    self->_length = length + 1;
+    buffer[length] = v7;
+    if (characterCopy != 39)
+    {
+      self->_lengthBeforeApostrophes = self->_length;
+    }
+
+    [(PRZhuyinContext *)self _removeModificationsAndMoveStartingPoint];
+    [(PRZhuyinContext *)self _advanceIndexes];
+    v10 = self->_length;
+    if (self->_nextIndexes[0] < v10)
+    {
+      if (v10 - self->_startingPoint >= 2)
+      {
+        [(PRZhuyinContext *)self _addTranspositions];
+        if (self->_length - self->_startingPoint >= 2)
+        {
+          [(PRZhuyinContext *)self _addReplacements];
+          if (self->_length - self->_startingPoint >= 4)
+          {
+            [(PRZhuyinContext *)self _addDeletions];
+          }
+        }
+      }
+
+      [(PRZhuyinContext *)self _filterModifications];
+    }
+  }
 }
 
 - (void)removeNumberOfInputCharacters:(unint64_t)characters

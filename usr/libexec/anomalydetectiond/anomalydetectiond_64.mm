@@ -613,7 +613,7 @@ float CMMsl::ViewObstructedMachineLearningFeatures::ViewObstructedMachineLearnin
   return result;
 }
 
-CMMsl *CMMsl::ViewObstructedMachineLearningFeatures::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::ViewObstructedMachineLearningFeatures::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -2608,7 +2608,7 @@ float CMMsl::ViewObstructedMachineLearningProbabilities::ViewObstructedMachineLe
   return result;
 }
 
-CMMsl *CMMsl::ViewObstructedMachineLearningProbabilities::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::ViewObstructedMachineLearningProbabilities::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -3981,7 +3981,7 @@ float CMMsl::ViewObstructedState::ViewObstructedState(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::ViewObstructedState::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::ViewObstructedState::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -5778,7 +5778,7 @@ uint64_t CMMsl::VisionCompassBias::VisionCompassBias(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::VisionCompassBias::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::VisionCompassBias::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -6697,55 +6697,53 @@ LABEL_15:
   }
 
 LABEL_26:
-  v11 = *(this + 1);
-  v12 = *(this + 2);
-  v13 = PBHashBytes();
-  v14 = *(this + 38);
-  if ((v14 & 0x40) == 0)
+  v11 = PBHashBytes();
+  v12 = *(this + 38);
+  if ((v12 & 0x40) == 0)
   {
-    v15 = 0;
-    if ((v14 & 0x80) != 0)
+    v13 = 0;
+    if ((v12 & 0x80) != 0)
     {
       goto LABEL_28;
     }
 
 LABEL_36:
-    v17 = 0;
+    v15 = 0;
     if ((*(this + 38) & 0x100) != 0)
     {
       goto LABEL_31;
     }
 
 LABEL_37:
-    v18 = 0;
-    if ((v14 & 0x20) != 0)
+    v16 = 0;
+    if ((v12 & 0x20) != 0)
     {
       goto LABEL_32;
     }
 
 LABEL_38:
-    v19 = 0;
-    return v4 ^ v3 ^ v6 ^ v8 ^ v10 ^ v15 ^ v17 ^ v18 ^ v13 ^ v19;
+    v17 = 0;
+    return v4 ^ v3 ^ v6 ^ v8 ^ v10 ^ v13 ^ v15 ^ v16 ^ v11 ^ v17;
   }
 
-  v20 = *(this + 16);
-  v15 = LODWORD(v20);
-  if (v20 == 0.0)
+  v18 = *(this + 16);
+  v13 = LODWORD(v18);
+  if (v18 == 0.0)
   {
-    v15 = 0;
+    v13 = 0;
   }
 
-  if ((v14 & 0x80) == 0)
+  if ((v12 & 0x80) == 0)
   {
     goto LABEL_36;
   }
 
 LABEL_28:
-  v16 = *(this + 17);
-  v17 = LODWORD(v16);
-  if (v16 == 0.0)
+  v14 = *(this + 17);
+  v15 = LODWORD(v14);
+  if (v14 == 0.0)
   {
-    v17 = 0;
+    v15 = 0;
   }
 
   if ((*(this + 38) & 0x100) == 0)
@@ -6754,15 +6752,15 @@ LABEL_28:
   }
 
 LABEL_31:
-  v18 = *(this + 18);
-  if ((v14 & 0x20) == 0)
+  v16 = *(this + 18);
+  if ((v12 & 0x20) == 0)
   {
     goto LABEL_38;
   }
 
 LABEL_32:
-  v19 = *(this + 15);
-  return v4 ^ v3 ^ v6 ^ v8 ^ v10 ^ v15 ^ v17 ^ v18 ^ v13 ^ v19;
+  v17 = *(this + 15);
+  return v4 ^ v3 ^ v6 ^ v8 ^ v10 ^ v13 ^ v15 ^ v16 ^ v11 ^ v17;
 }
 
 void CMMsl::VisualLocalization::~VisualLocalization(CMMsl::VisualLocalization *this)
@@ -6956,7 +6954,7 @@ uint64_t CMMsl::VisualLocalization::VisualLocalization(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::VisualLocalization::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::VisualLocalization::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7772,28 +7770,24 @@ LABEL_15:
   }
 
 LABEL_26:
-  v7 = *(this + 4);
-  v8 = *(this + 5);
-  v9 = PBHashBytes();
-  v10 = *(this + 1);
-  v11 = *(this + 2);
-  v12 = PBHashBytes();
+  v7 = PBHashBytes();
+  v8 = PBHashBytes();
   if ((*(this + 100) & 0x20) != 0)
   {
-    v14 = *(this + 24);
-    v13 = LODWORD(v14);
-    if (v14 == 0.0)
+    v10 = *(this + 24);
+    v9 = LODWORD(v10);
+    if (v10 == 0.0)
     {
-      v13 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v13 = 0;
+    v9 = 0;
   }
 
-  return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ v9 ^ v12 ^ v13;
+  return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ v7 ^ v8 ^ v9;
 }
 
 void CMMsl::VisualLocalizationAttitudeConstraints::~VisualLocalizationAttitudeConstraints(CMMsl::VisualLocalizationAttitudeConstraints *this)
@@ -8564,25 +8558,23 @@ LABEL_11:
   }
 
 LABEL_21:
-  v8 = *(this + 1);
-  v9 = *(this + 2);
-  v10 = PBHashBytes();
+  v8 = PBHashBytes();
   if ((*(this + 60) & 4) != 0)
   {
-    v12 = *(this + 12);
-    v11 = LODWORD(v12);
-    if (v12 == 0.0)
+    v10 = *(this + 12);
+    v9 = LODWORD(v10);
+    if (v10 == 0.0)
     {
-      v11 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v11 = 0;
+    v9 = 0;
   }
 
-  return v3 ^ v2 ^ v5 ^ v7 ^ v11 ^ v10;
+  return v3 ^ v2 ^ v5 ^ v7 ^ v9 ^ v8;
 }
 
 void CMMsl::VisualLocalizationAttitudeCorrection::~VisualLocalizationAttitudeCorrection(CMMsl::VisualLocalizationAttitudeCorrection *this)
@@ -8604,11 +8596,11 @@ void CMMsl::VisualLocalizationAttitudeCorrection::~VisualLocalizationAttitudeCor
   operator delete();
 }
 
-void *CMMsl::VisualLocalizationAttitudeCorrection::VisualLocalizationAttitudeCorrection(void *this, const CMMsl::VisualLocalizationAttitudeCorrection *a2)
+CMMsl::VisualLocalizationAttitudeCorrection *CMMsl::VisualLocalizationAttitudeCorrection::VisualLocalizationAttitudeCorrection(CMMsl::VisualLocalizationAttitudeCorrection *this, const CMMsl::DeviceMotionCorrection **a2)
 {
   *this = off_100422AD0;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -8616,13 +8608,13 @@ void *CMMsl::VisualLocalizationAttitudeCorrection::VisualLocalizationAttitudeCor
   return this;
 }
 
-const CMMsl::VisualLocalizationAttitudeCorrection *CMMsl::VisualLocalizationAttitudeCorrection::operator=(const CMMsl::VisualLocalizationAttitudeCorrection *a1, const CMMsl::VisualLocalizationAttitudeCorrection *a2)
+uint64_t CMMsl::VisualLocalizationAttitudeCorrection::operator=(uint64_t a1, const CMMsl::DeviceMotionCorrection **a2)
 {
   if (a1 != a2)
   {
     CMMsl::VisualLocalizationAttitudeCorrection::VisualLocalizationAttitudeCorrection(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::VisualLocalizationAttitudeCorrection::~VisualLocalizationAttitudeCorrection(&v5);
   }
@@ -8837,9 +8829,9 @@ CMMsl::DeviceMotionCorrection *CMMsl::VisualLocalizationAttitudeCorrection::hash
   return result;
 }
 
-uint64_t CMMsl::VisualLocalizationAttitudeCorrection::makeCorrection(uint64_t this)
+void *CMMsl::VisualLocalizationAttitudeCorrection::makeCorrection(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -8999,7 +8991,7 @@ uint64_t CMMsl::VisualStateMeasurement::VisualStateMeasurement(uint64_t a1, uint
   return a1;
 }
 
-CMMsl *CMMsl::VisualStateMeasurement::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::VisualStateMeasurement::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9836,37 +9828,31 @@ uint64_t CMMsl::VisualStateMeasurement::hash_value(CMMsl::VisualStateMeasurement
     v2 = 0;
   }
 
-  v3 = *(this + 1);
-  v4 = *(this + 2);
+  v3 = PBHashBytes();
+  v4 = PBHashBytes();
   v5 = PBHashBytes();
-  v6 = *(this + 4);
-  v7 = *(this + 5);
-  v8 = PBHashBytes();
-  v9 = *(this + 7);
-  v10 = *(this + 8);
-  v11 = PBHashBytes();
   if ((*(this + 96) & 4) != 0)
   {
-    v12 = *(this + 92);
+    v6 = *(this + 92);
     if ((*(this + 96) & 2) != 0)
     {
       goto LABEL_8;
     }
 
 LABEL_10:
-    v13 = 0;
-    return v5 ^ v2 ^ v8 ^ v11 ^ v12 ^ v13;
+    v7 = 0;
+    return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ v7;
   }
 
-  v12 = 0;
+  v6 = 0;
   if ((*(this + 96) & 2) == 0)
   {
     goto LABEL_10;
   }
 
 LABEL_8:
-  v13 = *(this + 22);
-  return v5 ^ v2 ^ v8 ^ v11 ^ v12 ^ v13;
+  v7 = *(this + 22);
+  return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ v7;
 }
 
 void CMMsl::WakeGestureNotification::~WakeGestureNotification(CMMsl::WakeGestureNotification *this)

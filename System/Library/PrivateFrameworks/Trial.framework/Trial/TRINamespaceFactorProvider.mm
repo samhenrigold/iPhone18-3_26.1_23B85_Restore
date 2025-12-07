@@ -3,6 +3,7 @@
 + (id)_maAutoAssetReferencedInDir:(id)dir byFactorName:(id)name;
 + (id)factorLevelsWithTreatmentData:(id)data referencePath:(id)path filteredByNamespaceName:(id)name outTreatmentId:(id *)id error:(id *)error;
 + (id)factorProviderWithNamespaceDescriptor:(id)descriptor paths:(id)paths faultOnMissingFactors:(BOOL)factors shouldLockFactorDirectory:(BOOL)directory;
++ (id)factorProviderWithNamespaceName:(id)name paths:(id)paths treatmentLayer:(unint64_t)layer faultOnMissingFactors:(BOOL)factors shouldLockFactorDirectory:(BOOL)directory;
 + (id)pathForFactor:(id)factor directory:(id)directory;
 + (id)populateMAPathsForFactorLevels:(id)levels loadedFromParentDir:(id)dir;
 - (BOOL)overwriteItemAtPath:(id)path withItemAtPath:(id)atPath error:(id *)error;
@@ -107,11 +108,91 @@ void __61__TRINamespaceFactorProvider__readAllFactorLevelsFromStorage__block_inv
   objc_autoreleasePoolPop(v3);
 }
 
++ (id)factorProviderWithNamespaceName:(id)name paths:(id)paths treatmentLayer:(unint64_t)layer faultOnMissingFactors:(BOOL)factors shouldLockFactorDirectory:(BOOL)directory
+{
+  directoryCopy = directory;
+  factorsCopy = factors;
+  v31 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  pathsCopy = paths;
+  v15 = pathsCopy;
+  if (layer <= 3)
+  {
+    if (layer != 1)
+    {
+      if (layer == 2)
+      {
+        v17 = TRILogCategory_ClientFramework();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          _os_log_error_impl(&dword_22EA6B000, v17, OS_LOG_TYPE_ERROR, "V1 Rollouts are deprecated. Cannot instantiate a TRINamespaceFactorProvider with a treatmentLayer type of TRITreatmentLayer_Rollout", buf, 2u);
+        }
+      }
+
+      goto LABEL_11;
+    }
+
+    namespaceDescriptorsDefaultDir = [pathsCopy namespaceDescriptorsDefaultDir];
+LABEL_14:
+    v19 = namespaceDescriptorsDefaultDir;
+    if (namespaceDescriptorsDefaultDir)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_11;
+  }
+
+  switch(layer)
+  {
+    case 4uLL:
+LABEL_5:
+      namespaceDescriptorsDefaultDir = [pathsCopy namespaceDescriptorsExperimentDir];
+      goto LABEL_14;
+    case 8uLL:
+      namespaceDescriptorsDefaultDir = [pathsCopy namespaceDescriptorsDevOverrideDir];
+      goto LABEL_14;
+    case 0x20uLL:
+      goto LABEL_5;
+  }
+
+LABEL_11:
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"TRINamespaceFactorProvider.m" lineNumber:77 description:{@"Invalid parameter not satisfying: %@", @"directory"}];
+
+  v19 = 0;
+LABEL_15:
+  v20 = [TRINamespaceDescriptor loadWithNamespaceName:nameCopy fromDirectory:v19];
+  v21 = v20;
+  if (v20 && ([v20 namespaceName], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "isEqualToString:", nameCopy), v22, (v23 & 1) != 0))
+  {
+    v24 = [TRINamespaceFactorProvider factorProviderWithNamespaceDescriptor:v21 paths:v15 faultOnMissingFactors:factorsCopy shouldLockFactorDirectory:directoryCopy];
+  }
+
+  else
+  {
+    v25 = TRILogCategory_ClientFramework();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412546;
+      v28 = nameCopy;
+      v29 = 2048;
+      layerCopy = layer;
+      _os_log_error_impl(&dword_22EA6B000, v25, OS_LOG_TYPE_ERROR, "Requested namespace descriptor %@ doesn't exist (for treatment layer: 0x%llx)", buf, 0x16u);
+    }
+
+    v24 = 0;
+  }
+
+  return v24;
+}
+
 + (id)factorProviderWithNamespaceDescriptor:(id)descriptor paths:(id)paths faultOnMissingFactors:(BOOL)factors shouldLockFactorDirectory:(BOOL)directory
 {
   directoryCopy = directory;
   factorsCopy = factors;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   pathsCopy = paths;
   if (+[TRIProcessInfo hostingProcessIsTriald])
@@ -150,7 +231,7 @@ LABEL_36:
         if (os_log_type_enabled(&v17->super, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v36 = v13;
+          v35 = v13;
           _os_log_impl(&dword_22EA6B000, &v17->super, OS_LOG_TYPE_DEFAULT, "Unable to acquire lock on factory directory: %@. Returning nil factor provider", buf, 0xCu);
         }
 
@@ -164,18 +245,18 @@ LABEL_36:
       v17 = 0;
     }
 
-    v34 = 0;
-    v21 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v13 options:8 error:&v34];
-    v22 = v34;
+    v33 = 0;
+    v21 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v13 options:8 error:&v33];
+    v22 = v33;
     if (v21)
     {
       if ([v21 length])
       {
         v23 = [v13 hasSuffix:@".bin"];
-        v33 = 0;
+        v32 = 0;
         v24 = [self alloc];
         namespaceName2 = [descriptorCopy namespaceName];
-        v15 = [v24 initWithNamespaceName:namespaceName2 treatmentData:v21 namespaceCompatibilityVersion:objc_msgSend(descriptorCopy paths:"downloadNCV") referencePath:pathsCopy isFlatbufferStorage:stringByDeletingLastPathComponent factorDirectoryLock:v23 error:{v17, &v33}];
+        v15 = [v24 initWithNamespaceName:namespaceName2 treatmentData:v21 namespaceCompatibilityVersion:objc_msgSend(descriptorCopy paths:"downloadNCV") referencePath:pathsCopy isFlatbufferStorage:stringByDeletingLastPathComponent factorDirectoryLock:v23 error:{v17, &v32}];
 
         if (!v15)
         {
@@ -183,9 +264,9 @@ LABEL_36:
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v36 = v13;
-            v37 = 2112;
-            v38 = v33;
+            v35 = v13;
+            v36 = 2112;
+            v37 = v32;
             _os_log_error_impl(&dword_22EA6B000, v26, OS_LOG_TYPE_ERROR, "Failed to parse ClientTreatment from file %@: %@", buf, 0x16u);
           }
         }
@@ -198,9 +279,9 @@ LABEL_36:
       {
         namespaceName3 = [descriptorCopy namespaceName];
         *buf = 138412546;
-        v36 = namespaceName3;
-        v37 = 2112;
-        v38 = v13;
+        v35 = namespaceName3;
+        v36 = 2112;
+        v37 = v13;
         _os_log_impl(&dword_22EA6B000, v28, OS_LOG_TYPE_DEFAULT, "Factors file for namespace %@ at path %@ was empty, acting as if the file didn't exist", buf, 0x16u);
       }
     }
@@ -214,11 +295,11 @@ LABEL_36:
         {
           namespaceName4 = [descriptorCopy namespaceName];
           *buf = 138412802;
-          v36 = namespaceName4;
-          v37 = 2112;
-          v38 = v13;
-          v39 = 2112;
-          v40 = v22;
+          v35 = namespaceName4;
+          v36 = 2112;
+          v37 = v13;
+          v38 = 2112;
+          v39 = v22;
           _os_log_fault_impl(&dword_22EA6B000, v27, OS_LOG_TYPE_FAULT, "No factor for namespace %@ found at path: %@ (%@)", buf, 0x20u);
         }
       }
@@ -227,9 +308,9 @@ LABEL_36:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v36 = v13;
-        v37 = 2112;
-        v38 = v22;
+        v35 = v13;
+        v36 = 2112;
+        v37 = v22;
         _os_log_error_impl(&dword_22EA6B000, v28, OS_LOG_TYPE_ERROR, "Failed to read data from file %@: %@", buf, 0x16u);
       }
     }
@@ -245,29 +326,27 @@ LABEL_35:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v36 = v13;
+    v35 = v13;
     _os_log_impl(&dword_22EA6B000, v14, OS_LOG_TYPE_DEFAULT, "factors defined at %@ are not accessible with triald sandbox", buf, 0xCu);
   }
 
   v15 = 0;
 LABEL_37:
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 + (id)_maAutoAssetReferencedInDir:(id)dir byFactorName:(id)name
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   nameCopy = name;
   v7 = objc_autoreleasePoolPush();
   triFilenameForFactorName = [nameCopy triFilenameForFactorName];
   v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@/maRefs/%@", dirCopy, triFilenameForFactorName];
-  v22 = 0;
-  v10 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v9 encoding:4 error:&v22];
-  v11 = v22;
+  v21 = 0;
+  v10 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v9 encoding:4 error:&v21];
+  v11 = v21;
   triTrim = [v10 triTrim];
 
   if (!triTrim)
@@ -294,9 +373,9 @@ LABEL_37:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v24 = v9;
-      v25 = 2112;
-      v26 = v11;
+      v23 = v9;
+      v24 = 2112;
+      v25 = v11;
       _os_log_error_impl(&dword_22EA6B000, v19, OS_LOG_TYPE_ERROR, "Unable to read MA path from reference path: %{public}@: %@", buf, 0x16u);
     }
 
@@ -313,7 +392,7 @@ LABEL_18:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v24 = nameCopy;
+      v23 = nameCopy;
       _os_log_impl(&dword_22EA6B000, v19, OS_LOG_TYPE_DEFAULT, "Path for factor %{public}@ is empty. This usually means that the level is about to be deleted.", buf, 0xCu);
     }
 
@@ -329,7 +408,7 @@ LABEL_18:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v24 = triTrim;
+      v23 = triTrim;
       _os_log_error_impl(&dword_22EA6B000, v15, OS_LOG_TYPE_ERROR, "Trial asset path does not exist on disk: %{public}@.", buf, 0xCu);
     }
   }
@@ -338,7 +417,6 @@ LABEL_18:
 LABEL_19:
 
   objc_autoreleasePoolPop(v7);
-  v20 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -478,7 +556,7 @@ LABEL_15:
 
 - (TRINamespaceFactorProvider)initWithNamespaceName:(id)name treatmentData:(id)data namespaceCompatibilityVersion:(unsigned int)version paths:(id)paths referencePath:(id)path isFlatbufferStorage:(BOOL)storage factorDirectoryLock:(id)lock error:(id *)self0
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dataCopy = data;
   pathsCopy = paths;
@@ -508,16 +586,16 @@ LABEL_15:
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"TRINamespaceFactorProvider.m" lineNumber:273 description:{@"Invalid parameter not satisfying: %@", @"treatmentData"}];
 
 LABEL_3:
-  v46 = 0;
+  v45 = 0;
   v22 = 0;
   if ((_os_feature_enabled_impl() & 1) == 0)
   {
-    v22 = [objc_opt_class() factorLevelsWithTreatmentData:dataCopy referencePath:pathCopy filteredByNamespaceName:nameCopy outTreatmentId:&v46 error:error];
+    v22 = [objc_opt_class() factorLevelsWithTreatmentData:dataCopy referencePath:pathCopy filteredByNamespaceName:nameCopy outTreatmentId:&v45 error:error];
   }
 
   if (storage || v22)
   {
-    v39 = v21;
+    v38 = v21;
     if (storage)
     {
       v24 = [[TRIFBFastFactorLevels alloc] initVerifiedRootObjectFromData:dataCopy];
@@ -533,16 +611,16 @@ LABEL_3:
       v29 = os_log_type_enabled(v28, OS_LOG_TYPE_INFO);
       if (v27 <= 0x10)
       {
-        v21 = v39;
+        v21 = v38;
         if (v29)
         {
           v30 = [v22 count];
           *buf = 134218498;
-          v48 = v30;
-          v49 = 2112;
-          v50 = v46;
-          v51 = 2112;
-          v52 = nameCopy;
+          v47 = v30;
+          v48 = 2112;
+          v49 = v45;
+          v50 = 2112;
+          v51 = nameCopy;
           _os_log_impl(&dword_22EA6B000, v28, OS_LOG_TYPE_INFO, "Found %tu factors in treatment %@ for namespace %@; using naive cache", buf, 0x20u);
         }
 
@@ -566,31 +644,31 @@ LABEL_3:
       {
         v33 = [v22 count];
         *buf = 134218498;
-        v48 = v33;
-        v49 = 2112;
-        v50 = v46;
-        v51 = 2112;
-        v52 = nameCopy;
+        v47 = v33;
+        v48 = 2112;
+        v49 = v45;
+        v50 = 2112;
+        v51 = nameCopy;
         _os_log_impl(&dword_22EA6B000, v28, OS_LOG_TYPE_INFO, "Found %tu factors in treatment %@ for namespace %@; using pruning cache", buf, 0x20u);
       }
 
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __162__TRINamespaceFactorProvider_initWithNamespaceName_treatmentData_namespaceCompatibilityVersion_paths_referencePath_isFlatbufferStorage_factorDirectoryLock_error___block_invoke;
-      v41[3] = &unk_27885E5F0;
-      v42 = dataCopy;
-      v43 = pathCopy;
-      v44 = nameCopy;
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __162__TRINamespaceFactorProvider_initWithNamespaceName_treatmentData_namespaceCompatibilityVersion_paths_referencePath_isFlatbufferStorage_factorDirectoryLock_error___block_invoke;
+      v40[3] = &unk_27885E5F0;
+      v41 = dataCopy;
+      v42 = pathCopy;
+      v43 = nameCopy;
       errorCopy = error;
-      v34 = MEMORY[0x2318F2490](v41);
+      v34 = MEMORY[0x2318F2490](v40);
       v26 = [[TRIPruningFactorLevelCache alloc] initWithPruningDelaySeconds:v34 loadFactorLevels:5.0];
 
       v25 = 0;
     }
 
-    v21 = v39;
+    v21 = v38;
 LABEL_21:
-    self = [(TRINamespaceFactorProvider *)self initWithNamespaceName:nameCopy namespaceCompatibilityVersion:version paths:pathsCopy referencePath:pathCopy factorLevels:v26 fastFactorLevels:v25 treatmentId:v46 factorDirectoryLock:lockCopy];
+    self = [(TRINamespaceFactorProvider *)self initWithNamespaceName:nameCopy namespaceCompatibilityVersion:version paths:pathsCopy referencePath:pathCopy factorLevels:v26 fastFactorLevels:v25 treatmentId:v45 factorDirectoryLock:lockCopy];
 
     selfCopy = self;
     goto LABEL_22;
@@ -600,7 +678,6 @@ LABEL_21:
 LABEL_22:
 
   objc_autoreleasePoolPop(v21);
-  v35 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -826,12 +903,11 @@ LABEL_20:
 {
   if (self->_treatmentId && self->_namespaceName)
   {
-    paths = self->_paths;
-    v3 = [TRITreatmentInfo loadInfoForTreatment:"loadInfoForTreatment:namespaceName:paths:" namespaceName:? paths:?];
-    v4 = v3;
-    if (v3)
+    v2 = [TRITreatmentInfo loadInfoForTreatment:"loadInfoForTreatment:namespaceName:paths:" namespaceName:? paths:?];
+    v3 = v2;
+    if (v2)
     {
-      experimentId = [v3 experimentId];
+      experimentId = [v2 experimentId];
     }
 
     else
@@ -855,12 +931,11 @@ LABEL_20:
     return -1;
   }
 
-  paths = self->_paths;
-  v3 = [TRITreatmentInfo loadInfoForTreatment:"loadInfoForTreatment:namespaceName:paths:" namespaceName:? paths:?];
-  v4 = v3;
-  if (v3)
+  v2 = [TRITreatmentInfo loadInfoForTreatment:"loadInfoForTreatment:namespaceName:paths:" namespaceName:? paths:?];
+  v3 = v2;
+  if (v2)
   {
-    deploymentId = [v3 deploymentId];
+    deploymentId = [v2 deploymentId];
   }
 
   else
@@ -911,31 +986,31 @@ LABEL_20:
 
 - (id)flatbufferLevelForFactor:(id)factor
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   factorCopy = factor;
   fastFactorLevels = self->_fastFactorLevels;
   if (fastFactorLevels)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     levels = [(TRIFBFastFactorLevels *)fastFactorLevels levels];
-    v7 = [levels countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v7 = [levels countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v23;
+      v9 = *v22;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(levels);
           }
 
-          v11 = *(*(&v22 + 1) + 8 * i);
+          v11 = *(*(&v21 + 1) + 8 * i);
           name = [v11 name];
           v13 = [name isEqualToString:factorCopy];
 
@@ -949,7 +1024,7 @@ LABEL_20:
           }
         }
 
-        v8 = [levels countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v8 = [levels countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v8)
         {
           continue;
@@ -979,8 +1054,6 @@ LABEL_12:
   {
     v19 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -1068,17 +1141,15 @@ LABEL_12:
 
 + (id)pathForFactor:(id)factor directory:(id)directory
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   v7 = [self _assetFilenameForFactor:factor];
   v8 = MEMORY[0x277CCACA8];
-  v13[0] = directoryCopy;
-  v13[1] = @"assets";
-  v13[2] = v7;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
+  v12[0] = directoryCopy;
+  v12[1] = @"assets";
+  v12[2] = v7;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
   v10 = [v8 pathWithComponents:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1118,7 +1189,7 @@ LABEL_12:
 
 - (id)_copyAssetsToDirectory:(id)directory
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   if (_os_feature_enabled_impl())
   {
@@ -1137,40 +1208,40 @@ LABEL_12:
     selfCopy = self;
     v9 = objc_autoreleasePoolPush();
     v10 = objc_opt_new();
-    v40 = selfCopy;
+    v39 = selfCopy;
     factorLevels = selfCopy->_factorLevels;
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __53__TRINamespaceFactorProvider__copyAssetsToDirectory___block_invoke;
-    v46[3] = &unk_27885E530;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __53__TRINamespaceFactorProvider__copyAssetsToDirectory___block_invoke;
+    v45[3] = &unk_27885E530;
     v12 = v10;
-    v47 = v12;
-    [(TRIFactorLevelCaching *)factorLevels enumerateFactorLevelsUsingBlock:v46];
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
+    v46 = v12;
+    [(TRIFactorLevelCaching *)factorLevels enumerateFactorLevelsUsingBlock:v45];
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v42 objects:v54 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v41 objects:v53 count:16];
     v7 = v13;
     if (v14)
     {
       v15 = v14;
-      v37 = a2;
-      v38 = v9;
-      v16 = *v43;
-      v17 = v40;
-      v39 = *v43;
+      v36 = a2;
+      v37 = v9;
+      v16 = *v42;
+      v17 = v39;
+      v38 = *v42;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v43 != v16)
+          if (*v42 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v19 = *(*(&v42 + 1) + 8 * i);
+          v19 = *(*(&v41 + 1) + 8 * i);
           level = [v19 level];
           v21 = [level fileOrDirectoryLevelWithIsDir:0];
 
@@ -1184,12 +1255,12 @@ LABEL_12:
             if (!v25)
             {
               currentHandler = [MEMORY[0x277CCA890] currentHandler];
-              [currentHandler handleFailureInMethod:v37 object:v17 file:@"TRINamespaceFactorProvider.m" lineNumber:585 description:@"failed to get asset path"];
+              [currentHandler handleFailureInMethod:v36 object:v17 file:@"TRINamespaceFactorProvider.m" lineNumber:585 description:@"failed to get asset path"];
             }
 
-            v41 = 0;
-            v26 = [(TRINamespaceFactorProvider *)v17 overwriteItemAtPath:v25 withItemAtPath:path error:&v41];
-            v27 = v41;
+            v40 = 0;
+            v26 = [(TRINamespaceFactorProvider *)v17 overwriteItemAtPath:v25 withItemAtPath:path error:&v40];
+            v27 = v40;
             if (!v26)
             {
               v33 = directoryCopy;
@@ -1197,11 +1268,11 @@ LABEL_12:
               if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412802;
-                v49 = path;
-                v50 = 2112;
-                v51 = v25;
-                v52 = 2112;
-                v53 = v27;
+                v48 = path;
+                v49 = 2112;
+                v50 = v25;
+                v51 = 2112;
+                v52 = v27;
                 _os_log_error_impl(&dword_22EA6B000, v34, OS_LOG_TYPE_ERROR, "failed to copy asset from %@ to %@ -- %@", buf, 0x20u);
               }
 
@@ -1218,13 +1289,13 @@ LABEL_12:
             [v21 setPath:v31];
             directoryCopy = v30;
             v13 = v29;
-            v17 = v40;
+            v17 = v39;
 
-            v16 = v39;
+            v16 = v38;
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v42 objects:v54 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v41 objects:v53 count:16];
         if (v15)
         {
           continue;
@@ -1235,13 +1306,12 @@ LABEL_12:
 
       v7 = v13;
 LABEL_22:
-      v9 = v38;
+      v9 = v37;
     }
 
     objc_autoreleasePoolPop(v9);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1255,15 +1325,15 @@ void __53__TRINamespaceFactorProvider__copyAssetsToDirectory___block_invoke(uint
 - (BOOL)saveToPath:(id)path copyAssets:(BOOL)assets
 {
   assetsCopy = assets;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if ((_os_feature_enabled_impl() & 1) == 0)
   {
     v10 = objc_autoreleasePoolPush();
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v27 = 0;
-    v12 = [defaultManager triCreateDirectoryForPath:pathCopy isDirectory:0 error:&v27];
-    v13 = v27;
+    v26 = 0;
+    v12 = [defaultManager triCreateDirectoryForPath:pathCopy isDirectory:0 error:&v26];
+    v13 = v26;
     if (v12)
     {
       if (assetsCopy)
@@ -1283,13 +1353,13 @@ LABEL_21:
       {
         v15 = objc_opt_new();
         factorLevels = self->_factorLevels;
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __52__TRINamespaceFactorProvider_saveToPath_copyAssets___block_invoke;
-        v25[3] = &unk_27885E530;
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __52__TRINamespaceFactorProvider_saveToPath_copyAssets___block_invoke;
+        v24[3] = &unk_27885E530;
         v14 = v15;
-        v26 = v14;
-        [(TRIFactorLevelCaching *)factorLevels enumerateFactorLevelsUsingBlock:v25];
+        v25 = v14;
+        [(TRIFactorLevelCaching *)factorLevels enumerateFactorLevelsUsingBlock:v24];
       }
 
       v17 = objc_opt_new();
@@ -1304,18 +1374,18 @@ LABEL_21:
         [currentHandler handleFailureInMethod:a2 object:self file:@"TRINamespaceFactorProvider.m" lineNumber:638 description:{@"Invalid parameter not satisfying: %@", @"treatmentData"}];
       }
 
-      v24 = 0;
-      v9 = [data writeToFile:pathCopy options:1 error:&v24];
-      v13 = v24;
+      v23 = 0;
+      v9 = [data writeToFile:pathCopy options:1 error:&v23];
+      v13 = v23;
       if ((v9 & 1) == 0)
       {
         v20 = TRILogCategory_ClientFramework();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v29 = pathCopy;
-          v30 = 2112;
-          v31 = v13;
+          v28 = pathCopy;
+          v29 = 2112;
+          v30 = v13;
           _os_log_error_impl(&dword_22EA6B000, v20, OS_LOG_TYPE_ERROR, "failed to save factors to file %@: %@", buf, 0x16u);
         }
       }
@@ -1327,9 +1397,9 @@ LABEL_21:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v29 = pathCopy;
-        v30 = 2112;
-        v31 = v13;
+        v28 = pathCopy;
+        v29 = 2112;
+        v30 = v13;
         _os_log_error_impl(&dword_22EA6B000, v14, OS_LOG_TYPE_ERROR, "failed to create directory for treatement at path %@ -- %@", buf, 0x16u);
       }
 
@@ -1349,7 +1419,6 @@ LABEL_21:
   v9 = 0;
 LABEL_22:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

@@ -8,7 +8,7 @@ uint64_t sub_100001B7C()
 uint64_t sub_100001BDC@<X0>(uint64_t a1@<X8>)
 {
   sub_10006BB6C();
-  v2 = type metadata accessor for AlarmEntry();
+  v2 = type metadata accessor for AlarmEntry(0);
   v3 = v2[5];
   v4 = sub_10006BB7C();
   v5 = *(*(v4 - 8) + 56);
@@ -43,7 +43,7 @@ uint64_t sub_100001D00@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
 {
   v26 = sub_10006BB7C();
   (*(*(v26 - 8) + 32))(a9, a1, v26);
-  v27 = type metadata accessor for AlarmEntry();
+  v27 = type metadata accessor for AlarmEntry(0);
   sub_100003490(a2, a9 + v27[5]);
   result = sub_100003490(a3, a9 + v27[6]);
   *(a9 + v27[7]) = a4;
@@ -72,112 +72,112 @@ uint64_t sub_100001D00@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
 
 uint64_t sub_100001E90(uint64_t a1, void (*a2)(char *), uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for AlarmEntry();
-  __chkstk_darwin();
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for WidgetUtilities();
-  v9 = (*(v8 + 80))(0xD00000000000001FLL, 0x800000010006D340);
-  (*(*a4 + 224))(v9);
-  a2(v7);
-  return sub_100003548(v7);
+  v6 = type metadata accessor for AlarmEntry(0);
+  __chkstk_darwin(v6 - 8);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for WidgetUtilities();
+  v10 = (*(v9 + 80))(0xD00000000000001FLL, 0x800000010006D340);
+  (*(*a4 + 224))(v10);
+  a2(v8);
+  return sub_100003548(v8);
 }
 
 uint64_t sub_100001F8C(uint64_t a1, void (*a2)(char *), uint64_t a3, id *a4)
 {
-  v43 = a3;
-  v44 = a2;
-  sub_10006CA9C();
-  (__chkstk_darwin)();
-  v42 = &v33 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_100003500(&qword_1000887E8);
-  v6 = (__chkstk_darwin)();
-  v8 = &v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v33 - v9;
-  v11 = sub_10006BB7C();
-  v37 = *(v11 - 8);
-  v38 = v11;
-  __chkstk_darwin(v11);
-  v33 = &v33 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = sub_100003500(&qword_1000887F0);
-  v40 = *(v13 - 8);
-  v41 = v13;
+  v45 = a3;
+  v46 = a2;
+  v5 = sub_10006CA9C();
+  __chkstk_darwin(v5 - 8);
+  v44 = &v35 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
+  __chkstk_darwin(v7 - 8);
+  v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10);
+  v12 = &v35 - v11;
+  v13 = sub_10006BB7C();
+  v39 = *(v13 - 8);
+  v40 = v13;
   __chkstk_darwin(v13);
-  v39 = &v33 - v14;
-  v35 = type metadata accessor for AlarmEntry();
-  v15 = *(v35 - 8);
-  v16 = __chkstk_darwin(v35);
-  v18 = &v33 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v16);
-  v20 = &v33 - v19;
-  v34 = *(type metadata accessor for WidgetUtilities() + 80);
-  v21 = v34(0xD00000000000001FLL, 0x800000010006D360);
-  (*(*a4 + 28))(v21);
-  v36 = v20;
-  sub_1000035A4(v20, v18);
-  v22 = sub_100005F38(0, 1, 1, &_swiftEmptyArrayStorage);
-  v24 = v22[2];
-  v23 = v22[3];
-  if (v24 >= v23 >> 1)
+  v35 = &v35 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = sub_100003500(&qword_1000887F0, qword_1000795A8);
+  v42 = *(v15 - 8);
+  v43 = v15;
+  __chkstk_darwin(v15);
+  v41 = &v35 - v16;
+  v37 = type metadata accessor for AlarmEntry(0);
+  v17 = *(v37 - 8);
+  __chkstk_darwin(v37);
+  v19 = &v35 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v20);
+  v22 = &v35 - v21;
+  v36 = *(type metadata accessor for WidgetUtilities() + 80);
+  v23 = v36(0xD00000000000001FLL, 0x800000010006D360);
+  (*(*a4 + 28))(v23);
+  v38 = v22;
+  sub_1000035A4(v22, v19);
+  v24 = sub_100005F38(0, 1, 1, &_swiftEmptyArrayStorage);
+  v26 = v24[2];
+  v25 = v24[3];
+  if (v26 >= v25 >> 1)
   {
-    v22 = sub_100005F38(v23 > 1, v24 + 1, 1, v22);
+    v24 = sub_100005F38((v25 > 1), v26 + 1, 1, v24);
   }
 
-  v22[2] = v24 + 1;
-  sub_100006110(v18, v22 + ((*(v15 + 80) + 32) & ~*(v15 + 80)) + *(v15 + 72) * v24);
-  v25 = [a4[2] nextExpectedRefreshDate];
-  if (v25)
+  v24[2] = v26 + 1;
+  sub_100006110(v19, v24 + ((*(v17 + 80) + 32) & ~*(v17 + 80)) + *(v17 + 72) * v26);
+  v27 = [a4[2] nextExpectedRefreshDate];
+  if (v27)
   {
-    v26 = v25;
+    v28 = v27;
     sub_10006BB3C();
 
-    v27 = 0;
+    v29 = 0;
   }
 
   else
   {
-    v27 = 1;
+    v29 = 1;
   }
 
-  v29 = v38;
-  v28 = v39;
-  v30 = v37;
-  (*(v37 + 56))(v8, v27, 1, v38);
-  sub_100003490(v8, v10);
-  if ((*(v30 + 48))(v10, 1, v29) == 1)
+  v31 = v40;
+  v30 = v41;
+  v32 = v39;
+  (*(v39 + 56))(v9, v29, 1, v40);
+  sub_100003490(v9, v12);
+  if ((*(v32 + 48))(v12, 1, v31) == 1)
   {
-    sub_100006174(v10);
-    v34(0xD00000000000001ELL, 0x800000010006D380);
+    sub_100006174(v12);
+    v36(0xD00000000000001ELL, 0x800000010006D380);
     sub_10006CA8C();
-    sub_1000061DC(&qword_1000887F8, type metadata accessor for AlarmEntry);
+    sub_1000061DC(&qword_1000887F8, type metadata accessor for AlarmEntry, &unk_100079618);
     sub_10006CAFC();
   }
 
   else
   {
-    v31 = v33;
-    (*(v30 + 32))(v33, v10, v29);
-    v45 = 0;
-    v46 = 0xE000000000000000;
+    v33 = v35;
+    (*(v32 + 32))(v35, v12, v31);
+    v47 = 0;
+    v48 = 0xE000000000000000;
     sub_10006CD2C(35);
 
-    v45 = 0xD000000000000021;
-    v46 = 0x800000010006D3A0;
-    sub_1000061DC(&qword_100088800, &type metadata accessor for Date);
-    v47._countAndFlagsBits = sub_10006CD9C();
-    sub_10006CBBC(v47);
+    v47 = 0xD000000000000021;
+    v48 = 0x800000010006D3A0;
+    sub_1000061DC(&qword_100088800, &type metadata accessor for Date, &protocol conformance descriptor for Date);
+    v49._countAndFlagsBits = sub_10006CD9C();
+    sub_10006CBBC(v49);
 
-    v34(v45, v46);
+    v36(v47, v48);
 
     sub_10006CA6C();
-    sub_1000061DC(&qword_1000887F8, type metadata accessor for AlarmEntry);
+    sub_1000061DC(&qword_1000887F8, type metadata accessor for AlarmEntry, &unk_100079618);
     sub_10006CAFC();
-    (*(v30 + 8))(v31, v29);
+    (*(v32 + 8))(v33, v31);
   }
 
-  v44(v28);
-  (*(v40 + 8))(v28, v41);
-  return sub_100003548(v36);
+  v46(v30);
+  (*(v42 + 8))(v30, v43);
+  return sub_100003548(v38);
 }
 
 uint64_t sub_1000025B4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -212,15 +212,15 @@ uint64_t sub_100002658()
 
 uint64_t sub_100002690(uint64_t a1, void (*a2)(char *))
 {
-  type metadata accessor for AlarmEntry();
-  __chkstk_darwin();
-  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = *v2;
-  v7 = type metadata accessor for WidgetUtilities();
-  v8 = (*(v7 + 80))(0xD00000000000001FLL, 0x800000010006D340);
-  (*(*v6 + 224))(v8);
-  a2(v5);
-  return sub_100003548(v5);
+  v4 = type metadata accessor for AlarmEntry(0);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *v2;
+  v8 = type metadata accessor for WidgetUtilities();
+  v9 = (*(v8 + 80))(0xD00000000000001FLL, 0x800000010006D340);
+  (*(*v7 + 224))(v9);
+  a2(v6);
+  return sub_100003548(v6);
 }
 
 uint64_t sub_100002794(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -323,12 +323,12 @@ uint64_t sub_100002DA4()
 {
   v1 = sub_10006BC3C();
   v2 = *(v1 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v1);
   v4 = v55 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v5 = sub_10006BD3C();
   v59 = v5;
   v6 = *(v5 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v5);
   v8 = v55 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   *(v0 + 16) = [objc_allocWithZone(MTAlarmManager) init];
   v9 = [objc_allocWithZone(NSDateFormatter) init];
@@ -443,7 +443,7 @@ uint64_t sub_100002DA4()
   return v33;
 }
 
-uint64_t type metadata accessor for AlarmEntry()
+uint64_t type metadata accessor for AlarmEntry(uint64_t a1)
 {
   result = qword_10008C4B0;
   if (!qword_10008C4B0)
@@ -456,12 +456,12 @@ uint64_t type metadata accessor for AlarmEntry()
 
 uint64_t sub_100003490(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100003500(&qword_1000887E8);
+  v4 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-uint64_t sub_100003500(uint64_t *a1)
+uint64_t sub_100003500(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -475,14 +475,14 @@ uint64_t sub_100003500(uint64_t *a1)
 
 uint64_t sub_100003548(uint64_t a1)
 {
-  v2 = type metadata accessor for AlarmEntry();
+  v2 = type metadata accessor for AlarmEntry(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
 uint64_t sub_1000035A4(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for AlarmEntry();
+  v4 = type metadata accessor for AlarmEntry(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -490,424 +490,424 @@ uint64_t sub_1000035A4(uint64_t a1, uint64_t a2)
 uint64_t sub_100003608@<X0>(uint64_t a1@<X8>)
 {
   v3 = sub_10006BB7C();
-  v139 = *(v3 - 8);
-  v4 = __chkstk_darwin(v3);
-  v134 = v125 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4);
-  v7 = v125 - v6;
-  v8 = type metadata accessor for AlarmEntry();
+  v140 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v135 = v126 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v7 = v126 - v6;
+  v8 = type metadata accessor for AlarmEntry(0);
   __chkstk_darwin(v8);
-  v10 = v125 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_100003500(&qword_1000887E8);
-  v12 = __chkstk_darwin(v11);
-  v135 = v125 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __chkstk_darwin(v12);
-  v136 = v125 - v15;
-  __chkstk_darwin(v14);
-  v17 = v125 - v16;
-  v18 = *(v1 + 16);
-  v19 = [v18 nextWidgetAlarmInThreshold];
-  if (v19)
+  v10 = v126 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
+  __chkstk_darwin(v11);
+  v136 = v126 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v13);
+  v137 = v126 - v14;
+  *&v16 = __chkstk_darwin(v15).n128_u64[0];
+  v18 = v126 - v17;
+  v19 = *(v1 + 16);
+  v20 = [v19 nextWidgetAlarmInThreshold];
+  if (v20)
   {
-    v20 = v19;
-    v131 = v1;
-    v132 = v7;
-    v133 = a1;
-    v141 = 0;
-    v142 = 0xE000000000000000;
+    v21 = v20;
+    v132 = v1;
+    v133 = v7;
+    v134 = a1;
+    v142 = 0;
+    v143 = 0xE000000000000000;
     sub_10006CD2C(70);
-    v143._countAndFlagsBits = 0xD00000000000001FLL;
-    v143._object = 0x800000010006D420;
-    sub_10006CBBC(v143);
-    v21 = [v20 description];
-    v22 = sub_10006CB7C();
-    v24 = v23;
-
-    v144._countAndFlagsBits = v22;
-    v144._object = v24;
+    v144._countAndFlagsBits = 0xD00000000000001FLL;
+    v144._object = 0x800000010006D420;
     sub_10006CBBC(v144);
+    v22 = [v21 description];
+    v23 = sub_10006CB7C();
+    v25 = v24;
 
-    v145._countAndFlagsBits = 0x6F6F6E537369202CLL;
-    v145._object = 0xED0000203A64657ALL;
+    v145._countAndFlagsBits = v23;
+    v145._object = v25;
     sub_10006CBBC(v145);
-    v25 = [v20 isSnoozed];
-    v26 = v25 == 0;
-    if (v25)
-    {
-      v27._countAndFlagsBits = 1702195828;
-    }
 
-    else
-    {
-      v27._countAndFlagsBits = 0x65736C6166;
-    }
-
+    v146._countAndFlagsBits = 0x6F6F6E537369202CLL;
+    v146._object = 0xED0000203A64657ALL;
+    sub_10006CBBC(v146);
+    v26 = [v21 isSnoozed];
+    v27 = v26 == 0;
     if (v26)
     {
-      v28 = 0xE500000000000000;
+      v28._countAndFlagsBits = 1702195828;
     }
 
     else
     {
-      v28 = 0xE400000000000000;
+      v28._countAndFlagsBits = 0x65736C6166;
     }
 
-    v27._object = v28;
-    sub_10006CBBC(v27);
-
-    v146._object = 0x800000010006D440;
-    v146._countAndFlagsBits = 0xD000000000000014;
-    sub_10006CBBC(v146);
-    v140 = v20;
-    v29 = [v20 snoozeFireDate];
-    if (v29)
+    if (v27)
     {
-      v30 = v29;
+      v29 = 0xE500000000000000;
+    }
+
+    else
+    {
+      v29 = 0xE400000000000000;
+    }
+
+    v28._object = v29;
+    sub_10006CBBC(v28);
+
+    v147._object = 0x800000010006D440;
+    v147._countAndFlagsBits = 0xD000000000000014;
+    sub_10006CBBC(v147);
+    v141 = v21;
+    v30 = [v21 snoozeFireDate];
+    if (v30)
+    {
+      v31 = v30;
       sub_10006BB3C();
 
-      v31 = *(v139 + 56);
-      v31(v17, 0, 1, v3);
+      v32 = *(v140 + 56);
+      v32(v18, 0, 1, v3);
     }
 
     else
     {
-      v31 = *(v139 + 56);
-      v31(v17, 1, 1, v3);
+      v32 = *(v140 + 56);
+      v32(v18, 1, 1, v3);
     }
 
-    v45 = type metadata accessor for WidgetUtilities();
+    v46 = type metadata accessor for WidgetUtilities();
     sub_10006CD5C();
-    sub_100006174(v17);
-    v125[0] = *(v45 + 80);
-    v125[1] = v45;
-    (v125[0])(v141, v142);
+    sub_100006174(v18);
+    v126[0] = *(v46 + 80);
+    v126[1] = v46;
+    (v126[0])(v142, v143);
 
     sub_10006BB6C();
-    v46 = v8[5];
-    v47 = 1;
-    v31(&v10[v46], 1, 1, v3);
-    v130 = v8[6];
-    v137 = v31;
-    v138 = v3;
-    v31(&v10[v130], 1, 1, v3);
+    v47 = v8[5];
+    v48 = 1;
+    v32(&v10[v47], 1, 1, v3);
+    v131 = v8[6];
+    v138 = v32;
+    v139 = v3;
+    v32(&v10[v131], 1, 1, v3);
     v10[v8[8]] = 0;
-    v48 = &v10[v8[9]];
-    *v48 = 0;
-    *(v48 + 1) = 0;
-    v126 = v48;
-    v49 = &v10[v8[10]];
+    v49 = &v10[v8[9]];
     *v49 = 0;
     *(v49 + 1) = 0;
     v127 = v49;
-    v50 = &v10[v8[11]];
+    v50 = &v10[v8[10]];
     *v50 = 0;
     *(v50 + 1) = 0;
     v128 = v50;
-    v51 = &v10[v8[12]];
+    v51 = &v10[v8[11]];
     *v51 = 0;
     *(v51 + 1) = 0;
     v129 = v51;
-    v52 = v8[13];
-    v10[v52] = 0;
-    v53 = v8[14];
+    v52 = &v10[v8[12]];
+    *v52 = 0;
+    *(v52 + 1) = 0;
+    v130 = v52;
+    v53 = v8[13];
     v10[v53] = 0;
-    v54 = &v10[v8[15]];
-    *v54 = 0;
-    v54[1] = 0;
+    v54 = v8[14];
+    v10[v54] = 0;
+    v55 = &v10[v8[15]];
+    *v55 = 0;
+    v55[1] = 0;
     v10[v8[16]] = 0;
     v10[v8[17]] = 0;
-    v55 = [v140 nextFireDate];
-    v56 = v136;
-    if (v55)
+    v56 = [v141 nextFireDate];
+    v57 = v137;
+    if (v56)
     {
-      v57 = v55;
+      v58 = v56;
       sub_10006BB3C();
 
-      v47 = 0;
+      v48 = 0;
     }
 
-    v137(v56, v47, 1, v138);
-    v58 = v56;
-    v59 = v8[7];
-    sub_100006270(v58, &v10[v46]);
-    v60 = v140;
-    v10[v59] = [v140 isSleepAlarm];
-    v61 = [v60 isSleepAlarm];
-    v62 = v133;
-    if (v61)
+    v138(v57, v48, 1, v139);
+    v59 = v57;
+    v60 = v8[7];
+    sub_100006270(v59, &v10[v47]);
+    v61 = v141;
+    v10[v60] = [v141 isSleepAlarm];
+    v62 = [v61 isSleepAlarm];
+    v63 = v134;
+    if (v62)
     {
-      v63 = [objc_opt_self() nextSleepAlarm];
-      if (!v63)
+      v64 = [objc_opt_self() nextSleepAlarm];
+      if (!v64)
       {
-        (v125[0])(0xD000000000000021, 0x800000010006D460);
+        (v126[0])(0xD000000000000021, 0x800000010006D460);
         sub_10006BB6C();
 
-        v118 = v137;
-        v117 = v138;
-        v137((v62 + v8[5]), 1, 1, v138);
-        v118(v62 + v8[6], 1, 1, v117);
-        *(v62 + v8[7]) = 0;
-        *(v62 + v8[8]) = 0;
-        v119 = (v62 + v8[9]);
-        *v119 = 0;
-        v119[1] = 0;
-        v120 = (v62 + v8[10]);
+        v119 = v138;
+        v118 = v139;
+        v138((v63 + v8[5]), 1, 1, v139);
+        v119(v63 + v8[6], 1, 1, v118);
+        *(v63 + v8[7]) = 0;
+        *(v63 + v8[8]) = 0;
+        v120 = (v63 + v8[9]);
         *v120 = 0;
         v120[1] = 0;
-        v121 = (v62 + v8[11]);
+        v121 = (v63 + v8[10]);
         *v121 = 0;
         v121[1] = 0;
-        v122 = (v62 + v8[12]);
+        v122 = (v63 + v8[11]);
         *v122 = 0;
         v122[1] = 0;
-        *(v62 + v8[13]) = 0;
-        *(v62 + v8[14]) = 0;
-        v123 = (v62 + v8[15]);
+        v123 = (v63 + v8[12]);
         *v123 = 0;
         v123[1] = 0;
-        v124 = v8[16];
-        *(v62 + v8[17]) = 0;
-        *(v62 + v124) = 1;
+        *(v63 + v8[13]) = 0;
+        *(v63 + v8[14]) = 0;
+        v124 = (v63 + v8[15]);
+        *v124 = 0;
+        v124[1] = 0;
+        v125 = v8[16];
+        *(v63 + v8[17]) = 0;
+        *(v63 + v125) = 1;
         return sub_100003548(v10);
       }
     }
 
-    v10[v52] = [v60 isFiring];
-    v10[v53] = 0;
-    v64 = [v60 snoozeFireDate];
-    if (v64)
+    v10[v53] = [v61 isFiring];
+    v10[v54] = 0;
+    v65 = [v61 snoozeFireDate];
+    if (v65)
     {
-      v65 = v135;
-      v66 = v64;
+      v66 = v136;
+      v67 = v65;
       sub_10006BB3C();
 
-      v67 = 0;
-      v68 = v138;
+      v68 = 0;
       v69 = v139;
+      v70 = v140;
     }
 
     else
     {
-      v67 = 1;
-      v68 = v138;
+      v68 = 1;
       v69 = v139;
-      v65 = v135;
+      v70 = v140;
+      v66 = v136;
     }
 
-    v137(v65, v67, 1, v68);
-    sub_100006270(v65, &v10[v130]);
-    v77 = [v60 title];
-    if (v77)
+    v138(v66, v68, 1, v69);
+    sub_100006270(v66, &v10[v131]);
+    v78 = [v61 title];
+    if (v78)
     {
-      v78 = v77;
-      v79 = sub_10006CB7C();
-      v81 = v80;
+      v79 = v78;
+      v80 = sub_10006CB7C();
+      v82 = v81;
     }
 
     else
     {
-      v79 = 0;
-      v81 = 0;
+      v80 = 0;
+      v82 = 0;
     }
 
-    v83 = v131;
-    v82 = v132;
-    *v54 = v79;
-    v54[1] = v81;
-    v84 = v140;
-    v85 = [v140 nextFireDate];
-    if (v85)
+    v84 = v132;
+    v83 = v133;
+    *v55 = v80;
+    v55[1] = v82;
+    v85 = v141;
+    v86 = [v141 nextFireDate];
+    if (v86)
     {
-      v86 = v134;
-      v87 = v85;
+      v87 = v135;
+      v88 = v86;
       sub_10006BB3C();
 
-      v88 = (*(v69 + 32))(v82, v86, v68);
-      v89 = (*(*v83 + 120))(v88);
+      v89 = (*(v70 + 32))(v83, v87, v69);
+      v90 = (*(*v84 + 120))(v89);
       isa = sub_10006BB1C().super.isa;
-      v91 = [v89 stringFromDate:isa];
+      v92 = [v90 stringFromDate:isa];
 
-      v92 = sub_10006CB7C();
-      v94 = v93;
+      v93 = sub_10006CB7C();
+      v95 = v94;
 
-      v95 = v126;
-      *v126 = v92;
-      v95[1] = v94;
-      v96 = (*(*v83 + 144))();
-      v97 = sub_10006BB1C().super.isa;
-      v98 = [v96 stringFromDate:v97];
+      v96 = v127;
+      *v127 = v93;
+      v96[1] = v95;
+      v97 = (*(*v84 + 144))();
+      v98 = sub_10006BB1C().super.isa;
+      v99 = [v97 stringFromDate:v98];
 
-      v99 = sub_10006CB7C();
-      v101 = v100;
+      v100 = sub_10006CB7C();
+      v102 = v101;
 
-      v102 = v127;
-      *v127 = v99;
-      v102[1] = v101;
-      v103 = (*(*v83 + 168))();
-      v104 = sub_10006BB1C().super.isa;
-      v105 = [v103 stringFromDate:v104];
+      v103 = v128;
+      *v128 = v100;
+      v103[1] = v102;
+      v104 = (*(*v84 + 168))();
+      v105 = sub_10006BB1C().super.isa;
+      v106 = [v104 stringFromDate:v105];
 
-      v106 = sub_10006CB7C();
-      v108 = v107;
+      v107 = sub_10006CB7C();
+      v109 = v108;
 
-      v109 = v128;
-      *v128 = v106;
-      v109[1] = v108;
-      v110 = (*(*v83 + 192))();
-      v111 = sub_10006BB1C().super.isa;
-      v112 = [v110 stringFromDate:v111];
+      v110 = v129;
+      *v129 = v107;
+      v110[1] = v109;
+      v111 = (*(*v84 + 192))();
+      v112 = sub_10006BB1C().super.isa;
+      v113 = [v111 stringFromDate:v112];
 
-      v113 = sub_10006CB7C();
-      v115 = v114;
+      v114 = sub_10006CB7C();
+      v116 = v115;
 
-      (*(v69 + 8))(v82, v68);
-      v116 = v129;
-      *v129 = v113;
-      v116[1] = v115;
+      (*(v70 + 8))(v83, v69);
+      v117 = v130;
+      *v130 = v114;
+      v117[1] = v116;
     }
 
     else
     {
     }
 
-    return sub_100006110(v10, v62);
+    return sub_100006110(v10, v63);
   }
 
   else
   {
-    v32 = [v18 alarmsSync];
-    if (v32 && ((v33 = v32, sub_100006224(), v34 = sub_10006CC0C(), v33, v34 >> 62) ? (v35 = sub_10006CD6C()) : (v35 = *((v34 & 0xFFFFFFFFFFFFFF8) + 0x10)), , v35))
+    v33 = [v19 alarmsSync];
+    if (v33 && ((v34 = v33, sub_100006224(), v35 = sub_10006CC0C(), v34, v35 >> 62) ? (v36 = sub_10006CD6C()) : (v36 = *((v35 & 0xFFFFFFFFFFFFFF8) + 0x10)), , v36))
     {
-      v36 = type metadata accessor for WidgetUtilities();
-      (*(v36 + 80))(0xD00000000000001DLL, 0x800000010006D400);
+      v37 = type metadata accessor for WidgetUtilities();
+      (*(v37 + 80))(0xD00000000000001DLL, 0x800000010006D400);
       sub_10006BB6C();
-      v37 = *(v139 + 56);
-      v37(a1 + v8[5], 1, 1, v3);
-      result = (v37)(a1 + v8[6], 1, 1, v3);
+      v38 = *(v140 + 56);
+      v38(a1 + v8[5], 1, 1, v3);
+      result = (v38)(a1 + v8[6], 1, 1, v3);
       *(a1 + v8[7]) = 0;
       *(a1 + v8[8]) = 0;
-      v39 = (a1 + v8[9]);
-      *v39 = 0;
-      v39[1] = 0;
-      v40 = (a1 + v8[10]);
+      v40 = (a1 + v8[9]);
       *v40 = 0;
       v40[1] = 0;
-      v41 = (a1 + v8[11]);
+      v41 = (a1 + v8[10]);
       *v41 = 0;
       v41[1] = 0;
-      v42 = (a1 + v8[12]);
+      v42 = (a1 + v8[11]);
       *v42 = 0;
       v42[1] = 0;
-      *(a1 + v8[13]) = 0;
-      *(a1 + v8[14]) = 0;
-      v43 = (a1 + v8[15]);
+      v43 = (a1 + v8[12]);
       *v43 = 0;
       v43[1] = 0;
+      *(a1 + v8[13]) = 0;
+      *(a1 + v8[14]) = 0;
+      v44 = (a1 + v8[15]);
+      *v44 = 0;
+      v44[1] = 0;
       *(a1 + v8[16]) = 0;
-      v44 = v8[17];
+      v45 = v8[17];
     }
 
     else
     {
-      v70 = type metadata accessor for WidgetUtilities();
-      (*(v70 + 80))(0xD00000000000002ALL, 0x800000010006D3D0);
+      v71 = type metadata accessor for WidgetUtilities();
+      (*(v71 + 80))(0xD00000000000002ALL, 0x800000010006D3D0);
       sub_10006BB6C();
-      v71 = *(v139 + 56);
-      v71(a1 + v8[5], 1, 1, v3);
-      result = (v71)(a1 + v8[6], 1, 1, v3);
+      v72 = *(v140 + 56);
+      v72(a1 + v8[5], 1, 1, v3);
+      result = (v72)(a1 + v8[6], 1, 1, v3);
       *(a1 + v8[7]) = 0;
       *(a1 + v8[8]) = 0;
-      v72 = (a1 + v8[9]);
-      *v72 = 0;
-      v72[1] = 0;
-      v73 = (a1 + v8[10]);
+      v73 = (a1 + v8[9]);
       *v73 = 0;
       v73[1] = 0;
-      v74 = (a1 + v8[11]);
+      v74 = (a1 + v8[10]);
       *v74 = 0;
       v74[1] = 0;
-      v75 = (a1 + v8[12]);
+      v75 = (a1 + v8[11]);
       *v75 = 0;
       v75[1] = 0;
-      *(a1 + v8[13]) = 0;
-      *(a1 + v8[14]) = 0;
-      v76 = (a1 + v8[15]);
+      v76 = (a1 + v8[12]);
       *v76 = 0;
       v76[1] = 0;
-      v44 = v8[16];
+      *(a1 + v8[13]) = 0;
+      *(a1 + v8[14]) = 0;
+      v77 = (a1 + v8[15]);
+      *v77 = 0;
+      v77[1] = 0;
+      v45 = v8[16];
       *(a1 + v8[17]) = 0;
     }
 
-    *(a1 + v44) = 1;
+    *(a1 + v45) = 1;
   }
 
   return result;
 }
 
-uint64_t sub_1000041C4@<X0>(uint64_t a1@<X8>)
+uint64_t sub_1000041C4@<X0>(uint64_t a2@<X8>)
 {
   sub_10006BB6C();
-  v2 = type metadata accessor for AlarmEntry();
-  v3 = v2[5];
-  v4 = sub_10006BB7C();
-  v5 = *(*(v4 - 8) + 56);
-  v5(a1 + v3, 1, 1, v4);
-  result = (v5)(a1 + v2[6], 1, 1, v4);
-  *(a1 + v2[7]) = 0;
-  *(a1 + v2[8]) = 0;
-  v7 = (a1 + v2[9]);
-  *v7 = 0;
-  v7[1] = 0;
-  v8 = (a1 + v2[10]);
+  v3 = type metadata accessor for AlarmEntry(0);
+  v4 = v3[5];
+  v5 = sub_10006BB7C();
+  v6 = *(*(v5 - 8) + 56);
+  v6(a2 + v4, 1, 1, v5);
+  result = (v6)(a2 + v3[6], 1, 1, v5);
+  *(a2 + v3[7]) = 0;
+  *(a2 + v3[8]) = 0;
+  v8 = (a2 + v3[9]);
   *v8 = 0;
   v8[1] = 0;
-  v9 = (a1 + v2[11]);
+  v9 = (a2 + v3[10]);
   *v9 = 0;
   v9[1] = 0;
-  v10 = (a1 + v2[12]);
+  v10 = (a2 + v3[11]);
   *v10 = 0;
   v10[1] = 0;
-  *(a1 + v2[13]) = 0;
-  *(a1 + v2[14]) = 0;
-  v11 = (a1 + v2[15]);
+  v11 = (a2 + v3[12]);
   *v11 = 0;
   v11[1] = 0;
-  v12 = v2[16];
-  *(a1 + v2[17]) = 0;
-  *(a1 + v12) = 1;
+  *(a2 + v3[13]) = 0;
+  *(a2 + v3[14]) = 0;
+  v12 = (a2 + v3[15]);
+  *v12 = 0;
+  v12[1] = 0;
+  v13 = v3[16];
+  *(a2 + v3[17]) = 0;
+  *(a2 + v13) = 1;
   return result;
 }
 
-uint64_t sub_1000042E0@<X0>(uint64_t a1@<X8>)
+uint64_t sub_1000042E0@<X0>(uint64_t a2@<X8>)
 {
   sub_10006BB6C();
-  v2 = type metadata accessor for AlarmEntry();
-  v3 = v2[5];
-  v4 = sub_10006BB7C();
-  v5 = *(*(v4 - 8) + 56);
-  v5(a1 + v3, 1, 1, v4);
-  result = (v5)(a1 + v2[6], 1, 1, v4);
-  *(a1 + v2[7]) = 0;
-  *(a1 + v2[8]) = 0;
-  v7 = (a1 + v2[9]);
-  *v7 = 0;
-  v7[1] = 0;
-  v8 = (a1 + v2[10]);
+  v3 = type metadata accessor for AlarmEntry(0);
+  v4 = v3[5];
+  v5 = sub_10006BB7C();
+  v6 = *(*(v5 - 8) + 56);
+  v6(a2 + v4, 1, 1, v5);
+  result = (v6)(a2 + v3[6], 1, 1, v5);
+  *(a2 + v3[7]) = 0;
+  *(a2 + v3[8]) = 0;
+  v8 = (a2 + v3[9]);
   *v8 = 0;
   v8[1] = 0;
-  v9 = (a1 + v2[11]);
+  v9 = (a2 + v3[10]);
   *v9 = 0;
   v9[1] = 0;
-  v10 = (a1 + v2[12]);
+  v10 = (a2 + v3[11]);
   *v10 = 0;
   v10[1] = 0;
-  *(a1 + v2[13]) = 0;
-  *(a1 + v2[14]) = 0;
-  v11 = (a1 + v2[15]);
+  v11 = (a2 + v3[12]);
   *v11 = 0;
   v11[1] = 0;
-  *(a1 + v2[16]) = 0;
-  *(a1 + v2[17]) = 1;
+  *(a2 + v3[13]) = 0;
+  *(a2 + v3[14]) = 0;
+  v12 = (a2 + v3[15]);
+  *v12 = 0;
+  v12[1] = 0;
+  *(a2 + v3[16]) = 0;
+  *(a2 + v3[17]) = 1;
   return result;
 }
 
@@ -935,14 +935,14 @@ uint64_t sub_100004500(uint64_t a1)
 
 uint64_t sub_100004590@<X0>(uint64_t a1@<X8>)
 {
-  v3 = v1 + *(type metadata accessor for AlarmEntry() + 20);
+  v3 = v1 + *(type metadata accessor for AlarmEntry(0) + 20);
 
   return sub_1000062E0(v3, a1);
 }
 
 uint64_t sub_1000045D4(uint64_t a1)
 {
-  v3 = v1 + *(type metadata accessor for AlarmEntry() + 20);
+  v3 = v1 + *(type metadata accessor for AlarmEntry(0) + 20);
 
   return sub_100006270(a1, v3);
 }
@@ -957,14 +957,14 @@ uint64_t sub_100004660@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_1000046CC@<X0>(uint64_t a1@<X8>)
 {
-  v3 = v1 + *(type metadata accessor for AlarmEntry() + 24);
+  v3 = v1 + *(type metadata accessor for AlarmEntry(0) + 24);
 
   return sub_1000062E0(v3, a1);
 }
 
 uint64_t sub_100004710(uint64_t a1)
 {
-  v3 = v1 + *(type metadata accessor for AlarmEntry() + 24);
+  v3 = v1 + *(type metadata accessor for AlarmEntry(0) + 24);
 
   return sub_100006270(a1, v3);
 }
@@ -975,12 +975,12 @@ uint64_t sub_10000479C()
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = &v17 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_100003500(&qword_1000887E8);
+  v5 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
   __chkstk_darwin(v5 - 8);
   v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v8);
   v10 = &v17 - v9;
-  v11 = *(type metadata accessor for AlarmEntry() + 24);
+  v11 = *(type metadata accessor for AlarmEntry(0) + 24);
   sub_1000062E0(v0 + v11, v10);
   v12 = *(v2 + 48);
   v13 = v12(v10, 1, v1);
@@ -1181,28 +1181,28 @@ LABEL_44:
 
 uint64_t sub_100004C14(char a1)
 {
-  result = type metadata accessor for AlarmEntry();
+  result = type metadata accessor for AlarmEntry(0);
   *(v1 + *(result + 28)) = a1;
   return result;
 }
 
 uint64_t sub_100004CB0(char a1)
 {
-  result = type metadata accessor for AlarmEntry();
+  result = type metadata accessor for AlarmEntry(0);
   *(v1 + *(result + 32)) = a1;
   return result;
 }
 
 uint64_t sub_100004D34()
 {
-  v1 = *(v0 + *(type metadata accessor for AlarmEntry() + 36));
+  v1 = *(v0 + *(type metadata accessor for AlarmEntry(0) + 36));
 
   return v1;
 }
 
 uint64_t sub_100004D74(uint64_t a1, uint64_t a2)
 {
-  v5 = (v2 + *(type metadata accessor for AlarmEntry() + 36));
+  v5 = (v2 + *(type metadata accessor for AlarmEntry(0) + 36));
 
   *v5 = a1;
   v5[1] = a2;
@@ -1211,14 +1211,14 @@ uint64_t sub_100004D74(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100004E04()
 {
-  v1 = *(v0 + *(type metadata accessor for AlarmEntry() + 40));
+  v1 = *(v0 + *(type metadata accessor for AlarmEntry(0) + 40));
 
   return v1;
 }
 
 uint64_t sub_100004E44(uint64_t a1, uint64_t a2)
 {
-  v5 = (v2 + *(type metadata accessor for AlarmEntry() + 40));
+  v5 = (v2 + *(type metadata accessor for AlarmEntry(0) + 40));
 
   *v5 = a1;
   v5[1] = a2;
@@ -1227,14 +1227,14 @@ uint64_t sub_100004E44(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100004ED4()
 {
-  v1 = *(v0 + *(type metadata accessor for AlarmEntry() + 44));
+  v1 = *(v0 + *(type metadata accessor for AlarmEntry(0) + 44));
 
   return v1;
 }
 
 uint64_t sub_100004F14(uint64_t a1, uint64_t a2)
 {
-  v5 = (v2 + *(type metadata accessor for AlarmEntry() + 44));
+  v5 = (v2 + *(type metadata accessor for AlarmEntry(0) + 44));
 
   *v5 = a1;
   v5[1] = a2;
@@ -1243,14 +1243,14 @@ uint64_t sub_100004F14(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100004FA4()
 {
-  v1 = *(v0 + *(type metadata accessor for AlarmEntry() + 48));
+  v1 = *(v0 + *(type metadata accessor for AlarmEntry(0) + 48));
 
   return v1;
 }
 
 uint64_t sub_100004FE4(uint64_t a1, uint64_t a2)
 {
-  v5 = (v2 + *(type metadata accessor for AlarmEntry() + 48));
+  v5 = (v2 + *(type metadata accessor for AlarmEntry(0) + 48));
 
   *v5 = a1;
   v5[1] = a2;
@@ -1259,28 +1259,28 @@ uint64_t sub_100004FE4(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100005098(char a1)
 {
-  result = type metadata accessor for AlarmEntry();
+  result = type metadata accessor for AlarmEntry(0);
   *(v1 + *(result + 52)) = a1;
   return result;
 }
 
 uint64_t sub_100005134(char a1)
 {
-  result = type metadata accessor for AlarmEntry();
+  result = type metadata accessor for AlarmEntry(0);
   *(v1 + *(result + 56)) = a1;
   return result;
 }
 
 uint64_t sub_1000051AC()
 {
-  v1 = *(v0 + *(type metadata accessor for AlarmEntry() + 60));
+  v1 = *(v0 + *(type metadata accessor for AlarmEntry(0) + 60));
 
   return v1;
 }
 
 uint64_t sub_1000051EC(uint64_t a1, uint64_t a2)
 {
-  v5 = (v2 + *(type metadata accessor for AlarmEntry() + 60));
+  v5 = (v2 + *(type metadata accessor for AlarmEntry(0) + 60));
 
   *v5 = a1;
   v5[1] = a2;
@@ -1289,24 +1289,24 @@ uint64_t sub_1000051EC(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1000052A0(char a1)
 {
-  result = type metadata accessor for AlarmEntry();
+  result = type metadata accessor for AlarmEntry(0);
   *(v1 + *(result + 64)) = a1;
   return result;
 }
 
 uint64_t sub_10000533C(char a1)
 {
-  result = type metadata accessor for AlarmEntry();
+  result = type metadata accessor for AlarmEntry(0);
   *(v1 + *(result + 68)) = a1;
   return result;
 }
 
 uint64_t sub_1000053B4()
 {
-  v1 = sub_100003500(&qword_1000887E8);
+  v1 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
   __chkstk_darwin(v1 - 8);
   v3 = &v8 - v2;
-  v4 = type metadata accessor for AlarmEntry();
+  v4 = type metadata accessor for AlarmEntry(0);
   sub_1000062E0(v0 + v4[5], v3);
   v5 = sub_10006BB7C();
   v6 = (*(*(v5 - 8) + 48))(v3, 1, v5);
@@ -1337,17 +1337,17 @@ uint64_t sub_1000053B4()
 
 uint64_t sub_1000054F8()
 {
-  type metadata accessor for AlarmEntry();
+  type metadata accessor for AlarmEntry(0);
 
   return sub_10006C7FC();
 }
 
 BOOL sub_10000555C()
 {
-  v1 = sub_100003500(&qword_1000887E8);
+  v1 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
   __chkstk_darwin(v1 - 8);
   v3 = &v8 - v2;
-  v4 = type metadata accessor for AlarmEntry();
+  v4 = type metadata accessor for AlarmEntry(0);
   sub_1000062E0(v0 + *(v4 + 20), v3);
   v5 = sub_10006BB7C();
   v6 = (*(*(v5 - 8) + 48))(v3, 1, v5) != 1;
@@ -1357,7 +1357,7 @@ BOOL sub_10000555C()
 
 uint64_t sub_100005630()
 {
-  v1 = (v0 + *(type metadata accessor for AlarmEntry() + 36));
+  v1 = (v0 + *(type metadata accessor for AlarmEntry(0) + 36));
   if (v1[1])
   {
     v2 = *v1;
@@ -1373,7 +1373,7 @@ uint64_t sub_100005630()
 
 uint64_t sub_100005684()
 {
-  v1 = (v0 + *(type metadata accessor for AlarmEntry() + 40));
+  v1 = (v0 + *(type metadata accessor for AlarmEntry(0) + 40));
   if (v1[1])
   {
     v2 = *v1;
@@ -1389,7 +1389,7 @@ uint64_t sub_100005684()
 
 uint64_t sub_1000056D8()
 {
-  v1 = (v0 + *(type metadata accessor for AlarmEntry() + 44));
+  v1 = (v0 + *(type metadata accessor for AlarmEntry(0) + 44));
   if (v1[1])
   {
     v2 = *v1;
@@ -1405,7 +1405,7 @@ uint64_t sub_1000056D8()
 
 uint64_t sub_10000572C()
 {
-  v1 = (v0 + *(type metadata accessor for AlarmEntry() + 48));
+  v1 = (v0 + *(type metadata accessor for AlarmEntry(0) + 48));
   if (v1[1])
   {
     v2 = *v1;
@@ -1421,10 +1421,10 @@ uint64_t sub_10000572C()
 
 uint64_t sub_100005780()
 {
-  v1 = sub_100003500(&qword_1000887E8);
+  v1 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
   __chkstk_darwin(v1 - 8);
   v3 = &v11 - v2;
-  v4 = type metadata accessor for AlarmEntry();
+  v4 = type metadata accessor for AlarmEntry(0);
   v5 = (v0 + v4[15]);
   if (v5[1])
   {
@@ -1541,7 +1541,7 @@ uint64_t sub_1000058C4(unsigned __int8 a1)
   v12.super.isa = v11;
   v18._countAndFlagsBits = 0;
   v18._object = 0xE000000000000000;
-  v13 = sub_10006B88C(v16, v17, v12, v18, v15);
+  v13 = sub_10006B88C(v16, v17, v12, v18, v9, v15);
   swift_bridgeObjectRelease_n();
 
   return v13;
@@ -1594,12 +1594,12 @@ uint64_t sub_100005A5C(unsigned __int8 a1)
   }
 }
 
-uint64_t sub_100005B80()
+uint64_t sub_100005B80(uint64_t a1, unsigned __int8 a2)
 {
   sub_10006CB9C();
 }
 
-Swift::Int sub_100005CBC()
+Swift::Int sub_100005CBC(uint64_t a1, unsigned __int8 a2)
 {
   sub_10006CDCC();
   sub_10006CB9C();
@@ -1607,9 +1607,9 @@ Swift::Int sub_100005CBC()
   return sub_10006CDFC();
 }
 
-uint64_t sub_100005E04@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+unint64_t sub_100005E04@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_100006350(*a1, *(a1 + 8));
+  result = sub_100006350(*a1, a1[1]);
   *a2 = result;
   return result;
 }
@@ -1683,7 +1683,7 @@ void sub_100005E34(uint64_t *a1@<X8>)
   a1[1] = v3;
 }
 
-size_t sub_100005F38(size_t result, int64_t a2, char a3, void *a4)
+void *sub_100005F38(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -1729,8 +1729,8 @@ LABEL_30:
     goto LABEL_19;
   }
 
-  sub_100003500(&qword_100088A00);
-  v10 = *(type metadata accessor for AlarmEntry() - 8);
+  sub_100003500(&qword_100088A00, qword_100079788);
+  v10 = *(type metadata accessor for AlarmEntry(0) - 8);
   v11 = *(v10 + 72);
   v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
   v13 = swift_allocObject();
@@ -1743,7 +1743,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -1751,7 +1751,7 @@ LABEL_29:
   v13[2] = v8;
   v13[3] = 2 * ((result - v12) / v11);
 LABEL_19:
-  v15 = *(type metadata accessor for AlarmEntry() - 8);
+  v15 = *(type metadata accessor for AlarmEntry(0) - 8);
   if (v5)
   {
     if (v13 < a4 || (v16 = (*(v15 + 80) + 32) & ~*(v15 + 80), v13 + v16 >= a4 + v16 + *(v15 + 72) * v8))
@@ -1777,19 +1777,19 @@ LABEL_19:
 
 uint64_t sub_100006110(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for AlarmEntry();
+  v4 = type metadata accessor for AlarmEntry(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_100006174(uint64_t a1)
 {
-  v2 = sub_100003500(&qword_1000887E8);
+  v2 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t sub_1000061DC(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1000061DC(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1817,19 +1817,19 @@ unint64_t sub_100006224()
 
 uint64_t sub_100006270(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100003500(&qword_1000887E8);
+  v4 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1000062E0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100003500(&qword_1000887E8);
+  v4 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-uint64_t sub_100006350(uint64_t a1, void *a2)
+unint64_t sub_100006350(uint64_t a1, void *a2)
 {
   v6._countAndFlagsBits = a1;
   v3._rawValue = &off_100085FC0;
@@ -1873,7 +1873,7 @@ LABEL_5:
     return v9(v10, a2, v8);
   }
 
-  v11 = sub_100003500(&qword_1000887E8);
+  v11 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
   v12 = *(v11 - 8);
   if (*(v12 + 84) == a2)
   {
@@ -1911,7 +1911,7 @@ uint64_t sub_10000659C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    result = sub_100003500(&qword_1000887E8);
+    result = sub_100003500(&qword_1000887E8, &qword_1000795A0);
     v14 = *(result - 8);
     if (*(v14 + 84) != a3)
     {
@@ -1927,16 +1927,16 @@ uint64_t sub_10000659C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return v11(v12, a2, a2, v10);
 }
 
-void sub_1000066B4()
+void sub_1000066B4(uint64_t a1)
 {
   sub_10006BB7C();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_100006774();
-    if (v1 <= 0x3F)
+    sub_100006774(319);
+    if (v2 <= 0x3F)
     {
       sub_1000067CC();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -1944,15 +1944,15 @@ void sub_1000066B4()
   }
 }
 
-void sub_100006774()
+void sub_100006774(uint64_t a1)
 {
   if (!qword_100088998)
   {
     sub_10006BB7C();
-    v0 = sub_10006CCEC();
-    if (!v1)
+    v1 = sub_10006CCEC();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100088998);
+      atomic_store(v1, &qword_100088998);
     }
   }
 }
@@ -2133,82 +2133,82 @@ LABEL_20:
 
 uint64_t sub_1000069A0@<X0>(uint64_t a1@<X8>)
 {
-  v40 = a1;
-  v1 = sub_100003500(&qword_100088A08);
+  v39 = a1;
+  v1 = sub_100003500(&qword_100088A08, &qword_1000797B0);
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
-  v4 = &v35 - v3;
-  v5 = sub_100003500(&qword_100088A10);
+  v4 = &v34 - v3;
+  v5 = sub_100003500(&qword_100088A10, &qword_1000797B8);
   v6 = *(v5 - 8);
-  v36 = v5;
-  v37 = v6;
+  v35 = v5;
+  v36 = v6;
   __chkstk_darwin(v5);
-  v8 = &v35 - v7;
-  v9 = sub_100003500(&qword_100088A18);
+  v8 = &v34 - v7;
+  v9 = sub_100003500(&qword_100088A18, &unk_1000797C0);
   v10 = *(v9 - 8);
-  v38 = v9;
-  v39 = v10;
-  v11 = __chkstk_darwin(v9);
-  v35 = &v35 - v12;
-  v41 = sub_100006990(v11);
-  type metadata accessor for AlarmsWidget.WidgetView();
-  sub_10000911C(&qword_100088A20, type metadata accessor for AlarmsWidget.WidgetView);
+  v37 = v9;
+  v38 = v10;
+  __chkstk_darwin(v9);
+  v34 = &v34 - v11;
+  v40 = sub_100006990();
+  type metadata accessor for AlarmsWidget.WidgetView(0);
+  sub_10000911C(&qword_100088A20, type metadata accessor for AlarmsWidget.WidgetView, &unk_100079810);
   sub_100006FDC();
   sub_10006CA5C();
   sub_10006C14C();
-  v13 = sub_10006C59C();
-  v15 = v14;
-  v17 = v16;
-  v18 = sub_100007030();
+  v12 = sub_10006C59C();
+  v14 = v13;
+  v16 = v15;
+  v17 = sub_100007030();
   sub_10006C24C();
-  sub_1000070DC(v13, v15, v17 & 1);
+  sub_1000070DC(v12, v14, v16 & 1);
 
   (*(v2 + 8))(v4, v1);
-  sub_100003500(&qword_100088A38);
-  v19 = sub_10006CA0C();
-  v20 = *(v19 - 8);
-  v21 = *(v20 + 72);
-  v22 = (*(v20 + 80) + 32) & ~*(v20 + 80);
-  v23 = swift_allocObject();
-  *(v23 + 16) = xmmword_1000797A0;
-  v24 = v23 + v22;
-  v25 = *(v20 + 104);
-  v25(v24, enum case for WidgetFamily.accessoryRectangular(_:), v19);
-  v25(v24 + v21, enum case for WidgetFamily.accessoryInline(_:), v19);
-  v25(v24 + 2 * v21, enum case for WidgetFamily.accessoryCircular(_:), v19);
-  v41 = v1;
-  v42 = v18;
+  sub_100003500(&qword_100088A38, &unk_100079E90);
+  v18 = sub_10006CA0C();
+  v19 = *(v18 - 8);
+  v20 = *(v19 + 72);
+  v21 = (*(v19 + 80) + 32) & ~*(v19 + 80);
+  v22 = swift_allocObject();
+  *(v22 + 16) = xmmword_1000797A0;
+  v23 = v22 + v21;
+  v24 = *(v19 + 104);
+  v24(v23, enum case for WidgetFamily.accessoryRectangular(_:), v18);
+  v24(v23 + v20, enum case for WidgetFamily.accessoryInline(_:), v18);
+  v24(v23 + 2 * v20, enum case for WidgetFamily.accessoryCircular(_:), v18);
+  v40 = v1;
+  v41 = v17;
   OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
+  v26 = v34;
   v27 = v35;
-  v28 = v36;
   sub_10006C22C();
 
-  (*(v37 + 8))(v8, v28);
+  (*(v36 + 8))(v8, v27);
   sub_10006C14C();
-  v29 = sub_10006C59C();
-  v31 = v30;
-  LOBYTE(v8) = v32;
-  v41 = v28;
-  v42 = OpaqueTypeConformance2;
+  v28 = sub_10006C59C();
+  v30 = v29;
+  LOBYTE(v8) = v31;
+  v40 = v27;
+  v41 = OpaqueTypeConformance2;
   swift_getOpaqueTypeConformance2();
-  v33 = v38;
+  v32 = v37;
   sub_10006C21C();
-  sub_1000070DC(v29, v31, v8 & 1);
+  sub_1000070DC(v28, v30, v8 & 1);
 
-  return (*(v39 + 8))(v27, v33);
+  return (*(v38 + 8))(v26, v32);
 }
 
 uint64_t sub_100006F10@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   sub_1000035A4(a1, a2);
   KeyPath = swift_getKeyPath();
-  *(a2 + *(type metadata accessor for AlarmsWidget.WidgetView() + 20)) = KeyPath;
-  sub_100003500(&qword_100088A40);
+  *(a2 + *(type metadata accessor for AlarmsWidget.WidgetView(0) + 20)) = KeyPath;
+  sub_100003500(&qword_100088A40, &unk_100079800);
 
   return swift_storeEnumTagMultiPayload();
 }
 
-uint64_t type metadata accessor for AlarmsWidget.WidgetView()
+uint64_t type metadata accessor for AlarmsWidget.WidgetView(uint64_t a1)
 {
   result = qword_10008C5D0;
   if (!qword_10008C5D0)
@@ -2236,7 +2236,7 @@ unint64_t sub_100007030()
   result = qword_100088A30;
   if (!qword_100088A30)
   {
-    sub_100007094(&qword_100088A08);
+    sub_100007094(&qword_100088A08, &qword_1000797B0);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100088A30);
   }
@@ -2244,7 +2244,7 @@ unint64_t sub_100007030()
   return result;
 }
 
-uint64_t sub_100007094(uint64_t *a1)
+uint64_t sub_100007094(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -2270,14 +2270,14 @@ uint64_t sub_1000070DC(uint64_t a1, uint64_t a2, char a3)
 uint64_t sub_1000070F0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   sub_10000919C(a1, a3, type metadata accessor for AlarmEntry);
-  v5 = a3 + *(type metadata accessor for AlarmsWidget.WidgetView() + 20);
+  v5 = a3 + *(type metadata accessor for AlarmsWidget.WidgetView(0) + 20);
 
   return sub_100007518(a2, v5);
 }
 
 uint64_t sub_100007154()
 {
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v0 = sub_10006CA0C();
   v1 = *(v0 - 8);
   v2 = *(v1 + 72);
@@ -2298,10 +2298,10 @@ uint64_t sub_1000072A4@<X0>(uint64_t a1@<X8>)
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_100003500(&qword_100088A40);
+  v7 = sub_100003500(&qword_100088A40, &unk_100079800);
   __chkstk_darwin(v7);
   v9 = &v14 - v8;
-  v10 = type metadata accessor for AlarmsWidget.WidgetView();
+  v10 = type metadata accessor for AlarmsWidget.WidgetView(0);
   sub_1000075EC(v1 + *(v10 + 20), v9);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
@@ -2325,28 +2325,28 @@ uint64_t sub_1000072A4@<X0>(uint64_t a1@<X8>)
 uint64_t sub_100007494@<X0>(uint64_t *a1@<X8>)
 {
   *a1 = swift_getKeyPath();
-  sub_100003500(&qword_100088A40);
+  sub_100003500(&qword_100088A40, &unk_100079800);
 
   return swift_storeEnumTagMultiPayload();
 }
 
 uint64_t sub_100007518(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100003500(&qword_100088A48);
+  v4 = sub_100003500(&qword_100088A48, &unk_10007B6A0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_100007588(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for AlarmEntry();
+  v4 = type metadata accessor for AlarmEntry(0);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1000075EC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100003500(&qword_100088A40);
+  v4 = sub_100003500(&qword_100088A40, &unk_100079800);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -2357,55 +2357,55 @@ uint64_t sub_100007664@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v104 = type metadata accessor for AlarmSmallWidgetView(0);
   __chkstk_darwin(v104);
   v85 = &v81 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v106 = sub_100003500(&qword_100088B48);
+  v106 = sub_100003500(&qword_100088B48, &qword_1000798F8);
   v86 = *(v106 - 8);
   __chkstk_darwin(v106);
   v88 = &v81 - v4;
-  v101 = sub_100003500(&qword_100088B50);
+  v101 = sub_100003500(&qword_100088B50, &unk_100079900);
   __chkstk_darwin(v101);
   v103 = &v81 - v5;
-  v110 = sub_100003500(&qword_100088B20);
+  v110 = sub_100003500(&qword_100088B20, &qword_1000798E8);
   __chkstk_darwin(v110);
   v105 = &v81 - v6;
-  v7 = sub_100003500(&qword_100088B58);
+  v7 = sub_100003500(&qword_100088B58, &qword_100079D00);
   __chkstk_darwin(v7 - 8);
   v95 = &v81 - v8;
   v9 = type metadata accessor for AlarmComplicationCircularView(0);
   __chkstk_darwin(v9 - 8);
   v96 = &v81 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v100 = sub_100003500(&qword_100088B28);
+  v100 = sub_100003500(&qword_100088B28, &qword_1000798F0);
   __chkstk_darwin(v100);
   v97 = &v81 - v11;
-  v102 = sub_100003500(&qword_100088B60);
+  v102 = sub_100003500(&qword_100088B60, &qword_100079910);
   v99 = *(v102 - 8);
   __chkstk_darwin(v102);
   v98 = &v81 - v12;
   v92 = type metadata accessor for AlarmInlineComplicationView(0);
   __chkstk_darwin(v92);
   v82 = &v81 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v94 = sub_100003500(&qword_100088B68);
+  v94 = sub_100003500(&qword_100088B68, &qword_100079918);
   v84 = *(v94 - 8);
   __chkstk_darwin(v94);
   v83 = &v81 - v14;
-  v107 = sub_100003500(&qword_100088B70);
+  v107 = sub_100003500(&qword_100088B70, &qword_100079920);
   __chkstk_darwin(v107);
   v109 = &v81 - v15;
-  v89 = sub_100003500(&qword_100088B78);
+  v89 = sub_100003500(&qword_100088B78, &qword_100079928);
   __chkstk_darwin(v89);
   v91 = &v81 - v16;
-  v108 = sub_100003500(&qword_100088B00);
+  v108 = sub_100003500(&qword_100088B00, &qword_1000798E0);
   __chkstk_darwin(v108);
   v93 = &v81 - v17;
-  v18 = sub_100003500(&qword_100088B80);
+  v18 = sub_100003500(&qword_100088B80, &qword_100079930);
   __chkstk_darwin(v18 - 8);
   v20 = &v81 - v19;
-  v21 = type metadata accessor for AlarmEntry();
+  v21 = type metadata accessor for AlarmEntry(0);
   __chkstk_darwin(v21 - 8);
   v23 = &v81 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
   v24 = type metadata accessor for AlarmComplicationRectangularView(0);
   __chkstk_darwin(v24);
   v26 = &v81 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v90 = sub_100003500(&qword_100088B88);
+  v90 = sub_100003500(&qword_100088B88, &qword_100079938);
   v87 = *(v90 - 8);
   __chkstk_darwin(v90);
   v28 = &v81 - v27;
@@ -2458,8 +2458,8 @@ uint64_t sub_100007664@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v50 = sub_100009060();
     v51 = v98;
     sub_10006C60C();
-    sub_100009204(v20, &qword_100088B80);
-    sub_100009204(v44, &qword_100088B28);
+    sub_100009204(v20, &qword_100088B80, &qword_100079930);
+    sub_100009204(v44, &qword_100088B28, &qword_1000798F0);
     v52 = v99;
     v53 = v102;
     (*(v99 + 16))(v103, v51, v102);
@@ -2467,18 +2467,18 @@ uint64_t sub_100007664@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v112 = v45;
     v113 = v50;
     swift_getOpaqueTypeConformance2();
-    v54 = sub_10000911C(&qword_100088B40, type metadata accessor for AlarmSmallWidgetView);
+    v54 = sub_10000911C(&qword_100088B40, type metadata accessor for AlarmSmallWidgetView, &unk_10007D120);
     v112 = v104;
     v113 = v54;
     swift_getOpaqueTypeConformance2();
     v55 = v105;
     sub_10006C26C();
-    sub_100009264(v55, v109, &qword_100088B20);
+    sub_100009264(v55, v109, &qword_100088B20, &qword_1000798E8);
     swift_storeEnumTagMultiPayload();
     sub_100008DF4();
     sub_100008F3C();
     sub_10006C26C();
-    sub_100009204(v55, &qword_100088B20);
+    sub_100009204(v55, &qword_100088B20, &qword_1000798E8);
     return (*(v52 + 8))(v51, v53);
   }
 
@@ -2491,9 +2491,9 @@ uint64_t sub_100007664@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       sub_1000035A4(v33, v23);
       sub_10006469C(v23, v26);
       sub_10006B8FC();
-      v59 = sub_10000911C(&qword_100088B08, type metadata accessor for AlarmComplicationRectangularView);
+      v59 = sub_10000911C(&qword_100088B08, type metadata accessor for AlarmComplicationRectangularView, &unk_10007D170);
       sub_10006C60C();
-      sub_100009204(v20, &qword_100088B80);
+      sub_100009204(v20, &qword_100088B80, &qword_100079930);
       sub_1000092CC(v26, type metadata accessor for AlarmComplicationRectangularView);
       v60 = v87;
       v61 = v90;
@@ -2502,18 +2502,18 @@ uint64_t sub_100007664@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       *&v115 = v24;
       *(&v115 + 1) = v59;
       swift_getOpaqueTypeConformance2();
-      v62 = sub_10000911C(&qword_100088B10, type metadata accessor for AlarmInlineComplicationView);
+      v62 = sub_10000911C(&qword_100088B10, type metadata accessor for AlarmInlineComplicationView, &unk_10007D1C0);
       *&v115 = v92;
       *(&v115 + 1) = v62;
       swift_getOpaqueTypeConformance2();
       v63 = v93;
       sub_10006C26C();
-      sub_100009264(v63, v109, &qword_100088B00);
+      sub_100009264(v63, v109, &qword_100088B00, &qword_1000798E0);
       swift_storeEnumTagMultiPayload();
       sub_100008DF4();
       sub_100008F3C();
       sub_10006C26C();
-      sub_100009204(v63, &qword_100088B00);
+      sub_100009204(v63, &qword_100088B00, &qword_1000798E0);
       return (*(v60 + 8))(v28, v61);
     }
 
@@ -2526,17 +2526,17 @@ uint64_t sub_100007664@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
         v65 = v82;
         sub_10006469C(v23, v82);
         sub_10006B8FC();
-        v66 = sub_10000911C(&qword_100088B10, type metadata accessor for AlarmInlineComplicationView);
+        v66 = sub_10000911C(&qword_100088B10, type metadata accessor for AlarmInlineComplicationView, &unk_10007D1C0);
         v67 = v83;
         v68 = v92;
         sub_10006C60C();
-        sub_100009204(v20, &qword_100088B80);
+        sub_100009204(v20, &qword_100088B80, &qword_100079930);
         sub_1000092CC(v65, type metadata accessor for AlarmInlineComplicationView);
         v69 = v84;
         v70 = v94;
         (*(v84 + 16))(v91, v67, v94);
         swift_storeEnumTagMultiPayload();
-        v71 = sub_10000911C(&qword_100088B08, type metadata accessor for AlarmComplicationRectangularView);
+        v71 = sub_10000911C(&qword_100088B08, type metadata accessor for AlarmComplicationRectangularView, &unk_10007D170);
         *&v115 = v24;
         *(&v115 + 1) = v71;
         swift_getOpaqueTypeConformance2();
@@ -2545,12 +2545,12 @@ uint64_t sub_100007664@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
         swift_getOpaqueTypeConformance2();
         v72 = v93;
         sub_10006C26C();
-        sub_100009264(v72, v109, &qword_100088B00);
+        sub_100009264(v72, v109, &qword_100088B00, &qword_1000798E0);
         swift_storeEnumTagMultiPayload();
         sub_100008DF4();
         sub_100008F3C();
         sub_10006C26C();
-        sub_100009204(v72, &qword_100088B00);
+        sub_100009204(v72, &qword_100088B00, &qword_1000798E0);
         return (*(v69 + 8))(v67, v70);
       }
 
@@ -2559,11 +2559,11 @@ uint64_t sub_100007664@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
         v73 = v85;
         sub_10005B8AC(v23, v85);
         sub_10006B8FC();
-        v74 = sub_10000911C(&qword_100088B40, type metadata accessor for AlarmSmallWidgetView);
+        v74 = sub_10000911C(&qword_100088B40, type metadata accessor for AlarmSmallWidgetView, &unk_10007D120);
         v75 = v88;
         v76 = v104;
         sub_10006C60C();
-        sub_100009204(v20, &qword_100088B80);
+        sub_100009204(v20, &qword_100088B80, &qword_100079930);
         sub_1000092CC(v73, type metadata accessor for AlarmSmallWidgetView);
         v77 = v86;
         (*(v86 + 16))(v103, v75, v106);
@@ -2578,12 +2578,12 @@ uint64_t sub_100007664@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
         v79 = v105;
         v80 = v106;
         sub_10006C26C();
-        sub_100009264(v79, v109, &qword_100088B20);
+        sub_100009264(v79, v109, &qword_100088B20, &qword_1000798E8);
         swift_storeEnumTagMultiPayload();
         sub_100008DF4();
         sub_100008F3C();
         sub_10006C26C();
-        sub_100009204(v79, &qword_100088B20);
+        sub_100009204(v79, &qword_100088B20, &qword_1000798E8);
         (*(v77 + 8))(v88, v80);
         return (*(v30 + 8))(v32, v29);
       }
@@ -2593,7 +2593,7 @@ uint64_t sub_100007664@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_100008908(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = type metadata accessor for AlarmEntry();
+  v6 = type metadata accessor for AlarmEntry(0);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -2604,7 +2604,7 @@ uint64_t sub_100008908(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v10 = sub_100003500(&qword_100088A48);
+    v10 = sub_100003500(&qword_100088A48, &unk_10007B6A0);
     v11 = *(*(v10 - 8) + 48);
     v12 = a1 + *(a3 + 20);
 
@@ -2614,7 +2614,7 @@ uint64_t sub_100008908(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_100008A18(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v8 = type metadata accessor for AlarmEntry();
+  v8 = type metadata accessor for AlarmEntry(0);
   v9 = *(v8 - 8);
   if (*(v9 + 84) == a3)
   {
@@ -2625,7 +2625,7 @@ uint64_t sub_100008A18(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v12 = sub_100003500(&qword_100088A48);
+    v12 = sub_100003500(&qword_100088A48, &unk_10007B6A0);
     v13 = *(*(v12 - 8) + 56);
     v14 = a1 + *(a4 + 20);
 
@@ -2633,37 +2633,37 @@ uint64_t sub_100008A18(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   }
 }
 
-void sub_100008B20()
+void sub_100008B20(uint64_t a1)
 {
-  type metadata accessor for AlarmEntry();
-  if (v0 <= 0x3F)
+  type metadata accessor for AlarmEntry(319);
+  if (v1 <= 0x3F)
   {
-    sub_100008BA4();
-    if (v1 <= 0x3F)
+    sub_100008BA4(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_100008BA4()
+void sub_100008BA4(uint64_t a1)
 {
   if (!qword_100088AA8)
   {
     sub_10006CA0C();
-    v0 = sub_10006BE5C();
-    if (!v1)
+    v1 = sub_10006BE5C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100088AA8);
+      atomic_store(v1, &qword_100088AA8);
     }
   }
 }
 
 uint64_t sub_100008BFC()
 {
-  sub_100007094(&qword_100088A18);
-  sub_100007094(&qword_100088A10);
-  sub_100007094(&qword_100088A08);
+  sub_100007094(&qword_100088A18, &unk_1000797C0);
+  sub_100007094(&qword_100088A10, &qword_1000797B8);
+  sub_100007094(&qword_100088A08, &qword_1000797B0);
   sub_100007030();
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
@@ -2675,7 +2675,7 @@ unint64_t sub_100008CE4()
   result = qword_100088AD8;
   if (!qword_100088AD8)
   {
-    sub_100007094(&qword_100088AE0);
+    sub_100007094(&qword_100088AE0, &qword_1000798D0);
     sub_100008D68();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100088AD8);
@@ -2689,7 +2689,7 @@ unint64_t sub_100008D68()
   result = qword_100088AE8;
   if (!qword_100088AE8)
   {
-    sub_100007094(&qword_100088AF0);
+    sub_100007094(&qword_100088AF0, &qword_1000798D8);
     sub_100008DF4();
     sub_100008F3C();
     result = swift_getWitnessTable();
@@ -2704,12 +2704,12 @@ unint64_t sub_100008DF4()
   result = qword_100088AF8;
   if (!qword_100088AF8)
   {
-    sub_100007094(&qword_100088B00);
+    sub_100007094(&qword_100088B00, &qword_1000798E0);
     type metadata accessor for AlarmComplicationRectangularView(255);
-    sub_10000911C(&qword_100088B08, type metadata accessor for AlarmComplicationRectangularView);
+    sub_10000911C(&qword_100088B08, type metadata accessor for AlarmComplicationRectangularView, &unk_10007D170);
     swift_getOpaqueTypeConformance2();
     type metadata accessor for AlarmInlineComplicationView(255);
-    sub_10000911C(&qword_100088B10, type metadata accessor for AlarmInlineComplicationView);
+    sub_10000911C(&qword_100088B10, type metadata accessor for AlarmInlineComplicationView, &unk_10007D1C0);
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100088AF8);
@@ -2723,12 +2723,12 @@ unint64_t sub_100008F3C()
   result = qword_100088B18;
   if (!qword_100088B18)
   {
-    sub_100007094(&qword_100088B20);
-    sub_100007094(&qword_100088B28);
+    sub_100007094(&qword_100088B20, &qword_1000798E8);
+    sub_100007094(&qword_100088B28, &qword_1000798F0);
     sub_100009060();
     swift_getOpaqueTypeConformance2();
     type metadata accessor for AlarmSmallWidgetView(255);
-    sub_10000911C(&qword_100088B40, type metadata accessor for AlarmSmallWidgetView);
+    sub_10000911C(&qword_100088B40, type metadata accessor for AlarmSmallWidgetView, &unk_10007D120);
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100088B18);
@@ -2742,8 +2742,8 @@ unint64_t sub_100009060()
   result = qword_100088B30;
   if (!qword_100088B30)
   {
-    sub_100007094(&qword_100088B28);
-    sub_10000911C(&qword_100088B38, type metadata accessor for AlarmComplicationCircularView);
+    sub_100007094(&qword_100088B28, &qword_1000798F0);
+    sub_10000911C(&qword_100088B38, type metadata accessor for AlarmComplicationCircularView, &unk_10007D210);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100088B30);
   }
@@ -2751,7 +2751,7 @@ unint64_t sub_100009060()
   return result;
 }
 
-uint64_t sub_10000911C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10000911C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2777,17 +2777,17 @@ uint64_t sub_10000919C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-uint64_t sub_100009204(uint64_t a1, uint64_t *a2)
+uint64_t sub_100009204(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = sub_100003500(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = sub_100003500(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
-uint64_t sub_100009264(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_100009264(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = sub_100003500(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = sub_100003500(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
@@ -2801,47 +2801,47 @@ uint64_t sub_1000092CC(uint64_t a1, uint64_t (*a2)(void))
 uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v109[3] = a2;
-  v126 = type metadata accessor for WorldClockEntry();
+  v126 = type metadata accessor for WorldClockEntry(0);
   v122 = *(v126 - 8);
   __chkstk_darwin(v126);
   v4 = v109 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v5 = sub_10006CA9C();
   __chkstk_darwin(v5 - 8);
   v109[2] = v109 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_100003500(&qword_1000887E8);
-  v8 = __chkstk_darwin(v7 - 8);
-  v144 = v109 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
+  v7 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
+  __chkstk_darwin(v7 - 8);
+  v144 = v109 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
   v11 = v109 - v10;
   v12 = sub_10006BB7C();
   v13 = *(v12 - 8);
-  v14 = __chkstk_darwin(v12);
-  v138 = v109 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __chkstk_darwin(v14);
-  v137 = v109 - v17;
-  v18 = __chkstk_darwin(v16);
-  v142 = v109 - v19;
-  v20 = __chkstk_darwin(v18);
-  v136 = v109 - v21;
-  v22 = __chkstk_darwin(v20);
-  v135 = v109 - v23;
-  v24 = __chkstk_darwin(v22);
-  v125 = (v109 - v25);
-  v26 = __chkstk_darwin(v24);
-  v124 = v109 - v27;
-  v28 = __chkstk_darwin(v26);
-  v134 = v109 - v29;
-  __chkstk_darwin(v28);
+  __chkstk_darwin(v12);
+  v138 = v109 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v15);
+  v137 = v109 - v16;
+  __chkstk_darwin(v17);
+  v142 = v109 - v18;
+  __chkstk_darwin(v19);
+  v136 = v109 - v20;
+  __chkstk_darwin(v21);
+  v135 = v109 - v22;
+  __chkstk_darwin(v23);
+  v125 = (v109 - v24);
+  __chkstk_darwin(v25);
+  v124 = v109 - v26;
+  __chkstk_darwin(v27);
+  v134 = v109 - v28;
+  __chkstk_darwin(v29);
   v133 = v109 - v30;
-  v31 = type metadata accessor for WorldClockCity();
+  v31 = type metadata accessor for WorldClockCity(0);
   v32 = *(v31 - 1);
-  v33 = __chkstk_darwin(v31);
-  v35 = v109 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v36 = __chkstk_darwin(v33);
-  v148 = v109 - v37;
-  v38 = __chkstk_darwin(v36);
-  v143 = v109 - v39;
-  v40 = __chkstk_darwin(v38);
+  __chkstk_darwin(v31);
+  v34 = v109 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v35);
+  v148 = v109 - v36;
+  __chkstk_darwin(v37);
+  v143 = v109 - v38;
+  v40 = __chkstk_darwin(v39);
   v42 = (v109 - v41);
   v43 = *(*a1 + 96);
   v44 = *a1 + 96;
@@ -2855,7 +2855,7 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v127 = v13;
   v141 = v31;
   v111 = v32;
-  v147 = v35;
+  v147 = v34;
   if (v46)
   {
     v47 = v31[10];
@@ -2886,7 +2886,7 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v54 = sub_10000DBC0(0, v51[2] + 1, 1, v51, &qword_100088FB0, &unk_100079BF8, &type metadata accessor for Date);
+        v54 = sub_10000DBC0(0, v51[2] + 1, 1, v51, &qword_100088FB0, &qword_100079BF8, &type metadata accessor for Date);
       }
 
       v130 = v51;
@@ -2895,7 +2895,7 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       v57 = v56 + 1;
       if (v56 >= v55 >> 1)
       {
-        v54 = sub_10000DBC0(v55 > 1, v56 + 1, 1, v54, &qword_100088FB0, &unk_100079BF8, &type metadata accessor for Date);
+        v54 = sub_10000DBC0((v55 > 1), v56 + 1, 1, v54, &qword_100088FB0, &qword_100079BF8, &type metadata accessor for Date);
       }
 
       *(v54 + 2) = v57;
@@ -2910,7 +2910,7 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       v131 = v49;
       if ((v56 + 2) > (v62 >> 1))
       {
-        v54 = sub_10000DBC0(v62 > 1, v56 + 2, 1, v54, &qword_100088FB0, &unk_100079BF8, &type metadata accessor for Date);
+        v54 = sub_10000DBC0((v62 > 1), v56 + 2, 1, v54, &qword_100088FB0, &qword_100079BF8, &type metadata accessor for Date);
       }
 
       v52 = v54;
@@ -2922,10 +2922,10 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       v60(v64, v134, v146);
       v42 = v140;
       v66 = v119;
-      sub_100009264(v140 + v116, v119, &qword_1000887E8);
+      sub_100009264(v140 + v116, v119, &qword_1000887E8, &qword_1000795A0);
       if ((*v114)(v66, 1, v65) == 1)
       {
-        sub_100009204(v66, &qword_1000887E8);
+        sub_100009204(v66, &qword_1000887E8, &qword_1000795A0);
         v12 = v65;
         v50 = v115;
         v67 = v131;
@@ -2943,7 +2943,7 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
         v72 = v56 + 3;
         if ((v56 + 3) > (v71 >> 1))
         {
-          v52 = sub_10000DBC0(v71 > 1, v56 + 3, 1, v52, &qword_100088FB0, &unk_100079BF8, &type metadata accessor for Date);
+          v52 = sub_10000DBC0((v71 > 1), v56 + 3, 1, v52, &qword_100088FB0, &qword_100079BF8, &type metadata accessor for Date);
         }
 
         v67 = v131;
@@ -2961,7 +2961,7 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       v73 = *(v52 + 3);
       if (v74 >= v73 >> 1)
       {
-        v52 = sub_10000DBC0(v73 > 1, v74 + 1, 1, v52, &qword_100088FB0, &unk_100079BF8, &type metadata accessor for Date);
+        v52 = sub_10000DBC0((v73 > 1), v74 + 1, 1, v52, &qword_100088FB0, &qword_100079BF8, &type metadata accessor for Date);
       }
 
       sub_10000DEB0(v42, type metadata accessor for WorldClockCity);
@@ -2971,7 +2971,7 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       v51 = v52;
       v46 = v132 - 1;
       v13 = v127;
-      v35 = v147;
+      v34 = v147;
     }
 
     while (v132 != 1);
@@ -3009,7 +3009,7 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       v82 = &v128[*(v13 + 72) * v78];
       v134 = *(v13 + 16);
       v83 = (v134)(v136, v82, v12);
-      v84 = v121(v83);
+      v84 = (v121)(v83);
       v85 = *(v84 + 16);
       if (v85)
       {
@@ -3027,7 +3027,7 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
         {
           v92 = v148;
           sub_10000A1FC(v90, v148);
-          sub_10000A1FC(v92, v35);
+          sub_10000A1FC(v92, v34);
           v93 = [v88 widgetOverrideDate];
           if (v93)
           {
@@ -3037,7 +3037,7 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
             v96 = v142;
             v97 = v94;
-            v35 = v147;
+            v34 = v147;
             (*v81)(v142, v97, v12);
           }
 
@@ -3047,7 +3047,7 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
             (v134)(v142, v136, v12);
           }
 
-          (*v140)(v35, v96, v12);
+          (*v140)(v34, v96, v12);
           v98 = [v88 widgetOverrideDate];
           if (v98)
           {
@@ -3056,7 +3056,7 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
             sub_10000DEB0(v148, type metadata accessor for WorldClockCity);
             v100 = v99;
-            v35 = v147;
+            v34 = v147;
             (*v81)(v76, v100, v12);
             v101 = 0;
           }
@@ -3068,16 +3068,16 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
           }
 
           (*v139)(v76, v101, 1, v12);
-          sub_100009204(v76, &qword_1000887E8);
-          v35[v141[5]] = v98 != 0;
+          sub_100009204(v76, &qword_1000887E8, &qword_1000795A0);
+          v34[v141[5]] = v98 != 0;
           v102 = v143;
-          sub_10000DE24(v35, v143, type metadata accessor for WorldClockCity);
+          sub_10000DE24(v34, v143, type metadata accessor for WorldClockCity);
           v149 = v87;
           v104 = v87[2];
           v103 = v87[3];
           if (v104 >= v103 >> 1)
           {
-            sub_10000DDE0(v103 > 1, v104 + 1, 1);
+            sub_10000DDE0((v103 > 1), v104 + 1, 1);
             v102 = v143;
             v87 = v149;
           }
@@ -3114,7 +3114,7 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       v107 = *(v133 + 3);
       if (v108 >= v107 >> 1)
       {
-        sub_10000DD9C(v107 > 1, v108 + 1, 1);
+        sub_10000DD9C((v107 > 1), v108 + 1, 1);
         v80 = v150;
       }
 
@@ -3135,14 +3135,14 @@ uint64_t sub_100009330@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 LABEL_38:
 
     sub_10006CA7C();
-    sub_10000DF5C(&qword_100088BB0, type metadata accessor for WorldClockEntry);
+    sub_10000DF5C(&qword_100088BB0, type metadata accessor for WorldClockEntry, &unk_100079AB0);
     return sub_10006CAFC();
   }
 
   return result;
 }
 
-uint64_t type metadata accessor for WorldClockEntry()
+uint64_t type metadata accessor for WorldClockEntry(uint64_t a1)
 {
   result = qword_10008C860;
   if (!qword_10008C860)
@@ -3155,7 +3155,7 @@ uint64_t type metadata accessor for WorldClockEntry()
 
 uint64_t sub_10000A1FC(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for WorldClockCity();
+  v4 = type metadata accessor for WorldClockCity(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -3164,7 +3164,7 @@ uint64_t sub_10000A260@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, ui
 {
   v8 = sub_10006BB7C();
   (*(*(v8 - 8) + 32))(a4, a1, v8);
-  result = type metadata accessor for WorldClockEntry();
+  result = type metadata accessor for WorldClockEntry(0);
   *(a4 + *(result + 20)) = a2;
   *(a4 + *(result + 24)) = a3;
   return result;
@@ -3172,7 +3172,7 @@ uint64_t sub_10000A260@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, ui
 
 uint64_t sub_10000A394(void *a1, uint64_t a2, void (*a3)(char *))
 {
-  v5 = type metadata accessor for WorldClockEntry();
+  v5 = type metadata accessor for WorldClockEntry(0);
   __chkstk_darwin(v5);
   v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for WorldClockIntentModel();
@@ -3222,7 +3222,7 @@ uint64_t sub_10000A5AC(void *a1, uint64_t a2, void (*a3)(char *), uint64_t a4)
   v5 = v4;
   v21 = a4;
   v22 = a3;
-  v7 = sub_100003500(&qword_100088BC0);
+  v7 = sub_100003500(&qword_100088BC0, &qword_100079998);
   v20 = *(v7 - 8);
   __chkstk_darwin(v7);
   v9 = &v19 - v8;
@@ -3304,33 +3304,33 @@ uint64_t sub_10000AA0C(uint64_t a1, uint64_t a2, uint64_t a3)
   return IntentTimelineProvider.relevance()(a1, v7, a3);
 }
 
-uint64_t sub_10000AADC(uint64_t *a1)
+uint64_t sub_10000AADC(uint64_t *a1, void *a2)
 {
   swift_beginAccess();
-  v2 = *a1;
+  v3 = *a1;
 
-  return v2;
+  return v3;
 }
 
-uint64_t sub_10000AB40(uint64_t a1, uint64_t a2, void *a3, void *a4)
+uint64_t sub_10000AB40(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   swift_beginAccess();
   *a3 = a1;
   *a4 = a2;
 }
 
-uint64_t sub_10000ABFC@<X0>(uint64_t a1@<X8>)
+uint64_t sub_10000ABFC@<X0>(uint64_t a2@<X8>)
 {
   sub_10006BB6C();
-  result = type metadata accessor for WorldClockEntry();
-  *(a1 + *(result + 20)) = &_swiftEmptyArrayStorage;
-  *(a1 + *(result + 24)) = 1;
+  result = type metadata accessor for WorldClockEntry(0);
+  *(a2 + *(result + 20)) = &_swiftEmptyArrayStorage;
+  *(a2 + *(result + 24)) = 1;
   return result;
 }
 
 uint64_t sub_10000AC44(void *a1, uint64_t a2, void (*a3)(char *))
 {
-  v5 = type metadata accessor for WorldClockEntry();
+  v5 = type metadata accessor for WorldClockEntry(0);
   __chkstk_darwin(v5);
   v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for WorldClockIntentModel();
@@ -3403,7 +3403,7 @@ uint64_t sub_10000AEFC(void *a1, uint64_t a2, void (*a3)(char *), uint64_t a4)
   v5 = v4;
   v21 = a4;
   v22 = a3;
-  v7 = sub_100003500(&qword_100088BC0);
+  v7 = sub_100003500(&qword_100088BC0, &qword_100079998);
   v20 = *(v7 - 8);
   __chkstk_darwin(v7);
   v9 = &v19 - v8;
@@ -3487,12 +3487,12 @@ uint64_t sub_10000B35C(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_10000B410()
 {
-  type metadata accessor for WorldClockEntry();
+  type metadata accessor for WorldClockEntry(0);
 }
 
 uint64_t sub_10000B444(uint64_t a1)
 {
-  v3 = *(type metadata accessor for WorldClockEntry() + 20);
+  v3 = *(type metadata accessor for WorldClockEntry(0) + 20);
 
   *(v1 + v3) = a1;
   return result;
@@ -3500,7 +3500,7 @@ uint64_t sub_10000B444(uint64_t a1)
 
 uint64_t sub_10000B4F0(char a1)
 {
-  result = type metadata accessor for WorldClockEntry();
+  result = type metadata accessor for WorldClockEntry(0);
   *(v1 + *(result + 24)) = a1;
   return result;
 }
@@ -3510,15 +3510,15 @@ unint64_t sub_10000B568()
   sub_10006CD2C(41);
 
   sub_10006BB7C();
-  sub_10000DF5C(&qword_100088800, &type metadata accessor for Date);
+  sub_10000DF5C(&qword_100088800, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   v1._countAndFlagsBits = sub_10006CD9C();
   sub_10006CBBC(v1);
 
   v2._countAndFlagsBits = 0x736569746963202CLL;
   v2._object = 0xEA0000000000203ALL;
   sub_10006CBBC(v2);
-  type metadata accessor for WorldClockEntry();
-  type metadata accessor for WorldClockCity();
+  type metadata accessor for WorldClockEntry(0);
+  type metadata accessor for WorldClockCity(0);
   v3._countAndFlagsBits = sub_10006CC1C();
   sub_10006CBBC(v3);
 
@@ -3527,10 +3527,10 @@ unint64_t sub_10000B568()
 
 uint64_t sub_10000B690@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(v1 + *(type metadata accessor for WorldClockEntry() + 20));
+  v3 = *(v1 + *(type metadata accessor for WorldClockEntry(0) + 20));
   if (*(v3 + 16))
   {
-    v4 = *(type metadata accessor for WorldClockCity() - 8);
+    v4 = *(type metadata accessor for WorldClockCity(0) - 8);
     v5 = v3 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
 
     return sub_10000A1FC(v5, a1);
@@ -3592,7 +3592,7 @@ uint64_t sub_10000B8F0@<X0>(uint64_t a1@<X8>)
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_100003500(&qword_1000887E8);
+  v6 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
   __chkstk_darwin(v6 - 8);
   v8 = &v13 - v7;
   v9 = [objc_opt_self() widgetOverrideDate];
@@ -3614,7 +3614,7 @@ uint64_t sub_10000B8F0@<X0>(uint64_t a1@<X8>)
     result = (*(v3 + 48))(v8, 1, v2);
     if (result != 1)
     {
-      return sub_100009204(v8, &qword_1000887E8);
+      return sub_100009204(v8, &qword_1000887E8, &qword_1000795A0);
     }
   }
 
@@ -3632,8 +3632,8 @@ void *sub_10000BB20()
 {
   v0[2] = &_swiftEmptyArrayStorage;
   v0[3] = 0;
-  sub_100003500(&qword_100088BC8);
-  type metadata accessor for WorldClockCity();
+  sub_100003500(&qword_100088BC8, &unk_1000799A0);
+  type metadata accessor for WorldClockCity(0);
   v1 = swift_allocObject();
   *(v1 + 16) = xmmword_100079940;
   v2 = *(*v0 + 192);
@@ -3671,177 +3671,177 @@ void *sub_10000BE00(void *a1)
 
 id sub_10000BEAC(unint64_t a1)
 {
-  v2 = sub_100003500(&qword_100088BD0);
+  v2 = sub_100003500(&qword_100088BD0, &qword_10007CEE0);
   __chkstk_darwin(v2 - 8);
-  v4 = &v61 - v3;
-  v75 = type metadata accessor for WorldClockCity();
-  v66 = *(v75 - 8);
-  v5 = __chkstk_darwin(v75);
-  v74 = &v61 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v65 = &v61 - v7;
-  v8 = &_swiftEmptyArrayStorage;
+  v4 = &v62 - v3;
+  v76 = type metadata accessor for WorldClockCity(0);
+  v67 = *(v76 - 8);
+  __chkstk_darwin(v76);
+  v75 = &v62 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __chkstk_darwin(v6);
+  v66 = &v62 - v8;
+  v9 = &_swiftEmptyArrayStorage;
   if (!a1)
   {
-    return (*(*v62 + 104))(v8);
+    return (*(*v63 + 104))(v9, v7);
   }
 
-  v61 = v4;
-  v80 = &_swiftEmptyArrayStorage;
-  v9 = a1 & 0xFFFFFFFFFFFFFF8;
+  v62 = v4;
+  v81 = &_swiftEmptyArrayStorage;
+  v10 = a1 & 0xFFFFFFFFFFFFFF8;
   if (a1 >> 62)
   {
     goto LABEL_58;
   }
 
-  v10 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  v11 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
 LABEL_4:
-  v11 = 0;
-  v68 = &_swiftEmptyArrayStorage;
+  v12 = 0;
+  v69 = &_swiftEmptyArrayStorage;
   while (1)
   {
-    if (v10 == v11)
+    if (v11 == v12)
     {
-      v19 = v68;
-      if (v68 >> 62)
+      v20 = v69;
+      if (v69 >> 62)
       {
-        v20 = sub_10006CD6C();
+        v21 = sub_10006CD6C();
       }
 
       else
       {
-        v20 = *((v68 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        v21 = *((v69 & 0xFFFFFFFFFFFFFF8) + 0x10);
       }
 
-      v9 = v61;
-      if (v20)
+      v10 = v62;
+      if (v21)
       {
         a1 = 0;
-        v72 = v19 & 0xFFFFFFFFFFFFFF8;
-        v73 = v19 & 0xC000000000000001;
-        v71 = (v66 + 56);
-        v69 = "$__lazy_storage_$_almanac";
-        v8 = &_swiftEmptyArrayStorage;
-        v70 = (v66 + 48);
-        v67 = v20;
+        v73 = v20 & 0xFFFFFFFFFFFFFF8;
+        v74 = v20 & 0xC000000000000001;
+        v72 = (v67 + 56);
+        v70 = "$__lazy_storage_$_almanac";
+        v9 = &_swiftEmptyArrayStorage;
+        v71 = (v67 + 48);
+        v68 = v21;
         while (1)
         {
-          if (v73)
+          if (v74)
           {
-            v21 = sub_10006CD3C();
+            v22 = sub_10006CD3C();
           }
 
           else
           {
-            if (a1 >= *(v72 + 16))
+            if (a1 >= *(v73 + 16))
             {
               goto LABEL_57;
             }
 
-            v21 = *(v19 + 8 * a1 + 32);
+            v22 = *(v20 + 8 * a1 + 32);
           }
 
-          v22 = v21;
+          v23 = v22;
           if (__OFADD__(a1, 1))
           {
             goto LABEL_56;
           }
 
-          v77 = v8;
-          v23 = [v21 cityName];
-          if (!v23)
+          v78 = v9;
+          v24 = [v22 cityName];
+          if (!v24)
           {
-            v23 = [v22 displayString];
+            v24 = [v23 displayString];
           }
 
-          v24 = v23;
-          v25 = sub_10006CB7C();
-          v27 = v26;
+          v25 = v24;
+          v26 = sub_10006CB7C();
+          v28 = v27;
 
-          v28 = [v22 timeZoneName];
-          v76 = a1 + 1;
-          if (!v28)
+          v29 = [v23 timeZoneName];
+          v77 = a1 + 1;
+          if (!v29)
           {
             goto LABEL_35;
           }
 
-          v29 = v28;
-          v30 = sub_10006CB7C();
-          v32 = v31;
+          v30 = v29;
+          v31 = sub_10006CB7C();
+          v33 = v32;
 
-          v33 = [v22 latitude];
-          if (!v33)
+          v34 = [v23 latitude];
+          if (!v34)
           {
             goto LABEL_34;
           }
 
-          v34 = v33;
-          v35 = [v22 longditude];
-          if (!v35)
+          v35 = v34;
+          v36 = [v23 longditude];
+          if (!v36)
           {
             break;
           }
 
-          v36 = v35;
-          v64 = v30;
-          v37 = [v22 abbreviation];
-          if (v37)
+          v37 = v36;
+          v65 = v31;
+          v38 = [v23 abbreviation];
+          if (v38)
           {
-            v38 = v37;
-            v63 = sub_10006CB7C();
-            v40 = v39;
+            v39 = v38;
+            v64 = sub_10006CB7C();
+            v41 = v40;
           }
 
           else
           {
-            v63 = 0;
-            v40 = 0xE000000000000000;
+            v64 = 0;
+            v41 = 0xE000000000000000;
           }
 
-          [v34 doubleValue];
-          v54 = v53;
-          [v36 doubleValue];
-          v9 = v61;
-          (*(*v62 + 192))(v25, v27, v63, v40, v64, v32, 0x372D544D47, 0xE500000000000000, v54, v55);
+          [v35 doubleValue];
+          v55 = v54;
+          [v37 doubleValue];
+          v10 = v62;
+          (*(*v63 + 192))(v26, v28, v64, v41, v65, v33, 0x372D544D47, 0xE500000000000000, v55, v56);
 
-          v52 = 0;
-          v20 = v67;
-          v19 = v68;
-          v8 = v77;
+          v53 = 0;
+          v21 = v68;
+          v20 = v69;
+          v9 = v78;
 LABEL_44:
 
-          v56 = v52;
-          v57 = v75;
-          (*v71)(v9, v56, 1, v75);
+          v57 = v53;
+          v58 = v76;
+          (*v72)(v10, v57, 1, v76);
 
-          if ((*v70)(v9, 1, v57) == 1)
+          if ((*v71)(v10, 1, v58) == 1)
           {
-            sub_100009204(v9, &qword_100088BD0);
+            sub_100009204(v10, &qword_100088BD0, &qword_10007CEE0);
           }
 
           else
           {
-            v58 = v65;
-            sub_10000DE24(v9, v65, type metadata accessor for WorldClockCity);
-            sub_10000DE24(v58, v74, type metadata accessor for WorldClockCity);
+            v59 = v66;
+            sub_10000DE24(v10, v66, type metadata accessor for WorldClockCity);
+            sub_10000DE24(v59, v75, type metadata accessor for WorldClockCity);
             if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
-              v8 = sub_10000DBC0(0, v8[2] + 1, 1, v8, &qword_100088BC8, &unk_1000799A0, type metadata accessor for WorldClockCity);
+              v9 = sub_10000DBC0(0, v9[2] + 1, 1, v9, &qword_100088BC8, &unk_1000799A0, type metadata accessor for WorldClockCity);
             }
 
-            v60 = v8[2];
-            v59 = v8[3];
-            if (v60 >= v59 >> 1)
+            v61 = v9[2];
+            v60 = v9[3];
+            if (v61 >= v60 >> 1)
             {
-              v8 = sub_10000DBC0(v59 > 1, v60 + 1, 1, v8, &qword_100088BC8, &unk_1000799A0, type metadata accessor for WorldClockCity);
+              v9 = sub_10000DBC0((v60 > 1), v61 + 1, 1, v9, &qword_100088BC8, &unk_1000799A0, type metadata accessor for WorldClockCity);
             }
 
-            v8[2] = v60 + 1;
-            sub_10000DE24(v74, v8 + ((*(v66 + 80) + 32) & ~*(v66 + 80)) + *(v66 + 72) * v60, type metadata accessor for WorldClockCity);
+            v9[2] = v61 + 1;
+            sub_10000DE24(v75, v9 + ((*(v67 + 80) + 32) & ~*(v67 + 80)) + *(v67 + 72) * v61, type metadata accessor for WorldClockCity);
           }
 
           ++a1;
-          if (v76 == v20)
+          if (v77 == v21)
           {
             goto LABEL_52;
           }
@@ -3849,89 +3849,89 @@ LABEL_44:
 
 LABEL_34:
 
-        v20 = v67;
-        v19 = v68;
+        v21 = v68;
+        v20 = v69;
 LABEL_35:
 
-        v80 = 0;
-        v81 = 0xE000000000000000;
+        v81 = 0;
+        v82 = 0xE000000000000000;
         sub_10006CD2C(62);
-        v82._object = (v69 | 0x8000000000000000);
-        v82._countAndFlagsBits = 0xD00000000000002ELL;
-        sub_10006CBBC(v82);
-        v41 = [v22 cityName];
-        if (v41)
-        {
-          v42 = v41;
-          v43 = sub_10006CB7C();
-          v45 = v44;
-        }
-
-        else
-        {
-          v43 = 0;
-          v45 = 0;
-        }
-
-        v8 = v77;
-        v78 = v43;
-        v79 = v45;
-        sub_100003500(&qword_100088FA0);
-        v83._countAndFlagsBits = sub_10006CB8C();
+        v83._object = (v70 | 0x8000000000000000);
+        v83._countAndFlagsBits = 0xD00000000000002ELL;
         sub_10006CBBC(v83);
-
-        v84._countAndFlagsBits = 0x6F7A656D6974202CLL;
-        v84._object = 0xEC000000203A656ELL;
-        sub_10006CBBC(v84);
-        v46 = [v22 timeZoneName];
-        if (v46)
+        v42 = [v23 cityName];
+        if (v42)
         {
-          v47 = v46;
-          v48 = sub_10006CB7C();
-          v50 = v49;
+          v43 = v42;
+          v44 = sub_10006CB7C();
+          v46 = v45;
         }
 
         else
         {
-          v48 = 0;
-          v50 = 0;
+          v44 = 0;
+          v46 = 0;
         }
 
-        v51 = type metadata accessor for WidgetUtilities();
-        v78 = v48;
-        v79 = v50;
-        v85._countAndFlagsBits = sub_10006CB8C();
-        sub_10006CBBC(v85);
+        v9 = v78;
+        v79 = v44;
+        v80 = v46;
+        sub_100003500(&qword_100088FA0, &qword_100079BE8);
+        v84._countAndFlagsBits = sub_10006CB8C();
+        sub_10006CBBC(v84);
 
-        (*(v51 + 80))(v80, v81);
-        v52 = 1;
+        v85._countAndFlagsBits = 0x6F7A656D6974202CLL;
+        v85._object = 0xEC000000203A656ELL;
+        sub_10006CBBC(v85);
+        v47 = [v23 timeZoneName];
+        if (v47)
+        {
+          v48 = v47;
+          v49 = sub_10006CB7C();
+          v51 = v50;
+        }
+
+        else
+        {
+          v49 = 0;
+          v51 = 0;
+        }
+
+        v52 = type metadata accessor for WidgetUtilities();
+        v79 = v49;
+        v80 = v51;
+        v86._countAndFlagsBits = sub_10006CB8C();
+        sub_10006CBBC(v86);
+
+        (*(v52 + 80))(v81, v82);
+        v53 = 1;
         goto LABEL_44;
       }
 
-      v8 = &_swiftEmptyArrayStorage;
+      v9 = &_swiftEmptyArrayStorage;
 LABEL_52:
 
-      return (*(*v62 + 104))(v8);
+      return (*(*v63 + 104))(v9, v7);
     }
 
     if ((a1 & 0xC000000000000001) != 0)
     {
-      v12 = sub_10006CD3C();
+      v13 = sub_10006CD3C();
     }
 
     else
     {
-      if (v11 >= *(v9 + 16))
+      if (v12 >= *(v10 + 16))
       {
         goto LABEL_55;
       }
 
-      v12 = *(a1 + 8 * v11 + 32);
+      v13 = *(a1 + 8 * v12 + 32);
     }
 
-    v13 = v12;
-    v14 = v11 + 1;
-    if (__OFADD__(v11, 1))
+    v14 = v13;
+    v15 = v12 + 1;
+    if (__OFADD__(v12, 1))
     {
       __break(1u);
 LABEL_55:
@@ -3941,7 +3941,7 @@ LABEL_56:
 LABEL_57:
       __break(1u);
 LABEL_58:
-      v10 = sub_10006CD6C();
+      v11 = sub_10006CD6C();
       goto LABEL_4;
     }
 
@@ -3951,22 +3951,22 @@ LABEL_58:
       break;
     }
 
-    v16 = result;
-    v17 = [v13 identifier];
-    v18 = [v16 updatedDataForCityWithID:v17];
+    v17 = result;
+    v18 = [v14 identifier];
+    v19 = [v17 updatedDataForCityWithID:v18];
 
-    ++v11;
-    if (v18)
+    ++v12;
+    if (v19)
     {
       sub_10006CBFC();
-      if (*((v80 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v80 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((v81 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v81 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         sub_10006CC2C();
       }
 
       sub_10006CC3C();
-      v68 = v80;
-      v11 = v14;
+      v69 = v81;
+      v12 = v15;
     }
   }
 
@@ -3978,14 +3978,14 @@ void sub_10000C720(uint64_t a1, uint64_t a2, double a3, double a4)
 {
   v100 = a2;
   v101 = a1;
-  v106 = sub_100003500(&qword_1000887E8);
-  v7 = __chkstk_darwin(v106);
-  v99 = &v92 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __chkstk_darwin(v7);
-  v97 = &v92 - v10;
-  v11 = __chkstk_darwin(v9);
-  v98 = &v92 - v12;
-  __chkstk_darwin(v11);
+  v106 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
+  __chkstk_darwin(v106);
+  v99 = &v92 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v97 = &v92 - v9;
+  __chkstk_darwin(v10);
+  v98 = &v92 - v11;
+  __chkstk_darwin(v12);
   v96 = &v92 - v13;
   v14 = sub_10006BCDC();
   v103 = *(v14 - 8);
@@ -3994,21 +3994,21 @@ void sub_10000C720(uint64_t a1, uint64_t a2, double a3, double a4)
   v16 = &v92 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = sub_10006BB7C();
   v18 = *(v17 - 8);
-  v19 = __chkstk_darwin(v17);
-  v93 = &v92 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = __chkstk_darwin(v19);
-  v95 = &v92 - v22;
-  v23 = __chkstk_darwin(v21);
-  v92 = &v92 - v24;
-  v25 = __chkstk_darwin(v23);
-  v94 = &v92 - v26;
-  v27 = __chkstk_darwin(v25);
-  v29 = &v92 - v28;
-  v30 = __chkstk_darwin(v27);
+  __chkstk_darwin(v17);
+  v93 = &v92 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v20);
+  v95 = &v92 - v21;
+  __chkstk_darwin(v22);
+  v92 = &v92 - v23;
+  __chkstk_darwin(v24);
+  v94 = &v92 - v25;
+  __chkstk_darwin(v26);
+  v28 = &v92 - v27;
+  v30 = __chkstk_darwin(v29);
   v32 = &v92 - v31;
   v33 = *(*v4 + 120);
   v34 = *v4 + 120;
-  v35 = (v33)(v30);
+  v35 = v33(v30);
   (*(*v4 + 144))();
   sub_10006B91C();
   v37 = v36;
@@ -4044,7 +4044,7 @@ LABEL_22:
 
   v46 = sub_10006BC7C();
   (*(v103 + 8))(v41, v104);
-  v42(v29, v39);
+  v42(v28, v39);
   v47 = v39;
   if (v46)
   {
@@ -4221,23 +4221,23 @@ uint64_t sub_10000D074@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
   v65 = a2;
   v59 = a7;
   v60 = a1;
-  v12 = sub_100003500(&qword_1000887E8);
-  v13 = (__chkstk_darwin)(v12 - 8);
-  v58 = &v50 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
+  v12 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
+  __chkstk_darwin(v12 - 8);
+  v58 = &v50 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14);
   v16 = &v50 - v15;
   v17 = sub_10006BB7C();
   v18 = *(v17 - 8);
-  v19 = (__chkstk_darwin)(v17);
-  v21 = &v50 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v19);
+  __chkstk_darwin(v17);
+  v20 = &v50 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v21);
   v23 = &v50 - v22;
-  v24 = sub_100003500(&qword_100088BD8);
-  v25 = (__chkstk_darwin)(v24);
-  v56 = &v50 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = (__chkstk_darwin)(v25);
-  v29 = &v50 - v28;
-  __chkstk_darwin(v27);
+  v24 = sub_100003500(&qword_100088BD8, qword_1000799B0);
+  __chkstk_darwin(v24);
+  v56 = &v50 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v26);
+  v28 = &v50 - v27;
+  __chkstk_darwin(v29);
   v31 = &v50 - v30;
   v32 = (*(*v9 + 184))(a8, a9);
   v33 = *(*v9 + 144);
@@ -4248,7 +4248,7 @@ uint64_t sub_10000D074@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
   {
     sub_10006BB3C();
 
-    (*(v18 + 32))(v16, v21, v17);
+    (*(v18 + 32))(v16, v20, v17);
     v35 = 0;
   }
 
@@ -4259,12 +4259,12 @@ uint64_t sub_10000D074@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
 
   v55 = v34 != 0;
   (*(v18 + 56))(v16, v35, 1, v17);
-  sub_100009204(v16, &qword_1000887E8);
-  v53 = v29;
-  sub_100009264(v31, v29, &qword_100088BD8);
+  sub_100009204(v16, &qword_1000887E8, &qword_1000795A0);
+  v53 = v28;
+  sub_100009264(v31, v28, &qword_100088BD8, qword_1000799B0);
   v54 = *(v24 + 48);
   v36 = v56;
-  sub_100009264(v31, v56, &qword_100088BD8);
+  sub_100009264(v31, v56, &qword_100088BD8, qword_1000799B0);
   v51 = v36 + *(v24 + 48);
   v37 = *(*v9 + 200);
 
@@ -4281,7 +4281,7 @@ uint64_t sub_10000D074@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
   v49 = v42 & 1;
   v44 = v53;
   sub_100066180(v57, v55, v60, v65, v61, v38, v41, v39, v59, v53, v51, v40, v49, v43 & 1);
-  sub_100009204(v31, &qword_100088BD8);
+  sub_100009204(v31, &qword_100088BD8, qword_1000799B0);
   v45 = *(v18 + 8);
   v46 = v36;
   v47 = v52;
@@ -4303,7 +4303,7 @@ uint64_t sub_10000D4E8@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
   v40 = v11;
   __chkstk_darwin(v11);
   v38 = &v36 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = sub_100003500(&qword_100088BE0);
+  v13 = sub_100003500(&qword_100088BE0, &qword_10007B3C0);
   __chkstk_darwin(v13 - 8);
   v15 = &v36 - v14;
   v16 = sub_10006BD3C();
@@ -4317,7 +4317,7 @@ uint64_t sub_10000D4E8@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
   sub_10006BCEC();
   if ((*(v17 + 48))(v15, 1, v16) == 1)
   {
-    sub_100009204(v15, &qword_100088BE0);
+    sub_100009204(v15, &qword_100088BE0, &qword_10007B3C0);
     v24 = type metadata accessor for WidgetUtilities();
     v44[0] = 0;
     v44[1] = 0xE000000000000000;
@@ -4368,7 +4368,7 @@ uint64_t sub_10000D4E8@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
     v47._object = 0x800000010006D8A0;
     v47._countAndFlagsBits = 0xD000000000000020;
     sub_10006CBBC(v47);
-    sub_10000DF5C(&qword_100088800, &type metadata accessor for Date);
+    sub_10000DF5C(&qword_100088800, &type metadata accessor for Date, &protocol conformance descriptor for Date);
     v48._countAndFlagsBits = sub_10006CD9C();
     sub_10006CBBC(v48);
 
@@ -4390,7 +4390,7 @@ unint64_t sub_10000DA40()
   sub_10006CD2C(37);
 
   (*(*v0 + 96))(v1);
-  type metadata accessor for WorldClockCity();
+  type metadata accessor for WorldClockCity(0);
   v2 = sub_10006CC1C();
   v4 = v3;
 
@@ -4413,7 +4413,7 @@ uint64_t sub_10000DB3C()
   return swift_deallocClassInstance();
 }
 
-size_t sub_10000DBC0(size_t result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t a6, uint64_t (*a7)(void))
+void *sub_10000DBC0(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
 {
   v9 = result;
   if (a3)
@@ -4459,7 +4459,7 @@ LABEL_30:
     goto LABEL_19;
   }
 
-  sub_100003500(a5);
+  sub_100003500(a5, a6);
   v14 = *(a7(0) - 8);
   v15 = *(v14 + 72);
   v16 = (*(v14 + 80) + 32) & ~*(v14 + 80);
@@ -4473,7 +4473,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v16 == 0x8000000000000000 && v15 == -1)
+  if ((result - v16) == 0x8000000000000000 && v15 == -1)
   {
     goto LABEL_29;
   }
@@ -4505,14 +4505,14 @@ LABEL_19:
   return v17;
 }
 
-size_t sub_10000DD9C(size_t a1, int64_t a2, char a3)
+void *sub_10000DD9C(void *a1, uint64_t a2, uint64_t a3)
 {
-  result = sub_10000E2D8(a1, a2, a3, *v3, &qword_100088FA8, &unk_100079BF0, type metadata accessor for WorldClockEntry);
+  result = sub_10000E2D8(a1, a2, a3, *v3, &qword_100088FA8, &qword_100079BF0, type metadata accessor for WorldClockEntry);
   *v3 = result;
   return result;
 }
 
-size_t sub_10000DDE0(size_t a1, int64_t a2, char a3)
+void *sub_10000DDE0(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_10000E2D8(a1, a2, a3, *v3, &qword_100088BC8, &unk_1000799A0, type metadata accessor for WorldClockCity);
   *v3 = result;
@@ -4546,7 +4546,7 @@ unint64_t sub_10000DF10()
   return result;
 }
 
-uint64_t sub_10000DF5C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10000DF5C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4601,33 +4601,33 @@ uint64_t sub_10000E13C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_10000E1F4()
+void sub_10000E1F4(uint64_t a1)
 {
   sub_10006BB7C();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_10000E280();
-    if (v1 <= 0x3F)
+    sub_10000E280(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_10000E280()
+void sub_10000E280(uint64_t a1)
 {
   if (!qword_100088E50)
   {
-    type metadata accessor for WorldClockCity();
-    v0 = sub_10006CC6C();
-    if (!v1)
+    type metadata accessor for WorldClockCity(255);
+    v1 = sub_10006CC6C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100088E50);
+      atomic_store(v1, &qword_100088E50);
     }
   }
 }
 
-size_t sub_10000E2D8(size_t result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t a6, uint64_t (*a7)(void))
+void *sub_10000E2D8(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
 {
   v9 = result;
   if (a3)
@@ -4673,7 +4673,7 @@ LABEL_30:
     goto LABEL_19;
   }
 
-  sub_100003500(a5);
+  sub_100003500(a5, a6);
   v14 = *(a7(0) - 8);
   v15 = *(v14 + 72);
   v16 = (*(v14 + 80) + 32) & ~*(v14 + 80);
@@ -4687,7 +4687,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v16 == 0x8000000000000000 && v15 == -1)
+  if ((result - v16) == 0x8000000000000000 && v15 == -1)
   {
     goto LABEL_29;
   }
@@ -5084,13 +5084,13 @@ uint64_t *sub_10000F504()
   return &qword_10008FF80;
 }
 
-uint64_t sub_10000F594(uint64_t a1, uint64_t *a2)
+uint64_t sub_10000F594(double a1, double a2, double a3, uint64_t a4, uint64_t *a5)
 {
-  v3 = sub_10006C71C();
-  v4 = __chkstk_darwin(v3);
-  (*(v6 + 104))(&v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), enum case for Color.RGBColorSpace.sRGB(_:), v4);
+  v6 = sub_10006C71C();
+  v7 = __chkstk_darwin(v6);
+  (*(v9 + 104))(&v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), enum case for Color.RGBColorSpace.sRGB(_:), v7);
   result = sub_10006C7AC();
-  *a2 = result;
+  *a5 = result;
   return result;
 }
 
@@ -5104,7 +5104,7 @@ uint64_t *sub_10000F688()
   return &qword_10008FF88;
 }
 
-uint64_t sub_10000F6FC(void *a1)
+uint64_t sub_10000F6FC(void *a1, uint64_t *a2, uint64_t a3)
 {
   if (*a1 == -1)
   {
@@ -5118,7 +5118,7 @@ uint64_t sub_10000F6FC(void *a1)
 
 uint64_t sub_10000F75C()
 {
-  sub_100003500(&qword_100089080);
+  sub_100003500(&qword_100089080, &qword_100079E28);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_100079C90;
   *(v0 + 32) = sub_10006C76C();
@@ -5156,7 +5156,7 @@ uint64_t *sub_10000F850()
 
 uint64_t sub_10000F8C4()
 {
-  sub_100003500(&qword_100089080);
+  sub_100003500(&qword_100089080, &qword_100079E28);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1000797A0;
   if (qword_10008C900 != -1)
@@ -5192,7 +5192,7 @@ uint64_t *sub_10000F9A8()
 
 uint64_t sub_10000FA1C()
 {
-  sub_100003500(&qword_100089080);
+  sub_100003500(&qword_100089080, &qword_100079E28);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_100079CA0;
   if (qword_10008C8F8 != -1)
@@ -5218,7 +5218,7 @@ uint64_t *sub_10000FAC4()
   return &qword_10008FFA0;
 }
 
-uint64_t sub_10000FB38(void *a1)
+uint64_t sub_10000FB38(void *a1, uint64_t *a2, uint64_t a3)
 {
   if (*a1 == -1)
   {
@@ -5286,7 +5286,7 @@ uint64_t sub_10000FD6C@<X0>(uint64_t a1@<X8>)
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_100003500(&qword_100088FB8);
+  v8 = sub_100003500(&qword_100088FB8, &qword_100079CB0);
   __chkstk_darwin(v8);
   v10 = &v14 - v9;
   sub_10000FF54(v2, &v14 - v9);
@@ -5311,7 +5311,7 @@ uint64_t sub_10000FD6C@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_10000FF54(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100003500(&qword_100088FB8);
+  v4 = sub_100003500(&qword_100088FB8, &qword_100079CB0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -5326,14 +5326,14 @@ uint64_t sub_10000FFE8(uint64_t a1)
 
 uint64_t sub_1000100B0@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for CapMaxContentSizeCategory() + 20);
+  v3 = *(type metadata accessor for CapMaxContentSizeCategory(0) + 20);
   v4 = sub_10006C1AC();
   v5 = *(*(v4 - 8) + 16);
 
   return v5(a1, v1 + v3, v4);
 }
 
-uint64_t type metadata accessor for CapMaxContentSizeCategory()
+uint64_t type metadata accessor for CapMaxContentSizeCategory(uint64_t a1)
 {
   result = qword_10008CAB0;
   if (!qword_10008CAB0)
@@ -5346,7 +5346,7 @@ uint64_t type metadata accessor for CapMaxContentSizeCategory()
 
 uint64_t sub_100010178(uint64_t a1)
 {
-  v3 = *(type metadata accessor for CapMaxContentSizeCategory() + 20);
+  v3 = *(type metadata accessor for CapMaxContentSizeCategory(0) + 20);
   v4 = sub_10006C1AC();
   v5 = *(*(v4 - 8) + 40);
 
@@ -5363,7 +5363,7 @@ uint64_t sub_10001023C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v11 = &v19 - v10;
   KeyPath = swift_getKeyPath();
   sub_10000FD6C(v8);
-  v13 = *(type metadata accessor for CapMaxContentSizeCategory() + 20);
+  v13 = *(type metadata accessor for CapMaxContentSizeCategory(0) + 20);
   v14 = sub_10001088C(v8, v2 + v13);
   (*(v6 + 8))(v8, v5);
   if (v14)
@@ -5376,18 +5376,18 @@ uint64_t sub_10001023C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     sub_10000FD6C(v11);
   }
 
-  v15 = (a2 + *(sub_100003500(&qword_100088FC0) + 36));
-  v16 = sub_100003500(&qword_100088FC8);
+  v15 = (a2 + *(sub_100003500(&qword_100088FC0, &qword_100079CE8) + 36));
+  v16 = sub_100003500(&qword_100088FC8, &qword_100079CF0);
   (*(v6 + 32))(v15 + *(v16 + 28), v11, v5);
   *v15 = KeyPath;
-  v17 = sub_100003500(&qword_100088FD0);
+  v17 = sub_100003500(&qword_100088FD0, &qword_100079CF8);
   return (*(*(v17 - 8) + 16))(a2, a1, v17);
 }
 
 uint64_t sub_10001043C@<X0>(uint64_t *a1@<X8>)
 {
   *a1 = swift_getKeyPath();
-  sub_100003500(&qword_100088FB8);
+  sub_100003500(&qword_100088FB8, &qword_100079CB0);
 
   return swift_storeEnumTagMultiPayload();
 }
@@ -5395,7 +5395,7 @@ uint64_t sub_10001043C@<X0>(uint64_t *a1@<X8>)
 uint64_t sub_10001049C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   sub_100010CA4(a1, a3);
-  v5 = *(type metadata accessor for CapMaxContentSizeCategory() + 20);
+  v5 = *(type metadata accessor for CapMaxContentSizeCategory(0) + 20);
   v6 = sub_10006C1AC();
   v7 = *(*(v6 - 8) + 32);
 
@@ -5425,11 +5425,11 @@ uint64_t sub_100010548@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
     sub_10000FD6C(v13);
   }
 
-  v16 = (a3 + *(sub_100003500(&qword_100088FC0) + 36));
-  v17 = sub_100003500(&qword_100088FC8);
+  v16 = (a3 + *(sub_100003500(&qword_100088FC0, &qword_100079CE8) + 36));
+  v17 = sub_100003500(&qword_100088FC8, &qword_100079CF0);
   (*(v8 + 32))(v16 + *(v17 + 28), v13, v7);
   *v16 = KeyPath;
-  v18 = sub_100003500(&qword_100088FD0);
+  v18 = sub_100003500(&qword_100088FD0, &qword_100079CF8);
   return (*(*(v18 - 8) + 16))(a3, a1, v18);
 }
 
@@ -5620,7 +5620,7 @@ LABEL_24:
 
 uint64_t sub_100010CA4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100003500(&qword_100088B58);
+  v4 = sub_100003500(&qword_100088B58, &qword_100079D00);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -5639,7 +5639,7 @@ unint64_t sub_100010D34()
 
 uint64_t sub_100010DDC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_100003500(&qword_100088B58);
+  v6 = sub_100003500(&qword_100088B58, &qword_100079D00);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -5660,7 +5660,7 @@ uint64_t sub_100010DDC(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_100010EEC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v8 = sub_100003500(&qword_100088B58);
+  v8 = sub_100003500(&qword_100088B58, &qword_100079D00);
   v9 = *(v8 - 8);
   if (*(v9 + 84) == a3)
   {
@@ -5679,28 +5679,28 @@ uint64_t sub_100010EEC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   }
 }
 
-void sub_100010FF4()
+void sub_100010FF4(uint64_t a1)
 {
-  sub_100011078();
-  if (v0 <= 0x3F)
+  sub_100011078(319);
+  if (v1 <= 0x3F)
   {
     sub_10006C1AC();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_100011078()
+void sub_100011078(uint64_t a1)
 {
   if (!qword_100089038)
   {
     sub_10006C1AC();
-    v0 = sub_10006BE5C();
-    if (!v1)
+    v1 = sub_10006BE5C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100089038);
+      atomic_store(v1, &qword_100089038);
     }
   }
 }
@@ -5872,9 +5872,9 @@ unint64_t sub_100011224()
   result = qword_100089068;
   if (!qword_100089068)
   {
-    sub_100007094(&qword_100088FC0);
-    sub_100011308(&qword_100089070, &qword_100088FD0);
-    sub_100011308(&qword_100089078, &qword_100088FC8);
+    sub_100007094(&qword_100088FC0, &qword_100079CE8);
+    sub_100011308(&qword_100089070, &qword_100088FD0, &qword_100079CF8, &protocol conformance descriptor for _ViewModifier_Content<A>);
+    sub_100011308(&qword_100089078, &qword_100088FC8, &qword_100079CF0, &protocol conformance descriptor for _EnvironmentKeyWritingModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100089068);
   }
@@ -5882,12 +5882,12 @@ unint64_t sub_100011224()
   return result;
 }
 
-uint64_t sub_100011308(unint64_t *a1, uint64_t *a2)
+uint64_t sub_100011308(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    sub_100007094(a2);
+    sub_100007094(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -5905,7 +5905,7 @@ uint64_t sub_100011350()
   return qword_10008CAC0;
 }
 
-uint64_t sub_100011420()
+uint64_t sub_100011420(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_10008CAC0 = result;
@@ -5915,39 +5915,39 @@ uint64_t sub_100011420()
 uint64_t sub_100011498@<X0>(uint64_t a1@<X8>)
 {
   v40 = a1;
-  v1 = sub_100003500(&qword_1000890B8);
+  v1 = sub_100003500(&qword_1000890B8, &qword_100079E78);
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = &v35 - v3;
-  v5 = sub_100003500(&qword_1000890C0);
+  v5 = sub_100003500(&qword_1000890C0, &qword_100079E80);
   v6 = *(v5 - 8);
   v36 = v5;
   v37 = v6;
   __chkstk_darwin(v5);
   v8 = &v35 - v7;
-  v9 = sub_100003500(&qword_1000890C8);
+  v9 = sub_100003500(&qword_1000890C8, &qword_100079E88);
   v10 = *(v9 - 8);
   v38 = v9;
   v39 = v10;
   __chkstk_darwin(v9);
   v35 = &v35 - v11;
-  sub_1000165F4(0, &qword_1000890D0);
+  sub_1000165F4(0, &qword_1000890D0, ClocksSingleIntent_ptr);
   type metadata accessor for WorldClockSingleProvider();
   v41 = sub_10000E4B4();
   type metadata accessor for WorldClockWidgetSingle.WidgetView(0);
-  sub_100011AA0(&qword_1000890D8, type metadata accessor for WorldClockWidgetSingle.WidgetView);
-  sub_100011AA0(&qword_1000890E0, type metadata accessor for WorldClockSingleProvider);
+  sub_100011AA0(&qword_1000890D8, type metadata accessor for WorldClockWidgetSingle.WidgetView, &unk_10007A0A0);
+  sub_100011AA0(&qword_1000890E0, type metadata accessor for WorldClockSingleProvider, &unk_1000799D0);
   sub_10006CA4C();
   sub_10006C14C();
   v12 = sub_10006C59C();
   v14 = v13;
   v16 = v15;
-  v17 = sub_100011308(&qword_1000890E8, &qword_1000890B8);
+  v17 = sub_100011308(&qword_1000890E8, &qword_1000890B8, &qword_100079E78, &protocol conformance descriptor for IntentConfiguration<A, B>);
   sub_10006C24C();
   sub_1000070DC(v12, v14, v16 & 1);
 
   (*(v2 + 8))(v4, v1);
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v18 = sub_10006CA0C();
   v19 = *(v18 - 8);
   v20 = *(v19 + 72);
@@ -5981,7 +5981,7 @@ uint64_t sub_100011498@<X0>(uint64_t a1@<X8>)
   return (*(v39 + 8))(v27, v33);
 }
 
-uint64_t sub_100011AA0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100011AA0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5996,58 +5996,58 @@ uint64_t sub_100011AA0(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t sub_100011B14(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for WorldClockEntry();
+  v4 = type metadata accessor for WorldClockEntry(0);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_100011B98@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v72 = a2;
-  v3 = sub_100003500(&qword_100089988);
+  v70 = a2;
+  v3 = sub_100003500(&qword_100089988, &qword_10007A9D8);
   __chkstk_darwin(v3 - 8);
-  v62 = &v59 - v4;
-  v5 = sub_100003500(&qword_100088A48);
+  v60 = &v57 - v4;
+  v5 = sub_100003500(&qword_100088A48, &unk_10007B6A0);
   __chkstk_darwin(v5 - 8);
-  v7 = (&v59 - v6);
-  v69 = type metadata accessor for WorldClockWidgetViewSingle(0);
-  __chkstk_darwin(v69);
-  v9 = &v59 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v70 = sub_100003500(&qword_1000899A8);
-  v65 = *(v70 - 8);
-  __chkstk_darwin(v70);
-  v64 = &v59 - v10;
-  v71 = sub_100003500(&qword_1000899D8);
-  __chkstk_darwin(v71);
-  v67 = &v59 - v11;
-  v12 = sub_100003500(&qword_100088B80);
-  __chkstk_darwin(v12 - 8);
-  v14 = &v59 - v13;
-  v15 = type metadata accessor for WorldClockEntry();
-  __chkstk_darwin(v15 - 8);
-  v17 = &v59 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v68 = type metadata accessor for CityInlineComplication(0);
+  v7 = (&v57 - v6);
+  v67 = type metadata accessor for WorldClockWidgetViewSingle(0);
+  __chkstk_darwin(v67);
+  v9 = &v57 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v68 = sub_100003500(&qword_1000899A8, &qword_10007A9F8);
+  v63 = *(v68 - 8);
   __chkstk_darwin(v68);
-  v19 = &v59 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v66 = sub_100003500(&qword_1000899E0);
-  v63 = *(v66 - 8);
+  v62 = &v57 - v10;
+  v69 = sub_100003500(&qword_1000899D8, &qword_10007AA28);
+  __chkstk_darwin(v69);
+  v65 = &v57 - v11;
+  v12 = sub_100003500(&qword_100088B80, &qword_100079930);
+  __chkstk_darwin(v12 - 8);
+  v14 = &v57 - v13;
+  v15 = type metadata accessor for WorldClockEntry(0);
+  __chkstk_darwin(v15 - 8);
+  v17 = &v57 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v66 = type metadata accessor for CityInlineComplication(0);
   __chkstk_darwin(v66);
-  v21 = &v59 - v20;
+  v19 = &v57 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v64 = sub_100003500(&qword_1000899E0, &unk_10007AA30);
+  v61 = *(v64 - 8);
+  __chkstk_darwin(v64);
+  v21 = &v57 - v20;
   v22 = sub_10006CA0C();
   v23 = *(v22 - 8);
   __chkstk_darwin(v22);
-  v25 = &v59 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = &v57 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100012B34(type metadata accessor for WorldClockWidgetSingle.WidgetView, v25);
-  v60 = v23;
-  v61 = v22;
+  v58 = v23;
+  v59 = v22;
   LODWORD(v22) = (*(v23 + 88))(v25, v22);
   LODWORD(v23) = enum case for WidgetFamily.accessoryInline(_:);
   sub_10001B768(a1, v17, type metadata accessor for WorldClockEntry);
   if (v22 == v23)
   {
-    v26 = v66;
-    v27 = v67;
-    v28 = v69;
+    v26 = v64;
+    v27 = v65;
+    v28 = v67;
     sub_10004EB28(v17, v19);
     v29 = [objc_opt_self() widgetURL];
     if (v29)
@@ -6063,107 +6063,107 @@ uint64_t sub_100011B98@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       v31 = 1;
     }
 
-    v50 = v28;
-    v51 = sub_10006B90C();
-    (*(*(v51 - 8) + 56))(v14, v31, 1, v51);
-    v52 = sub_100011AA0(&qword_100089890, type metadata accessor for CityInlineComplication);
-    v53 = v68;
+    v48 = v28;
+    v49 = sub_10006B90C();
+    (*(*(v49 - 8) + 56))(v14, v31, 1, v49);
+    v50 = sub_100011AA0(&qword_100089890, type metadata accessor for CityInlineComplication, &unk_10007C410);
+    v51 = v66;
     sub_10006C60C();
-    sub_100009204(v14, &qword_100088B80);
+    sub_100009204(v14, &qword_100088B80, &qword_100079930);
     sub_10001B9F0(v19, type metadata accessor for CityInlineComplication);
-    v54 = v63;
-    (*(v63 + 16))(v27, v21, v26);
+    v52 = v61;
+    (*(v61 + 16))(v27, v21, v26);
     swift_storeEnumTagMultiPayload();
-    v73 = v53;
-    v74 = v52;
+    v71 = v51;
+    v72 = v50;
     swift_getOpaqueTypeConformance2();
-    v55 = type metadata accessor for ClockWidgetEnvironmentObject();
-    v56 = v26;
-    v57 = sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle);
-    v58 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
-    v73 = v50;
-    v74 = v55;
-    v75 = v57;
-    v76 = v58;
+    v53 = type metadata accessor for ClockWidgetEnvironmentObject(255);
+    v54 = v26;
+    v55 = sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle, &unk_10007BAF0);
+    v56 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
+    v71 = v48;
+    v72 = v53;
+    v73 = v55;
+    v74 = v56;
     swift_getOpaqueTypeConformance2();
     sub_10006C26C();
-    return (*(v54 + 8))(v21, v56);
+    return (*(v52 + 8))(v21, v54);
   }
 
   else
   {
-    v32 = sub_10002CCBC(v7);
-    v33 = sub_100059A50(v32);
-    v35 = v34;
-    v36 = v62;
-    v37 = sub_100059A90();
-    v38 = sub_100059A80(v37);
-    sub_10002CCD8(v17, v7, v33, v35 & 1, v36, v38, v39 & 1, v9);
-    v40 = type metadata accessor for ClockWidgetEnvironmentObject();
-    v41 = sub_100067BFC();
-    sub_100067C04(v41);
-    v42 = sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle);
-    v43 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
-    v44 = v64;
-    v45 = v69;
+    sub_10002CCBC(v7);
+    v32 = sub_100059A50();
+    v34 = v33;
+    v35 = v60;
+    sub_100059A90();
+    v36 = sub_100059A80();
+    sub_10002CCD8(v17, v7, v32, v34 & 1, v35, v36, v37 & 1, v9);
+    v38 = type metadata accessor for ClockWidgetEnvironmentObject(0);
+    v39 = sub_100067BFC();
+    sub_100067C04(v39);
+    v40 = sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle, &unk_10007BAF0);
+    v41 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
+    v42 = v62;
+    v43 = v67;
     sub_10006C64C();
 
     sub_10001B9F0(v9, type metadata accessor for WorldClockWidgetViewSingle);
-    v46 = v65;
-    v47 = v70;
-    (*(v65 + 16))(v67, v44, v70);
+    v44 = v63;
+    v45 = v68;
+    (*(v63 + 16))(v65, v42, v68);
     swift_storeEnumTagMultiPayload();
-    v48 = sub_100011AA0(&qword_100089890, type metadata accessor for CityInlineComplication);
-    v73 = v68;
-    v74 = v48;
+    v46 = sub_100011AA0(&qword_100089890, type metadata accessor for CityInlineComplication, &unk_10007C410);
+    v71 = v66;
+    v72 = v46;
     swift_getOpaqueTypeConformance2();
-    v73 = v45;
-    v74 = v40;
-    v75 = v42;
-    v76 = v43;
+    v71 = v43;
+    v72 = v38;
+    v73 = v40;
+    v74 = v41;
     swift_getOpaqueTypeConformance2();
     sub_10006C26C();
-    (*(v46 + 8))(v44, v47);
-    return (*(v60 + 8))(v25, v61);
+    (*(v44 + 8))(v42, v45);
+    return (*(v58 + 8))(v25, v59);
   }
 }
 
 uint64_t sub_10001249C@<X0>(uint64_t a1@<X8>)
 {
   v37 = a1;
-  v1 = sub_100003500(&qword_1000890F0);
+  v1 = sub_100003500(&qword_1000890F0, &qword_100079EA0);
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = &v32 - v3;
-  v5 = sub_100003500(&qword_1000890F8);
+  v5 = sub_100003500(&qword_1000890F8, &qword_100079EA8);
   v6 = *(v5 - 8);
   v33 = v5;
   v34 = v6;
   __chkstk_darwin(v5);
   v8 = &v32 - v7;
-  v9 = sub_100003500(&qword_100089100);
+  v9 = sub_100003500(&qword_100089100, &qword_100079EB0);
   v10 = *(v9 - 8);
   v35 = v9;
   v36 = v10;
   __chkstk_darwin(v9);
   v32 = &v32 - v11;
-  sub_1000165F4(0, &qword_1000890D0);
+  sub_1000165F4(0, &qword_1000890D0, ClocksSingleIntent_ptr);
   type metadata accessor for WorldClockSingleProvider();
   v38 = sub_10000E4B4();
   type metadata accessor for WorldClockNonNumericWidgetSingle.WidgetView(0);
-  sub_100011AA0(&qword_100089108, type metadata accessor for WorldClockNonNumericWidgetSingle.WidgetView);
-  sub_100011AA0(&qword_1000890E0, type metadata accessor for WorldClockSingleProvider);
+  sub_100011AA0(&qword_100089108, type metadata accessor for WorldClockNonNumericWidgetSingle.WidgetView, &unk_10007A130);
+  sub_100011AA0(&qword_1000890E0, type metadata accessor for WorldClockSingleProvider, &unk_1000799D0);
   sub_10006CA4C();
   sub_10006C14C();
   v12 = sub_10006C59C();
   v14 = v13;
   v16 = v15;
-  v17 = sub_100011308(&qword_100089110, &qword_1000890F0);
+  v17 = sub_100011308(&qword_100089110, &qword_1000890F0, &qword_100079EA0, &protocol conformance descriptor for IntentConfiguration<A, B>);
   sub_10006C24C();
   sub_1000070DC(v12, v14, v16 & 1);
 
   (*(v2 + 8))(v4, v1);
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v18 = sub_10006CA0C();
   v19 = *(v18 - 8);
   v20 = (*(v19 + 80) + 32) & ~*(v19 + 80);
@@ -6207,7 +6207,7 @@ uint64_t sub_100012B34@<X0>(uint64_t (*a1)(void, __n128)@<X0>, uint64_t a2@<X8>)
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_100003500(&qword_100088A40);
+  v9 = sub_100003500(&qword_100088A40, &unk_100079800);
   v10 = __chkstk_darwin(v9);
   v12 = &v17 - v11;
   v13 = a1(0, v10);
@@ -6239,49 +6239,49 @@ uint64_t sub_100012D64@<X0>(uint64_t a1@<X8>)
   v60 = v1;
   __chkstk_darwin(v1);
   v58 = &v47 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_100003500(&qword_100089118);
+  v3 = sub_100003500(&qword_100089118, &qword_100079EB8);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v47 - v5;
-  v48 = sub_100003500(&qword_100089120);
+  v48 = sub_100003500(&qword_100089120, &qword_100079EC0);
   v50 = *(v48 - 8);
   __chkstk_darwin(v48);
   v8 = &v47 - v7;
-  v9 = sub_100003500(&qword_100089128);
+  v9 = sub_100003500(&qword_100089128, &qword_100079EC8);
   v10 = *(v9 - 8);
   v52 = v9;
   v53 = v10;
   __chkstk_darwin(v9);
   v47 = &v47 - v11;
-  v12 = sub_100003500(&qword_100089130);
+  v12 = sub_100003500(&qword_100089130, &qword_100079ED0);
   v13 = *(v12 - 8);
   v54 = v12;
   v55 = v13;
   __chkstk_darwin(v12);
   v49 = &v47 - v14;
-  v15 = sub_100003500(&qword_100089138);
+  v15 = sub_100003500(&qword_100089138, &qword_100079ED8);
   v16 = *(v15 - 8);
   v56 = v15;
   v57 = v16;
   __chkstk_darwin(v15);
   v51 = &v47 - v17;
-  sub_1000165F4(0, &qword_1000890D0);
+  sub_1000165F4(0, &qword_1000890D0, ClocksSingleIntent_ptr);
   type metadata accessor for WorldClockSingleProvider();
   v62 = sub_10000E4B4();
   type metadata accessor for WorldClockSquareWidgetSingle.WidgetView(0);
-  sub_100011AA0(&qword_100089140, type metadata accessor for WorldClockSquareWidgetSingle.WidgetView);
-  sub_100011AA0(&qword_1000890E0, type metadata accessor for WorldClockSingleProvider);
+  sub_100011AA0(&qword_100089140, type metadata accessor for WorldClockSquareWidgetSingle.WidgetView, &unk_10007A1C0);
+  sub_100011AA0(&qword_1000890E0, type metadata accessor for WorldClockSingleProvider, &unk_1000799D0);
   sub_10006CA4C();
   sub_10006C14C();
   v18 = sub_10006C59C();
   v20 = v19;
   v22 = v21;
-  v23 = sub_100011308(&qword_100089148, &qword_100089118);
+  v23 = sub_100011308(&qword_100089148, &qword_100089118, &qword_100079EB8, &protocol conformance descriptor for IntentConfiguration<A, B>);
   sub_10006C24C();
   sub_1000070DC(v18, v20, v22 & 1);
 
   (*(v4 + 8))(v6, v3);
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v24 = sub_10006CA0C();
   v25 = *(v24 - 8);
   v26 = (*(v25 + 80) + 32) & ~*(v25 + 80);
@@ -6338,51 +6338,51 @@ uint64_t sub_10001364C@<X0>(uint64_t a1@<X8>)
   v62 = v1;
   __chkstk_darwin(v1);
   v60 = &v49 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_100003500(&qword_100089150);
+  v3 = sub_100003500(&qword_100089150, &qword_100079EE0);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v49 - v5;
-  v7 = sub_100003500(&qword_100089158);
+  v7 = sub_100003500(&qword_100089158, &qword_100079EE8);
   v8 = *(v7 - 8);
   v51 = v7;
   v52 = v8;
   __chkstk_darwin(v7);
   v10 = &v49 - v9;
-  v11 = sub_100003500(&qword_100089160);
+  v11 = sub_100003500(&qword_100089160, &qword_100079EF0);
   v12 = *(v11 - 8);
   v54 = v11;
   v55 = v12;
   __chkstk_darwin(v11);
   v49 = &v49 - v13;
-  v14 = sub_100003500(&qword_100089168);
+  v14 = sub_100003500(&qword_100089168, &qword_100079EF8);
   v15 = *(v14 - 8);
   v56 = v14;
   v57 = v15;
   __chkstk_darwin(v14);
   v50 = &v49 - v16;
-  v17 = sub_100003500(&qword_100089170);
+  v17 = sub_100003500(&qword_100089170, &qword_100079F00);
   v18 = *(v17 - 8);
   v58 = v17;
   v59 = v18;
   __chkstk_darwin(v17);
   v53 = &v49 - v19;
-  sub_1000165F4(0, &qword_1000890D0);
+  sub_1000165F4(0, &qword_1000890D0, ClocksSingleIntent_ptr);
   type metadata accessor for WorldClockSingleProvider();
   v64 = sub_10000E4B4();
   type metadata accessor for WorldClockDigitalWidgetSingle.WidgetView(0);
-  sub_100011AA0(&qword_100089178, type metadata accessor for WorldClockDigitalWidgetSingle.WidgetView);
-  sub_100011AA0(&qword_1000890E0, type metadata accessor for WorldClockSingleProvider);
+  sub_100011AA0(&qword_100089178, type metadata accessor for WorldClockDigitalWidgetSingle.WidgetView, &unk_10007A250);
+  sub_100011AA0(&qword_1000890E0, type metadata accessor for WorldClockSingleProvider, &unk_1000799D0);
   sub_10006CA4C();
   sub_10006C14C();
   v20 = sub_10006C59C();
   v22 = v21;
   v24 = v23;
-  v25 = sub_100011308(&qword_100089180, &qword_100089150);
+  v25 = sub_100011308(&qword_100089180, &qword_100089150, &qword_100079EE0, &protocol conformance descriptor for IntentConfiguration<A, B>);
   sub_10006C24C();
   sub_1000070DC(v20, v22, v24 & 1);
 
   (*(v4 + 8))(v6, v3);
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v26 = sub_10006CA0C();
   v27 = *(v26 - 8);
   v28 = (*(v27 + 80) + 32) & ~*(v27 + 80);
@@ -6431,39 +6431,39 @@ uint64_t sub_10001364C@<X0>(uint64_t a1@<X8>)
   return (*(v59 + 8))(v45, v47);
 }
 
-uint64_t sub_100013F34@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void, __n128)@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+uint64_t sub_100013F34@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void, __n128)@<X1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
 {
-  v30 = a3;
-  v31 = a4;
-  v6 = sub_100003500(&qword_100089988);
+  v28 = a3;
+  v29 = a4;
+  v6 = sub_100003500(&qword_100089988, &qword_10007A9D8);
   __chkstk_darwin(v6 - 8);
-  v8 = &v29[-v7];
-  v9 = sub_100003500(&qword_100088A48);
+  v8 = &v27[-v7];
+  v9 = sub_100003500(&qword_100088A48, &unk_10007B6A0);
   __chkstk_darwin(v9 - 8);
-  v11 = &v29[-v10];
-  v12 = type metadata accessor for WorldClockEntry();
+  v11 = &v27[-v10];
+  v12 = type metadata accessor for WorldClockEntry(0);
   __chkstk_darwin(v12 - 8);
-  v14 = &v29[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v14 = &v27[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v15 = type metadata accessor for WorldClockWidgetViewSingle(0);
   __chkstk_darwin(v15);
-  v17 = &v29[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v17 = &v27[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v18 = sub_10006CA0C();
   v19 = *(v18 - 8);
   __chkstk_darwin(v18);
-  v21 = &v29[-((v20 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v21 = &v27[-((v20 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_100012B34(a2, v21);
   (*(v19 + 8))(v21, v18);
   sub_10001B768(a1, v14, type metadata accessor for WorldClockEntry);
-  v22 = sub_10002CCBC(v11);
-  v23 = sub_100059A50(v22);
-  LOBYTE(a1) = v24;
-  v25 = sub_100059A90();
-  v26 = sub_100059A80(v25);
-  sub_10002CCD8(v14, v11, v23, a1 & 1, v8, v26, v27 & 1, v17);
-  type metadata accessor for ClockWidgetEnvironmentObject();
-  sub_100067C04(v30);
-  sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle);
-  sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+  sub_10002CCBC(v11);
+  v22 = sub_100059A50();
+  LOBYTE(a1) = v23;
+  sub_100059A90();
+  v24 = sub_100059A80();
+  sub_10002CCD8(v14, v11, v22, a1 & 1, v8, v24, v25 & 1, v17);
+  type metadata accessor for ClockWidgetEnvironmentObject(0);
+  sub_100067C04(v28);
+  sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle, &unk_10007BAF0);
+  sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
   sub_10006C64C();
 
   return sub_10001B9F0(v17, type metadata accessor for WorldClockWidgetViewSingle);
@@ -6472,39 +6472,39 @@ uint64_t sub_100013F34@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void, __n128)@<X1>,
 uint64_t sub_100014280@<X0>(uint64_t a1@<X8>)
 {
   v40 = a1;
-  v1 = sub_100003500(&qword_100089188);
+  v1 = sub_100003500(&qword_100089188, &qword_100079F08);
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = &v35 - v3;
-  v5 = sub_100003500(&qword_100089190);
+  v5 = sub_100003500(&qword_100089190, &qword_100079F10);
   v6 = *(v5 - 8);
   v36 = v5;
   v37 = v6;
   __chkstk_darwin(v5);
   v8 = &v35 - v7;
-  v9 = sub_100003500(&qword_100089198);
+  v9 = sub_100003500(&qword_100089198, &qword_100079F18);
   v10 = *(v9 - 8);
   v38 = v9;
   v39 = v10;
   __chkstk_darwin(v9);
   v35 = &v35 - v11;
-  sub_1000165F4(0, &qword_1000890D0);
+  sub_1000165F4(0, &qword_1000890D0, ClocksSingleIntent_ptr);
   type metadata accessor for WorldClockSingleProvider();
   v41 = sub_10000E4B4();
   type metadata accessor for CityWidgetDigital.WidgetView(0);
-  sub_100011AA0(&qword_1000891A0, type metadata accessor for CityWidgetDigital.WidgetView);
-  sub_100011AA0(&qword_1000890E0, type metadata accessor for WorldClockSingleProvider);
+  sub_100011AA0(&qword_1000891A0, type metadata accessor for CityWidgetDigital.WidgetView, &unk_10007A2E0);
+  sub_100011AA0(&qword_1000890E0, type metadata accessor for WorldClockSingleProvider, &unk_1000799D0);
   sub_10006CA4C();
   sub_10006C14C();
   v12 = sub_10006C59C();
   v14 = v13;
   v16 = v15;
-  v17 = sub_100011308(&qword_1000891A8, &qword_100089188);
+  v17 = sub_100011308(&qword_1000891A8, &qword_100089188, &qword_100079F08, &protocol conformance descriptor for IntentConfiguration<A, B>);
   sub_10006C24C();
   sub_1000070DC(v12, v14, v16 & 1);
 
   (*(v2 + 8))(v4, v1);
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v18 = sub_10006CA0C();
   v19 = *(v18 - 8);
   v20 = *(v19 + 72);
@@ -6540,7 +6540,7 @@ uint64_t sub_100014280@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_1000148C4(unsigned int *a1, unsigned int *a2)
 {
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v4 = sub_10006CA0C();
   v5 = *(v4 - 8);
   v6 = *(v5 + 72);
@@ -6557,96 +6557,96 @@ uint64_t sub_1000148C4(unsigned int *a1, unsigned int *a2)
 
 uint64_t sub_100014A2C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v132 = a2;
-  v3 = sub_100003500(&qword_100089988);
+  v130 = a2;
+  v3 = sub_100003500(&qword_100089988, &qword_10007A9D8);
   __chkstk_darwin(v3 - 8);
-  v103 = &v100 - v4;
-  v5 = sub_100003500(&qword_100088A48);
+  v101 = &v98 - v4;
+  v5 = sub_100003500(&qword_100088A48, &unk_10007B6A0);
   __chkstk_darwin(v5 - 8);
-  v102 = (&v100 - v6);
-  v111 = type metadata accessor for WorldClockWidgetViewSingle(0);
+  v100 = (&v98 - v6);
+  v109 = type metadata accessor for WorldClockWidgetViewSingle(0);
+  __chkstk_darwin(v109);
+  v102 = &v98 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v111 = sub_100003500(&qword_1000899A8, &qword_10007A9F8);
+  v103 = *(v111 - 8);
   __chkstk_darwin(v111);
-  v104 = &v100 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v113 = sub_100003500(&qword_1000899A8);
-  v105 = *(v113 - 8);
-  __chkstk_darwin(v113);
-  v109 = &v100 - v8;
-  v107 = sub_100003500(&qword_1000899B0);
-  __chkstk_darwin(v107);
-  v110 = &v100 - v9;
-  v131 = sub_100003500(&qword_100089908);
-  __chkstk_darwin(v131);
-  v112 = &v100 - v10;
-  v108 = type metadata accessor for CityInlineComplication(0);
-  __chkstk_darwin(v108);
-  v101 = &v100 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for WorldClockEntry();
-  __chkstk_darwin(v12 - 8);
-  v127 = &v100 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v115 = type metadata accessor for ClockCircularDigitalComplication(0);
-  __chkstk_darwin(v115);
-  v114 = &v100 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v119 = sub_100003500(&qword_1000899B8);
-  v118 = *(v119 - 8);
-  __chkstk_darwin(v119);
-  v116 = &v100 - v15;
-  v126 = sub_100003500(&qword_1000898F0);
-  __chkstk_darwin(v126);
-  v117 = &v100 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v17);
-  v120 = &v100 - v18;
-  v128 = sub_100003500(&qword_1000899C0);
-  __chkstk_darwin(v128);
-  v130 = &v100 - v19;
-  v122 = sub_100003500(&qword_1000899C8);
-  __chkstk_darwin(v122);
-  v124 = &v100 - v20;
-  v129 = sub_100003500(&qword_1000898D8);
+  v107 = &v98 - v8;
+  v105 = sub_100003500(&qword_1000899B0, &qword_10007AA00);
+  __chkstk_darwin(v105);
+  v108 = &v98 - v9;
+  v129 = sub_100003500(&qword_100089908, &qword_10007A9A8);
   __chkstk_darwin(v129);
-  v125 = &v100 - v21;
-  v22 = sub_100003500(&qword_100088B80);
+  v110 = &v98 - v10;
+  v106 = type metadata accessor for CityInlineComplication(0);
+  __chkstk_darwin(v106);
+  v99 = &v98 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for WorldClockEntry(0);
+  __chkstk_darwin(v12 - 8);
+  v125 = &v98 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v113 = type metadata accessor for ClockCircularDigitalComplication(0);
+  __chkstk_darwin(v113);
+  v112 = &v98 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v117 = sub_100003500(&qword_1000899B8, &qword_10007AA08);
+  v116 = *(v117 - 8);
+  __chkstk_darwin(v117);
+  v114 = &v98 - v15;
+  v124 = sub_100003500(&qword_1000898F0, &qword_10007A9A0);
+  __chkstk_darwin(v124);
+  v115 = &v98 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17);
+  v118 = &v98 - v18;
+  v126 = sub_100003500(&qword_1000899C0, &qword_10007AA10);
+  __chkstk_darwin(v126);
+  v128 = &v98 - v19;
+  v120 = sub_100003500(&qword_1000899C8, &qword_10007AA18);
+  __chkstk_darwin(v120);
+  v122 = &v98 - v20;
+  v127 = sub_100003500(&qword_1000898D8, &qword_10007A998);
+  __chkstk_darwin(v127);
+  v123 = &v98 - v21;
+  v22 = sub_100003500(&qword_100088B80, &qword_100079930);
   __chkstk_darwin(v22 - 8);
-  v24 = &v100 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = &v98 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v25);
-  v27 = &v100 - v26;
-  v28 = type metadata accessor for WorldClockCity();
+  v27 = &v98 - v26;
+  v28 = type metadata accessor for WorldClockCity(0);
   __chkstk_darwin(v28 - 8);
-  v30 = &v100 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v121 = type metadata accessor for ClockRectangularComplication(0);
+  v30 = &v98 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v119 = type metadata accessor for ClockRectangularComplication(0);
+  __chkstk_darwin(v119);
+  v32 = &v98 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v121 = sub_100003500(&qword_1000899D0, &qword_10007AA20);
+  v104 = *(v121 - 8);
   __chkstk_darwin(v121);
-  v32 = &v100 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v123 = sub_100003500(&qword_1000899D0);
-  v106 = *(v123 - 8);
-  __chkstk_darwin(v123);
-  v34 = &v100 - v33;
+  v34 = &v98 - v33;
   v35 = sub_10006CA0C();
   v36 = *(v35 - 8);
   __chkstk_darwin(v35);
-  v38 = &v100 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38 = &v98 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
   v39 = a1;
   sub_100012B34(type metadata accessor for CityWidgetDigital.WidgetView, v38);
-  v100 = v36;
+  v98 = v36;
   v40 = (*(v36 + 88))(v38, v35);
   if (v40 == enum case for WidgetFamily.accessoryCircular(_:))
   {
-    v41 = v127;
-    sub_10001B768(a1, v127, type metadata accessor for WorldClockEntry);
-    sub_100020F9C(v135);
-    *(&v137 + 1) = &type metadata for AnalogueCircularDimensions;
-    *&v138 = &off_100086690;
+    v41 = v125;
+    sub_10001B768(a1, v125, type metadata accessor for WorldClockEntry);
+    sub_100020F9C(v133);
+    *(&v135 + 1) = &type metadata for AnalogueCircularDimensions;
+    *&v136 = &off_100086690;
     v42 = swift_allocObject();
-    *&v136 = v42;
-    v43 = v135[1];
-    v42[1] = v135[0];
+    *&v134 = v42;
+    v43 = v133[1];
+    v42[1] = v133[0];
     v42[2] = v43;
-    v44 = v135[3];
-    v42[3] = v135[2];
+    v44 = v133[3];
+    v42[3] = v133[2];
     v42[4] = v44;
     v45 = sub_100001CF8();
     v46 = sub_100001CF8();
     v47 = sub_100001CF8();
-    v48 = v114;
-    sub_10004E420(v41, &v136, v45 & 1, v46 & 1, v47 & 1, v114);
+    v48 = v112;
+    sub_10004E420(v41, &v134, v45 & 1, v46 & 1, v47 & 1, v112);
     v49 = [objc_opt_self() widgetURL];
     if (v49)
     {
@@ -6663,50 +6663,50 @@ uint64_t sub_100014A2C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
     v64 = sub_10006B90C();
     (*(*(v64 - 8) + 56))(v24, v51, 1, v64);
-    sub_100011AA0(&qword_1000898F8, type metadata accessor for ClockCircularDigitalComplication);
-    v65 = v116;
+    sub_100011AA0(&qword_1000898F8, type metadata accessor for ClockCircularDigitalComplication, &unk_10007C3C0);
+    v65 = v114;
     sub_10006C60C();
-    sub_100009204(v24, &qword_100088B80);
+    sub_100009204(v24, &qword_100088B80, &qword_100079930);
     sub_10001B9F0(v48, type metadata accessor for ClockCircularDigitalComplication);
     sub_10006C93C();
     sub_10006BF6C();
-    v66 = v117;
-    (*(v118 + 32))(v117, v65, v119);
-    v67 = (v66 + *(v126 + 36));
-    v68 = v141;
-    v67[4] = v140;
+    v66 = v115;
+    (*(v116 + 32))(v115, v65, v117);
+    v67 = (v66 + *(v124 + 36));
+    v68 = v139;
+    v67[4] = v138;
     v67[5] = v68;
-    v67[6] = v142;
-    v69 = v137;
-    *v67 = v136;
+    v67[6] = v140;
+    v69 = v135;
+    *v67 = v134;
     v67[1] = v69;
-    v70 = v139;
-    v67[2] = v138;
+    v70 = v137;
+    v67[2] = v136;
     v67[3] = v70;
-    v71 = v120;
-    sub_10001F574(v66, v120);
-    sub_100009264(v71, v124, &qword_1000898F0);
+    v71 = v118;
+    sub_10001F574(v66, v118);
+    sub_100009264(v71, v122, &qword_1000898F0, &qword_10007A9A0);
     swift_storeEnumTagMultiPayload();
-    v72 = sub_100011AA0(&qword_1000898E0, type metadata accessor for ClockRectangularComplication);
-    v133 = v121;
-    v134 = v72;
+    v72 = sub_100011AA0(&qword_1000898E0, type metadata accessor for ClockRectangularComplication, &unk_10007BB40);
+    v131 = v119;
+    v132 = v72;
     swift_getOpaqueTypeConformance2();
     sub_10001E4B8();
-    v73 = v125;
+    v73 = v123;
     sub_10006C26C();
-    sub_100009264(v73, v130, &qword_1000898D8);
+    sub_100009264(v73, v128, &qword_1000898D8, &qword_10007A998);
     swift_storeEnumTagMultiPayload();
     sub_10001E3CC();
     sub_10001E5A4();
     sub_10006C26C();
-    sub_100009204(v73, &qword_1000898D8);
-    return sub_100009204(v71, &qword_1000898F0);
+    sub_100009204(v73, &qword_1000898D8, &qword_10007A998);
+    return sub_100009204(v71, &qword_1000898F0, &qword_10007A9A0);
   }
 
   else
   {
     v52 = v40;
-    v53 = v127;
+    v53 = v125;
     if (v40 == enum case for WidgetFamily.accessoryRectangular(_:))
     {
       sub_10000B690(v30);
@@ -6725,104 +6725,104 @@ uint64_t sub_100014A2C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
         v56 = 1;
       }
 
-      v94 = sub_10006B90C();
-      (*(*(v94 - 8) + 56))(v27, v56, 1, v94);
-      v95 = sub_100011AA0(&qword_1000898E0, type metadata accessor for ClockRectangularComplication);
-      v96 = v121;
+      v92 = sub_10006B90C();
+      (*(*(v92 - 8) + 56))(v27, v56, 1, v92);
+      v93 = sub_100011AA0(&qword_1000898E0, type metadata accessor for ClockRectangularComplication, &unk_10007BB40);
+      v94 = v119;
       sub_10006C60C();
-      sub_100009204(v27, &qword_100088B80);
+      sub_100009204(v27, &qword_100088B80, &qword_100079930);
       sub_10001B9F0(v32, type metadata accessor for ClockRectangularComplication);
-      v97 = v106;
-      v98 = v123;
-      (*(v106 + 16))(v124, v34, v123);
+      v95 = v104;
+      v96 = v121;
+      (*(v104 + 16))(v122, v34, v121);
       swift_storeEnumTagMultiPayload();
-      *&v136 = v96;
-      *(&v136 + 1) = v95;
+      *&v134 = v94;
+      *(&v134 + 1) = v93;
       swift_getOpaqueTypeConformance2();
       sub_10001E4B8();
-      v99 = v125;
+      v97 = v123;
       sub_10006C26C();
-      sub_100009264(v99, v130, &qword_1000898D8);
+      sub_100009264(v97, v128, &qword_1000898D8, &qword_10007A998);
       swift_storeEnumTagMultiPayload();
       sub_10001E3CC();
       sub_10001E5A4();
       sub_10006C26C();
-      sub_100009204(v99, &qword_1000898D8);
-      return (*(v97 + 8))(v34, v98);
+      sub_100009204(v97, &qword_1000898D8, &qword_10007A998);
+      return (*(v95 + 8))(v34, v96);
     }
 
     else
     {
       v57 = enum case for WidgetFamily.accessoryInline(_:);
-      sub_10001B768(v39, v127, type metadata accessor for WorldClockEntry);
+      sub_10001B768(v39, v125, type metadata accessor for WorldClockEntry);
       if (v52 == v57)
       {
-        v58 = v101;
-        sub_10004EB28(v53, v101);
-        sub_10001B768(v58, v110, type metadata accessor for CityInlineComplication);
+        v58 = v99;
+        sub_10004EB28(v53, v99);
+        sub_10001B768(v58, v108, type metadata accessor for CityInlineComplication);
         swift_storeEnumTagMultiPayload();
-        sub_100011AA0(&qword_100089890, type metadata accessor for CityInlineComplication);
-        v59 = type metadata accessor for ClockWidgetEnvironmentObject();
-        v60 = sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle);
-        v61 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
-        *&v136 = v111;
-        *(&v136 + 1) = v59;
-        *&v137 = v60;
-        *(&v137 + 1) = v61;
+        sub_100011AA0(&qword_100089890, type metadata accessor for CityInlineComplication, &unk_10007C410);
+        v59 = type metadata accessor for ClockWidgetEnvironmentObject(255);
+        v60 = sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle, &unk_10007BAF0);
+        v61 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
+        *&v134 = v109;
+        *(&v134 + 1) = v59;
+        *&v135 = v60;
+        *(&v135 + 1) = v61;
         swift_getOpaqueTypeConformance2();
-        v62 = v112;
+        v62 = v110;
         sub_10006C26C();
-        sub_100009264(v62, v130, &qword_100089908);
+        sub_100009264(v62, v128, &qword_100089908, &qword_10007A9A8);
         swift_storeEnumTagMultiPayload();
         sub_10001E3CC();
         sub_10001E5A4();
         sub_10006C26C();
-        sub_100009204(v62, &qword_100089908);
+        sub_100009204(v62, &qword_100089908, &qword_10007A9A8);
         return sub_10001B9F0(v58, type metadata accessor for CityInlineComplication);
       }
 
       else
       {
-        v74 = v102;
-        v75 = sub_10002CCBC(v102);
-        v76 = sub_100059A50(v75);
-        v78 = v77;
-        v79 = v103;
-        v80 = sub_100059A90();
-        v81 = sub_100059A80(v80);
-        v83 = v104;
-        sub_10002CCD8(v53, v74, v76, v78 & 1, v79, v81, v82 & 1, v104);
-        v84 = type metadata accessor for ClockWidgetEnvironmentObject();
-        v85 = sub_100067BFC();
-        sub_100067C04(v85);
-        v86 = sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle);
-        v87 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
-        v88 = v109;
-        v89 = v111;
+        v74 = v100;
+        sub_10002CCBC(v100);
+        v75 = sub_100059A50();
+        v77 = v76;
+        v78 = v101;
+        sub_100059A90();
+        v79 = sub_100059A80();
+        v81 = v102;
+        sub_10002CCD8(v53, v74, v75, v77 & 1, v78, v79, v80 & 1, v102);
+        v82 = type metadata accessor for ClockWidgetEnvironmentObject(0);
+        v83 = sub_100067BFC();
+        sub_100067C04(v83);
+        v84 = sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle, &unk_10007BAF0);
+        v85 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
+        v86 = v107;
+        v87 = v109;
         sub_10006C64C();
 
-        sub_10001B9F0(v83, type metadata accessor for WorldClockWidgetViewSingle);
-        v90 = v105;
-        v91 = v88;
-        v92 = v113;
-        (*(v105 + 16))(v110, v91, v113);
+        sub_10001B9F0(v81, type metadata accessor for WorldClockWidgetViewSingle);
+        v88 = v103;
+        v89 = v86;
+        v90 = v111;
+        (*(v103 + 16))(v108, v89, v111);
         swift_storeEnumTagMultiPayload();
-        sub_100011AA0(&qword_100089890, type metadata accessor for CityInlineComplication);
-        *&v136 = v89;
-        *(&v136 + 1) = v84;
-        *&v137 = v86;
-        *(&v137 + 1) = v87;
+        sub_100011AA0(&qword_100089890, type metadata accessor for CityInlineComplication, &unk_10007C410);
+        *&v134 = v87;
+        *(&v134 + 1) = v82;
+        *&v135 = v84;
+        *(&v135 + 1) = v85;
         swift_getOpaqueTypeConformance2();
-        v93 = v112;
+        v91 = v110;
         sub_10006C26C();
-        sub_100009264(v93, v130, &qword_100089908);
+        sub_100009264(v91, v128, &qword_100089908, &qword_10007A9A8);
         swift_storeEnumTagMultiPayload();
         sub_10001E3CC();
         sub_10001E5A4();
         sub_10006C26C();
-        sub_100009204(v93, &qword_100089908);
-        (*(v90 + 8))(v109, v92);
-        return (*(v100 + 8))(v38, v35);
+        sub_100009204(v91, &qword_100089908, &qword_10007A9A8);
+        (*(v88 + 8))(v107, v90);
+        return (*(v98 + 8))(v38, v35);
       }
     }
   }
@@ -6835,7 +6835,7 @@ uint64_t sub_100015E04@<X0>(uint64_t a1@<X8>)
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_100003500(&qword_100088A40);
+  v8 = sub_100003500(&qword_100088A40, &unk_100079800);
   __chkstk_darwin(v8);
   v10 = &v14 - v9;
   sub_1000075EC(v2, &v14 - v9);
@@ -6861,39 +6861,39 @@ uint64_t sub_100015E04@<X0>(uint64_t a1@<X8>)
 uint64_t sub_100015FEC@<X0>(uint64_t a1@<X8>)
 {
   v40 = a1;
-  v1 = sub_100003500(&qword_1000891B0);
+  v1 = sub_100003500(&qword_1000891B0, &qword_100079F20);
   v2 = *(v1 - 8);
   __chkstk_darwin(v1);
   v4 = &v35 - v3;
-  v5 = sub_100003500(&qword_1000891B8);
+  v5 = sub_100003500(&qword_1000891B8, &qword_100079F28);
   v6 = *(v5 - 8);
   v36 = v5;
   v37 = v6;
   __chkstk_darwin(v5);
   v8 = &v35 - v7;
-  v9 = sub_100003500(&qword_1000891C0);
+  v9 = sub_100003500(&qword_1000891C0, &qword_100079F30);
   v10 = *(v9 - 8);
   v38 = v9;
   v39 = v10;
   __chkstk_darwin(v9);
   v35 = &v35 - v11;
-  sub_1000165F4(0, &qword_1000891C8);
+  sub_1000165F4(0, &qword_1000891C8, ClocksIntent_ptr);
   type metadata accessor for WorldClockMultiProvider();
   v41 = sub_10000E4B4();
   type metadata accessor for WorldClockWidgetMulti.WidgetView(0);
-  sub_100011AA0(&qword_1000891D0, type metadata accessor for WorldClockWidgetMulti.WidgetView);
-  sub_100011AA0(&qword_1000891D8, type metadata accessor for WorldClockMultiProvider);
+  sub_100011AA0(&qword_1000891D0, type metadata accessor for WorldClockWidgetMulti.WidgetView, &unk_10007A370);
+  sub_100011AA0(&qword_1000891D8, type metadata accessor for WorldClockMultiProvider, &unk_100079A48);
   sub_10006CA4C();
   sub_10006C14C();
   v12 = sub_10006C59C();
   v14 = v13;
   v16 = v15;
-  v17 = sub_100011308(&qword_1000891E0, &qword_1000891B0);
+  v17 = sub_100011308(&qword_1000891E0, &qword_1000891B0, &qword_100079F20, &protocol conformance descriptor for IntentConfiguration<A, B>);
   sub_10006C24C();
   sub_1000070DC(v12, v14, v16 & 1);
 
   (*(v2 + 8))(v4, v1);
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v18 = sub_10006CA0C();
   v19 = *(v18 - 8);
   v20 = *(v19 + 72);
@@ -6928,7 +6928,7 @@ uint64_t sub_100015FEC@<X0>(uint64_t a1@<X8>)
   return (*(v39 + 8))(v27, v33);
 }
 
-uint64_t sub_1000165F4(uint64_t a1, unint64_t *a2)
+uint64_t sub_1000165F4(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -6946,14 +6946,14 @@ uint64_t sub_100016654@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_
   sub_10001B768(a1, a3, type metadata accessor for WorldClockEntry);
   KeyPath = swift_getKeyPath();
   *(a3 + *(a2(0) + 20)) = KeyPath;
-  sub_100003500(&qword_100088A40);
+  sub_100003500(&qword_100088A40, &unk_100079800);
 
   return swift_storeEnumTagMultiPayload();
 }
 
 uint64_t sub_100016728()
 {
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v0 = sub_10006CA0C();
   v1 = *(v0 - 8);
   v2 = *(v1 + 72);
@@ -6970,52 +6970,52 @@ uint64_t sub_100016728()
 
 uint64_t sub_100016884@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v71 = a2;
-  v3 = sub_100003500(&qword_100089988);
+  v70 = a2;
+  v3 = sub_100003500(&qword_100089988, &qword_10007A9D8);
   __chkstk_darwin(v3 - 8);
-  v62 = &v58 - v4;
-  v5 = sub_100003500(&qword_100088A48);
+  v61 = &v57 - v4;
+  v5 = sub_100003500(&qword_100088A48, &unk_10007B6A0);
   __chkstk_darwin(v5 - 8);
-  v7 = (&v58 - v6);
-  v68 = type metadata accessor for WorldClockWidgetViewMulti(0);
-  __chkstk_darwin(v68);
-  v59 = &v58 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v69 = sub_100003500(&qword_100089990);
-  v64 = *(v69 - 8);
-  __chkstk_darwin(v69);
-  v61 = &v58 - v9;
-  v70 = sub_100003500(&qword_100089998);
-  __chkstk_darwin(v70);
-  v66 = &v58 - v10;
-  v11 = sub_100003500(&qword_100088B80);
-  __chkstk_darwin(v11 - 8);
-  v13 = &v58 - v12;
-  v14 = type metadata accessor for WorldClockEntry();
-  __chkstk_darwin(v14 - 8);
-  v16 = &v58 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v67 = type metadata accessor for WorldClockRectangularSummary(0);
+  v7 = &v57 - v6;
+  v67 = type metadata accessor for WorldClockWidgetViewMulti(0);
   __chkstk_darwin(v67);
-  v18 = &v58 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v65 = sub_100003500(&qword_1000899A0);
-  v63 = *(v65 - 8);
-  __chkstk_darwin(v65);
-  v20 = &v58 - v19;
+  v58 = &v57 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v68 = sub_100003500(&qword_100089990, &qword_10007A9E0);
+  v63 = *(v68 - 8);
+  __chkstk_darwin(v68);
+  v60 = &v57 - v9;
+  v69 = sub_100003500(&qword_100089998, &qword_10007A9E8);
+  __chkstk_darwin(v69);
+  v65 = &v57 - v10;
+  v11 = sub_100003500(&qword_100088B80, &qword_100079930);
+  __chkstk_darwin(v11 - 8);
+  v13 = &v57 - v12;
+  v14 = type metadata accessor for WorldClockEntry(0);
+  __chkstk_darwin(v14 - 8);
+  v16 = &v57 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v66 = type metadata accessor for WorldClockRectangularSummary(0);
+  __chkstk_darwin(v66);
+  v18 = &v57 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v64 = sub_100003500(&qword_1000899A0, &qword_10007A9F0);
+  v62 = *(v64 - 8);
+  __chkstk_darwin(v64);
+  v20 = &v57 - v19;
   v21 = sub_10006CA0C();
   v22 = *(v21 - 8);
   __chkstk_darwin(v21);
-  v24 = &v58 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = &v57 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100012B34(type metadata accessor for WorldClockWidgetMulti.WidgetView, v24);
-  v58 = v22;
+  v57 = v22;
   v25 = *(v22 + 88);
-  v60 = v21;
+  v59 = v21;
   v26 = v25(v24, v21);
   LODWORD(v21) = enum case for WidgetFamily.accessoryRectangular(_:);
   sub_10001B768(a1, v16, type metadata accessor for WorldClockEntry);
   if (v26 == v21)
   {
-    v27 = v65;
-    v28 = v66;
-    v29 = v68;
+    v27 = v64;
+    v28 = v65;
+    v29 = v67;
     sub_10004B678(v16, v18);
     v30 = [objc_opt_self() widgetURL];
     if (v30)
@@ -7031,75 +7031,75 @@ uint64_t sub_100016884@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
       v32 = 1;
     }
 
-    v49 = v29;
-    v50 = sub_10006B90C();
-    (*(*(v50 - 8) + 56))(v13, v32, 1, v50);
-    v51 = sub_100011AA0(&qword_100089930, type metadata accessor for WorldClockRectangularSummary);
-    v52 = v67;
+    v48 = v29;
+    v49 = sub_10006B90C();
+    (*(*(v49 - 8) + 56))(v13, v32, 1, v49);
+    v50 = sub_100011AA0(&qword_100089930, type metadata accessor for WorldClockRectangularSummary, &unk_10007C320);
+    v51 = v66;
     sub_10006C60C();
-    sub_100009204(v13, &qword_100088B80);
+    sub_100009204(v13, &qword_100088B80, &qword_100079930);
     sub_10001B9F0(v18, type metadata accessor for WorldClockRectangularSummary);
-    v53 = v63;
-    (*(v63 + 16))(v28, v20, v27);
+    v52 = v62;
+    (*(v62 + 16))(v28, v20, v27);
     swift_storeEnumTagMultiPayload();
-    v72 = v52;
-    v73 = v51;
+    v71 = v51;
+    v72 = v50;
     swift_getOpaqueTypeConformance2();
-    v54 = type metadata accessor for ClockWidgetEnvironmentObject();
-    v55 = v27;
-    v56 = sub_100011AA0(&qword_100089938, type metadata accessor for WorldClockWidgetViewMulti);
-    v57 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
-    v72 = v49;
-    v73 = v54;
+    v53 = type metadata accessor for ClockWidgetEnvironmentObject(255);
+    v54 = v27;
+    v55 = sub_100011AA0(&qword_100089938, type metadata accessor for WorldClockWidgetViewMulti, &unk_10007BB90);
+    v56 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
+    v71 = v48;
+    v72 = v53;
+    v73 = v55;
     v74 = v56;
-    v75 = v57;
     swift_getOpaqueTypeConformance2();
     sub_10006C26C();
-    return (*(v53 + 8))(v20, v55);
+    return (*(v52 + 8))(v20, v54);
   }
 
   else
   {
-    v33 = sub_100059A8C(v7);
-    v34 = sub_100059A50(v33);
-    v36 = v35;
-    v37 = v62;
+    sub_100059A8C();
+    v33 = sub_100059A50();
+    v35 = v34;
+    v36 = v61;
     sub_100059A90();
-    v38 = v59;
-    sub_10002F27C(v16, v7, v34, v36 & 1, v37, v59);
-    v39 = type metadata accessor for ClockWidgetEnvironmentObject();
-    v40 = sub_100067BFC();
-    sub_100067C04(v40);
-    v41 = sub_100011AA0(&qword_100089938, type metadata accessor for WorldClockWidgetViewMulti);
-    v42 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
-    v43 = v61;
-    v44 = v68;
+    v37 = v58;
+    sub_10002F27C(v16, v7, v33, v35 & 1, v36, v58);
+    v38 = type metadata accessor for ClockWidgetEnvironmentObject(0);
+    v39 = sub_100067BFC();
+    sub_100067C04(v39);
+    v40 = sub_100011AA0(&qword_100089938, type metadata accessor for WorldClockWidgetViewMulti, &unk_10007BB90);
+    v41 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
+    v42 = v60;
+    v43 = v67;
     sub_10006C64C();
 
-    sub_10001B9F0(v38, type metadata accessor for WorldClockWidgetViewMulti);
-    v45 = v64;
-    v46 = v69;
-    (*(v64 + 16))(v66, v43, v69);
+    sub_10001B9F0(v37, type metadata accessor for WorldClockWidgetViewMulti);
+    v44 = v63;
+    v45 = v68;
+    (*(v63 + 16))(v65, v42, v68);
     swift_storeEnumTagMultiPayload();
-    v47 = sub_100011AA0(&qword_100089930, type metadata accessor for WorldClockRectangularSummary);
-    v72 = v67;
-    v73 = v47;
+    v46 = sub_100011AA0(&qword_100089930, type metadata accessor for WorldClockRectangularSummary, &unk_10007C320);
+    v71 = v66;
+    v72 = v46;
     swift_getOpaqueTypeConformance2();
-    v72 = v44;
-    v73 = v39;
+    v71 = v43;
+    v72 = v38;
+    v73 = v40;
     v74 = v41;
-    v75 = v42;
     swift_getOpaqueTypeConformance2();
     sub_10006C26C();
-    (*(v45 + 8))(v43, v46);
-    return (*(v58 + 8))(v24, v60);
+    (*(v44 + 8))(v42, v45);
+    return (*(v57 + 8))(v24, v59);
   }
 }
 
 uint64_t sub_100017168@<X0>(uint64_t *a1@<X8>)
 {
   *a1 = swift_getKeyPath();
-  sub_100003500(&qword_100088A40);
+  sub_100003500(&qword_100088A40, &unk_100079800);
 
   return swift_storeEnumTagMultiPayload();
 }
@@ -7112,27 +7112,27 @@ uint64_t sub_1000171E0@<X0>(uint64_t a1@<X8>)
   v64 = v1;
   __chkstk_darwin(v1);
   v62 = &v50 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_100003500(&qword_1000891E8);
+  v3 = sub_100003500(&qword_1000891E8, &qword_100079F38);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v50 - v5;
-  v52 = sub_100003500(&qword_1000891F0);
+  v52 = sub_100003500(&qword_1000891F0, &qword_100079F40);
   v54 = *(v52 - 8);
   __chkstk_darwin(v52);
   v8 = &v50 - v7;
-  v9 = sub_100003500(&qword_1000891F8);
+  v9 = sub_100003500(&qword_1000891F8, &qword_100079F48);
   v10 = *(v9 - 8);
   v56 = v9;
   v57 = v10;
   __chkstk_darwin(v9);
   v51 = &v50 - v11;
-  v12 = sub_100003500(&qword_100089200);
+  v12 = sub_100003500(&qword_100089200, &qword_100079F50);
   v13 = *(v12 - 8);
   v58 = v12;
   v59 = v13;
   __chkstk_darwin(v12);
   v53 = &v50 - v14;
-  v15 = sub_100003500(&qword_100089208);
+  v15 = sub_100003500(&qword_100089208, &qword_100079F58);
   v16 = *(v15 - 8);
   v60 = v15;
   v61 = v16;
@@ -7140,28 +7140,28 @@ uint64_t sub_1000171E0@<X0>(uint64_t a1@<X8>)
   v55 = &v50 - v17;
   type metadata accessor for DateTimeProvider();
   v70 = sub_10000A300();
-  sub_100003500(&qword_100089210);
+  sub_100003500(&qword_100089210, &qword_100079F60);
   v18 = type metadata accessor for DateTimeWidgetView(255);
-  v19 = type metadata accessor for ClockWidgetEnvironmentObject();
-  v20 = sub_100011AA0(&qword_100089218, type metadata accessor for DateTimeWidgetView);
-  v21 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+  v19 = type metadata accessor for ClockWidgetEnvironmentObject(255);
+  v20 = sub_100011AA0(&qword_100089218, type metadata accessor for DateTimeWidgetView, &unk_10007C230);
+  v21 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
   v66 = v18;
   v67 = v19;
   v68 = v20;
   v69 = v21;
   swift_getOpaqueTypeConformance2();
-  sub_100011AA0(&qword_100089228, type metadata accessor for DateTimeProvider);
+  sub_100011AA0(&qword_100089228, type metadata accessor for DateTimeProvider, &unk_10007AA60);
   sub_10006CA5C();
   sub_10006C14C();
   v22 = sub_10006C59C();
   v24 = v23;
   LOBYTE(v20) = v25;
-  v26 = sub_100011308(&qword_100089230, &qword_1000891E8);
+  v26 = sub_100011308(&qword_100089230, &qword_1000891E8, &qword_100079F38, &protocol conformance descriptor for StaticConfiguration<A>);
   sub_10006C24C();
   sub_1000070DC(v22, v24, v20 & 1);
 
   (*(v4 + 8))(v6, v3);
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v27 = sub_10006CA0C();
   v28 = *(v27 - 8);
   v29 = (*(v28 + 80) + 32) & ~*(v28 + 80);
@@ -7212,23 +7212,22 @@ uint64_t sub_1000171E0@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_100017A90(uint64_t a1)
 {
-  v2 = sub_100003500(&qword_100089988);
+  v2 = sub_100003500(&qword_100089988, &qword_10007A9D8);
   __chkstk_darwin(v2 - 8);
   v4 = &v14 - v3;
   v5 = type metadata accessor for DateTimeWidgetView(0);
   __chkstk_darwin(v5);
   v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for DateTimeEntry();
-  LOBYTE(a1) = *(a1 + *(v8 + 24));
-  v9 = sub_100059A50(v8);
+  v8 = *(a1 + *(type metadata accessor for DateTimeEntry(0) + 24));
+  v9 = sub_100059A50();
   v11 = v10;
   sub_100059A90();
-  sub_100048438(a1, v9, v11 & 1, v4, v7);
-  type metadata accessor for ClockWidgetEnvironmentObject();
+  sub_100048438(v8, v9, v11 & 1, v4, v7);
+  type metadata accessor for ClockWidgetEnvironmentObject(0);
   v12 = sub_100067BFC();
   sub_100067C04(v12);
-  sub_100011AA0(&qword_100089218, type metadata accessor for DateTimeWidgetView);
-  sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+  sub_100011AA0(&qword_100089218, type metadata accessor for DateTimeWidgetView, &unk_10007C230);
+  sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
   sub_10006C64C();
 
   return sub_10001B9F0(v7, type metadata accessor for DateTimeWidgetView);
@@ -7242,27 +7241,27 @@ uint64_t sub_100017C70@<X0>(uint64_t a1@<X8>)
   v64 = v1;
   __chkstk_darwin(v1);
   v62 = &v50 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_100003500(&qword_100089238);
+  v3 = sub_100003500(&qword_100089238, &qword_100079F68);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v50 - v5;
-  v52 = sub_100003500(&qword_100089240);
+  v52 = sub_100003500(&qword_100089240, &qword_100079F70);
   v54 = *(v52 - 8);
   __chkstk_darwin(v52);
   v8 = &v50 - v7;
-  v9 = sub_100003500(&qword_100089248);
+  v9 = sub_100003500(&qword_100089248, &qword_100079F78);
   v10 = *(v9 - 8);
   v56 = v9;
   v57 = v10;
   __chkstk_darwin(v9);
   v51 = &v50 - v11;
-  v12 = sub_100003500(&qword_100089250);
+  v12 = sub_100003500(&qword_100089250, &qword_100079F80);
   v13 = *(v12 - 8);
   v58 = v12;
   v59 = v13;
   __chkstk_darwin(v12);
   v53 = &v50 - v14;
-  v15 = sub_100003500(&qword_100089258);
+  v15 = sub_100003500(&qword_100089258, &qword_100079F88);
   v16 = *(v15 - 8);
   v60 = v15;
   v61 = v16;
@@ -7270,28 +7269,28 @@ uint64_t sub_100017C70@<X0>(uint64_t a1@<X8>)
   v55 = &v50 - v17;
   type metadata accessor for DateTimeProvider();
   v70 = sub_10000A300();
-  sub_100003500(&qword_100089260);
+  sub_100003500(&qword_100089260, &qword_100079F90);
   v18 = type metadata accessor for NonNumericWidgetView(255);
-  v19 = type metadata accessor for ClockWidgetEnvironmentObject();
-  v20 = sub_100011AA0(&qword_100089268, type metadata accessor for NonNumericWidgetView);
-  v21 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+  v19 = type metadata accessor for ClockWidgetEnvironmentObject(255);
+  v20 = sub_100011AA0(&qword_100089268, type metadata accessor for NonNumericWidgetView, &unk_10007C280);
+  v21 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
   v66 = v18;
   v67 = v19;
   v68 = v20;
   v69 = v21;
   swift_getOpaqueTypeConformance2();
-  sub_100011AA0(&qword_100089228, type metadata accessor for DateTimeProvider);
+  sub_100011AA0(&qword_100089228, type metadata accessor for DateTimeProvider, &unk_10007AA60);
   sub_10006CA5C();
   sub_10006C14C();
   v22 = sub_10006C59C();
   v24 = v23;
   LOBYTE(v20) = v25;
-  v26 = sub_100011308(&qword_100089270, &qword_100089238);
+  v26 = sub_100011308(&qword_100089270, &qword_100089238, &qword_100079F68, &protocol conformance descriptor for StaticConfiguration<A>);
   sub_10006C24C();
   sub_1000070DC(v22, v24, v20 & 1);
 
   (*(v4 + 8))(v6, v3);
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v27 = sub_10006CA0C();
   v28 = *(v27 - 8);
   v29 = (*(v28 + 80) + 32) & ~*(v28 + 80);
@@ -7342,22 +7341,21 @@ uint64_t sub_100017C70@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_100018520(uint64_t a1)
 {
-  v2 = sub_100003500(&qword_100089988);
+  v2 = sub_100003500(&qword_100089988, &qword_10007A9D8);
   __chkstk_darwin(v2 - 8);
-  v4 = (&v13 - v3);
+  v4 = (&v12 - v3);
   v5 = type metadata accessor for NonNumericWidgetView(0);
   __chkstk_darwin(v5);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for DateTimeEntry();
-  LOBYTE(a1) = *(a1 + *(v8 + 24));
-  v9 = sub_100059A50(v8);
-  v11 = v10;
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  LOBYTE(a1) = *(a1 + *(type metadata accessor for DateTimeEntry(0) + 24));
+  v8 = sub_100059A50();
+  v10 = v9;
   sub_1000489E0(v4);
-  sub_1000489FC(a1, v9, v11 & 1, v4, v7);
-  type metadata accessor for ClockWidgetEnvironmentObject();
+  sub_1000489FC(a1, v8, v10 & 1, v4, v7);
+  type metadata accessor for ClockWidgetEnvironmentObject(0);
   sub_100067C04(3);
-  sub_100011AA0(&qword_100089268, type metadata accessor for NonNumericWidgetView);
-  sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+  sub_100011AA0(&qword_100089268, type metadata accessor for NonNumericWidgetView, &unk_10007C280);
+  sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
   sub_10006C64C();
 
   return sub_10001B9F0(v7, type metadata accessor for NonNumericWidgetView);
@@ -7371,27 +7369,27 @@ uint64_t sub_100018700@<X0>(uint64_t a1@<X8>)
   v64 = v1;
   __chkstk_darwin(v1);
   v62 = &v50 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_100003500(&qword_100089278);
+  v3 = sub_100003500(&qword_100089278, &qword_100079F98);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v50 - v5;
-  v52 = sub_100003500(&qword_100089280);
+  v52 = sub_100003500(&qword_100089280, &qword_100079FA0);
   v54 = *(v52 - 8);
   __chkstk_darwin(v52);
   v8 = &v50 - v7;
-  v9 = sub_100003500(&qword_100089288);
+  v9 = sub_100003500(&qword_100089288, &qword_100079FA8);
   v10 = *(v9 - 8);
   v56 = v9;
   v57 = v10;
   __chkstk_darwin(v9);
   v51 = &v50 - v11;
-  v12 = sub_100003500(&qword_100089290);
+  v12 = sub_100003500(&qword_100089290, &qword_100079FB0);
   v13 = *(v12 - 8);
   v58 = v12;
   v59 = v13;
   __chkstk_darwin(v12);
   v53 = &v50 - v14;
-  v15 = sub_100003500(&qword_100089298);
+  v15 = sub_100003500(&qword_100089298, &qword_100079FB8);
   v16 = *(v15 - 8);
   v60 = v15;
   v61 = v16;
@@ -7399,28 +7397,28 @@ uint64_t sub_100018700@<X0>(uint64_t a1@<X8>)
   v55 = &v50 - v17;
   type metadata accessor for DateTimeProvider();
   v70 = sub_10000A300();
-  sub_100003500(&qword_1000892A0);
+  sub_100003500(&qword_1000892A0, &qword_100079FC0);
   v18 = type metadata accessor for SquareWidgetView(255);
-  v19 = type metadata accessor for ClockWidgetEnvironmentObject();
-  v20 = sub_100011AA0(&qword_1000892A8, type metadata accessor for SquareWidgetView);
-  v21 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+  v19 = type metadata accessor for ClockWidgetEnvironmentObject(255);
+  v20 = sub_100011AA0(&qword_1000892A8, type metadata accessor for SquareWidgetView, &unk_10007C2D0);
+  v21 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
   v66 = v18;
   v67 = v19;
   v68 = v20;
   v69 = v21;
   swift_getOpaqueTypeConformance2();
-  sub_100011AA0(&qword_100089228, type metadata accessor for DateTimeProvider);
+  sub_100011AA0(&qword_100089228, type metadata accessor for DateTimeProvider, &unk_10007AA60);
   sub_10006CA5C();
   sub_10006C14C();
   v22 = sub_10006C59C();
   v24 = v23;
   LOBYTE(v20) = v25;
-  v26 = sub_100011308(&qword_1000892B0, &qword_100089278);
+  v26 = sub_100011308(&qword_1000892B0, &qword_100089278, &qword_100079F98, &protocol conformance descriptor for StaticConfiguration<A>);
   sub_10006C24C();
   sub_1000070DC(v22, v24, v20 & 1);
 
   (*(v4 + 8))(v6, v3);
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v27 = sub_10006CA0C();
   v28 = *(v27 - 8);
   v29 = (*(v28 + 80) + 32) & ~*(v28 + 80);
@@ -7471,22 +7469,21 @@ uint64_t sub_100018700@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_100018FB4(uint64_t a1)
 {
-  v2 = sub_100003500(&qword_100089988);
+  v2 = sub_100003500(&qword_100089988, &qword_10007A9D8);
   __chkstk_darwin(v2 - 8);
-  v4 = &v13 - v3;
+  v4 = &v12 - v3;
   v5 = type metadata accessor for SquareWidgetView(0);
   __chkstk_darwin(v5);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for DateTimeEntry();
-  LOBYTE(a1) = *(a1 + *(v8 + 24));
-  v9 = sub_100059A50(v8);
-  v11 = v10;
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  LOBYTE(a1) = *(a1 + *(type metadata accessor for DateTimeEntry(0) + 24));
+  v8 = sub_100059A50();
+  v10 = v9;
   sub_100059A90();
-  sub_1000495A4(a1, v9, v11 & 1, v4, v7);
-  type metadata accessor for ClockWidgetEnvironmentObject();
+  sub_1000495A4(a1, v8, v10 & 1, v4, v7);
+  type metadata accessor for ClockWidgetEnvironmentObject(0);
   sub_100067C04(4);
-  sub_100011AA0(&qword_1000892A8, type metadata accessor for SquareWidgetView);
-  sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+  sub_100011AA0(&qword_1000892A8, type metadata accessor for SquareWidgetView, &unk_10007C2D0);
+  sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
   sub_10006C64C();
 
   return sub_10001B9F0(v7, type metadata accessor for SquareWidgetView);
@@ -7500,27 +7497,27 @@ uint64_t sub_100019194@<X0>(uint64_t a1@<X8>)
   v64 = v1;
   __chkstk_darwin(v1);
   v62 = &v50 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_100003500(&qword_1000892B8);
+  v3 = sub_100003500(&qword_1000892B8, &qword_100079FC8);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v50 - v5;
-  v52 = sub_100003500(&qword_1000892C0);
+  v52 = sub_100003500(&qword_1000892C0, &qword_100079FD0);
   v54 = *(v52 - 8);
   __chkstk_darwin(v52);
   v8 = &v50 - v7;
-  v9 = sub_100003500(&qword_1000892C8);
+  v9 = sub_100003500(&qword_1000892C8, &qword_100079FD8);
   v10 = *(v9 - 8);
   v56 = v9;
   v57 = v10;
   __chkstk_darwin(v9);
   v51 = &v50 - v11;
-  v12 = sub_100003500(&qword_1000892D0);
+  v12 = sub_100003500(&qword_1000892D0, &qword_100079FE0);
   v13 = *(v12 - 8);
   v58 = v12;
   v59 = v13;
   __chkstk_darwin(v12);
   v53 = &v50 - v14;
-  v15 = sub_100003500(&qword_1000892D8);
+  v15 = sub_100003500(&qword_1000892D8, &qword_100079FE8);
   v16 = *(v15 - 8);
   v60 = v15;
   v61 = v16;
@@ -7528,28 +7525,28 @@ uint64_t sub_100019194@<X0>(uint64_t a1@<X8>)
   v55 = &v50 - v17;
   type metadata accessor for DateTimeProvider();
   v70 = sub_10000A300();
-  sub_100003500(&qword_1000892E0);
+  sub_100003500(&qword_1000892E0, &qword_100079FF0);
   v18 = type metadata accessor for DigitalClockWidgetView(255);
-  v19 = type metadata accessor for ClockWidgetEnvironmentObject();
-  v20 = sub_100011AA0(&qword_1000892E8, type metadata accessor for DigitalClockWidgetView);
-  v21 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+  v19 = type metadata accessor for ClockWidgetEnvironmentObject(255);
+  v20 = sub_100011AA0(&qword_1000892E8, type metadata accessor for DigitalClockWidgetView, &unk_10007C1E0);
+  v21 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
   v66 = v18;
   v67 = v19;
   v68 = v20;
   v69 = v21;
   swift_getOpaqueTypeConformance2();
-  sub_100011AA0(&qword_100089228, type metadata accessor for DateTimeProvider);
+  sub_100011AA0(&qword_100089228, type metadata accessor for DateTimeProvider, &unk_10007AA60);
   sub_10006CA5C();
   sub_10006C14C();
   v22 = sub_10006C59C();
   v24 = v23;
   LOBYTE(v20) = v25;
-  v26 = sub_100011308(&qword_1000892F0, &qword_1000892B8);
+  v26 = sub_100011308(&qword_1000892F0, &qword_1000892B8, &qword_100079FC8, &protocol conformance descriptor for StaticConfiguration<A>);
   sub_10006C24C();
   sub_1000070DC(v22, v24, v20 & 1);
 
   (*(v4 + 8))(v6, v3);
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v27 = sub_10006CA0C();
   v28 = *(v27 - 8);
   v29 = (*(v28 + 80) + 32) & ~*(v28 + 80);
@@ -7600,22 +7597,21 @@ uint64_t sub_100019194@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_100019A50(uint64_t a1)
 {
-  v2 = sub_100003500(&qword_100089988);
+  v2 = sub_100003500(&qword_100089988, &qword_10007A9D8);
   __chkstk_darwin(v2 - 8);
   v4 = &v13 - v3;
   v5 = type metadata accessor for DigitalClockWidgetView(0);
   __chkstk_darwin(v5);
   v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for DateTimeEntry();
-  LOBYTE(a1) = *(a1 + *(v8 + 24));
-  v9 = sub_100059A50(v8);
+  v8 = *(a1 + *(type metadata accessor for DateTimeEntry(0) + 24));
+  v9 = sub_100059A50();
   v11 = v10;
   sub_100059A90();
-  sub_100047D50(a1, v9, v11 & 1, v4, v7);
-  type metadata accessor for ClockWidgetEnvironmentObject();
+  sub_100047D50(v8, v9, v11 & 1, v4, v7);
+  type metadata accessor for ClockWidgetEnvironmentObject(0);
   sub_100067C04(0);
-  sub_100011AA0(&qword_1000892E8, type metadata accessor for DigitalClockWidgetView);
-  sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+  sub_100011AA0(&qword_1000892E8, type metadata accessor for DigitalClockWidgetView, &unk_10007C1E0);
+  sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
   sub_10006C64C();
 
   return sub_10001B9F0(v7, type metadata accessor for DigitalClockWidgetView);
@@ -7624,51 +7620,51 @@ uint64_t sub_100019A50(uint64_t a1)
 uint64_t sub_100019C30@<X0>(uint64_t a1@<X8>)
 {
   v43 = a1;
-  v1 = sub_100003500(&qword_1000892F8);
+  v1 = sub_100003500(&qword_1000892F8, &qword_100079FF8);
   v37 = *(v1 - 8);
   __chkstk_darwin(v1);
   v3 = &v37 - v2;
-  v4 = sub_100003500(&qword_100089300);
+  v4 = sub_100003500(&qword_100089300, &qword_10007A000);
   v5 = *(v4 - 8);
   v39 = v4;
   v40 = v5;
   __chkstk_darwin(v4);
   v7 = &v37 - v6;
-  v8 = sub_100003500(&qword_100089308);
+  v8 = sub_100003500(&qword_100089308, &qword_10007A008);
   v9 = *(v8 - 8);
   v41 = v8;
   v42 = v9;
   __chkstk_darwin(v8);
   v38 = &v37 - v10;
-  sub_1000165F4(0, &qword_1000890D0);
+  sub_1000165F4(0, &qword_1000890D0, ClocksSingleIntent_ptr);
   type metadata accessor for WorldClockSingleProvider();
   v48 = sub_10000E4B4();
-  sub_100003500(&qword_100089310);
-  v11 = sub_100007094(&qword_100089318);
-  v12 = type metadata accessor for ClockWidgetEnvironmentObject();
-  v13 = sub_100007094(&qword_100089320);
+  sub_100003500(&qword_100089310, &qword_10007A010);
+  v11 = sub_100007094(&qword_100089318, &qword_10007A018);
+  v12 = type metadata accessor for ClockWidgetEnvironmentObject(255);
+  v13 = sub_100007094(&qword_100089320, &qword_10007A020);
   v14 = sub_10001A7B0();
   v44 = v13;
   v45 = v14;
   OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
-  v16 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+  v16 = sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
   v44 = v11;
   v45 = v12;
   v46 = OpaqueTypeConformance2;
   v47 = v16;
   swift_getOpaqueTypeConformance2();
-  sub_100011AA0(&qword_1000890E0, type metadata accessor for WorldClockSingleProvider);
+  sub_100011AA0(&qword_1000890E0, type metadata accessor for WorldClockSingleProvider, &unk_1000799D0);
   sub_10006CA4C();
   sub_10006C14C();
   v17 = sub_10006C59C();
   v19 = v18;
   v21 = v20;
-  v22 = sub_100011308(&qword_100089338, &qword_1000892F8);
+  v22 = sub_100011308(&qword_100089338, &qword_1000892F8, &qword_100079FF8, &protocol conformance descriptor for IntentConfiguration<A, B>);
   sub_10006C24C();
   sub_1000070DC(v17, v19, v21 & 1);
 
   (*(v37 + 8))(v3, v1);
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v23 = sub_10006CA0C();
   v24 = *(v23 - 8);
   v25 = (*(v24 + 80) + 32) & ~*(v24 + 80);
@@ -7701,22 +7697,22 @@ uint64_t sub_100019C30@<X0>(uint64_t a1@<X8>)
 uint64_t sub_10001A288@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v40 = a2;
-  v3 = sub_100003500(&qword_100088B80);
+  v3 = sub_100003500(&qword_100088B80, &qword_100079930);
   __chkstk_darwin(v3 - 8);
   v5 = &v38 - v4;
-  v6 = sub_100003500(&qword_100088B58);
+  v6 = sub_100003500(&qword_100088B58, &qword_100079D00);
   __chkstk_darwin(v6 - 8);
   v8 = &v38 - v7;
-  v9 = type metadata accessor for WorldClockEntry();
+  v9 = type metadata accessor for WorldClockEntry(0);
   __chkstk_darwin(v9 - 8);
   v11 = &v38 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for ClockCircularAnalogueComplication(0);
   __chkstk_darwin(v12 - 8);
   v14 = &v38 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = sub_100003500(&qword_100089320);
+  v15 = sub_100003500(&qword_100089320, &qword_10007A020);
   __chkstk_darwin(v15);
   v17 = &v38 - v16;
-  v39 = sub_100003500(&qword_100089318);
+  v39 = sub_100003500(&qword_100089318, &qword_10007A018);
   v18 = *(v39 - 8);
   __chkstk_darwin(v39);
   v20 = &v38 - v19;
@@ -7765,15 +7761,15 @@ uint64_t sub_10001A288@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   (*(*(v33 - 8) + 56))(v5, v26, 1, v33);
   v34 = sub_10001A7B0();
   sub_10006C60C();
-  sub_100009204(v5, &qword_100088B80);
-  sub_100009204(v17, &qword_100089320);
-  type metadata accessor for ClockWidgetEnvironmentObject();
+  sub_100009204(v5, &qword_100088B80, &qword_100079930);
+  sub_100009204(v17, &qword_100089320, &qword_10007A020);
+  type metadata accessor for ClockWidgetEnvironmentObject(0);
   v35 = sub_100067BFC();
   sub_100067C04(v35);
   v41 = v15;
   v42 = v34;
   swift_getOpaqueTypeConformance2();
-  sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+  sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
   v36 = v39;
   sub_10006C64C();
 
@@ -7785,8 +7781,8 @@ unint64_t sub_10001A7B0()
   result = qword_100089328;
   if (!qword_100089328)
   {
-    sub_100007094(&qword_100089320);
-    sub_100011AA0(&qword_100089330, type metadata accessor for ClockCircularAnalogueComplication);
+    sub_100007094(&qword_100089320, &qword_10007A020);
+    sub_100011AA0(&qword_100089330, type metadata accessor for ClockCircularAnalogueComplication, &unk_10007C370);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100089328);
   }
@@ -7796,7 +7792,7 @@ unint64_t sub_10001A7B0()
 
 uint64_t sub_10001A878(unsigned int *a1)
 {
-  sub_100003500(&qword_100088A38);
+  sub_100003500(&qword_100088A38, &unk_100079E90);
   v2 = sub_10006CA0C();
   v3 = *(v2 - 8);
   v4 = (*(v3 + 80) + 32) & ~*(v3 + 80);
@@ -7808,107 +7804,107 @@ uint64_t sub_10001A878(unsigned int *a1)
 
 uint64_t sub_10001A960@<X0>(uint64_t a1@<X8>)
 {
-  v56 = a1;
-  v63 = sub_100003500(&qword_100089340);
-  v65 = *(v63 - 8);
-  __chkstk_darwin(v63);
-  v62 = &v49 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v55 = a1;
+  v62 = sub_100003500(&qword_100089340, &qword_10007A028);
+  v64 = *(v62 - 8);
+  __chkstk_darwin(v62);
+  v61 = &v48 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v2);
-  v55 = &v49 - v3;
+  v54 = &v48 - v3;
   v4 = type metadata accessor for CityWidgetDigital(0);
   __chkstk_darwin(v4 - 8);
-  v61 = &v49 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v60 = &v48 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v6);
-  v8 = (&v49 - v7);
+  v8 = (&v48 - v7);
   v9 = type metadata accessor for WorldClockWidgetMulti(0);
   __chkstk_darwin(v9 - 8);
-  v60 = &v49 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v59 = &v48 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v11);
-  v13 = (&v49 - v12);
-  v54 = sub_100003500(&qword_100089348);
-  v64 = *(v54 - 8);
-  __chkstk_darwin(v54);
-  v58 = &v49 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = (&v48 - v12);
+  v53 = sub_100003500(&qword_100089348, &qword_10007A030);
+  v63 = *(v53 - 8);
+  __chkstk_darwin(v53);
+  v57 = &v48 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v15);
-  v17 = &v49 - v16;
-  v59 = sub_100003500(&qword_100089350);
-  v66 = *(v59 - 8);
-  __chkstk_darwin(v59);
-  v57 = &v49 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = &v48 - v16;
+  v58 = sub_100003500(&qword_100089350, &qword_10007A038);
+  v65 = *(v58 - 8);
+  __chkstk_darwin(v58);
+  v56 = &v48 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v19);
-  v21 = &v49 - v20;
-  v22 = sub_100003500(&qword_100089358);
-  v50 = v22;
-  v52 = *(v22 - 8);
-  v23 = v52;
+  v21 = &v48 - v20;
+  v22 = sub_100003500(&qword_100089358, &qword_10007A040);
+  v49 = v22;
+  v51 = *(v22 - 8);
+  v23 = v51;
   __chkstk_darwin(v22);
-  v25 = &v49 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = &v48 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v26);
-  v28 = &v49 - v27;
+  v28 = &v48 - v27;
   sub_10001B0B8();
-  v51 = v28;
+  v50 = v28;
   sub_10006C20C();
-  sub_100003500(&qword_100089368);
-  v49 = v21;
+  sub_100003500(&qword_100089368, &qword_10007A048);
+  v48 = v21;
   sub_10006BE8C();
   sub_10001B158();
   *v13 = swift_getKeyPath();
-  sub_100003500(&qword_100088A40);
+  sub_100003500(&qword_100088A40, &unk_100079800);
   swift_storeEnumTagMultiPayload();
   *v8 = swift_getKeyPath();
-  v29 = swift_storeEnumTagMultiPayload();
-  nullsub_1(v29);
-  v30 = v55;
-  sub_10001B2E8(v55);
-  v31 = *(v23 + 16);
-  v53 = v25;
-  v31(v25, v28, v22);
-  v67[0] = v25;
-  v32 = v57;
-  (*(v66 + 16))(v57, v21, v59);
-  v67[1] = v32;
-  v33 = v64;
-  v34 = v58;
-  v35 = v54;
-  (*(v64 + 16))(v58, v17, v54);
-  v67[3] = v34;
+  swift_storeEnumTagMultiPayload();
+  nullsub_1();
+  v29 = v54;
+  sub_10001B2E8(v54);
+  v30 = *(v23 + 16);
+  v52 = v25;
+  v30(v25, v28, v22);
+  v66[0] = v25;
+  v31 = v56;
+  (*(v65 + 16))(v56, v21, v58);
+  v66[1] = v31;
+  v32 = v63;
+  v33 = v57;
+  v34 = v53;
+  (*(v63 + 16))(v57, v17, v53);
+  v66[3] = v33;
+  v35 = v59;
+  sub_10001B768(v13, v59, type metadata accessor for WorldClockWidgetMulti);
+  v66[4] = v35;
   v36 = v60;
-  sub_10001B768(v13, v60, type metadata accessor for WorldClockWidgetMulti);
-  v67[4] = v36;
-  v37 = v61;
-  sub_10001B768(v8, v61, type metadata accessor for CityWidgetDigital);
-  v67[5] = v37;
-  v38 = v65;
+  sub_10001B768(v8, v60, type metadata accessor for CityWidgetDigital);
+  v66[5] = v36;
+  v37 = v64;
+  v38 = v61;
   v39 = v62;
-  v40 = v63;
-  v41 = v30;
-  (*(v65 + 16))(v62, v30, v63);
-  v67[8] = v39;
-  sub_10001B7D0(v67);
-  v42 = *(v38 + 8);
-  v65 = v38 + 8;
-  v42(v41, v40);
+  v40 = v29;
+  (*(v64 + 16))(v61, v29, v62);
+  v66[8] = v38;
+  sub_10001B7D0(v66);
+  v41 = *(v37 + 8);
+  v64 = v37 + 8;
+  v41(v40, v39);
   sub_10001B9F0(v8, type metadata accessor for CityWidgetDigital);
   sub_10001B9F0(v13, type metadata accessor for WorldClockWidgetMulti);
-  v43 = *(v33 + 8);
-  v64 = v33 + 8;
-  v43(v17, v35);
-  v44 = *(v66 + 8);
-  v66 += 8;
-  v45 = v59;
-  v44(v49, v59);
-  v46 = *(v52 + 8);
-  v47 = v50;
-  v46(v51, v50);
-  v42(v62, v63);
-  sub_10001B9F0(v61, type metadata accessor for CityWidgetDigital);
-  sub_10001B9F0(v60, type metadata accessor for WorldClockWidgetMulti);
-  v43(v58, v35);
-  v44(v57, v45);
-  return (v46)(v53, v47);
+  v42 = *(v32 + 8);
+  v63 = v32 + 8;
+  v42(v17, v34);
+  v43 = *(v65 + 8);
+  v65 += 8;
+  v44 = v58;
+  v43(v48, v58);
+  v45 = *(v51 + 8);
+  v46 = v49;
+  v45(v50, v49);
+  v41(v61, v62);
+  sub_10001B9F0(v60, type metadata accessor for CityWidgetDigital);
+  sub_10001B9F0(v59, type metadata accessor for WorldClockWidgetMulti);
+  v42(v57, v34);
+  v43(v56, v44);
+  return (v45)(v52, v46);
 }
 
-uint64_t sub_10001B074()
+uint64_t sub_10001B074(__n128 a1)
 {
   sub_10001B0B8();
 
@@ -7929,14 +7925,14 @@ unint64_t sub_10001B0B8()
 
 uint64_t sub_10001B10C()
 {
-  sub_100003500(&qword_100089368);
+  sub_100003500(&qword_100089368, &qword_10007A048);
 
   return sub_10006BE8C();
 }
 
 uint64_t sub_10001B158()
 {
-  v0 = sub_100003500(&qword_100089370);
+  v0 = sub_100003500(&qword_100089370, &qword_10007A050);
   __chkstk_darwin(v0);
   v2 = &v10 - v1;
   v3 = type metadata accessor for WorldClockWidgetSingle(0);
@@ -7945,7 +7941,7 @@ uint64_t sub_10001B158()
   __chkstk_darwin(v6);
   v8 = (&v10 - v7);
   *v8 = swift_getKeyPath();
-  sub_100003500(&qword_100088A40);
+  sub_100003500(&qword_100088A40, &unk_100079800);
   swift_storeEnumTagMultiPayload();
   sub_10001B768(v8, v5, type metadata accessor for WorldClockWidgetSingle);
   sub_10001B768(v5, v2, type metadata accessor for WorldClockWidgetSingle);
@@ -7957,16 +7953,16 @@ uint64_t sub_10001B158()
 uint64_t sub_10001B2E8@<X0>(uint64_t a1@<X8>)
 {
   v49 = a1;
-  v48 = sub_100003500(&qword_100089378);
+  v48 = sub_100003500(&qword_100089378, &qword_10007A058);
   __chkstk_darwin(v48);
   v47 = &v35 - v1;
-  v46 = sub_100003500(&qword_100089380);
+  v46 = sub_100003500(&qword_100089380, &qword_10007A060);
   v50 = *(v46 - 8);
   __chkstk_darwin(v46);
   v45 = &v35 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v52 = &v35 - v4;
-  v5 = sub_100003500(&qword_100089388);
+  v5 = sub_100003500(&qword_100089388, &qword_10007A068);
   v36 = v5;
   v41 = *(v5 - 8);
   v6 = v41;
@@ -7974,7 +7970,7 @@ uint64_t sub_10001B2E8@<X0>(uint64_t a1@<X8>)
   v51 = &v35 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v8);
   v10 = &v35 - v9;
-  v11 = sub_100003500(&qword_100089390);
+  v11 = sub_100003500(&qword_100089390, &qword_10007A070);
   v44 = *(v11 - 8);
   v12 = v44;
   __chkstk_darwin(v11);
@@ -8033,25 +8029,25 @@ uint64_t sub_10001B768(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 
 uint64_t sub_10001B7D0(uint64_t *a1)
 {
-  v2 = sub_100003500(&qword_100089980);
+  v2 = sub_100003500(&qword_100089980, &qword_10007A9D0);
   __chkstk_darwin(v2);
   v4 = &v17 - v3;
   v5 = *a1;
-  v6 = sub_100003500(&qword_100089358);
+  v6 = sub_100003500(&qword_100089358, &qword_10007A040);
   (*(*(v6 - 8) + 16))(v4, v5, v6);
   v7 = v2[12];
   v8 = a1[1];
-  v9 = sub_100003500(&qword_100089350);
+  v9 = sub_100003500(&qword_100089350, &qword_10007A038);
   (*(*(v9 - 8) + 16))(&v4[v7], v8, v9);
   v10 = v2[20];
   v11 = a1[3];
-  v12 = sub_100003500(&qword_100089348);
+  v12 = sub_100003500(&qword_100089348, &qword_10007A030);
   (*(*(v12 - 8) + 16))(&v4[v10], v11, v12);
   sub_10001B768(a1[4], &v4[v2[24]], type metadata accessor for WorldClockWidgetMulti);
   sub_10001B768(a1[5], &v4[v2[28]], type metadata accessor for CityWidgetDigital);
   v13 = v2[40];
   v14 = a1[8];
-  v15 = sub_100003500(&qword_100089340);
+  v15 = sub_100003500(&qword_100089340, &qword_10007A028);
   (*(*(v15 - 8) + 16))(&v4[v13], v14, v15);
   return sub_10006BE8C();
 }
@@ -8063,7 +8059,7 @@ uint64_t sub_10001B9F0(uint64_t a1, uint64_t (*a2)(void))
   return a1;
 }
 
-uint64_t sub_10001BA70(uint64_t a1, uint64_t *a2)
+uint64_t sub_10001BA70(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -8130,19 +8126,19 @@ uint64_t sub_10001BCC0@<X0>(uint64_t a1@<X8>)
   v33 = v1;
   __chkstk_darwin(v1);
   v3 = &v26 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_100003500(&qword_1000893B8);
+  v4 = sub_100003500(&qword_1000893B8, &qword_10007A078);
   v5 = *(v4 - 8);
   v26 = v4;
   v27 = v5;
   __chkstk_darwin(v4);
   v7 = &v26 - v6;
-  v8 = sub_100003500(&qword_1000893C0);
+  v8 = sub_100003500(&qword_1000893C0, &qword_10007A080);
   v9 = *(v8 - 8);
   v28 = v8;
   v29 = v9;
   __chkstk_darwin(v8);
   v11 = &v26 - v10;
-  v12 = sub_100003500(&qword_1000893C8);
+  v12 = sub_100003500(&qword_1000893C8, &qword_10007A088);
   v13 = *(v12 - 8);
   v30 = v12;
   v31 = v13;
@@ -8150,15 +8146,15 @@ uint64_t sub_10001BCC0@<X0>(uint64_t a1@<X8>)
   v15 = &v26 - v14;
   swift_beginAccess();
 
-  sub_100003500(&qword_1000893D0);
-  v16 = sub_100007094(&qword_1000893D8);
-  v17 = sub_100011308(&qword_1000893E0, &qword_1000893D8);
+  sub_100003500(&qword_1000893D0, &qword_10007A090);
+  v16 = sub_100007094(&qword_1000893D8, &qword_10007A098);
+  v17 = sub_100011308(&qword_1000893E0, &qword_1000893D8, &qword_10007A098, &protocol conformance descriptor for ControlWidgetButton<A, B, C>);
   v35 = v16;
   v36 = v17;
   swift_getOpaqueTypeConformance2();
   sub_10006CAEC();
   sub_10006B8AC();
-  v18 = sub_100011308(&qword_1000893E8, &qword_1000893B8);
+  v18 = sub_100011308(&qword_1000893E8, &qword_1000893B8, &qword_10007A078, &protocol conformance descriptor for StaticControlConfiguration<A>);
   v19 = v26;
   sub_10006C2EC();
   v20 = v33;
@@ -8196,19 +8192,19 @@ uint64_t sub_10001C298@<X0>(uint64_t a1@<X8>)
   v33 = v1;
   __chkstk_darwin(v1);
   v3 = &v26 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_100003500(&qword_1000893B8);
+  v4 = sub_100003500(&qword_1000893B8, &qword_10007A078);
   v5 = *(v4 - 8);
   v26 = v4;
   v27 = v5;
   __chkstk_darwin(v4);
   v7 = &v26 - v6;
-  v8 = sub_100003500(&qword_1000893C0);
+  v8 = sub_100003500(&qword_1000893C0, &qword_10007A080);
   v9 = *(v8 - 8);
   v28 = v8;
   v29 = v9;
   __chkstk_darwin(v8);
   v11 = &v26 - v10;
-  v12 = sub_100003500(&qword_1000893C8);
+  v12 = sub_100003500(&qword_1000893C8, &qword_10007A088);
   v13 = *(v12 - 8);
   v30 = v12;
   v31 = v13;
@@ -8216,15 +8212,15 @@ uint64_t sub_10001C298@<X0>(uint64_t a1@<X8>)
   v15 = &v26 - v14;
   swift_beginAccess();
 
-  sub_100003500(&qword_1000893D0);
-  v16 = sub_100007094(&qword_1000893D8);
-  v17 = sub_100011308(&qword_1000893E0, &qword_1000893D8);
+  sub_100003500(&qword_1000893D0, &qword_10007A090);
+  v16 = sub_100007094(&qword_1000893D8, &qword_10007A098);
+  v17 = sub_100011308(&qword_1000893E0, &qword_1000893D8, &qword_10007A098, &protocol conformance descriptor for ControlWidgetButton<A, B, C>);
   v35 = v16;
   v36 = v17;
   swift_getOpaqueTypeConformance2();
   sub_10006CAEC();
   sub_10006B8AC();
-  v18 = sub_100011308(&qword_1000893E8, &qword_1000893B8);
+  v18 = sub_100011308(&qword_1000893E8, &qword_1000893B8, &qword_10007A078, &protocol conformance descriptor for StaticControlConfiguration<A>);
   v19 = v26;
   sub_10006C2EC();
   v20 = v33;
@@ -8247,23 +8243,24 @@ uint64_t sub_10001C298@<X0>(uint64_t a1@<X8>)
   return (*(v31 + 8))(v15, v24);
 }
 
-uint64_t sub_10001C750(int a1)
+uint64_t sub_10001C750(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_100003500(&qword_1000893D8);
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  v5 = v7 - v4;
-  v7[1] = sub_100023734(a1);
-  sub_100003500(&qword_100089968);
-  sub_100011308(&qword_100089970, &qword_100089968);
+  v2 = a1;
+  v3 = sub_100003500(&qword_1000893D8, &qword_10007A098);
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = v8 - v5;
+  v8[1] = sub_100023734(v2);
+  sub_100003500(&qword_100089968, &qword_10007A9C8);
+  sub_100011308(&qword_100089970, &qword_100089968, &qword_10007A9C8, &protocol conformance descriptor for Label<A, B>);
   sub_10001F480();
   sub_10006C97C();
   sub_10002AC48();
-  sub_100011308(&qword_1000893E0, &qword_1000893D8);
+  sub_100011308(&qword_1000893E0, &qword_1000893D8, &qword_10007A098, &protocol conformance descriptor for ControlWidgetButton<A, B, C>);
 
   sub_10006C27C();
 
-  return (*(v3 + 8))(v5, v2);
+  return (*(v4 + 8))(v6, v3);
 }
 
 uint64_t sub_10001C98C@<X0>(uint64_t *a1@<X8>)
@@ -8281,19 +8278,19 @@ uint64_t sub_10001CA54@<X0>(uint64_t a1@<X8>)
   v33 = v1;
   __chkstk_darwin(v1);
   v3 = &v26 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_100003500(&qword_1000893B8);
+  v4 = sub_100003500(&qword_1000893B8, &qword_10007A078);
   v5 = *(v4 - 8);
   v26 = v4;
   v27 = v5;
   __chkstk_darwin(v4);
   v7 = &v26 - v6;
-  v8 = sub_100003500(&qword_1000893C0);
+  v8 = sub_100003500(&qword_1000893C0, &qword_10007A080);
   v9 = *(v8 - 8);
   v28 = v8;
   v29 = v9;
   __chkstk_darwin(v8);
   v11 = &v26 - v10;
-  v12 = sub_100003500(&qword_1000893C8);
+  v12 = sub_100003500(&qword_1000893C8, &qword_10007A088);
   v13 = *(v12 - 8);
   v30 = v12;
   v31 = v13;
@@ -8301,15 +8298,15 @@ uint64_t sub_10001CA54@<X0>(uint64_t a1@<X8>)
   v15 = &v26 - v14;
   swift_beginAccess();
 
-  sub_100003500(&qword_1000893D0);
-  v16 = sub_100007094(&qword_1000893D8);
-  v17 = sub_100011308(&qword_1000893E0, &qword_1000893D8);
+  sub_100003500(&qword_1000893D0, &qword_10007A090);
+  v16 = sub_100007094(&qword_1000893D8, &qword_10007A098);
+  v17 = sub_100011308(&qword_1000893E0, &qword_1000893D8, &qword_10007A098, &protocol conformance descriptor for ControlWidgetButton<A, B, C>);
   v35 = v16;
   v36 = v17;
   swift_getOpaqueTypeConformance2();
   sub_10006CAEC();
   sub_10006B8AC();
-  v18 = sub_100011308(&qword_1000893E8, &qword_1000893B8);
+  v18 = sub_100011308(&qword_1000893E8, &qword_1000893B8, &qword_10007A078, &protocol conformance descriptor for StaticControlConfiguration<A>);
   v19 = v26;
   sub_10006C2EC();
   v20 = v33;
@@ -8332,14 +8329,14 @@ uint64_t sub_10001CA54@<X0>(uint64_t a1@<X8>)
   return (*(v31 + 8))(v15, v24);
 }
 
-uint64_t sub_10001CF6C@<X0>(uint64_t a1@<X8>)
+uint64_t sub_10001CF6C@<X0>(uint64_t a3@<X8>)
 {
   sub_10006C14C();
   result = sub_10006C59C();
-  *a1 = result;
-  *(a1 + 8) = v3;
-  *(a1 + 16) = v4 & 1;
-  *(a1 + 24) = v5;
+  *a3 = result;
+  *(a3 + 8) = v5;
+  *(a3 + 16) = v6 & 1;
+  *(a3 + 24) = v7;
   return result;
 }
 
@@ -8359,7 +8356,7 @@ int main(int argc, const char **argv, const char **envp)
 
 uint64_t sub_10001D470(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100003500(&qword_100088A48);
+  v4 = sub_100003500(&qword_100088A48, &unk_10007B6A0);
   v5 = *(*(v4 - 8) + 48);
 
   return v5(a1, a2, v4);
@@ -8367,16 +8364,16 @@ uint64_t sub_10001D470(uint64_t a1, uint64_t a2)
 
 uint64_t sub_10001D4FC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100003500(&qword_100088A48);
+  v4 = sub_100003500(&qword_100088A48, &unk_10007B6A0);
   v5 = *(*(v4 - 8) + 56);
 
   return v5(a1, a2, a2, v4);
 }
 
-void sub_10001D578()
+void sub_10001D578(uint64_t a1)
 {
-  sub_100008BA4();
-  if (v0 <= 0x3F)
+  sub_100008BA4(319);
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }
@@ -8384,7 +8381,7 @@ void sub_10001D578()
 
 uint64_t sub_10001D5F8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = type metadata accessor for WorldClockEntry();
+  v6 = type metadata accessor for WorldClockEntry(0);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -8395,7 +8392,7 @@ uint64_t sub_10001D5F8(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v10 = sub_100003500(&qword_100088A48);
+    v10 = sub_100003500(&qword_100088A48, &unk_10007B6A0);
     v11 = *(*(v10 - 8) + 48);
     v12 = a1 + *(a3 + 20);
 
@@ -8405,7 +8402,7 @@ uint64_t sub_10001D5F8(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_10001D708(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v8 = type metadata accessor for WorldClockEntry();
+  v8 = type metadata accessor for WorldClockEntry(0);
   v9 = *(v8 - 8);
   if (*(v9 + 84) == a3)
   {
@@ -8416,7 +8413,7 @@ uint64_t sub_10001D708(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v12 = sub_100003500(&qword_100088A48);
+    v12 = sub_100003500(&qword_100088A48, &unk_10007B6A0);
     v13 = *(*(v12 - 8) + 56);
     v14 = a1 + *(a4 + 20);
 
@@ -8424,13 +8421,13 @@ uint64_t sub_10001D708(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   }
 }
 
-void sub_10001D810()
+void sub_10001D810(uint64_t a1)
 {
-  type metadata accessor for WorldClockEntry();
-  if (v0 <= 0x3F)
+  type metadata accessor for WorldClockEntry(319);
+  if (v1 <= 0x3F)
   {
-    sub_100008BA4();
-    if (v1 <= 0x3F)
+    sub_100008BA4(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -8439,10 +8436,10 @@ void sub_10001D810()
 
 uint64_t sub_10001D964()
 {
-  sub_100007094(&qword_1000890C8);
-  sub_100007094(&qword_1000890C0);
-  sub_100007094(&qword_1000890B8);
-  sub_100011308(&qword_1000890E8, &qword_1000890B8);
+  sub_100007094(&qword_1000890C8, &qword_100079E88);
+  sub_100007094(&qword_1000890C0, &qword_100079E80);
+  sub_100007094(&qword_1000890B8, &qword_100079E78);
+  sub_100011308(&qword_1000890E8, &qword_1000890B8, &qword_100079E78, &protocol conformance descriptor for IntentConfiguration<A, B>);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   return swift_getOpaqueTypeConformance2();
@@ -8453,14 +8450,14 @@ unint64_t sub_10001DAC0()
   result = qword_100089880;
   if (!qword_100089880)
   {
-    sub_100007094(&qword_100089888);
+    sub_100007094(&qword_100089888, &qword_10007A978);
     type metadata accessor for CityInlineComplication(255);
-    sub_100011AA0(&qword_100089890, type metadata accessor for CityInlineComplication);
+    sub_100011AA0(&qword_100089890, type metadata accessor for CityInlineComplication, &unk_10007C410);
     swift_getOpaqueTypeConformance2();
     type metadata accessor for WorldClockWidgetViewSingle(255);
-    type metadata accessor for ClockWidgetEnvironmentObject();
-    sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle);
-    sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+    type metadata accessor for ClockWidgetEnvironmentObject(255);
+    sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle, &unk_10007BAF0);
+    sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100089880);
@@ -8471,10 +8468,10 @@ unint64_t sub_10001DAC0()
 
 uint64_t sub_10001DC64()
 {
-  sub_100007094(&qword_100089100);
-  sub_100007094(&qword_1000890F8);
-  sub_100007094(&qword_1000890F0);
-  sub_100011308(&qword_100089110, &qword_1000890F0);
+  sub_100007094(&qword_100089100, &qword_100079EB0);
+  sub_100007094(&qword_1000890F8, &qword_100079EA8);
+  sub_100007094(&qword_1000890F0, &qword_100079EA0);
+  sub_100011308(&qword_100089110, &qword_1000890F0, &qword_100079EA0, &protocol conformance descriptor for IntentConfiguration<A, B>);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   return swift_getOpaqueTypeConformance2();
@@ -8485,11 +8482,11 @@ unint64_t sub_10001DD80()
   result = qword_1000898A0;
   if (!qword_1000898A0)
   {
-    sub_100007094(&qword_1000898A8);
+    sub_100007094(&qword_1000898A8, &qword_10007A980);
     type metadata accessor for WorldClockWidgetViewSingle(255);
-    type metadata accessor for ClockWidgetEnvironmentObject();
-    sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle);
-    sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+    type metadata accessor for ClockWidgetEnvironmentObject(255);
+    sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle, &unk_10007BAF0);
+    sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1000898A0);
@@ -8500,12 +8497,12 @@ unint64_t sub_10001DD80()
 
 uint64_t sub_10001DEB4()
 {
-  sub_100007094(&qword_100089138);
-  sub_100007094(&qword_100089130);
-  sub_100007094(&qword_100089128);
-  sub_100007094(&qword_100089120);
-  sub_100007094(&qword_100089118);
-  sub_100011308(&qword_100089148, &qword_100089118);
+  sub_100007094(&qword_100089138, &qword_100079ED8);
+  sub_100007094(&qword_100089130, &qword_100079ED0);
+  sub_100007094(&qword_100089128, &qword_100079EC8);
+  sub_100007094(&qword_100089120, &qword_100079EC0);
+  sub_100007094(&qword_100089118, &qword_100079EB8);
+  sub_100011308(&qword_100089148, &qword_100089118, &qword_100079EB8, &protocol conformance descriptor for IntentConfiguration<A, B>);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
@@ -8515,12 +8512,12 @@ uint64_t sub_10001DEB4()
 
 uint64_t sub_10001E04C()
 {
-  sub_100007094(&qword_100089170);
-  sub_100007094(&qword_100089168);
-  sub_100007094(&qword_100089160);
-  sub_100007094(&qword_100089158);
-  sub_100007094(&qword_100089150);
-  sub_100011308(&qword_100089180, &qword_100089150);
+  sub_100007094(&qword_100089170, &qword_100079F00);
+  sub_100007094(&qword_100089168, &qword_100079EF8);
+  sub_100007094(&qword_100089160, &qword_100079EF0);
+  sub_100007094(&qword_100089158, &qword_100079EE8);
+  sub_100007094(&qword_100089150, &qword_100079EE0);
+  sub_100011308(&qword_100089180, &qword_100089150, &qword_100079EE0, &protocol conformance descriptor for IntentConfiguration<A, B>);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
@@ -8530,10 +8527,10 @@ uint64_t sub_10001E04C()
 
 uint64_t sub_10001E1E4()
 {
-  sub_100007094(&qword_100089198);
-  sub_100007094(&qword_100089190);
-  sub_100007094(&qword_100089188);
-  sub_100011308(&qword_1000891A8, &qword_100089188);
+  sub_100007094(&qword_100089198, &qword_100079F18);
+  sub_100007094(&qword_100089190, &qword_100079F10);
+  sub_100007094(&qword_100089188, &qword_100079F08);
+  sub_100011308(&qword_1000891A8, &qword_100089188, &qword_100079F08, &protocol conformance descriptor for IntentConfiguration<A, B>);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   return swift_getOpaqueTypeConformance2();
@@ -8544,7 +8541,7 @@ unint64_t sub_10001E340()
   result = qword_1000898C0;
   if (!qword_1000898C0)
   {
-    sub_100007094(&qword_1000898C8);
+    sub_100007094(&qword_1000898C8, &qword_10007A990);
     sub_10001E3CC();
     sub_10001E5A4();
     result = swift_getWitnessTable();
@@ -8559,9 +8556,9 @@ unint64_t sub_10001E3CC()
   result = qword_1000898D0;
   if (!qword_1000898D0)
   {
-    sub_100007094(&qword_1000898D8);
+    sub_100007094(&qword_1000898D8, &qword_10007A998);
     type metadata accessor for ClockRectangularComplication(255);
-    sub_100011AA0(&qword_1000898E0, type metadata accessor for ClockRectangularComplication);
+    sub_100011AA0(&qword_1000898E0, type metadata accessor for ClockRectangularComplication, &unk_10007BB40);
     swift_getOpaqueTypeConformance2();
     sub_10001E4B8();
     result = swift_getWitnessTable();
@@ -8576,9 +8573,9 @@ unint64_t sub_10001E4B8()
   result = qword_1000898E8;
   if (!qword_1000898E8)
   {
-    sub_100007094(&qword_1000898F0);
+    sub_100007094(&qword_1000898F0, &qword_10007A9A0);
     type metadata accessor for ClockCircularDigitalComplication(255);
-    sub_100011AA0(&qword_1000898F8, type metadata accessor for ClockCircularDigitalComplication);
+    sub_100011AA0(&qword_1000898F8, type metadata accessor for ClockCircularDigitalComplication, &unk_10007C3C0);
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1000898E8);
@@ -8592,12 +8589,12 @@ unint64_t sub_10001E5A4()
   result = qword_100089900;
   if (!qword_100089900)
   {
-    sub_100007094(&qword_100089908);
-    sub_100011AA0(&qword_100089890, type metadata accessor for CityInlineComplication);
+    sub_100007094(&qword_100089908, &qword_10007A9A8);
+    sub_100011AA0(&qword_100089890, type metadata accessor for CityInlineComplication, &unk_10007C410);
     type metadata accessor for WorldClockWidgetViewSingle(255);
-    type metadata accessor for ClockWidgetEnvironmentObject();
-    sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle);
-    sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+    type metadata accessor for ClockWidgetEnvironmentObject(255);
+    sub_100011AA0(&qword_100089898, type metadata accessor for WorldClockWidgetViewSingle, &unk_10007BAF0);
+    sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100089900);
@@ -8608,21 +8605,21 @@ unint64_t sub_10001E5A4()
 
 uint64_t sub_10001E718()
 {
-  sub_100007094(&qword_1000891C0);
-  sub_100007094(&qword_1000891B8);
-  sub_100007094(&qword_1000891B0);
-  sub_100011308(&qword_1000891E0, &qword_1000891B0);
+  sub_100007094(&qword_1000891C0, &qword_100079F30);
+  sub_100007094(&qword_1000891B8, &qword_100079F28);
+  sub_100007094(&qword_1000891B0, &qword_100079F20);
+  sub_100011308(&qword_1000891E0, &qword_1000891B0, &qword_100079F20, &protocol conformance descriptor for IntentConfiguration<A, B>);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   return swift_getOpaqueTypeConformance2();
 }
 
-uint64_t sub_10001E874(unint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t sub_10001E874(unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    sub_100007094(a2);
+    sub_100007094(a2, a3);
     a4();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -8636,14 +8633,14 @@ unint64_t sub_10001E8F0()
   result = qword_100089920;
   if (!qword_100089920)
   {
-    sub_100007094(&qword_100089928);
+    sub_100007094(&qword_100089928, &qword_10007A9B8);
     type metadata accessor for WorldClockRectangularSummary(255);
-    sub_100011AA0(&qword_100089930, type metadata accessor for WorldClockRectangularSummary);
+    sub_100011AA0(&qword_100089930, type metadata accessor for WorldClockRectangularSummary, &unk_10007C320);
     swift_getOpaqueTypeConformance2();
     type metadata accessor for WorldClockWidgetViewMulti(255);
-    type metadata accessor for ClockWidgetEnvironmentObject();
-    sub_100011AA0(&qword_100089938, type metadata accessor for WorldClockWidgetViewMulti);
-    sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject);
+    type metadata accessor for ClockWidgetEnvironmentObject(255);
+    sub_100011AA0(&qword_100089938, type metadata accessor for WorldClockWidgetViewMulti, &unk_10007BB90);
+    sub_100011AA0(&qword_100089220, type metadata accessor for ClockWidgetEnvironmentObject, &unk_10007D7D8);
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100089920);
@@ -8654,12 +8651,12 @@ unint64_t sub_10001E8F0()
 
 uint64_t sub_10001EA94()
 {
-  sub_100007094(&qword_100089208);
-  sub_100007094(&qword_100089200);
-  sub_100007094(&qword_1000891F8);
-  sub_100007094(&qword_1000891F0);
-  sub_100007094(&qword_1000891E8);
-  sub_100011308(&qword_100089230, &qword_1000891E8);
+  sub_100007094(&qword_100089208, &qword_100079F58);
+  sub_100007094(&qword_100089200, &qword_100079F50);
+  sub_100007094(&qword_1000891F8, &qword_100079F48);
+  sub_100007094(&qword_1000891F0, &qword_100079F40);
+  sub_100007094(&qword_1000891E8, &qword_100079F38);
+  sub_100011308(&qword_100089230, &qword_1000891E8, &qword_100079F38, &protocol conformance descriptor for StaticConfiguration<A>);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
@@ -8669,12 +8666,12 @@ uint64_t sub_10001EA94()
 
 uint64_t sub_10001EC2C()
 {
-  sub_100007094(&qword_100089258);
-  sub_100007094(&qword_100089250);
-  sub_100007094(&qword_100089248);
-  sub_100007094(&qword_100089240);
-  sub_100007094(&qword_100089238);
-  sub_100011308(&qword_100089270, &qword_100089238);
+  sub_100007094(&qword_100089258, &qword_100079F88);
+  sub_100007094(&qword_100089250, &qword_100079F80);
+  sub_100007094(&qword_100089248, &qword_100079F78);
+  sub_100007094(&qword_100089240, &qword_100079F70);
+  sub_100007094(&qword_100089238, &qword_100079F68);
+  sub_100011308(&qword_100089270, &qword_100089238, &qword_100079F68, &protocol conformance descriptor for StaticConfiguration<A>);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
@@ -8684,12 +8681,12 @@ uint64_t sub_10001EC2C()
 
 uint64_t sub_10001EDC4()
 {
-  sub_100007094(&qword_100089298);
-  sub_100007094(&qword_100089290);
-  sub_100007094(&qword_100089288);
-  sub_100007094(&qword_100089280);
-  sub_100007094(&qword_100089278);
-  sub_100011308(&qword_1000892B0, &qword_100089278);
+  sub_100007094(&qword_100089298, &qword_100079FB8);
+  sub_100007094(&qword_100089290, &qword_100079FB0);
+  sub_100007094(&qword_100089288, &qword_100079FA8);
+  sub_100007094(&qword_100089280, &qword_100079FA0);
+  sub_100007094(&qword_100089278, &qword_100079F98);
+  sub_100011308(&qword_1000892B0, &qword_100089278, &qword_100079F98, &protocol conformance descriptor for StaticConfiguration<A>);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
@@ -8699,12 +8696,12 @@ uint64_t sub_10001EDC4()
 
 uint64_t sub_10001EF5C()
 {
-  sub_100007094(&qword_1000892D8);
-  sub_100007094(&qword_1000892D0);
-  sub_100007094(&qword_1000892C8);
-  sub_100007094(&qword_1000892C0);
-  sub_100007094(&qword_1000892B8);
-  sub_100011308(&qword_1000892F0, &qword_1000892B8);
+  sub_100007094(&qword_1000892D8, &qword_100079FE8);
+  sub_100007094(&qword_1000892D0, &qword_100079FE0);
+  sub_100007094(&qword_1000892C8, &qword_100079FD8);
+  sub_100007094(&qword_1000892C0, &qword_100079FD0);
+  sub_100007094(&qword_1000892B8, &qword_100079FC8);
+  sub_100011308(&qword_1000892F0, &qword_1000892B8, &qword_100079FC8, &protocol conformance descriptor for StaticConfiguration<A>);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
@@ -8714,10 +8711,10 @@ uint64_t sub_10001EF5C()
 
 uint64_t sub_10001F0F4()
 {
-  sub_100007094(&qword_100089308);
-  sub_100007094(&qword_100089300);
-  sub_100007094(&qword_1000892F8);
-  sub_100011308(&qword_100089338, &qword_1000892F8);
+  sub_100007094(&qword_100089308, &qword_10007A008);
+  sub_100007094(&qword_100089300, &qword_10007A000);
+  sub_100007094(&qword_1000892F8, &qword_100079FF8);
+  sub_100011308(&qword_100089338, &qword_1000892F8, &qword_100079FF8, &protocol conformance descriptor for IntentConfiguration<A, B>);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   return swift_getOpaqueTypeConformance2();
@@ -8725,10 +8722,10 @@ uint64_t sub_10001F0F4()
 
 uint64_t sub_10001F368()
 {
-  sub_100007094(&qword_1000893C8);
-  sub_100007094(&qword_1000893C0);
-  sub_100007094(&qword_1000893B8);
-  sub_100011308(&qword_1000893E8, &qword_1000893B8);
+  sub_100007094(&qword_1000893C8, &qword_10007A088);
+  sub_100007094(&qword_1000893C0, &qword_10007A080);
+  sub_100007094(&qword_1000893B8, &qword_10007A078);
+  sub_100011308(&qword_1000893E8, &qword_1000893B8, &qword_10007A078, &protocol conformance descriptor for StaticControlConfiguration<A>);
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();
   return swift_getOpaqueTypeConformance2();
@@ -8761,17 +8758,17 @@ uint64_t sub_10001F50C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 
 uint64_t sub_10001F574(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100003500(&qword_1000898F0);
+  v4 = sub_100003500(&qword_1000898F0, &qword_10007A9A0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-uint64_t sub_10001F648@<X0>(uint64_t a1@<X8>)
+uint64_t sub_10001F648@<X0>(uint64_t a2@<X8>)
 {
   sub_10006BB6C();
-  v2 = type metadata accessor for DateTimeEntry();
+  v3 = type metadata accessor for DateTimeEntry(0);
   result = sub_10006BD2C();
-  *(a1 + *(v2 + 24)) = 1;
+  *(a2 + *(v3 + 24)) = 1;
   return result;
 }
 
@@ -8779,7 +8776,7 @@ uint64_t sub_10001F694@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, ui
 {
   v8 = sub_10006BB7C();
   (*(*(v8 - 8) + 32))(a4, a1, v8);
-  v9 = type metadata accessor for DateTimeEntry();
+  v9 = type metadata accessor for DateTimeEntry(0);
   v10 = *(v9 + 20);
   v11 = sub_10006BD3C();
   result = (*(*(v11 - 8) + 32))(a4 + v10, a2, v11);
@@ -8787,7 +8784,7 @@ uint64_t sub_10001F694@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, ui
   return result;
 }
 
-uint64_t type metadata accessor for DateTimeEntry()
+uint64_t type metadata accessor for DateTimeEntry(uint64_t a1)
 {
   result = qword_10008D970;
   if (!qword_10008D970)
@@ -8800,7 +8797,7 @@ uint64_t type metadata accessor for DateTimeEntry()
 
 uint64_t sub_10001F7AC(uint64_t a1, void (*a2)(char *))
 {
-  v3 = type metadata accessor for DateTimeEntry();
+  v3 = type metadata accessor for DateTimeEntry(0);
   v4 = v3 - 8;
   __chkstk_darwin(v3);
   v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -8811,18 +8808,18 @@ uint64_t sub_10001F7AC(uint64_t a1, void (*a2)(char *))
   return sub_10001F898(v6);
 }
 
-uint64_t sub_10001F854@<X0>(uint64_t a1@<X8>)
+uint64_t sub_10001F854@<X0>(uint64_t a2@<X8>)
 {
   sub_10006BB6C();
-  v2 = type metadata accessor for DateTimeEntry();
+  v3 = type metadata accessor for DateTimeEntry(0);
   result = sub_10006BD2C();
-  *(a1 + *(v2 + 24)) = 0;
+  *(a2 + *(v3 + 24)) = 0;
   return result;
 }
 
 uint64_t sub_10001F898(uint64_t a1)
 {
-  v2 = type metadata accessor for DateTimeEntry();
+  v2 = type metadata accessor for DateTimeEntry(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -8831,12 +8828,12 @@ uint64_t sub_10001F8F4(uint64_t a1, void (*a2)(char *))
 {
   v3 = sub_10006CA9C();
   __chkstk_darwin(v3 - 8);
-  v4 = sub_100003500(&qword_1000899E8);
+  v4 = sub_100003500(&qword_1000899E8, &qword_10007AA40);
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = &v15 - v6;
-  sub_100003500(&qword_1000899F0);
-  v8 = type metadata accessor for DateTimeEntry();
+  sub_100003500(&qword_1000899F0, qword_10007AA48);
+  v8 = type metadata accessor for DateTimeEntry(0);
   v9 = (*(*(v8 - 8) + 80) + 32) & ~*(*(v8 - 8) + 80);
   v10 = swift_allocObject();
   *(v10 + 16) = xmmword_100079E30;
@@ -8845,7 +8842,7 @@ uint64_t sub_10001F8F4(uint64_t a1, void (*a2)(char *))
   sub_10006BD2C();
   *(v11 + *(v8 + 24)) = 0;
   sub_10006CA8C();
-  sub_10001FF3C(&qword_1000899F8, type metadata accessor for DateTimeEntry);
+  sub_10001FF3C(&qword_1000899F8, type metadata accessor for DateTimeEntry, &unk_10007AAB8);
   sub_10006CAFC();
   a2(v7);
   (*(v5 + 8))(v7, v4);
@@ -8865,7 +8862,7 @@ uint64_t sub_10001F8F4(uint64_t a1, void (*a2)(char *))
 
 uint64_t sub_10001FC84@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for DateTimeEntry() + 20);
+  v3 = *(type metadata accessor for DateTimeEntry(0) + 20);
   v4 = sub_10006BD3C();
   v5 = *(*(v4 - 8) + 16);
 
@@ -8874,7 +8871,7 @@ uint64_t sub_10001FC84@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_10001FD00(uint64_t a1)
 {
-  v3 = *(type metadata accessor for DateTimeEntry() + 20);
+  v3 = *(type metadata accessor for DateTimeEntry(0) + 20);
   v4 = sub_10006BD3C();
   v5 = *(*(v4 - 8) + 40);
 
@@ -8883,7 +8880,7 @@ uint64_t sub_10001FD00(uint64_t a1)
 
 uint64_t sub_10001FDE8(char a1)
 {
-  result = type metadata accessor for DateTimeEntry();
+  result = type metadata accessor for DateTimeEntry(0);
   *(v1 + *(result + 24)) = a1;
   return result;
 }
@@ -8892,16 +8889,16 @@ unint64_t sub_10001FE60()
 {
   sub_10006CD2C(31);
 
-  type metadata accessor for DateTimeEntry();
+  type metadata accessor for DateTimeEntry(0);
   sub_10006BD3C();
-  sub_10001FF3C(&qword_100089A00, &type metadata accessor for TimeZone);
+  sub_10001FF3C(&qword_100089A00, &type metadata accessor for TimeZone, &protocol conformance descriptor for TimeZone);
   v1._countAndFlagsBits = sub_10006CD9C();
   sub_10006CBBC(v1);
 
   return 0xD00000000000001DLL;
 }
 
-uint64_t sub_10001FF3C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10001FF3C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8919,7 +8916,7 @@ unint64_t sub_10001FFCC()
   sub_10006CD2C(31);
 
   sub_10006BD3C();
-  sub_10001FF3C(&qword_100089A00, &type metadata accessor for TimeZone);
+  sub_10001FF3C(&qword_100089A00, &type metadata accessor for TimeZone, &protocol conformance descriptor for TimeZone);
   v1._countAndFlagsBits = sub_10006CD9C();
   sub_10006CBBC(v1);
 
@@ -8992,13 +8989,13 @@ uint64_t sub_10002020C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return v11(v12, a2, a2, v10);
 }
 
-uint64_t sub_100020314()
+uint64_t sub_100020314(uint64_t a1)
 {
   result = sub_10006BB7C();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = sub_10006BD3C();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -9010,7 +9007,7 @@ uint64_t sub_100020314()
 
 double sub_1000203A8@<D0>(uint64_t a1@<X8>, double a2@<D0>)
 {
-  v4 = sub_100003500(&qword_100089B40);
+  v4 = sub_100003500(&qword_100089B40, &qword_10007D480);
   __chkstk_darwin(v4 - 8);
   v6 = &v12 - v5;
   sub_10006C3DC();
@@ -9073,7 +9070,7 @@ uint64_t sub_100020798(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_100020928(uint64_t a1)
 {
-  v2 = sub_100003500(&qword_100089B40);
+  v2 = sub_100003500(&qword_100089B40, &qword_10007D480);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -9100,7 +9097,7 @@ double sub_100020B64@<D0>(_OWORD *a1@<X8>)
 
 uint64_t sub_100020BA4()
 {
-  v0 = sub_100003500(&qword_100089B40);
+  v0 = sub_100003500(&qword_100089B40, &qword_10007D480);
   __chkstk_darwin(v0 - 8);
   v2 = &v13 - v1;
   v3 = sub_10006C47C();
@@ -9261,9 +9258,9 @@ double sub_1000213C8@<D0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t sub_100021414(void (*a1)(__n128))
+uint64_t sub_100021414(double (*a1)(__n128))
 {
-  v2 = sub_100003500(&qword_100089B40);
+  v2 = sub_100003500(&qword_100089B40, &qword_10007D480);
   v3 = __chkstk_darwin(v2 - 8);
   v5 = &v11 - v4;
   a1(v3);
@@ -9370,7 +9367,7 @@ uint64_t sub_1000217F4(uint64_t a1)
 
 double sub_100021944@<D0>(uint64_t a1@<X8>)
 {
-  v2 = sub_100003500(&qword_100089B40);
+  v2 = sub_100003500(&qword_100089B40, &qword_10007D480);
   __chkstk_darwin(v2 - 8);
   v4 = &v20 - v3;
   v5 = sub_10006C47C();
@@ -9402,7 +9399,7 @@ double sub_100021944@<D0>(uint64_t a1@<X8>)
 
 double sub_100021B60@<D0>(uint64_t a1@<X8>)
 {
-  v2 = sub_100003500(&qword_100089B40);
+  v2 = sub_100003500(&qword_100089B40, &qword_10007D480);
   __chkstk_darwin(v2 - 8);
   v4 = &v10 - v3;
   sub_10006C3DC();
@@ -9424,7 +9421,7 @@ double sub_100021B60@<D0>(uint64_t a1@<X8>)
 
 double sub_100021CAC@<D0>(uint64_t a1@<X8>)
 {
-  v2 = sub_100003500(&qword_100089B40);
+  v2 = sub_100003500(&qword_100089B40, &qword_10007D480);
   __chkstk_darwin(v2 - 8);
   v4 = &v17 - v3;
   v5 = sub_10000FD1C();
@@ -9750,11 +9747,11 @@ uint64_t sub_100022224(unsigned __int8 a1)
 
 uint64_t sub_1000222A0()
 {
-  v0 = sub_100003500(&qword_100089B48);
+  v0 = sub_100003500(&qword_100089B48, &qword_10007ADA8);
   sub_1000263C4(v0, qword_10008FFB0);
   sub_100022560(v0, qword_10008FFB0);
-  sub_100003500(&qword_100089C50);
-  v1 = *(sub_100003500(&qword_100089C58) - 8);
+  sub_100003500(&qword_100089C50, &qword_10007B330);
+  v1 = *(sub_100003500(&qword_100089C58, &qword_10007B338) - 8);
   v2 = *(v1 + 72);
   v3 = (*(v1 + 80) + 32) & ~*(v1 + 80);
   v4 = swift_allocObject();
@@ -9783,7 +9780,7 @@ uint64_t sub_1000224F0()
     swift_once();
   }
 
-  v0 = sub_100003500(&qword_100089B48);
+  v0 = sub_100003500(&qword_100089B48, &qword_10007ADA8);
 
   return sub_100022560(v0, qword_10008FFB0);
 }
@@ -9805,7 +9802,7 @@ uint64_t sub_100022598@<X0>(uint64_t a1@<X8>)
     swift_once();
   }
 
-  v2 = sub_100003500(&qword_100089B48);
+  v2 = sub_100003500(&qword_100089B48, &qword_10007ADA8);
   v3 = sub_100022560(v2, qword_10008FFB0);
   swift_beginAccess();
   return (*(*(v2 - 8) + 16))(a1, v3, v2);
@@ -9818,7 +9815,7 @@ uint64_t sub_100022664(uint64_t a1)
     swift_once();
   }
 
-  v2 = sub_100003500(&qword_100089B48);
+  v2 = sub_100003500(&qword_100089B48, &qword_10007ADA8);
   v3 = sub_100022560(v2, qword_10008FFB0);
   swift_beginAccess();
   v4 = *(v2 - 8);
@@ -9827,22 +9824,22 @@ uint64_t sub_100022664(uint64_t a1)
   return (*(v4 + 8))(a1, v2);
 }
 
-uint64_t (*sub_100022764())()
+uint64_t (*sub_100022764(uint64_t a1))()
 {
   if (qword_10008D980 != -1)
   {
     swift_once();
   }
 
-  v0 = sub_100003500(&qword_100089B48);
-  sub_100022560(v0, qword_10008FFB0);
+  v1 = sub_100003500(&qword_100089B48, &qword_10007ADA8);
+  sub_100022560(v1, qword_10008FFB0);
   swift_beginAccess();
   return j__swift_endAccess;
 }
 
 uint64_t sub_100022808()
 {
-  v0 = sub_100003500(&qword_100089B58);
+  v0 = sub_100003500(&qword_100089B58, &qword_10007ADB8);
   __chkstk_darwin(v0 - 8);
   v2 = v12 - v1;
   v12[0] = sub_10006B8BC();
@@ -9867,15 +9864,113 @@ uint64_t sub_100022808()
   return sub_10006B73C();
 }
 
-uint64_t (*sub_100022B94())()
+uint64_t (*sub_100022B94(uint64_t a1, __n128 a2))()
 {
   if (qword_10008D988 != -1)
   {
     swift_once();
   }
 
-  v0 = sub_10006B74C();
-  sub_100022560(v0, qword_10008FFC8);
+  v2 = sub_10006B74C();
+  sub_100022560(v2, qword_10008FFC8);
   swift_beginAccess();
   return j_j__swift_endAccess;
+}
+
+uint64_t sub_100022C44(unsigned __int8 a1, unsigned __int8 a2)
+{
+  v2 = 0xEA00000000006B63;
+  v3 = 0x6F6C63646C726F77;
+  v4 = a1;
+  if (a1 > 1u)
+  {
+    if (a1 == 2)
+    {
+      v5 = 0x72656D6974;
+    }
+
+    else
+    {
+      v5 = 0x63746177706F7473;
+    }
+
+    if (v4 == 2)
+    {
+      v6 = 0xE500000000000000;
+    }
+
+    else
+    {
+      v6 = 0xE900000000000068;
+    }
+  }
+
+  else
+  {
+    if (a1)
+    {
+      v5 = 0x6D72616C61;
+    }
+
+    else
+    {
+      v5 = 0x6F6C63646C726F77;
+    }
+
+    if (v4)
+    {
+      v6 = 0xE500000000000000;
+    }
+
+    else
+    {
+      v6 = 0xEA00000000006B63;
+    }
+  }
+
+  v7 = 0xE500000000000000;
+  v8 = 0x72656D6974;
+  if (a2 != 2)
+  {
+    v8 = 0x63746177706F7473;
+    v7 = 0xE900000000000068;
+  }
+
+  if (a2)
+  {
+    v3 = 0x6D72616C61;
+    v2 = 0xE500000000000000;
+  }
+
+  if (a2 <= 1u)
+  {
+    v9 = v3;
+  }
+
+  else
+  {
+    v9 = v8;
+  }
+
+  if (a2 <= 1u)
+  {
+    v10 = v2;
+  }
+
+  else
+  {
+    v10 = v7;
+  }
+
+  if (v5 == v9 && v6 == v10)
+  {
+    v11 = 1;
+  }
+
+  else
+  {
+    v11 = sub_10006CDAC();
+  }
+
+  return v11 & 1;
 }

@@ -42,17 +42,15 @@
 
 - (void)analysisServiceCriteria:(id)criteria
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   criteriaCopy = criteria;
   log_t = [(_CNDonationAnalyticsLogger *)self log_t];
   if (os_log_type_enabled(log_t, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = criteriaCopy;
-    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "analysis service has criteria %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = criteriaCopy;
+    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "analysis service has criteria %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noAnalyzerAvailable
@@ -67,17 +65,15 @@
 
 - (void)noAnalysisToSubmitForEvent:(id)event
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   log_t = [(_CNDonationAnalyticsLogger *)self log_t];
   if (os_log_type_enabled(log_t, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = eventCopy;
-    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "attempted to submit an empty analysis for %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = eventCopy;
+    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "attempted to submit an empty analysis for %{public}@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willStartAnalysis
@@ -122,17 +118,15 @@
 
 - (void)didSkipDuplicateAnalysis:(id)analysis
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   analysisCopy = analysis;
   log_t = [(_CNDonationAnalyticsLogger *)self log_t];
   if (os_log_type_enabled(log_t, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = analysisCopy;
-    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "Skipping duplicate analysis. Previous analysis attempted at %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = analysisCopy;
+    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "Skipping duplicate analysis. Previous analysis attempted at %{public}@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

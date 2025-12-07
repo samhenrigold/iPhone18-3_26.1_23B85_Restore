@@ -8,6 +8,7 @@
 - (void)loadCacheFromFile;
 - (void)loadFailedForLanguage:(id)language assetType:(id)type deliveryType:(id)deliveryType;
 - (void)queryCache:(id)cache loading:(BOOL)loading;
+- (void)queryServerCache:(id)cache force:(BOOL)force completion:(id)completion;
 - (void)removeAssetBundleWithAssetType:(id)type language:(id)language deliveryType:(id)deliveryType;
 - (void)updateCacheWithResults:(id)results loading:(BOOL)loading;
 @end
@@ -23,16 +24,16 @@ uint64_t __36__SRAssetBundleCache_sharedInstance__block_invoke()
 
 - (SRAssetBundleCache)init
 {
-  v6.receiver = self;
-  v6.super_class = SRAssetBundleCache;
-  v2 = [(SRAssetBundleCache *)&v6 init];
+  v8.receiver = self;
+  v8.super_class = SRAssetBundleCache;
+  v2 = [(SRAssetBundleCache *)&v8 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
     cache = v2->_cache;
     v2->_cache = v3;
 
-    if (SRIsRunningInServer())
+    if (SRIsRunningInServer(v5, v6))
     {
       [(SRAssetBundleCache *)v2 loadCacheFromFile];
     }
@@ -43,10 +44,42 @@ uint64_t __36__SRAssetBundleCache_sharedInstance__block_invoke()
 
 - (void)loadCacheFromFile
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "Error loading cache %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = +[SRAssetBundleCache cacheFilePath];
+  defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+  v5 = [defaultManager fileExistsAtPath:v3];
+
+  if (v5)
+  {
+    v6 = MEMORY[0x1E695DF20];
+    v7 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3];
+    v13 = 0;
+    v8 = [v6 dictionaryWithContentsOfURL:v7 error:&v13];
+    v9 = v13;
+
+    if (v9)
+    {
+      v11 = SRLogCategoryAssets(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        [SRAssetBundleCache loadCacheFromFile];
+      }
+
+      goto LABEL_8;
+    }
+
+    if (v8)
+    {
+      pthread_rwlock_wrlock(&sCacheLock);
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __39__SRAssetBundleCache_loadCacheFromFile__block_invoke;
+      v12[3] = &unk_1E7A2ADE8;
+      v12[4] = self;
+      [v8 enumerateKeysAndObjectsUsingBlock:v12];
+      pthread_rwlock_unlock(&sCacheLock);
+LABEL_8:
+    }
+  }
 }
 
 + (id)sharedInstance
@@ -167,16 +200,7 @@ LABEL_10:
   v17 = [v16 objectForKeyedSubscript:v24];
 
   v18 = [v17 bundleVersion];
-  if (!v18)
-  {
-    goto LABEL_14;
-  }
-
-  v19 = v18;
-  v20 = [v17 bundleVersion];
-  v21 = [v20 version];
-
-  if (v21)
+  if (v18 && (v19 = v18, [v17 bundleVersion], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "version"), v21 = objc_claimAutoreleasedReturnValue(), v21, v20, v19, v21))
   {
     v22 = [v17 bundleVersion];
     v23 = [v17 path];
@@ -190,7 +214,6 @@ LABEL_10:
 
   else
   {
-LABEL_14:
     [v5 makeResultNone];
   }
 
@@ -246,8 +269,8 @@ LABEL_7:
   pathCopy = path;
   if (assetTypeID(typeCopy) == -1)
   {
-    v27 = SRLogCategoryAssets();
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = SRLogCategoryAssets(-1);
+    if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_21;
     }
@@ -258,16 +281,17 @@ LABEL_7:
     v51 = languageCopy;
     v52 = 2112;
     v53 = deliveryTypeCopy;
-    v28 = "Invalid asset type %@ for (%@, %@)";
+    v29 = "Invalid asset type %@ for (%@, %@)";
 LABEL_20:
-    _os_log_error_impl(&dword_1AE58E000, v27, OS_LOG_TYPE_ERROR, v28, buf, 0x20u);
+    _os_log_error_impl(&dword_1AE58E000, v28, OS_LOG_TYPE_ERROR, v29, buf, 0x20u);
     goto LABEL_21;
   }
 
-  if (deliveryTypeID(deliveryTypeCopy) == -1)
+  v17 = deliveryTypeID(deliveryTypeCopy);
+  if (v17 == -1)
   {
-    v27 = SRLogCategoryAssets();
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = SRLogCategoryAssets(-1);
+    if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_21;
     }
@@ -278,14 +302,14 @@ LABEL_20:
     v51 = languageCopy;
     v52 = 2112;
     v53 = typeCopy;
-    v28 = "Invalid delivery type %@ for (%@, %@)";
+    v29 = "Invalid delivery type %@ for (%@, %@)";
     goto LABEL_20;
   }
 
   if (!versionCopy)
   {
-    v27 = SRLogCategoryAssets();
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = SRLogCategoryAssets(v17);
+    if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_21;
     }
@@ -296,14 +320,14 @@ LABEL_20:
     v51 = languageCopy;
     v52 = 2112;
     v53 = deliveryTypeCopy;
-    v28 = "Null bundle version for (%@, %@, %@)";
+    v29 = "Null bundle version for (%@, %@, %@)";
     goto LABEL_20;
   }
 
   if (!pathCopy)
   {
-    v27 = SRLogCategoryAssets();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = SRLogCategoryAssets(v17);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
       v49 = typeCopy;
@@ -311,46 +335,46 @@ LABEL_20:
       v51 = languageCopy;
       v52 = 2112;
       v53 = deliveryTypeCopy;
-      v28 = "Null path for (%@, %@, %@)";
+      v29 = "Null path for (%@, %@, %@)";
       goto LABEL_20;
     }
 
 LABEL_21:
 
-    LOBYTE(v29) = 0;
+    LOBYTE(v30) = 0;
     goto LABEL_22;
   }
 
   pthread_rwlock_wrlock(&sCacheLock);
-  v17 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:languageCopy];
+  v18 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:languageCopy];
 
-  if (!v17)
+  if (!v18)
   {
-    v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [(NSMutableDictionary *)self->_cache setObject:v18 forKeyedSubscript:languageCopy];
+    v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    [(NSMutableDictionary *)self->_cache setObject:v19 forKeyedSubscript:languageCopy];
   }
 
-  v19 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:languageCopy];
-  v20 = [v19 objectForKeyedSubscript:typeCopy];
+  v20 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:languageCopy];
+  v21 = [v20 objectForKeyedSubscript:typeCopy];
 
-  if (!v20)
+  if (!v21)
   {
-    v21 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v22 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:languageCopy];
-    [v22 setObject:v21 forKeyedSubscript:typeCopy];
+    v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v23 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:languageCopy];
+    [v23 setObject:v22 forKeyedSubscript:typeCopy];
   }
 
-  v23 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:languageCopy];
-  v24 = [v23 objectForKeyedSubscript:typeCopy];
-  v25 = [v24 objectForKeyedSubscript:deliveryTypeCopy];
+  v24 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:languageCopy];
+  v25 = [v24 objectForKeyedSubscript:typeCopy];
+  v26 = [v25 objectForKeyedSubscript:deliveryTypeCopy];
 
-  v47 = v25;
-  if (!v25)
+  v47 = v26;
+  if (!v26)
   {
     goto LABEL_25;
   }
 
-  bundleVersion = [v25 bundleVersion];
+  bundleVersion = [v26 bundleVersion];
   if ([bundleVersion compare:versionCopy])
   {
 
@@ -362,16 +386,16 @@ LABEL_25:
     v38 = [v37 objectForKeyedSubscript:typeCopy];
     [v38 setObject:v36 forKeyedSubscript:deliveryTypeCopy];
 
-    v29 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:languageCopy];
-    v39 = [v29 objectForKeyedSubscript:typeCopy];
+    v30 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:languageCopy];
+    v39 = [v30 objectForKeyedSubscript:typeCopy];
     v40 = [v39 objectForKeyedSubscript:deliveryTypeCopy];
     [v40 makeResultWithBundleVersion:versionCopy path:pathCopy loaded:0];
 
-    LOBYTE(v29) = 1;
+    LOBYTE(v30) = 1;
     goto LABEL_26;
   }
 
-  path = [v25 path];
+  path = [v26 path];
   v33 = [path isEqualToString:pathCopy];
 
   if ((v33 & 1) == 0)
@@ -379,7 +403,7 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  LODWORD(v29) = [v25 loaded] ^ 1;
+  LODWORD(v30) = [v26 loaded] ^ 1;
 LABEL_26:
   v41 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:languageCopy];
   v42 = [v41 objectForKeyedSubscript:typeCopy];
@@ -402,8 +426,7 @@ LABEL_26:
   pthread_rwlock_unlock(&sCacheLock);
 
 LABEL_22:
-  v30 = *MEMORY[0x1E69E9840];
-  return v29;
+  return v30;
 }
 
 - (void)removeAssetBundleWithAssetType:(id)type language:(id)language deliveryType:(id)deliveryType
@@ -634,6 +657,23 @@ LABEL_18:
 LABEL_20:
 }
 
+- (void)queryServerCache:(id)cache force:(BOOL)force completion:(id)completion
+{
+  forceCopy = force;
+  completionCopy = completion;
+  cacheCopy = cache;
+  v9 = +[SRXPCConnection sharedConnection];
+  xpcObject = [cacheCopy xpcObject];
+
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __56__SRAssetBundleCache_queryServerCache_force_completion___block_invoke;
+  v12[3] = &unk_1E7A2AF20;
+  v13 = completionCopy;
+  v11 = completionCopy;
+  [v9 sendCommand:0 info:xpcObject sync:forceCopy completion:v12];
+}
+
 void __56__SRAssetBundleCache_queryServerCache_force_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v7 = a3;
@@ -687,7 +727,7 @@ void __39__SRAssetBundleCache_loadCacheFromFile__block_invoke_2(uint64_t a1, voi
   v7 = assetTypeID(v5);
   if (v7 == -1)
   {
-    v21 = SRLogCategoryAssets();
+    v21 = SRLogCategoryAssets(-1);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       __39__SRAssetBundleCache_loadCacheFromFile__block_invoke_2_cold_1();
@@ -742,7 +782,7 @@ void __39__SRAssetBundleCache_loadCacheFromFile__block_invoke_240(void *a1, void
   v7 = deliveryTypeID(v5);
   if (v7 == -1)
   {
-    v26 = SRLogCategoryAssets();
+    v26 = SRLogCategoryAssets(-1);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       __39__SRAssetBundleCache_loadCacheFromFile__block_invoke_240_cold_1();
@@ -790,10 +830,31 @@ void __39__SRAssetBundleCache_loadCacheFromFile__block_invoke_240(void *a1, void
 
 - (void)flushCacheToFile
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "Error writing to cache: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = +[SRAssetBundleCache cacheFilePath];
+  v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  pthread_rwlock_rdlock(&sCacheLock);
+  cache = self->_cache;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __38__SRAssetBundleCache_flushCacheToFile__block_invoke;
+  v12[3] = &unk_1E7A2ADE8;
+  v6 = v4;
+  v13 = v6;
+  [(NSMutableDictionary *)cache enumerateKeysAndObjectsUsingBlock:v12];
+  pthread_rwlock_unlock(&sCacheLock);
+  v7 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3];
+  v11 = 0;
+  LOBYTE(cache) = [v6 writeToURL:v7 error:&v11];
+  v8 = v11;
+
+  if ((cache & 1) == 0)
+  {
+    v10 = SRLogCategoryAssets(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      [SRAssetBundleCache flushCacheToFile];
+    }
+  }
 }
 
 void __38__SRAssetBundleCache_flushCacheToFile__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -834,7 +895,7 @@ void __38__SRAssetBundleCache_flushCacheToFile__block_invoke_2(uint64_t a1, void
 
   if (assetTypeID(v5) == -1)
   {
-    v11 = SRLogCategoryAssets();
+    v11 = SRLogCategoryAssets(-1);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __38__SRAssetBundleCache_flushCacheToFile__block_invoke_2_cold_1();
@@ -858,12 +919,12 @@ void __38__SRAssetBundleCache_flushCacheToFile__block_invoke_2(uint64_t a1, void
 
 void __38__SRAssetBundleCache_flushCacheToFile__block_invoke_247(uint64_t a1, void *a2, void *a3)
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (deliveryTypeID(v5) == -1)
   {
-    v11 = SRLogCategoryAssets();
+    v11 = SRLogCategoryAssets(-1);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __38__SRAssetBundleCache_flushCacheToFile__block_invoke_247_cold_1();
@@ -881,14 +942,14 @@ void __38__SRAssetBundleCache_flushCacheToFile__block_invoke_247(uint64_t a1, vo
 
     if (v10)
     {
-      v18[0] = @"b";
+      v17[0] = @"b";
       v11 = [v6 bundleVersion];
       v12 = [v11 version];
-      v18[1] = @"p";
-      v19[0] = v12;
+      v17[1] = @"p";
+      v18[0] = v12;
       v13 = [v6 path];
-      v19[1] = v13;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+      v18[1] = v13;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
       v15 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
       v16 = [v15 objectForKeyedSubscript:*(a1 + 48)];
       [v16 setObject:v14 forKeyedSubscript:v5];
@@ -896,8 +957,6 @@ void __38__SRAssetBundleCache_flushCacheToFile__block_invoke_247(uint64_t a1, vo
 LABEL_7:
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dumpCache
@@ -966,32 +1025,23 @@ void __31__SRAssetBundleCache_dumpCache__block_invoke_2(uint64_t a1, void *a2, v
 
 void __31__SRAssetBundleCache_dumpCache__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v21[3] = *MEMORY[0x1E69E9840];
+  v20[3] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v6 bundleVersion];
-  if (!v7)
+  if (v7 && (v8 = v7, [v6 bundleVersion], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "version"), v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v8, v10))
   {
-    goto LABEL_4;
-  }
-
-  v8 = v7;
-  v9 = [v6 bundleVersion];
-  v10 = [v9 version];
-
-  if (v10)
-  {
-    v20[0] = @"BundleVersion";
+    v19[0] = @"BundleVersion";
     v11 = [v6 bundleVersion];
     v12 = [v11 version];
-    v21[0] = v12;
-    v20[1] = @"Path";
+    v20[0] = v12;
+    v19[1] = @"Path";
     v13 = [v6 path];
-    v21[1] = v13;
-    v20[2] = @"Loaded";
+    v20[1] = v13;
+    v19[2] = @"Loaded";
     v14 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v6, "loaded")}];
-    v21[2] = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
+    v20[2] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
     v16 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
     v17 = [v16 objectForKeyedSubscript:*(a1 + 48)];
     [v17 setObject:v15 forKeyedSubscript:v5];
@@ -999,45 +1049,10 @@ void __31__SRAssetBundleCache_dumpCache__block_invoke_3(uint64_t a1, void *a2, v
 
   else
   {
-LABEL_4:
     v11 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
     v18 = [v11 objectForKeyedSubscript:*(a1 + 48)];
     [v18 setObject:&unk_1F2427B20 forKeyedSubscript:v5];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
-}
-
-void __39__SRAssetBundleCache_loadCacheFromFile__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "Invalid assetType %@ in cache file", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __39__SRAssetBundleCache_loadCacheFromFile__block_invoke_240_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "Invalid deliveryType %@ in cache file", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __38__SRAssetBundleCache_flushCacheToFile__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "Invalid assetType %@ in cache", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __38__SRAssetBundleCache_flushCacheToFile__block_invoke_247_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "Invalid deliveryType %@ in cache", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

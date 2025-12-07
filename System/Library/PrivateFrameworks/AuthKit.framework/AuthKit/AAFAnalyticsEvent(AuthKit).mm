@@ -74,35 +74,34 @@
   objc_storeStrong(location, obj);
   if (location[0])
   {
-    v5 = [selfCopy objectForKeyedSubscript:*MEMORY[0x1E6985E38]];
-    MEMORY[0x1E69E5920](v5);
-    if (!v5)
+    v4 = [selfCopy objectForKeyedSubscript:*MEMORY[0x1E6985E38]];
+    MEMORY[0x1E69E5920](v4);
+    if (!v4)
     {
-      v8 = +[AKAccountManager sharedInstance];
-      v4 = [(AKAccountManager *)v8 telemetryDeviceSessionIDForAccount:location[0]];
-      v3 = *MEMORY[0x1E6985E38];
+      v7 = +[AKAccountManager sharedInstance];
+      v3 = [(AKAccountManager *)v7 telemetryDeviceSessionIDForAccount:location[0]];
       [selfCopy setObject:? forKeyedSubscript:?];
-      MEMORY[0x1E69E5920](v4);
-      objc_storeStrong(&v8, 0);
+      MEMORY[0x1E69E5920](v3);
+      objc_storeStrong(&v7, 0);
     }
 
-    v9 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v12 = _AKLogSystem();
-    v11 = 2;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v11 = _AKLogSystem();
+    v10 = 2;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      log = v12;
-      type = v11;
-      __os_log_helper_16_0_0(v10);
-      _os_log_debug_impl(&dword_193225000, log, type, "Not updating analytics event with nil account", v10, 2u);
+      log = v11;
+      type = v10;
+      __os_log_helper_16_0_0(v9);
+      _os_log_debug_impl(&dword_193225000, log, type, "Not updating analytics event with nil account", v9, 2u);
     }
 
-    objc_storeStrong(&v12, 0);
-    v9 = 1;
+    objc_storeStrong(&v11, 0);
+    v8 = 1;
   }
 
   objc_storeStrong(location, 0);
@@ -114,41 +113,40 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, obj);
-  v20 = 0;
-  objc_storeStrong(&v20, a4);
   v19 = 0;
-  objc_storeStrong(&v19, a5);
-  v18 = [location[0] authKitAccount:0];
-  v17 = [MEMORY[0x1E6985DB0] ak_analyticsEventWithEventName:v20 account:v18 error:v19];
+  objc_storeStrong(&v19, a4);
+  v18 = 0;
+  objc_storeStrong(&v18, a5);
+  v17 = [location[0] authKitAccount:0];
+  v16 = [MEMORY[0x1E6985DB0] ak_analyticsEventWithEventName:v19 account:v17 error:v18];
   telemetryFlowID = [location[0] telemetryFlowID];
   MEMORY[0x1E69E5920](telemetryFlowID);
   if (!telemetryFlowID)
   {
-    v16 = _AKLogSystem();
-    v15 = 2;
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v15 = _AKLogSystem();
+    v14 = 2;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      log = v16;
-      type = v15;
-      __os_log_helper_16_0_0(v14);
-      _os_log_debug_impl(&dword_193225000, log, type, "Received nil flowId in AKAppleIDAuthenticationContext", v14, 2u);
+      log = v15;
+      type = v14;
+      __os_log_helper_16_0_0(v13);
+      _os_log_debug_impl(&dword_193225000, log, type, "Received nil flowId in AKAppleIDAuthenticationContext", v13, 2u);
     }
 
-    objc_storeStrong(&v16, 0);
+    objc_storeStrong(&v15, 0);
   }
 
   telemetryFlowID2 = [location[0] telemetryFlowID];
-  v5 = *MEMORY[0x1E6985E50];
-  [v17 setObject:? forKeyedSubscript:?];
+  [v16 setObject:? forKeyedSubscript:?];
   MEMORY[0x1E69E5920](telemetryFlowID2);
-  v8 = MEMORY[0x1E69E5928](v17);
+  v7 = MEMORY[0x1E69E5928](v16);
+  objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(&v18, 0);
   objc_storeStrong(&v19, 0);
-  objc_storeStrong(&v20, 0);
   objc_storeStrong(location, 0);
 
-  return v8;
+  return v7;
 }
 
 + (id)ak_analyticsEventWithContext:()AuthKit client:eventName:error:
@@ -179,38 +177,37 @@
 
 - (void)ak_updateWithAuthenticationResults:()AuthKit authContext:error:
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, obj);
-  v18 = 0;
-  objc_storeStrong(&v18, a4);
   v17 = 0;
-  objc_storeStrong(&v17, a5);
+  objc_storeStrong(&v17, a4);
   v16 = 0;
-  v14 = 0;
-  v10 = [v18 authKitAccount:&v14];
-  objc_storeStrong(&v16, v14);
-  v15 = v10;
-  if (!v10 || v16)
+  objc_storeStrong(&v16, a5);
+  v15 = 0;
+  v13 = 0;
+  v9 = [v17 authKitAccount:&v13];
+  objc_storeStrong(&v15, v13);
+  v14 = v9;
+  if (!v9 || v15)
   {
-    v13 = _AKLogSystem();
-    v12 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v12 = _AKLogSystem();
+    v11 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_2_1_8_64(v21, v17);
-      _os_log_debug_impl(&dword_193225000, v13, v12, "Error getting account from context during auth for telemetry: %@", v21, 0xCu);
+      __os_log_helper_16_2_1_8_64(v20, v16);
+      _os_log_debug_impl(&dword_193225000, v12, v11, "Error getting account from context during auth for telemetry: %@", v20, 0xCu);
     }
 
-    objc_storeStrong(&v13, 0);
+    objc_storeStrong(&v12, 0);
   }
 
-  telemetryFlowID = [v18 telemetryFlowID];
-  v5 = *MEMORY[0x1E6985E50];
+  telemetryFlowID = [v17 telemetryFlowID];
   [selfCopy setObject:? forKeyedSubscript:?];
   MEMORY[0x1E69E5920](telemetryFlowID);
-  [selfCopy ak_updateTelemetryIdWithAccount:v15];
+  [selfCopy ak_updateTelemetryIdWithAccount:v14];
   if (location[0])
   {
     [selfCopy setObject:MEMORY[0x1E695E118] forKeyedSubscript:*MEMORY[0x1E6985E40]];
@@ -219,24 +216,23 @@
   else
   {
     [selfCopy setObject:MEMORY[0x1E695E110] forKeyedSubscript:*MEMORY[0x1E6985E40]];
-    [selfCopy populateUnderlyingErrorsStartingWithRootError:v17];
+    [selfCopy populateUnderlyingErrorsStartingWithRootError:v16];
   }
 
-  v11 = +[AKAccountManager sharedInstance];
-  if (v15)
+  v10 = +[AKAccountManager sharedInstance];
+  if (v14)
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "securityLevelForAccount:", v15)}];
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v10, "securityLevelForAccount:", v14)}];
     [selfCopy setObject:? forKeyedSubscript:?];
-    MEMORY[0x1E69E5920](v6);
+    MEMORY[0x1E69E5920](v5);
   }
 
-  objc_storeStrong(&v11, 0);
+  objc_storeStrong(&v10, 0);
+  objc_storeStrong(&v14, 0);
   objc_storeStrong(&v15, 0);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
-  objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 + (id)encodedURLWithPrefix:()AuthKit url:

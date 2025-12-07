@@ -34,9 +34,7 @@
 {
   if (self->_host != host)
   {
-    v4 = [host copy];
-    host = self->_host;
-    self->_host = v4;
+    self->_host = [host copy];
 
     _objc_release_x1();
   }

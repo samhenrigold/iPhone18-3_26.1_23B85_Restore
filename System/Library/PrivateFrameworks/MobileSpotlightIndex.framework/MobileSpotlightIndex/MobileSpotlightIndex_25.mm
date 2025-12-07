@@ -149,13 +149,13 @@ uint64_t ZSTD_btGetAllMatches_dictMatchState_4(uint64_t a1, uint64_t a2, uint64_
               v62 = 0;
               v63 = (v144 + v45);
               v64 = (a4 + 3);
-              while (v64 < (v60 - 7))
+              while (v64 < v60 - 7)
               {
                 v66 = *v63;
                 v63 += 8;
                 v65 = v66;
                 v68 = *v64;
-                v64 += 4;
+                v64 += 8;
                 v67 = v68;
                 v62 += 8;
                 if (v65 != v68)
@@ -171,21 +171,21 @@ uint64_t ZSTD_btGetAllMatches_dictMatchState_4(uint64_t a1, uint64_t a2, uint64_
               a1 = v61;
 LABEL_69:
               v23 = v158;
-              if (v64 < (v60 - 3) && *v63 == *v64)
+              if (v64 < v60 - 3 && *v63 == *v64)
               {
                 v63 += 4;
-                v64 += 2;
+                v64 += 4;
               }
 
-              if (v64 < (v60 - 1) && *v63 == *v64)
+              if (v64 < v60 - 1 && *v63 == *v64)
               {
                 v63 += 2;
-                ++v64;
+                v64 += 2;
               }
 
               if (v64 < v60 && *v63 == *v64)
               {
-                v64 = (v64 + 1);
+                ++v64;
               }
 
               v39 = v153;
@@ -288,7 +288,7 @@ LABEL_99:
               v48 += 8;
               v52 = v53;
               v55 = *v51;
-              v51 += 4;
+              v51 += 8;
               v54 = v55;
               v50 += 8;
               if (v52 != v55)
@@ -302,13 +302,13 @@ LABEL_54:
             if (v51 < v155 && *v48 == *v51)
             {
               v48 += 4;
-              v51 += 2;
+              v51 += 4;
             }
 
             if (v51 < v154 && *v48 == *v51)
             {
               v48 += 2;
-              ++v51;
+              v51 += 2;
             }
 
             if (v51 < a5 && *v48 == *v51)
@@ -383,7 +383,7 @@ LABEL_101:
     v93 = (v91 + v90);
     if (v89 <= a4 + v90)
     {
-      v96 = (a4 + v90);
+      v96 = a4 + v90;
     }
 
     else
@@ -397,14 +397,14 @@ LABEL_101:
 
       v95 = 0;
       v93 = (v8 + 8 + v90 + v22);
-      v96 = (a4 + v90 + 8);
+      v96 = a4 + v90 + 8;
       while (v96 < v89)
       {
         v98 = *v93;
         v93 += 4;
         v97 = v98;
         v100 = *v96;
-        v96 += 4;
+        v96 += 8;
         v99 = v100;
         v95 += 8;
         if (v97 != v100)
@@ -418,21 +418,21 @@ LABEL_101:
       v23 = v158;
     }
 
-    if (v96 < (a5 - 3) && *v93 == *v96)
+    if (v96 < a5 - 3 && *v93 == *v96)
     {
       v93 += 2;
-      v96 += 2;
+      v96 += 4;
     }
 
-    if (v96 < (a5 - 1) && *v93 == *v96)
+    if (v96 < a5 - 1 && *v93 == *v96)
     {
       ++v93;
-      ++v96;
+      v96 += 2;
     }
 
     if (v96 < a5 && *v93 == *v96)
     {
-      v96 = (v96 + 1);
+      ++v96;
     }
 
     v101 = v96 - v92;
@@ -871,7 +871,7 @@ uint64_t ZSTD_btGetAllMatches_dictMatchState_5(uint64_t a1, uint64_t a2, uint64_
               v64 = v32;
               v65 = v40;
               v67 = v60;
-              v68 = a4 + 2;
+              v68 = a4 + 4;
               goto LABEL_67;
             }
 
@@ -884,14 +884,14 @@ uint64_t ZSTD_btGetAllMatches_dictMatchState_5(uint64_t a1, uint64_t a2, uint64_
               v150 = v23;
               v66 = 0;
               v67 = (v151 + v46);
-              v68 = a4 + 6;
-              while (v68 < (v61 - 7))
+              v68 = a4 + 12;
+              while (v68 < v61 - 7)
               {
                 v70 = *v67;
                 v67 += 4;
                 v69 = v70;
                 v72 = *v68;
-                v68 += 4;
+                v68 += 8;
                 v71 = v72;
                 v66 += 8;
                 if (v69 != v72)
@@ -910,21 +910,21 @@ uint64_t ZSTD_btGetAllMatches_dictMatchState_5(uint64_t a1, uint64_t a2, uint64_
               v23 = v150;
               v74 = v164;
 LABEL_67:
-              if (v68 < (v61 - 3) && *v67 == *v68)
+              if (v68 < v61 - 3 && *v67 == *v68)
               {
                 v67 += 2;
-                v68 += 2;
+                v68 += 4;
               }
 
-              if (v68 < (v61 - 1) && *v67 == *v68)
+              if (v68 < v61 - 1 && *v67 == *v68)
               {
                 ++v67;
-                ++v68;
+                v68 += 2;
               }
 
               if (v68 < v61 && *v67 == *v68)
               {
-                v68 = (v68 + 1);
+                ++v68;
               }
 
               v40 = v65;
@@ -1032,7 +1032,7 @@ LABEL_98:
         v49 = &v42[-v45];
         if (v43 <= v42)
         {
-          v52 = a4 + 2;
+          v52 = a4 + 4;
         }
 
         else
@@ -1046,14 +1046,14 @@ LABEL_98:
 
           v51 = 0;
           v49 = &v157[v48];
-          v52 = a4 + 6;
+          v52 = a4 + 12;
           while (v52 < v43)
           {
             v54 = *v49;
             v49 += 8;
             v53 = v54;
             v56 = *v52;
-            v52 += 4;
+            v52 += 8;
             v55 = v56;
             v51 += 8;
             if (v53 != v56)
@@ -1067,13 +1067,13 @@ LABEL_98:
         if (v52 < v163 && *v49 == *v52)
         {
           v49 += 4;
-          v52 += 2;
+          v52 += 4;
         }
 
         if (v52 < v162 && *v49 == *v52)
         {
           v49 += 2;
-          ++v52;
+          v52 += 2;
         }
 
         if (v52 < a5 && *v49 == *v52)
@@ -1130,7 +1130,7 @@ LABEL_99:
     v99 = (v97 + v96);
     if (v95 <= a4 + v96)
     {
-      v103 = (a4 + v96);
+      v103 = a4 + v96;
     }
 
     else
@@ -1145,14 +1145,14 @@ LABEL_99:
       v101 = v23;
       v102 = 0;
       v99 = (v8 + 8 + v96 + v22);
-      v103 = (a4 + v96 + 8);
+      v103 = a4 + v96 + 8;
       while (v103 < v95)
       {
         v105 = *v99;
         v99 += 4;
         v104 = v105;
         v107 = *v103;
-        v103 += 4;
+        v103 += 8;
         v106 = v107;
         v102 += 8;
         if (v104 != v107)
@@ -1168,21 +1168,21 @@ LABEL_99:
       v24 = v164;
     }
 
-    if (v103 < (a5 - 3) && *v99 == *v103)
+    if (v103 < a5 - 3 && *v99 == *v103)
     {
       v99 += 2;
-      v103 += 2;
+      v103 += 4;
     }
 
-    if (v103 < (a5 - 1) && *v99 == *v103)
+    if (v103 < a5 - 1 && *v99 == *v103)
     {
       ++v99;
-      ++v103;
+      v103 += 2;
     }
 
     if (v103 < a5 && *v99 == *v103)
     {
-      v103 = (v103 + 1);
+      ++v103;
     }
 
     v108 = v103 - v98;
@@ -1612,7 +1612,7 @@ uint64_t ZSTD_btGetAllMatches_dictMatchState_6(uint64_t a1, uint64_t a2, uint64_
               v64 = v32;
               v65 = v40;
               v67 = v60;
-              v68 = a4 + 2;
+              v68 = a4 + 4;
               goto LABEL_67;
             }
 
@@ -1625,14 +1625,14 @@ uint64_t ZSTD_btGetAllMatches_dictMatchState_6(uint64_t a1, uint64_t a2, uint64_
               v150 = v23;
               v66 = 0;
               v67 = (v151 + v46);
-              v68 = a4 + 6;
-              while (v68 < (v61 - 7))
+              v68 = a4 + 12;
+              while (v68 < v61 - 7)
               {
                 v70 = *v67;
                 v67 += 4;
                 v69 = v70;
                 v72 = *v68;
-                v68 += 4;
+                v68 += 8;
                 v71 = v72;
                 v66 += 8;
                 if (v69 != v72)
@@ -1651,21 +1651,21 @@ uint64_t ZSTD_btGetAllMatches_dictMatchState_6(uint64_t a1, uint64_t a2, uint64_
               v23 = v150;
               v74 = v164;
 LABEL_67:
-              if (v68 < (v61 - 3) && *v67 == *v68)
+              if (v68 < v61 - 3 && *v67 == *v68)
               {
                 v67 += 2;
-                v68 += 2;
+                v68 += 4;
               }
 
-              if (v68 < (v61 - 1) && *v67 == *v68)
+              if (v68 < v61 - 1 && *v67 == *v68)
               {
                 ++v67;
-                ++v68;
+                v68 += 2;
               }
 
               if (v68 < v61 && *v67 == *v68)
               {
-                v68 = (v68 + 1);
+                ++v68;
               }
 
               v40 = v65;
@@ -1773,7 +1773,7 @@ LABEL_98:
         v49 = &v42[-v45];
         if (v43 <= v42)
         {
-          v52 = a4 + 2;
+          v52 = a4 + 4;
         }
 
         else
@@ -1787,14 +1787,14 @@ LABEL_98:
 
           v51 = 0;
           v49 = &v157[v48];
-          v52 = a4 + 6;
+          v52 = a4 + 12;
           while (v52 < v43)
           {
             v54 = *v49;
             v49 += 8;
             v53 = v54;
             v56 = *v52;
-            v52 += 4;
+            v52 += 8;
             v55 = v56;
             v51 += 8;
             if (v53 != v56)
@@ -1808,13 +1808,13 @@ LABEL_98:
         if (v52 < v163 && *v49 == *v52)
         {
           v49 += 4;
-          v52 += 2;
+          v52 += 4;
         }
 
         if (v52 < v162 && *v49 == *v52)
         {
           v49 += 2;
-          ++v52;
+          v52 += 2;
         }
 
         if (v52 < a5 && *v49 == *v52)
@@ -1871,7 +1871,7 @@ LABEL_99:
     v99 = (v97 + v96);
     if (v95 <= a4 + v96)
     {
-      v103 = (a4 + v96);
+      v103 = a4 + v96;
     }
 
     else
@@ -1886,14 +1886,14 @@ LABEL_99:
       v101 = v23;
       v102 = 0;
       v99 = (v8 + 8 + v96 + v22);
-      v103 = (a4 + v96 + 8);
+      v103 = a4 + v96 + 8;
       while (v103 < v95)
       {
         v105 = *v99;
         v99 += 4;
         v104 = v105;
         v107 = *v103;
-        v103 += 4;
+        v103 += 8;
         v106 = v107;
         v102 += 8;
         if (v104 != v107)
@@ -1909,21 +1909,21 @@ LABEL_99:
       v24 = v164;
     }
 
-    if (v103 < (a5 - 3) && *v99 == *v103)
+    if (v103 < a5 - 3 && *v99 == *v103)
     {
       v99 += 2;
-      v103 += 2;
+      v103 += 4;
     }
 
-    if (v103 < (a5 - 1) && *v99 == *v103)
+    if (v103 < a5 - 1 && *v99 == *v103)
     {
       ++v99;
-      ++v103;
+      v103 += 2;
     }
 
     if (v103 < a5 && *v99 == *v103)
     {
-      v103 = (v103 + 1);
+      ++v103;
     }
 
     v108 = v103 - v98;
@@ -2318,7 +2318,7 @@ uint64_t ZSTD_compressRleLiteralsBlock(_DWORD *a1, uint64_t a2, _BYTE *a3, unint
   return (v4 + 1);
 }
 
-uint64_t ZSTD_compressLiterals(void *__src, void *__dst, unsigned int a3, int a4, _DWORD *a5, size_t a6, void *a7, size_t a8, uint64_t a9, unint64_t a10, int a11, int a12)
+uint64_t ZSTD_compressLiterals(void *__src, void *__dst, unsigned int a3, int a4, _DWORD *a5, size_t a6, _BYTE *a7, size_t a8, uint64_t a9, unint64_t a10, int a11, int a12)
 {
   if (a3 <= 7)
   {
@@ -2384,7 +2384,7 @@ LABEL_33:
   v45 = *(__src + 514);
   v35 = v26 == 2 && v22 == 3 || a8 < 0x100;
   v36 = v23;
-  v37 = v23 + v22;
+  v37 = (v23 + v22);
   v38 = v25;
   if (v35)
   {
@@ -2457,31 +2457,25 @@ LABEL_33:
   }
 }
 
-void *std::vector<long long>::reserve(void *result, unint64_t a2)
+void std::vector<long long>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
       std::__allocate_at_least[abi:nn200100]<std::allocator<long long>>(a2);
     }
 
     std::vector<long long>::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
-void *std::vector<unsigned long>::reserve(void *result)
+void std::vector<unsigned long>::reserve(void *a1)
 {
-  if ((result[2] - *result) >> 4 <= 0x804uLL)
+  if ((a1[2] - *a1) >> 4 <= 0x804uLL)
   {
-    v1 = result[1] - *result;
     operator new();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:nn200100]<std::allocator<long long>>(unint64_t a1)
@@ -2494,8 +2488,9 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<long long>>(unint64_t
   std::vector<long long>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t CachingHotShard::Bind(CachingHotShard *this, int a2)
+uint64_t CachingHotShard::Bind(CachingHotShard *this, uint64_t a2)
 {
+  v2 = a2;
   if (*this != -1)
   {
     *(this + 2) = *(this + 1);
@@ -2504,8 +2499,13 @@ uint64_t CachingHotShard::Bind(CachingHotShard *this, int a2)
   }
 
   *this = a2;
-  v4 = hot_shard_for_each_region(a2);
-  if (v4 || (file_size = get_file_size(a2), *(this + 10) = file_size, file_size < 0))
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 0x40000000;
+  v7[2] = ___ZN15CachingHotShard4BindEi_block_invoke;
+  v7[3] = &__block_descriptor_tmp;
+  v7[4] = this;
+  v4 = hot_shard_for_each_region(a2, v7);
+  if (v4 || (file_size = get_file_size(v2), *(this + 10) = file_size, file_size < 0))
   {
     *(this + 2) = *(this + 1);
     *(this + 5) = *(this + 4);
@@ -2516,18 +2516,18 @@ uint64_t CachingHotShard::Bind(CachingHotShard *this, int a2)
   return v4;
 }
 
-void CachingHotShard::cache_put(CachingHotShard *this, uint64_t a2, uint64_t a3, uint64_t a4)
+void CachingHotShard::cache_put(void *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v21 = a4;
   v22 = a3;
-  v7 = *(this + 1);
-  v8 = *(this + 2);
+  v7 = this[1];
+  v8 = this[2];
   v9 = v8 - v7;
   v10 = (v8 - v7) >> 3;
   if (v10 < 1)
   {
 LABEL_5:
-    v12 = *(this + 3);
+    v12 = this[3];
     if (v8 >= v12)
     {
       v14 = v10 + 1;
@@ -2563,10 +2563,10 @@ LABEL_5:
       *v18 = a2;
       v13 = v18 + 1;
       memcpy(v19, v7, v9);
-      v20 = *(this + 1);
-      *(this + 1) = v19;
-      *(this + 2) = v13;
-      *(this + 3) = 0;
+      v20 = this[1];
+      this[1] = v19;
+      this[2] = v13;
+      this[3] = 0;
       if (v20)
       {
         operator delete(v20);
@@ -2579,9 +2579,9 @@ LABEL_5:
       v13 = v8 + 8;
     }
 
-    *(this + 2) = v13;
-    std::vector<unsigned long>::push_back[abi:nn200100](this + 32, &v22);
-    std::vector<unsigned long>::push_back[abi:nn200100](this + 56, &v21);
+    this[2] = v13;
+    std::vector<unsigned long>::push_back[abi:nn200100]((this + 4), &v22);
+    std::vector<unsigned long>::push_back[abi:nn200100]((this + 7), &v21);
   }
 
   else
@@ -2595,12 +2595,12 @@ LABEL_5:
       }
     }
 
-    *(*(this + 4) + 8 * v11) = a3;
-    *(*(this + 7) + 8 * v11) = a4;
+    *(this[4] + 8 * v11) = a3;
+    *(this[7] + 8 * v11) = a4;
   }
 }
 
-void std::vector<unsigned long>::push_back[abi:nn200100](uint64_t a1, void *a2)
+void std::vector<unsigned long>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -2658,188 +2658,180 @@ void std::vector<unsigned long>::push_back[abi:nn200100](uint64_t a1, void *a2)
   *(a1 + 8) = v6;
 }
 
-uint64_t CachingHotShard::WriteDocs(CachingHotShard *this, int a2, const uint64_t *a3, const char *a4, const char **a5, const unint64_t *a6)
+uint64_t CachingHotShard::WriteDocs(CachingHotShard *this, int a2, const uint64_t *a3, const char *a4, const char **a5, const unint64_t *a6, __n128 a7)
 {
-  v6 = MEMORY[0x1EEE9AC00](this);
+  MEMORY[0x1EEE9AC00](a7);
   v62 = *MEMORY[0x1E69E9840];
-  if (*v6 == -1)
+  if (*v7 == -1)
   {
-    v22 = 4294967287;
+    return 4294967287;
+  }
+
+  v12 = v11;
+  v13 = v10;
+  v14 = v9;
+  v15 = v8;
+  v16 = v7;
+  v17 = *v7;
+  v18 = lseek(*v7, 0, 2);
+  if (v18 < 0)
+  {
+    v24 = __error();
+    v25 = 0;
+    v23 = -*v24;
+    if (*v24)
+    {
+      return v23;
+    }
   }
 
   else
   {
-    v11 = v10;
-    v12 = v9;
-    v13 = v8;
-    v14 = v7;
-    v15 = v6;
-    v16 = *v6;
-    v17 = lseek(*v6, 0, 2);
-    if (v17 < 0)
+    v19 = v18;
+    bzero(__buf, 0x1000uLL);
+    v43 = __buf;
+    v44.iov_base = __buf;
+    v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v20 = *v15;
+    v21 = *v14;
+    if (*v15 >= 0x80)
     {
-      v23 = __error();
-      v24 = 0;
-      v22 = -*v23;
-      if (*v23)
+      if (v20 >= 0x4000)
       {
-        goto LABEL_42;
-      }
-    }
-
-    else
-    {
-      v18 = v17;
-      bzero(__buf, 0x1000uLL);
-      v43 = __buf;
-      v44.iov_base = __buf;
-      v59 = 0u;
-      v60 = 0u;
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      v19 = *v14;
-      v20 = *v13;
-      if (*v14 >= 0x80)
-      {
-        if (v19 >= 0x4000)
+        v22 = 3;
+        v26 = 4;
+        v27 = 5;
+        v28 = 6;
+        v29 = 7;
+        v30 = 8;
+        if (HIBYTE(v20))
         {
-          v21 = 3;
-          v25 = 4;
-          v26 = 5;
-          v27 = 6;
-          v28 = 7;
-          v29 = 8;
-          if (HIBYTE(v19))
-          {
-            v29 = 9;
-          }
-
-          if (v19 >> 49)
-          {
-            v28 = v29;
-          }
-
-          if (v19 >> 42)
-          {
-            v27 = v28;
-          }
-
-          if (v19 >> 35)
-          {
-            v26 = v27;
-          }
-
-          if (v19 >> 28)
-          {
-            v25 = v26;
-          }
-
-          if (v19 >= 0x200000)
-          {
-            v21 = v25;
-          }
+          v30 = 9;
         }
 
-        else
+        if (v20 >> 49)
         {
-          v21 = 2;
+          v29 = v30;
+        }
+
+        if (v20 >> 42)
+        {
+          v28 = v29;
+        }
+
+        if (v20 >> 35)
+        {
+          v27 = v28;
+        }
+
+        if (v20 >> 28)
+        {
+          v26 = v27;
+        }
+
+        if (v20 >= 0x200000)
+        {
+          v22 = v26;
         }
       }
 
       else
       {
-        v21 = 1;
+        v22 = 2;
       }
-
-      v2_writeVInt64(&v43, *v11 + v21 + 1);
-      v2_writeVInt64(&v43, v19);
-      v30 = v43;
-      *v43 = v20;
-      v31 = (v30 - __buf + 1);
-      v24 = v18 + v31;
-      v32 = *v12;
-      v44.iov_len = v31;
-      v45 = v32;
-      v46 = *v11;
-      if (v46 >= 0x1FF9D)
-      {
-        ftruncate(v16, v18);
-        v22 = 4294967256;
-        goto LABEL_42;
-      }
-
-      v22 = writevall(v16, &v44, 2);
-      if (v22)
-      {
-        ftruncate(v16, v18);
-        goto LABEL_42;
-      }
-
-      hot_shard_update_logical_size(v16);
     }
 
-    v33 = *v14;
-    v34 = *(v15 + 1);
-    v35 = *(v15 + 2) - v34;
-    if ((v35 >> 3) >= 1)
+    else
     {
-      v36 = 0;
-      v37 = (v35 >> 3) & 0x7FFFFFFF;
-      while (*(v34 + 8 * v36) != v33)
-      {
-        if (v37 == ++v36)
-        {
-          goto LABEL_41;
-        }
-      }
-
-      v38 = *(*(v15 + 4) + 8 * v36);
-      v39 = *(*(v15 + 7) + 8 * v36);
-      memset(__buf, 0, 256);
-      if (v39)
-      {
-        do
-        {
-          if (v39 >= 0x100)
-          {
-            v40 = 256;
-          }
-
-          else
-          {
-            v40 = v39;
-          }
-
-          if (!pwrite(*v15, __buf, v40, v38) || *__error() != 4)
-          {
-            v39 -= v40;
-            v38 += v40;
-          }
-        }
-
-        while (v39);
-        v33 = *v14;
-      }
+      v22 = 1;
     }
 
-LABEL_41:
-    CachingHotShard::cache_put(v15, v33, v24, *v11);
-    v22 = 0;
+    v2_writeVInt64(&v43, *v12 + v22 + 1);
+    v2_writeVInt64(&v43, v20);
+    v31 = v43;
+    *v43 = v21;
+    v32 = (v31 - __buf + 1);
+    v25 = v19 + v32;
+    v33 = *v13;
+    v44.iov_len = v32;
+    v45 = v33;
+    v46 = *v12;
+    if (v46 >= 0x1FF9D)
+    {
+      ftruncate(v17, v19);
+      return 4294967256;
+    }
+
+    v23 = writevall(v17, &v44, 2);
+    if (v23)
+    {
+      ftruncate(v17, v19);
+      return v23;
+    }
+
+    hot_shard_update_logical_size(v17);
   }
 
-LABEL_42:
-  v41 = *MEMORY[0x1E69E9840];
-  return v22;
+  v34 = *v15;
+  v35 = *(v16 + 1);
+  v36 = *(v16 + 2) - v35;
+  if ((v36 >> 3) >= 1)
+  {
+    v37 = 0;
+    v38 = (v36 >> 3) & 0x7FFFFFFF;
+    while (*(v35 + 8 * v37) != v34)
+    {
+      if (v38 == ++v37)
+      {
+        goto LABEL_41;
+      }
+    }
+
+    v39 = *(*(v16 + 4) + 8 * v37);
+    v40 = *(*(v16 + 7) + 8 * v37);
+    memset(__buf, 0, 256);
+    if (v40)
+    {
+      do
+      {
+        if (v40 >= 0x100)
+        {
+          v41 = 256;
+        }
+
+        else
+        {
+          v41 = v40;
+        }
+
+        if (!pwrite(*v16, __buf, v41, v39) || *__error() != 4)
+        {
+          v40 -= v41;
+          v39 += v41;
+        }
+      }
+
+      while (v40);
+      v34 = *v15;
+    }
+  }
+
+LABEL_41:
+  CachingHotShard::cache_put(v16, v34, v25, *v12);
+  return 0;
 }
 
 void *TokenMatchNew(uint64_t a1)
@@ -3104,13 +3096,13 @@ const void **std::vector<SnippetTerm,CFBridgeAllocator<SnippetTerm>>::push_back[
     }
 
     v13 = v12 + 24 * v8;
-    v14 = v12 + 24 * v11;
+    v14 = (v12 + 24 * v11);
     v15 = *a2;
     *(v13 + 16) = *(a2 + 2);
     *v13 = v15;
-    v7 = v13 + 24;
+    v7 = (v13 + 24);
     v16 = v3[1] - *v3;
-    v17 = v13 - v16;
+    v17 = (v13 - v16);
     memcpy((v13 - v16), *v3, v16);
     v18 = *v3;
     *v3 = v17;
@@ -3127,7 +3119,7 @@ const void **std::vector<SnippetTerm,CFBridgeAllocator<SnippetTerm>>::push_back[
   else
   {
     v6 = *a2;
-    *(v5 + 16) = *(a2 + 2);
+    *(v5 + 2) = *(a2 + 2);
     *v5 = v6;
     v7 = v5 + 24;
   }
@@ -3218,7 +3210,7 @@ void TokenMatchConvertToSnippetHints(uint64_t a1)
 {
   v2 = *(a1 + 16);
   v3 = *(a1 + 24);
-  v4 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * (v3 - v2));
+  v4 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * ((v3 - v2) >> 3));
   if (v3 == v2)
   {
     v5 = 0;
@@ -3250,7 +3242,7 @@ void TokenMatchConvertToSnippetHints(uint64_t a1)
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,false>(uint64_t *a1, uint64_t *a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,false>(__n128 *a1, __n128 *a2, uint64_t a3, char a4)
 {
 LABEL_1:
   v8 = a1;
@@ -3265,16 +3257,16 @@ LABEL_1:
       {
         case 3:
 
-          std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(v8, v8 + 56, (a2 - 7));
+          std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(v8, (v8 + 56), &a2[-4].n128_i64[1]);
           return;
         case 4:
-          std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(v8, v8 + 56, v8 + 112);
-          if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a2 - 6), *(a2 - 5), v8 + 112))
+          std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(v8, (v8 + 56), (v8 + 112));
+          if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a2[-3].n128_u64[0], a2[-3].n128_u64[1], v8 + 112))
           {
             return;
           }
 
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>((v8 + 112), a2 - 7);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>((v8 + 112), &a2[-4].n128_i64[1]);
           if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(v8 + 120), *(v8 + 128), v8 + 56))
           {
             return;
@@ -3290,7 +3282,7 @@ LABEL_1:
           goto LABEL_75;
         case 5:
 
-          std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(v8, v8 + 56, v8 + 112, v8 + 168, (a2 - 7));
+          std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(v8, (v8 + 56), (v8 + 112), (v8 + 168), &a2[-4].n128_i64[1]);
           return;
       }
     }
@@ -3304,12 +3296,12 @@ LABEL_1:
 
       if (v10 == 2)
       {
-        if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a2 - 6), *(a2 - 5), v8))
+        if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a2[-3].n128_u64[0], a2[-3].n128_u64[1], v8))
         {
           return;
         }
 
-        v38 = a2 - 7;
+        v38 = &a2[-4].n128_i64[1];
 LABEL_75:
 
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(v8, v38);
@@ -3450,7 +3442,7 @@ LABEL_75:
             }
 
             while (v67 <= ((v66 - 2) >> 1));
-            if (v71 == v102 - 7)
+            if (v71 == v102 - 56)
             {
               *v71 = v68;
               *(v71 + 8) = v103;
@@ -3535,7 +3527,7 @@ LABEL_75:
             a2 = v102;
           }
 
-          a2 -= 7;
+          a2 = (a2 - 56);
         }
 
         while (v66-- > 2);
@@ -3547,15 +3539,15 @@ LABEL_75:
     v12 = v8 + 56 * (v10 >> 1);
     if (v9 < 0x1C01)
     {
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(v12, v8, (a2 - 7));
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(v12, v8, &a2[-4].n128_i64[1]);
     }
 
     else
     {
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(v8, v12, (a2 - 7));
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>((v8 + 56), v12 - 56, (a2 - 14));
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>((v8 + 112), v12 + 56, (a2 - 21));
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>((v12 - 56), v12, v12 + 56);
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(v8, v12, &a2[-4].n128_i64[1]);
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>((v8 + 56), (v12 - 56), &a2[-7]);
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>((v8 + 112), (v12 + 56), &a2[-11].n128_i64[1]);
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>((v12 - 56), v12, (v12 + 56));
       v13 = *v8;
       *v104 = *(v8 + 8);
       v96 = *(v8 + 24);
@@ -3590,12 +3582,12 @@ LABEL_75:
       *(v8 + 24) = 0;
       *(v8 + 32) = 0;
       *(v8 + 40) = 0;
-      if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(v32, v33, (a2 - 7)))
+      if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(v32, v33, &a2[-4].n128_i64[1]))
       {
         a1 = v8;
         do
         {
-          a1 += 7;
+          a1 = (a1 + 56);
         }
 
         while (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(v32, v33, a1));
@@ -3603,7 +3595,7 @@ LABEL_75:
 
       else
       {
-        v35 = v8 + 56;
+        v35 = (v8 + 56);
         do
         {
           a1 = v35;
@@ -3613,7 +3605,7 @@ LABEL_75:
           }
 
           v36 = TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(v32, v33, v35);
-          v35 = (a1 + 7);
+          v35 = &a1[3].n128_i8[8];
         }
 
         while (!v36);
@@ -3623,7 +3615,7 @@ LABEL_75:
       {
         do
         {
-          a2 -= 7;
+          a2 = (a2 - 56);
         }
 
         while (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(v32, v33, a2));
@@ -3634,39 +3626,39 @@ LABEL_75:
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(a1, a2);
         do
         {
-          a1 += 7;
+          a1 = (a1 + 56);
         }
 
         while (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(v32, v33, a1));
         do
         {
-          a2 -= 7;
+          a2 = (a2 - 56);
         }
 
         while (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(v32, v33, a2));
       }
 
-      if (a1 - 7 != v8)
+      if (&a1[-4].n128_i8[8] != v8)
       {
-        *v8 = *(a1 - 7);
-        *(v8 + 8) = *(a1 - 3);
+        *v8 = a1[-4].n128_u64[1];
+        *(v8 + 8) = a1[-3];
         std::vector<SnippetTerm,CFBridgeAllocator<SnippetTerm>>::__move_assign(v8 + 24, a1 - 2);
       }
 
-      *(a1 - 7) = v94;
-      *(a1 - 6) = v32;
-      *(a1 - 5) = v33;
-      v37 = *(a1 - 4);
+      a1[-4].n128_u64[1] = v94;
+      a1[-3].n128_u64[0] = v32;
+      a1[-3].n128_u64[1] = v33;
+      v37 = a1[-2].n128_u64[0];
       a2 = v101;
       if (v37)
       {
-        *(a1 - 3) = v37;
-        CFAllocatorDeallocate(*(a1 - 1), v37);
+        a1[-2].n128_u64[1] = v37;
+        CFAllocatorDeallocate(a1[-1].n128_u64[1], v37);
       }
 
       a4 = 0;
-      *(a1 - 2) = v97;
-      *(a1 - 2) = v34;
+      a1[-2] = v97;
+      a1[-1].n128_u64[0] = v34;
       goto LABEL_1;
     }
 
@@ -3683,17 +3675,17 @@ LABEL_75:
     do
     {
       v18 = v17;
-      v17 += 7;
+      v17 += 56;
     }
 
-    while (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(v18[8], v18[9], v104));
+    while (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(v18 + 8), *(v18 + 9), v104));
     v19 = a2;
     if (v18 == v8)
     {
       v22 = a2;
       while (v17 < v22)
       {
-        v20 = v22 - 7;
+        v20 = v22 - 56;
         v23 = TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(v22 - 6), *(v22 - 5), v104);
         v22 = v20;
         if (v23)
@@ -3709,7 +3701,7 @@ LABEL_75:
     {
       do
       {
-        v20 = v19 - 7;
+        v20 = v19 - 56;
         v21 = TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(v19 - 6), *(v19 - 5), v104);
         v19 = v20;
       }
@@ -3732,9 +3724,9 @@ LABEL_28:
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(a1, v24);
         do
         {
-          v25 = a1[8];
-          v26 = a1[9];
-          a1 += 7;
+          v25 = a1[4].n128_u64[0];
+          v26 = a1[4].n128_u64[1];
+          a1 = (a1 + 56);
         }
 
         while (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(v25, v26, v104));
@@ -3751,27 +3743,27 @@ LABEL_28:
       while (a1 < v24);
     }
 
-    if (a1 - 7 != v8)
+    if (&a1[-4].n128_i8[8] != v8)
     {
-      *v8 = *(a1 - 7);
-      *(v8 + 8) = *(a1 - 3);
+      *v8 = a1[-4].n128_u64[1];
+      *(v8 + 8) = a1[-3];
       std::vector<SnippetTerm,CFBridgeAllocator<SnippetTerm>>::__move_assign(v8 + 24, a1 - 2);
     }
 
-    v29 = *(a1 - 4);
-    *(a1 - 7) = *v104;
-    *(a1 - 3) = *&v104[8];
+    v29 = a1[-2].n128_u64[0];
+    a1[-4].n128_u64[1] = *v104;
+    a1[-3] = *&v104[8];
     if (v29)
     {
-      *(a1 - 3) = v29;
-      CFAllocatorDeallocate(*(a1 - 1), v29);
-      *(a1 - 4) = 0;
-      *(a1 - 3) = 0;
-      *(a1 - 2) = 0;
+      a1[-2].n128_u64[1] = v29;
+      CFAllocatorDeallocate(a1[-1].n128_u64[1], v29);
+      a1[-2].n128_u64[0] = 0;
+      a1[-2].n128_u64[1] = 0;
+      a1[-1].n128_u64[0] = 0;
     }
 
-    *(a1 - 2) = v105;
-    *(a1 - 2) = v106;
+    a1[-2] = v105;
+    a1[-1].n128_u64[0] = v106;
     v30 = v17 >= v20;
     a2 = v101;
     if (!v30)
@@ -3779,7 +3771,7 @@ LABEL_28:
       goto LABEL_46;
     }
 
-    v31 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *>(v8, (a1 - 7));
+    v31 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *>(v8, &a1[-4].n128_i64[1]);
     if (!std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *>(a1, v101))
     {
       if (v31)
@@ -3788,12 +3780,12 @@ LABEL_28:
       }
 
 LABEL_46:
-      std::__introsort<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,false>(v8, a1 - 7, a3, a4 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,false>(v8, &a1[-4].n128_i8[8], a3, a4 & 1);
       a4 = 0;
       goto LABEL_1;
     }
 
-    a2 = a1 - 7;
+    a2 = (a1 - 56);
     if (v31)
     {
       return;
@@ -3811,11 +3803,11 @@ LABEL_46:
       do
       {
         v45 = v40;
-        if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(v40[1], v40[2], v44))
+        if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(v40 + 1), *(v40 + 2), v44))
         {
           v47 = *v45;
-          v46 = v45[1];
-          v48 = v45[2];
+          v46 = *(v45 + 1);
+          v48 = *(v45 + 2);
           v98 = *(v44 + 80);
           v49 = *(v44 + 96);
           *(v44 + 80) = 0;
@@ -3860,12 +3852,12 @@ LABEL_96:
           a2 = v101;
         }
 
-        v40 = v45 + 7;
+        v40 = v45 + 56;
         v43 += 56;
         v44 = v45;
       }
 
-      while (v45 + 7 != a2);
+      while (v45 + 56 != a2);
     }
   }
 
@@ -3875,11 +3867,11 @@ LABEL_96:
     do
     {
       v85 = v40;
-      if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(v40[1], v40[2], v8))
+      if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(v40 + 1), *(v40 + 2), v8))
       {
         v86 = *v85;
-        v87 = v85[1];
-        v88 = v85[2];
+        v87 = *(v85 + 1);
+        v88 = *(v85 + 2);
         v100 = *(v8 + 80);
         v89 = *(v8 + 96);
         *(v8 + 80) = 0;
@@ -3912,16 +3904,16 @@ LABEL_96:
         a2 = v101;
       }
 
-      v40 = v85 + 7;
+      v40 = v85 + 56;
       v84 += 56;
       v8 = v85;
     }
 
-    while (v85 + 7 != a2);
+    while (v85 + 56 != a2);
   }
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,false>(uint64_t result, unint64_t a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,false>(uint64_t result, __int128 *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -3944,7 +3936,7 @@ LABEL_2:
           return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,0>(v9, (v9 + 24), (v9 + 48), (a2 - 24));
         case 5:
 
-          return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,0>(v9, v9 + 24, v9 + 48, v9 + 72, a2 - 24);
+          return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,0>(v9, (v9 + 24), (v9 + 48), (v9 + 72), (a2 - 24));
       }
     }
 
@@ -3962,11 +3954,11 @@ LABEL_2:
         v119 = v117 > v118;
         if (v117 == v118 && (v120 = *(a2 - 7), v121 = *(v9 + 17), v119 = v120 > v121, v120 == v121) && (v122 = *(a2 - 6), v123 = *(v9 + 18), v119 = v122 > v123, v122 == v123))
         {
-          v124 = *(a2 - 16);
+          v124 = *(a2 - 2);
           v125 = *(v9 + 8);
           if (v124)
           {
-            v126 = *(*(a2 - 24) + v124 - 1) != 42;
+            v126 = *(*(a2 - 3) + v124 - 1) != 42;
           }
 
           else
@@ -4329,7 +4321,7 @@ LABEL_331:
             }
 
             while (v207 <= (v206 - 2) / 2);
-            a2 -= 24;
+            a2 = (a2 - 24);
             if (v208 == a2)
             {
               *(v208 + 15) = *&v278[15];
@@ -4493,7 +4485,7 @@ LABEL_353:
       std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,0>(v7, (v7 + 24 * v12), (a2 - 24));
       v14 = 3 * v12;
       v15 = (v7 + 24 * v12 - 24);
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,0>((v7 + 24), v15, (a2 - 48));
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,0>((v7 + 24), v15, a2 - 3);
       v16 = (v7 + 24 + 8 * v14);
       std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,0>((v7 + 48), v16, (a2 - 72));
       std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,0>(v15, v13, v16);
@@ -4852,7 +4844,7 @@ LABEL_110:
         result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*>(v9, a2);
         if (result)
         {
-          a2 = v9 - 24;
+          a2 = (v9 - 24);
           if (v72)
           {
             return result;
@@ -4941,8 +4933,8 @@ LABEL_34:
       }
 
 LABEL_111:
-      v73 = *(a2 - 24);
-      v74 = *(a2 - 16);
+      v73 = *(a2 - 3);
+      v74 = *(a2 - 2);
       result = *(a2 - 8);
       v75 = *(a2 - 7);
       v76 = *(a2 - 6);
@@ -5398,7 +5390,7 @@ LABEL_396:
       *(v270 + 18) = v256;
 LABEL_397:
       v127 = v7 + 24;
-      if (v7 + 24 == a2)
+      if ((v7 + 24) == a2)
       {
         return result;
       }
@@ -5533,7 +5525,7 @@ LABEL_247:
 LABEL_248:
     v127 = v131 + 24;
     v130 += 24;
-    if (v131 + 24 != a2)
+    if ((v131 + 24) != a2)
     {
       continue;
     }
@@ -5952,7 +5944,7 @@ LABEL_24:
   return result;
 }
 
-__int128 *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+__int128 *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,0>(__int128 *a1, __int128 *a2, __int128 *a3, __int128 *a4, __int128 *a5)
 {
   result = std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,0>(a1, a2, a3, a4);
   v11 = *(a5 + 16);
@@ -5968,8 +5960,8 @@ __int128 *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertT
     goto LABEL_9;
   }
 
-  v18 = *(a5 + 8);
-  v19 = *(a4 + 8);
+  v18 = *(a5 + 1);
+  v19 = *(a4 + 1);
   if (v18)
   {
     v20 = *(*a5 + v18 - 1) != 42;
@@ -6000,7 +5992,7 @@ LABEL_34:
 LABEL_9:
   *v63 = *a4;
   v22 = *a4;
-  *&v63[16] = *(a4 + 16);
+  *&v63[16] = *(a4 + 2);
   v23 = *(a5 + 15);
   *a4 = *a5;
   *(a4 + 15) = v23;
@@ -6019,8 +6011,8 @@ LABEL_9:
     goto LABEL_17;
   }
 
-  v31 = *(a4 + 8);
-  v32 = *(a3 + 8);
+  v31 = *(a4 + 1);
+  v32 = *(a3 + 1);
   if (v31)
   {
     v33 = *(*a4 + v31 - 1) != 42;
@@ -6051,7 +6043,7 @@ LABEL_38:
 LABEL_17:
   *v64 = *a3;
   v35 = *a3;
-  *&v64[16] = *(a3 + 16);
+  *&v64[16] = *(a3 + 2);
   v36 = *(a4 + 15);
   *a3 = *a4;
   *(a3 + 15) = v36;
@@ -6070,7 +6062,7 @@ LABEL_17:
 LABEL_24:
     *v65 = *a2;
     v47 = *a2;
-    *&v65[16] = *(a2 + 16);
+    *&v65[16] = *(a2 + 2);
     v48 = *(a3 + 15);
     *a2 = *a3;
     *(a2 + 15) = v48;
@@ -6081,8 +6073,8 @@ LABEL_24:
     v51 = v49 > v50;
     if (v49 == v50 && (v52 = *(a2 + 17), v53 = *(a1 + 17), v51 = v52 > v53, v52 == v53) && (v54 = *(a2 + 18), v55 = *(a1 + 18), v51 = v54 > v55, v54 == v55))
     {
-      v56 = *(a2 + 8);
-      v57 = *(a1 + 8);
+      v56 = *(a2 + 1);
+      v57 = *(a1 + 1);
       if (v56)
       {
         v58 = *(*a2 + v56 - 1) != 42;
@@ -6116,7 +6108,7 @@ LABEL_24:
 
     *v66 = *a1;
     v59 = *a1;
-    *&v66[16] = *(a1 + 16);
+    *&v66[16] = *(a1 + 2);
     v60 = *(a2 + 15);
     *a1 = *a2;
     *(a1 + 15) = v60;
@@ -6125,8 +6117,8 @@ LABEL_24:
     return result;
   }
 
-  v44 = *(a3 + 8);
-  v45 = *(a2 + 8);
+  v44 = *(a3 + 1);
+  v45 = *(a2 + 1);
   if (v44)
   {
     v46 = *(*a3 + v44 - 1) != 42;
@@ -6169,7 +6161,7 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,Token
         std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,0>(a1, (a1 + 24), (a1 + 48), (a2 - 24));
         return 1;
       case 5:
-        std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,0>(a1, a1 + 24, a1 + 48, a1 + 72, a2 - 24);
+        std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::{lambda(SnippetTerm,SnippetTerm)#1} &,SnippetTerm*,0>(a1, (a1 + 24), (a1 + 48), (a1 + 72), (a2 - 24));
         return 1;
     }
   }
@@ -6379,7 +6371,7 @@ LABEL_41:
   }
 }
 
-BOOL TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(uint64_t *a1, unint64_t a2, uint64_t a3)
+BOOL TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(uint64_t *a1, size_t a2, uint64_t a3)
 {
   v5 = 0;
   validAttributeForSnippet(a1, a2, &v5 + 1);
@@ -6414,10 +6406,10 @@ __n128 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch
   return result;
 }
 
-double std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(uint64_t *a1, uint64_t a2, uint64_t a3)
+double std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
-  v6 = TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a2 + 8), *(a2 + 16), a1);
-  v7 = TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a3 + 8), *(a3 + 16), a2);
+  v6 = TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a2[1], a2[2], a1);
+  v7 = TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a3[1], a3[2], a2);
   if (v6)
   {
     if (v7)
@@ -6428,7 +6420,7 @@ double std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSn
     else
     {
       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(a1, a2);
-      if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a3 + 8), *(a3 + 16), a2))
+      if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a3[1], a3[2], a2))
       {
         return result;
       }
@@ -6447,7 +6439,7 @@ double std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSn
     }
 
     std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(a2, a3);
-    if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a2 + 8), *(a2 + 16), a1))
+    if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a2[1], a2[2], a1))
     {
       return result;
     }
@@ -6460,32 +6452,32 @@ double std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSn
   return result;
 }
 
-double std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+double std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
   std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(a1, a2, a3);
-  if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a4 + 8), *(a4 + 16), a3))
+  if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a4[1], a4[2], a3))
   {
     std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(a3, a4);
-    if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a3 + 8), *(a3 + 16), a2))
+    if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a3[1], a3[2], a2))
     {
       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(a2, a3);
-      if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a2 + 8), *(a2 + 16), a1))
+      if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a2[1], a2[2], a1))
       {
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(a1, a2);
       }
     }
   }
 
-  if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a5 + 8), *(a5 + 16), a4))
+  if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a5[1], a5[2], a4))
   {
     std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(a4, a5);
-    if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a4 + 8), *(a4 + 16), a3))
+    if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a4[1], a4[2], a3))
     {
       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(a3, a4);
-      if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a3 + 8), *(a3 + 16), a2))
+      if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a3[1], a3[2], a2))
       {
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(a2, a3);
-        if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a2 + 8), *(a2 + 16), a1))
+        if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a2[1], a2[2], a1))
         {
 
           *&result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(a1, a2).n128_u64[0];
@@ -6518,39 +6510,39 @@ __n128 std::vector<SnippetTerm,CFBridgeAllocator<SnippetTerm>>::__move_assign(ui
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *>(uint64_t *a1, uint64_t *a2)
 {
-  v4 = 0x6DB6DB6DB6DB6DB7 * ((a2 - a1) >> 3);
+  v4 = 0x6DB6DB6DB6DB6DB7 * (a2 - a1);
   if (v4 > 2)
   {
     switch(v4)
     {
       case 3:
-        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(a1, a1 + 56, a2 - 56);
+        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(a1, a1 + 7, a2 - 7);
         return 1;
       case 4:
-        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(a1, a1 + 56, a1 + 112);
-        if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a2 - 48), *(a2 - 40), a1 + 112))
+        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(a1, a1 + 7, a1 + 14);
+        if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a2 - 6), *(a2 - 5), (a1 + 14)))
         {
           return 1;
         }
 
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>((a1 + 112), (a2 - 56));
-        if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a1 + 120), *(a1 + 128), a1 + 56))
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(a1 + 14, a2 - 7);
+        if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a1[15], a1[16], (a1 + 7)))
         {
           return 1;
         }
 
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>((a1 + 56), (a1 + 112));
-        if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a1 + 64), *(a1 + 72), a1))
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(a1 + 7, a1 + 14);
+        if (!TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(a1[8], a1[9], a1))
         {
           return 1;
         }
 
-        v5 = (a1 + 56);
+        v5 = a1 + 7;
         goto LABEL_6;
       case 5:
-        std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(a1, a1 + 56, a1 + 112, a1 + 168, a2 - 56);
+        std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(a1, a1 + 7, a1 + 14, a1 + 21, a2 - 7);
         return 1;
     }
   }
@@ -6564,9 +6556,9 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,Token
 
     if (v4 == 2)
     {
-      if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a2 - 48), *(a2 - 40), a1))
+      if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(a2 - 6), *(a2 - 5), a1))
       {
-        v5 = (a2 - 56);
+        v5 = a2 - 7;
 LABEL_6:
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<TokenMatch::entry *&,TokenMatch::entry *&>(a1, v5);
       }
@@ -6575,10 +6567,10 @@ LABEL_6:
     }
   }
 
-  v6 = a1 + 112;
-  std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(a1, a1 + 56, a1 + 112);
-  v7 = a1 + 168;
-  if (a1 + 168 == a2)
+  v6 = a1 + 14;
+  std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,TokenMatch::convertToSnippetHint(BOOL)::compare_attributes &,TokenMatch::entry *,0>(a1, a1 + 7, a1 + 14);
+  v7 = a1 + 21;
+  if (a1 + 21 == a2)
   {
     return 1;
   }
@@ -6587,23 +6579,23 @@ LABEL_6:
   v9 = 0;
   while (1)
   {
-    if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(*(v7 + 8), *(v7 + 16), v6))
+    if (TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(v7[1], v7[2], v6))
     {
-      v10 = *(v7 + 8);
-      v11 = *(v7 + 16);
-      v25 = *(v7 + 24);
+      v10 = v7[1];
+      v11 = v7[2];
+      v25 = *(v7 + 3);
       v23 = *v7;
-      v24 = *(v7 + 40);
-      *(v7 + 32) = 0;
-      *(v7 + 40) = 0;
+      v24 = v7[5];
+      v7[4] = 0;
+      v7[5] = 0;
       v12 = v8;
-      *(v7 + 24) = 0;
+      v7[3] = 0;
       while (1)
       {
         v13 = v12;
         v14 = a1 + v12;
-        *(v14 + 168) = *(a1 + v12 + 112);
-        *(v14 + 176) = *(a1 + v12 + 120);
+        *(v14 + 21) = *(a1 + v12 + 112);
+        *(v14 + 11) = *(a1 + v12 + 120);
         v15 = (a1 + v12 + 136);
         std::vector<SnippetTerm,CFBridgeAllocator<SnippetTerm>>::__move_assign(a1 + v12 + 192, v15);
         if (v13 == -112)
@@ -6611,13 +6603,13 @@ LABEL_6:
           break;
         }
 
-        v16 = TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(v10, v11, v14 + 56);
+        v16 = TokenMatch::convertToSnippetHint(BOOL)::compare_attributes::operator()(v10, v11, (v14 + 56));
         v12 = v13 - 56;
         if (!v16)
         {
           v17 = a1 + v13;
           v18 = a1 + v13 + 112;
-          v19 = a1 + v12 + 168;
+          v19 = (a1 + v12 + 168);
           v15 = (v17 + 136);
           v20 = (v17 + 120);
           goto LABEL_20;
@@ -6630,26 +6622,26 @@ LABEL_6:
 LABEL_20:
       *v19 = v23;
       *v20 = v10;
-      *(v18 + 16) = v11;
+      *(v18 + 2) = v11;
       v21 = v15->n128_u64[0];
       if (v15->n128_u64[0])
       {
-        *(v19 + 32) = v21;
-        CFAllocatorDeallocate(*(v19 + 48), v21);
-        *(v18 + 40) = 0;
+        v19[4] = v21;
+        CFAllocatorDeallocate(v19[6], v21);
+        *(v18 + 5) = 0;
       }
 
       *v15 = v25;
-      *(v19 + 40) = v24;
+      v19[5] = v24;
       if (++v9 == 8)
       {
-        return v7 + 56 == a2;
+        return v7 + 7 == a2;
       }
     }
 
     v6 = v7;
     v8 += 56;
-    v7 += 56;
+    v7 += 7;
     if (v7 == a2)
     {
       return 1;
@@ -6657,7 +6649,7 @@ LABEL_20:
   }
 }
 
-float validAttributeForSnippet(uint64_t *a1, unint64_t a2, _DWORD *a3)
+float validAttributeForSnippet(uint64_t *a1, size_t a2, _DWORD *a3)
 {
   {
     attributeImportance(void)::attributeImportanceScores = 0u;
@@ -6667,7 +6659,7 @@ float validAttributeForSnippet(uint64_t *a1, unint64_t a2, _DWORD *a3)
     v16 = 336;
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string_view,float>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,float>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,float>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,float>>>::__emplace_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(*v15, v15[1]);
+      std::__hash_table<std::__hash_value_type<std::string_view,float>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,float>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,float>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,float>>>::__emplace_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(*v15, v15[1], v15);
       v15 += 3;
       v16 -= 24;
     }
@@ -6740,35 +6732,35 @@ float validAttributeForSnippet(uint64_t *a1, unint64_t a2, _DWORD *a3)
   return *v7.i32;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string_view,float>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,float>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,float>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,float>>>::__emplace_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(uint64_t *a1, unint64_t a2)
+void std::__hash_table<std::__hash_value_type<std::string_view,float>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,float>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,float>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,float>>>::__emplace_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](a1, a2);
-  v5 = v4;
-  v6 = *(&attributeImportance(void)::attributeImportanceScores + 1);
+  v5 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](a1, a2);
+  v6 = v5;
+  v7 = *(&attributeImportance(void)::attributeImportanceScores + 1);
   if (!*(&attributeImportance(void)::attributeImportanceScores + 1))
   {
     goto LABEL_19;
   }
 
-  v7 = vcnt_s8(*(&attributeImportance(void)::attributeImportanceScores + 8));
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(*(&attributeImportance(void)::attributeImportanceScores + 8));
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *(&attributeImportance(void)::attributeImportanceScores + 1))
+    v10 = v5;
+    if (v5 >= *(&attributeImportance(void)::attributeImportanceScores + 1))
     {
-      v9 = v4 % *(&attributeImportance(void)::attributeImportanceScores + 1);
+      v10 = v5 % *(&attributeImportance(void)::attributeImportanceScores + 1);
     }
   }
 
   else
   {
-    v9 = (*(&attributeImportance(void)::attributeImportanceScores + 1) - 1) & v4;
+    v10 = (*(&attributeImportance(void)::attributeImportanceScores + 1) - 1) & v5;
   }
 
-  v10 = *(attributeImportance(void)::attributeImportanceScores + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(attributeImportance(void)::attributeImportanceScores + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_19:
     operator new();
@@ -6776,50 +6768,42 @@ LABEL_19:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= v6)
+      if (v13 >= v7)
       {
-        v12 %= v6;
+        v13 %= v7;
       }
     }
 
     else
     {
-      v12 &= v6 - 1;
+      v13 &= v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_19;
     }
 
 LABEL_18:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_19;
     }
   }
 
-  if (v11[3] != a2)
+  if (v12[3] != a2 || memcmp(v12[2], a1, a2))
   {
     goto LABEL_18;
   }
-
-  result = memcmp(v11[2], a1, a2);
-  if (result)
-  {
-    goto LABEL_18;
-  }
-
-  return result;
 }
 
 unint64_t std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](uint64_t *a1, unint64_t a2)
@@ -7006,13 +6990,13 @@ uint64_t keycompare(uint64_t a1, int a2, const char *a3, int a4, const char *a5)
   return result;
 }
 
-void release_persistent_id_store(uint64_t a1)
+void release_persistent_id_store(_DWORD *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = (a1 + 32);
-  if (*(a1 + 32) > 0x63u)
+  v19 = *MEMORY[0x1E69E9840];
+  v2 = a1 + 8;
+  if (a1[8] > 0x63u)
   {
-    if (!_sqlite_insert(a1, &master_fid_rec, master_fid_rec_size, (a1 + 32), 4, 0))
+    if (!_sqlite_insert(a1, &master_fid_rec, master_fid_rec_size, a1 + 32, 4, 0))
     {
       goto LABEL_7;
     }
@@ -7021,13 +7005,13 @@ void release_persistent_id_store(uint64_t a1)
     v4 = _SILogForLogForCategory(4);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v9 = *v2;
-      v10 = 136315650;
-      v11 = "release_persistent_id_store";
-      v12 = 1024;
-      v13 = 298;
-      v14 = 1024;
-      v15 = v9;
+      v12 = *v2;
+      v13 = 136315650;
+      v14 = "release_persistent_id_store";
+      v15 = 1024;
+      v16 = 298;
+      v17 = 1024;
+      v18 = v12;
       v6 = "%s:%d: psid-release: Failed to update the master fid! (0x%x)\n";
       goto LABEL_13;
     }
@@ -7040,36 +7024,35 @@ void release_persistent_id_store(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *v2;
-      v10 = 136315650;
-      v11 = "release_persistent_id_store";
-      v12 = 1024;
-      v13 = 285;
-      v14 = 1024;
-      v15 = v5;
+      v13 = 136315650;
+      v14 = "release_persistent_id_store";
+      v15 = 1024;
+      v16 = 285;
+      v17 = 1024;
+      v18 = v5;
       v6 = "%s:%d: release_psid_store: danger! master_fid %d looks bad.\n";
 LABEL_13:
-      _os_log_error_impl(&dword_1C278D000, v4, OS_LOG_TYPE_ERROR, v6, &v10, 0x18u);
+      _os_log_error_impl(&dword_1C278D000, v4, OS_LOG_TYPE_ERROR, v6, &v13, 0x18u);
     }
   }
 
   *__error() = v3;
 LABEL_7:
-  v7 = *(a1 + 16);
-  if (v7)
+  v11 = *(a1 + 2);
+  if (v11)
   {
-    sqlite3BtreeCloseCursor(v7);
+    sqlite3BtreeCloseCursor(v11);
   }
 
   if (*a1)
   {
-    sqlite3BtreeClose(*a1);
+    sqlite3BtreeClose(*a1, v7, v8, v9, v10);
   }
 
   free(a1);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t _sqlite_insert(uint64_t *a1, char *a2, unint64_t a3, char *a4, int a5, char a6)
+uint64_t _sqlite_insert(uint64_t **a1, char *a2, unint64_t a3, char *a4, uint64_t a5, char a6)
 {
   v28 = *MEMORY[0x1E69E9840];
   if ((a6 & 1) != 0 || (v12 = _sqlite_bulkBegin(a1), !v12))
@@ -7077,9 +7060,9 @@ uint64_t _sqlite_insert(uint64_t *a1, char *a2, unint64_t a3, char *a4, int a5, 
     v12 = sqlite3BtreeInsert(a1[2], a2, a3, a4, a5);
     if (v12)
     {
-      v13 = *__error();
-      v14 = _SILogForLogForCategory(4);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v14 = *__error();
+      v15 = _SILogForLogForCategory(4);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         v22 = 136315650;
         v23 = "_sqlite_insert";
@@ -7087,45 +7070,44 @@ uint64_t _sqlite_insert(uint64_t *a1, char *a2, unint64_t a3, char *a4, int a5, 
         v25 = 1061;
         v26 = 1024;
         v27 = v12;
-        _os_log_error_impl(&dword_1C278D000, v14, OS_LOG_TYPE_ERROR, "%s:%d: sqlite3BtreeInsert failed; rc = %d\n", &v22, 0x18u);
+        _os_log_error_impl(&dword_1C278D000, v15, OS_LOG_TYPE_ERROR, "%s:%d: sqlite3BtreeInsert failed; rc = %d\n", &v22, 0x18u);
       }
 
-      *__error() = v13;
+      *__error() = v14;
     }
 
     if ((a6 & 1) == 0)
     {
-      v15 = _sqlite_bulkEnd(a1);
+      v16 = _sqlite_bulkEnd(a1, v13);
       if (!v12)
       {
-        v16 = v15;
-        if (v15)
+        v17 = v16;
+        if (v16)
         {
-          v17 = *__error();
-          v18 = _SILogForLogForCategory(4);
-          v19 = 2 * (dword_1EBF46ADC < 4);
-          if (os_log_type_enabled(v18, v19))
+          v18 = *__error();
+          v19 = _SILogForLogForCategory(4);
+          v20 = 2 * (dword_1EBF46ADC < 4);
+          if (os_log_type_enabled(v19, v20))
           {
             v22 = 67109120;
-            LODWORD(v23) = v16;
-            _os_log_impl(&dword_1C278D000, v18, v19, "sqlite3BtreeInsert failed in _sqlite_bulkEnd; rc = %d\n", &v22, 8u);
+            LODWORD(v23) = v17;
+            _os_log_impl(&dword_1C278D000, v19, v20, "sqlite3BtreeInsert failed in _sqlite_bulkEnd; rc = %d\n", &v22, 8u);
           }
 
-          *__error() = v17;
-          v12 = v16;
+          *__error() = v18;
+          return v17;
         }
       }
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
-uint64_t _sqlite_bulkBegin(uint64_t a1)
+uint64_t _sqlite_bulkBegin(uint64_t *a1)
 {
-  v2 = (a1 + 16);
-  if (*(a1 + 16) || (v3 = sqlite3BtreeCursor(*a1, *(a1 + 8), 1, *(a1 + 24), v2), !v3))
+  v2 = (a1 + 2);
+  if (a1[2] || (v3 = sqlite3BtreeCursor(*a1, *(a1 + 2), 1, a1[3], v2), !v3))
   {
     v3 = sqlite3BtreeBeginTrans(*a1);
     if (v3)
@@ -7138,48 +7120,44 @@ uint64_t _sqlite_bulkBegin(uint64_t a1)
   return v3;
 }
 
-uint64_t _sqlite_bulkEnd(uint64_t *a1)
+uint64_t _sqlite_bulkEnd(uint64_t **a1, __n128 a2)
 {
   v12 = *MEMORY[0x1E69E9840];
-  if (a1[2])
+  if (!a1[2])
   {
-    v1 = sqlite3BtreeCommit(*a1);
-    if (v1)
+    return 0;
+  }
+
+  v2 = sqlite3BtreeCommit(*a1, a2);
+  if (v2)
+  {
+    v3 = *__error();
+    v4 = _SILogForLogForCategory(4);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v2 = *__error();
-      v3 = _SILogForLogForCategory(4);
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-      {
-        v6 = 136315650;
-        v7 = "_sqlite_bulkEnd";
-        v8 = 1024;
-        v9 = 1153;
-        v10 = 1024;
-        v11 = v1;
-        _os_log_error_impl(&dword_1C278D000, v3, OS_LOG_TYPE_ERROR, "%s:%d: sqlite3BtreeCommit failed; rc = %d\n", &v6, 0x18u);
-      }
-
-      *__error() = v2;
+      v6 = 136315650;
+      v7 = "_sqlite_bulkEnd";
+      v8 = 1024;
+      v9 = 1153;
+      v10 = 1024;
+      v11 = v2;
+      _os_log_error_impl(&dword_1C278D000, v4, OS_LOG_TYPE_ERROR, "%s:%d: sqlite3BtreeCommit failed; rc = %d\n", &v6, 0x18u);
     }
+
+    *__error() = v3;
   }
 
-  else
-  {
-    v1 = 0;
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return v1;
+  return v2;
 }
 
 uint64_t get_id_for_path(uint64_t a1, _BYTE *a2, int *a3, _DWORD *a4, char a5)
 {
   v8 = a2;
-  v29 = *MEMORY[0x1E69E9840];
-  v24 = 0;
-  v26 = 0;
-  memset(&v25[1], 0, 256);
-  v25[0] = 2;
+  v28 = *MEMORY[0x1E69E9840];
+  v23 = 0;
+  v25 = 0;
+  memset(&v24[1], 0, 256);
+  v24[0] = 2;
   *a3 = 0;
   if (a4)
   {
@@ -7222,12 +7200,12 @@ uint64_t get_id_for_path(uint64_t a1, _BYTE *a2, int *a3, _DWORD *a4, char a5)
         v15 = 255;
       }
 
-      LOWORD(v25[2]) = v15;
+      LOWORD(v24[2]) = v15;
       __strncpy_chk();
-      v16 = LOWORD(v25[2]);
-      ++LOWORD(v25[2]);
-      *(&v25[2] + v16 + 2) = 0;
-      v25[1] = 0;
+      v16 = LOWORD(v24[2]);
+      ++LOWORD(v24[2]);
+      *(&v24[2] + v16 + 2) = 0;
+      v24[1] = 0;
       if (*v13 == 47)
       {
         v8 = v13 + 1;
@@ -7238,49 +7216,47 @@ uint64_t get_id_for_path(uint64_t a1, _BYTE *a2, int *a3, _DWORD *a4, char a5)
         v8 = v13;
       }
 
-      if (psid_lookup(a1, v25, &v24))
+      if (psid_lookup(a1, v24, &v23))
       {
         if ((a5 & 1) == 0)
         {
-          result = 2;
-          goto LABEL_26;
+          return 2;
         }
 
         v17 = *(a1 + 32);
         if (v17 != 2 && v17 <= 0x63)
         {
-          v20 = *__error();
-          v21 = _SILogForLogForCategory(4);
-          v22 = 2 * (dword_1EBF46ADC < 4);
-          if (os_log_type_enabled(v21, v22))
+          v19 = *__error();
+          v20 = _SILogForLogForCategory(4);
+          v21 = 2 * (dword_1EBF46ADC < 4);
+          if (os_log_type_enabled(v20, v21))
           {
-            v23 = *(a1 + 32);
+            v22 = *(a1 + 32);
             *buf = 67109120;
-            v28 = v23;
-            _os_log_impl(&dword_1C278D000, v21, v22, "psid_insert: master fid corrupted (%d)\n", buf, 8u);
+            v27 = v22;
+            _os_log_impl(&dword_1C278D000, v20, v21, "psid_insert: master fid corrupted (%d)\n", buf, 8u);
           }
 
-          *__error() = v20;
-          result = 22;
-          goto LABEL_26;
+          *__error() = v19;
+          return 22;
         }
 
-        v24 = *(a1 + 32);
+        v23 = *(a1 + 32);
         *(a1 + 32) = v17 + 1;
-        result = _psid_insert(a1, v25, &v24);
+        result = _psid_insert(a1, v24, &v23);
         if (result)
         {
-          goto LABEL_26;
+          return result;
         }
       }
 
       if (a4)
       {
-        *a4 = v25[0];
+        *a4 = v24[0];
       }
 
-      v11 = v24;
-      v25[0] = v24;
+      v11 = v23;
+      v24[0] = v23;
       v10 = *v8;
     }
 
@@ -7294,8 +7270,6 @@ uint64_t get_id_for_path(uint64_t a1, _BYTE *a2, int *a3, _DWORD *a4, char a5)
 
   result = 0;
   *a3 = v11;
-LABEL_26:
-  v19 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7319,8 +7293,7 @@ uint64_t _psid_insert(uint64_t a1, uint64_t a2, char *a3)
   v28 = *MEMORY[0x1E69E9840];
   if (_sqlite_bulkBegin(a1))
   {
-    result = 22;
-    goto LABEL_17;
+    return 22;
   }
 
   v7 = *(a2 + 8);
@@ -7365,7 +7338,7 @@ LABEL_21:
     }
 
     *__error() = v18;
-    LODWORD(v7) = v23;
+    v7 = v23;
     v12 = 0x1EBF46000;
   }
 
@@ -7389,13 +7362,13 @@ LABEL_21:
     }
 
 LABEL_9:
-    v13 = 22;
+    v14 = 22;
     goto LABEL_10;
   }
 
   if (*(v12 + 2780) < 5)
   {
-    v13 = 0;
+    v14 = 0;
     goto LABEL_11;
   }
 
@@ -7411,37 +7384,33 @@ LABEL_9:
     _os_log_impl(&dword_1C278D000, v21, OS_LOG_TYPE_DEFAULT, "psid-insert: store path %s for fid 0x%x\n", buf, 0x12u);
   }
 
-  v13 = 0;
+  v14 = 0;
 LABEL_10:
   *__error() = v8;
 LABEL_11:
-  v14 = _sqlite_bulkEnd(a1);
-  if (v13)
-  {
-    v15 = v13;
-  }
-
-  else
-  {
-    v15 = 22;
-  }
-
+  v15 = _sqlite_bulkEnd(a1, v13);
   if (v14)
   {
-    result = v15;
+    v16 = v14;
   }
 
   else
   {
-    result = v13;
+    v16 = 22;
   }
 
-LABEL_17:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  if (v15)
+  {
+    return v16;
+  }
+
+  else
+  {
+    return v14;
+  }
 }
 
-uint64_t _sqlite_get_psid(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, int *a5)
+uint64_t _sqlite_get_psid(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, unsigned int *a5)
 {
   v11 = (a1 + 16);
   v10 = *(a1 + 16);
@@ -7565,8 +7534,8 @@ LABEL_14:
 
 uint64_t get_path_for_id(uint64_t a1, int a2, void *a3, uint64_t a4, int a5)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v30 = a2;
+  v37 = *MEMORY[0x1E69E9840];
+  v29 = a2;
   v7 = a5;
   *(a4 + a5 - 1) = 0;
   if (a2 == 2)
@@ -7577,18 +7546,17 @@ uint64_t get_path_for_id(uint64_t a1, int a2, void *a3, uint64_t a4, int a5)
   else
   {
     v8 = 1;
-    memset(v37, 0, 268);
+    memset(v36, 0, 268);
     while (1)
     {
-      v29 = 268;
-      if (_sqlite_get(a1, &v30, 4, v37, &v29))
+      v28 = 268;
+      if (_sqlite_get(a1, &v29, 4, v36, &v28))
       {
-        result = 2;
-        goto LABEL_24;
+        return 2;
       }
 
-      v11 = WORD4(v37[0]);
-      if (WORD4(v37[0]) >= a5)
+      v11 = WORD4(v36[0]);
+      if (WORD4(v36[0]) >= a5)
       {
         v15 = *__error();
         v16 = _SILogForLogForCategory(4);
@@ -7596,13 +7564,13 @@ uint64_t get_path_for_id(uint64_t a1, int a2, void *a3, uint64_t a4, int a5)
         if (os_log_type_enabled(v16, v17))
         {
           *buf = 67109890;
-          v32 = WORD4(v37[0]);
-          v33 = 1024;
-          v34 = v37[0];
-          v35 = 1024;
-          *v36 = DWORD1(v37[0]);
-          *&v36[4] = 2080;
-          *&v36[6] = v37 | 0xA;
+          v31 = WORD4(v36[0]);
+          v32 = 1024;
+          v33 = v36[0];
+          v34 = 1024;
+          *v35 = DWORD1(v36[0]);
+          *&v35[4] = 2080;
+          *&v35[6] = v36 | 0xA;
           v18 = "get_path_for_id: bogus part len %d (%d/%d/%s)\n";
           v19 = v16;
           v20 = v17;
@@ -7612,11 +7580,10 @@ uint64_t get_path_for_id(uint64_t a1, int a2, void *a3, uint64_t a4, int a5)
 
 LABEL_23:
         *__error() = v15;
-        result = 22;
-        goto LABEL_24;
+        return 22;
       }
 
-      if (LODWORD(v37[0]) != 2 && LODWORD(v37[0]) <= 0x63)
+      if (LODWORD(v36[0]) != 2 && LODWORD(v36[0]) <= 0x63)
       {
         v12 = *__error();
         v13 = _SILogForLogForCategory(4);
@@ -7624,16 +7591,16 @@ LABEL_23:
         if (os_log_type_enabled(v13, v14))
         {
           *buf = 67109634;
-          v32 = v30;
-          v33 = 1024;
-          v34 = v37[0];
-          v35 = 2080;
-          *v36 = v37 | 0xA;
+          v31 = v29;
+          v32 = 1024;
+          v33 = v36[0];
+          v34 = 2080;
+          *v35 = v36 | 0xA;
           _os_log_impl(&dword_1C278D000, v13, v14, "get_path_for_id: bogus looking part fid (cur fid %d, part fid %d name %s)\n", buf, 0x18u);
         }
 
         *__error() = v12;
-        v11 = WORD4(v37[0]);
+        v11 = WORD4(v36[0]);
       }
 
       if (v8 + v11 + 1 >= a5)
@@ -7645,11 +7612,11 @@ LABEL_23:
         if (os_log_type_enabled(v22, v23))
         {
           *buf = 67109634;
-          v32 = v8;
-          v33 = 1024;
-          v34 = WORD4(v37[0]);
-          v35 = 2080;
-          *v36 = a4;
+          v31 = v8;
+          v32 = 1024;
+          v33 = WORD4(v36[0]);
+          v34 = 2080;
+          *v35 = a4;
           v18 = "get_path_for_id: path index too large! (%d %d : %s)\n";
           v19 = v22;
           v20 = v23;
@@ -7661,41 +7628,39 @@ LABEL_22:
         goto LABEL_23;
       }
 
-      strncpy((a4 + 1 + a5 - (v8 + v11)), (v37 | 0xA), v11 - 1);
+      strncpy((a4 + 1 + a5 - (v8 + v11)), (v36 | 0xA), v11 - 1);
       v8 += v11;
       *(a4 + v7 - v8) = 47;
-      if (v30 == 100 && LODWORD(v37[0]) != 2)
+      if (v29 == 100 && LODWORD(v36[0]) != 2)
       {
         break;
       }
 
-      v30 = v37[0];
-      if (LODWORD(v37[0]) == 2)
+      v29 = v36[0];
+      if (LODWORD(v36[0]) == 2)
       {
         goto LABEL_3;
       }
     }
 
-    v25 = *__error();
-    v26 = _SILogForLogForCategory(4);
-    v27 = 2 * (dword_1EBF46ADC < 4);
-    if (os_log_type_enabled(v26, v27))
+    v24 = *__error();
+    v25 = _SILogForLogForCategory(4);
+    v26 = 2 * (dword_1EBF46ADC < 4);
+    if (os_log_type_enabled(v25, v26))
     {
       *buf = 67109376;
-      v32 = v30;
-      v33 = 1024;
-      v34 = v37[0];
-      _os_log_impl(&dword_1C278D000, v26, v27, "get_path_for_id: cur fid %d should have parent fid 2 but part->fid == %d\n", buf, 0xEu);
+      v31 = v29;
+      v32 = 1024;
+      v33 = v36[0];
+      _os_log_impl(&dword_1C278D000, v25, v26, "get_path_for_id: cur fid %d should have parent fid 2 but part->fid == %d\n", buf, 0xEu);
     }
 
-    *__error() = v25;
+    *__error() = v24;
   }
 
 LABEL_3:
   result = 0;
   *a3 = a4 + v7 - v8;
-LABEL_24:
-  v24 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7711,9 +7676,9 @@ uint64_t remove_path(uint64_t *a1, char *a2)
     {
       if (_sqlite_delete(a1, v17, 4))
       {
-        v5 = *__error();
-        v6 = _SILogForLogForCategory(4);
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v6 = *__error();
+        v7 = _SILogForLogForCategory(4);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
           v12 = "remove_path_locked";
@@ -7721,42 +7686,41 @@ uint64_t remove_path(uint64_t *a1, char *a2)
           v14 = 747;
           v15 = 1024;
           v16 = v17[0];
-          _os_log_error_impl(&dword_1C278D000, v6, OS_LOG_TYPE_ERROR, "%s:%d: psid-remove: Could not delete the file-fid record for fid %d\n", buf, 0x18u);
+          _os_log_error_impl(&dword_1C278D000, v7, OS_LOG_TYPE_ERROR, "%s:%d: psid-remove: Could not delete the file-fid record for fid %d\n", buf, 0x18u);
         }
 
-        *__error() = v5;
+        *__error() = v6;
       }
 
       memset(v17 + 4, 0, 264);
       LODWORD(v17[0]) = v10;
-      v7 = strrchr(a2, 47);
-      v8 = a2 - 1;
-      if (v7)
+      v8 = strrchr(a2, 47);
+      v9 = a2 - 1;
+      if (v8)
       {
-        v8 = v7;
+        v9 = v8;
       }
 
-      strncpy((v17 | 0xA), v8 + 1, 0x100uLL);
+      strncpy((v17 | 0xA), v9 + 1, 0x100uLL);
       BYTE9(v17[16]) = 0;
       WORD4(v17[0]) = strlen((v17 | 0xA)) + 1;
       _sqlite_delete(a1, v17, WORD4(v17[0]) + 12);
     }
 
-    result = _sqlite_bulkEnd(a1);
+    return _sqlite_bulkEnd(a1, v5);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t _sqlite_delete(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v27 = 0;
-  v4 = sqlite3BtreeMoveto(*(a1 + 16), a2, a3, &v27);
-  if (v4 | v27)
+  v37 = *MEMORY[0x1E69E9840];
+  v26 = 0;
+  v4 = sqlite3BtreeMoveto(*(a1 + 16), a2, a3, &v26);
+  if (v4 | v26)
   {
-    goto LABEL_21;
+    return v4;
   }
 
   v5 = *(a1 + 16);
@@ -7801,43 +7765,43 @@ LABEL_17:
 
     if (*(v7 + 4))
     {
-      v17 = *(v5 + 56);
+      v16 = *(v5 + 56);
       *buf = 0u;
-      v32 = 0u;
+      v31 = 0u;
       parseCellPtr(v7, v9 + v10, buf);
-      dropCell(v7, v17, WORD5(v32));
+      dropCell(v7, v16, WORD5(v31));
       v4 = balance(v7, 0);
     }
 
     else
     {
       *buf = *v5;
-      v32 = *(v5 + 16);
-      v34 = *(v5 + 48);
-      v35 = *(v5 + 64);
-      v36 = *(v5 + 80);
-      v37 = *(v5 + 96);
-      v33 = *(v5 + 32);
+      v31 = *(v5 + 16);
+      v33 = *(v5 + 48);
+      v34 = *(v5 + 64);
+      v35 = *(v5 + 80);
+      v36 = *(v5 + 96);
+      v32 = *(v5 + 32);
       *&buf[8] = 0;
-      *&v32 = 0;
-      if (v34)
+      *&v31 = 0;
+      if (v33)
       {
-        v18 = *(v34 + 112);
-        if (*(v18 - 10))
+        v17 = *(v33 + 112);
+        if (*(v17 - 10))
         {
-          ++*(v18 - 10);
+          ++*(v17 - 10);
         }
 
         else
         {
-          _page_ref((v18 - 88));
+          _page_ref((v17 - 88));
         }
       }
 
-      v19 = sqlite3BtreeNext(buf, &v28);
-      if (v19)
+      v18 = sqlite3BtreeNext(buf, &v27);
+      if (v18)
       {
-        if (v19 == 7)
+        if (v18 == 7)
         {
           v4 = 7;
         }
@@ -7850,33 +7814,33 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v20 = v34;
-      inserted = sqlite3pager_write(*(v34 + 112));
+      v19 = v33;
+      inserted = sqlite3pager_write(*(v33 + 112));
       if (inserted)
       {
         goto LABEL_17;
       }
 
-      v21 = *(v5 + 56);
+      v20 = *(v5 + 56);
+      v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
-      parseCellPtr(v7, v9 + v10, &v29);
-      dropCell(v7, v21, WORD5(v30));
-      v22 = DWORD2(v34);
-      v23 = *(v20 + 112) + __rev16(*(*(v20 + 112) + *(v20 + 14) + 2 * SDWORD2(v34)));
+      parseCellPtr(v7, v9 + v10, &v28);
+      dropCell(v7, v20, WORD5(v29));
+      v21 = DWORD2(v33);
+      v22 = *(v19 + 112) + __rev16(*(*(v19 + 112) + *(v19 + 14) + 2 * SDWORD2(v33)));
+      v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
-      parseCellPtr(v20, v23, &v29);
-      v24 = WORD5(v30);
-      v25 = sqlite3MallocRaw(*(v6 + 32) - 8);
-      if (!v25)
+      parseCellPtr(v19, v22, &v28);
+      v23 = WORD5(v29);
+      v24 = sqlite3MallocRaw(*(v6 + 32) - 8);
+      if (!v24)
       {
         v4 = 7;
         goto LABEL_18;
       }
 
-      v26 = v25;
-      inserted = insertCell(v7, *(v5 + 56), v23 - 4, v24 + 4, v25, 0);
+      v25 = v24;
+      inserted = insertCell(v7, *(v5 + 56), v22 - 4, (v23 + 4), v24, 0);
       if (inserted)
       {
         goto LABEL_17;
@@ -7884,21 +7848,21 @@ LABEL_17:
 
       *findOverflowCell(v7, *(v5 + 56)) = bswap32(v11);
       v4 = balance(v7, 0);
-      free(v26);
+      free(v25);
       if (v4)
       {
         goto LABEL_18;
       }
 
-      dropCell(v20, v22, v24);
-      v4 = balance(v20, 0);
-      sqlite3pager_unref(*(v20 + 112));
+      dropCell(v19, v21, v23);
+      v4 = balance(v19, 0);
+      sqlite3pager_unref(*(v19 + 112));
     }
 
     moveToRoot(v5);
     if (!v4)
     {
-      goto LABEL_21;
+      return v4;
     }
 
     goto LABEL_18;
@@ -7917,8 +7881,6 @@ LABEL_18:
   }
 
   *__error() = v12;
-LABEL_21:
-  v15 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -8036,79 +7998,122 @@ LABEL_15:
   }
 
   *(v3 + 5) = 0;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 1) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 158) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 159) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 160) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 161) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 162) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 163) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 164) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 165) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 166) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 167) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 168) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 169) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 170) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 171) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 172) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 173) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 174) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 175) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 176) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 177) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 178) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 179) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 180) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 181) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 182) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 183) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 15) + 5) = 1062006161;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 16) + 5) = 1041865114;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 81) + 5) = 1041865114;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 8) + 5) = 1067668472;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 9) + 5) = 1067668472;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 10) + 5) = 1067668472;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 11) + 5) = 1067668472;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 12) + 5) = 1067668472;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 13) + 5) = 1067668472;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 104) + 5) = 1036831949;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 64) + 5) = 1068010727;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 65) + 5) = 1068010727;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 66) + 5) = 1068010727;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 5) + 5) = 1064653606;
-  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 6) + 5) = 1064653606;
-  result = std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 7);
+  v6 = &QUPP_ARG_SEARCH_TERM;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 1, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_CALENDAR;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 158, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_CONTACT;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 159, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_CONVERSATION;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 160, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_DOCUMENT;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 161, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_FREEFORM;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 162, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_JOURNAL;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 163, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_KEYNOTE;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 164, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_MEDIA;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 165, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_MEMORY;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 166, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_NOTE;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 167, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_NOTE_FOLDER;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 168, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_NUMBERS;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 169, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_PAGES;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 170, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_PANORAMA;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 171, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_PHOTO;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 172, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_PHOTO_ALBUM;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 173, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_SCREENSHOT;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 174, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_SELFIE;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 175, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_SLOMO;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 176, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_SPATIAL_VIDEO;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 177, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_VIDEO;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 178, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_VOICE_MEMO;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 179, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_WEBSITE;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 180, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_REMINDER;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 181, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_VOICE_MAIL;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 182, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_APP_CONTAINS_TYPE_WALLET;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 183, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_EVENT_TYPE_FLIGHT;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 15, &v6) + 5) = 1062006161;
+  v6 = &QUPP_ARG_EVENT_TYPE_HOTEL;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 16, &v6) + 5) = 1041865114;
+  v6 = &QUPP_ARG_EVENT_TYPE_PARTY;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 81, &v6) + 5) = 1041865114;
+  v6 = &QUPP_ARG_TIME;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 8, &v6) + 5) = 1067668472;
+  v6 = &QUPP_ARG_TIME_START;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 9, &v6) + 5) = 1067668472;
+  v6 = &QUPP_ARG_TIME_END;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 10, &v6) + 5) = 1067668472;
+  v6 = &QUPP_ARG_TIME_CREATED;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 11, &v6) + 5) = 1067668472;
+  v6 = &QUPP_ARG_TIME_MODIFIED;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 12, &v6) + 5) = 1067668472;
+  v6 = &QUPP_ARG_TIME_LAST_OPENED;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 13, &v6) + 5) = 1067668472;
+  v6 = &QUPP_ARG_PERSON_SELF;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 104, &v6) + 5) = 1036831949;
+  v6 = &QUPP_ARG_PERSON;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 64, &v6) + 5) = 1068010727;
+  v6 = &QUPP_ARG_PERSON_SENDER;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 65, &v6) + 5) = 1068010727;
+  v6 = &QUPP_ARG_PERSON_RECEIVER;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 66, &v6) + 5) = 1068010727;
+  v6 = &QUPP_ARG_LOCATION;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 5, &v6) + 5) = 1064653606;
+  v6 = &QUPP_ARG_LOCATION_DEPARTURE;
+  *(std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 6, &v6) + 5) = 1064653606;
+  v6 = &QUPP_ARG_LOCATION_ARRIVAL;
+  result = std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmEntityBoostingArgIds(void)::_entityBoostingArgIds, 7, &v6);
   *(result + 5) = 1064653606;
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(float *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -8116,44 +8121,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 void std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__rehash<true>(uint64_t a1, size_t __n)
@@ -8242,25 +8247,23 @@ void llmDateAttributes(void)
 
 void ___Z17llmDateAttributesv_block_invoke()
 {
-  v10.__r_.__value_.__r.__words[0] = *MEMORY[0x1E69E9840];
+  v9.__r_.__value_.__r.__words[0] = *MEMORY[0x1E69E9840];
   std::string::basic_string[abi:nn200100]<0>(&__str, "com_apple_mail_dateReceived");
-  std::string::basic_string[abi:nn200100]<0>(v3, "com_apple_mail_dateSent");
-  std::string::basic_string[abi:nn200100]<0>(v4, "kMDItemContentCreationDate");
-  std::string::basic_string[abi:nn200100]<0>(v5, "kMDItemContentModificationDate");
-  std::string::basic_string[abi:nn200100]<0>(v6, "kMDItemDueDate");
-  std::string::basic_string[abi:nn200100]<0>(v7, "kMDItemEndDate");
-  std::string::basic_string[abi:nn200100]<0>(v8, "kMDItemStartDate");
-  std::string::basic_string[abi:nn200100]<0>(v9, "kMDItemUserSharedReceivedDate");
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(&llmDateAttributes(void)::_dateAttributes, &__str, &v10);
-  for (i = 0; i != -192; i -= 24)
+  std::string::basic_string[abi:nn200100]<0>(v2, "com_apple_mail_dateSent");
+  std::string::basic_string[abi:nn200100]<0>(v3, "kMDItemContentCreationDate");
+  std::string::basic_string[abi:nn200100]<0>(v4, "kMDItemContentModificationDate");
+  std::string::basic_string[abi:nn200100]<0>(v5, "kMDItemDueDate");
+  std::string::basic_string[abi:nn200100]<0>(v6, "kMDItemEndDate");
+  std::string::basic_string[abi:nn200100]<0>(v7, "kMDItemStartDate");
+  std::string::basic_string[abi:nn200100]<0>(v8, "kMDItemUserSharedReceivedDate");
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(&llmDateAttributes(void)::_dateAttributes, &__str, &v9);
+  for (i = 0; i != -24; i -= 3)
   {
-    if (v9[i + 23] < 0)
+    if (SHIBYTE(v8[i + 2]) < 0)
     {
-      operator delete(*&v9[i]);
+      operator delete(v8[i]);
     }
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C28C255C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
@@ -8286,7 +8289,7 @@ void sub_1C28C255C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 }
 
-_BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:nn200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -8300,21 +8303,21 @@ _BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(uint64_t a1, std::string *__str, std::string *a3)
+void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(float *result, std::string *__str, std::string *a3)
 {
   v3 = a3;
   v4 = __str;
-  v6 = *(a1 + 8);
+  v6 = *(result + 1);
   if (!v6)
   {
     goto LABEL_60;
@@ -8322,13 +8325,13 @@ void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::str
 
   for (i = 0; i != v6; ++i)
   {
-    *(*a1 + 8 * i) = 0;
+    *(*result + 8 * i) = 0;
   }
 
-  v8 = *(a1 + 16);
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  v33 = (a1 + 16);
+  v8 = *(result + 2);
+  *(result + 2) = 0;
+  *(result + 3) = 0;
+  v33 = (result + 4);
   if (v8)
   {
     v9 = __str == a3;
@@ -8373,7 +8376,7 @@ void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::str
     v14 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v12, v13);
     v15 = v14;
     v8[1] = v14;
-    v16 = *(a1 + 8);
+    v16 = *(result + 1);
     if (v16)
     {
       v17 = vcnt_s8(v16);
@@ -8393,7 +8396,7 @@ void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::str
         v19 = (v16 - 1) & v14;
       }
 
-      v20 = *(*a1 + 8 * v19);
+      v20 = *(*result + 8 * v19);
       if (v20)
       {
         v21 = *v20;
@@ -8439,8 +8442,8 @@ void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::str
       }
     }
 
-    v23 = (*(a1 + 24) + 1);
-    v24 = *(a1 + 32);
+    v23 = (*(result + 3) + 1);
+    v24 = result[8];
     if (!v16 || (v24 * v16) < v23)
     {
       v25 = (v16 & (v16 - 1)) != 0;
@@ -8461,8 +8464,8 @@ void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::str
         v28 = v26;
       }
 
-      std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__rehash<true>(a1, v28);
-      v16 = *(a1 + 8);
+      std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__rehash<true>(result, v28);
+      v16 = *(result + 1);
       v15 = v8[1];
     }
 
@@ -8481,8 +8484,8 @@ void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::str
       v15 &= v16 - 1;
     }
 
-    v30 = *a1;
-    v31 = *(*a1 + 8 * v15);
+    v30 = *result;
+    v31 = *(*result + 8 * v15);
     if (v31)
     {
       *v8 = *v31;
@@ -8510,12 +8513,12 @@ LABEL_52:
         v32 &= v16 - 1;
       }
 
-      v31 = (*a1 + 8 * v32);
+      v31 = (*result + 8 * v32);
       goto LABEL_52;
     }
 
 LABEL_53:
-    ++*(a1 + 24);
+    ++*(result + 3);
 LABEL_54:
     ++v4;
     v10 = __p;
@@ -8538,7 +8541,8 @@ LABEL_58:
 LABEL_60:
   while (v4 != v3)
   {
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, v4++);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(result, v4, v4);
+    ++v4;
   }
 }
 
@@ -8563,56 +8567,56 @@ void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::str
   }
 }
 
-BOOL std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, uint64_t a2)
+void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -8620,45 +8624,42 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2);
-  if (!result)
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
-
-  return result;
 }
 
 BOOL std::equal_to<std::string>::operator()[abi:nn200100](void *a1, void *a2)
@@ -8691,7 +8692,6 @@ BOOL std::equal_to<std::string>::operator()[abi:nn200100](void *a1, void *a2)
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -8738,17 +8738,16 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
 
 void ___ZL13llmDateArgIdsv_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v1 = xmmword_1C2BF9E70;
-  v2 = 0xD0000000CLL;
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(&llmDateArgIds(void)::_dateArgIds, &v1, &v3);
-  v0 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v0 = xmmword_1C2BF9E70;
+  v1 = 0xD0000000CLL;
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(&llmDateArgIds(void)::_dateArgIds, &v0, &v2);
 }
 
-void std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(uint64_t a1, int *a2, int *a3)
+void std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(uint64_t *a1, int *a2, int *a3)
 {
   v4 = a2;
-  v6 = *(a1 + 8);
+  v6 = a1[1];
   if (v6)
   {
     for (i = 0; i != v6; ++i)
@@ -8756,10 +8755,10 @@ void std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>
       *(*a1 + 8 * i) = 0;
     }
 
-    v8 = (a1 + 16);
-    v9 = *(a1 + 16);
-    *(a1 + 16) = 0;
-    *(a1 + 24) = 0;
+    v8 = a1 + 2;
+    v9 = a1[2];
+    a1[2] = 0;
+    a1[3] = 0;
     if (v9)
     {
       v10 = a2 == a3;
@@ -8834,8 +8833,8 @@ void std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>
           }
         }
 
-        v18 = (*(a1 + 24) + 1);
-        v19 = *(a1 + 32);
+        v18 = (a1[3] + 1);
+        v19 = *(a1 + 8);
         if (!v6 || (v19 * v6) < v18)
         {
           v20 = 2 * v6;
@@ -8853,7 +8852,7 @@ void std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>
           }
 
           std::__hash_table<std::__hash_value_type<int,float>,std::__unordered_map_hasher<int,std::__hash_value_type<int,float>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,float>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,float>>>::__rehash<true>(a1, v24);
-          v6 = *(a1 + 8);
+          v6 = a1[1];
           v12 = v9[1];
         }
 
@@ -8908,7 +8907,7 @@ void std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>
 
         *v27 = v9;
 LABEL_48:
-        ++*(a1 + 24);
+        ++a1[3];
 LABEL_49:
         ++v4;
         if (v11)
@@ -8945,39 +8944,40 @@ LABEL_51:
     do
     {
       v31 = *v30++;
-      std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1, v31);
+      std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1, v31, v4);
+      v4 = v30;
     }
 
     while (v30 != a3);
   }
 }
 
-void *std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(void *result, int a2)
+void std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(void *a1, int a2, _DWORD *a3)
 {
-  v2 = result[1];
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -8985,66 +8985,63 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 void ___ZL29llmDenseRetrievalFilterArgIdsv_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v1[0] = xmmword_1C2BF9E80;
-  v1[1] = xmmword_1C2BF9E90;
-  v1[2] = xmmword_1C2BF9EA0;
-  v1[3] = xmmword_1C2BF9EB0;
-  v1[4] = xmmword_1C2BF9EC0;
-  v1[5] = xmmword_1C2BF9ED0;
-  v1[6] = xmmword_1C2BF9EE0;
-  v1[7] = xmmword_1C2BF9EF0;
-  v1[8] = xmmword_1C2BF9F00;
-  v1[9] = xmmword_1C2BF9F10;
-  v1[10] = xmmword_1C2BF9F20;
-  v1[11] = xmmword_1C2BF9F30;
-  v1[12] = xmmword_1C2BF9F40;
-  v1[13] = xmmword_1C2BF9F50;
-  v1[14] = xmmword_1C2BF9F60;
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(&llmDenseRetrievalFilterArgIds(void)::_denseRetrievalFilterArgIds, v1, &v2);
-  v0 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v0[0] = xmmword_1C2BF9E80;
+  v0[1] = xmmword_1C2BF9E90;
+  v0[2] = xmmword_1C2BF9EA0;
+  v0[3] = xmmword_1C2BF9EB0;
+  v0[4] = xmmword_1C2BF9EC0;
+  v0[5] = xmmword_1C2BF9ED0;
+  v0[6] = xmmword_1C2BF9EE0;
+  v0[7] = xmmword_1C2BF9EF0;
+  v0[8] = xmmword_1C2BF9F00;
+  v0[9] = xmmword_1C2BF9F10;
+  v0[10] = xmmword_1C2BF9F20;
+  v0[11] = xmmword_1C2BF9F30;
+  v0[12] = xmmword_1C2BF9F40;
+  v0[13] = xmmword_1C2BF9F50;
+  v0[14] = xmmword_1C2BF9F60;
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(&llmDenseRetrievalFilterArgIds(void)::_denseRetrievalFilterArgIds, v0, &v1);
 }
 
 uint64_t *std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::find<int>(uint64_t a1, unint64_t a2, int a3)
@@ -9114,98 +9111,98 @@ uint64_t *std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::s
 
 void ___ZL45llmDenseRetrievalBundleSpecificFilterArgIdMapv_block_invoke()
 {
-  v20.__r_.__value_.__r.__words[0] = *MEMORY[0x1E69E9840];
-  LODWORD(v17) = -1;
-  __p.__r_.__value_.__r.__words[0] = &v17;
-  v0 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, -1);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v0 + 3), 0, 0);
+  v19.__r_.__value_.__r.__words[0] = *MEMORY[0x1E69E9840];
+  LODWORD(v16) = -1;
+  __p.__r_.__value_.__r.__words[0] = &v16;
+  v0 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, -1, &__p);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v0 + 6, 0, 0);
   std::string::basic_string[abi:nn200100]<0>(&__p, "com.apple.spotlight.events");
-  std::string::basic_string[abi:nn200100]<0>(&v19, "com.apple.mobilecal");
-  v17 = &QUPP_ARG_TIME;
-  v1 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 8);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v1 + 3), &__p, &v20);
+  std::string::basic_string[abi:nn200100]<0>(&v18, "com.apple.mobilecal");
+  v16 = &QUPP_ARG_TIME;
+  v1 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 8, &v16);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v1 + 6, &__p, &v19);
   for (i = 0; i != -6; i -= 3)
   {
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[i + 2]) < 0)
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[i + 2]) < 0)
     {
       operator delete(*(&__p + i * 8 + 24));
     }
   }
 
   std::string::basic_string[abi:nn200100]<0>(&__p, "com.apple.mobilemail");
-  std::string::basic_string[abi:nn200100]<0>(&v19, "com.apple.MobileSMS");
-  v17 = &QUPP_ARG_PERSON_SENDER;
-  v3 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 65);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v3 + 3), &__p, &v20);
+  std::string::basic_string[abi:nn200100]<0>(&v18, "com.apple.MobileSMS");
+  v16 = &QUPP_ARG_PERSON_SENDER;
+  v3 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 65, &v16);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v3 + 6, &__p, &v19);
   for (j = 0; j != -6; j -= 3)
   {
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[j + 2]) < 0)
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[j + 2]) < 0)
     {
       operator delete(*(&__p + j * 8 + 24));
     }
   }
 
   std::string::basic_string[abi:nn200100]<0>(&__p, "com.apple.mobilemail");
-  std::string::basic_string[abi:nn200100]<0>(&v19, "com.apple.MobileSMS");
-  v17 = &QUPP_ARG_PERSON_RECEIVER;
-  v5 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 66);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v5 + 3), &__p, &v20);
+  std::string::basic_string[abi:nn200100]<0>(&v18, "com.apple.MobileSMS");
+  v16 = &QUPP_ARG_PERSON_RECEIVER;
+  v5 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 66, &v16);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v5 + 6, &__p, &v19);
   for (k = 0; k != -6; k -= 3)
   {
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[k + 2]) < 0)
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[k + 2]) < 0)
     {
       operator delete(*(&__p + k * 8 + 24));
     }
   }
 
   std::string::basic_string[abi:nn200100]<0>(&__p, "com.apple.mobilemail");
-  std::string::basic_string[abi:nn200100]<0>(&v19, "com.apple.MobileSMS");
-  v17 = &QUPP_ARG_CONVERSATION_FILTER_TIME;
-  v7 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 193);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v7 + 3), &__p, &v20);
+  std::string::basic_string[abi:nn200100]<0>(&v18, "com.apple.MobileSMS");
+  v16 = &QUPP_ARG_CONVERSATION_FILTER_TIME;
+  v7 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 193, &v16);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v7 + 6, &__p, &v19);
   for (m = 0; m != -6; m -= 3)
   {
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[m + 2]) < 0)
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[m + 2]) < 0)
     {
       operator delete(*(&__p + m * 8 + 24));
     }
   }
 
   std::string::basic_string[abi:nn200100]<0>(&__p, "com.apple.mobilemail");
-  std::string::basic_string[abi:nn200100]<0>(&v19, "com.apple.reminders");
-  v17 = &QUPP_ARG_APP_ENTITY_STATUS_FLAGGED;
-  v9 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 43);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v9 + 3), &__p, &v20);
+  std::string::basic_string[abi:nn200100]<0>(&v18, "com.apple.reminders");
+  v16 = &QUPP_ARG_APP_ENTITY_STATUS_FLAGGED;
+  v9 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 43, &v16);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v9 + 6, &__p, &v19);
   for (n = 0; n != -6; n -= 3)
   {
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[n + 2]) < 0)
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[n + 2]) < 0)
     {
       operator delete(*(&__p + n * 8 + 24));
     }
   }
 
   std::string::basic_string[abi:nn200100]<0>(&__p, "com.apple.mobilemail");
-  v17 = &QUPP_ARG_APP_ENTITY_STATUS_READ;
-  v11 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 47);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v11 + 3), &__p, &v19);
+  v16 = &QUPP_ARG_APP_ENTITY_STATUS_READ;
+  v11 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 47, &v16);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v11 + 6, &__p, &v18);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:nn200100]<0>(&__p, "com.apple.mobilemail");
-  v17 = &QUPP_ARG_APP_ENTITY_STATUS_UNREAD;
-  v12 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 55);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v12 + 3), &__p, &v19);
+  v16 = &QUPP_ARG_APP_ENTITY_STATUS_UNREAD;
+  v12 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 55, &v16);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v12 + 6, &__p, &v18);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:nn200100]<0>(&__p, "com.apple.mobilemail");
-  v17 = &QUPP_ARG_APP_ENTITY_STATUS_DRAFT;
-  v13 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 39);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v13 + 3), &__p, &v19);
+  v16 = &QUPP_ARG_APP_ENTITY_STATUS_DRAFT;
+  v13 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 39, &v16);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v13 + 6, &__p, &v18);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -9219,53 +9216,51 @@ void ___ZL45llmDenseRetrievalBundleSpecificFilterArgIdMapv_block_invoke()
   if (isWalletDocumentUnderstandingEnabled_ffStatus == 1)
   {
     std::string::basic_string[abi:nn200100]<0>(&__p, "com.apple.Passbook");
-    v17 = &QUPP_ARG_LOCATION_DEPARTURE;
-    v14 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 6);
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v14 + 3), &__p, &v19);
+    v16 = &QUPP_ARG_LOCATION_DEPARTURE;
+    v14 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 6, &v16);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v14 + 6, &__p, &v18);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
     std::string::basic_string[abi:nn200100]<0>(&__p, "com.apple.Passbook");
-    v17 = &QUPP_ARG_LOCATION_ARRIVAL;
-    v15 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 7);
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v15 + 3), &__p, &v19);
+    v16 = &QUPP_ARG_LOCATION_ARRIVAL;
+    v15 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmDenseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 7, &v16);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v15 + 6, &__p, &v18);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(void *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -9273,79 +9268,79 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_1C28C3CF8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C28C3CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<int,std::unordered_set<std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,std::unordered_set<std::string>>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -9353,54 +9348,54 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_1C28C3F60(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C28C3F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<int,std::unordered_set<std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,std::unordered_set<std::string>>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<int,std::unordered_set<std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,std::unordered_set<std::string>>,void *>>>>::~unique_ptr[abi:nn200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<int,std::unordered_set<std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,std::unordered_set<std::string>>,void *>>>>::~unique_ptr[abi:nn200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -9448,24 +9443,23 @@ BOOL isLLMRetrievalFilterArgId(int a1)
 
 void ___ZL24llmRetrievalFilterArgIdsv_block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1[0] = xmmword_1C2BF9F70;
-  v1[1] = xmmword_1C2BF9F80;
-  v1[2] = xmmword_1C2BF9F90;
-  v1[3] = xmmword_1C2BF9FA0;
-  v1[4] = xmmword_1C2BF9FB0;
-  v1[5] = xmmword_1C2BF9FC0;
-  v1[6] = xmmword_1C2BF9FD0;
-  v1[7] = xmmword_1C2BF9FE0;
-  v1[8] = xmmword_1C2BF9FF0;
-  v1[9] = xmmword_1C2BFA000;
-  v1[10] = xmmword_1C2BFA010;
-  v1[11] = xmmword_1C2BFA020;
-  v2 = 208;
-  v1[12] = xmmword_1C2BFA030;
-  v1[13] = xmmword_1C2BFA040;
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(&llmRetrievalFilterArgIds(void)::_retrievalFilterArgIds, v1, &v3);
-  v0 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v0[0] = xmmword_1C2BF9F70;
+  v0[1] = xmmword_1C2BF9F80;
+  v0[2] = xmmword_1C2BF9F90;
+  v0[3] = xmmword_1C2BF9FA0;
+  v0[4] = xmmword_1C2BF9FB0;
+  v0[5] = xmmword_1C2BF9FC0;
+  v0[6] = xmmword_1C2BF9FD0;
+  v0[7] = xmmword_1C2BF9FE0;
+  v0[8] = xmmword_1C2BF9FF0;
+  v0[9] = xmmword_1C2BFA000;
+  v0[10] = xmmword_1C2BFA010;
+  v0[11] = xmmword_1C2BFA020;
+  v1 = 208;
+  v0[12] = xmmword_1C2BFA030;
+  v0[13] = xmmword_1C2BFA040;
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(&llmRetrievalFilterArgIds(void)::_retrievalFilterArgIds, v0, &v2);
 }
 
 void std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](void ***a1)
@@ -9509,7 +9503,7 @@ void std::vector<std::string>::__vdeallocate(std::vector<std::string> *this)
   }
 }
 
-void std::vector<std::string>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -9531,52 +9525,50 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<std::string>>(unint64
 
 void ___ZL46llmSparseRetrievalBundleSpecificFilterArgIdMapv_block_invoke()
 {
-  v10.__r_.__value_.__r.__words[0] = *MEMORY[0x1E69E9840];
-  LODWORD(v7) = -1;
-  __p.__r_.__value_.__r.__words[0] = &v7;
-  v0 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&llmSparseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, -1);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v0 + 3), 0, 0);
+  v9.__r_.__value_.__r.__words[0] = *MEMORY[0x1E69E9840];
+  LODWORD(v6) = -1;
+  __p.__r_.__value_.__r.__words[0] = &v6;
+  v0 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(&llmSparseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, -1, &__p);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v0 + 6, 0, 0);
   std::string::basic_string[abi:nn200100]<0>(&__p, "com.apple.mobilemail");
-  std::string::basic_string[abi:nn200100]<0>(&v9, "com.apple.reminders");
-  v7 = &QUPP_ARG_APP_ENTITY_STATUS_FLAGGED;
-  v1 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmSparseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 43);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v1 + 3), &__p, &v10);
+  std::string::basic_string[abi:nn200100]<0>(&v8, "com.apple.reminders");
+  v6 = &QUPP_ARG_APP_ENTITY_STATUS_FLAGGED;
+  v1 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmSparseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 43, &v6);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v1 + 6, &__p, &v9);
   for (i = 0; i != -6; i -= 3)
   {
-    if (SHIBYTE(v9.__r_.__value_.__r.__words[i + 2]) < 0)
+    if (SHIBYTE(v8.__r_.__value_.__r.__words[i + 2]) < 0)
     {
       operator delete(*(&__p + i * 8 + 24));
     }
   }
 
   std::string::basic_string[abi:nn200100]<0>(&__p, "com.apple.mobilemail");
-  v7 = &QUPP_ARG_APP_ENTITY_STATUS_READ;
-  v3 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmSparseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 47);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v3 + 3), &__p, &v9);
+  v6 = &QUPP_ARG_APP_ENTITY_STATUS_READ;
+  v3 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmSparseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 47, &v6);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v3 + 6, &__p, &v8);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:nn200100]<0>(&__p, "com.apple.mobilemail");
-  v7 = &QUPP_ARG_APP_ENTITY_STATUS_UNREAD;
-  v4 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmSparseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 55);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v4 + 3), &__p, &v9);
+  v6 = &QUPP_ARG_APP_ENTITY_STATUS_UNREAD;
+  v4 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmSparseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 55, &v6);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v4 + 6, &__p, &v8);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:nn200100]<0>(&__p, "com.apple.mobilemail");
-  v7 = &QUPP_ARG_APP_ENTITY_STATUS_DRAFT;
-  v5 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmSparseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 39);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>((v5 + 3), &__p, &v9);
+  v6 = &QUPP_ARG_APP_ENTITY_STATUS_DRAFT;
+  v5 = std::__hash_table<std::__hash_value_type<int,std::unordered_set<std::string>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_set<std::string>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_set<std::string>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&llmSparseRetrievalBundleSpecificFilterArgIdMap(void)::_retrievalBundleSpecificFilterArgIdMap, 39, &v6);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__assign_unique<std::string const*>(v5 + 6, &__p, &v8);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 BOOL isLLMPersonArgId(int a1)
@@ -9597,11 +9589,10 @@ BOOL isLLMPersonArgId(int a1)
 
 void ___ZL15llmPersonArgIdsv_block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = 0x4100000040;
-  v2 = 66;
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(&llmPersonArgIds(void)::_personArgIds, &v1, &v3);
-  v0 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v0 = 0x4100000040;
+  v1 = 66;
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(&llmPersonArgIds(void)::_personArgIds, &v0, &v2);
 }
 
 BOOL isLLMLocationArgId(int a1)
@@ -9622,11 +9613,10 @@ BOOL isLLMLocationArgId(int a1)
 
 void ___ZL17llmLocationArgIdsv_block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = 0x600000005;
-  v2 = 7;
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(&llmLocationArgIds(void)::_locationArgIds, &v1, &v3);
-  v0 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v0 = 0x600000005;
+  v1 = 7;
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(&llmLocationArgIds(void)::_locationArgIds, &v0, &v2);
 }
 
 BOOL isLLMOptionalArgId(int a1)
@@ -9647,14 +9637,13 @@ BOOL isLLMOptionalArgId(int a1)
 
 void ___ZL17llmOptionalArgIdsv_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v1[0] = xmmword_1C2BFA050;
-  v1[1] = xmmword_1C2BFA060;
-  v1[2] = xmmword_1C2BFA070;
-  v1[3] = xmmword_1C2BFA080;
-  v2 = 0x68000000D3;
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(&llmOptionalArgIds(void)::_optionalArgIds, v1, &v3);
-  v0 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v0[0] = xmmword_1C2BFA050;
+  v0[1] = xmmword_1C2BFA060;
+  v0[2] = xmmword_1C2BFA070;
+  v0[3] = xmmword_1C2BFA080;
+  v1 = 0x68000000D3;
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(&llmOptionalArgIds(void)::_optionalArgIds, v0, &v2);
 }
 
 BOOL isLLMOptionalizationArgId(int a1)
@@ -9675,13 +9664,12 @@ BOOL isLLMOptionalizationArgId(int a1)
 
 void ___ZL24llmOptionalizationArgIdsv_block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1[0] = xmmword_1C2BFA090;
-  v1[1] = xmmword_1C2BFA0A0;
-  v1[2] = xmmword_1C2BFA0B0;
-  v2 = 211;
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(&llmOptionalizationArgIds(void)::_optionalizationArgIds, v1, &v3);
-  v0 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v0[0] = xmmword_1C2BFA090;
+  v0[1] = xmmword_1C2BFA0A0;
+  v0[2] = xmmword_1C2BFA0B0;
+  v1 = 211;
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__assign_unique<int const*>(&llmOptionalizationArgIds(void)::_optionalizationArgIds, v0, &v2);
 }
 
 uint64_t isOptionalSearchTerm(int a1, const void **a2, CFArrayRef theArray, CFIndex a4, int a5, int a6, int a7)

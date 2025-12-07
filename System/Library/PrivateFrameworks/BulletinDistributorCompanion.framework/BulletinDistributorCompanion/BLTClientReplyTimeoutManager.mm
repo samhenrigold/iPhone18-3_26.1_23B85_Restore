@@ -110,30 +110,35 @@ void __67__BLTClientReplyTimeoutManager__startClientReplyTimerWithFireDate___blo
 - (void)extendClientReplyTimeout:(id)timeout additionalTime:(unint64_t)time
 {
   timeoutCopy = timeout;
+  v7 = timeoutCopy;
   if (timeoutCopy)
   {
     if (time)
     {
-      v11 = timeoutCopy;
-      if ([(NSMutableArray *)self->_clientReplyTimeouts indexOfObject:timeoutCopy]!= 0x7FFFFFFFFFFFFFFFLL)
+      v12 = timeoutCopy;
+      timeoutCopy = [(NSMutableArray *)self->_clientReplyTimeouts indexOfObject:timeoutCopy];
+      v7 = v12;
+      if (timeoutCopy != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v7 = v11;
-        timeout = [v7 timeout];
-        v9 = [timeout dateByAddingTimeInterval:time];
+        v8 = v12;
+        timeout = [v8 timeout];
+        v10 = [timeout dateByAddingTimeInterval:time];
 
-        [v7 setTimeout:v9];
+        [v8 setTimeout:v10];
         [(BLTClientReplyTimeoutManager *)self _sortTimeouts];
-        v10 = [(NSMutableArray *)self->_clientReplyTimeouts objectAtIndexedSubscript:0];
+        v11 = [(NSMutableArray *)self->_clientReplyTimeouts objectAtIndexedSubscript:0];
 
-        if (v10 == v7)
+        if (v11 == v8)
         {
           [(BLTClientReplyTimeoutManager *)self _startNextClientReplyTimer];
         }
+
+        v7 = v12;
       }
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](timeoutCopy, v7);
 }
 
 - (void)_handleClientReplyTimeout
@@ -172,22 +177,22 @@ uint64_t __45__BLTClientReplyTimeoutManager__sortTimeouts__block_invoke(uint64_t
 
 - (id)addClientReplyTimeoutForBulletin:(id)bulletin sectionID:(id)d timeout:(double)timeout handler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
   dCopy = d;
   v12 = MEMORY[0x277CBEAA8];
   handlerCopy = handler;
   v14 = [v12 dateWithTimeIntervalSinceNow:timeout];
-  v15 = blt_general_log();
+  v15 = blt_general_log(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v19 = 138412802;
-    v20 = v14;
-    v21 = 2112;
-    v22 = bulletinCopy;
-    v23 = 2112;
-    v24 = dCopy;
-    _os_log_impl(&dword_241FB3000, v15, OS_LOG_TYPE_INFO, "Add client reply timer (%@) for bulletin %@ in section %@", &v19, 0x20u);
+    v18 = 138412802;
+    v19 = v14;
+    v20 = 2112;
+    v21 = bulletinCopy;
+    v22 = 2112;
+    v23 = dCopy;
+    _os_log_impl(&dword_241FB3000, v15, OS_LOG_TYPE_INFO, "Add client reply timer (%@) for bulletin %@ in section %@", &v18, 0x20u);
   }
 
   v16 = objc_alloc_init(BLTClientReplyTimeout);
@@ -204,8 +209,6 @@ uint64_t __45__BLTClientReplyTimeoutManager__sortTimeouts__block_invoke(uint64_t
   {
     [(BLTClientReplyTimeoutManager *)self _sortTimeouts];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

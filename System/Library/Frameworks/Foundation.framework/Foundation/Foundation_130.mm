@@ -1,4 +1,4 @@
-uint64_t StringProtocol.replacingCharacters<A, B>(in:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *StringProtocol.replacingCharacters<A, B>(in:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v64 = a2;
   v61 = a5;
@@ -81,7 +81,7 @@ uint64_t StringProtocol.replacingCharacters<A, B>(in:with:)(uint64_t a1, uint64_
     goto LABEL_10;
   }
 
-  result = v42 + v37;
+  result = (v42 + v37);
   if (!__OFADD__(v42, v37))
   {
     MEMORY[0x1865CAED0](result);
@@ -131,7 +131,7 @@ LABEL_11:
 id StringProtocol.replacingPercentEscapes(using:)(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
 
-  return StringProtocol.replacingPercentEscapes(using:)(a1, a2, a3, &selRef_stringByReplacingPercentEscapesUsingEncoding_);
+  return StringProtocol.replacingPercentEscapes(using:)(a1, a2, a3, &selRef_stringByReplacingPercentEscapesUsingEncoding_, closure #1 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply, closure #1 in closure #2 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply, closure #1 in closure #2 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply);
 }
 
 Swift::String_optional __swiftcall StringProtocol.applyingTransform(_:reverse:)(NSStringTransform _, Swift::Bool reverse)
@@ -329,10 +329,10 @@ LABEL_5:
   return result;
 }
 
-id closure #1 in StringProtocol.enumerateLinguisticTags<A, B>(in:scheme:options:orthography:invoking:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6, void (*a7)(uint64_t, unint64_t, uint64_t, uint64_t, uint64_t, uint64_t, char *))
+id closure #1 in StringProtocol.enumerateLinguisticTags<A, B>(in:scheme:options:orthography:invoking:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6, void (*a7)(uint64_t, unint64_t, uint64_t, uint64_t, uint64_t, uint64_t, char *), uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v36 = 0;
+  v44 = *MEMORY[0x1E69E9840];
+  v42 = 0;
   if (!a1)
   {
 LABEL_32:
@@ -340,12 +340,12 @@ LABEL_32:
   }
 
   isTaggedPointer = _objc_isTaggedPointer(a1);
-  v14 = a1;
-  v15 = v14;
-  v32 = a5;
+  v20 = a1;
+  v21 = v20;
+  v38 = a5;
   if (isTaggedPointer)
   {
-    TaggedPointerTag = _objc_getTaggedPointerTag(v14);
+    TaggedPointerTag = _objc_getTaggedPointerTag(v20);
     if (TaggedPointerTag)
     {
       if (TaggedPointerTag != 22)
@@ -353,8 +353,8 @@ LABEL_32:
         if (TaggedPointerTag == 2)
         {
           MEMORY[0x1EEE9AC00](TaggedPointerTag);
-          v17 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
-          v19 = v18;
+          v23 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
+          v25 = v24;
 
           goto LABEL_21;
         }
@@ -362,19 +362,19 @@ LABEL_32:
         goto LABEL_7;
       }
 
-      result = [v15 UTF8String];
+      result = [v21 UTF8String];
       if (!result)
       {
         __break(1u);
         return result;
       }
 
-      v24 = String.init(utf8String:)(result);
-      if (v25)
+      v30 = String.init(utf8String:)(result);
+      if (v31)
       {
 LABEL_16:
-        v17 = v24;
-        v19 = v25;
+        v23 = v30;
+        v25 = v31;
 
         goto LABEL_21;
       }
@@ -383,16 +383,16 @@ LABEL_16:
     }
 
     _CFIndirectTaggedPointerStringGetContents();
-    v24 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
-    if (!v25)
+    v30 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
+    if (!v31)
     {
-      [v15 mutableCopy];
+      [v21 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
 
       swift_unknownObjectRelease();
       swift_dynamicCast();
-      v17 = v34;
-      v19 = v35;
+      v23 = v40;
+      v25 = v41;
       goto LABEL_21;
     }
 
@@ -400,35 +400,35 @@ LABEL_16:
   }
 
 LABEL_7:
-  v37 = 0;
+  v43 = 0;
   if (__CFStringIsCF())
   {
 
 LABEL_11:
-    v17 = 0;
-    v19 = 0xE000000000000000;
+    v23 = 0;
+    v25 = 0xE000000000000000;
     goto LABEL_21;
   }
 
-  v20 = v15;
-  v21 = String.init(_nativeStorage:)();
-  if (v22)
+  v26 = v21;
+  v27 = String.init(_nativeStorage:)();
+  if (v28)
   {
-    v17 = v21;
-    v19 = v22;
+    v23 = v27;
+    v25 = v28;
 
     goto LABEL_21;
   }
 
-  v37 = [v20 length];
-  if (!v37)
+  v43 = [v26 length];
+  if (!v43)
   {
 
     goto LABEL_11;
   }
 
-  v17 = String.init(_cocoaString:)();
-  v19 = v26;
+  v23 = String.init(_cocoaString:)();
+  v25 = v32;
 LABEL_21:
   if (a2 == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -443,7 +443,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  v28 = StringProtocol._toUTF16Indices(_:)();
+  v34 = StringProtocol._toUTF16Indices(_:)();
   if (a4 == 0x7FFFFFFFFFFFFFFFLL)
   {
 LABEL_30:
@@ -451,18 +451,18 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  v29 = v27;
-  if (__OFADD__(a4, v32))
+  v35 = v33;
+  if (__OFADD__(a4, v38))
   {
 LABEL_31:
     __break(1u);
     goto LABEL_32;
   }
 
-  v30 = StringProtocol._toUTF16Indices(_:)();
-  a7(v17, v19, v28, v29, v30, v31, &v36);
+  v36 = StringProtocol._toUTF16Indices(_:)();
+  a7(v23, v25, v34, v35, v36, v37, &v42);
 
-  if (v36)
+  if (v42)
   {
     *a6 = 1;
   }
@@ -477,25 +477,25 @@ void thunk for @escaping @callee_guaranteed (@guaranteed NSLinguisticTag?, @unow
   v13(a2, a3, a4, a5, a6, a7);
 }
 
-id StringProtocol.getBytes<A>(_:maxLength:usedLength:encoding:options:range:remaining:)(char **a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t *a7)
+id StringProtocol.getBytes<A>(_:maxLength:usedLength:encoding:options:range:remaining:)(char **a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v19 = *a4;
-  v22 = 0;
-  v23 = 0;
+  v28 = *MEMORY[0x1E69E9840];
+  v23 = *a4;
+  v26 = 0;
+  v27 = 0;
   StringProtocol._ephemeralString.getter();
-  v18 = String._bridgeToObjectiveCImpl()();
+  v22 = String._bridgeToObjectiveCImpl()();
 
-  v9 = *a1;
+  v13 = *a1;
   if (*(*a1 + 2) < a2)
   {
     a2 = *(*a1 + 2);
   }
 
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  v10 = StringProtocol._toUTF16Offsets(_:)();
-  v12 = v11 - v10;
-  if (__OFSUB__(v11, v10))
+  v14 = StringProtocol._toUTF16Offsets(_:)();
+  v16 = v15 - v14;
+  if (__OFSUB__(v15, v14))
   {
     __break(1u);
 LABEL_10:
@@ -504,30 +504,30 @@ LABEL_11:
     __break(1u);
   }
 
-  v13 = v10;
+  v17 = v14;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
-    v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v9 + 2), 0, v9);
+    v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v13 + 2), 0, v13);
   }
 
-  *a1 = v9;
+  *a1 = v13;
 
-  v14 = [v18 getBytes:v9 + 32 maxLength:a2 usedLength:a3 encoding:v19 options:a5 range:v13 remainingRange:{v12, &v22}];
+  v18 = [v22 getBytes:v13 + 32 maxLength:a2 usedLength:a3 encoding:v23 options:a5 range:v17 remainingRange:{v16, &v26}];
 
   swift_unknownObjectRelease();
-  if (v22 == 0x7FFFFFFFFFFFFFFFLL)
+  if (v26 == 0x7FFFFFFFFFFFFFFFLL)
   {
     goto LABEL_10;
   }
 
-  if (__OFADD__(v22, v23))
+  if (__OFADD__(v26, v27))
   {
     goto LABEL_11;
   }
 
   *a7 = StringProtocol._toUTF16Indices(_:)();
-  a7[1] = v15;
-  return v14;
+  a7[1] = v19;
+  return v18;
 }
 
 unint64_t StringProtocol.getLineStart<A>(_:end:contentsEnd:for:)(unint64_t *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -548,7 +548,7 @@ unint64_t StringProtocol.getParagraphStart<A>(_:end:contentsEnd:for:)(unint64_t 
   return result;
 }
 
-uint64_t StringProtocol.linguisticTags<A, B>(in:scheme:options:orthography:tokenRanges:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+char *StringProtocol.linguisticTags<A, B>(in:scheme:options:orthography:tokenRanges:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v12 = v11;
   v41 = a4;
@@ -591,7 +591,7 @@ uint64_t StringProtocol.linguisticTags<A, B>(in:scheme:options:orthography:token
           v24 = a3;
 
 LABEL_11:
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
           v30 = swift_dynamicCastClass();
           v31 = v30;
           if (!v30)
@@ -665,7 +665,7 @@ LABEL_14:
     v33 = v22;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v34 = swift_dynamicCastClass();
   if (v34)
   {
@@ -684,23 +684,23 @@ LABEL_14:
   return v35;
 }
 
-uint64_t closure #2 in StringProtocol.linguisticTags<A, B>(in:scheme:options:orthography:tokenRanges:)@<X0>(id *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t closure #2 in StringProtocol.linguisticTags<A, B>(in:scheme:options:orthography:tokenRanges:)@<X0>(id *a1@<X0>, uint64_t *a4@<X8>)
 {
-  v3 = *a1;
+  v5 = *a1;
   result = [*a1 respondsToSelector_];
   if (result)
   {
-    result = [v3 rangeValue];
+    result = [v5 rangeValue];
     if (result == 0x7FFFFFFFFFFFFFFFLL)
     {
       __break(1u);
     }
 
-    else if (!__OFADD__(result, v5))
+    else if (!__OFADD__(result, v7))
     {
       result = StringProtocol._toUTF16Indices(_:)();
-      *a2 = result;
-      a2[1] = v6;
+      *a4 = result;
+      a4[1] = v8;
       return result;
     }
 
@@ -711,21 +711,21 @@ uint64_t closure #2 in StringProtocol.linguisticTags<A, B>(in:scheme:options:ort
   return result;
 }
 
-uint64_t StringProtocol.rangeOfComposedCharacterSequence(at:)()
+uint64_t StringProtocol.rangeOfComposedCharacterSequence(at:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   StringProtocol._ephemeralString.getter();
-  v0 = String._bridgeToObjectiveCImpl()();
+  v3 = String._bridgeToObjectiveCImpl()();
 
-  v1 = [v0 rangeOfComposedCharacterSequenceAtIndex_];
-  v3 = v2;
+  v4 = [v3 rangeOfComposedCharacterSequenceAtIndex_];
+  v6 = v5;
   result = swift_unknownObjectRelease();
-  if (v1 == 0x7FFFFFFFFFFFFFFFLL)
+  if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
     __break(1u);
     goto LABEL_7;
   }
 
-  if (__OFADD__(v1, v3))
+  if (__OFADD__(v4, v6))
   {
 LABEL_7:
     __break(1u);
@@ -735,30 +735,30 @@ LABEL_7:
   return StringProtocol._toUTF16Indices(_:)();
 }
 
-uint64_t StringProtocol.rangeOfComposedCharacterSequences<A>(for:)()
+uint64_t StringProtocol.rangeOfComposedCharacterSequences<A>(for:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   StringProtocol._ephemeralString.getter();
-  v0 = String._bridgeToObjectiveCImpl()();
+  v5 = String._bridgeToObjectiveCImpl()();
 
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = StringProtocol._toUTF16Offsets(_:)();
-  if (__OFSUB__(v2, result))
+  if (__OFSUB__(v7, result))
   {
     __break(1u);
     goto LABEL_6;
   }
 
-  v3 = [v0 rangeOfComposedCharacterSequencesForRange_];
-  v5 = v4;
+  v8 = [v5 rangeOfComposedCharacterSequencesForRange_];
+  v10 = v9;
   result = swift_unknownObjectRelease();
-  if (v3 == 0x7FFFFFFFFFFFFFFFLL)
+  if (v8 == 0x7FFFFFFFFFFFFFFFLL)
   {
 LABEL_6:
     __break(1u);
     goto LABEL_7;
   }
 
-  if (!__OFADD__(v3, v5))
+  if (!__OFADD__(v8, v10))
   {
     return StringProtocol._toUTF16Indices(_:)();
   }
@@ -771,53 +771,53 @@ LABEL_7:
 id StringProtocol.addingPercentEscapes(using:)(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
 
-  return StringProtocol.replacingPercentEscapes(using:)(a1, a2, a3, &selRef_stringByAddingPercentEscapesUsingEncoding_);
+  return StringProtocol.replacingPercentEscapes(using:)(a1, a2, a3, &selRef_stringByAddingPercentEscapesUsingEncoding_, closure #1 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply, closure #1 in closure #2 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply, closure #1 in closure #2 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply);
 }
 
-id StringProtocol.replacingPercentEscapes(using:)(uint64_t *a1, uint64_t a2, uint64_t a3, SEL *a4)
+id StringProtocol.replacingPercentEscapes(using:)(uint64_t *a1, uint64_t a2, uint64_t a3, SEL *a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v5 = *a1;
+  v8 = *a1;
   StringProtocol._ephemeralString.getter();
-  v6 = String._bridgeToObjectiveCImpl()();
+  v9 = String._bridgeToObjectiveCImpl()();
 
-  v7 = [v6 *a4];
+  v10 = [v9 *a4];
   swift_unknownObjectRelease();
-  if (!v7)
+  if (!v10)
   {
     return 0;
   }
 
-  isTaggedPointer = _objc_isTaggedPointer(v7);
-  v9 = v7;
-  v10 = v9;
+  isTaggedPointer = _objc_isTaggedPointer(v10);
+  v12 = v10;
+  v13 = v12;
   if (!isTaggedPointer)
   {
     goto LABEL_7;
   }
 
-  TaggedPointerTag = _objc_getTaggedPointerTag(v9);
+  TaggedPointerTag = _objc_getTaggedPointerTag(v12);
   if (!TaggedPointerTag)
   {
     _CFIndirectTaggedPointerStringGetContents();
-    v20 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
-    if (v21)
+    v23 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
+    if (v24)
     {
-      v22 = v20;
+      v25 = v23;
     }
 
     else
     {
-      [v10 mutableCopy];
+      [v13 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
 
       swift_unknownObjectRelease();
       swift_dynamicCast();
-      v22 = v23;
+      v25 = v26;
     }
 
 LABEL_22:
 
-    return v22;
+    return v25;
   }
 
   if (TaggedPointerTag != 22)
@@ -825,9 +825,9 @@ LABEL_22:
     if (TaggedPointerTag == 2)
     {
       MEMORY[0x1EEE9AC00](TaggedPointerTag);
-      v12 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
+      v15 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
 
-      return v12;
+      return v15;
     }
 
 LABEL_7:
@@ -837,34 +837,34 @@ LABEL_7:
       return 0;
     }
 
-    v14 = v10;
-    v15 = String.init(_nativeStorage:)();
-    if (v16)
+    v17 = v13;
+    v18 = String.init(_nativeStorage:)();
+    if (v19)
     {
-      v17 = v15;
+      v20 = v18;
 
-      return v17;
+      return v20;
     }
 
-    if (![v14 length])
+    if (![v17 length])
     {
 
       return 0;
     }
 
-    v22 = String.init(_cocoaString:)();
+    v25 = String.init(_cocoaString:)();
     goto LABEL_22;
   }
 
-  result = [v10 UTF8String];
+  result = [v13 UTF8String];
   if (result)
   {
     result = String.init(utf8String:)(result);
-    if (v18)
+    if (v21)
     {
-      v19 = result;
+      v22 = result;
 
-      return v19;
+      return v22;
     }
   }
 
@@ -880,58 +880,58 @@ LABEL_7:
 id StringProtocol.substring(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
-  return StringProtocol.substring(from:)(a1, a2, a3, &selRef_substringFromIndex_);
+  return StringProtocol.substring(from:)(a1, a2, a3, &selRef_substringFromIndex_, closure #1 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply, closure #1 in closure #2 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply, closure #1 in closure #2 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply);
 }
 
 id StringProtocol.substring(to:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
-  return StringProtocol.substring(from:)(a1, a2, a3, &selRef_substringToIndex_);
+  return StringProtocol.substring(from:)(a1, a2, a3, &selRef_substringToIndex_, closure #1 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply, closure #1 in closure #2 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply, closure #1 in closure #2 in static String._unconditionallyBridgeFromObjectiveC(_:)partial apply);
 }
 
-id StringProtocol.substring(from:)(uint64_t a1, uint64_t a2, uint64_t a3, SEL *a4)
+id StringProtocol.substring(from:)(uint64_t a1, uint64_t a2, uint64_t a3, SEL *a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   StringProtocol._ephemeralString.getter();
-  v5 = String._bridgeToObjectiveCImpl()();
+  v8 = String._bridgeToObjectiveCImpl()();
 
-  v6 = [v5 *a4];
+  v9 = [v8 *a4];
   swift_unknownObjectRelease();
-  if (!v6)
+  if (!v9)
   {
     return 0;
   }
 
-  isTaggedPointer = _objc_isTaggedPointer(v6);
-  v8 = v6;
-  v9 = v8;
+  isTaggedPointer = _objc_isTaggedPointer(v9);
+  v11 = v9;
+  v12 = v11;
   if (!isTaggedPointer)
   {
     goto LABEL_7;
   }
 
-  TaggedPointerTag = _objc_getTaggedPointerTag(v8);
+  TaggedPointerTag = _objc_getTaggedPointerTag(v11);
   if (!TaggedPointerTag)
   {
     _CFIndirectTaggedPointerStringGetContents();
-    v19 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
-    if (v20)
+    v22 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
+    if (v23)
     {
-      v21 = v19;
+      v24 = v22;
     }
 
     else
     {
-      [v9 mutableCopy];
+      [v12 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
 
       swift_unknownObjectRelease();
       swift_dynamicCast();
-      v21 = v22;
+      v24 = v25;
     }
 
 LABEL_21:
 
-    return v21;
+    return v24;
   }
 
   if (TaggedPointerTag != 22)
@@ -939,9 +939,9 @@ LABEL_21:
     if (TaggedPointerTag == 2)
     {
       MEMORY[0x1EEE9AC00](TaggedPointerTag);
-      v11 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
+      v14 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
 
-      return v11;
+      return v14;
     }
 
 LABEL_7:
@@ -951,34 +951,34 @@ LABEL_7:
       return 0;
     }
 
-    v13 = v9;
-    v14 = String.init(_nativeStorage:)();
-    if (v15)
+    v16 = v12;
+    v17 = String.init(_nativeStorage:)();
+    if (v18)
     {
-      v16 = v14;
+      v19 = v17;
 
-      return v16;
+      return v19;
     }
 
-    if (![v13 length])
+    if (![v16 length])
     {
 
       return 0;
     }
 
-    v21 = String.init(_cocoaString:)();
+    v24 = String.init(_cocoaString:)();
     goto LABEL_21;
   }
 
-  result = [v9 UTF8String];
+  result = [v12 UTF8String];
   if (result)
   {
     result = String.init(utf8String:)(result);
-    if (v17)
+    if (v20)
     {
-      v18 = result;
+      v21 = result;
 
-      return v18;
+      return v21;
     }
   }
 
@@ -991,55 +991,55 @@ LABEL_7:
   return result;
 }
 
-id StringProtocol.substring(with:)()
+id StringProtocol.substring(with:)(uint64_t a1, uint64_t a2)
 {
   StringProtocol._ephemeralString.getter();
-  v0 = String._bridgeToObjectiveCImpl()();
+  v2 = String._bridgeToObjectiveCImpl()();
 
-  v1 = StringProtocol._toUTF16Offsets(_:)();
-  if (__OFSUB__(v2, v1))
+  v3 = StringProtocol._toUTF16Offsets(_:)();
+  if (__OFSUB__(v4, v3))
   {
     __break(1u);
   }
 
-  v3 = [v0 substringWithRange_];
+  v5 = [v2 substringWithRange_];
   swift_unknownObjectRelease();
-  if (!v3)
+  if (!v5)
   {
     return 0;
   }
 
-  isTaggedPointer = _objc_isTaggedPointer(v3);
-  v5 = v3;
-  v6 = v5;
+  isTaggedPointer = _objc_isTaggedPointer(v5);
+  v7 = v5;
+  v8 = v7;
   if (!isTaggedPointer)
   {
     goto LABEL_8;
   }
 
-  TaggedPointerTag = _objc_getTaggedPointerTag(v5);
+  TaggedPointerTag = _objc_getTaggedPointerTag(v7);
   if (!TaggedPointerTag)
   {
     _CFIndirectTaggedPointerStringGetContents();
-    v16 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
-    if (v17)
+    v18 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
+    if (v19)
     {
-      v18 = v16;
+      v20 = v18;
     }
 
     else
     {
-      [v6 mutableCopy];
+      [v8 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
 
       swift_unknownObjectRelease();
       swift_dynamicCast();
-      v18 = v19;
+      v20 = v21;
     }
 
 LABEL_22:
 
-    return v18;
+    return v20;
   }
 
   if (TaggedPointerTag != 22)
@@ -1047,9 +1047,9 @@ LABEL_22:
     if (TaggedPointerTag == 2)
     {
       MEMORY[0x1EEE9AC00](TaggedPointerTag);
-      v8 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
+      v10 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
 
-      return v8;
+      return v10;
     }
 
 LABEL_8:
@@ -1059,34 +1059,34 @@ LABEL_8:
       return 0;
     }
 
-    v10 = v6;
-    v11 = String.init(_nativeStorage:)();
-    if (v12)
+    v12 = v8;
+    v13 = String.init(_nativeStorage:)();
+    if (v14)
     {
-      v13 = v11;
+      v15 = v13;
 
-      return v13;
+      return v15;
     }
 
-    if (![v10 length])
+    if (![v12 length])
     {
 
       return 0;
     }
 
-    v18 = String.init(_cocoaString:)();
+    v20 = String.init(_cocoaString:)();
     goto LABEL_22;
   }
 
-  result = [v6 UTF8String];
+  result = [v8 UTF8String];
   if (result)
   {
     result = String.init(utf8String:)(result);
-    if (v14)
+    if (v16)
     {
-      v15 = result;
+      v17 = result;
 
-      return v15;
+      return v17;
     }
   }
 
@@ -1099,10 +1099,10 @@ LABEL_8:
   return result;
 }
 
-id @nonobjc NSString.init(contentsOf:usedEncoding:)(uint64_t a1, uint64_t a2)
+id @nonobjc NSString.init(contentsOf:usedEncoding:)(uint64_t *a1, uint64_t a2)
 {
   v11[1] = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   ObjectType = swift_getObjectType();
   v6 = (*(v4 + 432))(ObjectType, v4);
   v11[0] = 0;
@@ -1366,7 +1366,7 @@ uint64_t NSGrammaticalCase.morphunValue()(unint64_t a1)
   return 0;
 }
 
-uint64_t NSMorphology.morphunConstraints()()
+unint64_t NSMorphology.morphunConstraints()()
 {
   v4 = v0;
   v5 = MEMORY[0x1E69E7CC8];
@@ -1507,7 +1507,7 @@ LABEL_20:
       else
       {
         v290 = v10;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
         v254 = static _DictionaryStorage.copy(original:)();
         v8 = v254;
         if (*(v5 + 16))
@@ -1651,7 +1651,7 @@ LABEL_32:
       else
       {
         v286 = v10;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
         v174 = static _DictionaryStorage.copy(original:)();
         v7 = v174;
         if (*(v8 + 16))
@@ -1796,7 +1796,7 @@ LABEL_43:
       else
       {
         v287 = v10;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
         v194 = static _DictionaryStorage.copy(original:)();
         v43 = v194;
         if (*(v7 + 16))
@@ -1957,7 +1957,7 @@ LABEL_122:
       else
       {
         v274 = v10;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
         v111 = static _DictionaryStorage.copy(original:)();
         v7 = v111;
         if (*(v43 + 16))
@@ -2130,7 +2130,7 @@ LABEL_81:
         else
         {
           v275 = v10;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
           v132 = static _DictionaryStorage.copy(original:)();
           v5 = v132;
           if (*(v7 + 16))
@@ -2299,7 +2299,7 @@ LABEL_82:
 
 LABEL_230:
     v276 = v10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
     v214 = static _DictionaryStorage.copy(original:)();
     v7 = v214;
     if (*(v5 + 16))
@@ -2420,7 +2420,7 @@ LABEL_127:
     __break(1u);
 LABEL_128:
     __src = v10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
     v90 = static _DictionaryStorage.copy(original:)();
     v5 = v90;
     v91 = *(v3 + 16);
@@ -2528,7 +2528,7 @@ LABEL_18:
     }
 
     v273 = v10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
     v234 = static _DictionaryStorage.copy(original:)();
     v77 = v234;
     if (*(v7 + 16))
@@ -2654,7 +2654,7 @@ LABEL_104:
 
   v8 = 0x7469766973756C63;
   [v4 _clusivity];
-  LOBYTE(v2) = swift_isUniquelyReferenced_nonNull_native();
+  v2 = swift_isUniquelyReferenced_nonNull_native();
   v10 = specialized __RawDictionaryStorage.find<A>(_:)(0x7469766973756C63, 0xE900000000000079);
   v82 = *(v77 + 16);
   v83 = (v81 & 1) == 0;
@@ -2688,7 +2688,7 @@ LABEL_126:
     }
 
     v285 = v10;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
     v153 = static _DictionaryStorage.copy(original:)();
     v86 = v153;
     if (*(v77 + 16))
@@ -2807,7 +2807,7 @@ LABEL_117:
   return v86;
 }
 
-uint64_t NSMorphologyPronoun.morphunConstraints()()
+void *NSMorphologyPronoun.morphunConstraints()()
 {
   v1 = v0;
   v2 = [v0 morphology];
@@ -2833,7 +2833,7 @@ uint64_t NSMorphologyPronoun.morphunConstraints()()
     }
 
     v55 = v54;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
     v56 = static _DictionaryStorage.allocate(capacity:)();
     v57 = *(v56 + 48);
     v58 = *(v56 + 56);
@@ -2976,7 +2976,7 @@ LABEL_10:
         if (v23)
         {
           v24 = v23;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
           v25 = static _DictionaryStorage.allocate(capacity:)();
           v26 = *(v25 + 48);
           v27 = *(v25 + 56);
@@ -3016,7 +3016,7 @@ LABEL_10:
                 v95 = *(v25 + 48) + 16 * v29;
 
                 outlined destroy of String(v95);
-                __swift_destroy_boxed_opaque_existential_1(*(v25 + 56) + 32 * v29);
+                __swift_destroy_boxed_opaque_existential_1((*(v25 + 56) + 32 * v29));
                 v96 = *(v25 + 16);
                 v43 = __OFSUB__(v96, 1);
                 v97 = v96 - 1;
@@ -3174,7 +3174,7 @@ LABEL_84:
           else
           {
             v187 = v154;
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
             v165 = static _DictionaryStorage.copy(original:)();
             v160 = v165;
             if (v193[2])
@@ -3317,7 +3317,7 @@ LABEL_107:
     }
 
     v108 = v107;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
     v25 = static _DictionaryStorage.allocate(capacity:)();
     v109 = *(v25 + 48);
     v110 = *(v25 + 56);
@@ -3422,7 +3422,7 @@ LABEL_62:
   }
 
   v10 = v9;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
   v11 = static _DictionaryStorage.allocate(capacity:)();
   v12 = *(v11 + 48);
   v13 = *(v11 + 56);
@@ -3516,7 +3516,7 @@ LABEL_21:
   v41 = v16[6] + 16 * v17;
 
   outlined destroy of String(v41);
-  __swift_destroy_boxed_opaque_existential_1(v16[7] + 32 * v17);
+  __swift_destroy_boxed_opaque_existential_1((v16[7] + 32 * v17));
   v42 = v16[2];
   v43 = __OFSUB__(v42, 1);
   v44 = v42 - 1;
@@ -3826,21 +3826,22 @@ LABEL_3:
 
   *&v2[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.attributeTable] = v9;
   v11.receiver = v2;
-  v11.super_class = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation44_AttributedStringFromMarkdownCreatorConcrete33_4C994178458EBF836D449F281EBCAF09LLCyAA15AttributeScopesO0A10AttributesVGMd);
+  v11.super_class = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation44_AttributedStringFromMarkdownCreatorConcrete33_4C994178458EBF836D449F281EBCAF09LLCyAA15AttributeScopesO0A10AttributesVGMd, &_s10Foundation44_AttributedStringFromMarkdownCreatorConcrete33_4C994178458EBF836D449F281EBCAF09LLCyAA15AttributeScopesO0A10AttributesVGMR);
   return objc_msgSendSuper2(&v11, sel_init);
 }
 
 id _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(uint64_t a1, unsigned __int8 *a2)
 {
-  v3 = *MEMORY[0x1E69E7D40] & *v2;
-  v4 = *a2;
-  *(v2 + direct field offset for _AttributedStringFromMarkdownCreatorConcrete.hasInflectionAttributes) = 0;
+  v3 = v2;
+  v4 = *MEMORY[0x1E69E7D40] & *v2;
+  v5 = *a2;
+  v2[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.hasInflectionAttributes] = 0;
   BigString.init()();
-  v13 = 0;
-  MEMORY[0x1865D26B0](&v13, 8);
-  v5 = v13;
+  v17 = 0;
+  MEMORY[0x1865D26B0](&v17, 8);
+  v6 = v17;
   type metadata accessor for AttributedString.Guts();
-  v6 = swift_allocObject();
+  v7 = swift_allocObject();
   if (BigString.isEmpty.getter())
   {
     if (one-time initialization token for _nextVersion == -1)
@@ -3857,33 +3858,35 @@ id _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(uint64_t a1
   swift_once();
 LABEL_3:
   add_explicit = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-  v8 = v15;
-  *(v6 + 24) = v14;
-  *(v6 + 16) = add_explicit;
-  *(v6 + 40) = v8;
-  *(v6 + 56) = v16;
-  *(v6 + 72) = 0;
-  *(v6 + 80) = 0;
-  v9 = MEMORY[0x1E69E7CC0];
-  *(v6 + 88) = 0;
-  *(v6 + 96) = v5;
-  *(v6 + 104) = v9;
-  *(v2 + direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str) = v6;
+  v9 = v19;
+  *(v7 + 24) = v18;
+  *(v7 + 16) = add_explicit;
+  *(v7 + 40) = v9;
+  *(v7 + 56) = v20;
+  *(v7 + 72) = 0;
+  *(v7 + 80) = 0;
+  v10 = MEMORY[0x1E69E7CC0];
+  *(v7 + 88) = 0;
+  *(v7 + 96) = v6;
+  *(v7 + 104) = v10;
+  *&v2[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str] = v7;
 
-  if (v4)
+  v12 = *(v4 + 80);
+  v13 = *(v4 + 88);
+  if (v5)
   {
-    v10 = static AttributeScope.scopeDescription.getter(*(v3 + 80));
+    v14 = static AttributeScope.scopeDescription.getter(v12);
   }
 
   else
   {
-    v10 = MEMORY[0x1E69E7CC8];
+    v14 = MEMORY[0x1E69E7CC8];
   }
 
-  *(v2 + direct field offset for _AttributedStringFromMarkdownCreatorConcrete.attributeTable) = v10;
-  v12.receiver = v2;
-  v12.super_class = type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete();
-  return objc_msgSendSuper2(&v12, sel_init);
+  *&v3[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.attributeTable] = v14;
+  v16.receiver = v3;
+  v16.super_class = type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, v12, v13, v11);
+  return objc_msgSendSuper2(&v16, sel_init);
 }
 
 uint64_t _AttributedStringFromMarkdownCreatorConcrete.append(_:)(uint64_t a1, unint64_t object)
@@ -4203,61 +4206,61 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, WitnessTable);
 }
 
-uint64_t _AttributedStringFromMarkdownCreatorConcrete.ExtendedAttributesBox.init(from:)(void *a1, uint64_t a2, uint64_t a3)
+uint64_t _AttributedStringFromMarkdownCreatorConcrete.ExtendedAttributesBox.init(from:)(void *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete.ExtendedAttributesBox.AttributeKey();
+  v7 = type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete.ExtendedAttributesBox.AttributeKey(255, a2, a3, a4);
   swift_getWitnessTable();
-  v87 = type metadata accessor for KeyedDecodingContainer();
-  v86 = *(v87 - 8);
-  MEMORY[0x1EEE9AC00](v87);
-  v8 = &v76 - v7;
-  v83 = a3;
+  v88 = type metadata accessor for KeyedDecodingContainer();
+  v87 = *(v88 - 8);
+  MEMORY[0x1EEE9AC00](v88);
+  v9 = &v77 - v8;
+  v84 = a3;
   static AttributeScope.scopeDescription.getter(a2);
-  v10 = v9;
+  v11 = v10;
 
-  v11 = a1[3];
-  v79 = a1;
-  __swift_project_boxed_opaque_existential_1(a1, v11);
-  v12 = v95;
+  v12 = a1[3];
+  v80 = a1;
+  __swift_project_boxed_opaque_existential_1(a1, v12);
+  v13 = v96;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v12)
+  if (v13)
   {
 
-    return __swift_destroy_boxed_opaque_existential_1(v79);
+    return __swift_destroy_boxed_opaque_existential_1(v80);
   }
 
-  v14 = v86;
-  v82 = v10;
-  v78 = a2;
-  v92 = 0;
   v15 = v87;
-  v81 = v8;
-  v16 = KeyedDecodingContainer.allKeys.getter();
-  v17 = MEMORY[0x1865CB560](v16, v6);
-  v18 = v15;
-  if (!v17)
+  v83 = v11;
+  v79 = a2;
+  v93 = 0;
+  v16 = v88;
+  v82 = v9;
+  v17 = KeyedDecodingContainer.allKeys.getter();
+  v18 = MEMORY[0x1865CB560](v17, v7);
+  v19 = v16;
+  if (!v18)
   {
-    v80 = MEMORY[0x1E69E7CC8];
-    v22 = v14;
+    v81 = MEMORY[0x1E69E7CC8];
+    v23 = v15;
 LABEL_41:
 
-    (*(v22 + 8))(v81, v18);
-    __swift_destroy_boxed_opaque_existential_1(v79);
-    return v80;
+    (*(v23 + 8))(v82, v19);
+    __swift_destroy_boxed_opaque_existential_1(v80);
+    return v81;
   }
 
-  v19 = v17;
-  v20 = 0;
-  v90 = MEMORY[0x1E69E7CC8];
-  v91 = v16 + 32;
-  v80 = MEMORY[0x1E69E7CC8];
-  v21 = v82;
-  v22 = v14;
-  v77 = v16;
-  v76 = v17;
+  v20 = v18;
+  v21 = 0;
+  v91 = MEMORY[0x1E69E7CC8];
+  v92 = v17 + 32;
+  v81 = MEMORY[0x1E69E7CC8];
+  v22 = v83;
+  v23 = v15;
+  v78 = v17;
+  v77 = v18;
   while (1)
   {
-    if (v20 >= *(v16 + 16))
+    if (v21 >= *(v17 + 16))
     {
       __break(1u);
 LABEL_44:
@@ -4267,221 +4270,221 @@ LABEL_45:
       goto LABEL_46;
     }
 
-    if (*(v21 + 16))
+    if (*(v22 + 16))
     {
       break;
     }
 
 LABEL_7:
-    if (++v20 == v19)
+    if (++v21 == v20)
     {
       goto LABEL_41;
     }
   }
 
-  v23 = v91 + 32 * v20;
-  v25 = *v23;
-  v24 = *(v23 + 8);
-  v95 = *(v23 + 16);
-  LODWORD(v94) = *(v23 + 24);
+  v24 = v92 + 32 * v21;
+  v26 = *v24;
+  v25 = *(v24 + 8);
+  v96 = *(v24 + 16);
+  LODWORD(v95) = *(v24 + 24);
   swift_bridgeObjectRetain_n();
-  v93 = v25;
-  v26 = specialized __RawDictionaryStorage.find<A>(_:)(v25, v24);
-  LOBYTE(v25) = v27;
+  v94 = v26;
+  v27 = specialized __RawDictionaryStorage.find<A>(_:)(v26, v25);
+  LOBYTE(v26) = v28;
 
-  if ((v25 & 1) == 0)
+  if ((v26 & 1) == 0)
   {
 
     goto LABEL_7;
   }
 
-  v28 = (*(v21 + 56) + 16 * v26);
-  v30 = *v28;
-  v29 = v28[1];
-  v31 = *(v29 + 8);
-  v85 = (*(v31 + 24))(*v28, v31);
-  v89 = v32;
+  v29 = (*(v22 + 56) + 16 * v27);
+  v31 = *v29;
+  v30 = v29[1];
+  v32 = *(v30 + 8);
+  v86 = (*(v32 + 24))(*v29, v32);
+  v90 = v33;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v88 = &v76;
-  v84 = AssociatedTypeWitness;
-  v34 = *(AssociatedTypeWitness - 8);
+  v89 = &v77;
+  v85 = AssociatedTypeWitness;
+  v35 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v36 = &v76 - v35;
-  v37 = v92;
-  *&v96 = v93;
-  *(&v96 + 1) = v24;
-  v97 = v95;
-  v98 = v94;
+  v37 = &v77 - v36;
+  v38 = v93;
+  *&v97 = v94;
+  *(&v97 + 1) = v25;
+  v98 = v96;
+  v99 = v95;
   KeyedDecodingContainer.superDecoder(forKey:)();
-  if (v37)
+  if (v38)
   {
-    (*(v86 + 8))(v81, v87);
+    (*(v87 + 8))(v82, v88);
 
-    return __swift_destroy_boxed_opaque_existential_1(v79);
+    return __swift_destroy_boxed_opaque_existential_1(v80);
   }
 
-  (*(v29 + 16))(&v99, v30, v29);
-  v92 = 0;
-  __swift_destroy_boxed_opaque_existential_1(&v99);
-  *&v99 = v78;
-  *(&v99 + 1) = v30;
-  v100 = v83;
-  v101 = v31;
-  v103 = type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete.DecodedAttributeBox();
-  boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(&v102);
-  (*(v34 + 32))(boxed_opaque_existential_0, v36, v84);
-  outlined init with take of Any(&v102, &v99);
-  v39 = v90;
+  (*(v30 + 16))(&v100, v31, v30);
+  v93 = 0;
+  __swift_destroy_boxed_opaque_existential_1(&v100);
+  *&v100 = v79;
+  *(&v100 + 1) = v31;
+  v101 = v84;
+  v102 = v32;
+  v104 = type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete.DecodedAttributeBox(0, &v100);
+  boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(&v103);
+  (*(v35 + 32))(boxed_opaque_existential_0, v37, v85);
+  outlined init with take of Any(&v103, &v100);
+  v40 = v91;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v104 = v39;
-  v41 = v85;
-  v42 = v89;
-  v44 = specialized __RawDictionaryStorage.find<A>(_:)(v85, v89);
-  v45 = *(v39 + 16);
-  v46 = (v43 & 1) == 0;
-  v47 = v45 + v46;
-  if (__OFADD__(v45, v46))
+  v105 = v40;
+  v42 = v86;
+  v43 = v90;
+  v45 = specialized __RawDictionaryStorage.find<A>(_:)(v86, v90);
+  v46 = *(v40 + 16);
+  v47 = (v44 & 1) == 0;
+  v48 = v46 + v47;
+  if (__OFADD__(v46, v47))
   {
     goto LABEL_44;
   }
 
-  v48 = v43;
-  if (*(v39 + 24) < v47)
+  v49 = v44;
+  if (*(v40 + 24) < v48)
   {
-    specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v47, isUniquelyReferenced_nonNull_native);
-    v49 = v104;
-    v50 = specialized __RawDictionaryStorage.find<A>(_:)(v41, v42);
-    if ((v48 & 1) != (v51 & 1))
+    specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v48, isUniquelyReferenced_nonNull_native);
+    v50 = v105;
+    v51 = specialized __RawDictionaryStorage.find<A>(_:)(v42, v43);
+    if ((v49 & 1) != (v52 & 1))
     {
       goto LABEL_47;
     }
 
-    v44 = v50;
+    v45 = v51;
     goto LABEL_18;
   }
 
   if (isUniquelyReferenced_nonNull_native)
   {
-    v49 = v39;
+    v50 = v40;
 LABEL_18:
-    v80 = v49;
-    if (v48)
+    v81 = v50;
+    if (v49)
     {
 
-      v52 = (*(v49 + 56) + 32 * v44);
-      __swift_destroy_boxed_opaque_existential_1(v52);
-      outlined init with take of Any(&v99, v52);
+      v53 = (*(v50 + 56) + 32 * v45);
+      __swift_destroy_boxed_opaque_existential_1(v53);
+      outlined init with take of Any(&v100, v53);
     }
 
     else
     {
-      *(v49 + 8 * (v44 >> 6) + 64) |= 1 << v44;
-      v53 = (*(v49 + 48) + 16 * v44);
-      *v53 = v41;
-      v53[1] = v42;
-      outlined init with take of Any(&v99, (*(v49 + 56) + 32 * v44));
-      v54 = *(v49 + 16);
-      v55 = __OFADD__(v54, 1);
-      v56 = v54 + 1;
-      if (v55)
+      *(v50 + 8 * (v45 >> 6) + 64) |= 1 << v45;
+      v54 = (*(v50 + 48) + 16 * v45);
+      *v54 = v42;
+      v54[1] = v43;
+      outlined init with take of Any(&v100, (*(v50 + 56) + 32 * v45));
+      v55 = *(v50 + 16);
+      v56 = __OFADD__(v55, 1);
+      v57 = v55 + 1;
+      if (v56)
       {
         goto LABEL_45;
       }
 
-      *(v49 + 16) = v56;
+      *(v50 + 16) = v57;
     }
 
-    v90 = v49;
-    v18 = v87;
-    v22 = v86;
-    v21 = v82;
-    v16 = v77;
-    v19 = v76;
+    v91 = v50;
+    v19 = v88;
+    v23 = v87;
+    v22 = v83;
+    v17 = v78;
+    v20 = v77;
     goto LABEL_7;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
-  v57 = static _DictionaryStorage.copy(original:)();
-  v49 = v57;
-  if (!*(v39 + 16))
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
+  v58 = static _DictionaryStorage.copy(original:)();
+  v50 = v58;
+  if (!*(v40 + 16))
   {
 LABEL_39:
 
-    v42 = v89;
-    v41 = v85;
+    v43 = v90;
+    v42 = v86;
     goto LABEL_18;
   }
 
-  v58 = (v57 + 64);
-  v59 = (v39 + 64);
-  v60 = ((1 << *(v49 + 32)) + 63) >> 6;
-  v93 = v39 + 64;
-  if (v49 != v39 || v58 >= &v59[8 * v60])
+  v59 = (v58 + 64);
+  v60 = (v40 + 64);
+  v61 = ((1 << *(v50 + 32)) + 63) >> 6;
+  v94 = v40 + 64;
+  if (v50 != v40 || v59 >= &v60[8 * v61])
   {
-    memmove(v58, v59, 8 * v60);
+    memmove(v59, v60, 8 * v61);
   }
 
-  v61 = 0;
-  *(v49 + 16) = *(v39 + 16);
-  v62 = 1 << *(v39 + 32);
-  if (v62 < 64)
+  v62 = 0;
+  *(v50 + 16) = *(v40 + 16);
+  v63 = 1 << *(v40 + 32);
+  if (v63 < 64)
   {
-    v63 = ~(-1 << v62);
+    v64 = ~(-1 << v63);
   }
 
   else
   {
-    v63 = -1;
+    v64 = -1;
   }
 
-  v64 = v63 & *(v39 + 64);
-  v65 = (v62 + 63) >> 6;
-  if (v64)
+  v65 = v64 & *(v40 + 64);
+  v66 = (v63 + 63) >> 6;
+  if (v65)
   {
     do
     {
-      v66 = __clz(__rbit64(v64));
-      v95 = (v64 - 1) & v64;
+      v67 = __clz(__rbit64(v65));
+      v96 = (v65 - 1) & v65;
 LABEL_37:
-      v69 = v66 | (v61 << 6);
-      v70 = 16 * v69;
-      v71 = *(v90 + 56);
-      v72 = (*(v90 + 48) + 16 * v69);
-      v73 = v72[1];
-      v94 = *v72;
-      v74 = 32 * v69;
-      outlined init with copy of Any(v71 + 32 * v69, &v96);
-      v75 = (*(v49 + 48) + v70);
-      *v75 = v94;
-      v75[1] = v73;
-      outlined init with take of Any(&v96, (*(v49 + 56) + v74));
+      v70 = v67 | (v62 << 6);
+      v71 = 16 * v70;
+      v72 = *(v91 + 56);
+      v73 = (*(v91 + 48) + 16 * v70);
+      v74 = v73[1];
+      v95 = *v73;
+      v75 = 32 * v70;
+      outlined init with copy of Any(v72 + 32 * v70, &v97);
+      v76 = (*(v50 + 48) + v71);
+      *v76 = v95;
+      v76[1] = v74;
+      outlined init with take of Any(&v97, (*(v50 + 56) + v75));
 
-      v64 = v95;
+      v65 = v96;
     }
 
-    while (v95);
+    while (v96);
   }
 
-  v67 = v61;
+  v68 = v62;
   while (1)
   {
-    v61 = v67 + 1;
-    if (__OFADD__(v67, 1))
+    v62 = v68 + 1;
+    if (__OFADD__(v68, 1))
     {
       break;
     }
 
-    if (v61 >= v65)
+    if (v62 >= v66)
     {
       goto LABEL_39;
     }
 
-    v68 = *(v93 + 8 * v61);
-    ++v67;
-    if (v68)
+    v69 = *(v94 + 8 * v62);
+    ++v68;
+    if (v69)
     {
-      v66 = __clz(__rbit64(v68));
-      v95 = (v68 - 1) & v68;
+      v67 = __clz(__rbit64(v69));
+      v96 = (v69 - 1) & v69;
       goto LABEL_37;
     }
   }
@@ -4494,10 +4497,10 @@ LABEL_47:
   return result;
 }
 
-uint64_t protocol witness for Decodable.init(from:) in conformance _AttributedStringFromMarkdownCreatorConcrete<A>.ExtendedAttributesBox@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t protocol witness for Decodable.init(from:) in conformance _AttributedStringFromMarkdownCreatorConcrete<A>.ExtendedAttributesBox@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>, uint64_t a4@<X3>)
 {
-  result = _AttributedStringFromMarkdownCreatorConcrete.ExtendedAttributesBox.init(from:)(a1, *(a2 + 16), *(a2 + 24));
-  if (!v3)
+  result = _AttributedStringFromMarkdownCreatorConcrete.ExtendedAttributesBox.init(from:)(a1, *(a2 + 16), *(a2 + 24), a4);
+  if (!v4)
   {
     *a3 = result;
   }
@@ -4505,25 +4508,28 @@ uint64_t protocol witness for Decodable.init(from:) in conformance _AttributedSt
   return result;
 }
 
-id @objc _AttributedStringFromMarkdownCreatorConcrete.parseExtendedAttributes(from:)(void *a1, uint64_t a2, void *a3)
+id @objc _AttributedStringFromMarkdownCreatorConcrete.parseExtendedAttributes(from:)(uint64_t *a1, uint64_t a2, void *a3)
 {
-  v4 = a3;
-  v5 = a1;
-  v6 = specialized Data.init(referencing:)(v4);
-  v8 = v7;
+  v4 = *a1;
+  v5 = *MEMORY[0x1E69E7D40];
+  v6 = a3;
+  v7 = a1;
+  v8 = specialized Data.init(referencing:)(v6);
+  v10 = v9;
 
-  specialized _AttributedStringFromMarkdownCreatorConcrete.parseExtendedAttributes(from:)(v6, v8);
-  outlined consume of Data._Representation(v6, v8);
-  v9 = _NativeDictionary.bridged()();
+  specialized _AttributedStringFromMarkdownCreatorConcrete.parseExtendedAttributes(from:)(v8, v10, *((v5 & v4) + 0x50), *((v5 & v4) + 0x58));
+  outlined consume of Data._Representation(v8, v10);
+  v11 = _NativeDictionary.bridged()();
 
-  return v9;
+  return v11;
 }
 
-id _AttributedStringFromMarkdownCreatorConcrete.__deallocating_deinit()
+id _AttributedStringFromMarkdownCreatorConcrete.__deallocating_deinit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v5 = type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, *((*MEMORY[0x1E69E7D40] & *v4) + 0x50), *((*MEMORY[0x1E69E7D40] & *v4) + 0x58), a4);
+  v7.receiver = v4;
+  v7.super_class = v5;
+  return objc_msgSendSuper2(&v7, sel_dealloc);
 }
 
 uint64_t AttributedString.MarkdownParsingOptions.FailurePolicy.init(rawValue:)@<X0>(uint64_t result@<X0>, char *a2@<X8>)
@@ -4876,7 +4882,7 @@ uint64_t AttributedString.MarkdownSourcePosition.Offsets.encode(to:)(void *a1, u
 {
   v12[0] = a5;
   v12[1] = a3;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV7OffsetsV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV7OffsetsV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMd, &_ss22KeyedEncodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV7OffsetsV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMR);
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v10 = v12 - v9;
@@ -4924,10 +4930,10 @@ unint64_t protocol witness for CodingKey.stringValue.getter in conformance Attri
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AttributedString.MarkdownSourcePosition.Offsets.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AttributedString.MarkdownSourcePosition.Offsets.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized AttributedString.MarkdownSourcePosition.Offsets.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized AttributedString.MarkdownSourcePosition.Offsets.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -4970,29 +4976,29 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance AttributedStri
   return MEMORY[0x1865CD060](v3);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AttributedString.MarkdownSourcePosition.Offsets()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AttributedString.MarkdownSourcePosition.Offsets(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
+  v2 = *v1;
+  v3 = v1[1];
+  v4 = v1[2];
+  v5 = v1[3];
   Hasher.init(_seed:)();
-  MEMORY[0x1865CD060](v1);
   MEMORY[0x1865CD060](v2);
   MEMORY[0x1865CD060](v3);
   MEMORY[0x1865CD060](v4);
+  MEMORY[0x1865CD060](v5);
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Decodable.init(from:) in conformance AttributedString.MarkdownSourcePosition.Offsets@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for Decodable.init(from:) in conformance AttributedString.MarkdownSourcePosition.Offsets@<X0>(uint64_t *a1@<X8>, void *a2@<X0>)
 {
-  result = specialized AttributedString.MarkdownSourcePosition.Offsets.init(from:)(a1);
+  result = specialized AttributedString.MarkdownSourcePosition.Offsets.init(from:)(a2);
   if (!v2)
   {
-    *a2 = result;
-    a2[1] = v5;
-    a2[2] = v6;
-    a2[3] = v7;
+    *a1 = result;
+    a1[1] = v5;
+    a1[2] = v6;
+    a1[3] = v7;
   }
 
   return result;
@@ -5052,10 +5058,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Attrib
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AttributedString.MarkdownSourcePosition.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AttributedString.MarkdownSourcePosition.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized AttributedString.MarkdownSourcePosition.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized AttributedString.MarkdownSourcePosition.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -5075,7 +5081,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t AttributedString.MarkdownSourcePosition.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMd, &_ss22KeyedEncodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v15 - v5;
@@ -5228,7 +5234,7 @@ LABEL_3:
 
 uint64_t AttributedString.MarkdownSourcePosition.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMd, &_ss22KeyedDecodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v17 - v7;
@@ -5275,35 +5281,35 @@ uint64_t AttributedString.MarkdownSourcePosition.init(from:)@<X0>(void *a1@<X0>,
   return __swift_destroy_boxed_opaque_existential_1(a1);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AttributedString.MarkdownSourcePosition()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AttributedString.MarkdownSourcePosition(uint64_t a1)
 {
-  v2 = *v0;
-  v1 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v6 = v0[4];
-  v5 = v0[5];
-  v7 = v0[6];
-  v8 = *(v0 + 64);
-  v11 = v0[7];
-  v12 = v0[9];
-  v13 = v0[10];
-  v14 = v0[11];
-  v15 = v0[12];
-  v9 = *(v0 + 104);
+  v3 = *v1;
+  v2 = v1[1];
+  v4 = v1[2];
+  v5 = v1[3];
+  v7 = v1[4];
+  v6 = v1[5];
+  v8 = v1[6];
+  v9 = *(v1 + 64);
+  v12 = v1[7];
+  v13 = v1[9];
+  v14 = v1[10];
+  v15 = v1[11];
+  v16 = v1[12];
+  v10 = *(v1 + 104);
   Hasher.init(_seed:)();
-  MEMORY[0x1865CD060](v2);
-  MEMORY[0x1865CD060](v1);
   MEMORY[0x1865CD060](v3);
+  MEMORY[0x1865CD060](v2);
   MEMORY[0x1865CD060](v4);
-  if (v8 != 1)
+  MEMORY[0x1865CD060](v5);
+  if (v9 != 1)
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v6);
-    MEMORY[0x1865CD060](v5);
     MEMORY[0x1865CD060](v7);
-    MEMORY[0x1865CD060](v11);
-    if (!v9)
+    MEMORY[0x1865CD060](v6);
+    MEMORY[0x1865CD060](v8);
+    MEMORY[0x1865CD060](v12);
+    if (!v10)
     {
       goto LABEL_3;
     }
@@ -5314,275 +5320,690 @@ LABEL_5:
   }
 
   Hasher._combine(_:)(0);
-  if (v9)
+  if (v10)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
   Hasher._combine(_:)(1u);
-  MEMORY[0x1865CD060](v12);
   MEMORY[0x1865CD060](v13);
   MEMORY[0x1865CD060](v14);
   MEMORY[0x1865CD060](v15);
+  MEMORY[0x1865CD060](v16);
   return Hasher._finalize()();
 }
 
-uint64_t AttributedString.init<A>(markdown:including:options:baseURL:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t *a4@<X4>, uint64_t a5@<X5>, NSError **a6@<X8>)
+uint64_t AttributedString.init<A>(markdown:including:options:baseURL:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t *a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, NSError **a7@<X8>)
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v9 = *(a3 + 1);
-  v10 = *(a3 + 2);
-  v11 = *(a3 + 8);
-  v12 = *(a3 + 16);
-  v13 = *(a3 + 24);
-  v43 = *a4;
-  v42 = a4[1];
+  v9 = a1;
+  v54 = *MEMORY[0x1E69E9840];
+  v10 = *(a3 + 1);
+  v11 = *(a3 + 2);
+  v12 = *(a3 + 8);
+  v13 = *(a3 + 16);
+  v14 = *(a3 + 24);
+  v47 = *a4;
+  v45 = a4[1];
   if ((a2 & 0x1000000000000000) != 0)
   {
-    a1 = static String._copying(_:)();
-    v14 = v36;
+    v9 = static String._copying(_:)(a1, a2);
+    v15 = v39;
   }
 
   else
   {
 
-    v14 = a2;
+    v15 = a2;
   }
 
-  if ((v14 & 0x2000000000000000) != 0)
+  if ((v15 & 0x2000000000000000) != 0)
   {
 
-    v44[0] = a1;
-    v44[1] = v14 & 0xFFFFFFFFFFFFFFLL;
-    LOBYTE(v45) = 1;
-    BYTE1(v45) = v9;
-    BYTE2(v45) = v10;
-    v46 = v11;
-    v47 = v12;
-    v48 = v13;
-    objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
+    v48[0] = v9;
+    v48[1] = v15 & 0xFFFFFFFFFFFFFFLL;
+    LOBYTE(v49) = 1;
+    BYTE1(v49) = v10;
+    BYTE2(v49) = v11;
+    v50 = v12;
+    v51 = v13;
+    v52 = v14;
+    objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, a5, a6, v23));
 
-    v21 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a5, &v45);
+    v24 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a5, &v49);
     type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-    LOBYTE(v45) = 1;
-    BYTE1(v45) = v9;
-    BYTE2(v45) = v10;
-    v46 = v11;
-    v47 = v12;
-    v48 = v13;
+    LOBYTE(v49) = 1;
+    BYTE1(v49) = v10;
+    BYTE2(v49) = v11;
+    v50 = v12;
+    v51 = v13;
+    v52 = v14;
 
-    v17 = v21;
-    v22 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v45);
-    if (v43)
+    v19 = v24;
+    v25 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v49);
+    if (v47)
     {
       ObjectType = swift_getObjectType();
-      v24 = (*(v42 + 432))(ObjectType);
+      v27 = (*(v45 + 432))(ObjectType);
     }
 
     else
     {
-      v24 = 0;
+      v27 = 0;
     }
 
-    v45 = 0;
-    v25 = _NSAttributedStringFromMarkdownWithCreator(v17, v44, HIBYTE(v14) & 0xF, v22, v24, &v45);
+    v49 = 0;
+    v28 = _NSAttributedStringFromMarkdownWithCreator(v19, v48, HIBYTE(v15) & 0xF, v25, v27, &v49);
 
-    v26 = v45;
-    if ((v25 & 1) != 0 || !v45)
+    v29 = v49;
+    if ((v28 & 1) != 0 || !v49)
     {
-      v28 = *&v17[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
-      v29 = v45;
+      v31 = *&v19[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
+      v32 = v49;
 
       result = swift_unknownObjectRelease();
-      *a6 = v28;
+      *a7 = v31;
       return result;
     }
 
     swift_willThrow();
-    v27 = v26;
+    v30 = v29;
     goto LABEL_19;
   }
 
-  if ((a1 & 0x1000000000000000) != 0)
+  if ((v9 & 0x1000000000000000) != 0)
   {
-    v39 = a1 & 0xFFFFFFFFFFFFLL;
-    v40 = (v14 & 0xFFFFFFFFFFFFFFFLL) + 32;
-    v15 = v12;
+    v42 = v9 & 0xFFFFFFFFFFFFLL;
+    v43 = (v15 & 0xFFFFFFFFFFFFFFFLL) + 32;
+    v17 = v13;
   }
 
   else
   {
-    v37 = _StringObject.sharedUTF8.getter();
-    v15 = v12;
-    if (!v37)
+    v40 = _StringObject.sharedUTF8.getter();
+    v17 = v13;
+    if (!v40)
     {
       BigString.init(_:)();
-      AttributedString.init(_:attributes:)(v49, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v45);
+      AttributedString.init(_:attributes:)(v53, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v49);
 
       swift_unknownObjectRelease();
 
-      v34 = v45;
+      v37 = v49;
       goto LABEL_21;
     }
 
-    v39 = v38;
-    v40 = v37;
+    v42 = v41;
+    v43 = v40;
   }
 
-  LOBYTE(v45) = 1;
-  BYTE1(v45) = v9;
-  BYTE2(v45) = v10;
-  v46 = v11;
-  v47 = v15;
-  v48 = v13;
-  objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
+  LOBYTE(v49) = 1;
+  BYTE1(v49) = v10;
+  BYTE2(v49) = v11;
+  v50 = v12;
+  v51 = v17;
+  v52 = v14;
+  objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, a5, a6, v16));
 
-  v16 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a5, &v45);
+  v18 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a5, &v49);
   type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-  LOBYTE(v45) = 1;
-  BYTE1(v45) = v9;
-  BYTE2(v45) = v10;
-  v46 = v11;
-  v47 = v15;
-  v48 = v13;
+  LOBYTE(v49) = 1;
+  BYTE1(v49) = v10;
+  BYTE2(v49) = v11;
+  v50 = v12;
+  v51 = v17;
+  v52 = v14;
 
-  v17 = v16;
-  v18 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v45);
-  if (v43)
+  v19 = v18;
+  v20 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v49);
+  if (v47)
   {
-    v19 = swift_getObjectType();
-    v20 = (*(v42 + 432))(v19);
+    v21 = swift_getObjectType();
+    v22 = (*(v45 + 432))(v21);
   }
 
   else
   {
-    v20 = 0;
+    v22 = 0;
   }
 
-  v45 = 0;
-  v31 = _NSAttributedStringFromMarkdownWithCreator(v17, v40, v39, v18, v20, &v45);
+  v49 = 0;
+  v34 = _NSAttributedStringFromMarkdownWithCreator(v19, v43, v42, v20, v22, &v49);
 
-  v32 = v45;
-  if ((v31 & 1) == 0 && v45)
+  v35 = v49;
+  if ((v34 & 1) == 0 && v49)
   {
     swift_willThrow();
-    v33 = v32;
+    v36 = v35;
 LABEL_19:
 
     return swift_unknownObjectRelease();
   }
 
-  v34 = *&v17[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
-  v35 = v45;
+  v37 = *&v19[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
+  v38 = v49;
 
   swift_unknownObjectRelease();
 LABEL_21:
 
-  *a6 = v34;
+  *a7 = v37;
+  return result;
+}
+
+uint64_t AttributedString.init<A>(markdown:including:options:baseURL:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, NSError **a8@<X8>)
+{
+  v11 = a1;
+  v56 = *MEMORY[0x1E69E9840];
+  v12 = *(a4 + 1);
+  v13 = *(a4 + 2);
+  v14 = *(a4 + 8);
+  v49 = *(a4 + 16);
+  v15 = *(a4 + 24);
+  v48 = *a5;
+  v46 = a5[1];
+  if ((a2 & 0x1000000000000000) != 0)
+  {
+    v11 = static String._copying(_:)(a1, a2);
+    v16 = v39;
+  }
+
+  else
+  {
+
+    v16 = a2;
+  }
+
+  if ((v16 & 0x2000000000000000) != 0)
+  {
+
+    v44 = HIBYTE(v16) & 0xF;
+    v50[0] = v11;
+    v50[1] = v16 & 0xFFFFFFFFFFFFFFLL;
+    LOBYTE(v51) = 1;
+    BYTE1(v51) = v12;
+    BYTE2(v51) = v13;
+    v52 = v14;
+    v53 = v49;
+    v54 = v15;
+    objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, a6, a7, v23));
+
+    v24 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a3, &v51);
+    type metadata accessor for NSAttributedStringMarkdownParsingOptions();
+    LOBYTE(v51) = 1;
+    BYTE1(v51) = v12;
+    BYTE2(v51) = v13;
+    v52 = v14;
+    v53 = v49;
+    v54 = v15;
+
+    v19 = v24;
+    v25 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v51);
+    if (v48)
+    {
+      ObjectType = swift_getObjectType();
+      v27 = (*(v46 + 432))(ObjectType);
+    }
+
+    else
+    {
+      v27 = 0;
+    }
+
+    v51 = 0;
+    v28 = _NSAttributedStringFromMarkdownWithCreator(v19, v50, v44, v25, v27, &v51);
+
+    v29 = v51;
+    if ((v28 & 1) != 0 || !v51)
+    {
+      v31 = *&v19[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
+      v32 = v51;
+
+      result = swift_unknownObjectRelease();
+      *a8 = v31;
+      return result;
+    }
+
+    swift_willThrow();
+    v30 = v29;
+    goto LABEL_19;
+  }
+
+  if ((v11 & 0x1000000000000000) != 0)
+  {
+    v42 = v11 & 0xFFFFFFFFFFFFLL;
+    v43 = (v16 & 0xFFFFFFFFFFFFFFFLL) + 32;
+  }
+
+  else
+  {
+    v40 = _StringObject.sharedUTF8.getter();
+    if (!v40)
+    {
+      BigString.init(_:)();
+      AttributedString.init(_:attributes:)(v55, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v51);
+      swift_unknownObjectRelease();
+
+      v37 = v51;
+      goto LABEL_21;
+    }
+
+    v42 = v41;
+    v43 = v40;
+  }
+
+  LOBYTE(v51) = 1;
+  BYTE1(v51) = v12;
+  BYTE2(v51) = v13;
+  v52 = v14;
+  v53 = v49;
+  v54 = v15;
+  objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, a6, a7, v17));
+
+  v18 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a3, &v51);
+  type metadata accessor for NSAttributedStringMarkdownParsingOptions();
+  LOBYTE(v51) = 1;
+  BYTE1(v51) = v12;
+  BYTE2(v51) = v13;
+  v52 = v14;
+  v53 = v49;
+  v54 = v15;
+
+  v19 = v18;
+  v20 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v51);
+  if (v48)
+  {
+    v21 = swift_getObjectType();
+    v22 = (*(v46 + 432))(v21);
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  v51 = 0;
+  v34 = _NSAttributedStringFromMarkdownWithCreator(v19, v43, v42, v20, v22, &v51);
+
+  v35 = v51;
+  if ((v34 & 1) == 0 && v51)
+  {
+    swift_willThrow();
+    v36 = v35;
+LABEL_19:
+
+    return swift_unknownObjectRelease();
+  }
+
+  v37 = *&v19[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
+  v38 = v51;
+
+  swift_unknownObjectRelease();
+LABEL_21:
+
+  *a8 = v37;
   return result;
 }
 
 {
-  v66 = *MEMORY[0x1E69E9840];
-  v8 = *(a3 + 1);
-  v9 = *(a3 + 2);
-  v10 = *(a3 + 8);
-  v11 = *(a3 + 16);
-  v12 = *(a3 + 24);
-  v58 = *a4;
-  v13 = a2 >> 62;
-  v57 = a6;
+  v65 = *MEMORY[0x1E69E9840];
+  v10 = *(a4 + 1);
+  v11 = *(a4 + 2);
+  v12 = *(a4 + 8);
+  v13 = *(a4 + 16);
+  v14 = *(a4 + 24);
+  v15 = *a5;
+  v16 = a2 >> 62;
   if ((a2 >> 62) > 1)
   {
-    if (v13 != 2)
+    if (v16 != 2)
     {
-      v55 = a4[1];
+      v55 = a5[1];
       v56 = a1;
-      memset(v59, 0, 14);
-      LOBYTE(v60) = 1;
-      BYTE1(v60) = v8;
-      BYTE2(v60) = v9;
-      v61 = v10;
-      v62 = v11;
-      v63 = v12;
-      objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
+      memset(v58, 0, 14);
+      LOBYTE(v59) = 1;
+      BYTE1(v59) = v10;
+      BYTE2(v59) = v11;
+      v60 = v12;
+      v61 = v13;
+      v62 = v14;
+      objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, a6, a7, a4));
 
-      v36 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a5, &v60);
+      v36 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a3, &v59);
       type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-      LOBYTE(v60) = 1;
-      BYTE1(v60) = v8;
-      BYTE2(v60) = v9;
-      v61 = v10;
-      v62 = v11;
-      v63 = v12;
+      LOBYTE(v59) = 1;
+      BYTE1(v59) = v10;
+      BYTE2(v59) = v11;
+      v60 = v12;
+      v61 = v13;
+      v62 = v14;
 
-      v16 = v36;
-      v37 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v60);
-      if (v58)
+      v18 = v36;
+      v19 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v59);
+      if (v15)
       {
         ObjectType = swift_getObjectType();
-        v39 = (*(v55 + 432))(ObjectType);
+        v21 = (*(v55 + 432))(ObjectType);
       }
 
       else
       {
-        v39 = 0;
+        v21 = 0;
       }
 
-      v60 = 0;
-      v47 = _NSAttributedStringFromMarkdownWithCreator(v16, v59, 0, v37, v39, &v60);
-
-      v48 = v60;
-      if ((v47 & 1) == 0)
-      {
-LABEL_35:
-        if (v48)
-        {
-          swift_willThrow();
-          v48;
-
-          outlined consume of Data._Representation(v56, a2);
-
-          return swift_unknownObjectRelease();
-        }
-      }
-
-LABEL_37:
-      v46 = *&v16[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
-      v51 = v48;
-
-      outlined consume of Data._Representation(v56, a2);
-      goto LABEL_38;
+      v59 = 0;
+      v42 = v58;
+      v43 = v18;
+      v44 = 0;
+      goto LABEL_34;
     }
 
-    v20 = *(a1 + 16);
-    v21 = *(a1 + 24);
-    v22 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
-    if (v22)
+    v22 = *(a1 + 16);
+    v23 = *(a1 + 24);
+    v24 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
+    if (v24)
     {
-      v23 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
-      v24 = __OFSUB__(v20, v23);
-      v25 = v20 - v23;
-      if (v24)
+      v25 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
+      v26 = __OFSUB__(v22, v25);
+      v27 = v22 - v25;
+      if (v26)
       {
 LABEL_41:
         __break(1u);
         goto LABEL_42;
       }
 
-      v24 = __OFSUB__(v21, v20);
-      v26 = v21 - v20;
-      if (!v24)
+      v26 = __OFSUB__(v23, v22);
+      v28 = v23 - v22;
+      if (!v26)
       {
-        v27 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
-        if (v27 >= v26)
+        if (*((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18) < v28)
         {
-          v27 = v26;
+          v28 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
         }
 
-        v28 = (v25 + v22);
-        if (v25 + v22)
+        v29 = (v27 + v24);
+        if (v29)
+        {
+          v50 = v29;
+          v52 = v28;
+LABEL_20:
+          v54 = a5[1];
+          v56 = a1;
+          LOBYTE(v59) = 1;
+          BYTE1(v59) = v10;
+          BYTE2(v59) = v11;
+          v60 = v12;
+          v61 = v13;
+          v62 = v14;
+          objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, a6, a7, a4));
+
+          v34 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a3, &v59);
+          type metadata accessor for NSAttributedStringMarkdownParsingOptions();
+          LOBYTE(v59) = 1;
+          BYTE1(v59) = v10;
+          BYTE2(v59) = v11;
+          v60 = v12;
+          v61 = v13;
+          v62 = v14;
+
+          v18 = v34;
+          v19 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v59);
+          if (v15)
+          {
+            v35 = swift_getObjectType();
+            v21 = (*(v54 + 432))(v35);
+          }
+
+          else
+          {
+            v21 = 0;
+          }
+
+          v59 = 0;
+          v43 = v18;
+          v42 = v50;
+          v44 = v52;
+          goto LABEL_34;
+        }
+
+        goto LABEL_28;
+      }
+    }
+
+    else if (!__OFSUB__(v23, v22))
+    {
+LABEL_28:
+      v38 = a1;
+      BigString.init(_:)();
+      v39 = MEMORY[0x1E69E7CC8];
+      v40 = MEMORY[0x1E69E7CD0];
+      v41 = &v64;
+      goto LABEL_29;
+    }
+
+LABEL_40:
+    __break(1u);
+    goto LABEL_41;
+  }
+
+  if (v16)
+  {
+    if (a1 >> 32 >= a1)
+    {
+      v30 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
+      if (!v30)
+      {
+LABEL_24:
+        v38 = a1;
+        BigString.init(_:)();
+        v39 = MEMORY[0x1E69E7CC8];
+        v40 = MEMORY[0x1E69E7CD0];
+        v41 = v63;
+LABEL_29:
+        AttributedString.init(_:attributes:)(v41, v39, v40, &v59);
+        outlined consume of Data._Representation(v38, a2);
+
+        v45 = v59;
+        goto LABEL_38;
+      }
+
+      v31 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
+      if (!__OFSUB__(a1, v31))
+      {
+        v32 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
+        if (v32 >= (a1 >> 32) - a1)
+        {
+          v32 = (a1 >> 32) - a1;
+        }
+
+        v33 = (a1 - v31 + v30);
+        if (v33)
+        {
+          v50 = v33;
+          v52 = v32;
+          goto LABEL_20;
+        }
+
+        goto LABEL_24;
+      }
+
+LABEL_42:
+      __break(1u);
+    }
+
+    __break(1u);
+    goto LABEL_40;
+  }
+
+  v53 = a5[1];
+  v58[0] = a1;
+  v56 = a1;
+  LOWORD(v58[1]) = a2;
+  BYTE2(v58[1]) = BYTE2(a2);
+  BYTE3(v58[1]) = BYTE3(a2);
+  BYTE4(v58[1]) = BYTE4(a2);
+  v51 = BYTE6(a2);
+  BYTE5(v58[1]) = BYTE5(a2);
+  LOBYTE(v59) = 1;
+  BYTE1(v59) = v10;
+  BYTE2(v59) = v11;
+  v60 = v12;
+  v61 = v13;
+  v62 = v14;
+  objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, a6, a7, a4));
+
+  v17 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a3, &v59);
+  type metadata accessor for NSAttributedStringMarkdownParsingOptions();
+  LOBYTE(v59) = 1;
+  BYTE1(v59) = v10;
+  BYTE2(v59) = v11;
+  v60 = v12;
+  v61 = v13;
+  v62 = v14;
+
+  v18 = v17;
+  v19 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v59);
+  if (v15)
+  {
+    v20 = swift_getObjectType();
+    v21 = (*(v53 + 432))(v20);
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  v59 = 0;
+  v42 = v58;
+  v43 = v18;
+  v44 = v51;
+LABEL_34:
+  v46 = _NSAttributedStringFromMarkdownWithCreator(v43, v42, v44, v19, v21, &v59);
+
+  v47 = v59;
+  if ((v46 & 1) == 0 && v59)
+  {
+    swift_willThrow();
+    v47;
+
+    outlined consume of Data._Representation(v56, a2);
+
+    return swift_unknownObjectRelease();
+  }
+
+  v45 = *&v18[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
+  v49 = v59;
+
+  outlined consume of Data._Representation(v56, a2);
+
+LABEL_38:
+  result = swift_unknownObjectRelease();
+  *a8 = v45;
+  return result;
+}
+
+uint64_t AttributedString.init<A>(markdown:including:options:baseURL:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t *a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t *a7@<X8>)
+{
+  v67 = *MEMORY[0x1E69E9840];
+  v9 = *(a3 + 1);
+  v10 = *(a3 + 2);
+  v11 = *(a3 + 8);
+  v12 = *(a3 + 16);
+  v13 = *(a3 + 24);
+  v59 = *a4;
+  v14 = a2 >> 62;
+  v58 = a7;
+  if ((a2 >> 62) > 1)
+  {
+    if (v14 != 2)
+    {
+      v56 = a4[1];
+      v57 = a1;
+      memset(v60, 0, 14);
+      LOBYTE(v61) = 1;
+      BYTE1(v61) = v9;
+      BYTE2(v61) = v10;
+      v62 = v11;
+      v63 = v12;
+      v64 = v13;
+      objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, a5, a6, a3));
+
+      v37 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a5, &v61);
+      type metadata accessor for NSAttributedStringMarkdownParsingOptions();
+      LOBYTE(v61) = 1;
+      BYTE1(v61) = v9;
+      BYTE2(v61) = v10;
+      v62 = v11;
+      v63 = v12;
+      v64 = v13;
+
+      v17 = v37;
+      v38 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v61);
+      if (v59)
+      {
+        ObjectType = swift_getObjectType();
+        v40 = (*(v56 + 432))(ObjectType);
+      }
+
+      else
+      {
+        v40 = 0;
+      }
+
+      v61 = 0;
+      v48 = _NSAttributedStringFromMarkdownWithCreator(v17, v60, 0, v38, v40, &v61);
+
+      v49 = v61;
+      if ((v48 & 1) == 0)
+      {
+LABEL_35:
+        if (v49)
+        {
+          swift_willThrow();
+          v49;
+
+          outlined consume of Data._Representation(v57, a2);
+
+          return swift_unknownObjectRelease();
+        }
+      }
+
+LABEL_37:
+      v47 = *&v17[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
+      v52 = v49;
+
+      outlined consume of Data._Representation(v57, a2);
+      goto LABEL_38;
+    }
+
+    v21 = *(a1 + 16);
+    v22 = *(a1 + 24);
+    v23 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
+    if (v23)
+    {
+      v24 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
+      v25 = __OFSUB__(v21, v24);
+      v26 = v21 - v24;
+      if (v25)
+      {
+LABEL_41:
+        __break(1u);
+        goto LABEL_42;
+      }
+
+      v25 = __OFSUB__(v22, v21);
+      v27 = v22 - v21;
+      if (!v25)
+      {
+        v28 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
+        if (v28 >= v27)
+        {
+          v28 = v27;
+        }
+
+        v29 = (v26 + v23);
+        if (v26 + v23)
         {
           goto LABEL_19;
         }
@@ -5591,14 +6012,14 @@ LABEL_41:
       }
     }
 
-    else if (!__OFSUB__(v21, v20))
+    else if (!__OFSUB__(v22, v21))
     {
 LABEL_27:
-      v40 = a1;
+      v41 = a1;
       BigString.init(_:)();
-      v41 = MEMORY[0x1E69E7CC8];
-      v42 = MEMORY[0x1E69E7CD0];
-      v43 = &v65;
+      v42 = MEMORY[0x1E69E7CC8];
+      v43 = MEMORY[0x1E69E7CD0];
+      v44 = &v66;
       goto LABEL_28;
     }
 
@@ -5607,117 +6028,117 @@ LABEL_40:
     goto LABEL_41;
   }
 
-  if (!v13)
+  if (!v14)
   {
-    v53 = a4[1];
-    v59[0] = a1;
-    v56 = a1;
-    LOWORD(v59[1]) = a2;
-    BYTE2(v59[1]) = BYTE2(a2);
-    BYTE3(v59[1]) = BYTE3(a2);
-    BYTE4(v59[1]) = BYTE4(a2);
-    v52 = BYTE6(a2);
-    BYTE5(v59[1]) = BYTE5(a2);
-    LOBYTE(v60) = 1;
-    BYTE1(v60) = v8;
-    BYTE2(v60) = v9;
-    v61 = v10;
+    v54 = a4[1];
+    v60[0] = a1;
+    v57 = a1;
+    LOWORD(v60[1]) = a2;
+    BYTE2(v60[1]) = BYTE2(a2);
+    BYTE3(v60[1]) = BYTE3(a2);
+    BYTE4(v60[1]) = BYTE4(a2);
+    v53 = BYTE6(a2);
+    BYTE5(v60[1]) = BYTE5(a2);
+    LOBYTE(v61) = 1;
+    BYTE1(v61) = v9;
+    BYTE2(v61) = v10;
     v62 = v11;
     v63 = v12;
-    objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
+    v64 = v13;
+    objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, a5, a6, a3));
 
-    v15 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a5, &v60);
+    v16 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a5, &v61);
     type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-    LOBYTE(v60) = 1;
-    BYTE1(v60) = v8;
-    BYTE2(v60) = v9;
-    v61 = v10;
+    LOBYTE(v61) = 1;
+    BYTE1(v61) = v9;
+    BYTE2(v61) = v10;
     v62 = v11;
     v63 = v12;
+    v64 = v13;
 
-    v16 = v15;
-    v17 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v60);
-    if (v58)
+    v17 = v16;
+    v18 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v61);
+    if (v59)
     {
-      v18 = swift_getObjectType();
-      v19 = (*(v53 + 432))(v18);
+      v19 = swift_getObjectType();
+      v20 = (*(v54 + 432))(v19);
     }
 
     else
     {
-      v19 = 0;
+      v20 = 0;
     }
 
-    v60 = 0;
-    v44 = v59;
-    v45 = v16;
+    v61 = 0;
+    v45 = v60;
+    v46 = v17;
     goto LABEL_34;
   }
 
-  v27 = (a1 >> 32) - a1;
+  v28 = (a1 >> 32) - a1;
   if (a1 >> 32 < a1)
   {
     __break(1u);
     goto LABEL_40;
   }
 
-  v29 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
-  if (v29)
+  v30 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
+  if (v30)
   {
-    v30 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
-    v31 = a1 - v30;
-    if (!__OFSUB__(a1, v30))
+    v31 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
+    v32 = a1 - v31;
+    if (!__OFSUB__(a1, v31))
     {
-      if (*((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18) < v27)
+      if (*((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18) < v28)
       {
-        v27 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
+        v28 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
       }
 
-      v28 = (v31 + v29);
-      if (v31 + v29)
+      v29 = (v32 + v30);
+      if (v32 + v30)
       {
 LABEL_19:
-        v52 = v27;
-        v54 = a4[1];
-        v56 = a1;
-        LOBYTE(v60) = 1;
-        BYTE1(v60) = v8;
-        BYTE2(v60) = v9;
-        v61 = v10;
+        v53 = v28;
+        v55 = a4[1];
+        v57 = a1;
+        LOBYTE(v61) = 1;
+        BYTE1(v61) = v9;
+        BYTE2(v61) = v10;
         v62 = v11;
         v63 = v12;
-        objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
+        v64 = v13;
+        objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, a5, a6, a3));
 
-        v33 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a5, &v60);
+        v34 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a5, &v61);
         type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-        LOBYTE(v60) = 1;
-        BYTE1(v60) = v8;
-        BYTE2(v60) = v9;
-        v61 = v10;
+        LOBYTE(v61) = 1;
+        BYTE1(v61) = v9;
+        BYTE2(v61) = v10;
         v62 = v11;
         v63 = v12;
+        v64 = v13;
 
-        v16 = v33;
-        v17 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v60);
-        if (v58)
+        v17 = v34;
+        v18 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v61);
+        if (v59)
         {
-          v34 = swift_getObjectType();
-          v19 = (*(v54 + 432))(v34);
+          v35 = swift_getObjectType();
+          v20 = (*(v55 + 432))(v35);
         }
 
         else
         {
-          v19 = 0;
+          v20 = 0;
         }
 
-        v60 = 0;
-        v45 = v16;
-        v44 = v28;
+        v61 = 0;
+        v46 = v17;
+        v45 = v29;
 LABEL_34:
-        v49 = _NSAttributedStringFromMarkdownWithCreator(v45, v44, v52, v17, v19, &v60);
+        v50 = _NSAttributedStringFromMarkdownWithCreator(v46, v45, v53, v18, v20, &v61);
 
-        v48 = v60;
-        if ((v49 & 1) == 0)
+        v49 = v61;
+        if ((v50 & 1) == 0)
         {
           goto LABEL_35;
         }
@@ -5733,457 +6154,45 @@ LABEL_42:
   }
 
 LABEL_23:
-  v40 = a1;
+  v41 = a1;
   BigString.init(_:)();
-  v41 = MEMORY[0x1E69E7CC8];
-  v42 = MEMORY[0x1E69E7CD0];
-  v43 = &v64;
+  v42 = MEMORY[0x1E69E7CC8];
+  v43 = MEMORY[0x1E69E7CD0];
+  v44 = v65;
 LABEL_28:
-  AttributedString.init(_:attributes:)(v43, v41, v42, &v60);
+  AttributedString.init(_:attributes:)(v44, v42, v43, &v61);
 
-  outlined consume of Data._Representation(v40, a2);
-  v46 = v60;
+  outlined consume of Data._Representation(v41, a2);
+  v47 = v61;
 LABEL_38:
 
   result = swift_unknownObjectRelease();
-  *v57 = v46;
+  *v58 = v47;
   return result;
 }
 
-uint64_t AttributedString.init<A>(markdown:including:options:baseURL:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, NSError **a6@<X8>)
+uint64_t AttributedString.init(markdown:options:baseURL:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a4@<X8>)
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v8 = *(a4 + 1);
-  v9 = *(a4 + 2);
-  v10 = *(a4 + 8);
-  v43 = *(a4 + 16);
-  v11 = *(a4 + 24);
-  v42 = *a5;
-  v40 = a5[1];
-  if ((a2 & 0x1000000000000000) != 0)
-  {
-    a1 = static String._copying(_:)();
-    v12 = v33;
-  }
-
-  else
-  {
-
-    v12 = a2;
-  }
-
-  if ((v12 & 0x2000000000000000) != 0)
-  {
-
-    v38 = HIBYTE(v12) & 0xF;
-    v44[0] = a1;
-    v44[1] = v12 & 0xFFFFFFFFFFFFFFLL;
-    LOBYTE(v45) = 1;
-    BYTE1(v45) = v8;
-    BYTE2(v45) = v9;
-    v46 = v10;
-    v47 = v43;
-    v48 = v11;
-    objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
-
-    v18 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a3, &v45);
-    type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-    LOBYTE(v45) = 1;
-    BYTE1(v45) = v8;
-    BYTE2(v45) = v9;
-    v46 = v10;
-    v47 = v43;
-    v48 = v11;
-
-    v14 = v18;
-    v19 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v45);
-    if (v42)
-    {
-      ObjectType = swift_getObjectType();
-      v21 = (*(v40 + 432))(ObjectType);
-    }
-
-    else
-    {
-      v21 = 0;
-    }
-
-    v45 = 0;
-    v22 = _NSAttributedStringFromMarkdownWithCreator(v14, v44, v38, v19, v21, &v45);
-
-    v23 = v45;
-    if ((v22 & 1) != 0 || !v45)
-    {
-      v25 = *&v14[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
-      v26 = v45;
-
-      result = swift_unknownObjectRelease();
-      *a6 = v25;
-      return result;
-    }
-
-    swift_willThrow();
-    v24 = v23;
-    goto LABEL_19;
-  }
-
-  if ((a1 & 0x1000000000000000) != 0)
-  {
-    v36 = a1 & 0xFFFFFFFFFFFFLL;
-    v37 = (v12 & 0xFFFFFFFFFFFFFFFLL) + 32;
-  }
-
-  else
-  {
-    v34 = _StringObject.sharedUTF8.getter();
-    if (!v34)
-    {
-      BigString.init(_:)();
-      AttributedString.init(_:attributes:)(v49, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v45);
-      swift_unknownObjectRelease();
-
-      v31 = v45;
-      goto LABEL_21;
-    }
-
-    v36 = v35;
-    v37 = v34;
-  }
-
-  LOBYTE(v45) = 1;
-  BYTE1(v45) = v8;
-  BYTE2(v45) = v9;
-  v46 = v10;
-  v47 = v43;
-  v48 = v11;
-  objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
-
-  v13 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a3, &v45);
-  type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-  LOBYTE(v45) = 1;
-  BYTE1(v45) = v8;
-  BYTE2(v45) = v9;
-  v46 = v10;
-  v47 = v43;
-  v48 = v11;
-
-  v14 = v13;
-  v15 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v45);
-  if (v42)
-  {
-    v16 = swift_getObjectType();
-    v17 = (*(v40 + 432))(v16);
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  v45 = 0;
-  v28 = _NSAttributedStringFromMarkdownWithCreator(v14, v37, v36, v15, v17, &v45);
-
-  v29 = v45;
-  if ((v28 & 1) == 0 && v45)
-  {
-    swift_willThrow();
-    v30 = v29;
-LABEL_19:
-
-    return swift_unknownObjectRelease();
-  }
-
-  v31 = *&v14[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
-  v32 = v45;
-
-  swift_unknownObjectRelease();
-LABEL_21:
-
-  *a6 = v31;
-  return result;
-}
-
-{
-  v63 = *MEMORY[0x1E69E9840];
-  v8 = *(a4 + 1);
-  v9 = *(a4 + 2);
-  v10 = *(a4 + 8);
-  v11 = *(a4 + 16);
-  v12 = *(a4 + 24);
-  v13 = *a5;
-  v14 = a2 >> 62;
-  if ((a2 >> 62) > 1)
-  {
-    if (v14 != 2)
-    {
-      v53 = a5[1];
-      v54 = a1;
-      memset(v56, 0, 14);
-      LOBYTE(v57) = 1;
-      BYTE1(v57) = v8;
-      BYTE2(v57) = v9;
-      v58 = v10;
-      v59 = v11;
-      v60 = v12;
-      objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
-
-      v34 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a3, &v57);
-      type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-      LOBYTE(v57) = 1;
-      BYTE1(v57) = v8;
-      BYTE2(v57) = v9;
-      v58 = v10;
-      v59 = v11;
-      v60 = v12;
-
-      v16 = v34;
-      v17 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v57);
-      if (v13)
-      {
-        ObjectType = swift_getObjectType();
-        v19 = (*(v53 + 432))(ObjectType);
-      }
-
-      else
-      {
-        v19 = 0;
-      }
-
-      v57 = 0;
-      v40 = v56;
-      v41 = v16;
-      v42 = 0;
-      goto LABEL_34;
-    }
-
-    v20 = *(a1 + 16);
-    v21 = *(a1 + 24);
-    v22 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
-    if (v22)
-    {
-      v23 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
-      v24 = __OFSUB__(v20, v23);
-      v25 = v20 - v23;
-      if (v24)
-      {
-LABEL_41:
-        __break(1u);
-        goto LABEL_42;
-      }
-
-      v24 = __OFSUB__(v21, v20);
-      v26 = v21 - v20;
-      if (!v24)
-      {
-        if (*((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18) < v26)
-        {
-          v26 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
-        }
-
-        v27 = (v25 + v22);
-        if (v27)
-        {
-          v48 = v27;
-          v50 = v26;
-LABEL_20:
-          v52 = a5[1];
-          v54 = a1;
-          LOBYTE(v57) = 1;
-          BYTE1(v57) = v8;
-          BYTE2(v57) = v9;
-          v58 = v10;
-          v59 = v11;
-          v60 = v12;
-          objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
-
-          v32 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a3, &v57);
-          type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-          LOBYTE(v57) = 1;
-          BYTE1(v57) = v8;
-          BYTE2(v57) = v9;
-          v58 = v10;
-          v59 = v11;
-          v60 = v12;
-
-          v16 = v32;
-          v17 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v57);
-          if (v13)
-          {
-            v33 = swift_getObjectType();
-            v19 = (*(v52 + 432))(v33);
-          }
-
-          else
-          {
-            v19 = 0;
-          }
-
-          v57 = 0;
-          v41 = v16;
-          v40 = v48;
-          v42 = v50;
-          goto LABEL_34;
-        }
-
-        goto LABEL_28;
-      }
-    }
-
-    else if (!__OFSUB__(v21, v20))
-    {
-LABEL_28:
-      v36 = a1;
-      BigString.init(_:)();
-      v37 = MEMORY[0x1E69E7CC8];
-      v38 = MEMORY[0x1E69E7CD0];
-      v39 = &v62;
-      goto LABEL_29;
-    }
-
-LABEL_40:
-    __break(1u);
-    goto LABEL_41;
-  }
-
-  if (v14)
-  {
-    if (a1 >> 32 >= a1)
-    {
-      v28 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
-      if (!v28)
-      {
-LABEL_24:
-        v36 = a1;
-        BigString.init(_:)();
-        v37 = MEMORY[0x1E69E7CC8];
-        v38 = MEMORY[0x1E69E7CD0];
-        v39 = &v61;
-LABEL_29:
-        AttributedString.init(_:attributes:)(v39, v37, v38, &v57);
-        outlined consume of Data._Representation(v36, a2);
-
-        v43 = v57;
-        goto LABEL_38;
-      }
-
-      v29 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
-      if (!__OFSUB__(a1, v29))
-      {
-        v30 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
-        if (v30 >= (a1 >> 32) - a1)
-        {
-          v30 = (a1 >> 32) - a1;
-        }
-
-        v31 = (a1 - v29 + v28);
-        if (v31)
-        {
-          v48 = v31;
-          v50 = v30;
-          goto LABEL_20;
-        }
-
-        goto LABEL_24;
-      }
-
-LABEL_42:
-      __break(1u);
-    }
-
-    __break(1u);
-    goto LABEL_40;
-  }
-
-  v51 = a5[1];
-  v56[0] = a1;
-  v54 = a1;
-  LOWORD(v56[1]) = a2;
-  BYTE2(v56[1]) = BYTE2(a2);
-  BYTE3(v56[1]) = BYTE3(a2);
-  BYTE4(v56[1]) = BYTE4(a2);
-  v49 = BYTE6(a2);
-  BYTE5(v56[1]) = BYTE5(a2);
-  LOBYTE(v57) = 1;
-  BYTE1(v57) = v8;
-  BYTE2(v57) = v9;
-  v58 = v10;
-  v59 = v11;
-  v60 = v12;
-  objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
-
-  v15 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(a3, &v57);
-  type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-  LOBYTE(v57) = 1;
-  BYTE1(v57) = v8;
-  BYTE2(v57) = v9;
-  v58 = v10;
-  v59 = v11;
-  v60 = v12;
-
-  v16 = v15;
-  v17 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v57);
-  if (v13)
-  {
-    v18 = swift_getObjectType();
-    v19 = (*(v51 + 432))(v18);
-  }
-
-  else
-  {
-    v19 = 0;
-  }
-
-  v57 = 0;
-  v40 = v56;
-  v41 = v16;
-  v42 = v49;
-LABEL_34:
-  v44 = _NSAttributedStringFromMarkdownWithCreator(v41, v40, v42, v17, v19, &v57);
-
-  v45 = v57;
-  if ((v44 & 1) == 0 && v57)
-  {
-    swift_willThrow();
-    v45;
-
-    outlined consume of Data._Representation(v54, a2);
-
-    return swift_unknownObjectRelease();
-  }
-
-  v43 = *&v16[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
-  v47 = v57;
-
-  outlined consume of Data._Representation(v54, a2);
-
-LABEL_38:
-  result = swift_unknownObjectRelease();
-  *a6 = v43;
-  return result;
-}
-
-uint64_t AttributedString.init(markdown:options:baseURL:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
-{
-  specialized Data._Representation.withUnsafeBytes<A>(_:)(a1, a2, _s10Foundation16AttributedStringV13_markdownData9including7options7baseURLAcA0E0V_xmAC22MarkdownParsingOptionsVAA0I0VSgtKcAA14AttributeScopeRzlufcAC6result_Sb23hasInflectionAttributestSWKXEfU_AA0M6ScopesO0aR0V_Tt1g5TA, &v8);
+  specialized Data._Representation.withUnsafeBytes<A>(_:)(a1, a2, _s10Foundation16AttributedStringV13_markdownData9including7options7baseURLAcA0E0V_xmAC22MarkdownParsingOptionsVAA0I0VSgtKcAA14AttributeScopeRzlufcAC6result_Sb23hasInflectionAttributestSWKXEfU_AA0M6ScopesO0aR0V_Tt1g5TA, &v9);
   outlined consume of Data._Representation(a1, a2);
 
   result = swift_unknownObjectRelease();
-  if (!v3)
+  if (!v4)
   {
-    *a3 = v8;
+    *a4 = v9;
   }
 
   return result;
 }
 
-uint64_t _s10Foundation16AttributedStringV14_parseMarkdown33_4C994178458EBF836D449F281EBCAF09LL12markdownData9including7options7baseURLAC6result_Sb23hasInflectionAttributestSW_xmAC0E14ParsingOptionsVAA0P0VSgtKAA14AttributeScopeRzlFZAA0W6ScopesO0aT0V_Tt1t4B5(NSError **a1, uint64_t a2, uint64_t a3, unsigned int a4, NSError *a5, NSError *a6, char a7, uint64_t a8, uint64_t a9)
+uint64_t _s10Foundation16AttributedStringV14_parseMarkdown33_4C994178458EBF836D449F281EBCAF09LL12markdownData9including7options7baseURLAC6result_Sb23hasInflectionAttributestSW_xmAC0E14ParsingOptionsVAA0P0VSgtKAA14AttributeScopeRzlFZAA0W6ScopesO0aT0V_Tt1t4B5(void *a1, uint64_t a2, uint64_t a3, unsigned int a4, NSError *a5, NSError *a6, char a7, uint64_t a8, uint64_t a9)
 {
   v9 = a2;
   v32 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v27 = a4 >> 8;
-    objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation44_AttributedStringFromMarkdownCreatorConcrete33_4C994178458EBF836D449F281EBCAF09LLCyAA15AttributeScopesO0A10AttributesVGMd));
+    objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation44_AttributedStringFromMarkdownCreatorConcrete33_4C994178458EBF836D449F281EBCAF09LLCyAA15AttributeScopesO0A10AttributesVGMd, &_s10Foundation44_AttributedStringFromMarkdownCreatorConcrete33_4C994178458EBF836D449F281EBCAF09LLCyAA15AttributeScopesO0A10AttributesVGMR));
 
     v16 = a7 & 1;
     v17 = _s10Foundation44_AttributedStringFromMarkdownCreatorConcrete33_4C994178458EBF836D449F281EBCAF09LLC5scope7optionsADyxGxm_AA0bC0V0E14ParsingOptionsVtcfcAA15AttributeScopesO0A10AttributesV_TtB5(a4 & 1);
@@ -6238,125 +6247,125 @@ uint64_t _s10Foundation16AttributedStringV14_parseMarkdown33_4C994178458EBF836D4
 
 uint64_t AttributedString.init<A>(contentsOf:including:options:baseURL:)@<X0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, void *a7@<X8>)
 {
-  v81 = a5;
-  v82 = a6;
-  v78 = a7;
-  v90 = *MEMORY[0x1E69E9840];
+  v82 = a5;
+  v83 = a6;
+  v79 = a7;
+  v91 = *MEMORY[0x1E69E9840];
   v9 = *(a3 + 1);
-  v79 = *(a3 + 2);
-  v80 = v9;
+  v80 = *(a3 + 2);
+  v81 = v9;
   v10 = *(a3 + 8);
   v11 = *(a3 + 16);
   v12 = *(a3 + 24);
   v13 = *a4;
   v14 = a4[1];
-  v83 = *a1;
-  v85 = v83;
-  v15 = specialized Data.init(contentsOf:options:)(&v85, 1);
+  v84 = *a1;
+  v86 = v84;
+  v15 = specialized Data.init(contentsOf:options:)(&v86, 1);
   v17 = v16;
   swift_unknownObjectRelease();
-  *&v83 = v7;
+  *&v84 = v7;
   if (v7)
   {
 
     return swift_unknownObjectRelease();
   }
 
-  v76 = v15;
-  v77 = v13;
-  v72 = v14;
-  v19 = v17 >> 62;
-  v74 = a2;
-  v75 = &v70;
+  v77 = v15;
+  v78 = v13;
+  v73 = v14;
+  v20 = v17 >> 62;
+  v75 = a2;
+  v76 = &v71;
   if ((v17 >> 62) <= 1)
   {
-    v20 = v76;
-    v21 = v12;
-    v22 = v10;
-    v23 = v79;
-    v24 = v81;
-    if (!v19)
+    v21 = v77;
+    v22 = v12;
+    v23 = v10;
+    v24 = v80;
+    v25 = v82;
+    if (!v20)
     {
-      v84[0] = v76;
-      LOWORD(v84[1]) = v17;
-      BYTE2(v84[1]) = BYTE2(v17);
-      BYTE3(v84[1]) = BYTE3(v17);
-      BYTE4(v84[1]) = BYTE4(v17);
-      v73 = v17;
-      v71 = BYTE6(v17);
-      BYTE5(v84[1]) = BYTE5(v17);
-      LOBYTE(v85) = 1;
-      BYTE1(v85) = v80;
-      BYTE2(v85) = v79;
-      *(&v85 + 1) = v10;
-      v86 = v11;
-      v87 = v12;
-      v25 = v80;
-      objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
+      v85[0] = v77;
+      LOWORD(v85[1]) = v17;
+      BYTE2(v85[1]) = BYTE2(v17);
+      BYTE3(v85[1]) = BYTE3(v17);
+      BYTE4(v85[1]) = BYTE4(v17);
+      v74 = v17;
+      v72 = BYTE6(v17);
+      BYTE5(v85[1]) = BYTE5(v17);
+      LOBYTE(v86) = 1;
+      BYTE1(v86) = v81;
+      BYTE2(v86) = v80;
+      *(&v86 + 1) = v10;
+      v87 = v11;
+      v88 = v12;
+      v26 = v81;
+      objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, v82, v83, v18));
 
-      v26 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(v24, &v85);
+      v27 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(v25, &v86);
       type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-      v27 = v77;
-      LOBYTE(v85) = 1;
-      BYTE1(v85) = v25;
-      BYTE2(v85) = v23;
-      *(&v85 + 1) = v10;
-      v86 = v11;
-      v87 = v12;
+      v28 = v78;
+      LOBYTE(v86) = 1;
+      BYTE1(v86) = v26;
+      BYTE2(v86) = v24;
+      *(&v86 + 1) = v10;
+      v87 = v11;
+      v88 = v12;
 
-      v28 = v26;
-      v29 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v85);
-      if (v27)
+      v29 = v27;
+      v30 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v86);
+      if (v28)
       {
         ObjectType = swift_getObjectType();
-        v31 = (*(v72 + 432))(ObjectType);
+        v32 = (*(v73 + 432))(ObjectType);
       }
 
       else
       {
-        v31 = 0;
+        v32 = 0;
       }
 
-      *&v85 = 0;
-      v59 = v28;
-      v60 = v71;
+      *&v86 = 0;
+      v60 = v29;
+      v61 = v72;
       goto LABEL_34;
     }
 
-    v41 = (v76 >> 32) - v76;
-    if (v76 >> 32 >= v76)
+    v42 = (v77 >> 32) - v77;
+    if (v77 >> 32 >= v77)
     {
-      v42 = *((v17 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
-      if (!v42)
+      v43 = *((v17 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
+      if (!v43)
       {
 LABEL_26:
         BigString.init(_:)();
-        AttributedString.init(_:attributes:)(v88, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v85);
+        AttributedString.init(_:attributes:)(v89, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v86);
 
-        v57 = v20;
-        v58 = v17;
+        v58 = v21;
+        v59 = v17;
 LABEL_31:
-        outlined consume of Data._Representation(v57, v58);
-        v61 = v85;
+        outlined consume of Data._Representation(v58, v59);
+        v62 = v86;
 LABEL_38:
-        v66 = v78;
+        v67 = v79;
         goto LABEL_39;
       }
 
-      v43 = *((v17 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
-      if (!__OFSUB__(v76, v43))
+      v44 = *((v17 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
+      if (!__OFSUB__(v77, v44))
       {
-        if (*((v17 & 0x3FFFFFFFFFFFFFFFLL) + 0x18) < v41)
+        if (*((v17 & 0x3FFFFFFFFFFFFFFFLL) + 0x18) < v42)
         {
-          v41 = *((v17 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
+          v42 = *((v17 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
         }
 
-        v44 = v76 - v43 + v42;
-        if (v44)
+        v45 = v77 - v44 + v43;
+        if (v45)
         {
-          v70 = v44;
-          v71 = v41;
-          v73 = v17;
+          v71 = v45;
+          v72 = v42;
+          v74 = v17;
           goto LABEL_22;
         }
 
@@ -6371,100 +6380,100 @@ LABEL_49:
     goto LABEL_47;
   }
 
-  v21 = v12;
-  v22 = v10;
-  v23 = v79;
-  v24 = v81;
-  v73 = v17;
-  if (v19 == 2)
+  v22 = v12;
+  v23 = v10;
+  v24 = v80;
+  v25 = v82;
+  v74 = v17;
+  if (v20 == 2)
   {
-    v20 = v76;
-    v32 = *(v76 + 16);
-    v33 = *(v76 + 24);
-    v34 = *((v17 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
-    if (v34)
+    v21 = v77;
+    v33 = *(v77 + 16);
+    v34 = *(v77 + 24);
+    v35 = *((v17 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
+    if (v35)
     {
-      v35 = *((v17 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
-      v36 = __OFSUB__(v32, v35);
-      v37 = v32 - v35;
-      if (v36)
+      v36 = *((v17 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
+      v37 = __OFSUB__(v33, v36);
+      v38 = v33 - v36;
+      if (v37)
       {
 LABEL_48:
         __break(1u);
         goto LABEL_49;
       }
 
-      v36 = __OFSUB__(v33, v32);
-      v38 = v33 - v32;
-      if (!v36)
+      v37 = __OFSUB__(v34, v33);
+      v39 = v34 - v33;
+      if (!v37)
       {
-        v39 = *((v17 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
-        if (v39 >= v38)
+        v40 = *((v17 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
+        if (v40 >= v39)
         {
-          v39 = v38;
+          v40 = v39;
         }
 
-        v40 = v37 + v34;
-        if (v40)
+        v41 = v38 + v35;
+        if (v41)
         {
-          v70 = v40;
-          v71 = v39;
+          v71 = v41;
+          v72 = v40;
 LABEL_22:
-          LOBYTE(v85) = 1;
-          BYTE1(v85) = v80;
-          BYTE2(v85) = v23;
-          *(&v85 + 1) = v22;
-          v86 = v11;
-          v87 = v21;
-          v45 = v22;
-          v46 = v80;
-          objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
+          LOBYTE(v86) = 1;
+          BYTE1(v86) = v81;
+          BYTE2(v86) = v24;
+          *(&v86 + 1) = v23;
+          v87 = v11;
+          v88 = v22;
+          v46 = v23;
+          v47 = v81;
+          objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, v25, v83, v18));
 
-          v47 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(v24, &v85);
+          v48 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(v25, &v86);
           type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-          LOBYTE(v85) = 1;
-          v48 = v77;
-          BYTE1(v85) = v46;
-          BYTE2(v85) = v23;
-          *(&v85 + 1) = v45;
-          v86 = v11;
-          v87 = v21;
+          LOBYTE(v86) = 1;
+          v49 = v78;
+          BYTE1(v86) = v47;
+          BYTE2(v86) = v24;
+          *(&v86 + 1) = v46;
+          v87 = v11;
+          v88 = v22;
 
-          v49 = v47;
-          v50 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v85);
-          if (v48)
+          v50 = v48;
+          v51 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v86);
+          if (v49)
           {
-            v51 = swift_getObjectType();
-            v52 = (*(v72 + 432))(v51);
+            v52 = swift_getObjectType();
+            v53 = (*(v73 + 432))(v52);
           }
 
           else
           {
-            v52 = 0;
+            v53 = 0;
           }
 
-          v66 = v78;
-          *&v85 = 0;
-          v67 = _NSAttributedStringFromMarkdownWithCreator(v49, v70, v71, v50, v52, &v85);
+          v67 = v79;
+          *&v86 = 0;
+          v68 = _NSAttributedStringFromMarkdownWithCreator(v50, v71, v72, v51, v53, &v86);
 
-          v68 = v85;
-          if ((v67 & 1) == 0 && v85)
+          v69 = v86;
+          if ((v68 & 1) == 0 && v86)
           {
             swift_willThrow();
-            v68;
+            v69;
 
-            v64 = v20;
+            v65 = v21;
             goto LABEL_44;
           }
 
-          v61 = *&v49[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
-          v69 = v85;
+          v62 = *&v50[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
+          v70 = v86;
 
-          outlined consume of Data._Representation(v20, v73);
+          outlined consume of Data._Representation(v21, v74);
 LABEL_39:
 
           result = swift_unknownObjectRelease();
-          *v66 = v61;
+          *v67 = v62;
           return result;
         }
 
@@ -6472,14 +6481,14 @@ LABEL_39:
       }
     }
 
-    else if (!__OFSUB__(v33, v32))
+    else if (!__OFSUB__(v34, v33))
     {
 LABEL_30:
       BigString.init(_:)();
-      AttributedString.init(_:attributes:)(v89, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v85);
+      AttributedString.init(_:attributes:)(v90, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v86);
 
-      v57 = v20;
-      v58 = v73;
+      v58 = v21;
+      v59 = v74;
       goto LABEL_31;
     }
 
@@ -6488,196 +6497,196 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  memset(v84, 0, 14);
-  LOBYTE(v85) = 1;
-  BYTE1(v85) = v80;
-  BYTE2(v85) = v79;
-  *(&v85 + 1) = v10;
-  v86 = v11;
-  v87 = v12;
-  v53 = v80;
-  objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
+  memset(v85, 0, 14);
+  LOBYTE(v86) = 1;
+  BYTE1(v86) = v81;
+  BYTE2(v86) = v80;
+  *(&v86 + 1) = v10;
+  v87 = v11;
+  v88 = v12;
+  v54 = v81;
+  objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, v82, v83, v18));
 
-  v54 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(v24, &v85);
+  v55 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(v25, &v86);
   type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-  v55 = v77;
-  LOBYTE(v85) = 1;
-  BYTE1(v85) = v53;
-  BYTE2(v85) = v23;
-  *(&v85 + 1) = v10;
-  v86 = v11;
-  v87 = v12;
+  v56 = v78;
+  LOBYTE(v86) = 1;
+  BYTE1(v86) = v54;
+  BYTE2(v86) = v24;
+  *(&v86 + 1) = v10;
+  v87 = v11;
+  v88 = v12;
 
-  v28 = v54;
-  v29 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v85);
-  if (v55)
+  v29 = v55;
+  v30 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v86);
+  if (v56)
   {
-    v56 = swift_getObjectType();
-    v31 = (*(v72 + 432))(v56);
+    v57 = swift_getObjectType();
+    v32 = (*(v73 + 432))(v57);
   }
 
   else
   {
-    v31 = 0;
+    v32 = 0;
   }
 
-  *&v85 = 0;
-  v59 = v28;
-  v60 = 0;
+  *&v86 = 0;
+  v60 = v29;
+  v61 = 0;
 LABEL_34:
-  v62 = _NSAttributedStringFromMarkdownWithCreator(v59, v84, v60, v29, v31, &v85);
+  v63 = _NSAttributedStringFromMarkdownWithCreator(v60, v85, v61, v30, v32, &v86);
 
-  v63 = v85;
-  if ((v62 & 1) != 0 || !v85)
+  v64 = v86;
+  if ((v63 & 1) != 0 || !v86)
   {
-    v61 = *&v28[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
-    v65 = v85;
+    v62 = *&v29[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
+    v66 = v86;
 
-    outlined consume of Data._Representation(v76, v73);
+    outlined consume of Data._Representation(v77, v74);
     goto LABEL_38;
   }
 
   swift_willThrow();
-  v63;
+  v64;
 
-  v64 = v76;
+  v65 = v77;
 LABEL_44:
-  outlined consume of Data._Representation(v64, v73);
+  outlined consume of Data._Representation(v65, v74);
 
   return swift_unknownObjectRelease();
 }
 
 {
-  v78 = a5;
-  v79 = a6;
-  v77 = a2;
-  v75 = a7;
-  v87 = *MEMORY[0x1E69E9840];
-  v76 = *(a3 + 1);
+  v79 = a5;
+  v80 = a6;
+  v78 = a2;
+  v76 = a7;
+  v88 = *MEMORY[0x1E69E9840];
+  v77 = *(a3 + 1);
   v8 = *(a3 + 2);
   v9 = *(a3 + 8);
   v10 = *(a3 + 16);
   v11 = *(a3 + 24);
   v12 = *a4;
   v13 = a4[1];
-  v80 = *a1;
-  v82 = v80;
-  v14 = specialized Data.init(contentsOf:options:)(&v82, 1);
+  v81 = *a1;
+  v83 = v81;
+  v14 = specialized Data.init(contentsOf:options:)(&v83, 1);
   v16 = v15;
   swift_unknownObjectRelease();
-  *&v80 = v7;
+  *&v81 = v7;
   if (v7)
   {
 
     return swift_unknownObjectRelease();
   }
 
-  v18 = v8;
-  v19 = v11;
-  v20 = v10;
-  v21 = v16 >> 62;
-  v73 = v13;
-  v74 = &v70;
+  v19 = v8;
+  v20 = v11;
+  v21 = v10;
+  v22 = v16 >> 62;
+  v74 = v13;
+  v75 = &v71;
   if ((v16 >> 62) > 1)
   {
-    v22 = v14;
-    v23 = v9;
-    v24 = v77;
-    if (v21 != 2)
+    v23 = v14;
+    v24 = v9;
+    v25 = v78;
+    if (v22 != 2)
     {
-      v71 = v14;
-      v72 = v16;
-      memset(v81, 0, 14);
-      LOBYTE(v82) = 1;
-      v51 = v76;
-      BYTE1(v82) = v76;
-      v52 = v18;
-      BYTE2(v82) = v18;
-      *(&v82 + 1) = v23;
-      v83 = v20;
+      v72 = v14;
+      v73 = v16;
+      memset(v82, 0, 14);
+      LOBYTE(v83) = 1;
+      v52 = v77;
+      BYTE1(v83) = v77;
       v53 = v19;
-      v84 = v19;
-      objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
+      BYTE2(v83) = v19;
+      *(&v83 + 1) = v24;
+      v84 = v21;
+      v54 = v20;
+      v85 = v20;
+      objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, v79, v80, v17));
 
-      v54 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(v24, &v82);
+      v55 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(v25, &v83);
       type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-      LOBYTE(v82) = 1;
-      BYTE1(v82) = v51;
-      BYTE2(v82) = v52;
-      *(&v82 + 1) = v23;
-      v83 = v20;
-      v84 = v53;
+      LOBYTE(v83) = 1;
+      BYTE1(v83) = v52;
+      BYTE2(v83) = v53;
+      *(&v83 + 1) = v24;
+      v84 = v21;
+      v85 = v54;
 
-      v29 = v54;
-      v55 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v82);
+      v30 = v55;
+      v56 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v83);
       if (v12)
       {
         ObjectType = swift_getObjectType();
-        v57 = (*(v73 + 432))(ObjectType);
+        v58 = (*(v74 + 432))(ObjectType);
       }
 
       else
       {
-        v57 = 0;
+        v58 = 0;
       }
 
-      v61 = v75;
-      *&v82 = 0;
-      v66 = _NSAttributedStringFromMarkdownWithCreator(v29, v81, 0, v55, v57, &v82);
+      v62 = v76;
+      *&v83 = 0;
+      v67 = _NSAttributedStringFromMarkdownWithCreator(v30, v82, 0, v56, v58, &v83);
 
-      v67 = v82;
-      v22 = v71;
-      if ((v66 & 1) == 0)
+      v68 = v83;
+      v23 = v72;
+      if ((v67 & 1) == 0)
       {
 LABEL_37:
-        if (v67)
+        if (v68)
         {
           swift_willThrow();
-          v67;
+          v68;
 
-          outlined consume of Data._Representation(v22, v72);
+          outlined consume of Data._Representation(v23, v73);
 
           return swift_unknownObjectRelease();
         }
       }
 
 LABEL_39:
-      v65 = *&v29[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
-      v69 = v67;
+      v66 = *&v30[direct field offset for _AttributedStringFromMarkdownCreatorConcrete.str];
+      v70 = v68;
 
-      outlined consume of Data._Representation(v22, v72);
+      outlined consume of Data._Representation(v23, v73);
 
       goto LABEL_40;
     }
 
-    v33 = *(v14 + 16);
-    v34 = *(v14 + 24);
-    v35 = *((v16 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
-    if (v35)
+    v34 = *(v14 + 16);
+    v35 = *(v14 + 24);
+    v36 = *((v16 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
+    if (v36)
     {
-      v36 = v19;
-      v37 = *((v16 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
-      v38 = __OFSUB__(v33, v37);
-      v39 = v33 - v37;
-      if (v38)
+      v37 = v20;
+      v38 = *((v16 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
+      v39 = __OFSUB__(v34, v38);
+      v40 = v34 - v38;
+      if (v39)
       {
 LABEL_43:
         __break(1u);
         goto LABEL_44;
       }
 
-      v38 = __OFSUB__(v34, v33);
-      v40 = v34 - v33;
-      if (!v38)
+      v39 = __OFSUB__(v35, v34);
+      v41 = v35 - v34;
+      if (!v39)
       {
-        v41 = *((v16 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
-        if (v41 >= v40)
+        v42 = *((v16 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
+        if (v42 >= v41)
         {
-          v41 = v40;
+          v42 = v41;
         }
 
-        v42 = (v39 + v35);
-        if (v42)
+        v43 = (v40 + v36);
+        if (v43)
         {
           goto LABEL_21;
         }
@@ -6686,13 +6695,13 @@ LABEL_43:
       }
     }
 
-    else if (!__OFSUB__(v34, v33))
+    else if (!__OFSUB__(v35, v34))
     {
 LABEL_29:
       BigString.init(_:)();
-      v58 = MEMORY[0x1E69E7CC8];
-      v59 = MEMORY[0x1E69E7CD0];
-      v60 = &v86;
+      v59 = MEMORY[0x1E69E7CC8];
+      v60 = MEMORY[0x1E69E7CD0];
+      v61 = &v87;
       goto LABEL_30;
     }
 
@@ -6701,130 +6710,130 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  v22 = v14;
-  v23 = v9;
-  v24 = v77;
-  if (!v21)
+  v23 = v14;
+  v24 = v9;
+  v25 = v78;
+  if (!v22)
   {
-    v81[0] = v14;
-    LOWORD(v81[1]) = v16;
-    BYTE2(v81[1]) = BYTE2(v16);
-    BYTE3(v81[1]) = BYTE3(v16);
-    BYTE4(v81[1]) = BYTE4(v16);
-    v71 = BYTE6(v16);
-    v72 = v16;
-    BYTE5(v81[1]) = BYTE5(v16);
-    LOBYTE(v82) = 1;
-    v25 = v76;
-    BYTE1(v82) = v76;
-    v26 = v18;
-    BYTE2(v82) = v18;
-    *(&v82 + 1) = v23;
-    v83 = v20;
+    v82[0] = v14;
+    LOWORD(v82[1]) = v16;
+    BYTE2(v82[1]) = BYTE2(v16);
+    BYTE3(v82[1]) = BYTE3(v16);
+    BYTE4(v82[1]) = BYTE4(v16);
+    v72 = BYTE6(v16);
+    v73 = v16;
+    BYTE5(v82[1]) = BYTE5(v16);
+    LOBYTE(v83) = 1;
+    v26 = v77;
+    BYTE1(v83) = v77;
     v27 = v19;
-    v84 = v19;
-    objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
+    BYTE2(v83) = v19;
+    *(&v83 + 1) = v24;
+    v84 = v21;
+    v28 = v20;
+    v85 = v20;
+    objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, v79, v80, v17));
 
-    v28 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(v24, &v82);
+    v29 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(v25, &v83);
     type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-    LOBYTE(v82) = 1;
-    BYTE1(v82) = v25;
-    BYTE2(v82) = v26;
-    *(&v82 + 1) = v23;
-    v83 = v20;
-    v84 = v27;
+    LOBYTE(v83) = 1;
+    BYTE1(v83) = v26;
+    BYTE2(v83) = v27;
+    *(&v83 + 1) = v24;
+    v84 = v21;
+    v85 = v28;
 
-    v29 = v28;
-    v30 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v82);
+    v30 = v29;
+    v31 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v83);
     if (v12)
     {
-      v31 = swift_getObjectType();
-      v32 = (*(v73 + 432))(v31);
+      v32 = swift_getObjectType();
+      v33 = (*(v74 + 432))(v32);
     }
 
     else
     {
-      v32 = 0;
+      v33 = 0;
     }
 
-    v61 = v75;
-    *&v82 = 0;
-    v62 = v81;
-    v63 = v29;
-    v64 = v71;
+    v62 = v76;
+    *&v83 = 0;
+    v63 = v82;
+    v64 = v30;
+    v65 = v72;
     goto LABEL_36;
   }
 
-  v41 = (v14 >> 32) - v14;
+  v42 = (v14 >> 32) - v14;
   if (v14 >> 32 < v14)
   {
     __break(1u);
     goto LABEL_42;
   }
 
-  v43 = *((v16 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
-  if (v43)
+  v44 = *((v16 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
+  if (v44)
   {
-    v36 = v19;
-    v44 = *((v16 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
-    if (!__OFSUB__(v22, v44))
+    v37 = v20;
+    v45 = *((v16 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
+    if (!__OFSUB__(v23, v45))
     {
-      if (*((v16 & 0x3FFFFFFFFFFFFFFFLL) + 0x18) < v41)
+      if (*((v16 & 0x3FFFFFFFFFFFFFFFLL) + 0x18) < v42)
       {
-        v41 = *((v16 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
+        v42 = *((v16 & 0x3FFFFFFFFFFFFFFFLL) + 0x18);
       }
 
-      v42 = (v22 - v44 + v43);
-      if (v42)
+      v43 = (v23 - v45 + v44);
+      if (v43)
       {
 LABEL_21:
-        v45 = v8;
-        v70 = v42;
-        v71 = v41;
-        v72 = v16;
-        LOBYTE(v82) = 1;
-        BYTE1(v82) = v76;
-        BYTE2(v82) = v8;
-        *(&v82 + 1) = v23;
-        v83 = v20;
-        v84 = v36;
-        v46 = v76;
-        objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete());
+        v46 = v8;
+        v71 = v43;
+        v72 = v42;
+        v73 = v16;
+        LOBYTE(v83) = 1;
+        BYTE1(v83) = v77;
+        BYTE2(v83) = v8;
+        *(&v83 + 1) = v24;
+        v84 = v21;
+        v85 = v37;
+        v47 = v77;
+        objc_allocWithZone(type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete(0, v79, v80, v17));
 
-        v47 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(v24, &v82);
-        v48 = v45;
-        v49 = v47;
+        v48 = _AttributedStringFromMarkdownCreatorConcrete.init(scope:options:)(v25, &v83);
+        v49 = v46;
+        v50 = v48;
         type metadata accessor for NSAttributedStringMarkdownParsingOptions();
-        LOBYTE(v82) = 1;
-        BYTE1(v82) = v46;
-        BYTE2(v82) = v48;
-        *(&v82 + 1) = v23;
-        v83 = v20;
-        v84 = v36;
+        LOBYTE(v83) = 1;
+        BYTE1(v83) = v47;
+        BYTE2(v83) = v49;
+        *(&v83 + 1) = v24;
+        v84 = v21;
+        v85 = v37;
 
-        v29 = v49;
-        v30 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v82);
+        v30 = v50;
+        v31 = NSAttributedStringMarkdownParsingOptions.init(_:)(&v83);
         if (v12)
         {
-          v50 = swift_getObjectType();
-          v32 = (*(v73 + 432))(v50);
+          v51 = swift_getObjectType();
+          v33 = (*(v74 + 432))(v51);
         }
 
         else
         {
-          v32 = 0;
+          v33 = 0;
         }
 
-        v61 = v75;
-        v62 = v70;
-        v64 = v71;
-        *&v82 = 0;
-        v63 = v29;
+        v62 = v76;
+        v63 = v71;
+        v65 = v72;
+        *&v83 = 0;
+        v64 = v30;
 LABEL_36:
-        v68 = _NSAttributedStringFromMarkdownWithCreator(v63, v62, v64, v30, v32, &v82);
+        v69 = _NSAttributedStringFromMarkdownWithCreator(v64, v63, v65, v31, v33, &v83);
 
-        v67 = v82;
-        if ((v68 & 1) == 0)
+        v68 = v83;
+        if ((v69 & 1) == 0)
         {
           goto LABEL_37;
         }
@@ -6841,30 +6850,30 @@ LABEL_44:
 
 LABEL_25:
   BigString.init(_:)();
-  v58 = MEMORY[0x1E69E7CC8];
-  v59 = MEMORY[0x1E69E7CD0];
-  v60 = &v85;
+  v59 = MEMORY[0x1E69E7CC8];
+  v60 = MEMORY[0x1E69E7CD0];
+  v61 = v86;
 LABEL_30:
-  AttributedString.init(_:attributes:)(v60, v58, v59, &v82);
-  outlined consume of Data._Representation(v22, v16);
+  AttributedString.init(_:attributes:)(v61, v59, v60, &v83);
+  outlined consume of Data._Representation(v23, v16);
 
-  v65 = v82;
-  v61 = v75;
+  v66 = v83;
+  v62 = v76;
 LABEL_40:
   result = swift_unknownObjectRelease();
-  *v61 = v65;
+  *v62 = v66;
   return result;
 }
 
-uint64_t _s10Foundation16AttributedStringV10contentsOf9including7options7baseURLAcA0I0V_xmAC22MarkdownParsingOptionsVAISgtKcAA14AttributeScopeRzlufCAA0M6ScopesO0A10AttributesV_Tt1t4B5@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X7>, void *a4@<X8>)
+uint64_t _s10Foundation16AttributedStringV10contentsOf9including7options7baseURLAcA0I0V_xmAC22MarkdownParsingOptionsVAISgtKcAA14AttributeScopeRzlufCAA0M6ScopesO0A10AttributesV_Tt1t4B5@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X7>, void *a5@<X8>)
 {
-  v11[3] = a3;
-  v11[0] = a1;
-  v11[1] = a2;
-  v6 = specialized Data.init(contentsOf:options:)(v11, 1);
-  v8 = v7;
-  v9 = swift_unknownObjectRelease();
-  if (v4)
+  v12[3] = a4;
+  v12[0] = a1;
+  v12[1] = a2;
+  v7 = specialized Data.init(contentsOf:options:)(v12, 1);
+  v9 = v8;
+  v10 = swift_unknownObjectRelease();
+  if (v5)
   {
 
     return swift_unknownObjectRelease();
@@ -6872,20 +6881,20 @@ uint64_t _s10Foundation16AttributedStringV10contentsOf9including7options7baseURL
 
   else
   {
-    MEMORY[0x1EEE9AC00](v9);
-    specialized Data._Representation.withUnsafeBytes<A>(_:)(v6, v8, _s10Foundation16AttributedStringV13_markdownData9including7options7baseURLAcA0E0V_xmAC22MarkdownParsingOptionsVAA0I0VSgtKcAA14AttributeScopeRzlufcAC6result_Sb23hasInflectionAttributestSWKXEfU_AA0M6ScopesO0aR0V_Tt1g5TA_57, v11);
-    outlined consume of Data._Representation(v6, v8);
+    MEMORY[0x1EEE9AC00](v10);
+    specialized Data._Representation.withUnsafeBytes<A>(_:)(v7, v9, _s10Foundation16AttributedStringV13_markdownData9including7options7baseURLAcA0E0V_xmAC22MarkdownParsingOptionsVAA0I0VSgtKcAA14AttributeScopeRzlufcAC6result_Sb23hasInflectionAttributestSWKXEfU_AA0M6ScopesO0aR0V_Tt1g5TA_57, v12);
+    outlined consume of Data._Representation(v7, v9);
 
     result = swift_unknownObjectRelease();
-    *a4 = v11[0];
+    *a5 = v12[0];
   }
 
   return result;
 }
 
-uint64_t AttributedString.init(contentsOf:options:baseURL:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X2>, void *a3@<X8>)
+uint64_t AttributedString.init(contentsOf:options:baseURL:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X2>, void *a3@<X8>)
 {
-  result = _s10Foundation16AttributedStringV10contentsOf9including7options7baseURLAcA0I0V_xmAC22MarkdownParsingOptionsVAISgtKcAA14AttributeScopeRzlufCAA0M6ScopesO0A10AttributesV_Tt1t4B5(*a1, a1[1], *(a2 + 8), &v6);
+  result = _s10Foundation16AttributedStringV10contentsOf9including7options7baseURLAcA0I0V_xmAC22MarkdownParsingOptionsVAISgtKcAA14AttributeScopeRzlufCAA0M6ScopesO0A10AttributesV_Tt1t4B5(*a1, a1[1], a2[1], &v6);
   if (!v3)
   {
     *a3 = v6;
@@ -7826,7 +7835,7 @@ uint64_t storeEnumTagSinglePayload for AttributedString.MarkdownSourcePosition(u
 
 uint64_t specialized AttributedString.MarkdownSourcePosition.Offsets.init(from:)(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV7OffsetsV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV7OffsetsV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMd, &_ss22KeyedDecodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV7OffsetsV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMR);
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v8 - v4;
@@ -7989,27 +7998,27 @@ uint64_t specialized AttributedString.MarkdownSourcePosition.Offsets.CodingKeys.
   }
 }
 
-uint64_t specialized _AttributedStringFromMarkdownCreatorConcrete.parseExtendedAttributes(from:)(uint64_t a1, uint64_t a2)
+uint64_t specialized _AttributedStringFromMarkdownCreatorConcrete.parseExtendedAttributes(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for JSONDecoder();
+  type metadata accessor for JSONDecoder(0);
   swift_allocObject();
-  v5 = JSONDecoder.init()();
-  (*(*v5 + 232))(1);
-  (*(*v5 + 256))(1);
-  v6 = type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete.ExtendedAttributesBox();
-  v7 = *(*v5 + 320);
+  v9 = JSONDecoder.init()();
+  (*(*v9 + 232))(1);
+  (*(*v9 + 256))(1);
+  v11 = type metadata accessor for _AttributedStringFromMarkdownCreatorConcrete.ExtendedAttributesBox(0, a3, a4, v10);
+  v12 = *(*v9 + 320);
   WitnessTable = swift_getWitnessTable();
-  v7(&v10, v6, a1, a2, v6, WitnessTable);
+  v12(&v15, v11, a1, a2, v11, WitnessTable);
 
-  if (!v2)
+  if (!v4)
   {
-    return v10;
+    return v15;
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type NSInlinePresentationIntent and conformance NSInlinePresentationIntent(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type NSInlinePresentationIntent and conformance NSInlinePresentationIntent(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -8022,7 +8031,7 @@ uint64_t lazy protocol witness table accessor for type NSInlinePresentationInten
   return result;
 }
 
-uint64_t _s10Foundation16AttributedStringV13_markdownData9including7options7baseURLAcA0E0V_xmAC22MarkdownParsingOptionsVAA0I0VSgtKcAA14AttributeScopeRzlufcAC6result_Sb23hasInflectionAttributestSWKXEfU_AA0M6ScopesO0aR0V_Tt1g5TATm(NSError **a1, uint64_t a2, uint64_t a3)
+uint64_t _s10Foundation16AttributedStringV13_markdownData9including7options7baseURLAcA0E0V_xmAC22MarkdownParsingOptionsVAA0I0VSgtKcAA14AttributeScopeRzlufcAC6result_Sb23hasInflectionAttributestSWKXEfU_AA0M6ScopesO0aR0V_Tt1g5TATm(void *a1, uint64_t a2, uint64_t a3)
 {
   if (*(v3 + 18))
   {
@@ -8037,17 +8046,17 @@ uint64_t _s10Foundation16AttributedStringV13_markdownData9including7options7base
   return _s10Foundation16AttributedStringV14_parseMarkdown33_4C994178458EBF836D449F281EBCAF0912markdownData9including7options7baseURLAC6result_Sb23hasInflectionAttributestSW_xmAC0E14ParsingOptionsVAA0P0VSgtKAA14AttributeScopeRzlFZAA0W6ScopesO0aT0V_Tt1t4B5(a1, a2, a3, *(v3 + 16) | (*(v3 + 17) << 8) | v4, *(v3 + 24), *(v3 + 32), *(v3 + 40), *(v3 + 48), *(v3 + 56)) & 1;
 }
 
-uint64_t type metadata instantiation function for _AttributedStringFromMarkdownCreatorConcrete.ExtendedAttributesBox()
+uint64_t type metadata instantiation function for _AttributedStringFromMarkdownCreatorConcrete.ExtendedAttributesBox(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata completion function for _AttributedStringFromMarkdownCreatorConcrete.DecodedAttributeBox()
+uint64_t type metadata completion function for _AttributedStringFromMarkdownCreatorConcrete.DecodedAttributeBox(uint64_t a1)
 {
   result = swift_getAssociatedTypeWitness();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -8056,32 +8065,32 @@ uint64_t type metadata completion function for _AttributedStringFromMarkdownCrea
   return result;
 }
 
-uint64_t getEnumTagSinglePayload for _AttributedStringFromMarkdownCreatorConcrete.DecodedAttributeBox(unsigned __int16 *a1, unsigned int a2)
+uint64_t getEnumTagSinglePayload for _AttributedStringFromMarkdownCreatorConcrete.DecodedAttributeBox(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
 {
-  v4 = *(swift_getAssociatedTypeWitness() - 8);
-  v5 = *(v4 + 84);
-  v6 = *(v4 + 64);
+  v5 = *(swift_getAssociatedTypeWitness() - 8);
+  v6 = *(v5 + 84);
+  v7 = *(v5 + 64);
   if (!a2)
   {
     return 0;
   }
 
-  if (a2 <= v5)
+  if (a2 <= v6)
   {
 LABEL_23:
-    v11 = *(v4 + 48);
+    v12 = *(v5 + 48);
 
-    return v11(a1);
+    return v12(a1);
   }
 
-  v7 = 8 * v6;
-  if (v6 <= 3)
+  v8 = 8 * v7;
+  if (v7 <= 3)
   {
-    v9 = ((a2 - v5 + ~(-1 << v7)) >> v7) + 1;
-    if (HIWORD(v9))
+    v10 = ((a2 - v6 + ~(-1 << v8)) >> v8) + 1;
+    if (HIWORD(v10))
     {
-      v8 = *(a1 + v6);
-      if (!v8)
+      v9 = *(a1 + v7);
+      if (!v9)
       {
         goto LABEL_22;
       }
@@ -8089,10 +8098,10 @@ LABEL_23:
       goto LABEL_11;
     }
 
-    if (v9 > 0xFF)
+    if (v10 > 0xFF)
     {
-      v8 = *(a1 + v6);
-      if (!*(a1 + v6))
+      v9 = *(a1 + v7);
+      if (!*(a1 + v7))
       {
         goto LABEL_22;
       }
@@ -8100,10 +8109,10 @@ LABEL_23:
       goto LABEL_11;
     }
 
-    if (v9 < 2)
+    if (v10 < 2)
     {
 LABEL_22:
-      if (v5)
+      if (v6)
       {
         goto LABEL_23;
       }
@@ -8112,126 +8121,126 @@ LABEL_22:
     }
   }
 
-  v8 = *(a1 + v6);
-  if (!*(a1 + v6))
+  v9 = *(a1 + v7);
+  if (!*(a1 + v7))
   {
     goto LABEL_22;
   }
 
 LABEL_11:
-  v10 = (v8 - 1) << v7;
-  if (v6 > 3)
+  v11 = (v9 - 1) << v8;
+  if (v7 > 3)
+  {
+    v11 = 0;
+  }
+
+  if (v7)
+  {
+    if (v7 > 3)
+    {
+      LODWORD(v7) = 4;
+    }
+
+    if (v7 > 2)
+    {
+      if (v7 == 3)
+      {
+        LODWORD(v7) = *a1 | (*(a1 + 2) << 16);
+      }
+
+      else
+      {
+        LODWORD(v7) = *a1;
+      }
+    }
+
+    else if (v7 == 1)
+    {
+      LODWORD(v7) = *a1;
+    }
+
+    else
+    {
+      LODWORD(v7) = *a1;
+    }
+  }
+
+  return v6 + (v7 | v11) + 1;
+}
+
+void storeEnumTagSinglePayload for _AttributedStringFromMarkdownCreatorConcrete.DecodedAttributeBox(_BYTE *a1, uint64_t a2, unsigned int a3, uint64_t a4)
+{
+  v7 = *(swift_getAssociatedTypeWitness() - 8);
+  v8 = *(v7 + 84);
+  v9 = *(v7 + 64);
+  if (a3 <= v8)
   {
     v10 = 0;
   }
 
-  if (v6)
+  else if (v9 <= 3)
   {
-    if (v6 > 3)
+    v13 = ((a3 - v8 + ~(-1 << (8 * v9))) >> (8 * v9)) + 1;
+    if (HIWORD(v13))
     {
-      LODWORD(v6) = 4;
-    }
-
-    if (v6 > 2)
-    {
-      if (v6 == 3)
-      {
-        LODWORD(v6) = *a1 | (*(a1 + 2) << 16);
-      }
-
-      else
-      {
-        LODWORD(v6) = *a1;
-      }
-    }
-
-    else if (v6 == 1)
-    {
-      LODWORD(v6) = *a1;
+      v10 = 4;
     }
 
     else
     {
-      LODWORD(v6) = *a1;
-    }
-  }
-
-  return v5 + (v6 | v10) + 1;
-}
-
-void storeEnumTagSinglePayload for _AttributedStringFromMarkdownCreatorConcrete.DecodedAttributeBox(_BYTE *a1, uint64_t a2, unsigned int a3)
-{
-  v6 = *(swift_getAssociatedTypeWitness() - 8);
-  v7 = *(v6 + 84);
-  v8 = *(v6 + 64);
-  if (a3 <= v7)
-  {
-    v9 = 0;
-  }
-
-  else if (v8 <= 3)
-  {
-    v12 = ((a3 - v7 + ~(-1 << (8 * v8))) >> (8 * v8)) + 1;
-    if (HIWORD(v12))
-    {
-      v9 = 4;
-    }
-
-    else
-    {
-      if (v12 < 0x100)
+      if (v13 < 0x100)
       {
-        v13 = 1;
+        v14 = 1;
       }
 
       else
       {
-        v13 = 2;
+        v14 = 2;
       }
 
-      if (v12 >= 2)
+      if (v13 >= 2)
       {
-        v9 = v13;
+        v10 = v14;
       }
 
       else
       {
-        v9 = 0;
+        v10 = 0;
       }
     }
   }
 
   else
   {
-    v9 = 1;
+    v10 = 1;
   }
 
-  if (v7 < a2)
+  if (v8 < a2)
   {
-    v10 = ~v7 + a2;
-    if (v8 < 4)
+    v11 = ~v8 + a2;
+    if (v9 < 4)
     {
-      v11 = (v10 >> (8 * v8)) + 1;
-      if (v8)
+      v12 = (v11 >> (8 * v9)) + 1;
+      if (v9)
       {
-        v14 = v10 & ~(-1 << (8 * v8));
-        bzero(a1, v8);
-        if (v8 != 3)
+        v15 = v11 & ~(-1 << (8 * v9));
+        bzero(a1, v9);
+        if (v9 != 3)
         {
-          if (v8 == 2)
+          if (v9 == 2)
           {
-            *a1 = v14;
-            if (v9 > 1)
+            *a1 = v15;
+            if (v10 > 1)
             {
 LABEL_39:
-              if (v9 == 2)
+              if (v10 == 2)
               {
-                *&a1[v8] = v11;
+                *&a1[v9] = v12;
               }
 
               else
               {
-                *&a1[v8] = v11;
+                *&a1[v9] = v12;
               }
 
               return;
@@ -8240,8 +8249,8 @@ LABEL_39:
 
           else
           {
-            *a1 = v10;
-            if (v9 > 1)
+            *a1 = v11;
+            if (v10 > 1)
             {
               goto LABEL_39;
             }
@@ -8250,11 +8259,11 @@ LABEL_39:
           goto LABEL_36;
         }
 
-        *a1 = v14;
-        a1[2] = BYTE2(v14);
+        *a1 = v15;
+        a1[2] = BYTE2(v15);
       }
 
-      if (v9 > 1)
+      if (v10 > 1)
       {
         goto LABEL_39;
       }
@@ -8262,29 +8271,29 @@ LABEL_39:
 
     else
     {
-      bzero(a1, v8);
-      *a1 = v10;
-      v11 = 1;
-      if (v9 > 1)
+      bzero(a1, v9);
+      *a1 = v11;
+      v12 = 1;
+      if (v10 > 1)
       {
         goto LABEL_39;
       }
     }
 
 LABEL_36:
-    if (v9)
+    if (v10)
     {
-      a1[v8] = v11;
+      a1[v9] = v12;
     }
 
     return;
   }
 
-  if (v9 > 1)
+  if (v10 > 1)
   {
-    if (v9 != 2)
+    if (v10 != 2)
     {
-      *&a1[v8] = 0;
+      *&a1[v9] = 0;
       if (!a2)
       {
         return;
@@ -8293,12 +8302,12 @@ LABEL_36:
       goto LABEL_28;
     }
 
-    *&a1[v8] = 0;
+    *&a1[v9] = 0;
   }
 
-  else if (v9)
+  else if (v10)
   {
-    a1[v8] = 0;
+    a1[v9] = 0;
     if (!a2)
     {
       return;
@@ -8313,12 +8322,12 @@ LABEL_36:
   }
 
 LABEL_28:
-  v15 = *(v6 + 56);
+  v16 = *(v7 + 56);
 
-  v15(a1, a2);
+  v16(a1, a2);
 }
 
-uint64_t type metadata instantiation function for _AttributedStringFromMarkdownCreatorConcrete.ExtendedAttributesBox.AttributeKey()
+uint64_t type metadata instantiation function for _AttributedStringFromMarkdownCreatorConcrete.ExtendedAttributesBox.AttributeKey(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -8975,28 +8984,30 @@ LABEL_4:
 
 uint64_t AsyncUnicodeScalarSequence.makeAsyncIterator()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = MEMORY[0x1EEE9AC00](a1);
-  (*(v5 + 16))(&v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v3);
+  v4 = *(a1 + 16);
+  v5 = MEMORY[0x1EEE9AC00](a1);
+  (*(v7 + 16))(&v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v5);
+  v8 = *(a1 + 24);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
-  result = type metadata accessor for AsyncUnicodeScalarSequence.AsyncIterator();
+  result = type metadata accessor for AsyncUnicodeScalarSequence.AsyncIterator(0, v4, v8, v9);
   *(a2 + *(result + 36)) = 256;
   return result;
 }
 
-uint64_t AsyncUnicodeScalarSequence.AsyncIterator._base.getter@<X0>(uint64_t a1@<X8>)
+uint64_t AsyncUnicodeScalarSequence.AsyncIterator._base.getter@<X0>(uint64_t a2@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v4 = *(*(AssociatedTypeWitness - 8) + 16);
+  v5 = *(*(AssociatedTypeWitness - 8) + 16);
 
-  return v4(a1, v1, AssociatedTypeWitness);
+  return v5(a2, v2, AssociatedTypeWitness);
 }
 
-uint64_t AsyncUnicodeScalarSequence.AsyncIterator._base.setter(uint64_t a1)
+uint64_t AsyncUnicodeScalarSequence.AsyncIterator._base.setter(uint64_t a1, uint64_t a2)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v4 = *(*(AssociatedTypeWitness - 8) + 40);
+  v5 = *(*(AssociatedTypeWitness - 8) + 40);
 
-  return v4(v1, a1, AssociatedTypeWitness);
+  return v5(v2, a1, AssociatedTypeWitness);
 }
 
 uint64_t AsyncUnicodeScalarSequence.AsyncIterator._leftover.setter(uint64_t result, uint64_t a2)
@@ -9312,46 +9323,46 @@ uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance A
   return v4(v2, a1);
 }
 
-void type metadata completion function for AsyncUnicodeScalarSequence.AsyncIterator()
+void type metadata completion function for AsyncUnicodeScalarSequence.AsyncIterator(uint64_t a1)
 {
   swift_getAssociatedTypeWitness();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UInt8?();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-uint64_t getEnumTagSinglePayload for AsyncUnicodeScalarSequence.AsyncIterator(unsigned __int16 *a1, unsigned int a2)
+uint64_t getEnumTagSinglePayload for AsyncUnicodeScalarSequence.AsyncIterator(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v5 = *(AssociatedTypeWitness - 8);
-  v6 = *(v5 + 84);
+  v6 = *(AssociatedTypeWitness - 8);
+  v7 = *(v6 + 84);
   if (!a2)
   {
     return 0;
   }
 
-  if (a2 <= v6)
+  if (a2 <= v7)
   {
 LABEL_23:
-    v12 = *(v5 + 48);
+    v13 = *(v6 + 48);
 
-    return v12(a1);
+    return v13(a1);
   }
 
-  v7 = *(*(AssociatedTypeWitness - 8) + 64) + 2;
-  v8 = 8 * v7;
-  if (v7 <= 3)
+  v8 = *(*(AssociatedTypeWitness - 8) + 64) + 2;
+  v9 = 8 * v8;
+  if (v8 <= 3)
   {
-    v10 = ((a2 - v6 + ~(-1 << v8)) >> v8) + 1;
-    if (HIWORD(v10))
+    v11 = ((a2 - v7 + ~(-1 << v9)) >> v9) + 1;
+    if (HIWORD(v11))
     {
-      v9 = *(a1 + v7);
-      if (!v9)
+      v10 = *(a1 + v8);
+      if (!v10)
       {
         goto LABEL_22;
       }
@@ -9359,10 +9370,10 @@ LABEL_23:
       goto LABEL_11;
     }
 
-    if (v10 > 0xFF)
+    if (v11 > 0xFF)
     {
-      v9 = *(a1 + v7);
-      if (!*(a1 + v7))
+      v10 = *(a1 + v8);
+      if (!*(a1 + v8))
       {
         goto LABEL_22;
       }
@@ -9370,10 +9381,10 @@ LABEL_23:
       goto LABEL_11;
     }
 
-    if (v10 < 2)
+    if (v11 < 2)
     {
 LABEL_22:
-      if (v6)
+      if (v7)
       {
         goto LABEL_23;
       }
@@ -9382,126 +9393,126 @@ LABEL_22:
     }
   }
 
-  v9 = *(a1 + v7);
-  if (!*(a1 + v7))
+  v10 = *(a1 + v8);
+  if (!*(a1 + v8))
   {
     goto LABEL_22;
   }
 
 LABEL_11:
-  v11 = (v9 - 1) << v8;
-  if (v7 > 3)
+  v12 = (v10 - 1) << v9;
+  if (v8 > 3)
   {
-    v11 = 0;
+    v12 = 0;
   }
 
   if (*(*(AssociatedTypeWitness - 8) + 64) != -2)
   {
-    if (v7 > 3)
+    if (v8 > 3)
     {
-      LODWORD(v7) = 4;
+      LODWORD(v8) = 4;
     }
 
-    if (v7 > 2)
+    if (v8 > 2)
     {
-      if (v7 == 3)
+      if (v8 == 3)
       {
-        LODWORD(v7) = *a1 | (*(a1 + 2) << 16);
+        LODWORD(v8) = *a1 | (*(a1 + 2) << 16);
       }
 
       else
       {
-        LODWORD(v7) = *a1;
+        LODWORD(v8) = *a1;
       }
     }
 
-    else if (v7 == 1)
+    else if (v8 == 1)
     {
-      LODWORD(v7) = *a1;
+      LODWORD(v8) = *a1;
     }
 
     else
     {
-      LODWORD(v7) = *a1;
+      LODWORD(v8) = *a1;
     }
   }
 
-  return v6 + (v7 | v11) + 1;
+  return v7 + (v8 | v12) + 1;
 }
 
-void storeEnumTagSinglePayload for AsyncUnicodeScalarSequence.AsyncIterator(_BYTE *a1, uint64_t a2, unsigned int a3)
+void storeEnumTagSinglePayload for AsyncUnicodeScalarSequence.AsyncIterator(_BYTE *a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
-  v6 = *(swift_getAssociatedTypeWitness() - 8);
-  v7 = *(v6 + 84);
-  v8 = *(v6 + 64) + 2;
-  if (a3 <= v7)
+  v7 = *(swift_getAssociatedTypeWitness() - 8);
+  v8 = *(v7 + 84);
+  v9 = *(v7 + 64) + 2;
+  if (a3 <= v8)
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  else if (v8 <= 3)
+  else if (v9 <= 3)
   {
-    v12 = ((a3 - v7 + ~(-1 << (8 * v8))) >> (8 * v8)) + 1;
-    if (HIWORD(v12))
+    v13 = ((a3 - v8 + ~(-1 << (8 * v9))) >> (8 * v9)) + 1;
+    if (HIWORD(v13))
     {
-      v9 = 4;
+      v10 = 4;
     }
 
     else
     {
-      if (v12 < 0x100)
+      if (v13 < 0x100)
       {
-        v13 = 1;
+        v14 = 1;
       }
 
       else
       {
-        v13 = 2;
+        v14 = 2;
       }
 
-      if (v12 >= 2)
+      if (v13 >= 2)
       {
-        v9 = v13;
+        v10 = v14;
       }
 
       else
       {
-        v9 = 0;
+        v10 = 0;
       }
     }
   }
 
   else
   {
-    v9 = 1;
+    v10 = 1;
   }
 
-  if (v7 < a2)
+  if (v8 < a2)
   {
-    v10 = ~v7 + a2;
-    if (v8 < 4)
+    v11 = ~v8 + a2;
+    if (v9 < 4)
     {
-      v11 = (v10 >> (8 * v8)) + 1;
-      if (*(v6 + 64) != -2)
+      v12 = (v11 >> (8 * v9)) + 1;
+      if (*(v7 + 64) != -2)
       {
-        v14 = v10 & ~(-1 << (8 * v8));
-        bzero(a1, v8);
-        if (v8 != 3)
+        v15 = v11 & ~(-1 << (8 * v9));
+        bzero(a1, v9);
+        if (v9 != 3)
         {
-          if (v8 == 2)
+          if (v9 == 2)
           {
-            *a1 = v14;
-            if (v9 > 1)
+            *a1 = v15;
+            if (v10 > 1)
             {
 LABEL_39:
-              if (v9 == 2)
+              if (v10 == 2)
               {
-                *&a1[v8] = v11;
+                *&a1[v9] = v12;
               }
 
               else
               {
-                *&a1[v8] = v11;
+                *&a1[v9] = v12;
               }
 
               return;
@@ -9510,8 +9521,8 @@ LABEL_39:
 
           else
           {
-            *a1 = v10;
-            if (v9 > 1)
+            *a1 = v11;
+            if (v10 > 1)
             {
               goto LABEL_39;
             }
@@ -9520,11 +9531,11 @@ LABEL_39:
           goto LABEL_36;
         }
 
-        *a1 = v14;
-        a1[2] = BYTE2(v14);
+        *a1 = v15;
+        a1[2] = BYTE2(v15);
       }
 
-      if (v9 > 1)
+      if (v10 > 1)
       {
         goto LABEL_39;
       }
@@ -9532,29 +9543,29 @@ LABEL_39:
 
     else
     {
-      bzero(a1, v8);
-      *a1 = v10;
-      v11 = 1;
-      if (v9 > 1)
+      bzero(a1, v9);
+      *a1 = v11;
+      v12 = 1;
+      if (v10 > 1)
       {
         goto LABEL_39;
       }
     }
 
 LABEL_36:
-    if (v9)
+    if (v10)
     {
-      a1[v8] = v11;
+      a1[v9] = v12;
     }
 
     return;
   }
 
-  if (v9 > 1)
+  if (v10 > 1)
   {
-    if (v9 != 2)
+    if (v10 != 2)
     {
-      *&a1[v8] = 0;
+      *&a1[v9] = 0;
       if (!a2)
       {
         return;
@@ -9563,12 +9574,12 @@ LABEL_36:
       goto LABEL_28;
     }
 
-    *&a1[v8] = 0;
+    *&a1[v9] = 0;
   }
 
-  else if (v9)
+  else if (v10)
   {
-    a1[v8] = 0;
+    a1[v9] = 0;
     if (!a2)
     {
       return;
@@ -9583,9 +9594,9 @@ LABEL_36:
   }
 
 LABEL_28:
-  v15 = *(v6 + 56);
+  v16 = *(v7 + 56);
 
-  v15(a1, a2);
+  v16(a1, a2);
 }
 
 void type metadata accessor for UInt8?()
@@ -9618,87 +9629,87 @@ uint64_t Range<>.init(_:)(uint64_t result, uint64_t a2)
 
 uint64_t _NSRange.init<A>(_:)(uint64_t a1, uint64_t a2, void (*a3)(char *, uint64_t), uint64_t a4)
 {
-  v61 = a1;
+  v62 = a1;
   v7 = *(a4 + 8);
   v8 = *(v7 + 32);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v52 = v8;
-  v59 = swift_getAssociatedTypeWitness();
-  v57 = *(v59 - 8);
-  MEMORY[0x1EEE9AC00](v59);
-  v56 = &v45 - v10;
+  v53 = v8;
+  v60 = swift_getAssociatedTypeWitness();
+  v58 = *(v60 - 8);
+  MEMORY[0x1EEE9AC00](v60);
+  v57 = &v46 - v10;
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
   v12 = *(TupleTypeMetadata2 - 8);
-  v49 = TupleTypeMetadata2;
-  v50 = v12;
+  v50 = TupleTypeMetadata2;
+  v51 = v12;
   MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v14 = &v45 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &v46 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v15);
-  v47 = &v45 - v16;
-  v46 = *(AssociatedTypeWitness - 8);
+  v48 = &v46 - v16;
+  v47 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](v17);
-  v19 = &v45 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = &v46 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v20);
-  v22 = &v45 - v21;
-  v55 = v7;
+  v22 = &v46 - v21;
+  v56 = v7;
   v23 = swift_getAssociatedTypeWitness();
   MEMORY[0x1EEE9AC00](v23);
-  v54 = a3;
-  v60 = a2;
+  v55 = a3;
+  v61 = a2;
   swift_getAssociatedConformanceWitness();
-  v48 = type metadata accessor for Range();
-  v53 = *(v48 - 8);
-  MEMORY[0x1EEE9AC00](v48);
-  v25 = &v45 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v49 = type metadata accessor for Range();
+  v54 = *(v49 - 8);
+  MEMORY[0x1EEE9AC00](v49);
+  v25 = &v46 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v26);
-  v51 = &v45 - v27;
+  v52 = &v46 - v27;
   swift_getAssociatedConformanceWitness();
   dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
   dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-  v58 = a4;
+  v59 = a4;
   dispatch thunk of static FixedWidthInteger.max.getter();
   result = dispatch thunk of static Comparable.<= infix(_:_:)();
   if (result)
   {
-    v29 = v46;
-    v30 = v47;
-    v31 = *(v46 + 32);
-    v31(v47, v22, AssociatedTypeWitness);
-    v32 = v49;
-    v31(&v30[*(v49 + 48)], v19, AssociatedTypeWitness);
-    v33 = v50;
-    (*(v50 + 16))(v14, v30, v32);
+    v29 = v47;
+    v30 = v48;
+    v31 = *(v47 + 32);
+    v31(v48, v22, AssociatedTypeWitness);
+    v32 = v50;
+    v31(&v30[*(v50 + 48)], v19, AssociatedTypeWitness);
+    v33 = v51;
+    (*(v51 + 16))(v14, v30, v32);
     v34 = *(v32 + 48);
     v31(v25, v14, AssociatedTypeWitness);
-    v45 = v25;
+    v46 = v25;
     v35 = *(v29 + 8);
     v35(&v14[v34], AssociatedTypeWitness);
     (*(v33 + 32))(v14, v30, v32);
     v36 = *(v32 + 48);
-    v37 = v48;
-    v38 = v45;
-    v31(&v45[*(v48 + 36)], &v14[v36], AssociatedTypeWitness);
+    v37 = v49;
+    v38 = v46;
+    v31(&v46[*(v49 + 36)], &v14[v36], AssociatedTypeWitness);
     v35(v14, AssociatedTypeWitness);
-    v39 = v59;
+    v39 = v60;
     AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-    v62 = v52;
-    v63 = AssociatedConformanceWitness;
+    v63 = v53;
+    v64 = AssociatedConformanceWitness;
     swift_getWitnessTable();
-    v41 = v51;
+    v41 = v52;
     v42 = v38;
-    v43 = v60;
+    v43 = v61;
     dispatch thunk of RangeExpression.relative<A>(to:)();
-    v54 = *(v53 + 8);
-    v54(v42, v37);
-    v55 = specialized numericCast<A, B>(_:)(v41, AssociatedTypeWitness);
-    v44 = v56;
+    v55 = *(v54 + 8);
+    v55(v42, v37);
+    v56 = specialized numericCast<A, B>(_:)(v41, AssociatedTypeWitness, v56);
+    v44 = v57;
     dispatch thunk of Strideable.distance(to:)();
-    swift_getAssociatedConformanceWitness();
-    specialized numericCast<A, B>(_:)(v44, v39);
-    (*(*(v43 - 8) + 8))(v61, v43);
-    (*(v57 + 8))(v44, v39);
-    v54(v41, v37);
-    return v55;
+    v45 = swift_getAssociatedConformanceWitness();
+    specialized numericCast<A, B>(_:)(v44, v39, *(v45 + 8));
+    (*(*(v43 - 8) + 8))(v62, v43);
+    (*(v58 + 8))(v44, v39);
+    v55(v41, v37);
+    return v56;
   }
 
   else
@@ -9757,13 +9768,13 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance _NSRange()
   return MEMORY[0x1865CD060](v1);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance _NSRange()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance _NSRange(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
+  v2 = *v1;
+  v3 = v1[1];
   Hasher.init(_seed:)();
-  MEMORY[0x1865CD060](v1);
   MEMORY[0x1865CD060](v2);
+  MEMORY[0x1865CD060](v3);
   return Hasher._finalize()();
 }
 
@@ -9807,7 +9818,7 @@ uint64_t _NSRange.debugDescription.getter(uint64_t a1)
   return v4[0];
 }
 
-const __CFCharacterSet *_NSRange.init(_:)(uint64_t a1, unint64_t a2)
+CFCharacterSetRef _NSRange.init(_:)(uint64_t a1, unint64_t a2)
 {
   v14[8] = *MEMORY[0x1E69E9840];
   v2 = HIBYTE(a2) & 0xF;

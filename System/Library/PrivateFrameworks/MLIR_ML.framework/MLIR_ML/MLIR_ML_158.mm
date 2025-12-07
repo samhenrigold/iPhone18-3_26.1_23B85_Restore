@@ -1,331 +1,331 @@
 void llvm::ReversePostOrderTraversal<mlir::Block *,llvm::GraphTraits<mlir::Block *>>::Initialize(uint64_t a1, mlir::Block **a2)
 {
-  v12[40] = *MEMORY[0x277D85DE8];
-  llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>::po_iterator(&v9, *a2);
-  v8 = 0;
-  memset(v7, 0, sizeof(v7));
-  v6[0] = 0;
-  memset(v5, 0, sizeof(v5));
-  v2 = v5 + 8;
-  v3 = v5 + 8;
-  v4 = 8;
-  v6[1] = v7 + 8;
-  DWORD1(v7[0]) = 8;
-  std::copy[abi:nn200100]<llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,std::back_insert_iterator<llvm::SmallVector<mlir::Block *,8u>>>(&v9, &v2);
-  if (v6[1] != v7 + 8)
+  v13[40] = *MEMORY[0x277D85DE8];
+  llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>::po_iterator(&v10, *a2);
+  v9 = 0;
+  memset(v8, 0, sizeof(v8));
+  v7[0] = 0;
+  memset(v6, 0, sizeof(v6));
+  v3 = v6 + 8;
+  v4 = v6 + 8;
+  v5 = 8;
+  v7[1] = v8 + 8;
+  DWORD1(v8[0]) = 8;
+  std::copy[abi:nn200100]<llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,std::back_insert_iterator<llvm::SmallVector<mlir::Block *,8u>>>(&v10, &v3, a1);
+  if (v7[1] != v8 + 8)
   {
-    free(v6[1]);
+    free(v7[1]);
   }
 
-  if (v3 != v2)
+  if (v4 != v3)
   {
-    free(v3);
+    free(v4);
   }
 
-  if (v11 != v12)
+  if (v12 != v13)
+  {
+    free(v12);
+  }
+
+  if (v11 != v10)
   {
     free(v11);
-  }
-
-  if (v10 != v9)
-  {
-    free(v10);
   }
 }
 
-uint64_t std::copy[abi:nn200100]<llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,std::back_insert_iterator<llvm::SmallVector<mlir::Block *,8u>>>(const void **a1, uint64_t a2)
+uint64_t std::copy[abi:nn200100]<llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,std::back_insert_iterator<llvm::SmallVector<mlir::Block *,8u>>>(const void **a1, uint64_t a2, uint64_t a3)
 {
-  v22[41] = *MEMORY[0x277D85DE8];
-  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v14, &v16, a1);
-  v17 = v19;
-  v18 = 0x800000000;
-  if (&v14 != a1)
+  v24[41] = *MEMORY[0x277D85DE8];
+  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v16, &v18, a1);
+  v19 = v21;
+  v20 = 0x800000000;
+  if (&v16 != a1)
   {
-    v4 = *(a1 + 26);
-    if (v4)
+    v6 = *(a1 + 26);
+    if (v6)
     {
-      if (v4 >= 9)
+      if (v6 >= 9)
       {
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
 
-      memcpy(v19, a1[12], 40 * *(a1 + 26));
-      LODWORD(v18) = v4;
+      memcpy(v21, a1[12], 40 * *(a1 + 26));
+      LODWORD(v20) = v6;
     }
   }
 
-  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v8, &v10, a2);
-  v11 = v13;
-  v12 = 0x800000000;
-  if (&v8 != a2)
+  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v10, &v12, a2);
+  v13 = v15;
+  v14 = 0x800000000;
+  if (&v10 != a2)
   {
-    v5 = *(a2 + 104);
-    if (v5)
+    v7 = *(a2 + 104);
+    if (v7)
     {
-      if (v5 >= 9)
+      if (v7 >= 9)
       {
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
 
-      memcpy(v13, *(a2 + 96), 40 * *(a2 + 104));
-      LODWORD(v12) = v5;
+      memcpy(v15, *(a2 + 96), 40 * *(a2 + 104));
+      LODWORD(v14) = v7;
     }
   }
 
-  std::__copy[abi:nn200100]<llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,std::back_insert_iterator<llvm::SmallVector<mlir::Block *,8u>>>(&v14, &v8);
-  v6 = v22[40];
-  if (v21 != v22)
+  std::__copy[abi:nn200100]<llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,std::back_insert_iterator<llvm::SmallVector<mlir::Block *,8u>>>(&v16, &v10, a3);
+  v8 = v24[40];
+  if (v23 != v24)
   {
-    free(v21);
+    free(v23);
   }
 
-  if (v20 != v19[40])
+  if (v22 != v21[40])
   {
-    free(v20);
+    free(v22);
   }
 
-  if (v11 != v13)
+  if (v13 != v15)
+  {
+    free(v13);
+  }
+
+  if (v11 != v10)
   {
     free(v11);
   }
 
-  if (v9 != v8)
+  if (v19 != v21)
   {
-    free(v9);
+    free(v19);
   }
 
-  if (v17 != v19)
+  if (v17 != v16)
   {
     free(v17);
   }
 
-  if (v15 != v14)
-  {
-    free(v15);
-  }
-
-  return v6;
+  return v8;
 }
 
-void std::__copy[abi:nn200100]<llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,std::back_insert_iterator<llvm::SmallVector<mlir::Block *,8u>>>(uint64_t a1, uint64_t a2)
+void std::__copy[abi:nn200100]<llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,std::back_insert_iterator<llvm::SmallVector<mlir::Block *,8u>>>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v13[40] = *MEMORY[0x277D85DE8];
-  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v9, &v11, 8, a1);
-  v12[0] = v13;
-  v12[1] = 0x800000000;
+  v14[40] = *MEMORY[0x277D85DE8];
+  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v10, &v12, 8, a1);
+  v13[0] = v14;
+  v13[1] = 0x800000000;
   if (*(a1 + 104))
   {
-    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v12, (a1 + 96));
+    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v13, (a1 + 96));
   }
 
-  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v4, &v6, 8, a2);
-  v7[0] = v8;
-  v7[1] = 0x800000000;
+  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v5, &v7, 8, a2);
+  v8[0] = v9;
+  v8[1] = 0x800000000;
   if (*(a2 + 104))
   {
-    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v7, (a2 + 96));
+    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v8, (a2 + 96));
   }
 
-  std::__copy_move_unwrap_iters[abi:nn200100]<std::__copy_impl,llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,std::back_insert_iterator<llvm::SmallVector<mlir::Block *,8u>>,0>(&v9, &v4);
-  if (v7[0] != v8)
+  std::__copy_move_unwrap_iters[abi:nn200100]<std::__copy_impl,llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,std::back_insert_iterator<llvm::SmallVector<mlir::Block *,8u>>,0>(&v10);
+  if (v8[0] != v9)
   {
-    free(v7[0]);
+    free(v8[0]);
   }
 
-  if (v5 != v4)
+  if (v6 != v5)
   {
-    free(v5);
+    free(v6);
   }
 
-  if (v12[0] != v13)
+  if (v13[0] != v14)
   {
-    free(v12[0]);
+    free(v13[0]);
   }
 
-  if (v10 != v9)
+  if (v11 != v10)
   {
-    free(v10);
+    free(v11);
   }
 }
 
-void std::__copy_move_unwrap_iters[abi:nn200100]<std::__copy_impl,llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,std::back_insert_iterator<llvm::SmallVector<mlir::Block *,8u>>,0>(uint64_t a1, uint64_t a2)
+void std::__copy_move_unwrap_iters[abi:nn200100]<std::__copy_impl,llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,llvm::po_iterator<mlir::Block *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Block *>>,std::back_insert_iterator<llvm::SmallVector<mlir::Block *,8u>>,0>(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v4 = v3;
-  v6 = v5;
-  v7 = v2;
-  v9 = v8;
-  v64[40] = *MEMORY[0x277D85DE8];
-  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v49, &v51, v2);
-  v52 = v54;
-  v53 = 0x800000000;
-  if (&v49 != v7)
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v5 = v4;
+  v6 = v1;
+  v8 = v7;
+  v63[40] = *MEMORY[0x277D85DE8];
+  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v48, &v50, v1);
+  v51 = v53;
+  v52 = 0x800000000;
+  if (&v48 != v6)
   {
-    v10 = *(v7 + 26);
-    if (v10)
+    v9 = *(v6 + 26);
+    if (v9)
     {
-      if (v10 >= 9)
+      if (v9 >= 9)
       {
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
 
-      memcpy(v54, *(v7 + 12), 40 * *(v7 + 26));
-      LODWORD(v53) = v10;
+      memcpy(v53, *(v6 + 12), 40 * *(v6 + 26));
+      LODWORD(v52) = v9;
     }
   }
 
-  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v44, &v46, 8, v6);
-  v47[0] = v48;
-  v47[1] = 0x800000000;
-  if (*(v6 + 104))
+  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v43, &v45, 8, v5);
+  v46[0] = v47;
+  v46[1] = 0x800000000;
+  if (*(v5 + 104))
   {
-    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v47, (v6 + 96));
+    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v46, (v5 + 96));
   }
 
-  std::__unwrap_range[abi:nn200100]<llvm::po_iterator<mlir::Region *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Region *>>,llvm::po_iterator<mlir::Region *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Region *>>>(&v49, &v44, &v55);
-  if (v47[0] != v48)
+  std::__unwrap_range[abi:nn200100]<llvm::po_iterator<mlir::Region *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Region *>>,llvm::po_iterator<mlir::Region *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Region *>>>(&v48, &v43, &v54);
+  if (v46[0] != v47)
   {
-    free(v47[0]);
+    free(v46[0]);
   }
 
-  if (v45 != v44)
+  if (v44 != v43)
   {
-    free(v45);
+    free(v44);
   }
 
-  if (v52 != v54)
+  if (v51 != v53)
   {
-    free(v52);
+    free(v51);
   }
 
-  if (v50 != v49)
+  if (v49 != v48)
   {
-    free(v50);
+    free(v49);
   }
 
-  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v34, &v36, 8, &v55);
-  v37[0] = v38;
-  v37[1] = 0x800000000;
-  if (v58)
+  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v33, &v35, 8, &v54);
+  v36[0] = v37;
+  v36[1] = 0x800000000;
+  if (v57)
   {
-    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v37, &v57);
+    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v36, &v56);
   }
 
-  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v29, &v31, 8, &v60);
-  v32[0] = v33;
-  v32[1] = 0x800000000;
-  if (v63)
+  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v28, &v30, 8, &v59);
+  v31[0] = v32;
+  v31[1] = 0x800000000;
+  if (v62)
   {
-    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v32, &v62);
+    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v31, &v61);
   }
 
-  std::__copy_impl::operator()[abi:nn200100]<llvm::po_iterator<mlir::Region *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Region *>>,llvm::po_iterator<mlir::Region *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Region *>>,std::back_insert_iterator<llvm::SmallVector<mlir::Block *,8u>>>(&v34, &v29, v4, &v39);
-  if (v32[0] != v33)
+  std::__copy_impl::operator()[abi:nn200100]<llvm::po_iterator<mlir::Region *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Region *>>,llvm::po_iterator<mlir::Region *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Region *>>,std::back_insert_iterator<llvm::SmallVector<mlir::Block *,8u>>>(&v38, &v33, &v28, v3);
+  if (v31[0] != v32)
   {
-    free(v32[0]);
+    free(v31[0]);
   }
 
-  if (v30 != v29)
+  if (v29 != v28)
   {
-    free(v30);
+    free(v29);
   }
 
-  if (v37[0] != v38)
+  if (v36[0] != v37)
   {
-    free(v37[0]);
+    free(v36[0]);
   }
 
-  if (v35 != v34)
+  if (v34 != v33)
   {
-    free(v35);
+    free(v34);
   }
 
-  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v19, &v21, 8, v7);
-  v22[0] = v23;
-  v22[1] = 0x800000000;
-  if (*(v7 + 26))
+  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v18, &v20, 8, v6);
+  v21[0] = v22;
+  v21[1] = 0x800000000;
+  if (*(v6 + 26))
   {
-    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v22, v7 + 12);
+    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v21, v6 + 12);
   }
 
-  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v14, &v16, 8, &v39);
-  v17[0] = v18;
-  v17[1] = 0x800000000;
-  if (v42)
+  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(&v13, &v15, 8, &v38);
+  v16[0] = v17;
+  v16[1] = 0x800000000;
+  if (v41)
   {
-    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v17, &v41);
+    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v16, &v40);
   }
 
-  std::__rewrap_range[abi:nn200100]<llvm::po_iterator<mlir::Region *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Region *>>,llvm::po_iterator<mlir::Region *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Region *>>>(&v19, &v14, &v24);
-  v11 = v43[40];
-  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(v9, (v9 + 32), 8, &v24);
-  *(v12 + 96) = v9 + 112;
-  v13 = v12 + 96;
-  *(v13 + 8) = 0x800000000;
-  if (v27)
+  std::__rewrap_range[abi:nn200100]<llvm::po_iterator<mlir::Region *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Region *>>,llvm::po_iterator<mlir::Region *,llvm::SmallPtrSet<mlir::Block *,8u>,false,llvm::GraphTraits<mlir::Region *>>>(&v18, &v13, &v23);
+  v10 = v42[40];
+  llvm::SmallPtrSetImplBase::SmallPtrSetImplBase(v8, (v8 + 32), 8, &v23);
+  *(v11 + 96) = v8 + 112;
+  v12 = v11 + 96;
+  *(v12 + 8) = 0x800000000;
+  if (v26)
   {
-    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v13, &v26);
+    llvm::SmallVectorImpl<std::tuple<mlir::Block *,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator,llvm::detail::indexed_accessor_range_base<mlir::SuccessorRange,mlir::BlockOperand *,mlir::Block *,mlir::Block *,mlir::Block *>::iterator>>::operator=(v12, &v25);
   }
 
-  *(v9 + 432) = v11;
-  if (v26 != &v28)
-  {
-    free(v26);
-  }
-
-  if (v25 != v24)
+  *(v8 + 432) = v10;
+  if (v25 != &v27)
   {
     free(v25);
   }
 
-  if (v17[0] != v18)
+  if (v24 != v23)
   {
-    free(v17[0]);
+    free(v24);
   }
 
-  if (v15 != v14)
+  if (v16[0] != v17)
   {
-    free(v15);
+    free(v16[0]);
   }
 
-  if (v22[0] != v23)
+  if (v14 != v13)
   {
-    free(v22[0]);
+    free(v14);
   }
 
-  if (v20 != v19)
+  if (v21[0] != v22)
   {
-    free(v20);
+    free(v21[0]);
   }
 
-  if (v41 != v43)
+  if (v19 != v18)
   {
-    free(v41);
+    free(v19);
   }
 
-  if (v40 != v39)
+  if (v40 != v42)
   {
     free(v40);
   }
 
-  if (v62 != v64)
+  if (v39 != v38)
   {
-    free(v62);
+    free(v39);
   }
 
-  if (v61 != v60)
+  if (v61 != v63)
   {
     free(v61);
   }
 
-  if (v57 != &v59)
+  if (v60 != v59)
   {
-    free(v57);
+    free(v60);
   }
 
-  if (v56 != v55)
+  if (v56 != &v58)
   {
     free(v56);
+  }
+
+  if (v55 != v54)
+  {
+    free(v55);
   }
 }
 
@@ -761,28 +761,28 @@ LABEL_3:
   return v2 == mlir::detail::TypeIDResolver<mlir::MemoryEffects::Free,void>::resolveTypeID(void)::id;
 }
 
-void collectUnderlyingAddressValues(mlir::detail::OpResultImpl *a1, int a2, uint64_t a3, uint64_t a4)
+void collectUnderlyingAddressValues(mlir::detail::OpResultImpl *a1, int a2, uint64_t *a3, uint64_t a4)
 {
-  v38[3] = *MEMORY[0x277D85DE8];
-  v29 = a1;
-  llvm::DenseMapBase<llvm::DenseMap<mlir::Value,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseSetPair<mlir::Value>>,mlir::Value,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseSetPair<mlir::Value>>::try_emplace<llvm::detail::DenseSetEmpty&>(a3, &v29, &v34);
-  if (v36 != 1)
+  v39[3] = *MEMORY[0x277D85DE8];
+  v30 = a1;
+  llvm::DenseMapBase<llvm::DenseMap<mlir::Value,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseSetPair<mlir::Value>>,mlir::Value,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<mlir::Value,void>,llvm::detail::DenseSetPair<mlir::Value>>::try_emplace<llvm::detail::DenseSetEmpty&>(a3, &v30, &v35);
+  if (v37 != 1)
   {
     return;
   }
 
   if (!a2)
   {
-    v8 = v29;
+    v8 = v30;
     goto LABEL_10;
   }
 
-  v7 = (a2 - 1);
-  v8 = v29;
-  if (v29 && (*(v29 + 1) & 7) == 7)
+  v7 = a2 - 1;
+  v8 = v30;
+  if (v30 && (*(v30 + 1) & 7) == 7)
   {
-    v9 = *(v29 + 2);
-    v10 = *(v29 + 6);
+    v9 = *(v30 + 2);
+    v10 = *(v30 + 6);
     if (mlir::Block::isEntryBlock(v9))
     {
       Parent = mlir::Block::getParent(v9);
@@ -793,102 +793,103 @@ void collectUnderlyingAddressValues(mlir::detail::OpResultImpl *a1, int a2, uint
       }
 
       InterfaceFor = mlir::OpInterface<mlir::RegionBranchOpInterface,mlir::detail::RegionBranchOpInterfaceInterfaceTraits>::getInterfaceFor(v12);
-      v24 = v12;
-      v25 = Parent;
-      v26 = v8;
-      v27 = v10;
+      v25 = v12;
+      v26 = Parent;
+      v27 = v8;
+      v28 = v10;
       goto LABEL_42;
     }
 
-    v32 = *v9;
-    v33 = mlir::PredecessorIterator::unwrap;
-    if (!v32)
+    v33 = *v9;
+    v34 = mlir::PredecessorIterator::unwrap;
+    if (!v33)
     {
       return;
     }
 
     while (1)
     {
-      v18 = v33();
-      Terminator = mlir::Block::getTerminator(v18);
-      if (!mlir::OpInterface<mlir::BranchOpInterface,mlir::detail::BranchOpInterfaceInterfaceTraits>::getInterfaceFor(Terminator))
+      v18 = v34();
+      mlir::Block::getTerminator(v18);
+      v20 = v19;
+      if (!mlir::OpInterface<mlir::BranchOpInterface,mlir::detail::BranchOpInterfaceInterfaceTraits>::getInterfaceFor(v19))
       {
-        v30 = 0;
         v31 = 0;
+        v32 = 0;
         goto LABEL_10;
       }
 
-      if (!Terminator)
+      if (!v20)
       {
-        v30 = 0;
         v31 = 0;
+        v32 = 0;
         goto LABEL_10;
       }
 
-      v20 = mlir::OpInterface<mlir::BranchOpInterface,mlir::detail::BranchOpInterfaceInterfaceTraits>::getInterfaceFor(Terminator);
-      v30 = Terminator;
+      v21 = mlir::OpInterface<mlir::BranchOpInterface,mlir::detail::BranchOpInterfaceInterfaceTraits>::getInterfaceFor(v20);
       v31 = v20;
-      SuccessorIndex = mlir::PredecessorIterator::getSuccessorIndex(&v32);
-      mlir::BranchOpInterface::getSuccessorOperands(&v30, SuccessorIndex);
-      if (v10 < v34)
+      v32 = v21;
+      SuccessorIndex = mlir::PredecessorIterator::getSuccessorIndex(&v33);
+      mlir::BranchOpInterface::getSuccessorOperands(&v35, &v31, SuccessorIndex);
+      if (v10 < v35)
       {
         break;
       }
 
-      v22 = *(mlir::MutableOperandRange::operator[](&v35, v10 - v34) + 24);
-      v23 = v37;
-      if (v37 != v38)
+      v23 = *(mlir::MutableOperandRange::operator[](&v36, v10 - v35) + 24);
+      v24 = v38;
+      if (v38 != v39)
       {
         goto LABEL_25;
       }
 
 LABEL_26:
-      if (!v22)
+      if (!v23)
       {
         goto LABEL_10;
       }
 
-      collectUnderlyingAddressValues(v22, v7, a3, a4);
-      v32 = *v32;
-      if (!v32)
+      collectUnderlyingAddressValues(v23, v7, a3, a4);
+      v33 = *v33;
+      if (!v33)
       {
         return;
       }
     }
 
-    v22 = 0;
-    v23 = v37;
-    if (v37 == v38)
+    v23 = 0;
+    v24 = v38;
+    if (v38 == v39)
     {
       goto LABEL_26;
     }
 
 LABEL_25:
-    free(v23);
+    free(v24);
     goto LABEL_26;
   }
 
-  Owner = mlir::detail::OpResultImpl::getOwner(v29);
+  Owner = mlir::detail::OpResultImpl::getOwner(v30);
   if (mlir::OpInterface<mlir::ViewLikeOpInterface,mlir::detail::ViewLikeOpInterfaceInterfaceTraits>::getInterfaceFor(Owner))
   {
     if (Owner)
     {
       v16 = mlir::OpInterface<mlir::ViewLikeOpInterface,mlir::detail::ViewLikeOpInterfaceInterfaceTraits>::getInterfaceFor(Owner);
-      v34 = Owner;
-      v35 = v16;
-      ViewSource = mlir::ViewLikeOpInterface::getViewSource(&v34);
+      v35 = Owner;
+      v36 = v16;
+      ViewSource = mlir::ViewLikeOpInterface::getViewSource(&v35);
       collectUnderlyingAddressValues(ViewSource, v7, a3, a4);
       return;
     }
 
-    v34 = 0;
     v35 = 0;
+    v36 = 0;
   }
 
   else
   {
-    v34 = 0;
     v35 = 0;
+    v36 = 0;
   }
 
   if (!mlir::OpInterface<mlir::RegionBranchOpInterface,mlir::detail::RegionBranchOpInterfaceInterfaceTraits>::getInterfaceFor(Owner))
@@ -908,22 +909,22 @@ LABEL_36:
 LABEL_37:
   if (Owner)
   {
-    v28 = *(v8 + 1);
-    if ((v28 & 7) == 6)
+    v29 = *(v8 + 1);
+    if ((v29 & 7) == 6)
     {
-      v27 = *(v8 + 4) + 6;
+      v28 = *(v8 + 4) + 6;
     }
 
     else
     {
-      v27 = v28 & 7;
+      v28 = v29 & 7;
     }
 
-    v24 = Owner;
-    v25 = 0;
-    v26 = v8;
+    v25 = Owner;
+    v26 = 0;
+    v27 = v8;
 LABEL_42:
-    collectUnderlyingAddressValues(v24, InterfaceFor, v25, v26, v27, v7, a3, a4);
+    collectUnderlyingAddressValues(v25, InterfaceFor, v26, v27, v28, v7, a3, a4);
     return;
   }
 
@@ -938,39 +939,39 @@ LABEL_10:
   ++*(a4 + 8);
 }
 
-uint64_t collectUnderlyingAddressValues(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void collectUnderlyingAddressValues(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, uint64_t *a7, uint64_t a8)
 {
-  v34[3] = *MEMORY[0x277D85DE8];
-  v31[0] = a1;
-  v31[1] = a2;
-  v29 = a3;
-  v30 = a4;
-  v28 = a5;
-  v27[0] = v31;
-  v27[1] = &v29;
-  v27[2] = a8;
-  v27[3] = &v30;
-  v27[4] = &v28;
-  result = collectUnderlyingAddressValues(mlir::RegionBranchOpInterface,mlir::Region *,mlir::Value,unsigned int,unsigned int,llvm::DenseSet<mlir::Value,llvm::DenseMapInfo<mlir::Value,void>> &,llvm::SmallVectorImpl<mlir::Value> &)::$_0::operator()(v27, 0);
-  if ((result & 0x100000000) != 0)
+  v36[3] = *MEMORY[0x277D85DE8];
+  v33[0] = a1;
+  v33[1] = a2;
+  v31 = a3;
+  v32 = a4;
+  v30 = a5;
+  v29[0] = v33;
+  v29[1] = &v31;
+  v29[2] = a8;
+  v29[3] = &v32;
+  v29[4] = &v30;
+  v12 = collectUnderlyingAddressValues(mlir::RegionBranchOpInterface,mlir::Region *,mlir::Value,unsigned int,unsigned int,llvm::DenseSet<mlir::Value,llvm::DenseMapInfo<mlir::Value,void>> &,llvm::SmallVectorImpl<mlir::Value> &)::$_0::operator()(v29, 0);
+  if ((v12 & 0x100000000) != 0)
   {
-    v13 = result;
-    EntrySuccessorOperands = mlir::RegionBranchOpInterface::getEntrySuccessorOperands(v31, a3);
-    result = collectUnderlyingAddressValues(*(EntrySuccessorOperands + 32 * v13 + 24), a6, a7, a8);
+    v13 = v12;
+    EntrySuccessorOperands = mlir::RegionBranchOpInterface::getEntrySuccessorOperands(v33, a3);
+    collectUnderlyingAddressValues(*(EntrySuccessorOperands + 32 * v13 + 24), a6, a7, a8);
   }
 
-  v15 = *(v31[0] + 44);
+  v15 = *(v33[0] + 44);
   if ((v15 & 0x7FFFFF) != 0)
   {
-    v16 = ((v31[0] + 16 * ((v15 >> 23) & 1) + ((v15 >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v31[0] + 40);
-    v24 = v16 + 24 * (v15 & 0x7FFFFF);
+    v16 = ((v33[0] + 16 * ((v15 >> 23) & 1) + ((v15 >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v33[0] + 40);
+    v26 = v16 + 24 * (v15 & 0x7FFFFF);
     while (1)
     {
-      result = collectUnderlyingAddressValues(mlir::RegionBranchOpInterface,mlir::Region *,mlir::Value,unsigned int,unsigned int,llvm::DenseSet<mlir::Value,llvm::DenseMapInfo<mlir::Value,void>> &,llvm::SmallVectorImpl<mlir::Value> &)::$_0::operator()(v27, v16);
-      if ((result & 0x100000000) != 0)
+      v17 = collectUnderlyingAddressValues(mlir::RegionBranchOpInterface,mlir::Region *,mlir::Value,unsigned int,unsigned int,llvm::DenseSet<mlir::Value,llvm::DenseMapInfo<mlir::Value,void>> &,llvm::SmallVectorImpl<mlir::Value> &)::$_0::operator()(v29, v16);
+      if ((v17 & 0x100000000) != 0)
       {
-        v17 = *(v16 + 8);
-        if (v17 != v16)
+        v18 = *(v16 + 8);
+        if (v18 != v16)
         {
           break;
         }
@@ -978,37 +979,38 @@ uint64_t collectUnderlyingAddressValues(uint64_t a1, uint64_t a2, uint64_t a3, u
 
 LABEL_5:
       v16 += 24;
-      if (v16 == v24)
+      if (v16 == v26)
       {
-        return result;
+        return;
       }
     }
 
-    v18 = result;
+    v19 = v17;
     while (1)
     {
-      v19 = v17 ? (v17 - 8) : 0;
-      Terminator = mlir::Block::getTerminator(v19);
-      if (!mlir::OpInterface<mlir::RegionBranchTerminatorOpInterface,mlir::detail::RegionBranchTerminatorOpInterfaceInterfaceTraits>::getInterfaceFor(Terminator))
+      v20 = v18 ? (v18 - 8) : 0;
+      mlir::Block::getTerminator(v20);
+      v22 = v21;
+      if (!mlir::OpInterface<mlir::RegionBranchTerminatorOpInterface,mlir::detail::RegionBranchTerminatorOpInterfaceInterfaceTraits>::getInterfaceFor(v21))
       {
         break;
       }
 
-      if (Terminator)
+      if (v22)
       {
-        InterfaceFor = mlir::OpInterface<mlir::RegionBranchTerminatorOpInterface,mlir::detail::RegionBranchTerminatorOpInterfaceInterfaceTraits>::getInterfaceFor(Terminator);
-        v25 = Terminator;
-        v26 = InterfaceFor;
-        mlir::RegionBranchTerminatorOpInterface::getMutableSuccessorOperands(&v25, a3);
-        v22 = mlir::MutableOperandRange::operator mlir::OperandRange(v32);
-        if (v33 != v34)
+        InterfaceFor = mlir::OpInterface<mlir::RegionBranchTerminatorOpInterface,mlir::detail::RegionBranchTerminatorOpInterfaceInterfaceTraits>::getInterfaceFor(v22);
+        v27 = v22;
+        v28 = InterfaceFor;
+        mlir::RegionBranchTerminatorOpInterface::getMutableSuccessorOperands(&v27, a3);
+        v24 = mlir::MutableOperandRange::operator mlir::OperandRange(v34);
+        if (v35 != v36)
         {
-          free(v33);
+          free(v35);
         }
 
-        result = collectUnderlyingAddressValues(*(v22 + 32 * v18 + 24), a6, a7, a8);
-        v17 = *(v17 + 8);
-        if (v17 == v16)
+        collectUnderlyingAddressValues(*(v24 + 32 * v19 + 24), a6, a7, a8);
+        v18 = *(v18 + 8);
+        if (v18 == v16)
         {
           goto LABEL_5;
         }
@@ -1016,37 +1018,34 @@ LABEL_5:
 
       else
       {
-        v25 = 0;
-        v26 = 0;
+        v27 = 0;
+        v28 = 0;
 LABEL_9:
-        result = mlir::Block::getNumSuccessors(v19);
-        if (result)
+        if (mlir::Block::getNumSuccessors(v20))
         {
-          v23 = *(a8 + 8);
-          if (v23 >= *(a8 + 12))
+          v25 = *(a8 + 8);
+          if (v25 >= *(a8 + 12))
           {
             llvm::SmallVectorBase<unsigned int>::grow_pod();
           }
 
-          *(*a8 + 8 * v23) = v30;
+          *(*a8 + 8 * v25) = v32;
           ++*(a8 + 8);
-          return result;
+          return;
         }
 
-        v17 = *(v17 + 8);
-        if (v17 == v16)
+        v18 = *(v18 + 8);
+        if (v18 == v16)
         {
           goto LABEL_5;
         }
       }
     }
 
-    v25 = 0;
-    v26 = 0;
+    v27 = 0;
+    v28 = 0;
     goto LABEL_9;
   }
-
-  return result;
 }
 
 uint64_t collectUnderlyingAddressValues(mlir::RegionBranchOpInterface,mlir::Region *,mlir::Value,unsigned int,unsigned int,llvm::DenseSet<mlir::Value,llvm::DenseMapInfo<mlir::Value,void>> &,llvm::SmallVectorImpl<mlir::Value> &)::$_0::operator()(uint64_t a1, uint64_t a2)
@@ -1159,14 +1158,14 @@ LABEL_31:
   return v7 | v8 | v6;
 }
 
-void mlir::dataflow::ConstantValue::print(mlir::dataflow::ConstantValue *this, llvm::raw_ostream *a2)
+void mlir::dataflow::ConstantValue::print(uint64_t *this, llvm::raw_ostream *a2)
 {
-  if (*(this + 8))
+  if (this[1])
   {
     if (*this)
     {
       v8 = *this;
-      mlir::Attribute::print(&v8, a2);
+      mlir::Attribute::print(&v8, a2, 0);
       return;
     }
 
@@ -1204,7 +1203,7 @@ LABEL_7:
   }
 }
 
-uint64_t mlir::dataflow::SparseConstantPropagation::visitOperation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6)
+uint64_t mlir::dataflow::SparseConstantPropagation::visitOperation(mlir::dataflow::AbstractSparseForwardDataFlowAnalysis *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6)
 {
   v7 = a5;
   v43[8] = *MEMORY[0x277D85DE8];
@@ -1892,39 +1891,39 @@ LABEL_21:
   return result;
 }
 
-void mlir::dataflow::Lattice<mlir::dataflow::ConstantValue>::~Lattice(mlir::AnalysisState *this)
+void mlir::dataflow::Lattice<mlir::dataflow::ConstantValue>::~Lattice(mlir::AnalysisState *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *this = &unk_286893088;
-  v2 = *(this + 15);
-  if (v2 != this + 136)
+  v5 = *(this + 15);
+  if (v5 != this + 136)
   {
-    free(v2);
+    free(v5);
   }
 
-  v3 = *(this + 8);
-  if (v3 != *(this + 7))
+  v6 = *(this + 8);
+  if (v6 != *(this + 7))
   {
-    free(v3);
+    free(v6);
   }
 
-  mlir::AnalysisState::~AnalysisState(this);
+  mlir::AnalysisState::~AnalysisState(this, a2, a3, a4);
 }
 
 {
   *this = &unk_286893088;
-  v2 = *(this + 15);
-  if (v2 != this + 136)
+  v5 = *(this + 15);
+  if (v5 != this + 136)
   {
-    free(v2);
+    free(v5);
   }
 
-  v3 = *(this + 8);
-  if (v3 != *(this + 7))
+  v6 = *(this + 8);
+  if (v6 != *(this + 7))
   {
-    free(v3);
+    free(v6);
   }
 
-  mlir::AnalysisState::~AnalysisState(this);
+  mlir::AnalysisState::~AnalysisState(this, a2, a3, a4);
 }
 
 void sub_256E43E90()
@@ -1933,14 +1932,14 @@ void sub_256E43E90()
   JUMPOUT(0x259C63180);
 }
 
-void mlir::dataflow::Lattice<mlir::dataflow::ConstantValue>::print(uint64_t a1, llvm::raw_ostream *this)
+void mlir::dataflow::Lattice<mlir::dataflow::ConstantValue>::print(uint64_t result, llvm::raw_ostream *this)
 {
-  if (*(a1 + 176))
+  if (*(result + 176))
   {
-    if (*(a1 + 168))
+    if (*(result + 168))
     {
-      v8 = *(a1 + 168);
-      mlir::Attribute::print(&v8, this);
+      v8 = *(result + 168);
+      mlir::Attribute::print(&v8, this, 0);
       return;
     }
 
@@ -2110,9 +2109,9 @@ void mlir::dataflow::Executable::onUpdate(mlir::dataflow::Executable *this, mlir
       v12 = *(a2 + 5) + v6;
       if (v11 == v12)
       {
-        v52 = *v5;
+        v53 = *v5;
         std::deque<std::pair<mlir::ProgramPoint,mlir::DataFlowAnalysis *>>::__add_back_capacity(a2 + 1);
-        v10 = v52;
+        v10 = v53;
         v9 = *(a2 + 2);
         v12 = *(a2 + 6) + *(a2 + 5);
       }
@@ -2264,25 +2263,26 @@ void mlir::dataflow::Executable::onUpdate(mlir::dataflow::Executable *this, mlir
                 v45 = *v42;
                 do
                 {
-                  ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(v44);
-                  v48 = *(a2 + 3);
-                  v49 = *(a2 + 2);
-                  v50 = 32 * (v48 - v49) - 1;
-                  if (v48 == v49)
+                  llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+                  v48 = v47;
+                  v49 = *(a2 + 3);
+                  v50 = *(a2 + 2);
+                  v51 = 32 * (v49 - v50) - 1;
+                  if (v49 == v50)
                   {
-                    v50 = 0;
+                    v51 = 0;
                   }
 
-                  v51 = *(a2 + 6) + *(a2 + 5);
-                  if (v50 == v51)
+                  v52 = *(a2 + 6) + *(a2 + 5);
+                  if (v51 == v52)
                   {
                     std::deque<std::pair<mlir::ProgramPoint,mlir::DataFlowAnalysis *>>::__add_back_capacity(a2 + 1);
-                    v49 = *(a2 + 2);
-                    v51 = *(a2 + 6) + *(a2 + 5);
+                    v50 = *(a2 + 2);
+                    v52 = *(a2 + 6) + *(a2 + 5);
                   }
 
-                  v46 = (*(v49 + ((v51 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v51);
-                  *v46 = ValuePtr;
+                  v46 = (*(v50 + ((v52 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v52);
+                  *v46 = v48;
                   v46[1] = v45;
                   ++*(a2 + 6);
                   v44 = *(v44 + 8);
@@ -2636,7 +2636,7 @@ void mlir::dataflow::CFGEdge::getLoc(mlir::Block **this)
   mlir::FusedLoc::get(v6, 2, 0, Context);
 }
 
-void *mlir::dataflow::CFGEdge::print(mlir::Block **this, llvm::raw_ostream *a2)
+mlir::Block **mlir::dataflow::CFGEdge::print(mlir::Block **this, llvm::raw_ostream *a2)
 {
   mlir::Block::print(this[2], a2);
   v4 = *(a2 + 4);
@@ -2666,11 +2666,14 @@ void mlir::dataflow::DeadCodeAnalysis::DeadCodeAnalysis(mlir::dataflow::DeadCode
   v2[3] = 0;
   v2[4] = 0;
   *(v2 + 10) = 0;
+  v3 = v2[1];
   {
+    v4 = v3;
     mlir::dataflow::Executable::onUpdate();
+    v3 = v4;
   }
 
-  mlir::StorageUniquer::registerParametricStorageTypeImpl();
+  mlir::StorageUniquer::registerParametricStorageTypeImpl((v3 + 120), mlir::detail::TypeIDResolver<mlir::dataflow::CFGEdge,void>::resolveTypeID(void)::id, llvm::function_ref<void ()(mlir::StorageUniquer::BaseStorage *)>::callback_fn<void mlir::StorageUniquer::registerParametricStorageType<mlir::dataflow::CFGEdge>(mlir::TypeID)::{lambda(mlir::StorageUniquer::BaseStorage *)#1}>, &v5);
 }
 
 uint64_t mlir::dataflow::DeadCodeAnalysis::initialize(mlir::dataflow::DeadCodeAnalysis *this, mlir::Operation *a2)
@@ -2764,27 +2767,28 @@ LABEL_7:
     }
   }
 
-  if (mlir::Block::getTerminator(*(a2 + 16)) == a2)
+  mlir::Block::getTerminator(*(a2 + 16));
+  if (v6 == a2)
   {
 LABEL_10:
-    v6 = *(a2 + 16);
-    if (!v6)
+    v7 = *(a2 + 16);
+    if (!v7)
     {
       goto LABEL_15;
     }
 
-    v7 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(*(this + 1), v6);
-    v8 = *(v7 + 64);
-    if (*(v7 + 72) != v8)
+    v8 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(*(this + 1), v7);
+    v9 = *(v8 + 64);
+    if (*(v8 + 72) != v9)
     {
       goto LABEL_12;
     }
 
-    v18 = *(v7 + 84);
+    v18 = *(v8 + 84);
     if (v18)
     {
       v19 = 8 * v18;
-      v20 = *(v7 + 64);
+      v20 = *(v8 + 64);
       while (*v20 != this)
       {
         ++v20;
@@ -2805,12 +2809,12 @@ LABEL_15:
     }
 
 LABEL_29:
-    if (v18 < *(v7 + 80))
+    if (v18 < *(v8 + 80))
     {
-      *(v7 + 84) = v18 + 1;
-      *(v8 + 8 * v18) = this;
-      v10 = *(v7 + 136);
-      if (v10 >= *(v7 + 140))
+      *(v8 + 84) = v18 + 1;
+      *(v9 + 8 * v18) = this;
+      v11 = *(v8 + 136);
+      if (v11 >= *(v8 + 140))
       {
         goto LABEL_31;
       }
@@ -2819,22 +2823,22 @@ LABEL_29:
     else
     {
 LABEL_12:
-      llvm::SmallPtrSetImplBase::insert_imp_big((v7 + 64), this);
-      if ((v9 & 1) == 0)
+      llvm::SmallPtrSetImplBase::insert_imp_big((v8 + 64), this);
+      if ((v10 & 1) == 0)
       {
         goto LABEL_15;
       }
 
-      v10 = *(v7 + 136);
-      if (v10 >= *(v7 + 140))
+      v11 = *(v8 + 136);
+      if (v11 >= *(v8 + 140))
       {
 LABEL_31:
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
     }
 
-    *(*(v7 + 128) + 8 * v10) = this;
-    ++*(v7 + 136);
+    *(*(v8 + 128) + 8 * v11) = this;
+    ++*(v8 + 136);
     goto LABEL_15;
   }
 
@@ -2845,19 +2849,18 @@ LABEL_9:
   }
 
 LABEL_16:
-  v11 = *(a2 + 44);
-  if ((v11 & 0x7FFFFF) == 0)
+  v12 = *(a2 + 44);
+  if ((v12 & 0x7FFFFF) == 0)
   {
     return 1;
   }
 
-  v12 = (((a2 + 16 * ((v11 >> 23) & 1) + ((v11 >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(a2 + 40));
-  v13 = (v12 + 24 * (v11 & 0x7FFFFF));
+  v13 = (((a2 + 16 * ((v12 >> 23) & 1) + ((v12 >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(a2 + 40));
+  v14 = (v13 + 24 * (v12 & 0x7FFFFF));
   while (1)
   {
-    mlir::Region::OpIterator::OpIterator(&v23, v12, 0);
-    mlir::Region::OpIterator::OpIterator(&v21, v12, 1);
-    v15 = v24;
+    mlir::Region::OpIterator::OpIterator(&v23, v13, 0);
+    mlir::Region::OpIterator::OpIterator(&v21, v13, 1);
     v16 = v22;
     if (v24 != v22)
     {
@@ -2865,9 +2868,9 @@ LABEL_16:
     }
 
 LABEL_18:
-    v12 = (v12 + 24);
+    v13 = (v13 + 24);
     result = 1;
-    if (v12 == v13)
+    if (v13 == v14)
     {
       return result;
     }
@@ -2875,14 +2878,13 @@ LABEL_18:
 
   while (1)
   {
-    ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(v15);
-    if ((mlir::dataflow::DeadCodeAnalysis::initializeRecursively(this, ValuePtr) & 1) == 0)
+    llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+    if ((mlir::dataflow::DeadCodeAnalysis::initializeRecursively(this, v17) & 1) == 0)
     {
       return 0;
     }
 
     mlir::Region::OpIterator::operator++(&v23);
-    v15 = v24;
     if (v24 == v16)
     {
       goto LABEL_18;
@@ -2966,7 +2968,7 @@ uint64_t mlir::dataflow::DeadCodeAnalysis::markEntryBlocksLive(uint64_t this, ml
   return this;
 }
 
-uint64_t mlir::dataflow::DeadCodeAnalysis::visit(uint64_t *a1, uint64_t a2)
+uint64_t mlir::dataflow::DeadCodeAnalysis::visit(mlir::dataflow::DeadCodeAnalysis *a1, uint64_t a2)
 {
   if ((a2 & 4) != 0)
   {
@@ -2974,7 +2976,7 @@ uint64_t mlir::dataflow::DeadCodeAnalysis::visit(uint64_t *a1, uint64_t a2)
   }
 
   v3 = a2 & 0xFFFFFFFFFFFFFFF8;
-  if (*(mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(a1[1], *((a2 & 0xFFFFFFFFFFFFFFF8) + 16)) + 56) != 1)
+  if (*(mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(*(a1 + 1), *((a2 & 0xFFFFFFFFFFFFFFF8) + 16)) + 56) != 1)
   {
     return 1;
   }
@@ -2997,7 +2999,7 @@ uint64_t mlir::dataflow::DeadCodeAnalysis::visit(uint64_t *a1, uint64_t a2)
 
     else if (mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(v3) && (mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(v3), v3))
     {
-      v8 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(a1[1], v3);
+      v8 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(a1 + 1), v3);
       mlir::DataFlowAnalysis::addDependency(a1, v8, v3);
       if (*(v8 + 56) != 1 || *(v8 + 136))
       {
@@ -3021,7 +3023,7 @@ uint64_t mlir::dataflow::DeadCodeAnalysis::visit(uint64_t *a1, uint64_t a2)
                 v14 = 0;
               }
 
-              v15 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(a1[1], v14);
+              v15 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(*(a1 + 1), v14);
               if (*(v15 + 56))
               {
                 v12 = 0;
@@ -3047,46 +3049,46 @@ uint64_t mlir::dataflow::DeadCodeAnalysis::visit(uint64_t *a1, uint64_t a2)
 
     else
     {
-      v19 = *(v3 + 44);
-      if ((v19 & 0x7FFFFF) != 0)
+      v20 = *(v3 + 44);
+      if ((v20 & 0x7FFFFF) != 0)
       {
-        v20 = (((v3 + 16 * ((v19 >> 23) & 1) + ((v19 >> 21) & 0x7F8) + 64) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v3 + 40));
-        v21 = 24 * (v19 & 0x7FFFFF);
+        v21 = (((v3 + 16 * ((v20 >> 23) & 1) + ((v20 >> 21) & 0x7F8) + 64) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v3 + 40));
+        v22 = 24 * (v20 & 0x7FFFFF);
         do
         {
-          if (v20 != *v20)
+          if (v21 != *v21)
           {
-            v23 = v20[1];
-            if (v23)
+            v24 = v21[1];
+            if (v24)
             {
-              v24 = v23 - 8;
+              v25 = v24 - 8;
             }
 
             else
             {
-              v24 = 0;
+              v25 = 0;
             }
 
-            v25 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(a1[1], v24);
-            if (*(v25 + 56))
+            v26 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(*(a1 + 1), v25);
+            if (*(v26 + 56))
             {
-              v22 = 0;
+              v23 = 0;
             }
 
             else
             {
-              v22 = 1;
-              *(v25 + 56) = 1;
+              v23 = 1;
+              *(v26 + 56) = 1;
             }
 
-            mlir::DataFlowAnalysis::propagateIfChanged(a1, v25, v22);
+            mlir::DataFlowAnalysis::propagateIfChanged(a1, v26, v23);
           }
 
-          v20 += 3;
-          v21 -= 24;
+          v21 += 3;
+          v22 -= 24;
         }
 
-        while (v21);
+        while (v22);
       }
     }
   }
@@ -3118,19 +3120,20 @@ uint64_t mlir::dataflow::DeadCodeAnalysis::visit(uint64_t *a1, uint64_t a2)
     }
 
 LABEL_32:
-    if (mlir::Block::getTerminator(*(v3 + 16)) != v3)
+    mlir::Block::getTerminator(*(v3 + 16));
+    if (v16 != v3)
     {
       goto LABEL_54;
     }
 
-    v16 = *(v3 + 16);
-    if (v16)
+    v17 = *(v3 + 16);
+    if (v17)
     {
-      v17 = mlir::Block::getParentOp(v16);
-      if (mlir::OpInterface<mlir::RegionBranchOpInterface,mlir::detail::RegionBranchOpInterfaceInterfaceTraits>::getInterfaceFor(v17) && v17)
+      v18 = mlir::Block::getParentOp(v17);
+      if (mlir::OpInterface<mlir::RegionBranchOpInterface,mlir::detail::RegionBranchOpInterfaceInterfaceTraits>::getInterfaceFor(v18) && v18)
       {
-        v18 = mlir::OpInterface<mlir::RegionBranchOpInterface,mlir::detail::RegionBranchOpInterfaceInterfaceTraits>::getInterfaceFor(v17);
-        mlir::dataflow::DeadCodeAnalysis::visitRegionTerminator(a1, v3, v17, v18);
+        v19 = mlir::OpInterface<mlir::RegionBranchOpInterface,mlir::detail::RegionBranchOpInterfaceInterfaceTraits>::getInterfaceFor(v18);
+        mlir::dataflow::DeadCodeAnalysis::visitRegionTerminator(a1, v3, v18, v19);
         goto LABEL_54;
       }
     }
@@ -3140,14 +3143,14 @@ LABEL_32:
       mlir::OpInterface<mlir::RegionBranchOpInterface,mlir::detail::RegionBranchOpInterfaceInterfaceTraits>::getInterfaceFor(0);
     }
 
-    v26 = *(v3 + 16);
-    if (v26)
+    v27 = *(v3 + 16);
+    if (v27)
     {
-      v27 = mlir::Block::getParentOp(v26);
-      if (mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(v27) && v27)
+      v28 = mlir::Block::getParentOp(v27);
+      if (mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(v28) && v28)
       {
-        mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(v27);
-        mlir::dataflow::DeadCodeAnalysis::visitCallableTerminator(a1, v3, v27);
+        v29 = mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(v28);
+        mlir::dataflow::DeadCodeAnalysis::visitCallableTerminator(a1, v3, v28, v29);
       }
     }
 
@@ -3163,71 +3166,71 @@ LABEL_54:
     }
   }
 
-  if (mlir::OpInterface<mlir::BranchOpInterface,mlir::detail::BranchOpInterfaceInterfaceTraits>::getInterfaceFor(v3) && (v28 = mlir::OpInterface<mlir::BranchOpInterface,mlir::detail::BranchOpInterfaceInterfaceTraits>::getInterfaceFor(v3), v3))
+  if (mlir::OpInterface<mlir::BranchOpInterface,mlir::detail::BranchOpInterfaceInterfaceTraits>::getInterfaceFor(v3) && (v30 = mlir::OpInterface<mlir::BranchOpInterface,mlir::detail::BranchOpInterfaceInterfaceTraits>::getInterfaceFor(v3), v3))
   {
-    mlir::dataflow::DeadCodeAnalysis::visitBranchOperation(a1, v3, v28);
+    mlir::dataflow::DeadCodeAnalysis::visitBranchOperation(a1, v3, v30);
   }
 
   else
   {
-    mlir::SuccessorRange::SuccessorRange(&v37, v3);
-    v30 = v38;
-    if (v38)
+    mlir::SuccessorRange::SuccessorRange(&v39, v3);
+    v32 = v40;
+    if (v40)
     {
-      v31 = (v37 + 24);
+      v33 = (v39 + 24);
       do
       {
         while (1)
         {
-          v32 = *v31;
-          v37 = *(v3 + 16);
-          v39 = v32;
-          v33 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(a1[1], v32);
-          if (*(v33 + 56))
+          v34 = *v33;
+          v39 = *(v3 + 16);
+          v41 = v34;
+          v35 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(*(a1 + 1), v34);
+          if (*(v35 + 56))
           {
-            v34 = 0;
+            v36 = 0;
           }
 
           else
           {
-            v34 = 1;
-            *(v33 + 56) = 1;
+            v36 = 1;
+            *(v35 + 56) = 1;
           }
 
-          mlir::DataFlowAnalysis::propagateIfChanged(a1, v33, v34);
-          v35 = mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>((a1[1] + 120), 0, 0, &v37, &v39);
-          v36 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::dataflow::CFGEdge *>(a1[1], v35);
-          if (*(v36 + 56))
+          mlir::DataFlowAnalysis::propagateIfChanged(a1, v35, v36);
+          v37 = mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>((*(a1 + 1) + 120), 0, 0, &v39, &v41);
+          v38 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::dataflow::CFGEdge *>(*(a1 + 1), v37);
+          if (*(v38 + 56))
           {
             break;
           }
 
-          *(v36 + 56) = 1;
-          mlir::DataFlowAnalysis::propagateIfChanged(a1, v36, 1);
-          v31 += 4;
-          if (!--v30)
+          *(v38 + 56) = 1;
+          mlir::DataFlowAnalysis::propagateIfChanged(a1, v38, 1);
+          v33 += 4;
+          if (!--v32)
           {
             return 1;
           }
         }
 
-        mlir::DataFlowAnalysis::propagateIfChanged(a1, v36, 0);
-        v31 += 4;
-        --v30;
+        mlir::DataFlowAnalysis::propagateIfChanged(a1, v38, 0);
+        v33 += 4;
+        --v32;
       }
 
-      while (v30);
+      while (v32);
     }
   }
 
   return 1;
 }
 
-uint64_t mlir::dataflow::DeadCodeAnalysis::visitCallOperation(uint64_t a1, void *a2, void *a3)
+uint64_t mlir::dataflow::DeadCodeAnalysis::visitCallOperation(void *a1, void *a2, void *a3)
 {
   v22[0] = a2;
   v22[1] = a3;
-  v4 = mlir::CallOpInterface::resolveCallableInTable(v22, a1 + 24);
+  v4 = mlir::CallOpInterface::resolveCallableInTable(v22, (a1 + 3));
   if (!v4)
   {
     goto LABEL_17;
@@ -3250,13 +3253,13 @@ uint64_t mlir::dataflow::DeadCodeAnalysis::visitCallOperation(uint64_t a1, void 
   else if (!mlir::DictionaryAttr::contains(v5 + 56, "sym_name", 8uLL))
   {
 LABEL_17:
-    v15 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(a1 + 8), v22[0]);
+    v15 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(a1[1], v22[0]);
     v16 = *(v15 + 56);
     *(v15 + 56) = 0;
     return mlir::DataFlowAnalysis::propagateIfChanged(a1, v15, v16);
   }
 
-  v8 = *(a1 + 16);
+  v8 = a1[2];
   if (v8 != v5 && !mlir::Operation::isProperAncestor(v8, v5))
   {
     goto LABEL_17;
@@ -3279,7 +3282,7 @@ LABEL_17:
     v24 = 0;
   }
 
-  v10 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(a1 + 8), v5);
+  v10 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(a1[1], v5);
   v11 = v22[0];
   v12 = *(v10 + 64);
   if (*(v10 + 72) == v12)
@@ -3332,12 +3335,12 @@ LABEL_16:
   return mlir::DataFlowAnalysis::propagateIfChanged(a1, v10, v14);
 }
 
-void mlir::dataflow::DeadCodeAnalysis::visitRegionBranchOperation(uint64_t *a1, char *a2, char *a3)
+void mlir::dataflow::DeadCodeAnalysis::visitRegionBranchOperation(mlir::dataflow::DeadCodeAnalysis *a1, char *a2, char *a3)
 {
   v21 = *MEMORY[0x277D85DE8];
   v13[0] = a2;
   v13[1] = a3;
-  mlir::dataflow::DeadCodeAnalysis::getOperandValues(a1, a2, &v17);
+  mlir::dataflow::DeadCodeAnalysis::getOperandValues(&v17, a1, a2);
   if (v20 != 1)
   {
     return;
@@ -3369,7 +3372,7 @@ void mlir::dataflow::DeadCodeAnalysis::visitRegionBranchOperation(uint64_t *a1, 
       }
 
       v11 = v10 | 4;
-      v12 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::ProgramPoint>(a1[1], v10 | 4);
+      v12 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::ProgramPoint>(*(a1 + 1), v10 | 4);
       if (*(v12 + 56))
       {
 LABEL_4:
@@ -3381,7 +3384,7 @@ LABEL_4:
     else
     {
       v11 = v13[0] & 0xFFFFFFFFFFFFFFFBLL;
-      v12 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::ProgramPoint>(a1[1], v13[0] & 0xFFFFFFFFFFFFFFFBLL);
+      v12 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::ProgramPoint>(*(a1 + 1), v13[0] & 0xFFFFFFFFFFFFFFFBLL);
       if (*(v12 + 56))
       {
         goto LABEL_4;
@@ -3392,7 +3395,7 @@ LABEL_4:
     *(v12 + 56) = 1;
 LABEL_5:
     mlir::DataFlowAnalysis::propagateIfChanged(a1, v12, v6);
-    v7 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::ProgramPoint>(a1[1], v11);
+    v7 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::ProgramPoint>(*(a1 + 1), v11);
     v8 = mlir::dataflow::PredecessorState::join(v7, v13[0], v4[1], v4[2]);
     mlir::DataFlowAnalysis::propagateIfChanged(a1, v7, v8);
     v4 += 3;
@@ -3412,12 +3415,12 @@ LABEL_15:
   }
 }
 
-void mlir::dataflow::DeadCodeAnalysis::visitRegionTerminator(uint64_t *a1, mlir::Operation *a2, uint64_t a3, uint64_t a4)
+void mlir::dataflow::DeadCodeAnalysis::visitRegionTerminator(mlir::dataflow::DeadCodeAnalysis *a1, mlir::Block **a2, uint64_t a3, uint64_t a4)
 {
   v32 = *MEMORY[0x277D85DE8];
   v24[0] = a3;
   v24[1] = a4;
-  mlir::dataflow::DeadCodeAnalysis::getOperandValues(a1, a2, &v28);
+  mlir::dataflow::DeadCodeAnalysis::getOperandValues(&v28, a1, a2);
   if (v31 != 1)
   {
     return;
@@ -3447,7 +3450,7 @@ void mlir::dataflow::DeadCodeAnalysis::visitRegionTerminator(uint64_t *a1, mlir:
   if (!a2)
   {
 LABEL_6:
-    v7 = *(a2 + 2);
+    v7 = a2[2];
     if (v7)
     {
       Parent = mlir::Block::getParent(v7);
@@ -3484,7 +3487,7 @@ LABEL_14:
           v17 = 0;
         }
 
-        v18 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(a1[1], v17);
+        v18 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(*(a1 + 1), v17);
         if (*(v18 + 56))
         {
           v19 = 0;
@@ -3508,12 +3511,12 @@ LABEL_14:
           v21 = 0;
         }
 
-        v12 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Block *>(a1[1], v21);
+        v12 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Block *>(*(a1 + 1), v21);
       }
 
       else
       {
-        v12 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(a1[1], v24[0]);
+        v12 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(a1 + 1), v24[0]);
       }
 
       v13 = v12;
@@ -3547,38 +3550,38 @@ LABEL_29:
   }
 }
 
-uint64_t mlir::dataflow::DeadCodeAnalysis::visitCallableTerminator(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t mlir::dataflow::DeadCodeAnalysis::visitCallableTerminator(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(a1 + 8), a3);
-  mlir::DataFlowAnalysis::addDependency(a1, v5, a2 & 0xFFFFFFFFFFFFFFFBLL);
+  v6 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(a1 + 8), a3);
+  mlir::DataFlowAnalysis::addDependency(a1, v6, a2 & 0xFFFFFFFFFFFFFFFBLL);
   {
     mlir::op_definition_impl::hasTrait<mlir::OpTrait::ZeroRegions,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::HasParent<mlir::mpsx::StitchedOp>::Impl,mlir::OpTrait::OpInvariants,mlir::OpTrait::IsTerminator,mlir::RegionBranchTerminatorOpInterface::Trait,mlir::OpTrait::ReturnLike>();
   }
 
   result = (*(**(a2 + 48) + 32))(*(a2 + 48), mlir::detail::TypeIDResolver<mlir::OpTrait::ReturnLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ReturnLike>(void)::Empty>,void>::resolveTypeID(void)::id);
-  v7 = *(v5 + 136);
-  if (v7)
+  v8 = *(v6 + 136);
+  if (v8)
   {
-    v8 = *(v5 + 128);
+    v9 = *(v6 + 128);
     if (result)
     {
-      v9 = &v8[v7];
+      v10 = &v9[v8];
       while (1)
       {
-        v10 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(a1 + 8), *v8);
-        v11 = *(v10 + 64);
-        if (*(v10 + 72) == v11)
+        v11 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(a1 + 8), *v9);
+        v12 = *(v11 + 64);
+        if (*(v11 + 72) == v12)
         {
-          v14 = *(v10 + 84);
-          if (v14)
+          v15 = *(v11 + 84);
+          if (v15)
           {
-            v15 = 8 * v14;
-            v16 = *(v10 + 64);
-            while (*v16 != a2)
+            v16 = 8 * v15;
+            v17 = *(v11 + 64);
+            while (*v17 != a2)
             {
-              ++v16;
-              v15 -= 8;
-              if (!v15)
+              ++v17;
+              v16 -= 8;
+              if (!v16)
               {
                 goto LABEL_16;
               }
@@ -3588,12 +3591,12 @@ uint64_t mlir::dataflow::DeadCodeAnalysis::visitCallableTerminator(uint64_t a1, 
           }
 
 LABEL_16:
-          if (v14 < *(v10 + 80))
+          if (v15 < *(v11 + 80))
           {
-            *(v10 + 84) = v14 + 1;
-            *(v11 + 8 * v14) = a2;
-            v13 = *(v10 + 136);
-            if (v13 >= *(v10 + 140))
+            *(v11 + 84) = v15 + 1;
+            *(v12 + 8 * v15) = a2;
+            v14 = *(v11 + 136);
+            if (v14 >= *(v11 + 140))
             {
 LABEL_18:
               llvm::SmallVectorBase<unsigned int>::grow_pod();
@@ -3603,20 +3606,20 @@ LABEL_18:
           }
         }
 
-        llvm::SmallPtrSetImplBase::insert_imp_big((v10 + 64), a2);
-        if (v12)
+        llvm::SmallPtrSetImplBase::insert_imp_big((v11 + 64), a2);
+        if (v13)
         {
-          v13 = *(v10 + 136);
-          if (v13 >= *(v10 + 140))
+          v14 = *(v11 + 136);
+          if (v14 >= *(v11 + 140))
           {
             goto LABEL_18;
           }
 
 LABEL_10:
-          *(*(v10 + 128) + 8 * v13) = a2;
-          ++*(v10 + 136);
-          result = mlir::DataFlowAnalysis::propagateIfChanged(a1, v10, 1);
-          if (++v8 == v9)
+          *(*(v11 + 128) + 8 * v14) = a2;
+          ++*(v11 + 136);
+          result = mlir::DataFlowAnalysis::propagateIfChanged(a1, v11, 1);
+          if (++v9 == v10)
           {
             return result;
           }
@@ -3625,8 +3628,8 @@ LABEL_10:
         else
         {
 LABEL_6:
-          result = mlir::DataFlowAnalysis::propagateIfChanged(a1, v10, 0);
-          if (++v8 == v9)
+          result = mlir::DataFlowAnalysis::propagateIfChanged(a1, v11, 0);
+          if (++v9 == v10)
           {
             return result;
           }
@@ -3634,29 +3637,29 @@ LABEL_6:
       }
     }
 
-    v17 = 8 * v7;
+    v18 = 8 * v8;
     do
     {
-      v18 = *v8++;
-      v19 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(a1 + 8), v18);
-      v20 = *(v19 + 56);
-      *(v19 + 56) = 0;
-      result = mlir::DataFlowAnalysis::propagateIfChanged(a1, v19, v20);
-      v17 -= 8;
+      v19 = *v9++;
+      v20 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(a1 + 8), v19);
+      v21 = *(v20 + 56);
+      *(v20 + 56) = 0;
+      result = mlir::DataFlowAnalysis::propagateIfChanged(a1, v20, v21);
+      v18 -= 8;
     }
 
-    while (v17);
+    while (v18);
   }
 
   return result;
 }
 
-void mlir::dataflow::DeadCodeAnalysis::visitBranchOperation(uint64_t *a1, Operation *a2, Operation *a3)
+void mlir::dataflow::DeadCodeAnalysis::visitBranchOperation(mlir::dataflow::DeadCodeAnalysis *a1, Operation *a2, Operation *a3)
 {
   v25 = *MEMORY[0x277D85DE8];
   v17[0] = a2;
   v17[1] = a3;
-  mlir::dataflow::DeadCodeAnalysis::getOperandValues(a1, a2, &v21);
+  mlir::dataflow::DeadCodeAnalysis::getOperandValues(&v21, a1, a2);
   if (v24 == 1)
   {
     SuccessorForOperands = mlir::BranchOpInterface::getSuccessorForOperands(v17, v21, v22);
@@ -3664,7 +3667,7 @@ void mlir::dataflow::DeadCodeAnalysis::visitBranchOperation(uint64_t *a1, Operat
     {
       v18 = *(v17[0] + 2);
       v20 = SuccessorForOperands;
-      v5 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(a1[1], SuccessorForOperands);
+      v5 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(*(a1 + 1), SuccessorForOperands);
       if (*(v5 + 56))
       {
         v6 = 0;
@@ -3677,8 +3680,8 @@ void mlir::dataflow::DeadCodeAnalysis::visitBranchOperation(uint64_t *a1, Operat
       }
 
       mlir::DataFlowAnalysis::propagateIfChanged(a1, v5, v6);
-      v14 = mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>((a1[1] + 120), 0, 0, &v18, &v20);
-      v15 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::dataflow::CFGEdge *>(a1[1], v14);
+      v14 = mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>((*(a1 + 1) + 120), 0, 0, &v18, &v20);
+      v15 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::dataflow::CFGEdge *>(*(a1 + 1), v14);
       if (*(v15 + 56))
       {
         v16 = 0;
@@ -3707,7 +3710,7 @@ void mlir::dataflow::DeadCodeAnalysis::visitBranchOperation(uint64_t *a1, Operat
             v9 = *v8;
             v18 = *(v17[0] + 2);
             v20 = v9;
-            v10 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(a1[1], v9);
+            v10 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(*(a1 + 1), v9);
             if (*(v10 + 56))
             {
               v11 = 0;
@@ -3720,8 +3723,8 @@ void mlir::dataflow::DeadCodeAnalysis::visitBranchOperation(uint64_t *a1, Operat
             }
 
             mlir::DataFlowAnalysis::propagateIfChanged(a1, v10, v11);
-            v12 = mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>((a1[1] + 120), 0, 0, &v18, &v20);
-            v13 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::dataflow::CFGEdge *>(a1[1], v12);
+            v12 = mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>((*(a1 + 1) + 120), 0, 0, &v18, &v20);
+            v13 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::dataflow::CFGEdge *>(*(a1 + 1), v12);
             if (*(v13 + 56))
             {
               break;
@@ -3753,15 +3756,15 @@ LABEL_19:
   }
 }
 
-void mlir::dataflow::DeadCodeAnalysis::getOperandValues(mlir::dataflow::DeadCodeAnalysis *this@<X0>, mlir::Operation *a2@<X1>, uint64_t a3@<X8>)
+void mlir::dataflow::DeadCodeAnalysis::getOperandValues(void **__return_ptr a1@<X8>, mlir::dataflow::DeadCodeAnalysis *this@<X0>, mlir::Operation *a3@<X1>)
 {
   v15[6] = *MEMORY[0x277D85DE8];
   v12 = this;
   __src = v15;
   v14 = 0x600000000;
-  if ((*(a2 + 46) & 0x80) != 0)
+  if ((*(a3 + 46) & 0x80) != 0)
   {
-    v4 = *(a2 + 17);
+    v4 = *(a3 + 17);
     if (v4 >= 7)
     {
       llvm::SmallVectorBase<unsigned int>::grow_pod();
@@ -3770,7 +3773,7 @@ void mlir::dataflow::DeadCodeAnalysis::getOperandValues(mlir::dataflow::DeadCode
     if (v4)
     {
       v5 = v4;
-      v6 = (*(a2 + 9) + 24);
+      v6 = (*(a3 + 9) + 24);
       while (1)
       {
         v7 = llvm::function_ref<mlir::dataflow::Lattice<mlir::dataflow::ConstantValue> const* ()(mlir::Value)>::callback_fn<mlir::dataflow::DeadCodeAnalysis::getOperandValues(mlir::Operation *)::$_0>(&v12, *v6);
@@ -3795,20 +3798,20 @@ void mlir::dataflow::DeadCodeAnalysis::getOperandValues(mlir::dataflow::DeadCode
       }
 
       v9 = 0;
-      *a3 = 0;
+      *a1 = 0;
       goto LABEL_17;
     }
   }
 
   v8 = v14;
 LABEL_12:
-  *a3 = a3 + 16;
-  *(a3 + 8) = 0x600000000;
+  *a1 = a1 + 2;
+  a1[1] = 0x600000000;
   v9 = 1;
-  if (!v8 || &__src == a3)
+  if (!v8 || &__src == a1)
   {
 LABEL_17:
-    *(a3 + 64) = v9;
+    *(a1 + 64) = v9;
     v11 = __src;
     if (__src == v15)
     {
@@ -3825,22 +3828,22 @@ LABEL_17:
       llvm::SmallVectorBase<unsigned int>::grow_pod();
     }
 
-    memcpy((a3 + 16), __src, 8 * v8);
-    *(a3 + 8) = v8;
+    memcpy(a1 + 2, __src, 8 * v8);
+    *(a1 + 2) = v8;
   }
 
   else
   {
-    *a3 = __src;
+    *a1 = __src;
     v10 = HIDWORD(v14);
-    *(a3 + 8) = v8;
-    *(a3 + 12) = v10;
+    *(a1 + 2) = v8;
+    *(a1 + 3) = v10;
     __src = v15;
     HIDWORD(v14) = 0;
   }
 
   LODWORD(v14) = 0;
-  *(a3 + 64) = 1;
+  *(a1 + 64) = 1;
   v11 = __src;
   if (__src != v15)
   {
@@ -3849,39 +3852,39 @@ LABEL_18:
   }
 }
 
-void mlir::dataflow::Executable::~Executable(mlir::dataflow::Executable *this)
+void mlir::dataflow::Executable::~Executable(mlir::dataflow::Executable *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *this = &unk_286892B50;
-  v2 = *(this + 16);
-  if (v2 != this + 144)
+  v5 = *(this + 16);
+  if (v5 != this + 144)
   {
-    free(v2);
+    free(v5);
   }
 
-  v3 = *(this + 9);
-  if (v3 != *(this + 8))
+  v6 = *(this + 9);
+  if (v6 != *(this + 8))
   {
-    free(v3);
+    free(v6);
   }
 
-  mlir::AnalysisState::~AnalysisState(this);
+  mlir::AnalysisState::~AnalysisState(this, a2, a3, a4);
 }
 
 {
   *this = &unk_286892B50;
-  v2 = *(this + 16);
-  if (v2 != this + 144)
+  v5 = *(this + 16);
+  if (v5 != this + 144)
   {
-    free(v2);
+    free(v5);
   }
 
-  v3 = *(this + 9);
-  if (v3 != *(this + 8))
+  v6 = *(this + 9);
+  if (v6 != *(this + 8))
   {
-    free(v3);
+    free(v6);
   }
 
-  mlir::AnalysisState::~AnalysisState(this);
+  mlir::AnalysisState::~AnalysisState(this, a2, a3, a4);
 }
 
 void sub_256E46198()
@@ -3890,7 +3893,7 @@ void sub_256E46198()
   JUMPOUT(0x259C63180);
 }
 
-void mlir::dataflow::PredecessorState::~PredecessorState(llvm **this)
+void mlir::dataflow::PredecessorState::~PredecessorState(llvm **this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *this = &unk_286892B98;
   llvm::deallocate_buffer(this[22], (24 * *(this + 48)));
@@ -3901,7 +3904,7 @@ void mlir::dataflow::PredecessorState::~PredecessorState(llvm **this)
   llvm::deallocate_buffer(this[22], (24 * *(this + 48)));
 }
 
-void sub_256E4620C(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_256E4620C(int a1, uint64_t a2, uint64_t a3, unint64_t a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   v13 = *(v12 + 16);
   if (v13 != (v12 + 144))
@@ -3915,24 +3918,24 @@ void sub_256E4620C(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
     free(v14);
   }
 
-  mlir::AnalysisState::~AnalysisState(v12);
+  mlir::AnalysisState::~AnalysisState(v12, a2, a3, a4);
 }
 
-void sub_256E46298()
+void sub_256E46298(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v1 = *(v0 + 16);
-  if (v1 != (v0 + 144))
+  v5 = *(v4 + 16);
+  if (v5 != (v4 + 144))
   {
-    free(v1);
+    free(v5);
   }
 
-  v2 = *(v0 + 9);
-  if (v2 != *(v0 + 8))
+  v6 = *(v4 + 9);
+  if (v6 != *(v4 + 8))
   {
-    free(v2);
+    free(v6);
   }
 
-  mlir::AnalysisState::~AnalysisState(v0);
+  mlir::AnalysisState::~AnalysisState(v4, a2, a3, a4);
 }
 
 void sub_256E462C4()
@@ -3948,79 +3951,79 @@ void mlir::dataflow::CFGEdge::~CFGEdge(mlir::dataflow::CFGEdge *this)
   JUMPOUT(0x259C63180);
 }
 
-void mlir::dataflow::DeadCodeAnalysis::~DeadCodeAnalysis(mlir::dataflow::DeadCodeAnalysis *this)
+void mlir::dataflow::DeadCodeAnalysis::~DeadCodeAnalysis(mlir::dataflow::DeadCodeAnalysis *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *this = &unk_286892B20;
-  v2 = *(this + 10);
-  v3 = *(this + 3);
-  if (v2)
+  v5 = *(this + 10);
+  v6 = *(this + 3);
+  if (v5)
   {
-    v4 = (v3 + 8);
-    v5 = 16 * v2;
+    v7 = (v6 + 8);
+    v8 = 16 * v5;
     do
     {
-      if ((*(v4 - 1) | 0x1000) != 0xFFFFFFFFFFFFF000)
+      if ((*(v7 - 1) | 0x1000) != 0xFFFFFFFFFFFFF000)
       {
-        v6 = *v4;
-        *v4 = 0;
-        if (v6)
+        v9 = *v7;
+        *v7 = 0;
+        if (v9)
         {
-          llvm::deallocate_buffer(*(v6 + 8), (16 * *(v6 + 24)));
+          llvm::deallocate_buffer(*(v9 + 8), (16 * *(v9 + 24)));
         }
       }
 
-      v4 += 2;
-      v5 -= 16;
+      v7 += 2;
+      v8 -= 16;
     }
 
-    while (v5);
-    v3 = *(this + 3);
-    v7 = (16 * *(this + 10));
+    while (v8);
+    v6 = *(this + 3);
+    v10 = (16 * *(this + 10));
   }
 
   else
   {
-    v7 = 0;
+    v10 = 0;
   }
 
-  llvm::deallocate_buffer(v3, v7);
+  llvm::deallocate_buffer(v6, v10);
 }
 
 {
   *this = &unk_286892B20;
-  v2 = *(this + 10);
-  v3 = *(this + 3);
-  if (v2)
+  v5 = *(this + 10);
+  v6 = *(this + 3);
+  if (v5)
   {
-    v4 = (v3 + 8);
-    v5 = 16 * v2;
+    v7 = (v6 + 8);
+    v8 = 16 * v5;
     do
     {
-      if ((*(v4 - 1) | 0x1000) != 0xFFFFFFFFFFFFF000)
+      if ((*(v7 - 1) | 0x1000) != 0xFFFFFFFFFFFFF000)
       {
-        v6 = *v4;
-        *v4 = 0;
-        if (v6)
+        v9 = *v7;
+        *v7 = 0;
+        if (v9)
         {
-          llvm::deallocate_buffer(*(v6 + 8), (16 * *(v6 + 24)));
+          llvm::deallocate_buffer(*(v9 + 8), (16 * *(v9 + 24)));
         }
       }
 
-      v4 += 2;
-      v5 -= 16;
+      v7 += 2;
+      v8 -= 16;
     }
 
-    while (v5);
-    v3 = *(this + 3);
-    v7 = (16 * *(this + 10));
+    while (v8);
+    v6 = *(this + 3);
+    v10 = (16 * *(this + 10));
   }
 
   else
   {
-    v7 = 0;
+    v10 = 0;
   }
 
-  llvm::deallocate_buffer(v3, v7);
+  llvm::deallocate_buffer(v6, v10);
 }
 
 void sub_256E463F4(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
@@ -4186,8 +4189,8 @@ void llvm::function_ref<void ()(mlir::Operation *,BOOL)>::callback_fn<mlir::data
   {
     do
     {
-      ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(v10);
-      if (mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(ValuePtr))
+      llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+      if (mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(v11))
       {
         break;
       }
@@ -4203,45 +4206,46 @@ void llvm::function_ref<void ()(mlir::Operation *,BOOL)>::callback_fn<mlir::data
     v12 = 0;
     while (1)
     {
-      v13 = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(v10);
+      llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+      v14 = v13;
       InterfaceFor = mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(v13);
-      __p = v13;
-      v30 = InterfaceFor;
+      __p = v14;
+      v31 = InterfaceFor;
       if (!mlir::CallableOpInterface::getCallableRegion(&__p))
       {
         goto LABEL_25;
       }
 
-      v15 = __p;
+      v16 = __p;
       InherentAttr = mlir::OpInterface<mlir::SymbolOpInterface,mlir::detail::SymbolOpInterfaceInterfaceTraits>::getInterfaceFor(__p);
       if (!InherentAttr)
       {
         goto LABEL_15;
       }
 
-      if (*(v15 + 47))
+      if (*(v16 + 47))
       {
-        InherentAttr = mlir::Operation::getInherentAttr(v15, "sym_name", 8);
-        if (v17)
+        InherentAttr = mlir::Operation::getInherentAttr(v16, "sym_name", 8);
+        if (v18)
         {
           break;
         }
       }
 
-      if (mlir::DictionaryAttr::contains((v15 + 7), "sym_name", 8uLL))
+      if (mlir::DictionaryAttr::contains((v16 + 7), "sym_name", 8uLL))
       {
 LABEL_17:
-        v18 = mlir::OpInterface<mlir::SymbolOpInterface,mlir::detail::SymbolOpInterfaceInterfaceTraits>::getInterfaceFor(v15);
-        v32 = v15;
-        v33 = v18;
-        if (v15)
+        v19 = mlir::OpInterface<mlir::SymbolOpInterface,mlir::detail::SymbolOpInterfaceInterfaceTraits>::getInterfaceFor(v16);
+        v33 = v16;
+        v34 = v19;
+        if (v16)
         {
-          if ((mlir::SymbolOpInterface::isPublic(&v32) & 1) != 0 || (a3 & 1) == 0 && mlir::SymbolOpInterface::isNested(&v32))
+          if ((mlir::SymbolOpInterface::isPublic(&v33) & 1) != 0 || (a3 & 1) == 0 && mlir::SymbolOpInterface::isNested(&v33))
           {
-            v19 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(v5 + 8), __p);
-            v20 = *(v19 + 56);
-            *(v19 + 56) = 0;
-            mlir::DataFlowAnalysis::propagateIfChanged(v5, v19, v20);
+            v20 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(v5 + 8), __p);
+            v21 = *(v20 + 56);
+            *(v20 + 56) = 0;
+            mlir::DataFlowAnalysis::propagateIfChanged(v5, v20, v21);
           }
 
           v12 = 1;
@@ -4250,8 +4254,8 @@ LABEL_17:
         goto LABEL_25;
       }
 
-      v32 = 0;
       v33 = 0;
+      v34 = 0;
       do
       {
 LABEL_25:
@@ -4261,45 +4265,45 @@ LABEL_25:
           break;
         }
 
-        v21 = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(v10);
+        llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
       }
 
-      while (!mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(v21));
+      while (!mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(v22));
       if (v10 == v9)
       {
         if (v12)
         {
-          mlir::SymbolTable::getSymbolUses(v6, &__p);
-          if (v31)
+          mlir::SymbolTable::getSymbolUses(&__p, v6);
+          if (v32)
           {
-            v22 = __p;
-            v23 = v30;
-            while (v22 != v23)
+            v23 = __p;
+            v24 = v31;
+            while (v23 != v24)
             {
-              if (!mlir::OpInterface<mlir::CallOpInterface,mlir::detail::CallOpInterfaceInterfaceTraits>::getInterfaceFor(*v22))
+              if (!mlir::OpInterface<mlir::CallOpInterface,mlir::detail::CallOpInterfaceInterfaceTraits>::getInterfaceFor(*v23))
               {
-                v24 = mlir::SymbolTableCollection::lookupSymbolIn(v5 + 24, **(a1 + 8), v22[1]);
-                v25 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(v5 + 8), v24);
-                v26 = *(v25 + 56);
-                *(v25 + 56) = 0;
-                mlir::DataFlowAnalysis::propagateIfChanged(v5, v25, v26);
+                v25 = mlir::SymbolTableCollection::lookupSymbolIn(v5 + 24, **(a1 + 8), v23[1]);
+                v26 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(v5 + 8), v25);
+                v27 = *(v26 + 56);
+                *(v26 + 56) = 0;
+                mlir::DataFlowAnalysis::propagateIfChanged(v5, v26, v27);
               }
 
-              v22 += 2;
+              v23 += 2;
             }
           }
 
           else
           {
-            v27 = **(a1 + 8);
-            v28 = v5;
-            v32 = &v28;
-            mlir::detail::walk<mlir::ForwardIterator>(v27, _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorEZZNS1_8dataflow16DeadCodeAnalysis25initializeSymbolCallablesES3_ENK3__0clES3_bEUlNS1_19CallableOpInterfaceEE_SE_vEENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S3_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_vEE5valueESN_E4typeES3_OT1_EUlS3_E_EEvlS3_, &v32, 1);
+            v28 = **(a1 + 8);
+            v29 = v5;
+            v33 = &v29;
+            mlir::detail::walk<mlir::ForwardIterator>(v28, _ZN4llvm12function_refIFvPN4mlir9OperationEEE11callback_fnIZNS1_6detail4walkILNS1_9WalkOrderE1ENS1_15ForwardIteratorEZZNS1_8dataflow16DeadCodeAnalysis25initializeSymbolCallablesES3_ENK3__0clES3_bEUlNS1_19CallableOpInterfaceEE_SE_vEENSt3__19enable_ifIXaantsr4llvm9is_one_ofIT2_S3_PNS1_6RegionEPNS1_5BlockEEE5valuesr3std7is_sameIT3_vEE5valueESN_E4typeES3_OT1_EUlS3_E_EEvlS3_, &v33, 1);
           }
 
-          if (v31 == 1 && __p)
+          if (v32 == 1 && __p)
           {
-            v30 = __p;
+            v31 = __p;
             operator delete(__p);
           }
         }
@@ -4314,8 +4318,8 @@ LABEL_25:
     }
 
 LABEL_15:
-    v32 = 0;
-    v33 = InherentAttr;
+    v33 = 0;
+    v34 = InherentAttr;
     goto LABEL_25;
   }
 }
@@ -4365,14 +4369,14 @@ uint64_t mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::
   return mlir::StorageUniquer::getParametricStorageTypeImpl(a1, mlir::detail::TypeIDResolver<mlir::dataflow::CFGEdge,void>::resolveTypeID(void)::id, (v6 >> 31) ^ v6, llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::dataflow::CFGEdge * mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>(llvm::function_ref<void ()(mlir::dataflow::CFGEdge *)>,mlir::TypeID,mlir::Block *&,mlir::Block *&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v14, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::dataflow::CFGEdge * mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>(llvm::function_ref<void ()(mlir::dataflow::CFGEdge *)>,mlir::TypeID,mlir::Block *&,mlir::Block *&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v13);
 }
 
-uint64_t llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::dataflow::CFGEdge * mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>(llvm::function_ref<void ()(mlir::dataflow::CFGEdge *)>,mlir::TypeID,mlir::Block *&,mlir::Block *&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(uint64_t a1, unint64_t *a2)
+uint64_t llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::dataflow::CFGEdge * mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>(llvm::function_ref<void ()(mlir::dataflow::CFGEdge *)>,mlir::TypeID,mlir::Block *&,mlir::Block *&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>(__n128 **a1, unint64_t *a2)
 {
   v4 = mlir::GenericLatticeAnchorBase<mlir::dataflow::CFGEdge,std::pair<mlir::Block *,mlir::Block *>>::construct<std::pair<mlir::Block *,mlir::Block *>>(a2, *a1);
   v5 = v3;
-  v6 = *(a1 + 8);
-  if (*v6)
+  v6 = a1[1];
+  if (v6->n128_u64[0])
   {
-    (*v6)(*(v6 + 8), v3, v4);
+    (v6->n128_u64[0])(v6->n128_u64[1], v3, v4);
   }
 
   return v5;
@@ -4383,11 +4387,11 @@ __n128 mlir::GenericLatticeAnchorBase<mlir::dataflow::CFGEdge,std::pair<mlir::Bl
   a1[10] += 32;
   v3 = *a1;
   v4 = a1[1];
-  Slow = (*a1 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = Slow + 32;
+  Slow = ((*a1 + 7) & 0xFFFFFFFFFFFFFFF8);
+  n128_u64 = Slow[2].n128_u64;
   if (v3)
   {
-    v7 = v6 > v4;
+    v7 = n128_u64 > v4;
   }
 
   else
@@ -4413,18 +4417,18 @@ LABEL_8:
     goto LABEL_6;
   }
 
-  *a1 = v6;
+  *a1 = n128_u64;
   {
     goto LABEL_8;
   }
 
 LABEL_6:
   v8 = mlir::detail::TypeIDResolver<mlir::dataflow::CFGEdge,void>::resolveTypeID(void)::id;
-  *Slow = &unk_286892C58;
-  *(Slow + 8) = v8;
+  Slow->n128_u64[0] = &unk_286892C58;
+  Slow->n128_u64[1] = v8;
   result = *a2;
-  *(Slow + 16) = *a2;
-  *Slow = &unk_286892BE0;
+  Slow[1] = *a2;
+  Slow->n128_u64[0] = &unk_286892BE0;
   return result;
 }
 
@@ -4604,8 +4608,8 @@ uint64_t mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::initialize(mlir::
       v9 = (v8 + 32);
       for (j = *(v8 + 5); j != v9; j = j[1])
       {
-        ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(j);
-        if (((*(*this + 16))(this, ValuePtr) & 1) == 0)
+        llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+        if (((*(*this + 16))(this, v11) & 1) == 0)
         {
           return 0;
         }
@@ -4628,7 +4632,7 @@ uint64_t mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::initialize(mlir::
 uint64_t mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::visitBlock(mlir::dataflow::AbstractDenseForwardDataFlowAnalysis *this, mlir::Block *a2)
 {
   v2 = a2;
-  v29 = a2;
+  v30 = a2;
   v4 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::Block *>(*(this + 1), a2);
   result = mlir::DataFlowAnalysis::addDependency(this, v4, v2 | 4);
   if (*(v4 + 56) == 1)
@@ -4640,21 +4644,21 @@ uint64_t mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::visitBlock(mlir::
       ParentOp = mlir::Block::getParentOp(v2);
       if (!mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(ParentOp))
       {
-        v27 = 0;
+        v28 = 0;
         InterfaceFor = 0;
         goto LABEL_12;
       }
 
       if (!ParentOp)
       {
-        v27 = 0;
+        v28 = 0;
         InterfaceFor = 0;
         goto LABEL_12;
       }
 
-      v27 = ParentOp;
+      v28 = ParentOp;
       InterfaceFor = mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(ParentOp);
-      CallableRegion = mlir::CallableOpInterface::getCallableRegion(&v27);
+      CallableRegion = mlir::CallableOpInterface::getCallableRegion(&v28);
       if (CallableRegion != mlir::Block::getParent(v2))
       {
 LABEL_12:
@@ -4668,7 +4672,7 @@ LABEL_12:
         return (*(*this + 48))(this, v6);
       }
 
-      v18 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(this + 1), v27);
+      v18 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(this + 1), v28);
       result = mlir::DataFlowAnalysis::addDependency(this, v18, v2 | 4);
       if (*(v18 + 56) != 1 || (**(this + 1) & 1) == 0)
       {
@@ -4691,14 +4695,15 @@ LABEL_12:
 
           else
           {
-            v22 = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(*v25) | 1;
+            llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+            v22 = v27 | 1;
           }
 
           v23 = (*(*this + 40))(this, v22);
           mlir::DataFlowAnalysis::addDependency(this, v23, v2 | 4);
           v24 = mlir::OpInterface<mlir::CallOpInterface,mlir::detail::CallOpInterfaceInterfaceTraits>::getInterfaceFor(v25);
           result = (*(*this + 72))(this, v25, v24, 0, v23, v6);
-          v20 += 8;
+          ++v20;
           v21 -= 8;
         }
 
@@ -4716,16 +4721,16 @@ LABEL_12:
           break;
         }
 
-        v27 = mlir::PredecessorIterator::unwrap(v2);
-        v8 = v29;
-        v9 = mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>((*(this + 1) + 120), 0, 0, &v27, &v29);
+        v28 = mlir::PredecessorIterator::unwrap(v2);
+        v8 = v30;
+        v9 = mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>((*(this + 1) + 120), 0, 0, &v28, &v30);
         v10 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::dataflow::CFGEdge *>(*(this + 1), v9);
         result = mlir::DataFlowAnalysis::addDependency(this, v10, v8 | 4);
         if (*(v10 + 56) == 1)
         {
-          v11 = v29;
-          Terminator = mlir::Block::getTerminator(v27);
-          v13 = (*(*this + 40))(this, Terminator & 0xFFFFFFFFFFFFFFF8 | 1);
+          v11 = v30;
+          mlir::Block::getTerminator(v28);
+          v13 = (*(*this + 40))(this, v12 & 0xFFFFFFFFFFFFFFF8 | 1);
           mlir::DataFlowAnalysis::addDependency(this, v13, v11 | 4);
           v14 = (*(*v6 + 32))(v6, v13);
           result = mlir::DataFlowAnalysis::propagateIfChanged(this, v6, v14);
@@ -4755,7 +4760,7 @@ uint64_t mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::visit(mlir::dataf
   }
 }
 
-uint64_t mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::visitCallOperation(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t *mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::visitCallOperation(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v22 = a2;
   v23 = a3;
@@ -4850,16 +4855,17 @@ uint64_t mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::processOperation(
   v6 = *(a2 + 16);
   if (*(v6 + 40) == a2)
   {
-    v7 = v6 & 0xFFFFFFFFFFFFFFF8 | 5;
+    v8 = v6 & 0xFFFFFFFFFFFFFFF8 | 5;
   }
 
   else
   {
-    v7 = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(*a2) | 1;
+    llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+    v8 = v7 | 1;
   }
 
-  v8 = (*(*this + 40))(this, v7);
-  mlir::DataFlowAnalysis::addDependency(this, v8, a2 & 0xFFFFFFFFFFFFFFFBLL);
+  v9 = (*(*this + 40))(this, v8);
+  mlir::DataFlowAnalysis::addDependency(this, v9, a2 & 0xFFFFFFFFFFFFFFFBLL);
   if (mlir::OpInterface<mlir::RegionBranchOpInterface,mlir::detail::RegionBranchOpInterfaceInterfaceTraits>::getInterfaceFor(a2))
   {
     InterfaceFor = mlir::OpInterface<mlir::RegionBranchOpInterface,mlir::detail::RegionBranchOpInterfaceInterfaceTraits>::getInterfaceFor(a2);
@@ -4870,17 +4876,17 @@ uint64_t mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::processOperation(
     }
   }
 
-  if (mlir::OpInterface<mlir::CallOpInterface,mlir::detail::CallOpInterfaceInterfaceTraits>::getInterfaceFor(a2) && (v11 = mlir::OpInterface<mlir::CallOpInterface,mlir::detail::CallOpInterfaceInterfaceTraits>::getInterfaceFor(a2), a2))
+  if (mlir::OpInterface<mlir::CallOpInterface,mlir::detail::CallOpInterfaceInterfaceTraits>::getInterfaceFor(a2) && (v12 = mlir::OpInterface<mlir::CallOpInterface,mlir::detail::CallOpInterfaceInterfaceTraits>::getInterfaceFor(a2), a2))
   {
-    mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::visitCallOperation(this, a2, v11, v8, v5);
+    mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::visitCallOperation(this, a2, v12, v9, v5);
     return 1;
   }
 
   else
   {
-    v12 = *(*this + 32);
+    v13 = *(*this + 32);
 
-    return v12(this, a2, v8, v5);
+    return v13(this, a2, v9, v5);
   }
 }
 
@@ -4907,15 +4913,15 @@ uint64_t mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::visitRegionBranch
       if (*v13 == a3)
       {
         v24 = v18[2];
-        if (*(v24 + 5) == a3)
+        if (v24[5] == a3)
         {
           v26 = (*(*a1 + 40))(a1, v24 & 0xFFFFFFFFFFFFFFF8 | 5);
         }
 
         else
         {
-          ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(*v18);
-          v26 = (*(*a1 + 40))(a1, ValuePtr | 1);
+          llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+          v26 = (*(*a1 + 40))(a1, v25 | 1);
         }
 
         v19 = v26;
@@ -5012,8 +5018,8 @@ uint64_t mlir::dataflow::AbstractDenseBackwardDataFlowAnalysis::initialize(mlir:
           break;
         }
 
-        ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(v10);
-        if (((*(*this + 16))(this, ValuePtr) & 1) == 0)
+        llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+        if (((*(*this + 16))(this, v11) & 1) == 0)
         {
           return 0;
         }
@@ -5039,16 +5045,15 @@ void mlir::dataflow::AbstractDenseBackwardDataFlowAnalysis::visitBlock(mlir::dat
   }
 
   v5 = (*(*this + 40))(this, a2 & 0xFFFFFFFFFFFFFFF8 | 5);
-  v6 = *(a2 + 32);
-  if (v6 == (a2 + 32))
+  if (*(a2 + 32) == a2 + 32)
   {
     goto LABEL_8;
   }
 
-  ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(v6);
+  llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
   {
-    v8 = *(ValuePtr + 48);
-    if (v8[2] != &mlir::detail::TypeIDResolver<void,void>::id)
+    v7 = *(v6 + 48);
+    if (v7[2] != &mlir::detail::TypeIDResolver<void,void>::id)
     {
       goto LABEL_5;
     }
@@ -5056,29 +5061,29 @@ void mlir::dataflow::AbstractDenseBackwardDataFlowAnalysis::visitBlock(mlir::dat
 
   else
   {
-    v34 = ValuePtr;
-    v8 = *(v34 + 48);
-    if (v8[2] != &mlir::detail::TypeIDResolver<void,void>::id)
+    v34 = v6;
+    v7 = *(v34 + 48);
+    if (v7[2] != &mlir::detail::TypeIDResolver<void,void>::id)
     {
 LABEL_5:
-      if (!(*(*v8 + 4))(v8, mlir::detail::TypeIDResolver<mlir::OpTrait::IsTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsTerminator>(void)::Empty>,void>::resolveTypeID(void)::id))
+      if (!(*(*v7 + 4))(v7, mlir::detail::TypeIDResolver<mlir::OpTrait::IsTerminator<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::IsTerminator>(void)::Empty>,void>::resolveTypeID(void)::id))
       {
         goto LABEL_8;
       }
     }
   }
 
-  Terminator = mlir::Block::getTerminator(a2);
-  if (!Terminator || !mlir::OpInterface<mlir::RegionBranchTerminatorOpInterface,mlir::detail::RegionBranchTerminatorOpInterfaceInterfaceTraits>::getInterfaceFor(Terminator))
+  mlir::Block::getTerminator(a2);
+  if (!v8 || !mlir::OpInterface<mlir::RegionBranchTerminatorOpInterface,mlir::detail::RegionBranchTerminatorOpInterfaceInterfaceTraits>::getInterfaceFor(v8))
   {
     mlir::SuccessorRange::SuccessorRange(&v36, v35);
-    v11 = InterfaceFor;
+    v10 = InterfaceFor;
     if (InterfaceFor)
     {
-      v12 = (v36 + 24);
+      v11 = (v36 + 24);
       do
       {
-        v36 = *v12;
+        v36 = *v11;
         v16 = v35;
         v17 = mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>((*(this + 1) + 120), 0, 0, &v35, &v36);
         v18 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::dataflow::CFGEdge *>(*(this + 1), v17);
@@ -5093,7 +5098,8 @@ LABEL_5:
 
           else
           {
-            v13 = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(*(v36 + 40)) | 1;
+            llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+            v13 = v12 | 1;
           }
 
           v14 = (*(*this + 40))(this, v13);
@@ -5102,11 +5108,11 @@ LABEL_5:
           mlir::DataFlowAnalysis::propagateIfChanged(this, v5, v15);
         }
 
-        v12 += 4;
-        --v11;
+        v11 += 4;
+        --v10;
       }
 
-      while (v11);
+      while (v10);
     }
 
     return;
@@ -5163,16 +5169,16 @@ LABEL_34:
     do
     {
       v30 = *v25;
-      v31 = *(*v25 + 8);
-      v32 = *(*v25 + 16);
-      if (v31 == v32 + 32)
+      v31 = *(*v25 + 16);
+      if (*(*v25 + 8) == v31 + 32)
       {
-        v27 = v32 & 0xFFFFFFFFFFFFFFF8 | 5;
+        v27 = v31 & 0xFFFFFFFFFFFFFFF8 | 5;
       }
 
       else
       {
-        v27 = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(v31) | 1;
+        llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+        v27 = v32 | 1;
       }
 
       v28 = (*(*this + 40))(this, v27);
@@ -5271,16 +5277,16 @@ LABEL_5:
 
   if (*(v12 + 32) == v12 + 32)
   {
-    ValuePtr = v12 | 4;
+    v13 = v12 | 4;
   }
 
   else
   {
-    ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(*(v12 + 40));
+    llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
   }
 
   v15 = v19;
-  v16 = (*(*a1 + 40))(a1, ValuePtr & 0xFFFFFFFFFFFFFFFCLL | 1);
+  v16 = (*(*a1 + 40))(a1, v13 & 0xFFFFFFFFFFFFFFFCLL | 1);
   mlir::DataFlowAnalysis::addDependency(a1, v16, v15 & 0xFFFFFFFFFFFFFFFBLL);
   return (*(*a1 + 72))(a1, v19, v20, 0, v16, a5);
 }
@@ -5302,16 +5308,16 @@ uint64_t mlir::dataflow::AbstractDenseBackwardDataFlowAnalysis::processOperation
   }
 
   v5 = (*(*this + 40))(this, a2 & 0xFFFFFFFFFFFFFFF8 | 1);
-  v6 = *(a2 + 8);
-  v7 = *(a2 + 16);
-  if (v6 == v7 + 32)
+  v6 = *(a2 + 16);
+  if (*(a2 + 8) == v6 + 32)
   {
-    v8 = v7 & 0xFFFFFFFFFFFFFFF8 | 5;
+    v8 = v6 & 0xFFFFFFFFFFFFFFF8 | 5;
   }
 
   else
   {
-    v8 = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(v6) | 1;
+    llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+    v8 = v7 | 1;
   }
 
   v9 = (*(*this + 40))(this, v8);
@@ -5351,7 +5357,7 @@ void mlir::dataflow::AbstractDenseBackwardDataFlowAnalysis::visitRegionBranchOpe
   v10 = v23;
   if (!v24)
   {
-    goto LABEL_17;
+    goto LABEL_16;
   }
 
   v11 = 24 * v24;
@@ -5360,14 +5366,13 @@ void mlir::dataflow::AbstractDenseBackwardDataFlowAnalysis::visitRegionBranchOpe
     v16 = *v10;
     if (!*v10 || *v16 == v16)
     {
-      v12 = *(v21 + 8);
-      v13 = *(v21 + 16);
-      if (v12 != v13 + 32)
+      v12 = *(v21 + 16);
+      if (*(v21 + 8) == v12 + 32)
       {
-        goto LABEL_4;
+        goto LABEL_14;
       }
 
-      goto LABEL_15;
+      goto LABEL_4;
     }
 
     v17 = v16[1];
@@ -5386,32 +5391,30 @@ void mlir::dataflow::AbstractDenseBackwardDataFlowAnalysis::visitRegionBranchOpe
     mlir::DataFlowAnalysis::addDependency(a1, v20, a2);
     if (*(v20 + 56) == 1)
     {
-      v13 = v19;
-      if (*(v19 + 32) != v19 + 32)
+      v12 = v19;
+      if (*(v19 + 32) == v19 + 32)
       {
-        v12 = *(v19 + 40);
-LABEL_4:
-        v14 = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(v12) | 1;
-LABEL_5:
-        v15 = (*(*a1 + 40))(a1, v14);
-        mlir::DataFlowAnalysis::addDependency(a1, v15, a2);
-        (*(*a1 + 64))(a1, v21, v22, a5, *v10, v15, a6);
-        goto LABEL_6;
+LABEL_14:
+        v14 = v12 & 0xFFFFFFFFFFFFFFF8 | 5;
+        goto LABEL_5;
       }
 
-LABEL_15:
-      v14 = v13 & 0xFFFFFFFFFFFFFFF8 | 5;
-      goto LABEL_5;
+LABEL_4:
+      llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+      v14 = v13 | 1;
+LABEL_5:
+      v15 = (*(*a1 + 40))(a1, v14);
+      mlir::DataFlowAnalysis::addDependency(a1, v15, a2);
+      (*(*a1 + 64))(a1, v21, v22, a5, *v10, v15, a6);
     }
 
-LABEL_6:
     v10 += 3;
     v11 -= 24;
   }
 
   while (v11);
   v10 = v23;
-LABEL_17:
+LABEL_16:
   if (v10 != v25)
   {
     free(v10);
@@ -5420,14 +5423,14 @@ LABEL_17:
 
 uint64_t mlir::dataflow::AbstractDenseBackwardDataFlowAnalysis::visitRegionBranchControlFlowTransfer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v9 = (*(*a7 + 40))(a7, a6);
+  v9 = (*(*a7 + 40))(a7, a6, a3, a4, a5);
 
   return mlir::DataFlowAnalysis::propagateIfChanged(a1, a7, v9);
 }
 
 uint64_t mlir::dataflow::AbstractDenseBackwardDataFlowAnalysis::visitCallControlFlowTransfer(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6)
 {
-  v9 = (*(*a6 + 40))(a6, a5);
+  v9 = (*(*a6 + 40))(a6, a5, a3);
   result = mlir::DataFlowAnalysis::propagateIfChanged(a1, a6, v9);
   if (a4 == 2)
   {
@@ -5441,14 +5444,14 @@ uint64_t mlir::dataflow::AbstractDenseBackwardDataFlowAnalysis::visitCallControl
 
 uint64_t mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::visitRegionBranchControlFlowTransfer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v9 = (*(*a7 + 32))(a7, a6);
+  v9 = (*(*a7 + 32))(a7, a6, a3, a4, a5);
 
   return mlir::DataFlowAnalysis::propagateIfChanged(a1, a7, v9);
 }
 
 uint64_t mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::visitCallControlFlowTransfer(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6)
 {
-  v9 = (*(*a6 + 32))(a6, a5);
+  v9 = (*(*a6 + 32))(a6, a5, a3);
   result = mlir::DataFlowAnalysis::propagateIfChanged(a1, a6, v9);
   if (a4 == 2)
   {
@@ -5463,7 +5466,7 @@ uint64_t mlir::dataflow::AbstractDenseForwardDataFlowAnalysis::visitCallControlF
 uint64_t mlir::dataflow::IntegerValueRangeLattice::onUpdate(mlir::dataflow::IntegerValueRangeLattice *this, mlir::DataFlowSolver *a2)
 {
   mlir::dataflow::AbstractSparseLattice::onUpdate(this, a2);
-  mlir::ConstantIntRanges::getConstantValue(this + 168, &v15);
+  mlir::ConstantIntRanges::getConstantValue(&v15, this + 21);
   v14 = *(this + 1) & 0xFFFFFFFFFFFFFFFCLL;
   v4 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Lattice<mlir::dataflow::ConstantValue>,mlir::Value>(a2, v14);
   v5 = v4;
@@ -5629,7 +5632,7 @@ LABEL_18:
   v26 = 0x100000000;
   if (a4 >= 2)
   {
-    llvm::SmallVectorTemplateBase<mlir::IntegerValueRange,false>::grow();
+    llvm::SmallVectorTemplateBase<mlir::IntegerValueRange,false>::grow(&v25, a4);
   }
 
   if (a4)
@@ -5640,9 +5643,9 @@ LABEL_18:
     {
       v14 = *a3++;
       *v12 = 0;
-      v12[64] = 0;
+      *(v12 + 64) = 0;
       std::__optional_storage_base<mlir::ConstantIntRanges,false>::__construct_from[abi:nn200100]<std::__optional_copy_base<mlir::ConstantIntRanges,false> const&>(v12, (v14 + 168));
-      v12 += 72;
+      v12 += 9;
       v13 -= 8;
     }
 
@@ -5684,12 +5687,12 @@ LABEL_18:
   return 1;
 }
 
-void mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, unint64_t a5, unint64_t a6)
+void mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(const void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, unint64_t a5, unint64_t a6)
 {
-  v82 = *MEMORY[0x277D85DE8];
-  v72[0] = a4;
-  v72[1] = a5;
-  v71 = a2;
+  v81 = *MEMORY[0x277D85DE8];
+  v71[0] = a4;
+  v71[1] = a5;
+  v70 = a2;
   if (mlir::OpInterface<mlir::InferIntRangeInterface,mlir::detail::InferIntRangeInterfaceInterfaceTraits>::getInterfaceFor(a2))
   {
     if (a2)
@@ -5702,32 +5705,32 @@ void mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(uint64_t
       InterfaceFor = 0;
     }
 
-    v69 = a2;
-    v70 = InterfaceFor;
+    v68 = a2;
+    v69 = InterfaceFor;
     if (a2)
     {
       if ((*(a2 + 46) & 0x80) != 0)
       {
         v14 = *(a2 + 72);
         v15 = *(a2 + 68);
-        v73 = &v75;
-        v74 = 0x100000000;
+        v72 = &v74;
+        v73 = 0x100000000;
         if (v15 >= 2)
         {
-          llvm::SmallVectorTemplateBase<mlir::IntegerValueRange,false>::grow();
+          llvm::SmallVectorTemplateBase<mlir::IntegerValueRange,false>::grow(&v72, v15);
         }
 
         if (v15)
         {
-          v15 = 1;
-          v16 = &v75;
+          LODWORD(v15) = 1;
+          v16 = &v74;
           v17 = (v14 + 24);
           v18 = 1;
           do
           {
             v19 = *v17;
             v17 += 4;
-            LatticeElementFor = mlir::dataflow::AbstractSparseForwardDataFlowAnalysis::getLatticeElementFor(a1, v71 & 0xFFFFFFFFFFFFFFFBLL, v19);
+            LatticeElementFor = mlir::dataflow::AbstractSparseForwardDataFlowAnalysis::getLatticeElementFor(a1, v70 & 0xFFFFFFFFFFFFFFFBLL, v19);
             *v16 = 0;
             *(v16 + 64) = 0;
             std::__optional_storage_base<mlir::ConstantIntRanges,false>::__construct_from[abi:nn200100]<std::__optional_copy_base<mlir::ConstantIntRanges,false> const&>(v16, (LatticeElementFor + 168));
@@ -5736,36 +5739,36 @@ void mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(uint64_t
           }
 
           while (v18);
-          v21 = v74;
-          v22 = v73;
+          v21 = v73;
+          v22 = v72;
         }
 
         else
         {
           v21 = 0;
-          v22 = &v75;
+          v22 = &v74;
         }
       }
 
       else
       {
-        v15 = 0;
+        LODWORD(v15) = 0;
         v21 = 0;
-        v22 = &v75;
-        v73 = &v75;
-        HIDWORD(v74) = 1;
+        v22 = &v74;
+        v72 = &v74;
+        HIDWORD(v73) = 1;
       }
 
-      LODWORD(v74) = v21 + v15;
-      v53 = a3;
-      v54 = v72;
-      v55 = a1;
-      mlir::InferIntRangeInterface::inferResultRangesFromOptional(&v69, v22, v21 + v15, llvm::function_ref<void ()(mlir::Value,mlir::IntegerValueRange const&)>::callback_fn<mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(mlir::Operation *,mlir::RegionSuccessor const&,llvm::ArrayRef<mlir::dataflow::IntegerValueRangeLattice *>,unsigned int)::$_1>, &v53);
-      v23 = v73;
-      if (v74)
+      LODWORD(v73) = v21 + v15;
+      v52 = a3;
+      v53 = v71;
+      v54 = a1;
+      mlir::InferIntRangeInterface::inferResultRangesFromOptional(&v68, v22, (v21 + v15), llvm::function_ref<void ()(mlir::Value,mlir::IntegerValueRange const&)>::callback_fn<mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(mlir::Operation *,mlir::RegionSuccessor const&,llvm::ArrayRef<mlir::dataflow::IntegerValueRangeLattice *>,unsigned int)::$_1>, &v52);
+      v23 = v72;
+      if (v73)
       {
-        v24 = -72 * v74;
-        v25 = &v73[9 * v74 - 9];
+        v24 = -72 * v73;
+        v25 = &v72[9 * v73 - 9];
         do
         {
           v25 = (std::__optional_destruct_base<mlir::ConstantIntRanges,false>::~__optional_destruct_base[abi:nn200100](v25) - 72);
@@ -5773,10 +5776,10 @@ void mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(uint64_t
         }
 
         while (v24);
-        v23 = v73;
+        v23 = v72;
       }
 
-      if (v23 != &v75)
+      if (v23 != &v74)
       {
         free(v23);
       }
@@ -5787,30 +5790,30 @@ void mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(uint64_t
 
   else
   {
+    v68 = 0;
     v69 = 0;
-    v70 = 0;
   }
 
-  v69 = a1;
-  v70 = &v71;
+  v68 = a1;
+  v69 = &v70;
   if (!mlir::OpInterface<mlir::LoopLikeOpInterface,mlir::detail::LoopLikeOpInterfaceInterfaceTraits>::getInterfaceFor(a2))
   {
+    v66 = 0;
     v67 = 0;
-    v68 = 0;
     goto LABEL_36;
   }
 
   if (!a2)
   {
+    v66 = 0;
     v67 = 0;
-    v68 = 0;
     goto LABEL_36;
   }
 
-  v67 = a2;
-  v68 = mlir::OpInterface<mlir::LoopLikeOpInterface,mlir::detail::LoopLikeOpInterfaceInterfaceTraits>::getInterfaceFor(a2);
-  mlir::LoopLikeOpInterface::getLoopInductionVars(&v73, &v67);
-  if ((v81 & 1) == 0)
+  v66 = a2;
+  v67 = mlir::OpInterface<mlir::LoopLikeOpInterface,mlir::detail::LoopLikeOpInterfaceInterfaceTraits>::getInterfaceFor(a2);
+  mlir::LoopLikeOpInterface::getLoopInductionVars(&v72, &v66);
+  if ((v80 & 1) == 0)
   {
 LABEL_36:
     if (a5 >= a6)
@@ -5828,12 +5831,12 @@ LABEL_36:
     return;
   }
 
-  v26 = v74;
-  if (v74 != 1)
+  v26 = v73;
+  if (v73 != 1)
   {
     v27 = 0;
     v28 = 0;
-    if (v73 == &v75)
+    if (v72 == &v74)
     {
       goto LABEL_32;
     }
@@ -5841,12 +5844,12 @@ LABEL_36:
     goto LABEL_31;
   }
 
-  v27 = *v73 & 0xFFFFFFFFFFFFFF00;
-  v28 = *v73;
-  if (v73 != &v75)
+  v27 = *v72 & 0xFFFFFFFFFFFFFF00;
+  v28 = *v72;
+  if (v72 != &v74)
   {
 LABEL_31:
-    free(v73);
+    free(v72);
   }
 
 LABEL_32:
@@ -5855,13 +5858,13 @@ LABEL_32:
     goto LABEL_36;
   }
 
-  mlir::LoopLikeOpInterface::getLoopLowerBounds(&v73, &v67);
-  if (v81 == 1)
+  mlir::LoopLikeOpInterface::getLoopLowerBounds(&v72, &v66);
+  if (v80 == 1)
   {
-    if (v74 == 1)
+    if (v73 == 1)
     {
-      v29 = *v73;
-      a6 = *v73 >> 8;
+      v29 = *v72;
+      a6 = *v72 >> 8;
       v30 = 1;
     }
 
@@ -5871,9 +5874,9 @@ LABEL_32:
       LOBYTE(v29) = 0;
     }
 
-    if (v73 != &v75)
+    if (v72 != &v74)
     {
-      free(v73);
+      free(v72);
     }
   }
 
@@ -5885,13 +5888,13 @@ LABEL_32:
 
   v32 = v28 | v27;
   v33 = v29 | (a6 << 8);
-  mlir::LoopLikeOpInterface::getLoopUpperBounds(&v73, &v67);
-  if (v81 == 1)
+  mlir::LoopLikeOpInterface::getLoopUpperBounds(&v72, &v66);
+  if (v80 == 1)
   {
-    if (v74 == 1)
+    if (v73 == 1)
     {
-      v34 = *v73;
-      v28 = *v73 >> 8;
+      v34 = *v72;
+      v28 = *v72 >> 8;
       v35 = 1;
     }
 
@@ -5901,9 +5904,9 @@ LABEL_32:
       LOBYTE(v34) = 0;
     }
 
-    if (v73 != &v75)
+    if (v72 != &v74)
     {
-      free(v73);
+      free(v72);
     }
   }
 
@@ -5914,13 +5917,13 @@ LABEL_32:
   }
 
   v36 = v34 | (v28 << 8);
-  mlir::LoopLikeOpInterface::getLoopSteps(&v73, &v67);
-  if (v81 == 1)
+  mlir::LoopLikeOpInterface::getLoopSteps(&v72, &v66);
+  if (v80 == 1)
   {
-    if (v74 == 1)
+    if (v73 == 1)
     {
-      v37 = *v73;
-      v6 = *v73 >> 8;
+      v37 = *v72;
+      v6 = *v72 >> 8;
       v38 = 1;
     }
 
@@ -5930,9 +5933,9 @@ LABEL_32:
       LOBYTE(v37) = 0;
     }
 
-    if (v73 != &v75)
+    if (v72 != &v74)
     {
-      free(v73);
+      free(v72);
     }
   }
 
@@ -5942,142 +5945,142 @@ LABEL_32:
     v38 = 0;
   }
 
-  mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(mlir::Operation *,mlir::RegionSuccessor const&,llvm::ArrayRef<mlir::dataflow::IntegerValueRangeLattice *>,unsigned int)::$_2::operator()(&v65, &v69, v33, v30, *(v32 + 8) & 0xFFFFFFFFFFFFFFF8, 0);
-  mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(mlir::Operation *,mlir::RegionSuccessor const&,llvm::ArrayRef<mlir::dataflow::IntegerValueRangeLattice *>,unsigned int)::$_2::operator()(&v63, &v69, v36, v35, *(v32 + 8) & 0xFFFFFFFFFFFFFFF8, 1);
-  mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(mlir::Operation *,mlir::RegionSuccessor const&,llvm::ArrayRef<mlir::dataflow::IntegerValueRangeLattice *>,unsigned int)::$_2::operator()(&v61, &v69, v37 | (v6 << 8), v38, *(v32 + 8) & 0xFFFFFFFFFFFFFFF8, 1);
-  if (v62 >= 0x41)
+  mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(mlir::Operation *,mlir::RegionSuccessor const&,llvm::ArrayRef<mlir::dataflow::IntegerValueRangeLattice *>,unsigned int)::$_2::operator()(&v64, &v68, v33, v30, *(v32 + 8) & 0xFFFFFFFFFFFFFFF8, 0);
+  mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(mlir::Operation *,mlir::RegionSuccessor const&,llvm::ArrayRef<mlir::dataflow::IntegerValueRangeLattice *>,unsigned int)::$_2::operator()(&v62, &v68, v36, v35, *(v32 + 8) & 0xFFFFFFFFFFFFFFF8, 1);
+  mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(mlir::Operation *,mlir::RegionSuccessor const&,llvm::ArrayRef<mlir::dataflow::IntegerValueRangeLattice *>,unsigned int)::$_2::operator()(&v60, &v68, v37 | (v6 << 8), v38, *(v32 + 8) & 0xFFFFFFFFFFFFFFF8, 1);
+  if (v61 >= 0x41)
   {
-    v39 = (v61 + 8 * ((v62 - 1) >> 6));
+    v39 = (v60 + 8 * ((v61 - 1) >> 6));
   }
 
   else
   {
-    v39 = &v61;
+    v39 = &v60;
   }
 
-  if ((*v39 >> (v62 - 1)))
+  if ((*v39 >> (v61 - 1)))
   {
-    v40 = v66;
-    v41 = v65;
+    v40 = v65;
+    v41 = v64;
+    v64 = v62;
     v65 = v63;
-    v66 = v64;
-    v63 = v41;
-    v64 = v40;
+    v62 = v41;
+    v63 = v40;
   }
 
   else
   {
-    llvm::APInt::operator-=(&v63, 1uLL);
+    llvm::APInt::operator-=(&v62, 1uLL);
   }
 
-  if ((llvm::APInt::compareSigned(&v63, &v65) & 0x80000000) == 0)
+  if ((llvm::APInt::compareSigned(&v62, &v64) & 0x80000000) == 0)
   {
     v42 = (*(*a1 + 56))(a1, v32);
-    mlir::ConstantIntRanges::fromSigned(&v65, &v63, v43, &v53);
-    v46 = v54;
-    if (v54 > 0x40)
-    {
-      llvm::APInt::initSlowCase(&v45, &v53);
-    }
-
+    mlir::ConstantIntRanges::fromSigned(&v52, &v64, &v62);
     v45 = v53;
-    v48 = v56;
-    if (v56 > 0x40)
+    if (v53 > 0x40)
     {
-      llvm::APInt::initSlowCase(&v47, &v55);
+      llvm::APInt::initSlowCase(&v44, &v52);
     }
 
+    v44 = v52;
     v47 = v55;
-    v50 = v58;
-    if (v58 > 0x40)
+    if (v55 > 0x40)
     {
-      llvm::APInt::initSlowCase(&v49, &v57);
+      llvm::APInt::initSlowCase(&v46, &v54);
     }
 
+    v46 = v54;
     v49 = v57;
-    v52 = v60;
-    if (v60 > 0x40)
+    if (v57 > 0x40)
     {
-      llvm::APInt::initSlowCase(&v51, &v59);
+      llvm::APInt::initSlowCase(&v48, &v56);
     }
 
+    v48 = v56;
     v51 = v59;
-    LODWORD(v74) = v46;
-    v73 = v45;
-    v76 = v48;
+    if (v59 > 0x40)
+    {
+      llvm::APInt::initSlowCase(&v50, &v58);
+    }
+
+    v50 = v58;
+    LODWORD(v73) = v45;
+    v72 = v44;
     v75 = v47;
-    v46 = 0;
-    v48 = 0;
-    v78 = v50;
+    v74 = v46;
+    v45 = 0;
+    v47 = 0;
     v77 = v49;
-    v80 = v60;
+    v76 = v48;
     v79 = v59;
-    v50 = 0;
-    v52 = 0;
-    v81 = 1;
-    v44 = mlir::dataflow::Lattice<mlir::IntegerValueRange>::join(v42, &v73);
-    mlir::DataFlowAnalysis::propagateIfChanged(a1, v42, v44);
-    if (v81 == 1)
+    v78 = v58;
+    v49 = 0;
+    v51 = 0;
+    v80 = 1;
+    v43 = mlir::dataflow::Lattice<mlir::IntegerValueRange>::join(v42, &v72);
+    mlir::DataFlowAnalysis::propagateIfChanged(a1, v42, v43);
+    if (v80 == 1)
     {
-      if (v80 >= 0x41 && v79)
+      if (v79 >= 0x41 && v78)
       {
-        MEMORY[0x259C63150](v79, 0x1000C8000313F17);
+        MEMORY[0x259C63150](v78, 0x1000C8000313F17);
       }
 
-      if (v78 >= 0x41 && v77)
+      if (v77 >= 0x41 && v76)
       {
-        MEMORY[0x259C63150](v77, 0x1000C8000313F17);
+        MEMORY[0x259C63150](v76, 0x1000C8000313F17);
       }
 
-      if (v76 >= 0x41 && v75)
+      if (v75 >= 0x41 && v74)
       {
-        MEMORY[0x259C63150](v75, 0x1000C8000313F17);
+        MEMORY[0x259C63150](v74, 0x1000C8000313F17);
       }
 
-      if (v74 >= 0x41 && v73)
+      if (v73 >= 0x41 && v72)
       {
-        MEMORY[0x259C63150](v73, 0x1000C8000313F17);
+        MEMORY[0x259C63150](v72, 0x1000C8000313F17);
       }
     }
 
-    if (v60 >= 0x41 && v59)
+    if (v59 >= 0x41 && v58)
     {
-      MEMORY[0x259C63150](v59, 0x1000C8000313F17);
+      MEMORY[0x259C63150](v58, 0x1000C8000313F17);
     }
 
-    if (v58 >= 0x41 && v57)
+    if (v57 >= 0x41 && v56)
     {
-      MEMORY[0x259C63150](v57, 0x1000C8000313F17);
+      MEMORY[0x259C63150](v56, 0x1000C8000313F17);
     }
 
-    if (v56 >= 0x41 && v55)
+    if (v55 >= 0x41 && v54)
     {
-      MEMORY[0x259C63150](v55, 0x1000C8000313F17);
+      MEMORY[0x259C63150](v54, 0x1000C8000313F17);
     }
 
-    if (v54 >= 0x41 && v53)
+    if (v53 >= 0x41 && v52)
     {
-      MEMORY[0x259C63150](v53, 0x1000C8000313F17);
+      MEMORY[0x259C63150](v52, 0x1000C8000313F17);
     }
   }
 
-  if (v62 >= 0x41 && v61)
+  if (v61 >= 0x41 && v60)
   {
-    MEMORY[0x259C63150](v61, 0x1000C8000313F17);
+    MEMORY[0x259C63150](v60, 0x1000C8000313F17);
   }
 
-  if (v64 >= 0x41 && v63)
+  if (v63 >= 0x41 && v62)
   {
-    MEMORY[0x259C63150](v63, 0x1000C8000313F17);
+    MEMORY[0x259C63150](v62, 0x1000C8000313F17);
   }
 
-  if (v66 >= 0x41 && v65)
+  if (v65 >= 0x41 && v64)
   {
-    MEMORY[0x259C63150](v65, 0x1000C8000313F17);
+    MEMORY[0x259C63150](v64, 0x1000C8000313F17);
   }
 }
 
-uint64_t *mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(mlir::Operation *,mlir::RegionSuccessor const&,llvm::ArrayRef<mlir::dataflow::IntegerValueRangeLattice *>,unsigned int)::$_2::operator()(llvm::APInt *a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, int a6)
+uint64_t *mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(mlir::Operation *,mlir::RegionSuccessor const&,llvm::ArrayRef<mlir::dataflow::IntegerValueRangeLattice *>,unsigned int)::$_2::operator()(llvm::APInt *a1, uint64_t *a2, uint64_t a3, char a4, uint64_t a5, int a6)
 {
   v11 = *a2;
   result = mlir::ConstantIntRanges::getStorageBitwidth(a5);
@@ -6108,7 +6111,7 @@ uint64_t *mlir::dataflow::IntegerRangeAnalysis::visitNonControlFlowArguments(mli
     goto LABEL_16;
   }
 
-  if ((a3 & 0xFFFFFFFFFFFFFFF8) == 0 || (result = mlir::dataflow::AbstractSparseForwardDataFlowAnalysis::getLatticeElementFor(v11, **(a2 + 8) & 0xFFFFFFFFFFFFFFFBLL, a3 & 0xFFFFFFFFFFFFFFF8)) == 0 || *(result + 232) != 1)
+  if ((a3 & 0xFFFFFFFFFFFFFFF8) == 0 || (result = mlir::dataflow::AbstractSparseForwardDataFlowAnalysis::getLatticeElementFor(v11, *a2[1] & 0xFFFFFFFFFFFFFFFBLL, a3 & 0xFFFFFFFFFFFFFFF8)) == 0 || *(result + 232) != 1)
   {
 LABEL_16:
     *(a1 + 2) = v13;
@@ -6116,7 +6119,7 @@ LABEL_16:
     {
       if (v13 > 0x40)
       {
-        llvm::APInt::initSlowCase(a1);
+        llvm::APInt::initSlowCase(a1, -1, 1);
       }
 
       v19 = 0xFFFFFFFFFFFFFFFFLL >> -v13;
@@ -6133,7 +6136,7 @@ LABEL_16:
     {
       if (v13 > 0x40)
       {
-        llvm::APInt::initSlowCase(a1);
+        llvm::APInt::initSlowCase(a1, 0, 0);
       }
 
       *a1 = 0;
@@ -6182,7 +6185,7 @@ uint64_t mlir::dataflow::Lattice<mlir::IntegerValueRange>::join(uint64_t a1, con
   {
     if (*(a2 + 64))
     {
-      mlir::ConstantIntRanges::rangeUnion(a1 + 168, a2, &v18);
+      mlir::ConstantIntRanges::rangeUnion(&v18, (a1 + 168), a2);
       v10 = v19;
       v9 = v18;
       v12 = v21;
@@ -6283,38 +6286,38 @@ void mlir::dataflow::IntegerValueRangeLattice::~IntegerValueRangeLattice(mlir::d
   *this = &unk_286892E90;
   std::__optional_destruct_base<mlir::ConstantIntRanges,false>::~__optional_destruct_base[abi:nn200100](this + 168);
   *this = &unk_286893088;
-  v2 = *(this + 15);
-  if (v2 != this + 136)
+  v5 = *(this + 15);
+  if (v5 != this + 136)
   {
-    free(v2);
+    free(v5);
   }
 
-  v3 = *(this + 8);
-  if (v3 != *(this + 7))
+  v6 = *(this + 8);
+  if (v6 != *(this + 7))
   {
-    free(v3);
+    free(v6);
   }
 
-  mlir::AnalysisState::~AnalysisState(this);
+  mlir::AnalysisState::~AnalysisState(this, v2, v3, v4);
 }
 
 {
   *this = &unk_286892E90;
   std::__optional_destruct_base<mlir::ConstantIntRanges,false>::~__optional_destruct_base[abi:nn200100](this + 168);
   *this = &unk_286893088;
-  v2 = *(this + 15);
-  if (v2 != this + 136)
+  v5 = *(this + 15);
+  if (v5 != this + 136)
   {
-    free(v2);
+    free(v5);
   }
 
-  v3 = *(this + 8);
-  if (v3 != *(this + 7))
+  v6 = *(this + 8);
+  if (v6 != *(this + 7))
   {
-    free(v3);
+    free(v6);
   }
 
-  mlir::AnalysisState::~AnalysisState(this);
+  mlir::AnalysisState::~AnalysisState(this, v2, v3, v4);
 }
 
 void sub_256E4A0D4()
@@ -6487,7 +6490,7 @@ LABEL_23:
     v18 = v23;
   }
 
-  v19 = v4[125];
+  v19 = *(v4 + 125);
   v20 = *(*v17 + 104);
 
   return v20(v17, v19, v18);
@@ -6522,12 +6525,12 @@ const char *llvm::getTypeName<mlir::InferIntRangeInterface>()
   return &v2[v3];
 }
 
-uint64_t std::__optional_storage_base<mlir::ConstantIntRanges,false>::__construct_from[abi:nn200100]<std::__optional_copy_base<mlir::ConstantIntRanges,false> const&>(uint64_t this, llvm::APInt *a2)
+_DWORD *std::__optional_storage_base<mlir::ConstantIntRanges,false>::__construct_from[abi:nn200100]<std::__optional_copy_base<mlir::ConstantIntRanges,false> const&>(_DWORD *this, llvm::APInt *a2)
 {
   if (*(a2 + 64) == 1)
   {
     v2 = *(a2 + 2);
-    *(this + 8) = v2;
+    this[2] = v2;
     if (v2 > 0x40)
     {
       llvm::APInt::initSlowCase(this, a2);
@@ -6535,29 +6538,29 @@ uint64_t std::__optional_storage_base<mlir::ConstantIntRanges,false>::__construc
 
     *this = *a2;
     v3 = *(a2 + 6);
-    *(this + 24) = v3;
+    this[6] = v3;
     if (v3 > 0x40)
     {
-      llvm::APInt::initSlowCase((this + 16), (a2 + 16));
+      llvm::APInt::initSlowCase((this + 4), a2 + 2);
     }
 
-    *(this + 16) = *(a2 + 2);
+    *(this + 2) = *(a2 + 2);
     v4 = *(a2 + 10);
-    *(this + 40) = v4;
+    this[10] = v4;
     if (v4 > 0x40)
     {
-      llvm::APInt::initSlowCase((this + 32), (a2 + 32));
+      llvm::APInt::initSlowCase((this + 8), a2 + 4);
     }
 
-    *(this + 32) = *(a2 + 4);
+    *(this + 4) = *(a2 + 4);
     v5 = *(a2 + 14);
-    *(this + 56) = v5;
+    this[14] = v5;
     if (v5 > 0x40)
     {
-      llvm::APInt::initSlowCase((this + 48), (a2 + 48));
+      llvm::APInt::initSlowCase((this + 12), a2 + 6);
     }
 
-    *(this + 48) = *(a2 + 6);
+    *(this + 6) = *(a2 + 6);
     *(this + 64) = 1;
   }
 
@@ -6608,38 +6611,38 @@ void mlir::dataflow::Lattice<mlir::IntegerValueRange>::~Lattice(mlir::AnalysisSt
   *a1 = &unk_286892E90;
   std::__optional_destruct_base<mlir::ConstantIntRanges,false>::~__optional_destruct_base[abi:nn200100](a1 + 168);
   *a1 = &unk_286893088;
-  v2 = *(a1 + 15);
-  if (v2 != (a1 + 136))
+  v5 = *(a1 + 15);
+  if (v5 != a1 + 136)
   {
-    free(v2);
+    free(v5);
   }
 
-  v3 = *(a1 + 8);
-  if (v3 != *(a1 + 7))
+  v6 = *(a1 + 8);
+  if (v6 != *(a1 + 7))
   {
-    free(v3);
+    free(v6);
   }
 
-  mlir::AnalysisState::~AnalysisState(a1);
+  mlir::AnalysisState::~AnalysisState(a1, v2, v3, v4);
 }
 
 {
   *a1 = &unk_286892E90;
   std::__optional_destruct_base<mlir::ConstantIntRanges,false>::~__optional_destruct_base[abi:nn200100](a1 + 168);
   *a1 = &unk_286893088;
-  v2 = *(a1 + 15);
-  if (v2 != (a1 + 136))
+  v5 = *(a1 + 15);
+  if (v5 != a1 + 136)
   {
-    free(v2);
+    free(v5);
   }
 
-  v3 = *(a1 + 8);
-  if (v3 != *(a1 + 7))
+  v6 = *(a1 + 8);
+  if (v6 != *(a1 + 7))
   {
-    free(v3);
+    free(v6);
   }
 
-  mlir::AnalysisState::~AnalysisState(a1);
+  mlir::AnalysisState::~AnalysisState(a1, v2, v3, v4);
 }
 
 void sub_256E4A984()
@@ -6749,7 +6752,7 @@ LABEL_25:
     this[6] = v5;
     if (v5 > 0x40)
     {
-      llvm::APInt::initSlowCase((this + 4), (a2 + 16));
+      llvm::APInt::initSlowCase((this + 4), a2 + 2);
     }
 
     *(this + 2) = *(a2 + 2);
@@ -6757,7 +6760,7 @@ LABEL_25:
     this[10] = v6;
     if (v6 > 0x40)
     {
-      llvm::APInt::initSlowCase((this + 8), (a2 + 32));
+      llvm::APInt::initSlowCase((this + 8), a2 + 4);
     }
 
     *(this + 4) = *(a2 + 4);
@@ -6765,7 +6768,7 @@ LABEL_25:
     this[14] = v7;
     if (v7 > 0x40)
     {
-      llvm::APInt::initSlowCase((this + 12), (a2 + 48));
+      llvm::APInt::initSlowCase((this + 12), a2 + 6);
     }
 
     *(this + 6) = *(a2 + 6);
@@ -7198,7 +7201,7 @@ uint64_t mlir::dataflow::Liveness::meet(uint64_t a1, uint64_t a2)
   return v2 ^ 1u;
 }
 
-uint64_t mlir::dataflow::LivenessAnalysis::visitOperation(uint64_t a1, mlir *this, uint64_t *a3, uint64_t a4, uint64_t *a5, uint64_t a6)
+uint64_t mlir::dataflow::LivenessAnalysis::visitOperation(mlir::dataflow::AbstractSparseBackwardDataFlowAnalysis *a1, mlir *this, uint64_t *a3, uint64_t a4, uint64_t *a5, uint64_t a6)
 {
   if ((mlir::isMemoryEffectFree(this, this) & 1) == 0)
   {
@@ -7482,8 +7485,8 @@ LABEL_38:
 LABEL_40:
         while (1)
         {
-          ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(v27);
-          if ((mlir::isMemoryEffectFree(ValuePtr, v29) & 1) == 0)
+          llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+          if ((mlir::isMemoryEffectFree(v28, v29) & 1) == 0)
           {
             break;
           }
@@ -7680,39 +7683,39 @@ LABEL_15:
   }
 }
 
-void mlir::dataflow::Liveness::~Liveness(mlir::dataflow::Liveness *this)
+void mlir::dataflow::Liveness::~Liveness(mlir::dataflow::Liveness *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *this = &unk_286893088;
-  v2 = *(this + 15);
-  if (v2 != this + 136)
+  v5 = *(this + 15);
+  if (v5 != this + 136)
   {
-    free(v2);
+    free(v5);
   }
 
-  v3 = *(this + 8);
-  if (v3 != *(this + 7))
+  v6 = *(this + 8);
+  if (v6 != *(this + 7))
   {
-    free(v3);
+    free(v6);
   }
 
-  mlir::AnalysisState::~AnalysisState(this);
+  mlir::AnalysisState::~AnalysisState(this, a2, a3, a4);
 }
 
 {
   *this = &unk_286893088;
-  v2 = *(this + 15);
-  if (v2 != this + 136)
+  v5 = *(this + 15);
+  if (v5 != this + 136)
   {
-    free(v2);
+    free(v5);
   }
 
-  v3 = *(this + 8);
-  if (v3 != *(this + 7))
+  v6 = *(this + 8);
+  if (v6 != *(this + 7))
   {
-    free(v3);
+    free(v6);
   }
 
-  mlir::AnalysisState::~AnalysisState(this);
+  mlir::AnalysisState::~AnalysisState(this, a2, a3, a4);
 }
 
 void sub_256E4C200()
@@ -7743,13 +7746,12 @@ uint64_t mlir::dataflow::SparseBackwardDataFlowAnalysis<mlir::dataflow::Liveness
   return result;
 }
 
-void *mlir::dataflow::AbstractSparseLattice::onUpdate(void *this, mlir::DataFlowSolver *a2)
+void mlir::dataflow::AbstractSparseLattice::onUpdate(mlir::dataflow::AbstractSparseLattice *this, mlir::DataFlowSolver *a2)
 {
-  v3 = this;
   v4 = *(this + 12);
   if (v4)
   {
-    v5 = this[5];
+    v5 = *(this + 5);
     v6 = *(a2 + 6);
     v7 = 16 * v4;
     do
@@ -7771,7 +7773,7 @@ void *mlir::dataflow::AbstractSparseLattice::onUpdate(void *this, mlir::DataFlow
       if (v11 == v12)
       {
         v25 = *v5;
-        this = std::deque<std::pair<mlir::ProgramPoint,mlir::DataFlowAnalysis *>>::__add_back_capacity(a2 + 1);
+        std::deque<std::pair<mlir::ProgramPoint,mlir::DataFlowAnalysis *>>::__add_back_capacity(a2 + 1);
         v10 = v25;
         v9 = *(a2 + 2);
         v12 = *(a2 + 6) + *(a2 + 5);
@@ -7787,12 +7789,12 @@ void *mlir::dataflow::AbstractSparseLattice::onUpdate(void *this, mlir::DataFlow
     while (v7);
   }
 
-  for (i = *(*(v3 + 8) & 0xFFFFFFFFFFFFFFFCLL); i; i = *i)
+  for (i = *(*(this + 1) & 0xFFFFFFFFFFFFFFFCLL); i; i = *i)
   {
-    v14 = *(v3 + 128);
+    v14 = *(this + 32);
     if (v14)
     {
-      v15 = *(v3 + 120);
+      v15 = *(this + 15);
       v16 = i[2] & 0xFFFFFFFFFFFFFFFBLL;
       v17 = *(a2 + 6);
       v18 = 8 * v14;
@@ -7814,7 +7816,7 @@ void *mlir::dataflow::AbstractSparseLattice::onUpdate(void *this, mlir::DataFlow
         v24 = v17 + *(a2 + 5);
         if (v23 == v24)
         {
-          this = std::deque<std::pair<mlir::ProgramPoint,mlir::DataFlowAnalysis *>>::__add_back_capacity(a2 + 1);
+          std::deque<std::pair<mlir::ProgramPoint,mlir::DataFlowAnalysis *>>::__add_back_capacity(a2 + 1);
           v21 = *(a2 + 2);
           v24 = *(a2 + 6) + *(a2 + 5);
         }
@@ -7831,18 +7833,20 @@ void *mlir::dataflow::AbstractSparseLattice::onUpdate(void *this, mlir::DataFlow
       while (v18);
     }
   }
-
-  return this;
 }
 
 void mlir::dataflow::AbstractSparseForwardDataFlowAnalysis::AbstractSparseForwardDataFlowAnalysis(mlir::dataflow::AbstractSparseForwardDataFlowAnalysis *this, mlir::DataFlowSolver *a2)
 {
-  *mlir::DataFlowAnalysis::DataFlowAnalysis(this, a2) = &unk_286892FD0;
+  v2 = mlir::DataFlowAnalysis::DataFlowAnalysis(this, a2);
+  *v2 = &unk_286892FD0;
+  v3 = v2[1];
   {
+    v4 = v3;
     mlir::dataflow::Executable::onUpdate();
+    v3 = v4;
   }
 
-  mlir::StorageUniquer::registerParametricStorageTypeImpl();
+  mlir::StorageUniquer::registerParametricStorageTypeImpl((v3 + 120), mlir::detail::TypeIDResolver<mlir::dataflow::CFGEdge,void>::resolveTypeID(void)::id, llvm::function_ref<void ()(mlir::StorageUniquer::BaseStorage *)>::callback_fn<void mlir::StorageUniquer::registerParametricStorageType<mlir::dataflow::CFGEdge>(mlir::TypeID)::{lambda(mlir::StorageUniquer::BaseStorage *)#1}>, &v5);
 }
 
 uint64_t mlir::dataflow::AbstractSparseForwardDataFlowAnalysis::initialize(mlir::dataflow::AbstractSparseForwardDataFlowAnalysis *this, mlir::Operation *a2)
@@ -8155,8 +8159,8 @@ LABEL_50:
 
   while (1)
   {
-    ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(v30);
-    if ((mlir::dataflow::AbstractSparseForwardDataFlowAnalysis::initializeRecursively(this, ValuePtr) & 1) == 0)
+    llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+    if ((mlir::dataflow::AbstractSparseForwardDataFlowAnalysis::initializeRecursively(this, v31) & 1) == 0)
     {
       return 0;
     }
@@ -8187,7 +8191,7 @@ uint64_t mlir::dataflow::AbstractSparseForwardDataFlowAnalysis::visitOperation(m
 
   if (v4)
   {
-    v5 = (a2 - 16);
+    v5 = a2 - 16;
   }
 
   else
@@ -8480,8 +8484,8 @@ LABEL_70:
 
 void mlir::dataflow::AbstractSparseForwardDataFlowAnalysis::visitBlock(mlir::dataflow::AbstractSparseForwardDataFlowAnalysis *this, mlir::Block *a2)
 {
-  v72[6] = *MEMORY[0x277D85DE8];
-  v65 = a2;
+  v73[6] = *MEMORY[0x277D85DE8];
+  v66 = a2;
   if (((*(a2 + 7) - *(a2 + 6)) & 0x7FFFFFFF8) == 0)
   {
     return;
@@ -8493,8 +8497,8 @@ void mlir::dataflow::AbstractSparseForwardDataFlowAnalysis::visitBlock(mlir::dat
     return;
   }
 
-  v70 = v72;
-  v71 = 0x600000000;
+  v71 = v73;
+  v72 = 0x600000000;
   v4 = *(v2 + 6);
   v5 = *(v2 + 7);
   if (((v5 - v4) >> 3) >= 7uLL)
@@ -8507,110 +8511,110 @@ void mlir::dataflow::AbstractSparseForwardDataFlowAnalysis::visitBlock(mlir::dat
     do
     {
       v6 = (*(*this + 56))(this, *v4);
-      if (v71 >= HIDWORD(v71))
+      if (v72 >= HIDWORD(v72))
       {
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
 
-      *(v70 + v71) = v6;
-      LODWORD(v71) = v71 + 1;
+      *(v71 + v72) = v6;
+      LODWORD(v72) = v72 + 1;
       v4 += 8;
     }
 
     while (v4 != v5);
-    v2 = v65;
+    v2 = v66;
   }
 
   if (mlir::Block::isEntryBlock(v2))
   {
-    ParentOp = mlir::Block::getParentOp(v65);
+    ParentOp = mlir::Block::getParentOp(v66);
     if (!mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(ParentOp))
     {
-      v63 = 0;
+      v64 = 0;
       InterfaceFor = 0;
       goto LABEL_45;
     }
 
     if (!ParentOp)
     {
-      v63 = 0;
+      v64 = 0;
       InterfaceFor = 0;
       goto LABEL_45;
     }
 
-    v63 = ParentOp;
+    v64 = ParentOp;
     InterfaceFor = mlir::OpInterface<mlir::CallableOpInterface,mlir::detail::CallableOpInterfaceInterfaceTraits>::getInterfaceFor(ParentOp);
-    CallableRegion = mlir::CallableOpInterface::getCallableRegion(&v63);
-    if (CallableRegion != mlir::Block::getParent(v65))
+    CallableRegion = mlir::CallableOpInterface::getCallableRegion(&v64);
+    if (CallableRegion != mlir::Block::getParent(v66))
     {
 LABEL_45:
-      v27 = mlir::Block::getParentOp(v65);
-      if (mlir::OpInterface<mlir::RegionBranchOpInterface,mlir::detail::RegionBranchOpInterfaceInterfaceTraits>::getInterfaceFor(v27))
+      v28 = mlir::Block::getParentOp(v66);
+      if (mlir::OpInterface<mlir::RegionBranchOpInterface,mlir::detail::RegionBranchOpInterfaceInterfaceTraits>::getInterfaceFor(v28))
       {
-        if (v27)
+        if (v28)
         {
-          v28 = mlir::OpInterface<mlir::RegionBranchOpInterface,mlir::detail::RegionBranchOpInterfaceInterfaceTraits>::getInterfaceFor(v27);
-          v29 = v65;
-          Parent = mlir::Block::getParent(v65);
-          mlir::dataflow::AbstractSparseForwardDataFlowAnalysis::visitRegionSuccessors(this, v29 | 4, v27, v28, Parent, v70, v71);
+          v29 = mlir::OpInterface<mlir::RegionBranchOpInterface,mlir::detail::RegionBranchOpInterfaceInterfaceTraits>::getInterfaceFor(v28);
+          v30 = v66;
+          Parent = mlir::Block::getParent(v66);
+          mlir::dataflow::AbstractSparseForwardDataFlowAnalysis::visitRegionSuccessors(this, v30 | 4, v28, v29, Parent, v71, v72);
           goto LABEL_73;
         }
 
-        v30 = v65;
+        v31 = v66;
       }
 
       else
       {
-        v30 = v65;
+        v31 = v66;
       }
 
-      v55 = mlir::Block::getParentOp(v30);
-      v66 = mlir::Block::getParent(v65);
-      mlir::ValueRange::ValueRange(v67, 0, 0);
-      (*(*this + 48))(this, v55, &v66, v70, v71, 0);
+      v56 = mlir::Block::getParentOp(v31);
+      v67 = mlir::Block::getParent(v66);
+      mlir::ValueRange::ValueRange(v68, 0, 0);
+      (*(*this + 48))(this, v56, &v67, v71, v72, 0);
       goto LABEL_73;
     }
 
-    v32 = v65;
-    v33 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(this + 1), v63);
-    mlir::DataFlowAnalysis::addDependency(this, v33, v32 | 4);
-    if (*(v33 + 56) != 1 || (**(this + 1) & 1) == 0)
+    v33 = v66;
+    v34 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::PredecessorState,mlir::Operation *>(*(this + 1), v64);
+    mlir::DataFlowAnalysis::addDependency(this, v34, v33 | 4);
+    if (*(v34 + 56) != 1 || (**(this + 1) & 1) == 0)
     {
-      if (v71)
+      if (v72)
       {
-        v56 = v70;
-        v57 = 8 * v71;
+        v57 = v71;
+        v58 = 8 * v72;
         do
         {
-          v58 = *v56++;
-          (*(*this + 64))(this, v58);
-          v57 -= 8;
+          v59 = *v57++;
+          (*(*this + 64))(this, v59);
+          v58 -= 8;
         }
 
-        while (v57);
+        while (v58);
       }
 
       goto LABEL_73;
     }
 
-    v34 = *(v33 + 136);
-    if (!v34)
+    v35 = *(v34 + 136);
+    if (!v35)
     {
       goto LABEL_73;
     }
 
-    v35 = *(v33 + 128);
-    v59 = &v35[v34];
+    v36 = *(v34 + 128);
+    v60 = &v36[v35];
     while (1)
     {
-      v36 = *v35;
-      if (*v35)
+      v37 = *v36;
+      if (*v36)
       {
-        v37 = mlir::OpInterface<mlir::CallOpInterface,mlir::detail::CallOpInterfaceInterfaceTraits>::getInterfaceFor(*v35);
-        v66 = v36;
-        v67[0] = v37;
-        ArgOperands = mlir::CallOpInterface::getArgOperands(&v66);
-        if (v39)
+        v38 = mlir::OpInterface<mlir::CallOpInterface,mlir::detail::CallOpInterfaceInterfaceTraits>::getInterfaceFor(*v36);
+        v67 = v37;
+        v68[0] = v38;
+        ArgOperands = mlir::CallOpInterface::getArgOperands(&v67);
+        if (v40)
         {
           goto LABEL_58;
         }
@@ -8618,61 +8622,61 @@ LABEL_45:
 
       else
       {
-        v66 = 0;
-        v67[0] = 0;
-        ArgOperands = mlir::CallOpInterface::getArgOperands(&v66);
-        if (v39)
+        v67 = 0;
+        v68[0] = 0;
+        ArgOperands = mlir::CallOpInterface::getArgOperands(&v67);
+        if (v40)
         {
 LABEL_58:
-          if (v71)
+          if (v72)
           {
-            v40 = v70;
-            v41 = 8 * v71 - 8;
-            v42 = (ArgOperands + 24);
-            v43 = v39 - 1;
+            v41 = v71;
+            v42 = 8 * v72 - 8;
+            v43 = (ArgOperands + 24);
+            v44 = v40 - 1;
             do
             {
-              v45 = *v42;
-              v42 += 4;
-              v44 = v45;
-              v46 = *v40++;
-              v47 = v65;
-              v48 = (*(*this + 56))(this, v44);
-              mlir::DataFlowAnalysis::addDependency(this, v48, v47 | 4);
-              v49 = (*(*v46 + 32))(v46, v48);
-              mlir::DataFlowAnalysis::propagateIfChanged(this, v46, v49);
-              if (v43-- == 0)
+              v46 = *v43;
+              v43 += 4;
+              v45 = v46;
+              v47 = *v41++;
+              v48 = v66;
+              v49 = (*(*this + 56))(this, v45);
+              mlir::DataFlowAnalysis::addDependency(this, v49, v48 | 4);
+              v50 = (*(*v47 + 32))(v47, v49);
+              mlir::DataFlowAnalysis::propagateIfChanged(this, v47, v50);
+              if (v44-- == 0)
               {
                 break;
               }
 
-              v51 = v41;
-              v41 -= 8;
+              v52 = v42;
+              v42 -= 8;
             }
 
-            while (v51);
+            while (v52);
           }
         }
       }
 
-      if (++v35 == v59)
+      if (++v36 == v60)
       {
         goto LABEL_73;
       }
     }
   }
 
-  v63 = *v65;
+  v64 = *v66;
   InterfaceFor = mlir::PredecessorIterator::unwrap;
-  if (!v63)
+  if (!v64)
   {
     goto LABEL_73;
   }
 
   while (1)
   {
-    v62 = InterfaceFor();
-    v8 = mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>((*(this + 1) + 120), 0, 0, &v62, &v65);
+    v63 = InterfaceFor();
+    v8 = mlir::StorageUniquer::get<mlir::dataflow::CFGEdge,mlir::Block *&,mlir::Block *&>((*(this + 1) + 120), 0, 0, &v63, &v66);
     v9 = mlir::DataFlowSolver::getOrCreateState<mlir::dataflow::Executable,mlir::dataflow::CFGEdge *>(*(this + 1), v8);
     v10 = *(v9 + 64);
     if (*(v9 + 72) != v10)
@@ -8680,11 +8684,11 @@ LABEL_58:
       goto LABEL_18;
     }
 
-    v15 = *(v9 + 84);
-    if (!v15)
+    v16 = *(v9 + 84);
+    if (!v16)
     {
 LABEL_29:
-      if (v15 >= *(v9 + 80))
+      if (v16 >= *(v9 + 80))
       {
 LABEL_18:
         llvm::SmallPtrSetImplBase::insert_imp_big((v9 + 64), this);
@@ -8702,8 +8706,8 @@ LABEL_18:
 
       else
       {
-        *(v9 + 84) = v15 + 1;
-        *(v10 + 8 * v15) = this;
+        *(v9 + 84) = v16 + 1;
+        *(v10 + 8 * v16) = this;
         v12 = *(v9 + 136);
         if (v12 >= *(v9 + 140))
         {
@@ -8717,13 +8721,13 @@ LABEL_31:
       goto LABEL_21;
     }
 
-    v16 = 8 * v15;
-    v17 = *(v9 + 64);
-    while (*v17 != this)
+    v17 = 8 * v16;
+    v18 = *(v9 + 64);
+    while (*v18 != this)
     {
-      ++v17;
-      v16 -= 8;
-      if (!v16)
+      ++v18;
+      v17 -= 8;
+      if (!v17)
       {
         goto LABEL_29;
       }
@@ -8736,88 +8740,89 @@ LABEL_21:
     }
 
 LABEL_16:
-    v63 = *v63;
-    if (!v63)
+    v64 = *v64;
+    if (!v64)
     {
       goto LABEL_73;
     }
   }
 
-  Terminator = mlir::Block::getTerminator(v62);
-  if (!mlir::OpInterface<mlir::BranchOpInterface,mlir::detail::BranchOpInterfaceInterfaceTraits>::getInterfaceFor(Terminator))
+  mlir::Block::getTerminator(v63);
+  v14 = v13;
+  if (!mlir::OpInterface<mlir::BranchOpInterface,mlir::detail::BranchOpInterfaceInterfaceTraits>::getInterfaceFor(v13))
   {
-    v60 = 0;
     v61 = 0;
+    v62 = 0;
     goto LABEL_64;
   }
 
-  if (Terminator)
+  if (v14)
   {
-    v14 = mlir::OpInterface<mlir::BranchOpInterface,mlir::detail::BranchOpInterfaceInterfaceTraits>::getInterfaceFor(Terminator);
-    v60 = Terminator;
+    v15 = mlir::OpInterface<mlir::BranchOpInterface,mlir::detail::BranchOpInterfaceInterfaceTraits>::getInterfaceFor(v14);
     v61 = v14;
-    SuccessorIndex = mlir::PredecessorIterator::getSuccessorIndex(&v63);
-    mlir::BranchOpInterface::getSuccessorOperands(&v60, SuccessorIndex);
-    if (v71)
+    v62 = v15;
+    SuccessorIndex = mlir::PredecessorIterator::getSuccessorIndex(&v64);
+    mlir::BranchOpInterface::getSuccessorOperands(&v67, &v61, SuccessorIndex);
+    if (v72)
     {
-      v19 = 0;
-      v20 = v70;
-      v21 = 8 * v71;
+      v20 = 0;
+      v21 = v71;
+      v22 = 8 * v72;
       do
       {
-        while (v66 > v19 || !*(mlir::MutableOperandRange::operator[](v67, v19 - v66) + 24))
+        while (v67 > v20 || !*(mlir::MutableOperandRange::operator[](v68, v20 - v67) + 24))
         {
-          (*(*this + 64))(this, v20[v19++]);
-          v21 -= 8;
-          if (!v21)
+          (*(*this + 64))(this, v21[v20++]);
+          v22 -= 8;
+          if (!v22)
           {
             goto LABEL_40;
           }
         }
 
-        v22 = v20[v19];
-        v23 = v65;
-        v24 = (*(*this + 56))(this);
-        mlir::DataFlowAnalysis::addDependency(this, v24, v23 | 4);
-        v25 = (*(*v22 + 32))(v22, v24);
-        mlir::DataFlowAnalysis::propagateIfChanged(this, v22, v25);
-        ++v19;
-        v21 -= 8;
+        v23 = v21[v20];
+        v24 = v66;
+        v25 = (*(*this + 56))(this);
+        mlir::DataFlowAnalysis::addDependency(this, v25, v24 | 4);
+        v26 = (*(*v23 + 32))(v23, v25);
+        mlir::DataFlowAnalysis::propagateIfChanged(this, v23, v26);
+        ++v20;
+        v22 -= 8;
       }
 
-      while (v21);
+      while (v22);
     }
 
 LABEL_40:
-    if (v68 != &v69)
+    if (v69 != &v70)
     {
-      free(v68);
+      free(v69);
     }
 
     goto LABEL_16;
   }
 
-  v60 = 0;
   v61 = 0;
+  v62 = 0;
 LABEL_64:
-  if (v71)
+  if (v72)
   {
-    v52 = v70;
-    v53 = 8 * v71;
+    v53 = v71;
+    v54 = 8 * v72;
     do
     {
-      v54 = *v52++;
-      (*(*this + 64))(this, v54);
-      v53 -= 8;
+      v55 = *v53++;
+      (*(*this + 64))(this, v55);
+      v54 -= 8;
     }
 
-    while (v53);
+    while (v54);
   }
 
 LABEL_73:
-  if (v70 != v72)
+  if (v71 != v73)
   {
-    free(v70);
+    free(v71);
   }
 }
 
@@ -9181,11 +9186,12 @@ void mlir::dataflow::AbstractSparseBackwardDataFlowAnalysis::AbstractSparseBackw
   v4 = mlir::DataFlowAnalysis::DataFlowAnalysis(a1, a2);
   *v4 = &unk_286893028;
   v4[2] = a3;
+  v5 = v4[1];
   {
     mlir::dataflow::Executable::onUpdate();
   }
 
-  mlir::StorageUniquer::registerParametricStorageTypeImpl();
+  mlir::StorageUniquer::registerParametricStorageTypeImpl((v5 + 120), mlir::detail::TypeIDResolver<mlir::dataflow::CFGEdge,void>::resolveTypeID(void)::id, llvm::function_ref<void ()(mlir::StorageUniquer::BaseStorage *)>::callback_fn<void mlir::StorageUniquer::registerParametricStorageType<mlir::dataflow::CFGEdge>(mlir::TypeID)::{lambda(mlir::StorageUniquer::BaseStorage *)#1}>, &v6);
 }
 
 uint64_t mlir::dataflow::AbstractSparseBackwardDataFlowAnalysis::initializeRecursively(mlir::dataflow::AbstractSparseBackwardDataFlowAnalysis *this, mlir::Operation *a2)
@@ -9455,8 +9461,8 @@ LABEL_43:
           break;
         }
 
-        ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(v30);
-        if ((mlir::dataflow::AbstractSparseBackwardDataFlowAnalysis::initializeRecursively(this, ValuePtr) & 1) == 0)
+        llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+        if ((mlir::dataflow::AbstractSparseBackwardDataFlowAnalysis::initializeRecursively(this, v31) & 1) == 0)
         {
           return 0;
         }
@@ -9498,7 +9504,7 @@ uint64_t mlir::dataflow::AbstractSparseBackwardDataFlowAnalysis::visitOperation(
   v6 = *(a2 + 36);
   if (v6)
   {
-    v7 = (a2 - 16);
+    v7 = a2 - 16;
   }
 
   else
@@ -9572,8 +9578,8 @@ LABEL_25:
           v116 = v121;
           do
           {
-            v14 = *&v116[8 * v13 + 6];
-            mlir::BranchOpInterface::getSuccessorOperands(&v119, v13);
+            v14 = v116[4 * v13 + 3];
+            mlir::BranchOpInterface::getSuccessorOperands(&v121, &v119, v13);
             v117 = mlir::MutableOperandRange::operator mlir::OperandRange(&v122);
             v118 = v15;
             if (v15)
@@ -9884,7 +9890,7 @@ LABEL_166:
             while (v50);
           }
 
-          llvm::BitVector::set_bits(&__b, &v121);
+          llvm::BitVector::set_bits(&v121, &__b);
           v51 = v122;
           v52 = v123;
           if (v122 != v123)
@@ -9894,7 +9900,7 @@ LABEL_166:
             {
               (*(*this + 56))(this, *(a2 + 72) + 32 * v51);
               v54 = v51 + 1;
-              v55 = v53[16];
+              v55 = *(v53 + 16);
               if (v51 + 1 != v55)
               {
                 v56 = v54 >> 6;
@@ -9927,7 +9933,7 @@ LABEL_166:
                     v64 = -1;
                   }
 
-                  v65 = v64 & *(v59 + 8 * v56) & v62;
+                  v65 = v64 & v59[v56] & v62;
                   if (v65)
                   {
                     goto LABEL_81;
@@ -9955,7 +9961,7 @@ LABEL_71:
             {
               v69 = v68 ? -1 : v62;
               v70 = --v67 ? -1 : v63;
-              v65 = v69 & v70 & *(v59 + 8 * v66);
+              v65 = v69 & v70 & v59[v66];
               if (v65)
               {
                 break;

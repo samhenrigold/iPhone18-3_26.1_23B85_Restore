@@ -1,2660 +1,3 @@
-uint64_t __SecTrustSetPinningException_block_invoke(uint64_t a1)
-{
-  result = SecTrustRemoveOptionInPolicies(*(*(a1 + 40) + 32), @"PinningRequired");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  return result;
-}
-
-__SecTrust *SecTrustGetDetails(__SecTrust *result)
-{
-  if (result)
-  {
-    v1 = result;
-    SecTrustEvaluateIfNecessary(result);
-    return *(v1 + 11);
-  }
-
-  return result;
-}
-
-os_log_t __SecTrustEvaluateThreadRuntimeCheck_block_invoke_3()
-{
-  result = os_log_create("com.apple.runtime-issues", "Security");
-  checkmap_block_invoke_2_runtimeLog = result;
-  return result;
-}
-
-__SecTrust *SecTrustCopyFilteredDetails(__SecTrust *a1)
-{
-  v1 = a1;
-  if (a1)
-  {
-    SecTrustEvaluateIfNecessary(a1);
-    v5 = 0;
-    v6 = &v5;
-    v7 = 0x2000000000;
-    v8 = 0;
-    v2 = *(v1 + 17);
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 0x40000000;
-    v4[2] = __SecTrustCopyFilteredDetails_block_invoke;
-    v4[3] = &unk_1E70E28C8;
-    v4[4] = &v5;
-    v4[5] = v1;
-    dispatch_sync(v2, v4);
-    v1 = v6[3];
-    _Block_object_dispose(&v5, 8);
-  }
-
-  return v1;
-}
-
-void *__SecTrustCopyFilteredDetails_block_invoke(void *result)
-{
-  v1 = result;
-  v2 = result[5];
-  v3 = *(v2 + 88);
-  if (v3)
-  {
-    result = CFRetain(*(v2 + 88));
-  }
-
-  *(*(v1[4] + 8) + 24) = v3;
-  return result;
-}
-
-uint64_t SecTrustIsExpiredOnly(__SecTrust *a1)
-{
-  v1 = SecTrustCopyFilteredDetails(a1);
-  if (v1)
-  {
-    v2 = v1;
-    Count = CFArrayGetCount(v1);
-    if (Count >= 1)
-    {
-      v4 = Count;
-      v5 = 0;
-      v6 = 0;
-      v7 = *MEMORY[0x1E695E4C0];
-      while (1)
-      {
-        ValueAtIndex = CFArrayGetValueAtIndex(v2, v6);
-        if (ValueAtIndex)
-        {
-          v9 = ValueAtIndex;
-          v10 = CFDictionaryGetCount(ValueAtIndex);
-          if (v10 > 1)
-          {
-            break;
-          }
-
-          if (v10)
-          {
-            Value = CFDictionaryGetValue(v9, @"TemporalValidity");
-            if (!Value)
-            {
-              break;
-            }
-
-            v12 = Value;
-            v13 = CFGetTypeID(Value);
-            if (v13 != CFBooleanGetTypeID() || !CFEqual(v12, v7))
-            {
-              break;
-            }
-
-            v5 = 1;
-          }
-        }
-
-        if (v4 == ++v6)
-        {
-          goto LABEL_14;
-        }
-      }
-    }
-
-    v5 = 0;
-LABEL_14:
-    CFRelease(v2);
-  }
-
-  else
-  {
-    return 0;
-  }
-
-  return v5;
-}
-
-__CFString *SecTrustCopyFailureDescription(__SecTrust *a1)
-{
-  v31 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    Mutable = CFStringCreateMutable(0, 0);
-    SecTrustEvaluateIfNecessary(a1);
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x2000000000;
-    v30 = 0;
-    v3 = *(a1 + 17);
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 0x40000000;
-    block[2] = __SecTrustCopyFailureDescription_block_invoke;
-    block[3] = &unk_1E70E2EB0;
-    block[4] = &v27;
-    block[5] = a1;
-    dispatch_sync(v3, block);
-    v4 = v28[3];
-    if (v4)
-    {
-      Count = CFArrayGetCount(v4);
-      v23 = Count - 1;
-      v24 = Count;
-      if (Count >= 1)
-      {
-        v6 = 0;
-        while (1)
-        {
-          ValueAtIndex = CFArrayGetValueAtIndex(v28[3], v6);
-          v8 = CFDictionaryGetCount(ValueAtIndex);
-          if (v8 >= 1)
-          {
-            break;
-          }
-
-LABEL_18:
-          if (++v6 == v24)
-          {
-            goto LABEL_19;
-          }
-        }
-
-        v9 = v8;
-        if (v6)
-        {
-          if (v6 != v23)
-          {
-            CFStringAppendFormat(Mutable, 0, @" [ca%ld", v6);
-LABEL_12:
-            v25 = &v23;
-            MEMORY[0x1EEE9AC00](v12);
-            v14 = (&v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-            memset(v14, 170, v13);
-            CFDictionaryGetKeysAndValues(ValueAtIndex, v14, 0);
-            qsort(v14, v9, 8uLL, compare_strings);
-            do
-            {
-              v16 = *v14++;
-              v15 = v16;
-              Value = CFDictionaryGetValue(ValueAtIndex, v16);
-              v18 = CFGetTypeID(Value);
-              if (v18 == CFBooleanGetTypeID())
-              {
-                v19 = &stru_1EFA8C6C8;
-              }
-
-              else
-              {
-                v19 = Value;
-              }
-
-              CFStringAppendFormat(Mutable, 0, @" %@%@", v15, v19);
-              --v9;
-            }
-
-            while (v9);
-            CFStringAppend(Mutable, @"]");
-            goto LABEL_18;
-          }
-
-          v10 = Mutable;
-          v11 = @" [root";
-        }
-
-        else
-        {
-          v10 = Mutable;
-          v11 = @" [leaf";
-        }
-
-        CFStringAppend(v10, v11);
-        goto LABEL_12;
-      }
-    }
-
-LABEL_19:
-    v20 = v28[3];
-    if (v20)
-    {
-      CFRelease(v20);
-    }
-
-    _Block_object_dispose(&v27, 8);
-  }
-
-  else
-  {
-    Mutable = 0;
-  }
-
-  v21 = *MEMORY[0x1E69E9840];
-  return Mutable;
-}
-
-void *__SecTrustCopyFailureDescription_block_invoke(void *result)
-{
-  v1 = result;
-  v2 = result[5];
-  v3 = *(v2 + 88);
-  if (v3)
-  {
-    result = CFRetain(*(v2 + 88));
-  }
-
-  *(*(v1[4] + 8) + 24) = v3;
-  return result;
-}
-
-void *__SecTrustCopyErrorStrings_block_invoke(void *result)
-{
-  v1 = result;
-  v2 = result[6];
-  v3 = *(v2 + 88);
-  if (v3)
-  {
-    result = CFRetain(*(v2 + 88));
-  }
-
-  *(*(v1[4] + 8) + 24) = v3;
-  v4 = v1[6];
-  v5 = *(v4 + 72);
-  if (v5)
-  {
-    result = CFRetain(*(v4 + 72));
-  }
-
-  *(*(v1[5] + 8) + 24) = v5;
-  return result;
-}
-
-void __SecTrustCopyErrorStrings_block_invoke_3(void *a1, const void *a2)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  v4 = SecTrustCopyErrorStrings_policyChecks;
-  v14.length = CFArrayGetCount(SecTrustCopyErrorStrings_policyChecks);
-  v14.location = 0;
-  FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v4, v14, a2);
-  if (FirstIndexOfValue < 0x4F)
-  {
-    v7 = *(a1[4] + 8);
-    v8 = &checkmap + 16 * FirstIndexOfValue;
-    if (*(v7 + 24) > *v8)
-    {
-      *(v7 + 24) = *v8;
-      *(*(a1[5] + 8) + 24) = *(*(a1[6] + 8) + 24);
-      *(*(a1[7] + 8) + 24) = *(v8 + 1);
-    }
-
-    if ((*(*(a1[8] + 8) + 24) & 1) == 0)
-    {
-      CFStringAppend(*(*(a1[9] + 8) + 24), @", ");
-    }
-
-    v9 = SecFrameworkCopyLocalizedString(*(v8 + 1), @"Trust");
-    CFStringAppend(*(*(a1[9] + 8) + 24), v9);
-    if (v9)
-    {
-      CFRelease(v9);
-    }
-
-    *(*(a1[8] + 8) + 24) = 0;
-  }
-
-  else
-  {
-    v6 = secLogObjForScope("SecWarning");
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v11 = 138412290;
-      v12 = a2;
-      _os_log_impl(&dword_1887D2000, v6, OS_LOG_TYPE_DEFAULT, "unknown failure key in details dictionary: %@", &v11, 0xCu);
-    }
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-void __SecTrustCopyErrorStrings_block_invoke_2()
-{
-  Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
-  CFArrayAppendValue(Mutable, @"SSLHostname");
-  CFArrayAppendValue(Mutable, @"Email");
-  CFArrayAppendValue(Mutable, @"TemporalValidity");
-  CFArrayAppendValue(Mutable, @"ValidLeaf");
-  CFArrayAppendValue(Mutable, @"WeakKeySize");
-  CFArrayAppendValue(Mutable, @"WeakSignature");
-  CFArrayAppendValue(Mutable, @"KeyUsage");
-  CFArrayAppendValue(Mutable, @"ExtendedKeyUsage");
-  CFArrayAppendValue(Mutable, @"SubjectCommonName");
-  CFArrayAppendValue(Mutable, @"SubjectCommonNamePrefix");
-  CFArrayAppendValue(Mutable, @"SubjectCommonNameTEST");
-  CFArrayAppendValue(Mutable, @"SubjectOrganization");
-  CFArrayAppendValue(Mutable, @"SubjectOrganizationalUnit");
-  CFArrayAppendValue(Mutable, @"NotValidBefore");
-  CFArrayAppendValue(Mutable, @"EAPTrustedServerNames");
-  CFArrayAppendValue(Mutable, @"LeafMarkerOid");
-  CFArrayAppendValue(Mutable, @"LeafMarkerOidWithoutValueCheck");
-  CFArrayAppendValue(Mutable, @"LeafMarkersProdAndQA");
-  CFArrayAppendValue(Mutable, @"BlackListedLeaf");
-  CFArrayAppendValue(Mutable, @"GrayListedLeaf");
-  CFArrayAppendValue(Mutable, @"LeafSPKISHA256");
-  CFArrayAppendValue(Mutable, @"NotCA");
-  CFArrayAppendValue(Mutable, @"MarkRepresentation");
-  CFArrayAppendValue(Mutable, @"URI");
-  CFArrayAppendValue(Mutable, @"IssuerCommonName");
-  CFArrayAppendValue(Mutable, @"IssuerCommonNamePrefix");
-  CFArrayAppendValue(Mutable, @"BasicConstraints");
-  CFArrayAppendValue(Mutable, @"BasicConstraintsCA");
-  CFArrayAppendValue(Mutable, @"BasicConstraintsPathLen");
-  CFArrayAppendValue(Mutable, @"IntermediateSPKISHA256");
-  CFArrayAppendValue(Mutable, @"IntermediateEKU");
-  CFArrayAppendValue(Mutable, @"IntermediateMarkerOid");
-  CFArrayAppendValue(Mutable, @"IntermediateMarkerOidWithoutValueCheck");
-  CFArrayAppendValue(Mutable, @"IntermediateOrganization");
-  CFArrayAppendValue(Mutable, @"IntermediateCountry");
-  CFArrayAppendValue(Mutable, @"AnchorSHA256");
-  CFArrayAppendValue(Mutable, @"AnchorTrusted");
-  CFArrayAppendValue(Mutable, @"MissingIntermediate");
-  CFArrayAppendValue(Mutable, @"AnchorApple");
-  CFArrayAppendValue(Mutable, @"CAspkiSHA256");
-  CFArrayAppendValue(Mutable, @"RootMarkerOid");
-  CFArrayAppendValue(Mutable, @"NonEmptySubject");
-  CFArrayAppendValue(Mutable, @"IdLinkage");
-  CFArrayAppendValue(Mutable, @"KeySize");
-  CFArrayAppendValue(Mutable, @"SignatureHashAlgorithms");
-  CFArrayAppendValue(Mutable, @"CertificatePolicy");
-  CFArrayAppendValue(Mutable, @"ValidRoot");
-  CFArrayAppendValue(Mutable, @"CriticalExtensions");
-  CFArrayAppendValue(Mutable, @"ChainLength");
-  CFArrayAppendValue(Mutable, @"BasicCertificateProcessing");
-  CFArrayAppendValue(Mutable, @"NameConstraints");
-  CFArrayAppendValue(Mutable, @"PolicyConstraints");
-  CFArrayAppendValue(Mutable, @"GrayListedKey");
-  CFArrayAppendValue(Mutable, @"BlackListedKey");
-  CFArrayAppendValue(Mutable, @"UsageConstraints");
-  CFArrayAppendValue(Mutable, @"SystemTrustedWeakHash");
-  CFArrayAppendValue(Mutable, @"SystemTrustedWeakKey");
-  CFArrayAppendValue(Mutable, @"PinningRequired");
-  CFArrayAppendValue(Mutable, @"Revocation");
-  CFArrayAppendValue(Mutable, @"RevocationResponseRequired");
-  CFArrayAppendValue(Mutable, @"CTRequired");
-  CFArrayAppendValue(Mutable, @"SystemTrustedCTRequired");
-  CFArrayAppendValue(Mutable, @"IssuerPolicyConstraints");
-  CFArrayAppendValue(Mutable, @"IssuerNameConstraints");
-  CFArrayAppendValue(Mutable, @"ValidityPeriodMaximums");
-  CFArrayAppendValue(Mutable, @"SystemTrustValidityPeriod");
-  CFArrayAppendValue(Mutable, @"OtherTrustValidityPeriod");
-  CFArrayAppendValue(Mutable, @"ServerAuthEKU");
-  CFArrayAppendValue(Mutable, @"EmailProtectionEKU");
-  CFArrayAppendValue(Mutable, @"SinglePurposeChainEKU");
-  CFArrayAppendValue(Mutable, @"UnparseableExtension");
-  CFArrayAppendValue(Mutable, @"NonTlsCTRequired");
-  CFArrayAppendValue(Mutable, @"DuplicateExtension");
-  CFArrayAppendValue(Mutable, @"QWAC");
-  CFArrayAppendValue(Mutable, @"NoNetworkAccess");
-  CFArrayAppendValue(Mutable, @"ExtendedValidation");
-  CFArrayAppendValue(Mutable, @"RevocationOnline");
-  CFArrayAppendValue(Mutable, @"RevocationIfTrusted");
-  CFArrayAppendValue(Mutable, @"RevocationDbIgnored");
-  SecTrustCopyErrorStrings_policyChecks = Mutable;
-}
-
-OSStatus SecTrustEvaluateAsync(SecTrustRef trust, dispatch_queue_t queue, SecTrustCallback result)
-{
-  if (trust)
-  {
-    CFRetain(trust);
-  }
-
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 0x40000000;
-  v7[2] = __SecTrustEvaluateAsync_block_invoke;
-  v7[3] = &unk_1E70E2DE8;
-  v7[4] = result;
-  v7[5] = trust;
-  dispatch_async(queue, v7);
-  return 0;
-}
-
-void __SecTrustEvaluateAsync_block_invoke(uint64_t a1)
-{
-  v4 = -1431655766;
-  if (SecTrustEvaluateInternal(*(a1 + 40), &v4))
-  {
-    v4 = 0;
-  }
-
-  v2 = *(a1 + 40);
-  (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 40);
-  if (v3)
-  {
-    CFRelease(v3);
-  }
-}
-
-void __SecTrustEvaluateIfNecessaryFastAsync_block_invoke_565(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  if (*(*(a1 + 40) + 160))
-  {
-    *(*(*(a1 + 32) + 8) + 24) = 1;
-  }
-
-  else
-  {
-    v2 = secLogObjForScope("trust");
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v3 = *(a1 + 40);
-      v6 = 134217984;
-      v7 = v3;
-      _os_log_impl(&dword_1887D2000, v2, OS_LOG_TYPE_DEFAULT, "(Trust %p) No pending evals, starting", &v6, 0xCu);
-    }
-
-    v4 = *(a1 + 40);
-    *(v4 + 160) = 1;
-    dispatch_group_enter(*(v4 + 168));
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __SecTrustEvaluateIfNecessaryFastAsync_block_invoke_545(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = secLogObjForScope("trust");
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
-  {
-    v5 = *(a1 + 40);
-    v6 = 134217984;
-    v7 = v5;
-    _os_log_debug_impl(&dword_1887D2000, v2, OS_LOG_TYPE_DEBUG, "(Trust %p) Calling completion block", &v6, 0xCu);
-  }
-
-  (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 40);
-  if (v3)
-  {
-    CFRelease(v3);
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-__CFDictionary *_onQueue_SecTrustCopyPlist(uint64_t a1)
-{
-  Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v3 = *(a1 + 16);
-  if (v3)
-  {
-    v4 = SecCertificateArraySerialize(v3);
-    if (v4)
-    {
-      v5 = v4;
-      CFDictionaryAddValue(Mutable, @"certificates", v4);
-      CFRelease(v5);
-    }
-  }
-
-  v6 = *(a1 + 24);
-  if (v6)
-  {
-    v7 = SecCertificateArraySerialize(v6);
-    if (v7)
-    {
-      v8 = v7;
-      CFDictionaryAddValue(Mutable, @"anchors", v7);
-      CFRelease(v8);
-    }
-  }
-
-  v9 = *(a1 + 32);
-  if (v9)
-  {
-    v10 = CFGetTypeID(*(a1 + 32));
-    if (v10 == CFArrayGetTypeID())
-    {
-      Count = CFArrayGetCount(v9);
-      v12 = CFArrayCreateMutable(0, Count, MEMORY[0x1E695E9C0]);
-      v30.location = 0;
-      v30.length = Count;
-      CFArrayApplyFunction(v9, v30, serializePolicy, v12);
-      if (v12)
-      {
-        CFDictionaryAddValue(Mutable, @"policies", v12);
-        CFRelease(v12);
-      }
-    }
-  }
-
-  v13 = *(a1 + 40);
-  if (v13)
-  {
-    CFDictionaryAddValue(Mutable, @"responses", v13);
-  }
-
-  v14 = *(a1 + 48);
-  if (v14)
-  {
-    CFDictionaryAddValue(Mutable, @"scts", v14);
-  }
-
-  v15 = *(a1 + 56);
-  if (v15)
-  {
-    CFDictionaryAddValue(Mutable, @"trustedLogs", v15);
-  }
-
-  v16 = *(a1 + 64);
-  if (v16)
-  {
-    CFDictionaryAddValue(Mutable, @"verifyDate", v16);
-  }
-
-  v17 = *(a1 + 72);
-  if (v17)
-  {
-    v18 = SecCertificateArraySerialize(v17);
-    if (v18)
-    {
-      v19 = v18;
-      CFDictionaryAddValue(Mutable, @"chain", v18);
-      CFRelease(v19);
-    }
-  }
-
-  v20 = *(a1 + 88);
-  if (v20)
-  {
-    CFDictionaryAddValue(Mutable, @"details", v20);
-  }
-
-  v21 = *(a1 + 96);
-  if (v21)
-  {
-    CFDictionaryAddValue(Mutable, @"info", v21);
-  }
-
-  v22 = *(a1 + 104);
-  if (v22)
-  {
-    CFDictionaryAddValue(Mutable, @"exceptions", v22);
-  }
-
-  v23 = CFNumberCreate(0, kCFNumberSInt32Type, (a1 + 112));
-  if (v23)
-  {
-    v24 = v23;
-    CFDictionaryAddValue(Mutable, @"result", v23);
-    CFRelease(v24);
-  }
-
-  v25 = *MEMORY[0x1E695E4D0];
-  v26 = *MEMORY[0x1E695E4C0];
-  if (*(a1 + 116))
-  {
-    v27 = *MEMORY[0x1E695E4D0];
-  }
-
-  else
-  {
-    v27 = *MEMORY[0x1E695E4C0];
-  }
-
-  CFDictionaryAddValue(Mutable, @"anchorsOnly", v27);
-  if (*(a1 + 117))
-  {
-    v28 = v25;
-  }
-
-  else
-  {
-    v28 = v26;
-  }
-
-  CFDictionaryAddValue(Mutable, @"keychainsAllowed", v28);
-  return Mutable;
-}
-
-SecTrustRef SecTrustCreateFromPropertyListRepresentation(const void *a1, __CFString **a2)
-{
-  v5 = 0;
-  if (a1)
-  {
-    v3 = SecTrustCreateFromPlist(a1, &v5);
-    if (v3)
-    {
-      SecError(v3, a2, @"unable to create trust ref");
-    }
-  }
-
-  else
-  {
-    SecError(-50, a2, @"null property list input");
-  }
-
-  return v5;
-}
-
-void __SecTrustEvaluateIfNecessaryFastAsync_block_invoke_547(uint64_t a1)
-{
-  v19 = 0;
-  v2 = *(gTrustd + 40);
-  v3 = *(*(*(a1 + 40) + 8) + 24);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 24);
-  v6 = *(v3 + 116);
-  v7 = *(v3 + 117);
-  v8 = *(v3 + 32);
-  v9 = *(v3 + 40);
-  v10 = *(v3 + 48);
-  v11 = *(v3 + 56);
-  v12 = *(*(*(a1 + 48) + 8) + 24);
-  if (SecTrustGetCurrentAccessGroups_onceToken != -1)
-  {
-    dispatch_once(&SecTrustGetCurrentAccessGroups_onceToken, &__block_literal_global_493);
-  }
-
-  v13 = *(*(*(a1 + 40) + 8) + 24);
-  v14 = v2(v4, v5, v6, v7, v8, v9, v10, v11, v12, SecTrustGetCurrentAccessGroups_accessGroups, v13[13], v13[18], v13[19], v13 + 11, v13 + 12, v13 + 9, &v19);
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 0x40000000;
-  v16[2] = __SecTrustEvaluateIfNecessaryFastAsync_block_invoke_2;
-  v16[3] = &unk_1E70E3860;
-  v15 = *(a1 + 56);
-  v17 = *(a1 + 32);
-  v18 = v15;
-  __SecTrustEvaluateIfNecessaryFastAsync_block_invoke_2(v16, v14, v19);
-}
-
-void __SecTrustEvaluateIfNecessaryFastAsync_block_invoke_557(uint64_t a1)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 48);
-  *(v2 + 112) = *(a1 + 64);
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 24);
-  v5 = v4[11];
-  if (*(v2 + 88) != v5)
-  {
-    if (v5)
-    {
-      CFRetain(v4[11]);
-      v6 = *(v2 + 88);
-      if (!v6)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    else
-    {
-      v6 = *(v2 + 88);
-    }
-
-    CFRelease(v6);
-LABEL_7:
-    *(v2 + 88) = v5;
-    v2 = *(a1 + 48);
-    v3 = *(*(a1 + 32) + 8);
-    v4 = *(v3 + 24);
-  }
-
-  v7 = v4[12];
-  if (*(v2 + 96) == v7)
-  {
-    goto LABEL_15;
-  }
-
-  if (v7)
-  {
-    CFRetain(v4[12]);
-    v8 = *(v2 + 96);
-    if (!v8)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  else
-  {
-    v8 = *(v2 + 96);
-  }
-
-  CFRelease(v8);
-LABEL_14:
-  *(v2 + 96) = v7;
-  v2 = *(a1 + 48);
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 24);
-LABEL_15:
-  v9 = v4[9];
-  if (*(v2 + 72) == v9)
-  {
-LABEL_22:
-    *(v3 + 24) = 0;
-    CFRelease(v4);
-    goto LABEL_23;
-  }
-
-  if (!v9)
-  {
-    v10 = *(v2 + 72);
-    goto LABEL_20;
-  }
-
-  CFRetain(v4[9]);
-  v10 = *(v2 + 72);
-  if (v10)
-  {
-LABEL_20:
-    CFRelease(v10);
-  }
-
-  *(v2 + 72) = v9;
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 24);
-  if (v4)
-  {
-    goto LABEL_22;
-  }
-
-LABEL_23:
-  v11 = *(a1 + 48);
-  if (!*(v11 + 112) && (OSStatus = SecErrorGetOSStatus(*(a1 + 56)), v11 = *(a1 + 48), OSStatus == -25291) && (Count = CFArrayGetCount(*(v11 + 16)), v11 = *(a1 + 48), Count))
-  {
-    *values = CFArrayGetValueAtIndex(*(v11 + 16), 0);
-    v14 = CFArrayCreate(0, values, 1, MEMORY[0x1E695E9C0]);
-    v15 = *(a1 + 48);
-    v16 = *(v15 + 72);
-    if (v16)
-    {
-      *(v15 + 72) = 0;
-      CFRelease(v16);
-      v15 = *(a1 + 48);
-    }
-
-    *(v15 + 72) = v14;
-    *(*(*(a1 + 40) + 8) + 24) = 0;
-  }
-
-  else
-  {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 0x40000000;
-    v20[2] = __SecTrustEvaluateIfNecessaryFastAsync_block_invoke_2_558;
-    v20[3] = &__block_descriptor_tmp_559;
-    v20[4] = *(a1 + 56);
-    v20[5] = v11;
-    *(*(*(a1 + 40) + 8) + 24) = SecOSStatusWith(v20);
-    v17 = secLogObjForScope("trust");
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
-    {
-      v19 = *(a1 + 48);
-      *values = 134217984;
-      *&values[4] = v19;
-      _os_log_debug_impl(&dword_1887D2000, v17, OS_LOG_TYPE_DEBUG, "(Trust %p) Kick off pending evals", values, 0xCu);
-    }
-
-    dispatch_group_leave(*(*(a1 + 48) + 168));
-    *(*(a1 + 48) + 160) = 0;
-  }
-
-  v18 = *MEMORY[0x1E69E9840];
-}
-
-BOOL __SecTrustEvaluateIfNecessaryFastAsync_block_invoke_2_558(uint64_t a1, void *a2)
-{
-  if (a2)
-  {
-    v4 = *(a1 + 32);
-    if (v4)
-    {
-      CFRetain(*(a1 + 32));
-    }
-
-    *a2 = v4;
-  }
-
-  return *(*(a1 + 40) + 112) != 0;
-}
-
-void __SecTrustEvaluateIfNecessaryFastAsync_block_invoke_2(void *a1, int a2, uint64_t a3)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  v6 = secLogObjForScope("trust");
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = a1[7];
-    *buf = 134218240;
-    *&buf[4] = v7;
-    *&buf[12] = 1024;
-    *&buf[14] = a2;
-    _os_log_impl(&dword_1887D2000, v6, OS_LOG_TYPE_DEFAULT, "(Trust %p) trustd returned %d", buf, 0x12u);
-  }
-
-  *buf = 0;
-  *&buf[8] = buf;
-  *&buf[16] = 0x2000000000;
-  v21 = -67671;
-  v8 = a1[7];
-  v9 = *(v8 + 136);
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 0x40000000;
-  block[2] = __SecTrustEvaluateIfNecessaryFastAsync_block_invoke_548;
-  block[3] = &unk_1E70E3838;
-  v17 = a2;
-  v10 = a1[5];
-  block[6] = v8;
-  block[7] = a3;
-  block[4] = v10;
-  block[5] = buf;
-  dispatch_sync(v9, block);
-  v11 = secLogObjForScope("trust");
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-  {
-    v15 = a1[7];
-    *v18 = 134217984;
-    v19 = v15;
-    _os_log_debug_impl(&dword_1887D2000, v11, OS_LOG_TYPE_DEBUG, "(Trust %p) Calling completion block after async xpc", v18, 0xCu);
-  }
-
-  os_activity_scope_leave((*(a1[6] + 8) + 24));
-  v12 = *(*&buf[8] + 24);
-  (*(a1[4] + 16))();
-  v13 = a1[7];
-  if (v13)
-  {
-    CFRelease(v13);
-  }
-
-  _Block_object_dispose(buf, 8);
-  v14 = *MEMORY[0x1E69E9840];
-}
-
-void __SecTrustEvaluateIfNecessaryFastAsync_block_invoke_548(uint64_t a1)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 48);
-  *(v2 + 112) = *(a1 + 64);
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 24);
-  v5 = v4[11];
-  if (*(v2 + 88) != v5)
-  {
-    if (v5)
-    {
-      CFRetain(v4[11]);
-      v6 = *(v2 + 88);
-      if (!v6)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    else
-    {
-      v6 = *(v2 + 88);
-    }
-
-    CFRelease(v6);
-LABEL_7:
-    *(v2 + 88) = v5;
-    v2 = *(a1 + 48);
-    v3 = *(*(a1 + 32) + 8);
-    v4 = *(v3 + 24);
-  }
-
-  v7 = v4[12];
-  if (*(v2 + 96) == v7)
-  {
-    goto LABEL_15;
-  }
-
-  if (v7)
-  {
-    CFRetain(v4[12]);
-    v8 = *(v2 + 96);
-    if (!v8)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  else
-  {
-    v8 = *(v2 + 96);
-  }
-
-  CFRelease(v8);
-LABEL_14:
-  *(v2 + 96) = v7;
-  v2 = *(a1 + 48);
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 24);
-LABEL_15:
-  v9 = v4[9];
-  if (*(v2 + 72) == v9)
-  {
-LABEL_22:
-    *(v3 + 24) = 0;
-    CFRelease(v4);
-    goto LABEL_23;
-  }
-
-  if (!v9)
-  {
-    v10 = *(v2 + 72);
-    goto LABEL_20;
-  }
-
-  CFRetain(v4[9]);
-  v10 = *(v2 + 72);
-  if (v10)
-  {
-LABEL_20:
-    CFRelease(v10);
-  }
-
-  *(v2 + 72) = v9;
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 24);
-  if (v4)
-  {
-    goto LABEL_22;
-  }
-
-LABEL_23:
-  v11 = *(a1 + 48);
-  if (!*(v11 + 112) && (OSStatus = SecErrorGetOSStatus(*(a1 + 56)), v11 = *(a1 + 48), OSStatus == -25291) && (Count = CFArrayGetCount(*(v11 + 16)), v11 = *(a1 + 48), Count))
-  {
-    *values = CFArrayGetValueAtIndex(*(v11 + 16), 0);
-    v14 = CFArrayCreate(0, values, 1, MEMORY[0x1E695E9C0]);
-    v15 = *(a1 + 48);
-    v16 = *(v15 + 72);
-    if (v16)
-    {
-      *(v15 + 72) = 0;
-      CFRelease(v16);
-      v15 = *(a1 + 48);
-    }
-
-    *(v15 + 72) = v14;
-    *(*(*(a1 + 40) + 8) + 24) = 0;
-  }
-
-  else
-  {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 0x40000000;
-    v20[2] = __SecTrustEvaluateIfNecessaryFastAsync_block_invoke_2_549;
-    v20[3] = &__block_descriptor_tmp_550;
-    v20[4] = *(a1 + 56);
-    v20[5] = v11;
-    *(*(*(a1 + 40) + 8) + 24) = SecOSStatusWith(v20);
-    v17 = secLogObjForScope("trust");
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
-    {
-      v19 = *(a1 + 48);
-      *values = 134217984;
-      *&values[4] = v19;
-      _os_log_debug_impl(&dword_1887D2000, v17, OS_LOG_TYPE_DEBUG, "(Trust %p) Kick off pending evals", values, 0xCu);
-    }
-
-    dispatch_group_leave(*(*(a1 + 48) + 168));
-    *(*(a1 + 48) + 160) = 0;
-  }
-
-  v18 = *MEMORY[0x1E69E9840];
-}
-
-BOOL __SecTrustEvaluateIfNecessaryFastAsync_block_invoke_2_549(uint64_t a1, void *a2)
-{
-  if (a2)
-  {
-    v4 = *(a1 + 32);
-    if (v4)
-    {
-      CFRetain(*(a1 + 32));
-    }
-
-    *a2 = v4;
-  }
-
-  return *(*(a1 + 40) + 112) != 0;
-}
-
-uint64_t SecTrustCreateFromPlist(const void *a1, SecTrustRef *a2)
-{
-  trust = 0;
-  TypeID = CFDictionaryGetTypeID();
-  if (TypeID != CFGetTypeID(a1))
-  {
-    return 4294967246;
-  }
-
-  Value = CFDictionaryGetValue(a1, @"certificates");
-  if (!Value)
-  {
-    return 4294967246;
-  }
-
-  v6 = SecCertificateArrayDeserialize(Value);
-  if (!v6)
-  {
-    return 4294967246;
-  }
-
-  v7 = v6;
-  v8 = CFDictionaryGetValue(a1, @"policies");
-  if (v8 && (v9 = v8, v10 = CFGetTypeID(v8), v10 == CFArrayGetTypeID()) && (Count = CFArrayGetCount(v9), Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], Count, MEMORY[0x1E695E9C0]), v53.location = 0, v53.length = Count, CFArrayApplyFunction(v9, v53, deserializePolicy, Mutable), Mutable))
-  {
-    v13 = SecTrustCreateWithCertificates(v7, Mutable, &trust);
-    if (v13)
-    {
-      v48 = v13;
-    }
-
-    else
-    {
-      v14 = CFDictionaryGetValue(a1, @"anchors");
-      if (v14)
-      {
-        v15 = v14;
-        v16 = CFGetTypeID(v14);
-        if (v16 == CFArrayGetTypeID())
-        {
-          v17 = SecCertificateArrayDeserialize(v15);
-          *(trust + 3) = v17;
-        }
-      }
-
-      v18 = CFDictionaryGetValue(a1, @"responses");
-      if (v18)
-      {
-        v19 = v18;
-        v20 = CFGetTypeID(v18);
-        if (v20 == CFArrayGetTypeID())
-        {
-          CFRetain(v19);
-          *(trust + 5) = v19;
-        }
-      }
-
-      v21 = CFDictionaryGetValue(a1, @"scts");
-      if (v21)
-      {
-        v22 = v21;
-        v23 = CFGetTypeID(v21);
-        if (v23 == CFArrayGetTypeID())
-        {
-          CFRetain(v22);
-          *(trust + 6) = v22;
-        }
-      }
-
-      v24 = CFDictionaryGetValue(a1, @"trustedLogs");
-      if (v24)
-      {
-        v25 = v24;
-        v26 = CFGetTypeID(v24);
-        if (v26 == CFArrayGetTypeID())
-        {
-          CFRetain(v25);
-          *(trust + 7) = v25;
-        }
-      }
-
-      v27 = CFDictionaryGetValue(a1, @"verifyDate");
-      if (v27)
-      {
-        v28 = v27;
-        v29 = CFGetTypeID(v27);
-        if (v29 == CFDateGetTypeID())
-        {
-          CFRetain(v28);
-          *(trust + 8) = v28;
-        }
-      }
-
-      v30 = CFDictionaryGetValue(a1, @"chain");
-      if (v30)
-      {
-        v31 = v30;
-        v32 = CFGetTypeID(v30);
-        if (v32 == CFArrayGetTypeID())
-        {
-          v33 = SecCertificateArrayDeserialize(v31);
-          *(trust + 9) = v33;
-        }
-      }
-
-      v34 = CFDictionaryGetValue(a1, @"details");
-      if (v34)
-      {
-        v35 = v34;
-        v36 = CFGetTypeID(v34);
-        if (v36 == CFArrayGetTypeID())
-        {
-          CFRetain(v35);
-          *(trust + 11) = v35;
-        }
-      }
-
-      v37 = CFDictionaryGetValue(a1, @"info");
-      if (v37)
-      {
-        v38 = v37;
-        v39 = CFGetTypeID(v37);
-        if (v39 == CFDictionaryGetTypeID())
-        {
-          CFRetain(v38);
-          *(trust + 12) = v38;
-        }
-      }
-
-      v40 = CFDictionaryGetValue(a1, @"exceptions");
-      if (v40)
-      {
-        v41 = v40;
-        v42 = CFGetTypeID(v40);
-        if (v42 == CFArrayGetTypeID())
-        {
-          CFRetain(v41);
-          *(trust + 13) = v41;
-        }
-      }
-
-      valuePtr = -1;
-      v43 = CFDictionaryGetValue(a1, @"result");
-      if (v43 && (v44 = v43, v45 = CFGetTypeID(v43), v45 == CFNumberGetTypeID()))
-      {
-        v46 = CFNumberGetValue(v44, kCFNumberSInt32Type, &valuePtr);
-        v47 = 0;
-        v48 = 4294967246;
-        if (v46 && (valuePtr & 0x80000000) == 0)
-        {
-          v48 = 0;
-          *(trust + 28) = valuePtr;
-          v47 = 1;
-        }
-      }
-
-      else
-      {
-        v47 = 0;
-        v48 = 4294967246;
-      }
-
-      if (CFDictionaryGetValue(a1, @"anchorsOnly") == *MEMORY[0x1E695E4D0])
-      {
-        *(trust + 116) = 1;
-      }
-
-      if (CFDictionaryGetValue(a1, @"keychainsAllowed") == *MEMORY[0x1E695E4C0])
-      {
-        *(trust + 117) = 0;
-      }
-
-      v49 = v47 ^ 1;
-      if (!a2)
-      {
-        v49 = 1;
-      }
-
-      if ((v49 & 1) == 0)
-      {
-        v48 = 0;
-        *a2 = trust;
-      }
-    }
-
-    CFRelease(Mutable);
-  }
-
-  else
-  {
-    v48 = 4294967246;
-  }
-
-  CFRelease(v7);
-  return v48;
-}
-
-CFMutableArrayRef SecCertificateArrayDeserialize(const void *a1)
-{
-  v2 = CFGetTypeID(a1);
-  if (v2 != CFArrayGetTypeID())
-  {
-    return 0;
-  }
-
-  Count = CFArrayGetCount(a1);
-  Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], Count, MEMORY[0x1E695E9C0]);
-  v6.location = 0;
-  v6.length = Count;
-  CFArrayApplyFunction(a1, v6, deserializeCert, Mutable);
-  return Mutable;
-}
-
-void deserializeCert(const void *a1, __CFArray *a2)
-{
-  if (a1)
-  {
-    v4 = CFGetTypeID(a1);
-    if (v4 == CFDataGetTypeID())
-    {
-      v5 = SecCertificateCreateWithData(0, a1);
-      if (v5)
-      {
-        v6 = v5;
-        CFArrayAppendValue(a2, v5);
-
-        CFRelease(v6);
-      }
-    }
-  }
-}
-
-CFIndex SecTrustGetCertificateCount(SecTrustRef trust)
-{
-  v1 = trust;
-  if (trust)
-  {
-    SecTrustEvaluateIfNecessary(trust);
-    v5 = 0;
-    v6 = &v5;
-    v7 = 0x2000000000;
-    v8 = 1;
-    v2 = *(v1 + 17);
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 0x40000000;
-    v4[2] = __SecTrustGetCertificateCount_block_invoke;
-    v4[3] = &unk_1E70E2F28;
-    v4[4] = &v5;
-    v4[5] = v1;
-    dispatch_sync(v2, v4);
-    v1 = v6[3];
-    _Block_object_dispose(&v5, 8);
-  }
-
-  return v1;
-}
-
-SecCertificateRef SecTrustGetCertificateAtIndex(SecTrustRef trust, CFIndex ix)
-{
-  v2 = trust;
-  if (trust)
-  {
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2000000000;
-    v12 = 0;
-    if (ix)
-    {
-      SecTrustEvaluateIfNecessary(trust);
-      v4 = *(v2 + 17);
-      v7[0] = MEMORY[0x1E69E9820];
-      v7[1] = 0x40000000;
-      v7[2] = __SecTrustGetCertificateAtIndex_block_invoke_2;
-      v7[3] = &unk_1E70E2F78;
-      v7[4] = &v9;
-      v7[5] = v2;
-      v7[6] = ix;
-      v5 = v7;
-    }
-
-    else
-    {
-      v4 = *(trust + 17);
-      block[0] = MEMORY[0x1E69E9820];
-      block[1] = 0x40000000;
-      block[2] = __SecTrustGetCertificateAtIndex_block_invoke;
-      block[3] = &unk_1E70E2F50;
-      block[4] = &v9;
-      block[5] = v2;
-      v5 = block;
-    }
-
-    dispatch_sync(v4, v5);
-    v2 = v10[3];
-    _Block_object_dispose(&v9, 8);
-  }
-
-  return v2;
-}
-
-const void *__SecTrustGetCertificateAtIndex_block_invoke(uint64_t a1)
-{
-  result = CFArrayGetValueAtIndex(*(*(a1 + 40) + 16), 0);
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  return result;
-}
-
-__SecTrust *SecTrustCopyInfo(__SecTrust *a1)
-{
-  v1 = a1;
-  if (a1)
-  {
-    SecTrustEvaluateIfNecessary(a1);
-    v5 = 0;
-    v6 = &v5;
-    v7 = 0x2000000000;
-    v8 = 0;
-    v2 = *(v1 + 17);
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 0x40000000;
-    v4[2] = __SecTrustCopyInfo_block_invoke;
-    v4[3] = &unk_1E70E2FC8;
-    v4[4] = &v5;
-    v4[5] = v1;
-    dispatch_sync(v2, v4);
-    v1 = v6[3];
-    _Block_object_dispose(&v5, 8);
-  }
-
-  return v1;
-}
-
-void *__SecTrustCopyInfo_block_invoke(void *result)
-{
-  v1 = result;
-  v2 = result[5];
-  v3 = *(v2 + 96);
-  if (v3)
-  {
-    result = CFRetain(*(v2 + 96));
-  }
-
-  *(*(v1[4] + 8) + 24) = v3;
-  return result;
-}
-
-uint64_t SecTrustGetTrustExceptionsArray(uint64_t a1)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2000000000;
-  v8 = 0;
-  v1 = *(a1 + 136);
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 0x40000000;
-  v4[2] = __SecTrustGetTrustExceptionsArray_block_invoke;
-  v4[3] = &unk_1E70E2FF0;
-  v4[4] = &v5;
-  v4[5] = a1;
-  dispatch_sync(v1, v4);
-  v2 = v6[3];
-  _Block_object_dispose(&v5, 8);
-  return v2;
-}
-
-BOOL SecTrustSetExceptions(SecTrustRef trust, CFDataRef exceptions)
-{
-  v2 = trust;
-  v60 = *MEMORY[0x1E69E9840];
-  if (trust)
-  {
-    if (exceptions)
-    {
-      v3 = CFPropertyListCreateWithData(*MEMORY[0x1E695E480], exceptions, 0, 0, 0);
-      v4 = v3;
-      if (!v3 || (v5 = CFGetTypeID(v3), v5 == CFArrayGetTypeID()))
-      {
-LABEL_7:
-        v43 = 0;
-        v44 = &v43;
-        v45 = 0x2000000000;
-        v46 = 0;
-        v6 = *(v2 + 17);
-        block[0] = MEMORY[0x1E69E9820];
-        block[1] = 0x40000000;
-        block[2] = __SecTrustSetExceptions_block_invoke;
-        block[3] = &unk_1E70E3090;
-        block[5] = v2;
-        block[6] = v4;
-        block[4] = &v43;
-        dispatch_sync(v6, block);
-        if (v44[3])
-        {
-LABEL_8:
-          LOBYTE(v2) = 1;
-LABEL_40:
-          _Block_object_dispose(&v43, 8);
-          goto LABEL_41;
-        }
-
-        v7 = *(v2 + 17);
-        *buf = MEMORY[0x1E69E9820];
-        *&buf[8] = 0x40000000;
-        *&buf[16] = __SecTrustSetNeedsEvaluation_block_invoke;
-        v56 = &__block_descriptor_tmp_80_14598;
-        v57 = v2;
-        dispatch_sync(v7, buf);
-        cf = 0;
-        p_cf = &cf;
-        v53 = 0x2000000000;
-        v54 = 0;
-        valuePtr = 0;
-        p_valuePtr = &valuePtr;
-        v49 = 0x2000000000;
-        v50 = 0;
-        v8 = *(v2 + 17);
-        *buf = MEMORY[0x1E69E9820];
-        *&buf[8] = 0x40000000;
-        *&buf[16] = __SecTrustGetExceptionForCertificateAtIndex_block_invoke;
-        v56 = &unk_1E70E39B8;
-        v58 = &valuePtr;
-        v59 = v2;
-        v57 = &cf;
-        dispatch_sync(v8, buf);
-        v9 = p_cf[3];
-        if (!v9 || CFArrayGetCount(v9) < 1)
-        {
-          goto LABEL_20;
-        }
-
-        v10 = p_valuePtr[3];
-        if (!v10)
-        {
-          v17 = SecTrustCopyCertificateChain(v2);
-          p_valuePtr[3] = v17;
-          if (!v17 || CFArrayGetCount(v17) < 1)
-          {
-            goto LABEL_20;
-          }
-
-          v10 = p_valuePtr[3];
-        }
-
-        ValueAtIndex = CFArrayGetValueAtIndex(v10, 0);
-        if (ValueAtIndex)
-        {
-          v12 = ValueAtIndex;
-          v13 = CFArrayGetValueAtIndex(p_cf[3], 0);
-          v14 = CFGetTypeID(v13);
-          if (v14 == CFDictionaryGetTypeID())
-          {
-            SHA1Digest = SecCertificateGetSHA1Digest(v12);
-            Value = CFDictionaryGetValue(v13, @"SHA1Digest");
-            if (Value)
-            {
-              if (CFEqual(SHA1Digest, Value))
-              {
-LABEL_21:
-                v18 = p_cf[3];
-                if (v18)
-                {
-                  CFRelease(v18);
-                }
-
-                v19 = p_valuePtr[3];
-                if (v19)
-                {
-                  CFRelease(v19);
-                }
-
-                _Block_object_dispose(&valuePtr, 8);
-                _Block_object_dispose(&cf, 8);
-                if (v13)
-                {
-                  if (v4)
-                  {
-                    v20 = CFGetTypeID(v4);
-                    if (v20 != CFArrayGetTypeID() || CFArrayGetCount(v4) < 1)
-                    {
-                      goto LABEL_38;
-                    }
-
-                    v21 = CFArrayGetValueAtIndex(v4, 0);
-                    if (v21 && (v22 = v21, v23 = CFGetTypeID(v21), v23 == CFDictionaryGetTypeID()))
-                    {
-                      cf = 0;
-                      ExceptionResetCount = SecTrustGetExceptionResetCount(&cf);
-                      v25 = secLogObjForScope("trust");
-                      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
-                      {
-                        v39 = "Error";
-                        if (!cf)
-                        {
-                          v39 = "OK";
-                        }
-
-                        *buf = 134218242;
-                        *&buf[4] = ExceptionResetCount;
-                        *&buf[12] = 2082;
-                        *&buf[14] = v39;
-                        _os_log_debug_impl(&dword_1887D2000, v25, OS_LOG_TYPE_DEBUG, "The current exceptions epoch is %llu. (%{public}s)", buf, 0x16u);
-                      }
-
-                      if (cf)
-                      {
-                        v26 = secLogObjForScope("SecError");
-                        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-                        {
-                          *buf = 0;
-                          _os_log_impl(&dword_1887D2000, v26, OS_LOG_TYPE_DEFAULT, "Failed to get the current exceptions epoch.", buf, 2u);
-                        }
-
-                        v27 = cf;
-                        if (cf)
-                        {
-                          cf = 0;
-                          CFRelease(v27);
-                        }
-
-                        goto LABEL_38;
-                      }
-
-                      if (!ExceptionResetCount)
-                      {
-LABEL_53:
-                        CFRelease(v4);
-                        goto LABEL_8;
-                      }
-
-                      v35 = CFDictionaryGetValue(v22, @"ExceptionResetCount");
-                      if (v35 && (v36 = v35, v37 = CFGetTypeID(v35), v37 == CFNumberGetTypeID()))
-                      {
-                        valuePtr = 0xAAAAAAAAAAAAAAAALL;
-                        if (CFNumberGetValue(v36, kCFNumberSInt64Type, &valuePtr))
-                        {
-                          if (valuePtr == ExceptionResetCount)
-                          {
-                            v38 = secLogObjForScope("trust");
-                            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
-                            {
-                              *buf = 134217984;
-                              *&buf[4] = ExceptionResetCount;
-                              _os_log_debug_impl(&dword_1887D2000, v38, OS_LOG_TYPE_DEBUG, "Exceptions are valid for the current exceptions epoch. (%llu)", buf, 0xCu);
-                            }
-
-                            goto LABEL_53;
-                          }
-
-                          v40 = secLogObjForScope("SecError");
-                          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
-                          {
-                            *buf = 134218240;
-                            *&buf[4] = valuePtr;
-                            *&buf[12] = 2048;
-                            *&buf[14] = ExceptionResetCount;
-                            v32 = "The current exception's epoch (%llu) is not the current epoch. (%llu)";
-                            v33 = v40;
-                            v34 = 22;
-                            goto LABEL_45;
-                          }
-
-LABEL_38:
-                          CFRelease(v4);
-                          goto LABEL_39;
-                        }
-
-                        v31 = secLogObjForScope("SecError");
-                        if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
-                        {
-                          goto LABEL_38;
-                        }
-
-                        *buf = 0;
-                        v32 = "Failed to parse the current exceptions epoch as a uint64.";
-                      }
-
-                      else
-                      {
-                        v31 = secLogObjForScope("SecError");
-                        if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
-                        {
-                          goto LABEL_38;
-                        }
-
-                        *buf = 0;
-                        v32 = "Failed to get the exception's epoch.";
-                      }
-                    }
-
-                    else
-                    {
-                      v31 = secLogObjForScope("SecError");
-                      if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
-                      {
-                        goto LABEL_38;
-                      }
-
-                      *buf = 0;
-                      v32 = "Failed to get exception for epoch check.";
-                    }
-
-                    v33 = v31;
-                    v34 = 2;
-LABEL_45:
-                    _os_log_impl(&dword_1887D2000, v33, OS_LOG_TYPE_DEFAULT, v32, buf, v34);
-                    goto LABEL_38;
-                  }
-                }
-
-                else if (v4)
-                {
-                  goto LABEL_38;
-                }
-
-LABEL_39:
-                v28 = *(v2 + 17);
-                v41[0] = MEMORY[0x1E69E9820];
-                v41[1] = 0x40000000;
-                v41[2] = __SecTrustSetExceptions_block_invoke_2;
-                v41[3] = &__block_descriptor_tmp_322;
-                v41[4] = v2;
-                dispatch_sync(v28, v41);
-                LOBYTE(v2) = 0;
-                goto LABEL_40;
-              }
-            }
-          }
-        }
-
-LABEL_20:
-        v13 = 0;
-        goto LABEL_21;
-      }
-
-      CFRelease(v4);
-    }
-
-    v4 = 0;
-    goto LABEL_7;
-  }
-
-LABEL_41:
-  v29 = *MEMORY[0x1E69E9840];
-  return v2;
-}
-
-CFTypeRef __SecTrustSetExceptions_block_invoke(void *a1)
-{
-  v3 = a1[5];
-  result = a1[6];
-  v4 = *(v3 + 104);
-  if (v4 == result)
-  {
-    *(*(a1[4] + 8) + 24) = 1;
-  }
-
-  else
-  {
-    if (v4)
-    {
-      CFRelease(v4);
-      result = a1[6];
-    }
-
-    if (result)
-    {
-      result = CFRetain(result);
-      v5 = a1[6];
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-
-    *(a1[5] + 104) = v5;
-  }
-
-  return result;
-}
-
-void *__SecTrustGetExceptionForCertificateAtIndex_block_invoke(void *result)
-{
-  v1 = result;
-  v2 = result[6];
-  v3 = *(v2 + 104);
-  if (v3)
-  {
-    result = CFRetain(*(v2 + 104));
-  }
-
-  *(*(v1[4] + 8) + 24) = v3;
-  v4 = v1[6];
-  v5 = *(v4 + 72);
-  if (v5)
-  {
-    result = CFRetain(*(v4 + 72));
-  }
-
-  *(*(v1[5] + 8) + 24) = v5;
-  return result;
-}
-
-void __SecTrustSetExceptions_block_invoke_2(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 104);
-  if (v2)
-  {
-    *(v1 + 104) = 0;
-    CFRelease(v2);
-  }
-}
-
-const __CFArray *SecTrustCopySummaryPropertiesAtIndex(__SecTrust *a1, CFIndex a2)
-{
-  result = SecTrustCopyCertificateChain(a1);
-  if (result)
-  {
-    v5 = result;
-    ValueAtIndex = CFArrayGetValueAtIndex(result, a2);
-    VerifyTime = SecTrustGetVerifyTime(a1);
-    v8 = SecCertificateCopySummaryProperties(ValueAtIndex, VerifyTime);
-    CFRelease(v5);
-    return v8;
-  }
-
-  return result;
-}
-
-const __CFArray *SecTrustCopyDetailedPropertiesAtIndex(__SecTrust *a1, CFIndex a2)
-{
-  result = SecTrustCopyCertificateChain(a1);
-  if (result)
-  {
-    v4 = result;
-    ValueAtIndex = CFArrayGetValueAtIndex(result, a2);
-    v6 = SecCertificateCopyProperties(ValueAtIndex);
-    CFRelease(v4);
-    return v6;
-  }
-
-  return result;
-}
-
-CFArrayRef SecTrustCopyProperties(SecTrustRef trust)
-{
-  v1 = trust;
-  if (trust)
-  {
-    SecTrustEvaluateIfNecessary(trust);
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2000000000;
-    v18 = 0;
-    v2 = *(v1 + 17);
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 0x40000000;
-    block[2] = __SecTrustCopyProperties_block_invoke;
-    block[3] = &unk_1E70E30D8;
-    block[4] = &v15;
-    block[5] = v1;
-    dispatch_sync(v2, block);
-    v3 = v16[3];
-    if (!v3)
-    {
-      v1 = 0;
-LABEL_34:
-      _Block_object_dispose(&v15, 8);
-      return v1;
-    }
-
-    context = 0;
-    Count = CFArrayGetCount(v3);
-    if (Count >= 1)
-    {
-      v5 = Count;
-      for (i = 0; i != v5; ++i)
-      {
-        ValueAtIndex = CFArrayGetValueAtIndex(v16[3], i);
-        CFDictionaryApplyFunction(ValueAtIndex, applyDetailProperty, &context);
-      }
-    }
-
-    Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-    v1 = Mutable;
-    v9 = context;
-    if (context)
-    {
-      v10 = @"Invalid certificate chain linkage.";
-    }
-
-    else
-    {
-      if ((context & 2) == 0)
-      {
-        if ((context & 4) != 0)
-        {
-          appendError(Mutable, @"Root certificate is not trusted.");
-          v9 = context;
-          if ((context & 8) == 0)
-          {
-LABEL_10:
-            if ((v9 & 0x10) == 0)
-            {
-              goto LABEL_11;
-            }
-
-            goto LABEL_22;
-          }
-        }
-
-        else if ((context & 8) == 0)
-        {
-          goto LABEL_10;
-        }
-
-        appendError(v1, @"Unable to build chain to root certificate.");
-        v9 = context;
-        if ((context & 0x10) == 0)
-        {
-LABEL_11:
-          if ((v9 & 0x20) == 0)
-          {
-            goto LABEL_12;
-          }
-
-          goto LABEL_23;
-        }
-
-LABEL_22:
-        appendError(v1, @"Hostname mismatch.");
-        v9 = context;
-        if ((context & 0x20) == 0)
-        {
-LABEL_12:
-          if ((v9 & 0x40) == 0)
-          {
-            goto LABEL_13;
-          }
-
-          goto LABEL_24;
-        }
-
-LABEL_23:
-        appendError(v1, @"Policy requirements not met.");
-        v9 = context;
-        if ((context & 0x40) == 0)
-        {
-LABEL_13:
-          if ((v9 & 0x80) == 0)
-          {
-            goto LABEL_14;
-          }
-
-          goto LABEL_25;
-        }
-
-LABEL_24:
-        appendError(v1, @"One or more certificates have expired or are not valid yet.");
-        v9 = context;
-        if ((context & 0x80) == 0)
-        {
-LABEL_14:
-          if ((v9 & 0x100) == 0)
-          {
-            goto LABEL_15;
-          }
-
-          goto LABEL_26;
-        }
-
-LABEL_25:
-        appendError(v1, @"One or more certificates is using a weak key size.");
-        v9 = context;
-        if ((context & 0x100) == 0)
-        {
-LABEL_15:
-          if ((v9 & 0x200) == 0)
-          {
-LABEL_29:
-            if (!CFArrayGetCount(v1) && v1)
-            {
-              CFRelease(v1);
-              v1 = 0;
-            }
-
-            v11 = v16[3];
-            if (v11)
-            {
-              v16[3] = 0;
-              CFRelease(v11);
-            }
-
-            goto LABEL_34;
-          }
-
-          goto LABEL_27;
-        }
-
-LABEL_26:
-        appendError(v1, @"One or more certificates is using a weak signature algorithm.");
-        if ((context & 0x200) == 0)
-        {
-          goto LABEL_29;
-        }
-
-LABEL_27:
-        v10 = @"One or more certificates have been revoked.";
-        goto LABEL_28;
-      }
-
-      v10 = @"One or more unsupported critical extensions found.";
-    }
-
-LABEL_28:
-    appendError(v1, v10);
-    goto LABEL_29;
-  }
-
-  return v1;
-}
-
-void *__SecTrustCopyProperties_block_invoke(void *result)
-{
-  v1 = result;
-  v2 = result[5];
-  v3 = *(v2 + 88);
-  if (v3)
-  {
-    result = CFRetain(*(v2 + 88));
-  }
-
-  *(*(v1[4] + 8) + 24) = v3;
-  return result;
-}
-
-void appendError(void *a1, const __CFString *a2)
-{
-  if (a2)
-  {
-    v3 = SecFrameworkCopyLocalizedString(a2, @"SecCertificate");
-    appendProperty(a1, @"error", 0, 0, v3, 1);
-    if (v3)
-    {
-
-      CFRelease(v3);
-    }
-  }
-}
-
-const __CFNumber *applyDetailProperty(void *key, uint64_t a2, _WORD *a3)
-{
-  if (applyDetailProperty_onceToken != -1)
-  {
-    dispatch_once(&applyDetailProperty_onceToken, &__block_literal_global_573);
-  }
-
-  result = CFDictionaryGetValue(applyDetailProperty_policyChecks, key);
-  valuePtr = 0;
-  if (result)
-  {
-    result = CFNumberGetValue(result, kCFNumberSInt16Type, &valuePtr);
-    if (a3)
-    {
-      if (result)
-      {
-        *a3 |= valuePtr;
-      }
-    }
-  }
-
-  return result;
-}
-
-void __applyDetailProperty_block_invoke()
-{
-  Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  valuePtr = 16;
-  v1 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"SSLHostname", v1);
-  if (v1)
-  {
-    CFRelease(v1);
-  }
-
-  valuePtr = 16;
-  v2 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"Email", v2);
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-
-  valuePtr = 64;
-  v3 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"TemporalValidity", v3);
-  if (v3)
-  {
-    CFRelease(v3);
-  }
-
-  valuePtr = 64;
-  v4 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"ValidLeaf", v4);
-  if (v4)
-  {
-    CFRelease(v4);
-  }
-
-  valuePtr = 128;
-  v5 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"WeakKeySize", v5);
-  if (v5)
-  {
-    CFRelease(v5);
-  }
-
-  valuePtr = 256;
-  v6 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"WeakSignature", v6);
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-
-  valuePtr = 32;
-  v7 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"KeyUsage", v7);
-  if (v7)
-  {
-    CFRelease(v7);
-  }
-
-  valuePtr = 32;
-  v8 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"ExtendedKeyUsage", v8);
-  if (v8)
-  {
-    CFRelease(v8);
-  }
-
-  valuePtr = 32;
-  v9 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"SubjectCommonName", v9);
-  if (v9)
-  {
-    CFRelease(v9);
-  }
-
-  valuePtr = 32;
-  v10 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"SubjectCommonNamePrefix", v10);
-  if (v10)
-  {
-    CFRelease(v10);
-  }
-
-  valuePtr = 32;
-  v11 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"SubjectCommonNameTEST", v11);
-  if (v11)
-  {
-    CFRelease(v11);
-  }
-
-  valuePtr = 32;
-  v12 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"SubjectOrganization", v12);
-  if (v12)
-  {
-    CFRelease(v12);
-  }
-
-  valuePtr = 32;
-  v13 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"SubjectOrganizationalUnit", v13);
-  if (v13)
-  {
-    CFRelease(v13);
-  }
-
-  valuePtr = 32;
-  v14 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"NotValidBefore", v14);
-  if (v14)
-  {
-    CFRelease(v14);
-  }
-
-  valuePtr = 16;
-  v15 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"EAPTrustedServerNames", v15);
-  if (v15)
-  {
-    CFRelease(v15);
-  }
-
-  valuePtr = 32;
-  v16 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"LeafMarkerOid", v16);
-  if (v16)
-  {
-    CFRelease(v16);
-  }
-
-  valuePtr = 32;
-  v17 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"LeafMarkerOidWithoutValueCheck", v17);
-  if (v17)
-  {
-    CFRelease(v17);
-  }
-
-  valuePtr = 32;
-  v18 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"LeafMarkersProdAndQA", v18);
-  if (v18)
-  {
-    CFRelease(v18);
-  }
-
-  valuePtr = 512;
-  v19 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"BlackListedLeaf", v19);
-  if (v19)
-  {
-    CFRelease(v19);
-  }
-
-  valuePtr = 512;
-  v20 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"GrayListedLeaf", v20);
-  if (v20)
-  {
-    CFRelease(v20);
-  }
-
-  valuePtr = 32;
-  v21 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"LeafSPKISHA256", v21);
-  if (v21)
-  {
-    CFRelease(v21);
-  }
-
-  valuePtr = 32;
-  v22 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"NotCA", v22);
-  if (v22)
-  {
-    CFRelease(v22);
-  }
-
-  valuePtr = 32;
-  v23 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"MarkRepresentation", v23);
-  if (v23)
-  {
-    CFRelease(v23);
-  }
-
-  valuePtr = 16;
-  v24 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"URI", v24);
-  if (v24)
-  {
-    CFRelease(v24);
-  }
-
-  valuePtr = 32;
-  v25 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"IssuerCommonName", v25);
-  if (v25)
-  {
-    CFRelease(v25);
-  }
-
-  valuePtr = 32;
-  v26 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"IssuerCommonNamePrefix", v26);
-  if (v26)
-  {
-    CFRelease(v26);
-  }
-
-  valuePtr = 64;
-  v27 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"BasicConstraints", v27);
-  if (v27)
-  {
-    CFRelease(v27);
-  }
-
-  valuePtr = 64;
-  v28 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"BasicConstraintsCA", v28);
-  if (v28)
-  {
-    CFRelease(v28);
-  }
-
-  valuePtr = 64;
-  v29 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"BasicConstraintsPathLen", v29);
-  if (v29)
-  {
-    CFRelease(v29);
-  }
-
-  valuePtr = 32;
-  v30 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"IntermediateSPKISHA256", v30);
-  if (v30)
-  {
-    CFRelease(v30);
-  }
-
-  valuePtr = 32;
-  v31 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"IntermediateEKU", v31);
-  if (v31)
-  {
-    CFRelease(v31);
-  }
-
-  valuePtr = 32;
-  v32 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"IntermediateMarkerOid", v32);
-  if (v32)
-  {
-    CFRelease(v32);
-  }
-
-  valuePtr = 32;
-  v33 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"IntermediateMarkerOidWithoutValueCheck", v33);
-  if (v33)
-  {
-    CFRelease(v33);
-  }
-
-  valuePtr = 32;
-  v34 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"IntermediateOrganization", v34);
-  if (v34)
-  {
-    CFRelease(v34);
-  }
-
-  valuePtr = 32;
-  v35 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"IntermediateCountry", v35);
-  if (v35)
-  {
-    CFRelease(v35);
-  }
-
-  valuePtr = 4;
-  v36 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"AnchorSHA256", v36);
-  if (v36)
-  {
-    CFRelease(v36);
-  }
-
-  valuePtr = 4;
-  v37 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"AnchorTrusted", v37);
-  if (v37)
-  {
-    CFRelease(v37);
-  }
-
-  valuePtr = 8;
-  v38 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"MissingIntermediate", v38);
-  if (v38)
-  {
-    CFRelease(v38);
-  }
-
-  valuePtr = 4;
-  v39 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"AnchorApple", v39);
-  if (v39)
-  {
-    CFRelease(v39);
-  }
-
-  valuePtr = 32;
-  v40 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"CAspkiSHA256", v40);
-  if (v40)
-  {
-    CFRelease(v40);
-  }
-
-  valuePtr = 32;
-  v41 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"RootMarkerOid", v41);
-  if (v41)
-  {
-    CFRelease(v41);
-  }
-
-  valuePtr = 64;
-  v42 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"NonEmptySubject", v42);
-  if (v42)
-  {
-    CFRelease(v42);
-  }
-
-  valuePtr = 1;
-  v43 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"IdLinkage", v43);
-  if (v43)
-  {
-    CFRelease(v43);
-  }
-
-  valuePtr = 128;
-  v44 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"KeySize", v44);
-  if (v44)
-  {
-    CFRelease(v44);
-  }
-
-  valuePtr = 256;
-  v45 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"SignatureHashAlgorithms", v45);
-  if (v45)
-  {
-    CFRelease(v45);
-  }
-
-  valuePtr = 32;
-  v46 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"CertificatePolicy", v46);
-  if (v46)
-  {
-    CFRelease(v46);
-  }
-
-  valuePtr = 64;
-  v47 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"ValidRoot", v47);
-  if (v47)
-  {
-    CFRelease(v47);
-  }
-
-  valuePtr = 2;
-  v48 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"CriticalExtensions", v48);
-  if (v48)
-  {
-    CFRelease(v48);
-  }
-
-  valuePtr = 32;
-  v49 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"ChainLength", v49);
-  if (v49)
-  {
-    CFRelease(v49);
-  }
-
-  valuePtr = 64;
-  v50 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"BasicCertificateProcessing", v50);
-  if (v50)
-  {
-    CFRelease(v50);
-  }
-
-  valuePtr = 64;
-  v51 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"NameConstraints", v51);
-  if (v51)
-  {
-    CFRelease(v51);
-  }
-
-  valuePtr = 64;
-  v52 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"PolicyConstraints", v52);
-  if (v52)
-  {
-    CFRelease(v52);
-  }
-
-  valuePtr = 512;
-  v53 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"GrayListedKey", v53);
-  if (v53)
-  {
-    CFRelease(v53);
-  }
-
-  valuePtr = 512;
-  v54 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"BlackListedKey", v54);
-  if (v54)
-  {
-    CFRelease(v54);
-  }
-
-  valuePtr = 4;
-  v55 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"UsageConstraints", v55);
-  if (v55)
-  {
-    CFRelease(v55);
-  }
-
-  valuePtr = 256;
-  v56 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"SystemTrustedWeakHash", v56);
-  if (v56)
-  {
-    CFRelease(v56);
-  }
-
-  valuePtr = 128;
-  v57 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"SystemTrustedWeakKey", v57);
-  if (v57)
-  {
-    CFRelease(v57);
-  }
-
-  valuePtr = 32;
-  v58 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"PinningRequired", v58);
-  if (v58)
-  {
-    CFRelease(v58);
-  }
-
-  valuePtr = 512;
-  v59 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"Revocation", v59);
-  if (v59)
-  {
-    CFRelease(v59);
-  }
-
-  valuePtr = 32;
-  v60 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"RevocationResponseRequired", v60);
-  if (v60)
-  {
-    CFRelease(v60);
-  }
-
-  valuePtr = 32;
-  v61 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"CTRequired", v61);
-  if (v61)
-  {
-    CFRelease(v61);
-  }
-
-  valuePtr = 32;
-  v62 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"SystemTrustedCTRequired", v62);
-  if (v62)
-  {
-    CFRelease(v62);
-  }
-
-  valuePtr = 512;
-  v63 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"IssuerPolicyConstraints", v63);
-  if (v63)
-  {
-    CFRelease(v63);
-  }
-
-  valuePtr = 512;
-  v64 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"IssuerNameConstraints", v64);
-  if (v64)
-  {
-    CFRelease(v64);
-  }
-
-  valuePtr = 32;
-  v65 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"ValidityPeriodMaximums", v65);
-  if (v65)
-  {
-    CFRelease(v65);
-  }
-
-  valuePtr = 32;
-  v66 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"SystemTrustValidityPeriod", v66);
-  if (v66)
-  {
-    CFRelease(v66);
-  }
-
-  valuePtr = 32;
-  v67 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"OtherTrustValidityPeriod", v67);
-  if (v67)
-  {
-    CFRelease(v67);
-  }
-
-  valuePtr = 32;
-  v68 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"ServerAuthEKU", v68);
-  if (v68)
-  {
-    CFRelease(v68);
-  }
-
-  valuePtr = 32;
-  v69 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"EmailProtectionEKU", v69);
-  if (v69)
-  {
-    CFRelease(v69);
-  }
-
-  valuePtr = 32;
-  v70 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"SinglePurposeChainEKU", v70);
-  if (v70)
-  {
-    CFRelease(v70);
-  }
-
-  valuePtr = 64;
-  v71 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"UnparseableExtension", v71);
-  if (v71)
-  {
-    CFRelease(v71);
-  }
-
-  valuePtr = 32;
-  v72 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"NonTlsCTRequired", v72);
-  if (v72)
-  {
-    CFRelease(v72);
-  }
-
-  valuePtr = 64;
-  v73 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"DuplicateExtension", v73);
-  if (v73)
-  {
-    CFRelease(v73);
-  }
-
-  valuePtr = 32;
-  v74 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"QWAC", v74);
-  if (v74)
-  {
-    CFRelease(v74);
-  }
-
-  valuePtr = 32;
-  v75 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"NoNetworkAccess", v75);
-  if (v75)
-  {
-    CFRelease(v75);
-  }
-
-  valuePtr = 32;
-  v76 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"ExtendedValidation", v76);
-  if (v76)
-  {
-    CFRelease(v76);
-  }
-
-  valuePtr = 32;
-  v77 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"RevocationOnline", v77);
-  if (v77)
-  {
-    CFRelease(v77);
-  }
-
-  valuePtr = 32;
-  v78 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"RevocationIfTrusted", v78);
-  if (v78)
-  {
-    CFRelease(v78);
-  }
-
-  valuePtr = 32;
-  v79 = CFNumberCreate(0, kCFNumberSInt16Type, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"RevocationDbIgnored", v79);
-  if (v79)
-  {
-    CFRelease(v79);
-  }
-
-  applyDetailProperty_policyChecks = Mutable;
-}
-
 CFDictionaryRef SecTrustCopyResult(SecTrustRef trust)
 {
   v1 = trust;
@@ -2787,7 +130,7 @@ void __SecTrustCopyResult_block_invoke(void *a1)
   }
 }
 
-uint64_t SecTrustCopyTrustStoreContentDigest(CFTypeRef *a1)
+uint64_t SecTrustCopyTrustStoreContentDigest(CFErrorRef *a1)
 {
   v8 = 0;
   v9 = &v8;
@@ -2834,7 +177,7 @@ BOOL __SecTrustCopyTrustStoreContentDigest_block_invoke_2(uint64_t a1, xpc_objec
   }
 }
 
-uint64_t SecTrustCopyTrustStoreAssetVersion(CFTypeRef *a1)
+uint64_t SecTrustCopyTrustStoreAssetVersion(CFErrorRef *a1)
 {
   v8 = 0;
   v9 = &v8;
@@ -2881,7 +224,7 @@ BOOL __SecTrustCopyTrustStoreAssetVersion_block_invoke_2(uint64_t a1, xpc_object
   }
 }
 
-uint64_t SecTrustGetTrustStoreVersionNumber(CFTypeRef *a1)
+uint64_t SecTrustGetTrustStoreVersionNumber(CFErrorRef *a1)
 {
   if (gTrustd && (v2 = *(gTrustd + 64)) != 0)
   {
@@ -2902,7 +245,7 @@ uint64_t SecTrustGetTrustStoreVersionNumber(CFTypeRef *a1)
   }
 }
 
-uint64_t do_ota_pki_op(unsigned int a1, CFTypeRef *a2)
+uint64_t do_ota_pki_op(unsigned int a1, CFErrorRef *a2)
 {
   message = securityd_create_message(a1, a2);
   if (message)
@@ -2957,7 +300,7 @@ LABEL_14:
   return 0;
 }
 
-uint64_t SecTrustGetAssetVersionNumber(CFTypeRef *a1)
+uint64_t SecTrustGetAssetVersionNumber(CFErrorRef *a1)
 {
   if (gTrustd && (v2 = *(gTrustd + 72)) != 0)
   {
@@ -2978,7 +321,7 @@ uint64_t SecTrustGetAssetVersionNumber(CFTypeRef *a1)
   }
 }
 
-uint64_t SecTrustOTAPKIGetUpdatedAsset(CFTypeRef *a1)
+uint64_t SecTrustOTAPKIGetUpdatedAsset(CFErrorRef *a1)
 {
   if (gTrustd && (v2 = *(gTrustd + 80)) != 0)
   {
@@ -2999,7 +342,7 @@ uint64_t SecTrustOTAPKIGetUpdatedAsset(CFTypeRef *a1)
   }
 }
 
-uint64_t SecTrustOTASecExperimentGetUpdatedAsset(CFTypeRef *a1)
+uint64_t SecTrustOTASecExperimentGetUpdatedAsset(CFErrorRef *a1)
 {
   if (gTrustd && (v2 = *(gTrustd + 88)) != 0)
   {
@@ -3020,7 +363,7 @@ uint64_t SecTrustOTASecExperimentGetUpdatedAsset(CFTypeRef *a1)
   }
 }
 
-uint64_t SecTrustOTASecExperimentCopyAsset(CFTypeRef *a1)
+uint64_t SecTrustOTASecExperimentCopyAsset(CFErrorRef *a1)
 {
   v5 = 0;
   v6 = &v5;
@@ -3061,7 +404,7 @@ BOOL __SecTrustOTASecExperimentCopyAsset_block_invoke_2(uint64_t a1, xpc_object_
   }
 }
 
-uint64_t SecTrustTriggerValidUpdate(CFTypeRef *a1)
+uint64_t SecTrustTriggerValidUpdate(CFErrorRef *a1)
 {
   if (gTrustd && (v2 = *(gTrustd + 200)) != 0)
   {
@@ -3082,7 +425,7 @@ uint64_t SecTrustTriggerValidUpdate(CFTypeRef *a1)
   }
 }
 
-uint64_t SecTrustReportTLSAnalytics(uint64_t a1, uint64_t a2, CFTypeRef *a3)
+uint64_t SecTrustReportTLSAnalytics(uint64_t a1, uint64_t a2, CFErrorRef *a3)
 {
   v3 = 0;
   if (!a1 || !a2)
@@ -3135,231 +478,227 @@ BOOL __SecTrustReportTLSAnalytics_block_invoke(uint64_t a1, void *a2, __CFString
 
 uint64_t SecTrustEvaluateLeafOnly(__SecTrust *a1, int *a2)
 {
-  v55 = *MEMORY[0x1E69E9840];
-  if (a1)
+  v54 = *MEMORY[0x1E69E9840];
+  if (!a1)
   {
-    result = SecTrustValidateInput(a1);
-    if (!result)
+    return 4294967246;
+  }
+
+  result = SecTrustValidateInput(a1);
+  if (!result)
+  {
+    *&context = 0xAAAAAAAAAAAAAAAALL;
+    *(&context + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&v5 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&v52[8] = v5;
+    *&v52[24] = v5;
+    *v52 = -1;
+    *&v52[40] = 0xAAAAAAAAAAAAAAAALL;
+    v47 = 0;
+    v48 = &v47;
+    v49 = 0x2000000000;
+    v50 = 0;
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x2000000000;
+    v46 = 0;
+    v6 = *(a1 + 17);
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 0x40000000;
+    block[2] = __SecTrustEvaluateLeafOnly_block_invoke;
+    block[3] = &unk_1E70E3290;
+    block[5] = &v43;
+    block[6] = a1;
+    block[4] = &v47;
+    dispatch_sync(v6, block);
+    v7 = v48[3];
+    v8 = v44[3];
+    VerifyTime = SecTrustGetVerifyTime(a1);
+    if (v7)
     {
-      *&context = 0xAAAAAAAAAAAAAAAALL;
-      *(&context + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *&v5 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *&v53[8] = v5;
-      *&v53[24] = v5;
-      *v53 = -1;
-      *&v53[40] = 0xAAAAAAAAAAAAAAAALL;
-      v48 = 0;
-      v49 = &v48;
-      v50 = 0x2000000000;
-      v51 = 0;
-      v44 = 0;
-      v45 = &v44;
-      v46 = 0x2000000000;
-      v47 = 0;
-      v6 = *(a1 + 17);
-      block[0] = MEMORY[0x1E69E9820];
-      block[1] = 0x40000000;
-      block[2] = __SecTrustEvaluateLeafOnly_block_invoke;
-      block[3] = &unk_1E70E3290;
-      block[5] = &v44;
-      block[6] = a1;
-      block[4] = &v48;
-      dispatch_sync(v6, block);
-      v7 = v49[3];
-      v8 = v45[3];
-      VerifyTime = SecTrustGetVerifyTime(a1);
-      if (v7)
-      {
-        CFRetain(v7);
-      }
-
-      *&context = v7;
-      if (v8)
-      {
-        CFRetain(v8);
-      }
-
-      *(&context + 1) = v8;
-      *v53 = VerifyTime;
-      v10 = *MEMORY[0x1E695E480];
-      v11 = MEMORY[0x1E695E9D8];
-      Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], 0);
-      CFDictionaryAddValue(Mutable, @"SSLHostname", SecPolicyCheckCertSSLHostname);
-      CFDictionaryAddValue(Mutable, @"Email", SecPolicyCheckCertEmail);
-      CFDictionaryAddValue(Mutable, @"TemporalValidity", SecPolicyCheckCertTemporalValidity);
-      CFDictionaryAddValue(Mutable, @"ValidLeaf", SecPolicyCheckCertValidLeaf);
-      CFDictionaryAddValue(Mutable, @"WeakKeySize", SecPolicyCheckCertWeakKeySize);
-      CFDictionaryAddValue(Mutable, @"WeakSignature", SecPolicyCheckCertWeakSignature);
-      CFDictionaryAddValue(Mutable, @"KeyUsage", SecPolicyCheckCertKeyUsage);
-      CFDictionaryAddValue(Mutable, @"ExtendedKeyUsage", SecPolicyCheckCertExtendedKeyUsage);
-      CFDictionaryAddValue(Mutable, @"SubjectCommonName", SecPolicyCheckCertSubjectCommonName);
-      CFDictionaryAddValue(Mutable, @"SubjectCommonNamePrefix", SecPolicyCheckCertSubjectCommonNamePrefix);
-      CFDictionaryAddValue(Mutable, @"SubjectCommonNameTEST", SecPolicyCheckCertSubjectCommonNameTEST);
-      CFDictionaryAddValue(Mutable, @"SubjectOrganization", SecPolicyCheckCertSubjectOrganization);
-      CFDictionaryAddValue(Mutable, @"SubjectOrganizationalUnit", SecPolicyCheckCertSubjectOrganizationalUnit);
-      CFDictionaryAddValue(Mutable, @"NotValidBefore", SecPolicyCheckCertNotValidBefore);
-      CFDictionaryAddValue(Mutable, @"EAPTrustedServerNames", SecPolicyCheckCertEAPTrustedServerNames);
-      CFDictionaryAddValue(Mutable, @"LeafMarkerOid", SecPolicyCheckCertLeafMarkerOid);
-      CFDictionaryAddValue(Mutable, @"LeafMarkerOidWithoutValueCheck", SecPolicyCheckCertLeafMarkerOidWithoutValueCheck);
-      CFDictionaryAddValue(Mutable, @"LeafMarkersProdAndQA", SecPolicyCheckCertLeafMarkersProdAndQA);
-      CFDictionaryAddValue(Mutable, @"NotCA", SecPolicyCheckCertNotCA);
-      CFDictionaryAddValue(Mutable, @"URI", SecPolicyCheckCertURI);
-      CFDictionaryAddValue(Mutable, @"NonEmptySubject", SecPolicyCheckCertNonEmptySubject);
-      CFDictionaryAddValue(Mutable, @"KeySize", SecPolicyCheckCertKeySize);
-      CFDictionaryAddValue(Mutable, @"SignatureHashAlgorithms", SecPolicyCheckCertSignatureHashAlgorithms);
-      CFDictionaryAddValue(Mutable, @"CertificatePolicy", SecPolicyCheckCertCertificatePolicy);
-      CFDictionaryAddValue(Mutable, @"CriticalExtensions", SecPolicyCheckCertCriticalExtensions);
-      CFDictionaryAddValue(Mutable, @"UnparseableExtension", SecPolicyCheckCertUnparseableExtension);
-      CFDictionaryAddValue(Mutable, @"DuplicateExtension", SecPolicyCheckCertDuplicateExtension);
-      *&v53[24] = Mutable;
-      *&v53[32] = 0;
-      *values = CFDictionaryCreateMutable(v10, 0, v11, MEMORY[0x1E695E9E8]);
-      *&v53[8] = CFArrayCreate(v10, values, 1, MEMORY[0x1E695E9C0]);
-      CFRelease(*values);
-      v53[40] = 1;
-      Count = CFArrayGetCount(v8);
-      if (Count < 1)
-      {
-LABEL_13:
-        v17 = 4;
-        v18 = 1;
-      }
-
-      else
-      {
-        v14 = Count;
-        v15 = 0;
-        while (1)
-        {
-          ValueAtIndex = CFArrayGetValueAtIndex(v8, v15);
-          *&v53[32] = v15;
-          CFDictionaryApplyFunction(ValueAtIndex[4], SecLeafPVCValidateKey, &context);
-          if ((v53[40] & 1) == 0 && !*&v53[8])
-          {
-            break;
-          }
-
-          if (v14 == ++v15)
-          {
-            if (v53[40])
-            {
-              goto LABEL_13;
-            }
-
-            break;
-          }
-        }
-
-        v18 = 0;
-        v17 = 5;
-      }
-
-      v19 = SecTrustGetVerifyTime(a1);
-      v20 = *(v49[3] + 176);
-      Current = CFAbsoluteTimeGetCurrent();
-      if (v20 >= v19 + 4500.0 || v20 <= Current)
-      {
-        v20 = v19 + 4500.0;
-      }
-
-      v23 = CFDateCreate(0, v19);
-      v24 = CFDateCreate(0, v20);
-      v25 = *(a1 + 17);
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 0x40000000;
-      v36 = context;
-      v37 = *v53;
-      v38 = *&v53[16];
-      v39 = *&v53[32];
-      v35[2] = __SecTrustEvaluateLeafOnly_block_invoke_2;
-      v35[3] = &__block_descriptor_tmp_382;
-      v35[4] = a1;
-      v42 = v17;
-      v40 = v23;
-      v41 = v24;
-      dispatch_sync(v25, v35);
-      v26 = *(&context + 1);
-      if (*(&context + 1))
-      {
-        *(&context + 1) = 0;
-        CFRelease(v26);
-      }
-
-      v27 = *&v53[8];
-      if (*&v53[8])
-      {
-        *&v53[8] = 0;
-        CFRelease(v27);
-      }
-
-      v28 = *&v53[24];
-      if (*&v53[24])
-      {
-        *&v53[24] = 0;
-        CFRelease(v28);
-      }
-
-      v29 = context;
-      if (context)
-      {
-        *&context = 0;
-        CFRelease(v29);
-      }
-
-      if ((v18 & 1) == 0)
-      {
-        v30 = SecTrustCopyFailureDescription(a1);
-        v31 = secLogObjForScope("SecError");
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
-        {
-          *values = 138412290;
-          *&values[4] = v30;
-          _os_log_impl(&dword_1887D2000, v31, OS_LOG_TYPE_DEFAULT, "%@", values, 0xCu);
-        }
-
-        CFRelease(v30);
-      }
-
-      if (a2)
-      {
-        *a2 = v17;
-      }
-
-      v32 = v49[3];
-      if (v32)
-      {
-        CFRelease(v32);
-      }
-
-      v33 = v45[3];
-      if (v33)
-      {
-        CFRelease(v33);
-      }
-
-      if (v23)
-      {
-        CFRelease(v23);
-      }
-
-      if (v24)
-      {
-        CFRelease(v24);
-      }
-
-      _Block_object_dispose(&v44, 8);
-      _Block_object_dispose(&v48, 8);
-      result = 0;
+      CFRetain(v7);
     }
+
+    *&context = v7;
+    if (v8)
+    {
+      CFRetain(v8);
+    }
+
+    *(&context + 1) = v8;
+    *v52 = VerifyTime;
+    v10 = *MEMORY[0x1E695E480];
+    v11 = MEMORY[0x1E695E9D8];
+    Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], 0);
+    CFDictionaryAddValue(Mutable, @"SSLHostname", SecPolicyCheckCertSSLHostname);
+    CFDictionaryAddValue(Mutable, @"Email", SecPolicyCheckCertEmail);
+    CFDictionaryAddValue(Mutable, @"TemporalValidity", SecPolicyCheckCertTemporalValidity);
+    CFDictionaryAddValue(Mutable, @"ValidLeaf", SecPolicyCheckCertValidLeaf);
+    CFDictionaryAddValue(Mutable, @"WeakKeySize", SecPolicyCheckCertWeakKeySize);
+    CFDictionaryAddValue(Mutable, @"WeakSignature", SecPolicyCheckCertWeakSignature);
+    CFDictionaryAddValue(Mutable, @"KeyUsage", SecPolicyCheckCertKeyUsage);
+    CFDictionaryAddValue(Mutable, @"ExtendedKeyUsage", SecPolicyCheckCertExtendedKeyUsage);
+    CFDictionaryAddValue(Mutable, @"SubjectCommonName", SecPolicyCheckCertSubjectCommonName);
+    CFDictionaryAddValue(Mutable, @"SubjectCommonNamePrefix", SecPolicyCheckCertSubjectCommonNamePrefix);
+    CFDictionaryAddValue(Mutable, @"SubjectCommonNameTEST", SecPolicyCheckCertSubjectCommonNameTEST);
+    CFDictionaryAddValue(Mutable, @"SubjectOrganization", SecPolicyCheckCertSubjectOrganization);
+    CFDictionaryAddValue(Mutable, @"SubjectOrganizationalUnit", SecPolicyCheckCertSubjectOrganizationalUnit);
+    CFDictionaryAddValue(Mutable, @"NotValidBefore", SecPolicyCheckCertNotValidBefore);
+    CFDictionaryAddValue(Mutable, @"EAPTrustedServerNames", SecPolicyCheckCertEAPTrustedServerNames);
+    CFDictionaryAddValue(Mutable, @"LeafMarkerOid", SecPolicyCheckCertLeafMarkerOid);
+    CFDictionaryAddValue(Mutable, @"LeafMarkerOidWithoutValueCheck", SecPolicyCheckCertLeafMarkerOidWithoutValueCheck);
+    CFDictionaryAddValue(Mutable, @"LeafMarkersProdAndQA", SecPolicyCheckCertLeafMarkersProdAndQA);
+    CFDictionaryAddValue(Mutable, @"NotCA", SecPolicyCheckCertNotCA);
+    CFDictionaryAddValue(Mutable, @"URI", SecPolicyCheckCertURI);
+    CFDictionaryAddValue(Mutable, @"NonEmptySubject", SecPolicyCheckCertNonEmptySubject);
+    CFDictionaryAddValue(Mutable, @"KeySize", SecPolicyCheckCertKeySize);
+    CFDictionaryAddValue(Mutable, @"SignatureHashAlgorithms", SecPolicyCheckCertSignatureHashAlgorithms);
+    CFDictionaryAddValue(Mutable, @"CertificatePolicy", SecPolicyCheckCertCertificatePolicy);
+    CFDictionaryAddValue(Mutable, @"CriticalExtensions", SecPolicyCheckCertCriticalExtensions);
+    CFDictionaryAddValue(Mutable, @"UnparseableExtension", SecPolicyCheckCertUnparseableExtension);
+    CFDictionaryAddValue(Mutable, @"DuplicateExtension", SecPolicyCheckCertDuplicateExtension);
+    *&v52[24] = Mutable;
+    *&v52[32] = 0;
+    *values = CFDictionaryCreateMutable(v10, 0, v11, MEMORY[0x1E695E9E8]);
+    *&v52[8] = CFArrayCreate(v10, values, 1, MEMORY[0x1E695E9C0]);
+    CFRelease(*values);
+    v52[40] = 1;
+    Count = CFArrayGetCount(v8);
+    if (Count < 1)
+    {
+LABEL_13:
+      v17 = 4;
+      v18 = 1;
+    }
+
+    else
+    {
+      v14 = Count;
+      v15 = 0;
+      while (1)
+      {
+        ValueAtIndex = CFArrayGetValueAtIndex(v8, v15);
+        *&v52[32] = v15;
+        CFDictionaryApplyFunction(ValueAtIndex[4], SecLeafPVCValidateKey, &context);
+        if ((v52[40] & 1) == 0 && !*&v52[8])
+        {
+          break;
+        }
+
+        if (v14 == ++v15)
+        {
+          if (v52[40])
+          {
+            goto LABEL_13;
+          }
+
+          break;
+        }
+      }
+
+      v18 = 0;
+      v17 = 5;
+    }
+
+    v19 = SecTrustGetVerifyTime(a1);
+    v20 = *(v48[3] + 176);
+    Current = CFAbsoluteTimeGetCurrent();
+    if (v20 >= v19 + 4500.0 || v20 <= Current)
+    {
+      v20 = v19 + 4500.0;
+    }
+
+    v23 = CFDateCreate(0, v19);
+    v24 = CFDateCreate(0, v20);
+    v25 = *(a1 + 17);
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 0x40000000;
+    v35 = context;
+    v36 = *v52;
+    v37 = *&v52[16];
+    v38 = *&v52[32];
+    v34[2] = __SecTrustEvaluateLeafOnly_block_invoke_2;
+    v34[3] = &__block_descriptor_tmp_382;
+    v34[4] = a1;
+    v41 = v17;
+    v39 = v23;
+    v40 = v24;
+    dispatch_sync(v25, v34);
+    v26 = *(&context + 1);
+    if (*(&context + 1))
+    {
+      *(&context + 1) = 0;
+      CFRelease(v26);
+    }
+
+    v27 = *&v52[8];
+    if (*&v52[8])
+    {
+      *&v52[8] = 0;
+      CFRelease(v27);
+    }
+
+    v28 = *&v52[24];
+    if (*&v52[24])
+    {
+      *&v52[24] = 0;
+      CFRelease(v28);
+    }
+
+    v29 = context;
+    if (context)
+    {
+      *&context = 0;
+      CFRelease(v29);
+    }
+
+    if ((v18 & 1) == 0)
+    {
+      v30 = SecTrustCopyFailureDescription(a1);
+      v31 = secLogObjForScope("SecError");
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      {
+        *values = 138412290;
+        *&values[4] = v30;
+        _os_log_impl(&dword_1887D2000, v31, OS_LOG_TYPE_DEFAULT, "%@", values, 0xCu);
+      }
+
+      CFRelease(v30);
+    }
+
+    if (a2)
+    {
+      *a2 = v17;
+    }
+
+    v32 = v48[3];
+    if (v32)
+    {
+      CFRelease(v32);
+    }
+
+    v33 = v44[3];
+    if (v33)
+    {
+      CFRelease(v33);
+    }
+
+    if (v23)
+    {
+      CFRelease(v23);
+    }
+
+    if (v24)
+    {
+      CFRelease(v24);
+    }
+
+    _Block_object_dispose(&v43, 8);
+    _Block_object_dispose(&v47, 8);
+    return 0;
   }
 
-  else
-  {
-    result = 4294967246;
-  }
-
-  v34 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3439,7 +778,7 @@ void __SecTrustEvaluateLeafOnly_block_invoke_2(uint64_t a1)
   *(v12 + 96) = v9;
 }
 
-SecTrustRef SecTrustDeserialize(const __CFData *a1, CFTypeRef *a2, uint64_t a3)
+SecTrustRef SecTrustDeserialize(const __CFData *a1, CFErrorRef *a2, uint64_t a3)
 {
   v7 = 0;
   if (a1)
@@ -3500,7 +839,7 @@ uint64_t SecTrustCopyPropertyListRepresentation(uint64_t a1, __CFString **a2)
   return v4;
 }
 
-uint64_t SecTrustIncrementExceptionResetCount(CFTypeRef *a1)
+uint64_t SecTrustIncrementExceptionResetCount(CFErrorRef *a1)
 {
   v2 = _os_activity_create(&dword_1887D2000, "SecTrustIncrementExceptionResetCount", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   v8.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
@@ -3708,33 +1047,33 @@ BOOL SecXPCDictionarySetCertificate(void *a1, uint64_t a2, __CFString **a3)
 
 uint64_t SecTrustStoreSetTrustSettings(uint64_t a1, void *a2, const void *a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2000000000;
-  v26 = -1431655766;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2000000000;
+  v32 = *MEMORY[0x1E69E9840];
   v22 = 0;
+  v23 = &v22;
+  v24 = 0x2000000000;
+  v25 = -1431655766;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2000000000;
+  v21 = 0;
   if (SecCertificateIsCertificate(a2))
   {
     IsSelfSigned = _SecCertificateIsSelfSigned(a2);
-    *(v24 + 6) = 0;
-    v7 = validateTrustSettings(IsSelfSigned, a3, v20 + 3);
-    *(v24 + 6) = v7;
+    *(v23 + 6) = 0;
+    v7 = validateTrustSettings(IsSelfSigned, a3, v19 + 3);
+    *(v23 + 6) = v7;
     if (!v7)
     {
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 0x40000000;
-      v18[2] = __SecTrustStoreSetTrustSettings_block_invoke;
-      v18[3] = &unk_1E70E3B18;
-      v18[6] = a1;
-      v18[7] = a2;
-      v18[4] = &v23;
-      v18[5] = &v19;
-      _os_activity_initiate(&dword_1887D2000, "SecTrustStoreSetTrustSettings", OS_ACTIVITY_FLAG_DEFAULT, v18);
-      if (!*(v24 + 6))
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 0x40000000;
+      v17[2] = __SecTrustStoreSetTrustSettings_block_invoke;
+      v17[3] = &unk_1E70E3B18;
+      v17[6] = a1;
+      v17[7] = a2;
+      v17[4] = &v22;
+      v17[5] = &v18;
+      _os_activity_initiate(&dword_1887D2000, "SecTrustStoreSetTrustSettings", OS_ACTIVITY_FLAG_DEFAULT, v17);
+      if (!*(v23 + 6))
       {
         v8 = secLogObjForScope("truststore");
         if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -3743,9 +1082,9 @@ uint64_t SecTrustStoreSetTrustSettings(uint64_t a1, void *a2, const void *a3)
         }
 
         *buf = 141558274;
-        v28 = 1752392040;
-        v29 = 2112;
-        v30 = a2;
+        v27 = 1752392040;
+        v28 = 2112;
+        v29 = a2;
         v9 = "Set TrustSettings for %{mask.hash}@";
         v10 = v8;
         v11 = 22;
@@ -3756,7 +1095,7 @@ uint64_t SecTrustStoreSetTrustSettings(uint64_t a1, void *a2, const void *a3)
 
   else
   {
-    *(v24 + 6) = -26275;
+    *(v23 + 6) = -26275;
   }
 
   v12 = secLogObjForScope("SecError");
@@ -3765,30 +1104,29 @@ uint64_t SecTrustStoreSetTrustSettings(uint64_t a1, void *a2, const void *a3)
     goto LABEL_10;
   }
 
-  v13 = *(v24 + 6);
+  v13 = *(v23 + 6);
   *buf = 141558530;
-  v28 = 1752392040;
-  v29 = 2112;
-  v30 = a2;
-  v31 = 1024;
-  v32 = v13;
+  v27 = 1752392040;
+  v28 = 2112;
+  v29 = a2;
+  v30 = 1024;
+  v31 = v13;
   v9 = "Failed set trust settings for %{mask.hash}@, %d";
   v10 = v12;
   v11 = 28;
 LABEL_9:
   _os_log_impl(&dword_1887D2000, v10, OS_LOG_TYPE_DEFAULT, v9, buf, v11);
 LABEL_10:
-  v14 = v20[3];
+  v14 = v19[3];
   if (v14)
   {
-    v20[3] = 0;
+    v19[3] = 0;
     CFRelease(v14);
   }
 
-  v15 = *(v24 + 6);
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v23, 8);
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *(v23 + 6);
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v22, 8);
   return v15;
 }
 
@@ -3937,7 +1275,7 @@ uint64_t __SecTrustStoreSetTrustSettings_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __SecTrustStoreSetTrustSettings_block_invoke_2(void *a1, CFTypeRef *a2)
+uint64_t __SecTrustStoreSetTrustSettings_block_invoke_2(void *a1, CFErrorRef *a2)
 {
   if (gTrustd && (v5 = *(gTrustd + 16)) != 0)
   {
@@ -3990,7 +1328,7 @@ size_t __string_cert_cftype_to_error_block_invoke(uint64_t a1, void *a2, __CFStr
 
 uint64_t SecTrustStoreRemoveCertificate(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = _os_activity_create(&dword_1887D2000, "SecTrustStoreRemoveCertificate", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
@@ -4003,24 +1341,24 @@ LABEL_3:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 141558530;
-      v13 = 1752392040;
-      v14 = 2112;
-      v15 = a2;
-      v16 = 1024;
-      v17 = v5;
+      v12 = 1752392040;
+      v13 = 2112;
+      v14 = a2;
+      v15 = 1024;
+      v16 = v5;
       _os_log_impl(&dword_1887D2000, v6, OS_LOG_TYPE_DEFAULT, "Failed to remove trust settings for %{mask.hash}@, %d", buf, 0x1Cu);
     }
 
     goto LABEL_7;
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 0x40000000;
-  v10[2] = __SecTrustStoreRemoveCertificate_block_invoke;
-  v10[3] = &__block_descriptor_tmp_8_14946;
-  v10[4] = a1;
-  v10[5] = a2;
-  v5 = SecOSStatusWith(v10);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 0x40000000;
+  v9[2] = __SecTrustStoreRemoveCertificate_block_invoke;
+  v9[3] = &__block_descriptor_tmp_8_14946;
+  v9[4] = a1;
+  v9[5] = a2;
+  v5 = SecOSStatusWith(v9);
   if (v5)
   {
     goto LABEL_3;
@@ -4030,9 +1368,9 @@ LABEL_3:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 141558274;
-    v13 = 1752392040;
-    v14 = 2112;
-    v15 = a2;
+    v12 = 1752392040;
+    v13 = 2112;
+    v14 = a2;
     _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, "Removed TrustSettings for %{mask.hash}@", buf, 0x16u);
     v5 = 0;
   }
@@ -4040,11 +1378,10 @@ LABEL_3:
 LABEL_7:
   os_release(v4);
   os_activity_scope_leave(&state);
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
-uint64_t __SecTrustStoreRemoveCertificate_block_invoke(uint64_t a1, CFTypeRef *a2)
+uint64_t __SecTrustStoreRemoveCertificate_block_invoke(uint64_t a1, CFErrorRef *a2)
 {
   if (gTrustd && (v5 = *(gTrustd + 24)) != 0)
   {
@@ -4067,7 +1404,7 @@ uint64_t __SecTrustStoreRemoveCertificate_block_invoke(uint64_t a1, CFTypeRef *a
   }
 }
 
-uint64_t SecTrustStoreGetSettingsVersionNumber(_DWORD *a1)
+CFIndex SecTrustStoreGetSettingsVersionNumber(_DWORD *a1)
 {
   if (!a1)
   {
@@ -4090,7 +1427,7 @@ uint64_t SecTrustStoreGetSettingsVersionNumber(_DWORD *a1)
   return Code;
 }
 
-uint64_t SecTrustStoreGetSettingsAssetVersionNumber(_DWORD *a1)
+CFIndex SecTrustStoreGetSettingsAssetVersionNumber(_DWORD *a1)
 {
   if (!a1)
   {
@@ -4146,7 +1483,7 @@ uint64_t SecTrustStoreCopyAll(uint64_t a1, void *a2)
   return v5;
 }
 
-uint64_t __SecTrustStoreCopyAll_block_invoke(uint64_t a1, CFTypeRef *a2)
+uint64_t __SecTrustStoreCopyAll_block_invoke(uint64_t a1, CFErrorRef *a2)
 {
   if (gTrustd && (v2 = *(gTrustd + 120)) != 0)
   {
@@ -4159,7 +1496,7 @@ uint64_t __SecTrustStoreCopyAll_block_invoke(uint64_t a1, CFTypeRef *a2)
   }
 }
 
-uint64_t string_string_to_array_error(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef *a4)
+uint64_t string_string_to_array_error(uint64_t a1, uint64_t a2, uint64_t a3, CFErrorRef *a4)
 {
   v6[0] = MEMORY[0x1E69E9820];
   v6[1] = 0x40000000;
@@ -4245,7 +1582,7 @@ uint64_t SecTrustStoreCopyAnchors(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t __SecTrustStoreCopyAnchors_block_invoke(void *a1, CFTypeRef *a2)
+uint64_t __SecTrustStoreCopyAnchors_block_invoke(void *a1, CFErrorRef *a2)
 {
   if (gTrustd && (v2 = *(gTrustd + 120)) != 0)
   {
@@ -4260,11 +1597,11 @@ uint64_t __SecTrustStoreCopyAnchors_block_invoke(void *a1, CFTypeRef *a2)
 
 uint64_t SecTrustStoreCopyUsageConstraints(uint64_t a1, uint64_t a2, const __CFArray **a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2000000000;
-  v21 = 0;
+  v27 = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2000000000;
+  v20 = 0;
   v6 = _os_activity_create(&dword_1887D2000, "SecTrustStoreCopyUsageConstraints", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
@@ -4276,15 +1613,15 @@ uint64_t SecTrustStoreCopyUsageConstraints(uint64_t a1, uint64_t a2, const __CFA
     {
       if (a3)
       {
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 0x40000000;
-        v16[2] = __SecTrustStoreCopyUsageConstraints_block_invoke;
-        v16[3] = &unk_1E70E3BB0;
-        v16[5] = a1;
-        v16[6] = a2;
-        v16[4] = &v18;
-        v7 = SecOSStatusWith(v16);
-        v8 = v19[3];
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 0x40000000;
+        v15[2] = __SecTrustStoreCopyUsageConstraints_block_invoke;
+        v15[3] = &unk_1E70E3BB0;
+        v15[5] = a1;
+        v15[6] = a2;
+        v15[4] = &v17;
+        v7 = SecOSStatusWith(v15);
+        v8 = v18[3];
         *a3 = v8;
         if (!v7)
         {
@@ -4298,9 +1635,9 @@ uint64_t SecTrustStoreCopyUsageConstraints(uint64_t a1, uint64_t a2, const __CFA
               if (v12)
               {
                 *buf = 141558274;
-                v23 = 1752392040;
-                v24 = 2112;
-                v25 = a2;
+                v22 = 1752392040;
+                v23 = 2112;
+                v24 = a2;
                 v13 = "Found usage constraints for %{mask.hash}@";
 LABEL_15:
                 _os_log_impl(&dword_1887D2000, v11, OS_LOG_TYPE_DEFAULT, v13, buf, 0x16u);
@@ -4310,9 +1647,9 @@ LABEL_15:
             else if (v12)
             {
               *buf = 141558274;
-              v23 = 1752392040;
-              v24 = 2112;
-              v25 = a2;
+              v22 = 1752392040;
+              v23 = 2112;
+              v24 = a2;
               v13 = "Found no usage constraints for %{mask.hash}@";
               goto LABEL_15;
             }
@@ -4324,9 +1661,9 @@ LABEL_15:
             if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 141558274;
-              v23 = 1752392040;
-              v24 = 2112;
-              v25 = a2;
+              v22 = 1752392040;
+              v23 = 2112;
+              v24 = a2;
               v13 = "Found no trust settings for %{mask.hash}@";
               goto LABEL_15;
             }
@@ -4343,23 +1680,22 @@ LABEL_15:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 141558530;
-    v23 = 1752392040;
-    v24 = 2112;
-    v25 = a2;
-    v26 = 1024;
-    v27 = v7;
+    v22 = 1752392040;
+    v23 = 2112;
+    v24 = a2;
+    v25 = 1024;
+    v26 = v7;
     _os_log_impl(&dword_1887D2000, v9, OS_LOG_TYPE_DEFAULT, "Failed to get usage contraints for %{mask.hash}@, %d", buf, 0x1Cu);
   }
 
 LABEL_17:
   os_release(v6);
   os_activity_scope_leave(&state);
-  _Block_object_dispose(&v18, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v17, 8);
   return v7;
 }
 
-uint64_t __SecTrustStoreCopyUsageConstraints_block_invoke(void *a1, CFTypeRef *a2)
+uint64_t __SecTrustStoreCopyUsageConstraints_block_invoke(void *a1, CFErrorRef *a2)
 {
   if (gTrustd && (v5 = *(gTrustd + 128)) != 0)
   {
@@ -4404,7 +1740,7 @@ BOOL __string_cert_to_array_error_block_invoke(uint64_t a1, void *a2, __CFString
 
 uint64_t SecTrustStoreRemoveAll(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = _os_activity_create(&dword_1887D2000, "SecTrustStoreRemoveAll", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
@@ -4417,19 +1753,19 @@ LABEL_3:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v11 = v3;
+      v10 = v3;
       _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "Failed to remove all trust settings, %d", buf, 8u);
     }
 
     goto LABEL_7;
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 0x40000000;
-  v8[2] = __SecTrustStoreRemoveAll_block_invoke;
-  v8[3] = &__block_descriptor_tmp_12_14966;
-  v8[4] = a1;
-  v3 = SecOSStatusWith(v8);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 0x40000000;
+  v7[2] = __SecTrustStoreRemoveAll_block_invoke;
+  v7[3] = &__block_descriptor_tmp_12_14966;
+  v7[4] = a1;
+  v3 = SecOSStatusWith(v7);
   if (v3)
   {
     goto LABEL_3;
@@ -4446,17 +1782,16 @@ LABEL_3:
 LABEL_7:
   os_release(v2);
   os_activity_scope_leave(&state);
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
-uint64_t __SecTrustStoreRemoveAll_block_invoke(uint64_t a1, CFTypeRef *a2)
+uint64_t __SecTrustStoreRemoveAll_block_invoke(uint64_t a1, CFErrorRef *a2)
 {
   if (gTrustd && (v4 = *(gTrustd + 32)) != 0)
   {
     v5 = *(a1 + 32);
 
-    return v4(v5);
+    return v4(v5, a2);
   }
 
   else
@@ -4473,7 +1808,7 @@ uint64_t __SecTrustStoreRemoveAll_block_invoke(uint64_t a1, CFTypeRef *a2)
   }
 }
 
-uint64_t SecTrustStoreSetCTExceptions(__CFString *a1, uint64_t a2, CFTypeRef *a3)
+uint64_t SecTrustStoreSetCTExceptions(__CFString *a1, uint64_t a2, CFErrorRef *a3)
 {
   v5 = a1;
   if (a1 && gTrustd)
@@ -4546,7 +1881,7 @@ uint64_t __SecTrustStoreSetCTExceptions_block_invoke(uint64_t a1, void *a2, __CF
   return 1;
 }
 
-uint64_t SecTrustStoreCopyCTExceptions(uint64_t a1, CFTypeRef *a2)
+uint64_t SecTrustStoreCopyCTExceptions(uint64_t a1, CFErrorRef *a2)
 {
   if (gTrustd && (v4 = *(gTrustd + 160)) != 0)
   {
@@ -4594,7 +1929,7 @@ uint64_t __SecTrustStoreCopyCTExceptions_block_invoke(uint64_t a1, uint64_t a2, 
   return 1;
 }
 
-uint64_t SecTrustStoreSetCARevocationAdditions(__CFString *a1, uint64_t a2, CFTypeRef *a3)
+uint64_t SecTrustStoreSetCARevocationAdditions(__CFString *a1, uint64_t a2, CFErrorRef *a3)
 {
   v5 = a1;
   if (a1 && gTrustd)
@@ -4667,7 +2002,7 @@ uint64_t __SecTrustStoreSetCARevocationAdditions_block_invoke(uint64_t a1, void 
   return 1;
 }
 
-uint64_t SecTrustStoreCopyCARevocationAdditions(uint64_t a1, CFTypeRef *a2)
+uint64_t SecTrustStoreCopyCARevocationAdditions(uint64_t a1, CFErrorRef *a2)
 {
   if (gTrustd && (v4 = *(gTrustd + 192)) != 0)
   {
@@ -4715,7 +2050,7 @@ uint64_t __SecTrustStoreCopyCARevocationAdditions_block_invoke(uint64_t a1, uint
   return 1;
 }
 
-uint64_t SecTrustStoreSetTransparentConnectionPins(__CFString *a1, uint64_t a2, CFTypeRef *a3)
+uint64_t SecTrustStoreSetTransparentConnectionPins(__CFString *a1, uint64_t a2, CFErrorRef *a3)
 {
   v5 = a1;
   if (a1 && gTrustd)
@@ -4788,7 +2123,7 @@ uint64_t __SecTrustStoreSetTransparentConnectionPins_block_invoke(uint64_t a1, v
   return 1;
 }
 
-uint64_t SecTrustStoreCopyTransparentConnectionPins(uint64_t a1, CFTypeRef *a2)
+uint64_t SecTrustStoreCopyTransparentConnectionPins(uint64_t a1, CFErrorRef *a2)
 {
   if (gTrustd && (v4 = *(gTrustd + 216)) != 0)
   {
@@ -5539,37 +2874,37 @@ void *___initAppAttestInternal_block_invoke()
   return result;
 }
 
-void sub_188915CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_188915CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_188915E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_188915E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1889160FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1889160FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_188916E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_188916E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void SecRequestClientIdentity(const void *a1, const void *a2, void *a3, void *a4)
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = v8;
@@ -5602,9 +2937,9 @@ void SecRequestClientIdentity(const void *a1, const void *a2, void *a3, void *a4
     {
       v13 = MEMORY[0x1E696ABC0];
       v14 = *MEMORY[0x1E696A768];
-      v28 = *MEMORY[0x1E696A578];
-      v29[0] = v11;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v27 = *MEMORY[0x1E696A578];
+      v28[0] = v11;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
       v16 = [v13 errorWithDomain:v14 code:-50 userInfo:v15];
 
       (v9)[2](v9, 0, v16);
@@ -5636,24 +2971,22 @@ void SecRequestClientIdentity(const void *a1, const void *a2, void *a3, void *a4
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v24 = 0x3032000000;
-    v25 = __Block_byref_object_copy__15916;
-    v26 = __Block_byref_object_dispose__15917;
-    v27 = os_transaction_create();
+    v23 = 0x3032000000;
+    v24 = __Block_byref_object_copy__15916;
+    v25 = __Block_byref_object_dispose__15917;
+    v26 = os_transaction_create();
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __SecRequestClientIdentity_block_invoke;
     block[3] = &unk_1E70E4340;
-    v21 = a1;
-    v22 = a2;
-    v19 = v9;
+    v20 = a1;
+    v21 = a2;
+    v18 = v9;
     p_buf = &buf;
     dispatch_async(v7, block);
 
     _Block_object_dispose(&buf, 8);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __SecRequestClientIdentity_block_invoke(void *a1)
@@ -5705,10 +3038,10 @@ uint64_t SecAreQARootCertificatesEnabled()
 
 void __SecAreQARootCertificatesEnabled_block_invoke()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5 = 0;
-  v4 = 4;
-  v0 = sysctlbyname("security.mac.amfi.qa_root_certs_allowed", &v5, &v4, 0, 0);
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = 0;
+  v3 = 4;
+  v0 = sysctlbyname("security.mac.amfi.qa_root_certs_allowed", &v4, &v3, 0, 0);
   if (v0)
   {
     v1 = v0;
@@ -5716,67 +3049,73 @@ void __SecAreQARootCertificatesEnabled_block_invoke()
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v7 = v1;
+      v6 = v1;
       _os_log_impl(&dword_1887D2000, v2, OS_LOG_TYPE_DEFAULT, "Unable to check QA certificate status: %d", buf, 8u);
     }
   }
 
   else
   {
-    SecAreQARootCertificatesEnabled_sQACertsEnabled = v5 == 1;
+    SecAreQARootCertificatesEnabled_sQACertsEnabled = v4 == 1;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t p12_pbe_gen(const __CFString *a1, const void *a2, size_t a3, unsigned int a4, uint64_t a5, void *a6, size_t a7, CC_LONG a8, unsigned int a9)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    result = 0xFFFFFFFFLL;
-    goto LABEL_44;
+    return 0xFFFFFFFFLL;
   }
 
   v16 = a8;
   MEMORY[0x1EEE9AC00](a1);
-  memset(&v56 - ((v16 + 15) & 0x1FFFFFFF0), v17, v16);
+  memset(&v55 - ((v16 + 15) & 0x1FFFFFFF0), v17, v16);
   ExternalRepresentation = CFStringCreateExternalRepresentation(*MEMORY[0x1E695E480], a1, 0x10000100u, 0);
   if (!ExternalRepresentation)
   {
-    goto LABEL_43;
+    return 0xFFFFFFFFLL;
   }
 
   v19 = ExternalRepresentation;
-  v66 = &v56 - ((v16 + 15) & 0x1FFFFFFF0);
+  v65 = &v55 - ((v16 + 15) & 0x1FFFFFFF0);
   bytes = 0;
   MutableCopy = CFDataCreateMutableCopy(0, 0, ExternalRepresentation);
   CFRelease(v19);
-  if (!MutableCopy || (CFDataAppendBytes(MutableCopy, &bytes, 2), v69 = 0, Length = CFDataGetLength(MutableCopy), BytePtr = CFDataGetBytePtr(MutableCopy), v23 = concatenate_to_blocksize(BytePtr, Length, v16, &v69), CFRelease(MutableCopy), !v23))
+  if (!MutableCopy)
   {
-LABEL_43:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_44;
+    return 0xFFFFFFFFLL;
   }
 
+  CFDataAppendBytes(MutableCopy, &bytes, 2);
   v68 = 0;
+  Length = CFDataGetLength(MutableCopy);
+  BytePtr = CFDataGetBytePtr(MutableCopy);
+  v23 = concatenate_to_blocksize(BytePtr, Length, v16, &v68);
+  CFRelease(MutableCopy);
+  if (!v23)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v67 = 0;
   if (!a3)
   {
     goto LABEL_41;
   }
 
-  v24 = concatenate_to_blocksize(a2, a3, v16, &v68);
+  v24 = concatenate_to_blocksize(a2, a3, v16, &v67);
   if (!v24)
   {
     goto LABEL_41;
   }
 
   v25 = v24;
-  v65 = a4;
-  v26 = v68;
-  v27 = v69;
-  v67 = v69 + v68;
-  v28 = malloc_type_malloc(v69 + v68, 0xFDE39E47uLL);
+  v64 = a4;
+  v26 = v67;
+  v27 = v68;
+  v66 = v68 + v67;
+  v28 = malloc_type_malloc(v68 + v67, 0xFDE39E47uLL);
   if (!v28)
   {
     free(v25);
@@ -5784,49 +3123,49 @@ LABEL_41:
     v53 = v23;
 LABEL_42:
     free(v53);
-    goto LABEL_43;
+    return 0xFFFFFFFFLL;
   }
 
   v29 = v28;
-  v64 = a9;
+  v63 = a9;
   memcpy(v28, v25, v26);
   v30 = &v29[v26];
-  v31 = v64;
+  v31 = v63;
   memcpy(v30, v23, v27);
   free(v25);
   free(v23);
   v32 = (a7 + v31 - 1) / v31 * v31;
-  v59 = malloc_type_malloc(v32, 0xB7A8DC55uLL);
-  if (!v59)
+  v58 = malloc_type_malloc(v32, 0xB7A8DC55uLL);
+  if (!v58)
   {
     v53 = v29;
     goto LABEL_42;
   }
 
-  v56 = a6;
-  v57 = a7;
-  v58 = &v56;
-  v33 = v65;
+  v55 = a6;
+  v56 = a7;
+  v57 = &v55;
+  v33 = v64;
   if (v32 < 1)
   {
 LABEL_38:
-    v51 = v59;
-    memmove(v56, v59, v57);
+    v51 = v58;
+    memmove(v55, v58, v56);
     free(v51);
     free(v29);
-    result = 0;
+    return 0;
   }
 
   else
   {
-    v34 = v59;
-    v62 = &v59[v32];
-    v63 = (v16 + 7) >> 3;
-    v60 = v65 - 1;
+    v34 = v58;
+    v61 = &v58[v32];
+    v62 = (v16 + 7) >> 3;
+    v59 = v64 - 1;
     HIDWORD(v36) = v31 - 20;
     LODWORD(v36) = v31 - 20;
     v35 = v36 >> 2;
-    v61 = v35;
+    v60 = v35;
     while (1)
     {
       if (v35 <= 2)
@@ -5845,8 +3184,8 @@ LABEL_38:
             *c.hash = v38;
             *c.count = v38;
             CC_SHA224_Init(&c);
-            CC_SHA224_Update(&c, v66, a8);
-            CC_SHA224_Update(&c, v29, v67);
+            CC_SHA224_Update(&c, v65, a8);
+            CC_SHA224_Update(&c, v29, v66);
             CC_SHA224_Final(v34, &c);
           }
         }
@@ -5862,8 +3201,8 @@ LABEL_38:
           *c.hash = v41;
           *c.count = v41;
           CC_SHA1_Init(&c);
-          CC_SHA1_Update(&c, v66, a8);
-          CC_SHA1_Update(&c, v29, v67);
+          CC_SHA1_Update(&c, v65, a8);
+          CC_SHA1_Update(&c, v29, v66);
           CC_SHA1_Final(v34, &c);
         }
       }
@@ -5883,8 +3222,8 @@ LABEL_38:
             *c.hash = v39;
             *c.count = v39;
             CC_SHA256_Init(&c);
-            CC_SHA256_Update(&c, v66, a8);
-            CC_SHA256_Update(&c, v29, v67);
+            CC_SHA256_Update(&c, v65, a8);
+            CC_SHA256_Update(&c, v29, v66);
             CC_SHA256_Final(v34, &c);
             break;
           case 7:
@@ -5904,8 +3243,8 @@ LABEL_38:
             *c.hash = v40;
             *c.count = v40;
             CC_SHA384_Init(&c);
-            CC_SHA384_Update(&c, v66, a8);
-            CC_SHA384_Update(&c, v29, v67);
+            CC_SHA384_Update(&c, v65, a8);
+            CC_SHA384_Update(&c, v29, v66);
             CC_SHA384_Final(v34, &c);
             break;
           case 11:
@@ -5925,8 +3264,8 @@ LABEL_38:
             *c.hash = v37;
             *c.count = v37;
             CC_SHA512_Init(&c);
-            CC_SHA512_Update(&c, v66, a8);
-            CC_SHA512_Update(&c, v29, v67);
+            CC_SHA512_Update(&c, v65, a8);
+            CC_SHA512_Update(&c, v29, v66);
             CC_SHA512_Final(v34, &c);
             break;
         }
@@ -5934,7 +3273,7 @@ LABEL_38:
 
       if (v33 >= 2)
       {
-        v42 = v60;
+        v42 = v59;
         do
         {
           CCDigest();
@@ -5948,13 +3287,13 @@ LABEL_38:
       v43 = concatenate_to_blocksize(v34, v31, v16, &c);
       if (!v43)
       {
-        goto LABEL_47;
+        goto LABEL_46;
       }
 
       v44 = v43;
-      if ((c.count[0] + 8) >> 3 <= v63)
+      if ((c.count[0] + 8) >> 3 <= v62)
       {
-        v45 = v63;
+        v45 = v62;
       }
 
       else
@@ -5966,10 +3305,10 @@ LABEL_38:
       if (!v46)
       {
         free(v44);
-LABEL_47:
+LABEL_46:
         free(v29);
-        v55 = v59;
-        goto LABEL_49;
+        v54 = v58;
+        goto LABEL_48;
       }
 
       v47 = v46;
@@ -5983,7 +3322,7 @@ LABEL_47:
       }
 
       v49 = v48;
-      if (v67)
+      if (v66)
       {
         LODWORD(v50) = 0;
         do
@@ -5999,32 +3338,28 @@ LABEL_47:
           v50 = v50 + a8;
         }
 
-        while (v67 > v50);
+        while (v66 > v50);
       }
 
-      v31 = v64;
-      v34 += v64;
+      v31 = v63;
+      v34 += v63;
       free(v47);
       free(v49);
-      v33 = v65;
-      v35 = v61;
-      if (v34 >= v62)
+      v33 = v64;
+      v35 = v60;
+      if (v34 >= v61)
       {
         goto LABEL_38;
       }
     }
 
     free(v29);
-    free(v59);
-    v55 = v47;
-LABEL_49:
-    free(v55);
-    result = 0xFFFFFFFFLL;
+    free(v58);
+    v54 = v47;
+LABEL_48:
+    free(v54);
+    return 0xFFFFFFFFLL;
   }
-
-LABEL_44:
-  v54 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 char *concatenate_to_blocksize(const void *a1, size_t a2, unint64_t a3, int64_t *a4)
@@ -6063,7 +3398,7 @@ char *concatenate_to_blocksize(const void *a1, size_t a2, unint64_t a3, int64_t 
   return v9;
 }
 
-void (*pbkdf2(void (*result)(uint64_t, uint64_t, char *, size_t, char *), size_t a2, uint64_t a3, uint64_t a4, void *__src, size_t __n, unint64_t a7, char *a8, unint64_t a9, char *a10))(uint64_t, uint64_t, char *, size_t, char *)
+uint64_t (*pbkdf2(uint64_t (*result)(uint64_t, uint64_t, char *, size_t, char *), size_t a2, uint64_t a3, uint64_t a4, void *__src, size_t __n, unint64_t a7, char *a8, unint64_t a9, char *a10))(uint64_t, uint64_t, char *, size_t, char *)
 {
   v16 = a9 / a2;
   v20 = a9 / a2 * a2;
@@ -6100,7 +3435,7 @@ void (*pbkdf2(void (*result)(uint64_t, uint64_t, char *, size_t, char *), size_t
   return result;
 }
 
-void *F(void (*a1)(uint64_t, uint64_t, char *, size_t, char *), size_t a2, uint64_t a3, uint64_t a4, void *__src, size_t __n, unint64_t a7, unsigned int a8, void *a9, char *a10)
+void *F(uint64_t (*a1)(uint64_t, uint64_t, char *, size_t, char *), size_t a2, uint64_t a3, uint64_t a4, void *__src, size_t __n, unint64_t a7, unsigned int a8, void *a9, char *a10)
 {
   v17 = a10;
   v18 = &a10[a2];
@@ -6114,7 +3449,7 @@ void *F(void (*a1)(uint64_t, uint64_t, char *, size_t, char *), size_t a2, uint6
     do
     {
       v21 = v18;
-      result = (a1)(a3, a4, v17, a2, v18);
+      result = a1(a3, a4, v17, a2, v18);
       if (a2)
       {
         v22 = 0;
@@ -6138,35 +3473,35 @@ void *F(void (*a1)(uint64_t, uint64_t, char *, size_t, char *), size_t a2, uint6
   return result;
 }
 
-__CFString *SecLogAPICreate(uint64_t a1, const char *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+__CFString *SecLogAPICreate(uint64_t a1, const char *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v11 = *MEMORY[0x1E695E480];
+  va_start(va, a8);
+  v20 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E695E480];
   Mutable = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
   CFStringAppend(Mutable, @"SecAPITrace ");
   CFStringAppendCString(Mutable, a2, 0x600u);
   CFStringAppendCString(Mutable, "ENTER", 0x600u);
   if (a3)
   {
-    v13 = CFStringCreateWithFormatAndArguments(v11, 0, a3, &a9);
-    CFStringAppend(Mutable, v13);
-    if (v13)
+    v12 = CFStringCreateWithFormatAndArguments(v10, 0, a3, va);
+    CFStringAppend(Mutable, v12);
+    if (v12)
     {
-      CFRelease(v13);
+      CFRelease(v12);
     }
   }
 
-  *&v14 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v20 = v14;
-  v21 = v14;
-  v18 = v14;
-  v19 = v14;
-  *__str = v14;
+  *&v13 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v18 = v13;
+  v19 = v13;
+  v16 = v13;
+  v17 = v13;
+  *__str = v13;
   snprintf(__str, 0x50uLL, "C%p F%p", vars0[1], *vars0);
   CFStringAppend(Mutable, @"CALLER ");
   CFStringAppendCString(Mutable, __str, 0x600u);
-  v15 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
@@ -6397,15 +3732,15 @@ uint64_t __withShortDateFormatter_block_invoke(uint64_t a1)
   return v3(v1, v2);
 }
 
-void der_encode_date(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void der_encode_date(uint64_t a1, uint64_t a2, unint64_t a3)
 {
-  v11 = MEMORY[0x18CFD8B20]();
-  der_encode_generalizedtime_body_repair(0, 0, a2, a3, v11);
+  v5 = MEMORY[0x18CFD8B20](a1);
+  der_encode_generalizedtime_body_repair(0, 0, a2, a3, v5);
   if (!ccder_encode_constructed_tl())
   {
-    v15 = sSecDERErrorDomain;
+    v9 = sSecDERErrorDomain;
 
-    SecCFCreateErrorWithFormat(-7, v15, 0, 0, v12, @"ccder failed to encode", v13, v14, a9);
+    SecCFCreateErrorWithFormat(-7, v9, 0, 0, v6, @"ccder failed to encode", v7, v8);
   }
 }
 
@@ -6549,7 +3884,7 @@ void addCertificate(const __CFArray *a1, const void *a2, int64_t a3)
   }
 }
 
-BOOL SecKernError(int a1, CFTypeRef *a2, CFStringRef format, ...)
+BOOL SecKernError(int a1, CFErrorRef *a2, CFStringRef format, ...)
 {
   va_start(va, format);
   if (a1 && a2)
@@ -6562,7 +3897,7 @@ BOOL SecKernError(int a1, CFTypeRef *a2, CFStringRef format, ...)
   return a1 == 0;
 }
 
-void SecCFCreateErrorWithFormatAndArguments(CFIndex a1, const __CFString *a2, __CFString *cf, CFTypeRef *a4, CFDictionaryRef formatOptions, CFStringRef format, va_list arguments)
+void SecCFCreateErrorWithFormatAndArguments(CFIndex a1, const __CFString *a2, __CFString *cf, CFErrorRef *a4, CFDictionaryRef formatOptions, CFStringRef format, va_list arguments)
 {
   if (!a4)
   {
@@ -6698,20 +4033,21 @@ LABEL_44:
   }
 }
 
-void SecCheckErrno(uint64_t a1, CFTypeRef *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void SecCheckErrno(uint64_t a1, CFErrorRef *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (a2)
   {
-    v11 = *__error();
-    v12 = *a2;
+    v10 = *__error();
+    v11 = *a2;
     *a2 = 0;
-    v13 = CFStringCreateWithFormatAndArguments(*MEMORY[0x1E695E480], 0, a3, &a9);
-    v14 = *MEMORY[0x1E695E640];
-    strerror(v11);
-    SecCFCreateErrorWithFormat(v11, v14, v12, a2, v15, @"%@: [%d] %s", v16, v17, v13);
-    if (v13)
+    v12 = CFStringCreateWithFormatAndArguments(*MEMORY[0x1E695E480], 0, a3, va);
+    v13 = *MEMORY[0x1E695E640];
+    v14 = strerror(v10);
+    SecCFCreateErrorWithFormat(v10, v13, v11, a2, v15, @"%@: [%d] %s", v16, v17, v12, v10, v14, va);
+    if (v12)
     {
-      CFRelease(v13);
+      CFRelease(v12);
     }
   }
 }
@@ -6744,7 +4080,7 @@ BOOL SecError(int a1, __CFString **a2, CFStringRef format, ...)
   return a1 == 0;
 }
 
-uint64_t SecRequirementError(uint64_t a1, CFTypeRef *a2, CFStringRef format, ...)
+uint64_t SecRequirementError(uint64_t a1, CFErrorRef *a2, CFStringRef format, ...)
 {
   va_start(va, format);
   if (a2 && (a1 & 1) == 0)
@@ -6757,7 +4093,7 @@ uint64_t SecRequirementError(uint64_t a1, CFTypeRef *a2, CFStringRef format, ...
   return a1;
 }
 
-BOOL SecAllocationError(uint64_t a1, CFTypeRef *a2, CFStringRef format, ...)
+BOOL SecAllocationError(uint64_t a1, CFErrorRef *a2, CFStringRef format, ...)
 {
   va_start(va, format);
   if (!a1 && a2)
@@ -6770,7 +4106,7 @@ BOOL SecAllocationError(uint64_t a1, CFTypeRef *a2, CFStringRef format, ...)
   return a1 != 0;
 }
 
-CFTypeRef CFPropertyListCreateWithDERData(uint64_t a1, CFDataRef theData, uint64_t a3, void *a4, CFTypeRef *a5)
+CFTypeRef CFPropertyListCreateWithDERData(const __CFAllocator *a1, CFDataRef theData, uint64_t a3, void *a4, CFErrorRef *a5)
 {
   cf = 0;
   BytePtr = CFDataGetBytePtr(theData);
@@ -6787,7 +4123,7 @@ CFTypeRef CFPropertyListCreateWithDERData(uint64_t a1, CFDataRef theData, uint64
 
   else
   {
-    SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain, 0, a5, v16, @"trailing garbage after plist item", v17, v18, v21);
+    SecCFCreateErrorWithFormat(-1, sSecDERErrorDomain, 0, a5, v16, @"trailing garbage after plist item", v17, v18);
     v19 = cf;
     if (cf)
     {
@@ -6799,15 +4135,15 @@ CFTypeRef CFPropertyListCreateWithDERData(uint64_t a1, CFDataRef theData, uint64
   return cf;
 }
 
-uint64_t der_encode_null(CFTypeRef *a1)
+uint64_t der_encode_null(CFErrorRef *a1, uint64_t a2, uint64_t a3)
 {
-  v5 = ccder_encode_tl();
-  if (!v5)
+  v7 = ccder_encode_tl();
+  if (!v7)
   {
-    SecCFCreateErrorWithFormat(-7, sSecDERErrorDomain, 0, a1, v2, @"ccder failed to encode", v3, v4, v7);
+    SecCFCreateErrorWithFormat(-7, sSecDERErrorDomain, 0, a1, v4, @"ccder failed to encode", v5, v6);
   }
 
-  return v5;
+  return v7;
 }
 
 uint64_t der_sizeof_set(const __CFSet *a1, uint64_t a2)
@@ -6845,16 +4181,16 @@ uint64_t add_value_size(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t der_encode_set_repair(const __CFSet *a1, CFTypeRef *a2, char a3)
+uint64_t der_encode_set_repair(const __CFSet *a1, CFErrorRef *a2, char a3, uint64_t a4, uint64_t a5)
 {
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
-  v14[0] = 0xAAAAAAAAAAAAAA01;
-  v14[1] = a2;
-  BYTE1(v14[0]) = a3;
-  v14[2] = Mutable;
-  v14[3] = 0;
-  CFSetApplyFunction(a1, add_sequence_to_array_16816, v14);
-  if ((v14[0] & 1) == 0)
+  v16[0] = 0xAAAAAAAAAAAAAA01;
+  v16[1] = a2;
+  BYTE1(v16[0]) = a3;
+  v16[2] = Mutable;
+  v16[3] = 0;
+  CFSetApplyFunction(a1, add_sequence_to_array_16816, v16);
+  if ((v16[0] & 1) == 0)
   {
     if (Mutable)
     {
@@ -6864,23 +4200,23 @@ uint64_t der_encode_set_repair(const __CFSet *a1, CFTypeRef *a2, char a3)
     return 0;
   }
 
-  v15.length = CFArrayGetCount(Mutable);
-  v15.location = 0;
-  CFArraySortValues(Mutable, v15, cfdata_compare_der_contents_16815, 0);
+  v17.length = CFArrayGetCount(Mutable);
+  v17.location = 0;
+  CFArraySortValues(Mutable, v17, cfdata_compare_der_contents_16815, 0);
   Count = CFArrayGetCount(Mutable);
   if (Count >= 1)
   {
-    v8 = Count + 1;
+    v10 = Count + 1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v8 - 2);
+      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v10 - 2);
       CFDataGetLength(ValueAtIndex);
       CFDataGetBytePtr(ValueAtIndex);
       ccder_encode_body();
-      --v8;
+      --v10;
     }
 
-    while (v8 > 1);
+    while (v10 > 1);
   }
 
   if (Mutable)
@@ -6891,7 +4227,7 @@ uint64_t der_encode_set_repair(const __CFSet *a1, CFTypeRef *a2, char a3)
   result = ccder_encode_constructed_tl();
   if (!result)
   {
-    SecCFCreateErrorWithFormat(-7, sSecDERErrorDomain, 0, a2, v11, @"ccder failed to encode", v12, v13, v14[0]);
+    SecCFCreateErrorWithFormat(-7, sSecDERErrorDomain, 0, a2, v13, @"ccder failed to encode", v14, v15);
     return 0;
   }
 
@@ -7030,20 +4366,18 @@ dispatch_queue_t __GetKeybagAssertionQueue_block_invoke(uint64_t a1)
 uint64_t __SecAKSKeybagHoldLockAssertion_block_invoke(uint64_t result)
 {
   v1 = result;
-  v9 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (!count)
   {
     v2 = secLogObjForScope("lockassertions");
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(v1 + 40);
-      v7 = 134217984;
-      v8 = v3;
-      _os_log_impl(&dword_1887D2000, v2, OS_LOG_TYPE_DEFAULT, "Requesting lock assertion for %lld seconds", &v7, 0xCu);
+      v4 = 134217984;
+      v5 = v3;
+      _os_log_impl(&dword_1887D2000, v2, OS_LOG_TYPE_DEFAULT, "Requesting lock assertion for %lld seconds", &v4, 0xCu);
     }
 
-    v4 = *(v1 + 48);
-    v5 = *(v1 + 40);
     result = aks_assert_hold();
     *(*(*(v1 + 32) + 8) + 24) = result;
   }
@@ -7053,7 +4387,6 @@ uint64_t __SecAKSKeybagHoldLockAssertion_block_invoke(uint64_t result)
     ++count;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7065,17 +4398,16 @@ uint64_t __SecAKSKeybagDropLockAssertion_block_invoke(uint64_t result)
     --count;
     if (v3 == 1)
     {
-      v8 = v1;
-      v9 = v2;
+      v7 = v1;
+      v8 = v2;
       v4 = result;
       v5 = secLogObjForScope("lockassertions");
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "Dropping lock assertion", v7, 2u);
+        *v6 = 0;
+        _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "Dropping lock assertion", v6, 2u);
       }
 
-      v6 = *(v4 + 40);
       result = aks_assert_drop();
       *(*(*(v4 + 32) + 8) + 24) = result;
     }
@@ -7160,7 +4492,7 @@ LABEL_10:
 
 void WithPathInDirectory(const __CFURL *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     memset(__b, 170, sizeof(__b));
@@ -7168,8 +4500,6 @@ void WithPathInDirectory(const __CFURL *a1, uint64_t a2)
     (*(a2 + 16))(a2, __b);
     CFRelease(a1);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void WithPathInKeychainDirectory(uint64_t a1, uint64_t a2)
@@ -7180,23 +4510,21 @@ void WithPathInKeychainDirectory(uint64_t a1, uint64_t a2)
   WithPathInDirectory(v4, a2);
 }
 
-uint64_t __security_simulatecrash(uint64_t a1, int a2)
+uint64_t __security_simulatecrash(uint64_t a1, unsigned int a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = secLogObjForScope("SecError");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = a1;
-    v9 = 1024;
-    v10 = a2;
-    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "Simulating crash, reason: %@, code=%08x", &v7, 0x12u);
+    v6 = 138412546;
+    v7 = a1;
+    v8 = 1024;
+    v9 = a2;
+    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "Simulating crash, reason: %@, code=%08x", &v6, 0x12u);
   }
 
   getpid();
-  result = SimulateCrash();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return SimulateCrash();
 }
 
 xpc_object_t SecCreateXPCObjectWithCFError(__CFError *a1)
@@ -7416,7 +4744,7 @@ LABEL_9:
   }
 
   *this = v4;
-  v8 = result - v2;
+  v8 = (result - v2);
   v9 = *(this + 2);
 
   return CFStringCreateWithBytes(v9, v2, v8, 0x8000100u, 0);
@@ -8006,16 +5334,16 @@ CFMutableDictionaryRef Security::makeCFMutableDictionary(CFDictionaryRef theDict
   return result;
 }
 
-_BYTE *Security::cfString(Security *this, CFStringRef theString)
+void Security::cfString(std::string *this, CFStringRef theString)
 {
   if (theString)
   {
     CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
     if (!CStringPtr)
     {
-      *this = 0;
-      *(this + 1) = 0;
-      *(this + 2) = 0;
+      this->__r_.__value_.__r.__words[0] = 0;
+      this->__r_.__value_.__l.__size_ = 0;
+      this->__r_.__value_.__r.__words[2] = 0;
       Length = CFStringGetLength(theString);
       if (CFStringGetMaximumSizeForEncoding(Length, 0x8000100u) > -2)
       {
@@ -8033,7 +5361,7 @@ _BYTE *Security::cfString(Security *this, CFStringRef theString)
     v5 = &unk_188967DD7;
   }
 
-  return std::string::basic_string[abi:ne200100]<0>(this, v5);
+  std::string::basic_string[abi:ne200100]<0>(this, v5);
 }
 
 void sub_18891B768(_Unwind_Exception *a1)
@@ -8103,7 +5431,7 @@ LABEL_6:
   return this;
 }
 
-const void **Security::cfString(Security *this, __CFString *cf)
+void Security::cfString(std::string *this, __CFString *cf)
 {
   if (!cf)
   {
@@ -8114,33 +5442,33 @@ const void **Security::cfString(Security *this, __CFString *cf)
   if (v4 == CFStringGetTypeID())
   {
 
-    return Security::cfString(this, cf);
+    Security::cfString(this, cf);
   }
 
   else if (v4 == CFURLGetTypeID())
   {
 
-    return Security::cfString(this, cf);
+    Security::cfString(this, cf);
   }
 
   else if (v4 == CFBundleGetTypeID())
   {
-    v6 = CFBundleCopyBundleURL(cf);
+    v5 = CFBundleCopyBundleURL(cf);
 
-    return Security::cfStringRelease(this, v6);
+    Security::cfStringRelease(this, v5);
   }
 
   else
   {
-    v7 = CFCopyDescription(cf);
-    Security::cfString(this, v7);
-    return Security::CFRef<__CFString const*>::~CFRef(&v7);
+    v6 = CFCopyDescription(cf);
+    Security::cfString(this, v6);
+    Security::CFRef<__CFString const*>::~CFRef(&v6);
   }
 }
 
-void sub_18891B9BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18891B9BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Security::CFRef<__CFString const*>::~CFRef(va);
   _Unwind_Resume(a1);
 }
@@ -8308,32 +5636,32 @@ void Security::ModuleNexusError::~ModuleNexusError(std::exception *this)
 
 void Security::CommonError::LogBacktrace(Security::CommonError *this)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v1 = secLogObjForScope("security_exception");
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     *&v2 = 0xAAAAAAAAAAAAAAAALL;
     *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v36 = v2;
-    v37 = v2;
-    v34 = v2;
     v35 = v2;
-    v32 = v2;
+    v36 = v2;
     v33 = v2;
-    v30 = v2;
+    v34 = v2;
     v31 = v2;
-    v28 = v2;
+    v32 = v2;
     v29 = v2;
-    v26 = v2;
+    v30 = v2;
     v27 = v2;
-    v24 = v2;
+    v28 = v2;
     v25 = v2;
-    *v22 = v2;
+    v26 = v2;
     v23 = v2;
-    v3 = backtrace(v22, 32);
-    v4 = backtrace_symbols(v22, v3);
+    v24 = v2;
+    *v21 = v2;
+    v22 = v2;
+    v3 = backtrace(v21, 32);
+    v4 = backtrace_symbols(v21, v3);
     v5 = v4;
-    memset(&v19, 0, sizeof(v19));
+    memset(&v18, 0, sizeof(v18));
     if (v3 < 1)
     {
       free(v4);
@@ -8343,16 +5671,16 @@ void Security::CommonError::LogBacktrace(Security::CommonError *this)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
         {
-          v19.__r_.__value_.__l.__size_ = 0;
-          v7 = v19.__r_.__value_.__r.__words[0];
+          v18.__r_.__value_.__l.__size_ = 0;
+          v7 = v18.__r_.__value_.__r.__words[0];
         }
 
         else
         {
-          *(&v19.__r_.__value_.__s + 23) = 0;
-          v7 = &v19;
+          *(&v18.__r_.__value_.__s + 23) = 0;
+          v7 = &v18;
         }
 
         v7->__r_.__value_.__s.__data_[0] = 0;
@@ -8374,16 +5702,16 @@ void Security::CommonError::LogBacktrace(Security::CommonError *this)
             if (status)
             {
               v12 = strlen(v9);
-              std::string::append(&v19, v9, v12);
+              std::string::append(&v18, v9, v12);
             }
 
             else
             {
               v13 = strlen(v10);
-              std::string::append(&v19, v11, v13);
+              std::string::append(&v18, v11, v13);
             }
 
-            std::string::append(&v19, " ", 1uLL);
+            std::string::append(&v18, " ", 1uLL);
             if (v11)
             {
               free(v11);
@@ -8392,44 +5720,42 @@ void Security::CommonError::LogBacktrace(Security::CommonError *this)
 
           else
           {
-            std::string::append(&v19, " ", 1uLL);
+            std::string::append(&v18, " ", 1uLL);
           }
         }
 
         v14 = secLogObjForScope("security_exception");
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
-          if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v15 = &v19;
+            v15 = &v18;
           }
 
           else
           {
-            v15 = v19.__r_.__value_.__r.__words[0];
+            v15 = v18.__r_.__value_.__r.__words[0];
           }
 
           status = 136315138;
-          v21 = v15;
+          v20 = v15;
           _os_log_debug_impl(&dword_1887D2000, v14, OS_LOG_TYPE_DEBUG, "%s", &status, 0xCu);
         }
       }
 
-      v16 = SHIBYTE(v19.__r_.__value_.__r.__words[2]);
+      v16 = SHIBYTE(v18.__r_.__value_.__r.__words[2]);
       free(v5);
       if (v16 < 0)
       {
-        operator delete(v19.__r_.__value_.__l.__data_);
+        operator delete(v18.__r_.__value_.__l.__data_);
       }
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 Security::UnixError *Security::UnixError::UnixError(Security::UnixError *this, int a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   *(this + 72) = xmmword_1889674AE;
   *(this + 88) = unk_1889674BE;
   *(this + 104) = xmmword_1889674CE;
@@ -8448,12 +5774,11 @@ Security::UnixError *Security::UnixError::UnixError(Security::UnixError *this, i
   {
     v5 = (*(*this + 16))(this);
     *buf = 136315138;
-    v9 = v5;
+    v8 = v5;
     _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   Security::CommonError::LogBacktrace(v4);
-  v6 = *MEMORY[0x1E69E9840];
   return this;
 }
 
@@ -8466,7 +5791,7 @@ void Security::UnixError::throwMe(Security::UnixError *this)
 
 Security::MacOSError *Security::MacOSError::MacOSError(Security::MacOSError *this, int a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   *(this + 72) = xmmword_1889674AE;
   *(this + 88) = unk_1889674BE;
   *(this + 104) = xmmword_1889674CE;
@@ -8487,14 +5812,13 @@ Security::MacOSError *Security::MacOSError::MacOSError(Security::MacOSError *thi
     {
       v6 = (*(*this + 16))(this);
       *buf = 136315138;
-      v10 = v6;
+      v9 = v6;
       _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
     Security::CommonError::LogBacktrace(v5);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return this;
 }
 
@@ -8546,29 +5870,27 @@ void Security::ModuleNexusError::throwMe(Security::ModuleNexusError *this)
 
 void Security::UnixPlusPlus::FileDesc::close(Security::UnixPlusPlus::FileDesc *this)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *this;
   if ((v2 & 0x80000000) == 0)
   {
     if (close(v2) == -1)
     {
-      v6 = __error();
-      Security::UnixError::throwMe(*v6);
+      v5 = __error();
+      Security::UnixError::throwMe(*v5);
     }
 
     v3 = secLogObjForScope("unixio");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = *this;
-      v7[0] = 67109120;
-      v7[1] = v5;
-      _os_log_debug_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEBUG, "close(%d)", v7, 8u);
+      v4 = *this;
+      v6[0] = 67109120;
+      v6[1] = v4;
+      _os_log_debug_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEBUG, "close(%d)", v6, 8u);
     }
 
     *this = -1;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 ssize_t Security::UnixPlusPlus::FileDesc::writeAll(ssize_t this, char *__buf, size_t __nbyte)
@@ -8613,7 +5935,7 @@ off_t Security::UnixPlusPlus::FileDesc::seek(Security::UnixPlusPlus::FileDesc *t
   return result;
 }
 
-void Security::UnixPlusPlus::FileDesc::fcntl(Security::UnixPlusPlus::FileDesc *this, int a2, void *a3)
+float Security::UnixPlusPlus::FileDesc::fcntl(Security::UnixPlusPlus::FileDesc *this, int a2, void *a3)
 {
   v17 = *MEMORY[0x1E69E9840];
   v4 = fcntl(*this, 48, a3, 1);
@@ -8638,7 +5960,7 @@ void Security::UnixPlusPlus::FileDesc::fcntl(Security::UnixPlusPlus::FileDesc *t
     Security::UnixError::throwMe(*v8);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
+  return result;
 }
 
 int *Security::UnixPlusPlus::FileDesc::removeAttr(Security::UnixPlusPlus::FileDesc *this, const char *a2)
@@ -8669,80 +5991,81 @@ ssize_t Security::UnixPlusPlus::FileDesc::listAttr(Security::UnixPlusPlus::FileD
   return result;
 }
 
-const void **Security::UnixPlusPlus::FileDesc::mediumType(Security::UnixPlusPlus::FileDesc *this, Security::UnixPlusPlus::FileDesc *a2)
+const void **Security::UnixPlusPlus::FileDesc::mediumType(std::string *this, Security::UnixPlusPlus::FileDesc *a2)
 {
-  v17 = 0xAAAAAAAAAAAAAAAALL;
+  v11 = 0xAAAAAAAAAAAAAAAALL;
   v3.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v3.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v19.st_blksize = v3;
-  *v19.st_qspare = v3;
-  v19.st_birthtimespec = v3;
-  *&v19.st_size = v3;
-  v19.st_mtimespec = v3;
-  v19.st_ctimespec = v3;
-  *&v19.st_uid = v3;
-  v19.st_atimespec = v3;
-  *&v19.st_dev = v3;
-  Security::UnixPlusPlus::FileDesc::fstat(a2, &v19);
+  *&v13.st_blksize = v3;
+  *v13.st_qspare = v3;
+  v13.st_birthtimespec = v3;
+  *&v13.st_size = v3;
+  v13.st_mtimespec = v3;
+  v13.st_ctimespec = v3;
+  *&v13.st_uid = v3;
+  v13.st_atimespec = v3;
+  *&v13.st_dev = v3;
+  Security::UnixPlusPlus::FileDesc::fstat(a2, &v13);
   matching = 0xAAAAAAAAAAAAAAAALL;
-  Security::CFTemp<__CFDictionary const*>::CFTemp(&matching, "{%s=%d,%s=%d}", v4, v5, v6, v7, v8, v9, "BSD Major");
-  v10 = *MEMORY[0x1E696CD60];
-  v11 = matching;
+  Security::CFTemp<__CFDictionary const*>::CFTemp(&matching, "{%s=%d,%s=%d}", "BSD Major", HIBYTE(v13.st_dev), "BSD Minor", v13.st_dev & 0xFFFFFF);
+  v4 = *MEMORY[0x1E696CD60];
+  v5 = matching;
   matching = 0;
-  MatchingService = IOServiceGetMatchingService(v10, v11);
-  v13 = MatchingService;
+  MatchingService = IOServiceGetMatchingService(v4, v5);
+  v7 = MatchingService;
   if (!MatchingService)
   {
     Security::CFRef<__CFDictionary const*>::~CFRef(&matching);
-    v17 = 0;
+    v11 = 0;
 LABEL_6:
-    *this = 0;
-    *(this + 1) = 0;
-    *(this + 2) = 0;
-    return Security::CFRef<__CFDictionary const*>::~CFRef(&v17);
+    this->__r_.__value_.__r.__words[0] = 0;
+    this->__r_.__value_.__l.__size_ = 0;
+    this->__r_.__value_.__r.__words[2] = 0;
+    return Security::CFRef<__CFDictionary const*>::~CFRef(&v11);
   }
 
-  v14 = IORegistryEntrySearchCFProperty(MatchingService, "IOService", @"Device Characteristics", 0, 3u);
-  IOObjectRelease(v13);
+  v8 = IORegistryEntrySearchCFProperty(MatchingService, "IOService", @"Device Characteristics", 0, 3u);
+  IOObjectRelease(v7);
   Security::CFRef<__CFDictionary const*>::~CFRef(&matching);
-  v17 = v14;
-  if (!v14)
+  v11 = v8;
+  if (!v8)
   {
     goto LABEL_6;
   }
 
-  Value = CFDictionaryGetValue(v14, @"Medium Type");
+  Value = CFDictionaryGetValue(v8, @"Medium Type");
   if (!Value)
   {
     goto LABEL_6;
   }
 
   Security::cfString(this, Value);
-  return Security::CFRef<__CFDictionary const*>::~CFRef(&v17);
+  return Security::CFRef<__CFDictionary const*>::~CFRef(&v11);
 }
 
-void sub_18891CB54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_18891CB54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   Security::CFRef<__CFDictionary const*>::~CFRef(va);
   _Unwind_Resume(a1);
 }
 
-CFTypeRef *Security::CFTemp<__CFDictionary const*>::CFTemp(CFTypeRef *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+CFTypeRef *Security::CFTemp<__CFDictionary const*>::CFTemp(CFTypeRef *a1, const char *a2, ...)
 {
+  va_start(va, a2);
   *a1 = 0;
-  v12 = &a9;
-  v13[0] = a2;
-  v13[1] = &v12;
-  v13[2] = 0;
-  v14 = 0;
-  v10 = Security::CFMake::make(v13);
+  va_copy(v5, va);
+  v6[0] = a2;
+  v6[1] = &v5;
+  v6[2] = 0;
+  v7 = 0;
+  v3 = Security::CFMake::make(v6);
   if (*a1)
   {
     CFRelease(*a1);
   }
 
-  *a1 = v10;
+  *a1 = v3;
   return a1;
 }
 
@@ -9018,17 +6341,15 @@ uint64_t *std::list<fat_arch *>::__sort<BOOL({block_pointer})(fat_arch const*,fa
     if (a3 == 2)
     {
       v8 = *a2;
-      v9 = (*a2)[2];
-      v10 = a1[2];
       if ((*(*a4 + 16))())
       {
-        v12 = *v8;
-        v11 = v8[1];
-        *(v12 + 8) = v11;
-        *v11 = v12;
-        v13 = *v4;
-        v13[1] = v8;
-        *v8 = v13;
+        v10 = *v8;
+        v9 = v8[1];
+        *(v10 + 8) = v9;
+        *v9 = v10;
+        v11 = *v4;
+        *(v11 + 8) = v8;
+        *v8 = v11;
         *v4 = v8;
         v8[1] = v4;
         return v8;
@@ -9037,100 +6358,82 @@ uint64_t *std::list<fat_arch *>::__sort<BOOL({block_pointer})(fat_arch const*,fa
 
     else
     {
-      v15 = a3 >> 1;
-      v16 = (a3 >> 1) + 1;
-      v17 = a1;
+      v13 = a3 >> 1;
+      v14 = (a3 >> 1) + 1;
+      v15 = a1;
       do
       {
-        v17 = v17[1];
-        --v16;
+        v15 = v15[1];
+        --v14;
       }
 
-      while (v16 > 1);
-      v18 = std::list<fat_arch *>::__sort<BOOL({block_pointer})(fat_arch const*,fat_arch const*)>(a1, v17, a3 >> 1, a4);
-      v4 = std::list<fat_arch *>::__sort<BOOL({block_pointer})(fat_arch const*,fat_arch const*)>(v17, a2, a3 - v15, a4);
-      v19 = v4[2];
-      v20 = v18[2];
+      while (v14 > 1);
+      v16 = std::list<fat_arch *>::__sort<BOOL({block_pointer})(fat_arch const*,fat_arch const*)>(a1, v15, a3 >> 1, a4);
+      v4 = std::list<fat_arch *>::__sort<BOOL({block_pointer})(fat_arch const*,fat_arch const*)>(v15, a2, a3 - v13, a4);
       if ((*(*a4 + 16))())
       {
-        for (i = v4[1]; i != a2; i = i[1])
-        {
-          v22 = i[2];
-          v23 = v18[2];
-          if (!(*(*a4 + 16))())
-          {
-            break;
-          }
+          ;
         }
 
-        v25 = *i;
-        v26 = *(*i + 8);
-        v27 = *v4;
-        v27[1] = v26;
-        *v26 = v27;
-        v28 = *v18;
-        v24 = v18[1];
-        v28[1] = v4;
-        *v4 = v28;
-        *v18 = v25;
-        v25[1] = v18;
+        v19 = *i;
+        v20 = (*i)[1];
+        v21 = *v4;
+        *(v21 + 8) = v20;
+        *v20 = v21;
+        v22 = *v16;
+        v18 = v16[1];
+        *(v22 + 8) = v4;
+        *v4 = v22;
+        *v16 = v19;
+        v19[1] = v16;
       }
 
       else
       {
-        v24 = v18[1];
+        v18 = v16[1];
         i = v4;
-        v4 = v18;
+        v4 = v16;
       }
 
-      if (v24 != i && i != a2)
+      if (v18 != i && i != a2)
       {
-        v29 = i;
+        v23 = i;
         do
         {
-          v30 = i[2];
-          v31 = v24[2];
           if ((*(*a4 + 16))())
           {
-            for (j = i[1]; j != a2; j = j[1])
-            {
-              v33 = j[2];
-              v34 = v24[2];
-              if (!(*(*a4 + 16))())
-              {
-                break;
-              }
+              ;
             }
 
-            v36 = *j;
-            v37 = *(*j + 8);
-            v38 = *i;
-            *(v38 + 8) = v37;
-            *v37 = v38;
-            if (v29 == i)
+            v26 = *j;
+            v27 = *(*j + 8);
+            v28 = *i;
+            v28[1] = v27;
+            *v27 = v28;
+            if (v23 == i)
             {
-              v29 = j;
+              v23 = j;
             }
 
-            v39 = *v24;
-            v35 = v24[1];
-            *(v39 + 8) = i;
-            *i = v39;
-            *v24 = v36;
-            *(v36 + 8) = v24;
+            v29 = *v18;
+            v25 = v18[1];
+            v29[1] = i;
+            *i = v29;
+            *v18 = v26;
+            v26[1] = v18;
             i = j;
           }
 
           else
           {
-            v35 = v24[1];
+            v25 = v18[1];
           }
 
-          v40 = v35 == v29 || i == a2;
-          v24 = v35;
+          v30 = v25 == v23 || i == a2;
+          v18 = v25;
         }
 
-        while (!v40);
+        while (!v30);
       }
     }
   }
@@ -9299,31 +6602,31 @@ void *Security::Bundle::lookupSymbol(Security::Bundle *this, const char *a2)
   return FunctionPointerForName;
 }
 
-void sub_18891D8B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18891D8B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Security::CFRef<__CFString const*>::~CFRef(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t Security::Bundle::cfBundle(Security::Bundle *this)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   result = *(this + 8);
   if (!result)
   {
     v3 = secLogObjForScope("bundle");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v8 = (this + 16);
+      v7 = (this + 16);
       if (*(this + 39) < 0)
       {
-        v8 = *v8;
+        v7 = *v7;
       }
 
-      *v9 = 136315138;
-      *&v9[4] = v8;
-      _os_log_debug_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEBUG, "instantiating CFBundle for %s", v9, 0xCu);
+      *v8 = 136315138;
+      *&v8[4] = v7;
+      _os_log_debug_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEBUG, "instantiating CFBundle for %s", v8, 0xCu);
     }
 
     v4 = *(this + 39);
@@ -9339,17 +6642,16 @@ uint64_t Security::Bundle::cfBundle(Security::Bundle *this)
     }
 
     v6 = CFURLCreateFromFileSystemRepresentation(0, v5, v4, 1u);
-    *v9 = v6;
+    *v8 = v6;
     if (!v6 || (v6 = CFBundleCreate(0, v6), (*(this + 8) = v6) == 0))
     {
       Security::CFError::throwMe(v6);
     }
 
-    Security::CFRef<__CFURL const*>::~CFRef(v9);
-    result = *(this + 8);
+    Security::CFRef<__CFURL const*>::~CFRef(v8);
+    return *(this + 8);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9458,8 +6760,7 @@ void Security::Bundle::canonicalPath(Security::Bundle *this@<X0>, std::string *a
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 1);
-    a2->__r_.__value_.__r.__words[2] = *(this + 4);
+    *a2 = *(this + 16);
   }
 }
 
@@ -9491,7 +6792,7 @@ void Security::Bundle::~Bundle(Security::Bundle *this)
 
 void Security::LoadableBundle::unload(Security::LoadableBundle *this)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = secLogObjForScope("bundle");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -9512,9 +6813,9 @@ void Security::LoadableBundle::unload(Security::LoadableBundle *this)
     }
 
     *buf = 134218242;
-    v8 = this;
-    v9 = 2080;
-    v10 = p_p;
+    v7 = this;
+    v8 = 2080;
+    v9 = p_p;
     _os_log_debug_impl(&dword_1887D2000, v2, OS_LOG_TYPE_DEBUG, "%p (%s) unloaded", buf, 0x16u);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -9524,12 +6825,11 @@ void Security::LoadableBundle::unload(Security::LoadableBundle *this)
 
   v3 = Security::Bundle::cfBundle(this);
   CFBundleUnloadExecutable(v3);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void Security::LoadableBundle::load(Security::LoadableBundle *this)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = Security::Bundle::cfBundle(this);
   Executable = CFBundleLoadExecutable(v2);
   if (!Executable)
@@ -9557,17 +6857,15 @@ void Security::LoadableBundle::load(Security::LoadableBundle *this)
     }
 
     *buf = 134218242;
-    v9 = this;
-    v10 = 2080;
-    v11 = p_p;
+    v8 = this;
+    v9 = 2080;
+    v10 = p_p;
     _os_log_debug_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEBUG, "%p (%s) loaded", buf, 0x16u);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void Security::LoadableBundle::~LoadableBundle(Security::LoadableBundle *this)
@@ -9638,7 +6936,7 @@ void sub_18891E0B8(void *a1)
   __cxa_end_catch();
 }
 
-CFDataRef Security::CodeSigning::DetachedRep::component(Security::CodeSigning::EmbeddedSignatureBlob **this, Security::CodeSigning::EmbeddedSignatureBlob *a2, const Security::BlobCore *a3)
+CFDataRef Security::CodeSigning::DetachedRep::component(uint64_t (***this)(Security::CodeSigning::EmbeddedSignatureBlob **), Security::CodeSigning::EmbeddedSignatureBlob *a2, const Security::BlobCore *a3)
 {
   result = Security::CodeSigning::EmbeddedSignatureBlob::component(this[14], a2, a3);
   if (!result)
@@ -9646,7 +6944,7 @@ CFDataRef Security::CodeSigning::DetachedRep::component(Security::CodeSigning::E
     v7 = this[15];
     if (!v7 || (result = Security::CodeSigning::EmbeddedSignatureBlob::component(v7, a2, v6)) == 0)
     {
-      v8 = *(*(*(*this + 2))(this) + 24);
+      v8 = *(*(*this)[2](this) + 24);
 
       return v8();
     }
@@ -9811,4 +7109,2723 @@ ssize_t Security::CodeSigning::DYLDCacheRep::Writer::flush(Security::CodeSigning
   v13 = bswap32(*(v12 + 4));
 
   return Security::UnixPlusPlus::FileDesc::writeAll(v11, v12, v13);
+}
+
+_DWORD *Security::SuperBlobCore<Security::CodeSigning::EmbeddedSignatureBlob,4208856256u,unsigned int>::Maker::make(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v50 = *MEMORY[0x1E69E9840];
+  v9 = *(a1 + 16);
+  v39 = 0uLL;
+  *&v40 = 0;
+  v10 = Security::SuperBlobCore<Security::CodeSigning::EmbeddedSignatureBlob,4208856256u,unsigned int>::Maker::size(a1, &v39, 0, a4, a5, a6, a7, a8, v36);
+  v11 = malloc_type_malloc(v10, 0x10000403E1C8BA9uLL);
+  if (!v11)
+  {
+    Security::UnixError::throwMe(0xC);
+  }
+
+  v12 = v11;
+  v13 = *(a1 + 16);
+  *v11 = -1072898310;
+  v11[1] = bswap32(v10);
+  v11[2] = bswap32(v13);
+  v14 = *a1;
+  if (*a1 != a1 + 8)
+  {
+    v15 = 0;
+    v16 = 8 * v9 + 12;
+    do
+    {
+      v17 = &v12[2 * v15 + 3];
+      *v17 = bswap32(*(v14 + 8));
+      v17[1] = bswap32(v16);
+      memcpy(v12 + v16, v14[5], bswap32(*(v14[5] + 4)));
+      v18 = v14[1];
+      v19 = v14;
+      if (v18)
+      {
+        do
+        {
+          v20 = v18;
+          v18 = *v18;
+        }
+
+        while (v18);
+      }
+
+      else
+      {
+        do
+        {
+          v20 = v19[2];
+          v21 = *v20 == v19;
+          v19 = v20;
+        }
+
+        while (!v21);
+      }
+
+      v16 += bswap32(*(v14[5] + 4));
+      ++v15;
+      v14 = v20;
+    }
+
+    while (v20 != (a1 + 8));
+  }
+
+  v47 = 0xAAAAAAAAAAAAAAAALL;
+  *&v22 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v46[7] = v22;
+  v46[8] = v22;
+  v46[5] = v22;
+  v46[6] = v22;
+  v46[3] = v22;
+  v46[4] = v22;
+  v46[1] = v22;
+  v46[2] = v22;
+  v46[0] = v22;
+  v44 = v22;
+  v45 = v22;
+  *__src = v22;
+  *__p = v22;
+  v40 = v22;
+  v41 = v22;
+  v39 = v22;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v39);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "Maker ", 6);
+  v23 = MEMORY[0x18CFD9640](&v39, a1);
+  v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, " assembles ", 11);
+  v25 = MEMORY[0x18CFD9670](v24, *(a1 + 16));
+  v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, " blob(s) into ", 14);
+  v27 = MEMORY[0x18CFD9640](v26, v12);
+  v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, " (size=", 7);
+  v29 = MEMORY[0x18CFD9660](v28, v10);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, ")", 1);
+  v30 = secLogObjForScope("superblob");
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+  {
+    if ((BYTE8(v45) & 0x10) != 0)
+    {
+      v33 = v45;
+      if (v45 < __src[1])
+      {
+        *&v45 = __src[1];
+        v33 = __src[1];
+      }
+
+      v34 = __src[0];
+    }
+
+    else
+    {
+      if ((BYTE8(v45) & 8) == 0)
+      {
+        v32 = 0;
+        v38 = 0;
+LABEL_27:
+        *(&__dst + v32) = 0;
+        p_dst = &__dst;
+        if (v38 < 0)
+        {
+          p_dst = __dst;
+        }
+
+        *buf = 136315138;
+        v49 = p_dst;
+        _os_log_debug_impl(&dword_1887D2000, v30, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
+        if (v38 < 0)
+        {
+          operator delete(__dst);
+        }
+
+        goto LABEL_11;
+      }
+
+      v34 = *(&v40 + 1);
+      v33 = *(&v41 + 1);
+    }
+
+    v32 = v33 - v34;
+    if ((v33 - v34) >= 0x7FFFFFFFFFFFFFF8)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    if (v32 >= 0x17)
+    {
+      operator new();
+    }
+
+    v38 = v33 - v34;
+    if (v32)
+    {
+      memmove(&__dst, v34, v32);
+    }
+
+    goto LABEL_27;
+  }
+
+LABEL_11:
+  *&v39 = *MEMORY[0x1E69E54E8];
+  *(&v39 + *(v39 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  *(&v39 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v44) < 0)
+  {
+    operator delete(__p[1]);
+  }
+
+  *(&v39 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(&v40);
+  std::ostream::~ostream();
+  MEMORY[0x18CFD96D0](v46);
+  return v12;
+}
+
+uint64_t Security::SuperBlobCore<Security::CodeSigning::EmbeddedSignatureBlob,4208856256u,unsigned int>::Maker::size(void *a1, uint64_t **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+{
+  v9 = *a1;
+  if (*a1 == a1 + 1)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = 0;
+    do
+    {
+      v11 = v9[1];
+      v12 = v9;
+      if (v11)
+      {
+        do
+        {
+          v13 = v11;
+          v11 = *v11;
+        }
+
+        while (v11);
+      }
+
+      else
+      {
+        do
+        {
+          v13 = v12[2];
+          v14 = *v13 == v12;
+          v12 = v13;
+        }
+
+        while (!v14);
+      }
+
+      v10 += bswap32(*(v9[5] + 4));
+      v9 = v13;
+    }
+
+    while (v13 != a1 + 1);
+  }
+
+  v15 = a2[1];
+  if (*a2 != v15)
+  {
+    v16 = *a2;
+    do
+    {
+      v17 = *v16++;
+      v10 += v17;
+    }
+
+    while (v16 != v15);
+  }
+
+  v18 = a1[2] + v15 - *a2;
+  if (a3)
+  {
+    v21 = &a9;
+    do
+    {
+      ++v18;
+      v10 += a3;
+      v19 = v21;
+      v21 += 8;
+      a3 = *v19;
+    }
+
+    while (*v19);
+  }
+
+  return v10 + 8 * v18 + 12;
+}
+
+uint64_t std::ostringstream::basic_ostringstream[abi:ne200100](uint64_t a1)
+{
+  *(a1 + 160) = 0;
+  v2 = MEMORY[0x1E69E5570] + 64;
+  *(a1 + 112) = MEMORY[0x1E69E5570] + 64;
+  v3 = *(MEMORY[0x1E69E54E8] + 16);
+  v4 = *(MEMORY[0x1E69E54E8] + 8);
+  *a1 = v4;
+  *(a1 + *(v4 - 24)) = v3;
+  v5 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v5, (a1 + 8));
+  v6 = MEMORY[0x1E69E5570] + 24;
+  v5[1].__vftable = 0;
+  v5[1].__fmtflags_ = -1;
+  *a1 = v6;
+  *(a1 + 112) = v2;
+  *(a1 + 8) = MEMORY[0x1E69E5538] + 16;
+  MEMORY[0x18CFD9680](a1 + 16);
+  *(a1 + 72) = 0;
+  v7 = a1 + 72;
+  *(a1 + 40) = 0u;
+  *(a1 + 56) = 0u;
+  *(a1 + 24) = 0u;
+  *(a1 + 8) = MEMORY[0x1E69E5548] + 16;
+  *(a1 + 80) = 0;
+  *(a1 + 88) = 0;
+  *(a1 + 104) = 16;
+  *(a1 + 96) = a1 + 72;
+  std::string::resize((a1 + 72), 0x16uLL, 0);
+  v8 = *(a1 + 95);
+  if (v8 < 0)
+  {
+    v8 = *(a1 + 80);
+  }
+
+  *(a1 + 48) = v7;
+  *(a1 + 56) = v7;
+  *(a1 + 64) = v7 + v8;
+  return a1;
+}
+
+void sub_18891F054(_Unwind_Exception *a1)
+{
+  if (*(v1 + 95) < 0)
+  {
+    operator delete(*v4);
+  }
+
+  *(v1 + 8) = v3;
+  std::locale::~locale((v1 + 16));
+  std::ostream::~ostream();
+  MEMORY[0x18CFD96D0](v2);
+  _Unwind_Resume(a1);
+}
+
+void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(void *a1, uint64_t a2, uint64_t a3)
+{
+  v20[0] = 0xAAAAAAAAAAAAAAAALL;
+  v20[1] = 0xAAAAAAAAAAAAAAAALL;
+  MEMORY[0x18CFD9610](v20, a1);
+  if (LOBYTE(v20[0]) == 1)
+  {
+    v6 = a1 + *(*a1 - 24);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
+    if (v9 == -1)
+    {
+      std::ios_base::getloc((a1 + *(*a1 - 24)));
+      v10 = std::locale::use_facet(__b, MEMORY[0x1E69E5318]);
+      v9 = (v10->__vftable[2].~facet_0)(v10, 32);
+      std::locale::~locale(__b);
+      *(v6 + 36) = v9;
+    }
+
+    v11 = a2 + a3;
+    if ((v8 & 0xB0) == 0x20)
+    {
+      v12 = a2 + a3;
+    }
+
+    else
+    {
+      v12 = a2;
+    }
+
+    if (!v7)
+    {
+      goto LABEL_27;
+    }
+
+    v13 = *(v6 + 3);
+    v14 = v13 <= a3;
+    v15 = v13 - a3;
+    v16 = v14 ? 0 : v15;
+    if (v12 - a2 >= 1 && (*(*v7 + 96))(v7, a2, v12 - a2) != v12 - a2)
+    {
+      goto LABEL_27;
+    }
+
+    if (v16 >= 1)
+    {
+      memset(__b, 170, sizeof(__b));
+      if (v16 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        std::string::__throw_length_error[abi:ne200100]();
+      }
+
+      if (v16 >= 0x17)
+      {
+        operator new();
+      }
+
+      HIBYTE(__b[2].__locale_) = v16;
+      memset(__b, v9, v16);
+      *(&__b[0].__locale_ + v16) = 0;
+      if (SHIBYTE(__b[2].__locale_) >= 0)
+      {
+        locale = __b;
+      }
+
+      else
+      {
+        locale = __b[0].__locale_;
+      }
+
+      v18 = (*(*v7 + 96))(v7, locale, v16);
+      if (SHIBYTE(__b[2].__locale_) < 0)
+      {
+        operator delete(__b[0].__locale_);
+      }
+
+      if (v18 != v16)
+      {
+        goto LABEL_27;
+      }
+    }
+
+    if (v11 - v12 < 1 || (*(*v7 + 96))(v7, v12, v11 - v12) == v11 - v12)
+    {
+      *(v6 + 3) = 0;
+    }
+
+    else
+    {
+LABEL_27:
+      std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 5);
+    }
+  }
+
+  MEMORY[0x18CFD9620](v20);
+  return a1;
+}
+
+void sub_18891F354(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  MEMORY[0x18CFD9620](&a10, a2, a3, a4, a5, a6, a7, a8);
+  __cxa_begin_catch(a1);
+  std::ios_base::__set_badbit_and_consider_rethrow((v17 + *(*v17 - 24)));
+  __cxa_end_catch();
+  JUMPOUT(0x18891F328);
+}
+
+uint64_t std::ostringstream::~ostringstream(uint64_t a1)
+{
+  v2 = MEMORY[0x1E69E54E8];
+  v3 = *MEMORY[0x1E69E54E8];
+  *a1 = *MEMORY[0x1E69E54E8];
+  *(a1 + *(v3 - 24)) = *(v2 + 24);
+  *(a1 + 8) = MEMORY[0x1E69E5548] + 16;
+  if (*(a1 + 95) < 0)
+  {
+    operator delete(*(a1 + 72));
+  }
+
+  *(a1 + 8) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale((a1 + 16));
+
+  return std::ostream::~ostream();
+}
+
+{
+  v2 = MEMORY[0x1E69E54E8];
+  v3 = *MEMORY[0x1E69E54E8];
+  *a1 = *MEMORY[0x1E69E54E8];
+  *(a1 + *(v3 - 24)) = *(v2 + 24);
+  *(a1 + 8) = MEMORY[0x1E69E5548] + 16;
+  if (*(a1 + 95) < 0)
+  {
+    operator delete(*(a1 + 72));
+  }
+
+  *(a1 + 8) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale((a1 + 16));
+  std::ostream::~ostream();
+  MEMORY[0x18CFD96D0](a1 + 112);
+  return a1;
+}
+
+void Security::CodeSigning::DYLDCacheRep::Writer::addDiscretionary(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 128);
+  v5 = *(*(v4 + 80) + 20);
+  v6 = bswap32(v5);
+  if (*(v4 + 96))
+  {
+    v7 = v6;
+  }
+
+  else
+  {
+    v7 = v5;
+  }
+
+  v8 = 24 * (v7 + 1);
+  *(a2 + 160) = v8;
+  v9 = malloc_type_realloc(*(a2 + 152), v8, 0x1000040504FFAC1uLL);
+  *(a2 + 152) = v9;
+  if (!v9)
+  {
+    Security::UnixError::throwMe(0xC);
+  }
+
+  bzero(v9, *(a2 + 160));
+  if (v7)
+  {
+    v10 = *(a1 + 128);
+    v11 = *(v10 + 72);
+    v12 = *(v10 + 96);
+    v13 = bswap32(*(*(v10 + 80) + 16));
+    if (!*(v10 + 96))
+    {
+      v13 = *(*(v10 + 80) + 16);
+    }
+
+    v14 = (*(a2 + 152) + 8);
+    do
+    {
+      if (v13 + 32 > v11)
+      {
+        Security::UnixError::throwMe(8);
+      }
+
+      v15 = *(v10 + 64) + v13;
+      v16 = *v15;
+      v17 = *(v15 + 8);
+      v18 = bswap64(*v15);
+      if (v12)
+      {
+        v16 = v18;
+      }
+
+      *v14 = bswap64(v16);
+      v19 = *(v15 + 16);
+      v20 = bswap64(v19);
+      if (v12)
+      {
+        v19 = v20;
+      }
+
+      v21 = bswap32(v19 >> 12);
+      v22 = bswap64(v17);
+      if (v12)
+      {
+        v17 = v22;
+      }
+
+      *(v14 - 2) = bswap32(v17 >> 12);
+      *(v14 - 1) = v21;
+      v23 = *(v15 + 24);
+      if (v12)
+      {
+        LOBYTE(v23) = HIBYTE(v23);
+      }
+
+      if ((v23 & 4) != 0)
+      {
+        *(a2 + 168) = v19;
+        *(a2 + 176) = v17;
+        *(a2 + 184) = 0;
+      }
+
+      v14 += 3;
+      v13 += 32;
+      --v7;
+    }
+
+    while (v7);
+  }
+}
+
+void Security::CodeSigning::DYLDCacheRep::Writer::~Writer(Security::CodeSigning::DYLDCacheRep::Writer *this)
+{
+  Security::SuperBlobCore<Security::CodeSigning::EmbeddedSignatureBlob,4208856256u,unsigned int>::Maker::~Maker(this + 104);
+  *this = &unk_1EFA8C070;
+  Security::UnixPlusPlus::FileDesc::closeAndLog((this + 96));
+  Security::RefPointer<Security::CodeSigning::SingleDiskRep>::~RefPointer(this + 3);
+
+  JUMPOUT(0x18CFD9760);
+}
+
+{
+  Security::SuperBlobCore<Security::CodeSigning::EmbeddedSignatureBlob,4208856256u,unsigned int>::Maker::~Maker(this + 104);
+  *this = &unk_1EFA8C070;
+  Security::UnixPlusPlus::FileDesc::closeAndLog((this + 96));
+  Security::RefPointer<Security::CodeSigning::SingleDiskRep>::~RefPointer(this + 3);
+}
+
+uint64_t Security::SuperBlobCore<Security::CodeSigning::EmbeddedSignatureBlob,4208856256u,unsigned int>::Maker::~Maker(uint64_t a1)
+{
+  v2 = (a1 + 8);
+  v3 = *a1;
+  if (*a1 != a1 + 8)
+  {
+    do
+    {
+      free(v3[5]);
+      v4 = v3[1];
+      if (v4)
+      {
+        do
+        {
+          v5 = v4;
+          v4 = *v4;
+        }
+
+        while (v4);
+      }
+
+      else
+      {
+        do
+        {
+          v5 = v3[2];
+          v6 = *v5 == v3;
+          v3 = v5;
+        }
+
+        while (!v6);
+      }
+
+      v3 = v5;
+    }
+
+    while (v5 != v2);
+  }
+
+  std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::destroy(*(a1 + 8));
+  return a1;
+}
+
+void *Security::RefPointer<Security::CodeSigning::SingleDiskRep>::~RefPointer(void *a1)
+{
+  v2 = pthread_mutex_lock((a1 + 1));
+  if (v2)
+  {
+    Security::UnixError::throwMe(v2);
+  }
+
+  if (*a1 && atomic_fetch_add_explicit((*a1 + 8), 0xFFFFFFFF, memory_order_relaxed) == 1)
+  {
+    if (*a1)
+    {
+      (*(**a1 + 8))(*a1);
+    }
+
+    *a1 = 0;
+  }
+
+  v3 = pthread_mutex_unlock((a1 + 1));
+  if (v3)
+  {
+    Security::UnixError::throwMe(v3);
+  }
+
+  Security::Mutex::~Mutex((a1 + 1));
+  return a1;
+}
+
+uint64_t Security::CodeSigning::DYLDCacheRep::pageSize(uint64_t a1, uint64_t a2, _DWORD *a3)
+{
+  if (*a3 == 33554444 || *a3 == 16777228)
+  {
+    return 0x4000;
+  }
+
+  else
+  {
+    return 4096;
+  }
+}
+
+void *Security::CodeSigning::DYLDCacheRep::format@<X0>(Security::CodeSigning::DYLDCacheRep *this@<X0>, void *a2@<X8>)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v4 = NXGetArchInfoFromCpuType(**(this + 11), *(*(this + 11) + 4) & 0xFFFFFF);
+  if (v4 && (name = v4->name) != 0)
+  {
+    v16 = -1431655766;
+    *&v6 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v14 = v6;
+    v15 = v6;
+    v12 = v6;
+    v13 = v6;
+    *__str = v6;
+    v11 = v6;
+    v7 = *(*(this + 10) + 32);
+    v8 = bswap64(v7);
+    if (*(this + 96))
+    {
+      v7 = v8;
+    }
+
+    snprintf(__str, 0x64uLL, "OS X Shared Library Cache (%s @ 0x%llx)", name, v7);
+    return std::string::basic_string[abi:ne200100]<0>(a2, __str);
+  }
+
+  else
+  {
+
+    return std::string::basic_string[abi:ne200100]<0>(a2, "OS X Shared Library Cache (unknown type)");
+  }
+}
+
+Security::CodeSigning::EmbeddedSignatureBlob *Security::CodeSigning::DYLDCacheRep::component(Security::CodeSigning::DYLDCacheRep *this, Security::CodeSigning::EmbeddedSignatureBlob *a2, const Security::BlobCore *a3)
+{
+  result = *(this + 15);
+  if (result)
+  {
+    return Security::CodeSigning::EmbeddedSignatureBlob::component(result, a2, a3);
+  }
+
+  return result;
+}
+
+void Security::CodeSigning::DYLDCacheRep::~DYLDCacheRep(void **this)
+{
+  *this = &unk_1EFA8AFC0;
+  DYLDCache::~DYLDCache((this + 6));
+  *this = &unk_1EFA8C1B0;
+  Security::UnixPlusPlus::FileDesc::closeAndLog((this + 5));
+  if (*(this + 39) < 0)
+  {
+    operator delete(this[2]);
+  }
+
+  Security::CodeSigning::DiskRep::~DiskRep(this);
+
+  JUMPOUT(0x18CFD9760);
+}
+
+{
+  *this = &unk_1EFA8AFC0;
+  DYLDCache::~DYLDCache((this + 6));
+  *this = &unk_1EFA8C1B0;
+  Security::UnixPlusPlus::FileDesc::closeAndLog((this + 5));
+  if (*(this + 39) < 0)
+  {
+    operator delete(this[2]);
+  }
+
+  Security::CodeSigning::DiskRep::~DiskRep(this);
+}
+
+void Security::CodeSigning::SingleDiskRep::~SingleDiskRep(void **this)
+{
+  *this = &unk_1EFA8C1B0;
+  Security::UnixPlusPlus::FileDesc::closeAndLog((this + 5));
+  if (*(this + 39) < 0)
+  {
+    operator delete(this[2]);
+  }
+
+  Security::CodeSigning::DiskRep::~DiskRep(this);
+}
+
+uint64_t Security::CodeSigning::DirScanner::DirScanner(uint64_t a1, const std::string *a2)
+{
+  *(a1 + 1080) = 0;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  std::string::operator=(a1, a2);
+  if (*(a1 + 24))
+  {
+    Security::MacOSError::throwMe(0xFFFEF7A9);
+  }
+
+  *__error() = 0;
+  v3 = a1;
+  if (*(a1 + 23) < 0)
+  {
+    v3 = *a1;
+  }
+
+  v4 = opendir(v3);
+  *(a1 + 24) = v4;
+  if (v4)
+  {
+    v5 = 1;
+  }
+
+  else
+  {
+    if (*__error() != 2)
+    {
+      v7 = __error();
+      Security::UnixError::throwMe(*v7);
+    }
+
+    v5 = 0;
+  }
+
+  *(a1 + 1080) = v5;
+  return a1;
+}
+
+void sub_18891FBD0(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void Security::CodeSigning::DirScanner::~DirScanner(Security::CodeSigning::DirScanner *this)
+{
+  v2 = *(this + 3);
+  if (v2)
+  {
+    closedir(v2);
+  }
+
+  if (*(this + 23) < 0)
+  {
+    operator delete(*this);
+  }
+}
+
+dirent *Security::CodeSigning::DirScanner::getNext(Security::CodeSigning::DirScanner *this)
+{
+  v4 = 0xAAAAAAAAAAAAAAAALL;
+  do
+  {
+    v2 = readdir_r(*(this + 3), (this + 32), &v4);
+    if (v2)
+    {
+      Security::UnixError::throwMe(v2);
+    }
+
+    result = v4;
+  }
+
+  while (v4 && v4->d_name[0] == 46 && (!v4->d_name[1] || v4->d_name[1] == 46 && !v4->d_name[2]));
+  return result;
+}
+
+BOOL Security::CodeSigning::DirScanner::isRegularFile(Security::CodeSigning::DirScanner *this, dirent *a2)
+{
+  if (a2->d_type)
+  {
+    return a2->d_type == 8;
+  }
+
+  v5.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+  v5.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+  *&v17.st_blksize = v5;
+  *v17.st_qspare = v5;
+  v17.st_birthtimespec = v5;
+  *&v17.st_size = v5;
+  v17.st_mtimespec = v5;
+  v17.st_ctimespec = v5;
+  *&v17.st_uid = v5;
+  v17.st_atimespec = v5;
+  *&v17.st_dev = v5;
+  if (*(this + 23) >= 0)
+  {
+    v6 = *(this + 23);
+  }
+
+  else
+  {
+    v6 = *(this + 1);
+  }
+
+  memset(&v14, 170, sizeof(v14));
+  v7 = &v14;
+  std::string::basic_string[abi:ne200100](&v14, v6 + 1);
+  if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    v7 = v14.__r_.__value_.__r.__words[0];
+  }
+
+  if (v6)
+  {
+    if (*(this + 23) >= 0)
+    {
+      v8 = this;
+    }
+
+    else
+    {
+      v8 = *this;
+    }
+
+    memmove(v7, v8, v6);
+  }
+
+  *(&v7->__r_.__value_.__l.__data_ + v6) = 47;
+  v9 = strlen(a2->d_name);
+  v10 = std::string::append(&v14, a2->d_name, v9);
+  v11 = *&v10->__r_.__value_.__l.__data_;
+  v16 = v10->__r_.__value_.__r.__words[2];
+  *__p = v11;
+  v10->__r_.__value_.__l.__size_ = 0;
+  v10->__r_.__value_.__r.__words[2] = 0;
+  v10->__r_.__value_.__r.__words[0] = 0;
+  if (v16 >= 0)
+  {
+    v12 = __p;
+  }
+
+  else
+  {
+    v12 = __p[0];
+  }
+
+  v13 = stat(v12, &v17);
+  if (v13)
+  {
+    Security::MacOSError::throwMe(v13);
+  }
+
+  if (SHIBYTE(v16) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v14.__r_.__value_.__l.__data_);
+  }
+
+  return (v17.st_mode & 0xF000) == 0x8000;
+}
+
+void sub_18891FE04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void Security::CodeSigning::DirValidator::~DirValidator(Security::CodeSigning::ResourceBuilder::Rule ***this)
+{
+  v3 = *this;
+  v2 = this[1];
+  if (*this != v2)
+  {
+    do
+    {
+      v4 = *v3;
+      if (*v3)
+      {
+        v5 = *(v4 + 8);
+        if (v5)
+        {
+          _Block_release(v5);
+        }
+
+        Security::CodeSigning::ResourceBuilder::Rule::~Rule(v4);
+        MEMORY[0x18CFD9760]();
+        v2 = this[1];
+      }
+
+      ++v3;
+    }
+
+    while (v3 != v2);
+    v3 = *this;
+  }
+
+  if (v3)
+  {
+    this[1] = v3;
+    operator delete(v3);
+  }
+}
+
+void Security::CodeSigning::DirValidator::validate(const regex_t ***a1, uint64_t a2, unsigned int a3)
+{
+  __b[129] = *MEMORY[0x1E69E9840];
+  v56 = 0;
+  v57 = 0;
+  v55 = &v56;
+  if (*(a2 + 23) >= 0)
+  {
+    v6 = a2;
+  }
+
+  else
+  {
+    v6 = *a2;
+  }
+
+  __b[0] = v6;
+  __b[1] = 0;
+  v7 = fts_open(__b, 21, 0);
+  v50 = a3;
+  if (!v7)
+  {
+    v49 = __error();
+    Security::UnixError::throwMe(*v49);
+  }
+
+LABEL_5:
+  while (1)
+  {
+    v8 = fts_read(v7);
+    v9 = v8;
+    if (!v8)
+    {
+      break;
+    }
+
+    v10 = *(a2 + 23);
+    if ((v10 & 0x80u) != 0)
+    {
+      v10 = *(a2 + 8);
+    }
+
+    v11 = &v8->fts_path[v10];
+    v12 = v8->fts_statp->st_mode & 0x49;
+    fts_info = v8->fts_info;
+    v14 = secLogObjForScope("dirval");
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
+    if (fts_info > 7)
+    {
+      if (fts_info == 12)
+      {
+        if (v15)
+        {
+          fts_path = v9->fts_path;
+          LODWORD(__b[0]) = 136315138;
+          *(__b + 4) = fts_path;
+          _os_log_debug_impl(&dword_1887D2000, v14, OS_LOG_TYPE_DEBUG, "symlink %s", __b, 0xCu);
+        }
+
+        memset(__b, 170, 0x400uLL);
+        v27 = readlink(v9->fts_accpath, __b, 0x3FFuLL);
+        if (v27 < 0)
+        {
+          v45 = __error();
+          Security::UnixError::throwMe(*v45);
+        }
+
+        *(__b + v27) = 0;
+        v19 = Security::CodeSigning::DirValidator::match(a1, v11 + 1, 4, v12 != 0, __b);
+      }
+
+      else
+      {
+        if (fts_info != 8)
+        {
+LABEL_74:
+          if (v15)
+          {
+            v46 = v9->fts_info;
+            fts_errno = v9->fts_errno;
+            v48 = v9->fts_path;
+            LODWORD(__b[0]) = 67109634;
+            HIDWORD(__b[0]) = v46;
+            LOWORD(__b[1]) = 1024;
+            *(&__b[1] + 2) = fts_errno;
+            HIWORD(__b[1]) = 2080;
+            __b[2] = v48;
+            _os_log_debug_impl(&dword_1887D2000, v14, OS_LOG_TYPE_DEBUG, "type %d (errno %d): %s", __b, 0x18u);
+          }
+
+          Security::MacOSError::throwMe(v50);
+        }
+
+        if (v15)
+        {
+          v35 = v9->fts_path;
+          LODWORD(__b[0]) = 136315138;
+          *(__b + 4) = v35;
+          _os_log_debug_impl(&dword_1887D2000, v14, OS_LOG_TYPE_DEBUG, "file %s", __b, 0xCu);
+        }
+
+        v19 = Security::CodeSigning::DirValidator::match(a1, v11 + 1, 1, v12 != 0, 0);
+      }
+
+      v22 = v19;
+      if (v19)
+      {
+        goto LABEL_24;
+      }
+
+LABEL_38:
+      if (v9->fts_info != 8 || (*(a2 + 23) >= 0 ? (v28 = a2) : (v28 = *a2), !Security::CodeSigning::pathFileSystemUsesXattrFiles(v28, v20)))
+      {
+LABEL_72:
+        Security::MacOSError::throwMe(v50);
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(__p, v9->fts_path);
+      IsValidXattrFile = Security::CodeSigning::pathIsValidXattrFile(__p, "csutilities");
+      v30 = IsValidXattrFile;
+      if (v54 < 0)
+      {
+        operator delete(__p[0]);
+        if ((v30 & 1) == 0)
+        {
+          goto LABEL_72;
+        }
+      }
+
+      else if (!IsValidXattrFile)
+      {
+        goto LABEL_72;
+      }
+
+      v31 = secLogObjForScope("dirval");
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      {
+        v32 = v9->fts_path;
+        LODWORD(__b[0]) = 136315138;
+        *(__b + 4) = v32;
+        v17 = v31;
+        v18 = "skipping file due to xattr: %s";
+LABEL_49:
+        _os_log_debug_impl(&dword_1887D2000, v17, OS_LOG_TYPE_DEBUG, v18, __b, 0xCu);
+      }
+    }
+
+    else if (fts_info == 1)
+    {
+      if (v15)
+      {
+        v33 = v9->fts_path;
+        LODWORD(__b[0]) = 136315138;
+        *(__b + 4) = v33;
+        _os_log_debug_impl(&dword_1887D2000, v14, OS_LOG_TYPE_DEBUG, "entering %s", __b, 0xCu);
+      }
+
+      if (v9->fts_level)
+      {
+        v21 = Security::CodeSigning::DirValidator::match(a1, v11 + 1, 2, v12 != 0, 0);
+        v22 = v21;
+        if (v21)
+        {
+          v23 = *(&v21[1].re_magic + 1);
+          if ((v23 & 0x20) != 0)
+          {
+            goto LABEL_25;
+          }
+        }
+
+        fts_set(v7, v9, 4);
+        if (!v22)
+        {
+          goto LABEL_38;
+        }
+
+LABEL_24:
+        v23 = *(&v22[1].re_magic + 1);
+LABEL_25:
+        if ((v23 & 0x10) != 0)
+        {
+          for (i = v56; i; i = *v25)
+          {
+            while (1)
+            {
+              v25 = i;
+              v26 = i[4];
+              if (v22 < v26)
+              {
+                break;
+              }
+
+              if (v26 >= v22)
+              {
+                goto LABEL_5;
+              }
+
+              i = v25[1];
+              if (!i)
+              {
+                goto LABEL_50;
+              }
+            }
+          }
+
+LABEL_50:
+          operator new();
+        }
+      }
+    }
+
+    else
+    {
+      if (fts_info != 6)
+      {
+        goto LABEL_74;
+      }
+
+      if (v15)
+      {
+        v16 = v9->fts_path;
+        LODWORD(__b[0]) = 136315138;
+        *(__b + 4) = v16;
+        v17 = v14;
+        v18 = "leaving %s";
+        goto LABEL_49;
+      }
+    }
+  }
+
+  if (v57 != *(a1 + 6))
+  {
+    __b[32] = 0xAAAAAAAAAAAAAAAALL;
+    *&v36 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v36 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&__b[28] = v36;
+    *&__b[30] = v36;
+    *&__b[24] = v36;
+    *&__b[26] = v36;
+    *&__b[20] = v36;
+    *&__b[22] = v36;
+    *&__b[16] = v36;
+    *&__b[18] = v36;
+    *&__b[12] = v36;
+    *&__b[14] = v36;
+    *&__b[8] = v36;
+    *&__b[10] = v36;
+    *&__b[6] = v36;
+    *&__b[2] = v36;
+    *&__b[4] = v36;
+    *__b = v36;
+    std::ostringstream::basic_ostringstream[abi:ne200100](__b);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__b, "matched ", 8);
+    v37 = MEMORY[0x18CFD9670](__b, v57);
+    v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, " of ", 4);
+    v39 = MEMORY[0x18CFD9650](v38, *(a1 + 6));
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, " required rules", 15);
+    v40 = secLogObjForScope("dirval");
+    if (!os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_71;
+    }
+
+    if ((__b[13] & 0x10) != 0)
+    {
+      v42 = __b[12];
+      if (__b[12] < __b[7])
+      {
+        __b[12] = __b[7];
+        v42 = __b[7];
+      }
+
+      v43 = __b[6];
+    }
+
+    else
+    {
+      if ((__b[13] & 8) == 0)
+      {
+        v41 = 0;
+        v52 = 0;
+LABEL_67:
+        *(&__dst + v41) = 0;
+        p_dst = &__dst;
+        if (v52 < 0)
+        {
+          p_dst = __dst;
+        }
+
+        *buf = 136315138;
+        v59 = p_dst;
+        _os_log_debug_impl(&dword_1887D2000, v40, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
+        if (v52 < 0)
+        {
+          operator delete(__dst);
+        }
+
+LABEL_71:
+        Security::MacOSError::throwMe(v50);
+      }
+
+      v43 = __b[3];
+      v42 = __b[5];
+    }
+
+    v41 = v42 - v43;
+    if ((v42 - v43) >= 0x7FFFFFFFFFFFFFF8)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    if (v41 >= 0x17)
+    {
+      operator new();
+    }
+
+    v52 = v42 - v43;
+    if (v41)
+    {
+      memmove(&__dst, v43, v41);
+    }
+
+    goto LABEL_67;
+  }
+
+  fts_close(v7);
+  std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::destroy(v56);
+}
+
+void sub_188920580(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42)
+{
+  fts_close(v42);
+  std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::destroy(a24);
+  _Unwind_Resume(a1);
+}
+
+const regex_t *Security::CodeSigning::DirValidator::match(const regex_t ***this, char *a2, int a3, char a4, char *a5)
+{
+  v29 = *MEMORY[0x1E69E9840];
+  v5 = *this;
+  if (*this != this[1])
+  {
+    while (1)
+    {
+      v11 = *v5;
+      v12 = *(&(*v5)[1].re_magic + 1);
+      if ((v12 & a3) != 0 && ((v12 & 8) == 0 || (a4 & 1) == 0))
+      {
+        if (Security::CodeSigning::ResourceBuilder::Rule::match(*v5, a2))
+        {
+          break;
+        }
+      }
+
+LABEL_29:
+      if (++v5 == this[1])
+      {
+        return 0;
+      }
+    }
+
+    if (!a5)
+    {
+      return v11;
+    }
+
+    v14 = *&v11[2].re_magic;
+    if (!v14)
+    {
+      Security::Syslog::notice("code signing internal problem: !mTargetBlock", v13);
+      Security::MacOSError::throwMe(0xFFFEFA18);
+    }
+
+    memset(v27, 170, sizeof(v27));
+    std::string::basic_string[abi:ne200100]<0>(&v28, a2);
+    std::string::basic_string[abi:ne200100]<0>(__p, a5);
+    (*(v14 + 16))(v27, v14, &v28, __p);
+    if (v26 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (SHIBYTE(v28.re_endp) < 0)
+    {
+      operator delete(*&v28.re_magic);
+    }
+
+    v15 = HIBYTE(v27[2]);
+    if (SHIBYTE(v27[2]) < 0)
+    {
+      v15 = v27[1];
+    }
+
+    if (v15)
+    {
+      v16 = secLogObjForScope("dirval");
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      {
+        if (SHIBYTE(v27[2]) >= 0)
+        {
+          v23 = v27;
+        }
+
+        else
+        {
+          v23 = v27[0];
+        }
+
+        v28.re_magic = 136315650;
+        *(&v28.re_magic + 1) = a2;
+        WORD2(v28.re_nsub) = 2080;
+        *(&v28.re_nsub + 6) = a5;
+        HIWORD(v28.re_endp) = 2080;
+        v28.re_g = v23;
+        _os_log_debug_impl(&dword_1887D2000, v16, OS_LOG_TYPE_DEBUG, "%s: match target %s against %s", &v28, 0x20u);
+      }
+
+      *&v17 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      *&v28.re_magic = v17;
+      *&v28.re_endp = v17;
+      if (SHIBYTE(v27[2]) >= 0)
+      {
+        v18 = v27;
+      }
+
+      else
+      {
+        v18 = v27[0];
+      }
+
+      if (regcomp(&v28, v18, 5))
+      {
+        Security::Syslog::notice("code signing internal problem: failed to compile internal RE", v19);
+        Security::MacOSError::throwMe(0xFFFEFA18);
+      }
+
+      v20 = regexec(&v28, a5, 0, 0, 0);
+      MEMORY[0x18CFDB4E0](&v28);
+      if (v20)
+      {
+        if (v20 != 1)
+        {
+          Security::Syslog::notice("code signing internal error: regexec failed error=%d", v21, v20);
+          Security::MacOSError::throwMe(0xFFFEFA18);
+        }
+
+        v22 = 0;
+      }
+
+      else
+      {
+        v22 = 1;
+      }
+
+      if ((HIBYTE(v27[2]) & 0x80) == 0)
+      {
+LABEL_28:
+        if (v22)
+        {
+          return v11;
+        }
+
+        goto LABEL_29;
+      }
+    }
+
+    else
+    {
+      v22 = 1;
+      if ((HIBYTE(v27[2]) & 0x80) == 0)
+      {
+        goto LABEL_28;
+      }
+    }
+
+    operator delete(v27[0]);
+    goto LABEL_28;
+  }
+
+  return 0;
+}
+
+void sub_1889209A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+{
+  if (a24 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t Security::CodeSigning::DirValidator::Rule::Rule(uint64_t a1, __int128 *a2, uint64_t a3, const void *a4)
+{
+  *&Security::CodeSigning::ResourceBuilder::Rule::Rule(a1, a2, 0, a3)[2].re_magic = 0;
+  if (a4)
+  {
+    *(a1 + 64) = _Block_copy(a4);
+  }
+
+  return a1;
+}
+
+void Security::CodeSigning::registerStapledTicketWithSystem(Security::CodeSigning *this, const __CFData *a2)
+{
+  if (this)
+  {
+    v2 = secLogObjForScope("notarization");
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    {
+      *v3 = 0;
+      _os_log_debug_impl(&dword_1887D2000, v2, OS_LOG_TYPE_DEBUG, "Registering stapled ticket with system", v3, 2u);
+    }
+  }
+}
+
+const void **Security::CFRef<__CFError *>::~CFRef(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+void sub_188920B24(void *a1)
+{
+  __cxa_begin_catch(a1);
+  __cxa_end_catch();
+  JUMPOUT(0x188920B1CLL);
+}
+
+uint64_t SecCodeSignerCreate(const __CFDictionary *a1, int a2, void *a3)
+{
+  if ((a2 & 0xFEFFF000) != 0)
+  {
+    Security::MacOSError::throwMe(0xFFFEFA02);
+  }
+
+  v11 = 0xAAAAAAAAAAAAAAAALL;
+  v6 = Security::ModuleNexus<Security::CodeSigning::CFObjects>::operator()();
+  v8 = Security::SecCFObject::allocate(0x140, *(v6 + 408), v7);
+  *(v8 + 8) = 1;
+  *v8 = &unk_1EFA8B958;
+  *(v8 + 16) = a2;
+  *(v8 + 168) = 0;
+  *(v8 + 160) = 0;
+  *(v8 + 24) = 0u;
+  *(v8 + 40) = 0u;
+  *(v8 + 56) = 0u;
+  *(v8 + 80) = 0u;
+  *(v8 + 96) = 0u;
+  *(v8 + 112) = 0u;
+  *(v8 + 152) = v8 + 160;
+  *(v8 + 288) = 0;
+  *(v8 + 296) = 0;
+  *(v8 + 176) = 0u;
+  *(v8 + 192) = 0u;
+  *(v8 + 208) = 0u;
+  *(v8 + 224) = 0u;
+  *(v8 + 240) = 0;
+  *(v8 + 256) = 0;
+  *(v8 + 264) = 0;
+  *(v8 + 272) = 0;
+  *(v8 + 304) = 0;
+  *(v8 + 312) = 0;
+  Security::SecPointerBase::SecPointerBase(&v11, v8);
+  Security::CodeSigning::SecCodeSigner::parameters(v11, a1);
+  v9 = Security::SecCFObject::handle(v11, 1);
+  if (!a3)
+  {
+    Security::MacOSError::throwMe(0xFFFEFA03);
+  }
+
+  *a3 = v9;
+  Security::SecPointerBase::~SecPointerBase(&v11);
+  return 0;
+}
+
+void sub_188920F74(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+{
+  switch(a2)
+  {
+    case 6:
+      v11 = __cxa_begin_catch(a1);
+      if (v11[36] == 8)
+      {
+        break;
+      }
+
+LABEL_6:
+      (*(*v11 + 24))(v11);
+      break;
+    case 5:
+      goto LABEL_5;
+    case 4:
+      v11 = __cxa_begin_catch(a1);
+      v13 = v11[36];
+      if (v13 > 0x1A)
+      {
+        goto LABEL_6;
+      }
+
+      v14 = 1 << v13;
+      if ((v14 & 0x800108) == 0 && (v14 & 0x4014000) == 0)
+      {
+        goto LABEL_6;
+      }
+
+      break;
+    case 3:
+LABEL_5:
+      v12 = __cxa_begin_catch(a1);
+      (*(*v12 + 24))(v12);
+      break;
+    default:
+      __cxa_begin_catch(a1);
+      if (a2 != 2)
+      {
+        Security::Syslog::notice("unknown exception in CSAPI", v15);
+      }
+
+      break;
+  }
+
+  __cxa_end_catch();
+  JUMPOUT(0x188920F3CLL);
+}
+
+uint64_t SecCodeSignerAddSignatureWithErrors(uint64_t a1, Security::CodeSigning::SecStaticCode *a2, int a3)
+{
+  if ((a3 & 0xEFFFFFFF) != 0)
+  {
+    v3 = 4294900226;
+    goto LABEL_6;
+  }
+
+  v3 = 4294900225;
+  {
+LABEL_6:
+    Security::MacOSError::throwMe(v3);
+  }
+
+  v8 = v6;
+  v9 = Security::CodeSigning::SecStaticCode::required(a2, v7);
+  Security::CodeSigning::SecCodeSigner::sign(v8, v9, a3);
+  return 0;
+}
+
+void *Security::CodeSigning::SecStaticCode::required(Security::CodeSigning::SecStaticCode *this, const __SecCode *a2)
+{
+  {
+    Security::MacOSError::throwMe(0xFFFEFA01);
+  }
+
+  return result;
+}
+
+CFDateRef Security::CodeSigning::copyCutOffDate(const __CFString *this, const __CFString *a2, CFAbsoluteTime a3)
+{
+  v4 = CFDateCreate(0, a3);
+  v5 = CFPreferencesCopyValue(this, @"com.apple.security.syspolicy", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
+  if (!v5)
+  {
+    CFRetain(v4);
+    v8 = v4;
+    if (!v4)
+    {
+      return v8;
+    }
+
+    goto LABEL_7;
+  }
+
+  v6 = v5;
+  v7 = CFGetTypeID(v5);
+  v8 = v4;
+  if (v7 == CFDateGetTypeID())
+  {
+    if (CFDateCompare(v4, v6, 0) <= kCFCompareEqualTo)
+    {
+      v8 = v4;
+    }
+
+    else
+    {
+      v8 = v6;
+    }
+  }
+
+  CFRetain(v8);
+  CFRelease(v6);
+  if (v4)
+  {
+LABEL_7:
+    CFRelease(v4);
+  }
+
+  return v8;
+}
+
+void Security::CodeSigning::SecCode::checkValidity(uint64_t this, uint64_t a2)
+{
+  v22 = *MEMORY[0x1E69E9840];
+  if (!*(this + 16))
+  {
+    return;
+  }
+
+  Security::CodeSigning::SecCode::checkValidity(*(this + 16), a2);
+  if ((*(this + 24) & 1) == 0)
+  {
+    (*(*this + 80))(this);
+    *(this + 24) = 1;
+  }
+
+  v4 = *(this + 32);
+  *(v4 + 208) = a2;
+  v5 = *(this + 16);
+  if ((*(v5 + 24) & 1) == 0)
+  {
+    (*(*v5 + 80))(*(this + 16));
+    *(v5 + 24) = 1;
+  }
+
+  v6 = *(v5 + 32);
+  Security::CodeSigning::SecStaticCode::validateNonResourceComponents(v4);
+  if ((a2 & 0x10) != 0)
+  {
+    v9 = *(v4 + 32);
+    v10 = Security::CodeSigning::SecStaticCode::codeDirectory(v4, 1);
+    *&__p[8] = 0;
+    *&__p[16] = 0;
+    *__p = &__p[8];
+    (*(*v9 + 232))(v9, v10, __p, a2);
+    goto LABEL_11;
+  }
+
+  if ((a2 & 0x2000) != 0)
+  {
+    v7 = *(v4 + 32);
+    v8 = Security::CodeSigning::SecStaticCode::codeDirectory(v4, 1);
+    *&__p[8] = 0;
+    *&__p[16] = 0;
+    *__p = &__p[8];
+    (*(*v7 + 240))(v7, v8, __p, a2);
+LABEL_11:
+    std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::destroy(*&__p[8]);
+  }
+
+  v11 = (*(**(this + 16) + 104))(*(this + 16), this);
+  if ((v11 & 1) == 0)
+  {
+    v12 = os_variant_allows_internal_security_policies();
+    if ((v11 & 0x10000000) == 0 || !(((v11 & 0x4000000) == 0) | v12 & 1))
+    {
+      Security::MacOSError::throwMe(0xFFFEFA09);
+    }
+  }
+
+  if (*(this + 24))
+  {
+    v14 = (this + 40);
+    v13 = *(this + 40);
+    if (!v13)
+    {
+      goto LABEL_20;
+    }
+
+LABEL_19:
+    v15 = Security::CodeSigning::SecStaticCode::cdHash(v4);
+    if (!CFEqual(v13, v15))
+    {
+      v16 = (*(**(v4 + 32) + 48))(*(v4 + 32));
+      v17 = secLogObjForScope("SecCode");
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        if ((*(this + 24) & 1) == 0)
+        {
+          (*(*this + 80))(this);
+          *(this + 24) = 1;
+        }
+
+        v18 = *v14;
+        v19 = Security::CodeSigning::SecStaticCode::cdHash(v4);
+        *__p = 138412802;
+        *&__p[4] = v16;
+        *&__p[12] = 2112;
+        *&__p[14] = v18;
+        *&__p[22] = 2112;
+        v21 = v19;
+        _os_log_impl(&dword_1887D2000, v17, OS_LOG_TYPE_DEFAULT, "cdhash mismatch: %@, %@, %@", __p, 0x20u);
+      }
+
+      Security::MacOSError::throwMe(0xFFFEFA26);
+    }
+
+    goto LABEL_20;
+  }
+
+  (*(*this + 80))(this);
+  v14 = (this + 40);
+  v13 = *(this + 40);
+  *(this + 24) = 1;
+  if (v13)
+  {
+    goto LABEL_19;
+  }
+
+LABEL_20:
+  if (*(*(this + 16) + 16))
+  {
+    Security::CodeSigning::SecStaticCode::validateRequirements(v4, kSecHostRequirementType, v6, 4294900249);
+    Security::CodeSigning::SecStaticCode::validateRequirements(v6, kSecGuestRequirementType, v4, 0);
+  }
+
+  Security::CodeSigning::SecCode::checkValidity::_DTFrameCODESIGN_EVAL_DYNAMIC::~_DTFrameCODESIGN_EVAL_DYNAMIC();
+}
+
+void sub_188921A64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+{
+  Security::CFRef<__CFURL const*>::~CFRef(&a9);
+  Security::CodeSigning::SecCode::checkValidity::_DTFrameCODESIGN_EVAL_DYNAMIC::~_DTFrameCODESIGN_EVAL_DYNAMIC();
+  _Unwind_Resume(a1);
+}
+
+uint64_t Security::CodeSigning::BundleDiskRep::createRawComponents@<X0>(Security::CodeSigning::BundleDiskRep *this@<X0>, void *a2@<X8>)
+{
+  v4 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
+  *a2 = a2 + 1;
+  v13 = 0;
+  do
+  {
+    v12 = 0xAAAAAAAAAAAAAAAALL;
+    v5 = Security::CodeSigning::CodeDirectory::canonicalSlotName(v4);
+    if (v5)
+    {
+      v12 = Security::CodeSigning::BundleDiskRep::metaData(this, v5);
+      if (v12)
+      {
+        v14 = &v13;
+        v6 = std::__tree<std::__value_type<int,Security::CFCopyRef<__CFData const*>>,std::__map_value_compare<int,std::__value_type<int,Security::CFCopyRef<__CFData const*>>,std::less<int>,true>,std::allocator<std::__value_type<int,Security::CFCopyRef<__CFData const*>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a2, v13, &v14);
+        Security::CFRef<__CFURL const*>::operator=(v6 + 5, &v12);
+      }
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    Security::CFRef<__CFData const*>::~CFRef(&v12);
+    v7 = v13;
+    v4 = ++v13;
+  }
+
+  while (v7 < 10);
+  result = 4096;
+  v13 = 4096;
+  do
+  {
+    v12 = 0xAAAAAAAAAAAAAAAALL;
+    v9 = Security::CodeSigning::CodeDirectory::canonicalSlotName(result);
+    if (v9)
+    {
+      v12 = Security::CodeSigning::BundleDiskRep::metaData(this, v9);
+      if (v12)
+      {
+        v14 = &v13;
+        v10 = std::__tree<std::__value_type<int,Security::CFCopyRef<__CFData const*>>,std::__map_value_compare<int,std::__value_type<int,Security::CFCopyRef<__CFData const*>>,std::less<int>,true>,std::allocator<std::__value_type<int,Security::CFCopyRef<__CFData const*>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a2, v13, &v14);
+        Security::CFRef<__CFURL const*>::operator=(v10 + 5, &v12);
+      }
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    Security::CFRef<__CFData const*>::~CFRef(&v12);
+    v11 = v13;
+    result = ++v13;
+  }
+
+  while (v11 < 4100);
+  return result;
+}
+
+uint64_t **std::__tree<std::__value_type<int,Security::CFCopyRef<__CFData const*>>,std::__map_value_compare<int,std::__value_type<int,Security::CFCopyRef<__CFData const*>>,std::less<int>,true>,std::allocator<std::__value_type<int,Security::CFCopyRef<__CFData const*>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int a2, _DWORD **a3)
+{
+  v3 = *(a1 + 8);
+  if (!v3)
+  {
+LABEL_8:
+    operator new();
+  }
+
+  while (1)
+  {
+    while (1)
+    {
+      v4 = v3;
+      v5 = *(v3 + 32);
+      if (v5 <= a2)
+      {
+        break;
+      }
+
+      v3 = *v4;
+      if (!*v4)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    if (v5 >= a2)
+    {
+      return v4;
+    }
+
+    v3 = v4[1];
+    if (!v3)
+    {
+      goto LABEL_8;
+    }
+  }
+}
+
+void sub_188921EC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  Security::StLock<Security::Mutex,&Security::Mutex::lock,&Security::Mutex::unlock>::~StLock(&a9);
+  std::__tree<std::string>::destroy(*v12);
+  Security::RefPointer<Security::CodeSigning::DiskRep::Writer>::~RefPointer(v11);
+  Security::RefPointer<Security::CodeSigning::BundleDiskRep>::~RefPointer((v9 + 24));
+  MEMORY[0x18CFD9760](v9, v10);
+  _Unwind_Resume(a1);
+}
+
+void std::__tree<std::string>::destroy(char *a1)
+{
+  if (a1)
+  {
+    std::__tree<std::string>::destroy(*a1);
+    std::__tree<std::string>::destroy(*(a1 + 1));
+    if (a1[55] < 0)
+    {
+      operator delete(*(a1 + 4));
+    }
+
+    operator delete(a1);
+  }
+}
+
+uint64_t Security::RefPointer<Security::CodeSigning::DiskRep::Writer>::~RefPointer(uint64_t a1)
+{
+  v2 = (a1 + 8);
+  v3 = pthread_mutex_lock((a1 + 8));
+  if (v3)
+  {
+    Security::UnixError::throwMe(v3);
+  }
+
+  Security::RefPointer<Security::CodeSigning::DiskRep::Writer>::release_internal(a1);
+  v4 = pthread_mutex_unlock(v2);
+  if (v4)
+  {
+    Security::UnixError::throwMe(v4);
+  }
+
+  Security::Mutex::~Mutex(v2);
+  return a1;
+}
+
+void *Security::RefPointer<Security::CodeSigning::BundleDiskRep>::~RefPointer(void *a1)
+{
+  v2 = pthread_mutex_lock((a1 + 1));
+  if (v2)
+  {
+    Security::UnixError::throwMe(v2);
+  }
+
+  if (*a1 && atomic_fetch_add_explicit((*a1 + 8), 0xFFFFFFFF, memory_order_relaxed) == 1)
+  {
+    if (*a1)
+    {
+      (*(**a1 + 8))(*a1);
+    }
+
+    *a1 = 0;
+  }
+
+  v3 = pthread_mutex_unlock((a1 + 1));
+  if (v3)
+  {
+    Security::UnixError::throwMe(v3);
+  }
+
+  Security::Mutex::~Mutex((a1 + 1));
+  return a1;
+}
+
+void *Security::RefPointer<Security::CodeSigning::DiskRep::Writer>::release_internal(void *result)
+{
+  if (*result && atomic_fetch_add_explicit((*result + 8), 0xFFFFFFFF, memory_order_relaxed) == 1)
+  {
+    v1 = result;
+    result = *result;
+    if (result)
+    {
+      result = (*(*result + 8))(result);
+    }
+
+    *v1 = 0;
+  }
+
+  return result;
+}
+
+void Security::CodeSigning::BundleDiskRep::Writer::flush(Security::CodeSigning::BundleDiskRep::Writer *this)
+{
+  __b[136] = *MEMORY[0x1E69E9840];
+  (*(**(this + 12) + 48))(*(this + 12));
+  memset(__b, 170, 0x440uLL);
+  v2 = *(this + 3);
+  if (*(v2 + 55) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v9, *(v2 + 32), *(v2 + 40));
+  }
+
+  else
+  {
+    v9 = *(v2 + 32);
+  }
+
+  Security::CodeSigning::DirScanner::DirScanner(__b, &v9);
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v9.__r_.__value_.__l.__data_);
+  }
+
+  if (LOBYTE(__b[135]) == 1)
+  {
+    while (1)
+    {
+      Next = Security::CodeSigning::DirScanner::getNext(__b);
+      if (!Next)
+      {
+        break;
+      }
+
+      if (!Security::CodeSigning::DirScanner::isRegularFile(__b, Next))
+      {
+        Security::MacOSError::throwMe(0xFFFEFA3ALL);
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(__p, Next->d_name);
+      v4 = std::__tree<std::string>::find<std::string>(this + 176, __p);
+      if (v8 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      if ((this + 184) == v4)
+      {
+        if (!__b[3] || (v5 = dirfd(__b[3]), v5 == -1) || unlinkat(v5, Next->d_name, 0) == -1)
+        {
+          v6 = __error();
+          Security::UnixError::throwMe(*v6);
+        }
+      }
+    }
+  }
+
+  Security::CodeSigning::DirScanner::~DirScanner(__b);
+}
+
+uint64_t std::__tree<std::string>::find<std::string>(uint64_t a1, void *a2)
+{
+  v2 = a1 + 8;
+  v3 = *(a1 + 8);
+  if (!v3)
+  {
+    return v2;
+  }
+
+  v5 = a1 + 8;
+  do
+  {
+    v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((v3 + 32), a2);
+    if ((v6 & 0x80u) == 0)
+    {
+      v5 = v3;
+    }
+
+    v3 = *(v3 + ((v6 >> 4) & 8));
+  }
+
+  while (v3);
+  if (v5 == v2 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, (v5 + 32)) & 0x80) != 0)
+  {
+    return v2;
+  }
+
+  return v5;
+}
+
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void *a2)
+{
+  v2 = a1[1];
+  if (*(a1 + 23) >= 0)
+  {
+    v3 = *(a1 + 23);
+  }
+
+  else
+  {
+    a1 = *a1;
+    v3 = v2;
+  }
+
+  v4 = a2[1];
+  if (*(a2 + 23) >= 0)
+  {
+    v5 = *(a2 + 23);
+  }
+
+  else
+  {
+    a2 = *a2;
+    v5 = v4;
+  }
+
+  if (v5 >= v3)
+  {
+    v6 = v3;
+  }
+
+  else
+  {
+    v6 = v5;
+  }
+
+  v7 = memcmp(a1, a2, v6);
+  if (v7)
+  {
+    if ((v7 & 0x80000000) == 0)
+    {
+      return 1;
+    }
+  }
+
+  else
+  {
+    if (v3 == v5)
+    {
+      return 0;
+    }
+
+    if (v3 >= v5)
+    {
+      return 1;
+    }
+  }
+
+  return 255;
+}
+
+void Security::CodeSigning::BundleDiskRep::Writer::remove(Security::CodeSigning::BundleDiskRep::Writer *this)
+{
+  (*(**(this + 12) + 40))(*(this + 12));
+  v2 = 0;
+  do
+  {
+    Security::CodeSigning::BundleDiskRep::Writer::remove(this, v2);
+    v2 = (v2 + 1);
+  }
+
+  while (v2 != 12);
+
+  Security::CodeSigning::BundleDiskRep::Writer::remove(this, 0x10000);
+}
+
+void Security::CodeSigning::BundleDiskRep::Writer::remove(const char **this, Security::CodeSigning::CodeDirectory *a2)
+{
+  v3 = Security::CodeSigning::CodeDirectory::canonicalSlotName(a2);
+  if (v3)
+  {
+    Security::CodeSigning::BundleDiskRep::metaPath(&v10, this[3], v3);
+    v4 = SHIBYTE(v10.__r_.__value_.__r.__words[2]);
+    v5 = v10.__r_.__value_.__r.__words[0];
+    if ((v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v6 = &v10;
+    }
+
+    else
+    {
+      v6 = v10.__r_.__value_.__r.__words[0];
+    }
+
+    v7 = unlink(v6);
+    v8 = v7;
+    if (v4 < 0)
+    {
+      operator delete(v5);
+      if (!v8)
+      {
+        return;
+      }
+    }
+
+    else if (!v7)
+    {
+      return;
+    }
+
+    if (*__error() != 2)
+    {
+      v9 = __error();
+      Security::UnixError::throwMe(*v9);
+    }
+  }
+}
+
+void Security::CodeSigning::BundleDiskRep::Writer::component(Security::CodeSigning::BundleDiskRep::Writer *this, Security::CodeSigning::CodeDirectory *a2, const __CFData *a3)
+{
+  if (a2 == 3)
+  {
+    v5 = "CodeResources";
+LABEL_8:
+    v8 = *(this + 3);
+    memset(&__str, 170, sizeof(__str));
+    Security::CodeSigning::BundleDiskRep::metaPath(&__str, v8, 0);
+    if ((*(v8 + 56) & 1) == 0)
+    {
+      if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        p_str = &__str;
+      }
+
+      else
+      {
+        p_str = __str.__r_.__value_.__r.__words[0];
+      }
+
+      if (mkdir(p_str, 0x1EDu))
+      {
+        if (*__error() != 17)
+        {
+          v10 = __error();
+          Security::UnixError::throwMe(*v10);
+        }
+      }
+
+      else
+      {
+        v11 = (*(*v8 + 48))(v8);
+        Security::cfStringRelease(__p, v11);
+        if (v19 >= 0)
+        {
+          v12 = __p;
+        }
+
+        else
+        {
+          v12 = __p[0];
+        }
+
+        if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v13 = &__str;
+        }
+
+        else
+        {
+          v13 = __str.__r_.__value_.__r.__words[0];
+        }
+
+        copyfile(v12, v13, 0, 3u);
+        if (v19 < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        std::string::operator=((v8 + 32), &__str);
+        *(v8 + 56) = 1;
+      }
+    }
+
+    if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__str.__r_.__value_.__l.__data_);
+    }
+
+    memset(&__str, 170, sizeof(__str));
+    Security::CodeSigning::BundleDiskRep::metaPath(&__str, *(this + 3), v5);
+    v17 = 0xAAAAAAAAFFFFFFFFLL;
+    if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v14 = &__str;
+    }
+
+    else
+    {
+      v14 = __str.__r_.__value_.__r.__words[0];
+    }
+
+    Security::UnixPlusPlus::FileDesc::open(&v17, v14, 1537, 420);
+    BytePtr = CFDataGetBytePtr(a3);
+    Length = CFDataGetLength(a3);
+    Security::UnixPlusPlus::FileDesc::writeAll(&v17, BytePtr, Length);
+    Security::UnixPlusPlus::FileDesc::close(&v17);
+    std::string::basic_string[abi:ne200100]<0>(__p, v5);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(this + 22, __p, __p);
+    if (v19 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    Security::UnixPlusPlus::FileDesc::closeAndLog(&v17);
+    if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__str.__r_.__value_.__l.__data_);
+    }
+
+    return;
+  }
+
+  v6 = *(this + 12);
+  if (v6[20])
+  {
+    v5 = Security::CodeSigning::CodeDirectory::canonicalSlotName(a2);
+    if (!v5)
+    {
+      Security::MacOSError::throwMe(0xFFFEFA2CLL);
+    }
+
+    goto LABEL_8;
+  }
+
+  v7 = *(*v6 + 16);
+
+  v7();
+}
+
+void sub_188922794(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+{
+  if (a16 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a22 < 0)
+  {
+    operator delete(a17);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(uint64_t **a1, void *a2, uint64_t a3)
+{
+  v4 = 0xAAAAAAAAAAAAAAAALL;
+  result = std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
+  if (!*result)
+  {
+    operator new();
+  }
+
+  return result;
+}
+
+void *std::__tree<std::string>::__find_equal<std::string>(uint64_t a1, void *a2, void *a3)
+{
+  v5 = (a1 + 8);
+  v4 = *(a1 + 8);
+  if (v4)
+  {
+    do
+    {
+      while (1)
+      {
+        v7 = v4;
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 4) & 0x80) == 0)
+        {
+          break;
+        }
+
+        v4 = *v7;
+        v5 = v7;
+        if (!*v7)
+        {
+          goto LABEL_9;
+        }
+      }
+
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v7 + 4, a3) & 0x80) == 0)
+      {
+        break;
+      }
+
+      v5 = v7 + 1;
+      v4 = v7[1];
+    }
+
+    while (v4);
+  }
+
+  else
+  {
+    v7 = (a1 + 8);
+  }
+
+LABEL_9:
+  *a2 = v7;
+  return v5;
+}
+
+void Security::CodeSigning::BundleDiskRep::Writer::~Writer(char **this)
+{
+  *this = &unk_1EFA8B2E8;
+  std::__tree<std::string>::destroy(this[23]);
+  Security::RefPointer<Security::CodeSigning::DiskRep::Writer>::~RefPointer((this + 12));
+  Security::RefPointer<Security::CodeSigning::BundleDiskRep>::~RefPointer(this + 3);
+
+  JUMPOUT(0x18CFD9760);
+}
+
+{
+  *this = &unk_1EFA8B2E8;
+  std::__tree<std::string>::destroy(this[23]);
+  Security::RefPointer<Security::CodeSigning::DiskRep::Writer>::~RefPointer((this + 12));
+  Security::RefPointer<Security::CodeSigning::BundleDiskRep>::~RefPointer(this + 3);
+}
+
+CFDataRef Security::CodeSigning::BundleDiskRep::allowedResourceOmissions(CFBundleRef *this)
+{
+  std::string::basic_string[abi:ne200100]<0>(&v20, "^");
+  Security::CodeSigning::BundleDiskRep::resourcesRelativePath(__p, this);
+  if ((v19 & 0x80u) == 0)
+  {
+    v2 = __p;
+  }
+
+  else
+  {
+    v2 = __p[0];
+  }
+
+  if ((v19 & 0x80u) == 0)
+  {
+    v3 = v19;
+  }
+
+  else
+  {
+    v3 = __p[1];
+  }
+
+  v4 = std::string::append(&v20, v2, v3);
+  v5 = *&v4->__r_.__value_.__l.__data_;
+  v21.__r_.__value_.__r.__words[2] = v4->__r_.__value_.__r.__words[2];
+  *&v21.__r_.__value_.__l.__data_ = v5;
+  v4->__r_.__value_.__l.__size_ = 0;
+  v4->__r_.__value_.__r.__words[2] = 0;
+  v4->__r_.__value_.__r.__words[0] = 0;
+  v6 = std::string::append(&v21, ".*\\.lproj/locversion.plist$", 0x1BuLL);
+  v14 = *&v6->__r_.__value_.__l.__data_;
+  v23 = v6->__r_.__value_.__r.__words[2];
+  v22 = v14;
+  v6->__r_.__value_.__l.__size_ = 0;
+  v6->__r_.__value_.__r.__words[2] = 0;
+  v6->__r_.__value_.__r.__words[0] = 0;
+  v15 = &v22;
+  if (v23 < 0)
+  {
+    v15 = v22;
+  }
+
+  v16 = Security::cfmake<__CFArray const*>(v6, v7, v8, v9, v10, v11, v12, v13, v15);
+  if (SHIBYTE(v23) < 0)
+  {
+    operator delete(v22);
+  }
+
+  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v21.__r_.__value_.__l.__data_);
+  }
+
+  if (v19 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v20.__r_.__value_.__l.__data_);
+  }
+
+  return v16;
+}
+
+void sub_188922B2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+{
+  if (*(v28 - 25) < 0)
+  {
+    operator delete(*(v28 - 48));
+  }
+
+  if (a28 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a16 < 0)
+  {
+    operator delete(a11);
+  }
+
+  if (a22 < 0)
+  {
+    operator delete(a17);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void Security::CodeSigning::BundleDiskRep::resourcesRelativePath(Security::CodeSigning::BundleDiskRep *this, CFBundleRef *a2)
+{
+  v37 = *MEMORY[0x1E69E9840];
+  memset(&__str, 170, sizeof(__str));
+  (*(*a2 + 7))(&__str, a2);
+  if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_str = &__str;
+  }
+
+  else
+  {
+    p_str = __str.__r_.__value_.__r.__words[0];
+  }
+
+  if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = SHIBYTE(__str.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = __str.__r_.__value_.__l.__size_;
+  }
+
+  if (size >= 3)
+  {
+    v6 = p_str + size;
+    v7 = size;
+    v8 = p_str;
+    do
+    {
+      v9 = memchr(v8, 47, v7 - 2);
+      if (!v9)
+      {
+        break;
+      }
+
+      if (*v9 == 11823 && v9[2] == 47)
+      {
+        if (v9 != v6)
+        {
+          v11 = v9 - p_str;
+          if (v9 - p_str != -1)
+          {
+LABEL_18:
+            v12 = std::string::replace(&__str, v11, 2uLL, &unk_188967DD7, 0);
+            std::string::operator=(&__str, v12);
+            if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              v13 = &__str;
+            }
+
+            else
+            {
+              v13 = __str.__r_.__value_.__r.__words[0];
+            }
+
+            if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              size = SHIBYTE(__str.__r_.__value_.__r.__words[2]);
+            }
+
+            else
+            {
+              size = __str.__r_.__value_.__l.__size_;
+            }
+
+            if (size >= 3)
+            {
+              v14 = v13 + size;
+              v15 = size;
+              v16 = v13;
+              while (1)
+              {
+                v17 = memchr(v16, 47, v15 - 2);
+                if (!v17)
+                {
+                  break;
+                }
+
+                if (*v17 == 11823 && v17[2] == 47)
+                {
+                  if (v17 != v14)
+                  {
+                    v11 = v17 - v13;
+                    if (v17 - v13 != -1)
+                    {
+                      goto LABEL_18;
+                    }
+                  }
+
+                  goto LABEL_35;
+                }
+
+                v16 = (v17 + 1);
+                v15 = v14 - v16;
+                if (v14 - v16 < 3)
+                {
+                  goto LABEL_35;
+                }
+              }
+            }
+          }
+        }
+
+        break;
+      }
+
+      v8 = (v9 + 1);
+      v7 = v6 - v8;
+    }
+
+    while (v6 - v8 >= 3);
+  }
+
+LABEL_35:
+  std::string::basic_string(&v33, &__str, size - 2, 2uLL, v36);
+  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+  {
+    if (v33.__r_.__value_.__l.__size_ != 2)
+    {
+      operator delete(v33.__r_.__value_.__l.__data_);
+      goto LABEL_47;
+    }
+
+    v19 = *v33.__r_.__value_.__l.__data_;
+    operator delete(v33.__r_.__value_.__l.__data_);
+    if (v19 != 11823)
+    {
+      goto LABEL_47;
+    }
+  }
+
+  else if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) != 2 || LOWORD(v33.__r_.__value_.__l.__data_) != 11823)
+  {
+    goto LABEL_47;
+  }
+
+  v20 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+  if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    v20 = __str.__r_.__value_.__l.__size_;
+  }
+
+  std::string::basic_string(&v33, &__str, 0, v20 - 2, v36);
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__str.__r_.__value_.__l.__data_);
+  }
+
+  __str = v33;
+LABEL_47:
+  *(this + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v21 = (this + 8);
+  *(this + 2) = 0xAAAAAAAAAAAAAAAALL;
+  *this = 0xAAAAAAAAAAAAAAAALL;
+  v22 = CFBundleCopyResourcesDirectoryURL(a2[3]);
+  Security::cfStringRelease(this, v22);
+  v23 = *(this + 23);
+  if (v23 >= 0)
+  {
+    v24 = *(this + 23);
+  }
+
+  else
+  {
+    v24 = *(this + 1);
+  }
+
+  if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v25 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v25 = __str.__r_.__value_.__l.__size_;
+  }
+
+  if (v24 == v25 && ((v26 = *this, v23 >= 0) ? (v27 = this) : (v27 = *this), (__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v28 = &__str) : (v28 = __str.__r_.__value_.__r.__words[0]), !memcmp(v27, v28, v24)))
+  {
+    if (v23 < 0)
+    {
+      *v21 = 0;
+      this = v26;
+    }
+
+    else
+    {
+      *(this + 23) = 0;
+    }
+
+    *this = 0;
+  }
+
+  else
+  {
+    if (std::string::compare(this, 0, v25, &__str, 0, v25))
+    {
+      Security::MacOSError::throwMe(0xFFFEFA2CLL);
+    }
+
+    v29 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+    if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v29 = __str.__r_.__value_.__l.__size_;
+    }
+
+    std::string::basic_string(&v33, this, v29 + 1, 0xFFFFFFFFFFFFFFFFLL, &v35);
+    v30 = std::string::append(&v33, "/", 1uLL);
+    v31 = v30->__r_.__value_.__r.__words[0];
+    *v36 = v30->__r_.__value_.__l.__size_;
+    *&v36[7] = *(&v30->__r_.__value_.__r.__words[1] + 7);
+    v32 = HIBYTE(v30->__r_.__value_.__r.__words[2]);
+    v30->__r_.__value_.__l.__size_ = 0;
+    v30->__r_.__value_.__r.__words[2] = 0;
+    v30->__r_.__value_.__r.__words[0] = 0;
+    if (*(this + 23) < 0)
+    {
+      operator delete(*this);
+    }
+
+    *this = v31;
+    *v21 = *v36;
+    *(this + 15) = *&v36[7];
+    *(this + 23) = v32;
+    if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v33.__r_.__value_.__l.__data_);
+    }
+  }
+
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__str.__r_.__value_.__l.__data_);
+  }
 }

@@ -214,7 +214,7 @@ LABEL_10:
   v25 = 0u;
   if (locationCopy)
   {
-    [locationCopy clientLocation];
+    objc_msgSend_clientLocation(locationCopy);
   }
 
   objc_initWeak(&location, self);

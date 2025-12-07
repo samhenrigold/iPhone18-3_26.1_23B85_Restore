@@ -1,8 +1,10 @@
 @interface DrbConfig
 - (BOOL)isEqual:(id)equal;
+- (id)cipheringAlgoAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)integrityAlgoAsString:(int)string;
 - (int)StringAsCipheringAlgo:(id)algo;
 - (int)StringAsIntegrityAlgo:(id)algo;
 - (int)cipheringAlgo;
@@ -43,6 +45,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)integrityAlgoAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317978 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsIntegrityAlgo:(id)algo
@@ -92,6 +109,21 @@
   {
     return 0;
   }
+}
+
+- (id)cipheringAlgoAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317978 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsCipheringAlgo:(id)algo
@@ -241,44 +273,41 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    integrityAlgo = self->_integrityAlgo;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    cipheringAlgo = self->_cipheringAlgo;
     PBDataWriterWriteInt32Field();
   }
 
-  v16 = 0u;
-  v17 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v8 = self->_perDrbConfigs;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v9)
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_perDrbConfigs;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v15;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v14 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 }
 
@@ -374,7 +403,6 @@
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 24);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 24) & 2) == 0 || self->_integrityAlgo != *(equalCopy + 3))
@@ -386,7 +414,7 @@
   else if ((*(equalCopy + 24) & 2) != 0)
   {
 LABEL_14:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
@@ -406,17 +434,17 @@ LABEL_14:
   perDrbConfigs = self->_perDrbConfigs;
   if (perDrbConfigs | *(equalCopy + 2))
   {
-    v7 = [(NSMutableArray *)perDrbConfigs isEqual:?];
+    v6 = [(NSMutableArray *)perDrbConfigs isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_15:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

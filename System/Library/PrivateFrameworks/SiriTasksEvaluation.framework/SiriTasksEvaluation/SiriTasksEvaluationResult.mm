@@ -106,22 +106,20 @@ LABEL_7:
 
 - (id)toJSON
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v12[0] = self->_taskId;
-  v11[0] = @"taskId";
-  v11[1] = @"isEffectiveTask";
+  v11[3] = *MEMORY[0x277D85DE8];
+  v11[0] = self->_taskId;
+  v10[0] = @"taskId";
+  v10[1] = @"isEffectiveTask";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:self->_isEffectiveTask];
-  v12[1] = v3;
-  v11[2] = @"isSuccessfulTask";
+  v11[1] = v3;
+  v10[2] = @"isSuccessfulTask";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:self->_isSuccessfulTask];
-  v12[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
-  v10 = 0;
-  v6 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v5 options:0 error:&v10];
+  v9 = 0;
+  v6 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v5 options:0 error:&v9];
   v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v6 encoding:4];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

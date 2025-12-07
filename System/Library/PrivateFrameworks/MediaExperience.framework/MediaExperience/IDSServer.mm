@@ -3,7 +3,7 @@
 
 @implementation IDSServer
 
-uint64_t __cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_block_invoke()
+void *__cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_block_invoke()
 {
   cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldAudioCategory = [objc_alloc(MEMORY[0x1E696AEC0]) initWithString:@"MediaPlayback"];
   cmsm_IDSServer_ProcessRemoteInterruptionStartMessage_oldAudioMode = [objc_alloc(MEMORY[0x1E696AEC0]) initWithString:@"Default"];

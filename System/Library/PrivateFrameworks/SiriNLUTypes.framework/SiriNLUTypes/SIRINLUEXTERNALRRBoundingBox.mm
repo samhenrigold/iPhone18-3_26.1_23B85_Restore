@@ -385,7 +385,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    xCoordinate = self->_xCoordinate;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 8) == 0)
@@ -405,7 +404,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  yCoordinate = self->_yCoordinate;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -420,12 +418,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  width = self->_width;
   PBDataWriterWriteDoubleField();
   if (*&self->_has)
   {
 LABEL_5:
-    height = self->_height;
     PBDataWriterWriteDoubleField();
   }
 

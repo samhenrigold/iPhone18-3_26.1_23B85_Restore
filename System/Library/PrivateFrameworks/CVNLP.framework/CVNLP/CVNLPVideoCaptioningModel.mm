@@ -82,7 +82,7 @@
 
 - (id)generateCaption:(id)caption error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   captionCopy = caption;
   objc_msgSend_model(self, v6, v7, v8);
   v9 = __p;
@@ -100,35 +100,35 @@
 
   if (v9[47] < 0)
   {
-    sub_1D9D12B94(v18, *(v9 + 3), *(v9 + 4));
+    sub_1D9D12B94(&v18, *(v9 + 3), *(v9 + 4));
   }
 
   else
   {
     v11 = *(v9 + 24);
-    v18[2] = *(v9 + 5);
-    *v18 = v11;
+    v19 = *(v9 + 5);
+    v18 = v11;
   }
 
   if (v9[71] < 0)
   {
-    sub_1D9D12B94(v19, *(v9 + 6), *(v9 + 7));
+    sub_1D9D12B94(&v20, *(v9 + 6), *(v9 + 7));
   }
 
   else
   {
     v12 = *(v9 + 3);
-    v19[2] = *(v9 + 8);
-    *v19 = v12;
+    v21 = *(v9 + 8);
+    v20 = v12;
   }
 
   v13 = *(v9 + 9);
-  v20 = *(v9 + 20);
-  v19[3] = v13;
-  v14 = v22;
-  if (v22)
+  v23 = *(v9 + 20);
+  v22 = v13;
+  v14 = v25;
+  if (v25)
   {
-    if (!atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
       (v14->__on_zero_shared)(v14);
       std::__shared_weak_count::__release_weak(v14);

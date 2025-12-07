@@ -612,7 +612,7 @@ uint64_t sub_1000053B0(uint64_t a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_10000A748(a1);
+    sub_10000A748();
   }
 
   [*(a1 + 40) stopTimerForUDID:*(a1 + 32)];
@@ -622,15 +622,14 @@ uint64_t sub_1000053B0(uint64_t a1)
 id sub_10000554C(uint64_t a1)
 {
   xpc_transaction_begin();
-  v2 = *(a1 + 49);
   if (*(a1 + 48))
   {
     if ((*(a1 + 49) & 1) == 0)
     {
-      v3 = [*(a1 + 32) wifiPortConnections];
-      v4 = [v3 count];
+      v2 = [*(a1 + 32) wifiPortConnections];
+      v3 = [v2 count];
 
-      if (!v4)
+      if (!v3)
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
         {
@@ -638,9 +637,9 @@ id sub_10000554C(uint64_t a1)
           _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "WiFi preferred client connection: Enabling preferWifi for data forwarding to gizmo.", buf, 2u);
         }
 
-        v5 = +[CPXIDSRelayCompanion defaultCPXIDSRelayCompanion];
-        v6 = [v5 service];
-        [v6 setPreferInfraWiFi:1];
+        v4 = +[CPXIDSRelayCompanion defaultCPXIDSRelayCompanion];
+        v5 = [v4 service];
+        [v5 setPreferInfraWiFi:1];
 LABEL_12:
       }
     }
@@ -648,10 +647,10 @@ LABEL_12:
 
   else if ((*(a1 + 49) & 1) == 0)
   {
-    v7 = [*(a1 + 32) highPriorityPortConnections];
-    v8 = [v7 count];
+    v6 = [*(a1 + 32) highPriorityPortConnections];
+    v7 = [v6 count];
 
-    if (!v8)
+    if (!v7)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
@@ -659,21 +658,21 @@ LABEL_12:
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Bluetooth preferred client connection: Enabling BT Classic", buf, 2u);
       }
 
-      v5 = [*(a1 + 32) service];
-      v15 = IDSLinkPreferenceOptionPacketsPerSecondKey;
-      v16 = &off_1000152F0;
-      v6 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-      [v5 setLinkPreferences:v6];
+      v4 = [*(a1 + 32) service];
+      v14 = IDSLinkPreferenceOptionPacketsPerSecondKey;
+      v15 = &off_1000152F0;
+      v5 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+      [v4 setLinkPreferences:v5];
       goto LABEL_12;
     }
   }
 
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 49);
-  v11 = *(a1 + 48);
-  v13.receiver = *(a1 + 32);
-  v13.super_class = CPXIDSRelayCompanion;
-  return objc_msgSendSuper2(&v13, "acquirePort:isLowPriority:preferWifi:", v9, v10, v11);
+  v8 = *(a1 + 40);
+  v9 = *(a1 + 49);
+  v10 = *(a1 + 48);
+  v12.receiver = *(a1 + 32);
+  v12.super_class = CPXIDSRelayCompanion;
+  return objc_msgSendSuper2(&v12, "acquirePort:isLowPriority:preferWifi:", v8, v9, v10);
 }
 
 void sub_1000057AC(uint64_t a1)
@@ -681,32 +680,31 @@ void sub_1000057AC(uint64_t a1)
   v2 = *(a1 + 40);
   v3 = *(a1 + 48);
   v4 = *(a1 + 49);
-  v13.receiver = *(a1 + 32);
-  v13.super_class = CPXIDSRelayCompanion;
-  if (!objc_msgSendSuper2(&v13, "releasePort:isLowPriority:preferWifi:", v2, v3, v4) && *(a1 + 40) != 62078)
+  v12.receiver = *(a1 + 32);
+  v12.super_class = CPXIDSRelayCompanion;
+  if (!objc_msgSendSuper2(&v12, "releasePort:isLowPriority:preferWifi:", v2, v3, v4) && *(a1 + 40) != 62078)
   {
     [*(a1 + 32) teardownListeningSocket:?];
   }
 
-  v5 = *(a1 + 48);
   if (*(a1 + 49) == 1)
   {
     if ((*(a1 + 48) & 1) == 0)
     {
-      v6 = [*(a1 + 32) wifiPortConnections];
-      v7 = [v6 count];
+      v5 = [*(a1 + 32) wifiPortConnections];
+      v6 = [v5 count];
 
-      if (!v7)
+      if (!v6)
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
         {
-          *v12 = 0;
-          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Wifi preferred client connection: Disabling preferWifi for data forwarding to gizmo.", v12, 2u);
+          *v11 = 0;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Wifi preferred client connection: Disabling preferWifi for data forwarding to gizmo.", v11, 2u);
         }
 
-        v8 = +[CPXIDSRelayCompanion defaultCPXIDSRelayCompanion];
-        v9 = [v8 service];
-        [v9 setPreferInfraWiFi:0];
+        v7 = +[CPXIDSRelayCompanion defaultCPXIDSRelayCompanion];
+        v8 = [v7 service];
+        [v8 setPreferInfraWiFi:0];
 LABEL_15:
       }
     }
@@ -714,22 +712,22 @@ LABEL_15:
 
   else if ((*(a1 + 48) & 1) == 0)
   {
-    v10 = [*(a1 + 32) highPriorityPortConnections];
-    v11 = [v10 count];
+    v9 = [*(a1 + 32) highPriorityPortConnections];
+    v10 = [v9 count];
 
-    if (!v11)
+    if (!v10)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Bluetooth preferred client connection: Disabling BT Classic, Entering LE", v12, 2u);
+        *v11 = 0;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Bluetooth preferred client connection: Disabling BT Classic, Entering LE", v11, 2u);
       }
 
-      v8 = [*(a1 + 32) service];
-      v14 = IDSLinkPreferenceOptionPacketsPerSecondKey;
-      v15 = &off_100015308;
-      v9 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-      [v8 setLinkPreferences:v9];
+      v7 = [*(a1 + 32) service];
+      v13 = IDSLinkPreferenceOptionPacketsPerSecondKey;
+      v14 = &off_100015308;
+      v8 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+      [v7 setLinkPreferences:v8];
       goto LABEL_15;
     }
   }
@@ -737,10 +735,11 @@ LABEL_15:
   xpc_transaction_end();
 }
 
-void sub_10000615C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_10000615C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  objc_sync_exit(v30);
-  _Block_object_dispose(&a30, 8);
+  va_start(va, a29);
+  objc_sync_exit(v29);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -813,12 +812,13 @@ uint64_t sub_100006C7C(uint64_t a1)
   return close(*(a1 + 64));
 }
 
-void sub_100007218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_100007218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a23, 8);
   _Block_object_dispose(&a29, 8);
   _Block_object_dispose(&a33, 8);
-  _Block_object_dispose(&a37, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -837,7 +837,7 @@ void sub_10000727C(uint64_t a1, uint64_t a2, void *a3)
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22[0] = v5;
+      v20[0] = v5;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Failed to create IDSDeviceConnection: %@", buf, 0xCu);
     }
 
@@ -847,9 +847,9 @@ void sub_10000727C(uint64_t a1, uint64_t a2, void *a3)
       v7 = __error();
       v8 = strerror(*v7);
       *buf = 67109378;
-      LODWORD(v22[0]) = v6;
-      WORD2(v22[0]) = 2080;
-      *(v22 + 6) = v8;
+      LODWORD(v20[0]) = v6;
+      WORD2(v20[0]) = 2080;
+      *(v20 + 6) = v8;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "localSocket IDS close error: %d (%s)", buf, 0x12u);
     }
 
@@ -857,7 +857,7 @@ void sub_10000727C(uint64_t a1, uint64_t a2, void *a3)
     {
       v9 = *(*(*(a1 + 80) + 8) + 40);
       *buf = 138412290;
-      v22[0] = v9;
+      v20[0] = v9;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Ending connection for service: %@", buf, 0xCu);
     }
 
@@ -868,26 +868,24 @@ void sub_10000727C(uint64_t a1, uint64_t a2, void *a3)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
     {
-      sub_10000A870(a1);
+      sub_10000A870();
     }
 
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100007540;
-    v17[3] = &unk_1000146C8;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100007540;
+    v15[3] = &unk_1000146C8;
     v10 = *(a1 + 72);
     v11 = *(a1 + 56);
-    v17[4] = *(a1 + 40);
-    v17[5] = v10;
+    v15[4] = *(a1 + 40);
+    v15[5] = v10;
     v12 = *(a1 + 80);
-    v18 = v11;
-    v19 = v12;
-    v20 = *(a1 + 96);
-    v13 = objc_retainBlock(v17);
-    v14 = [CPXConnection alloc];
-    v15 = *(*(*(a1 + 80) + 8) + 40);
-    v16 = [(CPXConnection *)v14 initWithIDSDeviceConnection:*(*(*(a1 + 56) + 8) + 40) idsMessageContext:*(a1 + 48) localSocket:*(*(*(a1 + 64) + 8) + 24) bridgeSocket:a2 localCompletion:v13 bridgeCompletion:&stru_1000146E8 serviceName:v15 servicePort:*(*(*(a1 + 72) + 8) + 24)];
-    [*(a1 + 40) handleGenericCPXConnection:v16];
+    v16 = v11;
+    v17 = v12;
+    v18 = *(a1 + 96);
+    v13 = objc_retainBlock(v15);
+    v14 = [[CPXConnection alloc] initWithIDSDeviceConnection:*(*(*(a1 + 56) + 8) + 40) idsMessageContext:*(a1 + 48) localSocket:*(*(*(a1 + 64) + 8) + 24) bridgeSocket:a2 localCompletion:v13 bridgeCompletion:&stru_1000146E8 serviceName:*(*(*(a1 + 80) + 8) + 40) servicePort:*(*(*(a1 + 72) + 8) + 24)];
+    [*(a1 + 40) handleGenericCPXConnection:v14];
   }
 }
 
@@ -895,7 +893,7 @@ id sub_100007540(uint64_t a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_10000A930(a1);
+    sub_10000A930();
   }
 
   [*(*(*(a1 + 48) + 8) + 40) close];
@@ -1717,9 +1715,9 @@ LABEL_31:
   objc_autoreleasePoolPop(context);
 }
 
-void sub_100009394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_100009394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2040,30 +2038,6 @@ void sub_10000A5E8(void *a1)
   v6 = [a1 udid];
   sub_1000038B0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
-}
-
-void sub_10000A748(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_1000038B0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_10000A870(void *a1)
-{
-  v6 = *(*(a1[8] + 8) + 24);
-  v7 = *(*(a1[9] + 8) + 24);
-  v8 = a1[4];
-  v9 = *(*(a1[10] + 8) + 40);
-  sub_1000038B0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x26u);
-}
-
-void sub_10000A930(uint64_t a1)
-{
-  v6 = *(*(*(a1 + 40) + 8) + 24);
-  sub_1000038B0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_10000A9FC(int a1)

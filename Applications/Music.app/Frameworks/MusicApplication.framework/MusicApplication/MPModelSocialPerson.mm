@@ -17,14 +17,15 @@
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v9, 0, sizeof(v9));
     selfCopy2 = self;
   }
 
-  v6 = MPModelSocialPerson.isEqual(_:)(v8);
+  MPModelSocialPerson.isEqual(_:)(v9);
+  v7 = v6;
 
-  sub_9BC10(v8);
-  return v6 & 1;
+  sub_9BC10(v9);
+  return v7 & 1;
 }
 
 - (int64_t)hash

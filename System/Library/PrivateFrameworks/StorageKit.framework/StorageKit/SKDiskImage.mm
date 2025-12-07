@@ -35,7 +35,7 @@
 
 + (id)diskImageWithURL:(id)l params:(id)params error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   lCopy = l;
   paramsCopy = params;
   v9 = [[SKDiskImage alloc] initWithURL:lCopy error:error];
@@ -43,19 +43,19 @@
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy__1;
-    v24 = __Block_byref_object_dispose__1;
-    v25 = 0;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy__1;
+    v23 = __Block_byref_object_dispose__1;
+    v24 = 0;
     v10 = dispatch_semaphore_create(0);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __45__SKDiskImage_diskImageWithURL_params_error___block_invoke;
-    v18[3] = &unk_279D1F8B8;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __45__SKDiskImage_diskImageWithURL_params_error___block_invoke;
+    v17[3] = &unk_279D1F8B8;
     p_buf = &buf;
     v11 = v10;
-    v19 = v11;
-    v12 = [(SKDiskImage *)v9 createWithParams:paramsCopy completionBlock:v18];
+    v18 = v11;
+    v12 = [(SKDiskImage *)v9 createWithParams:paramsCopy completionBlock:v17];
     dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
     v13 = *(*(&buf + 1) + 40);
     if (v13)
@@ -87,8 +87,6 @@
 
     v14 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -187,7 +185,7 @@ void __48__SKDiskImage_createWithParams_completionBlock___block_invoke(uint64_t 
 
 - (BOOL)createBlankWithParams:(id)params progress:(id)progress error:(id *)error
 {
-  v94[1] = *MEMORY[0x277D85DE8];
+  v93[1] = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   progressCopy = progress;
   if ([paramsCopy numBlocks] > 0x4F)
@@ -208,13 +206,13 @@ void __48__SKDiskImage_createWithParams_completionBlock___block_invoke(uint64_t 
           [(SKDiskImageAttachParams *)v14 setPolicy:0];
           [(SKDiskImageAttachParams *)v14 setIsManagedAttach:1];
           v15 = [(SKDiskImage *)self attachWithParams:v14 error:error];
-          v74 = v15;
+          v73 = v15;
           if (v15)
           {
             v16 = v15;
-            v72 = paramsCopy;
-            v71 = dispatch_semaphore_create(0);
-            v73 = v16;
+            v71 = paramsCopy;
+            v70 = dispatch_semaphore_create(0);
+            v72 = v16;
             v17 = [SKEraseDisk eraseDiskWithRootDisk:v16 error:error];
             v18 = v17;
             if (v17)
@@ -223,91 +221,91 @@ void __48__SKDiskImage_createWithParams_completionBlock___block_invoke(uint64_t 
               if (formattableFilesystems)
               {
                 v20 = MEMORY[0x277CCAC30];
-                v87[0] = MEMORY[0x277D85DD0];
-                v87[1] = 3221225472;
-                v87[2] = __eraseDisk_block_invoke;
-                v87[3] = &unk_279D1F9E8;
-                v21 = v72;
-                v88 = v21;
-                v22 = [v20 predicateWithBlock:v87];
-                v70 = [formattableFilesystems filteredArrayUsingPredicate:v22];
+                v86[0] = MEMORY[0x277D85DD0];
+                v86[1] = 3221225472;
+                v86[2] = __eraseDisk_block_invoke;
+                v86[3] = &unk_279D1F9E8;
+                v21 = v71;
+                v87 = v21;
+                v22 = [v20 predicateWithBlock:v86];
+                v69 = [formattableFilesystems filteredArrayUsingPredicate:v22];
 
-                if ([v70 count])
+                if ([v69 count])
                 {
                   volumeName = [v21 volumeName];
-                  firstObject = [v70 firstObject];
-                  v69 = [SKVolumeDescriptor descriptorWithName:volumeName filesystem:firstObject];
+                  firstObject = [v69 firstObject];
+                  v68 = [SKVolumeDescriptor descriptorWithName:volumeName filesystem:firstObject];
 
-                  if (v69)
+                  if (v68)
                   {
                     v25 = [SKPartitionDescriptor descriptorWithVolume:?];
                     v26 = v25;
                     if (v25)
                     {
-                      v94[0] = v25;
-                      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:1];
-                      v68 = [SKEraseDisk eraseDiskWithRootDisk:v73 descriptors:v27 error:error];
+                      v93[0] = v25;
+                      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:1];
+                      v67 = [SKEraseDisk eraseDiskWithRootDisk:v72 descriptors:v27 error:error];
 
-                      if (v68)
+                      if (v67)
                       {
-                        v81 = 0;
-                        v82 = &v81;
-                        v83 = 0x3032000000;
-                        v84 = __Block_byref_object_copy__1;
-                        v85 = __Block_byref_object_dispose__1;
-                        v86 = 0;
-                        v75 = 0;
-                        v76 = &v75;
-                        v77 = 0x3032000000;
-                        v78 = __Block_byref_object_copy__1;
-                        v79 = __Block_byref_object_dispose__1;
                         v80 = 0;
+                        v81 = &v80;
+                        v82 = 0x3032000000;
+                        v83 = __Block_byref_object_copy__1;
+                        v84 = __Block_byref_object_dispose__1;
+                        v85 = 0;
+                        v74 = 0;
+                        v75 = &v74;
+                        v76 = 0x3032000000;
+                        v77 = __Block_byref_object_copy__1;
+                        v78 = __Block_byref_object_dispose__1;
+                        v79 = 0;
                         v28 = SKGetOSLog();
                         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
                         {
                           *buf = 138412290;
-                          *&buf[4] = v73;
+                          *&buf[4] = v72;
                           _os_log_impl(&dword_26BBB8000, v28, OS_LOG_TYPE_DEFAULT, "Submitting erase on %@", buf, 0xCu);
                         }
 
                         *buf = MEMORY[0x277D85DD0];
                         *&buf[8] = 3221225472;
                         *&buf[16] = __eraseDisk_block_invoke_125;
-                        v90 = &unk_279D1FA10;
-                        v92 = &v75;
-                        v93 = &v81;
-                        v29 = v71;
-                        v91 = v29;
-                        v66 = [v68 eraseProgressReportingWithCompletionBlock:buf];
-                        v67 = [[SKProgressObserver alloc] initWithProgress:v66];
+                        v89 = &unk_279D1FA10;
+                        v91 = &v74;
+                        v92 = &v80;
+                        v29 = v70;
+                        v90 = v29;
+                        v65 = [v67 eraseProgressReportingWithCompletionBlock:buf];
+                        v66 = [[SKProgressObserver alloc] initWithProgress:v65];
                         dispatch_semaphore_wait(v29, 0xFFFFFFFFFFFFFFFFLL);
-                        v30 = v82;
-                        if (v82[5])
+                        v30 = v81;
+                        if (v81[5])
                         {
-                          messages = [(SKProgressObserver *)v67 messages];
+                          messages = [(SKProgressObserver *)v66 messages];
                           v32 = [messages count] == 0;
 
-                          v30 = v82;
+                          v30 = v81;
                           if (!v32)
                           {
-                            v64 = v26;
-                            userInfo = [v82[5] userInfo];
-                            v65 = [userInfo mutableCopy];
+                            v63 = v26;
+                            userInfo = [v81[5] userInfo];
+                            v64 = [userInfo mutableCopy];
 
                             v34 = MEMORY[0x277CCACA8];
-                            messages2 = [(SKProgressObserver *)v67 messages];
+                            messages2 = [(SKProgressObserver *)v66 messages];
                             v36 = [messages2 componentsJoinedByString:@"\n"];
                             v37 = [v34 stringWithFormat:@"%@", v36];
-                            [v65 setObject:v37 forKey:*MEMORY[0x277CCA068]];
+                            [v64 setObject:v37 forKey:*MEMORY[0x277CCA068]];
 
                             v38 = MEMORY[0x277CCA9B8];
-                            domain = [v82[5] domain];
-                            v40 = [v38 errorWithDomain:domain code:objc_msgSend(v82[5] userInfo:{"code"), v65}];
-                            v41 = v82[5];
-                            v82[5] = v40;
+                            domain = [v81[5] domain];
+                            v40 = [v38 errorWithDomain:domain code:objc_msgSend(v81[5] userInfo:{"code"), v64}];
+                            v41 = v81[5];
+                            v81[5] = v40;
 
-                            v26 = v64;
-                            v30 = v82;
+                            v26 = v63;
+                            v30 = v81;
                           }
                         }
 
@@ -320,12 +318,12 @@ void __48__SKDiskImage_createWithParams_completionBlock___block_invoke(uint64_t 
                           }
                         }
 
-                        v43 = v76[5];
+                        v43 = v75[5];
 
-                        _Block_object_dispose(&v75, 8);
-                        _Block_object_dispose(&v81, 8);
+                        _Block_object_dispose(&v74, 8);
+                        _Block_object_dispose(&v80, 8);
 
-                        v18 = v68;
+                        v18 = v67;
                       }
 
                       else
@@ -384,7 +382,7 @@ void __48__SKDiskImage_createWithParams_completionBlock___block_invoke(uint64_t 
                   v43 = [SKError nilWithSKErrorCode:255 error:error];
                 }
 
-                v52 = v70;
+                v52 = v69;
               }
 
               else
@@ -416,20 +414,20 @@ void __48__SKDiskImage_createWithParams_completionBlock___block_invoke(uint64_t 
 
             if (v43)
             {
-              [v73 ejectWithError:0];
+              [v72 ejectWithError:0];
 
               goto LABEL_64;
             }
 
-            v61 = SKGetOSLog();
-            if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+            v60 = SKGetOSLog();
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *&buf[4] = v73;
-              _os_log_impl(&dword_26BBB8000, v61, OS_LOG_TYPE_ERROR, "Failed to erase %@", buf, 0xCu);
+              *&buf[4] = v72;
+              _os_log_impl(&dword_26BBB8000, v60, OS_LOG_TYPE_ERROR, "Failed to erase %@", buf, 0xCu);
             }
 
-            [v73 ejectWithError:0];
+            [v72 ejectWithError:0];
           }
 
           else
@@ -537,33 +535,32 @@ LABEL_68:
   v10 = [SKError failWithPOSIXCode:28 error:error];
 LABEL_69:
 
-  v59 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)createFromDiskWithParams:(id)params progress:(id)progress completionBlock:(id)block
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   blockCopy = block;
   paramsCopy = params;
   imageURL = [(SKDiskImage *)self imageURL];
-  v25 = 0;
-  v12 = [paramsCopy diConvertParamsWithOutputURL:imageURL error:&v25];
+  v24 = 0;
+  v12 = [paramsCopy diConvertParamsWithOutputURL:imageURL error:&v24];
 
-  v13 = v25;
+  v13 = v24;
   if (v12)
   {
     v14 = MEMORY[0x277D055E0];
-    v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __65__SKDiskImage_createFromDiskWithParams_progress_completionBlock___block_invoke;
-    v21 = &unk_279D1F998;
-    v24 = blockCopy;
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __65__SKDiskImage_createFromDiskWithParams_progress_completionBlock___block_invoke;
+    v20 = &unk_279D1F998;
+    v23 = blockCopy;
     selfCopy = self;
-    v23 = v12;
-    v15 = [v14 convertWithParams:v23 completionBlock:&v18];
-    [progressCopy addChild:v15 withPendingUnitCount:{100, v18, v19, v20, v21, selfCopy}];
+    v22 = v12;
+    v15 = [v14 convertWithParams:v22 completionBlock:&v17];
+    [progressCopy addChild:v15 withPendingUnitCount:{100, v17, v18, v19, v20, selfCopy}];
   }
 
   else
@@ -572,30 +569,28 @@ LABEL_69:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v27 = "[SKDiskImage createFromDiskWithParams:progress:completionBlock:]";
-      v28 = 2112;
-      v29 = v13;
+      v26 = "[SKDiskImage createFromDiskWithParams:progress:completionBlock:]";
+      v27 = 2112;
+      v28 = v13;
       _os_log_impl(&dword_26BBB8000, v16, OS_LOG_TYPE_ERROR, "%s: Could not create 'convert params': %@", buf, 0x16u);
     }
 
     (*(blockCopy + 2))(blockCopy, v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SKDiskImage_createFromDiskWithParams_progress_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = SKGetOSLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_26BBB8000, v4, OS_LOG_TYPE_ERROR, "Create from device failed: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_26BBB8000, v4, OS_LOG_TYPE_ERROR, "Create from device failed: %@", &v6, 0xCu);
     }
 
     v5 = *(*(a1 + 48) + 16);
@@ -608,32 +603,30 @@ void __65__SKDiskImage_createFromDiskWithParams_progress_completionBlock___block
   }
 
   v5();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createFromFolderWithParams:(id)params progress:(id)progress completionBlock:(id)block
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   progressCopy = progress;
   blockCopy = block;
   imageURL = [(SKDiskImage *)self imageURL];
-  v23 = 0;
-  v12 = [paramsCopy diCreatorFromFolderWithURL:imageURL error:&v23];
-  v13 = v23;
+  v22 = 0;
+  v12 = [paramsCopy diCreatorFromFolderWithURL:imageURL error:&v22];
+  v13 = v22;
 
   if (v12)
   {
     sourceFolder = [paramsCopy sourceFolder];
-    v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __67__SKDiskImage_createFromFolderWithParams_progress_completionBlock___block_invoke;
-    v21 = &unk_279D1F9C0;
-    v22 = blockCopy;
-    v15 = [v12 createImageWithSrcFolder:sourceFolder completionBlock:&v18];
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __67__SKDiskImage_createFromFolderWithParams_progress_completionBlock___block_invoke;
+    v20 = &unk_279D1F9C0;
+    v21 = blockCopy;
+    v15 = [v12 createImageWithSrcFolder:sourceFolder completionBlock:&v17];
 
-    [progressCopy addChild:v15 withPendingUnitCount:{100, v18, v19, v20, v21}];
+    [progressCopy addChild:v15 withPendingUnitCount:{100, v17, v18, v19, v20}];
   }
 
   else
@@ -642,30 +635,28 @@ void __65__SKDiskImage_createFromDiskWithParams_progress_completionBlock___block
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[SKDiskImage createFromFolderWithParams:progress:completionBlock:]";
-      v26 = 2112;
-      v27 = v13;
+      v24 = "[SKDiskImage createFromFolderWithParams:progress:completionBlock:]";
+      v25 = 2112;
+      v26 = v13;
       _os_log_impl(&dword_26BBB8000, v16, OS_LOG_TYPE_ERROR, "%s: DiskImageCreatorFromFolder initialization failed: %@", buf, 0x16u);
     }
 
     (*(blockCopy + 2))(blockCopy, v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SKDiskImage_createFromFolderWithParams_progress_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = SKGetOSLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_26BBB8000, v4, OS_LOG_TYPE_ERROR, "Creation from folder failed: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_26BBB8000, v4, OS_LOG_TYPE_ERROR, "Creation from folder failed: %@", &v6, 0xCu);
     }
 
     v5 = *(*(a1 + 32) + 16);
@@ -677,8 +668,6 @@ void __67__SKDiskImage_createFromFolderWithParams_progress_completionBlock___blo
   }
 
   v5();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAttached
@@ -769,7 +758,7 @@ LABEL_9:
 
 - (id)attachWithParams:(id)params error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   if (!paramsCopy)
   {
@@ -783,11 +772,11 @@ LABEL_9:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     imageURL = [(SKDiskImage *)self imageURL];
-    v18 = 138412546;
-    v19 = imageURL;
-    v20 = 2112;
-    v21 = paramsCopy;
-    _os_log_impl(&dword_26BBB8000, v7, OS_LOG_TYPE_DEFAULT, "Attaching %@ with %@", &v18, 0x16u);
+    v17 = 138412546;
+    v18 = imageURL;
+    v19 = 2112;
+    v20 = paramsCopy;
+    _os_log_impl(&dword_26BBB8000, v7, OS_LOG_TYPE_DEFAULT, "Attaching %@ with %@", &v17, 0x16u);
   }
 
   v9 = [(SKDiskImage *)self diAttachWithParams:paramsCopy error:error];
@@ -799,11 +788,11 @@ LABEL_9:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         imageURL2 = [(SKDiskImage *)self imageURL];
-        v18 = 138412546;
-        v19 = imageURL2;
-        v20 = 2112;
-        v21 = v9;
-        _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_DEFAULT, "Attached disk image %@ to %@ device successfully", &v18, 0x16u);
+        v17 = 138412546;
+        v18 = imageURL2;
+        v19 = 2112;
+        v20 = v9;
+        _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_DEFAULT, "Attached disk image %@ to %@ device successfully", &v17, 0x16u);
       }
 
       v12 = v9;
@@ -817,11 +806,11 @@ LABEL_9:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       imageURL3 = [(SKDiskImage *)self imageURL];
-      v18 = 136315394;
-      v19 = "[SKDiskImage attachWithParams:error:]";
-      v20 = 2112;
-      v21 = imageURL3;
-      _os_log_impl(&dword_26BBB8000, v14, OS_LOG_TYPE_ERROR, "%s: Failed to attach %@", &v18, 0x16u);
+      v17 = 136315394;
+      v18 = "[SKDiskImage attachWithParams:error:]";
+      v19 = 2112;
+      v20 = imageURL3;
+      _os_log_impl(&dword_26BBB8000, v14, OS_LOG_TYPE_ERROR, "%s: Failed to attach %@", &v17, 0x16u);
     }
   }
 
@@ -829,20 +818,17 @@ LABEL_9:
 LABEL_14:
 
 LABEL_15:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 id __38__SKDiskImage_attachWithParams_error___block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"faultCode";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"faultCode";
   v0 = base64Encode("SKDiskImage.m", 348);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -913,7 +899,7 @@ LABEL_14:
 
 - (id)retrieveInfoWithParams:(id)params error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   if ([(SKDiskImage *)self retrieveDIInfoWithParams:paramsCopy error:error])
   {
@@ -954,9 +940,9 @@ LABEL_14:
           v14 = SKGetOSLog();
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            v17 = 136315138;
-            v18 = "[SKDiskImage retrieveInfoWithParams:error:]";
-            _os_log_impl(&dword_26BBB8000, v14, OS_LOG_TYPE_ERROR, "%s: Attach failed", &v17, 0xCu);
+            v16 = 136315138;
+            v17 = "[SKDiskImage retrieveInfoWithParams:error:]";
+            _os_log_impl(&dword_26BBB8000, v14, OS_LOG_TYPE_ERROR, "%s: Attach failed", &v16, 0xCu);
           }
 
           imageInfo = 0;
@@ -974,8 +960,6 @@ LABEL_14:
   {
     imageInfo = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return imageInfo;
 }
@@ -1019,7 +1003,7 @@ LABEL_10:
 
 - (id)diAttachWithParams:(id)params error:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   obj = 0;
   v7 = SKGetOSLog();
@@ -1027,9 +1011,9 @@ LABEL_10:
   {
     imageURL = [(SKDiskImage *)self imageURL];
     *buf = 138412546;
-    v40 = imageURL;
-    v41 = 2112;
-    v42 = paramsCopy;
+    v39 = imageURL;
+    v40 = 2112;
+    v41 = paramsCopy;
     _os_log_impl(&dword_26BBB8000, v7, OS_LOG_TYPE_DEBUG, "Attaching %@ with %@", buf, 0x16u);
   }
 
@@ -1045,9 +1029,9 @@ LABEL_10:
     }
 
     diParams2 = [(SKDiskImage *)self diParams];
-    v37 = 0;
-    v12 = [paramsCopy diAttachParamsWithExistingParams:diParams2 error:&v37];
-    v13 = v37;
+    v36 = 0;
+    v12 = [paramsCopy diAttachParamsWithExistingParams:diParams2 error:&v36];
+    v13 = v36;
 
     if (v12)
     {
@@ -1059,9 +1043,9 @@ LABEL_10:
   {
     imageURL2 = [(SKDiskImage *)self imageURL];
     shadowURLs = [(SKDiskImage *)self shadowURLs];
-    v36 = 0;
-    v12 = [paramsCopy diAttachParamsWithURL:imageURL2 shadowURLs:shadowURLs error:&v36];
-    v13 = v36;
+    v35 = 0;
+    v12 = [paramsCopy diAttachParamsWithURL:imageURL2 shadowURLs:shadowURLs error:&v35];
+    v13 = v35;
 
     [(SKDiskImage *)self setDiParams:v12];
     if (v12)
@@ -1077,17 +1061,17 @@ LABEL_10:
     {
       imageURL3 = [(SKDiskImage *)self imageURL];
       *buf = 138412546;
-      v40 = imageURL3;
-      v41 = 2112;
-      v42 = paramsCopy;
+      v39 = imageURL3;
+      v40 = 2112;
+      v41 = paramsCopy;
       _os_log_impl(&dword_26BBB8000, v16, OS_LOG_TYPE_DEFAULT, "Fallback attaching %@ with %@", buf, 0x16u);
     }
 
     v18 = MEMORY[0x277D05598];
     imageURL4 = [(SKDiskImage *)self imageURL];
-    v35 = 0;
-    v20 = [v18 diskImageAttach:imageURL4 readOnly:objc_msgSend(paramsCopy autoMount:"readOnly") BSDName:0 error:{&v35, error}];
-    v21 = v35;
+    v34 = 0;
+    v20 = [v18 diskImageAttach:imageURL4 readOnly:objc_msgSend(paramsCopy autoMount:"readOnly") BSDName:0 error:{&v34, error}];
+    v21 = v34;
 
 LABEL_26:
     v28 = 0;
@@ -1120,7 +1104,7 @@ LABEL_13:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v40 = "[SKDiskImage diAttachWithParams:error:]";
+      v39 = "[SKDiskImage diAttachWithParams:error:]";
       _os_log_impl(&dword_26BBB8000, v24, OS_LOG_TYPE_ERROR, "%s: Failed to create attach params", buf, 0xCu);
     }
 
@@ -1131,17 +1115,17 @@ LABEL_13:
   {
     imageURL5 = [(SKDiskImage *)self imageURL];
     *buf = 138412546;
-    v40 = imageURL5;
-    v41 = 2112;
-    v42 = v12;
+    v39 = imageURL5;
+    v40 = 2112;
+    v41 = v12;
     _os_log_impl(&dword_26BBB8000, v24, OS_LOG_TYPE_DEFAULT, "Attaching %@ with %@", buf, 0x16u);
   }
 
   if (![paramsCopy isManagedAttach])
   {
-    v34 = 0;
-    v20 = [MEMORY[0x277D05598] diskImageAttach:v12 BSDName:&v34 error:error];
-    v21 = v34;
+    v33 = 0;
+    v20 = [MEMORY[0x277D05598] diskImageAttach:v12 BSDName:&v33 error:error];
+    v21 = v33;
     goto LABEL_26;
   }
 
@@ -1171,21 +1155,19 @@ LABEL_30:
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v40 = obj;
+    v39 = obj;
     _os_log_impl(&dword_26BBB8000, v29, OS_LOG_TYPE_DEFAULT, "Attached device %@", buf, 0xCu);
   }
 
   v30 = [(SKDiskImage *)self deduceDiskWithError:error];
 LABEL_37:
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v30;
 }
 
 - (id)deduceDiskWithError:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = +[SKManager syncSharedManager];
   deviceHandle = [(SKDiskImage *)self deviceHandle];
 
@@ -1207,9 +1189,9 @@ LABEL_37:
       {
         deviceHandle3 = [(SKDiskImage *)self deviceHandle];
         bSDName2 = [deviceHandle3 BSDName];
-        v17 = 138412290;
-        v18 = bSDName2;
-        _os_log_impl(&dword_26BBB8000, v12, OS_LOG_TYPE_ERROR, "Couldn't discover disk %@ after attach", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = bSDName2;
+        _os_log_impl(&dword_26BBB8000, v12, OS_LOG_TYPE_ERROR, "Couldn't discover disk %@ after attach", &v16, 0xCu);
       }
 
       v10 = [SKError nilWithSKErrorCode:251 error:error];
@@ -1222,8 +1204,6 @@ LABEL_37:
   {
     v11 = [SKError nilWithSKErrorCode:251 error:error];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1247,7 +1227,7 @@ LABEL_37:
 
 - (BOOL)mount:(id)mount params:(id)params outError:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   mountCopy = mount;
   paramsCopy = params;
   policy = [paramsCopy policy];
@@ -1258,11 +1238,11 @@ LABEL_37:
       v12 = SKGetOSLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138412546;
-        v19 = mountCopy;
-        v20 = 2112;
-        v21 = paramsCopy;
-        _os_log_impl(&dword_26BBB8000, v12, OS_LOG_TYPE_DEFAULT, "Mounting disk %@ with %@", &v18, 0x16u);
+        v17 = 138412546;
+        v18 = mountCopy;
+        v19 = 2112;
+        v20 = paramsCopy;
+        _os_log_impl(&dword_26BBB8000, v12, OS_LOG_TYPE_DEFAULT, "Mounting disk %@ with %@", &v17, 0x16u);
       }
 
       mountParams = [paramsCopy mountParams];
@@ -1287,11 +1267,11 @@ LABEL_37:
       v10 = SKGetOSLog();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138412546;
-        v19 = mountCopy;
-        v20 = 2112;
-        v21 = paramsCopy;
-        _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_DEFAULT, "Mounting disk %@ with %@", &v18, 0x16u);
+        v17 = 138412546;
+        v18 = mountCopy;
+        v19 = 2112;
+        v20 = paramsCopy;
+        _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_DEFAULT, "Mounting disk %@ with %@", &v17, 0x16u);
       }
 
       mountParams2 = [paramsCopy mountParams];
@@ -1302,7 +1282,6 @@ LABEL_37:
   v15 = 1;
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -1404,7 +1383,7 @@ LABEL_11:
 
 - (id)newShallowResizerWithParams:(id)params error:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v7 = objc_opt_new();
   [v7 setShallow:{objc_msgSend(paramsCopy, "shallow")}];
@@ -1420,21 +1399,20 @@ LABEL_11:
     v10 = SKGetOSLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315138;
-      v14 = "[SKDiskImage(Resize) newShallowResizerWithParams:error:]";
-      _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_ERROR, "%s: Failed to get shallow limits", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "[SKDiskImage(Resize) newShallowResizerWithParams:error:]";
+      _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_ERROR, "%s: Failed to get shallow limits", &v12, 0xCu);
     }
 
     v9 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)newResizerWithParams:(id)params error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   if (![paramsCopy shallow])
   {
@@ -1466,12 +1444,12 @@ LABEL_11:
           {
             resizablePart2 = [(SKLastPartitions *)v14 resizablePart];
             [resizablePart2 type];
-            v21 = v28 = v14;
-            v27 = [v21 isEqualToString:kSKDiskTypeHFS[0]];
+            v21 = v27 = v14;
+            v26 = [v21 isEqualToString:kSKDiskTypeHFS[0]];
 
-            v14 = v28;
+            v14 = v27;
             v17 = off_279D1F268;
-            if (v27)
+            if (v26)
             {
               v17 = off_279D1F250;
             }
@@ -1510,7 +1488,7 @@ LABEL_22:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v30 = "[SKDiskImage(Resize) newResizerWithParams:error:]";
+        v29 = "[SKDiskImage(Resize) newResizerWithParams:error:]";
         _os_log_impl(&dword_26BBB8000, v18, OS_LOG_TYPE_ERROR, "%s: Failed to get root disk of disk image", buf, 0xCu);
       }
     }
@@ -1521,7 +1499,7 @@ LABEL_22:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v30 = "[SKDiskImage(Resize) newResizerWithParams:error:]";
+        v29 = "[SKDiskImage(Resize) newResizerWithParams:error:]";
         _os_log_impl(&dword_26BBB8000, v11, OS_LOG_TYPE_ERROR, "%s: Failed to get limits", buf, 0xCu);
       }
     }
@@ -1535,7 +1513,6 @@ LABEL_23:
   v7 = [(SKDiskImage *)self newShallowResizerWithParams:paramsCopy error:error];
 LABEL_24:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1681,7 +1658,7 @@ void __56__SKDiskImage_Resize__resizeWithParams_completionBlock___block_invoke(u
 
 - (id)resizeLimitsShallowInternalWithLimitsParams:(id)params error:(id *)error
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v6 = [(SKDiskImage *)self deduceDiskWithError:error];
   if (!v6)
   {
@@ -1689,7 +1666,7 @@ void __56__SKDiskImage_Resize__resizeWithParams_completionBlock___block_invoke(u
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v48 = "[SKDiskImage(Resize) resizeLimitsShallowInternalWithLimitsParams:error:]";
+      v47 = "[SKDiskImage(Resize) resizeLimitsShallowInternalWithLimitsParams:error:]";
       _os_log_impl(&dword_26BBB8000, v7, OS_LOG_TYPE_ERROR, "%s: Failed to attach disk image", buf, 0xCu);
     }
 
@@ -1719,7 +1696,7 @@ LABEL_22:
       v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-1];
     }
 
-    v46 = v13;
+    v45 = v13;
     unsignedLongLongValue = [v13 unsignedLongLongValue];
     if ([v12 isEqualToString:@"RAW"])
     {
@@ -1730,7 +1707,7 @@ LABEL_22:
 
       if (v18)
       {
-        unsignedLongLongValue2 = [v46 unsignedLongLongValue];
+        unsignedLongLongValue2 = [v45 unsignedLongLongValue];
         freeSpace = [v18 freeSpace];
         if (unsignedLongLongValue2 >= freeSpace)
         {
@@ -1786,10 +1763,10 @@ LABEL_22:
     {
       resizablePart = [(SKLastPartitions *)v30 resizablePart];
       *buf = 136315650;
-      v48 = "[SKDiskImage(Resize) resizeLimitsShallowInternalWithLimitsParams:error:]";
-      v49 = 2112;
-      v50 = resizablePart;
-      v51 = 2048;
+      v47 = "[SKDiskImage(Resize) resizeLimitsShallowInternalWithLimitsParams:error:]";
+      v48 = 2112;
+      v49 = resizablePart;
+      v50 = 2048;
       nonResizableSize = [(SKLastPartitions *)v30 nonResizableSize];
       _os_log_impl(&dword_26BBB8000, v31, OS_LOG_TYPE_DEFAULT, "%s: Resizable partition: %@, non-resizable size: %lld bytes", buf, 0x20u);
     }
@@ -1816,9 +1793,9 @@ LABEL_22:
           {
             recoveryPart2 = [(SKLastPartitions *)v30 recoveryPart];
             *buf = 136315394;
-            v48 = "[SKDiskImage(Resize) resizeLimitsShallowInternalWithLimitsParams:error:]";
-            v49 = 2112;
-            v50 = recoveryPart2;
+            v47 = "[SKDiskImage(Resize) resizeLimitsShallowInternalWithLimitsParams:error:]";
+            v48 = 2112;
+            v49 = recoveryPart2;
             _os_log_impl(&dword_26BBB8000, v40, OS_LOG_TYPE_DEFAULT, "%s: Recovery partition: %@", buf, 0x16u);
           }
 
@@ -1841,7 +1818,7 @@ LABEL_22:
     if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v48 = "[SKDiskImage(Resize) resizeLimitsShallowInternalWithLimitsParams:error:]";
+      v47 = "[SKDiskImage(Resize) resizeLimitsShallowInternalWithLimitsParams:error:]";
       _os_log_impl(&dword_26BBB8000, v29, OS_LOG_TYPE_FAULT, "%s: Failed to inspect size info", buf, 0xCu);
     }
 
@@ -1850,27 +1827,24 @@ LABEL_22:
   }
 
 LABEL_40:
-  v43 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
 
 id __73__SKDiskImage_Resize__resizeLimitsShallowInternalWithLimitsParams_error___block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"faultCode";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"faultCode";
   v0 = base64Encode("SKDiskImage+Resize.m", 175);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
 
 - (id)resizeLimitsInternalWithLimitsParams:(id)params error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v7 = [(SKDiskImage *)self resizeLimitsShallowInternalWithLimitsParams:paramsCopy error:error];
   if (!v7)
@@ -1878,9 +1852,9 @@ id __73__SKDiskImage_Resize__resizeLimitsShallowInternalWithLimitsParams_error__
     v8 = SKGetOSLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v30 = 136315138;
-      v31 = "[SKDiskImage(Resize) resizeLimitsInternalWithLimitsParams:error:]";
-      _os_log_impl(&dword_26BBB8000, v8, OS_LOG_TYPE_ERROR, "%s: Failed to get limits", &v30, 0xCu);
+      v29 = 136315138;
+      v30 = "[SKDiskImage(Resize) resizeLimitsInternalWithLimitsParams:error:]";
+      _os_log_impl(&dword_26BBB8000, v8, OS_LOG_TYPE_ERROR, "%s: Failed to get limits", &v29, 0xCu);
     }
 
     goto LABEL_10;
@@ -1892,9 +1866,9 @@ id __73__SKDiskImage_Resize__resizeLimitsShallowInternalWithLimitsParams_error__
     v10 = SKGetOSLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v30 = 136315138;
-      v31 = "[SKDiskImage(Resize) resizeLimitsInternalWithLimitsParams:error:]";
-      _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_ERROR, "%s: Failed to attach disk image", &v30, 0xCu);
+      v29 = 136315138;
+      v30 = "[SKDiskImage(Resize) resizeLimitsInternalWithLimitsParams:error:]";
+      _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_ERROR, "%s: Failed to attach disk image", &v29, 0xCu);
     }
 
 LABEL_10:
@@ -1970,14 +1944,12 @@ LABEL_26:
   v11 = v7;
 LABEL_27:
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)resizeLimitsWithLimitsParams:(id)params error:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   isAttached = [(SKDiskImage *)self isAttached];
   if (-[SKDiskImage attachBeforeResizeWithStdinPass:error:](self, "attachBeforeResizeWithStdinPass:error:", [paramsCopy stdinPassPhrase], error))
@@ -2008,9 +1980,9 @@ LABEL_27:
       v10 = SKGetOSLog();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v13 = 136315138;
-        v14 = "[SKDiskImage(Resize) resizeLimitsWithLimitsParams:error:]";
-        _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_ERROR, "%s: Failed to get limits", &v13, 0xCu);
+        v12 = 136315138;
+        v13 = "[SKDiskImage(Resize) resizeLimitsWithLimitsParams:error:]";
+        _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_ERROR, "%s: Failed to get limits", &v12, 0xCu);
       }
     }
   }
@@ -2019,8 +1991,6 @@ LABEL_27:
   {
     v8 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

@@ -17,7 +17,7 @@
 
 - (_SFPBLinkPresentationCardSection)initWithFacade:(id)facade
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBLinkPresentationCardSection *)self init];
   if (v5)
@@ -49,33 +49,33 @@
       v11 = 0;
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     peopleToBadge2 = [facadeCopy peopleToBadge];
-    v13 = [peopleToBadge2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v13 = [peopleToBadge2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(peopleToBadge2);
           }
 
-          v17 = [[_SFPBPerson alloc] initWithFacade:*(*(&v21 + 1) + 8 * i)];
+          v17 = [[_SFPBPerson alloc] initWithFacade:*(*(&v20 + 1) + 8 * i)];
           if (v17)
           {
             [v11 addObject:v17];
           }
         }
 
-        v14 = [peopleToBadge2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v14 = [peopleToBadge2 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v14);
@@ -90,17 +90,16 @@
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBLinkPresentationCardSection)initWithDictionary:(id)dictionary
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v28.receiver = self;
-  v28.super_class = _SFPBLinkPresentationCardSection;
-  v5 = [(_SFPBLinkPresentationCardSection *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = _SFPBLinkPresentationCardSection;
+  v5 = [(_SFPBLinkPresentationCardSection *)&v27 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"coreSpotlightIdentifier"];
@@ -123,29 +122,29 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v22 = v8;
-      v23 = v6;
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
+      v21 = v8;
+      v22 = v6;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       v11 = v10;
-      v12 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v25;
+        v14 = *v24;
         do
         {
           v15 = 0;
           do
           {
-            if (*v25 != v14)
+            if (*v24 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v24 + 1) + 8 * v15);
+            v16 = *(*(&v23 + 1) + 8 * v15);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -157,17 +156,17 @@
           }
 
           while (v13 != v15);
-          v13 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
         }
 
         while (v13);
       }
 
-      v8 = v22;
-      v6 = v23;
+      v8 = v21;
+      v6 = v22;
     }
 
-    v18 = [dictionaryCopy objectForKeyedSubscript:{@"isHighlighted", v22, v23, v24}];
+    v18 = [dictionaryCopy objectForKeyedSubscript:{@"isHighlighted", v21, v22, v23}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -177,7 +176,6 @@
     v19 = v5;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -217,7 +215,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_coreSpotlightIdentifier)
   {
@@ -235,26 +233,26 @@
   if ([(NSArray *)self->_peopleToBadges count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v8 = self->_peopleToBadges;
-    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          dictionaryRepresentation = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -267,7 +265,7 @@
           }
         }
 
-        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -282,8 +280,6 @@
     v16 = [v15 copy];
     [dictionary setObject:v16 forKeyedSubscript:@"url"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -399,7 +395,7 @@ LABEL_18:
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   coreSpotlightIdentifier = [(_SFPBLinkPresentationCardSection *)self coreSpotlightIdentifier];
   if (coreSpotlightIdentifier)
@@ -414,32 +410,31 @@ LABEL_18:
   }
 
   peopleToBadges = [(_SFPBLinkPresentationCardSection *)self peopleToBadges];
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v8 = [peopleToBadges countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [peopleToBadges countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(peopleToBadges);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [peopleToBadges countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [peopleToBadges countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
@@ -449,8 +444,6 @@ LABEL_18:
   {
     PBDataWriterWriteBOOLField();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addPeopleToBadge:(id)badge
@@ -473,27 +466,21 @@ LABEL_18:
 
 - (void)setPeopleToBadge:(id)badge
 {
-  v4 = [badge copy];
-  peopleToBadges = self->_peopleToBadges;
-  self->_peopleToBadges = v4;
+  self->_peopleToBadges = [badge copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setUrl:(id)url
 {
-  v4 = [url copy];
-  url = self->_url;
-  self->_url = v4;
+  self->_url = [url copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCoreSpotlightIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  coreSpotlightIdentifier = self->_coreSpotlightIdentifier;
-  self->_coreSpotlightIdentifier = v4;
+  self->_coreSpotlightIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

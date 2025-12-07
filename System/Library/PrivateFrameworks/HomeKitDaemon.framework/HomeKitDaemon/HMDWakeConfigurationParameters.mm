@@ -143,37 +143,37 @@ LABEL_21:
 
 - (id)serializeWithError:(id *)error
 {
-  v60 = *MEMORY[0x277D85DE8];
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
+  v59 = *MEMORY[0x277D85DE8];
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
+  v42 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v38 = 0u;
   TLV8BufferInit();
   delimiter = [(HMDWakeConfigurationParameters *)self delimiter];
 
   if (delimiter)
   {
     delimiter2 = [(HMDWakeConfigurationParameters *)self delimiter];
-    v37 = 0;
-    secondaryIdentifier = [delimiter2 serializeWithError:&v37];
-    v8 = v37;
+    v36 = 0;
+    secondaryIdentifier = [delimiter2 serializeWithError:&v36];
+    v8 = v36;
 
     if (!v8)
     {
@@ -215,34 +215,34 @@ LABEL_10:
   if (!primaryIdentifier)
   {
 LABEL_21:
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     secondaryIdentifier = [(HMDWakeConfigurationParameters *)self secondaryIdentifier];
-    v30 = [secondaryIdentifier countByEnumeratingWithState:&v32 objects:v38 count:16];
-    if (!v30)
+    v29 = [secondaryIdentifier countByEnumeratingWithState:&v31 objects:v37 count:16];
+    if (!v29)
     {
 LABEL_37:
 
-      v15 = [MEMORY[0x277CBEA90] dataWithBytes:v39 length:?];
+      v15 = [MEMORY[0x277CBEA90] dataWithBytes:v38 length:?];
       v8 = 0;
       goto LABEL_44;
     }
 
-    v19 = *v33;
+    v19 = *v32;
     v20 = 1;
     while (1)
     {
       v21 = 0;
       while (2)
       {
-        if (*v33 != v19)
+        if (*v32 != v19)
         {
           objc_enumerationMutation(secondaryIdentifier);
         }
 
-        v22 = *(*(&v32 + 1) + 8 * v21);
+        v22 = *(*(&v31 + 1) + 8 * v21);
         if ((v20 & 1) == 0)
         {
           if (TLV8BufferAppend())
@@ -251,9 +251,9 @@ LABEL_37:
           }
         }
 
-        v31 = 0;
-        v23 = [v22 serializeWithError:{&v31, v30}];
-        v24 = v31;
+        v30 = 0;
+        v23 = [v22 serializeWithError:{&v30, v29}];
+        v24 = v30;
         if (v24)
         {
           v8 = v24;
@@ -287,7 +287,7 @@ LABEL_37:
         while (bytes2 < v26);
 
         v20 = 0;
-        if (++v21 != v30)
+        if (++v21 != v29)
         {
           continue;
         }
@@ -296,8 +296,8 @@ LABEL_37:
       }
 
       v20 = 0;
-      v30 = [secondaryIdentifier countByEnumeratingWithState:&v32 objects:v38 count:16];
-      if (!v30)
+      v29 = [secondaryIdentifier countByEnumeratingWithState:&v31 objects:v37 count:16];
+      if (!v29)
       {
         goto LABEL_37;
       }
@@ -305,9 +305,9 @@ LABEL_37:
   }
 
   primaryIdentifier2 = [(HMDWakeConfigurationParameters *)self primaryIdentifier];
-  v36 = 0;
-  secondaryIdentifier = [primaryIdentifier2 serializeWithError:&v36];
-  v8 = v36;
+  v35 = 0;
+  secondaryIdentifier = [primaryIdentifier2 serializeWithError:&v35];
+  v8 = v35;
 
   if (v8)
   {
@@ -347,8 +347,6 @@ LABEL_43:
   v15 = 0;
 LABEL_44:
   TLV8BufferFree();
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

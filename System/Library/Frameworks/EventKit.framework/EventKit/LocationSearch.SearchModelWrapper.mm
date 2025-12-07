@@ -21,18 +21,17 @@
 
   if (*&self->store[OBJC_IVAR____TtCV8EventKit14LocationSearch18SearchModelWrapper_eventID])
   {
-    v4 = *(&self->super.isa + OBJC_IVAR____TtCV8EventKit14LocationSearch18SearchModelWrapper_eventID);
 
-    v5 = sub_1A81ACCB4();
+    v4 = sub_1A81ACCB4();
   }
 
   else
   {
 
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)shouldIssueAvailabilityRequestForSearchModel:(id)model

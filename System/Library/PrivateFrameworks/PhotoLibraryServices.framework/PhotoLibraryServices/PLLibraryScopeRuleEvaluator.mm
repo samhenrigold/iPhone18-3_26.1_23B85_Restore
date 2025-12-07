@@ -62,7 +62,7 @@ LABEL_3:
             interpreter = [(PLLibraryScopeRuleEvaluator *)selfCopy interpreter];
             v17 = [interpreter evaluateObjects:v52 forCondition:v14];
 
-            if ([v17 count])
+            if (objc_msgSend_count(v17))
             {
               criteria = [v14 criteria];
               if (criteria == 2)
@@ -114,7 +114,7 @@ LABEL_3:
         while (v12);
       }
 
-      v24 = [v52 count];
+      v24 = objc_msgSend_count(v52);
       objc_autoreleasePoolPop(context);
       if (!v24)
       {

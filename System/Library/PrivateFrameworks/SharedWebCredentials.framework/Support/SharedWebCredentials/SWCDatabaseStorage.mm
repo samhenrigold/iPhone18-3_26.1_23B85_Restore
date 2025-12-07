@@ -20,9 +20,9 @@
 - (SWCDatabaseStorage)initWithCoder:(id)coder
 {
   context = objc_autoreleasePoolPush();
-  v49.receiver = self;
-  v49.super_class = SWCDatabaseStorage;
-  v5 = [(SWCDatabaseStorage *)&v49 init];
+  v48.receiver = self;
+  v48.super_class = SWCDatabaseStorage;
+  v5 = [(SWCDatabaseStorage *)&v48 init];
   if (!v5)
   {
     goto LABEL_25;
@@ -30,26 +30,26 @@
 
   v5->_databaseVersion = [coder decodeInt64ForKey:@"databaseVersion"];
   v6 = objc_opt_class();
-  v36 = objc_opt_class();
+  v35 = objc_opt_class();
   v7 = [NSSet alloc];
-  v56[0] = objc_opt_class();
-  v56[1] = v6;
-  v8 = [NSArray arrayWithObjects:v56 count:2];
-  v38 = [v7 initWithArray:v8];
+  v55[0] = objc_opt_class();
+  v55[1] = v6;
+  v8 = [NSArray arrayWithObjects:v55 count:2];
+  v37 = [v7 initWithArray:v8];
 
   v9 = [NSSet alloc];
-  v55[0] = objc_opt_class();
-  v55[1] = objc_opt_class();
-  v55[2] = objc_opt_class();
-  v55[3] = objc_opt_class();
-  v55[4] = objc_opt_class();
-  v55[5] = objc_opt_class();
-  v55[6] = v36;
-  v10 = [NSArray arrayWithObjects:v55 count:7];
-  v37 = [v9 initWithArray:v10];
+  v54[0] = objc_opt_class();
+  v54[1] = objc_opt_class();
+  v54[2] = objc_opt_class();
+  v54[3] = objc_opt_class();
+  v54[4] = objc_opt_class();
+  v54[5] = objc_opt_class();
+  v54[6] = v35;
+  v10 = [NSArray arrayWithObjects:v54 count:7];
+  v36 = [v9 initWithArray:v10];
 
-  v11 = [coder swc_decodeObjectOfClasses:v38 forKey:@"entries"];
-  v12 = [coder swc_decodeObjectOfClasses:v37 forKey:@"settings"];
+  v11 = [coder swc_decodeObjectOfClasses:v37 forKey:@"entries"];
+  v12 = [coder swc_decodeObjectOfClasses:v36 forKey:@"settings"];
   v13 = [coder swc_decodeObjectOfClass:objc_opt_class() forKey:@"launchServicesDatabaseGeneration"];
   v14 = [coder swc_decodeObjectOfClass:objc_opt_class() forKey:@"enterpriseState"];
   if (v11)
@@ -58,49 +58,48 @@
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
 LABEL_16:
-      v22 = [NSError alloc];
-      v52[0] = @"Line";
-      v52[1] = @"Function";
-      v53[0] = &off_10002E6C8;
+      v21 = [NSError alloc];
+      v51[0] = @"Line";
+      v51[1] = @"Function";
+      v52[0] = &off_10002E6C8;
       entries = [NSString stringWithUTF8String:"[SWCDatabaseStorage initWithCoder:]"];
-      v53[1] = entries;
-      v23 = [NSDictionary dictionaryWithObjects:v53 forKeys:v52 count:2];
-      v24 = [v22 initWithDomain:NSCocoaErrorDomain code:4864 userInfo:v23];
-      [coder failWithError:v24];
+      v52[1] = entries;
+      v22 = [NSDictionary dictionaryWithObjects:v52 forKeys:v51 count:2];
+      v23 = [v21 initWithDomain:NSCocoaErrorDomain code:4864 userInfo:v22];
+      [coder failWithError:v23];
 
       goto LABEL_17;
     }
 
     [SWCEntry canonicalizeEntries:v11];
-    v35 = v14;
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
+    v34 = v14;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v15 = v11;
-    v16 = [v15 countByEnumeratingWithState:&v45 objects:v54 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v44 objects:v53 count:16];
     if (v16)
     {
-      v17 = *v46;
+      v17 = *v45;
       while (2)
       {
-        for (i = 0; i != v16; i = i + 1)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v46 != v17)
+          if (*v45 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v45 + 1) + 8 * i);
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
 
-            v14 = v35;
+            v14 = v34;
             goto LABEL_16;
           }
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v45 objects:v54 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v44 objects:v53 count:16];
         if (v16)
         {
           continue;
@@ -110,57 +109,57 @@ LABEL_16:
       }
     }
 
-    v14 = v35;
-    v20 = v15;
+    v14 = v34;
+    v19 = v15;
   }
 
   else
   {
-    v20 = objc_alloc_init(NSOrderedSet);
+    v19 = objc_alloc_init(NSOrderedSet);
   }
 
   entries = v5->_entries;
-  v5->_entries = v20;
+  v5->_entries = v19;
 LABEL_17:
 
   if (v12)
   {
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2020000000;
-    v44 = _NSIsNSDictionary();
-    if (*(v42 + 24) == 1 && (v40[0] = _NSConcreteStackBlock, v40[1] = 3221225472, v40[2] = sub_1000188C0, v40[3] = &unk_10002CF80, v40[4] = &v41, v40[5] = v36, [v12 enumerateKeysAndObjectsUsingBlock:v40], (v42[3] & 1) != 0))
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x2020000000;
+    v43 = _NSIsNSDictionary();
+    if (*(v41 + 24) == 1 && (v39[0] = _NSConcreteStackBlock, v39[1] = 3221225472, v39[2] = sub_1000188C0, v39[3] = &unk_10002CF80, v39[4] = &v40, v39[5] = v35, [v12 enumerateKeysAndObjectsUsingBlock:v39], (v41[3] & 1) != 0))
     {
-      v25 = v12;
+      v24 = v12;
       settings = v5->_settings;
-      v5->_settings = v25;
+      v5->_settings = v24;
     }
 
     else
     {
-      v27 = [NSError alloc];
-      v50[0] = @"Line";
-      v50[1] = @"Function";
-      v51[0] = &off_10002E6E0;
+      v26 = [NSError alloc];
+      v49[0] = @"Line";
+      v49[1] = @"Function";
+      v50[0] = &off_10002E6E0;
       settings = [NSString stringWithUTF8String:"[SWCDatabaseStorage initWithCoder:]"];
-      v51[1] = settings;
-      v28 = [NSDictionary dictionaryWithObjects:v51 forKeys:v50 count:2];
-      v29 = [v27 initWithDomain:NSCocoaErrorDomain code:4864 userInfo:v28];
-      [coder failWithError:v29];
+      v50[1] = settings;
+      v27 = [NSDictionary dictionaryWithObjects:v50 forKeys:v49 count:2];
+      v28 = [v26 initWithDomain:NSCocoaErrorDomain code:4864 userInfo:v27];
+      [coder failWithError:v28];
     }
 
-    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v40, 8);
   }
 
   else
   {
-    v30 = v5->_settings;
+    v29 = v5->_settings;
     v5->_settings = &__NSDictionary0__struct;
   }
 
   launchServicesDatabaseGeneration = v5->_launchServicesDatabaseGeneration;
   v5->_launchServicesDatabaseGeneration = v13;
-  v32 = v13;
+  v31 = v13;
 
   enterpriseState = v5->_enterpriseState;
   v5->_enterpriseState = v14;

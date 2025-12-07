@@ -14,6 +14,7 @@
 - (void)handleActiveGroupSessionDidChangeNotification:(id)notification;
 - (void)registerNotifications;
 - (void)requestGroupSessionWithDetails:(id)details queue:(id)queue completion:(id)completion;
+- (void)setCarPlayVideoActive:(BOOL)active completion:(id)completion;
 @end
 
 @implementation MRAVLocalEndpoint
@@ -221,9 +222,9 @@ void __65__MRAVLocalEndpoint_sharedLocalEndpointForRoutingContextWithUID___block
 
   v5 = +[MRAVOutputContext sharedAudioPresentationContext];
   v6 = [v5 uniqueIdentifier];
-  v7 = [v6 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     v8 = +[MRAVConcreteOutputContext sharedAudioPresentationContext];
   }
@@ -232,7 +233,7 @@ void __65__MRAVLocalEndpoint_sharedLocalEndpointForRoutingContextWithUID___block
   {
     v9 = +[MRAVOutputContext sharedSystemAudioContext];
     v10 = [v9 uniqueIdentifier];
-    v11 = [v10 isEqualToString:*(a1 + 32)];
+    v11 = objc_msgSend_isEqualToString_(v10);
 
     if (v11)
     {
@@ -254,7 +255,7 @@ void __65__MRAVLocalEndpoint_sharedLocalEndpointForRoutingContextWithUID___block
 
   v15 = +[MRAVOutputContext sharedAudioPresentationContext];
   v16 = [v15 uniqueIdentifier];
-  v17 = [v16 isEqualToString:*(a1 + 32)];
+  v17 = objc_msgSend_isEqualToString_(v16);
 
   if (v17)
   {
@@ -267,7 +268,7 @@ LABEL_12:
 
   v19 = +[MRAVOutputContext sharedSystemAudioContext];
   v20 = [v19 uniqueIdentifier];
-  v21 = [v20 isEqualToString:*(a1 + 32)];
+  v21 = objc_msgSend_isEqualToString_(v20);
 
   if (v21)
   {
@@ -402,6 +403,25 @@ void __69__MRAVLocalEndpoint_requestGroupSessionWithDetails_queue_completion___b
   userInfo2 = [notificationCopy userInfo];
 
   [defaultCenter postNotificationName:@"MRAVEndpointGroupSessionInfoDidChangeNotification" object:self userInfo:userInfo2];
+}
+
+- (void)setCarPlayVideoActive:(BOOL)active completion:(id)completion
+{
+  activeCopy = active;
+  completionCopy = completion;
+  outputDevices = [(MRAVOutputContextEndpoint *)self outputDevices];
+  v7 = [outputDevices mr_first:&__block_literal_global_39];
+
+  if (v7)
+  {
+    [v7 setCarPlayVideoActive:activeCopy completion:completionCopy];
+  }
+
+  else if (completionCopy)
+  {
+    v8 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:146 description:@"No CarPlay output device is available"];
+    completionCopy[2](completionCopy, v8);
+  }
 }
 
 - (id)initWithOutputContext:(void *)context

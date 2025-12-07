@@ -2,13 +2,15 @@
 + (id)_localizedTitleForPeople:(id)people;
 + (id)alertControllerWithBlockedPeople:(id)people;
 - (id)showSafetyCheckHandler;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation DSBlockingAlertController
 
 + (id)alertControllerWithBlockedPeople:(id)people
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   peopleCopy = people;
   if ([peopleCopy count])
   {
@@ -24,9 +26,9 @@
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v20 = 138412290;
-      v21 = peopleCopy;
-      _os_log_impl(&dword_248C7E000, v5, OS_LOG_TYPE_INFO, "[DSBlockingAlertController] creating alert for %@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = peopleCopy;
+      _os_log_impl(&dword_248C7E000, v5, OS_LOG_TYPE_INFO, "[DSBlockingAlertController] creating alert for %@", &v19, 0xCu);
     }
 
     v8 = [self _localizedTitleForPeople:peopleCopy];
@@ -51,8 +53,6 @@
   {
     v10 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -106,18 +106,35 @@ void __51__DSBlockingAlertController_showSafetyCheckHandler__block_invoke(uint64
   [DSSafetyCheck authForSafetyCheckWithPresentingViewController:v3 safetyCheckController:v4];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = DSBlockingAlertController;
+  [(DSBlockingAlertController *)&v5 viewDidAppear:appear];
+  presentingViewController = [(DSBlockingAlertController *)self presentingViewController];
+  [(DSBlockingAlertController *)self setAlertPresentingViewController:presentingViewController];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = DSBlockingAlertController;
+  [(DSBlockingAlertController *)&v5 viewDidDisappear:disappear];
+  AnalyticsSendEventLazy();
+  presentingViewController = [(DSBlockingAlertController *)self presentingViewController];
+  [presentingViewController dismissViewControllerAnimated:1 completion:0];
+}
+
 id __46__DSBlockingAlertController_viewDidDisappear___block_invoke()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"entrypoint";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"entrypoint";
   v0 = [MEMORY[0x277CCAC38] processInfo];
   v1 = [v0 processName];
-  v5[1] = @"presentedViewController";
-  v6[0] = v1;
-  v6[1] = MEMORY[0x277CBEC28];
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = @"presentedViewController";
+  v5[0] = v1;
+  v5[1] = MEMORY[0x277CBEC28];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }

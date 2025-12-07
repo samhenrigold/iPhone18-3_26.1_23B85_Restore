@@ -522,7 +522,7 @@ LABEL_13:
       do
       {
         v19 = [_preferredSyncKeyOrder objectAtIndex:v18];
-        v20 = [v5 objectForKey:v19];
+        v20 = objc_msgSend_objectForKey_(v5);
         if (v20)
         {
           [v15 addObject:v20];

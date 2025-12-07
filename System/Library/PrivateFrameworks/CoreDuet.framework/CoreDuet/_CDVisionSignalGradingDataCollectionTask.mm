@@ -87,170 +87,166 @@
 
 - (id)eventFromDict:(id)dict
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
-  v40 = objc_opt_new();
+  v38 = objc_opt_new();
   v4 = objc_opt_new();
+  v52 = 0u;
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v44 = dictCopy;
+  v42 = dictCopy;
   obj = [dictCopy objectForKeyedSubscript:@"visionGrades"];
-  v5 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
-  v41 = v4;
+  v5 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+  v39 = v4;
   if (v5)
   {
     v6 = v5;
     v7 = @"identifier";
     v8 = 0x1E7366000uLL;
-    v9 = *v55;
+    v9 = *v53;
     do
     {
       v10 = 0;
-      v42 = v6;
+      v40 = v6;
       do
       {
-        if (*v55 != v9)
+        if (*v53 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v54 + 1) + 8 * v10);
+        v11 = *(*(&v52 + 1) + 8 * v10);
         context = objc_autoreleasePoolPush();
-        v12 = *(v8 + 176);
-        v13 = objc_opt_new();
-        v14 = [v11 objectForKeyedSubscript:v7];
-        [v13 setIdentifier:v14];
+        v12 = objc_opt_new();
+        v13 = [v11 objectForKeyedSubscript:v7];
+        [v12 setIdentifier:v13];
 
-        v15 = [v11 objectForKeyedSubscript:@"imageGrade"];
-        [v13 setImageGrade:{objc_msgSend(v15, "BOOLValue")}];
+        v14 = [v11 objectForKeyedSubscript:@"imageGrade"];
+        [v12 setImageGrade:{objc_msgSend(v14, "BOOLValue")}];
 
-        v16 = [v11 objectForKeyedSubscript:@"numPeople"];
-        [v13 setNumPeople:{objc_msgSend(v16, "intValue")}];
+        v15 = [v11 objectForKeyedSubscript:@"numPeople"];
+        [v12 setNumPeople:{objc_msgSend(v15, "intValue")}];
 
-        v17 = [v11 objectForKeyedSubscript:@"cameraRollGrade"];
-        [v13 setCameraRollGrade:{objc_msgSend(v17, "BOOLValue")}];
+        v16 = [v11 objectForKeyedSubscript:@"cameraRollGrade"];
+        [v12 setCameraRollGrade:{objc_msgSend(v16, "BOOLValue")}];
 
-        v18 = [v11 objectForKeyedSubscript:@"extractedGrade"];
-        [v13 setExtractedGrade:{objc_msgSend(v18, "BOOLValue")}];
+        v17 = [v11 objectForKeyedSubscript:@"extractedGrade"];
+        [v12 setExtractedGrade:{objc_msgSend(v17, "BOOLValue")}];
 
-        if ([v13 extractedGrade])
+        if ([v12 extractedGrade])
         {
-          v19 = v9;
-          v20 = v8;
-          v21 = v7;
-          v22 = objc_opt_new();
+          v18 = v9;
+          v19 = v8;
+          v20 = v7;
+          v21 = objc_opt_new();
+          v48 = 0u;
+          v49 = 0u;
           v50 = 0u;
           v51 = 0u;
-          v52 = 0u;
-          v53 = 0u;
-          v23 = [v11 objectForKeyedSubscript:@"extractedIds"];
-          v24 = [v23 countByEnumeratingWithState:&v50 objects:v59 count:16];
-          if (v24)
+          v22 = [v11 objectForKeyedSubscript:@"extractedIds"];
+          v23 = [v22 countByEnumeratingWithState:&v48 objects:v57 count:16];
+          if (v23)
           {
-            v25 = v24;
-            v26 = *v51;
+            v24 = v23;
+            v25 = *v49;
             do
             {
-              for (i = 0; i != v25; ++i)
+              for (i = 0; i != v24; ++i)
               {
-                if (*v51 != v26)
+                if (*v49 != v25)
                 {
-                  objc_enumerationMutation(v23);
+                  objc_enumerationMutation(v22);
                 }
 
-                [v22 addObject:{*(*(&v50 + 1) + 8 * i), v40}];
+                [v21 addObject:{*(*(&v48 + 1) + 8 * i), v38}];
               }
 
-              v25 = [v23 countByEnumeratingWithState:&v50 objects:v59 count:16];
+              v24 = [v22 countByEnumeratingWithState:&v48 objects:v57 count:16];
             }
 
-            while (v25);
+            while (v24);
           }
 
-          [v13 setExtractedSignals:v22];
-          v7 = v21;
-          v8 = v20;
-          v9 = v19;
-          v4 = v41;
-          v6 = v42;
+          [v12 setExtractedSignals:v21];
+          v7 = v20;
+          v8 = v19;
+          v9 = v18;
+          v4 = v39;
+          v6 = v40;
         }
 
-        [v4 addObject:{v13, v40}];
+        [v4 addObject:{v12, v38}];
 
         objc_autoreleasePoolPop(context);
         ++v10;
       }
 
       while (v10 != v6);
-      v6 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
+      v6 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
     }
 
     while (v6);
   }
 
-  [v40 setVisionGrades:v4];
-  v28 = objc_opt_new();
+  [v38 setVisionGrades:v4];
+  v27 = objc_opt_new();
+  v44 = 0u;
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v29 = [v44 objectForKeyedSubscript:@"popularityDict"];
-  v30 = [v29 countByEnumeratingWithState:&v46 objects:v58 count:16];
-  if (v30)
+  v28 = [v42 objectForKeyedSubscript:@"popularityDict"];
+  v29 = [v28 countByEnumeratingWithState:&v44 objects:v56 count:16];
+  if (v29)
   {
-    v31 = v30;
-    v32 = *v47;
+    v30 = v29;
+    v31 = *v45;
     do
     {
-      for (j = 0; j != v31; ++j)
+      for (j = 0; j != v30; ++j)
       {
-        if (*v47 != v32)
+        if (*v45 != v31)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v28);
         }
 
-        v34 = *(*(&v46 + 1) + 8 * j);
-        v35 = objc_opt_new();
-        [v35 setIdentifier:v34];
-        v36 = [v44 objectForKeyedSubscript:@"popularityDict"];
-        v37 = [v36 objectForKeyedSubscript:v34];
-        [v35 setCount:{objc_msgSend(v37, "intValue")}];
+        v33 = *(*(&v44 + 1) + 8 * j);
+        v34 = objc_opt_new();
+        [v34 setIdentifier:v33];
+        v35 = [v42 objectForKeyedSubscript:@"popularityDict"];
+        v36 = [v35 objectForKeyedSubscript:v33];
+        [v34 setCount:{objc_msgSend(v36, "intValue")}];
 
-        [v28 addObject:v35];
+        [v27 addObject:v34];
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v46 objects:v58 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v44 objects:v56 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
-  [v40 setPopularityEntries:v28];
-  v38 = *MEMORY[0x1E69E9840];
+  [v38 setPopularityEntries:v27];
 
-  return v40;
+  return v38;
 }
 
 - (void)eventFromFile:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_191750000, log, OS_LOG_TYPE_ERROR, "Error reading vision signal grading data from file %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_191750000, log, OS_LOG_TYPE_ERROR, "Error reading vision signal grading data from file %@: %@", &v3, 0x16u);
 }
 
 - (void)eventFromFile:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "Error unarchiving vision siginal grading data: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "Error unarchiving vision siginal grading data: %@", &v2, 0xCu);
 }
 
 @end

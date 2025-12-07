@@ -49,9 +49,11 @@
 
 uint64_t __46__CSBuiltinSpeakerStateMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance__sharedInstance_7572 = objc_alloc_init(CSBuiltinSpeakerStateMonitor);
+  v0 = objc_alloc_init(CSBuiltinSpeakerStateMonitor);
+  v1 = sharedInstance__sharedInstance_7572;
+  sharedInstance__sharedInstance_7572 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CSBuiltinSpeakerStateMonitor)init
@@ -112,24 +114,22 @@ uint64_t __46__CSBuiltinSpeakerStateMonitor_sharedInstance__block_invoke()
 
 void __81__CSBuiltinSpeakerStateMonitor_CSAudioServerCrashMonitorDidReceiveServerRestart___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v5 = v3;
-      v6 = [v2 localizedDescription];
-      v7 = 136315394;
-      v8 = "[CSBuiltinSpeakerStateMonitor CSAudioServerCrashMonitorDidReceiveServerRestart:]_block_invoke";
-      v9 = 2114;
-      v10 = v6;
-      _os_log_error_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_ERROR, "%s Failed to enable speakerStateListening: %{public}@", &v7, 0x16u);
+      v4 = v3;
+      v5 = [v2 localizedDescription];
+      v6 = 136315394;
+      v7 = "[CSBuiltinSpeakerStateMonitor CSAudioServerCrashMonitorDidReceiveServerRestart:]_block_invoke";
+      v8 = 2114;
+      v9 = v5;
+      _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Failed to enable speakerStateListening: %{public}@", &v6, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didReceiveSpeakerMuteStateChangeNotification:(BOOL)notification
@@ -180,7 +180,7 @@ void __81__CSBuiltinSpeakerStateMonitor_CSAudioServerCrashMonitorDidReceiveServe
 
 - (void)_stopMonitoring
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = +[CSAVVoiceTriggerClientManager sharedVoiceTriggerClient];
   [v2 setSpeakerStateChangedBlock:0];
   [v2 setSpeakerMuteStateChangedBlock:0];
@@ -188,54 +188,50 @@ void __81__CSBuiltinSpeakerStateMonitor_CSAudioServerCrashMonitorDidReceiveServe
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSBuiltinSpeakerStateMonitor _stopMonitoring]";
-    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : Speaker state from AVVC", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSBuiltinSpeakerStateMonitor _stopMonitoring]";
+    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : Speaker state from AVVC", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __47__CSBuiltinSpeakerStateMonitor__stopMonitoring__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v5 = v3;
-      v6 = [v2 localizedDescription];
-      v7 = 136315394;
-      v8 = "[CSBuiltinSpeakerStateMonitor _stopMonitoring]_block_invoke";
-      v9 = 2114;
-      v10 = v6;
-      _os_log_error_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_ERROR, "%s Failed to disable speakerStateListening: %{public}@", &v7, 0x16u);
+      v4 = v3;
+      v5 = [v2 localizedDescription];
+      v6 = 136315394;
+      v7 = "[CSBuiltinSpeakerStateMonitor _stopMonitoring]_block_invoke";
+      v8 = 2114;
+      v9 = v5;
+      _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Failed to disable speakerStateListening: %{public}@", &v6, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   objc_initWeak(&location, self);
   v5 = +[CSAVVoiceTriggerClientManager sharedVoiceTriggerClient];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __58__CSBuiltinSpeakerStateMonitor__startMonitoringWithQueue___block_invoke;
-  v11[3] = &unk_1E865AFF0;
-  objc_copyWeak(&v12, &location);
-  [v5 setSpeakerStateChangedBlock:v11];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __58__CSBuiltinSpeakerStateMonitor__startMonitoringWithQueue___block_invoke_35;
-  v9[3] = &unk_1E865B040;
-  objc_copyWeak(&v10, &location);
-  [v5 setSpeakerMuteStateChangedBlock:v9];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __58__CSBuiltinSpeakerStateMonitor__startMonitoringWithQueue___block_invoke;
+  v10[3] = &unk_1E865AFF0;
+  objc_copyWeak(&v11, &location);
+  [v5 setSpeakerStateChangedBlock:v10];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __58__CSBuiltinSpeakerStateMonitor__startMonitoringWithQueue___block_invoke_35;
+  v8[3] = &unk_1E865B040;
+  objc_copyWeak(&v9, &location);
+  [v5 setSpeakerMuteStateChangedBlock:v8];
   [v5 enableSpeakerStateListening:1 completionBlock:&__block_literal_global_41];
   v6 = +[CSAudioServerCrashMonitor sharedInstance];
   [v6 addObserver:self];
@@ -244,15 +240,14 @@ void __47__CSBuiltinSpeakerStateMonitor__stopMonitoring__block_invoke(uint64_t a
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "[CSBuiltinSpeakerStateMonitor _startMonitoringWithQueue:]";
+    v14 = "[CSBuiltinSpeakerStateMonitor _startMonitoringWithQueue:]";
     _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : Speaker state from AVVC", buf, 0xCu);
   }
 
-  objc_destroyWeak(&v10);
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v11);
 
   objc_destroyWeak(&location);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CSBuiltinSpeakerStateMonitor__startMonitoringWithQueue___block_invoke(uint64_t a1, void *a2)
@@ -289,29 +284,27 @@ void __58__CSBuiltinSpeakerStateMonitor__startMonitoringWithQueue___block_invoke
 
 void __58__CSBuiltinSpeakerStateMonitor__startMonitoringWithQueue___block_invoke_38(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v5 = v3;
-      v6 = [v2 localizedDescription];
-      v7 = 136315394;
-      v8 = "[CSBuiltinSpeakerStateMonitor _startMonitoringWithQueue:]_block_invoke";
-      v9 = 2114;
-      v10 = v6;
-      _os_log_error_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_ERROR, "%s Failed to enable speakerStateListening: %{public}@", &v7, 0x16u);
+      v4 = v3;
+      v5 = [v2 localizedDescription];
+      v6 = 136315394;
+      v7 = "[CSBuiltinSpeakerStateMonitor _startMonitoringWithQueue:]_block_invoke";
+      v8 = 2114;
+      v9 = v5;
+      _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Failed to enable speakerStateListening: %{public}@", &v6, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CSBuiltinSpeakerStateMonitor__startMonitoringWithQueue___block_invoke_2_36(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
@@ -321,31 +314,29 @@ void __58__CSBuiltinSpeakerStateMonitor__startMonitoringWithQueue___block_invoke
       v3 = @"muted";
     }
 
-    v6 = 136315394;
-    v7 = "[CSBuiltinSpeakerStateMonitor _startMonitoringWithQueue:]_block_invoke_2";
-    v8 = 2114;
-    v9 = v3;
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Speaker mute state changed: %{public}@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[CSBuiltinSpeakerStateMonitor _startMonitoringWithQueue:]_block_invoke_2";
+    v7 = 2114;
+    v8 = v3;
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Speaker mute state changed: %{public}@", &v5, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _didReceiveSpeakerMuteStateChangeNotification:*(a1 + 40)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CSBuiltinSpeakerStateMonitor__startMonitoringWithQueue___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v10 = 136315394;
-    v11 = "[CSBuiltinSpeakerStateMonitor _startMonitoringWithQueue:]_block_invoke_2";
-    v12 = 2114;
-    v13 = v3;
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Speaker state changed : %{public}@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[CSBuiltinSpeakerStateMonitor _startMonitoringWithQueue:]_block_invoke_2";
+    v11 = 2114;
+    v12 = v3;
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Speaker state changed : %{public}@", &v9, 0x16u);
   }
 
   v4 = *(a1 + 32);
@@ -361,16 +352,14 @@ void __58__CSBuiltinSpeakerStateMonitor__startMonitoringWithQueue___block_invoke
     v8 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "[CSBuiltinSpeakerStateMonitor _startMonitoringWithQueue:]_block_invoke";
-      _os_log_error_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_ERROR, "%s Failed to get speaker state from AVVC, default to inactive", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[CSBuiltinSpeakerStateMonitor _startMonitoringWithQueue:]_block_invoke";
+      _os_log_error_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_ERROR, "%s Failed to get speaker state from AVVC, default to inactive", &v9, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     [WeakRetained _didReceiveBuiltinSpeakerStateChangeNotification:0];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isBuiltinSpeakerMuted
@@ -438,36 +427,34 @@ void __60__CSBuiltinSpeakerStateMonitor__fetchSpeakerStateActiveInfo__block_invo
 
 uint64_t __60__CSBuiltinSpeakerStateMonitor__fetchSpeakerStateActiveInfo__block_invoke_29(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[CSBuiltinSpeakerStateMonitor _fetchSpeakerStateActiveInfo]_block_invoke";
-    _os_log_error_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_ERROR, "%s Timed-out for fetching speaker state active info, setting speakerStateActive = NO", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSBuiltinSpeakerStateMonitor _fetchSpeakerStateActiveInfo]_block_invoke";
+    _os_log_error_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_ERROR, "%s Timed-out for fetching speaker state active info, setting speakerStateActive = NO", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _didReceiveBuiltinSpeakerStateChangeNotification:0];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _didReceiveBuiltinSpeakerStateChangeNotification:0];
 }
 
 uint64_t __60__CSBuiltinSpeakerStateMonitor__fetchSpeakerStateActiveInfo__block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = CSLogContextFacilityCoreSpeech;
   if (v2)
   {
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v9 = v3;
-      v10 = [v2 localizedDescription];
-      v11 = 136315394;
-      v12 = "[CSBuiltinSpeakerStateMonitor _fetchSpeakerStateActiveInfo]_block_invoke_2";
-      v13 = 2114;
-      v14 = v10;
-      _os_log_error_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_ERROR, "%s Failed to fetch builtIn speaker active state, error : %{public}@", &v11, 0x16u);
+      v8 = v3;
+      v9 = [v2 localizedDescription];
+      v10 = 136315394;
+      v11 = "[CSBuiltinSpeakerStateMonitor _fetchSpeakerStateActiveInfo]_block_invoke_2";
+      v12 = 2114;
+      v13 = v9;
+      _os_log_error_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_ERROR, "%s Failed to fetch builtIn speaker active state, error : %{public}@", &v10, 0x16u);
     }
 
     v4 = *(a1 + 40);
@@ -484,20 +471,18 @@ uint64_t __60__CSBuiltinSpeakerStateMonitor__fetchSpeakerStateActiveInfo__block_
         v6 = &stru_1F58FE330;
       }
 
-      v11 = 136315394;
-      v12 = "[CSBuiltinSpeakerStateMonitor _fetchSpeakerStateActiveInfo]_block_invoke";
-      v13 = 2114;
-      v14 = v6;
-      _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Queried built-in speaker state as %{public}@active", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[CSBuiltinSpeakerStateMonitor _fetchSpeakerStateActiveInfo]_block_invoke";
+      v12 = 2114;
+      v13 = v6;
+      _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Queried built-in speaker state as %{public}@active", &v10, 0x16u);
     }
 
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
   }
 
-  result = [v4 _didReceiveBuiltinSpeakerStateChangeNotification:v5];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v4 _didReceiveBuiltinSpeakerStateChangeNotification:v5];
 }
 
 void __59__CSBuiltinSpeakerStateMonitor__fetchSpeakerStateMutedInfo__block_invoke(uint64_t a1, char a2, void *a3)
@@ -520,44 +505,42 @@ void __59__CSBuiltinSpeakerStateMonitor__fetchSpeakerStateMutedInfo__block_invok
 
 uint64_t __59__CSBuiltinSpeakerStateMonitor__fetchSpeakerStateMutedInfo__block_invoke_15(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
-    v5 = @"NO";
+    v4 = @"NO";
     if (*(a1 + 40))
     {
-      v5 = @"YES";
+      v4 = @"YES";
     }
 
-    v6 = 136315394;
-    v7 = "[CSBuiltinSpeakerStateMonitor _fetchSpeakerStateMutedInfo]_block_invoke";
-    v8 = 2114;
-    v9 = v5;
-    _os_log_error_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_ERROR, "%s Timed-out for fetching speaker state muted info, setting isMuted = %{public}@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[CSBuiltinSpeakerStateMonitor _fetchSpeakerStateMutedInfo]_block_invoke";
+    v7 = 2114;
+    v8 = v4;
+    _os_log_error_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_ERROR, "%s Timed-out for fetching speaker state muted info, setting isMuted = %{public}@", &v5, 0x16u);
   }
 
-  result = [*(a1 + 32) _didReceiveSpeakerMuteStateChangeNotification:*(a1 + 40)];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _didReceiveSpeakerMuteStateChangeNotification:*(a1 + 40)];
 }
 
 uint64_t __59__CSBuiltinSpeakerStateMonitor__fetchSpeakerStateMutedInfo__block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = CSLogContextFacilityCoreSpeech;
   if (v2)
   {
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v8 = v3;
-      v9 = [v2 localizedDescription];
-      v10 = 136315394;
-      v11 = "[CSBuiltinSpeakerStateMonitor _fetchSpeakerStateMutedInfo]_block_invoke_2";
-      v12 = 2114;
-      v13 = v9;
-      _os_log_error_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_ERROR, "%s Failed to fetch speaker state muted info, error : %{public}@", &v10, 0x16u);
+      v7 = v3;
+      v8 = [v2 localizedDescription];
+      v9 = 136315394;
+      v10 = "[CSBuiltinSpeakerStateMonitor _fetchSpeakerStateMutedInfo]_block_invoke_2";
+      v11 = 2114;
+      v12 = v8;
+      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Failed to fetch speaker state muted info, error : %{public}@", &v9, 0x16u);
     }
 
     v4 = 48;
@@ -573,19 +556,17 @@ uint64_t __59__CSBuiltinSpeakerStateMonitor__fetchSpeakerStateMutedInfo__block_i
         v5 = @"muted";
       }
 
-      v10 = 136315394;
-      v11 = "[CSBuiltinSpeakerStateMonitor _fetchSpeakerStateMutedInfo]_block_invoke";
-      v12 = 2114;
-      v13 = v5;
-      _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Queried built-in speaker mute state as %{public}@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[CSBuiltinSpeakerStateMonitor _fetchSpeakerStateMutedInfo]_block_invoke";
+      v11 = 2114;
+      v12 = v5;
+      _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Queried built-in speaker mute state as %{public}@", &v9, 0x16u);
     }
 
     v4 = 49;
   }
 
-  result = [*(a1 + 40) _didReceiveSpeakerMuteStateChangeNotification:*(a1 + v4)];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _didReceiveSpeakerMuteStateChangeNotification:*(a1 + v4)];
 }
 
 @end

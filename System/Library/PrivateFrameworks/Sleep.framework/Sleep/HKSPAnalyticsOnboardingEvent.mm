@@ -7,12 +7,12 @@
 
 - (HKSPAnalyticsOnboardingEvent)initWithOnboardingInfo:(id)info provenanceInfo:(id)provenanceInfo
 {
-  v33[5] = *MEMORY[0x277D85DE8];
+  v32[5] = *MEMORY[0x277D85DE8];
   infoCopy = info;
   provenanceInfoCopy = provenanceInfo;
-  v31.receiver = self;
-  v31.super_class = HKSPAnalyticsOnboardingEvent;
-  v8 = [(HKSPAnalyticsOnboardingEvent *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = HKSPAnalyticsOnboardingEvent;
+  v8 = [(HKSPAnalyticsOnboardingEvent *)&v30 init];
   v9 = v8;
   if (v8)
   {
@@ -21,7 +21,7 @@
     entryPointPayloadValue = [infoCopy entryPointPayloadValue];
     actionPayloadValue = [infoCopy actionPayloadValue];
     source = [provenanceInfoCopy source];
-    v30 = provenanceInfoCopy;
+    v29 = provenanceInfoCopy;
     presentation = [provenanceInfoCopy presentation];
     v15 = actionPayloadValue;
     v16 = MEMORY[0x277CBEB38];
@@ -30,18 +30,18 @@
     v19 = entryPointPayloadValue;
     v20 = stepPayloadValue;
     v21 = [v16 alloc];
-    v32[0] = @"step";
-    v32[1] = @"entryPoint";
-    v33[0] = v20;
-    v33[1] = v19;
-    v32[2] = @"device";
+    v31[0] = @"step";
+    v31[1] = @"entryPoint";
+    v32[0] = v20;
+    v32[1] = v19;
+    v31[2] = @"device";
     v22 = +[HKSPAnalyticsManager currentDeviceType];
-    v33[2] = v22;
-    v33[3] = v18;
-    v32[3] = @"provenance";
-    v32[4] = @"context";
-    v33[4] = v17;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:5];
+    v32[2] = v22;
+    v32[3] = v18;
+    v31[3] = @"provenance";
+    v31[4] = @"context";
+    v32[4] = v17;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:5];
 
     v24 = [v21 initWithDictionary:v23];
     if (v15)
@@ -55,10 +55,9 @@
     v9->_eventPayload = v25;
 
     v27 = v9;
-    provenanceInfoCopy = v30;
+    provenanceInfoCopy = v29;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

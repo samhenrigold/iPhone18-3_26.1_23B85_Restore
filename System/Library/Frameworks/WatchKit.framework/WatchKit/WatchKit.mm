@@ -708,9 +708,9 @@ id _WKValidatedAttributedString(void *a1)
   return v4;
 }
 
-void sub_23B33ECB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23B33ECB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -739,23 +739,23 @@ id getNRPairedDeviceRegistryClass()
   return v1;
 }
 
-void sub_23B33EDA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23B33EDA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23B33EF20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23B33EF20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23B33F098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23B33F098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -786,16 +786,16 @@ id getNRDevicePropertyLocalizedModel()
   return v2;
 }
 
-void sub_23B33F240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23B33F240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23B33F484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23B33F484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -816,42 +816,38 @@ Class __getNRPairedDeviceRegistryClass_block_invoke(uint64_t a1)
 
 uint64_t NanoRegistryLibrary()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 0;
   if (!NanoRegistryLibraryCore_frameworkLibrary)
   {
-    v3[1] = MEMORY[0x277D85DD0];
-    v3[2] = 3221225472;
-    v3[3] = __NanoRegistryLibraryCore_block_invoke;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v4 = xmmword_278B7E090;
-    v5 = 0;
+    v2[1] = MEMORY[0x277D85DD0];
+    v2[2] = 3221225472;
+    v2[3] = __NanoRegistryLibraryCore_block_invoke;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v3 = xmmword_278B7E090;
+    v4 = 0;
     NanoRegistryLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = NanoRegistryLibraryCore_frameworkLibrary;
   if (!NanoRegistryLibraryCore_frameworkLibrary)
   {
-    NanoRegistryLibrary_cold_1(v3);
+    NanoRegistryLibrary_cold_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __NanoRegistryLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   NanoRegistryLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -893,42 +889,38 @@ void *__getUIContentSizeCategorySmallSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t UIKitLibrary()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 0;
   if (!UIKitLibraryCore_frameworkLibrary)
   {
-    v3[1] = MEMORY[0x277D85DD0];
-    v3[2] = 3221225472;
-    v3[3] = __UIKitLibraryCore_block_invoke;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v4 = xmmword_278B7E0C8;
-    v5 = 0;
+    v2[1] = MEMORY[0x277D85DD0];
+    v2[2] = 3221225472;
+    v2[3] = __UIKitLibraryCore_block_invoke;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v3 = xmmword_278B7E0C8;
+    v4 = 0;
     UIKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = UIKitLibraryCore_frameworkLibrary;
   if (!UIKitLibraryCore_frameworkLibrary)
   {
-    UIKitLibrary_cold_1(v3);
+    UIKitLibrary_cold_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __UIKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1363,10 +1355,11 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
 uint64_t SPProtoAudioFilePlayerMessageReadFrom(id *a1, void *a2)
@@ -1513,9 +1506,9 @@ id getUIImageClass()
   return v1;
 }
 
-void sub_23B34377C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23B34377C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1554,10 +1547,10 @@ uint64_t _RunLoopHandler()
             v7 = [__recordedValues objectForKeyedSubscript:v4];
             v8 = [v7 count];
 
-            v9 = wk_default_log();
-            if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+            v10 = wk_default_log(v9);
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
             {
-              v13 = objc_opt_class();
+              v14 = objc_opt_class();
               *buf = 136446978;
               v34 = "_SendRecordedValues";
               v35 = 1024;
@@ -1565,21 +1558,21 @@ uint64_t _RunLoopHandler()
               v37 = 2048;
               v38 = v8;
               v39 = 2114;
-              v40 = v13;
-              v14 = v13;
-              _os_log_debug_impl(&dword_23B338000, v9, OS_LOG_TYPE_DEBUG, "%{public}s:%d: WatchKit: Send %lu setters to %{public}@", buf, 0x26u);
+              v40 = v14;
+              v15 = v14;
+              _os_log_debug_impl(&dword_23B338000, v10, OS_LOG_TYPE_DEBUG, "%{public}s:%d: WatchKit: Send %lu setters to %{public}@", buf, 0x26u);
             }
 
-            v10 = __sharedRemoteInterface;
-            v11 = [__recordedValues objectForKeyedSubscript:v4];
+            v11 = __sharedRemoteInterface;
+            v12 = [__recordedValues objectForKeyedSubscript:v4];
             v41 = v5;
-            v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
-            [v10 sendSetViewController:v4 values:v11 clientIdentifiers:v12];
+            v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
+            [v11 sendSetViewController:v4 values:v12 clientIdentifiers:v13];
           }
 
           else
           {
-            v6 = wk_default_log();
+            v6 = wk_default_log(0);
             if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
             {
               *buf = v22;
@@ -1605,34 +1598,32 @@ uint64_t _RunLoopHandler()
   v28 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v15 = __performAfterSendSetViewControllers;
-  v16 = [v15 countByEnumeratingWithState:&v25 objects:buf count:16];
-  if (v16)
+  v16 = __performAfterSendSetViewControllers;
+  v17 = [v16 countByEnumeratingWithState:&v25 objects:buf count:16];
+  if (v17)
   {
-    v17 = v16;
-    v18 = *v26;
+    v18 = v17;
+    v19 = *v26;
     do
     {
-      for (j = 0; j != v17; ++j)
+      for (j = 0; j != v18; ++j)
       {
-        if (*v26 != v18)
+        if (*v26 != v19)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v16);
         }
 
         (*(*(*(&v25 + 1) + 8 * j) + 16))();
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v25 objects:buf count:16];
+      v18 = [v16 countByEnumeratingWithState:&v25 objects:buf count:16];
     }
 
-    while (v17);
+    while (v18);
   }
 
   [__performAfterSendSetViewControllers removeAllObjects];
-  result = [__cachedRunLoopValues removeAllObjects];
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return [__cachedRunLoopValues removeAllObjects];
 }
 
 id getUNNotificationClass()
@@ -1659,9 +1650,9 @@ id getUNNotificationClass()
   return v1;
 }
 
-void sub_23B3459CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23B3459CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1693,9 +1684,9 @@ id SerializablePropertyValue(void *a1)
   return v1;
 }
 
-void sub_23B349C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23B349C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1707,80 +1698,61 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23B349EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23B349EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23B34A0C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23B34A0C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23B34A2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23B34A2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23B34A4CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23B34A4CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 SEL SetterForProperty(void *a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v1 = a1;
-  if (([v1 lengthOfBytesUsingEncoding:4] - 1) > 0x7C)
-  {
-    goto LABEL_5;
-  }
-
-  v2 = MEMORY[0x28223BE20]();
-  v3 = v10 - ((v2 + 16) & 0xFFFFFFFFFFFFFFF0);
-  if (([v1 getCString:v3 maxLength:v2 + 1 encoding:4] & 1) == 0)
-  {
-    goto LABEL_5;
-  }
-
-  *v3 = __toupper(*v3);
-  v4 = MEMORY[0x277CCACA8];
-  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v3];
-  v6 = [v4 stringWithFormat:@"set%@:", v5];
-
-  if (v6)
+  if ([v1 lengthOfBytesUsingEncoding:4] - 1) <= 0x7C && (v2 = MEMORY[0x28223BE20](), v3 = v9 - ((v2 + 16) & 0xFFFFFFFFFFFFFFF0), (objc_msgSend(v1, "getCString:maxLength:encoding:", v3, v2 + 1, 4)) && (*v3 = __toupper(*v3), v4 = MEMORY[0x277CCACA8], objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", v3), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "stringWithFormat:", @"set%@:", v5), v6 = objc_claimAutoreleasedReturnValue(), v5, v6))
   {
     v7 = NSSelectorFromString(v6);
   }
 
   else
   {
-LABEL_5:
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-id WKInterfaceControllerClass()
+id WKInterfaceControllerClass(uint64_t a1)
 {
   if (WKInterfaceControllerClass_onceToken != -1)
   {
     WKInterfaceControllerClass_cold_1();
   }
 
-  v1 = WKInterfaceControllerClass___wkInterfaceControllerClass;
+  v2 = WKInterfaceControllerClass___wkInterfaceControllerClass;
 
-  return v1;
+  return v2;
 }
 
 Class __WKInterfaceControllerClass_block_invoke()
@@ -1802,6 +1774,13 @@ id SPInterfaceObjectWithType(void *a1)
   v3 = [SPInterfaceObjectWithType___interfaceClasses objectForKeyedSubscript:v2];
 
   return v3;
+}
+
+void sub_23B34E2C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __abort_with_reason(uint64_t a1)
@@ -1831,9 +1810,9 @@ uint64_t __abort_with_reason(uint64_t a1)
   return v2(22, 1, a1, 2);
 }
 
-void sub_23B34E6A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23B34E6A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1862,37 +1841,37 @@ id getUNUserNotificationCenterClass()
   return v1;
 }
 
-void sub_23B34F3E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23B34F3E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getUIImageClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!UIKitLibraryCore_frameworkLibrary_0)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __UIKitLibraryCore_block_invoke_0;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278B7E590;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __UIKitLibraryCore_block_invoke_0;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278B7E590;
+    v5 = 0;
     UIKitLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
   if (!UIKitLibraryCore_frameworkLibrary_0)
   {
-    __getUIImageClass_block_invoke_cold_2(v4);
+    __getUIImageClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("UIImage");
@@ -1903,17 +1882,13 @@ Class __getUIImageClass_block_invoke(uint64_t a1)
   }
 
   getUIImageClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __UIKitLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1933,114 +1908,104 @@ Class __getUNNotificationClass_block_invoke(uint64_t a1)
 
 uint64_t UserNotificationsLibrary()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 0;
   if (!UserNotificationsLibraryCore_frameworkLibrary)
   {
-    v3[1] = MEMORY[0x277D85DD0];
-    v3[2] = 3221225472;
-    v3[3] = __UserNotificationsLibraryCore_block_invoke;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v4 = xmmword_278B7E5A8;
-    v5 = 0;
+    v2[1] = MEMORY[0x277D85DD0];
+    v2[2] = 3221225472;
+    v2[3] = __UserNotificationsLibraryCore_block_invoke;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v3 = xmmword_278B7E5A8;
+    v4 = 0;
     UserNotificationsLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = UserNotificationsLibraryCore_frameworkLibrary;
   if (!UserNotificationsLibraryCore_frameworkLibrary)
   {
-    UserNotificationsLibrary_cold_1(v3);
+    UserNotificationsLibrary_cold_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __UserNotificationsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UserNotificationsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __SPInterfaceObjectWithType_block_invoke()
 {
-  v4[9] = *MEMORY[0x277D85DE8];
-  v3[0] = @"button";
-  v4[0] = objc_opt_class();
-  v3[1] = @"switch";
-  v4[1] = objc_opt_class();
-  v3[2] = @"image";
-  v4[2] = objc_opt_class();
-  v3[3] = @"label";
-  v4[3] = objc_opt_class();
-  v3[4] = @"list";
-  v4[4] = objc_opt_class();
-  v3[5] = @"table";
-  v4[5] = objc_opt_class();
-  v3[6] = @"group";
-  v4[6] = objc_opt_class();
-  v3[7] = @"map";
-  v4[7] = objc_opt_class();
-  v3[8] = @"slider";
-  v4[8] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:9];
+  v3[9] = *MEMORY[0x277D85DE8];
+  v2[0] = @"button";
+  v3[0] = objc_opt_class();
+  v2[1] = @"switch";
+  v3[1] = objc_opt_class();
+  v2[2] = @"image";
+  v3[2] = objc_opt_class();
+  v2[3] = @"label";
+  v3[3] = objc_opt_class();
+  v2[4] = @"list";
+  v3[4] = objc_opt_class();
+  v2[5] = @"table";
+  v3[5] = objc_opt_class();
+  v2[6] = @"group";
+  v3[6] = objc_opt_class();
+  v2[7] = @"map";
+  v3[7] = objc_opt_class();
+  v2[8] = @"slider";
+  v3[8] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:9];
   v1 = SPInterfaceObjectWithType___interfaceClasses;
   SPInterfaceObjectWithType___interfaceClasses = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void *__getabort_with_reasonSymbolLoc_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!SystemLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __SystemLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_278B7E5C0;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __SystemLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_278B7E5C0;
+    v6 = 0;
     SystemLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v2 = SystemLibraryCore_frameworkLibrary;
   if (!SystemLibraryCore_frameworkLibrary)
   {
-    __getabort_with_reasonSymbolLoc_block_invoke_cold_1(v5);
+    __getabort_with_reasonSymbolLoc_block_invoke_cold_1(v4);
   }
 
-  if (v5[0])
+  if (v4[0])
   {
-    free(v5[0]);
+    free(v4[0]);
   }
 
   result = dlsym(v2, "abort_with_reason");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getabort_with_reasonSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __SystemLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SystemLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2901,9 +2866,9 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23B3582D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23B3582D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2924,42 +2889,38 @@ Class __getNRPairedDeviceRegistryClass_block_invoke_0(uint64_t a1)
 
 uint64_t NanoRegistryLibrary_0()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 0;
   if (!NanoRegistryLibraryCore_frameworkLibrary_0)
   {
-    v3[1] = MEMORY[0x277D85DD0];
-    v3[2] = 3221225472;
-    v3[3] = __NanoRegistryLibraryCore_block_invoke_0;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v4 = xmmword_278B7F090;
-    v5 = 0;
+    v2[1] = MEMORY[0x277D85DD0];
+    v2[2] = 3221225472;
+    v2[3] = __NanoRegistryLibraryCore_block_invoke_0;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v3 = xmmword_278B7F090;
+    v4 = 0;
     NanoRegistryLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
   v0 = NanoRegistryLibraryCore_frameworkLibrary_0;
   if (!NanoRegistryLibraryCore_frameworkLibrary_0)
   {
-    NanoRegistryLibrary_cold_1_0(v3);
+    NanoRegistryLibrary_cold_1_0(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __NanoRegistryLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   NanoRegistryLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2974,15 +2935,15 @@ void *__getNRDevicePropertyCurrentUserLocaleSymbolLoc_block_invoke(uint64_t a1)
 
 void getXcodeSupportRemoteObjectProxy(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v2 = wk_default_log();
+  v2 = wk_default_log(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v16 = "getXcodeSupportRemoteObjectProxy";
-    v17 = 1024;
-    v18 = 80;
+    v15 = "getXcodeSupportRemoteObjectProxy";
+    v16 = 1024;
+    v17 = 80;
     _os_log_impl(&dword_23B338000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: ", buf, 0x12u);
   }
 
@@ -2997,25 +2958,23 @@ void getXcodeSupportRemoteObjectProxy(void *a1)
   [v3 setExportedObject:v6];
 
   [v3 resume];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __getXcodeSupportRemoteObjectProxy_block_invoke;
-  v13[3] = &unk_278B7F128;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __getXcodeSupportRemoteObjectProxy_block_invoke;
+  v12[3] = &unk_278B7F128;
   v7 = v1;
-  v14 = v7;
-  v8 = [v3 remoteObjectProxyWithErrorHandler:v13];
+  v13 = v7;
+  v8 = [v3 remoteObjectProxyWithErrorHandler:v12];
   if (v8)
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __getXcodeSupportRemoteObjectProxy_block_invoke_99;
-    v10[3] = &unk_278B7F150;
-    v12 = v7;
-    v11 = v8;
-    spUtils_dispatchAsyncToMainThread(v10);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __getXcodeSupportRemoteObjectProxy_block_invoke_99;
+    v9[3] = &unk_278B7F150;
+    v11 = v7;
+    v10 = v8;
+    spUtils_dispatchAsyncToMainThread(v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __getXcodeSupportRemoteObjectProxy_block_invoke(uint64_t a1, void *a2)
@@ -3033,86 +2992,83 @@ void __getXcodeSupportRemoteObjectProxy_block_invoke(uint64_t a1, void *a2)
 
 uint64_t __getXcodeSupportRemoteObjectProxy_block_invoke_2(uint64_t a1)
 {
-  v2 = wk_default_log();
+  v2 = wk_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __getXcodeSupportRemoteObjectProxy_block_invoke_2_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
   }
 
-  v9 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))();
 }
 
 void SPLaunchSockPuppetAppForCompanionAppWithIdentifier(void *a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
-  v8 = wk_default_log();
+  v8 = wk_default_log(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446978;
-    v18 = "SPLaunchSockPuppetAppForCompanionAppWithIdentifier";
-    v19 = 1024;
-    v20 = 148;
-    v21 = 2114;
-    v22 = v5;
-    v23 = 2114;
-    v24 = v6;
+    v17 = "SPLaunchSockPuppetAppForCompanionAppWithIdentifier";
+    v18 = 1024;
+    v19 = 148;
+    v20 = 2114;
+    v21 = v5;
+    v22 = 2114;
+    v23 = v6;
     _os_log_impl(&dword_23B338000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: companionAppIdentifier=%{public}@, options=%{public}@", buf, 0x26u);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke;
-  v13[3] = &unk_278B7F1C8;
-  v15 = v5;
-  v16 = v7;
-  v14 = v6;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke;
+  v12[3] = &unk_278B7F1C8;
+  v14 = v5;
+  v15 = v7;
+  v13 = v6;
   v9 = v5;
   v10 = v6;
   v11 = v7;
-  getXcodeSupportRemoteObjectProxy(v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  getXcodeSupportRemoteObjectProxy(v12);
 }
 
 void __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5)
   {
-    v25 = v6;
+    v24 = v6;
     if (SPHoldCompanionExtensionProcessAssertion_block_invoke_onceToken != -1)
     {
       __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_cold_1();
     }
 
-    v27 = [MEMORY[0x277CBEB38] dictionary];
+    v26 = [MEMORY[0x277CBEB38] dictionary];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v8 = [*(a1 + 32) allKeys];
-    v9 = [v8 countByEnumeratingWithState:&v32 objects:v39 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v31 objects:v38 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v33;
+      v11 = *v32;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v33 != v11)
+          if (*v32 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v32 + 1) + 8 * i);
+          v13 = *(*(&v31 + 1) + 8 * i);
           v14 = [SPHoldCompanionExtensionProcessAssertion_block_invoke_sOptionsTranslations objectForKeyedSubscript:v13];
           v15 = [*(a1 + 32) objectForKeyedSubscript:v13];
           if ([SPHoldCompanionExtensionProcessAssertion_block_invoke_sKeysToLeaveValuesUntranslated containsObject:v13])
@@ -3150,95 +3106,91 @@ void __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke(uint64_t 
 
           if (!v20)
           {
-            [v27 setObject:v16 forKeyedSubscript:v14];
+            [v26 setObject:v16 forKeyedSubscript:v14];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v32 objects:v39 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v31 objects:v38 count:16];
       }
 
       while (v10);
     }
 
     v21 = *(a1 + 40);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_3;
-    v28[3] = &unk_278B7F1A0;
-    v29 = v21;
-    v30 = *(a1 + 32);
-    v31 = *(a1 + 48);
-    v22 = v27;
-    [v5 launchSockPuppetAppForCompanionAppWithIdentifier:v29 options:v27 completion:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_3;
+    v27[3] = &unk_278B7F1A0;
+    v28 = v21;
+    v29 = *(a1 + 32);
+    v30 = *(a1 + 48);
+    v22 = v26;
+    [v5 launchSockPuppetAppForCompanionAppWithIdentifier:v28 options:v26 completion:v27];
 
-    v7 = v26;
+    v7 = v25;
   }
 
   else
   {
-    v23 = wk_default_log();
+    v23 = wk_default_log(v6);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_cold_2();
     }
 
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_100;
-    v36[3] = &unk_278B7F150;
-    v38 = *(a1 + 48);
-    v37 = v7;
-    spUtils_dispatchSyncToMainThread(v36);
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_100;
+    v35[3] = &unk_278B7F150;
+    v37 = *(a1 + 48);
+    v36 = v7;
+    spUtils_dispatchSyncToMainThread(v35);
 
-    v22 = v38;
+    v22 = v37;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_2()
 {
-  v10[10] = *MEMORY[0x277D85DE8];
-  v9[0] = @"SPXcodeSupportAppLaunchModeKey";
-  v9[1] = @"SPXcodeSupportAppLaunchModeValueGlance";
-  v10[0] = @"WK_APP_LAUNCH_MODE";
-  v10[1] = @"GLANCE";
-  v9[2] = @"SPXcodeSupportAppLaunchModeValueComplication";
-  v9[3] = @"SPXcodeSupportAppLaunchModeValueNotification";
-  v10[2] = @"COMPLICATION";
-  v10[3] = @"NOTIFICATION";
-  v9[4] = @"SPXcodeSupportAppLaunchModeNotificationRemotePayloadKey";
-  v9[5] = @"SPXcodeSupportAppLaunchModeNotificationForceStaticPresentationKey";
-  v10[4] = @"WK_NOTIF_CONTEXT";
-  v10[5] = @"WK_NOTIF_FORCE_STATIC";
-  v9[6] = @"SPDeviceBacklightAssertionTime";
-  v9[7] = @"SPHoldCompanionExtensionProcessAssertion";
-  v10[6] = @"lgbl";
-  v10[7] = @"SPServerHoldCompanionExtensionProcessAssertion";
-  v9[8] = @"SPXcodeSupportAppLaunchEnvironmentKey";
-  v9[9] = @"SPXcodeSupportAppLaunchArgumentsKey";
-  v10[8] = @"xle";
-  v10[9] = @"xla";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:10];
+  v9[10] = *MEMORY[0x277D85DE8];
+  v8[0] = @"SPXcodeSupportAppLaunchModeKey";
+  v8[1] = @"SPXcodeSupportAppLaunchModeValueGlance";
+  v9[0] = @"WK_APP_LAUNCH_MODE";
+  v9[1] = @"GLANCE";
+  v8[2] = @"SPXcodeSupportAppLaunchModeValueComplication";
+  v8[3] = @"SPXcodeSupportAppLaunchModeValueNotification";
+  v9[2] = @"COMPLICATION";
+  v9[3] = @"NOTIFICATION";
+  v8[4] = @"SPXcodeSupportAppLaunchModeNotificationRemotePayloadKey";
+  v8[5] = @"SPXcodeSupportAppLaunchModeNotificationForceStaticPresentationKey";
+  v9[4] = @"WK_NOTIF_CONTEXT";
+  v9[5] = @"WK_NOTIF_FORCE_STATIC";
+  v8[6] = @"SPDeviceBacklightAssertionTime";
+  v8[7] = @"SPHoldCompanionExtensionProcessAssertion";
+  v9[6] = @"lgbl";
+  v9[7] = @"SPServerHoldCompanionExtensionProcessAssertion";
+  v8[8] = @"SPXcodeSupportAppLaunchEnvironmentKey";
+  v8[9] = @"SPXcodeSupportAppLaunchArgumentsKey";
+  v9[8] = @"xle";
+  v9[9] = @"xla";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:10];
   v1 = SPHoldCompanionExtensionProcessAssertion_block_invoke_sOptionsTranslations;
   SPHoldCompanionExtensionProcessAssertion_block_invoke_sOptionsTranslations = v0;
 
-  v8 = @"SPXcodeSupportAppLaunchModeNotificationForceStaticPresentationKey";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
+  v7 = @"SPXcodeSupportAppLaunchModeNotificationForceStaticPresentationKey";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
   v3 = SPHoldCompanionExtensionProcessAssertion_block_invoke_sKeysWithBoolValues;
   SPHoldCompanionExtensionProcessAssertion_block_invoke_sKeysWithBoolValues = v2;
 
-  v7[0] = @"SPXcodeSupportAppLaunchModeNotificationRemotePayloadKey";
-  v7[1] = @"SPSimulatorAppLaunchModeApplicationLaunchURLKey";
-  v7[2] = @"SPDeviceBacklightAssertionTime";
-  v7[3] = @"SPHoldCompanionExtensionProcessAssertion";
-  v7[4] = @"SPXcodeSupportAppLaunchEnvironmentKey";
-  v7[5] = @"SPXcodeSupportAppLaunchArgumentsKey";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:6];
+  v6[0] = @"SPXcodeSupportAppLaunchModeNotificationRemotePayloadKey";
+  v6[1] = @"SPSimulatorAppLaunchModeApplicationLaunchURLKey";
+  v6[2] = @"SPDeviceBacklightAssertionTime";
+  v6[3] = @"SPHoldCompanionExtensionProcessAssertion";
+  v6[4] = @"SPXcodeSupportAppLaunchEnvironmentKey";
+  v6[5] = @"SPXcodeSupportAppLaunchArgumentsKey";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:6];
   v5 = SPHoldCompanionExtensionProcessAssertion_block_invoke_sKeysToLeaveValuesUntranslated;
   SPHoldCompanionExtensionProcessAssertion_block_invoke_sKeysToLeaveValuesUntranslated = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_3(id *a1, char a2, void *a3)
@@ -3259,9 +3211,9 @@ void __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_3(id *a1,
 
 uint64_t __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_4(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 64);
-  v3 = wk_default_log();
+  v3 = wk_default_log(a1);
   v4 = v3;
   if (v2 == 1)
   {
@@ -3269,15 +3221,15 @@ uint64_t __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_4(uin
     {
       v5 = *(a1 + 32);
       v6 = *(a1 + 40);
-      v11 = 136446978;
-      v12 = "SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_4";
-      v13 = 1024;
-      v14 = 213;
-      v15 = 2114;
-      v16 = v5;
-      v17 = 2114;
-      v18 = v6;
-      _os_log_impl(&dword_23B338000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Successfully launched WatchKit app for companionAppIdentifier %{public}@ with options %{public}@", &v11, 0x26u);
+      v8 = 136446978;
+      v9 = "SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_4";
+      v10 = 1024;
+      v11 = 213;
+      v12 = 2114;
+      v13 = v5;
+      v14 = 2114;
+      v15 = v6;
+      _os_log_impl(&dword_23B338000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Successfully launched WatchKit app for companionAppIdentifier %{public}@ with options %{public}@", &v8, 0x26u);
     }
   }
 
@@ -3286,109 +3238,100 @@ uint64_t __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_4(uin
     __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_4_cold_1(a1, v4);
   }
 
-  v7 = *(a1 + 64);
-  v8 = *(a1 + 48);
-  result = (*(*(a1 + 56) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 void SPTerminateSockPuppetAppForCompanionAppWithIdentifier(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
-  v5 = wk_default_log();
+  v5 = wk_default_log(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v13 = "SPTerminateSockPuppetAppForCompanionAppWithIdentifier";
-    v14 = 1024;
-    v15 = 224;
-    v16 = 2114;
-    v17 = v3;
+    v12 = "SPTerminateSockPuppetAppForCompanionAppWithIdentifier";
+    v13 = 1024;
+    v14 = 224;
+    v15 = 2114;
+    v16 = v3;
     _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: companionAppIdentifier=%{public}@", buf, 0x1Cu);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke;
-  v9[3] = &unk_278B7F218;
-  v10 = v3;
-  v11 = v4;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke;
+  v8[3] = &unk_278B7F218;
+  v9 = v3;
+  v10 = v4;
   v6 = v4;
   v7 = v3;
-  getXcodeSupportRemoteObjectProxy(v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  getXcodeSupportRemoteObjectProxy(v8);
 }
 
 void __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke_113;
-    v9[3] = &unk_278B7F128;
-    v6 = &v10;
-    v7 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    [a2 terminateSockPuppetAppForCompanionAppWithIdentifier:v7 completion:v9];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke_113;
+    v10[3] = &unk_278B7F128;
+    v7 = &v11;
+    v8 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    [a2 terminateSockPuppetAppForCompanionAppWithIdentifier:v8 completion:v10];
   }
 
   else
   {
-    v8 = wk_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = wk_default_log(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke_cold_1();
     }
 
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke_112;
-    v11[3] = &unk_278B7F1F0;
-    v6 = &v12;
-    v12 = v5;
-    v13 = *(a1 + 32);
-    v14 = *(a1 + 40);
-    spUtils_dispatchSyncToMainThread(v11);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke_112;
+    v12[3] = &unk_278B7F1F0;
+    v7 = &v13;
+    v13 = v6;
+    v14 = *(a1 + 32);
+    v15 = *(a1 + 40);
+    spUtils_dispatchSyncToMainThread(v12);
   }
 }
 
 uint64_t __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke_112(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = a1 + 4;
-  v3 = a1[4];
-  v4 = wk_default_log();
-  v5 = v4;
-  if (v3)
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = a1[4];
+  v3 = wk_default_log(a1);
+  v4 = v3;
+  if (v2)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke_112_cold_1(a1, v2);
+      __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke_112_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = a1[5];
-    v10 = 136446722;
-    v11 = "SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke";
-    v12 = 1024;
-    v13 = 246;
-    v14 = 2114;
-    v15 = v6;
-    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Successfully terminated WatchKit app for companionAppIdentifier %{public}@", &v10, 0x1Cu);
+    v5 = a1[5];
+    v7 = 136446722;
+    v8 = "SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke";
+    v9 = 1024;
+    v10 = 246;
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_23B338000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Successfully terminated WatchKit app for companionAppIdentifier %{public}@", &v7, 0x1Cu);
   }
 
-  v7 = a1[4];
-  result = (*(a1[6] + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 void __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke_113(uint64_t a1, void *a2)
@@ -3407,69 +3350,68 @@ void __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke_113(ui
 
 void SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
-  v5 = wk_default_log();
+  v5 = wk_default_log(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v13 = "SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier";
-    v14 = 1024;
-    v15 = 263;
-    v16 = 2114;
-    v17 = v3;
+    v12 = "SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier";
+    v13 = 1024;
+    v14 = 263;
+    v15 = 2114;
+    v16 = v3;
     _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: companionAppIdentifier=%{public}@", buf, 0x1Cu);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke;
-  v9[3] = &unk_278B7F290;
-  v10 = v3;
-  v11 = v4;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke;
+  v8[3] = &unk_278B7F290;
+  v9 = v3;
+  v10 = v4;
   v6 = v3;
   v7 = v4;
-  getXcodeSupportRemoteObjectProxy(v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  getXcodeSupportRemoteObjectProxy(v8);
 }
 
 void __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = *(a1 + 32);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke_2;
-    v11[3] = &unk_278B7F268;
-    v7 = &v12;
-    v8 = v6;
-    v12 = v8;
-    v9 = &v13;
-    v13 = *(a1 + 40);
-    [a2 getSockPuppetAppRunningStatusForCompanionAppWithIdentifier:v8 completion:v11];
+    v7 = *(a1 + 32);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke_2;
+    v12[3] = &unk_278B7F268;
+    v8 = &v13;
+    v9 = v7;
+    v13 = v9;
+    v10 = &v14;
+    v14 = *(a1 + 40);
+    [a2 getSockPuppetAppRunningStatusForCompanionAppWithIdentifier:v9 completion:v12];
   }
 
   else
   {
-    v10 = wk_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = wk_default_log(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke_cold_1();
     }
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke_114;
-    v14[3] = &unk_278B7F150;
-    v7 = &v16;
-    v16 = *(a1 + 40);
-    v9 = &v15;
-    v15 = v5;
-    spUtils_dispatchSyncToMainThread(v14);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke_114;
+    v15[3] = &unk_278B7F150;
+    v8 = &v17;
+    v17 = *(a1 + 40);
+    v10 = &v16;
+    v16 = v6;
+    spUtils_dispatchSyncToMainThread(v15);
   }
 }
 
@@ -3490,106 +3432,100 @@ void __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke
 
 uint64_t __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke_3(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 32);
-  v3 = *(a1 + 32);
-  v4 = wk_default_log();
-  v5 = v4;
-  if (v3)
+  v16 = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 32);
+  v3 = wk_default_log(a1);
+  v4 = v3;
+  if (v2)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke_3_cold_1(a1, v2);
+      __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke_3_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 56);
-    v7 = *(a1 + 40);
-    v12 = 136446978;
-    v13 = "SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke_3";
-    v14 = 1024;
-    v15 = 275;
-    v16 = 1024;
-    v17 = v6;
-    v18 = 2114;
-    v19 = v7;
-    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Successfully got app running status=%d for WatchKit app for companionAppIdentifier %{public}@", &v12, 0x22u);
+    v5 = *(a1 + 56);
+    v6 = *(a1 + 40);
+    v8 = 136446978;
+    v9 = "SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke_3";
+    v10 = 1024;
+    v11 = 275;
+    v12 = 1024;
+    v13 = v5;
+    v14 = 2114;
+    v15 = v6;
+    _os_log_impl(&dword_23B338000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Successfully got app running status=%d for WatchKit app for companionAppIdentifier %{public}@", &v8, 0x22u);
   }
 
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 56);
-  result = (*(*(a1 + 48) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 void SPGetCompanionExtensionPIDForCompanionAppWithIdentifier(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
-  v5 = wk_default_log();
+  v5 = wk_default_log(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v13 = "SPGetCompanionExtensionPIDForCompanionAppWithIdentifier";
-    v14 = 1024;
-    v15 = 286;
-    v16 = 2114;
-    v17 = v3;
+    v12 = "SPGetCompanionExtensionPIDForCompanionAppWithIdentifier";
+    v13 = 1024;
+    v14 = 286;
+    v15 = 2114;
+    v16 = v3;
     _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: companionAppIdentifier=%{public}@", buf, 0x1Cu);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke;
-  v9[3] = &unk_278B7F290;
-  v10 = v3;
-  v11 = v4;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke;
+  v8[3] = &unk_278B7F290;
+  v9 = v3;
+  v10 = v4;
   v6 = v3;
   v7 = v4;
-  getXcodeSupportRemoteObjectProxy(v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  getXcodeSupportRemoteObjectProxy(v8);
 }
 
 void __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = *(a1 + 32);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke_2;
-    v11[3] = &unk_278B7F2E0;
-    v7 = &v12;
-    v8 = v6;
-    v12 = v8;
-    v9 = &v13;
-    v13 = *(a1 + 40);
-    [a2 getCompanionExtensionPIDForCompanionAppWithIdentifier:v8 completion:v11];
+    v7 = *(a1 + 32);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke_2;
+    v12[3] = &unk_278B7F2E0;
+    v8 = &v13;
+    v9 = v7;
+    v13 = v9;
+    v10 = &v14;
+    v14 = *(a1 + 40);
+    [a2 getCompanionExtensionPIDForCompanionAppWithIdentifier:v9 completion:v12];
   }
 
   else
   {
-    v10 = wk_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = wk_default_log(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke_cold_1();
     }
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke_116;
-    v14[3] = &unk_278B7F150;
-    v7 = &v16;
-    v16 = *(a1 + 40);
-    v9 = &v15;
-    v15 = v5;
-    spUtils_dispatchSyncToMainThread(v14);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke_116;
+    v15[3] = &unk_278B7F150;
+    v8 = &v17;
+    v17 = *(a1 + 40);
+    v10 = &v16;
+    v16 = v6;
+    spUtils_dispatchSyncToMainThread(v15);
   }
 }
 
@@ -3610,106 +3546,100 @@ void __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke_2(ui
 
 uint64_t __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke_3(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 32);
-  v3 = *(a1 + 32);
-  v4 = wk_default_log();
-  v5 = v4;
-  if (v3)
+  v16 = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 32);
+  v3 = wk_default_log(a1);
+  v4 = v3;
+  if (v2)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke_3_cold_1(a1, v2);
+      __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke_3_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 56);
-    v7 = *(a1 + 40);
-    v12 = 136446978;
-    v13 = "SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke_3";
-    v14 = 1024;
-    v15 = 298;
-    v16 = 1024;
-    v17 = v6;
-    v18 = 2114;
-    v19 = v7;
-    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Successfully got PID=%d for WK1 extension for companionAppIdentifier %{public}@", &v12, 0x22u);
+    v5 = *(a1 + 56);
+    v6 = *(a1 + 40);
+    v8 = 136446978;
+    v9 = "SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke_3";
+    v10 = 1024;
+    v11 = 298;
+    v12 = 1024;
+    v13 = v5;
+    v14 = 2114;
+    v15 = v6;
+    _os_log_impl(&dword_23B338000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Successfully got PID=%d for WK1 extension for companionAppIdentifier %{public}@", &v8, 0x22u);
   }
 
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 56);
-  result = (*(*(a1 + 48) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 void SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
-  v5 = wk_default_log();
+  v5 = wk_default_log(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v13 = "SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier";
-    v14 = 1024;
-    v15 = 309;
-    v16 = 2114;
-    v17 = v3;
+    v12 = "SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier";
+    v13 = 1024;
+    v14 = 309;
+    v15 = 2114;
+    v16 = v3;
     _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: companionAppIdentifier=%{public}@", buf, 0x1Cu);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke;
-  v9[3] = &unk_278B7F290;
-  v10 = v3;
-  v11 = v4;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke;
+  v8[3] = &unk_278B7F290;
+  v9 = v3;
+  v10 = v4;
   v6 = v3;
   v7 = v4;
-  getXcodeSupportRemoteObjectProxy(v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  getXcodeSupportRemoteObjectProxy(v8);
 }
 
 void __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = *(a1 + 32);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke_2;
-    v11[3] = &unk_278B7F308;
-    v7 = &v12;
-    v8 = v6;
-    v12 = v8;
-    v9 = &v13;
-    v13 = *(a1 + 40);
-    [a2 xcodeWillInstallSockPuppetAppWithCompanionAppIdentifier:v8 completion:v11];
+    v7 = *(a1 + 32);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke_2;
+    v12[3] = &unk_278B7F308;
+    v8 = &v13;
+    v9 = v7;
+    v13 = v9;
+    v10 = &v14;
+    v14 = *(a1 + 40);
+    [a2 xcodeWillInstallSockPuppetAppWithCompanionAppIdentifier:v9 completion:v12];
   }
 
   else
   {
-    v10 = wk_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = wk_default_log(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke_cold_1();
     }
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke_118;
-    v14[3] = &unk_278B7F150;
-    v7 = &v16;
-    v16 = *(a1 + 40);
-    v9 = &v15;
-    v15 = v5;
-    spUtils_dispatchSyncToMainThread(v14);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke_118;
+    v15[3] = &unk_278B7F150;
+    v8 = &v17;
+    v17 = *(a1 + 40);
+    v10 = &v16;
+    v16 = v6;
+    spUtils_dispatchSyncToMainThread(v15);
   }
 }
 
@@ -3729,43 +3659,31 @@ void __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke_2(
 
 uint64_t __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke_3(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = a1 + 4;
-  v3 = a1[4];
-  v4 = wk_default_log();
-  v5 = v4;
-  if (v3)
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = a1[4];
+  v3 = wk_default_log(a1);
+  v4 = v3;
+  if (v2)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke_3_cold_1(a1, v2);
+      __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke_3_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = a1[5];
-    v10 = 136446722;
-    v11 = "SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke_3";
-    v12 = 1024;
-    v13 = 321;
-    v14 = 2114;
-    v15 = v6;
-    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Successfully handled willInstall for WatchKit app for companionAppIdentifier %{public}@", &v10, 0x1Cu);
+    v5 = a1[5];
+    v7 = 136446722;
+    v8 = "SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke_3";
+    v9 = 1024;
+    v10 = 321;
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_23B338000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Successfully handled willInstall for WatchKit app for companionAppIdentifier %{public}@", &v7, 0x1Cu);
   }
 
-  v7 = a1[4];
-  result = (*(a1[6] + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_4_0@<X0>(uint64_t result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
-{
-  *(v3 - 8) = a3;
-  v4 = *(result + 40);
-  v5 = *a2;
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 uint64_t SPProtoObjectMessageReadFrom(uint64_t a1, void *a2)
@@ -3956,16 +3874,16 @@ id spUtils_deserializeObject(void *a1, void *a2)
   return a1;
 }
 
-id spUtils_allowedClassesForUserActivity()
+id spUtils_allowedClassesForUserActivity(uint64_t a1)
 {
   if (spUtils_allowedClassesForUserActivity_onceToken != -1)
   {
     spUtils_allowedClassesForUserActivity_cold_1();
   }
 
-  v1 = spUtils_allowedClassesForUserActivity___allowedClasses;
+  v2 = spUtils_allowedClassesForUserActivity___allowedClasses;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __spUtils_allowedClassesForUserActivity_block_invoke()
@@ -4004,26 +3922,17 @@ id spUtils_localizedStringForSystemLanguage(void *a1, void *a2)
   v11 = [v9 localizations];
   v12 = [MEMORY[0x277CBEA60] arrayWithObject:v10];
   v13 = CFBundleCopyLocalizationsForPreferences(v11, v12);
-  if (![(__CFArray *)v13 count])
-  {
-    goto LABEL_7;
-  }
-
-  v14 = [(__CFArray *)v13 objectAtIndex:0];
-  v15 = [v9 pathForResource:@"Localizable" ofType:@"strings" inDirectory:0 forLocalization:v14];
-
-  if (v15)
+  if (-[__CFArray count](v13, "count") && (-[__CFArray objectAtIndex:](v13, "objectAtIndex:", 0), v14 = objc_claimAutoreleasedReturnValue(), [v9 pathForResource:@"Localizable" ofType:@"strings" inDirectory:0 forLocalization:v14], v15 = objc_claimAutoreleasedReturnValue(), v14, v15))
   {
     [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v15];
-    v16 = v22 = v11;
+    v16 = v23 = v11;
     v17 = [v16 objectForKey:v8];
 
-    v11 = v22;
+    v11 = v23;
   }
 
   else
   {
-LABEL_7:
     v17 = 0;
   }
 
@@ -4033,21 +3942,21 @@ LABEL_9:
     v17 = [v9 localizedStringForKey:v8 value:&stru_284DFE9D8 table:@"Localizable"];
   }
 
-  v18 = v17;
+  v19 = v17;
   if (!v17)
   {
-    v19 = wk_default_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = wk_default_log(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      spUtils_localizedStringForSystemLanguage_cold_1(v8, v4, v19);
+      spUtils_localizedStringForSystemLanguage_cold_1(v8, v4, v20);
     }
 
-    v18 = v8;
+    v19 = v8;
   }
 
-  v20 = v18;
+  v21 = v19;
 
-  return v20;
+  return v21;
 }
 
 BOOL spUtils_appExtensionFirstUnlock()
@@ -4059,54 +3968,55 @@ BOOL spUtils_appExtensionFirstUnlock()
   }
 
   state64 = 0;
-  if (notify_get_state(spUtils_appExtensionFirstUnlock_token, &state64))
+  state = notify_get_state(spUtils_appExtensionFirstUnlock_token, &state64);
+  if (state)
   {
-    v0 = wk_default_log();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = wk_default_log(state);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       spUtils_appExtensionFirstUnlock_cold_2();
     }
 
-    v1 = 1;
+    v2 = 1;
   }
 
   else
   {
-    v1 = state64 != 0;
+    v2 = state64 != 0;
   }
 
-  v2 = wk_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = wk_default_log(state);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
     v7 = "spUtils_appExtensionFirstUnlock";
     v8 = 1024;
     v9 = 190;
     v10 = 1024;
-    v11 = v1;
-    _os_log_impl(&dword_23B338000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: unlocked=%d", buf, 0x18u);
+    v11 = v2;
+    _os_log_impl(&dword_23B338000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: unlocked=%d", buf, 0x18u);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
-  return v1;
+  return v2;
 }
 
 void __spUtils_appExtensionFirstUnlock_block_invoke()
 {
-  if (notify_register_check([@"com.apple.watchkit.notify.first_unlock" UTF8String], &spUtils_appExtensionFirstUnlock_token))
+  v0 = notify_register_check([@"com.apple.watchkit.notify.first_unlock" UTF8String], &spUtils_appExtensionFirstUnlock_token);
+  if (v0)
   {
-    v0 = 1;
+    v1 = 1;
   }
 
   else
   {
-    v0 = spUtils_appExtensionFirstUnlock_token == -1;
+    v1 = spUtils_appExtensionFirstUnlock_token == -1;
   }
 
-  if (v0)
+  if (v1)
   {
-    v1 = wk_default_log();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = wk_default_log(v0);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __spUtils_appExtensionFirstUnlock_block_invoke_cold_1();
     }
@@ -4135,7 +4045,7 @@ double __spUtils_machTimeString_block_invoke()
   return result;
 }
 
-BOOL spUtils_isRunningInF5DemoMode()
+BOOL spUtils_isRunningInF5DemoMode(uint64_t a1, uint64_t a2)
 {
   if (DemoProgramNumber___onceToken != -1)
   {
@@ -4145,7 +4055,7 @@ BOOL spUtils_isRunningInF5DemoMode()
   return DemoProgramNumber___fProgramNumber == 5;
 }
 
-BOOL spUtils_isRunningInF201DemoMode()
+BOOL spUtils_isRunningInF201DemoMode(uint64_t a1, uint64_t a2)
 {
   if (DemoProgramNumber___onceToken != -1)
   {
@@ -4155,7 +4065,7 @@ BOOL spUtils_isRunningInF201DemoMode()
   return DemoProgramNumber___fProgramNumber == 201;
 }
 
-uint64_t spUtils_isRunningInAnyDemoMode()
+uint64_t spUtils_isRunningInAnyDemoMode(uint64_t a1, uint64_t a2)
 {
   if (DemoProgramNumber___onceToken != -1)
   {
@@ -4191,30 +4101,31 @@ BOOL spUtils_isRTL()
   return v3;
 }
 
-void sub_23B35EDF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23B35EDF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id spUtils_SPURLQueryAllowedCharacterSet()
+id spUtils_SPURLQueryAllowedCharacterSet(uint64_t a1)
 {
   if (spUtils_SPURLQueryAllowedCharacterSet_onceToken != -1)
   {
     spUtils_SPURLQueryAllowedCharacterSet_cold_1();
   }
 
-  v1 = spUtils_SPURLQueryAllowedCharacterSet__spURLQueryAllowedCharacterSet;
+  v2 = spUtils_SPURLQueryAllowedCharacterSet__spURLQueryAllowedCharacterSet;
 
-  return v1;
+  return v2;
 }
 
-id spUtils_companionConnectionClientIdentifier(int a1, int a2)
+id spUtils_companionConnectionClientIdentifier(uint64_t a1, int a2)
 {
+  v3 = a1;
   if (a1 && a2)
   {
-    v4 = wk_default_log();
+    v4 = wk_default_log(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       spUtils_companionConnectionClientIdentifier_cold_1();
@@ -4223,7 +4134,7 @@ id spUtils_companionConnectionClientIdentifier(int a1, int a2)
 
   v5 = spUtils_uniqueNumber();
   v6 = v5;
-  if (!a1 || a2)
+  if (!v3 || a2)
   {
     if (a2)
     {
@@ -4369,19 +4280,20 @@ id spUtils_UIColorFromString(void *a1)
   if (!v15)
   {
 LABEL_19:
+    v28 = 0;
     v29 = 0;
-    v30 = 0;
-    if ([v1 length])
+    v17 = [v1 length];
+    if (v17)
     {
-      v17 = sscanf([v1 cStringUsingEncoding:1], "%02x%02x%02x%02x", &v30 + 4, &v30, &v29 + 4, &v29);
+      v17 = sscanf([v1 cStringUsingEncoding:1], "%02x%02x%02x%02x", &v29 + 4, &v29, &v28 + 4, &v28);
       if (v17 > 2)
       {
         if (v17 == 3)
         {
           UIColorClass = getUIColorClass();
-          v22 = SHIDWORD(v30) / 255.0;
-          v23 = v30 / 255.0;
-          v24 = SHIDWORD(v29) / 255.0;
+          v22 = SHIDWORD(v29) / 255.0;
+          v23 = v29 / 255.0;
+          v24 = SHIDWORD(v28) / 255.0;
           v25 = 1.0;
         }
 
@@ -4393,16 +4305,16 @@ LABEL_19:
           }
 
           UIColorClass = getUIColorClass();
-          v22 = SHIDWORD(v30) / 255.0;
-          v23 = v30 / 255.0;
-          v24 = SHIDWORD(v29) / 255.0;
-          v25 = v29 / 255.0;
+          v22 = SHIDWORD(v29) / 255.0;
+          v23 = v29 / 255.0;
+          v24 = SHIDWORD(v28) / 255.0;
+          v25 = v28 / 255.0;
         }
 
-        v26 = [UIColorClass colorWithRed:v22 green:v23 blue:v24 alpha:v25];
+        v17 = [UIColorClass colorWithRed:v22 green:v23 blue:v24 alpha:v25];
 LABEL_31:
-        v15 = v26;
-        if (v26)
+        v15 = v17;
+        if (v17)
         {
           goto LABEL_35;
         }
@@ -4413,7 +4325,7 @@ LABEL_31:
       if (v17 == 1)
       {
         v18 = getUIColorClass();
-        v19 = SHIDWORD(v30) / 255.0;
+        v19 = SHIDWORD(v29) / 255.0;
         v20 = 1.0;
         goto LABEL_28;
       }
@@ -4421,17 +4333,17 @@ LABEL_31:
       if (v17 == 2)
       {
         v18 = getUIColorClass();
-        v19 = SHIDWORD(v30) / 255.0;
-        v20 = v30 / 255.0;
+        v19 = SHIDWORD(v29) / 255.0;
+        v20 = v29 / 255.0;
 LABEL_28:
-        v26 = [v18 colorWithWhite:v19 alpha:v20];
+        v17 = [v18 colorWithWhite:v19 alpha:v20];
         goto LABEL_31;
       }
     }
 
 LABEL_32:
-    v27 = wk_default_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v26 = wk_default_log(v17);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       spUtils_UIColorFromString_cold_1();
     }
@@ -4468,16 +4380,16 @@ id getUIColorClass()
   return v1;
 }
 
-void sub_23B35F550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23B35F550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23B35F8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23B35F8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4485,14 +4397,16 @@ void sub_23B35F8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void __DemoProgramNumber_block_invoke()
 {
   v10 = *MEMORY[0x277D85DE8];
-  if (CFPreferencesGetAppBooleanValue(@"StoreDemoMode", @"com.apple.demo-settings", 0))
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"StoreDemoMode", @"com.apple.demo-settings", 0);
+  if (AppBooleanValue)
   {
     DemoProgramNumber___demoModeEnabled = 1;
-    DemoProgramNumber___fProgramNumber = CFPreferencesGetAppIntegerValue(@"FProgramNumber", @"com.apple.demo-settings", 0);
+    AppBooleanValue = CFPreferencesGetAppIntegerValue(@"FProgramNumber", @"com.apple.demo-settings", 0);
+    DemoProgramNumber___fProgramNumber = AppBooleanValue;
   }
 
-  v0 = wk_default_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = wk_default_log(AppBooleanValue);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v2 = 136446978;
     v3 = "DemoProgramNumber_block_invoke";
@@ -4502,10 +4416,8 @@ void __DemoProgramNumber_block_invoke()
     v7 = DemoProgramNumber___demoModeEnabled;
     v8 = 1024;
     v9 = DemoProgramNumber___fProgramNumber;
-    _os_log_impl(&dword_23B338000, v0, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Demo mode enabled = %d, Demo program number = %d", &v2, 0x1Eu);
+    _os_log_impl(&dword_23B338000, v1, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Demo mode enabled = %d, Demo program number = %d", &v2, 0x1Eu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 Class __getUIApplicationClass_block_invoke(uint64_t a1)
@@ -4524,40 +4436,35 @@ Class __getUIApplicationClass_block_invoke(uint64_t a1)
 
 void UIKitLibrary_0()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1[0] = 0;
+  v3 = *MEMORY[0x277D85DE8];
+  v0[0] = 0;
   if (!UIKitLibraryCore_frameworkLibrary_1)
   {
-    v1[1] = MEMORY[0x277D85DD0];
-    v1[2] = 3221225472;
-    v1[3] = __UIKitLibraryCore_block_invoke_1;
-    v1[4] = &__block_descriptor_40_e5_v8__0l;
-    v1[5] = v1;
-    v2 = xmmword_278B7F750;
-    v3 = 0;
+    v0[1] = MEMORY[0x277D85DD0];
+    v0[2] = 3221225472;
+    v0[3] = __UIKitLibraryCore_block_invoke_1;
+    v0[4] = &__block_descriptor_40_e5_v8__0l;
+    v0[5] = v0;
+    v1 = xmmword_278B7F750;
+    v2 = 0;
     UIKitLibraryCore_frameworkLibrary_1 = _sl_dlopen();
   }
 
   if (!UIKitLibraryCore_frameworkLibrary_1)
   {
-    UIKitLibrary_cold_1_0(v1);
+    UIKitLibrary_cold_1_0(v0);
   }
 
-  if (v1[0])
+  if (v0[0])
   {
-    free(v1[0]);
+    free(v0[0]);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __UIKitLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4696,16 +4603,16 @@ LABEL_24:
   return [a2 hasError] ^ 1;
 }
 
-id wk_default_log()
+id wk_default_log(uint64_t a1)
 {
   if (wk_default_log_onceToken != -1)
   {
     wk_default_log_cold_1();
   }
 
-  v1 = wk_default_log___logger;
+  v2 = wk_default_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __wk_default_log_block_invoke()
@@ -4715,16 +4622,16 @@ uint64_t __wk_default_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id wk_extension_loading_log()
+id wk_extension_loading_log(uint64_t a1)
 {
   if (wk_extension_loading_log_onceToken != -1)
   {
     wk_extension_loading_log_cold_1();
   }
 
-  v1 = wk_extension_loading_log___logger;
+  v2 = wk_extension_loading_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __wk_extension_loading_log_block_invoke()
@@ -4734,16 +4641,16 @@ uint64_t __wk_extension_loading_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id wk_bg_app_refresh_log()
+id wk_bg_app_refresh_log(uint64_t a1)
 {
   if (wk_bg_app_refresh_log_onceToken != -1)
   {
     wk_bg_app_refresh_log_cold_1();
   }
 
-  v1 = wk_bg_app_refresh_log___logger;
+  v2 = wk_bg_app_refresh_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __wk_bg_app_refresh_log_block_invoke()
@@ -4753,23 +4660,21 @@ uint64_t __wk_bg_app_refresh_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void ____allowedClasses_block_invoke()
+void ____allowedClasses_block_invoke(uint64_t a1)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v0 = spUtils_allowedClassesForUserActivity();
-  v1 = __allowedClasses___allowedClasses;
-  __allowedClasses___allowedClasses = v0;
-
+  v1 = spUtils_allowedClassesForUserActivity(a1);
   v2 = __allowedClasses___allowedClasses;
+  __allowedClasses___allowedClasses = v1;
+
+  v3 = __allowedClasses___allowedClasses;
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:3];
-  v4 = [v2 setByAddingObjectsFromArray:{v3, v7, v8}];
-  v5 = __allowedClasses___allowedClasses;
-  __allowedClasses___allowedClasses = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:3];
+  v5 = [v3 setByAddingObjectsFromArray:{v4, v7, v8}];
+  v6 = __allowedClasses___allowedClasses;
+  __allowedClasses___allowedClasses = v5;
 }
 
 uint64_t SPProtoAudioFileQueuePlayerSetRateReadFrom(uint64_t a1, void *a2)
@@ -5573,9 +5478,9 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-void sub_23B36A83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23B36A83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5596,69 +5501,65 @@ Class __getNRPairedDeviceRegistryClass_block_invoke_1(uint64_t a1)
 
 uint64_t NanoRegistryLibrary_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 0;
   if (!NanoRegistryLibraryCore_frameworkLibrary_1)
   {
-    v3[1] = MEMORY[0x277D85DD0];
-    v3[2] = 3221225472;
-    v3[3] = __NanoRegistryLibraryCore_block_invoke_1;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v4 = xmmword_278B7F788;
-    v5 = 0;
+    v2[1] = MEMORY[0x277D85DD0];
+    v2[2] = 3221225472;
+    v2[3] = __NanoRegistryLibraryCore_block_invoke_1;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v3 = xmmword_278B7F788;
+    v4 = 0;
     NanoRegistryLibraryCore_frameworkLibrary_1 = _sl_dlopen();
   }
 
   v0 = NanoRegistryLibraryCore_frameworkLibrary_1;
   if (!NanoRegistryLibraryCore_frameworkLibrary_1)
   {
-    NanoRegistryLibrary_cold_1_1(v3);
+    NanoRegistryLibrary_cold_1_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __NanoRegistryLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   NanoRegistryLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 Class __getNPSDomainAccessorClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!NanoPreferencesSyncLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __NanoPreferencesSyncLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278B7F7A0;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __NanoPreferencesSyncLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278B7F7A0;
+    v5 = 0;
     NanoPreferencesSyncLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!NanoPreferencesSyncLibraryCore_frameworkLibrary)
   {
-    __getNPSDomainAccessorClass_block_invoke_cold_2(v4);
+    __getNPSDomainAccessorClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("NPSDomainAccessor");
@@ -5669,17 +5570,13 @@ Class __getNPSDomainAccessorClass_block_invoke(uint64_t a1)
   }
 
   getNPSDomainAccessorClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __NanoPreferencesSyncLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   NanoPreferencesSyncLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5829,115 +5726,108 @@ void NanoRegistryLibrary_cold_1_0(void *a1)
 
 void __getXcodeSupportRemoteObjectProxy_block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, a2, a3, "%{public}s:%d: error %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  *v8 = 136446722;
+  *&v8[4] = "getXcodeSupportRemoteObjectProxy_block_invoke_2";
+  *&v8[12] = 1024;
+  *&v8[14] = 136;
+  *&v8[18] = 2114;
+  *&v8[20] = *(a1 + 32);
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, a2, a3, "%{public}s:%d: error %{public}@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *&v8[24]);
 }
 
 void __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: Got error from getXcodeSupportRemoteObjectProxy(): %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: Got error from getXcodeSupportRemoteObjectProxy(): %{public}@", v2, v3, v4, v5, v6);
 }
 
 void __SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke_4_cold_1(void *a1, NSObject *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[5];
   v4 = a1[6];
-  v6 = 136447234;
-  v7 = "SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke";
-  v8 = 1024;
-  v9 = 215;
-  v10 = 2114;
-  v11 = v2;
-  v12 = 2114;
-  v13 = v3;
-  v14 = 2114;
-  v15 = v4;
-  _os_log_error_impl(&dword_23B338000, a2, OS_LOG_TYPE_ERROR, "%{public}s:%d: Failed to launch  WatchKit app for companionAppIdentifier %{public}@ with options %{public}@. Got error %{public}@", &v6, 0x30u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 136447234;
+  v6 = "SPLaunchSockPuppetAppForCompanionAppWithIdentifier_block_invoke";
+  v7 = 1024;
+  v8 = 215;
+  v9 = 2114;
+  v10 = v2;
+  v11 = 2114;
+  v12 = v3;
+  v13 = 2114;
+  v14 = v4;
+  _os_log_error_impl(&dword_23B338000, a2, OS_LOG_TYPE_ERROR, "%{public}s:%d: Failed to launch  WatchKit app for companionAppIdentifier %{public}@ with options %{public}@. Got error %{public}@", &v5, 0x30u);
 }
 
 void __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: Got error from getXcodeSupportRemoteObjectProxy(): %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: Got error from getXcodeSupportRemoteObjectProxy(): %{public}@", v2, v3, v4, v5, v6);
 }
 
-void __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke_112_cold_1(uint64_t a1, uint64_t *a2)
+void __SPTerminateSockPuppetAppForCompanionAppWithIdentifier_block_invoke_112_cold_1()
 {
-  OUTLINED_FUNCTION_4_0(a1, a2, *MEMORY[0x277D85DE8]);
-  v5 = 136446978;
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
+  v2 = 136446978;
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v2, v3, "%{public}s:%d: Got error terminating WatchKit app for companionAppIdentifier %{public}@: %{public}@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: Got error terminating WatchKit app for companionAppIdentifier %{public}@: %{public}@", v2);
 }
 
 void __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: Got error from getXcodeSupportRemoteObjectProxy(): %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: Got error from getXcodeSupportRemoteObjectProxy(): %{public}@", v2, v3, v4, v5, v6);
 }
 
-void __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke_3_cold_1(uint64_t a1, uint64_t *a2)
+void __SPGetSockPuppetAppRunningStatusForCompanionAppWithIdentifier_block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_4_0(a1, a2, *MEMORY[0x277D85DE8]);
-  v5 = 136446978;
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
+  v2 = 136446978;
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v2, v3, "%{public}s:%d: Got error getting app running status for WatchKit app for companionAppIdentifier %{public}@: %{public}@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: Got error getting app running status for WatchKit app for companionAppIdentifier %{public}@: %{public}@", v2);
 }
 
 void __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: Got error from getXcodeSupportRemoteObjectProxy(): %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: Got error from getXcodeSupportRemoteObjectProxy(): %{public}@", v2, v3, v4, v5, v6);
 }
 
-void __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke_3_cold_1(uint64_t a1, uint64_t *a2)
+void __SPGetCompanionExtensionPIDForCompanionAppWithIdentifier_block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_4_0(a1, a2, *MEMORY[0x277D85DE8]);
-  v5 = 136446978;
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
+  v2 = 136446978;
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v2, v3, "%{public}s:%d: Got error getting PID for WK1 extension for companionAppIdentifier %{public}@: %{public}@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: Got error getting PID for WK1 extension for companionAppIdentifier %{public}@: %{public}@", v2);
 }
 
 void __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136446722;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: Got error from getXcodeSupportRemoteObjectProxy(): %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_23B338000, v0, v1, "%{public}s:%d: Got error from getXcodeSupportRemoteObjectProxy(): %{public}@", v2, v3, v4, v5, v6);
 }
 
-void __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke_3_cold_1(uint64_t a1, uint64_t *a2)
+void __SPXcodeWillInstallSockPuppetAppWithCompanionAppIdentifier_block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_4_0(a1, a2, *MEMORY[0x277D85DE8]);
-  v5 = 136446978;
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
+  v2 = 136446978;
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_23B338000, v2, v3, "%{public}s:%d: Got error handling willInstall for WatchKit app for companionAppIdentifier %{public}@: %{public}@", v5);
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_23B338000, v0, v1, "%{public}s:%d: Got error handling willInstall for WatchKit app for companionAppIdentifier %{public}@: %{public}@", v2);
 }
 
 void spUtils_serializeObject_cold_1(uint64_t a1, uint64_t a2)
@@ -5956,57 +5846,47 @@ void spUtils_deserializeObject_cold_1(uint64_t a1, uint64_t a2)
 
 void spUtils_localizedStringForSystemLanguage_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = [MEMORY[0x277CCAA00] defaultManager];
   [v6 fileExistsAtPath:a2];
-  *v10 = 136447234;
+  *v9 = 136447234;
   OUTLINED_FUNCTION_3();
-  *&v10[7] = 157;
-  v10[9] = 2114;
-  v11 = a1;
-  v12 = 2114;
-  v13 = a2;
-  v14 = v7;
-  v15 = v8;
-  _os_log_error_impl(&dword_23B338000, a3, OS_LOG_TYPE_ERROR, "%{public}s:%d: Failed to localize key %{public}@ in bundle at %{public}@. bundleExists=%d", v10, 0x2Cu);
-
-  v9 = *MEMORY[0x277D85DE8];
+  *&v9[7] = 157;
+  v9[9] = 2114;
+  v10 = a1;
+  v11 = 2114;
+  v12 = a2;
+  v13 = v7;
+  v14 = v8;
+  _os_log_error_impl(&dword_23B338000, a3, OS_LOG_TYPE_ERROR, "%{public}s:%d: Failed to localize key %{public}@ in bundle at %{public}@. bundleExists=%d", v9, 0x2Cu);
 }
 
 void spUtils_appExtensionFirstUnlock_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __spUtils_appExtensionFirstUnlock_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Eu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void spUtils_companionConnectionClientIdentifier_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void spUtils_UIColorFromString_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __getUIApplicationClass_block_invoke_cold_1()

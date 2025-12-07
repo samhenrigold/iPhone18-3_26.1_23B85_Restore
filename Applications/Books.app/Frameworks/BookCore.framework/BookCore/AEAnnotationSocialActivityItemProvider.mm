@@ -21,7 +21,7 @@
   v10.receiver = self;
   v10.super_class = AEAnnotationSocialActivityItemProvider;
   text = [(AEAnnotationActivityItemProviderSource *)&v10 text];
-  v5 = IMCommonCoreBundle();
+  v5 = IMCommonCoreBundle(text);
   v6 = [v5 localizedStringForKey:@"\\U2026" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   v7 = [text stringByTruncatingToLength:characterLimit options:3 truncationString:v6];
 

@@ -27,10 +27,9 @@ LABEL_4:
       Value = CFDictionaryGetValue(*(a1 + 40), HIDWORD(v6));
       if (!Value)
       {
-        v8 = *MEMORY[0x1E695E480];
-        v9 = SIUINT64SetCreate();
-        CFDictionarySetValue(*(a1 + 40), HIDWORD(v6), v9);
-        CFRelease(v9);
+        v8 = SIUINT64SetCreate(*MEMORY[0x1E695E480]);
+        CFDictionarySetValue(*(a1 + 40), HIDWORD(v6), v8);
+        CFRelease(v8);
         Value = CFDictionaryGetValue(*(a1 + 40), HIDWORD(v6));
       }
 
@@ -42,9 +41,9 @@ LABEL_4:
 
       else
       {
-        v10 = (Value + 16);
+        v9 = (Value + 16);
 
-        SIValueSet<unsigned long long>::SIValueSetInsert(v10, v6);
+        SIValueSet<unsigned long long>::SIValueSetInsert(v9, v6);
       }
     }
 
@@ -53,16 +52,16 @@ LABEL_4:
 
   if (v2 == 23)
   {
-    v11 = CFStringCreateWithCString(*MEMORY[0x1E695E480], *(a2 + 4), 0x8000100u);
-    if (v11)
+    v10 = CFStringCreateWithCString(*MEMORY[0x1E695E480], *(a2 + 4), 0x8000100u);
+    if (v10)
     {
-      v12 = v11;
+      v11 = v10;
       if (!CFDictionaryGetValue(*(a1 + 32), a2[7]))
       {
-        CFDictionarySetValue(*(a1 + 32), a2[7], v12);
+        CFDictionarySetValue(*(a1 + 32), a2[7], v11);
       }
 
-      CFRelease(v12);
+      CFRelease(v11);
     }
   }
 }

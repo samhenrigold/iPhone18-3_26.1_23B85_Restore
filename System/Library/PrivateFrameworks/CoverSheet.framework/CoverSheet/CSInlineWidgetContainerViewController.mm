@@ -539,14 +539,14 @@ LABEL_17:
   }
 }
 
-uint64_t __106__CSInlineWidgetContainerViewController__updatePresentationStyleForTransitionToNewTraitCollection_reason___block_invoke()
+uint64_t __106__CSInlineWidgetContainerViewController__updatePresentationStyleForTransitionToNewTraitCollection_reason___block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v2 = _updatePresentationStyleForTransitionToNewTraitCollection_reason__className;
-  _updatePresentationStyleForTransitionToNewTraitCollection_reason__className = v1;
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v3 = _updatePresentationStyleForTransitionToNewTraitCollection_reason__className;
+  _updatePresentationStyleForTransitionToNewTraitCollection_reason__className = v2;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (void)widgetHostViewController:(id)controller requestsLaunchWithAction:(id)action

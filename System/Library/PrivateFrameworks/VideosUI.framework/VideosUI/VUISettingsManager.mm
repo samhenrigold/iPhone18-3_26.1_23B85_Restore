@@ -21,6 +21,9 @@
 - (int64_t)_appAppearance;
 - (unint64_t)_preferredVideoFormat;
 - (void)_handlePreferencesChange:(id)change;
+- (void)_restrictionsMaximumEffectiveAppRanking;
+- (void)_restrictionsMaximumEffectiveMovieRanking;
+- (void)_restrictionsMaximumEffectiveTVShowRanking;
 - (void)_sendSettingsValuesToJS:(id)s;
 - (void)_setupNotificationObservers;
 - (void)_teardownNotificationObservers;
@@ -92,15 +95,16 @@ void __36__VUISettingsManager_sharedInstance__block_invoke()
 {
   if (_os_feature_enabled_impl())
   {
-    v12 = 0;
-    v2 = [_TtC8VideosUI31VUIRestrictionsUtilityProxyObjC getMaximumEffectiveMoviesRankingAndReturnError:&v12];
-    v3 = v12;
+    v13 = 0;
+    v2 = [_TtC8VideosUI31VUIRestrictionsUtilityProxyObjC getMaximumEffectiveMoviesRankingAndReturnError:&v13];
+    v3 = v13;
+    v4 = v3;
     if (v3)
     {
-      v4 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = VUIDefaultLogObject(v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        [(VUISettingsManager *)v3 _restrictionsMaximumEffectiveMovieRanking:v4];
+        [(VUISettingsManager *)v4 _restrictionsMaximumEffectiveMovieRanking:v5];
       }
     }
   }
@@ -117,15 +121,16 @@ void __36__VUISettingsManager_sharedInstance__block_invoke()
 {
   if (_os_feature_enabled_impl())
   {
-    v12 = 0;
-    v2 = [_TtC8VideosUI31VUIRestrictionsUtilityProxyObjC getMaximumEffectiveTVShowRankingAndReturnError:&v12];
-    v3 = v12;
+    v13 = 0;
+    v2 = [_TtC8VideosUI31VUIRestrictionsUtilityProxyObjC getMaximumEffectiveTVShowRankingAndReturnError:&v13];
+    v3 = v13;
+    v4 = v3;
     if (v3)
     {
-      v4 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = VUIDefaultLogObject(v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        [(VUISettingsManager *)v3 _restrictionsMaximumEffectiveTVShowRanking:v4];
+        [(VUISettingsManager *)v4 _restrictionsMaximumEffectiveTVShowRanking:v5];
       }
     }
   }
@@ -165,36 +170,37 @@ void __36__VUISettingsManager_sharedInstance__block_invoke()
   aBlock[4] = self;
   v3 = _Block_copy(aBlock);
   isSystemPreferencesStoreInitializing = [MEMORY[0x1E69E15F0] isSystemPreferencesStoreInitializing];
-  v5 = VUIDefaultLogObject();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
-  if (isSystemPreferencesStoreInitializing)
+  v5 = isSystemPreferencesStoreInitializing;
+  v6 = VUIDefaultLogObject(isSystemPreferencesStoreInitializing);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+  if (v5)
   {
-    if (v6)
+    if (v7)
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_INFO, "VUISettingsManager - checkAndUpdateSettings - WLKSystemPreferencesStore is initializing", &buf, 2u);
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "VUISettingsManager - checkAndUpdateSettings - WLKSystemPreferencesStore is initializing", &buf, 2u);
     }
 
     objc_initWeak(&buf, self);
-    v7 = dispatch_get_global_queue(0, 0);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __41__VUISettingsManager_createSettingsStore__block_invoke_41;
-    v10[3] = &unk_1E872E828;
-    objc_copyWeak(&v12, &buf);
-    v11 = v3;
-    dispatch_async(v7, v10);
+    v8 = dispatch_get_global_queue(0, 0);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __41__VUISettingsManager_createSettingsStore__block_invoke_41;
+    v11[3] = &unk_1E872E828;
+    objc_copyWeak(&v13, &buf);
+    v12 = v3;
+    dispatch_async(v8, v11);
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(&buf);
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_INFO, "VUISettingsManager - checkAndUpdateSettings - WLKSystemPreferencesStore already initialized", &buf, 2u);
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "VUISettingsManager - checkAndUpdateSettings - WLKSystemPreferencesStore already initialized", &buf, 2u);
     }
 
     mEMORY[0x1E69E15F0] = [MEMORY[0x1E69E15F0] sharedPreferences];
@@ -234,7 +240,7 @@ void __41__VUISettingsManager_createSettingsStore__block_invoke(uint64_t a1, voi
 {
   if (self->_preferencesStore)
   {
-    v3 = VUIDefaultLogObject();
+    v3 = VUIDefaultLogObject(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -247,36 +253,37 @@ void __41__VUISettingsManager_createSettingsStore__block_invoke(uint64_t a1, voi
     _hasRTLChanged = [(VUISettingsManager *)self _hasRTLChanged];
     _hasAppAppearanceSettingChanged = [(VUISettingsManager *)self _hasAppAppearanceSettingChanged];
     v9 = _hasRestrictionsChanged || _hasPreferredVideoFormatChanged || _hasUpNextLockupsUseCoverArtChanged || _hasRTLChanged;
-    if ([(VUISettingsManager *)self _hasAutomaticDownloadsSettingChanged])
+    _hasAutomaticDownloadsSettingChanged = [(VUISettingsManager *)self _hasAutomaticDownloadsSettingChanged];
+    if (_hasAutomaticDownloadsSettingChanged)
     {
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
       [defaultCenter postNotificationName:@"VUIAutomaticDownloadsSwitchDidChangeNotification" object:0];
     }
 
-    v11 = v9 || _hasAppAppearanceSettingChanged;
+    v12 = v9 || _hasAppAppearanceSettingChanged;
     if (_hasAppAppearanceSettingChanged)
     {
       defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
       [defaultCenter2 postNotificationName:@"VUIAppAppearanceSettingDidChangeNotification" object:0];
     }
 
-    if (v11)
+    if (v12)
     {
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __44__VUISettingsManager_checkAndUpdateSettings__block_invoke;
-      v14[3] = &__block_descriptor_33_e8_v12__0B8l;
-      v15 = _hasUpNextLockupsUseCoverArtChanged;
-      [(VUISettingsManager *)self _sendSettingsValuesToJS:v14];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __44__VUISettingsManager_checkAndUpdateSettings__block_invoke;
+      v15[3] = &__block_descriptor_33_e8_v12__0B8l;
+      v16 = _hasUpNextLockupsUseCoverArtChanged;
+      [(VUISettingsManager *)self _sendSettingsValuesToJS:v15];
     }
 
     else
     {
-      v13 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v14 = VUIDefaultLogObject(_hasAutomaticDownloadsSettingChanged);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_INFO, "VUISettingsManager - checkAndUpdateSettings - nothing has changed", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_INFO, "VUISettingsManager - checkAndUpdateSettings - nothing has changed", buf, 2u);
       }
     }
   }
@@ -295,7 +302,7 @@ void __41__VUISettingsManager_createSettingsStore__block_invoke(uint64_t a1, voi
   {
 
 LABEL_10:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_14;
   }
 
@@ -323,33 +330,33 @@ LABEL_10:
     }
   }
 
-  v13 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = VUIDefaultLogObject(v12);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_INFO, "VUISettingsManager - Content restrictions did change", buf, 2u);
+    _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_INFO, "VUISettingsManager - Content restrictions did change", buf, 2u);
   }
 
-  v12 = 1;
+  v13 = 1;
 LABEL_14:
-  v14 = [_restrictionsMaximumEffectiveMovieRanking copy];
+  v15 = [_restrictionsMaximumEffectiveMovieRanking copy];
   maxMovieRank = self->_maxMovieRank;
-  self->_maxMovieRank = v14;
+  self->_maxMovieRank = v15;
 
-  v16 = [_restrictionsMaximumEffectiveTVShowRanking copy];
+  v17 = [_restrictionsMaximumEffectiveTVShowRanking copy];
   maxTVShowRank = self->_maxTVShowRank;
-  self->_maxTVShowRank = v16;
+  self->_maxTVShowRank = v17;
 
-  v18 = [_restrictionsMaximumEffectiveAppRanking copy];
+  v19 = [_restrictionsMaximumEffectiveAppRanking copy];
   maxAppRank = self->_maxAppRank;
-  self->_maxAppRank = v18;
+  self->_maxAppRank = v19;
 
-  if (v12)
+  if (v13)
   {
     dispatch_async(MEMORY[0x1E69E96A0], &__block_literal_global_58);
   }
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)_hasPreferredVideoFormatChanged
@@ -594,7 +601,7 @@ void __41__VUISettingsManager_createSettingsStore__block_invoke_2(uint64_t a1)
 
 void __46__VUISettingsManager__sendSettingsValuesToJS___block_invoke(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -607,24 +614,25 @@ void __46__VUISettingsManager__sendSettingsValuesToJS___block_invoke(uint64_t a1
     v5 = 0;
   }
 
-  if ([v5 hasProperty:@"onPreferencesChange"])
+  v6 = [v5 hasProperty:@"onPreferencesChange"];
+  if (v6)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "VUISettingsManager - updating user preferences - calling JS", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_INFO, "VUISettingsManager - updating user preferences - calling JS", v10, 2u);
     }
 
-    v10[0] = *(a1 + 32);
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
-    v8 = [v5 invokeMethod:@"onPreferencesChange" withArguments:v7];
+    v11[0] = *(a1 + 32);
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+    v9 = [v5 invokeMethod:@"onPreferencesChange" withArguments:v8];
   }
 }
 
 - (void)profileConnectionDidReceiveRestrictionChangedNotification:(id)notification userInfo:(id)info
 {
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *v6 = 0;
@@ -700,15 +708,16 @@ void __53__VUISettingsManager__hasPreferredVideoFormatChanged__block_invoke()
 {
   if (_os_feature_enabled_impl())
   {
-    v12 = 0;
-    v2 = [_TtC8VideosUI31VUIRestrictionsUtilityProxyObjC getMaximumEffectiveAppRankingAndReturnError:&v12];
-    v3 = v12;
+    v13 = 0;
+    v2 = [_TtC8VideosUI31VUIRestrictionsUtilityProxyObjC getMaximumEffectiveAppRankingAndReturnError:&v13];
+    v3 = v13;
+    v4 = v3;
     if (v3)
     {
-      v4 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = VUIDefaultLogObject(v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        [(VUISettingsManager *)v3 _restrictionsMaximumEffectiveAppRanking:v4];
+        [(VUISettingsManager *)v4 _restrictionsMaximumEffectiveAppRanking:v5];
       }
     }
   }
@@ -723,7 +732,7 @@ void __53__VUISettingsManager__hasPreferredVideoFormatChanged__block_invoke()
 
 - (void)_handlePreferencesChange:(id)change
 {
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -731,6 +740,27 @@ void __53__VUISettingsManager__hasPreferredVideoFormatChanged__block_invoke()
   }
 
   [(VUISettingsManager *)self checkAndUpdateSettings];
+}
+
+- (void)_restrictionsMaximumEffectiveMovieRanking
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_1E323F000, a2, a3, "VUISettingsManager - _restrictionsMaximumEffectiveMovieRanking failed with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_restrictionsMaximumEffectiveTVShowRanking
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_1E323F000, a2, a3, "VUISettingsManager - _restrictionsMaximumEffectiveTVShowRanking failed with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_restrictionsMaximumEffectiveAppRanking
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_1E323F000, a2, a3, "VUISettingsManager - _restrictionsMaximumEffectiveAppRanking failed with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

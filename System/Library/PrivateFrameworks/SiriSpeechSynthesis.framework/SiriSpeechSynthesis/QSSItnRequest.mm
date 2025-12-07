@@ -41,7 +41,7 @@ flatbuffers::DetachedBuffer *__29__QSSItnRequest_flatbuffData__block_invoke(uint
 
 - (Offset<siri::speech::schema_fb::ItnRequest>)addObjectToBuffer:(void *)buffer
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   speech_id = [(QSSItnRequest *)self speech_id];
   v6 = speech_id;
   if (!speech_id)
@@ -75,50 +75,50 @@ flatbuffers::DetachedBuffer *__29__QSSItnRequest_flatbuffData__block_invoke(uint
   v18 = strlen(uTF8String3);
   v19 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v18);
 
-  memset(&v39, 0, sizeof(v39));
+  memset(&v38, 0, sizeof(v38));
   words_list = [(QSSItnRequest *)self words_list];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v39, [words_list count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v38, [words_list count]);
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   words_list2 = [(QSSItnRequest *)self words_list];
-  v22 = [words_list2 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v22 = [words_list2 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v22)
   {
-    v23 = *v36;
+    v23 = *v35;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v36 != v23)
+        if (*v35 != v23)
         {
           objc_enumerationMutation(words_list2);
         }
 
-        v34 = [*(*(&v35 + 1) + 8 * i) addObjectToBuffer:buffer];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v39, &v34);
+        v33 = [*(*(&v34 + 1) + 8 * i) addObjectToBuffer:buffer];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v38, &v33);
       }
 
-      v22 = [words_list2 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v22 = [words_list2 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v22);
   }
 
-  begin = v39.__begin_;
-  if (v39.__end_ == v39.__begin_)
+  begin = v38.__begin_;
+  if (v38.__end_ == v38.__begin_)
   {
     v26 = &flatbuffers::data<flatbuffers::Offset<siri::speech::schema_fb::RecognitionPhraseTokens>,std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionPhraseTokens>>>(std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionPhraseTokens>> const&)::t;
   }
 
   else
   {
-    v26 = v39.__begin_;
+    v26 = v38.__begin_;
   }
 
-  v27 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v26, v39.__end_ - v39.__begin_);
+  v27 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v26, v38.__end_ - v38.__begin_);
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v28 = *(buffer + 8);
@@ -134,7 +134,6 @@ flatbuffers::DetachedBuffer *__29__QSSItnRequest_flatbuffData__block_invoke(uint
     operator delete(begin);
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 

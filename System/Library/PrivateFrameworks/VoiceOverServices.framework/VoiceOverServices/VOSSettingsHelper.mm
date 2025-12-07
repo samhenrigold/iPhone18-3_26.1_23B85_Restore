@@ -30,6 +30,7 @@
 - (void)_turnOffBrailleIOSyncIfNeeded;
 - (void)saveUserSettingsItems:(id)items;
 - (void)setNextValueForItem:(id)item inDirection:(int64_t)direction;
+- (void)setSlideToTypeEnabled:(BOOL)enabled;
 - (void)setValue:(id)value forSettingsItem:(id)item;
 @end
 
@@ -74,7 +75,7 @@ uint64_t __35__VOSSettingsHelper_sharedInstance__block_invoke()
 
 - (id)_enabledVoices
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   mEMORY[0x277CE7DA0] = [MEMORY[0x277CE7DA0] sharedInstance];
   dialectForSystemLanguage = [mEMORY[0x277CE7DA0] dialectForSystemLanguage];
@@ -88,7 +89,7 @@ uint64_t __35__VOSSettingsHelper_sharedInstance__block_invoke()
   voiceId = [v8 voiceId];
   v11 = [mEMORY[0x277D703C8] speechVoiceWithVoiceId:voiceId];
 
-  v23 = v11;
+  v22 = v11;
   if (!v8 || ![v11 isInstalled])
   {
     mEMORY[0x277CE7E20]2 = [MEMORY[0x277CE7E20] sharedInstance];
@@ -110,30 +111,30 @@ LABEL_6:
   }
 
 LABEL_7:
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   mEMORY[0x277CE7E20]3 = [MEMORY[0x277CE7E20] sharedInstance];
   voiceOverVoiceRotors = [mEMORY[0x277CE7E20]3 voiceOverVoiceRotors];
 
-  v16 = [voiceOverVoiceRotors countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v16 = [voiceOverVoiceRotors countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v25;
+    v18 = *v24;
     do
     {
       v19 = 0;
       v20 = voiceId2;
       do
       {
-        if (*v25 != v18)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(voiceOverVoiceRotors);
         }
 
-        voiceId2 = [*(*(&v24 + 1) + 8 * v19) identifier];
+        voiceId2 = [*(*(&v23 + 1) + 8 * v19) identifier];
 
         if (voiceId2)
         {
@@ -145,59 +146,67 @@ LABEL_7:
       }
 
       while (v17 != v19);
-      v17 = [voiceOverVoiceRotors countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v17 = [voiceOverVoiceRotors countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v17);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v2;
+}
+
+- (void)setSlideToTypeEnabled:(BOOL)enabled
+{
+  v3 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  CFPreferencesSetValue(@"KeyboardContinuousPathEnabled", v3, @"com.apple.keyboard.ContinuousPath", *MEMORY[0x277CBF040], *MEMORY[0x277CBF030]);
+
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, @"AppleKeyboardsContinuousPathSettingsChangedNotification", 0, 0, 1u);
 }
 
 - (id)userSettingsItems
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
   voiceOverQuickSettingsItems = [mEMORY[0x277CE7E20] voiceOverQuickSettingsItems];
 
-  v31 = [voiceOverQuickSettingsItems axMapObjectsUsingBlock:&__block_literal_global_297_0];
-  v30 = +[VOSSettingsItem allSettingsItems];
+  v30 = [voiceOverQuickSettingsItems axMapObjectsUsingBlock:&__block_literal_global_297_0];
+  v29 = +[VOSSettingsItem allSettingsItems];
   v5 = [VOSSettingsItem settingsIDtoItemMap:?];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = voiceOverQuickSettingsItems;
-  v6 = [obj countByEnumeratingWithState:&v40 objects:v51 count:16];
+  v6 = [obj countByEnumeratingWithState:&v39 objects:v50 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v41;
+    v8 = *v40;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v41 != v8)
+        if (*v40 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v40 + 1) + 8 * i);
+        v10 = *(*(&v39 + 1) + 8 * i);
         v11 = [v10 objectForKeyedSubscript:@"Item"];
         v12 = [v5 objectForKeyedSubscript:v11];
         if ([(VOSSettingsHelper *)self itemIsSupportedForPlatform:v12])
         {
           if (v12)
           {
-            v47[0] = @"Item";
-            v47[1] = @"Included";
-            v48[0] = v12;
+            v46[0] = @"Item";
+            v46[1] = @"Included";
+            v47[0] = v12;
             v13 = [v10 objectForKeyedSubscript:?];
-            v48[1] = v13;
-            v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
+            v47[1] = v13;
+            v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
             [array addObject:v14];
           }
 
@@ -207,62 +216,62 @@ LABEL_7:
             if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v50 = v11;
+              v49 = v11;
               _os_log_impl(&dword_223C70000, v13, OS_LOG_TYPE_DEFAULT, "Persistent QuickSettings identifier not found '%@'. skipping", buf, 0xCu);
             }
           }
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v40 objects:v51 count:16];
+      v7 = [obj countByEnumeratingWithState:&v39 objects:v50 count:16];
     }
 
     while (v7);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
-  v15 = v30;
-  v16 = [v15 countByEnumeratingWithState:&v36 objects:v46 count:16];
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v15 = v29;
+  v16 = [v15 countByEnumeratingWithState:&v35 objects:v45 count:16];
   v17 = array;
   if (v16)
   {
     v18 = v16;
-    v19 = *v37;
+    v19 = *v36;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v37 != v19)
+        if (*v36 != v19)
         {
           objc_enumerationMutation(v15);
         }
 
-        v21 = *(*(&v36 + 1) + 8 * j);
+        v21 = *(*(&v35 + 1) + 8 * j);
         if ([(VOSSettingsHelper *)self itemIsSupportedForPlatform:v21])
         {
           identifier = [v21 identifier];
-          v23 = [v31 containsObject:identifier];
+          v23 = [v30 containsObject:identifier];
 
           v17 = array;
           if ((v23 & 1) == 0)
           {
-            v44[0] = @"Item";
-            v44[1] = @"Included";
-            v45[0] = v21;
-            v45[1] = &unk_283736290;
-            v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
+            v43[0] = @"Item";
+            v43[1] = @"Included";
+            v44[0] = v21;
+            v44[1] = &unk_283736290;
+            v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
             v25 = [(VOSSettingsHelper *)self nameForItem:v21];
-            v34[0] = MEMORY[0x277D85DD0];
-            v34[1] = 3221225472;
-            v34[2] = __38__VOSSettingsHelper_userSettingsItems__block_invoke_307;
-            v34[3] = &unk_2784F3680;
-            v34[4] = self;
-            v35 = v25;
+            v33[0] = MEMORY[0x277D85DD0];
+            v33[1] = 3221225472;
+            v33[2] = __38__VOSSettingsHelper_userSettingsItems__block_invoke_307;
+            v33[3] = &unk_2784F3680;
+            v33[4] = self;
+            v34 = v25;
             v26 = v25;
-            v27 = [array indexOfObjectPassingTest:v34];
+            v27 = [array indexOfObjectPassingTest:v33];
             if (v27 == 0x7FFFFFFFFFFFFFFFLL)
             {
               [array addObject:v24];
@@ -276,13 +285,11 @@ LABEL_7:
         }
       }
 
-      v18 = [v15 countByEnumeratingWithState:&v36 objects:v46 count:16];
+      v18 = [v15 countByEnumeratingWithState:&v35 objects:v45 count:16];
     }
 
     while (v18);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -298,45 +305,45 @@ BOOL __38__VOSSettingsHelper_userSettingsItems__block_invoke_307(uint64_t a1, vo
 
 - (void)saveUserSettingsItems:(id)items
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   array = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = itemsCopy;
-  v5 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v5 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       v8 = 0;
       do
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * v8);
-        v21[0] = @"Included";
+        v9 = *(*(&v16 + 1) + 8 * v8);
+        v20[0] = @"Included";
         v10 = [v9 objectForKeyedSubscript:@"Included"];
-        v21[1] = @"Item";
-        v22[0] = v10;
+        v20[1] = @"Item";
+        v21[0] = v10;
         v11 = [v9 objectForKeyedSubscript:@"Item"];
         identifier = [v11 identifier];
-        v22[1] = identifier;
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+        v21[1] = identifier;
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
         [array addObject:v13];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v6 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v6);
@@ -344,8 +351,6 @@ BOOL __38__VOSSettingsHelper_userSettingsItems__block_invoke_307(uint64_t a1, vo
 
   mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
   [mEMORY[0x277CE7E20] setVoiceOverQuickSettingsItems:array];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNextValueForItem:(id)item inDirection:(int64_t)direction
@@ -523,7 +528,7 @@ LABEL_43:
 
 - (id)valueForSettingsItem:(id)item
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v5 = +[VOSSettingsItem Sounds];
 
@@ -565,11 +570,11 @@ LABEL_36:
 
   if (v8 == itemCopy)
   {
-    v43 = MEMORY[0x277CCABB0];
+    v42 = MEMORY[0x277CCABB0];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     [mEMORY[0x277CE7E20] voiceOverMediaDuckingAmount];
 LABEL_41:
-    null = [v43 numberWithDouble:?];
+    null = [v42 numberWithDouble:?];
     goto LABEL_35;
   }
 
@@ -617,10 +622,10 @@ LABEL_43:
 
   if (v13 == itemCopy)
   {
-    v45 = MEMORY[0x277CCABB0];
+    v44 = MEMORY[0x277CCABB0];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     [mEMORY[0x277CE7E20] voiceOverEffectiveSpeakingRate];
-    null = [v45 numberWithFloat:?];
+    null = [v44 numberWithFloat:?];
     goto LABEL_35;
   }
 
@@ -634,25 +639,25 @@ LABEL_43:
     if (voiceOverCurrentRotorVoiceIdentifier)
     {
       enabledVoices = [(VOSSettingsHelper *)self enabledVoices];
-      v49 = [enabledVoices indexOfObjectPassingTest:&__block_literal_global_311];
+      v48 = [enabledVoices indexOfObjectPassingTest:&__block_literal_global_311];
 
-      if (v49 == 0x7FFFFFFFFFFFFFFFLL)
+      if (v48 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v50 = 0;
+        v49 = 0;
       }
 
       else
       {
-        v50 = v49;
+        v49 = v48;
       }
     }
 
     else
     {
-      v50 = 0;
+      v49 = 0;
     }
 
-    _volumeForActiveVoice = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v50];
+    _volumeForActiveVoice = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v49];
     goto LABEL_43;
   }
 
@@ -670,11 +675,11 @@ LABEL_43:
 
   if (v16 == itemCopy)
   {
-    v51 = MEMORY[0x277CCABB0];
+    v50 = MEMORY[0x277CCABB0];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     settingsData = [itemCopy settingsData];
     frontmostAppIdentifier = [settingsData frontmostAppIdentifier];
-    v40 = [v51 numberWithInt:{objc_msgSend(mEMORY[0x277CE7E20], "automaticAccessibilityModeForBundleIdentifier:", frontmostAppIdentifier) == 1}];
+    v40 = [v50 numberWithInt:{objc_msgSend(mEMORY[0x277CE7E20], "automaticAccessibilityModeForBundleIdentifier:", frontmostAppIdentifier) == 1}];
 
 LABEL_54:
     goto LABEL_36;
@@ -699,7 +704,7 @@ LABEL_54:
       mEMORY[0x277CE7E20] = [mEMORY[0x277CE7E20]3 liveRegionStatusForWebOrApp:webAreaURL];
     }
 
-    v70 = MEMORY[0x277CCABB0];
+    v69 = MEMORY[0x277CCABB0];
     if (mEMORY[0x277CE7E20])
     {
       bOOLValue = [mEMORY[0x277CE7E20] BOOLValue];
@@ -710,7 +715,7 @@ LABEL_54:
       bOOLValue = 1;
     }
 
-    null = [v70 numberWithInt:bOOLValue];
+    null = [v69 numberWithInt:bOOLValue];
     goto LABEL_35;
   }
 
@@ -722,9 +727,9 @@ LABEL_54:
     imageCaptioningDisabledApps = [mEMORY[0x277CE7E20]4 imageCaptioningDisabledApps];
     settingsData4 = [itemCopy settingsData];
     frontmostAppIdentifier3 = [settingsData4 frontmostAppIdentifier];
-    v61 = [imageCaptioningDisabledApps containsObject:frontmostAppIdentifier3];
+    v60 = [imageCaptioningDisabledApps containsObject:frontmostAppIdentifier3];
 
-    _volumeForActiveVoice = [MEMORY[0x277CCABB0] numberWithInt:v61 ^ 1u];
+    _volumeForActiveVoice = [MEMORY[0x277CCABB0] numberWithInt:v60 ^ 1u];
     goto LABEL_43;
   }
 
@@ -736,8 +741,8 @@ LABEL_54:
     voiceOverDirectTouchEnabledApps = [mEMORY[0x277CE7E20]5 voiceOverDirectTouchEnabledApps];
     settingsData5 = [itemCopy settingsData];
     frontmostAppIdentifier4 = [settingsData5 frontmostAppIdentifier];
-    v66 = [voiceOverDirectTouchEnabledApps objectForKeyedSubscript:frontmostAppIdentifier4];
-    bOOLValue2 = [v66 BOOLValue];
+    v65 = [voiceOverDirectTouchEnabledApps objectForKeyedSubscript:frontmostAppIdentifier4];
+    bOOLValue2 = [v65 BOOLValue];
 
     _volumeForActiveVoice = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue2];
     goto LABEL_43;
@@ -812,11 +817,11 @@ LABEL_73:
 
   if (v25 == itemCopy)
   {
-    v74 = MEMORY[0x277CCABB0];
+    v73 = MEMORY[0x277CCABB0];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     voiceOverNavigationStyle = [mEMORY[0x277CE7E20] voiceOverNavigationStyle];
 LABEL_79:
-    null = [v74 numberWithInteger:voiceOverNavigationStyle];
+    null = [v73 numberWithInteger:voiceOverNavigationStyle];
     goto LABEL_35;
   }
 
@@ -824,7 +829,7 @@ LABEL_79:
 
   if (v26 == itemCopy)
   {
-    v74 = MEMORY[0x277CCABB0];
+    v73 = MEMORY[0x277CCABB0];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     voiceOverNavigationStyle = [mEMORY[0x277CE7E20] voiceOverNavigateImagesOption];
     goto LABEL_79;
@@ -834,7 +839,7 @@ LABEL_79:
 
   if (v27 == itemCopy)
   {
-    v74 = MEMORY[0x277CCABB0];
+    v73 = MEMORY[0x277CCABB0];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     voiceOverNavigationStyle = [mEMORY[0x277CE7E20] voiceOverNavigationDirectionMode];
     goto LABEL_79;
@@ -844,7 +849,7 @@ LABEL_79:
 
   if (v28 == itemCopy)
   {
-    v74 = MEMORY[0x277CCABB0];
+    v73 = MEMORY[0x277CCABB0];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     voiceOverNavigationStyle = [mEMORY[0x277CE7E20] voiceOverPhoneticsFeedback];
     goto LABEL_79;
@@ -854,7 +859,7 @@ LABEL_79:
 
   if (v29 == itemCopy)
   {
-    v74 = MEMORY[0x277CCABB0];
+    v73 = MEMORY[0x277CCABB0];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     voiceOverNavigationStyle = [mEMORY[0x277CE7E20] voiceOverDescribedMedia];
     goto LABEL_79;
@@ -893,9 +898,9 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  v76 = +[VOSSettingsItem TypingStyle];
+  v75 = +[VOSSettingsItem TypingStyle];
 
-  if (v76 == itemCopy)
+  if (v75 == itemCopy)
   {
     v37 = MEMORY[0x277CCABB0];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
@@ -903,29 +908,29 @@ LABEL_34:
     goto LABEL_32;
   }
 
-  v77 = +[VOSSettingsItem SoftwareTypingFeedback];
+  v76 = +[VOSSettingsItem SoftwareTypingFeedback];
 
-  if (v77 == itemCopy)
+  if (v76 == itemCopy)
   {
-    v74 = MEMORY[0x277CCABB0];
+    v73 = MEMORY[0x277CCABB0];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     voiceOverNavigationStyle = [mEMORY[0x277CE7E20] voiceOverSoftwareTypingFeedback];
     goto LABEL_79;
   }
 
-  v78 = +[VOSSettingsItem HardwareTypingFeedback];
+  v77 = +[VOSSettingsItem HardwareTypingFeedback];
 
-  if (v78 == itemCopy)
+  if (v77 == itemCopy)
   {
-    v74 = MEMORY[0x277CCABB0];
+    v73 = MEMORY[0x277CCABB0];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     voiceOverNavigationStyle = [mEMORY[0x277CE7E20] voiceOverHardwareTypingFeedback];
     goto LABEL_79;
   }
 
-  v79 = +[VOSSettingsItem SlideToType];
+  v78 = +[VOSSettingsItem SlideToType];
 
-  if (v79 == itemCopy)
+  if (v78 == itemCopy)
   {
     v34 = MEMORY[0x277CCABB0];
     mEMORY[0x277CE7E20] = +[VOSSettingsHelper sharedInstance];
@@ -933,37 +938,37 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v80 = +[VOSSettingsItem BrailleAutoAdvanceDuration];
+  v79 = +[VOSSettingsItem BrailleAutoAdvanceDuration];
 
-  if (v80 == itemCopy)
+  if (v79 == itemCopy)
   {
-    v43 = MEMORY[0x277CCABB0];
+    v42 = MEMORY[0x277CCABB0];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     [mEMORY[0x277CE7E20] voiceOverBrailleAutoAdvanceDuration];
     goto LABEL_41;
   }
 
-  v81 = +[VOSSettingsItem BrailleInput];
+  v80 = +[VOSSettingsItem BrailleInput];
 
-  if (v81 == itemCopy)
+  if (v80 == itemCopy)
   {
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     null = [mEMORY[0x277CE7E20] voiceOverTouchBrailleDisplayInputTableIdentifier];
     goto LABEL_35;
   }
 
-  v82 = +[VOSSettingsItem BrailleOutput];
+  v81 = +[VOSSettingsItem BrailleOutput];
 
-  if (v82 == itemCopy)
+  if (v81 == itemCopy)
   {
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     null = [mEMORY[0x277CE7E20] voiceOverTouchBrailleDisplayOutputTableIdentifier];
     goto LABEL_35;
   }
 
-  v83 = +[VOSSettingsItem BSIActivationGestures];
+  v82 = +[VOSSettingsItem BSIActivationGestures];
 
-  if (v83 == itemCopy)
+  if (v82 == itemCopy)
   {
     v34 = MEMORY[0x277CCABB0];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
@@ -971,18 +976,16 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v84 = VOTLogCommon();
-  if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+  v83 = VOTLogCommon();
+  if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
   {
-    v85 = 138412290;
-    v86 = itemCopy;
-    _os_log_impl(&dword_223C70000, v84, OS_LOG_TYPE_DEFAULT, "Unhandled pref getter for item: %@", &v85, 0xCu);
+    v84 = 138412290;
+    v85 = itemCopy;
+    _os_log_impl(&dword_223C70000, v83, OS_LOG_TYPE_DEFAULT, "Unhandled pref getter for item: %@", &v84, 0xCu);
   }
 
   v40 = 0;
 LABEL_37:
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v40;
 }
@@ -1000,7 +1003,7 @@ uint64_t __42__VOSSettingsHelper_valueForSettingsItem___block_invoke(uint64_t a1
 
 - (void)setValue:(id)value forSettingsItem:(id)item
 {
-  v121 = *MEMORY[0x277D85DE8];
+  v120 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   itemCopy = item;
   v8 = +[VOSSettingsItem Sounds];
@@ -1088,10 +1091,10 @@ uint64_t __42__VOSSettingsHelper_valueForSettingsItem___block_invoke(uint64_t a1
   if (v16 == itemCopy)
   {
     [valueCopy floatValue];
-    v53 = v52;
+    v52 = v51;
     mEMORY[0x277CE7E20]2 = [MEMORY[0x277CE7E20] sharedInstance];
-    LODWORD(v54) = v53;
-    [mEMORY[0x277CE7E20]2 setVoiceOverEffectiveSpeakingRate:v54];
+    LODWORD(v53) = v52;
+    [mEMORY[0x277CE7E20]2 setVoiceOverEffectiveSpeakingRate:v53];
     goto LABEL_33;
   }
 
@@ -1204,11 +1207,11 @@ uint64_t __42__VOSSettingsHelper_valueForSettingsItem___block_invoke(uint64_t a1
     voiceOverDirectTouchEnabledApps = [mEMORY[0x277CE7E20]6 voiceOverDirectTouchEnabledApps];
     mEMORY[0x277CE7E20]3 = [voiceOverDirectTouchEnabledApps mutableCopy];
 
-    v68 = [mEMORY[0x277CE7E20]3 objectForKey:mEMORY[0x277CE7E20]2];
-    LODWORD(voiceOverDirectTouchEnabledApps) = [v68 BOOLValue];
+    v67 = [mEMORY[0x277CE7E20]3 objectForKey:mEMORY[0x277CE7E20]2];
+    LODWORD(voiceOverDirectTouchEnabledApps) = [v67 BOOLValue];
 
-    v69 = [MEMORY[0x277CCABB0] numberWithInt:voiceOverDirectTouchEnabledApps ^ 1];
-    [mEMORY[0x277CE7E20]3 setObject:v69 forKeyedSubscript:mEMORY[0x277CE7E20]2];
+    v68 = [MEMORY[0x277CCABB0] numberWithInt:voiceOverDirectTouchEnabledApps ^ 1];
+    [mEMORY[0x277CE7E20]3 setObject:v68 forKeyedSubscript:mEMORY[0x277CE7E20]2];
 
     mEMORY[0x277CE7E20]7 = [MEMORY[0x277CE7E20] sharedInstance];
     [mEMORY[0x277CE7E20]7 setVoiceOverDirectTouchEnabledApps:mEMORY[0x277CE7E20]3];
@@ -1222,7 +1225,7 @@ uint64_t __42__VOSSettingsHelper_valueForSettingsItem___block_invoke(uint64_t a1
   {
     settingsData3 = [itemCopy settingsData];
     frontmostAppIdentifier = [settingsData3 frontmostAppIdentifier];
-    v73 = frontmostAppIdentifier;
+    v72 = frontmostAppIdentifier;
     if (frontmostAppIdentifier)
     {
       mEMORY[0x277CE7E20]2 = frontmostAppIdentifier;
@@ -1239,17 +1242,17 @@ uint64_t __42__VOSSettingsHelper_valueForSettingsItem___block_invoke(uint64_t a1
 
     if (mEMORY[0x277CE7E20]3)
     {
-      v85 = [mEMORY[0x277CE7E20]3 BOOLValue] ^ 1;
+      v84 = [mEMORY[0x277CE7E20]3 BOOLValue] ^ 1;
     }
 
     else
     {
-      v85 = 0;
+      v84 = 0;
     }
 
     mEMORY[0x277CE7E20]9 = [MEMORY[0x277CE7E20] sharedInstance];
-    v87 = [MEMORY[0x277CCABB0] numberWithInt:v85];
-    [mEMORY[0x277CE7E20]9 setLiveRegionStatusForWebOrApp:mEMORY[0x277CE7E20]2 status:v87];
+    v86 = [MEMORY[0x277CCABB0] numberWithInt:v84];
+    [mEMORY[0x277CE7E20]9 setLiveRegionStatusForWebOrApp:mEMORY[0x277CE7E20]2 status:v86];
 
 LABEL_44:
     goto LABEL_33;
@@ -1262,13 +1265,13 @@ LABEL_44:
     mEMORY[0x277CE7E20]10 = [MEMORY[0x277CE7E20] sharedInstance];
     settingsData5 = [itemCopy settingsData];
     frontmostAppIdentifier2 = [settingsData5 frontmostAppIdentifier];
-    v78 = [mEMORY[0x277CE7E20]10 automaticAccessibilityModeForBundleIdentifier:frontmostAppIdentifier2];
+    v77 = [mEMORY[0x277CE7E20]10 automaticAccessibilityModeForBundleIdentifier:frontmostAppIdentifier2];
 
-    v79 = v78 != 1;
+    v78 = v77 != 1;
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     settingsData6 = [itemCopy settingsData];
     frontmostAppIdentifier3 = [settingsData6 frontmostAppIdentifier];
-    [mEMORY[0x277CE7E20] setAutomaticAccessibilityMode:v79 forBundleIdentifier:frontmostAppIdentifier3];
+    [mEMORY[0x277CE7E20] setAutomaticAccessibilityMode:v78 forBundleIdentifier:frontmostAppIdentifier3];
 
     goto LABEL_39;
   }
@@ -1348,9 +1351,9 @@ LABEL_44:
   if (v33 == itemCopy)
   {
     null = [MEMORY[0x277CBEB68] null];
-    v95 = [valueCopy isEqual:null];
+    v94 = [valueCopy isEqual:null];
 
-    if (v95)
+    if (v94)
     {
 
       valueCopy = 0;
@@ -1366,9 +1369,9 @@ LABEL_44:
   if (v34 == itemCopy)
   {
     null2 = [MEMORY[0x277CBEB68] null];
-    v97 = [valueCopy isEqual:null2];
+    v96 = [valueCopy isEqual:null2];
 
-    if (v97)
+    if (v96)
     {
 
       valueCopy = 0;
@@ -1393,9 +1396,9 @@ LABEL_39:
     goto LABEL_40;
   }
 
-  v98 = +[VOSSettingsItem TypingStyle];
+  v97 = +[VOSSettingsItem TypingStyle];
 
-  if (v98 == itemCopy)
+  if (v97 == itemCopy)
   {
     integerValue7 = [valueCopy integerValue];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
@@ -1403,9 +1406,9 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  v99 = +[VOSSettingsItem SoftwareTypingFeedback];
+  v98 = +[VOSSettingsItem SoftwareTypingFeedback];
 
-  if (v99 == itemCopy)
+  if (v98 == itemCopy)
   {
     integerValue8 = [valueCopy integerValue];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
@@ -1413,9 +1416,9 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  v100 = +[VOSSettingsItem HardwareTypingFeedback];
+  v99 = +[VOSSettingsItem HardwareTypingFeedback];
 
-  if (v100 == itemCopy)
+  if (v99 == itemCopy)
   {
     integerValue9 = [valueCopy integerValue];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
@@ -1423,9 +1426,9 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  v101 = +[VOSSettingsItem SlideToType];
+  v100 = +[VOSSettingsItem SlideToType];
 
-  if (v101 == itemCopy)
+  if (v100 == itemCopy)
   {
     bOOLValue14 = [valueCopy BOOLValue];
     mEMORY[0x277CE7E20] = +[VOSSettingsHelper sharedInstance];
@@ -1433,13 +1436,13 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  v102 = +[VOSSettingsItem BrailleAutoAdvanceDuration];
+  v101 = +[VOSSettingsItem BrailleAutoAdvanceDuration];
 
-  if (v102 != itemCopy)
+  if (v101 != itemCopy)
   {
-    v103 = +[VOSSettingsItem BrailleInput];
+    v102 = +[VOSSettingsItem BrailleInput];
 
-    if (v103 == itemCopy)
+    if (v102 == itemCopy)
     {
       stringValue = [valueCopy stringValue];
       mEMORY[0x277CE7E20]11 = [MEMORY[0x277CE7E20] sharedInstance];
@@ -1448,13 +1451,13 @@ LABEL_39:
 
     else
     {
-      v104 = +[VOSSettingsItem BrailleOutput];
+      v103 = +[VOSSettingsItem BrailleOutput];
 
-      if (v104 != itemCopy)
+      if (v103 != itemCopy)
       {
-        v105 = +[VOSSettingsItem BSIActivationGestures];
+        v104 = +[VOSSettingsItem BSIActivationGestures];
 
-        if (v105 == itemCopy)
+        if (v104 == itemCopy)
         {
           bOOLValue15 = [valueCopy BOOLValue];
           mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
@@ -1466,7 +1469,7 @@ LABEL_39:
         if (os_log_type_enabled(mEMORY[0x277CE7E20]2, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v120 = itemCopy;
+          v119 = itemCopy;
           _os_log_impl(&dword_223C70000, mEMORY[0x277CE7E20]2, OS_LOG_TYPE_DEFAULT, "Unhandled pref setter for item: %@", buf, 0xCu);
         }
 
@@ -1482,22 +1485,20 @@ LABEL_39:
     goto LABEL_40;
   }
 
-  v110 = *MEMORY[0x277CE69E8];
-  v111 = *MEMORY[0x277CE69E0] - *MEMORY[0x277CE69E8];
+  v109 = *MEMORY[0x277CE69E8];
+  v110 = *MEMORY[0x277CE69E0] - *MEMORY[0x277CE69E8];
   [valueCopy floatValue];
-  v113 = v110 + v111 * v112;
+  v112 = v109 + v110 * v111;
   mEMORY[0x277CE7E20]2 = [MEMORY[0x277CE7E20] sharedInstance];
-  [mEMORY[0x277CE7E20]2 setVoiceOverBrailleAutoAdvanceDuration:v113];
+  [mEMORY[0x277CE7E20]2 setVoiceOverBrailleAutoAdvanceDuration:v112];
 LABEL_33:
 
 LABEL_40:
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v117 = @"SettingsItem";
-  v118 = itemCopy;
-  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
+  v116 = @"SettingsItem";
+  v117 = itemCopy;
+  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v117 forKeys:&v116 count:1];
   [defaultCenter postNotificationName:@"VOSDidUpdateValueForSettingsItemNotification" object:self userInfo:v50];
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_turnOffBrailleIOSyncIfNeeded
@@ -1562,10 +1563,9 @@ LABEL_40:
 
   if (v9 == itemCopy)
   {
-    v32 = *MEMORY[0x277CE6A28];
     localizedName = AXVoiceOverRotorLocString();
 LABEL_44:
-    v34 = localizedName;
+    v33 = localizedName;
     goto LABEL_45;
   }
 
@@ -1645,9 +1645,9 @@ LABEL_44:
 
   if (v19 == itemCopy)
   {
-    v36 = @"BRAILLE_DISPLAY_TIMEOUT";
+    v35 = @"BRAILLE_DISPLAY_TIMEOUT";
 LABEL_50:
-    localizedName = soft_AXUILocalizedStringForKey(v36);
+    localizedName = soft_AXUILocalizedStringForKey(v35);
     goto LABEL_44;
   }
 
@@ -1655,7 +1655,7 @@ LABEL_50:
 
   if (v20 == itemCopy)
   {
-    v36 = @"BRAILLE_TEXT_FORMATTING";
+    v35 = @"BRAILLE_TEXT_FORMATTING";
     goto LABEL_50;
   }
 
@@ -1668,14 +1668,14 @@ LABEL_50:
 
     if (frontmostAppIdentifier)
     {
-      v39 = MEMORY[0x277CCACA8];
-      v40 = @"VO_SCREEN_RECOGNITION_WITH_APP";
+      v38 = MEMORY[0x277CCACA8];
+      v39 = @"VO_SCREEN_RECOGNITION_WITH_APP";
 LABEL_61:
-      v44 = AXVoiceOverSettingsLocalizedStringForKey(v40);
+      v43 = AXVoiceOverSettingsLocalizedStringForKey(v39);
       settingsData2 = [itemCopy settingsData];
       frontmostAppIdentifier2 = [settingsData2 frontmostAppIdentifier];
-      v51 = AXAppNameForBundleId();
-      v34 = [v39 stringWithFormat:v44, v51];
+      v50 = AXAppNameForBundleId();
+      v33 = [v38 stringWithFormat:v43, v50];
 
       goto LABEL_62;
     }
@@ -1749,9 +1749,9 @@ LABEL_43:
 
                 else
                 {
-                  v52 = +[VOSSettingsItem BSIActivationGestures];
+                  v51 = +[VOSSettingsItem BSIActivationGestures];
 
-                  if (v52 != itemCopy)
+                  if (v51 != itemCopy)
                   {
                     localizedName = [itemCopy localizedName];
                     goto LABEL_44;
@@ -1773,8 +1773,8 @@ LABEL_43:
 
     if (frontmostAppIdentifier3)
     {
-      v39 = MEMORY[0x277CCACA8];
-      v40 = @"VO_IMAGE_DESCRIPTIONS_WITH_APP";
+      v38 = MEMORY[0x277CCACA8];
+      v39 = @"VO_IMAGE_DESCRIPTIONS_WITH_APP";
       goto LABEL_61;
     }
 
@@ -1792,8 +1792,8 @@ LABEL_43:
 
     if (frontmostAppIdentifier4)
     {
-      v39 = MEMORY[0x277CCACA8];
-      v40 = @"VO_LIVE_REGION_WITH_APP";
+      v38 = MEMORY[0x277CCACA8];
+      v39 = @"VO_LIVE_REGION_WITH_APP";
       goto LABEL_61;
     }
 
@@ -1801,16 +1801,16 @@ LABEL_43:
     goto LABEL_43;
   }
 
-  v43 = MEMORY[0x277CCACA8];
-  v44 = AXVoiceOverSettingsLocalizedStringForKey(@"VO_LIVE_REGION_WITH_APP");
+  v42 = MEMORY[0x277CCACA8];
+  v43 = AXVoiceOverSettingsLocalizedStringForKey(@"VO_LIVE_REGION_WITH_APP");
   settingsData2 = [itemCopy settingsData];
   frontmostAppIdentifier2 = [settingsData2 webAreaURL];
-  v34 = [v43 stringWithFormat:v44, frontmostAppIdentifier2];
+  v33 = [v42 stringWithFormat:v43, frontmostAppIdentifier2];
 LABEL_62:
 
 LABEL_45:
 
-  return v34;
+  return v33;
 }
 
 - (void)_setVolumeForActiveVoice:(double)voice
@@ -1832,7 +1832,7 @@ LABEL_45:
 
 - (id)possibleValuesForSettingsItem:(id)item
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v5 = +[VOSSettingsItem NavigationStyle];
 
@@ -1912,13 +1912,13 @@ LABEL_19:
   if (v15 == itemCopy)
   {
     null = [MEMORY[0x277CBEB68] null];
-    v62[0] = null;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:1];
+    v61[0] = null;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:1];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
     voiceOverActivities = [mEMORY[0x277CE7E20] voiceOverActivities];
 LABEL_30:
-    v28 = voiceOverActivities;
-    v21 = [v25 arrayByAddingObjectsFromArray:voiceOverActivities];
+    v27 = voiceOverActivities;
+    v21 = [v24 arrayByAddingObjectsFromArray:voiceOverActivities];
 
     goto LABEL_20;
   }
@@ -1928,8 +1928,8 @@ LABEL_30:
   if (v16 == itemCopy)
   {
     null = [MEMORY[0x277CBEB68] null];
-    v61 = null;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+    v60 = null;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
     mEMORY[0x277CE7E20] = [MEMORY[0x277CE7658] sharedDatabase];
     voiceOverActivities = [mEMORY[0x277CE7E20] punctuationGroups];
     goto LABEL_30;
@@ -1953,22 +1953,22 @@ LABEL_30:
       {
         v21 = objc_opt_new();
         enabledVoices = [(VOSSettingsHelper *)self enabledVoices];
-        v49 = [enabledVoices count];
+        v48 = [enabledVoices count];
 
-        if (v49)
+        if (v48)
         {
-          v50 = 0;
+          v49 = 0;
           do
           {
-            v51 = [MEMORY[0x277CCABB0] numberWithInt:v50];
-            [v21 addObject:v51];
+            v50 = [MEMORY[0x277CCABB0] numberWithInt:v49];
+            [v21 addObject:v50];
 
-            ++v50;
+            ++v49;
             enabledVoices2 = [(VOSSettingsHelper *)self enabledVoices];
-            v53 = [enabledVoices2 count];
+            v52 = [enabledVoices2 count];
           }
 
-          while (v53 > v50);
+          while (v52 > v49);
         }
       }
 
@@ -1981,61 +1981,61 @@ LABEL_30:
     }
   }
 
-  v54 = itemCopy;
-  v29 = _AXSVoiceOverTouchCopyBrailleLanguageRotorItems();
-  v21 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v29, "count")}];
+  v53 = itemCopy;
+  v28 = _AXSVoiceOverTouchCopyBrailleLanguageRotorItems();
+  v21 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v28, "count")}];
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
-  v30 = v29;
-  v31 = [v30 countByEnumeratingWithState:&v56 objects:v60 count:16];
-  if (v31)
+  v29 = v28;
+  v30 = [v29 countByEnumeratingWithState:&v55 objects:v59 count:16];
+  if (v30)
   {
-    v32 = v31;
-    v33 = *v57;
-    v34 = @"Enabled";
-    v55 = v21;
+    v31 = v30;
+    v32 = *v56;
+    v33 = @"Enabled";
+    v54 = v21;
     do
     {
-      for (i = 0; i != v32; ++i)
+      for (i = 0; i != v31; ++i)
       {
-        if (*v57 != v33)
+        if (*v56 != v32)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v29);
         }
 
-        v36 = *(*(&v56 + 1) + 8 * i);
-        v37 = [v36 objectForKeyedSubscript:{v34, v54}];
-        bOOLValue = [v37 BOOLValue];
+        v35 = *(*(&v55 + 1) + 8 * i);
+        v36 = [v35 objectForKeyedSubscript:{v33, v53}];
+        bOOLValue = [v36 BOOLValue];
 
         if (bOOLValue)
         {
-          identifier = [v36 objectForKeyedSubscript:@"RotorItem"];
+          identifier = [v35 objectForKeyedSubscript:@"RotorItem"];
           if (!identifier)
           {
-            v40 = [v36 objectForKeyedSubscript:@"LanguageDefaults"];
+            v39 = [v35 objectForKeyedSubscript:@"LanguageDefaults"];
             mEMORY[0x277CE7DA0] = [MEMORY[0x277CE7DA0] sharedInstance];
             userLocale = [mEMORY[0x277CE7DA0] userLocale];
 
             localeIdentifier = [userLocale localeIdentifier];
-            v44 = [v40 objectForKeyedSubscript:localeIdentifier];
+            v43 = [v39 objectForKeyedSubscript:localeIdentifier];
 
-            if (v44)
+            if (v43)
             {
-              identifier = v44;
+              identifier = v43;
             }
 
             else
             {
               [MEMORY[0x277CF3350] defaultTableForLocale:userLocale];
-              v45 = v34;
-              v47 = v46 = v30;
-              identifier = [v47 identifier];
+              v44 = v33;
+              v46 = v45 = v29;
+              identifier = [v46 identifier];
 
-              v30 = v46;
-              v34 = v45;
-              v21 = v55;
+              v29 = v45;
+              v33 = v44;
+              v21 = v54;
             }
           }
 
@@ -2043,16 +2043,14 @@ LABEL_30:
         }
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v56 objects:v60 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v55 objects:v59 count:16];
     }
 
-    while (v32);
+    while (v31);
   }
 
-  itemCopy = v54;
+  itemCopy = v53;
 LABEL_20:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -2286,7 +2284,7 @@ LABEL_24:
 
 - (id)formattedValue:(id)value withItem:(id)item
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   itemCopy = item;
   if (valueCopy)
@@ -2305,11 +2303,11 @@ LABEL_24:
         v12 = VOTLogCommon();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = 138412546;
-          v16 = valueCopy;
-          v17 = 2112;
-          v18 = itemCopy;
-          _os_log_impl(&dword_223C70000, v12, OS_LOG_TYPE_DEFAULT, "Error. no formatter provided to format value: '%@'. item: %@", &v15, 0x16u);
+          v14 = 138412546;
+          v15 = valueCopy;
+          v16 = 2112;
+          v17 = itemCopy;
+          _os_log_impl(&dword_223C70000, v12, OS_LOG_TYPE_DEFAULT, "Error. no formatter provided to format value: '%@'. item: %@", &v14, 0x16u);
         }
       }
 
@@ -2323,8 +2321,6 @@ LABEL_24:
   {
     v11 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -2400,25 +2396,26 @@ id __38__VOSSettingsHelper_durationFormatter__block_invoke_2(uint64_t a1, void *
   v2 = a2;
   [v2 floatValue];
   v4 = v3;
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
   v5 = getAXLocalizedTimeSummarySymbolLoc_ptr;
-  v13 = getAXLocalizedTimeSummarySymbolLoc_ptr;
+  v14 = getAXLocalizedTimeSummarySymbolLoc_ptr;
   if (!getAXLocalizedTimeSummarySymbolLoc_ptr)
   {
     v6 = AccessibilityUIUtilitiesLibrary();
-    v11[3] = dlsym(v6, "AXLocalizedTimeSummary");
-    getAXLocalizedTimeSummarySymbolLoc_ptr = v11[3];
-    v5 = v11[3];
+    v12[3] = dlsym(v6, "AXLocalizedTimeSummary");
+    getAXLocalizedTimeSummarySymbolLoc_ptr = v12[3];
+    v5 = v12[3];
   }
 
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
   if (!v5)
   {
-    v9 = soft_AXUILocalizedStringForKey_cold_1();
-    _Block_object_dispose(&v10, 8);
-    _Unwind_Resume(v9);
+    soft_AXUILocalizedStringForKey_cold_1();
+    v10 = v9;
+    _Block_object_dispose(&v11, 8);
+    _Unwind_Resume(v10);
   }
 
   v7 = v5(0, v4);

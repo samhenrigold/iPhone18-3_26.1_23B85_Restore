@@ -12,6 +12,7 @@
 - (id)__queryLastHourRecoveriesStatus;
 - (id)__queryNetworkStatus;
 - (id)__queryPowerStatus;
+- (id)__queryStatusIncludingWiFiScanCache:(BOOL)cache;
 - (id)__queryWiFiStatusIncludingScanCache:(BOOL)cache;
 - (id)__wifi;
 - (id)awdlStatus;
@@ -138,47 +139,7 @@
   v12.receiver = self;
   v12.super_class = W5StatusManager;
   v2 = [(W5StatusManager *)&v12 init];
-  if (!v2)
-  {
-    goto LABEL_12;
-  }
-
-  v3 = dispatch_queue_create("com.apple.wifivelocity.status", 0);
-  v2->_queue = v3;
-  if (!v3)
-  {
-    goto LABEL_12;
-  }
-
-  dispatch_queue_set_specific(v3, &v2->_queue, 1, 0);
-  v4 = objc_alloc_init(NSOperationQueue);
-  v2->_concurrentQueue = v4;
-  if (!v4)
-  {
-    goto LABEL_12;
-  }
-
-  [(NSOperationQueue *)v4 setMaxConcurrentOperationCount:-1];
-  v5 = objc_alloc_init(NSMutableArray);
-  v2->_eventHistory = v5;
-  if (!v5)
-  {
-    goto LABEL_12;
-  }
-
-  v6 = [[CWFInterface alloc] initWithServiceType:1];
-  v2->_corewifi = v6;
-  [(CWFInterface *)v6 resume];
-  v7 = objc_alloc_init(W5IOPowerManagement);
-  v2->_pm = v7;
-  if (!v7)
-  {
-    goto LABEL_12;
-  }
-
-  v8 = objc_alloc_init(W5IOPowerSource);
-  v2->_ps = v8;
-  if (v8 && (v9 = objc_alloc_init(NSMutableDictionary), (v2->_cachedStatusUUIDMap = v9) != 0) && ((v2->_bootArgs = [sub_100098418() copy], !+[W5FeatureAvailability diagnosticsModeEnabled](W5FeatureAvailability, "diagnosticsModeEnabled")) || (v10 = +[W5DatabaseManager sharedObject](W5DatabaseManager, "sharedObject"), (v2->_databaseManager = v10) != 0)))
+  if (v2 && (v3 = dispatch_queue_create("com.apple.wifivelocity.status", 0), (v2->_queue = v3) != 0) && (dispatch_queue_set_specific(v3, &v2->_queue, 1, 0), v4 = objc_alloc_init(NSOperationQueue), (v2->_concurrentQueue = v4) != 0) && (-[NSOperationQueue setMaxConcurrentOperationCount:](v4, "setMaxConcurrentOperationCount:", -1), v5 = objc_alloc_init(NSMutableArray), (v2->_eventHistory = v5) != 0) && (v6 = [[CWFInterface alloc] initWithServiceType:1], v2->_corewifi = v6, -[CWFInterface resume](v6, "resume"), v7 = objc_alloc_init(W5IOPowerManagement), (v2->_pm = v7) != 0) && (v8 = objc_alloc_init(W5IOPowerSource), (v2->_ps = v8) != 0) && (v9 = objc_alloc_init(NSMutableDictionary), (v2->_cachedStatusUUIDMap = v9) != 0) && ((v2->_bootArgs = objc_msgSend(sub_100098418(), "copy"), !+[W5FeatureAvailability diagnosticsModeEnabled](W5FeatureAvailability, "diagnosticsModeEnabled")) || (v10 = +[W5DatabaseManager sharedObject](W5DatabaseManager, "sharedObject"), (v2->_databaseManager = v10) != 0)))
   {
     v2->_diagnosticsModeManager = 0;
     [(W5StatusManager *)v2 __setupCallbacks];
@@ -186,7 +147,6 @@
 
   else
   {
-LABEL_12:
 
     return 0;
   }
@@ -967,6 +927,23 @@ LABEL_12:
   return v2;
 }
 
+- (id)__queryStatusIncludingWiFiScanCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  v5 = objc_alloc_init(W5Status);
+  [v5 setWifi:{-[W5StatusManager __queryWiFiStatusIncludingScanCache:](self, "__queryWiFiStatusIncludingScanCache:", cacheCopy)}];
+  [v5 setAwdl:{-[W5StatusManager __queryAWDLStatus](self, "__queryAWDLStatus")}];
+  [v5 setBluetooth:{-[W5StatusManager __queryBluetoothStatus](self, "__queryBluetoothStatus")}];
+  [v5 setNetwork:{-[W5StatusManager __queryNetworkStatus](self, "__queryNetworkStatus")}];
+  [v5 setDiagnosticsModes:{-[W5StatusManager __queryDiagnosticsModes](self, "__queryDiagnosticsModes")}];
+  [v5 setPower:{-[W5StatusManager __queryPowerStatus](self, "__queryPowerStatus")}];
+  [v5 setLastHrFaults:{-[W5StatusManager __queryLastHourFaultsStatus](self, "__queryLastHourFaultsStatus")}];
+  [v5 setLastHrLinkTests:{-[W5StatusManager __queryLastHourLinkTestsStatus](self, "__queryLastHourLinkTestsStatus")}];
+  [v5 setLastHrRecoveries:{-[W5StatusManager __queryLastHourRecoveriesStatus](self, "__queryLastHourRecoveriesStatus")}];
+  [(W5DatabaseManager *)self->_databaseManager releaseMoc];
+  return v5;
+}
+
 - (void)__updateStatus
 {
   v3 = [(W5StatusManager *)self __queryStatusIncludingWiFiScanCache:0];
@@ -977,205 +954,199 @@ LABEL_12:
       v4 = sub_100098A04();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v50 = 136315650;
-        v51 = "[W5StatusManager __updateStatus]";
-        v52 = 2080;
-        v53 = "W5StatusManager.m";
-        v54 = 1024;
-        v55 = 860;
-        LODWORD(v27) = 28;
-        v20 = &v50;
-        _os_log_send_and_compose_impl();
+        v37 = 136315650;
+        v38 = "[W5StatusManager __updateStatus]";
+        v39 = 2080;
+        v40 = "W5StatusManager.m";
+        v41 = 1024;
+        v42 = 860;
+        LODWORD(v20) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %s (%s:%u) WiFi status has changed, notifying clients", &v37, v20, v21);
       }
 
       v5 = objc_alloc_init(W5Event);
       [v5 setEventID:1];
       +[NSDate timeIntervalSinceReferenceDate];
       [v5 setTimestamp:?];
-      v48 = @"WiFiStatus";
+      v35 = @"WiFiStatus";
       wifi = [v3 wifi];
-      [v5 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &wifi, &v48, 1)}];
-      (*(self->_updatedWiFiStatusCallback + 2))(self->_updatedWiFiStatusCallback, v5);
+      [v5 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &wifi, &v35, 1)}];
+      (*(self->_updatedWiFiStatusCallback + 2))();
     }
 
-    if (([-[W5Status awdl](self->_updateStatus awdl] & 1) == 0 && self->_updatedAWDLStatusCallback)
+    if (([-[W5Status awdl](self->_updateStatus "awdl")] & 1) == 0 && self->_updatedAWDLStatusCallback)
     {
       v6 = sub_100098A04();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v50 = 136315650;
-        v51 = "[W5StatusManager __updateStatus]";
-        v52 = 2080;
-        v53 = "W5StatusManager.m";
-        v54 = 1024;
-        v55 = 872;
-        LODWORD(v28) = 28;
-        v21 = &v50;
-        _os_log_send_and_compose_impl();
+        v37 = 136315650;
+        v38 = "[W5StatusManager __updateStatus]";
+        v39 = 2080;
+        v40 = "W5StatusManager.m";
+        v41 = 1024;
+        v42 = 872;
+        LODWORD(v20) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v6, 0, "[wifivelocity] %s (%s:%u) AWDL status has changed, notifying clients", &v37, v20, v21);
       }
 
       v7 = objc_alloc_init(W5Event);
       [v7 setEventID:2];
       +[NSDate timeIntervalSinceReferenceDate];
       [v7 setTimestamp:?];
-      v46 = @"AWDLStatus";
+      v33 = @"AWDLStatus";
       awdl = [v3 awdl];
-      [v7 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &awdl, &v46, 1)}];
-      (*(self->_updatedAWDLStatusCallback + 2))(self->_updatedAWDLStatusCallback, v7);
+      [v7 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &awdl, &v33, 1)}];
+      (*(self->_updatedAWDLStatusCallback + 2))();
     }
 
-    if (([-[W5Status network](self->_updateStatus network] & 1) == 0 && self->_updatedNetworkStatusCallback)
+    if (([-[W5Status network](self->_updateStatus "network")] & 1) == 0 && self->_updatedNetworkStatusCallback)
     {
       v8 = sub_100098A04();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v50 = 136315650;
-        v51 = "[W5StatusManager __updateStatus]";
-        v52 = 2080;
-        v53 = "W5StatusManager.m";
-        v54 = 1024;
-        v55 = 884;
-        LODWORD(v29) = 28;
-        v22 = &v50;
-        _os_log_send_and_compose_impl();
+        v37 = 136315650;
+        v38 = "[W5StatusManager __updateStatus]";
+        v39 = 2080;
+        v40 = "W5StatusManager.m";
+        v41 = 1024;
+        v42 = 884;
+        LODWORD(v20) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) Network status has changed, notifying clients", &v37, v20, v21);
       }
 
       v9 = objc_alloc_init(W5Event);
       [v9 setEventID:4];
       +[NSDate timeIntervalSinceReferenceDate];
       [v9 setTimestamp:?];
-      v44 = @"NetworkStatus";
+      v31 = @"NetworkStatus";
       network = [v3 network];
-      [v9 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &network, &v44, 1)}];
-      (*(self->_updatedNetworkStatusCallback + 2))(self->_updatedNetworkStatusCallback, v9);
+      [v9 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &network, &v31, 1)}];
+      (*(self->_updatedNetworkStatusCallback + 2))();
     }
 
-    if (([-[W5Status bluetooth](self->_updateStatus bluetooth] & 1) == 0 && self->_updatedBluetoothStatusCallback)
+    if (([-[W5Status bluetooth](self->_updateStatus "bluetooth")] & 1) == 0 && self->_updatedBluetoothStatusCallback)
     {
       v10 = sub_100098A04();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v50 = 136315650;
-        v51 = "[W5StatusManager __updateStatus]";
-        v52 = 2080;
-        v53 = "W5StatusManager.m";
-        v54 = 1024;
-        v55 = 896;
-        LODWORD(v30) = 28;
-        v23 = &v50;
-        _os_log_send_and_compose_impl();
+        v37 = 136315650;
+        v38 = "[W5StatusManager __updateStatus]";
+        v39 = 2080;
+        v40 = "W5StatusManager.m";
+        v41 = 1024;
+        v42 = 896;
+        LODWORD(v20) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v10, 0, "[wifivelocity] %s (%s:%u) Bluetooth status has changed, notifying clients", &v37, v20, v21);
       }
 
       v11 = objc_alloc_init(W5Event);
       [v11 setEventID:3];
       +[NSDate timeIntervalSinceReferenceDate];
       [v11 setTimestamp:?];
-      v42 = @"BluetoothStatus";
+      v29 = @"BluetoothStatus";
       bluetooth = [v3 bluetooth];
-      [v11 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &bluetooth, &v42, 1)}];
-      (*(self->_updatedBluetoothStatusCallback + 2))(self->_updatedBluetoothStatusCallback, v11);
+      [v11 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &bluetooth, &v29, 1)}];
+      (*(self->_updatedBluetoothStatusCallback + 2))();
     }
 
-    if (([-[W5Status power](self->_updateStatus power] & 1) == 0 && self->_updatedPowerStatusCallback)
+    if (([-[W5Status power](self->_updateStatus "power")] & 1) == 0 && self->_updatedPowerStatusCallback)
     {
       v12 = sub_100098A04();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v50 = 136315650;
-        v51 = "[W5StatusManager __updateStatus]";
-        v52 = 2080;
-        v53 = "W5StatusManager.m";
-        v54 = 1024;
-        v55 = 908;
-        LODWORD(v31) = 28;
-        v24 = &v50;
-        _os_log_send_and_compose_impl();
+        v37 = 136315650;
+        v38 = "[W5StatusManager __updateStatus]";
+        v39 = 2080;
+        v40 = "W5StatusManager.m";
+        v41 = 1024;
+        v42 = 908;
+        LODWORD(v20) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] %s (%s:%u) Power status has changed, notifying clients", &v37, v20, v21);
       }
 
       v13 = objc_alloc_init(W5Event);
       [v13 setEventID:5];
       +[NSDate timeIntervalSinceReferenceDate];
       [v13 setTimestamp:?];
-      v40 = @"PowerStatus";
+      v27 = @"PowerStatus";
       power = [v3 power];
-      [v13 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &power, &v40, 1)}];
-      (*(self->_updatedPowerStatusCallback + 2))(self->_updatedPowerStatusCallback, v13);
+      [v13 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &power, &v27, 1)}];
+      (*(self->_updatedPowerStatusCallback + 2))();
     }
 
-    if (([-[W5Status lastHrFaults](self->_updateStatus lastHrFaults] & 1) == 0 && self->_updatedFaultsCallback)
+    if (([-[W5Status lastHrFaults](self->_updateStatus "lastHrFaults")] & 1) == 0 && self->_updatedFaultsCallback)
     {
       v14 = sub_100098A04();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v50 = 136315650;
-        v51 = "[W5StatusManager __updateStatus]";
-        v52 = 2080;
-        v53 = "W5StatusManager.m";
-        v54 = 1024;
-        v55 = 920;
-        LODWORD(v32) = 28;
-        v25 = &v50;
-        _os_log_send_and_compose_impl();
+        v37 = 136315650;
+        v38 = "[W5StatusManager __updateStatus]";
+        v39 = 2080;
+        v40 = "W5StatusManager.m";
+        v41 = 1024;
+        v42 = 920;
+        LODWORD(v20) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v14, 0, "[wifivelocity] %s (%s:%u) Last Hour Faults status has changed, notifying clients", &v37, v20, v21);
       }
 
       v15 = objc_alloc_init(W5Event);
       [v15 setEventID:39];
       +[NSDate timeIntervalSinceReferenceDate];
       [v15 setTimestamp:?];
-      v38 = @"LastHourFaultsStatus";
+      v25 = @"LastHourFaultsStatus";
       lastHrFaults = [v3 lastHrFaults];
-      [v15 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &lastHrFaults, &v38, 1)}];
-      (*(self->_updatedFaultsCallback + 2))(self->_updatedFaultsCallback, v15);
+      [v15 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &lastHrFaults, &v25, 1)}];
+      (*(self->_updatedFaultsCallback + 2))();
     }
 
-    if (([-[W5Status lastHrLinkTests](self->_updateStatus lastHrLinkTests] & 1) == 0 && self->_updatedLinkTestsCallback)
+    if (([-[W5Status lastHrLinkTests](self->_updateStatus "lastHrLinkTests")] & 1) == 0 && self->_updatedLinkTestsCallback)
     {
       v16 = sub_100098A04();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v50 = 136315650;
-        v51 = "[W5StatusManager __updateStatus]";
-        v52 = 2080;
-        v53 = "W5StatusManager.m";
-        v54 = 1024;
-        v55 = 932;
-        LODWORD(v33) = 28;
-        v26 = &v50;
-        _os_log_send_and_compose_impl();
+        v37 = 136315650;
+        v38 = "[W5StatusManager __updateStatus]";
+        v39 = 2080;
+        v40 = "W5StatusManager.m";
+        v41 = 1024;
+        v42 = 932;
+        LODWORD(v20) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] %s (%s:%u) Last Hour Link Tests status has changed, notifying clients", &v37, v20, v21);
       }
 
       v17 = objc_alloc_init(W5Event);
       [v17 setEventID:40];
       +[NSDate timeIntervalSinceReferenceDate];
       [v17 setTimestamp:?];
-      v36 = @"LastHourLinkTestsStatus";
+      v23 = @"LastHourLinkTestsStatus";
       lastHrLinkTests = [v3 lastHrLinkTests];
-      [v17 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &lastHrLinkTests, &v36, 1)}];
-      (*(self->_updatedLinkTestsCallback + 2))(self->_updatedLinkTestsCallback, v17);
+      [v17 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &lastHrLinkTests, &v23, 1)}];
+      (*(self->_updatedLinkTestsCallback + 2))();
     }
 
-    if (([-[W5Status lastHrRecoveries](self->_updateStatus lastHrRecoveries] & 1) == 0 && self->_updatedRecoveriesCallback)
+    if (([-[W5Status lastHrRecoveries](self->_updateStatus "lastHrRecoveries")] & 1) == 0 && self->_updatedRecoveriesCallback)
     {
       v18 = sub_100098A04();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v50 = 136315650;
-        v51 = "[W5StatusManager __updateStatus]";
-        v52 = 2080;
-        v53 = "W5StatusManager.m";
-        v54 = 1024;
-        v55 = 944;
-        _os_log_send_and_compose_impl();
+        v37 = 136315650;
+        v38 = "[W5StatusManager __updateStatus]";
+        v39 = 2080;
+        v40 = "W5StatusManager.m";
+        v41 = 1024;
+        v42 = 944;
+        LODWORD(v20) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v18, 0, "[wifivelocity] %s (%s:%u) Last Hour Recoveries status has changed, notifying clients", &v37, v20, v21);
       }
 
       v19 = objc_alloc_init(W5Event);
       [v19 setEventID:41];
       +[NSDate timeIntervalSinceReferenceDate];
       [v19 setTimestamp:?];
-      v34 = @"LastHourRecoveriesStatus";
+      v21 = @"LastHourRecoveriesStatus";
       lastHrRecoveries = [v3 lastHrRecoveries];
-      [v19 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &lastHrRecoveries, &v34, 1)}];
-      (*(self->_updatedRecoveriesCallback + 2))(self->_updatedRecoveriesCallback, v19);
+      [v19 setInfo:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &lastHrRecoveries, &v21, 1)}];
+      (*(self->_updatedRecoveriesCallback + 2))();
     }
 
     self->_updateStatus = [v3 copy];

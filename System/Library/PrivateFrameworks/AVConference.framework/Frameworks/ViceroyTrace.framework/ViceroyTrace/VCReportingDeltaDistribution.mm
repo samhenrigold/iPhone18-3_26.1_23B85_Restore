@@ -1,10 +1,30 @@
 @interface VCReportingDeltaDistribution
+- (VCReportingDeltaDistribution)initWithSignedHistogramType:(int)type reportingKeys:(id)keys;
 - (void)accumulate:(id)accumulate;
 - (void)updateReport:(id)report withStreamGroup:(id)group;
 - (void)updateWithPayload:(id)payload;
 @end
 
 @implementation VCReportingDeltaDistribution
+
+- (VCReportingDeltaDistribution)initWithSignedHistogramType:(int)type reportingKeys:(id)keys
+{
+  v7.receiver = self;
+  v7.super_class = VCReportingDeltaDistribution;
+  v4 = [(VCReportingDistribution *)&v7 initWithSignedHistogramType:*&type reportingKeys:keys];
+  v5 = v4;
+  if (v4)
+  {
+    v4->_absoluteMin = 1.79769313e308;
+  }
+
+  else
+  {
+    [VCReportingDeltaDistribution initWithSignedHistogramType:reportingKeys:];
+  }
+
+  return v5;
+}
 
 - (void)updateWithPayload:(id)payload
 {
@@ -163,28 +183,28 @@
 
 - (void)initWithSignedHistogramType:reportingKeys:.cold.1()
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!objc_opt_class())
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_10;
+      return;
     }
 
     v1 = VRTraceErrorLogLevelToCSTR(3u);
     if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_10;
+      return;
     }
 
-    v11 = 136315650;
-    v12 = v1;
+    v10 = 136315650;
+    v11 = v1;
     OUTLINED_FUNCTION_0();
-    v13 = 34;
+    v12 = 34;
     OUTLINED_FUNCTION_1();
 LABEL_12:
     _os_log_error_impl(v2, v3, v4, v5, v6, v7);
-    goto LABEL_10;
+    return;
   }
 
   if (objc_opt_respondsToSelector())
@@ -203,52 +223,49 @@ LABEL_12:
     v9 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136316162;
-      v12 = v8;
+      v10 = 136316162;
+      v11 = v8;
       OUTLINED_FUNCTION_0();
-      v13 = 34;
-      v14 = 2112;
-      v15 = v0;
-      v16 = 2048;
-      v17 = 0;
+      v12 = 34;
+      v13 = 2112;
+      v14 = v0;
+      v15 = 2048;
+      v16 = 0;
       v2 = &dword_23D4DF000;
       v5 = " [%s] %s:%d %@(%p) Failed to initialize VCReportingDistribution";
-      v6 = &v11;
+      v6 = &v10;
       v3 = v9;
       v4 = OS_LOG_TYPE_ERROR;
       v7 = 48;
       goto LABEL_12;
     }
   }
-
-LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithPayload:(void *)a1 .cold.1(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == a1)
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_10;
+      return;
     }
 
     v3 = VRTraceErrorLogLevelToCSTR(3u);
     if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_10;
+      return;
     }
 
-    v13 = 136315650;
-    v14 = v3;
+    v12 = 136315650;
+    v13 = v3;
     OUTLINED_FUNCTION_0();
-    v15 = 45;
+    v14 = 45;
     OUTLINED_FUNCTION_1();
 LABEL_12:
     _os_log_error_impl(v4, v5, v6, v7, v8, v9);
-    goto LABEL_10;
+    return;
   }
 
   if (objc_opt_respondsToSelector())
@@ -267,26 +284,23 @@ LABEL_12:
     v11 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136316162;
-      v14 = v10;
+      v12 = 136316162;
+      v13 = v10;
       OUTLINED_FUNCTION_0();
-      v15 = 45;
-      v16 = 2112;
-      v17 = v2;
-      v18 = 2048;
-      v19 = a1;
+      v14 = 45;
+      v15 = 2112;
+      v16 = v2;
+      v17 = 2048;
+      v18 = a1;
       v4 = &dword_23D4DF000;
       v7 = " [%s] %s:%d %@(%p) Received nil payload";
-      v8 = &v13;
+      v8 = &v12;
       v5 = v11;
       v6 = OS_LOG_TYPE_ERROR;
       v9 = 48;
       goto LABEL_12;
     }
   }
-
-LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

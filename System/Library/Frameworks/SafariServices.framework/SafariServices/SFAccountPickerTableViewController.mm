@@ -303,13 +303,13 @@ id __50___SFAccountPickerTableViewController_reloadTable__block_invoke_6(uint64_
   return v9;
 }
 
-uint64_t __72___SFAccountPickerTableViewController_newAutoFillablePasskeysAvailable___block_invoke(uint64_t a1)
+uint64_t __72___SFAccountPickerTableViewController_newAutoFillablePasskeysAvailable___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXAutoFill(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_INFO, "Received new passkeys available notification. Refreshing account picker.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_INFO, "Received new passkeys available notification. Refreshing account picker.", v5, 2u);
   }
 
   return [*(a1 + 32) reloadTable];
@@ -387,11 +387,12 @@ void __117___SFAccountPickerTableViewController__didPickSavedAccountForPasswordB
   }
 }
 
-void __73___SFAccountPickerTableViewController_tableView_didSelectRowAtIndexPath___block_invoke(uint64_t a1, char a2)
+void __73___SFAccountPickerTableViewController_tableView_didSelectRowAtIndexPath___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill();
+  v2 = a2;
+  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill(a1, a2);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (a2)
+  if (v2)
   {
     if (v5)
     {
@@ -445,14 +446,14 @@ void __89___SFAccountPickerTableViewController__presentAlertToConfirmDeletingAcc
   [WeakRetained _deleteSavedAccountAtIndexPath:*(a1 + 32)];
 }
 
-void __95___SFAccountPickerTableViewController__removeSavedAccount_shouldPerformDeletionInAccountStore___block_invoke_2(uint64_t a1)
+void __95___SFAccountPickerTableViewController__removeSavedAccount_shouldPerformDeletionInAccountStore___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 64) != 1 || (*(*(*(a1 + 56) + 8) + 24) & 1) != 0)
   {
     if (*(a1 + 65) == 1)
     {
-      v2 = [*(a1 + 32) tableView];
-      [v2 reloadData];
+      v3 = [*(a1 + 32) tableView];
+      [v3 reloadData];
     }
 
     else
@@ -461,28 +462,28 @@ void __95___SFAccountPickerTableViewController__removeSavedAccount_shouldPerform
       {
 LABEL_8:
         [*(*(a1 + 32) + 1096) removeObject:*(a1 + 48)];
-        v6 = objc_alloc_init(MEMORY[0x1E69E2100]);
-        [v6 schedulePasswordIconsCleanup];
+        v7 = objc_alloc_init(MEMORY[0x1E69E2100]);
+        [v7 schedulePasswordIconsCleanup];
 
         return;
       }
 
-      v2 = [*(a1 + 32) tableView];
-      [v2 deleteRowsAtIndexPaths:*(a1 + 40) withRowAnimation:100];
+      v3 = [*(a1 + 32) tableView];
+      [v3 deleteRowsAtIndexPaths:*(a1 + 40) withRowAnimation:100];
     }
 
     goto LABEL_8;
   }
 
-  v3 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXPasswords(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __95___SFAccountPickerTableViewController__removeSavedAccount_shouldPerformDeletionInAccountStore___block_invoke_2_cold_1();
   }
 
-  v4 = *(a1 + 32);
-  v5 = _WBSLocalizedString();
-  [v4 _presentErrorAlertWithString:v5];
+  v5 = *(a1 + 32);
+  v6 = _WBSLocalizedString();
+  [v5 _presentErrorAlertWithString:v6];
 }
 
 uint64_t __63___SFAccountPickerTableViewController__updateMatchingPasswords__block_invoke(uint64_t a1, void *a2)

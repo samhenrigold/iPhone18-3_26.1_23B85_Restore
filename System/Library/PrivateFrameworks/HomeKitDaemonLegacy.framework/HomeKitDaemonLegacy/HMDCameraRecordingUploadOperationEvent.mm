@@ -8,25 +8,23 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v12[5] = *MEMORY[0x277D85DE8];
-  v11[0] = @"runTime";
+  v11[5] = *MEMORY[0x277D85DE8];
+  v10[0] = @"runTime";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDCameraRecordingUploadOperationEvent runTimeInMilliseconds](self, "runTimeInMilliseconds")}];
-  v12[0] = v3;
-  v11[1] = @"didCausePreviousClipToFinalizeDueToDurationLimit";
+  v11[0] = v3;
+  v10[1] = @"didCausePreviousClipToFinalizeDueToDurationLimit";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDCameraRecordingUploadOperationEvent didCausePreviousClipToFinalizeDueToDurationLimit](self, "didCausePreviousClipToFinalizeDueToDurationLimit")}];
-  v12[1] = v4;
-  v11[2] = @"operationType";
+  v11[1] = v4;
+  v10[2] = @"operationType";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDCameraRecordingUploadOperationEvent operationType](self, "operationType")}];
-  v12[2] = v5;
-  v11[3] = @"totalClipDuration";
+  v11[2] = v5;
+  v10[3] = @"totalClipDuration";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDCameraRecordingUploadOperationEvent totalClipDurationMilliseconds](self, "totalClipDurationMilliseconds")}];
-  v12[3] = v6;
-  v11[4] = @"retryCount";
+  v11[3] = v6;
+  v10[4] = @"retryCount";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDCameraRecordingUploadOperationEvent retryCount](self, "retryCount")}];
-  v12[4] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[4] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }

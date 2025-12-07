@@ -153,7 +153,7 @@ uint64_t __119__SBIconListViewMultiStageAnimator_iconListView_wantsAnimatedLayou
   return result;
 }
 
-uint64_t __119__SBIconListViewMultiStageAnimator_iconListView_wantsAnimatedLayoutForIconView_withParameters_alongsideAnimationBlock___block_invoke_3(uint64_t a1)
+void *__119__SBIconListViewMultiStageAnimator_iconListView_wantsAnimatedLayoutForIconView_withParameters_alongsideAnimationBlock___block_invoke_3(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (*(v2 + 8) <= -10000.0)

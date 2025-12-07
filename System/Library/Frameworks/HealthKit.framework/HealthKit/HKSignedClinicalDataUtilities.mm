@@ -60,30 +60,30 @@
 
 + (id)recordItemsDisplayNameWithItems:(id)items
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v3 = [objc_alloc(MEMORY[0x1E696AB50]) initWithArray:itemsCopy];
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = [v3 objectEnumerator];
-  v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v25;
+    v7 = *v24;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * i);
+        v9 = *(*(&v23 + 1) + 8 * i);
         v10 = [v3 countForObject:v9];
         if (v10 == 1)
         {
@@ -103,7 +103,7 @@
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v6);
@@ -124,8 +124,6 @@
     [v18 localizedStringForKey:@"HEALTH_CARD_DISPLAY_NAME_EMPTY_CARD" value:&stru_1F05FF230 table:@"Localizable-Pasadena"];
   }
   v19 = ;
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

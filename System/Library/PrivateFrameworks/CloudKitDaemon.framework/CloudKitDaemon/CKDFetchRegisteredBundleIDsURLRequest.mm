@@ -17,17 +17,16 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
 
 - (id)generateRequestOperations
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -41,9 +40,9 @@
     v12 = objc_msgSend_container(self, v10, v11);
     v15 = objc_msgSend_containerID(v12, v13, v14);
     *buf = 138543618;
-    v27 = v9;
-    v28 = 2114;
-    v29 = v15;
+    v26 = v9;
+    v27 = 2114;
+    v28 = v15;
     _os_log_impl(&dword_22506F000, v6, OS_LOG_TYPE_INFO, "req: %{public}@, Getting Bundle IDs for container %{public}@", buf, 0x16u);
   }
 
@@ -52,10 +51,8 @@
   v19 = objc_opt_new();
   objc_msgSend_setBundlesForContainerRequest_(v18, v20, v19);
 
-  v25 = v18;
-  v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v21, &v25, 1);
-
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = v18;
+  v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v21, &v24, 1);
 
   return v22;
 }

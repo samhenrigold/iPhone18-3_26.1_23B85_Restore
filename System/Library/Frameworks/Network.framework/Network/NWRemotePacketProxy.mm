@@ -26,7 +26,7 @@
     v15 = __nwlog_obj();
     *buf = 136446210;
     v26 = "[NWRemotePacketProxy receiveRemotePacket:]";
-    v16 = _os_log_send_and_compose_impl();
+    v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s called with null packet", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v23 = 0;
@@ -171,7 +171,7 @@ LABEL_11:
 
     if (node || (v16 = nw_hash_table_add_object(packetHashTable, v13, 0)) != 0)
     {
-      *(v16 + 32) = handler;
+      *(v16 + 4) = handler;
 LABEL_30:
       free(v13);
       goto LABEL_31;
@@ -182,7 +182,7 @@ LABEL_30:
     v26 = gLogObj;
     *buf = 136446210;
     v36 = "[NWRemotePacketProxy setOutputProtocolHandler:local:remote:ipProtocol:]";
-    v27 = _os_log_send_and_compose_impl();
+    v27 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v26, 16, "%{public}s nw_hash_table_add_object failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v33 = 0;
@@ -270,7 +270,7 @@ LABEL_48:
   v36 = "[NWRemotePacketProxy setOutputProtocolHandler:local:remote:ipProtocol:]";
   v37 = 2048;
   v38 = 60;
-  v13 = _os_log_send_and_compose_impl();
+  v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s calloc(%zu) failed", buf, 22);
 
   type = OS_LOG_TYPE_ERROR;
   v33 = 0;
@@ -377,52 +377,51 @@ LABEL_31:
 {
   inboundCopy = inbound;
   packetCopy = packet;
-  packetHashTable = [(NWRemotePacketProxy *)self packetHashTable];
-  if (!nw_hash_table_count(packetHashTable, v8))
+  if (!nw_hash_table_count([(NWRemotePacketProxy *)self packetHashTable]))
   {
     goto LABEL_37;
   }
 
-  *&v25[8] = 0u;
-  v9 = [packetCopy length];
+  *&v23[8] = 0u;
+  v7 = [packetCopy length];
   bytes = [packetCopy bytes];
-  if (!bytes || !v9)
+  if (!bytes || !v7)
   {
     goto LABEL_37;
   }
 
-  v11 = *bytes & 0xF0;
-  if (v11 == 96)
+  v9 = *bytes & 0xF0;
+  if (v9 == 96)
   {
-    v22 = 7708;
-    *v21 = 7708;
-    if (v9 <= 0x27)
+    v20 = 7708;
+    *v19 = 7708;
+    if (v7 <= 0x27)
     {
       goto LABEL_37;
     }
 
-    v16 = 8;
+    v14 = 8;
     if (inboundCopy)
     {
-      v17 = 24;
+      v15 = 24;
     }
 
     else
     {
-      v17 = 8;
+      v15 = 8;
     }
 
     if (!inboundCopy)
     {
-      v16 = 24;
+      v14 = 24;
     }
 
-    *&v21[8] = *(bytes + v17);
-    *v25 = *(bytes + v16);
-    v25[20] = *(bytes + 6);
-    if (v25[20] == 17)
+    *&v19[8] = *(bytes + v15);
+    *v23 = *(bytes + v14);
+    v23[20] = *(bytes + 6);
+    if (v23[20] == 17)
     {
-      if (v9 <= 0x2F)
+      if (v7 <= 0x2F)
       {
         goto LABEL_37;
       }
@@ -435,12 +434,12 @@ LABEL_31:
 
     else
     {
-      if (v25[20] != 6)
+      if (v23[20] != 6)
       {
         goto LABEL_35;
       }
 
-      if (v9 <= 0x3B)
+      if (v7 <= 0x3B)
       {
         goto LABEL_37;
       }
@@ -448,52 +447,52 @@ LABEL_31:
       if (inboundCopy)
       {
 LABEL_27:
-        *&v21[2] = *(bytes + 42);
-        v15 = *(bytes + 40);
+        *&v19[2] = *(bytes + 42);
+        v13 = *(bytes + 40);
         goto LABEL_34;
       }
     }
 
-    *&v21[2] = *(bytes + 40);
-    v15 = *(bytes + 42);
+    *&v19[2] = *(bytes + 40);
+    v13 = *(bytes + 42);
     goto LABEL_34;
   }
 
-  if (v11 != 64)
+  if (v9 != 64)
   {
     goto LABEL_37;
   }
 
-  v22 = 528;
-  *v21 = 528;
-  if (v9 <= 0x13)
+  v20 = 528;
+  *v19 = 528;
+  if (v7 <= 0x13)
   {
     goto LABEL_37;
   }
 
-  v12 = 12;
+  v10 = 12;
   if (inboundCopy)
   {
-    v13 = 16;
+    v11 = 16;
   }
 
   else
   {
-    v13 = 12;
+    v11 = 12;
   }
 
   if (!inboundCopy)
   {
-    v12 = 16;
+    v10 = 16;
   }
 
-  v14 = *(bytes + v12);
-  *&v21[4] = *(bytes + v13);
-  v24 = v14;
-  v25[20] = *(bytes + 9);
-  if (v25[20] == 17)
+  v12 = *(bytes + v10);
+  *&v19[4] = *(bytes + v11);
+  v22 = v12;
+  v23[20] = *(bytes + 9);
+  if (v23[20] == 17)
   {
-    if (v9 > 0x1B)
+    if (v7 > 0x1B)
     {
       if (inboundCopy)
       {
@@ -501,8 +500,8 @@ LABEL_27:
       }
 
 LABEL_30:
-      *&v21[2] = *(bytes + 20);
-      v15 = *(bytes + 22);
+      *&v19[2] = *(bytes + 20);
+      v13 = *(bytes + 22);
       goto LABEL_34;
     }
 
@@ -511,12 +510,12 @@ LABEL_37:
     goto LABEL_38;
   }
 
-  if (v25[20] != 6)
+  if (v23[20] != 6)
   {
     goto LABEL_35;
   }
 
-  if (v9 <= 0x27)
+  if (v7 <= 0x27)
   {
     goto LABEL_37;
   }
@@ -527,18 +526,18 @@ LABEL_37:
   }
 
 LABEL_16:
-  *&v21[2] = *(bytes + 22);
-  v15 = *(bytes + 20);
+  *&v19[2] = *(bytes + 22);
+  v13 = *(bytes + 20);
 LABEL_34:
-  v23 = v15;
+  v21 = v13;
 LABEL_35:
-  node = nw_hash_table_get_node([(NWRemotePacketProxy *)self packetHashTable:*v21], v21, 60);
+  node = nw_hash_table_get_node([(NWRemotePacketProxy *)self packetHashTable:*v19], v19, 60);
   if (!node)
   {
     goto LABEL_37;
   }
 
-  defaultOutputHandler = *(node + 32);
+  defaultOutputHandler = node[4];
 LABEL_38:
 
   return defaultOutputHandler;
@@ -585,14 +584,13 @@ uint64_t __51__NWRemotePacketProxy_setReceiveWindowPacketCount___block_invoke(ui
 
   if ([(NWRemotePacketProxy *)self packetHashTable]&& [(NWRemotePacketProxy *)self packetHashTable])
   {
-    packetHashTable = [(NWRemotePacketProxy *)self packetHashTable];
-    _nw_hash_table_release(packetHashTable, v4);
+    _nw_hash_table_release([(NWRemotePacketProxy *)self packetHashTable]);
     [(NWRemotePacketProxy *)self setPacketHashTable:0];
   }
 
-  v5.receiver = self;
-  v5.super_class = NWRemotePacketProxy;
-  [(NWRemotePacketProxy *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = NWRemotePacketProxy;
+  [(NWRemotePacketProxy *)&v3 dealloc];
 }
 
 - (NWRemotePacketProxy)initWithDelegate:(id)delegate
@@ -604,7 +602,7 @@ uint64_t __51__NWRemotePacketProxy_setReceiveWindowPacketCount___block_invoke(ui
     v28 = __nwlog_obj();
     *buf = 136446210;
     v42 = "[NWRemotePacketProxy initWithDelegate:]";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v28, 16, "%{public}s called with null delegate", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v39 = 0;
@@ -688,7 +686,7 @@ uint64_t __51__NWRemotePacketProxy_setReceiveWindowPacketCount___block_invoke(ui
     v29 = __nwlog_obj();
     *buf = 136446210;
     v42 = "[NWRemotePacketProxy initWithDelegate:]";
-    v30 = _os_log_send_and_compose_impl();
+    v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v39 = 0;
@@ -785,7 +783,7 @@ LABEL_75:
     v42 = "[NWRemotePacketProxy initWithDelegate:]";
     v43 = 2048;
     v44 = 64;
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s calloc(%zu) failed", buf, 22);
 
     type = OS_LOG_TYPE_ERROR;
     v39 = 0;
@@ -902,7 +900,7 @@ LABEL_35:
     v16 = gLogObj;
     *buf = 136446210;
     v42 = "[NWRemotePacketProxy initWithDelegate:]";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s nw_packet_hash_table_create failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v39 = 0;

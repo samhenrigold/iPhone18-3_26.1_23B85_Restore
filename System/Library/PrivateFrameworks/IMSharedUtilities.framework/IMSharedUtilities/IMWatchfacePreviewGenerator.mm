@@ -117,7 +117,7 @@
 
 + (id)generateAndPersistPreviewFromSourceURL:(id)l senderContext:(id)context balloonBundleID:(id)d withPreviewConstraints:(IMPreviewConstraints *)constraints outSize:(CGSize *)size error:(id *)error
 {
-  v62[2] = *MEMORY[0x1E69E9840];
+  v63[2] = *MEMORY[0x1E69E9840];
   lCopy = l;
   contextCopy = context;
   dCopy = d;
@@ -127,71 +127,72 @@
   os_activity_scope_enter(v16, &state);
   if (lCopy && size && error)
   {
+    v17 = IMOSLoggingEnabled();
     errorCopy = error;
-    if (IMOSLoggingEnabled())
+    if (v17)
     {
-      v17 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v18 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&dword_1A85E5000, v17, OS_LOG_TYPE_INFO, "Invoking Blastdoor for image", &buf, 2u);
+        _os_log_impl(&dword_1A85E5000, v18, OS_LOG_TYPE_INFO, "Invoking Blastdoor for image", &buf, 2u);
       }
     }
 
-    v18 = MEMORY[0x1E695DFF8];
-    v19 = IMSafeTemporaryDirectory();
-    path = [v19 path];
-    v62[0] = path;
-    v62[1] = @"ImagePreview";
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:2];
-    v22 = [v18 fileURLWithPathComponents:v21];
+    v19 = MEMORY[0x1E695DFF8];
+    v20 = IMSafeTemporaryDirectory(v17);
+    path = [v20 path];
+    v63[0] = path;
+    v63[1] = @"ImagePreview";
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:2];
+    v23 = [v19 fileURLWithPathComponents:v22];
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    [defaultManager createDirectoryAtURL:v22 withIntermediateDirectories:1 attributes:0 error:0];
+    [defaultManager createDirectoryAtURL:v23 withIntermediateDirectories:1 attributes:0 error:0];
 
     stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
-    v25 = [v22 URLByAppendingPathComponent:stringGUID isDirectory:0];
-    v26 = [v25 URLByAppendingPathExtension:@"ktx"];
+    v26 = [v23 URLByAppendingPathComponent:stringGUID isDirectory:0];
+    v27 = [v26 URLByAppendingPathExtension:@"ktx"];
 
-    if (v26)
+    if (v27)
     {
       if ([self _isAvailable])
       {
-        v52 = 0;
-        v53 = &v52;
-        v54 = 0x2020000000;
-        v55 = 0;
+        v53 = 0;
+        v54 = &v53;
+        v55 = 0x2020000000;
+        v56 = 0;
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v58 = 0x3010000000;
-        v60 = 0;
+        v59 = 0x3010000000;
         v61 = 0;
-        v59 = &unk_1A8980B7F;
-        v46 = 0;
-        v47 = &v46;
-        v48 = 0x3032000000;
-        v49 = sub_1A8601E78;
-        v50 = sub_1A8602130;
-        v51 = 0;
-        v27 = dispatch_group_create();
-        dispatch_group_enter(v27);
+        v62 = 0;
+        v60 = &unk_1A8980B7F;
+        v47 = 0;
+        v48 = &v47;
+        v49 = 0x3032000000;
+        v50 = sub_1A8601E78;
+        v51 = sub_1A8602130;
+        v52 = 0;
+        v28 = dispatch_group_create();
+        dispatch_group_enter(v28);
         var0 = constraints->var0;
         var2 = constraints->var2;
-        v39[0] = MEMORY[0x1E69E9820];
-        v39[1] = 3221225472;
-        v39[2] = sub_1A862F994;
-        v39[3] = &unk_1E7826950;
-        v42 = &v52;
+        v40[0] = MEMORY[0x1E69E9820];
+        v40[1] = 3221225472;
+        v40[2] = sub_1A862F994;
+        v40[3] = &unk_1E7826950;
+        v43 = &v53;
         selfCopy = self;
-        v30 = v26;
-        v40 = v30;
-        p_buf = &buf;
-        v44 = &v46;
         v31 = v27;
         v41 = v31;
-        [IMAttachmentBlastdoor generatePreview:lCopy senderContext:contextCopy maxPxWidth:v39 scale:var0 withCompletionBlock:var2];
-        dispatch_group_wait(v31, 0xFFFFFFFFFFFFFFFFLL);
-        if (*(v53 + 24) == 1 && !v47[5])
+        p_buf = &buf;
+        v45 = &v47;
+        v32 = v28;
+        v42 = v32;
+        [IMAttachmentBlastdoor generatePreview:lCopy senderContext:contextCopy maxPxWidth:v40 scale:var0 withCompletionBlock:var2];
+        dispatch_group_wait(v32, 0xFFFFFFFFFFFFFFFFLL);
+        if (*(v54 + 24) == 1 && !v48[5])
         {
           *size = *(*(&buf + 1) + 32);
         }
@@ -199,25 +200,25 @@
         else
         {
 
-          v32 = v47[5];
-          v30 = 0;
-          if (v32)
+          v33 = v48[5];
+          v31 = 0;
+          if (v33)
           {
-            *errorCopy = v32;
+            *errorCopy = v33;
           }
         }
 
-        v26 = v30;
+        v27 = v31;
 
-        _Block_object_dispose(&v46, 8);
+        _Block_object_dispose(&v47, 8);
         _Block_object_dispose(&buf, 8);
-        _Block_object_dispose(&v52, 8);
-        v34 = v26;
+        _Block_object_dispose(&v53, 8);
+        v35 = v27;
       }
 
       else
       {
-        v34 = 0;
+        v35 = 0;
       }
     }
 
@@ -225,18 +226,18 @@
     {
       if (IMOSLoggingEnabled())
       {
-        v35 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+        v36 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
         {
           LODWORD(buf) = 138412290;
           *(&buf + 4) = stringGUID;
-          _os_log_impl(&dword_1A85E5000, v35, OS_LOG_TYPE_INFO, "Failed to get a temporaryPreviewURL %@", &buf, 0xCu);
+          _os_log_impl(&dword_1A85E5000, v36, OS_LOG_TYPE_INFO, "Failed to get a temporaryPreviewURL %@", &buf, 0xCu);
         }
       }
 
       [MEMORY[0x1E696ABC0] errorWithDomain:@"__kIMPreviewGenerationErrorDomain" code:12 userInfo:0];
-      v26 = 0;
-      *errorCopy = v34 = 0;
+      v27 = 0;
+      *errorCopy = v35 = 0;
     }
   }
 
@@ -244,20 +245,20 @@
   {
     if (IMOSLoggingEnabled())
     {
-      v33 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      v34 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&dword_1A85E5000, v33, OS_LOG_TYPE_INFO, "Invalid parameters", &buf, 2u);
+        _os_log_impl(&dword_1A85E5000, v34, OS_LOG_TYPE_INFO, "Invalid parameters", &buf, 2u);
       }
     }
 
-    v34 = 0;
+    v35 = 0;
   }
 
   os_activity_scope_leave(&state);
 
-  return v34;
+  return v35;
 }
 
 @end

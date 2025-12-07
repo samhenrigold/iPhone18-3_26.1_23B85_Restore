@@ -1,287 +1,67 @@
-void llvm::MCStreamer::emitCFIEscape(llvm::MCStreamer *a1, uint64_t a2, uint64_t a3)
+void *llvm::MCStreamer::emitWinCFIEndProc(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v5 = (*(*a1 + 80))(a1);
-  LODWORD(v7) = 10;
-  *(&v7 + 1) = v5;
-  v8 = 0;
-  v10 = 0;
-  v11 = 0;
-  v9 = 0;
-  if (a3)
-  {
-    if (a3 >= 0)
-    {
-      operator new();
-    }
-
-    std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
-  }
-
-  v13 = 0;
-  v12 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(a1);
-  if (CurrentDwarfFrameInfo)
-  {
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v7);
-  }
-}
-
-void llvm::MCStreamer::emitCFIGnuArgsSize(llvm::MCStreamer *this, int a2)
-{
-  v4 = (*(*this + 80))(this);
-  LODWORD(v6) = 16;
-  *(&v6 + 1) = v4;
-  v7 = 0;
-  v8 = a2;
-  v13 = 0;
-  v10 = 0;
-  v11 = 0;
-  v9 = 0;
-  v12 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
-  if (CurrentDwarfFrameInfo)
-  {
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v6);
-  }
-}
-
-uint64_t llvm::MCStreamer::emitCFISignalFrame(llvm::MCStreamer *this)
-{
-  result = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
+  result = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a2, a3, a4, a5, a6);
   if (result)
   {
-    *(result + 72) = 1;
-  }
-
-  return result;
-}
-
-void llvm::MCStreamer::emitCFIUndefined(llvm::MCStreamer *this, int a2)
-{
-  v4 = (*(*this + 80))(this);
-  LODWORD(v6) = 12;
-  *(&v6 + 1) = v4;
-  v7 = a2;
-  v8 = 0;
-  v13 = 0;
-  v10 = 0;
-  v11 = 0;
-  v9 = 0;
-  v12 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
-  if (CurrentDwarfFrameInfo)
-  {
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v6);
-  }
-}
-
-void llvm::MCStreamer::emitCFIRegister(llvm::MCStreamer *this, int a2, int a3)
-{
-  v6 = (*(*this + 80))(this);
-  LODWORD(v8) = 13;
-  *(&v8 + 1) = v6;
-  v9 = a2;
-  v10 = a3;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
-  if (CurrentDwarfFrameInfo)
-  {
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v8);
-  }
-}
-
-void llvm::MCStreamer::emitCFIWindowSave(llvm::MCStreamer *this)
-{
-  v2 = (*(*this + 80))(this);
-  LODWORD(v4) = 14;
-  *(&v4 + 1) = v2;
-  v5 = 0;
-  v10 = 0;
-  v7 = 0;
-  v8 = 0;
-  v6 = 0;
-  v9 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
-  if (CurrentDwarfFrameInfo)
-  {
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v4);
-  }
-}
-
-void llvm::MCStreamer::emitCFINegateRAState(llvm::MCStreamer *this)
-{
-  v2 = (*(*this + 80))(this);
-  LODWORD(v4) = 15;
-  *(&v4 + 1) = v2;
-  v5 = 0;
-  v10 = 0;
-  v7 = 0;
-  v8 = 0;
-  v6 = 0;
-  v9 = 0;
-  CurrentDwarfFrameInfo = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
-  if (CurrentDwarfFrameInfo)
-  {
-    std::vector<llvm::MCCFIInstruction>::push_back[abi:nn200100]((CurrentDwarfFrameInfo + 32), &v4);
-  }
-}
-
-uint64_t llvm::MCStreamer::emitCFIReturnColumn(llvm::MCStreamer *this, int a2)
-{
-  result = llvm::MCStreamer::getCurrentDwarfFrameInfo(this);
-  if (result)
-  {
-    *(result + 76) = a2;
-  }
-
-  return result;
-}
-
-uint64_t llvm::MCStreamer::EnsureValidWinFrameInfo(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a1 + 8);
-  v4 = *(v3 + 144);
-  if (*(v4 + 420) != 4 || ((v5 = *(v4 + 428), v5 != 6) ? (v6 = v5 == 0) : (v6 = 1), v6))
-  {
-    v7 = ".seh_* directives are not supported on this target";
-LABEL_8:
-    v10 = v7;
-    v11 = 259;
-    llvm::MCContext::reportError(v3, a2, &v10);
-    return 0;
-  }
-
-  v8 = *(a1 + 104);
-  if (!v8 || *(v8 + 8))
-  {
-    v7 = ".seh_ directive must appear within an active frame";
-    goto LABEL_8;
-  }
-
-  return v8;
-}
-
-uint64_t llvm::MCStreamer::emitWinCFIStartProc(void *a1, uint64_t a2, uint64_t a3)
-{
-  v4 = a1[1];
-  v5 = *(v4 + 144);
-  if (*(v5 + 420) == 4)
-  {
-    v6 = *(v5 + 428);
-    if (v6 != 6 && v6 != 0)
+    v12 = result;
+    if (result[10])
     {
-      v9 = a1[13];
-      if (v9)
-      {
-        if (!*(v9 + 8))
-        {
-          v10 = "Starting a function before ending the previous one!";
-          LOWORD(v11) = 259;
-          llvm::MCContext::reportError(v4, a3, &v10);
-        }
-      }
-
-      (*(*a1 + 80))(a1);
-      a1[14] = (a1[11] - a1[10]) >> 3;
-      operator new();
-    }
-  }
-
-  v10 = ".seh_* directives are not supported on this target";
-  LOWORD(v11) = 259;
-  return llvm::MCContext::reportError(v4, a3, &v10);
-}
-
-uint64_t *std::unique_ptr<llvm::WinEH::FrameInfo>::~unique_ptr[abi:nn200100](uint64_t *a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    v5 = (v2 + 160);
-    std::vector<llvm::WinEH::FrameInfo::Segment>::__destroy_vector::operator()[abi:nn200100](&v5);
-    v5 = (v2 + 136);
-    std::vector<std::pair<llvm::MCSymbol *,llvm::WinEH::FrameInfo::Epilog>>::__destroy_vector::operator()[abi:nn200100](&v5);
-    MEMORY[0x277C69E30](*(v2 + 112), 8);
-    v3 = *(v2 + 88);
-    if (v3)
-    {
-      *(v2 + 96) = v3;
-      operator delete(v3);
+      v13 = a1[1];
+      v18 = "Not all chained regions terminated!";
+      v19 = 259;
+      llvm::MCContext::reportError(v13, a2, &v18, v9, v10, v11);
     }
 
-    MEMORY[0x277C69E40](v2, 0x1060C40CDDC3B8FLL);
-  }
-
-  return a1;
-}
-
-uint64_t llvm::MCStreamer::emitWinCFIEndProc(void *a1, uint64_t a2)
-{
-  result = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a2);
-  if (result)
-  {
-    v5 = result;
-    if (*(result + 80))
+    v14 = (*(*a1 + 80))(a1);
+    v12[1] = v14;
+    if (!v12[2])
     {
-      v6 = a1[1];
-      v11 = "Not all chained regions terminated!";
-      v12 = 259;
-      llvm::MCContext::reportError(v6, a2, &v11);
+      v12[2] = v14;
     }
 
-    v7 = (*(*a1 + 80))(a1);
-    v5[1] = v7;
-    if (!v5[2])
+    v15 = a1[14];
+    v16 = a1[11] - a1[10];
+    if (v15 != v16 >> 3)
     {
-      v5[2] = v7;
-    }
-
-    v8 = a1[14];
-    v9 = a1[11] - a1[10];
-    if (v8 != v9 >> 3)
-    {
-      v10 = v9 >> 3;
+      v17 = v16 >> 3;
       do
       {
-        (*(*a1 + 16))(a1, *(a1[10] + 8 * v8++));
+        (*(*a1 + 16))(a1, *(a1[10] + 8 * v15++));
       }
 
-      while (v10 != v8);
+      while (v17 != v15);
     }
 
-    return (*(*a1 + 168))(a1, v5[7], 0);
+    return (*(*a1 + 168))(a1, v12[7], 0);
   }
 
   return result;
 }
 
-uint64_t llvm::MCStreamer::emitWinCFIFuncletOrFuncEnd(void *a1, uint64_t a2)
+uint64_t llvm::MCStreamer::emitWinCFIFuncletOrFuncEnd(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  result = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a2);
+  result = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a2, a3, a4, a5, a6);
   if (result)
   {
-    v5 = result;
+    v12 = result;
     if (*(result + 80))
     {
-      v6 = a1[1];
-      v7 = "Not all chained regions terminated!";
-      v8 = 259;
-      llvm::MCContext::reportError(v6, a2, &v7);
+      v13 = a1[1];
+      v14 = "Not all chained regions terminated!";
+      v15 = 259;
+      llvm::MCContext::reportError(v13, a2, &v14, v9, v10, v11);
     }
 
     result = (*(*a1 + 80))(a1);
-    *(v5 + 16) = result;
+    *(v12 + 16) = result;
   }
 
   return result;
 }
 
-uint64_t llvm::MCStreamer::emitWinCFIStartChained(uint64_t a1, uint64_t a2)
+uint64_t llvm::MCStreamer::emitWinCFIStartChained(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  result = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a2);
+  result = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a2, a3, a4, a5, a6);
   if (result)
   {
     (*(*a1 + 80))(a1);
@@ -291,64 +71,66 @@ uint64_t llvm::MCStreamer::emitWinCFIStartChained(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t llvm::MCStreamer::emitWinCFIEndChained(void *a1, uint64_t a2)
+uint64_t llvm::MCStreamer::emitWinCFIEndChained(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  result = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a2);
+  result = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a2, a3, a4, a5, a6);
   if (result)
   {
-    v5 = result;
+    v12 = result;
     if (*(result + 80))
     {
       result = (*(*a1 + 80))(a1);
-      *(v5 + 8) = result;
-      a1[13] = *(v5 + 80);
+      *(v12 + 8) = result;
+      a1[13] = *(v12 + 80);
     }
 
     else
     {
-      v6 = a1[1];
-      v7 = "End of a chained region outside a chained region!";
-      v8 = 259;
-      return llvm::MCContext::reportError(v6, a2, &v7);
+      v13 = a1[1];
+      v14 = "End of a chained region outside a chained region!";
+      v15 = 259;
+      return llvm::MCContext::reportError(v13, a2, &v14, v9, v10, v11);
     }
   }
 
   return result;
 }
 
-uint64_t llvm::MCStreamer::emitWinEHHandler(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5)
+uint64_t llvm::MCStreamer::emitWinEHHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  result = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a5);
+  v7 = a4;
+  v8 = a3;
+  result = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a5, a3, a4, a5, a6);
   if (result)
   {
-    v11 = result;
+    v15 = result;
     if (*(result + 80))
     {
-      v12 = *(a1 + 8);
-      v14[0] = "Chained unwind areas can't have handlers!";
-      v15 = 259;
-      return llvm::MCContext::reportError(v12, a5, v14);
+      v16 = *(a1 + 8);
+      v18[0] = "Chained unwind areas can't have handlers!";
+      v19 = 259;
+      return llvm::MCContext::reportError(v16, a5, v18, v12, v13, v14);
     }
 
     else
     {
       *(result + 24) = a2;
-      if ((a3 & 1) == 0 && (a4 & 1) == 0)
+      if ((v8 & 1) == 0 && (v7 & 1) == 0)
       {
-        v13 = *(a1 + 8);
-        v14[0] = "Don't know what kind of handler this is!";
-        v15 = 259;
-        result = llvm::MCContext::reportError(v13, a5, v14);
+        v17 = *(a1 + 8);
+        v18[0] = "Don't know what kind of handler this is!";
+        v19 = 259;
+        result = llvm::MCContext::reportError(v17, a5, v18, v12, v13, v14);
       }
 
-      if (a3)
+      if (v8)
       {
-        *(v11 + 72) = 1;
+        *(v15 + 72) = 1;
       }
 
-      if (a4)
+      if (v7)
       {
-        *(v11 + 73) = 1;
+        *(v15 + 73) = 1;
       }
     }
   }
@@ -356,49 +138,49 @@ uint64_t llvm::MCStreamer::emitWinEHHandler(uint64_t a1, uint64_t a2, int a3, in
   return result;
 }
 
-uint64_t llvm::MCStreamer::emitWinEHHandlerData(uint64_t a1, uint64_t a2)
+uint64_t llvm::MCStreamer::emitWinEHHandlerData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  result = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a2);
+  result = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a2, a3, a4, a5, a6);
   if (result)
   {
     if (*(result + 80))
     {
-      v5 = *(a1 + 8);
-      v6 = "Chained unwind areas can't have handlers!";
-      v7 = 259;
-      return llvm::MCContext::reportError(v5, a2, &v6);
+      v12 = *(a1 + 8);
+      v13 = "Chained unwind areas can't have handlers!";
+      v14 = 259;
+      return llvm::MCContext::reportError(v12, a2, &v13, v9, v10, v11);
     }
   }
 
   return result;
 }
 
-void llvm::MCStreamer::emitWinCFIPushReg(void *a1, int a2, uint64_t a3)
+void llvm::MCStreamer::emitWinCFIPushReg(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  valid = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a3);
+  valid = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a3, a3, a4, a5, a6);
   if (valid)
   {
-    v6 = valid;
-    v7 = (*(*a1 + 80))(a1);
-    v8 = *(a1[1] + 152);
-    LODWORD(v12) = a2;
-    v9 = llvm::DenseMapBase<llvm::DenseMap<llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>,llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>::find(v8 + 160, &v12);
-    if (*(v8 + 160) + 8 * *(v8 + 176) == v9)
+    v9 = valid;
+    v10 = (*(*a1 + 80))(a1);
+    v11 = *(a1[1] + 152);
+    LODWORD(v15) = a2;
+    v12 = llvm::DenseMapBase<llvm::DenseMap<llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>,llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>::find(v11 + 160, &v15);
+    if (*(v11 + 160) + 8 * *(v11 + 176) == v12)
     {
-      v10 = &v12;
+      v13 = &v15;
     }
 
     else
     {
-      v10 = (v9 + 4);
+      v13 = (v12 + 4);
     }
 
-    v11 = *v10;
-    *&v12 = v7;
-    DWORD2(v12) = -1;
-    HIDWORD(v12) = v11;
-    v13 = 0;
-    std::vector<llvm::WinEH::Instruction>::push_back[abi:nn200100](v6 + 88, &v12);
+    v14 = *v13;
+    *&v15 = v10;
+    DWORD2(v15) = -1;
+    HIDWORD(v15) = v14;
+    v16 = 0;
+    std::vector<llvm::WinEH::Instruction>::push_back[abi:nn200100](v9 + 88, &v15);
   }
 }
 
@@ -468,262 +250,265 @@ void std::vector<llvm::WinEH::Instruction>::push_back[abi:nn200100](uint64_t a1,
   *(a1 + 8) = v6;
 }
 
-void llvm::MCStreamer::emitWinCFISetFrame(void *a1, int a2, unsigned int a3, uint64_t a4)
+void llvm::MCStreamer::emitWinCFISetFrame(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  valid = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a4);
+  v7 = a3;
+  valid = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a4, a3, a4, a5, a6);
   if (valid)
   {
-    v9 = valid;
+    v14 = valid;
     if ((*(valid + 76) & 0x80000000) == 0)
     {
-      v10 = a1[1];
-      v11 = "frame register and offset can be set at most once";
+      v15 = a1[1];
+      v16 = "frame register and offset can be set at most once";
 LABEL_8:
-      *&v20 = v11;
-      v22 = 259;
-      llvm::MCContext::reportError(v10, a4, &v20);
+      *&v25 = v16;
+      v27 = 259;
+      llvm::MCContext::reportError(v15, a4, &v25, v11, v12, v13);
       return;
     }
 
-    if ((a3 & 0xF) != 0)
+    if ((v7 & 0xF) != 0)
     {
-      v10 = a1[1];
-      v11 = "offset is not a multiple of 16";
+      v15 = a1[1];
+      v16 = "offset is not a multiple of 16";
       goto LABEL_8;
     }
 
-    if (a3 >= 0xF1)
+    if (v7 >= 0xF1)
     {
-      v10 = a1[1];
-      v11 = "frame offset must be less than or equal to 240";
+      v15 = a1[1];
+      v16 = "frame offset must be less than or equal to 240";
       goto LABEL_8;
     }
 
-    v12 = (*(*a1 + 80))(a1);
-    v13 = *(a1[1] + 152);
-    LODWORD(v20) = a2;
-    v14 = llvm::DenseMapBase<llvm::DenseMap<llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>,llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>::find(v13 + 160, &v20);
-    if (*(v13 + 160) + 8 * *(v13 + 176) == v14)
+    v17 = (*(*a1 + 80))(a1);
+    v18 = *(a1[1] + 152);
+    LODWORD(v25) = a2;
+    v19 = llvm::DenseMapBase<llvm::DenseMap<llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>,llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>::find(v18 + 160, &v25);
+    if (*(v18 + 160) + 8 * *(v18 + 176) == v19)
     {
-      v15 = &v20;
+      v20 = &v25;
     }
 
     else
     {
-      v15 = (v14 + 4);
+      v20 = (v19 + 4);
     }
 
-    v16 = *v15;
-    *&v20 = v12;
-    *(&v20 + 1) = __PAIR64__(v16, a3);
-    v21 = 3;
-    v17 = *(v9 + 88);
-    v18 = *(v9 + 96);
-    v19 = v9 + 88;
-    *(v19 - 12) = -1431655765 * ((v18 - v17) >> 3);
-    std::vector<llvm::WinEH::Instruction>::push_back[abi:nn200100](v19, &v20);
+    v21 = *v20;
+    *&v25 = v17;
+    *(&v25 + 1) = __PAIR64__(v21, v7);
+    v26 = 3;
+    v22 = *(v14 + 88);
+    v23 = *(v14 + 96);
+    v24 = v14 + 88;
+    *(v24 - 12) = -1431655765 * ((v23 - v22) >> 3);
+    std::vector<llvm::WinEH::Instruction>::push_back[abi:nn200100](v24, &v25);
   }
 }
 
-void llvm::MCStreamer::emitWinCFIAllocStack(void *a1, unsigned int a2, uint64_t a3)
+void llvm::MCStreamer::emitWinCFIAllocStack(void *a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  valid = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a3);
+  valid = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a3, a3, a4, a5, a6);
   if (valid)
   {
     if (!a2)
     {
-      v7 = a1[1];
-      v8 = "stack allocation size must be non-zero";
+      v13 = a1[1];
+      v14 = "stack allocation size must be non-zero";
       goto LABEL_6;
     }
 
     if ((a2 & 7) != 0)
     {
-      v7 = a1[1];
-      v8 = "stack allocation size is not a multiple of 8";
+      v13 = a1[1];
+      v14 = "stack allocation size is not a multiple of 8";
 LABEL_6:
-      *&v12 = v8;
-      v14 = 259;
-      llvm::MCContext::reportError(v7, a3, &v12);
+      *&v18 = v14;
+      v20 = 259;
+      llvm::MCContext::reportError(v13, a3, &v18, v10, v11, v12);
       return;
     }
 
-    v9 = valid;
-    v10 = (*(*a1 + 80))(a1);
+    v15 = valid;
+    v16 = (*(*a1 + 80))(a1);
     if (a2 > 0x80)
     {
-      v11 = 1;
+      v17 = 1;
     }
 
     else
     {
-      v11 = 2;
+      v17 = 2;
     }
 
-    *&v12 = v10;
-    *(&v12 + 1) = a2 | 0xFFFFFFFF00000000;
-    v13 = v11;
-    std::vector<llvm::WinEH::Instruction>::push_back[abi:nn200100](v9 + 88, &v12);
+    *&v18 = v16;
+    *(&v18 + 1) = a2 | 0xFFFFFFFF00000000;
+    v19 = v17;
+    std::vector<llvm::WinEH::Instruction>::push_back[abi:nn200100](v15 + 88, &v18);
   }
 }
 
-void llvm::MCStreamer::emitWinCFISaveReg(void *a1, int a2, unsigned int a3, uint64_t a4)
+void llvm::MCStreamer::emitWinCFISaveReg(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  valid = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a4);
+  v7 = a3;
+  valid = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a4, a3, a4, a5, a6);
   if (valid)
   {
-    if ((a3 & 7) != 0)
+    if ((v7 & 7) != 0)
     {
-      v9 = a1[1];
-      *&v17 = "register save offset is not 8 byte aligned";
-      v19 = 259;
-      llvm::MCContext::reportError(v9, a4, &v17);
+      v14 = a1[1];
+      *&v22 = "register save offset is not 8 byte aligned";
+      v24 = 259;
+      llvm::MCContext::reportError(v14, a4, &v22, v11, v12, v13);
     }
 
     else
     {
-      v10 = valid;
-      v11 = (*(*a1 + 80))(a1);
-      v12 = *(a1[1] + 152);
-      LODWORD(v17) = a2;
-      v13 = llvm::DenseMapBase<llvm::DenseMap<llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>,llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>::find(v12 + 160, &v17);
-      if (*(v12 + 160) + 8 * *(v12 + 176) == v13)
+      v15 = valid;
+      v16 = (*(*a1 + 80))(a1);
+      v17 = *(a1[1] + 152);
+      LODWORD(v22) = a2;
+      v18 = llvm::DenseMapBase<llvm::DenseMap<llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>,llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>::find(v17 + 160, &v22);
+      if (*(v17 + 160) + 8 * *(v17 + 176) == v18)
       {
-        v14 = &v17;
+        v19 = &v22;
       }
 
       else
       {
-        v14 = (v13 + 4);
+        v19 = (v18 + 4);
       }
 
-      v15 = *v14;
-      *&v17 = v11;
-      if (a3 <= 0x7FFF8)
+      v20 = *v19;
+      *&v22 = v16;
+      if (v7 <= 0x7FFF8)
       {
-        v16 = 4;
+        v21 = 4;
       }
 
       else
       {
-        v16 = 5;
+        v21 = 5;
       }
 
-      *(&v17 + 1) = __PAIR64__(v15, a3);
-      v18 = v16;
-      std::vector<llvm::WinEH::Instruction>::push_back[abi:nn200100](v10 + 88, &v17);
+      *(&v22 + 1) = __PAIR64__(v20, v7);
+      v23 = v21;
+      std::vector<llvm::WinEH::Instruction>::push_back[abi:nn200100](v15 + 88, &v22);
     }
   }
 }
 
-void llvm::MCStreamer::emitWinCFISaveXMM(void *a1, int a2, unsigned int a3, uint64_t a4)
+void llvm::MCStreamer::emitWinCFISaveXMM(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  valid = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a4);
+  v7 = a3;
+  valid = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a4, a3, a4, a5, a6);
   if (valid)
   {
-    if ((a3 & 0xF) != 0)
+    if ((v7 & 0xF) != 0)
     {
-      v9 = a1[1];
-      *&v17 = "offset is not a multiple of 16";
-      v19 = 259;
-      llvm::MCContext::reportError(v9, a4, &v17);
+      v14 = a1[1];
+      *&v22 = "offset is not a multiple of 16";
+      v24 = 259;
+      llvm::MCContext::reportError(v14, a4, &v22, v11, v12, v13);
     }
 
     else
     {
-      v10 = valid;
-      v11 = (*(*a1 + 80))(a1);
-      v12 = *(a1[1] + 152);
-      LODWORD(v17) = a2;
-      v13 = llvm::DenseMapBase<llvm::DenseMap<llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>,llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>::find(v12 + 160, &v17);
-      if (*(v12 + 160) + 8 * *(v12 + 176) == v13)
+      v15 = valid;
+      v16 = (*(*a1 + 80))(a1);
+      v17 = *(a1[1] + 152);
+      LODWORD(v22) = a2;
+      v18 = llvm::DenseMapBase<llvm::DenseMap<llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>,llvm::MCRegister,int,llvm::DenseMapInfo<llvm::MCRegister,void>,llvm::detail::DenseMapPair<llvm::MCRegister,int>>::find(v17 + 160, &v22);
+      if (*(v17 + 160) + 8 * *(v17 + 176) == v18)
       {
-        v14 = &v17;
+        v19 = &v22;
       }
 
       else
       {
-        v14 = (v13 + 4);
+        v19 = (v18 + 4);
       }
 
-      v15 = *v14;
-      *&v17 = v11;
-      if (a3 <= 0x7FFF8)
+      v20 = *v19;
+      *&v22 = v16;
+      if (v7 <= 0x7FFF8)
       {
-        v16 = 8;
+        v21 = 8;
       }
 
       else
       {
-        v16 = 9;
+        v21 = 9;
       }
 
-      *(&v17 + 1) = __PAIR64__(v15, a3);
-      v18 = v16;
-      std::vector<llvm::WinEH::Instruction>::push_back[abi:nn200100](v10 + 88, &v17);
+      *(&v22 + 1) = __PAIR64__(v20, v7);
+      v23 = v21;
+      std::vector<llvm::WinEH::Instruction>::push_back[abi:nn200100](v15 + 88, &v22);
     }
   }
 }
 
-void llvm::MCStreamer::emitWinCFIPushFrame(void *a1, int a2, uint64_t a3)
+void llvm::MCStreamer::emitWinCFIPushFrame(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  valid = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a3);
+  valid = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a3, a3, a4, a5, a6);
   if (valid)
   {
-    v7 = valid + 88;
+    v13 = valid + 88;
     if (*(valid + 88) == *(valid + 96))
     {
-      v9 = (*(*a1 + 80))(a1);
-      v10 = a2;
-      v11 = 0xAFFFFFFFFLL;
-      std::vector<llvm::WinEH::Instruction>::push_back[abi:nn200100](v7, &v9);
+      v15 = (*(*a1 + 80))(a1);
+      v16 = a2;
+      v17 = 0xAFFFFFFFFLL;
+      std::vector<llvm::WinEH::Instruction>::push_back[abi:nn200100](v13, &v15);
     }
 
     else
     {
-      v8 = a1[1];
-      v9 = "If present, PushMachFrame must be the first UOP";
-      v12 = 259;
-      llvm::MCContext::reportError(v8, a3, &v9);
+      v14 = a1[1];
+      v15 = "If present, PushMachFrame must be the first UOP";
+      v18 = 259;
+      llvm::MCContext::reportError(v14, a3, &v15, v10, v11, v12);
     }
   }
 }
 
-uint64_t llvm::MCStreamer::emitWinCFIEndProlog(uint64_t a1, uint64_t a2)
+uint64_t llvm::MCStreamer::emitWinCFIEndProlog(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  result = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a2);
+  result = llvm::MCStreamer::EnsureValidWinFrameInfo(a1, a2, a3, a4, a5, a6);
   if (result)
   {
-    v4 = result;
+    v8 = result;
     result = (*(*a1 + 80))(a1);
-    *(v4 + 40) = result;
+    *(v8 + 40) = result;
   }
 
   return result;
 }
 
-uint64_t llvm::MCStreamer::finish(void *a1, uint64_t a2)
+uint64_t llvm::MCStreamer::finish(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v3 = a1[4];
-  if ((a1[3] == v3 || *(v3 - 80)) && ((v4 = a1[11], a1[10] == v4) || *(*(v4 - 8) + 8)))
+  v7 = a1[4];
+  if ((a1[3] == v7 || *(v7 - 80)) && ((v8 = a1[11], a1[10] == v8) || *(*(v8 - 8) + 8)))
   {
-    v5 = a1[2];
-    if (v5)
+    v9 = a1[2];
+    if (v9)
     {
-      (*(*v5 + 80))(v5);
+      (*(*v9 + 80))(v9, a2, a3, a4, a5, a6);
     }
 
-    v6 = *(*a1 + 1232);
+    v10 = *(*a1 + 1232);
 
-    return v6(a1);
+    return v10(a1);
   }
 
   else
   {
-    v8 = a1[1];
-    v9 = "Unfinished frame!";
-    v10 = 259;
-    return llvm::MCContext::reportError(v8, a2, &v9);
+    v12 = a1[1];
+    v13 = "Unfinished frame!";
+    v14 = 259;
+    return llvm::MCContext::reportError(v12, a2, &v13, a4, a5, a6);
   }
 }
 
@@ -851,14 +636,14 @@ unint64_t llvm::MCStreamer::emitDwarfUnitLength(llvm::MCStreamer *this, const ll
   return v17;
 }
 
-uint64_t llvm::MCStreamer::emitAssignment(uint64_t a1, void *a2, unsigned __int8 *a3)
+uint64_t llvm::MCStreamer::emitAssignment(llvm::MCStreamer *a1, void *a2, const llvm::MCExpr *a3)
 {
   llvm::MCStreamer::visitUsedExpr(a1, a3);
   a2[3] = a3;
   v6 = a2[1] & 0xFFFFFFFFFFFFC7FFLL | 0x1000;
   *a2 &= 7uLL;
   a2[1] = v6;
-  result = *(a1 + 16);
+  result = *(a1 + 2);
   if (result)
   {
     v8 = *(*result + 24);
@@ -909,7 +694,7 @@ LABEL_7:
   if (v4 == 4)
   {
     v7 = *(*(a2 - 1) + 56);
-    v8 = (a2 - 8);
+    v8 = a2 - 8;
     v6 = v3;
 
     return v7(v8, v6);
@@ -942,7 +727,7 @@ uint64_t llvm::MCStreamer::emitInstruction(uint64_t result, uint64_t a2)
   return result;
 }
 
-void llvm::MCStreamer::emitPseudoProbe(void *a1, uint64_t a2, uint64_t a3, char a4, char a5, uint64_t a6, unint64_t a7)
+void llvm::MCStreamer::emitPseudoProbe(void *a1, uint64_t a2, uint64_t a3, char a4, char a5, _DWORD *a6, unint64_t a7)
 {
   v14 = a1[1];
   v19[0] = "tmp";
@@ -954,12 +739,12 @@ void llvm::MCStreamer::emitPseudoProbe(void *a1, uint64_t a2, uint64_t a3, char 
   v20 = a5;
   v21 = a4;
   v22 = TempSymbol;
-  for (i = *(v14 + 217); i; i = v17[1])
+  for (i = *(v14 + 217); i; i = *(v17 + 1))
   {
     while (1)
     {
       v17 = i;
-      v18 = i[4];
+      v18 = *(i + 4);
       if (v18 <= a7)
       {
         break;
@@ -974,7 +759,7 @@ void llvm::MCStreamer::emitPseudoProbe(void *a1, uint64_t a2, uint64_t a3, char 
 
     if (v18 >= a7)
     {
-      llvm::MCPseudoProbeInlineTree::addPseudoProbe((v17 + 5), v19, a6);
+      llvm::MCPseudoProbeInlineTree::addPseudoProbe(v17 + 10, v19, a6);
     }
   }
 
@@ -985,7 +770,7 @@ LABEL_7:
 uint64_t llvm::MCStreamer::emitAbsoluteSymbolDiff(llvm::MCStreamer *this, const llvm::MCSymbol *a2, const llvm::MCSymbol *a3, uint64_t a4)
 {
   v8 = *(this + 1);
-  v9 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(v8 + 184, 24, 3);
+  v9 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((v8 + 184), 24, 3);
   v10 = v9;
   if (*(*(v8 + 144) + 18))
   {
@@ -1002,7 +787,7 @@ uint64_t llvm::MCStreamer::emitAbsoluteSymbolDiff(llvm::MCStreamer *this, const 
   *(v9 + 8) = 0;
   *(v9 + 16) = a2;
   v12 = *(this + 1);
-  v13 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(v12 + 184, 24, 3);
+  v13 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((v12 + 184), 24, 3);
   v14 = v13;
   if (*(*(v12 + 144) + 18))
   {
@@ -1018,7 +803,7 @@ uint64_t llvm::MCStreamer::emitAbsoluteSymbolDiff(llvm::MCStreamer *this, const 
   *(v13 + 1) = v15 | (*(v13 + 4) << 24);
   *(v13 + 8) = 0;
   *(v13 + 16) = a3;
-  v16 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(*(this + 1) + 184, 32, 3);
+  v16 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((*(this + 1) + 184), 32, 3);
   *v16 = 0;
   *(v16 + 1) = (*(v16 + 4) << 24) | 0x12;
   *(v16 + 8) = 0;
@@ -1032,7 +817,7 @@ uint64_t llvm::MCStreamer::emitAbsoluteSymbolDiff(llvm::MCStreamer *this, const 
     TempSymbol = llvm::MCContext::createTempSymbol(v17, &v24, 1);
     (*(*this + 272))(this, TempSymbol, v16);
     v19 = *(this + 1);
-    v20 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(v19 + 184, 24, 3);
+    v20 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((v19 + 184), 24, 3);
     if (*(*(v19 + 144) + 18))
     {
       v21 = 0x10000;
@@ -1061,7 +846,7 @@ uint64_t llvm::MCStreamer::emitAbsoluteSymbolDiff(llvm::MCStreamer *this, const 
 uint64_t llvm::MCStreamer::emitAbsoluteSymbolDiffAsULEB128(llvm::MCStreamer *this, const llvm::MCSymbol *a2, const llvm::MCSymbol *a3)
 {
   v6 = *(this + 1);
-  v7 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(v6 + 184, 24, 3);
+  v7 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((v6 + 184), 24, 3);
   v8 = v7;
   if (*(*(v6 + 144) + 18))
   {
@@ -1078,7 +863,7 @@ uint64_t llvm::MCStreamer::emitAbsoluteSymbolDiffAsULEB128(llvm::MCStreamer *thi
   *(v7 + 8) = 0;
   *(v7 + 16) = a2;
   v10 = *(this + 1);
-  v11 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(v10 + 184, 24, 3);
+  v11 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((v10 + 184), 24, 3);
   v12 = v11;
   if (*(*(v10 + 144) + 18))
   {
@@ -1094,7 +879,7 @@ uint64_t llvm::MCStreamer::emitAbsoluteSymbolDiffAsULEB128(llvm::MCStreamer *thi
   *(v11 + 1) = v13 | (*(v11 + 4) << 24);
   *(v11 + 8) = 0;
   *(v11 + 16) = a3;
-  v14 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(*(this + 1) + 184, 32, 3);
+  v14 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate((*(this + 1) + 184), 32, 3);
   v15 = (*(v14 + 4) << 24) | 0x12;
   *v14 = 0;
   *(v14 + 1) = v15;
@@ -1106,7 +891,7 @@ uint64_t llvm::MCStreamer::emitAbsoluteSymbolDiffAsULEB128(llvm::MCStreamer *thi
   return v16(this, v14);
 }
 
-unint64_t llvm::MCStreamer::switchSection(unint64_t this, llvm::MCSection *a2, const llvm::MCExpr *a3)
+uint64_t llvm::MCStreamer::switchSection(uint64_t this, llvm::MCSection *a2, const llvm::MCExpr *a3)
 {
   v3 = *(this + 144) + 32 * *(this + 152);
   v4 = *(v3 - 32);
@@ -1173,7 +958,7 @@ void std::vector<llvm::WinEH::FrameInfo::Segment>::__destroy_vector::operator()[
     {
       do
       {
-        v4 -= 10;
+        v4 -= 80;
         std::allocator<llvm::WinEH::FrameInfo::Segment>::destroy[abi:nn200100](v1, v4);
       }
 
@@ -1187,16 +972,14 @@ void std::vector<llvm::WinEH::FrameInfo::Segment>::__destroy_vector::operator()[
   }
 }
 
-void std::allocator<llvm::WinEH::FrameInfo::Segment>::destroy[abi:nn200100](uint64_t a1, void *a2)
+void std::allocator<llvm::WinEH::FrameInfo::Segment>::destroy[abi:nn200100](uint64_t a1, uint64_t a2)
 {
-  v3 = a2[7];
-  if (v3)
+  v2 = *(a2 + 56);
+  if (v2)
   {
-    a2[8] = v3;
-    operator delete(v3);
+    *(a2 + 64) = v2;
+    operator delete(v2);
   }
-
-  v4 = a2[4];
 
   JUMPOUT(0x277C69E30);
 }
@@ -1280,14 +1063,14 @@ LABEL_6:
 
   if ((a3[185] & 1) == 0)
   {
-    llvm::report_fatal_error("Symbol name with unsupported characters", 1);
+    llvm::report_fatal_error("Symbol name with unsupported characters", 1, v10);
   }
 
-  v10 = *(this + 4);
-  if (v10 < *(this + 3))
+  v11 = *(this + 4);
+  if (v11 < *(this + 3))
   {
-    *(this + 4) = v10 + 1;
-    *v10 = 34;
+    *(this + 4) = v11 + 1;
+    *v11 = 34;
     if (v6)
     {
       goto LABEL_14;
@@ -1299,60 +1082,60 @@ LABEL_6:
   for (result = llvm::raw_ostream::write(this, 34); v6; --v6)
   {
 LABEL_14:
-    v11 = *v5;
-    if (v11 == 34)
+    v12 = *v5;
+    if (v12 == 34)
     {
-      v15 = *(this + 4);
-      if (*(this + 3) - v15 > 1uLL)
+      v16 = *(this + 4);
+      if (*(this + 3) - v16 > 1uLL)
       {
-        *v15 = 8796;
+        *v16 = 8796;
         goto LABEL_25;
       }
 
-      v13 = this;
-      v14 = "\\"";
+      v14 = this;
+      v15 = "\";
     }
 
     else
     {
-      if (v11 != 10)
+      if (v12 != 10)
       {
-        v16 = *(this + 4);
-        if (v16 >= *(this + 3))
+        v17 = *(this + 4);
+        if (v17 >= *(this + 3))
         {
-          result = llvm::raw_ostream::write(this, v11);
+          result = llvm::raw_ostream::write(this, v12);
         }
 
         else
         {
-          *(this + 4) = v16 + 1;
-          *v16 = v11;
+          *(this + 4) = v17 + 1;
+          *v17 = v12;
         }
 
         goto LABEL_27;
       }
 
-      v12 = *(this + 4);
-      if (*(this + 3) - v12 > 1uLL)
+      v13 = *(this + 4);
+      if (*(this + 3) - v13 > 1uLL)
       {
-        *v12 = 28252;
+        *v13 = 28252;
 LABEL_25:
         *(this + 4) += 2;
         goto LABEL_27;
       }
 
-      v13 = this;
-      v14 = "\\n";
+      v14 = this;
+      v15 = "\\n";
     }
 
-    result = llvm::raw_ostream::write(v13, v14, 2uLL);
+    result = llvm::raw_ostream::write(v14, v15, 2uLL);
 LABEL_27:
     ++v5;
   }
 
 LABEL_28:
-  v17 = *(this + 4);
-  if (v17 >= *(this + 3))
+  v18 = *(this + 4);
+  if (v18 >= *(this + 3))
   {
 
     return llvm::raw_ostream::write(this, 34);
@@ -1360,8 +1143,8 @@ LABEL_28:
 
   else
   {
-    *(this + 4) = v17 + 1;
-    *v17 = 34;
+    *(this + 4) = v18 + 1;
+    *v18 = 34;
   }
 
   return result;
@@ -1369,17 +1152,17 @@ LABEL_28:
 
 void llvm::SubtargetFeatures::Split(std::vector<std::string> *a1, uint64_t a2, uint64_t a3)
 {
-  v14[6] = *MEMORY[0x277D85DE8];
-  v11[0] = a2;
-  v11[1] = a3;
-  v12 = v14;
+  v13[6] = *MEMORY[0x277D85DE8];
+  v10[0] = a2;
+  v10[1] = a3;
+  v11 = v13;
   __n = 0x300000000;
-  llvm::StringRef::split(v11, &v12, 44, -1, 0);
+  llvm::StringRef::split(v10, &v11, 44, -1, 0);
   std::vector<std::string>::reserve(a1, __n);
-  v4 = v12;
+  v4 = v11;
   if (__n)
   {
-    v5 = (v12 + 16 * __n);
+    v5 = (v11 + 16 * __n);
     do
     {
       v6 = v4[1];
@@ -1394,7 +1177,7 @@ void llvm::SubtargetFeatures::Split(std::vector<std::string> *a1, uint64_t a2, u
         operator new();
       }
 
-      v10 = v4[1];
+      v9 = v4[1];
       if (v6)
       {
         memmove(&__dst, v7, v6);
@@ -1402,7 +1185,7 @@ void llvm::SubtargetFeatures::Split(std::vector<std::string> *a1, uint64_t a2, u
 
       *(&__dst + v6) = 0;
       std::vector<std::string>::push_back[abi:nn200100](a1, &__dst);
-      if (v10 < 0)
+      if (v9 < 0)
       {
         operator delete(__dst);
       }
@@ -1411,15 +1194,13 @@ void llvm::SubtargetFeatures::Split(std::vector<std::string> *a1, uint64_t a2, u
     }
 
     while (v4 != v5);
-    v4 = v12;
+    v4 = v11;
   }
 
-  if (v4 != v14)
+  if (v4 != v13)
   {
     free(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void llvm::SubtargetFeatures::AddFeature(uint64_t a1, unsigned __int8 *a2, uint64_t a3, int a4)
@@ -1431,7 +1212,7 @@ void llvm::SubtargetFeatures::AddFeature(uint64_t a1, unsigned __int8 *a2, uint6
     v5 = *a2;
     if (v5 == 45 || v5 == 43)
     {
-      llvm::StringRef::lower(v12, __p);
+      llvm::StringRef::lower(__p, v12);
     }
 
     else
@@ -1446,7 +1227,7 @@ void llvm::SubtargetFeatures::AddFeature(uint64_t a1, unsigned __int8 *a2, uint6
         v6 = "-";
       }
 
-      llvm::StringRef::lower(v12, &v9);
+      llvm::StringRef::lower(&v9, v12);
       v7 = std::string::insert(&v9, 0, v6);
       v8 = v7->__r_.__value_.__r.__words[2];
       *__p = *&v7->__r_.__value_.__l.__data_;
@@ -1469,7 +1250,7 @@ void llvm::SubtargetFeatures::AddFeature(uint64_t a1, unsigned __int8 *a2, uint6
   }
 }
 
-std::string *std::vector<std::string>::__insert_with_size[abi:nn200100]<std::string const*,std::string const*>(std::vector<std::string> *this, std::vector<std::string>::pointer __from_s, __int128 *a3, __int128 *a4, uint64_t a5)
+std::string *std::vector<std::string>::__insert_with_size[abi:nn200100]<std::string const*,std::string const*>(std::vector<std::string> *this, std::vector<std::string>::pointer __from_s, __int128 *a3, char *a4, uint64_t a5)
 {
   v5 = __from_s;
   if (a5 >= 1)
@@ -1499,7 +1280,7 @@ std::string *std::vector<std::string>::__insert_with_size[abi:nn200100]<std::str
       else
       {
         v18 = a3 + v16;
-        if ((a3 + v16) == a4)
+        if (a3 + v16 == a4)
         {
           v23 = this->__end_;
         }
@@ -1509,9 +1290,9 @@ std::string *std::vector<std::string>::__insert_with_size[abi:nn200100]<std::str
           v19 = 0;
           do
           {
-            v20 = (v18 + v19 * 24);
+            v20 = &v18[v19 * 24];
             v21 = &end[v19];
-            if (*(v18 + v19 * 24 + 23) < 0)
+            if (v18[v19 * 24 + 23] < 0)
             {
               std::string::__init_copy_ctor_external(v21, *v20, *(v20 + 1));
             }
@@ -1526,7 +1307,7 @@ std::string *std::vector<std::string>::__insert_with_size[abi:nn200100]<std::str
             ++v19;
           }
 
-          while ((v18 + v19 * 24) != a4);
+          while (&v18[v19 * 24] != a4);
           v23 = &end[v19];
         }
 
@@ -1839,8 +1620,10 @@ const char *llvm::MachO::getArchitectureName(unsigned int a1)
     return "unknown";
   }
 
-  v1 = qword_2750C86E0[a1];
-  return (&off_279EFFC78)[a1];
+  else
+  {
+    return (&off_279EFFC78)[a1];
+  }
 }
 
 void llvm::MachO::ArchitectureSet::operator std::vector<llvm::MachO::Architecture>(unsigned int *a1@<X0>, void *a2@<X8>)
@@ -1954,11 +1737,11 @@ LABEL_8:
   *a2 = 0;
 }
 
-uint64_t llvm::MachO::addEntry<llvm::SmallVector<llvm::MachO::Target,5u>>(uint64_t a1, unsigned __int8 *a2)
+unsigned __int8 *llvm::MachO::addEntry<llvm::SmallVector<llvm::MachO::Target,5u>>(unsigned __int8 **a1, unsigned __int8 *a2)
 {
   v3 = *a1;
-  v4 = *(a1 + 8);
-  v5 = *a1 + 24 * v4;
+  v4 = *(a1 + 2);
+  v5 = &(*a1)[24 * v4];
   if (v4)
   {
     v6 = *a2;
@@ -1997,7 +1780,7 @@ uint64_t llvm::MachO::addEntry<llvm::SmallVector<llvm::MachO::Target,5u>>(uint64
   }
 }
 
-uint64_t llvm::MachO::addEntry<std::vector<llvm::MachO::InterfaceFileRef>>(uint64_t **a1, const void *a2, size_t a3)
+char *llvm::MachO::addEntry<std::vector<llvm::MachO::InterfaceFileRef>>(uint64_t *a1, const void *a2, size_t a3)
 {
   v10[0] = a2;
   v10[1] = a3;
@@ -2008,7 +1791,7 @@ uint64_t llvm::MachO::addEntry<std::vector<llvm::MachO::InterfaceFileRef>>(uint6
     return std::vector<llvm::MachO::InterfaceFileRef>::emplace<llvm::StringRef &>(a1, v7, v10);
   }
 
-  v8 = *(v6 + 23);
+  v8 = v6[23];
   if (v8 < 0)
   {
     v6 = *v6;
@@ -2118,7 +1901,7 @@ LABEL_29:
 
 void std::vector<std::pair<llvm::MachO::Target,std::string>>::emplace<llvm::MachO::Target const&,std::string>(void *a1, char *a2, __int128 *a3, __int128 *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v6 = a1[1];
   v7 = a1[2];
   if (v6 >= v7)
@@ -2147,14 +1930,14 @@ void std::vector<std::pair<llvm::MachO::Target,std::string>>::emplace<llvm::Mach
       v24 = v21;
     }
 
-    v41 = a1;
+    v40 = a1;
     if (v24)
     {
       std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<llvm::MachO::Target,std::string>>>(a1, v24);
     }
 
     v27 = 16 * (v22 >> 4);
-    *(&v40 + 1) = 0;
+    *(&v39 + 1) = 0;
     if (!(0xAAAAAAAAAAAAAAABLL * (v22 >> 4)))
     {
       if (v22 < 1)
@@ -2181,25 +1964,24 @@ void std::vector<std::pair<llvm::MachO::Target,std::string>>::emplace<llvm::Mach
     v30 = *a4;
     *(v27 + 40) = *(a4 + 2);
     *(v27 + 24) = v30;
-    *(a4 + 1) = 0;
-    *(a4 + 2) = 0;
+    *(a4 + 8) = 0uLL;
     *a4 = 0;
     memcpy((v27 + 48), a2, a1[1] - a2);
     v31 = *a1;
-    *&v40 = v27 + 48 + a1[1] - a2;
+    *&v39 = v27 + 48 + a1[1] - a2;
     a1[1] = a2;
-    v32 = a2 - v31;
+    v32 = (a2 - v31);
     v33 = (v27 - (a2 - v31));
     memcpy(v33, v31, v32);
     v34 = *a1;
     *a1 = v33;
     v35 = a1[2];
-    *(a1 + 1) = v40;
-    *&v40 = v34;
-    *(&v40 + 1) = v35;
+    *(a1 + 1) = v39;
     *&v39 = v34;
-    *(&v39 + 1) = v34;
-    std::__split_buffer<std::pair<llvm::MachO::Target,std::string>>::~__split_buffer(&v39);
+    *(&v39 + 1) = v35;
+    *&v38 = v34;
+    *(&v38 + 1) = v34;
+    std::__split_buffer<std::pair<llvm::MachO::Target,std::string>>::~__split_buffer(&v38);
   }
 
   else if (a2 == v6)
@@ -2210,22 +1992,20 @@ void std::vector<std::pair<llvm::MachO::Target,std::string>>::emplace<llvm::Mach
     v26 = *a4;
     *(v6 + 40) = *(a4 + 2);
     *(v6 + 24) = v26;
-    *(a4 + 1) = 0;
-    *(a4 + 2) = 0;
+    *(a4 + 8) = 0uLL;
     *a4 = 0;
     a1[1] = v6 + 48;
   }
 
   else
   {
-    v37 = *a3;
-    v38 = *(a3 + 2);
+    v36 = *a3;
+    v37 = *(a3 + 2);
     v8 = *a4;
-    *&v39 = *(a4 + 1);
-    *(&v39 + 7) = *(a4 + 15);
+    *&v38 = *(a4 + 1);
+    *(&v38 + 7) = *(a4 + 15);
     v9 = *(a4 + 23);
-    *(a4 + 1) = 0;
-    *(a4 + 2) = 0;
+    *(a4 + 8) = 0uLL;
     *a4 = 0;
     v10 = a1[1];
     v11 = v10;
@@ -2250,19 +2030,19 @@ void std::vector<std::pair<llvm::MachO::Target,std::string>>::emplace<llvm::Mach
       v15 = &a2[-v10 + 48];
       do
       {
-        v16 = v10 + v14;
-        v17 = *(v10 + v14 - 96);
-        *(v16 - 32) = *(v10 + v14 - 80);
-        *(v16 - 48) = v17;
-        v18 = v10 + v14 - 24;
-        if (*(v10 + v14 - 1) < 0)
+        v16 = &v14[v10];
+        v17 = *&v14[v10 - 96];
+        *(v16 - 4) = *&v14[v10 - 80];
+        *(v16 - 3) = v17;
+        v18 = &v14[v10 - 24];
+        if (v14[v10 - 1] < 0)
         {
           operator delete(*v18);
         }
 
         v14 -= 48;
         v19 = *(v16 - 72);
-        *(v18 + 16) = *(v16 - 56);
+        *(v18 + 16) = *(v16 - 7);
         *v18 = v19;
         *(v16 - 49) = 0;
         *(v16 - 72) = 0;
@@ -2271,20 +2051,18 @@ void std::vector<std::pair<llvm::MachO::Target,std::string>>::emplace<llvm::Mach
       while (v15 != v14);
     }
 
-    *a2 = v37;
-    *(a2 + 2) = v38;
+    *a2 = v36;
+    *(a2 + 2) = v37;
     if (a2[47] < 0)
     {
       operator delete(*(a2 + 3));
     }
 
     *(a2 + 3) = v8;
-    *(a2 + 4) = v39;
-    *(a2 + 39) = *(&v39 + 7);
+    *(a2 + 4) = v38;
+    *(a2 + 39) = *(&v38 + 7);
     a2[47] = v9;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void llvm::MachO::InterfaceFile::addRPath(uint64_t a1, unsigned __int8 *a2, void *__src, size_t __len)
@@ -2372,23 +2150,21 @@ LABEL_24:
   }
 }
 
-uint64_t llvm::make_filter_range<llvm::SmallVector<llvm::MachO::Target,5u> const&,std::function<BOOL ()(llvm::MachO::Target const&)>>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t llvm::make_filter_range<llvm::SmallVector<llvm::MachO::Target,5u> const&,std::function<BOOL ()(llvm::MachO::Target const&)>>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v16[4] = *MEMORY[0x277D85DE8];
+  v15[4] = *MEMORY[0x277D85DE8];
   v6 = *a1;
-  v7 = *a1 + 24 * *(a1 + 8);
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v14, a2);
-  llvm::filter_iterator_impl<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>::filter_iterator_impl(v15, v6, v7, v14);
-  v8 = *a1 + 24 * *(a1 + 8);
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v11, a2);
-  llvm::filter_iterator_impl<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>::filter_iterator_impl(v12, v8, v8, v11);
-  llvm::make_range<llvm::filter_iterator_impl<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>>(v15, v12, a3);
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](&v13);
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v11);
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v16);
-  result = std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v14);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  v7 = *a1 + 24 * *(a1 + 2);
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v13, a2);
+  llvm::filter_iterator_impl<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>::filter_iterator_impl(v14, v6, v7, v13);
+  v8 = *a1 + 24 * *(a1 + 2);
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v10, a2);
+  llvm::filter_iterator_impl<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>::filter_iterator_impl(v11, v8, v8, v10);
+  llvm::make_range<llvm::filter_iterator_impl<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>>(v14, v11, a3);
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](&v12);
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v10);
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v15);
+  return std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v13);
 }
 
 uint64_t llvm::MachO::InterfaceFile::addDocument(uint64_t a1, char *a2)
@@ -2501,7 +2277,7 @@ char *std::vector<std::shared_ptr<llvm::MachO::InterfaceFile>>::insert(void *a1,
   if (v6 >= v7)
   {
     v10 = *a1;
-    v11 = (&v6[-*a1] >> 4) + 1;
+    v11 = ((v6 - *a1) >> 4) + 1;
     if (v11 >> 60)
     {
       std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
@@ -2585,7 +2361,7 @@ char *std::vector<std::shared_ptr<llvm::MachO::InterfaceFile>>::insert(void *a1,
   {
     v16 = *(a3 + 1);
     *v6 = *a3;
-    *(v6 + 1) = v16;
+    *(v6 + 8) = v16;
     if (v16)
     {
       atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
@@ -2596,7 +2372,7 @@ char *std::vector<std::shared_ptr<llvm::MachO::InterfaceFile>>::insert(void *a1,
 
   else
   {
-    v8 = v6 - 16;
+    v8 = (v6 - 16);
     if (v6 < 0x10)
     {
       v9 = a1[1];
@@ -2607,7 +2383,7 @@ char *std::vector<std::shared_ptr<llvm::MachO::InterfaceFile>>::insert(void *a1,
       *v6 = *v8;
       v9 = v6 + 16;
       *v8 = 0;
-      *(v6 - 1) = 0;
+      *(v6 - 8) = 0;
     }
 
     a1[1] = v9;
@@ -2615,12 +2391,12 @@ char *std::vector<std::shared_ptr<llvm::MachO::InterfaceFile>>::insert(void *a1,
     {
       v18 = (v6 - 8);
       v19 = v6 - 32;
-      v20 = a2 - v6 + 16;
+      v20 = &a2[-v6 + 16];
       do
       {
         v21 = *v19;
         *v19 = 0;
-        *(v19 + 1) = 0;
+        *(v19 + 8) = 0;
         v22 = *v18;
         *(v18 - 1) = v21;
         if (v22)
@@ -2738,54 +2514,54 @@ llvm::MachO::InterfaceFile **std::unique_ptr<llvm::MachO::InterfaceFile>::~uniqu
   return a1;
 }
 
-void llvm::MachO::InterfaceFile::extract(uint64_t a1, char a2)
+void llvm::MachO::InterfaceFile::extract(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 96);
-  v3 = *(a1 + 104);
-  if (v3)
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 96);
+  v4 = *(a1 + 104);
+  if (v4)
   {
-    v4 = 0;
-    v5 = 24 * v3;
+    v5 = 0;
+    v6 = 24 * v4;
     do
     {
-      v6 = *v2;
-      v2 += 24;
-      v7 = 1 << v6;
-      if (v6 == 16)
+      v7 = *v3;
+      v3 += 24;
+      v8 = 1 << v7;
+      if (v7 == 16)
       {
-        v8 = 0;
+        v9 = 0;
       }
 
       else
       {
-        v8 = v7;
+        v9 = v8;
       }
 
-      v4 |= v8;
-      v5 -= 24;
+      v5 |= v9;
+      v6 -= 24;
     }
 
-    while (v5);
+    while (v6);
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  if ((v4 & (1 << a2)) != 0)
+  if ((v5 & (1 << a2)) != 0)
   {
     operator new();
   }
 
-  v14 = 1283;
-  v13[0] = "file doesn't have architecture '";
-  v13[2] = llvm::MachO::getArchitectureName(a2);
-  v13[3] = v9;
-  v10 = v13;
-  v11 = "'";
-  v12 = 770;
+  v15 = 1283;
+  v14[0] = "file doesn't have architecture '";
+  v14[2] = llvm::MachO::getArchitectureName(a2);
+  v14[3] = v10;
+  v11 = v14;
+  v12 = "'";
+  v13 = 770;
   getErrorErrorCat();
   operator new();
 }
@@ -2838,7 +2614,7 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symb
     v9 = llvm::DenseMapInfo<llvm::SymbolsMapKey,void>::getHashValue(a2, a2, a3, a4) & (v5 - 1);
     v10 = (v7 + 32 * v9);
     v22 = a2;
-    v23 = a2 + 1;
+    v23 = (a2 + 1);
     v11 = v10 + 8;
     v20 = v10;
     v21 = v10 + 8;
@@ -2874,7 +2650,7 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symb
         v9 = (v9 + v15) & v8;
         v10 = (v7 + 32 * v9);
         v22 = a2;
-        v23 = a2 + 1;
+        v23 = (a2 + 1);
         v11 = v10 + 8;
         v20 = v10;
         v21 = v10 + 8;
@@ -2909,61 +2685,59 @@ LABEL_4:
 
 unint64_t llvm::DenseMapInfo<llvm::SymbolsMapKey,void>::getHashValue(llvm::hashing::detail::hash_state **a1, uint64_t a2, uint64_t a3, unint64_t *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   {
-    v11 = v4;
-    v12 = a1;
-    v4 = v11;
-    a1 = v12;
-    if (v8)
+    v10 = v4;
+    v11 = a1;
+    v4 = v10;
+    a1 = v11;
+    if (v7)
     {
-      v9 = llvm::hashing::detail::fixed_seed_override;
+      v8 = llvm::hashing::detail::fixed_seed_override;
       if (!llvm::hashing::detail::fixed_seed_override)
       {
-        v9 = 0xFF51AFD7ED558CCDLL;
+        v8 = 0xFF51AFD7ED558CCDLL;
       }
 
-      llvm::hashing::detail::get_execution_seed(void)::seed = v9;
-      v4 = v11;
-      a1 = v12;
+      llvm::hashing::detail::get_execution_seed(void)::seed = v8;
+      v4 = v10;
+      a1 = v11;
     }
   }
 
   v5 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (llvm::hashing::detail::get_execution_seed(void)::seed + 8 * v4)) ^ ((0x9DDFEA08EB382D69 * (llvm::hashing::detail::get_execution_seed(void)::seed + 8 * v4)) >> 47));
-  v14 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
-  v13 = llvm::hashing::detail::hash_combine_range_impl<unsigned long long const>(a1[1], a1[2] + a1[1], a3, a4);
-  v17 = 0;
-  memset(v16, 0, sizeof(v16));
+  v13 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v12 = llvm::hashing::detail::hash_combine_range_impl<unsigned long long const>(a1[1], a1[2] + a1[1], a3, a4);
+  v16 = 0;
   memset(v15, 0, sizeof(v15));
+  memset(v14, 0, sizeof(v14));
   {
-    v10 = llvm::hashing::detail::fixed_seed_override;
+    v9 = llvm::hashing::detail::fixed_seed_override;
     if (!llvm::hashing::detail::fixed_seed_override)
     {
-      v10 = 0xFF51AFD7ED558CCDLL;
+      v9 = 0xFF51AFD7ED558CCDLL;
     }
 
-    llvm::hashing::detail::get_execution_seed(void)::seed = v10;
+    llvm::hashing::detail::get_execution_seed(void)::seed = v9;
   }
 
-  v18 = llvm::hashing::detail::get_execution_seed(void)::seed;
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::hash_code,llvm::hash_code>(v15, 0, v15, v16, &v14, &v13);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  v17 = llvm::hashing::detail::get_execution_seed(void)::seed;
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::hash_code,llvm::hash_code>(v14, 0, v14, v15, &v13, &v12);
 }
 
-uint64_t llvm::SmallVectorImpl<llvm::MachO::Target>::insert_one_impl<llvm::MachO::Target const&>(uint64_t a1, uint64_t a2, unint64_t a3)
+void *llvm::SmallVectorImpl<llvm::MachO::Target>::insert_one_impl<llvm::MachO::Target const&>(uint64_t *a1, uint64_t a2, unint64_t a3)
 {
-  if (*a1 + 24 * *(a1 + 8) == a2)
+  if (*a1 + 24 * *(a1 + 2) == a2)
   {
     v17 = llvm::SmallVectorTemplateCommon<llvm::MachO::Target,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<llvm::MachO::Target,true>>(a1, a3, 1);
-    v18 = *a1 + 24 * *(a1 + 8);
+    v18 = *a1 + 24 * *(a1 + 2);
     v19 = *v17;
     *(v18 + 16) = *(v17 + 16);
     *v18 = v19;
-    LODWORD(v18) = *(a1 + 8) + 1;
-    *(a1 + 8) = v18;
-    return *a1 + 24 * v18 - 24;
+    LODWORD(v18) = *(a1 + 2) + 1;
+    *(a1 + 2) = v18;
+    return (*a1 + 24 * v18 - 24);
   }
 
   else
@@ -2971,21 +2745,21 @@ uint64_t llvm::SmallVectorImpl<llvm::MachO::Target>::insert_one_impl<llvm::MachO
     v4 = a2 - *a1;
     v5 = llvm::SmallVectorTemplateCommon<llvm::MachO::Target,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<llvm::MachO::Target,true>>(a1, a3, 1);
     v6 = (*a1 + v4);
-    v7 = *a1 + 24 * *(a1 + 8);
+    v7 = *a1 + 24 * *(a1 + 2);
     *(v7 + 16) = *(v7 - 8);
     *v7 = *(v7 - 24);
     v8 = *a1;
-    v9 = *(a1 + 8);
+    v9 = *(a1 + 2);
     v10 = *a1 + 24 * v9 - 24;
     if (v10 != v6)
     {
       memmove(v6 + 3, v6, v10 - v6);
-      v9 = *(a1 + 8);
+      v9 = *(a1 + 2);
       v8 = *a1;
     }
 
     v11 = v9 + 1;
-    *(a1 + 8) = v11;
+    *(a1 + 2) = v11;
     if (v5 < v8 + 24 * v11 && v5 >= v6)
     {
       v13 = 24;
@@ -3028,10 +2802,10 @@ unint64_t llvm::SmallVectorTemplateCommon<llvm::MachO::Target,void>::reserveForP
   return v3;
 }
 
-uint64_t std::vector<llvm::MachO::InterfaceFileRef>::emplace<llvm::StringRef &>(uint64_t *a1, uint64_t a2, uint64_t a3)
+char *std::vector<llvm::MachO::InterfaceFileRef>::emplace<llvm::StringRef &>(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v3 = a2;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v6 = a1[1];
   v5 = a1[2];
   if (v6 >= v5)
@@ -3060,17 +2834,17 @@ uint64_t std::vector<llvm::MachO::InterfaceFileRef>::emplace<llvm::StringRef &>(
       v21 = v18;
     }
 
-    v36 = a1;
+    v35 = a1;
     if (v21)
     {
       std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::MachO::InterfaceFileRef>>(v21);
     }
 
     v22 = (32 * (v19 >> 5));
-    v32 = 0;
+    v31 = 0;
+    v32 = v22;
     v33 = v22;
-    v34 = v22;
-    v35 = 0;
+    v34 = 0;
     if (!(0xCCCCCCCCCCCCCCCDLL * (v19 >> 5)))
     {
       if (v19 < 1)
@@ -3085,20 +2859,20 @@ uint64_t std::vector<llvm::MachO::InterfaceFileRef>::emplace<llvm::StringRef &>(
           v23 = 0x999999999999999ALL * (v19 >> 5);
         }
 
-        v39[1] = a1;
+        v38[1] = a1;
         std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::MachO::InterfaceFileRef>>(v23);
       }
 
-      v22 -= 160 * ((1 - 0x3333333333333333 * (v19 >> 5)) >> 1);
+      v22 -= 20 * ((1 - 0x3333333333333333 * (v19 >> 5)) >> 1);
+      v32 = v22;
       v33 = v22;
-      v34 = v22;
     }
 
     std::allocator_traits<std::allocator<llvm::MachO::InterfaceFileRef>>::construct[abi:nn200100]<llvm::MachO::InterfaceFileRef,llvm::StringRef &,0>(v22, *a3, *(a3 + 8));
-    v24 = v33;
-    std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<llvm::MachO::InterfaceFileRef>,llvm::MachO::InterfaceFileRef*>(a1, v3, a1[1], (v34 + 160));
+    v24 = v32;
+    std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<llvm::MachO::InterfaceFileRef>,llvm::MachO::InterfaceFileRef*>(a1, v3, a1[1], (v33 + 20));
     v25 = *a1;
-    v26 = &v34[a1[1] - v3 + 160];
+    v26 = v33 + a1[1] - v3 + 160;
     a1[1] = v3;
     v27 = v24 + v25 - v3;
     std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<llvm::MachO::InterfaceFileRef>,llvm::MachO::InterfaceFileRef*>(a1, v25, v3, v27);
@@ -3106,13 +2880,13 @@ uint64_t std::vector<llvm::MachO::InterfaceFileRef>::emplace<llvm::StringRef &>(
     *a1 = v27;
     a1[1] = v26;
     v29 = a1[2];
-    a1[2] = v35;
-    v34 = v28;
-    v35 = v29;
-    v32 = v28;
+    a1[2] = v34;
     v33 = v28;
-    std::__split_buffer<llvm::MachO::InterfaceFileRef>::~__split_buffer(&v32);
-    v3 = v24;
+    v34 = v29;
+    v31 = v28;
+    v32 = v28;
+    std::__split_buffer<llvm::MachO::InterfaceFileRef>::~__split_buffer(&v31);
+    return v24;
   }
 
   else if (a2 == v6)
@@ -3123,7 +2897,7 @@ uint64_t std::vector<llvm::MachO::InterfaceFileRef>::emplace<llvm::StringRef &>(
 
   else
   {
-    v40 = a1;
+    v39 = a1;
     std::allocator_traits<std::allocator<llvm::MachO::InterfaceFileRef>>::construct[abi:nn200100]<llvm::MachO::InterfaceFileRef,llvm::StringRef &,0>(&__dst, *a3, *(a3 + 8));
     v7 = a1[1];
     v8 = v7;
@@ -3184,19 +2958,18 @@ uint64_t std::vector<llvm::MachO::InterfaceFileRef>::emplace<llvm::StringRef &>(
     }
 
     v16 = __dst;
-    *(v3 + 16) = v38;
+    *(v3 + 16) = v37;
     *v3 = v16;
-    HIBYTE(v38) = 0;
+    HIBYTE(v37) = 0;
     LOBYTE(__dst) = 0;
-    llvm::SmallVectorImpl<llvm::MachO::Target>::operator=(v3 + 24, v39);
-    std::allocator<llvm::MachO::InterfaceFileRef>::destroy[abi:nn200100](v40, &__dst);
+    llvm::SmallVectorImpl<llvm::MachO::Target>::operator=(v3 + 24, v38);
+    std::allocator<llvm::MachO::InterfaceFileRef>::destroy[abi:nn200100](v39, &__dst);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-uint64_t *std::partition_point[abi:nn200100]<std::__wrap_iter<llvm::MachO::InterfaceFileRef *>,std::vector<llvm::MachO::InterfaceFileRef>::iterator llvm::MachO::addEntry<std::vector<llvm::MachO::InterfaceFileRef>>(std::vector<llvm::MachO::InterfaceFileRef>::iterator&,llvm::StringRef)::{lambda(llvm::MachO::InterfaceFileRef const&)#1}>(uint64_t *a1, uint64_t *a2, const void *a3, size_t a4)
+char *std::partition_point[abi:nn200100]<std::__wrap_iter<llvm::MachO::InterfaceFileRef *>,std::vector<llvm::MachO::InterfaceFileRef>::iterator llvm::MachO::addEntry<std::vector<llvm::MachO::InterfaceFileRef>>(std::vector<llvm::MachO::InterfaceFileRef>::iterator&,llvm::StringRef)::{lambda(llvm::MachO::InterfaceFileRef const&)#1}>(char *a1, char *a2, const void *a3, size_t a4)
 {
   if (a2 != a1)
   {
@@ -3206,17 +2979,17 @@ uint64_t *std::partition_point[abi:nn200100]<std::__wrap_iter<llvm::MachO::Inter
     v9 = 0xCCCCCCCCCCCCCCCDLL * ((a2 - a1) >> 5);
     do
     {
-      v10 = &v8[20 * (v9 >> 1)];
-      v11 = *(v10 + 23);
+      v10 = &v8[160 * (v9 >> 1)];
+      v11 = v10[23];
       v12 = *v10;
       if (v11 >= 0)
       {
-        v12 = &v8[20 * (v9 >> 1)];
+        v12 = &v8[160 * (v9 >> 1)];
       }
 
       if (v11 < 0)
       {
-        v11 = v10[1];
+        v11 = *(v10 + 1);
       }
 
       v15[0] = v12;
@@ -3234,7 +3007,7 @@ uint64_t *std::partition_point[abi:nn200100]<std::__wrap_iter<llvm::MachO::Inter
 
       if (v13 < 0)
       {
-        v8 = v10 + 20;
+        v8 = v10 + 160;
       }
     }
 
@@ -3245,7 +3018,7 @@ uint64_t *std::partition_point[abi:nn200100]<std::__wrap_iter<llvm::MachO::Inter
   return a2;
 }
 
-double std::allocator_traits<std::allocator<llvm::MachO::InterfaceFileRef>>::construct[abi:nn200100]<llvm::MachO::InterfaceFileRef,llvm::StringRef &,0>(_BYTE *__dst, void *__src, size_t __len)
+double std::allocator_traits<std::allocator<llvm::MachO::InterfaceFileRef>>::construct[abi:nn200100]<llvm::MachO::InterfaceFileRef,llvm::StringRef &,0>(void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -3257,16 +3030,16 @@ double std::allocator_traits<std::allocator<llvm::MachO::InterfaceFileRef>>::con
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
-  *(__dst + 3) = __dst + 40;
+  *(__dst + __len) = 0;
+  __dst[3] = __dst + 5;
   *&result = 0x500000000;
-  *(__dst + 4) = 0x500000000;
+  __dst[4] = 0x500000000;
   return result;
 }
 
@@ -3504,20 +3277,18 @@ uint64_t std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__
 
 uint64_t llvm::make_range<llvm::filter_iterator_impl<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>>@<X0>(void *a1@<X0>, void *a2@<X1>, void *a3@<X8>)
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   v5 = a1[1];
-  v11[0] = *a1;
-  v11[1] = v5;
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v12, (a1 + 2));
+  v10[0] = *a1;
+  v10[1] = v5;
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v11, (a1 + 2));
   v6 = a2[1];
-  v9[0] = *a2;
-  v9[1] = v6;
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v10, (a2 + 2));
-  llvm::iterator_range<llvm::filter_iterator_impl<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>>::iterator_range(a3, v11, v9);
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v10);
-  result = std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v12);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v8[0] = *a2;
+  v8[1] = v6;
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v9, (a2 + 2));
+  llvm::iterator_range<llvm::filter_iterator_impl<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>>::iterator_range(a3, v10, v8);
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v9);
+  return std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v11);
 }
 
 uint64_t std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](uint64_t a1, uint64_t a2)
@@ -3583,14 +3354,13 @@ void *llvm::iterator_range<llvm::filter_iterator_impl<llvm::MachO::Target const*
 
 void *llvm::filter_iterator_impl<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>::filter_iterator_impl(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v9, a4);
+  v9 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v8, a4);
   *a1 = a2;
   a1[1] = a3;
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100]((a1 + 2), v9);
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100]((a1 + 2), v8);
   llvm::filter_iterator_base<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>::findNextValid(a1);
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v9);
-  v7 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v8);
   return a1;
 }
 
@@ -3629,51 +3399,50 @@ uint64_t llvm::filter_iterator_base<llvm::MachO::Target const*,std::function<BOO
   return result;
 }
 
-uint64_t llvm::MachO::SymbolSet::addGlobal<llvm::iterator_range<llvm::filter_iterator_impl<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>> &,llvm::MachO::Target const>(uint64_t a1, int a2, const void *a3, unint64_t *a4, uint64_t a5, void *a6)
+uint64_t llvm::MachO::SymbolSet::addGlobal<llvm::iterator_range<llvm::filter_iterator_impl<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>> &,llvm::MachO::Target const>(unsigned int *a1, int a2, const void *a3, unint64_t *a4, uint64_t a5, void *a6)
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v23[4] = *MEMORY[0x277D85DE8];
   v12 = llvm::MachO::SymbolSet::addGlobalImpl(a1, a2, a3, a4, a5);
   v13 = a6[1];
-  v23[0] = *a6;
-  v23[1] = v13;
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v24, (a6 + 2));
+  v22[0] = *a6;
+  v22[1] = v13;
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v23, (a6 + 2));
   v14 = a6[7];
-  v20 = a6[6];
-  v21 = v14;
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v22, (a6 + 8));
-  while (v23[0] != v20)
+  v19 = a6[6];
+  v20 = v14;
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v21, (a6 + 8));
+  while (v22[0] != v19)
   {
-    v15 = *v23[0];
-    v19 = *(v23[0] + 16);
-    v18 = v15;
-    llvm::MachO::addEntry<llvm::SmallVector<llvm::MachO::Target,5u>>(v12 + 16, &v18);
-    v23[0] += 24;
-    llvm::filter_iterator_base<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>::findNextValid(v23);
+    v15 = *v22[0];
+    v18 = *(v22[0] + 16);
+    v17 = v15;
+    llvm::MachO::addEntry<llvm::SmallVector<llvm::MachO::Target,5u>>((v12 + 16), &v17);
+    v22[0] += 24;
+    llvm::filter_iterator_base<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>::findNextValid(v22);
   }
 
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v22);
-  result = std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v24);
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v21);
+  result = std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v23);
   if (a2 == 2)
   {
-    result = llvm::MachO::SymbolSet::addGlobal<llvm::iterator_range<llvm::filter_iterator_impl<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>> &,llvm::MachO::Target const>(a1, 1, a3, a4, a5, a6);
+    return llvm::MachO::SymbolSet::addGlobal<llvm::iterator_range<llvm::filter_iterator_impl<llvm::MachO::Target const*,std::function<BOOL ()(llvm::MachO::Target const&)>,std::bidirectional_iterator_tag>> &,llvm::MachO::Target const>(a1, 1, a3, a4, a5, a6);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t *std::shared_ptr<llvm::MachO::InterfaceFile>::shared_ptr[abi:nn200100]<llvm::MachO::InterfaceFile,std::default_delete<llvm::MachO::InterfaceFile>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<llvm::MachO::InterfaceFile>::shared_ptr[abi:nn200100]<llvm::MachO::InterfaceFile,std::default_delete<llvm::MachO::InterfaceFile>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<llvm::MachO::InterfaceFile  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -3723,15 +3492,15 @@ BOOL llvm::SmallVectorImpl<llvm::MachO::Target>::operator==(unsigned __int8 **a1
   return result;
 }
 
-uint64_t collectFromArray(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void collectFromArray(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = &Keys[a2];
-  result = llvm::json::Object::getArray(a3, *v6, v6[1]);
-  if (result)
+  Array = llvm::json::Object::getArray(a3, *v6, v6[1]);
+  if (Array)
   {
-    v8 = *result;
-    v9 = *(result + 8);
+    v8 = *Array;
+    v9 = *(Array + 8);
     while (v8 != v9)
     {
       v10 = *v8;
@@ -3755,15 +3524,15 @@ uint64_t collectFromArray(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
       {
         if (v10 != 5)
         {
-          v19[0] = "invalid ";
-          v19[1] = 8;
-          v20 = *v6;
-          v21 = " section";
-          v22 = 8;
-          v16 = &v18;
-          v17 = xmmword_2750C1290;
-          llvm::SmallString<128u>::append(&v16, v19, 3);
-          llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+          v18[0] = "invalid ";
+          v18[1] = 8;
+          v19 = *v6;
+          v20 = " section";
+          v21 = 8;
+          v15 = &v17;
+          v16 = xmmword_2750C1290;
+          llvm::SmallString<128u>::append(&v15, v18, 3);
+          llvm::make_error<JSONStubError,llvm::SmallString<128u>>(a1, &v15);
         }
 
         v11 = *(v8 + 1);
@@ -3771,42 +3540,40 @@ uint64_t collectFromArray(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
       }
 
       v14 = *(a4 + 24);
-      v16 = v11;
-      *&v17 = v13;
+      v15 = v11;
+      *&v16 = v13;
       if (!v14)
       {
         std::__throw_bad_function_call[abi:nn200100]();
       }
 
-      result = (*(*v14 + 48))(v14, &v16);
+      (*(*v14 + 48))(v14, &v15);
       v8 += 16;
     }
   }
 
   *a1 = 0;
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void StubParser::getTargets(uint64_t a1, uint64_t a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   Array = llvm::json::Object::getArray(a2, "targets", 7);
   if (!Array)
   {
-    v19 = "invalid ";
-    v20 = 8;
-    v21 = xmmword_279EFFD40;
-    v22 = " section";
-    v23 = 8;
-    v24 = v26;
-    v25 = xmmword_2750C1290;
-    llvm::SmallString<128u>::append(&v24, &v19, 3);
-    llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+    v21 = "invalid ";
+    v22 = 8;
+    v23 = xmmword_279EFFD40;
+    v24 = " section";
+    v25 = 8;
+    v26 = v28;
+    v27 = xmmword_2750C1290;
+    llvm::SmallString<128u>::append(&v26, &v21, 3);
+    llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v18, &v26);
   }
 
-  v19 = &v21;
-  v20 = 0x500000000;
+  v21 = &v23;
+  v22 = 0x500000000;
   v4 = *Array;
   v5 = *(Array + 8);
   if (*Array == v5)
@@ -3832,46 +3599,46 @@ void StubParser::getTargets(uint64_t a1, uint64_t a2)
       {
         if (v6 != 5)
         {
-          v27 = "invalid ";
-          v28 = 8;
-          v29 = xmmword_279EFFD50;
-          v30 = " section";
-          v31 = 8;
-          v24 = v26;
-          v25 = xmmword_2750C1290;
-          llvm::SmallString<128u>::append(&v24, &v27, 3);
-          llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+          v29 = "invalid ";
+          v30 = 8;
+          v31 = xmmword_279EFFD50;
+          v32 = " section";
+          v33 = 8;
+          v26 = v28;
+          v27 = xmmword_2750C1290;
+          llvm::SmallString<128u>::append(&v26, &v29, 3);
+          llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v17, &v26);
         }
 
         v8 = *(v4 + 1);
         v9 = *(v4 + 2);
       }
 
-      llvm::MachO::Target::create(v8, v9, v17);
-      v10 = v18;
-      if (v18)
+      llvm::MachO::Target::create(v8, v9, v19);
+      v10 = v20;
+      if (v20)
       {
-        v27 = "invalid ";
-        v28 = 8;
-        v29 = xmmword_279EFFD50;
-        v30 = " section";
-        v31 = 8;
-        v24 = v26;
-        v25 = xmmword_2750C1290;
-        llvm::SmallString<128u>::append(&v24, &v27, 3);
-        llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+        v29 = "invalid ";
+        v30 = 8;
+        v31 = xmmword_279EFFD50;
+        v32 = " section";
+        v33 = 8;
+        v26 = v28;
+        v27 = xmmword_2750C1290;
+        llvm::SmallString<128u>::append(&v26, &v29, 3);
+        llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v16, &v26);
       }
 
-      v11 = llvm::SmallVectorTemplateCommon<llvm::MachO::Target,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<llvm::MachO::Target,true>>(&v19, v17, 1);
-      v12 = v19 + 24 * v20;
+      v11 = llvm::SmallVectorTemplateCommon<llvm::MachO::Target,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<llvm::MachO::Target,true>>(&v21, v19, 1);
+      v12 = v21 + 24 * v22;
       v13 = *v11;
       *(v12 + 2) = *(v11 + 16);
       *v12 = v13;
-      LODWORD(v20) = v20 + 1;
-      if (v18)
+      LODWORD(v22) = v22 + 1;
+      if (v20)
       {
-        v14 = v17[0];
-        v17[0] = 0;
+        v14 = v19[0];
+        v19[0] = 0;
         if (v14)
         {
           (*(*v14 + 8))(v14);
@@ -3886,13 +3653,13 @@ void StubParser::getTargets(uint64_t a1, uint64_t a2)
       v4 += 16;
       if (v4 == v5)
       {
-        v15 = v20;
+        v15 = v22;
         *(a1 + 136) &= ~1u;
         *a1 = a1 + 16;
         *(a1 + 8) = 0x500000000;
         if (v15)
         {
-          llvm::SmallVectorImpl<llvm::MachO::Target>::operator=(a1, &v19);
+          llvm::SmallVectorImpl<llvm::MachO::Target>::operator=(a1, &v21);
         }
 
         break;
@@ -3900,48 +3667,46 @@ void StubParser::getTargets(uint64_t a1, uint64_t a2)
     }
   }
 
-  if (v19 != &v21)
+  if (v21 != &v23)
   {
-    free(v19);
+    free(v21);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-void *getRequiredValue<llvm::StringRef,llvm::StringRef>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void getRequiredValue<llvm::StringRef,llvm::StringRef>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = &Keys[a2];
-  std::function<std::optional<llvm::StringRef> ()(llvm::json::Object const*,llvm::StringRef)>::operator()(&v12, a4, a3, *v7, v7[1]);
-  if ((v13 & 1) == 0)
+  std::function<std::optional<llvm::StringRef> ()(llvm::json::Object const*,llvm::StringRef)>::operator()(&v13, a4, a3, *v7, v7[1]);
+  if ((v14 & 1) == 0)
   {
-    v16 = "invalid ";
-    v17 = 8;
-    v18 = *v7;
-    v19 = " section";
-    v20 = 8;
-    *v14 = v15;
-    *&v14[8] = xmmword_2750C1290;
-    llvm::SmallString<128u>::append(v14, &v16, 3);
-    llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+    v17 = "invalid ";
+    v18 = 8;
+    v19 = *v7;
+    v20 = " section";
+    v21 = 8;
+    *v15 = v16;
+    *&v15[8] = xmmword_2750C1290;
+    llvm::SmallString<128u>::append(v15, &v17, 3);
+    llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v12, v15);
   }
 
-  result = *(a5 + 24);
-  if (result)
+  v8 = *(a5 + 24);
+  if (v8)
   {
-    *v14 = v12;
-    result = (*(*result + 48))(&v10);
+    *v15 = v13;
+    (*(*v8 + 48))(&v10);
     if ((v11 & 1) == 0)
     {
-      v16 = "invalid ";
-      v17 = 8;
-      v18 = *v7;
-      v19 = " section";
-      v20 = 8;
-      *v14 = v15;
-      *&v14[8] = xmmword_2750C1290;
-      llvm::SmallString<128u>::append(v14, &v16, 3);
-      llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+      v17 = "invalid ";
+      v18 = 8;
+      v19 = *v7;
+      v20 = " section";
+      v21 = 8;
+      *v15 = v16;
+      *&v15[8] = xmmword_2750C1290;
+      llvm::SmallString<128u>::append(v15, &v17, 3);
+      llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v9, v15);
     }
 
     *(a1 + 16) &= ~1u;
@@ -3950,57 +3715,54 @@ void *getRequiredValue<llvm::StringRef,llvm::StringRef>(uint64_t a1, uint64_t a2
 
   else
   {
-    *a1 = v12;
+    *a1 = v13;
     *(a1 + 16) &= ~1u;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t StubParser::collectSymbolsFromSegment(void *a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t StubParser::collectSymbolsFromSegment(uint64_t *a1, uint64_t a2, uint64_t a3, char a4)
 {
-  v21[4] = *MEMORY[0x277D85DE8];
-  v13 = a4;
-  v21[0] = &unk_2883F0C68;
-  v21[1] = a3;
-  v21[2] = &v13;
-  v21[3] = v21;
-  collectFromArray(&v12, 29, a2, v21);
-  result = std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](v21);
-  v8 = v12;
-  if (!v12)
+  v20[4] = *MEMORY[0x277D85DE8];
+  v12 = a4;
+  v20[0] = &unk_2883F0C68;
+  v20[1] = a3;
+  v20[2] = &v12;
+  v20[3] = v20;
+  collectFromArray(&v11, 29, a2, v20);
+  result = std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](v20);
+  v8 = v11;
+  if (!v11)
   {
-    v20[0] = &unk_2883F0CB0;
-    v20[1] = a3;
-    v20[2] = &v13;
-    v20[3] = v20;
-    collectFromArray(&v11, 30, a2, v20);
-    v8 = v11;
-    result = std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](v20);
+    v19[0] = &unk_2883F0CB0;
+    v19[1] = a3;
+    v19[2] = &v12;
+    v19[3] = v19;
+    collectFromArray(&v10, 30, a2, v19);
+    v8 = v10;
+    result = std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](v19);
     if (!v8)
     {
-      v19[0] = &unk_2883F0CF8;
-      v19[1] = a3;
-      v19[2] = &v13;
-      v19[3] = v19;
-      collectFromArray(&v11, 31, a2, v19);
-      v8 = v11;
-      result = std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](v19);
+      v18[0] = &unk_2883F0CF8;
+      v18[1] = a3;
+      v18[2] = &v12;
+      v18[3] = v18;
+      collectFromArray(&v10, 31, a2, v18);
+      v8 = v10;
+      result = std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](v18);
       if (!v8)
       {
-        v18[0] = &unk_2883F0D40;
-        v18[1] = a3;
-        v18[2] = &v13;
-        v18[3] = v18;
-        collectFromArray(&v11, 32, a2, v18);
-        v8 = v11;
-        result = std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](v18);
+        v17[0] = &unk_2883F0D40;
+        v17[1] = a3;
+        v17[2] = &v12;
+        v17[3] = v17;
+        collectFromArray(&v10, 32, a2, v17);
+        v8 = v10;
+        result = std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](v17);
         if (!v8)
         {
-          v16[0] = &unk_2883F0D88;
-          v16[1] = a3;
-          if ((v13 & 8) != 0)
+          v15[0] = &unk_2883F0D88;
+          v15[1] = a3;
+          if ((v12 & 8) != 0)
           {
             v9 = 4;
           }
@@ -4010,22 +3772,22 @@ uint64_t StubParser::collectSymbolsFromSegment(void *a1, uint64_t a2, uint64_t a
             v9 = 2;
           }
 
-          LOBYTE(v17[0]) = v9 | v13;
-          v17[1] = v16;
-          memset(v17 + 1, 0, 7);
-          collectFromArray(&v11, 27, a2, v16);
-          v8 = v11;
-          result = std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](v16);
+          LOBYTE(v16[0]) = v9 | v12;
+          v16[1] = v15;
+          memset(v16 + 1, 0, 7);
+          collectFromArray(&v10, 27, a2, v15);
+          v8 = v10;
+          result = std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](v15);
           if (!v8)
           {
-            v14[0] = &unk_2883F0DD0;
-            v14[1] = a3;
-            LOBYTE(v15[0]) = v13;
-            v15[1] = v14;
-            memset(v15 + 1, 0, 7);
-            collectFromArray(&v11, 28, a2, v14);
-            v8 = v11;
-            result = std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](v14);
+            v13[0] = &unk_2883F0DD0;
+            v13[1] = a3;
+            LOBYTE(v14[0]) = v12;
+            v14[1] = v13;
+            memset(v14 + 1, 0, 7);
+            collectFromArray(&v10, 28, a2, v13);
+            v8 = v10;
+            result = std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](v13);
           }
         }
       }
@@ -4033,11 +3795,10 @@ uint64_t StubParser::collectSymbolsFromSegment(void *a1, uint64_t a2, uint64_t a
   }
 
   *a1 = v8;
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t StubParser::getSymbolSection(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void **StubParser::getSymbolSection(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v42 = *MEMORY[0x277D85DE8];
   v6 = &Keys[a3];
@@ -4130,7 +3891,7 @@ uint64_t StubParser::getSymbolSection(uint64_t a1, uint64_t a2, uint64_t a3, uin
 
           else
           {
-            std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>::pair[abi:nn200100](&v35[160 * v36], &v23);
+            std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>::pair[abi:nn200100](&v35[20 * v36], &v23);
             LODWORD(v36) = v36 + 1;
           }
 
@@ -4155,7 +3916,7 @@ uint64_t StubParser::getSymbolSection(uint64_t a1, uint64_t a2, uint64_t a3, uin
             v23 = &v25;
             v24 = xmmword_2750C1290;
             llvm::SmallString<128u>::append(&v23, &v38, 3);
-            llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+            llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v21, &v23);
           }
 
           v16 = v15;
@@ -4207,39 +3968,37 @@ LABEL_37:
     *(a1 + 8) = 0x100000000;
   }
 
-  result = llvm::SmallVector<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,1u>::~SmallVector(&v35);
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::SmallVector<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,1u>::~SmallVector(&v35);
 }
 
 void StubParser::getLibSection(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v28[15] = *MEMORY[0x277D85DE8];
+  v27[15] = *MEMORY[0x277D85DE8];
   Array = llvm::json::Object::getArray(a2, *&Keys[a3], *(&Keys[a3] + 1));
   if (Array)
   {
+    v18 = 0;
     v19 = 0;
-    v20 = 0;
-    v18 = &v19;
-    v27[0] = v28;
-    v27[1] = 0x500000000;
+    v17 = &v18;
+    v26[0] = v27;
+    v26[1] = 0x500000000;
     v9 = *Array;
     v10 = *(Array + 8);
     if (*Array != v10)
     {
       while (1)
       {
-        llvm::json::Value::copyFrom(&v25, v9);
-        if (v25 == 7)
+        llvm::json::Value::copyFrom(&v24, v9);
+        if (v24 == 7)
         {
-          StubParser::getTargets(v23, v26);
-          if (v24)
+          StubParser::getTargets(v22, v25);
+          if (v23)
           {
-            llvm::SmallVectorImpl<llvm::MachO::Target>::operator=(v27, a5);
-            if (v24)
+            llvm::SmallVectorImpl<llvm::MachO::Target>::operator=(v26, a5);
+            if (v23)
             {
-              v11 = v23[0];
-              v23[0] = 0;
+              v11 = v22[0];
+              v22[0] = 0;
             }
 
             else
@@ -4247,45 +4006,45 @@ void StubParser::getLibSection(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
               v11 = 0;
             }
 
-            v21 = v11;
-            llvm::handleAllErrors<llvm::consumeError(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v21);
-            if (v21)
+            v20 = v11;
+            llvm::handleAllErrors<llvm::consumeError(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v20);
+            if (v20)
             {
-              (*(*v21 + 8))(v21);
+              (*(*v20 + 8))(v20);
             }
           }
 
           else
           {
-            llvm::SmallVectorImpl<llvm::MachO::Target>::operator=(v27, v23);
+            llvm::SmallVectorImpl<llvm::MachO::Target>::operator=(v26, v22);
           }
 
-          v22[0] = &unk_2883F0E18;
-          v22[1] = &v18;
-          v22[2] = v27;
-          v22[3] = v22;
-          collectFromArray(&v21, a4, v26, v22);
-          std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](v22);
-          v12 = v21;
-          if (v21)
+          v21[0] = &unk_2883F0E18;
+          v21[1] = &v17;
+          v21[2] = v26;
+          v21[3] = v21;
+          collectFromArray(&v20, a4, v25, v21);
+          std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](v21);
+          v12 = v20;
+          if (v20)
           {
             *(a1 + 24) |= 1u;
             *a1 = v12;
-            llvm::Expected<llvm::SmallVector<llvm::MachO::Target,5u>>::~Expected(v23);
-            llvm::json::Value::destroy(&v25);
+            llvm::Expected<llvm::SmallVector<llvm::MachO::Target,5u>>::~Expected(v22);
+            llvm::json::Value::destroy(&v24);
             goto LABEL_21;
           }
 
-          llvm::Expected<llvm::SmallVector<llvm::MachO::Target,5u>>::~Expected(v23);
+          llvm::Expected<llvm::SmallVector<llvm::MachO::Target,5u>>::~Expected(v22);
         }
 
-        llvm::json::Value::destroy(&v25);
+        llvm::json::Value::destroy(&v24);
         v9 = (v9 + 32);
         if (v9 == v10)
         {
-          v14 = v18;
-          v13 = v19;
-          v15 = v20;
+          v14 = v17;
+          v13 = v18;
+          v15 = v19;
           goto LABEL_17;
         }
       }
@@ -4293,7 +4052,7 @@ void StubParser::getLibSection(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
 
     v15 = 0;
     v13 = 0;
-    v14 = &v19;
+    v14 = &v18;
 LABEL_17:
     *(a1 + 24) &= ~1u;
     *a1 = v14;
@@ -4303,9 +4062,9 @@ LABEL_17:
     if (v15)
     {
       v13[2] = v16;
-      v18 = &v19;
+      v17 = &v18;
+      v18 = 0;
       v19 = 0;
-      v20 = 0;
     }
 
     else
@@ -4314,12 +4073,12 @@ LABEL_17:
     }
 
 LABEL_21:
-    if (v27[0] != v28)
+    if (v26[0] != v27)
     {
-      free(v27[0]);
+      free(v26[0]);
     }
 
-    std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(&v18, v19);
+    std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(&v17, v18);
   }
 
   else
@@ -4329,8 +4088,6 @@ LABEL_21:
     *(a1 + 8) = 0;
     *a1 = a1 + 8;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void StubParser::getUmbrellaSection(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4386,7 +4143,7 @@ LABEL_23:
           v27 = &v29;
           v28 = xmmword_2750C1290;
           llvm::SmallString<128u>::append(&v27, v35, 3);
-          llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+          llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v19, &v27);
         }
 
         StubParser::getTargets(&v27, v32);
@@ -4437,9 +4194,9 @@ LABEL_23:
         {
           llvm::StringRef::str(v35, __p);
           v23 = __p;
-          v11 = std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v20, __p);
+          v11 = std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v20, __p, &v23);
           llvm::SmallVectorImpl<llvm::MachO::Target>::operator=(v11 + 56, a3);
-          if (v19 < 0)
+          if (v18 < 0)
           {
             operator delete(__p[0]);
           }
@@ -4488,116 +4245,114 @@ LABEL_23:
     *(a1 + 8) = 0;
     *a1 = a1 + 8;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t StubParser::getPackedVersion(uint64_t a1, uint64_t a2, uint64_t a3)
+void StubParser::getPackedVersion(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = &Keys[a3];
-  result = llvm::json::Object::getArray(a2, *v4, v4[1]);
-  if (!result || (v6 = *result, *result == *(result + 8)))
+  Array = llvm::json::Object::getArray(a2, *v4, v4[1]);
+  if (!Array || (v6 = *Array, *Array == *(Array + 8)))
   {
     *(a1 + 8) &= ~1u;
     *a1 = 0x10000;
-LABEL_17:
-    v8 = *MEMORY[0x277D85DE8];
-    return result;
+    return;
   }
 
   if (*v6 != 7)
   {
-    v17 = "invalid ";
-    v18 = 8;
-    v19 = *v4;
-    v20 = " section";
-    v21 = 8;
-    *v15 = v16;
-    *&v15[8] = xmmword_2750C1290;
-    llvm::SmallString<128u>::append(v15, &v17, 3);
-    llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+    v18 = "invalid ";
+    v19 = 8;
+    v20 = *v4;
+    v21 = " section";
+    v22 = 8;
+    *v16 = v17;
+    *&v16[8] = xmmword_2750C1290;
+    llvm::SmallString<128u>::append(v16, &v18, 3);
+    llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v10, v16);
   }
 
-  v14[0] = &unk_2883F0C20;
-  v14[1] = llvm::json::Object::getString;
-  v14[2] = 0;
-  v14[3] = v14;
-  v12[0] = &unk_2883F0E60;
-  v13 = v12;
-  std::function<std::optional<llvm::StringRef> ()(llvm::json::Object const*,llvm::StringRef)>::operator()(&v10, v14, (v6 + 4), "version", 7);
-  if ((v11 & 1) == 0)
+  v15[0] = &unk_2883F0C20;
+  v15[1] = llvm::json::Object::getString;
+  v15[2] = 0;
+  v15[3] = v15;
+  v13[0] = &unk_2883F0E60;
+  v14 = v13;
+  std::function<std::optional<llvm::StringRef> ()(llvm::json::Object const*,llvm::StringRef)>::operator()(&v11, v15, (v6 + 4), "version", 7);
+  if (v12)
   {
-    *(a1 + 8) &= ~1u;
-    *a1 = 0x10000;
-LABEL_12:
-    if (v13 == v12)
+    *v16 = v11;
+    if (!v14)
     {
-      (*(*v13 + 32))(v13);
+      v8 = std::__throw_bad_function_call[abi:nn200100]();
+      StubParser::parseToInterfaceFile(v8, v9);
+      return;
     }
 
-    else if (v13)
-    {
-      (*(*v13 + 40))();
-    }
-
-    result = std::__function::__value_func<std::optional<llvm::StringRef> ()(llvm::json::Object const*,llvm::StringRef)>::~__value_func[abi:nn200100](v14);
-    goto LABEL_17;
-  }
-
-  *v15 = v10;
-  if (v13)
-  {
-    v7 = (*(*v13 + 48))(v13, v15);
+    v7 = (*(*v14 + 48))(v14, v16);
     if ((v7 & 0x100000000) == 0)
     {
-      v17 = "invalid ";
-      v18 = 8;
-      v19 = xmmword_279EFFDC0;
-      v20 = " section";
-      v21 = 8;
-      *v15 = v16;
-      *&v15[8] = xmmword_2750C1290;
-      llvm::SmallString<128u>::append(v15, &v17, 3);
-      llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+      v18 = "invalid ";
+      v19 = 8;
+      v20 = xmmword_279EFFDC0;
+      v21 = " section";
+      v22 = 8;
+      *v16 = v17;
+      *&v16[8] = xmmword_2750C1290;
+      llvm::SmallString<128u>::append(v16, &v18, 3);
+      llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v18, v16);
     }
 
     *(a1 + 8) &= ~1u;
     *a1 = v7;
-    goto LABEL_12;
   }
 
-  v9 = std::__throw_bad_function_call[abi:nn200100]();
-  return StubParser::parseToInterfaceFile(v9);
+  else
+  {
+    *(a1 + 8) &= ~1u;
+    *a1 = 0x10000;
+  }
+
+  if (v14 == v13)
+  {
+    (*(*v14 + 32))(v14);
+  }
+
+  else if (v14)
+  {
+    (*(*v14 + 40))();
+  }
+
+  std::__function::__value_func<std::optional<llvm::StringRef> ()(llvm::json::Object const*,llvm::StringRef)>::~__value_func[abi:nn200100](v15);
 }
 
 uint64_t StubParser::parseToInterfaceFile(uint64_t a1, uint64_t a2)
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   Array = llvm::json::Object::getArray(a2, "target_info", 11);
   if (!Array)
   {
-    v61 = "invalid ";
-    v62 = 8;
-    v63 = xmmword_279EFFD40;
-    v64 = " section";
-    v65 = 8;
-    __p = v73;
-    v72 = xmmword_2750C1290;
-    llvm::SmallString<128u>::append(&__p, &v61, 3);
-    llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+    v60 = "invalid ";
+    v61 = 8;
+    v62 = xmmword_279EFFD40;
+    v63 = " section";
+    v64 = 8;
+    __p = v72;
+    v71 = xmmword_2750C1290;
+    llvm::SmallString<128u>::append(&__p, &v60, 3);
+    llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v60, &__p);
   }
 
-  v39 = a2;
-  v61 = &v63;
-  v62 = 0x500000000;
+  v38 = a2;
+  v60 = &v62;
+  v61 = 0x500000000;
   v6 = *Array;
   v7 = *(Array + 8);
   if (*Array == v7)
   {
-    v101 = 0;
-    v98 = v100;
-    v99 = 0x500000000;
+    v100 = 0;
+    v97 = v99;
+    v98 = 0x500000000;
   }
 
   else
@@ -4606,127 +4361,127 @@ uint64_t StubParser::parseToInterfaceFile(uint64_t a1, uint64_t a2)
     {
       if (*v6 != 7)
       {
-        v53 = "invalid ";
-        v54 = 8;
-        v55 = xmmword_279EFFD50;
-        v56 = " section";
-        v57 = 8;
-        __p = v73;
-        v72 = xmmword_2750C1290;
-        llvm::SmallString<128u>::append(&__p, &v53, 3);
-        llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+        v52 = "invalid ";
+        v53 = 8;
+        v54 = xmmword_279EFFD50;
+        v55 = " section";
+        v56 = 8;
+        __p = v72;
+        v71 = xmmword_2750C1290;
+        llvm::SmallString<128u>::append(&__p, &v52, 3);
+        llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v52, &__p);
       }
 
-      v67 = &unk_2883F0C20;
-      v68 = llvm::json::Object::getString;
-      v69 = 0;
-      v70 = &v67;
-      v60[1] = 0;
+      v66 = &unk_2883F0C20;
+      v67 = llvm::json::Object::getString;
+      v68 = 0;
+      v69 = &v66;
+      v59[1] = 0;
       v8 = (v6 + 4);
-      getRequiredValue<llvm::StringRef,llvm::StringRef>(&v86, 5, (v6 + 4), &v67, v59);
-      std::__function::__value_func<std::optional<llvm::StringRef> ()(llvm::StringRef)>::~__value_func[abi:nn200100](v59);
-      std::__function::__value_func<std::optional<llvm::StringRef> ()(llvm::json::Object const*,llvm::StringRef)>::~__value_func[abi:nn200100](&v67);
-      if (v88)
+      getRequiredValue<llvm::StringRef,llvm::StringRef>(&v85, 5, (v6 + 4), &v66, v58);
+      std::__function::__value_func<std::optional<llvm::StringRef> ()(llvm::StringRef)>::~__value_func[abi:nn200100](v58);
+      std::__function::__value_func<std::optional<llvm::StringRef> ()(llvm::json::Object const*,llvm::StringRef)>::~__value_func[abi:nn200100](&v66);
+      if (v87)
       {
-        v53 = "invalid ";
-        v54 = 8;
-        v55 = xmmword_279EFFD50;
-        v56 = " section";
-        v57 = 8;
-        __p = v73;
-        v72 = xmmword_2750C1290;
-        llvm::SmallString<128u>::append(&__p, &v53, 3);
-        llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+        v52 = "invalid ";
+        v53 = 8;
+        v54 = xmmword_279EFFD50;
+        v55 = " section";
+        v56 = 8;
+        __p = v72;
+        v71 = xmmword_2750C1290;
+        llvm::SmallString<128u>::append(&__p, &v52, 3);
+        llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v52, &__p);
       }
 
-      v50 = &unk_2883F0C20;
-      v51 = llvm::json::Object::getString;
-      v52[0] = 0;
-      v52[1] = &v50;
-      v97[1] = 0;
-      getRequiredValue<llvm::StringRef,llvm::StringRef>(&v82, 6, v8, &v50, v96);
-      std::__function::__value_func<std::optional<llvm::StringRef> ()(llvm::StringRef)>::~__value_func[abi:nn200100](v96);
-      std::__function::__value_func<std::optional<llvm::StringRef> ()(llvm::json::Object const*,llvm::StringRef)>::~__value_func[abi:nn200100](&v50);
-      if (v84)
+      v49 = &unk_2883F0C20;
+      v50 = llvm::json::Object::getString;
+      v51[0] = 0;
+      v51[1] = &v49;
+      v96[1] = 0;
+      getRequiredValue<llvm::StringRef,llvm::StringRef>(&v81, 6, v8, &v49, v95);
+      std::__function::__value_func<std::optional<llvm::StringRef> ()(llvm::StringRef)>::~__value_func[abi:nn200100](v95);
+      std::__function::__value_func<std::optional<llvm::StringRef> ()(llvm::json::Object const*,llvm::StringRef)>::~__value_func[abi:nn200100](&v49);
+      if (v83)
       {
-        v53 = "invalid ";
-        v54 = 8;
-        v55 = xmmword_279EFFD60;
-        v56 = " section";
-        v57 = 8;
-        __p = v73;
-        v72 = xmmword_2750C1290;
-        llvm::SmallString<128u>::append(&__p, &v53, 3);
-        llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+        v52 = "invalid ";
+        v53 = 8;
+        v54 = xmmword_279EFFD60;
+        v55 = " section";
+        v56 = 8;
+        __p = v72;
+        v71 = xmmword_2750C1290;
+        llvm::SmallString<128u>::append(&__p, &v52, 3);
+        llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v52, &__p);
       }
 
-      v94 = 0uLL;
-      if (llvm::VersionTuple::tryParse(&v94, v82, v83))
+      v93 = 0uLL;
+      if (llvm::VersionTuple::tryParse(&v93, v81, v82))
       {
-        v53 = "invalid ";
-        v54 = 8;
-        v55 = xmmword_279EFFD60;
-        v56 = " section";
-        v57 = 8;
-        __p = v73;
-        v72 = xmmword_2750C1290;
-        llvm::SmallString<128u>::append(&__p, &v53, 3);
-        llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+        v52 = "invalid ";
+        v53 = 8;
+        v54 = xmmword_279EFFD60;
+        v55 = " section";
+        v56 = 8;
+        __p = v72;
+        v71 = xmmword_2750C1290;
+        llvm::SmallString<128u>::append(&__p, &v52, 3);
+        llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v52, &__p);
       }
 
-      v9 = v86;
-      llvm::MachO::Target::create(v86, v87, &v102);
-      v10 = v104;
-      if (v104)
+      v9 = v85;
+      llvm::MachO::Target::create(v85, v86, &v101);
+      v10 = v103;
+      if (v103)
       {
-        v53 = "invalid ";
-        v54 = 8;
-        v55 = xmmword_279EFFD50;
-        v56 = " section";
-        v57 = 8;
-        __p = v73;
-        v72 = xmmword_2750C1290;
-        llvm::SmallString<128u>::append(&__p, &v53, 3);
-        llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+        v52 = "invalid ";
+        v53 = 8;
+        v54 = xmmword_279EFFD50;
+        v55 = " section";
+        v56 = 8;
+        __p = v72;
+        v71 = xmmword_2750C1290;
+        llvm::SmallString<128u>::append(&__p, &v52, 3);
+        llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v47, &__p);
       }
 
-      v103 = v94;
-      llvm::MachO::getTargetTripleName(&v102, &v74);
-      LOWORD(v56) = 260;
-      v53 = &v74;
-      llvm::Triple::Triple(&__p, &v53);
+      v102 = v93;
+      llvm::MachO::getTargetTripleName(&v101, &v73);
+      LOWORD(v55) = 260;
+      v52 = &v73;
+      llvm::Triple::Triple(&__p, &v52);
       ArchName = llvm::Triple::getArchName(&__p);
-      LOBYTE(v78) = llvm::MachO::getArchitectureFromName(ArchName, v12);
-      HIDWORD(v78) = llvm::MachO::mapToPlatformType(&__p);
-      v79 = llvm::MachO::mapToSupportedOSVersion(&__p, v13);
-      v80 = v14;
-      v15 = llvm::SmallVectorTemplateCommon<llvm::MachO::Target,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<llvm::MachO::Target,true>>(&v61, &v78, 1);
-      v16 = v61 + 24 * v62;
+      LOBYTE(v77) = llvm::MachO::getArchitectureFromName(ArchName, v12);
+      HIDWORD(v77) = llvm::MachO::mapToPlatformType(&__p);
+      v78 = llvm::MachO::mapToSupportedOSVersion(&__p, v13);
+      v79 = v14;
+      v15 = llvm::SmallVectorTemplateCommon<llvm::MachO::Target,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<llvm::MachO::Target,true>>(&v60, &v77, 1);
+      v16 = v60 + 24 * v61;
       v17 = *v15;
       *(v16 + 2) = *(v15 + 16);
       *v16 = v17;
-      LODWORD(v62) = v62 + 1;
-      if (SHIBYTE(v72) < 0)
+      LODWORD(v61) = v61 + 1;
+      if (SHIBYTE(v71) < 0)
       {
         operator delete(__p);
       }
 
-      if (SHIBYTE(v76) < 0)
+      if (SHIBYTE(v75) < 0)
       {
-        operator delete(v74);
+        operator delete(v73);
       }
 
-      if (v104)
+      if (v103)
       {
-        v18 = v102;
-        v102 = 0;
+        v18 = v101;
+        v101 = 0;
         if (v18)
         {
           (*(*v18 + 8))(v18);
         }
       }
 
-      if ((v88 & 1) != 0 && v9)
+      if ((v87 & 1) != 0 && v9)
       {
         (*(*v9 + 8))(v9);
       }
@@ -4739,12 +4494,12 @@ uint64_t StubParser::parseToInterfaceFile(uint64_t a1, uint64_t a2)
       v6 = (v8 + 24);
       if (v8 + 24 == v7)
       {
-        v101 = v2 & 0xFE;
-        v98 = v100;
-        v99 = 0x500000000;
-        if (v62)
+        v100 = v2 & 0xFE;
+        v97 = v99;
+        v98 = 0x500000000;
+        if (v61)
         {
-          llvm::SmallVectorImpl<llvm::MachO::Target>::operator=(&v98, &v61);
+          llvm::SmallVectorImpl<llvm::MachO::Target>::operator=(&v97, &v60);
         }
 
         break;
@@ -4752,381 +4507,378 @@ uint64_t StubParser::parseToInterfaceFile(uint64_t a1, uint64_t a2)
     }
   }
 
-  if (v61 != &v63)
+  if (v60 != &v62)
   {
-    free(v61);
+    free(v60);
   }
 
-  if (v101)
+  if (v100)
   {
-    v19 = v98;
-    v98 = 0;
+    v19 = v97;
+    v97 = 0;
     *(a1 + 8) |= 1u;
     *a1 = v19;
-    goto LABEL_45;
+    return llvm::Expected<llvm::SmallVector<llvm::MachO::Target,5u>>::~Expected(&v97);
   }
 
-  v96[0] = v97;
-  v96[1] = 0x500000000;
-  if (v99)
+  v95[0] = v96;
+  v95[1] = 0x500000000;
+  if (v98)
   {
-    llvm::SmallVectorImpl<llvm::MachO::Target>::operator=(v96, &v98);
+    llvm::SmallVectorImpl<llvm::MachO::Target>::operator=(v95, &v97);
   }
 
-  v20 = llvm::json::Object::getArray(v39, "install_names", 13);
+  v20 = llvm::json::Object::getArray(v38, "install_names", 13);
   if (!v20 || (v21 = *v20, **v20 != 7))
   {
-    v61 = "invalid ";
-    v62 = 8;
-    v63 = xmmword_279EFFD90;
-    v64 = " section";
-    v65 = 8;
-    __p = v73;
-    v72 = xmmword_2750C1290;
-    llvm::SmallString<128u>::append(&__p, &v61, 3);
-    llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+    v60 = "invalid ";
+    v61 = 8;
+    v62 = xmmword_279EFFD90;
+    v63 = " section";
+    v64 = 8;
+    __p = v72;
+    v71 = xmmword_2750C1290;
+    llvm::SmallString<128u>::append(&__p, &v60, 3);
+    llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v93, &__p);
   }
 
-  v53 = &unk_2883F0C20;
-  v54 = llvm::json::Object::getString;
-  *&v55 = 0;
-  *(&v55 + 1) = &v53;
-  v70 = 0;
-  getRequiredValue<llvm::StringRef,llvm::StringRef>(&v94, 21, (v21 + 4), &v53, &v67);
-  std::__function::__value_func<std::optional<llvm::StringRef> ()(llvm::StringRef)>::~__value_func[abi:nn200100](&v67);
-  std::__function::__value_func<std::optional<llvm::StringRef> ()(llvm::json::Object const*,llvm::StringRef)>::~__value_func[abi:nn200100](&v53);
-  if (v95)
+  v52 = &unk_2883F0C20;
+  v53 = llvm::json::Object::getString;
+  *&v54 = 0;
+  *(&v54 + 1) = &v52;
+  v69 = 0;
+  getRequiredValue<llvm::StringRef,llvm::StringRef>(&v93, 21, (v21 + 4), &v52, &v66);
+  std::__function::__value_func<std::optional<llvm::StringRef> ()(llvm::StringRef)>::~__value_func[abi:nn200100](&v66);
+  std::__function::__value_func<std::optional<llvm::StringRef> ()(llvm::json::Object const*,llvm::StringRef)>::~__value_func[abi:nn200100](&v52);
+  if (v94)
   {
-    v22 = v94;
+    v22 = v93;
   }
 
   else
   {
-    StubParser::getPackedVersion(&v92, v39, 10);
-    if (v93)
+    StubParser::getPackedVersion(&v91, v38, 10);
+    if (v92)
     {
-      v22 = v92;
+      v22 = v91;
     }
 
     else
     {
-      StubParser::getPackedVersion(&v90, v39, 11);
-      if ((v91 & 1) == 0)
+      StubParser::getPackedVersion(&v89, v38, 11);
+      if ((v90 & 1) == 0)
       {
-        v25 = llvm::json::Object::getArray(v39, "swift_abi", 9);
-        if (v25)
+        v24 = llvm::json::Object::getArray(v38, "swift_abi", 9);
+        if (v24)
         {
-          v26 = *v25;
-          if (*v25 != *(v25 + 8))
+          v25 = *v24;
+          if (*v24 != *(v24 + 8))
           {
-            if (*v26 != 7)
+            if (*v25 != 7)
             {
-              v61 = "invalid ";
-              v62 = 8;
-              v63 = xmmword_279EFFDD0;
-              v64 = " section";
-              v65 = 8;
-              __p = v73;
-              v72 = xmmword_2750C1290;
-              llvm::SmallString<128u>::append(&__p, &v61, 3);
-              llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+              v60 = "invalid ";
+              v61 = 8;
+              v62 = xmmword_279EFFDD0;
+              v63 = " section";
+              v64 = 8;
+              __p = v72;
+              v71 = xmmword_2750C1290;
+              llvm::SmallString<128u>::append(&__p, &v60, 3);
+              llvm::make_error<JSONStubError,llvm::SmallString<128u>>(v58, &__p);
             }
 
-            v53 = &unk_2883F0B90;
-            v54 = llvm::json::Object::getInteger;
-            *&v55 = 0;
-            *(&v55 + 1) = &v53;
-            llvm::json::Object::getInteger((v26 + 4), "abi", 3);
-            if ((v27 & 1) == 0)
+            v52 = &unk_2883F0B90;
+            v53 = llvm::json::Object::getInteger;
+            *&v54 = 0;
+            *(&v54 + 1) = &v52;
+            llvm::json::Object::getInteger((v25 + 4), "abi", 3);
+            if ((v26 & 1) == 0)
             {
-              v61 = "invalid ";
-              v62 = 8;
-              v63 = xmmword_279EFFDE0;
-              v64 = " section";
-              v65 = 8;
-              __p = v73;
-              v72 = xmmword_2750C1290;
-              llvm::SmallString<128u>::append(&__p, &v61, 3);
-              llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+              v60 = "invalid ";
+              v61 = 8;
+              v62 = xmmword_279EFFDE0;
+              v63 = " section";
+              v64 = 8;
+              __p = v72;
+              v71 = xmmword_2750C1290;
+              llvm::SmallString<128u>::append(&__p, &v60, 3);
+              llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v66, &__p);
             }
 
-            std::__function::__value_func<std::optional<long long> ()(llvm::json::Object const*,llvm::StringRef)>::~__value_func[abi:nn200100](&v53);
+            std::__function::__value_func<std::optional<long long> ()(llvm::json::Object const*,llvm::StringRef)>::~__value_func[abi:nn200100](&v52);
           }
         }
 
-        LODWORD(v59[0]) = 0;
-        v28 = llvm::json::Object::getArray(v39, "flags", 5);
-        if (!v28)
+        LODWORD(v58[0]) = 0;
+        v27 = llvm::json::Object::getArray(v38, "flags", 5);
+        if (!v27)
         {
           goto LABEL_57;
         }
 
-        v29 = *v28;
-        if (*v28 == *(v28 + 8))
+        v28 = *v27;
+        if (*v27 == *(v27 + 8))
         {
           goto LABEL_57;
         }
 
-        if (*v29 != 7)
+        if (*v28 != 7)
         {
-          v61 = "invalid ";
-          v62 = 8;
-          v63 = xmmword_279EFFD70;
-          v64 = " section";
-          v65 = 8;
-          __p = v73;
-          v72 = xmmword_2750C1290;
-          llvm::SmallString<128u>::append(&__p, &v61, 3);
-          llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+          v60 = "invalid ";
+          v61 = 8;
+          v62 = xmmword_279EFFD70;
+          v63 = " section";
+          v64 = 8;
+          __p = v72;
+          v71 = xmmword_2750C1290;
+          llvm::SmallString<128u>::append(&__p, &v60, 3);
+          llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v66, &__p);
         }
 
-        v53 = &unk_2883F0EA8;
-        v54 = v59;
-        *(&v55 + 1) = &v53;
-        collectFromArray(&__p, 8, (v29 + 4), &v53);
-        std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](&v53);
-        v30 = __p;
+        v52 = &unk_2883F0EA8;
+        v53 = v58;
+        *(&v54 + 1) = &v52;
+        collectFromArray(&__p, 8, (v28 + 4), &v52);
+        std::__function::__value_func<void ()(llvm::StringRef)>::~__value_func[abi:nn200100](&v52);
+        v29 = __p;
         if (__p)
         {
           *(a1 + 8) |= 1u;
-          *a1 = v30;
+          *a1 = v29;
         }
 
         else
         {
 LABEL_57:
-          StubParser::getUmbrellaSection(&v102, v39, v96);
-          if (v104)
+          StubParser::getUmbrellaSection(&v101, v38, v95);
+          if (v103)
           {
-            v31 = v102;
-            v102 = 0;
+            v30 = v101;
+            v101 = 0;
             *(a1 + 8) |= 1u;
-            *a1 = v31;
+            *a1 = v30;
           }
 
           else
           {
-            v49[0] = 0;
-            v49[1] = 0;
-            v48 = v49;
-            std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__tree_node<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,void *> *,long>>>(&v48, v102, &v103);
-            StubParser::getLibSection(&v86, v39, 17, 18, v96);
-            if (v89)
+            v48[0] = 0;
+            v48[1] = 0;
+            v47 = v48;
+            std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__tree_node<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,void *> *,long>>>(&v47, v101, &v102);
+            StubParser::getLibSection(&v85, v38, 17, 18, v95);
+            if (v88)
             {
-              v32 = v86;
-              v86 = 0;
+              v31 = v85;
+              v85 = 0;
               *(a1 + 8) |= 1u;
-              *a1 = v32;
+              *a1 = v31;
             }
 
             else
             {
-              v47[0] = 0;
-              v47[1] = 0;
-              v46 = v47;
-              std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__tree_node<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,void *> *,long>>>(&v46, v86, &v87);
-              StubParser::getLibSection(&v82, v39, 19, 20, v96);
-              if (v85)
+              v46[0] = 0;
+              v46[1] = 0;
+              v45 = v46;
+              std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__tree_node<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,void *> *,long>>>(&v45, v85, &v86);
+              StubParser::getLibSection(&v81, v38, 19, 20, v95);
+              if (v84)
               {
-                v33 = v82;
-                v82 = 0;
+                v32 = v81;
+                v81 = 0;
                 *(a1 + 8) |= 1u;
-                *a1 = v33;
+                *a1 = v32;
               }
 
               else
               {
-                v44 = v82;
-                v45[0] = v83;
-                v45[1] = v84;
-                if (v84)
+                v43 = v81;
+                v44[0] = v82;
+                v44[1] = v83;
+                if (v83)
                 {
-                  v83[2] = v45;
-                  v82 = &v83;
+                  v82[2] = v44;
+                  v81 = &v82;
+                  v82 = 0;
                   v83 = 0;
-                  v84 = 0;
                 }
 
                 else
                 {
-                  v44 = v45;
+                  v43 = v44;
                 }
 
-                StubParser::getLibSection(&v78, v39, 33, 34, v96);
-                if (v81)
+                StubParser::getLibSection(&v77, v38, 33, 34, v95);
+                if (v80)
                 {
-                  v34 = v78;
-                  v78 = 0;
+                  v33 = v77;
+                  v77 = 0;
                   *(a1 + 8) |= 1u;
-                  *a1 = v34;
+                  *a1 = v33;
                 }
 
                 else
                 {
-                  v42 = v78;
-                  v43[0] = v79;
-                  v43[1] = v80;
-                  if (v80)
+                  v41 = v77;
+                  v42[0] = v78;
+                  v42[1] = v79;
+                  if (v79)
                   {
-                    v79[2] = v43;
-                    v78 = &v79;
+                    v78[2] = v42;
+                    v77 = &v78;
+                    v78 = 0;
                     v79 = 0;
-                    v80 = 0;
                   }
 
                   else
                   {
-                    v42 = v43;
+                    v41 = v42;
                   }
 
-                  StubParser::getLibSection(&v74, v39, 35, 20, v96);
-                  if (v77)
+                  StubParser::getLibSection(&v73, v38, 35, 20, v95);
+                  if (v76)
                   {
-                    v35 = v74;
-                    v74 = 0;
+                    v34 = v73;
+                    v73 = 0;
                     *(a1 + 8) |= 1u;
-                    *a1 = v35;
+                    *a1 = v34;
                   }
 
                   else
                   {
-                    v40 = v74;
-                    v41[0] = v75;
-                    v41[1] = v76;
-                    if (v76)
+                    v39 = v73;
+                    v40[0] = v74;
+                    v40[1] = v75;
+                    if (v75)
                     {
-                      v75[2] = v41;
-                      v74 = &v75;
+                      v74[2] = v40;
+                      v73 = &v74;
+                      v74 = 0;
                       v75 = 0;
-                      v76 = 0;
                     }
 
                     else
                     {
-                      v40 = v41;
+                      v39 = v40;
                     }
 
-                    StubParser::getSymbolSection(&__p, v39, 22, v96);
-                    if (v73[152])
+                    StubParser::getSymbolSection(&__p, v38, 22, v95);
+                    if (v72[152])
                     {
-                      v36 = __p;
+                      v35 = __p;
                       __p = 0;
                       *(a1 + 8) |= 1u;
-                      *a1 = v36;
+                      *a1 = v35;
                     }
 
                     else
                     {
-                      v67 = &v69;
-                      v68 = 0x100000000;
-                      if (v72)
+                      v66 = &v68;
+                      v67 = 0x100000000;
+                      if (v71)
                       {
-                        llvm::SmallVectorImpl<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>>::operator=(&v67, &__p);
+                        llvm::SmallVectorImpl<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>>::operator=(&v66, &__p);
                       }
 
-                      StubParser::getSymbolSection(&v61, v39, 23, v96);
-                      if (v66)
+                      StubParser::getSymbolSection(&v60, v38, 23, v95);
+                      if (v65)
                       {
-                        v37 = v61;
-                        v61 = 0;
+                        v36 = v60;
+                        v60 = 0;
                         *(a1 + 8) |= 1u;
-                        *a1 = v37;
+                        *a1 = v36;
                       }
 
                       else
                       {
-                        v59[0] = v60;
-                        v59[1] = 0x100000000;
-                        if (v62)
+                        v58[0] = v59;
+                        v58[1] = 0x100000000;
+                        if (v61)
                         {
-                          llvm::SmallVectorImpl<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>>::operator=(v59, &v61);
+                          llvm::SmallVectorImpl<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>>::operator=(v58, &v60);
                         }
 
-                        StubParser::getSymbolSection(&v53, v39, 24, v96);
-                        if ((v58 & 1) == 0)
+                        StubParser::getSymbolSection(&v52, v38, 24, v95);
+                        if ((v57 & 1) == 0)
                         {
-                          v50 = v52;
-                          v51 = 0x100000000;
-                          if (v54)
+                          v49 = v51;
+                          v50 = 0x100000000;
+                          if (v53)
                           {
-                            llvm::SmallVectorImpl<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>>::operator=(&v50, &v53);
+                            llvm::SmallVectorImpl<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>>::operator=(&v49, &v52);
                           }
 
                           operator new();
                         }
 
-                        v38 = v53;
-                        v53 = 0;
+                        v37 = v52;
+                        v52 = 0;
                         *(a1 + 8) |= 1u;
-                        *a1 = v38;
-                        llvm::Expected<llvm::SmallVector<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,1u>>::~Expected(&v53);
-                        llvm::SmallVector<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,1u>::~SmallVector(v59);
+                        *a1 = v37;
+                        llvm::Expected<llvm::SmallVector<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,1u>>::~Expected(&v52);
+                        llvm::SmallVector<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,1u>::~SmallVector(v58);
                       }
 
-                      llvm::Expected<llvm::SmallVector<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,1u>>::~Expected(&v61);
-                      llvm::SmallVector<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,1u>::~SmallVector(&v67);
+                      llvm::Expected<llvm::SmallVector<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,1u>>::~Expected(&v60);
+                      llvm::SmallVector<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,1u>::~SmallVector(&v66);
                     }
 
                     llvm::Expected<llvm::SmallVector<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,1u>>::~Expected(&__p);
-                    std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(&v40, v41[0]);
+                    std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(&v39, v40[0]);
                   }
 
-                  llvm::Expected<std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>::~Expected(&v74);
-                  std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(&v42, v43[0]);
+                  llvm::Expected<std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>::~Expected(&v73);
+                  std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(&v41, v42[0]);
                 }
 
-                llvm::Expected<std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>::~Expected(&v78);
-                std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(&v44, v45[0]);
+                llvm::Expected<std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>::~Expected(&v77);
+                std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(&v43, v44[0]);
               }
 
-              llvm::Expected<std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>::~Expected(&v82);
-              std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(&v46, v47[0]);
+              llvm::Expected<std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>::~Expected(&v81);
+              std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(&v45, v46[0]);
             }
 
-            llvm::Expected<std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>::~Expected(&v86);
-            std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(&v48, v49[0]);
+            llvm::Expected<std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>::~Expected(&v85);
+            std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(&v47, v48[0]);
           }
 
-          llvm::Expected<std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>::~Expected(&v102);
+          llvm::Expected<std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>::~Expected(&v101);
         }
 
         goto LABEL_43;
       }
 
-      v22 = v90;
+      v22 = v89;
     }
   }
 
   *(a1 + 8) |= 1u;
   *a1 = v22;
 LABEL_43:
-  if (v96[0] != v97)
+  if (v95[0] != v96)
   {
-    free(v96[0]);
+    free(v95[0]);
   }
 
-LABEL_45:
-  result = llvm::Expected<llvm::SmallVector<llvm::MachO::Target,5u>>::~Expected(&v98);
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::Expected<llvm::SmallVector<llvm::MachO::Target,5u>>::~Expected(&v97);
 }
 
 void llvm::MachO::TextAPIReader::getAsJSON(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v46 = *MEMORY[0x277D85DE8];
-  llvm::json::parse(*a1, *(a1 + 8), &v28);
-  if (v30)
+  v45 = *MEMORY[0x277D85DE8];
+  llvm::json::parse(*a1, *(a1 + 8), &v27);
+  if (v29)
   {
-    v4 = v28;
-    v28 = 0;
+    v4 = v27;
+    v27 = 0;
     *(a2 + 8) |= 1u;
     *a2 = v4;
     goto LABEL_48;
   }
 
-  if (v28 == 7)
+  if (v27 == 7)
   {
-    v5 = &v29;
+    v5 = &v28;
   }
 
   else
@@ -5134,91 +4886,90 @@ void llvm::MachO::TextAPIReader::getAsJSON(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v5 = 0;
   }
 
-  v34 = &unk_2883F0B90;
-  v35 = llvm::json::Object::getInteger;
-  v36 = 0;
-  v37 = &v34;
-  v31 = &unk_2883F0BD8;
-  v33 = &v31;
+  v33 = &unk_2883F0B90;
+  v34 = llvm::json::Object::getInteger;
+  v35 = 0;
+  v36 = &v33;
+  v30 = &unk_2883F0BD8;
+  v32 = &v30;
   Integer = llvm::json::Object::getInteger(v5, "tapi_tbd_version", 16);
   if ((v7 & 1) == 0)
   {
-    v41 = "invalid ";
-    v42 = 8;
-    v43 = Keys[0];
-    v44 = " section";
-    v45 = 8;
-    v38 = v40;
-    v39 = xmmword_2750C1290;
-    llvm::SmallString<128u>::append(&v38, &v41, 3);
-    llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+    v40 = "invalid ";
+    v41 = 8;
+    v42 = Keys[0];
+    v43 = " section";
+    v44 = 8;
+    v37 = v39;
+    v38 = xmmword_2750C1290;
+    llvm::SmallString<128u>::append(&v37, &v40, 3);
+    llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v26, &v37);
   }
 
-  if (v33)
+  if (v32)
   {
-    v38 = Integer;
-    v8 = (*(*v33 + 6))(v33, &v38);
+    v37 = Integer;
+    v8 = (*(*v32 + 6))(v32, &v37);
     if ((v8 & 0x100000000) == 0)
     {
-      v41 = "invalid ";
-      v42 = 8;
-      v43 = Keys[0];
-      v44 = " section";
-      v45 = 8;
-      v38 = v40;
-      v39 = xmmword_2750C1290;
-      llvm::SmallString<128u>::append(&v38, &v41, 3);
-      llvm::make_error<JSONStubError,llvm::SmallString<128u>>();
+      v40 = "invalid ";
+      v41 = 8;
+      v42 = Keys[0];
+      v43 = " section";
+      v44 = 8;
+      v37 = v39;
+      v38 = xmmword_2750C1290;
+      llvm::SmallString<128u>::append(&v37, &v40, 3);
+      llvm::make_error<JSONStubError,llvm::SmallString<128u>>(&v25, &v37);
     }
 
     v9 = v8;
-    if (v33 == &v31)
+    if (v32 == &v30)
     {
-      (*(*v33 + 4))(v33);
+      (*(*v32 + 4))(v32);
     }
 
-    else if (v33)
+    else if (v32)
     {
-      (*(*v33 + 5))();
+      (*(*v32 + 5))();
     }
 
-    std::__function::__value_func<std::optional<long long> ()(llvm::json::Object const*,llvm::StringRef)>::~__value_func[abi:nn200100](&v34);
+    std::__function::__value_func<std::optional<long long> ()(llvm::json::Object const*,llvm::StringRef)>::~__value_func[abi:nn200100](&v33);
   }
 
   else
   {
     v9 = Integer;
-    std::__function::__value_func<std::optional<long long> ()(llvm::json::Object const*,llvm::StringRef)>::~__value_func[abi:nn200100](&v34);
+    std::__function::__value_func<std::optional<long long> ()(llvm::json::Object const*,llvm::StringRef)>::~__value_func[abi:nn200100](&v33);
   }
 
   Object = llvm::json::Object::getObject(v5, "main_library", 12);
-  StubParser::parseToInterfaceFile(&v31, Object);
-  v11 = v31;
-  if ((v32 & 1) == 0)
+  StubParser::parseToInterfaceFile(&v30, Object);
+  v11 = v30;
+  if ((v31 & 1) == 0)
   {
-    *(v31 + 64) = v9;
-    v31 = 0;
-    v27[0] = v11;
+    *(v30 + 64) = v9;
+    v30 = 0;
+    v25 = v11;
+    v40 = 0;
     v41 = 0;
-    v42 = 0;
-    *&v43 = 0;
+    *&v42 = 0;
     Array = llvm::json::Object::getArray(v5, "libraries", 9);
     if (Array)
     {
-      v25 = a2;
+      v24 = a2;
       v13 = *Array;
       v14 = *(Array + 8);
       if (*Array != v14)
       {
-        v24 = v11;
+        v23 = v11;
         v15 = 0;
-        v26 = *(Array + 8);
         while (1)
         {
-          llvm::json::Value::copyFrom(&v38, v13);
-          if (v38 == 7)
+          llvm::json::Value::copyFrom(&v37, v13);
+          if (v37 == 7)
           {
-            v16 = &v39;
+            v16 = &v38;
           }
 
           else
@@ -5226,21 +4977,21 @@ void llvm::MachO::TextAPIReader::getAsJSON(uint64_t a1@<X0>, uint64_t a2@<X8>)
             v16 = 0;
           }
 
-          StubParser::parseToInterfaceFile(&v34, v16);
-          v17 = v35;
-          if ((v35 & 1) == 0)
+          StubParser::parseToInterfaceFile(&v33, v16);
+          v17 = v34;
+          if ((v34 & 1) == 0)
           {
-            v19 = v34;
-            v34 = 0;
-            v27[1] = v19;
+            v19 = v33;
+            v33 = 0;
+            v26 = v19;
             operator new();
           }
 
-          v18 = v34;
-          v34 = 0;
+          v18 = v33;
+          v33 = 0;
           v2 |= 1u;
-          llvm::Expected<std::unique_ptr<llvm::MachO::InterfaceFile>>::~Expected(&v34);
-          llvm::json::Value::destroy(&v38);
+          llvm::Expected<std::unique_ptr<llvm::MachO::InterfaceFile>>::~Expected(&v33);
+          llvm::json::Value::destroy(&v37);
           if (v17)
           {
             break;
@@ -5250,30 +5001,30 @@ void llvm::MachO::TextAPIReader::getAsJSON(uint64_t a1@<X0>, uint64_t a2@<X8>)
           if (v13 == v14)
           {
             v20 = v2 & 0xFE;
-            v11 = v24;
+            v11 = v23;
             goto LABEL_35;
           }
         }
 
-        v40[0] = v2;
-        v38 = v18;
-        v34 = &v41;
-        std::vector<std::unique_ptr<llvm::MachO::InterfaceFile>>::__destroy_vector::operator()[abi:nn200100](&v34);
+        v39[0] = v2;
+        v37 = v18;
+        v33 = &v40;
+        std::vector<std::unique_ptr<llvm::MachO::InterfaceFile>>::__destroy_vector::operator()[abi:nn200100](&v33);
         if (v2)
         {
-          *(v25 + 8) |= 1u;
-          *v25 = v18;
+          *(v24 + 8) |= 1u;
+          *v24 = v18;
           goto LABEL_46;
         }
 
-        v15 = v39;
-        a2 = v25;
-        v11 = v24;
+        v15 = v38;
+        a2 = v24;
+        v11 = v23;
 LABEL_37:
         if (v18 == v15)
         {
           *(a2 + 8) &= ~1u;
-          v27[0] = 0;
+          v25 = 0;
           *a2 = v11;
         }
 
@@ -5282,75 +5033,75 @@ LABEL_37:
           do
           {
             *(*v18 + 64) = v9;
-            std::shared_ptr<llvm::MachO::InterfaceFile>::shared_ptr[abi:nn200100]<llvm::MachO::InterfaceFile,std::default_delete<llvm::MachO::InterfaceFile>,0>(&v41, v18);
-            llvm::MachO::InterfaceFile::addDocument(v11, &v41);
-            if (v42)
+            std::shared_ptr<llvm::MachO::InterfaceFile>::shared_ptr[abi:nn200100]<llvm::MachO::InterfaceFile,std::default_delete<llvm::MachO::InterfaceFile>,0>(&v40, v18);
+            llvm::MachO::InterfaceFile::addDocument(v11, &v40);
+            if (v41)
             {
-              std::__shared_weak_count::__release_shared[abi:nn200100](v42);
+              std::__shared_weak_count::__release_shared[abi:nn200100](v41);
             }
 
             ++v18;
           }
 
           while (v18 != v15);
-          v21 = v40[0];
+          v21 = v39[0];
           *(a2 + 8) &= ~1u;
-          v27[0] = 0;
+          v25 = 0;
           *a2 = v11;
           if (v21)
           {
-            if (v38)
+            if (v37)
             {
-              (*(*v38 + 8))(v38);
+              (*(*v37 + 8))(v37);
             }
 
             goto LABEL_46;
           }
         }
 
-        v41 = &v38;
-        std::vector<std::unique_ptr<llvm::MachO::InterfaceFile>>::__destroy_vector::operator()[abi:nn200100](&v41);
+        v40 = &v37;
+        std::vector<std::unique_ptr<llvm::MachO::InterfaceFile>>::__destroy_vector::operator()[abi:nn200100](&v40);
 LABEL_46:
-        std::unique_ptr<llvm::MachO::InterfaceFile>::~unique_ptr[abi:nn200100](v27);
+        std::unique_ptr<llvm::MachO::InterfaceFile>::~unique_ptr[abi:nn200100](&v25);
         goto LABEL_47;
       }
 
       v15 = 0;
       v20 = 0;
 LABEL_35:
-      v40[0] = v20;
-      v38 = 0;
-      v39 = 0uLL;
-      a2 = v25;
+      v39[0] = v20;
+      v37 = 0;
+      v38 = 0uLL;
+      a2 = v24;
     }
 
     else
     {
       v15 = 0;
-      v38 = 0;
-      v39 = 0uLL;
-      v40[0] = 0;
+      v37 = 0;
+      v38 = 0uLL;
+      v39[0] = 0;
     }
 
+    v40 = 0;
     v41 = 0;
-    v42 = 0;
-    *&v43 = 0;
-    v34 = &v41;
-    std::vector<std::unique_ptr<llvm::MachO::InterfaceFile>>::__destroy_vector::operator()[abi:nn200100](&v34);
+    *&v42 = 0;
+    v33 = &v40;
+    std::vector<std::unique_ptr<llvm::MachO::InterfaceFile>>::__destroy_vector::operator()[abi:nn200100](&v33);
     v18 = 0;
     goto LABEL_37;
   }
 
-  v31 = 0;
+  v30 = 0;
   *(a2 + 8) |= 1u;
   *a2 = v11;
 LABEL_47:
-  llvm::Expected<std::unique_ptr<llvm::MachO::InterfaceFile>>::~Expected(&v31);
+  llvm::Expected<std::unique_ptr<llvm::MachO::InterfaceFile>>::~Expected(&v30);
 LABEL_48:
-  if (v30)
+  if (v29)
   {
-    v22 = v28;
-    v28 = 0;
+    v22 = v27;
+    v27 = 0;
     if (v22)
     {
       (*(*v22 + 8))(v22);
@@ -5359,10 +5110,8 @@ LABEL_48:
 
   else
   {
-    llvm::json::Value::destroy(&v28);
+    llvm::json::Value::destroy(&v27);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void *llvm::SmallString<128u>::append(void *a1, uint64_t a2, uint64_t a3)
@@ -5494,19 +5243,19 @@ BOOL std::less<std::string>::operator()[abi:nn200100](void *a1, void *a2)
   }
 }
 
-uint64_t llvm::MachO::SymbolSet::reexports@<X0>(llvm::MachO::SymbolSet *this@<X0>, uint64_t a2@<X8>)
+uint64_t *llvm::MachO::SymbolSet::reexports@<X0>(uint64_t *__return_ptr a1@<X8>, llvm::MachO::SymbolSet *this@<X0>)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v13[0] = &unk_2883F0AB0;
-  v13[3] = v13;
+  v12[4] = *MEMORY[0x277D85DE8];
+  v12[0] = &unk_2883F0AB0;
+  v12[3] = v12;
   v3 = *(this + 12);
   v4 = *(this + 28);
   if (*(this + 26))
   {
-    v9.i64[0] = *(this + 12);
-    v9.i64[1] = v3 + 32 * v4;
-    llvm::DenseMapIterator<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>,true>::AdvancePastEmptyBuckets(&v9);
-    v6 = v9;
+    v8.i64[0] = *(this + 12);
+    v8.i64[1] = v3 + 32 * v4;
+    llvm::DenseMapIterator<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>,true>::AdvancePastEmptyBuckets(&v8);
+    v6 = v8;
     v3 = *(this + 12);
     v4 = *(this + 28);
   }
@@ -5516,30 +5265,28 @@ uint64_t llvm::MachO::SymbolSet::reexports@<X0>(llvm::MachO::SymbolSet *this@<X0
     v6 = vdupq_n_s64(v3 + 32 * v4);
   }
 
-  v9 = v6;
-  v10 = v3 + 32 * v4;
-  v11 = v10;
-  std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::__value_func[abi:nn200100](v12, v13);
-  llvm::make_filter_range<llvm::iterator_range<llvm::MachO::SymbolSet::const_symbol_iterator>,std::function<BOOL ()(llvm::MachO::Symbol const*)>>(v9.i64, v12, a2);
-  std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](v12);
-  result = std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](v13);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v8 = v6;
+  v9 = v3 + 32 * v4;
+  v10 = v9;
+  std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::__value_func[abi:nn200100](v11, v12);
+  llvm::make_filter_range<llvm::iterator_range<llvm::MachO::SymbolSet::const_symbol_iterator>,std::function<BOOL ()(llvm::MachO::Symbol const*)>>(v8.i64, v11, a1);
+  std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](v11);
+  return std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](v12);
 }
 
-uint64_t llvm::MachO::SymbolSet::undefineds@<X0>(llvm::MachO::SymbolSet *this@<X0>, uint64_t a2@<X8>)
+uint64_t *llvm::MachO::SymbolSet::undefineds@<X0>(uint64_t *__return_ptr a1@<X8>, llvm::MachO::SymbolSet *this@<X0>)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v13[0] = &unk_2883F0AF8;
-  v13[3] = v13;
+  v12[4] = *MEMORY[0x277D85DE8];
+  v12[0] = &unk_2883F0AF8;
+  v12[3] = v12;
   v3 = *(this + 12);
   v4 = *(this + 28);
   if (*(this + 26))
   {
-    v9.i64[0] = *(this + 12);
-    v9.i64[1] = v3 + 32 * v4;
-    llvm::DenseMapIterator<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>,true>::AdvancePastEmptyBuckets(&v9);
-    v6 = v9;
+    v8.i64[0] = *(this + 12);
+    v8.i64[1] = v3 + 32 * v4;
+    llvm::DenseMapIterator<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>,true>::AdvancePastEmptyBuckets(&v8);
+    v6 = v8;
     v3 = *(this + 12);
     v4 = *(this + 28);
   }
@@ -5549,15 +5296,13 @@ uint64_t llvm::MachO::SymbolSet::undefineds@<X0>(llvm::MachO::SymbolSet *this@<X
     v6 = vdupq_n_s64(v3 + 32 * v4);
   }
 
-  v9 = v6;
-  v10 = v3 + 32 * v4;
-  v11 = v10;
-  std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::__value_func[abi:nn200100](v12, v13);
-  llvm::make_filter_range<llvm::iterator_range<llvm::MachO::SymbolSet::const_symbol_iterator>,std::function<BOOL ()(llvm::MachO::Symbol const*)>>(v9.i64, v12, a2);
-  std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](v12);
-  result = std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](v13);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v8 = v6;
+  v9 = v3 + 32 * v4;
+  v10 = v9;
+  std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::__value_func[abi:nn200100](v11, v12);
+  llvm::make_filter_range<llvm::iterator_range<llvm::MachO::SymbolSet::const_symbol_iterator>,std::function<BOOL ()(llvm::MachO::Symbol const*)>>(v8.i64, v11, a1);
+  std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](v11);
+  return std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](v12);
 }
 
 void JSONStubError::~JSONStubError(void **this)
@@ -5791,7 +5536,7 @@ void std::__function::__func<StubParser::collectSymbolsFromSegment(llvm::json::O
   }
 }
 
-uint64_t std::vector<JSONSymbol>::__emplace_back_slow_path<JSONSymbol&>(uint64_t *a1, uint64_t a2)
+unint64_t std::vector<JSONSymbol>::__emplace_back_slow_path<JSONSymbol&>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3) + 1;
   if (v2 > 0x666666666666666)
@@ -6150,10 +5895,10 @@ void std::__function::__func<StubParser::collectSymbolsFromSegment(llvm::json::O
   }
 }
 
-uint64_t llvm::SmallVector<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,1u>::~SmallVector(uint64_t a1)
+void **llvm::SmallVector<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,1u>::~SmallVector(void **a1)
 {
-  llvm::SmallVectorTemplateBase<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,false>::destroy_range(*a1, *a1 + 160 * *(a1 + 8));
-  if (*a1 != a1 + 16)
+  llvm::SmallVectorTemplateBase<std::pair<llvm::SmallVector<llvm::MachO::Target,5u>,std::vector<JSONSymbol>>,false>::destroy_range(*a1, *a1 + 160 * *(a1 + 2));
+  if (*a1 != a1 + 2)
   {
     free(*a1);
   }
@@ -6326,15 +6071,15 @@ void std::__destroy_at[abi:nn200100]<std::pair<std::string const,llvm::SmallVect
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void *a2)
+uint64_t std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, void *a2, _OWORD **a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::__find_equal<std::string>(uint64_t a1, void *a2, void *a3)
@@ -6415,7 +6160,7 @@ void std::__function::__func<StubParser::getLibSection(llvm::json::Object const*
   v2 = *(a1 + 16);
   llvm::StringRef::str(&v7, __p);
   v8 = __p;
-  v4 = std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p);
+  v4 = std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p, &v8);
   llvm::SmallVectorImpl<llvm::MachO::Target>::operator=(v4 + 56, v2);
   if (v6 < 0)
   {
@@ -6479,9 +6224,9 @@ LABEL_17:
   return result;
 }
 
-uint64_t llvm::Expected<std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>::~Expected(uint64_t a1)
+uint64_t *llvm::Expected<std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>::~Expected(uint64_t *a1)
 {
-  if (*(a1 + 24))
+  if (a1[3])
   {
     v2 = *a1;
     *a1 = 0;
@@ -6493,13 +6238,13 @@ uint64_t llvm::Expected<std::map<std::string,llvm::SmallVector<llvm::MachO::Targ
 
   else
   {
-    std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(a1, *(a1 + 8));
+    std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(a1, a1[1]);
   }
 
   return a1;
 }
 
-void *std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__tree_node<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,void *> *,long>>>(void *result, void *a2, void *a3)
+uint64_t std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__tree_node<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,void *> *,long>>>(uint64_t result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -6509,7 +6254,7 @@ void *std::map<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>::insert[ab
     v19[12] = v4;
     v8 = a2;
     v9 = result;
-    v10 = result + 1;
+    v10 = (result + 8);
     do
     {
       v11 = v9[1];
@@ -6771,7 +6516,7 @@ uint64_t *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std
   return a3;
 }
 
-uint64_t llvm::MachO::SymbolSet::addGlobal<llvm::SmallVector<llvm::MachO::Target,5u> &,llvm::MachO::Target>(uint64_t a1, int a2, const void *a3, unint64_t *a4, uint64_t a5, uint64_t *a6)
+uint64_t llvm::MachO::SymbolSet::addGlobal<llvm::SmallVector<llvm::MachO::Target,5u> &,llvm::MachO::Target>(unsigned int *a1, int a2, const void *a3, unint64_t *a4, uint64_t a5, uint64_t *a6)
 {
   result = llvm::MachO::SymbolSet::addGlobalImpl(a1, a2, a3, a4, a5);
   v13 = *(a6 + 2);
@@ -6783,10 +6528,10 @@ uint64_t llvm::MachO::SymbolSet::addGlobal<llvm::SmallVector<llvm::MachO::Target
     do
     {
       v17 = *v15;
-      v19 = *(v15 + 2);
+      v19 = *(v15 + 16);
       v18 = v17;
-      result = llvm::MachO::addEntry<llvm::SmallVector<llvm::MachO::Target,5u>>(v14 + 16, &v18);
-      v15 = (v15 + 24);
+      result = llvm::MachO::addEntry<llvm::SmallVector<llvm::MachO::Target,5u>>((v14 + 16), &v18);
+      v15 += 24;
       v16 -= 24;
     }
 
@@ -6828,35 +6573,34 @@ void std::vector<std::unique_ptr<llvm::MachO::InterfaceFile>>::__destroy_vector:
 
 uint64_t llvm::MachO::PackedVersion::parse32(_DWORD *a1, uint64_t a2, unint64_t a3)
 {
-  v19[6] = *MEMORY[0x277D85DE8];
+  v18[6] = *MEMORY[0x277D85DE8];
   *a1 = 0;
   if (!a3)
   {
-    v7 = 0;
-    goto LABEL_7;
+    return 0;
   }
 
-  v17 = v19;
-  v18 = 0x300000000;
-  llvm::SplitString(a2, a3, &v17, ".", 1);
-  v5 = v18;
-  v6 = v17;
-  if ((v18 - 4) < 0xFFFFFFFD)
+  v16 = v18;
+  v17 = 0x300000000;
+  llvm::SplitString(a2, a3, &v16, ".", 1);
+  v5 = v17;
+  v6 = v16;
+  if ((v17 - 4) < 0xFFFFFFFD)
   {
 LABEL_3:
     v7 = 0;
     goto LABEL_4;
   }
 
-  v15 = 0;
-  v16 = *v17;
+  v14 = 0;
+  v15 = *v16;
   v7 = 0;
-  if ((llvm::consumeUnsignedInteger(&v16, 0xA, &v15, v4) & 1) == 0 && !*(&v16 + 1))
+  if ((llvm::consumeUnsignedInteger(&v15, 0xA, &v14, v4) & 1) == 0 && !*(&v15 + 1))
   {
-    if (!(v15 >> 16))
+    if (!(v14 >> 16))
     {
-      v11 = v15 << 16;
-      *a1 = v15 << 16;
+      v10 = v14 << 16;
+      *a1 = v14 << 16;
       if (v5 < 2)
       {
 LABEL_17:
@@ -6865,28 +6609,28 @@ LABEL_17:
 
       else
       {
-        v12 = v6 + 1;
-        v13 = v5 - 1;
-        v14 = 8;
+        v11 = v6 + 1;
+        v12 = v5 - 1;
+        v13 = 8;
         while (1)
         {
-          v16 = *v12;
+          v15 = *v11;
           v7 = 0;
-          if ((llvm::consumeUnsignedInteger(&v16, 0xA, &v15, v10) & 1) != 0 || *(&v16 + 1))
+          if ((llvm::consumeUnsignedInteger(&v15, 0xA, &v14, v9) & 1) != 0 || *(&v15 + 1))
           {
             break;
           }
 
-          if (v15 > 0xFF)
+          if (v14 > 0xFF)
           {
             goto LABEL_3;
           }
 
-          v11 |= v15 << v14;
-          *a1 = v11;
-          ++v12;
-          v14 -= 8;
-          if (!--v13)
+          v10 |= v14 << v13;
+          *a1 = v10;
+          ++v11;
+          v13 -= 8;
+          if (!--v12)
           {
             goto LABEL_17;
           }
@@ -6900,101 +6644,98 @@ LABEL_17:
   }
 
 LABEL_4:
-  if (v6 != v19)
+  if (v6 != v18)
   {
     free(v6);
   }
 
-LABEL_7:
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t llvm::MachO::PackedVersion::parse64(int *a1, uint64_t a2, unint64_t a3)
 {
-  v22[10] = *MEMORY[0x277D85DE8];
+  v21[10] = *MEMORY[0x277D85DE8];
   *a1 = 0;
   if (!a3)
   {
-    v7 = 0;
-    goto LABEL_7;
+    return 0;
   }
 
-  v20 = v22;
-  v21 = 0x500000000;
-  llvm::SplitString(a2, a3, &v20, ".", 1);
-  v5 = v21;
-  v6 = v20;
-  if ((v21 - 6) < 0xFFFFFFFB)
+  v19 = v21;
+  v20 = 0x500000000;
+  llvm::SplitString(a2, a3, &v19, ".", 1);
+  v5 = v20;
+  v6 = v19;
+  if ((v20 - 6) < 0xFFFFFFFB)
   {
 LABEL_3:
     v7 = 0;
     goto LABEL_4;
   }
 
-  v18 = 0;
-  v19 = *v20;
+  v17 = 0;
+  v18 = *v19;
   v7 = 0;
-  if ((llvm::consumeUnsignedInteger(&v19, 0xA, &v18, v4) & 1) == 0 && !*(&v19 + 1))
+  if ((llvm::consumeUnsignedInteger(&v18, 0xA, &v17, v4) & 1) == 0 && !*(&v18 + 1))
   {
-    v11 = v18;
-    if (!(v18 >> 24))
+    v10 = v17;
+    if (!(v17 >> 24))
     {
-      if (v18 < 0x10000)
+      if (v17 < 0x10000)
       {
-        v12 = 0;
+        v11 = 0;
       }
 
       else
       {
-        v11 = 0xFFFF;
-        v18 = 0xFFFFLL;
-        v12 = 1;
+        v10 = 0xFFFF;
+        v17 = 0xFFFFLL;
+        v11 = 1;
       }
 
-      v13 = v11 << 16;
-      *a1 = v11 << 16;
+      v12 = v10 << 16;
+      *a1 = v10 << 16;
       if (v5 >= 2)
       {
         if (v5 == 2)
         {
-          v14 = 1;
+          v13 = 1;
         }
 
         else
         {
-          v14 = 2;
+          v13 = 2;
         }
 
-        v15 = v6 + 1;
-        v16 = 8;
+        v14 = v6 + 1;
+        v15 = 8;
         do
         {
-          v19 = *v15;
-          if ((llvm::consumeUnsignedInteger(&v19, 0xA, &v18, v10) & 1) != 0 || *(&v19 + 1) || (v17 = v18, v18 >= 0x400))
+          v18 = *v14;
+          if ((llvm::consumeUnsignedInteger(&v18, 0xA, &v17, v9) & 1) != 0 || *(&v18 + 1) || (v16 = v17, v17 >= 0x400))
           {
-            v7 = (v12 << 8);
+            v7 = (v11 << 8);
             goto LABEL_4;
           }
 
-          if (v18 >= 0x100)
+          if (v17 >= 0x100)
           {
-            v18 = 255;
-            v12 = 1;
             v17 = 255;
+            v11 = 1;
+            v16 = 255;
           }
 
-          v13 |= v17 << v16;
-          *a1 = v13;
-          v16 -= 8;
-          ++v15;
-          --v14;
+          v12 |= v16 << v15;
+          *a1 = v12;
+          v15 -= 8;
+          ++v14;
+          --v13;
         }
 
-        while (v14);
+        while (v13);
         if (v5 <= 3)
         {
-          v7 = ((v12 << 8) + 1);
+          v7 = ((v11 << 8) + 1);
         }
 
         else
@@ -7005,7 +6746,7 @@ LABEL_3:
 
       else
       {
-        v7 = (v12 << 8) | 1u;
+        v7 = (v11 << 8) | 1u;
       }
 
       goto LABEL_4;
@@ -7015,13 +6756,11 @@ LABEL_3:
   }
 
 LABEL_4:
-  if (v6 != v22)
+  if (v6 != v21)
   {
     free(v6);
   }
 
-LABEL_7:
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -7138,7 +6877,6 @@ LABEL_14:
       goto LABEL_21;
     }
 
-    v2 = *(a1 + 40) == 23;
     if (v1 == 28)
     {
       v7 = 3;
@@ -7163,11 +6901,11 @@ LABEL_14:
   }
 }
 
-uint64_t *llvm::SmallSet<llvm::MachO::PlatformType,3u,std::less<llvm::MachO::PlatformType>>::insert@<X0>(uint64_t a1@<X0>, int *a2@<X1>, uint64_t a3@<X8>)
+uint64_t **llvm::SmallSet<llvm::MachO::PlatformType,3u,std::less<llvm::MachO::PlatformType>>::insert@<X0>(uint64_t a1@<X0>, int *a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 48))
   {
-    result = std::__tree<llvm::MachO::PlatformType>::__emplace_unique_key_args<llvm::MachO::PlatformType,llvm::MachO::PlatformType const&>(a1 + 32, a2);
+    result = std::__tree<llvm::MachO::PlatformType>::__emplace_unique_key_args<llvm::MachO::PlatformType,llvm::MachO::PlatformType const&>((a1 + 32), a2, a2);
     *(a3 + 8) = 0;
   }
 
@@ -7206,13 +6944,14 @@ LABEL_10:
     {
       do
       {
-        std::__tree<llvm::MachO::PlatformType>::__emplace_unique_key_args<llvm::MachO::PlatformType,llvm::MachO::PlatformType const&>(a1 + 32, (*a1 + 4 * v8 - 4));
+        v12 = (*a1 + 4 * v8 - 4);
+        std::__tree<llvm::MachO::PlatformType>::__emplace_unique_key_args<llvm::MachO::PlatformType,llvm::MachO::PlatformType const&>((a1 + 32), v12, v12);
         LODWORD(v8) = *(a1 + 8) - 1;
         *(a1 + 8) = v8;
       }
 
       while (v8);
-      result = std::__tree<llvm::MachO::PlatformType>::__emplace_unique_key_args<llvm::MachO::PlatformType,llvm::MachO::PlatformType const&>(a1 + 32, a2);
+      result = std::__tree<llvm::MachO::PlatformType>::__emplace_unique_key_args<llvm::MachO::PlatformType,llvm::MachO::PlatformType const&>((a1 + 32), a2, a2);
       *(a3 + 8) = 0;
       v7 = 1;
     }
@@ -7233,31 +6972,31 @@ LABEL_14:
   return result;
 }
 
-void llvm::MachO::getOSAndEnvironmentName(int a1@<W0>, uint64_t a2@<X8>)
+void llvm::MachO::getOSAndEnvironmentName(int a1@<W0>, void *a3@<X8>)
 {
   switch(a1)
   {
     case 6:
       std::operator+<char>();
-      v3 = "-macabi";
+      v4 = "-macabi";
       goto LABEL_7;
     case 7:
     case 8:
     case 9:
     case 12:
       std::operator+<char>();
-      v3 = "-simulator";
+      v4 = "-simulator";
 LABEL_7:
-      v4 = std::string::append(&v6, v3);
-      v5 = v4->__r_.__value_.__r.__words[2];
-      *a2 = *&v4->__r_.__value_.__l.__data_;
-      *(a2 + 16) = v5;
-      v4->__r_.__value_.__l.__size_ = 0;
-      v4->__r_.__value_.__r.__words[2] = 0;
-      v4->__r_.__value_.__r.__words[0] = 0;
-      if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
+      v5 = std::string::append(&v7, v4);
+      v6 = v5->__r_.__value_.__r.__words[2];
+      *a3 = *&v5->__r_.__value_.__l.__data_;
+      a3[2] = v6;
+      v5->__r_.__value_.__l.__size_ = 0;
+      v5->__r_.__value_.__r.__words[2] = 0;
+      v5->__r_.__value_.__r.__words[0] = 0;
+      if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v6.__r_.__value_.__l.__data_);
+        operator delete(v7.__r_.__value_.__l.__data_);
       }
 
       break;
@@ -7288,41 +7027,41 @@ unint64_t llvm::MachO::mapToSupportedOSVersion(llvm::MachO *this, const llvm::Tr
   }
 }
 
-uint64_t *std::__tree<llvm::MachO::PlatformType>::__emplace_unique_key_args<llvm::MachO::PlatformType,llvm::MachO::PlatformType const&>(uint64_t a1, int *a2)
+uint64_t **std::__tree<llvm::MachO::PlatformType>::__emplace_unique_key_args<llvm::MachO::PlatformType,llvm::MachO::PlatformType const&>(uint64_t **a1, int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 7);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -7331,16 +7070,14 @@ LABEL_8:
 
 uint64_t llvm::MachO::Symbol::targets@<X0>(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8 = &unk_2883F0EF0;
-  v9 = a2;
-  v10 = &v8;
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v7, &v8);
-  llvm::make_filter_range<llvm::SmallVector<llvm::MachO::Target,5u> const&,std::function<BOOL ()(llvm::MachO::Target const&)>>(a1 + 16, v7, a3);
-  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v7);
-  result = std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](&v8);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v10 = *MEMORY[0x277D85DE8];
+  v7 = &unk_2883F0EF0;
+  v8 = a2;
+  v9 = &v7;
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::__value_func[abi:nn200100](v6, &v7);
+  llvm::make_filter_range<llvm::SmallVector<llvm::MachO::Target,5u> const&,std::function<BOOL ()(llvm::MachO::Target const&)>>((a1 + 16), v6, a3);
+  std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](v6);
+  return std::__function::__value_func<BOOL ()(llvm::MachO::Target const&)>::~__value_func[abi:nn200100](&v7);
 }
 
 uint64_t std::__function::__func<llvm::MachO::Symbol::targets(llvm::MachO::ArchitectureSet)::$_0,std::allocator<llvm::MachO::Symbol::targets(llvm::MachO::ArchitectureSet)::$_0>,BOOL ()(llvm::MachO::Target const&)>::__clone(uint64_t result, uint64_t a2)
@@ -7398,7 +7135,7 @@ void llvm::MachO::SymbolSet::~SymbolSet(llvm::MachO::SymbolSet *this)
   llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(this);
 }
 
-unint64_t llvm::MachO::SymbolSet::addGlobalImpl(uint64_t a1, char a2, const void *a3, unint64_t *a4, char a5)
+unint64_t llvm::MachO::SymbolSet::addGlobalImpl(unsigned int *a1, char a2, const void *a3, unint64_t *a4, char a5)
 {
   if (a4)
   {
@@ -7414,7 +7151,7 @@ unint64_t llvm::MachO::SymbolSet::addGlobalImpl(uint64_t a1, char a2, const void
   v12[0] = a2;
   v13 = v10;
   v14 = a4;
-  llvm::DenseMapBase<llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>,llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>::try_emplace<decltype(nullptr)>(a1 + 96, v12, a4, &v15);
+  llvm::DenseMapBase<llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>,llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>::try_emplace<decltype(nullptr)>((a1 + 24), v12, &v15, a4);
   if ((v16 & 1) == 0)
   {
     return *(v15 + 24);
@@ -7431,10 +7168,10 @@ unint64_t llvm::MachO::SymbolSet::addGlobalImpl(uint64_t a1, char a2, const void
   return result;
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>,llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>::try_emplace<decltype(nullptr)>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X3>, uint64_t a4@<X8>)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>,llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>::try_emplace<decltype(nullptr)>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, unint64_t *a4@<X3>)
 {
   v12 = 0;
-  result = llvm::DenseMapBase<llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>,llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>::LookupBucketFor<llvm::SymbolsMapKey>(a1, a2, &v12, a3);
+  result = llvm::DenseMapBase<llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>,llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>::LookupBucketFor<llvm::SymbolsMapKey>(a1, a2, &v12, a4);
   v8 = v12;
   if (result)
   {
@@ -7453,9 +7190,9 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symb
   }
 
   v11 = *a1 + 32 * *(a1 + 16);
-  *a4 = v8;
-  *(a4 + 8) = v11;
-  *(a4 + 16) = v9;
+  *a3 = v8;
+  *(a3 + 8) = v11;
+  *(a3 + 16) = v9;
   return result;
 }
 
@@ -7535,7 +7272,7 @@ LABEL_3:
 
 char *llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>::grow(uint64_t a1, int a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 16);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
@@ -7557,7 +7294,8 @@ char *llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInf
   if (v4)
   {
     *(a1 + 8) = 0;
-    *&v29[7] = 0uLL;
+    *&v27[15] = 0;
+    *&v27[7] = 0;
     v10 = *(a1 + 16);
     if (v10)
     {
@@ -7565,20 +7303,20 @@ char *llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInf
       do
       {
         *result = 0;
-        *(result + 1) = *v29;
-        *(result + 2) = *&v29[15];
+        *(result + 1) = *v27;
+        *(result + 2) = *&v27[15];
         result += 32;
       }
 
       while (result != v11);
     }
 
-    v29[0] = 0;
-    *&v29[8] = 0;
-    *&v29[16] = 0;
-    v22 = 3;
-    v23[0] = 0;
-    v23[1] = 0;
+    v27[0] = 0;
+    *&v27[8] = 0;
+    *&v27[16] = 0;
+    v20 = 3;
+    v21[0] = 0;
+    v21[1] = 0;
     if (v3)
     {
       v12 = 32 * v3;
@@ -7586,23 +7324,23 @@ char *llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInf
       v14 = v4;
       do
       {
-        v26 = v13;
-        v27 = v13 + 8;
-        v24 = v29;
-        v25 = &v29[8];
-        if (!std::__tuple_equal<2ul>::operator()[abi:nn200100]<std::tuple<llvm::MachO::SymbolKind const&,llvm::StringRef const&>,std::tuple<llvm::MachO::SymbolKind const&,llvm::StringRef const&>>(&v28, &v26, &v24))
+        v24 = v13;
+        v25 = v13 + 8;
+        v22 = v27;
+        v23 = &v27[8];
+        if (!std::__tuple_equal<2ul>::operator()[abi:nn200100]<std::tuple<llvm::MachO::SymbolKind const&,llvm::StringRef const&>,std::tuple<llvm::MachO::SymbolKind const&,llvm::StringRef const&>>(&v26, &v24, &v22))
         {
-          v26 = v13;
-          v27 = v13 + 8;
-          v24 = &v22;
-          v25 = v23;
-          if (!std::__tuple_equal<2ul>::operator()[abi:nn200100]<std::tuple<llvm::MachO::SymbolKind const&,llvm::StringRef const&>,std::tuple<llvm::MachO::SymbolKind const&,llvm::StringRef const&>>(&v28, &v26, &v24))
+          v24 = v13;
+          v25 = v13 + 8;
+          v22 = &v20;
+          v23 = v21;
+          if (!std::__tuple_equal<2ul>::operator()[abi:nn200100]<std::tuple<llvm::MachO::SymbolKind const&,llvm::StringRef const&>,std::tuple<llvm::MachO::SymbolKind const&,llvm::StringRef const&>>(&v26, &v24, &v22))
           {
-            v26 = 0;
-            llvm::DenseMapBase<llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>,llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>::LookupBucketFor<llvm::SymbolsMapKey>(a1, v14, &v26, v15);
-            v16 = v26;
+            v24 = 0;
+            llvm::DenseMapBase<llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>,llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>>::LookupBucketFor<llvm::SymbolsMapKey>(a1, v14, &v24, v15);
+            v16 = v24;
             v17 = *v14;
-            *(v26 + 2) = *(v14 + 16);
+            *(v24 + 2) = *(v14 + 16);
             *v16 = v17;
             *(v16 + 3) = *(v14 + 24);
             ++*(a1 + 8);
@@ -7617,40 +7355,37 @@ char *llvm::DenseMap<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInf
       while (v12);
     }
 
-    v18 = *MEMORY[0x277D85DE8];
-
     JUMPOUT(0x277C69E30);
   }
 
   *(a1 + 8) = 0;
-  *&v29[15] = 0;
-  *&v29[7] = 0;
-  v19 = *(a1 + 16);
-  if (v19)
+  *&v27[15] = 0;
+  *&v27[7] = 0;
+  v18 = *(a1 + 16);
+  if (v18)
   {
-    v20 = &result[32 * v19];
+    v19 = &result[32 * v18];
     do
     {
       *result = 0;
-      *(result + 1) = *v29;
-      *(result + 2) = *&v29[15];
+      *(result + 1) = *v27;
+      *(result + 2) = *&v27[15];
       result += 32;
     }
 
-    while (result != v20);
+    while (result != v19);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t llvm::MachO::Target::create@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t llvm::MachO::Target::create@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v24[0] = a1;
-  v24[1] = a2;
+  v24.n128_u64[0] = a1;
+  v24.n128_u64[1] = a2;
   LOBYTE(v26) = 45;
-  llvm::StringRef::split(v24, &v26, 1uLL, v21);
-  result = llvm::MachO::getArchitectureFromName(v21[0], v21[1]);
+  llvm::StringRef::split(&v24, &v26, 1uLL, &v21);
+  result = llvm::MachO::getArchitectureFromName(v21.n128_i64[0], v21.n128_i64[1]);
   v6 = result;
   if (v23 <= 7)
   {
@@ -7813,7 +7548,7 @@ LABEL_88:
   return result;
 }
 
-uint64_t *llvm::MachO::mapToPlatformSet@<X0>(uint64_t *result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t **llvm::MachO::mapToPlatformSet@<X0>(uint64_t **result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   *a3 = a3 + 2;
   a3[1] = 0x300000000;
@@ -7890,9 +7625,9 @@ void llvm::MachO::getTargetTripleName(unsigned __int8 *a1@<X0>, uint64_t a2@<X8>
 
 void llvm::MachO::TextAPIReader::get(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   memset(__p, 0, sizeof(__p));
-  *v22 = 0u;
+  *v21 = 0u;
   v3 = a1[3];
   if (v3 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -7905,7 +7640,7 @@ void llvm::MachO::TextAPIReader::get(uint64_t *a1@<X0>, uint64_t a2@<X8>)
     operator new();
   }
 
-  BYTE7(v26) = a1[3];
+  BYTE7(v25) = a1[3];
   if (v3)
   {
     memmove(&__dst, v5, v3);
@@ -7918,7 +7653,7 @@ void llvm::MachO::TextAPIReader::get(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   }
 
   *&__p[1] = __dst;
-  __p[3] = v26;
+  __p[3] = v25;
   __dst = *a1;
   v6 = llvm::StringRef::trim(&__dst, " \t\n\v\f\r", 6);
   if (!v7)
@@ -7927,7 +7662,7 @@ LABEL_19:
     v11 = std::generic_category();
     *&__dst = 45;
     *(&__dst + 1) = v11;
-    v27 = "unsupported file type";
+    v26 = "unsupported file type";
     llvm::make_error<llvm::StringError,char const*&,std::error_code>();
   }
 
@@ -7955,7 +7690,7 @@ LABEL_19:
 
     if (*v6 == 0x70617421202D2D2DLL && *(v6 + 6) == 0xA6462742D697061)
     {
-      v15 = 64;
+      v14 = 64;
       goto LABEL_66;
     }
 
@@ -7966,7 +7701,7 @@ LABEL_19:
 
     if (*v6 == 0x70617421202D2D2DLL && *(v6 + 8) == 0x33762D6462742D69 && *(v6 + 16) == 10)
     {
-      v15 = 32;
+      v14 = 32;
     }
 
     else
@@ -7976,7 +7711,7 @@ LABEL_19:
         if (*v6 == 0x70617421202D2D2DLL && *(v6 + 8) == 0x31762D6462742D69 && *(v6 + 16) == 10)
         {
 LABEL_63:
-          v15 = 8;
+          v14 = 8;
           goto LABEL_66;
         }
 
@@ -7989,35 +7724,35 @@ LABEL_35:
         goto LABEL_63;
       }
 
-      v15 = 16;
+      v14 = 16;
     }
 
 LABEL_66:
-    v24 = v15;
-    llvm::yaml::Input::Input(&__dst, *a1, a1[1], v22);
+    v23 = v14;
+    llvm::yaml::Input::Input(&__dst, *a1, a1[1], v21, DiagHandler, v21);
   }
 
-  v24 = 128;
+  v23 = 128;
   v8 = *(a1 + 1);
   __dst = *a1;
-  v26 = v8;
-  llvm::MachO::TextAPIReader::getAsJSON(&__dst, &v27);
-  if (v28)
+  v25 = v8;
+  llvm::MachO::TextAPIReader::getAsJSON(&__dst, &v26);
+  if (v27)
   {
-    v9 = v27;
-    v27 = 0;
+    v9 = v26;
+    v26 = 0;
     *(a2 + 8) |= 1u;
   }
 
   else
   {
     *(a2 + 8) &= ~1u;
-    v9 = v27;
-    v27 = 0;
+    v9 = v26;
+    v26 = 0;
   }
 
   *a2 = v9;
-  llvm::Expected<std::unique_ptr<llvm::MachO::InterfaceFile>>::~Expected(&v27);
+  llvm::Expected<std::unique_ptr<llvm::MachO::InterfaceFile>>::~Expected(&v26);
   if (SHIBYTE(__p[3]) < 0)
   {
     operator delete(__p[1]);
@@ -8025,31 +7760,29 @@ LABEL_66:
 
   if (SHIBYTE(__p[0]) < 0)
   {
-    operator delete(v22[0]);
+    operator delete(v21[0]);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-void DiagHandler(const llvm::SMDiagnostic *a1, void *a2)
+void DiagHandler(const llvm::SMDiagnostic *a1, void **a2)
 {
-  v38[128] = *MEMORY[0x277D85DE8];
-  v36 = v38;
-  v37 = xmmword_2750C8770;
-  v18 = 0;
-  v22 = 0;
-  v23 = 0;
-  v24 = 1;
-  v20 = 0;
+  v37[128] = *MEMORY[0x277D85DE8];
+  v35 = v37;
+  v36 = xmmword_2750C8770;
+  v17 = 0;
   v21 = 0;
+  v22 = 0;
+  v23 = 1;
   v19 = 0;
-  v17 = &unk_2883EB968;
-  v25 = &v36;
-  llvm::raw_ostream::SetUnbuffered(&v17);
+  v20 = 0;
+  v18 = 0;
+  v16 = &unk_2883EB968;
+  v24 = &v35;
+  llvm::raw_ostream::SetUnbuffered(&v16);
   v4 = *(a2 + 47);
   if (v4 >= 0)
   {
-    v5 = (a2 + 3);
+    v5 = a2 + 3;
   }
 
   else
@@ -8092,81 +7825,79 @@ void DiagHandler(const llvm::SMDiagnostic *a1, void *a2)
     v11 = *(a1 + 103);
   }
 
-  llvm::SMDiagnostic::SMDiagnostic(v26, *a1, *(a1 + 1), v5, v6, *(a1 + 10), *(a1 + 11), *(a1 + 12), v8, v7, v9, v11, *(a1 + 13), (*(a1 + 14) - *(a1 + 13)) >> 3, *(a1 + 16), *(a1 + 34));
-  llvm::SMDiagnostic::print(v26, 0, &v17, 1, 1);
-  v14 = 1283;
-  v13[0] = "malformed file\n";
-  v13[2] = v36;
-  v13[3] = v37;
-  llvm::Twine::str(v13, &v15);
+  llvm::SMDiagnostic::SMDiagnostic(v25, *a1, *(a1 + 1), v5, v6, *(a1 + 10), *(a1 + 11), *(a1 + 12), v8, v7, v9, v11, *(a1 + 13), (*(a1 + 14) - *(a1 + 13)) >> 3, *(a1 + 16), *(a1 + 34));
+  llvm::SMDiagnostic::print(v25, 0, &v16, 1, 1);
+  v13 = 1283;
+  v12[0] = "malformed file\n";
+  v12[2] = v35;
+  v12[3] = v36;
+  llvm::Twine::str(v12, &v14);
   if (*(a2 + 23) < 0)
   {
     operator delete(*a2);
   }
 
-  *a2 = v15;
-  a2[2] = v16;
-  llvm::SmallVector<llvm::SMFixIt,4u>::~SmallVector(&v35);
+  *a2 = v14;
+  a2[2] = v15;
+  llvm::SmallVector<llvm::SMFixIt,4u>::~SmallVector(&v34);
   if (__p)
   {
-    v34 = __p;
+    v33 = __p;
     operator delete(__p);
   }
 
-  if (v32 < 0)
+  if (v31 < 0)
   {
-    operator delete(v31);
+    operator delete(v30);
   }
 
-  if (v30 < 0)
+  if (v29 < 0)
   {
-    operator delete(v29);
+    operator delete(v28);
   }
 
-  if (v28 < 0)
+  if (v27 < 0)
   {
-    operator delete(v27);
+    operator delete(v26);
   }
 
-  llvm::raw_ostream::~raw_ostream(&v17);
-  if (v36 != v38)
+  llvm::raw_ostream::~raw_ostream(&v16);
+  if (v35 != v37)
   {
-    free(v36);
+    free(v35);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-void **llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToValuesV4(uint64_t *a1, uint64_t *a2)
+void ***llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToValuesV4(uint64_t *a1, uint64_t *a2)
 {
-  v100[5] = *MEMORY[0x277D85DE8];
-  v88 = a1;
-  v89 = 0;
-  v90 = a2;
+  v98[5] = *MEMORY[0x277D85DE8];
+  v86 = a1;
+  v87 = 0;
+  v88 = a2;
   if ((*(*a1 + 16))(a1))
   {
-    v69 = 0;
-    v70 = 0u;
-    v71 = v73;
-    v72 = 0x500000000;
-    v75 = 0;
-    v76 = 0;
+    v67 = 0;
+    v68 = 0u;
+    v69 = v71;
+    v70 = 0x500000000;
+    v73 = 0;
     v74 = 0;
-    v77 = 0;
+    v72 = 0;
+    v75 = 0;
+    v76 = 0u;
+    v77 = 0u;
     v78 = 0u;
-    v79 = 0u;
-    v80 = 0u;
-    v81 = 0;
-    v86 = 0u;
-    v87 = 0u;
+    v79 = 0;
     v84 = 0u;
     v85 = 0u;
     v82 = 0u;
     v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
     v4 = *(*a2 + 96);
     v5 = &v4[24 * *(*a2 + 104)];
-    v68 = *(a1[1] + 48) >> 4;
-    llvm::SmallVectorImpl<llvm::MachO::Target>::insert<llvm::MachO::Target const*,void>(&v71, v73, v4, v5);
+    v66 = *(a1[1] + 48) >> 4;
+    llvm::SmallVectorImpl<llvm::MachO::Target>::insert<llvm::MachO::Target const*,void>(&v69, v71, v4, v5);
     v6 = *a2;
     v7 = *a2 + 264;
     v8 = *(*a2 + 287);
@@ -8180,10 +7911,10 @@ void **llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToVa
       v8 = *(*a2 + 272);
     }
 
-    v74 = v7;
-    v75 = v8;
-    v76 = *(v6 + 288);
-    v77 = *(v6 + 296);
+    v72 = v7;
+    v73 = v8;
+    v74 = *(v6 + 288);
+    v75 = *(v6 + 296);
     if (*(v6 + 298))
     {
       v9 = 0;
@@ -8194,16 +7925,16 @@ void **llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToVa
       v9 = 2;
     }
 
-    v81 = v9;
+    v79 = v9;
     if ((*(v6 + 297) & 1) == 0)
     {
-      v81 = v9 | 1;
+      v79 = v9 | 1;
     }
 
-    v64 = a2;
-    *(&v91 + 1) = 0;
-    v92 = 0;
-    *&v91 = &v91 + 8;
+    v62 = a2;
+    *(&v89 + 1) = 0;
+    v90 = 0;
+    *&v89 = &v89 + 8;
     v10 = *(v6 + 304);
     v11 = *(v6 + 312);
     if (v10 != v11)
@@ -8211,7 +7942,7 @@ void **llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToVa
       v12 = v10 + 3;
       do
       {
-        v13 = *std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::__find_equal<std::string>(&v91, v99, v12);
+        v13 = *std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::__find_equal<std::string>(&v89, v97, v12);
         if (!v13)
         {
           operator new();
@@ -8238,30 +7969,30 @@ void **llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToVa
       }
 
       while (v18 != v11);
-      v19 = v91;
-      if (v91 != (&v91 + 8))
+      v19 = v89;
+      if (v89 != (&v89 + 8))
       {
         do
         {
-          memset(v99, 0, 48);
-          std::vector<llvm::MachO::Target>::__insert_with_size[abi:nn200100]<llvm::MachO::Target const*,llvm::MachO::Target const*>(v99, *(v19 + 7), (*(v19 + 7) + 24 * *(v19 + 16)), *(v19 + 16));
-          std::string::operator=(&v99[1], (v19 + 2));
-          v20 = *(&v82 + 1);
-          if (*(&v82 + 1) >= v83)
+          memset(v97, 0, 48);
+          std::vector<llvm::MachO::Target>::__insert_with_size[abi:nn200100]<llvm::MachO::Target const*,llvm::MachO::Target const*>(v97, *(v19 + 7), (*(v19 + 7) + 24 * *(v19 + 16)), *(v19 + 16));
+          std::string::operator=(&v97[1], (v19 + 2));
+          v20 = *(&v80 + 1);
+          if (*(&v80 + 1) >= v81)
           {
-            v22 = 0xAAAAAAAAAAAAAAABLL * ((*(&v82 + 1) - v82) >> 4);
+            v22 = 0xAAAAAAAAAAAAAAABLL * ((*(&v80 + 1) - v80) >> 4);
             v23 = v22 + 1;
             if ((v22 + 1) > 0x555555555555555)
             {
               std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
             }
 
-            if (0x5555555555555556 * ((v83 - v82) >> 4) > v23)
+            if (0x5555555555555556 * ((v81 - v80) >> 4) > v23)
             {
-              v23 = 0x5555555555555556 * ((v83 - v82) >> 4);
+              v23 = 0x5555555555555556 * ((v81 - v80) >> 4);
             }
 
-            if (0xAAAAAAAAAAAAAAABLL * ((v83 - v82) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+            if (0xAAAAAAAAAAAAAAABLL * ((v81 - v80) >> 4) >= 0x2AAAAAAAAAAAAAALL)
             {
               v24 = 0x555555555555555;
             }
@@ -8271,43 +8002,43 @@ void **llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToVa
               v24 = v23;
             }
 
-            v25 = v96;
-            *v96 = 0;
+            v25 = v94;
+            *v94 = 0;
             *(v25 + 1) = 0;
             *(v25 + 2) = 0;
-            *v25 = v99[0];
-            memset(v99, 0, 24);
-            v26 = v99[1].__r_.__value_.__r.__words[2];
-            *(v25 + 24) = *&v99[1].__r_.__value_.__l.__data_;
+            *v25 = v97[0];
+            memset(v97, 0, 24);
+            v26 = v97[1].__r_.__value_.__r.__words[2];
+            *(v25 + 24) = *&v97[1].__r_.__value_.__l.__data_;
             *(v25 + 5) = v26;
-            memset(&v99[1], 0, sizeof(std::string));
-            v96 += 48;
-            v27 = *(&v82 + 1);
-            *(&v82 + 1) = v27;
-            if (SHIBYTE(v99[1].__r_.__value_.__r.__words[2]) < 0)
+            memset(&v97[1], 0, sizeof(std::string));
+            v94 += 48;
+            v27 = *(&v80 + 1);
+            *(&v80 + 1) = v27;
+            if (SHIBYTE(v97[1].__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v99[1].__r_.__value_.__l.__data_);
+              operator delete(v97[1].__r_.__value_.__l.__data_);
             }
           }
 
           else
           {
-            **(&v82 + 1) = 0;
+            **(&v80 + 1) = 0;
             *(v20 + 8) = 0;
             *(v20 + 16) = 0;
-            *v20 = v99[0];
-            memset(v99, 0, 24);
-            v21 = v99[1].__r_.__value_.__r.__words[2];
-            *(v20 + 24) = *&v99[1].__r_.__value_.__l.__data_;
+            *v20 = v97[0];
+            memset(v97, 0, 24);
+            v21 = v97[1].__r_.__value_.__r.__words[2];
+            *(v20 + 24) = *&v97[1].__r_.__value_.__l.__data_;
             *(v20 + 40) = v21;
-            memset(&v99[1], 0, sizeof(std::string));
-            *(&v82 + 1) = v20 + 48;
+            memset(&v97[1], 0, sizeof(std::string));
+            *(&v80 + 1) = v20 + 48;
           }
 
-          if (v99[0].__r_.__value_.__r.__words[0])
+          if (v97[0].__r_.__value_.__r.__words[0])
           {
-            v99[0].__r_.__value_.__l.__size_ = v99[0].__r_.__value_.__r.__words[0];
-            operator delete(v99[0].__r_.__value_.__l.__data_);
+            v97[0].__r_.__value_.__l.__size_ = v97[0].__r_.__value_.__r.__words[0];
+            operator delete(v97[0].__r_.__value_.__l.__data_);
           }
 
           v28 = *(v19 + 1);
@@ -8337,57 +8068,57 @@ void **llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToVa
           v19 = v29;
         }
 
-        while (v29 != (&v91 + 8));
+        while (v29 != (&v89 + 8));
       }
     }
 
-    std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(&v91, *(&v91 + 1));
-    llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::NormalizedTBD_V4::assignTargetsToLibrary(*(*v64 + 328), *(*v64 + 336));
-    llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::NormalizedTBD_V4::assignTargetsToLibrary(*(*v64 + 352), *(*v64 + 360));
-    llvm::MachO::SymbolSet::exports(*(*v64 + 448), v99);
-    std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](v100);
-    std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](&v99[1].__r_.__value_.__l.__size_);
-    llvm::MachO::SymbolSet::reexports(*(*v64 + 448), &v95);
-    std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](&v98);
-    std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](&v97);
-    llvm::MachO::SymbolSet::undefineds(*(*v64 + 448), &v91);
-    std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](&v94);
-    std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](&v93);
+    std::__tree<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::__map_value_compare<std::string,std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,llvm::SmallVector<llvm::MachO::Target,5u>>>>::destroy(&v89, *(&v89 + 1));
+    llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::NormalizedTBD_V4::assignTargetsToLibrary(*(*v62 + 328), *(*v62 + 336), &v76);
+    llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::NormalizedTBD_V4::assignTargetsToLibrary(*(*v62 + 352), *(*v62 + 360), &v77 + 1);
+    llvm::MachO::SymbolSet::exports(*(*v62 + 448), v97);
+    std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](v98);
+    std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](&v97[1].__r_.__value_.__l.__size_);
+    llvm::MachO::SymbolSet::reexports(&v93, *(*v62 + 448));
+    std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](&v96);
+    std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](&v95);
+    llvm::MachO::SymbolSet::undefineds(&v89, *(*v62 + 448));
+    std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](&v92);
+    std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](&v91);
   }
 
   else
   {
-    v69 = 0;
-    v70 = 0uLL;
-    v71 = v73;
-    v72 = 0x500000000;
-    v75 = 0;
-    v76 = 0;
+    v67 = 0;
+    v68 = 0uLL;
+    v69 = v71;
+    v70 = 0x500000000;
+    v73 = 0;
     v74 = 0;
-    v77 = 0;
+    v72 = 0;
+    v75 = 0;
+    v76 = 0u;
+    v77 = 0u;
     v78 = 0u;
-    v79 = 0u;
+    v79 = 0;
     v80 = 0u;
-    v81 = 0;
+    v81 = 0u;
     v82 = 0u;
     v83 = 0u;
     v84 = 0u;
     v85 = 0u;
-    v86 = 0u;
-    v87 = 0u;
   }
 
-  v89 = &v68;
-  v95 = 0uLL;
-  v96 = 0;
+  v87 = &v66;
+  v93 = 0uLL;
+  v94 = 0;
   (*(*a1 + 96))(a1, "!tapi-tbd", 9, 1);
-  llvm::yaml::IO::processKey<unsigned int,llvm::yaml::EmptyContext>(a1, "tbd-version", v89, 1);
-  llvm::yaml::IO::processKey<llvm::SmallVector<llvm::MachO::Target,5u>,llvm::yaml::EmptyContext>(a1, (v89 + 4));
+  llvm::yaml::IO::processKey<unsigned int,llvm::yaml::EmptyContext>(a1, "tbd-version", v87, 1, v97);
+  llvm::yaml::IO::processKey<llvm::SmallVector<llvm::MachO::Target,5u>,llvm::yaml::EmptyContext>(a1, (v87 + 4));
   if (((*(*a1 + 56))(a1) & 1) == 0)
   {
-    v66 = 0;
-    v65 = 0;
-    if ((*(*a1 + 120))(a1, "uuids", 0, 0, &v65, &v66))
+    v64 = 0;
+    v63 = 0;
+    if ((*(*a1 + 120))(a1, "uuids", 0, 0, &v63, &v64))
     {
       v31 = (*(*a1 + 24))(a1);
       if (((*(*a1 + 16))(a1) & 1) == 0 && v31)
@@ -8396,22 +8127,22 @@ void **llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToVa
         v33 = 0;
         for (i = 0; i != v31; ++i)
         {
-          *&v91 = 0;
-          if ((*(*a1 + 32))(a1, i, &v91))
+          *&v89 = 0;
+          if ((*(*a1 + 32))(a1, i, &v89))
           {
             v35 = 0xAAAAAAAAAAAAAAABLL * (&v33[-v32] >> 4);
             if (v35 <= i)
             {
               v36 = i + 1;
               v37 = i + 1 - v35;
-              if (0xAAAAAAAAAAAAAAABLL * ((v96 - v33) >> 4) < v37)
+              if (0xAAAAAAAAAAAAAAABLL * ((v94 - v33) >> 4) < v37)
               {
-                if (0x5555555555555556 * (&v96[-v32] >> 4) > v36)
+                if (0x5555555555555556 * (&v94[-v32] >> 4) > v36)
                 {
-                  v36 = 0x5555555555555556 * (&v96[-v32] >> 4);
+                  v36 = 0x5555555555555556 * (&v94[-v32] >> 4);
                 }
 
-                if (0xAAAAAAAAAAAAAAABLL * (&v96[-v32] >> 4) >= 0x2AAAAAAAAAAAAAALL)
+                if (0xAAAAAAAAAAAAAAABLL * (&v94[-v32] >> 4) >= 0x2AAAAAAAAAAAAAALL)
                 {
                   v36 = 0x555555555555555;
                 }
@@ -8426,47 +8157,47 @@ void **llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToVa
 
               bzero(v33, 48 * ((48 * v37 - 48) / 0x30) + 48);
               v33 += 48 * ((48 * v37 - 48) / 0x30) + 48;
-              *(&v95 + 1) = v33;
+              *(&v93 + 1) = v33;
             }
 
-            v32 = v95;
-            v38 = v95 + 48 * i;
+            v32 = v93;
+            v38 = v93 + 48 * i;
             (*(*a1 + 104))(a1);
-            v99[0].__r_.__value_.__r.__words[0] = 0;
-            v67 = 0;
-            if ((*(*a1 + 120))(a1, "target", 1, 0, &v67, v99))
+            v97[0].__r_.__value_.__r.__words[0] = 0;
+            v65 = 0;
+            if ((*(*a1 + 120))(a1, "target", 1, 0, &v65, v97))
             {
               llvm::yaml::yamlize<llvm::MachO::Target>(a1, (v32 + 48 * i));
-              (*(*a1 + 128))(a1, v99[0].__r_.__value_.__r.__words[0]);
+              (*(*a1 + 128))(a1, v97[0].__r_.__value_.__r.__words[0]);
             }
 
-            llvm::yaml::IO::processKey<std::string,llvm::yaml::EmptyContext>(a1, "value", v38 + 24, 1);
+            llvm::yaml::IO::processKey<std::string,llvm::yaml::EmptyContext>(a1, "value", v38 + 24, 1, v97);
             (*(*a1 + 112))(a1);
-            (*(*a1 + 40))(a1, v91);
+            (*(*a1 + 40))(a1, v89);
           }
         }
       }
 
       (*(*a1 + 48))(a1);
-      (*(*a1 + 128))(a1, v66);
+      (*(*a1 + 128))(a1, v64);
     }
   }
 
-  LODWORD(v99[0].__r_.__value_.__l.__data_) = 0;
-  llvm::yaml::IO::processKeyWithDefault<TBDFlags,llvm::yaml::EmptyContext>(a1, v89 + 62, v99);
-  llvm::yaml::IO::processKey<llvm::StringRef,llvm::yaml::EmptyContext>(a1, "install-name", (v89 + 21), 1);
-  LODWORD(v99[0].__r_.__value_.__l.__data_) = 0x10000;
-  llvm::yaml::IO::processKeyWithDefault<llvm::MachO::PackedVersion,llvm::yaml::EmptyContext>(a1, "current-version", (v89 + 23), v99);
-  LODWORD(v99[0].__r_.__value_.__l.__data_) = 0x10000;
-  llvm::yaml::IO::processKeyWithDefault<llvm::MachO::PackedVersion,llvm::yaml::EmptyContext>(a1, "compatibility-version", (v89 + 188), v99);
-  v99[0].__r_.__value_.__s.__data_[0] = 0;
-  llvm::yaml::IO::processKeyWithDefault<SwiftVersion,llvm::yaml::EmptyContext>(a1, "swift-abi-version", (v89 + 24), v99);
-  v39 = v89;
+  LODWORD(v97[0].__r_.__value_.__l.__data_) = 0;
+  llvm::yaml::IO::processKeyWithDefault<TBDFlags,llvm::yaml::EmptyContext>(a1, v87 + 62, v97);
+  llvm::yaml::IO::processKey<llvm::StringRef,llvm::yaml::EmptyContext>(a1, "install-name", (v87 + 21), 1, v97);
+  LODWORD(v97[0].__r_.__value_.__l.__data_) = 0x10000;
+  llvm::yaml::IO::processKeyWithDefault<llvm::MachO::PackedVersion,llvm::yaml::EmptyContext>(a1, "current-version", (v87 + 23), v97);
+  LODWORD(v97[0].__r_.__value_.__l.__data_) = 0x10000;
+  llvm::yaml::IO::processKeyWithDefault<llvm::MachO::PackedVersion,llvm::yaml::EmptyContext>(a1, "compatibility-version", (v87 + 188), v97);
+  v97[0].__r_.__value_.__s.__data_[0] = 0;
+  llvm::yaml::IO::processKeyWithDefault<SwiftVersion,llvm::yaml::EmptyContext>(a1, "swift-abi-version", (v87 + 24), v97);
+  v39 = v87;
   if (!(*(*a1 + 56))(a1) || v39[32] != v39[33])
   {
-    v66 = 0;
-    v67 = 0;
-    if ((*(*a1 + 120))(a1, "parent-umbrella", 0, 0, &v67, &v66))
+    v64 = 0;
+    v65 = 0;
+    if ((*(*a1 + 120))(a1, "parent-umbrella", 0, 0, &v65, &v64))
     {
       v40 = (*(*a1 + 24))(a1);
       if ((*(*a1 + 16))(a1))
@@ -8482,8 +8213,8 @@ void **llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToVa
         v44 = 24;
         do
         {
-          *&v91 = 0;
-          if ((*(*a1 + 32))(a1, v42, &v91))
+          *&v89 = 0;
+          if ((*(*a1 + 32))(a1, v42, &v89))
           {
             v45 = v39[32];
             v46 = v39[33];
@@ -8517,19 +8248,19 @@ void **llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToVa
                   v51 = v48;
                 }
 
-                v52 = v99[0].__r_.__value_.__r.__words[2];
+                v52 = v97[0].__r_.__value_.__r.__words[2];
                 v53 = 48 * ((v41 - 48 * v47) / 0x30) + 48;
-                bzero(v99[0].__r_.__value_.__r.__words[2], v53);
-                v99[0].__r_.__value_.__r.__words[2] = v52 + v53;
+                bzero(v97[0].__r_.__value_.__r.__words[2], v53);
+                v97[0].__r_.__value_.__r.__words[2] = v52 + v53;
               }
             }
 
             v55 = v39[32] + v44;
             (*(*a1 + 104))(a1);
             llvm::yaml::IO::processKey<std::vector<llvm::MachO::Target>,llvm::yaml::EmptyContext>(a1, (v55 - 24));
-            llvm::yaml::IO::processKey<std::string,llvm::yaml::EmptyContext>(a1, "umbrella", v55, 1);
+            llvm::yaml::IO::processKey<std::string,llvm::yaml::EmptyContext>(a1, "umbrella", v55, 1, v97);
             (*(*a1 + 112))(a1);
-            (*(*a1 + 40))(a1, v91);
+            (*(*a1 + 40))(a1, v89);
           }
 
           ++v42;
@@ -8541,50 +8272,46 @@ void **llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToVa
       }
 
       (*(*a1 + 48))(a1);
-      (*(*a1 + 128))(a1, v66);
+      (*(*a1 + 128))(a1, v64);
     }
   }
 
-  LODWORD(v99[0].__r_.__value_.__l.__data_) = 0;
-  LODWORD(v99[0].__r_.__value_.__l.__data_) = 1;
-  if (((*(*v88 + 16))(v88) & 1) == 0)
+  LODWORD(v97[0].__r_.__value_.__l.__data_) = 0;
+  LODWORD(v97[0].__r_.__value_.__l.__data_) = 1;
+  if (((*(*v86 + 16))(v86) & 1) == 0)
   {
-    v56 = v88[1];
     operator new();
   }
 
-  v57 = v89;
-  v58 = v57[32];
-  if (v58)
+  v56 = v87;
+  v57 = v56[32];
+  if (v57)
   {
-    v59 = v57[33];
-    v60 = v57[32];
-    if (v59 != v58)
+    v58 = v56[33];
+    v59 = v56[32];
+    if (v58 != v57)
     {
       do
       {
-        v59 -= 48;
+        v58 -= 48;
       }
 
-      while (v59 != v58);
-      v60 = v57[32];
+      while (v58 != v57);
+      v59 = v56[32];
     }
 
-    v57[33] = v58;
-    operator delete(v60);
+    v56[33] = v57;
+    operator delete(v59);
   }
 
-  v61 = v57[4];
-  if (v61 != v57 + 6)
+  v60 = v56[4];
+  if (v60 != v56 + 6)
   {
-    free(v61);
+    free(v60);
   }
-
-  v63 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToValues(int a1, uint64_t *a2, uint64_t *a3)
+uint64_t llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysToValues(int a1, void *a2, uint64_t *a3)
 {
   v3 = a3;
   v4 = a2;
@@ -8606,7 +8333,7 @@ uint64_t llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysTo
   *(&v400 + 1) = 0;
   v401 = 0;
   *&v400 = &v400 + 8;
-  v380 = v4;
+  v379 = v4;
   if (!v5)
   {
     v407 = 0;
@@ -8632,7 +8359,7 @@ uint64_t llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysTo
   v408 = 0u;
   v409 = 0u;
   v410 = 0u;
-  v382 = v4[1];
+  v381 = v4[1];
   v6 = *(*v3 + 104);
   if (v6)
   {
@@ -8678,7 +8405,7 @@ uint64_t llvm::yaml::MappingTraits<llvm::MachO::InterfaceFile const*>::mapKeysTo
   *&v396[16] = v417[1].i64[0];
   llvm::MachO::mapToPlatformSet(*(*v3 + 96), *(*v3 + 104), v417);
   v13 = v417[0].i64[0];
-  v381 = v3;
+  v380 = v3;
   if (v417[0].i64[0] != &v417[1])
   {
     if (v397 != v399)
@@ -8730,7 +8457,7 @@ LABEL_25:
 
 LABEL_27:
   LODWORD(v398) = v14;
-  v3 = v381;
+  v3 = v380;
 LABEL_28:
   v417[0].i32[2] = 0;
   std::__tree<std::__value_type<llvm::StringRef,llvm::StringRef>,std::__map_value_compare<llvm::StringRef,std::__value_type<llvm::StringRef,llvm::StringRef>,std::less<llvm::StringRef>,true>,std::allocator<std::__value_type<llvm::StringRef,llvm::StringRef>>>::destroy(&v400, *(&v400 + 1));
@@ -8856,7 +8583,7 @@ LABEL_28:
       }
 
       v417[0].i32[0] = v30;
-      std::__tree<llvm::MachO::ArchitectureSet>::__emplace_unique_key_args<llvm::MachO::ArchitectureSet,llvm::MachO::ArchitectureSet>(&v388, v30);
+      std::__tree<llvm::MachO::ArchitectureSet>::__emplace_unique_key_args<llvm::MachO::ArchitectureSet,llvm::MachO::ArchitectureSet>(&v388, v30, v417);
       v27 += 160;
     }
 
@@ -8904,7 +8631,7 @@ LABEL_28:
       }
 
       v417[0].i32[0] = v39;
-      std::__tree<llvm::MachO::ArchitectureSet>::__emplace_unique_key_args<llvm::MachO::ArchitectureSet,llvm::MachO::ArchitectureSet>(&v388, v39);
+      std::__tree<llvm::MachO::ArchitectureSet>::__emplace_unique_key_args<llvm::MachO::ArchitectureSet,llvm::MachO::ArchitectureSet>(&v388, v39, v417);
       v36 += 160;
     }
 
@@ -8957,8 +8684,8 @@ LABEL_28:
 
     LODWORD(v383) = v49;
     *v415 = &v384;
-    *(std::__tree<std::__value_type<llvm::MachO::Symbol const*,llvm::MachO::ArchitectureSet>,std::__map_value_compare<llvm::MachO::Symbol const*,std::__value_type<llvm::MachO::Symbol const*,llvm::MachO::ArchitectureSet>,std::less<llvm::MachO::Symbol const*>,true>,std::allocator<std::__value_type<llvm::MachO::Symbol const*,llvm::MachO::ArchitectureSet>>>::__emplace_unique_key_args<llvm::MachO::Symbol const*,std::piecewise_construct_t const&,std::tuple<llvm::MachO::Symbol const* const&>,std::tuple<>>(&v385, v47) + 10) = v49;
-    std::__tree<llvm::MachO::ArchitectureSet>::__emplace_unique_key_args<llvm::MachO::ArchitectureSet,llvm::MachO::ArchitectureSet>(&v388, v49);
+    *(std::__tree<std::__value_type<llvm::MachO::Symbol const*,llvm::MachO::ArchitectureSet>,std::__map_value_compare<llvm::MachO::Symbol const*,std::__value_type<llvm::MachO::Symbol const*,llvm::MachO::ArchitectureSet>,std::less<llvm::MachO::Symbol const*>,true>,std::allocator<std::__value_type<llvm::MachO::Symbol const*,llvm::MachO::ArchitectureSet>>>::__emplace_unique_key_args<llvm::MachO::Symbol const*,std::piecewise_construct_t const&,std::tuple<llvm::MachO::Symbol const* const&>,std::tuple<>>(&v385, v47, v415) + 10) = v49;
+    std::__tree<llvm::MachO::ArchitectureSet>::__emplace_unique_key_args<llvm::MachO::ArchitectureSet,llvm::MachO::ArchitectureSet>(&v388, v49, &v383);
     v430.i64[0] += 32;
     llvm::DenseMapIterator<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>,true>::AdvancePastEmptyBuckets(&v430);
   }
@@ -8968,7 +8695,7 @@ LABEL_28:
   {
     while (1)
     {
-      v56 = *(v55 + 7);
+      v56 = *(v55 + 28);
       LODWORD(v383) = v56;
       v429 = 0;
       v427 = 0u;
@@ -8992,9 +8719,9 @@ LABEL_28:
 
       v417[0] = v430;
       v417[1].i64[0] = v431.i64[0];
-      v57 = *v381;
-      v58 = *(*v381 + 328);
-      v59 = *(*v381 + 336);
+      v57 = *v380;
+      v58 = *(*v380 + 328);
+      v59 = *(*v380 + 336);
       if (v58 != v59)
       {
         do
@@ -9116,7 +8843,7 @@ LABEL_641:
         }
 
         while (v58 != v59);
-        v57 = *v381;
+        v57 = *v380;
       }
 
       v79 = *(v57 + 352);
@@ -9353,7 +9080,7 @@ LABEL_311:
       }
 
       *(&v409 + 1) = v206;
-      v210 = v55[1];
+      v210 = *(v55 + 8);
       if (v210)
       {
         do
@@ -9369,7 +9096,7 @@ LABEL_311:
       {
         do
         {
-          v211 = v55[2];
+          v211 = *(v55 + 16);
           v192 = *v211 == v55;
           v55 = v211;
         }
@@ -9394,7 +9121,7 @@ LABEL_311:
         {
           if (v102 == 2)
           {
-            if (*(v382 + 48) == 32)
+            if (*(v381 + 48) == 32)
             {
               v112 = *v101;
               v113 = v424;
@@ -9560,7 +9287,7 @@ LABEL_295:
 
           if (v102 == 3)
           {
-            if (*(v382 + 48) == 32)
+            if (*(v381 + 48) == 32)
             {
               v106 = *v101;
               v107 = *(&v425 + 1);
@@ -9893,7 +9620,7 @@ LABEL_295:
 
           if (v102 == 1)
           {
-            if (*(v382 + 48) == 32)
+            if (*(v381 + 48) == 32)
             {
               v103 = *v101;
               v104 = *(&v422 + 1);
@@ -10092,7 +9819,7 @@ LABEL_344:
   v386 = 0;
   v387 = 0;
   v385 = &v386;
-  llvm::MachO::SymbolSet::undefineds(*(*v381 + 448), v417);
+  llvm::MachO::SymbolSet::undefineds(v417[0].i64, *(*v380 + 448));
   v430 = v417[0];
   v431 = v417[1];
   std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::__value_func[abi:nn200100](&v432, &v418);
@@ -10136,12 +9863,13 @@ LABEL_344:
       v215 = 0;
     }
 
+    v382 = v215;
     *&v384 = &v383;
-    *(std::__tree<std::__value_type<llvm::MachO::Symbol const*,llvm::MachO::ArchitectureSet>,std::__map_value_compare<llvm::MachO::Symbol const*,std::__value_type<llvm::MachO::Symbol const*,llvm::MachO::ArchitectureSet>,std::less<llvm::MachO::Symbol const*>,true>,std::allocator<std::__value_type<llvm::MachO::Symbol const*,llvm::MachO::ArchitectureSet>>>::__emplace_unique_key_args<llvm::MachO::Symbol const*,std::piecewise_construct_t const&,std::tuple<llvm::MachO::Symbol const* const&>,std::tuple<>>(&v385, v213) + 10) = v215;
-    std::__tree<llvm::MachO::ArchitectureSet>::__emplace_unique_key_args<llvm::MachO::ArchitectureSet,llvm::MachO::ArchitectureSet>(&v388, v215);
+    *(std::__tree<std::__value_type<llvm::MachO::Symbol const*,llvm::MachO::ArchitectureSet>,std::__map_value_compare<llvm::MachO::Symbol const*,std::__value_type<llvm::MachO::Symbol const*,llvm::MachO::ArchitectureSet>,std::less<llvm::MachO::Symbol const*>,true>,std::allocator<std::__value_type<llvm::MachO::Symbol const*,llvm::MachO::ArchitectureSet>>>::__emplace_unique_key_args<llvm::MachO::Symbol const*,std::piecewise_construct_t const&,std::tuple<llvm::MachO::Symbol const* const&>,std::tuple<>>(&v385, v213, &v384) + 10) = v215;
+    std::__tree<llvm::MachO::ArchitectureSet>::__emplace_unique_key_args<llvm::MachO::ArchitectureSet,llvm::MachO::ArchitectureSet>(&v388, v215, &v382);
     v430.i64[0] += 32;
     llvm::DenseMapIterator<llvm::SymbolsMapKey,llvm::MachO::Symbol *,llvm::DenseMapInfo<llvm::SymbolsMapKey,void>,llvm::detail::DenseMapPair<llvm::SymbolsMapKey,llvm::MachO::Symbol *>,true>::AdvancePastEmptyBuckets(&v430);
-    llvm::filter_iterator_base<llvm::MachO::SymbolSet::const_symbol_iterator,std::function<BOOL ()(llvm::MachO::Symbol const*)>,std::forward_iterator_tag>::findNextValid(&v430);
+    llvm::filter_iterator_base<llvm::MachO::SymbolSet::const_symbol_iterator,std::function<BOOL ()(llvm::MachO::Symbol const*)>,std::forward_iterator_tag>::findNextValid(v430.i64);
   }
 
   std::__function::__value_func<BOOL ()(llvm::MachO::Symbol const*)>::~__value_func[abi:nn200100](v416);
@@ -10153,7 +9881,7 @@ LABEL_344:
   {
     while (1)
     {
-      v222 = *(v221 + 7);
+      v222 = *(v221 + 28);
       LODWORD(v383) = v222;
       v423 = 0u;
       v424 = 0u;
@@ -10310,7 +10038,7 @@ LABEL_511:
         operator delete(v417[0].i64[0]);
       }
 
-      v324 = v221[1];
+      v324 = *(v221 + 8);
       if (v324)
       {
         do
@@ -10326,7 +10054,7 @@ LABEL_511:
       {
         do
         {
-          v325 = v221[2];
+          v325 = *(v221 + 16);
           v192 = *v325 == v221;
           v221 = v325;
         }
@@ -10351,7 +10079,7 @@ LABEL_511:
         {
           if (v225 == 2)
           {
-            if (*(v382 + 48) == 32)
+            if (*(v381 + 48) == 32)
             {
               v235 = *v224;
               v236 = v421;
@@ -10511,7 +10239,7 @@ LABEL_511:
 
           if (v225 == 3)
           {
-            if (*(v382 + 48) == 32)
+            if (*(v381 + 48) == 32)
             {
               v229 = *v224;
               v230 = *(&v422 + 1);
@@ -10790,7 +10518,7 @@ LABEL_511:
 
           if (v225 == 1)
           {
-            if (*(v382 + 48) == 32)
+            if (*(v381 + 48) == 32)
             {
               v226 = *v224;
               v227 = *(&v419 + 1);
@@ -10993,7 +10721,7 @@ LABEL_500:
 LABEL_553:
   std::__tree<std::__value_type<llvm::orc::ExecutorAddr,unsigned long long>,std::__map_value_compare<llvm::orc::ExecutorAddr,std::__value_type<llvm::orc::ExecutorAddr,unsigned long long>,std::less<llvm::orc::ExecutorAddr>,true>,std::allocator<std::__value_type<llvm::orc::ExecutorAddr,unsigned long long>>>::destroy(v386);
   std::__tree<std::__value_type<llvm::orc::ExecutorAddr,unsigned long long>,std::__map_value_compare<llvm::orc::ExecutorAddr,std::__value_type<llvm::orc::ExecutorAddr,unsigned long long>,std::less<llvm::orc::ExecutorAddr>,true>,std::allocator<std::__value_type<llvm::orc::ExecutorAddr,unsigned long long>>>::destroy(v389);
-  v4 = v380;
+  v4 = v379;
 LABEL_554:
   v413 = &v391;
   llvm::yaml::IO::processKey<std::vector<llvm::MachO::Architecture>,llvm::yaml::EmptyContext>(v4, v396);
@@ -11027,10 +10755,10 @@ LABEL_554:
           do
           {
             v385 = 0;
-            if ((*(*v380 + 72))(v380, v329, &v385))
+            if ((*(*v379 + 72))(v379, v329, &v385))
             {
-              v332 = *&v415[8];
               v333 = *v415;
+              v332 = *&v415[8];
               v334 = 0xAAAAAAAAAAAAAAABLL * ((*&v415[8] - *v415) >> 4);
               if (v334 <= v329)
               {
@@ -11062,7 +10790,7 @@ LABEL_554:
                 v333 = *v415;
               }
 
-              if ((*(*v380 + 16))(v380))
+              if ((*(*v379 + 16))(v379))
               {
                 v417[0].i64[0] = &v417[1].i64[1];
                 *(v417 + 8) = xmmword_2750C1290;
@@ -11078,7 +10806,7 @@ LABEL_554:
                 v338 = v436->i64[1];
                 v388 = v436->i64[0];
                 v389 = v338;
-                (*(*v380 + 216))(v380, &v388, 1);
+                (*(*v379 + 216))(v379, &v388, 1);
                 llvm::raw_ostream::~raw_ostream(&v430);
                 if (v417[0].i64[0] != &v417[1].u64[1])
                 {
@@ -11090,7 +10818,7 @@ LABEL_554:
               {
                 v339 = v333 + v330;
                 v417[0] = 0uLL;
-                (*(*v380 + 216))(v380, v417, 1);
+                (*(*v379 + 216))(v379, v417, 1);
                 *(v339 - 24) = 0;
                 *(v339 - 16) = 0;
                 *(v339 - 8) = 0;
@@ -11104,7 +10832,7 @@ LABEL_554:
                 *(v339 + 16) = 0;
               }
 
-              (*(*v380 + 80))(v380, v385);
+              (*(*v379 + 80))(v379, v385);
             }
 
             ++v329;
@@ -11115,8 +10843,8 @@ LABEL_554:
           while (v331 != v329);
         }
 
-        v4 = v380;
-        (*(*v380 + 88))(v380);
+        v4 = v379;
+        (*(*v379 + 88))(v379);
         (*(*v4 + 128))(v4, v384);
         v326 = a1;
       }
@@ -11127,7 +10855,7 @@ LABEL_554:
     llvm::yaml::IO::processKeyWithDefault<TBDFlags,llvm::yaml::EmptyContext>(v4, v413 + 52, v417);
   }
 
-  llvm::yaml::IO::processKey<llvm::StringRef,llvm::yaml::EmptyContext>(v4, "install-name", (v413 + 11), 1);
+  llvm::yaml::IO::processKey<llvm::StringRef,llvm::yaml::EmptyContext>(v4, "install-name", (v413 + 11), 1, v417);
   v417[0].i32[0] = 0x10000;
   llvm::yaml::IO::processKeyWithDefault<llvm::MachO::PackedVersion,llvm::yaml::EmptyContext>(v4, "current-version", (v413 + 12), v417);
   v417[0].i32[0] = 0x10000;
@@ -11195,8 +10923,8 @@ LABEL_554:
     v430.i8[0] = 0;
     if ((*(*v4 + 120))(v4, "parent-umbrella", 0, v348, &v430, v417))
     {
-      llvm::yaml::yamlize<llvm::StringRef>(v4, v347 + 216);
-      (*(*v4 + 128))(v4, v417[0].i64[0]);
+      v349 = llvm::yaml::yamlize<llvm::StringRef>(v4, v347 + 216);
+      (*(*v4 + 128))(v4, v417[0].i64[0], v349);
     }
 
     else if (v430.u8[0] == 1)
@@ -11205,95 +10933,95 @@ LABEL_554:
       *(v347 + 28) = 0;
     }
 
-    v349 = v413;
-    if (!(*(*v4 + 56))(v4) || *(v349 + 32) != *(v349 + 33))
+    v350 = v413;
+    if (!(*(*v4 + 56))(v4) || *(v350 + 32) != *(v350 + 33))
     {
       v388 = 0;
       LOBYTE(v385) = 0;
       if ((*(*v4 + 120))(v4, "undefineds", 0, 0, &v385, &v388))
       {
-        v350 = (*(*v4 + 24))(v4);
-        v351 = v4;
-        v352 = v350;
-        if ((*(*v351 + 16))(v351))
+        v351 = (*(*v4 + 24))(v4);
+        v352 = v4;
+        v353 = v351;
+        if ((*(*v352 + 16))(v352))
         {
-          v352 = 954437177 * ((*(v349 + 33) - *(v349 + 32)) >> 4);
+          v353 = 954437177 * ((*(v350 + 33) - *(v350 + 32)) >> 4);
         }
 
-        if (v352)
+        if (v353)
         {
-          v353 = 0;
-          v354 = 144 * v352;
-          v355 = 1;
+          v354 = 0;
+          v355 = 144 * v353;
+          v356 = 1;
           do
           {
             v430.i64[0] = 0;
-            if ((*(*v380 + 32))(v380, v355 - 1, &v430))
+            if ((*(*v379 + 32))(v379, v356 - 1, &v430))
             {
-              v356 = *(v349 + 32);
-              v357 = *(v349 + 33);
-              v358 = v357 - v356;
-              v359 = 0x8E38E38E38E38E39 * ((v357 - v356) >> 4);
-              if (v359 <= v355 - 1)
+              v357 = *(v350 + 32);
+              v358 = *(v350 + 33);
+              v359 = v358 - v357;
+              v360 = 0x8E38E38E38E38E39 * ((v358 - v357) >> 4);
+              if (v360 <= v356 - 1)
               {
-                v360 = *(v349 + 34);
-                if (0x8E38E38E38E38E39 * ((v360 - v357) >> 4) >= v355 - v359)
+                v361 = *(v350 + 34);
+                if (0x8E38E38E38E38E39 * ((v361 - v358) >> 4) >= v356 - v360)
                 {
-                  bzero(*(v349 + 33), 144 - -144 * ((v353 - v358) / 0x90uLL));
-                  *(v349 + 33) = v357 + 144 - -144 * ((v353 - v358) / 0x90uLL);
+                  bzero(*(v350 + 33), 144 - -144 * ((v354 - v359) / 0x90uLL));
+                  *(v350 + 33) = v358 + 144 - -144 * ((v354 - v359) / 0x90uLL);
                 }
 
                 else
                 {
-                  v361 = 0x8E38E38E38E38E39 * ((v360 - v356) >> 4);
-                  v362 = 2 * v361;
-                  if (2 * v361 <= v355)
+                  v362 = 0x8E38E38E38E38E39 * ((v361 - v357) >> 4);
+                  v363 = 2 * v362;
+                  if (2 * v362 <= v356)
                   {
-                    v362 = v355;
+                    v363 = v356;
                   }
 
-                  if (v361 >= 0xE38E38E38E38E3)
+                  if (v362 >= 0xE38E38E38E38E3)
                   {
-                    v363 = 0x1C71C71C71C71C7;
+                    v364 = 0x1C71C71C71C71C7;
                   }
 
                   else
                   {
-                    v363 = v362;
+                    v364 = v363;
                   }
 
-                  v364 = v417[1].i64[0];
-                  bzero(v417[1].i64[0], 144 * ((v353 - v358) / 0x90uLL) + 144);
-                  v417[1].i64[0] = v364 + 144 * ((v353 - v358) / 0x90uLL) + 144;
+                  v365 = v417[1].i64[0];
+                  bzero(v417[1].i64[0], 144 * ((v354 - v359) / 0x90uLL) + 144);
+                  v417[1].i64[0] = v365 + 144 * ((v354 - v359) / 0x90uLL) + 144;
                 }
               }
 
-              v365 = (*(v349 + 32) + v353);
-              (*(*v380 + 104))(v380);
-              v366 = v380[1];
-              llvm::yaml::IO::processKey<std::vector<llvm::MachO::Architecture>,llvm::yaml::EmptyContext>(v380, v365);
-              llvm::yaml::IO::mapOptionalWithContext<std::vector<FlowStringRef>,llvm::yaml::EmptyContext>(v380, "symbols", v365 + 3);
-              llvm::yaml::IO::mapOptionalWithContext<std::vector<FlowStringRef>,llvm::yaml::EmptyContext>(v380, "objc-classes", v365 + 6);
-              if (*(v366 + 48) == 32)
+              v366 = (*(v350 + 32) + v354);
+              (*(*v379 + 104))(v379);
+              v367 = v379[1];
+              llvm::yaml::IO::processKey<std::vector<llvm::MachO::Architecture>,llvm::yaml::EmptyContext>(v379, v366);
+              llvm::yaml::IO::mapOptionalWithContext<std::vector<FlowStringRef>,llvm::yaml::EmptyContext>(v379, "symbols", (v366 + 3));
+              llvm::yaml::IO::mapOptionalWithContext<std::vector<FlowStringRef>,llvm::yaml::EmptyContext>(v379, "objc-classes", (v366 + 6));
+              if (*(v367 + 48) == 32)
               {
-                llvm::yaml::IO::mapOptionalWithContext<std::vector<FlowStringRef>,llvm::yaml::EmptyContext>(v380, "objc-eh-types", v365 + 9);
+                llvm::yaml::IO::mapOptionalWithContext<std::vector<FlowStringRef>,llvm::yaml::EmptyContext>(v379, "objc-eh-types", (v366 + 9));
               }
 
-              llvm::yaml::IO::mapOptionalWithContext<std::vector<FlowStringRef>,llvm::yaml::EmptyContext>(v380, "objc-ivars", v365 + 12);
-              llvm::yaml::IO::mapOptionalWithContext<std::vector<FlowStringRef>,llvm::yaml::EmptyContext>(v380, "weak-ref-symbols", v365 + 15);
-              (*(*v380 + 112))(v380);
-              (*(*v380 + 40))(v380, v430.i64[0]);
+              llvm::yaml::IO::mapOptionalWithContext<std::vector<FlowStringRef>,llvm::yaml::EmptyContext>(v379, "objc-ivars", (v366 + 12));
+              llvm::yaml::IO::mapOptionalWithContext<std::vector<FlowStringRef>,llvm::yaml::EmptyContext>(v379, "weak-ref-symbols", (v366 + 15));
+              (*(*v379 + 112))(v379);
+              (*(*v379 + 40))(v379, v430.i64[0]);
             }
 
-            ++v355;
-            v353 += 144;
+            ++v356;
+            v354 += 144;
           }
 
-          while (v354 != v353);
+          while (v355 != v354);
         }
 
-        (*(*v380 + 48))(v380);
-        (*(*v380 + 128))(v380, v388);
+        (*(*v379 + 48))(v379);
+        (*(*v379 + 128))(v379, v388);
       }
     }
   }
@@ -11302,7 +11030,6 @@ LABEL_554:
   std::vector<std::pair<llvm::MachO::Target,std::string>>::__destroy_vector::operator()[abi:nn200100](v417);
   if (((*(*v412 + 16))(v412) & 1) == 0)
   {
-    v367 = v412[1];
     operator new();
   }
 
@@ -11360,7 +11087,5 @@ LABEL_554:
     operator delete(v376);
   }
 
-  result = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(v368);
-  v378 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(v368);
 }

@@ -226,7 +226,7 @@ void __71__CKEffectPreviewCollectionViewController_displayEffectWithIdentifier__
   objc_initWeak(&location, cellCopy);
   v5 = MEMORY[0x1E695DFF0];
   effect = [cellCopy effect];
-  [effect duration];
+  objc_msgSend_duration(effect);
   v8 = v7;
   v11 = MEMORY[0x1E69E9820];
   v12 = 3221225472;

@@ -85,13 +85,13 @@
 {
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4, v6);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_10015282C(v8);
+  sub_10015282C(v7, v9);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)voicemailsDidChangeInitial:(BOOL)initial added:(id)added deleted:(id)deleted updated:(id)updated
@@ -122,43 +122,43 @@
 - (void)onlineStatusDidChange
 {
   selfCopy = self;
-  sub_1001530CC("%s observed voicemailsDidChange");
+  sub_1001530CC("%s observed voicemailsDidChange", v2);
 }
 
 - (void)capabilitiesDidChange
 {
   selfCopy = self;
-  sub_1001530CC("%s observed capabilitiesDidChange");
+  sub_1001530CC("%s observed capabilitiesDidChange", v2);
 }
 
 - (void)subscriptionStateStatusDidChange
 {
   selfCopy = self;
-  sub_1001530CC("%s observed subscriptionStatusDidChange");
+  sub_1001530CC("%s observed subscriptionStatusDidChange", v2);
 }
 
 - (void)syncInProgresDidChange
 {
   selfCopy = self;
-  sub_1001530CC("%s observed syncInProgressDidChnage");
+  sub_1001530CC("%s observed syncInProgressDidChnage", v2);
 }
 
 - (void)managerStorageUsageDidChange
 {
   selfCopy = self;
-  sub_1001530CC("%s observed manageStorageUsageDidChange");
+  sub_1001530CC("%s observed manageStorageUsageDidChange", v2);
 }
 
 - (void)transcribingStatusDidChange
 {
   selfCopy = self;
-  sub_1001530CC("%s observed transcribingStatusDidChange");
+  sub_1001530CC("%s observed transcribingStatusDidChange", v2);
 }
 
 - (void)accountsDidChange
 {
   selfCopy = self;
-  sub_1001530CC("%s observed accountsDidChange");
+  sub_1001530CC("%s observed accountsDidChange", v2);
 }
 
 - (int64_t)estimatedCount

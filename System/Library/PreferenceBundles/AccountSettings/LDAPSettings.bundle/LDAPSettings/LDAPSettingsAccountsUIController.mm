@@ -386,7 +386,7 @@ LABEL_3:
       v5 = 0;
       v6 = &DAAccountDescriptionFromHostname_ptr;
       p_opt_class_meths = &OBJC_PROTOCOL___ACUIAccountViewsProviderProtocol.opt_class_meths;
-      v21 = v4;
+      v20 = v4;
       while (1)
       {
         specifiers2 = [(LDAPSettingsAccountsUIController *)self specifiers];
@@ -395,30 +395,29 @@ LABEL_3:
         if (v5 == [(LDAPSettingsAccountsUIController *)self indexOfCurrentlyEditingCell])
         {
           currentlyEditingCell = [(LDAPSettingsAccountsUIController *)self currentlyEditingCell];
-          v11 = v6[52];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             goto LABEL_11;
           }
 
-          v12 = p_opt_class_meths[30];
+          v11 = p_opt_class_meths[30];
           identifier = [v9 identifier];
-          if (![(__objc2_meth_list *)v12 containsObject:identifier])
+          if (![(__objc2_meth_list *)v11 containsObject:identifier])
           {
-            v19 = 1;
+            v18 = 1;
             goto LABEL_13;
           }
 
           textField = [currentlyEditingCell textField];
           [textField text];
-          v15 = p_opt_class_meths;
-          v17 = v16 = v6;
-          v18 = [v17 length];
+          v14 = p_opt_class_meths;
+          v16 = v15 = v6;
+          v17 = [v16 length];
 
-          v6 = v16;
-          p_opt_class_meths = v15;
-          v4 = v21;
+          v6 = v15;
+          p_opt_class_meths = v14;
+          v4 = v20;
         }
 
         else
@@ -427,23 +426,23 @@ LABEL_3:
           if (![currentlyEditingCell isEqualToString:@"HOST"])
           {
 LABEL_11:
-            v19 = 1;
+            v18 = 1;
             goto LABEL_14;
           }
 
           identifier = [(LDAPSettingsAccountsUIController *)self account];
           textField = [identifier host];
-          v18 = [textField length];
+          v17 = [textField length];
         }
 
-        v19 = v18 != 0;
+        v18 = v17 != 0;
 
 LABEL_13:
 LABEL_14:
 
-        if (++v5 >= v4 || (v19 & 1) == 0)
+        if (++v5 >= v4 || (v18 & 1) == 0)
         {
-          return v19;
+          return v18;
         }
       }
     }

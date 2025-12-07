@@ -5,6 +5,7 @@
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)heapTextureSizeAndAlignWithDescriptor:(id)descriptor;
 - ($F99D9A4FB75BC57F3386B8DC8EE08D7A)accelerationStructureSizesWithDescriptor:(SEL)descriptor;
 - (BOOL)areWritableHeapsEnabled;
+- (BOOL)validateDynamicLibrary:(id)library state:(BOOL)state error:(id *)error;
 - (BOOL)validateDynamicLibraryURL:(id)l error:(id *)error;
 - (MTLDebugDevice)initWithBaseObject:(id)object parent:(id)parent;
 - (const)targetDeviceInfo;
@@ -86,10 +87,12 @@
 - (id)newSamplerStateWithDescriptor:(id)descriptor;
 - (id)newSharedEvent;
 - (id)newSharedEventWithHandle:(id)handle;
+- (id)newSharedEventWithMachPort:(unsigned int)port;
 - (id)newSharedTextureWithDescriptor:(id)descriptor;
 - (id)newSharedTextureWithHandle:(id)handle;
 - (id)newSharedTextureWithHandle:(id)handle withResourceIndex:(unint64_t)index;
 - (id)newTensorWithDescriptor:(id)descriptor error:(id *)error;
+- (id)newTextureLayoutWithDescriptor:(id)descriptor isHeapOrBufferBacked:(BOOL)backed;
 - (id)newTextureViewPoolWithDescriptor:(id)descriptor error:(id *)error;
 - (id)newTextureWithBytesNoCopy:(void *)copy length:(unint64_t)length descriptor:(id)descriptor deallocator:(id)deallocator;
 - (id)newTextureWithDescriptor:(id)descriptor;
@@ -125,6 +128,7 @@
 - (void)notifyExternalReferencesNonZeroOnDealloc:(id)dealloc;
 - (void)notifySamplerStateDeallocated:(id)deallocated;
 - (void)removeReferenceTrackingCommandBuffer:(id)buffer;
+- (void)setWritableHeapsEnabled:(BOOL)enabled;
 - (void)validateAddressRanges:(id)ranges expectedTotalSize:(unint64_t)size context:(_MTLMessageContext *)context;
 - (void)validateImageblockTypes:(id)types reflection:(id)reflection context:(_MTLMessageContext *)context;
 - (void)validateLinkedFunctions:(id)functions context:(_MTLMessageContext *)context;
@@ -433,7 +437,7 @@ LABEL_11:
 
     if ([descriptor textureType] == 9)
     {
-      _validateTextureBufferDescriptor(descriptor, [(MTLToolsObject *)self baseObject]);
+      _validateTextureBufferDescriptor(descriptor, [(MTLToolsObject *)self baseObject], &v9);
     }
 
     -[MTLDebugDevice validateResourceOptions:isTexture:isIOSurface:context:](self, "validateResourceOptions:isTexture:isIOSurface:context:", [descriptor resourceOptions], 1, 0, &v9);
@@ -749,18 +753,30 @@ LABEL_20:
 
 - (id)newIndirectCommandBufferWithDescriptor:(id)descriptor maxCommandCount:(unint64_t)count options:(unint64_t)options
 {
-  v25 = 0;
-  memset(v24, 0, sizeof(v24));
+  v26 = 0;
+  memset(v25, 0, sizeof(v25));
   [(MTLToolsObject *)self baseObject];
   _MTLMessageContextBegin_();
-  [(MTLDebugDevice *)self validateResourceOptions:options isTexture:0 isIOSurface:0 context:v24];
+  [(MTLDebugDevice *)self validateResourceOptions:options isTexture:0 isIOSurface:0 context:v25];
   v9 = [descriptor commandTypes] & 0x60;
   v10 = [descriptor commandTypes] & 0x18F;
-  if (v9 && v10 || !(v9 | v10))
+  if (v9 && v10)
   {
-    [MTLDebugDevice newIndirectCommandBufferWithDescriptor:descriptor maxCommandCount:? options:?];
+    v20 = @"commandTypes (%lu) cannot have both render MTLIndirectCommandType flags and compute MTLIndirectCommandType flags.";
   }
 
+  else
+  {
+    if (v9 | v10)
+    {
+      goto LABEL_4;
+    }
+
+    v20 = @"commandTypes (%lu) must have at least one render MTLIndirectCommandType flag, or at least one compute MTLIndirectCommandType flag.";
+  }
+
+  [MTLDebugDevice newIndirectCommandBufferWithDescriptor:descriptor maxCommandCount:v25 options:v20];
+LABEL_4:
   if (([descriptor commandTypes] & 0xFFFFFFFFFFFFFE10) == 0)
   {
     if (!v10)
@@ -880,14 +896,14 @@ LABEL_7:
   if ([descriptor maxScissorRectCount] > maxViewportCount)
   {
     maxScissorRectCount = [descriptor maxScissorRectCount];
-    v22 = maxViewportCount;
+    v23 = maxViewportCount;
     _MTLMessageContextPush_();
   }
 
   if ([descriptor maxViewportCount] > maxViewportCount)
   {
     maxViewportCount2 = [descriptor maxViewportCount];
-    v23 = maxViewportCount;
+    v24 = maxViewportCount;
     _MTLMessageContextPush_();
     if (!v10)
     {
@@ -962,7 +978,7 @@ LABEL_67:
 
 LABEL_70:
   _MTLMessageContextEnd();
-  if (*&v24[0])
+  if (*&v25[0])
   {
     return 0;
   }
@@ -1203,7 +1219,7 @@ LABEL_7:
 
     if ([descriptor textureType] == 9)
     {
-      _validateTextureBufferDescriptor(descriptor, [(MTLToolsObject *)self baseObject]);
+      _validateTextureBufferDescriptor(descriptor, [(MTLToolsObject *)self baseObject], v10);
     }
 
     -[MTLDebugDevice validateResourceOptions:isTexture:isIOSurface:context:](self, "validateResourceOptions:isTexture:isIOSurface:context:", [descriptor resourceOptions], 1, 0, v10);
@@ -1250,7 +1266,6 @@ LABEL_25:
     [MTLDebugDevice newSamplerStateWithDescriptor:];
   }
 
-  validateMTLSamplerDescriptor([(MTLToolsObject *)self originalObject], descriptor);
   if ([descriptor supportArgumentBuffers])
   {
     MTLSamplerDescriptorHashMap::add(&self->_argumentBufferSamplers, descriptor);
@@ -1537,6 +1552,20 @@ LABEL_3:
   return [(objc_super *)v12 loadDynamicLibrariesForFunction:function insertLibraries:libraries options:options error:error];
 }
 
+- (BOOL)validateDynamicLibrary:(id)library state:(BOOL)state error:(id *)error
+{
+  stateCopy = state;
+  if (([-[MTLToolsObject baseObject](self "baseObject")] & 1) == 0)
+  {
+    [MTLDebugDevice validateDynamicLibrary:state:error:];
+  }
+
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [library baseObject];
+
+  return [baseObject validateDynamicLibrary:baseObject2 state:stateCopy error:error];
+}
+
 - (BOOL)validateDynamicLibraryURL:(id)l error:(id *)error
 {
   if (([-[MTLToolsObject baseObject](self "baseObject")] & 1) == 0)
@@ -1551,7 +1580,7 @@ LABEL_3:
 
 - (void)validateLinkedFunctions:(id)functions context:(_MTLMessageContext *)context
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   if (functions)
   {
     baseObject = [(MTLToolsObject *)self baseObject];
@@ -1562,77 +1591,77 @@ LABEL_3:
 
     if ([functions groups])
     {
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       obj = [functions groups];
-      v30 = [obj countByEnumeratingWithState:&v49 objects:v56 count:16];
-      if (v30)
+      v29 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
+      if (v29)
       {
-        LOBYTE(v32) = 0;
-        v29 = *v50;
+        LOBYTE(v31) = 0;
+        v28 = *v49;
         do
         {
           v5 = 0;
           do
           {
-            if (*v50 != v29)
+            if (*v49 != v28)
             {
               v6 = v5;
               objc_enumerationMutation(obj);
               v5 = v6;
             }
 
-            v31 = v5;
-            v34 = *(*(&v49 + 1) + 8 * v5);
-            v7 = v32 || [objc_msgSend(objc_msgSend(functions "groups")] != 0;
-            v32 = v7;
-            v47 = 0u;
-            v48 = 0u;
-            v45 = 0u;
+            v30 = v5;
+            v33 = *(*(&v48 + 1) + 8 * v5);
+            v7 = v31 || [objc_msgSend(objc_msgSend(functions "groups")] != 0;
+            v31 = v7;
             v46 = 0u;
+            v47 = 0u;
+            v44 = 0u;
+            v45 = 0u;
             groups = [objc_msgSend(functions groups];
-            v9 = [groups countByEnumeratingWithState:&v45 objects:v55 count:16];
+            v9 = [groups countByEnumeratingWithState:&v44 objects:v54 count:16];
             if (v9)
             {
-              v10 = *v46;
+              v10 = *v45;
               do
               {
                 for (i = 0; i != v9; ++i)
                 {
-                  if (*v46 != v10)
+                  if (*v45 != v10)
                   {
                     objc_enumerationMutation(groups);
                   }
 
-                  v12 = *(*(&v45 + 1) + 8 * i);
+                  v12 = *(*(&v44 + 1) + 8 * i);
+                  v40 = 0u;
                   v41 = 0u;
                   v42 = 0u;
                   v43 = 0u;
-                  v44 = 0u;
                   functions = [functions functions];
-                  v14 = [functions countByEnumeratingWithState:&v41 objects:v54 count:16];
+                  v14 = [functions countByEnumeratingWithState:&v40 objects:v53 count:16];
                   if (v14)
                   {
-                    v15 = *v42;
+                    v15 = *v41;
 LABEL_22:
                     v16 = 0;
                     while (1)
                     {
-                      if (*v42 != v15)
+                      if (*v41 != v15)
                       {
                         objc_enumerationMutation(functions);
                       }
 
-                      if (*(*(&v41 + 1) + 8 * v16) == v12)
+                      if (*(*(&v40 + 1) + 8 * v16) == v12)
                       {
                         break;
                       }
 
                       if (v14 == ++v16)
                       {
-                        v14 = [functions countByEnumeratingWithState:&v41 objects:v54 count:16];
+                        v14 = [functions countByEnumeratingWithState:&v40 objects:v53 count:16];
                         if (v14)
                         {
                           goto LABEL_22;
@@ -1646,27 +1675,27 @@ LABEL_22:
                   else
                   {
 LABEL_28:
-                    v24 = [objc_msgSend(v12 "name")];
-                    uTF8String = [v34 UTF8String];
+                    v23 = [objc_msgSend(v12 "name")];
+                    uTF8String = [v33 UTF8String];
                     _MTLMessageContextPush_();
                   }
                 }
 
-                v9 = [groups countByEnumeratingWithState:&v45 objects:v55 count:16];
+                v9 = [groups countByEnumeratingWithState:&v44 objects:v54 count:16];
               }
 
               while (v9);
             }
 
-            v5 = v31 + 1;
+            v5 = v30 + 1;
           }
 
-          while (v31 + 1 != v30);
-          v30 = [obj countByEnumeratingWithState:&v49 objects:v56 count:16];
+          while (v30 + 1 != v29);
+          v29 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
         }
 
-        while (v30);
-        if (v32 && ([baseObject supportsFunctionPointers] & 1) == 0)
+        while (v29);
+        if (v31 && ([baseObject supportsFunctionPointers] & 1) == 0)
         {
           _MTLMessageContextPush_();
         }
@@ -1679,105 +1708,103 @@ LABEL_28:
     {
       if (([baseObject supportsFunctionPointers] & 1) == 0)
       {
-        v25 = @"binaryFunctions";
+        v24 = @"binaryFunctions";
         _MTLMessageContextPush_();
       }
 
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
-      v19 = [v18 countByEnumeratingWithState:&v37 objects:v53 count:{16, v25}];
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v19 = [v18 countByEnumeratingWithState:&v36 objects:v52 count:{16, v24}];
       if (v19)
       {
-        v20 = *v38;
+        v20 = *v37;
         do
         {
           for (j = 0; j != v19; ++j)
           {
-            if (*v38 != v20)
+            if (*v37 != v20)
             {
               objc_enumerationMutation(v18);
             }
 
-            v22 = *(*(&v37 + 1) + 8 * j);
+            v22 = *(*(&v36 + 1) + 8 * j);
             if (![v22 precompiledOutput])
             {
               [MTLDebugDevice validateLinkedFunctions:v22 context:?];
             }
           }
 
-          v19 = [v18 countByEnumeratingWithState:&v37 objects:v53 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v36 objects:v52 count:16];
         }
 
         while (v19);
       }
     }
 
-    memset(v35, 0, sizeof(v35));
-    v36 = 1065353216;
-    _validateUniqueNames(context, v35, [functions functions], "functions");
-    _validateUniqueNames(context, v35, [functions privateFunctions], "privateFunctions");
-    _validateUniqueNames(context, v35, [functions binaryFunctions], "binaryFunctions");
-    std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(v35);
+    memset(v34, 0, sizeof(v34));
+    v35 = 1065353216;
+    _validateUniqueNames(context, v34, [functions functions], "functions");
+    _validateUniqueNames(context, v34, [functions privateFunctions], "privateFunctions");
+    _validateUniqueNames(context, v34, [functions binaryFunctions], "binaryFunctions");
+    std::__hash_table<std::__hash_value_type<std::string,unsigned int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned int>>>::~__hash_table(v34);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateImageblockTypes:(id)types reflection:(id)reflection context:(_MTLMessageContext *)context
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (reflection)
   {
     if ([reflection tileBindings])
     {
       if ([objc_msgSend(types "tileFunction")] == 3)
       {
-        v34 = 0u;
-        v35 = 0u;
-        v32 = 0u;
         v33 = 0u;
+        v34 = 0u;
+        v31 = 0u;
+        v32 = 0u;
         tileBindings = [reflection tileBindings];
-        v7 = [tileBindings countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v7 = [tileBindings countByEnumeratingWithState:&v31 objects:v36 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v33;
+          v9 = *v32;
           while (2)
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v33 != v9)
+              if (*v32 != v9)
               {
                 objc_enumerationMutation(tileBindings);
               }
 
-              v11 = *(*(&v32 + 1) + 8 * i);
+              v11 = *(*(&v31 + 1) + 8 * i);
               if ([v11 type] == 17 && !objc_msgSend(v11, "imageBlockKind"))
               {
                 if ([objc_msgSend(v11 "dataTypeDescription")] == 1)
                 {
+                  v27 = 0u;
                   v28 = 0u;
                   v29 = 0u;
                   v30 = 0u;
-                  v31 = 0u;
                   obj = [objc_msgSend(v11 "dataTypeDescription")];
-                  v12 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+                  v12 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
                   if (v12)
                   {
                     v13 = v12;
-                    v14 = *v29;
+                    v14 = *v28;
                     do
                     {
                       for (j = 0; j != v13; ++j)
                       {
-                        if (*v29 != v14)
+                        if (*v28 != v14)
                         {
                           objc_enumerationMutation(obj);
                         }
 
-                        v16 = *(*(&v28 + 1) + 8 * j);
+                        v16 = *(*(&v27 + 1) + 8 * j);
                         if ([v16 dataType])
                         {
                           renderTargetIndex = [v16 renderTargetIndex];
@@ -1786,9 +1813,9 @@ LABEL_28:
                           MTLDataTypeGetComponentType();
                           ComponentCount = MTLDataTypeGetComponentCount();
                           ShaderTypeName = MTLDataTypeGetShaderTypeName();
-                          v24 = renderTargetIndex;
-                          v25 = 0;
-                          v23 = ShaderTypeName;
+                          v23 = renderTargetIndex;
+                          v24 = 0;
+                          v22 = ShaderTypeName;
                           _MTLMessageContextPush_();
                           v21 = ComponentCount != 4;
                           if (v18 != 1)
@@ -1798,26 +1825,26 @@ LABEL_28:
 
                           if (v21)
                           {
-                            v24 = renderTargetIndex;
-                            v25 = 0;
-                            v23 = ShaderTypeName;
+                            v23 = renderTargetIndex;
+                            v24 = 0;
+                            v22 = ShaderTypeName;
                             _MTLMessageContextPush_();
                           }
                         }
                       }
 
-                      v13 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+                      v13 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
                     }
 
                     while (v13);
                   }
                 }
 
-                goto LABEL_27;
+                return;
               }
             }
 
-            v8 = [tileBindings countByEnumeratingWithState:&v32 objects:v37 count:16];
+            v8 = [tileBindings countByEnumeratingWithState:&v31 objects:v36 count:16];
             if (v8)
             {
               continue;
@@ -1829,9 +1856,6 @@ LABEL_28:
       }
     }
   }
-
-LABEL_27:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_newRenderPipelineStateWithDescriptor:(id)descriptor options:(unint64_t)options reflection:(id *)reflection error:(id *)error
@@ -2683,32 +2707,32 @@ void __86__MTLDebugDevice__newRenderPipelineStateWithMeshDescriptor_options_comp
 
 - (id)newLibraryWithDAG:(id)g functions:(id)functions error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v10 = [functions countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [functions countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(functions);
         }
 
-        [v9 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * v13++), "baseObject")}];
+        [v9 addObject:{objc_msgSend(*(*(&v17 + 1) + 8 * v13++), "baseObject")}];
       }
 
       while (v11 != v13);
-      v11 = [functions countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [functions countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
@@ -2716,17 +2740,13 @@ void __86__MTLDebugDevice__newRenderPipelineStateWithMeshDescriptor_options_comp
 
   v14 = [-[MTLToolsObject baseObject](self "baseObject")];
 
-  if (v14)
+  if (!v14)
   {
-    v15 = [(MTLToolsObject *)[MTLDebugLibrary alloc] initWithBaseObject:v14 parent:self];
+    return 0;
   }
 
-  else
-  {
-    v15 = 0;
-  }
+  v15 = [(MTLToolsObject *)[MTLDebugLibrary alloc] initWithBaseObject:v14 parent:self];
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -2774,30 +2794,30 @@ void __69__MTLDebugDevice_newLibraryWithStitchedDescriptor_completionHandler___b
 
 - (id)newLibraryWithImageFilterFunctionsSPI:(id)i imageFilterFunctionInfo:(id *)info error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v10 = [i countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [i countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(i);
         }
 
-        [v9 addObject:{objc_msgSend(*(*(&v22 + 1) + 8 * i), "baseObject")}];
+        [v9 addObject:{objc_msgSend(*(*(&v21 + 1) + 8 * i), "baseObject")}];
       }
 
-      v11 = [i countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [i countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
@@ -2818,18 +2838,14 @@ void __69__MTLDebugDevice_newLibraryWithStitchedDescriptor_completionHandler___b
 
   v18 = v17;
 
-  if (v18)
+  if (!v18)
   {
-    v19 = [[MTLDebugLibrary alloc] initWithLibrary:v18 parent:self type:4 code:0 options:0];
-    [(MTLDebugLibrary *)v19 setImageFilterFunctions:i imageFilterFunctionInfo:info];
+    return 0;
   }
 
-  else
-  {
-    v19 = 0;
-  }
+  v19 = [[MTLDebugLibrary alloc] initWithLibrary:v18 parent:self type:4 code:0 options:0];
+  [(MTLDebugLibrary *)v19 setImageFilterFunctions:i imageFilterFunctionInfo:info];
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -2908,11 +2924,11 @@ void __69__MTLDebugDevice_newLibraryWithStitchedDescriptor_completionHandler___b
 
 - (id)newLibraryWithSource:(id)source options:(id)options error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v31 = 0;
-  v29 = 0u;
-  v30 = 0u;
+  v31 = *MEMORY[0x277D85DE8];
+  v29 = 0;
+  v27 = 0u;
   v28 = 0u;
+  v26 = 0u;
   [(MTLToolsObject *)self baseObject];
   _MTLMessageContextBegin_();
   if (options)
@@ -2923,34 +2939,33 @@ void __69__MTLDebugDevice_newLibraryWithStitchedDescriptor_completionHandler___b
       _MTLMessageContextPush_();
     }
 
-    if (!v28)
+    if (!v26)
     {
-      v26 = 0u;
-      v27 = 0u;
       v24 = 0u;
       v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       libraries = [options libraries];
-      v9 = [libraries countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v9 = [libraries countByEnumeratingWithState:&v22 objects:v30 count:16];
       if (v9)
       {
         v10 = v9;
         v11 = 0;
-        v12 = *v25;
+        v12 = *v23;
         do
         {
           v13 = 0;
           do
           {
-            if (*v25 != v12)
+            if (*v23 != v12)
             {
               objc_enumerationMutation(libraries);
             }
 
-            v14 = *(*(&v24 + 1) + 8 * v13);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v21 = v11;
+              v19 = v11;
               _MTLMessageContextPush_();
             }
 
@@ -2959,7 +2974,7 @@ void __69__MTLDebugDevice_newLibraryWithStitchedDescriptor_completionHandler___b
           }
 
           while (v10 != v13);
-          v10 = [libraries countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v10 = [libraries countByEnumeratingWithState:&v22 objects:v30 count:16];
         }
 
         while (v10);
@@ -2992,21 +3007,20 @@ LABEL_16:
 
   baseObject = [-[MTLToolsObject baseObject](self baseObject];
   sourceLibraryObjectCache = self->super.sourceLibraryObjectCache;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __53__MTLDebugDevice_newLibraryWithSource_options_error___block_invoke;
-  v23[3] = &unk_2787B4E78;
-  v23[4] = baseObject;
-  v23[5] = self;
-  v23[6] = source;
-  v23[7] = options;
-  v18 = [(MTLToolsObjectCache *)sourceLibraryObjectCache getCachedObjectForKey:baseObject onMiss:v23];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __53__MTLDebugDevice_newLibraryWithSource_options_error___block_invoke;
+  v21[3] = &unk_2787B4E78;
+  v21[4] = baseObject;
+  v21[5] = self;
+  v21[6] = source;
+  v21[7] = options;
+  v17 = [(MTLToolsObjectCache *)sourceLibraryObjectCache getCachedObjectForKey:baseObject onMiss:v21];
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v17;
 }
 
-uint64_t __53__MTLDebugDevice_newLibraryWithSource_options_error___block_invoke(void *a1)
+MTLDebugLibrary *__53__MTLDebugDevice_newLibraryWithSource_options_error___block_invoke(void *a1)
 {
   v2 = [MTLDebugLibrary alloc];
   v3 = a1[4];
@@ -3019,11 +3033,11 @@ uint64_t __53__MTLDebugDevice_newLibraryWithSource_options_error___block_invoke(
 
 - (void)newLibraryWithSource:(id)source options:(id)options completionHandler:(id)handler
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v30 = 0;
-  v28 = 0u;
-  v29 = 0u;
+  v30 = *MEMORY[0x277D85DE8];
+  v28 = 0;
+  v26 = 0u;
   v27 = 0u;
+  v25 = 0u;
   [(MTLToolsObject *)self baseObject];
   _MTLMessageContextBegin_();
   if (options)
@@ -3034,34 +3048,33 @@ uint64_t __53__MTLDebugDevice_newLibraryWithSource_options_error___block_invoke(
       _MTLMessageContextPush_();
     }
 
-    if (!v27)
+    if (!v25)
     {
-      v25 = 0u;
-      v26 = 0u;
       v23 = 0u;
       v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       libraries = [options libraries];
-      v9 = [libraries countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v9 = [libraries countByEnumeratingWithState:&v21 objects:v29 count:16];
       if (v9)
       {
         v10 = v9;
         v11 = 0;
-        v12 = *v24;
+        v12 = *v22;
         do
         {
           v13 = 0;
           do
           {
-            if (*v24 != v12)
+            if (*v22 != v12)
             {
               objc_enumerationMutation(libraries);
             }
 
-            v14 = *(*(&v23 + 1) + 8 * v13);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v20 = v11;
+              v18 = v11;
               _MTLMessageContextPush_();
             }
 
@@ -3070,7 +3083,7 @@ uint64_t __53__MTLDebugDevice_newLibraryWithSource_options_error___block_invoke(
           }
 
           while (v10 != v13);
-          v10 = [libraries countByEnumeratingWithState:&v23 objects:v31 count:16];
+          v10 = [libraries countByEnumeratingWithState:&v21 objects:v29 count:16];
         }
 
         while (v10);
@@ -3098,27 +3111,25 @@ LABEL_16:
   _MTLMessageContextEnd();
   if (options)
   {
-    v16 = [(MTLToolsDevice *)self unwrapMTLCompileOptions:options];
+    v15 = [(MTLToolsDevice *)self unwrapMTLCompileOptions:options];
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v17 = [v16 copy];
+  v16 = [v15 copy];
   baseObject = [(MTLToolsObject *)self baseObject];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __65__MTLDebugDevice_newLibraryWithSource_options_completionHandler___block_invoke;
-  v22[3] = &unk_2787B4EA0;
-  v22[4] = self;
-  v22[5] = source;
-  v22[6] = v17;
-  v22[7] = handlerCopy2;
-  [baseObject newLibraryWithSource:source options:v17 completionHandler:v22];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __65__MTLDebugDevice_newLibraryWithSource_options_completionHandler___block_invoke;
+  v20[3] = &unk_2787B4EA0;
+  v20[4] = self;
+  v20[5] = source;
+  v20[6] = v16;
+  v20[7] = handlerCopy2;
+  [baseObject newLibraryWithSource:source options:v16 completionHandler:v20];
 }
 
 void __65__MTLDebugDevice_newLibraryWithSource_options_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -3136,7 +3147,7 @@ void __65__MTLDebugDevice_newLibraryWithSource_options_completionHandler___block
   (*(*(a1 + 56) + 16))();
 }
 
-uint64_t __65__MTLDebugDevice_newLibraryWithSource_options_completionHandler___block_invoke_2(void *a1)
+MTLDebugLibrary *__65__MTLDebugDevice_newLibraryWithSource_options_completionHandler___block_invoke_2(void *a1)
 {
   v2 = [MTLDebugLibrary alloc];
   v3 = a1[4];
@@ -3411,6 +3422,20 @@ LABEL_26:
   return result;
 }
 
+- (id)newTextureLayoutWithDescriptor:(id)descriptor isHeapOrBufferBacked:(BOOL)backed
+{
+  result = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (result)
+  {
+    v7 = result;
+    v8 = [[MTLDebugTextureLayout alloc] initWithBaseTextureLayout:result device:self descriptor:descriptor];
+
+    return v8;
+  }
+
+  return result;
+}
+
 - (const)targetDeviceInfo
 {
   baseObject = [(MTLToolsObject *)self baseObject];
@@ -3430,10 +3455,8 @@ LABEL_26:
 
 - (unint64_t)minimumLinearTextureAlignmentForPixelFormat:(unint64_t)format
 {
-  v7 = 0;
-  memset(v6, 0, sizeof(v6));
   MTLPixelFormatGetInfoForDevice();
-  [MTLDebugDevice minimumLinearTextureAlignmentForPixelFormat:v6];
+  [MTLDebugDevice minimumLinearTextureAlignmentForPixelFormat:];
   return [-[MTLToolsObject baseObject](self baseObject];
 }
 
@@ -3444,7 +3467,7 @@ LABEL_26:
   v19 = 0;
   if (descriptor)
   {
-    [descriptor screenSize];
+    objc_msgSend_screenSize(descriptor, a2);
   }
 
   v16 = 0;
@@ -3578,6 +3601,20 @@ LABEL_21:
   return result;
 }
 
+- (id)newSharedEventWithMachPort:(unsigned int)port
+{
+  result = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (result)
+  {
+    v5 = result;
+    v6 = [(MTLToolsObject *)[MTLDebugSharedEvent alloc] initWithBaseObject:result parent:self];
+
+    return v6;
+  }
+
+  return result;
+}
+
 - (id)newSharedEventWithHandle:(id)handle
 {
   result = [-[MTLToolsObject baseObject](self "baseObject")];
@@ -3634,7 +3671,7 @@ LABEL_21:
 {
   bufferCopy = buffer;
   os_unfair_lock_lock(&self->_referenceTrackingCommandBufferLock);
-  std::__hash_table<MTLDebugCommandBuffer *,std::hash<MTLDebugCommandBuffer *>,std::equal_to<MTLDebugCommandBuffer *>,std::allocator<MTLDebugCommandBuffer *>>::__emplace_unique_key_args<MTLDebugCommandBuffer *,MTLDebugCommandBuffer * const&>(&self->_referenceTrackingCommandBuffers.__table_.__bucket_list_.__ptr_, &bufferCopy);
+  std::__hash_table<MTLDebugCommandBuffer *,std::hash<MTLDebugCommandBuffer *>,std::equal_to<MTLDebugCommandBuffer *>,std::allocator<MTLDebugCommandBuffer *>>::__emplace_unique_key_args<MTLDebugCommandBuffer *,MTLDebugCommandBuffer * const&>(&self->_referenceTrackingCommandBuffers.__table_.__bucket_list_.__ptr_, &bufferCopy, &bufferCopy);
   os_unfair_lock_unlock(&self->_referenceTrackingCommandBufferLock);
 }
 
@@ -3725,7 +3762,7 @@ LABEL_21:
   if (baseObject)
   {
 
-    return [baseObject accelerationStructureSizesWithDescriptor:result];
+    return objc_msgSend_accelerationStructureSizesWithDescriptor_(baseObject);
   }
 
   else
@@ -3905,7 +3942,7 @@ LABEL_21:
     v11 = 1;
     do
     {
-      checkAccelerationStructure(self->super.super._device, [structures objectAtIndexedSubscript:v10], 0);
+      checkAccelerationStructure(self->super.super._device, [structures objectAtIndexedSubscript:v10], 0, @"Primitive acceleration structure");
       [v9 addObject:{objc_msgSend(objc_msgSend(structures, "objectAtIndexedSubscript:", v10), "baseObject")}];
       v10 = v11;
     }
@@ -3995,7 +4032,7 @@ LABEL_3:
     v12 = 1;
     do
     {
-      checkAccelerationStructure(self->super.super._device, [structures objectAtIndexedSubscript:v11], 0);
+      checkAccelerationStructure(self->super.super._device, [structures objectAtIndexedSubscript:v11], 0, @"Primitive acceleration structure");
       [v10 addObject:{objc_msgSend(objc_msgSend(structures, "objectAtIndexedSubscript:", v11), "baseObject")}];
       v11 = v12;
     }
@@ -4114,7 +4151,7 @@ LABEL_3:
   return [(MTLToolsObjectCache *)dynamicLibraryObjectCache getCachedObjectForKey:object onMiss:v5];
 }
 
-uint64_t __49__MTLDebugDevice_getDynamicLibraryForBaseObject___block_invoke(uint64_t a1)
+MTLDebugDynamicLibrary *__49__MTLDebugDevice_getDynamicLibraryForBaseObject___block_invoke(uint64_t a1)
 {
   v2 = [MTLDebugDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -4135,7 +4172,7 @@ uint64_t __49__MTLDebugDevice_getDynamicLibraryForBaseObject___block_invoke(uint
   return [(MTLToolsObjectCache *)functionObjectCache getCachedObjectForKey:object onMiss:v6];
 }
 
-uint64_t __51__MTLDebugDevice_getFunctionForBaseObject_library___block_invoke(uint64_t a1)
+MTLDebugFunction *__51__MTLDebugDevice_getFunctionForBaseObject_library___block_invoke(uint64_t a1)
 {
   v2 = [MTLDebugFunction alloc];
   v3 = *(a1 + 32);
@@ -4157,7 +4194,7 @@ uint64_t __51__MTLDebugDevice_getFunctionForBaseObject_library___block_invoke(ui
   return [(MTLToolsObjectCache *)depthStencilObjectCache getCachedObjectForKey:object onMiss:v6];
 }
 
-uint64_t __63__MTLDebugDevice_getDepthStencilStateForBaseObject_descriptor___block_invoke(void *a1)
+MTLDebugDepthStencilState *__63__MTLDebugDevice_getDepthStencilStateForBaseObject_descriptor___block_invoke(void *a1)
 {
   v2 = [MTLDebugDepthStencilState alloc];
   v3 = a1[4];
@@ -4180,7 +4217,7 @@ uint64_t __63__MTLDebugDevice_getDepthStencilStateForBaseObject_descriptor___blo
   return [(MTLToolsObjectCache *)samplerObjectCache getCachedObjectForKey:object onMiss:v6];
 }
 
-uint64_t __58__MTLDebugDevice_getSamplerStateForBaseObject_descriptor___block_invoke(void *a1)
+MTLDebugSamplerState *__58__MTLDebugDevice_getSamplerStateForBaseObject_descriptor___block_invoke(void *a1)
 {
   v2 = [MTLDebugSamplerState alloc];
   v3 = a1[4];
@@ -4470,6 +4507,14 @@ LABEL_17:
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject areWritableHeapsEnabled];
+}
+
+- (void)setWritableHeapsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setWritableHeapsEnabled:enabledCopy];
 }
 
 - (id)newArgumentTableWithDescriptor:(id)descriptor error:(id *)error
@@ -4914,49 +4959,49 @@ LABEL_3:
 {
   [a1 maxVertexBufferBindCount];
   OUTLINED_FUNCTION_0_4();
-  return OUTLINED_FUNCTION_7();
+  return OUTLINED_FUNCTION_7(v1, v2, @"maximum vertex buffer bind count (%lu) must be <= %lu.");
 }
 
 - (uint64_t)newIndirectCommandBufferWithDescriptor:(void *)a1 maxCommandCount:options:.cold.4(void *a1)
 {
   [a1 maxFragmentBufferBindCount];
   OUTLINED_FUNCTION_0_4();
-  return OUTLINED_FUNCTION_7();
+  return OUTLINED_FUNCTION_7(v1, v2, @"maximum fragment buffer bind count (%lu) must be <= %lu.");
 }
 
 - (uint64_t)newIndirectCommandBufferWithDescriptor:(void *)a1 maxCommandCount:options:.cold.5(void *a1)
 {
   [a1 maxObjectBufferBindCount];
   OUTLINED_FUNCTION_0_4();
-  return OUTLINED_FUNCTION_7();
+  return OUTLINED_FUNCTION_7(v1, v2, @"maximum object buffer bind count (%lu) must be <= %lu.");
 }
 
 - (uint64_t)newIndirectCommandBufferWithDescriptor:(void *)a1 maxCommandCount:options:.cold.6(void *a1)
 {
   [a1 maxMeshBufferBindCount];
   OUTLINED_FUNCTION_0_4();
-  return OUTLINED_FUNCTION_7();
+  return OUTLINED_FUNCTION_7(v1, v2, @"maximum mesh buffer bind count (%lu) must be <= %lu.");
 }
 
 - (uint64_t)newIndirectCommandBufferWithDescriptor:(void *)a1 maxCommandCount:options:.cold.7(void *a1)
 {
   [a1 maxObjectThreadgroupMemoryBindCount];
   OUTLINED_FUNCTION_0_4();
-  return OUTLINED_FUNCTION_7();
+  return OUTLINED_FUNCTION_7(v1, v2, @"maximum object threadgroup memory bind count (%lu) must be <= %lu.");
 }
 
 - (uint64_t)newIndirectCommandBufferWithDescriptor:(void *)a1 maxCommandCount:options:.cold.8(void *a1)
 {
   [a1 maxKernelBufferBindCount];
   OUTLINED_FUNCTION_0_4();
-  return OUTLINED_FUNCTION_7();
+  return OUTLINED_FUNCTION_7(v1, v2, @"maximum kernel buffer bind count (%lu) must be <= %lu.");
 }
 
 - (uint64_t)newIndirectCommandBufferWithDescriptor:(void *)a1 maxCommandCount:options:.cold.9(void *a1)
 {
   [a1 maxKernelThreadgroupMemoryBindCount];
   OUTLINED_FUNCTION_0_4();
-  return OUTLINED_FUNCTION_7();
+  return OUTLINED_FUNCTION_7(v1, v2, @"maximum kernel threadgroup memory bind count (%lu) must be <= %lu.");
 }
 
 @end

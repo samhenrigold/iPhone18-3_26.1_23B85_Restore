@@ -21,8 +21,9 @@
 - (void)clearNakedObjects
 {
   self->_needsToRetryNakedObjects = 0;
+  nakedObjects = self->_nakedObjects;
   self->_nakedObjects = 0;
-  _objc_release_x1();
+  _objc_release_x1(self, nakedObjects);
 }
 
 - (id)nakedObjectsToRetry

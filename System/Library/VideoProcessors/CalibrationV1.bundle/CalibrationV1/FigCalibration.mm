@@ -8,6 +8,8 @@
 - (FigCalibration)initWithCommandQueue:(id)queue;
 - (id)selectTuningParametersForCapture;
 - (int)_detectKeypoints:(float)keypoints;
+- (int)_downscaleReference:(__CVBuffer *)reference auxiliary:(__CVBuffer *)auxiliary referenceMagnification:(float)magnification gainToApplyToReference:(float)toReference;
+- (int)prepareToProcess:(unsigned int)process;
 - (int)prewarmWithTuningParameters:(id)parameters;
 - (int)process;
 - (void)dealloc;
@@ -562,7 +564,7 @@ LABEL_21:
 
   else
   {
-    sub_295709F0C();
+    sub_295709F0C(0, a2);
   }
 
   return 0;
@@ -915,6 +917,19 @@ LABEL_29:
   }
 }
 
+- (int)prepareToProcess:(unsigned int)process
+{
+  if (objc_msgSend_allocateResources(self, a2, *&process, v3, v4, v5))
+  {
+    return 0;
+  }
+
+  else
+  {
+    return 4;
+  }
+}
+
 - (void)fillShiftMapMetadataWithCalModel:(CalModel *)model referenceGDC:(id *)c auxiliaryGDC:(id *)dC
 {
   v189 = model->focalLengthPix[0];
@@ -1152,6 +1167,59 @@ LABEL_17:
 LABEL_14:
 
   return v25;
+}
+
+- (int)_downscaleReference:(__CVBuffer *)reference auxiliary:(__CVBuffer *)auxiliary referenceMagnification:(float)magnification gainToApplyToReference:(float)toReference
+{
+  v9 = fabsf(magnification + -2.0);
+  *&v10 = toReference;
+  ImageYUVA_outYuvaWidth_outYuvaHeight_outY_inYuv420_gainToApplyToOutputs_waitForCompletion = objc_msgSend_GenerateImageYUVA_outYuvaWidth_outYuvaHeight_outY_inYuv420_gainToApplyToOutputs_waitForCompletion_(self->_downscaler, a2, self->_referenceImageLow, self->_scalerOutputWidth, self->_scalerOutputHeight, self->_referenceImageLowLumaOnly, reference, 0, v10);
+  v14 = ImageYUVA_outYuvaWidth_outYuvaHeight_outY_inYuv420_gainToApplyToOutputs_waitForCompletion;
+  if (v9 <= 0.05)
+  {
+    if (ImageYUVA_outYuvaWidth_outYuvaHeight_outY_inYuv420_gainToApplyToOutputs_waitForCompletion)
+    {
+      sub_29570A7D0(ImageYUVA_outYuvaWidth_outYuvaHeight_outY_inYuv420_gainToApplyToOutputs_waitForCompletion);
+    }
+
+    else
+    {
+      v21 = objc_msgSend_DownscaleConvertAndCenterCrop_outCroppedLuma_inYuv420_(self->_downscaler, v12, self->_auxiliaryImageLow, self->_auxiliaryImageCropped, auxiliary, v13);
+      v14 = v21;
+      if (v21)
+      {
+        sub_29570A84C(v21);
+      }
+    }
+  }
+
+  else if (ImageYUVA_outYuvaWidth_outYuvaHeight_outY_inYuv420_gainToApplyToOutputs_waitForCompletion)
+  {
+    sub_29570A8C8(ImageYUVA_outYuvaWidth_outYuvaHeight_outY_inYuv420_gainToApplyToOutputs_waitForCompletion);
+  }
+
+  else
+  {
+    ImageYUVA_outY_inYuv420_waitForCompletion = objc_msgSend_GenerateImageYUVA_outY_inYuv420_waitForCompletion_(self->_downscaler, v12, self->_auxiliaryImageLow, 0, auxiliary, 0);
+    if (ImageYUVA_outY_inYuv420_waitForCompletion)
+    {
+      v14 = ImageYUVA_outY_inYuv420_waitForCompletion;
+      sub_29570A944();
+    }
+
+    else
+    {
+      *&v19 = magnification;
+      v20 = objc_msgSend_DownscaleAndCrop_outY_inYuv420_(self->_downscaler, v16, self->_auxiliaryImageCropped, auxiliary, v17, v18, v19);
+      v14 = v20;
+      if (v20)
+      {
+        sub_29570A9C0(v20);
+      }
+    }
+  }
+
+  return v14;
 }
 
 - (id)selectTuningParametersForCapture

@@ -932,7 +932,7 @@
   optionsCopy = options;
   namedCopy = named;
   assetsCopy = assets;
-  v11 = BSUIBundle();
+  v11 = BSUIBundle(assetsCopy);
   v13 = [v11 localizedStringForKey:@"Want to Read" value:&stru_3960F8 table:@"BookStoreUILocalizable"];
 
   if ([namedCopy isEqualToString:v13])
@@ -954,7 +954,7 @@
   readCopy = read;
   assetsCopy = assets;
   namedCopy = named;
-  v12 = BSUIBundle();
+  v12 = BSUIBundle(namedCopy);
   v13 = [v12 localizedStringForKey:@"\\U2026" value:&stru_3960F8 table:@"BookStoreUILocalizable"];
   v14 = [namedCopy stringByTruncatingToLength:50 options:3 truncationString:v13];
 
@@ -966,22 +966,23 @@
       allValues = [assetsCopy allValues];
       lastObject = [NSSet setWithArray:allValues];
 
-      if ([lastObject count] == &dword_0 + 1)
+      v37 = [lastObject count];
+      if (v37 == &dword_0 + 1)
       {
         anyObject = [lastObject anyObject];
         integerValue = [anyObject integerValue];
 
-        v18 = BSUIBundle();
+        v18 = BSUIBundle(v40);
         if (integerValue == &dword_4 + 2)
         {
           if (messageCopy)
           {
-            v37 = @"The audiobooks were added to %@.";
+            v41 = @"The audiobooks were added to %@.";
           }
 
           else
           {
-            v37 = @"These audiobooks were added to %@.";
+            v41 = @"These audiobooks were added to %@.";
           }
         }
 
@@ -989,42 +990,42 @@
         {
           if (messageCopy)
           {
-            v37 = @"The PDFs were added to %@.";
+            v41 = @"The PDFs were added to %@.";
           }
 
           else
           {
-            v37 = @"These PDFs were added to %@.";
+            v41 = @"These PDFs were added to %@.";
           }
         }
 
         else if (messageCopy)
         {
-          v37 = @"The books were added to %@.";
+          v41 = @"The books were added to %@.";
         }
 
         else
         {
-          v37 = @"These books were added to %@.";
+          v41 = @"These books were added to %@.";
         }
       }
 
       else
       {
-        v18 = BSUIBundle();
+        v18 = BSUIBundle(v37);
         if (messageCopy)
         {
-          v37 = @"The items were added to %@.";
+          v41 = @"The items were added to %@.";
         }
 
         else
         {
-          v37 = @"These items were added to %@.";
+          v41 = @"These items were added to %@.";
         }
       }
 
-      v58 = [v18 localizedStringForKey:v37 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
-      v29 = [NSString localizedStringWithFormat:v58, v14];
+      v63 = [v18 localizedStringForKey:v41 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
+      v29 = [NSString localizedStringWithFormat:v63, v14];
 
       goto LABEL_72;
     }
@@ -1033,7 +1034,7 @@
     lastObject = [allValues2 lastObject];
 
     integerValue2 = [lastObject integerValue];
-    v22 = BSUIBundle();
+    v22 = BSUIBundle(integerValue2);
     v23 = v22;
     v24 = @"This audiobook was added to %@.";
     if (messageCopy)
@@ -1082,7 +1083,7 @@
     integerValue3 = [lastObject integerValue];
     if (integerValue3 == &dword_4 + 2)
     {
-      v18 = BSUIBundle();
+      v18 = BSUIBundle(6);
       if (messageCopy)
       {
         v19 = @"The audiobook was added to your Want to Read list in Home.";
@@ -1098,7 +1099,7 @@
 
     if (integerValue3 == &dword_0 + 3)
     {
-      v18 = BSUIBundle();
+      v18 = BSUIBundle(3);
       if (messageCopy)
       {
         v19 = @"The PDF was added to your Want to Read collection and can be viewed in Home.";
@@ -1113,55 +1114,59 @@
     }
 
     objc_opt_class();
-    v38 = +[BSUITemplate manager];
-    dynamicRegistry = [v38 dynamicRegistry];
-    v40 = [dynamicRegistry stateProviderForKind:@"libraryItem"];
+    v42 = +[BSUITemplate manager];
+    dynamicRegistry = [v42 dynamicRegistry];
+    v44 = [dynamicRegistry stateProviderForKind:@"libraryItem"];
     v18 = BUDynamicCast();
 
     provider = [v18 provider];
     allKeys = [assetsCopy allKeys];
     lastObject2 = [allKeys lastObject];
 
-    v44 = [provider itemStateWithIdentifier:lastObject2];
-    if ([v44 library] == &dword_4 || objc_msgSend(v44, "library") == &dword_0 + 2)
+    v48 = [provider itemStateWithIdentifier:lastObject2];
+    if ([v48 library] == &dword_4 || objc_msgSend(v48, "library") == &dword_0 + 2)
     {
-      [v44 isSample];
+      isSample = [v48 isSample];
     }
 
     else
     {
-      library = [v44 library];
-      isSample = [v44 isSample];
-      if (library != &dword_4 + 1 && (isSample & 1) == 0 && [self allowsAutoDownloadOfSamplesToWantToRead])
+      library = [v48 library];
+      isSample = [v48 isSample];
+      if (library != &dword_4 + 1 && (isSample & 1) == 0)
       {
-        v45 = BSUIBundle();
-        if (messageCopy)
+        isSample = [self allowsAutoDownloadOfSamplesToWantToRead];
+        if (isSample)
         {
-          v46 = @"The book was added to your Want to Read list in Home, and a sample was downloaded.";
-        }
+          v50 = BSUIBundle(isSample);
+          if (messageCopy)
+          {
+            v51 = @"The book was added to your Want to Read list in Home, and a sample was downloaded.";
+          }
 
-        else
-        {
-          v46 = @"This book was added to your Want to Read list in Home, and a sample was downloaded.";
-        }
+          else
+          {
+            v51 = @"This book was added to your Want to Read list in Home, and a sample was downloaded.";
+          }
 
-        goto LABEL_59;
+          goto LABEL_59;
+        }
       }
     }
 
-    v45 = BSUIBundle();
+    v50 = BSUIBundle(isSample);
     if (messageCopy)
     {
-      v46 = @"The book was added to your Want to Read list in Home.";
+      v51 = @"The book was added to your Want to Read list in Home.";
     }
 
     else
     {
-      v46 = @"This book was added to your Want to Read list in Home.";
+      v51 = @"This book was added to your Want to Read list in Home.";
     }
 
 LABEL_59:
-    v29 = [v45 localizedStringForKey:v46 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
+    v29 = [v50 localizedStringForKey:v51 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
 
 LABEL_72:
     goto LABEL_73;
@@ -1170,9 +1175,10 @@ LABEL_72:
   allValues4 = [assetsCopy allValues];
   lastObject = [NSSet setWithArray:allValues4];
 
-  if ([lastObject count] != &dword_0 + 1)
+  v32 = [lastObject count];
+  if (v32 != &dword_0 + 1)
   {
-    v18 = BSUIBundle();
+    v18 = BSUIBundle(v32);
     if (messageCopy)
     {
       v19 = @"The items were added to your Want to Read collection and can be viewed in Home.";
@@ -1191,7 +1197,7 @@ LABEL_72:
 
   if (integerValue4 == &dword_4 + 2)
   {
-    v18 = BSUIBundle();
+    v18 = BSUIBundle(v35);
     if (messageCopy)
     {
       v19 = @"The audiobooks were added to your Want to Read list in Home.";
@@ -1207,7 +1213,7 @@ LABEL_72:
 
   if (integerValue4 == &dword_0 + 3)
   {
-    v18 = BSUIBundle();
+    v18 = BSUIBundle(v35);
     if (messageCopy)
     {
       v19 = @"The PDFs were added to your Want to Read collection and can be viewed in Home.";
@@ -1223,61 +1229,62 @@ LABEL_63:
     goto LABEL_72;
   }
 
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x2020000000;
-  v66 = 0;
-  if ([self allowsAutoDownloadOfSamplesToWantToRead])
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x2020000000;
+  v71 = 0;
+  allowsAutoDownloadOfSamplesToWantToRead = [self allowsAutoDownloadOfSamplesToWantToRead];
+  if (allowsAutoDownloadOfSamplesToWantToRead)
   {
     objc_opt_class();
-    v47 = +[BSUITemplate manager];
-    dynamicRegistry2 = [v47 dynamicRegistry];
-    v49 = [dynamicRegistry2 stateProviderForKind:@"libraryItem"];
-    v50 = BUDynamicCast();
+    v53 = +[BSUITemplate manager];
+    dynamicRegistry2 = [v53 dynamicRegistry];
+    v55 = [dynamicRegistry2 stateProviderForKind:@"libraryItem"];
+    v56 = BUDynamicCast();
 
-    provider2 = [v50 provider];
+    provider2 = [v56 provider];
     allKeys2 = [assetsCopy allKeys];
-    v60[0] = _NSConcreteStackBlock;
-    v60[1] = 3221225472;
-    v60[2] = sub_389F8;
-    v60[3] = &unk_388300;
-    v53 = provider2;
-    v61 = v53;
-    v62 = &v63;
-    [allKeys2 enumerateObjectsUsingBlock:v60];
+    v65[0] = _NSConcreteStackBlock;
+    v65[1] = 3221225472;
+    v65[2] = sub_389F8;
+    v65[3] = &unk_388300;
+    v59 = provider2;
+    v66 = v59;
+    v67 = &v68;
+    [allKeys2 enumerateObjectsUsingBlock:v65];
   }
 
-  if (*(v64 + 24) == 1)
+  if (*(v69 + 24) == 1)
   {
-    v54 = BSUIBundle();
+    v60 = BSUIBundle(allowsAutoDownloadOfSamplesToWantToRead);
     if (messageCopy)
     {
-      [v54 localizedStringForKey:@"The books were added to your Want to Read list in Home value:and samples were downloaded." table:{&stru_3960F8, @"BookStoreUILocalizable"}];
+      [v60 localizedStringForKey:@"The books were added to your Want to Read list in Home value:and samples were downloaded." table:{&stru_3960F8, @"BookStoreUILocalizable"}];
     }
 
     else
     {
-      [v54 localizedStringForKey:@"These books were added to your Want to Read list in Home value:and samples were downloaded." table:{&stru_3960F8, @"BookStoreUILocalizable"}];
+      [v60 localizedStringForKey:@"These books were added to your Want to Read list in Home value:and samples were downloaded." table:{&stru_3960F8, @"BookStoreUILocalizable"}];
     }
   }
 
   else
   {
-    v54 = BSUIBundle();
+    v60 = BSUIBundle(allowsAutoDownloadOfSamplesToWantToRead);
     if (messageCopy)
     {
-      [v54 localizedStringForKey:@"The books were added to your Want to Read list in Home." value:&stru_3960F8 table:@"BookStoreUILocalizable"];
+      [v60 localizedStringForKey:@"The books were added to your Want to Read list in Home." value:&stru_3960F8 table:@"BookStoreUILocalizable"];
     }
 
     else
     {
-      [v54 localizedStringForKey:@"These books were added to your Want to Read list in Home." value:&stru_3960F8 table:@"BookStoreUILocalizable"];
+      [v60 localizedStringForKey:@"These books were added to your Want to Read list in Home." value:&stru_3960F8 table:@"BookStoreUILocalizable"];
     }
   }
-  v55 = ;
-  v29 = v55;
+  v61 = ;
+  v29 = v61;
 
-  _Block_object_dispose(&v63, 8);
+  _Block_object_dispose(&v68, 8);
 LABEL_73:
 
   return v29;
@@ -1307,7 +1314,7 @@ LABEL_73:
   booksCopy = books;
   optionsCopy = options;
   namedCopy = named;
-  v12 = BSUIBundle();
+  v12 = BSUIBundle(namedCopy);
   v13 = [v12 localizedStringForKey:@"\\U2026" value:&stru_3960F8 table:@"BookStoreUILocalizable"];
   v14 = [namedCopy stringByTruncatingToLength:50 options:3 truncationString:v13];
 
@@ -1329,7 +1336,7 @@ LABEL_73:
 {
   lovedCopy = loved;
   optionsCopy = options;
-  v6 = BSUIBundle();
+  v6 = BSUIBundle(optionsCopy);
   v7 = v6;
   if (lovedCopy)
   {
@@ -1353,21 +1360,21 @@ LABEL_73:
 
   v10 = [v6 localizedStringForKey:v8 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
 
-  v11 = BSUIBundle();
-  v12 = [v11 localizedStringForKey:v9 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
+  v12 = BSUIBundle(v11);
+  v13 = [v12 localizedStringForKey:v9 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
 
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_39188;
-  v16[3] = &unk_388328;
-  v20 = lovedCopy;
-  v17 = v10;
-  v18 = v12;
-  v19 = optionsCopy;
-  v13 = optionsCopy;
-  v14 = v12;
-  v15 = v10;
-  dispatch_async(&_dispatch_main_q, v16);
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_39188;
+  v17[3] = &unk_388328;
+  v21 = lovedCopy;
+  v18 = v10;
+  v19 = v13;
+  v20 = optionsCopy;
+  v14 = optionsCopy;
+  v15 = v13;
+  v16 = v10;
+  dispatch_async(&_dispatch_main_q, v17);
 }
 
 + (void)presentNoticeForMigratingBooksCollection:(id)collection options:(id)options
@@ -1387,33 +1394,33 @@ LABEL_73:
 {
   availableCopy = available;
   optionsCopy = options;
-  v6 = BSUIBundle();
+  v6 = BSUIBundle(optionsCopy);
   v7 = [v6 localizedStringForKey:@"No Sample" value:&stru_3960F8 table:@"BookStoreUILocalizable"];
 
-  v8 = BSUIBundle();
-  v9 = v8;
+  v9 = BSUIBundle(v8);
+  v10 = v9;
   if (availableCopy)
   {
-    v10 = @"There’s no sample available for this audiobook.";
+    v11 = @"There’s no sample available for this audiobook.";
   }
 
   else
   {
-    v10 = @"There’s no sample available for this book.";
+    v11 = @"There’s no sample available for this book.";
   }
 
-  v11 = [v8 localizedStringForKey:v10 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
+  v12 = [v9 localizedStringForKey:v11 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
 
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_39664;
   block[3] = &unk_387000;
-  v16 = v7;
-  v17 = v11;
-  v18 = optionsCopy;
-  v12 = optionsCopy;
-  v13 = v11;
-  v14 = v7;
+  v17 = v7;
+  v18 = v12;
+  v19 = optionsCopy;
+  v13 = optionsCopy;
+  v14 = v12;
+  v15 = v7;
   dispatch_async(&_dispatch_main_q, block);
 }
 
@@ -1458,10 +1465,10 @@ LABEL_73:
 
 + (void)presentNoticeForAddingAssets:(id)assets collectionTitle:(id)title collectionID:(id)d sourceViewController:(id)controller options:(id)options
 {
-  v10 = sub_6620C(&unk_3BDBB0);
+  v10 = sub_6620C(&unk_3BDBB0, &qword_2E47D0);
   __chkstk_darwin(v10 - 8);
   v12 = &v24 - v11;
-  sub_66278(0, &qword_3BC790);
+  sub_66278(0, &qword_3BC790, NSNumber_ptr);
   v25 = sub_2C57E8();
   v13 = sub_2C58C8();
   v15 = v14;

@@ -34,24 +34,24 @@
 + (void)run
 {
   v2 = objc_autoreleasePoolPush();
-  sub_100007DC4();
-  v3 = qword_100021420;
+  sub_100007DC4(v2, v3);
+  v4 = qword_100021420;
   if (os_log_type_enabled(qword_100021420, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "MagicSwitchEnabler --- Launching; MagicSwitch-40 3947", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MagicSwitchEnabler --- Launching; MagicSwitch-40 3947", buf, 2u);
   }
 
-  if (MGGetBoolAnswer() && (v4 = objc_opt_new()) != 0)
+  if (MGGetBoolAnswer() && (v5 = objc_opt_new()) != 0)
   {
-    v5 = v4;
-    v6 = +[MagicSwitchEnabler sharedInstance];
-    workQueue = [v6 workQueue];
+    v6 = v5;
+    v7 = +[MagicSwitchEnabler sharedInstance];
+    workQueue = [v7 workQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000094A4;
     block[3] = &unk_100018538;
-    v13 = v5;
+    v14 = v6;
     dispatch_async(workQueue, block);
   }
 
@@ -60,20 +60,20 @@
     +[KeepAliveManager deleteMagicSwitchPathFile];
   }
 
-  v8 = +[MagicSwitchEnabler sharedInstance];
-  workQueue2 = [v8 workQueue];
-  v10 = workQueue2;
+  v9 = +[MagicSwitchEnabler sharedInstance];
+  workQueue2 = [v9 workQueue];
+  v11 = workQueue2;
   if (workQueue2)
   {
-    v11 = workQueue2;
+    v12 = workQueue2;
   }
 
   else
   {
-    v11 = &_dispatch_main_q;
+    v12 = &_dispatch_main_q;
   }
 
-  xpc_set_event_stream_handler("com.apple.notifyd.matching", v11, &stru_1000186F8);
+  xpc_set_event_stream_handler("com.apple.notifyd.matching", v12, &stru_1000186F8);
 
   objc_autoreleasePoolPop(v2);
   dispatch_main();

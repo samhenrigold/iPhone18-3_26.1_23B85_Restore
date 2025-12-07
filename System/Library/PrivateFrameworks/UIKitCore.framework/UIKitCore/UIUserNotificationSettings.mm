@@ -197,10 +197,10 @@
     categories = self->_categories;
     categories = [v6 categories];
 
-    v10 = [(NSSet *)categories isEqual:categories];
+    isEqual = objc_msgSend_isEqual_(categories);
     if (types == types)
     {
-      v11 = v10;
+      v11 = isEqual;
     }
 
     else

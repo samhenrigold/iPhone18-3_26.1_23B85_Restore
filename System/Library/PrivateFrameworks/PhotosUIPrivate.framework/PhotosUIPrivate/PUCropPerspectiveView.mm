@@ -197,7 +197,7 @@
   *&v46.m21 = *&v47.m21;
   *&v46.m23 = v35;
   CATransform3DScale(&v47, &v46, v36, v36, 1.0);
-  [(PUCropPerspectiveView *)self _imageOrientationTransform];
+  objc_msgSend__imageOrientationTransform(self);
   b = v47;
   CATransform3DConcat(&v46, &a, &b);
   v47 = v46;
@@ -702,7 +702,7 @@ LABEL_28:
   v9 = v8;
   v11 = v10;
   [(PUCropPerspectiveView *)self _croppingRect];
-  [(PUCropPerspectiveView *)self _modelSpaceToViewSpaceTransformWithModelCropRect:v5 currentViewCropRect:v7, v9, v11, v12, v13, v14, v15];
+  objc_msgSend__modelSpaceToViewSpaceTransformWithModelCropRect_currentViewCropRect_(self, v5, v7, v9, v11, v12, v13, v14, v15);
   CGAffineTransformInvert(&v21, &v20);
   v16 = vaddq_f64(*&v21.tx, vmlaq_n_f64(vmulq_n_f64(*&v21.c, y), *&v21.a, x));
   v17 = v16.f64[1];
@@ -738,7 +738,7 @@ LABEL_28:
   [(PUCropPerspectiveView *)self imageOrientedViewCropRect:?];
   memset(&v17, 0, sizeof(v17));
   [(NUCropModel *)self->_cropModel cropRect];
-  [PUCropPerspectiveView _modelSpaceToViewSpaceTransformWithModelCropRect:"_modelSpaceToViewSpaceTransformWithModelCropRect:currentViewCropRect:" currentViewCropRect:?];
+  objc_msgSend__modelSpaceToViewSpaceTransformWithModelCropRect_currentViewCropRect_(self);
   CGAffineTransformInvert(&v17, &v16);
   v12 = v17.tx + MaxY * v17.c + v17.a * MinX;
   v13 = v17.ty + MaxY * v17.d + v17.b * MinX;
@@ -776,7 +776,7 @@ LABEL_28:
   [(PUCropPerspectiveView *)self _croppingRect];
   [(PUCropPerspectiveView *)self imageOrientedViewCropRect:?];
   [(NUCropModel *)self->_cropModel cropRect];
-  [PUCropPerspectiveView _modelSpaceToViewSpaceTransformWithModelCropRect:"_modelSpaceToViewSpaceTransformWithModelCropRect:currentViewCropRect:" currentViewCropRect:?];
+  objc_msgSend__modelSpaceToViewSpaceTransformWithModelCropRect_currentViewCropRect_(self);
   [(PUCropPerspectiveView *)self viewOrientedViewCropRect:MinY * 0.0 + 0.0 * MinX + 0.0, MaxY * 0.0 + 0.0 * MaxX + 0.0, MaxY * 0.0 + 0.0 * MaxX + 0.0 - (MinY * 0.0 + 0.0 * MinX + 0.0), MinY * 0.0 + 0.0 * MinX + 0.0 - (MaxY * 0.0 + 0.0 * MaxX + 0.0)];
   result.size.height = v15;
   result.size.width = v14;
@@ -792,7 +792,7 @@ LABEL_28:
   y = rect.origin.y;
   x = rect.origin.x;
   memset(&v7[1], 0, sizeof(CGAffineTransform));
-  [(PUCropPerspectiveView *)self imageOrientedViewCropTransform];
+  objc_msgSend_imageOrientedViewCropTransform(self, a2);
   v7[0] = v7[1];
   v8.origin.x = x;
   v8.origin.y = y;
@@ -808,7 +808,7 @@ LABEL_28:
   y = rect.origin.y;
   x = rect.origin.x;
   memset(&v8, 0, sizeof(v8));
-  [(PUCropPerspectiveView *)self imageOrientedViewCropTransform];
+  objc_msgSend_imageOrientedViewCropTransform(self, a2);
   CGAffineTransformInvert(&v8, &v7);
   v7 = v8;
   v9.origin.x = x;
@@ -1567,7 +1567,7 @@ void __47__PUCropPerspectiveView__updateImageModulation__block_invoke(uint64_t a
       imageGeometry = self->_imageGeometry;
       if (imageGeometry)
       {
-        [(PLImageGeometry *)imageGeometry transformFromOrientation:v7];
+        objc_msgSend_transformFromOrientation_(imageGeometry);
       }
 
       else
@@ -2009,7 +2009,7 @@ uint64_t __82__PUCropPerspectiveView_updateLayerTransformsAnimated_viewCropRect_
   v31 = *(a1 + 32);
   if (v31)
   {
-    [v31 _imageOrientationTransformWithoutTranslation];
+    objc_msgSend__imageOrientationTransformWithoutTranslation(v31);
   }
 
   else
@@ -2043,7 +2043,7 @@ uint64_t __82__PUCropPerspectiveView_updateLayerTransformsAnimated_viewCropRect_
   v56 = v55;
   v38 = MEMORY[0x1E69B3A28];
   [*(*(a1 + 32) + 696) masterImageRect];
-  [v38 _imageTransformFromPitch:v50 yaw:v9 roll:v14 imageRect:{v39, v40, v41, v42}];
+  objc_msgSend__imageTransformFromPitch_yaw_roll_imageRect_(v38, v50, v9, v14, v39, v40, v41, v42);
   a = v55;
   b = v56;
   CATransform3DConcat(&v55, &a, &b);
@@ -2199,7 +2199,7 @@ uint64_t __81__PUCropPerspectiveView__animateValueFromValue_toValue_interpolatio
   imageGeometry = self->_imageGeometry;
   if (imageGeometry)
   {
-    [(PLImageGeometry *)imageGeometry appliedTransform];
+    objc_msgSend_appliedTransform(imageGeometry, a3);
   }
 
   v6[0] = v6[1];
@@ -2214,7 +2214,7 @@ uint64_t __81__PUCropPerspectiveView__animateValueFromValue_toValue_interpolatio
   imageGeometry = self->_imageGeometry;
   if (imageGeometry)
   {
-    [(PLImageGeometry *)imageGeometry appliedTransform];
+    objc_msgSend_appliedTransform(imageGeometry, a3);
   }
 
   else

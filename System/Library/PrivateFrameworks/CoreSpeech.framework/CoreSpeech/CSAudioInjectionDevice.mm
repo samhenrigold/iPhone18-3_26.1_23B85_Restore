@@ -6,6 +6,7 @@
 - (CSAudioInjectionDevice)initWithDeviceType:(int64_t)type bundlePath:(id)path deviceName:(id)name deviceID:(id)d productID:(id)iD;
 - (CSAudioInjectionDevice)initWithDeviceType:(int64_t)type deviceName:(id)name deviceID:(id)d productID:(id)iD;
 - (CSAudioInjectionEngineProtocol)injectionEngine;
+- (void)setEnableAlwaysOnVoiceTrigger:(BOOL)trigger;
 @end
 
 @implementation CSAudioInjectionDevice
@@ -15,6 +16,28 @@
   WeakRetained = objc_loadWeakRetained(&self->_injectionEngine);
 
   return WeakRetained;
+}
+
+- (void)setEnableAlwaysOnVoiceTrigger:(BOOL)trigger
+{
+  triggerCopy = trigger;
+  if ([(CSAudioInjectionDevice *)self isBundleDevice])
+  {
+    v5 = CSLogContextFacilityCoreSpeech;
+    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315138;
+      v8 = "[CSAudioInjectionDevice setEnableAlwaysOnVoiceTrigger:]";
+      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%s Bundle Injection Device doesn't support setEnableAlwaysOnVoiceTrigger", buf, 0xCu);
+    }
+  }
+
+  else
+  {
+    self->_enableAlwaysOnVoiceTrigger = triggerCopy;
+    WeakRetained = objc_loadWeakRetained(&self->_injectionEngine);
+    [WeakRetained setAlwaysOnVoiceTriggerEnabled:triggerCopy];
+  }
 }
 
 - (BOOL)speakAudio:(id)audio withScaleFactor:(float)factor outASBD:(AudioStreamBasicDescription *)d playbackStarted:(id)started userIntentOptions:(id)options completion:(id)completion

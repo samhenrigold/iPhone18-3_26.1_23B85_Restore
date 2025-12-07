@@ -44,7 +44,7 @@
   v11 = labelCopy;
   if (labelCopy)
   {
-    objc_msgSend_clampedLabelSampledSize(labelCopy, v7, v8, v9, v10);
+    objc_msgSend_clampedLabelSampledSize(labelCopy, v8, v9, v10);
     v12 = v26;
   }
 
@@ -123,124 +123,124 @@ LABEL_8:
   selfCopy = self;
   v6 = objc_msgSend_bufferWithCapacitySize_components_(TSCH3DVectorN2DDataBuffer, a2, v2, v3, v4, &self->_size, 4);
   objc_msgSend_fillCapacity(v6, v7, v8, v9, v10);
-  objc_msgSend_size(selfCopy, v11, v12, v13, v14);
-  v106 = v6;
-  v19 = objc_msgSend_container(v6, v15, v16, v17, v18);
-  v24 = 0;
-  v25 = 0x277D81000uLL;
-  v107 = *v19;
-  v108 = selfCopy;
-  v26 = 0x277CCA000uLL;
-  while (v24 < objc_msgSend_count(selfCopy->_labels, v20, v21, v22, v23))
+  objc_msgSend_size(selfCopy, v11, v12, v13);
+  v84 = v6;
+  v18 = objc_msgSend_container(v6, v14, v15, v16, v17);
+  v23 = 0;
+  v24 = 0x277D81000uLL;
+  v85 = *v18;
+  v86 = selfCopy;
+  v25 = 0x277CCA000uLL;
+  while (v23 < objc_msgSend_count(selfCopy->_labels, v19, v20, v21, v22))
   {
-    v31 = objc_msgSend_objectAtIndexedSubscript_(selfCopy->_labels, v27, v28, v29, v30, v24);
-    v37 = objc_msgSend_get(v31, v32, v33, v34, v35);
-    v41 = (selfCopy->_positions.__begin_ + 8 * v24);
-    v42 = *v41;
-    v110 = v41[1];
-    if (v31)
+    v30 = objc_msgSend_objectAtIndexedSubscript_(selfCopy->_labels, v26, v27, v28, v29, v23);
+    v36 = objc_msgSend_get(v30, v31, v32, v33, v34);
+    v40 = (selfCopy->_positions.__begin_ + 8 * v23);
+    v41 = *v40;
+    v88 = v40[1];
+    if (v30)
     {
-      objc_msgSend_clampedLabelSampledSize(v31, v36, v38, v39, v40);
-      v43 = v111;
+      objc_msgSend_clampedLabelSampledSize(v30, v37, v38, v39);
+      v42 = v89;
     }
 
     else
     {
-      v43 = 0;
-      v111 = 0;
+      v42 = 0;
+      v89 = 0;
     }
 
-    if (v43 + v42 > v112 || HIDWORD(v111) + v110 > v113)
+    if (v42 + v41 > v90 || (HIDWORD(v89) + v88) > v91)
     {
-      v44 = *(v25 + 336);
-      v45 = objc_msgSend_stringWithUTF8String_(*(v26 + 3240), v36, v38, v39, v40, "[TSCH3DTextureAtlasTexture getTextureDataBuffer]");
-      v50 = objc_msgSend_stringWithUTF8String_(*(v26 + 3240), v46, v47, v48, v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DTextureAtlas.mm");
-      v51 = *(v26 + 3240);
-      sub_276152FD4("ivec2(%d, %d)", v52, v53, v54, v55, v56, v57, v58, v42);
-      if (v115 >= 0)
+      v43 = *(v24 + 336);
+      v44 = objc_msgSend_stringWithUTF8String_(*(v25 + 3240), v35, v37, v38, v39, "[TSCH3DTextureAtlasTexture getTextureDataBuffer]");
+      v49 = objc_msgSend_stringWithUTF8String_(*(v25 + 3240), v45, v46, v47, v48, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DTextureAtlas.mm");
+      v50 = *(v25 + 3240);
+      sub_276152FD4(__p, "ivec2(%d, %d)", v41, HIDWORD(v41));
+      if (v93 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v51, v59, v60, v61, v62, __p);
+        objc_msgSend_stringWithUTF8String_(v50, v51, v52, v53, v54, __p);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v51, v59, v60, v61, v62, __p[0]);
+        objc_msgSend_stringWithUTF8String_(v50, v51, v52, v53, v54, __p[0]);
       }
-      v70 = ;
-      v109 = v37;
-      if (v115 < 0)
+      v55 = ;
+      v87 = v36;
+      if (v93 < 0)
       {
         operator delete(__p[0]);
       }
 
-      v71 = v25;
-      v72 = MEMORY[0x277CCACA8];
-      sub_276152FD4("ivec2(%d, %d)", v63, v64, v65, v66, v67, v68, v69, v111);
-      if (v115 >= 0)
+      v56 = v24;
+      v57 = MEMORY[0x277CCACA8];
+      sub_276152FD4(__p, "ivec2(%d, %d)", v89, 0);
+      if (v93 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v72, v73, v74, v75, v76, __p);
+        objc_msgSend_stringWithUTF8String_(v57, v58, v59, v60, v61, __p);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v72, v73, v74, v75, v76, __p[0]);
+        objc_msgSend_stringWithUTF8String_(v57, v58, v59, v60, v61, __p[0]);
       }
-      v84 = ;
-      if (v115 < 0)
+      v62 = ;
+      if (v93 < 0)
       {
         operator delete(__p[0]);
       }
 
-      v85 = MEMORY[0x277CCACA8];
-      sub_276152FD4("ivec2(%d, %d)", v77, v78, v79, v80, v81, v82, v83, v112);
-      if (v115 >= 0)
+      v63 = MEMORY[0x277CCACA8];
+      sub_276152FD4(__p, "ivec2(%d, %d)", v90, 0);
+      if (v93 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v85, v86, v87, v88, v89, __p);
+        objc_msgSend_stringWithUTF8String_(v63, v64, v65, v66, v67, __p);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v85, v86, v87, v88, v89, __p[0]);
+        objc_msgSend_stringWithUTF8String_(v63, v64, v65, v66, v67, __p[0]);
       }
-      v91 = ;
-      if (v115 < 0)
+      v69 = ;
+      if (v93 < 0)
       {
         operator delete(__p[0]);
       }
 
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v44, v90, v92, v93, v94, v45, v50, 213, 0, "src label too large for atlas: pos: %@, srcsize: %@ dstsize: %@", v70, v84, v91);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v43, v68, v70, v71, v72, v44, v49, 213, 0, "src label too large for atlas: pos: %@, srcsize: %@ dstsize: %@", v55, v62, v69);
 
-      v25 = v71;
-      v95 = *(v71 + 336);
-      v37 = v109;
-      objc_msgSend_logBacktraceThrottled(v95, v96, v97, v98, v99);
-      selfCopy = v108;
+      v24 = v56;
+      v73 = *(v56 + 336);
+      v36 = v87;
+      objc_msgSend_logBacktraceThrottled(v73, v74, v75, v76, v77);
+      selfCopy = v86;
     }
 
-    v100 = objc_msgSend_container(v37, v36, v38, v39, v40);
-    if (SHIDWORD(v111) >= 1)
+    v78 = objc_msgSend_container(v36, v35, v37, v38, v39);
+    if (SHIDWORD(v89) >= 1)
     {
-      v101 = 0;
-      v102 = (v107 + 4 * (v42 + v112 * v110));
-      v103 = *v100;
-      v104 = v111;
+      v79 = 0;
+      v80 = (v85 + (4 * (v41 + v90 * v88)));
+      v81 = *v78;
+      v82 = v89;
       do
       {
-        memcpy(v102, v103, 4 * v104);
-        v102 += 4 * v112;
-        v104 = v111;
-        v103 += 4 * v111;
-        ++v101;
+        memcpy(v80, v81, 4 * v82);
+        v80 += 4 * v90;
+        v82 = v89;
+        v81 += 4 * v89;
+        ++v79;
       }
 
-      while (v101 < SHIDWORD(v111));
+      while (v79 < SHIDWORD(v89));
     }
 
-    ++v24;
-    v26 = 0x277CCA000;
+    ++v23;
+    v25 = 0x277CCA000;
   }
 
-  return v106;
+  return v84;
 }
 
 - (id)resource

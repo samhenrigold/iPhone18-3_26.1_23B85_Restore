@@ -336,7 +336,7 @@ id __37__MUIGenericSuggestion__recentsTitle__block_invoke(uint64_t a1, void *a2)
       v8 = objc_alloc(MEMORY[0x277CCAB48]);
       v9 = MEMORY[0x277CCACA8];
       v10 = [v6 objectAtIndexedSubscript:{objc_msgSend(v3, "selectedScope")}];
-      v11 = MUILocalizedTokenAndStringSeparator();
+      v11 = MUILocalizedTokenAndStringSeparator(v10);
       v12 = [v9 stringWithFormat:@"%@%@ ", v10, v11];
       v13 = [v8 initWithString:v12 attributes:*(a1 + 40)];
 
@@ -368,7 +368,7 @@ id __37__MUIGenericSuggestion__recentsTitle__block_invoke(uint64_t a1, void *a2)
   v20 = __Block_byref_object_dispose__3;
   v21 = objc_alloc_init(MEMORY[0x277CCAB48]);
   v4 = objc_alloc(MEMORY[0x277CCA898]);
-  v5 = MUILocalizedTokenSeparator();
+  v5 = MUILocalizedTokenSeparator(v4);
   v6 = [v4 initWithString:v5];
 
   v10 = MEMORY[0x277D85DD0];

@@ -318,37 +318,36 @@ LABEL_19:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v15 = toCopy;
+  v6 = toCopy;
   if (self->_activityType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v15;
+    toCopy = v6;
   }
 
   if (self->_placeName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v15;
+    toCopy = v6;
   }
 
   if (self->_placeType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v15;
+    toCopy = v6;
   }
 
   if (self->_placeLocation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v15;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    dayOfWeekCos = self->_dayOfWeekCos;
     PBDataWriterWriteDoubleField();
-    toCopy = v15;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -367,9 +366,8 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  dayOfWeekSin = self->_dayOfWeekSin;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -383,9 +381,8 @@ LABEL_12:
   }
 
 LABEL_24:
-  normalizedDuration = self->_normalizedDuration;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -399,9 +396,8 @@ LABEL_13:
   }
 
 LABEL_25:
-  timeOfDayCos = self->_timeOfDayCos;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -415,9 +411,8 @@ LABEL_14:
   }
 
 LABEL_26:
-  timeOfDaySin = self->_timeOfDaySin;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -431,9 +426,8 @@ LABEL_15:
   }
 
 LABEL_27:
-  weekOfYear = self->_weekOfYear;
   PBDataWriterWriteUint32Field();
-  toCopy = v15;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x100) == 0)
   {
@@ -447,9 +441,8 @@ LABEL_16:
   }
 
 LABEL_28:
-  isWeekend = self->_isWeekend;
   PBDataWriterWriteBOOLField();
-  toCopy = v15;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -463,15 +456,13 @@ LABEL_17:
   }
 
 LABEL_29:
-  timeOfDayCircularStd = self->_timeOfDayCircularStd;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_18:
-    latLongCircularStd = self->_latLongCircularStd;
     PBDataWriterWriteDoubleField();
-    toCopy = v15;
+    toCopy = v6;
   }
 
 LABEL_19:
@@ -906,7 +897,7 @@ LABEL_10:
     }
 
 LABEL_58:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_59;
   }
 
@@ -915,7 +906,6 @@ LABEL_58:
     goto LABEL_58;
   }
 
-  v11 = *(equalCopy + 100);
   if (self->_isWeekend)
   {
     if ((*(equalCopy + 100) & 1) == 0)
@@ -950,17 +940,17 @@ LABEL_42:
       goto LABEL_58;
     }
 
-    v12 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v12 = (v10 & 4) == 0;
+    v11 = (v10 & 4) == 0;
   }
 
 LABEL_59:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

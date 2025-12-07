@@ -70,9 +70,9 @@
   }
 }
 
-void __90__WFAppDescriptorParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke(void *a1, void *a2, void *a3)
+void __90__WFAppDescriptorParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = a3;
+  v14 = a3;
   v5 = MEMORY[0x1E696E720];
   v6 = a2;
   v7 = [v5 alloc];
@@ -85,39 +85,37 @@ void __90__WFAppDescriptorParameterState_processWithContext_userInputRequiredHan
 
   if ([v12 requiresUserConfirmation])
   {
-    v13 = a1[4];
-    v14 = *(a1[5] + 16);
+    v13 = *(*(a1 + 40) + 16);
   }
 
   else
   {
-    v14 = *(a1[6] + 16);
+    v13 = *(*(a1 + 48) + 16);
   }
 
-  v14();
+  v13();
 }
 
 void __90__WFAppDescriptorParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [*(a1 + 32) variable];
-    v6 = objc_opt_class();
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __90__WFAppDescriptorParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_3;
-    v8[3] = &unk_1E837DE50;
-    v7 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    [v5 getObjectRepresentationForClass:v6 context:v7 completionHandler:v8];
+    v4 = [*(a1 + 32) variable];
+    v5 = objc_opt_class();
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __90__WFAppDescriptorParameterState_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_3;
+    v7[3] = &unk_1E837DE50;
+    v6 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    [v4 getObjectRepresentationForClass:v5 context:v6 completionHandler:v7];
   }
 }
 
@@ -186,7 +184,7 @@ void __90__WFAppDescriptorParameterState_processWithContext_userInputRequiredHan
 
 + (id)valueFromSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   providerCopy = provider;
   parameterCopy = parameter;
@@ -234,9 +232,9 @@ LABEL_12:
       v16 = getWFActionsLogObject();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v22 = 136315138;
-        v23 = "+[WFAppDescriptorParameterState valueFromSerializedRepresentation:variableProvider:parameter:]";
-        _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_ERROR, "%s No serialized representation to make an app descriptor", &v22, 0xCu);
+        v21 = 136315138;
+        v22 = "+[WFAppDescriptorParameterState valueFromSerializedRepresentation:variableProvider:parameter:]";
+        _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_ERROR, "%s No serialized representation to make an app descriptor", &v21, 0xCu);
       }
 
       goto LABEL_20;
@@ -271,18 +269,16 @@ LABEL_12:
   v19 = getWFActionsLogObject();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    v22 = 136315394;
-    v23 = "+[WFAppDescriptorParameterState valueFromSerializedRepresentation:variableProvider:parameter:]";
-    v24 = 2112;
-    v25 = v16;
-    _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_ERROR, "%s Unable to resolve descriptor: %@", &v22, 0x16u);
+    v21 = 136315394;
+    v22 = "+[WFAppDescriptorParameterState valueFromSerializedRepresentation:variableProvider:parameter:]";
+    v23 = 2112;
+    v24 = v16;
+    _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_ERROR, "%s Unable to resolve descriptor: %@", &v21, 0x16u);
   }
 
 LABEL_20:
   v18 = 0;
 LABEL_21:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

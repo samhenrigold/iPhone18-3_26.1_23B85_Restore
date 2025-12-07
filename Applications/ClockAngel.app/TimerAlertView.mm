@@ -10,13 +10,13 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100099418();
+  sub_100099418(selfCopy);
 }
 
 - (void)didMoveToWindow
 {
   selfCopy = self;
-  sub_1000997F4();
+  sub_1000997F4(selfCopy);
 }
 
 - (_TtC10ClockAngel14TimerAlertView)initWithCoder:(id)coder

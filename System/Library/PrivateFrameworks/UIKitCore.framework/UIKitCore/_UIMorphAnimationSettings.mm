@@ -32,7 +32,7 @@
 - (void)setDefaultValues
 {
   selfCopy = self;
-  sub_188F5B1B4();
+  sub_188F5B1B4(selfCopy);
 }
 
 + (id)settingsControllerModule

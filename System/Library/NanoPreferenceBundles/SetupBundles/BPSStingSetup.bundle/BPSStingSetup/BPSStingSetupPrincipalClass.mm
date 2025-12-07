@@ -46,43 +46,43 @@
     setupFlowUserInfo2 = [delegateCopy setupFlowUserInfo];
     v14 = [setupFlowUserInfo2 objectForKeyedSubscript:BPSPairingBackupRestoredFrom];
 
-    v15 = bps_setup_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = bps_setup_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 67109632;
-      *v22 = v10 == 0;
-      *&v22[4] = 1024;
-      *&v22[6] = v14 != 0;
-      v23 = 1024;
-      v24 = v12 != 0;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "controllerNeedsToRunForBuddyControllerDelegate - StingConfig: %{BOOL}d restoredFromBackup: %{BOOL}d restoredFromDevice: %{BOOL}d", &v21, 0x14u);
+      v23 = 67109632;
+      *v24 = v10 == 0;
+      *&v24[4] = 1024;
+      *&v24[6] = v14 != 0;
+      v25 = 1024;
+      v26 = v12 != 0;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "controllerNeedsToRunForBuddyControllerDelegate - StingConfig: %{BOOL}d restoredFromBackup: %{BOOL}d restoredFromDevice: %{BOOL}d", &v23, 0x14u);
     }
 
-    v16 = v14 | v12;
+    v17 = v14 | v12;
 
     if (v10)
     {
-      v17 = v16 == 0;
+      v19 = v17 == 0;
     }
 
     else
     {
-      v17 = 1;
+      v19 = 1;
     }
 
-    v18 = !v17;
-    if (!v17)
+    v20 = !v19;
+    if (!v19)
     {
-      v19 = bps_setup_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v21 = bps_setup_log(v18);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138412290;
-        *v22 = v10;
-        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Skipping Sting Controller, Found existing setting: %@", &v21, 0xCu);
+        v23 = 138412290;
+        *v24 = v10;
+        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Skipping Sting Controller, Found existing setting: %@", &v23, 0xCu);
       }
     }
 
-    LOBYTE(v9) = v18 ^ 1;
+    LOBYTE(v9) = v20 ^ 1;
   }
 
   return v9;

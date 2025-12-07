@@ -34,7 +34,7 @@
     v21 = objc_opt_isKindOfClass();
     if ((isKindOfClass & 1) == 0 && colorCopy && (v21 & 1) == 0)
     {
-      [PRMutableEditingLook initWithIdentifier:a2 displayName:? initialTimeFontConfiguration:? initialTitleColor:?];
+      [PRMutableEditingLook initWithIdentifier:a2 displayName:v15 initialTimeFontConfiguration:? initialTitleColor:?];
     }
 
     if (colorCopy)
@@ -102,7 +102,7 @@
   v6 = objc_opt_isKindOfClass();
   if ((isKindOfClass & 1) == 0 && colorCopy && (v6 & 1) == 0)
   {
-    [PRMutableEditingLook setInitialTitleColor:a2];
+    [(PRMutableEditingLook *)a2 setInitialTitleColor:?];
   }
 
   if (colorCopy)
@@ -140,36 +140,36 @@
   return [(PREditingLook *)v4 initWithLook:self];
 }
 
-- (void)initWithIdentifier:(const char *)a1 displayName:initialTimeFontConfiguration:initialTitleColor:.cold.1(const char *a1)
+- (void)initWithIdentifier:(const char *)a1 displayName:(uint64_t)a2 initialTimeFontConfiguration:initialTitleColor:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"isValidColor"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"isValidColor", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)setInitialTitleColor:(const char *)a1 .cold.1(const char *a1)
+- (void)setInitialTitleColor:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"isValidColor"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"isValidColor", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

@@ -34,31 +34,28 @@
 {
   v4 = sub_1C645C674();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = type metadata accessor for Batch.ID();
-  Description = v22[-1].Description;
-  v10 = Description[8];
-  MEMORY[0x1EEE9AC00](v22);
-  v12 = &v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = type metadata accessor for Batch.Counts();
-  v13 = v21[-1].Description;
-  v14 = v13[8];
-  MEMORY[0x1EEE9AC00](v21);
-  v16 = &v21 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = type metadata accessor for Batch.ID();
+  Description = v19[-1].Description;
+  MEMORY[0x1EEE9AC00](v19);
+  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = type metadata accessor for Batch.Counts();
+  v11 = v18[-1].Description;
+  MEMORY[0x1EEE9AC00](v18);
+  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1C3EE0, &qword_1C6473800);
-  v17 = sub_1C645CA14();
+  v14 = sub_1C645CA14();
   selfCopy = self;
-  sub_1C64240BC(v17);
+  sub_1C64240BC(v14);
   sub_1C645C664();
-  sub_1C642490C(v16, v8, v12);
-  (*(v5 + 8))(v8, v4);
-  v19 = Batch.ID.rawValue.getter();
+  sub_1C642490C(v13, v7, v10);
+  (*(v5 + 8))(v7, v4);
+  v16 = Batch.ID.rawValue.getter();
 
-  (Description[1])(v12, v22);
-  (v13[1])(v16, v21);
-  return v19;
+  Description[1](v10, v19);
+  v11[1](v13, v18);
+  return v16;
 }
 
 - (void)batchDidEnd:(int64_t)end error:(id)error
@@ -95,18 +92,17 @@
 {
   v3 = sub_1C645C674();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = MEMORY[0x1EEE9AC00](v3);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v6);
-  v10 = &v13 - v9;
+  v5 = MEMORY[0x1EEE9AC00](v3);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v9 = &v12 - v8;
   selfCopy = self;
   sub_1C645C664();
-  sub_1C64279C4(v8, v10);
+  sub_1C64279C4(v7, v9);
 
-  v12 = *(v4 + 8);
-  v12(v8, v3);
-  v12(v10, v3);
+  v11 = *(v4 + 8);
+  v11(v7, v3);
+  v11(v9, v3);
 }
 
 - (void)sendAnalyticsEvents

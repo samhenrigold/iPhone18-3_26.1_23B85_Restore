@@ -4,6 +4,7 @@
 - (SPUITestingHelper)initWithSearchViewController:(id)controller;
 - (void)finishLaunchTestIfNeeded;
 - (void)performCardScrollTest:(id)test queryKind:(unint64_t)kind completion:(id)completion;
+- (void)performPushPopCardsOnTest:(id)test options:(id)options needsCard:(BOOL)card sectionHeader:(id)header atDesk:(BOOL)desk queryKind:(unint64_t)kind completion:(id)completion;
 - (void)performScrollOnSearchViewWithTestName:(id)name completion:(id)completion;
 - (void)performTest:(id)test options:(id)options completion:(id)completion;
 - (void)resultViewController:(id)controller finishedGettingAllResults:(id)results;
@@ -15,6 +16,7 @@
 - (void)searchForString:(id)string testName:(id)name event:(unint64_t)event queryKind:(unint64_t)kind completion:(id)completion;
 - (void)searchManyStringsForTestName:(id)name options:(id)options event:(unint64_t)event queryKind:(unint64_t)kind completion:(id)completion;
 - (void)searchString:(id)string andOpenResultsUnderSection:(id)section testName:(id)name needsCard:(BOOL)card queryKind:(unint64_t)kind completion:(id)completion;
+- (void)searchStrings:(id)strings andOpenResultsUnderSection:(id)section testName:(id)name needsCard:(BOOL)card queryKind:(unint64_t)kind completion:(id)completion;
 - (void)searchViewFinishedGettingAllResultsAndFinishedDrawsWithCompletion:(id)completion;
 - (void)setDefaultsForSearchVCWithqueryType:(unint64_t)type;
 - (void)tapIndexsPathsAndPopViewControllersAfter2Seconds:(id)seconds completion:(id)completion;
@@ -35,33 +37,32 @@
 
 - (BOOL)canPerformTest:(id)test
 {
-  v10[18] = *MEMORY[0x277D85DE8];
-  v10[0] = @"ScrollResultsFPS";
-  v10[1] = @"ScrollCardsFPS";
-  v10[2] = @"QuerySearchButtonToResultsLatency";
-  v10[3] = @"QuerySearchButtonToResultsLatencyNoParsec";
-  v10[4] = @"QueryToSuggestionsMixedQueries";
-  v10[5] = @"QueryToSuggestionsMixedQueriesNoParsec";
-  v10[6] = @"QueryToTopHitsLatency";
-  v10[7] = @"QueryToLocalSuggestionLatency";
+  v9[18] = *MEMORY[0x277D85DE8];
+  v9[0] = @"ScrollResultsFPS";
+  v9[1] = @"ScrollCardsFPS";
+  v9[2] = @"QuerySearchButtonToResultsLatency";
+  v9[3] = @"QuerySearchButtonToResultsLatencyNoParsec";
+  v9[4] = @"QueryToSuggestionsMixedQueries";
+  v9[5] = @"QueryToSuggestionsMixedQueriesNoParsec";
+  v9[6] = @"QueryToTopHitsLatency";
+  v9[7] = @"QueryToLocalSuggestionLatency";
   v3 = MEMORY[0x277CBEB98];
-  v10[8] = @"QueryToParsecSuggestionLatency";
-  v10[9] = @"ParsecdLaunchTime";
-  v10[10] = @"SpotlightExtendedLaunch";
-  v10[11] = @"MemoryTestMapsCards";
-  v10[12] = @"MemoryTestContactsCards";
-  v10[13] = @"MemoryTestMapsCardsAtDesk";
-  v10[14] = @"MapsCardsPushAndScrollTests";
-  v10[15] = @"CardPushTest";
-  v10[16] = @"MapsPushTest";
-  v10[17] = @"EntityScrollTest";
+  v9[8] = @"QueryToParsecSuggestionLatency";
+  v9[9] = @"ParsecdLaunchTime";
+  v9[10] = @"SpotlightExtendedLaunch";
+  v9[11] = @"MemoryTestMapsCards";
+  v9[12] = @"MemoryTestContactsCards";
+  v9[13] = @"MemoryTestMapsCardsAtDesk";
+  v9[14] = @"MapsCardsPushAndScrollTests";
+  v9[15] = @"CardPushTest";
+  v9[16] = @"MapsPushTest";
+  v9[17] = @"EntityScrollTest";
   v4 = MEMORY[0x277CBEA60];
   testCopy = test;
-  v6 = [v4 arrayWithObjects:v10 count:18];
+  v6 = [v4 arrayWithObjects:v9 count:18];
   v7 = [v3 setWithArray:v6];
 
   LOBYTE(v3) = [v7 containsObject:testCopy];
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -371,45 +372,71 @@ uint64_t __71__SPUITestingHelper_runPushTest_sectionHeader_searchString_completi
   return result;
 }
 
+- (void)performPushPopCardsOnTest:(id)test options:(id)options needsCard:(BOOL)card sectionHeader:(id)header atDesk:(BOOL)desk queryKind:(unint64_t)kind completion:(id)completion
+{
+  cardCopy = card;
+  testCopy = test;
+  completionCopy = completion;
+  headerCopy = header;
+  v18 = [options objectForKey:@"queryStrings"];
+  v19 = [v18 componentsSeparatedByString:{@", "}];
+  v20 = [v19 mutableCopy];
+
+  activeApp = [(SPUITestingHelper *)self activeApp];
+  [activeApp startedTest:testCopy];
+
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __107__SPUITestingHelper_performPushPopCardsOnTest_options_needsCard_sectionHeader_atDesk_queryKind_completion___block_invoke;
+  v24[3] = &unk_279D072A8;
+  deskCopy = desk;
+  v24[4] = self;
+  v25 = testCopy;
+  v26 = completionCopy;
+  v22 = completionCopy;
+  v23 = testCopy;
+  [(SPUITestingHelper *)self searchStrings:v20 andOpenResultsUnderSection:headerCopy testName:v23 needsCard:cardCopy queryKind:kind completion:v24];
+}
+
 uint64_t __107__SPUITestingHelper_performPushPopCardsOnTest_options_needsCard_sectionHeader_atDesk_queryKind_completion___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (*(a1 + 56) == 1)
   {
-    v30 = 0;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
+    v29 = 0;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    v20 = 0u;
+    v24 = 0u;
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
-    v16 = 0u;
+    v20 = 0u;
     v17 = 0u;
-    v14 = 0u;
+    v18 = 0u;
     v15 = 0u;
-    *buffer = 0u;
+    v16 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    *buffer = 0u;
+    v12 = 0u;
     v2 = getpid();
     proc_pid_rusage(v2, 4, buffer);
-    if (*(&v16 + 1) >= 0x2FAF081uLL)
+    if (*(&v15 + 1) >= 0x2FAF081uLL)
     {
       v3 = [*(a1 + 32) activeApp];
       v4 = *(a1 + 40);
-      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Spotlight memory is above inactive jetsam limit current footprint : %llu, inactive limit: %f", *(&v16 + 1), 0x4187D78400000000, buffer[0], buffer[1], v13, v14, v15, v16];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Spotlight memory is above inactive jetsam limit current footprint : %llu, inactive limit: %f", *(&v15 + 1), 0x4187D78400000000, buffer[0], buffer[1], v12, v13, v14, v15];
       [v3 failedTest:v4 withFailure:v5];
     }
 
-    if (v27 >= 0x11E1A301)
+    if (v26 >= 0x11E1A301)
     {
       v6 = [*(a1 + 32) activeApp];
       v7 = *(a1 + 40);
-      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Spotlight memory went above active jetsam limit : %llu max allowed: %f", v27, 0x41B1E1A300000000];
+      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Spotlight memory went above active jetsam limit : %llu max allowed: %f", v26, 0x41B1E1A300000000];
       [v6 failedTest:v7 withFailure:v8];
     }
   }
@@ -420,10 +447,9 @@ uint64_t __107__SPUITestingHelper_performPushPopCardsOnTest_options_needsCard_se
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -484,6 +510,46 @@ uint64_t __64__SPUITestingHelper_performCardScrollTest_queryKind_completion___bl
   }
 
   return result;
+}
+
+- (void)searchStrings:(id)strings andOpenResultsUnderSection:(id)section testName:(id)name needsCard:(BOOL)card queryKind:(unint64_t)kind completion:(id)completion
+{
+  cardCopy = card;
+  stringsCopy = strings;
+  sectionCopy = section;
+  nameCopy = name;
+  completionCopy = completion;
+  if ([stringsCopy count])
+  {
+    lastObject = [stringsCopy lastObject];
+    [stringsCopy removeLastObject];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __102__SPUITestingHelper_searchStrings_andOpenResultsUnderSection_testName_needsCard_queryKind_completion___block_invoke_2;
+    v21[3] = &unk_279D072D0;
+    v21[4] = self;
+    v22 = stringsCopy;
+    v23 = sectionCopy;
+    v27 = cardCopy;
+    v25 = completionCopy;
+    kindCopy = kind;
+    v24 = nameCopy;
+    v19 = completionCopy;
+    [(SPUITestingHelper *)self searchString:lastObject andOpenResultsUnderSection:v23 testName:v24 needsCard:cardCopy queryKind:kind completion:v21];
+  }
+
+  else
+  {
+    v20 = dispatch_time(0, 3000000000);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __102__SPUITestingHelper_searchStrings_andOpenResultsUnderSection_testName_needsCard_queryKind_completion___block_invoke;
+    block[3] = &unk_279D06F38;
+    v29 = completionCopy;
+    lastObject = completionCopy;
+    dispatch_after(v20, MEMORY[0x277D85CD0], block);
+    v19 = v29;
+  }
 }
 
 - (void)searchString:(id)string andOpenResultsUnderSection:(id)section testName:(id)name needsCard:(BOOL)card queryKind:(unint64_t)kind completion:(id)completion

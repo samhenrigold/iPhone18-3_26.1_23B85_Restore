@@ -7,7 +7,7 @@
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UITouch);
+  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UITouch, UITouch_ptr);
   lazy protocol witness table accessor for type UITouch and conformance NSObject();
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;

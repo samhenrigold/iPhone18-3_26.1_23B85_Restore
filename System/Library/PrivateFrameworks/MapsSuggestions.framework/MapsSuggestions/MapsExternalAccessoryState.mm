@@ -112,7 +112,7 @@
 - (id)_augmentVehicleInfo:(id)info
 {
   v4 = [NSMutableDictionary dictionaryWithDictionary:info];
-  v5 = sub_10002BB88();
+  v5 = sub_10002BB88(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     v8 = 138412290;
@@ -120,8 +120,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "pre-augment vehicleInfo=%@", &v8, 0xCu);
   }
 
-  [(MapsExternalAccessoryState *)self _augmentMutableVehicleInfo:v4];
-  v6 = sub_10002BB88();
+  v6 = sub_10002BB88([(MapsExternalAccessoryState *)self _augmentMutableVehicleInfo:v4]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v8 = 138412290;
@@ -135,7 +134,7 @@
 - (void)updateWithInfo:(id)info
 {
   infoCopy = info;
-  v5 = sub_10002BB88();
+  v5 = sub_10002BB88(infoCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;

@@ -62,7 +62,7 @@
   memset(&v25, 0, sizeof(v25));
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry, a2);
   }
 
   [geometry frame];
@@ -98,7 +98,7 @@
   memset(&v22, 0, sizeof(v22));
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry, a2);
   }
 
   [geometry frame];

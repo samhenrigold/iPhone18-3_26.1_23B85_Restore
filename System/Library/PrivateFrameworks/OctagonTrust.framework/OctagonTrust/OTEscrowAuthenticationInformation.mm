@@ -151,7 +151,6 @@ LABEL_6:
     }
   }
 
-  v9 = *(equalCopy + 68);
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0)
@@ -159,7 +158,6 @@ LABEL_6:
       goto LABEL_31;
     }
 
-    v14 = *(equalCopy + 64);
     if (self->_fmipRecovery)
     {
       if ((*(equalCopy + 64) & 1) == 0)
@@ -187,7 +185,7 @@ LABEL_6:
     }
 
 LABEL_31:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_32;
   }
 
@@ -196,7 +194,6 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v15 = *(equalCopy + 65);
   if (self->_idmsRecovery)
   {
     if ((*(equalCopy + 65) & 1) == 0)
@@ -229,17 +226,17 @@ LABEL_14:
   authenticationIcloudEnvironment = self->_authenticationIcloudEnvironment;
   if (authenticationIcloudEnvironment | *(equalCopy + 5))
   {
-    v13 = [(NSString *)authenticationIcloudEnvironment isEqual:?];
+    v12 = [(NSString *)authenticationIcloudEnvironment isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_32:
 
-  return v13;
+  return v12;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -354,63 +351,61 @@ LABEL_32:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_authenticationPassword)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_authenticationDsid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_authenticationAppleid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_fmipUuid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    fmipRecovery = self->_fmipRecovery;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    idmsRecovery = self->_idmsRecovery;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_authenticationAuthToken)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_authenticationEscrowproxyUrl)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_authenticationIcloudEnvironment)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

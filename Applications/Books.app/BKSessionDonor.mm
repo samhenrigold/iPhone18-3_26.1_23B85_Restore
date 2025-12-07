@@ -44,7 +44,7 @@
 
 - (void)reportPurchase:(id)purchase
 {
-  v4 = sub_1001F1160(&qword_100AD67D0);
+  v4 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v4 - 8);
   v6 = &v14 - v5;
   v7 = sub_1007A2044();
@@ -58,7 +58,7 @@
   }
 
   v11 = qword_100ADE1B0;
-  v12 = sub_10037AB8C(&qword_100ADD578, type metadata accessor for PropertyValueActor.ActorType);
+  v12 = sub_10037AB8C(&qword_100ADD578, type metadata accessor for PropertyValueActor.ActorType, &unk_10081E254);
   v13 = swift_allocObject();
   v13[2] = v11;
   v13[3] = v12;

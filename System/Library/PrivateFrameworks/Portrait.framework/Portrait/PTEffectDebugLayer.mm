@@ -68,10 +68,10 @@
 
     if (!commandBuffer)
     {
-      v27 = _PTLogSystem();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v28 = _PTLogSystem(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        [PTEffectDebugLayer renderDebugInformation:v27 effectRenderRequest:? reactionStates:? disparity:? disparityCentered:? normal:? diffuse:? temporalFilter:? humanDetections:? transform:? fNumber:? focusDisparityRaw:? useDisparityBufferForReactions:? outColor:?];
+        [PTEffectDebugLayer renderDebugInformation:v28 effectRenderRequest:? reactionStates:? disparity:? disparityCentered:? normal:? diffuse:? temporalFilter:? humanDetections:? transform:? fNumber:? focusDisparityRaw:? useDisparityBufferForReactions:? outColor:?];
       }
     }
 
@@ -83,11 +83,11 @@
       [(PTEffectDebugLayer *)self renderThumbnailsWithDisparity:disparityCopy disparityCentered:centeredCopy normal:normalCopy temporalFilter:filterCopy outYUV:asYUV];
     }
 
-    v52 = filterCopy;
-    v53 = disparityCopy;
-    v29 = [v23 objectForKeyedSubscript:@"PTEffectShowFaceRects"];
-    v30 = v29;
-    if (information == 2 || (v51 = [v29 intValue], information == 1) || v51)
+    v53 = filterCopy;
+    v54 = disparityCopy;
+    v30 = [v23 objectForKeyedSubscript:@"PTEffectShowFaceRects"];
+    v31 = v30;
+    if (information == 2 || (v52 = [v30 intValue], information == 1) || v52)
     {
       commandBuffer3 = [(PTMetalContext *)self->_metalContext commandBuffer];
       texLuma = [asYUV texLuma];
@@ -96,47 +96,47 @@
       effectRelighting = self->_effectRelighting;
       if (effectRelighting)
       {
-        v34 = ([(PTEffectRelighting *)effectRelighting smoothFaceRects]+ 56);
-        v35 = 4;
+        v35 = ([(PTEffectRelighting *)effectRelighting smoothFaceRects]+ 56);
+        v36 = 4;
         __asm { FMOV            V0.4S, #1.0 }
 
-        v57 = *&_Q0;
+        v58 = *&_Q0;
         do
         {
-          if (v34[14] > 0.0)
+          if (v35[14] > 0.0)
           {
-            v58 = *(v34 - 1);
-            v41 = *v34;
+            v59 = *(v35 - 1);
+            v42 = *v35;
             width = [asYUV width];
-            v43 = width / [asYUV height];
+            v44 = width / [asYUV height];
             util = self->_util;
             commandBuffer4 = [(PTMetalContext *)self->_metalContext commandBuffer];
             width2 = [asYUV width];
             height = [asYUV height];
-            v48.i64[0] = width2;
-            v48.i64[1] = height;
-            v49.f32[0] = *&v58 - v41;
-            v49.f32[1] = *(&v58 + 1) - (v41 * v43);
-            v59 = COERCE_DOUBLE(vcvt_s32_f32(vmul_f32(v49, vcvt_f32_f64(vcvtq_f64_u64(v48)))));
+            v49.i64[0] = width2;
+            v49.i64[1] = height;
+            v50.f32[0] = *&v59 - v42;
+            v50.f32[1] = *(&v59 + 1) - (v42 * v44);
+            v60 = COERCE_DOUBLE(vcvt_s32_f32(vmul_f32(v50, vcvt_f32_f64(vcvtq_f64_u64(v49)))));
             [asYUV width];
             [asYUV height];
             texLuma2 = [asYUV texLuma];
-            [(PTUtil *)util renderRect:commandBuffer4 rect:0 color:texLuma2 fill:v59 outTexture:v57];
+            [(PTUtil *)util renderRect:commandBuffer4 rect:0 color:texLuma2 fill:v60 outTexture:v58];
           }
 
-          v34 += 18;
-          --v35;
+          v35 += 18;
+          --v36;
         }
 
-        while (v35);
+        while (v36);
       }
     }
 
     [(PTMetalContext *)self->_metalContext commitAndWaitUntilScheduled];
     ++renderDebugInformation_effectRenderRequest_reactionStates_disparity_disparityCentered_normal_diffuse_temporalFilter_humanDetections_transform_fNumber_focusDisparityRaw_useDisparityBufferForReactions_outColor__frameIndex;
 
-    filterCopy = v52;
-    disparityCopy = v53;
+    filterCopy = v53;
+    disparityCopy = v54;
   }
 }
 

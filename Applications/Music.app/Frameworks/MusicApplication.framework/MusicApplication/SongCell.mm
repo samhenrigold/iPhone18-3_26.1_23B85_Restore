@@ -18,7 +18,8 @@
 - (void)setDuration:(double)duration
 {
   selfCopy = self;
-  sub_142E58(duration);
+  v4.n128_f64[0] = duration;
+  sub_142E58(selfCopy, v4);
 }
 
 - (void)setIsProminentItem:(BOOL)item
@@ -29,8 +30,9 @@
 
 - (void)setIsFavorite:(BOOL)favorite
 {
+  favoriteCopy = favorite;
   selfCopy = self;
-  sub_143184(favorite);
+  sub_143184(favoriteCopy);
 }
 
 - (BOOL)isPopular
@@ -65,7 +67,7 @@
 - (void)setIsDisabled:(BOOL)disabled
 {
   selfCopy = self;
-  sub_143BBC(disabled);
+  sub_143BBC(disabled, v4);
 }
 
 - (id)preferredLayoutAttributesFittingAttributes:(id)attributes
@@ -102,7 +104,7 @@
 {
   v5 = sub_AB4E30();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB4E00();
   stateCopy = state;

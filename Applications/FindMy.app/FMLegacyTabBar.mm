@@ -12,7 +12,7 @@
 - (UITraitCollection)traitCollection
 {
   selfCopy = self;
-  v3 = sub_100222414();
+  v3 = sub_100222414(selfCopy);
 
   return v3;
 }
@@ -22,13 +22,13 @@
   barCopy = bar;
   itemCopy = item;
   selfCopy = self;
-  sub_100225F18();
+  sub_100225F18(itemCopy);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100224024();
+  sub_100224024(selfCopy);
 }
 
 - (id)largeContentViewerInteraction:(id)interaction itemAtPoint:(CGPoint)point
@@ -47,7 +47,7 @@
   {
     v6 = v5;
     [(FMLegacyTabBar *)selfCopy setSelectedItem:v5];
-    sub_100225F18();
+    sub_100225F18(v6);
   }
 }
 

@@ -550,7 +550,7 @@ LABEL_70:
                 objc_setProperty_atomic(account3, v76, requestToken, 74);
               }
 
-              v78 = sub_100284B90();
+              v78 = sub_100284B90(TaskQueue);
               v144 = account3;
               v79 = [NSArray arrayWithObjects:&v144 count:1];
               if (v78)

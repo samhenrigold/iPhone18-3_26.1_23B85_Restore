@@ -79,7 +79,7 @@
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dCopy = d;
   v11 = [service deviceForFromID:dCopy];
@@ -90,7 +90,7 @@
 
     v14 = [messageCopy objectForKey:@"s"];
     v15 = [messageCopy objectForKey:@"u"];
-    v29 = [messageCopy objectForKey:@"b"];
+    v28 = [messageCopy objectForKey:@"b"];
     v16 = [messageCopy objectForKey:@"m"];
     v17 = BBLogSync;
     if (os_log_type_enabled(BBLogSync, OS_LOG_TYPE_DEFAULT))
@@ -98,13 +98,13 @@
       v18 = v17;
       name = [v11 name];
       *buf = 138413058;
-      v31 = messageCopy;
-      v32 = 2114;
-      v33 = v14;
-      v34 = 2114;
-      v35 = v15;
-      v36 = 2114;
-      v37 = name;
+      v30 = messageCopy;
+      v31 = 2114;
+      v32 = v14;
+      v33 = 2114;
+      v34 = v15;
+      v35 = 2114;
+      v36 = name;
       _os_log_impl(&dword_241EFF000, v18, OS_LOG_TYPE_DEFAULT, "Received IDS message %@ for %{public}@ and %{public}@ from %{public}@", buf, 0x2Au);
     }
 
@@ -113,7 +113,7 @@
       v20 = -[BBSyncService _platformFromDeviceType:](self, "_platformFromDeviceType:", [v11 deviceType]);
       if (v20)
       {
-        v28 = unsignedIntegerValue;
+        v27 = unsignedIntegerValue;
         mEMORY[0x277CF9650] = [MEMORY[0x277CF9650] sharedCategories];
         v22 = [mEMORY[0x277CF9650] bundleIDForPlatform:*MEMORY[0x277CF9638] fromBundleID:v14 platform:v20];
 
@@ -123,9 +123,9 @@
           if (os_log_type_enabled(BBLogSync, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            v31 = v14;
-            v32 = 2114;
-            v33 = v22;
+            v30 = v14;
+            v31 = 2114;
+            v32 = v22;
             _os_log_impl(&dword_241EFF000, v23, OS_LOG_TYPE_DEFAULT, "Mapping bundle id using categories: %{public}@ -> %{public}@", buf, 0x16u);
           }
 
@@ -134,12 +134,12 @@
           v14 = v24;
         }
 
-        unsignedIntegerValue = v28;
+        unsignedIntegerValue = v27;
       }
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    [WeakRetained syncService:self receivedDismissalDictionaries:v29 dismissalIDs:v16 inSection:v14 universalSectionID:v15 forFeeds:unsignedIntegerValue];
+    [WeakRetained syncService:self receivedDismissalDictionaries:v28 dismissalIDs:v16 inSection:v14 universalSectionID:v15 forFeeds:unsignedIntegerValue];
   }
 
   else
@@ -150,8 +150,6 @@
       [BBSyncService service:dCopy account:v26 incomingMessage:? fromID:?];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enqueueSyncedRemovalForBulletin:(id)bulletin feeds:(unint64_t)feeds
@@ -190,7 +188,7 @@
 
 - (void)_reallyEnqueueBulletin:(id)bulletin feeds:(unint64_t)feeds
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
   dispatch_assert_queue_V2(self->_queue);
   sectionID = [bulletinCopy sectionID];
@@ -211,9 +209,9 @@
   {
     v12 = v11;
     bulletinID = [bulletinCopy bulletinID];
-    v18 = 138412290;
-    v19 = bulletinID;
-    _os_log_impl(&dword_241EFF000, v12, OS_LOG_TYPE_DEFAULT, "really enqueueing bulletin %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = bulletinID;
+    _os_log_impl(&dword_241EFF000, v12, OS_LOG_TYPE_DEFAULT, "really enqueueing bulletin %@", &v17, 0xCu);
   }
 
   dismissalID = [bulletinCopy dismissalID];
@@ -230,39 +228,37 @@
   }
 
   [(BBSyncService *)self _startTimerIfNecessary];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_syncHasDefaultPairedDevice
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   devices = [(IDSService *)self->_service devices];
-  v3 = [devices countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [devices countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(devices);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isDefaultPairedDevice])
+        if ([*(*(&v7 + 1) + 8 * i) isDefaultPairedDevice])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [devices countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [devices countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -274,7 +270,6 @@
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -325,7 +320,7 @@ LABEL_11:
 
 - (void)_sendSyncMessage:(id)message
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   _syncAccount = [(BBSyncService *)self _syncAccount];
   if (_syncAccount)
@@ -345,20 +340,20 @@ LABEL_11:
     if (os_log_type_enabled(BBLogSync, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v21 = v7;
-      v22 = 2112;
-      v23 = messageCopy;
+      v20 = v7;
+      v21 = 2112;
+      v22 = messageCopy;
       _os_log_impl(&dword_241EFF000, v9, OS_LOG_TYPE_DEFAULT, "_sendSyncMessage sending IDS message toCloudDestinations: %@ message : %@", buf, 0x16u);
     }
 
     v10 = objc_alloc(MEMORY[0x277CBEB38]);
     v11 = [v10 initWithObjectsAndKeys:{MEMORY[0x277CBEC28], *MEMORY[0x277D185A0], &unk_28542E878, *MEMORY[0x277D18650], 0}];
     service = self->_service;
+    v17 = 0;
     v18 = 0;
-    v19 = 0;
-    v13 = [(IDSService *)service sendMessage:messageCopy toDestinations:v7 priority:100 options:v11 identifier:&v19 error:&v18];
-    v14 = v19;
-    v15 = v18;
+    v13 = [(IDSService *)service sendMessage:messageCopy toDestinations:v7 priority:100 options:v11 identifier:&v18 error:&v17];
+    v14 = v18;
+    v15 = v17;
     if ((v13 & 1) == 0)
     {
       v16 = BBLogSync;
@@ -378,8 +373,6 @@ LABEL_11:
       _os_log_impl(&dword_241EFF000, v8, OS_LOG_TYPE_DEFAULT, "_sendSyncMessage no syncAccount", buf, 2u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dismissalDictionaryForBulletin:(id)bulletin
@@ -466,20 +459,18 @@ void __39__BBSyncService__startTimerIfNecessary__block_invoke(uint64_t a1)
 
 - (void)service:(uint64_t)a1 account:(NSObject *)a2 incomingMessage:fromID:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241EFF000, a2, OS_LOG_TYPE_ERROR, "Received IDS message from invalid device: %@.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241EFF000, a2, OS_LOG_TYPE_ERROR, "Received IDS message from invalid device: %@.", &v2, 0xCu);
 }
 
 - (void)_sendSyncMessage:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_241EFF000, a2, OS_LOG_TYPE_ERROR, "sending to cloud failed with error : %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_241EFF000, a2, OS_LOG_TYPE_ERROR, "sending to cloud failed with error : %{public}@", &v2, 0xCu);
 }
 
 @end

@@ -1,10 +1,12 @@
 @interface FKFriendsManager
 + (id)collapseChangeLogsIntoChangeLog:(id)log;
 + (id)managerForDomain:(id)domain;
++ (void)setEnableEmptyTrailingGroup:(BOOL)group domain:(id)domain;
 + (void)setFriendGroupTitleChangedExternallyNotificationName:(id)name domain:(id)domain;
 + (void)setFriendsChangedExternallyNotificationName:(id)name domain:(id)domain;
 + (void)setGroupSize:(unint64_t)size domain:(id)domain;
 + (void)setMaxGroupCount:(unint64_t)count domain:(id)domain;
++ (void)setRefreshAgainstContactsOnInitEnabled:(BOOL)enabled domain:(id)domain;
 - (BOOL)_addressBookSequenceNumberDidChange;
 - (BOOL)_changeLogContainsFriendAdditionsOrUpdates;
 - (BOOL)_shouldAddEmptyGroup;
@@ -66,6 +68,7 @@
 - (void)_storeSourcedPerson:(id)person;
 - (void)_updateFriendGroups;
 - (void)_updateFriends:(id)friends;
+- (void)_updateLastKnownAddressBookSequenceNumber:(int)number;
 - (void)dealloc;
 - (void)friendGroup:(id)group didMoveFriends:(id)friends;
 - (void)friendGroup:(id)group didRemoveFriend:(id)friend atPosition:(unint64_t)position;
@@ -104,17 +107,19 @@
 
 uint64_t __37__FKFriendsManager_managerForDomain___block_invoke()
 {
-  managerForDomain___sharedFriendListManagers = [MEMORY[0x277CBEB38] dictionary];
+  v0 = [MEMORY[0x277CBEB38] dictionary];
+  v1 = managerForDomain___sharedFriendListManagers;
+  managerForDomain___sharedFriendListManagers = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (FKFriendsManager)initWithDomain:(id)domain
 {
   domainCopy = domain;
-  v49.receiver = self;
-  v49.super_class = FKFriendsManager;
-  v5 = [(FKFriendsManager *)&v49 init];
+  v50.receiver = self;
+  v50.super_class = FKFriendsManager;
+  v5 = [(FKFriendsManager *)&v50 init];
   v6 = v5;
   if (v5)
   {
@@ -138,75 +143,75 @@ uint64_t __37__FKFriendsManager_managerForDomain___block_invoke()
 
     if (v11)
     {
-      v12 = getCNContactStoreDidChangeNotification();
-      [defaultCenter addObserver:v6 selector:sel__addressBookChanged_ name:v12 object:0];
+      v13 = getCNContactStoreDidChangeNotification();
+      [defaultCenter addObserver:v6 selector:sel__addressBookChanged_ name:v13 object:0];
     }
 
     else
     {
-      v12 = _FKGetLogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = _FKGetLogSystem(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [FKFriendsManager initWithDomain:v12];
+        [FKFriendsManager initWithDomain:v13];
       }
     }
 
     [defaultCenter addObserver:v6 selector:sel__personValuesChanged_ name:@"FKPersonValuesChangedNotification" object:0];
-    v13 = [MEMORY[0x277CCAA50] hashTableWithOptions:0];
+    v14 = [MEMORY[0x277CCAA50] hashTableWithOptions:0];
     sourcedPersons = v6->_sourcedPersons;
-    v6->_sourcedPersons = v13;
+    v6->_sourcedPersons = v14;
 
     strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
     identifiersToPersonMap = v6->_identifiersToPersonMap;
     v6->_identifiersToPersonMap = strongToStrongObjectsMapTable;
 
-    v17 = objc_opt_new();
+    v18 = objc_opt_new();
     npsManager = v6->_npsManager;
-    v6->_npsManager = v17;
+    v6->_npsManager = v18;
 
-    v19 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-    v20 = dispatch_queue_create("com.apple.FriendKit.FKFriendsManager.Save", v19);
+    v20 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+    v21 = dispatch_queue_create("com.apple.FriendKit.FKFriendsManager.Save", v20);
     saveQueue = v6->_saveQueue;
-    v6->_saveQueue = v20;
+    v6->_saveQueue = v21;
 
-    v22 = dispatch_queue_attr_make_with_qos_class(MEMORY[0x277D85CD8], QOS_CLASS_DEFAULT, 0);
-    v23 = dispatch_queue_create("com.apple.FriendKit.FKFriendsManager.ChangeLog", v22);
+    v23 = dispatch_queue_attr_make_with_qos_class(MEMORY[0x277D85CD8], QOS_CLASS_DEFAULT, 0);
+    v24 = dispatch_queue_create("com.apple.FriendKit.FKFriendsManager.ChangeLog", v23);
     changeLogQueue = v6->_changeLogQueue;
-    v6->_changeLogQueue = v23;
+    v6->_changeLogQueue = v24;
 
     keyExistsAndHasValidFormat = 0;
     AppIntegerValue = CFPreferencesGetAppIntegerValue(@"FKMaxGroupCount", v6->_domain, &keyExistsAndHasValidFormat);
-    v26 = 20;
+    v27 = 20;
     if (keyExistsAndHasValidFormat)
     {
-      v26 = AppIntegerValue;
+      v27 = AppIntegerValue;
     }
 
-    v6->_maxFriendGroups = v26;
-    v27 = CFPreferencesGetAppIntegerValue(@"FKGroupSize", v6->_domain, &keyExistsAndHasValidFormat);
-    v28 = 12;
+    v6->_maxFriendGroups = v27;
+    v28 = CFPreferencesGetAppIntegerValue(@"FKGroupSize", v6->_domain, &keyExistsAndHasValidFormat);
+    v29 = 12;
     if (keyExistsAndHasValidFormat)
     {
-      v28 = v27;
+      v29 = v28;
     }
 
-    v6->_maxFriendsPerGroup = v28;
+    v6->_maxFriendsPerGroup = v29;
     AppBooleanValue = CFPreferencesGetAppBooleanValue(@"FKEmptyTrailingGroupEnabled", v6->_domain, &keyExistsAndHasValidFormat);
     if (keyExistsAndHasValidFormat)
     {
-      v30 = AppBooleanValue == 1;
+      v31 = AppBooleanValue == 1;
     }
 
     else
     {
-      v30 = 1;
+      v31 = 1;
     }
 
-    v31 = v30;
-    v6->_shouldAddEmptyTrailingGroup = v31;
-    v32 = CFPreferencesCopyAppValue(@"FKFriendsChangedExternallyNotificationName", v6->_domain);
-    v6->_friendsChangedExternallyNotificationName = v32;
-    if (v32 && CFStringGetLength(v32) >= 1)
+    v32 = v31;
+    v6->_shouldAddEmptyTrailingGroup = v32;
+    v33 = CFPreferencesCopyAppValue(@"FKFriendsChangedExternallyNotificationName", v6->_domain);
+    v6->_friendsChangedExternallyNotificationName = v33;
+    if (v33 && CFStringGetLength(v33) >= 1)
     {
       friendsChangedExternallyNotificationName = v6->_friendsChangedExternallyNotificationName;
     }
@@ -217,9 +222,9 @@ uint64_t __37__FKFriendsManager_managerForDomain___block_invoke()
     }
 
     v6->_friendsChangedExternallyNotificationName = friendsChangedExternallyNotificationName;
-    v34 = CFPreferencesCopyAppValue(@"FKFriendGroupTitleChangedExternallyNotificationName", v6->_domain);
-    v6->_friendGroupTitleChangedExternallyNotificationName = v34;
-    if (v34 && CFStringGetLength(v34) >= 1)
+    v35 = CFPreferencesCopyAppValue(@"FKFriendGroupTitleChangedExternallyNotificationName", v6->_domain);
+    v6->_friendGroupTitleChangedExternallyNotificationName = v35;
+    if (v35 && CFStringGetLength(v35) >= 1)
     {
       friendGroupTitleChangedExternallyNotificationName = v6->_friendGroupTitleChangedExternallyNotificationName;
     }
@@ -230,49 +235,49 @@ uint64_t __37__FKFriendsManager_managerForDomain___block_invoke()
     }
 
     v6->_friendGroupTitleChangedExternallyNotificationName = friendGroupTitleChangedExternallyNotificationName;
-    v36 = CFPreferencesGetAppBooleanValue(@"FKDeduplicateFriendListEnabled", v6->_domain, &keyExistsAndHasValidFormat);
+    v37 = CFPreferencesGetAppBooleanValue(@"FKDeduplicateFriendListEnabled", v6->_domain, &keyExistsAndHasValidFormat);
     if (keyExistsAndHasValidFormat)
     {
-      v37 = v36 == 1;
+      v38 = v37 == 1;
     }
 
     else
     {
-      v37 = 1;
+      v38 = 1;
     }
 
-    v38 = v37;
-    v6->_shouldDeduplicateFriendList = v38;
-    v39 = CFPreferencesGetAppBooleanValue(@"FKRemoveDestinationlessFriendsEnabled", v6->_domain, &keyExistsAndHasValidFormat);
+    v39 = v38;
+    v6->_shouldDeduplicateFriendList = v39;
+    v40 = CFPreferencesGetAppBooleanValue(@"FKRemoveDestinationlessFriendsEnabled", v6->_domain, &keyExistsAndHasValidFormat);
     if (keyExistsAndHasValidFormat)
     {
-      v40 = v39 == 1;
+      v41 = v40 == 1;
     }
 
     else
     {
-      v40 = 0;
+      v41 = 0;
     }
 
-    v41 = v40;
-    v6->_shouldRemoveDestinationlessFriends = v41;
-    v42 = CFPreferencesGetAppBooleanValue(@"FKRefreshAgainstContactsOnInitEnabled", v6->_domain, &keyExistsAndHasValidFormat);
+    v42 = v41;
+    v6->_shouldRemoveDestinationlessFriends = v42;
+    v43 = CFPreferencesGetAppBooleanValue(@"FKRefreshAgainstContactsOnInitEnabled", v6->_domain, &keyExistsAndHasValidFormat);
     if (keyExistsAndHasValidFormat)
     {
-      v43 = v42 == 1;
+      v44 = v43 == 1;
     }
 
     else
     {
-      v43 = 1;
+      v44 = 1;
     }
 
-    v44 = v43;
-    v6->_refreshAgainstContactsEnabled = v44;
+    v45 = v44;
+    v6->_refreshAgainstContactsEnabled = v45;
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterAddObserver(DarwinNotifyCenter, v6, _FKFriendsChangedExternallyHandler, v6->_friendsChangedExternallyNotificationName, 0, CFNotificationSuspensionBehaviorDrop);
-    v46 = CFNotificationCenterGetDarwinNotifyCenter();
-    CFNotificationCenterAddObserver(v46, v6, _FKFriendGroupTitleChangedExternallyHandler, v6->_friendGroupTitleChangedExternallyNotificationName, 0, CFNotificationSuspensionBehaviorDrop);
+    v47 = CFNotificationCenterGetDarwinNotifyCenter();
+    CFNotificationCenterAddObserver(v47, v6, _FKFriendGroupTitleChangedExternallyHandler, v6->_friendGroupTitleChangedExternallyNotificationName, 0, CFNotificationSuspensionBehaviorDrop);
     [(FKFriendsManager *)v6 _createEmptyFriendList];
     [(FKFriendsManager *)v6 _loadFriendList];
     [(FKFriendsManager *)v6 _loadGroupTitles];
@@ -347,19 +352,18 @@ uint64_t __37__FKFriendsManager_managerForDomain___block_invoke()
 
 - (void)reloadFriendList
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = _FKGetLogSystem();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = _FKGetLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[FKFriendsManager reloadFriendList]";
-    v7 = 1024;
-    v8 = 312;
-    _os_log_impl(&dword_24BC19000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) a friend list reload was requested", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "[FKFriendsManager reloadFriendList]";
+    v6 = 1024;
+    v7 = 312;
+    _os_log_impl(&dword_24BC19000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) a friend list reload was requested", &v4, 0x12u);
   }
 
   [(FKFriendsManager *)self _loadFriendList];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadFriendList
@@ -367,7 +371,7 @@ uint64_t __37__FKFriendsManager_managerForDomain___block_invoke()
   v16 = *MEMORY[0x277D85DE8];
   CFPreferencesAppSynchronize(self->_domain);
   v3 = CFPreferencesCopyAppValue(@"FriendList", self->_domain);
-  v4 = _FKGetLogSystem();
+  v4 = _FKGetLogSystem(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
@@ -415,27 +419,28 @@ uint64_t __37__FKFriendsManager_managerForDomain___block_invoke()
     [(FKFriendsManager *)self save];
   }
 
-  [(FKFriendsManager *)self _updateFriendGroups];
-  self->_lastLoadHadChanges = [(FKFriendsManager *)self _changeLogCount]!= 0;
+  [(FKFriendsManager *)self _updateFriendGroups:*v13];
+  _changeLogCount = [(FKFriendsManager *)self _changeLogCount];
+  self->_lastLoadHadChanges = _changeLogCount != 0;
   if (self->_didCompleteInitialLoading)
   {
-    v9 = _FKGetLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _FKGetLogSystem(_changeLogCount);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = @" no";
+      v11 = @" no";
       lastLoadHadChanges = self->_lastLoadHadChanges;
       *&v13[4] = "[FKFriendsManager _loadFriendList]";
       *v13 = 136315650;
       if (lastLoadHadChanges)
       {
-        v10 = &stru_285F8D5E0;
+        v11 = &stru_285F8D5E0;
       }
 
       *&v13[12] = 1024;
       *&v13[14] = 345;
       v14 = 2112;
-      v15 = v10;
-      _os_log_impl(&dword_24BC19000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) friend list has%@ changes", v13, 0x1Cu);
+      v15 = v11;
+      _os_log_impl(&dword_24BC19000, v10, OS_LOG_TYPE_DEFAULT, "%s (%d) friend list has%@ changes", v13, 0x1Cu);
     }
   }
 
@@ -453,47 +458,45 @@ uint64_t __37__FKFriendsManager_managerForDomain___block_invoke()
   [(FKFriendsManager *)self _createAddressToPersonDictionary];
   [(FKFriendsManager *)self _aggdLogFriendCount];
   [(FKFriendsManager *)self _aggdLogFriendGroupCount];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_curatedFriendList
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy_;
-  v14 = __Block_byref_object_dispose_;
-  v15 = 0;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __38__FKFriendsManager__curatedFriendList__block_invoke;
-  v9[3] = &unk_27916A1E0;
-  v9[4] = &v10;
-  [FKAddressBook performBlock:v9];
-  v3 = [v11[5] count];
+  v21 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy_;
+  v13 = __Block_byref_object_dispose_;
+  v14 = 0;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __38__FKFriendsManager__curatedFriendList__block_invoke;
+  v8[3] = &unk_27916A1E0;
+  v8[4] = &v9;
+  [FKAddressBook performBlock:v8];
+  v3 = [v10[5] count];
   if (v3)
   {
     if (v3 > self->_maxFriendGroups * self->_maxFriendsPerGroup)
     {
-      [v11[5] removeObjectsInRange:?];
+      v3 = [v10[5] removeObjectsInRange:?];
     }
 
-    v4 = _FKGetLogSystem();
+    v4 = _FKGetLogSystem(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [v11[5] count];
+      v5 = [v10[5] count];
       *buf = 136315650;
-      v17 = "[FKFriendsManager _curatedFriendList]";
-      v18 = 1024;
-      v19 = 412;
-      v20 = 2048;
-      v21 = v5;
+      v16 = "[FKFriendsManager _curatedFriendList]";
+      v17 = 1024;
+      v18 = 412;
+      v19 = 2048;
+      v20 = v5;
       _os_log_impl(&dword_24BC19000, v4, OS_LOG_TYPE_DEFAULT, "%s (%d) phone favorites import complete with %tu Digital Touch friends", buf, 0x1Cu);
     }
 
-    v6 = [v11[5] copy];
+    v6 = [v10[5] copy];
   }
 
   else
@@ -501,32 +504,30 @@ uint64_t __37__FKFriendsManager_managerForDomain___block_invoke()
     v6 = 0;
   }
 
-  _Block_object_dispose(&v10, 8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v9, 8);
 
   return v6;
 }
 
 void __38__FKFriendsManager__curatedFriendList__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CE9770] sharedInstance];
   v4 = [v3 entries];
 
   v5 = [v4 count];
-  v6 = _FKGetLogSystem();
+  v6 = _FKGetLogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
     if (v7)
     {
       *buf = 136315650;
-      v40 = "[FKFriendsManager _curatedFriendList]_block_invoke";
-      v41 = 1024;
-      v42 = 372;
-      v43 = 2048;
-      v44 = [v4 count];
+      v41 = "[FKFriendsManager _curatedFriendList]_block_invoke";
+      v42 = 1024;
+      v43 = 372;
+      v44 = 2048;
+      v45 = [v4 count];
       _os_log_impl(&dword_24BC19000, v6, OS_LOG_TYPE_DEFAULT, "%s (%d) processing %tu phone favorites for Digital Touch friend import", buf, 0x1Cu);
     }
 
@@ -536,57 +537,61 @@ void __38__FKFriendsManager__curatedFriendList__block_invoke(uint64_t a1, uint64
     *(v9 + 40) = v8;
 
     v11 = [MEMORY[0x277CBEB58] set];
-    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v31 = v4;
+    v39 = 0u;
+    v32 = v4;
     v12 = v4;
     v13 = v11;
     obj = v12;
-    v14 = [v12 countByEnumeratingWithState:&v35 objects:v49 count:16];
+    v14 = [v12 countByEnumeratingWithState:&v36 objects:v50 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v36;
+      v16 = *v37;
       v17 = 0x279169000uLL;
       do
       {
         v18 = 0;
-        v32 = v15;
+        v33 = v15;
         do
         {
-          if (*v36 != v16)
+          if (*v37 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v35 + 1) + 8 * v18);
+          v19 = *(*(&v36 + 1) + 8 * v18);
           v20 = [objc_alloc(*(v17 + 3976)) initWithFavorite:v19 addressBook:a2];
           v21 = [v20 abRecordGUID];
-          if (v21 && [v13 containsObject:v21])
+          if (v21)
           {
-            v22 = _FKGetLogSystem();
-            if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            v22 = [v13 containsObject:v21];
+            if (v22)
             {
-              goto LABEL_19;
+              v23 = _FKGetLogSystem(v22);
+              if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+              {
+                goto LABEL_19;
+              }
+
+              v24 = [v19 displayName];
+              v25 = [v19 value];
+              *buf = 136316162;
+              v41 = "[FKFriendsManager _curatedFriendList]_block_invoke";
+              v42 = 1024;
+              v43 = 382;
+              v44 = 2112;
+              v45 = v24;
+              v46 = 2112;
+              v47 = v25;
+              v48 = 2112;
+              v49[0] = v21;
+              _os_log_impl(&dword_24BC19000, v23, OS_LOG_TYPE_DEFAULT, "%s (%d) not importing phone favorite [%@ | %@] with record GUID %@; person was already imported", buf, 0x30u);
+
+              goto LABEL_18;
             }
-
-            v23 = [v19 displayName];
-            v24 = [v19 value];
-            *buf = 136316162;
-            v40 = "[FKFriendsManager _curatedFriendList]_block_invoke";
-            v41 = 1024;
-            v42 = 382;
-            v43 = 2112;
-            v44 = v23;
-            v45 = 2112;
-            v46 = v24;
-            v47 = 2112;
-            v48[0] = v21;
-            _os_log_impl(&dword_24BC19000, v22, OS_LOG_TYPE_DEFAULT, "%s (%d) not importing phone favorite [%@ | %@] with record GUID %@; person was already imported", buf, 0x30u);
-
-            goto LABEL_18;
           }
 
           if (!v20)
@@ -594,42 +599,42 @@ void __38__FKFriendsManager__curatedFriendList__block_invoke(uint64_t a1, uint64
             __38__FKFriendsManager__curatedFriendList__block_invoke_cold_1();
           }
 
-          [*(*(*(a1 + 32) + 8) + 40) addObject:v20];
+          v26 = [*(*(*(a1 + 32) + 8) + 40) addObject:v20];
           if (v21)
           {
-            [v13 addObject:v21];
+            v26 = [v13 addObject:v21];
           }
 
-          v22 = _FKGetLogSystem();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v23 = _FKGetLogSystem(v26);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = [v19 displayName];
+            v24 = [v19 displayName];
             [v19 value];
-            v25 = v16;
-            v26 = v13;
-            v28 = v27 = a2;
-            v29 = [v19 _abUid];
+            v27 = v16;
+            v28 = v13;
+            v30 = v29 = a2;
+            v31 = [v19 _abUid];
             *buf = 136316418;
-            v40 = "[FKFriendsManager _curatedFriendList]_block_invoke";
-            v41 = 1024;
-            v42 = 393;
-            v43 = 2112;
-            v44 = v23;
-            v45 = 2112;
-            v46 = v28;
-            v47 = 1024;
-            LODWORD(v48[0]) = v29;
-            WORD2(v48[0]) = 2112;
-            *(v48 + 6) = v21;
-            _os_log_impl(&dword_24BC19000, v22, OS_LOG_TYPE_DEFAULT, "%s (%d) imported phone favorite [%@ | %@] with record ID %d and GUID %@", buf, 0x36u);
+            v41 = "[FKFriendsManager _curatedFriendList]_block_invoke";
+            v42 = 1024;
+            v43 = 393;
+            v44 = 2112;
+            v45 = v24;
+            v46 = 2112;
+            v47 = v30;
+            v48 = 1024;
+            LODWORD(v49[0]) = v31;
+            WORD2(v49[0]) = 2112;
+            *(v49 + 6) = v21;
+            _os_log_impl(&dword_24BC19000, v23, OS_LOG_TYPE_DEFAULT, "%s (%d) imported phone favorite [%@ | %@] with record ID %d and GUID %@", buf, 0x36u);
 
-            a2 = v27;
-            v13 = v26;
-            v16 = v25;
+            a2 = v29;
+            v13 = v28;
+            v16 = v27;
             v17 = 0x279169000;
 LABEL_18:
 
-            v15 = v32;
+            v15 = v33;
           }
 
 LABEL_19:
@@ -638,7 +643,7 @@ LABEL_19:
         }
 
         while (v15 != v18);
-        v15 = [obj countByEnumeratingWithState:&v35 objects:v49 count:16];
+        v15 = [obj countByEnumeratingWithState:&v36 objects:v50 count:16];
       }
 
       while (v15);
@@ -646,19 +651,17 @@ LABEL_19:
 
     v6 = v13;
 
-    v4 = v31;
+    v4 = v32;
   }
 
   else if (v7)
   {
     *buf = 136315394;
-    v40 = "[FKFriendsManager _curatedFriendList]_block_invoke";
-    v41 = 1024;
-    v42 = 396;
+    v41 = "[FKFriendsManager _curatedFriendList]_block_invoke";
+    v42 = 1024;
+    v43 = 396;
     _os_log_impl(&dword_24BC19000, v6, OS_LOG_TYPE_DEFAULT, "%s (%d) no phone favorites found to import to Digital Touch friends", buf, 0x12u);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addCuratedFriends:(id)friends
@@ -666,12 +669,12 @@ LABEL_19:
   friendsCopy = friends;
   if ([friendsCopy count])
   {
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __39__FKFriendsManager__addCuratedFriends___block_invoke;
-    v18[3] = &unk_27916A208;
-    v18[4] = self;
-    [friendsCopy enumerateObjectsUsingBlock:v18];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __39__FKFriendsManager__addCuratedFriends___block_invoke;
+    v19[3] = &unk_27916A208;
+    v19[4] = self;
+    [friendsCopy enumerateObjectsUsingBlock:v19];
     v5 = [(NSMutableArray *)self->_friendList count];
     maxFriendsPerGroup = self->_maxFriendsPerGroup;
     if (v5 % maxFriendsPerGroup)
@@ -689,19 +692,20 @@ LABEL_19:
     }
 
     [(FKFriendsManager *)self _updateFriendGroups];
-    v10 = [(NSMutableArray *)self->_friendGroups count]- 1;
-    v11 = FriendKitBundle();
-    v12 = [v11 localizedStringForKey:@"NUMBERED_FAVORITES_FORMAT_STRING" value:&stru_285F8D5E0 table:0];
+    v10 = [(NSMutableArray *)self->_friendGroups count];
+    v11 = v10 - 1;
+    v12 = FriendKitBundle(v10);
+    v13 = [v12 localizedStringForKey:@"NUMBERED_FAVORITES_FORMAT_STRING" value:&stru_285F8D5E0 table:0];
 
     friendGroups = self->_friendGroups;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __39__FKFriendsManager__addCuratedFriends___block_invoke_2;
-    v15[3] = &unk_27916A230;
-    v16 = v12;
-    v17 = v10;
-    v14 = v12;
-    [(NSMutableArray *)friendGroups enumerateObjectsUsingBlock:v15];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __39__FKFriendsManager__addCuratedFriends___block_invoke_2;
+    v16[3] = &unk_27916A230;
+    v17 = v13;
+    v18 = v11;
+    v15 = v13;
+    [(NSMutableArray *)friendGroups enumerateObjectsUsingBlock:v16];
     [(FKFriendsManager *)self saveFriendGroupTitles];
   }
 }
@@ -712,7 +716,7 @@ uint64_t __39__FKFriendsManager__addCuratedFriends___block_invoke_2(uint64_t a1,
   v11 = v5;
   if (!a3)
   {
-    v8 = FriendKitBundle();
+    v8 = FriendKitBundle(v5);
     v9 = [v8 localizedStringForKey:@"FAVORITES" value:&stru_285F8D5E0 table:0];
     [v11 setTitle:v9];
 
@@ -810,7 +814,7 @@ LABEL_7:
 
 - (BOOL)canAddFriend
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([(FKFriendsManager *)self _canAddFriendGroup])
   {
     LOBYTE(v3) = 1;
@@ -818,32 +822,32 @@ LABEL_7:
 
   else
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     v4 = self->_friendGroups;
-    v3 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v3 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v3)
     {
-      v5 = *v10;
+      v5 = *v9;
       while (2)
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v10 != v5)
+          if (*v9 != v5)
           {
             objc_enumerationMutation(v4);
           }
 
-          if (![*(*(&v9 + 1) + 8 * i) isFull])
+          if (![*(*(&v8 + 1) + 8 * i) isFull])
           {
             LOBYTE(v3) = 1;
             goto LABEL_13;
           }
         }
 
-        v3 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v3 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v3)
         {
           continue;
@@ -856,7 +860,6 @@ LABEL_7:
 LABEL_13:
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -906,10 +909,11 @@ LABEL_13:
         [(NSMutableArray *)self->_friendList setObject:v10 atIndexedSubscript:v8];
         self->_needsFriendListSync = 1;
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v11 = _FKGetLogSystem();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v12 = _FKGetLogSystem(isKindOfClass);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136316162;
             v16 = "[FKFriendsManager syncFriendGroup:]";
@@ -921,7 +925,7 @@ LABEL_13:
             v22 = v7;
             v23 = 1024;
             v24 = v14;
-            _os_log_impl(&dword_24BC19000, v11, OS_LOG_TYPE_DEFAULT, "%s (%d) @%@ was moved to position %u in group %u", buf, 0x28u);
+            _os_log_impl(&dword_24BC19000, v12, OS_LOG_TYPE_DEFAULT, "%s (%d) @%@ was moved to position %u in group %u", buf, 0x28u);
           }
         }
       }
@@ -942,8 +946,6 @@ LABEL_13:
   {
     [(FKFriendsManager *)self _addEmptyGroup];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purgeEmptyFriendGroups
@@ -1037,6 +1039,15 @@ void __53__FKFriendsManager__postGroupListChangedNotification__block_invoke()
   CFPreferencesAppSynchronize(applicationID);
 }
 
++ (void)setEnableEmptyTrailingGroup:(BOOL)group domain:(id)domain
+{
+  groupCopy = group;
+  v5 = MEMORY[0x277CCABB0];
+  applicationID = domain;
+  CFPreferencesSetAppValue(@"FKEmptyTrailingGroupEnabled", [v5 numberWithBool:groupCopy], applicationID);
+  CFPreferencesAppSynchronize(applicationID);
+}
+
 + (void)setFriendsChangedExternallyNotificationName:(id)name domain:(id)domain
 {
   applicationID = domain;
@@ -1048,6 +1059,15 @@ void __53__FKFriendsManager__postGroupListChangedNotification__block_invoke()
 {
   applicationID = domain;
   CFPreferencesSetAppValue(@"FKFriendGroupTitleChangedExternallyNotificationName", name, applicationID);
+  CFPreferencesAppSynchronize(applicationID);
+}
+
++ (void)setRefreshAgainstContactsOnInitEnabled:(BOOL)enabled domain:(id)domain
+{
+  enabledCopy = enabled;
+  v5 = MEMORY[0x277CCABB0];
+  applicationID = domain;
+  CFPreferencesSetAppValue(@"FKRefreshAgainstContactsOnInitEnabled", [v5 numberWithBool:enabledCopy], applicationID);
   CFPreferencesAppSynchronize(applicationID);
 }
 
@@ -1137,7 +1157,7 @@ void __53__FKFriendsManager__postGroupListChangedNotification__block_invoke()
 
 - (void)friendGroup:(id)group didMoveFriends:(id)friends
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   friendsCopy = friends;
   self->_needsFriendListSync = 1;
@@ -1148,38 +1168,37 @@ void __53__FKFriendsManager__postGroupListChangedNotification__block_invoke()
   friends = [groupCopy friends];
   [(NSMutableArray *)friendList replaceObjectsInRange:v10 withObjectsFromArray:maxFriendsPerGroup, friends];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v13 = friendsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [(FKFriendsManager *)self _addEntryToChangeLogForPerson:*(*(&v19 + 1) + 8 * v17++) changeType:@"FKFriendsManagerPersonMoved", v19];
+        [(FKFriendsManager *)self _addEntryToChangeLogForPerson:*(*(&v18 + 1) + 8 * v17++) changeType:@"FKFriendsManagerPersonMoved", v18];
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v15);
   }
 
   [(FKFriendsManager *)self _postChangeNotificationIfNecessary];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allPeople
@@ -1192,37 +1211,37 @@ void __53__FKFriendsManager__postGroupListChangedNotification__block_invoke()
 
 - (BOOL)addFriend:(id)friend
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   friendCopy = friend;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = self->_friendGroups;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if (![v9 isFull])
         {
-          v12 = 0;
-          [v9 addFriend:friendCopy error:&v12];
-          LOBYTE(v6) = v12 == 0;
+          v11 = 0;
+          [v9 addFriend:friendCopy error:&v11];
+          LOBYTE(v6) = v11 == 0;
           goto LABEL_11;
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -1234,7 +1253,6 @@ void __53__FKFriendsManager__postGroupListChangedNotification__block_invoke()
 
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1430,23 +1448,27 @@ void __24__FKFriendsManager_save__block_invoke_2(uint64_t a1)
   if (self->_needsFriendListSync || [array2 count])
   {
     CFPreferencesSetAppValue(@"FriendList", array, self->_domain);
-    CFPreferencesAppSynchronize(self->_domain);
-    if (self->_needsFriendListSync && NPSHasCompletedInitialSync())
+    v13 = CFPreferencesAppSynchronize(self->_domain);
+    if (self->_needsFriendListSync)
     {
-      npsManager = self->_npsManager;
-      domain = self->_domain;
-      v15 = [MEMORY[0x277CBEB98] setWithObject:@"FriendList"];
-      [(NPSManager *)npsManager synchronizeUserDefaultsDomain:domain keys:v15];
+      v13 = NPSHasCompletedInitialSync();
+      if (v13)
+      {
+        npsManager = self->_npsManager;
+        domain = self->_domain;
+        v16 = [MEMORY[0x277CBEB98] setWithObject:@"FriendList"];
+        [(NPSManager *)npsManager synchronizeUserDefaultsDomain:domain keys:v16];
+      }
     }
 
-    v16 = _FKGetLogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = _FKGetLogSystem(v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
       v30 = "[FKFriendsManager _save]";
       v31 = 1024;
       v32 = 849;
-      _os_log_impl(&dword_24BC19000, v16, OS_LOG_TYPE_DEFAULT, "%s (%d) friend list saved", buf, 0x12u);
+      _os_log_impl(&dword_24BC19000, v17, OS_LOG_TYPE_DEFAULT, "%s (%d) friend list saved", buf, 0x12u);
     }
 
     objc_initWeak(buf, self);
@@ -1460,29 +1482,29 @@ void __24__FKFriendsManager_save__block_invoke_2(uint64_t a1)
     v25 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v17 = array2;
-    v18 = [v17 countByEnumeratingWithState:&v22 objects:v28 count:16];
-    if (v18)
+    v18 = array2;
+    v19 = [v18 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    if (v19)
     {
-      v19 = *v23;
+      v20 = *v23;
       do
       {
-        v20 = 0;
+        v21 = 0;
         do
         {
-          if (*v23 != v19)
+          if (*v23 != v20)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v18);
           }
 
-          [*(*(&v22 + 1) + 8 * v20++) setNeedsSave:{0, v22}];
+          [*(*(&v22 + 1) + 8 * v21++) setNeedsSave:{0, v22}];
         }
 
-        while (v18 != v20);
-        v18 = [v17 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        while (v19 != v21);
+        v19 = [v18 countByEnumeratingWithState:&v22 objects:v28 count:16];
       }
 
-      while (v18);
+      while (v19);
     }
 
     objc_destroyWeak(&v27);
@@ -1490,8 +1512,6 @@ void __24__FKFriendsManager_save__block_invoke_2(uint64_t a1)
   }
 
   self->_needsFriendListSync = 0;
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __25__FKFriendsManager__save__block_invoke(uint64_t a1)
@@ -1605,36 +1625,36 @@ uint64_t __43__FKFriendsManager_personWithABRecordGUID___block_invoke(uint64_t a
 
 - (void)_addPersonToIdentifiersToPersonMap:(id)map
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   mapCopy = map;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allValues = [mapCopy allValues];
-  v6 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        fkMessageCanonicalRawAddress = [*(*(&v16 + 1) + 8 * v9) fkMessageCanonicalRawAddress];
+        fkMessageCanonicalRawAddress = [*(*(&v15 + 1) + 8 * v9) fkMessageCanonicalRawAddress];
         [(NSMapTable *)self->_identifiersToPersonMap setObject:mapCopy forKey:fkMessageCanonicalRawAddress];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -1649,42 +1669,40 @@ uint64_t __43__FKFriendsManager_personWithABRecordGUID___block_invoke(uint64_t a
     abRecordGUID2 = [mapCopy abRecordGUID];
     [(NSMapTable *)identifiersToPersonMap setObject:mapCopy forKey:abRecordGUID2];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removePersonFromIdentifiersToPersonMap:(id)map
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   mapCopy = map;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allValues = [mapCopy allValues];
-  v6 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        fkMessageCanonicalRawAddress = [*(*(&v16 + 1) + 8 * v9) fkMessageCanonicalRawAddress];
+        fkMessageCanonicalRawAddress = [*(*(&v15 + 1) + 8 * v9) fkMessageCanonicalRawAddress];
         [(NSMapTable *)self->_identifiersToPersonMap removeObjectForKey:fkMessageCanonicalRawAddress];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -1699,13 +1717,11 @@ uint64_t __43__FKFriendsManager_personWithABRecordGUID___block_invoke(uint64_t a
     abRecordGUID2 = [mapCopy abRecordGUID];
     [(NSMapTable *)identifiersToPersonMap removeObjectForKey:abRecordGUID2];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createAddressToPersonDictionary
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(NSMapTable *)self->_identifiersToPersonMap removeAllObjects];
   if ([(NSMutableArray *)self->_friendList count])
   {
@@ -1737,37 +1753,35 @@ uint64_t __43__FKFriendsManager_personWithABRecordGUID___block_invoke(uint64_t a
     while (v3 < [(NSMutableArray *)self->_friendList count]);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = self->_sourcedPersons;
-  v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(FKFriendsManager *)self _addPersonToIdentifiersToPersonMap:*(*(&v14 + 1) + 8 * v12++), v14];
+        [(FKFriendsManager *)self _addPersonToIdentifiersToPersonMap:*(*(&v13 + 1) + 8 * v12++), v13];
       }
 
       while (v10 != v12);
-      v10 = [(NSHashTable *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [(NSHashTable *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setServiceName:(id)name
@@ -1780,26 +1794,24 @@ uint64_t __43__FKFriendsManager_personWithABRecordGUID___block_invoke(uint64_t a
   if (!nameCopy && v6 || ![(NSString *)v6 isEqualToString:nameCopy])
   {
     objc_storeStrong(p_serviceName, name);
-    v9 = _FKGetLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _FKGetLogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *p_serviceName;
+      v11 = *p_serviceName;
       v12 = 136315650;
       v13 = "[FKFriendsManager setServiceName:]";
       v14 = 1024;
       v15 = 975;
       v16 = 2112;
-      v17 = v10;
-      _os_log_impl(&dword_24BC19000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) setting service name for reachability queries to %@", &v12, 0x1Cu);
+      v17 = v11;
+      _os_log_impl(&dword_24BC19000, v10, OS_LOG_TYPE_DEFAULT, "%s (%d) setting service name for reachability queries to %@", &v12, 0x1Cu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_destinations
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
   if ([(NSMutableArray *)self->_friendList count])
   {
@@ -1810,33 +1822,33 @@ uint64_t __43__FKFriendsManager_personWithABRecordGUID___block_invoke(uint64_t a
       v6 = v5;
       if (v5)
       {
-        v18 = 0u;
-        v19 = 0u;
-        v16 = 0u;
         v17 = 0u;
+        v18 = 0u;
+        v15 = 0u;
+        v16 = 0u;
         allValues = [v5 allValues];
-        v8 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v17;
+          v10 = *v16;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v17 != v10)
+              if (*v16 != v10)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              fkMessageIDSIdentifier = [*(*(&v16 + 1) + 8 * i) fkMessageIDSIdentifier];
+              fkMessageIDSIdentifier = [*(*(&v15 + 1) + 8 * i) fkMessageIDSIdentifier];
               if (fkMessageIDSIdentifier)
               {
                 [v3 addObject:fkMessageIDSIdentifier];
               }
             }
 
-            v9 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+            v9 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
           }
 
           while (v9);
@@ -1850,8 +1862,6 @@ uint64_t __43__FKFriendsManager_personWithABRecordGUID___block_invoke(uint64_t a
   }
 
   allObjects = [v3 allObjects];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
@@ -1879,20 +1889,21 @@ uint64_t __43__FKFriendsManager_personWithABRecordGUID___block_invoke(uint64_t a
 - (void)refreshDestinationStatuses
 {
   v17 = *MEMORY[0x277D85DE8];
-  if ([(NSMutableSet *)self->_highPriorityDestinations count])
+  v3 = [(NSMutableSet *)self->_highPriorityDestinations count];
+  if (v3)
   {
-    v3 = _FKGetLogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _FKGetLogSystem(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       allObjects = [(NSMutableSet *)self->_highPriorityDestinations allObjects];
-      v5 = [allObjects componentsJoinedByString:{@", "}];
+      v6 = [allObjects componentsJoinedByString:{@", "}];
       v11 = 136315650;
       v12 = "[FKFriendsManager refreshDestinationStatuses]";
       v13 = 1024;
       v14 = 1030;
       v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_24BC19000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) not starting batch query because high priority query is in progress for [ %@ ]", &v11, 0x1Cu);
+      v16 = v6;
+      _os_log_impl(&dword_24BC19000, v4, OS_LOG_TYPE_DEFAULT, "%s (%d) not starting batch query because high priority query is in progress for [ %@ ]", &v11, 0x1Cu);
     }
 
     _destinations = [(FKFriendsManager *)self _destinations];
@@ -1903,23 +1914,21 @@ uint64_t __43__FKFriendsManager_personWithABRecordGUID___block_invoke(uint64_t a
   else
   {
     pendingDestinations = [(FKFriendsManager *)self _destinations];
-    v8 = _FKGetLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _FKGetLogSystem(pendingDestinations);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [pendingDestinations componentsJoinedByString:{@", "}];
+      v10 = [pendingDestinations componentsJoinedByString:{@", "}];
       v11 = 136315650;
       v12 = "[FKFriendsManager refreshDestinationStatuses]";
       v13 = 1024;
       v14 = 1012;
       v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_24BC19000, v8, OS_LOG_TYPE_DEFAULT, "%s (%d) setting destinations to [ %@ ]", &v11, 0x1Cu);
+      v16 = v10;
+      _os_log_impl(&dword_24BC19000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) setting destinations to [ %@ ]", &v11, 0x1Cu);
     }
 
     [(FKFriendsManager *)self _initiateIDSDestinationStatusQuery:pendingDestinations];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_compareStatus:(int64_t)status toStatus:(int64_t)toStatus
@@ -1971,54 +1980,54 @@ uint64_t __43__FKFriendsManager_personWithABRecordGUID___block_invoke(uint64_t a
 
 - (void)idStatusUpdatedForDestinations:(id)destinations
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   destinationsCopy = destinations;
   if (destinationsCopy)
   {
-    v37 = destinationsCopy;
+    v38 = destinationsCopy;
     val = self;
     [(FKFriendsManager *)self _stopIDSQueryTimeoutTimer];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v56 = 0u;
     v57 = 0u;
-    v54 = 0u;
+    v58 = 0u;
     v55 = 0u;
-    v6 = v37;
-    v7 = [v6 countByEnumeratingWithState:&v54 objects:v66 count:16];
+    v56 = 0u;
+    v6 = v38;
+    v7 = [v6 countByEnumeratingWithState:&v55 objects:v67 count:16];
     if (v7)
     {
-      v8 = *v55;
+      v8 = *v56;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v55 != v8)
+          if (*v56 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v54 + 1) + 8 * i);
+          v10 = *(*(&v55 + 1) + 8 * i);
           v11 = [v6 objectForKey:v10];
           fkMessageCanonicalRawAddress = [v10 fkMessageCanonicalRawAddress];
           [dictionary setObject:v11 forKey:fkMessageCanonicalRawAddress];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v54 objects:v66 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v55 objects:v67 count:16];
       }
 
       while (v7);
     }
 
-    v13 = _FKGetLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _FKGetLogSystem(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v61 = "[FKFriendsManager idStatusUpdatedForDestinations:]";
-      v62 = 1024;
-      v63 = 1061;
-      v64 = 2112;
-      v65 = v6;
-      _os_log_impl(&dword_24BC19000, v13, OS_LOG_TYPE_DEFAULT, "%s (%d) IDS statusues updated: %@", buf, 0x1Cu);
+      v62 = "[FKFriendsManager idStatusUpdatedForDestinations:]";
+      v63 = 1024;
+      v64 = 1061;
+      v65 = 2112;
+      v66 = v6;
+      _os_log_impl(&dword_24BC19000, v14, OS_LOG_TYPE_DEFAULT, "%s (%d) IDS statusues updated: %@", buf, 0x1Cu);
     }
 
     [(NSMutableDictionary *)val->_cachedStatuses addEntriesFromDictionary:dictionary];
@@ -2027,139 +2036,139 @@ uint64_t __43__FKFriendsManager_personWithABRecordGUID___block_invoke(uint64_t a
     block[1] = 3221225472;
     block[2] = __51__FKFriendsManager_idStatusUpdatedForDestinations___block_invoke;
     block[3] = &unk_27916A280;
-    objc_copyWeak(&v52, &location);
-    v36 = dictionary;
-    v51 = v36;
+    objc_copyWeak(&v53, &location);
+    v37 = dictionary;
+    v52 = v37;
     dispatch_async(MEMORY[0x277D85CD0], block);
     highPriorityDestinations = val->_highPriorityDestinations;
     if (!highPriorityDestinations || ![(NSMutableSet *)highPriorityDestinations count])
     {
-      v15 = [MEMORY[0x277CBEB58] set];
+      v16 = [MEMORY[0x277CBEB58] set];
       cachedStatuses = val->_cachedStatuses;
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __51__FKFriendsManager_idStatusUpdatedForDestinations___block_invoke_2;
-      v48[3] = &unk_27916A2D0;
-      v17 = v15;
-      v49 = v17;
-      [(NSMutableDictionary *)cachedStatuses enumerateKeysAndObjectsUsingBlock:v48];
-      v38 = v17;
-      if ([v17 count])
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = __51__FKFriendsManager_idStatusUpdatedForDestinations___block_invoke_2;
+      v49[3] = &unk_27916A2D0;
+      v18 = v16;
+      v50 = v18;
+      [(NSMutableDictionary *)cachedStatuses enumerateKeysAndObjectsUsingBlock:v49];
+      v39 = v18;
+      if ([v18 count])
       {
         null = [MEMORY[0x277CBEB68] null];
-        v46 = 0u;
         v47 = 0u;
-        v44 = 0u;
+        v48 = 0u;
         v45 = 0u;
-        v19 = val->_friendList;
-        v20 = 0;
-        v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v44 objects:v59 count:16];
-        if (v21)
+        v46 = 0u;
+        v20 = val->_friendList;
+        v21 = 0;
+        v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v45 objects:v60 count:16];
+        if (v22)
         {
-          v22 = *v45;
+          v23 = *v46;
           do
           {
-            for (j = 0; j != v21; ++j)
+            for (j = 0; j != v22; ++j)
             {
-              if (*v45 != v22)
+              if (*v46 != v23)
               {
-                objc_enumerationMutation(v19);
+                objc_enumerationMutation(v20);
               }
 
-              v24 = *(*(&v44 + 1) + 8 * j);
-              if (v24 != null)
+              v25 = *(*(&v45 + 1) + 8 * j);
+              if (v25 != null)
               {
-                v25 = v24;
-                allValues = [v25 allValues];
-                v27 = [allValues intersectsSet:v38];
+                v26 = v25;
+                allValues = [v26 allValues];
+                v28 = [allValues intersectsSet:v39];
 
-                v20 += v27 ^ 1u;
+                v21 += v28 ^ 1u;
               }
             }
 
-            v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v44 objects:v59 count:16];
+            v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v45 objects:v60 count:16];
           }
 
-          while (v21);
+          while (v22);
         }
       }
 
       else
       {
-        v20 = 0;
+        v21 = 0;
       }
 
-      [(FKFriendsManager *)val _aggdSetValue:v20 forScalarKey:@"com.apple.et.unreachableFriends.count"];
+      [(FKFriendsManager *)val _aggdSetValue:v21 forScalarKey:@"com.apple.et.unreachableFriends.count"];
     }
 
     [v6 allKeys];
-    v42 = 0u;
     v43 = 0u;
-    v40 = 0u;
-    v28 = v41 = 0u;
-    v29 = [v28 countByEnumeratingWithState:&v40 objects:v58 count:16];
-    if (v29)
+    v44 = 0u;
+    v41 = 0u;
+    v29 = v42 = 0u;
+    v30 = [v29 countByEnumeratingWithState:&v41 objects:v59 count:16];
+    if (v30)
     {
-      v30 = *v41;
+      v31 = *v42;
       do
       {
-        for (k = 0; k != v29; ++k)
+        for (k = 0; k != v30; ++k)
         {
-          if (*v41 != v30)
+          if (*v42 != v31)
           {
-            objc_enumerationMutation(v28);
+            objc_enumerationMutation(v29);
           }
 
-          [(NSMutableSet *)val->_highPriorityDestinations removeObject:*(*(&v40 + 1) + 8 * k)];
+          [(NSMutableSet *)val->_highPriorityDestinations removeObject:*(*(&v41 + 1) + 8 * k)];
         }
 
-        v29 = [v28 countByEnumeratingWithState:&v40 objects:v58 count:16];
+        v30 = [v29 countByEnumeratingWithState:&v41 objects:v59 count:16];
       }
 
-      while (v29);
+      while (v30);
     }
 
-    if (![(NSMutableSet *)val->_highPriorityDestinations count]&& [(NSArray *)val->_pendingDestinations count])
+    if (![(NSMutableSet *)val->_highPriorityDestinations count])
     {
-      v32 = _FKGetLogSystem();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v33 = [(NSArray *)val->_pendingDestinations count];
+      if (v33)
       {
-        v33 = [(NSArray *)val->_pendingDestinations componentsJoinedByString:@", "];
-        *buf = 136315650;
-        v61 = "[FKFriendsManager idStatusUpdatedForDestinations:]";
-        v62 = 1024;
-        v63 = 1107;
-        v64 = 2112;
-        v65 = v33;
-        _os_log_impl(&dword_24BC19000, v32, OS_LOG_TYPE_DEFAULT, "%s (%d) High priority status request completed, starting query for pending destinations: [ %@ ]", buf, 0x1Cu);
-      }
+        v34 = _FKGetLogSystem(v33);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        {
+          v35 = [(NSArray *)val->_pendingDestinations componentsJoinedByString:@", "];
+          *buf = 136315650;
+          v62 = "[FKFriendsManager idStatusUpdatedForDestinations:]";
+          v63 = 1024;
+          v64 = 1107;
+          v65 = 2112;
+          v66 = v35;
+          _os_log_impl(&dword_24BC19000, v34, OS_LOG_TYPE_DEFAULT, "%s (%d) High priority status request completed, starting query for pending destinations: [ %@ ]", buf, 0x1Cu);
+        }
 
-      [(FKFriendsManager *)val _initiateIDSDestinationStatusQuery:val->_pendingDestinations];
-      pendingDestinations = val->_pendingDestinations;
-      val->_pendingDestinations = 0;
+        [(FKFriendsManager *)val _initiateIDSDestinationStatusQuery:val->_pendingDestinations];
+        pendingDestinations = val->_pendingDestinations;
+        val->_pendingDestinations = 0;
+      }
     }
 
-    objc_destroyWeak(&v52);
+    objc_destroyWeak(&v53);
     objc_destroyWeak(&location);
 
-    destinationsCopy = v37;
+    destinationsCopy = v38;
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __51__FKFriendsManager_idStatusUpdatedForDestinations___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB98] defaultCenter];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v4 = *(a1 + 32);
-  v7 = @"FKFriendsManagerDestinationStatusUpdatedDestinationsKey";
-  v8[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"FKFriendsManagerDestinationStatusUpdatedDestinationsKey";
+  v7[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [v2 postNotificationName:@"FKFriendsManagerDestinationStatusUpdatedNotification" object:WeakRetained userInfo:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __51__FKFriendsManager_idStatusUpdatedForDestinations___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2234,24 +2243,24 @@ void __51__FKFriendsManager_idStatusUpdatedForDestinations___block_invoke_2(uint
 
       if (requeryCopy)
       {
-        [(FKFriendsManager *)self _queryDestinations:v9];
+        v17 = [(FKFriendsManager *)self _queryDestinations:v9];
         if (v7 == -1)
         {
           v7 = 0;
         }
       }
 
-      v17 = _FKGetLogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = _FKGetLogSystem(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         if (v7 > 2)
         {
-          v18 = @"unspecified";
+          v19 = @"unspecified";
         }
 
         else
         {
-          v18 = off_27916A5C8[v7];
+          v19 = off_27916A5C8[v7];
         }
 
         *buf = 136315906;
@@ -2261,8 +2270,8 @@ void __51__FKFriendsManager_idStatusUpdatedForDestinations___block_invoke_2(uint
         v29 = 2112;
         v30 = personCopy;
         v31 = 2112;
-        v32 = v18;
-        _os_log_impl(&dword_24BC19000, v17, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ has cached best status of: %@", buf, 0x26u);
+        v32 = v19;
+        _os_log_impl(&dword_24BC19000, v18, OS_LOG_TYPE_DEFAULT, "%s (%d) %@ has cached best status of: %@", buf, 0x26u);
       }
     }
 
@@ -2272,7 +2281,6 @@ void __51__FKFriendsManager_idStatusUpdatedForDestinations___block_invoke_2(uint
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2361,24 +2369,22 @@ void __51__FKFriendsManager_reachableDestinationsForPerson___block_invoke(uint64
     allObjects = [(NSMutableSet *)self->_highPriorityDestinations allObjects];
     [(FKFriendsManager *)self _initiateIDSDestinationStatusQuery:allObjects];
 
-    v9 = _FKGetLogSystem();
+    v9 = _FKGetLogSystem(v16);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       allObjects2 = [(NSMutableSet *)self->_highPriorityDestinations allObjects];
-      v17 = [allObjects2 componentsJoinedByString:{@", "}];
+      v18 = [allObjects2 componentsJoinedByString:{@", "}];
       *buf = 136315650;
       v24 = "[FKFriendsManager _queryDestinations:]";
       v25 = 1024;
       v26 = 1182;
       v27 = 2112;
-      v28 = v17;
+      v28 = v18;
       _os_log_impl(&dword_24BC19000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) started high-priority query for [ %@ ]", buf, 0x1Cu);
     }
 
 LABEL_16:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initiateIDSDestinationStatusQuery:(id)query
@@ -2411,36 +2417,37 @@ LABEL_16:
 
 - (void)_idsQueryTimeoutTimerFired
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   idsQueryTimeoutTimer = self->_idsQueryTimeoutTimer;
   self->_idsQueryTimeoutTimer = 0;
 
-  v4 = _FKGetLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _FKGetLogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[FKFriendsManager _idsQueryTimeoutTimerFired]";
-    v11 = 1024;
-    v12 = 1223;
-    _os_log_impl(&dword_24BC19000, v4, OS_LOG_TYPE_DEFAULT, "%s (%d) IDS Query took too long to respond, clearing request queues", &v9, 0x12u);
+    v10 = 136315394;
+    v11 = "[FKFriendsManager _idsQueryTimeoutTimerFired]";
+    v12 = 1024;
+    v13 = 1223;
+    _os_log_impl(&dword_24BC19000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) IDS Query took too long to respond, clearing request queues", &v10, 0x12u);
   }
 
   if ([(NSMutableSet *)self->_highPriorityDestinations count])
   {
     [(NSMutableSet *)self->_highPriorityDestinations removeAllObjects];
-    if ([(NSArray *)self->_pendingDestinations count])
+    v6 = [(NSArray *)self->_pendingDestinations count];
+    if (v6)
     {
-      v5 = _FKGetLogSystem();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = _FKGetLogSystem(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = [(NSArray *)self->_pendingDestinations componentsJoinedByString:@", "];
-        v9 = 136315650;
-        v10 = "[FKFriendsManager _idsQueryTimeoutTimerFired]";
-        v11 = 1024;
-        v12 = 1233;
-        v13 = 2112;
-        v14 = v6;
-        _os_log_impl(&dword_24BC19000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) IDS Query timed out on high priority queue, starting query for pending destinations: [ %@ ]", &v9, 0x1Cu);
+        v8 = [(NSArray *)self->_pendingDestinations componentsJoinedByString:@", "];
+        v10 = 136315650;
+        v11 = "[FKFriendsManager _idsQueryTimeoutTimerFired]";
+        v12 = 1024;
+        v13 = 1233;
+        v14 = 2112;
+        v15 = v8;
+        _os_log_impl(&dword_24BC19000, v7, OS_LOG_TYPE_DEFAULT, "%s (%d) IDS Query timed out on high priority queue, starting query for pending destinations: [ %@ ]", &v10, 0x1Cu);
       }
 
       [(FKFriendsManager *)self _initiateIDSDestinationStatusQuery:self->_pendingDestinations];
@@ -2448,8 +2455,6 @@ LABEL_16:
       self->_pendingDestinations = 0;
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldBypassDestinationStatusCheck
@@ -2562,7 +2567,7 @@ uint64_t __43__FKFriendsManager__numberOfFriendsInList___block_invoke(uint64_t r
 
 void __54__FKFriendsManager__postChangeNotificationIfNecessary__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = [WeakRetained _copyAndResetChangeLog];
 
@@ -2572,26 +2577,26 @@ void __54__FKFriendsManager__postChangeNotificationIfNecessary__block_invoke(uin
     if (*(a1 + 40) == 1)
     {
       v5 = v4;
-      v6 = _FKGetLogSystem();
+      v6 = _FKGetLogSystem(v4);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 136316162;
-        *&v12[4] = "[FKFriendsManager _postChangeNotificationIfNecessary]_block_invoke";
+        *v11 = 136316162;
+        *&v11[4] = "[FKFriendsManager _postChangeNotificationIfNecessary]_block_invoke";
         v7 = @"entries";
-        *&v12[12] = 1024;
-        *&v12[14] = 1299;
-        *&v12[20] = @"FKFriendsManagerChangedNotification";
-        *&v12[18] = 2112;
+        *&v11[12] = 1024;
+        *&v11[14] = 1299;
+        *&v11[20] = @"FKFriendsManagerChangedNotification";
+        *&v11[18] = 2112;
         if (v5 == 1)
         {
           v7 = @"entry";
         }
 
-        *&v12[28] = 1024;
-        *&v12[30] = v5;
-        v13 = 2112;
-        v14 = v7;
-        _os_log_impl(&dword_24BC19000, v6, OS_LOG_TYPE_DEFAULT, "%s (%d) posting %@ with %u changelog %@", v12, 0x2Cu);
+        *&v11[28] = 1024;
+        *&v11[30] = v5;
+        v12 = 2112;
+        v13 = v7;
+        _os_log_impl(&dword_24BC19000, v6, OS_LOG_TYPE_DEFAULT, "%s (%d) posting %@ with %u changelog %@", v11, 0x2Cu);
       }
     }
 
@@ -2602,8 +2607,6 @@ void __54__FKFriendsManager__postChangeNotificationIfNecessary__block_invoke(uin
     v10 = objc_loadWeakRetained((a1 + 32));
     [v10 _aggdLogFriendCount];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_personValuesChanged:(id)changed
@@ -2619,7 +2622,7 @@ void __54__FKFriendsManager__postChangeNotificationIfNecessary__block_invoke(uin
 
 - (void)_friendsChangedExternally
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   postCount = self->_postCount;
   if (postCount)
   {
@@ -2628,20 +2631,18 @@ void __54__FKFriendsManager__postChangeNotificationIfNecessary__block_invoke(uin
 
   else
   {
-    v4 = _FKGetLogSystem();
+    v4 = _FKGetLogSystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315394;
-      v7 = "[FKFriendsManager _friendsChangedExternally]";
-      v8 = 1024;
-      v9 = 1319;
-      _os_log_impl(&dword_24BC19000, v4, OS_LOG_TYPE_DEFAULT, "%s (%d) Handling external friends-changed event.", &v6, 0x12u);
+      v5 = 136315394;
+      v6 = "[FKFriendsManager _friendsChangedExternally]";
+      v7 = 1024;
+      v8 = 1319;
+      _os_log_impl(&dword_24BC19000, v4, OS_LOG_TYPE_DEFAULT, "%s (%d) Handling external friends-changed event.", &v5, 0x12u);
     }
 
     [(FKFriendsManager *)self _loadFriendList];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadGroupTitles
@@ -2673,35 +2674,34 @@ void __54__FKFriendsManager__postChangeNotificationIfNecessary__block_invoke(uin
 
 - (void)_groupTitleChangedExternally
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = _FKGetLogSystem();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = _FKGetLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[FKFriendsManager _groupTitleChangedExternally]";
-    v7 = 1024;
-    v8 = 1338;
-    _os_log_impl(&dword_24BC19000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) Handling external group-title-changed event.", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "[FKFriendsManager _groupTitleChangedExternally]";
+    v6 = 1024;
+    v7 = 1338;
+    _os_log_impl(&dword_24BC19000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) Handling external group-title-changed event.", &v4, 0x12u);
   }
 
   [(FKFriendsManager *)self _loadGroupTitles];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addressBookChanged:(id)changed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
-  v5 = _FKGetLogSystem();
+  v5 = _FKGetLogSystem(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [changedCopy name];
     *buf = 136315650;
-    v10 = "[FKFriendsManager _addressBookChanged:]";
-    v11 = 1024;
-    v12 = 1343;
-    v13 = 2112;
-    v14 = name;
+    v9 = "[FKFriendsManager _addressBookChanged:]";
+    v10 = 1024;
+    v11 = 1343;
+    v12 = 2112;
+    v13 = name;
     _os_log_impl(&dword_24BC19000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) received %@", buf, 0x1Cu);
   }
 
@@ -2711,8 +2711,6 @@ void __54__FKFriendsManager__postChangeNotificationIfNecessary__block_invoke(uin
   block[3] = &unk_27916A108;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __40__FKFriendsManager__addressBookChanged___block_invoke(uint64_t a1)
@@ -2746,9 +2744,9 @@ uint64_t __40__FKFriendsManager__addressBookChanged___block_invoke(uint64_t a1)
   self->_needsAddressBookRefresh = [(FKFriendsManager *)self _changeLogContainsFriendAdditionsOrUpdates:v6];
 }
 
-void __35__FKFriendsManager__updateFriends___block_invoke(uint64_t a1, ABAddressBookRef a2)
+void __35__FKFriendsManager__updateFriends___block_invoke(uint64_t a1, const void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v4 = ABAddressBookCopyUniqueIdentifier();
 
   if (v4)
@@ -2776,52 +2774,53 @@ void __35__FKFriendsManager__updateFriends___block_invoke(uint64_t a1, ABAddress
   }
 
   v7 = [MEMORY[0x277CBEB18] array];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __35__FKFriendsManager__updateFriends___block_invoke_2;
-  v32[3] = &unk_27916A348;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __35__FKFriendsManager__updateFriends___block_invoke_2;
+  v31[3] = &unk_27916A348;
   v8 = *(a1 + 32);
-  v32[4] = *(a1 + 40);
-  v34 = a2;
+  v31[4] = *(a1 + 40);
+  v33 = a2;
   v9 = v7;
-  v33 = v9;
-  [v8 enumerateObjectsUsingBlock:v32];
+  v32 = v9;
+  [v8 enumerateObjectsUsingBlock:v31];
   v10 = [*(*(a1 + 40) + 64) count];
   v11 = (*(*(a1 + 40) + 24) * ceilf([*(a1 + 32) count] / *(*(a1 + 40) + 24)));
   if (v10 > v11)
   {
     v12 = [MEMORY[0x277CCAA78] indexSetWithIndexesInRange:{v11, v10 - v11}];
     v13 = *(*(a1 + 40) + 64);
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __35__FKFriendsManager__updateFriends___block_invoke_3;
-    v30[3] = &unk_27916A370;
-    v31 = v9;
-    [v13 enumerateObjectsAtIndexes:v12 options:1 usingBlock:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __35__FKFriendsManager__updateFriends___block_invoke_3;
+    v29[3] = &unk_27916A370;
+    v30 = v9;
+    [v13 enumerateObjectsAtIndexes:v12 options:1 usingBlock:v29];
     [*(*(a1 + 40) + 64) removeObjectsAtIndexes:v12];
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = v9;
-  v14 = [obj countByEnumeratingWithState:&v26 objects:v42 count:16];
+  v14 = [obj countByEnumeratingWithState:&v25 objects:v41 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v27;
+    v16 = *v26;
     do
     {
-      for (i = 0; i != v15; ++i)
+      v17 = 0;
+      do
       {
-        if (*v27 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v26 + 1) + 8 * i);
-        v19 = _FKGetLogSystem();
+        v18 = *(*(&v25 + 1) + 8 * v17);
+        v19 = _FKGetLogSystem(v14);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           [v18 displayName];
@@ -2829,24 +2828,27 @@ void __35__FKFriendsManager__updateFriends___block_invoke(uint64_t a1, ABAddress
           v22 = [v18 abRecordGUID];
           *error = 136315906;
           *&error[4] = "[FKFriendsManager _updateFriends:]_block_invoke";
-          v36 = 1024;
-          v37 = 1489;
-          v38 = 2112;
-          v39 = v21;
-          v40 = 2112;
-          v41 = v22;
+          v35 = 1024;
+          v36 = 1489;
+          v37 = 2112;
+          v38 = v21;
+          v39 = 2112;
+          v40 = v22;
           _os_log_impl(&dword_24BC19000, v19, OS_LOG_TYPE_DEFAULT, "%s (%d) [%@] [ABGUID=%@] was displaced and removed", error, 0x26u);
 
           a1 = v20;
         }
 
-        [*(a1 + 40) _addEntryToChangeLogForPerson:v18 changeType:@"FKFriendsManagerPersonDeleted"];
+        v14 = [*(a1 + 40) _addEntryToChangeLogForPerson:v18 changeType:@"FKFriendsManagerPersonDeleted"];
+        ++v17;
       }
 
-      v15 = [obj countByEnumeratingWithState:&v26 objects:v42 count:16];
+      while (v15 != v17);
+      v14 = [obj countByEnumeratingWithState:&v25 objects:v41 count:16];
+      v15 = v14;
     }
 
-    while (v15);
+    while (v14);
   }
 
   if (cf)
@@ -2855,13 +2857,11 @@ void __35__FKFriendsManager__updateFriends___block_invoke(uint64_t a1, ABAddress
   }
 
   [*(a1 + 40) save];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __35__FKFriendsManager__updateFriends___block_invoke_2(uint64_t a1, void *a2, unint64_t a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if ([*(*(a1 + 32) + 64) count] <= a3)
   {
@@ -2905,7 +2905,7 @@ LABEL_30:
 
   if (v6 == v7 || ([v6 isEqualToDictionaryRepresentation:v5] & 1) == 0)
   {
-    v33 = v7;
+    v32 = v7;
     for (i = a3 + 1; i < [*(*(a1 + 32) + 64) count]; ++i)
     {
       v20 = [*(*(a1 + 32) + 64) objectAtIndexedSubscript:i];
@@ -2937,25 +2937,25 @@ LABEL_30:
       }
     }
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v28 = *(a1 + 40);
-    v10 = [v28 countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v10 = [v28 countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v10)
     {
-      v29 = *v39;
+      v29 = *v38;
       while (2)
       {
         for (j = 0; j != v10; j = j + 1)
         {
-          if (*v39 != v29)
+          if (*v38 != v29)
           {
             objc_enumerationMutation(v28);
           }
 
-          v31 = *(*(&v38 + 1) + 8 * j);
+          v31 = *(*(&v37 + 1) + 8 * j);
           if ([v31 isEqualToDictionaryRepresentation:v5])
           {
             v10 = v31;
@@ -2965,7 +2965,7 @@ LABEL_30:
           }
         }
 
-        v10 = [v28 countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v10 = [v28 countByEnumeratingWithState:&v37 objects:v42 count:16];
         if (v10)
         {
           continue;
@@ -2978,7 +2978,7 @@ LABEL_30:
 LABEL_46:
 
 LABEL_47:
-    if (v6 != v33)
+    if (v6 != v32)
     {
       [*(a1 + 40) addObject:v6];
     }
@@ -3011,26 +3011,26 @@ LABEL_52:
 
 LABEL_6:
   v11 = [[FKPerson alloc] initWithDictionaryRepresentation:v5 addressBook:*(a1 + 48)];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v12 = *(*(a1 + 32) + 120);
-  v13 = [v12 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v35;
+    v15 = *v34;
 LABEL_8:
     v16 = 0;
     while (1)
     {
-      if (*v35 != v15)
+      if (*v34 != v15)
       {
         objc_enumerationMutation(v12);
       }
 
-      v17 = *(*(&v34 + 1) + 8 * v16);
+      v17 = *(*(&v33 + 1) + 8 * v16);
       if ([(FKPerson *)v11 isLikePerson:v17])
       {
         break;
@@ -3038,7 +3038,7 @@ LABEL_8:
 
       if (v14 == ++v16)
       {
-        v14 = [v12 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v14)
         {
           goto LABEL_8;
@@ -3074,8 +3074,6 @@ LABEL_33:
 
   v6 = 0;
 LABEL_55:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __35__FKFriendsManager__updateFriends___block_invoke_3(uint64_t a1, void *a2)
@@ -3123,7 +3121,7 @@ void __35__FKFriendsManager__updateFriends___block_invoke_3(uint64_t a1, void *a
 
 void __53__FKFriendsManager__deduplicateFriendListIfNecessary__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -3133,25 +3131,24 @@ void __53__FKFriendsManager__deduplicateFriendListIfNecessary__block_invoke(uint
     v8 = [*(a1 + 32) containsObject:v7];
     if (v7 && v8)
     {
-      [*(a1 + 40) addIndex:a3];
-      v9 = _FKGetLogSystem();
+      v9 = _FKGetLogSystem([*(a1 + 40) addIndex:a3]);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = [v6 displayName];
         v11 = *(a1 + 32);
-        v13 = 136316418;
-        v14 = "[FKFriendsManager _deduplicateFriendListIfNecessary]_block_invoke";
-        v15 = 1024;
-        v16 = 1529;
-        v17 = 2112;
-        v18 = v10;
-        v19 = 2112;
-        v20 = v7;
-        v21 = 2048;
-        v22 = a3;
-        v23 = 2112;
-        v24 = v11;
-        _os_log_impl(&dword_24BC19000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) deduplicating friend [%@] [ABGUID=%@] at index %lu as it is already present in the set of friend ABGUIDs analyzed so far: %@", &v13, 0x3Au);
+        v12 = 136316418;
+        v13 = "[FKFriendsManager _deduplicateFriendListIfNecessary]_block_invoke";
+        v14 = 1024;
+        v15 = 1529;
+        v16 = 2112;
+        v17 = v10;
+        v18 = 2112;
+        v19 = v7;
+        v20 = 2048;
+        v21 = a3;
+        v22 = 2112;
+        v23 = v11;
+        _os_log_impl(&dword_24BC19000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) deduplicating friend [%@] [ABGUID=%@] at index %lu as it is already present in the set of friend ABGUIDs analyzed so far: %@", &v12, 0x3Au);
       }
     }
 
@@ -3160,8 +3157,6 @@ void __53__FKFriendsManager__deduplicateFriendListIfNecessary__block_invoke(uint
       [*(a1 + 32) addObject:v7];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeDestinationlessFriendsIfNecessary
@@ -3185,7 +3180,7 @@ void __53__FKFriendsManager__deduplicateFriendListIfNecessary__block_invoke(uint
 
 void __60__FKFriendsManager__removeDestinationlessFriendsIfNecessary__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -3193,26 +3188,23 @@ void __60__FKFriendsManager__removeDestinationlessFriendsIfNecessary__block_invo
     v6 = v5;
     if (![v6 allValuesCount])
     {
-      [*(a1 + 32) addIndex:a3];
-      v7 = _FKGetLogSystem();
+      v7 = _FKGetLogSystem([*(a1 + 32) addIndex:a3]);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = [v6 displayName];
         v9 = [v6 abRecordGUID];
-        v11 = 136315906;
-        v12 = "[FKFriendsManager _removeDestinationlessFriendsIfNecessary]_block_invoke";
-        v13 = 1024;
-        v14 = 1555;
-        v15 = 2112;
-        v16 = v8;
-        v17 = 2112;
-        v18 = v9;
-        _os_log_impl(&dword_24BC19000, v7, OS_LOG_TYPE_DEFAULT, "%s (%d) culling friend [%@] [ABGUID=%@] since its destination set has become empty", &v11, 0x26u);
+        v10 = 136315906;
+        v11 = "[FKFriendsManager _removeDestinationlessFriendsIfNecessary]_block_invoke";
+        v12 = 1024;
+        v13 = 1555;
+        v14 = 2112;
+        v15 = v8;
+        v16 = 2112;
+        v17 = v9;
+        _os_log_impl(&dword_24BC19000, v7, OS_LOG_TYPE_DEFAULT, "%s (%d) culling friend [%@] [ABGUID=%@] since its destination set has become empty", &v10, 0x26u);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeFriendsAtIndices:(id)indices
@@ -3430,44 +3422,42 @@ void __62__FKFriendsManager__changeLogContainsFriendAdditionsOrUpdates__block_in
 
 + (id)collapseChangeLogsIntoChangeLog:(id)log
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   logCopy = log;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = logCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __52__FKFriendsManager_collapseChangeLogsIntoChangeLog___block_invoke;
-        v13[3] = &unk_27916A4D8;
-        v14 = dictionary;
-        [v10 enumerateKeysAndObjectsUsingBlock:v13];
+        v10 = *(*(&v14 + 1) + 8 * i);
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __52__FKFriendsManager_collapseChangeLogsIntoChangeLog___block_invoke;
+        v12[3] = &unk_27916A4D8;
+        v13 = dictionary;
+        [v10 enumerateKeysAndObjectsUsingBlock:v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -3501,6 +3491,18 @@ void __52__FKFriendsManager_collapseChangeLogsIntoChangeLog___block_invoke(uint6
   return intValue;
 }
 
+- (void)_updateLastKnownAddressBookSequenceNumber:(int)number
+{
+  v3 = *&number;
+  if ([(FKFriendsManager *)self _lastKnownAddressBookSequenceNumber]!= number)
+  {
+    CFPreferencesSetAppValue(@"ABSequenceNumber", [MEMORY[0x277CCABB0] numberWithInt:v3], self->_domain);
+    domain = self->_domain;
+
+    CFPreferencesAppSynchronize(domain);
+  }
+}
+
 - (BOOL)_addressBookSequenceNumberDidChange
 {
   v5 = 0;
@@ -3519,11 +3521,11 @@ void __52__FKFriendsManager_collapseChangeLogsIntoChangeLog___block_invoke(uint6
   return v2;
 }
 
-uint64_t __55__FKFriendsManager__addressBookSequenceNumberDidChange__block_invoke(uint64_t a1)
+uint64_t __55__FKFriendsManager__addressBookSequenceNumberDidChange__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = [*(a1 + 32) _lastKnownAddressBookSequenceNumber];
+  v3 = [*(a1 + 32) _lastKnownAddressBookSequenceNumber];
   result = ABAddressBookGetSequenceNumber();
-  *(*(*(a1 + 40) + 8) + 24) = v2 != result;
+  *(*(*(a1 + 40) + 8) + 24) = v3 != result;
   return result;
 }
 
@@ -3541,34 +3543,33 @@ uint64_t __55__FKFriendsManager__addressBookSequenceNumberDidChange__block_invok
 
 - (BOOL)refreshAgainstAddressBook
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = self->_needsAddressBookRefresh || [(FKFriendsManager *)self _addressBookSequenceNumberDidChange];
-  v4 = self->_refreshAgainstContactsEnabled && v3;
+  v4 = self->_refreshAgainstContactsEnabled & v3;
   if (v4)
   {
-    v5 = _FKGetLogSystem();
+    v5 = _FKGetLogSystem(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v10 = "[FKFriendsManager refreshAgainstAddressBook]";
-      v11 = 1024;
-      v12 = 1709;
+      v9 = "[FKFriendsManager refreshAgainstAddressBook]";
+      v10 = 1024;
+      v11 = 1709;
       _os_log_impl(&dword_24BC19000, v5, OS_LOG_TYPE_DEFAULT, "%s (%d) refreshing friends against address book", buf, 0x12u);
     }
 
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __45__FKFriendsManager_refreshAgainstAddressBook__block_invoke;
-    v8[3] = &unk_27916A520;
-    v8[4] = self;
-    [FKAddressBook performBlock:v8];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __45__FKFriendsManager_refreshAgainstAddressBook__block_invoke;
+    v7[3] = &unk_27916A520;
+    v7[4] = self;
+    [FKAddressBook performBlock:v7];
     [(FKFriendsManager *)self _cleanUpFriendListIfNecessary];
     [(FKFriendsManager *)self _postChangeNotificationIfNecessary];
     self->_needsAddressBookRefresh = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v4 & 1;
 }
 
 uint64_t __45__FKFriendsManager_refreshAgainstAddressBook__block_invoke(uint64_t a1, uint64_t a2)
@@ -3595,28 +3596,28 @@ void __45__FKFriendsManager_refreshAgainstAddressBook__block_invoke_2(uint64_t a
 
 - (void)saveFriendGroupTitles
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v4 = self->_friendGroups;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        title = [*(*(&v18 + 1) + 8 * i) title];
+        title = [*(*(&v17 + 1) + 8 * i) title];
         v10 = title;
         if (title)
         {
@@ -3631,23 +3632,21 @@ void __45__FKFriendsManager_refreshAgainstAddressBook__block_invoke_2(uint64_t a
         [array addObject:v11];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
 
   saveQueue = self->_saveQueue;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __41__FKFriendsManager_saveFriendGroupTitles__block_invoke;
-  v15[3] = &unk_27916A548;
-  v16 = array;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __41__FKFriendsManager_saveFriendGroupTitles__block_invoke;
+  v14[3] = &unk_27916A548;
+  v15 = array;
   selfCopy = self;
   v13 = array;
-  dispatch_async(saveQueue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(saveQueue, v14);
 }
 
 void __41__FKFriendsManager_saveFriendGroupTitles__block_invoke(uint64_t a1)
@@ -3691,13 +3690,12 @@ void __46__FKFriendsManager_markFriendListAsNormalized__block_invoke(uint64_t a1
 
 - (void)initWithDomain:(os_log_t)log .cold.1(os_log_t log)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "[FKFriendsManager initWithDomain:]";
-  v4 = 1024;
-  v5 = 193;
-  _os_log_error_impl(&dword_24BC19000, log, OS_LOG_TYPE_ERROR, "%s (%d) Softlinking failure for CNContactStoreDidChangeNotification; we won't be able to listen for contact database changes.", &v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "[FKFriendsManager initWithDomain:]";
+  v3 = 1024;
+  v4 = 193;
+  _os_log_error_impl(&dword_24BC19000, log, OS_LOG_TYPE_ERROR, "%s (%d) Softlinking failure for CNContactStoreDidChangeNotification; we won't be able to listen for contact database changes.", &v1, 0x12u);
 }
 
 @end

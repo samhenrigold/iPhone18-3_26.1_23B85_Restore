@@ -60,7 +60,7 @@ LABEL_4:
       _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Starting legacy request from: %{public}@ for system application: %{public}@", buf, 0x16u);
     }
 
-    v20 = sub_1001F6394();
+    v20 = sub_1001F6394(InstallationService);
     v27 = v14;
     v21 = [NSArray arrayWithObjects:&v27 count:1];
     v23[0] = _NSConcreteStackBlock;

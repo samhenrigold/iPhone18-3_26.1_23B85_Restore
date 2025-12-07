@@ -25,9 +25,9 @@
       objc_storeStrong(v14 + 1, a2);
       objc_storeStrong(self + 2, title);
       scheme = [subtitleCopy scheme];
-      v16 = [scheme isEqualToString:@"https"];
+      isEqualToString = objc_msgSend_isEqualToString_(scheme);
 
-      if (v16)
+      if (isEqualToString)
       {
         v17 = subtitleCopy;
         v18 = self[3];

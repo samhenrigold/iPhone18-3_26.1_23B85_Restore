@@ -137,22 +137,20 @@ void __55__MUActivityDataProvider_shortenedURLOrFullIfNotLoaded__block_invoke(ui
 - (void)_initShorteningSession
 {
   v3 = [MUURLShorteningSessionConfiguration alloc];
-  v4 = *MEMORY[0x1E696F178];
-  v5 = *(MEMORY[0x1E696F178] + 8);
   GEOConfigGetDouble();
-  v7 = -[MUURLShorteningSessionConfiguration initWithTimeout:doNotUseCache:](v3, "initWithTimeout:doNotUseCache:", [objc_opt_class() useCacheForShortURLs] ^ 1, v6);
+  v5 = -[MUURLShorteningSessionConfiguration initWithTimeout:doNotUseCache:](v3, "initWithTimeout:doNotUseCache:", [objc_opt_class() useCacheForShortURLs] ^ 1, v4);
   objc_initWeak(&location, self);
-  v8 = [MUURLShorteningSession alloc];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __48__MUActivityDataProvider__initShorteningSession__block_invoke;
-  v11[3] = &unk_1E8218320;
-  objc_copyWeak(&v12, &location);
-  v9 = [(MUURLShorteningSession *)v8 initWithOriginalURLProvider:v11 configuration:v7];
+  v6 = [MUURLShorteningSession alloc];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __48__MUActivityDataProvider__initShorteningSession__block_invoke;
+  v9[3] = &unk_1E8218320;
+  objc_copyWeak(&v10, &location);
+  v7 = [(MUURLShorteningSession *)v6 initWithOriginalURLProvider:v9 configuration:v5];
   shorteningSession = self->_shorteningSession;
-  self->_shorteningSession = v9;
+  self->_shorteningSession = v7;
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 }
 

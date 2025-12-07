@@ -58,7 +58,7 @@
   if (impl)
   {
     v6 = impl;
-    [impl trackedTransform];
+    objc_msgSend_trackedTransform(impl);
     impl = v6;
   }
 

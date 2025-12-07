@@ -45,16 +45,14 @@
 
 - (NSDictionary)dictionary
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"testId";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"testId";
   testId = [(ASTTestAttributes *)self testId];
-  v8[1] = @"version";
-  v9[0] = testId;
+  v7[1] = @"version";
+  v8[0] = testId;
   version = [(ASTTestAttributes *)self version];
-  v9[1] = version;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = version;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }

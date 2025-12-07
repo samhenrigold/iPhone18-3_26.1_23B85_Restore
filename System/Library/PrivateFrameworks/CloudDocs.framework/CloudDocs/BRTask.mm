@@ -178,7 +178,7 @@ LABEL_22:
 
 - (int)exec
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   argv = [(BRTask *)self argv];
   if (![argv count])
   {
@@ -193,8 +193,7 @@ LABEL_22:
 
     if (v6)
     {
-      v7 = -1;
-      goto LABEL_21;
+      return -1;
     }
   }
 
@@ -229,9 +228,9 @@ LABEL_22:
   if (!v19)
   {
     redirectStdoutToFileAtPath = [(BRTask *)self redirectStdoutToFileAtPath];
-    v35 = [redirectStdoutToFileAtPath length];
+    v34 = [redirectStdoutToFileAtPath length];
 
-    if (v35)
+    if (v34)
     {
       redirectStdoutToFileAtPath2 = [(BRTask *)self redirectStdoutToFileAtPath];
       v7 = posix_spawn_file_actions_addopen(v18, 1, [redirectStdoutToFileAtPath2 fileSystemRepresentation], 521, 0x1B6u);
@@ -245,21 +244,21 @@ LABEL_22:
           goto LABEL_12;
         }
 
-        v37 = __error();
-        v38 = strerror(*v37);
+        v36 = __error();
+        v37 = strerror(*v36);
         *buf = 136315394;
-        v71 = v38;
-        v72 = 2112;
-        v73 = v20;
+        v70 = v37;
+        v71 = 2112;
+        v72 = v20;
         v24 = "[WARNING] Unable to redirect stdin (%s).%@";
         goto LABEL_11;
       }
     }
 
     redirectStderrToFileAtPath = [(BRTask *)self redirectStderrToFileAtPath];
-    v40 = [redirectStderrToFileAtPath length];
+    v39 = [redirectStderrToFileAtPath length];
 
-    if (v40)
+    if (v39)
     {
       redirectStderrToFileAtPath2 = [(BRTask *)self redirectStderrToFileAtPath];
       v7 = posix_spawn_file_actions_addopen(v18, 2, [redirectStderrToFileAtPath2 fileSystemRepresentation], 521, 0x1B6u);
@@ -273,43 +272,43 @@ LABEL_22:
           goto LABEL_12;
         }
 
-        v42 = __error();
-        v43 = strerror(*v42);
+        v41 = __error();
+        v42 = strerror(*v41);
         *buf = 136315394;
-        v71 = v43;
-        v72 = 2112;
-        v73 = v20;
+        v70 = v42;
+        v71 = 2112;
+        v72 = v20;
         v24 = "[WARNING] Unable to redirect stderr (%s).%@";
         goto LABEL_11;
       }
     }
 
-    if ([(BRTask *)self redirectStdoutToFileDescriptor]== -1 || (v44 = posix_spawn_file_actions_adddup2(v18, [(BRTask *)self redirectStdoutToFileDescriptor], 1)) == 0)
+    if ([(BRTask *)self redirectStdoutToFileDescriptor]== -1 || (v43 = posix_spawn_file_actions_adddup2(v18, [(BRTask *)self redirectStdoutToFileDescriptor], 1)) == 0)
     {
-      if ([(BRTask *)self redirectStderrToFileDescriptor]== -1 || (v47 = posix_spawn_file_actions_adddup2(v18, [(BRTask *)self redirectStderrToFileDescriptor], 2)) == 0)
+      if ([(BRTask *)self redirectStderrToFileDescriptor]== -1 || (v46 = posix_spawn_file_actions_adddup2(v18, [(BRTask *)self redirectStderrToFileDescriptor], 2)) == 0)
       {
-        v69 = 0;
+        v68 = 0;
         argv8 = [(BRTask *)self argv];
-        v49 = [argv8 objectAtIndex:0];
-        fileSystemRepresentation = [v49 fileSystemRepresentation];
-        v7 = posix_spawnp(&v69, fileSystemRepresentation, v18, 0, v9, *MEMORY[0x1E69E97E8]);
+        v48 = [argv8 objectAtIndex:0];
+        fileSystemRepresentation = [v48 fileSystemRepresentation];
+        v7 = posix_spawnp(&v68, fileSystemRepresentation, v18, 0, v9, *MEMORY[0x1E69E97E8]);
 
         if (v7)
         {
-          v51 = brc_bread_crumbs("[BRTask exec]", 261);
-          v52 = brc_default_log(1, 0);
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+          v50 = brc_bread_crumbs("[BRTask exec]", 261);
+          v51 = brc_default_log(1, 0);
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
           {
             argv9 = [(BRTask *)self argv];
-            v54 = [argv9 componentsJoinedByString:{@", "}];
-            v55 = strerror(v7);
+            v53 = [argv9 componentsJoinedByString:{@", "}];
+            v54 = strerror(v7);
             *buf = 138412802;
-            v71 = v54;
-            v72 = 2080;
-            v73 = v55;
-            v74 = 2112;
-            v75 = v51;
-            _os_log_impl(&dword_1AE2A9000, v52, OS_LOG_TYPE_DEFAULT, "[WARNING] Unable to spawn a new process (argv: [%@], error: %s).%@", buf, 0x20u);
+            v70 = v53;
+            v71 = 2080;
+            v72 = v54;
+            v73 = 2112;
+            v74 = v50;
+            _os_log_impl(&dword_1AE2A9000, v51, OS_LOG_TYPE_DEFAULT, "[WARNING] Unable to spawn a new process (argv: [%@], error: %s).%@", buf, 0x20u);
           }
 
           self->_waitStatus = 0;
@@ -317,56 +316,56 @@ LABEL_22:
 
         else
         {
-          v56 = signal(2, 1);
-          if (v56 == -1)
+          v55 = signal(2, 1);
+          if (v55 == -1)
           {
-            v65 = brc_bread_crumbs("[BRTask exec]", 223);
-            v66 = brc_default_log(1, 0);
-            if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+            v64 = brc_bread_crumbs("[BRTask exec]", 223);
+            v65 = brc_default_log(1, 0);
+            if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v71 = v65;
-              _os_log_impl(&dword_1AE2A9000, v66, OS_LOG_TYPE_DEFAULT, "[WARNING] Unable to retrieve handler for SIGINT.%@", buf, 0xCu);
+              v70 = v64;
+              _os_log_impl(&dword_1AE2A9000, v65, OS_LOG_TYPE_DEFAULT, "[WARNING] Unable to retrieve handler for SIGINT.%@", buf, 0xCu);
             }
 
-            waitpid(v69, &self->_waitStatus, 0);
+            waitpid(v68, &self->_waitStatus, 0);
           }
 
           else
           {
-            v57 = v56;
-            v58 = dispatch_get_global_queue(0, 0);
-            v59 = dispatch_source_create(MEMORY[0x1E69E9700], 2uLL, 0, v58);
+            v56 = v55;
+            v57 = dispatch_get_global_queue(0, 0);
+            v58 = dispatch_source_create(MEMORY[0x1E69E9700], 2uLL, 0, v57);
 
-            v67[0] = MEMORY[0x1E69E9820];
-            v67[1] = 3221225472;
-            v67[2] = __14__BRTask_exec__block_invoke;
-            v67[3] = &unk_1E7A165D0;
-            v68 = v69;
-            v67[4] = self;
-            v60 = v59;
-            v61 = v67;
-            v62 = v61;
-            v63 = v61;
+            v66[0] = MEMORY[0x1E69E9820];
+            v66[1] = 3221225472;
+            v66[2] = __14__BRTask_exec__block_invoke;
+            v66[3] = &unk_1E7A165D0;
+            v67 = v68;
+            v66[4] = self;
+            v59 = v58;
+            v60 = v66;
+            v61 = v60;
+            v62 = v60;
             if (brc_block_remember_persona)
             {
-              v63 = brc_block_remember_persona(v61);
+              v62 = brc_block_remember_persona(v60);
             }
 
-            v64 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v63);
-            dispatch_source_set_event_handler(v60, v64);
+            v63 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v62);
+            dispatch_source_set_event_handler(v59, v63);
 
-            dispatch_resume(v60);
-            waitpid(v69, &self->_waitStatus, 0);
-            signal(2, v57);
-            dispatch_source_cancel(v60);
+            dispatch_resume(v59);
+            waitpid(v68, &self->_waitStatus, 0);
+            signal(2, v56);
+            dispatch_source_cancel(v59);
           }
         }
 
         goto LABEL_13;
       }
 
-      v7 = v47;
+      v7 = v46;
       v20 = brc_bread_crumbs("[BRTask exec]", 209);
       v21 = brc_default_log(1, 0);
       if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
@@ -377,7 +376,7 @@ LABEL_22:
 
     else
     {
-      v7 = v44;
+      v7 = v43;
       v20 = brc_bread_crumbs("[BRTask exec]", 203);
       v21 = brc_default_log(1, 0);
       if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
@@ -386,12 +385,12 @@ LABEL_22:
       }
     }
 
-    v45 = __error();
-    v46 = strerror(*v45);
+    v44 = __error();
+    v45 = strerror(*v44);
     *buf = 136315394;
-    v71 = v46;
-    v72 = 2112;
-    v73 = v20;
+    v70 = v45;
+    v71 = 2112;
+    v72 = v20;
     v24 = "[WARNING] Unable to perform spawn action (%s).%@";
     goto LABEL_11;
   }
@@ -404,9 +403,9 @@ LABEL_22:
     v22 = __error();
     v23 = strerror(*v22);
     *buf = 136315394;
-    v71 = v23;
-    v72 = 2112;
-    v73 = v20;
+    v70 = v23;
+    v71 = 2112;
+    v72 = v20;
     v24 = "[WARNING] Unable to initialize the file actions properly (%s).%@";
 LABEL_11:
     _os_log_impl(&dword_1AE2A9000, v21, OS_LOG_TYPE_DEFAULT, v24, buf, 0x16u);
@@ -439,16 +438,14 @@ LABEL_13:
       v30 = __error();
       v31 = strerror(*v30);
       *buf = 136315394;
-      v71 = v31;
-      v72 = 2112;
-      v73 = v28;
+      v70 = v31;
+      v71 = 2112;
+      v72 = v28;
       _os_log_impl(&dword_1AE2A9000, v29, OS_LOG_TYPE_DEFAULT, "[WARNING] Unable to destroy the file actions properly (%s).%@", buf, 0x16u);
     }
   }
 
   free(v18);
-LABEL_21:
-  v32 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

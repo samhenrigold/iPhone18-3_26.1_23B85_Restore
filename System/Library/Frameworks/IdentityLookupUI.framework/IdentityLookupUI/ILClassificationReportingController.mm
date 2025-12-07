@@ -26,7 +26,7 @@
 
 - (void)reportResponse:(id)response forExtension:(id)extension withCompletion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   extensionCopy = extension;
   completionCopy = completion;
@@ -34,9 +34,9 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v24 = responseCopy;
-    v25 = 2112;
-    v26 = extensionCopy;
+    v23 = responseCopy;
+    v24 = 2112;
+    v25 = extensionCopy;
     _os_log_impl(&dword_238A6C000, v11, OS_LOG_TYPE_DEFAULT, "response: %@ extension:%@", buf, 0x16u);
   }
 
@@ -63,19 +63,17 @@
     }
 
     v17 = MEMORY[0x277CCA9B8];
-    v21 = @"Error";
-    v22 = extensionCopy;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v20 = @"Error";
+    v21 = extensionCopy;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
     v19 = [v17 errorWithDomain:@"com.apple.IdentityLookupUI.ILClassificationReportingController" code:0 userInfo:v18];
     completionCopy[2](completionCopy, v19);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportResponseViaNetwork:(id)network forExtension:(id)extension withCompletion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   v8 = MEMORY[0x277CD2C30];
   completionCopy = completion;
@@ -85,9 +83,9 @@
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [extensionCopy identifier];
-    v19 = 138412290;
-    v20 = identifier;
-    _os_log_impl(&dword_238A6C000, v12, OS_LOG_TYPE_DEFAULT, "creating report request with identifier: %@", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = identifier;
+    _os_log_impl(&dword_238A6C000, v12, OS_LOG_TYPE_DEFAULT, "creating report request with identifier: %@", &v18, 0xCu);
   }
 
   v14 = objc_alloc(MEMORY[0x277CD2C20]);
@@ -96,13 +94,11 @@
 
   v17 = [v14 initWithExtensionIdentifier:identifier2 jsonDictionary:userInfo];
   [v11 performClassificationReportRequest:v17 completion:completionCopy];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportResponseViaSMS:(id)s forExtension:(id)extension withCompletion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   completionCopy = completion;
   sCopy = s;
@@ -117,14 +113,14 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v25 = sMSReportDestination;
-      v26 = 2112;
-      v27 = userString;
+      v24 = sMSReportDestination;
+      v25 = 2112;
+      v26 = userString;
       _os_log_impl(&dword_238A6C000, v14, OS_LOG_TYPE_DEFAULT, "reporting classification via SMS to %@ (%@)", buf, 0x16u);
     }
 
-    v23 = sMSReportDestination;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+    v22 = sMSReportDestination;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
     [v13 setRecipients:v15];
 
     [v13 setBody:userString];
@@ -144,16 +140,14 @@
   if (completionCopy)
   {
     v18 = MEMORY[0x277CCA9B8];
-    v21 = @"Error";
-    v22 = v13;
-    hostViewController = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v20 = @"Error";
+    v21 = v13;
+    hostViewController = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
     v19 = [v18 errorWithDomain:@"com.apple.IdentityLookupUI.ILClassificationReportingController" code:0 userInfo:hostViewController];
     completionCopy[2](completionCopy, v19);
 
 LABEL_10:
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageComposeViewController:(id)controller didFinishWithResult:(int64_t)result
@@ -185,20 +179,18 @@ LABEL_10:
 
 - (void)reportResponse:(uint64_t)a1 forExtension:(NSObject *)a2 withCompletion:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_238A6C000, a2, OS_LOG_TYPE_ERROR, "error reporting response: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_238A6C000, a2, OS_LOG_TYPE_ERROR, "error reporting response: %@", &v2, 0xCu);
 }
 
 - (void)reportResponseViaSMS:(uint64_t)a1 forExtension:(NSObject *)a2 withCompletion:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_238A6C000, a2, OS_LOG_TYPE_ERROR, "error reporting SMS response: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_238A6C000, a2, OS_LOG_TYPE_ERROR, "error reporting SMS response: %@", &v2, 0xCu);
 }
 
 @end

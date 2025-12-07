@@ -694,28 +694,30 @@ LABEL_18:
 - (BOOL)_imaxRespondsToSelector:(SEL)selector fromExtrasProtocol:(id)protocol skipAssertions:(BOOL)assertions
 {
   protocolCopy = protocol;
+  v10 = protocolCopy;
   if (!assertions)
   {
-    ShouldPerformValidationChecks = IMAccessibilityShouldPerformValidationChecks();
+    ShouldPerformValidationChecks = IMAccessibilityShouldPerformValidationChecks(protocolCopy, v9);
     if (!selector)
     {
       if (ShouldPerformValidationChecks)
       {
-        ShouldCrashOnValidationErrorAfterLaunch = IMAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-        if (__IMAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Selector can't be null.", v14, v15, v16, v17, v18, v45))
+        ShouldCrashOnValidationErrorAfterLaunch = IMAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+        ShouldPerformValidationChecks = __IMAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Selector can't be null.", v18, v19, v20, v21, v22, v53);
+        if (ShouldPerformValidationChecks)
         {
           goto LABEL_23;
         }
       }
     }
 
-    v19 = IMAccessibilityShouldPerformValidationChecks();
-    if (!protocolCopy)
+    v23 = IMAccessibilityShouldPerformValidationChecks(ShouldPerformValidationChecks, v16);
+    if (!v10)
     {
-      if (v19)
+      if (v23)
       {
-        v20 = IMAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-        if (!__IMAccessibilityHandleValidationErrorWithDescription(v20, 0, @"Protocol can't be null.", v21, v22, v23, v24, v25, v45))
+        v24 = IMAccessibilityShouldCrashOnValidationErrorAfterLaunch(v23);
+        if (!__IMAccessibilityHandleValidationErrorWithDescription(v24, 0, @"Protocol can't be null.", v25, v26, v27, v28, v29, v53))
         {
           goto LABEL_21;
         }
@@ -725,40 +727,43 @@ LABEL_18:
     }
   }
 
-  v9 = 0;
-  if (!selector || !protocolCopy)
+  v11 = 0;
+  if (!selector || !v10)
   {
     goto LABEL_22;
   }
 
-  name = protocol_getMethodDescription(protocolCopy, selector, 1, 1).name;
-  v11 = [self conformsToProtocol:protocolCopy];
-  v9 = v11;
+  name = protocol_getMethodDescription(v10, selector, 1, 1).name;
+  v13 = [self conformsToProtocol:v10];
+  v11 = v13;
   if (!assertions)
   {
-    if ((name == 0) | ((IMAccessibilityShouldPerformValidationChecks() & 1) == 0) | v11 & 1 || (v26 = IMAccessibilityShouldCrashOnValidationErrorAfterLaunch(), v27 = objc_opt_class(), NSStringFromClass(v27), v28 = objc_claimAutoreleasedReturnValue(), NSStringFromProtocol(protocolCopy), v46 = objc_claimAutoreleasedReturnValue(), v34 = __IMAccessibilityHandleValidationErrorWithDescription(v26, 0, @"<%@: %p> doesn't conform to the protocol: %@", v29, v30, v31, v32, v33, v28), v46, v28, !v34))
+    v30 = IMAccessibilityShouldPerformValidationChecks(v13, v14);
+    if ((name == 0 || (v30 & 1) == 0) | v11 & 1 || (v31 = IMAccessibilityShouldCrashOnValidationErrorAfterLaunch(v30), v32 = objc_opt_class(), NSStringFromClass(v32), v33 = objc_claimAutoreleasedReturnValue(), NSStringFromProtocol(v10), v54 = objc_claimAutoreleasedReturnValue(), v39 = __IMAccessibilityHandleValidationErrorWithDescription(v31, 0, @"<%@: %p> doesn't conform to the protocol: %@", v34, v35, v36, v37, v38, v33), v54, v33, !v39))
     {
-      if ((v9 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         goto LABEL_21;
       }
 
-      v9 = objc_opt_respondsToSelector();
-      if (!IMAccessibilityShouldPerformValidationChecks() || !name || (v9 & 1) != 0)
+      v40 = objc_opt_respondsToSelector();
+      v11 = v40;
+      v42 = IMAccessibilityShouldPerformValidationChecks(v40, v41);
+      if (!v42 || !name || (v11 & 1) != 0)
       {
         goto LABEL_22;
       }
 
-      v35 = IMAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      v36 = objc_opt_class();
-      v37 = NSStringFromClass(v36);
-      v47 = NSStringFromSelector(selector);
-      v43 = __IMAccessibilityHandleValidationErrorWithDescription(v35, 0, @"<%@: %p> doesn't respond to the following abstract method: %@", v38, v39, v40, v41, v42, v37);
+      v43 = IMAccessibilityShouldCrashOnValidationErrorAfterLaunch(v42);
+      v44 = objc_opt_class();
+      v45 = NSStringFromClass(v44);
+      v55 = NSStringFromSelector(selector);
+      v51 = __IMAccessibilityHandleValidationErrorWithDescription(v43, 0, @"<%@: %p> doesn't respond to the following abstract method: %@", v46, v47, v48, v49, v50, v45);
 
-      if (!v43)
+      if (!v51)
       {
 LABEL_21:
-        v9 = 0;
+        v11 = 0;
         goto LABEL_22;
       }
     }
@@ -767,14 +772,14 @@ LABEL_23:
     abort();
   }
 
-  if (v11)
+  if (v13)
   {
-    v9 = objc_opt_respondsToSelector();
+    v11 = objc_opt_respondsToSelector();
   }
 
 LABEL_22:
 
-  return v9 & 1;
+  return v11 & 1;
 }
 
 @end

@@ -128,22 +128,21 @@ uint64_t __36__CBKeyboardBacklightContainer_stop__block_invoke(uint64_t a1)
 
 uint64_t __51__CBKeyboardBacklightContainer_copyPropertyForKey___block_invoke(uint64_t a1)
 {
-  v4 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     result = [*(a1 + 32) getKeyKeyboardID];
-    v5 = result;
+    v3 = result;
     if (result)
     {
       result = [*(*(a1 + 40) + 48) keyboardID];
-      if (v5 == result || v5 == 1 && (result = [*(*(a1 + 40) + 48) builtIn], (result & 1) != 0) || v5 == 1 || v5 == 3 && (result = objc_msgSend(*(*(a1 + 40) + 48), "supportsAuthentication"), (result & 1) != 0))
+      if (v3 == result || v3 == 1 && (result = [*(*(a1 + 40) + 48) builtIn], (result & 1) != 0) || v3 == 1 || v3 == 3 && (result = objc_msgSend(*(*(a1 + 40) + 48), "supportsAuthentication"), (result & 1) != 0))
       {
         result = [*(a1 + 40) copyPropertyInternalForKey:{objc_msgSend(*(a1 + 32), "getKeyString")}];
         *(*(*(a1 + 48) + 8) + 40) = result;
       }
 
-      else if (v5 == 2)
+      else if (v3 == 2)
       {
         result = [*(*(a1 + 40) + 48) supportsAuthentication];
         if ((result & 1) == 0)
@@ -157,7 +156,6 @@ uint64_t __51__CBKeyboardBacklightContainer_copyPropertyForKey___block_invoke(ui
 
   else
   {
-    v2 = *(a1 + 32);
     objc_opt_class();
     result = objc_opt_isKindOfClass();
     if (result)
@@ -199,22 +197,21 @@ uint64_t __51__CBKeyboardBacklightContainer_copyPropertyForKey___block_invoke(ui
 
 uint64_t __51__CBKeyboardBacklightContainer_setProperty_forKey___block_invoke(uint64_t a1)
 {
-  v4 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     result = [*(a1 + 32) getKeyKeyboardID];
-    v5 = result;
+    v3 = result;
     if (result)
     {
       result = [*(*(a1 + 40) + 48) keyboardID];
-      if (v5 == result || v5 == 1 && (result = [*(*(a1 + 40) + 48) builtIn], (result & 1) != 0) || v5 == 1 || v5 == 3 && (result = objc_msgSend(*(*(a1 + 40) + 48), "supportsAuthentication"), (result & 1) != 0))
+      if (v3 == result || v3 == 1 && (result = [*(*(a1 + 40) + 48) builtIn], (result & 1) != 0) || v3 == 1 || v3 == 3 && (result = objc_msgSend(*(*(a1 + 40) + 48), "supportsAuthentication"), (result & 1) != 0))
       {
         result = [*(a1 + 40) setPropertyInternal:*(a1 + 48) forKey:{objc_msgSend(*(a1 + 32), "getKeyString")}];
         *(*(*(a1 + 56) + 8) + 24) = result;
       }
 
-      else if (v5 == 2)
+      else if (v3 == 2)
       {
         result = [*(*(a1 + 40) + 48) supportsAuthentication];
         if ((result & 1) == 0)
@@ -228,7 +225,6 @@ uint64_t __51__CBKeyboardBacklightContainer_setProperty_forKey___block_invoke(ui
 
   else
   {
-    v2 = *(a1 + 32);
     objc_opt_class();
     result = objc_opt_isKindOfClass();
     if (result)
@@ -285,34 +281,33 @@ uint64_t __51__CBKeyboardBacklightContainer_setProperty_forKey___block_invoke(ui
     _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_INFO, "key=%@ property=%@ result=%d", v11, 0x1Cu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (id)copyPropertyInternalForKey:(id)key
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v15 = a2;
+  v14 = a2;
   keyCopy = key;
-  v13 = 0;
+  v12 = 0;
   if ([key isEqualToString:@"StatusInfo"])
   {
-    v12 = [CBStatusInfoHelper copyStatusInfoFor:selfCopy];
-    if (v12)
+    v11 = [CBStatusInfoHelper copyStatusInfoFor:selfCopy];
+    if (v11)
     {
-      v13 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v12, @"CBKeyboardBacklightContainer", 0}];
+      v12 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v11, @"CBKeyboardBacklightContainer", 0}];
     }
 
-    MEMORY[0x1E69E5920](v12);
+    MEMORY[0x1E69E5920](v11);
   }
 
   else
   {
-    v13 = [(KeyboardBacklight *)selfCopy->_keyboardBacklight copyPropertyForKey:keyCopy];
-    if (!v13)
+    v12 = [(KeyboardBacklight *)selfCopy->_keyboardBacklight copyPropertyForKey:keyCopy];
+    if (!v12)
     {
-      v13 = [-[NSMutableDictionary objectForKey:](selfCopy->_properties objectForKey:{keyCopy), "copy"}];
+      v12 = [-[NSMutableDictionary objectForKey:](selfCopy->_properties objectForKey:{keyCopy), "copy"}];
     }
   }
 
@@ -341,15 +336,13 @@ uint64_t __51__CBKeyboardBacklightContainer_setProperty_forKey___block_invoke(ui
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
   {
     log = oslog;
-    *v6 = type;
-    buf = v17;
-    __os_log_helper_16_2_2_8_64_8_64(v17, keyCopy, v13);
-    _os_log_impl(&dword_1DE8E5000, log, v6[0], "key=%@ result=%@", buf, 0x16u);
+    *v5 = type;
+    buf = v16;
+    __os_log_helper_16_2_2_8_64_8_64(v16, keyCopy, v12);
+    _os_log_impl(&dword_1DE8E5000, log, v5[0], "key=%@ result=%@", buf, 0x16u);
   }
 
-  v4 = v13;
-  *MEMORY[0x1E69E9840];
-  return v13;
+  return v12;
 }
 
 - (id)copyIdentifiers
@@ -545,11 +538,10 @@ uint64_t __51__CBKeyboardBacklightContainer_setProperty_forKey___block_invoke(ui
 
   v5 = *(v39 + 24);
   _Block_object_dispose(&v38, 8);
-  *MEMORY[0x1E69E9840];
   return v5 & 1;
 }
 
-uint64_t __52__CBKeyboardBacklightContainer_addHIDServiceClient___block_invoke(uint64_t a1)
+void *__52__CBKeyboardBacklightContainer_addHIDServiceClient___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) keyboardBacklightInitialization];
   result = a1;
@@ -589,7 +581,7 @@ uint64_t __52__CBKeyboardBacklightContainer_addHIDServiceClient___block_invoke(u
   return v6 & 1;
 }
 
-uint64_t __52__CBKeyboardBacklightContainer_handleHIDEvent_from___block_invoke(void *a1)
+void *__52__CBKeyboardBacklightContainer_handleHIDEvent_from___block_invoke(void *a1)
 {
   result = [*(a1[4] + 48) handleHIDEvent:a1[6] from:a1[7]];
   *(*(a1[5] + 8) + 24) = result;
@@ -621,7 +613,7 @@ uint64_t __52__CBKeyboardBacklightContainer_handleHIDEvent_from___block_invoke(v
   return v5 & 1;
 }
 
-uint64_t __55__CBKeyboardBacklightContainer_removeHIDServiceClient___block_invoke(void *a1)
+void *__55__CBKeyboardBacklightContainer_removeHIDServiceClient___block_invoke(void *a1)
 {
   result = [*(a1[4] + 48) removeHIDServiceClient:a1[6]];
   *(*(a1[5] + 8) + 24) = result;
@@ -670,26 +662,24 @@ double __64__CBKeyboardBacklightContainer_sendNotificationForKey_andValue___bloc
   return result;
 }
 
-double __64__CBKeyboardBacklightContainer_sendNotificationForKey_andValue___block_invoke_2(void *a1)
+double __64__CBKeyboardBacklightContainer_sendNotificationForKey_andValue___block_invoke_2(uint64_t a1)
 {
-  if (*(a1[4] + 32))
+  if (*(*(a1 + 32) + 32))
   {
-    v6 = [objc_alloc(MEMORY[0x1E695DF20]) initWithPropertyKey:a1[5] keyboardID:{objc_msgSend(*(a1[4] + 48), "keyboardID")}];
-    if (v6)
+    v4 = [objc_alloc(MEMORY[0x1E695DF20]) initWithPropertyKey:*(a1 + 40) keyboardID:{objc_msgSend(*(*(a1 + 32) + 48), "keyboardID")}];
+    if (v4)
     {
-      v1 = a1[6];
-      (*(*(a1[4] + 32) + 16))();
+      (*(*(*(a1 + 32) + 32) + 16))();
     }
 
-    MEMORY[0x1E69E5920](v6);
-    v5 = [objc_alloc(MEMORY[0x1E695DF20]) initWithPropertyKey:a1[5] keyboardID:1];
-    if (v5)
+    MEMORY[0x1E69E5920](v4);
+    v3 = [objc_alloc(MEMORY[0x1E695DF20]) initWithPropertyKey:*(a1 + 40) keyboardID:1];
+    if (v3)
     {
-      v2 = a1[6];
-      (*(*(a1[4] + 32) + 16))();
+      (*(*(*(a1 + 32) + 32) + 16))();
     }
 
-    *&result = MEMORY[0x1E69E5920](v5).n128_u64[0];
+    *&result = MEMORY[0x1E69E5920](v3).n128_u64[0];
   }
 
   return result;
@@ -771,7 +761,6 @@ double __64__CBKeyboardBacklightContainer_sendNotificationForKey_andValue___bloc
     _os_log_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEFAULT, "Keyboard backlight initialized for lgpVersion = %d", v14, 8u);
   }
 
-  *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -945,7 +934,6 @@ double __64__CBKeyboardBacklightContainer_sendNotificationForKey_andValue___bloc
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v43 & 1;
 }
 
@@ -1003,15 +991,15 @@ double __64__CBKeyboardBacklightContainer_sendNotificationForKey_andValue___bloc
   }
 }
 
-uint64_t __63__CBKeyboardBacklightContainer_keyboardBacklightInitialization__block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+void *__63__CBKeyboardBacklightContainer_keyboardBacklightInitialization__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   v9 = *MEMORY[0x1E69E9840];
   if (a2 && a3)
   {
-    if (*(*(result + 32) + 40))
+    if (*(result[4] + 40))
     {
-      v4 = *(*(result + 32) + 40);
+      v4 = *(result[4] + 40);
     }
 
     else
@@ -1035,10 +1023,9 @@ uint64_t __63__CBKeyboardBacklightContainer_keyboardBacklightInitialization__blo
       _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "Notification block key=%@, value=%@\n", v8, 0x16u);
     }
 
-    result = [*(v5 + 32) sendNotificationForKey:a2 andValue:a3];
+    return [v5[4] sendNotificationForKey:a2 andValue:a3];
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 

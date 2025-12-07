@@ -9,7 +9,7 @@
 - (void)layoutSubviews
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for CarouselItemMaterialTextOverlay();
+  v6.super_class = type metadata accessor for CarouselItemMaterialTextOverlay(0);
   v2 = v6.receiver;
   [(CarouselItemMaterialTextOverlay *)&v6 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC8AppStore31CarouselItemMaterialTextOverlay_materialBackground];
@@ -46,11 +46,12 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore31CarouselItemMaterialTextOverlay_selectionHandler);
   if (v3)
   {
+    v4 = *&self->materialBackground[OBJC_IVAR____TtC8AppStore31CarouselItemMaterialTextOverlay_selectionHandler];
     selfCopy = self;
-    v5 = sub_10000827C(v3);
-    v3(v5);
+    v6 = sub_10000827C(v3, v4);
+    v3(v6);
 
-    sub_10001F63C(v3);
+    sub_10001F63C(v3, v4);
   }
 }
 

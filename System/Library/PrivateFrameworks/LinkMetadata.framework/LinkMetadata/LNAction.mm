@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (LNAction)actionWithByMergingParameters:(id)parameters;
 - (LNAction)actionWithNonSecureParameters;
+- (LNAction)actionWithOpenWhenRun:(BOOL)run;
 - (LNAction)actionWithParameters:(id)parameters;
 - (LNAction)actionWithURL:(id)l;
 - (LNAction)initWithBSXPCCoder:(id)coder;
@@ -25,42 +26,40 @@
 
 - (void)enumerateParameterValuesOfValueType:(id)type block:(id)block
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   blockCopy = block;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   parameters = [(LNAction *)self parameters];
-  v9 = [parameters countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [parameters countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(parameters);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         value = [v13 value];
         valueType = [value valueType];
         value2 = [v13 value];
         [valueType enumerateValuesOfValueType:typeCopy value:value2 block:blockCopy];
       }
 
-      v10 = [parameters countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [parameters countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -623,6 +622,23 @@ LABEL_65:
   return v7;
 }
 
+- (LNAction)actionWithOpenWhenRun:(BOOL)run
+{
+  runCopy = run;
+  v5 = objc_alloc(objc_opt_class());
+  identifier = [(LNAction *)self identifier];
+  mangledTypeName = [(LNAction *)self mangledTypeName];
+  explicitAuthenticationPolicy = [(LNAction *)self explicitAuthenticationPolicy];
+  outputFlags = [(LNAction *)self outputFlags];
+  outputType = [(LNAction *)self outputType];
+  systemProtocols = [(LNAction *)self systemProtocols];
+  parameters = [(LNAction *)self parameters];
+  metadata = [(LNAction *)self metadata];
+  v14 = [v5 _initWithIdentifier:identifier mangledTypeName:mangledTypeName openAppWhenRun:runCopy explicitAuthenticationPolicy:explicitAuthenticationPolicy outputFlags:outputFlags outputType:outputType systemProtocols:systemProtocols parameters:parameters metadata:metadata];
+
+  return v14;
+}
+
 - (LNAction)actionWithNonSecureParameters
 {
   parameters = [(LNAction *)self parameters];
@@ -652,64 +668,64 @@ uint64_t __41__LNAction_actionWithNonSecureParameters__block_invoke(uint64_t a1,
 
 - (LNAction)actionWithByMergingParameters:(id)parameters
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   parameters = [(LNAction *)self parameters];
-  v7 = [parameters countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v7 = [parameters countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v29;
+    v9 = *v28;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v29 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(parameters);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
+        v11 = *(*(&v27 + 1) + 8 * i);
         identifier = [v11 identifier];
         [v5 setObject:v11 forKeyedSubscript:identifier];
       }
 
-      v8 = [parameters countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v8 = [parameters countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v8);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v13 = parametersCopy;
-  v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v25;
+    v16 = *v24;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v25 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v24 + 1) + 8 * j);
+        v18 = *(*(&v23 + 1) + 8 * j);
         identifier2 = [v18 identifier];
         [v5 setObject:v18 forKeyedSubscript:identifier2];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v15);
@@ -717,8 +733,6 @@ uint64_t __41__LNAction_actionWithNonSecureParameters__block_invoke(uint64_t a1,
 
   allValues = [v5 allValues];
   v21 = [(LNAction *)self actionWithParameters:allValues];
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

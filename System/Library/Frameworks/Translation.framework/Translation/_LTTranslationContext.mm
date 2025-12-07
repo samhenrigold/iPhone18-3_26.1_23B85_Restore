@@ -33,11 +33,11 @@
 
 - (_LTTranslationContext)initWithCoder:(id)coder
 {
-  v34[2] = *MEMORY[0x277D85DE8];
+  v33[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v33.receiver = self;
-  v33.super_class = _LTTranslationContext;
-  v5 = [(_LTTranslationContext *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = _LTTranslationContext;
+  v5 = [(_LTTranslationContext *)&v32 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"uniqueID"];
@@ -66,9 +66,9 @@
     v5->_outputFileURL = v12;
 
     v14 = MEMORY[0x277CBEB98];
-    v34[0] = objc_opt_class();
-    v34[1] = objc_opt_class();
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+    v33[0] = objc_opt_class();
+    v33[1] = objc_opt_class();
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
     v16 = [v14 setWithArray:v15];
 
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"asrModelURLs"];
@@ -113,7 +113,6 @@
     v30 = v5;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -200,19 +199,19 @@
 
 - (NSString)clientIdentifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   p_trustedClientIdentifier = &self->_trustedClientIdentifier;
   trustedClientIdentifier = self->_trustedClientIdentifier;
-  v5 = _LTOSLogXPC();
+  v5 = _LTOSLogXPC(self, a2);
   v6 = v5;
   if (trustedClientIdentifier)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v7 = *p_trustedClientIdentifier;
-      v12 = 138477827;
-      v13 = v7;
-      _os_log_impl(&dword_23AAF5000, v6, OS_LOG_TYPE_INFO, "Using trusted client identifier: %{private}@", &v12, 0xCu);
+      v11 = 138477827;
+      v12 = v7;
+      _os_log_impl(&dword_23AAF5000, v6, OS_LOG_TYPE_INFO, "Using trusted client identifier: %{private}@", &v11, 0xCu);
     }
   }
 
@@ -221,16 +220,15 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       untrustedClientIdentifier = self->_untrustedClientIdentifier;
-      v12 = 138477827;
-      v13 = untrustedClientIdentifier;
-      _os_log_impl(&dword_23AAF5000, v6, OS_LOG_TYPE_DEFAULT, "Failed to get trusted client identifier, falling back to untrusted value: %{private}@", &v12, 0xCu);
+      v11 = 138477827;
+      v12 = untrustedClientIdentifier;
+      _os_log_impl(&dword_23AAF5000, v6, OS_LOG_TYPE_DEFAULT, "Failed to get trusted client identifier, falling back to untrusted value: %{private}@", &v11, 0xCu);
     }
 
     p_trustedClientIdentifier = &self->_untrustedClientIdentifier;
   }
 
   v9 = *p_trustedClientIdentifier;
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

@@ -24,26 +24,25 @@
 
 - (MDLLight)init
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = MDLLight;
-  v2 = [(MDLObject *)&v9 init];
+  v20 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = MDLLight;
+  v2 = [(MDLObject *)&v17 init];
   if (v2)
   {
     v3 = objc_alloc_init(MDLTransform);
-    objc_msgSend_setTransform_(v2, v4, v3);
+    objc_msgSend_setTransform_(v2, v4, v3, v5, v10, v11, v12, v13, v6, v7, v8, v9);
 
-    v5 = *MEMORY[0x277CBF4B8];
+    v14 = *MEMORY[0x277CBF4B8];
     objc_storeStrong(&v2->_colorSpace, *MEMORY[0x277CBF4B8]);
-    v6 = CGColorSpaceCreateWithName(v5);
-    v2->_cgColorSpace = v6;
+    v15 = CGColorSpaceCreateWithName(v14);
+    v2->_cgColorSpace = v15;
     *components = xmmword_239F9C2B0;
-    v11 = unk_239F9C2C0;
-    CGColorCreate(v6, components);
+    v19 = unk_239F9C2C0;
+    CGColorCreate(v15, components);
     operator new();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -98,20 +97,20 @@
 
 - (__n128)position
 {
-  v6 = objc_msgSend_transform(self, a2, a3);
-  if (v6)
+  v20 = objc_msgSend_transform(self, a2, a3, a4, a9, a10, a11, a12, a5, a6, a7, a8);
+  if (v20)
   {
-    v7 = objc_msgSend_transform(self, v4, v5);
-    objc_msgSend_matrix(v7, v8, v9);
-    v12 = v10;
+    v25 = objc_msgSend_transform(self, v13, v14, v15, v21, v22, v23, v24, v16, v17, v18, v19);
+    objc_msgSend_matrix(v25, v26, v27, v28, v33, v34, v35, v36, v29, v30, v31, v32);
+    v39 = v37;
   }
 
   else
   {
-    v12 = *(MEMORY[0x277D860B8] + 48);
+    v39 = *(MEMORY[0x277D860B8] + 48);
   }
 
-  return v12;
+  return v39;
 }
 
 @end

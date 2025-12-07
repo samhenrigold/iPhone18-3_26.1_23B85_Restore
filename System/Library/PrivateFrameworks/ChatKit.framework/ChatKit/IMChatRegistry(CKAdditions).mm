@@ -6,115 +6,115 @@
 
 - (id)_ck_chatForHandles:()CKAdditions displayName:lastAddressedHandle:lastAddressedSIMID:joinedChatsOnly:findMatchingNamedGroups:createIfNecessary:
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   v15 = a3;
-  v44 = a4;
-  v42 = a5;
-  v43 = a6;
-  v45 = v15;
-  if (CKIsRunningUITests())
+  v51 = a4;
+  v49 = a5;
+  v50 = a6;
+  v52 = v15;
+  if (CKIsRunningUITests(v50, v16))
   {
     array = [MEMORY[0x1E695DF70] array];
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
-    v58 = 0u;
-    v17 = v15;
-    v18 = [v17 countByEnumeratingWithState:&v57 objects:v67 count:16];
-    if (v18)
+    v66 = 0u;
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
+    v18 = v15;
+    v19 = [v18 countByEnumeratingWithState:&v64 objects:v74 count:16];
+    if (v19)
     {
-      v19 = *v58;
+      v20 = *v65;
       do
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v58 != v19)
+          if (*v65 != v20)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v18);
           }
 
-          v21 = [*(*(&v57 + 1) + 8 * i) ID];
-          if ([v21 _appearsToBePhoneNumber])
+          v22 = [*(*(&v64 + 1) + 8 * i) ID];
+          if ([v22 _appearsToBePhoneNumber])
           {
-            v22 = IMInternationalForPhoneNumberWithOptions();
+            v23 = IMInternationalForPhoneNumberWithOptions();
 
-            v21 = v22;
+            v22 = v23;
           }
 
-          v23 = IMStripFormattingFromAddress();
-          [array addObject:v23];
+          v24 = IMStripFormattingFromAddress();
+          [array addObject:v24];
         }
 
-        v18 = [v17 countByEnumeratingWithState:&v57 objects:v67 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v64 objects:v74 count:16];
       }
 
-      while (v18);
+      while (v19);
     }
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
-    v54 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     mEMORY[0x1E69A5AF8] = [MEMORY[0x1E69A5AF8] sharedRegistry];
     obj = [mEMORY[0x1E69A5AF8] simulatedChats];
 
-    v48 = [obj countByEnumeratingWithState:&v53 objects:v66 count:16];
-    if (v48)
+    v55 = [obj countByEnumeratingWithState:&v60 objects:v73 count:16];
+    if (v55)
     {
-      v47 = *v54;
+      v54 = *v61;
       while (2)
       {
-        for (j = 0; j != v48; ++j)
+        for (j = 0; j != v55; ++j)
         {
-          if (*v54 != v47)
+          if (*v61 != v54)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v53 + 1) + 8 * j);
-          v27 = [MEMORY[0x1E695DFA8] set];
-          v51 = 0u;
-          v52 = 0u;
-          v49 = 0u;
-          v50 = 0u;
-          participants = [v26 participants];
-          v29 = [participants countByEnumeratingWithState:&v49 objects:v65 count:16];
-          if (v29)
+          v27 = *(*(&v60 + 1) + 8 * j);
+          v28 = [MEMORY[0x1E695DFA8] set];
+          v58 = 0u;
+          v59 = 0u;
+          v56 = 0u;
+          v57 = 0u;
+          participants = [v27 participants];
+          v30 = [participants countByEnumeratingWithState:&v56 objects:v72 count:16];
+          if (v30)
           {
-            v30 = *v50;
+            v31 = *v57;
             do
             {
-              for (k = 0; k != v29; ++k)
+              for (k = 0; k != v30; ++k)
               {
-                if (*v50 != v30)
+                if (*v57 != v31)
                 {
                   objc_enumerationMutation(participants);
                 }
 
-                v32 = [*(*(&v49 + 1) + 8 * k) ID];
-                v33 = IMStripFormattingFromAddress();
-                [v27 addObject:v33];
+                v33 = [*(*(&v56 + 1) + 8 * k) ID];
+                v34 = IMStripFormattingFromAddress();
+                [v28 addObject:v34];
               }
 
-              v29 = [participants countByEnumeratingWithState:&v49 objects:v65 count:16];
+              v30 = [participants countByEnumeratingWithState:&v56 objects:v72 count:16];
             }
 
-            while (v29);
+            while (v30);
           }
 
-          v34 = [MEMORY[0x1E695DFD8] setWithArray:array];
-          v35 = [v27 isEqualToSet:v34];
+          v35 = [MEMORY[0x1E695DFD8] setWithArray:array];
+          v36 = [v28 isEqualToSet:v35];
 
-          if (v35)
+          if (v36)
           {
-            v36 = v26;
+            v37 = v27;
 
             goto LABEL_32;
           }
         }
 
-        v48 = [obj countByEnumeratingWithState:&v53 objects:v66 count:16];
-        if (v48)
+        v55 = [obj countByEnumeratingWithState:&v60 objects:v73 count:16];
+        if (v55)
         {
           continue;
         }
@@ -123,7 +123,7 @@
       }
     }
 
-    v36 = 0;
+    v37 = 0;
 LABEL_32:
   }
 
@@ -131,24 +131,24 @@ LABEL_32:
   {
     if ([v15 count] == 1)
     {
-      v38 = [v15 objectAtIndex:0];
-      v36 = [self existingChatWithHandle:v38 allowAlternativeService:0];
-      if (!v36 && a9)
+      v39 = [v15 objectAtIndex:0];
+      v37 = [self existingChatWithHandle:v39 allowAlternativeService:0];
+      if (!v37 && a9)
       {
         if (IMOSLoggingEnabled())
         {
-          v39 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+          v40 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v62 = v42;
-            v63 = 2112;
-            v64 = v43;
-            _os_log_impl(&dword_19020E000, v39, OS_LOG_TYPE_INFO, "Creating chat with last addressed handle %@ last addressed sim ID %@", buf, 0x16u);
+            v69 = v49;
+            v70 = 2112;
+            v71 = v50;
+            _os_log_impl(&dword_19020E000, v40, OS_LOG_TYPE_INFO, "Creating chat with last addressed handle %@ last addressed sim ID %@", buf, 0x16u);
           }
         }
 
-        v36 = [self chatWithHandle:v38 lastAddressedHandle:v42 lastAddressedSIMID:v43];
+        v37 = [self chatWithHandle:v39 lastAddressedHandle:v49 lastAddressedSIMID:v50];
       }
     }
 
@@ -157,21 +157,21 @@ LABEL_32:
       if (IMOSLoggingEnabled())
       {
         CKLogCStringForType(19);
-        v41 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+        v42 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v62 = v15;
-          _os_log_impl(&dword_19020E000, v41, OS_LOG_TYPE_DEBUG, "Bad recipients for conversation request. %@", buf, 0xCu);
+          v69 = v15;
+          _os_log_impl(&dword_19020E000, v42, OS_LOG_TYPE_DEBUG, "Bad recipients for conversation request. %@", buf, 0xCu);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
-        _CKLog();
+        _CKLog(0x13u, @"Bad recipients for conversation request. %@", v43, v44, v45, v46, v47, v48, v15);
       }
 
-      v36 = 0;
+      v37 = 0;
     }
   }
 
@@ -179,8 +179,8 @@ LABEL_32:
   {
     if (a8)
     {
-      v36 = [self existingChatWithHandles:v15 allowAlternativeService:0 groupID:0 displayName:v44 joinedChatsOnly:a7];
-      if (v36)
+      v37 = [self existingChatWithHandles:v15 allowAlternativeService:0 groupID:0 displayName:v51 joinedChatsOnly:a7];
+      if (v37)
       {
         goto LABEL_33;
       }
@@ -188,31 +188,31 @@ LABEL_32:
 
     else
     {
-      v36 = 0;
+      v37 = 0;
     }
 
     if (a9)
     {
       if (IMOSLoggingEnabled())
       {
-        v40 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        v41 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v62 = v42;
-          v63 = 2112;
-          v64 = v43;
-          _os_log_impl(&dword_19020E000, v40, OS_LOG_TYPE_INFO, "Creating group chat with last addressed handle %@ last addressed sim ID %@", buf, 0x16u);
+          v69 = v49;
+          v70 = 2112;
+          v71 = v50;
+          _os_log_impl(&dword_19020E000, v41, OS_LOG_TYPE_INFO, "Creating group chat with last addressed handle %@ last addressed sim ID %@", buf, 0x16u);
         }
       }
 
-      v36 = [self chatWithHandles:v45 displayName:v44 joinedChatsOnly:a7 findMatchingNamedGroups:a8 lastAddressedHandle:v42 lastAddressedSIMID:v43];
+      v37 = [self chatWithHandles:v52 displayName:v51 joinedChatsOnly:a7 findMatchingNamedGroups:a8 lastAddressedHandle:v49 lastAddressedSIMID:v50];
     }
   }
 
 LABEL_33:
 
-  return v36;
+  return v37;
 }
 
 @end

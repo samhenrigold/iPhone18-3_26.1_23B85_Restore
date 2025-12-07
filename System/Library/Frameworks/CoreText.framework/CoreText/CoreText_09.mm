@@ -1,3 +1,163 @@
+CFTypeRef CTFontCopyAttribute(CTFontRef font, CFStringRef attribute)
+{
+  if (!font)
+  {
+    return 0;
+  }
+
+  v3 = *(font + 5);
+  FontAttributeID = GetFontAttributeID(attribute);
+  TFont::CopyAttribute(&v7, v3, attribute, FontAttributeID);
+  v5 = atomic_exchange(&v7, 0);
+
+  return v5;
+}
+
+void TAATOpbdTable::TAATOpbdTable(TAATOpbdTable *this, const TBaseFont **a2)
+{
+  *this = a2;
+  TFont::GetScaledMatrix(&v25, a2);
+  *(this + 8) = vaddq_f64(vaddq_f64(*&v25.a, *&v25.c), *&v25.tx);
+  (*(*a2[51] + 488))();
+  v4 = atomic_load_explicit(this + 3, memory_order_acquire);
+  v5 = v4;
+  if (v4)
+  {
+    BytePtr = CFDataGetBytePtr(v4);
+  }
+
+  else
+  {
+    BytePtr = 0;
+  }
+
+  *(this + 4) = BytePtr;
+  v7 = atomic_load_explicit(this + 3, memory_order_acquire);
+  v8 = v7;
+  if (v8)
+  {
+    v9 = v8;
+    v10 = CFDataGetBytePtr(v8);
+
+    if (v10)
+    {
+      v10 += CFDataGetLength(v7);
+    }
+  }
+
+  else
+  {
+
+    v10 = 0;
+  }
+
+  *(this + 8) = 0;
+  *(this + 5) = v10;
+  *(this + 6) = TAATOpbdTable::GetDefaultBounds;
+  *(this + 7) = 0;
+  v11 = *(this + 4);
+  if (v11)
+  {
+    if (v11 + 4 > v10)
+    {
+      goto LABEL_10;
+    }
+
+    v13 = bswap32(v11[3]) >> 16;
+    if (v13 > 5)
+    {
+      if (v13 == 6)
+      {
+LABEL_31:
+        if (v11 + 6 > v10)
+        {
+          goto LABEL_10;
+        }
+
+        v19 = v11 + 9;
+        v20 = bswap32(v11[4]) >> 16;
+        v21 = v11[5];
+        goto LABEL_35;
+      }
+
+      if (v13 == 10)
+      {
+        v19 = v11 + 7;
+        if (v11 + 7 > v10)
+        {
+          goto LABEL_10;
+        }
+
+        v20 = bswap32(v11[4]) >> 16;
+        v21 = v11[6];
+LABEL_35:
+        v22 = v19 + (bswap32(v21) >> 16) * v20;
+        if (v22 < v19 || v22 > v10)
+        {
+          goto LABEL_10;
+        }
+
+        goto LABEL_39;
+      }
+
+      if (v13 != 8)
+      {
+        goto LABEL_10;
+      }
+
+      v14 = (v11 + 6);
+      if (v11 + 6 > v10)
+      {
+        goto LABEL_10;
+      }
+
+      v15 = bswap32(v11[5]) >> 16;
+      v16 = &v14[2 * v15];
+      v17 = v11 + 7 <= v10 ? (v10 - v14) >> 1 : 0;
+      v18 = v16 <= v10 && v16 >= v14;
+      if (!v18 && v17 != v15)
+      {
+        goto LABEL_10;
+      }
+    }
+
+    else if (v13)
+    {
+      if (v13 != 2 && v13 != 4)
+      {
+        goto LABEL_10;
+      }
+
+      goto LABEL_31;
+    }
+
+LABEL_39:
+    if (*v11 == 256)
+    {
+      v24 = bswap32(v11[2]) >> 16;
+      if (v24 == 1)
+      {
+        *(this + 6) = TAATOpbdTable::LookupByControlPoint;
+        *(this + 7) = 0;
+        operator new();
+      }
+
+      if (!v24)
+      {
+        v12 = TAATOpbdTable::LookupByDistance;
+        goto LABEL_11;
+      }
+    }
+
+LABEL_10:
+    (*(*a2[51] + 496))(a2[51], 1869636196);
+    v12 = TAATOpbdTable::InvalidLookup;
+LABEL_11:
+    *(this + 6) = v12;
+    *(this + 7) = 0;
+  }
+}
+
 uint64_t TCharStream::GetRangeOfCharacterClusterAtIndex(const __CFString *a1, uint64_t a2, uint64_t a3)
 {
   RangeOfCharacterClusterAtIndex = CFStringGetRangeOfCharacterClusterAtIndex();
@@ -228,13 +388,13 @@ uint64_t TCharStream::GetRangeOfCharacterClusterAtIndex(const __CFString *a1, ui
   return v6;
 }
 
-uint64_t TRunGlue::ClearSafeToBreakAfter(uint64_t this, CFRange a2)
+TRunGlue *TRunGlue::ClearSafeToBreakAfter(TRunGlue *this, CFRange a2)
 {
   if (a2.length >= 2)
   {
     v2 = this;
     v3 = 0;
-    v4 = *(this + 24);
+    v4 = *(this + 6);
     if (v4 <= 0)
     {
       location = a2.location;
@@ -258,16 +418,16 @@ uint64_t TRunGlue::ClearSafeToBreakAfter(uint64_t this, CFRange a2)
     do
     {
       this = TRunGlue::FocusOnIndex(v2, location);
-      v7 = location - *(v2 + 152);
-      v8 = *(*(v2 + 408) + 4 * v7);
+      v7 = location - *(v2 + 19);
+      v8 = *(*(v2 + 51) + 4 * v7);
       v9 = ((v8 & 0x20) == 0) | v3;
       if (v8 & 0x20) == 0 && (v3)
       {
-        this = [*(*(v2 + 144) + 216) setProps:v8 | 8u atIndex:*(*(v2 + 144) + 200) + v7];
+        this = [*(*(v2 + 18) + 216) setProps:v8 | 8u atIndex:*(*(v2 + 18) + 200) + v7];
         v9 = 1;
       }
 
-      location -= *(v2 + 24);
+      location -= *(v2 + 6);
       v3 = v9;
     }
 
@@ -277,19 +437,19 @@ uint64_t TRunGlue::ClearSafeToBreakAfter(uint64_t this, CFRange a2)
   return this;
 }
 
-void TLine::InsertRun(void *a1, uint64_t a2, const TRun **a3)
+void TLine::InsertRun(TLine *a1, uint64_t a2, const TRun **a3)
 {
-  v5 = a1 + 2;
-  v6 = (a1[2] + 8 * a2);
+  v5 = (a1 + 16);
+  v6 = (*(a1 + 2) + 8 * a2);
   v7 = a3;
   std::vector<CTRun *,TInlineBufferAllocator<CTRun *,3ul>>::insert(v5, v6, &v7);
   TLine::UpdateCachedMetricsForRun(a1, a3[5]);
 }
 
-void TFont::CopyAttribute(TFont *this@<X0>, const __CFString *key@<X2>, uint64_t a3@<X1>, atomic_ullong *a4@<X8>)
+void TFont::CopyAttribute(uint64_t *__return_ptr a1@<X8>, TFont *this@<X0>, const __CFString *key@<X2>, uint64_t a4@<X1>)
 {
-  *a4 = 0;
-  switch(a3)
+  *a1 = 0;
+  switch(a4)
   {
     case 8:
       UnscaledTrackAmount = *(this + 3);
@@ -302,9 +462,9 @@ void TFont::CopyAttribute(TFont *this@<X0>, const __CFString *key@<X2>, uint64_t
         Value = CFDictionaryGetValue(Value, @"NSCTFontOpticalSizeAttribute");
       }
 
-      v23[0] = Value;
+      *&v23.a = Value;
 
-      if (atomic_load_explicit(a4, memory_order_acquire))
+      if (atomic_load_explicit(a1, memory_order_acquire))
       {
         return;
       }
@@ -313,11 +473,11 @@ void TFont::CopyAttribute(TFont *this@<X0>, const __CFString *key@<X2>, uint64_t
       {
         UnscaledTrackAmount = *(this + 4);
 LABEL_25:
-        v23[0] = *&UnscaledTrackAmount;
+        v23.a = UnscaledTrackAmount;
         v15 = *MEMORY[0x1E695E480];
         v16 = kCFNumberDoubleType;
 LABEL_26:
-        valuePtr = CFNumberCreate(v15, v16, v23);
+        valuePtr = CFNumberCreate(v15, v16, &v23);
 
         v9 = valuePtr;
         goto LABEL_42;
@@ -325,7 +485,7 @@ LABEL_26:
 
       v20 = @"auto";
 LABEL_34:
-      v23[0] = v20;
+      *&v23.a = v20;
       goto LABEL_41;
     case 10:
     case 14:
@@ -343,11 +503,11 @@ LABEL_34:
     case 13:
       *&v12 = -1;
       *(&v12 + 1) = -1;
-      v24 = v12;
-      v25 = v12;
-      *v23 = v12;
-      TFont::GetEffectiveMatrix(this, v23);
-      v9 = atomic_exchange(a4, CFDataCreate(*MEMORY[0x1E695E480], v23, 48));
+      *&v23.c = v12;
+      *&v23.tx = v12;
+      *&v23.a = v12;
+      TFont::GetEffectiveMatrix(&v23, this);
+      v9 = atomic_exchange(a1, CFDataCreate(*MEMORY[0x1E695E480], &v23, 48));
       goto LABEL_42;
     case 15:
     case 16:
@@ -384,7 +544,7 @@ LABEL_34:
         return;
       }
 
-      (*(*v22 + 40))(v23);
+      (*(*v22 + 40))(&v23);
       goto LABEL_41;
     case 22:
       if (*(this + 3))
@@ -414,7 +574,7 @@ LABEL_34:
         return;
       }
 
-      (*(*v21 + 200))(v23);
+      (*(*v21 + 200))(&v23);
       goto LABEL_41;
     case 38:
     case 42:
@@ -423,7 +583,7 @@ LABEL_34:
         TFont::InitShapingGlyphs(this);
       }
 
-      if (a3 == 42)
+      if (a4 == 42)
       {
         v10 = *(this + 51);
         v11 = &kCTFontLangSysListAttribute;
@@ -431,7 +591,7 @@ LABEL_34:
 
       else
       {
-        if (a3 != 38)
+        if (a4 != 38)
         {
           return;
         }
@@ -440,7 +600,7 @@ LABEL_34:
         v11 = &kCTFontShapingGlyphsAttribute;
       }
 
-      TBaseFont::CopyAttributeInternal(v10, *v11, v23);
+      TBaseFont::CopyAttributeInternal(v10, *v11, &v23);
       goto LABEL_41;
     case 44:
       v14 = ((*(this + 3) >> 1) & 1) == 0;
@@ -449,12 +609,12 @@ LABEL_33:
       v20 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &valuePtr);
       goto LABEL_34;
     case 55:
-      v23[0] = ((*(this + 3) >> 6) & 7);
+      *&v23.a = (*(this + 3) >> 6) & 7;
       v15 = *MEMORY[0x1E695E480];
       v16 = kCFNumberLongType;
       goto LABEL_26;
     default:
-      if (a3 == 65 || a3 == 68)
+      if (a4 == 65 || a4 == 68)
       {
 LABEL_2:
         v7 = atomic_load_explicit(this + 21, memory_order_acquire);
@@ -464,7 +624,7 @@ LABEL_2:
           v7 = CFDictionaryGetValue(v7, key);
         }
 
-        v23[0] = v7;
+        *&v23.a = v7;
 
         v9 = v8;
       }
@@ -474,17 +634,17 @@ LABEL_2:
 LABEL_7:
         if (atomic_load_explicit(this + 2, memory_order_acquire))
         {
-          TDescriptor::CopyAttribute(*(atomic_load_explicit(this + 2, memory_order_acquire) + 40), key, v23);
+          TDescriptor::CopyAttribute(&v23, *(atomic_load_explicit(this + 2, memory_order_acquire) + 40), key);
         }
 
         else
         {
-          v23[0] = 0;
+          v23.a = 0.0;
         }
 
 LABEL_41:
 
-        v9 = v23[0];
+        v9 = *&v23.a;
       }
 
 LABEL_42:
@@ -776,9 +936,9 @@ uint64_t std::__function::__value_func<unsigned char ()(long)>::~__value_func[ab
   return a1;
 }
 
-uint64_t TAttributes::SetRareAttributes(uint64_t this, __int16 a2)
+uint64_t *TAttributes::SetRareAttributes(uint64_t *this, __int16 a2)
 {
-  v2 = *(this + 120);
+  v2 = this[15];
   if (!v2)
   {
     operator new();
@@ -792,7 +952,7 @@ CFIndex TTypesetter::DecomposeLastChars(unint64_t *a1, CFIndex a2, CFIndex a3, d
 {
   v4 = a3;
   v48 = *MEMORY[0x1E69E9840];
-  v5 = a2 + a3;
+  v5 = (a2 + a3);
   if (a2 + a3 >= *(a1[1] + 16) - 1)
   {
     return v4;
@@ -921,7 +1081,7 @@ void TRun::TRun(TRun *this, _CTGlyphStorage *a2, CFRange a3, const TAttributes *
 uint64_t TFont::GetMaxAdvance(TFont *this)
 {
   v2 = *(this + 51);
-  TFont::GetScaledMatrix(this, &v4);
+  TFont::GetScaledMatrix(&v4, this);
   return (*(*v2 + 632))(v2, &v4, *(this + 3) & 1);
 }
 
@@ -949,7 +1109,7 @@ double TStorageRange::SyncWithStorage(TStorageRange *this)
   return result;
 }
 
-CGFloat TComponentFont::GetMaxAdvance(atomic_ullong *this, const CGAffineTransform *a2, int a3)
+CGFloat TComponentFont::GetMaxAdvance(atomic_ullong *this, const CGAffineTransform *a2, BOOL a3)
 {
   MaxAdvance = TBaseFont::GetMaxAdvance(this, a2, a3);
 
@@ -1003,7 +1163,7 @@ CGFloat TSplicedFontDict::GetMaxAdvance(atomic_ullong *this, double a2, const CG
   return a2;
 }
 
-uint64_t TRun::GetPrevChar(TRun *this, uint64_t PrevGlyphIndex, uint64_t *a3)
+char *TRun::GetPrevChar(TRun *this, char *PrevGlyphIndex, uint64_t *a3)
 {
   v6 = *(this + 64);
   if (v6)
@@ -1022,7 +1182,7 @@ uint64_t TRun::GetPrevChar(TRun *this, uint64_t PrevGlyphIndex, uint64_t *a3)
           v7 = *a3;
           v8 = *a3 - 1;
           *a3 = v8;
-          result = v7 <= 0 ? *(this + 1) - 1 : *(*(*(this + 27) + 48) + 8 * *(this + 25) + 8 * v8);
+          result = v7 <= 0 ? (*(this + 1) - 1) : *(*(*(this + 27) + 48) + 8 * *(this + 25) + 8 * v8);
         }
 
         if (result != PrevGlyphIndex)
@@ -1064,7 +1224,7 @@ uint64_t TRun::GetPrevChar(TRun *this, uint64_t PrevGlyphIndex, uint64_t *a3)
         v14 = *a3;
         v15 = *a3 - 1;
         *a3 = v15;
-        PrevGlyphIndex = v14 <= 0 ? *(this + 1) - 1 : *(*(*(this + 27) + 48) + 8 * *(this + 25) + 8 * v15);
+        PrevGlyphIndex = v14 <= 0 ? (*(this + 1) - 1) : *(*(*(this + 27) + 48) + 8 * *(this + 25) + 8 * v15);
       }
 
       if (PrevGlyphIndex < *(this + 1))
@@ -1098,7 +1258,7 @@ void TTypesetter::FinishLineFill(uint64_t a1, uint64_t a2, double a3, double a4)
     v9 = *(a1 + 8);
     v11[0] = a2;
     v11[1] = v9;
-    TTabEngine::ApplyTabs(v11, a4, a3, v8, v10);
+    TTabEngine::ApplyTabs(v10, v11, a4, a3, v8);
   }
 
   *(a2 + 176) = a4;
@@ -1107,7 +1267,7 @@ void TTypesetter::FinishLineFill(uint64_t a1, uint64_t a2, double a3, double a4)
 
 unint64_t CTTypesetterCreateWithRunArray(const __CFArray *a1, const __CFString *a2, const void *(*a3)(const __CTRun *, const __CFString *, void *), void *a4)
 {
-  v8 = TCFBase<TTypesetter>::Allocate();
+  v8 = TCFBase<TTypesetter>::Allocate(320);
   if (v8)
   {
     v8[2] = 0;
@@ -1224,7 +1384,7 @@ LABEL_40:
       }
 
       v21 = *(v12 + 16);
-      if (RunWithCharIndex >= (*(v12 + 24) - v21) >> 3)
+      if (RunWithCharIndex >= ((*(v12 + 24) - v21) >> 3))
       {
 LABEL_45:
         __break(1u);
@@ -1426,7 +1586,7 @@ void TTypesetter::MakeLineConsistent(uint64_t a1, TLine *this)
         {
           if (*(a1 + 16))
           {
-            TTypesetter::RelayoutRunUsingCallback(a1, v8);
+            TTypesetter::RelayoutRunUsingCallback(a1, v8, this, i);
           }
 
           else
@@ -1576,7 +1736,7 @@ uint64_t IsGB18030ComplianceRequired(void)::$_0::__invoke()
 
 void CTDelegateRun::CloneEntire(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v4 = TCFBase<TRun>::Allocate();
+  v4 = TCFBase<TRun>::Allocate(472);
   v5 = v4;
   if (v4)
   {
@@ -1594,7 +1754,7 @@ void CTDelegateRun::CloneEntire(uint64_t a1@<X0>, void *a2@<X8>)
   *a2 = atomic_exchange(&v6, 0);
 }
 
-uint64_t TTypesetter::DoAttachments(uint64_t a1, unint64_t *a2, _BYTE *a3, _BYTE *a4)
+NSMutableIndexSet *TTypesetter::DoAttachments(uint64_t a1, unint64_t *a2, _BYTE *a3, _BYTE *a4)
 {
   v8 = *(*(a1 + 8) + 16);
   result = objc_opt_new();
@@ -2426,7 +2586,7 @@ void CTGlyphRun::CloneEntire(uint64_t a1@<X0>, void *a2@<X8>)
   *a2 = atomic_exchange(&v3, 0);
 }
 
-CFIndex TTypesetter::SuggestLineBreak(uint64_t *a1, uint64_t a2, uint64_t a3, double a4, double a5)
+CFIndex TTypesetter::SuggestLineBreak(TLine **a1, uint64_t a2, uint64_t a3, double a4, double a5)
 {
   v16 = *MEMORY[0x1E69E9840];
   std::__function::__value_func<unsigned char ()(long)>::__value_func[abi:fn200100](v15, a3);
@@ -2449,241 +2609,6 @@ CFIndex TTypesetter::SuggestLineBreak(uint64_t *a1, uint64_t a2, uint64_t a3, do
   }
 
   return Chars;
-}
-
-uint64_t TLine::operator=(uint64_t a1, uint64_t *a2)
-{
-  v39 = *MEMORY[0x1E69E9840];
-  if (a1 != a2)
-  {
-    *(a1 + 72) = *(a2 + 9);
-    v5 = *a2;
-    v4 = a2[1];
-    if (v4)
-    {
-      atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v6 = *(a1 + 8);
-    *a1 = v5;
-    *(a1 + 8) = v4;
-    if (v6)
-    {
-      std::__shared_weak_count::__release_shared[abi:fn200100](v6);
-    }
-
-    *(a1 + 104) = *(a2 + 13);
-    *(a1 + 120) = *(a2 + 15);
-    *(a1 + 136) = a2[17];
-    *(a1 + 144) = a2[18];
-    *(a1 + 152) = *(a2 + 76);
-    *(a1 + 154) = *(a2 + 77) & 0xFFFE;
-    TCFRef<__CTFont const*>::Retain((a1 + 168), atomic_load_explicit(a2 + 21, memory_order_acquire));
-    v7 = a2[2];
-    v8 = a2[3] - v7;
-    v9 = v8 >> 3;
-    if (v8 >> 3)
-    {
-      if (v9 == 1)
-      {
-        (*(*v7 + 56))(v32);
-        v36[0] = atomic_exchange(v32, 0);
-        std::vector<CTRun *,TInlineBufferAllocator<CTRun *,3ul>>::push_back[abi:fn200100]((a1 + 16), v36);
-
-        v10 = *(a1 + 16);
-        if (*(a1 + 24) != v10)
-        {
-          v11 = *(*v10 + 48);
-          *(a1 + 88) = v11;
-          if (v11)
-          {
-            *(a1 + 96) = v11;
-            *(v11 + 24) = 0;
-            *(v11 + 32) = 0;
-          }
-
-          else
-          {
-            *(a1 + 96) = 0;
-          }
-
-          return a1;
-        }
-
-LABEL_44:
-        __break(1u);
-      }
-
-      v12 = a2[11];
-      if (!v12)
-      {
-        if (v9 < 1)
-        {
-          return a1;
-        }
-
-        v27 = 0;
-        while (1)
-        {
-          v28 = a2[2];
-          if (v27 >= (a2[3] - v28) >> 3)
-          {
-            break;
-          }
-
-          (*(*(v28 + 8 * v27) + 56))(v32);
-          v36[0] = atomic_exchange(v32, 0);
-          std::vector<CTRun *,TInlineBufferAllocator<CTRun *,3ul>>::push_back[abi:fn200100]((a1 + 16), v36);
-
-          if (v9 == ++v27)
-          {
-            return a1;
-          }
-        }
-
-        goto LABEL_44;
-      }
-
-      *v32 = 0u;
-      v33 = 0u;
-      v34 = 0xAAAAAAAA3F800000;
-      if (v9 < 1)
-      {
-        goto LABEL_34;
-      }
-
-      v13 = 0;
-      v30 = v8 >> 3;
-LABEL_14:
-      v14 = a2[2];
-      if (v13 >= (a2[3] - v14) >> 3)
-      {
-        goto LABEL_44;
-      }
-
-      v15 = *(v14 + 8 * v13);
-      v16 = *(v15 + 40);
-      v17 = 0x9DDFEA08EB382D69 * ((8 * (v16 & 0x1FFFFFFF) + 8) ^ HIDWORD(v16));
-      v18 = 0x9DDFEA08EB382D69 * (HIDWORD(v16) ^ (v17 >> 47) ^ v17);
-      v19 = 0x9DDFEA08EB382D69 * (v18 ^ (v18 >> 47));
-      if (!v32[1])
-      {
-        goto LABEL_32;
-      }
-
-      v20 = vcnt_s8(v32[1]);
-      v20.i16[0] = vaddlv_u8(v20);
-      if (v20.u32[0] > 1uLL)
-      {
-        v21 = 0x9DDFEA08EB382D69 * (v18 ^ (v18 >> 47));
-        if (v19 >= v32[1])
-        {
-          v21 = v19 % v32[1];
-        }
-      }
-
-      else
-      {
-        v21 = v19 & (v32[1] - 1);
-      }
-
-      v22 = *(v32[0] + v21);
-      if (!v22 || (v23 = *v22) == 0)
-      {
-LABEL_32:
-        operator new();
-      }
-
-      while (1)
-      {
-        v24 = v23[1];
-        if (v24 == v19)
-        {
-          if (v23[2] == v16)
-          {
-            v23[3] = v13;
-            (*(v15 + 56))(&v35, v15);
-            v36[0] = atomic_exchange(&v35, 0);
-            std::vector<CTRun *,TInlineBufferAllocator<CTRun *,3ul>>::push_back[abi:fn200100]((a1 + 16), v36);
-
-            ++v13;
-            v9 = v30;
-            if (v13 == v30)
-            {
-LABEL_34:
-              *&v25 = 0xAAAAAAAAAAAAAAAALL;
-              *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-              v37[14] = v25;
-              v37[13] = v25;
-              v37[12] = v25;
-              v37[11] = v25;
-              v37[10] = v25;
-              v37[9] = v25;
-              v37[8] = v25;
-              v37[7] = v25;
-              v37[6] = v25;
-              v37[5] = v25;
-              v37[4] = v25;
-              v37[3] = v25;
-              v37[1] = v25;
-              v37[2] = v25;
-              v37[0] = v25;
-              memset(v36, 0, sizeof(v36));
-              v38 = v37;
-              std::vector<long,TInlineBufferAllocator<long,30ul>>::reserve(v36, v9);
-              v31 = v12;
-              do
-              {
-                v35 = &v31;
-                v26 = std::__hash_table<std::__hash_value_type<TRun const*,long>,std::__unordered_map_hasher<TRun const*,std::__hash_value_type<TRun const*,long>,std::hash<TRun const*>,std::equal_to<TRun const*>,true>,std::__unordered_map_equal<TRun const*,std::__hash_value_type<TRun const*,long>,std::equal_to<TRun const*>,std::hash<TRun const*>,true>,std::allocator<std::__hash_value_type<TRun const*,long>>>::__emplace_unique_key_args<TRun const*,std::piecewise_construct_t const&,std::tuple<TRun const* const&>,std::tuple<>>(v32, v12);
-                std::vector<long,TInlineBufferAllocator<long,30ul>>::push_back[abi:fn200100](v36, v26 + 3);
-                v12 = *(v31 + 24);
-                v31 = v12;
-              }
-
-              while (v12);
-              TLine::LinkRunsWithOrder(a1, v36);
-              v35 = v36;
-              std::vector<std::pair<unsigned int,unsigned int>,TInlineBufferAllocator<std::pair<unsigned int,unsigned int>,30ul>>::__destroy_vector::operator()[abi:fn200100](&v35);
-              std::__hash_table<EncoderAttempt,std::hash<EncoderAttempt>,std::equal_to<EncoderAttempt>,std::allocator<EncoderAttempt>>::~__hash_table(v32);
-              return a1;
-            }
-
-            goto LABEL_14;
-          }
-        }
-
-        else
-        {
-          if (v20.u32[0] > 1uLL)
-          {
-            if (v24 >= v32[1])
-            {
-              v24 %= v32[1];
-            }
-          }
-
-          else
-          {
-            v24 &= v32[1] - 1;
-          }
-
-          if (v24 != v21)
-          {
-            goto LABEL_32;
-          }
-        }
-
-        v23 = *v23;
-        if (!v23)
-        {
-          goto LABEL_32;
-        }
-      }
-    }
-  }
-
-  return a1;
 }
 
 UInt16 *TAATLookupTable::LookupSegmentSingle(TAATLookupTable *this, unsigned int a2, unint64_t *a3)
@@ -2799,7 +2724,7 @@ LABEL_5:
   return TDescriptorSource::TextStyleForUIFontName(FontNameForNameAndTrait, v4, v5);
 }
 
-void *TKerningEngineImplementation::SetAdvance<TRunGlue::TGlyph>(void *a1, int64_t a2, _BYTE *a3, double a4, double a5)
+TRunGlue *TKerningEngineImplementation::SetAdvance<TRunGlue::TGlyph>(TRunGlue *a1, uint64_t a2, _BYTE *a3, double a4, double a5)
 {
   v10[0] = a1;
   v10[1] = a2;
@@ -2880,7 +2805,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t TRunGlue::TGlyph::IsDeleted(TRunGlue::TGlyph *this)
+TRunGlue *TRunGlue::TGlyph::IsDeleted(TRunGlue::TGlyph *this)
 {
   v3 = *this;
   v2 = *(this + 1);
@@ -3087,7 +3012,7 @@ CGFloat CTFontGetXHeight(CTFontRef font)
 
   v1 = *(font + 5);
   v2 = *(v1 + 51);
-  TFont::GetScaledMatrix(v1, &v4);
+  TFont::GetScaledMatrix(&v4, v1);
   (*(*v2 + 616))(v2, &v4);
   return result;
 }
@@ -3099,11 +3024,11 @@ CFStringRef TCharStreamCFString::CopyChars@<X0>(atomic_ullong *this@<X0>, CFRang
   return result;
 }
 
-void TLine::ReplaceRun(uint64_t *a1, unint64_t a2, uint64_t a3)
+void TLine::ReplaceRun(char *result, unint64_t a2, uint64_t a3)
 {
   v3 = *(a3 + 16);
   v4 = *(a3 + 24) - v3;
-  if (!v4 || (v6 = a1[2], v7 = a1 + 2, a2 >= (a1[3] - v6) >> 3))
+  if (!v4 || (v6 = *(result + 2), v7 = result + 16, a2 >= (*(result + 3) - v6) >> 3))
   {
 LABEL_16:
     __break(1u);
@@ -3121,7 +3046,7 @@ LABEL_16:
 
   else
   {
-    a1[11] = v9;
+    *(result + 11) = v9;
     if (!v9)
     {
       goto LABEL_7;
@@ -3140,14 +3065,14 @@ LABEL_7:
 
   else
   {
-    a1[12] = v10;
+    *(result + 12) = v10;
     if (v10)
     {
       *(v10 + 24) = 0;
     }
   }
 
-  TLine::SimpleRunDelete(a1, a2);
+  TLine::SimpleRunDelete(result, a2);
   v15 = v13 < 1;
   v16 = v13 - 1;
   if (!v15)
@@ -3272,7 +3197,7 @@ BOOL operator==(atomic_ullong *a1, atomic_ullong *a2)
   return !v5 && CFEqual(explicit, v3) != 0;
 }
 
-BOOL DataEqual(CFDataRef theData, CFDataRef a2)
+uint64_t DataEqual(CFDataRef theData, CFDataRef a2)
 {
   v3 = theData == a2;
   result = theData == a2;
@@ -4290,17 +4215,17 @@ LABEL_193:
     *(v143 - 1) = v116;
     v238[0] = &v243;
     std::vector<std::pair<unsigned int,unsigned int>,TInlineBufferAllocator<std::pair<unsigned int,unsigned int>,30ul>>::__destroy_vector::operator()[abi:fn200100](v238);
-    v150 = v239;
-    v149 = v240;
+    v149 = v239;
+    v150 = v240;
     v28 = v214;
     if (v240 < *(&v240 + 1))
     {
       if (v239 == v240)
       {
         *(v240 + 8) = 0;
-        *(v149 + 2) = 0;
-        *v149 = -1;
-        *&v240 = v149 + 24;
+        *(v150 + 2) = 0;
+        *v150 = -1;
+        *&v240 = v150 + 24;
       }
 
       else
@@ -4311,29 +4236,29 @@ LABEL_193:
           v151 = v240 + 24;
           v64 = *(v240 - 24);
           *(v240 + 16) = *(v240 - 8);
-          *v149 = v64;
+          *v150 = v64;
         }
 
         *&v240 = v151;
-        if (v149 != v150 + 24)
+        if (v150 != v149 + 24)
         {
           v152 = 0;
           do
           {
-            v153 = &v149[v152];
-            v64 = *&v149[v152 - 48];
+            v153 = &v150[v152];
+            v64 = *&v150[v152 - 48];
             *(v153 - 24) = v64;
-            v64.n128_u64[0] = *&v149[v152 - 32];
+            v64.n128_u64[0] = *&v150[v152 - 32];
             *(v153 - 1) = v64.n128_u64[0];
             v152 -= 24;
           }
 
-          while (v150 - v149 + 24 != v152);
+          while (v149 - v150 + 24 != v152);
         }
 
-        *(v150 + 1) = 0;
-        *(v150 + 2) = 0;
-        *v150 = -1;
+        *(v149 + 1) = 0;
+        *(v149 + 2) = 0;
+        *v149 = -1;
       }
 
       goto LABEL_215;
@@ -4393,12 +4318,12 @@ LABEL_213:
     *(FullChar + 8) = 0;
     *(FullChar + 16) = 0;
     *FullChar = -1;
-    v160 = v240 - v150;
-    memcpy((FullChar + 24), v150, v240 - v150);
+    v160 = v240 - v149;
+    memcpy((FullChar + 24), v149, v240 - v149);
     *&v227[8] = FullChar + 24 + v160;
-    *&v240 = v150;
-    v161 = (FullChar - (v150 - v239));
-    memcpy(v161, v239, v150 - v239);
+    *&v240 = v149;
+    v161 = (FullChar - (v149 - v239));
+    memcpy(v161, v239, v149 - v239);
     v162 = v239;
     v239 = v161;
     v163 = *(&v240 + 1);
@@ -4760,7 +4685,7 @@ uint64_t TLine::GetClusterRange(const TLine *a1, void *a2, uint64_t a3, uint64_t
   return result;
 }
 
-uint64_t TLine::GetClusterRange(const TLine *a1, void *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, double *a8, int *a9)
+char *TLine::GetClusterRange(const TLine *a1, void *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, double *a8, int *a9)
 {
   v16 = objc_opt_new();
   v18 = *(a1 + 2);
@@ -4769,18 +4694,18 @@ uint64_t TLine::GetClusterRange(const TLine *a1, void *a2, unint64_t a3, uint64_
   result = (*(*a2 + 40))(a2, a5, a6);
   v21 = *(a1 + 9);
   v22 = *(a1 + 10) + v21;
-  if (result + v20 >= v22)
+  if (&result[v20] >= v22)
   {
-    v23 = *(a1 + 10) + v21;
+    v23 = (*(a1 + 10) + v21);
   }
 
   else
   {
-    v23 = result + v20;
+    v23 = &result[v20];
   }
 
-  v24 = v23 - v21;
-  v25 = result <= v21 && v21 < result + v20;
+  v24 = &v23[-v21];
+  v25 = result <= v21 && v21 < &result[v20];
   if (v25)
   {
     v26 = *(a1 + 9);
@@ -4796,7 +4721,7 @@ uint64_t TLine::GetClusterRange(const TLine *a1, void *a2, unint64_t a3, uint64_
     v24 = 0;
   }
 
-  v27 = v23 - result;
+  v27 = (v23 - result);
   v28 = v21 <= result && result < v22;
   if (v28)
   {
@@ -5000,15 +4925,15 @@ LABEL_57:
     v63 = v61;
     v64 = v62;
     v65 = v61 + v62;
-    v66 = v173 + v29;
-    if (v61 + v62 >= v173 + v29)
+    v66 = &v29[v173];
+    if (v61 + v62 >= &v29[v173])
     {
-      v67 = v173 + v29;
+      v67 = &v29[v173];
     }
 
     else
     {
-      v67 = v61 + v62;
+      v67 = (v61 + v62);
     }
 
     v68 = v29 <= v61 && v61 < v66;
@@ -5021,15 +4946,15 @@ LABEL_57:
     else
     {
       result = TCharStream::GetClusterRangeForRange(v152, v61, v62, v149);
-      v72 = result + v71;
-      if (result + v71 >= v66)
+      v72 = &result[v71];
+      if (&result[v71] >= v66)
       {
-        v73 = v173 + v29;
+        v73 = &v29[v173];
       }
 
       else
       {
-        v73 = result + v71;
+        v73 = &result[v71];
       }
 
       if (v29 > result || result >= v66)
@@ -5196,7 +5121,7 @@ LABEL_125:
     v101 = v99;
     if ((v97 & 0x20) != 0)
     {
-      v115 = v173 + v29;
+      v115 = &v29[v173];
       if (v98 < v29)
       {
         v29 = v98;
@@ -5205,7 +5130,7 @@ LABEL_125:
       v102 = v98 + v99;
       if (v115 <= v98 + v99)
       {
-        v115 = v98 + v99;
+        v115 = (v98 + v99);
       }
 
       v173 = v115 - v29;
@@ -5215,15 +5140,15 @@ LABEL_125:
     {
       v157 = v87;
       v102 = v98 + v99;
-      v103 = v173 + v29;
-      if (v98 + v99 >= v173 + v29)
+      v103 = &v29[v173];
+      if (v98 + v99 >= &v29[v173])
       {
-        v104 = v173 + v29;
+        v104 = &v29[v173];
       }
 
       else
       {
-        v104 = v98 + v99;
+        v104 = (v98 + v99);
       }
 
       v105 = v29 <= v98 && v98 < v103;
@@ -5243,12 +5168,12 @@ LABEL_125:
         v111 = ClusterRangeForRange + v109;
         if (ClusterRangeForRange + v109 >= v103)
         {
-          v112 = v173 + v29;
+          v112 = &v29[v173];
         }
 
         else
         {
-          v112 = ClusterRangeForRange + v109;
+          v112 = (ClusterRangeForRange + v109);
         }
 
         if ((v29 > ClusterRangeForRange || (v113 = ClusterRangeForRange, ClusterRangeForRange >= v103)) && (ClusterRangeForRange > v29 || (v113 = v29, v29 >= v111)) || v112 == v113)
@@ -5456,7 +5381,7 @@ void CTLineGetDefaultBounds(uint64_t a1, double *a2, double *a3, double *a4)
 
       v11 = *(*(v9 + 8 * RunWithCharIndex) + 40);
       v12 = 0xAAAAAAAAAAAAAAAALL;
-      TAttributes::OriginalFont((v11 + 40), &v12);
+      TAttributes::OriginalFont(&v12, (v11 + 40));
       if (atomic_load_explicit(&v12, memory_order_acquire))
       {
         TFont::GetDefaultMetrics(*(atomic_load_explicit(&v12, memory_order_acquire) + 40), &v15, &v14, &v13);
@@ -5526,7 +5451,7 @@ LABEL_14:
       {
         v17 = (*(*a5 + 40))(a5, v10, a6);
         v19 = v17 + v18;
-        NextChar = *(this + 2) + *(this + 1);
+        NextChar = (*(this + 2) + *(this + 1));
         if (v17 + v18 > NextChar)
         {
           break;
@@ -5537,7 +5462,7 @@ LABEL_14:
           goto LABEL_14;
         }
 
-        v21 = v19 - 1;
+        v21 = (v19 - 1);
         if (v19 - 1 != v10)
         {
           GlyphIndexForChar = TRun::GetGlyphIndexForCharIndex<false>(this, v19 - 1);
@@ -5941,7 +5866,7 @@ uint64_t TextScaleWeightMatchVariableOnly(const __CFDictionary *a1)
   return result;
 }
 
-void CopySecondaryScaleRecipeInternal(atomic_ullong *a1, TBaseFont ***a2, TFont **a3, uint64_t a4, char a5, int a6)
+void CopySecondaryScaleRecipeInternal(CFDictionaryRef *a1, const __CTFont **a2, TFont **a3, uint64_t a4, char a5, int a6)
 {
   v54 = *MEMORY[0x1E69E9840];
   v12 = (a2 != a3) | a5;
@@ -5996,7 +5921,7 @@ LABEL_15:
     v48 = 0xAAAAAAAAAAAAAAAALL;
     v23 = atomic_load_explicit(&v50, memory_order_acquire);
     RoundedWeight = GetRoundedWeight(a2[5]);
-    SecondaryScaleRecipeForFont(v46, a2, v23, atomic_load_explicit(&v49, memory_order_acquire), a4, a5, RoundedWeight, v17);
+    SecondaryScaleRecipeForFont(v46, a2, v23, atomic_load_explicit(&v49, memory_order_acquire), RoundedWeight, a4, a5, v17);
     if (v48 == 1)
     {
       v25 = *(&v47 + 1);
@@ -6065,7 +5990,7 @@ LABEL_48:
         goto LABEL_44;
       }
 
-      (*(*a2[5][51] + 120))(values);
+      (*(**(a2[5] + 51) + 120))(values);
       v28 = atomic_load_explicit(values, memory_order_acquire);
 
       if (v28)
@@ -6087,7 +6012,7 @@ LABEL_48:
 
     else
     {
-      if (!TFont::IsSystemUIFontAndForShaping(a3[5], v46) || (*&v29 = -1, *(&v29 + 1) = -1, *v46 = v29, v47 = v29, v48 = 0xAAAAAAAAAAAAAAAALL, v30 = atomic_load_explicit(&v49, memory_order_acquire), v31 = GetRoundedWeight(a3[5]), SecondaryScaleRecipeForFont(v46, a3, v30, atomic_load_explicit(&v49, memory_order_acquire), a4, a5, v31, v17), v48 != 1))
+      if (!TFont::IsSystemUIFontAndForShaping(a3[5], v46) || (*&v29 = -1, *(&v29 + 1) = -1, *v46 = v29, v47 = v29, v48 = 0xAAAAAAAAAAAAAAAALL, v30 = atomic_load_explicit(&v49, memory_order_acquire), v31 = GetRoundedWeight(a3[5]), SecondaryScaleRecipeForFont(v46, a3, v30, atomic_load_explicit(&v49, memory_order_acquire), v31, a4, a5, v17), v48 != 1))
       {
         *a1 = 0;
 LABEL_45:
@@ -6107,7 +6032,7 @@ LABEL_46:
       v34 = v17 * v33;
       if (a6)
       {
-        (*(*a2[5][51] + 120))(values);
+        (*(**(a2[5] + 51) + 120))(values);
         v35 = atomic_load_explicit(values, memory_order_acquire);
 
         if (!v35)
@@ -6301,7 +6226,7 @@ void DrawGlyphsWithAdvancesAndTransform(TBaseFont **a1, CGGlyph *a2, uint64_t a3
   std::vector<CGPoint,TInlineBufferAllocator<CGPoint,30ul>>::__destroy_vector::operator()[abi:fn200100](&v29);
 }
 
-void DrawGlyphsAtPositions(TBaseFont **a1, CGGlyph *a2, const CGPoint *a3, atomic_ullong a4, CGContext *a5, uint64_t a6)
+void DrawGlyphsAtPositions(TBaseFont **a1, CGGlyph *a2, CGPoint *a3, atomic_ullong a4, CGContext *a5, uint64_t a6)
 {
   v187 = *MEMORY[0x1E69E9840];
   v11 = *(a6 + 96);
@@ -6629,7 +6554,7 @@ LABEL_57:
         *&v174.c = v66;
         *&v174.tx = v66;
         *&v174.a = v66;
-        GetFontScaleTransform(&v174, a1);
+        GetFontScaleTransform(&v174, a1, a5);
         *&v67 = -1;
         *(&v67 + 1) = -1;
         *&v173.c = v67;
@@ -6646,7 +6571,7 @@ LABEL_57:
         v70 = CGColorGetAlpha(FillColorAsColor) == 0.0;
         ContentsScale = GetContentsScale(a5);
         TFont::GetColorBitmapFontTranslate(a1);
-        v59 = v72;
+        v59 = *&v72;
         v60 = v73;
         v154 = unk_18475C2A0;
         v156 = a5;
@@ -6659,7 +6584,7 @@ LABEL_57:
         *&v149.ty = a2;
         v150 = a1;
         v151 = *&ContentsScale;
-        v152 = *&v72;
+        v152 = v72;
         v153 = v73;
         LOBYTE(v154) = v70;
         v155 = v174;
@@ -6902,19 +6827,19 @@ LABEL_122:
 LABEL_102:
     v115 = v137[v112];
     memset(&v170, 170, 24);
-    LayerRecordsForGlyph(atomic_load_explicit(&v169, memory_order_acquire), v115, &v170);
-    p_x = &a3[v112].x;
-    v117 = *p_x;
-    v118 = *(p_x + 1);
+    LayerRecordsForGlyph(&v170, atomic_load_explicit(&v169, memory_order_acquire), v115);
+    v116 = &a3[v112];
+    x = v116->x;
+    y = v116->y;
     if (*&v170.a == *&v170.b)
     {
-      DrawVisibleGlyph(a5, v115, *&v117, a6, (a6 + 48));
+      DrawVisibleGlyph(a5, v115, *&x, a6, (a6 + 48));
       goto LABEL_118;
     }
 
-    DrawInvisibleGlyph(a5, v115, *&v117, a6, (a6 + 48));
+    DrawInvisibleGlyph(a5, v115, *&x, a6, (a6 + 48));
     CGContextSaveGState(a5);
-    CGAffineTransformMakeTranslation(&v173, *&v110 + *&v109 * p_x[1] + v107 * *p_x, *(&v110 + 1) + *(&v109 + 1) * p_x[1] + v108 * *p_x);
+    CGAffineTransformMakeTranslation(&v173, *&v110 + *&v109 * v116->y + v107 * v116->x, *(&v110 + 1) + *(&v109 + 1) * v116->y + v108 * v116->x);
     *keys = v173;
     *&v149.a = v133;
     *&v149.c = v134;
@@ -6974,7 +6899,7 @@ LABEL_121:
 
       CGContextSetFillColorWithColor(a5, ValueAtIndex);
       *keys = 0xAAAAAAAAAAAAAAAALL;
-      TFont::CreatePathForGlyph(v100, 0, v121, keys);
+      TFont::CreatePathForGlyph(keys, v100, 0, v121);
       if (atomic_load_explicit(keys, memory_order_acquire))
       {
         CGContextAddPath(a5, atomic_load_explicit(keys, memory_order_acquire));
@@ -7055,7 +6980,7 @@ LABEL_113:
   a2 = v182;
   if (v183 != v182)
   {
-    a4 = (v183 - v182) >> 1;
+    a4 = v183 - v182;
     a3 = values[0];
     goto LABEL_56;
   }
@@ -7103,25 +7028,25 @@ void std::vector<std::pair<CFRange,double>,TInlineBufferAllocator<std::pair<CFRa
   }
 }
 
-void TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)const::$_0::operator()(uint64_t a1, unint64_t a2, int a3, __n128 a4, __n128 a5, double a6, uint8x8_t a7)
+void TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)const::$_0::operator()(double **a1, unint64_t a2, int a3, __n128 a4, __n128 a5, double a6, uint8x8_t a7)
 {
   v9 = *a1;
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   if (a3 < 0)
   {
-    v10 = &v9[16 * a2];
-    v11 = &v9[16 * *v8 - 16];
+    v10 = &v9[2 * a2];
+    v11 = &v9[2 * *v8 - 2];
     v12 = *v8 != a2 && v11 > v10;
     if (v12)
     {
       do
       {
-        a4.n128_u64[0] = *v10;
+        a4.n128_f64[0] = *v10;
         a5 = *v11;
         v13 = *(v10 + 2);
         v14 = *(v10 + 3);
         *v10 = *v11;
-        v10 += 16;
+        v10 += 2;
         v11->n128_u64[0] = a4.n128_u64[0];
         v11->n128_u32[2] = v13;
         v11->n128_u32[3] = v14;
@@ -7130,7 +7055,7 @@ void TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)
 
       while (v10 < v11);
       v9 = *a1;
-      v8 = *(a1 + 8);
+      v8 = a1[1];
     }
   }
 
@@ -7143,7 +7068,7 @@ void TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)
   {
     v23 = 0;
 LABEL_15:
-    std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(&v9[v15], &v9[v17], v19, 0, v23, a4, a5.n128_f64[0], a6, a7);
+    std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>((v9 + v15), (v9 + v17), v19, 0, v23, a4, a5.n128_f64[0], a6, a7);
   }
 
   else
@@ -7168,7 +7093,7 @@ LABEL_15:
     }
 
     v28 = v22;
-    std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(&v9[v15], &v9[v17], v19, v22, v21, a4, a5.n128_f64[0], a6, a7);
+    std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>((v9 + v15), (v9 + v17), v19, v22, v21, a4, a5.n128_f64[0], a6, a7);
     operator delete(v28);
   }
 
@@ -7188,7 +7113,7 @@ LABEL_15:
     v33 = v30;
 LABEL_26:
 
-    std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(v9, &v9[v15], &v9[v17], v29, v19, 0, v33, v24, v25, v26, v27);
+    std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(v9, (v9 + v15), (v9 + v17), v29, v19, 0, v33, v24, v25, v26, v27);
   }
 
   else
@@ -7212,7 +7137,7 @@ LABEL_26:
     }
 
     v34 = v32;
-    std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(v9, &v9[v15], &v9[v17], v29, v19, v32, v30, v24, v25, v26, v27);
+    std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(v9, (v9 + v15), (v9 + v17), v29, v19, v32, v30, v24, v25, v26, v27);
 
     operator delete(v34);
   }
@@ -7247,9 +7172,9 @@ void ___ZL21DrawGlyphsAtPositionsPK5TFontPKtPK7CGPointmP9CGContextRKN12_GLOBAL__
   }
 }
 
-void CTDelegateRun::CloneRange(uint64_t a1@<X0>, uint64_t a2@<X1>, CFIndex a3@<X2>, int a4@<W3>, void *a5@<X8>)
+void CTDelegateRun::CloneRange(void *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>, CFIndex a4@<X2>, int a5@<W3>)
 {
-  v10 = TCFBase<TRun>::Allocate();
+  v10 = TCFBase<TRun>::Allocate(472);
   v11 = v10;
   if (v10)
   {
@@ -7260,25 +7185,25 @@ void CTDelegateRun::CloneRange(uint64_t a1@<X0>, uint64_t a2@<X1>, CFIndex a3@<X
     v10[6] = v10 + 9;
     v10[7] = CTDelegateRun::CloneEntire;
     v10[8] = CTDelegateRun::CloneRange;
-    TDelegateRun::TDelegateRun((v10 + 9), a1 + 72, a2, a3, a4);
+    TDelegateRun::TDelegateRun((v10 + 9), a2 + 72, a3, a4, a5);
   }
 
   v12 = v11;
-  *a5 = atomic_exchange(&v12, 0);
+  *a1 = atomic_exchange(&v12, 0);
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(double *a1, double *a2, unint64_t a3, __n128 *a4, uint64_t a5, __n128 a6, double a7, double a8, uint8x8_t a9)
+void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(double *result, double *a2, unint64_t a3, double *a4, int64_t a5, __n128 a6, double a7, double a8, uint8x8_t a9)
 {
   if (a3 >= 2)
   {
-    v10 = a1;
+    v10 = result;
     if (a3 == 2)
     {
-      if (*(a2 - 4) < *a1)
+      if (*(a2 - 4) < *result)
       {
-        v11 = (a2 - 4);
+        v11 = a2 - 4;
 
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:fn200100]<TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *&,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *&>(a1, v11);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:fn200100]<TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *&,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *&>(result, v11);
       }
     }
 
@@ -7286,43 +7211,43 @@ void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::E
     {
       v29 = a4;
       v30 = a3 >> 1;
-      v31 = &a1[4 * (a3 >> 1)];
+      v31 = &result[4 * (a3 >> 1)];
       v32 = a3 >> 1;
       if (a3 <= a5)
       {
-        v37 = std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(a1, v31, v32, a4, a6);
-        v38 = &v29[2 * v30];
-        std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(&v10[4 * (a3 >> 1)], a2, a3 - (a3 >> 1), v38, v37);
-        v39 = &v29[2 * a3];
-        v40 = v38;
-        while (v40 != v39)
+        v41 = std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(result, v31, v32, a4, a6, a7, a8, a9);
+        v42 = &v29[4 * v30];
+        std::__stable_sort_move<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(&v10[4 * (a3 >> 1)], a2, a3 - (a3 >> 1), v42, v41, v43, v44, v45);
+        v46 = &v29[4 * a3];
+        v47 = v42;
+        while (v47 != v46)
         {
-          if (v40->n128_f64[0] >= v29->n128_f64[0])
+          if (*v47 >= *v29)
           {
-            v41 = *v29;
-            v42 = v29[1];
-            v29 += 2;
+            v48 = *v29;
+            v49 = *(v29 + 1);
+            v29 += 4;
           }
 
           else
           {
-            v41 = *v40;
-            v42 = v40[1];
-            v40 += 2;
+            v48 = *v47;
+            v49 = *(v47 + 1);
+            v47 += 4;
           }
 
-          *v10 = v41;
-          *(v10 + 1) = v42;
+          *v10 = v48;
+          *(v10 + 1) = v49;
           v10 += 4;
-          if (v29 == v38)
+          if (v29 == v42)
           {
-            while (v40 != v39)
+            while (v47 != v46)
             {
-              v45 = *v40;
-              v46 = v40[1];
-              v40 += 2;
-              *v10 = v45;
-              *(v10 + 1) = v46;
+              v52 = *v47;
+              v53 = *(v47 + 1);
+              v47 += 4;
+              *v10 = v52;
+              *(v10 + 1) = v53;
               v10 += 4;
             }
 
@@ -7330,33 +7255,33 @@ void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::E
           }
         }
 
-        while (v29 != v38)
+        while (v29 != v42)
         {
-          v43 = *v29;
-          v44 = v29[1];
-          v29 += 2;
-          *v10 = v43;
-          *(v10 + 1) = v44;
+          v50 = *v29;
+          v51 = *(v29 + 1);
+          v29 += 4;
+          *v10 = v50;
+          *(v10 + 1) = v51;
           v10 += 4;
         }
       }
 
       else
       {
-        std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(a1, v31, v32, a4, a5);
-        std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(&v10[4 * (a3 >> 1)], a2, a3 - (a3 >> 1), v29, a5);
+        std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(result, v31, v32, a4, a5, a6.n128_f64[0], a7, a8, a9);
+        std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(&v10[4 * (a3 >> 1)], a2, a3 - (a3 >> 1), v29, a5, v33, v34, v35, v36);
 
-        std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(v10, &v10[4 * (a3 >> 1)], a2, a3 >> 1, a3 - (a3 >> 1), v29, a5, v33, v34, v35, v36);
+        std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(v10, &v10[4 * (a3 >> 1)], a2, a3 >> 1, a3 - (a3 >> 1), v29, a5, v37, v38, v39, v40);
       }
     }
 
-    else if (a1 != a2)
+    else if (result != a2)
     {
-      v13 = a1 + 4;
-      if (a1 + 4 != a2)
+      v13 = result + 4;
+      if (result + 4 != a2)
       {
         v14 = 0;
-        v15 = a1;
+        v15 = result;
         do
         {
           v16 = v13;
@@ -7374,9 +7299,9 @@ void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::E
             v23 = v14;
             while (1)
             {
-              v24 = a1 + v23;
-              v25 = *(a1 + v23 + 16);
-              *(v24 + 2) = *(a1 + v23);
+              v24 = result + v23;
+              v25 = *(result + v23 + 16);
+              *(v24 + 2) = *(result + v23);
               *(v24 + 3) = v25;
               if (!v23)
               {
@@ -7386,20 +7311,20 @@ void std::__stable_sort<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::E
               v23 -= 32;
               if (v17 >= *(v24 - 4))
               {
-                v26 = a1 + v23 + 32;
+                v26 = (result + v23 + 32);
                 goto LABEL_18;
               }
             }
 
-            v26 = a1;
+            v26 = result;
 LABEL_18:
             *v26 = v17;
-            *(v26 + 8) = v19;
+            *(v26 + 2) = v19;
             v27 = vuzp1_s8(v20, *&v17);
-            *(v26 + 12) = v27.i32[0];
-            *(v26 + 16) = v21;
-            *(v26 + 24) = v22;
-            *(v26 + 28) = vuzp1_s8(a9, v27).u32[0];
+            *(v26 + 3) = v27.i32[0];
+            *(v26 + 2) = v21;
+            *(v26 + 6) = v22;
+            *(v26 + 7) = vuzp1_s8(a9, v27).u32[0];
           }
 
           v13 = v16 + 4;
@@ -7413,7 +7338,7 @@ LABEL_18:
   }
 }
 
-void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(char *a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, __n128 a8, double a9, double a10, uint8x8_t a11)
+void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(double *result, double *a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, double a8, double a9, int8x8_t a10, uint8x8_t a11)
 {
   if (a5)
   {
@@ -7426,309 +7351,310 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine:
       }
 
       v18 = 0;
-      a8.n128_u64[0] = *a2;
-      v19 = -a4;
+      v19 = *a2;
+      v20 = -a4;
       while (1)
       {
-        v20 = *&a1[v18];
-        if (a8.n128_f64[0] < v20)
+        v21 = result[v18];
+        if (v19 < v21)
         {
           break;
         }
 
-        v18 += 32;
-        if (__CFADD__(v19++, 1))
+        v18 += 4;
+        if (__CFADD__(v20++, 1))
         {
           return;
         }
       }
 
-      v22 = -v19;
-      v23 = &a1[v18];
-      if (-v19 >= v14)
+      v23 = -v20;
+      v24 = &result[v18];
+      if (-v20 >= v14)
       {
-        if (v19 == -1)
+        if (v20 == -1)
         {
-          v96 = &a1[v18];
+          v98 = &result[v18];
 
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:fn200100]<TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *&,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *&>(v96, a2);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:fn200100]<TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *&,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *&>(v98, a2);
           return;
         }
 
-        v32 = v22 / 2;
-        v27 = &a1[32 * (v22 / 2) + v18];
+        v33 = v23 / 2;
+        v28 = &result[4 * (v23 / 2) + v18];
         if (a3 == a2)
         {
-          v25 = a2;
+          v26 = a2;
         }
 
         else
         {
-          v33 = &a3[-a2] >> 5;
-          a8.n128_u64[0] = *v27;
-          v25 = a2;
+          v34 = (a3 - a2) >> 5;
+          v19 = *v28;
+          v26 = a2;
           do
           {
-            v34 = v33 >> 1;
-            v35 = &v25[4 * (v33 >> 1)];
-            v37 = *v35;
-            v36 = (v35 + 4);
-            HIDWORD(v20) = HIDWORD(v37);
-            v33 += ~(v33 >> 1);
-            if (v37 < a8.n128_f64[0])
+            v35 = v34 >> 1;
+            v36 = &v26[4 * (v34 >> 1)];
+            v38 = *v36;
+            v37 = v36 + 4;
+            v21 = v38;
+            v34 += ~(v34 >> 1);
+            if (v38 < v19)
             {
-              v25 = v36;
+              v26 = v37;
             }
 
             else
             {
-              v33 = v34;
+              v34 = v35;
             }
           }
 
-          while (v33);
+          while (v34);
         }
 
-        v24 = (v25 - a2) >> 5;
+        v25 = (v26 - a2) >> 5;
       }
 
       else
       {
-        v24 = v14 / 2;
-        v25 = (a2 + 32 * (v14 / 2));
-        if (v23 == a2)
+        v25 = v14 / 2;
+        v26 = &a2[4 * (v14 / 2)];
+        if (v24 == a2)
         {
-          v27 = &a1[v18];
+          v28 = &result[v18];
         }
 
         else
         {
-          v26 = (a2 - a1 - v18) >> 5;
-          a8.n128_u64[0] = *v25;
-          v27 = &a1[v18];
+          v27 = (a2 - result - v18 * 8) >> 5;
+          v19 = *v26;
+          v28 = &result[v18];
           do
           {
-            v28 = v26 >> 1;
-            v29 = &v27[32 * (v26 >> 1)];
-            v31 = *v29;
-            v30 = v29 + 4;
-            HIDWORD(v20) = HIDWORD(v31);
-            v26 += ~(v26 >> 1);
-            if (a8.n128_f64[0] < v31)
+            v29 = v27 >> 1;
+            v30 = &v28[4 * (v27 >> 1)];
+            v32 = *v30;
+            v31 = v30 + 4;
+            v21 = v32;
+            v27 += ~(v27 >> 1);
+            if (v19 < v32)
             {
-              v26 = v28;
+              v27 = v29;
             }
 
             else
             {
-              v27 = v30;
+              v28 = v31;
             }
           }
 
-          while (v26);
+          while (v27);
         }
 
-        v32 = (v27 - a1 - v18) >> 5;
+        v33 = (v28 - result - v18 * 8) >> 5;
       }
 
-      v38 = v25;
-      if (v27 != a2)
+      v39 = v26;
+      if (v28 != a2)
       {
-        v38 = v27;
-        if (a2 != v25)
+        v39 = v28;
+        if (a2 != v26)
         {
-          if (v27 + 32 == a2)
+          if (v28 + 4 == a2)
           {
-            v45 = *v27;
-            v46 = *(v27 + 2);
-            v47 = v25 - a2;
-            v38 = v25 + v27 - a2;
-            v108 = *(v27 + 2);
-            v102 = *(v27 + 3);
-            v105 = *(v27 + 6);
-            v103 = *(v27 + 7);
-            v111 = a6;
-            v114 = v32;
-            v48 = a3;
-            v49 = v23;
+            v46 = *v28;
+            v47 = *(v28 + 2);
+            v48 = v26 - a2;
+            v39 = (v28 + v26 - a2);
+            v110 = *(v28 + 2);
+            v104 = *(v28 + 3);
+            v107 = *(v28 + 6);
+            v105 = *(v28 + 7);
+            v113 = a6;
+            v116 = v33;
+            v49 = a3;
             v50 = v24;
-            memmove(v27, v27 + 32, v47);
-            a6 = v111;
-            v32 = v114;
+            v51 = v25;
+            memmove(v28, v28 + 4, v48);
+            a6 = v113;
+            v33 = v116;
+            v25 = v51;
             v24 = v50;
-            v23 = v49;
-            a3 = v48;
-            *v38 = v45;
-            *(v38 + 2) = v108;
-            *(v38 + 3) = v102;
-            *(v38 + 2) = v46;
-            *(v38 + 6) = v105;
-            *(v38 + 7) = v103;
+            a3 = v49;
+            *v39 = v46;
+            *(v39 + 2) = v110;
+            *(v39 + 3) = v104;
+            *(v39 + 2) = v47;
+            *(v39 + 6) = v107;
+            *(v39 + 7) = v105;
           }
 
-          else if ((a2 + 32) == v25)
+          else if (a2 + 4 == v26)
           {
-            v51 = *(v25 - 4);
-            v38 = v27 + 32;
-            v52 = *(v25 - 6);
-            v11.i32[0] = *(v25 - 5);
-            v53 = *(v25 - 2);
-            v54 = *(v25 - 2);
-            v12.i32[0] = *(v25 - 1);
-            if (v25 - 4 != v27)
+            v52 = *(v26 - 4);
+            v39 = v28 + 4;
+            v53 = *(v26 - 6);
+            v11.i32[0] = *(v26 - 5);
+            v54 = *(v26 - 2);
+            v55 = *(v26 - 2);
+            v12.i32[0] = *(v26 - 1);
+            if (v26 - 4 != v28)
             {
-              v109 = v23;
-              v112 = a6;
-              v55 = a3;
-              v56 = v24;
-              v115 = v32;
-              v106 = *(v25 - 6);
-              memmove(v27 + 32, v27, (v25 - 4) - v27);
-              v52 = v106;
-              a6 = v112;
-              v32 = v115;
-              v24 = v56;
-              v23 = v109;
-              a3 = v55;
+              v111 = v24;
+              v114 = a6;
+              v56 = a3;
+              v57 = v25;
+              v117 = v33;
+              v108 = *(v26 - 6);
+              memmove(v28 + 4, v28, (v26 - 4) - v28);
+              v53 = v108;
+              a6 = v114;
+              v33 = v117;
+              v25 = v57;
+              v24 = v111;
+              a3 = v56;
             }
 
-            a8 = vmovl_u8(v11);
-            *v27 = v51;
-            *(v27 + 2) = v52;
-            a8.n128_u64[0] = vuzp1_s8(a8.n128_u64[0], a8.n128_u64[0]);
-            *(v27 + 3) = a8.n128_u32[0];
-            *(v27 + 2) = v53;
-            *(v27 + 6) = v54;
-            a8.n128_u64[0] = vuzp1_s8(*&vmovl_u8(v12), a8.n128_u64[0]);
-            *(v27 + 7) = a8.n128_u32[0];
+            v58 = vmovl_u8(v11).u64[0];
+            *&v21 = vmovl_u8(v12).u64[0];
+            *v28 = v52;
+            *(v28 + 2) = v53;
+            v59 = vuzp1_s8(v58, v58);
+            *(v28 + 3) = v59.i32[0];
+            *(v28 + 2) = v54;
+            *(v28 + 6) = v55;
+            v19 = COERCE_DOUBLE(vuzp1_s8(*&v21, v59));
+            *(v28 + 7) = LODWORD(v19);
           }
 
           else
           {
-            v39 = a2 - v27;
-            v40 = (a2 - v27) >> 5;
-            v41 = v25 - a2;
-            if (v40 == (v25 - a2) >> 5)
+            v40 = (a2 - v28);
+            v41 = (a2 - v28) >> 5;
+            v42 = v26 - a2;
+            if (v41 == (v26 - a2) >> 5)
             {
-              v110 = a3;
-              v113 = v32;
-              v104 = v24;
-              v107 = v23;
-              v42 = a6;
-              v43 = v27;
-              v44 = a2;
+              v112 = a3;
+              v115 = v33;
+              v106 = v25;
+              v109 = v24;
+              v43 = a6;
+              v44 = v28;
+              v45 = a2;
               do
               {
-                a8.n128_f64[0] = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:fn200100]<TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *&,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *&>(v43, v44);
-                v43 += 32;
-                if (v43 == a2)
+                v19 = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:fn200100]<TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *&,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *&>(v44, v45);
+                v44 += 4;
+                if (v44 == a2)
                 {
                   break;
                 }
 
-                v44 += 32;
+                v45 += 4;
               }
 
-              while (v44 != v25);
-              v38 = a2;
-              a6 = v42;
-              v23 = v107;
-              a3 = v110;
-              v24 = v104;
-              v32 = v113;
+              while (v45 != v26);
+              v39 = a2;
+              a6 = v43;
+              v24 = v109;
+              a3 = v112;
+              v25 = v106;
+              v33 = v115;
             }
 
             else
             {
-              v57 = v41 >> 5;
-              v58 = (a2 - v27) >> 5;
+              v60 = v42 >> 5;
+              v61 = (a2 - v28) >> 5;
               do
               {
-                v59 = v58;
-                v58 = v57;
-                v57 = v59 % v57;
+                v62 = v61;
+                v61 = v60;
+                v60 = v62 % v60;
               }
 
-              while (v57);
-              v60 = &v27[32 * v58];
+              while (v60);
+              v63 = &v28[4 * v61];
               do
               {
-                v61 = *(v60 - 32);
-                v60 -= 32;
-                v62 = v61;
-                v63 = *(v60 + 2);
-                LODWORD(v20) = *(v60 + 3);
-                v64 = vmovl_u8(*&v20).u64[0];
-                v20 = *(v60 + 2);
-                v65 = *(v60 + 6);
-                a11.i32[0] = *(v60 + 7);
+                v64 = *(v63 - 4);
+                v63 -= 4;
+                v65 = v64;
+                v66 = *(v63 + 2);
+                LODWORD(v21) = *(v63 + 3);
+                a10 = vmovl_u8(*&v21).u64[0];
+                v21 = v63[2];
+                v67 = *(v63 + 6);
+                a11.i32[0] = *(v63 + 7);
                 a11 = vmovl_u8(a11).u64[0];
-                v66 = &v60[v39];
-                v67 = v60;
+                v68 = &v40[v63];
+                v69 = v63;
                 do
                 {
-                  v68 = v67;
-                  v67 = v66;
-                  v69 = *(v66 + 1);
-                  *v68 = *v66;
-                  *(v68 + 1) = v69;
-                  v70 = __OFSUB__(v40, (v25 - v66) >> 5);
-                  v72 = v40 - ((v25 - v66) >> 5);
-                  v71 = (v72 < 0) ^ v70;
-                  v66 = &v27[32 * v72];
-                  if (v71)
+                  v70 = v69;
+                  v69 = v68;
+                  v71 = *(v68 + 1);
+                  *v70 = *v68;
+                  v70[1] = v71;
+                  v72 = __OFSUB__(v41, (v26 - v68) >> 5);
+                  v74 = v41 - ((v26 - v68) >> 5);
+                  v73 = (v74 < 0) ^ v72;
+                  v68 = &v28[4 * v74];
+                  if (v73)
                   {
-                    v66 = &v67[v39];
+                    v68 = &v40[v69];
                   }
                 }
 
-                while (v66 != v60);
-                *v67 = v62;
-                *(v67 + 2) = v63;
-                v73 = vuzp1_s8(v64, v62);
-                *(v67 + 3) = v73.i32[0];
-                *(v67 + 2) = v20;
-                *(v67 + 6) = v65;
-                a8.n128_u64[0] = vuzp1_s8(a11, v73);
-                *(v67 + 7) = a8.n128_u32[0];
+                while (v68 != v63);
+                *v69 = v65;
+                *(v69 + 2) = v66;
+                v75 = vuzp1_s8(a10, v65);
+                *(v69 + 3) = v75.i32[0];
+                *(v69 + 2) = v21;
+                *(v69 + 6) = v67;
+                v19 = COERCE_DOUBLE(vuzp1_s8(a11, v75));
+                *(v69 + 7) = LODWORD(v19);
               }
 
-              while (v60 != v27);
-              v38 = &v27[v41];
+              while (v63 != v28);
+              v39 = (v28 + v42);
             }
           }
         }
       }
 
-      a4 = -(v32 + v19);
-      v74 = v14 - v24;
-      if (v32 + v24 >= v14 - (v32 + v24) - v19)
+      a4 = -(v33 + v20);
+      v76 = v14 - v25;
+      if (v33 + v25 >= v14 - (v33 + v25) - v20)
       {
-        v77 = v23;
-        v78 = -(v32 + v19);
         v79 = v24;
-        v75 = a6;
-        a4 = v32;
-        std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(v38, v25, a3, v78, v74, a8);
-        a1 = v77;
-        v25 = v27;
-        v74 = v79;
-        a3 = v38;
+        v80 = -(v33 + v20);
+        v81 = v25;
+        v77 = a6;
+        a4 = v33;
+        std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(v39, v26, a3, v80, v76, a6, a7, v19, v21, *&a10, a11);
+        result = v79;
+        v26 = v28;
+        v76 = v81;
+        a3 = v39;
       }
 
       else
       {
-        v75 = a6;
-        v76 = a3;
-        std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(v23, v27, v38, v32, v24, a8);
-        a3 = v76;
-        a1 = v38;
+        v77 = a6;
+        v78 = a3;
+        std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_0::operator() const(unsigned long,int)::CaretPair *>(v24, v28, v39, v33, v25, a6, a7, v19, v21, *&a10, a11);
+        a3 = v78;
+        result = v39;
       }
 
-      a2 = v25;
-      v14 = v74;
-      a6 = v75;
-      if (!v74)
+      a2 = v26;
+      v14 = v76;
+      a6 = v77;
+      if (!v76)
       {
         return;
       }
@@ -7736,117 +7662,117 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,std::__less<void,void> &,TLine:
 
     if (a4 <= v14)
     {
-      if (a1 != a2)
+      if (result != a2)
       {
-        v89 = -a6;
-        v90 = a6;
-        v91 = a1;
+        v91 = -a6;
+        v92 = a6;
+        v93 = result;
         do
         {
-          v92 = *v91;
-          v93 = *(v91 + 1);
-          v91 += 32;
-          *v90 = v92;
-          v90[1] = v93;
-          v90 += 2;
-          v89 -= 32;
+          v94 = *v93;
+          v95 = *(v93 + 1);
+          v93 += 4;
+          *v92 = v94;
+          v92[1] = v95;
+          v92 += 2;
+          v91 -= 32;
         }
 
-        while (v91 != a2);
+        while (v93 != a2);
         while (a2 != a3)
         {
           if (*a2 >= *a6)
           {
-            v94 = *a6;
-            v95 = *(a6 + 16);
+            v96 = *a6;
+            v97 = *(a6 + 16);
             a6 += 32;
           }
 
           else
           {
-            v94 = *a2;
-            v95 = *(a2 + 16);
-            a2 += 32;
+            v96 = *a2;
+            v97 = *(a2 + 1);
+            a2 += 4;
           }
 
-          *a1 = v94;
-          *(a1 + 1) = v95;
-          a1 += 32;
-          if (v90 == a6)
+          *result = v96;
+          *(result + 1) = v97;
+          result += 4;
+          if (v92 == a6)
           {
             return;
           }
         }
 
-        memmove(a1, a6, -(a6 + v89));
+        memmove(result, a6, -(a6 + v91));
       }
     }
 
     else if (a2 != a3)
     {
-      v80 = 0;
+      v82 = 0;
       do
       {
-        v81 = (a6 + v80);
-        v82 = *(a2 + v80 + 16);
-        *v81 = *(a2 + v80);
-        v81[1] = v82;
-        v80 += 32;
+        v83 = (a6 + v82 * 8);
+        v84 = *&a2[v82 + 2];
+        *v83 = *&a2[v82];
+        v83[1] = v84;
+        v82 += 4;
       }
 
-      while ((a2 + v80) != a3);
-      v83 = (a6 + v80);
-      while (a2 != a1)
+      while (&a2[v82] != a3);
+      v85 = a6 + v82 * 8;
+      while (a2 != result)
       {
-        v84 = *(v83 - 4);
-        v85 = *(a2 - 32);
-        v86 = v84 < v85;
-        if (v84 >= v85)
+        v86 = *(v85 - 32);
+        v87 = *(a2 - 4);
+        v88 = v86 < v87;
+        if (v86 >= v87)
         {
-          v87 = v83 - 4;
+          v89 = (v85 - 32);
         }
 
         else
         {
-          v87 = (a2 - 32);
+          v89 = a2 - 4;
         }
 
-        v88 = *(v87 + 1);
-        *(a3 - 2) = *v87;
-        *(a3 - 1) = v88;
-        a3 -= 32;
-        if (v86)
+        v90 = *(v89 + 1);
+        *(a3 - 2) = *v89;
+        *(a3 - 1) = v90;
+        a3 -= 4;
+        if (v88)
         {
-          a2 -= 32;
+          a2 -= 4;
         }
 
         else
         {
-          v83 -= 4;
+          v85 -= 32;
         }
 
-        if (v83 == a6)
+        if (v85 == a6)
         {
           return;
         }
       }
 
-      if (v83 != a6)
+      if (v85 != a6)
       {
-        v97 = -32;
+        v99 = 0x1FFFFFFFFFFFFFFCLL;
         do
         {
-          v98 = *(v83 - 2);
-          v99 = *(v83 - 1);
-          v100 = v83 - 4;
-          v101 = &a3[v97];
-          *v101 = v98;
-          *(v101 + 1) = v99;
-          v97 -= 32;
-          v83 = v100;
+          v100 = *(v85 - 32);
+          v101 = *(v85 - 16);
+          v102 = v85 - 32;
+          v103 = &a3[v99];
+          *v103 = v100;
+          *(v103 + 1) = v101;
+          v99 -= 4;
+          v85 = v102;
         }
 
-        while (v100 != a6);
+        while (v102 != a6);
       }
     }
   }
@@ -7865,19 +7791,19 @@ void DrawGlyphsAtPositionsWithString(CGContext *a1, const unsigned __int16 *a2, 
   }
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_2 &,TLine::CaretInfo *>(__n128 *a1, __n128 *a2, unint64_t a3, __n128 *a4, uint64_t a5, __n128 a6)
+void std::__stable_sort<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_2 &,TLine::CaretInfo *>(__n128 *result, __n128 *a2, unint64_t a3, __n128 *a4, int64_t a5, __n128 a6)
 {
   if (a3 >= 2)
   {
-    v7 = a1;
+    v7 = result;
     if (a3 == 2)
     {
-      v8 = a1->n128_f64[0];
-      if (a2[-1].n128_f64[0] < a1->n128_f64[0])
+      v8 = result->n128_f64[0];
+      if (a2[-1].n128_f64[0] < result->n128_f64[0])
       {
-        v9 = a1->n128_u32[2];
-        v10 = a1->n128_u32[3];
-        *a1 = a2[-1];
+        v9 = result->n128_u32[2];
+        v10 = result->n128_u32[3];
+        *result = a2[-1];
         a2[-1].n128_f64[0] = v8;
         a2[-1].n128_u32[2] = v9;
         a2[-1].n128_u32[3] = v10;
@@ -7888,20 +7814,21 @@ void std::__stable_sort<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std:
     {
       v24 = a4;
       v25 = a3 >> 1;
-      v26 = &a1[a3 >> 1];
+      v26 = &result[a3 >> 1];
       v27 = a3 >> 1;
       if (a3 <= a5)
       {
-        v28.n128_f64[0] = std::__stable_sort_move<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_2 &,TLine::CaretInfo *>(a1, v26, v27, a4, a6);
-        v29 = &v24[v25];
-        std::__stable_sort_move<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_2 &,TLine::CaretInfo *>(&v7[16 * (a3 >> 1)], a2, a3 - (a3 >> 1), v29, v28);
-        v30 = &v24[a3];
+        v28.n128_f64[0] = std::__stable_sort_move<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_2 &,TLine::CaretInfo *>(result, v26, v27, a4, a6);
+        v29 = &v24[2 * v25];
+        std::__stable_sort_move<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_2 &,TLine::CaretInfo *>(&v7[a3 >> 1], a2, a3 - (a3 >> 1), v29, v28);
+        v30 = &v24[2 * a3];
         v31 = v29;
         while (v31 != v30)
         {
-          if (v31->n128_f64[0] >= v24->n128_f64[0])
+          if (v31->n128_f64[0] >= *v24)
           {
-            v34 = *v24++;
+            v34 = *v24;
+            v24 += 2;
             v33 = v34;
           }
 
@@ -7911,15 +7838,13 @@ void std::__stable_sort<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std:
             v33 = v32;
           }
 
-          *v7 = v33;
-          v7 += 16;
+          *v7++ = v33;
           if (v24 == v29)
           {
             while (v31 != v30)
             {
               v36 = *v31++;
-              *v7 = v36;
-              v7 += 16;
+              *v7++ = v36;
             }
 
             return;
@@ -7928,28 +7853,28 @@ void std::__stable_sort<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std:
 
         while (v24 != v29)
         {
-          v35 = *v24++;
-          *v7 = v35;
-          v7 += 16;
+          v35 = *v24;
+          v24 += 2;
+          *v7++ = v35;
         }
       }
 
       else
       {
-        std::__stable_sort<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_2 &,TLine::CaretInfo *>(a1, v26, v27, a4, a5);
-        std::__stable_sort<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_2 &,TLine::CaretInfo *>(&v7[16 * (a3 >> 1)], a2, a3 - (a3 >> 1), v24, a5);
+        std::__stable_sort<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_2 &,TLine::CaretInfo *>(result, v26, v27, a4->n128_f64, a5);
+        std::__stable_sort<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_2 &,TLine::CaretInfo *>(&v7[a3 >> 1], a2, a3 - (a3 >> 1), v24, a5);
 
-        std::__inplace_merge<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_2 &,TLine::CaretInfo *>(v7, &v7[16 * (a3 >> 1)], a2->n128_f64, a3 >> 1, a3 - (a3 >> 1), v24, a5);
+        std::__inplace_merge<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std::function<void ()(double,long,BOOL,BOOL *)>)::$_2 &,TLine::CaretInfo *>(v7->n128_f64, v7[a3 >> 1].n128_f64, a2->n128_f64, a3 >> 1, a3 - (a3 >> 1), v24, a5);
       }
     }
 
-    else if (a1 != a2)
+    else if (result != a2)
     {
-      v12 = a1 + 1;
-      if (&a1[1] != a2)
+      v12 = result + 1;
+      if (&result[1] != a2)
       {
         v13 = 0;
-        v14 = a1;
+        v14 = result;
         do
         {
           v15 = v12;
@@ -7963,26 +7888,26 @@ void std::__stable_sort<std::_ClassicAlgPolicy,TLine::EnumerateCaretOffsets(std:
             v20 = v13;
             while (1)
             {
-              *(a1 + v20 + 16) = *(a1 + v20);
+              *(result + v20 + 16) = *(result + v20);
               if (!v20)
               {
                 break;
               }
 
-              v21 = *(a1[-1].n128_f64 + v20);
+              v21 = *(result[-1].n128_f64 + v20);
               v20 -= 16;
               if (v16 >= v21)
               {
-                v22 = &a1[1] + v20;
+                v22 = (result + v20 + 16);
                 goto LABEL_16;
               }
             }
 
-            v22 = a1;
+            v22 = result;
 LABEL_16:
-            *v22 = v16;
-            *(v22 + 8) = v18;
-            *(v22 + 12) = vuzp1_s8(v19, *&v16).u32[0];
+            v22->n128_f64[0] = v16;
+            v22->n128_u32[2] = v18;
+            v22->n128_u32[3] = vuzp1_s8(v19, *&v16).u32[0];
           }
 
           v12 = v15 + 1;
@@ -8085,7 +8010,7 @@ uint64_t std::__function::__value_func<void ()(double,long,BOOL,BOOL *)>::~__val
   return a1;
 }
 
-uint64_t CTLineCreateHyphenatedLineWithOffset(uint64_t a1, CFIndex a2, CFIndex a3, const __CFString *a4, double a5)
+unint64_t CTLineCreateHyphenatedLineWithOffset(uint64_t a1, CFIndex a2, CFIndex a3, __CFString *a4, double a5)
 {
   __dst[34] = *MEMORY[0x1E69E9840];
   v19 = CTLineCreateFromLineWithOffset(a1, a2, a3, a5);
@@ -8159,7 +8084,7 @@ void CTLineEnumerateCaretOffsets(CTLineRef line, void *block)
   }
 }
 
-uint64_t TComponentFont::GetLanguageAwareOutsets(atomic_ullong *this, __n128 a2, double *a3, double *a4, double *a5, double *a6, __CFString *a7)
+unint64_t TComponentFont::GetLanguageAwareOutsets(atomic_ullong *this, __n128 a2, double *a3, double *a4, double *a5, double *a6, __CFString *a7)
 {
   LanguageAwareOutsets = TBaseFont::GetLanguageAwareOutsets(this, a2, a3, a4, a5, a6, a7);
   if (LanguageAwareOutsets && (*(*this + 792))(this))
@@ -8408,7 +8333,7 @@ void *CTFontGetLanguageAwareOutsetsForLanguage(void *result, double *a2, double 
   return result;
 }
 
-uint64_t TBaseFont::GetLanguageAwareOutsets(atomic_ullong *this, __n128 a2, double *a3, double *a4, double *a5, double *a6, __CFString *a7)
+unint64_t TBaseFont::GetLanguageAwareOutsets(atomic_ullong *this, __n128 a2, double *a3, double *a4, double *a5, double *a6, __CFString *a7)
 {
   v19 = *MEMORY[0x1E69E9840];
   explicit = atomic_load_explicit(this + 12, memory_order_acquire);
@@ -8477,7 +8402,7 @@ uint64_t TFont::GetWinMetrics(TBaseFont **this, double *a2, double *a3)
       {
         if (*(this + 14))
         {
-          v7 = (this + 7);
+          v7 = this + 7;
         }
 
         else
@@ -8485,7 +8410,7 @@ uint64_t TFont::GetWinMetrics(TBaseFont **this, double *a2, double *a3)
           TFont::InitStrikeMetrics(this);
         }
 
-        v8 = v7[6];
+        v8 = *(v7 + 6);
         if (a2)
         {
           *a2 = v8 * *a2;
@@ -8622,8 +8547,8 @@ LABEL_29:
                   if (Count || !v23)
                   {
                     v33 = 0xAAAAAAAAAAAAAAAALL;
-                    CreateMergedVariation(explicit, v20, a3, &v33);
-                    CreateValidVariation(explicit, atomic_load_explicit(&v33, memory_order_acquire), &v32);
+                    CreateMergedVariation(&v33, explicit, v20, a3);
+                    CreateValidVariation(&v32, explicit, atomic_load_explicit(&v33, memory_order_acquire));
 
                     v25 = atomic_load_explicit(&valuePtr, memory_order_acquire);
                     if (v25 != v20 && (!v25 || !CFEqual(v20, v25)))
@@ -8636,7 +8561,7 @@ LABEL_29:
 
                   else
                   {
-                    CreateValidVariation(explicit, a3, &v33);
+                    CreateValidVariation(&v33, explicit, a3);
 
                     v24 = atomic_load_explicit(&valuePtr, memory_order_acquire);
                     if (v24 != v20 && (!v24 || !CFEqual(v20, v24)))
@@ -8649,7 +8574,7 @@ LABEL_50:
                       if (v17)
                       {
                         valuePtr = -3.72066208e-103;
-                        CreateValidVariation(atomic_load_explicit(&v31, memory_order_acquire), v27, &valuePtr);
+                        CreateValidVariation(&valuePtr, atomic_load_explicit(&v31, memory_order_acquire), v27);
                         atomic_load_explicit(&valuePtr, memory_order_acquire);
                         if ((*(*a2 + 16))(a2) != 1414809156)
                         {
@@ -8678,7 +8603,7 @@ LABEL_59:
                       valuePtr = -3.72066208e-103;
                       (*(*a2 + 504))(&valuePtr, a2);
                       v33 = 0xAAAAAAAAAAAAAAAALL;
-                      AddDefaultsToVariation(atomic_load_explicit(&v31, memory_order_acquire), v27, &v33);
+                      AddDefaultsToVariation(&v33, atomic_load_explicit(&v31, memory_order_acquire), v27);
                       v32 = 0xAAAAAAAAAAAAAAAALL;
                       atomic_load_explicit(&valuePtr, memory_order_acquire);
                       atomic_load_explicit(&v33, memory_order_acquire);
@@ -8710,7 +8635,7 @@ LABEL_20:
     if (atomic_load_explicit(&v30, memory_order_acquire))
     {
       valuePtr = -3.72066208e-103;
-      CreateValidVariation(atomic_load_explicit(&v31, memory_order_acquire), a3, &valuePtr);
+      CreateValidVariation(&valuePtr, atomic_load_explicit(&v31, memory_order_acquire), a3);
       if (atomic_load_explicit(&valuePtr, memory_order_acquire) && !CFEqual(atomic_load_explicit(&v30, memory_order_acquire), atomic_load_explicit(&valuePtr, memory_order_acquire)))
       {
         (*(*a2 + 56))(&v33, a2, @"NSCTFontFileURLAttribute");
@@ -8741,27 +8666,27 @@ const void *TAttributes::GetBackgroundColor(TAttributes *this, const __CFDiction
   return result;
 }
 
-void CreateMergedVariation(const __CFArray *a1@<X0>, const __CFDictionary *a2@<X1>, const __CFDictionary *a3@<X2>, void *a4@<X8>)
+void CreateMergedVariation(uint64_t *__return_ptr a1@<X8>, const __CFArray *a2@<X0>, const __CFDictionary *a3@<X1>, const __CFDictionary *a4@<X2>)
 {
   v21 = 0xAAAAAAAAAAAAAAAALL;
-  TCFMutableDictionary::TCFMutableDictionary(&v21, a2);
-  if (a1)
+  TCFMutableDictionary::TCFMutableDictionary(&v21, a3);
+  if (a2)
   {
-    Count = CFArrayGetCount(a1);
+    Count = CFArrayGetCount(a2);
     if (Count)
     {
       v7 = Count;
       for (i = 0; v7 != i; ++i)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(a1, i);
+        ValueAtIndex = CFArrayGetValueAtIndex(a2, i);
         Value = CFDictionaryGetValue(ValueAtIndex, @"NSCTVariationAxisIdentifier");
-        if (!a3)
+        if (!a4)
         {
           continue;
         }
 
         v11 = Value;
-        v12 = CFDictionaryGetValue(a3, Value);
+        v12 = CFDictionaryGetValue(a4, Value);
         if (!v12)
         {
           v17 = CFDictionaryGetValue(ValueAtIndex, @"NSCTVariationAxisName");
@@ -8770,7 +8695,7 @@ void CreateMergedVariation(const __CFArray *a1@<X0>, const __CFDictionary *a2@<X
             continue;
           }
 
-          v12 = CFDictionaryGetValue(a3, v17);
+          v12 = CFDictionaryGetValue(a4, v17);
           if (!v12)
           {
             continue;
@@ -8805,16 +8730,16 @@ void CreateMergedVariation(const __CFArray *a1@<X0>, const __CFDictionary *a2@<X
     }
   }
 
-  *a4 = atomic_exchange(&v21, 0);
+  *a1 = atomic_exchange(&v21, 0);
 }
 
-void CreateValidVariation(const __CFArray *a1@<X0>, void *cf@<X1>, CFDictionaryRef *a3@<X8>)
+void CreateValidVariation(uint64_t *__return_ptr a1@<X8>, const __CFArray *a2@<X0>, void *cf@<X1>)
 {
   v67[1] = *MEMORY[0x1E69E9840];
   v6 = CFGetTypeID(cf);
   if (v6 != CFDictionaryGetTypeID())
   {
-    *a3 = 0;
+    *a1 = 0;
     return;
   }
 
@@ -8858,22 +8783,22 @@ void CreateValidVariation(const __CFArray *a1@<X0>, void *cf@<X1>, CFDictionaryR
   v59 = 0;
   v60 = 0;
   v62 = v61;
-  if (!a1)
+  if (!a2)
   {
     goto LABEL_70;
   }
 
-  Count = CFArrayGetCount(a1);
+  Count = CFArrayGetCount(a2);
   if (!Count)
   {
     goto LABEL_70;
   }
 
-  v53 = a3;
+  v53 = a1;
   v8 = 0;
   v9 = 0;
-  v10 = a1;
-  v54 = a1;
+  v10 = a2;
+  v54 = a2;
   do
   {
     ValueAtIndex = CFArrayGetValueAtIndex(v10, v9);
@@ -9116,7 +9041,7 @@ LABEL_67:
   }
 
   while (v9 != Count);
-  a3 = v53;
+  a1 = v53;
   if (v8)
   {
     *v53 = CFDictionaryCreate(*MEMORY[0x1E695E480], __p, values, (v64 - __p) >> 3, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -9125,7 +9050,7 @@ LABEL_67:
 
 LABEL_70:
   valuePtr = COERCE_DOUBLE(cf);
-  *a3 = atomic_exchange(&valuePtr, 0);
+  *a1 = atomic_exchange(&valuePtr, 0);
 
 LABEL_71:
   v48 = values;
@@ -9201,7 +9126,7 @@ CTLineRef CTLineCreateTruncatedLine(CTLineRef line, double width, CTLineTruncati
 
   if (*(*(truncationToken + 5) + 104) <= width)
   {
-    TruncatedLine = CreateTruncatedLine(line, truncationType, truncationToken, 0, width);
+    TruncatedLine = CreateTruncatedLine(line, truncationType, truncationToken, width, 0);
   }
 
   else
@@ -9260,7 +9185,7 @@ char *std::vector<CTRun *,TInlineBufferAllocator<CTRun *,3ul>>::insert(void *a1,
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     a1[1] = v9;
@@ -9444,23 +9369,23 @@ void TBaseFont::CopyFileURL(TBaseFont *this@<X0>, void *a2@<X8>)
   *a2 = 0;
 }
 
-void AddDefaultsToVariation(const __CFArray *a1@<X0>, const __CFDictionary *a2@<X1>, void *a3@<X8>)
+void AddDefaultsToVariation(uint64_t *__return_ptr a1@<X8>, const __CFArray *a2@<X0>, const __CFDictionary *a3@<X1>)
 {
   v14 = 0xAAAAAAAAAAAAAAAALL;
-  TCFMutableDictionary::TCFMutableDictionary(&v14, a2);
-  if (a1)
+  TCFMutableDictionary::TCFMutableDictionary(&v14, a3);
+  if (a2)
   {
-    Count = CFArrayGetCount(a1);
+    Count = CFArrayGetCount(a2);
     if (Count)
     {
       v6 = Count;
       for (i = 0; i != v6; ++i)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(a1, i);
+        ValueAtIndex = CFArrayGetValueAtIndex(a2, i);
         Value = CFDictionaryGetValue(ValueAtIndex, @"NSCTVariationAxisIdentifier");
-        if (a2)
+        if (a3)
         {
-          v10 = CFDictionaryGetValue(a2, Value);
+          v10 = CFDictionaryGetValue(a3, Value);
           if (v10)
           {
             v11 = CFGetTypeID(v10);
@@ -9477,35 +9402,35 @@ void AddDefaultsToVariation(const __CFArray *a1@<X0>, const __CFDictionary *a2@<
     }
   }
 
-  *a3 = atomic_exchange(&v14, 0);
+  *a1 = atomic_exchange(&v14, 0);
 }
 
 void TJustEngine::CreateJustifiedLine(const TCharStream **this@<X0>, const TLine *a2@<X1>, double a3@<D0>, double a4@<D1>, unint64_t *a5@<X8>)
 {
-  v60 = a2;
-  v85 = *MEMORY[0x1E69E9840];
-  v58 = *this;
+  v62 = a2;
+  v87 = *MEMORY[0x1E69E9840];
+  v60 = *this;
   HangingWidth = TLine::GetHangingWidth(this);
-  TLine::GetVisibleGlyphRangeAndWidth(this, &v77);
-  v10 = v77;
-  v11 = v78;
-  v12 = v79;
-  if (v78 < 1)
+  TLine::GetVisibleGlyphRangeAndWidth(&v79, this);
+  v10 = v79;
+  v11 = v80;
+  v12 = v81;
+  if (v80 < 1)
   {
     UnanchoredGlyphRange = 0;
-    v61.location = 0;
+    v63.location = 0;
   }
 
   else
   {
-    v86.location = v77;
-    v86.length = v78;
-    UnanchoredGlyphRange = TLine::GetUnanchoredGlyphRange(this, v86);
-    v61.location = v13;
+    v88.location = v79;
+    v88.length = v80;
+    UnanchoredGlyphRange = TLine::GetUnanchoredGlyphRange(this, v88);
+    v63.location = v13;
   }
 
-  v66 = 0xAAAAAAAAAAAAAAAALL;
-  v14 = TCFBase<TLine>::Allocate();
+  v68 = 0xAAAAAAAAAAAAAAAALL;
+  v14 = TCFBase<TLine>::Allocate(264);
   v15 = v14;
   if (v14)
   {
@@ -9530,10 +9455,10 @@ void TJustEngine::CreateJustifiedLine(const TCharStream **this@<X0>, const TLine
     TLine::operator=(v14 + 48, this);
   }
 
-  v77 = v15;
-  v66 = atomic_exchange(&v77, 0);
+  v79 = v15;
+  v68 = atomic_exchange(&v79, 0);
 
-  if (!atomic_load_explicit(&v66, memory_order_acquire))
+  if (!atomic_load_explicit(&v68, memory_order_acquire))
   {
     *a5 = 0;
     goto LABEL_54;
@@ -9553,14 +9478,14 @@ void TJustEngine::CreateJustifiedLine(const TCharStream **this@<X0>, const TLine
   }
 
   v21 = v17 >= 0.0 && v17 < v19;
-  if (v21 || v61.location <= 0)
+  if (v21 || v63.location <= 0)
   {
-    *a5 = atomic_exchange(&v66, 0);
+    *a5 = atomic_exchange(&v68, 0);
     goto LABEL_54;
   }
 
-  v57 = v10;
-  v22 = *(atomic_load_explicit(&v66, memory_order_acquire) + 40);
+  v59 = v10;
+  v22 = *(atomic_load_explicit(&v68, memory_order_acquire) + 40);
   TLine::DetachRuns(v22);
   if ((*(v22 + 154) & 2) != 0)
   {
@@ -9588,198 +9513,198 @@ void TJustEngine::CreateJustifiedLine(const TCharStream **this@<X0>, const TLine
     }
   }
 
-  v56 = v11;
+  v58 = v11;
   *&v28 = 0xAAAAAAAAAAAAAAAALL;
   *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v83[14] = v28;
-  v83[13] = v28;
-  v83[12] = v28;
-  v83[11] = v28;
-  v83[10] = v28;
-  v83[9] = v28;
-  v83[8] = v28;
-  v83[7] = v28;
-  v83[6] = v28;
-  v83[5] = v28;
-  v83[4] = v28;
-  v83[3] = v28;
-  v83[2] = v28;
-  v83[1] = v28;
-  v83[0] = v28;
-  memset(v82, 0, sizeof(v82));
-  v84 = v83;
-  v64 = 0.0;
-  v65 = 0;
-  v29 = v58;
+  v85[14] = v28;
+  v85[13] = v28;
+  v85[12] = v28;
+  v85[11] = v28;
+  v85[10] = v28;
+  v85[9] = v28;
+  v85[8] = v28;
+  v85[7] = v28;
+  v85[6] = v28;
+  v85[5] = v28;
+  v85[4] = v28;
+  v85[3] = v28;
+  v85[2] = v28;
+  v85[1] = v28;
+  v85[0] = v28;
+  memset(v84, 0, sizeof(v84));
+  v86 = v85;
+  v66 = 0.0;
+  v67 = 0;
+  v29 = v60;
   do
   {
     v30 = *(v22 + 16);
     v31 = *(v22 + 24);
-    v87.location = v61.location;
-    v87.length = v22;
-    v32 = TJustEngine::ReconciledRangeForLines(UnanchoredGlyphRange, v87, this, v23);
+    v89.location = v63.location;
+    v89.length = v22;
+    v32 = TJustEngine::ReconciledRangeForLines(UnanchoredGlyphRange, v89, this, v23);
     v34 = v33;
-    memset(v80, 170, sizeof(v80));
-    v77 = 0;
-    v78 = 0;
-    v79 = 0.0;
-    v81 = v80;
+    memset(v82, 170, sizeof(v82));
+    v79 = 0;
+    v80 = 0;
+    v81 = 0.0;
+    v83 = v82;
     v35 = v32 + v34;
     if (v32 + v34)
     {
-      std::vector<JustLeftRightMaxima,TInlineBufferAllocator<JustLeftRightMaxima,30ul>>::__vallocate[abi:fn200100](&v77, v32 + v34);
-      v36 = v78;
-      bzero(v78, 24 * ((24 * v35 - 24) / 0x18uLL) + 24);
-      v29 = v58;
-      v78 = &v36[24 * v35];
+      std::vector<JustLeftRightMaxima,TInlineBufferAllocator<JustLeftRightMaxima,30ul>>::__vallocate[abi:fn200100](&v79, v32 + v34);
+      v36 = v80;
+      bzero(v80, 24 * ((24 * v35 - 24) / 0x18uLL) + 24);
+      v29 = v60;
+      v80 = &v36[24 * v35];
     }
 
-    memset(v75, 170, sizeof(v75));
-    v72 = 0;
-    v73 = 0;
+    memset(v77, 170, sizeof(v77));
     v74 = 0;
-    v76 = v75;
-    TJustEngine::GenerateMaximaList(v22, v29, v32, v34, 0, v60, &v77, &v72, v17);
-    std::vector<double,TInlineBufferAllocator<double,30ul>>::resize(v82, v32 + v34);
-    TJustEngine::DistributeGap(v30, v31, v32, v34, 0, v60, v77, v78, v17, v82[0], &v64);
-    if (v72 != v73)
+    v75 = 0;
+    v76 = 0;
+    v78 = v77;
+    TJustEngine::GenerateMaximaList(v22, v29, v32, v34, 0, v62, &v79, &v74, v17);
+    std::vector<double,TInlineBufferAllocator<double,30ul>>::resize(v84, v32 + v34);
+    TJustEngine::DistributeGap(v30, v31, v32, v34, 0, v62, v79, v80, v17, v84[0], &v66);
+    if (v74 != v75)
     {
-      v63 = 0xAAAAAAAAAAAAAAAALL;
+      v65 = 0xAAAAAAAAAAAAAAAALL;
       *&v37 = 0xAAAAAAAAAAAAAAAALL;
       *(&v37 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v70[28] = v37;
-      v70[29] = v37;
-      v70[26] = v37;
-      v70[27] = v37;
-      v70[24] = v37;
-      v70[25] = v37;
-      v70[22] = v37;
-      v70[23] = v37;
-      v70[20] = v37;
-      v70[21] = v37;
-      v70[18] = v37;
-      v70[19] = v37;
-      v70[16] = v37;
-      v70[17] = v37;
-      v70[14] = v37;
-      v70[15] = v37;
-      v70[12] = v37;
-      v70[13] = v37;
-      v70[10] = v37;
-      v70[11] = v37;
-      v70[8] = v37;
-      v70[9] = v37;
-      v70[6] = v37;
-      v70[7] = v37;
-      v70[4] = v37;
-      v70[5] = v37;
-      v70[2] = v37;
-      v70[3] = v37;
-      v70[0] = v37;
-      v70[1] = v37;
-      v67 = 0;
-      v68 = 0;
+      v72[28] = v37;
+      v72[29] = v37;
+      v72[26] = v37;
+      v72[27] = v37;
+      v72[24] = v37;
+      v72[25] = v37;
+      v72[22] = v37;
+      v72[23] = v37;
+      v72[20] = v37;
+      v72[21] = v37;
+      v72[18] = v37;
+      v72[19] = v37;
+      v72[16] = v37;
+      v72[17] = v37;
+      v72[14] = v37;
+      v72[15] = v37;
+      v72[12] = v37;
+      v72[13] = v37;
+      v72[10] = v37;
+      v72[11] = v37;
+      v72[8] = v37;
+      v72[9] = v37;
+      v72[6] = v37;
+      v72[7] = v37;
+      v72[4] = v37;
+      v72[5] = v37;
+      v72[2] = v37;
+      v72[3] = v37;
+      v72[0] = v37;
+      v72[1] = v37;
       v69 = 0;
-      v71 = v70;
-      v38 = TPostcompEngine::DoActions(v30, v31, v32, v34, &v72, v82[0], &v63, &v67);
-      if (v63 >= 1)
+      v70 = 0;
+      v71 = 0;
+      v73 = v72;
+      v38 = TPostcompEngine::DoActions(v30, v31, v32, v34, &v74, v84[0], &v65, &v69);
+      if (v65 >= 1)
       {
-        *(v22 + 144) += v63;
+        *(v22 + 144) += v65;
       }
 
       if (v38)
       {
-        TLine::ResetLine(v22, v29);
-        TLine::GetVisibleGlyphRangeAndWidth(v22, &v61.length);
-        v17 = (v16 - v62) * a3;
-        v64 = 0.0;
-        v65 = 0;
-        v61.length = &v67;
-        std::vector<CGPoint,TInlineBufferAllocator<CGPoint,30ul>>::__destroy_vector::operator()[abi:fn200100](&v61.length);
-        v39 = 1;
+        TLine::ResetLine(v22, v29, v39, v40);
+        TLine::GetVisibleGlyphRangeAndWidth(&v63.length, v22);
+        v17 = (v16 - v64) * a3;
+        v66 = 0.0;
+        v67 = 0;
+        v63.length = &v69;
+        std::vector<CGPoint,TInlineBufferAllocator<CGPoint,30ul>>::__destroy_vector::operator()[abi:fn200100](&v63.length);
+        v41 = 1;
         goto LABEL_34;
       }
 
-      if (v67 != v68)
+      if (v69 != v70)
       {
-        TAATPostcompEngine::ApplyKashidas(v30, v31, &v67, v82[0]);
-        v63 = v40;
-        if (v40 >= 1)
+        TAATPostcompEngine::ApplyKashidas(v30, v31, &v69, v84[0]);
+        v65 = v42;
+        if (v42 >= 1)
         {
-          *(v22 + 144) += v40;
+          *(v22 + 144) += v42;
           ApplyArabicLowConnections<std::__wrap_iter<CTRun **>>(v30, v31);
         }
       }
 
-      v61.length = &v67;
-      std::vector<CGPoint,TInlineBufferAllocator<CGPoint,30ul>>::__destroy_vector::operator()[abi:fn200100](&v61.length);
+      v63.length = &v69;
+      std::vector<CGPoint,TInlineBufferAllocator<CGPoint,30ul>>::__destroy_vector::operator()[abi:fn200100](&v63.length);
     }
 
-    v39 = 0;
+    v41 = 0;
 LABEL_34:
-    v67 = &v72;
-    std::vector<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,TCFRef<__CFData const*>>,TInlineBufferAllocator<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,TCFRef<__CFData const*>>,30ul>>::__destroy_vector::operator()[abi:fn200100](&v67);
-    v72 = &v77;
-    std::vector<JustLeftRightMaxima,TInlineBufferAllocator<JustLeftRightMaxima,30ul>>::__destroy_vector::operator()[abi:fn200100](&v72);
+    v69 = &v74;
+    std::vector<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,TCFRef<__CFData const*>>,TInlineBufferAllocator<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,TCFRef<__CFData const*>>,30ul>>::__destroy_vector::operator()[abi:fn200100](&v69);
+    v74 = &v79;
+    std::vector<JustLeftRightMaxima,TInlineBufferAllocator<JustLeftRightMaxima,30ul>>::__destroy_vector::operator()[abi:fn200100](&v74);
   }
 
-  while ((v39 & 1) != 0);
-  v88.location = v56;
-  v88.length = v22;
-  v42 = TJustEngine::ReconciledRangeForLines(v57, v88, this, v23);
-  v44 = v43;
-  if (v42 >= 1)
+  while ((v41 & 1) != 0);
+  v90.location = v58;
+  v90.length = v22;
+  v44 = TJustEngine::ReconciledRangeForLines(v59, v90, this, v23);
+  v46 = v45;
+  if (v44 >= 1)
   {
-    v41.location = v42;
-    TJustEngine::ZeroRange(v22, 0, v41);
+    v43.location = v44;
+    TJustEngine::ZeroRange(v22, 0, v43);
   }
 
-  v41.location = *(v22 + 144) - (v42 + v44);
-  if (v41.location >= 1)
+  v43.location = *(v22 + 144) - (v44 + v46);
+  if (v43.location >= 1)
   {
-    TJustEngine::ZeroRange(v22, (v42 + v44), v41);
+    TJustEngine::ZeroRange(v22, (v44 + v46), v43);
   }
 
   TLine::SyncWithRuns(v22);
-  if ((v60 & 2) != 0 || v17 >= 0.0)
+  if ((v62 & 2) != 0 || v17 >= 0.0)
   {
 LABEL_52:
-    v53 = atomic_exchange(&v66, 0);
+    v55 = atomic_exchange(&v68, 0);
   }
 
   else
   {
-    if (v16 >= v12 + v64 - v19)
+    if (v16 >= v12 + v66 - v19)
     {
       if (*(v22 + 104) > v16)
       {
-        v45 = *(v22 + 24);
-        if (v45 == *(v22 + 16))
+        v47 = *(v22 + 24);
+        if (v47 == *(v22 + 16))
         {
           __break(1u);
         }
 
-        v46 = *(*(v45 - 8) + 48);
-        v47 = v46[26];
-        v48 = v47 - 1;
-        if (v47 >= 1)
+        v48 = *(*(v47 - 8) + 48);
+        v49 = v48[26];
+        v50 = v49 - 1;
+        if (v49 >= 1)
         {
-          v49 = v46[27];
-          v50 = *(v49 + 32);
-          if (v50 || (v54 = *(v49 + 24)) == 0)
+          v51 = v48[27];
+          v52 = *(v51 + 32);
+          if (v52 || (v56 = *(v51 + 24)) == 0)
           {
-            v51 = v50 + 16 * v46[25] + 16 * v48;
-            v52 = *(v51 + 8);
+            v53 = v52 + 16 * v48[25] + 16 * v50;
+            v54 = *(v53 + 8);
           }
 
           else
           {
-            v51 = v54 + 8 * v46[25] + 8 * v48;
-            v52 = 0;
+            v53 = v56 + 8 * v48[25] + 8 * v50;
+            v54 = 0;
           }
 
-          v55 = *v51 - v19;
-          TStorageRange::SetAdvance((v46 + 24), v48, *(&v52 - 1));
+          v57 = *v53 - v19;
+          TStorageRange::SetAdvance((v48 + 24), v50, *(&v54 - 1));
           TLine::SyncWithRuns(v22);
         }
       }
@@ -9787,11 +9712,60 @@ LABEL_52:
       goto LABEL_52;
     }
 
-    v53 = 0;
+    v55 = 0;
   }
 
-  *a5 = v53;
-  v77 = v82;
-  std::vector<std::pair<unsigned int,unsigned int>,TInlineBufferAllocator<std::pair<unsigned int,unsigned int>,30ul>>::__destroy_vector::operator()[abi:fn200100](&v77);
+  *a5 = v55;
+  v79 = v84;
+  std::vector<std::pair<unsigned int,unsigned int>,TInlineBufferAllocator<std::pair<unsigned int,unsigned int>,30ul>>::__destroy_vector::operator()[abi:fn200100](&v79);
 LABEL_54:
+}
+
+void TLine::ResetLine(TLine *this, const TCharStream *a2, uint64_t a3, signed __int8 a4)
+{
+  v6 = (*(this + 3) - *(this + 2)) >> 3;
+  if (v6 < 1)
+  {
+LABEL_9:
+    TKerningEngine::PositionGlyphs(this, a2, 4);
+
+    TLine::SyncWithRuns(this);
+  }
+
+  else
+  {
+    v7 = 0;
+    while (1)
+    {
+      v8 = *(this + 2);
+      if (v7 >= (*(this + 3) - v8) >> 3)
+      {
+        break;
+      }
+
+      v9 = *(*(v8 + 8 * v7) + 48);
+      if ((*(v9 + 178) & 0x40) == 0)
+      {
+        v10 = *(atomic_load_explicit((v9 + 56), memory_order_acquire) + 40);
+        RenderingStyle = TAttributes::GetRenderingStyle((v9 + 40));
+        TStorageRange::ResetAdvances(v9 + 192, v10, RenderingStyle & 0xFFFFFFFFFFLL);
+        v12 = *(v9 + 312);
+        if (v12)
+        {
+          v13 = *(v12 + 56);
+          if (v13 != *(v12 + 64))
+          {
+            *(v12 + 64) = v13;
+          }
+        }
+      }
+
+      if (v6 == ++v7)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    __break(1u);
+  }
 }

@@ -52,36 +52,36 @@
 
 - (float)getStdDev
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableArray *)self->_values count];
   result = -1.0;
   if (v3 >= self->_arraySize)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = self->_values;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       v9 = 0.0;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(&v13 + 1) + 8 * i) doubleValue];
+          [*(*(&v12 + 1) + 8 * i) doubleValue];
           v9 = v9 + (v11 - self->_currentAverage) * (v11 - self->_currentAverage);
         }
 
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -92,10 +92,9 @@
       v9 = 0.0;
     }
 
-    result = sqrt(v9 / [(NSMutableArray *)self->_values count]);
+    return sqrt(v9 / [(NSMutableArray *)self->_values count]);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 

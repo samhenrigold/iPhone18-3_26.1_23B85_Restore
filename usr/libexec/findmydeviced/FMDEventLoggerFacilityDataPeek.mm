@@ -36,35 +36,35 @@
 
     if (v9)
     {
-      [v9 doubleValue];
-      v11 = v10;
-      v12 = sub_100002880();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      doubleValue = [v9 doubleValue];
+      v12 = v11;
+      v13 = sub_100002880(doubleValue);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138412546;
-        v18 = v7;
-        v19 = 2048;
-        v20 = v11;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "DataPeek Distribution : %@ %f", &v17, 0x16u);
+        v18 = 138412546;
+        v19 = v7;
+        v20 = 2048;
+        v21 = v12;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "DataPeek Distribution : %@ %f", &v18, 0x16u);
       }
 
       ADClientPushValueForDistributionKey();
     }
 
     userInfo2 = [eventCopy userInfo];
-    v14 = [userInfo2 objectForKeyedSubscript:@"FMDEventLoggerFacilityDataPeekCompoundScalarValue"];
+    v15 = [userInfo2 objectForKeyedSubscript:@"FMDEventLoggerFacilityDataPeekCompoundScalarValue"];
 
-    if (v14)
+    if (v15)
     {
-      integerValue = [v14 integerValue];
-      v16 = sub_100002880();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      integerValue = [v15 integerValue];
+      v17 = sub_100002880(integerValue);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138412546;
-        v18 = v7;
-        v19 = 2048;
-        v20 = integerValue;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "DataPeek Compound Scalar : %@ %lli", &v17, 0x16u);
+        v18 = 138412546;
+        v19 = v7;
+        v20 = 2048;
+        v21 = integerValue;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "DataPeek Compound Scalar : %@ %lli", &v18, 0x16u);
       }
 
       ADClientAddValueForScalarKey();

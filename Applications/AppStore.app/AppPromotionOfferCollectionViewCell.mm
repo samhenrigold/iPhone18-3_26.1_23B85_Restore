@@ -43,7 +43,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1000B49A8();
+  sub_1000B49A8(selfCopy, v2);
 }
 
 @end

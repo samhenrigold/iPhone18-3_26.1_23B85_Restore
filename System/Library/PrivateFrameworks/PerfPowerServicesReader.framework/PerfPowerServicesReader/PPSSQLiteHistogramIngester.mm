@@ -23,7 +23,7 @@
 
 - (id)parseDataForRequest:(id)request outError:(id *)error
 {
-  v60[2] = *MEMORY[0x277D85DE8];
+  v59[2] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   subsystem = [requestCopy subsystem];
   category = [requestCopy category];
@@ -53,46 +53,46 @@
     if (valueFilter)
     {
       v21 = MEMORY[0x277CCA920];
-      v60[0] = valueFilter;
-      v60[1] = v19;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
-      v49 = [v21 andPredicateWithSubpredicates:v22];
+      v59[0] = valueFilter;
+      v59[1] = v19;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
+      v48 = [v21 andPredicateWithSubpredicates:v22];
     }
 
     else
     {
-      v49 = v19;
+      v48 = v19;
     }
   }
 
   else
   {
-    v49 = valueFilter;
+    v48 = valueFilter;
   }
 
   filepath2 = [(PPSSQLiteHistogramIngester *)self filepath];
   v24 = [PPSOffDeviceIngesterUtilities metricDefinitionsForFilepath:filepath2 subsystem:subsystem category:category metricNames:allObjects];
   v25 = [v24 mutableCopy];
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v26 = allObjects;
-  v27 = [v26 countByEnumeratingWithState:&v55 objects:v59 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v54 objects:v58 count:16];
   if (v27)
   {
-    v28 = *v56;
+    v28 = *v55;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v56 != v28)
+        if (*v55 != v28)
         {
           objc_enumerationMutation(v26);
         }
 
-        v30 = *(*(&v55 + 1) + 8 * i);
+        v30 = *(*(&v54 + 1) + 8 * i);
         v31 = [v25 objectForKeyedSubscript:v30];
         v32 = v31 == 0;
 
@@ -103,7 +103,7 @@
         }
       }
 
-      v27 = [v26 countByEnumeratingWithState:&v55 objects:v59 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v54 objects:v58 count:16];
     }
 
     while (v27);
@@ -114,7 +114,7 @@
 
   v36 = [[PPSSQLiteEntity alloc] initWithTableNames:v35];
   v37 = [PPSSQLiteQueryDescriptor alloc];
-  pps_sqlPredicateForSelect = [v49 pps_sqlPredicateForSelect];
+  pps_sqlPredicateForSelect = [v48 pps_sqlPredicateForSelect];
   v39 = [(PPSSQLiteQueryDescriptor *)v37 initWithEntity:v36 predicate:pps_sqlPredicateForSelect];
 
   v40 = [PPSSQLiteDatabase alloc];
@@ -122,7 +122,7 @@
   v42 = [(PPSSQLiteDatabase *)v40 initWithDatabaseURL:filepath4];
 
   v43 = [[PPSSQLiteQuery alloc] initWithDatabase:v42 descriptor:v39];
-  v44 = PPSReaderLog();
+  v44 = PPSReaderLog(v43);
   if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
   {
     [(PPSSQLiteHistogramIngester *)v43 parseDataForRequest:v26 outError:v44];
@@ -141,8 +141,6 @@
   }
 
   [(PPSSQLiteDatabase *)v42 close];
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v45;
 }
@@ -232,13 +230,11 @@ uint64_t __82__PPSSQLiteHistogramIngester__convertSQLiteDataFromQuery_withDimens
 
 - (void)parseDataForRequest:(NSObject *)a3 outError:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = [a1 selectSQLWithProperties:a2];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_debug_impl(&dword_25E225000, a3, OS_LOG_TYPE_DEBUG, "Query before value-binding: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_debug_impl(&dword_25E225000, a3, OS_LOG_TYPE_DEBUG, "Query before value-binding: %@", &v5, 0xCu);
 }
 
 @end

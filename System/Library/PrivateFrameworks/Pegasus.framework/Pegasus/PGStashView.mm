@@ -15,7 +15,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v9 = PGLogCommon();
+  v9 = PGLogCommon(self);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [(PGStashView *)self initWithFrame:a2, v9];
@@ -217,7 +217,7 @@
   v15 = self->_backdropView;
   if (v15)
   {
-    [(PGBackdropView *)v15 transform];
+    objc_msgSend_transform(v15);
   }
 
   else
@@ -230,7 +230,7 @@
   v17 = self->_backdropView;
   if (v17)
   {
-    [(PGBackdropView *)v17 transform];
+    objc_msgSend_transform(v17);
   }
 
   else
@@ -310,8 +310,7 @@
     }
 
     [(UIView *)self->_lightTintView setAlpha:v7];
-    [(UIView *)self->_darkTintView setAlpha:v7];
-    v9 = PGLogCommon();
+    v9 = PGLogCommon([(UIView *)self->_darkTintView setAlpha:v7]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       blurProgress = self->_blurProgress;

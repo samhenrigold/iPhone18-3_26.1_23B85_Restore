@@ -17,11 +17,15 @@
 - (int64_t)pendingStatus;
 - (unsigned)flags;
 - (void)_setFlag:(unsigned int)flag value:(BOOL)value;
+- (void)setFlags:(unsigned int)flags;
 - (void)setParticipantRole:(int64_t)role;
 - (void)setParticipantStatus:(int64_t)status;
 - (void)setParticipantType:(int64_t)type;
 - (void)setPendingStatus:(int64_t)status;
+- (void)setPendingStatusRaw:(int)raw;
 - (void)setProposedStartDate:(id)date forEvent:(id)event;
+- (void)setProposedStartDateStatus:(int)status;
+- (void)setStatusRaw:(int)raw;
 @end
 
 @implementation EKAttendee
@@ -61,34 +65,32 @@
 
 void __47__EKAttendee_knownSingleValueKeysForComparison__block_invoke(uint64_t a1)
 {
-  v14[10] = *MEMORY[0x1E69E9840];
+  v13[10] = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E6992520];
-  v14[0] = *MEMORY[0x1E6992508];
-  v14[1] = v2;
+  v13[0] = *MEMORY[0x1E6992508];
+  v13[1] = v2;
   v3 = *MEMORY[0x1E6992518];
-  v14[2] = *MEMORY[0x1E6992528];
-  v14[3] = v3;
+  v13[2] = *MEMORY[0x1E6992528];
+  v13[3] = v3;
   v4 = *MEMORY[0x1E6992538];
-  v14[4] = *MEMORY[0x1E6992530];
-  v14[5] = v4;
+  v13[4] = *MEMORY[0x1E6992530];
+  v13[5] = v4;
   v5 = *MEMORY[0x1E6992B88];
-  v14[6] = *MEMORY[0x1E6992B80];
-  v14[7] = v5;
+  v13[6] = *MEMORY[0x1E6992B80];
+  v13[7] = v5;
   v6 = *MEMORY[0x1E6992B98];
-  v14[8] = *MEMORY[0x1E6992B68];
-  v14[9] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:10];
+  v13[8] = *MEMORY[0x1E6992B68];
+  v13[9] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:10];
   v8 = knownSingleValueKeysForComparison_keys_5;
   knownSingleValueKeysForComparison_keys_5 = v7;
 
-  v13.receiver = *(a1 + 32);
-  v13.super_class = &OBJC_METACLASS___EKAttendee;
-  v9 = objc_msgSendSuper2(&v13, sel_knownSingleValueKeysForComparison);
+  v12.receiver = *(a1 + 32);
+  v12.super_class = &OBJC_METACLASS___EKAttendee;
+  v9 = objc_msgSendSuper2(&v12, sel_knownSingleValueKeysForComparison);
   v10 = [v9 arrayByAddingObjectsFromArray:knownSingleValueKeysForComparison_keys_5];
   v11 = knownSingleValueKeysForComparison_keys_5;
   knownSingleValueKeysForComparison_keys_5 = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -210,6 +212,12 @@ LABEL_18:
   }
 }
 
+- (void)setStatusRaw:(int)raw
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&raw];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992538]];
+}
+
 - (void)setParticipantStatus:(int64_t)status
 {
   v4 = [objc_opt_class() _calAttendeeStatusFromEKParticipantStatus:status];
@@ -238,6 +246,12 @@ LABEL_18:
   integerValue = [v2 integerValue];
 
   return integerValue;
+}
+
+- (void)setPendingStatusRaw:(int)raw
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&raw];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992530]];
 }
 
 - (int64_t)pendingStatus
@@ -288,6 +302,12 @@ LABEL_18:
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setFlags:(unsigned int)flags
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&flags];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992508]];
 }
 
 - (void)_setFlag:(unsigned int)flag value:(BOOL)value
@@ -373,22 +393,26 @@ LABEL_18:
   return unsignedIntegerValue;
 }
 
+- (void)setProposedStartDateStatus:(int)status
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&status];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992B88]];
+}
+
 + (void)_ekParticipantStatusFromCalAttendeeStatus:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Unexpected CalAttendeeStatus: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Unexpected CalAttendeeStatus: %d", v2, 8u);
 }
 
 + (void)_calAttendeeStatusFromEKParticipantStatus:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Unexpected EKParticipantStatus: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Unexpected EKParticipantStatus: %d", v2, 8u);
 }
 
 @end

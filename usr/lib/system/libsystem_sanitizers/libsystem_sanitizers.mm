@@ -1,51 +1,49 @@
-uint64_t config::env::Parser::consumeEnv@<X0>(unsigned __int8 **this@<X0>, uint64_t a2@<X8>)
+uint64_t *config::env::Parser::consumeEnv@<X0>(unsigned __int8 **this@<X0>, uint64_t a2@<X8>)
 {
-  v6[17] = *MEMORY[0x29EDCA608];
-  v6[0] = this;
+  v4[17] = *MEMORY[0x29EDCA608];
+  v4[0] = this;
   *a2 = 0u;
   *(a2 + 16) = 0u;
   *(a2 + 32) = 0;
-  result = config::env::Parser::getConfig(v6, a2);
+  result = config::env::Parser::getConfig(a2, v4);
   if ((*a2 & 1) == 0)
   {
-    result = config::env::Parser::removeEnvVars(v6);
+    return config::env::Parser::removeEnvVars(v4);
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t config::env::Parser::getConfig@<X0>(config::env::Parser *this@<X0>, uint64_t a2@<X8>)
+uint64_t *config::env::Parser::getConfig@<X0>(uint64_t *__return_ptr a1@<X8>, config::env::Parser *this@<X0>)
 {
-  v13 = *MEMORY[0x29EDCA608];
-  v9 = xmmword_29F28F930;
-  v10 = unk_29F28F940;
-  v11 = xmmword_29F28F950;
-  *a2 = config::env::Parser::getSetting<34ul,BOOL,3ul>(this, "SanitizersChildProcessPropagation", 0, &v9);
-  v9 = xmmword_29F28F930;
-  v10 = unk_29F28F940;
-  v11 = xmmword_29F28F950;
-  *(a2 + 1) = config::env::Parser::getSetting<30ul,BOOL,3ul>(this, "SanitizersPrintReportToStderr", 0, &v9);
-  *(a2 + 4) = config::env::Parser::getNumber<19ul,long,&(strtol)>(this, "SanitizersExitCode", 0);
-  v9 = xmmword_29F28F8D0;
-  v10 = unk_29F28F8E0;
-  v11 = xmmword_29F28F8F0;
-  v12 = unk_29F28F900;
-  *(a2 + 8) = config::env::Parser::getSetting<27ul,config::env::AllocationTraces,4ul>(this, "SanitizersAllocationTraces", 0, &v9);
-  v7[0] = 1;
-  v8 = "production";
-  *(a2 + 12) = config::env::Parser::getSetting<39ul,BOOL,1ul>(this, "SanitizersAllocationTracesMemoryBudget", 0, v7);
-  *(a2 + 16) = config::env::Parser::getNumber<34ul,unsigned long,&(strtoul)>(this, "SanitizersAllocationTracesMinSize", 0);
-  *(a2 + 24) = config::env::Parser::getNumber<34ul,unsigned long,&(strtoul)>(this, "SanitizersAllocationTracesMaxSize", 0);
-  v6[0] = xmmword_29F28F910;
-  v6[1] = unk_29F28F920;
-  result = config::env::Parser::getSetting<18ul,config::env::Address,2ul>(this, "SanitizersAddress", 0, v6);
-  *(a2 + 32) = result;
-  v5 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
+  v8 = xmmword_29F28F930;
+  v9 = unk_29F28F940;
+  v10 = xmmword_29F28F950;
+  *a1 = config::env::Parser::getSetting<34ul,BOOL,3ul>(this, "SanitizersChildProcessPropagation", 0, &v8);
+  v8 = xmmword_29F28F930;
+  v9 = unk_29F28F940;
+  v10 = xmmword_29F28F950;
+  *(a1 + 1) = config::env::Parser::getSetting<30ul,BOOL,3ul>(this, "SanitizersPrintReportToStderr", 0, &v8);
+  *(a1 + 1) = config::env::Parser::getNumber<19ul,long,&(strtol)>(this, "SanitizersExitCode", 0);
+  v8 = xmmword_29F28F8D0;
+  v9 = unk_29F28F8E0;
+  v10 = xmmword_29F28F8F0;
+  v11 = unk_29F28F900;
+  *(a1 + 2) = config::env::Parser::getSetting<27ul,config::env::AllocationTraces,4ul>(this, "SanitizersAllocationTraces", 0, &v8);
+  v6[0] = 1;
+  v7 = "production";
+  *(a1 + 12) = config::env::Parser::getSetting<39ul,BOOL,1ul>(this, "SanitizersAllocationTracesMemoryBudget", 0, v6);
+  a1[2] = config::env::Parser::getNumber<34ul,unsigned long,&(strtoul)>(this, "SanitizersAllocationTracesMinSize", 0);
+  a1[3] = config::env::Parser::getNumber<34ul,unsigned long,&(strtoul)>(this, "SanitizersAllocationTracesMaxSize", 0);
+  v5[0] = xmmword_29F28F910;
+  v5[1] = unk_29F28F920;
+  result = config::env::Parser::getSetting<18ul,config::env::Address,2ul>(this, "SanitizersAddress", 0, v5);
+  *(a1 + 8) = result;
   return result;
 }
 
-uint64_t config::env::Parser::getSetting<34ul,BOOL,3ul>(uint64_t *a1, unsigned __int8 *a2, char a3, uint64_t a4)
+uint64_t config::env::Parser::getSetting<34ul,BOOL,3ul>(void *a1, unsigned __int8 *a2, char a3, uint64_t a4)
 {
   v6 = config::env::Parser::getVal<34ul>(a1, a2);
   if (v6)
@@ -97,13 +95,11 @@ uint64_t config::env::Parser::getSetting<34ul,BOOL,3ul>(uint64_t *a1, unsigned _
   return a3 & 1;
 }
 
-unsigned __int8 *config::env::Parser::getVal<34ul>(uint64_t *a1, unsigned __int8 *a2)
+unsigned __int8 *config::env::Parser::getVal<34ul>(void *a1, unsigned __int8 *a2)
 {
-  v4 = *a1;
   result = _simple_getenv();
   if (!result)
   {
-    v6 = *a1;
     result = _simple_getenv();
     if (result)
     {
@@ -115,7 +111,7 @@ unsigned __int8 *config::env::Parser::getVal<34ul>(uint64_t *a1, unsigned __int8
   return result;
 }
 
-uint64_t _sanitizers_init(unsigned __int8 **a1)
+uint64_t *_sanitizers_init(unsigned __int8 **a1)
 {
   v6 = 0;
   v8 = 0;
@@ -151,7 +147,7 @@ uint64_t _sanitizers_init(unsigned __int8 **a1)
   return result;
 }
 
-uint64_t config::env::Parser::getSetting<27ul,config::env::AllocationTraces,4ul>(uint64_t *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
+uint64_t config::env::Parser::getSetting<27ul,config::env::AllocationTraces,4ul>(void *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
 {
   v6 = config::env::Parser::getVal<27ul>(a1, a2);
   if (v6)
@@ -203,7 +199,7 @@ uint64_t config::env::Parser::getSetting<27ul,config::env::AllocationTraces,4ul>
   return a3;
 }
 
-uint64_t config::env::Parser::getSetting<30ul,BOOL,3ul>(uint64_t *a1, unsigned __int8 *a2, char a3, uint64_t a4)
+uint64_t config::env::Parser::getSetting<30ul,BOOL,3ul>(void *a1, unsigned __int8 *a2, char a3, uint64_t a4)
 {
   v6 = config::env::Parser::getVal<30ul>(a1, a2);
   if (v6)
@@ -255,13 +251,11 @@ uint64_t config::env::Parser::getSetting<30ul,BOOL,3ul>(uint64_t *a1, unsigned _
   return a3 & 1;
 }
 
-unsigned __int8 *config::env::Parser::getVal<30ul>(uint64_t *a1, unsigned __int8 *a2)
+unsigned __int8 *config::env::Parser::getVal<30ul>(void *a1, unsigned __int8 *a2)
 {
-  v4 = *a1;
   result = _simple_getenv();
   if (!result)
   {
-    v6 = *a1;
     result = _simple_getenv();
     if (result)
     {
@@ -273,7 +267,7 @@ unsigned __int8 *config::env::Parser::getVal<30ul>(uint64_t *a1, unsigned __int8
   return result;
 }
 
-uint64_t config::env::Parser::getNumber<19ul,long,&(strtol)>(uint64_t *a1, unsigned __int8 *a2, uint64_t a3)
+uint64_t config::env::Parser::getNumber<19ul,long,&(strtol)>(void *a1, unsigned __int8 *a2, uint64_t a3)
 {
   v4 = config::env::Parser::getVal<19ul>(a1, a2);
   if (v4)
@@ -290,13 +284,11 @@ uint64_t config::env::Parser::getNumber<19ul,long,&(strtol)>(uint64_t *a1, unsig
   return a3;
 }
 
-unsigned __int8 *config::env::Parser::getVal<19ul>(uint64_t *a1, unsigned __int8 *a2)
+unsigned __int8 *config::env::Parser::getVal<19ul>(void *a1, unsigned __int8 *a2)
 {
-  v4 = *a1;
   result = _simple_getenv();
   if (!result)
   {
-    v6 = *a1;
     result = _simple_getenv();
     if (result)
     {
@@ -308,13 +300,11 @@ unsigned __int8 *config::env::Parser::getVal<19ul>(uint64_t *a1, unsigned __int8
   return result;
 }
 
-unsigned __int8 *config::env::Parser::getVal<27ul>(uint64_t *a1, unsigned __int8 *a2)
+unsigned __int8 *config::env::Parser::getVal<27ul>(void *a1, unsigned __int8 *a2)
 {
-  v4 = *a1;
   result = _simple_getenv();
   if (!result)
   {
-    v6 = *a1;
     result = _simple_getenv();
     if (result)
     {
@@ -326,7 +316,7 @@ unsigned __int8 *config::env::Parser::getVal<27ul>(uint64_t *a1, unsigned __int8
   return result;
 }
 
-unint64_t config::env::Parser::getNumber<34ul,unsigned long,&(strtoul)>(uint64_t *a1, unsigned __int8 *a2, uint64_t a3)
+uint64_t config::env::Parser::getNumber<34ul,unsigned long,&(strtoul)>(void *a1, unsigned __int8 *a2, uint64_t a3)
 {
   v4 = config::env::Parser::getVal<34ul>(a1, a2);
   if (v4)
@@ -343,7 +333,7 @@ unint64_t config::env::Parser::getNumber<34ul,unsigned long,&(strtoul)>(uint64_t
   return a3;
 }
 
-uint64_t config::env::Parser::getSetting<18ul,config::env::Address,2ul>(uint64_t *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
+uint64_t config::env::Parser::getSetting<18ul,config::env::Address,2ul>(void *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
 {
   v6 = config::env::Parser::getVal<18ul>(a1, a2);
   if (v6)
@@ -395,13 +385,11 @@ uint64_t config::env::Parser::getSetting<18ul,config::env::Address,2ul>(uint64_t
   return a3;
 }
 
-unsigned __int8 *config::env::Parser::getVal<18ul>(uint64_t *a1, unsigned __int8 *a2)
+unsigned __int8 *config::env::Parser::getVal<18ul>(void *a1, unsigned __int8 *a2)
 {
-  v4 = *a1;
   result = _simple_getenv();
   if (!result)
   {
-    v6 = *a1;
     result = _simple_getenv();
     if (result)
     {
@@ -960,7 +948,7 @@ void asan::ReportGenerator::addStackBufferUnderflowInfo(uint64_t *a1, uint64_t a
   asan::ReportGenerator::fillStackVarInfo(a1, a2);
 }
 
-uint64_t asan::ReportGenerator::addStackUseAfterReturnInfo(uint64_t a1, uint64_t a2)
+uint64_t asan::ReportGenerator::addStackUseAfterReturnInfo(uint64_t *a1, uint64_t a2)
 {
   *(a2 + 48) = 6;
   *(a2 + 56) = "stack-use-after-return";
@@ -969,7 +957,7 @@ uint64_t asan::ReportGenerator::addStackUseAfterReturnInfo(uint64_t a1, uint64_t
   v6 = *(a2 + 24);
   v7 = *(a2 + 40);
   (*(*v4 + 56))(v4, &v6);
-  return (***(a1 + 8))();
+  return (**a1[1])();
 }
 
 void asan::ReportGenerator::addStackUseAfterScopeInfo(uint64_t *a1, uint64_t a2)
@@ -1025,7 +1013,7 @@ void asan::ReportGenerator::fillStackVarInfo(uint64_t *a1, uint64_t a2)
   v14 = 0;
   v12 = 0u;
   v13 = 0u;
-  asan::ReportGenerator::StackVar::getStackVar(v8, (*(a2 + 24) - v7), &v12);
+  asan::ReportGenerator::StackVar::getStackVar(&v12, v8, (*(a2 + 24) - v7));
   v9 = v12;
   if (!v12)
   {
@@ -1043,7 +1031,7 @@ void asan::ReportGenerator::fillStackVarInfo(uint64_t *a1, uint64_t a2)
   bzero((a2 + 105), 0x437uLL);
 }
 
-unint64_t asan::ReportGenerator::StackVar::getStackVar@<X0>(asan::ReportGenerator::StackVar *this@<X0>, const char *a2@<X1>, uint64_t a3@<X8>)
+uint64_t *asan::ReportGenerator::StackVar::getStackVar@<X0>(uint64_t *__return_ptr a1@<X8>, asan::ReportGenerator::StackVar *this@<X0>, const char *a3@<X1>)
 {
   __endptr = this;
   v5 = strtoul(this, &__endptr, 10);
@@ -1053,11 +1041,11 @@ unint64_t asan::ReportGenerator::StackVar::getStackVar@<X0>(asan::ReportGenerato
   }
 
   v6 = v5;
-  *(a3 + 32) = 0;
-  *a3 = 0u;
-  *(a3 + 16) = 0u;
-  result = asan::ReportGenerator::StackVar::parse(&__endptr, a3);
-  if (v6 != 1 && *(a3 + 8) + *a3 < a2)
+  a1[4] = 0;
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  result = asan::ReportGenerator::StackVar::parse(&__endptr, a1);
+  if (v6 != 1 && a1[1] + *a1 < a3)
   {
     v8 = v6 - 2;
     do
@@ -1067,10 +1055,10 @@ unint64_t asan::ReportGenerator::StackVar::getStackVar@<X0>(asan::ReportGenerato
         break;
       }
 
-      *(a3 + 32) = 0;
-      *a3 = 0u;
-      *(a3 + 16) = 0u;
-      result = asan::ReportGenerator::StackVar::parse(&__endptr, a3);
+      a1[4] = 0;
+      *a1 = 0u;
+      *(a1 + 1) = 0u;
+      result = asan::ReportGenerator::StackVar::parse(&__endptr, a1);
       if (!v8)
       {
         break;
@@ -1079,7 +1067,7 @@ unint64_t asan::ReportGenerator::StackVar::getStackVar@<X0>(asan::ReportGenerato
       --v8;
     }
 
-    while (*(a3 + 8) + *a3 < a2);
+    while (a1[1] + *a1 < a3);
   }
 
   return result;
@@ -1091,23 +1079,23 @@ unint64_t asan::ReportGenerator::StackVar::parse@<X0>(const char **__endptr@<X0>
   *a2 = strtoul(*__endptr, __endptr, 10);
   a2[1] = strtoul(*__endptr, __endptr, 10);
   result = strtoul(*__endptr, __endptr, 10);
-  v6 = 0;
-  v7 = (*__endptr + 1);
-  for (i = v7; ; ++i)
+  v5 = 0;
+  v6 = *__endptr + 1;
+  for (i = v6; ; ++i)
   {
     *__endptr = i;
-    v9 = *i;
-    if (v9 <= 0x3A && ((1 << v9) & 0x400000100000001) != 0)
+    v8 = *i;
+    if (v8 <= 0x3A && ((1 << v8) & 0x400000100000001) != 0)
     {
       break;
     }
 
-    ++v6;
+    ++v5;
   }
 
-  a2[2] = v7;
-  a2[3] = v6;
-  if (v9 == 58)
+  a2[2] = v6;
+  a2[3] = v5;
+  if (v8 == 58)
   {
     *__endptr = i + 1;
     result = strtoul(i + 1, __endptr, 10);
@@ -1192,7 +1180,7 @@ void *trace::Lookup::create(void *this, unsigned __int8 (*a2)[24])
 
 uint64_t trace::lookupTraces(uint64_t a1)
 {
-  v6[3] = *MEMORY[0x29EDCA608];
+  v5[3] = *MEMORY[0x29EDCA608];
   if (sanitizers_report_globals)
   {
     v1 = *algn_2A14F00C8 == 0;
@@ -1205,39 +1193,35 @@ uint64_t trace::lookupTraces(uint64_t a1)
 
   if (v1)
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  result = 0;
+  if ((a1 & 0xF) == 0 && (a1 & 0xF0FFFFFFFFFFFFFFLL) <= 0xFC0000000)
   {
-    result = 0;
-    if ((a1 & 0xF) == 0 && (a1 & 0xF0FFFFFFFFFFFFFFLL) <= 0xFC0000000)
+    if (byte_2A14F00D0 == 1)
     {
-      if (byte_2A14F00D0 == 1)
-      {
-        v4 = &unk_2A2020AF0;
-      }
-
-      else
-      {
-        v4 = &unk_2A2020B08;
-      }
-
-      v6[0] = v4;
-      v6[1] = sanitizers_report_globals;
-      v6[2] = *algn_2A14F00C8;
-      result = (*v4)(v6);
+      v4 = &unk_2A2020AF0;
     }
+
+    else
+    {
+      v4 = &unk_2A2020B08;
+    }
+
+    v5[0] = v4;
+    v5[1] = sanitizers_report_globals;
+    v5[2] = *algn_2A14F00C8;
+    return (*v4)(v5);
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-const char *sanitizers_diagnose_memory_error(uint64_t a1, uint64_t (*a2)(uint64_t, uint64_t, uint64_t), void (*a3)(uint64_t, void, void), uint64_t a4, unint64_t a5, uint64_t a6)
+const char *sanitizers_diagnose_memory_error(uint64_t a1, uint64_t (*a2)(uint64_t), void (*a3)(uint64_t, void, void), uint64_t a4, unint64_t a5, uint64_t a6)
 {
   v34[4] = a3;
-  v11 = a2(a1, a4, 24);
+  v11 = (a2)(a1, a4, 24);
   if (!v11)
   {
   }
@@ -1254,7 +1238,7 @@ const char *sanitizers_diagnose_memory_error(uint64_t a1, uint64_t (*a2)(uint64_
   v13 = v11;
   if (*(v11 + 16) == 1)
   {
-    v14 = (a2)(a1);
+    v14 = a2(a1);
     v15 = v14;
     if (v14)
     {
@@ -1269,7 +1253,7 @@ const char *sanitizers_diagnose_memory_error(uint64_t a1, uint64_t (*a2)(uint64_
       v16 = 1;
     }
 
-    v20 = a2(a1, *(v13 + 8), 0x400000);
+    v20 = (a2)(a1, *(v13 + 8), 0x400000);
     if (v20)
     {
       ++v16;
@@ -1324,7 +1308,7 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  v18 = (a2)(a1);
+  v18 = a2(a1);
   v19 = v18;
   if (v18)
   {
@@ -1339,7 +1323,7 @@ LABEL_32:
     v16 = 1;
   }
 
-  v25 = a2(a1, *(v13 + 8), 0x1000000);
+  v25 = (a2)(a1, *(v13 + 8), 0x1000000);
   if (!v25)
   {
     goto LABEL_32;
@@ -1822,20 +1806,16 @@ vm_address_t vm::create<trace::AllocationMap<262144ul,&(hash::Murmur2::hashPoint
 uint64_t debug::print(debug *this, const char *a2, ...)
 {
   va_start(va, a2);
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   vsnprintf(__str, 0x400uLL, "Failed to map VM region of size %zu (%zu pages)\n", va);
-  result = fputs(__str, *MEMORY[0x29EDCA610]);
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
+  return fputs(__str, *MEMORY[0x29EDCA610]);
 }
 
 {
   va_start(va, a2);
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   vsnprintf(__str, 0x400uLL, this, va);
-  result = fputs(__str, *MEMORY[0x29EDCA610]);
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
+  return fputs(__str, *MEMORY[0x29EDCA610]);
 }
 
 vm_address_t vm::create<trace::Depot<524288ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>>()
@@ -1882,7 +1862,7 @@ void libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)
 {
   v8 = ptr;
   v9 = a1;
-  v83[72] = *MEMORY[0x29EDCA608];
+  v82[72] = *MEMORY[0x29EDCA608];
   if (libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)),&(onDealloc(unsigned long,unsigned int))>::previousLogger)
   {
     libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)),&(onDealloc(unsigned long,unsigned int))>::previousLogger(a1, a2, ptr, a4, a5, (a6 + 1));
@@ -1890,12 +1870,12 @@ void libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)
 
   if ((v9 & 8) != 0)
   {
-    v11 = a6 + 2;
+    v10 = a6 + 2;
     if ((~v9 & 6) == 0)
     {
       if (!a5)
       {
-        goto LABEL_4;
+        return;
       }
 
       if (byte_2A14F0100 == 1)
@@ -1907,30 +1887,30 @@ void libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)
 
         if (qword_2A14F00F0)
         {
-          v12 = malloc_size(a5);
-          if (v12 < qword_2A14F00F0)
+          v11 = malloc_size(a5);
+          if (v11 < qword_2A14F00F0)
           {
             goto LABEL_85;
           }
 
-          v9 = v12;
-          v13 = qword_2A14F00F8;
+          v9 = v11;
+          v12 = qword_2A14F00F8;
           if (!qword_2A14F00F8)
           {
 LABEL_49:
-            v24 = 1;
+            v23 = 1;
 LABEL_63:
-            if (v11 >= 7)
+            if (v10 >= 7)
             {
               libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)),&(onDealloc(unsigned long,unsigned int))>::loggerFunc();
             }
 
-            v27 = collector;
-            LODWORD(v80[0]) = 0;
+            v26 = collector;
+            LODWORD(v79[0]) = 0;
             thread_stack_pcs();
-            trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v27, &v83[v11 + 1], 0);
-            v28 = qword_2A14F00E0;
-            if ((v24 & 1) == 0)
+            trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v26, &v82[v10 + 1], 0);
+            v27 = qword_2A14F00E0;
+            if ((v23 & 1) == 0)
             {
               v9 = malloc_size(a5);
             }
@@ -1940,24 +1920,24 @@ LABEL_63:
               trace::AllocationMap<262144ul,&(hash::Murmur2::hashPointer(unsigned long))>::insert();
             }
 
-            v29 = (1540483477 * ((1540483477 * ((1540483477 * a5) ^ ((1540483477 * a5) >> 24))) ^ 0x70D300A5)) ^ (1540483477 * ((1540483477 * HIDWORD(a5)) ^ ((1540483477 * HIDWORD(a5)) >> 24)));
-            v30 = (1540483477 * (v29 ^ (v29 >> 13))) & 0x3FFFF ^ ((1540483477 * (v29 ^ (v29 >> 13))) >> 15);
-            v31 = 0xFFFFLL;
+            v28 = (1540483477 * ((1540483477 * ((1540483477 * a5) ^ ((1540483477 * a5) >> 24))) ^ 0x70D300A5)) ^ (1540483477 * ((1540483477 * HIDWORD(a5)) ^ ((1540483477 * HIDWORD(a5)) >> 24)));
+            v29 = (1540483477 * (v28 ^ (v28 >> 13))) & 0x3FFFF ^ ((1540483477 * (v28 ^ (v28 >> 13))) >> 15);
+            v30 = 0xFFFFLL;
             if (v9 < 0xFFFF)
             {
-              v31 = v9;
+              v30 = v9;
             }
 
-            _X0 = (v31 << 43) | ((a5 & 0xF0FFFFFFFFFFFFFFLL) >> 4) | (8 * a5) & 0x7800000000000000;
-            v33 = (v28 + 16 * v30);
-            v34 = *v33;
+            _X0 = (v30 << 43) | ((a5 & 0xF0FFFFFFFFFFFFFFLL) >> 4) | (8 * a5) & 0x7800000000000000;
+            v32 = (v27 + 16 * v29);
+            v33 = *v32;
             do
             {
-              _X5 = v33[1];
+              _X5 = v32[1];
               __asm { CASP            X4, X5, X0, X1, [X8] }
 
-              _ZF = _X4 == v34;
-              v34 = _X4;
+              _ZF = _X4 == v33;
+              v33 = _X4;
             }
 
             while (!_ZF);
@@ -1969,15 +1949,15 @@ LABEL_63:
         {
           if (!qword_2A14F00F8)
           {
-            v24 = 0;
+            v23 = 0;
             goto LABEL_63;
           }
 
           v9 = malloc_size(a5);
-          v13 = qword_2A14F00F8;
+          v12 = qword_2A14F00F8;
         }
 
-        if (v9 > v13)
+        if (v9 > v12)
         {
           goto LABEL_85;
         }
@@ -1992,30 +1972,30 @@ LABEL_63:
 
       if (qword_2A14F00F0)
       {
-        v18 = malloc_size(a5);
-        if (v18 < qword_2A14F00F0)
+        v17 = malloc_size(a5);
+        if (v17 < qword_2A14F00F0)
         {
           goto LABEL_85;
         }
 
-        v9 = v18;
-        v19 = qword_2A14F00F8;
+        v9 = v17;
+        v18 = qword_2A14F00F8;
         if (!qword_2A14F00F8)
         {
 LABEL_53:
-          v79 = 1;
+          v78 = 1;
 LABEL_75:
-          if (v11 >= 7)
+          if (v10 >= 7)
           {
             libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)),&(onDealloc(unsigned long,unsigned int))>::loggerFunc();
           }
 
-          v41 = collector;
-          LODWORD(v80[0]) = 0;
+          v40 = collector;
+          LODWORD(v79[0]) = 0;
           thread_stack_pcs();
-          trace::Depot<524288ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v41, &v83[v11 + 1], 0);
-          v42 = qword_2A14F00E0;
-          if ((v79 & 1) == 0)
+          trace::Depot<524288ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v40, &v82[v10 + 1], 0);
+          v41 = qword_2A14F00E0;
+          if ((v78 & 1) == 0)
           {
             v9 = malloc_size(a5);
           }
@@ -2025,49 +2005,49 @@ LABEL_75:
             trace::AllocationMap<262144ul,&(hash::Murmur2::hashPointer(unsigned long))>::insert();
           }
 
-          v43 = (1540483477 * ((1540483477 * ((1540483477 * a5) ^ ((1540483477 * a5) >> 24))) ^ 0x70D300A5)) ^ (1540483477 * ((1540483477 * HIDWORD(a5)) ^ ((1540483477 * HIDWORD(a5)) >> 24)));
-          v44 = (1540483477 * (v43 ^ (v43 >> 13))) & 0xFFFFF ^ ((1540483477 * (v43 ^ (v43 >> 13))) >> 15);
-          v45 = 0xFFFFLL;
+          v42 = (1540483477 * ((1540483477 * ((1540483477 * a5) ^ ((1540483477 * a5) >> 24))) ^ 0x70D300A5)) ^ (1540483477 * ((1540483477 * HIDWORD(a5)) ^ ((1540483477 * HIDWORD(a5)) >> 24)));
+          v43 = (1540483477 * (v42 ^ (v42 >> 13))) & 0xFFFFF ^ ((1540483477 * (v42 ^ (v42 >> 13))) >> 15);
+          v44 = 0xFFFFLL;
           if (v9 < 0xFFFF)
           {
-            v45 = v9;
+            v44 = v9;
           }
 
-          _X0 = (v45 << 43) | ((a5 & 0xF0FFFFFFFFFFFFFFLL) >> 4) | (8 * a5) & 0x7800000000000000;
-          v47 = (v42 + 16 * v44);
-          v48 = *v47;
+          _X0 = (v44 << 43) | ((a5 & 0xF0FFFFFFFFFFFFFFLL) >> 4) | (8 * a5) & 0x7800000000000000;
+          v46 = (v41 + 16 * v43);
+          v47 = *v46;
           do
           {
-            _X5 = v47[1];
+            _X5 = v46[1];
             __asm { CASP            X4, X5, X0, X1, [X8] }
 
-            _ZF = _X4 == v48;
-            v48 = _X4;
+            _ZF = _X4 == v47;
+            v47 = _X4;
           }
 
           while (!_ZF);
 LABEL_85:
           if (!v8)
           {
-            goto LABEL_4;
+            return;
           }
 
           if (byte_2A14F0100 == 1)
           {
             if ((((v8 & 0xF00000000000000) == 0) & byte_2A14F00E8) != 0)
             {
-              goto LABEL_4;
+              return;
             }
 
             if (qword_2A14F00F0)
             {
-              v51 = malloc_size(v8);
-              if (v51 < qword_2A14F00F0)
+              v50 = malloc_size(v8);
+              if (v50 < qword_2A14F00F0)
               {
-                goto LABEL_4;
+                return;
               }
 
-              v52 = qword_2A14F00F8;
+              v51 = qword_2A14F00F8;
               if (!qword_2A14F00F8)
               {
                 goto LABEL_100;
@@ -2079,15 +2059,15 @@ LABEL_85:
               if (!qword_2A14F00F8)
               {
 LABEL_100:
-                if (v11 >= 7)
+                if (v10 >= 7)
                 {
                   libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)),&(onDealloc(unsigned long,unsigned int))>::loggerFunc();
                 }
 
-                v55 = collector;
-                LODWORD(v80[0]) = 0;
+                v54 = collector;
+                LODWORD(v79[0]) = 0;
                 thread_stack_pcs();
-                trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v55, &v83[v11 + 1], 0);
+                trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v54, &v82[v10 + 1], 0);
                 if ((v8 & 0xF) != 0 || (v8 & 0xF0FFFFFFFFFFFFFFLL) >= 0xFC0000001)
                 {
                   trace::AllocationMap<262144ul,&(hash::Murmur2::hashPointer(unsigned long))>::addDeallocTrace();
@@ -2100,31 +2080,31 @@ LABEL_100:
                 if (((_X2 >> 3) & 0xF00000000000000 | (16 * (_X2 & 0x7FFFFFFFFFFLL))) == v8)
                 {
                   _X2 = _X2 | 0x8000000000000000;
-                  v57 = (1540483477 * ((1540483477 * ((1540483477 * v8) ^ ((1540483477 * v8) >> 24))) ^ 0x70D300A5)) ^ (1540483477 * ((1540483477 * HIDWORD(v8)) ^ ((1540483477 * HIDWORD(v8)) >> 24)));
-                  v61 = (qword_2A14F00E0 + 16 * ((1540483477 * (v57 ^ (v57 >> 13))) & 0x3FFFF ^ ((1540483477 * (v57 ^ (v57 >> 13))) >> 15)));
-                  v62 = *v61;
+                  v56 = (1540483477 * ((1540483477 * ((1540483477 * v8) ^ ((1540483477 * v8) >> 24))) ^ 0x70D300A5)) ^ (1540483477 * ((1540483477 * HIDWORD(v8)) ^ ((1540483477 * HIDWORD(v8)) >> 24)));
+                  v60 = (qword_2A14F00E0 + 16 * ((1540483477 * (v56 ^ (v56 >> 13))) & 0x3FFFF ^ ((1540483477 * (v56 ^ (v56 >> 13))) >> 15)));
+                  v61 = *v60;
                   do
                   {
-                    _X5 = v61[1];
+                    _X5 = v60[1];
                     __asm { CASP            X4, X5, X2, X3, [X8] }
 
-                    _ZF = _X4 == v62;
-                    v62 = _X4;
+                    _ZF = _X4 == v61;
+                    v61 = _X4;
                   }
 
                   while (!_ZF);
                 }
 
-                goto LABEL_4;
+                return;
               }
 
-              v51 = malloc_size(v8);
-              v52 = qword_2A14F00F8;
+              v50 = malloc_size(v8);
+              v51 = qword_2A14F00F8;
             }
 
-            if (v51 > v52)
+            if (v50 > v51)
             {
-              goto LABEL_4;
+              return;
             }
 
             goto LABEL_100;
@@ -2132,18 +2112,18 @@ LABEL_100:
 
           if ((((v8 & 0xF00000000000000) == 0) & byte_2A14F00E8) != 0)
           {
-            goto LABEL_4;
+            return;
           }
 
           if (qword_2A14F00F0)
           {
-            v53 = malloc_size(v8);
-            if (v53 < qword_2A14F00F0)
+            v52 = malloc_size(v8);
+            if (v52 < qword_2A14F00F0)
             {
-              goto LABEL_4;
+              return;
             }
 
-            v54 = qword_2A14F00F8;
+            v53 = qword_2A14F00F8;
             if (!qword_2A14F00F8)
             {
               goto LABEL_111;
@@ -2155,15 +2135,15 @@ LABEL_100:
             if (!qword_2A14F00F8)
             {
 LABEL_111:
-              if (v11 >= 7)
+              if (v10 >= 7)
               {
                 libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)),&(onDealloc(unsigned long,unsigned int))>::loggerFunc();
               }
 
-              v65 = collector;
-              LODWORD(v80[0]) = 0;
+              v64 = collector;
+              LODWORD(v79[0]) = 0;
               thread_stack_pcs();
-              trace::Depot<524288ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v65, &v83[v11 + 1], 0);
+              trace::Depot<524288ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v64, &v82[v10 + 1], 0);
               if ((v8 & 0xF) != 0 || (v8 & 0xF0FFFFFFFFFFFFFFLL) >= 0xFC0000001)
               {
                 trace::AllocationMap<262144ul,&(hash::Murmur2::hashPointer(unsigned long))>::addDeallocTrace();
@@ -2176,31 +2156,31 @@ LABEL_111:
               if (((_X2 >> 3) & 0xF00000000000000 | (16 * (_X2 & 0x7FFFFFFFFFFLL))) == v8)
               {
                 _X2 = _X2 | 0x8000000000000000;
-                v67 = (1540483477 * ((1540483477 * ((1540483477 * v8) ^ ((1540483477 * v8) >> 24))) ^ 0x70D300A5)) ^ (1540483477 * ((1540483477 * HIDWORD(v8)) ^ ((1540483477 * HIDWORD(v8)) >> 24)));
-                v71 = (qword_2A14F00E0 + 16 * ((1540483477 * (v67 ^ (v67 >> 13))) & 0xFFFFF ^ ((1540483477 * (v67 ^ (v67 >> 13))) >> 15)));
-                v72 = *v71;
+                v66 = (1540483477 * ((1540483477 * ((1540483477 * v8) ^ ((1540483477 * v8) >> 24))) ^ 0x70D300A5)) ^ (1540483477 * ((1540483477 * HIDWORD(v8)) ^ ((1540483477 * HIDWORD(v8)) >> 24)));
+                v70 = (qword_2A14F00E0 + 16 * ((1540483477 * (v66 ^ (v66 >> 13))) & 0xFFFFF ^ ((1540483477 * (v66 ^ (v66 >> 13))) >> 15)));
+                v71 = *v70;
                 do
                 {
-                  _X5 = v71[1];
+                  _X5 = v70[1];
                   __asm { CASP            X4, X5, X2, X3, [X8] }
 
-                  _ZF = _X4 == v72;
-                  v72 = _X4;
+                  _ZF = _X4 == v71;
+                  v71 = _X4;
                 }
 
                 while (!_ZF);
               }
 
-              goto LABEL_4;
+              return;
             }
 
-            v53 = malloc_size(v8);
-            v54 = qword_2A14F00F8;
+            v52 = malloc_size(v8);
+            v53 = qword_2A14F00F8;
           }
 
-          if (v53 > v54)
+          if (v52 > v53)
           {
-            goto LABEL_4;
+            return;
           }
 
           goto LABEL_111;
@@ -2211,15 +2191,15 @@ LABEL_111:
       {
         if (!qword_2A14F00F8)
         {
-          v79 = 0;
+          v78 = 0;
           goto LABEL_75;
         }
 
         v9 = malloc_size(a5);
-        v19 = qword_2A14F00F8;
+        v18 = qword_2A14F00F8;
       }
 
-      if (v9 > v19)
+      if (v9 > v18)
       {
         goto LABEL_85;
       }
@@ -2233,91 +2213,109 @@ LABEL_111:
       {
         if (byte_2A14F0100 == 1)
         {
-          v80[0] = v8;
-          v81 = 0;
-          if ((trace::Collector<trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>,trace::AllocationMap<262144ul,&hash::Murmur2::hashPointer>,&(malloc_size)>::shouldSkip<trace::Collector<trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>,trace::AllocationMap<262144ul,&hash::Murmur2::hashPointer>,&(malloc_size)>::LazySize>(&collector, v8, v80) & 1) == 0)
+          v79[0] = v8;
+          v80 = 0;
+          if ((trace::Collector<trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>,trace::AllocationMap<262144ul,&hash::Murmur2::hashPointer>,&(malloc_size)>::shouldSkip<trace::Collector<trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>,trace::AllocationMap<262144ul,&hash::Murmur2::hashPointer>,&(malloc_size)>::LazySize>(&collector, v8, v79) & 1) == 0)
           {
-            if (v11 >= 7)
+            if (v10 >= 7)
             {
               libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)),&(onDealloc(unsigned long,unsigned int))>::loggerFunc();
             }
 
-            v14 = collector;
-            v82 = 0;
+            v13 = collector;
+            v81 = 0;
             thread_stack_pcs();
-            if (v82 >= a6 + 4)
+            if (v81 >= a6 + 4)
             {
-              v15 = v82 - (a6 + 4);
+              v14 = v81 - (a6 + 4);
             }
 
             else
             {
-              v15 = 0;
+              v14 = 0;
             }
 
-            trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v14, &v83[v11 + 1], v15);
+            trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v13, &v82[v10 + 1], v14);
             trace::AllocationMap<262144ul,&(hash::Murmur2::hashPointer(unsigned long))>::addDeallocTrace(qword_2A14F00E0, v8);
           }
         }
 
         else
         {
-          v80[0] = v8;
-          v81 = 0;
-          if ((trace::Collector<trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>,trace::AllocationMap<262144ul,&hash::Murmur2::hashPointer>,&(malloc_size)>::shouldSkip<trace::Collector<trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>,trace::AllocationMap<262144ul,&hash::Murmur2::hashPointer>,&(malloc_size)>::LazySize>(&collector, v8, v80) & 1) == 0)
+          v79[0] = v8;
+          v80 = 0;
+          if ((trace::Collector<trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>,trace::AllocationMap<262144ul,&hash::Murmur2::hashPointer>,&(malloc_size)>::shouldSkip<trace::Collector<trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>,trace::AllocationMap<262144ul,&hash::Murmur2::hashPointer>,&(malloc_size)>::LazySize>(&collector, v8, v79) & 1) == 0)
           {
-            if (v11 >= 7)
+            if (v10 >= 7)
             {
               libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)),&(onDealloc(unsigned long,unsigned int))>::loggerFunc();
             }
 
-            v22 = collector;
-            v82 = 0;
+            v21 = collector;
+            v81 = 0;
             thread_stack_pcs();
-            if (v82 >= a6 + 4)
+            if (v81 >= a6 + 4)
             {
-              v23 = v82 - (a6 + 4);
+              v22 = v81 - (a6 + 4);
             }
 
             else
             {
-              v23 = 0;
+              v22 = 0;
             }
 
-            trace::Depot<524288ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v22, &v83[v11 + 1], v23);
+            trace::Depot<524288ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v21, &v82[v10 + 1], v22);
             trace::AllocationMap<1048576ul,&(hash::Murmur2::hashPointer(unsigned long))>::addDeallocTrace(qword_2A14F00E0, v8);
           }
         }
       }
 
-      goto LABEL_4;
+      return;
     }
 
     if (!a5)
     {
-      goto LABEL_4;
+      return;
     }
 
     if (byte_2A14F0100 == 1)
     {
       if ((((a5 & 0xF00000000000000) == 0) & byte_2A14F00E8) != 0)
       {
-        goto LABEL_4;
+        return;
       }
 
       if (qword_2A14F00F0)
       {
-        v16 = malloc_size(a5);
-        if (v16 < qword_2A14F00F0)
+        v15 = malloc_size(a5);
+        if (v15 < qword_2A14F00F0)
         {
-          goto LABEL_4;
+          return;
         }
 
-        v8 = v16;
-        v17 = qword_2A14F00F8;
+        v8 = v15;
+        v16 = qword_2A14F00F8;
         if (!qword_2A14F00F8)
         {
-          goto LABEL_57;
+LABEL_57:
+          v24 = 1;
+LABEL_120:
+          if (v10 >= 7)
+          {
+            libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)),&(onDealloc(unsigned long,unsigned int))>::loggerFunc();
+          }
+
+          v74 = collector;
+          thread_stack_pcs();
+          trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v74, &v82[v10 + 1], 0);
+          v75 = qword_2A14F00E0;
+          if ((v24 & 1) == 0)
+          {
+            v8 = malloc_size(a5);
+          }
+
+          trace::AllocationMap<262144ul,&(hash::Murmur2::hashPointer(unsigned long))>::insert(v75, a5, v8);
+          return;
         }
       }
 
@@ -2325,59 +2323,58 @@ LABEL_111:
       {
         if (!qword_2A14F00F8)
         {
-          v25 = 0;
+          v24 = 0;
           goto LABEL_120;
         }
 
         v8 = malloc_size(a5);
-        v17 = qword_2A14F00F8;
+        v16 = qword_2A14F00F8;
       }
 
-      if (v8 > v17)
+      if (v8 > v16)
       {
-        goto LABEL_4;
+        return;
       }
 
-LABEL_57:
-      v25 = 1;
-LABEL_120:
-      if (v11 >= 7)
-      {
-        libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)),&(onDealloc(unsigned long,unsigned int))>::loggerFunc();
-      }
-
-      v75 = collector;
-      LODWORD(v80[0]) = 0;
-      thread_stack_pcs();
-      trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v75, &v83[v11 + 1], 0);
-      v76 = qword_2A14F00E0;
-      if ((v25 & 1) == 0)
-      {
-        v8 = malloc_size(a5);
-      }
-
-      trace::AllocationMap<262144ul,&(hash::Murmur2::hashPointer(unsigned long))>::insert(v76, a5, v8);
-      goto LABEL_4;
+      goto LABEL_57;
     }
 
     if ((((a5 & 0xF00000000000000) == 0) & byte_2A14F00E8) != 0)
     {
-      goto LABEL_4;
+      return;
     }
 
     if (qword_2A14F00F0)
     {
-      v20 = malloc_size(a5);
-      if (v20 < qword_2A14F00F0)
+      v19 = malloc_size(a5);
+      if (v19 < qword_2A14F00F0)
       {
-        goto LABEL_4;
+        return;
       }
 
-      v8 = v20;
-      v21 = qword_2A14F00F8;
+      v8 = v19;
+      v20 = qword_2A14F00F8;
       if (!qword_2A14F00F8)
       {
-        goto LABEL_61;
+LABEL_61:
+        v25 = 1;
+LABEL_125:
+        if (v10 >= 7)
+        {
+          libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)),&(onDealloc(unsigned long,unsigned int))>::loggerFunc();
+        }
+
+        v76 = collector;
+        thread_stack_pcs();
+        trace::Depot<524288ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v76, &v82[v10 + 1], 0);
+        v77 = qword_2A14F00E0;
+        if ((v25 & 1) == 0)
+        {
+          v8 = malloc_size(a5);
+        }
+
+        trace::AllocationMap<1048576ul,&(hash::Murmur2::hashPointer(unsigned long))>::insert(v77, a5, v8);
+        return;
       }
     }
 
@@ -2385,42 +2382,21 @@ LABEL_120:
     {
       if (!qword_2A14F00F8)
       {
-        v26 = 0;
+        v25 = 0;
         goto LABEL_125;
       }
 
       v8 = malloc_size(a5);
-      v21 = qword_2A14F00F8;
+      v20 = qword_2A14F00F8;
     }
 
-    if (v8 > v21)
+    if (v8 > v20)
     {
-      goto LABEL_4;
+      return;
     }
 
-LABEL_61:
-    v26 = 1;
-LABEL_125:
-    if (v11 >= 7)
-    {
-      libmalloc::MallocLogger<&(onAlloc(unsigned long,unsigned long,unsigned int)),&(onDealloc(unsigned long,unsigned int))>::loggerFunc();
-    }
-
-    v77 = collector;
-    LODWORD(v80[0]) = 0;
-    thread_stack_pcs();
-    trace::Depot<524288ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>::insertTrace(v77, &v83[v11 + 1], 0);
-    v78 = qword_2A14F00E0;
-    if ((v26 & 1) == 0)
-    {
-      v8 = malloc_size(a5);
-    }
-
-    trace::AllocationMap<1048576ul,&(hash::Murmur2::hashPointer(unsigned long))>::insert(v78, a5, v8);
+    goto LABEL_61;
   }
-
-LABEL_4:
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t trace::Extractor<trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>,trace::AllocationMap<262144ul,&hash::Murmur2::hashPointer>>::retrieveTraces(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -3361,7 +3337,7 @@ uint64_t OUTLINED_FUNCTION_0(debug *a1, const char *a2)
   return debug::print(a1, a2);
 }
 
-uint64_t config::env::Parser::getSetting<39ul,BOOL,1ul>(uint64_t *a1, unsigned __int8 *a2, char a3, char *a4)
+uint64_t config::env::Parser::getSetting<39ul,BOOL,1ul>(void *a1, unsigned __int8 *a2, char a3, char *a4)
 {
   v6 = config::env::Parser::getVal<39ul>(a1, a2);
   if (v6)
@@ -3791,13 +3767,11 @@ LABEL_20:
   return 0;
 }
 
-unsigned __int8 *config::env::Parser::getVal<39ul>(uint64_t *a1, unsigned __int8 *a2)
+unsigned __int8 *config::env::Parser::getVal<39ul>(void *a1, unsigned __int8 *a2)
 {
-  v4 = *a1;
   result = _simple_getenv();
   if (!result)
   {
-    v6 = *a1;
     result = _simple_getenv();
     if (result)
     {
@@ -4348,7 +4322,7 @@ void *__asan_abi_stack_malloc_always_n(int a1, size_t size)
   return result;
 }
 
-void __asan_abi_stack_free_n(int a1, void *a2, unint64_t a3)
+void __asan_abi_stack_free_n(uint64_t a1, void *a2, unint64_t a3)
 {
   if (_shadow)
   {
@@ -4580,17 +4554,16 @@ void asan::reportError(uint64_t a1, uint64_t a2)
 
 void createReport(__int128 *a1@<X0>, unsigned __int8 (*a2)[24]@<X1>, uint64_t a3@<X8>)
 {
-  v13[3] = *MEMORY[0x29EDCA608];
-  v6 = trace::Lookup::create(v13, a2);
-  v12[0] = reportShadow;
-  v12[1] = v6;
-  v12[2] = reportGlobals;
-  v10 = *a1;
-  v11 = *(a1 + 2);
-  v8 = *a2;
-  v9 = *&(*a2)[16];
-  asan::ReportGenerator::createReport(v12, &v10, &v8, a3);
-  v7 = *MEMORY[0x29EDCA608];
+  v12[3] = *MEMORY[0x29EDCA608];
+  v6 = trace::Lookup::create(v12, a2);
+  v11[0] = reportShadow;
+  v11[1] = v6;
+  v11[2] = reportGlobals;
+  v9 = *a1;
+  v10 = *(a1 + 2);
+  v7 = *a2;
+  v8 = *&(*a2)[16];
+  asan::ReportGenerator::createReport(v11, &v9, &v7, a3);
 }
 
 void die(void)
@@ -5241,34 +5214,6 @@ void asan::ReportGenerator::fillStackVarInfo()
 
 {
   __assert_rtn("fillStackVarInfo", "report_generator.cpp", 118, "frameDescription != __null");
-}
-
-void vm::create<trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>>(debug *a1, const char *a2)
-{
-  v2 = *MEMORY[0x29EDCA6D0];
-  OUTLINED_FUNCTION_0(a1, a2);
-  abort();
-}
-
-void vm::create<trace::AllocationMap<262144ul,&(hash::Murmur2::hashPointer(unsigned long))>>(debug *a1, const char *a2)
-{
-  v2 = *MEMORY[0x29EDCA6D0];
-  OUTLINED_FUNCTION_0(a1, a2);
-  abort();
-}
-
-void vm::create<trace::Depot<524288ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>>(debug *a1, const char *a2)
-{
-  v2 = *MEMORY[0x29EDCA6D0];
-  OUTLINED_FUNCTION_0(a1, a2);
-  abort();
-}
-
-void vm::create<trace::AllocationMap<1048576ul,&(hash::Murmur2::hashPointer(unsigned long))>>(debug *a1, const char *a2)
-{
-  v2 = *MEMORY[0x29EDCA6D0];
-  OUTLINED_FUNCTION_0(a1, a2);
-  abort();
 }
 
 void trace::Extractor<trace::Depot<65536ul,64ul,8ul,hash::Murmur2,&(thread_stack_pcs)>,trace::AllocationMap<262144ul,&hash::Murmur2::hashPointer>>::retrieveTraces()

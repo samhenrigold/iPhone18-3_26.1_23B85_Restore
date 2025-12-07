@@ -9,7 +9,7 @@
 
 - (void)endAnnounceMessageException:(id)exception reason:(id)reason
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   exceptionCopy = exception;
   reasonCopy = reason;
   if ([exceptionCopy isEqualToString:@"announcemessage"])
@@ -21,9 +21,9 @@
     block[2] = __60__CSMSNExceptionManager_endAnnounceMessageException_reason___block_invoke;
     block[3] = &unk_1E865C9C8;
     block[4] = self;
-    v14 = reasonCopy;
-    v15 = exceptionCopy;
-    v16 = reasonCopy;
+    v13 = reasonCopy;
+    v14 = exceptionCopy;
+    v15 = reasonCopy;
     v10 = reasonCopy;
     dispatch_async(queue, block);
   }
@@ -34,112 +34,91 @@
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "[CSMSNExceptionManager endAnnounceMessageException:reason:]";
-      v19 = 2114;
-      v20 = exceptionCopy;
+      v17 = "[CSMSNExceptionManager endAnnounceMessageException:reason:]";
+      v18 = 2114;
+      v19 = exceptionCopy;
       _os_log_error_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_ERROR, "%s Unexpected exception request : %{public}@", buf, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __60__CSMSNExceptionManager_endAnnounceMessageException_reason___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 8);
-  if (!v2)
+  if (!v2 || ([v2 objectForKeyedSubscript:*(a1 + 40)], (v3 = objc_claimAutoreleasedReturnValue()) == 0) || (v4 = v3, objc_msgSend(*(*(a1 + 32) + 8), "objectForKeyedSubscript:", *(a1 + 40)), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "intValue"), v5, v4, v6 < 1))
   {
-    goto LABEL_6;
+    v9 = CSLogContextFacilityCoreSpeech;
+    if (!os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    v10 = *(a1 + 40);
+    v21 = 136315394;
+    v22 = "[CSMSNExceptionManager endAnnounceMessageException:reason:]_block_invoke";
+    v23 = 2114;
+    v24 = v10;
+    v11 = "%s There is no cached exception for %{public}@";
+    v12 = v9;
+    v13 = 22;
+    goto LABEL_16;
   }
 
-  v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
-  if (!v3)
+  v7 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:*(a1 + 40)];
+  v8 = [v7 intValue];
+
+  if (v8 > 1)
   {
-    goto LABEL_6;
-  }
-
-  v4 = v3;
-  v5 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:*(a1 + 40)];
-  v6 = [v5 intValue];
-
-  if (v6 >= 1)
-  {
-    v7 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:*(a1 + 40)];
-    v8 = [v7 intValue];
-
-    if (v8 > 1)
-    {
-      v14 = [MEMORY[0x1E696AD98] numberWithInt:(v8 - 1)];
-      [*(*(a1 + 32) + 8) setObject:v14 forKeyedSubscript:*(a1 + 40)];
-    }
-
-    else
-    {
-      [*(*(a1 + 32) + 8) removeObjectForKey:*(a1 + 40)];
-    }
-
-    v15 = *(*(a1 + 32) + 8);
-    if (!v15 || ![v15 count])
-    {
-      v16 = CSLogContextFacilityCoreSpeech;
-      if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
-      {
-        v17 = *(a1 + 48);
-        v22 = 136315394;
-        v23 = "[CSMSNExceptionManager endAnnounceMessageException:reason:]_block_invoke";
-        v24 = 2114;
-        v25 = v17;
-        _os_log_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_DEFAULT, "%s Calling MSN end announce message exception for %{public}@", &v22, 0x16u);
-      }
-
-      [*(a1 + 48) UTF8String];
-      MSNMonitorEndException();
-    }
-
-    v18 = CSLogContextFacilityCoreSpeech;
-    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
-    {
-      v19 = *(*(a1 + 32) + 8);
-      v20 = *(a1 + 56);
-      v22 = 136315650;
-      v23 = "[CSMSNExceptionManager endAnnounceMessageException:reason:]_block_invoke";
-      v24 = 2114;
-      v25 = v19;
-      v26 = 2114;
-      v27 = v20;
-      v11 = "%s Updated announce message exception table : %{public}@, reason : %{public}@";
-      v12 = v18;
-      v13 = 32;
-      goto LABEL_16;
-    }
+    v14 = [MEMORY[0x1E696AD98] numberWithInt:(v8 - 1)];
+    [*(*(a1 + 32) + 8) setObject:v14 forKeyedSubscript:*(a1 + 40)];
   }
 
   else
   {
-LABEL_6:
-    v9 = CSLogContextFacilityCoreSpeech;
-    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = *(a1 + 40);
-      v22 = 136315394;
-      v23 = "[CSMSNExceptionManager endAnnounceMessageException:reason:]_block_invoke";
-      v24 = 2114;
-      v25 = v10;
-      v11 = "%s There is no cached exception for %{public}@";
-      v12 = v9;
-      v13 = 22;
-LABEL_16:
-      _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, v11, &v22, v13);
-    }
+    [*(*(a1 + 32) + 8) removeObjectForKey:*(a1 + 40)];
   }
 
-  v21 = *MEMORY[0x1E69E9840];
+  v15 = *(*(a1 + 32) + 8);
+  if (!v15 || ![v15 count])
+  {
+    v16 = CSLogContextFacilityCoreSpeech;
+    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = *(a1 + 48);
+      v21 = 136315394;
+      v22 = "[CSMSNExceptionManager endAnnounceMessageException:reason:]_block_invoke";
+      v23 = 2114;
+      v24 = v17;
+      _os_log_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_DEFAULT, "%s Calling MSN end announce message exception for %{public}@", &v21, 0x16u);
+    }
+
+    [*(a1 + 48) UTF8String];
+    MSNMonitorEndException();
+  }
+
+  v18 = CSLogContextFacilityCoreSpeech;
+  if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = *(*(a1 + 32) + 8);
+    v20 = *(a1 + 56);
+    v21 = 136315650;
+    v22 = "[CSMSNExceptionManager endAnnounceMessageException:reason:]_block_invoke";
+    v23 = 2114;
+    v24 = v19;
+    v25 = 2114;
+    v26 = v20;
+    v11 = "%s Updated announce message exception table : %{public}@, reason : %{public}@";
+    v12 = v18;
+    v13 = 32;
+LABEL_16:
+    _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, v11, &v21, v13);
+  }
 }
 
 - (void)beginAnnounceMessageException:(id)exception reason:(id)reason
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   exceptionCopy = exception;
   reasonCopy = reason;
   if ([exceptionCopy isEqualToString:@"announcemessage"])
@@ -151,9 +130,9 @@ LABEL_16:
     block[2] = __62__CSMSNExceptionManager_beginAnnounceMessageException_reason___block_invoke;
     block[3] = &unk_1E865C9C8;
     block[4] = self;
-    v14 = exceptionCopy;
+    v13 = exceptionCopy;
+    v14 = reasonCopy;
     v15 = reasonCopy;
-    v16 = reasonCopy;
     v10 = reasonCopy;
     dispatch_async(queue, block);
   }
@@ -164,19 +143,17 @@ LABEL_16:
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "[CSMSNExceptionManager beginAnnounceMessageException:reason:]";
-      v19 = 2114;
-      v20 = exceptionCopy;
+      v17 = "[CSMSNExceptionManager beginAnnounceMessageException:reason:]";
+      v18 = 2114;
+      v19 = exceptionCopy;
       _os_log_error_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_ERROR, "%s Unexpected exception request : %{public}@", buf, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __62__CSMSNExceptionManager_beginAnnounceMessageException_reason___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 8);
   if (!v2 || ![v2 count])
   {
@@ -184,11 +161,11 @@ void __62__CSMSNExceptionManager_beginAnnounceMessageException_reason___block_in
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 40);
-      v15 = 136315394;
-      v16 = "[CSMSNExceptionManager beginAnnounceMessageException:reason:]_block_invoke";
-      v17 = 2114;
-      v18 = v4;
-      _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Calling MSN begin announce message exception for %{public}@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[CSMSNExceptionManager beginAnnounceMessageException:reason:]_block_invoke";
+      v16 = 2114;
+      v17 = v4;
+      _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Calling MSN begin announce message exception for %{public}@", &v14, 0x16u);
     }
 
     [*(a1 + 40) UTF8String];
@@ -217,16 +194,14 @@ void __62__CSMSNExceptionManager_beginAnnounceMessageException_reason___block_in
   {
     v12 = *(*(a1 + 32) + 8);
     v13 = *(a1 + 56);
-    v15 = 136315650;
-    v16 = "[CSMSNExceptionManager beginAnnounceMessageException:reason:]_block_invoke";
-    v17 = 2114;
-    v18 = v12;
-    v19 = 2114;
-    v20 = v13;
-    _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s Updated announce message exception table : %{public}@, reason : %{public}@", &v15, 0x20u);
+    v14 = 136315650;
+    v15 = "[CSMSNExceptionManager beginAnnounceMessageException:reason:]_block_invoke";
+    v16 = 2114;
+    v17 = v12;
+    v18 = 2114;
+    v19 = v13;
+    _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s Updated announce message exception table : %{public}@, reason : %{public}@", &v14, 0x20u);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (CSMSNExceptionManager)init

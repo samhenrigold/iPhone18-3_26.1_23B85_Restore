@@ -128,8 +128,6 @@
   v40 = v5;
   if (selfCopy->_state < 2u || selfCopy->_state == 3 || selfCopy->_state == 4)
   {
-    v28 = MEMORY[0x277CBF3A0];
-    v38 = **&MEMORY[0x277CBF3A0];
     text = [(UILabel *)selfCopy->_checkingStatusLabel text];
     font = [(UILabel *)selfCopy->_checkingStatusLabel font];
     CGSizeMake();
@@ -147,29 +145,27 @@
     v13 = v40 / 2.0 - kLabelOffset;
     v38.origin.y = floorf(v13);
     [(UILabel *)selfCopy->_checkingStatusLabel setFrame:*&v38.origin, *&v38.size];
-    v34 = *v28;
-    v35 = v28[1];
     text2 = [(UILabel *)selfCopy->_subtitleLabel text];
     font2 = [(UILabel *)selfCopy->_subtitleLabel font];
     CGSizeMake();
     [(NSString *)text2 _legacy_sizeWithFont:font2 constrainedToSize:v14, v15];
-    v32 = v16;
-    v33 = v17;
+    v31 = v16;
+    v32 = v17;
     MEMORY[0x277D82BD8](font2);
     MEMORY[0x277D82BD8](text2);
-    v18 = v32;
-    *&v35 = ceilf(v18);
-    v19 = v33;
-    *(&v35 + 1) = ceilf(v19);
-    v20 = (v39 - *&v35) / 2.0;
-    *&v34 = floorf(v20);
+    v18 = v31;
+    v34 = ceilf(v18);
+    v19 = v32;
+    v35 = ceilf(v19);
+    v20 = (v39 - v34) / 2.0;
+    v33 = floorf(v20);
     v21 = CGRectGetMaxY(v38) + kSublabelOffset;
-    [(UILabel *)selfCopy->_subtitleLabel setFrame:*&v34, floorf(v21), v35];
+    [(UILabel *)selfCopy->_subtitleLabel setFrame:v33, floorf(v21), v34, v35];
     [(UIActivityIndicatorView *)selfCopy->_checkingForUpdateSpinner frame];
     v23 = (v39 - v22) / 2.0;
-    v31 = floorf(v23);
+    v30 = floorf(v23);
     v24 = v38.origin.y - v38.size.height - 12.0;
-    [(UIActivityIndicatorView *)selfCopy->_checkingForUpdateSpinner setFrame:v31, floorf(v24), v22, v25];
+    [(UIActivityIndicatorView *)selfCopy->_checkingForUpdateSpinner setFrame:v30, floorf(v24), v22, v25];
   }
 }
 
@@ -251,8 +247,6 @@
       objc_storeStrong(&v21, 0);
     }
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 void __39__SUSSoftwareUpdateTableView_setState___block_invoke(uint64_t a1)
@@ -337,28 +331,28 @@ void __39__SUSSoftwareUpdateTableView_setState___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __39__SUSSoftwareUpdateTableView_setState___block_invoke_2(uint64_t result)
+void *__39__SUSSoftwareUpdateTableView_setState___block_invoke_2(void *result)
 {
   v1 = result;
-  if (*(*(result + 32) + 3348) == *(result + 40))
+  if (*(result[4] + 3348) == *(result + 10))
   {
-    if (*(result + 40) == 1)
+    if (*(result + 10) == 1)
     {
-      return [*(*(result + 32) + 3376) removeFromSuperview];
+      return [*(result[4] + 3376) removeFromSuperview];
     }
 
-    else if (!*(result + 40) || *(result + 40) == 3 || *(result + 40) == 4)
+    else if (!*(result + 10) || *(result + 10) == 3 || *(result + 10) == 4)
     {
-      [*(*(result + 32) + 3384) stopAnimating];
-      return [*(*(v1 + 32) + 3384) removeFromSuperview];
+      [*(result[4] + 3384) stopAnimating];
+      return [*(v1[4] + 3384) removeFromSuperview];
     }
 
     else
     {
-      [*(*(result + 32) + 3368) removeFromSuperview];
-      [*(*(v1 + 32) + 3376) removeFromSuperview];
-      [*(*(v1 + 32) + 3384) stopAnimating];
-      return [*(*(v1 + 32) + 3384) removeFromSuperview];
+      [*(result[4] + 3368) removeFromSuperview];
+      [*(v1[4] + 3376) removeFromSuperview];
+      [*(v1[4] + 3384) stopAnimating];
+      return [*(v1[4] + 3384) removeFromSuperview];
     }
   }
 

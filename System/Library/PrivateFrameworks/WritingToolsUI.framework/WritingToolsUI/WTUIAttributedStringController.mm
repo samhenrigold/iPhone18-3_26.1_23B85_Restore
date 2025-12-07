@@ -70,7 +70,7 @@
             }
 
             v21 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
-            v24 = _WTVCLog();
+            v24 = _WTVCLog(v21);
             attributedText = [v13 attributedText];
             wt_os_log_debug_long_string(v24, @"[formatting] ", @"context = %@", v26, v27, v28, v29, v30, attributedText);
 
@@ -122,15 +122,15 @@
   v7 = [contextsToDigests objectForKeyedSubscript:uuid];
   digestedAttributedString = [v7 digestedAttributedString];
 
-  v9 = _WTVCLog();
-  wt_os_log_debug_long_string(v9, @"[formatting] ", @"digested = %@", v10, v11, v12, v13, v14, digestedAttributedString);
+  v10 = _WTVCLog(v9);
+  wt_os_log_debug_long_string(v10, @"[formatting] ", @"digested = %@", v11, v12, v13, v14, v15, digestedAttributedString);
 
   return digestedAttributedString;
 }
 
 - (id)reconstitutedAttributedStringForContext:(id)context digestedAttributedString:(id)string
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   contextCopy = context;
   v8 = _os_feature_enabled_impl();
@@ -149,28 +149,29 @@
     if (v15)
     {
       v16 = [v12 reconstituteAttributedStringFromDigestedAttributedString:stringCopy];
+      v17 = v16;
     }
 
     else
     {
-      v17 = MEMORY[0x1E69D9318];
+      v18 = MEMORY[0x1E69D9318];
       formatOptions = [v12 formatOptions];
-      v27 = *MEMORY[0x1E69DB648];
-      v28[0] = v13;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-      v16 = [v17 reconstituteAttributedStringFromDigestedAttributedString:stringCopy formatOptions:formatOptions attributes:v19];
+      v28 = *MEMORY[0x1E69DB648];
+      v29[0] = v13;
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v17 = [v18 reconstituteAttributedStringFromDigestedAttributedString:stringCopy formatOptions:formatOptions attributes:v20];
     }
 
-    v20 = _WTVCLog();
-    wt_os_log_debug_long_string(v20, @"[formatting] ", @"reconstituted = %@", v21, v22, v23, v24, v25, v16);
+    v21 = _WTVCLog(v16);
+    wt_os_log_debug_long_string(v21, @"[formatting] ", @"reconstituted = %@", v22, v23, v24, v25, v26, v17);
   }
 
   else
   {
-    v16 = [v11 reconstituteAttributedString:stringCopy];
+    v17 = [v11 reconstituteAttributedString:stringCopy];
   }
 
-  return v16;
+  return v17;
 }
 
 - (id)reconstitutedAttributedStringForStitchedContext:(id)context

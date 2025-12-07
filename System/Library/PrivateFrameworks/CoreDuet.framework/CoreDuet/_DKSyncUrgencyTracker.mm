@@ -1,8 +1,8 @@
 @interface _DKSyncUrgencyTracker
 + (id)sharedInstance;
 - (id)allUrgencies;
-- (uint64_t)ageUrgencies;
-- (uint64_t)urgencyForClient:(uint64_t)result;
+- (id)urgencyForClient:(id *)result;
+- (void)ageUrgencies;
 - (void)recomputeUrgency;
 - (void)updateUrgency:(void *)urgency forClient:;
 @end
@@ -17,42 +17,42 @@
     +[_DKSyncUrgencyTracker sharedInstance];
   }
 
-  v0 = sharedInstance_tracker;
+  v1 = sharedInstance_tracker;
 
-  return v0;
+  return v1;
 }
 
 - (void)recomputeUrgency
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = self->_urgencies;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [(_DKSyncUrgencyTracker *)self urgencyForClient:?];
+        v9 = [(_DKSyncUrgencyTracker *)&self->super.isa urgencyForClient:?];
         if (v6 <= v9)
         {
           v6 = v9;
         }
       }
 
-      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v5);
@@ -67,19 +67,17 @@
   {
     self->_urgency = v6;
     v10 = +[_CDObservationCenter sharedInstance];
-    v18 = @"urgency";
+    v17 = @"urgency";
     v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_urgency];
-    v19 = v11;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v18 = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     [v10 postNotificationName:@"_DKSyncUrgencyDidChangeNotification" userInfo:v12 sender:self];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateUrgency:(void *)urgency forClient:
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   urgencyCopy = urgency;
   if (self)
   {
@@ -91,10 +89,10 @@
       v7 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v19 = [objc_opt_class() description];
-        v20 = [OUTLINED_FUNCTION_1_27() numberWithUnsignedInteger:?];
+        v18 = [objc_opt_class() description];
+        v19 = [OUTLINED_FUNCTION_1_27() numberWithUnsignedInteger:?];
         OUTLINED_FUNCTION_0_34();
-        _os_log_error_impl(&dword_191750000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Invalid urgency from %@: %@", v21, 0x20u);
+        _os_log_error_impl(&dword_191750000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Invalid urgency from %@: %@", v20, 0x20u);
       }
 
       a2 = 10;
@@ -106,7 +104,7 @@
       v9 = [objc_opt_class() description];
       v10 = [OUTLINED_FUNCTION_1_27() numberWithUnsignedInteger:?];
       OUTLINED_FUNCTION_0_34();
-      _os_log_impl(&dword_191750000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Updating urgency for %@ to %@", v21, 0x20u);
+      _os_log_impl(&dword_191750000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Updating urgency for %@ to %@", v20, 0x20u);
     }
 
     v11 = self[2];
@@ -150,15 +148,13 @@ LABEL_15:
 
 LABEL_17:
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)urgencyForClient:(uint64_t)result
+- (id)urgencyForClient:(id *)result
 {
   if (result)
   {
-    v2 = [*(result + 16) objectForKeyedSubscript:a2];
+    v2 = [result[2] objectForKeyedSubscript:a2];
     unsignedIntegerValue = [v2 unsignedIntegerValue];
 
     return unsignedIntegerValue;
@@ -178,7 +174,7 @@ LABEL_17:
   return self;
 }
 
-- (uint64_t)ageUrgencies
+- (void)ageUrgencies
 {
   if (result)
   {

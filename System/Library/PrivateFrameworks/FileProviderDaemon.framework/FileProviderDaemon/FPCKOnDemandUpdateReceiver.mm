@@ -15,11 +15,11 @@
   v2 = (self + OBJC_IVAR____TtC18FileProviderDaemon26FPCKOnDemandUpdateReceiver_report);
   selfCopy = self;
   os_unfair_lock_lock(v2);
-  v4 = *&v2[2]._os_unfair_lock_opaque;
-  sub_1CF4DFA80();
+  v4 = sub_1CF4DFA80();
   os_unfair_lock_unlock(v2);
 
   v5 = sub_1CF9E6618();
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
   return v5;
 }
@@ -54,7 +54,7 @@
   v5 = sub_1CF9E5B88();
   v7 = v6;
 
-  sub_1CF33FEB8();
+  sub_1CF33FEB8(v5, v7);
   sub_1CEFE4714(v5, v7);
 }
 

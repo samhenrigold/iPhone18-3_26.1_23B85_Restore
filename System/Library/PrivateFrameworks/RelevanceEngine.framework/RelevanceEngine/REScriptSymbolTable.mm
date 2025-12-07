@@ -57,7 +57,7 @@ LABEL_9:
 
 - (BOOL)define:(id)define type:(unint64_t)type options:(id)options error:(id *)error
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   defineCopy = define;
   optionsCopy = MEMORY[0x277CBEC10];
   if (options)
@@ -77,10 +77,10 @@ LABEL_9:
       name = [(_RESymbolDefinition *)v14 name];
       v18 = [v16 stringWithFormat:@"Symbol %@ already defined.", name];
 
-      v24 = @"REErrorTokenKey";
+      v23 = @"REErrorTokenKey";
       token = [(_RESymbolDefinition *)v15 token];
-      v25[0] = token;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v24[0] = token;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
       *error = RECreateErrorWithCodeMessageAndUseInfo(206, v18, v20);
     }
 
@@ -93,13 +93,12 @@ LABEL_9:
     [(NSMutableDictionary *)self->_definitions setObject:v21 forKeyedSubscript:value];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v15 == 0;
 }
 
 - (BOOL)setNodeValue:(id)value forDefinition:(id)definition error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   definitionCopy = definition;
   v10 = [(NSMutableDictionary *)self->_definitions objectForKeyedSubscript:definitionCopy];
@@ -117,11 +116,11 @@ LABEL_9:
 
     if (error)
     {
-      v18 = @"REErrorTokenKey";
+      v17 = @"REErrorTokenKey";
       value2 = [v11 value];
       token = [value2 token];
-      v19[0] = token;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v18[0] = token;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       *error = RECreateErrorWithCodeAndUseInfo(208, v15);
 
 LABEL_7:
@@ -138,13 +137,12 @@ LABEL_7:
 
 LABEL_9:
 
-  v16 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 - (BOOL)setObjectValue:(id)value forDefinition:(id)definition error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   definitionCopy = definition;
   v10 = [(NSMutableDictionary *)self->_definitions objectForKeyedSubscript:definitionCopy];
@@ -162,11 +160,11 @@ LABEL_9:
 
     if (error)
     {
-      v18 = @"REErrorTokenKey";
+      v17 = @"REErrorTokenKey";
       value = [v11 value];
       token = [value token];
-      v19[0] = token;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v18[0] = token;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       *error = RECreateErrorWithCodeAndUseInfo(208, v15);
 
 LABEL_7:
@@ -183,7 +181,6 @@ LABEL_7:
 
 LABEL_9:
 
-  v16 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -273,49 +270,49 @@ LABEL_6:
 
 - (void)_enumerateObjectsOfType:(unint64_t)type usingBlock:(id)block
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (blockCopy)
   {
     v7 = objc_alloc_init(REDependencyGraph);
     definitions = self->_definitions;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __58__REScriptSymbolTable__enumerateObjectsOfType_usingBlock___block_invoke;
-    v29[3] = &unk_2785FB998;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __58__REScriptSymbolTable__enumerateObjectsOfType_usingBlock___block_invoke;
+    v28[3] = &unk_2785FB998;
     v9 = v7;
-    v30 = v9;
-    [(NSMutableDictionary *)definitions enumerateKeysAndObjectsUsingBlock:v29];
+    v29 = v9;
+    [(NSMutableDictionary *)definitions enumerateKeysAndObjectsUsingBlock:v28];
     v10 = self->_definitions;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __58__REScriptSymbolTable__enumerateObjectsOfType_usingBlock___block_invoke_2;
-    v27[3] = &unk_2785FB9C0;
-    v27[4] = self;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __58__REScriptSymbolTable__enumerateObjectsOfType_usingBlock___block_invoke_2;
+    v26[3] = &unk_2785FB9C0;
+    v26[4] = self;
     v11 = v9;
-    v28 = v11;
-    [(NSMutableDictionary *)v10 enumerateKeysAndObjectsUsingBlock:v27];
-    v22 = v11;
+    v27 = v11;
+    [(NSMutableDictionary *)v10 enumerateKeysAndObjectsUsingBlock:v26];
+    v21 = v11;
     topologicalSortedItems = [(REDependencyGraph *)v11 topologicalSortedItems];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v13 = [topologicalSortedItems countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v13 = [topologicalSortedItems countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v24;
+      v15 = *v23;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v24 != v15)
+          if (*v23 != v15)
           {
             objc_enumerationMutation(topologicalSortedItems);
           }
 
-          v17 = *(*(&v23 + 1) + 8 * i);
+          v17 = *(*(&v22 + 1) + 8 * i);
           if ([v17 type] == type)
           {
             name = [v17 name];
@@ -325,43 +322,41 @@ LABEL_6:
           }
         }
 
-        v14 = [topologicalSortedItems countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v14 = [topologicalSortedItems countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v14);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __58__REScriptSymbolTable__enumerateObjectsOfType_usingBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = [v6 value];
   v8 = [v7 dependencies];
 
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
+        v13 = *(*(&v15 + 1) + 8 * i);
         if (([v5 isEqualToString:v13] & 1) == 0)
         {
           v14 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:v13];
@@ -372,13 +367,11 @@ void __58__REScriptSymbolTable__enumerateObjectsOfType_usingBlock___block_invoke
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

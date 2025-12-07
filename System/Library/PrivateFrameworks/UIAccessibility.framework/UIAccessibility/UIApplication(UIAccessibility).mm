@@ -31,39 +31,39 @@
 
 - (uint64_t)_accessibilityIsAppReadyToBeProbed
 {
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
+  v10 = 0;
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
   v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v9 = 0;
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v5 = 0;
   AXPerformSafeBlock();
   if (AXProcessIsSpringBoard())
   {
-    _AXLogWithFacility();
-    v0 = 0;
+    _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"SpringBoard not ready to be queried by its category hasn't installed.");
+    v1 = 0;
   }
 
-  else if (v7[3])
+  else if (v8[3])
   {
-    v0 = *(v3 + 24);
+    v1 = *(v4 + 24);
   }
 
   else
   {
-    v0 = 1;
+    v1 = 1;
     if ((_accessibilityIsAppReadyToBeProbed_EmittedLogSpew & 1) == 0)
     {
-      _AXLogWithFacility();
+      _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Couldn't determine if appDidFinishLaunching had already been called. Allowing AX queries to proceed anyway. This is a bug! This will only be logged once per process.");
       _accessibilityIsAppReadyToBeProbed_EmittedLogSpew = 1;
     }
   }
 
-  _Block_object_dispose(&v2, 8);
-  _Block_object_dispose(&v6, 8);
-  return v0 & 1;
+  _Block_object_dispose(&v3, 8);
+  _Block_object_dispose(&v7, 8);
+  return v1 & 1;
 }
 
 - (void)_accessibilitySetIsDictationListeningOverride:()UIAccessibility

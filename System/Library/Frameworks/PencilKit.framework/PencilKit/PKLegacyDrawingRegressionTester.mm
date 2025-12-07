@@ -78,7 +78,7 @@
   [imageCopy size];
   if (drawingCopy)
   {
-    [drawingCopy _transformForImageWithSize:?];
+    objc_msgSend__transformForImageWithSize_(drawingCopy);
   }
 
   else
@@ -174,7 +174,7 @@ LABEL_19:
   v61 = 0u;
   v62 = 0u;
   memset(&v60, 0, sizeof(v60));
-  [PKImageCompare compareImage:v46 toMasterImage:v45 filename:0 differenceImageOutputPath:0 diffWhite:1 stdDevThreshold:0.0];
+  objc_msgSend_compareImage_toMasterImage_filename_differenceImageOutputPath_diffWhite_stdDevThreshold_(PKImageCompare, 0.0);
   if (image[0])
   {
     CGImageRelease(image[0]);
@@ -275,7 +275,7 @@ LABEL_12:
   v31 = 0u;
   v32 = 0u;
   v30 = 0u;
-  [PKImageCompare compareImage:v23 toMasterImage:v21 filename:0 differenceImageOutputPath:0 diffWhite:1 stdDevThreshold:0.0];
+  objc_msgSend_compareImage_toMasterImage_filename_differenceImageOutputPath_diffWhite_stdDevThreshold_(PKImageCompare, 0.0);
   CGImageRelease(v21);
   CGImageRelease(v23);
   v29[4] = v34;

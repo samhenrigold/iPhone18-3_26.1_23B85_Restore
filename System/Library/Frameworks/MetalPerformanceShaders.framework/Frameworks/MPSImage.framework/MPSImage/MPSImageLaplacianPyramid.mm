@@ -67,68 +67,27 @@
 
 - (MPSImageLaplacianPyramid)initWithDevice:(id)device kernelWidth:(unint64_t)width kernelHeight:(unint64_t)height weights:(const float *)weights
 {
-  v49.receiver = self;
-  v49.super_class = MPSImageLaplacianPyramid;
+  v34.receiver = self;
+  v34.super_class = MPSImageLaplacianPyramid;
   v10 = [MPSImagePyramid initWithDevice:sel_initWithDevice_kernelWidth_kernelHeight_weights_ kernelWidth:? kernelHeight:? weights:?];
   if (v10)
   {
-    v47 = 0;
-    v48 = 0;
-    if (!sub_2399425CC(&v48, &v47, v10 + 264, height, width))
+    v32 = 0;
+    v33 = 0;
+    if (sub_2399425CC(&v33, &v32, v10 + 264, height, width) && (*(v10 + 38) = height, *(v10 + 39) = width, v10[328] = 0, *(v10 + 332) = 0x3F80000000000000, v11 = objc_alloc(MEMORY[0x277CBEA90]), v13 = objc_msgSend_initWithBytes_length_(v11, v12, weights, 4 * width * height), (*(v10 + 40) = v13) != 0) && (v15 = v32, v14 = v33, v16 = v32 * v33, v17 = 4 * v32 * v33, v18 = objc_alloc(MEMORY[0x277CBEB28]), v20 = objc_msgSend_initWithLength_(v18, v19, v17), (*(v10 + 45) = v20) != 0) && (v21 = 2 * v16, v22 = objc_alloc(MEMORY[0x277CBEB28]), v24 = objc_msgSend_initWithLength_(v22, v23, v21), (*(v10 + 46) = v24) != 0) && (v26 = objc_msgSend_newBufferWithLength_options_(device, v25, v17, 0), (*(v10 + 47) = v26) != 0) && (v28 = objc_msgSend_newBufferWithLength_options_(device, v27, v21, 0), (*(v10 + 48) = v28) != 0))
     {
-      goto LABEL_15;
-    }
-
-    *(v10 + 38) = height;
-    *(v10 + 39) = width;
-    v10[328] = 0;
-    *(v10 + 332) = 0x3F80000000000000;
-    v11 = objc_alloc(MEMORY[0x277CBEA90]);
-    v15 = objc_msgSend_initWithBytes_length_(v11, v12, weights, 4 * width * height, v13, v14);
-    *(v10 + 40) = v15;
-    if (!v15)
-    {
-      goto LABEL_15;
-    }
-
-    v17 = v47;
-    v16 = v48;
-    v18 = v47 * v48;
-    v19 = 4 * v47 * v48;
-    v20 = objc_alloc(MEMORY[0x277CBEB28]);
-    v25 = objc_msgSend_initWithLength_(v20, v21, v19, v22, v23, v24);
-    *(v10 + 45) = v25;
-    if (!v25)
-    {
-      goto LABEL_15;
-    }
-
-    v26 = 2 * v18;
-    v27 = objc_alloc(MEMORY[0x277CBEB28]);
-    v32 = objc_msgSend_initWithLength_(v27, v28, v26, v29, v30, v31);
-    *(v10 + 46) = v32;
-    if (!v32)
-    {
-      goto LABEL_15;
-    }
-
-    v36 = objc_msgSend_newBufferWithLength_options_(device, v33, v19, 0, v34, v35);
-    *(v10 + 47) = v36;
-    if (v36 && (v40 = objc_msgSend_newBufferWithLength_options_(device, v37, v26, 0, v38, v39), (*(v10 + 48) = v40) != 0))
-    {
-      *(v10 + 43) = v16;
-      *(v10 + 44) = v17;
+      *(v10 + 43) = v14;
+      *(v10 + 44) = v15;
       *(v10 + 22) = sub_239942D58;
-      sub_23994204C(v10 + 86, v10 + 76, v41, v42, v43, v44);
+      sub_23994204C(v10 + 86, v10 + 76, v29);
     }
 
     else
     {
-LABEL_15:
       if (MTLReportFailureTypeEnabled())
       {
-        v45 = objc_opt_class();
-        NSStringFromClass(v45);
+        v30 = objc_opt_class();
+        NSStringFromClass(v30);
         MTLReportFailure();
       }
 
@@ -141,42 +100,42 @@ LABEL_15:
 
 - (MPSImageLaplacianPyramid)initWithCoder:(id)coder device:(id)device
 {
-  v119.receiver = self;
-  v119.super_class = MPSImageLaplacianPyramid;
+  v64.receiver = self;
+  v64.super_class = MPSImageLaplacianPyramid;
   v6 = [MPSImagePyramid initWithCoder:sel_initWithCoder_device_ device:?];
-  v12 = v6;
+  v9 = v6;
   if (v6)
   {
-    v117 = 0;
-    v118 = 0;
-    v13 = objc_msgSend_kernelHeight(v6, v7, v8, v9, v10, v11);
-    v19 = objc_msgSend_kernelWidth(v12, v14, v15, v16, v17, v18);
-    if (sub_2399425CC(&v118, &v117, &v12->_autotuningState.enabled, v13, v19))
+    v62 = 0;
+    v63 = 0;
+    v10 = objc_msgSend_kernelHeight(v6, v7, v8);
+    v13 = objc_msgSend_kernelWidth(v9, v11, v12);
+    if (sub_2399425CC(&v63, &v62, &v9->_autotuningState.enabled, v10, v13))
     {
-      v25 = objc_msgSend_kernelHeight(v12, v20, v21, v22, v23, v24);
-      v31 = objc_msgSend_kernelWidth(v12, v26, v27, v28, v29, v30);
-      v32 = objc_alloc(MEMORY[0x277CBEB28]);
-      v33 = v31 * v25;
-      v38 = objc_msgSend_initWithLength_(v32, v34, 4 * v31 * v25, v35, v36, v37);
-      p_state = &v12->_state;
-      v12->_state.weights = v38;
-      if (v38)
+      v16 = objc_msgSend_kernelHeight(v9, v14, v15);
+      v19 = objc_msgSend_kernelWidth(v9, v17, v18);
+      v20 = objc_alloc(MEMORY[0x277CBEB28]);
+      v21 = v19 * v16;
+      v23 = objc_msgSend_initWithLength_(v20, v22, 4 * v19 * v16);
+      p_state = &v9->_state;
+      v9->_state.weights = v23;
+      if (v23)
       {
-        if (v33)
+        if (v21)
         {
-          v43 = v38;
-          v44 = 0;
+          v25 = v23;
+          v26 = 0;
           while (1)
           {
-            v45 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v39, @"MPSImageLaplacianPyramid.weights%lu", v40, v41, v42, v44);
-            objc_msgSend_decodeFloatForKey_(coder, v46, v45, v47, v48, v49);
-            *(objc_msgSend_mutableBytes(v43, v50, v51, v52, v53, v54) + 4 * v44) = v55;
-            if (objc_msgSend_error(coder, v56, v57, v58, v59, v60))
+            v27 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v24, @"MPSImageLaplacianPyramid.weights%lu", v26);
+            objc_msgSend_decodeFloatForKey_(coder, v28, v27);
+            *(objc_msgSend_mutableBytes(v25, v29, v30) + 4 * v26) = v31;
+            if (objc_msgSend_error(coder, v32, v33))
             {
               break;
             }
 
-            if (v33 == ++v44)
+            if (v21 == ++v26)
             {
               goto LABEL_8;
             }
@@ -186,46 +145,46 @@ LABEL_15:
         else
         {
 LABEL_8:
-          *p_state = v25;
-          v12->_state.filterWidth = v31;
-          v12->_state.isPyramidAdd = objc_msgSend_decodeBoolForKey_(coder, v39, @"MPSImageLaplacianPyramid.isPyramidAdd", v40, v41, v42);
-          if (!objc_msgSend_error(coder, v61, v62, v63, v64, v65))
+          *p_state = v16;
+          v9->_state.filterWidth = v19;
+          v9->_state.isPyramidAdd = objc_msgSend_decodeBoolForKey_(coder, v24, @"MPSImageLaplacianPyramid.isPyramidAdd");
+          if (!objc_msgSend_error(coder, v34, v35))
           {
-            objc_msgSend_decodeFloatForKey_(coder, v66, @"MPSImageLaplacianPyramid.laplacianBias", v67, v68, v69);
-            v12->_state.laplacianBias = v70;
-            if (!objc_msgSend_error(coder, v71, v72, v73, v74, v75))
+            objc_msgSend_decodeFloatForKey_(coder, v36, @"MPSImageLaplacianPyramid.laplacianBias");
+            v9->_state.laplacianBias = v37;
+            if (!objc_msgSend_error(coder, v38, v39))
             {
-              objc_msgSend_decodeFloatForKey_(coder, v76, @"MPSImageLaplacianPyramid.laplacianScale", v77, v78, v79);
-              v12->_state.laplacianScale = v80;
-              if (!objc_msgSend_error(coder, v81, v82, v83, v84, v85))
+              objc_msgSend_decodeFloatForKey_(coder, v40, @"MPSImageLaplacianPyramid.laplacianScale");
+              v9->_state.laplacianScale = v41;
+              if (!objc_msgSend_error(coder, v42, v43))
               {
-                v89 = v117;
-                v88 = v118;
-                v90 = v117 * v118;
-                v91 = 4 * v117 * v118;
-                v92 = objc_alloc(MEMORY[0x277CBEB28]);
-                v97 = objc_msgSend_initWithLength_(v92, v93, v91, v94, v95, v96);
-                v12->_derivedState.h_WeightsRawFull = v97;
-                if (v97)
+                v47 = v62;
+                v46 = v63;
+                v48 = v62 * v63;
+                v49 = 4 * v62 * v63;
+                v50 = objc_alloc(MEMORY[0x277CBEB28]);
+                v52 = objc_msgSend_initWithLength_(v50, v51, v49);
+                v9->_derivedState.h_WeightsRawFull = v52;
+                if (v52)
                 {
-                  v98 = objc_alloc(MEMORY[0x277CBEB28]);
-                  v103 = objc_msgSend_initWithLength_(v98, v99, 2 * v90, v100, v101, v102);
-                  v12->_derivedState.h_WeightsRawHalf = v103;
-                  if (v103)
+                  v53 = objc_alloc(MEMORY[0x277CBEB28]);
+                  v55 = objc_msgSend_initWithLength_(v53, v54, 2 * v48);
+                  v9->_derivedState.h_WeightsRawHalf = v55;
+                  if (v55)
                   {
-                    v107 = objc_msgSend_newBufferWithLength_options_(device, v104, v91, 0, v105, v106);
-                    v12->_derivedState.d_WeightsRawFull = v107;
-                    if (v107)
+                    v57 = objc_msgSend_newBufferWithLength_options_(device, v56, v49, 0);
+                    v9->_derivedState.d_WeightsRawFull = v57;
+                    if (v57)
                     {
-                      v111 = objc_msgSend_newBufferWithLength_options_(device, v108, 2 * v90, 0, v109, v110);
-                      v12->_derivedState.d_WeightsRawHalf = v111;
-                      if (v111)
+                      v59 = objc_msgSend_newBufferWithLength_options_(device, v58, 2 * v48, 0);
+                      v9->_derivedState.d_WeightsRawHalf = v59;
+                      if (v59)
                       {
-                        v12->_derivedState.padHeight = v88;
-                        v12->_derivedState.padWidth = v89;
-                        v12->super.super._encode = sub_239942D58;
-                        sub_23994204C(&v12->_derivedState, p_state, v112, v113, v114, v115);
-                        return v12;
+                        v9->_derivedState.padHeight = v46;
+                        v9->_derivedState.padWidth = v47;
+                        v9->super.super._encode = sub_239942D58;
+                        sub_23994204C(&v9->_derivedState, p_state, v60);
+                        return v9;
                       }
                     }
                   }
@@ -239,78 +198,42 @@ LABEL_8:
 
     if (MTLReportFailureTypeEnabled())
     {
-      v86 = objc_opt_class();
-      NSStringFromClass(v86);
+      v44 = objc_opt_class();
+      NSStringFromClass(v44);
       MTLReportFailure();
     }
 
     return 0;
   }
 
-  return v12;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone device:(id)device
 {
-  v56.receiver = self;
-  v56.super_class = MPSImageLaplacianPyramid;
-  v11 = [(MPSImagePyramid *)&v56 copyWithZone:zone device:?];
-  if (v11)
+  v37.receiver = self;
+  v37.super_class = MPSImageLaplacianPyramid;
+  v8 = [(MPSImagePyramid *)&v37 copyWithZone:zone device:?];
+  if (v8)
   {
-    v54 = 0;
-    v55 = 0;
-    v12 = objc_msgSend_kernelHeight(self, v6, v7, v8, v9, v10);
-    v18 = objc_msgSend_kernelWidth(self, v13, v14, v15, v16, v17);
-    if (!sub_2399425CC(&v55, &v54, v11 + 264, v12, v18))
+    v35 = 0;
+    v36 = 0;
+    v9 = objc_msgSend_kernelHeight(self, v6, v7);
+    v12 = objc_msgSend_kernelWidth(self, v10, v11);
+    if (sub_2399425CC(&v36, &v35, v8 + 264, v9, v12) && (v13 = *&self->_state.laplacianScale, v14 = *&self->_state.weights, *(v8 + 19) = *&self->_state.filterHeight, *(v8 + 20) = v14, *(v8 + 42) = v13, v15 = self->_state.weights, v16 = v8 + 86, v18 = v35, v17 = v36, v19 = v35 * v36, v20 = 4 * v35 * v36, v21 = objc_alloc(MEMORY[0x277CBEB28]), v23 = objc_msgSend_initWithLength_(v21, v22, v20), (*(v8 + 45) = v23) != 0) && (v24 = 2 * v19, v25 = objc_alloc(MEMORY[0x277CBEB28]), v27 = objc_msgSend_initWithLength_(v25, v26, v24), (*(v8 + 46) = v27) != 0) && (v29 = objc_msgSend_newBufferWithLength_options_(device, v28, v20, 0), (*(v8 + 47) = v29) != 0) && (v31 = objc_msgSend_newBufferWithLength_options_(device, v30, v24, 0), (*(v8 + 48) = v31) != 0))
     {
-      goto LABEL_14;
-    }
-
-    v19 = *&self->_state.laplacianScale;
-    v20 = *&self->_state.weights;
-    *(v11 + 19) = *&self->_state.filterHeight;
-    *(v11 + 20) = v20;
-    *(v11 + 42) = v19;
-    v21 = self->_state.weights;
-    v22 = v11 + 86;
-    v24 = v54;
-    v23 = v55;
-    v25 = v54 * v55;
-    v26 = 4 * v54 * v55;
-    v27 = objc_alloc(MEMORY[0x277CBEB28]);
-    v32 = objc_msgSend_initWithLength_(v27, v28, v26, v29, v30, v31);
-    *(v11 + 45) = v32;
-    if (!v32)
-    {
-      goto LABEL_14;
-    }
-
-    v33 = 2 * v25;
-    v34 = objc_alloc(MEMORY[0x277CBEB28]);
-    v39 = objc_msgSend_initWithLength_(v34, v35, v33, v36, v37, v38);
-    *(v11 + 46) = v39;
-    if (!v39)
-    {
-      goto LABEL_14;
-    }
-
-    v43 = objc_msgSend_newBufferWithLength_options_(device, v40, v26, 0, v41, v42);
-    *(v11 + 47) = v43;
-    if (v43 && (v47 = objc_msgSend_newBufferWithLength_options_(device, v44, v33, 0, v45, v46), (*(v11 + 48) = v47) != 0))
-    {
-      *v22 = v23;
-      *(v11 + 44) = v24;
-      sub_23994204C(v22, &self->_state, v48, v49, v50, v51);
-      *(v11 + 22) = sub_239942D58;
+      *v16 = v17;
+      *(v8 + 44) = v18;
+      sub_23994204C(v16, &self->_state, v32);
+      *(v8 + 22) = sub_239942D58;
     }
 
     else
     {
-LABEL_14:
       if (MTLReportFailureTypeEnabled())
       {
-        v52 = objc_opt_class();
-        NSStringFromClass(v52);
+        v33 = objc_opt_class();
+        NSStringFromClass(v33);
         MTLReportFailure();
       }
 
@@ -318,42 +241,42 @@ LABEL_14:
     }
   }
 
-  return v11;
+  return v8;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v31.receiver = self;
-  v31.super_class = MPSImageLaplacianPyramid;
-  [(MPSImagePyramid *)&v31 encodeWithCoder:?];
+  v16.receiver = self;
+  v16.super_class = MPSImageLaplacianPyramid;
+  [(MPSImagePyramid *)&v16 encodeWithCoder:?];
   if (self->_state.filterWidth * self->_state.filterHeight)
   {
-    v9 = 0;
+    v6 = 0;
     do
     {
-      v10 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, @"MPSImageLaplacianPyramid.weights%lu", v6, v7, v8, v9);
-      LODWORD(v16) = *(objc_msgSend_bytes(self->_state.weights, v11, v12, v13, v14, v15) + 4 * v9);
-      objc_msgSend_encodeFloat_forKey_(coder, v17, v10, v18, v19, v20, v16);
-      ++v9;
+      v7 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, @"MPSImageLaplacianPyramid.weights%lu", v6);
+      LODWORD(v10) = *(objc_msgSend_bytes(self->_state.weights, v8, v9) + 4 * v6);
+      objc_msgSend_encodeFloat_forKey_(coder, v11, v7, v10);
+      ++v6;
     }
 
-    while (v9 < self->_state.filterWidth * self->_state.filterHeight);
+    while (v6 < self->_state.filterWidth * self->_state.filterHeight);
   }
 
-  objc_msgSend_encodeBool_forKey_(coder, v5, self->_state.isPyramidAdd, @"MPSImageLaplacianPyramid.isPyramidAdd", v7, v8);
-  *&v21 = self->_state.laplacianBias;
-  objc_msgSend_encodeFloat_forKey_(coder, v22, @"MPSImageLaplacianPyramid.laplacianBias", v23, v24, v25, v21);
-  *&v26 = self->_state.laplacianScale;
-  objc_msgSend_encodeFloat_forKey_(coder, v27, @"MPSImageLaplacianPyramid.laplacianScale", v28, v29, v30, v26);
+  objc_msgSend_encodeBool_forKey_(coder, v5, self->_state.isPyramidAdd, @"MPSImageLaplacianPyramid.isPyramidAdd");
+  *&v12 = self->_state.laplacianBias;
+  objc_msgSend_encodeFloat_forKey_(coder, v13, @"MPSImageLaplacianPyramid.laplacianBias", v12);
+  *&v14 = self->_state.laplacianScale;
+  objc_msgSend_encodeFloat_forKey_(coder, v15, @"MPSImageLaplacianPyramid.laplacianScale", v14);
 }
 
 - (void)dealloc
 {
-  objc_msgSend_cleanUpAll(self, a2, v2, v3, v4, v5);
-  objc_msgSend_zeroInitAll(self, v7, v8, v9, v10, v11);
-  v12.receiver = self;
-  v12.super_class = MPSImageLaplacianPyramid;
-  [(MPSImagePyramid *)&v12 dealloc];
+  objc_msgSend_cleanUpAll(self, a2, v2);
+  objc_msgSend_zeroInitAll(self, v4, v5);
+  v6.receiver = self;
+  v6.super_class = MPSImageLaplacianPyramid;
+  [(MPSImagePyramid *)&v6 dealloc];
 }
 
 - (MPSRegion)sourceRegionForDestinationSize:(SEL)size

@@ -134,12 +134,12 @@
 
   if ((v7 & 1) == 0)
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100063A54(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543362;
-      v11 = observerCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Adding cellular oberver: %{public}@", &v10, 0xCu);
+      v11 = 138543362;
+      v12 = observerCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Adding cellular oberver: %{public}@", &v11, 0xCu);
     }
 
     observers2 = [(MSDCellularHelper *)selfCopy observers];
@@ -159,12 +159,12 @@
 
   if (v7)
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100063A54(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543362;
-      v11 = observerCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Removing cellular oberver: %{public}@", &v10, 0xCu);
+      v11 = 138543362;
+      v12 = observerCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Removing cellular oberver: %{public}@", &v11, 0xCu);
     }
 
     observers2 = [(MSDCellularHelper *)selfCopy observers];
@@ -189,7 +189,7 @@
 - (void)_fetchCellularPlanItems
 {
   v2 = [NSMutableArray arrayWithCapacity:0];
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -197,101 +197,108 @@
   }
 
   v4 = +[CTCellularPlanManager sharedManager];
-  v23 = [v4 planItemsShouldUpdate:0];
+  v25 = [v4 planItemsShouldUpdate:0];
 
-  if (v23 && [v23 count])
+  v5 = v25;
+  if (v25 && (v5 = [v25 count]) != 0)
   {
+    v32 = 0u;
+    v33 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v5 = v23;
-    v6 = [v5 countByEnumeratingWithState:&v28 objects:v35 count:16];
-    if (v6)
+    v6 = v25;
+    v7 = [v6 countByEnumeratingWithState:&v30 objects:v37 count:16];
+    v8 = v7;
+    if (v7)
     {
-      v7 = *v29;
+      v9 = *v31;
       do
       {
-        for (i = 0; i != v6; i = i + 1)
+        v10 = 0;
+        do
         {
-          if (*v29 != v7)
+          if (*v31 != v9)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v6);
           }
 
-          v9 = *(*(&v28 + 1) + 8 * i);
-          v10 = sub_100063A54();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v11 = *(*(&v30 + 1) + 8 * v10);
+          v12 = sub_100063A54(v7);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v34 = v9;
-            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Found cellular plan item: %{public}@", buf, 0xCu);
+            v36 = v11;
+            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Found cellular plan item: %{public}@", buf, 0xCu);
           }
 
-          if (![v9 type] || objc_msgSend(v9, "type") == 2)
+          if (![v11 type] || (v7 = objc_msgSend(v11, "type"), v7 == 2))
           {
-            v11 = objc_alloc_init(NSMutableDictionary);
-            if ([v9 type])
+            v13 = objc_alloc_init(NSMutableDictionary);
+            if ([v11 type])
             {
-              v12 = &off_10017AFF0;
+              v14 = &off_10017AFF0;
             }
 
             else
             {
-              v12 = &off_10017B008;
+              v14 = &off_10017B008;
             }
 
-            [v11 setObject:v12 forKey:@"SimType"];
-            carrierName = [v9 carrierName];
-            v14 = carrierName;
+            [v13 setObject:v14 forKey:@"SimType"];
+            carrierName = [v11 carrierName];
+            v16 = carrierName;
             if (carrierName && [carrierName length])
             {
-              [v11 setObject:v14 forKey:@"Provider"];
+              [v13 setObject:v16 forKey:@"Provider"];
             }
 
             else
             {
-              v15 = +[NSNull null];
-              [v11 setObject:v15 forKey:@"Provider"];
+              v17 = +[NSNull null];
+              [v13 setObject:v17 forKey:@"Provider"];
             }
 
-            [v2 addObject:v11];
+            [v2 addObject:v13];
           }
+
+          v10 = v10 + 1;
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v28 objects:v35 count:16];
+        while (v8 != v10);
+        v7 = [v6 countByEnumeratingWithState:&v30 objects:v37 count:16];
+        v8 = v7;
       }
 
-      while (v6);
+      while (v7);
     }
 
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v24 = 0u;
-    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     observers = [(MSDCellularHelper *)selfCopy observers];
-    v18 = [observers countByEnumeratingWithState:&v24 objects:v32 count:16];
-    if (v18)
+    v20 = [observers countByEnumeratingWithState:&v26 objects:v34 count:16];
+    if (v20)
     {
-      v19 = *v25;
+      v21 = *v27;
       do
       {
-        for (j = 0; j != v18; j = j + 1)
+        for (i = 0; i != v20; i = i + 1)
         {
-          if (*v25 != v19)
+          if (*v27 != v21)
           {
             objc_enumerationMutation(observers);
           }
 
-          [*(*(&v24 + 1) + 8 * j) cellularPlanDidChange:v2];
+          [*(*(&v26 + 1) + 8 * i) cellularPlanDidChange:v2];
         }
 
-        v18 = [observers countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v20 = [observers countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
-      while (v18);
+      while (v20);
     }
 
     objc_sync_exit(selfCopy);
@@ -299,7 +306,7 @@
 
   else
   {
-    selfCopy = sub_100063A54();
+    selfCopy = sub_100063A54(v5);
     if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -307,13 +314,13 @@
     }
   }
 
-  v21 = [NSArray arrayWithArray:v2];
-  [(MSDCellularHelper *)self setCellularSlotsInfo:v21];
+  v23 = [NSArray arrayWithArray:v2];
+  [(MSDCellularHelper *)self setCellularSlotsInfo:v23];
 }
 
 - (void)_handleCellularPlanInfoDidChange:(id)change
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

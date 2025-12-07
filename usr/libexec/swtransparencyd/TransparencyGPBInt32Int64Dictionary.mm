@@ -1,4 +1,5 @@
 @interface TransparencyGPBInt32Int64Dictionary
+- (BOOL)getInt64:(int64_t *)int64 forKey:(int)key;
 - (BOOL)isEqual:(id)equal;
 - (TransparencyGPBInt32Int64Dictionary)initWithDictionary:(id)dictionary;
 - (TransparencyGPBInt32Int64Dictionary)initWithInt64s:(const int64_t *)int64s forKeys:(const int *)keys count:(unint64_t)count;
@@ -8,6 +9,8 @@
 - (void)dealloc;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndInt64sUsingBlock:(id)block;
+- (void)removeInt64ForKey:(int)key;
+- (void)setInt64:(int64_t)int64 forKey:(int)key;
 - (void)setTransparencyGPBGenericValue:(id *)value forTransparencyGPBGenericValueKey:(id *)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
@@ -193,6 +196,18 @@
   [(TransparencyGPBInt32Int64Dictionary *)self enumerateKeysAndInt64sUsingBlock:v3];
 }
 
+- (BOOL)getInt64:(int64_t *)int64 forKey:(int)key
+{
+  v5 = [(NSMutableDictionary *)self->_dictionary objectForKey:[NSNumber numberWithInt:*&key]];
+  v6 = v5;
+  if (int64 && v5)
+  {
+    *int64 = [v5 longLongValue];
+  }
+
+  return v6 != 0;
+}
+
 - (void)addEntriesFromDictionary:(id)dictionary
 {
   if (dictionary)
@@ -205,6 +220,25 @@
       sub_1000E2C68(autocreator, self);
     }
   }
+}
+
+- (void)setInt64:(int64_t)int64 forKey:(int)key
+{
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithLongLong:" numberWithLongLong:int64], [NSNumber numberWithInt:*&key]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    sub_1000E2C68(autocreator, self);
+  }
+}
+
+- (void)removeInt64ForKey:(int)key
+{
+  dictionary = self->_dictionary;
+  v4 = [NSNumber numberWithInt:*&key];
+
+  [(NSMutableDictionary *)dictionary removeObjectForKey:v4];
 }
 
 @end

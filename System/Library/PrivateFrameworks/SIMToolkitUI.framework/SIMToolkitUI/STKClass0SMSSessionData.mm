@@ -42,10 +42,8 @@
 
 - (void)encodeWithXPCDictionary:(id)dictionary
 {
-  body = self->_body;
   xdict = dictionary;
   BSSerializeStringToXPCDictionaryWithKey();
-  address = self->_address;
   BSSerializeStringToXPCDictionaryWithKey();
   xpc_dictionary_set_BOOL(xdict, "_showsFrom", self->_showsFromAddress);
 }

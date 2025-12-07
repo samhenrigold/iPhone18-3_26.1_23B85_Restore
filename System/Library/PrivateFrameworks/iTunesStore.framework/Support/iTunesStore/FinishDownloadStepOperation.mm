@@ -179,16 +179,14 @@
     v53 = databaseID;
     v54 = 2048;
     v55 = databaseID2;
-    LODWORD(v45) = 32;
-    v44 = &v50;
-    v17 = _os_log_send_and_compose_impl();
+    v17 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Downloading asset: %lld for download: %lld", &v50, 32);
 
     if (!v17)
     {
       goto LABEL_14;
     }
 
-    oSLogObject = [NSString stringWithCString:v17 encoding:4, &v50, v45];
+    oSLogObject = [NSString stringWithCString:v17 encoding:4];
     free(v17);
     v44 = oSLogObject;
     SSFileLog();
@@ -246,15 +244,14 @@ LABEL_14:
     v54 = 2048;
     v55 = databaseID4;
     LODWORD(v45) = 32;
-    v44 = &v50;
-    v29 = _os_log_send_and_compose_impl();
+    v29 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Installing asset: %lld for download: %lld", &v50, v45);
 
     if (!v29)
     {
       goto LABEL_27;
     }
 
-    oSLogObject2 = [NSString stringWithCString:v29 encoding:4, &v50, v45];
+    oSLogObject2 = [NSString stringWithCString:v29 encoding:4];
     free(v29);
     v44 = oSLogObject2;
     SSFileLog();
@@ -308,14 +305,14 @@ LABEL_31:
     v54 = 2048;
     v55 = databaseID6;
     LODWORD(v45) = 32;
-    v41 = _os_log_send_and_compose_impl();
+    v41 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Failed to download and install asset: %lld for download: %lld", &v50, v45);
 
     if (!v41)
     {
       goto LABEL_42;
     }
 
-    oSLogObject3 = [NSString stringWithCString:v41 encoding:4, &v50, v45];
+    oSLogObject3 = [NSString stringWithCString:v41 encoding:4];
     free(v41);
     SSFileLog();
   }
@@ -385,35 +382,34 @@ LABEL_45:
   if (v12)
   {
     v13 = objc_opt_class();
-    v23 = v13;
+    v22 = v13;
     databaseID = [assetCopy databaseID];
     assetType = [assetCopy assetType];
     databaseID2 = [(FinishDownloadMemoryEntity *)self->_download databaseID];
-    v25 = 138413058;
-    v26 = v13;
-    v27 = 2048;
-    v28 = databaseID;
-    v29 = 2112;
-    v30 = assetType;
-    v31 = 2048;
-    v32 = databaseID2;
-    LODWORD(v22) = 42;
-    v17 = _os_log_send_and_compose_impl();
+    v24 = 138413058;
+    v25 = v13;
+    v26 = 2048;
+    v27 = databaseID;
+    v28 = 2112;
+    v29 = assetType;
+    v30 = 2048;
+    v31 = databaseID2;
+    v17 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Downloading asset: %lld with type: %@ for download: %lld", &v24, 42);
 
     if (!v17)
     {
       goto LABEL_14;
     }
 
-    oSLogObject = [NSString stringWithCString:v17 encoding:4, &v25, v22];
+    oSLogObject = [NSString stringWithCString:v17 encoding:4];
     free(v17);
     SSFileLog();
   }
 
 LABEL_14:
-  v24 = 0;
-  v18 = [(FinishDownloadStepOperation *)self runSubOperation:v7 returningError:&v24];
-  v19 = v24;
+  v23 = 0;
+  v18 = [(FinishDownloadStepOperation *)self runSubOperation:v7 returningError:&v23];
+  v19 = v23;
   if (!error)
   {
     goto LABEL_19;
@@ -564,13 +560,12 @@ LABEL_10:
     if (v34)
     {
       LOWORD(v71) = 0;
-      LODWORD(v59) = 2;
-      v35 = _os_log_send_and_compose_impl();
+      v35 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "DownloadInstaller: Missing destination path", &v71, 2);
 
       v29 = lastPathComponent;
       if (v35)
       {
-        v36 = [NSString stringWithCString:v35 encoding:4, &v71, v59];
+        v36 = [NSString stringWithCString:v35 encoding:4];
         free(v35);
         SSFileLog();
       }
@@ -654,8 +649,7 @@ LABEL_3:
         v71 = 138412290;
         v72 = v22;
         LODWORD(v59) = 12;
-        v58 = &v71;
-        v53 = _os_log_send_and_compose_impl();
+        v53 = _os_log_send_and_compose_impl(v52, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "DownloadInstaller: File move failed: %@", &v71, v59);
 
         v29 = lastPathComponent;
         if (!v53)
@@ -665,7 +659,7 @@ LABEL_66:
           goto LABEL_67;
         }
 
-        oSLogObject2 = [NSString stringWithCString:v53 encoding:4, &v71, v59];
+        oSLogObject2 = [NSString stringWithCString:v53 encoding:4];
         free(v53);
         v58 = oSLogObject2;
         SSFileLog();
@@ -726,8 +720,7 @@ LABEL_66:
         v71 = 138412290;
         v72 = v22;
         LODWORD(v59) = 12;
-        v58 = &v71;
-        v28 = _os_log_send_and_compose_impl();
+        v28 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "DownloadInstaller: File delete failed: %@", &v71, v59);
 
         v29 = lastPathComponent;
         if (!v28)
@@ -746,7 +739,7 @@ LABEL_35:
           goto LABEL_68;
         }
 
-        oSLogObject3 = [NSString stringWithCString:v28 encoding:4, &v71, v59];
+        oSLogObject3 = [NSString stringWithCString:v28 encoding:4];
         free(v28);
         v58 = oSLogObject3;
         SSFileLog();
@@ -810,12 +803,11 @@ LABEL_35:
     v29 = lastPathComponent;
     v72 = lastPathComponent;
     LODWORD(v59) = 12;
-    v58 = &v71;
-    v47 = _os_log_send_and_compose_impl();
+    v47 = _os_log_send_and_compose_impl(v46, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "DownloadInstaller: File rename failed after too many tries: %@", &v71, v59);
 
     if (v47)
     {
-      oSLogObject4 = [NSString stringWithCString:v47 encoding:4, &v71, v59];
+      oSLogObject4 = [NSString stringWithCString:v47 encoding:4];
       free(v47);
       v58 = oSLogObject4;
       SSFileLog();
@@ -871,49 +863,53 @@ LABEL_69:
     shouldLog = [v21 shouldLog];
     if ([v21 shouldLogToDisk])
     {
-      v23 = shouldLog | 2;
+      LODWORD(v23) = shouldLog | 2;
     }
 
     else
     {
-      v23 = shouldLog;
+      LODWORD(v23) = shouldLog;
     }
 
     oSLogObject = [v21 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v23 = v23;
+    }
+
+    else
     {
       v23 &= 2u;
     }
 
     if (v23)
     {
-      v38 = 138543618;
-      v39 = objc_opt_class();
-      v40 = 2114;
-      v41 = v10;
-      v25 = v39;
-      LODWORD(v36) = 22;
-      v26 = _os_log_send_and_compose_impl();
+      v37 = 138543618;
+      v38 = objc_opt_class();
+      v39 = 2114;
+      v40 = v10;
+      v25 = v38;
+      v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Installed asset couldn't be found at %{public}@. Reporting successful removal.", &v37, 22);
 
       if (!v26)
       {
-LABEL_26:
+LABEL_28:
 
         v12 = 0;
-        goto LABEL_27;
+        goto LABEL_29;
       }
 
-      oSLogObject = [NSString stringWithCString:v26 encoding:4, &v38, v36];
+      oSLogObject = [NSString stringWithCString:v26 encoding:4];
       free(v26);
       SSFileLog();
     }
 
-    goto LABEL_26;
+    goto LABEL_28;
   }
 
-  v37 = 0;
-  v11 = [v7 removeItemAtPath:v10 error:&v37];
-  v12 = v37;
+  v36 = 0;
+  v11 = [v7 removeItemAtPath:v10 error:&v36];
+  v12 = v36;
   v13 = +[SSLogConfig sharedDaemonConfig];
   v14 = v13;
   if (v11)
@@ -926,16 +922,21 @@ LABEL_26:
     shouldLog2 = [v14 shouldLog];
     if ([v14 shouldLogToDisk])
     {
-      v16 = shouldLog2 | 2;
+      LODWORD(v16) = shouldLog2 | 2;
     }
 
     else
     {
-      v16 = shouldLog2;
+      LODWORD(v16) = shouldLog2;
     }
 
     oSLogObject2 = [v14 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
@@ -943,29 +944,28 @@ LABEL_26:
     if (v16)
     {
       v18 = objc_opt_class();
-      v38 = 138543618;
-      v39 = v18;
-      v40 = 2114;
-      v41 = v10;
+      v37 = 138543618;
+      v38 = v18;
+      v39 = 2114;
+      v40 = v10;
       v19 = v18;
-      LODWORD(v36) = 22;
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Removing installed file at: %{public}@.", &v37, 22);
 
       if (!v20)
       {
-LABEL_14:
+LABEL_15:
 
-LABEL_27:
+LABEL_29:
         v27 = 1;
-        goto LABEL_28;
+        goto LABEL_30;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v20 encoding:4, &v38, v36];
+      oSLogObject2 = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   if (!v13)
@@ -976,16 +976,21 @@ LABEL_27:
   shouldLog3 = [v14 shouldLog];
   if ([v14 shouldLogToDisk])
   {
-    v30 = shouldLog3 | 2;
+    LODWORD(v30) = shouldLog3 | 2;
   }
 
   else
   {
-    v30 = shouldLog3;
+    LODWORD(v30) = shouldLog3;
   }
 
   oSLogObject3 = [v14 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  {
+    v30 = v30;
+  }
+
+  else
   {
     v30 &= 2u;
   }
@@ -993,27 +998,26 @@ LABEL_27:
   if (v30)
   {
     v32 = objc_opt_class();
-    v38 = 138543874;
-    v39 = v32;
-    v40 = 2114;
-    v41 = v10;
-    v42 = 2114;
-    v43 = v12;
+    v37 = 138543874;
+    v38 = v32;
+    v39 = 2114;
+    v40 = v10;
+    v41 = 2114;
+    v42 = v12;
     v33 = v32;
-    LODWORD(v36) = 32;
-    v34 = _os_log_send_and_compose_impl();
+    v34 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject3, 16, "%{public}@: Installed asset removal at %{public}@ failed with error: %{public}@.", &v37, 32);
 
     if (!v34)
     {
-      goto LABEL_40;
+      goto LABEL_43;
     }
 
-    oSLogObject3 = [NSString stringWithCString:v34 encoding:4, &v38, v36];
+    oSLogObject3 = [NSString stringWithCString:v34 encoding:4];
     free(v34);
     SSFileLog();
   }
 
-LABEL_40:
+LABEL_43:
   if (error)
   {
     v35 = v12;
@@ -1026,7 +1030,7 @@ LABEL_40:
     v27 = 0;
   }
 
-LABEL_28:
+LABEL_30:
 
   return v27;
 }
@@ -1059,7 +1063,7 @@ LABEL_28:
 
   if (![v7 fileExistsAtPath:v10])
   {
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   errorCopy = error;
@@ -1075,19 +1079,24 @@ LABEL_6:
       v15 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v15 shouldLog];
+    LODWORD(v16) = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      shouldLog |= 2u;
+      LODWORD(v16) = v16 | 2;
     }
 
     oSLogObject = [v15 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog &= 2u;
+      v16 = v16;
     }
 
-    if (shouldLog)
+    else
+    {
+      v16 &= 2u;
+    }
+
+    if (v16)
     {
       v18 = objc_opt_class();
       v39 = 138412546;
@@ -1096,15 +1105,13 @@ LABEL_6:
       v42 = localPath;
       v19 = localPath;
       v20 = v18;
-      LODWORD(v33) = 22;
-      v32 = &v39;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Rolling file back to %@", &v39, 22);
 
       localPath = v19;
       v8 = v35;
       if (!v21)
       {
-LABEL_16:
+LABEL_17:
 
         v37 = v13;
         v22 = [v7 moveItemAtPath:v10 toPath:localPath error:&v37];
@@ -1112,22 +1119,22 @@ LABEL_16:
 
         if (!v22)
         {
-          goto LABEL_19;
+          goto LABEL_20;
         }
 
-LABEL_18:
+LABEL_19:
         v14 = 0;
         v23 = 1;
-        goto LABEL_32;
+        goto LABEL_34;
       }
 
-      oSLogObject = [NSString stringWithCString:v21 encoding:4, &v39, v33];
+      oSLogObject = [NSString stringWithCString:v21 encoding:4];
       free(v21);
       v32 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   v38 = 0;
@@ -1139,7 +1146,7 @@ LABEL_18:
     goto LABEL_6;
   }
 
-LABEL_19:
+LABEL_20:
   v34 = localPath;
   v24 = +[SSLogConfig sharedDaemonConfig];
   if (!v24)
@@ -1147,19 +1154,24 @@ LABEL_19:
     v24 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v24 shouldLog];
+  LODWORD(v25) = [v24 shouldLog];
   if ([v24 shouldLogToDisk])
   {
-    shouldLog2 |= 2u;
+    LODWORD(v25) = v25 | 2;
   }
 
   oSLogObject2 = [v24 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
   {
-    shouldLog2 &= 2u;
+    v25 = v25;
   }
 
-  if (shouldLog2)
+  else
+  {
+    v25 &= 2u;
+  }
+
+  if (v25)
   {
     v27 = objc_opt_class();
     v39 = 138412546;
@@ -1168,20 +1180,20 @@ LABEL_19:
     v42 = v14;
     v28 = v27;
     LODWORD(v33) = 22;
-    v29 = _os_log_send_and_compose_impl();
+    v29 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: File rollback failed: %@", &v39, v33);
 
     localPath = v34;
     if (!v29)
     {
-      goto LABEL_29;
+      goto LABEL_31;
     }
 
-    oSLogObject2 = [NSString stringWithCString:v29 encoding:4, &v39, v33];
+    oSLogObject2 = [NSString stringWithCString:v29 encoding:4];
     free(v29);
     SSFileLog();
   }
 
-LABEL_29:
+LABEL_31:
   [v7 removeItemAtPath:v10 error:0];
 
   if (errorCopy)
@@ -1196,7 +1208,7 @@ LABEL_29:
     v23 = 0;
   }
 
-LABEL_32:
+LABEL_34:
 
   return v23;
 }
@@ -1280,15 +1292,15 @@ LABEL_6:
 - (BOOL)writeBinaryPropertyList:(id)list toPath:(id)path error:(id *)error
 {
   pathCopy = path;
-  v31 = 0;
-  v8 = [NSPropertyListSerialization dataWithPropertyList:list format:200 options:0 error:&v31];
-  v9 = v31;
+  v30 = 0;
+  v8 = [NSPropertyListSerialization dataWithPropertyList:list format:200 options:0 error:&v30];
+  v9 = v30;
   v10 = v9;
   if (v8)
   {
-    v30 = v9;
-    v11 = [v8 writeToFile:pathCopy options:1 error:&v30];
-    v12 = v30;
+    v29 = v9;
+    v11 = [v8 writeToFile:pathCopy options:1 error:&v29];
+    v12 = v29;
 
     v13 = +[SSLogConfig sharedDaemonConfig];
     v14 = v13;
@@ -1323,10 +1335,9 @@ LABEL_6:
 
       if (v18)
       {
-        v32 = 138412290;
-        v33 = pathCopy;
-        LODWORD(v29) = 12;
-        v19 = _os_log_send_and_compose_impl();
+        v31 = 138412290;
+        v32 = pathCopy;
+        v19 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "DownloadInstaller: Wrote plist to: %@", &v31, 12);
 
         if (!v19)
         {
@@ -1336,7 +1347,7 @@ LABEL_15:
           goto LABEL_41;
         }
 
-        oSLogObject = [NSString stringWithCString:v19 encoding:4, &v32, v29];
+        oSLogObject = [NSString stringWithCString:v19 encoding:4];
         free(v19);
         SSFileLog();
       }
@@ -1371,10 +1382,9 @@ LABEL_15:
       goto LABEL_37;
     }
 
-    v32 = 138412290;
-    v33 = v12;
-    LODWORD(v29) = 12;
-    v24 = _os_log_send_and_compose_impl();
+    v31 = 138412290;
+    v32 = v12;
+    v24 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "DownloadInstaller: Could not write plist: %@", &v31, 12);
 
     if (!v24)
     {
@@ -1413,16 +1423,15 @@ LABEL_15:
     goto LABEL_37;
   }
 
-  v32 = 138412290;
-  v33 = v10;
-  LODWORD(v29) = 12;
-  v24 = _os_log_send_and_compose_impl();
+  v31 = 138412290;
+  v32 = v10;
+  v24 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "DownloadInstaller: Could not serialize plist: %@", &v31, 12);
 
   v12 = v10;
   if (v24)
   {
 LABEL_35:
-    oSLogObject2 = [NSString stringWithCString:v24 encoding:4, &v32, v29];
+    oSLogObject2 = [NSString stringWithCString:v24 encoding:4];
     free(v24);
     SSFileLog();
 LABEL_37:

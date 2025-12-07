@@ -59,7 +59,7 @@
 
 - (id)routerForMethod:(id)method path:(id)path
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   methodCopy = method;
   pathCopy = path;
   if ([pathCopy characterAtIndex:{objc_msgSend(pathCopy, "length") - 1}] != 47)
@@ -79,9 +79,9 @@
   {
     v10 = [pathComponents objectAtIndexedSubscript:0];
     v11 = [pathComponents objectAtIndexedSubscript:{1, v10}];
-    v19[1] = v11;
-    v19[2] = @"/";
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+    v18[1] = v11;
+    v18[2] = @"/";
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
     v13 = [v12 componentsJoinedByString:&stru_286A8E730];
   }
 
@@ -105,8 +105,6 @@
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

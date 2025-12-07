@@ -1,5 +1,5 @@
 @interface DDDevicePickerViewControllerTV
-+ (uint64_t)isSupportedForBrowseDescriptor:parameters:;
++ (uint64_t)isSupportedForBrowseDescriptor:(uint64_t)descriptor parameters:(uint64_t)parameters;
 - (DDDevicePickerViewControllerTV)initWithBrowseDescriptor:(id)descriptor parameters:(id)parameters;
 - (id)_errorForDismissResult:(void *)error_with_inferred_domain;
 - (void)_invokeCompletionWithEndpoint:(void *)endpoint orError:;
@@ -9,11 +9,13 @@
 - (void)scene:(id)scene didReceiveActions:(id)actions;
 - (void)scene:(id)scene didUpdateClientSettingsWithDiff:(id)diff oldClientSettings:(id)settings transitionContext:(id)context;
 - (void)sceneDidDeactivate:(id)deactivate withError:(id)error;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation DDDevicePickerViewControllerTV
 
-+ (uint64_t)isSupportedForBrowseDescriptor:parameters:
++ (uint64_t)isSupportedForBrowseDescriptor:(uint64_t)descriptor parameters:(uint64_t)parameters
 {
   objc_opt_self();
   if (isSupportedForBrowseDescriptor_parameters__onceToken_0 != -1)
@@ -34,14 +36,14 @@ void __76__DDDevicePickerViewControllerTV_isSupportedForBrowseDescriptor_paramet
 {
   descriptorCopy = descriptor;
   parametersCopy = parameters;
-  v13.receiver = self;
-  v13.super_class = DDDevicePickerViewControllerTV;
-  v9 = [(DDDevicePickerViewControllerTV *)&v13 initWithNibName:0 bundle:0];
+  v14.receiver = self;
+  v14.super_class = DDDevicePickerViewControllerTV;
+  v9 = [(DDDevicePickerViewControllerTV *)&v14 initWithNibName:0 bundle:0];
   if (v9)
   {
     if (nw_browse_descriptor_get_type() == 2)
     {
-      if ((+[DDDevicePickerViewControllerTV isSupportedForBrowseDescriptor:parameters:]& 1) != 0)
+      if (([DDDevicePickerViewControllerTV isSupportedForBrowseDescriptor:v10 parameters:?]& 1) != 0)
       {
         if (initWithBrowseDescriptor_parameters__onceToken[0] != -1)
         {
@@ -54,31 +56,31 @@ void __76__DDDevicePickerViewControllerTV_isSupportedForBrowseDescriptor_paramet
         goto LABEL_7;
       }
 
-      v11 = _DDUICoreLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = _DDUICoreLog();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [DDDevicePickerViewControllerTV initWithBrowseDescriptor:v11 parameters:?];
+        [DDDevicePickerViewControllerTV initWithBrowseDescriptor:v12 parameters:?];
       }
     }
 
     else
     {
-      v11 = _DDUICoreLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = _DDUICoreLog();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [DDDevicePickerSceneViewController initWithBrowseDescriptor:descriptorCopy parameters:v11];
+        [DDDevicePickerSceneViewController initWithBrowseDescriptor:descriptorCopy parameters:v12];
       }
     }
 
-    v10 = 0;
+    v11 = 0;
     goto LABEL_13;
   }
 
 LABEL_7:
-  v10 = v9;
+  v11 = v9;
 LABEL_13:
 
-  return v10;
+  return v11;
 }
 
 uint64_t __70__DDDevicePickerViewControllerTV_initWithBrowseDescriptor_parameters___block_invoke()
@@ -110,6 +112,35 @@ uint64_t __70__DDDevicePickerViewControllerTV_initWithBrowseDescriptor_parameter
   v7.receiver = self;
   v7.super_class = DDDevicePickerViewControllerTV;
   [(DDDevicePickerViewControllerTV *)&v7 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = DDDevicePickerViewControllerTV;
+  [(DDDevicePickerViewControllerTV *)&v8 viewWillAppear:appear];
+  presentationController = [(DDDevicePickerViewControllerTV *)self presentationController];
+  presentationStyle = [presentationController presentationStyle];
+
+  if (presentationStyle != 5)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"DDDevicePickerViewControllerTV.m" lineNumber:130 description:@"DDDevicePickerViewController only supports modal full screen presentation style."];
+  }
+
+  [(DDDevicePickerViewControllerTV *)self _setupScene];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = DDDevicePickerViewControllerTV;
+  [(DDDevicePickerViewControllerTV *)&v6 viewWillDisappear:disappear];
+  focusDeferralAssertion = [(DDDevicePickerViewControllerTV *)self focusDeferralAssertion];
+  [focusDeferralAssertion invalidate];
+
+  focusDeferralAssertion = self->_focusDeferralAssertion;
+  self->_focusDeferralAssertion = 0;
 }
 
 void __45__DDDevicePickerViewControllerTV__setupScene__block_invoke(uint64_t a1, void *a2)
@@ -169,7 +200,7 @@ void __45__DDDevicePickerViewControllerTV__setupScene__block_invoke_5(uint64_t a
 
 void __45__DDDevicePickerViewControllerTV__setupScene__block_invoke_7(uint64_t a1, int a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *(*(a1 + 32) + 1048);
   if (v6)
@@ -180,22 +211,7 @@ void __45__DDDevicePickerViewControllerTV__setupScene__block_invoke_7(uint64_t a
     *(v7 + 1048) = 0;
   }
 
-  if (!a2)
-  {
-    goto LABEL_7;
-  }
-
-  v9 = *(*(a1 + 32) + 1024);
-  if (!v9)
-  {
-    goto LABEL_7;
-  }
-
-  v10 = [v9 clientHandle];
-  v11 = [v10 processHandle];
-  v12 = [v11 pid];
-
-  if (v12)
+  if (a2 && (v9 = *(*(a1 + 32) + 1024)) != 0 && ([v9 clientHandle], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "processHandle"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "pid"), v11, v10, v12))
   {
     v13 = objc_alloc_init(MEMORY[0x277CF0728]);
     v14 = objc_alloc_init(MEMORY[0x277CF0740]);
@@ -218,20 +234,17 @@ void __45__DDDevicePickerViewControllerTV__setupScene__block_invoke_7(uint64_t a
 
   else
   {
-LABEL_7:
     v13 = _DDUICoreLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v25 = *(*(a1 + 32) + 1024);
-      v27 = 138412546;
-      v28 = v5;
-      v29 = 2112;
-      v30 = v25;
-      _os_log_impl(&dword_238060000, v13, OS_LOG_TYPE_DEFAULT, "Scene update completed, unable to defer events with error: %@ for scene: %@", &v27, 0x16u);
+      v26 = 138412546;
+      v27 = v5;
+      v28 = 2112;
+      v29 = v25;
+      _os_log_impl(&dword_238060000, v13, OS_LOG_TYPE_DEFAULT, "Scene update completed, unable to defer events with error: %@ for scene: %@", &v26, 0x16u);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sceneDidDeactivate:(id)deactivate withError:(id)error
@@ -283,7 +296,7 @@ LABEL_7:
         v12 = *(*(&v18 + 1) + 8 * i);
         if ([v12 UIActionType] == 12)
         {
-          [DDDevicePickerViewControllerTV scene:? didReceiveActions:?];
+          [DDDevicePickerViewControllerTV scene:v13 didReceiveActions:?];
         }
 
         objc_opt_class();
@@ -295,16 +308,16 @@ LABEL_7:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v13 = v12;
-          if (![v13 debugErrorActionContext])
+          v14 = v12;
+          if (![v14 debugErrorActionContext])
           {
-            v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:nw_browse_descriptor_get_application_service_name(self->_browseDescriptor)];
-            v15 = _DDUICoreLog();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+            v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:nw_browse_descriptor_get_application_service_name(self->_browseDescriptor)];
+            v16 = _DDUICoreLog();
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v23 = v14;
-              _os_log_error_impl(&dword_238060000, v15, OS_LOG_TYPE_ERROR, "WARNING: Selected device does not support application service %@ in its Info.plist", buf, 0xCu);
+              v23 = v15;
+              _os_log_error_impl(&dword_238060000, v16, OS_LOG_TYPE_ERROR, "WARNING: Selected device does not support application service %@ in its Info.plist", buf, 0xCu);
             }
           }
         }
@@ -315,13 +328,11 @@ LABEL_7:
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scene:(id)scene didUpdateClientSettingsWithDiff:(id)diff oldClientSettings:(id)settings transitionContext:(id)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   clientSettings = [scene clientSettings];
   endpointUUID = [clientSettings endpointUUID];
   agentUUID = [clientSettings agentUUID];
@@ -332,10 +343,10 @@ LABEL_7:
     {
       *buf = 138412802;
       selfCopy = self;
-      v18 = 2112;
-      v19 = endpointUUID;
-      v20 = 2112;
-      v21 = agentUUID;
+      v17 = 2112;
+      v18 = endpointUUID;
+      v19 = 2112;
+      v20 = agentUUID;
       _os_log_impl(&dword_238060000, v10, OS_LOG_TYPE_DEFAULT, "%@ Did receive endpoint UUID %@ agent UUID %@", buf, 0x20u);
     }
 
@@ -345,14 +356,12 @@ LABEL_7:
       block[1] = 3221225472;
       block[2] = __108__DDDevicePickerViewControllerTV_scene_didUpdateClientSettingsWithDiff_oldClientSettings_transitionContext___block_invoke;
       block[3] = &unk_278A484E0;
-      v13 = endpointUUID;
-      v14 = agentUUID;
+      v12 = endpointUUID;
+      v13 = agentUUID;
       selfCopy2 = self;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tearDownScene
@@ -360,15 +369,15 @@ LABEL_7:
   v12 = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v2 = _DDUICoreLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = _DDUICoreLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = self[128];
+      v4 = self[128];
       v8 = 138412546;
-      v9 = v3;
+      v9 = v4;
       v10 = 1024;
-      isValid = [v3 isValid];
-      _os_log_impl(&dword_238060000, v2, OS_LOG_TYPE_DEFAULT, "Destroying scene %@ isValid? %d", &v8, 0x12u);
+      isValid = [v4 isValid];
+      _os_log_impl(&dword_238060000, v3, OS_LOG_TYPE_DEFAULT, "Destroying scene %@ isValid? %d", &v8, 0x12u);
     }
 
     [self setWasInvalidated:1];
@@ -377,17 +386,15 @@ LABEL_7:
 
     [self setFocusDeferralAssertion:0];
     [self[129] invalidate];
-    v5 = self[129];
+    v6 = self[129];
     self[129] = 0;
 
     [self[128] setDelegate:0];
     [self[128] removeObserver:self];
     [self[128] invalidate];
-    v6 = self[128];
+    v7 = self[128];
     self[128] = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupScene
@@ -483,7 +490,7 @@ LABEL_7:
   if (error_with_inferred_domain)
   {
     error_with_inferred_domain = nw_error_create_error_with_inferred_domain();
-    v1 = vars8;
+    v2 = vars8;
   }
 
   return error_with_inferred_domain;
@@ -491,7 +498,7 @@ LABEL_7:
 
 - (void)_invokeCompletionWithEndpoint:(void *)endpoint orError:
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   endpointCopy = endpoint;
   if (self)
@@ -507,13 +514,13 @@ LABEL_7:
         v10 = _DDUICoreLog();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = 134218498;
+          v12 = 134218498;
           selfCopy = self;
-          v15 = 2112;
-          v16 = v5;
-          v17 = 2112;
-          v18 = endpointCopy;
-          _os_log_impl(&dword_238060000, v10, OS_LOG_TYPE_DEFAULT, "%p Invoking completion, with endpoint %@ or error %@", &v13, 0x20u);
+          v14 = 2112;
+          v15 = v5;
+          v16 = 2112;
+          v17 = endpointCopy;
+          _os_log_impl(&dword_238060000, v10, OS_LOG_TYPE_DEFAULT, "%p Invoking completion, with endpoint %@ or error %@", &v12, 0x20u);
         }
 
         devicePickerCompletionHandler2 = [self devicePickerCompletionHandler];
@@ -523,8 +530,6 @@ LABEL_7:
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __108__DDDevicePickerViewControllerTV_scene_didUpdateClientSettingsWithDiff_oldClientSettings_transitionContext___block_invoke(uint64_t a1)
@@ -567,31 +572,28 @@ void __108__DDDevicePickerViewControllerTV_scene_didUpdateClientSettingsWithDiff
   }
 
   [(DDDevicePickerViewControllerTV *)*(a1 + 48) _invokeCompletionWithEndpoint:error_with_inferred_domain orError:?];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sceneDidDeactivate:(os_log_t)log withError:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_238060000, log, OS_LOG_TYPE_ERROR, "%p Scene deactivated with error %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_238060000, log, OS_LOG_TYPE_ERROR, "%p Scene deactivated with error %@", &v3, 0x16u);
 }
 
-- (void)scene:(id *)a1 didReceiveActions:.cold.1(id *a1)
+- (void)scene:(id *)a1 didReceiveActions:(uint64_t)a2 .cold.1(id *a1, uint64_t a2)
 {
   [(DDDevicePickerViewControllerTV *)a1 _tearDownScene];
   [a1 dismissViewControllerAnimated:1 completion:0];
-  v2 = [a1 devicePickerCanceledHandler];
+  v3 = [a1 devicePickerCanceledHandler];
 
-  if (v2)
+  if (v3)
   {
-    v3 = [a1 devicePickerCanceledHandler];
-    v3[2]();
+    v4 = [a1 devicePickerCanceledHandler];
+    v4[2]();
   }
 }
 
@@ -608,8 +610,8 @@ void __108__DDDevicePickerViewControllerTV_scene_didUpdateClientSettingsWithDiff
       __CRASHING_DUE_TO_PRIVACY_VIOLATION__();
     }
 
-    v5 = [DDDevicePickerViewControllerTV _errorForDismissResult:a2];
-    [(DDDevicePickerViewControllerTV *)a2 _invokeCompletionWithEndpoint:v5 orError:?];
+    v6 = [(DDDevicePickerViewControllerTV *)a2 _errorForDismissResult:v4];
+    [(DDDevicePickerViewControllerTV *)a2 _invokeCompletionWithEndpoint:v6 orError:?];
   }
 }
 

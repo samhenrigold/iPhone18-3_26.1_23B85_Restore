@@ -43,7 +43,7 @@
       v16 = 34;
       v17 = 2114;
       v18 = 0;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, errorStr, 0, "[wifivelocity] %s (%s:%u) init error (error='%{public}@'", &v11, 38);
     }
   }
 

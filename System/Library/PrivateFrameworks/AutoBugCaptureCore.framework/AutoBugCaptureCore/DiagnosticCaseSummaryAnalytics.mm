@@ -4,6 +4,7 @@
 + (id)stringRepresentationOfAttachmentsWithSize:(id)size;
 + (void)extractPbAttachmentsFromString:(id)string completion:(id)completion;
 - (DiagnosticCaseSummaryAnalytics)init;
+- (DiagnosticCaseSummaryAnalytics)initWithWorkspace:(id)workspace withCache:(BOOL)cache;
 - (id)diagnosticCaseSummaryDictionaryForIdentifier:(id)identifier properties:(id)properties;
 - (id)fetchCaseSummariesOfType:(id)type fromIdentifier:(id)identifier count:(unint64_t)count;
 - (id)fetchCaseSummariesWithIdentifiers:(id)identifiers;
@@ -23,6 +24,13 @@
   v4 = [(ObjectAnalytics *)&v6 initWithWorkspace:v3 entityName:@"DiagnosticCaseSummary" withCache:1];
 
   return v4;
+}
+
+- (DiagnosticCaseSummaryAnalytics)initWithWorkspace:(id)workspace withCache:(BOOL)cache
+{
+  v5.receiver = self;
+  v5.super_class = DiagnosticCaseSummaryAnalytics;
+  return [(ObjectAnalytics *)&v5 initWithWorkspace:workspace entityName:@"DiagnosticCaseSummary" withCache:cache];
 }
 
 - (void)insertEntityForDiagnosticCase:(id)case
@@ -85,53 +93,51 @@
 
 - (void)updateSubmittedCases:(id)cases
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   casesCopy = cases;
-  v4 = summaryLogHandle();
+  v4 = summaryLogHandle(casesCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v17 = [casesCopy count];
+    v16 = [casesCopy count];
     _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEFAULT, "DiagnosticCaseSummaryLog: Update caseSummaryState to Submitted for %ld case(s)", buf, 0xCu);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = casesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) setCaseSummaryState:{1, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) setCaseSummaryState:{1, v10}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)removeDiagnosticCaseSummariesWithState:(signed __int16)state olderThan:(unint64_t)than
 {
   stateCopy = state;
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v6 = (86400 * than);
   date = [MEMORY[0x277CBEAA8] date];
   v8 = [date dateByAddingTimeInterval:-v6];
@@ -139,13 +145,12 @@
   v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K <= %@", @"caseCreatedTime", v8];
   stateCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseSummaryState == %d", stateCopy];
   v11 = MEMORY[0x277CCA920];
-  v17[0] = v9;
-  v17[1] = stateCopy;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[0] = v9;
+  v16[1] = stateCopy;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   v13 = [v11 andPredicateWithSubpredicates:v12];
 
   v14 = [(ObjectAnalytics *)self removeEntitiesMatching:v13];
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -158,29 +163,29 @@
 
 - (id)fetchCaseSummariesWithIdentifiers:(id)identifiers
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v6 = identifiersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         if ([v11 length])
         {
           v12 = [MEMORY[0x277CCAC30] predicateWithFormat:@"caseID == %@", v11];
@@ -188,7 +193,7 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v8);
@@ -199,8 +204,8 @@
     v13 = [MEMORY[0x277CCA920] orPredicateWithSubpredicates:v5];
     v14 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"caseCreatedTime" ascending:0];
     v15 = +[DiagnosticCaseSummaryAnalytics listCaseSummaryProperties];
-    v24 = v14;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+    v23 = v14;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
     v17 = [(ObjectAnalytics *)self fetchEntityDictionariesWithProperties:v15 predicate:v13 sortDescriptors:v16 limit:0];
   }
 
@@ -209,14 +214,12 @@
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)fetchCaseSummariesOfType:(id)type fromIdentifier:(id)identifier count:(unint64_t)count
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   identifierCopy = identifier;
   v10 = objc_opt_new();
@@ -267,11 +270,9 @@ LABEL_6:
   }
 
   v20 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"caseCreatedTime" ascending:0];
-  v25[0] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  v24[0] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
   v22 = [(ObjectAnalytics *)self fetchEntityDictionariesWithProperties:v13 predicate:v19 sortDescriptors:v21 limit:count];
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -288,30 +289,30 @@ LABEL_6:
 
 + (id)listSummaryItemFromCaseSummaryDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = objc_opt_new();
   context = objc_autoreleasePoolPush();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = +[DiagnosticCaseSummaryAnalytics listCaseSummaryProperties];
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [dictionaryCopy objectForKey:v10];
         if (v11)
         {
@@ -360,14 +361,13 @@ LABEL_18:
 LABEL_19:
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
 
   objc_autoreleasePoolPop(context);
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -506,19 +506,19 @@ LABEL_19:
         v63 = v41;
         [DiagnosticCaseSummaryAnalytics extractPbAttachmentsFromString:caseAttachments completion:v62];
 
-        v42 = summaryLogHandle();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+        v43 = summaryLogHandle(v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
         {
           caseID2 = [v11 caseID];
           caseGroupID3 = [v11 caseGroupID];
-          v45 = caseGroupID3;
-          v46 = @"(no grpID)";
+          v46 = caseGroupID3;
+          v47 = @"(no grpID)";
           if (caseGroupID3)
           {
-            v46 = caseGroupID3;
+            v47 = caseGroupID3;
           }
 
-          v58 = v46;
+          v58 = v47;
           caseDomain2 = [v11 caseDomain];
           caseType2 = [v11 caseType];
           caseSubtype2 = [v11 caseSubtype];
@@ -541,7 +541,7 @@ LABEL_19:
           v81 = caseDetectedProcess2;
           v82 = 2113;
           v83 = caseAttachments2;
-          _os_log_impl(&dword_241804000, v42, OS_LOG_TYPE_DEBUG, "DiagnosticCaseSummaryLog: Processed case: %{private}@/%{private}@ {%{private}@/%{private}@/%{private}@/%{private}@/%{private}@-%{private}@}", buf, 0x52u);
+          _os_log_impl(&dword_241804000, v43, OS_LOG_TYPE_DEBUG, "DiagnosticCaseSummaryLog: Processed case: %{private}@/%{private}@ {%{private}@/%{private}@/%{private}@/%{private}@/%{private}@-%{private}@}", buf, 0x52u);
 
           v9 = v56;
         }
@@ -556,8 +556,6 @@ LABEL_19:
 
     while (v60);
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 
   return v59;
 }
@@ -607,32 +605,32 @@ void __76__DiagnosticCaseSummaryAnalytics_stringRepresentationOfAttachmentsWithS
 
 + (void)extractPbAttachmentsFromString:(id)string completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   completionCopy = completion;
-  v19 = stringCopy;
-  v20 = objc_opt_new();
+  v18 = stringCopy;
+  v19 = objc_opt_new();
   v6 = [stringCopy componentsSeparatedByString:{@", "}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = [*(*(&v21 + 1) + 8 * i) componentsSeparatedByString:@":"];
+        v12 = [*(*(&v20 + 1) + 8 * i) componentsSeparatedByString:@":"];
         if ([v12 count])
         {
           firstObject = [v12 firstObject];
@@ -645,13 +643,13 @@ void __76__DiagnosticCaseSummaryAnalytics_stringRepresentationOfAttachmentsWithS
             v16 = objc_opt_new();
             [v16 setFileName:firstObject];
             [v16 setFileSize:longLongValue];
-            [v20 addObject:v16];
+            [v19 addObject:v16];
             v9 = (v9 + longLongValue);
           }
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
@@ -664,10 +662,8 @@ void __76__DiagnosticCaseSummaryAnalytics_stringRepresentationOfAttachmentsWithS
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy, v20, v9);
+    completionCopy[2](completionCopy, v19, v9);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

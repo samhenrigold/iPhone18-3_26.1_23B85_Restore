@@ -165,7 +165,6 @@
   objc_storeStrong(&v29, 0);
   objc_storeStrong(&v30, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v36;
 
   return v3;
@@ -189,8 +188,6 @@
     obj = MEMORY[0x277D82BE0](v49);
     if ([obj countByEnumeratingWithState:__b objects:v59 count:16])
     {
-      *__b[2];
-      *__b[2];
       v47 = *__b[1];
       v5 = [v49 objectForKey:v47];
       v6 = v48;
@@ -394,7 +391,6 @@
 
   objc_storeStrong(&v51, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v12 = v54;
 
   return v12;
@@ -566,7 +562,6 @@
   objc_storeStrong(&v43, 0);
   objc_storeStrong(&v44, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v8 = v46;
 
   return v8;
@@ -687,7 +682,6 @@
   }
 
   objc_storeStrong(&v30, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v36;
 
   return v4;
@@ -1023,7 +1017,6 @@
   objc_storeStrong(&v72, 0);
   objc_storeStrong(&v73, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v16 = v75;
 
   return v16;
@@ -1329,7 +1322,6 @@ uint64_t __41__AMDSQLite_getSharedInstanceWithOption___block_invoke(id *a1)
   MEMORY[0x277D82BD8](v26);
   v27 = MEMORY[0x277D82BE0](v28[0]);
   objc_storeStrong(v28, 0);
-  *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -1366,8 +1358,6 @@ uint64_t __41__AMDSQLite_getSharedInstanceWithOption___block_invoke(id *a1)
     v32 = MEMORY[0x277D82BE0](v52);
     if ([v32 countByEnumeratingWithState:__b objects:v66 count:16])
     {
-      *__b[2];
-      *__b[2];
       v50 = *__b[1];
       v6 = [v52 objectForKey:v50];
       v7 = v51;
@@ -1566,7 +1556,6 @@ uint64_t __41__AMDSQLite_getSharedInstanceWithOption___block_invoke(id *a1)
   objc_storeStrong(&v54, 0);
   objc_storeStrong(&v56, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v16 = v58;
 
   return v16;
@@ -1598,7 +1587,6 @@ uint64_t __41__AMDSQLite_getSharedInstanceWithOption___block_invoke(id *a1)
   objc_storeStrong(&v7, 0);
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1667,7 +1655,6 @@ uint64_t __41__AMDSQLite_getSharedInstanceWithOption___block_invoke(id *a1)
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -1758,7 +1745,6 @@ uint64_t __41__AMDSQLite_getSharedInstanceWithOption___block_invoke(id *a1)
 
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v25;
 
   return v7;
@@ -2060,7 +2046,6 @@ uint64_t __41__AMDSQLite_getSharedInstanceWithOption___block_invoke(id *a1)
 
   objc_storeStrong(&v88, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v10 = v92;
 
   return v10;
@@ -2268,7 +2253,6 @@ uint64_t __41__AMDSQLite_getSharedInstanceWithOption___block_invoke(id *a1)
   objc_storeStrong(&v56, 0);
   objc_storeStrong(&v57, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v12 = v61;
 
   return v12;
@@ -2538,7 +2522,6 @@ uint64_t __41__AMDSQLite_getSharedInstanceWithOption___block_invoke(id *a1)
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v8 = v79;
 
   return v8;
@@ -2727,7 +2710,6 @@ uint64_t __41__AMDSQLite_getSharedInstanceWithOption___block_invoke(id *a1)
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v49;
 
   return v3;
@@ -2764,8 +2746,6 @@ uint64_t __41__AMDSQLite_getSharedInstanceWithOption___block_invoke(id *a1)
     v24 = MEMORY[0x277D82BE0](v37);
     if ([v24 countByEnumeratingWithState:__b objects:v48 count:16])
     {
-      *__b[2];
-      *__b[2];
       v36 = *__b[1];
       v6 = [v37 objectForKey:v36];
       v7 = v39;
@@ -2905,7 +2885,6 @@ uint64_t __41__AMDSQLite_getSharedInstanceWithOption___block_invoke(id *a1)
   objc_storeStrong(&v39, 0);
   objc_storeStrong(&v41, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v12 = v43;
 
   return v12;
@@ -3052,7 +3031,6 @@ LABEL_23:
 
   objc_storeStrong(&v11, 0);
   objc_storeStrong(v12, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v14;
 
   return v3;
@@ -3234,8 +3212,6 @@ LABEL_23:
     objc_exception_rethrow();
   }
 
-  v8 = 1;
-  *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -3283,8 +3259,6 @@ LABEL_23:
     objc_exception_rethrow();
   }
 
-  v8 = 1;
-  *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -3313,7 +3287,6 @@ LABEL_23:
   }
 
   objc_storeStrong(&oslog, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)loadDb
@@ -3532,7 +3505,6 @@ LABEL_23:
   objc_storeStrong(&v63, 0);
   objc_storeStrong(&v64, 0);
   objc_storeStrong(&v65, 0);
-  *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -3666,7 +3638,6 @@ LABEL_23:
   objc_storeStrong(&allKeys, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -3788,7 +3759,6 @@ LABEL_23:
   objc_storeStrong(&v46, 0);
   objc_storeStrong(v47, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -3817,8 +3787,6 @@ void __33__AMDSQLite_createIndices_error___block_invoke(uint64_t a1)
     objc_storeStrong(&location, 0);
     objc_storeStrong(&v6, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)updateSchema:(id)schema error:(id *)error
@@ -4026,7 +3994,6 @@ void __33__AMDSQLite_createIndices_error___block_invoke(uint64_t a1)
   objc_storeStrong(&v51, 0);
   objc_storeStrong(&v52, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v56;
 
   return v7;
@@ -4126,7 +4093,6 @@ void __33__AMDSQLite_createIndices_error___block_invoke(uint64_t a1)
   objc_storeStrong(&v26, 0);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v5 = v31;
 
   return v5;
@@ -4467,7 +4433,6 @@ void __33__AMDSQLite_createIndices_error___block_invoke(uint64_t a1)
   }
 
   objc_storeStrong(&v82, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v87;
 
   return v3;
@@ -4600,7 +4565,6 @@ void __33__AMDSQLite_createIndices_error___block_invoke(uint64_t a1)
   objc_storeStrong(&v35, 0);
   objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v8 = v42;
 
   return v8;
@@ -4630,8 +4594,6 @@ void __43__AMDSQLite_createTable_usingSchema_error___block_invoke(uint64_t a1)
     objc_storeStrong(&location, 0);
     objc_storeStrong(&v6, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)validateRowsData:(id)data tableSchema:(id)schema error:(id *)error
@@ -4820,7 +4782,6 @@ LABEL_43:
   objc_storeStrong(&getColumns, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v45;
 
   return v7;
@@ -5025,7 +4986,6 @@ LABEL_43:
   objc_storeStrong(&v61, 0);
   objc_storeStrong(&v64, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v9 = v67;
 
   return v9;
@@ -5193,8 +5153,6 @@ void __57__AMDSQLite_insertRows_usingSchema_skipValidation_error___block_invoke(
       objc_storeStrong(&v34, 0);
     }
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchRows:(id)rows andPersist:(BOOL)persist error:(id *)error
@@ -5453,7 +5411,6 @@ LABEL_28:
   objc_storeStrong(&getStatement, 0);
   objc_storeStrong(&v81, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   v13 = v86;
 
   return v13;
@@ -5896,7 +5853,6 @@ LABEL_35:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v56;
 
   return v6;
@@ -6125,7 +6081,6 @@ uint64_t __38__AMDSQLite_deleteRowsInternal_error___block_invoke(uint64_t a1)
   objc_storeStrong(&v68, 0);
   objc_storeStrong(&v70, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v9 = v73;
 
   return v9;
@@ -6314,7 +6269,6 @@ uint64_t __56__AMDSQLite_updateTableUsingDescriptor_andSchema_error___block_invo
   objc_storeStrong(&v40, 0);
   objc_storeStrong(&v41, 0);
   objc_storeStrong(&v42, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v46;
 
   return v4;
@@ -6467,7 +6421,6 @@ BOOL __30__AMDSQLite_refreshAppsTable___block_invoke(void *a1, void *a2)
 
   objc_storeStrong(&v33, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v36;
 
   return v6;
@@ -6553,7 +6506,6 @@ BOOL __30__AMDSQLite_refreshAppsTable___block_invoke(void *a1, void *a2)
   objc_storeStrong(&v30, 0);
   objc_storeStrong(&v32, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v9 = v34;
 
   return v9;
@@ -6606,7 +6558,6 @@ BOOL __30__AMDSQLite_refreshAppsTable___block_invoke(void *a1, void *a2)
 
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v5 = v16;
 
   return v5;
@@ -6673,7 +6624,6 @@ BOOL __30__AMDSQLite_refreshAppsTable___block_invoke(void *a1, void *a2)
 
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v22;
 
   return v6;

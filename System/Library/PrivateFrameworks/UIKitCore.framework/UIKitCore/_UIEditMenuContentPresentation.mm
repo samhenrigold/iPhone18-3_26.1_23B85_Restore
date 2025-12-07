@@ -1067,8 +1067,8 @@ LABEL_31:
       v246.origin.y = v99;
       v246.size.width = v100;
       v246.size.height = v101;
-      v212.origin.y = v190;
       v212.origin.x = v192;
+      v212.origin.y = v190;
       v212.size.height = r2_16;
       v212.size.width = r2_24;
       v213 = CGRectIntersection(v212, v246);
@@ -1145,8 +1145,8 @@ LABEL_13:
     v217.size.width = v42;
     v217.size.height = rect;
     v64 = CGRectGetMinY(v217);
-    v218.origin.y = v190;
     v218.origin.x = v192;
+    v218.origin.y = v190;
     v218.size.height = r2_16;
     v218.size.width = r2_24;
     v65 = CGRectGetMinY(v218);
@@ -1156,8 +1156,8 @@ LABEL_13:
   v63 = v61;
   if (preferredArrowDirection == 1)
   {
-    v208.origin.y = v190;
     v208.origin.x = v192;
+    v208.origin.y = v190;
     v208.size.height = r2_16;
     v208.size.width = r2_24;
     v64 = CGRectGetMaxY(v208);
@@ -1230,8 +1230,8 @@ LABEL_36:
         v119 = v225.size.width;
         v120 = v225.size.height;
         v181 = CGRectGetMaxX(v225);
-        v226.origin.y = v190;
         v226.origin.x = v192;
+        v226.origin.y = v190;
         v226.size.height = r2_16;
         v226.size.width = r2_24;
         v179 = v119;
@@ -1486,7 +1486,7 @@ LABEL_70:
   [containerView4 _currentScreenScale];
   [v153 setMenuPosition:{UIPointRoundToScale(v155, v156, v157)}];
 
-  [v153 setAnchorPoint:*v197];
+  [v153 setAnchorPoint:{v197[0], v197[1]}];
   [v153 setArrowDirection:v200];
   [v153 setMenuSourceRect:{v127, v126, v125, rect}];
 

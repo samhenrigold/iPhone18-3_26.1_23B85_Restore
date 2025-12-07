@@ -154,7 +154,7 @@ void __45__EDProtectedDatabasePersistence_signpostLog__block_invoke(uint64_t a1)
 
 - (void)attachProtectedOrJournalDatabaseToConnectionIfNecessary:(id)necessary withSchema:(id)schema
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   necessaryCopy = necessary;
   schemaCopy = schema;
   v9 = objc_autoreleasePoolPush();
@@ -193,9 +193,9 @@ void __45__EDProtectedDatabasePersistence_signpostLog__block_invoke(uint64_t a1)
 
       else
       {
-        v19 = 0;
-        v10 = [(EDProtectedDatabasePersistence *)self _attachProtectedDatabaseToConnection:necessaryCopy withSchema:schemaCopy error:&v19];
-        v11 = v19;
+        v18 = 0;
+        v10 = [(EDProtectedDatabasePersistence *)self _attachProtectedDatabaseToConnection:necessaryCopy withSchema:schemaCopy error:&v18];
+        v11 = v18;
         if (!v10)
         {
           if ([EDProtectedDatabasePersistence _isRecoverableError:v11])
@@ -204,15 +204,15 @@ void __45__EDProtectedDatabasePersistence_signpostLog__block_invoke(uint64_t a1)
             if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
               ef_publicDescription = [v11 ef_publicDescription];
-              v16 = EFProtectedDataAvailable();
+              v15 = EFProtectedDataAvailable();
               database = [(EDProtectedDatabasePersistence *)self database];
               protectedDatabaseIsAvailable = [database protectedDatabaseIsAvailable];
               *buf = 138543874;
-              v21 = ef_publicDescription;
-              v22 = 1024;
-              v23 = v16;
-              v24 = 1024;
-              v25 = protectedDatabaseIsAvailable;
+              v20 = ef_publicDescription;
+              v21 = 1024;
+              v22 = v15;
+              v23 = 1024;
+              v24 = protectedDatabaseIsAvailable;
               _os_log_error_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_ERROR, "Got error %{public}@ attaching protected database.  ProtectedDataAvailable = %d, protectedDatabaseIsAvailable = %d", buf, 0x18u);
             }
 
@@ -232,8 +232,6 @@ void __45__EDProtectedDatabasePersistence_signpostLog__block_invoke(uint64_t a1)
 
 LABEL_19:
   objc_autoreleasePoolPop(v9);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)detachProtectedOrJournalDatabaseFromConnectionIfNecessary:(id)necessary
@@ -265,7 +263,7 @@ LABEL_19:
 
 - (void)_ensureProtectedDatabaseOrJournalIsAttachedToConnection:(id)connection withSchema:(id)schema
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   schemaCopy = schema;
   if ([connectionCopy protectedDatabaseAttached])
@@ -274,9 +272,9 @@ LABEL_19:
     goto LABEL_4;
   }
 
-  v18 = 0;
-  v10 = [(EDProtectedDatabasePersistence *)self _attachProtectedDatabaseToConnection:connectionCopy withSchema:schemaCopy error:&v18];
-  v9 = v18;
+  v17 = 0;
+  v10 = [(EDProtectedDatabasePersistence *)self _attachProtectedDatabaseToConnection:connectionCopy withSchema:schemaCopy error:&v17];
+  v9 = v17;
   if (v10)
   {
 LABEL_4:
@@ -294,15 +292,15 @@ LABEL_4:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       ef_publicDescription = [v9 ef_publicDescription];
-      v15 = EFProtectedDataAvailable();
+      v14 = EFProtectedDataAvailable();
       database = [(EDProtectedDatabasePersistence *)self database];
       protectedDatabaseIsAvailable = [database protectedDatabaseIsAvailable];
       *buf = 138543874;
-      v20 = ef_publicDescription;
-      v21 = 1024;
-      v22 = v15;
-      v23 = 1024;
-      v24 = protectedDatabaseIsAvailable;
+      v19 = ef_publicDescription;
+      v20 = 1024;
+      v21 = v14;
+      v22 = 1024;
+      v23 = protectedDatabaseIsAvailable;
       _os_log_error_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_ERROR, "Got error %{public}@ attaching protected database.  ProtectedDataAvailable = %d, protectedDatabaseIsAvailable = %d", buf, 0x18u);
     }
 
@@ -320,8 +318,6 @@ LABEL_4:
   }
 
 LABEL_12:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_attachProtectedDatabaseToConnection:(id)connection withSchema:(id)schema error:(id *)error
@@ -474,72 +470,72 @@ LABEL_9:
 
 - (BOOL)_updateSqliteSequenceForDatabase:(id)database schema:(id)schema withConnection:(id)connection error:(id *)error
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   schemaCopy = schema;
   connectionCopy = connection;
-  v45 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v44 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   databaseCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SELECT name FROM %@.sqlite_sequence", databaseCopy];
   v10 = [connectionCopy preparedStatementForQueryString:?];
-  v63[0] = MEMORY[0x1E69E9820];
-  v63[1] = 3221225472;
-  v63[2] = __95__EDProtectedDatabasePersistence__updateSqliteSequenceForDatabase_schema_withConnection_error___block_invoke;
-  v63[3] = &unk_1E8250300;
-  v54 = v45;
-  v64 = v54;
-  v44 = v10;
-  if ([v10 executeUsingBlock:v63 error:error])
+  v62[0] = MEMORY[0x1E69E9820];
+  v62[1] = 3221225472;
+  v62[2] = __95__EDProtectedDatabasePersistence__updateSqliteSequenceForDatabase_schema_withConnection_error___block_invoke;
+  v62[3] = &unk_1E8250300;
+  v53 = v44;
+  v63 = v53;
+  v43 = v10;
+  if ([v10 executeUsingBlock:v62 error:error])
   {
     databaseCopy2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@.sqlite_sequence", databaseCopy];
-    v47 = [objc_alloc(MEMORY[0x1E699B910]) initWithTable:databaseCopy2];
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
+    v46 = [objc_alloc(MEMORY[0x1E699B910]) initWithTable:databaseCopy2];
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     obj = [schemaCopy tables];
-    v11 = [obj countByEnumeratingWithState:&v59 objects:v72 count:16];
+    v11 = [obj countByEnumeratingWithState:&v58 objects:v71 count:16];
     if (v11)
     {
-      v52 = *v60;
+      v51 = *v59;
       do
       {
-        v53 = v11;
-        for (i = 0; i != v53; ++i)
+        v52 = v11;
+        for (i = 0; i != v52; ++i)
         {
-          if (*v60 != v52)
+          if (*v59 != v51)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v59 + 1) + 8 * i);
+          v13 = *(*(&v58 + 1) + 8 * i);
           v14 = [(EDProtectedDatabasePersistence *)self _allReferencingColumnsForTable:v13];
-          v57 = 0u;
-          v58 = 0u;
-          v55 = 0u;
           v56 = 0u;
+          v57 = 0u;
+          v54 = 0u;
+          v55 = 0u;
           v15 = v14;
           v16 = 0;
-          v17 = [v15 countByEnumeratingWithState:&v55 objects:v71 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v54 objects:v70 count:16];
           if (v17)
           {
-            v18 = *v56;
+            v18 = *v55;
             do
             {
               for (j = 0; j != v17; ++j)
               {
-                if (*v56 != v18)
+                if (*v55 != v18)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                v20 = [(EDProtectedDatabasePersistence *)self _maxRowIDForColumn:*(*(&v55 + 1) + 8 * j) withConnection:connectionCopy];
+                v20 = [(EDProtectedDatabasePersistence *)self _maxRowIDForColumn:*(*(&v54 + 1) + 8 * j) withConnection:connectionCopy];
                 if (v16 <= v20)
                 {
                   v16 = v20;
                 }
               }
 
-              v17 = [v15 countByEnumeratingWithState:&v55 objects:v71 count:16];
+              v17 = [v15 countByEnumeratingWithState:&v54 objects:v70 count:16];
             }
 
             while (v17);
@@ -553,11 +549,11 @@ LABEL_9:
           {
             name2 = [v13 name];
             *buf = 138412802;
-            v66 = name2;
-            v67 = 2048;
-            v68 = v16;
-            v69 = 2048;
-            v70 = v22;
+            v65 = name2;
+            v66 = 2048;
+            v67 = v16;
+            v68 = 2048;
+            v69 = v22;
             _os_log_impl(&dword_1C61EF000, v23, OS_LOG_TYPE_DEFAULT, "%@: maxRowID: %lld, largestDeletedRowID: %lld", buf, 0x20u);
           }
 
@@ -572,7 +568,7 @@ LABEL_9:
           }
 
           name3 = [v13 name];
-          v27 = [v54 containsObject:name3];
+          v27 = [v53 containsObject:name3];
 
           if (v27)
           {
@@ -581,9 +577,9 @@ LABEL_9:
             {
               v29 = [v13 fullNameWithDatabaseName:databaseCopy];
               *buf = 138543618;
-              v66 = v29;
-              v67 = 2048;
-              v68 = v25;
+              v65 = v29;
+              v66 = 2048;
+              v67 = v25;
               _os_log_impl(&dword_1C61EF000, v28, OS_LOG_TYPE_DEFAULT, "Updating sqlite_sequence %{public}@ = %lld", buf, 0x16u);
             }
 
@@ -612,13 +608,13 @@ LABEL_9:
             {
               v36 = [v13 fullNameWithDatabaseName:databaseCopy];
               *buf = 138543618;
-              v66 = v36;
-              v67 = 2048;
-              v68 = v25;
+              v65 = v36;
+              v66 = 2048;
+              v67 = v25;
               _os_log_impl(&dword_1C61EF000, v35, OS_LOG_TYPE_DEFAULT, "Setting sqlite_sequence %{public}@ = %lld", buf, 0x16u);
             }
 
-            addValue = [v47 addValue];
+            addValue = [v46 addValue];
             name5 = [v13 name];
             [addValue setObject:name5 forKeyedSubscript:@"name"];
 
@@ -627,13 +623,13 @@ LABEL_9:
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v59 objects:v72 count:16];
+        v11 = [obj countByEnumeratingWithState:&v58 objects:v71 count:16];
       }
 
       while (v11);
     }
 
-    v40 = [connectionCopy executeInsertStatement:v47 error:error];
+    v40 = [connectionCopy executeInsertStatement:v46 error:error];
 LABEL_33:
   }
 
@@ -642,7 +638,6 @@ LABEL_33:
     v40 = 0;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
   return v40;
 }
 
@@ -703,7 +698,7 @@ void __68__EDProtectedDatabasePersistence__maxRowIDForColumn_withConnection___bl
 
 - (BOOL)_performOnDemandReconciliationForConnection:(id)connection withSchema:(id)schema
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   schemaCopy = schema;
   if ([MEMORY[0x1E696AF00] isMainThread])
@@ -711,10 +706,10 @@ void __68__EDProtectedDatabasePersistence__maxRowIDForColumn_withConnection___bl
     v8 = +[EDProtectedDatabasePersistence log];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
+      LOWORD(v15) = 0;
       v9 = "Skipping on-demand reconciliation from the main thread";
 LABEL_10:
-      _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, v9, &v16, 2u);
+      _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, v9, &v15, 2u);
       goto LABEL_11;
     }
 
@@ -726,7 +721,7 @@ LABEL_10:
     v8 = +[EDProtectedDatabasePersistence log];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
+      LOWORD(v15) = 0;
       v9 = "Skipping on-demand reconciliation because protected data isn't available";
       goto LABEL_10;
     }
@@ -741,7 +736,7 @@ LABEL_10:
     v8 = +[EDProtectedDatabasePersistence log];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
+      LOWORD(v15) = 0;
       v9 = "Skipping on-demand reconciliation because we're already reconciling";
       goto LABEL_10;
     }
@@ -753,28 +748,27 @@ LABEL_11:
 
   [(EDProtectedDatabasePersistence *)self setIsReconciling:1];
   os_unfair_lock_unlock(&self->_reconciliationLock);
-  v13 = +[EDProtectedDatabasePersistence log];
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v12 = +[EDProtectedDatabasePersistence log];
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Triggering on-demand reconciliation", &v16, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Triggering on-demand reconciliation", &v15, 2u);
   }
 
   v8 = [MEMORY[0x1E699B860] transactionWithDescription:@"on-demand reconciliation"];
-  v14 = [(EDProtectedDatabasePersistence *)self _reconcileJournalsWithSchema:schemaCopy connection:connectionCopy];
-  v10 = v14 == 0;
-  v15 = +[EDProtectedDatabasePersistence log];
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v13 = [(EDProtectedDatabasePersistence *)self _reconcileJournalsWithSchema:schemaCopy connection:connectionCopy];
+  v10 = v13 == 0;
+  v14 = +[EDProtectedDatabasePersistence log];
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 134217984;
-    v17 = v14;
-    _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "Completed on-demand reconciliation with result: %lu", &v16, 0xCu);
+    v15 = 134217984;
+    v16 = v13;
+    _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Completed on-demand reconciliation with result: %lu", &v15, 0xCu);
   }
 
   [v8 invalidate];
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -827,7 +821,7 @@ LABEL_7:
 
 uint64_t __78__EDProtectedDatabasePersistence_reconcileJournalsWithSchema_completionBlock___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _reconcileJournalsWithSchema:*(a1 + 40) connection:0];
   v3 = *(a1 + 56);
   if (v3)
@@ -838,14 +832,12 @@ uint64_t __78__EDProtectedDatabasePersistence_reconcileJournalsWithSchema_comple
   v4 = +[EDProtectedDatabasePersistence log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = v2;
-    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Completed reconciliation with result: %lu", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v2;
+    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Completed reconciliation with result: %lu", &v6, 0xCu);
   }
 
-  result = [*(a1 + 48) invalidate];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 48) invalidate];
 }
 
 - (unint64_t)_reconcileJournalsWithSchema:(id)schema connection:(id)connection
@@ -887,10 +879,10 @@ uint64_t __78__EDProtectedDatabasePersistence_reconcileJournalsWithSchema_comple
 
 - (unint64_t)_runReconciliationWithSchema:(id)schema connection:(id)connection
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   schemaCopy = schema;
   connectionCopy = connection;
-  v43 = objc_alloc_init(MEMORY[0x1E695DF00]);
+  v42 = objc_alloc_init(MEMORY[0x1E695DF00]);
   v8 = +[EDProtectedDatabasePersistence signpostLog];
   signpostID = [(EDProtectedDatabasePersistence *)self signpostID];
   if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
@@ -912,9 +904,9 @@ uint64_t __78__EDProtectedDatabasePersistence_reconcileJournalsWithSchema_comple
 
   if (([connectionCopy protectedDatabaseAttached] & 1) == 0)
   {
-    v48 = 0;
-    v10 = [(EDProtectedDatabasePersistence *)self _attachProtectedDatabaseToConnection:connectionCopy withSchema:schemaCopy error:&v48];
-    v11 = v48;
+    v47 = 0;
+    v10 = [(EDProtectedDatabasePersistence *)self _attachProtectedDatabaseToConnection:connectionCopy withSchema:schemaCopy error:&v47];
+    v11 = v47;
     v12 = v11;
     if (!v10)
     {
@@ -924,8 +916,8 @@ uint64_t __78__EDProtectedDatabasePersistence_reconcileJournalsWithSchema_comple
     }
   }
 
+  v45 = 0;
   v46 = 0;
-  v47 = 0;
   journalManager = [(EDProtectedDatabasePersistence *)self journalManager];
   oldestJournal = [journalManager oldestJournal];
   if (!oldestJournal)
@@ -936,31 +928,31 @@ LABEL_33:
   }
 
   *&v15 = 134217984;
-  v42 = v15;
+  v41 = v15;
   while (1)
   {
     v16 = +[EDProtectedDatabasePersistence log];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       number = [oldestJournal number];
-      *buf = v42;
-      v54 = number;
+      *buf = v41;
+      v53 = number;
       _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Reconciling journal %lu", buf, 0xCu);
     }
 
     journalDatabaseName = [objc_opt_class() journalDatabaseName];
-    v45 = 0;
-    v19 = [connectionCopy attachJournalDatabase:oldestJournal withName:journalDatabaseName error:&v45];
-    v20 = v45;
+    v44 = 0;
+    v19 = [connectionCopy attachJournalDatabase:oldestJournal withName:journalDatabaseName error:&v44];
+    v20 = v44;
 
     if ((v19 & 1) == 0)
     {
       break;
     }
 
-    v44 = v20;
-    v21 = [(EDProtectedDatabasePersistence *)self _upgradeJournalWithConnection:connectionCopy schema:schemaCopy error:&v44];
-    v22 = v44;
+    v43 = v20;
+    v21 = [(EDProtectedDatabasePersistence *)self _upgradeJournalWithConnection:connectionCopy schema:schemaCopy error:&v43];
+    v22 = v43;
 
     v20 = v22;
     if (!v21)
@@ -977,7 +969,7 @@ LABEL_33:
       goto LABEL_41;
     }
 
-    v23 = [(EDProtectedDatabasePersistence *)self _mergeSchema:schemaCopy connection:connectionCopy journaledRows:&v47 newRows:&v46];
+    v23 = [(EDProtectedDatabasePersistence *)self _mergeSchema:schemaCopy connection:connectionCopy journaledRows:&v46 newRows:&v45];
     v24 = v23;
     if (v23 == 2)
     {
@@ -987,8 +979,8 @@ LABEL_33:
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           number3 = [oldestJournal number];
-          *buf = v42;
-          v54 = number3;
+          *buf = v41;
+          v53 = number3;
           _os_log_error_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_ERROR, "Skipped merging data due to malformed schema for journal %lu", buf, 0xCu);
         }
 
@@ -1001,8 +993,8 @@ LABEL_33:
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           number4 = [oldestJournal number];
-          *buf = v42;
-          v54 = number4;
+          *buf = v41;
+          v53 = number4;
           _os_log_error_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_ERROR, "Permanently failed to merge data for journal %lu", buf, 0xCu);
         }
 
@@ -1021,8 +1013,8 @@ LABEL_33:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         number5 = [oldestJournal number];
-        *buf = v42;
-        v54 = number5;
+        *buf = v41;
+        v53 = number5;
         _os_log_error_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_ERROR, "Temporarily failed to merge data for journal %lu", buf, 0xCu);
       }
 
@@ -1064,50 +1056,49 @@ LABEL_43:
   signpostID2 = [(EDProtectedDatabasePersistence *)self signpostID];
   if (signpostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
   {
-    *v49 = 134349312;
-    v50 = v47;
-    v51 = 2050;
-    v52 = v46;
-    _os_signpost_emit_with_name_impl(&dword_1C61EF000, v37, OS_SIGNPOST_INTERVAL_END, signpostID2, "EDProtectedDatabasePersistenceReconciliation", "TotalJournaledRows=%{public,signpost.telemetry:number1}lu, NewJournaledRows=%{public,signpost.telemetry:number2}lu enableTelemetry=YES ", v49, 0x16u);
+    *v48 = 134349312;
+    v49 = v46;
+    v50 = 2050;
+    v51 = v45;
+    _os_signpost_emit_with_name_impl(&dword_1C61EF000, v37, OS_SIGNPOST_INTERVAL_END, signpostID2, "EDProtectedDatabasePersistenceReconciliation", "TotalJournaledRows=%{public,signpost.telemetry:number1}lu, NewJournaledRows=%{public,signpost.telemetry:number2}lu enableTelemetry=YES ", v48, 0x16u);
   }
 
-  [v43 timeIntervalSinceNow];
+  [v42 timeIntervalSinceNow];
   if (v39 < -10.0)
   {
     EFSaveTailspin();
   }
 
 LABEL_49:
-  v40 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 - (unint64_t)_mergeSchema:(id)schema connection:(id)connection journaledRows:(unint64_t *)rows newRows:(unint64_t *)newRows
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   tables = [schema tables];
-  v12 = [tables countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [tables countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
-    v13 = *v22;
+    v13 = *v21;
 LABEL_3:
     v14 = 0;
     while (1)
     {
-      if (*v22 != v13)
+      if (*v21 != v13)
       {
         objc_enumerationMutation(tables);
       }
 
-      v15 = *(*(&v21 + 1) + 8 * v14);
+      v15 = *(*(&v20 + 1) + 8 * v14);
+      v18 = 0;
       v19 = 0;
-      v20 = 0;
-      v16 = [(EDProtectedDatabasePersistence *)self _mergeTable:v15 connection:connectionCopy journaledRows:&v20 newRows:&v19];
+      v16 = [(EDProtectedDatabasePersistence *)self _mergeTable:v15 connection:connectionCopy journaledRows:&v19 newRows:&v18];
       if (v16)
       {
         break;
@@ -1115,17 +1106,17 @@ LABEL_3:
 
       if (rows)
       {
-        *rows += v20;
+        *rows += v19;
       }
 
       if (newRows)
       {
-        *newRows += v19;
+        *newRows += v18;
       }
 
       if (v12 == ++v14)
       {
-        v12 = [tables countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [tables countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v12)
         {
           goto LABEL_3;
@@ -1142,28 +1133,27 @@ LABEL_13:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (unint64_t)_mergeTable:(id)table connection:(id)connection journaledRows:(unint64_t *)rows newRows:(unint64_t *)newRows
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   tableCopy = table;
   connectionCopy = connection;
-  v47 = tableCopy;
+  v46 = tableCopy;
   selfCopy = self;
   journalDatabaseName = [objc_opt_class() journalDatabaseName];
-  v45 = [tableCopy fullNameWithDatabaseName:journalDatabaseName];
+  v44 = [tableCopy fullNameWithDatabaseName:journalDatabaseName];
 
   protectedDatabaseName = [objc_opt_class() protectedDatabaseName];
-  v44 = [tableCopy fullNameWithDatabaseName:protectedDatabaseName];
+  v43 = [tableCopy fullNameWithDatabaseName:protectedDatabaseName];
 
-  v82 = 0;
-  v83 = &v82;
-  v84 = 0x2020000000;
-  v85 = 0;
-  v49 = [(EDProtectedDatabasePersistence *)selfCopy _allReferencingColumnsForTable:tableCopy];
+  v81 = 0;
+  v82 = &v81;
+  v83 = 0x2020000000;
+  v84 = 0;
+  v48 = [(EDProtectedDatabasePersistence *)selfCopy _allReferencingColumnsForTable:tableCopy];
   uniqueColumns = [tableCopy uniqueColumns];
   firstObject = [uniqueColumns firstObject];
 
@@ -1178,7 +1168,7 @@ LABEL_13:
       *&buf[12] = 2114;
       *&buf[14] = firstObject;
       *&buf[22] = 2114;
-      v87 = v49;
+      v86 = v48;
       _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_INFO, "Merging table %{public}@ with unique columns: %{public}@\n  referencing columns: %{public}@", buf, 0x20u);
     }
   }
@@ -1198,92 +1188,92 @@ LABEL_13:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v87 = 0;
-  v40 = 0;
-  v78 = 0;
-  v79 = &v78;
-  v80 = 0x2020000000;
-  v81 = 0;
-  v15 = &v78;
+  v86 = 0;
+  v39 = 0;
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x2020000000;
+  v80 = 0;
+  v15 = &v77;
   do
   {
     v15[3] = 0;
     v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v77 = 0;
-    v65[0] = MEMORY[0x1E69E9820];
-    v65[1] = 3221225472;
-    v65[2] = __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_newRows___block_invoke;
-    v65[3] = &unk_1E8256210;
-    v17 = v45;
-    v66 = v17;
+    v76 = 0;
+    v64[0] = MEMORY[0x1E69E9820];
+    v64[1] = 3221225472;
+    v64[2] = __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_newRows___block_invoke;
+    v64[3] = &unk_1E8256210;
+    v17 = v44;
+    v65 = v17;
     v18 = firstObject;
-    v67 = v18;
-    v19 = v44;
-    v76 = a2;
-    v68 = v19;
-    v69 = selfCopy;
+    v66 = v18;
+    v19 = v43;
+    v75 = a2;
+    v67 = v19;
+    v68 = selfCopy;
     v20 = v16;
-    v70 = v20;
-    v73 = &v78;
-    v74 = &v82;
-    v21 = v47;
-    v71 = v21;
+    v69 = v20;
+    v72 = &v77;
+    v73 = &v81;
+    v21 = v46;
+    v70 = v21;
     v22 = connectionCopy;
-    v72 = v22;
-    v75 = buf;
-    v23 = [v22 performWithOptions:3 transactionError:&v77 block:v65];
-    v24 = v77;
-    v41 = v19;
-    v42 = v18;
-    if (v83[3] || (v25 = [EDProtectedDatabasePersistence _resultForConnection:v22 success:v23 error:v24 errorMessage:@"Committing merge batch transaction"], (v83[3] = v25) != 0))
+    v71 = v22;
+    v74 = buf;
+    v23 = [v22 performWithOptions:3 transactionError:&v76 block:v64];
+    v24 = v76;
+    v40 = v19;
+    v41 = v18;
+    if (v82[3] || (v25 = [EDProtectedDatabasePersistence _resultForConnection:v22 success:v23 error:v24 errorMessage:@"Committing merge batch transaction"], (v82[3] = v25) != 0))
     {
       v26 = 0;
     }
 
     else
     {
-      v27 = &v61;
-      v61 = 0;
-      v62 = &v61;
-      v63 = 0x2020000000;
-      v64 = 0;
+      v27 = &v60;
+      v60 = 0;
+      v61 = &v60;
+      v62 = 0x2020000000;
+      v63 = 0;
       v28 = MEMORY[0x1E69E9820];
       v29 = v24;
       while (1)
       {
         v27[3] = 0;
-        v60 = v29;
-        v51[0] = v28;
-        v51[1] = 3221225472;
-        v51[2] = __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_newRows___block_invoke_95;
-        v51[3] = &unk_1E8256260;
-        v52 = v20;
-        v53 = v21;
-        v30 = v49;
-        v58 = &v82;
-        v54 = v30;
-        v55 = selfCopy;
+        v59 = v29;
+        v50[0] = v28;
+        v50[1] = 3221225472;
+        v50[2] = __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_newRows___block_invoke_95;
+        v50[3] = &unk_1E8256260;
+        v51 = v20;
+        v52 = v21;
+        v30 = v48;
+        v57 = &v81;
+        v53 = v30;
+        v54 = selfCopy;
         v31 = v22;
-        v56 = v31;
-        v59 = &v61;
-        v57 = v17;
-        v32 = [v31 performWithOptions:3 transactionError:&v60 block:v51];
-        v24 = v60;
+        v55 = v31;
+        v58 = &v60;
+        v56 = v17;
+        v32 = [v31 performWithOptions:3 transactionError:&v59 block:v50];
+        v24 = v59;
 
-        if (v83[3])
+        if (v82[3])
         {
           break;
         }
 
         v33 = [EDProtectedDatabasePersistence _resultForConnection:v31 success:v32 error:v24 errorMessage:@"Committing update batch transaction"];
-        v83[3] = v33;
+        v82[3] = v33;
         v34 = v33 == 0;
 
         if (v34)
         {
-          v27 = v62;
+          v27 = v61;
           v29 = v24;
-          if (v62[3])
+          if (v61[3])
           {
             continue;
           }
@@ -1293,12 +1283,12 @@ LABEL_13:
       }
 
 LABEL_19:
-      if (!v83[3])
+      if (!v82[3])
       {
-        v40 += v79[3];
+        v39 += v78[3];
       }
 
-      _Block_object_dispose(&v61, 8);
+      _Block_object_dispose(&v60, 8);
       v26 = 1;
     }
 
@@ -1307,13 +1297,13 @@ LABEL_19:
       break;
     }
 
-    v15 = v79;
+    v15 = v78;
   }
 
-  while (v79[3]);
+  while (v78[3]);
   if (rows)
   {
-    *rows = v40;
+    *rows = v39;
   }
 
   if (newRows)
@@ -1321,36 +1311,35 @@ LABEL_19:
     *newRows = *(*&buf[8] + 24);
   }
 
-  v35 = v83[3];
-  _Block_object_dispose(&v78, 8);
+  v35 = v82[3];
+  _Block_object_dispose(&v77, 8);
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(&v82, 8);
-  v36 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v81, 8);
   return v35;
 }
 
 BOOL __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_newRows___block_invoke(uint64_t a1, void *a2)
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v35 = a2;
+  v45 = *MEMORY[0x1E69E9840];
+  v34 = a2;
   v3 = objc_alloc(MEMORY[0x1E699B948]);
   v4 = *MEMORY[0x1E699B768];
   v5 = [v3 initWithResultColumn:*MEMORY[0x1E699B768] table:*(a1 + 32)];
   if ([*(a1 + 40) count])
   {
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_newRows___block_invoke_2;
-    v41[3] = &unk_1E82561C0;
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_newRows___block_invoke_2;
+    v40[3] = &unk_1E82561C0;
     v6 = *(a1 + 40);
-    v42 = *(a1 + 48);
-    v43 = *(a1 + 32);
-    v7 = [v6 ef_map:v41];
+    v41 = *(a1 + 48);
+    v42 = *(a1 + 32);
+    v7 = [v6 ef_map:v40];
     if (![v7 count])
     {
-      v34 = [MEMORY[0x1E696AAA8] currentHandler];
-      [v34 handleFailureInMethod:*(a1 + 112) object:*(a1 + 56) file:@"EDProtectedDatabasePersistence.m" lineNumber:595 description:@"We must have at least one join constraint"];
+      v33 = [MEMORY[0x1E696AAA8] currentHandler];
+      [v33 handleFailureInMethod:*(a1 + 112) object:*(a1 + 56) file:@"EDProtectedDatabasePersistence.m" lineNumber:595 description:@"We must have at least one join constraint"];
     }
 
     v8 = [objc_alloc(MEMORY[0x1E699B898]) initWithExpressions:v7];
@@ -1366,19 +1355,19 @@ BOOL __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_n
 
   [v5 setLimit:500];
   v11 = objc_alloc_init(MEMORY[0x1E699B810]);
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_newRows___block_invoke_3;
-  v37[3] = &unk_1E82561E8;
-  v38 = *(a1 + 64);
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_newRows___block_invoke_3;
+  v36[3] = &unk_1E82561E8;
+  v37 = *(a1 + 64);
   v12 = v11;
   v13 = *(a1 + 88);
-  v39 = v12;
-  v40 = v13;
-  v36 = 0;
-  v14 = [v35 executeSelectStatement:v5 withBlock:v37 error:&v36];
-  v15 = v36;
-  *(*(*(a1 + 96) + 8) + 24) = [EDProtectedDatabasePersistence _resultForConnection:v35 success:v14 error:v15 errorMessage:@"Selecting ROWIDs to merge"];
+  v38 = v12;
+  v39 = v13;
+  v35 = 0;
+  v14 = [v34 executeSelectStatement:v5 withBlock:v36 error:&v35];
+  v15 = v35;
+  *(*(*(a1 + 96) + 8) + 24) = [EDProtectedDatabasePersistence _resultForConnection:v34 success:v14 error:v15 errorMessage:@"Selecting ROWIDs to merge"];
   if (*(*(*(a1 + 96) + 8) + 24))
   {
     v16 = 0;
@@ -1395,7 +1384,7 @@ BOOL __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_n
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v45 = v12;
+      v44 = v12;
       _os_log_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_INFO, "Inserting %{public}@", buf, 0xCu);
     }
 
@@ -1414,7 +1403,7 @@ BOOL __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_n
     v31 = [v29 initWithFormat:@"Unable to insert new rows into protected database for table %@", v30];
 
     *(*(*(a1 + 96) + 8) + 24) = [*(a1 + 56) _executeStatementString:v28 onConnection:*(a1 + 80) errorMessage:v31];
-    if (*(*(*(a1 + 96) + 8) + 24) || (*(*(*(a1 + 96) + 8) + 24) = [*(a1 + 56) _deleteRowIDs:v12 fromJournal:*(a1 + 32) withConnection:v35]) != 0)
+    if (*(*(*(a1 + 96) + 8) + 24) || (*(*(*(a1 + 96) + 8) + 24) = [*(a1 + 56) _deleteRowIDs:v12 fromJournal:*(a1 + 32) withConnection:v34]) != 0)
     {
       v16 = 0;
     }
@@ -1426,7 +1415,6 @@ BOOL __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_n
     }
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -1513,16 +1501,16 @@ BOOL __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_n
 
 void __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_newRows___block_invoke_2_97(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v65 = *MEMORY[0x1E69E9840];
-  v47 = a2;
-  v46 = a3;
+  v64 = *MEMORY[0x1E69E9840];
+  v46 = a2;
+  v45 = a3;
   v6 = +[EDProtectedDatabasePersistence log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    *&buf[4] = v47;
+    *&buf[4] = v46;
     *&buf[12] = 2114;
-    *&buf[14] = v46;
+    *&buf[14] = v45;
     _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_INFO, "Replacing %{public}@ with %{public}@", buf, 0x16u);
   }
 
@@ -1535,41 +1523,41 @@ void __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_n
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      *&buf[4] = v47;
+      *&buf[4] = v46;
       *&buf[12] = 2114;
-      *&buf[14] = v46;
+      *&buf[14] = v45;
       _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Mapping subjectID %{public}@ to %{public}@", buf, 0x16u);
     }
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   obj = *(a1 + 40);
-  v10 = [obj countByEnumeratingWithState:&v53 objects:v64 count:16];
+  v10 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
   if (v10)
   {
-    v44 = *v54;
+    v43 = *v53;
     while (2)
     {
-      v45 = v10;
-      for (i = 0; i != v45; ++i)
+      v44 = v10;
+      for (i = 0; i != v44; ++i)
       {
-        if (*v54 != v44)
+        if (*v53 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v53 + 1) + 8 * i);
+        v12 = *(*(&v52 + 1) + 8 * i);
         v13 = [v12 table];
         v14 = [v13 name];
 
         v15 = [v12 name];
         v16 = [objc_alloc(MEMORY[0x1E699B960]) initWithTable:v14];
-        [v16 setObject:v46 forKeyedSubscript:v15];
+        [v16 setObject:v45 forKeyedSubscript:v15];
         v17 = [v12 columnExpression];
-        v18 = [v17 equalTo:v47];
+        v18 = [v17 equalTo:v46];
         [v16 setWhereClause:v18];
 
         v19 = objc_alloc(MEMORY[0x1E696AEC0]);
@@ -1578,9 +1566,9 @@ void __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_n
         v22 = [v19 initWithFormat:@"Unable to merge journal for table %@", v21];
 
         v23 = *(a1 + 48);
-        v52 = 0;
-        v24 = [v23 executeUpdateStatement:v16 error:&v52];
-        v25 = v52;
+        v51 = 0;
+        v24 = [v23 executeUpdateStatement:v16 error:&v51];
+        v25 = v51;
         *(*(*(a1 + 80) + 8) + 24) = [EDProtectedDatabasePersistence _resultForConnection:*(a1 + 48) success:v24 error:v25 errorMessage:v22];
         v26 = *(*(*(a1 + 80) + 8) + 24);
         if (v26)
@@ -1607,55 +1595,55 @@ void __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_n
             *&buf[12] = 2114;
             *&buf[14] = v15;
             *&buf[22] = 2114;
-            v62 = v47;
-            LOWORD(v63) = 2114;
-            *(&v63 + 2) = v46;
+            v61 = v46;
+            LOWORD(v62) = 2114;
+            *(&v62 + 2) = v45;
             _os_log_error_impl(&dword_1C61EF000, v27, OS_LOG_TYPE_ERROR, "Conflict merging table %{public}@.%{public}@ %{public}@ with %{public}@", buf, 0x2Au);
           }
 
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x3032000000;
-          v62 = __Block_byref_object_copy__34;
-          *&v63 = __Block_byref_object_dispose__34;
-          *(&v63 + 1) = 0;
+          v61 = __Block_byref_object_copy__34;
+          *&v62 = __Block_byref_object_dispose__34;
+          *(&v62 + 1) = 0;
           v28 = [*(a1 + 56) reconciliationMergeHandlers];
-          v49[0] = MEMORY[0x1E69E9820];
-          v49[1] = 3221225472;
-          v49[2] = __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_newRows___block_invoke_104;
-          v49[3] = &unk_1E82559D8;
-          v51 = buf;
+          v48[0] = MEMORY[0x1E69E9820];
+          v48[1] = 3221225472;
+          v48[2] = __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_newRows___block_invoke_104;
+          v48[3] = &unk_1E82559D8;
+          v50 = buf;
           v29 = v14;
-          v50 = v29;
-          [v28 performWhileLocked:v49];
+          v49 = v29;
+          [v28 performWhileLocked:v48];
 
           if (*(*&buf[8] + 40))
           {
             v30 = +[EDProtectedDatabasePersistence log];
             if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
-              *v57 = 138543362;
-              v58 = v29;
-              _os_log_impl(&dword_1C61EF000, v30, OS_LOG_TYPE_DEFAULT, "Merge handler found for table %{public}@", v57, 0xCu);
+              *v56 = 138543362;
+              v57 = v29;
+              _os_log_impl(&dword_1C61EF000, v30, OS_LOG_TYPE_DEFAULT, "Merge handler found for table %{public}@", v56, 0xCu);
             }
 
             v31 = *(*&buf[8] + 40);
             v32 = *(a1 + 64);
             v33 = *(*(a1 + 88) + 8) + 24;
-            v48 = v25;
-            v34 = [v31 handleReconciliationMergeErrorForTable:v29 columnName:v15 statement:v16 journalRowID:v47 protectedRowID:v46 connection:v32 rowsUpdated:v33 error:&v48];
-            v35 = v48;
+            v47 = v25;
+            v34 = [v31 handleReconciliationMergeErrorForTable:v29 columnName:v15 statement:v16 journalRowID:v46 protectedRowID:v45 connection:v32 rowsUpdated:v33 error:&v47];
+            v35 = v47;
 
             *(*(*(a1 + 80) + 8) + 24) = v34;
             v36 = +[EDProtectedDatabasePersistence log];
             if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
               v37 = *(*(*(a1 + 80) + 8) + 24);
-              *v57 = 138543618;
-              v58 = v29;
-              v59 = 2048;
-              v60 = v37;
-              _os_log_impl(&dword_1C61EF000, v36, OS_LOG_TYPE_DEFAULT, "Merge handler for table %{public}@ returned with result %lu", v57, 0x16u);
+              *v56 = 138543618;
+              v57 = v29;
+              v58 = 2048;
+              v59 = v37;
+              _os_log_impl(&dword_1C61EF000, v36, OS_LOG_TYPE_DEFAULT, "Merge handler for table %{public}@ returned with result %lu", v56, 0x16u);
             }
           }
 
@@ -1664,9 +1652,9 @@ void __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_n
             v36 = +[EDProtectedDatabasePersistence log];
             if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
-              *v57 = 138543362;
-              v58 = v29;
-              _os_log_error_impl(&dword_1C61EF000, v36, OS_LOG_TYPE_ERROR, "No merge handler found for table %{public}@", v57, 0xCu);
+              *v56 = 138543362;
+              v57 = v29;
+              _os_log_error_impl(&dword_1C61EF000, v36, OS_LOG_TYPE_ERROR, "No merge handler found for table %{public}@", v56, 0xCu);
             }
 
             v35 = v25;
@@ -1682,7 +1670,7 @@ void __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_n
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v53 objects:v64 count:16];
+      v10 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
       if (v10)
       {
         continue;
@@ -1694,13 +1682,11 @@ void __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_n
 
 LABEL_32:
 
-  [*(a1 + 72) addObject:v47];
+  [*(a1 + 72) addObject:v46];
   if (*(*(*(a1 + 88) + 8) + 24) >= 0x1F4uLL)
   {
     *a4 = 1;
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_newRows___block_invoke_104(uint64_t a1, void *a2)
@@ -1768,7 +1754,7 @@ void __59__EDProtectedDatabasePersistence_scheduleRecurringActivity__block_invok
 
 void __59__EDProtectedDatabasePersistence_scheduleRecurringActivity__block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[EDProtectedDatabasePersistence log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -1777,28 +1763,28 @@ void __59__EDProtectedDatabasePersistence_scheduleRecurringActivity__block_invok
     _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Starting clean up", buf, 2u);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = [*(a1 + 32) database];
   v6 = [v5 protectedSchema];
   v7 = [v6 tables];
 
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v15;
+    v9 = *v14;
 LABEL_5:
     v10 = 0;
     while (1)
     {
-      if (*v15 != v9)
+      if (*v14 != v9)
       {
         objc_enumerationMutation(v7);
       }
 
-      v11 = *(*(&v14 + 1) + 8 * v10);
+      v11 = *(*(&v13 + 1) + 8 * v10);
       if (xpc_activity_should_defer(v3) && xpc_activity_set_state(v3, 3))
       {
         break;
@@ -1812,7 +1798,7 @@ LABEL_5:
 
       if (v8 == ++v10)
       {
-        v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
         if (v8)
         {
           goto LABEL_5;
@@ -1822,8 +1808,6 @@ LABEL_5:
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_databaseIDsToDeleteForTable:(id)table
@@ -1900,27 +1884,26 @@ uint64_t __63__EDProtectedDatabasePersistence__databaseIDsToDeleteForTable___blo
     v4 = objc_alloc(MEMORY[0x1E696AEC0]);
     v5 = [*(a1 + 32) rowIDColumn];
     v6 = [v5 name];
-    v8 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9 = [objc_opt_class() protectedDatabaseName];
-    v10 = [v8 fullNameWithDatabaseName:v9];
-    v11 = [v4 initWithFormat:@"SELECT %1$@ FROM %2$@ WHERE %1$@ NOT IN (%3$@)", v6, v10, *(a1 + 48)];
+    v7 = *(a1 + 32);
+    v8 = [objc_opt_class() protectedDatabaseName];
+    v9 = [v7 fullNameWithDatabaseName:v8];
+    v10 = [v4 initWithFormat:@"SELECT %1$@ FROM %2$@ WHERE %1$@ NOT IN (%3$@)", v6, v9, *(a1 + 48)];
 
-    v12 = [v3 preparedStatementForQueryString:v11];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __63__EDProtectedDatabasePersistence__databaseIDsToDeleteForTable___block_invoke_3;
-    v15[3] = &unk_1E8250300;
-    v16 = *(a1 + 56);
-    v13 = [v12 executeUsingBlock:v15 error:0];
+    v11 = [v3 preparedStatementForQueryString:v10];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __63__EDProtectedDatabasePersistence__databaseIDsToDeleteForTable___block_invoke_3;
+    v14[3] = &unk_1E8250300;
+    v15 = *(a1 + 56);
+    v12 = [v11 executeUsingBlock:v14 error:0];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
-  return v13;
+  return v12;
 }
 
 void __63__EDProtectedDatabasePersistence__databaseIDsToDeleteForTable___block_invoke_3(uint64_t a1, void *a2)
@@ -1933,67 +1916,65 @@ void __63__EDProtectedDatabasePersistence__databaseIDsToDeleteForTable___block_i
 
 - (void)_deleteDatabaseIDs:(id)ds fromTable:(id)table
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   tableCopy = table;
   v8 = [dsCopy mutableCopy];
   v9 = [(EDProtectedDatabasePersistence *)self _allReferencingColumnsForTable:tableCopy];
   database = [(EDProtectedDatabasePersistence *)self database];
   v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDProtectedDatabasePersistence _deleteDatabaseIDs:fromTable:]"];
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __63__EDProtectedDatabasePersistence__deleteDatabaseIDs_fromTable___block_invoke;
-  v22 = &unk_1E8254150;
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __63__EDProtectedDatabasePersistence__deleteDatabaseIDs_fromTable___block_invoke;
+  v21 = &unk_1E8254150;
   v12 = v9;
-  v23 = v12;
+  v22 = v12;
   selfCopy = self;
   v13 = v8;
-  v25 = v13;
+  v24 = v13;
   v14 = tableCopy;
-  v26 = v14;
-  [database __performWriteWithCaller:v11 usingBlock:&v19];
+  v25 = v14;
+  [database __performWriteWithCaller:v11 usingBlock:&v18];
 
-  v15 = [EDProtectedDatabasePersistence log:v19];
+  v15 = [EDProtectedDatabasePersistence log:v18];
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v16 = [v13 count];
     name = [v14 name];
     *buf = 134218242;
-    v28 = v16;
-    v29 = 2114;
-    v30 = name;
+    v27 = v16;
+    v28 = 2114;
+    v29 = name;
     _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "Deleted %lu rows from %{public}@", buf, 0x16u);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __63__EDProtectedDatabasePersistence__deleteDatabaseIDs_fromTable___block_invoke(id *a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 protectedDatabaseAttached])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v4 = a1[4];
-    v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v5)
     {
-      v6 = *v19;
+      v6 = *v18;
       while (2)
       {
         v7 = 0;
         do
         {
-          if (*v19 != v6)
+          if (*v18 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          if (([a1[5] _removeExistingDatabaseIDs:a1[6] withColumn:*(*(&v18 + 1) + 8 * v7) connection:v3] & 1) == 0)
+          if (([a1[5] _removeExistingDatabaseIDs:a1[6] withColumn:*(*(&v17 + 1) + 8 * v7) connection:v3] & 1) == 0)
           {
             v11 = 0;
             goto LABEL_13;
@@ -2003,7 +1984,7 @@ uint64_t __63__EDProtectedDatabasePersistence__deleteDatabaseIDs_fromTable___blo
         }
 
         while (v5 != v7);
-        v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v5)
         {
           continue;
@@ -2014,19 +1995,19 @@ uint64_t __63__EDProtectedDatabasePersistence__deleteDatabaseIDs_fromTable___blo
     }
 
     v8 = [a1[6] allObjects];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __63__EDProtectedDatabasePersistence__deleteDatabaseIDs_fromTable___block_invoke_2;
-    v14[3] = &unk_1E8252B28;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __63__EDProtectedDatabasePersistence__deleteDatabaseIDs_fromTable___block_invoke_2;
+    v13[3] = &unk_1E8252B28;
     v9 = a1[7];
     v10 = a1[5];
-    v15 = v9;
-    v16 = v10;
-    v17 = v3;
-    [v8 ef_enumerateObjectsInBatchesOfSize:45000 block:v14];
+    v14 = v9;
+    v15 = v10;
+    v16 = v3;
+    [v8 ef_enumerateObjectsInBatchesOfSize:45000 block:v13];
 
     v11 = 1;
-    v4 = v15;
+    v4 = v14;
 LABEL_13:
   }
 
@@ -2035,7 +2016,6 @@ LABEL_13:
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -2047,15 +2027,14 @@ void __63__EDProtectedDatabasePersistence__deleteDatabaseIDs_fromTable___block_i
   v6 = [v5 in:v3];
 
   v7 = objc_alloc(MEMORY[0x1E699B8E8]);
-  v9 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v10 = [objc_opt_class() protectedDatabaseName];
-  v11 = [v9 fullNameWithDatabaseName:v10];
-  v12 = [v7 initWithTable:v11 where:v6];
+  v8 = *(a1 + 32);
+  v9 = [objc_opt_class() protectedDatabaseName];
+  v10 = [v8 fullNameWithDatabaseName:v9];
+  v11 = [v7 initWithTable:v10 where:v6];
 
-  v13 = *(a1 + 48);
-  v14 = 0;
-  [v13 executeDeleteStatement:v12 error:&v14];
+  v12 = *(a1 + 48);
+  v13 = 0;
+  [v12 executeDeleteStatement:v11 error:&v13];
 }
 
 - (BOOL)_removeExistingDatabaseIDs:(id)ds withColumn:(id)column connection:(id)connection
@@ -2122,30 +2101,30 @@ void __83__EDProtectedDatabasePersistence__removeExistingDatabaseIDs_withColumn_
 
 - (BOOL)_isJournalMalformedForSchema:(id)schema connection:(id)connection
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   schemaCopy = schema;
   connectionCopy = connection;
-  v24 = schemaCopy;
+  v23 = schemaCopy;
   journalDatabaseName = [objc_opt_class() journalDatabaseName];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = [schemaCopy tables];
-  v22 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v22)
+  v21 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  if (v21)
   {
-    v23 = *v34;
+    v22 = *v33;
     while (2)
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v34 != v23)
+        if (*v33 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v33 + 1) + 8 * i);
+        v7 = *(*(&v32 + 1) + 8 * i);
         name = [v7 name];
         v9 = [connectionCopy tableExists:name inDatabase:journalDatabaseName];
 
@@ -2156,33 +2135,33 @@ LABEL_20:
           goto LABEL_22;
         }
 
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         columns = [v7 columns];
-        v11 = [columns countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v11 = [columns countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v11)
         {
-          v12 = *v30;
+          v12 = *v29;
           while (2)
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v30 != v12)
+              if (*v29 != v12)
               {
                 objc_enumerationMutation(columns);
               }
 
-              v14 = *(*(&v29 + 1) + 8 * j);
-              v28 = 4;
+              v14 = *(*(&v28 + 1) + 8 * j);
+              v27 = 4;
               name2 = [v14 name];
               name3 = [v7 name];
-              v17 = [connectionCopy columnExists:name2 inTable:name3 database:journalDatabaseName type:&v28];
+              v17 = [connectionCopy columnExists:name2 inTable:name3 database:journalDatabaseName type:&v27];
 
               if (v17)
               {
-                v18 = v28;
+                v18 = v27;
                 if (v18 == [v14 type])
                 {
                   continue;
@@ -2192,7 +2171,7 @@ LABEL_20:
               goto LABEL_20;
             }
 
-            v11 = [columns countByEnumeratingWithState:&v29 objects:v37 count:16];
+            v11 = [columns countByEnumeratingWithState:&v28 objects:v36 count:16];
             if (v11)
             {
               continue;
@@ -2204,8 +2183,8 @@ LABEL_20:
       }
 
       v19 = 0;
-      v22 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
-      if (v22)
+      v21 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      if (v21)
       {
         continue;
       }
@@ -2221,7 +2200,6 @@ LABEL_20:
 
 LABEL_22:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -2387,11 +2365,10 @@ void __79__EDProtectedDatabasePersistence__mergeTable_connection_journaledRows_n
 
 - (void)_deleteRowIDs:(uint64_t)a1 fromJournal:(NSObject *)a2 withConnection:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_DEBUG, "Deleting from journal: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_DEBUG, "Deleting from journal: %{public}@", &v2, 0xCu);
 }
 
 @end

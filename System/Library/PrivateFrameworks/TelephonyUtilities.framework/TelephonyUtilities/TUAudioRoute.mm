@@ -192,57 +192,59 @@
 
 - (int64_t)bluetoothEndpointType
 {
-  if (![(TUAudioRoute *)self isBluetooth])
+  isBluetooth = [(TUAudioRoute *)self isBluetooth];
+  if (!isBluetooth)
   {
     return 0;
   }
 
-  v3 = getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType();
+  v5 = getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType(isBluetooth, v4);
 
-  if (v3)
+  if (v5)
   {
     route = [(TUAudioRoute *)self route];
-    v5 = getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType();
-    v6 = [route objectForKeyedSubscript:v5];
+    v8 = getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType(route, v7);
+    v9 = [route objectForKeyedSubscript:v8];
 
-    v7 = getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_Headphones();
-    if (v7 && (v8 = v7, getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_Headphones(), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v6 isEqualToString:v9], v9, v8, (v10 & 1) != 0))
+    v12 = getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_Headphones(v10, v11);
+    if (v12 && (v14 = v12, getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_Headphones(v12, v13), v15 = objc_claimAutoreleasedReturnValue(), v16 = [v9 isEqualToString:v15], v15, v14, (v16 & 1) != 0))
     {
-      v3 = 1;
+      v5 = 1;
     }
 
     else
     {
-      v11 = getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_Vehicle();
-      if (v11 && (v12 = v11, getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_Vehicle(), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v6 isEqualToString:v13], v13, v12, (v14 & 1) != 0))
+      v17 = getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_Vehicle(v12, v13);
+      if (v17 && (v19 = v17, getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_Vehicle(v17, v18), v20 = objc_claimAutoreleasedReturnValue(), v21 = [v9 isEqualToString:v20], v20, v19, (v21 & 1) != 0))
       {
-        v3 = 2;
+        v5 = 2;
       }
 
       else
       {
-        v15 = getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_Speakers();
-        if (v15 && (v16 = v15, getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_Speakers(), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v6 isEqualToString:v17], v17, v16, (v18 & 1) != 0))
+        v22 = getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_Speakers(v17, v18);
+        if (v22 && (v24 = v22, getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_Speakers(v22, v23), v25 = objc_claimAutoreleasedReturnValue(), v26 = [v9 isEqualToString:v25], v25, v24, (v26 & 1) != 0))
         {
-          v3 = 3;
+          v5 = 3;
         }
 
         else
         {
-          v3 = getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_TTY();
-          if (v3)
+          v27 = getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_TTY(v22, v23);
+          v5 = v27;
+          if (v27)
           {
-            v19 = getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_TTY();
-            v20 = [v6 isEqualToString:v19];
+            v29 = getAVSystemController_RouteDescriptionKey_BTDetails_EndpointType_TTY(v27, v28);
+            v30 = [v9 isEqualToString:v29];
 
-            if (v20)
+            if (v30)
             {
-              v3 = 4;
+              v5 = 4;
             }
 
             else
             {
-              v3 = 0;
+              v5 = 0;
             }
           }
         }
@@ -250,7 +252,7 @@
     }
   }
 
-  return v3;
+  return v5;
 }
 
 - (BOOL)isBluetoothLE
@@ -529,28 +531,28 @@ LABEL_4:
 
 - (id)identifiersOfOtherConnectedDevices
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   route = [(TUAudioRoute *)self route];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
   v5 = getAVSystemController_RouteDescriptionKey_OtherDevicesConnectedSymbolLoc_ptr;
-  v32 = getAVSystemController_RouteDescriptionKey_OtherDevicesConnectedSymbolLoc_ptr;
+  v31 = getAVSystemController_RouteDescriptionKey_OtherDevicesConnectedSymbolLoc_ptr;
   if (!getAVSystemController_RouteDescriptionKey_OtherDevicesConnectedSymbolLoc_ptr)
   {
-    v24 = MEMORY[0x1E69E9820];
-    v25 = 3221225472;
-    v26 = __getAVSystemController_RouteDescriptionKey_OtherDevicesConnectedSymbolLoc_block_invoke;
-    v27 = &unk_1E7424CD8;
-    v28 = &v29;
+    v23 = MEMORY[0x1E69E9820];
+    v24 = 3221225472;
+    v25 = __getAVSystemController_RouteDescriptionKey_OtherDevicesConnectedSymbolLoc_block_invoke;
+    v26 = &unk_1E7424CD8;
+    v27 = &v28;
     v6 = MediaExperienceLibrary_0();
-    v30[3] = dlsym(v6, "AVSystemController_RouteDescriptionKey_OtherDevicesConnected");
-    getAVSystemController_RouteDescriptionKey_OtherDevicesConnectedSymbolLoc_ptr = *(v28[1] + 24);
-    v5 = v30[3];
+    v29[3] = dlsym(v6, "AVSystemController_RouteDescriptionKey_OtherDevicesConnected");
+    getAVSystemController_RouteDescriptionKey_OtherDevicesConnectedSymbolLoc_ptr = *(v27[1] + 24);
+    v5 = v29[3];
   }
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v28, 8);
   if (!v5)
   {
     [TUAudioRoute identifiersOfOtherConnectedDevices];
@@ -558,65 +560,64 @@ LABEL_4:
 
   v7 = [route objectForKeyedSubscript:*v5];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v33 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v32 count:16];
   if (v9)
   {
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
-        v29 = 0;
-        v30 = &v29;
-        v31 = 0x2020000000;
+        v12 = *(*(&v19 + 1) + 8 * i);
+        v28 = 0;
+        v29 = &v28;
+        v30 = 0x2020000000;
         v13 = getAVSystemController_RouteDescriptionKey_OtherDevicesConnected_UniqueIDSymbolLoc_ptr;
-        v32 = getAVSystemController_RouteDescriptionKey_OtherDevicesConnected_UniqueIDSymbolLoc_ptr;
+        v31 = getAVSystemController_RouteDescriptionKey_OtherDevicesConnected_UniqueIDSymbolLoc_ptr;
         if (!getAVSystemController_RouteDescriptionKey_OtherDevicesConnected_UniqueIDSymbolLoc_ptr)
         {
-          v24 = MEMORY[0x1E69E9820];
-          v25 = 3221225472;
-          v26 = __getAVSystemController_RouteDescriptionKey_OtherDevicesConnected_UniqueIDSymbolLoc_block_invoke;
-          v27 = &unk_1E7424CD8;
-          v28 = &v29;
+          v23 = MEMORY[0x1E69E9820];
+          v24 = 3221225472;
+          v25 = __getAVSystemController_RouteDescriptionKey_OtherDevicesConnected_UniqueIDSymbolLoc_block_invoke;
+          v26 = &unk_1E7424CD8;
+          v27 = &v28;
           v14 = MediaExperienceLibrary_0();
           v15 = dlsym(v14, "AVSystemController_RouteDescriptionKey_OtherDevicesConnected_UniqueID");
-          *(v28[1] + 24) = v15;
-          getAVSystemController_RouteDescriptionKey_OtherDevicesConnected_UniqueIDSymbolLoc_ptr = *(v28[1] + 24);
-          v13 = v30[3];
+          *(v27[1] + 24) = v15;
+          getAVSystemController_RouteDescriptionKey_OtherDevicesConnected_UniqueIDSymbolLoc_ptr = *(v27[1] + 24);
+          v13 = v29[3];
         }
 
-        _Block_object_dispose(&v29, 8);
+        _Block_object_dispose(&v28, 8);
         if (!v13)
         {
           [TUAudioRoute identifiersOfOtherConnectedDevices];
         }
 
-        v16 = [v12 objectForKeyedSubscript:{*v13, v20}];
+        v16 = [v12 objectForKeyedSubscript:{*v13, v19}];
         if (v16)
         {
           [array addObject:v16];
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v20 objects:v33 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v19 objects:v32 count:16];
     }
 
     while (v9);
   }
 
   v17 = [array copy];
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1062,10 +1063,11 @@ LABEL_17:
 
 - (id)modelIdentifier
 {
-  if (![(TUAudioRoute *)self isBluetooth])
+  isBluetooth = [(TUAudioRoute *)self isBluetooth];
+  if ((isBluetooth & 1) == 0)
   {
-    v4 = TUDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = TUDefaultLog(isBluetooth);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [(TUAudioRoute *)self modelIdentifier];
     }
@@ -1087,109 +1089,109 @@ LABEL_17:
       switch(bluetoothProductIdentifierAsUInt32)
       {
         case 8194:
-          v6 = "AirPods1,1";
+          v7 = "AirPods1,1";
           break;
         case 8195:
-          v6 = "PowerBeats3,1";
+          v7 = "PowerBeats3,1";
           break;
         case 8197:
-          v6 = "BeatsX1,1";
+          v7 = "BeatsX1,1";
           break;
         case 8198:
-          v6 = "BeatsSolo3,1";
+          v7 = "BeatsSolo3,1";
           break;
         case 8201:
-          v6 = "BeatsStudio3,2";
+          v7 = "BeatsStudio3,2";
           break;
         case 8202:
-          v6 = "Device1,8202";
+          v7 = "Device1,8202";
           break;
         case 8203:
-          v6 = "PowerbeatsPro1,1";
+          v7 = "PowerbeatsPro1,1";
           break;
         case 8204:
-          v6 = "BeatsSoloPro1,1";
+          v7 = "BeatsSoloPro1,1";
           break;
         case 8205:
-          v6 = "Powerbeats4,1";
+          v7 = "Powerbeats4,1";
           break;
         case 8206:
-          v6 = "AirPodsPro1,1";
+          v7 = "AirPodsPro1,1";
           break;
         case 8207:
-          v6 = "AirPods1,3";
+          v7 = "AirPods1,3";
           break;
         case 8208:
-          v6 = "Device1,8208";
+          v7 = "Device1,8208";
           break;
         case 8209:
-          v6 = "BeatsStudioBuds1,1";
+          v7 = "BeatsStudioBuds1,1";
           break;
         case 8210:
-          v6 = "Device1,8210";
+          v7 = "Device1,8210";
           break;
         case 8211:
-          v6 = "Device1,8211";
+          v7 = "Device1,8211";
           break;
         case 8212:
-          v6 = "Device1,8212";
+          v7 = "Device1,8212";
           break;
         case 8213:
-          v6 = "Device1,8213";
+          v7 = "Device1,8213";
           break;
         case 8214:
-          v6 = "BeatsStudioBuds1,2";
+          v7 = "BeatsStudioBuds1,2";
           break;
         case 8215:
-          v6 = "BeatsStudioPro1,1";
+          v7 = "BeatsStudioPro1,1";
           break;
         case 8216:
-          v6 = "Device1,8216";
+          v7 = "Device1,8216";
           break;
         case 8217:
-          v6 = "Device1,8217";
+          v7 = "Device1,8217";
           break;
         case 8218:
-          v6 = "Device1,8218";
+          v7 = "Device1,8218";
           break;
         case 8219:
-          v6 = "Device1,8219";
+          v7 = "Device1,8219";
           break;
         case 8220:
-          v6 = "Device1,8220";
+          v7 = "Device1,8220";
           break;
         case 8221:
-          v6 = "Powerb3,1";
+          v7 = "Powerb3,1";
           break;
         case 8222:
-          v6 = "Device1,8222";
+          v7 = "Device1,8222";
           break;
         case 8223:
-          v6 = "Device1,8223";
+          v7 = "Device1,8223";
           break;
         case 8224:
-          v6 = "Device1,8224";
+          v7 = "Device1,8224";
           break;
         case 8228:
-          v6 = "Device1,8228";
+          v7 = "Device1,8228";
           break;
         case 8229:
-          v6 = "Device1,8229";
+          v7 = "Device1,8229";
           break;
         case 8230:
-          v6 = "Device1,8230";
+          v7 = "Device1,8230";
           break;
         case 8231:
-          v6 = "AirPods3,4";
+          v7 = "AirPods3,4";
           break;
         case 8232:
-          v6 = "Device1,8232";
+          v7 = "Device1,8232";
           break;
         case 8233:
-          v6 = "Device1,8233";
+          v7 = "Device1,8233";
           break;
         case 8239:
-          v6 = "Device1,8239";
+          v7 = "Device1,8239";
           break;
         default:
           goto LABEL_77;
@@ -1202,23 +1204,23 @@ LABEL_17:
     {
       if (bluetoothProductIdentifierAsUInt32 == 614)
       {
-        v6 = "ATVRemote1,1";
+        v7 = "ATVRemote1,1";
         goto LABEL_78;
       }
 
       if (bluetoothProductIdentifierAsUInt32 == 621)
       {
-        v6 = "ATVRemote1,2";
+        v7 = "ATVRemote1,2";
         goto LABEL_78;
       }
 
 LABEL_77:
-      v6 = "?";
+      v7 = "?";
       goto LABEL_78;
     }
 
-    v7 = TUDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = TUDefaultLog(bluetoothProductIdentifierAsUInt32);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [(TUAudioRoute *)self modelIdentifier];
     }
@@ -1236,13 +1238,13 @@ LABEL_7:
     {
       if (bluetoothProductIdentifierAsUInt32 == 28944)
       {
-        v6 = "AudioAccessory1,2";
+        v7 = "AudioAccessory1,2";
         goto LABEL_78;
       }
 
       if (bluetoothProductIdentifierAsUInt32 == 29455)
       {
-        v6 = "AppleTV11,1";
+        v7 = "AppleTV11,1";
         goto LABEL_78;
       }
 
@@ -1251,13 +1253,13 @@ LABEL_7:
 
     if (bluetoothProductIdentifierAsUInt32 == 29715)
     {
-      v6 = "AudioAccessory5,1";
+      v7 = "AudioAccessory5,1";
       goto LABEL_78;
     }
 
     if (bluetoothProductIdentifierAsUInt32 == 65533)
     {
-      v6 = "HeGn";
+      v7 = "HeGn";
       goto LABEL_78;
     }
 
@@ -1266,7 +1268,7 @@ LABEL_7:
       goto LABEL_77;
     }
 
-    v6 = "ApGn";
+    v7 = "ApGn";
   }
 
   else
@@ -1275,13 +1277,13 @@ LABEL_7:
     {
       if (bluetoothProductIdentifierAsUInt32 == 21760)
       {
-        v6 = "Device1,21760";
+        v7 = "Device1,21760";
         goto LABEL_78;
       }
 
       if (bluetoothProductIdentifierAsUInt32 == 22034)
       {
-        v6 = "Device1,22034";
+        v7 = "Device1,22034";
         goto LABEL_78;
       }
 
@@ -1290,13 +1292,13 @@ LABEL_7:
 
     if (bluetoothProductIdentifierAsUInt32 == 28420)
     {
-      v6 = "AppleTV5,3";
+      v7 = "AppleTV5,3";
       goto LABEL_78;
     }
 
     if (bluetoothProductIdentifierAsUInt32 == 28936)
     {
-      v6 = "AppleTV6,2";
+      v7 = "AppleTV6,2";
       goto LABEL_78;
     }
 
@@ -1305,28 +1307,27 @@ LABEL_7:
       goto LABEL_77;
     }
 
-    v6 = "AudioAccessory1,1";
+    v7 = "AudioAccessory1,1";
   }
 
 LABEL_78:
-  cachedModelIdentifier = [MEMORY[0x1E696AEC0] stringWithUTF8String:v6];
+  cachedModelIdentifier = [MEMORY[0x1E696AEC0] stringWithUTF8String:v7];
   if (cachedModelIdentifier)
   {
     [(TUAudioRoute *)self setCachedModelIdentifier:cachedModelIdentifier];
-    [(TUAudioRoute *)self setModelIdentifierCached:1];
-    v8 = TUDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = TUDefaultLog([(TUAudioRoute *)self setModelIdentifierCached:1]);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [(TUAudioRoute *)cachedModelIdentifier modelIdentifier];
     }
 
-    v9 = cachedModelIdentifier;
+    v10 = cachedModelIdentifier;
   }
 
   else
   {
-    v10 = TUDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = TUDefaultLog(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [(TUAudioRoute *)self modelIdentifier];
     }
@@ -1342,7 +1343,7 @@ LABEL_86:
 
 - (unsigned)bluetoothProductIdentifierAsUInt32
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (bluetoothProductIdentifierAsUInt32_onceToken != -1)
   {
     [TUAudioRoute bluetoothProductIdentifierAsUInt32];
@@ -1359,44 +1360,43 @@ LABEL_86:
       v7 = [v5 rangeAtIndex:1];
       v9 = [v4 substringWithRange:{v7, v8}];
       integerValue = [v9 integerValue];
-      v11 = TUDefaultLog();
+      v11 = TUDefaultLog(integerValue);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         name = [(TURoute *)self name];
-        v15[0] = 67109634;
-        v15[1] = integerValue;
-        v16 = 2112;
-        v17 = v4;
-        v18 = 2112;
-        v19 = name;
-        _os_log_debug_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEBUG, "Extracted product ID %u from '%@' for route: %@", v15, 0x1Cu);
+        v14[0] = 67109634;
+        v14[1] = integerValue;
+        v15 = 2112;
+        v16 = v4;
+        v17 = 2112;
+        v18 = name;
+        _os_log_debug_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEBUG, "Extracted product ID %u from '%@' for route: %@", v14, 0x1Cu);
       }
     }
 
     else
     {
-      v9 = TUDefaultLog();
+      v9 = TUDefaultLog(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         [(TUAudioRoute *)v4 bluetoothProductIdentifierAsUInt32];
       }
 
-      integerValue = 0;
+      LODWORD(integerValue) = 0;
     }
   }
 
   else
   {
-    v6 = TUDefaultLog();
+    v6 = TUDefaultLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [(TUAudioRoute *)self bluetoothProductIdentifierAsUInt32];
     }
 
-    integerValue = 0;
+    LODWORD(integerValue) = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return integerValue;
 }
 
@@ -1600,22 +1600,16 @@ uint64_t __50__TUAudioRoute_bluetoothProductIdentifierAsUInt32__block_invoke()
 
 - (void)modelIdentifier
 {
-  v8 = *MEMORY[0x1E69E9840];
   name = [self name];
   OUTLINED_FUNCTION_0_4();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)bluetoothProductIdentifierAsUInt32
 {
-  v8 = *MEMORY[0x1E69E9840];
   name = [self name];
   OUTLINED_FUNCTION_0_4();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isHeadphoneJackConnected

@@ -204,7 +204,7 @@ LABEL_7:
 
 - (BOOL)mutateNotificationSettingsForSourceIdentifier:(id)identifier mutatingBlock:(id)block error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   blockCopy = block;
   v9 = +[UNUserNotificationSettingsServiceConnection sharedInstance];
@@ -229,9 +229,9 @@ LABEL_7:
     {
       v18 = MEMORY[0x277CCA9B8];
       v19 = *MEMORY[0x277CCA050];
-      v23 = *MEMORY[0x277CCA450];
-      v24 = @"mutatingBlock cannot be nil";
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v22 = *MEMORY[0x277CCA450];
+      v23 = @"mutatingBlock cannot be nil";
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
       *error = [v18 errorWithDomain:v19 code:4001 userInfo:v20];
 
       LOBYTE(error) = 0;
@@ -244,10 +244,10 @@ LABEL_7:
     {
       v14 = MEMORY[0x277CCA9B8];
       v15 = *MEMORY[0x277CCA050];
-      v25 = *MEMORY[0x277CCA450];
+      v24 = *MEMORY[0x277CCA450];
       identifierCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"settings object is nil for '%@'", identifierCopy];
-      v26[0] = identifierCopy;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v25[0] = identifierCopy;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
       *error = [v14 errorWithDomain:v15 code:4000 userInfo:v17];
 
       LOBYTE(error) = 0;
@@ -256,7 +256,6 @@ LABEL_7:
     v12 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -329,44 +328,42 @@ LABEL_7:
 
 void __102__UNNotificationSettingsCenter_settingsServiceConnection_didUpdateNotificationSourcesWithIdentifiers___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
+  v13 = *MEMORY[0x277D85DE8];
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v2 = *(*(a1 + 32) + 24);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 userNotificationSettingsCenter:*(a1 + 32) didUpdateNotificationSourceIdentifiers:{*(a1 + 40), v9}];
+          [v7 userNotificationSettingsCenter:*(a1 + 32) didUpdateNotificationSourceIdentifiers:{*(a1 + 40), v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)settingsServiceConnection:(id)connection didUpdateNotificationSystemSettings:(id)settings
@@ -393,44 +390,42 @@ void __102__UNNotificationSettingsCenter_settingsServiceConnection_didUpdateNoti
 
 void __94__UNNotificationSettingsCenter_settingsServiceConnection_didUpdateNotificationSystemSettings___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
+  v13 = *MEMORY[0x277D85DE8];
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v2 = *(*(a1 + 32) + 24);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 userNotificationSettingsCenter:*(a1 + 32) didUpdateNotificationSystemSettings:{*(a1 + 40), v9}];
+          [v7 userNotificationSettingsCenter:*(a1 + 32) didUpdateNotificationSystemSettings:{*(a1 + 40), v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

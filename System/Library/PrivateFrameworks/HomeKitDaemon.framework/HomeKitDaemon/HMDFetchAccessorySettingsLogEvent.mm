@@ -71,12 +71,12 @@
   if (v13)
   {
     [(HMMLogEvent *)v13 setError:errorCopy];
-    v15 = [pathsCopy copy];
+    v15 = objc_msgSend_copy(pathsCopy);
     keyPaths = v14->_keyPaths;
     v14->_keyPaths = v15;
 
     v14->_startTimeStamp = time;
-    v17 = [nameCopy copy];
+    v17 = objc_msgSend_copy(nameCopy);
     requestingClientName = v14->_requestingClientName;
     v14->_requestingClientName = v17;
 

@@ -18,6 +18,7 @@
 - (NSArray)listUserVisibleValue;
 - (NSString)userVisibleDescription;
 - (id)name;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)setIndicesUserVisibleValue:(id)value;
 - (void)unregisterObserver:(id)observer;
@@ -285,6 +286,123 @@
   v3 = userVisibleDescriptionCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000036000009"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    indicesUserVisibleValueCharacteristic = [(CAFMultipleSelectImageSetting *)self indicesUserVisibleValueCharacteristic];
+    uniqueIdentifier2 = [indicesUserVisibleValueCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      indicesUserVisibleValue = [(CAFMultipleSelectImageSetting *)self indicesUserVisibleValue];
+      [observers multipleSelectImageSettingService:self didUpdateIndicesUserVisibleValue:indicesUserVisibleValue];
+LABEL_20:
+
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000036000007"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    listUserVisibleValueCharacteristic = [(CAFMultipleSelectImageSetting *)self listUserVisibleValueCharacteristic];
+    uniqueIdentifier4 = [listUserVisibleValueCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      indicesUserVisibleValue = [(CAFMultipleSelectImageSetting *)self listUserVisibleValue];
+      [observers multipleSelectImageSettingService:self didUpdateListUserVisibleValue:indicesUserVisibleValue];
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000030000018"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    imagesCharacteristic = [(CAFMultipleSelectImageSetting *)self imagesCharacteristic];
+    uniqueIdentifier6 = [imagesCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      indicesUserVisibleValue = [(CAFMultipleSelectImageSetting *)self images];
+      [observers multipleSelectImageSettingService:self didUpdateImages:indicesUserVisibleValue];
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000036000029"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    userVisibleDetailedDescriptionCharacteristic = [(CAFMultipleSelectImageSetting *)self userVisibleDetailedDescriptionCharacteristic];
+    uniqueIdentifier8 = [userVisibleDetailedDescriptionCharacteristic uniqueIdentifier];
+    v28 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v28)
+    {
+      observers = [(CAFService *)self observers];
+      indicesUserVisibleValue = [(CAFMultipleSelectImageSetting *)self userVisibleDetailedDescription];
+      [observers multipleSelectImageSettingService:self didUpdateUserVisibleDetailedDescription:indicesUserVisibleValue];
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000030000005"])
+  {
+LABEL_21:
+
+    goto LABEL_22;
+  }
+
+  uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+  userVisibleDescriptionCharacteristic = [(CAFMultipleSelectImageSetting *)self userVisibleDescriptionCharacteristic];
+  uniqueIdentifier10 = [userVisibleDescriptionCharacteristic uniqueIdentifier];
+  v32 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+  if (v32)
+  {
+    observers = [(CAFService *)self observers];
+    indicesUserVisibleValue = [(CAFMultipleSelectImageSetting *)self userVisibleDescription];
+    [observers multipleSelectImageSettingService:self didUpdateUserVisibleDescription:indicesUserVisibleValue];
+    goto LABEL_20;
+  }
+
+LABEL_22:
+  v33.receiver = self;
+  v33.super_class = CAFMultipleSelectImageSetting;
+  [(CAFAutomakerSetting *)&v33 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForIndicesUserVisibleValue

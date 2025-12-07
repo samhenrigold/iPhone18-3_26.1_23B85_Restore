@@ -24,7 +24,7 @@
   [v5 sizeThatFits:{width, height}];
   v8 = v7;
   traitCollection = [(BadgeParagraphView *)selfCopy traitCollection];
-  v10 = sub_100539784(v8, width);
+  v10 = sub_100539784(traitCollection, v8, width);
   v12 = v11;
 
   v13 = v10;

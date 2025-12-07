@@ -46,27 +46,26 @@
 
 - (void)_prepareForDealloc
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_lock);
   if (self->_shouldDisposeOfSoundID)
   {
     v3 = AudioServicesDisposeSystemSoundID(self->_soundID);
-    v4 = TLLogPlayback();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v4 = v3;
+    v6 = TLLogPlayback(v3, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       _description = [(TLSystemSound *)self _description];
       soundID = self->_soundID;
-      v8 = 138543874;
-      v9 = _description;
-      v10 = 2048;
-      v11 = soundID;
-      v12 = 2048;
-      v13 = v3;
-      _os_log_impl(&dword_1D9356000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: -_prepareForDealloc. AudioServicesDisposeSystemSoundID for soundID = %lu returned %ld.", &v8, 0x20u);
+      v9 = 138543874;
+      v10 = _description;
+      v11 = 2048;
+      v12 = soundID;
+      v13 = 2048;
+      v14 = v4;
+      _os_log_impl(&dword_1D9356000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: -_prepareForDealloc. AudioServicesDisposeSystemSoundID for soundID = %lu returned %ld.", &v9, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -138,18 +137,16 @@ LABEL_9:
 
 - (void)beginRequiringUnderlyingSoundLoaded
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   _description = [self _description];
-  v5 = 138543362;
-  v6 = _description;
-  _os_log_debug_impl(&dword_1D9356000, a2, OS_LOG_TYPE_DEBUG, "%{public}@: -beginRequiringUnderlyingSoundLoaded.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = _description;
+  _os_log_debug_impl(&dword_1D9356000, a2, OS_LOG_TYPE_DEBUG, "%{public}@: -beginRequiringUnderlyingSoundLoaded.", &v4, 0xCu);
 }
 
 - (void)_ensureUnderlyingSoundCreated
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_lock);
   if (self->_soundID == kSystemSoundID_InvalidTone)
   {
@@ -172,24 +169,25 @@ LABEL_9:
     }
 
     SystemSoundIDWithOptions = AudioServicesCreateSystemSoundIDWithOptions();
-    v7 = TLLogPlayback();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = SystemSoundIDWithOptions;
+    v9 = TLLogPlayback(SystemSoundIDWithOptions, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       _description = [(TLSystemSound *)self _description];
-      v9 = self->_soundFileURL;
+      v11 = self->_soundFileURL;
       soundID = self->_soundID;
-      v12 = 138544130;
-      v13 = _description;
-      v14 = 2114;
-      v15 = v9;
-      v16 = 2048;
-      v17 = soundID;
-      v18 = 2048;
-      v19 = SystemSoundIDWithOptions;
-      _os_log_impl(&dword_1D9356000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: -_ensureUnderlyingSoundCreated. AudioServicesCreateSystemSoundIDWithOptions for URL %{public}@ produced soundID = %lu and returned %ld.", &v12, 0x2Au);
+      v13 = 138544130;
+      v14 = _description;
+      v15 = 2114;
+      v16 = v11;
+      v17 = 2048;
+      v18 = soundID;
+      v19 = 2048;
+      v20 = v7;
+      _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: -_ensureUnderlyingSoundCreated. AudioServicesCreateSystemSoundIDWithOptions for URL %{public}@ produced soundID = %lu and returned %ld.", &v13, 0x2Au);
     }
 
-    if (!SystemSoundIDWithOptions)
+    if (!v7)
     {
       self->_shouldDisposeOfSoundID = 1;
     }
@@ -200,8 +198,6 @@ LABEL_10:
       self->_soundID = kSystemSoundID_NoneTone;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -171,10 +171,10 @@
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  v63 = location.size.height;
-  v64 = location.size.width;
-  v65 = location.origin.y;
-  v66 = location.origin.x;
+  v66 = location.size.height;
+  v67 = location.size.width;
+  v68 = location.origin.y;
+  v69 = location.origin.x;
   settingsCopy = settings;
   chromaticAberrationInitialDonutMask = [settingsCopy chromaticAberrationInitialDonutMask];
   gradientLayerSize = [chromaticAberrationInitialDonutMask gradientLayerSize];
@@ -193,52 +193,52 @@
       [v27 maximumExtentOfZeroOpacity];
       UIRectGetCenter();
       SUIAExpandNormalizedPoint(x, y, width, height, v28);
-      v67.origin.x = x;
-      v67.origin.y = y;
-      v67.size.width = width;
-      v67.size.height = height;
-      CGRectGetMinX(v67);
-      v68.origin.x = x;
-      v68.origin.y = y;
-      v68.size.width = width;
-      v68.size.height = height;
-      CGRectGetMinY(v68);
-      UIDistanceBetweenPoints();
-      v69.origin.x = x;
-      v69.origin.y = y;
-      v69.size.width = width;
-      v69.size.height = height;
-      CGRectGetMaxX(v69);
       v70.origin.x = x;
       v70.origin.y = y;
       v70.size.width = width;
       v70.size.height = height;
-      CGRectGetMinY(v70);
-      UIDistanceBetweenPoints();
+      CGRectGetMinX(v70);
       v71.origin.x = x;
       v71.origin.y = y;
       v71.size.width = width;
       v71.size.height = height;
-      CGRectGetMinX(v71);
+      CGRectGetMinY(v71);
+      UIDistanceBetweenPoints();
       v72.origin.x = x;
       v72.origin.y = y;
       v72.size.width = width;
       v72.size.height = height;
-      CGRectGetMaxY(v72);
-      UIDistanceBetweenPoints();
+      CGRectGetMaxX(v72);
       v73.origin.x = x;
       v73.origin.y = y;
       v73.size.width = width;
       v73.size.height = height;
-      CGRectGetMaxX(v73);
+      CGRectGetMinY(v73);
+      UIDistanceBetweenPoints();
       v74.origin.x = x;
       v74.origin.y = y;
       v74.size.width = width;
       v74.size.height = height;
-      CGRectGetMaxY(v74);
+      CGRectGetMinX(v74);
+      v75.origin.x = x;
+      v75.origin.y = y;
+      v75.size.width = width;
+      v75.size.height = height;
+      CGRectGetMaxY(v75);
       UIDistanceBetweenPoints();
-      v29 = SUIAScreenEdgeForNormalizedButtonRect();
-      if (v29 == 8 || v29 == 2)
+      v76.origin.x = x;
+      v76.origin.y = y;
+      v76.size.width = width;
+      v76.size.height = height;
+      CGRectGetMaxX(v76);
+      v77.origin.x = x;
+      v77.origin.y = y;
+      v77.size.width = width;
+      v77.size.height = height;
+      CGRectGetMaxY(v77);
+      v29 = UIDistanceBetweenPoints();
+      v30 = SUIAScreenEdgeForNormalizedButtonRect(v29);
+      if (v30 == 8 || v30 == 2)
       {
         [settingsCopy finalFitVsDiameterRatioLongEdgeForIdiom:idiom];
       }
@@ -248,50 +248,50 @@
         [settingsCopy finalFitVsDiameterRatioShortEdgeForIdiom:idiom];
       }
 
-      BSRectWithSize();
-      v20 = SAUIRectMovedOffscreenByProportionToNormalizedButtonRectInContextOfShockwaveBounds(v37, v38, v39, v40, 0.0, v66, v65, v41, v66, v65, v64, v63, x, y, width, height);
-      v22 = v42;
-      v24 = v43;
-      v26 = v44;
+      v39 = BSRectWithSize();
+      v20 = SAUIRectMovedOffscreenByProportionToNormalizedButtonRectInContextOfShockwaveBounds(v40, v41, v42, v43, 0.0, v69, v68, v44, v39, v69, v68, v67, v66, x, y, width, height);
+      v22 = v45;
+      v24 = v46;
+      v26 = v47;
     }
 
     else if (((1 << state) & 0x11) != 0 || variant)
     {
-      [settingsCopy donutMaskInitialEdgeOutsetProportion];
-      v20 = SAUIRectMovedOffscreenByProportionToNormalizedButtonRectInContextOfShockwaveBounds(v20, v22, v24, v26, v30, v31, v32, v33, v66, v65, v64, v63, x, y, width, height);
-      v22 = v34;
-      v24 = v35;
-      v26 = v36;
+      donutMaskInitialEdgeOutsetProportion = [settingsCopy donutMaskInitialEdgeOutsetProportion];
+      v20 = SAUIRectMovedOffscreenByProportionToNormalizedButtonRectInContextOfShockwaveBounds(v20, v22, v24, v26, v32, v33, v34, v35, donutMaskInitialEdgeOutsetProportion, v69, v68, v67, v66, x, y, width, height);
+      v22 = v36;
+      v24 = v37;
+      v26 = v38;
     }
 
     else
     {
-      [self donutMaskRectForState:0 variant:0 normalizedStartLocation:settingsCopy settings:idiom inBounds:v66 idiom:{v65, v64, v63, x, y, width, height}];
-      v61 = v49;
-      v62 = v50;
-      [self donutMaskRectForState:2 variant:0 normalizedStartLocation:settingsCopy settings:idiom inBounds:v66 idiom:{v65, v64, v63, x, y, width, height}];
-      v52 = v51;
+      [self donutMaskRectForState:0 variant:0 normalizedStartLocation:settingsCopy settings:idiom inBounds:v69 idiom:{v68, v67, v66, x, y, width, height}];
+      v64 = v52;
+      v65 = v53;
+      [self donutMaskRectForState:2 variant:0 normalizedStartLocation:settingsCopy settings:idiom inBounds:v69 idiom:{v68, v67, v66, x, y, width, height}];
+      v55 = v54;
       [settingsCopy captureHintInterpolationProgress];
-      v54 = v53;
-      v24 = v61 + v53 * (v52 - v61);
-      v26 = v62 + v53 * (v52 - v62);
+      v57 = v56;
+      v24 = v64 + v56 * (v55 - v64);
+      v26 = v65 + v56 * (v55 - v65);
       UIRectGetCenter();
-      v56 = v55;
-      v58 = v57;
+      v59 = v58;
+      v61 = v60;
       UIRectGetCenter();
-      v20 = v56 + v54 * (v59 - v56) - v24 * 0.5;
-      v22 = v58 + v54 * (v60 - v58) - v26 * 0.5;
+      v20 = v59 + v57 * (v62 - v59) - v24 * 0.5;
+      v22 = v61 + v57 * (v63 - v61) - v26 * 0.5;
     }
   }
 
-  v45 = v20;
-  v46 = v22;
-  v47 = v24;
-  v48 = v26;
-  result.size.height = v48;
-  result.size.width = v47;
-  result.origin.y = v46;
-  result.origin.x = v45;
+  v48 = v20;
+  v49 = v22;
+  v50 = v24;
+  v51 = v26;
+  result.size.height = v51;
+  result.size.width = v50;
+  result.origin.y = v49;
+  result.origin.x = v48;
   return result;
 }
 
@@ -310,50 +310,50 @@
   v23 = objc_alloc_init(self);
   donutMaskPositionAnimationSettings = [settingsCopy donutMaskPositionAnimationSettings];
   [settingsCopy aberrationMagnitudeX];
-  v65 = v25;
-  [settingsCopy aberrationMagnitudeY];
-  v64 = v26;
-  v27 = SUIAScreenEdgeForNormalizedButtonRect();
+  v66 = v25;
+  aberrationMagnitudeY = [settingsCopy aberrationMagnitudeY];
+  v65 = v27;
+  v28 = SUIAScreenEdgeForNormalizedButtonRect(aberrationMagnitudeY);
+  memset(&v69, 0, sizeof(v69));
+  SUIACATransform3DFromNominalRightEdgeToEdge(v28, &v69);
   memset(&v68, 0, sizeof(v68));
-  SUIACATransform3DFromNominalRightEdgeToEdge(v27, &v68);
-  memset(&v67, 0, sizeof(v67));
-  v66 = v68;
-  CATransform3DGetAffineTransform(&v67, &v66);
-  [v23 _setAberrationMagnitude:{vaddq_f64(*&v67.tx, vmlaq_n_f64(vmulq_n_f64(*&v67.c, v64), *&v67.a, v65))}];
+  v67 = v69;
+  CATransform3DGetAffineTransform(&v68, &v67);
+  [v23 _setAberrationMagnitude:{vaddq_f64(*&v68.tx, vmlaq_n_f64(vmulq_n_f64(*&v68.c, v65), *&v68.a, v66))}];
   [settingsCopy aberrationBlurRadius];
   [v23 _setAberrationBlurRadius:?];
   aberrationUseEDR = [settingsCopy aberrationUseEDR];
-  v29 = 0.0;
   v30 = 0.0;
+  v31 = 0.0;
   if (aberrationUseEDR)
   {
     [settingsCopy aberrationEDRGain];
   }
 
-  [v23 _setAberrationEDRGain:v30];
+  [v23 _setAberrationEDRGain:v31];
   if ([settingsCopy aberrationUseColorBrightness])
   {
     [settingsCopy aberrationColorBrightness];
-    v29 = v31;
+    v30 = v32;
   }
 
-  [v23 _setAberrationColorBrightnessFactor:v29];
+  [v23 _setAberrationColorBrightnessFactor:v30];
   aberrationUseColorMatrixMultiply = [settingsCopy aberrationUseColorMatrixMultiply];
-  v33 = 0.0;
   v34 = 0.0;
+  v35 = 0.0;
   if (aberrationUseColorMatrixMultiply)
   {
     [settingsCopy aberrationColorMatrixMultiplyFactor];
   }
 
-  [v23 _setAberrationMultiplyFactor:v34];
+  [v23 _setAberrationMultiplyFactor:v35];
   if ([settingsCopy aberrationUseColorSaturate])
   {
     [settingsCopy aberrationColorSaturateAmount];
-    v33 = v35;
+    v34 = v36;
   }
 
-  [v23 _setAberrationColorSaturateAmount:v33];
+  [v23 _setAberrationColorSaturateAmount:v34];
   [v23 _setAberrationIntensity:1.0];
   if (state <= 5)
   {
@@ -361,12 +361,12 @@
     {
       if (variant)
       {
-        v36 = donutMaskPositionAnimationSettings;
+        v37 = donutMaskPositionAnimationSettings;
       }
 
       else
       {
-        v36 = [donutMaskPositionAnimationSettings copy];
+        v37 = [donutMaskPositionAnimationSettings copy];
 
         if (lightCopy)
         {
@@ -378,30 +378,30 @@
           [settingsCopy captureHintRetargetImpulse];
         }
 
-        v51 = v43;
-        [v36 retargetImpulse];
-        [v36 setRetargetImpulse:v51 + v52];
+        v52 = v44;
+        [v37 retargetImpulse];
+        [v37 setRetargetImpulse:v52 + v53];
       }
 
       [objc_opt_class() donutMaskRectForState:state variant:variant normalizedStartLocation:settingsCopy settings:idiom inBounds:v18 idiom:{v17, v16, v15, x, y, width, height}];
       [v23 _setDonutMaskFrame:?];
       [settingsCopy donutMaskEndTransitionDelay];
-      v54 = v53;
-      v50 = [settingsCopy chromaticAberrationFinalDonutMaskForIdiom:idiom];
-      v55 = [v36 copy];
-      [v23 _setBehaviorSettings:v55 forKeypath:@"donutMaskFrame"];
+      v55 = v54;
+      v51 = [settingsCopy chromaticAberrationFinalDonutMaskForIdiom:idiom];
+      v56 = [v37 copy];
+      [v23 _setBehaviorSettings:v56 forKeypath:@"donutMaskFrame"];
 
-      locations = [v50 locations];
+      locations = [v51 locations];
       [v23 _setDonutGradientLocations:locations];
 
-      v57 = [v36 copy];
-      [v23 _setBehaviorSettings:v57 forKeypath:@"donutGradientLocations"];
+      v58 = [v37 copy];
+      [v23 _setBehaviorSettings:v58 forKeypath:@"donutGradientLocations"];
 
-      colors = [v50 colors];
+      colors = [v51 colors];
       [v23 _setDonutGradientColors:colors];
 
-      v59 = [v36 copy];
-      [v23 _setBehaviorSettings:v59 forKeypath:@"donutGradientColors"];
+      v60 = [v37 copy];
+      [v23 _setBehaviorSettings:v60 forKeypath:@"donutGradientColors"];
 
       [v23 _setAberrationIntensity:0.0];
       if (state == 5)
@@ -413,15 +413,15 @@
       {
         [settingsCopy abberationFadeOutAnimationSettings];
       }
-      v60 = ;
-      v61 = [v60 copy];
-      [v23 _setBehaviorSettings:v61 forKeypath:@"aberrationIntensity"];
+      v61 = ;
+      v62 = [v61 copy];
+      [v23 _setBehaviorSettings:v62 forKeypath:@"aberrationIntensity"];
 
       if (state != 5)
       {
-        [v23 _setDelay:@"donutMaskFrame" forApplicationOfKeypath:v54];
-        [v23 _setDelay:@"donutGradientLocations" forApplicationOfKeypath:v54];
-        [v23 _setDelay:@"donutGradientColors" forApplicationOfKeypath:v54];
+        [v23 _setDelay:@"donutMaskFrame" forApplicationOfKeypath:v55];
+        [v23 _setDelay:@"donutGradientLocations" forApplicationOfKeypath:v55];
+        [v23 _setDelay:@"donutGradientColors" forApplicationOfKeypath:v55];
         [settingsCopy aberrationFadeOutDelay];
         [v23 _setDelay:@"aberrationIntensity" forApplicationOfKeypath:?];
       }
@@ -446,8 +446,8 @@
           goto LABEL_31;
         }
 
-        v41 = [donutMaskPositionAnimationSettings copy];
-        [v23 _setBehaviorSettings:v41 forKeypath:@"donutMaskFrame"];
+        v42 = [donutMaskPositionAnimationSettings copy];
+        [v23 _setBehaviorSettings:v42 forKeypath:@"donutMaskFrame"];
 
         chromaticAberrationInitialDonutMask4 = [donutMaskPositionAnimationSettings copy];
         [v23 _setBehaviorSettings:chromaticAberrationInitialDonutMask4 forKeypath:@"donutGradientLocations"];
@@ -464,27 +464,27 @@
 
         [objc_opt_class() donutMaskRectForState:1 variant:variant normalizedStartLocation:settingsCopy settings:idiom inBounds:v18 idiom:{v17, v16, v15, x, y, width, height}];
         [v23 _setDonutMaskFrame:?];
-        v45 = [donutMaskPositionAnimationSettings copy];
-        [v23 _setBehaviorSettings:v45 forKeypath:@"donutMaskFrame"];
+        v46 = [donutMaskPositionAnimationSettings copy];
+        [v23 _setBehaviorSettings:v46 forKeypath:@"donutMaskFrame"];
 
         chromaticAberrationInitialDonutMask3 = [settingsCopy chromaticAberrationInitialDonutMask];
         locations3 = [chromaticAberrationInitialDonutMask3 locations];
         [v23 _setDonutGradientLocations:locations3];
 
-        v48 = [donutMaskPositionAnimationSettings copy];
-        [v23 _setBehaviorSettings:v48 forKeypath:@"donutGradientLocations"];
+        v49 = [donutMaskPositionAnimationSettings copy];
+        [v23 _setBehaviorSettings:v49 forKeypath:@"donutGradientLocations"];
 
         chromaticAberrationInitialDonutMask4 = [settingsCopy chromaticAberrationInitialDonutMask];
         colors3 = [chromaticAberrationInitialDonutMask4 colors];
         [v23 _setDonutGradientColors:colors3];
       }
 
-      v50 = [donutMaskPositionAnimationSettings copy];
-      [v23 _setBehaviorSettings:v50 forKeypath:@"donutGradientColors"];
-      v36 = donutMaskPositionAnimationSettings;
+      v51 = [donutMaskPositionAnimationSettings copy];
+      [v23 _setBehaviorSettings:v51 forKeypath:@"donutGradientColors"];
+      v37 = donutMaskPositionAnimationSettings;
     }
 
-    donutMaskPositionAnimationSettings = v36;
+    donutMaskPositionAnimationSettings = v37;
   }
 
 LABEL_31:

@@ -304,7 +304,7 @@ uint64_t __50__PLVideoView__flattenVideoWithCompletionHandler___block_invoke_3(u
 - (id)_metadataForFlattenedVideo
 {
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  [(PLManagedAsset *)self->_videoCameraImage duration];
+  objc_msgSend_duration(self->_videoCameraImage);
   [dictionary setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithDouble:"), @"duration"}];
   v4 = [-[PFVideoAVObjectBuilder videoAdjustments](self->__videoAVObjectBuilder "videoAdjustments")];
   if (v4)
@@ -409,25 +409,25 @@ uint64_t __38__PLVideoView__canAirPlayCurrentVideo__block_invoke(uint64_t a1, ui
     v8 = adjustmentsToCommit;
 
     self->__adjustmentsToCommit = 0;
-    v9 = [(PLManagedAsset *)self->_videoCameraImage pl_PHAssetFromPhotoLibrary:pl_appPhotoLibrary()];
-    if (v9)
+    v11 = [(PLManagedAsset *)self->_videoCameraImage pl_PHAssetFromPhotoLibrary:pl_appPhotoLibrary(v9, v10)];
+    if (v11)
     {
-      v10 = v9;
+      v12 = v11;
       ++self->__expectedNotificationsCount;
-      v11 = [objc_alloc(MEMORY[0x277CD97A0]) initWithFormatIdentifier:-[PFVideoAdjustments adjustmentFormatIdentifier](v8 formatVersion:"adjustmentFormatIdentifier") data:{-[PFVideoAdjustments adjustmentFormatVersion](v8, "adjustmentFormatVersion"), -[PFVideoAdjustments adjustmentData](v8, "adjustmentData")}];
-      v12 = pl_appPhotoLibrary();
-      photoLibraryURL = [v12 photoLibraryURL];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __72__PLVideoView__commitPendingAdjustmentsUpdateAndWait_completionHandler___block_invoke;
-      v18[3] = &unk_2782A20C0;
-      v18[4] = v10;
-      v18[5] = photoLibraryURL;
-      v18[6] = v11;
+      v13 = [objc_alloc(MEMORY[0x277CD97A0]) initWithFormatIdentifier:-[PFVideoAdjustments adjustmentFormatIdentifier](v8 formatVersion:"adjustmentFormatIdentifier") data:{-[PFVideoAdjustments adjustmentFormatVersion](v8, "adjustmentFormatVersion"), -[PFVideoAdjustments adjustmentData](v8, "adjustmentData")}];
+      v15 = pl_appPhotoLibrary(v13, v14);
+      photoLibraryURL = [v15 photoLibraryURL];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __72__PLVideoView__commitPendingAdjustmentsUpdateAndWait_completionHandler___block_invoke;
+      v21[3] = &unk_2782A20C0;
+      v21[4] = v12;
+      v21[5] = photoLibraryURL;
+      v21[6] = v13;
       if (waitCopy)
       {
         *buf = 0;
-        if (![v12 performChangesAndWait:v18 error:buf] || *buf)
+        if (![v15 performChangesAndWait:v21 error:buf] || *buf)
         {
           NSLog(&cfstr_FailedToCommit.isa, *buf);
         }
@@ -440,12 +440,12 @@ uint64_t __38__PLVideoView__canAirPlayCurrentVideo__block_invoke(uint64_t a1, ui
 
       else
       {
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __72__PLVideoView__commitPendingAdjustmentsUpdateAndWait_completionHandler___block_invoke_2;
-        v16[3] = &unk_2782A2228;
-        v16[4] = handler;
-        [v12 performChanges:v18 completionHandler:v16];
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __72__PLVideoView__commitPendingAdjustmentsUpdateAndWait_completionHandler___block_invoke_2;
+        v19[3] = &unk_2782A2228;
+        v19[4] = handler;
+        [v15 performChanges:v21 completionHandler:v19];
       }
     }
 
@@ -467,9 +467,9 @@ uint64_t __38__PLVideoView__canAirPlayCurrentVideo__block_invoke(uint64_t a1, ui
 
   else if (handler)
   {
-    v14 = *(handler + 2);
+    v17 = *(handler + 2);
 
-    v14(handler, 0);
+    v17(handler, 0);
   }
 }
 
@@ -483,11 +483,11 @@ uint64_t __72__PLVideoView__commitPendingAdjustmentsUpdateAndWait_completionHand
   return [v2 setContentEditingOutput:v3];
 }
 
-uint64_t __72__PLVideoView__commitPendingAdjustmentsUpdateAndWait_completionHandler___block_invoke_2(uint64_t a1, char a2, uint64_t a3)
+uint64_t __72__PLVideoView__commitPendingAdjustmentsUpdateAndWait_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3 || (a2 & 1) == 0)
   {
-    NSLog(&cfstr_FailedToCommit.isa, a3);
+    NSLog(&cfstr_FailedToCommit.isa, a2, a3);
   }
 
   result = *(a1 + 32);
@@ -540,7 +540,7 @@ uint64_t __72__PLVideoView__commitPendingAdjustmentsUpdateAndWait_completionHand
   videoAdjustments = [(PFVideoAVObjectBuilder *)self->__videoAVObjectBuilder videoAdjustments];
   if (videoAdjustments)
   {
-    [videoAdjustments slowMotionTimeRange];
+    objc_msgSend_slowMotionTimeRange(videoAdjustments);
   }
 
   else
@@ -616,7 +616,7 @@ uint64_t __72__PLVideoView__commitPendingAdjustmentsUpdateAndWait_completionHand
     return;
   }
 
-  [(PLVideoView *)self currentTime];
+  objc_msgSend_currentTime(self, a2);
   [(PLVideoView *)self _scrubberTimeFromMovieTime:?];
   if ((*(self + 650) & 0x20) == 0)
   {
@@ -677,7 +677,7 @@ LABEL_14:
     videoAdjustments = [(PFVideoAVObjectBuilder *)self->__videoAVObjectBuilder videoAdjustments];
     if (videoAdjustments)
     {
-      [videoAdjustments slowMotionTimeRange];
+      objc_msgSend_slowMotionTimeRange(videoAdjustments);
     }
 
     else
@@ -770,8 +770,7 @@ LABEL_14:
     videoAVObjectBuilder = self->__videoAVObjectBuilder;
     if (videoAVObjectBuilder)
     {
-      *v7 = v8;
-      [(PFVideoAVObjectBuilder *)videoAVObjectBuilder convertToOriginalTimeFromScaledTime:v7 forExport:0];
+      objc_msgSend_convertToOriginalTimeFromScaledTime_forExport_(videoAVObjectBuilder, v8.value, *&v8.timescale, v8.epoch);
     }
 
     *v7 = *&v7[32];
@@ -791,8 +790,7 @@ LABEL_14:
     videoAVObjectBuilder = self->__videoAVObjectBuilder;
     if (videoAVObjectBuilder)
     {
-      *v7 = v8;
-      [(PFVideoAVObjectBuilder *)videoAVObjectBuilder convertToScaledTimeFromOriginalTime:v7 forExport:0];
+      objc_msgSend_convertToScaledTimeFromOriginalTime_forExport_(videoAVObjectBuilder, v8.value, *&v8.timescale, v8.epoch);
     }
 
     *v7 = *&v7[32];
@@ -812,8 +810,7 @@ LABEL_14:
     videoAVObjectBuilder = self->__videoAVObjectBuilder;
     if (videoAVObjectBuilder)
     {
-      *v7 = v8;
-      [(PFVideoAVObjectBuilder *)videoAVObjectBuilder convertToOriginalTimeFromScaledTime:v7 forExport:0];
+      objc_msgSend_convertToOriginalTimeFromScaledTime_forExport_(videoAVObjectBuilder, v8.value, *&v8.timescale, v8.epoch);
     }
 
     *v7 = *&v7[32];
@@ -848,7 +845,7 @@ LABEL_14:
     videoAsset = [(PFVideoAVObjectBuilder *)self->__videoAVObjectBuilder videoAsset];
     if (videoAsset)
     {
-      [videoAsset duration];
+      objc_msgSend_duration(videoAsset);
     }
 
     else
@@ -877,33 +874,34 @@ LABEL_14:
 
 - (void)notifyOfChange:(id)change shouldReloadBlock:(id)block
 {
-  if (![-[PFVideoAVObjectBuilder videoAdjustments](self->__videoAVObjectBuilder "videoAdjustments")])
+  v7 = [-[PFVideoAVObjectBuilder videoAdjustments](self->__videoAVObjectBuilder "videoAdjustments")];
+  if (!v7)
   {
 LABEL_5:
-    v10 = 1;
+    v12 = 1;
     goto LABEL_7;
   }
 
-  if ([objc_msgSend(change changeDetailsForObject:{-[PLManagedAsset pl_PHAssetFromPhotoLibrary:](self->_videoCameraImage, "pl_PHAssetFromPhotoLibrary:", pl_appPhotoLibrary())), "assetContentChanged"}])
+  if ([objc_msgSend(change changeDetailsForObject:{-[PLManagedAsset pl_PHAssetFromPhotoLibrary:](self->_videoCameraImage, "pl_PHAssetFromPhotoLibrary:", pl_appPhotoLibrary(v7, v8))), "assetContentChanged"}])
   {
     expectedNotificationsCount = self->__expectedNotificationsCount;
-    v8 = expectedNotificationsCount < 1;
-    v9 = expectedNotificationsCount - 1;
-    if (!v8)
+    v10 = expectedNotificationsCount < 1;
+    v11 = expectedNotificationsCount - 1;
+    if (!v10)
     {
-      v10 = 0;
-      self->__expectedNotificationsCount = v9;
+      v12 = 0;
+      self->__expectedNotificationsCount = v11;
       goto LABEL_7;
     }
 
     goto LABEL_5;
   }
 
-  v10 = 0;
+  v12 = 0;
 LABEL_7:
-  v11 = *(block + 2);
+  v13 = *(block + 2);
 
-  v11(block, v10);
+  v13(block, v12);
 }
 
 - (void)_scrubToMovieTime:(double)time
@@ -920,7 +918,7 @@ LABEL_7:
   result = 0.0;
   if ((*(self + 651) & 8) != 0)
   {
-    [(PLMoviePlayerController *)self->_moviePlayer currentTime];
+    objc_msgSend_currentTime(self->_moviePlayer, a2, 0.0);
   }
 
   self->_cachedCurrentPlaybackTime = result;
@@ -1615,16 +1613,16 @@ LABEL_7:
   [MEMORY[0x277D3AD48] requestVideoPlaybackURLForAsset:videoCameraImage videoType:v17 completion:v20];
 }
 
-uint64_t __19__PLVideoView_play__block_invoke_2(uint64_t a1)
+void *__19__PLVideoView_play__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   Log = PLPhotoSharingGetLog();
   if (os_log_type_enabled(Log, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(*(a1 + 32) + 408) cachedNonPersistedVideoPlaybackURL];
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_21ACCD000, Log, OS_LOG_TYPE_DEFAULT, "(streamed-video-playback) will play video for %@", &v5, 0xCu);
+    v4 = [*(*(a1 + 32) + 408) cachedNonPersistedVideoPlaybackURL];
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_21ACCD000, Log, OS_LOG_TYPE_DEFAULT, "(streamed-video-playback) will play video for %@", &v6, 0xCu);
   }
 
   result = [*(*(a1 + 32) + 408) cachedNonPersistedVideoPlaybackURL];
@@ -2197,7 +2195,7 @@ void __46__PLVideoView__serviceImageGenerationRequests__block_invoke(uint64_t a1
                 v22 = 0;
                 if (v14)
                 {
-                  [v14 CMTimeValue];
+                  objc_msgSend_CMTimeValue(v14);
                 }
 
                 v24 = v21;
@@ -2245,7 +2243,7 @@ void __46__PLVideoView__serviceImageGenerationRequests__block_invoke(uint64_t a1
   }
 }
 
-uint64_t __46__PLVideoView__serviceImageGenerationRequests__block_invoke_2(uint64_t a1, int a2, CGImageRef image)
+void *__46__PLVideoView__serviceImageGenerationRequests__block_invoke_2(uint64_t a1, __int128 *a2, CGImageRef image, uint64_t a4, uint64_t a5)
 {
   if (image)
   {
@@ -2253,9 +2251,9 @@ uint64_t __46__PLVideoView__serviceImageGenerationRequests__block_invoke_2(uint6
   }
 
   pl_dispatch_async();
-  v4 = ++*(*(*(a1 + 64) + 8) + 24);
+  v6 = ++*(*(*(a1 + 64) + 8) + 24);
   result = [*(a1 + 48) count];
-  if (v4 == result)
+  if (v6 == result)
   {
     pl_dispatch_sync();
     return pl_dispatch_async();
@@ -2287,7 +2285,7 @@ void __46__PLVideoView__serviceImageGenerationRequests__block_invoke_3(uint64_t 
   }
 }
 
-uint64_t __46__PLVideoView__serviceImageGenerationRequests__block_invoke_5(uint64_t a1)
+void *__46__PLVideoView__serviceImageGenerationRequests__block_invoke_5(uint64_t a1)
 {
   [*(a1 + 32) _serviceImageGenerationRequests];
   result = [*(a1 + 32) _canCreateMetadata];
@@ -3008,13 +3006,13 @@ LABEL_8:
   }
 }
 
-uint64_t __56__PLVideoView_moviePlayerDidChangeExternalPlaybackType___block_invoke(uint64_t result)
+void *__56__PLVideoView_moviePlayerDidChangeExternalPlaybackType___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if ((*(v1 + 651) & 2) != 0)
   {
     *(v1 + 651) &= ~2u;
-    return [*(result + 32) _prepareAndResumePlayback];
+    return [*(result + 4) _prepareAndResumePlayback];
   }
 
   return result;
@@ -3053,7 +3051,7 @@ uint64_t __56__PLVideoView_moviePlayerDidChangeExternalPlaybackType___block_invo
 
   if ((*(self + 651) & 2) != 0)
   {
-    [controller currentTime];
+    objc_msgSend_currentTime(controller, a2);
     self->_cachedCurrentPlaybackTime = v5;
   }
 
@@ -3322,11 +3320,11 @@ LABEL_12:
   return v3;
 }
 
-uint64_t __42__PLVideoView__prepareMoviePlayerIfNeeded__block_invoke(uint64_t result, int a2)
+id *__42__PLVideoView__prepareMoviePlayerIfNeeded__block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _prepareAndResumePlayback];
+    return [result[4] _prepareAndResumePlayback];
   }
 
   return result;
@@ -3343,20 +3341,20 @@ id __42__PLVideoView__prepareMoviePlayerIfNeeded__block_invoke_103(uint64_t a1, 
 {
   v3 = objc_alloc_init(MEMORY[0x277CD9850]);
   [v3 setNetworkAccessAllowed:0];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __45__PLVideoView__fetchLocalContentEditingInput__block_invoke;
-  v6[3] = &unk_2782A2110;
-  v6[4] = self;
-  [v3 setCanHandleAdjustmentData:v6];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __45__PLVideoView__fetchLocalContentEditingInput__block_invoke;
+  v8[3] = &unk_2782A2110;
+  v8[4] = self;
+  v4 = [v3 setCanHandleAdjustmentData:v8];
   self->__isFetchingVideo = 1;
-  v4 = [(PLManagedAsset *)self->_videoCameraImage pl_PHAssetFromPhotoLibrary:pl_appPhotoLibrary()];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __45__PLVideoView__fetchLocalContentEditingInput__block_invoke_2;
-  v5[3] = &unk_2782A2138;
-  v5[4] = self;
-  [v4 requestContentEditingInputWithOptions:v3 completionHandler:v5];
+  v6 = [(PLManagedAsset *)self->_videoCameraImage pl_PHAssetFromPhotoLibrary:pl_appPhotoLibrary(v4, v5)];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __45__PLVideoView__fetchLocalContentEditingInput__block_invoke_2;
+  v7[3] = &unk_2782A2138;
+  v7[4] = self;
+  [v6 requestContentEditingInputWithOptions:v3 completionHandler:v7];
 }
 
 uint64_t __45__PLVideoView__fetchLocalContentEditingInput__block_invoke_3(id *a1)
@@ -3396,17 +3394,17 @@ uint64_t __45__PLVideoView__fetchLocalContentEditingInput__block_invoke_3(id *a1
   [v3 setNetworkAccessAllowed:1];
   [v3 setStreamingAllowed:1];
   [v3 setVideoComplementAllowed:1];
-  [v3 setVersion:0];
+  v4 = [v3 setVersion:0];
   self->__isFetchingVideo = 1;
-  v4 = [(PLManagedAsset *)self->_videoCameraImage pl_PHAssetFromPhotoLibrary:pl_appPhotoLibrary()];
+  v6 = [(PLManagedAsset *)self->_videoCameraImage pl_PHAssetFromPhotoLibrary:pl_appPhotoLibrary(v4, v5)];
   defaultManager = [MEMORY[0x277CD9898] defaultManager];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __34__PLVideoView__fetchNonlocalVideo__block_invoke;
-  v6[3] = &unk_2782A20E8;
-  v6[4] = self;
-  v6[5] = v4;
-  [defaultManager requestPlayerItemForVideo:v4 options:v3 resultHandler:v6];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __34__PLVideoView__fetchNonlocalVideo__block_invoke;
+  v8[3] = &unk_2782A20E8;
+  v8[4] = self;
+  v8[5] = v6;
+  [defaultManager requestPlayerItemForVideo:v6 options:v3 resultHandler:v8];
 }
 
 void __34__PLVideoView__fetchNonlocalVideo__block_invoke_2(uint64_t a1)
@@ -3451,7 +3449,7 @@ void __34__PLVideoView__fetchNonlocalVideo__block_invoke_2(uint64_t a1)
 
 - (void)moviePlayerDurationAvailable:(id)available
 {
-  [(PLMoviePlayerController *)self->_moviePlayer duration];
+  objc_msgSend_duration(self->_moviePlayer, a2, available);
   if (self->_duration != v4)
   {
     [(PLVideoView *)self _setDuration:?];
@@ -3489,7 +3487,7 @@ void __34__PLVideoView__fetchNonlocalVideo__block_invoke_2(uint64_t a1)
   if ((*(self + 651) & 8) == 0 && (*(self + 651) & 1) == 0)
   {
     *(self + 651) |= 8u;
-    [(PLMoviePlayerController *)self->_moviePlayer duration];
+    objc_msgSend_duration(self->_moviePlayer);
     [(PLVideoView *)self _setDuration:?];
     posterFrameView = self->_posterFrameView;
     if (posterFrameView)
@@ -3568,7 +3566,7 @@ void __34__PLVideoView__fetchNonlocalVideo__block_invoke_2(uint64_t a1)
   [v12 generateCGImagesAsynchronouslyForTimes:v13 completionHandler:v14];
 }
 
-void __54__PLVideoView__requestPreviewPosterFrameForVideoSize___block_invoke(uint64_t a1, int a2, CFTypeRef cf)
+void __54__PLVideoView__requestPreviewPosterFrameForVideoSize___block_invoke(uint64_t a1, int a2, CFTypeRef cf, uint64_t a4, uint64_t a5)
 {
   if (cf)
   {
@@ -3624,9 +3622,9 @@ void __54__PLVideoView__requestPreviewPosterFrameForVideoSize___block_invoke_2(u
       return;
     }
 
-    [(PLMoviePlayerController *)self->_moviePlayer currentTime];
+    objc_msgSend_currentTime(self->_moviePlayer);
     v7 = v6;
-    [(PLMoviePlayerController *)self->_moviePlayer duration];
+    objc_msgSend_duration(self->_moviePlayer);
     if (vabdd_f64(v7, v8) < 1.0)
     {
 LABEL_8:

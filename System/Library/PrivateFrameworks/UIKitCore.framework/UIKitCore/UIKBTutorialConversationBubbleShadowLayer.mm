@@ -20,7 +20,7 @@
   {
     v4->_shadowType = type;
     v4->_userInterfaceStyle = 0;
-    v6 = +[UIColor blackColor];
+    v6 = objc_msgSend_blackColor(UIColor);
     -[UIKBTutorialConversationBubbleShadowLayer setShadowColor:](v5, "setShadowColor:", [v6 CGColor]);
 
     [(UIKBTutorialConversationBubbleShadowLayer *)v5 _updateShadowProperties];

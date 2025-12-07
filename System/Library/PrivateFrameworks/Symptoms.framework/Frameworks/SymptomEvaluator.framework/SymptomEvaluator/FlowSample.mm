@@ -394,7 +394,7 @@
 
 + (void)acquireNominalCeilingValuesForCellDL:(double *)l andUL:(double *)uL
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (l && uL)
   {
     v6 = +[FlowSample _cellRelay];
@@ -416,15 +416,15 @@
       {
         *l = 0.0;
         *uL = 0.0;
-        v10 = flowScrutinyLogHandle;
+        v9 = flowScrutinyLogHandle;
         if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
         {
-          v11 = v10;
-          v12 = 67109376;
-          *v13 = [v6 nrFrequencyBand];
-          *&v13[4] = 1024;
-          *&v13[6] = [v6 radioTechnology];
-          _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "Unindentified band/radio %d/%d", &v12, 0xEu);
+          v10 = v9;
+          v11 = 67109376;
+          *v12 = [v6 nrFrequencyBand];
+          *&v12[4] = 1024;
+          *&v12[6] = [v6 radioTechnology];
+          _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "Unindentified band/radio %d/%d", &v11, 0xEu);
         }
 
         goto LABEL_14;
@@ -437,26 +437,23 @@
     *uL = v7;
 LABEL_14:
 
-    goto LABEL_15;
+    return;
   }
 
   v8 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v12 = 134218240;
-    *v13 = l;
-    *&v13[8] = 2048;
+    v11 = 134218240;
+    *v12 = l;
+    *&v12[8] = 2048;
     uLCopy = uL;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Wrong input arguments dlTput:%p ulTput:%p", &v12, 0x16u);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Wrong input arguments dlTput:%p ulTput:%p", &v11, 0x16u);
   }
-
-LABEL_15:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)acquireCeilingValuesForCellFlow:(id)flow
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   flowCopy = flow;
   [FlowSample acquireNominalCeilingValuesForCellDL:&self->_ceilingCellRxThroughput andUL:&self->_ceilingCellTxThroughput];
   v5 = flowScrutinyLogHandle;
@@ -464,16 +461,14 @@ LABEL_15:
   {
     ceilingCellRxThroughput = self->_ceilingCellRxThroughput;
     ceilingCellTxThroughput = self->_ceilingCellTxThroughput;
-    v9 = 134218498;
-    v10 = ceilingCellRxThroughput;
-    v11 = 2048;
-    v12 = ceilingCellTxThroughput;
-    v13 = 2112;
-    v14 = flowCopy;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Using nominal DL tput %.2f and UL tput %.2f for flow: %@", &v9, 0x20u);
+    v8 = 134218498;
+    v9 = ceilingCellRxThroughput;
+    v10 = 2048;
+    v11 = ceilingCellTxThroughput;
+    v12 = 2112;
+    v13 = flowCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Using nominal DL tput %.2f and UL tput %.2f for flow: %@", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

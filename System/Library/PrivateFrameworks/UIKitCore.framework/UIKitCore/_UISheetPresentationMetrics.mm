@@ -16,7 +16,7 @@
     dispatch_once(&qword_1ED49C080, &__block_literal_global_478);
   }
 
-  v3 = _MergedGlobals_15_7;
+  v3 = _MergedGlobals_15_7[0];
 
   return v3;
 }

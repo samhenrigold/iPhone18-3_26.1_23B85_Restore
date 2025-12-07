@@ -88,7 +88,7 @@
 void __33__CDPDaemonConnection_connection__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = _CDPLogSystem();
+  v2 = _CDPLogSystem(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __33__CDPDaemonConnection_connection__block_invoke_cold_1(v2);
@@ -107,7 +107,7 @@ void __33__CDPDaemonConnection_connection__block_invoke(uint64_t a1)
 void __33__CDPDaemonConnection_connection__block_invoke_21(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = _CDPLogSystem();
+  v2 = _CDPLogSystem(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __33__CDPDaemonConnection_connection__block_invoke_21_cold_1(v2);
@@ -139,7 +139,7 @@ void __33__CDPDaemonConnection_connection__block_invoke_21(uint64_t a1)
 void __29__CDPDaemonConnection_daemon__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __29__CDPDaemonConnection_daemon__block_invoke_cold_1(v3, v4);
@@ -204,11 +204,10 @@ void __57__CDPDaemonConnection_synchronousDaemonWithErrorHandler___block_invoke(
 
 void __29__CDPDaemonConnection_daemon__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "XPC Error from daemon: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "XPC Error from daemon: %@", &v2, 0xCu);
 }
 
 @end

@@ -286,34 +286,7 @@
 
   v6 = v5;
   v7 = v6;
-  if (!v6)
-  {
-    goto LABEL_9;
-  }
-
-  serviceName = [v6 serviceName];
-  serviceName2 = [(HMFNetworkServiceInfo *)self serviceName];
-  v10 = HMFEqualObjects(serviceName, serviceName2);
-
-  if (!v10)
-  {
-    goto LABEL_9;
-  }
-
-  serviceType = [v7 serviceType];
-  serviceType2 = [(HMFNetworkServiceInfo *)self serviceType];
-  v13 = HMFEqualObjects(serviceType, serviceType2);
-
-  if (!v13)
-  {
-    goto LABEL_9;
-  }
-
-  serviceDomain = [v7 serviceDomain];
-  serviceDomain2 = [(HMFNetworkServiceInfo *)self serviceDomain];
-  v16 = HMFEqualObjects(serviceDomain, serviceDomain2);
-
-  if (v16)
+  if (v6 && ([v6 serviceName], v8 = objc_claimAutoreleasedReturnValue(), -[HMFNetworkServiceInfo serviceName](self, "serviceName"), v9 = objc_claimAutoreleasedReturnValue(), v10 = HMFEqualObjects(v8, v9), v9, v8, v10) && (objc_msgSend(v7, "serviceType"), v11 = objc_claimAutoreleasedReturnValue(), -[HMFNetworkServiceInfo serviceType](self, "serviceType"), v12 = objc_claimAutoreleasedReturnValue(), v13 = HMFEqualObjects(v11, v12), v12, v11, v13) && (objc_msgSend(v7, "serviceDomain"), v14 = objc_claimAutoreleasedReturnValue(), -[HMFNetworkServiceInfo serviceDomain](self, "serviceDomain"), v15 = objc_claimAutoreleasedReturnValue(), v16 = HMFEqualObjects(v14, v15), v15, v14, v16))
   {
     txtRecord = [v7 txtRecord];
     txtRecord2 = [(HMFNetworkServiceInfo *)self txtRecord];
@@ -322,7 +295,6 @@
 
   else
   {
-LABEL_9:
     v19 = 0;
   }
 
@@ -337,61 +309,34 @@ LABEL_9:
   serviceName = [infoCopy serviceName];
   v6 = HMFEqualObjects(serviceName, self->_serviceName);
 
-  if (!v6)
+  if (v6 && ([infoCopy serviceType], v7 = objc_claimAutoreleasedReturnValue(), v8 = HMFEqualObjects(v7, self->_serviceType), v7, v8) && (objc_msgSend(infoCopy, "serviceDomain"), v9 = objc_claimAutoreleasedReturnValue(), v10 = HMFEqualObjects(v9, self->_serviceDomain), v9, v10) && (objc_msgSend(infoCopy, "txtRecord"), v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(v11, self->_txtRecord), v11, (v12 & 1) == 0))
   {
-    goto LABEL_5;
-  }
-
-  serviceType = [infoCopy serviceType];
-  v8 = HMFEqualObjects(serviceType, self->_serviceType);
-
-  if (!v8)
-  {
-    goto LABEL_5;
-  }
-
-  serviceDomain = [infoCopy serviceDomain];
-  v10 = HMFEqualObjects(serviceDomain, self->_serviceDomain);
-
-  if (!v10)
-  {
-    goto LABEL_5;
-  }
-
-  txtRecord = [infoCopy txtRecord];
-  v12 = HMFEqualObjects(txtRecord, self->_txtRecord);
-
-  if ((v12 & 1) == 0)
-  {
-    txtRecord2 = [infoCopy txtRecord];
+    txtRecord = [infoCopy txtRecord];
     txtRecord = self->_txtRecord;
-    self->_txtRecord = txtRecord2;
+    self->_txtRecord = txtRecord;
 
     os_unfair_lock_unlock(&self->_lock);
-    v16 = objc_autoreleasePoolPush();
+    v15 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v18 = HMFGetOSLogHandle();
+    v18 = HMFGetOSLogHandle(selfCopy, v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v19 = HMFGetLogIdentifier(selfCopy);
-      txtRecord3 = [infoCopy txtRecord];
+      txtRecord2 = [infoCopy txtRecord];
       v21 = 138543618;
       v22 = v19;
       v23 = 2112;
-      v24 = txtRecord3;
+      v24 = txtRecord2;
       _os_log_impl(&dword_22ADEC000, v18, OS_LOG_TYPE_INFO, "%{public}@Updating with new txt record: %@", &v21, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v16);
+    objc_autoreleasePoolPop(v15);
   }
 
   else
   {
-LABEL_5:
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)defaultServiceTypes
@@ -408,19 +353,17 @@ LABEL_5:
 
 void __44__HMFNetworkServiceInfo_defaultServiceTypes__block_invoke()
 {
-  v3[7] = *MEMORY[0x277D85DE8];
-  v3[0] = @"_hap._tcp";
-  v3[1] = @"_hap._udp";
-  v3[2] = @"_airplay._tcp";
-  v3[3] = @"_matter._tcp";
-  v3[4] = @"_matterc._udp";
-  v3[5] = @"_companion-link._tcp";
-  v3[6] = @"_sleep-proxy._udp";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:7];
+  v2[7] = *MEMORY[0x277D85DE8];
+  v2[0] = @"_hap._tcp";
+  v2[1] = @"_hap._udp";
+  v2[2] = @"_airplay._tcp";
+  v2[3] = @"_matter._tcp";
+  v2[4] = @"_matterc._udp";
+  v2[5] = @"_companion-link._tcp";
+  v2[6] = @"_sleep-proxy._udp";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:7];
   v1 = qword_280AFC430;
   qword_280AFC430 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory

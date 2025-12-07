@@ -195,30 +195,30 @@
 
 - (unsigned)encoding
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [(MFIMAPFetchResult *)self flagsArray];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v2 = v18 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v2 = v17 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v16 != v5)
+      if (*v15 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v7 = *(*(&v15 + 1) + 8 * v6);
+      v7 = *(*(&v14 + 1) + 8 * v6);
       if (v7)
       {
-        v8 = [*(*(&v15 + 1) + 8 * v6) rangeOfString:@"CHARSET=" options:{9, v15}];
+        v8 = [*(*(&v14 + 1) + 8 * v6) rangeOfString:@"CHARSET=" options:{9, v14}];
         if (v9)
         {
           v10 = v8 + v9;
@@ -237,7 +237,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -254,7 +254,6 @@ LABEL_12:
     v12 = -1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

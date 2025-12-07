@@ -100,12 +100,12 @@ LABEL_17:
 
 - (id)_transformMailboxUid:(void *)uid parent:(void *)parent uidToMailboxMap:(void *)map objectIDToUidMap:
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v9 = a2;
   uidCopy = uid;
   parentCopy = parent;
   mapCopy = map;
-  v36 = v9;
+  v35 = v9;
   if (self)
   {
     displayNameUsingSpecialNames = [v9 displayNameUsingSpecialNames];
@@ -116,21 +116,21 @@ LABEL_17:
     v14 = objc_alloc(MEMORY[0x1E699AE08]);
     representedAccount = [v9 representedAccount];
     identifier = [representedAccount identifier];
-    v34 = [v14 initWithRepresentedObjectID:identifier];
+    v33 = [v14 initWithRepresentedObjectID:identifier];
 
     objectID = [v9 objectID];
     if (objectID)
     {
       v17 = objc_alloc(MEMORY[0x1E699AD18]);
       type = [v9 type];
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __88__MFMailboxUidTransformer__transformMailboxUid_parent_uidToMailboxMap_objectIDToUidMap___block_invoke;
-      v42[3] = &unk_1E7AA6238;
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __88__MFMailboxUidTransformer__transformMailboxUid_parent_uidToMailboxMap_objectIDToUidMap___block_invoke;
+      v41[3] = &unk_1E7AA6238;
       v19 = v9;
-      v43 = v19;
-      v44 = uidCopy;
-      v20 = [v17 initWithObjectID:objectID repository:0 name:displayNameUsingSpecialNames accountIdentifier:v34 type:type builder:v42];
+      v42 = v19;
+      v43 = uidCopy;
+      v20 = [v17 initWithObjectID:objectID repository:0 name:displayNameUsingSpecialNames accountIdentifier:v33 type:type builder:v41];
       if (parentCopy)
       {
         [parentCopy setObject:v20 forKey:v19];
@@ -142,25 +142,25 @@ LABEL_17:
         [mapCopy setObject:v19 forKey:objectID2];
       }
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       children2 = [v19 children];
-      v23 = [children2 countByEnumeratingWithState:&v38 objects:v45 count:16];
+      v23 = [children2 countByEnumeratingWithState:&v37 objects:v44 count:16];
       if (v23)
       {
-        v24 = *v39;
+        v24 = *v38;
         do
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v39 != v24)
+            if (*v38 != v24)
             {
               objc_enumerationMutation(children2);
             }
 
-            v26 = *(*(&v38 + 1) + 8 * i);
+            v26 = *(*(&v37 + 1) + 8 * i);
             v27 = objc_autoreleasePoolPush();
             v28 = [(MFMailboxUidTransformer *)self _transformMailboxUid:v26 parent:v20 uidToMailboxMap:parentCopy objectIDToUidMap:mapCopy];
             [v13 addObjectsFromArray:v28];
@@ -168,7 +168,7 @@ LABEL_17:
             objc_autoreleasePoolPop(v27);
           }
 
-          v23 = [children2 countByEnumeratingWithState:&v38 objects:v45 count:16];
+          v23 = [children2 countByEnumeratingWithState:&v37 objects:v44 count:16];
         }
 
         while (v23);
@@ -188,8 +188,6 @@ LABEL_17:
   {
     v29 = 0;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v29;
 }

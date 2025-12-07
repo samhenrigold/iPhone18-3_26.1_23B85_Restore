@@ -126,16 +126,16 @@ void __34__AVCaptureTimecodeGenerator_init__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __57__AVCaptureTimecodeGenerator_startExternalSourceObserver__block_invoke(uint64_t result, _DWORD *a2)
+id *__57__AVCaptureTimecodeGenerator_startExternalSourceObserver__block_invoke(id *result, _DWORD *a2)
 {
   if (*a2 == 3)
   {
-    return [*(result + 32) _removeMidiEndpointAsSynchronizationSource:a2[4]];
+    return [result[4] _removeMidiEndpointAsSynchronizationSource:a2[4]];
   }
 
   if (*a2 == 2)
   {
-    return [*(result + 32) _registerMidiEndpointAsSynchronizationSource:a2[4]];
+    return [result[4] _registerMidiEndpointAsSynchronizationSource:a2[4]];
   }
 
   return result;
@@ -556,7 +556,7 @@ LABEL_3:
   }
 
   os_unfair_lock_lock(&self->_resourceLock);
-  [(AVCaptureTimecodeGenerator *)self _newestTimecodeRingBufferEntry];
+  objc_msgSend__newestTimecodeRingBufferEntry(self);
   v9 = *(&v25 + 1);
   v10 = BYTE3(v25);
   v11 = v26;
@@ -1003,7 +1003,7 @@ LABEL_25:
   }
 }
 
-uint64_t __74__AVCaptureTimecodeGenerator__openMidiTimecodeDataStreamWithUUID_success___block_invoke_2(uint64_t result, uint64_t a2)
+void *__74__AVCaptureTimecodeGenerator__openMidiTimecodeDataStreamWithUUID_success___block_invoke_2(void *result, uint64_t a2)
 {
   v16 = result;
   *(&_block_invoke_timecode + 8) = *MEMORY[0x1E6960C70];
@@ -1123,7 +1123,7 @@ LABEL_31:
           CMTimeMake(v17, v11, v12);
           *(&_block_invoke_timecode + 8) = *v17;
           qword_1EB3857D8 = *&v17[16];
-          v13 = *(v16 + 32);
+          v13 = v16[4];
           v14 = *v4;
           *v17 = _block_invoke_timecode;
           *&v17[16] = unk_1EB3857D0;

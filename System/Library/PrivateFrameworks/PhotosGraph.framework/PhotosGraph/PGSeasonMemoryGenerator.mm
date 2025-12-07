@@ -11,7 +11,7 @@
 
 - (id)titleGeneratorForTriggeredMemory:(id)memory withKeyAsset:(id)asset curatedAssets:(id)assets extendedCuratedAssets:(id)curatedAssets titleGenerationContext:(id)context inGraph:(id)graph
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   memoryCopy = memory;
   contextCopy = context;
   memoryFeatureNodes = [memoryCopy memoryFeatureNodes];
@@ -33,15 +33,13 @@
     loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v23[0] = 67109120;
-      v23[1] = [v13 count];
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGSeasonMemoryGenerator] One season node expected, found %d", v23, 8u);
+      v22[0] = 67109120;
+      v22[1] = [v13 count];
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGSeasonMemoryGenerator] One season node expected, found %d", v22, 8u);
     }
 
     v19 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -79,32 +77,26 @@
 
 - (unint64_t)memoryCategorySubcategoryForOverTimeType:(unint64_t)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (type == 2)
   {
-    result = 14001;
+    return 14001;
   }
 
-  else
+  typeCopy = type;
+  loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
+  if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
-    typeCopy = type;
-    loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
-    if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
-    {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v9 = 138412546;
-      v10 = v8;
-      v11 = 1024;
-      v12 = typeCopy;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v9, 0x12u);
-    }
-
-    result = 0;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 1024;
+    v11 = typeCopy;
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v8, 0x12u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (PGSeasonMemoryGenerator)initWithMemoryGenerationContext:(id)context
@@ -139,7 +131,7 @@
 
 + (void)enumerateMomentNodesBySeasonInYearFromMomentNodes:(id)nodes loggingConnection:(id)connection usingBlock:(id)block
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   connectionCopy = connection;
   blockCopy = block;
@@ -148,32 +140,32 @@
     graph = [nodesCopy graph];
     v11 = MEMORY[0x277D22C90];
     v12 = +[PGGraphMomentNode dateOfMoment];
-    v30[0] = v12;
+    v29[0] = v12;
     v13 = +[PGGraphDateNode seasonOfDate];
-    v30[1] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+    v29[1] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
     v15 = [v11 chain:v14];
 
     v16 = [MEMORY[0x277D22BF8] adjacencyWithSources:nodesCopy relation:v15 targetsClass:objc_opt_class()];
     v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __106__PGSeasonMemoryGenerator_enumerateMomentNodesBySeasonInYearFromMomentNodes_loggingConnection_usingBlock___block_invoke;
-    v27[3] = &unk_2788898A0;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __106__PGSeasonMemoryGenerator_enumerateMomentNodesBySeasonInYearFromMomentNodes_loggingConnection_usingBlock___block_invoke;
+    v26[3] = &unk_2788898A0;
     v18 = v17;
-    v28 = v18;
-    [nodesCopy enumerateUniversalStartDatesUsingBlock:v27];
+    v27 = v18;
+    [nodesCopy enumerateUniversalStartDatesUsingBlock:v26];
     transposed = [v16 transposed];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __106__PGSeasonMemoryGenerator_enumerateMomentNodesBySeasonInYearFromMomentNodes_loggingConnection_usingBlock___block_invoke_2;
-    v23[3] = &unk_278887228;
-    v24 = v18;
-    v25 = graph;
-    v26 = blockCopy;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __106__PGSeasonMemoryGenerator_enumerateMomentNodesBySeasonInYearFromMomentNodes_loggingConnection_usingBlock___block_invoke_2;
+    v22[3] = &unk_278887228;
+    v23 = v18;
+    v24 = graph;
+    v25 = blockCopy;
     v20 = graph;
     v21 = v18;
-    [transposed enumerateTargetsBySourceWithBlock:v23];
+    [transposed enumerateTargetsBySourceWithBlock:v22];
   }
 
   else if (os_log_type_enabled(connectionCopy, OS_LOG_TYPE_INFO))
@@ -181,8 +173,6 @@
     *buf = 0;
     _os_log_impl(&dword_22F0FC000, connectionCopy, OS_LOG_TYPE_INFO, "[PGSeasonMemoryGenerator] Current locale does not support seasons, not generating season based memories.", buf, 2u);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __106__PGSeasonMemoryGenerator_enumerateMomentNodesBySeasonInYearFromMomentNodes_loggingConnection_usingBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -196,64 +186,64 @@ void __106__PGSeasonMemoryGenerator_enumerateMomentNodesBySeasonInYearFromMoment
 
 void __106__PGSeasonMemoryGenerator_enumerateMomentNodesBySeasonInYearFromMomentNodes_loggingConnection_usingBlock___block_invoke_2(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v65 = *MEMORY[0x277D85DE8];
-  v47 = a2;
+  v64 = *MEMORY[0x277D85DE8];
+  v46 = a2;
   v7 = a3;
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
-  v42 = v7;
+  v41 = v7;
   v9 = [v7 elementIdentifiers];
   v10 = [v9 indexArray];
 
-  v11 = [v10 countByEnumeratingWithState:&v58 objects:v64 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v57 objects:v63 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v59;
+    v13 = *v58;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v59 != v13)
+        if (*v58 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v58 + 1) + 8 * i);
+        v15 = *(*(&v57 + 1) + 8 * i);
         v16 = [*(a1 + 32) objectForKeyedSubscript:v15];
         [v8 setObject:v16 forKeyedSubscript:v15];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v58 objects:v64 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v57 objects:v63 count:16];
     }
 
     while (v12);
   }
 
   v17 = [v8 keysSortedByValueUsingSelector:sel_compare_];
-  v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v18 = objc_alloc_init(MEMORY[0x277D22BD0]);
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   obj = v17;
-  v19 = [obj countByEnumeratingWithState:&v54 objects:v63 count:16];
-  v49 = a4;
+  v19 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
+  v48 = a4;
   if (v19)
   {
     v20 = v19;
     v21 = 0;
-    v22 = *v55;
+    v22 = *v54;
 LABEL_10:
     v23 = 0;
     while (1)
     {
       v24 = v21;
-      if (*v55 != v22)
+      if (*v54 != v22)
       {
         objc_enumerationMutation(obj);
       }
@@ -263,7 +253,7 @@ LABEL_10:
         break;
       }
 
-      v25 = *(*(&v54 + 1) + 8 * v23);
+      v25 = *(*(&v53 + 1) + 8 * v23);
       v26 = [v25 unsignedIntegerValue];
       v27 = [*(a1 + 32) objectForKeyedSubscript:v25];
       v21 = v27;
@@ -272,11 +262,11 @@ LABEL_10:
         [v27 timeIntervalSinceDate:v24];
         if (v28 > 10368000.0)
         {
-          [v44 addObject:v18];
+          [v43 addObject:v18];
           v29 = objc_alloc_init(MEMORY[0x277D22BD0]);
 
           v18 = v29;
-          a4 = v49;
+          a4 = v48;
         }
       }
 
@@ -284,7 +274,7 @@ LABEL_10:
 
       if (v20 == ++v23)
       {
-        v20 = [obj countByEnumeratingWithState:&v54 objects:v63 count:16];
+        v20 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
         if (v20)
         {
           goto LABEL_10;
@@ -304,25 +294,25 @@ LABEL_10:
   {
     if ([v18 count])
     {
-      [v44 addObject:v18];
+      [v43 addObject:v18];
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
-    v43 = v44;
-    v46 = [v43 countByEnumeratingWithState:&v50 objects:v62 count:16];
-    if (v46)
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v42 = v43;
+    v45 = [v42 countByEnumeratingWithState:&v49 objects:v61 count:16];
+    if (v45)
     {
-      v45 = *v51;
+      v44 = *v50;
 LABEL_27:
       v30 = 0;
       while (1)
       {
-        if (*v51 != v45)
+        if (*v50 != v44)
         {
-          objc_enumerationMutation(v43);
+          objc_enumerationMutation(v42);
         }
 
         if (*a4)
@@ -330,7 +320,7 @@ LABEL_27:
           break;
         }
 
-        v31 = *(*(&v50 + 1) + 8 * v30);
+        v31 = *(*(&v49 + 1) + 8 * v30);
         v32 = [PGGraphMomentNodeCollection alloc];
         v33 = *(a1 + 40);
         v34 = [objc_alloc(MEMORY[0x277D22BB0]) initWithElementIdentifier:{objc_msgSend(v31, "firstElement")}];
@@ -349,11 +339,11 @@ LABEL_27:
         v40 = [PGGraphYearNodeCollection yearNodesForYear:v38 inGraph:*(a1 + 40)];
         (*(*(a1 + 48) + 16))();
 
-        a4 = v49;
-        if (v46 == ++v30)
+        a4 = v48;
+        if (v45 == ++v30)
         {
-          v46 = [v43 countByEnumeratingWithState:&v50 objects:v62 count:16];
-          if (v46)
+          v45 = [v42 countByEnumeratingWithState:&v49 objects:v61 count:16];
+          if (v45)
           {
             goto LABEL_27;
           }
@@ -363,8 +353,6 @@ LABEL_27:
       }
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 @end

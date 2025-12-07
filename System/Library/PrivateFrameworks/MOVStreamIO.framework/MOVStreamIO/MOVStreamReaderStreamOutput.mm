@@ -73,7 +73,7 @@
     v6 = assetTrack;
     if (assetTrack)
     {
-      [assetTrack minFrameDuration];
+      objc_msgSend_minFrameDuration(assetTrack);
 
       if (v10.flags)
       {
@@ -81,7 +81,7 @@
         assetTrack3 = assetTrack2;
         if (assetTrack2)
         {
-          [assetTrack2 minFrameDuration];
+          objc_msgSend_minFrameDuration(assetTrack2);
         }
 
         else
@@ -462,7 +462,7 @@ LABEL_7:
   [(MOVStreamReaderStreamOutput *)v22 setStreamOutput:v36];
   if (trackCopy)
   {
-    [trackCopy preferredTransform];
+    objc_msgSend_preferredTransform(trackCopy);
   }
 
   else
@@ -766,17 +766,17 @@ LABEL_65:
 
 - (MOVStreamReaderStreamOutput)initWithTimeCodeTrack:(id)track assetReader:(id)reader associatedMetadataTracks:(id)tracks version:(id)version unknownStreamId:(id)id reader:(id)a8 delegate:(id)delegate error:(id *)self0
 {
-  v109 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   trackCopy = track;
   readerCopy = reader;
   tracksCopy = tracks;
   versionCopy = version;
   idCopy = id;
-  v84 = a8;
+  v83 = a8;
   delegateCopy = delegate;
   v16 = [(MOVStreamReaderStreamOutput *)self init];
   v17 = v16;
-  v88 = v16;
+  v87 = v16;
   if (!v16)
   {
     goto LABEL_23;
@@ -785,44 +785,44 @@ LABEL_65:
   v16->_mediaType = 4;
   [(MOVStreamReaderStreamOutput *)v16 setVersion:versionCopy];
   [(MOVStreamReaderStreamOutput *)v17 setDelegate:delegateCopy];
-  [(MOVStreamReaderStreamOutput *)v17 setReader:v84];
+  [(MOVStreamReaderStreamOutput *)v17 setReader:v83];
   [(MOVStreamReaderStreamOutput *)v17 setAssetReader:readerCopy];
   [(MOVStreamReaderStreamOutput *)v17 setAssetTrack:trackCopy];
   metadata = [trackCopy metadata];
-  [MOVStreamReaderStreamOutput parseTrackMetadata:v88 version:"parseTrackMetadata:version:unknownStreamId:" unknownStreamId:?];
-  streamId = [(MOVStreamReaderStreamOutput *)v88 streamId];
-  assetTrack = [(MOVStreamReaderStreamOutput *)v88 assetTrack];
-  v20 = [(MOVStreamReaderStreamOutput *)v88 shouldDiscardStream:streamId mediaType:4 track:assetTrack];
+  [MOVStreamReaderStreamOutput parseTrackMetadata:v87 version:"parseTrackMetadata:version:unknownStreamId:" unknownStreamId:?];
+  streamId = [(MOVStreamReaderStreamOutput *)v87 streamId];
+  assetTrack = [(MOVStreamReaderStreamOutput *)v87 assetTrack];
+  v20 = [(MOVStreamReaderStreamOutput *)v87 shouldDiscardStream:streamId mediaType:4 track:assetTrack];
 
   if (!v20)
   {
-    v80 = [MEMORY[0x277CE6430] assetReaderTrackOutputWithTrack:trackCopy outputSettings:0];
-    assetReader = [(MOVStreamReaderStreamOutput *)v88 assetReader];
-    v22 = [assetReader canAddOutput:v80];
+    v79 = [MEMORY[0x277CE6430] assetReaderTrackOutputWithTrack:trackCopy outputSettings:0];
+    assetReader = [(MOVStreamReaderStreamOutput *)v87 assetReader];
+    v22 = [assetReader canAddOutput:v79];
 
     if (v22)
     {
-      assetReader2 = [(MOVStreamReaderStreamOutput *)v88 assetReader];
-      [assetReader2 addOutput:v80];
+      assetReader2 = [(MOVStreamReaderStreamOutput *)v87 assetReader];
+      [assetReader2 addOutput:v79];
 
-      [(MOVStreamReaderStreamOutput *)v88 setStreamOutput:v80];
+      [(MOVStreamReaderStreamOutput *)v87 setStreamOutput:v79];
       if (trackCopy)
       {
-        v24 = v88;
-        [trackCopy preferredTransform];
+        v24 = v87;
+        objc_msgSend_preferredTransform(trackCopy);
       }
 
       else
       {
-        v105 = 0u;
-        v106 = 0u;
         v104 = 0u;
-        v24 = v88;
+        v105 = 0u;
+        v103 = 0u;
+        v24 = v87;
       }
 
-      *time1 = v104;
-      *&time1[16] = v105;
-      v103 = v106;
+      *time1 = v103;
+      *&time1[16] = v104;
+      v102 = v105;
       [(MOVStreamReaderStreamOutput *)v24 setTransform:time1];
       [(MOVStreamReaderStreamOutput *)v24 setPostProcessor:0];
       attachmentsIdentifier = [(MOVStreamReaderStreamOutput *)v24 attachmentsIdentifier];
@@ -831,12 +831,12 @@ LABEL_65:
 
       if (v28)
       {
-        [(MOVStreamReaderStreamOutput *)v88 setHasTimeCode:1];
+        [(MOVStreamReaderStreamOutput *)v87 setHasTimeCode:1];
         makeSampleCursorAtFirstSampleInDecodeOrder = [trackCopy makeSampleCursorAtFirstSampleInDecodeOrder];
         makeSampleCursorAtLastSampleInDecodeOrder = [trackCopy makeSampleCursorAtLastSampleInDecodeOrder];
         if (makeSampleCursorAtFirstSampleInDecodeOrder)
         {
-          [makeSampleCursorAtFirstSampleInDecodeOrder presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(makeSampleCursorAtFirstSampleInDecodeOrder);
         }
 
         else
@@ -846,7 +846,7 @@ LABEL_65:
 
         if (makeSampleCursorAtLastSampleInDecodeOrder)
         {
-          [makeSampleCursorAtLastSampleInDecodeOrder presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(makeSampleCursorAtLastSampleInDecodeOrder);
         }
 
         else
@@ -854,16 +854,16 @@ LABEL_65:
           memset(&time2, 0, sizeof(time2));
         }
 
-        if (CMTimeCompare(time1, &time2) || (-[MOVStreamReaderStreamOutput reader](v88, "reader"), v30 = objc_claimAutoreleasedReturnValue(), v31 = [v30 skipSynthesizedTimeCode], v30, (v31 & 1) != 0))
+        if (CMTimeCompare(time1, &time2) || (-[MOVStreamReaderStreamOutput reader](v87, "reader"), v30 = objc_claimAutoreleasedReturnValue(), v31 = [v30 skipSynthesizedTimeCode], v30, (v31 & 1) != 0))
         {
           v32 = [MEMORY[0x277CE6430] assetReaderTrackOutputWithTrack:trackCopy outputSettings:0];
           if ([readerCopy canAddOutput:v32])
           {
             [readerCopy addOutput:v32];
-            [(MOVStreamReaderStreamOutput *)v88 setStreamOutput:v32];
+            [(MOVStreamReaderStreamOutput *)v87 setStreamOutput:v32];
 LABEL_22:
 
-            v17 = v88;
+            v17 = v87;
 LABEL_23:
             v29 = v17;
             goto LABEL_24;
@@ -871,43 +871,43 @@ LABEL_23:
 
           trackCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Can't add timecode track output (%@) to the AVAssetReader.", trackCopy];
           [MEMORY[0x277CCA9B8] populateReaderError:error message:trackCopy code:1];
-          v77 = v32;
+          v76 = v32;
 LABEL_39:
 
           goto LABEL_13;
         }
 
         v35 = objc_alloc(MEMORY[0x277CE6410]);
-        assetReader3 = [(MOVStreamReaderStreamOutput *)v88 assetReader];
+        assetReader3 = [(MOVStreamReaderStreamOutput *)v87 assetReader];
         asset = [assetReader3 asset];
-        v100 = 0;
-        v74 = [v35 initWithAsset:asset error:&v100];
-        v77 = v100;
+        v99 = 0;
+        v73 = [v35 initWithAsset:asset error:&v99];
+        v76 = v99;
 
-        if (v77)
+        if (v76)
         {
           v38 = MEMORY[0x277CCACA8];
-          streamId2 = [(MOVStreamReaderStreamOutput *)v88 streamId];
-          v40 = [v38 stringWithFormat:@"Can't create reader for making synthesized timecode for stream %@.  Error: %@", streamId2, v77];
+          streamId2 = [(MOVStreamReaderStreamOutput *)v87 streamId];
+          v40 = [v38 stringWithFormat:@"Can't create reader for making synthesized timecode for stream %@.  Error: %@", streamId2, v76];
 
           [MEMORY[0x277CCA9B8] populateReaderError:error message:v40 code:1];
-          trackCopy = v74;
+          trackCopy = v73;
           goto LABEL_39;
         }
 
         v41 = [MEMORY[0x277CE6430] assetReaderTrackOutputWithTrack:trackCopy outputSettings:0];
-        v70 = v41;
-        if ([v74 canAddOutput:v41])
+        v69 = v41;
+        if ([v73 canAddOutput:v41])
         {
-          [v74 addOutput:v41];
-          if ([v74 startReading])
+          [v73 addOutput:v41];
+          if ([v73 startReading])
           {
             for (i = [v41 copyNextSampleBuffer]; ; i = objc_msgSend(v41, "copyNextSampleBuffer"))
             {
               if (!i)
               {
                 v48 = MEMORY[0x277CCACA8];
-                streamId3 = [(MOVStreamReaderStreamOutput *)v88 streamId];
+                streamId3 = [(MOVStreamReaderStreamOutput *)v87 streamId];
                 v45 = [v48 stringWithFormat:@"Can't read timecode sample for creating synthesized timecode for stream %@.  Error: %@", streamId3, 0];
 
                 [MEMORY[0x277CCA9B8] populateReaderError:error message:v45 code:1];
@@ -922,10 +922,10 @@ LABEL_39:
               CFRelease(i);
             }
 
-            v99 = 0;
+            v98 = 0;
             memset(time1, 0, 24);
-            [MOVStreamIOUtility timecode32ForSampleBuffer:i dropFrame:&v99];
-            [(MOVStreamReaderStreamOutput *)v88 setSynthesizedTimeCodeIsDropFrame:v99];
+            objc_msgSend_timecode32ForSampleBuffer_dropFrame_(MOVStreamIOUtility);
+            [(MOVStreamReaderStreamOutput *)v87 setSynthesizedTimeCodeIsDropFrame:0];
             if (time1[12])
             {
               formatDescriptions = [trackCopy formatDescriptions];
@@ -933,98 +933,97 @@ LABEL_39:
 
               if (firstObject)
               {
-                FrameQuanta = CMTimeCodeFormatDescriptionGetFrameQuanta(firstObject);
-                v56 = objc_opt_new();
-                [(MOVStreamReaderStreamOutput *)v88 findTracksAssociatedWithTimeCodeTrack:trackCopy];
+                CMTimeCodeFormatDescriptionGetFrameQuanta(firstObject);
+                v55 = objc_opt_new();
+                [(MOVStreamReaderStreamOutput *)v87 findTracksAssociatedWithTimeCodeTrack:trackCopy];
+                v96 = 0u;
                 v97 = 0u;
-                v98 = 0u;
-                v95 = 0u;
-                obj = v96 = 0u;
-                v57 = [obj countByEnumeratingWithState:&v95 objects:v108 count:16];
-                if (v57)
+                v94 = 0u;
+                obj = v95 = 0u;
+                v56 = [obj countByEnumeratingWithState:&v94 objects:v107 count:16];
+                if (v56)
                 {
-                  v72 = *v96;
+                  v71 = *v95;
                   do
                   {
-                    v58 = 0;
-                    v73 = v57;
+                    v57 = 0;
+                    v72 = v56;
                     do
                     {
-                      if (*v96 != v72)
+                      if (*v95 != v71)
                       {
                         objc_enumerationMutation(obj);
                       }
 
-                      v59 = [[MOVStreamTimestamps alloc] initWithAssetTrack:*(*(&v95 + 1) + 8 * v58)];
-                      v76 = v59;
-                      if (!v59)
+                      v58 = [[MOVStreamTimestamps alloc] initWithAssetTrack:*(*(&v94 + 1) + 8 * v57)];
+                      v75 = v58;
+                      if (!v58)
                       {
                         __assert_rtn("[MOVStreamReaderStreamOutput initWithTimeCodeTrack:assetReader:associatedMetadataTracks:version:unknownStreamId:reader:delegate:error:]", "MOVStreamReaderStreamOutput.mm", 602, "timestampList");
                       }
 
                       time2 = *time1;
+                      v90 = 0u;
                       v91 = 0u;
                       v92 = 0u;
                       v93 = 0u;
-                      v94 = 0u;
-                      cmtimes = [(MOVStreamTimestamps *)v59 cmtimes];
-                      v61 = [cmtimes countByEnumeratingWithState:&v91 objects:v107 count:16];
-                      v75 = v58;
-                      if (v61)
+                      cmtimes = [(MOVStreamTimestamps *)v58 cmtimes];
+                      v60 = [cmtimes countByEnumeratingWithState:&v90 objects:v106 count:16];
+                      v74 = v57;
+                      if (v60)
                       {
-                        v62 = *v92;
+                        v61 = *v91;
                         do
                         {
-                          for (j = 0; j != v61; ++j)
+                          for (j = 0; j != v60; ++j)
                           {
-                            if (*v92 != v62)
+                            if (*v91 != v61)
                             {
                               objc_enumerationMutation(cmtimes);
                             }
 
-                            v64 = *(*(&v91 + 1) + 8 * j);
-                            v65 = [MEMORY[0x277CCAE60] value:&time2 withObjCType:"{CVSMPTETime=ssIIIssss}"];
-                            [v56 setObject:v65 forKey:v64];
+                            v63 = *(*(&v90 + 1) + 8 * j);
+                            v64 = [MEMORY[0x277CCAE60] value:&time2 withObjCType:"{CVSMPTETime=ssIIIssss}"];
+                            [v55 setObject:v64 forKey:v63];
 
-                            v90[0] = time2;
-                            [MOVStreamIOUtility advanceTimeCode:v90 frameQuanta:FrameQuanta dropFrame:v99];
-                            time2 = v90[1];
+                            objc_msgSend_advanceTimeCode_frameQuanta_dropFrame_(MOVStreamIOUtility);
+                            time2 = v89;
                           }
 
-                          v61 = [cmtimes countByEnumeratingWithState:&v91 objects:v107 count:16];
+                          v60 = [cmtimes countByEnumeratingWithState:&v90 objects:v106 count:16];
                         }
 
-                        while (v61);
+                        while (v60);
                       }
 
-                      v58 = v75 + 1;
+                      v57 = v74 + 1;
                     }
 
-                    while (v75 + 1 != v73);
-                    v57 = [obj countByEnumeratingWithState:&v95 objects:v108 count:16];
+                    while (v74 + 1 != v72);
+                    v56 = [obj countByEnumeratingWithState:&v94 objects:v107 count:16];
                   }
 
-                  while (v57);
+                  while (v56);
                 }
 
-                v66 = [v56 copy];
-                [(MOVStreamReaderStreamOutput *)v88 setSynthesizedTimeCodes:v66];
+                v65 = [v55 copy];
+                [(MOVStreamReaderStreamOutput *)v87 setSynthesizedTimeCodes:v65];
 
-                v32 = v74;
+                v32 = v73;
                 goto LABEL_22;
               }
 
-              v67 = MEMORY[0x277CCACA8];
-              streamId4 = [(MOVStreamReaderStreamOutput *)v88 streamId];
-              v69 = [v67 stringWithFormat:@"Cannot retrieve format description for creating synthesized timecode for stream %@.  Error: %@", streamId4, 0];
+              v66 = MEMORY[0x277CCACA8];
+              streamId4 = [(MOVStreamReaderStreamOutput *)v87 streamId];
+              v68 = [v66 stringWithFormat:@"Cannot retrieve format description for creating synthesized timecode for stream %@.  Error: %@", streamId4, 0];
 
-              [MEMORY[0x277CCA9B8] populateReaderError:error message:v69 code:1];
+              [MEMORY[0x277CCA9B8] populateReaderError:error message:v68 code:1];
             }
 
             else
             {
               v50 = MEMORY[0x277CCACA8];
-              streamId5 = [(MOVStreamReaderStreamOutput *)v88 streamId];
+              streamId5 = [(MOVStreamReaderStreamOutput *)v87 streamId];
               v52 = [v50 stringWithFormat:@"Timecode sample is not valid for creating synthesized timecode for stream %@.  Error: %@", streamId5, 0];
 
               [MEMORY[0x277CCA9B8] populateReaderError:error message:v52 code:1];
@@ -1034,7 +1033,7 @@ LABEL_39:
           }
 
           v46 = MEMORY[0x277CCACA8];
-          streamId6 = [(MOVStreamReaderStreamOutput *)v88 streamId];
+          streamId6 = [(MOVStreamReaderStreamOutput *)v87 streamId];
           v45 = [v46 stringWithFormat:@"Can't start reader for creating synthesized timecode for stream %@.  Error: %@", streamId6, 0];
 
           [MEMORY[0x277CCA9B8] populateReaderError:error message:v45 code:1];
@@ -1043,7 +1042,7 @@ LABEL_39:
         else
         {
           v43 = MEMORY[0x277CCACA8];
-          streamId7 = [(MOVStreamReaderStreamOutput *)v88 streamId];
+          streamId7 = [(MOVStreamReaderStreamOutput *)v87 streamId];
           v45 = [v43 stringWithFormat:@"Can't add input for creating synthesized timecode for stream %@.  Error: %@", streamId7, 0];
 
           [MEMORY[0x277CCA9B8] populateReaderError:error message:v45 code:1];
@@ -1052,7 +1051,7 @@ LABEL_39:
 LABEL_37:
 
 LABEL_38:
-        v77 = v74;
+        v76 = v73;
         trackCopy = v41;
         goto LABEL_39;
       }
@@ -1580,7 +1579,7 @@ LABEL_108:
   *buf = 0u;
   if (trackCopy)
   {
-    [trackCopy preferredTransform];
+    objc_msgSend_preferredTransform(trackCopy);
   }
 
   if (v181)
@@ -2471,7 +2470,7 @@ LABEL_13:
     {
       if (v29)
       {
-        [MOVStreamIOUtility timecode32ForSampleBuffer:v29 dropFrame:frame];
+        objc_msgSend_timecode32ForSampleBuffer_dropFrame_(MOVStreamIOUtility);
         *&timeCode->subframes = v24;
         *&timeCode->hours = v25;
       }
@@ -2821,7 +2820,7 @@ LABEL_45:
                 memset(&time2, 0, sizeof(time2));
                 *buf = *&v62.value;
                 *&v64 = v62.epoch;
-                [(MOVStreamReaderStreamOutput *)self frameDuration];
+                objc_msgSend_frameDuration(self);
                 CMTimeAdd(&time2, buf, &rhs);
                 *buf = *&v59.value;
                 *&v64 = v59.epoch;
@@ -2835,7 +2834,7 @@ LABEL_45:
                 v38 = assetReader;
                 if (assetReader)
                 {
-                  [assetReader timeRange];
+                  objc_msgSend_timeRange(assetReader);
                 }
 
                 else
@@ -2905,7 +2904,7 @@ LABEL_45:
               memset(buf, 0, sizeof(buf));
               *&v64 = 0;
               time2 = v60;
-              [(MOVStreamReaderStreamOutput *)self frameDuration];
+              objc_msgSend_frameDuration(self);
               CMTimeAdd(buf, &time2, &rhs);
               time2 = v59;
               *&rhs.value = *buf;
@@ -3030,7 +3029,7 @@ LABEL_6:
     *&stream->var0 = v5;
     if ([(MOVStreamReaderStreamOutput *)self futureTimeCodeBuffer])
     {
-      [(MOVStreamReaderStreamOutput *)selfCopy futureTimeCodePts];
+      objc_msgSend_futureTimeCodePts(selfCopy);
       *stream = v11;
 LABEL_5:
       futureTimeCodeBuffer = [(MOVStreamReaderStreamOutput *)selfCopy futureTimeCodeBuffer];
@@ -3086,14 +3085,14 @@ LABEL_5:
   {
     if (pts)
     {
-      [(MOVStreamReaderStreamOutput *)self futureAttachmentsPts];
+      objc_msgSend_futureAttachmentsPts(self);
       *&pts->var0 = v30;
       pts->var3 = *&v31[0];
     }
 
     if (duration)
     {
-      [(MOVStreamReaderStreamOutput *)self futureAttachmentsDuration];
+      objc_msgSend_futureAttachmentsDuration(self);
       *&duration->var0 = v30;
       duration->var3 = *&v31[0];
     }
@@ -3118,7 +3117,7 @@ LABEL_5:
         {
           if (nextTimedMetadataGroup)
           {
-            [nextTimedMetadataGroup timeRange];
+            objc_msgSend_timeRange(nextTimedMetadataGroup);
           }
 
           else
@@ -3135,7 +3134,7 @@ LABEL_5:
         {
           if (nextTimedMetadataGroup)
           {
-            [nextTimedMetadataGroup timeRange];
+            objc_msgSend_timeRange(nextTimedMetadataGroup);
           }
 
           else
@@ -3437,7 +3436,7 @@ LABEL_20:
 
     if (range)
     {
-      [v6 timeRange];
+      objc_msgSend_timeRange(v6);
       *&range->var0.var0 = v15;
       *&range->var0.var3 = v16;
       *&range->var1.var1 = v17;
@@ -3614,7 +3613,7 @@ LABEL_10:
 
       if (rangeCopy)
       {
-        [v34 timeRange];
+        objc_msgSend_timeRange(v34);
         *&rangeCopy->var0.var0 = v37;
         *&rangeCopy->var0.var3 = v38;
         *&rangeCopy->var1.var1 = v39;
@@ -4049,7 +4048,7 @@ LABEL_37:
           CMSampleBufferGetPresentationTimeStamp(&v18, sample);
           if (v9)
           {
-            [v9 timeMapping];
+            objc_msgSend_timeMapping(v9);
           }
 
           else
@@ -4114,7 +4113,7 @@ LABEL_15:
         CMSampleBufferGetPresentationTimeStamp(&v18, edit);
         if (v9)
         {
-          [v9 timeMapping];
+          objc_msgSend_timeMapping(v9);
         }
 
         else

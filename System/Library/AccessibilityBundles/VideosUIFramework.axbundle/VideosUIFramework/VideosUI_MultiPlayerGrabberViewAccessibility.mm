@@ -5,6 +5,7 @@
 - (id)accessibilityLabel;
 - (unint64_t)accessibilityTraits;
 - (void)setAlpha:(double)alpha;
+- (void)setHidden:(BOOL)hidden;
 @end
 
 @implementation VideosUI_MultiPlayerGrabberViewAccessibility
@@ -60,6 +61,21 @@
   AXPerformSafeBlock();
 
   return 1;
+}
+
+- (void)setHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  if (UIAccessibilityIsVoiceOverRunning() || UIAccessibilityIsSwitchControlRunning() || (_UIAccessibilityFullKeyboardAccessEnabled() & 1) != 0)
+  {
+    v6.receiver = self;
+    v6.super_class = VideosUI_MultiPlayerGrabberViewAccessibility;
+    [(VideosUI_MultiPlayerGrabberViewAccessibility *)&v6 setHidden:0];
+  }
+
+  v5.receiver = self;
+  v5.super_class = VideosUI_MultiPlayerGrabberViewAccessibility;
+  [(VideosUI_MultiPlayerGrabberViewAccessibility *)&v5 setHidden:hiddenCopy];
 }
 
 - (void)setAlpha:(double)alpha

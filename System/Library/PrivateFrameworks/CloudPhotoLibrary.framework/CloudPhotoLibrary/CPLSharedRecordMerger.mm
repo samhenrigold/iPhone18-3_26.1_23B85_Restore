@@ -172,18 +172,18 @@ uint64_t __68__CPLSharedRecordMerger_mergeRecord_isSharedRecord_inPrivateRecord_
   v12 = a4;
   if (sel_recordModificationDate == a6)
   {
-    v17 = [v10 recordModificationDate];
-    v18 = [v11 recordModificationDate];
-    v19 = v18;
-    if ((v17 || !v18) && (!v17 || !v18 || [v17 compare:v18] != -1))
+    v16 = [v10 recordModificationDate];
+    v17 = [v11 recordModificationDate];
+    v18 = v17;
+    if ((v16 || !v17) && (!v16 || !v17 || [v16 compare:v17] != -1))
     {
 
 LABEL_21:
-      v20 = 0;
+      v19 = 0;
       goto LABEL_22;
     }
 
-    [v10 setRecordModificationDate:v19];
+    [v10 setRecordModificationDate:v18];
   }
 
   else if (sel_recordChangeData != a6 && sel_sharingRecordChangeData != a6 && sel_sharingScopeIdentifier != a6)
@@ -197,17 +197,16 @@ LABEL_21:
       }
     }
 
-    v16 = a1[6];
     if (([*(a1[5] + 8) shouldUpdatePropertyOnPrivateRecord:v12 recordClass:objc_opt_class()] & 1) == 0)
     {
       goto LABEL_21;
     }
   }
 
-  v20 = 1;
+  v19 = 1;
 LABEL_22:
 
-  return v20;
+  return v19;
 }
 
 - (CPLSharedRecordMerger)initWithMapping:(id)mapping

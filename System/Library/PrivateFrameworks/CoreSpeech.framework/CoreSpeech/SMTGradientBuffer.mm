@@ -563,7 +563,7 @@ LABEL_41:
           else
           {
             *buf = &v43;
-            *(sub_100021740(&self->_sparseData.__table_.__bucket_list_.__ptr_, j) + 5) = v29;
+            *(sub_100021740(&self->_sparseData.__table_.__bucket_list_.__ptr_, j, buf) + 5) = v29;
           }
 
           size = self->_size;

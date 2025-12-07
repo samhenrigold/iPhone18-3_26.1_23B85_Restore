@@ -24,40 +24,36 @@
 
 - (NSSet)indexPathsOfItemsPinnedToBottom
 {
-  v2 = *(self + OBJC_IVAR____TtC21DockFolderViewService34DOCSBFolderFanCollectionViewLayout_indexPathsOfItemsPinnedToBottom);
   type metadata accessor for IndexPath();
-  sub_100085DA8(&qword_1000BC4F8);
+  sub_100085DA8(&qword_1000BC4F8, &protocol conformance descriptor for IndexPath);
 
-  v3.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setIndexPathsOfItemsPinnedToBottom:(id)bottom
 {
   type metadata accessor for IndexPath();
-  sub_100085DA8(&qword_1000BC4F8);
-  v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = *(self + OBJC_IVAR____TtC21DockFolderViewService34DOCSBFolderFanCollectionViewLayout_indexPathsOfItemsPinnedToBottom);
-  *(self + OBJC_IVAR____TtC21DockFolderViewService34DOCSBFolderFanCollectionViewLayout_indexPathsOfItemsPinnedToBottom) = v4;
+  sub_100085DA8(&qword_1000BC4F8, &protocol conformance descriptor for IndexPath);
+  *(self + OBJC_IVAR____TtC21DockFolderViewService34DOCSBFolderFanCollectionViewLayout_indexPathsOfItemsPinnedToBottom) = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
 - (id)layoutAttributesForSupplementaryViewOfKind:(id)kind atIndexPath:(id)path
 {
   v5 = type metadata accessor for IndexPath();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = v11;
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v11 = v10;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  v14 = sub_100080E8C(v10, v12);
+  v13 = sub_100080E8C(v9, v11);
 
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 
-  return v14;
+  return v13;
 }
 
 - (id)layoutAttributesForItemAtIndexPath:(id)path
@@ -65,33 +61,32 @@
   ObjectType = swift_getObjectType();
   v5 = type metadata accessor for IndexPath();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   isa = IndexPath._bridgeToObjectiveC()().super.isa;
-  v17.receiver = selfCopy;
-  v17.super_class = ObjectType;
-  v12 = [(DOCSBFolderFanCollectionViewLayout *)&v17 layoutAttributesForItemAtIndexPath:isa];
+  v16.receiver = selfCopy;
+  v16.super_class = ObjectType;
+  v11 = [(DOCSBFolderFanCollectionViewLayout *)&v16 layoutAttributesForItemAtIndexPath:isa];
 
-  if (v12)
+  if (v11)
   {
     type metadata accessor for DOCSBFolderFanCollectionViewLayoutAttributes();
-    v13 = swift_dynamicCastClass();
-    if (v13)
+    v12 = swift_dynamicCastClass();
+    if (v12)
     {
-      v14 = v13;
-      v15 = v12;
-      sub_100080FD8(v14);
+      v13 = v12;
+      v14 = v11;
+      sub_100080FD8(v13);
 
-      selfCopy = v15;
+      selfCopy = v14;
     }
   }
 
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 
-  return v12;
+  return v11;
 }
 
 @end

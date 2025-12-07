@@ -15,6 +15,7 @@
 - (NSString)userVisibleSectionName;
 - (id)name;
 - (unsigned)sortOrder;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -240,6 +241,105 @@
   uint8Value = [sortOrderCharacteristic uint8Value];
 
   return uint8Value;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000019"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    identifierCharacteristic = [(CAFSettingsSection *)self identifierCharacteristic];
+    uniqueIdentifier2 = [identifierCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      identifier = [(CAFSettingsSection *)self identifier];
+      [observers settingsSectionService:self didUpdateIdentifier:identifier];
+LABEL_8:
+
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFSettingsSection *)self name];
+      [observers2 settingsSectionService:self didUpdateName:name];
+LABEL_13:
+
+LABEL_18:
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000036000004"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    userVisibleSectionNameCharacteristic = [(CAFSettingsSection *)self userVisibleSectionNameCharacteristic];
+    uniqueIdentifier4 = [userVisibleSectionNameCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      identifier = [(CAFSettingsSection *)self userVisibleSectionName];
+      [observers settingsSectionService:self didUpdateUserVisibleSectionName:identifier];
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000030000016"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    userVisibleFooterCharacteristic = [(CAFSettingsSection *)self userVisibleFooterCharacteristic];
+    uniqueIdentifier6 = [userVisibleFooterCharacteristic uniqueIdentifier];
+    v25 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v25)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFSettingsSection *)self userVisibleFooter];
+      [observers2 settingsSectionService:self didUpdateUserVisibleFooter:name];
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers2 = [updateCopy characteristicType];
+  if (![observers2 isEqual:@"0x0000000030000003"])
+  {
+    goto LABEL_18;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  sortOrderCharacteristic = [(CAFSettingsSection *)self sortOrderCharacteristic];
+  uniqueIdentifier8 = [sortOrderCharacteristic uniqueIdentifier];
+  v29 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v29)
+  {
+    observers2 = [(CAFService *)self observers];
+    [observers2 settingsSectionService:self didUpdateSortOrder:{-[CAFSettingsSection sortOrder](self, "sortOrder")}];
+    goto LABEL_18;
+  }
+
+LABEL_19:
+  v30.receiver = self;
+  v30.super_class = CAFSettingsSection;
+  [(CAFService *)&v30 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForIdentifier

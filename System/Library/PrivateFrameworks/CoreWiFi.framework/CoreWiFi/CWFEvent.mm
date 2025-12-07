@@ -42,10 +42,9 @@
   uUIDString = [(NSUUID *)self->_UUID UUIDString];
   v6 = [uUIDString substringToIndex:5];
   v7 = sub_1E0BCC248(self->_timestamp);
-  acknowledgementTimeout = self->_acknowledgementTimeout;
-  v9 = [v3 stringWithFormat:@"%@, uuid=%@, timestamp=%@, ackTimeout=%lluns, info=%@", eventID, v6, v7, acknowledgementTimeout, self->_info];
+  v8 = [v3 stringWithFormat:@"%@, uuid=%@, timestamp=%@, ackTimeout=%lluns, info=%@", eventID, v6, v7, self->_acknowledgementTimeout, self->_info];
 
-  return v9;
+  return v8;
 }
 
 - (id)JSONCompatibleKeyValueMap

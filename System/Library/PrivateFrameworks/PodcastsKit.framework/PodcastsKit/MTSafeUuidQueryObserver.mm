@@ -123,16 +123,14 @@ void __42__MTSafeUuidQueryObserver_notifyObservers__block_invoke(void *a1, int a
   currentDeletes = self->currentDeletes;
   self->currentDeletes = v6;
 
-  v8 = objc_opt_new();
-  currentUpdates = self->currentUpdates;
-  self->currentUpdates = v8;
+  self->currentUpdates = objc_opt_new();
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)controller:(id)controller didChangeObject:(id)object atIndexPath:(id)path forChangeType:(unint64_t)type newIndexPath:(id)indexPath
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v10 = [objectCopy valueForKey:@"uuid"];
   if (v10)
@@ -160,13 +158,11 @@ void __42__MTSafeUuidQueryObserver_notifyObservers__block_invoke(void *a1, int a
     v12 = _MTLogCategoryDatabase();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = objectCopy;
-      _os_log_impl(&dword_25E9F0000, v12, OS_LOG_TYPE_DEFAULT, "MTSafeUUIDQueryObserver has no UUID for object %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = objectCopy;
+      _os_log_impl(&dword_25E9F0000, v12, OS_LOG_TYPE_DEFAULT, "MTSafeUUIDQueryObserver has no UUID for object %@", &v13, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -7,6 +7,8 @@
 - (void)_stopEvictionTimer;
 - (void)_stopEvictionTimerIfEmpty;
 - (void)addItem:(id)item;
+- (void)addItem:(id)item withInitialState:(unsigned int)state;
+- (void)addItem:(id)item withInitialState:(unsigned int)state withTopic:(id)topic;
 - (void)dealloc;
 - (void)removeItem:(id)item withFlag:(unsigned int)flag;
 @end
@@ -53,30 +55,55 @@
   }
 }
 
+- (void)addItem:(id)item withInitialState:(unsigned int)state
+{
+  if (item)
+  {
+    [(APSTTLCollection *)self addItem:item withInitialState:*&state withTopic:0];
+  }
+}
+
+- (void)addItem:(id)item withInitialState:(unsigned int)state withTopic:(id)topic
+{
+  if (item)
+  {
+    v5 = *&state;
+    topicCopy = topic;
+    itemCopy = item;
+    v10 = [[APSTTLCollectionItemInfo alloc] initWithTTLInSeconds:v5 state:topicCopy withTopic:self->_ttlInSeconds];
+
+    [(NSMutableDictionary *)self->_backingStore setObject:v10 forKey:itemCopy];
+    [(APSTTLCollection *)self _startEvictionTimerIfNeeded];
+  }
+}
+
 - (void)removeItem:(id)item withFlag:(unsigned int)flag
 {
   itemCopy = item;
+  v7 = itemCopy;
   if (itemCopy)
   {
-    v10 = itemCopy;
-    v7 = [(NSMutableDictionary *)self->_backingStore objectForKey:itemCopy];
-    LODWORD(v8) = [v7 itemState];
+    v11 = itemCopy;
+    v8 = [(NSMutableDictionary *)self->_backingStore objectForKey:itemCopy];
+    LODWORD(v9) = [v8 itemState];
 
-    if ((v8 & flag) != 0)
+    if ((v9 & flag) != 0)
     {
-      v8 = v8 ^ flag;
-      v9 = [(NSMutableDictionary *)self->_backingStore objectForKey:v10];
-      [v9 setItemState:v8];
+      v9 = v9 ^ flag;
+      v10 = [(NSMutableDictionary *)self->_backingStore objectForKey:v11];
+      [v10 setItemState:v9];
     }
 
-    if (!v8)
+    v7 = v11;
+    if (!v9)
     {
-      [(NSMutableDictionary *)self->_backingStore removeObjectForKey:v10];
-      [(APSTTLCollection *)self _stopEvictionTimerIfEmpty];
+      [(NSMutableDictionary *)self->_backingStore removeObjectForKey:v11];
+      itemCopy = [(APSTTLCollection *)self _stopEvictionTimerIfEmpty];
+      v7 = v11;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(itemCopy, v7);
 }
 
 - (void)dealloc

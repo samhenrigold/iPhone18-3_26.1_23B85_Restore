@@ -81,31 +81,31 @@
 
 - (void)networkExtensionMessageControllerHostConnection:(id)connection didReceiveIncomingMessage:(id)message forBundleIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   identifierCopy = identifier;
   os_unfair_lock_lock(&self->_accessorLock);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = [(CXNetworkExtensionMessageControllerHost *)self delegateToQueue];
-  v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       v12 = 0;
       do
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * v12);
+        v13 = *(*(&v20 + 1) + 8 * v12);
         delegateToQueue = [(CXNetworkExtensionMessageControllerHost *)self delegateToQueue];
         v15 = [delegateToQueue objectForKey:v13];
 
@@ -115,51 +115,50 @@
         block[3] = &unk_1E7C06F98;
         block[4] = v13;
         block[5] = self;
-        v19 = messageCopy;
-        v20 = identifierCopy;
+        v18 = messageCopy;
+        v19 = identifierCopy;
         dispatch_async(v15, block);
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
 
   os_unfair_lock_unlock(&self->_accessorLock);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)networkExtensionMessageControllerHostConnection:(id)connection didReceiveIncomingPushToTalkMessage:(id)message forBundleIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   identifierCopy = identifier;
   os_unfair_lock_lock(&self->_accessorLock);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = [(CXNetworkExtensionMessageControllerHost *)self delegateToQueue];
-  v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       v12 = 0;
       do
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * v12);
+        v13 = *(*(&v20 + 1) + 8 * v12);
         delegateToQueue = [(CXNetworkExtensionMessageControllerHost *)self delegateToQueue];
         v15 = [delegateToQueue objectForKey:v13];
 
@@ -169,34 +168,33 @@
         block[3] = &unk_1E7C06F98;
         block[4] = v13;
         block[5] = self;
-        v19 = messageCopy;
-        v20 = identifierCopy;
+        v18 = messageCopy;
+        v19 = identifierCopy;
         dispatch_async(v15, block);
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
 
   os_unfair_lock_unlock(&self->_accessorLock);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v6 = CXDefaultLog();
+  v6 = CXDefaultLog(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = connectionCopy;
-    _os_log_impl(&dword_1B47F3000, v6, OS_LOG_TYPE_DEFAULT, "Asked to accept new connection from %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = connectionCopy;
+    _os_log_impl(&dword_1B47F3000, v6, OS_LOG_TYPE_DEFAULT, "Asked to accept new connection from %@", &v10, 0xCu);
   }
 
   v7 = [[CXNetworkExtensionMessageControllerHostConnection alloc] initWithConnection:connectionCopy];
@@ -206,7 +204,6 @@
   [connections addObject:v7];
 
   os_unfair_lock_unlock(&self->_accessorLock);
-  v9 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

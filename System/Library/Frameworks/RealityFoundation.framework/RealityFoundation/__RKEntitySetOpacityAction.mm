@@ -7,13 +7,12 @@
 - (id)copyWithZone:(void *)zone
 {
   swift_beginAccess();
-  v4 = *self->super.super.targetEntity;
-  v5 = *self->duration;
-  v6 = *self->opacity;
+  v4 = *self->duration;
+  v5 = *self->opacity;
   type metadata accessor for __RKEntitySetOpacityAction();
   swift_allocObject();
 
-  return __RKEntitySetOpacityAction.init(targetEntity:duration:opacity:)(v7, v5, v6);
+  return __RKEntitySetOpacityAction.init(targetEntity:duration:opacity:)(v6, v4, v5);
 }
 
 @end

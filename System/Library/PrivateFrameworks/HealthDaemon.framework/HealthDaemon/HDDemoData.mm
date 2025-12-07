@@ -7,241 +7,237 @@
 
 void __HDDemoData_recommendedDietaryNutrientDailyValues_block_invoke()
 {
-  v23[39] = *MEMORY[0x277D85DE8];
+  v22[39] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CCC9D8];
-  v22[0] = *MEMORY[0x277CCC9D0];
-  v22[1] = v0;
-  v23[0] = &unk_283CB2F88;
-  v23[1] = &unk_283CB2FA0;
+  v21[0] = *MEMORY[0x277CCC9D0];
+  v21[1] = v0;
+  v22[0] = &unk_283CB2F88;
+  v22[1] = &unk_283CB2FA0;
   v1 = *MEMORY[0x277CCC9E8];
-  v22[2] = *MEMORY[0x277CCC9E0];
-  v22[3] = v1;
-  v23[2] = &unk_283CB2FB8;
-  v23[3] = &unk_283CB2FD0;
+  v21[2] = *MEMORY[0x277CCC9E0];
+  v21[3] = v1;
+  v22[2] = &unk_283CB2FB8;
+  v22[3] = &unk_283CB2FD0;
   v2 = *MEMORY[0x277CCCA00];
-  v22[4] = *MEMORY[0x277CCC9F0];
-  v22[5] = v2;
-  v23[4] = &unk_283CB2FE8;
-  v23[5] = &unk_283CB3000;
+  v21[4] = *MEMORY[0x277CCC9F0];
+  v21[5] = v2;
+  v22[4] = &unk_283CB2FE8;
+  v22[5] = &unk_283CB3000;
   v3 = *MEMORY[0x277CCCA10];
-  v22[6] = *MEMORY[0x277CCCA08];
-  v22[7] = v3;
-  v23[6] = &unk_283CB3018;
-  v23[7] = &unk_283CB3030;
+  v21[6] = *MEMORY[0x277CCCA08];
+  v21[7] = v3;
+  v22[6] = &unk_283CB3018;
+  v22[7] = &unk_283CB3030;
   v4 = *MEMORY[0x277CCCA38];
-  v22[8] = *MEMORY[0x277CCC9F8];
-  v22[9] = v4;
-  v23[8] = &unk_283CB2F88;
-  v23[9] = &unk_283CB3048;
+  v21[8] = *MEMORY[0x277CCC9F8];
+  v21[9] = v4;
+  v22[8] = &unk_283CB2F88;
+  v22[9] = &unk_283CB3048;
   v5 = *MEMORY[0x277CCCA48];
-  v22[10] = *MEMORY[0x277CCCA40];
-  v22[11] = v5;
-  v23[10] = &unk_283CB2FA0;
-  v23[11] = &unk_283CB3060;
+  v21[10] = *MEMORY[0x277CCCA40];
+  v21[11] = v5;
+  v22[10] = &unk_283CB2FA0;
+  v22[11] = &unk_283CB3060;
   v6 = *MEMORY[0x277CCCA58];
-  v22[12] = *MEMORY[0x277CCCA50];
-  v22[13] = v6;
-  v23[12] = &unk_283CB3078;
-  v23[13] = &unk_283CB2FA0;
+  v21[12] = *MEMORY[0x277CCCA50];
+  v21[13] = v6;
+  v22[12] = &unk_283CB3078;
+  v22[13] = &unk_283CB2FA0;
   v7 = *MEMORY[0x277CCCA68];
-  v22[14] = *MEMORY[0x277CCCA60];
-  v22[15] = v7;
-  v23[14] = &unk_283CB3018;
-  v23[15] = &unk_283CB3090;
+  v21[14] = *MEMORY[0x277CCCA60];
+  v21[15] = v7;
+  v22[14] = &unk_283CB3018;
+  v22[15] = &unk_283CB3090;
   v8 = *MEMORY[0x277CCCA70];
-  v22[16] = *MEMORY[0x277CCCA18];
-  v22[17] = v8;
-  v23[16] = &unk_283CB30A8;
-  v23[17] = &unk_283CB30C0;
+  v21[16] = *MEMORY[0x277CCCA18];
+  v21[17] = v8;
+  v22[16] = &unk_283CB30A8;
+  v22[17] = &unk_283CB30C0;
   v9 = *MEMORY[0x277CCCA80];
-  v22[18] = *MEMORY[0x277CCCA78];
-  v22[19] = v9;
-  v23[18] = &unk_283CB30D8;
-  v23[19] = &unk_283CB30F0;
+  v21[18] = *MEMORY[0x277CCCA78];
+  v21[19] = v9;
+  v22[18] = &unk_283CB30D8;
+  v22[19] = &unk_283CB30F0;
   v10 = *MEMORY[0x277CCCA88];
-  v22[20] = *MEMORY[0x277CCCA20];
-  v22[21] = v10;
-  v23[20] = &unk_283CB3108;
-  v23[21] = &unk_283CB3120;
+  v21[20] = *MEMORY[0x277CCCA20];
+  v21[21] = v10;
+  v22[20] = &unk_283CB3108;
+  v22[21] = &unk_283CB3120;
   v11 = *MEMORY[0x277CCCA98];
-  v22[22] = *MEMORY[0x277CCCA90];
-  v22[23] = v11;
-  v23[22] = &unk_283CB3138;
-  v23[23] = &unk_283CB42E0;
+  v21[22] = *MEMORY[0x277CCCA90];
+  v21[23] = v11;
+  v22[22] = &unk_283CB3138;
+  v22[23] = &unk_283CB42E0;
   v12 = *MEMORY[0x277CCCAA0];
-  v22[24] = *MEMORY[0x277CCCA28];
-  v22[25] = v12;
-  v23[24] = &unk_283CB3150;
-  v23[25] = &unk_283CB3168;
+  v21[24] = *MEMORY[0x277CCCA28];
+  v21[25] = v12;
+  v22[24] = &unk_283CB3150;
+  v22[25] = &unk_283CB3168;
   v13 = *MEMORY[0x277CCCAB0];
-  v22[26] = *MEMORY[0x277CCCAA8];
-  v22[27] = v13;
-  v23[26] = &unk_283CB3180;
-  v23[27] = &unk_283CB3198;
+  v21[26] = *MEMORY[0x277CCCAA8];
+  v21[27] = v13;
+  v22[26] = &unk_283CB3180;
+  v22[27] = &unk_283CB3198;
   v14 = *MEMORY[0x277CCCA30];
-  v22[28] = *MEMORY[0x277CCCAB8];
-  v22[29] = v14;
-  v23[28] = &unk_283CB42F0;
-  v23[29] = &unk_283CB31B0;
+  v21[28] = *MEMORY[0x277CCCAB8];
+  v21[29] = v14;
+  v22[28] = &unk_283CB42F0;
+  v22[29] = &unk_283CB31B0;
   v15 = *MEMORY[0x277CCCAC8];
-  v22[30] = *MEMORY[0x277CCCAC0];
-  v22[31] = v15;
-  v23[30] = &unk_283CB31C8;
-  v23[31] = &unk_283CB4300;
+  v21[30] = *MEMORY[0x277CCCAC0];
+  v21[31] = v15;
+  v22[30] = &unk_283CB31C8;
+  v22[31] = &unk_283CB4300;
   v16 = *MEMORY[0x277CCCAD8];
-  v22[32] = *MEMORY[0x277CCCAD0];
-  v22[33] = v16;
-  v23[32] = &unk_283CB4310;
-  v23[33] = &unk_283CB3198;
+  v21[32] = *MEMORY[0x277CCCAD0];
+  v21[33] = v16;
+  v22[32] = &unk_283CB4310;
+  v22[33] = &unk_283CB3198;
   v17 = *MEMORY[0x277CCCAE8];
-  v22[34] = *MEMORY[0x277CCCAE0];
-  v22[35] = v17;
-  v23[34] = &unk_283CB3048;
-  v23[35] = &unk_283CB30F0;
+  v21[34] = *MEMORY[0x277CCCAE0];
+  v21[35] = v17;
+  v22[34] = &unk_283CB3048;
+  v22[35] = &unk_283CB30F0;
   v18 = *MEMORY[0x277CCCB00];
-  v22[36] = *MEMORY[0x277CCCAF0];
-  v22[37] = v18;
-  v23[36] = &unk_283CB3000;
-  v23[37] = &unk_283CB3000;
-  v22[38] = *MEMORY[0x277CCCAF8];
-  v23[38] = &unk_283CB31E0;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:39];
+  v21[36] = *MEMORY[0x277CCCAF0];
+  v21[37] = v18;
+  v22[36] = &unk_283CB3000;
+  v22[37] = &unk_283CB3000;
+  v21[38] = *MEMORY[0x277CCCAF8];
+  v22[38] = &unk_283CB31E0;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:39];
   v20 = _MergedGlobals_207;
   _MergedGlobals_207 = v19;
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __HDDemoData_canonicalDietaryUnits_block_invoke()
 {
-  v43[39] = *MEMORY[0x277D85DE8];
-  v42[0] = *MEMORY[0x277CCC9D0];
-  v41 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
-  v43[0] = v41;
-  v42[1] = *MEMORY[0x277CCC9D8];
-  v40 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[1] = v40;
-  v42[2] = *MEMORY[0x277CCC9E0];
+  v42[39] = *MEMORY[0x277D85DE8];
+  v41[0] = *MEMORY[0x277CCC9D0];
+  v40 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
+  v42[0] = v40;
+  v41[1] = *MEMORY[0x277CCC9D8];
   v39 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[2] = v39;
-  v42[3] = *MEMORY[0x277CCC9E8];
-  v38 = [MEMORY[0x277CCDAB0] gramUnit];
-  v43[3] = v38;
-  v42[4] = *MEMORY[0x277CCC9F0];
-  v37 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[4] = v37;
-  v42[5] = *MEMORY[0x277CCCA00];
-  v36 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
-  v43[5] = v36;
-  v42[6] = *MEMORY[0x277CCCA08];
-  v35 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[6] = v35;
-  v42[7] = *MEMORY[0x277CCCA10];
-  v34 = [MEMORY[0x277CCDAB0] kilocalorieUnit];
-  v43[7] = v34;
-  v42[8] = *MEMORY[0x277CCC9F8];
-  v33 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[8] = v33;
-  v42[9] = *MEMORY[0x277CCCA38];
-  v32 = [MEMORY[0x277CCDAB0] gramUnit];
-  v43[9] = v32;
-  v42[10] = *MEMORY[0x277CCCA40];
-  v31 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
-  v43[10] = v31;
-  v42[11] = *MEMORY[0x277CCCA48];
+  v42[1] = v39;
+  v41[2] = *MEMORY[0x277CCC9E0];
+  v38 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
+  v42[2] = v38;
+  v41[3] = *MEMORY[0x277CCC9E8];
+  v37 = [MEMORY[0x277CCDAB0] gramUnit];
+  v42[3] = v37;
+  v41[4] = *MEMORY[0x277CCC9F0];
+  v36 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
+  v42[4] = v36;
+  v41[5] = *MEMORY[0x277CCCA00];
+  v35 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
+  v42[5] = v35;
+  v41[6] = *MEMORY[0x277CCCA08];
+  v34 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
+  v42[6] = v34;
+  v41[7] = *MEMORY[0x277CCCA10];
+  v33 = [MEMORY[0x277CCDAB0] kilocalorieUnit];
+  v42[7] = v33;
+  v41[8] = *MEMORY[0x277CCC9F8];
+  v32 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
+  v42[8] = v32;
+  v41[9] = *MEMORY[0x277CCCA38];
+  v31 = [MEMORY[0x277CCDAB0] gramUnit];
+  v42[9] = v31;
+  v41[10] = *MEMORY[0x277CCCA40];
   v30 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
-  v43[11] = v30;
-  v42[12] = *MEMORY[0x277CCCA50];
-  v29 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[12] = v29;
-  v42[13] = *MEMORY[0x277CCCA58];
+  v42[10] = v30;
+  v41[11] = *MEMORY[0x277CCCA48];
+  v29 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
+  v42[11] = v29;
+  v41[12] = *MEMORY[0x277CCCA50];
   v28 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[13] = v28;
-  v42[14] = *MEMORY[0x277CCCA60];
-  v27 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
-  v43[14] = v27;
-  v42[15] = *MEMORY[0x277CCCA68];
+  v42[12] = v28;
+  v41[13] = *MEMORY[0x277CCCA58];
+  v27 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
+  v42[13] = v27;
+  v41[14] = *MEMORY[0x277CCCA60];
   v26 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
-  v43[15] = v26;
-  v42[16] = *MEMORY[0x277CCCA18];
-  v25 = [MEMORY[0x277CCDAB0] gramUnit];
-  v43[16] = v25;
-  v42[17] = *MEMORY[0x277CCCA70];
-  v24 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[17] = v24;
-  v42[18] = *MEMORY[0x277CCCA78];
+  v42[14] = v26;
+  v41[15] = *MEMORY[0x277CCCA68];
+  v25 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
+  v42[15] = v25;
+  v41[16] = *MEMORY[0x277CCCA18];
+  v24 = [MEMORY[0x277CCDAB0] gramUnit];
+  v42[16] = v24;
+  v41[17] = *MEMORY[0x277CCCA70];
   v23 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[18] = v23;
-  v42[19] = *MEMORY[0x277CCCA80];
+  v42[17] = v23;
+  v41[18] = *MEMORY[0x277CCCA78];
   v22 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[19] = v22;
-  v42[20] = *MEMORY[0x277CCCA20];
-  v21 = [MEMORY[0x277CCDAB0] gramUnit];
-  v43[20] = v21;
-  v42[21] = *MEMORY[0x277CCCA88];
-  v20 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[21] = v20;
-  v42[22] = *MEMORY[0x277CCCA90];
-  v19 = [MEMORY[0x277CCDAB0] gramUnit];
-  v43[22] = v19;
-  v42[23] = *MEMORY[0x277CCCA98];
-  v18 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[23] = v18;
-  v42[24] = *MEMORY[0x277CCCA28];
-  v17 = [MEMORY[0x277CCDAB0] gramUnit];
-  v43[24] = v17;
-  v42[25] = *MEMORY[0x277CCCAA0];
-  v16 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
-  v43[25] = v16;
-  v42[26] = *MEMORY[0x277CCCAA8];
-  v15 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[26] = v15;
-  v42[27] = *MEMORY[0x277CCCAB0];
-  v14 = [MEMORY[0x277CCDAB0] gramUnit];
-  v43[27] = v14;
-  v42[28] = *MEMORY[0x277CCCAB8];
-  v13 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[28] = v13;
-  v42[29] = *MEMORY[0x277CCCA30];
+  v42[18] = v22;
+  v41[19] = *MEMORY[0x277CCCA80];
+  v21 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
+  v42[19] = v21;
+  v41[20] = *MEMORY[0x277CCCA20];
+  v20 = [MEMORY[0x277CCDAB0] gramUnit];
+  v42[20] = v20;
+  v41[21] = *MEMORY[0x277CCCA88];
+  v19 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
+  v42[21] = v19;
+  v41[22] = *MEMORY[0x277CCCA90];
+  v18 = [MEMORY[0x277CCDAB0] gramUnit];
+  v42[22] = v18;
+  v41[23] = *MEMORY[0x277CCCA98];
+  v17 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
+  v42[23] = v17;
+  v41[24] = *MEMORY[0x277CCCA28];
+  v16 = [MEMORY[0x277CCDAB0] gramUnit];
+  v42[24] = v16;
+  v41[25] = *MEMORY[0x277CCCAA0];
+  v15 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
+  v42[25] = v15;
+  v41[26] = *MEMORY[0x277CCCAA8];
+  v14 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
+  v42[26] = v14;
+  v41[27] = *MEMORY[0x277CCCAB0];
+  v13 = [MEMORY[0x277CCDAB0] gramUnit];
+  v42[27] = v13;
+  v41[28] = *MEMORY[0x277CCCAB8];
+  v12 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
+  v42[28] = v12;
+  v41[29] = *MEMORY[0x277CCCA30];
   v0 = [MEMORY[0x277CCDAB0] gramUnit];
-  v43[29] = v0;
-  v42[30] = *MEMORY[0x277CCCAC0];
+  v42[29] = v0;
+  v41[30] = *MEMORY[0x277CCCAC0];
   v1 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
-  v43[30] = v1;
-  v42[31] = *MEMORY[0x277CCCAC8];
+  v42[30] = v1;
+  v41[31] = *MEMORY[0x277CCCAC8];
   v2 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
-  v43[31] = v2;
-  v42[32] = *MEMORY[0x277CCCAD0];
+  v42[31] = v2;
+  v41[32] = *MEMORY[0x277CCCAD0];
   v3 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[32] = v3;
-  v42[33] = *MEMORY[0x277CCCAD8];
+  v42[32] = v3;
+  v41[33] = *MEMORY[0x277CCCAD8];
   v4 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[33] = v4;
-  v42[34] = *MEMORY[0x277CCCAE0];
+  v42[33] = v4;
+  v41[34] = *MEMORY[0x277CCCAE0];
   v5 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
-  v43[34] = v5;
-  v42[35] = *MEMORY[0x277CCCAE8];
+  v42[34] = v5;
+  v41[35] = *MEMORY[0x277CCCAE8];
   v6 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:4];
-  v43[35] = v6;
-  v42[36] = *MEMORY[0x277CCCAF0];
+  v42[35] = v6;
+  v41[36] = *MEMORY[0x277CCCAF0];
   v7 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
-  v43[36] = v7;
-  v42[37] = *MEMORY[0x277CCCB00];
+  v42[36] = v7;
+  v41[37] = *MEMORY[0x277CCCB00];
   v8 = [MEMORY[0x277CCDAB0] gramUnitWithMetricPrefix:3];
-  v43[37] = v8;
-  v42[38] = *MEMORY[0x277CCCAF8];
+  v42[37] = v8;
+  v41[38] = *MEMORY[0x277CCCAF8];
   v9 = [MEMORY[0x277CCDAB0] literUnitWithMetricPrefix:4];
-  v43[38] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:39];
+  v42[38] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:39];
   v11 = qword_280D67C90;
   qword_280D67C90 = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)demoDataDirectory
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   objc_opt_self();
   if (([MEMORY[0x277CCDD68] usingDemoDataDatabase] & 1) == 0 && !objc_msgSend(MEMORY[0x277CCDD30], "isRunningStoreDemoMode"))
   {
@@ -297,9 +293,9 @@ LABEL_15:
   if (v11)
   {
     v13 = profileType;
-    v59.receiver = v11;
-    v59.super_class = HDDemoData;
-    v11 = objc_msgSendSuper2(&v59, sel_init);
+    v58.receiver = v11;
+    v58.super_class = HDDemoData;
+    v11 = objc_msgSendSuper2(&v58, sel_init);
     if (v11)
     {
       v14 = NSHomeDirectory();
@@ -326,9 +322,9 @@ LABEL_15:
     {
       v35 = v34;
       _directoryPath = [(HDDemoData *)&v11->super.isa _directoryPath];
-      LODWORD(v59.receiver) = 138412290;
-      *(&v59.receiver + 4) = _directoryPath;
-      _os_log_impl(&dword_228986000, v35, OS_LOG_TYPE_INFO, "Returning demo data directory path: %@", &v59, 0xCu);
+      LODWORD(v58.receiver) = 138412290;
+      *(&v58.receiver + 4) = _directoryPath;
+      _os_log_impl(&dword_228986000, v35, OS_LOG_TYPE_INFO, "Returning demo data directory path: %@", &v58, 0xCu);
     }
 
     _directoryPath2 = [(HDDemoData *)&v11->super.isa _directoryPath];
@@ -360,8 +356,8 @@ LABEL_15:
         v37 = *MEMORY[0x277CCC2B8];
         if (os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v59.receiver) = 0;
-          _os_log_impl(&dword_228986000, v37, OS_LOG_TYPE_DEFAULT, "Will reset demo data database as clock has moved too far back", &v59, 2u);
+          LOWORD(v58.receiver) = 0;
+          _os_log_impl(&dword_228986000, v37, OS_LOG_TYPE_DEFAULT, "Will reset demo data database as clock has moved too far back", &v58, 2u);
         }
       }
 
@@ -371,8 +367,8 @@ LABEL_15:
         v38 = *MEMORY[0x277CCC2B8];
         if (os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v59.receiver) = 0;
-          _os_log_impl(&dword_228986000, v38, OS_LOG_TYPE_DEFAULT, "Will reset demo data database as clock has been moved too far forward", &v59, 2u);
+          LOWORD(v58.receiver) = 0;
+          _os_log_impl(&dword_228986000, v38, OS_LOG_TYPE_DEFAULT, "Will reset demo data database as clock has been moved too far forward", &v58, 2u);
         }
       }
 
@@ -413,19 +409,19 @@ LABEL_40:
     standardUserDefaults9 = [*(v2 + 3024) standardUserDefaults];
     [standardUserDefaults9 removeObjectForKey:@"HealthDemoDataLastSampleDateKey"];
 
-    v58 = 0;
-    if ([(NSFileManager *)v11->_fileManager fileExistsAtPath:v11->_demoDataPath isDirectory:&v58])
+    v57 = 0;
+    if ([(NSFileManager *)v11->_fileManager fileExistsAtPath:v11->_demoDataPath isDirectory:&v57])
     {
-      if ((v58 & 1) == 0)
+      if ((v57 & 1) == 0)
       {
         _HKInitializeLogging();
-        v55 = *MEMORY[0x277CCC2B8];
+        v54 = *MEMORY[0x277CCC2B8];
         if (os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_ERROR))
         {
-          v56 = v11->_demoDataPath;
-          LODWORD(v59.receiver) = 138412290;
-          *(&v59.receiver + 4) = v56;
-          _os_log_error_impl(&dword_228986000, v55, OS_LOG_TYPE_ERROR, "Demo Data path exists but is not a directory. Aborting. path = %@", &v59, 0xCu);
+          v55 = v11->_demoDataPath;
+          LODWORD(v58.receiver) = 138412290;
+          *(&v58.receiver + 4) = v55;
+          _os_log_error_impl(&dword_228986000, v54, OS_LOG_TYPE_ERROR, "Demo Data path exists but is not a directory. Aborting. path = %@", &v58, 0xCu);
         }
 
         goto LABEL_49;
@@ -433,18 +429,18 @@ LABEL_40:
 
       v45 = v11->_demoDataPath;
       v44 = v11->_fileManager;
-      v57 = 0;
-      v46 = [(NSFileManager *)v44 removeItemAtPath:v45 error:&v57];
-      v47 = v57;
+      v56 = 0;
+      v46 = [(NSFileManager *)v44 removeItemAtPath:v45 error:&v56];
+      v47 = v56;
       if (!v46)
       {
         _HKInitializeLogging();
         v48 = *MEMORY[0x277CCC2B8];
         if (os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_ERROR))
         {
-          LODWORD(v59.receiver) = 138543362;
-          *(&v59.receiver + 4) = v47;
-          _os_log_error_impl(&dword_228986000, v48, OS_LOG_TYPE_ERROR, "Could not remove demo data directory. error: %{public}@", &v59, 0xCu);
+          LODWORD(v58.receiver) = 138543362;
+          *(&v58.receiver + 4) = v47;
+          _os_log_error_impl(&dword_228986000, v48, OS_LOG_TYPE_ERROR, "Could not remove demo data directory. error: %{public}@", &v58, 0xCu);
         }
 
 LABEL_48:
@@ -462,8 +458,8 @@ LABEL_48:
     v49 = *MEMORY[0x277CCC2B8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v59.receiver) = 0;
-      _os_log_impl(&dword_228986000, v49, OS_LOG_TYPE_DEFAULT, "Demo data database has been reset", &v59, 2u);
+      LOWORD(v58.receiver) = 0;
+      _os_log_impl(&dword_228986000, v49, OS_LOG_TYPE_DEFAULT, "Demo data database has been reset", &v58, 2u);
     }
 
     goto LABEL_48;
@@ -481,16 +477,15 @@ LABEL_49:
   {
     v51 = v50;
     _directoryPath3 = [(HDDemoData *)&v11->super.isa _directoryPath];
-    LODWORD(v59.receiver) = 138412290;
-    *(&v59.receiver + 4) = _directoryPath3;
-    _os_log_impl(&dword_228986000, v51, OS_LOG_TYPE_INFO, "Returning demo data directory path: %@", &v59, 0xCu);
+    LODWORD(v58.receiver) = 138412290;
+    *(&v58.receiver + 4) = _directoryPath3;
+    _os_log_impl(&dword_228986000, v51, OS_LOG_TYPE_INFO, "Returning demo data directory path: %@", &v58, 0xCu);
   }
 
   _directoryPath2 = [(HDDemoData *)&v11->super.isa _directoryPath];
 
 LABEL_52:
 LABEL_53:
-  v53 = *MEMORY[0x277D85DE8];
 
   return _directoryPath2;
 }

@@ -61,28 +61,28 @@
 
 - (void)setAttachments:(id)attachments
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   attachmentsCopy = attachments;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [(NSArray *)attachmentsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)attachmentsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(attachmentsCopy);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         messageId = [(NNMKMessageContent *)self messageId];
         [v9 setMessageId:messageId];
 
@@ -90,7 +90,7 @@
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)attachmentsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)attachmentsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -98,8 +98,6 @@
 
   attachments = self->_attachments;
   self->_attachments = attachmentsCopy;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)classesForUnarchivingTextData

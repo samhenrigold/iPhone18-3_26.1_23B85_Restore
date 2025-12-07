@@ -78,7 +78,7 @@ LABEL_3:
   v7.super_class = SBSplitViewToCenterWindowSwitcherModifier;
   v3 = [(SBSwitcherModifier *)&v7 handleSceneReadyEvent:event];
   v4 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:3];
-  v5 = SBAppendSwitcherModifierResponse(v4, v3);
+  v5 = SBAppendSwitcherModifierResponse();
 
   return v5;
 }

@@ -164,7 +164,7 @@ LABEL_23:
   v33 = [NSExtension extensionsWithMatchingAttributes:v30 error:&v42];
   v31 = v42;
 
-  if ([v33 count] >= 2)
+  if (objc_msgSend_count(v33) >= 2)
   {
     v34 = [_DASDaemonLogger logForCategory:@"plugin"];
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))

@@ -77,10 +77,10 @@
   v4 = v7.receiver;
   [(WorkoutPlanEditScheduleViewController *)&v7 viewDidAppear:appearCopy];
   type metadata accessor for WorkoutPlanEditSchedulePageDataProvider(0);
-  sub_20B7C6530(&qword_27C7658A0, 255, type metadata accessor for WorkoutPlanEditSchedulePageDataProvider);
+  sub_20B7C6530(&qword_27C7658A0, 255, type metadata accessor for WorkoutPlanEditSchedulePageDataProvider, &unk_20C159F68);
   sub_20C138C54();
-  sub_20B7C6530(&qword_27C7658A8, v5, type metadata accessor for WorkoutPlanEditScheduleViewController);
-  sub_20B7C6530(&qword_27C7658B0, v6, type metadata accessor for WorkoutPlanEditScheduleViewController);
+  sub_20B7C6530(&qword_27C7658A8, v5, type metadata accessor for WorkoutPlanEditScheduleViewController, &protocol conformance descriptor for WorkoutPlanEditScheduleViewController);
+  sub_20B7C6530(&qword_27C7658B0, v6, type metadata accessor for WorkoutPlanEditScheduleViewController, &protocol conformance descriptor for WorkoutPlanEditScheduleViewController);
   sub_20C139364();
 }
 
@@ -97,8 +97,8 @@
   v7.super_class = swift_getObjectType();
   v4 = v7.receiver;
   [(WorkoutPlanEditScheduleViewController *)&v7 viewDidDisappear:disappearCopy];
-  sub_20B7C6530(&qword_27C7658A8, v5, type metadata accessor for WorkoutPlanEditScheduleViewController);
-  sub_20B7C6530(&qword_27C7658B0, v6, type metadata accessor for WorkoutPlanEditScheduleViewController);
+  sub_20B7C6530(&qword_27C7658A8, v5, type metadata accessor for WorkoutPlanEditScheduleViewController, &protocol conformance descriptor for WorkoutPlanEditScheduleViewController);
+  sub_20B7C6530(&qword_27C7658B0, v6, type metadata accessor for WorkoutPlanEditScheduleViewController, &protocol conformance descriptor for WorkoutPlanEditScheduleViewController);
   sub_20C139374();
 }
 

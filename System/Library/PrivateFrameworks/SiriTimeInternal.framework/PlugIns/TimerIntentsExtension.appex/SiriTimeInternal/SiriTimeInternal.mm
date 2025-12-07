@@ -44,11 +44,11 @@ unint64_t sub_1000013CC@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-id sub_100001644()
+id sub_100001644(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for IntentHandler();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for IntentHandler();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 void *sub_10000169C(void *result, uint64_t a2)
@@ -198,11 +198,9 @@ LABEL_8:
 
 char *sub_100001988(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_1000019D4(a1, a2);
+  v3 = sub_1000019D4(a1, a2);
   sub_100001B04(&off_100004248);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_1000019D4(uint64_t a1, unint64_t a2)
@@ -302,7 +300,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -316,15 +313,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_100001C64(result, v12, 1, v3);
+  result = sub_100001C64(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -339,15 +336,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -356,12 +353,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -482,7 +479,6 @@ uint64_t sub_100001DB4(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -492,14 +488,11 @@ uint64_t sub_100001DB4(uint64_t *a1, uint64_t *a2)
 
 uint64_t *sub_100001E00(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

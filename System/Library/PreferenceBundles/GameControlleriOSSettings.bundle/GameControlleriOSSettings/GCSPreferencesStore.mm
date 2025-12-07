@@ -70,7 +70,7 @@
   selfCopy = self;
   sub_D6AC8();
 
-  sub_DC40(&qword_119050);
+  sub_DC40(&qword_119050, &unk_E2600);
   v4.super.isa = sub_D7B38().super.isa;
 
   return v4.super.isa;
@@ -78,7 +78,7 @@
 
 - (void)setTombstones:(id)tombstones
 {
-  sub_DC40(&qword_119050);
+  sub_DC40(&qword_119050, &unk_E2600);
   sub_D7B48();
   swift_getKeyPath();
   swift_getKeyPath();
@@ -95,7 +95,7 @@
 
   sub_D6998();
   type metadata accessor for GCSProfileUsageStats();
-  sub_A4DE8(&qword_117DE8, &type metadata accessor for UUID);
+  sub_A4DE8(&qword_117DE8, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   v4.super.isa = sub_D7B38().super.isa;
 
   return v4.super.isa;
@@ -105,7 +105,7 @@
 {
   sub_D6998();
   type metadata accessor for GCSProfileUsageStats();
-  sub_A4DE8(&qword_117DE8, &type metadata accessor for UUID);
+  sub_A4DE8(&qword_117DE8, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   sub_D7B48();
   swift_getKeyPath();
   swift_getKeyPath();
@@ -160,7 +160,7 @@
 - (void)setNaturalThumbstickScrollDirection:(BOOL)direction
 {
   selfCopy = self;
-  sub_90A1C();
+  sub_90A1C(direction);
 }
 
 - (double)thumbstickScrollingSpeed
@@ -176,7 +176,7 @@
 - (void)setThumbstickScrollingSpeed:(double)speed
 {
   selfCopy = self;
-  sub_90F80();
+  sub_90F80(speed);
 }
 
 - (GCSGame)defaultGame
@@ -218,7 +218,7 @@
   controllerCopy = controller;
   selfCopy = self;
   fusedControllers = [(GCSPreferencesStore *)selfCopy fusedControllers];
-  sub_450A0(0, &qword_117060);
+  sub_450A0(0, &qword_117060, GCSController_ptr);
   v7 = sub_D7D28();
 
   v10 = controllerCopy;
@@ -292,16 +292,18 @@
 
 - (void)addGame:(id)game saveToDisk:(BOOL)disk
 {
+  diskCopy = disk;
   gameCopy = game;
   selfCopy = self;
-  sub_95F78(gameCopy, disk);
+  sub_95F78(gameCopy, diskCopy);
 }
 
 - (void)removeGame:(id)game saveToDisk:(BOOL)disk
 {
+  diskCopy = disk;
   gameCopy = game;
   selfCopy = self;
-  sub_96010(gameCopy, disk);
+  sub_96010(gameCopy, diskCopy);
 }
 
 - (void)updateProfileFrom:(id)from to:(id)to saveToDisk:(BOOL)disk
@@ -315,37 +317,42 @@
 
 - (void)addCopilotFusedController:(id)controller saveToDisk:(BOOL)disk
 {
+  diskCopy = disk;
   controllerCopy = controller;
   selfCopy = self;
-  sub_96B30(controllerCopy, disk);
+  sub_96B30(controllerCopy, diskCopy);
 }
 
 - (void)addProfile:(id)profile saveToDisk:(BOOL)disk
 {
+  diskCopy = disk;
   profileCopy = profile;
   selfCopy = self;
-  sub_97098(profileCopy, disk);
+  sub_97098(profileCopy, diskCopy);
 }
 
 - (void)removeProfile:(id)profile saveToDisk:(BOOL)disk
 {
+  diskCopy = disk;
   profileCopy = profile;
   selfCopy = self;
-  sub_97130(profileCopy, disk);
+  sub_97130(profileCopy, diskCopy);
 }
 
 - (void)addMouseProfile:(id)profile saveToDisk:(BOOL)disk
 {
+  diskCopy = disk;
   profileCopy = profile;
   selfCopy = self;
-  sub_97BD8(profileCopy, disk);
+  sub_97BD8(profileCopy, diskCopy);
 }
 
 - (void)removeMouseProfile:(id)profile saveToDisk:(BOOL)disk
 {
+  diskCopy = disk;
   profileCopy = profile;
   selfCopy = self;
-  sub_97C70(profileCopy, disk);
+  sub_97C70(profileCopy, diskCopy);
 }
 
 - (void)updateMouseProfileFrom:(id)from to:(id)to saveToDisk:(BOOL)disk
@@ -359,9 +366,10 @@
 
 - (void)addController:(id)controller saveToDisk:(BOOL)disk
 {
+  diskCopy = disk;
   controllerCopy = controller;
   selfCopy = self;
-  sub_9807C(controllerCopy, disk);
+  sub_9807C(controllerCopy, diskCopy);
 }
 
 - (void)updateControllerFrom:(id)from to:(id)to saveToDisk:(BOOL)disk
@@ -382,7 +390,7 @@
 
 - (void)removeControllers:(id)controllers saveToDisk:(BOOL)disk
 {
-  sub_450A0(0, &qword_117060);
+  sub_450A0(0, &qword_117060, GCSController_ptr);
   v6 = sub_D7D28();
   selfCopy = self;
   sub_98F7C(v6, disk);
@@ -433,13 +441,13 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_A4DE8(&qword_118F70, type metadata accessor for NSKeyValueChangeKey);
+  sub_A4DE8(&qword_118F70, type metadata accessor for NSKeyValueChangeKey, &unk_E25B8);
   v15 = sub_D7B48();
 
 LABEL_8:
   sub_9B540(v10, v12, v18, v15, context);
 
-  sub_160BC(v18, &qword_119330);
+  sub_160BC(v18, &qword_119330, &unk_DF040);
 }
 
 - (void)updateControllers

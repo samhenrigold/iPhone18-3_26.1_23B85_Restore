@@ -9,6 +9,7 @@
 - (void)dealloc;
 - (void)tapToSignInViewController:(id)controller didAuthenticateWithResults:(id)results error:(id)error;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CNFRegSplashSignInController
@@ -38,6 +39,18 @@
   v3.receiver = self;
   v3.super_class = CNFRegSplashSignInController;
   [(CNFRegSignInController *)&v3 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  signInView = self->_signInView;
+  regController = [(CNFRegListController *)self regController];
+  -[CNFRegSigninLearnMoreView setSigningIn:](signInView, "setSigningIn:", [regController accountIsAuthenticating]);
+
+  v7.receiver = self;
+  v7.super_class = CNFRegSplashSignInController;
+  [(CNFRegSignInController *)&v7 viewWillAppear:appearCopy];
 }
 
 - (void)viewDidLoad
@@ -262,7 +275,7 @@
 
 void __91__CNFRegSplashSignInController_tapToSignInViewController_didAuthenticateWithResults_error___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     [*(*(a1 + 40) + 1640) setSigningIn:0];
@@ -271,14 +284,16 @@ void __91__CNFRegSplashSignInController_tapToSignInViewController_didAuthenticat
     {
       v3 = *(a1 + 32);
       *buf = 138412290;
-      v12 = v3;
+      v10 = v3;
       _os_log_impl(&dword_243BE5000, v2, OS_LOG_TYPE_DEFAULT, "Could not authenticate: %@", buf, 0xCu);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+    if (os_log_shim_legacy_logging_enabled())
     {
-      v10 = *(a1 + 32);
-      IMLogString();
+      if (IMShouldLog())
+      {
+        IMLogString();
+      }
     }
   }
 
@@ -320,8 +335,6 @@ void __91__CNFRegSplashSignInController_tapToSignInViewController_didAuthenticat
       [*(*(a1 + 40) + 1640) setNeedsDisplay];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

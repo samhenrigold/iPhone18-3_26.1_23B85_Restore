@@ -1,1707 +1,4 @@
-void sub_228C6B518(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void health::DataStoreInspector::_errorHandler(uint64_t a1, int a2, uint64_t a3, uint64_t a4, std::string::size_type a5, uint64_t a6)
-{
-  v22[0] = a3;
-  v22[1] = a4;
-  std::string::basic_string[abi:ne200100]<0>(&v21, "Unknown Error");
-  if (a2 <= 2)
-  {
-    if (!a2)
-    {
-      if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
-      {
-        v21.__r_.__value_.__l.__size_ = 15;
-        v14 = v21.__r_.__value_.__r.__words[0];
-      }
-
-      else
-      {
-        *(&v21.__r_.__value_.__s + 23) = 15;
-        v14 = &v21;
-      }
-
-      qmemcpy(v14, "File Corruption", 15);
-      v16 = &v14->__r_.__value_.__s.__data_[15];
-      goto LABEL_26;
-    }
-
-    if (a2 == 1)
-    {
-      if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
-      {
-        v21.__r_.__value_.__l.__size_ = 22;
-        v15 = v21.__r_.__value_.__r.__words[0];
-      }
-
-      else
-      {
-        *(&v21.__r_.__value_.__s + 23) = 22;
-        v15 = &v21;
-      }
-
-      qmemcpy(v15, "Unexpected Object Type", 22);
-      v16 = &v15->__r_.__value_.__s.__data_[22];
-      goto LABEL_26;
-    }
-
-    if (a2 != 2)
-    {
-      goto LABEL_27;
-    }
-
-    v12 = "Unable to Traverse History";
-    v13 = 26;
-LABEL_17:
-    std::string::__assign_external(&v21, v12, v13);
-    goto LABEL_27;
-  }
-
-  if (a2 > 4)
-  {
-    if (a2 == 5)
-    {
-      v12 = "Orphaned HFD Object (no reference in SQLite)";
-      v13 = 44;
-    }
-
-    else
-    {
-      if (a2 != 6)
-      {
-        goto LABEL_27;
-      }
-
-      v12 = "Orphaned SQLite Row (no matching object in HFD)";
-      v13 = 47;
-    }
-
-    goto LABEL_17;
-  }
-
-  if (a2 == 3)
-  {
-    v12 = "Sample History Root Mismatch";
-    v13 = 28;
-    goto LABEL_17;
-  }
-
-  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
-  {
-    v21.__r_.__value_.__l.__size_ = 19;
-    v11 = v21.__r_.__value_.__r.__words[0];
-  }
-
-  else
-  {
-    *(&v21.__r_.__value_.__s + 23) = 19;
-    v11 = &v21;
-  }
-
-  *(&v11->__r_.__value_.__r.__words[1] + 7) = 1751348321;
-  *&v11->__r_.__value_.__l.__data_ = *"SQLite Row Mismatch";
-  v16 = &v11->__r_.__value_.__s.__data_[19];
-LABEL_26:
-  *v16 = 0;
-LABEL_27:
-  if (a3 | a4)
-  {
-    v23.__r_.__value_.__r.__words[0] = a5;
-    v23.__r_.__value_.__l.__size_ = v22;
-    v23.__r_.__value_.__r.__words[2] = &v21;
-    memset(&__p, 0, sizeof(__p));
-    health::FormatImplementation<std::string &,health::BlockPointer &,std::string const&>("{0}: [{1}] {2}", &__p, 0, &v23);
-    v19 = *(a6 + 24);
-    if (!v19)
-    {
-      std::__throw_bad_function_call[abi:ne200100]();
-    }
-
-    (*(*v19 + 48))(v19, &__p);
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      v18 = __p.__r_.__value_.__r.__words[0];
-      goto LABEL_34;
-    }
-  }
-
-  else
-  {
-    __p.__r_.__value_.__r.__words[0] = a5;
-    __p.__r_.__value_.__l.__size_ = &v21;
-    memset(&v23, 0, sizeof(v23));
-    health::FormatImplementation<std::string &,std::string const&>("{0}: {1}", &v23, 0, &__p);
-    v17 = *(a6 + 24);
-    if (!v17)
-    {
-      std::__throw_bad_function_call[abi:ne200100]();
-    }
-
-    (*(*v17 + 48))(v17, &v23);
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
-    {
-      v18 = v23.__r_.__value_.__r.__words[0];
-LABEL_34:
-      operator delete(v18);
-    }
-  }
-
-  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v21.__r_.__value_.__l.__data_);
-  }
-}
-
-void sub_228C6B7E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a21 < 0)
-  {
-    operator delete(a16);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void health::timestampToDate(double a1@<D0>, _BYTE *a2@<X8>)
-{
-  if (a1 <= 0.0)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:?];
-  }
-
-  v6 = v4;
-  v5 = HKDiagnosticStringFromDate();
-  std::string::basic_string[abi:ne200100]<0>(a2, [v5 UTF8String]);
-}
-
-void health::FormatString<health::DataStore::ObjectIdentifier &,std::string &,std::string &>(std::string *a1, std::string *a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v5[0] = a5;
-  v5[1] = a4;
-  v5[2] = a3;
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
-  a1->__r_.__value_.__r.__words[0] = 0;
-  health::FormatImplementation<health::DataStore::ObjectIdentifier &,std::string &,std::string &>(a2, a1, 0, v5);
-}
-
-void sub_228C6B928(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t health::doubleToString@<X0>(health *this@<X0>, double a2@<D0>, _BYTE *a3@<X8>)
-{
-  v3 = this;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v7);
-  *(&v9[0].__locale_ + *(v7 - 24)) = v3;
-  MEMORY[0x22AAC8380](&v7, a2);
-  std::ostringstream::str[abi:ne200100](&v7, a3);
-  v7 = *MEMORY[0x277D82828];
-  *(&v7 + *(v7 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v8 = MEMORY[0x277D82878] + 16;
-  if (v10 < 0)
-  {
-    operator delete(v9[7].__locale_);
-  }
-
-  v8 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v9);
-  std::ostream::~ostream();
-  return MEMORY[0x22AAC8550](&v11);
-}
-
-void sub_228C6BAC4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::ostringstream::~ostringstream(va);
-  _Unwind_Resume(a1);
-}
-
-void *std::__lower_bound_onesided[abi:ne200100]<std::_ClassicAlgPolicy,std::__tree_const_iterator<unsigned long long,std::__tree_node<unsigned long long,void *> *,long>,std::__tree_const_iterator<unsigned long long,std::__tree_node<unsigned long long,void *> *,long>,unsigned long long,std::__identity const,std::__less<void,void>>(void *a1, void *a2, unint64_t a3)
-{
-  if (a1 != a2)
-  {
-    if (a1[4] >= a3)
-    {
-      return a1;
-    }
-
-    v3 = 1;
-LABEL_4:
-    if (v3)
-    {
-      v4 = 0;
-      v5 = a1;
-      do
-      {
-        if (v5 == a2)
-        {
-          v9 = v3;
-          goto LABEL_26;
-        }
-
-        v6 = v5[1];
-        v7 = v5;
-        if (v6)
-        {
-          do
-          {
-            v5 = v6;
-            v6 = *v6;
-          }
-
-          while (v6);
-        }
-
-        else
-        {
-          do
-          {
-            v5 = v7[2];
-            v8 = *v5 == v7;
-            v7 = v5;
-          }
-
-          while (!v8);
-        }
-
-        ++v4;
-      }
-
-      while (v4 != v3);
-      v9 = v3;
-      v4 = v3;
-    }
-
-    else
-    {
-      v9 = 0;
-      v4 = 0;
-      v5 = a1;
-    }
-
-LABEL_26:
-    while (v5 != a2 && v5[4] < a3)
-    {
-      v3 *= 2;
-      a1 = v5;
-      if ((v3 & 0x8000000000000000) == 0)
-      {
-        goto LABEL_4;
-      }
-
-      v4 = 0;
-      v9 = -v3;
-      if (-v3 > 1)
-      {
-        v10 = -v3;
-      }
-
-      else
-      {
-        v10 = 1;
-      }
-
-      while (v5 != a2)
-      {
-        v11 = *v5;
-        v12 = v5;
-        if (*v5)
-        {
-          do
-          {
-            v5 = v11;
-            v11 = v11[1];
-          }
-
-          while (v11);
-        }
-
-        else
-        {
-          do
-          {
-            v5 = v12[2];
-            v8 = *v5 == v12;
-            v12 = v5;
-          }
-
-          while (v8);
-        }
-
-        if (++v4 == v10)
-        {
-          v4 = v10;
-          goto LABEL_26;
-        }
-      }
-    }
-
-    v13 = v4 - v9 + v3;
-    if (!v13)
-    {
-      return a1;
-    }
-
-    a2 = v5;
-    if (v13 != 1)
-    {
-      do
-      {
-        v14 = v13 >> 1;
-        v15 = a1;
-        if (v13 >= 2)
-        {
-          v16 = v13 >> 1;
-          v17 = a1;
-          do
-          {
-            v18 = v17[1];
-            if (v18)
-            {
-              do
-              {
-                v15 = v18;
-                v18 = *v18;
-              }
-
-              while (v18);
-            }
-
-            else
-            {
-              do
-              {
-                v15 = v17[2];
-                v8 = *v15 == v17;
-                v17 = v15;
-              }
-
-              while (!v8);
-            }
-
-            v17 = v15;
-          }
-
-          while (v16-- > 1);
-        }
-
-        if (v15[4] < a3)
-        {
-          v20 = v15[1];
-          if (v20)
-          {
-            do
-            {
-              a1 = v20;
-              v20 = *v20;
-            }
-
-            while (v20);
-          }
-
-          else
-          {
-            do
-            {
-              a1 = v15[2];
-              v8 = *a1 == v15;
-              v15 = a1;
-            }
-
-            while (!v8);
-          }
-
-          v14 = v13 + ~v14;
-        }
-
-        v13 = v14;
-      }
-
-      while (v14);
-      return a1;
-    }
-  }
-
-  return a2;
-}
-
-void **std::__set_intersection_add_output_if_equal[abi:ne200100]<std::__tree_const_iterator<unsigned long long,std::__tree_node<unsigned long long,void *> *,long>,std::__tree_const_iterator<unsigned long long,std::__tree_node<unsigned long long,void *> *,long>,std::insert_iterator<std::set<unsigned long long>>>(void **result, uint64_t a2, uint64_t a3, void **a4, char *a5)
-{
-  if (result)
-  {
-    if (*a5 == 1)
-    {
-      result = std::insert_iterator<std::set<unsigned long long>>::operator=[abi:ne200100](a4, (*a2 + 32));
-      v8 = *a2;
-      v9 = *(*a2 + 8);
-      if (v9)
-      {
-        do
-        {
-          v10 = v9;
-          v9 = *v9;
-        }
-
-        while (v9);
-      }
-
-      else
-      {
-        do
-        {
-          v10 = v8[2];
-          v11 = *v10 == v8;
-          v8 = v10;
-        }
-
-        while (!v11);
-      }
-
-      *a2 = v10;
-      v12 = *a3;
-      v13 = *(*a3 + 8);
-      if (v13)
-      {
-        do
-        {
-          v14 = v13;
-          v13 = *v13;
-        }
-
-        while (v13);
-      }
-
-      else
-      {
-        do
-        {
-          v14 = v12[2];
-          v11 = *v14 == v12;
-          v12 = v14;
-        }
-
-        while (!v11);
-      }
-
-      v15 = 0;
-      *a3 = v14;
-    }
-
-    else
-    {
-      v15 = 1;
-    }
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  *a5 = v15;
-  return result;
-}
-
-void **std::insert_iterator<std::set<unsigned long long>>::operator=[abi:ne200100](void **a1, unint64_t *a2)
-{
-  v3 = std::__tree<unsigned long long>::__emplace_hint_unique_key_args<unsigned long long,unsigned long long const&>(*a1, a1[1], *a2);
-  a1[1] = v3;
-  v4 = v3[1];
-  if (v4)
-  {
-    do
-    {
-      v5 = v4;
-      v4 = *v4;
-    }
-
-    while (v4);
-  }
-
-  else
-  {
-    do
-    {
-      v5 = v3[2];
-      v6 = *v5 == v3;
-      v3 = v5;
-    }
-
-    while (!v6);
-  }
-
-  a1[1] = v5;
-  return a1;
-}
-
-void *std::__tree<unsigned long long>::__emplace_hint_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, void *a2, unint64_t a3)
-{
-  v3 = a2;
-  v4 = a1 + 1;
-  if (a1 + 1 == a2 || (v5 = a2[4], v5 > a3))
-  {
-    v6 = *a2;
-    if (*a1 == a2)
-    {
-      v8 = a2;
-    }
-
-    else
-    {
-      if (v6)
-      {
-        v7 = *a2;
-        do
-        {
-          v8 = v7;
-          v7 = v7[1];
-        }
-
-        while (v7);
-      }
-
-      else
-      {
-        v12 = a2;
-        do
-        {
-          v8 = v12[2];
-          v13 = *v8 == v12;
-          v12 = v8;
-        }
-
-        while (v13);
-      }
-
-      if (v8[4] >= a3)
-      {
-        v15 = *v4;
-        if (!*v4)
-        {
-          goto LABEL_38;
-        }
-
-        while (1)
-        {
-          while (1)
-          {
-            v3 = v15;
-            v16 = v15[4];
-            if (v16 <= a3)
-            {
-              break;
-            }
-
-            v15 = *v15;
-            if (!*v3)
-            {
-              goto LABEL_38;
-            }
-          }
-
-          if (v16 >= a3)
-          {
-            return v3;
-          }
-
-          v15 = v15[1];
-          if (!v15)
-          {
-            goto LABEL_38;
-          }
-        }
-      }
-    }
-
-    if (v6)
-    {
-      v14 = (v8 + 1);
-    }
-
-    else
-    {
-      v14 = a2;
-    }
-
-    v3 = *v14;
-    if (!*v14)
-    {
-      goto LABEL_38;
-    }
-  }
-
-  else if (v5 < a3)
-  {
-    v9 = a2[1];
-    if (v9)
-    {
-      do
-      {
-        v10 = v9;
-        v9 = *v9;
-        v11 = v10;
-      }
-
-      while (v9);
-    }
-
-    else
-    {
-      v11 = a2;
-      do
-      {
-        v17 = v11;
-        v11 = v11[2];
-      }
-
-      while (*v11 != v17);
-    }
-
-    if (v11 == v4 || v11[4] > a3 || (v18 = *v4) == 0)
-    {
-LABEL_38:
-      operator new();
-    }
-
-    while (1)
-    {
-      while (1)
-      {
-        v3 = v18;
-        v19 = v18[4];
-        if (v19 <= a3)
-        {
-          break;
-        }
-
-        v18 = *v18;
-        if (!*v3)
-        {
-          goto LABEL_38;
-        }
-      }
-
-      if (v19 >= a3)
-      {
-        break;
-      }
-
-      v18 = v18[1];
-      if (!v18)
-      {
-        goto LABEL_38;
-      }
-    }
-  }
-
-  return v3;
-}
-
-uint64_t *std::__tree<unsigned long long>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
-{
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = a2;
-  *a3 = a4;
-  v5 = **a1;
-  if (v5)
-  {
-    *a1 = v5;
-    a4 = *a3;
-  }
-
-  result = std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(a1[1], a4);
-  a1[2] = (a1[2] + 1);
-  return result;
-}
-
-void **std::__set_difference[abi:ne200100]<std::__less<void,void>,std::__tree_const_iterator<unsigned long long,std::__tree_node<unsigned long long,void *> *,long> &,std::__tree_const_iterator<unsigned long long,std::__tree_node<unsigned long long,void *> *,long> &,std::__tree_const_iterator<unsigned long long,std::__tree_node<unsigned long long,void *> *,long> &,std::__tree_const_iterator<unsigned long long,std::__tree_node<unsigned long long,void *> *,long> &,std::insert_iterator<std::set<unsigned long long>> &>(void **result, uint64_t a2, void *a3, uint64_t a4, void *a5, void **a6)
-{
-  v7 = result;
-  v8 = *a2;
-  v9 = *a3;
-  if (*a2 == *a3)
-  {
-LABEL_38:
-    v27 = *a6;
-    v9 = v8;
-    goto LABEL_39;
-  }
-
-  for (i = *a4; *a4 != *a5; i = *a4)
-  {
-    v15 = v8[4];
-    v16 = i[4];
-    if (v15 >= v16)
-    {
-      if (v16 >= v15)
-      {
-        v23 = v8[1];
-        if (v23)
-        {
-          do
-          {
-            v24 = v23;
-            v23 = *v23;
-          }
-
-          while (v23);
-        }
-
-        else
-        {
-          do
-          {
-            v24 = v8[2];
-            v20 = *v24 == v8;
-            v8 = v24;
-          }
-
-          while (!v20);
-        }
-
-        *a2 = v24;
-        v25 = *a4;
-        v26 = *(*a4 + 8);
-        if (v26)
-        {
-          do
-          {
-            v22 = v26;
-            v26 = *v26;
-          }
-
-          while (v26);
-        }
-
-        else
-        {
-          do
-          {
-            v22 = v25[2];
-            v20 = *v22 == v25;
-            v25 = v22;
-          }
-
-          while (!v20);
-        }
-      }
-
-      else
-      {
-        v21 = i[1];
-        if (v21)
-        {
-          do
-          {
-            v22 = v21;
-            v21 = *v21;
-          }
-
-          while (v21);
-        }
-
-        else
-        {
-          do
-          {
-            v22 = i[2];
-            v20 = *v22 == i;
-            i = v22;
-          }
-
-          while (!v20);
-        }
-      }
-
-      *a4 = v22;
-    }
-
-    else
-    {
-      result = std::insert_iterator<std::set<unsigned long long>>::operator=[abi:ne200100](a6, v8 + 4);
-      v17 = *a2;
-      v18 = *(*a2 + 8);
-      if (v18)
-      {
-        do
-        {
-          v19 = v18;
-          v18 = *v18;
-        }
-
-        while (v18);
-      }
-
-      else
-      {
-        do
-        {
-          v19 = v17[2];
-          v20 = *v19 == v17;
-          v17 = v19;
-        }
-
-        while (!v20);
-      }
-
-      *a2 = v19;
-    }
-
-    v8 = *a2;
-    v9 = *a3;
-    if (*a2 == *a3)
-    {
-      goto LABEL_38;
-    }
-  }
-
-  v27 = *a6;
-  v30 = *a6;
-  if (v8 != v9)
-  {
-    do
-    {
-      result = std::insert_iterator<std::set<unsigned long long>>::operator=[abi:ne200100](&v30, v8 + 4);
-      v28 = v8[1];
-      if (v28)
-      {
-        do
-        {
-          v29 = v28;
-          v28 = *v28;
-        }
-
-        while (v28);
-      }
-
-      else
-      {
-        do
-        {
-          v29 = v8[2];
-          v20 = *v29 == v8;
-          v8 = v29;
-        }
-
-        while (!v20);
-      }
-
-      v8 = v29;
-    }
-
-    while (v29 != v9);
-    v27 = v30;
-  }
-
-LABEL_39:
-  *v7 = v9;
-  *(v7 + 1) = v27;
-  return result;
-}
-
-std::string *__cdecl std::string::__assign_external(std::string *this, const std::string::value_type *__s, std::string::size_type __n)
-{
-  size = SHIBYTE(this->__r_.__value_.__r.__words[2]);
-  if ((size & 0x8000000000000000) == 0)
-  {
-    v7 = 22;
-LABEL_5:
-    std::string::__grow_by_and_replace(this, v7, __n - v7, size, 0, size, __n, __s);
-    return this;
-  }
-
-  v7 = (this->__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL) - 1;
-  if (v7 < __n)
-  {
-    size = this->__r_.__value_.__l.__size_;
-    goto LABEL_5;
-  }
-
-  v9 = this->__r_.__value_.__r.__words[0];
-  memmove(this->__r_.__value_.__l.__data_, __s, __n);
-  if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
-  {
-    this->__r_.__value_.__l.__size_ = __n;
-  }
-
-  else
-  {
-    *(&this->__r_.__value_.__s + 23) = __n & 0x7F;
-  }
-
-  *(v9 + __n) = 0;
-  return this;
-}
-
-uint64_t std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-__n128 std::__function::__func<health::DataStoreInspector::enumerateStoreForPrinting(std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,std::vector<health::DataStoreInspector::DataSeriesEntry> *)::$_0,std::allocator<health::DataStoreInspector::enumerateStoreForPrinting(std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,std::vector<health::DataStoreInspector::DataSeriesEntry> *)::$_0>,BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_283BE8F20;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
-  return result;
-}
-
-uint64_t std::__function::__func<health::DataStoreInspector::enumerateStoreForPrinting(std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,std::vector<health::DataStoreInspector::DataSeriesEntry> *)::$_0,std::allocator<health::DataStoreInspector::enumerateStoreForPrinting(std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,std::vector<health::DataStoreInspector::DataSeriesEntry> *)::$_0>,BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::operator()(uint64_t a1, uint64_t a2, uint64_t *a3, std::string::size_type a4)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = *a3;
-  v6 = a3[1];
-  v7 = std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v10, *(a1 + 16));
-  health::DataStoreInspector::_errorHandler(v7, 0, v5, v6, a4, v10);
-  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v10);
-  v8 = *MEMORY[0x277D85DE8];
-  return 1;
-}
-
-void sub_228C6C500(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__func<health::DataStoreInspector::enumerateStoreForPrinting(std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,std::vector<health::DataStoreInspector::DataSeriesEntry> *)::$_0,std::allocator<health::DataStoreInspector::enumerateStoreForPrinting(std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,std::vector<health::DataStoreInspector::DataSeriesEntry> *)::$_0>,BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__value_func<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void health::DataStore::accessSampleHistoryWithIdentifierForReading<LocationHistoryBehaviorV1>()
-{
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  operator new();
-}
-
-void sub_228C6C6A8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__function::__value_func<void ()(health::DataStore::ReadTransaction const&)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void health::FormatString<health::DataStore::ObjectIdentifier &>(std::string *a1, std::string *a2, void *a3)
-{
-  v3 = a3;
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
-  a1->__r_.__value_.__r.__words[0] = 0;
-  health::FormatImplementation<health::DataStore::ObjectIdentifier &>(a2, a1, 0, &v3);
-}
-
-void sub_228C6C704(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void health::FormatString<long long &>(std::string *a1, void *a2)
-{
-  v2 = a2;
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
-  a1->__r_.__value_.__r.__words[0] = 0;
-  health::FormatImplementation<long long &>("\nTotal # of samples = {0}", a1, 0, &v2);
-}
-
-void sub_228C6C76C(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-__n128 std::__function::__func<BOOL health::DataStore::accessSampleHistoryWithIdentifierForReading<LocationHistoryBehaviorV1>(health::DataStore::ObjectIdentifier const&,std::function<void ()(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)>)::{lambda(health::DataStore::ReadTransaction const&)#1},std::allocator<BOOL health::DataStore::accessSampleHistoryWithIdentifierForReading<LocationHistoryBehaviorV1>(health::DataStore::ObjectIdentifier const&,std::function<void ()(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)>)::{lambda(health::DataStore::ReadTransaction const&)#1}>,void ()(health::DataStore::ReadTransaction const&)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_283BE8FB0;
-  result = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = result;
-  return result;
-}
-
-uint64_t std::__function::__func<BOOL health::DataStore::accessSampleHistoryWithIdentifierForReading<LocationHistoryBehaviorV1>(health::DataStore::ObjectIdentifier const&,std::function<void ()(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)>)::{lambda(health::DataStore::ReadTransaction const&)#1},std::allocator<BOOL health::DataStore::accessSampleHistoryWithIdentifierForReading<LocationHistoryBehaviorV1>(health::DataStore::ObjectIdentifier const&,std::function<void ()(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)>)::{lambda(health::DataStore::ReadTransaction const&)#1}>,void ()(health::DataStore::ReadTransaction const&)>::operator()(uint64_t a1, uint64_t a2)
-{
-  memset(&v5[16], 0, 32);
-  memset(&v5[56], 0, 32);
-  v6 = a2;
-  result = health::DataStore::SampleHistory<QuantitySampleValueBehaviorV0>::loadHistoryRoot(v5, *(a1 + 8));
-  if (result)
-  {
-    v4 = *(*(a1 + 16) + 24);
-    if (!v4)
-    {
-      std::__throw_bad_function_call[abi:ne200100]();
-    }
-
-    result = (*(*v4 + 48))(v4, v5);
-    **(a1 + 24) = 1;
-  }
-
-  return result;
-}
-
-uint64_t std::__function::__func<BOOL health::DataStore::accessSampleHistoryWithIdentifierForReading<LocationHistoryBehaviorV1>(health::DataStore::ObjectIdentifier const&,std::function<void ()(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)>)::{lambda(health::DataStore::ReadTransaction const&)#1},std::allocator<BOOL health::DataStore::accessSampleHistoryWithIdentifierForReading<LocationHistoryBehaviorV1>(health::DataStore::ObjectIdentifier const&,std::function<void ()(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)>)::{lambda(health::DataStore::ReadTransaction const&)#1}>,void ()(health::DataStore::ReadTransaction const&)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-__n128 std::__function::__func<health::DataStoreInspector::DataSeriesEntry health::DataStoreInspector::_enumerateSampleHistory<LocationHistoryBehaviorV1>(health::DataStore::ObjectIdentifier,std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,BOOL)::{lambda(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)#1},std::allocator<health::DataStoreInspector::DataSeriesEntry health::DataStoreInspector::_enumerateSampleHistory<LocationHistoryBehaviorV1>(health::DataStore::ObjectIdentifier,std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,BOOL)::{lambda(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)#1}>,void ()(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_283BE9030;
-  result = *(a1 + 8);
-  v3 = *(a1 + 24);
-  v4 = *(a1 + 40);
-  *(a2 + 56) = *(a1 + 56);
-  *(a2 + 40) = v4;
-  *(a2 + 24) = v3;
-  *(a2 + 8) = result;
-  return result;
-}
-
-void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health::DataStoreInspector::_enumerateSampleHistory<LocationHistoryBehaviorV1>(health::DataStore::ObjectIdentifier,std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,BOOL)::{lambda(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)#1},std::allocator<health::DataStoreInspector::DataSeriesEntry health::DataStoreInspector::_enumerateSampleHistory<LocationHistoryBehaviorV1>(health::DataStore::ObjectIdentifier,std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,BOOL)::{lambda(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)#1}>,void ()(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)>::operator()(uint64_t a1, void *a2)
-{
-  v26 = *MEMORY[0x277D85DE8];
-  v4 = a2[4];
-  v5 = a2[5];
-  v6 = a2[6];
-  v20 = v6;
-  if (v6 < 1)
-  {
-    v7 = **(a1 + 16);
-    if (v6)
-    {
-      v8 = 0;
-    }
-
-    else
-    {
-      v8 = v7 == 1;
-    }
-
-    if (v8)
-    {
-      health::FormatString<health::DataStore::ObjectIdentifier &>(&v23, "HFD sample history root [ID: {0}] reports an empty sample count.", *(a1 + 24));
-      v14 = std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v24, *(a1 + 40));
-      health::DataStoreInspector::_errorHandler(v14, 2, v4, v5, &v23, v24);
-      std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v24);
-      if ((SHIBYTE(v23.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_24;
-      }
-
-      v13 = v23.__r_.__value_.__r.__words[0];
-      goto LABEL_23;
-    }
-  }
-
-  else
-  {
-    *(*(a1 + 8) + 40) = health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::firstSampleKey(a2);
-    *(*(a1 + 8) + 48) = health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::lastSampleKey(a2);
-    v7 = **(a1 + 16);
-  }
-
-  if (v7 == 2)
-  {
-    if (**(a1 + 48) != 1)
-    {
-      goto LABEL_24;
-    }
-
-    v11 = *(a1 + 40);
-    std::string::basic_string[abi:ne200100]<0>(v24, "object_id \t sample_number \t timestamp \t data");
-    v12 = *(v11 + 24);
-    if (!v12)
-    {
-      std::__throw_bad_function_call[abi:ne200100]();
-    }
-
-    (*(*v12 + 48))(v12, v24);
-  }
-
-  else
-  {
-    if (v7)
-    {
-      goto LABEL_24;
-    }
-
-    _HDSampleHistoryDescriptionForObjectType(**(a1 + 24), v24);
-    health::timestampToDate(*(*(a1 + 8) + 40), &v23);
-    health::timestampToDate(*(*(a1 + 8) + 48), v21);
-    v9 = *(a1 + 40);
-    health::FormatString<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(&__p, v24, *(a1 + 24), &v20, &v23, v21);
-    v10 = *(v9 + 24);
-    if (!v10)
-    {
-      std::__throw_bad_function_call[abi:ne200100]();
-    }
-
-    (*(*v10 + 48))(v10, &__p);
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-
-    if (v22 < 0)
-    {
-      operator delete(v21[0]);
-    }
-
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v23.__r_.__value_.__l.__data_);
-    }
-  }
-
-  if ((v25 & 0x80000000) == 0)
-  {
-LABEL_24:
-    v15 = *(a1 + 56);
-    v16 = *(a1 + 40);
-    v18 = *(a1 + 16);
-    v17 = *(a1 + 24);
-    operator new();
-  }
-
-  v13 = v24[0];
-LABEL_23:
-  operator delete(v13);
-  goto LABEL_24;
-}
-
-void sub_228C6CD18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, int a33, __int16 a34, char a35, char a36)
-{
-  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](&a31);
-  if (a29 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__func<health::DataStoreInspector::DataSeriesEntry health::DataStoreInspector::_enumerateSampleHistory<LocationHistoryBehaviorV1>(health::DataStore::ObjectIdentifier,std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,BOOL)::{lambda(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)#1},std::allocator<health::DataStoreInspector::DataSeriesEntry health::DataStoreInspector::_enumerateSampleHistory<LocationHistoryBehaviorV1>(health::DataStore::ObjectIdentifier,std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,BOOL)::{lambda(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)#1}>,void ()(health::DataStore::SampleHistory<LocationHistoryBehaviorV1> const&)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-double health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::firstSampleKey(void *a1)
-{
-  if (!a1[6])
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::out_of_range::out_of_range[abi:ne200100](exception, "History contains no samples.");
-    goto LABEL_6;
-  }
-
-  v1 = *(a1[11] + 24);
-  v2 = a1[2];
-  v3 = a1[3];
-  memset(v6, 0, 411);
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(v1, v2, v3, v6);
-  if (!WORD4(v6[25]))
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::out_of_range::out_of_range[abi:ne200100](exception, "Tree contains no values.");
-LABEL_6:
-    __cxa_throw(exception, off_278612E80, MEMORY[0x277D825F8]);
-  }
-
-  return *v6;
-}
-
-double health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::lastSampleKey(void *a1)
-{
-  if (!a1[6])
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::out_of_range::out_of_range[abi:ne200100](exception, "History contains no samples.");
-    goto LABEL_11;
-  }
-
-  v1 = *(a1[11] + 24);
-  v11[0] = 0;
-  v11[1] = 0;
-  v11[2] = v1;
-  v2 = a1[3];
-  v9[0] = a1[2];
-  v9[1] = v2;
-  v10 = v11;
-  memset(__dst, 0, 411);
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(v1, v9[0], v2, __dst);
-  v3 = __dst[204];
-  if (!__dst[204])
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::out_of_range::out_of_range[abi:ne200100](exception, "Tree contains no values.");
-    goto LABEL_11;
-  }
-
-  if ((__dst[205] & 1) == 0)
-  {
-    v5 = 0;
-    while (__dst[204])
-    {
-      health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,double>>::_interiorChildAtIndex(v9, v5, __dst, (__dst[204] - 1), __src);
-      memcpy(__dst, __src, 0x19BuLL);
-      ++v5;
-      if (LOBYTE(__dst[205]) == 1)
-      {
-        v3 = __dst[204];
-        v4 = v10;
-        goto LABEL_9;
-      }
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::out_of_range::out_of_range[abi:ne200100](exception, "Tree contains no values.");
-LABEL_11:
-    __cxa_throw(exception, off_278612E80, MEMORY[0x277D825F8]);
-  }
-
-  v4 = v11;
-LABEL_9:
-  v6 = health::StaticArray<health::bplustree::InteriorNode<double,health::BlockPointer,17>::ChildEntry,17ul>::operator[](__dst, v3 - 1);
-  bzero(__src, 0x332uLL);
-  v14 = 0u;
-  v15 = 0u;
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>>(v4[2], *(v6 + 8), *(v6 + 16), __src);
-  return *health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV1,health::BlockPointer,17>::ValueEntry,17ul>::operator[](__src, v13 - 1);
-}
-
-void health::FormatString<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(std::string *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v6[0] = a6;
-  v6[1] = a5;
-  v6[2] = a4;
-  v6[3] = a3;
-  v6[4] = a2;
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
-  a1->__r_.__value_.__r.__words[0] = 0;
-  health::FormatImplementation<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>("'{0}' [ID: {1} | Count: {2} | {3} to {4}]\n", a1, 0, v6);
-}
-
-void sub_228C6D174(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::enumerateSamples(uint64_t result, uint64_t a2)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (*(result + 48))
-  {
-    v2 = *(*(result + 88) + 24);
-    v6[0] = 0;
-    v6[1] = 0;
-    v6[2] = v2;
-    v4 = *(result + 16);
-    v5 = v6;
-    std::__function::__value_func<BOOL ()(double const&,_HDRawLocationDatumV1 const&)>::__value_func[abi:ne200100](v7, a2);
-    health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::enumerateAllValues<health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::enumerateSamples(std::function<BOOL ()(double const&,_HDRawLocationDatumV1 const&)>)::{lambda(double const&,_HDRawLocationDatumV1 const&)#1}>(&v4, v7, 0);
-    result = std::__function::__value_func<BOOL ()(double const&,_HDRawLocationDatumV1 const&)>::~__value_func[abi:ne200100](v7);
-  }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_228C6D228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  std::__function::__value_func<BOOL ()(double const&,_HDRawLocationDatumV1 const&)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void health::FormatImplementation<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t a4)
-{
-  v34 = a1;
-  v6 = a1->__r_.__value_.__s.__data_[0];
-  if (!a1->__r_.__value_.__s.__data_[0])
-  {
-
-    std::string::resize(a2, a3, 0);
-    return;
-  }
-
-  v9 = 0;
-  v10 = 0;
-  v11 = a1;
-  while (v6 != 123)
-  {
-LABEL_6:
-    v34 = &v11->__r_.__value_.__s.__data_[1];
-    v6 = v11->__r_.__value_.__s.__data_[1];
-    ++v9;
-    v11 = (v11 + 1);
-    if (!v6)
-    {
-      std::string::resize(a2, a3 + v9, 0);
-      if (v9)
-      {
-
-        health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
-      }
-
-      return;
-    }
-  }
-
-  v12 = v11->__r_.__value_.__s.__data_[1];
-  if (v12 == 123)
-  {
-    v10 = 1;
-    v11 = (v11 + 1);
-    goto LABEL_6;
-  }
-
-  if (v12 == 42)
-  {
-    v34 = &v11->__r_.__value_.__s.__data_[2];
-    v25 = v11->__r_.__value_.__s.__data_[2];
-    if ((v25 - 48) > 9)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
-    }
-
-    else
-    {
-      v26 = 0;
-      v27 = &v11->__r_.__value_.__s.__data_[3];
-      do
-      {
-        v34 = v27;
-        v26 = (v25 & 0xF) + 10 * v26;
-        v28 = *v27++;
-        LOBYTE(v25) = v28;
-      }
-
-      while ((v28 - 58) >= 0xFFFFFFF6);
-      v34 = v27;
-      if (*(v27 - 1) == 125)
-      {
-        health::FormatterParameters<0ul,std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>::formatOptionsAtIndex<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(v26);
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
-    }
-
-    goto LABEL_78;
-  }
-
-  health::FormatOptions::FormatOptions(v30, &v34);
-  v13 = v34;
-  if (v31 <= 1)
-  {
-    if (v31)
-    {
-      if (v31 != 1)
-      {
-        goto LABEL_79;
-      }
-
-      health::TypeFormatter<health::DataStore::ObjectIdentifier &,void>::TypeFormatter(&__p, *(a4 + 24), v30);
-      v17 = v37;
-      if ((v37 & 0x80u) != 0)
-      {
-        v17 = v36;
-      }
-
-      v18 = v33;
-      if (v33 <= v17)
-      {
-        v18 = v17;
-      }
-
-      if (v32)
-      {
-        v17 = v18;
-      }
-
-      health::FormatImplementation<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(v13, a2, v17 + a3 + v9, a4);
-      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v16 = a2;
-      }
-
-      else
-      {
-        v16 = a2->__r_.__value_.__r.__words[0];
-      }
-    }
-
-    else
-    {
-      health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, *(a4 + 32), v30);
-      v23 = v37;
-      if ((v37 & 0x80u) != 0)
-      {
-        v23 = v36;
-      }
-
-      v24 = v33;
-      if (v33 <= v23)
-      {
-        v24 = v23;
-      }
-
-      if (v32)
-      {
-        v23 = v24;
-      }
-
-      health::FormatImplementation<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(v13, a2, v23 + a3 + v9, a4);
-      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v16 = a2;
-      }
-
-      else
-      {
-        v16 = a2->__r_.__value_.__r.__words[0];
-      }
-    }
-  }
-
-  else
-  {
-    switch(v31)
-    {
-      case 2:
-        health::TypeFormatter<long long &,void>::TypeFormatter(&__p, *(a4 + 16), v30);
-        v19 = v37;
-        if ((v37 & 0x80u) != 0)
-        {
-          v19 = v36;
-        }
-
-        v20 = v33;
-        if (v33 <= v19)
-        {
-          v20 = v19;
-        }
-
-        if (v32)
-        {
-          v19 = v20;
-        }
-
-        health::FormatImplementation<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(v13, a2, v19 + a3 + v9, a4);
-        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v16 = a2;
-        }
-
-        else
-        {
-          v16 = a2->__r_.__value_.__r.__words[0];
-        }
-
-        break;
-      case 3:
-        health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, *(a4 + 8), v30);
-        v21 = v37;
-        if ((v37 & 0x80u) != 0)
-        {
-          v21 = v36;
-        }
-
-        v22 = v33;
-        if (v33 <= v21)
-        {
-          v22 = v21;
-        }
-
-        if (v32)
-        {
-          v21 = v22;
-        }
-
-        health::FormatImplementation<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(v13, a2, v21 + a3 + v9, a4);
-        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v16 = a2;
-        }
-
-        else
-        {
-          v16 = a2->__r_.__value_.__r.__words[0];
-        }
-
-        break;
-      case 4:
-        health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, *a4, v30);
-        v14 = v37;
-        if ((v37 & 0x80u) != 0)
-        {
-          v14 = v36;
-        }
-
-        v15 = v33;
-        if (v33 <= v14)
-        {
-          v15 = v14;
-        }
-
-        if (v32)
-        {
-          v14 = v15;
-        }
-
-        health::FormatImplementation<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(v13, a2, v14 + a3 + v9, a4);
-        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v16 = a2;
-        }
-
-        else
-        {
-          v16 = a2->__r_.__value_.__r.__words[0];
-        }
-
-        break;
-      default:
-LABEL_79:
-        exception = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-LABEL_78:
-        __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    }
-  }
-
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v30, &v16[a3 + v9], &__p);
-  if (v37 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v9)
-  {
-    health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
-  }
-}
-
-void health::FormatterParameters<0ul,std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>::formatOptionsAtIndex<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(uint64_t a1)
+void health::FormatterParameters<0ul,std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>::formatOptionsAtIndex<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(unint64_t a1)
 {
   if (a1 > 1)
   {
@@ -1787,19 +84,20 @@ uint64_t health::TypeFormatter<health::DataStore::ObjectIdentifier &,void>::Type
   return a1;
 }
 
-void sub_228C6DAD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_228C6DAD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   std::locale::~locale(&a9);
-  std::ostringstream::~ostringstream(&a12);
-  if (*(v12 + 23) < 0)
+  std::ostringstream::~ostringstream(va);
+  if (*(v11 + 23) < 0)
   {
-    operator delete(*v12);
+    operator delete(*v11);
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t health::TypeFormatter<std::string &,void>::TypeFormatter(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t health::TypeFormatter<std::string &,void>::TypeFormatter(uint64_t a1, uint64_t **a2, uint64_t a3)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
@@ -1845,7 +143,7 @@ uint64_t health::TypeFormatter<std::string &,void>::TypeFormatter(uint64_t a1, u
 
   else
   {
-    v12 = *(a2 + 8);
+    v12 = a2[1];
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, v11, v12);
@@ -1872,23 +170,24 @@ uint64_t health::TypeFormatter<std::string &,void>::TypeFormatter(uint64_t a1, u
   return a1;
 }
 
-void sub_228C6DD90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_228C6DD90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   std::locale::~locale(&a9);
-  std::ostringstream::~ostringstream(&a12);
-  if (*(v12 + 23) < 0)
+  std::ostringstream::~ostringstream(va);
+  if (*(v11 + 23) < 0)
   {
-    operator delete(*v12);
+    operator delete(*v11);
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::enumerateAllValues<health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::enumerateSamples(std::function<BOOL ()(double const&,_HDRawLocationDatumV1 const&)>)::{lambda(double const&,_HDRawLocationDatumV1 const&)#1}>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::enumerateAllValues<health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::enumerateSamples(std::function<BOOL ()(double const&,_HDRawLocationDatumV1 const&)>)::{lambda(double const&,_HDRawLocationDatumV1 const&)#1}>(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a1 + 16);
+  v6 = a1[2];
   memset(v8, 0, 411);
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(v6 + 16), *a1, *(a1 + 8), v8);
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(v6 + 16), *a1, a1[1], v8);
   return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::_enumerateAllValues<health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::enumerateSamples(std::function<BOOL ()(double const&,_HDRawLocationDatumV1 const&)>)::{lambda(double const&,_HDRawLocationDatumV1 const&)#1}>(a1, 0, v8, a2, a3);
 }
 
@@ -1924,7 +223,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlus
     else
     {
       health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,double>>::_interiorChildAtIndex(result, a2, a3, v8, v14);
-      return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::_enumerateAllValues<health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::enumerateSamples(std::function<BOOL ()(double const&,_HDRawLocationDatumV1 const&)>)::{lambda(double const&,_HDRawLocationDatumV1 const&)#1}>(v7, (a2 + 1), v14, a4, a5);
+      return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV1>>::_enumerateAllValues<health::DataStore::SampleHistory<LocationHistoryBehaviorV1>::enumerateSamples(std::function<BOOL ()(double const&,_HDRawLocationDatumV1 const&)>)::{lambda(double const&,_HDRawLocationDatumV1 const&)#1}>(v7, a2 + 1, v14, a4, a5);
     }
   }
 
@@ -2251,7 +550,7 @@ uint64_t _ZNSt3__110__function6__funcIZZN6health18DataStoreInspector23_enumerate
     }
 
     v7 = *(a1 + 24);
-    health::timestampToDate(v4, v14);
+    health::timestampToDate(v14, v4);
     v17 = v12;
     v18 = v14;
     v19 = v5;
@@ -2392,7 +691,7 @@ LABEL_6:
     {
       if (*(&v28 + 1) == 2)
       {
-        health::FormatString<double const&,double const&,float const&,float const&,float const&,float const&,float const&>(&__p, *a4, *a4 + 8, *a4 + 16, *a4 + 20, *a4 + 24, *a4 + 28, *a4 + 32);
+        health::FormatString<double const&,double const&,float const&,float const&,float const&,float const&,float const&>(&__p, *a4, (*a4 + 8), (*a4 + 16), (*a4 + 20), (*a4 + 24), (*a4 + 28), (*a4 + 32));
         size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
@@ -2464,7 +763,7 @@ LABEL_58:
       v20 = a2->__r_.__value_.__r.__words[0];
     }
 
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v28, &v20[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v28, v20 + a3 + v9, &__p);
   }
 
   else
@@ -2499,7 +798,7 @@ LABEL_58:
     }
 
 LABEL_46:
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v28, &v16[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v28, v16 + a3 + v9, &__p.__r_.__value_.__l.__data_);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -2538,7 +837,7 @@ void health::FormatterParameters<0ul,long long &,std::string,_HDRawLocationDatum
   __cxa_throw(v2, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void health::FormatString<double const&,double const&,float const&,float const&,float const&,float const&,float const&>(std::string *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void health::FormatString<double const&,double const&,float const&,float const&,float const&,float const&,float const&>(std::string *a1, float *a2, float *a3, float *a4, float *a5, float *a6, float *a7, float *a8)
 {
   v8[0] = a8;
   v8[1] = a7;
@@ -2563,7 +862,7 @@ void sub_228C6F1B0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void health::FormatImplementation<double const&,double const&,float const&,float const&,float const&,float const&,float const&>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t a4)
+void health::FormatImplementation<double const&,double const&,float const&,float const&,float const&,float const&,float const&>(std::string *a1, std::string *a2, std::string::size_type a3, float **a4)
 {
   v34 = a1;
   v6 = a1->__r_.__value_.__s.__data_[0];
@@ -2654,7 +953,7 @@ LABEL_6:
           goto LABEL_89;
         }
 
-        health::TypeFormatter<float const&,void>::TypeFormatter(&__p, *(a4 + 32), v30);
+        health::TypeFormatter<float const&,void>::TypeFormatter(&__p, a4[4], v30);
         v14 = v37;
         if ((v37 & 0x80u) != 0)
         {
@@ -2675,7 +974,7 @@ LABEL_6:
         goto LABEL_73;
       }
 
-      health::TypeFormatter<double const&,void>::TypeFormatter(&__p, *(a4 + 40), v30);
+      health::TypeFormatter<double const&,void>::TypeFormatter(&__p, a4[5], v30);
       v18 = v37;
       if ((v37 & 0x80u) != 0)
       {
@@ -2696,7 +995,7 @@ LABEL_6:
 
     else
     {
-      health::TypeFormatter<double const&,void>::TypeFormatter(&__p, *(a4 + 48), v30);
+      health::TypeFormatter<double const&,void>::TypeFormatter(&__p, a4[6], v30);
       v18 = v37;
       if ((v37 & 0x80u) != 0)
       {
@@ -2734,7 +1033,7 @@ LABEL_6:
     {
       if (v31 == 3)
       {
-        health::TypeFormatter<float const&,void>::TypeFormatter(&__p, *(a4 + 24), v30);
+        health::TypeFormatter<float const&,void>::TypeFormatter(&__p, a4[3], v30);
         v14 = v37;
         if ((v37 & 0x80u) != 0)
         {
@@ -2755,7 +1054,7 @@ LABEL_6:
 
       else
       {
-        health::TypeFormatter<float const&,void>::TypeFormatter(&__p, *(a4 + 16), v30);
+        health::TypeFormatter<float const&,void>::TypeFormatter(&__p, a4[2], v30);
         v14 = v37;
         if ((v37 & 0x80u) != 0)
         {
@@ -2806,7 +1105,7 @@ LABEL_89:
       health::FormatterParameters<7ul>::formatParameterAtIndex<health::FormatterParameters<0ul,double const&,double const&,float const&,float const&,float const&,float const&,float const&>>();
     }
 
-    health::TypeFormatter<float const&,void>::TypeFormatter(&__p, *(a4 + 8), v30);
+    health::TypeFormatter<float const&,void>::TypeFormatter(&__p, a4[1], v30);
     v14 = v37;
     if ((v37 & 0x80u) != 0)
     {
@@ -2838,7 +1137,7 @@ LABEL_73:
     }
   }
 
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v30, &v22[v21], &__p);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v30, v22 + v21, &__p);
   if (v37 < 0)
   {
     operator delete(__p);
@@ -2860,7 +1159,7 @@ void sub_228C6F6D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void health::FormatterParameters<0ul,double const&,double const&,float const&,float const&,float const&,float const&,float const&>::formatOptionsAtIndex<double const&,double const&,float const&,float const&,float const&,float const&,float const&>(uint64_t a1)
+void health::FormatterParameters<0ul,double const&,double const&,float const&,float const&,float const&,float const&,float const&>::formatOptionsAtIndex<double const&,double const&,float const&,float const&,float const&,float const&,float const&>(unint64_t a1)
 {
   if (a1 > 2)
   {
@@ -2901,66 +1200,66 @@ void health::FormatterParameters<7ul>::formatParameterAtIndex<health::FormatterP
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-uint64_t health::TypeFormatter<float const&,void>::TypeFormatter(uint64_t a1, int *a2, uint64_t a3)
+uint64_t health::TypeFormatter<float const&,void>::TypeFormatter(uint64_t a1, float *a2, uint64_t a3)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v14);
-  v6 = v14;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v12);
+  v5 = v12;
   if (*(a3 + 16) == 1)
   {
-    *(&v16[1] + *(v14 - 24)) = *(a3 + 24);
+    *(&v14[1] + *(v12 - 24)) = *(a3 + 24);
   }
 
   if (*(a3 + 32) == 1)
   {
-    *(v16 + *(v6 - 24)) = *(a3 + 40);
+    *(v14 + *(v5 - 24)) = *(a3 + 40);
   }
 
-  v7 = (&v14 + *(v6 - 24));
-  v8 = *(a3 + 52);
-  if (v7[1].__fmtflags_ == -1)
+  v6 = (&v12 + *(v5 - 24));
+  v7 = *(a3 + 52);
+  if (v6[1].__fmtflags_ == -1)
   {
-    std::ios_base::getloc(v7);
-    v9 = std::locale::use_facet(&v12, MEMORY[0x277D82680]);
-    (v9->__vftable[2].~facet_0)(v9, 32);
-    std::locale::~locale(&v12);
+    std::ios_base::getloc(v6);
+    v8 = std::locale::use_facet(&v10, MEMORY[0x277D82680]);
+    (v8->__vftable[2].~facet_0)(v8, 32);
+    std::locale::~locale(&v10);
   }
 
-  v7[1].__fmtflags_ = v8;
-  v10 = *a2;
+  v6[1].__fmtflags_ = v7;
   std::ostream::operator<<();
-  std::ostringstream::str[abi:ne200100](&v14, &v12);
+  std::ostringstream::str[abi:ne200100](&v12, &v10);
   if (*(a1 + 23) < 0)
   {
     operator delete(*a1);
   }
 
-  *a1 = v12;
-  *(a1 + 16) = v13;
-  v14 = *MEMORY[0x277D82828];
-  *(&v14 + *(v14 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v15 = MEMORY[0x277D82878] + 16;
-  if (v17 < 0)
+  *a1 = v10;
+  *(a1 + 16) = v11;
+  v12 = *MEMORY[0x277D82828];
+  *(&v12 + *(v12 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v13 = MEMORY[0x277D82878] + 16;
+  if (v15 < 0)
   {
-    operator delete(v16[7].__locale_);
+    operator delete(v14[7].__locale_);
   }
 
-  v15 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v16);
+  v13 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v14);
   std::ostream::~ostream();
-  MEMORY[0x22AAC8550](&v18);
+  MEMORY[0x22AAC8550](&v16);
   return a1;
 }
 
-void sub_228C6FB50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_228C6FB50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   std::locale::~locale(&a9);
-  std::ostringstream::~ostringstream(&a12);
-  if (*(v12 + 23) < 0)
+  std::ostringstream::~ostringstream(va);
+  if (*(v11 + 23) < 0)
   {
-    operator delete(*v12);
+    operator delete(*v11);
   }
 
   _Unwind_Resume(a1);
@@ -3018,13 +1317,14 @@ uint64_t health::TypeFormatter<double const&,void>::TypeFormatter(uint64_t a1, d
   return a1;
 }
 
-void sub_228C6FDF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_228C6FDF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   std::locale::~locale(&a9);
-  std::ostringstream::~ostringstream(&a12);
-  if (*(v12 + 23) < 0)
+  std::ostringstream::~ostringstream(va);
+  if (*(v11 + 23) < 0)
   {
-    operator delete(*v12);
+    operator delete(*v11);
   }
 
   _Unwind_Resume(a1);
@@ -3119,7 +1419,7 @@ LABEL_6:
         goto LABEL_71;
       }
 
-      health::FormatString<double const&,double const&,float const&,float const&,float const&,float const&,float const&>(&__p, *a4, *a4 + 8, *a4 + 16, *a4 + 20, *a4 + 24, *a4 + 28, *a4 + 32);
+      health::FormatString<double const&,double const&,float const&,float const&,float const&,float const&,float const&>(&__p, *a4, (*a4 + 8), (*a4 + 16), (*a4 + 20), (*a4 + 24), (*a4 + 28), (*a4 + 32));
       size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
@@ -3185,7 +1485,7 @@ LABEL_6:
       v24 = a2->__r_.__value_.__r.__words[0];
     }
 
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v30, &v24[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v30, v24 + a3 + v9, &__p);
     if (v9)
     {
 LABEL_50:
@@ -3268,7 +1568,7 @@ LABEL_70:
     }
 
 LABEL_47:
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v30, &v16[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v30, v16 + a3 + v9, &__p.__r_.__value_.__l.__data_);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -3339,7 +1639,7 @@ uint64_t std::__function::__value_func<void ()(health::DataStore::SampleHistory<
   return a1;
 }
 
-void health::FormatImplementation<health::DataStore::ObjectIdentifier &>(std::string *a1, std::string *a2, std::string::size_type a3, void **a4)
+void health::FormatImplementation<health::DataStore::ObjectIdentifier &>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t *a4)
 {
   v26 = a1;
   v6 = a1->__r_.__value_.__s.__data_[0];
@@ -3423,7 +1723,7 @@ void health::FormatImplementation<health::DataStore::ObjectIdentifier &>(std::st
                 v16 = a2->__r_.__value_.__r.__words[0];
               }
 
-              health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v22, &v16[a3 - v9], __p);
+              health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v22, v16 + a3 - v9, __p);
               if (v28 < 0)
               {
                 operator delete(__p[0]);
@@ -3569,7 +1869,7 @@ void health::FormatImplementation<long long &>(std::string *a1, std::string *a2,
                 v16 = a2->__r_.__value_.__r.__words[0];
               }
 
-              health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v22, &v16[a3 - v9], __p);
+              health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v22, v16 + a3 - v9, __p);
               if (v28 < 0)
               {
                 operator delete(__p[0]);
@@ -3631,16 +1931,16 @@ void health::FormatterParameters<0ul,long long &>::formatOptionsAtIndex<long lon
   __cxa_throw(v3, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void health::DataStore::accessSampleHistoryWithIdentifierForReading<LocationHistoryBehaviorV2>()
+void health::DataStore::accessSampleHistoryWithIdentifierForReading<LocationHistoryBehaviorV2>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
-void sub_228C70C48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_228C70C48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(health::DataStore::ReadTransaction const&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3702,11 +2002,11 @@ __n128 std::__function::__func<health::DataStoreInspector::DataSeriesEntry healt
 
 void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health::DataStoreInspector::_enumerateSampleHistory<LocationHistoryBehaviorV2>(health::DataStore::ObjectIdentifier,std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,BOOL)::{lambda(health::DataStore::SampleHistory<LocationHistoryBehaviorV2> const&)#1},std::allocator<health::DataStoreInspector::DataSeriesEntry health::DataStoreInspector::_enumerateSampleHistory<LocationHistoryBehaviorV2>(health::DataStore::ObjectIdentifier,std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,BOOL)::{lambda(health::DataStore::SampleHistory<LocationHistoryBehaviorV2> const&)#1}>,void ()(health::DataStore::SampleHistory<LocationHistoryBehaviorV2> const&)>::operator()(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a2[4];
   v5 = a2[5];
   v6 = a2[6];
-  v20 = v6;
+  v16 = v6;
   if (v6 < 1)
   {
     v7 = **(a1 + 16);
@@ -3722,16 +2022,16 @@ void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health:
 
     if (v8)
     {
-      health::FormatString<health::DataStore::ObjectIdentifier &>(&v23, "HFD sample history root [ID: {0}] reports an empty sample count.", *(a1 + 24));
-      v14 = std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v24, *(a1 + 40));
-      health::DataStoreInspector::_errorHandler(v14, 2, v4, v5, &v23, v24);
-      std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v24);
-      if ((SHIBYTE(v23.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      health::FormatString<health::DataStore::ObjectIdentifier &>(&v19, "HFD sample history root [ID: {0}] reports an empty sample count.", *(a1 + 24));
+      v14 = std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v20, *(a1 + 40));
+      health::DataStoreInspector::_errorHandler(v14, 2, v4, v5, &v19, v20);
+      std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v20);
+      if ((SHIBYTE(v19.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_24;
       }
 
-      v13 = v23.__r_.__value_.__r.__words[0];
+      v13 = v19.__r_.__value_.__r.__words[0];
       goto LABEL_23;
     }
   }
@@ -3751,14 +2051,14 @@ void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health:
     }
 
     v11 = *(a1 + 40);
-    std::string::basic_string[abi:ne200100]<0>(v24, "object_id \t sample_number \t timestamp \t data");
+    std::string::basic_string[abi:ne200100]<0>(v20, "object_id \t sample_number \t timestamp \t data");
     v12 = *(v11 + 24);
     if (!v12)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(*v12 + 48))(v12, v24);
+    (*(*v12 + 48))(v12, v20);
   }
 
   else
@@ -3768,11 +2068,11 @@ void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health:
       goto LABEL_24;
     }
 
-    _HDSampleHistoryDescriptionForObjectType(**(a1 + 24), v24);
-    health::timestampToDate(*(*(a1 + 8) + 40), &v23);
-    health::timestampToDate(*(*(a1 + 8) + 48), v21);
+    _HDSampleHistoryDescriptionForObjectType(v20, **(a1 + 24));
+    health::timestampToDate(&v19, *(*(a1 + 8) + 40));
+    health::timestampToDate(v17, *(*(a1 + 8) + 48));
     v9 = *(a1 + 40);
-    health::FormatString<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(&__p, v24, *(a1 + 24), &v20, &v23, v21);
+    health::FormatString<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(&__p, v20, *(a1 + 24), &v16, &v19, v17);
     v10 = *(v9 + 24);
     if (!v10)
     {
@@ -3785,28 +2085,24 @@ void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health:
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v22 < 0)
+    if (v18 < 0)
     {
-      operator delete(v21[0]);
+      operator delete(v17[0]);
     }
 
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v23.__r_.__value_.__l.__data_);
+      operator delete(v19.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((v25 & 0x80000000) == 0)
+  if ((v21 & 0x80000000) == 0)
   {
 LABEL_24:
-    v15 = *(a1 + 56);
-    v16 = *(a1 + 40);
-    v18 = *(a1 + 16);
-    v17 = *(a1 + 24);
     operator new();
   }
 
-  v13 = v24[0];
+  v13 = v20[0];
 LABEL_23:
   operator delete(v13);
   goto LABEL_24;
@@ -3921,27 +2217,26 @@ LABEL_9:
 
 uint64_t health::DataStore::SampleHistory<LocationHistoryBehaviorV2>::enumerateSamples(uint64_t result, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (*(result + 48))
   {
     v2 = *(*(result + 88) + 24);
-    v6[0] = 0;
-    v6[1] = 0;
-    v6[2] = v2;
-    v4 = *(result + 16);
-    v5 = v6;
-    std::__function::__value_func<BOOL ()(double const&,_HDRawLocationDatumV2 const&)>::__value_func[abi:ne200100](v7, a2);
-    health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::enumerateAllValues<health::DataStore::SampleHistory<LocationHistoryBehaviorV2>::enumerateSamples(std::function<BOOL ()(double const&,_HDRawLocationDatumV2 const&)>)::{lambda(double const&,_HDRawLocationDatumV2 const&)#1}>(&v4, v7, 0);
-    result = std::__function::__value_func<BOOL ()(double const&,_HDRawLocationDatumV2 const&)>::~__value_func[abi:ne200100](v7);
+    v5[0] = 0;
+    v5[1] = 0;
+    v5[2] = v2;
+    v3 = *(result + 16);
+    v4 = v5;
+    std::__function::__value_func<BOOL ()(double const&,_HDRawLocationDatumV2 const&)>::__value_func[abi:ne200100](v6, a2);
+    health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::enumerateAllValues<health::DataStore::SampleHistory<LocationHistoryBehaviorV2>::enumerateSamples(std::function<BOOL ()(double const&,_HDRawLocationDatumV2 const&)>)::{lambda(double const&,_HDRawLocationDatumV2 const&)#1}>(&v3, v6, 0);
+    return std::__function::__value_func<BOOL ()(double const&,_HDRawLocationDatumV2 const&)>::~__value_func[abi:ne200100](v6);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_228C716B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_228C716B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<BOOL ()(double const&,_HDRawLocationDatumV2 const&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4002,29 +2297,28 @@ void sub_228C717BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>>(uint64_t *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = 935;
-  health::RawBuffer::RawBuffer(v11, v12, 935);
-  health::BlockAccessFile::ReadTransaction::retrieveBlock(a1, a2, a3, v11);
-  v8 = v12;
-  if (v14 > 0x3FF)
+  v14 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = 935;
+  health::RawBuffer::RawBuffer(v10, v11, 935);
+  health::BlockAccessFile::ReadTransaction::retrieveBlock(a1, a2, a3, v10);
+  v8 = v11;
+  if (v13 > 0x3FF)
   {
-    v8 = v13;
+    v8 = v12;
   }
 
-  v11[0] = v8;
-  v11[1] = v8;
-  v11[2] = 935;
-  health::DeserializeValues<health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(v11, a4, (a4 + 952), (a4 + 960), (a4 + 976));
-  result = v13;
-  v13 = 0;
+  v10[0] = v8;
+  v10[1] = v8;
+  v10[2] = 935;
+  health::DeserializeValues<health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(v10, a4, (a4 + 952), (a4 + 960), (a4 + 976));
+  result = v12;
+  v12 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4065,67 +2359,66 @@ void sub_228C71A34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t health::DeserializeValues<health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(uint64_t a1, uint64_t a2, _WORD *a3, void *a4, void *a5)
+void health::DeserializeValues<health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>::ValueEntry,17ul>,unsigned short,health::BlockPointer,health::BlockPointer>(uint64_t a1, uint64_t a2, _WORD *a3, void *a4, void *a5)
 {
   for (i = 0; i != 17; ++i)
   {
     v11 = health::StaticArray<health::bplustree::LeafNode<double,_HDRawLocationDatumV2,health::BlockPointer,17>::ValueEntry,17ul>::operator[](a2, i);
-    v13 = 0;
-    health::DeserializationBuffer::extractRaw<long long>(a1, &v13);
-    *v11 = v13;
-    v13 = 0;
-    health::DeserializationBuffer::extractRaw<long long>(a1, &v13);
-    *(v11 + 8) = v13;
-    v13 = 0;
-    health::DeserializationBuffer::extractRaw<long long>(a1, &v13);
-    *(v11 + 16) = v13;
-    LODWORD(v13) = 0;
-    health::DeserializationBuffer::extractRaw<int>(a1, &v13);
-    *(v11 + 24) = v13;
-    LODWORD(v13) = 0;
-    health::DeserializationBuffer::extractRaw<int>(a1, &v13);
-    *(v11 + 28) = v13;
-    LODWORD(v13) = 0;
-    health::DeserializationBuffer::extractRaw<int>(a1, &v13);
-    *(v11 + 32) = v13;
-    LODWORD(v13) = 0;
-    health::DeserializationBuffer::extractRaw<int>(a1, &v13);
-    *(v11 + 36) = v13;
-    LODWORD(v13) = 0;
-    health::DeserializationBuffer::extractRaw<int>(a1, &v13);
-    *(v11 + 40) = v13;
-    LODWORD(v13) = 0;
-    health::DeserializationBuffer::extractRaw<int>(a1, &v13);
-    *(v11 + 44) = v13;
-    LODWORD(v13) = 0;
-    health::DeserializationBuffer::extractRaw<int>(a1, &v13);
-    *(v11 + 48) = v13;
+    v12 = 0;
+    health::DeserializationBuffer::extractRaw<long long>(a1, &v12);
+    *v11 = v12;
+    v12 = 0;
+    health::DeserializationBuffer::extractRaw<long long>(a1, &v12);
+    *(v11 + 8) = v12;
+    v12 = 0;
+    health::DeserializationBuffer::extractRaw<long long>(a1, &v12);
+    *(v11 + 16) = v12;
+    LODWORD(v12) = 0;
+    health::DeserializationBuffer::extractRaw<int>(a1, &v12);
+    *(v11 + 24) = v12;
+    LODWORD(v12) = 0;
+    health::DeserializationBuffer::extractRaw<int>(a1, &v12);
+    *(v11 + 28) = v12;
+    LODWORD(v12) = 0;
+    health::DeserializationBuffer::extractRaw<int>(a1, &v12);
+    *(v11 + 32) = v12;
+    LODWORD(v12) = 0;
+    health::DeserializationBuffer::extractRaw<int>(a1, &v12);
+    *(v11 + 36) = v12;
+    LODWORD(v12) = 0;
+    health::DeserializationBuffer::extractRaw<int>(a1, &v12);
+    *(v11 + 40) = v12;
+    LODWORD(v12) = 0;
+    health::DeserializationBuffer::extractRaw<int>(a1, &v12);
+    *(v11 + 44) = v12;
+    LODWORD(v12) = 0;
+    health::DeserializationBuffer::extractRaw<int>(a1, &v12);
+    *(v11 + 48) = v12;
     health::DeserializationBuffer::extractRaw<unsigned char>(a1, (v11 + 52));
   }
 
-  LOWORD(v13) = 0;
-  health::DeserializationBuffer::extractRaw<unsigned short>(a1, &v13);
-  *a3 = v13;
-  v13 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-  *a4 = v13;
-  v13 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-  a4[1] = v13;
-  v13 = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-  *a5 = v13;
-  v13 = 0;
-  result = health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v13);
-  a5[1] = v13;
-  return result;
+  LOWORD(v12) = 0;
+  health::DeserializationBuffer::extractRaw<unsigned short>(a1, &v12);
+  *a3 = v12;
+  v12 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+  *a4 = v12;
+  v12 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+  a4[1] = v12;
+  v12 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+  *a5 = v12;
+  v12 = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a1, &v12);
+  a5[1] = v12;
 }
 
-uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::enumerateAllValues<health::DataStore::SampleHistory<LocationHistoryBehaviorV2>::enumerateSamples(std::function<BOOL ()(double const&,_HDRawLocationDatumV2 const&)>)::{lambda(double const&,_HDRawLocationDatumV2 const&)#1}>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::enumerateAllValues<health::DataStore::SampleHistory<LocationHistoryBehaviorV2>::enumerateSamples(std::function<BOOL ()(double const&,_HDRawLocationDatumV2 const&)>)::{lambda(double const&,_HDRawLocationDatumV2 const&)#1}>(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a1 + 16);
+  v6 = a1[2];
   memset(v8, 0, 411);
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(v6 + 16), *a1, *(a1 + 8), v8);
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<double,health::BlockPointer,17>>(*(v6 + 16), *a1, a1[1], v8);
   return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_enumerateAllValues<health::DataStore::SampleHistory<LocationHistoryBehaviorV2>::enumerateSamples(std::function<BOOL ()(double const&,_HDRawLocationDatumV2 const&)>)::{lambda(double const&,_HDRawLocationDatumV2 const&)#1}>(a1, 0, v8, a2, a3);
 }
 
@@ -4161,7 +2454,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlus
     else
     {
       health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,double>>::_interiorChildAtIndex(result, a2, a3, v8, v14);
-      return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_enumerateAllValues<health::DataStore::SampleHistory<LocationHistoryBehaviorV2>::enumerateSamples(std::function<BOOL ()(double const&,_HDRawLocationDatumV2 const&)>)::{lambda(double const&,_HDRawLocationDatumV2 const&)#1}>(v7, (a2 + 1), v14, a4, a5);
+      return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<double,_HDRawLocationDatumV2>>::_enumerateAllValues<health::DataStore::SampleHistory<LocationHistoryBehaviorV2>::enumerateSamples(std::function<BOOL ()(double const&,_HDRawLocationDatumV2 const&)>)::{lambda(double const&,_HDRawLocationDatumV2 const&)#1}>(v7, a2 + 1, v14, a4, a5);
     }
   }
 
@@ -4488,7 +2781,7 @@ uint64_t _ZNSt3__110__function6__funcIZZN6health18DataStoreInspector23_enumerate
     }
 
     v7 = *(a1 + 24);
-    health::timestampToDate(v4, v13);
+    health::timestampToDate(v13, v4);
     v16 = v12;
     v17 = v13;
     v18 = v5;
@@ -4701,7 +2994,7 @@ LABEL_58:
       v20 = a2->__r_.__value_.__r.__words[0];
     }
 
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v28, &v20[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v28, v20 + a3 + v9, &__p);
   }
 
   else
@@ -4736,7 +3029,7 @@ LABEL_58:
     }
 
 LABEL_46:
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v28, &v16[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v28, v16 + a3 + v9, &__p.__r_.__value_.__l.__data_);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -5017,7 +3310,7 @@ LABEL_82:
     }
 
 LABEL_122:
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v54, &v35[v34], &v66);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v54, v35 + v34, &v66);
     if (SHIBYTE(v68[0].__locale_) < 0)
     {
       v41 = v66;
@@ -5549,7 +3842,7 @@ LABEL_6:
       v24 = a2->__r_.__value_.__r.__words[0];
     }
 
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v30, &v24[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v30, v24 + a3 + v9, &__p);
     if (v9)
     {
 LABEL_50:
@@ -5632,7 +3925,7 @@ LABEL_70:
     }
 
 LABEL_47:
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v30, &v16[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v30, v16 + a3 + v9, &__p.__r_.__value_.__l.__data_);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -5718,11 +4011,11 @@ __n128 std::__function::__func<health::DataStoreInspector::DataSeriesEntry healt
 
 void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health::DataStoreInspector::_enumerateSampleHistory<QuantitySampleValueBehaviorV0>(health::DataStore::ObjectIdentifier,std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,BOOL)::{lambda(health::DataStore::SampleHistory<QuantitySampleValueBehaviorV0> const&)#1},std::allocator<health::DataStoreInspector::DataSeriesEntry health::DataStoreInspector::_enumerateSampleHistory<QuantitySampleValueBehaviorV0>(health::DataStore::ObjectIdentifier,std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,BOOL)::{lambda(health::DataStore::SampleHistory<QuantitySampleValueBehaviorV0> const&)#1}>,void ()(health::DataStore::SampleHistory<QuantitySampleValueBehaviorV0> const&)>::operator()(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a2[4];
   v5 = a2[5];
   v6 = a2[6];
-  v20 = v6;
+  v16 = v6;
   if (v6 < 1)
   {
     v7 = **(a1 + 16);
@@ -5738,16 +4031,16 @@ void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health:
 
     if (v8)
     {
-      health::FormatString<health::DataStore::ObjectIdentifier &>(&v23, "HFD sample history root [ID: {0}] reports an empty sample count.", *(a1 + 24));
-      v14 = std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v24, *(a1 + 40));
-      health::DataStoreInspector::_errorHandler(v14, 2, v4, v5, &v23, v24);
-      std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v24);
-      if ((SHIBYTE(v23.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      health::FormatString<health::DataStore::ObjectIdentifier &>(&v19, "HFD sample history root [ID: {0}] reports an empty sample count.", *(a1 + 24));
+      v14 = std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v20, *(a1 + 40));
+      health::DataStoreInspector::_errorHandler(v14, 2, v4, v5, &v19, v20);
+      std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v20);
+      if ((SHIBYTE(v19.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_24;
       }
 
-      v13 = v23.__r_.__value_.__r.__words[0];
+      v13 = v19.__r_.__value_.__r.__words[0];
       goto LABEL_23;
     }
   }
@@ -5767,14 +4060,14 @@ void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health:
     }
 
     v11 = *(a1 + 40);
-    std::string::basic_string[abi:ne200100]<0>(v24, "object_id \t sample_number \t timestamp \t data");
+    std::string::basic_string[abi:ne200100]<0>(v20, "object_id \t sample_number \t timestamp \t data");
     v12 = *(v11 + 24);
     if (!v12)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(*v12 + 48))(v12, v24);
+    (*(*v12 + 48))(v12, v20);
   }
 
   else
@@ -5784,11 +4077,11 @@ void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health:
       goto LABEL_24;
     }
 
-    _HDSampleHistoryDescriptionForObjectType(**(a1 + 24), v24);
-    health::timestampToDate(*(*(a1 + 8) + 40), &v23);
-    health::timestampToDate(*(*(a1 + 8) + 48), v21);
+    _HDSampleHistoryDescriptionForObjectType(v20, **(a1 + 24));
+    health::timestampToDate(&v19, *(*(a1 + 8) + 40));
+    health::timestampToDate(v17, *(*(a1 + 8) + 48));
     v9 = *(a1 + 40);
-    health::FormatString<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(&__p, v24, *(a1 + 24), &v20, &v23, v21);
+    health::FormatString<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(&__p, v20, *(a1 + 24), &v16, &v19, v17);
     v10 = *(v9 + 24);
     if (!v10)
     {
@@ -5801,28 +4094,24 @@ void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health:
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v22 < 0)
+    if (v18 < 0)
     {
-      operator delete(v21[0]);
+      operator delete(v17[0]);
     }
 
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v23.__r_.__value_.__l.__data_);
+      operator delete(v19.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((v25 & 0x80000000) == 0)
+  if ((v21 & 0x80000000) == 0)
   {
 LABEL_24:
-    v15 = *(a1 + 56);
-    v16 = *(a1 + 40);
-    v18 = *(a1 + 16);
-    v17 = *(a1 + 24);
     operator new();
   }
 
-  v13 = v24[0];
+  v13 = v20[0];
 LABEL_23:
   operator delete(v13);
   goto LABEL_24;
@@ -5977,7 +4266,7 @@ uint64_t _ZNSt3__110__function6__funcIZZN6health18DataStoreInspector23_enumerate
     }
 
     v6 = *(a1 + 24);
-    health::timestampToDate(v3, v11);
+    health::timestampToDate(v11, v3);
     v15 = &v14;
     v16 = v11;
     v17 = v4;
@@ -6190,7 +4479,7 @@ LABEL_58:
       v20 = a2->__r_.__value_.__r.__words[0];
     }
 
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v28, &v20[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v28, v20 + a3 + v9, &__p);
   }
 
   else
@@ -6225,7 +4514,7 @@ LABEL_58:
     }
 
 LABEL_46:
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v28, &v16[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v28, v16 + a3 + v9, &__p);
     if (SHIBYTE(v34) < 0)
     {
       operator delete(__p);
@@ -6316,13 +4605,14 @@ uint64_t health::TypeFormatter<double &,void>::TypeFormatter(uint64_t a1, double
   return a1;
 }
 
-void sub_228C75538(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_228C75538(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   std::locale::~locale(&a9);
-  std::ostringstream::~ostringstream(&a12);
-  if (*(v12 + 23) < 0)
+  std::ostringstream::~ostringstream(va);
+  if (*(v11 + 23) < 0)
   {
-    operator delete(*v12);
+    operator delete(*v11);
   }
 
   _Unwind_Resume(a1);
@@ -6483,7 +4773,7 @@ LABEL_6:
       v24 = a2->__r_.__value_.__r.__words[0];
     }
 
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v30, &v24[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v30, v24 + a3 + v9, &__p);
     if (v9)
     {
 LABEL_50:
@@ -6566,7 +4856,7 @@ LABEL_70:
     }
 
 LABEL_47:
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v30, &v16[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v30, v16 + a3 + v9, &__p);
     if (SHIBYTE(v36) < 0)
     {
       operator delete(__p);
@@ -6620,11 +4910,11 @@ __n128 std::__function::__func<health::DataStoreInspector::DataSeriesEntry healt
 
 void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health::DataStoreInspector::_enumerateSampleHistory<QuantitySampleValueBehaviorV1>(health::DataStore::ObjectIdentifier,std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,BOOL)::{lambda(health::DataStore::SampleHistory<QuantitySampleValueBehaviorV1> const&)#1},std::allocator<health::DataStoreInspector::DataSeriesEntry health::DataStoreInspector::_enumerateSampleHistory<QuantitySampleValueBehaviorV1>(health::DataStore::ObjectIdentifier,std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,BOOL)::{lambda(health::DataStore::SampleHistory<QuantitySampleValueBehaviorV1> const&)#1}>,void ()(health::DataStore::SampleHistory<QuantitySampleValueBehaviorV1> const&)>::operator()(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a2[4];
   v5 = a2[5];
   v6 = a2[6];
-  v20 = v6;
+  v16 = v6;
   if (v6 < 1)
   {
     v7 = **(a1 + 16);
@@ -6640,16 +4930,16 @@ void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health:
 
     if (v8)
     {
-      health::FormatString<health::DataStore::ObjectIdentifier &>(&v23, "HFD sample history root [ID: {0}] reports an empty sample count.", *(a1 + 24));
-      v14 = std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v24, *(a1 + 40));
-      health::DataStoreInspector::_errorHandler(v14, 2, v4, v5, &v23, v24);
-      std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v24);
-      if ((SHIBYTE(v23.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      health::FormatString<health::DataStore::ObjectIdentifier &>(&v19, "HFD sample history root [ID: {0}] reports an empty sample count.", *(a1 + 24));
+      v14 = std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v20, *(a1 + 40));
+      health::DataStoreInspector::_errorHandler(v14, 2, v4, v5, &v19, v20);
+      std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v20);
+      if ((SHIBYTE(v19.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_24;
       }
 
-      v13 = v23.__r_.__value_.__r.__words[0];
+      v13 = v19.__r_.__value_.__r.__words[0];
       goto LABEL_23;
     }
   }
@@ -6669,14 +4959,14 @@ void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health:
     }
 
     v11 = *(a1 + 40);
-    std::string::basic_string[abi:ne200100]<0>(v24, "object_id \t sample_number \t timestamp \t data");
+    std::string::basic_string[abi:ne200100]<0>(v20, "object_id \t sample_number \t timestamp \t data");
     v12 = *(v11 + 24);
     if (!v12)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(*v12 + 48))(v12, v24);
+    (*(*v12 + 48))(v12, v20);
   }
 
   else
@@ -6686,11 +4976,11 @@ void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health:
       goto LABEL_24;
     }
 
-    _HDSampleHistoryDescriptionForObjectType(**(a1 + 24), v24);
-    health::timestampToDate(*(*(a1 + 8) + 40), &v23);
-    health::timestampToDate(*(*(a1 + 8) + 48), v21);
+    _HDSampleHistoryDescriptionForObjectType(v20, **(a1 + 24));
+    health::timestampToDate(&v19, *(*(a1 + 8) + 40));
+    health::timestampToDate(v17, *(*(a1 + 8) + 48));
     v9 = *(a1 + 40);
-    health::FormatString<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(&__p, v24, *(a1 + 24), &v20, &v23, v21);
+    health::FormatString<std::string &,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &>(&__p, v20, *(a1 + 24), &v16, &v19, v17);
     v10 = *(v9 + 24);
     if (!v10)
     {
@@ -6703,28 +4993,24 @@ void std::__function::__func<health::DataStoreInspector::DataSeriesEntry health:
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v22 < 0)
+    if (v18 < 0)
     {
-      operator delete(v21[0]);
+      operator delete(v17[0]);
     }
 
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v23.__r_.__value_.__l.__data_);
+      operator delete(v19.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((v25 & 0x80000000) == 0)
+  if ((v21 & 0x80000000) == 0)
   {
 LABEL_24:
-    v15 = *(a1 + 56);
-    v16 = *(a1 + 40);
-    v18 = *(a1 + 16);
-    v17 = *(a1 + 24);
     operator new();
   }
 
-  v13 = v24[0];
+  v13 = v20[0];
 LABEL_23:
   operator delete(v13);
   goto LABEL_24;
@@ -6878,7 +5164,7 @@ uint64_t _ZNSt3__110__function6__funcIZZN6health18DataStoreInspector23_enumerate
     }
 
     v6 = *(a1 + 24);
-    health::timestampToDate(v3, v11);
+    health::timestampToDate(v11, v3);
     v15 = &v14;
     v16 = v11;
     v17 = v4;
@@ -7091,7 +5377,7 @@ LABEL_58:
       v20 = a2->__r_.__value_.__r.__words[0];
     }
 
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v28, &v20[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v28, v20 + a3 + v9, &__p);
   }
 
   else
@@ -7126,7 +5412,7 @@ LABEL_58:
     }
 
 LABEL_46:
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v28, &v16[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v28, v16 + a3 + v9, &__p.__r_.__value_.__l.__data_);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -7337,7 +5623,7 @@ LABEL_47:
   }
 
 LABEL_35:
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v24, &v16[a3 - v9], &__p);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v24, v16 + a3 - v9, &__p);
   if (v31 < 0)
   {
     operator delete(__p);
@@ -7530,7 +5816,7 @@ LABEL_6:
       v24 = a2->__r_.__value_.__r.__words[0];
     }
 
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v30, &v24[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v30, v24 + a3 + v9, &__p);
     if (v9)
     {
 LABEL_50:
@@ -7613,7 +5899,7 @@ LABEL_70:
     }
 
 LABEL_47:
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v30, &v16[a3 + v9], &__p);
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v30, v16 + a3 + v9, &__p.__r_.__value_.__l.__data_);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -7665,53 +5951,30 @@ __n128 std::__function::__func<health::DataStoreInspector::enumerateStoreForPrin
 
 void std::__function::__func<health::DataStoreInspector::enumerateStoreForPrinting(std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,std::vector<health::DataStoreInspector::DataSeriesEntry> *)::$_1,std::allocator<health::DataStoreInspector::enumerateStoreForPrinting(std::function<void ()(std::string const&)>,health::DataStoreInspector::OutputFormat,std::vector<health::DataStoreInspector::DataSeriesEntry> *)::$_1>,void ()(health::DataStore::ObjectIdentifier const&,health::BlockPointer)>::operator()(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v3 = *a3;
-  v4 = a3[1];
-  v5 = *(a1 + 16);
   ++**(a1 + 8);
-  v17 = -1.0;
-  v18 = -1.0;
-  v16 = -1;
-  v6 = *a2;
+  v3 = *a2;
   if (*a2 > 1)
   {
-    if (v6 == 2)
+    if (v3 == 2)
     {
-      v13 = a2[1];
-      v14 = *v5;
-      v19 = 2;
-      v20 = v13;
       operator new();
     }
 
-    if (v6 == 3)
+    if (v3 == 3)
     {
-      v9 = a2[1];
-      v10 = *v5;
-      v19 = 3;
-      v20 = v9;
       operator new();
     }
   }
 
   else
   {
-    if (!v6)
+    if (!v3)
     {
-      v11 = a2[1];
-      v12 = *v5;
-      v19 = 0;
-      v20 = v11;
       operator new();
     }
 
-    if (v6 == 1)
+    if (v3 == 1)
     {
-      v7 = a2[1];
-      v8 = *v5;
-      v19 = 1;
-      v20 = v7;
       operator new();
     }
   }
@@ -7732,7 +5995,6 @@ void sub_228C77C14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     v47 = std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](&__p, *(v40 + 32));
     health::DataStoreInspector::_unknownBehaviorHandler(v47, v45, v46, v44, &__p);
     std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](&__p);
-    v48 = *v41;
     __cxa_end_catch();
     JUMPOUT(0x228C77A58);
   }
@@ -7752,13 +6014,12 @@ uint64_t std::__function::__func<health::DataStoreInspector::enumerateStoreForPr
   }
 }
 
-void health::FormatString<health::DataStore::ObjectIdentifier const&>(std::string *a1@<X0>, void *a2@<X1>, std::string *a3@<X8>)
+void health::FormatString<health::DataStore::ObjectIdentifier const&>(std::string *a1@<X0>, std::string *a2@<X8>, uint64_t a3@<X1>)
 {
-  v3 = a2;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
-  a3->__r_.__value_.__r.__words[0] = 0;
-  health::FormatImplementation<health::DataStore::ObjectIdentifier const&>(a1, a3, 0, &v3);
+  v3 = a3;
+  *&a2->__r_.__value_.__r.__words[1] = 0uLL;
+  a2->__r_.__value_.__r.__words[0] = 0;
+  health::FormatImplementation<health::DataStore::ObjectIdentifier const&>(a1, a2, 0, &v3);
 }
 
 void sub_228C77E84(_Unwind_Exception *exception_object)
@@ -7955,7 +6216,7 @@ uint64_t std::__function::__func<void health::DataStoreInspector::_getSampleHist
   }
 }
 
-void health::FormatImplementation<health::DataStore::ObjectIdentifier const&>(std::string *a1, std::string *this, std::string::size_type __n, void **a4)
+void health::FormatImplementation<health::DataStore::ObjectIdentifier const&>(std::string *a1, std::string *this, std::string::size_type __n, void *a4)
 {
   v19 = a1;
   v6 = a1->__r_.__value_.__s.__data_[0];
@@ -8053,7 +6314,7 @@ void health::FormatterParameters<0ul,health::DataStore::ObjectIdentifier const&>
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void health::FormatterParameters<0ul,health::DataStore::ObjectIdentifier const&>::formatParameterAtIndex<health::DataStore::ObjectIdentifier const&>(void **a1, uint64_t a2, uint64_t a3, uint64_t a4, std::string *a5, uint64_t a6, int a7)
+void health::FormatterParameters<0ul,health::DataStore::ObjectIdentifier const&>::formatParameterAtIndex<health::DataStore::ObjectIdentifier const&>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, std::string *a5, uint64_t a6, char *a7)
 {
   if (a3)
   {
@@ -8062,36 +6323,36 @@ void health::FormatterParameters<0ul,health::DataStore::ObjectIdentifier const&>
   }
 
   health::TypeFormatter<health::DataStore::ObjectIdentifier const&,void>::TypeFormatter(__p, *a1, a4);
-  v11 = v15;
-  if ((v15 & 0x80u) != 0)
+  v12 = v16;
+  if ((v16 & 0x80u) != 0)
   {
-    v11 = __p[1];
+    v12 = __p[1];
   }
 
-  v12 = *(a4 + 24);
-  if (v12 <= v11)
+  v13 = *(a4 + 24);
+  if (v13 <= v12)
   {
-    v12 = v11;
+    v13 = v12;
   }
 
   if (*(a4 + 16))
   {
-    v11 = v12;
+    v12 = v13;
   }
 
-  health::FormatImplementation<health::DataStore::ObjectIdentifier const&>(a7, a5, v11 + a6);
+  health::FormatImplementation<health::DataStore::ObjectIdentifier const&>(a7, a5, v12 + a6, a2);
   if ((a5->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v13 = a5;
+    v14 = a5;
   }
 
   else
   {
-    v13 = a5->__r_.__value_.__r.__words[0];
+    v14 = a5->__r_.__value_.__r.__words[0];
   }
 
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(a4, &v13[a6], __p);
-  if (v15 < 0)
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(a4, v14 + a6, __p);
+  if (v16 < 0)
   {
     operator delete(__p[0]);
   }
@@ -8173,13 +6434,14 @@ uint64_t health::TypeFormatter<health::DataStore::ObjectIdentifier const&,void>:
   return a1;
 }
 
-void sub_228C78B94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_228C78B94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   std::locale::~locale(&a9);
-  std::ostringstream::~ostringstream(&a12);
-  if (*(v12 + 23) < 0)
+  std::ostringstream::~ostringstream(va);
+  if (*(v11 + 23) < 0)
   {
-    operator delete(*v12);
+    operator delete(*v11);
   }
 
   _Unwind_Resume(a1);
@@ -8443,7 +6705,7 @@ LABEL_78:
     }
   }
 
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v30, &v16[a3 + v9], &__p);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v30, v16 + a3 + v9, &__p);
   if (v37 < 0)
   {
     operator delete(__p);
@@ -8455,7 +6717,7 @@ LABEL_78:
   }
 }
 
-void health::FormatterParameters<0ul,std::string &,health::DataStore::ObjectIdentifier const&,long long &,std::string &,std::string &>::formatOptionsAtIndex<std::string &,health::DataStore::ObjectIdentifier const&,long long &,std::string &,std::string &>(uint64_t a1)
+void health::FormatterParameters<0ul,std::string &,health::DataStore::ObjectIdentifier const&,long long &,std::string &,std::string &>::formatOptionsAtIndex<std::string &,health::DataStore::ObjectIdentifier const&,long long &,std::string &,std::string &>(unint64_t a1)
 {
   if (a1 > 1)
   {
@@ -8589,7 +6851,7 @@ void health::FormatImplementation<int &>(std::string *a1, std::string *a2, std::
                 v16 = a2->__r_.__value_.__r.__words[0];
               }
 
-              health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v22, &v16[a3 - v9], __p);
+              health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v22, v16 + a3 - v9, __p);
               if (v28 < 0)
               {
                 operator delete(__p[0]);
@@ -8703,22 +6965,23 @@ uint64_t health::TypeFormatter<int &,void>::TypeFormatter(uint64_t a1, unsigned 
   return a1;
 }
 
-void sub_228C79854(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_228C79854(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   std::locale::~locale(&a9);
-  std::ostringstream::~ostringstream(&a12);
-  if (*(v12 + 23) < 0)
+  std::ostringstream::~ostringstream(va);
+  if (*(v11 + 23) < 0)
   {
-    operator delete(*v12);
+    operator delete(*v11);
   }
 
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<unsigned long long,health::DataStoreInspector::DataSeriesEntry>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,health::DataStoreInspector::DataSeriesEntry>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,health::DataStoreInspector::DataSeriesEntry>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t a2)
+uint64_t **std::__tree<std::__value_type<unsigned long long,health::DataStoreInspector::DataSeriesEntry>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,health::DataStoreInspector::DataSeriesEntry>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,health::DataStoreInspector::DataSeriesEntry>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t **a1, unint64_t a2, void **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -8728,37 +6991,37 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 }
 
-uint64_t std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(uint64_t result, unint64_t a2)
+uint64_t *std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(uint64_t *result, unint64_t a2, uint64_t *a3)
 {
-  v2 = *(result + 8);
-  if (!v2)
+  v3 = result[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -8768,53 +7031,53 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 32);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
       return result;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 }
 
-void *std::map<unsigned long long,health::DataStoreInspector::DataSeriesEntry>::map[abi:ne200100](void *result, void *a2)
+void *std::map<unsigned long long,health::DataStoreInspector::DataSeriesEntry>::map[abi:ne200100](void *a1, void *a2)
 {
-  result[1] = 0;
-  result[2] = 0;
-  *result = result + 1;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = a1 + 1;
   v2 = *a2;
   if (*a2 != a2 + 1)
   {
     do
     {
       v3 = v2[4];
-      v4 = result[1];
-      v5 = result + 1;
-      if (*result == result + 1)
+      v4 = a1[1];
+      v5 = a1 + 1;
+      if (*a1 == a1 + 1)
       {
         goto LABEL_8;
       }
 
-      v6 = result[1];
-      v7 = result + 1;
+      v6 = a1[1];
+      v7 = a1 + 1;
       if (v4)
       {
         do
@@ -8848,7 +7111,7 @@ LABEL_8:
 
         else
         {
-          v9 = result + 1;
+          v9 = a1 + 1;
         }
 
         if (!*v9)
@@ -8926,7 +7189,7 @@ LABEL_19:
     while (v13 != a2 + 1);
   }
 
-  return result;
+  return a1;
 }
 
 void *std::set<unsigned long long>::set[abi:ne200100](void *a1, void *a2)
@@ -8941,7 +7204,7 @@ void *std::set<unsigned long long>::set[abi:ne200100](void *a1, void *a2)
   {
     do
     {
-      std::__tree<unsigned long long>::__emplace_hint_unique_key_args<unsigned long long,unsigned long long const&>(a1, v3, v5[4]);
+      std::__tree<unsigned long long>::__emplace_hint_unique_key_args<unsigned long long,unsigned long long const&>(a1, v3, v5[4], v5 + 4);
       v6 = v5[1];
       if (v6)
       {
@@ -9162,7 +7425,7 @@ LABEL_57:
   }
 
 LABEL_45:
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v26, &v16[a3 + v9], &__p);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v26, v16 + a3 + v9, &__p);
   if (v33 < 0)
   {
     operator delete(__p);
@@ -9387,7 +7650,7 @@ LABEL_57:
   }
 
 LABEL_45:
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v26, &v16[a3 + v9], &__p);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v26, v16 + a3 + v9, &__p);
   if (v33 < 0)
   {
     operator delete(__p);
@@ -9653,7 +7916,7 @@ LABEL_68:
   }
 
 LABEL_56:
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v28, &v16[a3 + v9], &__p);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v28, v16 + a3 + v9, &__p);
   if (v35 < 0)
   {
     operator delete(__p);
@@ -9981,7 +8244,7 @@ LABEL_88:
   }
 
 LABEL_76:
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v32, &v16[a3 + v9], &__p);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v32, v16 + a3 + v9, &__p);
   if (v39 < 0)
   {
     operator delete(__p);
@@ -9990,5 +8253,1683 @@ LABEL_76:
   if (v9)
   {
     health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
+  }
+}
+
+void health::FormatterParameters<0ul,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &,std::string &,long long &>::formatOptionsAtIndex<health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &,std::string &,long long &>(unint64_t a1)
+{
+  if (a1 <= 1)
+  {
+    if (a1 <= 1)
+    {
+LABEL_5:
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+      goto LABEL_13;
+    }
+  }
+
+  else if (a1 == 2 || a1 == 3 || a1 == 4)
+  {
+    goto LABEL_5;
+  }
+
+  v3 = __cxa_allocate_exception(0x10uLL);
+  exception = v3;
+  if (a1 == 5)
+  {
+    std::runtime_error::runtime_error(v3, "Requested parameter is not an FormatOptions instance.");
+  }
+
+  else
+  {
+    std::runtime_error::runtime_error(v3, "Parameter index out of bounds.");
+  }
+
+LABEL_13:
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void health::FormatImplementation<health::DataStore::ObjectIdentifier &,char const*>(std::string *a1, std::string *a2, std::string::size_type a3, char ***a4)
+{
+  v30 = a1;
+  v6 = a1->__r_.__value_.__s.__data_[0];
+  if (!a1->__r_.__value_.__s.__data_[0])
+  {
+
+    std::string::resize(a2, a3, 0);
+    return;
+  }
+
+  v9 = 0;
+  v10 = 0;
+  v11 = a1;
+  while (v6 != 123)
+  {
+LABEL_6:
+    v30 = &v11->__r_.__value_.__s.__data_[1];
+    v6 = v11->__r_.__value_.__s.__data_[1];
+    --v9;
+    v11 = (v11 + 1);
+    if (!v6)
+    {
+      std::string::resize(a2, a3 - v9, 0);
+      if (v9)
+      {
+
+        health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+      }
+
+      return;
+    }
+  }
+
+  v12 = v11->__r_.__value_.__s.__data_[1];
+  if (v12 == 123)
+  {
+    v10 = 1;
+    v11 = (v11 + 1);
+    goto LABEL_6;
+  }
+
+  if (v12 == 42)
+  {
+    v30 = &v11->__r_.__value_.__s.__data_[2];
+    v21 = v11->__r_.__value_.__s.__data_[2];
+    if ((v21 - 48) > 9)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+    }
+
+    else
+    {
+      v22 = 0;
+      v23 = &v11->__r_.__value_.__s.__data_[3];
+      do
+      {
+        v30 = v23;
+        v22 = (v21 & 0xF) + 10 * v22;
+        v24 = *v23++;
+        LOBYTE(v21) = v24;
+      }
+
+      while ((v24 - 58) >= 0xFFFFFFF6);
+      v30 = v23;
+      if (*(v23 - 1) == 125)
+      {
+        health::FormatterParameters<0ul,health::DataStore::ObjectIdentifier &,char const*>::formatOptionsAtIndex<health::DataStore::ObjectIdentifier &,char const*>(v22);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+    }
+
+    goto LABEL_49;
+  }
+
+  health::FormatOptions::FormatOptions(&v26, &v30);
+  v13 = v30;
+  if (*(&v26 + 1))
+  {
+    if (*(&v26 + 1) == 1)
+    {
+      v14 = **a4;
+      __p = v14;
+      if (v14)
+      {
+        v14 = strlen(v14);
+      }
+
+      v32 = v14;
+      v33 = v26;
+      v34 = v27;
+      v35 = v28;
+      v36 = v29;
+      v15 = *(&v27 + 1);
+      if (*(&v27 + 1) <= v14)
+      {
+        v15 = v14;
+      }
+
+      if (v27)
+      {
+        v16 = v15;
+      }
+
+      else
+      {
+        v16 = v14;
+      }
+
+      health::FormatImplementation<health::DataStore::ObjectIdentifier &,char const*>(v30, a2, v16 + a3 - v9, a4);
+      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v17 = a2;
+      }
+
+      else
+      {
+        v17 = a2->__r_.__value_.__r.__words[0];
+      }
+
+      health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v26, v17 + a3 - v9, &__p);
+      goto LABEL_39;
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+LABEL_49:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  health::TypeFormatter<health::DataStore::ObjectIdentifier &,void>::TypeFormatter(&__p, a4[1], &v26);
+  v18 = BYTE7(v33);
+  if (SBYTE7(v33) < 0)
+  {
+    v18 = v32;
+  }
+
+  v19 = *(&v27 + 1);
+  if (*(&v27 + 1) <= v18)
+  {
+    v19 = v18;
+  }
+
+  if (v27)
+  {
+    v18 = v19;
+  }
+
+  health::FormatImplementation<health::DataStore::ObjectIdentifier &,char const*>(v13, a2, v18 + a3 - v9, a4);
+  if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v20 = a2;
+  }
+
+  else
+  {
+    v20 = a2->__r_.__value_.__r.__words[0];
+  }
+
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v26, v20 + a3 - v9, &__p);
+  if (SBYTE7(v33) < 0)
+  {
+    operator delete(__p);
+  }
+
+LABEL_39:
+  if (v9)
+  {
+    health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+  }
+}
+
+void health::FormatterParameters<0ul,health::DataStore::ObjectIdentifier &,char const*>::formatOptionsAtIndex<health::DataStore::ObjectIdentifier &,char const*>(uint64_t a1)
+{
+  if (a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v1 = exception;
+    if (a1 == 1)
+    {
+      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+    }
+
+    else
+    {
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+    }
+  }
+
+  else
+  {
+    v1 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v1, "Requested parameter is not an FormatOptions instance.");
+  }
+
+  __cxa_throw(v1, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void health::FormatImplementation<std::string &,std::string const&>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t **a4)
+{
+  v28 = a1;
+  v6 = a1->__r_.__value_.__s.__data_[0];
+  if (!a1->__r_.__value_.__s.__data_[0])
+  {
+
+    std::string::resize(a2, a3, 0);
+    return;
+  }
+
+  v9 = 0;
+  v10 = 0;
+  v11 = a1;
+  while (v6 != 123)
+  {
+LABEL_6:
+    v28 = &v11->__r_.__value_.__s.__data_[1];
+    v6 = v11->__r_.__value_.__s.__data_[1];
+    --v9;
+    v11 = (v11 + 1);
+    if (!v6)
+    {
+      std::string::resize(a2, a3 - v9, 0);
+      if (v9)
+      {
+
+        health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+      }
+
+      return;
+    }
+  }
+
+  v12 = v11->__r_.__value_.__s.__data_[1];
+  if (v12 == 123)
+  {
+    v10 = 1;
+    v11 = (v11 + 1);
+    goto LABEL_6;
+  }
+
+  if (v12 == 42)
+  {
+    v28 = &v11->__r_.__value_.__s.__data_[2];
+    v19 = v11->__r_.__value_.__s.__data_[2];
+    if ((v19 - 48) > 9)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+    }
+
+    else
+    {
+      v20 = 0;
+      v21 = &v11->__r_.__value_.__s.__data_[3];
+      do
+      {
+        v28 = v21;
+        v20 = (v19 & 0xF) + 10 * v20;
+        v22 = *v21++;
+        LOBYTE(v19) = v22;
+      }
+
+      while ((v22 - 58) >= 0xFFFFFFF6);
+      v28 = v21;
+      if (*(v21 - 1) == 125)
+      {
+        health::FormatterParameters<0ul,std::string &,std::string const&>::formatOptionsAtIndex<std::string &,std::string const&>(v20);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+    }
+
+    goto LABEL_47;
+  }
+
+  health::FormatOptions::FormatOptions(v24, &v28);
+  v13 = v28;
+  if (v25)
+  {
+    if (v25 == 1)
+    {
+      health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, *a4, v24);
+      v14 = v31;
+      if ((v31 & 0x80u) != 0)
+      {
+        v14 = v30;
+      }
+
+      v15 = v27;
+      if (v27 <= v14)
+      {
+        v15 = v14;
+      }
+
+      if (v26)
+      {
+        v14 = v15;
+      }
+
+      health::FormatImplementation<std::string &,std::string const&>(v13, a2, v14 + a3 - v9, a4);
+      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v16 = a2;
+      }
+
+      else
+      {
+        v16 = a2->__r_.__value_.__r.__words[0];
+      }
+
+      goto LABEL_35;
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+LABEL_47:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, a4[1], v24);
+  v17 = v31;
+  if ((v31 & 0x80u) != 0)
+  {
+    v17 = v30;
+  }
+
+  v18 = v27;
+  if (v27 <= v17)
+  {
+    v18 = v17;
+  }
+
+  if (v26)
+  {
+    v17 = v18;
+  }
+
+  health::FormatImplementation<std::string &,std::string const&>(v13, a2, v17 + a3 - v9, a4);
+  if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v16 = a2;
+  }
+
+  else
+  {
+    v16 = a2->__r_.__value_.__r.__words[0];
+  }
+
+LABEL_35:
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v24, v16 + a3 - v9, &__p);
+  if (v31 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (v9)
+  {
+    health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+  }
+}
+
+void health::FormatterParameters<0ul,std::string &,std::string const&>::formatOptionsAtIndex<std::string &,std::string const&>(uint64_t a1)
+{
+  if (a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v1 = exception;
+    if (a1 == 1)
+    {
+      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+    }
+
+    else
+    {
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+    }
+  }
+
+  else
+  {
+    v1 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v1, "Requested parameter is not an FormatOptions instance.");
+  }
+
+  __cxa_throw(v1, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void health::FormatImplementation<std::string &,health::BlockPointer &,std::string const&>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t a4)
+{
+  v30 = a1;
+  v6 = a1->__r_.__value_.__s.__data_[0];
+  if (!a1->__r_.__value_.__s.__data_[0])
+  {
+
+    std::string::resize(a2, a3, 0);
+    return;
+  }
+
+  v9 = 0;
+  v10 = 0;
+  v11 = a1;
+  while (v6 != 123)
+  {
+LABEL_6:
+    v30 = &v11->__r_.__value_.__s.__data_[1];
+    v6 = v11->__r_.__value_.__s.__data_[1];
+    ++v9;
+    v11 = (v11 + 1);
+    if (!v6)
+    {
+      std::string::resize(a2, a3 + v9, 0);
+      if (v9)
+      {
+
+        health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
+      }
+
+      return;
+    }
+  }
+
+  v12 = v11->__r_.__value_.__s.__data_[1];
+  if (v12 == 123)
+  {
+    v10 = 1;
+    v11 = (v11 + 1);
+    goto LABEL_6;
+  }
+
+  if (v12 == 42)
+  {
+    v30 = &v11->__r_.__value_.__s.__data_[2];
+    v21 = v11->__r_.__value_.__s.__data_[2];
+    if ((v21 - 48) > 9)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+    }
+
+    else
+    {
+      v22 = 0;
+      v23 = &v11->__r_.__value_.__s.__data_[3];
+      do
+      {
+        v30 = v23;
+        v22 = (v21 & 0xF) + 10 * v22;
+        v24 = *v23++;
+        LOBYTE(v21) = v24;
+      }
+
+      while ((v24 - 58) >= 0xFFFFFFF6);
+      v30 = v23;
+      if (*(v23 - 1) == 125)
+      {
+        health::FormatterParameters<0ul,std::string &,health::BlockPointer &,std::string const&>::formatOptionsAtIndex<std::string &,health::BlockPointer &,std::string const&>(v22);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+    }
+
+    goto LABEL_57;
+  }
+
+  health::FormatOptions::FormatOptions(v26, &v30);
+  v13 = v30;
+  if (v27)
+  {
+    if (v27 != 1)
+    {
+      if (v27 == 2)
+      {
+        health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, *a4, v26);
+        size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          size = __p.__r_.__value_.__l.__size_;
+        }
+
+        v15 = v29;
+        if (v29 <= size)
+        {
+          v15 = size;
+        }
+
+        if (v28)
+        {
+          size = v15;
+        }
+
+        health::FormatImplementation<std::string &,health::BlockPointer &,std::string const&>(v13, a2, size + a3 + v9, a4);
+        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v16 = a2;
+        }
+
+        else
+        {
+          v16 = a2->__r_.__value_.__r.__words[0];
+        }
+
+        goto LABEL_45;
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+LABEL_57:
+      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    }
+
+    health::FormatString<unsigned long long const&,unsigned long long const&>("({0}: {1})", &__p, *(a4 + 8), *(a4 + 8) + 8);
+    v17 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v17 = __p.__r_.__value_.__l.__size_;
+    }
+
+    v18 = v29;
+    if (v29 <= v17)
+    {
+      v18 = v17;
+    }
+
+    if (v28)
+    {
+      v17 = v18;
+    }
+
+    health::FormatImplementation<std::string &,health::BlockPointer &,std::string const&>(v13, a2, v17 + a3 + v9, a4);
+    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v16 = a2;
+    }
+
+    else
+    {
+      v16 = a2->__r_.__value_.__r.__words[0];
+    }
+  }
+
+  else
+  {
+    health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, *(a4 + 16), v26);
+    v19 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v19 = __p.__r_.__value_.__l.__size_;
+    }
+
+    v20 = v29;
+    if (v29 <= v19)
+    {
+      v20 = v19;
+    }
+
+    if (v28)
+    {
+      v19 = v20;
+    }
+
+    health::FormatImplementation<std::string &,health::BlockPointer &,std::string const&>(v13, a2, v19 + a3 + v9, a4);
+    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v16 = a2;
+    }
+
+    else
+    {
+      v16 = a2->__r_.__value_.__r.__words[0];
+    }
+  }
+
+LABEL_45:
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v26, v16 + a3 + v9, &__p.__r_.__value_.__l.__data_);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if (v9)
+  {
+    health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
+  }
+}
+
+void health::FormatterParameters<0ul,std::string &,health::BlockPointer &,std::string const&>::formatOptionsAtIndex<std::string &,health::BlockPointer &,std::string const&>(uint64_t a1)
+{
+  if (a1 && a1 != 1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v2 = exception;
+    if (a1 == 2)
+    {
+      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+    }
+
+    else
+    {
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+    }
+  }
+
+  else
+  {
+    v2 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v2, "Requested parameter is not an FormatOptions instance.");
+  }
+
+  __cxa_throw(v2, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void health::FormatString<unsigned long long const&,unsigned long long const&>(std::string *a1@<X0>, std::string *a2@<X8>, uint64_t a3@<X1>, uint64_t a4@<X2>)
+{
+  v4[0] = a4;
+  v4[1] = a3;
+  *&a2->__r_.__value_.__r.__words[1] = 0uLL;
+  a2->__r_.__value_.__r.__words[0] = 0;
+  health::FormatImplementation<unsigned long long const&,unsigned long long const&>(a1, a2, 0, v4);
+}
+
+void sub_228C7BF84(_Unwind_Exception *exception_object)
+{
+  if (*(v1 + 23) < 0)
+  {
+    operator delete(*v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void health::FormatImplementation<unsigned long long const&,unsigned long long const&>(std::string *a1, std::string *this, std::string::size_type __n, uint64_t a4)
+{
+  v19 = a1;
+  v6 = a1->__r_.__value_.__s.__data_[0];
+  if (a1->__r_.__value_.__s.__data_[0])
+  {
+    v9 = 0;
+    v10 = 0;
+    for (i = a1; ; i = (i + 1))
+    {
+      if (v6 == 123)
+      {
+        v12 = i->__r_.__value_.__s.__data_[1];
+        if (v12 != 123)
+        {
+          if (v12 == 42)
+          {
+            v19 = &i->__r_.__value_.__s.__data_[2];
+            v13 = i->__r_.__value_.__s.__data_[2];
+            if ((v13 - 48) > 9)
+            {
+              exception = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+            }
+
+            else
+            {
+              v14 = 0;
+              v15 = &i->__r_.__value_.__s.__data_[3];
+              do
+              {
+                v19 = v15;
+                v14 = (v13 & 0xF) + 10 * v14;
+                v16 = *v15++;
+                LOBYTE(v13) = v16;
+              }
+
+              while ((v16 - 58) >= 0xFFFFFFF6);
+              v19 = v15;
+              if (*(v15 - 1) == 125)
+              {
+                health::FormatterParameters<0ul,unsigned long long const&,unsigned long long const&>::formatOptionsAtIndex<unsigned long long const&,unsigned long long const&>(a4, a4, v14);
+              }
+
+              exception = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+            }
+
+            __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          }
+
+          health::FormatOptions::FormatOptions(v18, &v19);
+          health::FormatterParameters<0ul,unsigned long long const&,unsigned long long const&>::formatParameterAtIndex<unsigned long long const&,unsigned long long const&>(a4, a4, v18[1], v18, this, __n - v9, v19);
+          if (v9)
+          {
+            health::CopyFormatSectionToResult(a1, this, __n, -v9, v10 & 1);
+          }
+
+          return;
+        }
+
+        v10 = 1;
+        i = (i + 1);
+      }
+
+      v19 = &i->__r_.__value_.__s.__data_[1];
+      v6 = i->__r_.__value_.__s.__data_[1];
+      --v9;
+      if (!v6)
+      {
+        std::string::resize(this, __n - v9, 0);
+        if (v9)
+        {
+
+          health::CopyFormatSectionToResult(a1, this, __n, -v9, v10 & 1);
+        }
+
+        return;
+      }
+    }
+  }
+
+  std::string::resize(this, __n, 0);
+}
+
+void health::FormatterParameters<0ul,unsigned long long const&,unsigned long long const&>::formatOptionsAtIndex<unsigned long long const&,unsigned long long const&>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a3)
+  {
+
+    health::FormatterParameters<1ul,unsigned long long const&>::formatOptionsAtIndex<unsigned long long const&,unsigned long long const&>(a1, a2, a3);
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void health::FormatterParameters<0ul,unsigned long long const&,unsigned long long const&>::formatParameterAtIndex<unsigned long long const&,unsigned long long const&>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, std::string *a5, uint64_t a6, char *a7)
+{
+  if (a3)
+  {
+
+    health::FormatterParameters<1ul,unsigned long long const&>::formatParameterAtIndex<unsigned long long const&,unsigned long long const&>(a1, a2, a3, a4, a5, a6, a7);
+  }
+
+  else
+  {
+    health::TypeFormatter<unsigned long long const&,void>::TypeFormatter(__p, *(a1 + 8), a4);
+    v12 = v16;
+    if ((v16 & 0x80u) != 0)
+    {
+      v12 = __p[1];
+    }
+
+    v13 = *(a4 + 24);
+    if (v13 <= v12)
+    {
+      v13 = v12;
+    }
+
+    if (*(a4 + 16))
+    {
+      v12 = v13;
+    }
+
+    health::FormatImplementation<unsigned long long const&,unsigned long long const&>(a7, a5, v12 + a6, a2);
+    if ((a5->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v14 = a5;
+    }
+
+    else
+    {
+      v14 = a5->__r_.__value_.__r.__words[0];
+    }
+
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(a4, v14 + a6, __p);
+    if (v16 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+}
+
+void sub_228C7C388(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void health::FormatterParameters<1ul,unsigned long long const&>::formatOptionsAtIndex<unsigned long long const&,unsigned long long const&>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a3 != 1)
+  {
+
+    health::FormatterParameters<2ul>::formatOptionsAtIndex<unsigned long long const&,unsigned long long const&>();
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void health::FormatterParameters<2ul>::formatOptionsAtIndex<unsigned long long const&,unsigned long long const&>()
+{
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void health::FormatterParameters<1ul,unsigned long long const&>::formatParameterAtIndex<unsigned long long const&,unsigned long long const&>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, std::string *a5, uint64_t a6, char *a7)
+{
+  if (a3 != 1)
+  {
+
+    health::FormatterParameters<2ul>::formatParameterAtIndex<health::FormatterParameters<0ul,unsigned long long const&,unsigned long long const&>>();
+  }
+
+  health::TypeFormatter<unsigned long long const&,void>::TypeFormatter(__p, *a1, a4);
+  v12 = v16;
+  if ((v16 & 0x80u) != 0)
+  {
+    v12 = __p[1];
+  }
+
+  v13 = *(a4 + 24);
+  if (v13 <= v12)
+  {
+    v13 = v12;
+  }
+
+  if (*(a4 + 16))
+  {
+    v12 = v13;
+  }
+
+  health::FormatImplementation<unsigned long long const&,unsigned long long const&>(a7, a5, v12 + a6, a2);
+  if ((a5->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v14 = a5;
+  }
+
+  else
+  {
+    v14 = a5->__r_.__value_.__r.__words[0];
+  }
+
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(a4, v14 + a6, __p);
+  if (v16 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_228C7C590(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void health::FormatterParameters<2ul>::formatParameterAtIndex<health::FormatterParameters<0ul,unsigned long long const&,unsigned long long const&>>()
+{
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+uint64_t health::TypeFormatter<unsigned long long const&,void>::TypeFormatter(uint64_t a1, void *a2, uint64_t a3)
+{
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v13);
+  v6 = v13;
+  if (*(a3 + 16) == 1)
+  {
+    *(&v15[1] + *(v13 - 24)) = *(a3 + 24);
+  }
+
+  if (*(a3 + 32) == 1)
+  {
+    *(v15 + *(v6 - 24)) = *(a3 + 40);
+  }
+
+  v7 = (&v13 + *(v6 - 24));
+  v8 = *(a3 + 52);
+  if (v7[1].__fmtflags_ == -1)
+  {
+    std::ios_base::getloc(v7);
+    v9 = std::locale::use_facet(&v11, MEMORY[0x277D82680]);
+    (v9->__vftable[2].~facet_0)(v9, 32);
+    std::locale::~locale(&v11);
+  }
+
+  v7[1].__fmtflags_ = v8;
+  MEMORY[0x22AAC83F0](&v13, *a2);
+  std::ostringstream::str[abi:ne200100](&v13, &v11);
+  if (*(a1 + 23) < 0)
+  {
+    operator delete(*a1);
+  }
+
+  *a1 = v11;
+  *(a1 + 16) = v12;
+  v13 = *MEMORY[0x277D82828];
+  *(&v13 + *(v13 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v14 = MEMORY[0x277D82878] + 16;
+  if (v16 < 0)
+  {
+    operator delete(v15[7].__locale_);
+  }
+
+  v14 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v15);
+  std::ostream::~ostream();
+  MEMORY[0x22AAC8550](&v17);
+  return a1;
+}
+
+void sub_228C7C870(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  std::locale::~locale(&a9);
+  std::ostringstream::~ostringstream(va);
+  if (*(v11 + 23) < 0)
+  {
+    operator delete(*v11);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t HDCodableUserDomainConceptLocalizedStringPropertyReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v44 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v44 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v44 & 0x7F) << v5;
+        if ((v44 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) > 4)
+      {
+        if (v13 == 5)
+        {
+          v30 = PBReaderReadString();
+          v31 = 40;
+LABEL_58:
+          v39 = *(a1 + v31);
+          *(a1 + v31) = v30;
+
+          goto LABEL_72;
+        }
+
+        if (v13 == 6)
+        {
+          v30 = PBReaderReadString();
+          v31 = 32;
+          goto LABEL_58;
+        }
+
+        if (v13 != 7)
+        {
+LABEL_46:
+          result = PBReaderSkipValueWithTag();
+          if (!result)
+          {
+            return result;
+          }
+
+          goto LABEL_72;
+        }
+
+        v16 = 0;
+        v17 = 0;
+        v18 = 0;
+        *(a1 + 52) |= 8u;
+        while (1)
+        {
+          v47 = 0;
+          v19 = [a2 position] + 1;
+          if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
+          {
+            v21 = [a2 data];
+            [v21 getBytes:&v47 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v18 |= (v47 & 0x7F) << v16;
+          if ((v47 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v16 += 7;
+          v11 = v17++ >= 9;
+          if (v11)
+          {
+            LOBYTE(v22) = 0;
+            goto LABEL_64;
+          }
+        }
+
+        v22 = (v18 != 0) & ~[a2 hasError];
+LABEL_64:
+        *(a1 + 48) = v22;
+      }
+
+      else
+      {
+        if (v13 == 1)
+        {
+          v23 = 0;
+          v24 = 0;
+          v25 = 0;
+          *(a1 + 52) |= 2u;
+          while (1)
+          {
+            v46 = 0;
+            v26 = [a2 position] + 1;
+            if (v26 >= [a2 position] && (v27 = objc_msgSend(a2, "position") + 1, v27 <= objc_msgSend(a2, "length")))
+            {
+              v28 = [a2 data];
+              [v28 getBytes:&v46 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v25 |= (v46 & 0x7F) << v23;
+            if ((v46 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v23 += 7;
+            v11 = v24++ >= 9;
+            if (v11)
+            {
+              v29 = 0;
+              goto LABEL_62;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v29 = 0;
+          }
+
+          else
+          {
+            v29 = v25;
+          }
+
+LABEL_62:
+          v40 = 16;
+          goto LABEL_69;
+        }
+
+        if (v13 == 2)
+        {
+          v33 = 0;
+          v34 = 0;
+          v35 = 0;
+          *(a1 + 52) |= 4u;
+          while (1)
+          {
+            v45 = 0;
+            v36 = [a2 position] + 1;
+            if (v36 >= [a2 position] && (v37 = objc_msgSend(a2, "position") + 1, v37 <= objc_msgSend(a2, "length")))
+            {
+              v38 = [a2 data];
+              [v38 getBytes:&v45 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v35 |= (v45 & 0x7F) << v33;
+            if ((v45 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v33 += 7;
+            v11 = v34++ >= 9;
+            if (v11)
+            {
+              v29 = 0;
+              goto LABEL_68;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v29 = 0;
+          }
+
+          else
+          {
+            v29 = v35;
+          }
+
+LABEL_68:
+          v40 = 24;
+LABEL_69:
+          *(a1 + v40) = v29;
+          goto LABEL_72;
+        }
+
+        if (v13 != 3)
+        {
+          goto LABEL_46;
+        }
+
+        *(a1 + 52) |= 1u;
+        v43 = 0;
+        v14 = [a2 position] + 8;
+        if (v14 >= [a2 position] && (v15 = objc_msgSend(a2, "position") + 8, v15 <= objc_msgSend(a2, "length")))
+        {
+          v41 = [a2 data];
+          [v41 getBytes:&v43 range:{objc_msgSend(a2, "position"), 8}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        *(a1 + 8) = v43;
+      }
+
+LABEL_72:
+      v42 = [a2 position];
+    }
+
+    while (v42 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t HDCloudSyncCodableSequenceReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 >= [a2 length])
+  {
+    return [a2 hasError] ^ 1;
+  }
+
+  while (2)
+  {
+    if ([a2 hasError])
+    {
+      return [a2 hasError] ^ 1;
+    }
+
+    v5 = 0;
+    v6 = 0;
+    v7 = 0;
+    while (1)
+    {
+      LOBYTE(v57) = 0;
+      v8 = [a2 position] + 1;
+      if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+      {
+        v10 = [a2 data];
+        [v10 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
+
+        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+      }
+
+      else
+      {
+        [a2 _setError];
+      }
+
+      v7 |= (v57 & 0x7F) << v5;
+      if ((v57 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v5 += 7;
+      v11 = v6++ >= 9;
+      if (v11)
+      {
+        v12 = 0;
+        goto LABEL_15;
+      }
+    }
+
+    v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+    if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+    {
+      return [a2 hasError] ^ 1;
+    }
+
+    switch((v12 >> 3))
+    {
+      case 1u:
+        v13 = 0;
+        v14 = 0;
+        v15 = 0;
+        *(a1 + 108) |= 0x10u;
+        while (1)
+        {
+          LOBYTE(v57) = 0;
+          v16 = [a2 position] + 1;
+          if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 1, v17 <= objc_msgSend(a2, "length")))
+          {
+            v18 = [a2 data];
+            [v18 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v15 |= (v57 & 0x7F) << v13;
+          if ((v57 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v13 += 7;
+          v11 = v14++ >= 9;
+          if (v11)
+          {
+            v19 = 0;
+LABEL_99:
+            *(a1 + 80) = v19;
+            goto LABEL_115;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v19 = 0;
+        }
+
+        else
+        {
+          v19 = v15;
+        }
+
+        goto LABEL_99;
+      case 2u:
+        v34 = 0;
+        v35 = 0;
+        v36 = 0;
+        *(a1 + 108) |= 0x20u;
+        while (1)
+        {
+          LOBYTE(v57) = 0;
+          v37 = [a2 position] + 1;
+          if (v37 >= [a2 position] && (v38 = objc_msgSend(a2, "position") + 1, v38 <= objc_msgSend(a2, "length")))
+          {
+            v39 = [a2 data];
+            [v39 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v36 |= (v57 & 0x7F) << v34;
+          if ((v57 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v34 += 7;
+          v11 = v35++ >= 9;
+          if (v11)
+          {
+            LOBYTE(v40) = 0;
+            goto LABEL_105;
+          }
+        }
+
+        v40 = (v36 != 0) & ~[a2 hasError];
+LABEL_105:
+        *(a1 + 104) = v40;
+        goto LABEL_115;
+      case 3u:
+        v28 = 0;
+        v29 = 0;
+        v30 = 0;
+        *(a1 + 108) |= 4u;
+        while (1)
+        {
+          LOBYTE(v57) = 0;
+          v31 = [a2 position] + 1;
+          if (v31 >= [a2 position] && (v32 = objc_msgSend(a2, "position") + 1, v32 <= objc_msgSend(a2, "length")))
+          {
+            v33 = [a2 data];
+            [v33 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v30 |= (v57 & 0x7F) << v28;
+          if ((v57 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v28 += 7;
+          v11 = v29++ >= 9;
+          if (v11)
+          {
+            v26 = 0;
+            goto LABEL_103;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v26 = 0;
+        }
+
+        else
+        {
+          v26 = v30;
+        }
+
+LABEL_103:
+        v54 = 24;
+        goto LABEL_114;
+      case 4u:
+        v27 = PBReaderReadData();
+        if (v27)
+        {
+          [a1 addIncludedStoreIdentifiers:v27];
+        }
+
+        goto LABEL_91;
+      case 5u:
+        v27 = objc_alloc_init(HDCodableSyncIdentity);
+        [a1 addIncludedSyncIdentities:v27];
+        goto LABEL_41;
+      case 6u:
+        v27 = objc_alloc_init(HDCodableSyncIdentity);
+        [a1 addIncludedChildSyncIdentities:v27];
+LABEL_41:
+        v57 = 0;
+        v58 = 0;
+        if (!PBReaderPlaceMark() || !HDCodableSyncIdentityReadFrom(v27, a2))
+        {
+          goto LABEL_117;
+        }
+
+        goto LABEL_90;
+      case 0xAu:
+        v41 = 0;
+        v42 = 0;
+        v43 = 0;
+        *(a1 + 108) |= 8u;
+        while (1)
+        {
+          LOBYTE(v57) = 0;
+          v44 = [a2 position] + 1;
+          if (v44 >= [a2 position] && (v45 = objc_msgSend(a2, "position") + 1, v45 <= objc_msgSend(a2, "length")))
+          {
+            v46 = [a2 data];
+            [v46 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v43 |= (v57 & 0x7F) << v41;
+          if ((v57 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v41 += 7;
+          v11 = v42++ >= 9;
+          if (v11)
+          {
+            v26 = 0;
+            goto LABEL_109;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v26 = 0;
+        }
+
+        else
+        {
+          v26 = v43;
+        }
+
+LABEL_109:
+        v54 = 32;
+        goto LABEL_114;
+      case 0xBu:
+        v27 = objc_alloc_init(HDCodableSyncAnchorRangeMap);
+        v47 = 40;
+        goto LABEL_88;
+      case 0xCu:
+        v27 = objc_alloc_init(HDCodableSyncAnchorRangeMap);
+        v47 = 48;
+LABEL_88:
+        objc_storeStrong((a1 + v47), v27);
+        v57 = 0;
+        v58 = 0;
+        if (PBReaderPlaceMark() && [(HDCodableSyncIdentity *)v27 readFrom:a2])
+        {
+          goto LABEL_90;
+        }
+
+        goto LABEL_117;
+      case 0x14u:
+        v48 = 0;
+        v49 = 0;
+        v50 = 0;
+        *(a1 + 108) |= 1u;
+        while (1)
+        {
+          LOBYTE(v57) = 0;
+          v51 = [a2 position] + 1;
+          if (v51 >= [a2 position] && (v52 = objc_msgSend(a2, "position") + 1, v52 <= objc_msgSend(a2, "length")))
+          {
+            v53 = [a2 data];
+            [v53 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v50 |= (v57 & 0x7F) << v48;
+          if ((v57 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v48 += 7;
+          v11 = v49++ >= 9;
+          if (v11)
+          {
+            v26 = 0;
+            goto LABEL_113;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v26 = 0;
+        }
+
+        else
+        {
+          v26 = v50;
+        }
+
+LABEL_113:
+        v54 = 8;
+        goto LABEL_114;
+      case 0x15u:
+        v20 = 0;
+        v21 = 0;
+        v22 = 0;
+        *(a1 + 108) |= 2u;
+        while (1)
+        {
+          LOBYTE(v57) = 0;
+          v23 = [a2 position] + 1;
+          if (v23 >= [a2 position] && (v24 = objc_msgSend(a2, "position") + 1, v24 <= objc_msgSend(a2, "length")))
+          {
+            v25 = [a2 data];
+            [v25 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v22 |= (v57 & 0x7F) << v20;
+          if ((v57 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v20 += 7;
+          v11 = v21++ >= 9;
+          if (v11)
+          {
+            v26 = 0;
+            goto LABEL_95;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v26 = 0;
+        }
+
+        else
+        {
+          v26 = v22;
+        }
+
+LABEL_95:
+        v54 = 16;
+LABEL_114:
+        *(a1 + v54) = v26;
+        goto LABEL_115;
+      case 0x1Eu:
+        v27 = PBReaderReadString();
+        if (v27)
+        {
+          [a1 addUnfrozenChangeRecordNames:v27];
+        }
+
+        goto LABEL_91;
+      case 0x1Fu:
+        v27 = objc_alloc_init(HDCodableSyncEntityVersionMap);
+        objc_storeStrong((a1 + 88), v27);
+        v57 = 0;
+        v58 = 0;
+        if (PBReaderPlaceMark() && HDCodableSyncEntityVersionMapReadFrom(v27, a2))
+        {
+LABEL_90:
+          PBReaderRecallMark();
+LABEL_91:
+
+LABEL_115:
+          v55 = [a2 position];
+          if (v55 >= [a2 length])
+          {
+            return [a2 hasError] ^ 1;
+          }
+
+          continue;
+        }
+
+LABEL_117:
+
+        return 0;
+      default:
+        if ((PBReaderSkipValueWithTag() & 1) == 0)
+        {
+          return 0;
+        }
+
+        goto LABEL_115;
+    }
   }
 }

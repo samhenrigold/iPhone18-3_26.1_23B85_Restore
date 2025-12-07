@@ -140,7 +140,6 @@
   objc_storeStrong(&v22, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -419,17 +418,17 @@
 
 - (void)_createZoneTracker:(id)tracker activityType:(id)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, tracker);
-  v16 = 0;
-  objc_storeStrong(&v16, type);
+  v15 = 0;
+  objc_storeStrong(&v15, type);
   if (selfCopy->_intervalWorkoutTracker)
   {
     [(WOIntervalWorkoutTracker *)selfCopy->_intervalWorkoutTracker updateZoneTrackerWithDistanceUnit:location[0] metadataSavingDelegate:selfCopy->_sessionActivity];
-    v15 = 1;
+    v14 = 1;
   }
 
   else
@@ -442,35 +441,33 @@
     }
 
     _HKInitializeLogging();
-    v14 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-    v13 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+    v12 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_1_8_64(v19, v16);
-      _os_log_impl(&dword_20AEA4000, v14, v13, "[multisport] Creating a zone tracker for current activity type %@", v19, 0xCu);
+      __os_log_helper_16_2_1_8_64(v18, v15);
+      _os_log_impl(&dword_20AEA4000, v13, v12, "[multisport] Creating a zone tracker for current activity type %@", v18, 0xCu);
     }
 
-    objc_storeStrong(&v14, 0);
-    v12 = 0;
-    v7 = v16;
+    objc_storeStrong(&v13, 0);
+    v11 = 0;
+    v6 = v15;
     configuration = [(NLSessionActivity *)selfCopy->_sessionActivity configuration];
-    sessionActivity = selfCopy->_sessionActivity;
-    v11 = v12;
-    v8 = [NLZoneTrackerFactory makeWithActivityType:"makeWithActivityType:liveWorkoutConfiguration:distanceUnit:metadataSavingDelegate:error:" liveWorkoutConfiguration:v7 distanceUnit:? metadataSavingDelegate:? error:?];
-    objc_storeStrong(&v12, v11);
+    v10 = v11;
+    v7 = [NLZoneTrackerFactory makeWithActivityType:"makeWithActivityType:liveWorkoutConfiguration:distanceUnit:metadataSavingDelegate:error:" liveWorkoutConfiguration:v6 distanceUnit:? metadataSavingDelegate:? error:?];
+    objc_storeStrong(&v11, v10);
     activityZoneTracker = selfCopy->_activityZoneTracker;
-    selfCopy->_activityZoneTracker = v8;
+    selfCopy->_activityZoneTracker = v7;
     MEMORY[0x277D82BD8](activityZoneTracker);
-    *&v6 = MEMORY[0x277D82BD8](configuration).n128_u64[0];
-    [(NLWorkoutZoneTracker *)selfCopy->_activityZoneTracker setAlertDelegate:selfCopy, v6];
+    *&v5 = MEMORY[0x277D82BD8](configuration).n128_u64[0];
+    [(NLWorkoutZoneTracker *)selfCopy->_activityZoneTracker setAlertDelegate:selfCopy, v5];
     [(NLSessionActivity *)selfCopy->_sessionActivity addSessionDataObserver:selfCopy->_activityZoneTracker];
-    objc_storeStrong(&v12, 0);
-    v15 = 0;
+    objc_storeStrong(&v11, 0);
+    v14 = 0;
   }
 
-  objc_storeStrong(&v16, 0);
+  objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleTargetZoneChanged:(id)changed
@@ -757,7 +754,6 @@
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isGymKitWorkout
@@ -981,80 +977,79 @@
 
 - (void)_configureStateMachineWithUUID:(id)d
 {
-  v128[7] = *MEMORY[0x277D85DE8];
+  v127[7] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, d);
   memset(__b, 0, sizeof(__b));
   NLWorkoutStateIdentifierShortHandStruct(__b);
-  v111 = [MEMORY[0x277CCABB0] numberWithInteger:__b[0]];
-  v128[0] = v111;
-  v110 = [MEMORY[0x277CCABB0] numberWithInteger:__b[1]];
-  v128[1] = v110;
-  v109 = [MEMORY[0x277CCABB0] numberWithInteger:__b[2]];
-  v128[2] = v109;
-  v108 = [MEMORY[0x277CCABB0] numberWithInteger:__b[3]];
-  v128[3] = v108;
-  v107 = [MEMORY[0x277CCABB0] numberWithInteger:__b[4]];
-  v128[4] = v107;
-  v106 = [MEMORY[0x277CCABB0] numberWithInteger:__b[5]];
-  v128[5] = v106;
-  v105 = [MEMORY[0x277CCABB0] numberWithInteger:__b[6]];
-  v128[6] = v105;
-  v123 = [MEMORY[0x277CBEA60] arrayWithObjects:v128 count:7];
+  v110 = [MEMORY[0x277CCABB0] numberWithInteger:__b[0]];
+  v127[0] = v110;
+  v109 = [MEMORY[0x277CCABB0] numberWithInteger:__b[1]];
+  v127[1] = v109;
+  v108 = [MEMORY[0x277CCABB0] numberWithInteger:__b[2]];
+  v127[2] = v108;
+  v107 = [MEMORY[0x277CCABB0] numberWithInteger:__b[3]];
+  v127[3] = v107;
+  v106 = [MEMORY[0x277CCABB0] numberWithInteger:__b[4]];
+  v127[4] = v106;
+  v105 = [MEMORY[0x277CCABB0] numberWithInteger:__b[5]];
+  v127[5] = v105;
+  v104 = [MEMORY[0x277CCABB0] numberWithInteger:__b[6]];
+  v127[6] = v104;
+  v122 = [MEMORY[0x277CBEA60] arrayWithObjects:v127 count:7];
+  MEMORY[0x277D82BD8](v104);
   MEMORY[0x277D82BD8](v105);
   MEMORY[0x277D82BD8](v106);
   MEMORY[0x277D82BD8](v107);
   MEMORY[0x277D82BD8](v108);
   MEMORY[0x277D82BD8](v109);
   MEMORY[0x277D82BD8](v110);
-  MEMORY[0x277D82BD8](v111);
-  v113 = objc_alloc(MEMORY[0x277D0A800]);
-  v115 = FIUIStateMachineLabel();
-  v112 = MEMORY[0x277D85CD0];
+  v112 = objc_alloc(MEMORY[0x277D0A800]);
+  v114 = FIUIStateMachineLabel();
+  v111 = MEMORY[0x277D85CD0];
   v3 = MEMORY[0x277D85CD0];
-  v114 = v112;
-  v4 = [v113 initWithLabel:v115 queue:?];
+  v113 = v111;
+  v4 = [v112 initWithLabel:v114 queue:?];
   stateMachine = selfCopy->_stateMachine;
   selfCopy->_stateMachine = v4;
   MEMORY[0x277D82BD8](stateMachine);
+  MEMORY[0x277D82BD8](v113);
   MEMORY[0x277D82BD8](v114);
-  MEMORY[0x277D82BD8](v115);
-  v6 = selfCopy->_stateMachine;
   FIUIStateMachineSetDiagnosticAndErrorHandler();
-  v122 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v123, "count")}];
-  memset(v120, 0, sizeof(v120));
-  obj = MEMORY[0x277D82BE0](v123);
-  v117 = [obj countByEnumeratingWithState:v120 objects:v127 count:16];
-  if (v117)
+  v121 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v122, "count")}];
+  memset(v119, 0, sizeof(v119));
+  obj = MEMORY[0x277D82BE0](v122);
+  v116 = [obj countByEnumeratingWithState:v119 objects:v126 count:16];
+  if (v116)
   {
-    v102 = *v120[2];
-    v103 = 0;
-    v104 = v117;
+    v101 = *v119[2];
+    v102 = 0;
+    v103 = v116;
     while (1)
     {
-      v101 = v103;
-      if (*v120[2] != v102)
+      v100 = v102;
+      if (*v119[2] != v101)
       {
         objc_enumerationMutation(obj);
       }
 
-      v121 = *(v120[1] + 8 * v103);
-      unsignedIntegerValue = [v121 unsignedIntegerValue];
-      v99 = objc_alloc(MEMORY[0x277D0A7F8]);
-      v100 = NLWorkoutStateIdentifierDescription(unsignedIntegerValue);
-      v118 = [v99 initWithLabel:?];
-      *&v7 = MEMORY[0x277D82BD8](v100).n128_u64[0];
-      [v122 setObject:v118 forKeyedSubscript:{v121, v7}];
-      [(FIUIStateMachine *)selfCopy->_stateMachine addState:v118];
-      objc_storeStrong(&v118, 0);
-      ++v103;
-      if (v101 + 1 >= v104)
+      v120 = *(v119[1] + 8 * v102);
+      unsignedIntegerValue = [v120 unsignedIntegerValue];
+      v98 = objc_alloc(MEMORY[0x277D0A7F8]);
+      v99 = NLWorkoutStateIdentifierDescription(unsignedIntegerValue);
+      v117 = [v98 initWithLabel:?];
+      *&v6 = MEMORY[0x277D82BD8](v99).n128_u64[0];
+      [v121 setObject:v117 forKeyedSubscript:{v120, v6}];
+      [(FIUIStateMachine *)selfCopy->_stateMachine addState:v117];
+      objc_storeStrong(&v117, 0);
+      ++v102;
+      if (v100 + 1 >= v103)
       {
-        v103 = 0;
-        v104 = [obj countByEnumeratingWithState:v120 objects:v127 count:16];
-        if (!v104)
+        v102 = 0;
+        v103 = [obj countByEnumeratingWithState:v119 objects:v126 count:16];
+        if (!v103)
         {
           break;
         }
@@ -1063,156 +1058,155 @@
   }
 
   MEMORY[0x277D82BD8](obj);
-  objc_storeStrong(&selfCopy->_stateMap, v122);
+  objc_storeStrong(&selfCopy->_stateMap, v121);
   stateMap = selfCopy->_stateMap;
-  v26 = [MEMORY[0x277CCABB0] numberWithInteger:__b[0]];
-  v25 = [(NSDictionary *)stateMap objectForKeyedSubscript:?];
-  v22 = v122;
-  v24 = [MEMORY[0x277CCABB0] numberWithInteger:__b[2]];
-  v23 = [v22 objectForKeyedSubscript:?];
-  _RegisterTransition_1(v25, v23, 0);
+  v25 = [MEMORY[0x277CCABB0] numberWithInteger:__b[0]];
+  v24 = [(NSDictionary *)stateMap objectForKeyedSubscript:?];
+  v21 = v121;
+  v23 = [MEMORY[0x277CCABB0] numberWithInteger:__b[2]];
+  v22 = [v21 objectForKeyedSubscript:?];
+  _RegisterTransition_1(v24, v22, 0);
+  MEMORY[0x277D82BD8](v22);
   MEMORY[0x277D82BD8](v23);
   MEMORY[0x277D82BD8](v24);
-  MEMORY[0x277D82BD8](v25);
-  *&v8 = MEMORY[0x277D82BD8](v26).n128_u64[0];
-  v27 = selfCopy->_stateMap;
-  v32 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[0], v8}];
-  v31 = [(NSDictionary *)v27 objectForKeyedSubscript:?];
-  v28 = v122;
-  v30 = [MEMORY[0x277CCABB0] numberWithInteger:__b[1]];
-  v29 = [v28 objectForKeyedSubscript:?];
-  _RegisterTransition_1(v31, v29, 1);
+  *&v7 = MEMORY[0x277D82BD8](v25).n128_u64[0];
+  v26 = selfCopy->_stateMap;
+  v31 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[0], v7}];
+  v30 = [(NSDictionary *)v26 objectForKeyedSubscript:?];
+  v27 = v121;
+  v29 = [MEMORY[0x277CCABB0] numberWithInteger:__b[1]];
+  v28 = [v27 objectForKeyedSubscript:?];
+  _RegisterTransition_1(v30, v28, 1);
+  MEMORY[0x277D82BD8](v28);
   MEMORY[0x277D82BD8](v29);
   MEMORY[0x277D82BD8](v30);
-  MEMORY[0x277D82BD8](v31);
-  *&v9 = MEMORY[0x277D82BD8](v32).n128_u64[0];
-  v33 = selfCopy->_stateMap;
-  v38 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[1], v9}];
-  v37 = [(NSDictionary *)v33 objectForKeyedSubscript:?];
-  v34 = v122;
-  v36 = [MEMORY[0x277CCABB0] numberWithInteger:__b[3]];
-  v35 = [v34 objectForKeyedSubscript:?];
-  _RegisterTransition_1(v37, v35, 2);
+  *&v8 = MEMORY[0x277D82BD8](v31).n128_u64[0];
+  v32 = selfCopy->_stateMap;
+  v37 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[1], v8}];
+  v36 = [(NSDictionary *)v32 objectForKeyedSubscript:?];
+  v33 = v121;
+  v35 = [MEMORY[0x277CCABB0] numberWithInteger:__b[3]];
+  v34 = [v33 objectForKeyedSubscript:?];
+  _RegisterTransition_1(v36, v34, 2);
+  MEMORY[0x277D82BD8](v34);
   MEMORY[0x277D82BD8](v35);
   MEMORY[0x277D82BD8](v36);
-  MEMORY[0x277D82BD8](v37);
-  *&v10 = MEMORY[0x277D82BD8](v38).n128_u64[0];
-  v39 = selfCopy->_stateMap;
-  v44 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[1], v10}];
-  v43 = [(NSDictionary *)v39 objectForKeyedSubscript:?];
-  v40 = v122;
-  v42 = [MEMORY[0x277CCABB0] numberWithInteger:__b[4]];
-  v41 = [v40 objectForKeyedSubscript:?];
-  _RegisterTransition_1(v43, v41, 3);
+  *&v9 = MEMORY[0x277D82BD8](v37).n128_u64[0];
+  v38 = selfCopy->_stateMap;
+  v43 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[1], v9}];
+  v42 = [(NSDictionary *)v38 objectForKeyedSubscript:?];
+  v39 = v121;
+  v41 = [MEMORY[0x277CCABB0] numberWithInteger:__b[4]];
+  v40 = [v39 objectForKeyedSubscript:?];
+  _RegisterTransition_1(v42, v40, 3);
+  MEMORY[0x277D82BD8](v40);
   MEMORY[0x277D82BD8](v41);
   MEMORY[0x277D82BD8](v42);
-  MEMORY[0x277D82BD8](v43);
-  *&v11 = MEMORY[0x277D82BD8](v44).n128_u64[0];
-  v45 = selfCopy->_stateMap;
-  v50 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[2], v11}];
-  v49 = [(NSDictionary *)v45 objectForKeyedSubscript:?];
-  v46 = v122;
-  v48 = [MEMORY[0x277CCABB0] numberWithInteger:__b[3]];
-  v47 = [v46 objectForKeyedSubscript:?];
-  _RegisterTransition_1(v49, v47, 2);
+  *&v10 = MEMORY[0x277D82BD8](v43).n128_u64[0];
+  v44 = selfCopy->_stateMap;
+  v49 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[2], v10}];
+  v48 = [(NSDictionary *)v44 objectForKeyedSubscript:?];
+  v45 = v121;
+  v47 = [MEMORY[0x277CCABB0] numberWithInteger:__b[3]];
+  v46 = [v45 objectForKeyedSubscript:?];
+  _RegisterTransition_1(v48, v46, 2);
+  MEMORY[0x277D82BD8](v46);
   MEMORY[0x277D82BD8](v47);
   MEMORY[0x277D82BD8](v48);
-  MEMORY[0x277D82BD8](v49);
-  *&v12 = MEMORY[0x277D82BD8](v50).n128_u64[0];
-  v51 = selfCopy->_stateMap;
-  v56 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[2], v12}];
-  v55 = [(NSDictionary *)v51 objectForKeyedSubscript:?];
-  v52 = v122;
-  v54 = [MEMORY[0x277CCABB0] numberWithInteger:__b[5]];
-  v53 = [v52 objectForKeyedSubscript:?];
-  _RegisterTransition_1(v55, v53, 5);
+  *&v11 = MEMORY[0x277D82BD8](v49).n128_u64[0];
+  v50 = selfCopy->_stateMap;
+  v55 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[2], v11}];
+  v54 = [(NSDictionary *)v50 objectForKeyedSubscript:?];
+  v51 = v121;
+  v53 = [MEMORY[0x277CCABB0] numberWithInteger:__b[5]];
+  v52 = [v51 objectForKeyedSubscript:?];
+  _RegisterTransition_1(v54, v52, 5);
+  MEMORY[0x277D82BD8](v52);
   MEMORY[0x277D82BD8](v53);
   MEMORY[0x277D82BD8](v54);
-  MEMORY[0x277D82BD8](v55);
-  *&v13 = MEMORY[0x277D82BD8](v56).n128_u64[0];
-  v57 = selfCopy->_stateMap;
-  v62 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[2], v13}];
-  v61 = [(NSDictionary *)v57 objectForKeyedSubscript:?];
-  v58 = v122;
-  v60 = [MEMORY[0x277CCABB0] numberWithInteger:__b[6]];
-  v59 = [v58 objectForKeyedSubscript:?];
-  _RegisterTransition_1(v61, v59, 6);
+  *&v12 = MEMORY[0x277D82BD8](v55).n128_u64[0];
+  v56 = selfCopy->_stateMap;
+  v61 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[2], v12}];
+  v60 = [(NSDictionary *)v56 objectForKeyedSubscript:?];
+  v57 = v121;
+  v59 = [MEMORY[0x277CCABB0] numberWithInteger:__b[6]];
+  v58 = [v57 objectForKeyedSubscript:?];
+  _RegisterTransition_1(v60, v58, 6);
+  MEMORY[0x277D82BD8](v58);
   MEMORY[0x277D82BD8](v59);
   MEMORY[0x277D82BD8](v60);
-  MEMORY[0x277D82BD8](v61);
-  *&v14 = MEMORY[0x277D82BD8](v62).n128_u64[0];
-  v63 = selfCopy->_stateMap;
-  v68 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[3], v14}];
-  v67 = [(NSDictionary *)v63 objectForKeyedSubscript:?];
-  v64 = v122;
-  v66 = [MEMORY[0x277CCABB0] numberWithInteger:__b[4]];
-  v65 = [v64 objectForKeyedSubscript:?];
-  _RegisterTransition_1(v67, v65, 3);
+  *&v13 = MEMORY[0x277D82BD8](v61).n128_u64[0];
+  v62 = selfCopy->_stateMap;
+  v67 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[3], v13}];
+  v66 = [(NSDictionary *)v62 objectForKeyedSubscript:?];
+  v63 = v121;
+  v65 = [MEMORY[0x277CCABB0] numberWithInteger:__b[4]];
+  v64 = [v63 objectForKeyedSubscript:?];
+  _RegisterTransition_1(v66, v64, 3);
+  MEMORY[0x277D82BD8](v64);
   MEMORY[0x277D82BD8](v65);
   MEMORY[0x277D82BD8](v66);
-  MEMORY[0x277D82BD8](v67);
-  *&v15 = MEMORY[0x277D82BD8](v68).n128_u64[0];
+  *&v14 = MEMORY[0x277D82BD8](v67).n128_u64[0];
+  v68 = selfCopy->_stateMap;
+  v73 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[4], v14}];
+  v72 = [(NSDictionary *)v68 objectForKeyedSubscript:?];
   v69 = selfCopy->_stateMap;
-  v74 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[4], v15}];
-  v73 = [(NSDictionary *)v69 objectForKeyedSubscript:?];
-  v70 = selfCopy->_stateMap;
-  v72 = [MEMORY[0x277CCABB0] numberWithInteger:__b[3]];
-  v71 = [(NSDictionary *)v70 objectForKeyedSubscript:?];
-  _RegisterTransition_1(v73, v71, 4);
+  v71 = [MEMORY[0x277CCABB0] numberWithInteger:__b[3]];
+  v70 = [(NSDictionary *)v69 objectForKeyedSubscript:?];
+  _RegisterTransition_1(v72, v70, 4);
+  MEMORY[0x277D82BD8](v70);
   MEMORY[0x277D82BD8](v71);
   MEMORY[0x277D82BD8](v72);
-  MEMORY[0x277D82BD8](v73);
-  *&v16 = MEMORY[0x277D82BD8](v74).n128_u64[0];
-  v75 = selfCopy->_stateMap;
-  v80 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[4], v16}];
-  v79 = [(NSDictionary *)v75 objectForKeyedSubscript:?];
-  v76 = v122;
-  v78 = [MEMORY[0x277CCABB0] numberWithInteger:__b[5]];
-  v77 = [v76 objectForKeyedSubscript:?];
-  _RegisterTransition_1(v79, v77, 5);
+  *&v15 = MEMORY[0x277D82BD8](v73).n128_u64[0];
+  v74 = selfCopy->_stateMap;
+  v79 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[4], v15}];
+  v78 = [(NSDictionary *)v74 objectForKeyedSubscript:?];
+  v75 = v121;
+  v77 = [MEMORY[0x277CCABB0] numberWithInteger:__b[5]];
+  v76 = [v75 objectForKeyedSubscript:?];
+  _RegisterTransition_1(v78, v76, 5);
+  MEMORY[0x277D82BD8](v76);
   MEMORY[0x277D82BD8](v77);
   MEMORY[0x277D82BD8](v78);
-  MEMORY[0x277D82BD8](v79);
-  *&v17 = MEMORY[0x277D82BD8](v80).n128_u64[0];
-  v81 = selfCopy->_stateMap;
-  v86 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[3], v17}];
-  v85 = [(NSDictionary *)v81 objectForKeyedSubscript:?];
-  v82 = v122;
-  v84 = [MEMORY[0x277CCABB0] numberWithInteger:__b[5]];
-  v83 = [v82 objectForKeyedSubscript:?];
-  _RegisterTransition_1(v85, v83, 5);
+  *&v16 = MEMORY[0x277D82BD8](v79).n128_u64[0];
+  v80 = selfCopy->_stateMap;
+  v85 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[3], v16}];
+  v84 = [(NSDictionary *)v80 objectForKeyedSubscript:?];
+  v81 = v121;
+  v83 = [MEMORY[0x277CCABB0] numberWithInteger:__b[5]];
+  v82 = [v81 objectForKeyedSubscript:?];
+  _RegisterTransition_1(v84, v82, 5);
+  MEMORY[0x277D82BD8](v82);
   MEMORY[0x277D82BD8](v83);
   MEMORY[0x277D82BD8](v84);
-  MEMORY[0x277D82BD8](v85);
-  *&v18 = MEMORY[0x277D82BD8](v86).n128_u64[0];
-  v87 = selfCopy->_stateMap;
-  v92 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[5], v18}];
-  v91 = [(NSDictionary *)v87 objectForKeyedSubscript:?];
-  v88 = v122;
-  v90 = [MEMORY[0x277CCABB0] numberWithInteger:__b[6]];
-  v89 = [v88 objectForKeyedSubscript:?];
-  _RegisterTransition_1(v91, v89, 6);
+  *&v17 = MEMORY[0x277D82BD8](v85).n128_u64[0];
+  v86 = selfCopy->_stateMap;
+  v91 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[5], v17}];
+  v90 = [(NSDictionary *)v86 objectForKeyedSubscript:?];
+  v87 = v121;
+  v89 = [MEMORY[0x277CCABB0] numberWithInteger:__b[6]];
+  v88 = [v87 objectForKeyedSubscript:?];
+  _RegisterTransition_1(v90, v88, 6);
+  MEMORY[0x277D82BD8](v88);
   MEMORY[0x277D82BD8](v89);
   MEMORY[0x277D82BD8](v90);
-  MEMORY[0x277D82BD8](v91);
-  *&v19 = MEMORY[0x277D82BD8](v92).n128_u64[0];
-  v93 = selfCopy->_stateMap;
-  v98 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[3], v19}];
-  v97 = [(NSDictionary *)v93 objectForKeyedSubscript:?];
-  v94 = v122;
-  v96 = [MEMORY[0x277CCABB0] numberWithInteger:__b[6]];
-  v95 = [v94 objectForKeyedSubscript:?];
-  _RegisterTransition_1(v97, v95, 6);
+  *&v18 = MEMORY[0x277D82BD8](v91).n128_u64[0];
+  v92 = selfCopy->_stateMap;
+  v97 = [MEMORY[0x277CCABB0] numberWithInteger:{__b[3], v18}];
+  v96 = [(NSDictionary *)v92 objectForKeyedSubscript:?];
+  v93 = v121;
+  v95 = [MEMORY[0x277CCABB0] numberWithInteger:__b[6]];
+  v94 = [v93 objectForKeyedSubscript:?];
+  _RegisterTransition_1(v96, v94, 6);
+  MEMORY[0x277D82BD8](v94);
   MEMORY[0x277D82BD8](v95);
   MEMORY[0x277D82BD8](v96);
-  MEMORY[0x277D82BD8](v97);
-  *&v20 = MEMORY[0x277D82BD8](v98).n128_u64[0];
+  *&v19 = MEMORY[0x277D82BD8](v97).n128_u64[0];
   [(FIUIStateMachine *)selfCopy->_stateMachine export];
   [(NLWorkout *)selfCopy _configureStateActions];
+  objc_storeStrong(&v121, 0);
   objc_storeStrong(&v122, 0);
-  objc_storeStrong(&v123, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureStateActions
@@ -1443,8 +1437,6 @@ void __35__NLWorkout__configureStateActions__block_invoke_6(id *a1, void *a2, vo
     MEMORY[0x277D82BD8](workoutSession);
     objc_storeStrong(v4, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_onRecovery
@@ -1530,7 +1522,6 @@ void __35__NLWorkout__configureStateActions__block_invoke_6(id *a1, void *a2, vo
   }
 
   MEMORY[0x277D82BD8](obj);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)advanceInterval
@@ -1689,7 +1680,6 @@ void __35__NLWorkout__configureStateActions__block_invoke_6(id *a1, void *a2, vo
   objc_storeStrong(&v9, 0);
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionActivity:(id)activity didBeginActivity:(id)beginActivity
@@ -1745,7 +1735,6 @@ void __35__NLWorkout__configureStateActions__block_invoke_6(id *a1, void *a2, vo
   MEMORY[0x277D82BD8](v8);
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionActivity:(id)activity didEndActivity:(id)endActivity
@@ -1827,7 +1816,6 @@ void __35__NLWorkout__configureStateActions__block_invoke_6(id *a1, void *a2, vo
   objc_storeStrong(&hkWorkoutConfiguration, 0);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateTargetZonesFromConfiguration:(id)configuration
@@ -1892,7 +1880,6 @@ void __35__NLWorkout__configureStateActions__block_invoke_6(id *a1, void *a2, vo
   objc_storeStrong(&v10, 0);
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)didFinishIntervalWorkout:(id)workout date:(id)date
@@ -1918,7 +1905,6 @@ void __35__NLWorkout__configureStateActions__block_invoke_6(id *a1, void *a2, vo
   MEMORY[0x277D82BD8](workoutSession);
   objc_storeStrong(&v7, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)insertMetadataInCurrentActivityWithMetadata:(id)metadata
@@ -1971,7 +1957,6 @@ void __35__NLWorkout__configureStateActions__block_invoke_6(id *a1, void *a2, vo
 
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)didCancelAutomaticTransition
@@ -2012,7 +1997,6 @@ void __35__NLWorkout__configureStateActions__block_invoke_6(id *a1, void *a2, vo
   [(NLWorkout *)selfCopy _beginNewActivityWithHKConfiguration:v4 date:location[0] metadata:?];
   objc_storeStrong(&v4, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)enterAutomaticTransitionWithSuggestedConfig:(id)config date:(id)date
@@ -2167,7 +2151,6 @@ void __35__NLWorkout__configureStateActions__block_invoke_6(id *a1, void *a2, vo
   MEMORY[0x277D82BD8](configuration);
   objc_storeStrong(&v32, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)didRestoreActivityType:(id)type startDate:(id)date autoTransitionStartDate:(id)startDate autoTransitionUUID:(id)d
@@ -2477,8 +2460,6 @@ void __35__NLWorkout__configureStateActions__block_invoke_6(id *a1, void *a2, vo
 
     MEMORY[0x277D82BD8](obj);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_evaluateEnded
@@ -2586,7 +2567,6 @@ void __35__NLWorkout__configureStateActions__block_invoke_6(id *a1, void *a2, vo
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionController:(id)controller didRecieveWorkoutEvent:(id)event
@@ -2612,7 +2592,6 @@ void __35__NLWorkout__configureStateActions__block_invoke_6(id *a1, void *a2, vo
 
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionController:(id)controller didSuggestWorkoutConfiguration:(id)configuration date:(id)date
@@ -2657,7 +2636,6 @@ void __35__NLWorkout__configureStateActions__block_invoke_6(id *a1, void *a2, vo
   objc_storeStrong(&v21, 0);
   objc_storeStrong(&v22, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 double __67__NLWorkout_sessionController_didSuggestWorkoutConfiguration_date___block_invoke(uint64_t a1)
@@ -2738,7 +2716,6 @@ double __67__NLWorkout_sessionController_didSuggestWorkoutConfiguration_date___b
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateWorkoutLocationType:(int64_t)type
@@ -3049,7 +3026,6 @@ LABEL_23:
   [(NLSessionActivity *)selfCopy->_sessionActivity updateDistanceUnit:v8];
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)wristStateUpdatedWithOnWrist:(BOOL)wrist
@@ -3150,7 +3126,6 @@ LABEL_23:
   objc_storeStrong(&oslog, 0);
   selfCopy->_gpsUnavailable = !availableCopy;
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)dataProvider:(id)provider didReceiveSegmentMarker:(id)marker

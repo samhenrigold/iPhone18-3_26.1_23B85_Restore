@@ -115,7 +115,7 @@
 
 - (id)_ams_localiTunesAccountForAccountMediaType:()AppleMediaServices_Project updateStorefront:
 {
-  v6 = [self _accountTypeForMediaType:?];
+  v6 = [self _accountTypeForMediaType:a3];
   v9[0] = MEMORY[0x1E69E9820];
   v9[1] = 3221225472;
   v9[2] = __106__ACAccountStore_AppleMediaServices_Project___ams_localiTunesAccountForAccountMediaType_updateStorefront___block_invoke;

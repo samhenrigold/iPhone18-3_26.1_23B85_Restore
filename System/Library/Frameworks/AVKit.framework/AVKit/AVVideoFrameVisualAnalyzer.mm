@@ -182,7 +182,7 @@ void __49__AVVideoFrameVisualAnalyzer__imageAnalysisQueue__block_invoke()
     v2 = playerController;
     if (v3 == 0.0)
     {
-      [playerController currentTime];
+      objc_msgSend_currentTime(playerController);
       *(self + 24) = v4;
       if ([(AVVideoFrameVisualAnalyzer *)self _canStartAnalysis])
       {
@@ -289,20 +289,20 @@ uint64_t __62__AVVideoFrameVisualAnalyzer__setupTimeObservingTimerIfNeeded__bloc
 
       v5 = [v4 currentItem];
       v6 = v5;
-      v26 = 0uLL;
-      v27 = 0;
+      v27 = 0uLL;
+      v28 = 0;
       if (v5)
       {
-        [v5 currentTime];
+        objc_msgSend_currentTime(v5);
       }
 
-      v32 = 0u;
       v33 = 0u;
+      v34 = 0u;
       *location = 0u;
       v7 = val[11];
       if (v7)
       {
-        [v7 preferredTransform];
+        objc_msgSend_preferredTransform(v7);
         v7 = val[11];
       }
 
@@ -317,39 +317,39 @@ uint64_t __62__AVVideoFrameVisualAnalyzer__setupTimeObservingTimerIfNeeded__bloc
 
       else
       {
-        v28 = *location;
-        v29 = v32;
+        v29 = *location;
         v30 = v33;
-        v34 = 0;
-        v35 = &v34;
-        v36 = 0x2020000000;
+        v31 = v34;
+        v35 = 0;
+        v36 = &v35;
+        v37 = 0x2020000000;
         v12 = getvk_imageOrientationFromTransformSymbolLoc_ptr;
-        v37 = getvk_imageOrientationFromTransformSymbolLoc_ptr;
+        v38 = getvk_imageOrientationFromTransformSymbolLoc_ptr;
         if (!getvk_imageOrientationFromTransformSymbolLoc_ptr)
         {
           *&block = MEMORY[0x1E69E9820];
           *(&block + 1) = 3221225472;
-          *&v21 = __getvk_imageOrientationFromTransformSymbolLoc_block_invoke;
-          *(&v21 + 1) = &unk_1E7209BC8;
-          *&v22 = &v34;
+          *&v22 = __getvk_imageOrientationFromTransformSymbolLoc_block_invoke;
+          *(&v22 + 1) = &unk_1E7209BC8;
+          *&v23 = &v35;
           v13 = VisionKitCoreLibrary();
-          v35[3] = dlsym(v13, "vk_imageOrientationFromTransform");
-          getvk_imageOrientationFromTransformSymbolLoc_ptr = *(*(v22 + 8) + 24);
-          v12 = v35[3];
+          v36[3] = dlsym(v13, "vk_imageOrientationFromTransform");
+          getvk_imageOrientationFromTransformSymbolLoc_ptr = *(*(v23 + 8) + 24);
+          v12 = v36[3];
         }
 
-        _Block_object_dispose(&v34, 8);
+        _Block_object_dispose(&v35, 8);
         if (!v12)
         {
-          dlerror();
-          v17 = abort_report_np();
-          _Block_object_dispose(&v34, 8);
-          _Unwind_Resume(v17);
+          v17 = dlerror();
+          v18 = abort_report_np("%s", v17);
+          _Block_object_dispose(&v35, 8);
+          _Unwind_Resume(v18);
         }
 
-        block = v28;
-        v21 = v29;
+        block = v29;
         v22 = v30;
+        v23 = v31;
         v11 = v12(&block);
       }
 
@@ -358,17 +358,17 @@ uint64_t __62__AVVideoFrameVisualAnalyzer__setupTimeObservingTimerIfNeeded__bloc
       v15 = [(AVVideoFrameVisualAnalyzer *)val _imageAnalysisQueue];
       *&block = MEMORY[0x1E69E9820];
       *(&block + 1) = 3221225472;
-      *&v21 = __54__AVVideoFrameVisualAnalyzer__startVideoFrameAnalysis__block_invoke;
-      *(&v21 + 1) = &unk_1E7207968;
-      objc_copyWeak(&v22 + 1, location);
-      v24 = v26;
+      *&v22 = __54__AVVideoFrameVisualAnalyzer__startVideoFrameAnalysis__block_invoke;
+      *(&v22 + 1) = &unk_1E7207968;
+      objc_copyWeak(&v23 + 1, location);
       v25 = v27;
-      *&v22 = v14;
-      v23 = v11;
+      v26 = v28;
+      *&v23 = v14;
+      v24 = v11;
       v16 = v14;
       dispatch_async(v15, &block);
 
-      objc_destroyWeak(&v22 + 1);
+      objc_destroyWeak(&v23 + 1);
       objc_destroyWeak(location);
 
       v2 = val;

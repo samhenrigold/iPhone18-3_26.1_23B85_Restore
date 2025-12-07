@@ -3,6 +3,7 @@
 - (id)_axPhotoDescriptionFromContext:(id)context;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
+- (void)previewDidAppear:(BOOL)appear;
 @end
 
 @implementation QLLivePhotoItemViewControllerAccessibility
@@ -35,6 +36,14 @@
   v6.receiver = self;
   v6.super_class = QLLivePhotoItemViewControllerAccessibility;
   [(QLLivePhotoItemViewControllerAccessibility *)&v6 loadPreviewControllerWithContents:contents context:context completionHandler:handler];
+  [(QLLivePhotoItemViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = QLLivePhotoItemViewControllerAccessibility;
+  [(QLLivePhotoItemViewControllerAccessibility *)&v4 previewDidAppear:appear];
   [(QLLivePhotoItemViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 

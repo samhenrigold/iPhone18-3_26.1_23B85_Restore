@@ -26,9 +26,11 @@
 
 uint64_t __38__EKEventActionHandler_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_0 = objc_alloc_init(EKEventActionHandler);
+  v0 = objc_alloc_init(EKEventActionHandler);
+  v1 = sharedInstance_sharedInstance_0;
+  sharedInstance_sharedInstance_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_logHandle
@@ -45,9 +47,11 @@ uint64_t __38__EKEventActionHandler_sharedInstance__block_invoke()
 
 uint64_t __34__EKEventActionHandler__logHandle__block_invoke()
 {
-  _logHandle_handle = os_log_create("EventKit", "EKEventActionHandler");
+  v0 = os_log_create("EventKit", "EKEventActionHandler");
+  v1 = _logHandle_handle;
+  _logHandle_handle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)handleEventCreation:(id)creation
@@ -59,7 +63,7 @@ uint64_t __34__EKEventActionHandler__logHandle__block_invoke()
 
 - (void)removeInteractionsForCalendar:(id)calendar
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   calendarCopy = calendar;
   v4 = MEMORY[0x1E696E8B8];
   calendarIdentifier = [calendarCopy calendarIdentifier];
@@ -69,12 +73,10 @@ uint64_t __34__EKEventActionHandler__logHandle__block_invoke()
   if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_INFO))
   {
     calendarIdentifier2 = [calendarCopy calendarIdentifier];
-    v9 = 138412290;
-    v10 = calendarIdentifier2;
-    _os_log_impl(&dword_1A805E000, _logHandle, OS_LOG_TYPE_INFO, "Deleting previous interactions on calendar %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = calendarIdentifier2;
+    _os_log_impl(&dword_1A805E000, _logHandle, OS_LOG_TYPE_INFO, "Deleting previous interactions on calendar %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_intentForAction:(id)action onEvent:(id)event
@@ -88,7 +90,7 @@ uint64_t __34__EKEventActionHandler__logHandle__block_invoke()
 
 - (void)donateInteractionForAction:(id)action onEvent:(id)event
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v7 = [(EKEventActionHandler *)self _intentForAction:action onEvent:eventCopy];
   if (v7)
@@ -100,16 +102,16 @@ uint64_t __34__EKEventActionHandler__logHandle__block_invoke()
     if (v10)
     {
       v11 = MEMORY[0x1E696E8B8];
-      v24[0] = calendarItemIdentifier;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+      v23[0] = calendarItemIdentifier;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
       [v11 deleteInteractionsWithIdentifiers:v12 completion:0];
 
       _logHandle = [objc_opt_class() _logHandle];
       if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_INFO))
       {
-        v20 = 138412290;
-        v21 = calendarItemIdentifier;
-        _os_log_impl(&dword_1A805E000, _logHandle, OS_LOG_TYPE_INFO, "Deleting previous interactions on event %@", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = calendarItemIdentifier;
+        _os_log_impl(&dword_1A805E000, _logHandle, OS_LOG_TYPE_INFO, "Deleting previous interactions on event %@", &v19, 0xCu);
       }
     }
 
@@ -124,15 +126,13 @@ uint64_t __34__EKEventActionHandler__logHandle__block_invoke()
     if (os_log_type_enabled(_logHandle2, OS_LOG_TYPE_INFO))
     {
       verb2 = [v7 verb];
-      v20 = 138412546;
-      v21 = verb2;
-      v22 = 2112;
-      v23 = calendarItemIdentifier;
-      _os_log_impl(&dword_1A805E000, _logHandle2, OS_LOG_TYPE_INFO, "Donated interaction for action %@ on event %@", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = verb2;
+      v21 = 2112;
+      v22 = calendarItemIdentifier;
+      _os_log_impl(&dword_1A805E000, _logHandle2, OS_LOG_TYPE_INFO, "Donated interaction for action %@ on event %@", &v19, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)donatePredictiveAction:(id)action forEvent:(id)event
@@ -187,11 +187,13 @@ uint64_t __34__EKEventActionHandler__logHandle__block_invoke()
   return v11;
 }
 
-uint64_t __46__EKEventActionHandler__displayStringForDate___block_invoke()
+uint64_t __46__EKEventActionHandler__displayStringForDate___block_invoke(uint64_t a1, uint64_t a2)
 {
-  _displayStringForDate__dateFormatter = objc_opt_new();
+  v2 = objc_opt_new();
+  v3 = _displayStringForDate__dateFormatter;
+  _displayStringForDate__dateFormatter = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 - (id)createEventIntentForEvent:(id)event withSuggestionsInfoUniqueKey:(id)key
@@ -242,8 +244,7 @@ uint64_t __46__EKEventActionHandler__displayStringForDate___block_invoke()
   v34 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(eventCopy, "isAllDay")}];
   [(EKUICreateEventIntent *)v22 setAllDay:v34];
 
-  [(EKUICreateEventIntent *)v22 _setLaunchId:@"com.apple.mobilecal"];
-  v35 = EKBundle();
+  v35 = EKBundle([(EKUICreateEventIntent *)v22 _setLaunchId:@"com.apple.mobilecal"]);
   v36 = [v35 localizedStringForKey:@"Create event" value:&stru_1F1B49D68 table:0];
   [(EKUICreateEventIntent *)v22 setSuggestedInvocationPhrase:v36];
 

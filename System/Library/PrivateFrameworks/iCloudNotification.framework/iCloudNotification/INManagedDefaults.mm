@@ -41,7 +41,7 @@ uint64_t __35__INManagedDefaults_sharedInstance__block_invoke()
 - (void)_writeManagedDefaults:(id)defaults
 {
   defaultsCopy = defaults;
-  v4 = _INLogSystem();
+  v4 = _INLogSystem(defaultsCopy);
   v5 = v4;
   if (defaultsCopy)
   {
@@ -106,11 +106,10 @@ LABEL_8:
 
 - (void)_writeManagedDefaults:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_275568000, a2, OS_LOG_TYPE_DEBUG, "Writing new set of managed defaults: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_275568000, a2, OS_LOG_TYPE_DEBUG, "Writing new set of managed defaults: %@", &v2, 0xCu);
 }
 
 @end

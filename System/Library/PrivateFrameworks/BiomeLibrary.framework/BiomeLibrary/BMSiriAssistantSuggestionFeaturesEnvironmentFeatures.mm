@@ -265,7 +265,7 @@ LABEL_67:
 
 - (id)jsonDictionary
 {
-  v48[14] = *MEMORY[0x1E69E9840];
+  v47[14] = *MEMORY[0x1E69E9840];
   focusMode = [(BMSiriAssistantSuggestionFeaturesEnvironmentFeatures *)self focusMode];
   deviceMotion = [(BMSiriAssistantSuggestionFeaturesEnvironmentFeatures *)self deviceMotion];
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures location](self, "location")}];
@@ -282,17 +282,7 @@ LABEL_67:
 
   if ([(BMSiriAssistantSuggestionFeaturesEnvironmentFeatures *)self hasIsTimerRunning])
   {
-    v46 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures isTimerRunning](self, "isTimerRunning")}];
-  }
-
-  else
-  {
-    v46 = 0;
-  }
-
-  if ([(BMSiriAssistantSuggestionFeaturesEnvironmentFeatures *)self hasIsConnectedToWifi])
-  {
-    v45 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures isConnectedToWifi](self, "isConnectedToWifi")}];
+    v45 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures isTimerRunning](self, "isTimerRunning")}];
   }
 
   else
@@ -300,9 +290,9 @@ LABEL_67:
     v45 = 0;
   }
 
-  if ([(BMSiriAssistantSuggestionFeaturesEnvironmentFeatures *)self hasHasInternetConnection])
+  if ([(BMSiriAssistantSuggestionFeaturesEnvironmentFeatures *)self hasIsConnectedToWifi])
   {
-    v44 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures hasInternetConnection](self, "hasInternetConnection")}];
+    v44 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures isConnectedToWifi](self, "isConnectedToWifi")}];
   }
 
   else
@@ -310,9 +300,9 @@ LABEL_67:
     v44 = 0;
   }
 
-  if ([(BMSiriAssistantSuggestionFeaturesEnvironmentFeatures *)self hasIsScreenSharing])
+  if ([(BMSiriAssistantSuggestionFeaturesEnvironmentFeatures *)self hasHasInternetConnection])
   {
-    v43 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures isScreenSharing](self, "isScreenSharing")}];
+    v43 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures hasInternetConnection](self, "hasInternetConnection")}];
   }
 
   else
@@ -320,9 +310,9 @@ LABEL_67:
     v43 = 0;
   }
 
-  if ([(BMSiriAssistantSuggestionFeaturesEnvironmentFeatures *)self hasAudioIsMuted])
+  if ([(BMSiriAssistantSuggestionFeaturesEnvironmentFeatures *)self hasIsScreenSharing])
   {
-    v42 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures audioIsMuted](self, "audioIsMuted")}];
+    v42 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures isScreenSharing](self, "isScreenSharing")}];
   }
 
   else
@@ -330,14 +320,24 @@ LABEL_67:
     v42 = 0;
   }
 
-  if ([(BMSiriAssistantSuggestionFeaturesEnvironmentFeatures *)self hasScreenBrightness])
+  if ([(BMSiriAssistantSuggestionFeaturesEnvironmentFeatures *)self hasAudioIsMuted])
   {
-    v41 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures screenBrightness](self, "screenBrightness")}];
+    v41 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures audioIsMuted](self, "audioIsMuted")}];
   }
 
   else
   {
     v41 = 0;
+  }
+
+  if ([(BMSiriAssistantSuggestionFeaturesEnvironmentFeatures *)self hasScreenBrightness])
+  {
+    v40 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures screenBrightness](self, "screenBrightness")}];
+  }
+
+  else
+  {
+    v40 = 0;
   }
 
   homeGraph = [(BMSiriAssistantSuggestionFeaturesEnvironmentFeatures *)self homeGraph];
@@ -363,131 +363,131 @@ LABEL_67:
     v10 = 0;
   }
 
-  v47[0] = @"focusMode";
+  v46[0] = @"focusMode";
   null = focusMode;
   if (!focusMode)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34 = null;
-  v48[0] = null;
-  v47[1] = @"deviceMotion";
+  v33 = null;
+  v47[0] = null;
+  v46[1] = @"deviceMotion";
   null2 = deviceMotion;
   if (!deviceMotion)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v33 = null2;
-  v48[1] = null2;
-  v47[2] = @"location";
+  v32 = null2;
+  v47[1] = null2;
+  v46[2] = @"location";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32 = null3;
-  v48[2] = null3;
-  v47[3] = @"isPlayingMedia";
+  v31 = null3;
+  v47[2] = null3;
+  v46[3] = @"isPlayingMedia";
   null4 = isPlayingMedia;
   if (!isPlayingMedia)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v31 = null4;
-  v48[3] = null4;
-  v47[4] = @"isAirplaneMode";
+  v30 = null4;
+  v47[3] = null4;
+  v46[4] = @"isAirplaneMode";
   null5 = v7;
   if (!v7)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39 = focusMode;
-  v30 = null5;
-  v48[4] = null5;
-  v47[5] = @"isTimerRunning";
-  null6 = v46;
-  if (!v46)
+  v38 = focusMode;
+  v29 = null5;
+  v47[4] = null5;
+  v46[5] = @"isTimerRunning";
+  null6 = v45;
+  if (!v45)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v38 = v5;
-  v48[5] = null6;
-  v47[6] = @"isConnectedToWifi";
-  null7 = v45;
-  if (!v45)
+  v37 = v5;
+  v47[5] = null6;
+  v46[6] = @"isConnectedToWifi";
+  null7 = v44;
+  if (!v44)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37 = isPlayingMedia;
-  v48[6] = null7;
-  v47[7] = @"hasInternetConnection";
-  null8 = v44;
-  if (!v44)
+  v36 = isPlayingMedia;
+  v47[6] = null7;
+  v46[7] = @"hasInternetConnection";
+  null8 = v43;
+  if (!v43)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v36 = v7;
-  v48[7] = null8;
-  v47[8] = @"isScreenSharing";
-  null9 = v43;
-  if (!v43)
+  v35 = v7;
+  v47[7] = null8;
+  v46[8] = @"isScreenSharing";
+  null9 = v42;
+  if (!v42)
   {
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v48[8] = null9;
-  v47[9] = @"audioIsMuted";
-  null10 = v42;
-  if (!v42)
+  v47[8] = null9;
+  v46[9] = @"audioIsMuted";
+  null10 = v41;
+  if (!v41)
   {
     null10 = [MEMORY[0x1E695DFB0] null];
   }
 
   v21 = deviceMotion;
-  v48[9] = null10;
-  v47[10] = @"screenBrightness";
-  null11 = v41;
-  if (!v41)
+  v47[9] = null10;
+  v46[10] = @"screenBrightness";
+  null11 = v40;
+  if (!v40)
   {
     null11 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29 = null6;
-  v48[10] = null11;
-  v47[11] = @"homeGraph";
+  v28 = null6;
+  v47[10] = null11;
+  v46[11] = @"homeGraph";
   null12 = jsonDictionary;
   if (!jsonDictionary)
   {
     null12 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28 = null7;
-  v48[11] = null12;
-  v47[12] = @"batteryIsCharging";
+  v27 = null7;
+  v47[11] = null12;
+  v46[12] = @"batteryIsCharging";
   null13 = v9;
   if (!v9)
   {
     null13 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v48[12] = null13;
-  v47[13] = @"isLowBatteryMode";
+  v47[12] = null13;
+  v46[13] = @"isLowBatteryMode";
   null14 = v10;
   if (!v10)
   {
     null14 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v48[13] = null14;
-  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:14];
+  v47[13] = null14;
+  v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:14];
   if (v10)
   {
     if (v9)
@@ -510,6 +510,10 @@ LABEL_58:
   {
   }
 
+  if (!v40)
+  {
+  }
+
   if (!v41)
   {
   }
@@ -530,13 +534,9 @@ LABEL_58:
   {
   }
 
-  if (!v46)
+  if (v35)
   {
-  }
-
-  if (v36)
-  {
-    if (v37)
+    if (v36)
     {
       goto LABEL_74;
     }
@@ -545,10 +545,10 @@ LABEL_58:
   else
   {
 
-    if (v37)
+    if (v36)
     {
 LABEL_74:
-      if (v38)
+      if (v37)
       {
         goto LABEL_75;
       }
@@ -557,7 +557,7 @@ LABEL_74:
     }
   }
 
-  if (v38)
+  if (v37)
   {
 LABEL_75:
     if (v21)
@@ -567,7 +567,7 @@ LABEL_75:
 
 LABEL_85:
 
-    if (v39)
+    if (v38)
     {
       goto LABEL_77;
     }
@@ -583,7 +583,7 @@ LABEL_84:
   }
 
 LABEL_76:
-  if (v39)
+  if (v38)
   {
     goto LABEL_77;
   }
@@ -591,26 +591,25 @@ LABEL_76:
 LABEL_86:
 
 LABEL_77:
-  v26 = *MEMORY[0x1E69E9840];
 
-  return v35;
+  return v34;
 }
 
 - (BMSiriAssistantSuggestionFeaturesEnvironmentFeatures)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v155[1] = *MEMORY[0x1E69E9840];
+  v154[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"focusMode"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v126 = 0;
+    v125 = 0;
     goto LABEL_4;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v126 = v7;
+    v125 = v7;
 LABEL_4:
     v8 = [dictionaryCopy objectForKeyedSubscript:@"deviceMotion"];
     selfCopy = self;
@@ -619,14 +618,14 @@ LABEL_4:
       v9 = 0;
 LABEL_7:
       v10 = [dictionaryCopy objectForKeyedSubscript:@"location"];
-      v122 = v9;
+      v121 = v9;
       errorCopy = error;
       if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v121 = v10;
+          v120 = v10;
         }
 
         else
@@ -644,27 +643,27 @@ LABEL_7:
 
             v58 = objc_alloc(MEMORY[0x1E696ABC0]);
             v59 = *MEMORY[0x1E698F240];
-            v150 = *MEMORY[0x1E696A578];
-            v123 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"location"];
-            v151 = v123;
-            [MEMORY[0x1E695DF20] dictionaryWithObjects:&v151 forKeys:&v150 count:1];
+            v149 = *MEMORY[0x1E696A578];
+            v122 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"location"];
+            v150 = v122;
+            [MEMORY[0x1E695DF20] dictionaryWithObjects:&v150 forKeys:&v149 count:1];
             v61 = v60 = error;
             v16 = 0;
             v13 = 0;
             *v60 = [v58 initWithDomain:v59 code:2 userInfo:v61];
             v10 = v57;
-            v9 = v122;
+            v9 = v121;
             v19 = v61;
             goto LABEL_118;
           }
 
-          v121 = [MEMORY[0x1E696AD98] numberWithInt:BMSiriAssistantSuggestionFeaturesEnvironmentFeaturesHashedLocationFromString(v10)];
+          v120 = [MEMORY[0x1E696AD98] numberWithInt:BMSiriAssistantSuggestionFeaturesEnvironmentFeaturesHashedLocationFromString(v10)];
         }
       }
 
       else
       {
-        v121 = 0;
+        v120 = 0;
       }
 
       v19 = [dictionaryCopy objectForKeyedSubscript:@"isPlayingMedia"];
@@ -675,62 +674,62 @@ LABEL_7:
         {
           if (!error)
           {
-            v123 = 0;
+            v122 = 0;
             v13 = 0;
-            v16 = v121;
+            v16 = v120;
 LABEL_118:
 
             goto LABEL_119;
           }
 
-          v124 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v106 = v10;
+          v123 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v105 = v10;
           v38 = *MEMORY[0x1E698F240];
-          v148 = *MEMORY[0x1E696A578];
-          v118 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"isPlayingMedia"];
-          v149 = v118;
-          v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v149 forKeys:&v148 count:1];
+          v147 = *MEMORY[0x1E696A578];
+          v117 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"isPlayingMedia"];
+          v148 = v117;
+          v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v148 forKeys:&v147 count:1];
           v40 = v38;
-          v10 = v106;
-          v41 = [v124 initWithDomain:v40 code:2 userInfo:v39];
-          v123 = 0;
+          v10 = v105;
+          v41 = [v123 initWithDomain:v40 code:2 userInfo:v39];
+          v122 = 0;
           v13 = 0;
           *error = v41;
           v20 = v39;
-          v16 = v121;
+          v16 = v120;
           goto LABEL_117;
         }
 
-        v123 = v19;
+        v122 = v19;
       }
 
       else
       {
-        v123 = 0;
+        v122 = 0;
       }
 
       v20 = [dictionaryCopy objectForKeyedSubscript:@"isAirplaneMode"];
       if (!v20 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v118 = 0;
+        v117 = 0;
         goto LABEL_28;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v118 = v20;
+        v117 = v20;
 LABEL_28:
         v21 = [dictionaryCopy objectForKeyedSubscript:@"isTimerRunning"];
         if (!v21 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v111 = v7;
+          v110 = v7;
           v22 = v8;
-          v117 = 0;
+          v116 = 0;
 LABEL_31:
           v23 = [dictionaryCopy objectForKeyedSubscript:@"isConnectedToWifi"];
-          v110 = v21;
-          v115 = v23;
+          v109 = v21;
+          v114 = v23;
           if (v23 && (v24 = v23, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
             objc_opt_class();
@@ -738,57 +737,57 @@ LABEL_31:
             {
               if (!errorCopy)
               {
-                v116 = 0;
+                v115 = 0;
                 v13 = 0;
-                v16 = v121;
-                v7 = v111;
+                v16 = v120;
+                v7 = v110;
                 v8 = v22;
                 goto LABEL_115;
               }
 
               v52 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v101 = v19;
+              v100 = v19;
               v53 = v10;
               v54 = *MEMORY[0x1E698F240];
-              v142 = *MEMORY[0x1E696A578];
-              v113 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isConnectedToWifi"];
-              v143 = v113;
-              v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v143 forKeys:&v142 count:1];
+              v141 = *MEMORY[0x1E696A578];
+              v112 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isConnectedToWifi"];
+              v142 = v112;
+              v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v142 forKeys:&v141 count:1];
               v56 = v54;
               v10 = v53;
-              v19 = v101;
-              v109 = v55;
-              v116 = 0;
+              v19 = v100;
+              v108 = v55;
+              v115 = 0;
               v13 = 0;
               *errorCopy = [v52 initWithDomain:v56 code:2 userInfo:?];
-              v16 = v121;
-              v7 = v111;
+              v16 = v120;
+              v7 = v110;
               goto LABEL_127;
             }
 
-            v116 = v24;
+            v115 = v24;
           }
 
           else
           {
-            v116 = 0;
+            v115 = 0;
           }
 
           v25 = [dictionaryCopy objectForKeyedSubscript:@"hasInternetConnection"];
-          v109 = v25;
+          v108 = v25;
           if (!v25)
           {
-            v113 = 0;
-            v7 = v111;
+            v112 = 0;
+            v7 = v110;
             goto LABEL_48;
           }
 
           v26 = v25;
           objc_opt_class();
-          v7 = v111;
+          v7 = v110;
           if (objc_opt_isKindOfClass())
           {
-            v113 = 0;
+            v112 = 0;
 LABEL_48:
             [dictionaryCopy objectForKeyedSubscript:@"isScreenSharing"];
             v27 = v8 = v22;
@@ -799,46 +798,46 @@ LABEL_48:
               {
                 if (!errorCopy)
                 {
-                  v107 = 0;
+                  v106 = 0;
                   v13 = 0;
-                  v16 = v121;
+                  v16 = v120;
                   goto LABEL_113;
                 }
 
-                v108 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v103 = v19;
+                v107 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v102 = v19;
                 v68 = v10;
                 v69 = *MEMORY[0x1E698F240];
-                v138 = *MEMORY[0x1E696A578];
-                v112 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isScreenSharing"];
-                v139 = v112;
-                v70 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v139 forKeys:&v138 count:1];
+                v137 = *MEMORY[0x1E696A578];
+                v111 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isScreenSharing"];
+                v138 = v111;
+                v70 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v138 forKeys:&v137 count:1];
                 v71 = v69;
                 v10 = v68;
-                v19 = v103;
-                v104 = v70;
-                v72 = [v108 initWithDomain:v71 code:2 userInfo:?];
-                v107 = 0;
+                v19 = v102;
+                v103 = v70;
+                v72 = [v107 initWithDomain:v71 code:2 userInfo:?];
+                v106 = 0;
                 v13 = 0;
                 *errorCopy = v72;
-                v16 = v121;
+                v16 = v120;
                 goto LABEL_112;
               }
 
-              v96 = v8;
-              v107 = v27;
+              v95 = v8;
+              v106 = v27;
             }
 
             else
             {
-              v96 = v8;
-              v107 = 0;
+              v95 = v8;
+              v106 = 0;
             }
 
             v28 = [dictionaryCopy objectForKeyedSubscript:@"audioIsMuted"];
-            v104 = v28;
-            v105 = v10;
-            v94 = v27;
+            v103 = v28;
+            v104 = v10;
+            v93 = v27;
             if (v28 && (v29 = v28, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
             {
               objc_opt_class();
@@ -846,49 +845,49 @@ LABEL_48:
               {
                 if (!errorCopy)
                 {
-                  v112 = 0;
+                  v111 = 0;
                   v13 = 0;
-                  v16 = v121;
-                  v8 = v96;
+                  v16 = v120;
+                  v8 = v95;
                   goto LABEL_112;
                 }
 
                 v73 = v19;
                 v74 = objc_alloc(MEMORY[0x1E696ABC0]);
                 v75 = *MEMORY[0x1E698F240];
-                v136 = *MEMORY[0x1E696A578];
-                v98 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"audioIsMuted"];
-                v137 = v98;
-                v76 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v137 forKeys:&v136 count:1];
+                v135 = *MEMORY[0x1E696A578];
+                v97 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"audioIsMuted"];
+                v136 = v97;
+                v76 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v136 forKeys:&v135 count:1];
                 v77 = v74;
                 v19 = v73;
-                v27 = v94;
+                v27 = v93;
                 v78 = v75;
-                v10 = v105;
-                v95 = v76;
-                v112 = 0;
+                v10 = v104;
+                v94 = v76;
+                v111 = 0;
                 v13 = 0;
                 *errorCopy = [v77 initWithDomain:v78 code:2 userInfo:?];
-                v16 = v121;
-                v8 = v96;
+                v16 = v120;
+                v8 = v95;
 LABEL_111:
 
 LABEL_112:
                 goto LABEL_113;
               }
 
-              v112 = v29;
+              v111 = v29;
             }
 
             else
             {
-              v112 = 0;
+              v111 = 0;
             }
 
             v30 = [dictionaryCopy objectForKeyedSubscript:@"screenBrightness"];
-            v8 = v96;
-            v97 = v20;
-            v95 = v30;
+            v8 = v95;
+            v96 = v20;
+            v94 = v30;
             if (v30 && (v31 = v30, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
             {
               objc_opt_class();
@@ -896,31 +895,31 @@ LABEL_112:
               {
                 if (!errorCopy)
                 {
-                  v98 = 0;
+                  v97 = 0;
                   v13 = 0;
-                  v16 = v121;
+                  v16 = v120;
                   goto LABEL_111;
                 }
 
                 v79 = objc_alloc(MEMORY[0x1E696ABC0]);
                 v80 = *MEMORY[0x1E698F240];
-                v134 = *MEMORY[0x1E696A578];
+                v133 = *MEMORY[0x1E696A578];
                 v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"screenBrightness"];
-                v135 = v37;
-                v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v135 forKeys:&v134 count:1];
-                v98 = 0;
+                v134 = v37;
+                v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
+                v97 = 0;
                 v13 = 0;
                 *errorCopy = [v79 initWithDomain:v80 code:2 userInfo:?];
-                v16 = v121;
+                v16 = v120;
                 goto LABEL_109;
               }
 
-              v98 = v31;
+              v97 = v31;
             }
 
             else
             {
-              v98 = 0;
+              v97 = 0;
             }
 
             v32 = [dictionaryCopy objectForKeyedSubscript:@"homeGraph"];
@@ -932,39 +931,39 @@ LABEL_112:
                 if (!errorCopy)
                 {
                   v13 = 0;
-                  v16 = v121;
+                  v16 = v120;
                   goto LABEL_110;
                 }
 
-                v92 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v91 = objc_alloc(MEMORY[0x1E696ABC0]);
                 v81 = *MEMORY[0x1E698F240];
-                v132 = *MEMORY[0x1E696A578];
+                v131 = *MEMORY[0x1E696A578];
                 v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"homeGraph"];
-                v133 = v33;
-                v82 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v133 forKeys:&v132 count:1];
-                *errorCopy = [v92 initWithDomain:v81 code:2 userInfo:v82];
+                v132 = v33;
+                v82 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
+                *errorCopy = [v91 initWithDomain:v81 code:2 userInfo:v82];
 
                 v13 = 0;
                 v37 = v32;
-                v16 = v121;
+                v16 = v120;
 LABEL_109:
 
                 v32 = v37;
 LABEL_110:
 
-                v10 = v105;
-                v20 = v97;
-                v21 = v110;
+                v10 = v104;
+                v20 = v96;
+                v21 = v109;
                 goto LABEL_111;
               }
 
               v37 = v32;
-              v127 = 0;
-              v33 = [[BMSiriAssistantSuggestionFeaturesEnvironmentFeaturesHomeGraphStatus alloc] initWithJSONDictionary:v37 error:&v127];
-              v62 = v127;
+              v126 = 0;
+              v33 = [[BMSiriAssistantSuggestionFeaturesEnvironmentFeaturesHomeGraphStatus alloc] initWithJSONDictionary:v37 error:&v126];
+              v62 = v126;
               if (v62)
               {
-                v16 = v121;
+                v16 = v120;
                 if (errorCopy)
                 {
                   v62 = v62;
@@ -989,30 +988,30 @@ LABEL_110:
               {
                 if (!errorCopy)
                 {
-                  v91 = 0;
+                  v90 = 0;
                   v13 = 0;
                   goto LABEL_68;
                 }
 
-                v93 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v89 = *MEMORY[0x1E698F240];
-                v130 = *MEMORY[0x1E696A578];
+                v92 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v88 = *MEMORY[0x1E698F240];
+                v129 = *MEMORY[0x1E696A578];
                 v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"batteryIsCharging"];
-                v131 = v36;
-                v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v131 forKeys:&v130 count:1];
-                v85 = [v93 initWithDomain:v89 code:2 userInfo:v35];
-                v91 = 0;
+                v130 = v36;
+                v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v130 forKeys:&v129 count:1];
+                v84 = [v92 initWithDomain:v88 code:2 userInfo:v35];
+                v90 = 0;
                 v13 = 0;
-                *errorCopy = v85;
+                *errorCopy = v84;
                 goto LABEL_67;
               }
 
-              v91 = v34;
+              v90 = v34;
             }
 
             else
             {
-              v91 = 0;
+              v90 = 0;
             }
 
             v35 = [dictionaryCopy objectForKeyedSubscript:@"isLowBatteryMode"];
@@ -1023,13 +1022,13 @@ LABEL_110:
               {
                 if (errorCopy)
                 {
-                  v90 = objc_alloc(MEMORY[0x1E696ABC0]);
-                  v88 = *MEMORY[0x1E698F240];
-                  v128 = *MEMORY[0x1E696A578];
-                  v86 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isLowBatteryMode"];
-                  v129 = v86;
-                  v87 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v129 forKeys:&v128 count:1];
-                  *errorCopy = [v90 initWithDomain:v88 code:2 userInfo:v87];
+                  v89 = objc_alloc(MEMORY[0x1E696ABC0]);
+                  v87 = *MEMORY[0x1E698F240];
+                  v127 = *MEMORY[0x1E696A578];
+                  v85 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isLowBatteryMode"];
+                  v128 = v85;
+                  v86 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v128 forKeys:&v127 count:1];
+                  *errorCopy = [v89 initWithDomain:v87 code:2 userInfo:v86];
                 }
 
                 v36 = 0;
@@ -1045,54 +1044,54 @@ LABEL_110:
               v36 = 0;
             }
 
-            v13 = -[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures initWithFocusMode:deviceMotion:location:isPlayingMedia:isAirplaneMode:isTimerRunning:isConnectedToWifi:hasInternetConnection:isScreenSharing:audioIsMuted:screenBrightness:homeGraph:batteryIsCharging:isLowBatteryMode:](selfCopy, "initWithFocusMode:deviceMotion:location:isPlayingMedia:isAirplaneMode:isTimerRunning:isConnectedToWifi:hasInternetConnection:isScreenSharing:audioIsMuted:screenBrightness:homeGraph:batteryIsCharging:isLowBatteryMode:", v126, v122, [v121 intValue], v123, v118, v117, v116, v113, v107, v112, v98, v33, v91, v36);
+            v13 = -[BMSiriAssistantSuggestionFeaturesEnvironmentFeatures initWithFocusMode:deviceMotion:location:isPlayingMedia:isAirplaneMode:isTimerRunning:isConnectedToWifi:hasInternetConnection:isScreenSharing:audioIsMuted:screenBrightness:homeGraph:batteryIsCharging:isLowBatteryMode:](selfCopy, "initWithFocusMode:deviceMotion:location:isPlayingMedia:isAirplaneMode:isTimerRunning:isConnectedToWifi:hasInternetConnection:isScreenSharing:audioIsMuted:screenBrightness:homeGraph:batteryIsCharging:isLowBatteryMode:", v125, v121, [v120 intValue], v122, v117, v116, v115, v112, v106, v111, v97, v33, v90, v36);
             selfCopy = v13;
 LABEL_67:
 
-            v27 = v94;
+            v27 = v93;
 LABEL_68:
 
             v37 = v32;
-            v16 = v121;
+            v16 = v120;
             goto LABEL_109;
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v113 = v26;
+            v112 = v26;
             goto LABEL_48;
           }
 
           if (errorCopy)
           {
-            v114 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v102 = v19;
+            v113 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v101 = v19;
             v63 = v10;
             v64 = *MEMORY[0x1E698F240];
-            v140 = *MEMORY[0x1E696A578];
-            v107 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hasInternetConnection"];
-            v141 = v107;
-            v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v141 forKeys:&v140 count:1];
+            v139 = *MEMORY[0x1E696A578];
+            v106 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"hasInternetConnection"];
+            v140 = v106;
+            v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
             v66 = v64;
             v10 = v63;
-            v67 = [v114 initWithDomain:v66 code:2 userInfo:v65];
-            v113 = 0;
+            v67 = [v113 initWithDomain:v66 code:2 userInfo:v65];
+            v112 = 0;
             v13 = 0;
             *errorCopy = v67;
-            v16 = v121;
+            v16 = v120;
             v8 = v22;
             v27 = v65;
-            v19 = v102;
+            v19 = v101;
 LABEL_113:
 
 LABEL_114:
             goto LABEL_115;
           }
 
-          v113 = 0;
+          v112 = 0;
           v13 = 0;
-          v16 = v121;
+          v16 = v120;
 LABEL_127:
           v8 = v22;
           goto LABEL_114;
@@ -1101,69 +1100,69 @@ LABEL_127:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v111 = v7;
+          v110 = v7;
           v22 = v8;
-          v117 = v21;
+          v116 = v21;
           goto LABEL_31;
         }
 
         if (error)
         {
           v47 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v100 = v19;
+          v99 = v19;
           v48 = v10;
           v49 = *MEMORY[0x1E698F240];
-          v144 = *MEMORY[0x1E696A578];
-          v116 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isTimerRunning"];
-          v145 = v116;
-          v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v145 forKeys:&v144 count:1];
+          v143 = *MEMORY[0x1E696A578];
+          v115 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isTimerRunning"];
+          v144 = v115;
+          v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v144 forKeys:&v143 count:1];
           v51 = v49;
           v10 = v48;
-          v19 = v100;
-          v115 = v50;
-          v117 = 0;
+          v19 = v99;
+          v114 = v50;
+          v116 = 0;
           v13 = 0;
           *errorCopy = [v47 initWithDomain:v51 code:2 userInfo:?];
-          v16 = v121;
+          v16 = v120;
 LABEL_115:
 
           goto LABEL_116;
         }
 
-        v117 = 0;
+        v116 = 0;
         v13 = 0;
-        v16 = v121;
+        v16 = v120;
 LABEL_116:
 
-        v9 = v122;
+        v9 = v121;
         goto LABEL_117;
       }
 
       if (error)
       {
-        v119 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v99 = v19;
+        v118 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v98 = v19;
         v42 = v10;
         v43 = *MEMORY[0x1E698F240];
-        v146 = *MEMORY[0x1E696A578];
-        v117 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isAirplaneMode"];
-        v147 = v117;
-        v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v147 forKeys:&v146 count:1];
+        v145 = *MEMORY[0x1E696A578];
+        v116 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isAirplaneMode"];
+        v146 = v116;
+        v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v146 forKeys:&v145 count:1];
         v45 = v43;
         v10 = v42;
-        v19 = v99;
-        v46 = [v119 initWithDomain:v45 code:2 userInfo:v44];
-        v118 = 0;
+        v19 = v98;
+        v46 = [v118 initWithDomain:v45 code:2 userInfo:v44];
+        v117 = 0;
         v13 = 0;
         *error = v46;
         v21 = v44;
-        v16 = v121;
+        v16 = v120;
         goto LABEL_116;
       }
 
-      v118 = 0;
+      v117 = 0;
       v13 = 0;
-      v16 = v121;
+      v16 = v120;
 LABEL_117:
 
       goto LABEL_118;
@@ -1180,10 +1179,10 @@ LABEL_117:
     {
       v14 = objc_alloc(MEMORY[0x1E696ABC0]);
       v15 = *MEMORY[0x1E698F240];
-      v152 = *MEMORY[0x1E696A578];
+      v151 = *MEMORY[0x1E696A578];
       v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"deviceMotion"];
-      v153 = v16;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v153 forKeys:&v152 count:1];
+      v152 = v16;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v152 forKeys:&v151 count:1];
       v18 = v15;
       v10 = v17;
       v9 = 0;
@@ -1206,21 +1205,20 @@ LABEL_120:
   {
     v11 = objc_alloc(MEMORY[0x1E696ABC0]);
     v12 = *MEMORY[0x1E698F240];
-    v154 = *MEMORY[0x1E696A578];
+    v153 = *MEMORY[0x1E696A578];
     v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"focusMode"];
-    v155[0] = v9;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v155 forKeys:&v154 count:1];
-    v126 = 0;
+    v154[0] = v9;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v154 forKeys:&v153 count:1];
+    v125 = 0;
     v13 = 0;
     *error = [v11 initWithDomain:v12 code:2 userInfo:v8];
     goto LABEL_120;
   }
 
-  v126 = 0;
+  v125 = 0;
   v13 = 0;
 LABEL_121:
 
-  v83 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -1246,7 +1244,6 @@ LABEL_121:
     PBDataWriterWriteStringField();
   }
 
-  location = self->_location;
   PBDataWriterWriteUint32Field();
   if (self->_isPlayingMedia)
   {
@@ -1255,43 +1252,36 @@ LABEL_121:
 
   if (self->_hasIsAirplaneMode)
   {
-    isAirplaneMode = self->_isAirplaneMode;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsTimerRunning)
   {
-    isTimerRunning = self->_isTimerRunning;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsConnectedToWifi)
   {
-    isConnectedToWifi = self->_isConnectedToWifi;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasHasInternetConnection)
   {
-    hasInternetConnection = self->_hasInternetConnection;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsScreenSharing)
   {
-    isScreenSharing = self->_isScreenSharing;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasAudioIsMuted)
   {
-    audioIsMuted = self->_audioIsMuted;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasScreenBrightness)
   {
-    screenBrightness = self->_screenBrightness;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1304,13 +1294,11 @@ LABEL_121:
 
   if (self->_hasBatteryIsCharging)
   {
-    batteryIsCharging = self->_batteryIsCharging;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsLowBatteryMode)
   {
-    isLowBatteryMode = self->_isLowBatteryMode;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -2036,88 +2024,84 @@ LABEL_146:
 
 + (id)protoFields
 {
-  v19[14] = *MEMORY[0x1E69E9840];
-  v18 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"focusMode" number:1 type:13 subMessageClass:0];
-  v19[0] = v18;
-  v17 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"deviceMotion" number:2 type:13 subMessageClass:0];
-  v19[1] = v17;
-  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"location" number:3 type:4 subMessageClass:0];
-  v19[2] = v16;
-  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isPlayingMedia" number:4 type:13 subMessageClass:0];
-  v19[3] = v15;
-  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isAirplaneMode" number:5 type:12 subMessageClass:0];
-  v19[4] = v14;
+  v18[14] = *MEMORY[0x1E69E9840];
+  v17 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"focusMode" number:1 type:13 subMessageClass:0];
+  v18[0] = v17;
+  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"deviceMotion" number:2 type:13 subMessageClass:0];
+  v18[1] = v16;
+  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"location" number:3 type:4 subMessageClass:0];
+  v18[2] = v15;
+  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isPlayingMedia" number:4 type:13 subMessageClass:0];
+  v18[3] = v14;
+  v13 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isAirplaneMode" number:5 type:12 subMessageClass:0];
+  v18[4] = v13;
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isTimerRunning" number:6 type:12 subMessageClass:0];
-  v19[5] = v2;
+  v18[5] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isConnectedToWifi" number:7 type:12 subMessageClass:0];
-  v19[6] = v3;
+  v18[6] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"hasInternetConnection" number:8 type:12 subMessageClass:0];
-  v19[7] = v4;
+  v18[7] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isScreenSharing" number:9 type:12 subMessageClass:0];
-  v19[8] = v5;
+  v18[8] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"audioIsMuted" number:10 type:12 subMessageClass:0];
-  v19[9] = v6;
+  v18[9] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"screenBrightness" number:11 type:2 subMessageClass:0];
-  v19[10] = v7;
+  v18[10] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"homeGraph" number:12 type:14 subMessageClass:objc_opt_class()];
-  v19[11] = v8;
+  v18[11] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"batteryIsCharging" number:13 type:12 subMessageClass:0];
-  v19[12] = v9;
+  v18[12] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isLowBatteryMode" number:14 type:12 subMessageClass:0];
-  v19[13] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:14];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v18[13] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:14];
 
   return v11;
 }
 
 + (id)columns
 {
-  v19[14] = *MEMORY[0x1E69E9840];
-  v18 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"focusMode" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
-  v17 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"deviceMotion" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
-  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"location" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
-  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isPlayingMedia" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
+  v18[14] = *MEMORY[0x1E69E9840];
+  v17 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"focusMode" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
+  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"deviceMotion" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
+  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"location" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
+  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isPlayingMedia" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isAirplaneMode" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:12 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isTimerRunning" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:12 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isConnectedToWifi" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:12 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"hasInternetConnection" dataType:0 requestOnly:0 fieldNumber:8 protoDataType:12 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isScreenSharing" dataType:0 requestOnly:0 fieldNumber:9 protoDataType:12 convertedType:0];
-  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"audioIsMuted" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:12 convertedType:0];
+  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"audioIsMuted" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:12 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"screenBrightness" dataType:0 requestOnly:0 fieldNumber:11 protoDataType:2 convertedType:0];
-  v13 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"homeGraph_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_895];
+  v12 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"homeGraph_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_895];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"batteryIsCharging" dataType:0 requestOnly:0 fieldNumber:13 protoDataType:12 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isLowBatteryMode" dataType:0 requestOnly:0 fieldNumber:14 protoDataType:12 convertedType:0];
-  v19[0] = v18;
-  v19[1] = v17;
-  v19[2] = v16;
-  v19[3] = v15;
-  v19[4] = v2;
-  v19[5] = v3;
-  v19[6] = v4;
-  v19[7] = v5;
-  v19[8] = v6;
-  v19[9] = v14;
-  v19[10] = v7;
-  v19[11] = v13;
-  v19[12] = v8;
-  v19[13] = v9;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:14];
+  v18[0] = v17;
+  v18[1] = v16;
+  v18[2] = v15;
+  v18[3] = v14;
+  v18[4] = v2;
+  v18[5] = v3;
+  v18[6] = v4;
+  v18[7] = v5;
+  v18[8] = v6;
+  v18[9] = v13;
+  v18[10] = v7;
+  v18[11] = v12;
+  v18[12] = v8;
+  v18[13] = v9;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:14];
 
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v11;
 }
 
-id __63__BMSiriAssistantSuggestionFeaturesEnvironmentFeatures_columns__block_invoke(uint64_t a1, void *a2)
+id __63__BMSiriAssistantSuggestionFeaturesEnvironmentFeatures_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 homeGraph];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 homeGraph];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

@@ -117,27 +117,25 @@
 
 void __64__ASDStoreKitService_processStoreKitPurchase_withResultHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2112;
-    v12 = v3;
-    v8 = v10;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Error in StoreKit service - %@", &v9, 0x16u);
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 2112;
+    v10 = v3;
+    v6 = v8;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Error in StoreKit service - %@", &v7, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), 0, v3, v5);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __64__ASDStoreKitService_processStoreKitPurchase_withResultHandler___block_invoke_16(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = ASDLogHandleForCategory(13);
   v6 = v5;
@@ -145,13 +143,12 @@ void __64__ASDStoreKitService_processStoreKitPurchase_withResultHandler___block_
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(a1 + 40);
-      *v16 = 138543618;
-      *&v16[4] = objc_opt_class();
-      *&v16[12] = 2112;
-      *&v16[14] = v4;
-      v15 = *&v16[4];
-      _os_log_error_impl(&dword_1B8220000, v6, OS_LOG_TYPE_ERROR, "[%{public}@]: Error processing ASDPurchase with StoreKit service - %@", v16, 0x16u);
+      *v13 = 138543618;
+      *&v13[4] = objc_opt_class();
+      *&v13[12] = 2112;
+      *&v13[14] = v4;
+      v12 = *&v13[4];
+      _os_log_error_impl(&dword_1B8220000, v6, OS_LOG_TYPE_ERROR, "[%{public}@]: Error processing ASDPurchase with StoreKit service - %@", v13, 0x16u);
     }
 
     v7 = [ASDPurchaseResult alloc];
@@ -163,11 +160,10 @@ void __64__ASDStoreKitService_processStoreKitPurchase_withResultHandler___block_
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 40);
-      *v16 = 138543362;
-      *&v16[4] = objc_opt_class();
-      v11 = *&v16[4];
-      _os_log_impl(&dword_1B8220000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@]: StoreKit service finished processing ASDPurchase", v16, 0xCu);
+      *v13 = 138543362;
+      *&v13[4] = objc_opt_class();
+      v10 = *&v13[4];
+      _os_log_impl(&dword_1B8220000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@]: StoreKit service finished processing ASDPurchase", v13, 0xCu);
     }
 
     v7 = [ASDPurchaseResult alloc];
@@ -175,10 +171,8 @@ void __64__ASDStoreKitService_processStoreKitPurchase_withResultHandler___block_
     v9 = 0;
   }
 
-  v12 = [(ASDPurchaseResult *)v7 initWithSuccess:v8 error:v9, *v16, *&v16[16], v17];
+  v11 = [(ASDPurchaseResult *)v7 initWithSuccess:v8 error:v9, *v13, *&v13[8], v14];
   (*(*(a1 + 32) + 16))();
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (void)handleNewTokenFamily:(id)family bundleID:(id)d withReply:(id)reply
@@ -206,42 +200,38 @@ void __64__ASDStoreKitService_processStoreKitPurchase_withResultHandler___block_
 
 void __62__ASDStoreKitService_handleNewTokenFamily_bundleID_withReply___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 40);
-    v10 = 138543618;
-    v11 = objc_opt_class();
-    v12 = 2112;
-    v13 = v3;
-    v9 = v11;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Error in StoreKit service - %@", &v10, 0x16u);
+    v8 = 138543618;
+    v9 = objc_opt_class();
+    v10 = 2112;
+    v11 = v3;
+    v7 = v9;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Error in StoreKit service - %@", &v8, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), v3, v5, v6);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __62__ASDStoreKitService_handleNewTokenFamily_bundleID_withReply___block_invoke_19(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 40);
-    v10 = 138543618;
-    v11 = objc_opt_class();
-    v12 = 2112;
-    v13 = v3;
-    v9 = v11;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to save token family - %@", &v10, 0x16u);
+    v8 = 138543618;
+    v9 = objc_opt_class();
+    v10 = 2112;
+    v11 = v3;
+    v7 = v9;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: Failed to save token family - %@", &v8, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), v3, v5, v6);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)storeKitServiceWithErrorHandler:(id)handler
@@ -306,9 +296,11 @@ uint64_t __54__ASDStoreKitService_storeKitServiceWithErrorHandler___block_invoke
 
 uint64_t __40__ASDStoreKitService__serviceConnection__block_invoke()
 {
-  qword_1ED90D4D8 = objc_alloc_init(MEMORY[0x1E696AD10]);
+  v0 = objc_alloc_init(MEMORY[0x1E696AD10]);
+  v1 = qword_1ED90D4D8;
+  qword_1ED90D4D8 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (void)_serviceConnectionInvalidated

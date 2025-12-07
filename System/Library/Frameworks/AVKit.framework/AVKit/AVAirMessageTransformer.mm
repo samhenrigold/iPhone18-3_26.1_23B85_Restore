@@ -2,6 +2,7 @@
 - (AVAirMessageTransformer)initWithMessageClass:(Class)class;
 - (id)dataForMessage:(id)message;
 - (id)reverseTransformerForMessageData:(id)data;
+- (void)resetState;
 @end
 
 @implementation AVAirMessageTransformer
@@ -97,6 +98,13 @@
 LABEL_11:
 
   return messageDataRepresentation;
+}
+
+- (void)resetState
+{
+  previousUnusedData = self->_previousUnusedData;
+  self->_previousUnusedData = 0;
+  MEMORY[0x1EEE66BB8](self, previousUnusedData);
 }
 
 - (AVAirMessageTransformer)initWithMessageClass:(Class)class

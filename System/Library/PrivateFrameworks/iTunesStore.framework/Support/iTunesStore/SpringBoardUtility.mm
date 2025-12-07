@@ -348,7 +348,7 @@
     path = CPSharedResourcesDirectory();
     if (!path)
     {
-      goto LABEL_20;
+      goto LABEL_21;
     }
 
 LABEL_6:
@@ -356,9 +356,9 @@ LABEL_6:
     v9 = [NSString pathWithComponents:v8];
     if (!v9)
     {
-LABEL_19:
+LABEL_20:
 
-      goto LABEL_20;
+      goto LABEL_21;
     }
 
     v10 = +[SSLogConfig sharedDaemonConfig];
@@ -370,16 +370,21 @@ LABEL_19:
     shouldLog = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v12) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v12) = shouldLog;
     }
 
     oSLogObject = [v10 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
@@ -392,24 +397,24 @@ LABEL_19:
       v21 = v9;
       v14 = v19;
       LODWORD(v17) = 22;
-      v15 = _os_log_send_and_compose_impl();
+      v15 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Removing snapshots at path: %@", &v18, v17);
 
       if (!v15)
       {
-LABEL_18:
+LABEL_19:
 
         v16 = objc_alloc_init(NSFileManager);
         [v16 removeItemAtPath:v9 error:0];
 
-        goto LABEL_19;
+        goto LABEL_20;
       }
 
-      oSLogObject = [NSString stringWithCString:v15 encoding:4, &v18, v17];
+      oSLogObject = [NSString stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog();
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   v5 = objc_autoreleasePoolPush();
@@ -423,7 +428,7 @@ LABEL_18:
     goto LABEL_6;
   }
 
-LABEL_20:
+LABEL_21:
 }
 
 - (void)resetEnabledRemoteNotificationTypes
@@ -451,7 +456,7 @@ LABEL_20:
       [v8 setNumberStyle:1];
       v7 = [v8 stringFromNumber:valueCopy];
 
-      goto LABEL_17;
+      goto LABEL_18;
     }
 
     v9 = +[SSLogConfig sharedDaemonConfig];
@@ -463,50 +468,54 @@ LABEL_20:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
     oSLogObject = [v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-      *v18 = 138412802;
-      *&v18[4] = objc_opt_class();
-      *&v18[12] = 2112;
-      *&v18[14] = identifierCopy;
-      *&v18[22] = 2112;
-      v19 = valueCopy;
-      v13 = *&v18[4];
-      LODWORD(v17) = 32;
-      v14 = _os_log_send_and_compose_impl();
+      v17 = 138412802;
+      v18 = objc_opt_class();
+      v19 = 2112;
+      v20 = identifierCopy;
+      v21 = 2112;
+      v22 = valueCopy;
+      v13 = v18;
+      v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Invalid value type for badge (%@, %@)", &v17, 32);
 
       if (!v14)
       {
-LABEL_16:
+LABEL_17:
 
         v7 = 0;
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      oSLogObject = [NSString stringWithCString:v14 encoding:4, v18, v17, *v18, *&v18[16], v19];
+      oSLogObject = [NSString stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog();
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   v7 = valueCopy;
-LABEL_17:
+LABEL_18:
   v15 = objc_alloc_init(ISSetApplicationBadgeOperation);
   [v15 setBadgeValue:v7];
   [v15 setBundleIdentifier:identifierCopy];
@@ -622,41 +631,45 @@ LABEL_17:
   shouldLog = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
   oSLogObject = [v8 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
 
   if (!v10)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  *v16 = 138412802;
-  *&v16[4] = objc_opt_class();
-  *&v16[12] = 2112;
-  *&v16[14] = v6;
-  *&v16[22] = 2112;
-  v17 = v7;
-  v12 = *&v16[4];
-  LODWORD(v15) = 32;
-  v13 = _os_log_send_and_compose_impl();
+  v15 = 138412802;
+  v16 = objc_opt_class();
+  v17 = 2112;
+  v18 = v6;
+  v19 = 2112;
+  v20 = v7;
+  v12 = v16;
+  v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%@]: SSClient requested to set badge of %@ to '%@'", &v15, 32);
 
   if (v13)
   {
-    oSLogObject = [NSString stringWithCString:v13 encoding:4, v16, v15, *v16, *&v16[16], v17];
+    oSLogObject = [NSString stringWithCString:v13 encoding:4];
     free(v13);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   sharedInstance = [self sharedInstance];
@@ -837,37 +850,41 @@ LABEL_11:
   shouldLog = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
   oSLogObject = [v7 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v16) = 138412290;
-  *(&v16 + 4) = objc_opt_class();
-  v11 = *(&v16 + 4);
-  LODWORD(v15) = 12;
-  v12 = _os_log_send_and_compose_impl();
+  v15 = 138412290;
+  v16 = objc_opt_class();
+  v11 = v16;
+  v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%@] Connection refused because entitlements are missing", &v15, 12);
 
   if (v12)
   {
-    oSLogObject = [NSString stringWithCString:v12 encoding:4, &v16, v15, v16];
+    oSLogObject = [NSString stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   reply = xpc_dictionary_create_reply(messageCopy);
@@ -917,41 +934,45 @@ LABEL_11:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   v7 = objc_opt_class();
   pluginConnection = self->_pluginConnection;
-  *v12 = 138412546;
-  *&v12[4] = v7;
-  *&v12[12] = 2112;
-  *&v12[14] = pluginConnection;
+  v11 = 138412546;
+  v12 = v7;
+  v13 = 2112;
+  v14 = pluginConnection;
   v9 = v7;
-  LODWORD(v11) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Plugin timeout with connection: %@", &v11, 22);
 
   if (v10)
   {
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, v12, v11, *v12, *&v12[16]];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   [(SpringBoardUtility *)self _fireDeferredPluginBlocksWithConnection:self->_pluginConnection];

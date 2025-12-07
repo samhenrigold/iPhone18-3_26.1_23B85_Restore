@@ -71,7 +71,7 @@
 
 - (void)pressesBegan:(id)began withEvent:(id)event
 {
-  sub_1D7992EFC(0, &qword_1EC9E2780);
+  sub_1D7992EFC(0, &qword_1EC9E2780, 0x1E69DCDF0);
   sub_1D7A2F2D4();
   v6 = sub_1D7D309AC();
   eventCopy = event;
@@ -118,9 +118,11 @@
 
 - (void)messageViewController:(id)controller didUpdateSize:(CGSize)size
 {
+  height = size.height;
+  width = size.width;
   controllerCopy = controller;
   selfCopy = self;
-  _s12NewsArticles17TipViewControllerC07messagedE0_9didUpdateySo012AMSUIMessagedE0_So06UIViewE0CXc_So6CGSizeVtF_0();
+  _s12NewsArticles17TipViewControllerC07messagedE0_9didUpdateySo012AMSUIMessagedE0_So06UIViewE0CXc_So6CGSizeVtF_0(controllerCopy, width, height);
 }
 
 - (void)messageViewController:(id)controller didFailWithError:(id)error
@@ -135,7 +137,7 @@
 {
   dismissCopy = dismiss;
   selfCopy = self;
-  _s12NewsArticles17TipViewControllerC07messagedE10DidDismissyySo012AMSUIMessagedE0_So06UIViewE0CXcF_0();
+  _s12NewsArticles17TipViewControllerC07messagedE10DidDismissyySo012AMSUIMessagedE0_So06UIViewE0CXcF_0(dismissCopy);
 }
 
 - (void)presentationControllerDidDismiss:(id)dismiss

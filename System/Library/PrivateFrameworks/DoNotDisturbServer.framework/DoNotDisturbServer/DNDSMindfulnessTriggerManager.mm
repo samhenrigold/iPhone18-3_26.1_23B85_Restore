@@ -32,7 +32,7 @@
 
 - (void)refresh
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ([(DNDSMindfulnessTriggerManager *)self _featureEnabled])
   {
     WeakRetained = objc_loadWeakRetained(&self->_dataSource);
@@ -43,9 +43,9 @@
     v5 = DNDSLogMindfulnessTrigger;
     if (os_log_type_enabled(DNDSLogMindfulnessTrigger, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
-      v9 = v4;
-      _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Updated assertions for mindfulness trigger: mode=%{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v4;
+      _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Updated assertions for mindfulness trigger: mode=%{public}@", &v7, 0xCu);
     }
   }
 
@@ -54,25 +54,23 @@
     v6 = DNDSLogMindfulnessTrigger;
     if (os_log_type_enabled(DNDSLogMindfulnessTrigger, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "No action taken for request to refresh mindfulness trigger; automatic entry not supported", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "No action taken for request to refresh mindfulness trigger; automatic entry not supported", &v7, 2u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshWithMode:(id)mode event:(id)event
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   modeCopy = mode;
   dataSource = [(DNDSMindfulnessTriggerManager *)self dataSource];
   modeIdentifier = [modeCopy modeIdentifier];
 
-  v59 = 0;
-  v10 = [dataSource triggerManager:self assertionsWithClientIdentifer:@"com.apple.donotdisturb.private.mindfulness-trigger" error:&v59];
-  v11 = v59;
+  v58 = 0;
+  v10 = [dataSource triggerManager:self assertionsWithClientIdentifer:@"com.apple.donotdisturb.private.mindfulness-trigger" error:&v58];
+  v11 = v58;
   if (!eventCopy)
   {
     if ([v10 count])
@@ -96,9 +94,9 @@
           v45 = [details2 mutableCopy];
 
           [v45 setModeIdentifier:modeIdentifier];
-          v57 = v11;
-          v46 = [dataSource triggerManager:self takeModeAssertionWithDetails:v45 clientIdentifier:@"com.apple.donotdisturb.private.mindfulness-trigger" error:&v57];
-          v16 = v57;
+          v56 = v11;
+          v46 = [dataSource triggerManager:self takeModeAssertionWithDetails:v45 clientIdentifier:@"com.apple.donotdisturb.private.mindfulness-trigger" error:&v56];
+          v16 = v56;
 
           v47 = DNDSLogMindfulnessTrigger;
           if (os_log_type_enabled(DNDSLogMindfulnessTrigger, OS_LOG_TYPE_DEFAULT))
@@ -107,9 +105,9 @@
             details3 = [v14 details];
             modeIdentifier3 = [details3 modeIdentifier];
             *buf = 138543618;
-            v61 = modeIdentifier;
-            v62 = 2114;
-            v63 = modeIdentifier3;
+            v60 = modeIdentifier;
+            v61 = 2114;
+            v62 = modeIdentifier3;
             _os_log_impl(&dword_24912E000, v48, OS_LOG_TYPE_DEFAULT, "Updating active assertion to new mode identifer for mindfulness session trigger; modeID=%{public}@ previousModeID=%{public}@", buf, 0x16u);
           }
         }
@@ -118,9 +116,9 @@
       else
       {
         uUID = [firstObject UUID];
-        v58 = v11;
-        v39 = [dataSource triggerManager:self invalidateModeAssertionWithUUID:uUID reason:2 reasonOverride:0 clientIdentifier:@"com.apple.donotdisturb.private.mindfulness-trigger" error:&v58];
-        v16 = v58;
+        v57 = v11;
+        v39 = [dataSource triggerManager:self invalidateModeAssertionWithUUID:uUID reason:2 reasonOverride:0 clientIdentifier:@"com.apple.donotdisturb.private.mindfulness-trigger" error:&v57];
+        v16 = v57;
 
         v40 = DNDSLogMindfulnessTrigger;
         if (os_log_type_enabled(DNDSLogMindfulnessTrigger, OS_LOG_TYPE_DEFAULT))
@@ -129,7 +127,7 @@
           details4 = [v14 details];
           modeIdentifier4 = [details4 modeIdentifier];
           *buf = 138543362;
-          v61 = modeIdentifier4;
+          v60 = modeIdentifier4;
           _os_log_impl(&dword_24912E000, v41, OS_LOG_TYPE_DEFAULT, "Invalidating active assertion no mode identifer for mindfulness session trigger; previousModeID=%{public}@", buf, 0xCu);
         }
       }
@@ -153,15 +151,15 @@
         [v14 setIdentifier:@"com.apple.donotdisturb.trigger.mindfulness"];
         [v14 setLifetime:0];
         [v14 setModeIdentifier:modeIdentifier];
-        v56 = v11;
-        v15 = [dataSource triggerManager:self takeModeAssertionWithDetails:v14 clientIdentifier:@"com.apple.donotdisturb.private.mindfulness-trigger" error:&v56];
-        v16 = v56;
+        v55 = v11;
+        v15 = [dataSource triggerManager:self takeModeAssertionWithDetails:v14 clientIdentifier:@"com.apple.donotdisturb.private.mindfulness-trigger" error:&v55];
+        v16 = v55;
 
         v17 = DNDSLogMindfulnessTrigger;
         if (os_log_type_enabled(DNDSLogMindfulnessTrigger, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v61 = modeIdentifier;
+          v60 = modeIdentifier;
           _os_log_impl(&dword_24912E000, v17, OS_LOG_TYPE_DEFAULT, "Acquiring assertion for mindfulness session trigger in response to event; modeID=%{public}@", buf, 0xCu);
         }
 
@@ -175,20 +173,20 @@ LABEL_25:
 
     if ([v10 count])
     {
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __56__DNDSMindfulnessTriggerManager__refreshWithMode_event___block_invoke;
-      v54[3] = &unk_278F8A0B0;
-      v55 = modeIdentifier;
-      v30 = [v10 bs_filter:v54];
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __56__DNDSMindfulnessTriggerManager__refreshWithMode_event___block_invoke;
+      v53[3] = &unk_278F8A0B0;
+      v54 = modeIdentifier;
+      v30 = [v10 bs_filter:v53];
       firstObject2 = [v30 firstObject];
 
       if (firstObject2)
       {
         uUID2 = [firstObject2 UUID];
-        v53 = v11;
-        v33 = [dataSource triggerManager:self invalidateModeAssertionWithUUID:uUID2 reason:3 reasonOverride:0 clientIdentifier:@"com.apple.donotdisturb.private.mindfulness-trigger" error:&v53];
-        v16 = v53;
+        v52 = v11;
+        v33 = [dataSource triggerManager:self invalidateModeAssertionWithUUID:uUID2 reason:3 reasonOverride:0 clientIdentifier:@"com.apple.donotdisturb.private.mindfulness-trigger" error:&v52];
+        v16 = v52;
 
         v34 = DNDSLogMindfulnessTrigger;
         if (os_log_type_enabled(DNDSLogMindfulnessTrigger, OS_LOG_TYPE_DEFAULT))
@@ -197,7 +195,7 @@ LABEL_25:
           details5 = [firstObject2 details];
           modeIdentifier5 = [details5 modeIdentifier];
           *buf = 138543362;
-          v61 = modeIdentifier5;
+          v60 = modeIdentifier5;
           _os_log_impl(&dword_24912E000, v35, OS_LOG_TYPE_DEFAULT, "Invalidating active assertion for mindfulness session trigger in response to event; previousModeID=%{public}@", buf, 0xCu);
         }
       }
@@ -222,9 +220,9 @@ LABEL_19:
 
   firstObject3 = [v10 firstObject];
   uUID3 = [firstObject3 UUID];
-  v52 = v11;
-  v24 = [dataSource triggerManager:self invalidateModeAssertionWithUUID:uUID3 reason:3 reasonOverride:0 clientIdentifier:@"com.apple.donotdisturb.private.mindfulness-trigger" error:&v52];
-  v16 = v52;
+  v51 = v11;
+  v24 = [dataSource triggerManager:self invalidateModeAssertionWithUUID:uUID3 reason:3 reasonOverride:0 clientIdentifier:@"com.apple.donotdisturb.private.mindfulness-trigger" error:&v51];
+  v16 = v51;
 
   v25 = DNDSLogMindfulnessTrigger;
   if (os_log_type_enabled(DNDSLogMindfulnessTrigger, OS_LOG_TYPE_DEFAULT))
@@ -234,13 +232,11 @@ LABEL_19:
     details6 = [firstObject4 details];
     modeIdentifier6 = [details6 modeIdentifier];
     *buf = 138543362;
-    v61 = modeIdentifier6;
+    v60 = modeIdentifier6;
     _os_log_impl(&dword_24912E000, v26, OS_LOG_TYPE_DEFAULT, "Invalidating active assertion for mindfulness session trigger in response to event, trigger is disabled; previousModeID=%{public}@", buf, 0xCu);
   }
 
 LABEL_28:
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__DNDSMindfulnessTriggerManager__refreshWithMode_event___block_invoke(uint64_t a1, void *a2)
@@ -254,7 +250,7 @@ uint64_t __56__DNDSMindfulnessTriggerManager__refreshWithMode_event___block_invo
 
 - (void)_configureTriggerWithMode:(id)mode
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   v5 = [(NSMutableDictionary *)self->_sinks objectForKeyedSubscript:@"system"];
   v6 = v5;
@@ -273,7 +269,7 @@ uint64_t __56__DNDSMindfulnessTriggerManager__refreshWithMode_event___block_invo
     if (os_log_type_enabled(DNDSLogMindfulnessTrigger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v20 = modeCopy;
+      v19 = modeCopy;
       _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Adding biome mindfulness session event monitor; mode=%{public}@", buf, 0xCu);
     }
 
@@ -281,23 +277,21 @@ uint64_t __56__DNDSMindfulnessTriggerManager__refreshWithMode_event___block_invo
     mindfulnessStream = [MEMORY[0x277CF1B58] mindfulnessStream];
     publisher = [mindfulnessStream publisher];
     v11 = [publisher subscribeOn:v8];
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __59__DNDSMindfulnessTriggerManager__configureTriggerWithMode___block_invoke_19;
-    v16 = &unk_278F8AC30;
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __59__DNDSMindfulnessTriggerManager__configureTriggerWithMode___block_invoke_19;
+    v15 = &unk_278F8AC30;
     selfCopy = self;
-    v18 = modeCopy;
-    v6 = [v11 sinkWithCompletion:&__block_literal_global_28 receiveInput:&v13];
+    v17 = modeCopy;
+    v6 = [v11 sinkWithCompletion:&__block_literal_global_28 receiveInput:&v12];
 
-    [(NSMutableDictionary *)self->_sinks setObject:v6 forKeyedSubscript:@"system", v13, v14, v15, v16, selfCopy];
+    [(NSMutableDictionary *)self->_sinks setObject:v6 forKeyedSubscript:@"system", v12, v13, v14, v15, selfCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __59__DNDSMindfulnessTriggerManager__configureTriggerWithMode___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = DNDSLogMindfulnessTrigger;
   if (os_log_type_enabled(DNDSLogMindfulnessTrigger, OS_LOG_TYPE_DEFAULT))
   {
@@ -306,19 +300,17 @@ void __59__DNDSMindfulnessTriggerManager__configureTriggerWithMode___block_invok
     v6 = [v5 state];
     v7 = [v5 error];
 
-    v9 = 134218242;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v7;
-    _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_DEFAULT, "Mindfulness session subscription completed: state=%ld error=%{public}@", &v9, 0x16u);
+    v8 = 134218242;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_DEFAULT, "Mindfulness session subscription completed: state=%ld error=%{public}@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __59__DNDSMindfulnessTriggerManager__configureTriggerWithMode___block_invoke_19(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = DNDSLogMindfulnessTrigger;
   if (os_log_type_enabled(DNDSLogMindfulnessTrigger, OS_LOG_TYPE_DEFAULT))
@@ -336,9 +328,9 @@ void __59__DNDSMindfulnessTriggerManager__configureTriggerWithMode___block_invok
       v8 = off_278F8BB68[v7 - 1];
     }
 
-    v17 = 138543362;
-    v18 = v8;
-    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Received mindfulness session event: eventType=%{public}@", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v8;
+    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Received mindfulness session event: eventType=%{public}@", &v16, 0xCu);
   }
 
   [*(a1 + 32) _refreshWithMode:*(a1 + 40) event:v3];
@@ -369,14 +361,12 @@ void __59__DNDSMindfulnessTriggerManager__configureTriggerWithMode___block_invok
       v15 = off_278F8BB88[v14];
     }
 
-    v17 = 138543618;
-    v18 = v12;
-    v19 = 2114;
-    v20 = v15;
-    _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Updated assertions for mindfulness session event: eventType=%{public}@ sessionType=%{public}@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v12;
+    v18 = 2114;
+    v19 = v15;
+    _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Updated assertions for mindfulness session event: eventType=%{public}@ sessionType=%{public}@", &v16, 0x16u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (DNDSMindfulnessTriggerManagerDataSource)dataSource

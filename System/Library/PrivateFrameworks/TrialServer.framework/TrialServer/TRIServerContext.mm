@@ -12,30 +12,28 @@
 
 - (void)logErrorMetric:(id)metric
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277D73B40] metricWithName:@"server_error" categoricalValue:metric];
   client = [(TRIServerContext *)self client];
   logger = [client logger];
   client2 = [(TRIServerContext *)self client];
   trackingId = [client2 trackingId];
-  v11[0] = v4;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v4;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   [logger logWithTrackingId:trackingId metrics:v9 dimensions:0 trialSystemTelemetry:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logInitErrorWithClient:(id)client message:(id)message
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   clientCopy = client;
   v8 = TRILogCategory_Server();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v11 = 138412290;
-    v12 = messageCopy;
-    _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "%@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = messageCopy;
+    _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "%@", &v10, 0xCu);
   }
 
   v9 = [clientCopy shouldLogAtLevel:50 withPrivacyRadar:54260918];
@@ -43,8 +41,6 @@
   {
     [(TRIServerContext *)self logErrorMetric:messageCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (TRIServerContext)initWithPaths:(id)paths client:(id)client storageManagement:(id)management xpcActivityManagement:(id)activityManagement

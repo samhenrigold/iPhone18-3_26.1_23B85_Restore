@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)routeTypeAsString:(int)string;
 - (int)StringAsRouteType:(id)type;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -12,40 +13,55 @@
 
 @implementation _MRGroupSessionTokenProtobuf
 
+- (id)routeTypeAsString:(int)string
+{
+  if (string < 0xC && ((0xB27u >> string) & 1) != 0)
+  {
+    v4 = off_1E769FEC0[string];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsRouteType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"GroupSessionRouteTypeUnknown"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"GroupSessionRouteTypeCarKit"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"GroupSessionRouteTypeCarPlay"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"GroupSessionRouteTypeSpeaker"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 5;
   }
 
-  else if ([typeCopy isEqualToString:@"GroupSessionRouteTypeHomePod"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 8;
   }
 
-  else if ([typeCopy isEqualToString:@"GroupSessionRouteTypeHomePodMini"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 9;
   }
 
-  else if ([typeCopy isEqualToString:@"GroupSessionRouteTypeAppleTV"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 11;
   }
@@ -134,9 +150,8 @@
     [_MRGroupSessionTokenProtobuf writeTo:];
   }
 
-  v8 = toCopy;
+  v6 = toCopy;
   PBDataWriterWriteDataField();
-  routeType = self->_routeType;
   PBDataWriterWriteInt32Field();
   if (self->_displayName)
   {
@@ -148,24 +163,23 @@
     PBDataWriterWriteStringField();
   }
 
-  v6 = v8;
+  v5 = v6;
   if (self->_sharedSecret)
   {
     PBDataWriterWriteStringField();
-    v6 = v8;
+    v5 = v6;
   }
 
   if (self->_equivalentMediaIdentifier)
   {
     PBDataWriterWriteStringField();
-    v6 = v8;
+    v5 = v6;
   }
 
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    v6 = v8;
+    v5 = v6;
   }
 }
 

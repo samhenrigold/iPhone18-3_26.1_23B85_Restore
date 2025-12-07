@@ -10,12 +10,12 @@
 - (int64_t)warpAndFuseWithCurrDepth:(__CVBuffer *)depth prevDepth:(__CVBuffer *)prevDepth currNormals:(__CVBuffer *)normals prevNormals:(__CVBuffer *)prevNormals opticalFlow:(__CVBuffer *)flow alphaMap:(__CVBuffer *)map depthOutput:(__CVBuffer *)output normalsOutput:(__CVBuffer *)self0;
 - (int64_t)warpAndFuseWithCurrDepth:(__CVBuffer *)depth prevDepth:(__CVBuffer *)prevDepth opticalFlow:(__CVBuffer *)flow alphaMap:(__CVBuffer *)map depthOutput:(__CVBuffer *)output;
 - (int64_t)warpPreviousDepth:(__CVBuffer *)depth intoCurrentDepth:(__CVBuffer *)currentDepth previousConfidence:(__CVBuffer *)confidence intoCurrentConfidence:(__CVBuffer *)currentConfidence usingOpticalFlow:(__CVBuffer *)flow;
-- (uint64_t)warpPreviousDepth:(double)depth intoCurrentDepth:(double)currentDepth previousConfidence:(double)confidence intoCurrentConfidence:(uint64_t)currentConfidence usingPoseDelta:(uint64_t)delta previousCalibration:(uint64_t)calibration currentCalibration:(uint64_t)currentCalibration;
+- (void)warpPreviousDepth:(double)depth intoCurrentDepth:(double)currentDepth previousConfidence:(double)confidence intoCurrentConfidence:(uint64_t)currentConfidence usingPoseDelta:(uint64_t)delta previousCalibration:(uint64_t)calibration currentCalibration:(uint64_t)currentCalibration;
 @end
 
 @implementation ADJasperColorPipeline
 
-- (uint64_t)warpPreviousDepth:(double)depth intoCurrentDepth:(double)currentDepth previousConfidence:(double)confidence intoCurrentConfidence:(uint64_t)currentConfidence usingPoseDelta:(uint64_t)delta previousCalibration:(uint64_t)calibration currentCalibration:(uint64_t)currentCalibration
+- (void)warpPreviousDepth:(double)depth intoCurrentDepth:(double)currentDepth previousConfidence:(double)confidence intoCurrentConfidence:(uint64_t)currentConfidence usingPoseDelta:(uint64_t)delta previousCalibration:(uint64_t)calibration currentCalibration:(uint64_t)currentCalibration
 {
   v18 = a11;
   v19 = a12;
@@ -116,7 +116,7 @@
 
 - (id)LKTTexturesDescriptor
 {
-  +[ADLKTOpticalFlow defaultConfig];
+  objc_msgSend_defaultConfig(ADLKTOpticalFlow, a2);
   prioritization = self->_prioritization;
   v4 = 5;
   if (prioritization != 2)

@@ -286,7 +286,6 @@
   }
 
   MEMORY[0x277D82BD8](obj);
-  *MEMORY[0x277D85DE8];
 }
 
 + (unsigned)getBase:(unsigned int)base

@@ -89,10 +89,10 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  swift_unknownObjectRetain();
-  v3 = NFGFaceGalleryViewController.init(delegate:)();
+  v3 = swift_unknownObjectRetain();
+  v4 = NFGFaceGalleryViewController.init(delegate:)(v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)commonInit
@@ -108,7 +108,7 @@
   v3 = self + OBJC_IVAR___NFGFaceGalleryViewController_task;
   selfCopy = self;
   os_unfair_lock_lock(v3);
-  sub_25B0DD26C(v3 + 1);
+  sub_25B0DD26C(v3 + 1, selfCopy);
   os_unfair_lock_unlock(v3);
 }
 

@@ -8,6 +8,7 @@
 - (BOOL)_hasLocalFrequencyToleranceUpper;
 - (BOOL)_hasNtpAnchorOffsetNsec;
 - (BOOL)_localClockSourceFromNTP;
+- (TSDgPTPLocalClockPort)initWithService:(id)service pid:(int)pid;
 - (int)_localFrequencyStabilityLower;
 - (int)_localFrequencyStabilityUpper;
 - (int)_localFrequencyToleranceLower;
@@ -210,6 +211,32 @@
   v6 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v6;
+}
+
+- (TSDgPTPLocalClockPort)initWithService:(id)service pid:(int)pid
+{
+  v7.receiver = self;
+  v7.super_class = TSDgPTPLocalClockPort;
+  v4 = [(TSDgPTPPort *)&v7 initWithService:service pid:*&pid];
+  v5 = v4;
+  if (v4)
+  {
+    v4->_localOscillatorType = [(TSDgPTPLocalClockPort *)v4 _localOscillatorType];
+    v5->_hasLocalFrequencyToleranceLower = [(TSDgPTPLocalClockPort *)v5 _hasLocalFrequencyToleranceLower];
+    v5->_localFrequencyToleranceLower = [(TSDgPTPLocalClockPort *)v5 _localFrequencyToleranceLower];
+    v5->_hasLocalFrequencyToleranceUpper = [(TSDgPTPLocalClockPort *)v5 _hasLocalFrequencyToleranceUpper];
+    v5->_localFrequencyToleranceUpper = [(TSDgPTPLocalClockPort *)v5 _localFrequencyToleranceUpper];
+    v5->_hasLocalFrequencyStabilityLower = [(TSDgPTPLocalClockPort *)v5 _hasLocalFrequencyStabilityLower];
+    v5->_localFrequencyStabilityLower = [(TSDgPTPLocalClockPort *)v5 _localFrequencyStabilityLower];
+    v5->_hasLocalFrequencyStabilityUpper = [(TSDgPTPLocalClockPort *)v5 _hasLocalFrequencyStabilityUpper];
+    v5->_localFrequencyStabilityUpper = [(TSDgPTPLocalClockPort *)v5 _localFrequencyStabilityUpper];
+    v5->_hasNtpAnchorOffsetNsec = [(TSDgPTPLocalClockPort *)v5 _hasNtpAnchorOffsetNsec];
+    v5->_ntpAnchorOffsetNsec = [(TSDgPTPLocalClockPort *)v5 _ntpAnchorOffsetNsec];
+    v5->_hasLocalClockSourceFromNTP = [(TSDgPTPLocalClockPort *)v5 _hasLocalClockSourceFromNTP];
+    v5->_localClockSourceFromNTP = [(TSDgPTPLocalClockPort *)v5 _localClockSourceFromNTP];
+  }
+
+  return v5;
 }
 
 + (id)diagnosticInfoForService:(id)service

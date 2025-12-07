@@ -9,6 +9,7 @@
 - (void)_submit;
 - (void)_submitDailyUpdateForAccessory:(id)accessory withTransportReport:(id)report;
 - (void)_submitForAccessory:(id)accessory;
+- (void)_submitForAccessory:(id)accessory withTransportReport:(id)report reachable:(BOOL)reachable changed:(BOOL)changed;
 - (void)configure;
 - (void)handlePrimaryResidentUpdatedNotification:(id)notification;
 - (void)runDailyTask;
@@ -46,22 +47,20 @@
 
 uint64_t __62__HMDAccessoryReachabilityChangedLogEventManager_runDailyTask__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@action=submit reason=periodic", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@action=submit reason=periodic", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _submit];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _submit];
 }
 
 - (void)handlePrimaryResidentUpdatedNotification:(id)notification
@@ -77,7 +76,7 @@ uint64_t __62__HMDAccessoryReachabilityChangedLogEventManager_runDailyTask__bloc
 
 uint64_t __91__HMDAccessoryReachabilityChangedLogEventManager_handlePrimaryResidentUpdatedNotification___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) home];
   v3 = [v2 isCurrentDeviceConfirmedPrimaryResident];
 
@@ -90,13 +89,13 @@ uint64_t __91__HMDAccessoryReachabilityChangedLogEventManager_handlePrimaryResid
     if (v7)
     {
       v8 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@action=enable reason=primary", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v8;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@action=enable reason=primary", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
-    result = [*(a1 + 32) _enable];
+    return [*(a1 + 32) _enable];
   }
 
   else
@@ -104,17 +103,14 @@ uint64_t __91__HMDAccessoryReachabilityChangedLogEventManager_handlePrimaryResid
     if (v7)
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@action=disable reason=not_primary", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@action=disable reason=not_primary", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
-    result = [*(a1 + 32) _disable];
+    return [*(a1 + 32) _disable];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)_disable
@@ -228,6 +224,57 @@ void __56__HMDAccessoryReachabilityChangedLogEventManager__reset__block_invoke_2
   -[HMDAccessoryReachabilityChangedLogEventManager _submitForAccessory:withTransportReport:reachable:changed:](self, "_submitForAccessory:withTransportReport:reachable:changed:", accessoryCopy, reportCopy, [accessoryCopy isReachable], 0);
 }
 
+- (void)_submitForAccessory:(id)accessory withTransportReport:(id)report reachable:(BOOL)reachable changed:(BOOL)changed
+{
+  changedCopy = changed;
+  reachableCopy = reachable;
+  accessoryCopy = accessory;
+  reportCopy = report;
+  if (accessoryCopy && reportCopy && self->_enabled)
+  {
+    transportReachabilityChangeDatesByUUID = self->_transportReachabilityChangeDatesByUUID;
+    uuid = [accessoryCopy uuid];
+    v13 = [(NSMutableDictionary *)transportReachabilityChangeDatesByUUID objectForKeyedSubscript:uuid];
+    linkType = [reportCopy linkType];
+    v15 = [v13 objectForKeyedSubscript:linkType];
+
+    if (!v15)
+    {
+      reachableLastChangedTime = [reportCopy reachableLastChangedTime];
+      if (!reachableLastChangedTime)
+      {
+        goto LABEL_10;
+      }
+
+      v15 = reachableLastChangedTime;
+    }
+
+    v17 = [MEMORY[0x277CBEAA8] now];
+    [v17 timeIntervalSinceDate:v15];
+    v19 = v18;
+    v20 = self->_transportReachabilityChangeDatesByUUID;
+    uuid2 = [accessoryCopy uuid];
+    v22 = [(NSMutableDictionary *)v20 objectForKeyedSubscript:uuid2];
+
+    if (!v22)
+    {
+      v22 = objc_opt_new();
+      v23 = self->_transportReachabilityChangeDatesByUUID;
+      uuid3 = [accessoryCopy uuid];
+      [(NSMutableDictionary *)v23 setObject:v22 forKeyedSubscript:uuid3];
+    }
+
+    linkType2 = [reportCopy linkType];
+    [v22 setObject:v17 forKeyedSubscript:linkType2];
+
+    v26 = [HMDAccessoryReachabilityChangedLogEvent eventWithReachable:reachableCopy changed:changedCopy duration:accessoryCopy accessory:reportCopy transportReport:v19];
+    logEventSubmitter = [(HMDAccessoryReachabilityChangedLogEventManager *)self logEventSubmitter];
+    [logEventSubmitter submitLogEvent:v26 error:0];
+  }
+
+LABEL_10:
+}
+
 - (void)submitForAccessory:(id)accessory withTransportReport:(id)report reachable:(BOOL)reachable
 {
   accessoryCopy = accessory;
@@ -294,10 +341,9 @@ void __56__HMDAccessoryReachabilityChangedLogEventManager__reset__block_invoke_2
 
 void __61__HMDAccessoryReachabilityChangedLogEventManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_41730;
-  logCategory__hmf_once_v4_41730 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_41730;
+  logCategory__hmf_once_v4_41730 = v0;
 }
 
 @end

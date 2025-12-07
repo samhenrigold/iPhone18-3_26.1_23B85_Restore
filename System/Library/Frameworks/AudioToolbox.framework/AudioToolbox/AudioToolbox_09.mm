@@ -1,3 +1,120 @@
+void std::vector<float>::shrink_to_fit(const void **a1)
+{
+  v1 = a1[1];
+  v2 = *a1;
+  v3 = a1[2] - *a1;
+  v4 = v1 - *a1;
+  if (v3 > v4)
+  {
+    if (v1 != v2)
+    {
+      std::allocator<float>::allocate_at_least[abi:ne200100](a1, v4 >> 2);
+    }
+
+    v6 = 0;
+    if (v3 >> 2)
+    {
+      v7 = 4 * (v4 >> 2);
+      v8 = a1[1] - v2;
+      v9 = v7 - v8;
+      memcpy((v7 - v8), v2, v8);
+      v6 = *a1;
+      *a1 = v9;
+      a1[1] = v7;
+      a1[2] = 0;
+    }
+
+    if (v6)
+    {
+
+      operator delete(v6);
+    }
+  }
+}
+
+void std::vector<PPUtils::SphericalCoordinateTree::sphericalCoordinateBranch>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      do
+      {
+        v4 -= 7;
+        std::__destroy_at[abi:ne200100]<PPUtils::SphericalCoordinateTree::sphericalCoordinateBranch,0>(v4);
+      }
+
+      while (v4 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+void std::__destroy_at[abi:ne200100]<PPUtils::SphericalCoordinateTree::sphericalCoordinateBranch,0>(void *a1)
+{
+  v2 = a1[4];
+  if (v2)
+  {
+    a1[5] = v2;
+    operator delete(v2);
+  }
+
+  v3 = a1[1];
+  if (v3)
+  {
+    a1[2] = v3;
+
+    operator delete(v3);
+  }
+}
+
+float32x2_t PPUtils::applyFrontWarping(uint64_t *a1, uint64_t a2, float32x2_t result)
+{
+  if (result.f32[0] <= 0.01)
+  {
+    v7 = *a1;
+    *(a2 + 8) = *(a1 + 2);
+    *a2 = v7;
+    return result;
+  }
+
+  v3 = ((1.0 - result.f32[0]) * *a1) + result.f32[0];
+  v4 = vmla_n_f32(vmul_n_f32(*(a1 + 4), 1.0 - result.f32[0]), 0, result.f32[0]);
+  v5 = fmaxf(fabsf(v3), fmaxf(fabsf(v4.f32[0]), fabsf(v4.f32[1])));
+  if (v5 <= 1.8447e19)
+  {
+    v8 = v5 < 5.421e-20;
+    v9 = 1.0;
+    if (!v8)
+    {
+      goto LABEL_9;
+    }
+
+    v6 = 1769996288;
+  }
+
+  else
+  {
+    v6 = 360710144;
+  }
+
+  v9 = *&v6;
+LABEL_9:
+  v10 = 1.0 / (sqrtf((((v4.f32[0] * v9) * (v4.f32[0] * v9)) + ((v3 * v9) * (v3 * v9))) + ((v4.f32[1] * v9) * (v4.f32[1] * v9))) / v9);
+  *a2 = v3 * v10;
+  result = vmul_n_f32(v4, v10);
+  *(a2 + 4) = result;
+  return result;
+}
+
 void PPUtils::applyTranslation(const float *__X, float32x2_t *a2, float32x2_t *a3, float *a4)
 {
   if (cblas_sasum(3, __X, 1) <= 0.01)
@@ -84,7 +201,7 @@ void PPUtils::applyRotation(const float *__X, uint64_t *a2, uint64_t a3)
   }
 }
 
-void *std::vector<unsigned int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned int>::vector[abi:ne200100](uint64_t *result, unint64_t a2)
 {
   *result = 0;
   result[1] = 0;
@@ -2390,11 +2507,11 @@ uint64_t std::vector<PPUtils::SphericalCoordinateTree::sphericalCoordinateBranch
     *(v13 + 8) = 0;
     *(v12 + 16) = 0;
     *(v12 + 24) = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v13 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v13 + 8), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
     *(v12 + 32) = 0;
     *(v12 + 40) = 0;
     *(v12 + 48) = 0;
-    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v12 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 2);
+    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>((v12 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 2);
     *&v24 = v24 + 56;
     v14 = *a1;
     v15 = a1[1];
@@ -2455,11 +2572,11 @@ uint64_t std::vector<PPUtils::SphericalCoordinateTree::sphericalCoordinateBranch
     *(v5 + 8) = 0;
     *(v5 + 16) = 0;
     *(v5 + 24) = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v5 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v5 + 8), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
     *(v5 + 32) = 0;
     *(v5 + 40) = 0;
     *(v5 + 48) = 0;
-    result = std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v5 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 2);
+    result = std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>((v5 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 2);
     v7 = v5 + 56;
     a1[1] = v5 + 56;
   }
@@ -2531,7 +2648,7 @@ void std::allocator<std::vector<unsigned int>>::allocate_at_least[abi:ne200100](
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6765,7 +6882,7 @@ void applesauce::CF::StringRef::~StringRef(const void **this)
   }
 }
 
-_BYTE *applesauce::CF::convert_to<std::string,0>(_BYTE *a1, const __CFString *a2)
+void *applesauce::CF::convert_to<std::string,0>(uint64_t a1, const __CFString *a2)
 {
   if (!a2 || (TypeID = CFStringGetTypeID(), TypeID != CFGetTypeID(a2)))
   {
@@ -6807,7 +6924,7 @@ void sub_1DDC286C8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_BYTE *applesauce::CF::details::CFString_get_value<true>(_BYTE *a1, CFStringRef theString)
+void *applesauce::CF::details::CFString_get_value<true>(uint64_t a1, CFStringRef theString)
 {
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
   if (CStringPtr)
@@ -6834,14 +6951,14 @@ _BYTE *applesauce::CF::details::CFString_get_value<true>(_BYTE *a1, CFStringRef 
       operator new();
     }
 
-    a1[23] = maxBufLen;
+    *(a1 + 23) = maxBufLen;
     if (v7)
     {
       bzero(a1, v7);
     }
 
-    a1[v7] = 0;
-    if (a1[23] >= 0)
+    *(a1 + v7) = 0;
+    if (*(a1 + 23) >= 0)
     {
       v8 = a1;
     }
@@ -10514,7 +10631,7 @@ LABEL_375:
   }
 
   v313 = v309 + (v312 * v310);
-  v314 = &unk_1DE095000;
+  v314 = &DspLib::AmbienceLeveler::kMusicTargetSpectrum[2038];
   v315 = &unk_1DE09A000;
   if (v313 <= v309)
   {
@@ -10733,7 +10850,7 @@ LABEL_424:
           }
 
           while (v340 != v339);
-          v314 = &unk_1DE095000;
+          v314 = DspLib::AmbienceLeveler::kMusicTargetSpectrum + 8152;
           v315 = &unk_1DE09A000;
         }
 
@@ -10763,7 +10880,7 @@ LABEL_424:
 LABEL_444:
   v360 = v387 + *(this + 180);
   v361 = v315[82];
-  v362 = v314[60];
+  v362 = *(v314 + 60);
   if (v360 >= v388)
   {
     v363 = v360 * v362 + v388 * v361;

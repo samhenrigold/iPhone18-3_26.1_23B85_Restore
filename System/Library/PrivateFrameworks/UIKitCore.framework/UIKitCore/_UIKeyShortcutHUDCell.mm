@@ -158,7 +158,7 @@
 
   if ([stateCopy drawsBackground])
   {
-    v6 = +[UIColor blackColor];
+    v6 = objc_msgSend_blackColor(UIColor);
 LABEL_3:
     v7 = +[UIColor clearColor];
 LABEL_4:
@@ -170,7 +170,7 @@ LABEL_5:
   }
 
   v9 = [(_UIKeyShortcutHUDCell *)self _backgroundStyleForState:stateCopy];
-  v6 = +[UIColor blackColor];
+  v6 = objc_msgSend_blackColor(UIColor);
   if (v9 > 1)
   {
     if (v9 == 2)

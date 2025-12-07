@@ -92,14 +92,14 @@ LABEL_20:
     {
       v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.png", templateImageName];
       [v8 URLByAppendingPathComponent:v18];
-      v19 = v48 = _assetManager;
+      v19 = v49 = _assetManager;
 
       v20 = MEMORY[0x1E69DCAB8];
       path = [v19 path];
       imageData = [v20 imageWithContentsOfFile:path];
 
       v10 = 0x1E69D4000;
-      _assetManager = v48;
+      _assetManager = v49;
     }
 
     sbh_image = imageData;
@@ -122,74 +122,74 @@ LABEL_20:
     [mainScreen scale];
     v26 = v25;
 
-    v27 = _assetManager;
+    v28 = _assetManager;
     if (dataType == 1)
     {
-      v42 = SBLogIcon();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v43 = SBLogIcon(v27);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        [SBSApplicationShortcutItem(SBHAdditions) sb_buildIconImageWithApplicationBundleURL:v42 image:? systemImageName:?];
+        [SBSApplicationShortcutItem(SBHAdditions) sb_buildIconImageWithApplicationBundleURL:v43 image:? systemImageName:?];
       }
     }
 
     else if (!dataType)
     {
-      v28 = [MEMORY[0x1E69DCAB8] imageWithData:imageData scale:v26];
+      v29 = [MEMORY[0x1E69DCAB8] imageWithData:imageData scale:v26];
 LABEL_49:
       if ([templateImageName isTemplate])
       {
-        v43 = 2;
+        v44 = 2;
       }
 
       else
       {
-        v43 = 1;
+        v44 = 1;
       }
 
-      v15 = [v28 imageWithRenderingMode:v43];
+      v15 = [v29 imageWithRenderingMode:v44];
 
-      _assetManager = v27;
+      _assetManager = v28;
       v10 = 0x1E69D4000;
       goto LABEL_21;
     }
 
-    v28 = 0;
+    v29 = 0;
     goto LABEL_49;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v32 = icon;
+    v33 = icon;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __108__SBSApplicationShortcutItem_SBHAdditions__sb_buildIconImageWithApplicationBundleURL_image_systemImageName___block_invoke;
     aBlock[3] = &unk_1E808C920;
-    v51 = v32;
-    v33 = _Block_copy(aBlock);
+    v52 = v33;
+    v34 = _Block_copy(aBlock);
     _lightMonogrammer = [self _lightMonogrammer];
-    v45 = v33;
-    v47 = (*(v33 + 2))(v33, _lightMonogrammer);
+    v46 = v34;
+    v48 = (*(v34 + 2))(v34, _lightMonogrammer);
 
-    v35 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:0];
-    imageConfiguration = [v35 imageConfiguration];
+    v36 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:0];
+    imageConfiguration = [v36 imageConfiguration];
 
     _darkMonogrammer = [self _darkMonogrammer];
-    v44 = (*(v33 + 2))(v33, _darkMonogrammer);
+    v45 = (*(v34 + 2))(v34, _darkMonogrammer);
 
-    v37 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:2];
-    [v37 imageConfiguration];
-    v38 = v49 = _assetManager;
+    v38 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:2];
+    [v38 imageConfiguration];
+    v39 = v50 = _assetManager;
 
-    v39 = objc_alloc_init(MEMORY[0x1E69DCAC0]);
-    [v39 registerImage:v47 withConfiguration:imageConfiguration];
-    [v39 registerImage:v44 withConfiguration:v38];
-    v40 = objc_alloc_init(MEMORY[0x1E69DD1B8]);
-    imageConfiguration2 = [v40 imageConfiguration];
-    v15 = [v39 imageWithConfiguration:imageConfiguration2];
+    v40 = objc_alloc_init(MEMORY[0x1E69DCAC0]);
+    [v40 registerImage:v48 withConfiguration:imageConfiguration];
+    [v40 registerImage:v45 withConfiguration:v39];
+    v41 = objc_alloc_init(MEMORY[0x1E69DD1B8]);
+    imageConfiguration2 = [v41 imageConfiguration];
+    v15 = [v40 imageWithConfiguration:imageConfiguration2];
 
     v10 = 0x1E69D4000;
-    _assetManager = v49;
+    _assetManager = v50;
   }
 
   else
@@ -229,7 +229,7 @@ LABEL_23:
       }
 
 LABEL_34:
-      v30 = v15;
+      v31 = v15;
       *a4 = v15;
       goto LABEL_35;
     }
@@ -244,7 +244,7 @@ LABEL_34:
 LABEL_35:
   if (a5)
   {
-    v31 = systemImageName;
+    v32 = systemImageName;
     *a5 = systemImageName;
   }
 }

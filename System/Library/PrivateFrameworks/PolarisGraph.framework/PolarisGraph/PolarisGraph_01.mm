@@ -1,42 +1,3 @@
-void std::vector<PSTask * {__strong}>::__swap_out_circular_buffer(uint64_t a1, void *a2)
-{
-  v5 = *a1;
-  v4 = *(a1 + 8);
-  v6 = a2[1] + *a1 - v4;
-  if (v4 != *a1)
-  {
-    v7 = *a1;
-    v8 = (a2[1] + *a1 - v4);
-    do
-    {
-      v9 = *v7;
-      *v7++ = 0;
-      *v8++ = v9;
-    }
-
-    while (v7 != v4);
-    do
-    {
-      v10 = *v5++;
-    }
-
-    while (v5 != v4);
-  }
-
-  a2[1] = v6;
-  v11 = *a1;
-  *a1 = v6;
-  *(a1 + 8) = v11;
-  a2[1] = v11;
-  v12 = *(a1 + 8);
-  *(a1 + 8) = a2[2];
-  a2[2] = v12;
-  v13 = *(a1 + 16);
-  *(a1 + 16) = a2[3];
-  a2[3] = v13;
-  *a2 = a2[1];
-}
-
 void std::__allocate_at_least[abi:nn200100]<std::allocator<PSTask * {__strong}>>(uint64_t a1, unint64_t a2)
 {
   if (!(a2 >> 61))
@@ -65,7 +26,7 @@ uint64_t std::__split_buffer<PSTask * {__strong}>::~__split_buffer(uint64_t a1)
 
 void *std::__function::__value_func<void ()(PSTask *)>::swap[abi:nn200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -75,15 +36,15 @@ void *std::__function::__value_func<void ()(PSTask *)>::swap[abi:nn200100](void 
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -111,7 +72,6 @@ void *std::__function::__value_func<void ()(PSTask *)>::swap[abi:nn200100](void 
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -125,48 +85,48 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<ps_resource_array *>>
   std::vector<ps_resource>::__throw_length_error[abi:nn200100]();
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,ps_resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ps_resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ps_resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ps_resource *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ps_resource *>>(void *a1, uint64_t a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,ps_resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ps_resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ps_resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ps_resource *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ps_resource *>>(void *a1, unsigned __int8 *a2, uint64_t a3)
 {
-  v2 = a2;
-  v4 = *(a2 + 8);
-  if (*(a2 + 23) >= 0)
+  v3 = a2;
+  v5 = *(a2 + 1);
+  if ((a2[23] & 0x80u) == 0)
   {
-    v5 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
     a2 = *a2;
-    v5 = v4;
+    v6 = v5;
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v16, a2, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
+  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v17, a2, v6);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_21;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  v10 = v9.u32[0];
-  if (v9.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v11 = v6;
-    if (v6 >= *&v8)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v11 = v6 % *&v8;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v11 = (*&v8 - 1) & v6;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v12 = *(*a1 + 8 * v11);
-  if (!v12 || (v13 = *v12) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_21:
     std::__hash_table<std::__hash_value_type<std::string,ps_resource *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ps_resource *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ps_resource *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ps_resource *>>>::__construct_node_hash<std::pair<std::string const,ps_resource *>>();
@@ -174,44 +134,44 @@ LABEL_21:
 
   while (1)
   {
-    v14 = v13[1];
-    if (v14 == v7)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v10 > 1)
+    if (v11 > 1)
     {
-      if (v14 >= *&v8)
+      if (v15 >= *&v9)
       {
-        v14 %= *&v8;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v14 &= *&v8 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v14 != v11)
+    if (v15 != v12)
     {
       goto LABEL_21;
     }
 
 LABEL_20:
-    v13 = *v13;
-    if (!v13)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_21;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](a1, v13 + 2, v2))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](a1, v14 + 2, v3))
   {
     goto LABEL_20;
   }
 
-  return v13;
+  return v14;
 }
 
 void sub_25ECA8518(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -249,16 +209,16 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-id __PSGraphLogSharedInstance()
+id __PSGraphLogSharedInstance(uint64_t a1)
 {
   if (__PSGraphLogSharedInstance_onceToken != -1)
   {
     __PSGraphLogSharedInstance_cold_1();
   }
 
-  v1 = sharedInstance_0;
+  v2 = sharedInstance_0;
 
-  return v1;
+  return v2;
 }
 
 double __ps_public_util_get_mach_time_factor_block_invoke()
@@ -294,29 +254,23 @@ unint64_t ps_public_util_mach_time_to_ns(unint64_t a1)
 
 uint64_t ps_public_util_get_mct_mat_delta()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   times = mach_get_times();
-  if (times)
+  if (!times)
   {
-    v1 = times;
-    v2 = __PSGraphLogSharedInstance();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 67109120;
-      v6 = v1;
-      _os_log_impl(&dword_25EC85000, v2, OS_LOG_TYPE_ERROR, "Failed to get mach time delta (MCT - MAT) with kr %d", buf, 8u);
-    }
-
-    result = 0;
+    return 0;
   }
 
-  else
+  v1 = times;
+  v2 = __PSGraphLogSharedInstance(times);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    result = 0;
+    *buf = 67109120;
+    v5 = v1;
+    _os_log_impl(&dword_25EC85000, v2, OS_LOG_TYPE_ERROR, "Failed to get mach time delta (MCT - MAT) with kr %d", buf, 8u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t ps_public_util_spu_to_AP_time(uint64_t a1, void *a2)
@@ -347,16 +301,16 @@ uint64_t ps_public_util_spu_to_AP_time(uint64_t a1, void *a2)
 void ps_resource_stream_provider_representation_cold_1(char **a1, int a2)
 {
   *a1 = 0;
-  asprintf(a1, "Unexpected stream provider type found: %d", a2);
-  v4 = __PSGraphLogSharedInstance();
+  v3 = asprintf(a1, "Unexpected stream provider type found: %d", a2);
+  v4 = __PSGraphLogSharedInstance(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315650;
-    v10 = "ps_resource_stream_provider_representation";
-    v11 = 1024;
-    v12 = 61;
-    v13 = 1024;
-    v14 = a2;
+    v9 = "ps_resource_stream_provider_representation";
+    v10 = 1024;
+    v11 = 61;
+    v12 = 1024;
+    v13 = a2;
     _os_log_impl(&dword_25EC85000, v4, OS_LOG_TYPE_FAULT, "%s:%d Unexpected stream provider type found: %d", buf, 0x18u);
   }
 
@@ -364,13 +318,13 @@ void ps_resource_stream_provider_representation_cold_1(char **a1, int a2)
   if (v5)
   {
     v6 = v5;
-    v7 = __PSGraphLogSharedInstance();
+    v7 = __PSGraphLogSharedInstance(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v10 = "ps_resource_stream_provider_representation";
-      v11 = 1024;
-      v12 = v6;
+      v9 = "ps_resource_stream_provider_representation";
+      v10 = 1024;
+      v11 = v6;
       _os_log_impl(&dword_25EC85000, v7, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
@@ -380,32 +334,33 @@ void ps_resource_stream_provider_representation_cold_1(char **a1, int a2)
     usleep(0x1E8480u);
   }
 
-  v8 = *a1;
   abort_with_reason();
   +[PSStreamDomain msgDomain];
 }
 
 uint64_t ps_graph_populate_sync_data_cold_1(char **a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "sync_context is null");
-  v2 = __PSGraphLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "sync_context is null");
+  v3 = __PSGraphLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    v16 = "ps_graph_populate_sync_data";
-    v17 = 1024;
-    v18 = 2089;
-    OUTLINED_FUNCTION_2(&dword_25EC85000, v3, v4, "%s:%d sync_context is null", v5, v6, v7, v8, 2u);
+    *v17 = 136315394;
+    *&v17[4] = "ps_graph_populate_sync_data";
+    *&v17[12] = 1024;
+    *&v17[14] = 2089;
+    OUTLINED_FUNCTION_2(&dword_25EC85000, v4, v5, "%s:%d sync_context is null", v6, v7, v8, v9, *v17, *&v17[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PSGraphLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PSGraphLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_7();
-      OUTLINED_FUNCTION_1(&dword_25EC85000, v10, v11, "%s() failed to flush buffers with error code: %d", &v15);
+      OUTLINED_FUNCTION_1(&dword_25EC85000, v12, v13, "%s() failed to flush buffers with error code: %d", v17);
     }
   }
 
@@ -414,35 +369,35 @@ uint64_t ps_graph_populate_sync_data_cold_1(char **a1)
     OUTLINED_FUNCTION_4();
   }
 
-  v12 = OUTLINED_FUNCTION_0();
-  return ps_graph_sync_data_get_timestamp_cold_1(v12, v13);
+  v14 = OUTLINED_FUNCTION_0();
+  return ps_graph_sync_data_get_timestamp_cold_1(v14, v15);
 }
 
 uint64_t ps_graph_sync_data_get_timestamp_cold_1(char **a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "index %zu out of bounds", a2);
-  v4 = __PSGraphLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
+  v4 = asprintf(a1, "index %zu out of bounds", a2);
+  v5 = __PSGraphLogSharedInstance(v4);
+  if (OUTLINED_FUNCTION_5(v5))
   {
     OUTLINED_FUNCTION_8();
-    v21 = 2097;
-    v22 = 2048;
-    v23 = a2;
-    OUTLINED_FUNCTION_3(&dword_25EC85000, v5, v6, "%s:%d index %zu out of bounds", v7, v8, v9, v10, v18, v19, v20[0]);
+    v22 = 2097;
+    v23 = 2048;
+    v24 = a2;
+    OUTLINED_FUNCTION_3(&dword_25EC85000, v6, v7, "%s:%d index %zu out of bounds", v8, v9, v10, v11, v19, v20);
   }
 
-  v11 = OSLogFlushBuffers();
-  if (v11)
+  v12 = OSLogFlushBuffers();
+  if (v12)
   {
-    v12 = v11;
-    v13 = __PSGraphLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v13 = v12;
+    v14 = __PSGraphLogSharedInstance(v12);
+    if (OUTLINED_FUNCTION_6(v14))
     {
       OUTLINED_FUNCTION_8();
-      v21 = v12;
-      OUTLINED_FUNCTION_1(&dword_25EC85000, v14, v15, "%s() failed to flush buffers with error code: %d", v20);
+      v22 = v13;
+      OUTLINED_FUNCTION_1(&dword_25EC85000, v15, v16, "%s() failed to flush buffers with error code: %d", v21);
     }
   }
 
@@ -451,31 +406,33 @@ uint64_t ps_graph_sync_data_get_timestamp_cold_1(char **a1, uint64_t a2)
     OUTLINED_FUNCTION_4();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_graph_sync_data_get_timestamp_cold_2(v16);
+  v17 = OUTLINED_FUNCTION_0();
+  return ps_graph_sync_data_get_timestamp_cold_2(v17);
 }
 
 uint64_t ps_graph_sync_data_get_timestamp_cold_2(char **a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "sync_context is null");
-  v2 = __PSGraphLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "sync_context is null");
+  v3 = __PSGraphLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    v16 = "ps_graph_sync_data_get_timestamp";
-    v17 = 1024;
-    v18 = 2096;
-    OUTLINED_FUNCTION_2(&dword_25EC85000, v3, v4, "%s:%d sync_context is null", v5, v6, v7, v8, 2u);
+    *v17 = 136315394;
+    *&v17[4] = "ps_graph_sync_data_get_timestamp";
+    *&v17[12] = 1024;
+    *&v17[14] = 2096;
+    OUTLINED_FUNCTION_2(&dword_25EC85000, v4, v5, "%s:%d sync_context is null", v6, v7, v8, v9, *v17, *&v17[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PSGraphLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PSGraphLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_7();
-      OUTLINED_FUNCTION_1(&dword_25EC85000, v10, v11, "%s() failed to flush buffers with error code: %d", &v15);
+      OUTLINED_FUNCTION_1(&dword_25EC85000, v12, v13, "%s() failed to flush buffers with error code: %d", v17);
     }
   }
 
@@ -484,35 +441,35 @@ uint64_t ps_graph_sync_data_get_timestamp_cold_2(char **a1)
     OUTLINED_FUNCTION_4();
   }
 
-  v12 = OUTLINED_FUNCTION_0();
-  return ps_graph_sync_data_get_virtual_frameid_cold_1(v12, v13);
+  v14 = OUTLINED_FUNCTION_0();
+  return ps_graph_sync_data_get_virtual_frameid_cold_1(v14, v15);
 }
 
 uint64_t ps_graph_sync_data_get_virtual_frameid_cold_1(char **a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "index %zu out of bounds", a2);
-  v4 = __PSGraphLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
+  v4 = asprintf(a1, "index %zu out of bounds", a2);
+  v5 = __PSGraphLogSharedInstance(v4);
+  if (OUTLINED_FUNCTION_5(v5))
   {
     OUTLINED_FUNCTION_8();
-    v21 = 2105;
-    v22 = 2048;
-    v23 = a2;
-    OUTLINED_FUNCTION_3(&dword_25EC85000, v5, v6, "%s:%d index %zu out of bounds", v7, v8, v9, v10, v18, v19, v20[0]);
+    v22 = 2105;
+    v23 = 2048;
+    v24 = a2;
+    OUTLINED_FUNCTION_3(&dword_25EC85000, v6, v7, "%s:%d index %zu out of bounds", v8, v9, v10, v11, v19, v20);
   }
 
-  v11 = OSLogFlushBuffers();
-  if (v11)
+  v12 = OSLogFlushBuffers();
+  if (v12)
   {
-    v12 = v11;
-    v13 = __PSGraphLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v13 = v12;
+    v14 = __PSGraphLogSharedInstance(v12);
+    if (OUTLINED_FUNCTION_6(v14))
     {
       OUTLINED_FUNCTION_8();
-      v21 = v12;
-      OUTLINED_FUNCTION_1(&dword_25EC85000, v14, v15, "%s() failed to flush buffers with error code: %d", v20);
+      v22 = v13;
+      OUTLINED_FUNCTION_1(&dword_25EC85000, v15, v16, "%s() failed to flush buffers with error code: %d", v21);
     }
   }
 
@@ -521,31 +478,33 @@ uint64_t ps_graph_sync_data_get_virtual_frameid_cold_1(char **a1, uint64_t a2)
     OUTLINED_FUNCTION_4();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_graph_sync_data_get_virtual_frameid_cold_2(v16);
+  v17 = OUTLINED_FUNCTION_0();
+  return ps_graph_sync_data_get_virtual_frameid_cold_2(v17);
 }
 
 uint64_t ps_graph_sync_data_get_virtual_frameid_cold_2(char **a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "sync_context is null");
-  v2 = __PSGraphLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "sync_context is null");
+  v3 = __PSGraphLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    v16 = "ps_graph_sync_data_get_virtual_frameid";
-    v17 = 1024;
-    v18 = 2104;
-    OUTLINED_FUNCTION_2(&dword_25EC85000, v3, v4, "%s:%d sync_context is null", v5, v6, v7, v8, 2u);
+    *v17 = 136315394;
+    *&v17[4] = "ps_graph_sync_data_get_virtual_frameid";
+    *&v17[12] = 1024;
+    *&v17[14] = 2104;
+    OUTLINED_FUNCTION_2(&dword_25EC85000, v4, v5, "%s:%d sync_context is null", v6, v7, v8, v9, *v17, *&v17[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PSGraphLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PSGraphLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_7();
-      OUTLINED_FUNCTION_1(&dword_25EC85000, v10, v11, "%s() failed to flush buffers with error code: %d", &v15);
+      OUTLINED_FUNCTION_1(&dword_25EC85000, v12, v13, "%s() failed to flush buffers with error code: %d", v17);
     }
   }
 
@@ -554,35 +513,35 @@ uint64_t ps_graph_sync_data_get_virtual_frameid_cold_2(char **a1)
     OUTLINED_FUNCTION_4();
   }
 
-  v12 = OUTLINED_FUNCTION_0();
-  return ps_graph_sync_data_get_physical_frameid_cold_1(v12, v13);
+  v14 = OUTLINED_FUNCTION_0();
+  return ps_graph_sync_data_get_physical_frameid_cold_1(v14, v15);
 }
 
 uint64_t ps_graph_sync_data_get_physical_frameid_cold_1(char **a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "index %zu out of bounds", a2);
-  v4 = __PSGraphLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
+  v4 = asprintf(a1, "index %zu out of bounds", a2);
+  v5 = __PSGraphLogSharedInstance(v4);
+  if (OUTLINED_FUNCTION_5(v5))
   {
     OUTLINED_FUNCTION_8();
-    v21 = 2113;
-    v22 = 2048;
-    v23 = a2;
-    OUTLINED_FUNCTION_3(&dword_25EC85000, v5, v6, "%s:%d index %zu out of bounds", v7, v8, v9, v10, v18, v19, v20[0]);
+    v22 = 2113;
+    v23 = 2048;
+    v24 = a2;
+    OUTLINED_FUNCTION_3(&dword_25EC85000, v6, v7, "%s:%d index %zu out of bounds", v8, v9, v10, v11, v19, v20);
   }
 
-  v11 = OSLogFlushBuffers();
-  if (v11)
+  v12 = OSLogFlushBuffers();
+  if (v12)
   {
-    v12 = v11;
-    v13 = __PSGraphLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v13 = v12;
+    v14 = __PSGraphLogSharedInstance(v12);
+    if (OUTLINED_FUNCTION_6(v14))
     {
       OUTLINED_FUNCTION_8();
-      v21 = v12;
-      OUTLINED_FUNCTION_1(&dword_25EC85000, v14, v15, "%s() failed to flush buffers with error code: %d", v20);
+      v22 = v13;
+      OUTLINED_FUNCTION_1(&dword_25EC85000, v15, v16, "%s() failed to flush buffers with error code: %d", v21);
     }
   }
 
@@ -591,31 +550,33 @@ uint64_t ps_graph_sync_data_get_physical_frameid_cold_1(char **a1, uint64_t a2)
     OUTLINED_FUNCTION_4();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_graph_sync_data_get_physical_frameid_cold_2(v16);
+  v17 = OUTLINED_FUNCTION_0();
+  return ps_graph_sync_data_get_physical_frameid_cold_2(v17);
 }
 
 uint64_t ps_graph_sync_data_get_physical_frameid_cold_2(char **a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "sync_context is null");
-  v2 = __PSGraphLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "sync_context is null");
+  v3 = __PSGraphLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    v15 = "ps_graph_sync_data_get_physical_frameid";
-    v16 = 1024;
-    v17 = 2112;
-    OUTLINED_FUNCTION_2(&dword_25EC85000, v3, v4, "%s:%d sync_context is null", v5, v6, v7, v8, 2u);
+    *v16 = 136315394;
+    *&v16[4] = "ps_graph_sync_data_get_physical_frameid";
+    *&v16[12] = 1024;
+    *&v16[14] = 2112;
+    OUTLINED_FUNCTION_2(&dword_25EC85000, v4, v5, "%s:%d sync_context is null", v6, v7, v8, v9, *v16, *&v16[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PSGraphLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PSGraphLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_7();
-      OUTLINED_FUNCTION_1(&dword_25EC85000, v10, v11, "%s() failed to flush buffers with error code: %d", &v14);
+      OUTLINED_FUNCTION_1(&dword_25EC85000, v12, v13, "%s() failed to flush buffers with error code: %d", v16);
     }
   }
 
@@ -624,8 +585,8 @@ uint64_t ps_graph_sync_data_get_physical_frameid_cold_2(char **a1)
     OUTLINED_FUNCTION_4();
   }
 
-  v12 = OUTLINED_FUNCTION_0();
-  return ps_reader_acquire(v12);
+  v14 = OUTLINED_FUNCTION_0();
+  return ps_reader_acquire(v14);
 }
 
 uint64_t ps_reader_acquire(uint64_t a1)
@@ -656,34 +617,35 @@ uint64_t ps_reader_relinquish(uint64_t a1)
 
 uint64_t ps_task_context_set_mtl_device_cold_1(uint64_t a1, char **a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   *a2 = 0;
-  asprintf(a2, "MTLDevice input does not point to a valid MTLDevice. Instead of MTLDevice, found class type %s", [v5 UTF8String]);
-  v6 = __PSGraphLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v6))
+  v6 = asprintf(a2, "MTLDevice input does not point to a valid MTLDevice. Instead of MTLDevice, found class type %s", [v5 UTF8String]);
+  v7 = __PSGraphLogSharedInstance(v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
-    v23 = "ps_task_context_set_mtl_device";
-    v24 = 1024;
-    v25 = 73;
-    v26 = 2080;
-    v27 = [v5 UTF8String];
-    OUTLINED_FUNCTION_3(&dword_25EC85000, v7, v8, "%s:%d MTLDevice input does not point to a valid MTLDevice. Instead of MTLDevice, found class type %s", v9, v10, v11, v12, v20, v21, 2u);
+    *buf = 136315650;
+    v24 = "ps_task_context_set_mtl_device";
+    v25 = 1024;
+    v26 = 73;
+    v27 = 2080;
+    v28 = [v5 UTF8String];
+    OUTLINED_FUNCTION_3(&dword_25EC85000, v8, v9, "%s:%d MTLDevice input does not point to a valid MTLDevice. Instead of MTLDevice, found class type %s", v10, v11, v12, v13, v21, v22);
   }
 
-  v13 = OSLogFlushBuffers();
-  if (v13)
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v14 = v13;
-    v15 = __PSGraphLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v15))
+    v15 = v14;
+    v16 = __PSGraphLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v16))
     {
       *buf = 136315394;
-      v23 = "ps_task_context_set_mtl_device";
-      v24 = 1024;
-      v25 = v14;
-      OUTLINED_FUNCTION_1(&dword_25EC85000, v16, v17, "%s() failed to flush buffers with error code: %d", buf);
+      v24 = "ps_task_context_set_mtl_device";
+      v25 = 1024;
+      v26 = v15;
+      OUTLINED_FUNCTION_1(&dword_25EC85000, v17, v18, "%s() failed to flush buffers with error code: %d", buf);
     }
   }
 
@@ -692,33 +654,33 @@ uint64_t ps_task_context_set_mtl_device_cold_1(uint64_t a1, char **a2)
     OUTLINED_FUNCTION_4();
   }
 
-  v18 = OUTLINED_FUNCTION_0();
-  return ps_task_context_set_mtl_device_cold_2(v18);
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_task_context_set_mtl_device_cold_2(v19);
 }
 
 uint64_t ps_task_context_set_mtl_device_cold_2(char **a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "MTLDevice pointer was null.");
-  v2 = __PSGraphLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "MTLDevice pointer was null.");
+  v3 = __PSGraphLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
     OUTLINED_FUNCTION_7_0();
-    v17 = 67;
-    OUTLINED_FUNCTION_2(&dword_25EC85000, v3, v4, "%s:%d MTLDevice pointer was null.", v5, v6, v7, v8, v16[0]);
+    v19 = 67;
+    OUTLINED_FUNCTION_2(&dword_25EC85000, v4, v5, "%s:%d MTLDevice pointer was null.", v6, v7, v8, v9);
   }
 
-  v9 = OSLogFlushBuffers();
-  if (v9)
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v10 = v9;
-    v11 = __PSGraphLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v11))
+    v11 = v10;
+    v12 = __PSGraphLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v12))
     {
       OUTLINED_FUNCTION_7_0();
-      v17 = v10;
-      OUTLINED_FUNCTION_1(&dword_25EC85000, v12, v13, "%s() failed to flush buffers with error code: %d", v16);
+      v19 = v11;
+      OUTLINED_FUNCTION_1(&dword_25EC85000, v13, v14, "%s() failed to flush buffers with error code: %d", v18);
     }
   }
 
@@ -727,40 +689,41 @@ uint64_t ps_task_context_set_mtl_device_cold_2(char **a1)
     OUTLINED_FUNCTION_4();
   }
 
-  v14 = OUTLINED_FUNCTION_0();
-  return ps_task_context_set_mtl_command_queue_cold_1(v14);
+  v15 = OUTLINED_FUNCTION_0();
+  return ps_task_context_set_mtl_command_queue_cold_1(v15, v16);
 }
 
 uint64_t ps_task_context_set_mtl_command_queue_cold_1(uint64_t a1, char **a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   *a2 = 0;
-  asprintf(a2, "MTLCommandQueue input does not point to a valid MTLCommandQueue. Instead of MTLCommandQueue, found class type %s", [v5 UTF8String]);
-  v6 = __PSGraphLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v6))
+  v6 = asprintf(a2, "MTLCommandQueue input does not point to a valid MTLCommandQueue. Instead of MTLCommandQueue, found class type %s", [v5 UTF8String]);
+  v7 = __PSGraphLogSharedInstance(v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
-    v23 = "ps_task_context_set_mtl_command_queue";
-    v24 = 1024;
-    v25 = 93;
-    v26 = 2080;
-    v27 = [v5 UTF8String];
-    OUTLINED_FUNCTION_3(&dword_25EC85000, v7, v8, "%s:%d MTLCommandQueue input does not point to a valid MTLCommandQueue. Instead of MTLCommandQueue, found class type %s", v9, v10, v11, v12, v20, v21, 2u);
+    *buf = 136315650;
+    v24 = "ps_task_context_set_mtl_command_queue";
+    v25 = 1024;
+    v26 = 93;
+    v27 = 2080;
+    v28 = [v5 UTF8String];
+    OUTLINED_FUNCTION_3(&dword_25EC85000, v8, v9, "%s:%d MTLCommandQueue input does not point to a valid MTLCommandQueue. Instead of MTLCommandQueue, found class type %s", v10, v11, v12, v13, v21, v22);
   }
 
-  v13 = OSLogFlushBuffers();
-  if (v13)
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v14 = v13;
-    v15 = __PSGraphLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v15))
+    v15 = v14;
+    v16 = __PSGraphLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v16))
     {
       *buf = 136315394;
-      v23 = "ps_task_context_set_mtl_command_queue";
-      v24 = 1024;
-      v25 = v14;
-      OUTLINED_FUNCTION_1(&dword_25EC85000, v16, v17, "%s() failed to flush buffers with error code: %d", buf);
+      v24 = "ps_task_context_set_mtl_command_queue";
+      v25 = 1024;
+      v26 = v15;
+      OUTLINED_FUNCTION_1(&dword_25EC85000, v17, v18, "%s() failed to flush buffers with error code: %d", buf);
     }
   }
 
@@ -769,33 +732,33 @@ uint64_t ps_task_context_set_mtl_command_queue_cold_1(uint64_t a1, char **a2)
     OUTLINED_FUNCTION_4();
   }
 
-  v18 = OUTLINED_FUNCTION_0();
-  return ps_task_context_set_mtl_command_queue_cold_2(v18);
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_task_context_set_mtl_command_queue_cold_2(v19);
 }
 
-uint64_t ps_task_context_set_mtl_command_queue_cold_2(char **a1)
+void ps_task_context_set_mtl_command_queue_cold_2(char **a1)
 {
   v18 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "MTLCommandQueue pointer was null.");
-  v2 = __PSGraphLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "MTLCommandQueue pointer was null.");
+  v3 = __PSGraphLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
     OUTLINED_FUNCTION_7_0();
     v17 = 87;
-    OUTLINED_FUNCTION_2(&dword_25EC85000, v3, v4, "%s:%d MTLCommandQueue pointer was null.", v5, v6, v7, v8, v16[0]);
+    OUTLINED_FUNCTION_2(&dword_25EC85000, v4, v5, "%s:%d MTLCommandQueue pointer was null.", v6, v7, v8, v9);
   }
 
-  v9 = OSLogFlushBuffers();
-  if (v9)
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v10 = v9;
-    v11 = __PSGraphLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v11))
+    v11 = v10;
+    v12 = __PSGraphLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v12))
     {
       OUTLINED_FUNCTION_7_0();
-      v17 = v10;
-      OUTLINED_FUNCTION_1(&dword_25EC85000, v12, v13, "%s() failed to flush buffers with error code: %d", v16);
+      v17 = v11;
+      OUTLINED_FUNCTION_1(&dword_25EC85000, v13, v14, "%s() failed to flush buffers with error code: %d", v16);
     }
   }
 
@@ -804,8 +767,40 @@ uint64_t ps_task_context_set_mtl_command_queue_cold_2(char **a1)
     OUTLINED_FUNCTION_4();
   }
 
-  v14 = OUTLINED_FUNCTION_0();
-  return [PSTask addInput:v14];
+  v15 = OUTLINED_FUNCTION_0();
+  [PSTask addInput:v15];
+}
+
+void vertex_new_cold_1()
+{
+  OUTLINED_FUNCTION_8_0();
+  *v1 = 0;
+  v2 = asprintf(v1, "OOM");
+  v4 = __PSUtilitiesLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_5(v4))
+  {
+    OUTLINED_FUNCTION_7_0();
+    OUTLINED_FUNCTION_2(&dword_25EC85000, v5, v6, "%s:%d OOM", v7, v8, v9, v10);
+  }
+
+  v11 = OSLogFlushBuffers();
+  if (v11)
+  {
+    v13 = __PSUtilitiesLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
+    {
+      OUTLINED_FUNCTION_7();
+      OUTLINED_FUNCTION_2_0(&dword_25EC85000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_4();
+  }
+
+  OUTLINED_FUNCTION_0();
+  __PSUtilitiesLogSharedInstance_cold_1();
 }
 
 uint64_t ps_writer_acquire(uint64_t a1)
@@ -1060,35 +1055,33 @@ uint64_t ps_resource::get_object_ptr(ps_resource *this)
 uint64_t ps_resource::get_data(ps_resource *this, unint64_t a2, unint64_t *a3)
 {
   OUTLINED_FUNCTION_12(this);
-  v6 = v5[47];
-  v7 = v5[48];
   OUTLINED_FUNCTION_3_0();
-  if (v11)
+  if (v9)
   {
-    v12 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v12 = v9 >= v10;
+    v10 = v7 >= v8;
   }
 
-  if (v12)
+  if (v10)
   {
     result = 0;
     *v3 = 0;
   }
 
-  else if (*(v5[35] + 8 * v4) == 1)
+  else if (*(*(v5 + 280) + 8 * v4) == 1)
   {
     return 0;
   }
 
   else
   {
-    v14 = (v8 + 16 * v4);
-    result = *v14;
-    *v3 = v14[1];
+    v12 = (v6 + 16 * v4);
+    result = *v12;
+    *v3 = v12[1];
   }
 
   return result;
@@ -1098,22 +1091,20 @@ uint64_t ps_resource::get_object(ps_resource *this)
 {
   OUTLINED_FUNCTION_8_1(this);
   OUTLINED_FUNCTION_1_0();
-  if (v3)
+  if (v2)
   {
     return 0;
   }
 
-  v4 = *(v2 + 376);
-  v5 = *(v2 + 384);
   OUTLINED_FUNCTION_3_0();
-  if (v3 || v7 >= v8)
+  if (v2 || v4 >= v5)
   {
     return 0;
   }
 
   else
   {
-    return *(v6 + 8 * v1);
+    return *(v3 + 8 * v1);
   }
 }
 
@@ -1121,22 +1112,20 @@ uint64_t ps_resource::get_databuffer(ps_resource *this)
 {
   OUTLINED_FUNCTION_8_1(this);
   OUTLINED_FUNCTION_1_0();
-  if (v3)
+  if (v2)
   {
     return 0;
   }
 
-  v4 = *(v2 + 376);
-  v5 = *(v2 + 384);
   OUTLINED_FUNCTION_3_0();
-  if (v3 || v7 >= v8)
+  if (v2 || v4 >= v5)
   {
     return 0;
   }
 
   else
   {
-    return *(v6 + 32 * v1 + 8);
+    return *(v3 + 32 * v1 + 8);
   }
 }
 
@@ -1165,24 +1154,22 @@ uint64_t ps_resource::get_anebuffer_ptr(ps_resource *this)
 void ps_resource::set_object(ps_resource *this, unint64_t a2, void *a3)
 {
   OUTLINED_FUNCTION_12(this);
-  if (*(v5[35] + 8 * v4) != 1)
+  if (*(*(v5 + 280) + 8 * v4) != 1)
   {
-    v6 = v5[47];
-    v7 = v5[48];
     OUTLINED_FUNCTION_3_0();
-    if (v11)
+    if (v9)
     {
-      v12 = 1;
+      v10 = 1;
     }
 
     else
     {
-      v12 = v9 >= v10;
+      v10 = v7 >= v8;
     }
 
-    if (!v12)
+    if (!v10)
     {
-      *(v8 + 8 * v4) = v3;
+      *(v6 + 8 * v4) = v3;
     }
   }
 }
@@ -1191,24 +1178,22 @@ void ps_resource::set_databuffer(ps_resource *this, unint64_t a2, __CVBuffer *a3
 {
   OUTLINED_FUNCTION_6_0(this);
   OUTLINED_FUNCTION_9();
-  if (!v5)
+  if (!v4)
   {
-    v6 = *(v4 + 376);
-    v7 = *(v4 + 384);
     OUTLINED_FUNCTION_3_0();
-    if (v5)
+    if (v4)
     {
-      v11 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v11 = v9 >= v10;
+      v8 = v6 >= v7;
     }
 
-    if (!v11)
+    if (!v8)
     {
-      OUTLINED_FUNCTION_7_1(v8);
+      OUTLINED_FUNCTION_7_1(v5);
     }
   }
 }
@@ -1290,7 +1275,7 @@ uint64_t ps_resource::set_jasperbuffer_timestamps(ps_resource *this, unint64_t a
 
 double ps_resource::set_pearlbuffer(ps_resource *this, unint64_t a2, __CVBuffer *a3, __CVBuffer *a4, __CVBuffer *a5, __CVBuffer *a6, const __CFData *a7)
 {
-  v7 = OUTLINED_FUNCTION_10(this);
+  v7 = OUTLINED_FUNCTION_10(this, a2);
   if (v7)
   {
     *&result = OUTLINED_FUNCTION_5_0(v7).n128_u64[0];
@@ -1357,20 +1342,18 @@ void _copy_resource()
 
 void ps_public_util_spu_to_AP_time_cold_2(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = __PSGraphLogSharedInstance();
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = __PSGraphLogSharedInstance(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315650;
-    v7 = "ps_public_util_spu_to_AP_time";
-    v8 = 2048;
-    v9 = a1;
-    v10 = 2048;
-    v11 = a2;
-    _os_log_impl(&dword_25EC85000, v4, OS_LOG_TYPE_ERROR, "%s Invalid sample timestamp. Mach delta (%llu) is greater than sample timestamp (%llu). Value will underflow", &v6, 0x20u);
+    v5 = 136315650;
+    v6 = "ps_public_util_spu_to_AP_time";
+    v7 = 2048;
+    v8 = a1;
+    v9 = 2048;
+    v10 = a2;
+    _os_log_impl(&dword_25EC85000, v4, OS_LOG_TYPE_ERROR, "%s Invalid sample timestamp. Mach delta (%llu) is greater than sample timestamp (%llu). Value will underflow", &v5, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void operator delete(void *__p)

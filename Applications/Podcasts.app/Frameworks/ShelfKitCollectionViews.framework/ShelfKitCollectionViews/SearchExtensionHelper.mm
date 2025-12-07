@@ -29,17 +29,18 @@
 
 - (void)searchBar:(id)bar textDidChange:(id)change
 {
-  sub_30C0D8();
+  v6 = sub_30C0D8();
+  v8 = v7;
   barCopy = bar;
   selfCopy = self;
-  sub_DAE54(barCopy);
+  sub_DAE54(barCopy, v6, v8);
 }
 
 - (void)searchBar:(id)bar selectedScopeButtonIndexDidChange:(int64_t)change
 {
   barCopy = bar;
   selfCopy = self;
-  sub_DCAB8(change);
+  sub_DCAB8(change, v7);
 }
 
 - (void)searchBarSearchButtonClicked:(id)clicked
@@ -51,7 +52,7 @@
 
 - (void)searchBarCancelButtonClicked:(id)clicked
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_401918);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_401918, &qword_31F108);
   __chkstk_darwin(v4 - 8);
   v6 = &v8 - v5;
   *(&self->super.isa + OBJC_IVAR____TtC23ShelfKitCollectionViews21SearchExtensionHelper_didCancel) = 1;
@@ -60,19 +61,19 @@
   sub_309948();
   sub_DA2A8(v6);
 
-  sub_EB68(v6, &qword_401918);
+  sub_EB68(v6, &qword_401918, &qword_31F108);
 }
 
 - (BOOL)textFieldShouldClear:(id)clear
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_401918);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_401918, &qword_31F108);
   __chkstk_darwin(v4 - 8);
   v6 = &v9 - v5;
   selfCopy = self;
   sub_309948();
   sub_DA2A8(v6);
 
-  sub_EB68(v6, &qword_401918);
+  sub_EB68(v6, &qword_401918, &qword_31F108);
   return 1;
 }
 

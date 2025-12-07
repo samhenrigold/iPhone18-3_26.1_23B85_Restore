@@ -6,44 +6,45 @@
 
 - (WFDiagnosticsResultItemBT)initWithResults:(id)results
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
-  v33.receiver = self;
-  v33.super_class = WFDiagnosticsResultItemBT;
-  v5 = [(WFDiagnosticsResultItemBT *)&v33 init];
+  v34.receiver = self;
+  v34.super_class = WFDiagnosticsResultItemBT;
+  v5 = [(WFDiagnosticsResultItemBT *)&v34 init];
   btDiagnosticsResults = [resultsCopy btDiagnosticsResults];
   [(WFDiagnosticsResultItemBT *)v5 setResults:btDiagnosticsResults];
 
-  v31 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
+  v31 = 0u;
   results = [(WFDiagnosticsResultItemBT *)v5 results];
-  v8 = [results countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v8 = [results countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v8)
   {
     v9 = 0;
-    v10 = *v30;
+    v10 = *v31;
     while (2)
     {
       for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v30 != v10)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(results);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * i);
+        v12 = *(*(&v30 + 1) + 8 * i);
         if ([v12 testID] == 19)
         {
           if (v9)
           {
             v13 = WFLogForCategory(0);
             v14 = OSLogForWFLogLevel(1uLL);
-            if (WFCurrentLogLevel() && v13 && os_log_type_enabled(v13, v14))
+            v15 = v14;
+            if (WFCurrentLogLevel(v14, v16) && v13 && os_log_type_enabled(v13, v15))
             {
-              *v28 = 0;
-              _os_log_impl(&dword_273ECD000, v13, v14, "Multiple BTConnected results found!", v28, 2u);
+              *v29 = 0;
+              _os_log_impl(&dword_273ECD000, v13, v15, "Multiple BTConnected results found!", v29, 2u);
             }
 
             goto LABEL_18;
@@ -53,7 +54,7 @@
         }
       }
 
-      v8 = [results countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v8 = [results countByEnumeratingWithState:&v30 objects:v35 count:16];
       if (v8)
       {
         continue;
@@ -70,8 +71,8 @@
 
 LABEL_18:
     info = [v9 info];
-    v16 = [info objectForKey:@"BTConnectedCount"];
-    -[WFDiagnosticsResultItemBT setDidPassTest:](v5, "setDidPassTest:", [v16 intValue] < 5);
+    v18 = [info objectForKey:@"BTConnectedCount"];
+    -[WFDiagnosticsResultItemBT setDidPassTest:](v5, "setDidPassTest:", [v18 intValue] < 5);
 
     failedTests = v5->_failedTests;
     v5->_failedTests = MEMORY[0x277CBEBF8];
@@ -80,26 +81,26 @@ LABEL_18:
     IsChinaDevice = WFCapabilityIsChinaDevice();
     if (![(WFDiagnosticsResultItemBT *)v5 didPassTest])
     {
-      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v20 = [v19 localizedStringForKey:@"kWFLocDiagnosticsBTResultTitle" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
-      [(WFDiagnosticsResultItemBT *)v5 setTitle:v20];
-
       v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v22 = v21;
+      v22 = [v21 localizedStringForKey:@"kWFLocDiagnosticsBTResultTitle" value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+      [(WFDiagnosticsResultItemBT *)v5 setTitle:v22];
+
+      v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v24 = v23;
       if (IsChinaDevice)
       {
-        v23 = @"kWFLocDiagnosticsBTResultDetailDescription_CH";
+        v25 = @"kWFLocDiagnosticsBTResultDetailDescription_CH";
       }
 
       else
       {
-        v23 = @"kWFLocDiagnosticsBTResultDetailDescription";
+        v25 = @"kWFLocDiagnosticsBTResultDetailDescription";
       }
 
-      v24 = [v21 localizedStringForKey:v23 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
-      [(WFDiagnosticsResultItemBT *)v5 setSuggestion:v24];
+      v26 = [v23 localizedStringForKey:v25 value:&stru_2882E4AD8 table:@"WiFiKitLocalizableStrings"];
+      [(WFDiagnosticsResultItemBT *)v5 setSuggestion:v26];
 
-      v25 = v5->_failedTests;
+      v27 = v5->_failedTests;
       v5->_failedTests = &unk_288304FA8;
     }
 
@@ -112,7 +113,6 @@ LABEL_18:
   }
 
 LABEL_26:
-  v26 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

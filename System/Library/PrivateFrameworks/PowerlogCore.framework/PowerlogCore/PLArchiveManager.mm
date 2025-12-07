@@ -54,9 +54,10 @@
 
 uint64_t __34__PLArchiveManager_sharedInstance__block_invoke()
 {
-  sharedInstance_instance_0 = objc_alloc_init(PLArchiveManager);
+  v0 = objc_alloc_init(PLArchiveManager);
+  sharedInstance_instance_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (PLArchiveManager)init
@@ -253,7 +254,7 @@ void __26__PLArchiveManager_enable__block_invoke_2(uint64_t a1, void *a2)
 {
   v28 = *MEMORY[0x1E69E9840];
   dateCopy = date;
-  v5 = PLLogArchiving();
+  v5 = PLLogArchiving(dateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -283,13 +284,14 @@ void __26__PLArchiveManager_enable__block_invoke_2(uint64_t a1, void *a2)
 
   if (dateCopy)
   {
-    if (![(PLArchiveManager *)self interrupted])
+    interrupted = [(PLArchiveManager *)self interrupted];
+    if ((interrupted & 1) == 0)
     {
-      v11 = PLLogArchiving();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = PLLogArchiving(interrupted);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D8611000, v11, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::runArchiveJobs: notifying clients", buf, 2u);
+        _os_log_impl(&dword_1D8611000, v12, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::runArchiveJobs: notifying clients", buf, 2u);
       }
 
       v22 = 0u;
@@ -297,49 +299,47 @@ void __26__PLArchiveManager_enable__block_invoke_2(uint64_t a1, void *a2)
       v20 = 0u;
       v21 = 0u;
       notificationBlocks = [(PLArchiveManager *)self notificationBlocks];
-      v13 = [notificationBlocks countByEnumeratingWithState:&v20 objects:v27 count:16];
-      if (v13)
+      v14 = [notificationBlocks countByEnumeratingWithState:&v20 objects:v27 count:16];
+      if (v14)
       {
-        v14 = v13;
-        v15 = *v21;
+        v15 = v14;
+        v16 = *v21;
         do
         {
-          v16 = 0;
+          v17 = 0;
           do
           {
-            if (*v21 != v15)
+            if (*v21 != v16)
             {
               objc_enumerationMutation(notificationBlocks);
             }
 
-            v17 = *(*(&v20 + 1) + 8 * v16);
-            if (v17)
+            v18 = *(*(&v20 + 1) + 8 * v17);
+            if (v18)
             {
-              (*(v17 + 16))();
+              (*(v18 + 16))();
             }
 
-            ++v16;
+            ++v17;
           }
 
-          while (v14 != v16);
-          v14 = [notificationBlocks countByEnumeratingWithState:&v20 objects:v27 count:16];
+          while (v15 != v17);
+          v15 = [notificationBlocks countByEnumeratingWithState:&v20 objects:v27 count:16];
         }
 
-        while (v14);
+        while (v15);
       }
     }
 
-    v18 = PLLogArchiving();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = PLLogArchiving(interrupted);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D8611000, v18, OS_LOG_TYPE_DEFAULT, "Cleanly restarting powerlog to reduce memory fragmentation", buf, 2u);
+      _os_log_impl(&dword_1D8611000, v19, OS_LOG_TYPE_DEFAULT, "Cleanly restarting powerlog to reduce memory fragmentation", buf, 2u);
     }
 
     [PLUtilities exitWithReason:4];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deprecateTables
@@ -432,7 +432,7 @@ void __40__PLArchiveManager_deprecateTablesBGSQL__block_invoke(uint64_t a1, uint
 - (void)handleFailure:(int64_t)failure forArchiveEntry:(id)entry
 {
   entryCopy = entry;
-  v6 = PLLogArchiving();
+  v6 = PLLogArchiving(entryCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [(PLArchiveManager *)failure handleFailure:entryCopy forArchiveEntry:v6];
@@ -446,27 +446,27 @@ void __40__PLArchiveManager_deprecateTablesBGSQL__block_invoke(uint64_t a1, uint
   {
     if (failure == 1)
     {
-      v10 = 1004;
+      v11 = 1004;
     }
 
     else
     {
-      v11 = PLLogSQLiteConnection();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = PLLogSQLiteConnection(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [PLArchiveManager handleFailure:forArchiveEntry:];
       }
 
-      v10 = 1001;
+      v11 = 1001;
     }
   }
 
   else
   {
-    v10 = 1003;
+    v11 = 1003;
   }
 
-  [PLUtilities exitWithReason:v10 connection:connection];
+  [PLUtilities exitWithReason:v11 connection:connection];
 }
 
 - (void)scheduleArchiveJobs
@@ -494,7 +494,7 @@ void __34__PLArchiveManager_runArchiveJobs__block_invoke()
 
 - (void)trimCleanEnergyLog
 {
-  v2 = PLLogArchiving();
+  v2 = PLLogArchiving(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -518,17 +518,18 @@ void __34__PLArchiveManager_runArchiveJobs__block_invoke()
 
 - (void)trimExtendedPersistenceLog
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v3 = PLLogArchiving();
+  v23 = *MEMORY[0x1E69E9840];
+  v3 = PLLogArchiving(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_1D8611000, v3, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::trimEPSQL: start", buf, 2u);
   }
 
-  if ([(PLArchiveManager *)self isInterrupted])
+  isInterrupted = [(PLArchiveManager *)self isInterrupted];
+  if (isInterrupted)
   {
-    monotonicDate = PLLogArchiving();
+    monotonicDate = PLLogArchiving(isInterrupted);
     if (os_log_type_enabled(monotonicDate, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -540,57 +541,58 @@ void __34__PLArchiveManager_runArchiveJobs__block_invoke()
   {
     monotonicDate = [MEMORY[0x1E695DF00] monotonicDate];
     [(PLArchiveManager *)self EPSQLDBDuration];
-    v6 = [monotonicDate dateByAddingTimeInterval:-v5];
-    v7 = PLLogArchiving();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = [monotonicDate dateByAddingTimeInterval:-v6];
+    v8 = PLLogArchiving(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = v6;
-      _os_log_impl(&dword_1D8611000, v7, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::trimEPSQL: trimDate=%@", buf, 0xCu);
+      v22 = v7;
+      _os_log_impl(&dword_1D8611000, v8, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::trimEPSQL: trimDate=%@", buf, 0xCu);
     }
 
-    v8 = +[PPSCoreStorage sharedSQLStorage];
-    v9 = +[PLArchiveJob storageQueue];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __46__PLArchiveManager_trimExtendedPersistenceLog__block_invoke;
-    v17[3] = &unk_1E8519100;
-    v10 = v8;
-    v18 = v10;
-    v11 = v6;
+    v9 = +[PPSCoreStorage sharedSQLStorage];
+    v10 = +[PLArchiveJob storageQueue];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __46__PLArchiveManager_trimExtendedPersistenceLog__block_invoke;
+    v18[3] = &unk_1E8519100;
+    v11 = v9;
     v19 = v11;
-    [PLUtilities dispatchSyncIfNotCallerQueue:v9 withBlock:v17];
+    v12 = v7;
+    v20 = v12;
+    [PLUtilities dispatchSyncIfNotCallerQueue:v10 withBlock:v18];
 
-    if ([(PLArchiveManager *)self eliglibleToVacuumEPSQLForDate:monotonicDate]&& ![(PLArchiveManager *)self isInterrupted])
+    if ([(PLArchiveManager *)self eliglibleToVacuumEPSQLForDate:monotonicDate])
     {
-      v12 = PLLogArchiving();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      isInterrupted2 = [(PLArchiveManager *)self isInterrupted];
+      if ((isInterrupted2 & 1) == 0)
       {
-        *buf = 0;
-        _os_log_impl(&dword_1D8611000, v12, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::trimEPSQL: vacuum", buf, 2u);
+        v14 = PLLogArchiving(isInterrupted2);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_1D8611000, v14, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::trimEPSQL: vacuum", buf, 2u);
+        }
+
+        v15 = +[PLArchiveManager storageQueue];
+        v16[0] = MEMORY[0x1E69E9820];
+        v16[1] = 3221225472;
+        v16[2] = __46__PLArchiveManager_trimExtendedPersistenceLog__block_invoke_546;
+        v16[3] = &unk_1E85190B8;
+        v17 = v11;
+        [PLUtilities dispatchSyncIfNotCallerQueue:v15 withBlock:v16];
+
+        [(PLArchiveManager *)self setLastEPSQLVacuumDate:monotonicDate];
       }
-
-      v13 = +[PLArchiveManager storageQueue];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __46__PLArchiveManager_trimExtendedPersistenceLog__block_invoke_546;
-      v15[3] = &unk_1E85190B8;
-      v16 = v10;
-      [PLUtilities dispatchSyncIfNotCallerQueue:v13 withBlock:v15];
-
-      [(PLArchiveManager *)self setLastEPSQLVacuumDate:monotonicDate];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __46__PLArchiveManager_trimExtendedPersistenceLog__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v4 = [objc_opt_class() trimConditionsForEPSQLWithTrimDate:*(a1 + 40)];
-  v3 = [*(a1 + 32) EPSQLConnection];
-  [v3 trimAllTablesFromDate:*(a1 + 40) toDate:0 withTableFilters:v4];
+  v3 = [objc_opt_class() trimConditionsForEPSQLWithTrimDate:*(a1 + 40)];
+  v2 = [*(a1 + 32) EPSQLConnection];
+  [v2 trimAllTablesFromDate:*(a1 + 40) toDate:0 withTableFilters:v3];
 }
 
 void __46__PLArchiveManager_trimExtendedPersistenceLog__block_invoke_546(uint64_t a1)
@@ -601,17 +603,18 @@ void __46__PLArchiveManager_trimExtendedPersistenceLog__block_invoke_546(uint64_
 
 - (void)trimBackgroundProcessingLog
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v3 = PLLogArchiving();
+  v24 = *MEMORY[0x1E69E9840];
+  v3 = PLLogArchiving(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_1D8611000, v3, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::trimBGSQL: start", buf, 2u);
   }
 
-  if ([(PLArchiveManager *)self isInterrupted])
+  isInterrupted = [(PLArchiveManager *)self isInterrupted];
+  if (isInterrupted)
   {
-    monotonicDate = PLLogArchiving();
+    monotonicDate = PLLogArchiving(isInterrupted);
     if (os_log_type_enabled(monotonicDate, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -623,53 +626,50 @@ void __46__PLArchiveManager_trimExtendedPersistenceLog__block_invoke_546(uint64_
   {
     monotonicDate = [MEMORY[0x1E695DF00] monotonicDate];
     [(PLArchiveManager *)self BGSQLDBDuration];
-    v6 = [monotonicDate dateByAddingTimeInterval:-v5];
-    v7 = PLLogArchiving();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = [monotonicDate dateByAddingTimeInterval:-v6];
+    v8 = PLLogArchiving(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = v6;
-      _os_log_impl(&dword_1D8611000, v7, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::trimBGSQL: trimDate=%@", buf, 0xCu);
+      v23 = v7;
+      _os_log_impl(&dword_1D8611000, v8, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::trimBGSQL: trimDate=%@", buf, 0xCu);
     }
 
-    v8 = +[PPSCoreStorage sharedSQLStorage];
-    v9 = +[PLArchiveJob storageQueue];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __47__PLArchiveManager_trimBackgroundProcessingLog__block_invoke;
-    v18[3] = &unk_1E8519100;
-    v10 = v8;
-    v19 = v10;
-    v20 = v6;
-    v11 = v6;
-    [PLUtilities dispatchSyncIfNotCallerQueue:v9 withBlock:v18];
+    v9 = +[PPSCoreStorage sharedSQLStorage];
+    v10 = +[PLArchiveJob storageQueue];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __47__PLArchiveManager_trimBackgroundProcessingLog__block_invoke;
+    v19[3] = &unk_1E8519100;
+    v11 = v9;
+    v20 = v11;
+    v21 = v7;
+    v12 = v7;
+    [PLUtilities dispatchSyncIfNotCallerQueue:v10 withBlock:v19];
 
-    v12 = PLLogArchiving();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = PLLogArchiving(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D8611000, v12, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::trimBGSQL: vacuum", buf, 2u);
+      _os_log_impl(&dword_1D8611000, v14, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::trimBGSQL: vacuum", buf, 2u);
     }
 
-    v13 = +[PLArchiveManager storageQueue];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __47__PLArchiveManager_trimBackgroundProcessingLog__block_invoke_547;
-    v16[3] = &unk_1E85190B8;
-    v17 = v10;
-    v14 = v10;
-    [PLUtilities dispatchSyncIfNotCallerQueue:v13 withBlock:v16];
+    v15 = +[PLArchiveManager storageQueue];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __47__PLArchiveManager_trimBackgroundProcessingLog__block_invoke_547;
+    v17[3] = &unk_1E85190B8;
+    v18 = v11;
+    v16 = v11;
+    [PLUtilities dispatchSyncIfNotCallerQueue:v15 withBlock:v17];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __47__PLArchiveManager_trimBackgroundProcessingLog__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v4 = [objc_opt_class() trimConditionsForBGSQLWithTrimDate:*(a1 + 40)];
-  v3 = [*(a1 + 32) BGSQLConnection];
-  [v3 trimAllTablesFromDate:*(a1 + 40) toDate:0 withTableFilters:v4];
+  v3 = [objc_opt_class() trimConditionsForBGSQLWithTrimDate:*(a1 + 40)];
+  v2 = [*(a1 + 32) BGSQLConnection];
+  [v2 trimAllTablesFromDate:*(a1 + 40) toDate:0 withTableFilters:v3];
 }
 
 void __47__PLArchiveManager_trimBackgroundProcessingLog__block_invoke_547(uint64_t a1)
@@ -680,13 +680,13 @@ void __47__PLArchiveManager_trimBackgroundProcessingLog__block_invoke_547(uint64
 
 - (BOOL)eliglibleToVacuumEPSQLForDate:(id)date
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   lastEPSQLVacuumDate = [(PLArchiveManager *)self lastEPSQLVacuumDate];
   if (!lastEPSQLVacuumDate)
   {
-    v6 = PLLogArchiving();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = PLLogArchiving(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [PLArchiveManager eliglibleToVacuumEPSQLForDate:];
     }
@@ -694,14 +694,15 @@ void __47__PLArchiveManager_trimBackgroundProcessingLog__block_invoke_547(uint64
     goto LABEL_7;
   }
 
-  if ([(PLArchiveManager *)self monotonicResetOccurred])
+  monotonicResetOccurred = [(PLArchiveManager *)self monotonicResetOccurred];
+  if (monotonicResetOccurred)
   {
-    v6 = PLLogArchiving();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = PLLogArchiving(monotonicResetOccurred);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412290;
-      v15 = dateCopy;
-      _os_log_impl(&dword_1D8611000, v6, OS_LOG_TYPE_INFO, "PLArchiveManager::trimEPSQL: Restarting after monotonic reset %@", &v14, 0xCu);
+      v15 = 138412290;
+      v16 = dateCopy;
+      _os_log_impl(&dword_1D8611000, v7, OS_LOG_TYPE_INFO, "PLArchiveManager::trimEPSQL: Restarting after monotonic reset %@", &v15, 0xCu);
     }
 
 LABEL_7:
@@ -712,158 +713,155 @@ LABEL_7:
 
   [dateCopy timeIntervalSinceDate:lastEPSQLVacuumDate];
   v11 = v10;
-  [(PLArchiveManager *)self EPSQLVacuumInterval];
-  if (v11 >= v12)
+  ePSQLVacuumInterval = [(PLArchiveManager *)self EPSQLVacuumInterval];
+  if (v11 >= v13)
   {
-    v7 = 1;
+    v8 = 1;
     goto LABEL_9;
   }
 
-  v13 = PLLogCommon();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = PLLogCommon(ePSQLVacuumInterval);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [PLArchiveManager eliglibleToVacuumEPSQLForDate:];
   }
 
 LABEL_8:
-  v7 = 0;
+  v8 = 0;
 LABEL_9:
 
-  v8 = *MEMORY[0x1E69E9840];
-  return v7;
+  return v8;
 }
 
 - (void)cleanup
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v3 = +[PowerlogCore sharedCore];
   storage = [v3 storage];
   storageLocked = [storage storageLocked];
 
   if ((storageLocked & 1) == 0)
   {
-    v6 = PLLogArchiving();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PLLogArchiving(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D8611000, v6, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::cleanup: start", buf, 2u);
+      _os_log_impl(&dword_1D8611000, v7, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::cleanup: start", buf, 2u);
     }
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v8 = +[PLUtilities containerPath];
-    v9 = [v8 stringByAppendingString:@"/Library/BatteryLife/Archives/"];
-    v40 = [defaultManager contentsOfDirectoryAtPath:v9 error:0];
+    v9 = +[PLUtilities containerPath];
+    v10 = [v9 stringByAppendingString:@"/Library/BatteryLife/Archives/"];
+    v42 = [defaultManager contentsOfDirectoryAtPath:v10 error:0];
 
     monotonicDate = [MEMORY[0x1E695DF00] monotonicDate];
-    v50 = 0u;
-    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     obj = +[PLArchiveManager archiveEntriesFinished];
-    v11 = [obj countByEnumeratingWithState:&v50 objects:v57 count:16];
-    if (v11)
+    v12 = [obj countByEnumeratingWithState:&v52 objects:v59 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v51;
-      v38 = monotonicDate;
+      v13 = v12;
+      v14 = *v53;
+      v40 = monotonicDate;
       selfCopy = self;
-      v37 = *v51;
+      v39 = *v53;
       do
       {
-        v14 = 0;
-        v41 = v12;
+        v15 = 0;
+        v43 = v13;
         do
         {
-          if (*v51 != v13)
+          if (*v53 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v50 + 1) + 8 * v14);
-          startDate = [v15 startDate];
+          v16 = *(*(&v52 + 1) + 8 * v15);
+          startDate = [v16 startDate];
           [monotonicDate timeIntervalSinceDate:startDate];
-          v18 = v17;
+          v19 = v18;
           [(PLArchiveManager *)self archiveRetention];
-          v20 = v19;
+          v21 = v20;
 
-          if (v18 > v20)
+          if (v19 > v21)
           {
-            v45 = v14;
-            v21 = PLLogArchiving();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            v47 = v15;
+            v23 = PLLogArchiving(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
-              uuid = [v15 uuid];
+              uuid = [v16 uuid];
               *buf = 138412290;
-              v56 = uuid;
-              _os_log_impl(&dword_1D8611000, v21, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::cleanup: removing archiveEntry=%@", buf, 0xCu);
+              v58 = uuid;
+              _os_log_impl(&dword_1D8611000, v23, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::cleanup: removing archiveEntry=%@", buf, 0xCu);
             }
 
-            v23 = MEMORY[0x1E696AE18];
-            v44 = v15;
-            uuid2 = [v15 uuid];
-            v25 = [v23 predicateWithFormat:@"SELF CONTAINS %@", uuid2];
+            v25 = MEMORY[0x1E696AE18];
+            v46 = v16;
+            uuid2 = [v16 uuid];
+            v27 = [v25 predicateWithFormat:@"SELF CONTAINS %@", uuid2];
 
+            v50 = 0u;
+            v51 = 0u;
             v48 = 0u;
             v49 = 0u;
-            v46 = 0u;
-            v47 = 0u;
-            v43 = v25;
-            v26 = [v40 filteredArrayUsingPredicate:v25];
-            v27 = [v26 countByEnumeratingWithState:&v46 objects:v54 count:16];
-            if (v27)
+            v45 = v27;
+            v28 = [v42 filteredArrayUsingPredicate:v27];
+            v29 = [v28 countByEnumeratingWithState:&v48 objects:v56 count:16];
+            if (v29)
             {
-              v28 = v27;
-              v29 = *v47;
+              v30 = v29;
+              v31 = *v49;
               do
               {
-                for (i = 0; i != v28; ++i)
+                for (i = 0; i != v30; ++i)
                 {
-                  if (*v47 != v29)
+                  if (*v49 != v31)
                   {
-                    objc_enumerationMutation(v26);
+                    objc_enumerationMutation(v28);
                   }
 
-                  v31 = *(*(&v46 + 1) + 8 * i);
-                  v32 = +[PLUtilities containerPath];
-                  v33 = [v32 stringByAppendingString:@"/Library/BatteryLife/Archives/"];
-                  v34 = [v33 stringByAppendingPathComponent:v31];
-                  [defaultManager removeItemAtPath:v34 error:0];
+                  v33 = *(*(&v48 + 1) + 8 * i);
+                  v34 = +[PLUtilities containerPath];
+                  v35 = [v34 stringByAppendingString:@"/Library/BatteryLife/Archives/"];
+                  v36 = [v35 stringByAppendingPathComponent:v33];
+                  [defaultManager removeItemAtPath:v36 error:0];
                 }
 
-                v28 = [v26 countByEnumeratingWithState:&v46 objects:v54 count:16];
+                v30 = [v28 countByEnumeratingWithState:&v48 objects:v56 count:16];
               }
 
-              while (v28);
+              while (v30);
             }
 
-            monotonicDate = v38;
-            [v44 setRemovedDate:v38];
+            monotonicDate = v40;
+            [v46 setRemovedDate:v40];
 
             self = selfCopy;
-            v13 = v37;
-            v12 = v41;
-            v14 = v45;
+            v14 = v39;
+            v13 = v43;
+            v15 = v47;
           }
 
-          ++v14;
+          ++v15;
         }
 
-        while (v14 != v12);
-        v12 = [obj countByEnumeratingWithState:&v50 objects:v57 count:16];
+        while (v15 != v13);
+        v13 = [obj countByEnumeratingWithState:&v52 objects:v59 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
 
-    v35 = PLLogArchiving();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v38 = PLLogArchiving(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D8611000, v35, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::cleanup: done", buf, 2u);
+      _os_log_impl(&dword_1D8611000, v38, OS_LOG_TYPE_DEFAULT, "PLArchiveManager::cleanup: done", buf, 2u);
     }
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recover
@@ -886,81 +884,81 @@ LABEL_9:
 
 void __27__PLArchiveManager_recover__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v2 = PLLogArchiving();
+  v21 = *MEMORY[0x1E69E9840];
+  v2 = PLLogArchiving(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __27__PLArchiveManager_recover__block_invoke_cold_1();
   }
 
-  v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
   v3 = +[PLArchiveManager archiveEntriesUnfinished];
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v5 = v4;
   if (v4)
   {
-    v5 = *v15;
+    v6 = *v16;
     do
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
-        v8 = PLLogArchiving();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v8 = *(*(&v15 + 1) + 8 * v7);
+        v9 = PLLogArchiving(v4);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          __27__PLArchiveManager_recover__block_invoke_cold_2(v18, v7);
+          __27__PLArchiveManager_recover__block_invoke_cold_2(v19, v8);
         }
 
-        v9 = [*(a1 + 32) archiveJobs];
-        objc_sync_enter(v9);
         v10 = [*(a1 + 32) archiveJobs];
-        v11 = [[PLArchiveJob alloc] initWithManager:*(a1 + 32) andArchiveEntry:v7];
-        [v10 addObject:v11];
+        objc_sync_enter(v10);
+        v11 = [*(a1 + 32) archiveJobs];
+        v12 = [[PLArchiveJob alloc] initWithManager:*(a1 + 32) andArchiveEntry:v8];
+        [v11 addObject:v12];
 
-        objc_sync_exit(v9);
-        ++v6;
+        objc_sync_exit(v10);
+        ++v7;
       }
 
-      while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      while (v5 != v7);
+      v4 = [v3 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v5 = v4;
     }
 
     while (v4);
   }
 
-  v12 = PLLogArchiving();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v14 = PLLogArchiving(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     __27__PLArchiveManager_recover__block_invoke_cold_3();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)migrateArchive:(id)archive
 {
-  v57[1] = *MEMORY[0x1E69E9840];
+  v60[1] = *MEMORY[0x1E69E9840];
   archiveCopy = archive;
   v4 = [PLUtilities extractDateStringAndUUIDStringFromFilePath:archiveCopy];
   v5 = v4;
   if (!v4 || [v4 count] != 2)
   {
     archiveCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid archivePath=%@", archiveCopy];
-    v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLArchiveManager.m"];
-    lastPathComponent = [v20 lastPathComponent];
-    v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLArchiveManager migrateArchive:]"];
-    [PLCoreStorage logMessage:archiveCopy fromFile:lastPathComponent fromFunction:v22 fromLineNumber:864];
+    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLArchiveManager.m"];
+    lastPathComponent = [v21 lastPathComponent];
+    v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLArchiveManager migrateArchive:]"];
+    [PLCoreStorage logMessage:archiveCopy fromFile:lastPathComponent fromFunction:v23 fromLineNumber:864];
 
-    v19 = PLLogCommon();
-    if (os_log_type_enabled(&v19->super.super, OS_LOG_TYPE_DEBUG))
+    v20 = PLLogCommon(v24);
+    if (os_log_type_enabled(&v20->super.super, OS_LOG_TYPE_DEBUG))
     {
       [PLArchiveManager migrateArchive:];
     }
@@ -1001,58 +999,58 @@ void __27__PLArchiveManager_recover__block_invoke(uint64_t a1)
         v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLArchiveManager migrateArchive:]"];
         [PLCoreStorage logMessage:archiveCopy2 fromFile:lastPathComponent2 fromFunction:v17 fromLineNumber:873];
 
-        v18 = PLLogCommon();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v19 = PLLogCommon(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           [PLArchiveManager migrateArchive:];
         }
       }
     }
 
-    v19 = [[PLArchiveEntry alloc] initWithMetadata:archiveCopy];
+    v20 = [[PLArchiveEntry alloc] initWithMetadata:archiveCopy];
     goto LABEL_33;
   }
 
-  v23 = [PLValueComparison alloc];
+  v25 = [PLValueComparison alloc];
   lastObject2 = [v5 lastObject];
-  v25 = [(PLValueComparison *)v23 initWithKey:@"UUID" withValue:lastObject2 withComparisonOperation:0];
+  v27 = [(PLValueComparison *)v25 initWithKey:@"UUID" withValue:lastObject2 withComparisonOperation:0];
 
-  v57[0] = v25;
-  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:1];
-  v27 = [PLArchiveManager archiveEntriesWithComparisons:v26];
+  v60[0] = v27;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:1];
+  v29 = [PLArchiveManager archiveEntriesWithComparisons:v28];
 
-  if (v27 && [v27 count])
+  if (v29 && [v29 count])
   {
 
-    v19 = 0;
+    v20 = 0;
     goto LABEL_34;
   }
 
-  v54 = v25;
-  v53 = v27;
+  v57 = v27;
+  v56 = v29;
   if (+[PLDefaults debugEnabled])
   {
-    v28 = objc_opt_class();
-    v55[0] = MEMORY[0x1E69E9820];
-    v55[1] = 3221225472;
-    v55[2] = __35__PLArchiveManager_migrateArchive___block_invoke_568;
-    v55[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v55[4] = v28;
+    v30 = objc_opt_class();
+    v58[0] = MEMORY[0x1E69E9820];
+    v58[1] = 3221225472;
+    v58[2] = __35__PLArchiveManager_migrateArchive___block_invoke_568;
+    v58[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v58[4] = v30;
     if (migrateArchive__defaultOnce_566 != -1)
     {
-      dispatch_once(&migrateArchive__defaultOnce_566, v55);
+      dispatch_once(&migrateArchive__defaultOnce_566, v58);
     }
 
     if (migrateArchive__classDebugEnabled_567 == 1)
     {
       archiveCopy3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLArchiveManager::migrateArchive: archive without metadata:%@", archiveCopy];
-      v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLArchiveManager.m"];
-      lastPathComponent3 = [v30 lastPathComponent];
-      v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLArchiveManager migrateArchive:]"];
-      [PLCoreStorage logMessage:archiveCopy3 fromFile:lastPathComponent3 fromFunction:v32 fromLineNumber:887];
+      v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLArchiveManager.m"];
+      lastPathComponent3 = [v32 lastPathComponent];
+      v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLArchiveManager migrateArchive:]"];
+      [PLCoreStorage logMessage:archiveCopy3 fromFile:lastPathComponent3 fromFunction:v34 fromLineNumber:887];
 
-      v33 = PLLogCommon();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      v36 = PLLogCommon(v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
         [PLArchiveManager migrateArchive:];
       }
@@ -1060,64 +1058,62 @@ void __27__PLArchiveManager_recover__block_invoke(uint64_t a1)
   }
 
   firstObject2 = [v5 firstObject];
-  v35 = [firstObject2 length];
-  v36 = [@"yyyy-MM-dd" length];
+  v38 = [firstObject2 length];
+  v39 = [@"yyyy-MM-dd" length];
 
-  if (v35 >= v36)
+  if (v38 >= v39)
   {
     defaultDateFormatter = [MEMORY[0x1E695DF00] defaultDateFormatter];
     firstObject3 = [v5 firstObject];
-    v48 = [firstObject3 substringToIndex:{objc_msgSend(@"yyyy-MM-dd", "length")}];
-    v37 = [defaultDateFormatter dateFromString:v48];
+    v52 = [firstObject3 substringToIndex:{objc_msgSend(@"yyyy-MM-dd", "length")}];
+    v40 = [defaultDateFormatter dateFromString:v52];
 
-    v49 = [v37 dateByAddingTimeInterval:86400.0];
-    v38 = v49;
-    if (v37 && v49)
+    v53 = [v40 dateByAddingTimeInterval:86400.0];
+    v41 = v53;
+    if (v40 && v53)
     {
-      v50 = [PLArchiveEntry alloc];
-      convertFromSystemToMonotonic = [v37 convertFromSystemToMonotonic];
-      convertFromSystemToMonotonic2 = [v38 convertFromSystemToMonotonic];
+      v54 = [PLArchiveEntry alloc];
+      convertFromSystemToMonotonic = [v40 convertFromSystemToMonotonic];
+      convertFromSystemToMonotonic2 = [v41 convertFromSystemToMonotonic];
       lastObject3 = [v5 lastObject];
-      v19 = [(PLArchiveEntry *)v50 initWithStartDate:convertFromSystemToMonotonic endDate:convertFromSystemToMonotonic2 andUUID:lastObject3];
+      v20 = [(PLArchiveEntry *)v54 initWithStartDate:convertFromSystemToMonotonic endDate:convertFromSystemToMonotonic2 andUUID:lastObject3];
 
-      v45 = v53;
-      v44 = 1;
+      v49 = v56;
+      v48 = 1;
       goto LABEL_32;
     }
   }
 
   else
   {
-    v37 = 0;
-    v38 = 0;
+    v40 = 0;
+    v41 = 0;
   }
 
-  convertFromSystemToMonotonic = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid startDate=%@, endDate=%@", v37, v38];
-  v40 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLArchiveManager.m"];
-  lastPathComponent4 = [v40 lastPathComponent];
-  v42 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLArchiveManager migrateArchive:]"];
-  [PLCoreStorage logMessage:convertFromSystemToMonotonic fromFile:lastPathComponent4 fromFunction:v42 fromLineNumber:896];
+  convertFromSystemToMonotonic = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid startDate=%@, endDate=%@", v40, v41];
+  v43 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLArchiveManager.m"];
+  lastPathComponent4 = [v43 lastPathComponent];
+  v45 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLArchiveManager migrateArchive:]"];
+  [PLCoreStorage logMessage:convertFromSystemToMonotonic fromFile:lastPathComponent4 fromFunction:v45 fromLineNumber:896];
 
-  convertFromSystemToMonotonic2 = PLLogCommon();
+  convertFromSystemToMonotonic2 = PLLogCommon(v46);
   if (os_log_type_enabled(convertFromSystemToMonotonic2, OS_LOG_TYPE_DEBUG))
   {
     [PLArchiveManager migrateArchive:];
   }
 
-  v44 = 0;
-  v19 = 0;
-  v45 = v53;
+  v48 = 0;
+  v20 = 0;
+  v49 = v56;
 LABEL_32:
 
-  if (v44)
+  if (v48)
   {
 LABEL_33:
-    [(PLArchiveEntry *)v19 setStage:5];
+    [(PLArchiveEntry *)v20 setStage:5];
   }
 
 LABEL_34:
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __35__PLArchiveManager_migrateArchive___block_invoke(uint64_t a1)
@@ -1155,7 +1151,7 @@ BOOL __35__PLArchiveManager_migrateArchive___block_invoke_568(uint64_t a1)
 void __27__PLArchiveManager_migrate__block_invoke(uint64_t a1)
 {
   v54 = *MEMORY[0x1E69E9840];
-  v1 = PLLogArchiving();
+  v1 = PLLogArchiving(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __27__PLArchiveManager_migrate__block_invoke_cold_1();
@@ -1234,13 +1230,12 @@ void __27__PLArchiveManager_migrate__block_invoke(uint64_t a1)
         v24 = *(*(&v42 + 1) + 8 * v23);
         if ([*(v22 + 2224) debugEnabled])
         {
-          v25 = *(a1 + 32);
-          v26 = objc_opt_class();
+          v25 = objc_opt_class();
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           v41[0] = __27__PLArchiveManager_migrate__block_invoke_584;
           v41[1] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v41[2] = v26;
+          v41[2] = v25;
           if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_4 != -1)
           {
             dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_4, block);
@@ -1248,25 +1243,25 @@ void __27__PLArchiveManager_migrate__block_invoke(uint64_t a1)
 
           if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_4 == 1)
           {
-            v27 = v20;
-            v28 = v16;
-            v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLArchiveManager::migrate: removing filepath:%@", v24];
-            v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLArchiveManager.m"];
-            v31 = [v30 lastPathComponent];
-            v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLArchiveManager migrate]_block_invoke_2"];
-            [PLCoreStorage logMessage:v29 fromFile:v31 fromFunction:v32 fromLineNumber:929];
+            v26 = v20;
+            v27 = v16;
+            v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLArchiveManager::migrate: removing filepath:%@", v24];
+            v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLArchiveManager.m"];
+            v30 = [v29 lastPathComponent];
+            v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLArchiveManager migrate]_block_invoke_2"];
+            [PLCoreStorage logMessage:v28 fromFile:v30 fromFunction:v31 fromLineNumber:929];
 
-            v33 = PLLogCommon();
+            v33 = PLLogCommon(v32);
             if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v51 = v29;
+              v51 = v28;
               _os_log_debug_impl(&dword_1D8611000, v33, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
             v18 = 0x1E696A000uLL;
-            v16 = v28;
-            v20 = v27;
+            v16 = v27;
+            v20 = v26;
             v21 = v38;
             v22 = 0x1E8518000;
           }
@@ -1285,13 +1280,11 @@ void __27__PLArchiveManager_migrate__block_invoke(uint64_t a1)
     while (v19);
   }
 
-  v35 = PLLogArchiving();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+  v36 = PLLogArchiving(v35);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
   {
     __27__PLArchiveManager_migrate__block_invoke_cold_2();
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __27__PLArchiveManager_migrate__block_invoke_584(uint64_t a1)
@@ -1303,57 +1296,55 @@ BOOL __27__PLArchiveManager_migrate__block_invoke_584(uint64_t a1)
 
 + (void)systemTimeChangedByOffset:(double)offset
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = +[PowerlogCore sharedCore];
   storage = [v4 storage];
   storageLocked = [storage storageLocked];
 
   if ((storageLocked & 1) == 0)
   {
-    v7 = PLLogArchiving();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = PLLogArchiving(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       +[PLArchiveManager systemTimeChangedByOffset:];
     }
 
-    v19 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
-    v8 = +[PLArchiveManager archiveEntriesFinished];
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v9)
+    v19 = 0u;
+    v9 = +[PLArchiveManager archiveEntriesFinished];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v18;
+      v11 = v10;
+      v12 = *v19;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v18 != v11)
+          if (*v19 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
-          [v13 systemTimeOffset];
-          [v13 setSystemTimeOffset:v14 + offset];
+          v14 = *(*(&v18 + 1) + 8 * i);
+          [v14 systemTimeOffset];
+          [v14 setSystemTimeOffset:v15 + offset];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
-    v15 = PLLogArchiving();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v17 = PLLogArchiving(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       +[PLArchiveManager systemTimeChangedByOffset:];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (id)lastArchivePath
@@ -1376,95 +1367,89 @@ BOOL __27__PLArchiveManager_migrate__block_invoke_584(uint64_t a1)
 
 + (id)allArchivePaths
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   archiveEntriesFinished = [self archiveEntriesFinished];
-  v5 = [archiveEntriesFinished countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [archiveEntriesFinished countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(archiveEntriesFinished);
         }
 
-        compressedPath = [*(*(&v12 + 1) + 8 * i) compressedPath];
+        compressedPath = [*(*(&v11 + 1) + 8 * i) compressedPath];
         [array addObject:compressedPath];
       }
 
-      v6 = [archiveEntriesFinished countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [archiveEntriesFinished countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 + (id)archiveEntriesUnfinished
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v2 = [[PLValueComparison alloc] initWithKey:@"Stage" withValue:&unk_1F5406180 withComparisonOperation:4];
   v3 = [[PLValueComparison alloc] initWithKey:@"RemovedDate" withValue:&unk_1F5406198 withComparisonOperation:0];
-  v8[0] = v2;
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
+  v7[0] = v2;
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
   v5 = [PLArchiveManager archiveEntriesWithComparisons:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)archiveEntriesFinished
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v2 = [[PLValueComparison alloc] initWithKey:@"Stage" withValue:&unk_1F5406180 withComparisonOperation:0];
   v3 = [[PLValueComparison alloc] initWithKey:@"RemovedDate" withValue:&unk_1F5406198 withComparisonOperation:0];
-  v8[0] = v2;
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
+  v7[0] = v2;
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
   v5 = [PLArchiveManager archiveEntriesWithComparisons:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)archiveForDate:(id)date
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dateCopy = date;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = +[PLArchiveManager archiveEntriesFinished];
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
-    v6 = *v16;
+    v6 = *v15;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         v9 = objc_alloc(MEMORY[0x1E696AB80]);
         startDate = [v8 startDate];
         endDate = [v8 endDate];
@@ -1478,7 +1463,7 @@ BOOL __27__PLArchiveManager_migrate__block_invoke_584(uint64_t a1)
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -1489,8 +1474,6 @@ BOOL __27__PLArchiveManager_migrate__block_invoke_584(uint64_t a1)
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1509,22 +1492,23 @@ LABEL_11:
 - (void)registerForArchivingNotificationUsingBlock:(id)block
 {
   blockCopy = block;
+  v5 = blockCopy;
   if (blockCopy)
   {
-    v5 = PLLogArchiving();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = PLLogArchiving(blockCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [PLArchiveManager registerForArchivingNotificationUsingBlock:];
     }
 
-    v6 = +[PLArchiveManager workQueue];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __63__PLArchiveManager_registerForArchivingNotificationUsingBlock___block_invoke;
-    v7[3] = &unk_1E8519400;
-    v7[4] = self;
-    v8 = blockCopy;
-    dispatch_async_and_wait(v6, v7);
+    v7 = +[PLArchiveManager workQueue];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __63__PLArchiveManager_registerForArchivingNotificationUsingBlock___block_invoke;
+    v8[3] = &unk_1E8519400;
+    v8[4] = self;
+    v9 = v5;
+    dispatch_async_and_wait(v7, v8);
   }
 }
 
@@ -1570,24 +1554,20 @@ void __63__PLArchiveManager_registerForArchivingNotificationUsingBlock___block_i
 
 - (void)handleFailure:(NSObject *)a3 forArchiveEntry:.cold.1(int a1, void *a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = [a2 name];
-  v7[0] = 67109378;
-  v7[1] = a1;
-  v8 = 2112;
-  v9 = v5;
-  _os_log_error_impl(&dword_1D8611000, a3, OS_LOG_TYPE_ERROR, "PLArchiveManager::handleFailure:forArchive: failureType=%i, archiveEntry=%@", v7, 0x12u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6[0] = 67109378;
+  v6[1] = a1;
+  v7 = 2112;
+  v8 = v5;
+  _os_log_error_impl(&dword_1D8611000, a3, OS_LOG_TYPE_ERROR, "PLArchiveManager::handleFailure:forArchive: failureType=%i, archiveEntry=%@", v6, 0x12u);
 }
 
 - (void)eliglibleToVacuumEPSQLForDate:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)eliglibleToVacuumEPSQLForDate:.cold.2()
@@ -1621,11 +1601,9 @@ void __27__PLArchiveManager_recover__block_invoke_cold_3()
 
 - (void)migrateArchive:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __27__PLArchiveManager_migrate__block_invoke_cold_1()

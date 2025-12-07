@@ -49,21 +49,19 @@
 
 id __34__WADeploymentIssuesMetric_submit__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) coreAnalyticsRepresentation];
   v2 = WALogCategoryDefaultHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446722;
-    v6 = "[WADeploymentIssuesMetric submit]_block_invoke";
-    v7 = 1024;
-    v8 = 67;
-    v9 = 2112;
-    v10 = v1;
-    _os_log_impl(&dword_1C8460000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Submitting deployment issue metric = %@", &v5, 0x1Cu);
+    v4 = 136446722;
+    v5 = "[WADeploymentIssuesMetric submit]_block_invoke";
+    v6 = 1024;
+    v7 = 67;
+    v8 = 2112;
+    v9 = v1;
+    _os_log_impl(&dword_1C8460000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Submitting deployment issue metric = %@", &v4, 0x1Cu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v1;
 }

@@ -1,5 +1,6 @@
 @interface CDBRecurrenceGenerator
 - (id)_copyOccurrenceDatesWithBirthdayEvent:(void *)event startDate:(id)date endDate:(id)endDate timeZone:(id)zone limit:(int64_t)limit locked:(BOOL)locked;
+- (id)computeRecurrenceEndDateForCalEvent:(void *)event recurrenceRule:(void *)rule locked:(BOOL)locked;
 - (id)copyOccurrenceDatesWithCalEvent:(void *)event startDate:(id)date endDate:(id)endDate timeZone:(id)zone limit:(int64_t)limit includeExtraOccurrencesPastEndDate:(BOOL)pastEndDate locked:(BOOL)locked;
 - (id)copyOccurrenceDatesWithInitialDate:(id)date calRecurrences:(id)recurrences rangeStart:(id)start rangeEnd:(id)end timeZone:(id)zone;
 - (id)nextOccurrenceDateWithCalRecurrences:(id)recurrences exceptionDates:(id)dates initialDate:(id)date afterDate:(id)afterDate;
@@ -18,7 +19,7 @@
 
   else
   {
-    RecordLock = CalGetRecordLock();
+    RecordLock = CalGetRecordLock(event);
     os_unfair_lock_lock(RecordLock);
   }
 
@@ -205,7 +206,7 @@ LABEL_23:
 
 - (id)copyOccurrenceDatesWithInitialDate:(id)date calRecurrences:(id)recurrences rangeStart:(id)start rangeEnd:(id)end timeZone:(id)zone
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   recurrencesCopy = recurrences;
   startCopy = start;
@@ -217,27 +218,27 @@ LABEL_23:
   [(CalRecurrenceGenerator *)self setEventTimeZone:zoneCopy];
   [(CalRecurrenceGenerator *)self setAllDay:0];
   v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:0];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = recurrencesCopy;
-  v18 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v18 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v30;
+    v20 = *v29;
     do
     {
       v21 = 0;
       do
       {
-        if (*v30 != v20)
+        if (*v29 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        [(CDBRecurrenceGenerator *)self _prepareForCalRecurrence:*(*(&v29 + 1) + 8 * v21) locked:0];
+        [(CDBRecurrenceGenerator *)self _prepareForCalRecurrence:*(*(&v28 + 1) + 8 * v21) locked:0];
         v22 = objc_autoreleasePoolPush();
         v23 = [(CalRecurrenceGenerator *)self copyOccurrenceDatesWithInitialDate:v16 allDay:0 rangeStart:startCopy rangeEnd:endCopy timeZone:zoneCopy limit:0];
         [v17 addObjectsFromArray:v23];
@@ -247,20 +248,19 @@ LABEL_23:
       }
 
       while (v19 != v21);
-      v19 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v19 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v19);
   }
 
   v24 = [v17 copy];
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 - (id)nextOccurrenceDateWithCalRecurrences:(id)recurrences exceptionDates:(id)dates initialDate:(id)date afterDate:(id)afterDate
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   recurrencesCopy = recurrences;
   datesCopy = dates;
   dateCopy = date;
@@ -277,29 +277,29 @@ LABEL_23:
   [(CalRecurrenceGenerator *)self setAllDay:0];
   v17 = MEMORY[0x1E69930C8];
   v18 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:1577840000.0];
-  v43 = dateCopy;
+  v42 = dateCopy;
   timeZone2 = [dateCopy timeZone];
-  v44 = [v17 calendarDateWithDate:v18 timeZone:timeZone2];
+  v43 = [v17 calendarDateWithDate:v18 timeZone:timeZone2];
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   obj = recurrencesCopy;
-  v47 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
-  if (v47)
+  v46 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
+  if (v46)
   {
-    v46 = *v55;
+    v45 = *v54;
 LABEL_3:
     v20 = 0;
     while (1)
     {
-      if (*v55 != v46)
+      if (*v54 != v45)
       {
         objc_enumerationMutation(obj);
       }
 
-      [(CDBRecurrenceGenerator *)self _prepareForCalRecurrence:*(*(&v54 + 1) + 8 * v20) locked:0];
+      [(CDBRecurrenceGenerator *)self _prepareForCalRecurrence:*(*(&v53 + 1) + 8 * v20) locked:0];
       v21 = objc_autoreleasePoolPush();
       v22 = [afterDateCopy calendarDateByAddingSeconds:1];
       endDate = [(CalRecurrenceGenerator *)self endDate];
@@ -317,7 +317,7 @@ LABEL_3:
 
       else
       {
-        date4 = [v44 date];
+        date4 = [v43 date];
       }
 
       v30 = [datesCopy count];
@@ -325,29 +325,29 @@ LABEL_3:
       timeZone4 = [afterDateCopy timeZone];
       v33 = [(CalRecurrenceGenerator *)self copyOccurrenceDatesBetweenStartDate:date5 endDate:date4 timeZone:timeZone4 limit:v30 + 1];
 
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
       v51 = 0u;
+      v52 = 0u;
+      v49 = 0u;
+      v50 = 0u;
       v34 = v33;
-      v35 = [v34 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v35 = [v34 countByEnumeratingWithState:&v49 objects:v57 count:16];
       if (v35)
       {
-        v48 = v22;
-        v49 = v21;
+        v47 = v22;
+        v48 = v21;
         selfCopy = self;
         v37 = afterDateCopy;
-        v38 = *v51;
+        v38 = *v50;
         while (2)
         {
           for (i = 0; i != v35; i = i + 1)
           {
-            if (*v51 != v38)
+            if (*v50 != v38)
             {
               objc_enumerationMutation(v34);
             }
 
-            v40 = *(*(&v50 + 1) + 8 * i);
+            v40 = *(*(&v49 + 1) + 8 * i);
             if (([datesCopy containsObject:v40] & 1) == 0)
             {
               v35 = v40;
@@ -355,7 +355,7 @@ LABEL_3:
             }
           }
 
-          v35 = [v34 countByEnumeratingWithState:&v50 objects:v58 count:16];
+          v35 = [v34 countByEnumeratingWithState:&v49 objects:v57 count:16];
           if (v35)
           {
             continue;
@@ -367,8 +367,8 @@ LABEL_3:
 LABEL_19:
         afterDateCopy = v37;
         self = selfCopy;
-        v22 = v48;
-        v21 = v49;
+        v22 = v47;
+        v21 = v48;
       }
 
       objc_autoreleasePoolPop(v21);
@@ -377,10 +377,10 @@ LABEL_19:
         break;
       }
 
-      if (++v20 == v47)
+      if (++v20 == v46)
       {
-        v47 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
-        if (v47)
+        v46 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
+        if (v46)
         {
           goto LABEL_3;
         }
@@ -396,8 +396,6 @@ LABEL_23:
     v35 = 0;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
-
   return v35;
 }
 
@@ -410,7 +408,7 @@ LABEL_23:
 
   else
   {
-    RecordLock = CalGetRecordLock();
+    RecordLock = CalGetRecordLock(recurrence);
     os_unfair_lock_lock(RecordLock);
   }
 
@@ -599,7 +597,7 @@ LABEL_43:
   }
 
   CalDateTimeSetTimeZone();
-  _CalRecurrenceSetCachedEndDate(recurrence, v62);
+  _CalRecurrenceSetCachedEndDate(recurrence, v62, 0);
   CalDateTimeRelease();
   CFRelease(v59);
   if (RecordLock)
@@ -612,6 +610,15 @@ LABEL_44:
 
     os_unfair_lock_unlock(RecordLock);
   }
+}
+
+- (id)computeRecurrenceEndDateForCalEvent:(void *)event recurrenceRule:(void *)rule locked:(BOOL)locked
+{
+  lockedCopy = locked;
+  [(CDBRecurrenceGenerator *)self _setupForCalEvent:event locked:locked];
+  [(CDBRecurrenceGenerator *)self _prepareForCalRecurrence:rule locked:lockedCopy];
+
+  return [(CalRecurrenceGenerator *)self endDate];
 }
 
 @end

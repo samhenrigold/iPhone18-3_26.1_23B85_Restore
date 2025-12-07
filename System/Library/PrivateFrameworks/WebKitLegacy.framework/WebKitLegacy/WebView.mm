@@ -569,7 +569,7 @@ LABEL_5:
 
 - (void)_commonInitializationWithFrameName:(id)name groupName:(id)groupName
 {
-  v251 = *MEMORY[0x1E69E9840];
+  v252 = *MEMORY[0x1E69E9840];
   v7 = +[WebPreferences standardPreferences];
   [(WebPreferences *)v7 willAddToWebView];
   v8 = self->_private;
@@ -622,23 +622,23 @@ LABEL_5:
   if ((byte_1ED6A6131 & 1) == 0)
   {
     WTF::logChannels(updateTouchBar);
-    LOBYTE(v236) = 0;
-    v237 = 0;
+    LOBYTE(v237) = 0;
+    v238 = 0;
     v21 = WTF::LogChannels::initializeLogChannelsIfNecessary();
     WebCore::logChannels(v21);
-    LOBYTE(v234) = 0;
-    v235 = 0;
+    LOBYTE(v235) = 0;
+    v236 = 0;
     WTF::LogChannels::initializeLogChannelsIfNecessary();
     {
-      WTF::NeverDestroyed<WebKit::LogChannels,WTF::AnyThreadsAccessTraits>::NeverDestroyed<>(&WebKit::logChannels(void)::logChannels);
+      WTF::NeverDestroyed<WebKit::LogChannels,WTF::AnyThreadsAccessTraits>::NeverDestroyed<>(&WebKit::logChannels(void)::logChannels, v22);
     }
 
-    LOBYTE(v232) = 0;
-    v233 = 0;
-    v22 = WTF::LogChannels::initializeLogChannelsIfNecessary();
-    WebPlatformStrategies::initializeIfNecessary(v22);
-    v23 = initializeDOMWrapperHooks();
-    WebCore::WebSQLiteDatabaseTrackerClient::sharedWebSQLiteDatabaseTrackerClient(v23);
+    LOBYTE(v233) = 0;
+    v234 = 0;
+    v23 = WTF::LogChannels::initializeLogChannelsIfNecessary();
+    WebPlatformStrategies::initializeIfNecessary(v23);
+    v24 = initializeDOMWrapperHooks();
+    WebCore::WebSQLiteDatabaseTrackerClient::sharedWebSQLiteDatabaseTrackerClient(v24);
     WebCore::SQLiteDatabaseTracker::setClient();
     if ([(WebPreferences *)v7 databasesEnabled])
     {
@@ -653,8 +653,8 @@ LABEL_5:
 
     if ((byte_1ED6A6138 & 1) == 0)
     {
-      v25 = WebCore::GamepadProvider::singleton(storageTrackerEnabled);
-      WebCore::GameControllerGamepadProvider::singleton(v25);
+      v26 = WebCore::GamepadProvider::singleton(storageTrackerEnabled);
+      WebCore::GameControllerGamepadProvider::singleton(v26);
       storageTrackerEnabled = WebCore::GamepadProvider::setSharedProvider();
       byte_1ED6A6138 = 1;
     }
@@ -666,44 +666,44 @@ LABEL_5:
     }
 
     WebCore::AudioSession::enableMediaPlayback(isMobileSafari);
-    v27 = NSTemporaryDirectory();
-    MEMORY[0x1CCA63A40](&selfCopy, v27);
+    v28 = NSTemporaryDirectory();
+    MEMORY[0x1CCA63A40](&selfCopy, v28);
     WTF::FileSystemImpl::pathByAppendingComponent();
-    WebCore::HTMLMediaElement::setMediaCacheDirectory(cf, v28);
-    v30 = cf[0];
+    WebCore::HTMLMediaElement::setMediaCacheDirectory(cf, v29);
+    v31 = cf[0];
     cf[0] = 0;
-    if (v30 && atomic_fetch_add_explicit(v30, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v30, v29);
-    }
-
-    v31 = selfCopy;
-    selfCopy = 0;
     if (v31 && atomic_fetch_add_explicit(v31, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v31, v29);
+      WTF::StringImpl::destroy(v31, v30);
+    }
+
+    v32 = selfCopy;
+    selfCopy = 0;
+    if (v32 && atomic_fetch_add_explicit(v32, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v32, v30);
     }
 
     byte_1ED6A6131 = 1;
   }
 
   MEMORY[0x1CCA63A40](&selfCopy, groupName);
-  MEMORY[0x1CCA63A40](&v238, [(WebPreferences *)self->_private->preferences.m_ptr _localStorageDatabasePath]);
-  WebViewGroup::getOrCreate(&selfCopy, &v238, cf);
-  v33 = self->_private;
-  v34 = cf[0];
+  MEMORY[0x1CCA63A40](&v239, [(WebPreferences *)self->_private->preferences.m_ptr _localStorageDatabasePath]);
+  WebViewGroup::getOrCreate(cf, &selfCopy, &v239);
+  v34 = self->_private;
+  v35 = cf[0];
   cf[0] = 0;
-  v35 = v33->group.m_ptr;
-  v33->group.m_ptr = v34;
-  if (v35)
+  v36 = v34->group.m_ptr;
+  v34->group.m_ptr = v35;
+  if (v36)
   {
-    if (*v35 == 1)
+    if (*v36 == 1)
     {
-      WebViewGroup::~WebViewGroup(v35, v32);
-      WTF::fastFree(v37, v38);
-      v36 = v238;
-      v238 = 0;
-      if (!v36)
+      WebViewGroup::~WebViewGroup(v36, v33);
+      WTF::fastFree(v38, v39);
+      v37 = v239;
+      v239 = 0;
+      if (!v37)
       {
         goto LABEL_37;
       }
@@ -711,42 +711,42 @@ LABEL_5:
       goto LABEL_35;
     }
 
-    --*v35;
+    --*v36;
   }
 
-  v36 = v238;
-  v238 = 0;
-  if (!v36)
+  v37 = v239;
+  v239 = 0;
+  if (!v37)
   {
     goto LABEL_37;
   }
 
 LABEL_35:
-  if (atomic_fetch_add_explicit(v36, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (atomic_fetch_add_explicit(v37, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v36, v32);
+    WTF::StringImpl::destroy(v37, v33);
   }
 
 LABEL_37:
-  v39 = selfCopy;
+  v40 = selfCopy;
   selfCopy = 0;
-  if (v39 && atomic_fetch_add_explicit(v39, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v40 && atomic_fetch_add_explicit(v40, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v39, v32);
+    WTF::StringImpl::destroy(v40, v33);
   }
 
-  v40 = self->_private->group.m_ptr;
+  v41 = self->_private->group.m_ptr;
   selfCopy = self;
-  WTF::HashTable<WebView *,WebView *,WTF::IdentityExtractor,WTF::DefaultHash<WebView *>,WTF::HashTraits<WebView *>,WTF::HashTraits<WebView *>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>(v40 + 2, &selfCopy, cf);
-  v41 = WTF::fastMalloc(0x18);
-  *(v41 + 8) = 1;
-  *v41 = &unk_1F472BE10;
-  *(v41 + 16) = 0;
+  WTF::HashTable<WebView *,WebView *,WTF::IdentityExtractor,WTF::DefaultHash<WebView *>,WTF::HashTraits<WebView *>,WTF::HashTraits<WebView *>,WTF::FastMalloc>::add<(WTF::ShouldValidateKey)1>(v41 + 2, &selfCopy, cf);
+  v42 = WTF::fastMalloc(0x18);
+  *(v42 + 8) = 1;
+  *v42 = &unk_1F472BE10;
+  *(v42 + 16) = 0;
   WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>::generateIdentifierInternal();
   [(WebPreferences *)[(WebView *)self preferences] privateBrowsingEnabled];
   if (WebEditorClient::s_heapRef)
   {
-    NonCompact = bmalloc::api::tzoneAllocateNonCompact(WebEditorClient::s_heapRef, v42);
+    NonCompact = bmalloc::api::tzoneAllocateNonCompact(WebEditorClient::s_heapRef, v43);
   }
 
   else
@@ -754,43 +754,43 @@ LABEL_37:
     NonCompact = WebEditorClient::operatorNewSlow(0xB8);
   }
 
-  v44 = NonCompact;
+  v45 = NonCompact;
   WebEditorClient::WebEditorClient(NonCompact, self);
-  v231 = 0;
-  v238 = v44;
-  v45 = WTF::fastMalloc(0x10);
-  *(v45 + 2) = 1;
-  *v45 = &unk_1F472AFA8;
-  v230 = v45;
-  WebCore::WebRTCProvider::create(&v229, v45);
-  v46 = WTF::fastMalloc(0x18);
-  *(v46 + 16) = 1;
-  *v46 = &unk_1F472BE38;
-  *(v46 + 8) = 0;
-  v47 = *(self->_private->group.m_ptr + 5);
-  ++v47[2];
-  v227 = v47;
-  v228 = v46;
-  v48 = WTF::fastMalloc(0x48);
-  BackForwardList::BackForwardList(v48, self);
-  v226 = v49;
-  atomic_fetch_add((v41 + 8), 1u);
-  v224 = v41;
+  v232 = 0;
+  v239 = v45;
+  v46 = WTF::fastMalloc(0x10);
+  *(v46 + 2) = 1;
+  *v46 = &unk_1F472AFA8;
+  v231 = v46;
+  WebCore::WebRTCProvider::create(&v230, v46);
+  v47 = WTF::fastMalloc(0x18);
+  *(v47 + 16) = 1;
+  *v47 = &unk_1F472BE38;
+  *(v47 + 8) = 0;
+  v48 = *(self->_private->group.m_ptr + 5);
+  ++v48[2];
+  v228 = v48;
+  v229 = v47;
+  v49 = WTF::fastMalloc(0x48);
+  BackForwardList::BackForwardList(v49, self);
+  v227 = v50;
+  atomic_fetch_add((v42 + 8), 1u);
+  v225 = v42;
   WebCore::CookieJar::create();
-  v50 = WTF::fastMalloc(0x10);
-  *v50 = &unk_1F472E6A0;
-  v50[1] = self;
-  v223 = v50;
   v51 = WTF::fastMalloc(0x10);
-  *v51 = &unk_1F472C218;
-  selfCopy = v51;
-  v240 = 0;
+  *v51 = &unk_1F472E6A0;
+  v51[1] = self;
+  v224 = v51;
+  v52 = WTF::fastMalloc(0x10);
+  *v52 = &unk_1F472C218;
+  selfCopy = v52;
   v241 = 0;
-  FrameIdentifier = WebCore::generateFrameIdentifier(v51);
-  v222 = 0;
+  v242 = 0;
+  FrameIdentifier = WebCore::generateFrameIdentifier(v52);
+  v223 = 0;
   if (qword_1ED6A6198)
   {
-    NonCompactSlow = bmalloc::api::tzoneAllocateNonCompact(qword_1ED6A6198, v52);
+    NonCompactSlow = bmalloc::api::tzoneAllocateNonCompact(qword_1ED6A6198, v53);
   }
 
   else
@@ -800,112 +800,112 @@ LABEL_37:
 
   *NonCompactSlow = &unk_1F472C240;
   NonCompactSlow[1] = 0;
-  v220 = 0;
-  v221 = NonCompactSlow;
-  WebBroadcastChannelRegistry::getOrCreate([(WebPreferences *)[(WebView *)self preferences] privateBrowsingEnabled], &v218);
-  v56 = v218;
-  v218 = 0;
-  v219 = v56;
+  v221 = 0;
+  v222 = NonCompactSlow;
+  WebBroadcastChannelRegistry::getOrCreate([(WebPreferences *)[(WebView *)self preferences] privateBrowsingEnabled], &v219);
+  v57 = v219;
+  v219 = 0;
+  v220 = v57;
   if (*MEMORY[0x1E69E2630])
   {
-    v57 = bmalloc::api::tzoneAllocateNonCompact(*MEMORY[0x1E69E2630], v55);
+    v58 = bmalloc::api::tzoneAllocateNonCompact(*MEMORY[0x1E69E2630], v56);
   }
 
   else
   {
-    v57 = WebCore::DummyStorageProvider::operatorNewSlow(0x18);
+    v58 = WebCore::DummyStorageProvider::operatorNewSlow(0x18);
   }
 
-  *(v57 + 1) = 0;
-  *(v57 + 2) = 0;
-  *v57 = &unk_1F472C2B8;
-  v216 = 0;
-  v217 = v57;
-  WebCore::DummyModelPlayerProvider::create(&v214, v57);
-  v58 = v214;
-  v214 = 0;
-  v215 = v58;
-  v59 = WTF::fastMalloc(0x10);
-  *(v59 + 2) = 1;
-  *v59 = &unk_1F472C1A0;
-  v213 = v59;
-  v61 = LegacyHistoryItemClient::singleton(v59, v60);
-  ++*(v61 + 8);
-  v212 = v61;
-  WebPaymentCoordinatorClient::create(v62, &v210);
-  v64 = v210;
-  v210 = 0;
-  v211 = v64;
+  *(v58 + 1) = 0;
+  *(v58 + 2) = 0;
+  *v58 = &unk_1F472C2B8;
+  v217 = 0;
+  v218 = v58;
+  WebCore::DummyModelPlayerProvider::create(&v215, v58);
+  v59 = v215;
+  v215 = 0;
+  v216 = v59;
+  v60 = WTF::fastMalloc(0x10);
+  *(v60 + 2) = 1;
+  *v60 = &unk_1F472C1A0;
+  v214 = v60;
+  v62 = LegacyHistoryItemClient::singleton(v60, v61);
+  ++*(v62 + 8);
+  v213 = v62;
+  WebPaymentCoordinatorClient::create(&v211, v63);
+  v65 = v211;
+  v211 = 0;
+  v212 = v65;
   if (WebChromeClientIOS::s_heapRef)
   {
-    v65 = bmalloc::api::tzoneAllocateNonCompact(WebChromeClientIOS::s_heapRef, v63);
+    v66 = bmalloc::api::tzoneAllocateNonCompact(WebChromeClientIOS::s_heapRef, v64);
   }
 
   else
   {
-    v65 = WebChromeClientIOS::operatorNewSlow(0x20);
+    v66 = WebChromeClientIOS::operatorNewSlow(0x20);
   }
 
-  v66 = v65;
-  WebCore::ChromeClient::ChromeClient(v65);
-  *v66 = &unk_1F472C480;
-  *(v66 + 8) = 0;
-  objc_initWeak(v66 + 2, self);
-  *v66 = &unk_1F472CCE0;
-  *(v66 + 6) = 0;
-  v208 = 0;
-  v209 = v66;
+  v67 = v66;
+  WebCore::ChromeClient::ChromeClient(v66);
+  *v67 = &unk_1F472C480;
+  *(v67 + 8) = 0;
+  objc_initWeak(v67 + 2, self);
+  *v67 = &unk_1F472CCE0;
+  *(v67 + 6) = 0;
+  v209 = 0;
+  v210 = v67;
   if (WebCryptoClient::s_heapRef)
   {
-    v68 = bmalloc::api::tzoneAllocateNonCompact(WebCryptoClient::s_heapRef, v67);
+    v69 = bmalloc::api::tzoneAllocateNonCompact(WebCryptoClient::s_heapRef, v68);
   }
 
   else
   {
-    v68 = WebCryptoClient::operatorNewSlow(0x10);
+    v69 = WebCryptoClient::operatorNewSlow(0x10);
   }
 
-  v69 = v68;
-  *v68 = &unk_1F472D518;
-  objc_initWeak((v68 + 8), self);
-  v207 = v69;
+  v70 = v69;
+  *v69 = &unk_1F472D518;
+  objc_initWeak((v69 + 8), self);
+  v208 = v70;
   if (qword_1ED6A61A0)
   {
-    v71 = bmalloc::api::tzoneAllocateNonCompact(qword_1ED6A61A0, v70);
+    v72 = bmalloc::api::tzoneAllocateNonCompact(qword_1ED6A61A0, v71);
   }
 
   else
   {
-    v71 = bmalloc::api::tzoneAllocateNonCompactSlow();
+    v72 = bmalloc::api::tzoneAllocateNonCompactSlow();
   }
 
-  *v71 = &unk_1F472C330;
-  v206 = v71;
-  WebCore::DummyCredentialRequestCoordinatorClient::create(&v204, v71);
-  v72 = v204;
-  v204 = 0;
-  v205 = v72;
-  v201 = &v219;
-  v202 = &v217;
-  v199 = &v222;
-  v200 = &v221;
-  v197 = &selfCopy;
-  v198 = FrameIdentifier;
-  v195 = &v225;
-  v196 = &v223;
-  v193 = &v227;
-  v194 = &v226;
-  WebCore::PageConfiguration::PageConfiguration();
-  v74 = v205;
+  *v72 = &unk_1F472C330;
+  v207 = v72;
+  WebCore::DummyCredentialRequestCoordinatorClient::create(&v205, v72);
+  v73 = v205;
   v205 = 0;
-  if (v74)
+  v206 = v73;
+  v202 = &v220;
+  v203 = &v218;
+  v200 = &v223;
+  v201 = &v222;
+  v198 = &selfCopy;
+  v199 = FrameIdentifier;
+  v196 = &v226;
+  v197 = &v224;
+  v194 = &v228;
+  v195 = &v227;
+  WebCore::PageConfiguration::PageConfiguration();
+  v75 = v206;
+  v206 = 0;
+  if (v75)
   {
-    if (v74[2] == 1)
+    if (v75[2] == 1)
     {
-      (*(*v74 + 8))(v74);
-      v75 = v204;
-      v204 = 0;
-      if (!v75)
+      (*(*v75 + 8))(v75);
+      v76 = v205;
+      v205 = 0;
+      if (!v76)
       {
         goto LABEL_63;
       }
@@ -913,35 +913,28 @@ LABEL_37:
       goto LABEL_58;
     }
 
-    --v74[2];
+    --v75[2];
   }
 
-  v75 = v204;
-  v204 = 0;
-  if (!v75)
+  v76 = v205;
+  v205 = 0;
+  if (!v76)
   {
     goto LABEL_63;
   }
 
 LABEL_58:
-  if (v75[2] == 1)
-  {
-    (*(*v75 + 8))(v75);
-  }
-
-  else
-  {
-    --v75[2];
-  }
-
-LABEL_63:
-  v76 = v206;
-  v206 = 0;
-  if (v76)
+  if (v76[2] == 1)
   {
     (*(*v76 + 8))(v76);
   }
 
+  else
+  {
+    --v76[2];
+  }
+
+LABEL_63:
   v77 = v207;
   v207 = 0;
   if (v77)
@@ -949,43 +942,50 @@ LABEL_63:
     (*(*v77 + 8))(v77);
   }
 
-  v78 = v209;
-  v209 = 0;
+  v78 = v208;
+  v208 = 0;
   if (v78)
   {
-    (*(*v78 + 2040))(v78);
+    (*(*v78 + 8))(v78);
   }
 
-  v79 = v208;
-  v208 = 0;
+  v79 = v210;
+  v210 = 0;
   if (v79)
   {
-    objc_destroyWeak(v79 + 2);
-    WebCore::ChromeClient::~ChromeClient(v79);
-    bmalloc::api::tzoneFree(v80, v81);
+    (*(*v79 + 2040))(v79);
   }
 
-  v82 = v211;
-  v211 = 0;
-  if (v82)
+  v80 = v209;
+  v209 = 0;
+  if (v80)
   {
-    (*(*v82 + 8))(v82);
+    objc_destroyWeak(v80 + 2);
+    WebCore::ChromeClient::~ChromeClient(v80);
+    bmalloc::api::tzoneFree(v81, v82);
   }
 
-  if (!v210)
+  v83 = v212;
+  v212 = 0;
+  if (v83)
+  {
+    (*(*v83 + 8))(v83);
+  }
+
+  if (!v211)
   {
 LABEL_76:
-    v83 = v212;
-    v212 = 0;
-    if (v83)
+    v84 = v213;
+    v213 = 0;
+    if (v84)
     {
       goto LABEL_77;
     }
 
 LABEL_81:
-    v84 = v213;
-    v213 = 0;
-    if (!v84)
+    v85 = v214;
+    v214 = 0;
+    if (!v85)
     {
       goto LABEL_84;
     }
@@ -993,40 +993,40 @@ LABEL_81:
     goto LABEL_82;
   }
 
-  if (*(v210 + 2) != 1)
+  if (*(v211 + 2) != 1)
   {
-    --*(v210 + 2);
+    --*(v211 + 2);
     goto LABEL_76;
   }
 
-  bmalloc::api::tzoneFree(v210, v73);
-  v83 = v212;
-  v212 = 0;
-  if (!v83)
+  bmalloc::api::tzoneFree(v211, v74);
+  v84 = v213;
+  v213 = 0;
+  if (!v84)
   {
     goto LABEL_81;
   }
 
 LABEL_77:
-  if (v83[2] == 1)
+  if (v84[2] == 1)
   {
-    (*(*v83 + 8))(v83);
-    v84 = v213;
-    v213 = 0;
-    if (!v84)
+    (*(*v84 + 8))(v84);
+    v85 = v214;
+    v214 = 0;
+    if (!v85)
     {
 LABEL_84:
-      v85 = v215;
-      v215 = 0;
-      if (v85)
+      v86 = v216;
+      v216 = 0;
+      if (v86)
       {
         goto LABEL_85;
       }
 
 LABEL_91:
-      v86 = v214;
-      v214 = 0;
-      if (!v86)
+      v87 = v215;
+      v215 = 0;
+      if (!v87)
       {
         goto LABEL_94;
       }
@@ -1037,42 +1037,42 @@ LABEL_91:
 
   else
   {
-    --v83[2];
-    v84 = v213;
-    v213 = 0;
-    if (!v84)
+    --v84[2];
+    v85 = v214;
+    v214 = 0;
+    if (!v85)
     {
       goto LABEL_84;
     }
   }
 
 LABEL_82:
-  if (*(v84 + 2) != 1)
+  if (*(v85 + 2) != 1)
   {
-    --*(v84 + 2);
+    --*(v85 + 2);
     goto LABEL_84;
   }
 
-  (*(*v84 + 8))(v84);
-  v85 = v215;
-  v215 = 0;
-  if (!v85)
+  (*(*v85 + 8))(v85);
+  v86 = v216;
+  v216 = 0;
+  if (!v86)
   {
     goto LABEL_91;
   }
 
 LABEL_85:
-  if (v85[4] == 1)
+  if (v86[4] == 1)
   {
-    (*(*v85 + 8))(v85);
-    v86 = v214;
-    v214 = 0;
-    if (!v86)
+    (*(*v86 + 8))(v86);
+    v87 = v215;
+    v215 = 0;
+    if (!v87)
     {
 LABEL_94:
-      v87 = v217;
-      v217 = 0;
-      if (!v87)
+      v88 = v218;
+      v218 = 0;
+      if (!v88)
       {
         goto LABEL_96;
       }
@@ -1083,63 +1083,63 @@ LABEL_94:
 
   else
   {
-    --v85[4];
-    v86 = v214;
-    v214 = 0;
-    if (!v86)
+    --v86[4];
+    v87 = v215;
+    v215 = 0;
+    if (!v87)
     {
       goto LABEL_94;
     }
   }
 
 LABEL_92:
-  if (v86[4] != 1)
+  if (v87[4] != 1)
   {
-    --v86[4];
+    --v87[4];
     goto LABEL_94;
   }
 
-  (*(*v86 + 8))(v86);
-  v87 = v217;
-  v217 = 0;
-  if (v87)
+  (*(*v87 + 8))(v87);
+  v88 = v218;
+  v218 = 0;
+  if (v88)
   {
 LABEL_95:
-    (*(*v87 + 8))(v87);
+    (*(*v88 + 8))(v88);
   }
 
 LABEL_96:
-  v88 = v216;
-  v216 = 0;
-  if (v88)
+  v89 = v217;
+  v217 = 0;
+  if (v89)
   {
-    v89 = *(v88 + 2);
-    *(v88 + 2) = 0;
-    if (v89 && atomic_fetch_add_explicit(v89, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    v90 = *(v89 + 2);
+    *(v89 + 2) = 0;
+    if (v90 && atomic_fetch_add_explicit(v90, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v89, v73);
+      WTF::StringImpl::destroy(v90, v74);
     }
 
-    v90 = *(v88 + 1);
-    *(v88 + 1) = 0;
-    if (v90 && atomic_fetch_add(v90 + 2, 0xFFFFFFFF) == 1)
+    v91 = *(v89 + 1);
+    *(v89 + 1) = 0;
+    if (v91 && atomic_fetch_add(v91 + 2, 0xFFFFFFFF) == 1)
     {
-      atomic_store(1u, v90 + 2);
-      (*(*v90 + 8))(v90);
+      atomic_store(1u, v91 + 2);
+      (*(*v91 + 8))(v91);
     }
 
-    bmalloc::api::tzoneFree(v88, v73);
+    bmalloc::api::tzoneFree(v89, v74);
   }
 
-  v91 = v219;
-  v219 = 0;
-  if (v91)
+  v92 = v220;
+  v220 = 0;
+  if (v92)
   {
-    if (v91[2] == 1)
+    if (v92[2] == 1)
     {
-      (*(*v91 + 8))(v91);
-      v92 = v218;
-      if (!v218)
+      (*(*v92 + 8))(v92);
+      v93 = v219;
+      if (!v219)
       {
         goto LABEL_117;
       }
@@ -1147,65 +1147,65 @@ LABEL_96:
       goto LABEL_108;
     }
 
-    --v91[2];
+    --v92[2];
   }
 
-  v92 = v218;
-  if (!v218)
+  v93 = v219;
+  if (!v219)
   {
     goto LABEL_117;
   }
 
 LABEL_108:
-  if (v92[2] == 1)
-  {
-    (*(*v92 + 8))(v92);
-  }
-
-  else
-  {
-    --v92[2];
-  }
-
-LABEL_117:
-  v93 = v221;
-  v221 = 0;
-  if (v93)
+  if (v93[2] == 1)
   {
     (*(*v93 + 8))(v93);
   }
 
-  v94 = v220;
-  v220 = 0;
+  else
+  {
+    --v93[2];
+  }
+
+LABEL_117:
+  v94 = v222;
+  v222 = 0;
   if (v94)
   {
-    v95 = *(v94 + 1);
-    *(v94 + 1) = 0;
-    if (v95)
+    (*(*v94 + 8))(v94);
+  }
+
+  v95 = v221;
+  v221 = 0;
+  if (v95)
+  {
+    v96 = *(v95 + 1);
+    *(v95 + 1) = 0;
+    if (v96)
     {
-      if (v95[2] == 1)
+      if (v96[2] == 1)
       {
-        v96 = v94;
-        (*(*v95 + 8))(v95);
-        v94 = v96;
+        v97 = v95;
+        (*(*v96 + 8))(v96);
+        v95 = v97;
       }
 
       else
       {
-        --v95[2];
+        --v96[2];
       }
     }
 
-    bmalloc::api::tzoneFree(v94, v73);
+    bmalloc::api::tzoneFree(v95, v74);
   }
 
-  v97 = v222;
-  v222 = 0;
-  if (!v97)
+  v98 = v223;
+  v223 = 0;
+  if (!v98)
   {
 LABEL_128:
-    v98 = v241;
-    if (v241 == 255)
+    v99 = v242;
+    if (v242 == 255)
     {
       goto LABEL_136;
     }
@@ -1213,54 +1213,54 @@ LABEL_128:
     goto LABEL_131;
   }
 
-  if (v97[4] != 1)
+  if (v98[4] != 1)
   {
-    --v97[4];
+    --v98[4];
     goto LABEL_128;
   }
 
-  (*(*v97 + 8))(v97);
-  v98 = v241;
-  if (v241 == 255)
+  (*(*v98 + 8))(v98);
+  v99 = v242;
+  if (v242 == 255)
   {
     goto LABEL_136;
   }
 
 LABEL_131:
-  v99 = selfCopy;
+  v100 = selfCopy;
   selfCopy = 0;
-  if (v98)
+  if (v99)
   {
-    if (!v99)
+    if (!v100)
     {
       goto LABEL_136;
     }
   }
 
-  else if (!v99)
+  else if (!v100)
   {
     goto LABEL_136;
   }
 
-  (*(*v99 + 8))(v99);
+  (*(*v100 + 8))(v100);
 LABEL_136:
-  v100 = v223;
-  v223 = 0;
-  if (v100)
-  {
-    (*(*v100 + 8))(v100);
-  }
-
-  v101 = v225;
-  v225 = 0;
+  v101 = v224;
+  v224 = 0;
   if (v101)
   {
-    if (v101[4] == 1)
+    (*(*v101 + 8))(v101);
+  }
+
+  v102 = v226;
+  v226 = 0;
+  if (v102)
+  {
+    if (v102[4] == 1)
     {
-      (*(*v101 + 120))(v101);
-      v102 = v224;
-      v224 = 0;
-      if (!v102)
+      (*(*v102 + 120))(v102);
+      v103 = v225;
+      v225 = 0;
+      if (!v103)
       {
         goto LABEL_144;
       }
@@ -1268,46 +1268,46 @@ LABEL_136:
       goto LABEL_142;
     }
 
-    --v101[4];
+    --v102[4];
   }
 
-  v102 = v224;
-  v224 = 0;
-  if (!v102)
+  v103 = v225;
+  v225 = 0;
+  if (!v103)
   {
     goto LABEL_144;
   }
 
 LABEL_142:
-  if (atomic_fetch_add(v102 + 2, 0xFFFFFFFF) == 1)
+  if (atomic_fetch_add(v103 + 2, 0xFFFFFFFF) == 1)
   {
-    atomic_store(1u, v102 + 2);
-    (*(*v102 + 16))(v102);
+    atomic_store(1u, v103 + 2);
+    (*(*v103 + 16))(v103);
   }
 
 LABEL_144:
-  v103 = v226;
-  v226 = 0;
-  if (!v103)
+  v104 = v227;
+  v227 = 0;
+  if (!v104)
   {
     goto LABEL_147;
   }
 
-  if (v103[2] != 1)
+  if (v104[2] != 1)
   {
-    --v103[2];
+    --v104[2];
 LABEL_147:
-    v104 = v227;
-    v227 = 0;
-    if (v104)
+    v105 = v228;
+    v228 = 0;
+    if (v105)
     {
       goto LABEL_148;
     }
 
 LABEL_154:
-    v105 = v228;
-    v228 = 0;
-    if (!v105)
+    v106 = v229;
+    v229 = 0;
+    if (!v106)
     {
       goto LABEL_157;
     }
@@ -1315,21 +1315,21 @@ LABEL_154:
     goto LABEL_155;
   }
 
-  (*(*v103 + 8))(v103);
-  v104 = v227;
-  v227 = 0;
-  if (!v104)
+  (*(*v104 + 8))(v104);
+  v105 = v228;
+  v228 = 0;
+  if (!v105)
   {
     goto LABEL_154;
   }
 
 LABEL_148:
-  if (v104[2] == 1)
+  if (v105[2] == 1)
   {
-    (*(*v104 + 8))(v104);
-    v105 = v228;
-    v228 = 0;
-    if (!v105)
+    (*(*v105 + 8))(v105);
+    v106 = v229;
+    v229 = 0;
+    if (!v106)
     {
       goto LABEL_157;
     }
@@ -1337,22 +1337,22 @@ LABEL_148:
 
   else
   {
-    --v104[2];
-    v105 = v228;
-    v228 = 0;
-    if (!v105)
+    --v105[2];
+    v106 = v229;
+    v229 = 0;
+    if (!v106)
     {
       goto LABEL_157;
     }
   }
 
 LABEL_155:
-  if (v105[4] == 1)
+  if (v106[4] == 1)
   {
-    (*(*v105 + 16))(v105);
-    v106 = v229;
-    v229 = 0;
-    if (!v106)
+    (*(*v106 + 16))(v106);
+    v107 = v230;
+    v230 = 0;
+    if (!v107)
     {
       goto LABEL_159;
     }
@@ -1360,24 +1360,24 @@ LABEL_155:
     goto LABEL_158;
   }
 
-  --v105[4];
+  --v106[4];
 LABEL_157:
-  v106 = v229;
-  v229 = 0;
-  if (v106)
+  v107 = v230;
+  v230 = 0;
+  if (v107)
   {
 LABEL_158:
-    (*(*v106 + 8))(v106);
+    (*(*v107 + 8))(v107);
   }
 
 LABEL_159:
-  v107 = v230;
-  v230 = 0;
-  if (!v107 || atomic_fetch_add(v107 + 2, 0xFFFFFFFF) != 1)
+  v108 = v231;
+  v231 = 0;
+  if (!v108 || atomic_fetch_add(v108 + 2, 0xFFFFFFFF) != 1)
   {
-    v108 = v238;
-    v238 = 0;
-    if (!v108)
+    v109 = v239;
+    v239 = 0;
+    if (!v109)
     {
       goto LABEL_163;
     }
@@ -1385,95 +1385,95 @@ LABEL_159:
     goto LABEL_162;
   }
 
-  atomic_store(1u, v107 + 2);
-  (*(*v107 + 24))(v107);
-  v108 = v238;
-  v238 = 0;
-  if (v108)
+  atomic_store(1u, v108 + 2);
+  (*(*v108 + 24))(v108);
+  v109 = v239;
+  v239 = 0;
+  if (v109)
   {
 LABEL_162:
-    (*(*v108 + 8))(v108);
+    (*(*v109 + 8))(v109);
   }
 
 LABEL_163:
-  if (v231)
+  if (v232)
   {
-    WebEditorClient::~WebEditorClient(v231);
-    bmalloc::api::tzoneFree(v109, v110);
+    WebEditorClient::~WebEditorClient(v232);
+    bmalloc::api::tzoneFree(v110, v111);
   }
 
   if (qword_1ED6A6170)
   {
-    v111 = bmalloc::api::tzoneAllocateNonCompact(qword_1ED6A6170, v73);
+    v112 = bmalloc::api::tzoneAllocateNonCompact(qword_1ED6A6170, v74);
   }
 
   else
   {
-    v111 = bmalloc::api::tzoneAllocateNonCompactSlow();
+    v112 = bmalloc::api::tzoneAllocateNonCompactSlow();
   }
 
-  v112 = v111;
-  WebInspectorClient::WebInspectorClient(v111, self);
-  v114 = v245;
-  v245 = v112;
-  if (v114)
+  v113 = v112;
+  WebInspectorClient::WebInspectorClient(v112, self);
+  v115 = v246;
+  v246 = v113;
+  if (v115)
   {
-    (*(*v114 + 8))(v114);
+    (*(*v115 + 8))(v115);
   }
 
   if (WebDragClient::s_heapRef)
   {
-    v115 = bmalloc::api::tzoneAllocateNonCompact(WebDragClient::s_heapRef, v113);
+    v116 = bmalloc::api::tzoneAllocateNonCompact(WebDragClient::s_heapRef, v114);
   }
 
   else
   {
-    v115 = WebDragClient::operatorNewSlow(0x10);
+    v116 = WebDragClient::operatorNewSlow(0x10);
   }
 
-  *v115 = &unk_1F472D918;
-  v115[1] = self;
-  v117 = v244;
-  v244 = v115;
-  if (v117)
+  *v116 = &unk_1F472D918;
+  v116[1] = self;
+  v118 = v245;
+  v245 = v116;
+  if (v118)
   {
-    (*(*v117 + 80))(v117);
+    (*(*v118 + 80))(v118);
   }
 
   if (WebAlternativeTextClient::s_heapRef)
   {
-    v118 = bmalloc::api::tzoneAllocateNonCompact(WebAlternativeTextClient::s_heapRef, v116);
+    v119 = bmalloc::api::tzoneAllocateNonCompact(WebAlternativeTextClient::s_heapRef, v117);
   }
 
   else
   {
-    v118 = WebAlternativeTextClient::operatorNewSlow(0x18);
+    v119 = WebAlternativeTextClient::operatorNewSlow(0x18);
   }
 
-  *(v118 + 8) = 0;
-  *v118 = &unk_1F472C428;
-  *(v118 + 16) = self;
-  v121 = v243;
-  v243 = v118;
-  if (v121)
+  *(v119 + 8) = 0;
+  *v119 = &unk_1F472C428;
+  *(v119 + 16) = self;
+  v122 = v244;
+  v244 = v119;
+  if (v122)
   {
-    (*(*v121 + 8))(v121);
+    (*(*v122 + 8))(v122);
   }
 
   if (atomic_load_explicit(&qword_1ED6A6178, memory_order_acquire) != -1)
   {
-    selfCopy = &v231;
-    v238 = &selfCopy;
-    std::__call_once(&qword_1ED6A6178, &v238, std::__call_once_proxy[abi:sn200100]<std::tuple<webApplicationCacheStorage(void)::$_0 &&>>);
+    selfCopy = &v232;
+    v239 = &selfCopy;
+    std::__call_once(&qword_1ED6A6178, &v239, std::__call_once_proxy[abi:sn200100]<std::tuple<webApplicationCacheStorage(void)::$_0 &&>>);
   }
 
   if (byte_1ED6A6139 == 1)
   {
-    v122 = qword_1ED6A6180;
+    v123 = qword_1ED6A6180;
     ++*qword_1ED6A6180;
-    v123 = v246;
-    v246 = v122;
-    if (!v123)
+    v124 = v247;
+    v247 = v123;
+    if (!v124)
     {
       goto LABEL_185;
     }
@@ -1481,39 +1481,39 @@ LABEL_163:
 
   else
   {
-    WebCore::ApplicationCacheStorage::create(&selfCopy, v119, v120);
-    v189 = selfCopy;
+    WebCore::ApplicationCacheStorage::create(&selfCopy, v120, v121);
+    v190 = selfCopy;
     selfCopy = 0;
-    WTF::Ref<WebCore::ApplicationCacheStorage,WTF::RawPtrTraits<WebCore::ApplicationCacheStorage>,WTF::DefaultRefDerefTraits<WebCore::ApplicationCacheStorage>>::~Ref(&selfCopy, v190);
-    qword_1ED6A6180 = v189;
+    WTF::Ref<WebCore::ApplicationCacheStorage,WTF::RawPtrTraits<WebCore::ApplicationCacheStorage>,WTF::DefaultRefDerefTraits<WebCore::ApplicationCacheStorage>>::~Ref(&selfCopy, v191);
+    qword_1ED6A6180 = v190;
     byte_1ED6A6139 = 1;
-    ++*v189;
-    v123 = v246;
-    v246 = v189;
-    if (!v123)
+    ++*v190;
+    v124 = v247;
+    v247 = v190;
+    if (!v124)
     {
       goto LABEL_185;
     }
   }
 
-  if (*v123 == 1)
+  if (*v124 == 1)
   {
-    WebCore::ApplicationCacheStorage::~ApplicationCacheStorage(v123, v119);
-    WTF::fastFree(v124, v125);
+    WebCore::ApplicationCacheStorage::~ApplicationCacheStorage(v124, v120);
+    WTF::fastFree(v125, v126);
   }
 
   else
   {
-    --*v123;
+    --*v124;
   }
 
 LABEL_185:
   {
-    v126 = WebDatabaseProvider::singleton(void)::databaseProvider;
+    v127 = WebDatabaseProvider::singleton(void)::databaseProvider;
     ++*(WebDatabaseProvider::singleton(void)::databaseProvider + 8);
-    v127 = v247;
-    v247 = v126;
-    if (!v127)
+    v128 = v248;
+    v248 = v127;
+    if (!v128)
     {
       goto LABEL_190;
     }
@@ -1521,37 +1521,37 @@ LABEL_185:
 
   else
   {
-    v191 = WTF::fastMalloc(0x18);
-    *(v191 + 8) = 1;
-    *v191 = &unk_1F472D5D8;
-    *(v191 + 16) = 0;
-    WebDatabaseProvider::singleton(void)::databaseProvider = v191;
-    *(v191 + 8) = 2;
-    v127 = v247;
-    v247 = v191;
-    if (!v127)
+    v192 = WTF::fastMalloc(0x18);
+    *(v192 + 8) = 1;
+    *v192 = &unk_1F472D5D8;
+    *(v192 + 16) = 0;
+    WebDatabaseProvider::singleton(void)::databaseProvider = v192;
+    *(v192 + 8) = 2;
+    v128 = v248;
+    v248 = v192;
+    if (!v128)
     {
       goto LABEL_190;
     }
   }
 
-  if (v127[2] == 1)
+  if (v128[2] == 1)
   {
-    (*(*v127 + 8))(v127);
+    (*(*v128 + 8))(v128);
   }
 
   else
   {
-    --v127[2];
+    --v128[2];
   }
 
 LABEL_190:
   {
-    v128 = WebPluginInfoProvider::singleton(void)::pluginInfoProvider;
+    v129 = WebPluginInfoProvider::singleton(void)::pluginInfoProvider;
     ++*(WebPluginInfoProvider::singleton(void)::pluginInfoProvider + 16);
-    v129 = v248;
-    v248 = v128;
-    if (!v129)
+    v130 = v249;
+    v249 = v129;
+    if (!v130)
     {
       goto LABEL_195;
     }
@@ -1559,110 +1559,110 @@ LABEL_190:
 
   else
   {
-    v192 = WTF::fastMalloc(0x28);
-    *(v192 + 16) = 1;
-    *(v192 + 24) = 0;
-    *(v192 + 32) = 0;
-    *v192 = &unk_1F472E620;
-    *(v192 + 8) = 0;
-    WebPluginInfoProvider::singleton(void)::pluginInfoProvider = v192;
-    *(v192 + 16) = 2;
-    v129 = v248;
-    v248 = v192;
-    if (!v129)
+    v193 = WTF::fastMalloc(0x28);
+    *(v193 + 16) = 1;
+    *(v193 + 24) = 0;
+    *(v193 + 32) = 0;
+    *v193 = &unk_1F472E620;
+    *(v193 + 8) = 0;
+    WebPluginInfoProvider::singleton(void)::pluginInfoProvider = v193;
+    *(v193 + 16) = 2;
+    v130 = v249;
+    v249 = v193;
+    if (!v130)
     {
       goto LABEL_195;
     }
   }
 
-  if (v129[4] == 1)
+  if (v130[4] == 1)
   {
-    (*(*v129 + 8))(v129);
+    (*(*v130 + 8))(v130);
   }
 
   else
   {
-    --v129[4];
+    --v130[4];
   }
 
 LABEL_195:
-  v130 = WebViewGroup::storageNamespaceProvider(self->_private->group.m_ptr);
-  ++*(v130 + 2);
-  v131 = v249;
-  v249 = v130;
-  if (v131)
+  v131 = WebViewGroup::storageNamespaceProvider(self->_private->group.m_ptr, v120);
+  ++*(v131 + 2);
+  v132 = v250;
+  v250 = v131;
+  if (v132)
   {
-    if (*(v131 + 2) == 1)
+    if (*(v132 + 2) == 1)
     {
-      (*(*v131 + 8))(v131);
+      (*(*v132 + 1))(v132);
     }
 
     else
     {
-      --*(v131 + 2);
+      --*(v132 + 2);
     }
   }
 
-  v132 = *(self->_private->group.m_ptr + 6);
-  ++v132[2];
-  v133 = v250;
-  v250 = v132;
-  if (v133)
+  v133 = *(self->_private->group.m_ptr + 6);
+  ++v133[2];
+  v134 = v251;
+  v251 = v133;
+  if (v134)
   {
-    if (v133[2] == 1)
+    if (v134[2] == 1)
     {
-      (*(*v133 + 8))(v133);
+      (*(*v134 + 8))(v134);
     }
 
     else
     {
-      --v133[2];
+      --v134[2];
     }
   }
 
   WebCore::Page::create();
-  v141 = self->_private;
-  v142 = selfCopy;
+  v142 = self->_private;
+  v143 = selfCopy;
   selfCopy = 0;
-  v143 = v141->page.m_ptr;
-  v141->page.m_ptr = v142;
-  if (v143)
+  v144 = v142->page.m_ptr;
+  v142->page.m_ptr = v143;
+  if (v144)
   {
-    v144 = *(v143 + 2) - 1;
-    if (*(v143 + 2) == 1)
+    v145 = *(v144 + 2) - 1;
+    if (*(v144 + 2) == 1)
     {
-      v184 = MEMORY[0x1CCA673C0](v143, v134, v135, v136, v137, v138, v139, v140, &v227, &v226, &v225, &v223, &selfCopy, FrameIdentifier, &v222, &v221, &v219, &v217);
-      bmalloc::api::tzoneFree(v184, v185);
-      v143 = selfCopy;
+      v185 = MEMORY[0x1CCA673C0](v144, v135, v136, v137, v138, v139, v140, v141, &v228, &v227, &v226, &v224, &selfCopy, FrameIdentifier, &v223, &v222, &v220, &v218);
+      bmalloc::api::tzoneFree(v185, v186);
+      v144 = selfCopy;
       selfCopy = 0;
-      if (!v143)
+      if (!v144)
       {
         goto LABEL_206;
       }
 
-      v144 = *(v143 + 2) - 1;
-      if (*(v143 + 2) == 1)
+      v145 = *(v144 + 2) - 1;
+      if (*(v144 + 2) == 1)
       {
-        v186 = MEMORY[0x1CCA673C0]();
-        bmalloc::api::tzoneFree(v186, v187);
+        v187 = MEMORY[0x1CCA673C0]();
+        bmalloc::api::tzoneFree(v187, v188);
         goto LABEL_206;
       }
     }
 
-    *(v143 + 2) = v144;
+    *(v144 + 2) = v145;
   }
 
 LABEL_206:
-  v145 = self->_private->page.m_ptr;
-  if (!*v145 && (v146 = WTF::fastCompactMalloc(0x10), *v146 = 1, *(v146 + 8) = v145, v147 = *v145, *v145 = v146, v147) && atomic_fetch_add(v147, 0xFFFFFFFF) == 1)
+  v146 = self->_private->page.m_ptr;
+  if (!*v146 && (v147 = WTF::fastCompactMalloc(0x10), *v147 = 1, *(v147 + 8) = v146, v148 = *v146, *v146 = v147, v148) && atomic_fetch_add(v148, 0xFFFFFFFF) == 1)
   {
-    atomic_store(1u, v147);
-    WTF::fastFree(v147, v134);
-    v188 = *v145;
-    atomic_fetch_add(*v145, 1u);
-    v149 = *(v41 + 16);
-    *(v41 + 16) = v188;
-    if (!v149)
+    atomic_store(1u, v148);
+    WTF::fastFree(v148, v135);
+    v189 = *v146;
+    atomic_fetch_add(*v146, 1u);
+    v150 = *(v42 + 16);
+    *(v42 + 16) = v189;
+    if (!v150)
     {
       goto LABEL_212;
     }
@@ -1670,54 +1670,54 @@ LABEL_206:
 
   else
   {
-    v148 = *v145;
-    atomic_fetch_add(*v145, 1u);
-    v149 = *(v41 + 16);
-    *(v41 + 16) = v148;
-    if (!v149)
+    v149 = *v146;
+    atomic_fetch_add(*v146, 1u);
+    v150 = *(v42 + 16);
+    *(v42 + 16) = v149;
+    if (!v150)
     {
       goto LABEL_212;
     }
   }
 
-  if (atomic_fetch_add(v149, 0xFFFFFFFF) == 1)
+  if (atomic_fetch_add(v150, 0xFFFFFFFF) == 1)
   {
-    atomic_store(1u, v149);
-    WTF::fastFree(v149, v134);
+    atomic_store(1u, v150);
+    WTF::fastFree(v150, v135);
   }
 
 LABEL_212:
-  v150 = self->_private->page.m_ptr;
+  v151 = self->_private->page.m_ptr;
   MEMORY[0x1CCA63A40](&selfCopy, groupName);
-  WebCore::Page::setGroupName(v150, &selfCopy);
-  v152 = selfCopy;
+  WebCore::Page::setGroupName(v151, &selfCopy);
+  v153 = selfCopy;
   selfCopy = 0;
-  if (v152 && atomic_fetch_add_explicit(v152, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v153 && atomic_fetch_add_explicit(v153, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v152, v151);
+    WTF::StringImpl::destroy(v153, v152);
   }
 
-  v153 = self->_private->page.m_ptr;
+  v154 = self->_private->page.m_ptr;
   if (WebGeolocationClient::s_heapRef)
   {
-    v154 = bmalloc::api::tzoneAllocateNonCompact(WebGeolocationClient::s_heapRef, v151);
+    v155 = bmalloc::api::tzoneAllocateNonCompact(WebGeolocationClient::s_heapRef, v152);
   }
 
   else
   {
-    v154 = WebGeolocationClient::operatorNewSlow(0x18);
+    v155 = WebGeolocationClient::operatorNewSlow(0x18);
   }
 
-  v156 = v154;
-  *(v154 + 8) = 1;
-  *v154 = &unk_1F472DD60;
-  *(v154 + 16) = self;
-  WebCore::provideGeolocationTo(v153, v154, v155);
-  if (v156[2] == 1)
+  v157 = v155;
+  *(v155 + 8) = 1;
+  *v155 = &unk_1F472DD60;
+  *(v155 + 16) = self;
+  WebCore::provideGeolocationTo(v154, v155, v156);
+  if (v157[2] == 1)
   {
-    (*(*v156 + 24))(v156);
-    v158 = self->_private->page.m_ptr;
-    v159 = WebNotificationClient::s_heapRef;
+    (*(*v157 + 24))(v157);
+    v159 = self->_private->page.m_ptr;
+    v160 = WebNotificationClient::s_heapRef;
     if (WebNotificationClient::s_heapRef)
     {
       goto LABEL_219;
@@ -1726,25 +1726,25 @@ LABEL_212:
 
   else
   {
-    --v156[2];
-    v158 = self->_private->page.m_ptr;
-    v159 = WebNotificationClient::s_heapRef;
+    --v157[2];
+    v159 = self->_private->page.m_ptr;
+    v160 = WebNotificationClient::s_heapRef;
     if (WebNotificationClient::s_heapRef)
     {
 LABEL_219:
-      v160 = bmalloc::api::tzoneAllocateNonCompact(v159, v157);
+      v161 = bmalloc::api::tzoneAllocateNonCompact(v160, v158);
       goto LABEL_220;
     }
   }
 
-  v160 = WebNotificationClient::operatorNewSlow(0x28);
+  v161 = WebNotificationClient::operatorNewSlow(0x28);
 LABEL_220:
-  *v160 = &unk_1F472E188;
-  *(v160 + 8) = self;
-  *(v160 + 16) = 0;
-  *(v160 + 24) = 0;
-  *(v160 + 32) = 0;
-  WebCore::provideNotification(v158, v160, v161);
+  *v161 = &unk_1F472E188;
+  *(v161 + 8) = self;
+  *(v161 + 16) = 0;
+  *(v161 + 24) = 0;
+  *(v161 + 32) = 0;
+  WebCore::provideNotification(v159, v161, v162);
   {
     WebMediaKeySystemClient::singleton(void)::client = &unk_1F472E088;
     *algn_1EC2613A8 = 0;
@@ -1752,42 +1752,42 @@ LABEL_220:
 
   WebCore::provideMediaKeySystemTo();
   WebCore::Page::setInspectable(self->_private->page.m_ptr);
-  v162 = self->_private->page.m_ptr;
+  v163 = self->_private->page.m_ptr;
   [(WebView *)self window];
-  WebCore::Page::setCanStartMedia(v162);
-  v163 = *(self->_private->page.m_ptr + 15);
+  WebCore::Page::setCanStartMedia(v163);
+  v164 = *(self->_private->page.m_ptr + 15);
   MEMORY[0x1CCA63A40](&selfCopy, [(WebPreferences *)[(WebView *)self preferences] _localStorageDatabasePath]);
-  v165 = selfCopy;
+  v166 = selfCopy;
   if (selfCopy)
   {
     atomic_fetch_add_explicit(selfCopy, 2u, memory_order_relaxed);
   }
 
-  v166 = *(v163 + 448);
-  *(v163 + 448) = v165;
-  if (v166 && atomic_fetch_add_explicit(v166, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v166, v164);
-  }
-
-  v167 = selfCopy;
-  selfCopy = 0;
+  v167 = *(v164 + 448);
+  *(v164 + 448) = v166;
   if (v167 && atomic_fetch_add_explicit(v167, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v167, v164);
+    WTF::StringImpl::destroy(v167, v165);
+  }
+
+  v168 = selfCopy;
+  selfCopy = 0;
+  if (v168 && atomic_fetch_add_explicit(v168, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v168, v165);
   }
 
   *(*(self->_private->page.m_ptr + 15) + 552) = 5242880;
-  [(WebView *)self _updateScreenScaleFromWindow:v193];
+  [(WebView *)self _updateScreenScaleFromWindow:v194];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter addObserver:self selector:sel__wakWindowScreenScaleChanged_ name:*MEMORY[0x1E69E21F0] object:0];
   defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter2 addObserver:self selector:sel__wakWindowVisibilityChanged_ name:*MEMORY[0x1E69E21F8] object:0];
-  v170 = [[WebFixedPositionContent alloc] initWithWebView:self];
-  v171 = self->_private;
-  v172 = v171->_fixedPositionContent.m_ptr;
-  v171->_fixedPositionContent.m_ptr = v170;
-  if (v172)
+  v171 = [[WebFixedPositionContent alloc] initWithWebView:self];
+  v172 = self->_private;
+  v173 = v172->_fixedPositionContent.m_ptr;
+  v172->_fixedPositionContent.m_ptr = v171;
+  if (v173)
   {
   }
 
@@ -1797,31 +1797,31 @@ LABEL_220:
     -[WebView setSmartInsertDeleteEnabled:](self, "setSmartInsertDeleteEnabled:", [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")]);
   }
 
-  v174 = self->_private->page.m_ptr;
-  WTF::AtomStringImpl::add(&selfCopy, name, v173);
-  v238 = selfCopy;
-  [WebFrame _createMainFrameWithPage:v174 frameName:&v238 frameView:v19];
-  v176 = v238;
-  v238 = 0;
-  if (v176 && atomic_fetch_add_explicit(v176, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v175 = self->_private->page.m_ptr;
+  WTF::AtomStringImpl::add(&selfCopy, name, v174);
+  v239 = selfCopy;
+  [WebFrame _createMainFrameWithPage:v175 frameName:&v239 frameView:v19];
+  v177 = v239;
+  v239 = 0;
+  if (v177 && atomic_fetch_add_explicit(v177, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v176, v175);
+    WTF::StringImpl::destroy(v177, v176);
   }
 
-  v177 = WebThreadNSRunLoop();
-  v178 = overriddenWebKitLinkTimeVersion;
+  v178 = WebThreadNSRunLoop();
+  v179 = overriddenWebKitLinkTimeVersion;
   if (!overriddenWebKitLinkTimeVersion)
   {
-    v178 = NSVersionOfLinkTimeLibrary("UIKit");
+    v179 = NSVersionOfLinkTimeLibrary("UIKit");
   }
 
-  v179 = MEMORY[0x1E695E8D0];
-  if (HIWORD(v178) <= 0xA68u)
+  v180 = MEMORY[0x1E695E8D0];
+  if (HIWORD(v179) <= 0xA68u)
   {
-    v179 = MEMORY[0x1E695D918];
+    v180 = MEMORY[0x1E695D918];
   }
 
-  [(WebView *)self scheduleInRunLoop:v177 forMode:*v179];
+  [(WebView *)self scheduleInRunLoop:v178 forMode:*v180];
   [(WebView *)self _addToAllWebViewsSet];
   nextKeyView = [(WebView *)self nextKeyView];
   if (nextKeyView && v19 != nextKeyView)
@@ -1829,9 +1829,9 @@ LABEL_220:
     [(WebFrameView *)v19 setNextKeyView:nextKeyView];
   }
 
-  v203.receiver = self;
-  v203.super_class = WebView;
-  [(WebView *)&v203 setNextKeyView:v19];
+  v204.receiver = self;
+  v204.super_class = WebView;
+  [(WebView *)&v204 setNextKeyView:v19];
   if ([objc_opt_class() shouldIncludeInWebKitStatistics])
   {
     ++WebViewCount;
@@ -1843,20 +1843,20 @@ LABEL_220:
   [defaultCenter3 addObserver:self selector:sel__preferencesChangedNotification_ name:WebPreferencesChangedInternalNotification[0] object:preferences];
   [(WebView *)self _preferencesChanged:preferences];
   WebCore::Settings::setFontFallbackPrefersPictographs(*(self->_private->page.m_ptr + 15));
-  v183 = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
-  if ((v183 & 1) == 0)
+  v184 = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
+  if ((v184 & 1) == 0)
   {
-    WebCore::registerMemoryReleaseNotifyCallbacks(v183);
+    WebCore::registerMemoryReleaseNotifyCallbacks(v184);
     if (atomic_load_explicit(&qword_1ED6A6158, memory_order_acquire) != -1)
     {
-      selfCopy = &v231;
-      v238 = &selfCopy;
-      std::__call_once(&qword_1ED6A6158, &v238, std::__call_once_proxy[abi:sn200100]<std::tuple<WebInstallMemoryPressureHandler::$_0 &&>>);
+      selfCopy = &v232;
+      v239 = &selfCopy;
+      std::__call_once(&qword_1ED6A6158, &v239, std::__call_once_proxy[abi:sn200100]<std::tuple<WebInstallMemoryPressureHandler::$_0 &&>>);
     }
   }
 
   MEMORY[0x1CCA65F00](cf);
-  if (atomic_fetch_add((v41 + 8), 0xFFFFFFFF) != 1)
+  if (atomic_fetch_add((v42 + 8), 0xFFFFFFFF) != 1)
   {
     if (!v19)
     {
@@ -1866,8 +1866,8 @@ LABEL_220:
     goto LABEL_251;
   }
 
-  atomic_store(1u, (v41 + 8));
-  (*(*v41 + 16))(v41);
+  atomic_store(1u, (v42 + 8));
+  (*(*v42 + 16))(v42);
   if (v19)
   {
 LABEL_251:
@@ -2000,7 +2000,7 @@ LABEL_6:
   [(WebView *)v10 addSubview:height];
   MEMORY[0x1CCA63A40](&v207, name);
   MEMORY[0x1CCA63A40](&v206, [(WebPreferences *)v10->_private->preferences.m_ptr _localStorageDatabasePath]);
-  WebViewGroup::getOrCreate(&v207, &v206, cf);
+  WebViewGroup::getOrCreate(cf, &v207, &v206);
   v22 = v10->_private;
   v23 = cf[0];
   cf[0] = 0;
@@ -2143,7 +2143,7 @@ LABEL_22:
   v50 = LegacyHistoryItemClient::singleton(v48, v49);
   ++*(v50 + 8);
   v185 = v50;
-  WebPaymentCoordinatorClient::create(v51, &v183);
+  WebPaymentCoordinatorClient::create(&v183, v51);
   v53 = v183;
   v183 = 0;
   v184 = v53;
@@ -2790,7 +2790,7 @@ LABEL_165:
   }
 
 LABEL_170:
-  v114 = WebViewGroup::storageNamespaceProvider(v10->_private->group.m_ptr);
+  v114 = WebViewGroup::storageNamespaceProvider(v10->_private->group.m_ptr, v105);
   ++*(v114 + 2);
   v115 = v216;
   v216 = v114;
@@ -2798,7 +2798,7 @@ LABEL_170:
   {
     if (*(v115 + 2) == 1)
     {
-      (*(*v115 + 8))(v115);
+      (*(*v115 + 1))(v115);
     }
 
     else
@@ -3086,13 +3086,13 @@ void __64__WebView_WebPrivate__willEnterBackgroundWithCompletionHandler___block_
   _Block_release(0);
 }
 
-uint64_t __59__WebView_WebPrivate__updateLayoutIgnorePendingStyleSheets__block_invoke(uint64_t a1)
+void *__59__WebView_WebPrivate__updateLayoutIgnorePendingStyleSheets__block_invoke(uint64_t a1)
 {
-  for (result = [*(a1 + 32) _mainCoreFrame]; result; result = WebCore::FrameTree::traverseNext((result + 40), 0))
+  for (result = [*(a1 + 32) _mainCoreFrame]; result; result = WebCore::FrameTree::traverseNext((result + 5), 0))
   {
-    if ((*(result + 136) & 1) == 0)
+    if ((result[17] & 1) == 0)
     {
-      if (*(result + 224))
+      if (result[28])
       {
         v2 = result;
         WebCore::Document::updateLayout();
@@ -3618,279 +3618,279 @@ LABEL_51:
 {
   y = global.y;
   x = global.x;
-  v9 = client.y;
-  v10 = client.x;
+  v8 = client.y;
+  v9 = client.x;
   _mainCoreFrame = [(WebView *)self _mainCoreFrame];
   if (!_mainCoreFrame)
   {
     return 0;
   }
 
-  v14 = _mainCoreFrame;
+  v12 = _mainCoreFrame;
   ++_mainCoreFrame[4];
   WebThreadLock();
   if (self)
   {
-    [(WebView *)self dragDataForSession:interaction client:operation global:v10 operation:v9, x, y];
+    objc_msgSend_dragDataForSession_client_global_operation_(self, v9, v8, x, y);
   }
 
   else
   {
-    *v25 = 0u;
-    *v24 = 0u;
+    *v23 = 0u;
+    *v22 = 0u;
   }
 
-  v15 = WebCore::DragController::dragEnteredOrUpdated();
-  if (v23)
+  v13 = WebCore::DragController::dragEnteredOrUpdated();
+  if (v21)
   {
-    mpark::throw_bad_variant_access(v15);
+    mpark::throw_bad_variant_access(v13);
   }
 
-  if ((v22 & 0x100) == 0)
+  if ((v20 & 0x100) == 0)
   {
     goto LABEL_7;
   }
 
-  v17 = v22;
-  if (v22 > 7u)
+  v15 = v20;
+  if (v20 > 7u)
   {
-    if (v22 != 16)
+    if (v20 != 16)
     {
 LABEL_7:
-      v17 = 0;
+      v15 = 0;
       goto LABEL_8;
     }
   }
 
   else
   {
-    if (v22 == 1)
+    if (v20 == 1)
     {
       goto LABEL_8;
     }
 
-    if (v22 != 4)
+    if (v20 != 4)
     {
       goto LABEL_7;
     }
   }
 
-  v17 = 16;
+  v15 = 16;
 LABEL_8:
-  if (v25[1] && atomic_fetch_add_explicit(v25[1], 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v23[1] && atomic_fetch_add_explicit(v23[1], 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v25[1], v16);
+    WTF::StringImpl::destroy(v23[1], v14);
   }
 
-  v18 = v24[0];
-  if (HIDWORD(v24[1]))
+  v16 = v22[0];
+  if (HIDWORD(v22[1]))
   {
-    v19 = 8 * HIDWORD(v24[1]);
+    v17 = 8 * HIDWORD(v22[1]);
     do
     {
-      v20 = *v18;
-      *v18 = 0;
-      if (v20 && atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      v18 = *v16;
+      *v16 = 0;
+      if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v20, v16);
+        WTF::StringImpl::destroy(v18, v14);
       }
 
-      v18 = (v18 + 8);
-      v19 -= 8;
+      v16 = (v16 + 8);
+      v17 -= 8;
     }
 
-    while (v19);
-    v18 = v24[0];
+    while (v17);
+    v16 = v22[0];
   }
 
-  if (v18)
+  if (v16)
   {
-    WTF::fastFree(v18, v16);
+    WTF::fastFree(v16, v14);
   }
 
-  if (v14[4] == 1)
+  if (v12[4] == 1)
   {
-    (*(*v14 + 8))(v14);
+    (*(*v12 + 8))(v12);
   }
 
   else
   {
-    --v14[4];
+    --v12[4];
   }
 
-  return v17;
+  return v15;
 }
 
 - (unint64_t)_updatedDataInteraction:(id)interaction client:(CGPoint)client global:(CGPoint)global operation:(unint64_t)operation
 {
   y = global.y;
   x = global.x;
-  v9 = client.y;
-  v10 = client.x;
+  v8 = client.y;
+  v9 = client.x;
   _mainCoreFrame = [(WebView *)self _mainCoreFrame];
   if (!_mainCoreFrame)
   {
     return 0;
   }
 
-  v14 = _mainCoreFrame;
+  v12 = _mainCoreFrame;
   ++_mainCoreFrame[4];
   WebThreadLock();
   if (self)
   {
-    [(WebView *)self dragDataForSession:interaction client:operation global:v10 operation:v9, x, y];
+    objc_msgSend_dragDataForSession_client_global_operation_(self, v9, v8, x, y);
   }
 
   else
   {
-    *v25 = 0u;
-    *v24 = 0u;
+    *v23 = 0u;
+    *v22 = 0u;
   }
 
-  v15 = WebCore::DragController::dragEnteredOrUpdated();
-  if (v23)
+  v13 = WebCore::DragController::dragEnteredOrUpdated();
+  if (v21)
   {
-    mpark::throw_bad_variant_access(v15);
+    mpark::throw_bad_variant_access(v13);
   }
 
-  if ((v22 & 0x100) == 0)
+  if ((v20 & 0x100) == 0)
   {
     goto LABEL_7;
   }
 
-  v17 = v22;
-  if (v22 > 7u)
+  v15 = v20;
+  if (v20 > 7u)
   {
-    if (v22 != 16)
+    if (v20 != 16)
     {
 LABEL_7:
-      v17 = 0;
+      v15 = 0;
       goto LABEL_8;
     }
   }
 
   else
   {
-    if (v22 == 1)
+    if (v20 == 1)
     {
       goto LABEL_8;
     }
 
-    if (v22 != 4)
+    if (v20 != 4)
     {
       goto LABEL_7;
     }
   }
 
-  v17 = 16;
+  v15 = 16;
 LABEL_8:
-  if (v25[1] && atomic_fetch_add_explicit(v25[1], 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v23[1] && atomic_fetch_add_explicit(v23[1], 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v25[1], v16);
+    WTF::StringImpl::destroy(v23[1], v14);
   }
 
-  v18 = v24[0];
-  if (HIDWORD(v24[1]))
+  v16 = v22[0];
+  if (HIDWORD(v22[1]))
   {
-    v19 = 8 * HIDWORD(v24[1]);
+    v17 = 8 * HIDWORD(v22[1]);
     do
     {
-      v20 = *v18;
-      *v18 = 0;
-      if (v20 && atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      v18 = *v16;
+      *v16 = 0;
+      if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v20, v16);
+        WTF::StringImpl::destroy(v18, v14);
       }
 
-      v18 = (v18 + 8);
-      v19 -= 8;
+      v16 = (v16 + 8);
+      v17 -= 8;
     }
 
-    while (v19);
-    v18 = v24[0];
+    while (v17);
+    v16 = v22[0];
   }
 
-  if (v18)
+  if (v16)
   {
-    WTF::fastFree(v18, v16);
+    WTF::fastFree(v16, v14);
   }
 
-  if (v14[4] == 1)
+  if (v12[4] == 1)
   {
-    (*(*v14 + 8))(v14);
+    (*(*v12 + 8))(v12);
   }
 
   else
   {
-    --v14[4];
+    --v12[4];
   }
 
-  return v17;
+  return v15;
 }
 
 - (void)_exitedDataInteraction:(id)interaction client:(CGPoint)client global:(CGPoint)global operation:(unint64_t)operation
 {
   y = global.y;
   x = global.x;
-  v9 = client.y;
-  v10 = client.x;
+  v8 = client.y;
+  v9 = client.x;
   _mainCoreFrame = [(WebView *)self _mainCoreFrame];
   if (_mainCoreFrame)
   {
-    v14 = _mainCoreFrame;
+    v12 = _mainCoreFrame;
     ++_mainCoreFrame[4];
     WebThreadLock();
     if (self)
     {
-      [(WebView *)self dragDataForSession:interaction client:operation global:v10 operation:v9, x, y];
+      objc_msgSend_dragDataForSession_client_global_operation_(self, v9, v8, x, y);
     }
 
     else
     {
-      *v20 = 0u;
-      *v19 = 0u;
+      *v18 = 0u;
+      *v17 = 0u;
     }
 
     WebCore::DragController::dragExited();
-    if (v20[1] && atomic_fetch_add_explicit(v20[1], 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (v18[1] && atomic_fetch_add_explicit(v18[1], 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v20[1], v15);
+      WTF::StringImpl::destroy(v18[1], v13);
     }
 
-    v16 = v19[0];
-    if (HIDWORD(v19[1]))
+    v14 = v17[0];
+    if (HIDWORD(v17[1]))
     {
-      v17 = 8 * HIDWORD(v19[1]);
+      v15 = 8 * HIDWORD(v17[1]);
       do
       {
-        v18 = *v16;
-        *v16 = 0;
-        if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v16 = *v14;
+        *v14 = 0;
+        if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v18, v15);
+          WTF::StringImpl::destroy(v16, v13);
         }
 
-        v16 = (v16 + 8);
-        v17 -= 8;
+        v14 = (v14 + 8);
+        v15 -= 8;
       }
 
-      while (v17);
-      v16 = v19[0];
+      while (v15);
+      v14 = v17[0];
     }
 
-    if (v16)
+    if (v14)
     {
-      WTF::fastFree(v16, v15);
+      WTF::fastFree(v14, v13);
     }
 
-    if (v14[4] == 1)
+    if (v12[4] == 1)
     {
-      (*(*v14 + 8))(v14);
+      (*(*v12 + 8))(v12);
     }
 
     else
     {
-      --v14[4];
+      --v12[4];
     }
   }
 }
@@ -3899,53 +3899,53 @@ LABEL_8:
 {
   y = global.y;
   x = global.x;
-  v9 = client.y;
-  v10 = client.x;
+  v8 = client.y;
+  v9 = client.x;
   WebThreadLock();
   if (self)
   {
-    [(WebView *)self dragDataForSession:interaction client:operation global:v10 operation:v9, x, y];
+    objc_msgSend_dragDataForSession_client_global_operation_(self, v9, v8, x, y);
   }
 
   else
   {
-    *v20 = 0u;
-    *v19 = 0u;
+    *v18 = 0u;
+    *v17 = 0u;
   }
 
-  v14 = WebCore::DragController::performDragOperation();
-  if (v20[1] && atomic_fetch_add_explicit(v20[1], 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v12 = WebCore::DragController::performDragOperation();
+  if (v18[1] && atomic_fetch_add_explicit(v18[1], 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v20[1], v13);
+    WTF::StringImpl::destroy(v18[1], v11);
   }
 
-  v15 = v19[0];
-  if (HIDWORD(v19[1]))
+  v13 = v17[0];
+  if (HIDWORD(v17[1]))
   {
-    v16 = 8 * HIDWORD(v19[1]);
+    v14 = 8 * HIDWORD(v17[1]);
     do
     {
-      v17 = *v15;
-      *v15 = 0;
-      if (v17 && atomic_fetch_add_explicit(v17, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      v15 = *v13;
+      *v13 = 0;
+      if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v17, v13);
+        WTF::StringImpl::destroy(v15, v11);
       }
 
-      v15 = (v15 + 8);
-      v16 -= 8;
+      v13 = (v13 + 8);
+      v14 -= 8;
     }
 
-    while (v16);
-    v15 = v19[0];
+    while (v14);
+    v13 = v17[0];
   }
 
-  if (v15)
+  if (v13)
   {
-    WTF::fastFree(v15, v13);
+    WTF::fastFree(v13, v11);
   }
 
-  return v14;
+  return v12;
 }
 
 - (void)_endedDataInteraction:(CGPoint)interaction global:(CGPoint)global
@@ -5208,7 +5208,7 @@ LABEL_31:
   }
 }
 
-uint64_t __55__WebView_WebPrivate___preferencesChangedNotification___block_invoke(uint64_t a1)
+void *__55__WebView_WebPrivate___preferencesChangedNotification___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) object];
   result = [*(a1 + 40) preferences];
@@ -5247,13 +5247,13 @@ uint64_t __55__WebView_WebPrivate___preferencesChangedNotification___block_invok
     }
 
     additionalSupportedImageTypes = [changed additionalSupportedImageTypes];
-    v52 = &additionalSupportedImageTypes;
-    WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::makeVector<WTF::String>(NSArray *)::{lambda(unsigned long)#1}>(&v49, [additionalSupportedImageTypes count], &v52, 0);
+    v53 = &additionalSupportedImageTypes;
+    WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::makeVector<WTF::String>(NSArray *)::{lambda(unsigned long)#1}>(&v50, [additionalSupportedImageTypes count], &v53, 0);
     WebCore::setAdditionalSupportedImageTypes();
-    v7 = v49;
-    if (v51)
+    v7 = v50;
+    if (v52)
     {
-      v8 = 8 * v51;
+      v8 = 8 * v52;
       do
       {
         v9 = *v7;
@@ -5268,13 +5268,13 @@ uint64_t __55__WebView_WebPrivate___preferencesChangedNotification___block_invok
       }
 
       while (v8);
-      v7 = v49;
+      v7 = v50;
     }
 
     if (v7)
     {
-      v49 = 0;
       v50 = 0;
+      v51 = 0;
       WTF::fastFree(v7, v6);
     }
 
@@ -5362,11 +5362,11 @@ LABEL_34:
     v28 = WebCore::DatabaseManager::singleton(v27);
     [changed databasesEnabled];
     WebCore::DatabaseManager::setIsAvailable(v28);
-    MEMORY[0x1CCA63A40](&v49, [changed _localStorageDatabasePath]);
-    v30 = v49;
-    if (v49)
+    MEMORY[0x1CCA63A40](&v50, [changed _localStorageDatabasePath]);
+    v30 = v50;
+    if (v50)
     {
-      atomic_fetch_add_explicit(v49, 2u, memory_order_relaxed);
+      atomic_fetch_add_explicit(v50, 2u, memory_order_relaxed);
     }
 
     v31 = *(v10 + 448);
@@ -5376,8 +5376,8 @@ LABEL_34:
       WTF::StringImpl::destroy(v31, v29);
     }
 
-    v32 = v49;
-    v49 = 0;
+    v32 = v50;
+    v50 = 0;
     if (v32 && atomic_fetch_add_explicit(v32, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(v32, v29);
@@ -5396,73 +5396,73 @@ LABEL_34:
 
     WebCore::Page::setSessionID(m_ptr, v34);
     WebBroadcastChannelRegistry::getOrCreate([changed privateBrowsingEnabled], &additionalSupportedImageTypes);
-    v49 = additionalSupportedImageTypes;
+    v50 = additionalSupportedImageTypes;
     WebCore::Page::setBroadcastChannelRegistry();
-    v35 = v49;
-    v49 = 0;
-    if (v35)
+    v36 = v50;
+    v50 = 0;
+    if (v36)
     {
-      if (*(v35 + 2) == 1)
+      if (*(v36 + 2) == 1)
       {
-        (*(*v35 + 8))(v35);
+        (*(*v36 + 8))(v36);
       }
 
       else
       {
-        --*(v35 + 2);
+        --*(v36 + 2);
       }
     }
 
-    v36 = WebViewGroup::storageNamespaceProvider(self->_private->group.m_ptr);
+    v37 = WebViewGroup::storageNamespaceProvider(self->_private->group.m_ptr, v35);
     if ([changed privateBrowsingEnabled])
     {
-      v37.m_identifier = 0x8000000000000001;
+      v38.m_identifier = 0x8000000000000001;
     }
 
     else
     {
-      v37.m_identifier = 1;
+      v38.m_identifier = 1;
     }
 
-    WebCore::StorageNamespaceProvider::setSessionIDForTesting(v36, v37);
+    WebCore::StorageNamespaceProvider::setSessionIDForTesting(v37, v38);
     WebCore::DeprecatedGlobalSettings::setAudioSessionCategoryOverride([changed audioSessionCategoryOverride]);
-    MEMORY[0x1CCA63A40](&v49, [changed networkInterfaceName]);
-    WebCore::DeprecatedGlobalSettings::setNetworkInterfaceName(&v49, v38);
-    v40 = v49;
-    v49 = 0;
-    if (v40 && atomic_fetch_add_explicit(v40, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    MEMORY[0x1CCA63A40](&v50, [changed networkInterfaceName]);
+    WebCore::DeprecatedGlobalSettings::setNetworkInterfaceName(&v50, v39);
+    v41 = v50;
+    v50 = 0;
+    if (v41 && atomic_fetch_add_explicit(v41, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v40, v39);
+      WTF::StringImpl::destroy(v41, v40);
     }
 
-    v41 = self->_private->page.m_ptr;
-    MEMORY[0x1CCA63A40](&v49, [changed mediaKeysStorageDirectory]);
-    WebCore::Page::setMediaKeysStorageDirectory(v41, &v49);
-    v43 = v49;
-    v49 = 0;
-    if (v43 && atomic_fetch_add_explicit(v43, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    v42 = self->_private->page.m_ptr;
+    MEMORY[0x1CCA63A40](&v50, [changed mediaKeysStorageDirectory]);
+    WebCore::Page::setMediaKeysStorageDirectory(v42, &v50);
+    v44 = v50;
+    v50 = 0;
+    if (v44 && atomic_fetch_add_explicit(v44, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v43, v42);
+      WTF::StringImpl::destroy(v44, v43);
     }
 
     WebCore::DeprecatedGlobalSettings::setTrackingPreventionEnabled([changed resourceLoadStatisticsEnabled]);
     zoomsTextOnly = [changed zoomsTextOnly];
-    v46 = self->_private;
-    if (v46->zoomsTextOnly != zoomsTextOnly)
+    v47 = self->_private;
+    if (v47->zoomsTextOnly != zoomsTextOnly)
     {
-      *&v45 = v46->zoomMultiplier;
-      [(WebView *)self _setZoomMultiplier:zoomsTextOnly isTextOnly:v45];
+      *&v46 = v47->zoomMultiplier;
+      [(WebView *)self _setZoomMultiplier:zoomsTextOnly isTextOnly:v46];
     }
 
-    v47 = [-[WebView window](self "window")];
-    if (v47)
+    v48 = [-[WebView window](self "window")];
+    if (v48)
     {
-      v48 = v47;
+      v49 = v48;
       [changed showDebugBorders];
-      WebCore::LegacyTileCache::setTileBordersVisible(v48);
+      WebCore::LegacyTileCache::setTileBordersVisible(v49);
       [changed showRepaintCounter];
-      WebCore::LegacyTileCache::setTilePaintCountersVisible(v48);
-      *(v48 + 74) = [changed acceleratedDrawingEnabled];
+      WebCore::LegacyTileCache::setTilePaintCountersVisible(v49);
+      *(v49 + 74) = [changed acceleratedDrawingEnabled];
     }
 
     [MEMORY[0x1E69E2180] _setInterpolationQuality:{objc_msgSend(changed, "_interpolationQuality")}];
@@ -6067,7 +6067,7 @@ LABEL_34:
     if (objc_opt_respondsToSelector())
     {
       v2->frameLoadDelegateImplementations.webThreadDidLayoutFunc = [frameLoadDelegate methodForSelector:sel_webThreadWebView_didLayout_];
-      [(WebView *)self page];
+      objc_msgSend_page(self);
       if (!v33)
       {
         return;
@@ -6077,7 +6077,7 @@ LABEL_34:
     else
     {
       v2->frameLoadDelegateImplementations.webThreadDidLayoutFunc = 0;
-      [(WebView *)self page];
+      objc_msgSend_page(self);
       if (!v33)
       {
         return;
@@ -6539,7 +6539,7 @@ LABEL_11:
   WTF::StringImpl::createWithoutCopyingNonEmpty();
   v16[0] = &unk_1F472B448;
   memset(&v16[1], 0, 24);
-  WebCore::TextResourceDecoder::create(&v17, v16, 0);
+  WebCore::TextResourceDecoder::create(&v18, &v17, v16, 0);
   if (data)
   {
     [data bytes];
@@ -8073,7 +8073,7 @@ LABEL_42:
 
     MEMORY[0x1CCA63A40](v46, group);
     v40 = 0;
-    WebViewGroup::getOrCreate(v46, &v40, &v44);
+    WebViewGroup::getOrCreate(&v44, v46, &v40);
     v18 = v46[0];
     v46[0] = 0;
     if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -8241,7 +8241,7 @@ LABEL_42:
 
     MEMORY[0x1CCA63A40](v45, group);
     v39 = 0;
-    WebViewGroup::getOrCreate(v45, &v39, &v43);
+    WebViewGroup::getOrCreate(&v43, v45, &v39);
     v17 = v45[0];
     v45[0] = 0;
     if (v17 && atomic_fetch_add_explicit(v17, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -8653,7 +8653,7 @@ LABEL_39:
 {
   if (self)
   {
-    [(WebView *)self page];
+    objc_msgSend_page(self, a2);
     if (v4)
     {
       if (mode <= 1)
@@ -8679,7 +8679,7 @@ LABEL_9:
 {
   if (self)
   {
-    [(WebView *)self page];
+    objc_msgSend_page(self, a2);
     if (v3)
     {
       if (*(v3 + 444) - 1 >= 4)
@@ -8706,7 +8706,7 @@ LABEL_9:
 {
   if (self)
   {
-    [(WebView *)self page];
+    objc_msgSend_page(self, a2);
     if (v3)
     {
 
@@ -8719,7 +8719,7 @@ LABEL_9:
 {
   if (self)
   {
-    [self page];
+    objc_msgSend_page(self, a2);
     if (v2)
     {
       return *(v2 + 652) & 7;
@@ -8773,7 +8773,7 @@ LABEL_9:
 {
   if (self)
   {
-    [(WebView *)self page];
+    objc_msgSend_page(self, a2);
     v4 = v5;
     if (v5)
     {
@@ -8792,7 +8792,7 @@ LABEL_9:
     return 0;
   }
 
-  [(WebView *)self page];
+  objc_msgSend_page(self, a2);
   v2 = v4;
   if (v4)
   {
@@ -8806,7 +8806,7 @@ LABEL_9:
 {
   if (self)
   {
-    [(WebView *)self page];
+    objc_msgSend_page(self, a2);
     if (v3)
     {
       WebCore::Page::setPagination();
@@ -8821,7 +8821,7 @@ LABEL_9:
     return 1.0;
   }
 
-  [(WebView *)self page];
+  objc_msgSend_page(self, a2);
   if (!v4)
   {
     return 1.0;
@@ -8835,7 +8835,7 @@ LABEL_9:
 {
   if (self)
   {
-    [(WebView *)self page];
+    objc_msgSend_page(self, a2);
     if (v3)
     {
       WebCore::Page::setPagination();
@@ -8850,7 +8850,7 @@ LABEL_9:
     return 0.0;
   }
 
-  [(WebView *)self page];
+  objc_msgSend_page(self, a2);
   if (!v4)
   {
     return 0.0;
@@ -8864,7 +8864,7 @@ LABEL_9:
 {
   if (self)
   {
-    [self page];
+    objc_msgSend_page(self, a2);
     self = v2;
     if (v2)
     {
@@ -8927,7 +8927,7 @@ LABEL_9:
 {
   if (self)
   {
-    [(WebView *)self page];
+    objc_msgSend_page(self, a2);
     if (v4)
     {
 
@@ -10055,7 +10055,7 @@ LABEL_6:
   result = [(WebFrame *)[(WebView *)self mainFrame] provisionalDataSource];
   if (result || (result = [(WebFrame *)[(WebView *)self mainFrame] _dataSource]) != 0)
   {
-    [result _documentLoader];
+    objc_msgSend__documentLoader(result);
     result = *(v4 + 1640);
     if (result)
     {
@@ -10145,7 +10145,7 @@ LABEL_9:
     goto LABEL_6;
   }
 
-  [(WebView *)self _userAgentString];
+  objc_msgSend__userAgentString(self, a2, URL);
   if (!v9)
   {
 LABEL_6:
@@ -10372,7 +10372,7 @@ LABEL_7:
 
   MEMORY[0x1CCA63A40](&selfCopy, groupName);
   MEMORY[0x1CCA63A40](&v22, [(WebPreferences *)self->_private->preferences.m_ptr _localStorageDatabasePath]);
-  WebViewGroup::getOrCreate(&selfCopy, &v22, v23);
+  WebViewGroup::getOrCreate(v23, &selfCopy, &v22);
   v7 = self->_private;
   v8 = v7->group.m_ptr;
   v7->group.m_ptr = v23[0];
@@ -10727,7 +10727,7 @@ LABEL_11:
   return i;
 }
 
-unint64_t __42__WebView__cacheModelChangedNotification___block_invoke(uint64_t a1)
+void *__42__WebView__cacheModelChangedNotification___block_invoke(uint64_t a1)
 {
   v2 = [objc_msgSend(*(a1 + 32) "object")];
   if (![*(a1 + 40) _didSetCacheModel] || v2 > objc_msgSend(*(a1 + 40), "_cacheModel"))
@@ -11060,7 +11060,7 @@ uint64_t __32__WebView_WebIBActions__reload___block_invoke(uint64_t a1)
   {
     if (self)
     {
-      [(WebView *)self page];
+      objc_msgSend_page(self, a2);
     }
 
     v6 = WTF::fastMalloc(0x20);
@@ -11100,7 +11100,7 @@ uint64_t __32__WebView_WebIBActions__reload___block_invoke(uint64_t a1)
   {
     if (self)
     {
-      [(WebView *)self page];
+      objc_msgSend_page(self, a2);
     }
 
     v6 = WTF::fastMalloc(0x20);
@@ -11968,7 +11968,7 @@ LABEL_25:
     y = point.y;
     x = point.x;
     selfCopy = self;
-    [(DOMRange *)self page];
+    objc_msgSend_page(self, a2);
     if (!v17)
     {
       return 0;
@@ -13017,7 +13017,7 @@ LABEL_53:
   v10 = v6->identifierMap.m_impl.m_table;
   if (!v10)
   {
-    WTF::HashTable<unsigned long,WTF::KeyValuePair<unsigned long,WTF::RetainPtr<objc_object *>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long,WTF::RetainPtr<objc_object *>>>,WTF::DefaultHash<unsigned long>,WTF::HashMap<unsigned long,WTF::RetainPtr<objc_object *>,WTF::DefaultHash<unsigned long>,WTF::HashTraits<unsigned long>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned long>,WTF::FastMalloc>::rehash(p_identifierMap, 8u);
+    WTF::HashTable<unsigned long,WTF::KeyValuePair<unsigned long,WTF::RetainPtr<objc_object *>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned long,WTF::RetainPtr<objc_object *>>>,WTF::DefaultHash<unsigned long>,WTF::HashMap<unsigned long,WTF::RetainPtr<objc_object *>,WTF::DefaultHash<unsigned long>,WTF::HashTraits<unsigned long>,WTF::HashTraits<WTF::RetainPtr<objc_object *>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<unsigned long>,WTF::FastMalloc>::rehash(p_identifierMap, 8uLL);
     v10 = *p_identifierMap;
   }
 
@@ -13081,7 +13081,7 @@ LABEL_35:
         }
 
 LABEL_34:
-        v27 = v26 << (6 * v24 >= (2 * v26));
+        v27 = (v26 << (6 * v24 >= (2 * v26)));
         goto LABEL_35;
       }
     }
@@ -13596,7 +13596,7 @@ LABEL_5:
   m_ptr = self->_private->fullscreenController.m_ptr;
   if (m_ptr)
   {
-    [(WebVideoFullscreenController *)m_ptr videoElement];
+    objc_msgSend_videoElement(m_ptr, a2);
     v8 = *a3.var0;
     if (v23 == *a3.var0)
     {
@@ -13610,7 +13610,7 @@ LABEL_12:
     v9 = self->_private->fullscreenController.m_ptr;
     if (v9)
     {
-      [(WebVideoFullscreenController *)v9 videoElement];
+      objc_msgSend_videoElement(v9);
       v9 = v23;
     }
 
@@ -14189,7 +14189,7 @@ LABEL_18:
     return MEMORY[0x1E695E0F0];
   }
 
-  [(WebView *)self page];
+  objc_msgSend_page(self, a2);
   v3 = v16;
   if (!v16)
   {
@@ -14268,7 +14268,7 @@ LABEL_18:
 {
   if (self)
   {
-    [(WebView *)self page];
+    objc_msgSend_page(self, a2);
     if (v2)
     {
 

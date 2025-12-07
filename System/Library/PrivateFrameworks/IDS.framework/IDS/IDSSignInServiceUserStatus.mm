@@ -15,7 +15,7 @@
     signInController = [MEMORY[0x1E69A6138] signInController];
     if (os_log_type_enabled(signInController, OS_LOG_TYPE_ERROR))
     {
-      sub_195B28A4C();
+      sub_195B28A4C(self, signInController);
     }
 
     selfCopy = 0;
@@ -61,26 +61,26 @@
 
 - (unint64_t)phoneUserStatus
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = self->_serviceUserInfos;
-  status = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  status = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (status)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != status; ++i)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if (![v6 type])
         {
           status = [v6 status];
@@ -88,7 +88,7 @@
         }
       }
 
-      status = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      status = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (status)
       {
         continue;
@@ -100,32 +100,31 @@
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return status;
 }
 
 - (unint64_t)appleIDUserStatus
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = self->_serviceUserInfos;
-  status = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  status = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (status)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != status; ++i)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 type] == 1)
         {
           status = [v6 status];
@@ -133,7 +132,7 @@ LABEL_11:
         }
       }
 
-      status = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      status = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (status)
       {
         continue;
@@ -145,7 +144,6 @@ LABEL_11:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return status;
 }
 

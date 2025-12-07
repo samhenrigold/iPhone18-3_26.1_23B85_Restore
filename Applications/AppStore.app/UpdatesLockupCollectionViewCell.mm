@@ -11,7 +11,7 @@
 - (UIColor)backgroundColor
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for UpdatesLockupCollectionViewCell();
+  v4.super_class = type metadata accessor for UpdatesLockupCollectionViewCell(0);
   backgroundColor = [(UpdatesLockupCollectionViewCell *)&v4 backgroundColor];
 
   return backgroundColor;
@@ -20,7 +20,7 @@
 - (void)setBackgroundColor:(id)color
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for UpdatesLockupCollectionViewCell();
+  v6.super_class = type metadata accessor for UpdatesLockupCollectionViewCell(0);
   colorCopy = color;
   v5 = v6.receiver;
   [(UpdatesLockupCollectionViewCell *)&v6 setBackgroundColor:colorCopy];

@@ -84,7 +84,7 @@
   generateTimeStamp = [(HeadGesturesDiagnosticExtensionExtension *)self generateTimeStamp];
   if (![v4 fileExistsAtPath:@"/var/tmp/HeadGestures/RawData"])
   {
-    v51 = 0;
+    v50 = 0;
     goto LABEL_12;
   }
 
@@ -97,12 +97,12 @@
 
   if (v11)
   {
-    v63 = 0;
-    [v4 removeItemAtPath:@"/var/tmp/HeadGestures/RawData" error:&v63];
-    v51 = v63;
-    if (!v51)
+    v62 = 0;
+    [v4 removeItemAtPath:@"/var/tmp/HeadGestures/RawData" error:&v62];
+    v50 = v62;
+    if (!v50)
     {
-      v51 = 0;
+      v50 = 0;
       generateTimeStamp = v6;
       goto LABEL_11;
     }
@@ -110,7 +110,7 @@
     v12 = _HGObjCLoggingFacility(kHGObjCLogCategoryDE);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_10000181C(v51, v7);
+      sub_10000181C(v50, v7);
     }
   }
 
@@ -122,15 +122,15 @@
       sub_100001794(v7);
     }
 
-    v51 = 0;
+    v50 = 0;
   }
 
   generateTimeStamp = v6;
 
 LABEL_11:
 LABEL_12:
-  v49 = generateTimeStamp;
-  v50 = v4;
+  v48 = generateTimeStamp;
+  v49 = v4;
   if ([v4 fileExistsAtPath:@"/var/mobile/tmp/HeadGestures/RawData"])
   {
     v13 = [NSString stringWithFormat:@"HeadGestures_RawDataArchive_mobile_%@.zip", generateTimeStamp, generateTimeStamp];
@@ -141,10 +141,10 @@ LABEL_12:
 
     if (v17)
     {
-      v18 = v51;
-      v62 = v51;
-      [v50 removeItemAtPath:@"/var/mobile/tmp/HeadGestures/RawData" error:&v62];
-      v19 = v62;
+      v18 = v50;
+      v61 = v50;
+      [v49 removeItemAtPath:@"/var/mobile/tmp/HeadGestures/RawData" error:&v61];
+      v19 = v61;
     }
 
     else
@@ -155,7 +155,7 @@ LABEL_12:
         sub_100001794(v13);
       }
 
-      v19 = v51;
+      v19 = v50;
     }
 
     if (v19)
@@ -167,99 +167,98 @@ LABEL_12:
       }
     }
 
-    v51 = v19;
+    v50 = v19;
   }
 
   v21 = [NSRegularExpression regularExpressionWithPattern:@"HeadGestures_RawDataArchive*" options:1 error:0];
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
-  v69[0] = @"/var/tmp/HeadGestures";
-  v69[1] = @"/var/mobile/tmp/HeadGestures/";
-  v22 = [NSArray arrayWithObjects:v69 count:2];
-  v23 = [v22 countByEnumeratingWithState:&v58 objects:v70 count:16];
+  v68[0] = @"/var/tmp/HeadGestures";
+  v68[1] = @"/var/mobile/tmp/HeadGestures/";
+  v22 = [NSArray arrayWithObjects:v68 count:2];
+  v23 = [v22 countByEnumeratingWithState:&v57 objects:v69 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v59;
+    v25 = *v58;
     do
     {
       for (i = 0; i != v24; i = i + 1)
       {
-        if (*v59 != v25)
+        if (*v58 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = [NSURL fileURLWithPath:*(*(&v58 + 1) + 8 * i)];
+        v27 = [NSURL fileURLWithPath:*(*(&v57 + 1) + 8 * i)];
         v28 = [(HeadGesturesDiagnosticExtensionExtension *)self filesInDir:v27 matchingPattern:v21 excludingPattern:0];
 
         [v3 addObjectsFromArray:v28];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v58 objects:v70 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v57 objects:v69 count:16];
     }
 
     while (v24);
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v29 = v3;
-  v30 = [v29 countByEnumeratingWithState:&v54 objects:v68 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v53 objects:v67 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v55;
+    v32 = *v54;
     v33 = &BOMCopierCopyWithOptions_ptr;
     v34 = &__kCFBooleanTrue;
     v35 = &kHGObjCLogCategoryDE;
-    v52 = *v55;
+    v51 = *v54;
     do
     {
       v36 = 0;
-      v53 = v31;
+      v52 = v31;
       do
       {
-        if (*v55 != v32)
+        if (*v54 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v37 = *(*(&v54 + 1) + 8 * v36);
-        v38 = v33[37];
+        v37 = *(*(&v53 + 1) + 8 * v36);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v39 = v37;
-          [v39 setDeleteOnAttach:v34];
-          v40 = _HGObjCLoggingFacility(*v35);
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v38 = v37;
+          [v38 setDeleteOnAttach:v34];
+          v39 = _HGObjCLoggingFacility(*v35);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
-            [v39 displayName];
-            v42 = v41 = v29;
-            [v39 filesize];
-            v43 = v35;
-            v44 = v21;
-            v45 = v33;
-            v47 = v46 = v34;
+            [v38 displayName];
+            v41 = v40 = v29;
+            [v38 filesize];
+            v42 = v35;
+            v43 = v21;
+            v44 = v33;
+            v46 = v45 = v34;
             *buf = 138412546;
-            v65 = v42;
-            v66 = 2112;
-            v67 = v47;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "attachment %@ file size %@", buf, 0x16u);
+            v64 = v41;
+            v65 = 2112;
+            v66 = v46;
+            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "attachment %@ file size %@", buf, 0x16u);
 
-            v34 = v46;
-            v33 = v45;
-            v21 = v44;
-            v35 = v43;
+            v34 = v45;
+            v33 = v44;
+            v21 = v43;
+            v35 = v42;
 
-            v29 = v41;
-            v32 = v52;
-            v31 = v53;
+            v29 = v40;
+            v32 = v51;
+            v31 = v52;
           }
         }
 
@@ -267,7 +266,7 @@ LABEL_12:
       }
 
       while (v31 != v36);
-      v31 = [v29 countByEnumeratingWithState:&v54 objects:v68 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v53 objects:v67 count:16];
     }
 
     while (v31);

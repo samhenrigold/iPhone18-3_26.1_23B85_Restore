@@ -17,7 +17,7 @@
 
 - (MTSDeviceSetupHome)initWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSDSH.ck.name"];
   if (v5)
@@ -34,18 +34,17 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = 0;
-      _os_log_impl(&dword_239824000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded name: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = 0;
+      _os_log_impl(&dword_239824000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded name: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

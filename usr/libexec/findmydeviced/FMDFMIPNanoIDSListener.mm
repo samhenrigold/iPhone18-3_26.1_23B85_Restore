@@ -124,7 +124,7 @@
   v78 = 0;
   v30 = [NSJSONSerialization dataWithJSONObject:v59 options:0 error:&v78];
   v31 = v78;
-  v32 = sub_100002880();
+  v32 = sub_100002880(v31);
   v33 = v32;
   if (v31)
   {
@@ -161,8 +161,7 @@
       v37 = [v54 objectAtIndexedSubscript:1];
       [(FMDNanoSupportProtoSignedDataV5 *)v29 setSkAuth:v37];
 
-      [(FMDNanoSupportProtoSignedDataV5 *)v29 setFinalRequestJsonData:v30];
-      v38 = sub_100002880();
+      v38 = sub_100002880([(FMDNanoSupportProtoSignedDataV5 *)v29 setFinalRequestJsonData:v30]);
       if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         signedData = [(FMDNanoSupportProtoSignedDataV5 *)v29 signedData];

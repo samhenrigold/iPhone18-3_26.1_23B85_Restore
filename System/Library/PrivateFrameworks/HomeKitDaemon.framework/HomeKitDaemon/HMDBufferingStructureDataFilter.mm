@@ -43,12 +43,12 @@
   {
 LABEL_7:
     v15 = _HMFPreconditionFailure();
-    return __HMDResidentSyncAdapter_1_1_block_invoke(v15);
+    return __HMDResidentSyncAdapter_1_1_block_invoke(v15, v16);
   }
 
-  v16.receiver = self;
-  v16.super_class = HMDBufferingStructureDataFilter;
-  v10 = [(HMDStructuredDataFoundationWriter *)&v16 initWithMutableContainers:1];
+  v17.receiver = self;
+  v17.super_class = HMDBufferingStructureDataFilter;
+  v10 = [(HMDStructuredDataFoundationWriter *)&v17 initWithMutableContainers:1];
   v11 = v10;
   if (v10)
   {

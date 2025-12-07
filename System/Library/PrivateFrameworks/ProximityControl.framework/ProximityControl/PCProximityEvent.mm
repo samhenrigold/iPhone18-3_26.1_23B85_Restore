@@ -12,39 +12,38 @@
 - (id)description
 {
   eventType = self->_eventType;
-  mediaRemoteID = self->_mediaRemoteID;
   if (eventType > 9)
   {
-    v5 = @"?";
+    v4 = @"?";
   }
 
   else
   {
-    v5 = off_279AD1D50[eventType];
+    v4 = off_279AD1D50[eventType];
   }
 
-  v6 = [MEMORY[0x277CCAB68] stringWithFormat:@"<PCProximityEvent id=%@ type=%@", self->_mediaRemoteID, v5];
-  v7 = v6;
+  v5 = [MEMORY[0x277CCAB68] stringWithFormat:@"<PCProximityEvent id=%@ type=%@", self->_mediaRemoteID, v4];
+  v6 = v5;
   if (self->_expectsDisplayContext)
   {
-    [v6 appendString:{@", expects content"}];
+    [v5 appendString:{@", expects content"}];
   }
 
   if (self->_info)
   {
-    [v7 appendString:{@", info present"}];
+    [v6 appendString:{@", info present"}];
   }
 
   error = self->_error;
   if (error)
   {
     localizedDescription = [(NSError *)error localizedDescription];
-    [v7 appendFormat:@", error=%@", localizedDescription];
+    [v6 appendFormat:@", error=%@", localizedDescription];
   }
 
-  [v7 appendString:@">"];
+  [v6 appendString:@">"];
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)isEqual:(id)equal

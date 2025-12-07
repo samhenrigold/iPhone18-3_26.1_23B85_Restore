@@ -22,7 +22,7 @@
 
 - (void)refresh
 {
-  v3 = sub_1001F1160(&qword_100AD67D0);
+  v3 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v3 - 8);
   v5 = &v9 - v4;
   v6 = sub_1007A2744();

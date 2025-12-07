@@ -34,38 +34,37 @@
 
 - (void)resume
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = _IPServerLog();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _IPServerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     transport = self->_transport;
-    v6 = 138412290;
-    v7 = transport;
-    _os_log_impl(&dword_254C69000, v3, OS_LOG_TYPE_DEFAULT, "resuming transport %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = transport;
+    _os_log_impl(&dword_254C69000, v3, OS_LOG_TYPE_DEFAULT, "resuming transport %@", &v5, 0xCu);
   }
 
   [(IPServerXPCTransport *)self->_transport resume];
   [(IPStateUpdateStreamSink *)self->_stateSink resume];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)progressForIdentity:(id)identity finishedWithState:(unint64_t)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   v7 = identityCopy;
   if (state <= 2)
   {
     if (state < 3)
     {
-      v8 = _IPServerLog();
+      v8 = _IPServerLog(identityCopy);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v23 = 138412546;
-        *&v23[4] = v7;
-        v24 = 2048;
+        *v24 = 138412546;
+        *&v24[4] = v7;
+        v25 = 2048;
         stateCopy = state;
-        _os_log_impl(&dword_254C69000, v8, OS_LOG_TYPE_DEFAULT, "Progress for %@ finished with strange install state %llu", v23, 0x16u);
+        _os_log_impl(&dword_254C69000, v8, OS_LOG_TYPE_DEFAULT, "Progress for %@ finished with strange install state %llu", v24, 0x16u);
       }
     }
 
@@ -90,9 +89,9 @@
   }
 
   v10 = identityCopy;
-  *v23 = 0;
-  v11 = [v10 findApplicationRecordWithError:v23];
-  v12 = *v23;
+  *v24 = 0;
+  v11 = [v10 findApplicationRecordWithError:v24];
+  v12 = *v24;
   v13 = v12;
   if (v11)
   {
@@ -119,32 +118,30 @@
   if (code != -10814)
   {
 LABEL_19:
-    v18 = _IPDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = _IPDefaultLog(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(IPProgressServerDefaultBehavior *)v10 progressForIdentity:v13 finishedWithState:v18];
+      [(IPProgressServerDefaultBehavior *)v10 progressForIdentity:v13 finishedWithState:v20];
     }
   }
 
 LABEL_23:
-  v19 = _IPServerLog();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v21 = _IPServerLog(v16);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    *v23 = 138412546;
-    *&v23[4] = v10;
-    v24 = 1024;
+    *v24 = 138412546;
+    *&v24[4] = v10;
+    v25 = 1024;
     LODWORD(stateCopy) = v9;
-    _os_log_impl(&dword_254C69000, v19, OS_LOG_TYPE_DEFAULT, "Progress ended for identity %@ with reason %u and identity no longer exists; synthesizing identity unavailable event", v23, 0x12u);
+    _os_log_impl(&dword_254C69000, v21, OS_LOG_TYPE_DEFAULT, "Progress ended for identity %@ with reason %u and identity no longer exists; synthesizing identity unavailable event", v24, 0x12u);
   }
 
   [(IPProgressServerDefaultBehavior *)self identityWasUninstalled:v10];
 LABEL_26:
   [(IPServerXPCTransport *)self->_transport disseminateProgressEndForIdenitty:v7 reason:v9];
   stateSink = self->_stateSink;
-  v21 = [[IPStateUpdateMessage alloc] initWithType:2 identity:v7];
-  [(IPStateUpdateStreamSink *)stateSink sendUpdateMessage:v21];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = [[IPStateUpdateMessage alloc] initWithType:2 identity:v7];
+  [(IPStateUpdateStreamSink *)stateSink sendUpdateMessage:v23];
 }
 
 - (void)progressForIdentityInitiated:(id)initiated
@@ -196,120 +193,120 @@ LABEL_26:
 
 - (id)allInstallableStatesForClient:(id)client
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v6 = [WeakRetained activeInstallationsForBehavior:self];
 
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         identity = [v11 identity];
         [v4 setObject:v11 forKey:identity];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
 
   mEMORY[0x277CC1EB0] = [MEMORY[0x277CC1EB0] sharedDatabaseContext];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __65__IPProgressServerDefaultBehavior_allInstallableStatesForClient___block_invoke;
-  v18[3] = &unk_2797B22C8;
-  v19 = v4;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __65__IPProgressServerDefaultBehavior_allInstallableStatesForClient___block_invoke;
+  v17[3] = &unk_2797B22C8;
+  v18 = v4;
   v14 = v4;
-  [mEMORY[0x277CC1EB0] accessUsingBlock:v18];
+  [mEMORY[0x277CC1EB0] accessUsingBlock:v17];
 
   allValues = [v14 allValues];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return allValues;
 }
 
 void __65__IPProgressServerDefaultBehavior_allInstallableStatesForClient___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v6 = [MEMORY[0x277CC1E58] enumeratorWithOptions:0];
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
-    if (v7)
+    v23 = 0u;
+    v7 = [MEMORY[0x277CC1E58] enumeratorWithOptions:0];
+    v8 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v19 = v5;
-      v9 = *v22;
+      v9 = v8;
+      v20 = v6;
+      v10 = *v23;
       while (1)
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v9)
+          if (*v23 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * i);
-          v12 = [*(a1 + 32) objectForKey:v11];
+          v12 = *(*(&v22 + 1) + 8 * i);
+          v13 = [*(a1 + 32) objectForKey:v12];
 
-          if (!v12)
+          if (!v13)
           {
-            v20 = 0;
-            v13 = [v11 findApplicationRecordWithError:&v20];
-            v14 = v20;
-            if (v13)
+            v21 = 0;
+            v14 = [v12 findApplicationRecordWithError:&v21];
+            v15 = v21;
+            v16 = v15;
+            if (v14)
             {
-              v15 = v13;
-              if ([v15 isDeletable])
+              v17 = v14;
+              if ([v17 isDeletable])
               {
 
                 goto LABEL_14;
               }
 
-              v17 = [v15 isDeletableSystemApplication];
+              v19 = [v17 isDeletableSystemApplication];
 
-              if (v17)
+              if (v19)
               {
 LABEL_14:
-                v16 = [[IPInstallableStateData alloc] initWithIdentity:v11 isInstalling:0];
-                [*(a1 + 32) setObject:v16 forKey:v11];
+                v18 = [[IPInstallableStateData alloc] initWithIdentity:v12 isInstalling:0];
+                [*(a1 + 32) setObject:v18 forKey:v12];
                 goto LABEL_15;
               }
             }
 
             else
             {
-              v16 = _IPDefaultLog();
-              if (os_log_type_enabled(&v16->super, OS_LOG_TYPE_ERROR))
+              v18 = _IPDefaultLog(v15);
+              if (os_log_type_enabled(&v18->super, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v26 = v11;
-                v27 = 2112;
-                v28 = v14;
-                _os_log_error_impl(&dword_254C69000, &v16->super, OS_LOG_TYPE_ERROR, "could not load record for identity %@: %@", buf, 0x16u);
+                v27 = v12;
+                v28 = 2112;
+                v29 = v16;
+                _os_log_error_impl(&dword_254C69000, &v18->super, OS_LOG_TYPE_ERROR, "could not load record for identity %@: %@", buf, 0x16u);
               }
 
 LABEL_15:
@@ -319,10 +316,10 @@ LABEL_15:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
-        if (!v8)
+        v9 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        if (!v9)
         {
-          v5 = v19;
+          v6 = v20;
           break;
         }
       }
@@ -331,16 +328,14 @@ LABEL_15:
 
   else
   {
-    v6 = _IPDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _IPDefaultLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = v5;
-      _os_log_impl(&dword_254C69000, v6, OS_LOG_TYPE_DEFAULT, "Couldn't access database: %@", buf, 0xCu);
+      v27 = v6;
+      _os_log_impl(&dword_254C69000, v7, OS_LOG_TYPE_DEFAULT, "Couldn't access database: %@", buf, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)transport:(id)transport shouldAcceptConnection:(id)connection
@@ -368,13 +363,12 @@ LABEL_15:
 
 - (void)progressForIdentity:(os_log_t)log finishedWithState:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_254C69000, log, OS_LOG_TYPE_ERROR, "unexpected error loading record for %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_254C69000, log, OS_LOG_TYPE_ERROR, "unexpected error loading record for %@: %@", &v3, 0x16u);
 }
 
 @end

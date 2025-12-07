@@ -3,16 +3,16 @@
 - (BOOL)hf_isResidentiPad;
 - (id)hf_displayName;
 - (id)hf_linkedAccessory;
-- (uint64_t)hf_isEnabled;
 - (uint64_t)hf_isReachable;
+- (void)hf_isEnabled;
 @end
 
 @implementation HMResidentDevice(HFAdditions)
 
 - (id)hf_linkedAccessory
 {
-  home = [self home];
-  accessories = [home accessories];
+  v2 = objc_msgSend_home(self);
+  accessories = [v2 accessories];
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
   v6[2] = __51__HMResidentDevice_HFAdditions__hf_linkedAccessory__block_invoke;
@@ -45,12 +45,12 @@
   return hf_displayName;
 }
 
-- (uint64_t)hf_isEnabled
+- (void)hf_isEnabled
 {
   result = [self isEnabled];
   if (result)
   {
-    return [self capabilities] & 1;
+    return ([self capabilities] & 1);
   }
 
   return result;
@@ -58,31 +58,29 @@
 
 - (uint64_t)hf_isReachable
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (([self status] & 1) == 0)
+  v8 = *MEMORY[0x277D85DE8];
+  if ([self status])
   {
-    hf_linkedAccessory = [self hf_linkedAccessory];
-    hf_isInstallingSoftwareUpdate = [hf_linkedAccessory hf_isInstallingSoftwareUpdate];
+    return 1;
+  }
 
-    if (!hf_isInstallingSoftwareUpdate)
-    {
-      result = 0;
-      goto LABEL_8;
-    }
+  hf_linkedAccessory = [self hf_linkedAccessory];
+  hf_isInstallingSoftwareUpdate = [hf_linkedAccessory hf_isInstallingSoftwareUpdate];
 
+  if (hf_isInstallingSoftwareUpdate)
+  {
     v4 = HFLogForCategory(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
+      v6 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Resident is installing a software update; not treating it as unreachable: %@", &v7, 0xCu);
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Resident is installing a software update; not treating it as unreachable: %@", &v6, 0xCu);
     }
+
+    return 1;
   }
 
-  result = 1;
-LABEL_8:
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (BOOL)hf_isResidentiPad

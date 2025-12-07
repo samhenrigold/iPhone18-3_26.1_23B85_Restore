@@ -7,7 +7,7 @@
 
 - (id)_dictionaryRepresentation
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   directLeafNodes = [(UPResultRootNode *)self directLeafNodes];
 
   if (directLeafNodes)
@@ -32,7 +32,7 @@
     }
   }
 
-  v15[0] = @"label";
+  v14[0] = @"label";
   label = [(UPResultNode *)self label];
   null = label;
   if (!label)
@@ -40,16 +40,16 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v15[1] = @"directLeafNodes";
-  v16[0] = null;
+  v14[1] = @"directLeafNodes";
+  v15[0] = null;
   null2 = directLeafNodes;
   if (!directLeafNodes)
   {
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v16[1] = null2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v15[1] = null2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
   if (directLeafNodes)
   {
     if (label)
@@ -68,7 +68,6 @@
   }
 
 LABEL_11:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

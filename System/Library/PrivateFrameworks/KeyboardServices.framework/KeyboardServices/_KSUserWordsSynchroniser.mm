@@ -51,12 +51,12 @@
 
 + (id)generateRecordNameForFilename:(id)filename withKey:(id)key
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v6 = [filename dataUsingEncoding:4];
   CCHmac(2u, [keyCopy bytes], objc_msgSend(keyCopy, "length"), objc_msgSend(v6, "bytes"), objc_msgSend(v6, "length"), macOut);
   v7 = 0;
-  v8 = v14;
+  v8 = v13;
   do
   {
     v9 = macOut[v7];
@@ -67,9 +67,7 @@
   }
 
   while (v7 != 32);
-  v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v13 length:64 encoding:4];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v12 length:64 encoding:4];
 
   return v10;
 }
@@ -196,30 +194,31 @@
     v12 = [v3 unarchivedObjectOfClasses:v10 fromData:contents error:0];
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v13 = v12;
+      v14 = v12;
     }
 
     else
     {
-      v14 = KSCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = KSCategory(isKindOfClass);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [_KSUserWordsSynchroniser information];
+        [(_KSUserWordsSynchroniser *)v12 information];
       }
 
       [(_KSUserWordsSynchroniser *)self disable];
-      v13 = 0;
+      v14 = 0;
     }
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (void)modifyInformationWithOperations:(id)operations
@@ -309,22 +308,20 @@
 
 - (void)checkProgress:(int)progress withInfo:(id)info
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v6 = KSCategory();
+  v6 = KSCategory(infoCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = checkProgress_withInfo__meanings[progress];
-    v9 = 136315650;
-    v10 = "[_KSUserWordsSynchroniser checkProgress:withInfo:]";
-    v11 = 2080;
-    v12 = v7;
-    v13 = 2112;
-    v14 = infoCopy;
-    _os_log_impl(&dword_2557E2000, v6, OS_LOG_TYPE_INFO, "%s  State: %s: %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[_KSUserWordsSynchroniser checkProgress:withInfo:]";
+    v10 = 2080;
+    v11 = v7;
+    v12 = 2112;
+    v13 = infoCopy;
+    _os_log_impl(&dword_2557E2000, v6, OS_LOG_TYPE_INFO, "%s  State: %s: %@", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkForDownload:(id)download uploads:(id)uploads allLanguages:(id)languages
@@ -423,41 +420,44 @@
   v14 = *MEMORY[0x277D85DE8];
   if (_IsEnabled())
   {
-    if (![(_KSControlFileController *)self->_controlFile checkIfExists])
+    checkIfExists = [(_KSControlFileController *)self->_controlFile checkIfExists];
+    if (checkIfExists)
     {
-      v7 = KSCategory();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      information = [(_KSUserWordsSynchroniser *)self information];
+      v5 = [information objectForKey:@"Key"];
+
+      if (v5)
+      {
+        return;
+      }
+
+      v6 = &v9;
+      v9 = MEMORY[0x277D85DD0];
+      v10 = 3221225472;
+      v7 = __46___KSUserWordsSynchroniser_checkConfiguration__block_invoke_2;
+    }
+
+    else
+    {
+      v8 = KSCategory(checkIfExists);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
         v13 = "[_KSUserWordsSynchroniser checkConfiguration]";
-        _os_log_impl(&dword_2557E2000, v7, OS_LOG_TYPE_INFO, "%s  Persistent data not found, acquiring key!", buf, 0xCu);
+        _os_log_impl(&dword_2557E2000, v8, OS_LOG_TYPE_INFO, "%s  Persistent data not found, acquiring key!", buf, 0xCu);
       }
 
-      v5 = v11;
+      v6 = v11;
       v11[0] = MEMORY[0x277D85DD0];
       v11[1] = 3221225472;
-      v6 = __46___KSUserWordsSynchroniser_checkConfiguration__block_invoke;
-      goto LABEL_8;
+      v7 = __46___KSUserWordsSynchroniser_checkConfiguration__block_invoke;
     }
 
-    information = [(_KSUserWordsSynchroniser *)self information];
-    v4 = [information objectForKey:@"Key"];
-
-    if (!v4)
-    {
-      v5 = &v9;
-      v9 = MEMORY[0x277D85DD0];
-      v10 = 3221225472;
-      v6 = __46___KSUserWordsSynchroniser_checkConfiguration__block_invoke_2;
-LABEL_8:
-      v5[2] = v6;
-      v5[3] = &unk_2797F78B8;
-      v5[4] = self;
-      [(_KSUserWordsSynchroniser *)self generateKeyWithCompletionHandler:v9, v10];
-    }
+    v6[2] = v7;
+    v6[3] = &unk_2797F78B8;
+    v6[4] = self;
+    [(_KSUserWordsSynchroniser *)self generateKeyWithCompletionHandler:v9, v10];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)firstTimeDownloadWithKey:(id)key
@@ -490,7 +490,7 @@ LABEL_8:
 
 - (id)generateRecordListForLanguages:(id)languages
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   languagesCopy = languages;
   information = [(_KSUserWordsSynchroniser *)self information];
   v6 = information;
@@ -500,46 +500,44 @@ LABEL_8:
   }
 
   v7 = [v6 objectForKey:@"Key"];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __59___KSUserWordsSynchroniser_generateRecordListForLanguages___block_invoke;
-  v23[3] = &unk_2797F78E0;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __59___KSUserWordsSynchroniser_generateRecordListForLanguages___block_invoke;
+  v22[3] = &unk_2797F78E0;
   v8 = v7;
-  v24 = v8;
+  v23 = v8;
   selfCopy = self;
-  [(_KSUserWordsSynchroniser *)self loadKeyWithCompletion:v23];
+  [(_KSUserWordsSynchroniser *)self loadKeyWithCompletion:v22];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v10 = languagesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
-        v16 = [(_KSUserWordsSynchroniser *)self recordIDForLanguage:v15 withKey:v8, v19];
+        v15 = *(*(&v18 + 1) + 8 * i);
+        v16 = [(_KSUserWordsSynchroniser *)self recordIDForLanguage:v15 withKey:v8, v18];
         [dictionary setObject:v15 forKey:v16];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v25 count:16];
     }
 
     while (v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -571,7 +569,7 @@ LABEL_8:
 
 - (BOOL)checkErrors:(id)errors
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   errorsCopy = errors;
   domain = [errorsCopy domain];
   v6 = [domain isEqualToString:*MEMORY[0x277CBBF50]];
@@ -596,36 +594,36 @@ LABEL_8:
       goto LABEL_15;
     }
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     userInfo = [errorsCopy userInfo];
     v15 = [userInfo objectForKey:*MEMORY[0x277CBBFB0]];
     allValues = [v15 allValues];
 
-    v17 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v17 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v25;
+      v19 = *v24;
       while (2)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v25 != v19)
+          if (*v24 != v19)
           {
             objc_enumerationMutation(allValues);
           }
 
-          if (![(_KSUserWordsSynchroniser *)self checkErrors:*(*(&v24 + 1) + 8 * i)])
+          if (![(_KSUserWordsSynchroniser *)self checkErrors:*(*(&v23 + 1) + 8 * i)])
           {
 
             goto LABEL_18;
           }
         }
 
-        v18 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v18 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v18)
         {
           continue;
@@ -644,23 +642,23 @@ LABEL_28:
   {
     case 28:
 LABEL_15:
-      v12 = KSCategory();
+      v12 = KSCategory(code);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [_KSUserWordsSynchroniser checkErrors:errorsCopy];
       }
 
       cloudKitManager = self->_cloudKitManager;
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __40___KSUserWordsSynchroniser_checkErrors___block_invoke;
-      v23[3] = &unk_2797F7928;
-      v23[4] = self;
-      v23[5] = v8;
-      [(_KSCloudKitManager *)cloudKitManager resetZoneWithDelete:v8 withCompletionHandler:v23];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __40___KSUserWordsSynchroniser_checkErrors___block_invoke;
+      v22[3] = &unk_2797F7928;
+      v22[4] = self;
+      v22[5] = v8;
+      [(_KSCloudKitManager *)cloudKitManager resetZoneWithDelete:v8 withCompletionHandler:v22];
       goto LABEL_18;
     case 112:
-      v11 = KSCategory();
+      v11 = KSCategory(112);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [_KSUserWordsSynchroniser checkErrors:];
@@ -669,7 +667,7 @@ LABEL_15:
       v8 = 2;
       goto LABEL_15;
     case 5006:
-      v10 = KSCategory();
+      v10 = KSCategory(5006);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [_KSUserWordsSynchroniser checkErrors:];
@@ -683,7 +681,6 @@ LABEL_18:
 
 LABEL_29:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -728,32 +725,30 @@ LABEL_29:
 
 - (void)loadKeyWithCompletion:(id)completion
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = [(_KSCloudKitManager *)self->_cloudKitManager recordIDForName:@"key"];
   v6 = objc_alloc(MEMORY[0x277CBC3E0]);
-  v15[0] = v5;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = v5;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v8 = [v6 initWithRecordIDs:v7];
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __50___KSUserWordsSynchroniser_loadKeyWithCompletion___block_invoke;
-  v12[3] = &unk_2797F7978;
-  v13 = v5;
-  v14 = completionCopy;
-  v12[4] = self;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __50___KSUserWordsSynchroniser_loadKeyWithCompletion___block_invoke;
+  v11[3] = &unk_2797F7978;
+  v12 = v5;
+  v13 = completionCopy;
+  v11[4] = self;
   v9 = v5;
   v10 = completionCopy;
-  [v8 setFetchRecordsCompletionBlock:v12];
+  [v8 setFetchRecordsCompletionBlock:v11];
   [(_KSCloudKitManager *)self->_cloudKitManager addOperation:v8];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveKey:(id)key withCompletion:(id)completion
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = MEMORY[0x277CBC5A0];
   keyCopy = key;
@@ -765,92 +760,67 @@ LABEL_29:
   [encryptedValueStore setObject:keyCopy forKey:@"keybytes"];
 
   v13 = objc_alloc(MEMORY[0x277CBC4A0]);
-  v24[0] = v11;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = v11;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   v15 = [v13 initWithRecordsToSave:v14 recordIDsToDelete:0];
 
   [v15 setSavePolicy:0];
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __51___KSUserWordsSynchroniser_saveKey_withCompletion___block_invoke;
-  v21 = &unk_2797F7950;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __51___KSUserWordsSynchroniser_saveKey_withCompletion___block_invoke;
+  v20 = &unk_2797F7950;
   selfCopy = self;
-  v23 = completionCopy;
+  v22 = completionCopy;
   v16 = completionCopy;
-  [v15 setModifyRecordsCompletionBlock:&v18];
-  [(_KSCloudKitManager *)self->_cloudKitManager addOperation:v15, v18, v19, v20, v21, selfCopy];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [v15 setModifyRecordsCompletionBlock:&v17];
+  [(_KSCloudKitManager *)self->_cloudKitManager addOperation:v15, v17, v18, v19, v20, selfCopy];
 }
 
 - (void)dumpAllRecordsWithCompletionHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v6 = objc_alloc(MEMORY[0x277CBC3B8]);
   recordZone = [(_KSCloudKitManager *)self->_cloudKitManager recordZone];
   zoneID = [recordZone zoneID];
-  v20[0] = zoneID;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = zoneID;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   v10 = [v6 initWithRecordZoneIDs:v9 optionsByRecordZoneID:0];
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __64___KSUserWordsSynchroniser_dumpAllRecordsWithCompletionHandler___block_invoke;
-  v18[3] = &unk_2797F6A48;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __64___KSUserWordsSynchroniser_dumpAllRecordsWithCompletionHandler___block_invoke;
+  v17[3] = &unk_2797F6A48;
   v11 = dictionary;
-  v19 = v11;
-  [v10 setRecordChangedBlock:v18];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __64___KSUserWordsSynchroniser_dumpAllRecordsWithCompletionHandler___block_invoke_2;
-  v15[3] = &unk_2797F6598;
-  v16 = v11;
-  v17 = handlerCopy;
+  v18 = v11;
+  [v10 setRecordChangedBlock:v17];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __64___KSUserWordsSynchroniser_dumpAllRecordsWithCompletionHandler___block_invoke_2;
+  v14[3] = &unk_2797F6598;
+  v15 = v11;
+  v16 = handlerCopy;
   v12 = handlerCopy;
   v13 = v11;
-  [v10 setFetchRecordZoneChangesCompletionBlock:v15];
+  [v10 setFetchRecordZoneChangesCompletionBlock:v14];
   [(_KSCloudKitManager *)self->_cloudKitManager addOperation:v10];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)information
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)checkErrors:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)checkErrors:(void *)a1 .cold.2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)checkErrors:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

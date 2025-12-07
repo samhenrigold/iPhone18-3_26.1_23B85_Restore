@@ -117,46 +117,44 @@
 
 - (void)presentOrUpdateViewController:(id)controller
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v5 = TPSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSLog(controllerCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = controllerCopy;
-    _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "Asked to present or update view controller: %@", buf, 0xCu);
+    v21 = controllerCopy;
+    _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "Asked to present or update view controller: %@", buf, 0xCu);
   }
 
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __63__TPSCloudCallingListController_presentOrUpdateViewController___block_invoke;
-  v15 = &unk_2782E39D0;
-  v16 = controllerCopy;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __63__TPSCloudCallingListController_presentOrUpdateViewController___block_invoke;
+  v17 = &unk_2782E39D0;
+  v18 = controllerCopy;
   selfCopy = self;
-  v6 = controllerCopy;
-  v7 = _Block_copy(&v12);
-  v8 = [(TPSCloudCallingListController *)self presentedViewController:v12];
+  v7 = controllerCopy;
+  v8 = _Block_copy(&v14);
+  v9 = [(TPSCloudCallingListController *)self presentedViewController:v14];
 
-  if (v8)
+  if (v9)
   {
-    v9 = TPSLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v12 = TPSLog(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       presentedViewController = [(TPSCloudCallingListController *)self presentedViewController];
       *buf = 138412290;
-      v19 = presentedViewController;
-      _os_log_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_DEFAULT, "A view controller is already being presented: %@. Dismissing it and presenting the new one", buf, 0xCu);
+      v21 = presentedViewController;
+      _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "A view controller is already being presented: %@. Dismissing it and presenting the new one", buf, 0xCu);
     }
 
-    [(TPSCloudCallingListController *)self dismissViewControllerAnimated:1 completion:v7];
+    [(TPSCloudCallingListController *)self dismissViewControllerAnimated:1 completion:v8];
   }
 
   else
   {
-    v7[2](v7);
+    v8[2](v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __63__TPSCloudCallingListController_presentOrUpdateViewController___block_invoke(uint64_t a1)
@@ -177,25 +175,23 @@ void __63__TPSCloudCallingListController_presentOrUpdateViewController___block_i
 
 uint64_t __63__TPSCloudCallingListController_presentOrUpdateViewController___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v8 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   result = objc_opt_isKindOfClass();
   if (result)
   {
-    v4 = TPSLog();
+    v4 = TPSLog(result, v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_21B8E9000, v4, OS_LOG_TYPE_DEFAULT, "Reloading specifiers because the presented view controller was a UIAlertController: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_21B8E9000, v4, OS_LOG_TYPE_DEFAULT, "Reloading specifiers because the presented view controller was a UIAlertController: %@", &v6, 0xCu);
     }
 
-    result = [*(a1 + 40) reloadSpecifiers];
+    return [*(a1 + 40) reloadSpecifiers];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 

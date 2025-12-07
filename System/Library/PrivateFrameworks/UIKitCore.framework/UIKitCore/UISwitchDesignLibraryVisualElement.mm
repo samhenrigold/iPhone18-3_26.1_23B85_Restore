@@ -29,7 +29,7 @@
     selfCopy = self;
     [v4 setDisplayedOnValue_];
     *(&selfCopy->super.super.super.super.isa + OBJC_IVAR___UISwitchDesignLibraryVisualElement_isOn) = onCopy;
-    sub_188FD3E44();
+    sub_188FD3E44(animated);
   }
 
   else
@@ -40,16 +40,17 @@
 
 - (void)layoutSubviews
 {
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for UISwitchDesignLibraryVisualElement();
-  v2 = v5.receiver;
-  [(UIView *)&v5 layoutSubviews];
-  v3 = *&v2[OBJC_IVAR___UISwitchDesignLibraryVisualElement_coreHostingView];
-  if (v3)
+  type metadata accessor for UISwitchDesignLibraryVisualElement();
+  v7.receiver = self;
+  v7.super_class = v3;
+  selfCopy = self;
+  [(UIView *)&v7 layoutSubviews];
+  v5 = *(&selfCopy->super.super.super.super.isa + OBJC_IVAR___UISwitchDesignLibraryVisualElement_coreHostingView);
+  if (v5)
   {
-    v4 = v3;
-    [v2 bounds];
-    [v4 setFrame_];
+    v6 = v5;
+    [(UIView *)selfCopy bounds:v7.receiver];
+    [v6 setFrame_];
   }
 }
 
@@ -82,7 +83,7 @@
   recognizerCopy = recognizer;
   gestureRecognizerCopy = gestureRecognizer;
   selfCopy = self;
-  v9 = sub_188FD4D24(recognizerCopy);
+  v9 = sub_188FD4D24(recognizerCopy, gestureRecognizerCopy);
 
   return v9;
 }
@@ -108,7 +109,7 @@
   if ([tapCopy state] == 3)
   {
     ++*(&selfCopy->super.super.super.super.isa + OBJC_IVAR___UISwitchDesignLibraryVisualElement_tapSeed);
-    sub_188FD3E44();
+    sub_188FD3E44(1);
   }
 }
 
@@ -140,9 +141,10 @@
 
 - (UISwitchControl)switchControl
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for UISwitchDesignLibraryVisualElement();
-  switchControl = [(UISwitchVisualElement *)&v4 switchControl];
+  v3 = type metadata accessor for UISwitchDesignLibraryVisualElement();
+  v7.receiver = self;
+  v7.super_class = v4;
+  switchControl = [(UISwitchVisualElement *)&v7 switchControl];
 
   return switchControl;
 }
@@ -152,9 +154,10 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   sub_188FD70C4();
-  v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for UISwitchDesignLibraryVisualElement();
-  [(UISwitchVisualElement *)&v6 setSwitchControl:control];
+  v6 = type metadata accessor for UISwitchDesignLibraryVisualElement();
+  v8.receiver = selfCopy;
+  v8.super_class = v7;
+  [(UISwitchVisualElement *)&v8 setSwitchControl:control, v6];
   sub_188FD5854();
   swift_unknownObjectRelease();
 }
@@ -186,11 +189,12 @@
 - (void)setShowsOnOffLabel:(BOOL)label
 {
   labelCopy = label;
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for UISwitchDesignLibraryVisualElement();
-  v4 = v5.receiver;
-  [(UISwitchVisualElement *)&v5 setShowsOnOffLabel:labelCopy];
-  v4[OBJC_IVAR___UISwitchDesignLibraryVisualElement_customizations + 40] = labelCopy;
+  type metadata accessor for UISwitchDesignLibraryVisualElement();
+  v7.receiver = self;
+  v7.super_class = v5;
+  selfCopy = self;
+  [(UISwitchVisualElement *)&v7 setShowsOnOffLabel:labelCopy];
+  *(&selfCopy->super.super._traitChangeRegistry + OBJC_IVAR___UISwitchDesignLibraryVisualElement_customizations) = labelCopy;
 }
 
 @end

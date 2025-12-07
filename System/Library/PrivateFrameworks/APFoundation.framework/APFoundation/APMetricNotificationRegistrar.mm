@@ -1,6 +1,7 @@
 @interface APMetricNotificationRegistrar
 - (APMetricNotificationRegistrar)init;
 - (id)_closuresForPurpose:(int64_t)purpose andMetric:(int64_t)metric;
+- (id)_closuresForRegisteredForNonSpecificPurposeInternal:(BOOL)internal;
 - (id)_metricRegistryForPurpose:(int64_t)purpose andMetric:(int64_t)metric;
 - (int64_t)_registerHandlerInRegistry:(id)registry closure:(id)closure;
 - (int64_t)registerHandlerForAllPurposesAndAllMetricsWithClosure:(id)closure;
@@ -85,6 +86,35 @@
   objc_msgSend_unlock(v7, v39, v40, v41);
 
   return v38;
+}
+
+- (id)_closuresForRegisteredForNonSpecificPurposeInternal:(BOOL)internal
+{
+  internalCopy = internal;
+  v6 = objc_msgSend_registryLock(self, a2, internal, v3);
+  objc_msgSend_lock(v6, v7, v8, v9);
+  v10 = MEMORY[0x1E695DF70];
+  v14 = objc_msgSend_registryToAllPurpose(self, v11, v12, v13);
+  v18 = objc_msgSend_allValues(v14, v15, v16, v17);
+  v21 = objc_msgSend_arrayWithArray_(v10, v19, v18, v20);
+
+  if (internalCopy)
+  {
+    objc_msgSend_registryToInternalPurpose(self, v22, v23, v24);
+  }
+
+  else
+  {
+    objc_msgSend_registryToExternalPurpose(self, v22, v23, v24);
+  }
+  v25 = ;
+  v29 = objc_msgSend_allValues(v25, v26, v27, v28);
+  objc_msgSend_addObjectsFromArray_(v21, v30, v29, v31);
+
+  objc_msgSend_unlock(v6, v32, v33, v34);
+  v37 = objc_msgSend_arrayWithArray_(MEMORY[0x1E695DEC8], v35, v21, v36);
+
+  return v37;
 }
 
 - (id)_metricRegistryForPurpose:(int64_t)purpose andMetric:(int64_t)metric
@@ -213,7 +243,7 @@
 
 - (void)receivedMetric:(id)metric
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   metricCopy = metric;
   v8 = objc_msgSend_purpose(metricCopy, v5, v6, v7);
   v12 = objc_msgSend_metric(metricCopy, v9, v10, v11);
@@ -224,38 +254,36 @@
   v21 = objc_msgSend__closuresForPurpose_andMetric_(self, v20, v8, v12);
   objc_msgSend_unionSet_(v19, v22, v21, v23);
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v24 = v19;
-  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v32, v36, 16);
+  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v31, v35, 16);
   if (v26)
   {
     v27 = v26;
-    v28 = *v33;
+    v28 = *v32;
     do
     {
       v29 = 0;
       do
       {
-        if (*v33 != v28)
+        if (*v32 != v28)
         {
           objc_enumerationMutation(v24);
         }
 
-        (*(*(*(&v32 + 1) + 8 * v29) + 16))(*(*(&v32 + 1) + 8 * v29));
+        (*(*(*(&v31 + 1) + 8 * v29) + 16))(*(*(&v31 + 1) + 8 * v29));
         ++v29;
       }
 
       while (v27 != v29);
-      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v30, &v32, v36, 16);
+      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v30, &v31, v35, 16);
     }
 
     while (v27);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 @end

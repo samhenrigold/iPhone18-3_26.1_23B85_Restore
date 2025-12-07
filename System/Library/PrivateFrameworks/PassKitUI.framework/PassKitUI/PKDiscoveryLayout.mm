@@ -79,14 +79,14 @@
     {
       v10 = 0;
       v11 = *(MEMORY[0x1E695F060] + 8);
-      v38 = *MEMORY[0x1E695F060];
-      v37 = *MEMORY[0x1E69DDC08];
+      v40 = *MEMORY[0x1E695F060];
+      v39 = *MEMORY[0x1E69DDC08];
       do
       {
         height = p_currentSize->height;
         [v5 collectionView:collectionView layout:self referenceSizeForHeaderInSection:v10];
         v15 = v14;
-        v16 = v14 == v38 && v13 == v11;
+        v16 = v14 == v40 && v13 == v11;
         v17 = v11;
         v18 = 0.0;
         if (!v16)
@@ -94,7 +94,7 @@
           v19 = v13;
           v20 = MEMORY[0x1E69DC858];
           v21 = [MEMORY[0x1E696AC88] indexPathForRow:0 inSection:v10];
-          v22 = [v20 layoutAttributesForSupplementaryViewOfKind:v37 withIndexPath:v21];
+          v22 = [v20 layoutAttributesForSupplementaryViewOfKind:v39 withIndexPath:v21];
 
           [v22 setSize:{v15, v19}];
           [v22 setFrame:{0.0, height, v15, v19}];
@@ -116,9 +116,9 @@
           {
             v28 = [MEMORY[0x1E696AC88] indexPathForRow:i inSection:v10];
             [v5 collectionView:collectionView layout:self sizeForItemAtIndexPath:v28];
-            v30 = v29;
-            v32 = v31;
-            if (v7 - v18 >= v29)
+            v31 = v29.n128_f64[0];
+            v32 = v30.n128_f64[0];
+            if (v7 - v18 >= v29.n128_f64[0])
             {
               if (v18 != 0.0)
               {
@@ -128,19 +128,21 @@
 
             else
             {
-              height = height + v17 + self->_lineSpacing;
-              PKFloatRoundToPixel();
+              v30.n128_f64[0] = v17 + self->_lineSpacing;
+              height = height + v30.n128_f64[0];
+              v29.n128_f64[0] = (v7 - v18) * 0.5;
+              PKFloatRoundToPixel(v29, v30);
               [(PKDiscoveryLayout *)self _adjustItems:v9 withLateralMove:?];
               [v9 removeAllObjects];
               v18 = 0.0;
             }
 
             v33 = [MEMORY[0x1E69DC858] layoutAttributesForCellWithIndexPath:v28];
-            [v33 setSize:{v30, v32}];
-            [v33 setFrame:{v18, height, v30, v32}];
+            [v33 setSize:{v31, v32}];
+            [v33 setFrame:{v18, height, v31, v32}];
             [(NSMutableDictionary *)self->_attributesPerIndexPath setObject:v33 forKey:v28];
             [v9 addObject:v33];
-            v18 = v30 + v18;
+            v18 = v31 + v18;
 
             v17 = v32;
           }
@@ -153,10 +155,11 @@
 
         if ([v9 count])
         {
-          PKFloatRoundToPixel();
-          v35 = v34;
-          v36 = [v9 copy];
-          [(PKDiscoveryLayout *)self _adjustItems:v36 withLateralMove:v35];
+          v34.n128_f64[0] = (v7 - v18) * 0.5;
+          PKFloatRoundToPixel(v34, v35);
+          v37 = v36;
+          v38 = [v9 copy];
+          [(PKDiscoveryLayout *)self _adjustItems:v38 withLateralMove:v37];
 
           [v9 removeAllObjects];
         }
@@ -170,9 +173,9 @@
     }
 
     p_currentSize->height = p_currentSize->height + 16.0;
-    v39.receiver = self;
-    v39.super_class = PKDiscoveryLayout;
-    [(PKDiscoveryLayout *)&v39 prepareLayout];
+    v41.receiver = self;
+    v41.super_class = PKDiscoveryLayout;
+    [(PKDiscoveryLayout *)&v41 prepareLayout];
   }
 }
 

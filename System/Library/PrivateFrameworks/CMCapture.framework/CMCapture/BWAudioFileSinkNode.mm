@@ -1,14 +1,14 @@
 @interface BWAudioFileSinkNode
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)lastFileDuration;
 - (BWAudioFileSinkNode)initWithSinkID:(id)d;
+- (id)_stopRecordingWithError:(id *)result;
 - (uint64_t)_applyRecordingLimits;
-- (uint64_t)_handleMarkerBuffer:(unint64_t)buffer;
+- (uint64_t)_handleMarkerBuffer:(uint64_t)buffer;
 - (uint64_t)_setupFileWriter;
-- (uint64_t)_setupStateMachine;
-- (uint64_t)_stopRecordingWithError:(uint64_t)result;
 - (uint64_t)_teardownFileWriter;
-- (unint64_t)_setupMinFreeDiskSpace;
 - (unint64_t)lastFileSize;
+- (void)_setupMinFreeDiskSpace;
+- (void)_setupStateMachine;
 - (void)_updateFilePropertiesForSbuf:(uint64_t)sbuf;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
 - (void)dealloc;
@@ -40,7 +40,7 @@
 
 - (void)dealloc
 {
-  [(BWAudioFileSinkNode *)self _stopRecordingWithError:?];
+  [(BWAudioFileSinkNode *)&self->super.super.super.super.isa _stopRecordingWithError:?];
 
   free(self->_parentPath);
   v3.receiver = self;
@@ -111,11 +111,11 @@ LABEL_8:
               v8 = 4294954514;
             }
 
-            [BWAudioFileSinkNode renderSampleBuffer:forInput:];
+            [BWAudioFileSinkNode renderSampleBuffer:v8 forInput:?];
           }
 
 LABEL_15:
-          [(BWAudioFileSinkNode *)self _stopRecordingWithError:v8];
+          [(BWAudioFileSinkNode *)&self->super.super.super.super.isa _stopRecordingWithError:v8];
           return;
         }
 
@@ -127,7 +127,7 @@ LABEL_15:
         v8 = 4294954514;
       }
 
-      [BWAudioFileSinkNode renderSampleBuffer:forInput:];
+      [BWAudioFileSinkNode renderSampleBuffer:v8 forInput:?];
       goto LABEL_15;
     }
 
@@ -207,7 +207,7 @@ void *__41__BWAudioFileSinkNode__setupStateMachine__block_invoke(uint64_t a1, ui
   return result;
 }
 
-uint64_t __41__BWAudioFileSinkNode__setupStateMachine__block_invoke_2(uint64_t a1, id *a2)
+void *__41__BWAudioFileSinkNode__setupStateMachine__block_invoke_2(uint64_t a1, id *a2)
 {
   result = [a2 recordingStatusDelegate];
   if (result)
@@ -221,7 +221,7 @@ uint64_t __41__BWAudioFileSinkNode__setupStateMachine__block_invoke_2(uint64_t a
   return result;
 }
 
-uint64_t __41__BWAudioFileSinkNode__setupStateMachine__block_invoke_3(uint64_t a1, id *a2)
+void *__41__BWAudioFileSinkNode__setupStateMachine__block_invoke_3(uint64_t a1, id *a2)
 {
   result = [a2 recordingStatusDelegate];
   if (result)
@@ -287,13 +287,13 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
   return result;
 }
 
-- (uint64_t)_setupStateMachine
+- (void)_setupStateMachine
 {
   if (result)
   {
     v1 = result;
     v2 = [[FigStateMachine alloc] initWithLabel:@"BWAudioFileSinkNodeState" stateCount:3 initialState:1 owner:result];
-    *(v1 + 216) = v2;
+    v1[27] = v2;
     [(FigStateMachine *)v2 setLabel:@"Idle" forState:1];
     [OUTLINED_FUNCTION_3_95() setLabel:@"Recording" forState:2];
     [OUTLINED_FUNCTION_3_95() setLabel:@"Paused" forState:4];
@@ -312,16 +312,16 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
   return result;
 }
 
-- (uint64_t)_stopRecordingWithError:(uint64_t)result
+- (id)_stopRecordingWithError:(id *)result
 {
   if (result)
   {
     v3 = result;
     [(BWAudioFileSinkNode *)result _teardownFileWriter];
-    result = [*(v3 + 216) currentState];
+    result = [v3[27] currentState];
     if (result != 1)
     {
-      v4 = *(v3 + 216);
+      v4 = v3[27];
 
       return [v4 transitionToState:1 errorStatus:a2];
     }
@@ -332,13 +332,13 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
 
 - (void)didReachEndOfDataForInput:(id)input
 {
-  [(BWAudioFileSinkNode *)self _stopRecordingWithError:?];
+  [(BWAudioFileSinkNode *)&self->super.super.super.super.isa _stopRecordingWithError:?];
   v5.receiver = self;
   v5.super_class = BWAudioFileSinkNode;
   [(BWSinkNode *)&v5 didReachEndOfDataForInput:input];
 }
 
-- (uint64_t)_handleMarkerBuffer:(unint64_t)buffer
+- (uint64_t)_handleMarkerBuffer:(uint64_t)buffer
 {
   if (!buffer)
   {
@@ -389,14 +389,14 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
     v13 = v12;
 
     *(buffer + 256) = v12;
-    CMSampleBufferGetPresentationTimeStamp(&v14, target);
-    *(buffer + 264) = v14;
+    CMSampleBufferGetPresentationTimeStamp(&v16, target);
+    *(buffer + 264) = v16;
     _setupFileWriter = [(BWAudioFileSinkNode *)buffer _setupFileWriter];
     if (_setupFileWriter)
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_2_33();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", _setupFileWriter, v14, v15, v16.value, v16.timescale, v16.epoch, v17, v18);
     }
 
     else
@@ -409,7 +409,7 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_2_33();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
     return 4294954516;
   }
 
@@ -425,7 +425,7 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_6();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, time2.value, *&time2.timescale, LODWORD(time2.epoch), v7, time1.value, time1.timescale);
       return 4294950885;
     }
 
@@ -433,7 +433,7 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_6();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, time2.value, *&time2.timescale, LODWORD(time2.epoch), v7, time1.value, time1.timescale);
       return 4294950884;
     }
 
@@ -442,8 +442,8 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
       result = OUTLINED_FUNCTION_4_84();
       if (result)
       {
-        [result maxDuration];
-        if ((v7 & 1) == 0)
+        objc_msgSend_maxDuration(result);
+        if ((v9 & 1) == 0)
         {
           return 0;
         }
@@ -451,7 +451,7 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
         v3 = OUTLINED_FUNCTION_4_84();
         if (v3)
         {
-          [v3 maxDuration];
+          objc_msgSend_maxDuration(v3);
         }
 
         else
@@ -468,7 +468,7 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
         v4 = OUTLINED_FUNCTION_4_84();
         if (v4)
         {
-          [v4 maxDuration];
+          objc_msgSend_maxDuration(v4);
         }
 
         else
@@ -481,7 +481,7 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
         {
           fig_log_get_emitter();
           OUTLINED_FUNCTION_1_6();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, time2.value, *&time2.timescale, LODWORD(time2.epoch), v7, time1.value, time1.timescale);
           return 4294950883;
         }
 
@@ -523,7 +523,7 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_6();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v14, v15, v16, v17, block, v19, v20);
     return 4294950886;
   }
 
@@ -539,12 +539,12 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
   }
 
   v4 = *(self + 328);
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __39__BWAudioFileSinkNode__setupFileWriter__block_invoke;
-  block[3] = &unk_1E798F870;
-  block[4] = self;
-  dispatch_sync(v4, block);
+  block = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __39__BWAudioFileSinkNode__setupFileWriter__block_invoke;
+  v21 = &unk_1E798F870;
+  selfCopy = self;
+  dispatch_sync(v4, &block);
   [objc_msgSend(outputURL "URLByDeletingLastPathComponent")];
   [(BWAudioFileSinkNode *)self _setupMinFreeDiskSpace];
   _applyRecordingLimits = [(BWAudioFileSinkNode *)self _applyRecordingLimits];
@@ -553,7 +553,8 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
     v12 = _applyRecordingLimits;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_6();
-    goto LABEL_21;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12);
+    return v12;
   }
 
   outputFileType = [*(self + 256) outputFileType];
@@ -576,7 +577,7 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
   {
     if (![outputFileType isEqual:@"org.3gpp.adaptive-multi-rate-audio"])
     {
-      goto LABEL_27;
+      goto LABEL_26;
     }
 
     v7 = MEMORY[0x1E6971B48];
@@ -585,23 +586,24 @@ __n128 __39__BWAudioFileSinkNode__setupFileWriter__block_invoke(uint64_t a1)
   v8 = *v7;
   if (!v8)
   {
-LABEL_27:
+LABEL_26:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_6();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v14, v15, v16, v17, block, v19, v20);
     return 4294954516;
   }
 
-  v14 = *MEMORY[0x1E6971B28];
-  v15 = v8;
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v16 = *MEMORY[0x1E6971B28];
+  v17 = v8;
+  [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
   v9 = FigAudioFileFormatWriterCreateWithByteStream();
   if (v9 || (CMNotificationCenterGetDefaultLocalCenter(), OUTLINED_FUNCTION_2_109(), v9 = CMNotificationCenterAddListener(), v9))
   {
     v12 = v9;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_6();
-    goto LABEL_21;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12);
+    return v12;
   }
 
   v10 = *(self + 224);
@@ -612,8 +614,7 @@ LABEL_27:
 LABEL_20:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_6();
-LABEL_21:
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12);
     return v12;
   }
 
@@ -626,7 +627,7 @@ LABEL_21:
   return v12;
 }
 
-- (unint64_t)_setupMinFreeDiskSpace
+- (void)_setupMinFreeDiskSpace
 {
   if (result)
   {
@@ -636,12 +637,12 @@ LABEL_21:
       dispatch_once(&_setupMinFreeDiskSpace_onceToken, &__block_literal_global_38_0);
     }
 
-    *(v1 + 320) = _setupMinFreeDiskSpace_sSystemMinFreeDiskSpace;
-    result = [*(v1 + 256) minFreeDiskSpaceLimit];
+    *(v1 + 40) = _setupMinFreeDiskSpace_sSystemMinFreeDiskSpace;
+    result = [*(v1 + 32) minFreeDiskSpaceLimit];
     if (result > _setupMinFreeDiskSpace_sSystemMinFreeDiskSpace)
     {
-      result = [*(v1 + 256) minFreeDiskSpaceLimit];
-      *(v1 + 320) = result;
+      result = [*(v1 + 32) minFreeDiskSpaceLimit];
+      *(v1 + 40) = result;
     }
   }
 
@@ -658,103 +659,96 @@ LABEL_21:
   v2 = *(self + 224);
   if (v2)
   {
-    if (*(self + 244) == 1)
+    if (*(self + 244) != 1)
     {
-      v3 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-      if (!v3 || (v10 = *MEMORY[0x1E6960C70], v11 = *(MEMORY[0x1E6960C70] + 16), v3(v2, &v10)))
+      goto LABEL_10;
+    }
+
+    v3 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+    if (v3)
+    {
+      v16 = *MEMORY[0x1E6960C70];
+      v17 = *(MEMORY[0x1E6960C70] + 16);
+      v4 = v3(v2, &v16);
+      if (!v4)
       {
+LABEL_9:
+        *(self + 244) = 0;
+LABEL_10:
+        CMNotificationCenterGetDefaultLocalCenter();
+        OUTLINED_FUNCTION_2_109();
+        v6 = CMNotificationCenterRemoveListener();
+        if (v6)
+        {
+          v13 = v6;
+          fig_log_get_emitter();
+          OUTLINED_FUNCTION_2_33();
+          LODWORD(v14) = v13;
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v15, v16, *(&v16 + 1), v17, v18, v19, v20);
+        }
+
+        FigBaseObject = FigFormatWriterGetFigBaseObject();
+        if (FigBaseObject)
+        {
+          v8 = FigBaseObject;
+          v9 = *(*(CMBaseObjectGetVTable() + 8) + 24);
+          if (v9)
+          {
+            v2 = v9(v8);
+            if (!v2)
+            {
+LABEL_19:
+              v10 = *(self + 224);
+              if (v10)
+              {
+                CFRelease(v10);
+                *(self + 224) = 0;
+              }
+
+              v11 = *(self + 232);
+              if (v11)
+              {
+                CFRelease(v11);
+                *(self + 232) = 0;
+              }
+
+              return v2;
+            }
+          }
+
+          else
+          {
+            v2 = 4294954514;
+          }
+        }
+
+        else
+        {
+          v2 = 4294954516;
+        }
+
         fig_log_get_emitter();
         OUTLINED_FUNCTION_2_33();
-        FigDebugAssert3();
+        LODWORD(v14) = v2;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v15, v16, *(&v16 + 1), v17, v18, v19, v20);
+        goto LABEL_19;
       }
 
-      *(self + 244) = 0;
-    }
-
-    CMNotificationCenterGetDefaultLocalCenter();
-    OUTLINED_FUNCTION_2_109();
-    if (CMNotificationCenterRemoveListener())
-    {
-      fig_log_get_emitter();
-      OUTLINED_FUNCTION_2_33();
-      FigDebugAssert3();
-    }
-
-    FigBaseObject = FigFormatWriterGetFigBaseObject();
-    if (FigBaseObject)
-    {
-      v5 = FigBaseObject;
-      v6 = *(*(CMBaseObjectGetVTable() + 8) + 24);
-      if (v6)
-      {
-        v2 = v6(v5);
-        if (!v2)
-        {
-LABEL_17:
-          v7 = *(self + 224);
-          if (v7)
-          {
-            CFRelease(v7);
-            *(self + 224) = 0;
-          }
-
-          v8 = *(self + 232);
-          if (v8)
-          {
-            CFRelease(v8);
-            *(self + 232) = 0;
-          }
-
-          return v2;
-        }
-      }
-
-      else
-      {
-        v2 = 4294954514;
-      }
+      v5 = v4;
     }
 
     else
     {
-      v2 = 4294954516;
+      v5 = -12782;
     }
 
     fig_log_get_emitter();
     OUTLINED_FUNCTION_2_33();
-    FigDebugAssert3();
-    goto LABEL_17;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v15, v16, *(&v16 + 1), v17, v18, v19, v20);
+    goto LABEL_9;
   }
 
   return v2;
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

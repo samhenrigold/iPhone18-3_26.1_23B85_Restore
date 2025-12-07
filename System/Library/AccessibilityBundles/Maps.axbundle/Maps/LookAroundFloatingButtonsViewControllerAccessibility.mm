@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axUpdateButtonsLabel;
+- (void)setShowsMinimizedButton:(BOOL)button;
 @end
 
 @implementation LookAroundFloatingButtonsViewControllerAccessibility
@@ -41,6 +42,14 @@
   v3.receiver = self;
   v3.super_class = LookAroundFloatingButtonsViewControllerAccessibility;
   [(LookAroundFloatingButtonsViewControllerAccessibility *)&v3 _accessibilityLoadAccessibilityInformation];
+  [(LookAroundFloatingButtonsViewControllerAccessibility *)self _axUpdateButtonsLabel];
+}
+
+- (void)setShowsMinimizedButton:(BOOL)button
+{
+  v4.receiver = self;
+  v4.super_class = LookAroundFloatingButtonsViewControllerAccessibility;
+  [(LookAroundFloatingButtonsViewControllerAccessibility *)&v4 setShowsMinimizedButton:button];
   [(LookAroundFloatingButtonsViewControllerAccessibility *)self _axUpdateButtonsLabel];
 }
 

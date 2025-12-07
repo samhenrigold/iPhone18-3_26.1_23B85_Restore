@@ -104,7 +104,7 @@ id __83__NCNotificationOptionsMenu_contextMenuInteraction_configurationForMenuAt
 
   v9 = [*(a1 + 32) _threadName];
   v10 = MEMORY[0x277CCACA8];
-  v11 = NCUserNotificationsUIKitFrameworkBundle();
+  v11 = NCUserNotificationsUIKitFrameworkBundle(v9);
   v12 = v11;
   if (v9)
   {
@@ -389,35 +389,36 @@ LABEL_14:
 - (id)_customSettingsActionForSectionSettings:(id)settings
 {
   settingsCopy = settings;
-  if ([settingsCopy showsCustomSettingsLink])
+  showsCustomSettingsLink = [settingsCopy showsCustomSettingsLink];
+  if (showsCustomSettingsLink)
   {
-    v5 = MEMORY[0x277CCACA8];
-    v6 = NCUserNotificationsUIKitFrameworkBundle();
-    v7 = [v6 localizedStringForKey:@"NOTIFICATION_OPTIONS_CONFIGURE_IN_APP_FORMAT" value:&stru_282FE84F8 table:0];
+    v6 = MEMORY[0x277CCACA8];
+    v7 = NCUserNotificationsUIKitFrameworkBundle(showsCustomSettingsLink);
+    v8 = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_CONFIGURE_IN_APP_FORMAT" value:&stru_282FE84F8 table:0];
     displayName = [settingsCopy displayName];
-    v9 = [v5 stringWithFormat:v7, displayName];
+    v10 = [v6 stringWithFormat:v8, displayName];
 
     objc_initWeak(&location, self);
-    v10 = MEMORY[0x277D750C8];
-    v11 = [MEMORY[0x277D755B8] systemImageNamed:@"app.badge"];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __69__NCNotificationOptionsMenu__customSettingsActionForSectionSettings___block_invoke;
-    v14[3] = &unk_278371940;
-    objc_copyWeak(&v16, &location);
-    v15 = settingsCopy;
-    v12 = [v10 actionWithTitle:v9 image:v11 identifier:0 handler:v14];
+    v11 = MEMORY[0x277D750C8];
+    v12 = [MEMORY[0x277D755B8] systemImageNamed:@"app.badge"];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __69__NCNotificationOptionsMenu__customSettingsActionForSectionSettings___block_invoke;
+    v15[3] = &unk_278371940;
+    objc_copyWeak(&v17, &location);
+    v16 = settingsCopy;
+    v13 = [v11 actionWithTitle:v10 image:v12 identifier:0 handler:v15];
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 void __69__NCNotificationOptionsMenu__customSettingsActionForSectionSettings___block_invoke(uint64_t a1)
@@ -477,20 +478,20 @@ void __69__NCNotificationOptionsMenu__customSettingsActionForSectionSettings___b
   v6 = [v4 nc_notificationSettingsURLForSectionIdentifier:sectionIdentifier isAppClip:{objc_msgSend(settingsCopy, "isAppClip")}];
 
   v7 = MEMORY[0x277D750C8];
-  v8 = NCUserNotificationsUIKitFrameworkBundle();
-  v9 = [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_SETTINGS" value:&stru_282FE84F8 table:0];
-  v10 = [MEMORY[0x277D755B8] systemImageNamed:@"gear"];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __63__NCNotificationOptionsMenu__settingsActionForSectionSettings___block_invoke;
-  v15[3] = &unk_278371968;
-  v16 = v6;
-  v17 = settingsCopy;
-  v11 = settingsCopy;
-  v12 = v6;
-  v13 = [v7 actionWithTitle:v9 image:v10 identifier:0 handler:v15];
+  v9 = NCUserNotificationsUIKitFrameworkBundle(v8);
+  v10 = [v9 localizedStringForKey:@"NOTIFICATION_OPTIONS_SETTINGS" value:&stru_282FE84F8 table:0];
+  v11 = [MEMORY[0x277D755B8] systemImageNamed:@"gear"];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __63__NCNotificationOptionsMenu__settingsActionForSectionSettings___block_invoke;
+  v16[3] = &unk_278371968;
+  v17 = v6;
+  v18 = settingsCopy;
+  v12 = settingsCopy;
+  v13 = v6;
+  v14 = [v7 actionWithTitle:v10 image:v11 identifier:0 handler:v16];
 
-  return v13;
+  return v14;
 }
 
 void __63__NCNotificationOptionsMenu__settingsActionForSectionSettings___block_invoke(uint64_t a1)
@@ -545,25 +546,25 @@ void __63__NCNotificationOptionsMenu__settingsActionForSectionSettings___block_i
   requestCopy = request;
   v6 = MEMORY[0x277D755B8];
   nameCopy = name;
-  v8 = NCUserNotificationsUIKitFrameworkBundle();
+  v8 = NCUserNotificationsUIKitFrameworkBundle(nameCopy);
   v9 = [v6 imageNamed:@"text.line.3.summary.badge.xmark" inBundle:v8];
   v10 = [v9 imageWithRenderingMode:2];
 
   v11 = MEMORY[0x277D750C8];
   v12 = MEMORY[0x277CCACA8];
-  v13 = NCUserNotificationsUIKitFrameworkBundle();
-  v14 = [v13 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_SUMMARY" value:&stru_282FE84F8 table:0];
-  nameCopy = [v12 stringWithFormat:v14, nameCopy];
+  v14 = NCUserNotificationsUIKitFrameworkBundle(v13);
+  v15 = [v14 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_SUMMARY" value:&stru_282FE84F8 table:0];
+  nameCopy = [v12 stringWithFormat:v15, nameCopy];
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __74__NCNotificationOptionsMenu__stopSummarizingActionForRequest_displayName___block_invoke;
-  v19[3] = &unk_278371990;
-  v20 = requestCopy;
-  v16 = requestCopy;
-  v17 = [v11 actionWithTitle:nameCopy image:v10 identifier:0 handler:v19];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __74__NCNotificationOptionsMenu__stopSummarizingActionForRequest_displayName___block_invoke;
+  v20[3] = &unk_278371990;
+  v21 = requestCopy;
+  v17 = requestCopy;
+  v18 = [v11 actionWithTitle:nameCopy image:v10 identifier:0 handler:v20];
 
-  return v17;
+  return v18;
 }
 
 void __74__NCNotificationOptionsMenu__stopSummarizingActionForRequest_displayName___block_invoke(uint64_t a1)
@@ -586,25 +587,25 @@ void __74__NCNotificationOptionsMenu__stopSummarizingActionForRequest_displayNam
   requestCopy = request;
   v6 = MEMORY[0x277D755B8];
   nameCopy = name;
-  v8 = NCUserNotificationsUIKitFrameworkBundle();
+  v8 = NCUserNotificationsUIKitFrameworkBundle(nameCopy);
   v9 = [v6 imageNamed:@"apple.intelligence.badge.xmark" inBundle:v8];
   v10 = [v9 imageWithRenderingMode:2];
 
   v11 = MEMORY[0x277D750C8];
   v12 = MEMORY[0x277CCACA8];
-  v13 = NCUserNotificationsUIKitFrameworkBundle();
-  v14 = [v13 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_PRIORITY" value:&stru_282FE84F8 table:0];
-  nameCopy = [v12 stringWithFormat:v14, nameCopy];
+  v14 = NCUserNotificationsUIKitFrameworkBundle(v13);
+  v15 = [v14 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_PRIORITY" value:&stru_282FE84F8 table:0];
+  nameCopy = [v12 stringWithFormat:v15, nameCopy];
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __75__NCNotificationOptionsMenu__stopPrioritizingActionForRequest_displayName___block_invoke;
-  v19[3] = &unk_278371990;
-  v20 = requestCopy;
-  v16 = requestCopy;
-  v17 = [v11 actionWithTitle:nameCopy image:v10 identifier:0 handler:v19];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __75__NCNotificationOptionsMenu__stopPrioritizingActionForRequest_displayName___block_invoke;
+  v20[3] = &unk_278371990;
+  v21 = requestCopy;
+  v17 = requestCopy;
+  v18 = [v11 actionWithTitle:nameCopy image:v10 identifier:0 handler:v20];
 
-  return v17;
+  return v18;
 }
 
 void __75__NCNotificationOptionsMenu__stopPrioritizingActionForRequest_displayName___block_invoke(uint64_t a1)
@@ -626,35 +627,36 @@ void __75__NCNotificationOptionsMenu__stopPrioritizingActionForRequest_displayNa
 {
   nameCopy = name;
   objc_initWeak(&location, self);
-  if ([(NCNotificationOptionsMenu *)self _isCommunicationThread])
+  _isCommunicationThread = [(NCNotificationOptionsMenu *)self _isCommunicationThread];
+  if (_isCommunicationThread)
   {
-    v5 = MEMORY[0x277CCACA8];
-    v6 = NCUserNotificationsUIKitFrameworkBundle();
-    v7 = [v6 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_ALL_FORMAT" value:&stru_282FE84F8 table:0];
-    nameCopy = [v5 stringWithFormat:v7, nameCopy];
+    v6 = MEMORY[0x277CCACA8];
+    v7 = NCUserNotificationsUIKitFrameworkBundle(_isCommunicationThread);
+    v8 = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_ALL_FORMAT" value:&stru_282FE84F8 table:0];
+    nameCopy = [v6 stringWithFormat:v8, nameCopy];
   }
 
   else
   {
-    v6 = NCUserNotificationsUIKitFrameworkBundle();
-    nameCopy = [v6 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF" value:&stru_282FE84F8 table:0];
+    v7 = NCUserNotificationsUIKitFrameworkBundle(_isCommunicationThread);
+    nameCopy = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF" value:&stru_282FE84F8 table:0];
   }
 
-  v9 = MEMORY[0x277D750C8];
-  v10 = [MEMORY[0x277D755B8] systemImageNamed:@"minus.circle"];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __62__NCNotificationOptionsMenu__offActionWithSectionDisplayName___block_invoke;
-  v13[3] = &unk_27836F428;
-  objc_copyWeak(&v14, &location);
-  v11 = [v9 actionWithTitle:nameCopy image:v10 identifier:0 handler:v13];
+  v10 = MEMORY[0x277D750C8];
+  v11 = [MEMORY[0x277D755B8] systemImageNamed:@"minus.circle"];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __62__NCNotificationOptionsMenu__offActionWithSectionDisplayName___block_invoke;
+  v14[3] = &unk_27836F428;
+  objc_copyWeak(&v15, &location);
+  v12 = [v10 actionWithTitle:nameCopy image:v11 identifier:0 handler:v14];
 
-  [v11 setAttributes:2];
-  objc_destroyWeak(&v14);
+  [v12 setAttributes:2];
+  objc_destroyWeak(&v15);
 
   objc_destroyWeak(&location);
 
-  return v11;
+  return v12;
 }
 
 void __62__NCNotificationOptionsMenu__offActionWithSectionDisplayName___block_invoke(uint64_t a1)
@@ -681,33 +683,34 @@ void __62__NCNotificationOptionsMenu__offActionWithSectionDisplayName___block_in
 {
   nameCopy = name;
   objc_initWeak(&location, self);
-  if ([(NCNotificationOptionsMenu *)self _isCommunicationThread])
+  _isCommunicationThread = [(NCNotificationOptionsMenu *)self _isCommunicationThread];
+  if (_isCommunicationThread)
   {
-    v5 = MEMORY[0x277CCACA8];
-    v6 = NCUserNotificationsUIKitFrameworkBundle();
-    v7 = [v6 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_ON_ALL_FORMAT" value:&stru_282FE84F8 table:0];
-    nameCopy = [v5 stringWithFormat:v7, nameCopy];
+    v6 = MEMORY[0x277CCACA8];
+    v7 = NCUserNotificationsUIKitFrameworkBundle(_isCommunicationThread);
+    v8 = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_ON_ALL_FORMAT" value:&stru_282FE84F8 table:0];
+    nameCopy = [v6 stringWithFormat:v8, nameCopy];
   }
 
   else
   {
-    v6 = NCUserNotificationsUIKitFrameworkBundle();
-    nameCopy = [v6 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_ON" value:&stru_282FE84F8 table:0];
+    v7 = NCUserNotificationsUIKitFrameworkBundle(_isCommunicationThread);
+    nameCopy = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_ON" value:&stru_282FE84F8 table:0];
   }
 
-  v9 = MEMORY[0x277D750C8];
-  v10 = [MEMORY[0x277D755B8] systemImageNamed:@"app.badge.fill"];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __61__NCNotificationOptionsMenu__onActionWithSectionDisplayName___block_invoke;
-  v13[3] = &unk_27836F428;
-  objc_copyWeak(&v14, &location);
-  v11 = [v9 actionWithTitle:nameCopy image:v10 identifier:0 handler:v13];
+  v10 = MEMORY[0x277D750C8];
+  v11 = [MEMORY[0x277D755B8] systemImageNamed:@"app.badge.fill"];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __61__NCNotificationOptionsMenu__onActionWithSectionDisplayName___block_invoke;
+  v14[3] = &unk_27836F428;
+  objc_copyWeak(&v15, &location);
+  v12 = [v10 actionWithTitle:nameCopy image:v11 identifier:0 handler:v14];
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
 
-  return v11;
+  return v12;
 }
 
 void __61__NCNotificationOptionsMenu__onActionWithSectionDisplayName___block_invoke(uint64_t a1)
@@ -733,22 +736,22 @@ void __61__NCNotificationOptionsMenu__onActionWithSectionDisplayName___block_inv
 
 - (id)_criticalOffAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x277D750C8];
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CRITICAL" value:&stru_282FE84F8 table:0];
-  v5 = [MEMORY[0x277D755B8] systemImageNamed:@"exclamationmark.triangle"];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __47__NCNotificationOptionsMenu__criticalOffAction__block_invoke;
-  v8[3] = &unk_27836F428;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x277D750C8];
+  v4 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CRITICAL" value:&stru_282FE84F8 table:0];
+  v6 = [MEMORY[0x277D755B8] systemImageNamed:@"exclamationmark.triangle"];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __47__NCNotificationOptionsMenu__criticalOffAction__block_invoke;
+  v9[3] = &unk_27836F428;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __47__NCNotificationOptionsMenu__criticalOffAction__block_invoke(uint64_t a1)
@@ -762,22 +765,22 @@ void __47__NCNotificationOptionsMenu__criticalOffAction__block_invoke(uint64_t a
 
 - (id)_criticalOnAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x277D750C8];
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_ON_CRITICAL" value:&stru_282FE84F8 table:0];
-  v5 = [MEMORY[0x277D755B8] systemImageNamed:@"exclamationmark.triangle"];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __46__NCNotificationOptionsMenu__criticalOnAction__block_invoke;
-  v8[3] = &unk_27836F428;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x277D750C8];
+  v4 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_ON_CRITICAL" value:&stru_282FE84F8 table:0];
+  v6 = [MEMORY[0x277D755B8] systemImageNamed:@"exclamationmark.triangle"];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __46__NCNotificationOptionsMenu__criticalOnAction__block_invoke;
+  v9[3] = &unk_27836F428;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __46__NCNotificationOptionsMenu__criticalOnAction__block_invoke(uint64_t a1)
@@ -792,22 +795,22 @@ void __46__NCNotificationOptionsMenu__criticalOnAction__block_invoke(uint64_t a1
 
 - (id)_timeSensitiveOffAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x277D750C8];
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_TIME_SENSITIVE" value:&stru_282FE84F8 table:0];
-  v5 = [MEMORY[0x277D755B8] systemImageNamed:@"clock"];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __52__NCNotificationOptionsMenu__timeSensitiveOffAction__block_invoke;
-  v8[3] = &unk_27836F428;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x277D750C8];
+  v4 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_TIME_SENSITIVE" value:&stru_282FE84F8 table:0];
+  v6 = [MEMORY[0x277D755B8] systemImageNamed:@"clock"];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __52__NCNotificationOptionsMenu__timeSensitiveOffAction__block_invoke;
+  v9[3] = &unk_27836F428;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __52__NCNotificationOptionsMenu__timeSensitiveOffAction__block_invoke(uint64_t a1)
@@ -821,22 +824,22 @@ void __52__NCNotificationOptionsMenu__timeSensitiveOffAction__block_invoke(uint6
 
 - (id)_timeSensitiveOnAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x277D750C8];
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_ON_TIME_SENSITIVE" value:&stru_282FE84F8 table:0];
-  v5 = [MEMORY[0x277D755B8] systemImageNamed:@"clock"];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __51__NCNotificationOptionsMenu__timeSensitiveOnAction__block_invoke;
-  v8[3] = &unk_27836F428;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x277D750C8];
+  v4 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_ON_TIME_SENSITIVE" value:&stru_282FE84F8 table:0];
+  v6 = [MEMORY[0x277D755B8] systemImageNamed:@"clock"];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __51__NCNotificationOptionsMenu__timeSensitiveOnAction__block_invoke;
+  v9[3] = &unk_27836F428;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __51__NCNotificationOptionsMenu__timeSensitiveOnAction__block_invoke(uint64_t a1)
@@ -852,7 +855,7 @@ void __51__NCNotificationOptionsMenu__timeSensitiveOnAction__block_invoke(uint64
 {
   managerCopy = manager;
   v4 = MEMORY[0x277D750C8];
-  v5 = NCUserNotificationsUIKitFrameworkBundle();
+  v5 = NCUserNotificationsUIKitFrameworkBundle(managerCopy);
   v6 = [v5 localizedStringForKey:@"NOTIFICATION_OPTIONS_SUMMARY_FEEDBACK_POSITIVE" value:&stru_282FE84F8 table:0];
   thumbsUpImage = [managerCopy thumbsUpImage];
   v11[0] = MEMORY[0x277D85DD0];
@@ -870,7 +873,7 @@ void __51__NCNotificationOptionsMenu__timeSensitiveOnAction__block_invoke(uint64
 {
   managerCopy = manager;
   v4 = MEMORY[0x277D750C8];
-  v5 = NCUserNotificationsUIKitFrameworkBundle();
+  v5 = NCUserNotificationsUIKitFrameworkBundle(managerCopy);
   v6 = [v5 localizedStringForKey:@"NOTIFICATION_OPTIONS_SUMMARY_FEEDBACK_NEGATIVE" value:&stru_282FE84F8 table:0];
   thumbsDownImage = [managerCopy thumbsDownImage];
   v11[0] = MEMORY[0x277D85DD0];
@@ -888,7 +891,7 @@ void __51__NCNotificationOptionsMenu__timeSensitiveOnAction__block_invoke(uint64
 {
   managerCopy = manager;
   v4 = MEMORY[0x277D750C8];
-  v5 = NCUserNotificationsUIKitFrameworkBundle();
+  v5 = NCUserNotificationsUIKitFrameworkBundle(managerCopy);
   v6 = [v5 localizedStringForKey:@"NOTIFICATION_OPTIONS_SUMMARY_FEEDBACK_REPORT_CONCERN" value:&stru_282FE84F8 table:0];
   reportConcernImage = [managerCopy reportConcernImage];
   v11[0] = MEMORY[0x277D85DD0];
@@ -906,7 +909,7 @@ void __51__NCNotificationOptionsMenu__timeSensitiveOnAction__block_invoke(uint64
 {
   managerCopy = manager;
   v4 = MEMORY[0x277D750C8];
-  v5 = NCUserNotificationsUIKitFrameworkBundle();
+  v5 = NCUserNotificationsUIKitFrameworkBundle(managerCopy);
   v6 = [v5 localizedStringForKey:@"NOTIFICATION_OPTIONS_PRIORITY_FEEDBACK_POSITIVE" value:&stru_282FE84F8 table:0];
   thumbsUpImage = [managerCopy thumbsUpImage];
   v11[0] = MEMORY[0x277D85DD0];
@@ -924,7 +927,7 @@ void __51__NCNotificationOptionsMenu__timeSensitiveOnAction__block_invoke(uint64
 {
   managerCopy = manager;
   v4 = MEMORY[0x277D750C8];
-  v5 = NCUserNotificationsUIKitFrameworkBundle();
+  v5 = NCUserNotificationsUIKitFrameworkBundle(managerCopy);
   v6 = [v5 localizedStringForKey:@"NOTIFICATION_OPTIONS_PRIORITY_FEEDBACK_NEGATIVE" value:&stru_282FE84F8 table:0];
   thumbsDownImage = [managerCopy thumbsDownImage];
   v11[0] = MEMORY[0x277D85DD0];
@@ -942,7 +945,7 @@ void __51__NCNotificationOptionsMenu__timeSensitiveOnAction__block_invoke(uint64
 {
   managerCopy = manager;
   v4 = MEMORY[0x277D750C8];
-  v5 = NCUserNotificationsUIKitFrameworkBundle();
+  v5 = NCUserNotificationsUIKitFrameworkBundle(managerCopy);
   v6 = [v5 localizedStringForKey:@"NOTIFICATION_OPTIONS_PRIORITY_FEEDBACK_REPORT_CONCERN" value:&stru_282FE84F8 table:0];
   reportConcernImage = [managerCopy reportConcernImage];
   v11[0] = MEMORY[0x277D85DD0];
@@ -958,22 +961,22 @@ void __51__NCNotificationOptionsMenu__timeSensitiveOnAction__block_invoke(uint64
 
 - (id)_muteForOneHourAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x277D750C8];
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"NOTIFICATION_OPTIONS_MUTE_FOR_ONE_HOUR" value:&stru_282FE84F8 table:0];
-  v5 = [MEMORY[0x277D755B8] systemImageNamed:@"bell.slash"];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __50__NCNotificationOptionsMenu__muteForOneHourAction__block_invoke;
-  v8[3] = &unk_27836F428;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x277D750C8];
+  v4 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"NOTIFICATION_OPTIONS_MUTE_FOR_ONE_HOUR" value:&stru_282FE84F8 table:0];
+  v6 = [MEMORY[0x277D755B8] systemImageNamed:@"bell.slash"];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __50__NCNotificationOptionsMenu__muteForOneHourAction__block_invoke;
+  v9[3] = &unk_27836F428;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __50__NCNotificationOptionsMenu__muteForOneHourAction__block_invoke(uint64_t a1)
@@ -989,22 +992,22 @@ void __50__NCNotificationOptionsMenu__muteForOneHourAction__block_invoke(uint64_
 
 - (id)_muteForTodayAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x277D750C8];
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"NOTIFICATION_OPTIONS_MUTE_FOR_TODAY" value:&stru_282FE84F8 table:0];
-  v5 = [MEMORY[0x277D755B8] systemImageNamed:@"bell.slash"];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __48__NCNotificationOptionsMenu__muteForTodayAction__block_invoke;
-  v8[3] = &unk_27836F428;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x277D750C8];
+  v4 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"NOTIFICATION_OPTIONS_MUTE_FOR_TODAY" value:&stru_282FE84F8 table:0];
+  v6 = [MEMORY[0x277D755B8] systemImageNamed:@"bell.slash"];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__NCNotificationOptionsMenu__muteForTodayAction__block_invoke;
+  v9[3] = &unk_27836F428;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __48__NCNotificationOptionsMenu__muteForTodayAction__block_invoke(uint64_t a1)
@@ -1030,24 +1033,24 @@ void __48__NCNotificationOptionsMenu__muteForTodayAction__block_invoke(uint64_t 
     _threadIdentifierOrNil = 0;
   }
 
-  objc_initWeak(&location, self);
-  v5 = MEMORY[0x277D750C8];
-  v6 = NCUserNotificationsUIKitFrameworkBundle();
-  v7 = [v6 localizedStringForKey:@"NOTIFICATION_OPTIONS_UNMUTE" value:&stru_282FE84F8 table:0];
-  v8 = [MEMORY[0x277D755B8] systemImageNamed:@"bell"];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __64__NCNotificationOptionsMenu__unmuteActionForMuteAssertionLevel___block_invoke;
-  v12[3] = &unk_278371940;
-  objc_copyWeak(&v14, &location);
-  v9 = _threadIdentifierOrNil;
-  v13 = v9;
-  v10 = [v5 actionWithTitle:v7 image:v8 identifier:0 handler:v12];
+  inited = objc_initWeak(&location, self);
+  v6 = MEMORY[0x277D750C8];
+  v7 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v8 = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_UNMUTE" value:&stru_282FE84F8 table:0];
+  v9 = [MEMORY[0x277D755B8] systemImageNamed:@"bell"];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __64__NCNotificationOptionsMenu__unmuteActionForMuteAssertionLevel___block_invoke;
+  v13[3] = &unk_278371940;
+  objc_copyWeak(&v15, &location);
+  v10 = _threadIdentifierOrNil;
+  v14 = v10;
+  v11 = [v6 actionWithTitle:v8 image:v9 identifier:0 handler:v13];
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
 
-  return v10;
+  return v11;
 }
 
 void __64__NCNotificationOptionsMenu__unmuteActionForMuteAssertionLevel___block_invoke(uint64_t a1)
@@ -1061,22 +1064,22 @@ void __64__NCNotificationOptionsMenu__unmuteActionForMuteAssertionLevel___block_
 
 - (id)_sendToDigestAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x277D750C8];
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"NOTIFICATION_OPTIONS_ADD_TO_SUMMARY" value:&stru_282FE84F8 table:0];
-  v5 = [MEMORY[0x277D755B8] systemImageNamed:@"newspaper"];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __48__NCNotificationOptionsMenu__sendToDigestAction__block_invoke;
-  v8[3] = &unk_27836F428;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x277D750C8];
+  v4 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"NOTIFICATION_OPTIONS_ADD_TO_SUMMARY" value:&stru_282FE84F8 table:0];
+  v6 = [MEMORY[0x277D755B8] systemImageNamed:@"newspaper"];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__NCNotificationOptionsMenu__sendToDigestAction__block_invoke;
+  v9[3] = &unk_27836F428;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __48__NCNotificationOptionsMenu__sendToDigestAction__block_invoke(uint64_t a1)
@@ -1090,22 +1093,22 @@ void __48__NCNotificationOptionsMenu__sendToDigestAction__block_invoke(uint64_t 
 
 - (id)_deliverImmediatelyAcion
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x277D750C8];
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"NOTIFICATION_OPTIONS_DELIVER_IMMEDIATELY" value:&stru_282FE84F8 table:0];
-  v5 = [MEMORY[0x277D755B8] systemImageNamed:@"bell"];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __53__NCNotificationOptionsMenu__deliverImmediatelyAcion__block_invoke;
-  v8[3] = &unk_27836F428;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x277D750C8];
+  v4 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"NOTIFICATION_OPTIONS_DELIVER_IMMEDIATELY" value:&stru_282FE84F8 table:0];
+  v6 = [MEMORY[0x277D755B8] systemImageNamed:@"bell"];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __53__NCNotificationOptionsMenu__deliverImmediatelyAcion__block_invoke;
+  v9[3] = &unk_27836F428;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __53__NCNotificationOptionsMenu__deliverImmediatelyAcion__block_invoke(uint64_t a1)
@@ -1119,22 +1122,22 @@ void __53__NCNotificationOptionsMenu__deliverImmediatelyAcion__block_invoke(uint
 
 - (id)_addToContactsAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x277D750C8];
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"NOTIFICATION_OPTIONS_ADD_TO_CONTACTS" value:&stru_282FE84F8 table:0];
-  v5 = [MEMORY[0x277D755B8] systemImageNamed:@"person.crop.circle.badge.plus"];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __49__NCNotificationOptionsMenu__addToContactsAction__block_invoke;
-  v8[3] = &unk_27836F428;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x277D750C8];
+  v4 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"NOTIFICATION_OPTIONS_ADD_TO_CONTACTS" value:&stru_282FE84F8 table:0];
+  v6 = [MEMORY[0x277D755B8] systemImageNamed:@"person.crop.circle.badge.plus"];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __49__NCNotificationOptionsMenu__addToContactsAction__block_invoke;
+  v9[3] = &unk_27836F428;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __49__NCNotificationOptionsMenu__addToContactsAction__block_invoke(uint64_t a1)
@@ -1148,22 +1151,22 @@ void __49__NCNotificationOptionsMenu__addToContactsAction__block_invoke(uint64_t
 
 - (id)_clearSectionAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x277D750C8];
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"NOTIFICATION_LIST_CLEAR_NOTIFICATIONS" value:&stru_282FE84F8 table:0];
-  v5 = [MEMORY[0x277D755B8] systemImageNamed:@"xmark.circle"];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __48__NCNotificationOptionsMenu__clearSectionAction__block_invoke;
-  v8[3] = &unk_27836F428;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x277D750C8];
+  v4 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"NOTIFICATION_LIST_CLEAR_NOTIFICATIONS" value:&stru_282FE84F8 table:0];
+  v6 = [MEMORY[0x277D755B8] systemImageNamed:@"xmark.circle"];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__NCNotificationOptionsMenu__clearSectionAction__block_invoke;
+  v9[3] = &unk_27836F428;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __48__NCNotificationOptionsMenu__clearSectionAction__block_invoke(uint64_t a1)
@@ -1187,47 +1190,47 @@ void __48__NCNotificationOptionsMenu__clearSectionAction__block_invoke(uint64_t 
     {
       if (semanticType == 6)
       {
-        v7 = NCUserNotificationsUIKitFrameworkBundle();
-        v8 = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_READING" value:&stru_282FE84F8 table:0];
+        v8 = NCUserNotificationsUIKitFrameworkBundle(v7);
+        v9 = [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_READING" value:&stru_282FE84F8 table:0];
         goto LABEL_19;
       }
 
       if (semanticType == 7)
       {
-        v7 = NCUserNotificationsUIKitFrameworkBundle();
-        v8 = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_GAMING" value:&stru_282FE84F8 table:0];
+        v8 = NCUserNotificationsUIKitFrameworkBundle(v7);
+        v9 = [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_GAMING" value:&stru_282FE84F8 table:0];
         goto LABEL_19;
       }
 
       goto LABEL_23;
     }
 
-    NCUserNotificationsUIKitFrameworkBundle();
+    NCUserNotificationsUIKitFrameworkBundle(v7);
     if (semanticType == 4)
-      v7 = {;
-      [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_WORK" value:&stru_282FE84F8 table:0];
+      v8 = {;
+      [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_WORK" value:&stru_282FE84F8 table:0];
     }
 
     else
-      v7 = {;
-      [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_PERSONAL" value:&stru_282FE84F8 table:0];
+      v8 = {;
+      [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_PERSONAL" value:&stru_282FE84F8 table:0];
     }
 
-    v8 = LABEL_9:;
+    v9 = LABEL_9:;
     goto LABEL_19;
   }
 
   if (semanticType > 1)
   {
-    NCUserNotificationsUIKitFrameworkBundle();
+    NCUserNotificationsUIKitFrameworkBundle(v7);
     if (semanticType == 2)
-      v7 = {;
-      [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_DRIVING" value:&stru_282FE84F8 table:0];
+      v8 = {;
+      [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_DRIVING" value:&stru_282FE84F8 table:0];
     }
 
     else
-      v7 = {;
-      [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_FITNESS" value:&stru_282FE84F8 table:0];
+      v8 = {;
+      [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_FITNESS" value:&stru_282FE84F8 table:0];
     }
 
     goto LABEL_9;
@@ -1235,47 +1238,47 @@ void __48__NCNotificationOptionsMenu__clearSectionAction__block_invoke(uint64_t 
 
   if (!semanticType)
   {
-    v7 = NCUserNotificationsUIKitFrameworkBundle();
-    v8 = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_DO_NOT_DISTURB" value:&stru_282FE84F8 table:0];
+    v8 = NCUserNotificationsUIKitFrameworkBundle(v7);
+    v9 = [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_DO_NOT_DISTURB" value:&stru_282FE84F8 table:0];
     goto LABEL_19;
   }
 
   if (semanticType == 1)
   {
-    v7 = NCUserNotificationsUIKitFrameworkBundle();
-    v8 = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_SLEEP" value:&stru_282FE84F8 table:0];
+    v8 = NCUserNotificationsUIKitFrameworkBundle(v7);
+    v9 = [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_SLEEP" value:&stru_282FE84F8 table:0];
 LABEL_19:
-    v9 = v8;
+    v10 = v9;
     goto LABEL_20;
   }
 
 LABEL_23:
-  v17 = MEMORY[0x277CCACA8];
-  v7 = NCUserNotificationsUIKitFrameworkBundle();
-  v18 = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_FOCUS" value:&stru_282FE84F8 table:0];
+  v18 = MEMORY[0x277CCACA8];
+  v8 = NCUserNotificationsUIKitFrameworkBundle(v7);
+  v19 = [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_APPLICATION_DURING_FOCUS" value:&stru_282FE84F8 table:0];
   mode2 = [modeCopy mode];
   name = [mode2 name];
-  v9 = [v17 stringWithFormat:v18, name];
+  v10 = [v18 stringWithFormat:v19, name];
 
 LABEL_20:
   mode3 = [modeCopy mode];
   symbolImageName = [mode3 symbolImageName];
 
-  v12 = MEMORY[0x277D750C8];
-  v13 = [MEMORY[0x277D755B8] systemImageNamed:symbolImageName];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __61__NCNotificationOptionsMenu__offActionForApplicationForMode___block_invoke;
-  v21[3] = &unk_278371940;
-  objc_copyWeak(&v23, &location);
-  v14 = modeCopy;
-  v22 = v14;
-  v15 = [v12 actionWithTitle:v9 image:v13 identifier:0 handler:v21];
+  v13 = MEMORY[0x277D750C8];
+  v14 = [MEMORY[0x277D755B8] systemImageNamed:symbolImageName];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __61__NCNotificationOptionsMenu__offActionForApplicationForMode___block_invoke;
+  v22[3] = &unk_278371940;
+  objc_copyWeak(&v24, &location);
+  v15 = modeCopy;
+  v23 = v15;
+  v16 = [v13 actionWithTitle:v10 image:v14 identifier:0 handler:v22];
 
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(&location);
 
-  return v15;
+  return v16;
 }
 
 void __61__NCNotificationOptionsMenu__offActionForApplicationForMode___block_invoke(uint64_t a1)
@@ -1306,47 +1309,47 @@ void __61__NCNotificationOptionsMenu__offActionForApplicationForMode___block_inv
     {
       if (semanticType == 6)
       {
-        v7 = NCUserNotificationsUIKitFrameworkBundle();
-        v8 = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_READING" value:&stru_282FE84F8 table:0];
+        v8 = NCUserNotificationsUIKitFrameworkBundle(v7);
+        v9 = [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_READING" value:&stru_282FE84F8 table:0];
         goto LABEL_19;
       }
 
       if (semanticType == 7)
       {
-        v7 = NCUserNotificationsUIKitFrameworkBundle();
-        v8 = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_GAMING" value:&stru_282FE84F8 table:0];
+        v8 = NCUserNotificationsUIKitFrameworkBundle(v7);
+        v9 = [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_GAMING" value:&stru_282FE84F8 table:0];
         goto LABEL_19;
       }
 
       goto LABEL_23;
     }
 
-    NCUserNotificationsUIKitFrameworkBundle();
+    NCUserNotificationsUIKitFrameworkBundle(v7);
     if (semanticType == 4)
-      v7 = {;
-      [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_WORK" value:&stru_282FE84F8 table:0];
+      v8 = {;
+      [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_WORK" value:&stru_282FE84F8 table:0];
     }
 
     else
-      v7 = {;
-      [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_PERSONAL" value:&stru_282FE84F8 table:0];
+      v8 = {;
+      [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_PERSONAL" value:&stru_282FE84F8 table:0];
     }
 
-    v8 = LABEL_9:;
+    v9 = LABEL_9:;
     goto LABEL_19;
   }
 
   if (semanticType > 1)
   {
-    NCUserNotificationsUIKitFrameworkBundle();
+    NCUserNotificationsUIKitFrameworkBundle(v7);
     if (semanticType == 2)
-      v7 = {;
-      [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_DRIVING" value:&stru_282FE84F8 table:0];
+      v8 = {;
+      [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_DRIVING" value:&stru_282FE84F8 table:0];
     }
 
     else
-      v7 = {;
-      [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_FITNESS" value:&stru_282FE84F8 table:0];
+      v8 = {;
+      [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_FITNESS" value:&stru_282FE84F8 table:0];
     }
 
     goto LABEL_9;
@@ -1354,48 +1357,48 @@ void __61__NCNotificationOptionsMenu__offActionForApplicationForMode___block_inv
 
   if (!semanticType)
   {
-    v7 = NCUserNotificationsUIKitFrameworkBundle();
-    v8 = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_DO_NOT_DISTURB" value:&stru_282FE84F8 table:0];
+    v8 = NCUserNotificationsUIKitFrameworkBundle(v7);
+    v9 = [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_DO_NOT_DISTURB" value:&stru_282FE84F8 table:0];
     goto LABEL_19;
   }
 
   if (semanticType == 1)
   {
-    v7 = NCUserNotificationsUIKitFrameworkBundle();
-    v8 = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_SLEEP" value:&stru_282FE84F8 table:0];
+    v8 = NCUserNotificationsUIKitFrameworkBundle(v7);
+    v9 = [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_SLEEP" value:&stru_282FE84F8 table:0];
 LABEL_19:
-    v9 = v8;
+    v10 = v9;
     goto LABEL_20;
   }
 
 LABEL_23:
-  v17 = MEMORY[0x277CCACA8];
-  v7 = NCUserNotificationsUIKitFrameworkBundle();
-  v18 = [v7 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_FOCUS" value:&stru_282FE84F8 table:0];
+  v18 = MEMORY[0x277CCACA8];
+  v8 = NCUserNotificationsUIKitFrameworkBundle(v7);
+  v19 = [v8 localizedStringForKey:@"NOTIFICATION_OPTIONS_TURN_OFF_CONTACT_DURING_FOCUS" value:&stru_282FE84F8 table:0];
   mode2 = [modeCopy mode];
   name = [mode2 name];
-  v9 = [v17 stringWithFormat:v18, name];
+  v10 = [v18 stringWithFormat:v19, name];
 
 LABEL_20:
   mode3 = [modeCopy mode];
   symbolImageName = [mode3 symbolImageName];
 
-  v12 = MEMORY[0x277D750C8];
-  v13 = [MEMORY[0x277D755B8] systemImageNamed:symbolImageName];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __57__NCNotificationOptionsMenu__offActionForContactForMode___block_invoke;
-  v21[3] = &unk_2783719B8;
-  objc_copyWeak(&v24, &location);
-  v14 = modeCopy;
-  v22 = v14;
+  v13 = MEMORY[0x277D750C8];
+  v14 = [MEMORY[0x277D755B8] systemImageNamed:symbolImageName];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __57__NCNotificationOptionsMenu__offActionForContactForMode___block_invoke;
+  v22[3] = &unk_2783719B8;
+  objc_copyWeak(&v25, &location);
+  v15 = modeCopy;
+  v23 = v15;
   selfCopy = self;
-  v15 = [v12 actionWithTitle:v9 image:v13 identifier:0 handler:v21];
+  v16 = [v13 actionWithTitle:v10 image:v14 identifier:0 handler:v22];
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(&location);
 
-  return v15;
+  return v16;
 }
 
 void __57__NCNotificationOptionsMenu__offActionForContactForMode___block_invoke(id *a1)

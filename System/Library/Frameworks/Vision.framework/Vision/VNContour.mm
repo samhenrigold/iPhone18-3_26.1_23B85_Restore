@@ -474,7 +474,7 @@ LABEL_6:
   __p = 0;
   v14 = 0;
   v15 = 0;
-  _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&__p, v7, v7 + 8 * v6, v6);
+  _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&__p, v7, &v7[v6], v6);
   LODWORD(v10) = v5;
   v11 = [(VNContour *)self initWithPoints:&__p topLevelIndex:0 indexPath:v9 aspectRatio:v10];
   if (__p)
@@ -512,8 +512,8 @@ LABEL_6:
           operator delete(v19);
           v18 = 0;
           *v14 = 0;
-          *&v13->_anon_10[8] = 0;
-          *&v13->_anon_10[16] = 0;
+          *(v13 + 3) = 0;
+          *(v13 + 4) = 0;
         }
 
         if (!(v20 >> 61))
@@ -534,7 +534,7 @@ LABEL_6:
             v22 = v21;
           }
 
-          std::vector<long long>::__vallocate[abi:ne200100](v13->_anon_10, v22);
+          std::vector<long long>::__vallocate[abi:ne200100](v13 + 2, v22);
         }
 
         std::vector<float>::__throw_length_error[abi:ne200100]();
@@ -558,7 +558,7 @@ LABEL_6:
         if (v23 != v19)
         {
           memmove(*(v12 + 2), v15, v24);
-          v23 = *&v13->_anon_10[8];
+          v23 = *(v13 + 3);
         }
 
         if (v16 != v25)
@@ -569,13 +569,13 @@ LABEL_6:
         v26 = &v23[v16 - v25];
       }
 
-      *&v13->_anon_10[8] = v26;
+      *(v13 + 3) = v26;
     }
 
-    v13->_topLevelIndex = index;
-    objc_storeStrong(&v13->_indexPath, path);
-    v13->_pathLock._os_unfair_lock_opaque = 0;
-    v13->_aspectRatio = ratio;
+    *(v13 + 5) = index;
+    objc_storeStrong(v13 + 9, path);
+    *(v13 + 12) = 0;
+    *(v13 + 16) = ratio;
   }
 
   return v13;

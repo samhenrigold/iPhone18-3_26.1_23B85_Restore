@@ -28,39 +28,39 @@
 
 - (id)_accessibilityObscuredScreenAllowedViews
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   accessibilityIdentifier = [(SKUIOverlayContainerViewAccessibility *)self accessibilityIdentifier];
   v4 = [accessibilityIdentifier isEqualToString:@"OverlayCaptureView"];
 
   if (v4)
   {
-    v24 = 0;
+    v23 = 0;
     objc_opt_class();
     v5 = __UIAccessibilityCastAsClass();
     superview = [v5 superview];
     subviews = [superview subviews];
 
     array = [MEMORY[0x29EDB8DE8] array];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v9 = subviews;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           accessibilityIdentifier2 = [v14 accessibilityIdentifier];
           v16 = [accessibilityIdentifier2 isEqualToString:@"FloatingPreview"];
 
@@ -70,7 +70,7 @@
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v11);
@@ -83,11 +83,10 @@
     }
   }
 
-  v19.receiver = self;
-  v19.super_class = SKUIOverlayContainerViewAccessibility;
-  array = [(SKUIOverlayContainerViewAccessibility *)&v19 _accessibilityObscuredScreenAllowedViews];
+  v18.receiver = self;
+  v18.super_class = SKUIOverlayContainerViewAccessibility;
+  array = [(SKUIOverlayContainerViewAccessibility *)&v18 _accessibilityObscuredScreenAllowedViews];
 LABEL_15:
-  v17 = *MEMORY[0x29EDCA608];
 
   return array;
 }

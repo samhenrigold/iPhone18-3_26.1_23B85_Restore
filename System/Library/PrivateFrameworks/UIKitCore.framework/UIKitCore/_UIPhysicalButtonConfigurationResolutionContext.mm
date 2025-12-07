@@ -48,9 +48,9 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      v12 = [(_UIPhysicalButtonConfigurationSet *)v9 isEqual:v10];
+      isEqual = objc_msgSend_isEqual_(v9);
 
-      if (!v12)
+      if (!isEqual)
       {
         goto LABEL_16;
       }

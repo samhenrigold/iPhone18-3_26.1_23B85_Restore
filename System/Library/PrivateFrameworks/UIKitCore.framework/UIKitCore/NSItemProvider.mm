@@ -393,7 +393,7 @@ void __116__NSItemProvider_UIKitAdditions_Internal___generateFileURLDataForCachi
   }
 
   v13 = [v5 typeIdentifier];
-  if ([v13 isEqualToString:*(a1 + 40)])
+  if (objc_msgSend_isEqualToString_(v13))
   {
     v9 = [*(*(*(a1 + 48) + 8) + 40) url];
     v10 = *(*(a1 + 56) + 8);

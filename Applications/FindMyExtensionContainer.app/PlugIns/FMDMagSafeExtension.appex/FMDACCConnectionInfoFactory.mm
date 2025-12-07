@@ -12,7 +12,7 @@
     sub_10001540C();
   }
 
-  v2 = sub_1000011D8();
+  v2 = sub_1000011D8(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;

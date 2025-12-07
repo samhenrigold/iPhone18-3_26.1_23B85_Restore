@@ -42,7 +42,7 @@
 
 - (uint64_t)fc_isCKErrorWithCodePassingTest:()FCCKAdditions
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   domain = [self domain];
   v6 = [domain isEqualToString:*MEMORY[0x1E695B740]];
@@ -59,26 +59,26 @@
       userInfo = [self userInfo];
       v8 = [userInfo objectForKey:*MEMORY[0x1E695B798]];
 
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       allValues = [v8 allValues];
-      v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
-        v10 = *v15;
+        v10 = *v14;
         while (2)
         {
           v11 = 0;
           do
           {
-            if (*v15 != v10)
+            if (*v14 != v10)
             {
               objc_enumerationMutation(allValues);
             }
 
-            if (!v4[2](v4, [*(*(&v14 + 1) + 8 * v11) code]))
+            if (!v4[2](v4, [*(*(&v13 + 1) + 8 * v11) code]))
             {
               v6 = 0;
               goto LABEL_16;
@@ -88,7 +88,7 @@
           }
 
           while (v6 != v11);
-          v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
           if (v6)
           {
             continue;
@@ -109,13 +109,12 @@ LABEL_16:
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (uint64_t)fc_hasCKErrorWithCodePassingTest:()FCCKAdditions
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   domain = [self domain];
   v6 = [domain isEqualToString:*MEMORY[0x1E695B740]];
@@ -132,32 +131,32 @@ LABEL_16:
       userInfo = [self userInfo];
       v8 = [userInfo objectForKey:*MEMORY[0x1E695B798]];
 
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       allValues = [v8 allValues];
-      v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
-        v10 = *v15;
+        v10 = *v14;
         while (2)
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v15 != v10)
+            if (*v14 != v10)
             {
               objc_enumerationMutation(allValues);
             }
 
-            if (v4[2](v4, [*(*(&v14 + 1) + 8 * i) code]))
+            if (v4[2](v4, [*(*(&v13 + 1) + 8 * i) code]))
             {
               v6 = 1;
               goto LABEL_16;
             }
           }
 
-          v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
           if (v6)
           {
             continue;
@@ -176,7 +175,6 @@ LABEL_16:
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

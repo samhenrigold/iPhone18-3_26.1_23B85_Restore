@@ -40,11 +40,11 @@
 
 - (MKHTTPHeaders)initWithArray:(id)array
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
-  v79.receiver = self;
-  v79.super_class = MKHTTPHeaders;
-  v5 = [(MKHTTPHeaders *)&v79 init];
+  v78.receiver = self;
+  v78.super_class = MKHTTPHeaders;
+  v5 = [(MKHTTPHeaders *)&v78 init];
   if (v5)
   {
     firstObject = [arrayCopy firstObject];
@@ -52,7 +52,7 @@
 
     if ([v7 count] == 3)
     {
-      v74 = arrayCopy;
+      v73 = arrayCopy;
       v8 = [v7 objectAtIndexedSubscript:0];
       [(MKHTTPHeaders *)v5 setMethod:v8];
 
@@ -73,26 +73,26 @@
       [(MKHTTPHeaders *)v5 setPath:stringByRemovingPercentEncoding];
 
       v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v74 = 0u;
       v75 = 0u;
       v76 = 0u;
       v77 = 0u;
-      v78 = 0u;
       queryItems = [v11 queryItems];
-      v17 = [queryItems countByEnumeratingWithState:&v75 objects:v80 count:16];
+      v17 = [queryItems countByEnumeratingWithState:&v74 objects:v79 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v76;
+        v19 = *v75;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v76 != v19)
+            if (*v75 != v19)
             {
               objc_enumerationMutation(queryItems);
             }
 
-            v21 = *(*(&v75 + 1) + 8 * i);
+            v21 = *(*(&v74 + 1) + 8 * i);
             name = [v21 name];
             value = [v21 value];
             if (value)
@@ -108,7 +108,7 @@
             [v15 setObject:v24 forKey:name];
           }
 
-          v18 = [queryItems countByEnumeratingWithState:&v75 objects:v80 count:16];
+          v18 = [queryItems countByEnumeratingWithState:&v74 objects:v79 count:16];
         }
 
         while (v18);
@@ -118,7 +118,7 @@
       v25 = [v7 objectAtIndexedSubscript:2];
       [(MKHTTPHeaders *)v5 setVersion:v25];
 
-      arrayCopy = v74;
+      arrayCopy = v73;
     }
 
     v26 = [(MKHTTPHeaders *)v5 pairsFromArray:arrayCopy byKey:@": " atIndex:1];
@@ -236,7 +236,6 @@
     }
   }
 
-  v72 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -270,7 +269,7 @@
 
 - (id)responseHeadersData
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if (!self->_usesMultipart)
@@ -295,37 +294,37 @@
     [v4 setObject:value forKeyedSubscript:@"Server-Timing"];
   }
 
-  v22 = value;
+  v21 = value;
   version = self->_version;
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_statusCode];
   selfCopy = self;
   [v3 appendFormat:@"%@ %@ %@%@", version, v11, self->_statusText, @"\r\n"];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   allKeys = [v4 allKeys];
-  v13 = [allKeys countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v13 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v25;
+    v15 = *v24;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v17 = *(*(&v24 + 1) + 8 * i);
+        v17 = *(*(&v23 + 1) + 8 * i);
         v18 = [v4 objectForKeyedSubscript:v17];
         [v3 appendFormat:@"%@: %@%@", v17, v18, @"\r\n"];
       }
 
-      v14 = [allKeys countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v14 = [allKeys countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v14);
@@ -337,8 +336,6 @@
   }
 
   v19 = [v3 dataUsingEncoding:4];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

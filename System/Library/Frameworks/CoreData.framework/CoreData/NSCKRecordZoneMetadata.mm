@@ -1,6 +1,6 @@
 @interface NSCKRecordZoneMetadata
-+ (NSManagedObject)zoneMetadataForZoneID:(uint64_t)d inDatabaseWithScope:(uint64_t)scope forStore:(void *)store inContext:(int)context createIfMissing:(uint64_t)missing error:;
-+ (NSManagedObject)zoneMetadataForZoneID:(uint64_t)d inDatabaseWithScope:(uint64_t)scope forStore:(void *)store inContext:(uint64_t)context error:;
++ (NSManagedObject)zoneMetadataForZoneID:(uint64_t)d inDatabaseWithScope:(void *)scope forStore:(void *)store inContext:(int)context createIfMissing:(uint64_t)missing error:;
++ (NSManagedObject)zoneMetadataForZoneID:(uint64_t)d inDatabaseWithScope:(void *)scope forStore:(void *)store inContext:(uint64_t)context error:;
 + (NSString)entityPath;
 + (id)countZonesInStore:(id)store matchingPredicate:(id)predicate withManagedObjectContext:(id)context error:(id *)error;
 + (id)fetchZoneIDsAssignedToObjectsWithIDs:(id)ds fromStore:(id)store inContext:(id)context error:(id *)error;
@@ -8,6 +8,8 @@
 - (BOOL)hasSubscription;
 - (void)createRecordZoneID;
 - (void)destroyEncodedShareData;
+- (void)setHasRecordZone:(BOOL)zone;
+- (void)setHasSubscription:(BOOL)subscription;
 - (void)updateEncodedShareWithData:(id)data;
 @end
 
@@ -18,7 +20,8 @@
   v2 = MEMORY[0x1E696AEC0];
   v3 = +[PFCloudKitMetadataModel ancillaryModelNamespace];
   v4 = objc_opt_class();
-  return [v2 stringWithFormat:@"%@/%@", v3, NSStringFromClass(v4)];
+  v5 = NSStringFromClass(v4);
+  return objc_msgSend_stringWithFormat_(v2, v3, v5);
 }
 
 - (BOOL)hasRecordZone
@@ -28,6 +31,13 @@
   return [hasRecordZoneNum BOOLValue];
 }
 
+- (void)setHasRecordZone:(BOOL)zone
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:zone];
+
+  [(NSCKRecordZoneMetadata *)self setHasRecordZoneNum:v4];
+}
+
 - (BOOL)hasSubscription
 {
   hasSubscriptionNum = [(NSCKRecordZoneMetadata *)self hasSubscriptionNum];
@@ -35,9 +45,16 @@
   return [hasSubscriptionNum BOOLValue];
 }
 
+- (void)setHasSubscription:(BOOL)subscription
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:subscription];
+
+  [(NSCKRecordZoneMetadata *)self setHasSubscriptionNum:v4];
+}
+
 - (void)createRecordZoneID
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -46,41 +63,40 @@
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
-        v5 = 138412290;
-        v6 = v1;
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: createRecordZoneID called before object has an owner name and zone name: %@\n", &v5, 0xCu);
+        v4 = 138412290;
+        v5 = v1;
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: createRecordZoneID called before object has an owner name and zone name: %@\n", &v4, 0xCu);
       }
 
       v3 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
       {
-        v5 = 138412290;
-        v6 = v1;
-        _os_log_fault_impl(&dword_18565F000, v3, OS_LOG_TYPE_FAULT, "CoreData: createRecordZoneID called before object has an owner name and zone name: %@", &v5, 0xCu);
+        v4 = 138412290;
+        v5 = v1;
+        _os_log_fault_impl(&dword_18565F000, v3, OS_LOG_TYPE_FAULT, "CoreData: createRecordZoneID called before object has an owner name and zone name: %@", &v4, 0xCu);
       }
 
-      result = 0;
+      return 0;
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-+ (NSManagedObject)zoneMetadataForZoneID:(uint64_t)d inDatabaseWithScope:(uint64_t)scope forStore:(void *)store inContext:(uint64_t)context error:
++ (NSManagedObject)zoneMetadataForZoneID:(uint64_t)d inDatabaseWithScope:(void *)scope forStore:(void *)store inContext:(uint64_t)context error:
 {
   objc_opt_self();
 
   return [NSCKRecordZoneMetadata zoneMetadataForZoneID:a2 inDatabaseWithScope:d forStore:scope inContext:store createIfMissing:1 error:context];
 }
 
-+ (NSManagedObject)zoneMetadataForZoneID:(uint64_t)d inDatabaseWithScope:(uint64_t)scope forStore:(void *)store inContext:(int)context createIfMissing:(uint64_t)missing error:
++ (NSManagedObject)zoneMetadataForZoneID:(uint64_t)d inDatabaseWithScope:(void *)scope forStore:(void *)store inContext:(int)context createIfMissing:(uint64_t)missing error:
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   if (d == 3)
   {
-    if (([objc_msgSend(a2 "zoneName")] & 1) != 0 || (v12 = objc_msgSend(a2, "zoneName"), objc_msgSend(v12, "isEqualToString:", getCloudKitCKRecordZoneDefaultName[0]())))
+    if (([objc_msgSend(a2 "zoneName")] & 1) != 0 || (v12 = objc_msgSend(a2, "zoneName"), objc_msgSend(v12, "isEqualToString:", getCloudKitCKRecordZoneDefaultName())))
     {
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
@@ -101,8 +117,8 @@
   }
 
   v15 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordZoneMetadata entityPath]);
-  v32[0] = scope;
-  -[NSFetchRequest setAffectedStores:](v15, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1]);
+  v31[0] = scope;
+  -[NSFetchRequest setAffectedStores:](v15, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1]);
   v16 = MEMORY[0x1E696AE18];
   zoneName = [a2 zoneName];
   ownerName = [a2 ownerName];
@@ -118,8 +134,8 @@
       {
         *buf = 138412546;
         scopeCopy2 = a2;
-        v30 = 2112;
-        v31 = lastObject;
+        v29 = 2112;
+        v30 = lastObject;
         _os_log_error_impl(&dword_18565F000, v21, OS_LOG_TYPE_ERROR, "CoreData: fault: Multiple zone entires discovered for a single record zone: %@\n%@\n", buf, 0x16u);
       }
 
@@ -128,8 +144,8 @@
       {
         *buf = 138412546;
         scopeCopy2 = a2;
-        v30 = 2112;
-        v31 = lastObject;
+        v29 = 2112;
+        v30 = lastObject;
         _os_log_fault_impl(&dword_18565F000, v22, OS_LOG_TYPE_FAULT, "CoreData: Multiple zone entires discovered for a single record zone: %@\n%@", buf, 0x16u);
       }
     }
@@ -150,41 +166,40 @@
 
       else
       {
-        lastObject = 0;
+        return 0;
       }
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return lastObject;
 }
 
 + (id)fetchZoneIDsAssignedToObjectsWithIDs:(id)ds fromStore:(id)store inContext:(id)context error:(id *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  v29 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v45 = *MEMORY[0x1E69E9840];
+  v37 = 0;
+  v28 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = [PFCloudKitMetadataModel createMapOfEntityIDToPrimaryKeySetForObjectIDs:ds];
-  v8 = [obj countByEnumeratingWithState:&v34 objects:v45 count:16];
+  v8 = [obj countByEnumeratingWithState:&v33 objects:v44 count:16];
   if (v8)
   {
     errorCopy = error;
-    v24 = *v35;
+    v23 = *v34;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v35 != v24)
+        if (*v34 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v34 + 1) + 8 * v9);
+        v10 = *(*(&v33 + 1) + 8 * v9);
         v11 = [obj objectForKey:v10];
         v12 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordMetadata entityPath]);
         -[NSFetchRequest setPredicate:](v12, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"entityId = %@ and entityPK IN %@", v10, v11]);
@@ -193,15 +208,15 @@
         [(NSFetchRequest *)v12 setPropertiesToGroupBy:&unk_1EF43D528];
         storeCopy = store;
         -[NSFetchRequest setAffectedStores:](v12, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:&storeCopy count:1]);
-        v13 = [context executeFetchRequest:v12 error:&v38];
+        v13 = [context executeFetchRequest:v12 error:&v37];
         v14 = v13;
         if (!v13)
         {
-          if (v38)
+          if (v37)
           {
             if (errorCopy)
             {
-              *errorCopy = v38;
+              *errorCopy = v37;
             }
           }
 
@@ -211,9 +226,9 @@
             if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v40 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordZoneMetadata.m";
-              v41 = 1024;
-              v42 = 172;
+              v39 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordZoneMetadata.m";
+              v40 = 1024;
+              v41 = 172;
               _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
             }
 
@@ -221,50 +236,50 @@
             if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
             {
               *buf = 136315394;
-              v40 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordZoneMetadata.m";
-              v41 = 1024;
-              v42 = 172;
+              v39 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordZoneMetadata.m";
+              v40 = 1024;
+              v41 = 172;
               _os_log_fault_impl(&dword_18565F000, v20, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
             }
           }
 
-          v29 = 0;
+          v28 = 0;
           goto LABEL_25;
         }
 
-        v28 = v9;
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
+        v27 = v9;
         v31 = 0u;
-        v15 = [v13 countByEnumeratingWithState:&v30 objects:v43 count:16];
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
+        v15 = [v13 countByEnumeratingWithState:&v29 objects:v42 count:16];
         if (v15)
         {
-          v16 = *v31;
+          v16 = *v30;
           do
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v31 != v16)
+              if (*v30 != v16)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v18 = [objc_alloc(getCloudKitCKRecordZoneIDClass[0]()) initWithZoneName:objc_msgSend(*(*(&v30 + 1) + 8 * i) ownerName:{"objectForKey:", @"recordZone.ckRecordZoneName", objc_msgSend(*(*(&v30 + 1) + 8 * i), "objectForKey:", @"recordZone.ckOwnerName"}];
-              [v29 addObject:v18];
+              v18 = [objc_alloc(getCloudKitCKRecordZoneIDClass[0]()) initWithZoneName:objc_msgSend(*(*(&v29 + 1) + 8 * i) ownerName:{"objectForKey:", @"recordZone.ckRecordZoneName", objc_msgSend(*(*(&v29 + 1) + 8 * i), "objectForKey:", @"recordZone.ckOwnerName"}];
+              [v28 addObject:v18];
             }
 
-            v15 = [v14 countByEnumeratingWithState:&v30 objects:v43 count:16];
+            v15 = [v14 countByEnumeratingWithState:&v29 objects:v42 count:16];
           }
 
           while (v15);
         }
 
-        v9 = v28 + 1;
+        v9 = v27 + 1;
       }
 
-      while (v28 + 1 != v8);
-      v8 = [obj countByEnumeratingWithState:&v34 objects:v45 count:16];
+      while (v27 + 1 != v8);
+      v8 = [obj countByEnumeratingWithState:&v33 objects:v44 count:16];
       if (v8)
       {
         continue;
@@ -276,29 +291,28 @@
 
 LABEL_25:
 
-  v21 = *MEMORY[0x1E69E9840];
-  return v29;
+  return v28;
 }
 
 + (id)countZonesInStore:(id)store matchingPredicate:(id)predicate withManagedObjectContext:(id)context error:(id *)error
 {
-  v21[1] = *MEMORY[0x1E69E9840];
-  v16 = 0;
+  v20[1] = *MEMORY[0x1E69E9840];
+  v15 = 0;
   v10 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordZoneMetadata entityPath]);
   [(NSFetchRequest *)v10 setPredicate:predicate];
   [(NSFetchRequest *)v10 setResultType:4];
-  v21[0] = store;
-  -[NSFetchRequest setAffectedStores:](v10, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1]);
-  v11 = [context executeFetchRequest:v10 error:&v16];
+  v20[0] = store;
+  -[NSFetchRequest setAffectedStores:](v10, "setAffectedStores:", [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1]);
+  v11 = [context executeFetchRequest:v10 error:&v15];
   if (!v11 || (result = [v11 lastObject]) == 0)
   {
-    if (v16)
+    if (v15)
     {
       if (error)
       {
         result = 0;
-        *error = v16;
-        goto LABEL_11;
+        *error = v15;
+        return result;
       }
     }
 
@@ -308,9 +322,9 @@ LABEL_25:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v18 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordZoneMetadata.m";
-        v19 = 1024;
-        v20 = 202;
+        v17 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordZoneMetadata.m";
+        v18 = 1024;
+        v19 = 202;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -318,18 +332,16 @@ LABEL_25:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v18 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordZoneMetadata.m";
-        v19 = 1024;
-        v20 = 202;
+        v17 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCKRecordZoneMetadata.m";
+        v18 = 1024;
+        v19 = 202;
         _os_log_fault_impl(&dword_18565F000, v14, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_11:
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 

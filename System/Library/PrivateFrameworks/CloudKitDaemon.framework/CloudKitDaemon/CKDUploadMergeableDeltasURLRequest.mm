@@ -81,9 +81,9 @@
 
 - (id)requestOperationClasses
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v16[0] = objc_opt_class();
-  v4 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v3, v16, 1);
+  v15[1] = *MEMORY[0x277D85DE8];
+  v15[0] = objc_opt_class();
+  v4 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v3, v15, 1);
   v7 = objc_msgSend_replacementRequests(self, v5, v6);
   v10 = objc_msgSend_count(v7, v8, v9);
 
@@ -94,8 +94,6 @@
 
     v4 = v13;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -111,24 +109,24 @@
 
 - (id)generateRequestOperations
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = sub_2250741CC;
-  v51 = sub_225073664;
-  v52 = 0;
+  v54 = *MEMORY[0x277D85DE8];
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = sub_2250741CC;
+  v50 = sub_225073664;
+  v51 = 0;
   v4 = objc_msgSend_deltas(self, a2, v2);
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = sub_2253C4E24;
-  v46[3] = &unk_27854D430;
-  v46[4] = self;
-  v46[5] = &v47;
-  v6 = objc_msgSend_CKCompactMap_(v4, v5, v46);
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = sub_2253C4E24;
+  v45[3] = &unk_27854D430;
+  v45[4] = self;
+  v45[5] = &v46;
+  v6 = objc_msgSend_CKCompactMap_(v4, v5, v45);
   v9 = objc_msgSend_mutableCopy(v6, v7, v8);
 
-  if (v48[5])
+  if (v47[5])
   {
     if (*MEMORY[0x277CBC880] != -1)
     {
@@ -138,25 +136,25 @@
     v12 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
     {
-      v43 = v48[5];
+      v42 = v47[5];
       *buf = 138412290;
-      v54 = v43;
+      v53 = v42;
       _os_log_fault_impl(&dword_22506F000, v12, OS_LOG_TYPE_FAULT, "Failed to generate requestOperations for MergeableDeltaSaveRequest: %@", buf, 0xCu);
     }
 
-    objc_msgSend_finishWithError_(self, v13, v48[5]);
+    objc_msgSend_finishWithError_(self, v13, v47[5]);
     v14 = 0;
   }
 
   else
   {
     v15 = objc_msgSend_replacementRequests(self, v10, v11);
-    v16 = (v48 + 5);
-    obj = v48[5];
+    v16 = (v47 + 5);
+    obj = v47[5];
     v18 = objc_msgSend_requestOperationsForRequest_replaceDeltasRequests_ignoreMissingDeltas_error_(CKDReplaceMergeableDeltasURLRequest, v17, self, v15, 1, &obj);
     objc_storeStrong(v16, obj);
 
-    if (v18 && !v48[5])
+    if (v18 && !v47[5])
     {
       for (i = 0; i < objc_msgSend_count(v18, v19, v20); ++i)
       {
@@ -182,13 +180,13 @@
       v21 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
       {
-        v44 = v48[5];
+        v43 = v47[5];
         *buf = 138412290;
-        v54 = v44;
+        v53 = v43;
         _os_log_fault_impl(&dword_22506F000, v21, OS_LOG_TYPE_FAULT, "Failed to create mergeable delta proto for replacement request: %@", buf, 0xCu);
       }
 
-      objc_msgSend_finishWithError_(self, v22, v48[5]);
+      objc_msgSend_finishWithError_(self, v22, v47[5]);
       v9 = 0;
     }
 
@@ -197,8 +195,7 @@
     v14 = v9;
   }
 
-  _Block_object_dispose(&v47, 8);
-  v41 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v46, 8);
 
   return v14;
 }
@@ -267,7 +264,7 @@ LABEL_13:
 
 - (void)requestDidParseNodeFailure:(id)failure
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   failureCopy = failure;
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -277,13 +274,13 @@ LABEL_13:
   v5 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
   {
-    v43 = v5;
-    v46 = objc_msgSend_requestUUID(self, v44, v45);
-    v47 = 138412546;
-    v48 = v46;
-    v49 = 2112;
-    v50 = failureCopy;
-    _os_log_error_impl(&dword_22506F000, v43, OS_LOG_TYPE_ERROR, "Node failure in upload deltas request %@: %@", &v47, 0x16u);
+    v42 = v5;
+    v45 = objc_msgSend_requestUUID(self, v43, v44);
+    v46 = 138412546;
+    v47 = v45;
+    v48 = 2112;
+    v49 = failureCopy;
+    _os_log_error_impl(&dword_22506F000, v42, OS_LOG_TYPE_ERROR, "Node failure in upload deltas request %@: %@", &v46, 0x16u);
   }
 
   v8 = objc_msgSend_deltasByRequestID(self, v6, v7);
@@ -319,8 +316,6 @@ LABEL_13:
       (v38)[2](v38, v32, v41);
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -8,34 +8,34 @@
 
 - (BOOL)_shouldAddNewPublicEventQuestionForAssetUUID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [(PGSurveyQuestionFactory *)self existingQuestionsForEntityIdentifier:d];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v3 = v14 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = v13 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) state] == 2)
+        if ([*(*(&v10 + 1) + 8 * i) state] == 2)
         {
           v8 = 0;
           goto LABEL_11;
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -48,13 +48,12 @@
   v8 = 1;
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (double)_publicEventLocalFactoryScoreForMomentNode:(id)node
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   publicEventNodes = [nodeCopy publicEventNodes];
   v5 = [publicEventNodes count];
@@ -79,13 +78,12 @@ LABEL_11:
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
     localIdentifier = [nodeCopy localIdentifier];
-    v12 = 138412290;
-    v13 = localIdentifier;
-    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Moment node %@ found to have no public event nodes which is unexpected.", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = localIdentifier;
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Moment node %@ found to have no public event nodes which is unexpected.", &v11, 0xCu);
   }
 
 LABEL_8:
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -113,17 +111,17 @@ LABEL_8:
 
 void __73__PGPublicEventQuestionFactory_generateQuestionsWithLimit_progressBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _Block_copy(*(a1 + 48));
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v38 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
   v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
   if (!v4)
   {
     if (!*(a1 + 56))
@@ -135,21 +133,21 @@ void __73__PGPublicEventQuestionFactory_generateQuestionsWithLimit_progressBlock
   }
 
   Current = CFAbsoluteTimeGetCurrent();
-  if (Current - v32[3] >= 0.01)
+  if (Current - v31[3] >= 0.01)
   {
-    v32[3] = Current;
-    v30 = 0;
-    v4[2](v4, &v30, 0.0);
-    v6 = *(v36 + 24) | v30;
-    *(v36 + 24) = v6;
+    v31[3] = Current;
+    v29 = 0;
+    v4[2](v4, &v29, 0.0);
+    v6 = *(v35 + 24) | v29;
+    *(v35 + 24) = v6;
     if (v6)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v40 = 47;
-        v41 = 2080;
-        v42 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/PublicEvent/PGPublicEventQuestionFactory.m";
+        v39 = 47;
+        v40 = 2080;
+        v41 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/PublicEvent/PGPublicEventQuestionFactory.m";
         v7 = MEMORY[0x277D86220];
 LABEL_11:
         _os_log_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -169,39 +167,39 @@ LABEL_13:
     v13 = [v12 photoLibrary];
     v14 = [v11 initWithPhotoLibrary:v13];
 
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __73__PGPublicEventQuestionFactory_generateQuestionsWithLimit_progressBlock___block_invoke_189;
-    v22[3] = &unk_27888A2D0;
-    v22[4] = *(a1 + 32);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __73__PGPublicEventQuestionFactory_generateQuestionsWithLimit_progressBlock___block_invoke_189;
+    v21[3] = &unk_27888A2D0;
+    v21[4] = *(a1 + 32);
     v15 = v14;
-    v23 = v15;
+    v22 = v15;
     v16 = *(a1 + 40);
     v17 = *(a1 + 56);
-    v24 = v16;
-    v28 = v17;
+    v23 = v16;
+    v27 = v17;
     v18 = v4;
-    v25 = v18;
-    v26 = &v31;
-    v29 = 0x3F847AE147AE147BLL;
-    v27 = &v35;
-    [v10 enumeratePublicEventNodesUsingBlock:v22];
+    v24 = v18;
+    v25 = &v30;
+    v28 = 0x3F847AE147AE147BLL;
+    v26 = &v34;
+    [v10 enumeratePublicEventNodesUsingBlock:v21];
     if (v4)
     {
       v19 = CFAbsoluteTimeGetCurrent();
-      if (v19 - v32[3] >= 0.01)
+      if (v19 - v31[3] >= 0.01)
       {
-        v32[3] = v19;
-        v30 = 0;
-        v18[2](v18, &v30, 1.0);
-        v20 = *(v36 + 24) | v30;
-        *(v36 + 24) = v20;
+        v31[3] = v19;
+        v29 = 0;
+        v18[2](v18, &v29, 1.0);
+        v20 = *(v35 + 24) | v29;
+        *(v35 + 24) = v20;
         if ((v20 & 1) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v40 = 103;
-          v41 = 2080;
-          v42 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/PublicEvent/PGPublicEventQuestionFactory.m";
+          v39 = 103;
+          v40 = 2080;
+          v41 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/PublicEvent/PGPublicEventQuestionFactory.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
       }
@@ -211,29 +209,27 @@ LABEL_13:
   }
 
   v8 = CFAbsoluteTimeGetCurrent();
-  if (v8 - v32[3] >= 0.01)
+  if (v8 - v31[3] >= 0.01)
   {
-    v32[3] = v8;
-    v30 = 0;
-    v4[2](v4, &v30, 1.0);
-    v9 = *(v36 + 24) | v30;
-    *(v36 + 24) = v9;
+    v31[3] = v8;
+    v29 = 0;
+    v4[2](v4, &v29, 1.0);
+    v9 = *(v35 + 24) | v29;
+    *(v35 + 24) = v9;
     if ((v9 & 1) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v40 = 51;
-      v41 = 2080;
-      v42 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/PublicEvent/PGPublicEventQuestionFactory.m";
+      v39 = 51;
+      v40 = 2080;
+      v41 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/PublicEvent/PGPublicEventQuestionFactory.m";
       v7 = MEMORY[0x277D86220];
       goto LABEL_11;
     }
   }
 
 LABEL_19:
-  _Block_object_dispose(&v31, 8);
-  _Block_object_dispose(&v35, 8);
-
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
 }
 
 void __73__PGPublicEventQuestionFactory_generateQuestionsWithLimit_progressBlock___block_invoke_189(uint64_t a1, void *a2, _BYTE *a3)
@@ -269,7 +265,7 @@ void __73__PGPublicEventQuestionFactory_generateQuestionsWithLimit_progressBlock
 
 void __73__PGPublicEventQuestionFactory_generateQuestionsWithLimit_progressBlock___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [*(a1 + 32) muid];
   v7 = [*(a1 + 32) name];
@@ -331,7 +327,7 @@ LABEL_9:
       if (Current - *(v31 + 24) >= *(a1 + 104))
       {
         *(v31 + 24) = Current;
-        LOBYTE(v34[0]) = 0;
+        LOBYTE(v33[0]) = 0;
         (*(*(a1 + 64) + 16))(v28 / v29);
         *(*(*(a1 + 80) + 8) + 24) = *(*(*(a1 + 80) + 8) + 24);
         if (*(*(*(a1 + 80) + 8) + 24) == 1)
@@ -349,14 +345,12 @@ LABEL_9:
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v34[0] = 67109120;
-    v34[1] = v6;
-    _os_log_error_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_ERROR, "Public event with muid %d has nil name, not generating question for it", v34, 8u);
+    v33[0] = 67109120;
+    v33[1] = v6;
+    _os_log_error_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_ERROR, "Public event with muid %d has nil name, not generating question for it", v33, 8u);
   }
 
 LABEL_17:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 @end

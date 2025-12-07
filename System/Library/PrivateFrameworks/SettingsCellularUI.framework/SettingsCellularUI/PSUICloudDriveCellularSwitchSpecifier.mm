@@ -71,15 +71,15 @@
 
 - (void)setUsagePolicy:(id)policy
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   getLogger = [(PSUICloudDriveCellularSwitchSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v19 = "[PSUICloudDriveCellularSwitchSpecifier setUsagePolicy:]";
-    v20 = 2112;
-    v21 = policyCopy;
+    v18 = "[PSUICloudDriveCellularSwitchSpecifier setUsagePolicy:]";
+    v19 = 2112;
+    v20 = policyCopy;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s setting: %@", buf, 0x16u);
   }
 
@@ -89,9 +89,9 @@
   bOOLValue2 = [policyCopy BOOLValue];
   [appleAccount aa_setUseCellular:bOOLValue2 forDataclass:*MEMORY[0x277CB9140]];
   accountStore = self->_accountStore;
-  v17 = 0;
-  v10 = [(ACAccountStore *)accountStore saveVerifiedAccount:appleAccount error:&v17];
-  v11 = v17;
+  v16 = 0;
+  v10 = [(ACAccountStore *)accountStore saveVerifiedAccount:appleAccount error:&v16];
+  v11 = v16;
   getLogger2 = [(PSUICloudDriveCellularSwitchSpecifier *)self getLogger];
   v13 = os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT);
   if (v10)
@@ -99,9 +99,9 @@
     if (v13)
     {
       *buf = 136315394;
-      v19 = "[PSUICloudDriveCellularSwitchSpecifier setUsagePolicy:]";
-      v20 = 2112;
-      v21 = policyCopy;
+      v18 = "[PSUICloudDriveCellularSwitchSpecifier setUsagePolicy:]";
+      v19 = 2112;
+      v20 = policyCopy;
       _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "%s set succeeded: %@", buf, 0x16u);
     }
   }
@@ -111,9 +111,9 @@
     if (v13)
     {
       *buf = 136315394;
-      v19 = "[PSUICloudDriveCellularSwitchSpecifier setUsagePolicy:]";
-      v20 = 2112;
-      v21 = policyCopy;
+      v18 = "[PSUICloudDriveCellularSwitchSpecifier setUsagePolicy:]";
+      v19 = 2112;
+      v20 = policyCopy;
       _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "%s set failed: %@", buf, 0x16u);
     }
 
@@ -137,8 +137,6 @@
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

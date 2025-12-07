@@ -1,10 +1,10 @@
 @interface NSMutableString(TSWPStorage_conversion)
-- (uint64_t)replaceBreaksWithPlainTextVersions;
+- (void)replaceBreaksWithPlainTextVersions;
 @end
 
 @implementation NSMutableString(TSWPStorage_conversion)
 
-- (uint64_t)replaceBreaksWithPlainTextVersions
+- (void)replaceBreaksWithPlainTextVersions
 {
   result = [self length];
   if (result)

@@ -22,7 +22,7 @@
 
 - (ISClient)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISClient.m", 49, a2);
   v8.receiver = self;
   v8.super_class = ISClient;
   v3 = [(ISClient *)&v8 init];
@@ -293,27 +293,27 @@ void __31__ISClient_appleClientVersions__block_invoke(uint64_t a1)
 
 - (id)_appleClientVersions
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v3 = [&unk_2884CA9E0 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v3 = [&unk_2884CA9E0 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v20;
+    v5 = *v19;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v5)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(&unk_2884CA9E0);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * i);
+        v7 = *(*(&v18 + 1) + 8 * i);
         v8 = objc_alloc(MEMORY[0x277CEE620]);
         v9 = [v7 objectAtIndexedSubscript:1];
         v10 = [v8 initWithBundleIdentifier:v9];
@@ -332,15 +332,13 @@ void __31__ISClient_appleClientVersions__block_invoke(uint64_t a1)
         [v2 addObject:v15];
       }
 
-      v4 = [&unk_2884CA9E0 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v4 = [&unk_2884CA9E0 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v4);
   }
 
   v16 = [v2 componentsJoinedByString:@" "];;
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

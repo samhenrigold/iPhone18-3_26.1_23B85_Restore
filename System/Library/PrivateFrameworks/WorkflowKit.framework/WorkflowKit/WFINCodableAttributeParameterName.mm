@@ -7,7 +7,7 @@
 
 - (id)localizedStringWithContext:(id)context pluralizationNumber:(id)number
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   attribute = [(WFINCodableAttributeParameterName *)self attribute];
   stringLocalizer = [contextCopy stringLocalizer];
@@ -31,17 +31,15 @@
     {
       attribute3 = [(WFINCodableAttributeParameterName *)self attribute];
       propertyName = [attribute3 propertyName];
-      v17 = 136315650;
-      v18 = "[WFINCodableAttributeParameterName localizedStringWithContext:pluralizationNumber:]";
-      v19 = 2112;
-      v20 = propertyName;
-      v21 = 2112;
-      v22 = displayName;
-      _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_FAULT, "%s no localized name propertyName=%@, displayName=%@", &v17, 0x20u);
+      v16 = 136315650;
+      v17 = "[WFINCodableAttributeParameterName localizedStringWithContext:pluralizationNumber:]";
+      v18 = 2112;
+      v19 = propertyName;
+      v20 = 2112;
+      v21 = displayName;
+      _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_FAULT, "%s no localized name propertyName=%@, displayName=%@", &v16, 0x20u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

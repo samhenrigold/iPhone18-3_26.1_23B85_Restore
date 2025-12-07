@@ -117,7 +117,7 @@ LABEL_7:
 
         if (v14)
         {
-          v16 = [identifier isEqualToString:v14] ^ 1;
+          v16 = objc_msgSend_isEqualToString_(identifier) ^ 1;
         }
 
         else
@@ -162,7 +162,7 @@ LABEL_7:
           fingerprint = [v14 fingerprint];
           if (fingerprint)
           {
-            if ([identifier isEqualToString:fingerprint])
+            if (objc_msgSend_isEqualToString_(identifier))
             {
               v16 = 0;
             }
@@ -331,7 +331,7 @@ void __72__PLDuplicateMergeCrashRecovery__performCrashRecoveryIfNeededWithUUIDs_
 {
   v21[2] = *MEMORY[0x1E69E9840];
   _readCrashRecoveryUUIDContainerMarkerFile = [(PLDuplicateMergeCrashRecovery *)self _readCrashRecoveryUUIDContainerMarkerFile];
-  if ([_readCrashRecoveryUUIDContainerMarkerFile count])
+  if (objc_msgSend_count(_readCrashRecoveryUUIDContainerMarkerFile))
   {
     v5 = dispatch_semaphore_create(0);
     fingerprintContext = [(PLPhotoLibrary *)self->_library fingerprintContext];

@@ -136,7 +136,7 @@ LABEL_14:
 LABEL_15:
   v20 = [componentDictionary objectForKey:@"fcKind"];
   v21 = [componentDictionary objectForKey:@"type"];
-  if ((objc_opt_respondsToSelector() & 1) != 0 && [v20 integerValue] == 290 || objc_msgSend(v21, "isEqualToString:", @"counter"))
+  if ((objc_opt_respondsToSelector() & 1) != 0 && [v20 integerValue] == 290 || objc_msgSend_isEqualToString_(v21))
   {
     v22 = [[SUUICountdown alloc] initWithCountdownDictionary:componentDictionary];
     countdown = v5->_countdown;

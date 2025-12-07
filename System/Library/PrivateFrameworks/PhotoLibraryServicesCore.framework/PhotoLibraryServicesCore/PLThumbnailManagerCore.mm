@@ -586,11 +586,11 @@ void __76__PLThumbnailManagerCore_allocatedFileSizeOfThumbnailTablesWithPathMana
   [self enumerateThumbnailTablesWithPathManager:managerCopy fileManager:v12 handler:v13];
 }
 
-uint64_t __99__PLThumbnailManagerCore_removeThumbnailTablesUnsupportedOnly_withPathManager_fileManagerDelegate___block_invoke(uint64_t result, uint64_t a2, int a3)
+id *__99__PLThumbnailManagerCore_removeThumbnailTablesUnsupportedOnly_withPathManager_fileManagerDelegate___block_invoke(id *result, uint64_t a2, int a3)
 {
   if (*(result + 40) != 1 || a3 != 0)
   {
-    return [*(result + 32) removeItemAtPath:a2 error:0];
+    return [result[4] removeItemAtPath:a2 error:0];
   }
 
   return result;

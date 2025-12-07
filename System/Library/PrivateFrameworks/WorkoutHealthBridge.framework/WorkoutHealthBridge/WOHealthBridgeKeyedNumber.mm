@@ -69,9 +69,7 @@
     __assert_rtn("[WOHealthBridgeKeyedNumber writeTo:]", "WOHealthBridgeKeyedNumber.m", 79, "nil != self->_key");
   }
 
-  key = selfCopy->_key;
   PBDataWriterWriteStringField();
-  number = selfCopy->_number;
   PBDataWriterWriteDoubleField();
   objc_storeStrong(location, 0);
 }

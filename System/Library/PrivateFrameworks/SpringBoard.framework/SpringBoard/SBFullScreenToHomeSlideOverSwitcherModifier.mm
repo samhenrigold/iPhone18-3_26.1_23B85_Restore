@@ -81,7 +81,7 @@ LABEL_6:
   if (self->_shouldBlurUnreadyScenes)
   {
     v5 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:2];
-    v6 = SBAppendSwitcherModifierResponse(v5, v4);
+    v6 = SBAppendSwitcherModifierResponse();
 
     v4 = v6;
   }
@@ -166,7 +166,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t __61__SBFullScreenToHomeSlideOverSwitcherModifier_frameForIndex___block_invoke(void *a1)
+void *__61__SBFullScreenToHomeSlideOverSwitcherModifier_frameForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 184) frameForIndex:a1[6]];
   v3 = *(a1[5] + 8);

@@ -69,46 +69,7 @@
   {
     v6 = equalCopy;
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_9;
-    }
-
-    mRUCount = [v6 MRUCount];
-    if (mRUCount != [(TVRCAppInfo *)self MRUCount])
-    {
-      goto LABEL_9;
-    }
-
-    localizedName = [v6 localizedName];
-    localizedName2 = [(TVRCAppInfo *)self localizedName];
-    v10 = [localizedName isEqualToString:localizedName2];
-
-    if (!v10)
-    {
-      goto LABEL_9;
-    }
-
-    bundleID = [v6 bundleID];
-    bundleID2 = [(TVRCAppInfo *)self bundleID];
-    v13 = [bundleID isEqualToString:bundleID2];
-
-    if (!v13)
-    {
-      goto LABEL_9;
-    }
-
-    imageData = [v6 imageData];
-    imageData2 = [(TVRCAppInfo *)self imageData];
-    v16 = [imageData isEqualToData:imageData2];
-
-    if (!v16)
-    {
-      goto LABEL_9;
-    }
-
-    appGenre = [v6 appGenre];
-    if (appGenre == [(TVRCAppInfo *)self appGenre])
+    if ((objc_opt_isKindOfClass() & 1) != 0 && (v7 = [v6 MRUCount], v7 == -[TVRCAppInfo MRUCount](self, "MRUCount")) && (objc_msgSend(v6, "localizedName"), v8 = objc_claimAutoreleasedReturnValue(), -[TVRCAppInfo localizedName](self, "localizedName"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqualToString:", v9), v9, v8, v10) && (objc_msgSend(v6, "bundleID"), v11 = objc_claimAutoreleasedReturnValue(), -[TVRCAppInfo bundleID](self, "bundleID"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "isEqualToString:", v12), v12, v11, v13) && (objc_msgSend(v6, "imageData"), v14 = objc_claimAutoreleasedReturnValue(), -[TVRCAppInfo imageData](self, "imageData"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isEqualToData:", v15), v15, v14, v16) && (v17 = objc_msgSend(v6, "appGenre"), v17 == -[TVRCAppInfo appGenre](self, "appGenre")))
     {
       appType = [v6 appType];
       v19 = appType == [(TVRCAppInfo *)self appType];
@@ -116,7 +77,6 @@
 
     else
     {
-LABEL_9:
       v19 = 0;
     }
   }

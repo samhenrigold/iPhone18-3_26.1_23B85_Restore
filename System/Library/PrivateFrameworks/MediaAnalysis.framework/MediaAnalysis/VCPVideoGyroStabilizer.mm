@@ -53,8 +53,8 @@
     [(VCPVideoStabilizer *)v20 setTimeRange:v32];
     if ([(VCPVideoStabilizer *)v20 isPathConstraintsStabilization])
     {
-      [(VCPVideoStabilizer *)v20 timeRange];
-      if ((BYTE12(v32[0]) & 1) == 0 || ([(VCPVideoStabilizer *)v20 timeRange], (v31 & 1) == 0) || ([(VCPVideoStabilizer *)v20 timeRange], v30) || ([(VCPVideoStabilizer *)v20 timeRange], v26 = v20, v29 < 0))
+      objc_msgSend_timeRange(v20);
+      if ((BYTE12(v32[0]) & 1) == 0 || (objc_msgSend_timeRange(v20), (v31 & 1) == 0) || (objc_msgSend_timeRange(v20), v30) || (objc_msgSend_timeRange(v20), v26 = v20, v29 < 0))
       {
         v26 = 0;
       }
@@ -120,25 +120,25 @@ LABEL_3:
     v11 = [v9 objectForKeyedSubscript:@"attributes"];
     v12 = [v11 objectForKeyedSubscript:@"MetaPresentationTimeResults"];
 
-    [(VCPVideoStabilizer *)self timeRange];
+    objc_msgSend_timeRange(self);
     if ((time.flags & 1) == 0)
     {
       break;
     }
 
-    [(VCPVideoStabilizer *)self timeRange];
+    objc_msgSend_timeRange(self);
     if ((v95 & 1) == 0)
     {
       break;
     }
 
-    [(VCPVideoStabilizer *)self timeRange];
+    objc_msgSend_timeRange(self);
     if (v93)
     {
       break;
     }
 
-    [(VCPVideoStabilizer *)self timeRange];
+    objc_msgSend_timeRange(self);
     if (v118 < 0)
     {
       break;
@@ -149,7 +149,7 @@ LABEL_3:
       break;
     }
 
-    [(VCPVideoStabilizer *)self timeRange];
+    objc_msgSend_timeRange(self);
     CMTimeMake(&v89, 2, 600);
     lhs = time1.start;
     rhs = v89;
@@ -176,7 +176,7 @@ LABEL_27:
     }
   }
 
-  if ([(VCPVideoStabilizer *)self isPathConstraintsStabilization]|| ([(VCPVideoStabilizer *)self timeRange], (time.flags & 1) == 0) || ([(VCPVideoStabilizer *)self timeRange], (v95 & 1) == 0) || ([(VCPVideoStabilizer *)self timeRange], v93) || ([(VCPVideoStabilizer *)self timeRange], v118 < 0) || !v12)
+  if ([(VCPVideoStabilizer *)self isPathConstraintsStabilization]|| (objc_msgSend_timeRange(self), (time.flags & 1) == 0) || (objc_msgSend_timeRange(self), (v95 & 1) == 0) || (objc_msgSend_timeRange(self), v93) || (objc_msgSend_timeRange(self), v118 < 0) || !v12)
   {
     if (!v12)
     {
@@ -187,7 +187,7 @@ LABEL_27:
 
   else
   {
-    [(VCPVideoStabilizer *)self timeRange];
+    objc_msgSend_timeRange(self);
     CMTimeRangeGetEnd(&rhs, &time1);
     CMTimeMakeFromDictionary(&v91, v12);
     time1.start = rhs;

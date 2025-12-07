@@ -24,7 +24,7 @@
 
 - (char)initWithModel:()HMDBackingStoreModelObject
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (!v4)
@@ -36,21 +36,21 @@
 
   if (!type)
   {
-    v30 = objc_autoreleasePoolPush();
+    v29 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v32 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
+    v31 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
     {
-      v33 = HMFGetLogIdentifier();
+      v32 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v33;
-      _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Model missing 'type'", buf, 0xCu);
+      v43 = v32;
+      _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Model missing 'type'", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v30);
-    v34 = [[HMDAssertionLogEvent alloc] initWithReason:@"Model missing 'type'"];
-    v35 = +[HMDMetricsManager sharedLogEventSubmitter];
-    [v35 submitLogEvent:v34];
+    objc_autoreleasePoolPop(v29);
+    v33 = [[HMDAssertionLogEvent alloc] initWithReason:@"Model missing 'type'"];
+    v34 = +[HMDMetricsManager sharedLogEventSubmitter];
+    [v34 submitLogEvent:v33];
   }
 
   type2 = [v5 type];
@@ -64,7 +64,7 @@
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v26;
+      v43 = v26;
       v27 = "%{public}@Model missing 'type'";
 LABEL_17:
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, v27, buf, 0xCu);
@@ -85,21 +85,21 @@ LABEL_19:
 
   if (!value)
   {
-    v36 = objc_autoreleasePoolPush();
+    v35 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v38 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+    v37 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
     {
-      v39 = HMFGetLogIdentifier();
+      v38 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v39;
-      _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Model missing 'value'", buf, 0xCu);
+      v43 = v38;
+      _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Model missing 'value'", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v36);
-    v40 = [[HMDAssertionLogEvent alloc] initWithReason:@"Model missing 'value'"];
-    v41 = +[HMDMetricsManager sharedLogEventSubmitter];
-    [v41 submitLogEvent:v40];
+    objc_autoreleasePoolPop(v35);
+    v39 = [[HMDAssertionLogEvent alloc] initWithReason:@"Model missing 'value'"];
+    v40 = +[HMDMetricsManager sharedLogEventSubmitter];
+    [v40 submitLogEvent:v39];
   }
 
   value2 = [v5 value];
@@ -113,7 +113,7 @@ LABEL_19:
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v26;
+      v43 = v26;
       v27 = "%{public}@Model missing 'value'";
       goto LABEL_17;
     }
@@ -124,9 +124,9 @@ LABEL_19:
   v12 = MEMORY[0x277CCAAC8];
   supportedValueClasses = [objc_opt_class() supportedValueClasses];
   value3 = [v5 value];
-  v42 = 0;
-  v15 = [v12 unarchivedObjectOfClasses:supportedValueClasses fromData:value3 error:&v42];
-  v16 = v42;
+  v41 = 0;
+  v15 = [v12 unarchivedObjectOfClasses:supportedValueClasses fromData:value3 error:&v41];
+  v16 = v41;
 
   if (!v15)
   {
@@ -137,9 +137,9 @@ LABEL_19:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v44 = v20;
-      v45 = 2112;
-      v46 = v16;
+      v43 = v20;
+      v44 = 2112;
+      v45 = v16;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive accessory setting constraint model supported value from the model's value: %@", buf, 0x16u);
     }
 
@@ -158,7 +158,6 @@ LABEL_19:
   selfCopy4 = self;
 LABEL_20:
 
-  v28 = *MEMORY[0x277D85DE8];
   return selfCopy4;
 }
 

@@ -101,22 +101,22 @@ LABEL_16:
 
 - (void)handleActiveUserActivityChange:(id)change withCompletion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   completionCopy = completion;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke;
-  v27[3] = &unk_27856B738;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke;
+  v26[3] = &unk_27856B738;
   v8 = completionCopy;
-  v28 = v8;
-  v9 = MEMORY[0x22AA6A360](v27);
+  v27 = v8;
+  v9 = MEMORY[0x22AA6A360](v26);
   v10 = [SYDocumentWorkflowsActivityChangeHandler _indexKeyFromUserActivity:changeCopy];
   v11 = os_log_create("com.apple.synapse", "DocumentWorkflows");
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = v10;
+    v29 = v10;
     _os_log_impl(&dword_225901000, v11, OS_LOG_TYPE_DEFAULT, "Handle user activity with index key: %@", buf, 0xCu);
   }
 
@@ -130,7 +130,7 @@ LABEL_16:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = v10;
+    v29 = v10;
     _os_log_impl(&dword_225901000, v13, OS_LOG_TYPE_DEFAULT, "Saving current user activity for message with index key: %@", buf, 0xCu);
   }
 
@@ -151,18 +151,16 @@ LABEL_16:
 
   [changeCopy setTitle:&stru_2838DFF18];
   client = self->_client;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke_7;
-  v23[3] = &unk_27856C008;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke_7;
+  v22[3] = &unk_27856C008;
   selfCopy = self;
-  v26 = v9;
-  v24 = v10;
+  v25 = v9;
+  v23 = v10;
   v20 = v10;
   v21 = v9;
-  [(SYDocumentWorkflowsClient *)client saveUserActivity:changeCopy forDocumentIndexKey:v20 sourceBundleIdentifier:v18 completion:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [(SYDocumentWorkflowsClient *)client saveUserActivity:changeCopy forDocumentIndexKey:v20 sourceBundleIdentifier:v18 completion:v22];
 }
 
 uint64_t __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke(uint64_t a1)
@@ -178,7 +176,7 @@ uint64_t __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivity
 
 void __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke_7(uint64_t a1, char a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = os_log_create("com.apple.synapse", "DocumentWorkflows");
   v7 = v6;
@@ -188,88 +186,86 @@ void __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChan
     {
       v8 = *(a1 + 32);
       *buf = 138412290;
-      v17 = v8;
+      v16 = v8;
       _os_log_impl(&dword_225901000, v7, OS_LOG_TYPE_DEFAULT, "Fetching attachments for message with index key: %@", buf, 0xCu);
     }
 
     v9 = *(a1 + 40);
-    v15 = *(a1 + 32);
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke_9;
-    v12[3] = &unk_27856C270;
-    v13 = *(a1 + 32);
-    v14 = *(a1 + 48);
-    [v9 _fetchAttributesForItemsWithIndexKeys:v10 maxRetryCount:3 completion:v12];
+    v14 = *(a1 + 32);
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke_9;
+    v11[3] = &unk_27856C270;
+    v12 = *(a1 + 32);
+    v13 = *(a1 + 48);
+    [v9 _fetchAttributesForItemsWithIndexKeys:v10 maxRetryCount:3 completion:v11];
   }
 
   else
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke_7_cold_1(a1);
+      __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke_7_cold_1();
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke_9(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = os_log_create("com.apple.synapse", "DocumentWorkflows");
   v8 = v7;
   if (v5 || !v6)
   {
-    v30 = v6;
+    v29 = v6;
     v9 = v7;
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [v5 count];
       v11 = *(a1 + 32);
       *buf = 134218242;
-      v39 = v10;
-      v40 = 2112;
-      v41 = v11;
+      v38 = v10;
+      v39 = 2112;
+      v40 = v11;
       _os_log_impl(&dword_225901000, v9, OS_LOG_TYPE_DEFAULT, "Found %ld attachments for message with index key: %@", buf, 0x16u);
     }
 
-    v29 = a1;
+    v28 = a1;
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
-    v31 = v5;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v30 = v5;
     v12 = v5;
-    v13 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (!v13)
     {
 LABEL_27:
 
-      (*(*(v29 + 40) + 16))();
-      v6 = v30;
-      v5 = v31;
+      (*(*(v28 + 40) + 16))();
+      v6 = v29;
+      v5 = v30;
       goto LABEL_28;
     }
 
     v14 = v13;
-    v15 = *v34;
+    v15 = *v33;
 LABEL_10:
     v16 = 0;
     while (1)
     {
-      if (*v34 != v15)
+      if (*v33 != v15)
       {
         objc_enumerationMutation(v12);
       }
 
-      v17 = *(*(&v33 + 1) + 8 * v16);
+      v17 = *(*(&v32 + 1) + 8 * v16);
       v18 = [v17 originalFileURL];
       v19 = [SYDocumentAttributes documentAttributesForFileAtURL:v18];
 
@@ -280,7 +276,7 @@ LABEL_10:
         {
           v21 = [v17 originalFileURL];
           *buf = 138412290;
-          v39 = v21;
+          v38 = v21;
           _os_log_impl(&dword_225901000, v20, OS_LOG_TYPE_DEFAULT, "Skip attachment with existing document attributes, URL: %@", buf, 0xCu);
         }
 
@@ -289,9 +285,9 @@ LABEL_10:
       }
 
       v23 = [v17 originalFileURL];
-      v32 = 0;
-      v24 = [v17 saveToFileURL:v23 error:&v32];
-      v22 = v32;
+      v31 = 0;
+      v24 = [v17 saveToFileURL:v23 error:&v31];
+      v22 = v31;
 
       v25 = os_log_create("com.apple.synapse", "DocumentWorkflows");
       v20 = v25;
@@ -304,7 +300,7 @@ LABEL_10:
       {
         v26 = [v17 originalFileURL];
         *buf = 138412290;
-        v39 = v26;
+        v38 = v26;
         _os_log_impl(&dword_225901000, v20, OS_LOG_TYPE_DEFAULT, "Extended attributes added to URL: %@", buf, 0xCu);
 LABEL_20:
       }
@@ -314,7 +310,7 @@ LABEL_22:
 LABEL_23:
       if (v14 == ++v16)
       {
-        v27 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v27 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
         v14 = v27;
         if (!v27)
         {
@@ -332,52 +328,48 @@ LABEL_23:
 
     v26 = [v17 originalFileURL];
     *buf = 138412546;
-    v39 = v26;
-    v40 = 2112;
-    v41 = v22;
+    v38 = v26;
+    v39 = 2112;
+    v40 = v22;
     _os_log_error_impl(&dword_225901000, v20, OS_LOG_TYPE_ERROR, "Unable to save extended attributes to URL: %@, error: %@", buf, 0x16u);
     goto LABEL_20;
   }
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke_9_cold_1(a1);
+    __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke_9_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
 LABEL_28:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchAttributesForItemsWithIndexKeys:(id)keys maxRetryCount:(int64_t)count completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   completionCopy = completion;
   v10 = os_log_create("com.apple.synapse", "DocumentWorkflows");
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v19 = keysCopy;
-    v20 = 2048;
+    v18 = keysCopy;
+    v19 = 2048;
     countCopy = count;
     _os_log_impl(&dword_225901000, v10, OS_LOG_TYPE_DEFAULT, "Fetching attributes for items with index keys: %@, retryCount: %ld", buf, 0x16u);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __107__SYDocumentWorkflowsActivityChangeHandler__fetchAttributesForItemsWithIndexKeys_maxRetryCount_completion___block_invoke;
-  v14[3] = &unk_27856C2C0;
-  v14[4] = self;
-  v15 = keysCopy;
-  v16 = completionCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __107__SYDocumentWorkflowsActivityChangeHandler__fetchAttributesForItemsWithIndexKeys_maxRetryCount_completion___block_invoke;
+  v13[3] = &unk_27856C2C0;
+  v13[4] = self;
+  v14 = keysCopy;
+  v15 = completionCopy;
   countCopy2 = count;
   v11 = completionCopy;
   v12 = keysCopy;
-  [SYDocumentAttributesFetchRequest fetchAttributesForDocumentsWithIndexKeys:v12 completion:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [SYDocumentAttributesFetchRequest fetchAttributesForDocumentsWithIndexKeys:v12 completion:v13];
 }
 
 void __107__SYDocumentWorkflowsActivityChangeHandler__fetchAttributesForItemsWithIndexKeys_maxRetryCount_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -424,31 +416,11 @@ void __107__SYDocumentWorkflowsActivityChangeHandler__fetchAttributesForItemsWit
 
 - (void)handleActiveUserActivityChange:(void *)a1 withCompletion:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 _syLoggableDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_225901000, a2, OS_LOG_TYPE_DEBUG, "%@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke_7_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_3(&dword_225901000, v2, v3, "Unable to save user activity for index key: %@, error: %@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __90__SYDocumentWorkflowsActivityChangeHandler_handleActiveUserActivityChange_withCompletion___block_invoke_9_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_3(&dword_225901000, v2, v3, "Unable to fetch attachments for message with index key: %@, error: %@");
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_225901000, a2, OS_LOG_TYPE_DEBUG, "%@", &v4, 0xCu);
 }
 
 @end

@@ -12,7 +12,7 @@
 
 - (void)addInput:(id)input withContext:(id)context
 {
-  v58 = *MEMORY[0x29EDCA608];
+  v57 = *MEMORY[0x29EDCA608];
   inputCopy = input;
   contextCopy = context;
   string = [inputCopy string];
@@ -21,26 +21,26 @@
   {
     if ([(TIKeyboardInputManagerLiveConversion_ja *)self shouldCommitHeadSegment])
     {
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
       v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       committedSegments = [(TIKeyboardInputManagerLiveConversion_ja *)self committedSegments];
-      v11 = [committedSegments countByEnumeratingWithState:&v53 objects:v57 count:16];
+      v11 = [committedSegments countByEnumeratingWithState:&v52 objects:v56 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v54;
+        v13 = *v53;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v54 != v13)
+            if (*v53 != v13)
             {
               objc_enumerationMutation(committedSegments);
             }
 
-            v15 = *(*(&v53 + 1) + 8 * i);
+            v15 = *(*(&v52 + 1) + 8 * i);
             surface = [v15 surface];
 
             if (surface)
@@ -51,7 +51,7 @@
             }
           }
 
-          v12 = [committedSegments countByEnumeratingWithState:&v53 objects:v57 count:16];
+          v12 = [committedSegments countByEnumeratingWithState:&v52 objects:v56 count:16];
         }
 
         while (v12);
@@ -166,17 +166,15 @@ LABEL_32:
 
 LABEL_33:
     [inputCopy setString:v34];
-    v52.receiver = self;
-    v52.super_class = TIKeyboardInputManagerLiveConversion_ja_Kana;
-    [(TIKeyboardInputManagerLiveConversion_ja_Kana *)&v52 addInput:inputCopy withContext:contextCopy];
+    v51.receiver = self;
+    v51.super_class = TIKeyboardInputManagerLiveConversion_ja_Kana;
+    [(TIKeyboardInputManagerLiveConversion_ja_Kana *)&v51 addInput:inputCopy withContext:contextCopy];
     [(TIKeyboardInputManagerLiveConversion_ja_Kana *)self calculateGeometryForInput:inputCopy];
     rawInputString4 = [(TIKeyboardInputManagerLiveConversion_ja *)self rawInputString];
     [(TIKeyboardInputManagerLiveConversion_ja *)self makeCandidatesWithWordSearch:rawInputString4];
 
     v9 = v34;
   }
-
-  v51 = *MEMORY[0x29EDCA608];
 }
 
 - (id)inputString

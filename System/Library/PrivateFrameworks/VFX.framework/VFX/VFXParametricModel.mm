@@ -80,37 +80,37 @@
 - (VFXParametricModel)init
 {
   v3 = [VFXParametricModel __createCFObject]_0();
-  v16.receiver = self;
-  v16.super_class = VFXParametricModel;
-  v4 = [(VFXModel *)&v16 initWithModelRef:v3];
-  v8 = v4;
+  v13.receiver = self;
+  v13.super_class = VFXParametricModel;
+  v4 = [(VFXModel *)&v13 initWithModelRef:v3];
+  v7 = v4;
   if (v4)
   {
-    objc_msgSend__updateModelFromPresentation(v4, v5, v6, v7);
-    v12 = objc_msgSend_material(VFXMaterial, v9, v10, v11);
-    objc_msgSend_setFirstMaterial_(v8, v13, v12, v14);
+    objc_msgSend__updateModelFromPresentation(v4, v5, v6);
+    v10 = objc_msgSend_material(VFXMaterial, v8, v9);
+    objc_msgSend_setFirstMaterial_(v7, v11, v10);
   }
 
   CFRelease(v3);
-  return v8;
+  return v7;
 }
 
 - (VFXParametricModel)initWithDefaultMaterial
 {
   v3 = [VFXParametricModel __createCFObject]_0();
-  v16.receiver = self;
-  v16.super_class = VFXParametricModel;
-  v4 = [(VFXModel *)&v16 initWithModelRef:v3];
-  v8 = v4;
+  v13.receiver = self;
+  v13.super_class = VFXParametricModel;
+  v4 = [(VFXModel *)&v13 initWithModelRef:v3];
+  v7 = v4;
   if (v4)
   {
-    objc_msgSend__updateModelFromPresentation(v4, v5, v6, v7);
-    v12 = objc_msgSend_material(VFXMaterial, v9, v10, v11);
-    objc_msgSend_setFirstMaterial_(v8, v13, v12, v14);
+    objc_msgSend__updateModelFromPresentation(v4, v5, v6);
+    v10 = objc_msgSend_material(VFXMaterial, v8, v9);
+    objc_msgSend_setFirstMaterial_(v7, v11, v10);
   }
 
   CFRelease(v3);
-  return v8;
+  return v7;
 }
 
 - (id)initUninitialized
@@ -138,15 +138,15 @@
 
 - (id)mesh
 {
-  v8.receiver = self;
-  v8.super_class = VFXParametricModel;
-  result = [(VFXModel *)&v8 mesh];
+  v7.receiver = self;
+  v7.super_class = VFXParametricModel;
+  result = [(VFXModel *)&v7 mesh];
   if (!result)
   {
-    objc_msgSend__recreateMeshFromPresentation(self, v4, v5, v6);
-    v7.receiver = self;
-    v7.super_class = VFXParametricModel;
-    return [(VFXModel *)&v7 mesh];
+    objc_msgSend__recreateMeshFromPresentation(self, v4, v5);
+    v6.receiver = self;
+    v6.super_class = VFXParametricModel;
+    return [(VFXModel *)&v6 mesh];
   }
 
   return result;
@@ -154,14 +154,14 @@
 
 - (id)presentationModel
 {
-  if (objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self;
   }
 
-  v6 = objc_alloc(objc_opt_class());
-  v10 = objc_msgSend_modelRef(self, v7, v8, v9);
-  inited = objc_msgSend_initPresentationParametricModelWithParametricGeometryRef_(v6, v11, v10, v12);
+  v5 = objc_alloc(objc_opt_class());
+  v8 = objc_msgSend_modelRef(self, v6, v7);
+  inited = objc_msgSend_initPresentationParametricModelWithParametricGeometryRef_(v5, v9, v8);
 
   return inited;
 }
@@ -175,39 +175,39 @@
     {
       if (!type)
       {
-        v24 = MEMORY[0x1E696AEC0];
+        v19 = MEMORY[0x1E696AEC0];
         width = self->_width;
         height = self->_height;
         length = self->_length;
-        v50 = objc_msgSend_modelDescription(self, a2, v2, v3);
-        return objc_msgSend_stringWithFormat_(v24, v28, @"<Cube [w=%f h=%f l=%f] %@>", v29, *&width, *&height, *&length, v50);
+        v40 = objc_msgSend_modelDescription(self, a2, v2);
+        return objc_msgSend_stringWithFormat_(v19, v23, @"<Cube [w=%f h=%f l=%f] %@>", *&width, *&height, *&length, v40);
       }
 
       if (type == 1)
       {
-        v10 = MEMORY[0x1E696AEC0];
+        v8 = MEMORY[0x1E696AEC0];
         radius = self->_radius;
-        v43 = objc_msgSend_modelDescription(self, a2, v2, v3);
-        return objc_msgSend_stringWithFormat_(v10, v12, @"<Sphere [r=%f]> %@", v13, *&radius, v43);
+        v33 = objc_msgSend_modelDescription(self, a2, v2);
+        return objc_msgSend_stringWithFormat_(v8, v10, @"<Sphere [r=%f]> %@", *&radius, v33);
       }
 
       return @"unknown parametric type";
     }
 
-    v14 = MEMORY[0x1E696AEC0];
-    v15 = self->_width;
-    v16 = self->_height;
+    v11 = MEMORY[0x1E696AEC0];
+    v12 = self->_width;
+    v13 = self->_height;
     if (type == 2)
     {
-      v48 = objc_msgSend_modelDescription(self, a2, v2, v3);
-      return objc_msgSend_stringWithFormat_(v14, v30, @"<Plane [w=%f h=%f]> %@", v31, *&v15, *&v16, v48);
+      v38 = objc_msgSend_modelDescription(self, a2, v2);
+      return objc_msgSend_stringWithFormat_(v11, v24, @"<Plane [w=%f h=%f]> %@", *&v12, *&v13, v38);
     }
 
     else
     {
-      v17 = self->_length;
-      v49 = objc_msgSend_modelDescription(self, a2, v2, v3);
-      return objc_msgSend_stringWithFormat_(v14, v18, @"<pyramid [w=%f h=%f l=%f] %@>", v19, *&v15, *&v16, *&v17, v49);
+      v14 = self->_length;
+      v39 = objc_msgSend_modelDescription(self, a2, v2);
+      return objc_msgSend_stringWithFormat_(v11, v15, @"<pyramid [w=%f h=%f l=%f] %@>", *&v12, *&v13, *&v14, v39);
     }
   }
 
@@ -218,53 +218,53 @@
       switch(type)
       {
         case 6:
-          v32 = MEMORY[0x1E696AEC0];
-          v33 = self->_height;
-          v45 = objc_msgSend_modelDescription(self, a2, v2, v3);
-          return objc_msgSend_stringWithFormat_(v32, v34, @"<Tube [h=%f]> %@", v35, *&v33, v45);
+          v25 = MEMORY[0x1E696AEC0];
+          v26 = self->_height;
+          v35 = objc_msgSend_modelDescription(self, a2, v2);
+          return objc_msgSend_stringWithFormat_(v25, v27, @"<Tube [h=%f]> %@", *&v26, v35);
         case 7:
-          v38 = MEMORY[0x1E696AEC0];
-          v39 = self->_height;
-          v47 = objc_msgSend_modelDescription(self, a2, v2, v3);
-          return objc_msgSend_stringWithFormat_(v38, v40, @"<Capsule [h=%f]> %@", v41, *&v39, v47);
+          v29 = MEMORY[0x1E696AEC0];
+          v30 = self->_height;
+          v37 = objc_msgSend_modelDescription(self, a2, v2);
+          return objc_msgSend_stringWithFormat_(v29, v31, @"<Capsule [h=%f]> %@", *&v30, v37);
         case 8:
-          v5 = MEMORY[0x1E696AEC0];
-          v6 = self->_radius;
-          v42 = objc_msgSend_modelDescription(self, a2, v2, v3);
-          return objc_msgSend_stringWithFormat_(v5, v7, @"<Torus [r=%f]> %@", v8, *&v6, v42);
+          v4 = MEMORY[0x1E696AEC0];
+          v5 = self->_radius;
+          v32 = objc_msgSend_modelDescription(self, a2, v2);
+          return objc_msgSend_stringWithFormat_(v4, v6, @"<Torus [r=%f]> %@", *&v5, v32);
       }
 
       return @"unknown parametric type";
     }
 
-    v20 = MEMORY[0x1E696AEC0];
-    v21 = self->_height;
+    v16 = MEMORY[0x1E696AEC0];
+    v17 = self->_height;
     if (type == 4)
     {
-      v46 = objc_msgSend_modelDescription(self, a2, v2, v3);
-      return objc_msgSend_stringWithFormat_(v20, v36, @"<Cylinder [h=%f]> %@", v37, *&v21, v46);
+      v36 = objc_msgSend_modelDescription(self, a2, v2);
+      return objc_msgSend_stringWithFormat_(v16, v28, @"<Cylinder [h=%f]> %@", *&v17, v36);
     }
 
     else
     {
-      v44 = objc_msgSend_modelDescription(self, a2, v2, v3);
-      return objc_msgSend_stringWithFormat_(v20, v22, @"<Cone [h=%f]> %@", v23, *&v21, v44);
+      v34 = objc_msgSend_modelDescription(self, a2, v2);
+      return objc_msgSend_stringWithFormat_(v16, v18, @"<Cone [h=%f]> %@", *&v17, v34);
     }
   }
 }
 
 - (void)_updateModelFromPresentation
 {
-  v9.receiver = self;
-  v9.super_class = VFXParametricModel;
-  [(VFXModel *)&v9 _updateModelFromPresentation];
-  v6 = objc_msgSend_modelRef(self, v3, v4, v5);
-  objc_msgSend__updateModelFromPresentation_(self, v7, v6, v8);
+  v7.receiver = self;
+  v7.super_class = VFXParametricModel;
+  [(VFXModel *)&v7 _updateModelFromPresentation];
+  v5 = objc_msgSend_modelRef(self, v3, v4);
+  objc_msgSend__updateModelFromPresentation_(self, v6, v5);
 }
 
 - (void)_updateModelFromPresentation:(__CFXParametricGeometry *)presentation
 {
-  self->_type = sub_1AF1BE834(presentation);
+  self->_type = sub_1AF1BE834(presentation, a2);
   v5 = sub_1AF1BECB4(presentation, 0);
   self->_width = *&v5;
   v6 = sub_1AF1BECB4(presentation, 1);
@@ -288,13 +288,13 @@
   self->_pipeSegmentCount = sub_1AF1C2450(presentation, 15);
   self->_capSegmentCount = sub_1AF1C2450(presentation, 14);
   self->_cornerSegmentCount = sub_1AF1C2450(presentation, 12);
-  self->_segmentCount = sub_1AF1C2DC8(presentation);
-  self->_radialSegmentCount = sub_1AF1C2B98(presentation);
-  v13 = sub_1AF1C2450(presentation, 19);
-  self->_spheregeodesic = v13 == 1;
-  self->_spherehemispheric = v13 == 2;
-  v14 = sub_1AF1BECB4(presentation, 18);
-  self->_radialSpan = *&v14;
+  self->_segmentCount = sub_1AF1C2DC8(presentation, v13);
+  self->_radialSegmentCount = sub_1AF1C2B98(presentation, v14);
+  v15 = sub_1AF1C2450(presentation, 19);
+  self->_spheregeodesic = v15 == 1;
+  self->_spherehemispheric = v15 == 2;
+  v16 = sub_1AF1BECB4(presentation, 18);
+  self->_radialSpan = *&v16;
   self->_primitiveType = sub_1AF1C2450(presentation, 17);
 }
 
@@ -313,75 +313,75 @@
 
 - (void)_setupObjCModelFrom:(id)from
 {
-  v139.receiver = self;
-  v139.super_class = VFXParametricModel;
-  [(VFXModel *)&v139 _setupObjCModelFrom:?];
-  objc_msgSend_begin(VFXTransaction, v5, v6, v7);
-  objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1, v9);
-  v13 = objc_msgSend_primitiveType(from, v10, v11, v12);
-  objc_msgSend_setPrimitiveType_(self, v14, v13, v15);
-  objc_msgSend_width(from, v16, v17, v18);
-  objc_msgSend_setWidth_(self, v19, v20, v21);
-  objc_msgSend_height(from, v22, v23, v24);
-  objc_msgSend_setHeight_(self, v25, v26, v27);
-  objc_msgSend_length(from, v28, v29, v30);
-  objc_msgSend_setLength_(self, v31, v32, v33);
-  objc_msgSend_radius(from, v34, v35, v36);
-  objc_msgSend_setRadius_(self, v37, v38, v39);
-  objc_msgSend_chamferRadius(from, v40, v41, v42);
-  objc_msgSend_setChamferRadius_(self, v43, v44, v45);
-  objc_msgSend_topRadius(from, v46, v47, v48);
-  objc_msgSend_setTopRadius_(self, v49, v50, v51);
-  objc_msgSend_pipeRadius(from, v52, v53, v54);
-  objc_msgSend_setPipeRadius_(self, v55, v56, v57);
-  objc_msgSend_innerRadius(from, v58, v59, v60);
-  objc_msgSend_setInnerRadius_(self, v61, v62, v63);
-  v67 = objc_msgSend_segmentCount(from, v64, v65, v66);
-  objc_msgSend_setSegmentCount_(self, v68, v67, v69);
-  v73 = objc_msgSend_widthSegmentCount(from, v70, v71, v72);
-  objc_msgSend_setWidthSegmentCount_(self, v74, v73, v75);
-  v79 = objc_msgSend_heightSegmentCount(from, v76, v77, v78);
-  objc_msgSend_setHeightSegmentCount_(self, v80, v79, v81);
-  v85 = objc_msgSend_lengthSegmentCount(from, v82, v83, v84);
-  objc_msgSend_setLengthSegmentCount_(self, v86, v85, v87);
-  v91 = objc_msgSend_cornerSegmentCount(from, v88, v89, v90);
-  objc_msgSend_setCornerSegmentCount_(self, v92, v91, v93);
-  v97 = objc_msgSend_pipeSegmentCount(from, v94, v95, v96);
-  objc_msgSend_setPipeSegmentCount_(self, v98, v97, v99);
-  v103 = objc_msgSend_capSegmentCount(from, v100, v101, v102);
-  objc_msgSend_setCapSegmentCount_(self, v104, v103, v105);
-  v109 = objc_msgSend_radialSegmentCount(from, v106, v107, v108);
-  objc_msgSend_setRadialSegmentCount_(self, v110, v109, v111);
-  objc_msgSend_radialSpan(from, v112, v113, v114);
-  objc_msgSend_setRadialSpan_(self, v115, v116, v117);
-  isGeodesic = objc_msgSend_isGeodesic(from, v118, v119, v120);
-  objc_msgSend_setGeodesic_(self, v122, isGeodesic, v123);
-  isHemispheric = objc_msgSend_isHemispheric(from, v124, v125, v126);
-  objc_msgSend_setHemispheric_(self, v128, isHemispheric, v129);
-  v133 = objc_msgSend_parametricType(from, v130, v131, v132);
-  objc_msgSend_setParametricType_(self, v134, v133, v135);
-  objc_msgSend_commitImmediate(VFXTransaction, v136, v137, v138);
+  v94.receiver = self;
+  v94.super_class = VFXParametricModel;
+  [(VFXModel *)&v94 _setupObjCModelFrom:?];
+  objc_msgSend_begin(VFXTransaction, v5, v6);
+  objc_msgSend_setImmediateMode_(VFXTransaction, v7, 1);
+  v10 = objc_msgSend_primitiveType(from, v8, v9);
+  objc_msgSend_setPrimitiveType_(self, v11, v10);
+  objc_msgSend_width(from, v12, v13);
+  objc_msgSend_setWidth_(self, v14, v15);
+  objc_msgSend_height(from, v16, v17);
+  objc_msgSend_setHeight_(self, v18, v19);
+  objc_msgSend_length(from, v20, v21);
+  objc_msgSend_setLength_(self, v22, v23);
+  objc_msgSend_radius(from, v24, v25);
+  objc_msgSend_setRadius_(self, v26, v27);
+  objc_msgSend_chamferRadius(from, v28, v29);
+  objc_msgSend_setChamferRadius_(self, v30, v31);
+  objc_msgSend_topRadius(from, v32, v33);
+  objc_msgSend_setTopRadius_(self, v34, v35);
+  objc_msgSend_pipeRadius(from, v36, v37);
+  objc_msgSend_setPipeRadius_(self, v38, v39);
+  objc_msgSend_innerRadius(from, v40, v41);
+  objc_msgSend_setInnerRadius_(self, v42, v43);
+  v46 = objc_msgSend_segmentCount(from, v44, v45);
+  objc_msgSend_setSegmentCount_(self, v47, v46);
+  v50 = objc_msgSend_widthSegmentCount(from, v48, v49);
+  objc_msgSend_setWidthSegmentCount_(self, v51, v50);
+  v54 = objc_msgSend_heightSegmentCount(from, v52, v53);
+  objc_msgSend_setHeightSegmentCount_(self, v55, v54);
+  v58 = objc_msgSend_lengthSegmentCount(from, v56, v57);
+  objc_msgSend_setLengthSegmentCount_(self, v59, v58);
+  v62 = objc_msgSend_cornerSegmentCount(from, v60, v61);
+  objc_msgSend_setCornerSegmentCount_(self, v63, v62);
+  v66 = objc_msgSend_pipeSegmentCount(from, v64, v65);
+  objc_msgSend_setPipeSegmentCount_(self, v67, v66);
+  v70 = objc_msgSend_capSegmentCount(from, v68, v69);
+  objc_msgSend_setCapSegmentCount_(self, v71, v70);
+  v74 = objc_msgSend_radialSegmentCount(from, v72, v73);
+  objc_msgSend_setRadialSegmentCount_(self, v75, v74);
+  objc_msgSend_radialSpan(from, v76, v77);
+  objc_msgSend_setRadialSpan_(self, v78, v79);
+  isGeodesic = objc_msgSend_isGeodesic(from, v80, v81);
+  objc_msgSend_setGeodesic_(self, v83, isGeodesic);
+  isHemispheric = objc_msgSend_isHemispheric(from, v84, v85);
+  objc_msgSend_setHemispheric_(self, v87, isHemispheric);
+  v90 = objc_msgSend_parametricType(from, v88, v89);
+  objc_msgSend_setParametricType_(self, v91, v90);
+  objc_msgSend_commitImmediate(VFXTransaction, v92, v93);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc(objc_opt_class());
-  inited = objc_msgSend_initUninitialized(v4, v5, v6, v7);
-  if (objc_msgSend_behaviorGraph(self, v9, v10, v11))
+  inited = objc_msgSend_initUninitialized(v4, v5, v6);
+  if (objc_msgSend_behaviorGraph(self, v8, v9))
   {
-    v15 = objc_msgSend_behaviorGraph(self, v12, v13, v14);
-    v19 = objc_msgSend_copy(v15, v16, v17, v18);
-    objc_msgSend_setBehaviorGraph_(inited, v20, v19, v21);
-    v25 = objc_msgSend_entityObject(v19, v22, v23, v24);
-    v36 = objc_msgSend_identifier(self, v26, v27, v28);
-    v37[0] = inited;
-    v30 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v29, v37, &v36, 1);
-    objc_msgSend_updateVFXObjectReferences_(v25, v31, v30, v32);
+    v12 = objc_msgSend_behaviorGraph(self, v10, v11);
+    v15 = objc_msgSend_copy(v12, v13, v14);
+    objc_msgSend_setBehaviorGraph_(inited, v16, v15);
+    v19 = objc_msgSend_entityObject(v15, v17, v18);
+    v27 = objc_msgSend_identifier(self, v20, v21);
+    v28[0] = inited;
+    v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v22, v28, &v27, 1);
+    objc_msgSend_updateVFXObjectReferences_(v19, v24, v23);
   }
 
-  objc_msgSend__setupObjCModelFrom_(inited, v12, self, v14);
-  objc_msgSend__copyAttributesTo_(self, v33, inited, v34);
+  objc_msgSend__setupObjCModelFrom_(inited, v10, self);
+  objc_msgSend__copyAttributesTo_(self, v25, inited);
   return inited;
 }
 
@@ -389,34 +389,34 @@
 {
   v4 = v3;
   v5 = v2;
-  DWORD2(v26) = 0;
-  *&v26 = 0;
-  DWORD2(v25) = 0;
-  *&v25 = 0;
-  if (!objc_msgSend_isPresentationObject(self, max, v2, v3))
+  DWORD2(v23) = 0;
+  *&v23 = 0;
+  DWORD2(v22) = 0;
+  *&v22 = 0;
+  if (!objc_msgSend_isPresentationObject(self, max, v2))
   {
-    if (objc_msgSend__hasFixedBoundingBoxExtrema(self, v7, v8, v9))
+    if (objc_msgSend__hasFixedBoundingBoxExtrema(self, v7, v8))
     {
-      v24.receiver = self;
-      v24.super_class = VFXParametricModel;
-      return [(VFXModel *)&v24 getBoundingBoxMin:v5 max:v4];
+      v21.receiver = self;
+      v21.super_class = VFXParametricModel;
+      return [(VFXModel *)&v21 getBoundingBoxMin:v5 max:v4];
     }
 
     type = self->_type;
-    v19 = 1;
+    v16 = 1;
     if (type <= 3)
     {
       if (type > 1)
       {
-        v20.i32[0] = LODWORD(self->_width);
+        v17.i32[0] = LODWORD(self->_width);
         if (type == 2)
         {
-          sub_1AF1BEC3C(&v26, &v25, *v20.i8, self->_height);
+          sub_1AF1BEC3C(&v23, &v22, *v17.i8, self->_height);
         }
 
         else
         {
-          sub_1AF1BFB60(&v26, &v25, v20, self->_height, self->_length);
+          sub_1AF1BFB60(&v23, &v22, v17, self->_height, self->_length);
         }
       }
 
@@ -424,15 +424,15 @@
       {
         if (type == 1)
         {
-          v20.i32[0] = LODWORD(self->_radius);
-          sub_1AF1C0344(&v26, &v25, *v20.i64, v21);
+          v17.i32[0] = LODWORD(self->_radius);
+          sub_1AF1C0344(&v23, &v22, *v17.i64, v18);
         }
       }
 
       else
       {
-        v20.i32[0] = LODWORD(self->_width);
-        sub_1AF1BF164(&v26, &v25, *v20.i8, self->_height, self->_length);
+        v17.i32[0] = LODWORD(self->_width);
+        sub_1AF1BF164(&v23, &v22, *v17.i8, self->_height, self->_length);
       }
 
       goto LABEL_17;
@@ -442,8 +442,8 @@
     {
       if (type != 4)
       {
-        v20.i32[0] = LODWORD(self->_topRadius);
-        sub_1AF1C0C40(&v26, &v25, *v20.i8, self->_radius, self->_height);
+        v17.i32[0] = LODWORD(self->_topRadius);
+        sub_1AF1C0C40(&v23, &v22, *v17.i8, self->_radius, self->_height);
         goto LABEL_17;
       }
     }
@@ -452,28 +452,28 @@
     {
       if (type == 8)
       {
-        sub_1AF1C1B7C(&v26, &v25, self->_radius, self->_pipeRadius);
+        sub_1AF1C1B7C(&v23, &v22, self->_radius, self->_pipeRadius);
       }
 
       goto LABEL_17;
     }
 
-    sub_1AF1C0710(&v26, &v25, self->_radius, self->_height);
+    sub_1AF1C0710(&v23, &v22, self->_radius, self->_height);
     goto LABEL_17;
   }
 
-  v10 = objc_msgSend_worldRef(self, v7, v8, v9);
-  v14 = v10;
-  if (v10)
+  v9 = objc_msgSend_worldRef(self, v7, v8);
+  v12 = v9;
+  if (v9)
   {
-    sub_1AF1CEA20(v10);
+    sub_1AF1CEA20(v9, v10);
   }
 
-  if (objc_msgSend_modelRef(self, v11, v12, v13))
+  if (objc_msgSend_modelRef(self, v10, v11))
   {
-    v18 = objc_msgSend_modelRef(self, v15, v16, v17);
-    v19 = sub_1AF1BED40(v18, &v26, &v25);
-    if (!v14)
+    v15 = objc_msgSend_modelRef(self, v13, v14);
+    v16 = sub_1AF1BED40(v15, &v23, &v22);
+    if (!v12)
     {
       goto LABEL_17;
     }
@@ -481,74 +481,74 @@
     goto LABEL_16;
   }
 
-  v19 = 0;
-  if (v14)
+  v16 = 0;
+  if (v12)
   {
 LABEL_16:
-    sub_1AF1CEA9C(v14);
+    sub_1AF1CEA9C(v12, v13);
   }
 
 LABEL_17:
   if (v5)
   {
-    *v5 = v26;
+    *v5 = v23;
   }
 
   if (v4)
   {
-    *v4 = v25;
+    *v4 = v22;
   }
 
-  return v19;
+  return v16;
 }
 
 - (BOOL)getBoundingSphereCenter:(VFXParametricModel *)self radius:(SEL)radius
 {
   v4 = v3;
   v5 = v2;
-  v24 = 0uLL;
-  if (objc_msgSend_isPresentationObject(self, radius, v2, v3))
+  v21 = 0uLL;
+  if (objc_msgSend_isPresentationObject(self, radius, v2))
   {
-    v12 = objc_msgSend_worldRef(self, v7, v8, v9);
-    v16 = v12;
-    if (v12)
+    v11 = objc_msgSend_worldRef(self, v7, v8);
+    v14 = v11;
+    if (v11)
     {
-      sub_1AF1CEA20(v12);
+      sub_1AF1CEA20(v11, v12);
     }
 
-    if (objc_msgSend_modelRef(self, v13, v14, v15) && (v20 = objc_msgSend_modelRef(self, v17, v18, v19), sub_1AF1BEDA8(v20, &v24)))
+    if (objc_msgSend_modelRef(self, v12, v13) && (v17 = objc_msgSend_modelRef(self, v15, v16), sub_1AF1BEDA8(v17, &v21)))
     {
       if (v5)
       {
-        *v5 = v24;
+        *v5 = v21;
       }
 
       if (v4)
       {
-        *v4 = v24.i32[3];
+        *v4 = v21.i32[3];
       }
 
-      v21 = 1;
-      if (!v16)
+      v18 = 1;
+      if (!v14)
       {
-        return v21;
+        return v18;
       }
     }
 
     else
     {
-      v21 = 0;
-      if (!v16)
+      v18 = 0;
+      if (!v14)
       {
-        return v21;
+        return v18;
       }
     }
 
-    sub_1AF1CEA9C(v16);
-    return v21;
+    sub_1AF1CEA9C(v14, v15);
+    return v18;
   }
 
-  v21 = 0;
+  v18 = 0;
   type = self->_type;
   if (type <= 3)
   {
@@ -556,7 +556,7 @@ LABEL_17:
     {
       if (type == 2)
       {
-        if (!sub_1AF1BECDC(&v24, self->_width, self->_height))
+        if (!sub_1AF1BECDC(&v21, self->_width, self->_height))
         {
           return 0;
         }
@@ -564,9 +564,9 @@ LABEL_17:
 
       else
       {
-        v10.i32[0] = LODWORD(self->_width);
-        *&v11 = self->_height;
-        if (!sub_1AF1BFC5C(&v24, v10, v11, self->_length))
+        v9.i32[0] = LODWORD(self->_width);
+        *&v10 = self->_height;
+        if (!sub_1AF1BFC5C(&v21, v9, v10, self->_length))
         {
           return 0;
         }
@@ -577,16 +577,16 @@ LABEL_17:
     {
       if (type != 1)
       {
-        return v21;
+        return v18;
       }
 
-      if (!sub_1AF1C03B0(&v24, self->_radius))
+      if (!sub_1AF1C03B0(&v21, self->_radius))
       {
         return 0;
       }
     }
 
-    else if (!sub_1AF1BF200(&v24, self->_width, self->_height, self->_length))
+    else if (!sub_1AF1BF200(&v21, self->_width, self->_height, self->_length))
     {
       return 0;
     }
@@ -596,13 +596,13 @@ LABEL_17:
   {
     if (type == 4)
     {
-      if (!sub_1AF1C082C(&v24, self->_radius, self->_height))
+      if (!sub_1AF1C082C(&v21, self->_radius, self->_height))
       {
         return 0;
       }
     }
 
-    else if (!sub_1AF1C0D6C(&v24, self->_topRadius, self->_radius, self->_height))
+    else if (!sub_1AF1C0D6C(&v21, self->_topRadius, self->_radius, self->_height))
     {
       return 0;
     }
@@ -613,40 +613,40 @@ LABEL_17:
     switch(type)
     {
       case 6:
-        if (!sub_1AF1C082C(&v24, self->_radius, self->_height))
+        if (!sub_1AF1C082C(&v21, self->_radius, self->_height))
         {
           return 0;
         }
 
         break;
       case 7:
-        v10.i32[0] = LODWORD(self->_radius);
-        if (!sub_1AF1C1710(&v24, *v10.i64, self->_height))
+        v9.i32[0] = LODWORD(self->_radius);
+        if (!sub_1AF1C1710(&v21, *v9.i64, self->_height))
         {
           return 0;
         }
 
         break;
       case 8:
-        if (!sub_1AF1C1C04(&v24, self->_radius, self->_pipeRadius))
+        if (!sub_1AF1C1C04(&v21, self->_radius, self->_pipeRadius))
         {
           return 0;
         }
 
         break;
       default:
-        return v21;
+        return v18;
     }
   }
 
   if (v5)
   {
-    *v5 = v24;
+    *v5 = v21;
   }
 
   if (v4)
   {
-    *v4 = v24.i32[3];
+    *v4 = v21.i32[3];
   }
 
   return 1;
@@ -654,10 +654,10 @@ LABEL_17:
 
 - (void)_notifyModelChanged
 {
-  objc_msgSend__meshForParametricModelHasChanged(self, a2, v2, v3);
-  if (sub_1AF28A2DC())
+  HasChanged = objc_msgSend__meshForParametricModelHasChanged(self, a2, v2);
+  if (sub_1AF28A2DC(HasChanged, v5))
   {
-    v8 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v5, v6, v7);
+    v8 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v6, v7);
 
     objc_msgSend_postNotificationName_object_(v8, v9, @"kCFXNotificationParametricModelTypeDidChange", self);
   }
@@ -665,820 +665,820 @@ LABEL_17:
 
 - (void)setParametricType:(int64_t)type
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, type, v3) & 1) != 0 || self->_type != type)
+  if ((objc_msgSend_isPresentationObject(self, a2, type) & 1) != 0 || self->_type != type)
   {
     self->_type = type;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1AF312018;
-    v10[3] = &unk_1E7A7E248;
-    v10[4] = self;
-    v10[5] = type;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v6, self, v10);
-    objc_msgSend__notifyModelChanged(self, v7, v8, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF312018;
+    v8[3] = &unk_1E7A7E248;
+    v8[4] = self;
+    v8[5] = type;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v5, self, v8);
+    objc_msgSend__notifyModelChanged(self, v6, v7);
   }
 }
 
 - (int64_t)parametricType
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_type;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1BE834(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1BE834(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (float)width
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_width;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1BF984(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1BF984(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setWidth:(float)width
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, v3, v4) & 1) != 0 || self->_width != width)
+  if ((objc_msgSend_isPresentationObject(self, a2, v3) & 1) != 0 || self->_width != width)
   {
     self->_width = width;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = sub_1AF312208;
-    v11[3] = &unk_1E7A7E270;
-    v11[4] = self;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1AF312208;
+    v9[3] = &unk_1E7A7E270;
+    v9[4] = self;
     widthCopy = width;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v7, self, @"width", v11);
-    objc_msgSend__notifyModelChanged(self, v8, v9, v10);
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"width", v9);
+    objc_msgSend__notifyModelChanged(self, v7, v8);
   }
 }
 
 - (float)height
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_height;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1BF9CC(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1BF9CC(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setHeight:(float)height
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, v3, v4) & 1) != 0 || self->_height != height)
+  if ((objc_msgSend_isPresentationObject(self, a2, v3) & 1) != 0 || self->_height != height)
   {
     self->_height = height;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = sub_1AF312380;
-    v11[3] = &unk_1E7A7E270;
-    v11[4] = self;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1AF312380;
+    v9[3] = &unk_1E7A7E270;
+    v9[4] = self;
     heightCopy = height;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v7, self, @"height", v11);
-    objc_msgSend__notifyModelChanged(self, v8, v9, v10);
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"height", v9);
+    objc_msgSend__notifyModelChanged(self, v7, v8);
   }
 }
 
 - (float)length
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_length;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1BFA14(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1BFA14(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setLength:(float)length
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, v3, v4) & 1) != 0 || self->_length != length)
+  if ((objc_msgSend_isPresentationObject(self, a2, v3) & 1) != 0 || self->_length != length)
   {
     self->_length = length;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = sub_1AF3124F8;
-    v11[3] = &unk_1E7A7E270;
-    v11[4] = self;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1AF3124F8;
+    v9[3] = &unk_1E7A7E270;
+    v9[4] = self;
     lengthCopy = length;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v7, self, @"length", v11);
-    objc_msgSend__notifyModelChanged(self, v8, v9, v10);
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"length", v9);
+    objc_msgSend__notifyModelChanged(self, v7, v8);
   }
 }
 
 - (float)radius
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_radius;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C07E4(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C07E4(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setRadius:(float)radius
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, v3, v4) & 1) != 0 || self->_radius != radius)
+  if ((objc_msgSend_isPresentationObject(self, a2, v3) & 1) != 0 || self->_radius != radius)
   {
     self->_radius = radius;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = sub_1AF312670;
-    v11[3] = &unk_1E7A7E270;
-    v11[4] = self;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1AF312670;
+    v9[3] = &unk_1E7A7E270;
+    v9[4] = self;
     radiusCopy = radius;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v7, self, @"radius", v11);
-    objc_msgSend__notifyModelChanged(self, v8, v9, v10);
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"radius", v9);
+    objc_msgSend__notifyModelChanged(self, v7, v8);
   }
 }
 
 - (float)chamferRadius
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_chamferRadius;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1BF028(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1BF028(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setChamferRadius:(float)radius
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, v3, v4) & 1) != 0 || self->_chamferRadius != radius)
+  if ((objc_msgSend_isPresentationObject(self, a2, v3) & 1) != 0 || self->_chamferRadius != radius)
   {
     self->_chamferRadius = radius;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = sub_1AF3127F0;
-    v11[3] = &unk_1E7A7E270;
-    v11[4] = self;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1AF3127F0;
+    v9[3] = &unk_1E7A7E270;
+    v9[4] = self;
     radiusCopy = radius;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v7, self, @"chamferRadius", v11);
-    objc_msgSend__notifyModelChanged(self, v8, v9, v10);
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"chamferRadius", v9);
+    objc_msgSend__notifyModelChanged(self, v7, v8);
   }
 }
 
 - (float)topRadius
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_topRadius;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C0D24(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C0D24(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setTopRadius:(float)radius
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, v3, v4) & 1) != 0 || self->_topRadius != radius)
+  if ((objc_msgSend_isPresentationObject(self, a2, v3) & 1) != 0 || self->_topRadius != radius)
   {
     self->_topRadius = radius;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = sub_1AF312968;
-    v11[3] = &unk_1E7A7E270;
-    v11[4] = self;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1AF312968;
+    v9[3] = &unk_1E7A7E270;
+    v9[4] = self;
     radiusCopy = radius;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v7, self, @"topRadius", v11);
-    objc_msgSend__notifyModelChanged(self, v8, v9, v10);
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"topRadius", v9);
+    objc_msgSend__notifyModelChanged(self, v7, v8);
   }
 }
 
 - (float)innerRadius
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_innerRadius;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C0D24(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C0D24(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setInnerRadius:(float)radius
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, v3, v4) & 1) != 0 || self->_innerRadius != radius)
+  if ((objc_msgSend_isPresentationObject(self, a2, v3) & 1) != 0 || self->_innerRadius != radius)
   {
     self->_innerRadius = radius;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = sub_1AF312AE0;
-    v11[3] = &unk_1E7A7E270;
-    v11[4] = self;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1AF312AE0;
+    v9[3] = &unk_1E7A7E270;
+    v9[4] = self;
     radiusCopy = radius;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v7, self, @"innerRadius", v11);
-    objc_msgSend__notifyModelChanged(self, v8, v9, v10);
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"innerRadius", v9);
+    objc_msgSend__notifyModelChanged(self, v7, v8);
   }
 }
 
 - (float)pipeRadius
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_pipeRadius;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C1F08(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C1F08(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setPipeRadius:(float)radius
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, v3, v4) & 1) != 0 || self->_pipeRadius != radius)
+  if ((objc_msgSend_isPresentationObject(self, a2, v3) & 1) != 0 || self->_pipeRadius != radius)
   {
     self->_pipeRadius = radius;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = sub_1AF312C58;
-    v11[3] = &unk_1E7A7E270;
-    v11[4] = self;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1AF312C58;
+    v9[3] = &unk_1E7A7E270;
+    v9[4] = self;
     radiusCopy = radius;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v7, self, @"pipeRadius", v11);
-    objc_msgSend__notifyModelChanged(self, v8, v9, v10);
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"pipeRadius", v9);
+    objc_msgSend__notifyModelChanged(self, v7, v8);
   }
 }
 
 - (int64_t)segmentCount
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_segmentCount;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C2DC8(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C2DC8(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setSegmentCount:(int64_t)count
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, count, v3) & 1) != 0 || self->_segmentCount != count)
+  if ((objc_msgSend_isPresentationObject(self, a2, count) & 1) != 0 || self->_segmentCount != count)
   {
     self->_segmentCount = count;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1AF312DBC;
-    v10[3] = &unk_1E7A7E248;
-    v10[4] = self;
-    v10[5] = count;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"segmentCount", v10);
-    objc_msgSend__notifyModelChanged(self, v7, v8, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF312DBC;
+    v8[3] = &unk_1E7A7E248;
+    v8[4] = self;
+    v8[5] = count;
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v5, self, @"segmentCount", v8);
+    objc_msgSend__notifyModelChanged(self, v6, v7);
   }
 }
 
 - (int64_t)widthSegmentCount
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_widthSegmentCount;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C2A34(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C2A34(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setWidthSegmentCount:(int64_t)count
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, count, v3) & 1) != 0 || self->_widthSegmentCount != count)
+  if ((objc_msgSend_isPresentationObject(self, a2, count) & 1) != 0 || self->_widthSegmentCount != count)
   {
     self->_widthSegmentCount = count;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1AF312F20;
-    v10[3] = &unk_1E7A7E248;
-    v10[4] = self;
-    v10[5] = count;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"widthSegmentCount", v10);
-    objc_msgSend__notifyModelChanged(self, v7, v8, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF312F20;
+    v8[3] = &unk_1E7A7E248;
+    v8[4] = self;
+    v8[5] = count;
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v5, self, @"widthSegmentCount", v8);
+    objc_msgSend__notifyModelChanged(self, v6, v7);
   }
 }
 
 - (int64_t)heightSegmentCount
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_heightSegmentCount;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C2754(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C2754(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setHeightSegmentCount:(int64_t)count
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, count, v3) & 1) != 0 || self->_heightSegmentCount != count)
+  if ((objc_msgSend_isPresentationObject(self, a2, count) & 1) != 0 || self->_heightSegmentCount != count)
   {
     self->_heightSegmentCount = count;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1AF313084;
-    v10[3] = &unk_1E7A7E248;
-    v10[4] = self;
-    v10[5] = count;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"heightSegmentCount", v10);
-    objc_msgSend__notifyModelChanged(self, v7, v8, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF313084;
+    v8[3] = &unk_1E7A7E248;
+    v8[4] = self;
+    v8[5] = count;
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v5, self, @"heightSegmentCount", v8);
+    objc_msgSend__notifyModelChanged(self, v6, v7);
   }
 }
 
 - (int64_t)lengthSegmentCount
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_lengthSegmentCount;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C286C(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C286C(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setLengthSegmentCount:(int64_t)count
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, count, v3) & 1) != 0 || self->_lengthSegmentCount != count)
+  if ((objc_msgSend_isPresentationObject(self, a2, count) & 1) != 0 || self->_lengthSegmentCount != count)
   {
     self->_lengthSegmentCount = count;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1AF3131E8;
-    v10[3] = &unk_1E7A7E248;
-    v10[4] = self;
-    v10[5] = count;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"lengthSegmentCount", v10);
-    objc_msgSend__notifyModelChanged(self, v7, v8, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF3131E8;
+    v8[3] = &unk_1E7A7E248;
+    v8[4] = self;
+    v8[5] = count;
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v5, self, @"lengthSegmentCount", v8);
+    objc_msgSend__notifyModelChanged(self, v6, v7);
   }
 }
 
 - (int64_t)chamferSegmentCount
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_chamferSegmentCount;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C263C(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C263C(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setChamferSegmentCount:(int64_t)count
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, count, v3) & 1) != 0 || self->_chamferSegmentCount != count)
+  if ((objc_msgSend_isPresentationObject(self, a2, count) & 1) != 0 || self->_chamferSegmentCount != count)
   {
     self->_chamferSegmentCount = count;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1AF31334C;
-    v10[3] = &unk_1E7A7E248;
-    v10[4] = self;
-    v10[5] = count;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"chamferSegmentCount", v10);
-    objc_msgSend__notifyModelChanged(self, v7, v8, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF31334C;
+    v8[3] = &unk_1E7A7E248;
+    v8[4] = self;
+    v8[5] = count;
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v5, self, @"chamferSegmentCount", v8);
+    objc_msgSend__notifyModelChanged(self, v6, v7);
   }
 }
 
 - (int64_t)cornerSegmentCount
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_cornerSegmentCount;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C263C(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C263C(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setCornerSegmentCount:(int64_t)count
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, count, v3) & 1) != 0 || self->_cornerSegmentCount != count)
+  if ((objc_msgSend_isPresentationObject(self, a2, count) & 1) != 0 || self->_cornerSegmentCount != count)
   {
     self->_cornerSegmentCount = count;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1AF3134B0;
-    v10[3] = &unk_1E7A7E248;
-    v10[4] = self;
-    v10[5] = count;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"cornerSegmentCount", v10);
-    objc_msgSend__notifyModelChanged(self, v7, v8, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF3134B0;
+    v8[3] = &unk_1E7A7E248;
+    v8[4] = self;
+    v8[5] = count;
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v5, self, @"cornerSegmentCount", v8);
+    objc_msgSend__notifyModelChanged(self, v6, v7);
   }
 }
 
 - (int64_t)pipeSegmentCount
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_pipeSegmentCount;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C2EE0(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C2EE0(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setPipeSegmentCount:(int64_t)count
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, count, v3) & 1) != 0 || self->_pipeSegmentCount != count)
+  if ((objc_msgSend_isPresentationObject(self, a2, count) & 1) != 0 || self->_pipeSegmentCount != count)
   {
     self->_pipeSegmentCount = count;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1AF313614;
-    v10[3] = &unk_1E7A7E248;
-    v10[4] = self;
-    v10[5] = count;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"pipeSegmentCount", v10);
-    objc_msgSend__notifyModelChanged(self, v7, v8, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF313614;
+    v8[3] = &unk_1E7A7E248;
+    v8[4] = self;
+    v8[5] = count;
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v5, self, @"pipeSegmentCount", v8);
+    objc_msgSend__notifyModelChanged(self, v6, v7);
   }
 }
 
 - (int64_t)capSegmentCount
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_capSegmentCount;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C2AE4(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C2AE4(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setCapSegmentCount:(int64_t)count
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, count, v3) & 1) != 0 || self->_capSegmentCount != count)
+  if ((objc_msgSend_isPresentationObject(self, a2, count) & 1) != 0 || self->_capSegmentCount != count)
   {
     self->_capSegmentCount = count;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1AF313778;
-    v10[3] = &unk_1E7A7E248;
-    v10[4] = self;
-    v10[5] = count;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"capSegmentCount", v10);
-    objc_msgSend__notifyModelChanged(self, v7, v8, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF313778;
+    v8[3] = &unk_1E7A7E248;
+    v8[4] = self;
+    v8[5] = count;
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v5, self, @"capSegmentCount", v8);
+    objc_msgSend__notifyModelChanged(self, v6, v7);
   }
 }
 
 - (int64_t)radialSegmentCount
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_radialSegmentCount;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C2B98(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C2B98(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setRadialSegmentCount:(int64_t)count
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, count, v3) & 1) != 0 || self->_radialSegmentCount != count)
+  if ((objc_msgSend_isPresentationObject(self, a2, count) & 1) != 0 || self->_radialSegmentCount != count)
   {
     self->_radialSegmentCount = count;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1AF3138DC;
-    v10[3] = &unk_1E7A7E248;
-    v10[4] = self;
-    v10[5] = count;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"radialSegmentCount", v10);
-    objc_msgSend__notifyModelChanged(self, v7, v8, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF3138DC;
+    v8[3] = &unk_1E7A7E248;
+    v8[4] = self;
+    v8[5] = count;
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v5, self, @"radialSegmentCount", v8);
+    objc_msgSend__notifyModelChanged(self, v6, v7);
   }
 }
 
 - (float)radialSpan
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_radialSpan;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C2CB0(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C2CB0(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setRadialSpan:(float)span
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, v3, v4) & 1) != 0 || self->_radialSpan != span)
+  if ((objc_msgSend_isPresentationObject(self, a2, v3) & 1) != 0 || self->_radialSpan != span)
   {
     self->_radialSpan = span;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = sub_1AF313A54;
-    v11[3] = &unk_1E7A7E270;
-    v11[4] = self;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1AF313A54;
+    v9[3] = &unk_1E7A7E270;
+    v9[4] = self;
     spanCopy = span;
-    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v7, self, @"radialSpan", v11);
-    objc_msgSend__notifyModelChanged(self, v8, v9, v10);
+    objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, v6, self, @"radialSpan", v9);
+    objc_msgSend__notifyModelChanged(self, v7, v8);
   }
 }
 
 - (int64_t)primitiveType
 {
-  if (!objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (!objc_msgSend_isPresentationObject(self, a2, v2))
   {
     return self->_primitiveType;
   }
 
-  v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-  v12 = v8;
-  if (v8)
+  v6 = objc_msgSend_worldRef(self, v4, v5);
+  v9 = v6;
+  if (v6)
   {
-    sub_1AF1CEA20(v8);
+    sub_1AF1CEA20(v6, v7);
   }
 
-  v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-  v14 = sub_1AF1C291C(v13);
-  if (v12)
+  v10 = objc_msgSend_modelRef(self, v7, v8);
+  v13 = sub_1AF1C291C(v10, v11);
+  if (v9)
   {
-    sub_1AF1CEA9C(v12);
+    sub_1AF1CEA9C(v9, v12);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setPrimitiveType:(int64_t)type
 {
-  if ((objc_msgSend_isPresentationObject(self, a2, type, v3) & 1) != 0 || self->_primitiveType != type)
+  if ((objc_msgSend_isPresentationObject(self, a2, type) & 1) != 0 || self->_primitiveType != type)
   {
     self->_primitiveType = type;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = sub_1AF313BB0;
-    v10[3] = &unk_1E7A7E248;
-    v10[4] = self;
-    v10[5] = type;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v6, self, v10);
-    objc_msgSend__notifyModelChanged(self, v7, v8, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1AF313BB0;
+    v8[3] = &unk_1E7A7E248;
+    v8[4] = self;
+    v8[5] = type;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v5, self, v8);
+    objc_msgSend__notifyModelChanged(self, v6, v7);
   }
 }
 
 - (BOOL)isGeodesic
 {
-  if (objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (objc_msgSend_isPresentationObject(self, a2, v2))
   {
-    v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-    v12 = v8;
-    if (v8)
+    v6 = objc_msgSend_worldRef(self, v4, v5);
+    v9 = v6;
+    if (v6)
     {
-      sub_1AF1CEA20(v8);
+      sub_1AF1CEA20(v6, v7);
     }
 
-    v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-    v14 = sub_1AF1C2528(v13);
-    if (v12)
+    v10 = objc_msgSend_modelRef(self, v7, v8);
+    v13 = sub_1AF1C2528(v10, v11);
+    if (v9)
     {
-      sub_1AF1CEA9C(v12);
+      sub_1AF1CEA9C(v9, v12);
     }
   }
 
@@ -1487,44 +1487,44 @@ LABEL_17:
     return self->_spheregeodesic;
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)setGeodesic:(BOOL)geodesic
 {
   geodesicCopy = geodesic;
-  if ((objc_msgSend_isPresentationObject(self, a2, geodesic, v3) & 1) != 0 || self->_spheregeodesic != geodesicCopy)
+  if ((objc_msgSend_isPresentationObject(self, a2, geodesic) & 1) != 0 || self->_spheregeodesic != geodesicCopy)
   {
     self->_spheregeodesic = geodesicCopy;
     if (geodesicCopy)
     {
-      objc_msgSend_willChangeValueForKey_(self, v6, @"hemispheric", v8);
+      objc_msgSend_willChangeValueForKey_(self, v5, @"hemispheric");
       self->_spherehemispheric = 0;
-      objc_msgSend_didChangeValueForKey_(self, v9, @"hemispheric", v10);
+      objc_msgSend_didChangeValueForKey_(self, v7, @"hemispheric");
     }
 
-    objc_msgSend__updateSphereType(self, v6, v7, v8);
+    objc_msgSend__updateSphereType(self, v5, v6);
 
-    objc_msgSend__notifyModelChanged(self, v11, v12, v13);
+    objc_msgSend__notifyModelChanged(self, v8, v9);
   }
 }
 
 - (BOOL)isHemispheric
 {
-  if (objc_msgSend_isPresentationObject(self, a2, v2, v3))
+  if (objc_msgSend_isPresentationObject(self, a2, v2))
   {
-    v8 = objc_msgSend_worldRef(self, v5, v6, v7);
-    v12 = v8;
-    if (v8)
+    v6 = objc_msgSend_worldRef(self, v4, v5);
+    v9 = v6;
+    if (v6)
     {
-      sub_1AF1CEA20(v8);
+      sub_1AF1CEA20(v6, v7);
     }
 
-    v13 = objc_msgSend_modelRef(self, v9, v10, v11);
-    v14 = sub_1AF1C2470(v13);
-    if (v12)
+    v10 = objc_msgSend_modelRef(self, v7, v8);
+    v13 = sub_1AF1C2470(v10, v11);
+    if (v9)
     {
-      sub_1AF1CEA9C(v12);
+      sub_1AF1CEA9C(v9, v12);
     }
   }
 
@@ -1533,7 +1533,7 @@ LABEL_17:
     return self->_spherehemispheric;
   }
 
-  return v14;
+  return v13;
 }
 
 - (int)_sphereType
@@ -1551,271 +1551,271 @@ LABEL_17:
 
 - (void)_updateSphereType
 {
-  v5 = objc_msgSend__sphereType(self, a2, v2, v3);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_1AF313E24;
-  v7[3] = &unk_1E7A7E270;
-  v8 = v5;
-  v7[4] = self;
-  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v6, self, v7);
+  v4 = objc_msgSend__sphereType(self, a2, v2);
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = sub_1AF313E24;
+  v6[3] = &unk_1E7A7E270;
+  v7 = v4;
+  v6[4] = self;
+  objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v5, self, v6);
 }
 
 - (void)setHemispheric:(BOOL)hemispheric
 {
   hemisphericCopy = hemispheric;
-  if ((objc_msgSend_isPresentationObject(self, a2, hemispheric, v3) & 1) != 0 || self->_spherehemispheric != hemisphericCopy)
+  if ((objc_msgSend_isPresentationObject(self, a2, hemispheric) & 1) != 0 || self->_spherehemispheric != hemisphericCopy)
   {
     self->_spherehemispheric = hemisphericCopy;
     if (hemisphericCopy)
     {
-      objc_msgSend_willChangeValueForKey_(self, v6, @"geodesic", v8);
+      objc_msgSend_willChangeValueForKey_(self, v5, @"geodesic");
       self->_spheregeodesic = 0;
-      objc_msgSend_didChangeValueForKey_(self, v9, @"geodesic", v10);
+      objc_msgSend_didChangeValueForKey_(self, v7, @"geodesic");
     }
 
-    objc_msgSend__updateSphereType(self, v6, v7, v8);
+    objc_msgSend__updateSphereType(self, v5, v6);
 
-    objc_msgSend__notifyModelChanged(self, v11, v12, v13);
+    objc_msgSend__notifyModelChanged(self, v8, v9);
   }
 }
 
 + (id)planeWithWidth:(float)width height:(float)height
 {
   v6 = objc_alloc(objc_opt_class());
-  v10 = objc_msgSend_initWithDefaultMaterial(v6, v7, v8, v9);
-  objc_msgSend_setParametricType_(v10, v11, 2, v12);
-  *&v13 = width;
-  objc_msgSend_setWidth_(v10, v14, v15, v16, v13);
-  *&v17 = height;
-  objc_msgSend_setHeight_(v10, v18, v19, v20, v17);
+  v9 = objc_msgSend_initWithDefaultMaterial(v6, v7, v8);
+  objc_msgSend_setParametricType_(v9, v10, 2);
+  *&v11 = width;
+  objc_msgSend_setWidth_(v9, v12, v13, v11);
+  *&v14 = height;
+  objc_msgSend_setHeight_(v9, v15, v16, v14);
 
-  return v10;
+  return v9;
 }
 
 + (id)cubeWithWidth:(float)width height:(float)height length:(float)length chamferRadius:(float)radius
 {
   v10 = objc_alloc(objc_opt_class());
-  v14 = objc_msgSend_initWithDefaultMaterial(v10, v11, v12, v13);
-  objc_msgSend_setParametricType_(v14, v15, 0, v16);
-  *&v17 = width;
-  objc_msgSend_setWidth_(v14, v18, v19, v20, v17);
-  *&v21 = height;
-  objc_msgSend_setHeight_(v14, v22, v23, v24, v21);
-  *&v25 = length;
-  objc_msgSend_setLength_(v14, v26, v27, v28, v25);
-  *&v29 = radius;
-  objc_msgSend_setChamferRadius_(v14, v30, v31, v32, v29);
+  v13 = objc_msgSend_initWithDefaultMaterial(v10, v11, v12);
+  objc_msgSend_setParametricType_(v13, v14, 0);
+  *&v15 = width;
+  objc_msgSend_setWidth_(v13, v16, v17, v15);
+  *&v18 = height;
+  objc_msgSend_setHeight_(v13, v19, v20, v18);
+  *&v21 = length;
+  objc_msgSend_setLength_(v13, v22, v23, v21);
+  *&v24 = radius;
+  objc_msgSend_setChamferRadius_(v13, v25, v26, v24);
 
-  return v14;
+  return v13;
 }
 
 + (id)unitCube
 {
+  LODWORD(v3) = 1.0;
   LODWORD(v4) = 1.0;
   LODWORD(v5) = 1.0;
-  LODWORD(v6) = 1.0;
-  return objc_msgSend_cubeWithWidth_height_length_chamferRadius_(self, a2, v2, v3, v4, v5, v6, 0.0);
+  return objc_msgSend_cubeWithWidth_height_length_chamferRadius_(self, a2, v2, v3, v4, v5, 0.0);
 }
 
 + (id)pyramidWithWidth:(float)width height:(float)height length:(float)length
 {
   v8 = objc_alloc(objc_opt_class());
-  v12 = objc_msgSend_initWithDefaultMaterial(v8, v9, v10, v11);
-  objc_msgSend_setParametricType_(v12, v13, 3, v14);
-  *&v15 = width;
-  objc_msgSend_setWidth_(v12, v16, v17, v18, v15);
-  *&v19 = height;
-  objc_msgSend_setHeight_(v12, v20, v21, v22, v19);
-  *&v23 = length;
-  objc_msgSend_setLength_(v12, v24, v25, v26, v23);
+  v11 = objc_msgSend_initWithDefaultMaterial(v8, v9, v10);
+  objc_msgSend_setParametricType_(v11, v12, 3);
+  *&v13 = width;
+  objc_msgSend_setWidth_(v11, v14, v15, v13);
+  *&v16 = height;
+  objc_msgSend_setHeight_(v11, v17, v18, v16);
+  *&v19 = length;
+  objc_msgSend_setLength_(v11, v20, v21, v19);
 
-  return v12;
+  return v11;
 }
 
 + (id)cylinderWithRadius:(float)radius height:(float)height
 {
   v6 = objc_alloc(objc_opt_class());
-  v10 = objc_msgSend_initWithDefaultMaterial(v6, v7, v8, v9);
-  objc_msgSend_setParametricType_(v10, v11, 4, v12);
-  *&v13 = radius;
-  objc_msgSend_setRadius_(v10, v14, v15, v16, v13);
-  *&v17 = height;
-  objc_msgSend_setHeight_(v10, v18, v19, v20, v17);
+  v9 = objc_msgSend_initWithDefaultMaterial(v6, v7, v8);
+  objc_msgSend_setParametricType_(v9, v10, 4);
+  *&v11 = radius;
+  objc_msgSend_setRadius_(v9, v12, v13, v11);
+  *&v14 = height;
+  objc_msgSend_setHeight_(v9, v15, v16, v14);
 
-  return v10;
+  return v9;
 }
 
 + (id)sphereWithRadius:(float)radius
 {
   v4 = objc_alloc(objc_opt_class());
-  v8 = objc_msgSend_initWithDefaultMaterial(v4, v5, v6, v7);
-  objc_msgSend_setParametricType_(v8, v9, 1, v10);
-  *&v11 = radius;
-  objc_msgSend_setRadius_(v8, v12, v13, v14, v11);
+  v7 = objc_msgSend_initWithDefaultMaterial(v4, v5, v6);
+  objc_msgSend_setParametricType_(v7, v8, 1);
+  *&v9 = radius;
+  objc_msgSend_setRadius_(v7, v10, v11, v9);
 
-  return v8;
+  return v7;
 }
 
 + (id)coneWithTopRadius:(float)radius bottomRadius:(float)bottomRadius height:(float)height
 {
   v8 = objc_alloc(objc_opt_class());
-  v12 = objc_msgSend_initWithDefaultMaterial(v8, v9, v10, v11);
-  objc_msgSend_setParametricType_(v12, v13, 5, v14);
-  *&v15 = radius;
-  objc_msgSend_setTopRadius_(v12, v16, v17, v18, v15);
-  *&v19 = bottomRadius;
-  objc_msgSend_setRadius_(v12, v20, v21, v22, v19);
-  *&v23 = height;
-  objc_msgSend_setHeight_(v12, v24, v25, v26, v23);
+  v11 = objc_msgSend_initWithDefaultMaterial(v8, v9, v10);
+  objc_msgSend_setParametricType_(v11, v12, 5);
+  *&v13 = radius;
+  objc_msgSend_setTopRadius_(v11, v14, v15, v13);
+  *&v16 = bottomRadius;
+  objc_msgSend_setRadius_(v11, v17, v18, v16);
+  *&v19 = height;
+  objc_msgSend_setHeight_(v11, v20, v21, v19);
 
-  return v12;
+  return v11;
 }
 
 + (id)tubeWithInnerRadius:(float)radius outerRadius:(float)outerRadius height:(float)height
 {
   v8 = objc_alloc(objc_opt_class());
-  v12 = objc_msgSend_initWithDefaultMaterial(v8, v9, v10, v11);
-  objc_msgSend_setParametricType_(v12, v13, 6, v14);
-  *&v15 = radius;
-  objc_msgSend_setInnerRadius_(v12, v16, v17, v18, v15);
-  *&v19 = outerRadius;
-  objc_msgSend_setRadius_(v12, v20, v21, v22, v19);
-  *&v23 = height;
-  objc_msgSend_setHeight_(v12, v24, v25, v26, v23);
+  v11 = objc_msgSend_initWithDefaultMaterial(v8, v9, v10);
+  objc_msgSend_setParametricType_(v11, v12, 6);
+  *&v13 = radius;
+  objc_msgSend_setInnerRadius_(v11, v14, v15, v13);
+  *&v16 = outerRadius;
+  objc_msgSend_setRadius_(v11, v17, v18, v16);
+  *&v19 = height;
+  objc_msgSend_setHeight_(v11, v20, v21, v19);
 
-  return v12;
+  return v11;
 }
 
 + (id)capsuleWithCapRadius:(float)radius height:(float)height
 {
   v6 = objc_alloc(objc_opt_class());
-  v10 = objc_msgSend_initWithDefaultMaterial(v6, v7, v8, v9);
-  objc_msgSend_setParametricType_(v10, v11, 7, v12);
-  *&v13 = radius;
-  objc_msgSend_setRadius_(v10, v14, v15, v16, v13);
-  *&v17 = height;
-  objc_msgSend_setHeight_(v10, v18, v19, v20, v17);
+  v9 = objc_msgSend_initWithDefaultMaterial(v6, v7, v8);
+  objc_msgSend_setParametricType_(v9, v10, 7);
+  *&v11 = radius;
+  objc_msgSend_setRadius_(v9, v12, v13, v11);
+  *&v14 = height;
+  objc_msgSend_setHeight_(v9, v15, v16, v14);
 
-  return v10;
+  return v9;
 }
 
 + (id)torusWithRingRadius:(float)radius pipeRadius:(float)pipeRadius
 {
   v6 = objc_alloc(objc_opt_class());
-  v10 = objc_msgSend_initWithDefaultMaterial(v6, v7, v8, v9);
-  objc_msgSend_setParametricType_(v10, v11, 8, v12);
-  *&v13 = radius;
-  objc_msgSend_setRadius_(v10, v14, v15, v16, v13);
-  *&v17 = pipeRadius;
-  objc_msgSend_setPipeRadius_(v10, v18, v19, v20, v17);
+  v9 = objc_msgSend_initWithDefaultMaterial(v6, v7, v8);
+  objc_msgSend_setParametricType_(v9, v10, 8);
+  *&v11 = radius;
+  objc_msgSend_setRadius_(v9, v12, v13, v11);
+  *&v14 = pipeRadius;
+  objc_msgSend_setPipeRadius_(v9, v15, v16, v14);
 
-  return v10;
+  return v9;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v52.receiver = self;
-  v52.super_class = VFXParametricModel;
-  [(VFXModel *)&v52 encodeWithCoder:?];
-  if (objc_msgSend_isPresentationObject(self, v5, v6, v7))
+  v38.receiver = self;
+  v38.super_class = VFXParametricModel;
+  [(VFXModel *)&v38 encodeWithCoder:?];
+  if (objc_msgSend_isPresentationObject(self, v5, v6))
   {
-    v11 = objc_msgSend_modelRef(self, v8, v9, v10);
-    objc_msgSend__updateModelFromPresentation_(self, v12, v11, v13);
+    v9 = objc_msgSend_modelRef(self, v7, v8);
+    objc_msgSend__updateModelFromPresentation_(self, v10, v9);
   }
 
-  objc_msgSend_encodeInteger_forKey_(coder, v8, self->_type, @"parametricType");
-  objc_msgSend_encodeDouble_forKey_(coder, v14, @"width", v15, self->_width);
-  objc_msgSend_encodeDouble_forKey_(coder, v16, @"height", v17, self->_height);
-  objc_msgSend_encodeDouble_forKey_(coder, v18, @"length", v19, self->_length);
-  objc_msgSend_encodeDouble_forKey_(coder, v20, @"radius", v21, self->_radius);
-  objc_msgSend_encodeDouble_forKey_(coder, v22, @"innerRadius", v23, self->_innerRadius);
-  objc_msgSend_encodeDouble_forKey_(coder, v24, @"chamferRadius", v25, self->_chamferRadius);
-  objc_msgSend_encodeDouble_forKey_(coder, v26, @"topRadius", v27, self->_topRadius);
-  objc_msgSend_encodeDouble_forKey_(coder, v28, @"pipeRadius", v29, self->_pipeRadius);
-  objc_msgSend_encodeInteger_forKey_(coder, v30, self->_widthSegmentCount, @"widthSegmentCount");
-  objc_msgSend_encodeInteger_forKey_(coder, v31, self->_heightSegmentCount, @"heightSegmentCount");
-  objc_msgSend_encodeInteger_forKey_(coder, v32, self->_lengthSegmentCount, @"lengthSegmentCount");
-  objc_msgSend_encodeInteger_forKey_(coder, v33, self->_segmentCount, @"segmentCount");
-  objc_msgSend_encodeInteger_forKey_(coder, v34, self->_chamferSegmentCount, @"chamferSegmentCount");
-  objc_msgSend_encodeInteger_forKey_(coder, v35, self->_cornerSegmentCount, @"cornerSegmentCount");
-  objc_msgSend_encodeInteger_forKey_(coder, v36, self->_pipeSegmentCount, @"pipeSegmentCount");
-  objc_msgSend_encodeInteger_forKey_(coder, v37, self->_capSegmentCount, @"capSegmentCount");
-  objc_msgSend_encodeInteger_forKey_(coder, v38, self->_radialSegmentCount, @"radialSegmentCount");
-  objc_msgSend_encodeDouble_forKey_(coder, v39, @"radialSpan", v40, self->_radialSpan);
-  isGeodesic = objc_msgSend_isGeodesic(self, v41, v42, v43);
-  objc_msgSend_encodeBool_forKey_(coder, v45, isGeodesic, @"geodesic");
-  isHemispheric = objc_msgSend_isHemispheric(self, v46, v47, v48);
-  objc_msgSend_encodeBool_forKey_(coder, v50, isHemispheric, @"hemispheric");
-  objc_msgSend_encodeInteger_forKey_(coder, v51, self->_primitiveType, @"primitiveType");
+  objc_msgSend_encodeInteger_forKey_(coder, v7, self->_type, @"parametricType");
+  objc_msgSend_encodeDouble_forKey_(coder, v11, @"width", self->_width);
+  objc_msgSend_encodeDouble_forKey_(coder, v12, @"height", self->_height);
+  objc_msgSend_encodeDouble_forKey_(coder, v13, @"length", self->_length);
+  objc_msgSend_encodeDouble_forKey_(coder, v14, @"radius", self->_radius);
+  objc_msgSend_encodeDouble_forKey_(coder, v15, @"innerRadius", self->_innerRadius);
+  objc_msgSend_encodeDouble_forKey_(coder, v16, @"chamferRadius", self->_chamferRadius);
+  objc_msgSend_encodeDouble_forKey_(coder, v17, @"topRadius", self->_topRadius);
+  objc_msgSend_encodeDouble_forKey_(coder, v18, @"pipeRadius", self->_pipeRadius);
+  objc_msgSend_encodeInteger_forKey_(coder, v19, self->_widthSegmentCount, @"widthSegmentCount");
+  objc_msgSend_encodeInteger_forKey_(coder, v20, self->_heightSegmentCount, @"heightSegmentCount");
+  objc_msgSend_encodeInteger_forKey_(coder, v21, self->_lengthSegmentCount, @"lengthSegmentCount");
+  objc_msgSend_encodeInteger_forKey_(coder, v22, self->_segmentCount, @"segmentCount");
+  objc_msgSend_encodeInteger_forKey_(coder, v23, self->_chamferSegmentCount, @"chamferSegmentCount");
+  objc_msgSend_encodeInteger_forKey_(coder, v24, self->_cornerSegmentCount, @"cornerSegmentCount");
+  objc_msgSend_encodeInteger_forKey_(coder, v25, self->_pipeSegmentCount, @"pipeSegmentCount");
+  objc_msgSend_encodeInteger_forKey_(coder, v26, self->_capSegmentCount, @"capSegmentCount");
+  objc_msgSend_encodeInteger_forKey_(coder, v27, self->_radialSegmentCount, @"radialSegmentCount");
+  objc_msgSend_encodeDouble_forKey_(coder, v28, @"radialSpan", self->_radialSpan);
+  isGeodesic = objc_msgSend_isGeodesic(self, v29, v30);
+  objc_msgSend_encodeBool_forKey_(coder, v32, isGeodesic, @"geodesic");
+  isHemispheric = objc_msgSend_isHemispheric(self, v33, v34);
+  objc_msgSend_encodeBool_forKey_(coder, v36, isHemispheric, @"hemispheric");
+  objc_msgSend_encodeInteger_forKey_(coder, v37, self->_primitiveType, @"primitiveType");
 }
 
 - (VFXParametricModel)initWithCoder:(id)coder
 {
-  v133.receiver = self;
-  v133.super_class = VFXParametricModel;
-  v7 = [(VFXModel *)&v133 initWithCoder:?];
-  if (v7)
+  v86.receiver = self;
+  v86.super_class = VFXParametricModel;
+  v6 = [(VFXModel *)&v86 initWithCoder:?];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    v13 = objc_msgSend_decodeIntegerForKey_(coder, v11, @"parametricType", v12);
-    objc_msgSend_setParametricType_(v7, v14, v13, v15);
-    objc_msgSend_decodeDoubleForKey_(coder, v16, @"width", v17);
-    *&v18 = v18;
-    objc_msgSend_setWidth_(v7, v19, v20, v21, v18);
-    objc_msgSend_decodeDoubleForKey_(coder, v22, @"height", v23);
-    *&v24 = v24;
-    objc_msgSend_setHeight_(v7, v25, v26, v27, v24);
-    objc_msgSend_decodeDoubleForKey_(coder, v28, @"length", v29);
-    *&v30 = v30;
-    objc_msgSend_setLength_(v7, v31, v32, v33, v30);
-    objc_msgSend_decodeDoubleForKey_(coder, v34, @"radius", v35);
-    *&v36 = v36;
-    objc_msgSend_setRadius_(v7, v37, v38, v39, v36);
-    objc_msgSend_decodeDoubleForKey_(coder, v40, @"innerRadius", v41);
-    *&v42 = v42;
-    objc_msgSend_setInnerRadius_(v7, v43, v44, v45, v42);
-    objc_msgSend_decodeDoubleForKey_(coder, v46, @"chamferRadius", v47);
-    *&v48 = v48;
-    objc_msgSend_setChamferRadius_(v7, v49, v50, v51, v48);
-    objc_msgSend_decodeDoubleForKey_(coder, v52, @"topRadius", v53);
-    *&v54 = v54;
-    objc_msgSend_setTopRadius_(v7, v55, v56, v57, v54);
-    objc_msgSend_decodeDoubleForKey_(coder, v58, @"pipeRadius", v59);
-    *&v60 = v60;
-    objc_msgSend_setPipeRadius_(v7, v61, v62, v63, v60);
-    v66 = objc_msgSend_decodeIntegerForKey_(coder, v64, @"segmentCount", v65);
-    objc_msgSend_setSegmentCount_(v7, v67, v66, v68);
-    v71 = objc_msgSend_decodeIntegerForKey_(coder, v69, @"chamferSegmentCount", v70);
-    objc_msgSend_setChamferSegmentCount_(v7, v72, v71, v73);
-    v76 = objc_msgSend_decodeIntegerForKey_(coder, v74, @"widthSegmentCount", v75);
-    objc_msgSend_setWidthSegmentCount_(v7, v77, v76, v78);
-    v81 = objc_msgSend_decodeIntegerForKey_(coder, v79, @"heightSegmentCount", v80);
-    objc_msgSend_setHeightSegmentCount_(v7, v82, v81, v83);
-    v86 = objc_msgSend_decodeIntegerForKey_(coder, v84, @"lengthSegmentCount", v85);
-    objc_msgSend_setLengthSegmentCount_(v7, v87, v86, v88);
-    v91 = objc_msgSend_decodeIntegerForKey_(coder, v89, @"cornerSegmentCount", v90);
-    objc_msgSend_setCornerSegmentCount_(v7, v92, v91, v93);
-    v96 = objc_msgSend_decodeIntegerForKey_(coder, v94, @"pipeSegmentCount", v95);
-    objc_msgSend_setPipeSegmentCount_(v7, v97, v96, v98);
-    v101 = objc_msgSend_decodeIntegerForKey_(coder, v99, @"capSegmentCount", v100);
-    objc_msgSend_setCapSegmentCount_(v7, v102, v101, v103);
-    v106 = objc_msgSend_decodeIntegerForKey_(coder, v104, @"radialSegmentCount", v105);
-    objc_msgSend_setRadialSegmentCount_(v7, v107, v106, v108);
-    objc_msgSend_decodeDoubleForKey_(coder, v109, @"radialSpan", v110);
-    *&v111 = v111;
-    objc_msgSend_setRadialSpan_(v7, v112, v113, v114, v111);
-    v117 = objc_msgSend_decodeBoolForKey_(coder, v115, @"geodesic", v116);
-    objc_msgSend_setGeodesic_(v7, v118, v117, v119);
-    v122 = objc_msgSend_decodeBoolForKey_(coder, v120, @"hemispheric", v121);
-    objc_msgSend_setHemispheric_(v7, v123, v122, v124);
-    v127 = objc_msgSend_decodeIntegerForKey_(coder, v125, @"primitiveType", v126);
-    objc_msgSend_setPrimitiveType_(v7, v128, v127, v129);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v130, v8, v131);
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    v10 = objc_msgSend_decodeIntegerForKey_(coder, v9, @"parametricType");
+    objc_msgSend_setParametricType_(v6, v11, v10);
+    objc_msgSend_decodeDoubleForKey_(coder, v12, @"width");
+    *&v13 = v13;
+    objc_msgSend_setWidth_(v6, v14, v15, v13);
+    objc_msgSend_decodeDoubleForKey_(coder, v16, @"height");
+    *&v17 = v17;
+    objc_msgSend_setHeight_(v6, v18, v19, v17);
+    objc_msgSend_decodeDoubleForKey_(coder, v20, @"length");
+    *&v21 = v21;
+    objc_msgSend_setLength_(v6, v22, v23, v21);
+    objc_msgSend_decodeDoubleForKey_(coder, v24, @"radius");
+    *&v25 = v25;
+    objc_msgSend_setRadius_(v6, v26, v27, v25);
+    objc_msgSend_decodeDoubleForKey_(coder, v28, @"innerRadius");
+    *&v29 = v29;
+    objc_msgSend_setInnerRadius_(v6, v30, v31, v29);
+    objc_msgSend_decodeDoubleForKey_(coder, v32, @"chamferRadius");
+    *&v33 = v33;
+    objc_msgSend_setChamferRadius_(v6, v34, v35, v33);
+    objc_msgSend_decodeDoubleForKey_(coder, v36, @"topRadius");
+    *&v37 = v37;
+    objc_msgSend_setTopRadius_(v6, v38, v39, v37);
+    objc_msgSend_decodeDoubleForKey_(coder, v40, @"pipeRadius");
+    *&v41 = v41;
+    objc_msgSend_setPipeRadius_(v6, v42, v43, v41);
+    v45 = objc_msgSend_decodeIntegerForKey_(coder, v44, @"segmentCount");
+    objc_msgSend_setSegmentCount_(v6, v46, v45);
+    v48 = objc_msgSend_decodeIntegerForKey_(coder, v47, @"chamferSegmentCount");
+    objc_msgSend_setChamferSegmentCount_(v6, v49, v48);
+    v51 = objc_msgSend_decodeIntegerForKey_(coder, v50, @"widthSegmentCount");
+    objc_msgSend_setWidthSegmentCount_(v6, v52, v51);
+    v54 = objc_msgSend_decodeIntegerForKey_(coder, v53, @"heightSegmentCount");
+    objc_msgSend_setHeightSegmentCount_(v6, v55, v54);
+    v57 = objc_msgSend_decodeIntegerForKey_(coder, v56, @"lengthSegmentCount");
+    objc_msgSend_setLengthSegmentCount_(v6, v58, v57);
+    v60 = objc_msgSend_decodeIntegerForKey_(coder, v59, @"cornerSegmentCount");
+    objc_msgSend_setCornerSegmentCount_(v6, v61, v60);
+    v63 = objc_msgSend_decodeIntegerForKey_(coder, v62, @"pipeSegmentCount");
+    objc_msgSend_setPipeSegmentCount_(v6, v64, v63);
+    v66 = objc_msgSend_decodeIntegerForKey_(coder, v65, @"capSegmentCount");
+    objc_msgSend_setCapSegmentCount_(v6, v67, v66);
+    v69 = objc_msgSend_decodeIntegerForKey_(coder, v68, @"radialSegmentCount");
+    objc_msgSend_setRadialSegmentCount_(v6, v70, v69);
+    objc_msgSend_decodeDoubleForKey_(coder, v71, @"radialSpan");
+    *&v72 = v72;
+    objc_msgSend_setRadialSpan_(v6, v73, v74, v72);
+    v76 = objc_msgSend_decodeBoolForKey_(coder, v75, @"geodesic");
+    objc_msgSend_setGeodesic_(v6, v77, v76);
+    v79 = objc_msgSend_decodeBoolForKey_(coder, v78, @"hemispheric");
+    objc_msgSend_setHemispheric_(v6, v80, v79);
+    v82 = objc_msgSend_decodeIntegerForKey_(coder, v81, @"primitiveType");
+    objc_msgSend_setPrimitiveType_(v6, v83, v82);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v84, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 - (NSArray)bridgedComponentNames

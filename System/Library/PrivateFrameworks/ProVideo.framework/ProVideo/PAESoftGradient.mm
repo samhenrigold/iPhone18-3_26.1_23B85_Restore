@@ -53,7 +53,7 @@
   return [PAESoftGradient properties]::sPropertiesDict;
 }
 
-uint64_t __29__PAESoftGradient_properties__block_invoke()
+void *__29__PAESoftGradient_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:0];

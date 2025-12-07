@@ -8,7 +8,7 @@
 
 + (id)identifierFromBPSample:(id)sample journal:(id)journal
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   journalCopy = journal;
   journalType = [journalCopy journalType];
@@ -40,30 +40,28 @@ LABEL_5:
   v18 = HKLogBloodPressureJournal();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    v21 = 138543874;
+    v20 = 138543874;
     selfCopy = self;
-    v23 = 2114;
-    v24 = sampleCopy;
-    v25 = 2114;
-    v26 = journalCopy;
-    _os_log_error_impl(&dword_229486000, v18, OS_LOG_TYPE_ERROR, "[%{public}@] Invalid Journal type. Could not make identifier for Sample [%{public}@] and journal [%{public}@].", &v21, 0x20u);
+    v22 = 2114;
+    v23 = sampleCopy;
+    v24 = 2114;
+    v25 = journalCopy;
+    _os_log_error_impl(&dword_229486000, v18, OS_LOG_TYPE_ERROR, "[%{public}@] Invalid Journal type. Could not make identifier for Sample [%{public}@] and journal [%{public}@].", &v20, 0x20u);
   }
 
   v13 = 0;
 LABEL_9:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (HDHRBloodPressureJournalNotificationIdentifier)initWithJournalIdentifier:(id)identifier notificationDayIndex:(int64_t)index journalWindowType:(int64_t)type
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v20.receiver = self;
-  v20.super_class = HDHRBloodPressureJournalNotificationIdentifier;
-  v10 = [(HDHRBloodPressureJournalNotificationIdentifier *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = HDHRBloodPressureJournalNotificationIdentifier;
+  v10 = [(HDHRBloodPressureJournalNotificationIdentifier *)&v19 init];
   v11 = v10;
   if (v10)
   {
@@ -71,19 +69,18 @@ LABEL_9:
     v11->_notificationDayIndex = index;
     v11->_journalWindowType = type;
     uUIDString = [identifierCopy UUIDString];
-    v21[0] = uUIDString;
+    v20[0] = uUIDString;
     v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", v11->_notificationDayIndex];
-    v21[1] = v13;
+    v20[1] = v13;
     type = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", type];
-    v21[2] = type;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+    v20[2] = type;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
 
     v16 = [v15 componentsJoinedByString:@"_"];
     identifierString = v11->_identifierString;
     v11->_identifierString = v16;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

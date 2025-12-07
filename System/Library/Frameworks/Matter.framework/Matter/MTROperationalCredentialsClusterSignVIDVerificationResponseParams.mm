@@ -34,8 +34,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(MTROperationalCredentialsClusterSignVIDVerificationResponseParams);
-  fabricIndex = [(MTROperationalCredentialsClusterSignVIDVerificationResponseParams *)self fabricIndex];
-  [(MTROperationalCredentialsClusterSignVIDVerificationResponseParams *)v4 setFabricIndex:fabricIndex];
+  v5 = objc_msgSend_fabricIndex(self);
+  [(MTROperationalCredentialsClusterSignVIDVerificationResponseParams *)v4 setFabricIndex:v5];
 
   fabricBindingVersion = [(MTROperationalCredentialsClusterSignVIDVerificationResponseParams *)self fabricBindingVersion];
   [(MTROperationalCredentialsClusterSignVIDVerificationResponseParams *)v4 setFabricBindingVersion:fabricBindingVersion];
@@ -71,11 +71,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:62 commandID:14 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v16)
   {
     sub_2393C5AAC(v15);
-    sub_2393C5ADC(v15, *(v16 + 1), *(v16 + 3));
+    sub_2393C5ADC(v15, *(v16 + 8), *(v16 + 24));
     v8 = sub_2393C6FD0(v15, 256);
     if (!v8)
     {

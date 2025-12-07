@@ -110,7 +110,7 @@
 
 - (id)_digitNumbersFromFormatter:(id)formatter
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   formatterCopy = formatter;
   timeSubstringToSeparatorText = [formatterCopy timeSubstringToSeparatorText];
   timeSubstringFromSeparatorText = [formatterCopy timeSubstringFromSeparatorText];
@@ -136,21 +136,19 @@
   v12 = [timeSubstringFromSeparatorText substringWithRange:{1, 1}];
   intValue4 = [v12 intValue];
 
-  v21[0] = &unk_284E9BB00;
+  v20[0] = &unk_284E9BB00;
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:intValue2];
-  v22[0] = v14;
-  v21[1] = &unk_284E9BB18;
+  v21[0] = v14;
+  v20[1] = &unk_284E9BB18;
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:intValue];
-  v22[1] = v15;
-  v21[2] = &unk_284E9BB30;
+  v21[1] = v15;
+  v20[2] = &unk_284E9BB30;
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:intValue3];
-  v22[2] = v16;
-  v21[3] = &unk_284E9BB48;
+  v21[2] = v16;
+  v20[3] = &unk_284E9BB48;
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:intValue4];
-  v22[3] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v21[3] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
 
   return v18;
 }

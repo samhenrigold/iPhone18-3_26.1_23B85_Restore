@@ -1,4 +1,5 @@
 @interface MTLGPUDebugComputeCommandEncoder
+- (BOOL)encodeEndDoWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
 - (BOOL)encodeEndIf;
 - (BOOL)encodeEndWhile;
 - (MTLGPUDebugComputeCommandEncoder)initWithComputeCommandEncoder:(id)encoder commandBuffer:(id)buffer descriptor:(id)descriptor encoderID:(unsigned int)d;
@@ -15,6 +16,8 @@
 - (void)dispatchThreads:(id *)threads threadsPerThreadgroup:(id *)threadgroup;
 - (void)dispatchThreadsWithIndirectBuffer:(id)buffer indirectBufferOffset:(unint64_t)offset;
 - (void)encodeStartDoWhile;
+- (void)encodeStartIf:(id)if offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
+- (void)encodeStartWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
 - (void)endEncoding;
 - (void)endVirtualSubstream;
 - (void)executeCommandsInBuffer:(id)buffer indirectBuffer:(id)indirectBuffer indirectBufferOffset:(unint64_t)offset;
@@ -212,7 +215,7 @@
 
 - (void)setComputePipelineStateBuffers:(id)buffers
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   var0 = self->_options->var0;
   globalConstantsBuffer = [buffers globalConstantsBuffer];
   v7 = globalConstantsBuffer;
@@ -224,47 +227,45 @@
       -[MTLGPUDebugComputeCommandEncoder useResource:usage:](self, "useResource:usage:", [buffers globalConstantsBuffer], 1);
     }
 
-    v19 = 0u;
-    v20 = 0u;
     v17 = 0u;
     v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     binaryFunctionData = [buffers binaryFunctionData];
-    v11 = [binaryFunctionData countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v11)
+    v10 = [binaryFunctionData countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v10)
     {
-      v12 = v11;
-      v13 = *v18;
+      v11 = v10;
+      v12 = *v16;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v18 != v13)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(binaryFunctionData);
           }
 
-          v15 = *(*(&v17 + 1) + 8 * i);
-          if (*(v15 + 8))
+          v14 = *(*(&v15 + 1) + 8 * i);
+          if (*(v14 + 8))
           {
             [(MTLToolsCommandEncoder *)self addRetainedObject:?];
-            [(MTLGPUDebugComputeCommandEncoder *)self useResource:*(v15 + 8) usage:1];
+            [(MTLGPUDebugComputeCommandEncoder *)self useResource:*(v14 + 8) usage:1];
           }
         }
 
-        v12 = [binaryFunctionData countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [binaryFunctionData countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
-      while (v12);
+      while (v11);
     }
 
     -[MTLGPUDebugComputeCommandEncoder bindInternalValue:index:](self, "bindInternalValue:index:", [objc_msgSend(buffers "globalConstantsBuffer")], 12);
-    v16 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     constantOffset = [buffers constantOffset];
-    v9 = *MEMORY[0x277D85DE8];
 
     [(MTLGPUDebugComputeCommandEncoder *)self bindInternalBufferWithOffset:v7 offset:constantOffset index:12];
   }
@@ -566,7 +567,7 @@
         {
           if (resource)
           {
-            [resource getActiveViews];
+            objc_msgSend_getActiveViews(resource);
             for (i = v9; i; i = *i)
             {
               [(MTLToolsObject *)self->super.super.super._parent markTexture:i[2] usage:usage stages:1];
@@ -745,12 +746,50 @@
   *(&self->_commandBufferJumpNestingLevel + 1) = v3 + 1;
 }
 
+- (BOOL)encodeEndDoWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  --*(&self->_commandBufferJumpNestingLevel + 1);
+  v7.receiver = self;
+  v7.super_class = MTLGPUDebugComputeCommandEncoder;
+  return [(MTLToolsComputeCommandEncoder *)&v7 encodeEndDoWhile:while offset:offset comparison:comparison referenceValue:*&value];
+}
+
+- (void)encodeStartIf:(id)if offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  v8.receiver = self;
+  v8.super_class = MTLGPUDebugComputeCommandEncoder;
+  [(MTLToolsComputeCommandEncoder *)&v8 encodeStartIf:if offset:offset comparison:comparison referenceValue:*&value];
+  v7 = *(&self->_commandBufferJumpNestingLevel + 1);
+  if (!v7)
+  {
+    RestoreInternalState(self);
+    v7 = *(&self->_commandBufferJumpNestingLevel + 1);
+  }
+
+  *(&self->_commandBufferJumpNestingLevel + 1) = v7 + 1;
+}
+
 - (BOOL)encodeEndIf
 {
   --*(&self->_commandBufferJumpNestingLevel + 1);
   v3.receiver = self;
   v3.super_class = MTLGPUDebugComputeCommandEncoder;
   return [(MTLToolsComputeCommandEncoder *)&v3 encodeEndIf];
+}
+
+- (void)encodeStartWhile:(id)while offset:(unint64_t)offset comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  v8.receiver = self;
+  v8.super_class = MTLGPUDebugComputeCommandEncoder;
+  [(MTLToolsComputeCommandEncoder *)&v8 encodeStartWhile:while offset:offset comparison:comparison referenceValue:*&value];
+  v7 = *(&self->_commandBufferJumpNestingLevel + 1);
+  if (!v7)
+  {
+    RestoreInternalState(self);
+    v7 = *(&self->_commandBufferJumpNestingLevel + 1);
+  }
+
+  *(&self->_commandBufferJumpNestingLevel + 1) = v7 + 1;
 }
 
 - (BOOL)encodeEndWhile

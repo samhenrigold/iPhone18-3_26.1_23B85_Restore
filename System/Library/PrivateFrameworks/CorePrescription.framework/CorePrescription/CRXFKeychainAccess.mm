@@ -115,36 +115,36 @@
 void __49__CRXFKeychainAccess_fetchASAKeysWithCompletion___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   result = 0;
   v2 = SecItemCopyMatching(*(*(a1 + 32) + 32), &result);
   switch(v2)
   {
     case 0:
-      v41 = [MEMORY[0x277CBEB18] array];
+      v40 = [MEMORY[0x277CBEB18] array];
       if (CFArrayGetCount(result) < 1)
       {
 LABEL_37:
-        v33 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"name" ascending:{1, v39}];
-        v46 = v33;
-        v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
-        [v41 sortUsingDescriptors:v34];
+        v33 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"name" ascending:{1, v38}];
+        v45 = v33;
+        v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+        [v40 sortUsingDescriptors:v34];
 
         v35 = *(v1 + 40);
-        v36 = [MEMORY[0x277CBEA60] arrayWithArray:v41];
+        v36 = [MEMORY[0x277CBEA60] arrayWithArray:v40];
         (*(v35 + 16))(v35, v36, 0);
 
-        goto LABEL_41;
+        return;
       }
 
       v5 = 0;
       v6 = *MEMORY[0x277CDC5E8];
       v7 = *MEMORY[0x277CDC5F8];
       key = *MEMORY[0x277CDC080];
-      v42 = *MEMORY[0x277CDBF90];
+      v41 = *MEMORY[0x277CDBF90];
       *&v4 = 136315651;
-      v39 = v4;
-      v40 = v1;
+      v38 = v4;
+      v39 = v1;
       while (1)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(result, v5);
@@ -180,12 +180,12 @@ LABEL_37:
           {
             v17 = v16;
             v18 = [v15 crxu_asHexString];
-            *buf = v39;
-            v48 = "[CRXFKeychainAccess fetchASAKeysWithCompletion:]_block_invoke";
-            v49 = 1024;
-            v50 = 252;
-            v51 = 2113;
-            v52 = v18;
+            *buf = v38;
+            v47 = "[CRXFKeychainAccess fetchASAKeysWithCompletion:]_block_invoke";
+            v48 = 1024;
+            v49 = 252;
+            v50 = 2113;
+            v51 = v18;
             _os_log_debug_impl(&dword_24732C000, v17, OS_LOG_TYPE_DEBUG, "%s @%d: Public Key: %{private}@", buf, 0x1Cu);
           }
         }
@@ -207,7 +207,7 @@ LABEL_37:
           v22 = 0;
         }
 
-        v23 = CFDictionaryGetValue(ValueAtIndex, v42);
+        v23 = CFDictionaryGetValue(ValueAtIndex, v41);
         v24 = v23;
         if (!v23)
         {
@@ -239,11 +239,11 @@ LABEL_30:
                   v30 = v7;
                   v31 = v6;
                   v32 = [[CRXFASAKey alloc] initWithName:v29 privateKey:v12 publicKey:v15 creationDate:v24];
-                  [v41 addObject:v32];
+                  [v40 addObject:v32];
 
                   v6 = v31;
                   v7 = v30;
-                  v1 = v40;
+                  v1 = v39;
                 }
               }
             }
@@ -271,9 +271,9 @@ LABEL_27:
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v48 = "[CRXFKeychainAccess fetchASAKeysWithCompletion:]_block_invoke";
-        v49 = 1024;
-        v50 = 222;
+        v47 = "[CRXFKeychainAccess fetchASAKeysWithCompletion:]_block_invoke";
+        v48 = 1024;
+        v49 = 222;
         _os_log_impl(&dword_24732C000, v3, OS_LOG_TYPE_INFO, "%s @%d: Keychain is not available (syncing of user items may be disabled)", buf, 0x12u);
       }
 
@@ -286,7 +286,7 @@ LABEL_27:
 
 LABEL_8:
       (*(*(v1 + 40) + 16))();
-      goto LABEL_41;
+      return;
   }
 
   v37 = [*(v1 + 32) createErrorForStatus:v2 fromFunction:@"SecItemCopyMatching"];
@@ -296,9 +296,6 @@ LABEL_8:
   }
 
   (*(*(v1 + 40) + 16))();
-
-LABEL_41:
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)insertASAKey:(id)key withName:(id)name error:(id *)error
@@ -319,7 +316,7 @@ LABEL_41:
     *error = [(CRXFKeychainAccess *)self createErrorForStatus:v13 fromFunction:@"SecItemAdd"];
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      [CRXFKeychainAccess insertASAKey:error withName:? error:?];
+      [CRXFKeychainAccess insertASAKey:withName:error:];
     }
 
 LABEL_4:
@@ -337,7 +334,7 @@ LABEL_4:
       *error = 0;
       if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
       {
-        [CRXFKeychainAccess insertASAKey:error withName:? error:?];
+        [CRXFKeychainAccess insertASAKey:withName:error:];
       }
 
       goto LABEL_4;
@@ -382,7 +379,7 @@ LABEL_12:
     *error = [(CRXFKeychainAccess *)self createErrorForStatus:v11 fromFunction:@"SecItemDelete"];
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      [CRXFKeychainAccess deleteASAKeyWithName:error error:?];
+      [CRXFKeychainAccess deleteASAKeyWithName:error:];
     }
   }
 
@@ -413,7 +410,7 @@ LABEL_5:
   v6 = os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR);
   if (v6)
   {
-    [CRXFKeychainAccess deleteAllASAKeysWithError:error];
+    [CRXFKeychainAccess deleteAllASAKeysWithError:];
     LOBYTE(v6) = 0;
   }
 
@@ -433,7 +430,7 @@ LABEL_5:
       *error = error;
       if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
       {
-        [CRXFKeychainAccess createASAKeyWithError:error];
+        [CRXFKeychainAccess createASAKeyWithError:];
       }
     }
 
@@ -445,7 +442,7 @@ LABEL_5:
     *error = error;
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      [CRXFKeychainAccess createASAKeyWithError:error];
+      [CRXFKeychainAccess createASAKeyWithError:];
     }
 
     v7 = 0;
@@ -505,121 +502,110 @@ LABEL_11:
 
 - (id)createErrorForStatus:(int)status fromFunction:(id)function
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   functionCopy = function;
   v6 = SecCopyErrorMessageString(status, 0);
   v7 = MEMORY[0x277CCA9B8];
   v8 = *MEMORY[0x277CCA590];
-  v13[0] = *MEMORY[0x277CCA450];
-  v13[1] = @"keychainFunction";
-  v14[0] = v6;
-  v14[1] = functionCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v12[0] = *MEMORY[0x277CCA450];
+  v12[1] = @"keychainFunction";
+  v13[0] = v6;
+  v13[1] = functionCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   v10 = [v7 errorWithDomain:v8 code:status userInfo:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 void __49__CRXFKeychainAccess_fetchASAKeysWithCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __49__CRXFKeychainAccess_fetchASAKeysWithCompletion___block_invoke_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_24732C000, v0, v1, "%s @%d: Keychain error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_24732C000, v0, v1, "%s @%d: Keychain error: %{public}@", v2, v3, v4, v5, v6);
 }
 
-- (void)insertASAKey:(uint64_t *)a1 withName:error:.cold.1(uint64_t *a1)
+- (void)insertASAKey:withName:error:.cold.1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_24732C000, v1, v2, "%s @%d: Keychain error: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_24732C000, v0, v1, "%s @%d: Keychain error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)insertASAKey:withName:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)insertASAKey:(uint64_t *)a1 withName:error:.cold.3(uint64_t *a1)
+- (void)insertASAKey:withName:error:.cold.3()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_24732C000, v1, v2, "%s @%d: Error deriving public key: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_24732C000, v0, v1, "%s @%d: Error deriving public key: %{public}@", v2, v3, v4, v5, v6);
 }
 
-- (void)deleteASAKeyWithName:(uint64_t *)a1 error:.cold.1(uint64_t *a1)
+- (void)deleteASAKeyWithName:error:.cold.1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_24732C000, v1, v2, "%s @%d: Keychain error: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_24732C000, v0, v1, "%s @%d: Keychain error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)deleteAllASAKeysWithError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)deleteAllASAKeysWithError:(uint64_t *)a1 .cold.2(uint64_t *a1)
+- (void)deleteAllASAKeysWithError:.cold.2()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_24732C000, v1, v2, "%s @%d: Keychain error: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_24732C000, v0, v1, "%s @%d: Keychain error: %{public}@", v2, v3, v4, v5, v6);
 }
 
-- (void)createASAKeyWithError:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)createASAKeyWithError:.cold.1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_24732C000, v1, v2, "%s @%d: Keychain error: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_24732C000, v0, v1, "%s @%d: Keychain error: %{public}@", v2, v3, v4, v5, v6);
 }
 
-- (void)createASAKeyWithError:(uint64_t *)a1 .cold.2(uint64_t *a1)
+- (void)createASAKeyWithError:.cold.2()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_24732C000, v1, v2, "%s @%d: Keychain error: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_24732C000, v0, v1, "%s @%d: Keychain error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)derivePublicKeyFromPrivateKey:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -211,7 +211,9 @@ void __279__SXEmbedComponentView_initWithDOMObjectProvider_viewport_presentation
   selfCopy = self;
   component = [a2 component];
   identifier = [component identifier];
-  OUTLINED_FUNCTION_0_4(&dword_1D825C000, v6, v7, "Failed to load embed user script, component-identifier=%{public}@", v8, v9, v10, v11, 2u);
+  LODWORD(v12) = 138543362;
+  *(&v12 + 4) = identifier;
+  OUTLINED_FUNCTION_0_4(&dword_1D825C000, v6, v7, "Failed to load embed user script, component-identifier=%{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 - (void)displayEmbedIfNeeded
@@ -977,7 +979,7 @@ LABEL_53:
 
 - (id)unableToLoadMessage
 {
-  v2 = SXBundle();
+  v2 = SXBundle(self);
   v3 = [v2 localizedStringForKey:@"Couldn’t Load Content" value:&stru_1F532F6C0 table:0];
 
   return v3;

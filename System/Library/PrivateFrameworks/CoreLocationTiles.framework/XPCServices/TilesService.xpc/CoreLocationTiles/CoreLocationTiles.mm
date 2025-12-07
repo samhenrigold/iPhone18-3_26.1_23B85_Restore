@@ -1,9 +1,9 @@
-void sub_100000EA8()
+void sub_100000EA8(_Unwind_Exception *a1)
 {
-  sub_100003374(v2);
-  sub_100003374((v0 + 5));
-  sub_100003328(v1, 0);
-  sub_100003158(v0);
+  sub_100003374(v3);
+  sub_100003374((v1 + 40));
+  sub_100003328(v2, 0);
+  sub_100003158(v1);
 }
 
 void CLTilesService::startService(uint64_t a1, uint64_t a2)
@@ -18,20 +18,19 @@ void CLTilesService::startService(uint64_t a1, uint64_t a2)
     sub_1000064F4();
   }
 
-  sub_100006664();
+  sub_100006664(a1);
 }
 
-void sub_1000010A0()
+void sub_1000010A0(_Unwind_Exception *a1)
 {
-  sub_100003374(v2);
-  sub_100003374((v0 + 5));
-  sub_100003328(v1, 0);
-  sub_100003158(v0);
+  sub_100003374(v3);
+  sub_100003374((v1 + 40));
+  sub_100003328(v2, 0);
+  sub_100003158(v1);
 }
 
-void sub_1000011E8(uint64_t a1, uint64_t *a2)
+void sub_1000011E8(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v2 = *(a1 + 32);
   v3 = *a2;
   *a2 = 0;
   sub_1000033F8(&v4, v3);
@@ -237,7 +236,7 @@ void CLTilesService::handleMessage(uint64_t a1, uint64_t *a2, uint64_t a3)
     *(a1 + 120) = os_transaction_create();
   }
 
-  sub_100003580((a1 + 40), a2);
+  sub_100003580((a1 + 40), a2, a2);
   v7 = CLConnectionMessage::name(*a3);
   if (*(v7 + 23) < 0)
   {
@@ -692,11 +691,10 @@ void sub_1000020CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void CLTilesService::handleDownloadRequest(uint64_t a1, uint64_t *a2, CLConnectionMessage **a3)
 {
   dispatch_assert_queue_V2(*(a1 + 24));
-  v6 = *a2;
   sub_100002A0C(buf, "com.apple.location.tilesservice.downloads");
   isEntitled = CLConnection::isEntitled();
-  v8 = isEntitled;
-  if ((v37[15] & 0x80000000) == 0)
+  v7 = isEntitled;
+  if ((v35[15] & 0x80000000) == 0)
   {
     if (isEntitled)
     {
@@ -709,88 +707,87 @@ LABEL_19:
       sub_1000067D4();
     }
 
-    v28 = qword_1000108A8;
+    v27 = qword_1000108A8;
     if (os_log_type_enabled(qword_1000108A8, OS_LOG_TYPE_ERROR))
     {
-      v29 = *a2;
+      v28 = *a2;
       *buf = 68289282;
       *&buf[4] = 0;
-      *v37 = 2082;
-      *&v37[2] = "";
-      *&v37[10] = 2050;
-      *&v37[12] = v29;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TilesService connection lacks proper entitlement., connection:%{public}p}", buf, 0x1Cu);
+      *v35 = 2082;
+      *&v35[2] = "";
+      *&v35[10] = 2050;
+      *&v35[12] = v28;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TilesService connection lacks proper entitlement., connection:%{public}p}", buf, 0x1Cu);
       if (qword_1000108A0 != -1)
       {
         sub_1000067D4();
       }
     }
 
-    v30 = qword_1000108A8;
+    v29 = qword_1000108A8;
     if (os_signpost_enabled(qword_1000108A8))
     {
-      v31 = *a2;
+      v30 = *a2;
       *buf = 68289282;
       *&buf[4] = 0;
-      *v37 = 2082;
-      *&v37[2] = "";
-      *&v37[10] = 2050;
-      *&v37[12] = v31;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v30, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#TilesService connection lacks proper entitlement.", "{msg%{public}.0s:#TilesService connection lacks proper entitlement., connection:%{public}p}", buf, 0x1Cu);
+      *v35 = 2082;
+      *&v35[2] = "";
+      *&v35[10] = 2050;
+      *&v35[12] = v30;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v29, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#TilesService connection lacks proper entitlement.", "{msg%{public}.0s:#TilesService connection lacks proper entitlement., connection:%{public}p}", buf, 0x1Cu);
     }
 
-    v32 = [NSError errorWithDomain:@"kCLTileErrorDomain" code:3 userInfo:0];
-    v50 = @"kCLConnectionDownloadAndDecompressErrorKey";
-    v51 = v32;
-    *buf = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-    v33 = *a2;
+    v31 = [NSError errorWithDomain:@"kCLTileErrorDomain" code:3 userInfo:0];
+    v48 = @"kCLConnectionDownloadAndDecompressErrorKey";
+    v49 = v31;
+    *buf = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
     sub_100003D70();
   }
 
   operator delete(*buf);
-  if ((v8 & 1) == 0)
+  if ((v7 & 1) == 0)
   {
     goto LABEL_19;
   }
 
 LABEL_3:
-  v9 = *a3;
-  v10 = objc_opt_class();
-  v11 = [NSSet setWithObjects:v10, objc_opt_class(), 0];
-  DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(v9, v11);
-  v13 = DictionaryOfClasses;
+  v8 = *a3;
+  v9 = objc_opt_class();
+  v10 = [NSSet setWithObjects:v9, objc_opt_class(), 0];
+  DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(v8, v10);
+  v12 = DictionaryOfClasses;
   if (!DictionaryOfClasses)
   {
     sub_100006AF0();
   }
 
-  v14 = [DictionaryOfClasses objectForKey:@"kCLConnectionDownloadAndDecompressDestinationURLKey"];
-  if (!v14)
+  v13 = [DictionaryOfClasses objectForKey:@"kCLConnectionDownloadAndDecompressDestinationURLKey"];
+  if (!v13)
   {
     sub_100006980();
   }
 
-  v15 = [v13 objectForKey:@"kCLConnectionDownloadAndDecompressRequestKey"];
-  if (!v15)
+  v14 = [v12 objectForKey:@"kCLConnectionDownloadAndDecompressRequestKey"];
+  if (!v14)
   {
     sub_100006810();
   }
 
-  v16 = [[CLTileDownloadRequest alloc] initWithQueue:*(a1 + 24)];
-  v17 = v16;
-  v18 = a2[1];
+  v15 = [[CLTileDownloadRequest alloc] initWithQueue:*(a1 + 24)];
+  v16 = v15;
+  v17 = a2[1];
   *buf = *a2;
-  *v37 = v18;
-  if (v18)
+  *v35 = v17;
+  if (v17)
   {
-    atomic_fetch_add_explicit((v18 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v17 + 8), 1uLL, memory_order_relaxed);
   }
 
-  *&v37[8] = v16;
-  sub_100003F34((a1 + 80), buf);
-  if (*v37)
+  *&v35[8] = v15;
+  sub_100003F34((a1 + 80), buf, buf);
+  if (*v35)
   {
-    sub_1000030EC(*v37);
+    sub_1000030EC(*v35);
   }
 
   if (qword_1000108A0 != -1)
@@ -798,53 +795,53 @@ LABEL_3:
     sub_1000067D4();
   }
 
-  v19 = qword_1000108A8;
+  v18 = qword_1000108A8;
   if (os_log_type_enabled(qword_1000108A8, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = *a2;
-    [v15 timeoutInterval];
-    v22 = v21;
-    v23 = [v15 allowsCellularAccess];
-    v24 = [objc_msgSend(objc_msgSend(v15 "URL")];
-    v25 = *(a1 + 104);
+    v19 = *a2;
+    [v14 timeoutInterval];
+    v21 = v20;
+    v22 = [v14 allowsCellularAccess];
+    v23 = [objc_msgSend(objc_msgSend(v14 "URL")];
+    v24 = *(a1 + 104);
     *buf = 68290819;
-    *v37 = 2082;
-    *&v37[2] = "";
-    *&v37[10] = 2050;
-    *&v37[12] = v20;
-    v38 = 2050;
+    *v35 = 2082;
+    *&v35[2] = "";
+    *&v35[10] = 2050;
+    *&v35[12] = v19;
+    v36 = 2050;
+    v37 = v21;
+    v38 = 1026;
     v39 = v22;
-    v40 = 1026;
+    v40 = 2082;
     v41 = v23;
-    v42 = 2082;
-    v43 = v24;
-    v44 = 2114;
-    v45 = v15;
-    v46 = 2113;
-    v47 = v14;
-    v48 = 2050;
-    v49 = v25;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TilesService starting download request, connection:%{public}p, timeout:%{public}f, allowsCellular:%{public}hhd, source:%{public, location:escape_only}s, request:%{public, location:escape_only}@, destination:%{private, location:escape_only}@, numCurrentDownloads:%{public}lu}", buf, 0x54u);
+    v42 = 2114;
+    v43 = v14;
+    v44 = 2113;
+    v45 = v13;
+    v46 = 2050;
+    v47 = v24;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TilesService starting download request, connection:%{public}p, timeout:%{public}f, allowsCellular:%{public}hhd, source:%{public, location:escape_only}s, request:%{public, location:escape_only}@, destination:%{private, location:escape_only}@, numCurrentDownloads:%{public}lu}", buf, 0x54u);
   }
 
-  v34[0] = _NSConcreteStackBlock;
-  v34[1] = 3321888768;
-  v34[2] = sub_100002AC4;
-  v34[3] = &unk_10000C458;
-  v27 = *a2;
-  v26 = a2[1];
-  v34[4] = a1;
-  v34[5] = v27;
-  v35 = v26;
-  if (v26)
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3321888768;
+  v32[2] = sub_100002AC4;
+  v32[3] = &unk_10000C458;
+  v26 = *a2;
+  v25 = a2[1];
+  v32[4] = a1;
+  v32[5] = v26;
+  v33 = v25;
+  if (v25)
   {
-    atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  [(CLTileDownloadRequest *)v17 downloadWithURLRequest:v15 withDecompressionURL:v14 completionHandler:v34];
-  if (v35)
+  [(CLTileDownloadRequest *)v16 downloadWithURLRequest:v14 withDecompressionURL:v13 completionHandler:v32];
+  if (v33)
   {
-    sub_1000030EC(v35);
+    sub_1000030EC(v33);
   }
 }
 
@@ -861,11 +858,10 @@ void sub_10000259C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void CLTilesService::handleDownloadRequestCancellation(uint64_t a1, uint64_t *a2)
 {
   dispatch_assert_queue_V2(*(a1 + 24));
-  v4 = *a2;
   sub_100002A0C(&__p, "com.apple.location.tilesservice.downloads");
   isEntitled = CLConnection::isEntitled();
-  v6 = isEntitled;
-  if ((SBYTE3(v21) & 0x80000000) == 0)
+  v5 = isEntitled;
+  if ((SBYTE3(v19) & 0x80000000) == 0)
   {
     if (isEntitled)
     {
@@ -878,60 +874,59 @@ LABEL_9:
       sub_1000067D4();
     }
 
-    v8 = qword_1000108A8;
+    v7 = qword_1000108A8;
     if (os_log_type_enabled(qword_1000108A8, OS_LOG_TYPE_ERROR))
     {
-      v9 = *a2;
+      v8 = *a2;
       __p = 68289282;
-      v18 = 2082;
-      v19 = "";
-      v20 = 2050;
-      v21 = v9;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TilesService connection lacks proper entitlement., connection:%{public}p}", &__p, 0x1Cu);
+      v16 = 2082;
+      v17 = "";
+      v18 = 2050;
+      v19 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TilesService connection lacks proper entitlement., connection:%{public}p}", &__p, 0x1Cu);
       if (qword_1000108A0 != -1)
       {
         sub_1000067D4();
       }
     }
 
-    v10 = qword_1000108A8;
+    v9 = qword_1000108A8;
     if (os_signpost_enabled(qword_1000108A8))
     {
-      v11 = *a2;
+      v10 = *a2;
       __p = 68289282;
-      v18 = 2082;
-      v19 = "";
-      v20 = 2050;
-      v21 = v11;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#TilesService connection lacks proper entitlement.", "{msg%{public}.0s:#TilesService connection lacks proper entitlement., connection:%{public}p}", &__p, 0x1Cu);
+      v16 = 2082;
+      v17 = "";
+      v18 = 2050;
+      v19 = v10;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#TilesService connection lacks proper entitlement.", "{msg%{public}.0s:#TilesService connection lacks proper entitlement., connection:%{public}p}", &__p, 0x1Cu);
     }
 
-    v15 = @"kCLConnectionDownloadAndDecompressErrorKey";
-    v16 = [NSError errorWithDomain:@"kCLTileErrorDomain" code:3 userInfo:0];
-    __p = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    v12 = *a2;
+    v13 = @"kCLConnectionDownloadAndDecompressErrorKey";
+    v14 = [NSError errorWithDomain:@"kCLTileErrorDomain" code:3 userInfo:0];
+    __p = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
     sub_100003D70();
   }
 
   operator delete(__p);
-  if ((v6 & 1) == 0)
+  if ((v5 & 1) == 0)
   {
     goto LABEL_9;
   }
 
 LABEL_3:
-  v7 = a2[1];
-  v13 = *a2;
-  v14 = v7;
-  if (v7)
+  v6 = a2[1];
+  v11 = *a2;
+  v12 = v6;
+  if (v6)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  CLTilesService::removeDownloadRequestForConnection(a1, &v13);
-  if (v14)
+  CLTilesService::removeDownloadRequestForConnection(a1, &v11);
+  if (v12)
   {
-    sub_1000030EC(v14);
+    sub_1000030EC(v12);
   }
 }
 
@@ -987,7 +982,7 @@ void CLTilesService::removeDownloadRequestForConnection(uint64_t a1, uint64_t *a
   }
 }
 
-_BYTE *sub_100002A0C(_BYTE *a1, char *__s)
+void *sub_100002A0C(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1001,13 +996,13 @@ _BYTE *sub_100002A0C(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -1099,6 +1094,7 @@ void CLTilesService::handleDownloadRequestCallback(uint64_t a1, uint64_t *a2, ui
     v14 = [a5 description];
     *buf = 68290051;
     *&buf[8] = 2082;
+    *&buf[4] = 0;
     *&buf[10] = "";
     v22 = 2050;
     v23 = v13;
@@ -1216,9 +1212,9 @@ CLConnectionServer *sub_100003328(CLConnectionServer **a1, CLConnectionServer *a
   return result;
 }
 
-uint64_t sub_100003374(uint64_t a1)
+void **sub_100003374(void **a1)
 {
-  sub_1000033B0(a1, *(a1 + 16));
+  sub_1000033B0(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -1309,35 +1305,35 @@ BOOL sub_10000352C(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-void *sub_100003580(void *a1, void *a2)
+void *sub_100003580(float *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = *(a1 + 2);
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -1345,47 +1341,47 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
-void sub_100003810(uint64_t a1, size_t __n)
+void sub_100003810(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -1401,7 +1397,7 @@ void sub_100003810(uint64_t a1, size_t __n)
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -1409,7 +1405,7 @@ void sub_100003810(uint64_t a1, size_t __n)
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -1433,7 +1429,7 @@ void sub_100003810(uint64_t a1, size_t __n)
     {
 LABEL_6:
 
-      sub_100003900(a1, prime);
+      sub_100003900(result, prime);
     }
   }
 }
@@ -1479,7 +1475,7 @@ void sub_100003A64(uint64_t a1, void *__p)
   operator delete(__p);
 }
 
-uint64_t *sub_100003AC4(void *a1, void *a2)
+uint64_t sub_100003AC4(void *a1, void *a2)
 {
   result = sub_100003AFC(a1, a2);
   if (result)
@@ -1524,45 +1520,37 @@ void *sub_100003AFC(void *a1, void *a2)
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -1692,7 +1680,7 @@ LABEL_19:
   return result;
 }
 
-void *sub_100003DE4(void *a1, char *a2, uint64_t *a3)
+void *sub_100003DE4(void *a1, char *a2, void *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -1709,12 +1697,11 @@ void sub_100003E60(std::__shared_weak_count *a1)
   operator delete();
 }
 
-uint64_t sub_100003EC0(uint64_t a1, char *a2, uint64_t *a3)
+uint64_t sub_100003EC0(uint64_t a1, char *a2, void *a3)
 {
   sub_100002A0C(&__p, a2);
-  v5 = *a3;
   CLConnectionMessage::CLConnectionMessage();
-  if (v8 < 0)
+  if (v6 < 0)
   {
     operator delete(__p);
   }
@@ -1732,35 +1719,35 @@ void sub_100003F18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *sub_100003F34(void *a1, void *a2)
+void *sub_100003F34(void *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -1768,47 +1755,47 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
-void *sub_100004240(void *a1, char *a2, uint64_t *a3)
+void *sub_100004240(void *a1, char *a2, void *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -1817,12 +1804,11 @@ void *sub_100004240(void *a1, char *a2, uint64_t *a3)
   return a1;
 }
 
-uint64_t sub_10000429C(uint64_t a1, char *a2, uint64_t *a3)
+uint64_t sub_10000429C(uint64_t a1, char *a2, void *a3)
 {
   sub_100002A0C(&__p, a2);
-  v5 = *a3;
   CLConnectionMessage::CLConnectionMessage();
-  if (v8 < 0)
+  if (v6 < 0)
   {
     operator delete(__p);
   }
@@ -1840,7 +1826,7 @@ void sub_1000042F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *sub_100004384(void *a1, char *a2, uint64_t *a3)
+void *sub_100004384(void *a1, char *a2, void *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -1849,12 +1835,11 @@ void *sub_100004384(void *a1, char *a2, uint64_t *a3)
   return a1;
 }
 
-uint64_t sub_1000043E0(uint64_t a1, char *a2, uint64_t *a3)
+uint64_t sub_1000043E0(uint64_t a1, char *a2, void *a3)
 {
   sub_100002A0C(&__p, a2);
-  v5 = *a3;
   CLConnectionMessage::CLConnectionMessage();
-  if (v8 < 0)
+  if (v6 < 0)
   {
     operator delete(__p);
   }
@@ -1872,22 +1857,25 @@ void sub_100004438(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100004480(void *a1, int a2, int a3, int a4, const char *a5, const char *a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void sub_100004480(void *a1, int a2, int a3, int a4, const char *a5, const char *a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_signpost_emit_with_name_impl(a1, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, a5, a6, &buf, 0x26u);
+  _os_signpost_emit_with_name_impl(a1, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, a5, a6, va, 0x26u);
 }
 
-void sub_1000044D8(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void sub_1000044D8(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_FAULT, a4, &buf, 0x26u);
+  _os_log_impl(a1, v12, OS_LOG_TYPE_FAULT, a4, va, 0x26u);
 }
 
-void sub_1000044F8(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void sub_1000044F8(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_INFO, a4, &buf, 0x26u);
+  _os_log_impl(a1, v12, OS_LOG_TYPE_INFO, a4, va, 0x26u);
 }
 
 BOOL sub_100004518()
@@ -2529,7 +2517,7 @@ void sub_100006E70(NSObject *label)
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:The passed queue in getSharedSessionInQueue is different to the one that had been statically set., queue:%{public, location:escape_only}s, sharedSessionQueue:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/CoreLocationTiles/TilesService/CLTileDownloadRequest.mm", 72, "getSharedSessionInQueue");
 LABEL_11:
     dispatch_once(&qword_1000108A0, &stru_10000C6D0);
   }
@@ -2573,7 +2561,7 @@ void sub_100007100()
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Nothing was downloaded to #TilesService? Was it successful?, error:%{private, location:escape_only}@, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/CoreLocationTiles/TilesService/CLTileDownloadRequest.mm", 284, "[CLTileDownloadRequest onDownloadCompleted:withResponse:withError:]");
 LABEL_11:
     dispatch_once(&qword_1000108A0, &stru_10000C6D0);
   }

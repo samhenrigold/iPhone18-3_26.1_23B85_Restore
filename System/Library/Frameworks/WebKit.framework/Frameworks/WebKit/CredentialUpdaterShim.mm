@@ -9,8 +9,8 @@
 
 + (void)signalUnknownCredentialWithRelyingPartyIdentifier:(NSString *)identifier credentialID:(NSData *)d completionHandler:(id)handler
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E15A970, &qword_23B59F4E0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E15A970, &qword_23B59F4E0);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
   v13 = swift_allocObject();
@@ -37,8 +37,8 @@
 
 + (void)signalAllAcceptedCredentialsWithRelyingPartyIdentifier:(NSString *)identifier userHandle:(NSData *)handle acceptedCredentialIDs:(NSArray *)ds completionHandler:(id)handler
 {
-  v11 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E15A970, &qword_23B59F4E0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E15A970, &qword_23B59F4E0);
+  MEMORY[0x28223BE20](v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);
   v15 = swift_allocObject();
@@ -67,8 +67,8 @@
 
 + (void)signalCurrentUserDetailsWithRelyingPartyIdentifier:(NSString *)identifier userHandle:(NSData *)handle newName:(NSString *)name completionHandler:(id)handler
 {
-  v11 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E15A970, &qword_23B59F4E0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E15A970, &qword_23B59F4E0);
+  MEMORY[0x28223BE20](v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);
   v15 = swift_allocObject();

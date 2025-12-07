@@ -127,17 +127,17 @@
   _Block_object_dispose(v3, 8);
 }
 
-void __46__PRLexiconCursor_enumerateEntriesUsingBlock___block_invoke(uint64_t a1)
+void __46__PRLexiconCursor_enumerateEntriesUsingBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = LXEntryCopyString();
-  if (v2)
+  v3 = LXEntryCopyString();
+  if (v3)
   {
-    v3 = v2;
+    v4 = v3;
     LXEntryGetTokenID();
     LXEntryGetMetaFlags();
     LXEntryGetProbability();
     (*(*(a1 + 32) + 16))();
-    CFRelease(v3);
+    CFRelease(v4);
   }
 }
 

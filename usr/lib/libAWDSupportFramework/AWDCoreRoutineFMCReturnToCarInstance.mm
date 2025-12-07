@@ -92,7 +92,6 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -104,14 +103,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    horizontalAccuracy = self->_horizontalAccuracy;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    horizontalDistance = self->_horizontalDistance;
 
     PBDataWriterWriteInt32Field();
   }
@@ -179,7 +176,6 @@
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 32);
     if (has)
     {
       if ((*(equal + 32) & 1) == 0 || self->_timestamp != *(equal + 1))

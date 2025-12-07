@@ -1,6 +1,7 @@
 @interface IDSHashPersistenceAWDLogging
 + (id)sharedInstance;
 - (IDSHashPersistenceAWDLogging)init;
+- (id)_metricContainerForMetricType:(unsigned int)type;
 - (void)_submitAWDMetric:(id)metric withContainer:(id)container;
 - (void)dealloc;
 - (void)duplicateMessageEncounted;
@@ -62,6 +63,13 @@
     [containerCopy setMetric:metric];
     [self->_AWDServerConnection submitMetric:containerCopy];
   }
+}
+
+- (id)_metricContainerForMetricType:(unsigned int)type
+{
+  v3 = [self->_AWDServerConnection newMetricContainerWithIdentifier:*&type];
+
+  return v3;
 }
 
 - (void)duplicateMessageEncounted

@@ -39,7 +39,7 @@
 {
   v4 = *(&self->super.isa + OBJC_IVAR____TtCV20VisualIntelligenceUI15OverlayTextView11Coordinator_model);
   swift_getKeyPath();
-  sub_21E0A35D8(&unk_280F6B040, type metadata accessor for OverlayViewModel);
+  sub_21E0A35D8(&unk_280F6B040, type metadata accessor for OverlayViewModel, &protocol conformance descriptor for OverlayViewModel);
   selfCopy = self;
   sub_21E13D3C4();
 

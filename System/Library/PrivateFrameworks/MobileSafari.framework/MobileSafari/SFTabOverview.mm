@@ -81,31 +81,32 @@
 - (int64_t)totalItemCount
 {
   v2 = *(&self->super.super._minimumSafeAreaInsets.bottom + OBJC_IVAR___SFTabOverview_content);
-  v13[8] = *(&self->super.super._minimumSafeAreaInsets.top + OBJC_IVAR___SFTabOverview_content);
-  v13[9] = v2;
+  v14[8] = *(&self->super.super._minimumSafeAreaInsets.top + OBJC_IVAR___SFTabOverview_content);
+  v14[9] = v2;
   v3 = *(&self->super.super._viewBackingAux + OBJC_IVAR___SFTabOverview_content);
-  v13[10] = *(&self->super.super._clippedSafeAreaCornerInsets.cornerInsets.topLeftWidth + OBJC_IVAR___SFTabOverview_content);
-  v13[11] = v3;
+  v14[10] = *(&self->super.super._clippedSafeAreaCornerInsets.cornerInsets.topLeftWidth + OBJC_IVAR___SFTabOverview_content);
+  v14[11] = v3;
   v4 = *(&self->super.super._viewDelegate + OBJC_IVAR___SFTabOverview_content);
-  v13[4] = *(&self->super.super._window + OBJC_IVAR___SFTabOverview_content);
-  v13[5] = v4;
+  v14[4] = *(&self->super.super._window + OBJC_IVAR___SFTabOverview_content);
+  v14[5] = v4;
   v5 = *(&self->super.super._viewFlags + OBJC_IVAR___SFTabOverview_content + 24);
-  v13[6] = *(&self->super.super._viewFlags + OBJC_IVAR___SFTabOverview_content + 8);
-  v13[7] = v5;
+  v14[6] = *(&self->super.super._viewFlags + OBJC_IVAR___SFTabOverview_content + 8);
+  v14[7] = v5;
   v6 = *(&self->super.super._constraintsExceptingSubviewAutoresizingConstraints + OBJC_IVAR___SFTabOverview_content);
-  v13[0] = *(&self->super.super.super + OBJC_IVAR___SFTabOverview_content);
-  v13[1] = v6;
+  v14[0] = *(&self->super.super.super + OBJC_IVAR___SFTabOverview_content);
+  v14[1] = v6;
   v7 = *(&self->super.super._layerRetained + OBJC_IVAR___SFTabOverview_content);
-  v13[2] = *(&self->super.super._swiftAnimationInfo + OBJC_IVAR___SFTabOverview_content);
-  v13[3] = v7;
+  v14[2] = *(&self->super.super._swiftAnimationInfo + OBJC_IVAR___SFTabOverview_content);
+  v14[3] = v7;
   selfCopy = self;
-  sub_18B82B150(v13, &v12);
-  v9 = sub_18B866D50();
+  sub_18B82B150(v14, &v13);
+  sub_18B866D50();
+  v10 = v9;
 
-  sub_18B82B2F0(v13);
-  v10 = *(v9 + 16);
+  sub_18B82B2F0(v14);
+  v11 = *(v10 + 16);
 
-  return v10;
+  return v11;
 }
 
 - (id)viewForItemAtIndex:(int64_t)index
@@ -134,7 +135,7 @@
 
   v8 = sub_18B9BF64C(action, v10);
 
-  sub_18B988BAC(v10, &qword_1EA9D5220);
+  sub_18B988BAC(v10, &qword_1EA9D5220, &qword_18BC3FCB0);
   return v8;
 }
 

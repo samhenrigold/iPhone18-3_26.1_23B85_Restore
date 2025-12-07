@@ -50,7 +50,7 @@
   }
 
   objects = [(PLDataCluster *)self objects];
-  v11 = v7 / [objects count];
+  v11 = v7 / objc_msgSend_count(objects);
 
   v12 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v11];
 
@@ -281,7 +281,7 @@ LABEL_44:
         v15 = [v13 meanRegion:radius];
         if (v15)
         {
-          if (!v11 || ([v10 objects], v27 = v10, v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "count"), objc_msgSend(v13, "objects"), v18 = objc_claimAutoreleasedReturnValue(), v19 = v11, v20 = objc_msgSend(v18, "count"), v18, v16, v10 = v27, v21 = v17 >= v20, v11 = v19, !v21))
+          if (!v11 || ([v10 objects], v27 = v10, v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend_count(v16), objc_msgSend(v13, "objects"), v18 = objc_claimAutoreleasedReturnValue(), v19 = v11, v20 = objc_msgSend_count(v18), v18, v16, v10 = v27, v21 = v17 >= v20, v11 = v19, !v21))
           {
             v22 = v15;
 
@@ -334,7 +334,7 @@ double __77__PLDataCluster_PLRegionsClusteringItem__approximateRegionWithMaximum
   v18 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF70];
   objects = [(PLDataCluster *)self objects];
-  v5 = [v3 arrayWithCapacity:{objc_msgSend(objects, "count")}];
+  v5 = [v3 arrayWithCapacity:objc_msgSend_count(objects)];
 
   v15 = 0u;
   v16 = 0u;
@@ -376,7 +376,7 @@ double __77__PLDataCluster_PLRegionsClusteringItem__approximateRegionWithMaximum
   v22 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF70];
   objects = [(PLDataCluster *)self objects];
-  v5 = [v3 arrayWithCapacity:{objc_msgSend(objects, "count")}];
+  v5 = [v3 arrayWithCapacity:objc_msgSend_count(objects)];
 
   v19 = 0u;
   v20 = 0u;
@@ -430,7 +430,7 @@ double __77__PLDataCluster_PLRegionsClusteringItem__approximateRegionWithMaximum
   v3 = MEMORY[0x1E696AD60];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v6 = [v3 stringWithFormat:@"%@<%p> - count:%ld score:%lf", v5, self, -[NSArray count](self->_objects, "count"), *&self->_score];
+  v6 = [v3 stringWithFormat:@"%@<%p> - count:%ld score:%lf", v5, self, objc_msgSend_count(self->_objects), *&self->_score];
 
   if (self->_diameter != 0.0)
   {

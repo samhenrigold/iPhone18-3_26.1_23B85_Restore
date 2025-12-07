@@ -275,36 +275,36 @@ LABEL_48:
 
 - (void)sendCoreAnalyticsForRecognizedCommandIdentifier:(id)identifier appIdentifier:(id)appIdentifier
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   appIdentifierCopy = appIdentifier;
   array = [MEMORY[0x277CBEB18] array];
   v8 = +[CACPreferences sharedPreferences];
-  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
   obj = [v8 recentCommandEntries];
-  v9 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+  v9 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
   if (v9)
   {
     v10 = v9;
     selfCopy = self;
-    v42 = v8;
-    v43 = appIdentifierCopy;
+    v43 = v8;
+    v44 = appIdentifierCopy;
     v11 = @"Custom";
-    v12 = *v47;
+    v12 = *v48;
     v13 = 0.0;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v47 != v12)
+        if (*v48 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v46 + 1) + 8 * i);
+        v15 = *(*(&v47 + 1) + 8 * i);
         v16 = [v15 objectForKey:@"CommandIdentifier"];
         if ([v16 hasPrefix:v11])
         {
@@ -345,8 +345,8 @@ LABEL_48:
             array = 0;
           }
 
-          v8 = v42;
-          appIdentifierCopy = v43;
+          v8 = v43;
+          appIdentifierCopy = v44;
           self = selfCopy;
           v27 = identifierCopy;
 
@@ -354,7 +354,7 @@ LABEL_48:
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v10 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
       if (v10)
       {
         continue;
@@ -363,8 +363,8 @@ LABEL_48:
       break;
     }
 
-    v8 = v42;
-    appIdentifierCopy = v43;
+    v8 = v43;
+    appIdentifierCopy = v44;
     self = selfCopy;
   }
 
@@ -407,13 +407,13 @@ LABEL_18:
   dictionaryOfNormallyStaticPreferenceValuesForCoreAnalytics = [(CACMessageTracerUtilities *)self dictionaryOfNormallyStaticPreferenceValuesForCoreAnalytics];
   [dictionary addEntriesFromDictionary:dictionaryOfNormallyStaticPreferenceValuesForCoreAnalytics];
 
-  AnalyticsSendEvent();
-  v40 = CACLogGeneral();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v40 = AnalyticsSendEvent();
+  v41 = CACLogGeneral(v40);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v51 = @"com.apple.commandandcontrol.commandrecognized";
-    _os_log_impl(&dword_26B354000, v40, OS_LOG_TYPE_DEFAULT, "Sent %@ event to CoreAnalytics.", buf, 0xCu);
+    v52 = @"com.apple.commandandcontrol.commandrecognized";
+    _os_log_impl(&dword_26B354000, v41, OS_LOG_TYPE_DEFAULT, "Sent %@ event to CoreAnalytics.", buf, 0xCu);
   }
 }
 
@@ -608,7 +608,7 @@ LABEL_18:
   v13 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   recognitionCopy = recognition;
-  v7 = CACLogAudio();
+  v7 = CACLogAudio(recognitionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     requestIdentifier = [taskCopy requestIdentifier];
@@ -624,7 +624,7 @@ LABEL_18:
 {
   v8 = *MEMORY[0x277D85DE8];
   cancelledCopy = cancelled;
-  v4 = CACLogAudio();
+  v4 = CACLogAudio(cancelledCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     requestIdentifier = [cancelledCopy requestIdentifier];
@@ -639,7 +639,7 @@ LABEL_18:
   successfullyCopy = successfully;
   v12 = *MEMORY[0x277D85DE8];
   taskCopy = task;
-  v6 = CACLogAudio();
+  v6 = CACLogAudio(taskCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     requestIdentifier = [taskCopy requestIdentifier];

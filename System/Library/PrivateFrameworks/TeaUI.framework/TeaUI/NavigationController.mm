@@ -51,7 +51,7 @@
 
   if (v8)
   {
-    sub_1D7E0A1A8(0, &qword_1EDBB31B0);
+    sub_1D7E0A1A8(0, &qword_1EDBB31B0, 0x1E69DD258);
     v9 = sub_1D8191304();
   }
 
@@ -70,7 +70,7 @@
 
   if (v5)
   {
-    sub_1D7E0A1A8(0, &qword_1EDBB31B0);
+    sub_1D7E0A1A8(0, &qword_1EDBB31B0, 0x1E69DD258);
     v6 = sub_1D8191304();
   }
 

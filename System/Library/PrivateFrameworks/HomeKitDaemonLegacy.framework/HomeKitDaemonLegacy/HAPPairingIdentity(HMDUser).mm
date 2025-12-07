@@ -33,7 +33,7 @@
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "permissions")}];
   [dictionary setObject:v10 forKeyedSubscript:@"HAP.permissions"];
 
-  v11 = [dictionary copy];
+  v11 = objc_msgSend_copy(dictionary);
 
   return v11;
 }
@@ -72,15 +72,15 @@
 
 + (id)hmd_currentPairingIdentityWithPrivilege:()HMDUser forceHH1Key:keyStore:
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = a5;
-  v19 = 0;
-  v20 = 0;
   v18 = 0;
-  v7 = [v6 getControllerPublicKey:&v20 secretKey:0 username:&v19 allowCreation:0 error:&v18];
-  v8 = v20;
-  v9 = v19;
-  v10 = v18;
+  v19 = 0;
+  v17 = 0;
+  v7 = [v6 getControllerPublicKey:&v19 secretKey:0 username:&v18 allowCreation:0 error:&v17];
+  v8 = v19;
+  v9 = v18;
+  v10 = v17;
   v11 = v10;
   if (v7)
   {
@@ -97,17 +97,15 @@
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v11;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v11;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@[HMDUser] Failed to get current user from keychain with error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
     v12 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

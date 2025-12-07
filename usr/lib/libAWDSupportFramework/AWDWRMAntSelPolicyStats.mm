@@ -150,7 +150,6 @@ LABEL_6:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -170,7 +169,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  issueBand = self->_issueBand;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -182,7 +180,6 @@ LABEL_4:
     }
 
 LABEL_10:
-    isCoexBand = self->_isCoexBand;
     PBDataWriterWriteBOOLField();
     if ((*&self->_has & 8) == 0)
     {
@@ -193,7 +190,6 @@ LABEL_10:
   }
 
 LABEL_9:
-  issueType = self->_issueType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) != 0)
@@ -208,7 +204,6 @@ LABEL_5:
   }
 
 LABEL_11:
-  hasAntConstraint = self->_hasAntConstraint;
 
   PBDataWriterWriteBOOLField();
 }
@@ -399,7 +394,6 @@ LABEL_6:
         goto LABEL_25;
       }
 
-      v6 = *(equal + 25);
       if (self->_isCoexBand)
       {
         if ((*(equal + 25) & 1) == 0)

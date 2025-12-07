@@ -57,7 +57,7 @@
 
 - (NSDictionary)userInfo
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   underlyingCodableMessage = [(MRProtocolMessage *)self underlyingCodableMessage];
   userInfos = [underlyingCodableMessage userInfos];
   firstObject = [userInfos firstObject];
@@ -87,15 +87,13 @@
 
     else
     {
-      v14 = @"kMRNowPlayingPlayerPathUserInfoKey";
-      v15[0] = playerPath;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v13 = @"kMRNowPlayingPlayerPathUserInfoKey";
+      v14[0] = playerPath;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     }
   }
 
   v11 = MRCreateDecodedUserInfo(v7);
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

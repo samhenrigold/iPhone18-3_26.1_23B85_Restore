@@ -325,10 +325,7 @@ void __27__CalContactsProvider_init__block_invoke_13(uint64_t a1)
 
 uint64_t __43__CalContactsProvider_nullableContactStore__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) store];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) store];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -366,11 +363,9 @@ void __37__CalContactsProvider_meCardChanged___block_invoke(uint64_t a1)
 
 - (void)_syncContacts
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_lastHistoryToken
@@ -462,18 +457,16 @@ void __35__CalContactsProvider__meWithKeys___block_invoke(uint64_t a1)
 
 - (id)_fetchedUnifiedMeContact
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E695C360];
-  v9[0] = *MEMORY[0x1E695C208];
-  v9[1] = v3;
-  v9[2] = *MEMORY[0x1E695C330];
+  v8[0] = *MEMORY[0x1E695C208];
+  v8[1] = v3;
+  v8[2] = *MEMORY[0x1E695C330];
   v4 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:0];
-  v9[3] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
+  v8[3] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   v6 = [(CalContactsProvider *)self _meWithKeys:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -533,23 +526,24 @@ LABEL_8:
 
 void __68__CalContactsProvider_unifiedContactsMatchingPredicate_keysToFetch___block_invoke(uint64_t a1)
 {
+  v1 = a1;
   v2 = [*(a1 + 32) store];
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v5 = (a1 + 40);
-  v11 = 0;
-  v6 = [v2 unifiedContactsMatchingPredicate:v3 keysToFetch:v4 error:&v11];
-  v7 = v11;
-  v8 = *(v5[2] + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v6;
+  v3 = v1[5];
+  v4 = v1[6];
+  v1 += 5;
+  v10 = 0;
+  v5 = [v2 unifiedContactsMatchingPredicate:v3 keysToFetch:v4 error:&v10];
+  v6 = v10;
+  v7 = *(v1[2] + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v5;
 
-  if (!*(*(v5[2] + 8) + 40))
+  if (!*(*(v1[2] + 8) + 40))
   {
-    v10 = +[CalFoundationLogSubsystem contacts];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = +[CalFoundationLogSubsystem contacts];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __68__CalContactsProvider_unifiedContactsMatchingPredicate_keysToFetch___block_invoke_cold_1(v5);
+      __68__CalContactsProvider_unifiedContactsMatchingPredicate_keysToFetch___block_invoke_cold_1();
     }
   }
 }
@@ -715,23 +709,24 @@ void __77__CalContactsProvider_unifiedContactsDictionaryForHandleStrings_keysToF
 
 void __54__CalContactsProvider_unifiedContactWithEmailAddress___block_invoke(uint64_t a1)
 {
+  v1 = a1;
   v2 = [*(a1 + 32) store];
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v5 = (a1 + 40);
-  v11 = 0;
-  v6 = [v2 unifiedContactsMatchingPredicate:v3 keysToFetch:v4 error:&v11];
-  v7 = v11;
-  v8 = *(v5[2] + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v6;
+  v3 = v1[5];
+  v4 = v1[6];
+  v1 += 5;
+  v10 = 0;
+  v5 = [v2 unifiedContactsMatchingPredicate:v3 keysToFetch:v4 error:&v10];
+  v6 = v10;
+  v7 = *(v1[2] + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v5;
 
-  if (!*(*(v5[2] + 8) + 40))
+  if (!*(*(v1[2] + 8) + 40))
   {
-    v10 = +[CalFoundationLogSubsystem contacts];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = +[CalFoundationLogSubsystem contacts];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __68__CalContactsProvider_unifiedContactsMatchingPredicate_keysToFetch___block_invoke_cold_1(v5);
+      __68__CalContactsProvider_unifiedContactsMatchingPredicate_keysToFetch___block_invoke_cold_1();
     }
   }
 }
@@ -777,23 +772,24 @@ void __54__CalContactsProvider_unifiedContactWithEmailAddress___block_invoke(uin
 
 void __53__CalContactsProvider_unifiedContactWithPhoneNumber___block_invoke(uint64_t a1)
 {
+  v1 = a1;
   v2 = [*(a1 + 32) store];
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v5 = (a1 + 40);
-  v11 = 0;
-  v6 = [v2 unifiedContactsMatchingPredicate:v3 keysToFetch:v4 error:&v11];
-  v7 = v11;
-  v8 = *(v5[2] + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v6;
+  v3 = v1[5];
+  v4 = v1[6];
+  v1 += 5;
+  v10 = 0;
+  v5 = [v2 unifiedContactsMatchingPredicate:v3 keysToFetch:v4 error:&v10];
+  v6 = v10;
+  v7 = *(v1[2] + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v5;
 
-  if (!*(*(v5[2] + 8) + 40))
+  if (!*(*(v1[2] + 8) + 40))
   {
-    v10 = +[CalFoundationLogSubsystem contacts];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = +[CalFoundationLogSubsystem contacts];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __68__CalContactsProvider_unifiedContactsMatchingPredicate_keysToFetch___block_invoke_cold_1(v5);
+      __68__CalContactsProvider_unifiedContactsMatchingPredicate_keysToFetch___block_invoke_cold_1();
     }
   }
 }
@@ -838,23 +834,24 @@ void __53__CalContactsProvider_unifiedContactWithPhoneNumber___block_invoke(uint
 
 void __46__CalContactsProvider_unifiedContactWithName___block_invoke(uint64_t a1)
 {
+  v1 = a1;
   v2 = [*(a1 + 32) store];
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v5 = (a1 + 40);
-  v11 = 0;
-  v6 = [v2 unifiedContactsMatchingPredicate:v3 keysToFetch:v4 error:&v11];
-  v7 = v11;
-  v8 = *(v5[2] + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v6;
+  v3 = v1[5];
+  v4 = v1[6];
+  v1 += 5;
+  v10 = 0;
+  v5 = [v2 unifiedContactsMatchingPredicate:v3 keysToFetch:v4 error:&v10];
+  v6 = v10;
+  v7 = *(v1[2] + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v5;
 
-  if (!*(*(v5[2] + 8) + 40))
+  if (!*(*(v1[2] + 8) + 40))
   {
-    v10 = +[CalFoundationLogSubsystem contacts];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = +[CalFoundationLogSubsystem contacts];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __68__CalContactsProvider_unifiedContactsMatchingPredicate_keysToFetch___block_invoke_cold_1(v5);
+      __68__CalContactsProvider_unifiedContactsMatchingPredicate_keysToFetch___block_invoke_cold_1();
     }
   }
 }
@@ -907,23 +904,24 @@ LABEL_8:
 
 void __64__CalContactsProvider_unifiedContactWithIdentifier_keysToFetch___block_invoke(uint64_t a1)
 {
+  v1 = a1;
   v2 = [*(a1 + 32) store];
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v5 = (a1 + 40);
-  v11 = 0;
-  v6 = [v2 unifiedContactWithIdentifier:v3 keysToFetch:v4 error:&v11];
-  v7 = v11;
-  v8 = *(v5[2] + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v6;
+  v3 = v1[5];
+  v4 = v1[6];
+  v1 += 5;
+  v10 = 0;
+  v5 = [v2 unifiedContactWithIdentifier:v3 keysToFetch:v4 error:&v10];
+  v6 = v10;
+  v7 = *(v1[2] + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v5;
 
-  if (!*(*(v5[2] + 8) + 40))
+  if (!*(*(v1[2] + 8) + 40))
   {
-    v10 = +[CalFoundationLogSubsystem contacts];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = +[CalFoundationLogSubsystem contacts];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __64__CalContactsProvider_unifiedContactWithIdentifier_keysToFetch___block_invoke_cold_1(v5);
+      __64__CalContactsProvider_unifiedContactWithIdentifier_keysToFetch___block_invoke_cold_1();
     }
   }
 }
@@ -992,12 +990,12 @@ LABEL_9:
   fetchCopy = fetch;
   if ([(CalContactsProvider *)self contactAccessResolved])
   {
-    v53 = 0;
-    v54[0] = &v53;
-    v54[1] = 0x3032000000;
-    v54[2] = __Block_byref_object_copy__5;
-    v54[3] = __Block_byref_object_dispose__5;
-    v55 = 0;
+    v53[0] = 0;
+    v53[1] = v53;
+    v53[2] = 0x3032000000;
+    v53[3] = __Block_byref_object_copy__5;
+    v53[4] = __Block_byref_object_dispose__5;
+    v54 = 0;
     v14 = [MEMORY[0x1E695CD58] predicateForContactsMatchingEmailAddress:emailCopy];
     v47 = 0;
     v48 = &v47;
@@ -1016,7 +1014,7 @@ LABEL_9:
     v43 = v16;
     v17 = fetchCopy;
     v44 = v17;
-    v46 = &v53;
+    v46 = v53;
     dispatch_sync(contactStoreWorkQueue, block);
     if ([v48[5] count])
     {
@@ -1030,7 +1028,7 @@ LABEL_9:
         v19 = +[CalFoundationLogSubsystem contacts];
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          [CalContactsProvider unifiedContactMatchingName:v16 email:v54 url:? keysToFetch:?];
+          [CalContactsProvider unifiedContactMatchingName:email:url:keysToFetch:];
         }
       }
 
@@ -1047,7 +1045,7 @@ LABEL_9:
       v38 = v16;
       v22 = v17;
       v39 = v22;
-      v41 = &v53;
+      v41 = v53;
       dispatch_sync(v21, v37);
       if ([v48[5] count])
       {
@@ -1061,7 +1059,7 @@ LABEL_9:
           v23 = +[CalFoundationLogSubsystem contacts];
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            [CalContactsProvider unifiedContactMatchingName:v16 email:v54 url:? keysToFetch:?];
+            [CalContactsProvider unifiedContactMatchingName:email:url:keysToFetch:];
           }
         }
 
@@ -1077,7 +1075,7 @@ LABEL_9:
         v16 = v24;
         v33 = v16;
         v34 = v22;
-        v36 = &v53;
+        v36 = v53;
         dispatch_sync(v25, &v28);
         if ([v48[5] count])
         {
@@ -1091,7 +1089,7 @@ LABEL_9:
             v26 = +[CalFoundationLogSubsystem contacts];
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
-              [CalContactsProvider unifiedContactMatchingName:v16 email:v54 url:? keysToFetch:?];
+              [CalContactsProvider unifiedContactMatchingName:email:url:keysToFetch:];
             }
           }
 
@@ -1101,7 +1099,7 @@ LABEL_9:
     }
 
     _Block_object_dispose(&v47, 8);
-    _Block_object_dispose(&v53, 8);
+    _Block_object_dispose(v53, 8);
   }
 
   else
@@ -1156,13 +1154,13 @@ void __72__CalContactsProvider_unifiedContactMatchingName_email_url_keysToFetch_
 
 - (id)contactsFromContactIdentifiers:(id)identifiers withKeys:(id)keys
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   keysCopy = keys;
   v7 = [MEMORY[0x1E695CD58] predicateForContactsWithIdentifiers:identifiersCopy];
   v8 = +[CalContactsProvider defaultProvider];
   v9 = v8;
-  v25 = v7;
+  v24 = v7;
   if (keysCopy)
   {
     v10 = [v8 unifiedContactsMatchingPredicate:v7 keysToFetch:keysCopy];
@@ -1176,26 +1174,26 @@ void __72__CalContactsProvider_unifiedContactMatchingName_email_url_keysToFetch_
 
   v12 = objc_opt_new();
   v13 = [MEMORY[0x1E695DF70] arrayWithArray:identifiersCopy];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v14 = v10;
-  v15 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v27;
+    v17 = *v26;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v27 != v17)
+        if (*v26 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v26 + 1) + 8 * i);
+        v19 = *(*(&v25 + 1) + 8 * i);
         identifier = [v19 identifier];
         [v12 setObject:v19 forKey:identifier];
 
@@ -1203,7 +1201,7 @@ void __72__CalContactsProvider_unifiedContactMatchingName_email_url_keysToFetch_
         [v13 removeObject:identifier2];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v16);
@@ -1217,8 +1215,6 @@ void __72__CalContactsProvider_unifiedContactMatchingName_email_url_keysToFetch_
       [CalContactsProvider contactsFromContactIdentifiers:withKeys:];
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1245,12 +1241,12 @@ void __72__CalContactsProvider_unifiedContactMatchingName_email_url_keysToFetch_
 
 - (id)_fullNameForFirstContactMatchingPredicate:(id)predicate
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695CD80];
   predicateCopy = predicate;
   v6 = [v4 descriptorForRequiredKeysForStyle:0];
-  v13[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v8 = [(CalContactsProvider *)self unifiedContactsMatchingPredicate:predicateCopy keysToFetch:v7];
 
   if (v8)
@@ -1263,8 +1259,6 @@ void __72__CalContactsProvider_unifiedContactMatchingName_email_url_keysToFetch_
   {
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -1315,30 +1309,30 @@ void __72__CalContactsProvider_unifiedContactMatchingName_email_url_keysToFetch_
 
 - (id)myAddressForLabel:(id)label
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   labelCopy = label;
   meContact = [(CalContactsProvider *)self meContact];
   postalAddresses = [meContact postalAddresses];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = postalAddresses;
-  value = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  value = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (value)
   {
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != value; i = i + 1)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         label = [v11 label];
         v13 = [label isEqualToString:labelCopy];
 
@@ -1349,7 +1343,7 @@ void __72__CalContactsProvider_unifiedContactMatchingName_email_url_keysToFetch_
         }
       }
 
-      value = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      value = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (value)
       {
         continue;
@@ -1360,8 +1354,6 @@ void __72__CalContactsProvider_unifiedContactMatchingName_email_url_keysToFetch_
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return value;
 }
@@ -1518,7 +1510,7 @@ LABEL_6:
   return v6 & 1;
 }
 
-uint64_t __44__CalContactsProvider_matchesOneOfMyEmails___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__44__CalContactsProvider_matchesOneOfMyEmails___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) caseInsensitiveCompare:a2];
   if (!result)
@@ -1581,7 +1573,7 @@ uint64_t __44__CalContactsProvider_matchesOneOfMyEmails___block_invoke(uint64_t 
   return v7;
 }
 
-uint64_t __50__CalContactsProvider_matchesOneOfMyPhoneNumbers___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__50__CalContactsProvider_matchesOneOfMyPhoneNumbers___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) caseInsensitiveCompare:a2];
   if (!result)
@@ -1726,21 +1718,20 @@ LABEL_10:
     goto LABEL_15;
   }
 
-  v16 = *MEMORY[0x1E695D850];
   if (calendarCopy)
   {
-    v17 = calendarCopy;
+    v16 = calendarCopy;
   }
 
   else
   {
-    v17 = *MEMORY[0x1E695D850];
+    v16 = *MEMORY[0x1E695D850];
   }
 
-  v18 = [MEMORY[0x1E695DEE8] calendarWithIdentifier:v17];
-  v19 = [dateCopy dateByAddingDays:7 inCalendar:v18];
-  v20 = [v18 components:4 fromDate:birthDateCopy toDate:v19 options:0];
-  year = [v20 year];
+  v17 = [MEMORY[0x1E695DEE8] calendarWithIdentifier:v16];
+  v18 = [dateCopy dateByAddingDays:7 inCalendar:v17];
+  v19 = [v17 components:4 fromDate:birthDateCopy toDate:v18 options:0];
+  year = [v19 year];
 
   if (year <= 0)
   {
@@ -1748,196 +1739,196 @@ LABEL_10:
 LABEL_15:
     if ([calendarCopy isEqualToString:*MEMORY[0x1E695D828]])
     {
-      v28 = MEMORY[0x1E696AEC0];
-      v29 = @"%@’s Chinese Birthday";
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = @"%@’s Chinese Birthday";
     }
 
     else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D860]])
     {
-      v28 = MEMORY[0x1E696AEC0];
-      v29 = @"%@’s Hebrew Birthday";
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = @"%@’s Hebrew Birthday";
     }
 
     else if ([CalContactsProvider isCalendarIslamic:calendarCopy])
     {
-      v28 = MEMORY[0x1E696AEC0];
-      v29 = @"%@’s Hijri Birthday";
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = @"%@’s Hijri Birthday";
     }
 
     else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D818]])
     {
-      v28 = MEMORY[0x1E696AEC0];
-      v29 = @"%@’s Bangla Birthday";
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = @"%@’s Bangla Birthday";
     }
 
     else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D858]])
     {
-      v28 = MEMORY[0x1E696AEC0];
-      v29 = @"%@’s Gujarati Birthday";
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = @"%@’s Gujarati Birthday";
     }
 
     else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8A0]])
     {
-      v28 = MEMORY[0x1E696AEC0];
-      v29 = @"%@’s Kannada Birthday";
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = @"%@’s Kannada Birthday";
     }
 
     else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8A8]])
     {
-      v28 = MEMORY[0x1E696AEC0];
-      v29 = @"%@’s Malayalam Birthday";
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = @"%@’s Malayalam Birthday";
     }
 
     else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8B0]])
     {
-      v28 = MEMORY[0x1E696AEC0];
-      v29 = @"%@’s Marathi Birthday";
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = @"%@’s Marathi Birthday";
     }
 
     else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8B8]])
     {
-      v28 = MEMORY[0x1E696AEC0];
-      v29 = @"%@’s Odia Birthday";
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = @"%@’s Odia Birthday";
     }
 
     else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8D0]])
     {
-      v28 = MEMORY[0x1E696AEC0];
-      v29 = @"%@’s Tamil Birthday";
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = @"%@’s Tamil Birthday";
     }
 
     else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8D8]])
     {
-      v28 = MEMORY[0x1E696AEC0];
-      v29 = @"%@’s Telugu Birthday";
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = @"%@’s Telugu Birthday";
     }
 
     else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8E8]])
     {
-      v28 = MEMORY[0x1E696AEC0];
-      v29 = @"%@’s Vikram Samvat Birthday";
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = @"%@’s Vikram Samvat Birthday";
     }
 
     else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D838]])
     {
-      v28 = MEMORY[0x1E696AEC0];
-      v29 = @"%@’s Korean Birthday";
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = @"%@’s Korean Birthday";
     }
 
     else
     {
-      v30 = [calendarCopy isEqualToString:*MEMORY[0x1E695D8E0]];
-      v28 = MEMORY[0x1E696AEC0];
-      if (v30)
+      v29 = [calendarCopy isEqualToString:*MEMORY[0x1E695D8E0]];
+      v27 = MEMORY[0x1E696AEC0];
+      if (v29)
       {
-        v29 = @"%@’s Vietnamese Birthday";
+        v28 = @"%@’s Vietnamese Birthday";
       }
 
       else
       {
-        v29 = @"%@’s Birthday";
+        v28 = @"%@’s Birthday";
       }
     }
 
-    v18 = [v13 localizedStringForKey:v29 value:&stru_1F379FFA8 table:0];
-    nameCopy = [v28 localizedStringWithFormat:v18, nameCopy];
+    v17 = [v13 localizedStringForKey:v28 value:&stru_1F379FFA8 table:0];
+    nameCopy = [v27 localizedStringWithFormat:v17, nameCopy];
     goto LABEL_67;
   }
 
-  v35 = v19;
-  v34 = [v13 localizedStringForKey:@"1: ordinal | 0: cardinal" value:@"1" table:0];
-  if ([v34 isEqualToString:@"1"])
+  v34 = v18;
+  v33 = [v13 localizedStringForKey:@"1: ordinal | 0: cardinal" value:@"1" table:0];
+  if ([v33 isEqualToString:@"1"])
   {
-    v22 = 6;
+    v21 = 6;
   }
 
   else
   {
-    v22 = 1;
+    v21 = 1;
   }
 
-  v23 = MEMORY[0x1E696ADA0];
-  v24 = [MEMORY[0x1E696AD98] numberWithLong:year];
-  v25 = [v23 localizedStringFromNumber:v24 numberStyle:v22];
+  v22 = MEMORY[0x1E696ADA0];
+  v23 = [MEMORY[0x1E696AD98] numberWithLong:year];
+  v24 = [v22 localizedStringFromNumber:v23 numberStyle:v21];
 
   if ([calendarCopy isEqualToString:*MEMORY[0x1E695D828]])
   {
-    v26 = @"birthday_chinese_count";
+    v25 = @"birthday_chinese_count";
   }
 
   else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D860]])
   {
-    v26 = @"birthday_hebrew_count";
+    v25 = @"birthday_hebrew_count";
   }
 
   else if ([CalContactsProvider isCalendarIslamic:calendarCopy])
   {
-    v26 = @"birthday_islamic_count";
+    v25 = @"birthday_islamic_count";
   }
 
   else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D818]])
   {
-    v26 = @"birthday_bangla_count";
+    v25 = @"birthday_bangla_count";
   }
 
   else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D858]])
   {
-    v26 = @"birthday_gujarati_count";
+    v25 = @"birthday_gujarati_count";
   }
 
   else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8A0]])
   {
-    v26 = @"birthday_kannada_count";
+    v25 = @"birthday_kannada_count";
   }
 
   else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8A8]])
   {
-    v26 = @"birthday_malayalam_count";
+    v25 = @"birthday_malayalam_count";
   }
 
   else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8B0]])
   {
-    v26 = @"birthday_marathi_count";
+    v25 = @"birthday_marathi_count";
   }
 
   else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8B8]])
   {
-    v26 = @"birthday_odia_count";
+    v25 = @"birthday_odia_count";
   }
 
   else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8D0]])
   {
-    v26 = @"birthday_tamil_count";
+    v25 = @"birthday_tamil_count";
   }
 
   else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8D8]])
   {
-    v26 = @"birthday_telugu_count";
+    v25 = @"birthday_telugu_count";
   }
 
   else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8E8]])
   {
-    v26 = @"birthday_vikram_count";
+    v25 = @"birthday_vikram_count";
   }
 
   else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D838]])
   {
-    v26 = @"birthday_korean_count";
+    v25 = @"birthday_korean_count";
   }
 
   else if ([calendarCopy isEqualToString:*MEMORY[0x1E695D8E0]])
   {
-    v26 = @"birthday_vietnamese_count";
+    v25 = @"birthday_vietnamese_count";
   }
 
   else
   {
-    v26 = @"birthday_count";
+    v25 = @"birthday_count";
   }
 
-  v32 = MEMORY[0x1E696AEC0];
-  v33 = [v13 localizedStringForKey:v26 value:&stru_1F379FFA8 table:0];
-  nameCopy = [v32 localizedStringWithFormat:v33, year, nameCopy, v25];
+  v31 = MEMORY[0x1E696AEC0];
+  v32 = [v13 localizedStringForKey:v25 value:&stru_1F379FFA8 table:0];
+  nameCopy = [v31 localizedStringWithFormat:v32, year, nameCopy, v24];
 
 LABEL_67:
 LABEL_68:
@@ -1954,11 +1945,9 @@ void __27__CalContactsProvider_init__block_invoke_cold_1()
 
 void __27__CalContactsProvider_init__block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)contactAccessResolved
@@ -1972,11 +1961,9 @@ void __27__CalContactsProvider_init__block_invoke_2_cold_1()
 
 void __35__CalContactsProvider__meWithKeys___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unifiedContactsMatchingPredicate:keysToFetch:.cold.1()
@@ -1986,28 +1973,11 @@ void __35__CalContactsProvider__meWithKeys___block_invoke_cold_1()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __68__CalContactsProvider_unifiedContactsMatchingPredicate_keysToFetch___block_invoke_cold_1(uint64_t *a1)
+void __68__CalContactsProvider_unifiedContactsMatchingPredicate_keysToFetch___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1_1(&dword_1B990D000, v1, v2, "Error while fetching contact for predicate %@ [%@]");
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __67__CalContactsProvider_unifiedContactsForHandleStrings_keysToFetch___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1(&dword_1B990D000, v0, v1, "Error while fetching contact for predicate %@ [%@]");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __77__CalContactsProvider_unifiedContactsDictionaryForHandleStrings_keysToFetch___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1_1(&dword_1B990D000, v0, v1, "Error while fetching contact for fetchRequest %@ [%@]");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unifiedContactWithIdentifier:keysToFetch:.cold.1()
@@ -2017,49 +1987,42 @@ void __77__CalContactsProvider_unifiedContactsDictionaryForHandleStrings_keysToF
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __64__CalContactsProvider_unifiedContactWithIdentifier_keysToFetch___block_invoke_cold_1(uint64_t *a1)
+void __64__CalContactsProvider_unifiedContactWithIdentifier_keysToFetch___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_7_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1_1(&dword_1B990D000, v1, v2, "Error while fetching contact for identifier %@ [%@]");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1B990D000, v0, v1, "Error while fetching contact for identifier %@ [%@]");
 }
 
-- (void)unifiedContactMatchingName:(uint64_t)a1 email:(uint64_t)a2 url:keysToFetch:.cold.1(uint64_t a1, uint64_t a2)
+- (void)unifiedContactMatchingName:email:url:keysToFetch:.cold.1()
 {
-  OUTLINED_FUNCTION_5_1(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_1(&dword_1B990D000, v2, v3, "Error while fetching contact for predicate %@ [%@]");
-  v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1B990D000, v0, v1, "Error while fetching contact for predicate %@ [%@]");
 }
 
 - (void)contactsFromContactIdentifiers:withKeys:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)reputationForHandle:(NSObject *)a3 inStore:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2048;
-  v8 = [a2 score];
-  _os_log_debug_impl(&dword_1B990D000, a3, OS_LOG_TYPE_DEBUG, "The reputation result returned for [%@] had the score [%ld] (0==neutral, 1==good, 2==bad)", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2048;
+  v7 = [a2 score];
+  _os_log_debug_impl(&dword_1B990D000, a3, OS_LOG_TYPE_DEBUG, "The reputation result returned for [%@] had the score [%ld] (0==neutral, 1==good, 2==bad)", &v4, 0x16u);
 }
 
 + (void)reputationForHandle:inStore:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)reputationForHandle:inStore:.cold.3()

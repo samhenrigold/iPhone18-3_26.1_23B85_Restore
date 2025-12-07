@@ -35,15 +35,15 @@
 
 + (id)dialRequestForUserActivity:()PhoneKit callProviderManager:
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = PHDefaultLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = v6;
-    _os_log_impl(&dword_25E4EC000, v8, OS_LOG_TYPE_DEFAULT, "Attempting to create a dial request for user activity (%@)", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = v6;
+    _os_log_impl(&dword_25E4EC000, v8, OS_LOG_TYPE_DEFAULT, "Attempting to create a dial request for user activity (%@)", &v16, 0xCu);
   }
 
   userInfo = [v6 userInfo];
@@ -54,11 +54,11 @@
     {
       v11 = [v7 providerWithIdentifier:callProviderIdentifier];
       handle = [v6 handle];
-      LOBYTE(v17) = 0;
-      if ((v11 || ([v7 providerWithService:objc_msgSend(v6 video:{"callService"), &v17}], (v11 = objc_claimAutoreleasedReturnValue()) != 0)) && handle)
+      LOBYTE(v16) = 0;
+      if ((v11 || ([v7 providerWithService:objc_msgSend(v6 video:{"callService"), &v16}], (v11 = objc_claimAutoreleasedReturnValue()) != 0)) && handle)
       {
         v13 = [self dialRequestForCallProvider:v11 handle:handle];
-        [v13 setVideo:v17];
+        [v13 setVideo:v16];
         [v13 setOriginatingUIType:37];
       }
 
@@ -97,14 +97,12 @@
     v13 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (uint64_t)canMakeEmergencyCallForSenderIdentity:()PhoneKit
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if (PHIsInAirplaneMode())
   {
@@ -121,11 +119,11 @@
         v8 = @"can";
       }
 
-      v11 = 138412546;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_25E4EC000, v7, OS_LOG_TYPE_DEFAULT, "Device is in airplane mode and %@ make an emergency call using sender identity %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_25E4EC000, v7, OS_LOG_TYPE_DEFAULT, "Device is in airplane mode and %@ make an emergency call using sender identity %@", &v10, 0x16u);
     }
   }
 
@@ -134,13 +132,12 @@
     v6 = 1;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)dialRequestByResolvingDialTypeUsingSenderIdentityClient:()PhoneKit
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [self copy];
   handle = [self handle];
@@ -163,7 +160,7 @@
   aBlock[1] = 3221225472;
   aBlock[2] = __83__TUDialRequest_PhoneKit__dialRequestByResolvingDialTypeUsingSenderIdentityClient___block_invoke;
   aBlock[3] = &unk_279A22770;
-  v30 = v4;
+  v29 = v4;
   selfCopy = self;
   v9 = _Block_copy(aBlock);
   localSenderIdentityAccountUUID = [self localSenderIdentityAccountUUID];
@@ -181,7 +178,7 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v34 = localSenderIdentityAccountUUID;
+      v33 = localSenderIdentityAccountUUID;
       _os_log_impl(&dword_25E4EC000, v14, OS_LOG_TYPE_DEFAULT, "Could not find a sender identity that contains account UUID %@", buf, 0xCu);
     }
 
@@ -196,26 +193,26 @@ LABEL_11:
     provider2 = [self provider];
     prioritizedSenderIdentities = [provider2 prioritizedSenderIdentities];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v17 = prioritizedSenderIdentities;
-    v18 = [v17 countByEnumeratingWithState:&v25 objects:v32 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v24 objects:v31 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v26;
+      v20 = *v25;
       while (2)
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v26 != v20)
+          if (*v25 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = v9[2](v9, v5, *(*(&v25 + 1) + 8 * i));
+          v22 = v9[2](v9, v5, *(*(&v24 + 1) + 8 * i));
           if (v22)
           {
             v13 = v22;
@@ -223,7 +220,7 @@ LABEL_11:
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v25 objects:v32 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v24 objects:v31 count:16];
         if (v19)
         {
           continue;
@@ -238,34 +235,30 @@ LABEL_21:
   }
 
 LABEL_23:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (void)dialRequestForCallProvider:()PhoneKit handle:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = [a1 localizedName];
   v7 = [a1 supportedHandleTypes];
-  v9 = 134218498;
-  v10 = a2;
-  v11 = 2112;
-  v12 = v6;
-  v13 = 2112;
-  v14 = v7;
-  _os_log_error_impl(&dword_25E4EC000, a3, OS_LOG_TYPE_ERROR, "Could not create a dial request due to an invalid handle type (%zd). For call provider %@, the supported handle types are (%@).", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 134218498;
+  v9 = a2;
+  v10 = 2112;
+  v11 = v6;
+  v12 = 2112;
+  v13 = v7;
+  _os_log_error_impl(&dword_25E4EC000, a3, OS_LOG_TYPE_ERROR, "Could not create a dial request due to an invalid handle type (%zd). For call provider %@, the supported handle types are (%@).", &v8, 0x20u);
 }
 
 + (void)dialRequestForUserActivity:()PhoneKit callProviderManager:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25E4EC000, a2, OS_LOG_TYPE_ERROR, "Could not retrieve a call provider for the specified identifier %@.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25E4EC000, a2, OS_LOG_TYPE_ERROR, "Could not retrieve a call provider for the specified identifier %@.", &v2, 0xCu);
 }
 
 @end

@@ -121,10 +121,11 @@
 
   v7 = (self + OBJC_IVAR___SFUDisplayLinkDrivenTimer__clientHandler);
   v8 = *(self + OBJC_IVAR___SFUDisplayLinkDrivenTimer__clientHandler);
+  v9 = *(self + OBJC_IVAR___SFUDisplayLinkDrivenTimer__clientHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_26C643400(v8);
+  sub_26C643400(v8, v9);
 }
 
 - (void)displayLinkCallbackWithSender:(id)sender

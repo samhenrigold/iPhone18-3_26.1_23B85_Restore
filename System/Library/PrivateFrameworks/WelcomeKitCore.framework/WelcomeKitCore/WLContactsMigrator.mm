@@ -74,7 +74,7 @@
 
 - (void)importRecordData:(id)data summary:(id)summary account:(id)account completion:(id)completion
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   completionCopy = completion;
   WeakRetained = objc_loadWeakRetained(&self->_featurePayload);
@@ -98,21 +98,21 @@
 
   v12 = [(WLContactsMigrator *)self _vcardDataWithoutCustomFieldsFromVcardData:dataCopy];
 
-  v38 = 0;
-  v13 = [MEMORY[0x277CBDAC8] contactsWithData:v12 error:&v38];
-  v14 = v38;
+  v37 = 0;
+  v13 = [MEMORY[0x277CBDAC8] contactsWithData:v12 error:&v37];
+  v14 = v37;
   if (![v13 count] || v14)
   {
-    v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v12, "length")}];
+    v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v12, "length")}];
     _WLLog();
 
     if (!v14)
     {
       v24 = MEMORY[0x277CCA9B8];
       v25 = *MEMORY[0x277D7B8F8];
-      v39 = *MEMORY[0x277CCA450];
-      v40 = @"Can't make contact with contact data";
-      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:{1, self, v30, 0}];
+      v38 = *MEMORY[0x277CCA450];
+      v39 = @"Can't make contact with contact data";
+      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:{1, self, v29, 0}];
       v14 = [v24 errorWithDomain:v25 code:1 userInfo:v26];
     }
 
@@ -121,35 +121,35 @@
 
   else
   {
-    v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v13, "count")}];
+    v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v13, "count")}];
     _WLLog();
 
     v15 = objc_alloc_init(MEMORY[0x277CBDBA0]);
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v32 = v13;
+    v31 = v13;
     v16 = v13;
-    v17 = [v16 countByEnumeratingWithState:&v34 objects:v41 count:{16, self, v28}];
+    v17 = [v16 countByEnumeratingWithState:&v33 objects:v40 count:{16, self, v27}];
     if (v17)
     {
       v18 = v17;
-      v19 = *v35;
+      v19 = *v34;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v35 != v19)
+          if (*v34 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = [*(*(&v34 + 1) + 8 * i) mutableCopy];
+          v21 = [*(*(&v33 + 1) + 8 * i) mutableCopy];
           [v15 addContact:v21 toContainerWithIdentifier:0];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v34 objects:v41 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v33 objects:v40 count:16];
       }
 
       while (v18);
@@ -157,15 +157,15 @@
 
     _WLLog();
     contactStore = self->_contactStore;
-    v33 = 0;
-    v23 = [(CNContactStore *)contactStore executeSaveRequest:v15 error:&v33, self];
-    v14 = v33;
-    v29 = [MEMORY[0x277CCABB0] numberWithBool:v23];
+    v32 = 0;
+    v23 = [(CNContactStore *)contactStore executeSaveRequest:v15 error:&v32, self];
+    v14 = v32;
+    v28 = [MEMORY[0x277CCABB0] numberWithBool:v23];
     _WLLog();
 
     if (v23)
     {
-      v13 = v32;
+      v13 = v31;
       if (!v14)
       {
         v23 = 1;
@@ -175,11 +175,11 @@
 
     else
     {
-      v13 = v32;
+      v13 = v31;
     }
   }
 
-  v31 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v12 encoding:4];
+  v30 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v12 encoding:4];
   _WLLog();
 
 LABEL_20:
@@ -190,8 +190,6 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_vcardDataWithoutCustomFieldsFromVcardData:(id)data

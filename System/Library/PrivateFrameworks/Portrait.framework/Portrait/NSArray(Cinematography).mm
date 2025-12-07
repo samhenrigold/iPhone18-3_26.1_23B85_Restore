@@ -1,4 +1,5 @@
 @interface NSArray(Cinematography)
+- (char)_firstIndexAfterTime:()Cinematography startIndex:timeSelector:;
 - (uint64_t)_firstIndexAtOrAfterTime:()Cinematography;
 - (uint64_t)_firstIndexAtOrAfterTime:()Cinematography startIndex:lastIfEqual:timeSelector:;
 - (uint64_t)_firstIndexAtOrAfterTime:()Cinematography timeSelector:;
@@ -8,7 +9,6 @@
 - (uint64_t)_indexNearestTime:()Cinematography timeSelector:;
 - (uint64_t)_indexRangeOfTimeRange:()Cinematography;
 - (uint64_t)_indexRangeOfTimeRange:()Cinematography timeSelector:;
-- (unint64_t)_firstIndexAfterTime:()Cinematography startIndex:timeSelector:;
 - (void)_timeForObject:()Cinematography timeSelector:;
 - (void)_timeRangeOfIndexRange:()Cinematography timeSelector:;
 @end
@@ -47,54 +47,54 @@
 
 - (uint64_t)_indexNearestTime:()Cinematography timeSelector:
 {
-  v16 = *a3;
-  v7 = [self _firstIndexAtOrAfterTime:&v16 startIndex:0 lastIfEqual:1 timeSelector:a4];
-  if (v7 >= 1)
+  v15 = *a3;
+  v6 = [self _firstIndexAtOrAfterTime:&v15 startIndex:0 lastIfEqual:1 timeSelector:a4];
+  if (v6 >= 1)
   {
-    if (v7 >= [self count])
+    if (v6 >= [self count])
     {
-      --v7;
+      --v6;
     }
 
     else
     {
-      memset(&v16, 0, sizeof(v16));
-      v8 = [self objectAtIndexedSubscript:v7 - 1];
-      [self _timeForObject:v8 timeSelector:a4];
-
       memset(&v15, 0, sizeof(v15));
-      v9 = [self objectAtIndexedSubscript:v7];
-      [self _timeForObject:v9 timeSelector:a4];
+      v7 = [self objectAtIndexedSubscript:v6 - 1];
+      objc_msgSend__timeForObject_timeSelector_(self);
 
       memset(&v14, 0, sizeof(v14));
+      v8 = [self objectAtIndexedSubscript:v6];
+      objc_msgSend__timeForObject_timeSelector_(self);
+
+      memset(&v13, 0, sizeof(v13));
       lhs = *a3;
-      rhs = v16;
-      CMTimeSubtract(&v14, &lhs, &rhs);
-      memset(&lhs, 0, sizeof(lhs));
       rhs = v15;
-      v11 = *a3;
-      CMTimeSubtract(&lhs, &rhs, &v11);
+      CMTimeSubtract(&v13, &lhs, &rhs);
+      memset(&lhs, 0, sizeof(lhs));
       rhs = v14;
-      v11 = lhs;
-      if (CMTimeCompare(&rhs, &v11) == -1)
+      v10 = *a3;
+      CMTimeSubtract(&lhs, &rhs, &v10);
+      rhs = v13;
+      v10 = lhs;
+      if (CMTimeCompare(&rhs, &v10) == -1)
       {
-        --v7;
+        --v6;
       }
     }
   }
 
-  return v7;
+  return v6;
 }
 
 - (uint64_t)_indexAtOrBeforeTime:()Cinematography timeSelector:
 {
   time2 = *a3;
-  v7 = [self _firstIndexAtOrAfterTime:&time2 timeSelector:?];
-  if (v7 == [self count])
+  v6 = [self _firstIndexAtOrAfterTime:&time2 timeSelector:?];
+  if (v6 == [self count])
   {
-    if (v7)
+    if (v6)
     {
-      --v7;
+      --v6;
     }
 
     else
@@ -105,24 +105,24 @@
 
   else
   {
-    v8 = [self objectAtIndexedSubscript:v7];
-    [self _timeForObject:v8 timeSelector:a4];
-    v12 = *a3;
-    v9 = CMTimeCompare(&v12, &time2);
+    v7 = [self objectAtIndexedSubscript:v6];
+    objc_msgSend__timeForObject_timeSelector_(self);
+    v11 = *a3;
+    v8 = CMTimeCompare(&v11, &time2);
 
-    v10 = v7 - 1;
-    if (!v7)
+    v9 = v6 - 1;
+    if (!v6)
     {
-      v10 = 0x7FFFFFFFFFFFFFFFLL;
+      v9 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    if (v9 < 0)
+    if (v8 < 0)
     {
-      return v10;
+      return v9;
     }
   }
 
-  return v7;
+  return v6;
 }
 
 - (uint64_t)_firstIndexAtOrAfterTime:()Cinematography timeSelector:
@@ -156,34 +156,34 @@
 {
   if (a2 >= [self count])
   {
-    v13 = MEMORY[0x277CC08E0];
-    v14 = *(MEMORY[0x277CC08E0] + 16);
+    v12 = MEMORY[0x277CC08E0];
+    v13 = *(MEMORY[0x277CC08E0] + 16);
     *a5 = *MEMORY[0x277CC08E0];
-    *(a5 + 16) = v14;
-    *(a5 + 32) = *(v13 + 32);
+    *(a5 + 16) = v13;
+    *(a5 + 32) = *(v12 + 32);
   }
 
   else
   {
-    v10 = [self objectAtIndex:a2];
-    memset(&v18, 0, sizeof(v18));
-    [self _timeForObject:v10 timeSelector:a4];
-    v11 = a2 + a3;
-    if (v11 >= [self count])
+    v9 = [self objectAtIndex:a2];
+    memset(&v17, 0, sizeof(v17));
+    objc_msgSend__timeForObject_timeSelector_(self);
+    v10 = a2 + a3;
+    if (v10 >= [self count])
     {
-      v17 = v18;
+      v16 = v17;
       start = **&MEMORY[0x277CC08B0];
-      CMTimeRangeMake(a5, &v17, &start);
+      CMTimeRangeMake(a5, &v16, &start);
     }
 
     else
     {
-      v12 = [self objectAtIndex:v11];
-      memset(&v17, 0, sizeof(v17));
-      [self _timeForObject:v12 timeSelector:a4];
-      start = v18;
-      v15 = v17;
-      CMTimeRangeFromTimeToTime(a5, &start, &v15);
+      v11 = [self objectAtIndex:v10];
+      memset(&v16, 0, sizeof(v16));
+      objc_msgSend__timeForObject_timeSelector_(self);
+      start = v17;
+      v14 = v16;
+      CMTimeRangeFromTimeToTime(a5, &start, &v14);
     }
   }
 }
@@ -257,25 +257,25 @@ LABEL_8:
   return v13;
 }
 
-- (unint64_t)_firstIndexAfterTime:()Cinematography startIndex:timeSelector:
+- (char)_firstIndexAfterTime:()Cinematography startIndex:timeSelector:
 {
-  v13 = *a3;
-  v8 = [self _firstIndexAtOrAfterTime:&v13 startIndex:a4 lastIfEqual:1 timeSelector:a5];
-  if (v8 < [self count])
+  v12 = *a3;
+  v7 = [self _firstIndexAtOrAfterTime:&v12 startIndex:a4 lastIfEqual:1 timeSelector:a5];
+  if (v7 < [self count])
   {
-    memset(&v13, 0, sizeof(v13));
-    v9 = [self objectAtIndexedSubscript:v8];
-    [self _timeForObject:v9 timeSelector:a5];
+    memset(&v12, 0, sizeof(v12));
+    v8 = [self objectAtIndexedSubscript:v7];
+    objc_msgSend__timeForObject_timeSelector_(self);
 
     time1 = *a3;
-    v11 = v13;
-    if (!CMTimeCompare(&time1, &v11))
+    v10 = v12;
+    if (!CMTimeCompare(&time1, &v10))
     {
-      ++v8;
+      ++v7;
     }
   }
 
-  return v8;
+  return v7;
 }
 
 @end

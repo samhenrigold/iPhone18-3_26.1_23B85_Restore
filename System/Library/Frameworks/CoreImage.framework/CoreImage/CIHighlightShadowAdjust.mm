@@ -273,16 +273,16 @@ LABEL_31:
     return 0;
   }
 
-  v9[0] = metadataPropertyWithBool();
-  v9[1] = metadataPropertyWithDouble(v4);
-  v9[2] = metadataPropertyWithDouble(v6);
+  v9[0] = metadataPropertyWithBool(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"AlreadyApplied", 0);
+  v9[1] = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"Shadows", v4);
+  v9[2] = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"Highlights", v6);
   v8 = v4 * 25.0;
   if (v4 <= 0.0)
   {
     v8 = 0.0;
   }
 
-  v9[3] = metadataPropertyWithDouble(v8);
+  v9[3] = metadataPropertyWithDouble(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"FillLight", v8);
   return [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
 }
 

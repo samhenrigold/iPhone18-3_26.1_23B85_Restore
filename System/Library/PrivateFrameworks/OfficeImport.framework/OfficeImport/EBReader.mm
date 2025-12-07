@@ -37,9 +37,9 @@
         return xlReader;
       }
 
-      v12 = TCUnknownProblemMessage;
+      v13 = TCUnknownProblemMessage;
       fileName3 = [(OCDReader *)self fileName];
-      [TCMessageException raise:v12, fileName3];
+      [TCMessageException raise:v13, fileName3];
     }
 
     else
@@ -52,8 +52,8 @@
         self->mBuffer = [data3 bytes];
 
         [(OCDReader *)self data];
-        [objc_claimAutoreleasedReturnValue() length];
-        XlBinaryReader::start(v6, &self->mBuffer);
+        v12 = [objc_claimAutoreleasedReturnValue() length];
+        XlBinaryReader::start(v6, &self->mBuffer, v12);
       }
     }
   }

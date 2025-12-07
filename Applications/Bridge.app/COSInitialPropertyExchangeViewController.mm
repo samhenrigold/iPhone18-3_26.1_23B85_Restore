@@ -51,10 +51,10 @@
     goto LABEL_7;
   }
 
-  objc_opt_class();
-  v11 = sub_100057C44();
+  v11 = objc_opt_class();
+  v12 = sub_100057C44(v11);
   result = 1;
-  if (v11 && ((v7 ^ 1 | isLanguageAndLocaleFinished) & 1) != 0)
+  if (v12 && ((v7 ^ 1 | isLanguageAndLocaleFinished) & 1) != 0)
   {
 LABEL_7:
     bridgeController = [UIApp bridgeController];
@@ -109,19 +109,19 @@ LABEL_7:
 
   else
   {
-    objc_opt_class();
-    if (!sub_100057C44() || ((v6 ^ 1 | isLanguageAndLocaleFinished) & 1) == 0)
+    v9 = objc_opt_class();
+    if (!sub_100057C44(v9) || ((v6 ^ 1 | isLanguageAndLocaleFinished) & 1) == 0)
     {
       return;
     }
   }
 
-  v9 = pbb_setupflow_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = pbb_setupflow_log();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "[COSInitialPropertyExchangeViewController evaluateCanReleaseHold]";
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s: releasing hold", &v10, 0xCu);
+    v11 = 136315138;
+    v12 = "[COSInitialPropertyExchangeViewController evaluateCanReleaseHold]";
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s: releasing hold", &v11, 0xCu);
   }
 
   [(COSInitialPropertyExchangeViewController *)self completedHoldTasks];
@@ -255,24 +255,24 @@ LABEL_7:
   v7 = pbb_setupflow_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    objc_opt_class();
-    v8 = [NSNumber numberWithBool:sub_100057C44()];
-    v9 = [NSNumber numberWithBool:isActivated];
+    v8 = objc_opt_class();
+    v9 = [NSNumber numberWithBool:sub_100057C44(v8)];
+    v10 = [NSNumber numberWithBool:isActivated];
     *buf = 138412546;
-    v26 = v8;
-    v27 = 2112;
-    v28 = v9;
+    v29 = v9;
+    v30 = 2112;
+    v31 = v10;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "completedInitialProperyExchangePhase. Activation State: (activationNeedsResponse %@ / activated %@)", buf, 0x16u);
   }
 
   bridgeController = [UIApp bridgeController];
   [bridgeController sendComputedTimeZoneToGizmo];
 
-  objc_opt_class();
-  if ((sub_100057C44() | isActivated))
+  v12 = objc_opt_class();
+  if ((sub_100057C44(v12) | isActivated))
   {
-    objc_opt_class();
-    if (isActivated & 1 | ((sub_100057C44() & 1) == 0))
+    v13 = objc_opt_class();
+    if (isActivated & 1 | ((sub_100057C44(v13) & 1) == 0))
     {
       if (isActivated)
       {
@@ -292,39 +292,39 @@ LABEL_7:
     [(COSInitialPropertyExchangeViewController *)self beginActivationIfPossible];
   }
 
-  v11 = +[UIApplication sharedApplication];
-  activeWatch = [v11 activeWatch];
+  v14 = +[UIApplication sharedApplication];
+  activeWatch = [v14 activeWatch];
 
-  v13 = [activeWatch valueForProperty:NRDevicePropertyPairingID];
-  v14 = [activeWatch valueForProperty:NRDevicePropertyLocalPairingDataStorePath];
-  v15 = [[NPSDomainAccessor alloc] initWithDomain:@"com.apple.nano" pairingID:v13 pairingDataStore:v14];
-  synchronize = [v15 synchronize];
-  v17 = [v15 BOOLForKey:@"invertUI"];
-  v18 = +[UIApplication sharedApplication];
-  bridgeController2 = [v18 bridgeController];
-  [bridgeController2 tellGizmoToSetCrownOrientationRight:v17 ^ 1];
+  v16 = [activeWatch valueForProperty:NRDevicePropertyPairingID];
+  v17 = [activeWatch valueForProperty:NRDevicePropertyLocalPairingDataStorePath];
+  v18 = [[NPSDomainAccessor alloc] initWithDomain:@"com.apple.nano" pairingID:v16 pairingDataStore:v17];
+  synchronize = [v18 synchronize];
+  v20 = [v18 BOOLForKey:@"invertUI"];
+  v21 = +[UIApplication sharedApplication];
+  bridgeController2 = [v21 bridgeController];
+  [bridgeController2 tellGizmoToSetCrownOrientationRight:v20 ^ 1];
 
-  v20 = pbb_setupflow_log();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v23 = pbb_setupflow_log();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = @"com.apple.nano";
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "syncing %@", buf, 0xCu);
+    v29 = @"com.apple.nano";
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "syncing %@", buf, 0xCu);
   }
 
-  v21 = +[UIApplication sharedApplication];
-  isLanguageAndLocaleFinished = [v21 isLanguageAndLocaleFinished];
+  v24 = +[UIApplication sharedApplication];
+  isLanguageAndLocaleFinished = [v24 isLanguageAndLocaleFinished];
 
-  v23 = [[NSUUID alloc] initWithUUIDString:@"3A6A41CC-1427-4F81-88F4-82365AA10C82"];
-  if (![activeWatch supportsCapability:v23] || (isLanguageAndLocaleFinished & 1) != 0)
+  v26 = [[NSUUID alloc] initWithUUIDString:@"3A6A41CC-1427-4F81-88F4-82365AA10C82"];
+  if (![activeWatch supportsCapability:v26] || (isLanguageAndLocaleFinished & 1) != 0)
   {
   }
 
   else
   {
-    v24 = sub_10002D234(activeWatch);
+    v27 = sub_10002D234(activeWatch);
 
-    if (v24)
+    if (v27)
     {
       [(COSInitialPropertyExchangeViewController *)self tellWatchToDoLanguageAndLocalePrep];
     }
@@ -498,9 +498,9 @@ LABEL_16:
   v5 = pbb_setupflow_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315138;
-    v15 = "[COSInitialPropertyExchangeViewController watchDidSelectLanguageAndLocale:]";
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s", &v14, 0xCu);
+    v15 = 136315138;
+    v16 = "[COSInitialPropertyExchangeViewController watchDidSelectLanguageAndLocale:]";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s", &v15, 0xCu);
   }
 
   v6 = +[UIApplication sharedApplication];
@@ -517,10 +517,10 @@ LABEL_7:
       return;
     }
 
-    LOWORD(v14) = 0;
+    LOWORD(v15) = 0;
     v9 = "Activated and Completed language change...";
 LABEL_6:
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v9, &v14, 2u);
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v9, &v15, 2u);
     goto LABEL_7;
   }
 
@@ -529,8 +529,8 @@ LABEL_6:
     v10 = pbb_setupflow_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Ask again for Activation post-language change relaunch!", &v14, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Ask again for Activation post-language change relaunch!", &v15, 2u);
     }
 
     v11 = +[UIApplication sharedApplication];
@@ -547,8 +547,8 @@ LABEL_6:
 
   else
   {
-    objc_opt_class();
-    if (sub_100057C44())
+    v14 = objc_opt_class();
+    if (sub_100057C44(v14))
     {
       v8 = pbb_setupflow_log();
       if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -556,7 +556,7 @@ LABEL_6:
         goto LABEL_7;
       }
 
-      LOWORD(v14) = 0;
+      LOWORD(v15) = 0;
       v9 = "Complete IPE Pane, move on and show AL Challenge later.";
       goto LABEL_6;
     }

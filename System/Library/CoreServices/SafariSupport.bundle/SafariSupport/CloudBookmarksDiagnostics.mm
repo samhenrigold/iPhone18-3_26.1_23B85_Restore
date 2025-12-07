@@ -9,6 +9,7 @@
 - (id)_stringForRemoteMigrationState:(int64_t)state;
 - (void)_collectDiagnosticsDataWithRemoteMigrationInfo:(id)info remoteMigrationInfoError:(id)error completionHandler:(id)handler;
 - (void)collectDiagnosticsDataWithCompletionHandler:(id)handler;
+- (void)dumpCloudKitDataPrintByDates:(BOOL)dates liveOnly:(BOOL)only printTree:(BOOL)tree printPlist:(BOOL)plist writeToFile:(BOOL)file atFileURL:(id)l completionHandler:(id)handler;
 @end
 
 @implementation CloudBookmarksDiagnostics
@@ -47,6 +48,19 @@
   [(CloudBookmarkStore *)bookmarkStore fetchRemoteMigrationInfoInOperationGroup:0 withCompletionHandler:v7];
 }
 
+- (void)dumpCloudKitDataPrintByDates:(BOOL)dates liveOnly:(BOOL)only printTree:(BOOL)tree printPlist:(BOOL)plist writeToFile:(BOOL)file atFileURL:(id)l completionHandler:(id)handler
+{
+  fileCopy = file;
+  plistCopy = plist;
+  treeCopy = tree;
+  onlyCopy = only;
+  datesCopy = dates;
+  handlerCopy = handler;
+  lCopy = l;
+  v18 = [[CloudBookmarkDebugger alloc] initWithStore:self->_bookmarkStore databaseAccessor:self->_databaseAccessor];
+  [(CloudBookmarkDebugger *)v18 dumpCloudKitDataPrintByDates:datesCopy liveOnly:onlyCopy printTree:treeCopy printPlist:plistCopy writeToFile:fileCopy atFileURL:lCopy completionHandler:handlerCopy];
+}
+
 - (void)_collectDiagnosticsDataWithRemoteMigrationInfo:(id)info remoteMigrationInfoError:(id)error completionHandler:(id)handler
 {
   infoCopy = info;
@@ -74,84 +88,85 @@
   createDatabase = [(WBSBookmarkDBAccess *)self->_databaseAccessor createDatabase];
   if (createDatabase)
   {
-    v18 = createDatabase;
+    v19 = createDatabase;
     [(WBSBookmarkDBAccess *)self->_databaseAccessor openDatabase:createDatabase];
-    [(WBSBookmarkDBAccess *)self->_databaseAccessor localCloudKitMigrationState:v18];
-    v19 = stringFromLocalMigrationState();
-    [v13 setObject:v19 forKeyedSubscript:@"localMigrationState"];
+    [(WBSBookmarkDBAccess *)self->_databaseAccessor localCloudKitMigrationState:v19];
+    v20 = stringFromLocalMigrationState();
+    [v13 setObject:v20 forKeyedSubscript:@"localMigrationState"];
 
-    v20 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyAccountHashWithDatabase:v18];
-    v21 = [NSNumber numberWithInt:v20 != 0];
-    [v13 setObject:v21 forKeyedSubscript:@"hasAccountHash"];
+    v21 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyAccountHashWithDatabase:v19];
+    v22 = [NSNumber numberWithInt:v21 != 0];
+    [v13 setObject:v22 forKeyedSubscript:@"hasAccountHash"];
 
-    v22 = [(CloudBookmarksDiagnostics *)self _changesDictionaryFromDatabase:v18];
-    [v13 setObject:v22 forKeyedSubscript:@"changes"];
+    v23 = [(CloudBookmarksDiagnostics *)self _changesDictionaryFromDatabase:v19];
+    [v13 setObject:v23 forKeyedSubscript:@"changes"];
 
-    v23 = [(CloudBookmarksDiagnostics *)self _localBookmarksDictionaryFromDatabase:v18];
-    [v13 setObject:v23 forKeyedSubscript:@"localBookmarks"];
+    v24 = [(CloudBookmarksDiagnostics *)self _localBookmarksDictionaryFromDatabase:v19];
+    [v13 setObject:v24 forKeyedSubscript:@"localBookmarks"];
 
-    [(WBSBookmarkDBAccess *)self->_databaseAccessor closeDatabase:v18 shouldSave:0];
-    CFRelease(v18);
+    [(WBSBookmarkDBAccess *)self->_databaseAccessor closeDatabase:v19 shouldSave:0];
+    CFRelease(v19);
   }
 
   if (errorCopy)
   {
-    v24 = sub_1000D2238();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = sub_1000D2238(createDatabase, v18);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      sub_10007967C(errorCopy, v24);
+      sub_10007967C(errorCopy, v25);
     }
 
-    v37[0] = @"domain";
+    v40[0] = @"domain";
     domain = [errorCopy domain];
-    v38[0] = domain;
-    v37[1] = @"code";
-    v26 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [errorCopy code]);
-    v38[1] = v26;
-    v37[2] = @"description";
+    v41[0] = domain;
+    v40[1] = @"code";
+    v27 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [errorCopy code]);
+    v41[1] = v27;
+    v40[2] = @"description";
     localizedDescription = [errorCopy localizedDescription];
-    v38[2] = localizedDescription;
-    v28 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:3];
-    [v13 setObject:v28 forKeyedSubscript:@"remoteMigrationStateError"];
+    v41[2] = localizedDescription;
+    v29 = [NSDictionary dictionaryWithObjects:v41 forKeys:v40 count:3];
+    [v13 setObject:v29 forKeyedSubscript:@"remoteMigrationStateError"];
   }
 
   else
   {
-    v29 = -[CloudBookmarksDiagnostics _stringForRemoteMigrationState:](self, "_stringForRemoteMigrationState:", [infoCopy migrationState]);
-    [v13 setObject:v29 forKeyedSubscript:@"remoteMigrationState"];
+    v30 = -[CloudBookmarksDiagnostics _stringForRemoteMigrationState:](self, "_stringForRemoteMigrationState:", [infoCopy migrationState]);
+    [v13 setObject:v30 forKeyedSubscript:@"remoteMigrationState"];
 
     migratorDeviceIdentifier = [infoCopy migratorDeviceIdentifier];
     domain = migratorDeviceIdentifier;
     if (migratorDeviceIdentifier)
     {
-      v31 = migratorDeviceIdentifier;
+      v32 = migratorDeviceIdentifier;
     }
 
     else
     {
-      v31 = &stru_100137BA8;
+      v32 = &stru_100137BA8;
     }
 
-    [v13 setObject:v31 forKeyedSubscript:@"migratorDeviceIdentifier"];
+    [v13 setObject:v32 forKeyedSubscript:@"migratorDeviceIdentifier"];
   }
 
-  v32 = self->_sensitiveStringIdentifiers;
+  v33 = self->_sensitiveStringIdentifiers;
   self->_sensitiveStringIdentifiers = 0;
 
-  v36 = 0;
-  v33 = [NSJSONSerialization dataWithJSONObject:v13 options:1 error:&v36];
-  v34 = v36;
-  if (v33)
+  v39 = 0;
+  v34 = [NSJSONSerialization dataWithJSONObject:v13 options:1 error:&v39];
+  v35 = v39;
+  v37 = v35;
+  if (v34)
   {
-    handlerCopy[2](handlerCopy, v33);
+    handlerCopy[2](handlerCopy, v34);
   }
 
   else
   {
-    v35 = sub_1000D2238();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v38 = sub_1000D2238(v35, v36);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      sub_1000796F4(v34, v35);
+      sub_1000796F4(v37, v38);
     }
 
     handlerCopy[2](handlerCopy, 0);
@@ -184,53 +199,53 @@
   v5 = [v4 count];
   if (v5 > 1000)
   {
-    v54 = 0;
+    v55 = 0;
   }
 
   else
   {
-    v54 = [NSMutableArray arrayWithCapacity:v5];
+    v55 = [NSMutableArray arrayWithCapacity:v5];
   }
 
-  v67 = 0u;
   v68 = 0u;
-  v65 = 0u;
+  v69 = 0u;
   v66 = 0u;
+  v67 = 0u;
   obj = v4;
-  v64 = [obj countByEnumeratingWithState:&v65 objects:v76 count:16];
-  if (!v64)
+  v65 = [obj countByEnumeratingWithState:&v66 objects:v77 count:16];
+  if (!v65)
   {
-    v56 = 0;
     v57 = 0;
-    v55 = 0;
+    v58 = 0;
+    v56 = 0;
     v7 = 0;
     goto LABEL_51;
   }
 
-  v56 = 0;
   v57 = 0;
-  v55 = 0;
+  v58 = 0;
+  v56 = 0;
   v7 = 0;
-  v63 = *v66;
+  v64 = *v67;
   *&v6 = 138477827;
-  v51 = v6;
-  v52 = selfCopy;
-  v53 = v5;
+  v52 = v6;
+  v53 = selfCopy;
+  v54 = v5;
   do
   {
-    for (i = 0; i != v64; i = i + 1)
+    for (i = 0; i != v65; i = i + 1)
     {
-      if (*v66 != v63)
+      if (*v67 != v64)
       {
         objc_enumerationMutation(obj);
       }
 
-      v9 = *(*(&v65 + 1) + 8 * i);
-      v10 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor changeTypeForChange:v9, v51];
+      v9 = *(*(&v66 + 1) + 8 * i);
+      v10 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor changeTypeForChange:v9, v52];
       v11 = v10;
       if (v10 == 2)
       {
-        ++v55;
+        ++v56;
         v12 = @"Delete";
       }
 
@@ -249,22 +264,22 @@
 
         if (v13)
         {
-          v14 = v56 + 1;
+          v14 = v57 + 1;
         }
 
         else
         {
-          v14 = v56;
+          v14 = v57;
         }
 
-        v15 = v57;
+        v15 = v58;
         if (!v13)
         {
-          v15 = v57 + 1;
+          v15 = v58 + 1;
         }
 
-        v56 = v14;
-        v57 = v15;
+        v57 = v14;
+        v58 = v15;
       }
 
       else
@@ -290,142 +305,142 @@
       {
         if (v16 == 1)
         {
-          v17 = @"Folder";
-          v18 = @"TitleAndIdentityHash";
+          v18 = @"Folder";
+          v19 = @"TitleAndIdentityHash";
         }
 
         else
         {
-          v19 = sub_1000D2238();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v20 = sub_1000D2238(v16, v17);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             databaseAccessor = selfCopy->_databaseAccessor;
-            v41 = v19;
-            v42 = [(WBSBookmarkDBAccess *)databaseAccessor copyServerIdWithChange:v9];
-            *buf = v51;
-            v75 = v42;
-            _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "Change for item with server ID %{private}@ is neither bookmark nor folder.", buf, 0xCu);
+            v42 = v20;
+            v43 = [(WBSBookmarkDBAccess *)databaseAccessor copyServerIdWithChange:v9];
+            *buf = v52;
+            v76 = v43;
+            _os_log_error_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "Change for item with server ID %{private}@ is neither bookmark nor folder.", buf, 0xCu);
           }
 
-          v18 = 0;
-          v17 = &stru_100137BA8;
+          v19 = 0;
+          v18 = &stru_100137BA8;
         }
       }
 
       else
       {
-        v17 = @"Bookmark";
-        v18 = @"TitleURLAndIdentityHash";
+        v18 = @"Bookmark";
+        v19 = @"TitleURLAndIdentityHash";
       }
 
       if (v5 <= 1000)
       {
-        v20 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor copyServerIdWithChange:v9];
-        v21 = selfCopy->_databaseAccessor;
+        v21 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor copyServerIdWithChange:v9];
+        v22 = selfCopy->_databaseAccessor;
         if (v11 == 2)
         {
-          v62 = v7;
-          v22 = [(WBSBookmarkDBAccess *)v21 copyDeletedBookmarkSyncDataWithChange:v9];
-          v23 = 0;
+          v63 = v7;
+          v23 = [(WBSBookmarkDBAccess *)v22 copyDeletedBookmarkSyncDataWithChange:v9];
+          v24 = 0;
           goto LABEL_41;
         }
 
-        v24 = [(WBSBookmarkDBAccess *)v21 copyChangedItemWithChange:v9];
-        v25 = v20;
-        if (v24)
+        v25 = [(WBSBookmarkDBAccess *)v22 copyChangedItemWithChange:v9];
+        v26 = v21;
+        if (v25)
         {
-          v26 = v24;
-          v62 = v7;
           v27 = v25;
-          v23 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor copyModifiedAttributesWithChange:v9];
-          v22 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor copySyncDataWithItem:v26];
-          CFRelease(v26);
-          v20 = v27;
+          v63 = v7;
+          v28 = v26;
+          v24 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor copyModifiedAttributesWithChange:v9];
+          v23 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor copySyncDataWithItem:v27];
+          CFRelease(v27);
+          v21 = v28;
 LABEL_41:
-          v59 = v23;
-          v60 = v20;
-          v61 = v22;
-          v28 = [WBBookmarkSyncData syncDataWithContentsOfData:v22];
-          v72[0] = @"changeType";
-          v72[1] = @"itemType";
-          v73[0] = v12;
-          v73[1] = v17;
-          v29 = &stru_100137BA8;
-          if (v20)
+          v60 = v24;
+          v61 = v21;
+          v62 = v23;
+          v29 = [WBBookmarkSyncData syncDataWithContentsOfData:v23];
+          v73[0] = @"changeType";
+          v73[1] = @"itemType";
+          v74[0] = v12;
+          v74[1] = v18;
+          v30 = &stru_100137BA8;
+          if (v21)
           {
-            v29 = v20;
+            v30 = v21;
           }
 
-          v73[2] = v29;
-          v72[2] = @"serverID";
-          v72[3] = @"modifiedAttributes";
-          allKeys = [v23 allKeys];
-          v31 = allKeys;
-          v32 = &__NSArray0__struct;
+          v74[2] = v30;
+          v73[2] = @"serverID";
+          v73[3] = @"modifiedAttributes";
+          allKeys = [v24 allKeys];
+          v32 = allKeys;
+          v33 = &__NSArray0__struct;
           if (allKeys)
           {
-            v32 = allKeys;
+            v33 = allKeys;
           }
 
-          v73[3] = v32;
-          v72[4] = @"hasSyncData";
-          v33 = [NSNumber numberWithBool:v28 != 0];
-          v73[4] = v33;
-          v72[5] = @"hasCKRecord";
-          record = [v28 record];
-          v35 = [NSNumber numberWithBool:record != 0];
-          v73[5] = v35;
-          v72[6] = @"hasPosition";
-          position = [v28 position];
-          v37 = [NSNumber numberWithBool:position != 0];
-          v73[6] = v37;
-          v72[7] = @"hasTitleGeneration";
-          v38 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v28 hasGenerationForKey:v18]);
-          v73[7] = v38;
-          v39 = [NSDictionary dictionaryWithObjects:v73 forKeys:v72 count:8];
-          [v54 addObject:v39];
+          v74[3] = v33;
+          v73[4] = @"hasSyncData";
+          v34 = [NSNumber numberWithBool:v29 != 0];
+          v74[4] = v34;
+          v73[5] = @"hasCKRecord";
+          record = [v29 record];
+          v36 = [NSNumber numberWithBool:record != 0];
+          v74[5] = v36;
+          v73[6] = @"hasPosition";
+          position = [v29 position];
+          v38 = [NSNumber numberWithBool:position != 0];
+          v74[6] = v38;
+          v73[7] = @"hasTitleGeneration";
+          v39 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v29 hasGenerationForKey:v19]);
+          v74[7] = v39;
+          v40 = [NSDictionary dictionaryWithObjects:v74 forKeys:v73 count:8];
+          [v55 addObject:v40];
 
-          v25 = v60;
-          selfCopy = v52;
-          v5 = v53;
-          v7 = v62;
+          v26 = v61;
+          selfCopy = v53;
+          v5 = v54;
+          v7 = v63;
         }
 
         continue;
       }
     }
 
-    v64 = [obj countByEnumeratingWithState:&v65 objects:v76 count:16];
+    v65 = [obj countByEnumeratingWithState:&v66 objects:v77 count:16];
   }
 
-  while (v64);
+  while (v65);
 LABEL_51:
 
-  v43 = +[NSMutableDictionary dictionary];
-  v70[0] = @"count";
-  v44 = [NSNumber numberWithInteger:v5];
-  v71[0] = v44;
-  v70[1] = @"addCount";
-  v45 = [NSNumber numberWithInteger:v7];
-  v71[1] = v45;
-  v70[2] = @"deleteCount";
-  v46 = [NSNumber numberWithInteger:v55];
-  v71[2] = v46;
-  v70[3] = @"moveCount";
+  v44 = +[NSMutableDictionary dictionary];
+  v71[0] = @"count";
+  v45 = [NSNumber numberWithInteger:v5];
+  v72[0] = v45;
+  v71[1] = @"addCount";
+  v46 = [NSNumber numberWithInteger:v7];
+  v72[1] = v46;
+  v71[2] = @"deleteCount";
   v47 = [NSNumber numberWithInteger:v56];
-  v71[3] = v47;
-  v70[4] = @"modifyCount";
+  v72[2] = v47;
+  v71[3] = @"moveCount";
   v48 = [NSNumber numberWithInteger:v57];
-  v71[4] = v48;
-  v49 = [NSDictionary dictionaryWithObjects:v71 forKeys:v70 count:5];
-  [v43 setObject:v49 forKeyedSubscript:@"summary"];
+  v72[3] = v48;
+  v71[4] = @"modifyCount";
+  v49 = [NSNumber numberWithInteger:v58];
+  v72[4] = v49;
+  v50 = [NSDictionary dictionaryWithObjects:v72 forKeys:v71 count:5];
+  [v44 setObject:v50 forKeyedSubscript:@"summary"];
 
   if (v5 <= 1000)
   {
-    [v43 setObject:v54 forKeyedSubscript:@"details"];
+    [v44 setObject:v55 forKeyedSubscript:@"details"];
   }
 
-  return v43;
+  return v44;
 }
 
 - (id)_localBookmarksDictionaryFromDatabase:(void *)database

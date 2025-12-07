@@ -29,17 +29,17 @@
 
 void __54__RCSSavedRecordingServiceConnection_serviceInterface__block_invoke()
 {
-  v63[4] = *MEMORY[0x277D85DE8];
+  v62[4] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2881B7128];
   v1 = serviceInterface_interface;
   serviceInterface_interface = v0;
 
   v2 = sel_prepareToCaptureToCompositionAVURL_accessRequestHandler_;
-  v63[0] = sel_prepareToPreviewCompositionAVURL_accessRequestHandler_;
-  v63[1] = sel_prepareToExportCompositionAVURL_accessRequestHandler_;
-  v63[2] = sel_prepareToTrimCompositionAVURL_accessRequestHandler_;
-  v63[3] = 0;
-  v61 = objc_alloc(MEMORY[0x277CBEB98]);
+  v62[0] = sel_prepareToPreviewCompositionAVURL_accessRequestHandler_;
+  v62[1] = sel_prepareToExportCompositionAVURL_accessRequestHandler_;
+  v62[2] = sel_prepareToTrimCompositionAVURL_accessRequestHandler_;
+  v62[3] = 0;
+  v60 = objc_alloc(MEMORY[0x277CBEB98]);
   v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = objc_opt_class();
@@ -48,31 +48,31 @@ void __54__RCSSavedRecordingServiceConnection_serviceInterface__block_invoke()
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
-  v62 = [v61 initWithObjects:{v3, v4, v5, v6, v7, v8, v9, v10, objc_opt_class(), 0}];
+  v61 = [v60 initWithObjects:{v3, v4, v5, v6, v7, v8, v9, v10, objc_opt_class(), 0}];
   v11 = MEMORY[0x277CBEB98];
   v12 = objc_opt_class();
   v13 = objc_opt_class();
   v14 = [v11 setWithObjects:{v12, v13, objc_opt_class(), 0}];
-  v15 = [v14 setByAddingObjectsFromSet:v62];
+  v15 = [v14 setByAddingObjectsFromSet:v61];
 
   v16 = MEMORY[0x277CBEB98];
   v17 = objc_opt_class();
-  v60 = [v16 setWithObjects:{v17, objc_opt_class(), 0}];
+  v59 = [v16 setWithObjects:{v17, objc_opt_class(), 0}];
   v18 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
   v19 = MEMORY[0x277CBEB98];
   v20 = objc_opt_class();
   v21 = objc_opt_class();
   v22 = objc_opt_class();
   v23 = objc_opt_class();
-  v58 = objc_opt_class();
-  v59 = [v19 setWithObjects:{v20, v21, v22, v23, v58, objc_opt_class(), 0}];
+  v57 = objc_opt_class();
+  v58 = [v19 setWithObjects:{v20, v21, v22, v23, v57, objc_opt_class(), 0}];
   v24 = MEMORY[0x277CBEB98];
   v25 = objc_opt_class();
   v26 = objc_opt_class();
   v27 = [v24 setWithObjects:{v25, v26, objc_opt_class(), 0}];
   if (sel_prepareToCaptureToCompositionAVURL_accessRequestHandler_)
   {
-    v28 = v63;
+    v28 = v62;
     do
     {
       [serviceInterface_interface setClasses:v18 forSelector:v2 argumentIndex:0 ofReply:0];
@@ -90,12 +90,12 @@ void __54__RCSSavedRecordingServiceConnection_serviceInterface__block_invoke()
   v31 = [v27 setByAddingObjectsFromSet:v15];
   [v30 setClasses:v31 forSelector:sel_endAccessSessionWithToken_completionBlock_ argumentIndex:0 ofReply:1];
 
-  [serviceInterface_interface setClasses:v62 forSelector:sel_disableOrphanedFragmentCleanupForCompositionAVURL_completionBlock_ argumentIndex:0 ofReply:0];
-  [serviceInterface_interface setClasses:v62 forSelector:sel_enableOrphanedFragmentCleanupForCompositionAVURL_ argumentIndex:0 ofReply:0];
-  [serviceInterface_interface setClasses:v62 forSelector:sel_fetchCompositionAVURLsBeingExported_ argumentIndex:0 ofReply:1];
-  [serviceInterface_interface setClasses:v62 forSelector:sel_fetchCompositionAVURLsBeingModified_ argumentIndex:0 ofReply:1];
+  [serviceInterface_interface setClasses:v61 forSelector:sel_disableOrphanedFragmentCleanupForCompositionAVURL_completionBlock_ argumentIndex:0 ofReply:0];
+  [serviceInterface_interface setClasses:v61 forSelector:sel_enableOrphanedFragmentCleanupForCompositionAVURL_ argumentIndex:0 ofReply:0];
+  [serviceInterface_interface setClasses:v61 forSelector:sel_fetchCompositionAVURLsBeingExported_ argumentIndex:0 ofReply:1];
+  [serviceInterface_interface setClasses:v61 forSelector:sel_fetchCompositionAVURLsBeingModified_ argumentIndex:0 ofReply:1];
   [serviceInterface_interface setClasses:v15 forSelector:sel__fetchAllAccessTokens_ argumentIndex:0 ofReply:1];
-  [serviceInterface_interface setClasses:v60 forSelector:sel_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock_ argumentIndex:0 ofReply:0];
+  [serviceInterface_interface setClasses:v59 forSelector:sel_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock_ argumentIndex:0 ofReply:0];
   v32 = serviceInterface_interface;
   v33 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
   [v32 setClasses:v33 forSelector:sel_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock_ argumentIndex:1 ofReply:0];
@@ -105,7 +105,7 @@ void __54__RCSSavedRecordingServiceConnection_serviceInterface__block_invoke()
   [v34 setClasses:v35 forSelector:sel_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock_ argumentIndex:2 ofReply:0];
 
   v36 = serviceInterface_interface;
-  v37 = [v62 setByAddingObjectsFromSet:v59];
+  v37 = [v61 setByAddingObjectsFromSet:v58];
   [v36 setClasses:v37 forSelector:sel_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock_ argumentIndex:3 ofReply:0];
 
   [serviceInterface_interface setClasses:v18 forSelector:sel_importRecordingWithSourceAudioURL_name_date_userInfo_importCompletionBlock_ argumentIndex:0 ofReply:1];
@@ -139,7 +139,7 @@ void __54__RCSSavedRecordingServiceConnection_serviceInterface__block_invoke()
 
   [serviceInterface_interface setClasses:v27 forSelector:sel_fetchRecordingUUIDsForExport_ argumentIndex:1 ofReply:1];
   v50 = serviceInterface_interface;
-  v51 = [v62 setByAddingObjectsFromSet:v59];
+  v51 = [v61 setByAddingObjectsFromSet:v58];
   [v50 setClasses:v51 forSelector:sel_fetchMetadataForRecordingWithUUID_completionBlock_ argumentIndex:0 ofReply:1];
 
   [serviceInterface_interface setClasses:v27 forSelector:sel_fetchMetadataForRecordingWithUUID_completionBlock_ argumentIndex:1 ofReply:1];
@@ -156,8 +156,6 @@ void __54__RCSSavedRecordingServiceConnection_serviceInterface__block_invoke()
   [serviceInterface_interface setClasses:v56 forSelector:sel_updateSearchMetadataWithRecordingURIsToInsert_recordingURIsToUpdate_recordingURIsToDelete_completionBlock_ argumentIndex:1 ofReply:0];
   [serviceInterface_interface setClasses:v56 forSelector:sel_updateSearchMetadataWithRecordingURIsToInsert_recordingURIsToUpdate_recordingURIsToDelete_completionBlock_ argumentIndex:2 ofReply:0];
   [serviceInterface_interface setClasses:v27 forSelector:sel_updateSearchMetadataWithRecordingURIsToInsert_recordingURIsToUpdate_recordingURIsToDelete_completionBlock_ argumentIndex:0 ofReply:1];
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 + (id)clientInterface
@@ -174,9 +172,11 @@ void __54__RCSSavedRecordingServiceConnection_serviceInterface__block_invoke()
 
 uint64_t __53__RCSSavedRecordingServiceConnection_clientInterface__block_invoke()
 {
-  clientInterface_interface = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2881B6BA8];
+  v0 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2881B6BA8];
+  v1 = clientInterface_interface;
+  clientInterface_interface = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

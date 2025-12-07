@@ -90,14 +90,14 @@
 
 - (MPSCNNBatchNormalizationNode)initWithSource:(MPSNNImageNode *)source dataSource:(id)dataSource
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   if (dataSource)
   {
-    v16[0] = source;
-    v10 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v16, 1, v4, v5, v6, v7);
-    v15.receiver = self;
-    v15.super_class = MPSCNNBatchNormalizationNode;
-    result = [(MPSNNFilterNode *)&v15 initWithSourceImages:v10 sourceStates:0 paddingPolicy:0];
+    v20[0] = source;
+    v10 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v20, 1, v4, v5, v6, v7);
+    v19.receiver = self;
+    v19.super_class = MPSCNNBatchNormalizationNode;
+    result = [(MPSNNFilterNode *)&v19 initWithSourceImages:v10 sourceStates:0 paddingPolicy:0];
     if (result)
     {
       v12 = result;
@@ -115,7 +115,7 @@
     {
       v14 = objc_opt_class();
       NSStringFromClass(v14);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNNormalizationNodes.mm", 0x441, @"[%@ initWithSource:dataSource:] dataSource may not be NULL", v15, v16, v17, v18);
     }
 
     return 0;

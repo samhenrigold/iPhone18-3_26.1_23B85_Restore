@@ -56,23 +56,25 @@ LABEL_3:
   if (text)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v11 = v10;
     titleCopy = title;
     iconCopy = icon;
-    v12 = String._bridgeToObjectiveC()();
+    v14 = String._bridgeToObjectiveC()();
+    v11, v15, v16, v17, v18, v19, v20, v21;
   }
 
   else
   {
     titleCopy2 = title;
     iconCopy2 = icon;
-    v12 = 0;
+    v14 = 0;
   }
 
-  v17.receiver = self;
-  v17.super_class = type metadata accessor for SelfServiceBaseNavigationController();
-  v15 = [(SelfServiceBaseNavigationController *)&v17 initWithTitle:title detailText:v12 icon:icon contentLayout:layout];
+  v26.receiver = self;
+  v26.super_class = type metadata accessor for SelfServiceBaseNavigationController();
+  v24 = [(SelfServiceBaseNavigationController *)&v26 initWithTitle:title detailText:v14 icon:icon contentLayout:layout];
 
-  return v15;
+  return v24;
 }
 
 @end

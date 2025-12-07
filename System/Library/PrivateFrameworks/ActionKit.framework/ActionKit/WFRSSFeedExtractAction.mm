@@ -135,21 +135,19 @@ LABEL_16:
 
 - (void)getURLsFromInputWithCompletionHandler:(id)handler
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   input = [(WFRSSFeedExtractAction *)self input];
-  v11[0] = objc_opt_class();
-  v11[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __64__WFRSSFeedExtractAction_getURLsFromInputWithCompletionHandler___block_invoke;
-  v9[3] = &unk_278C1EE80;
-  v10 = handlerCopy;
+  v10[0] = objc_opt_class();
+  v10[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __64__WFRSSFeedExtractAction_getURLsFromInputWithCompletionHandler___block_invoke;
+  v8[3] = &unk_278C1EE80;
+  v9 = handlerCopy;
   v7 = handlerCopy;
-  [input generateCollectionByCoercingToItemClasses:v6 completionHandler:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [input generateCollectionByCoercingToItemClasses:v6 completionHandler:v8];
 }
 
 void __64__WFRSSFeedExtractAction_getURLsFromInputWithCompletionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)

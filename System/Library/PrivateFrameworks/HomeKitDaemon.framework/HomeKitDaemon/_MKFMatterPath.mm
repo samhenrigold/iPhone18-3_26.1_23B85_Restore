@@ -125,7 +125,7 @@ LABEL_19:
 
 - (BOOL)validateForInsertOrUpdate:(id *)update
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -133,11 +133,11 @@ LABEL_19:
   {
     v8 = HMFGetLogIdentifier();
     modelID = [(_MKFMatterPath *)selfCopy modelID];
-    v14 = 138543618;
-    v15 = v8;
-    v16 = 2112;
-    v17 = modelID;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Validating matter path (%@) for insert or update", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v8;
+    v15 = 2112;
+    v16 = modelID;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Validating matter path (%@) for insert or update", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -146,24 +146,20 @@ LABEL_19:
     *update = 0;
   }
 
-  if ([(_MKFMatterPath *)selfCopy _validateParentsForInsertOrUpdate:update])
+  if (![(_MKFMatterPath *)selfCopy _validateParentsForInsertOrUpdate:update])
   {
-    accessory = [(_MKFMatterPath *)selfCopy accessory];
-    v11 = accessory != 0;
-
-    if (update && !accessory)
-    {
-      [MEMORY[0x277CCA9B8] hmd_validationErrorWithDescription:@"at least one accessory is required" managedObject:selfCopy attributeName:@"accessory"];
-      *update = v11 = 0;
-    }
+    return 0;
   }
 
-  else
+  accessory = [(_MKFMatterPath *)selfCopy accessory];
+  v11 = accessory != 0;
+
+  if (update && !accessory)
   {
-    v11 = 0;
+    [MEMORY[0x277CCA9B8] hmd_validationErrorWithDescription:@"at least one accessory is required" managedObject:selfCopy attributeName:@"accessory"];
+    *update = v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

@@ -1,8 +1,31 @@
 @interface DAMoveResponse
+- (DAMoveResponse)initWithStatus:(int)status sourceID:(id)d destID:(id)iD;
 - (id)description;
 @end
 
 @implementation DAMoveResponse
+
+- (DAMoveResponse)initWithStatus:(int)status sourceID:(id)d destID:(id)iD
+{
+  v6 = *&status;
+  dCopy = d;
+  iDCopy = iD;
+  v15.receiver = self;
+  v15.super_class = DAMoveResponse;
+  v10 = [(DAMoveResponse *)&v15 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(DAMoveResponse *)v10 setStatus:v6];
+    v12 = [dCopy copy];
+    [(DAMoveResponse *)v11 setSourceID:v12];
+
+    v13 = [iDCopy copy];
+    [(DAMoveResponse *)v11 setDestID:v13];
+  }
+
+  return v11;
+}
 
 - (id)description
 {

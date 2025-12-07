@@ -47,7 +47,7 @@
 
 - (void)runDequeueHandlerUsingContext:(id)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = [(TRIExperimentBaseTask *)self containerForFirstNamespaceInExperimentWithContext:contextCopy];
   treatmentId = [(TRITreatmentBaseTask *)self treatmentId];
@@ -62,9 +62,9 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       treatmentId2 = [(TRITreatmentBaseTask *)self treatmentId];
-      v20 = 138412290;
-      v21 = treatmentId2;
-      _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "Failed to drop reference on artifact for treatment %@.", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = treatmentId2;
+      _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "Failed to drop reference on artifact for treatment %@.", &v19, 0xCu);
     }
   }
 
@@ -81,61 +81,59 @@
     {
       experiment2 = [(TRIExperimentBaseTask *)self experiment];
       shortDesc = [experiment2 shortDesc];
-      v20 = 138543362;
-      v21 = shortDesc;
-      _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "Failed to drop reference on artifact for experiment %{public}@.", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = shortDesc;
+      _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "Failed to drop reference on artifact for experiment %{public}@.", &v19, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_experimentRecord:(id)record hasConflictWithExperimentsInDatabase:(id)database conflictEndTime:(id *)time
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   databaseCopy = database;
   namespaces = [recordCopy namespaces];
   v12 = objc_opt_new();
   v13 = [namespaces _pas_leftFoldWithInitialObject:v12 accumulate:&__block_literal_global_37];
 
-  v69 = 0;
-  v70 = &v69;
-  v71 = 0x2020000000;
-  v72 = 0;
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x3032000000;
-  v66 = __Block_byref_object_copy__43;
-  v67 = __Block_byref_object_dispose__43;
   v68 = 0;
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x3032000000;
-  v60 = __Block_byref_object_copy__43;
-  v61 = __Block_byref_object_dispose__43;
+  v69 = &v68;
+  v70 = 0x2020000000;
+  v71 = 0;
   v62 = 0;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = __Block_byref_object_copy__43;
-  v55 = __Block_byref_object_dispose__43;
+  v63 = &v62;
+  v64 = 0x3032000000;
+  v65 = __Block_byref_object_copy__43;
+  v66 = __Block_byref_object_dispose__43;
+  v67 = 0;
   v56 = 0;
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithExperimentsInDatabase_conflictEndTime___block_invoke_39;
-  v42[3] = &unk_279DE3B10;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = __Block_byref_object_copy__43;
+  v60 = __Block_byref_object_dispose__43;
+  v61 = 0;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy__43;
+  v54 = __Block_byref_object_dispose__43;
+  v55 = 0;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithExperimentsInDatabase_conflictEndTime___block_invoke_39;
+  v41[3] = &unk_279DE3B10;
   v14 = recordCopy;
-  v43 = v14;
-  v46 = &v63;
+  v42 = v14;
+  v45 = &v62;
   v15 = v13;
-  v47 = &v69;
-  v48 = &v57;
-  v49 = &v51;
-  v50 = a2;
-  v44 = v15;
+  v46 = &v68;
+  v47 = &v56;
+  v48 = &v50;
+  v49 = a2;
+  v43 = v15;
   selfCopy = self;
-  v16 = MEMORY[0x2743948D0](v42);
+  v16 = MEMORY[0x2743948D0](v41);
   v17 = objc_autoreleasePoolPush();
   v18 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{&unk_287FC4C78, &unk_287FC4C90, 0}];
   objc_autoreleasePoolPop(v17);
@@ -147,7 +145,7 @@
       experimentDeployment = [v14 experimentDeployment];
       shortDesc = [experimentDeployment shortDesc];
       *buf = 138543362;
-      v74 = shortDesc;
+      v73 = shortDesc;
       _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "unable to check if treatment can be activated for %{public}@", buf, 0xCu);
     }
 
@@ -155,21 +153,21 @@
     goto LABEL_13;
   }
 
-  if (*(v70 + 24) != 1)
+  if (*(v69 + 24) != 1)
   {
     v23 = 0;
     goto LABEL_16;
   }
 
-  if (!v58[5])
+  if (!v57[5])
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"TRIActivateTreatmentBaseTask.m" lineNumber:169 description:@"detected a conflict but experiment id is nil"];
   }
 
-  if (!v52[5])
+  if (!v51[5])
   {
-    v26 = *time;
+    v25 = *time;
     *time = 0;
 
     v20 = TRILogCategory_Server();
@@ -178,17 +176,17 @@
       treatmentId = [v14 treatmentId];
       experimentDeployment2 = [v14 experimentDeployment];
       shortDesc2 = [experimentDeployment2 shortDesc];
-      firstObject = [v64[5] firstObject];
+      firstObject = [v63[5] firstObject];
       name = [firstObject name];
-      v30 = v58[5];
+      v29 = v57[5];
       *buf = 138413058;
-      v74 = treatmentId;
-      v75 = 2114;
-      v76 = shortDesc2;
-      v77 = 2114;
-      v78 = name;
-      v79 = 2114;
-      v80 = v30;
+      v73 = treatmentId;
+      v74 = 2114;
+      v75 = shortDesc2;
+      v76 = 2114;
+      v77 = name;
+      v78 = 2114;
+      v79 = v29;
       _os_log_error_impl(&dword_26F567000, v20, OS_LOG_TYPE_ERROR, "cannot activate treatment %@ for %{public}@: namespace %{public}@ is currently used in experiment %{public}@ which has no end date", buf, 0x2Au);
     }
 
@@ -201,23 +199,23 @@
     treatmentId2 = [v14 treatmentId];
     experimentDeployment3 = [v14 experimentDeployment];
     shortDesc3 = [experimentDeployment3 shortDesc];
-    firstObject2 = [v64[5] firstObject];
+    firstObject2 = [v63[5] firstObject];
     name2 = [firstObject2 name];
-    shortDesc4 = [v58[5] shortDesc];
+    shortDesc4 = [v57[5] shortDesc];
     *buf = 138413058;
-    v74 = treatmentId2;
-    v75 = 2114;
-    v76 = shortDesc3;
-    v77 = 2114;
-    v78 = name2;
-    v79 = 2112;
-    v80 = shortDesc4;
+    v73 = treatmentId2;
+    v74 = 2114;
+    v75 = shortDesc3;
+    v76 = 2114;
+    v77 = name2;
+    v78 = 2112;
+    v79 = shortDesc4;
     _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, "cannot activate treatment %@ for experiment %{public}@: namespace %{public}@ is currently used in experiment %@", buf, 0x2Au);
   }
 
   if ([v14 type] != 1)
   {
-    v22 = v52[5];
+    v22 = v51[5];
 LABEL_13:
     v20 = *time;
     *time = v22;
@@ -231,13 +229,12 @@ LABEL_14:
   v23 = 1;
 LABEL_16:
 
-  _Block_object_dispose(&v51, 8);
-  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v56, 8);
 
-  _Block_object_dispose(&v63, 8);
-  _Block_object_dispose(&v69, 8);
+  _Block_object_dispose(&v62, 8);
+  _Block_object_dispose(&v68, 8);
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -252,7 +249,7 @@ id __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithExperime
 
 void __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithExperimentsInDatabase_conflictEndTime___block_invoke_39(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 experimentDeployment];
   v7 = [v6 experimentId];
@@ -267,12 +264,12 @@ void __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithExperi
     if (v11)
     {
       v12 = [v5 namespaces];
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithExperimentsInDatabase_conflictEndTime___block_invoke_40;
-      v41[3] = &unk_279DE0E60;
-      v42 = *(a1 + 40);
-      v13 = [v12 _pas_filteredArrayWithTest:v41];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithExperimentsInDatabase_conflictEndTime___block_invoke_40;
+      v40[3] = &unk_279DE0E60;
+      v41 = *(a1 + 40);
+      v13 = [v12 _pas_filteredArrayWithTest:v40];
       v14 = *(*(a1 + 56) + 8);
       v15 = *(v14 + 40);
       *(v14 + 40) = v13;
@@ -310,14 +307,14 @@ void __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithExperi
           v30 = TRILogCategory_Server();
           if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            v37 = [v5 experimentDeployment];
-            v38 = [v37 shortDesc];
-            v39 = [*(a1 + 32) experimentDeployment];
-            v40 = [v39 shortDesc];
+            v36 = [v5 experimentDeployment];
+            v37 = [v36 shortDesc];
+            v38 = [*(a1 + 32) experimentDeployment];
+            v39 = [v38 shortDesc];
             *buf = 138412546;
-            v44 = v38;
-            v45 = 2112;
-            v46 = v40;
+            v43 = v37;
+            v44 = 2112;
+            v45 = v39;
             _os_log_error_impl(&dword_26F567000, v30, OS_LOG_TYPE_ERROR, "active experiment %@ has no end date, which prevents treatment for %@ from getting activated", buf, 0x16u);
           }
 
@@ -334,7 +331,7 @@ void __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithExperi
         }
       }
 
-      v21 = v42;
+      v21 = v41;
     }
 
     else
@@ -345,13 +342,11 @@ void __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithExperi
         v22 = [v5 experimentDeployment];
         v23 = [v22 shortDesc];
         *buf = 138543362;
-        v44 = v23;
+        v43 = v23;
         _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "experiment record for %{public}@ is missing namespaces", buf, 0xCu);
       }
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithExperimentsInDatabase_conflictEndTime___block_invoke_40(uint64_t a1, void *a2)
@@ -365,7 +360,7 @@ uint64_t __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithEx
 
 - (BOOL)_writeNamespaceDescriptorsWithPaths:(id)paths toTreatmentLayer:(unint64_t)layer forExperiment:(id)experiment treatmentURLs:(id)ls context:(id)context
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   experimentCopy = experiment;
   lsCopy = ls;
@@ -373,47 +368,47 @@ uint64_t __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithEx
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v13 = MEMORY[0x277CBEB18];
   namespaces = [experimentCopy namespaces];
-  v73 = [v13 arrayWithCapacity:{objc_msgSend(namespaces, "count")}];
+  v72 = [v13 arrayWithCapacity:{objc_msgSend(namespaces, "count")}];
 
   v15 = MEMORY[0x277CBEB18];
   namespaces2 = [experimentCopy namespaces];
   v17 = [v15 arrayWithCapacity:{objc_msgSend(namespaces2, "count")}];
 
-  v94 = 0u;
-  v95 = 0u;
-  v92 = 0u;
   v93 = 0u;
-  v71 = experimentCopy;
+  v94 = 0u;
+  v91 = 0u;
+  v92 = 0u;
+  v70 = experimentCopy;
   namespaces3 = [experimentCopy namespaces];
-  v19 = [namespaces3 countByEnumeratingWithState:&v92 objects:v104 count:16];
+  v19 = [namespaces3 countByEnumeratingWithState:&v91 objects:v103 count:16];
   v20 = v19 == 0;
   if (v19)
   {
     v21 = v19;
     selfCopy = self;
-    v69 = a2;
-    v70 = v19 == 0;
-    v22 = *v93;
-    v85 = 1;
+    v68 = a2;
+    v69 = v19 == 0;
+    v22 = *v92;
+    v84 = 1;
     v23 = pathsCopy;
-    v74 = *v93;
+    v73 = *v92;
     while (2)
     {
       v24 = 0;
-      v81 = v21;
+      v80 = v21;
       do
       {
-        if (*v93 != v22)
+        if (*v92 != v22)
         {
           objc_enumerationMutation(namespaces3);
         }
 
-        v25 = *(*(&v92 + 1) + 8 * v24);
+        v25 = *(*(&v91 + 1) + 8 * v24);
         name = [v25 name];
 
         if (name)
         {
-          v87 = v23;
+          v86 = v23;
           namespaceDatabase = [contextCopy namespaceDatabase];
           name2 = [v25 name];
           v29 = [namespaceDatabase dynamicNamespaceRecordWithNamespaceName:name2];
@@ -432,7 +427,7 @@ uint64_t __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithEx
                   appContainer2 = [v29 appContainer];
                   identifier = [appContainer2 identifier];
                   *buf = 138543362;
-                  v99 = identifier;
+                  v98 = identifier;
                   _os_log_error_impl(&dword_26F567000, v55, OS_LOG_TYPE_ERROR, "Can't write descriptor for dynamic namespace to missing container: %{public}@", buf, 0xCu);
 
                   v23 = pathsCopy;
@@ -443,12 +438,12 @@ uint64_t __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithEx
             }
           }
 
-          v86 = v29;
-          v31 = [v87 namespaceDescriptorsPathForLayer:layer];
+          v85 = v29;
+          v31 = [v86 namespaceDescriptorsPathForLayer:layer];
           if (!v31)
           {
             currentHandler = [MEMORY[0x277CCA890] currentHandler];
-            [currentHandler handleFailureInMethod:v69 object:selfCopy file:@"TRIActivateTreatmentBaseTask.m" lineNumber:224 description:@"namespace descriptor directory is NIL"];
+            [currentHandler handleFailureInMethod:v68 object:selfCopy file:@"TRIActivateTreatmentBaseTask.m" lineNumber:224 description:@"namespace descriptor directory is NIL"];
           }
 
           name3 = [v25 name];
@@ -467,18 +462,18 @@ uint64_t __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithEx
 
               else
               {
-                containerDir = [v87 containerDir];
+                containerDir = [v86 containerDir];
                 if (containerDir)
                 {
-                  v77 = MEMORY[0x277CCACA8];
-                  containerDir2 = [v87 containerDir];
-                  v97[0] = containerDir2;
-                  v97[1] = v35;
-                  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v97 count:2];
-                  v78 = [v77 pathWithComponents:v40];
+                  v76 = MEMORY[0x277CCACA8];
+                  containerDir2 = [v86 containerDir];
+                  v96[0] = containerDir2;
+                  v96[1] = v35;
+                  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v96 count:2];
+                  v77 = [v76 pathWithComponents:v40];
 
                   v23 = pathsCopy;
-                  v36 = v78;
+                  v36 = v77;
                 }
 
                 else
@@ -489,11 +484,11 @@ uint64_t __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithEx
 
               if ([defaultManager fileExistsAtPath:v36])
               {
-                v79 = v36;
-                if (v86)
+                v78 = v36;
+                if (v85)
                 {
-                  appContainer3 = [v86 appContainer];
-                  cloudKitContainer = [v86 cloudKitContainer];
+                  appContainer3 = [v85 appContainer];
+                  cloudKitContainer = [v85 cloudKitContainer];
                 }
 
                 else
@@ -502,7 +497,7 @@ uint64_t __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithEx
                   cloudKitContainer = 1;
                 }
 
-                v72 = appContainer3;
+                v71 = appContainer3;
                 v44 = objc_opt_new();
                 [v44 setFactorsURL:v33];
                 [v44 setAppContainer:appContainer3];
@@ -511,9 +506,9 @@ uint64_t __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithEx
                 name4 = [v25 name];
                 v47 = [v45 initWithNamespaceName:name4 downloadNCV:objc_msgSend(v25 optionalParams:{"compatibilityVersion"), v44}];
 
-                [v73 addObject:v47];
+                [v72 addObject:v47];
                 [v17 addObject:v31];
-                v85 &= [v47 saveToDirectory:v31];
+                v84 &= [v47 saveToDirectory:v31];
 
                 v37 = 1;
                 v23 = pathsCopy;
@@ -524,25 +519,25 @@ uint64_t __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithEx
                 v43 = TRILogCategory_Server();
                 if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                 {
-                  [v71 experimentDeployment];
-                  v51 = v80 = v36;
+                  [v70 experimentDeployment];
+                  v51 = v79 = v36;
                   shortDesc = [v51 shortDesc];
                   name5 = [v25 name];
                   *buf = 138543618;
-                  v99 = shortDesc;
-                  v100 = 2114;
-                  v101 = name5;
+                  v98 = shortDesc;
+                  v99 = 2114;
+                  v100 = name5;
                   _os_log_error_impl(&dword_26F567000, v43, OS_LOG_TYPE_ERROR, "treatment file does not exist for experiment %{public}@ on namespace %{public}@", buf, 0x16u);
 
                   v23 = pathsCopy;
-                  v36 = v80;
+                  v36 = v79;
                 }
 
                 v37 = 0;
-                v85 = 0;
+                v84 = 0;
               }
 
-              v22 = v74;
+              v22 = v73;
             }
 
             else
@@ -550,25 +545,25 @@ uint64_t __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithEx
               v35 = TRILogCategory_Server();
               if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
               {
-                experimentDeployment = [v71 experimentDeployment];
+                experimentDeployment = [v70 experimentDeployment];
                 shortDesc2 = [experimentDeployment shortDesc];
                 name6 = [v25 name];
                 *buf = 138412802;
-                v99 = v33;
-                v100 = 2114;
-                v101 = shortDesc2;
-                v102 = 2114;
-                v103 = name6;
+                v98 = v33;
+                v99 = 2114;
+                v100 = shortDesc2;
+                v101 = 2114;
+                v102 = name6;
                 _os_log_error_impl(&dword_26F567000, v35, OS_LOG_TYPE_ERROR, "can't resolve factorsPath for URL %@ from experiment %{public}@ on namespace %{public}@", buf, 0x20u);
 
-                v22 = v74;
+                v22 = v73;
               }
 
               v37 = 0;
-              v85 = 0;
+              v84 = 0;
             }
 
-            v21 = v81;
+            v21 = v80;
           }
 
           else
@@ -584,14 +579,14 @@ uint64_t __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithEx
 
         else
         {
-          v85 = 0;
+          v84 = 0;
         }
 
         ++v24;
       }
 
       while (v21 != v24);
-      v21 = [namespaces3 countByEnumeratingWithState:&v92 objects:v104 count:16];
+      v21 = [namespaces3 countByEnumeratingWithState:&v91 objects:v103 count:16];
       if (v21)
       {
         continue;
@@ -602,36 +597,36 @@ uint64_t __103__TRIActivateTreatmentBaseTask__experimentRecord_hasConflictWithEx
 
 LABEL_38:
 
-    if (v85)
+    if (v84)
     {
       v20 = 1;
       goto LABEL_54;
     }
 
 LABEL_44:
-    v90 = 0u;
-    v91 = 0u;
-    v88 = 0u;
     v89 = 0u;
-    namespaces3 = v73;
-    v56 = [namespaces3 countByEnumeratingWithState:&v88 objects:v96 count:16];
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    namespaces3 = v72;
+    v56 = [namespaces3 countByEnumeratingWithState:&v87 objects:v95 count:16];
     if (v56)
     {
       v57 = v56;
       v58 = 0;
-      v59 = *v89;
+      v59 = *v88;
       do
       {
         v60 = 0;
         v61 = v58;
         do
         {
-          if (*v89 != v59)
+          if (*v88 != v59)
           {
             objc_enumerationMutation(namespaces3);
           }
 
-          v62 = *(*(&v88 + 1) + 8 * v60);
+          v62 = *(*(&v87 + 1) + 8 * v60);
           v58 = v61 + 1;
           v63 = [v17 objectAtIndexedSubscript:v61];
           [v62 removeFromDirectory:v63];
@@ -641,14 +636,14 @@ LABEL_44:
         }
 
         while (v57 != v60);
-        v57 = [namespaces3 countByEnumeratingWithState:&v88 objects:v96 count:16];
+        v57 = [namespaces3 countByEnumeratingWithState:&v87 objects:v95 count:16];
       }
 
       while (v57);
       v23 = pathsCopy;
     }
 
-    v20 = v70;
+    v20 = v69;
   }
 
   else
@@ -657,7 +652,6 @@ LABEL_44:
   }
 
 LABEL_54:
-  v64 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -673,7 +667,7 @@ LABEL_54:
 
 - (id)runUsingContext:(id)context withTaskQueue:(id)queue
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   queueCopy = queue;
   v9 = objc_autoreleasePoolPush();
@@ -681,15 +675,15 @@ LABEL_54:
   if (([(TRIActivateTreatmentBaseTask *)self conformsToProtocol:&unk_287FD33B8]& 1) == 0)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v21 = objc_opt_class();
-    v22 = NSStringFromClass(v21);
-    [currentHandler handleFailureInMethod:a2 object:self file:@"TRIActivateTreatmentBaseTask.m" lineNumber:289 description:{@"TRIActivateTreatmentBaseTask subclass of type %@ is not a TRITask", v22}];
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
+    [currentHandler handleFailureInMethod:a2 object:self file:@"TRIActivateTreatmentBaseTask.m" lineNumber:289 description:{@"TRIActivateTreatmentBaseTask subclass of type %@ is not a TRITask", v21}];
   }
 
   experiment = [(TRIExperimentBaseTask *)self experiment];
   taskTag = [experiment taskTag];
-  v24[0] = self;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = self;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   [queueCopy cancelTasksWithTag:taskTag excludingTasks:v13];
 
   experiment2 = [(TRIExperimentBaseTask *)self experiment];
@@ -701,22 +695,21 @@ LABEL_54:
   v17 = [(TRIActivateTreatmentBaseTask *)self runTaskUsingContext:contextCopy];
 
   objc_autoreleasePoolPop(v9);
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (id)_nextTasksForRunStatus:(int)status
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (status == 3)
   {
     experiment = [(TRIExperimentBaseTask *)self experiment];
     experimentId = [experiment experimentId];
     experiment2 = [(TRIExperimentBaseTask *)self experiment];
     v7 = +[TRIDeactivateTreatmentTask taskWithExperimentId:deploymentId:failOnUnrecognizedExperiment:triggerEvent:taskAttribution:](TRIDeactivateTreatmentTask, "taskWithExperimentId:deploymentId:failOnUnrecognizedExperiment:triggerEvent:taskAttribution:", experimentId, [experiment2 deploymentId], 0, 23, 0);
-    v11[0] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   }
 
   else
@@ -724,14 +717,12 @@ LABEL_54:
     v8 = MEMORY[0x277CBEBF8];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)runTaskUsingContext:(id)context
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   experimentDatabase = [contextCopy experimentDatabase];
   experiment = [(TRIExperimentBaseTask *)self experiment];
@@ -765,44 +756,33 @@ LABEL_54:
   [(TRIExperimentBaseTask *)self mergeTelemetry:v8];
 
   treatmentId = [v7 treatmentId];
-  if (!treatmentId)
+  if (!treatmentId || (v12 = treatmentId, -[TRITreatmentBaseTask treatmentId](self, "treatmentId"), v13 = objc_claimAutoreleasedReturnValue(), [v7 treatmentId], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "isEqualToString:", v14), v14, v13, v12, (v15 & 1) == 0))
   {
-    goto LABEL_6;
-  }
+    treatmentId2 = [v7 treatmentId];
 
-  v12 = treatmentId;
-  treatmentId2 = [(TRITreatmentBaseTask *)self treatmentId];
-  treatmentId3 = [v7 treatmentId];
-  v15 = [treatmentId2 isEqualToString:treatmentId3];
-
-  if ((v15 & 1) == 0)
-  {
-LABEL_6:
-    treatmentId4 = [v7 treatmentId];
-
-    if (treatmentId4)
+    if (treatmentId2)
     {
       v17 = TRILogCategory_Server();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         experimentDeployment = [v7 experimentDeployment];
         shortDesc = [experimentDeployment shortDesc];
-        treatmentId5 = [v7 treatmentId];
-        treatmentId6 = [(TRITreatmentBaseTask *)self treatmentId];
+        treatmentId3 = [v7 treatmentId];
+        treatmentId4 = [(TRITreatmentBaseTask *)self treatmentId];
         *buf = 138543874;
         *&buf[4] = shortDesc;
-        v60 = 2112;
-        v61 = treatmentId5;
-        v62 = 2112;
-        v63 = treatmentId6;
+        v59 = 2112;
+        v60 = treatmentId3;
+        v61 = 2112;
+        v62 = treatmentId4;
         _os_log_error_impl(&dword_26F567000, v17, OS_LOG_TYPE_ERROR, "experiment %{public}@ already has treatment %@ assigned.  Overwriting with treatment %@", buf, 0x20u);
       }
     }
 
     experimentDatabase2 = [contextCopy experimentDatabase];
-    treatmentId7 = [(TRITreatmentBaseTask *)self treatmentId];
+    treatmentId5 = [(TRITreatmentBaseTask *)self treatmentId];
     experimentDeployment2 = [v7 experimentDeployment];
-    v21 = [experimentDatabase2 setTreatmentId:treatmentId7 forExperimentDeployment:experimentDeployment2 usingTransaction:0];
+    v21 = [experimentDatabase2 setTreatmentId:treatmentId5 forExperimentDeployment:experimentDeployment2 usingTransaction:0];
 
     if (!v21)
     {
@@ -813,8 +793,8 @@ LABEL_24:
       goto LABEL_25;
     }
 
-    treatmentId8 = [(TRITreatmentBaseTask *)self treatmentId];
-    v23 = [v7 copyWithReplacementTreatmentId:treatmentId8];
+    treatmentId6 = [(TRITreatmentBaseTask *)self treatmentId];
+    v23 = [v7 copyWithReplacementTreatmentId:treatmentId6];
 
     v7 = v23;
   }
@@ -842,16 +822,16 @@ LABEL_24:
     v34 = TRILogCategory_Server();
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      treatmentId9 = [(TRITreatmentBaseTask *)self treatmentId];
+      treatmentId7 = [(TRITreatmentBaseTask *)self treatmentId];
       experiment2 = [(TRIExperimentBaseTask *)self experiment];
       shortDesc2 = [experiment2 shortDesc];
       endDate = [v7 endDate];
       *buf = 138412802;
-      *&buf[4] = treatmentId9;
-      v60 = 2114;
-      v61 = shortDesc2;
-      v62 = 2112;
-      v63 = endDate;
+      *&buf[4] = treatmentId7;
+      v59 = 2114;
+      v60 = shortDesc2;
+      v61 = 2112;
+      v62 = endDate;
       _os_log_error_impl(&dword_26F567000, v34, OS_LOG_TYPE_ERROR, "cannot activate treatment %@ for experiment %{public}@: end time %@ is in the past", buf, 0x20u);
     }
 
@@ -862,28 +842,28 @@ LABEL_24:
 
   startDate = [v7 startDate];
   [startDate timeIntervalSince1970];
-  v40 = v39;
+  v39 = v38;
 
-  if (v40 <= 0.0 || v40 <= v26)
+  if (v39 <= 0.0 || v39 <= v26)
   {
     *buf = 0;
     experimentDatabase3 = [contextCopy experimentDatabase];
-    v44 = [(TRIActivateTreatmentBaseTask *)self _experimentRecord:v7 hasConflictWithExperimentsInDatabase:experimentDatabase3 conflictEndTime:buf];
+    v43 = [(TRIActivateTreatmentBaseTask *)self _experimentRecord:v7 hasConflictWithExperimentsInDatabase:experimentDatabase3 conflictEndTime:buf];
 
-    if (v44)
+    if (v43)
     {
       if (*buf)
       {
-        v45 = 1;
+        v44 = 1;
       }
 
       else
       {
-        v45 = 3;
+        v44 = 3;
       }
 
-      v46 = [(TRIActivateTreatmentBaseTask *)self _nextTasksForRunStatus:v45];
-      v35 = [TRITaskRunResult resultWithRunStatus:v45 reportResultToServer:1 nextTasks:v46 earliestRetryDate:*buf];
+      v45 = [(TRIActivateTreatmentBaseTask *)self _nextTasksForRunStatus:v44];
+      v35 = [TRITaskRunResult resultWithRunStatus:v44 reportResultToServer:1 nextTasks:v45 earliestRetryDate:*buf];
     }
 
     else
@@ -894,20 +874,20 @@ LABEL_24:
 
   else
   {
-    v41 = TRILogCategory_Server();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v40 = TRILogCategory_Server();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
-      treatmentId10 = [(TRITreatmentBaseTask *)self treatmentId];
+      treatmentId8 = [(TRITreatmentBaseTask *)self treatmentId];
       experiment3 = [(TRIExperimentBaseTask *)self experiment];
       shortDesc3 = [experiment3 shortDesc];
       startDate2 = [v7 startDate];
       *buf = 138412802;
-      *&buf[4] = treatmentId10;
-      v60 = 2114;
-      v61 = shortDesc3;
-      v62 = 2112;
-      v63 = startDate2;
-      _os_log_error_impl(&dword_26F567000, v41, OS_LOG_TYPE_ERROR, "cannot activate treatment %@ for experiment %{public}@: start time %@ is in the future", buf, 0x20u);
+      *&buf[4] = treatmentId8;
+      v59 = 2114;
+      v60 = shortDesc3;
+      v61 = 2112;
+      v62 = startDate2;
+      _os_log_error_impl(&dword_26F567000, v40, OS_LOG_TYPE_ERROR, "cannot activate treatment %@ for experiment %{public}@: start time %@ is in the future", buf, 0x20u);
     }
 
     startDate3 = [v7 startDate];
@@ -915,8 +895,6 @@ LABEL_24:
   }
 
 LABEL_25:
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v35;
 }

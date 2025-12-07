@@ -38,65 +38,65 @@
 
 - (void)main
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   cachedCloudState = [configuration cachedCloudState];
   containers = self->_containers;
-  v46 = 0;
-  v6 = [cachedCloudState zonesByIdentifierForContainers:containers error:&v46 filter:&__block_literal_global_111];
-  v7 = v46;
+  v45 = 0;
+  v6 = [cachedCloudState zonesByIdentifierForContainers:containers error:&v45 filter:&__block_literal_global_111];
+  v7 = v45;
 
   if (v6)
   {
-    v38 = v7;
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __37__HDCloudSyncStateSyncOperation_main__block_invoke_301;
-    v44[3] = &unk_278616020;
+    v37 = v7;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __37__HDCloudSyncStateSyncOperation_main__block_invoke_301;
+    v43[3] = &unk_278616020;
     selfCopy = self;
-    v44[4] = self;
-    v39 = v6;
-    v45 = v6;
-    v8 = v45;
-    v9 = v44;
+    v43[4] = self;
+    v38 = v6;
+    v44 = v6;
+    v8 = v44;
+    v9 = v43;
     v10 = objc_alloc_init(MEMORY[0x277D10BB0]);
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __69__HDCloudSyncStateSyncOperation__performStateSyncInZones_completion___block_invoke;
-    v58[3] = &unk_2786152A8;
-    v37 = v9;
-    v59 = v37;
-    [v10 setDidFinish:v58];
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __69__HDCloudSyncStateSyncOperation__performStateSyncInZones_completion___block_invoke;
+    v57[3] = &unk_2786152A8;
+    v36 = v9;
+    v58 = v36;
+    [v10 setDidFinish:v57];
     [v10 beginTask];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
     v11 = v8;
-    v43 = [v11 countByEnumeratingWithState:&v54 objects:v64 count:16];
-    if (v43)
+    v42 = [v11 countByEnumeratingWithState:&v53 objects:v63 count:16];
+    if (v42)
     {
-      v12 = *v55;
-      v40 = v11;
+      v12 = *v54;
+      v39 = v11;
       do
       {
         v13 = 0;
         do
         {
-          if (*v55 != v12)
+          if (*v54 != v12)
           {
             objc_enumerationMutation(v11);
           }
 
-          v14 = *(*(&v54 + 1) + 8 * v13);
+          v14 = *(*(&v53 + 1) + 8 * v13);
           [v10 beginTask];
           v15 = [v11 objectForKeyedSubscript:v14];
           zoneIdentifier = [v14 zoneIdentifier];
+          v51 = 0;
           v52 = 0;
-          v53 = 0;
-          v17 = [zoneIdentifier hd_isStateSyncZoneIDForSyncCircleIdentifier:&v53 domain:&v52];
-          v18 = v53;
-          v19 = v52;
+          v17 = [zoneIdentifier hd_isStateSyncZoneIDForSyncCircleIdentifier:&v52 domain:&v51];
+          v18 = v52;
+          v19 = v51;
 
           if (v17)
           {
@@ -119,9 +119,9 @@
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v61 = selfCopy;
-              v62 = 2114;
-              v63 = stateSyncShim;
+              v60 = selfCopy;
+              v61 = 2114;
+              v62 = stateSyncShim;
               _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "%{public}@: Error processing zone :%{public}@", buf, 0x16u);
             }
 
@@ -137,41 +137,41 @@
             configuration2 = [(HDCloudSyncOperation *)selfCopy configuration];
             repository = [configuration2 repository];
             [repository cloudSyncShimProvider];
-            v29 = v42 = v18;
+            v29 = v41 = v18;
             stateSyncShim = [v29 stateSyncShim];
 
             configuration3 = [(HDCloudSyncOperation *)selfCopy configuration];
-            v47[0] = MEMORY[0x277D85DD0];
-            v47[1] = 3221225472;
-            v47[2] = __69__HDCloudSyncStateSyncOperation__performStateSyncInZones_completion___block_invoke_313;
-            v47[3] = &unk_278621D98;
-            v47[4] = selfCopy;
+            v46[0] = MEMORY[0x277D85DD0];
+            v46[1] = 3221225472;
+            v46[2] = __69__HDCloudSyncStateSyncOperation__performStateSyncInZones_completion___block_invoke_313;
+            v46[3] = &unk_278621D98;
+            v46[4] = selfCopy;
             v32 = v19;
-            v48 = v32;
-            v49 = v10;
-            v50 = v26;
-            v51 = v15;
+            v47 = v32;
+            v48 = v10;
+            v49 = v26;
+            v50 = v15;
             v33 = v26;
             v34 = v32;
-            v18 = v42;
-            [stateSyncShim mergeStateDataWithStore:v33 domain:v34 configuration:configuration3 completion:v47];
+            v18 = v41;
+            [stateSyncShim mergeStateDataWithStore:v33 domain:v34 configuration:configuration3 completion:v46];
 
-            v11 = v40;
+            v11 = v39;
           }
 
           ++v13;
         }
 
-        while (v43 != v13);
-        v43 = [v11 countByEnumeratingWithState:&v54 objects:v64 count:16];
+        while (v42 != v13);
+        v42 = [v11 countByEnumeratingWithState:&v53 objects:v63 count:16];
       }
 
-      while (v43);
+      while (v42);
     }
 
     [v10 finishTask];
-    v7 = v38;
-    v6 = v39;
+    v7 = v37;
+    v6 = v38;
   }
 
   else
@@ -185,22 +185,20 @@
     v35 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      *v64 = 138543618;
+      *v63 = 138543618;
       selfCopy2 = self;
-      v66 = 2114;
-      v67 = v7;
-      _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "%{public}@: Error fetching state sync zones :%{public}@", v64, 0x16u);
+      v65 = 2114;
+      v66 = v7;
+      _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "%{public}@: Error fetching state sync zones :%{public}@", v63, 0x16u);
     }
 
     [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v7];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __37__HDCloudSyncStateSyncOperation_main__block_invoke_301(uint64_t a1, char a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (a2)
@@ -219,23 +217,23 @@ void __37__HDCloudSyncStateSyncOperation_main__block_invoke_301(uint64_t a1, cha
         v14 = [(HDCloudSyncModifyRecordsOperation *)v9 initWithConfiguration:v10 container:v13 recordsToSave:v7[13] recordIDsToDelete:0];
 
         v15 = [MEMORY[0x277CBEAA8] date];
-        v21 = MEMORY[0x277D85DD0];
-        v22 = 3221225472;
-        v23 = __66__HDCloudSyncStateSyncOperation__pushUpdatedStateRecordsForZones___block_invoke;
-        v24 = &unk_278616348;
-        v25 = v7;
+        v20 = MEMORY[0x277D85DD0];
+        v21 = 3221225472;
+        v22 = __66__HDCloudSyncStateSyncOperation__pushUpdatedStateRecordsForZones___block_invoke;
+        v23 = &unk_278616348;
+        v24 = v7;
         v16 = v8;
-        v26 = v16;
-        [(HDCloudSyncOperation *)v14 setOnError:&v21];
+        v25 = v16;
+        [(HDCloudSyncOperation *)v14 setOnError:&v20];
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __66__HDCloudSyncStateSyncOperation__pushUpdatedStateRecordsForZones___block_invoke_325;
-        v28 = &unk_278616370;
-        v29 = v7;
-        v30 = v15;
-        v31 = v16;
+        v27 = &unk_278616370;
+        v28 = v7;
+        v29 = v15;
+        v30 = v16;
         v17 = v15;
-        [(HDCloudSyncOperation *)v14 setOnSuccess:buf, v21, v22, v23, v24, v25];
+        [(HDCloudSyncOperation *)v14 setOnSuccess:buf, v20, v21, v22, v23, v24];
         [(HDCloudSyncOperation *)v14 start];
       }
 
@@ -258,9 +256,9 @@ void __37__HDCloudSyncStateSyncOperation_main__block_invoke_301(uint64_t a1, cha
     v18 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v20 = *(a1 + 32);
+      v19 = *(a1 + 32);
       *buf = 138543618;
-      *&buf[4] = v20;
+      *&buf[4] = v19;
       *&buf[12] = 2114;
       *&buf[14] = v6;
       _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@", buf, 0x16u);
@@ -269,13 +267,11 @@ void __37__HDCloudSyncStateSyncOperation_main__block_invoke_301(uint64_t a1, cha
     [(HDCloudSyncStateSyncOperation *)*(a1 + 32) _notifyStateEntities:*(a1 + 40) stateSyncZones:?];
     [*(a1 + 32) finishWithSuccess:0 error:v6];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyStateEntities:(void *)entities stateSyncZones:
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   if (self)
   {
@@ -284,33 +280,33 @@ void __37__HDCloudSyncStateSyncOperation_main__block_invoke_301(uint64_t a1, cha
     cloudSyncShimProvider = [repository cloudSyncShimProvider];
     stateSyncShim = [cloudSyncShimProvider stateSyncShim];
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v28 = entitiesCopy;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v27 = entitiesCopy;
     v8 = entitiesCopy;
-    v31 = [v8 countByEnumeratingWithState:&v35 objects:v43 count:16];
-    if (v31)
+    v30 = [v8 countByEnumeratingWithState:&v34 objects:v42 count:16];
+    if (v30)
     {
       selfCopy = self;
-      v10 = *v36;
+      v10 = *v35;
       do
       {
-        for (i = 0; i != v31; ++i)
+        for (i = 0; i != v30; ++i)
         {
-          if (*v36 != v10)
+          if (*v35 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v35 + 1) + 8 * i);
+          v12 = *(*(&v34 + 1) + 8 * i);
           zoneIdentifier = [v12 zoneIdentifier];
+          v32 = 0;
           v33 = 0;
-          v34 = 0;
-          v14 = [zoneIdentifier hd_isStateSyncZoneIDForSyncCircleIdentifier:&v34 domain:&v33];
-          v15 = v34;
-          v16 = v33;
+          v14 = [zoneIdentifier hd_isStateSyncZoneIDForSyncCircleIdentifier:&v33 domain:&v32];
+          v15 = v33;
+          v16 = v32;
 
           if (v14)
           {
@@ -333,9 +329,9 @@ void __37__HDCloudSyncStateSyncOperation_main__block_invoke_301(uint64_t a1, cha
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v40 = selfCopy;
-              v41 = 2114;
-              v42 = v26;
+              v39 = selfCopy;
+              v40 = 2114;
+              v41 = v26;
               _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "%{public}@: Error notifying state entity :%{public}@", buf, 0x16u);
             }
           }
@@ -352,25 +348,23 @@ void __37__HDCloudSyncStateSyncOperation_main__block_invoke_301(uint64_t a1, cha
             selfCopy = v24;
             v8 = v23;
 
-            v32[0] = MEMORY[0x277D85DD0];
-            v32[1] = 3221225472;
-            v32[2] = __69__HDCloudSyncStateSyncOperation__notifyStateEntities_stateSyncZones___block_invoke;
-            v32[3] = &unk_2786130B0;
-            v32[4] = selfCopy;
-            [stateSyncShim syncDidFinishWithResult:a2 domain:v16 stateStore:v26 completion:v32];
+            v31[0] = MEMORY[0x277D85DD0];
+            v31[1] = 3221225472;
+            v31[2] = __69__HDCloudSyncStateSyncOperation__notifyStateEntities_stateSyncZones___block_invoke;
+            v31[3] = &unk_2786130B0;
+            v31[4] = selfCopy;
+            [stateSyncShim syncDidFinishWithResult:a2 domain:v16 stateStore:v26 completion:v31];
           }
         }
 
-        v31 = [v8 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v30 = [v8 countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
-      while (v31);
+      while (v30);
     }
 
-    entitiesCopy = v28;
+    entitiesCopy = v27;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HDCloudSyncStateSyncOperation__performStateSyncInZones_completion___block_invoke(uint64_t a1, uint64_t a2, char a3, void *a4)
@@ -413,61 +407,49 @@ void __69__HDCloudSyncStateSyncOperation__performStateSyncInZones_completion___b
 
 void __69__HDCloudSyncStateSyncOperation__performStateSyncInZones_completion___block_invoke_313(uint64_t a1, char a2, void *a3)
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
     v6 = *(a1 + 32);
     v7 = *(a1 + 56);
     v8 = *(a1 + 64);
-    v74 = 0;
+    v73 = 0;
     v9 = v7;
     v10 = v8;
-    v69 = v6;
+    v68 = v6;
     if (!v6)
     {
       goto LABEL_54;
     }
 
     v11 = [v9 mergedData];
-    if (!v11)
+    if (!v11 || (v12 = v11, [v9 mergedData], v67 = v10, v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "count"), v13, v10 = v67, v12, !v14))
     {
-      goto LABEL_47;
-    }
-
-    v12 = v11;
-    [v9 mergedData];
-    v13 = v68 = v10;
-    v14 = [v13 count];
-
-    v10 = v68;
-    if (!v14)
-    {
-LABEL_47:
       _HKInitializeLogging();
       v56 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEBUG))
       {
-        *v86 = 138543618;
-        v87 = v69;
-        v88 = 2114;
-        v89 = v9;
-        _os_log_debug_impl(&dword_228986000, v56, OS_LOG_TYPE_DEBUG, "%{public}@: Store %{public}@ has no data to be pushed", v86, 0x16u);
+        *v85 = 138543618;
+        v86 = v68;
+        v87 = 2114;
+        v88 = v9;
+        _os_log_debug_impl(&dword_228986000, v56, OS_LOG_TYPE_DEBUG, "%{public}@: Store %{public}@ has no data to be pushed", v85, 0x16u);
       }
 
       LOBYTE(v6) = 1;
       goto LABEL_54;
     }
 
-    v15 = v69[14];
+    v15 = v68[14];
     if ([v15 count] == 1)
     {
       v16 = [v15 anyObject];
       if (v16)
       {
-        v65 = a1;
-        v66 = v5;
-        v17 = [v69 configuration];
+        v64 = a1;
+        v65 = v5;
+        v17 = [v68 configuration];
         v18 = [v17 repository];
         v19 = [v18 primaryCKContainer];
         v20 = [v19 containerIdentifier];
@@ -477,49 +459,49 @@ LABEL_47:
           v21 = [v16 containerIdentifier];
           v22 = [v21 isEqualToString:v20];
 
-          v10 = v68;
+          v10 = v67;
           if (v22)
           {
-            v78 = 0u;
-            v79 = 0u;
-            v76 = 0u;
             v77 = 0u;
+            v78 = 0u;
+            v75 = 0u;
+            v76 = 0u;
             v23 = [v9 mergedData];
             v24 = [v23 allKeys];
 
-            v73 = [v24 countByEnumeratingWithState:&v76 objects:v86 count:16];
-            if (!v73)
+            v72 = [v24 countByEnumeratingWithState:&v75 objects:v85 count:16];
+            if (!v72)
             {
-              v71 = 1;
+              v70 = 1;
               goto LABEL_62;
             }
 
-            v71 = 1;
-            v72 = *v77;
-            v25 = v69;
-            v70 = v24;
-            v67 = v9;
+            v70 = 1;
+            v71 = *v76;
+            v25 = v68;
+            v69 = v24;
+            v66 = v9;
             while (1)
             {
-              for (i = 0; i != v73; ++i)
+              for (i = 0; i != v72; ++i)
               {
-                if (*v77 != v72)
+                if (*v76 != v71)
                 {
                   objc_enumerationMutation(v24);
                 }
 
-                v27 = *(*(&v76 + 1) + 8 * i);
+                v27 = *(*(&v75 + 1) + 8 * i);
                 v28 = objc_opt_class();
-                v75[0] = MEMORY[0x277D85DD0];
-                v75[1] = 3221225472;
-                v75[2] = __74__HDCloudSyncStateSyncOperation__updateRecordsToSaveWithStore_zone_error___block_invoke;
-                v75[3] = &unk_278621DC0;
-                v75[4] = v27;
-                v29 = [v10 recordsForClass:v28 error:&v74 filter:v75];
+                v74[0] = MEMORY[0x277D85DD0];
+                v74[1] = 3221225472;
+                v74[2] = __74__HDCloudSyncStateSyncOperation__updateRecordsToSaveWithStore_zone_error___block_invoke;
+                v74[3] = &unk_278621DC0;
+                v74[4] = v27;
+                v29 = [v10 recordsForClass:v28 error:&v73 filter:v74];
                 v30 = v29;
                 if (!v29)
                 {
-                  v71 = 0;
+                  v70 = 0;
                   goto LABEL_41;
                 }
 
@@ -530,7 +512,7 @@ LABEL_47:
                   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v81 = v27;
+                    v80 = v27;
                     _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "Expected one record per key. Multiple records for key: %@", buf, 0xCu);
                   }
 
@@ -539,15 +521,15 @@ LABEL_47:
                   if (v32)
                   {
                     v34 = v32;
-                    v71 = 0;
-                    v74 = v33;
+                    v70 = 0;
+                    v73 = v33;
                     v35 = v33;
                   }
 
                   else
                   {
                     v35 = 0;
-                    v71 = 0;
+                    v70 = 0;
                   }
 
                   goto LABEL_39;
@@ -563,7 +545,7 @@ LABEL_47:
                   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v81 = v27;
+                    v80 = v27;
                     _os_log_error_impl(&dword_228986000, v44, OS_LOG_TYPE_ERROR, "Nil merged data for key %@", buf, 0xCu);
                   }
 
@@ -572,15 +554,15 @@ LABEL_47:
                   if (v45)
                   {
                     v47 = v45;
-                    v71 = 0;
-                    v74 = v46;
+                    v70 = 0;
+                    v73 = v46;
                     v33 = v46;
                   }
 
                   else
                   {
                     v33 = 0;
-                    v71 = 0;
+                    v70 = 0;
                   }
 
 LABEL_38:
@@ -598,11 +580,11 @@ LABEL_39:
                     v53 = v37;
                     v54 = [v35 length];
                     *buf = 138543874;
-                    v81 = v25;
-                    v82 = 2050;
-                    v83 = v54;
-                    v84 = 2050;
-                    v85 = 51200;
+                    v80 = v25;
+                    v81 = 2050;
+                    v82 = v54;
+                    v83 = 2050;
+                    v84 = 51200;
                     _os_log_error_impl(&dword_228986000, v53, OS_LOG_TYPE_ERROR, "[%{public}@] Record size: %{public}lu exceeds soft size limit: %{public}lu", buf, 0x20u);
                   }
 
@@ -611,7 +593,7 @@ LABEL_39:
                   v40 = [v39 analyticsSubmissionCoordinator];
                   [v40 stateSync_recordSize:{objc_msgSend(v35, "length")}];
 
-                  v24 = v70;
+                  v24 = v69;
                 }
 
                 if ([v30 count])
@@ -638,33 +620,33 @@ LABEL_35:
                   v49 = [v48 objectForKeyedSubscript:v27];
                   v50 = [v10 zoneIdentifier];
                   v51 = [v50 zoneIdentifier];
-                  v33 = [HDCloudSyncStateRecord recordWithStateData:v49 zoneID:v51 recordIdentifier:v27 error:&v74];
+                  v33 = [HDCloudSyncStateRecord recordWithStateData:v49 zoneID:v51 recordIdentifier:v27 error:&v73];
 
-                  v25 = v69;
-                  v10 = v68;
+                  v25 = v68;
+                  v10 = v67;
 
-                  v9 = v67;
-                  v24 = v70;
+                  v9 = v66;
+                  v24 = v69;
                   if (v33)
                   {
                     goto LABEL_35;
                   }
                 }
 
-                v71 = 0;
+                v70 = 0;
 LABEL_40:
 
 LABEL_41:
               }
 
-              v73 = [v24 countByEnumeratingWithState:&v76 objects:v86 count:16];
-              if (!v73)
+              v72 = [v24 countByEnumeratingWithState:&v75 objects:v85 count:16];
+              if (!v72)
               {
 LABEL_62:
 
-                a1 = v65;
-                v5 = v66;
-                LOBYTE(v6) = v71;
+                a1 = v64;
+                v5 = v65;
+                LOBYTE(v6) = v70;
                 goto LABEL_54;
               }
             }
@@ -674,7 +656,7 @@ LABEL_62:
         }
       }
 
-      v10 = v68;
+      v10 = v67;
     }
 
 LABEL_52:
@@ -683,16 +665,16 @@ LABEL_52:
     LOBYTE(v6) = 1;
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_INFO))
     {
-      *v86 = 138543618;
-      v87 = v69;
-      v88 = 2114;
-      v89 = v9;
-      _os_log_impl(&dword_228986000, v59, OS_LOG_TYPE_INFO, "%{public}@: Store %{public}@ is from a secondary container which is not pushed.", v86, 0x16u);
+      *v85 = 138543618;
+      v86 = v68;
+      v87 = 2114;
+      v88 = v9;
+      _os_log_impl(&dword_228986000, v59, OS_LOG_TYPE_INFO, "%{public}@: Store %{public}@ is from a secondary container which is not pushed.", v85, 0x16u);
     }
 
 LABEL_54:
 
-    v60 = v74;
+    v60 = v73;
     if (v6)
     {
       [*(a1 + 48) finishTask];
@@ -704,15 +686,15 @@ LABEL_54:
       v61 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v63 = *(a1 + 32);
-        v64 = *(a1 + 40);
-        *v86 = 138543874;
-        v87 = v63;
-        v88 = 2114;
-        v89 = v60;
-        v90 = 2114;
-        v91 = v64;
-        _os_log_error_impl(&dword_228986000, v61, OS_LOG_TYPE_ERROR, "%{public}@: Error creating record %{public}@ for %{public}@", v86, 0x20u);
+        v62 = *(a1 + 32);
+        v63 = *(a1 + 40);
+        *v85 = 138543874;
+        v86 = v62;
+        v87 = 2114;
+        v88 = v60;
+        v89 = 2114;
+        v90 = v63;
+        _os_log_error_impl(&dword_228986000, v61, OS_LOG_TYPE_ERROR, "%{public}@: Error creating record %{public}@ for %{public}@", v85, 0x20u);
       }
 
       [*(a1 + 48) failTaskWithError:v60];
@@ -727,19 +709,17 @@ LABEL_54:
   {
     v57 = *(a1 + 32);
     v58 = *(a1 + 40);
-    *v86 = 138543874;
-    v87 = v57;
-    v88 = 2114;
-    v89 = v58;
-    v90 = 2114;
-    v91 = v5;
-    _os_log_error_impl(&dword_228986000, v55, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@ Ignorable failure to update data %{public}@", v86, 0x20u);
+    *v85 = 138543874;
+    v86 = v57;
+    v87 = 2114;
+    v88 = v58;
+    v89 = 2114;
+    v90 = v5;
+    _os_log_error_impl(&dword_228986000, v55, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@ Ignorable failure to update data %{public}@", v85, 0x20u);
   }
 
   [*(a1 + 48) finishTask];
 LABEL_60:
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__HDCloudSyncStateSyncOperation__updateRecordsToSaveWithStore_zone_error___block_invoke(uint64_t a1, void *a2)
@@ -753,19 +733,19 @@ uint64_t __74__HDCloudSyncStateSyncOperation__updateRecordsToSaveWithStore_zone_
 
 void __66__HDCloudSyncStateSyncOperation__pushUpdatedStateRecordsForZones___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v12 = *(a1 + 32);
-    v13 = 138543618;
-    v14 = v12;
-    v15 = 2114;
-    v16 = v5;
-    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Failed to modify records: %{public}@", &v13, 0x16u);
+    v11 = *(a1 + 32);
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2114;
+    v15 = v5;
+    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Failed to modify records: %{public}@", &v12, 0x16u);
   }
 
   v8 = [*(a1 + 32) profile];
@@ -775,8 +755,6 @@ void __66__HDCloudSyncStateSyncOperation__pushUpdatedStateRecordsForZones___bloc
 
   [(HDCloudSyncStateSyncOperation *)*(a1 + 32) _notifyStateEntities:*(a1 + 40) stateSyncZones:?];
   [*(a1 + 32) finishWithSuccess:0 error:v5];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__HDCloudSyncStateSyncOperation__pushUpdatedStateRecordsForZones___block_invoke_325(id *a1, void *a2)
@@ -802,7 +780,7 @@ uint64_t __66__HDCloudSyncStateSyncOperation__pushUpdatedStateRecordsForZones___
 
 void __69__HDCloudSyncStateSyncOperation__notifyStateEntities_stateSyncZones___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -810,21 +788,19 @@ void __69__HDCloudSyncStateSyncOperation__notifyStateEntities_stateSyncZones___b
     v6 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v8;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Error notifying state entity :%{public}@", &v9, 0x16u);
+      v7 = *(a1 + 32);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Error notifying state entity :%{public}@", &v8, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59__HDCloudSyncStateSyncOperation_stateDataForStateSyncZone___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = [v6 key];
   v8 = [*(a1 + 32) objectForKey:v7];
@@ -835,7 +811,7 @@ uint64_t __59__HDCloudSyncStateSyncOperation_stateDataForStateSyncZone___block_i
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v21 = v7;
+      v20 = v7;
       _os_log_fault_impl(&dword_228986000, v9, OS_LOG_TYPE_FAULT, "Expected one record per key. Multiple records for key: %@", buf, 0xCu);
     }
 
@@ -888,7 +864,6 @@ LABEL_16:
   v14 = 1;
 LABEL_17:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

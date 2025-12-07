@@ -163,14 +163,14 @@ LABEL_7:
 
 - (id)characteristicValuesForValue:(id)value
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (value)
   {
     valueCopy = value;
     multiStateCharacteristicType = [(HFMultiStateControlItem *)self multiStateCharacteristicType];
-    v10 = multiStateCharacteristicType;
-    v11[0] = valueCopy;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = multiStateCharacteristicType;
+    v10[0] = valueCopy;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
     v7 = [(HFControlItem *)self normalizedCharacteristicValuesForValues:v6];
   }
@@ -179,8 +179,6 @@ LABEL_7:
   {
     v7 = MEMORY[0x277CBEC10];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

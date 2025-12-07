@@ -76,7 +76,7 @@
 
 void __55__CPLSyncSessionPredictor_removePredictedValueForType___block_invoke(void *a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1[4] + 24) updatedPredictionRemovingValueForType:a1[5]];
   v3 = *(a1[6] + 8);
   v4 = *(v3 + 40);
@@ -99,32 +99,29 @@ void __55__CPLSyncSessionPredictor_removePredictedValueForType___block_invoke(vo
         v10 = a1[7];
         v11 = *(*(a1[6] + 8) + 40);
         v12 = [*(*(v10 + 8) + 40) count];
-        v14 = 138543874;
-        v15 = v9;
-        v16 = 2112;
-        v17 = v11;
-        v18 = 2048;
-        v19 = v12;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Updated predictions for %{public}@: %@ - informing %lu observers", &v14, 0x20u);
+        v13 = 138543874;
+        v14 = v9;
+        v15 = 2112;
+        v16 = v11;
+        v17 = 2048;
+        v18 = v12;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Updated predictions for %{public}@: %@ - informing %lu observers", &v13, 0x20u);
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatePredictedValue:(id)value forType:(id)type
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   typeCopy = type;
-  v12[0] = value;
+  v11[0] = value;
   v6 = MEMORY[0x1E695DF20];
   typeCopy2 = type;
   valueCopy = value;
-  v9 = [v6 dictionaryWithObjects:v12 forKeys:&typeCopy count:1];
+  v9 = [v6 dictionaryWithObjects:v11 forKeys:&typeCopy count:1];
 
   [(CPLSyncSessionPredictor *)self updatePredictionWithValuesAndTypes:v9];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatePredictionWithValuesAndTypes:(id)types
@@ -171,7 +168,7 @@ void __55__CPLSyncSessionPredictor_removePredictedValueForType___block_invoke(vo
 
 void __62__CPLSyncSessionPredictor_updatePredictionWithValuesAndTypes___block_invoke(void *a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1[4] + 24) updatedPredictionWithValuesAndTypes:a1[5]];
   v3 = *(a1[6] + 8);
   v4 = *(v3 + 40);
@@ -194,18 +191,16 @@ void __62__CPLSyncSessionPredictor_updatePredictionWithValuesAndTypes___block_in
         v10 = a1[7];
         v11 = *(*(a1[6] + 8) + 40);
         v12 = [*(*(v10 + 8) + 40) count];
-        v14 = 138543874;
-        v15 = v9;
-        v16 = 2112;
-        v17 = v11;
-        v18 = 2048;
-        v19 = v12;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Updated predictions for %{public}@: %@ - informing %lu observers", &v14, 0x20u);
+        v13 = 138543874;
+        v14 = v9;
+        v15 = 2112;
+        v16 = v11;
+        v17 = 2048;
+        v18 = v12;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Updated predictions for %{public}@: %@ - informing %lu observers", &v13, 0x20u);
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:(id)observer
@@ -293,37 +288,37 @@ void __62__CPLSyncSessionPredictor_updatePredictionWithValuesAndTypes___block_in
 
 - (void)updatePredictionsWithDerivativesStatistics:(id)statistics
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   statisticsCopy = statistics;
   if ([statisticsCopy count])
   {
     selfCopy = self;
     v5 = +[CPLResource largeResourceSizeThreshold];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v26 = statisticsCopy;
+    v25 = statisticsCopy;
     v6 = statisticsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
       v10 = 0;
-      v11 = *v28;
+      v11 = *v27;
       v12 = 0.0;
       v13 = 0.0;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v28 != v11)
+          if (*v27 != v11)
           {
             objc_enumerationMutation(v6);
           }
 
-          v15 = *(*(&v27 + 1) + 8 * i);
+          v15 = *(*(&v26 + 1) + 8 * i);
           [v15 generationDuration];
           if (v16 > 0.00999999978)
           {
@@ -349,7 +344,7 @@ void __62__CPLSyncSessionPredictor_updatePredictionWithValuesAndTypes___block_in
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v8);
@@ -381,10 +376,8 @@ void __62__CPLSyncSessionPredictor_updatePredictionWithValuesAndTypes___block_in
       [(CPLSyncSessionPredictor *)selfCopy updatePredictionWithValuesAndTypes:v21];
     }
 
-    statisticsCopy = v26;
+    statisticsCopy = v25;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

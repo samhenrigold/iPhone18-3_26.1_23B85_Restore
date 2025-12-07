@@ -24,7 +24,7 @@
 void __45__PDCApplicationEventListener_sharedInstance__block_invoke()
 {
   v5 = PDCGlobalConsentStoreInstance();
-  v0 = PDCGlobalApplicationEnvironment();
+  v0 = PDCGlobalApplicationEnvironment(v5);
   v1 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
   v2 = dispatch_queue_create("com.apple.PrivacyDisclosure.PDCApplicationEventListener", v1);
 
@@ -83,10 +83,10 @@ void __45__PDCApplicationEventListener_sharedInstance__block_invoke()
   }
 }
 
-uint64_t __39__PDCApplicationEventListener_activate__block_invoke(uint64_t a1)
+void *__39__PDCApplicationEventListener_activate__block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
-  if (!*(result + 24))
+  if (!result[3])
   {
     result = [result cancelled];
     if ((result & 1) == 0)
@@ -115,27 +115,27 @@ uint64_t __39__PDCApplicationEventListener_activate__block_invoke(uint64_t a1)
 
 - (void)checkForStaleConsentRecords
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   consentedBundleIdentifiers = [(PDCConsentStore *)self->_consentStore consentedBundleIdentifiers];
-  v4 = [consentedBundleIdentifiers countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [consentedBundleIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(consentedBundleIdentifiers);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         v9 = [(PDCApplicationEnvironment *)self->_applicationEnvironment applicationRecordForBundleIdentifier:v8];
 
         if (!v9)
@@ -144,13 +144,11 @@ uint64_t __39__PDCApplicationEventListener_activate__block_invoke(uint64_t a1)
         }
       }
 
-      v5 = [consentedBundleIdentifiers countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [consentedBundleIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationDidUninstall:(id)uninstall
@@ -159,12 +157,13 @@ uint64_t __39__PDCApplicationEventListener_activate__block_invoke(uint64_t a1)
   if (![(PDCApplicationEventListener *)self cancelled])
   {
     v5 = [(PDCConsentStore *)self->_consentStore writeUserConsentedRegulatoryDisclosureVersion:0 forBundleIdentifier:uninstallCopy];
+    v7 = v5;
     if (v5)
     {
-      v6 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(v5, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(PDCApplicationEventListener *)uninstallCopy applicationDidUninstall:v5, v6];
+        [(PDCApplicationEventListener *)uninstallCopy applicationDidUninstall:v7, v8];
       }
     }
   }
@@ -172,13 +171,12 @@ uint64_t __39__PDCApplicationEventListener_activate__block_invoke(uint64_t a1)
 
 - (void)applicationDidUninstall:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_25F701000, log, OS_LOG_TYPE_ERROR, "Error while deleting consent record for removed app %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_25F701000, log, OS_LOG_TYPE_ERROR, "Error while deleting consent record for removed app %@: %@", &v3, 0x16u);
 }
 
 @end

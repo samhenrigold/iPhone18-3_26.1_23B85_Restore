@@ -9,6 +9,7 @@
 - (id)iconForNode:(id)node descriptor:(id)descriptor;
 - (id)iconForURL:(id)l descriptor:(id)descriptor;
 - (id)startBatching;
+- (id)thumbnailForNode:(id)node descriptor:(id)descriptor forceFetch:(BOOL)fetch;
 - (void)endBatching:(id)batching;
 - (void)markThumbnailAsRecentlyUsed:(id)used;
 - (void)performInBatch:(id)batch;
@@ -96,6 +97,41 @@ uint64_t __40__DOCThumbnailGenerator_sharedGenerator__block_invoke()
   [threadDictionary setObject:0 forKeyedSubscript:@"DOCThumbnailGeneratorNodeThumbnailsBatchKey"];
 
   return v5;
+}
+
+- (id)thumbnailForNode:(id)node descriptor:(id)descriptor forceFetch:(BOOL)fetch
+{
+  fetchCopy = fetch;
+  nodeCopy = node;
+  descriptorCopy = descriptor;
+  [descriptorCopy size];
+  v12 = v11;
+  v14 = v13;
+  [descriptorCopy minimumSize];
+  v16 = v15;
+  [descriptorCopy scale];
+  v18 = v17;
+  if (v12 <= 0.0 || v14 <= 0.0 || v17 <= 0.0)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    v26.width = v12;
+    v26.height = v14;
+    v22 = NSStringFromCGSize(v26);
+    [currentHandler handleFailureInMethod:a2 object:self file:@"DOCThumbnailGenerator.m" lineNumber:115 description:{@"Expected size and scale to be non-zero, got %@ @ %fx", v22, *&v18}];
+  }
+
+  if (v16 > v12 || v16 > v14)
+  {
+    currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+    v27.width = v12;
+    v27.height = v14;
+    v24 = NSStringFromCGSize(v27);
+    [currentHandler2 handleFailureInMethod:a2 object:self file:@"DOCThumbnailGenerator.m" lineNumber:116 description:{@"Expected minimum size should be smaller or equal to maximum size, got %f for %@", *&v16, v24}];
+  }
+
+  v19 = [(DOCThumbnailGenerator *)self _thumbnailForNode:nodeCopy descriptor:descriptorCopy forceFetch:fetchCopy];
+
+  return v19;
 }
 
 - (id)_thumbnailForNode:(id)node descriptor:(id)descriptor forceFetch:(BOOL)fetch
@@ -530,38 +566,36 @@ LABEL_6:
 
 void __37__DOCThumbnailGenerator_endBatching___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         v7 = [v6 thumbnail];
         [v7 fetchWithOptions:{objc_msgSend(v6, "fetchOptions")}];
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)performInBatch:(void *)a3 .cold.1(uint64_t a1, uint64_t a2, void *a3)

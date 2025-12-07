@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar source:(SGMDocumentType_)source detail:(SGMContactDetailType_)detail foundIn:(SGMContactDetailFoundIn_)in hasName:(SGMTypeSafeBool_)name tokens:(SGMLowCount_)tokens
 {
-  v33[5] = *MEMORY[0x1E69E9840];
+  v32[5] = *MEMORY[0x1E69E9840];
   if (source.var0)
   {
     if (source.var0 == 1)
@@ -98,23 +98,21 @@ LABEL_16:
   }
 
   tracker = self->_tracker;
-  v33[0] = v15;
-  v33[1] = v18;
-  v33[2] = v21;
-  v33[3] = v22;
-  v33[4] = v27;
-  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:5];
+  v32[0] = v15;
+  v32[1] = v18;
+  v32[2] = v21;
+  v32[3] = v22;
+  v32[4] = v27;
+  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:5];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v31 value:scalar];
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMContactDetailSent)init
 {
-  v15[5] = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = SGMContactDetailSent;
-  v2 = [(SGMContactDetailSent *)&v14 init];
+  v14[5] = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = SGMContactDetailSent;
+  v2 = [(SGMContactDetailSent *)&v13 init];
   if (v2)
   {
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Source"];
@@ -123,18 +121,17 @@ LABEL_16:
     v6 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"HasName"];
     v7 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Tokens"];
     v8 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v15[0] = v3;
-    v15[1] = v4;
-    v15[2] = v5;
-    v15[3] = v6;
-    v15[4] = v7;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:5];
+    v14[0] = v3;
+    v14[1] = v4;
+    v14[2] = v5;
+    v14[3] = v6;
+    v14[4] = v7;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:5];
     v10 = [v8 initWithFeatureId:@"Found" event:@"ContactDetailSent" registerProperties:v9 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v10;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

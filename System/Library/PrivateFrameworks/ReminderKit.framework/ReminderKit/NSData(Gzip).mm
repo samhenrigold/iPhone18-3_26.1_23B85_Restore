@@ -125,11 +125,10 @@ LABEL_19:
 
 - (void)TT_gzipInflate
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "inflate failed returned %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "inflate failed returned %d", v2, 8u);
 }
 
 @end

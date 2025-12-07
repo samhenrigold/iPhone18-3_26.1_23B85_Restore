@@ -42,7 +42,7 @@
 
 - (void)parseMetadataFromDictionary:(id)dictionary
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   self->_isExplicit = ![SSRVoiceProfileMetadataManager isUtteranceImplicitlyTrainedFromMetaDict:dictionaryCopy];
   v5 = [SSRVoiceProfileMetadataManager getUtterancePhIdFromMetaDict:dictionaryCopy];
@@ -57,9 +57,9 @@
     v8 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
-      v21 = 136315138;
-      v22 = "[SSREnrollmentUtterance parseMetadataFromDictionary:]";
-      _os_log_error_impl(&dword_225E12000, v8, OS_LOG_TYPE_ERROR, "%s Failed to extract phId from metadata, using default trigger phrase", &v21, 0xCu);
+      v20 = 136315138;
+      v21 = "[SSREnrollmentUtterance parseMetadataFromDictionary:]";
+      _os_log_error_impl(&dword_225E12000, v8, OS_LOG_TYPE_ERROR, "%s Failed to extract phId from metadata, using default trigger phrase", &v20, 0xCu);
     }
 
     v7 = 0;
@@ -96,28 +96,26 @@ LABEL_12:
     v18 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
-      v21 = 136315394;
-      v22 = "[SSREnrollmentUtterance parseMetadataFromDictionary:]";
-      v23 = 2112;
-      v24 = v13;
-      _os_log_error_impl(&dword_225E12000, v18, OS_LOG_TYPE_ERROR, "%s Failed to parse grainedDate string: %@, setting to nil", &v21, 0x16u);
+      v20 = 136315394;
+      v21 = "[SSREnrollmentUtterance parseMetadataFromDictionary:]";
+      v22 = 2112;
+      v23 = v13;
+      _os_log_error_impl(&dword_225E12000, v18, OS_LOG_TYPE_ERROR, "%s Failed to parse grainedDate string: %@, setting to nil", &v20, 0x16u);
     }
 
     goto LABEL_12;
   }
 
 LABEL_13:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (SSREnrollmentUtterance)initWithEnrollmentUtteranceUrl:(id)url
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   urlCopy = url;
-  v22.receiver = self;
-  v22.super_class = SSREnrollmentUtterance;
-  v6 = [(SSREnrollmentUtterance *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = SSREnrollmentUtterance;
+  v6 = [(SSREnrollmentUtterance *)&v21 init];
   if (!v6)
   {
     goto LABEL_6;
@@ -129,7 +127,7 @@ LABEL_13:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v24 = "[SSREnrollmentUtterance initWithEnrollmentUtteranceUrl:]";
+      v23 = "[SSREnrollmentUtterance initWithEnrollmentUtteranceUrl:]";
       _os_log_error_impl(&dword_225E12000, v15, OS_LOG_TYPE_ERROR, "%s enrollmentUtteranceUrl cannot be nil", buf, 0xCu);
     }
 
@@ -153,9 +151,9 @@ LABEL_13:
     v11 = v16;
     path2 = [urlCopy path];
     *buf = 136315394;
-    v24 = "[SSREnrollmentUtterance initWithEnrollmentUtteranceUrl:]";
-    v25 = 2112;
-    v26 = path2;
+    v23 = "[SSREnrollmentUtterance initWithEnrollmentUtteranceUrl:]";
+    v24 = 2112;
+    v25 = path2;
     _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, "%s Audio file does not exist at path: %@", buf, 0x16u);
     goto LABEL_16;
   }
@@ -180,9 +178,9 @@ LABEL_12:
     path2 = v18;
     path4 = [v11 path];
     *buf = 136315394;
-    v24 = "[SSREnrollmentUtterance initWithEnrollmentUtteranceUrl:]";
-    v25 = 2112;
-    v26 = path4;
+    v23 = "[SSREnrollmentUtterance initWithEnrollmentUtteranceUrl:]";
+    v24 = 2112;
+    v25 = path4;
     _os_log_error_impl(&dword_225E12000, path2, OS_LOG_TYPE_ERROR, "%s metadatafile cannot be loaded into Dictionary: %@", buf, 0x16u);
 
 LABEL_16:
@@ -195,7 +193,6 @@ LABEL_6:
   v14 = v6;
 LABEL_14:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

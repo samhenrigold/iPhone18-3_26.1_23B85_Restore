@@ -65,13 +65,13 @@ LABEL_11:
 
 void __43__SPUISPhotosResultBuilder_supportsResult___block_invoke()
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = [*MEMORY[0x277CE1DB0] identifier];
-  v9[0] = v1;
+  v8[0] = v1;
   v2 = [*MEMORY[0x277CE1E00] identifier];
-  v9[1] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   v4 = [v0 setWithArray:v3];
   v5 = supportsResult__photosContentTypes;
   supportsResult__photosContentTypes = v4;
@@ -79,8 +79,6 @@ void __43__SPUISPhotosResultBuilder_supportsResult___block_invoke()
   v6 = [MEMORY[0x277CBEB98] setWithArray:&unk_287C59F18];
   v7 = supportsResult__photosEntityTypes;
   supportsResult__photosEntityTypes = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (SPUISPhotosResultBuilder)initWithResult:(id)result
@@ -277,19 +275,17 @@ void __43__SPUISPhotosResultBuilder_supportsResult___block_invoke()
 
 void __43__SPUISPhotosResultBuilder_initWithResult___block_invoke()
 {
-  v3[7] = *MEMORY[0x277D85DE8];
-  v3[0] = @"com.apple.MobileSMS";
-  v3[1] = @"com.apple.mobilenotes";
-  v3[2] = @"com.apple.CloudDocs.MobileDocumentsFileProvider";
-  v3[3] = @"com.apple.FileProvider.LocalStorage";
-  v3[4] = @"com.apple.CloudDocs.iCloudDriveFileProvider";
-  v3[5] = @"com.apple.spotlight.syndicatedPhotos.MobileSMS";
-  v3[6] = @"com.apple.spotlight.syndicatedPhotos.Notes";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:7];
+  v2[7] = *MEMORY[0x277D85DE8];
+  v2[0] = @"com.apple.MobileSMS";
+  v2[1] = @"com.apple.mobilenotes";
+  v2[2] = @"com.apple.CloudDocs.MobileDocumentsFileProvider";
+  v2[3] = @"com.apple.FileProvider.LocalStorage";
+  v2[4] = @"com.apple.CloudDocs.iCloudDriveFileProvider";
+  v2[5] = @"com.apple.spotlight.syndicatedPhotos.MobileSMS";
+  v2[6] = @"com.apple.spotlight.syndicatedPhotos.Notes";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:7];
   v1 = initWithResult__syndicatedBundles;
   initWithResult__syndicatedBundles = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SPUISPhotosResultBuilder_initWithResult___block_invoke_2(uint64_t a1, void *a2, unint64_t a3)
@@ -298,7 +294,7 @@ void __43__SPUISPhotosResultBuilder_initWithResult___block_invoke_2(uint64_t a1,
   v9 = objc_opt_new();
   [v9 setDisplayName:v5];
 
-  if ([*(a1 + 32) count] <= a3)
+  if (objc_msgSend_count(*(a1 + 32)) <= a3)
   {
     [v9 setPhotosIdentifier:0];
   }
@@ -352,7 +348,7 @@ void __43__SPUISPhotosResultBuilder_initWithResult___block_invoke_2(uint64_t a1,
 
 - (id)buildImageCardSection
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   buildThumbnail = [(SPUISPhotosResultBuilder *)self buildThumbnail];
   v4 = +[SPUISUtilities isMacOS];
   v5 = 170.0;
@@ -372,8 +368,8 @@ void __43__SPUISPhotosResultBuilder_initWithResult___block_invoke_2(uint64_t a1,
     v8 = objc_opt_new();
     [v6 setThumbnailOverlayText:v8];
 
-    v21[0] = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = v7;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
     thumbnailOverlayText = [v6 thumbnailOverlayText];
     [thumbnailOverlayText setIcons:v9];
   }
@@ -409,7 +405,6 @@ LABEL_9:
   [v6 setCommandDetail:appBundleId];
 
   [(SPUISResultBuilder *)self buildDefaultPropertiesForCardSection:v6];
-  v19 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -468,10 +463,10 @@ LABEL_9:
 
 - (id)buildDetailedRowCardSection
 {
-  v27[1] = *MEMORY[0x277D85DE8];
-  v25.receiver = self;
-  v25.super_class = SPUISPhotosResultBuilder;
-  buildDetailedRowCardSection = [(SPUISResultBuilder *)&v25 buildDetailedRowCardSection];
+  v26[1] = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = SPUISPhotosResultBuilder;
+  buildDetailedRowCardSection = [(SPUISResultBuilder *)&v24 buildDetailedRowCardSection];
   dateCreated = [(SPUISPhotosResultBuilder *)self dateCreated];
 
   if (dateCreated)
@@ -490,7 +485,7 @@ LABEL_9:
   }
 
   locationKeywords = [(SPUISPhotosResultBuilder *)self locationKeywords];
-  v11 = [locationKeywords count];
+  v11 = objc_msgSend_count(locationKeywords);
 
   if (v11)
   {
@@ -529,20 +524,20 @@ LABEL_10:
     v9 = 0;
   }
 
-  v24.receiver = self;
-  v24.super_class = SPUISPhotosResultBuilder;
-  buildTitle = [(SPUISResultBuilder *)&v24 buildTitle];
+  v23.receiver = self;
+  v23.super_class = SPUISPhotosResultBuilder;
+  buildTitle = [(SPUISResultBuilder *)&v23 buildTitle];
 LABEL_14:
-  [buildDetailedRowCardSection setTitle:buildTitle];
-  if ([dateCreated count])
+  objc_msgSend_setTitle_(buildDetailedRowCardSection);
+  if (objc_msgSend_count(dateCreated))
   {
-    if (v9 && [dateCreated count] >= 2)
+    if (v9 && objc_msgSend_count(dateCreated) >= 2)
     {
       v16 = MEMORY[0x277D4C598];
       v17 = [dateCreated objectAtIndexedSubscript:1];
       v18 = [v16 textWithString:v17];
-      v27[0] = v18;
-      v19 = v27;
+      v26[0] = v18;
+      v19 = v26;
     }
 
     else
@@ -550,54 +545,52 @@ LABEL_14:
       v20 = MEMORY[0x277D4C598];
       v17 = [dateCreated componentsJoinedByString:@" · "];
       v18 = [v20 textWithString:v17];
-      v26 = v18;
-      v19 = &v26;
+      v25 = v18;
+      v19 = &v25;
     }
 
     v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     [buildDetailedRowCardSection setDescriptions:v21];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return buildDetailedRowCardSection;
 }
 
 - (id)getValidStringFromArray:(id)array withMatchedIndices:(id)indices
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   indicesCopy = indices;
-  if ([arrayCopy count])
+  if (objc_msgSend_count(arrayCopy))
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = indicesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
-      v9 = *v16;
+      v9 = *v15;
       while (2)
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           unsignedIntegerValue = [v11 unsignedIntegerValue];
-          if (unsignedIntegerValue < [arrayCopy count])
+          if (unsignedIntegerValue < objc_msgSend_count(arrayCopy))
           {
             v8 = [arrayCopy objectAtIndexedSubscript:{objc_msgSend(v11, "unsignedIntegerValue")}];
             goto LABEL_12;
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v8)
         {
           continue;
@@ -615,14 +608,12 @@ LABEL_12:
     v8 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)buildDescriptions
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   dateCreated = [(SPUISPhotosResultBuilder *)self dateCreated];
 
   if (dateCreated)
@@ -632,18 +623,16 @@ LABEL_12:
     v6 = [SPUISDateFormatManager dynamicDateTimeStringsFromDate:dateCreated2];
     v7 = [v6 componentsJoinedByString:@" · "];
     v8 = [v4 textWithString:v7];
-    v13[0] = v8;
-    buildDescriptions = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v8;
+    buildDescriptions = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   }
 
   else
   {
-    v12.receiver = self;
-    v12.super_class = SPUISPhotosResultBuilder;
-    buildDescriptions = [(SPUISResultBuilder *)&v12 buildDescriptions];
+    v11.receiver = self;
+    v11.super_class = SPUISPhotosResultBuilder;
+    buildDescriptions = [(SPUISResultBuilder *)&v11 buildDescriptions];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return buildDescriptions;
 }
@@ -661,7 +650,7 @@ LABEL_12:
 
   [v7 setSceneIdentifier:{objc_msgSend(v6, "unsignedLongLongValue")}];
   photoSceneTypes2 = [(SPUISPhotosResultBuilder *)self photoSceneTypes];
-  if (unsignedLongValue >= [photoSceneTypes2 count])
+  if (unsignedLongValue >= objc_msgSend_count(photoSceneTypes2))
   {
     v12 = 1;
   }
@@ -678,82 +667,82 @@ LABEL_12:
 
 - (id)scenes
 {
-  v59 = *MEMORY[0x277D85DE8];
-  v38 = objc_opt_new();
+  v58 = *MEMORY[0x277D85DE8];
+  v37 = objc_opt_new();
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   sceneLabelsIndex = [(SPUISPhotosResultBuilder *)self sceneLabelsIndex];
-  v4 = [sceneLabelsIndex countByEnumeratingWithState:&v51 objects:v58 count:16];
+  v4 = [sceneLabelsIndex countByEnumeratingWithState:&v50 objects:v57 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v52;
+    v6 = *v51;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v52 != v6)
+        if (*v51 != v6)
         {
           objc_enumerationMutation(sceneLabelsIndex);
         }
 
-        v8 = *(*(&v51 + 1) + 8 * i);
+        v8 = *(*(&v50 + 1) + 8 * i);
         unsignedLongValue = [v8 unsignedLongValue];
         scenePhotoIdentifiers = [(SPUISPhotosResultBuilder *)self scenePhotoIdentifiers];
-        if (unsignedLongValue >= [scenePhotoIdentifiers count])
+        if (unsignedLongValue >= objc_msgSend_count(scenePhotoIdentifiers))
         {
         }
 
         else
         {
-          v11 = [v38 containsObject:v8];
+          v11 = [v37 containsObject:v8];
 
           if ((v11 & 1) == 0)
           {
-            [v38 addObject:v8];
+            [v37 addObject:v8];
           }
         }
       }
 
-      v5 = [sceneLabelsIndex countByEnumeratingWithState:&v51 objects:v58 count:16];
+      v5 = [sceneLabelsIndex countByEnumeratingWithState:&v50 objects:v57 count:16];
     }
 
     while (v5);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   obj = [(SPUISPhotosResultBuilder *)self sceneSynonymsIndex];
-  v12 = [obj countByEnumeratingWithState:&v47 objects:v57 count:16];
+  v12 = [obj countByEnumeratingWithState:&v46 objects:v56 count:16];
   if (v12)
   {
     v13 = v12;
-    v37 = *v48;
+    v36 = *v47;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v48 != v37)
+        if (*v47 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        longValue = [*(*(&v47 + 1) + 8 * j) longValue];
+        longValue = [*(*(&v46 + 1) + 8 * j) longValue];
+        v42 = 0u;
         v43 = 0u;
         v44 = 0u;
         v45 = 0u;
-        v46 = 0u;
         sceneSynonymsCounts = [(SPUISPhotosResultBuilder *)self sceneSynonymsCounts];
-        v17 = [sceneSynonymsCounts countByEnumeratingWithState:&v43 objects:v56 count:16];
+        v17 = [sceneSynonymsCounts countByEnumeratingWithState:&v42 objects:v55 count:16];
         if (v17)
         {
           v18 = v17;
           v19 = 0;
-          v20 = *v44;
+          v20 = *v43;
           while (2)
           {
             v21 = 0;
@@ -761,12 +750,12 @@ LABEL_12:
             v19 += v18;
             do
             {
-              if (*v44 != v20)
+              if (*v43 != v20)
               {
                 objc_enumerationMutation(sceneSynonymsCounts);
               }
 
-              longValue -= [*(*(&v43 + 1) + 8 * v21) longValue];
+              longValue -= [*(*(&v42 + 1) + 8 * v21) longValue];
               if (longValue < 0)
               {
                 v19 = v22;
@@ -778,7 +767,7 @@ LABEL_12:
             }
 
             while (v18 != v21);
-            v18 = [sceneSynonymsCounts countByEnumeratingWithState:&v43 objects:v56 count:16];
+            v18 = [sceneSynonymsCounts countByEnumeratingWithState:&v42 objects:v55 count:16];
             if (v18)
             {
               continue;
@@ -798,58 +787,56 @@ LABEL_28:
         v23 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v19];
         unsignedIntValue = [v23 unsignedIntValue];
         scenePhotoIdentifiers2 = [(SPUISPhotosResultBuilder *)self scenePhotoIdentifiers];
-        if ([scenePhotoIdentifiers2 count] <= unsignedIntValue)
+        if (objc_msgSend_count(scenePhotoIdentifiers2) <= unsignedIntValue)
         {
         }
 
         else
         {
-          v26 = [v38 containsObject:v23];
+          v26 = [v37 containsObject:v23];
 
           if ((v26 & 1) == 0)
           {
-            [v38 addObject:v23];
+            [v37 addObject:v23];
           }
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v47 objects:v57 count:16];
+      v13 = [obj countByEnumeratingWithState:&v46 objects:v56 count:16];
     }
 
     while (v13);
   }
 
   v27 = objc_opt_new();
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v28 = v38;
-  v29 = [v28 countByEnumeratingWithState:&v39 objects:v55 count:16];
+  v28 = v37;
+  v29 = [v28 countByEnumeratingWithState:&v38 objects:v54 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v40;
+    v31 = *v39;
     do
     {
       for (k = 0; k != v30; ++k)
       {
-        if (*v40 != v31)
+        if (*v39 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        v33 = [(SPUISPhotosResultBuilder *)self createSceneFrom:*(*(&v39 + 1) + 8 * k)];
+        v33 = [(SPUISPhotosResultBuilder *)self createSceneFrom:*(*(&v38 + 1) + 8 * k)];
         [v27 addObject:v33];
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v39 objects:v55 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v38 objects:v54 count:16];
     }
 
     while (v30);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v27;
 }

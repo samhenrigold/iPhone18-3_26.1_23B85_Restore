@@ -31,7 +31,7 @@
     APSLogErrorAt();
     if (gLogCategory_APAVAudioSessionManager <= 60 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setPreferredHardwareFormat:error:]", 33554492, "### [%{ptr}] %###s called before managed session is set up.\n", self, "[APAVAudioSessionManager setPreferredHardwareFormat:error:]");
     }
 
     FigSimpleMutexUnlock();
@@ -58,7 +58,7 @@
     APSLogErrorAt();
     if (gLogCategory_APAVAudioSessionManager <= 60 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setPreferredOutputNumberOfChannels:error:]", 33554492, "### [%{ptr}] %###s called before managed session is set up.\n", self, "[APAVAudioSessionManager setPreferredOutputNumberOfChannels:error:]");
     }
 
     FigSimpleMutexUnlock();
@@ -79,9 +79,7 @@
   {
     if (gLogCategory_APAVAudioSessionManager <= 90 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
     {
-      selfCopy2 = self;
-      v18 = "[APAVAudioSessionManager setDuckOthers:error:]";
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setDuckOthers:error:]", 33554522, "### [%{ptr}] %###s called before managed session is set up!\n", self, "[APAVAudioSessionManager setDuckOthers:error:]");
     }
 
     if (!error)
@@ -94,7 +92,7 @@
     v15 = -6718;
 LABEL_27:
     v11 = 0;
-    *error = [v13 errorWithDomain:v14 code:v15 userInfo:{0, selfCopy2, v18}];
+    *error = [v13 errorWithDomain:v14 code:v15 userInfo:0];
     goto LABEL_30;
   }
 
@@ -102,8 +100,7 @@ LABEL_27:
   {
     if (gLogCategory_APAVAudioSessionManager <= 90 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
     {
-      selfCopy2 = self;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setDuckOthers:error:]", 33554522, "### [%{ptr}] DuckOthers only supported on Ambient Session!\n", self);
     }
 
     if (!error)
@@ -150,7 +147,7 @@ LABEL_27:
   {
     if (gLogCategory_APAVAudioSessionManager <= 90 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setDuckOthers:error:]", 33554522, "### [%{ptr}] Failed to set DuckOthers!\n", self);
     }
 
 LABEL_29:
@@ -165,17 +162,24 @@ LABEL_30:
 - (BOOL)setActive:(BOOL)active error:(id *)error
 {
   activeCopy = active;
-  v15 = 0;
+  v27 = 0;
   FigSimpleMutexLock();
   if (!self->_isSetUp)
   {
     APSLogErrorAt();
     if (gLogCategory_APAVAudioSessionManager <= 60 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_27;
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setActive:error:]", 33554492, "### [%{ptr}] %###s called before managed session is set up.\n", self, "[APAVAudioSessionManager setActive:error:]");
     }
 
-    goto LABEL_28;
+LABEL_48:
+    v18 = 0;
+    if (!error)
+    {
+      goto LABEL_24;
+    }
+
+    goto LABEL_23;
   }
 
   categoryOptions = [(AVAudioSession *)self->_session categoryOptions];
@@ -183,81 +187,143 @@ LABEL_30:
   mode = [(AVAudioSession *)self->_session mode];
   if (!activeCopy)
   {
-    if ([(AVAudioSession *)self->_session setActive:0 error:&v15])
+    if ([(AVAudioSession *)self->_session setActive:0 error:&v27])
     {
       goto LABEL_9;
-    }
-
-LABEL_19:
-    APSLogErrorAt();
-    if (gLogCategory_APAVAudioSessionManager <= 90 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
-    {
-      goto LABEL_27;
     }
 
     goto LABEL_28;
   }
 
   v10 = mode;
-  v11 = [(APAVAudioSessionManager *)self _ifNeededChangeSessionTypeAndRequestNewBufferSize:&v15];
-  if (v15)
+  v11 = [(APAVAudioSessionManager *)self _ifNeededChangeSessionTypeAndRequestNewBufferSize:&v27];
+  if (v27)
   {
     APSLogErrorAt();
     if (gLogCategory_APAVAudioSessionManager <= 90 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_27;
+      type = self->_type;
+      v25 = "?";
+      if (type == 1)
+      {
+        v25 = "Ambient";
+      }
+
+      if (type)
+      {
+        v26 = v25;
+      }
+
+      else
+      {
+        v26 = "Media";
+      }
+
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setActive:error:]", 33554522, "[%@] [%{ptr}-%s] changing session type failed. Error=%@\n", self->_session, self, v26, v27);
     }
 
-    goto LABEL_28;
+    goto LABEL_48;
   }
 
   v12 = v11;
-  if (![(AVAudioSession *)self->_session setActive:1 error:&v15])
+  if (![(AVAudioSession *)self->_session setActive:1 error:&v27])
   {
-    goto LABEL_19;
+LABEL_28:
+    APSLogErrorAt();
+    if (gLogCategory_APAVAudioSessionManager <= 90 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
+    {
+      v20 = self->_type;
+      v21 = "?";
+      if (v20 == 1)
+      {
+        v21 = "Ambient";
+      }
+
+      v22 = v20 == 0;
+      v23 = "Deactivating";
+      if (v22)
+      {
+        v21 = "Media";
+      }
+
+      if (activeCopy)
+      {
+        v23 = "Activating";
+      }
+
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setActive:error:]", 33554522, "[%@] [%{ptr}-%s] %s session failed. Error=%@\n", self->_session, self, v21, v23, v27);
+    }
+
+    goto LABEL_48;
   }
 
-  if (v12 && ![(AVAudioSession *)self->_session setCategory:category mode:v10 options:categoryOptions error:&v15])
+  if (!v12)
+  {
+LABEL_9:
+    v13 = 0;
+    goto LABEL_10;
+  }
+
+  if (![(AVAudioSession *)self->_session setCategory:category mode:v10 options:categoryOptions error:&v27])
   {
     APSLogErrorAt();
     if (gLogCategory_APAVAudioSessionManager <= 90 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
     {
-LABEL_27:
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setActive:error:]", 33554522, "[%@] Restoring session category=%@ mode=%@ options=0x%x failed. Error=%@\n", self->_session, category, v10, categoryOptions, v27);
     }
 
-LABEL_28:
-    v13 = 0;
-    if (!error)
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_14;
-  }
-
-LABEL_9:
-  if (gLogCategory_APAVAudioSessionManager <= 50 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
-  {
-    [(AVAudioSession *)self->_session IOBufferFrameSize];
-    LogPrintF();
+    goto LABEL_48;
   }
 
   v13 = 1;
-  if (error)
+LABEL_10:
+  if (gLogCategory_APAVAudioSessionManager <= 50 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
   {
-LABEL_14:
-    *error = v15;
+    v14 = self->_type;
+    v15 = "?";
+    if (v14 == 1)
+    {
+      v15 = "Ambient";
+    }
+
+    if (v14)
+    {
+      v16 = v15;
+    }
+
+    else
+    {
+      v16 = "Media";
+    }
+
+    if (activeCopy)
+    {
+      v17 = "Activated";
+    }
+
+    else
+    {
+      v17 = "Deactivated";
+    }
+
+    LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setActive:error:]", 33554482, "[%@] [%{ptr}-%s] %s session. Buffer frame size=%u isMixable=%d (restored=%d).\n", self->_session, self, v16, v17, [(AVAudioSession *)self->_session IOBufferFrameSize], categoryOptions == 1, v13);
   }
 
-LABEL_15:
+  v18 = 1;
+  if (error)
+  {
+LABEL_23:
+    *error = v27;
+  }
+
+LABEL_24:
   FigSimpleMutexUnlock();
-  return v13;
+  return v18;
 }
 
 - (BOOL)_ifNeededChangeSessionTypeAndRequestNewBufferSize:(id *)size
 {
-  v21 = 0;
+  v19 = 0;
   FigSimpleMutexCheckIsLockedOnThisThread();
   if (!self->_isSetUp)
   {
@@ -273,13 +339,10 @@ LABEL_15:
         }
       }
 
-LABEL_30:
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager _ifNeededChangeSessionTypeAndRequestNewBufferSize:]", 33554492, "### [%{ptr}] %###s called before managed session is set up.\n", self, "[APAVAudioSessionManager _ifNeededChangeSessionTypeAndRequestNewBufferSize:]");
     }
 
-LABEL_31:
-    LOBYTE(isOtherAudioPlaying) = 0;
-    goto LABEL_19;
+    goto LABEL_32;
   }
 
   categoryOptions = [(AVAudioSession *)self->_session categoryOptions];
@@ -333,62 +396,57 @@ LABEL_31:
       v13 = "Media";
     }
 
-    v20 = v10;
-    session = self->_session;
-    selfCopy = self;
-    v18 = iOBufferFrameSize;
-    v19 = 1024;
-    v17 = v13;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager _ifNeededChangeSessionTypeAndRequestNewBufferSize:]", 33554482, "[%@] [%{ptr}-%s] Another session is playing with buffer frame size=%u. Setting preferred size=%u (%.3fsec) and isMixable=0 (temporarily)\n", self->_session, self, v13, iOBufferFrameSize, 1024, *&v10);
   }
 
-  if (![(AVAudioSession *)self->_session setPreferredIOBufferDuration:&v21 error:v10, session, selfCopy, v17, v18, v19, *&v20])
+  if ([(AVAudioSession *)self->_session setPreferredIOBufferDuration:&v19 error:v10])
   {
-    APSLogErrorAt();
-    if (gLogCategory_APAVAudioSessionManager <= 90)
+    if ([(AVAudioSession *)self->_session setCategory:*MEMORY[0x277CB8030] mode:*MEMORY[0x277CB80A8] options:0 error:&v19])
     {
-      if (gLogCategory_APAVAudioSessionManager == -1)
-      {
-        isOtherAudioPlaying = _LogCategory_Initialize();
-        if (!isOtherAudioPlaying)
-        {
-          goto LABEL_19;
-        }
-      }
-
-      goto LABEL_30;
+      LOBYTE(isOtherAudioPlaying) = 1;
+      goto LABEL_19;
     }
 
-    goto LABEL_31;
-  }
+    APSLogErrorAt();
+    if (gLogCategory_APAVAudioSessionManager > 90)
+    {
+      goto LABEL_32;
+    }
 
-  if ([(AVAudioSession *)self->_session setCategory:*MEMORY[0x277CB8030] mode:*MEMORY[0x277CB80A8] options:0 error:&v21])
-  {
-    LOBYTE(isOtherAudioPlaying) = 1;
+    if (gLogCategory_APAVAudioSessionManager != -1 || (isOtherAudioPlaying = _LogCategory_Initialize()) != 0)
+    {
+      session = self->_session;
+      v17 = *&v19;
+      v14 = "[%@] setCategory:Playback mode:Default options:none. Error=%@\n";
+      goto LABEL_31;
+    }
+
     goto LABEL_19;
   }
 
   APSLogErrorAt();
   if (gLogCategory_APAVAudioSessionManager > 90)
   {
-    goto LABEL_31;
+LABEL_32:
+    LOBYTE(isOtherAudioPlaying) = 0;
+    goto LABEL_19;
   }
 
-  if (gLogCategory_APAVAudioSessionManager != -1)
+  if (gLogCategory_APAVAudioSessionManager != -1 || (isOtherAudioPlaying = _LogCategory_Initialize()) != 0)
   {
-    goto LABEL_30;
-  }
-
-  isOtherAudioPlaying = _LogCategory_Initialize();
-  if (isOtherAudioPlaying)
-  {
-    goto LABEL_30;
+    v18 = v19;
+    v17 = v10;
+    session = self->_session;
+    v14 = "[%@] setPreferredIOBufferDuration %f sec. Error=%@\n";
+LABEL_31:
+    LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager _ifNeededChangeSessionTypeAndRequestNewBufferSize:]", 33554522, v14, session, *&v17, v18);
+    goto LABEL_32;
   }
 
 LABEL_19:
   if (size)
   {
-    *size = v21;
+    *size = v19;
   }
 
   return isOtherAudioPlaying;
@@ -408,7 +466,7 @@ LABEL_19:
     APSLogErrorAt();
     if (gLogCategory_APAVAudioSessionManager <= 60 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setPrefersMultichannelAudio:error:]", 33554492, "### [%{ptr}] %###s called before managed session is set up.\n", self, "[APAVAudioSessionManager setPrefersMultichannelAudio:error:]");
     }
 
     FigSimpleMutexUnlock();
@@ -452,8 +510,7 @@ LABEL_11:
         {
           if (gLogCategory_APAVAudioSessionManager <= 50 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
           {
-            session = self->_session;
-            LogPrintF();
+            LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setAudioMode:isLongForm:error:]", 33554482, "[%@] Forcing AVAudioSessionModeRaw\n", self->_session);
           }
 
           v14 = *MEMORY[0x277CB8028];
@@ -467,7 +524,7 @@ LABEL_11:
 
         if (self->_type || !APSMultiPrimariesEnabled())
         {
-          v17 = [(AVAudioSession *)self->_session setCategory:v14 mode:v9 routeSharingPolicy:v6 options:[(AVAudioSession *)self->_session categoryOptions:session] error:error];
+          v17 = [(AVAudioSession *)self->_session setCategory:v14 mode:v9 routeSharingPolicy:v6 options:[(AVAudioSession *)self->_session categoryOptions] error:error];
         }
 
         else
@@ -475,13 +532,30 @@ LABEL_11:
           v17 = [(AVAudioSession *)self->_session setCategory:v14 mode:v9 options:[(AVAudioSession *)self->_session categoryOptions] error:error];
         }
 
-        v16 = v17;
+        LOBYTE(v16) = v17;
         if (v9 == *MEMORY[0x277CB80E0] && v17)
         {
           v16 = [(AVAudioSession *)self->_session setMXSessionProperty:*MEMORY[0x277D27318] value:MEMORY[0x277CBEC38] error:error];
           if (gLogCategory_APAVAudioSessionManager <= 50 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            v19 = self->_type;
+            v20 = "?";
+            if (v19 == 1)
+            {
+              v20 = "Ambient";
+            }
+
+            if (v19)
+            {
+              v21 = v20;
+            }
+
+            else
+            {
+              v21 = "Media";
+            }
+
+            LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setAudioMode:isLongForm:error:]", 33554482, "[%{ptr}-%s] Prefer No Interruption set to true for audio mode: %@ with return %d.\n", self, v21, v9, v16);
           }
         }
 
@@ -505,27 +579,24 @@ LABEL_7:
 
         if (gLogCategory_APAVAudioSessionManager <= 50 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
         {
-          v20 = self->_type;
-          v21 = "?";
-          if (v20 == 1)
+          v23 = self->_type;
+          v24 = "?";
+          if (v23 == 1)
           {
-            v21 = "Ambient";
+            v24 = "Ambient";
           }
 
-          if (v20)
+          if (v23)
           {
-            v22 = v21;
+            v25 = v24;
           }
 
           else
           {
-            v22 = "Media";
+            v25 = "Media";
           }
 
-          v24 = v22;
-          modeCopy = mode;
-          session = self;
-          LogPrintF();
+          LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setAudioMode:isLongForm:error:]", 33554482, "[%{ptr}-%s] allowing audio mode: %@.\n", self, v25, mode);
         }
 
         v13 = MEMORY[0x277CB80E0];
@@ -543,14 +614,14 @@ LABEL_7:
     APSLogErrorAt();
     if (gLogCategory_APAVAudioSessionManager <= 60 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setAudioMode:isLongForm:error:]", 33554492, "### [%{ptr}] %###s called before managed session is set up.\n", self, "[APAVAudioSessionManager setAudioMode:isLongForm:error:]");
     }
 
     v15 = -6718;
   }
 
   FigSimpleMutexUnlock();
-  v16 = 0;
+  LOBYTE(v16) = 0;
   if (error)
   {
     *error = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v15 userInfo:0];
@@ -566,7 +637,24 @@ LABEL_7:
   {
     if (gLogCategory_APAVAudioSessionManager <= 50 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      type = self->_type;
+      v4 = "?";
+      if (type == 1)
+      {
+        v4 = "Ambient";
+      }
+
+      if (type)
+      {
+        v5 = v4;
+      }
+
+      else
+      {
+        v5 = "Media";
+      }
+
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager resetSession]", 33554482, "[%{ptr}-%s] reset managed session.\n", self, v5);
     }
 
     self->_session = 0;
@@ -579,7 +667,7 @@ LABEL_7:
 - (void)setUpSessionWithIsMixable:(BOOL)mixable
 {
   mixableCopy = mixable;
-  v19 = 0;
+  v16 = 0;
   FigSimpleMutexLock();
   if (!self->_isSetUp)
   {
@@ -602,10 +690,7 @@ LABEL_7:
         v7 = "Media";
       }
 
-      v16 = v7;
-      v18 = mixableCopy;
-      session = self;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setUpSessionWithIsMixable:]", 33554482, "[%{ptr}-%s] Set up managed session inIsMixable=%d.\n", self, v7, mixableCopy);
     }
 
     v8 = self->_type;
@@ -630,8 +715,7 @@ LABEL_7:
     {
       if (gLogCategory_APAVAudioSessionManager <= 50 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
       {
-        session = self->_session;
-        LogPrintF();
+        LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setUpSessionWithIsMixable:]", 33554482, "[%@] Forcing AVAudioSessionModeRaw\n", self->_session);
       }
 
       v9 = *MEMORY[0x277CB8028];
@@ -644,109 +728,87 @@ LABEL_7:
       v10 = *MEMORY[0x277CB80A8];
     }
 
-    if ([(AVAudioSession *)self->_session setMXSessionProperty:*MEMORY[0x277D27290] value:MEMORY[0x277CBEC38] error:&v19, session, v16, v18])
+    if ([(AVAudioSession *)self->_session setMXSessionProperty:*MEMORY[0x277D27290] value:MEMORY[0x277CBEC38] error:&v16])
     {
       if (gLogCategory_APAVAudioSessionManager <= 50 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
       {
-        v15 = self->_session;
-LABEL_30:
-        LogPrintF();
+        LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setUpSessionWithIsMixable:]", 33554482, "[%@] IsAirPlayReceiverSession property set to YES.\n", self->_session, v14);
       }
     }
 
     else if (gLogCategory_APAVAudioSessionManager <= 90 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
     {
-      v15 = self->_session;
-      v17 = v19;
-      goto LABEL_30;
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setUpSessionWithIsMixable:]", 33554522, "[%@] Failed to set IsAirPlayReceiverSession property with err: %@.\n", self->_session, v16);
     }
 
     v11 = self->_type;
-    if (v11 != 1)
+    if (v11 == 1)
     {
-LABEL_47:
-      if (v11 || !APSMultiPrimariesEnabled())
+      if ([(AVAudioSession *)self->_session setMXSessionProperty:*MEMORY[0x277D27298] value:MEMORY[0x277CBEC28] error:&v16])
       {
-        [(AVAudioSession *)self->_session setCategory:v9 mode:v10 routeSharingPolicy:0 options:mixableCopy error:0, v15, v17];
-      }
-
-      else
-      {
-        [(AVAudioSession *)self->_session setCategory:v9 mode:v10 options:mixableCopy error:0];
-      }
-
-      Int64 = APSSettingsGetInt64();
-      if (Int64)
-      {
-        v19 = 0;
-        if ([(AVAudioSession *)self->_session setPreferredSampleRate:&v19 error:Int64])
+        if (gLogCategory_APAVAudioSessionManager <= 50 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
         {
-          if (gLogCategory_APAVAudioSessionManager <= 50 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
-          {
-LABEL_58:
-            LogPrintF();
-          }
-        }
-
-        else if (gLogCategory_APAVAudioSessionManager <= 60 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
-        {
-          goto LABEL_58;
+          LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setUpSessionWithIsMixable:]", 33554482, "[%@] IsEligibleForNowPlayingAppConsideration property set to NO.\n", self->_session, v14);
         }
       }
 
-      v13 = APSSettingsGetInt64();
-      if (v13)
+      else if (gLogCategory_APAVAudioSessionManager <= 90 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
       {
-        v19 = 0;
-        if ([(AVAudioSession *)self->_session setPreferredIOBufferFrameSize:v13 error:&v19])
-        {
-          if (gLogCategory_APAVAudioSessionManager > 50 || gLogCategory_APAVAudioSessionManager == -1 && !_LogCategory_Initialize())
-          {
-            goto LABEL_73;
-          }
-        }
-
-        else if (gLogCategory_APAVAudioSessionManager > 60 || gLogCategory_APAVAudioSessionManager == -1 && !_LogCategory_Initialize())
-        {
-          goto LABEL_73;
-        }
-
-        LogPrintF();
+        LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setUpSessionWithIsMixable:]", 33554522, "[%@] Failed to set IsEligibleForNowPlayingAppConsideration property with err: %@.\n", self->_session, v16);
       }
 
-LABEL_73:
-      self->_isSetUp = 1;
-      goto LABEL_74;
+      v11 = self->_type;
     }
 
-    if ([(AVAudioSession *)self->_session setMXSessionProperty:*MEMORY[0x277D27298] value:MEMORY[0x277CBEC28] error:&v19])
+    if (v11 || !APSMultiPrimariesEnabled())
     {
-      if (gLogCategory_APAVAudioSessionManager > 50 || gLogCategory_APAVAudioSessionManager == -1 && !_LogCategory_Initialize())
-      {
-        goto LABEL_46;
-      }
-
-      v15 = self->_session;
+      [(AVAudioSession *)self->_session setCategory:v9 mode:v10 routeSharingPolicy:0 options:mixableCopy error:0];
     }
 
     else
     {
-      if (gLogCategory_APAVAudioSessionManager > 90 || gLogCategory_APAVAudioSessionManager == -1 && !_LogCategory_Initialize())
-      {
-        goto LABEL_46;
-      }
-
-      v15 = self->_session;
-      v17 = v19;
+      [(AVAudioSession *)self->_session setCategory:v9 mode:v10 options:mixableCopy error:0];
     }
 
-    LogPrintF();
-LABEL_46:
-    v11 = self->_type;
-    goto LABEL_47;
+    Int64 = APSSettingsGetInt64();
+    if (Int64)
+    {
+      v16 = 0;
+      if ([(AVAudioSession *)self->_session setPreferredSampleRate:&v16 error:Int64])
+      {
+        if (gLogCategory_APAVAudioSessionManager <= 50 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setUpSessionWithIsMixable:]", 33554482, "[%@] Changed preferred sample rate to %u\n", self->_session, Int64, v15);
+        }
+      }
+
+      else if (gLogCategory_APAVAudioSessionManager <= 60 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setUpSessionWithIsMixable:]", 33554492, "### [%@] Set preferred sample rate to %u failed: %@\n", self->_session, Int64, v16);
+      }
+    }
+
+    v13 = APSSettingsGetInt64();
+    if (v13)
+    {
+      v16 = 0;
+      if ([(AVAudioSession *)self->_session setPreferredIOBufferFrameSize:v13 error:&v16])
+      {
+        if (gLogCategory_APAVAudioSessionManager <= 50 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setUpSessionWithIsMixable:]", 33554482, "[%@] Changed preferred IO Buffer frame size to %u samples\n", self->_session, v13, v15);
+        }
+      }
+
+      else if (gLogCategory_APAVAudioSessionManager <= 60 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager setUpSessionWithIsMixable:]", 33554492, "### [%@] Set preferred IO Buffer frame size to %u samples failed: %@\n", self->_session, v13, v16);
+      }
+    }
+
+    self->_isSetUp = 1;
   }
 
-LABEL_74:
   FigSimpleMutexUnlock();
 }
 
@@ -763,7 +825,24 @@ LABEL_74:
     APSLogErrorAt();
     if (gLogCategory_APAVAudioSessionManager <= 60 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      type = self->_type;
+      v6 = "?";
+      if (type == 1)
+      {
+        v6 = "Ambient";
+      }
+
+      if (type)
+      {
+        v7 = v6;
+      }
+
+      else
+      {
+        v7 = "Media";
+      }
+
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager session]", 33554492, "### [%{ptr}-%s] could not get AVAudioSession because not set up!", self, v7);
     }
 
     session = 0;
@@ -784,9 +863,9 @@ LABEL_74:
 
 - (APAVAudioSessionManager)initWithType:(unint64_t)type
 {
-  v6.receiver = self;
-  v6.super_class = APAVAudioSessionManager;
-  v4 = [(APAVAudioSessionManager *)&v6 init];
+  v8.receiver = self;
+  v8.super_class = APAVAudioSessionManager;
+  v4 = [(APAVAudioSessionManager *)&v8 init];
   if (v4)
   {
     v4->_mutex = FigSimpleMutexCreate();
@@ -795,7 +874,19 @@ LABEL_74:
     v4->_forceRAW = APSSettingsGetIntWithDefault() != 0;
     if (gLogCategory_APAVAudioSessionManager <= 50 && (gLogCategory_APAVAudioSessionManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      v5 = "?";
+      type = v4->_type;
+      if (type == 1)
+      {
+        v5 = "Ambient";
+      }
+
+      if (!type)
+      {
+        v5 = "Media";
+      }
+
+      LogPrintF(&gLogCategory_APAVAudioSessionManager, "[APAVAudioSessionManager initWithType:]", 33554482, "[%{ptr}-%s] created with AVAudioSession %@\n", v4, v5, v4->_session);
     }
   }
 

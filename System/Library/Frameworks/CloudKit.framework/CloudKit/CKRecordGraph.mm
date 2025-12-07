@@ -10,83 +10,83 @@
 
 - (BOOL)addRecords:(id)records error:(id *)error
 {
-  v152 = *MEMORY[0x1E69E9840];
+  v151 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   v6 = objc_opt_new();
   v7 = objc_opt_new();
-  v121 = objc_opt_new();
+  v120 = objc_opt_new();
+  v142 = 0u;
   v143 = 0u;
   v144 = 0u;
   v145 = 0u;
-  v146 = 0u;
   v8 = recordsCopy;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v143, v151, 16);
-  v123 = v7;
-  v115 = v8;
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v142, v150, 16);
+  v122 = v7;
+  v114 = v8;
   if (!v10)
   {
 LABEL_9:
 
-    v141 = 0u;
-    v142 = 0u;
-    v139 = 0u;
     v140 = 0u;
+    v141 = 0u;
+    v138 = 0u;
+    v139 = 0u;
     obj = v8;
-    v118 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v25, &v139, v150, 16);
-    if (!v118)
+    v117 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v25, &v138, v149, 16);
+    if (!v117)
     {
       goto LABEL_59;
     }
 
-    v117 = *v140;
-    v122 = v6;
+    v116 = *v139;
+    v121 = v6;
     while (1)
     {
       v27 = 0;
       do
       {
-        if (*v140 != v117)
+        if (*v139 != v116)
         {
           objc_enumerationMutation(obj);
         }
 
-        v119 = v27;
-        v28 = *(*(&v139 + 1) + 8 * v27);
-        v126 = objc_msgSend_objectForKey_(v6, v26, v28);
-        if (!v126)
+        v118 = v27;
+        v28 = *(*(&v138 + 1) + 8 * v27);
+        v125 = objc_msgSend_objectForKey_(v6, v26, v28);
+        if (!v125)
         {
           v31 = [CKRecordGraphNode alloc];
           v33 = objc_msgSend_initWithRecord_(v31, v32, v28);
           objc_msgSend_setObject_forKey_(v6, v34, v33, v28);
-          v126 = v33;
-          objc_msgSend_addObject_(v121, v35, v33);
+          v125 = v33;
+          objc_msgSend_addObject_(v120, v35, v33);
         }
 
         v36 = objc_msgSend_array(MEMORY[0x1E695DF70], v29, v30);
+        v134 = 0u;
         v135 = 0u;
         v136 = 0u;
         v137 = 0u;
-        v138 = 0u;
-        v120 = v28;
+        v119 = v28;
         v39 = objc_msgSend_valueStore(v28, v37, v38);
         v42 = objc_msgSend_allRawValues(v39, v40, v41);
 
-        v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v42, v43, &v135, v149, 16);
+        v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v42, v43, &v134, v148, 16);
         if (v44)
         {
           v45 = v44;
-          v46 = *v136;
-          v124 = v42;
+          v46 = *v135;
+          v123 = v42;
           do
           {
             for (i = 0; i != v45; ++i)
             {
-              if (*v136 != v46)
+              if (*v135 != v46)
               {
                 objc_enumerationMutation(v42);
               }
 
-              v48 = *(*(&v135 + 1) + 8 * i);
+              v48 = *(*(&v134 + 1) + 8 * i);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -98,26 +98,26 @@ LABEL_9:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v133 = 0u;
-                  v134 = 0u;
-                  v131 = 0u;
                   v132 = 0u;
+                  v133 = 0u;
+                  v130 = 0u;
+                  v131 = 0u;
                   v51 = v48;
-                  v53 = objc_msgSend_countByEnumeratingWithState_objects_count_(v51, v52, &v131, v148, 16);
+                  v53 = objc_msgSend_countByEnumeratingWithState_objects_count_(v51, v52, &v130, v147, 16);
                   if (v53)
                   {
                     v54 = v53;
-                    v55 = *v132;
+                    v55 = *v131;
                     do
                     {
                       for (j = 0; j != v54; ++j)
                       {
-                        if (*v132 != v55)
+                        if (*v131 != v55)
                         {
                           objc_enumerationMutation(v51);
                         }
 
-                        v57 = *(*(&v131 + 1) + 8 * j);
+                        v57 = *(*(&v130 + 1) + 8 * j);
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
@@ -125,61 +125,61 @@ LABEL_9:
                         }
                       }
 
-                      v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v51, v58, &v131, v148, 16);
+                      v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v51, v58, &v130, v147, 16);
                     }
 
                     while (v54);
                   }
 
-                  v6 = v122;
-                  v7 = v123;
-                  v42 = v124;
+                  v6 = v121;
+                  v7 = v122;
+                  v42 = v123;
                 }
               }
             }
 
-            v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v42, v50, &v135, v149, 16);
+            v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v42, v50, &v134, v148, 16);
           }
 
           while (v45);
         }
 
-        v61 = objc_msgSend_parent(v120, v59, v60);
+        v61 = objc_msgSend_parent(v119, v59, v60);
 
         if (v61)
         {
-          v64 = objc_msgSend_parent(v120, v62, v63);
+          v64 = objc_msgSend_parent(v119, v62, v63);
           objc_msgSend_addObject_(v36, v65, v64);
         }
 
-        v66 = objc_msgSend_share(v120, v62, v63);
+        v66 = objc_msgSend_share(v119, v62, v63);
 
         if (v66)
         {
-          v69 = objc_msgSend_share(v120, v67, v68);
+          v69 = objc_msgSend_share(v119, v67, v68);
           objc_msgSend_addObject_(v36, v70, v69);
         }
 
-        v129 = 0u;
-        v130 = 0u;
-        v127 = 0u;
         v128 = 0u;
-        v125 = v36;
-        v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(v125, v71, &v127, v147, 16);
+        v129 = 0u;
+        v126 = 0u;
+        v127 = 0u;
+        v124 = v36;
+        v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(v124, v71, &v126, v146, 16);
         if (v72)
         {
           v75 = v72;
-          v76 = *v128;
+          v76 = *v127;
           do
           {
             for (k = 0; k != v75; ++k)
             {
-              if (*v128 != v76)
+              if (*v127 != v76)
               {
-                objc_enumerationMutation(v125);
+                objc_enumerationMutation(v124);
               }
 
-              v78 = *(*(&v127 + 1) + 8 * k);
+              v78 = *(*(&v126 + 1) + 8 * k);
               v79 = objc_msgSend_recordID(v78, v73, v74);
               v81 = objc_msgSend_objectForKey_(v7, v80, v79);
 
@@ -187,19 +187,19 @@ LABEL_9:
               {
                 if (objc_msgSend_referenceAction(v78, v82, v83) != 1 && objc_msgSend_referenceAction(v78, v84, v85) != 2)
                 {
-                  v87 = objc_msgSend_parent(v120, v84, v86);
+                  v87 = objc_msgSend_parent(v119, v84, v86);
                   v90 = v87;
                   if (v78 == v87)
                   {
 
-                    v7 = v123;
+                    v7 = v122;
                   }
 
                   else
                   {
-                    v91 = objc_msgSend_share(v120, v88, v89);
+                    v91 = objc_msgSend_share(v119, v88, v89);
 
-                    v7 = v123;
+                    v7 = v122;
                     if (v78 != v91)
                     {
                       goto LABEL_55;
@@ -213,31 +213,31 @@ LABEL_9:
                   v95 = [CKRecordGraphNode alloc];
                   v94 = objc_msgSend_initWithRecord_(v95, v96, v81);
                   objc_msgSend_setObject_forKey_(v6, v97, v94, v81);
-                  objc_msgSend_addObject_(v121, v98, v94);
+                  objc_msgSend_addObject_(v120, v98, v94);
                 }
 
-                v99 = objc_msgSend_edges(v126, v92, v93);
+                v99 = objc_msgSend_edges(v125, v92, v93);
                 objc_msgSend_addObject_(v99, v100, v94);
 
                 v103 = objc_msgSend_indegrees(v94, v101, v102);
-                objc_msgSend_addObject_(v103, v104, v126);
+                objc_msgSend_addObject_(v103, v104, v125);
               }
 
 LABEL_55:
             }
 
-            v75 = objc_msgSend_countByEnumeratingWithState_objects_count_(v125, v73, &v127, v147, 16);
+            v75 = objc_msgSend_countByEnumeratingWithState_objects_count_(v124, v73, &v126, v146, 16);
           }
 
           while (v75);
         }
 
-        v27 = v119 + 1;
+        v27 = v118 + 1;
       }
 
-      while (v119 + 1 != v118);
-      v118 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v26, &v139, v150, 16);
-      if (!v118)
+      while (v118 + 1 != v117);
+      v117 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v26, &v138, v149, 16);
+      if (!v117)
       {
 LABEL_59:
 
@@ -251,28 +251,28 @@ LABEL_59:
           nodes = 0;
         }
 
-        v107 = v121;
-        objc_msgSend_addObjectsFromArray_(nodes, v105, v121);
+        v107 = v120;
+        objc_msgSend_addObjectsFromArray_(nodes, v105, v120);
         sub_1886BFE88(self, 0);
         v108 = 1;
-        v109 = v115;
+        v109 = v114;
         goto LABEL_65;
       }
     }
   }
 
   v13 = v10;
-  v14 = *v144;
+  v14 = *v143;
 LABEL_3:
   v15 = 0;
   while (1)
   {
-    if (*v144 != v14)
+    if (*v143 != v14)
     {
       objc_enumerationMutation(v8);
     }
 
-    v16 = *(*(&v143 + 1) + 8 * v15);
+    v16 = *(*(&v142 + 1) + 8 * v15);
     v17 = objc_msgSend_recordID(v16, v11, v12);
     objc_msgSend_objectForKey_(v7, v18, v17);
     v20 = v19 = v7;
@@ -287,10 +287,10 @@ LABEL_3:
 
     ++v15;
     v7 = v19;
-    v8 = v115;
+    v8 = v114;
     if (v13 == v15)
     {
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v115, v11, &v143, v151, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v114, v11, &v142, v150, 16);
       if (!v13)
       {
         goto LABEL_9;
@@ -300,20 +300,19 @@ LABEL_3:
     }
   }
 
-  v107 = v121;
+  v107 = v120;
   if (error)
   {
     v110 = objc_msgSend_recordID(v16, v21, v22);
     *error = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v111, @"CKInternalErrorDomain", 1017, @"Asked to sort multiple records with identical recordID: %@", v110);
   }
 
-  v109 = v115;
+  v109 = v114;
 
   v108 = 0;
-  v7 = v123;
+  v7 = v122;
 LABEL_65:
 
-  v112 = *MEMORY[0x1E69E9840];
   return v108;
 }
 
@@ -334,7 +333,7 @@ LABEL_65:
 
 - (id)recordsByTopologicalSortWithError:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   if (self)
   {
     sortedRecords = self->_sortedRecords;
@@ -353,7 +352,7 @@ LABEL_65:
   {
     errorCopy2 = error;
     v6 = objc_opt_new();
-    objc_msgSend_CKFilter_(0, v47, &unk_1EFA30870);
+    objc_msgSend_CKFilter_(0, v46, &unk_1EFA30870);
   }
   v8 = ;
   v11 = objc_msgSend_mutableCopy(v8, v9, v10);
@@ -375,27 +374,27 @@ LABEL_65:
     v21 = objc_msgSend_record(v17, v19, v20);
     objc_msgSend_insertObject_atIndex_(v6, v22, v21, 0);
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v25 = objc_msgSend_edges(v17, v23, v24);
-    v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v49, v53, 16);
+    v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v48, v52, 16);
     if (v27)
     {
       v30 = v27;
-      v31 = *v50;
+      v31 = *v49;
       do
       {
         v32 = 0;
         do
         {
-          if (*v50 != v31)
+          if (*v49 != v31)
           {
             objc_enumerationMutation(v25);
           }
 
-          v33 = *(*(&v49 + 1) + 8 * v32);
+          v33 = *(*(&v48 + 1) + 8 * v32);
           v34 = objc_msgSend_indegrees(v33, v28, v29);
           objc_msgSend_removeObject_(v34, v35, v17);
 
@@ -417,7 +416,7 @@ LABEL_65:
         }
 
         while (v30 != v32);
-        v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v28, &v49, v53, 16);
+        v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v28, &v48, v52, 16);
         v30 = v39;
       }
 
@@ -476,7 +475,6 @@ LABEL_65:
   }
 
 LABEL_33:
-  v45 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

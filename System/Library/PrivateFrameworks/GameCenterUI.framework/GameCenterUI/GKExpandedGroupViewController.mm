@@ -151,7 +151,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_24E2BB9C4();
+  sub_24E2BB9C4(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews
@@ -181,7 +181,7 @@
 
 - (void)configureWithPlayers:(id)players groupName:(id)name caption:(id)caption playerSelectionProxy:(id)proxy
 {
-  sub_24DF88A8C(0, &qword_27F1DF028);
+  sub_24DF88A8C(0, &qword_27F1DF028, 0x277D0C170);
   v10 = sub_24E347F08();
   if (name)
   {
@@ -224,7 +224,7 @@
   sub_24E343498();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_24E2BCBCC();
+  LOBYTE(self) = sub_24E2BCBCC(selfCopy, v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -239,7 +239,7 @@
   sub_24E343498();
   viewCopy = view;
   selfCopy = self;
-  sub_24E2BCCD4();
+  sub_24E2BCCD4(selfCopy, v9);
 
   (*(v7 + 8))(v9, v6);
   return 1;

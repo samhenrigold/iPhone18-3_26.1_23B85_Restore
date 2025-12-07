@@ -1,4 +1,6 @@
 @interface BaseDiskImageCreator
++ (void)setDebugLogsEnabled:(BOOL)enabled;
++ (void)setForwardLogs:(BOOL)logs;
 - (BOOL)ejectWithError:(id *)error;
 - (BOOL)partitionDiskWithError:(id *)error;
 - (BaseDiskImageCreator)initWithURL:(id)l defaultFormat:(int64_t)format error:(id *)error;
@@ -13,6 +15,22 @@
 @end
 
 @implementation BaseDiskImageCreator
+
++ (void)setDebugLogsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  DISetDebugLogsEnabled(enabled);
+
+  [DiskImages2 setDebugLogsEnabled:enabledCopy];
+}
+
++ (void)setForwardLogs:(BOOL)logs
+{
+  logsCopy = logs;
+  DISetForwardLogs(logs);
+
+  [DiskImages2 setForwardLogs:logsCopy];
+}
 
 - (BaseDiskImageCreator)initWithURL:(id)l defaultFormat:(int64_t)format error:(id *)error
 {
@@ -132,133 +150,140 @@
 
 - (id)createEmptyImageWithError:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    v6 = getDIOSLog();
-    os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-    v7 = [(BaseDiskImageCreator *)self URL];
-    path = [v7 path];
-    *buf = 68158210;
-    v32 = 50;
-    v33 = 2080;
-    v34 = "[BaseDiskImageCreator createEmptyImageWithError:]";
-    v35 = 2112;
-    v36 = path;
-    LODWORD(v30) = 28;
-    v29 = buf;
-    v9 = _os_log_send_and_compose_impl();
-
-    if (v9)
+    v31 = 0;
+    v8 = getDIOSLog(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-      free(v9);
+      v9 = 3;
+    }
+
+    else
+    {
+      v9 = 2;
+    }
+
+    v10 = [(BaseDiskImageCreator *)self URL];
+    path = [v10 path];
+    *buf = 68158210;
+    v33 = 50;
+    v34 = 2080;
+    v35 = "[BaseDiskImageCreator createEmptyImageWithError:]";
+    v36 = 2112;
+    v37 = path;
+    v12 = _os_log_send_and_compose_impl(v9, &v31, 0, 0, &dword_248DE0000, v8, 0, "%.*s: Creating %@", buf, 28);
+
+    if (v12)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v12);
+      free(v12);
     }
   }
 
   else
   {
-    v10 = getDIOSLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v13 = getDIOSLog(v6, v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [(BaseDiskImageCreator *)self URL];
-      path2 = [v11 path];
+      v14 = [(BaseDiskImageCreator *)self URL];
+      path2 = [v14 path];
       *buf = 68158210;
-      v32 = 50;
-      v33 = 2080;
-      v34 = "[BaseDiskImageCreator createEmptyImageWithError:]";
-      v35 = 2112;
-      v36 = path2;
-      _os_log_impl(&dword_248DE0000, v10, OS_LOG_TYPE_DEFAULT, "%.*s: Creating %@", buf, 0x1Cu);
+      v33 = 50;
+      v34 = 2080;
+      v35 = "[BaseDiskImageCreator createEmptyImageWithError:]";
+      v36 = 2112;
+      v37 = path2;
+      _os_log_impl(&dword_248DE0000, v13, OS_LOG_TYPE_DEFAULT, "%.*s: Creating %@", buf, 0x1Cu);
     }
   }
 
   *__error() = v5;
   if ([(BaseDiskImageCreator *)self imageFormat]== 9)
   {
-    v13 = [DICreateUDSBParams alloc];
-    v14 = [(BaseDiskImageCreator *)self URL];
-    v15 = [(DICreateUDSBParams *)v13 initWithURL:v14 numBlocks:[(BaseDiskImageCreator *)self numBlocks] error:error];
+    v16 = [DICreateUDSBParams alloc];
+    v17 = [(BaseDiskImageCreator *)self URL];
+    v18 = [(DICreateUDSBParams *)v16 initWithURL:v17 numBlocks:[(BaseDiskImageCreator *)self numBlocks] error:error];
 
-    if (!v15)
+    if (!v18)
     {
-      goto LABEL_18;
+      goto LABEL_21;
     }
 
-    [(DICreateUDSBParams *)v15 setSparseBundleBandSize:[(BaseDiskImageCreator *)self sparseBundleBandSize]];
+    [(DICreateUDSBParams *)v18 setSparseBundleBandSize:[(BaseDiskImageCreator *)self sparseBundleBandSize]];
   }
 
   else
   {
     if ([(BaseDiskImageCreator *)self imageFormat]== 2)
     {
-      v16 = [DICreateASIFParams alloc];
+      v19 = [DICreateASIFParams alloc];
     }
 
     else
     {
-      v16 = [DICreateRAWParams alloc];
+      v19 = [DICreateRAWParams alloc];
     }
 
-    v17 = [(BaseDiskImageCreator *)self URL];
-    v18 = [(DICreateASIFParams *)v16 initWithURL:v17 numBlocks:[(BaseDiskImageCreator *)self numBlocks] error:error];
+    v20 = [(BaseDiskImageCreator *)self URL];
+    v21 = [(DICreateASIFParams *)v19 initWithURL:v20 numBlocks:[(BaseDiskImageCreator *)self numBlocks] error:error];
 
-    v15 = v18;
-    if (!v18)
+    v18 = v21;
+    if (!v21)
     {
-      goto LABEL_18;
+      goto LABEL_21;
     }
   }
 
-  [(DICreateParams *)v15 setEncryptionMethod:[(BaseDiskImageCreator *)self encryptionMethod:v29]];
-  [(DIBaseParams *)v15 setReadPassphraseFlags:[(BaseDiskImageCreator *)self readPassphraseFlags]];
+  [(DICreateParams *)v18 setEncryptionMethod:[(BaseDiskImageCreator *)self encryptionMethod]];
+  [(DIBaseParams *)v18 setReadPassphraseFlags:[(BaseDiskImageCreator *)self readPassphraseFlags]];
   publicKey = [(BaseDiskImageCreator *)self publicKey];
-  [(DICreateParams *)v15 setPublicKey:publicKey];
+  [(DICreateParams *)v18 setPublicKey:publicKey];
 
   certificate = [(BaseDiskImageCreator *)self certificate];
-  [(DICreateParams *)v15 setCertificate:certificate];
+  [(DICreateParams *)v18 setCertificate:certificate];
 
-  [(DICreateParams *)v15 setPassphrase:[(BaseDiskImageCreator *)self passphrase]];
+  [(DICreateParams *)v18 setPassphrase:[(BaseDiskImageCreator *)self passphrase]];
   mutableSymmetricKey = [(BaseDiskImageCreator *)self mutableSymmetricKey];
-  [(DIBaseParams *)v15 setSymmetricKey:mutableSymmetricKey];
+  [(DIBaseParams *)v18 setSymmetricKey:mutableSymmetricKey];
 
-  [(DIBaseParams *)v15 setBlockSize:[(BaseDiskImageCreator *)self blockSize]];
+  [(DIBaseParams *)v18 setBlockSize:[(BaseDiskImageCreator *)self blockSize]];
   temporaryPassphrase = [(BaseDiskImageCreator *)self temporaryPassphrase];
 
   if (!temporaryPassphrase)
   {
-LABEL_17:
-    v25 = [DiskImages2 createBlankWithParams:v15 error:error];
-    goto LABEL_19;
+LABEL_20:
+    v28 = [DiskImages2 createBlankWithParams:v18 error:error];
+    goto LABEL_22;
   }
 
   temporaryPassphrase2 = [(BaseDiskImageCreator *)self temporaryPassphrase];
-  v24 = -[DICreateParams setPassphrase:encryptionMethod:error:](v15, "setPassphrase:encryptionMethod:error:", [temporaryPassphrase2 buf], -[BaseDiskImageCreator encryptionMethod](self, "encryptionMethod"), error);
+  v27 = -[DICreateParams setPassphrase:encryptionMethod:error:](v18, "setPassphrase:encryptionMethod:error:", [temporaryPassphrase2 buf], -[BaseDiskImageCreator encryptionMethod](self, "encryptionMethod"), error);
 
-  if (v24)
+  if (v27)
   {
     [(BaseDiskImageCreator *)self setTemporaryPassphrase:0];
-    goto LABEL_17;
+    goto LABEL_20;
   }
 
-LABEL_18:
-  v25 = 0;
-LABEL_19:
-  [(BaseDiskImageCreator *)self setTemporaryPassphrase:0, v29];
-  if (v25)
+LABEL_21:
+  v28 = 0;
+LABEL_22:
+  [(BaseDiskImageCreator *)self setTemporaryPassphrase:0];
+  if (v28)
   {
-    v26 = v15;
+    v29 = v18;
   }
 
   else
   {
-    v26 = 0;
+    v29 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v29;
 }
 
 - (id)formatImageWithCreateParams:(id)params error:(id *)error

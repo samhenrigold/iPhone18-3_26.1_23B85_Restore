@@ -1,4 +1,5 @@
 @interface ASDTIOPAudioVTDevice
++ (id)forIOObject:(unsigned int)object andIDValue:(id)value;
 - (BOOL)getChannelMask:(unsigned int *)mask;
 - (BOOL)getDebugEnabled:(unsigned int *)enabled;
 - (BOOL)getIsEnabled:(unsigned int *)enabled;
@@ -20,6 +21,15 @@
 
 @implementation ASDTIOPAudioVTDevice
 
++ (id)forIOObject:(unsigned int)object andIDValue:(id)value
+{
+  v4 = *&object;
+  valueCopy = value;
+  v7 = [[self alloc] initForIOObject:v4 andIDValue:valueCopy];
+
+  return v7;
+}
+
 - (id)initForIOObject:(unsigned int)object andIDValue:(id)value
 {
   v5 = *MEMORY[0x277D85DE8];
@@ -29,7 +39,7 @@
 
 - (BOOL)open
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (!*(self + 3))
   {
     [ASDTIOPAudioVTDevice open];
@@ -43,10 +53,11 @@
     goto LABEL_3;
   }
 
-  if ((ASDT::IOUserClient::OpenConnection(*(self + 3)) & 1) == 0)
+  v5 = ASDT::IOUserClient::OpenConnection(*(self + 3));
+  if ((v5 & 1) == 0)
   {
-    v7 = ASDTIOPLogType();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v11 = ASDTIOPLogType(v5, v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       idValue = [(ASDTIOService *)self idValue];
       [(ASDTIOPAudioVTDevice *)idValue open];
@@ -55,10 +66,11 @@
     goto LABEL_12;
   }
 
-  if ((ASDT::IOPAudio::VoiceTrigger::UserClient::Open(*(self + 3)) & 1) == 0)
+  v7 = ASDT::IOPAudio::VoiceTrigger::UserClient::Open(*(self + 3));
+  if ((v7 & 1) == 0)
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v9 = ASDTIOPLogType(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       idValue2 = [(ASDTIOService *)self idValue];
       [(ASDTIOPAudioVTDevice *)idValue2 open];
@@ -75,7 +87,6 @@ LABEL_3:
   v4 = 1;
 LABEL_13:
   std::mutex::unlock((self + 32));
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -193,7 +204,7 @@ LABEL_13:
     [ASDTIOPAudioVTDevice eventInfo];
   }
 
-  ASDT::IOPAudio::VoiceTrigger::UserClient::CopyEventInfo(v2, &v6);
+  ASDT::IOPAudio::VoiceTrigger::UserClient::CopyEventInfo(&v6, v2);
   v3 = v6;
   v4 = v3;
   if (v3)
@@ -223,7 +234,7 @@ LABEL_13:
     [ASDTIOPAudioVTDevice getConfigurationInfo];
   }
 
-  ASDT::IOPAudio::VoiceTrigger::UserClient::CopyConfigurationInfo(v2, &cf);
+  ASDT::IOPAudio::VoiceTrigger::UserClient::CopyConfigurationInfo(&cf, v2);
   v3 = cf;
   if (cf)
   {
@@ -302,11 +313,10 @@ LABEL_13:
 
 - (void)initForIOObject:(uint64_t)a1 andIDValue:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2416E9000, a2, OS_LOG_TYPE_ERROR, "%@: Failed to create IOPAudioVT user client", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2416E9000, a2, OS_LOG_TYPE_ERROR, "%@: Failed to create IOPAudioVT user client", &v2, 0xCu);
 }
 
 - (void)initForIOObject:(uint8_t *)buf andIDValue:(os_log_t)log .cold.2(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)

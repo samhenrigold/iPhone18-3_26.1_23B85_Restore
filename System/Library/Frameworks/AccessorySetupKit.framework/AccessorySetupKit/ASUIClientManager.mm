@@ -58,6 +58,7 @@
 
 - (void)updateWithAccessory:(id)accessory options:(unint64_t)options for:(id)for completionHandler:(id)handler
 {
+  optionsCopy = options;
   v10 = _Block_copy(handler);
   if (for)
   {
@@ -74,7 +75,7 @@
   *(v13 + 16) = v10;
   accessoryCopy = accessory;
   selfCopy = self;
-  sub_2369DBE80(accessoryCopy, options, v11, for, sub_2369DFE64, v13);
+  sub_2369DBE80(accessoryCopy, optionsCopy, v11, for, sub_2369DFE64, v13);
 }
 
 - (void)updatePickerWith:(id)with completionHandler:(id)handler

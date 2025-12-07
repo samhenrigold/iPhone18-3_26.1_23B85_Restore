@@ -71,7 +71,7 @@
 
 - (id)allAccessories
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -85,7 +85,7 @@
 
 - (id)pairedAccessories
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -107,7 +107,7 @@
 
 - (id)migratableAccessoriesByIdentifier
 {
-  v2 = sub_100002880();
+  v2 = sub_100002880(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

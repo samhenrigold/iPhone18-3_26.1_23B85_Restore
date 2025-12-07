@@ -152,94 +152,94 @@ LABEL_8:
   return self;
 }
 
-void __59__ICCloudSyncingObjectCryptoStrategyV2_hasSameKeyAsObject___block_invoke(uint64_t a1)
+void __59__ICCloudSyncingObjectCryptoStrategyV2_hasSameKeyAsObject___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) cryptoStrategy];
-  v3 = ICDynamicCast();
-  v4 = [v3 v2Strategy];
-  v5 = v4;
-  if (v4)
+  v3 = [*(a1 + 32) cryptoStrategy];
+  v4 = ICDynamicCast();
+  v5 = [v4 v2Strategy];
+  v6 = v5;
+  if (v5)
   {
-    v24 = v4;
+    v25 = v5;
   }
 
   else
   {
     objc_opt_class();
-    v6 = [*(a1 + 32) cryptoStrategy];
-    v24 = ICDynamicCast();
+    v7 = [*(a1 + 32) cryptoStrategy];
+    v25 = ICDynamicCast();
   }
 
-  v7 = [*(a1 + 40) primaryMetadata];
-  v8 = [v7 accountKeyIdentifier];
-  v9 = v8;
-  if (v8)
+  v8 = [*(a1 + 40) primaryMetadata];
+  v9 = [v8 accountKeyIdentifier];
+  v10 = v9;
+  if (v9)
   {
-    v10 = v8;
+    v11 = v9;
   }
 
   else
   {
-    v10 = [*(a1 + 40) currentAccountKeyIdentifier];
+    v11 = [*(a1 + 40) currentAccountKeyIdentifier];
   }
 
-  v11 = v10;
+  v12 = v11;
 
-  v12 = [v24 primaryMetadata];
-  v13 = [v12 accountKeyIdentifier];
-  v14 = v13;
-  if (v13)
+  v13 = [v25 primaryMetadata];
+  v14 = [v13 accountKeyIdentifier];
+  v15 = v14;
+  if (v14)
   {
-    v15 = v13;
+    v16 = v14;
   }
 
   else
   {
-    v15 = [v24 currentAccountKeyIdentifier];
+    v16 = [v25 currentAccountKeyIdentifier];
   }
 
-  v16 = v15;
+  v17 = v16;
 
-  v17 = *MEMORY[0x277CBEEE8];
-  if (*MEMORY[0x277CBEEE8] == v11)
+  v18 = *MEMORY[0x277CBEEE8];
+  if (*MEMORY[0x277CBEEE8] == v12)
   {
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v18 = v11;
+    v19 = v12;
   }
 
-  v19 = v18;
-  if (v17 == v16)
+  v20 = v19;
+  if (v18 == v17)
   {
-    v20 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v20 = v16;
+    v21 = v17;
   }
 
-  v21 = v20;
   v22 = v21;
-  if (v19 | v21)
+  v23 = v22;
+  if (v20 | v22)
   {
-    v23 = 0;
-    if (v19 && v21)
+    v24 = 0;
+    if (v20 && v22)
     {
-      v23 = [v19 isEqual:v21];
+      v24 = [v20 isEqual:v22];
     }
   }
 
   else
   {
-    v23 = 1;
+    v24 = 1;
   }
 
-  *(*(*(a1 + 48) + 8) + 24) = v23;
+  *(*(*(a1 + 48) + 8) + 24) = v24;
 }
 
 - (BOOL)saveEncryptedJSON

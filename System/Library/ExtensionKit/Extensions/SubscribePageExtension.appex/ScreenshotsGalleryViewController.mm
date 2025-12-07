@@ -24,14 +24,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10019CCAC();
+  sub_10019CCAC(v2);
 }
 
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
   selfCopy = self;
-  sub_10019D1DC(change);
+  sub_10019D1DC(change, v6);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -40,7 +40,8 @@
   width = size.width;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_10019D310(coordinator, width, height);
+  v8.n128_f64[0] = width;
+  sub_10019D310(coordinator, v8, height);
   swift_unknownObjectRelease();
 }
 
@@ -89,12 +90,12 @@
   v8 = sub_1007417F4();
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100741744();
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_10019E6EC();
+  sub_10019E6EC(cellCopy, v15);
 
   (*(v9 + 8))(v11, v8);
 }
@@ -132,20 +133,20 @@
   viewCopy = view;
   layoutCopy = layout;
   selfCopy = self;
-  sub_10019ECA8(viewCopy, layoutCopy);
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
+  sub_10019ECA8(viewCopy, layoutCopy, v10);
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
 
-  v18 = v11;
-  v19 = v13;
-  v20 = v15;
-  v21 = v17;
-  result.right = v21;
-  result.bottom = v20;
-  result.left = v19;
-  result.top = v18;
+  v19 = v12;
+  v20 = v14;
+  v21 = v16;
+  v22 = v18;
+  result.right = v22;
+  result.bottom = v21;
+  result.left = v20;
+  result.top = v19;
   return result;
 }
 
@@ -154,20 +155,20 @@
   v8 = sub_1007417F4();
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100741744();
   viewCopy = view;
   layoutCopy = layout;
   selfCopy = self;
-  sub_10019F394(viewCopy);
-  v16 = v15;
-  v18 = v17;
+  sub_10019F394(viewCopy, v15);
+  v17 = v16;
+  v19 = v18;
 
   (*(v9 + 8))(v11, v8);
-  v19 = v16;
-  v20 = v18;
-  result.height = v20;
-  result.width = v19;
+  v20 = v17;
+  v21 = v19;
+  result.height = v21;
+  result.width = v20;
   return result;
 }
 

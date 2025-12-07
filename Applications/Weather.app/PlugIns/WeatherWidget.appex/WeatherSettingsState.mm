@@ -37,8 +37,9 @@
 
 - (void)setResetIdentifier:(BOOL)identifier
 {
+  identifierCopy = identifier;
   selfCopy = self;
-  sub_100043E8C();
+  sub_100043E8C(identifierCopy);
 }
 
 - (BOOL)showHomeWorkLabels
@@ -51,8 +52,9 @@
 
 - (void)setShowHomeWorkLabels:(BOOL)labels
 {
+  labelsCopy = labels;
   selfCopy = self;
-  sub_100043FF8();
+  sub_100043FF8(labelsCopy);
 }
 
 - (BOOL)useSignificantLocations
@@ -65,8 +67,9 @@
 
 - (void)setUseSignificantLocations:(BOOL)locations
 {
+  locationsCopy = locations;
   selfCopy = self;
-  sub_100044164();
+  sub_100044164(locationsCopy);
 }
 
 - (BOOL)areSignificantLocationsFeaturesAvailableInWeather

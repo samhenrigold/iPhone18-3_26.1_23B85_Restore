@@ -1,12 +1,12 @@
 @interface BWBufferometerTracker
-+ (void)trackBuffer:(int64_t)buffer trackedSize:(void *)size tag:(void *)tag bufferType:;
++ (void)trackBuffer:(uint64_t)buffer trackedSize:(void *)size tag:(void *)tag bufferType:;
 - (unint64_t)initWithBuffer:(unint64_t)buffer trackedSize:(void *)size tag:(void *)tag bufferType:;
 - (void)dealloc;
 @end
 
 @implementation BWBufferometerTracker
 
-+ (void)trackBuffer:(int64_t)buffer trackedSize:(void *)size tag:(void *)tag bufferType:
++ (void)trackBuffer:(uint64_t)buffer trackedSize:(void *)size tag:(void *)tag bufferType:
 {
   objc_opt_self();
   if (a2)

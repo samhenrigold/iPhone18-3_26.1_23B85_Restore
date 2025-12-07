@@ -31,25 +31,25 @@ uint64_t sub_10000239C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 void ZhuGeLog(int a1, const char *a2, const char *a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v13 = a5;
-  v18 = v13;
+  v19 = v13;
   if (a2)
   {
-    v19 = a2;
+    v20 = a2;
   }
 
   else
   {
-    v19 = "UnknownFile";
+    v20 = "UnknownFile";
   }
 
   if (a3)
   {
-    v20 = a3;
+    v21 = a3;
   }
 
   else
   {
-    v20 = "UnknownFunc";
+    v21 = "UnknownFunc";
   }
 
   if (!v13)
@@ -61,116 +61,117 @@ void ZhuGeLog(int a1, const char *a2, const char *a3, uint64_t a4, void *a5, uin
 
     if (byte_100019E78 == 1)
     {
-      ZhuGePrintStderr("/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeCommon/ZhuGeLog.m", "ZhuGeLog", 168, @"Catch the NULL format pointer from: %s %s(%ld)", v14, v15, v16, v17, v19);
+      ZhuGePrintStderr("/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeCommon/ZhuGeLog.m", "ZhuGeLog", 168, @"Catch the NULL format pointer from: %s %s(%ld)", v15, v16, v17, v18, v20);
     }
 
     goto LABEL_24;
   }
 
-  if ((a1 & 0x40000) != 0 && !hasZhuGeLogConditionalPrint())
+  if ((a1 & 0x40000) != 0 && !hasZhuGeLogConditionalPrint(v13, v14))
   {
 LABEL_24:
-    v29 = 0;
-    v30 = 0;
-    v28 = 0;
-    v21 = 0;
+    v35 = 0;
+    v36 = 0;
+    v34 = 0;
+    v22 = 0;
     goto LABEL_48;
   }
 
-  v21 = objc_alloc_init(NSMutableString);
-  if ((isZhuGeInRestoreOS() & 1) != 0 || hasZhuGeLogPrefixPidTid())
+  v22 = objc_alloc_init(NSMutableString);
+  v24 = isZhuGeInRestoreOS(v22, v23);
+  if ((v24 & 1) != 0 || (v26 = hasZhuGeLogPrefixPidTid(v24, v25), v26))
   {
     if (qword_100019E58 != -1)
     {
       sub_10000976C();
     }
 
-    [v21 appendFormat:@"%@", qword_100019E60];
+    v26 = [v22 appendFormat:@"%@", qword_100019E60];
   }
 
-  v22 = &OBJC_METACLASS___ZhuGeLockerService;
+  v28 = &OBJC_METACLASS___ZhuGeLockerService;
   if (qword_100019E80 != -1)
   {
     sub_100009780();
   }
 
-  v23 = &OBJC_METACLASS___ZhuGeLockerService;
-  if (byte_100019E78 == 1 && hasZhuGeLogPrefixFileFuncLine())
+  v29 = &OBJC_METACLASS___ZhuGeLockerService;
+  if (byte_100019E78 == 1 && hasZhuGeLogPrefixFileFuncLine(v26, v27))
   {
-    v24 = [NSString stringWithUTF8String:v19];
-    v25 = [v24 lastPathComponent];
-    v26 = [NSString stringWithUTF8String:v20];
-    v27 = [NSNumber numberWithLong:a4];
-    v28 = [NSString stringWithFormat:@"<%@ %@(%@)>", v25, v26, v27, 0];
+    v30 = [NSString stringWithUTF8String:v20];
+    v31 = [v30 lastPathComponent];
+    v32 = [NSString stringWithUTF8String:v21];
+    v33 = [NSNumber numberWithLong:a4];
+    v34 = [NSString stringWithFormat:@"<%@ %@(%@)>", v31, v32, v33, 0];
 
-    v23 = &OBJC_METACLASS___ZhuGeLockerService;
-    v22 = &OBJC_METACLASS___ZhuGeLockerService;
+    v29 = &OBJC_METACLASS___ZhuGeLockerService;
+    v28 = &OBJC_METACLASS___ZhuGeLockerService;
 
-    [v21 appendFormat:@"%@", v28];
+    [v22 appendFormat:@"%@", v34];
   }
 
   else
   {
-    v28 = 0;
+    v34 = 0;
   }
 
-  [v21 appendFormat:@"%s: ", (&off_100014498)[BYTE1(a1)]];
-  v29 = [[NSString alloc] initWithFormat:v18 arguments:&a9];
-  if ([v29 hasSuffix:@"\n"])
+  [v22 appendFormat:@"%s: ", (&off_100014498)[BYTE1(a1)]];
+  v35 = [[NSString alloc] initWithFormat:v19 arguments:&a9];
+  if ([v35 hasSuffix:@"\n"])
   {
-    v31 = [v29 substringToIndex:{objc_msgSend(v29, "length") - 1}];
+    v37 = [v35 substringToIndex:{objc_msgSend(v35, "length") - 1}];
 
-    v29 = v31;
+    v35 = v37;
   }
 
-  v30 = [NSString stringWithFormat:@"%@%@", v21, v29];
-  if (isZhuGeInRestoreOS())
+  v36 = [NSString stringWithFormat:@"%@%@", v22, v35];
+  if (isZhuGeInRestoreOS(v36, v38))
   {
-    v30 = v30;
-    if (isZhuGeInRestoreOS())
+    v36 = v36;
+    if (isZhuGeInRestoreOS(v36, v39))
     {
-      v32 = +[(ZhuGeSingletonService *)ZhuGeLockerService];
-      v33 = [v32 xpcConnection];
-      v34 = [v33 synchronousRemoteObjectProxyWithErrorHandler:&stru_100014520];
+      v40 = +[(ZhuGeSingletonService *)ZhuGeLockerService];
+      v41 = [v40 xpcConnection];
+      v42 = [v41 synchronousRemoteObjectProxyWithErrorHandler:&stru_100014520];
 
-      if (v34)
+      if (v42)
       {
-        [v34 printRemoteLog:v30];
+        [v42 printRemoteLog:v36];
       }
 
       else
       {
-        v36 = [NSString stringWithFormat:@"%s ERR: Failed to get a restore log proxy!", "[ZhuGe]"];
-        sub_100002F24(v36);
+        v44 = [NSString stringWithFormat:@"%s ERR: Failed to get a restore log proxy!", "[ZhuGe]"];
+        sub_100002F24(v44);
 
-        v34 = [NSString stringWithFormat:@"%s %@", "[ZhuGe]", v30];
-        sub_100002F24(v34);
+        v42 = [NSString stringWithFormat:@"%s %@", "[ZhuGe]", v36];
+        sub_100002F24(v42);
       }
     }
   }
 
-  else if ((a1 & 0x10000) == 0 || (fprintf(__stdoutp, "%s\n", [v29 UTF8String]), (a1 & 0x20000) == 0))
+  else if ((a1 & 0x10000) == 0 || (fprintf(__stdoutp, "%s\n", [v35 UTF8String]), (a1 & 0x20000) == 0))
   {
     if (qword_100019E68 != -1)
     {
       sub_100009794();
     }
 
-    if (v22[92].info != -1)
+    if (v28[92].info != -1)
     {
       sub_1000097BC();
     }
 
-    if (LOBYTE(v23[92].vtable) == 1)
+    if (LOBYTE(v29[92].vtable) == 1)
     {
-      v35 = qword_100019E70;
+      v43 = qword_100019E70;
       if (!os_log_type_enabled(qword_100019E70, a1))
       {
         goto LABEL_48;
       }
 
       *buf = 138543362;
-      v38 = v30;
+      v46 = v36;
     }
 
     else
@@ -180,17 +181,17 @@ LABEL_24:
         goto LABEL_48;
       }
 
-      v35 = qword_100019E70;
+      v43 = qword_100019E70;
       if (!os_log_type_enabled(qword_100019E70, a1))
       {
         goto LABEL_48;
       }
 
       *buf = 138543362;
-      v38 = v30;
+      v46 = v36;
     }
 
-    _os_log_impl(&_mh_execute_header, v35, a1, "%{public}@", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v43, a1, "%{public}@", buf, 0xCu);
   }
 
 LABEL_48:
@@ -292,21 +293,22 @@ void sub_100002E40(id a1)
 
 void sub_100002E84(id a1)
 {
-  if ((isZhuGeInInternalBuild() & 1) != 0 || isZhuGeInFactoryBuild())
+  v2 = isZhuGeInInternalBuild(a1, v1);
+  if ((v2 & 1) != 0 || (v2 = isZhuGeInFactoryBuild(v2, v3), v2))
   {
-    LOBYTE(v1) = islibtraceSimulatingCustomerBuild() ^ 1;
+    LOBYTE(v4) = islibtraceSimulatingCustomerBuild(v2, v3) ^ 1;
   }
 
   else
   {
-    v1 = isZhuGeInRestoreOS();
-    if (v1)
+    v4 = isZhuGeInRestoreOS(v2, v3);
+    if (v4)
     {
-      LOBYTE(v1) = doesZhuGeDeemRestoreOSAsInternal();
+      LOBYTE(v4) = doesZhuGeDeemRestoreOSAsInternal(v4, v5);
     }
   }
 
-  byte_100019E78 = v1;
+  byte_100019E78 = v4;
 }
 
 void sub_100002EC8(id a1, NSError *a2)
@@ -368,7 +370,7 @@ uint64_t initPthreadRecursiveMutex(pthread_mutex_t *a1)
   return result;
 }
 
-uint64_t isZhuGeInInternalBuild()
+uint64_t isZhuGeInInternalBuild(uint64_t a1, uint64_t a2)
 {
   if (qword_100019EA8 != -1)
   {
@@ -378,7 +380,7 @@ uint64_t isZhuGeInInternalBuild()
   return byte_100019EA0;
 }
 
-uint64_t isZhuGeInFactoryBuild()
+uint64_t isZhuGeInFactoryBuild(uint64_t a1, uint64_t a2)
 {
   if (qword_100019EB8 != -1)
   {
@@ -388,7 +390,7 @@ uint64_t isZhuGeInFactoryBuild()
   return byte_100019EB0;
 }
 
-uint64_t islibtraceSimulatingCustomerBuild()
+uint64_t islibtraceSimulatingCustomerBuild(uint64_t a1, uint64_t a2)
 {
   if (qword_100019EC8 != -1)
   {
@@ -496,7 +498,7 @@ LABEL_12:
   return v6;
 }
 
-uint64_t hasZhuGeLogConditionalPrint()
+uint64_t hasZhuGeLogConditionalPrint(uint64_t a1, uint64_t a2)
 {
   if (qword_100019ED8 != -1)
   {
@@ -506,7 +508,7 @@ uint64_t hasZhuGeLogConditionalPrint()
   return byte_100019ED0;
 }
 
-uint64_t hasZhuGeLogPrefixFileFuncLine()
+uint64_t hasZhuGeLogPrefixFileFuncLine(uint64_t a1, uint64_t a2)
 {
   if (qword_100019EE8 != -1)
   {
@@ -516,7 +518,7 @@ uint64_t hasZhuGeLogPrefixFileFuncLine()
   return byte_100019EE0;
 }
 
-uint64_t hasZhuGeLogPrefixPidTid()
+uint64_t hasZhuGeLogPrefixPidTid(uint64_t a1, uint64_t a2)
 {
   if (qword_100019EF8 != -1)
   {
@@ -526,7 +528,7 @@ uint64_t hasZhuGeLogPrefixPidTid()
   return byte_100019EF0;
 }
 
-uint64_t doesZhuGeDeemRestoreOSAsInternal()
+uint64_t doesZhuGeDeemRestoreOSAsInternal(uint64_t a1, uint64_t a2)
 {
   if (qword_100019F08 != -1)
   {
@@ -536,7 +538,7 @@ uint64_t doesZhuGeDeemRestoreOSAsInternal()
   return byte_100019F00;
 }
 
-uint64_t isZhuGeInRestoreOS()
+uint64_t isZhuGeInRestoreOS(uint64_t a1, uint64_t a2)
 {
   if (qword_100019F18 != -1)
   {
@@ -613,7 +615,7 @@ LABEL_44:
   }
 
   *a1 = 0;
-  if (!sub_10000474C() || !sub_10000481C() || !sub_10000474C() || !sub_100004A28() || !sub_10000474C() || !sub_100004B64() || !sub_10000474C() || !sub_100004CA0())
+  if (!sub_10000474C(0) || !sub_10000481C() || !sub_10000474C(0) || !sub_100004A28() || !sub_10000474C(0) || !sub_100004B64() || !sub_10000474C(0) || !sub_100004CA0())
   {
     ZhuGeLog(1040, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeCommon/ZhuGeUtils.m", "getZhuGeFDIPathsWithError", 791, @"Failed to link mobile storage framework", v9, v10, v11, v82);
     [NSError errorWithZhuGeErrorCode:13 underlyingError:0];
@@ -838,8 +840,8 @@ uint64_t sub_100004460()
     return *v0;
   }
 
-  v2 = sub_100009898();
-  return isXPCConnectionEntitled(v2);
+  sub_100009898();
+  return isXPCConnectionEntitled(v2, v3);
 }
 
 uint64_t isXPCConnectionEntitled(void *a1, void *a2)
@@ -931,7 +933,7 @@ LABEL_11:
   return v11;
 }
 
-uint64_t sub_10000474C()
+uint64_t sub_10000474C(uint64_t a1)
 {
   if (!qword_100019F20)
   {
@@ -960,16 +962,15 @@ uint64_t sub_10000481C()
   return v0;
 }
 
-void sub_1000048F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000048F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_100004908(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100019F20 = result;
   return result;
@@ -986,11 +987,19 @@ void *sub_10000497C(uint64_t a1)
 
 uint64_t sub_1000049CC()
 {
-  v0 = sub_10000474C();
+  v3 = 0;
+  v0 = sub_10000474C(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -1015,9 +1024,9 @@ uint64_t sub_100004A28()
   return v0;
 }
 
-void sub_100004AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1050,9 +1059,9 @@ uint64_t sub_100004B64()
   return v0;
 }
 
-void sub_100004C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1085,9 +1094,9 @@ uint64_t sub_100004CA0()
   return v0;
 }
 
-void sub_100004D74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004D74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1225,10 +1234,11 @@ void sub_100007B18(id a1)
   [ZhuGeInternalSupportAssistant registerCacheRefresh:v3];
 }
 
-void sub_100008274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_100008274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1253,11 +1263,11 @@ void sub_1000082B8(uint64_t a1, void *a2, void *a3)
   *(v9 + 40) = v6;
 }
 
-void sub_100008638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100008638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1275,11 +1285,11 @@ void sub_10000865C(uint64_t a1, void *a2, void *a3)
   *(v9 + 40) = v6;
 }
 
-void sub_100008988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100008988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1311,11 +1321,11 @@ void sub_100008FB0(uint64_t a1, void *a2, void *a3)
   *(v9 + 40) = v6;
 }
 
-void sub_10000928C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000928C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1333,11 +1343,11 @@ void sub_1000092B0(uint64_t a1, void *a2, void *a3)
   *(v9 + 40) = v6;
 }
 
-void sub_1000095DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000095DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1355,9 +1365,9 @@ void sub_100009600(uint64_t a1, void *a2, void *a3)
   *(v9 + 40) = v6;
 }
 
-uint64_t sub_100009898()
+void sub_100009898()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return sub_1000098BC(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  sub_1000098BC();
 }

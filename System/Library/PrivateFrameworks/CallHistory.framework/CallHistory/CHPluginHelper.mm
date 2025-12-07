@@ -1,6 +1,8 @@
 @interface CHPluginHelper
 - (CHPluginHelper)init;
+- (id)recentCallsWithLimitingTypes:(unsigned int)types error:(id *)error;
 - (unint64_t)unreadCallCountWithError:(id *)error;
+- (void)recentCallsWithLimitingTypes:(unsigned int)types completionHandler:(id)handler;
 - (void)unreadCallCountForPredicate:(id)predicate completionHandler:(id)handler;
 - (void)unreadCallCountWithCompletionHandler:(id)handler;
 @end
@@ -34,6 +36,54 @@
   return v2;
 }
 
+- (id)recentCallsWithLimitingTypes:(unsigned int)types error:(id *)error
+{
+  v5 = *&types;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__3;
+  v23 = __Block_byref_object_dispose__3;
+  v24 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__3;
+  v17 = __Block_byref_object_dispose__3;
+  v18 = 0;
+  connection = self->_connection;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __53__CHPluginHelper_recentCallsWithLimitingTypes_error___block_invoke;
+  v12[3] = &unk_1E81DC6E0;
+  v12[4] = &v19;
+  v12[5] = &v13;
+  v7 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __53__CHPluginHelper_recentCallsWithLimitingTypes_error___block_invoke_2;
+  v11[3] = &unk_1E81DC708;
+  v11[4] = &v19;
+  v11[5] = &v13;
+  [v7 recentCallsWithCallType:v5 withReply:v11];
+
+  if (error)
+  {
+    v8 = v14[5];
+    if (v8)
+    {
+      *error = v8;
+    }
+  }
+
+  v9 = v20[5];
+  _Block_object_dispose(&v13, 8);
+
+  _Block_object_dispose(&v19, 8);
+
+  return v9;
+}
+
 void __53__CHPluginHelper_recentCallsWithLimitingTypes_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -53,6 +103,27 @@ void __53__CHPluginHelper_recentCallsWithLimitingTypes_error___block_invoke_2(ui
   v4 = *(*(a1 + 40) + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = 0;
+}
+
+- (void)recentCallsWithLimitingTypes:(unsigned int)types completionHandler:(id)handler
+{
+  v4 = *&types;
+  handlerCopy = handler;
+  connection = self->_connection;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __65__CHPluginHelper_recentCallsWithLimitingTypes_completionHandler___block_invoke;
+  v13[3] = &unk_1E81DC730;
+  v8 = handlerCopy;
+  v14 = v8;
+  v9 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v13];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __65__CHPluginHelper_recentCallsWithLimitingTypes_completionHandler___block_invoke_2;
+  v11[3] = &unk_1E81DC758;
+  v12 = v8;
+  v10 = v8;
+  [v9 recentCallsWithCallType:v4 withReply:v11];
 }
 
 - (unint64_t)unreadCallCountWithError:(id *)error

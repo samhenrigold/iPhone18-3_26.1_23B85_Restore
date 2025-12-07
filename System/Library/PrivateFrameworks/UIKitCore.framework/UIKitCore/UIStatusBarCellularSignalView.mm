@@ -3,7 +3,7 @@
 
 @implementation UIStatusBarCellularSignalView
 
-uint64_t __58___UIStatusBarCellularSignalView__updateCycleAnimationNow__block_invoke(uint64_t a1)
+void *__58___UIStatusBarCellularSignalView__updateCycleAnimationNow__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) signalMode];
   if (result == 1)
@@ -17,7 +17,7 @@ uint64_t __58___UIStatusBarCellularSignalView__updateCycleAnimationNow__block_in
   return result;
 }
 
-uint64_t __50___UIStatusBarCellularSignalView__updateFromMode___block_invoke(uint64_t a1)
+void *__50___UIStatusBarCellularSignalView__updateFromMode___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) signalMode];
   if (result != 1)

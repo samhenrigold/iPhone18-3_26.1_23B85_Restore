@@ -21,7 +21,7 @@
 
 - (id)attachmentsForParameters:(id)parameters
 {
-  v3 = TITypologyDiagnosticExtensionOSLogFacility();
+  v3 = TITypologyDiagnosticExtensionOSLogFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1000013F8();
@@ -43,8 +43,7 @@
   v18 = v10;
   v11 = v5;
   v19 = v11;
-  [v4 enumerateTypologyLogs:v16];
-  v12 = TITypologyDiagnosticExtensionOSLogFacility();
+  v12 = TITypologyDiagnosticExtensionOSLogFacility([v4 enumerateTypologyLogs:v16]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     sub_1000014A0(v11);
@@ -58,7 +57,7 @@
 
 - (void)setupWithParameters:(id)parameters
 {
-  v4 = TITypologyDiagnosticExtensionOSLogFacility();
+  v4 = TITypologyDiagnosticExtensionOSLogFacility(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_1000017E8();
@@ -72,7 +71,7 @@
 
 - (void)teardownWithParameters:(id)parameters
 {
-  v4 = TITypologyDiagnosticExtensionOSLogFacility();
+  v4 = TITypologyDiagnosticExtensionOSLogFacility(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_100001890();

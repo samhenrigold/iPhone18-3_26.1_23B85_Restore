@@ -4,68 +4,66 @@ uint64_t liteFigureOutDriverSetupInfo(uint64_t a1, uint64_t a2, void *a3)
   v6 = *(a2 + 2040);
   *(a2 + 2040) = @"application/octet-stream";
 
-  v7 = NSURLComponents_ptr;
-  v49 = v5;
+  v46 = v5;
   if (!v5)
   {
-    v11 = 0;
-    v9 = 0;
-    v13 = 0;
+    v10 = 0;
+    v8 = 0;
+    v12 = 0;
 LABEL_31:
     *(a2 + 120) |= 3u;
     *(a2 + 972) = vdupq_n_s32(0x27Bu);
     *(a2 + 988) = xmmword_10006B9A0;
     *(a2 + 2020) = 0x2580000012CLL;
-    v26 = 1;
+    v25 = 1;
     *(a2 + 128) = 1;
     *(a2 + 1988) = xmmword_10006B9B0;
 LABEL_32:
     *a1 |= *(a2 + 120);
     objc_storeStrong((a1 + 32), *(a2 + 2040));
-    v27 = v7[31];
-    v28 = objc_opt_new();
-    v29 = *(a1 + 8);
-    *(a1 + 8) = v28;
+    v26 = objc_opt_new();
+    v27 = *(a1 + 8);
+    *(a1 + 8) = v26;
 
     [*(a1 + 8) addObject:@"application/octet-stream"];
     [*(a1 + 8) addObjectsFromArray:*(a1 + 16)];
-    if (((v26 | [*(a1 + 8) containsObject:@"application/pdf"] | v9) & 1) == 0)
+    if (((v25 | [*(a1 + 8) containsObject:@"application/pdf"] | v8) & 1) == 0)
     {
       [*(a1 + 8) addObject:@"application/pdf"];
     }
 
-    if (((v26 | [*(a1 + 8) containsObject:{@"image/jpeg", v44, v45}] | v11) & 1) == 0)
+    if (((v25 | [*(a1 + 8) containsObject:{@"image/jpeg", v41, v42}] | v10) & 1) == 0)
     {
       [*(a1 + 8) addObject:@"image/jpeg"];
     }
 
-    if (((v26 | [*(a1 + 8) containsObject:@"image/png"] | v13) & 1) == 0)
+    if (((v25 | [*(a1 + 8) containsObject:@"image/png"] | v12) & 1) == 0)
     {
       [*(a1 + 8) addObject:@"image/png"];
     }
 
-    if (((v26 | [*(a1 + 8) containsObject:@"image/urf"]) & 1) == 0)
+    if (((v25 | [*(a1 + 8) containsObject:@"image/urf"]) & 1) == 0)
     {
       [*(a1 + 8) addObject:@"image/urf"];
     }
 
-    v30 = *(a2 + 1508);
-    if (v30 >= 21590)
+    v28 = *(a2 + 1508);
+    if (v28 >= 21590)
     {
-      v31 = *(a2 + 1512);
-      if (v31 < 27940)
+      v29 = *(a2 + 1512);
+      if (v29 < 27940)
       {
 LABEL_44:
-        if (v31 >= 15240)
+        if (v29 >= 15240)
         {
           *(a2 + 988) = 5;
         }
       }
     }
 
-    else if (v30 >= 10160)
+    else if (v28 >= 10160)
     {
-      v31 = *(a2 + 1512);
+      v29 = *(a2 + 1512);
       goto LABEL_44;
     }
 
@@ -74,212 +72,210 @@ LABEL_44:
 LABEL_68:
       if (*(a2 + 548))
       {
-        v37 = v7[31];
-        v38 = objc_opt_new();
+        v35 = objc_opt_new();
         if (*(a2 + 548) >= 1)
         {
-          v39 = 0;
+          v36 = 0;
           do
           {
-            v40 = [NSString stringWithUTF8String:(&MediaSourceStrings)[*(a2 + 752 + 4 * v39)]];
-            [v38 addObject:v40];
+            v37 = [NSString stringWithUTF8String:(&MediaSourceStrings)[*(a2 + 752 + 4 * v36)]];
+            [v35 addObject:v37];
 
-            ++v39;
+            ++v36;
           }
 
-          while (v39 < *(a2 + 548));
+          while (v36 < *(a2 + 548));
         }
 
-        v41 = *(a1 + 24);
-        *(a1 + 24) = v38;
+        v38 = *(a1 + 24);
+        *(a1 + 24) = v35;
       }
 
       else
       {
-        v41 = *(a1 + 24);
+        v38 = *(a1 + 24);
         *(a1 + 24) = &off_1000B9018;
       }
 
-      v42 = 1;
+      v39 = 1;
       goto LABEL_75;
     }
 
-    v32 = 0;
+    v30 = 0;
     while (1)
     {
-      v33 = *(a2 + 144 + 4 * v32);
-      if ((v33 & 0xFFFFFFFC) == 0x14 || ((v33 - 28) >= 8 ? (v34 = v33 == 4) : (v34 = 1), v34))
+      v31 = *(a2 + 144 + 4 * v30);
+      if ((v31 & 0xFFFFFFFC) == 0x14 || ((v31 - 28) >= 8 ? (v32 = v31 == 4) : (v32 = 1), v32))
       {
-        v35 = 64;
+        v33 = 64;
       }
 
-      else if (v33 != 5 && (v33 - 70) >= 0x14)
+      else if (v31 != 5 && (v31 - 70) >= 0x14)
       {
-        if (v33 == 6)
+        if (v31 == 6)
         {
-          v35 = 16;
+          v33 = 16;
         }
 
         else
         {
-          if (v33 != 7 && (v33 - 50) > 3)
+          if (v31 != 7 && (v31 - 50) > 3)
           {
             goto LABEL_56;
           }
 
-          v35 = 8;
+          v33 = 8;
         }
       }
 
       else
       {
-        v35 = 32;
+        v33 = 32;
       }
 
-      *a1 |= v35;
+      *a1 |= v33;
 LABEL_56:
-      if (++v32 >= *(a2 + 140))
+      if (++v30 >= *(a2 + 140))
       {
         goto LABEL_68;
       }
     }
   }
 
-  v8 = [v5 objectForKey:@"TEST-NO-PDF"];
-  v9 = v8 != 0;
+  v7 = [v5 objectForKey:@"TEST-NO-PDF"];
+  v8 = v7 != 0;
 
-  v10 = [v5 objectForKey:@"TEST-NO-JPEG"];
-  v11 = v10 != 0;
+  v9 = [v5 objectForKey:@"TEST-NO-JPEG"];
+  v10 = v9 != 0;
 
-  v12 = [v5 objectForKey:@"TEST-NO-PNG"];
-  v13 = v12 != 0;
+  v11 = [v5 objectForKey:@"TEST-NO-PNG"];
+  v12 = v11 != 0;
 
-  v14 = [v5 objectForKeyedSubscript:@"COMMAND SET"];
-  if (v14)
+  v13 = [v5 objectForKeyedSubscript:@"COMMAND SET"];
+  if (v13)
   {
-    v15 = v14;
+    v14 = v13;
   }
 
   else
   {
-    v15 = [v5 objectForKeyedSubscript:@"CMD"];
-    if (!v15)
+    v14 = [v5 objectForKeyedSubscript:@"CMD"];
+    if (!v14)
     {
-      v48 = +[NSArray array];
-      v15 = 0;
-      v16 = [v48 count];
+      v45 = +[NSArray array];
+      v14 = 0;
+      v15 = [v45 count];
       goto LABEL_7;
     }
   }
 
-  v48 = [v15 componentsSeparatedByString:{@", "}];
+  v45 = [v14 componentsSeparatedByString:{@", "}];
 
-  v16 = [v48 count];
+  v15 = [v45 count];
 LABEL_7:
-  if (!v16)
+  if (!v15)
   {
 
     goto LABEL_31;
   }
 
-  v17 = objc_opt_new();
-  v46 = v9;
-  v18 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  v16 = objc_opt_new();
+  v43 = v8;
+  v17 = *(a1 + 16);
+  *(a1 + 16) = v16;
 
-  v53 = 0u;
-  v54 = 0u;
+  v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v19 = v48;
-  v47 = v15;
-  v20 = [v19 countByEnumeratingWithState:&v51 objects:v55 count:16];
-  v44 = __PAIR64__(v13, v11);
-  v45 = a2;
-  v21 = 0;
-  if (!v20)
+  v48 = 0u;
+  v49 = 0u;
+  v18 = v45;
+  v44 = v14;
+  v19 = [v18 countByEnumeratingWithState:&v48 objects:v52 count:16];
+  v41 = __PAIR64__(v12, v10);
+  v42 = a2;
+  v20 = 0;
+  if (!v19)
   {
     goto LABEL_27;
   }
 
-  v22 = *v52;
+  v21 = *v49;
   do
   {
-    for (i = 0; i != v20; i = i + 1)
+    for (i = 0; i != v19; i = i + 1)
     {
-      if (*v52 != v22)
+      if (*v49 != v21)
       {
-        objc_enumerationMutation(v19);
+        objc_enumerationMutation(v18);
       }
 
-      v24 = *(*(&v51 + 1) + 8 * i);
-      if (![v24 caseInsensitiveCompare:{@"URF", v44, v45}])
+      v23 = *(*(&v48 + 1) + 8 * i);
+      if (![v23 caseInsensitiveCompare:{@"URF", v41, v42}])
       {
-        v21 = liteInitURF;
+        v20 = liteInitURF;
         [*(a1 + 16) addObject:@"image/urf"];
         continue;
       }
 
-      if (![v24 caseInsensitiveCompare:@"PDF"])
+      if (![v23 caseInsensitiveCompare:@"PDF"])
       {
-        v25 = @"application/pdf";
+        v24 = @"application/pdf";
 LABEL_24:
-        [*(a1 + 16) addObject:v25];
+        [*(a1 + 16) addObject:v24];
         continue;
       }
 
-      if (![v24 caseInsensitiveCompare:@"JPEG"])
+      if (![v23 caseInsensitiveCompare:@"JPEG"])
       {
-        v25 = @"image/jpeg";
+        v24 = @"image/jpeg";
         goto LABEL_24;
       }
 
-      if (![v24 caseInsensitiveCompare:@"PNG"])
+      if (![v23 caseInsensitiveCompare:@"PNG"])
       {
-        v25 = @"image/png";
+        v24 = @"image/png";
         goto LABEL_24;
       }
 
-      if ([v24 caseInsensitiveCompare:@"application/octet-stream"] && objc_msgSend(v24, "containsString:", @"/"))
+      if ([v23 caseInsensitiveCompare:@"application/octet-stream"] && objc_msgSend(v23, "containsString:", @"/"))
       {
-        [*(a1 + 16) addObject:v24];
+        [*(a1 + 16) addObject:v23];
       }
     }
 
-    v20 = [v19 countByEnumeratingWithState:&v51 objects:v55 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v48 objects:v52 count:16];
   }
 
-  while (v20);
+  while (v19);
 LABEL_27:
 
-  a2 = v45;
-  v7 = NSURLComponents_ptr;
-  v11 = v44;
-  v13 = HIDWORD(v44);
-  v9 = v46;
+  a2 = v42;
+  v10 = v41;
+  v12 = HIDWORD(v41);
+  v8 = v43;
 
-  if (!v21)
+  if (!v20)
   {
     goto LABEL_31;
   }
 
-  if ((v21)(v49, v45, 1))
+  if ((v20)(v46, v42, 1))
   {
-    v26 = 0;
+    v25 = 0;
     goto LABEL_32;
   }
 
-  v41 = _PKLogCategory(PKLogCategoryProgress[0]);
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+  v38 = _PKLogCategory(PKLogCategoryProgress[0]);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "Driver initialization failed.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Driver initialization failed.", buf, 2u);
   }
 
-  v42 = 0;
+  v39 = 0;
 LABEL_75:
 
-  return v42;
+  return v39;
 }
 
 void liteSetupDriverInfoFromDeviceIDs(lite_driver_s *a1, NSDictionary *a2)
@@ -379,9 +375,9 @@ void sub_10004825C(uint64_t a1, void *a2)
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_100048694(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100048694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   sub_10000B548(va);
   _Unwind_Resume(a1);
@@ -403,9 +399,9 @@ id sub_1000486EC(uint64_t a1)
   return v3;
 }
 
-void sub_100048928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, ...)
+void sub_100048928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   sub_10000B548(va);
   _Unwind_Resume(a1);
@@ -430,9 +426,9 @@ void sub_10004897C(uint64_t a1, void *a2)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_100048D20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100048D20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   sub_10000B548(va);
   _Unwind_Resume(a1);
@@ -634,7 +630,7 @@ LABEL_34:
 
 void *sub_100049498(void *a1, uint64_t a2)
 {
-  *a1 = off_100095658;
+  *a1 = &off_100095658;
   a1[1] = 0;
   a1[2] = 0;
   v4 = (a1 + 2);
@@ -786,14 +782,14 @@ void sub_10004C068(uint64_t a1, void *a2)
   }
 }
 
-void sub_10004C3E0(uint64_t a1, void *a2)
+void sub_10004C3E0(void **a1, void *a2)
 {
   if (a2)
   {
-    sub_100010D5C(v3, 0xBu, *(a1 + 32));
+    sub_100010D5C(v3, 0xBu, a1[4]);
   }
 
-  (*(*(a1 + 56) + 16))();
+  (*(a1[7] + 2))();
 }
 
 void sub_10004C560(uint64_t a1, void *a2)
@@ -839,20 +835,20 @@ int main(int argc, const char **argv, const char **envp)
   {
     v6 = getpid();
     v7 = *argv;
-    v13[0] = 67109634;
-    v13[1] = v6;
-    v14 = 2082;
-    v15 = v7;
-    v16 = 2114;
-    v17 = v4;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PrinterTool(%d) starting: %{public}s, spool in %{public}@", v13, 0x1Cu);
+    v14[0] = 67109634;
+    v14[1] = v6;
+    v15 = 2082;
+    v16 = v7;
+    v17 = 2114;
+    v18 = v4;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PrinterTool(%d) starting: %{public}s, spool in %{public}@", v14, 0x1Cu);
   }
 
-  atexit_b(&stru_1000A3630);
-  liteSetupDefaults();
-  v8 = dispatch_source_create(&_dispatch_source_type_signal, 0x1DuLL, 0, &_dispatch_main_q);
-  v9 = qword_1000C7C80;
-  qword_1000C7C80 = v8;
+  v8 = atexit_b(&stru_1000A3630);
+  liteSetupDefaults(v8);
+  v9 = dispatch_source_create(&_dispatch_source_type_signal, 0x1DuLL, 0, &_dispatch_main_q);
+  v10 = qword_1000C7C80;
+  qword_1000C7C80 = v9;
 
   if (qword_1000C7C80)
   {
@@ -860,17 +856,17 @@ int main(int argc, const char **argv, const char **envp)
     dispatch_resume(qword_1000C7C80);
   }
 
-  v10 = +[NSXPCListener serviceListener];
+  v11 = +[NSXPCListener serviceListener];
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
-  CFNotificationCenterAddObserver(DarwinNotifyCenter, v10, sub_10004CBE0, @"AppleLanguagePreferencesChangedNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+  CFNotificationCenterAddObserver(DarwinNotifyCenter, v11, sub_10004CBE0, @"AppleLanguagePreferencesChangedNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
   if ((atomic_load_explicit(&qword_1000C7C90, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1000C7C90))
   {
     qword_1000C7C88 = objc_opt_new();
     __cxa_guard_release(&qword_1000C7C90);
   }
 
-  [v10 setDelegate:qword_1000C7C88];
-  [v10 activate];
+  [v11 setDelegate:qword_1000C7C88];
+  [v11 activate];
 
   return 0;
 }
@@ -1047,10 +1043,12 @@ void _visitHexLines(void *a1, int a2, void *a3)
   _Block_object_dispose(&v26, 8);
 }
 
-void sub_10004D23C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_10004D23C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v30 - 144), 8);
+  va_start(va, a26);
+
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v29 - 144), 8);
 
   _Unwind_Resume(a1);
 }
@@ -1182,16 +1180,16 @@ LABEL_7:
   return result;
 }
 
-id getPrintdRPCProtocolInterface(void)
+id getPrintdRPCProtocolInterface(uint64_t a1)
 {
   if (qword_1000C7CA0 != -1)
   {
     sub_10006050C();
   }
 
-  v1 = qword_1000C7C98;
+  v2 = qword_1000C7C98;
 
-  return v1;
+  return v2;
 }
 
 void sub_10004D5D4(id a1)
@@ -2944,7 +2942,7 @@ LABEL_23:
   return 0;
 }
 
-void sub_100053918(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, _Unwind_Exception *exception_object, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, id a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59)
+void sub_100053918(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, _Unwind_Exception *exception_object, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59)
 {
   sub_1000583D8(&a37);
 
@@ -3477,9 +3475,9 @@ uint64_t liteOpenDriver(lite_job_t *a1, lite_driver_s *a2, NSString *a3, ipp_ori
   return v12;
 }
 
-void sub_100054EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100054EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -3603,7 +3601,7 @@ void sub_1000554F4(void *a1)
 
 uint64_t sub_10005552C(void *a1)
 {
-  *a1 = off_1000A3848;
+  *a1 = &off_1000A3848;
   v1 = a1[3];
   if (v1)
   {
@@ -3643,7 +3641,7 @@ uint64_t sub_1000555CC(uint64_t a1, void *a2, uint64_t a3)
   return v5;
 }
 
-void sub_1000556D4(void *a1, void *a2, void *a3, uint64_t a4, void *a5, void *a6)
+void sub_1000556D4(void *a1, void *a2, void *a3, int a4, void *a5, void *a6)
 {
   v10 = a2;
   v11 = a3;
@@ -3674,7 +3672,7 @@ void sub_100055920(void *a1)
 
 uint64_t sub_100055958(void *a1)
 {
-  *a1 = off_1000A38D0;
+  *a1 = &off_1000A38D0;
   v1 = a1[3];
   if (v1)
   {
@@ -4000,11 +3998,13 @@ void sub_1000564E4(uint64_t a1)
   _Block_object_dispose(&v10, 8);
 }
 
-void sub_1000571C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_1000571C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  sub_100059298(v41 - 176);
+  va_start(va, a38);
 
-  _Block_object_dispose(&a39, 8);
+  sub_100059298(v40 - 176);
+  _Block_object_dispose(va, 8);
+
   _Unwind_Resume(a1);
 }
 
@@ -4566,7 +4566,7 @@ void sub_100058CB4(void *a1)
 
 uint64_t sub_100058CEC(void *a1)
 {
-  *a1 = off_1000A3A48;
+  *a1 = &off_1000A3A48;
   v1 = a1[3];
   if (v1)
   {
@@ -4729,7 +4729,7 @@ void sub_1000594A0(uint64_t a1)
 
 uint64_t sub_10005957C(void *a1)
 {
-  *a1 = off_1000A3B88;
+  *a1 = &off_1000A3B88;
   v1 = a1[3];
   if (v1)
   {
@@ -5560,10 +5560,10 @@ LABEL_48:
   return result;
 }
 
-void sub_10005BC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, ...)
+void sub_10005BC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, ...)
 {
-  va_start(va, a8);
-  v13 = v11;
+  va_start(va, a15);
+  v20 = v18;
 
   sub_10005C754(va);
   _Unwind_Resume(a1);
@@ -5758,13 +5758,12 @@ id PKLocalizedString(NSString *a1, const char *a2)
 
 void sub_10005CB30(uint64_t a1, void *a2, void *a3)
 {
-  v7 = a2;
+  v6 = a2;
   v5 = a3;
-  if (v7 && v5)
+  if (v6 && v5)
   {
-    [*(a1 + 32) setResolvedURL:v7];
+    [*(a1 + 32) setResolvedURL:v6];
     [*(a1 + 32) setResolvedTXT:v5];
-    v6 = *(a1 + 32);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -5780,9 +5779,9 @@ void sub_10005D29C(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_10005D61C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, ...)
+void sub_10005D61C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
 
   sub_100010EF8(va);
   _Unwind_Resume(a1);
@@ -5830,7 +5829,7 @@ void sub_10005D760(uint64_t a1, void *a2)
   _Block_object_dispose(&v9, 8);
 }
 
-void sub_10005D88C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10005D88C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -5852,7 +5851,7 @@ void sub_10005D8DC(uint64_t a1, uint64_t a2)
   *(v4 + 40) = v3;
 }
 
-void sub_10005E02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
+void sub_10005E02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
 {
   _Block_object_dispose(&a25, 8);
 

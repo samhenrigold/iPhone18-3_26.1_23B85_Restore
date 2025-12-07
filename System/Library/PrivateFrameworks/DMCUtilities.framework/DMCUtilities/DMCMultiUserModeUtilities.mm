@@ -5,6 +5,8 @@
 + (BOOL)awaitUserConfigurationEnabled;
 + (BOOL)configureAwaitUserConfiguration:(id)configuration;
 + (BOOL)configureMAIDDefaultDomains:(id)domains;
++ (BOOL)configureShouldSkipLanguageAndLocaleSetupForNewUsers:(BOOL)users;
++ (BOOL)configureTemporarySessionOnly:(BOOL)only useDynamicQuotaSize:(BOOL)size restoreQuotaSizeWhenDisabled:(BOOL)disabled preferenceDomain:(__CFString *)domain;
 + (BOOL)configureTemporarySessionTimeout:(double)timeout;
 + (BOOL)configureUserSessionTimeout:(double)timeout;
 + (BOOL)deviceHasMultipleUsers;
@@ -126,7 +128,7 @@ uint64_t __49__DMCMultiUserModeUtilities_isPrimaryUserSession__block_invoke()
 
 + (id)configureToSharedDeviceWithPreferenceDomain:(__CFString *)domain
 {
-  v4 = DMCLogObjects()[1];
+  v4 = DMCLogObjects(self, a2)[1];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -162,51 +164,53 @@ uint64_t __49__DMCMultiUserModeUtilities_isPrimaryUserSession__block_invoke()
 + (id)configureQuotaSizeForSharedDevice:(id)device preferenceDomain:(__CFString *)domain
 {
   deviceCopy = device;
-  if (+[DMCMultiUserModeUtilities isFirstSetupBuddyDone])
+  v6 = +[DMCMultiUserModeUtilities isFirstSetupBuddyDone];
+  if (v6)
   {
-    v6 = [DMCMultiUserModeUtilities _configureQuotaSizeForSharedDeviceImmediately:deviceCopy];
+    v8 = [DMCMultiUserModeUtilities _configureQuotaSizeForSharedDeviceImmediately:deviceCopy];
   }
 
   else
   {
-    v7 = DMCLogObjects()[1];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = DMCLogObjects(v6, v7)[1];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_DEFAULT, "We are in buddy, caching the user quota info", v9, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_DEFAULT, "We are in buddy, caching the user quota info", v11, 2u);
     }
 
     CFPreferencesSetAppValue(@"MCSharedDeviceUserQuotaSize", deviceCopy, domain);
     CFPreferencesAppSynchronize(domain);
-    v6 = 0;
+    v8 = 0;
   }
 
-  return v6;
+  return v8;
 }
 
 + (id)configureResidentUsersNumberForSharedDevice:(id)device preferenceDomain:(__CFString *)domain
 {
   deviceCopy = device;
-  if (+[DMCMultiUserModeUtilities isFirstSetupBuddyDone])
+  v6 = +[DMCMultiUserModeUtilities isFirstSetupBuddyDone];
+  if (v6)
   {
-    v6 = [DMCMultiUserModeUtilities _configureResidentUsersNumberForSharedDeviceImmediately:deviceCopy];
+    v8 = [DMCMultiUserModeUtilities _configureResidentUsersNumberForSharedDeviceImmediately:deviceCopy];
   }
 
   else
   {
-    v7 = DMCLogObjects()[1];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = DMCLogObjects(v6, v7)[1];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_DEFAULT, "We are in buddy, caching the maximum resident user info", v9, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_DEFAULT, "We are in buddy, caching the maximum resident user info", v11, 2u);
     }
 
     CFPreferencesSetAppValue(@"MCMaximumResidentUsers", deviceCopy, domain);
     CFPreferencesAppSynchronize(domain);
-    v6 = 0;
+    v8 = 0;
   }
 
-  return v6;
+  return v8;
 }
 
 + (BOOL)configureUserSessionTimeout:(double)timeout
@@ -243,50 +247,108 @@ uint64_t __49__DMCMultiUserModeUtilities_isPrimaryUserSession__block_invoke()
   }
 }
 
++ (BOOL)configureTemporarySessionOnly:(BOOL)only useDynamicQuotaSize:(BOOL)size restoreQuotaSizeWhenDisabled:(BOOL)disabled preferenceDomain:(__CFString *)domain
+{
+  disabledCopy = disabled;
+  sizeCopy = size;
+  onlyCopy = only;
+  if (+[DMCMultiUserModeUtilities temporarySessionOnly](DMCMultiUserModeUtilities, "temporarySessionOnly") == only && +[DMCMultiUserModeUtilities useDynamicQuotaSize]== sizeCopy)
+  {
+    return 1;
+  }
+
+  if (onlyCopy)
+  {
+    v11 = [MEMORY[0x1E696AD98] numberWithBool:sizeCopy];
+    [DMCMultiUserModeUtilities _updateMultiUserDeviceConfigurationFileWithKey:@"UseDynamicQuota" value:v11];
+
+    if (sizeCopy)
+    {
+      if (+[DMCMultiUserModeUtilities isFirstSetupBuddyDone])
+      {
+        mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
+        userQuotaSize = [mEMORY[0x1E69DF068] userQuotaSize];
+      }
+
+      else
+      {
+        mEMORY[0x1E69DF068] = CFPreferencesCopyAppValue(@"MCSharedDeviceUserQuotaSize", domain);
+        userQuotaSize = [mEMORY[0x1E69DF068] unsignedLongValue];
+      }
+
+      v18 = userQuotaSize;
+
+      if (v18)
+      {
+        v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v18];
+        [DMCMultiUserModeUtilities _updateMultiUserDeviceConfigurationFileWithKey:@"MCPreviousQuotaSize" value:v19];
+      }
+
+      v20 = [self configureResidentUsersNumberForSharedDevice:&unk_1F2868278 preferenceDomain:domain];
+    }
+  }
+
+  else if (disabledCopy)
+  {
+    v14 = +[DMCMultiUserModeUtilities _previousQuotaSize];
+    NSLog(&cfstr_SPreviousQuota.isa, "+[DMCMultiUserModeUtilities configureTemporarySessionOnly:useDynamicQuotaSize:restoreQuotaSizeWhenDisabled:preferenceDomain:]", v14);
+    if (v14)
+    {
+      v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v14];
+      v16 = [self configureQuotaSizeForSharedDevice:v15 preferenceDomain:domain];
+    }
+  }
+
+  v21 = [MEMORY[0x1E696AD98] numberWithBool:onlyCopy];
+  v22 = [DMCMultiUserModeUtilities _updateMultiUserDeviceConfigurationFileWithKey:@"TemporarySessionOnly" value:v21];
+
+  return v22;
+}
+
 + (double)userSessionTimeout
 {
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v3 = DMCMultiUserDeviceConfigurationFilePath();
+  v3 = DMCMultiUserDeviceConfigurationFilePath(defaultManager);
   v4 = [defaultManager fileExistsAtPath:v3];
 
-  v5 = 0.0;
+  v6 = 0.0;
   if (v4)
   {
-    v6 = MEMORY[0x1E695DF20];
-    v7 = DMCMultiUserDeviceConfigurationFilePath();
-    v8 = [v6 DMCDictionaryFromFile:v7];
-    v9 = [v8 objectForKeyedSubscript:@"UserSessionTimeout"];
-    [v9 floatValue];
-    v5 = v10;
+    v7 = MEMORY[0x1E695DF20];
+    v8 = DMCMultiUserDeviceConfigurationFilePath(v5);
+    v9 = [v7 DMCDictionaryFromFile:v8];
+    v10 = [v9 objectForKeyedSubscript:@"UserSessionTimeout"];
+    [v10 floatValue];
+    v6 = v11;
   }
 
-  return v5;
+  return v6;
 }
 
 + (double)temporarySessionTimeout
 {
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v3 = DMCMultiUserDeviceConfigurationFilePath();
+  v3 = DMCMultiUserDeviceConfigurationFilePath(defaultManager);
   v4 = [defaultManager fileExistsAtPath:v3];
 
-  v5 = 0.0;
+  v6 = 0.0;
   if (v4)
   {
-    v6 = MEMORY[0x1E695DF20];
-    v7 = DMCMultiUserDeviceConfigurationFilePath();
-    v8 = [v6 DMCDictionaryFromFile:v7];
-    v9 = [v8 objectForKeyedSubscript:@"TemporarySessionTimeout"];
-    [v9 floatValue];
-    v5 = v10;
+    v7 = MEMORY[0x1E695DF20];
+    v8 = DMCMultiUserDeviceConfigurationFilePath(v5);
+    v9 = [v7 DMCDictionaryFromFile:v8];
+    v10 = [v9 objectForKeyedSubscript:@"TemporarySessionTimeout"];
+    [v10 floatValue];
+    v6 = v11;
   }
 
-  return v5;
+  return v6;
 }
 
 + (BOOL)temporarySessionOnly
 {
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v3 = DMCMultiUserDeviceConfigurationFilePath();
+  v3 = DMCMultiUserDeviceConfigurationFilePath(defaultManager);
   v4 = [defaultManager fileExistsAtPath:v3];
 
   if (!v4)
@@ -294,11 +356,11 @@ uint64_t __49__DMCMultiUserModeUtilities_isPrimaryUserSession__block_invoke()
     return 0;
   }
 
-  v5 = MEMORY[0x1E695DF20];
-  v6 = DMCMultiUserDeviceConfigurationFilePath();
-  v7 = [v5 DMCDictionaryFromFile:v6];
-  v8 = [v7 objectForKeyedSubscript:@"TemporarySessionOnly"];
-  bOOLValue = [v8 BOOLValue];
+  v6 = MEMORY[0x1E695DF20];
+  v7 = DMCMultiUserDeviceConfigurationFilePath(v5);
+  v8 = [v6 DMCDictionaryFromFile:v7];
+  v9 = [v8 objectForKeyedSubscript:@"TemporarySessionOnly"];
+  bOOLValue = [v9 BOOLValue];
 
   return bOOLValue;
 }
@@ -306,7 +368,7 @@ uint64_t __49__DMCMultiUserModeUtilities_isPrimaryUserSession__block_invoke()
 + (BOOL)useDynamicQuotaSize
 {
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v3 = DMCMultiUserDeviceConfigurationFilePath();
+  v3 = DMCMultiUserDeviceConfigurationFilePath(defaultManager);
   v4 = [defaultManager fileExistsAtPath:v3];
 
   if (!v4)
@@ -314,11 +376,11 @@ uint64_t __49__DMCMultiUserModeUtilities_isPrimaryUserSession__block_invoke()
     return 0;
   }
 
-  v5 = MEMORY[0x1E695DF20];
-  v6 = DMCMultiUserDeviceConfigurationFilePath();
-  v7 = [v5 DMCDictionaryFromFile:v6];
-  v8 = [v7 objectForKeyedSubscript:@"UseDynamicQuota"];
-  bOOLValue = [v8 BOOLValue];
+  v6 = MEMORY[0x1E695DF20];
+  v7 = DMCMultiUserDeviceConfigurationFilePath(v5);
+  v8 = [v6 DMCDictionaryFromFile:v7];
+  v9 = [v8 objectForKeyedSubscript:@"UseDynamicQuota"];
+  bOOLValue = [v9 BOOLValue];
 
   return bOOLValue;
 }
@@ -335,45 +397,53 @@ uint64_t __49__DMCMultiUserModeUtilities_isPrimaryUserSession__block_invoke()
 + (id)managedAppleIDDefaultDomains
 {
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v3 = DMCMultiUserDeviceConfigurationFilePath();
+  v3 = DMCMultiUserDeviceConfigurationFilePath(defaultManager);
   v4 = [defaultManager fileExistsAtPath:v3];
 
   if (v4)
   {
-    v5 = MEMORY[0x1E695DF20];
-    v6 = DMCMultiUserDeviceConfigurationFilePath();
-    v7 = [v5 DMCDictionaryFromFile:v6];
-    v8 = [v7 objectForKeyedSubscript:@"ManagedAppleIDDefaultDomains"];
+    v6 = MEMORY[0x1E695DF20];
+    v7 = DMCMultiUserDeviceConfigurationFilePath(v5);
+    v8 = [v6 DMCDictionaryFromFile:v7];
+    v9 = [v8 objectForKeyedSubscript:@"ManagedAppleIDDefaultDomains"];
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 + (id)onlineAuthenticationGracePeriod
 {
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v3 = DMCMultiUserDeviceConfigurationFilePath();
+  v3 = DMCMultiUserDeviceConfigurationFilePath(defaultManager);
   v4 = [defaultManager fileExistsAtPath:v3];
 
   if (v4)
   {
-    v5 = MEMORY[0x1E695DF20];
-    v6 = DMCMultiUserDeviceConfigurationFilePath();
-    v7 = [v5 DMCDictionaryFromFile:v6];
-    v8 = [v7 objectForKeyedSubscript:@"OnlineAuthenticationGracePeriod"];
+    v6 = MEMORY[0x1E695DF20];
+    v7 = DMCMultiUserDeviceConfigurationFilePath(v5);
+    v8 = [v6 DMCDictionaryFromFile:v7];
+    v9 = [v8 objectForKeyedSubscript:@"OnlineAuthenticationGracePeriod"];
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
+}
+
++ (BOOL)configureShouldSkipLanguageAndLocaleSetupForNewUsers:(BOOL)users
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:users];
+  LOBYTE(self) = [self _updateMultiUserDeviceConfigurationFileWithKey:@"SkipLanguageAndLocaleSetupForNewUsers" value:v4];
+
+  return self;
 }
 
 + (BOOL)shouldSkipLanguageAndLocaleSetupForNewUsers
@@ -384,7 +454,7 @@ uint64_t __49__DMCMultiUserModeUtilities_isPrimaryUserSession__block_invoke()
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v3 = DMCMultiUserDeviceConfigurationFilePath();
+  v3 = DMCMultiUserDeviceConfigurationFilePath(defaultManager);
   v4 = [defaultManager fileExistsAtPath:v3];
 
   if (!v4)
@@ -392,11 +462,11 @@ uint64_t __49__DMCMultiUserModeUtilities_isPrimaryUserSession__block_invoke()
     return 0;
   }
 
-  v5 = MEMORY[0x1E695DF20];
-  v6 = DMCMultiUserDeviceConfigurationFilePath();
-  v7 = [v5 DMCDictionaryFromFile:v6];
-  v8 = [v7 objectForKeyedSubscript:@"SkipLanguageAndLocaleSetupForNewUsers"];
-  bOOLValue = [v8 BOOLValue];
+  v6 = MEMORY[0x1E695DF20];
+  v7 = DMCMultiUserDeviceConfigurationFilePath(v5);
+  v8 = [v6 DMCDictionaryFromFile:v7];
+  v9 = [v8 objectForKeyedSubscript:@"SkipLanguageAndLocaleSetupForNewUsers"];
+  bOOLValue = [v9 BOOLValue];
 
   return bOOLValue;
 }
@@ -425,7 +495,7 @@ uint64_t __49__DMCMultiUserModeUtilities_isPrimaryUserSession__block_invoke()
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v3 = DMCMultiUserDeviceConfigurationFilePath();
+  v3 = DMCMultiUserDeviceConfigurationFilePath(defaultManager);
   v4 = [defaultManager fileExistsAtPath:v3];
 
   if (!v4)
@@ -433,19 +503,19 @@ uint64_t __49__DMCMultiUserModeUtilities_isPrimaryUserSession__block_invoke()
     return 0;
   }
 
-  v5 = MEMORY[0x1E695DF20];
-  v6 = DMCMultiUserDeviceConfigurationFilePath();
-  v7 = [v5 DMCDictionaryFromFile:v6];
-  v8 = [v7 objectForKeyedSubscript:@"AwaitUserConfiguration"];
-  v9 = [v8 objectForKeyedSubscript:@"Enabled"];
-  bOOLValue = [v9 BOOLValue];
+  v6 = MEMORY[0x1E695DF20];
+  v7 = DMCMultiUserDeviceConfigurationFilePath(v5);
+  v8 = [v6 DMCDictionaryFromFile:v7];
+  v9 = [v8 objectForKeyedSubscript:@"AwaitUserConfiguration"];
+  v10 = [v9 objectForKeyedSubscript:@"Enabled"];
+  bOOLValue = [v10 BOOLValue];
 
   return bOOLValue;
 }
 
 + (BOOL)markCurrentUserAsConfigured
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (!+[DMCMultiUserModeUtilities inSharediPadUserSession])
   {
     goto LABEL_4;
@@ -454,32 +524,30 @@ uint64_t __49__DMCMultiUserModeUtilities_isPrimaryUserSession__block_invoke()
   v2 = sem_open("dmc_isCurrentUserConfigured", 512, 256, 0);
   if (v2 != -1)
   {
-    sem_close(v2);
-    DMCSendUserSettingsChangedNotification();
+    v4 = sem_close(v2);
+    DMCSendUserSettingsChangedNotification(v4, v5);
 LABEL_4:
-    LOBYTE(v3) = 1;
-    goto LABEL_5;
+    LOBYTE(v6) = 1;
+    return v6;
   }
 
-  v5 = *DMCLogObjects();
-  v3 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-  if (v3)
+  v7 = *DMCLogObjects(-1, v3);
+  v6 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+  if (v6)
   {
-    v6 = v5;
-    v7 = __error();
-    v8 = strerror(*v7);
+    v8 = v7;
+    v9 = __error();
+    v10 = strerror(*v9);
     *buf = 136446466;
-    v11 = "dmc_isCurrentUserConfigured";
-    v12 = 2082;
-    v13 = v8;
-    _os_log_impl(&dword_1B1630000, v6, OS_LOG_TYPE_ERROR, "Failed to create semaphore %{public}s: %{public}s", buf, 0x16u);
+    v13 = "dmc_isCurrentUserConfigured";
+    v14 = 2082;
+    v15 = v10;
+    _os_log_impl(&dword_1B1630000, v8, OS_LOG_TYPE_ERROR, "Failed to create semaphore %{public}s: %{public}s", buf, 0x16u);
 
-    LOBYTE(v3) = 0;
+    LOBYTE(v6) = 0;
   }
 
-LABEL_5:
-  v4 = *MEMORY[0x1E69E9840];
-  return v3;
+  return v6;
 }
 
 + (BOOL)isCurrentUserConfigured
@@ -503,10 +571,10 @@ LABEL_5:
 {
   valueCopy = value;
   keyCopy = key;
-  v8 = DMCMultiUserDeviceConfigurationFilePath();
+  v8 = DMCMultiUserDeviceConfigurationFilePath(keyCopy);
   LOBYTE(self) = [self _updateMultiUserConfigurationFileAtPath:v8 key:keyCopy value:valueCopy];
 
-  DMCSendSettingsChangedNotification();
+  DMCSendSettingsChangedNotification(v9, v10);
   return self;
 }
 
@@ -514,10 +582,10 @@ LABEL_5:
 {
   valueCopy = value;
   keyCopy = key;
-  v8 = DMCMultiUserUserConfigurationFilePath();
+  v8 = DMCMultiUserUserConfigurationFilePath(keyCopy);
   LOBYTE(self) = [self _updateMultiUserConfigurationFileAtPath:v8 key:keyCopy value:valueCopy];
 
-  DMCSendUserSettingsChangedNotification();
+  DMCSendUserSettingsChangedNotification(v9, v10);
   return self;
 }
 
@@ -555,7 +623,7 @@ LABEL_5:
 + (unint64_t)_previousQuotaSize
 {
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v3 = DMCMultiUserDeviceConfigurationFilePath();
+  v3 = DMCMultiUserDeviceConfigurationFilePath(defaultManager);
   v4 = [defaultManager fileExistsAtPath:v3];
 
   if (!v4)
@@ -563,25 +631,25 @@ LABEL_5:
     return 0;
   }
 
-  v5 = MEMORY[0x1E695DF20];
-  v6 = DMCMultiUserDeviceConfigurationFilePath();
-  v7 = [v5 DMCDictionaryFromFile:v6];
-  v8 = [v7 objectForKeyedSubscript:@"MCPreviousQuotaSize"];
-  unsignedLongValue = [v8 unsignedLongValue];
+  v6 = MEMORY[0x1E695DF20];
+  v7 = DMCMultiUserDeviceConfigurationFilePath(v5);
+  v8 = [v6 DMCDictionaryFromFile:v7];
+  v9 = [v8 objectForKeyedSubscript:@"MCPreviousQuotaSize"];
+  unsignedLongValue = [v9 unsignedLongValue];
 
   return unsignedLongValue;
 }
 
 + (id)_configureQuotaSizeForSharedDeviceImmediately:(id)immediately
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   immediatelyCopy = immediately;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__3;
-  v25 = __Block_byref_object_dispose__3;
-  v26 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__3;
+  v24 = __Block_byref_object_dispose__3;
+  v25 = 0;
   unsignedLongLongValue = [immediatelyCopy unsignedLongLongValue];
   getDiskAvailableSize = [self getDiskAvailableSize];
   v7 = 2000000000;
@@ -601,30 +669,29 @@ LABEL_5:
     v8 = v7;
   }
 
-  v28[0] = *MEMORY[0x1E69DF0B8];
+  v27[0] = *MEMORY[0x1E69DF0B8];
   v9 = *MEMORY[0x1E69DF0A0];
-  v27[0] = *MEMORY[0x1E69DF0C0];
-  v27[1] = v9;
+  v26[0] = *MEMORY[0x1E69DF0C0];
+  v26[1] = v9;
   0xFFFFFFFFFFF00000 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v8 & 0xFFFFFFFFFFF00000];
-  v28[1] = 0xFFFFFFFFFFF00000;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
+  v27[1] = 0xFFFFFFFFFFF00000;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
 
   v12 = dispatch_semaphore_create(0);
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __75__DMCMultiUserModeUtilities__configureQuotaSizeForSharedDeviceImmediately___block_invoke;
-  v18[3] = &unk_1E7ADCD20;
-  v20 = &v21;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __75__DMCMultiUserModeUtilities__configureQuotaSizeForSharedDeviceImmediately___block_invoke;
+  v17[3] = &unk_1E7ADCD20;
+  v19 = &v20;
   v14 = v12;
-  v19 = v14;
-  [mEMORY[0x1E69DF068] setupUMUserSessionProvisioning:v11 WithCompletionHandler:v18];
+  v18 = v14;
+  [mEMORY[0x1E69DF068] setupUMUserSessionProvisioning:v11 WithCompletionHandler:v17];
 
   dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
-  v15 = v22[5];
+  v15 = v21[5];
 
-  _Block_object_dispose(&v21, 8);
-  v16 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v20, 8);
 
   return v15;
 }
@@ -634,14 +701,14 @@ void __75__DMCMultiUserModeUtilities__configureQuotaSizeForSharedDeviceImmediate
   v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = DMCLogObjects()[1];
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = DMCLogObjects(v6, v7)[1];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138543618;
     v10 = v5;
     v11 = 2114;
     v12 = v6;
-    _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_DEFAULT, "Finished configuring quota size with result: %{public}@, error: %{public}@", &v9, 0x16u);
+    _os_log_impl(&dword_1B1630000, v8, OS_LOG_TYPE_DEFAULT, "Finished configuring quota size with result: %{public}@, error: %{public}@", &v9, 0x16u);
   }
 
   if (v6)
@@ -650,8 +717,6 @@ void __75__DMCMultiUserModeUtilities__configureQuotaSizeForSharedDeviceImmediate
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_configureResidentUsersNumberForSharedDeviceImmediately:(id)immediately
@@ -683,29 +748,29 @@ void __75__DMCMultiUserModeUtilities__configureQuotaSizeForSharedDeviceImmediate
 
 + (unint64_t)getDiskAvailableSize
 {
-  v10 = *MEMORY[0x1E69E9840];
-  memset(&v9, 0, 512);
-  strcpy(v8, "/private/var");
-  if (statfs(v8, &v9))
+  v11 = *MEMORY[0x1E69E9840];
+  memset(&v10, 0, 512);
+  strcpy(v9, "/private/var");
+  v2 = statfs(v9, &v10);
+  if (v2)
   {
-    v2 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v2 = v9.f_bavail * v9.f_bsize;
+    v4 = v10.f_bavail * v10.f_bsize;
   }
 
-  v3 = DMCLogObjects()[1];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v5 = DMCLogObjects(v2, v3)[1];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134349056;
-    v7 = v2;
-    _os_log_impl(&dword_1B1630000, v3, OS_LOG_TYPE_DEFAULT, "Available disk size: %{public}lld", &v6, 0xCu);
+    v7 = 134349056;
+    v8 = v4;
+    _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_DEFAULT, "Available disk size: %{public}lld", &v7, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-  return v2;
+  return v4;
 }
 
 + (unint64_t)_getDiskSize

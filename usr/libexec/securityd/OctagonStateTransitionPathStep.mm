@@ -63,28 +63,28 @@
 {
   dictionaryCopy = dictionary;
   v4 = +[NSMutableDictionary dictionary];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   allKeys = [dictionaryCopy allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     v9 = &swift_errorRelease_ptr;
-    v21 = allKeys;
+    v20 = allKeys;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         v12 = [dictionaryCopy objectForKeyedSubscript:v11];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -94,41 +94,40 @@
 
         else
         {
-          v13 = v9[362];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             [OctagonStateTransitionPathStep pathFromDictionary:v12];
-            v15 = v14 = v9;
-            [v4 setObject:v15 forKeyedSubscript:v11];
+            v14 = v13 = v9;
+            [v4 setObject:v14 forKeyedSubscript:v11];
 
-            v9 = v14;
-            allKeys = v21;
+            v9 = v13;
+            allKeys = v20;
           }
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
   }
 
-  v16 = [v4 count];
-  v17 = [OctagonStateTransitionPathStep alloc];
-  if (v16)
+  v15 = [v4 count];
+  v16 = [OctagonStateTransitionPathStep alloc];
+  if (v15)
   {
-    initAsSuccess = [(OctagonStateTransitionPathStep *)v17 initWithPath:v4];
+    initAsSuccess = [(OctagonStateTransitionPathStep *)v16 initWithPath:v4];
   }
 
   else
   {
-    initAsSuccess = [(OctagonStateTransitionPathStep *)v17 initAsSuccess];
+    initAsSuccess = [(OctagonStateTransitionPathStep *)v16 initAsSuccess];
   }
 
-  v19 = initAsSuccess;
+  v18 = initAsSuccess;
 
-  return v19;
+  return v18;
 }
 
 + (id)success

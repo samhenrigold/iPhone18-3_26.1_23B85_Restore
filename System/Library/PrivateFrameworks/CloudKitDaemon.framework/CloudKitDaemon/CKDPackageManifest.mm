@@ -8,7 +8,7 @@
 
 + (BOOL)readContentsOfFile:(id)file intoPackage:(id)package error:(id *)error
 {
-  v161 = *MEMORY[0x277D85DE8];
+  v160 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   packageCopy = package;
   v10 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v8, v9);
@@ -26,7 +26,7 @@
       v16 = v14;
       v19 = objc_msgSend_CKSanitizedPath(fileCopy, v17, v18);
       *buf = 138543362;
-      v152 = v19;
+      v151 = v19;
       _os_log_error_impl(&dword_22506F000, v16, OS_LOG_TYPE_ERROR, "Couldn't read the package manifest at %{public}@", buf, 0xCu);
 
       if (v13)
@@ -39,7 +39,7 @@
     {
 LABEL_6:
       v15 = 0;
-      v148 = 0;
+      v147 = 0;
       goto LABEL_22;
     }
   }
@@ -50,7 +50,7 @@ LABEL_6:
   objc_msgSend_open(v20, v24, v25);
   v26 = objc_opt_class();
   objc_msgSend_setClassOfNextMessage_(v23, v27, v26);
-  v148 = v23;
+  v147 = v23;
   Message = objc_msgSend_nextMessage(v23, v28, v29);
   if (Message)
   {
@@ -74,17 +74,17 @@ LABEL_22:
     }
   }
 
-  v145 = fileCopy;
+  v144 = fileCopy;
   v34 = objc_msgSend_signature(Message, v32, v33);
   v37 = objc_msgSend_verificationKey(Message, v35, v36);
   v39 = objc_msgSend_setSignature_verificationKey_(packageCopy, v38, v34, v37);
 
   v40 = objc_opt_class();
-  objc_msgSend_setClassOfNextMessage_(v148, v41, v40);
-  v44 = objc_msgSend_nextMessage(v148, v42, v43);
-  v142 = v10;
+  objc_msgSend_setClassOfNextMessage_(v147, v41, v40);
+  v44 = objc_msgSend_nextMessage(v147, v42, v43);
+  v141 = v10;
   errorCopy = error;
-  v144 = Message;
+  v143 = Message;
   if (v44)
   {
     v47 = v44;
@@ -113,11 +113,11 @@ LABEL_22:
         v70 = v64;
         v73 = objc_msgSend_signature(v47, v71, v72);
         *buf = 134218498;
-        v152 = v51;
-        v153 = 2048;
-        v154 = v52;
-        v155 = 2112;
-        v156 = v73;
+        v151 = v51;
+        v152 = 2048;
+        v153 = v52;
+        v154 = 2112;
+        v155 = v73;
         _os_log_debug_impl(&dword_22506F000, v70, OS_LOG_TYPE_DEBUG, "Read section with index %ld, size %lld, signature %@", buf, 0x20u);
       }
 
@@ -127,7 +127,7 @@ LABEL_22:
         goto LABEL_28;
       }
 
-      v69 = objc_msgSend_nextMessage(v148, v67, v68);
+      v69 = objc_msgSend_nextMessage(v147, v67, v68);
 
       v48 = v51 + 1;
       v47 = v69;
@@ -136,18 +136,18 @@ LABEL_22:
     while (v69);
     if (v51 == -1)
     {
-      v10 = v142;
+      v10 = v141;
       goto LABEL_33;
     }
 
-    v13 = objc_msgSend_errorWithDomain_code_path_format_(MEMORY[0x277CBC560], v45, *MEMORY[0x277CBBF50], 1000, v145, @"Failed reading section object from manifest");
+    v13 = objc_msgSend_errorWithDomain_code_path_format_(MEMORY[0x277CBC560], v45, *MEMORY[0x277CBBF50], 1000, v144, @"Failed reading section object from manifest");
 LABEL_28:
-    v10 = v142;
-    v74 = v144;
+    v10 = v141;
+    v74 = v143;
     if (v13)
     {
       v15 = 0;
-      fileCopy = v145;
+      fileCopy = v144;
       if (!error)
       {
         goto LABEL_82;
@@ -172,7 +172,7 @@ LABEL_33:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v152 = packageCopy;
+      v151 = packageCopy;
       _os_log_debug_impl(&dword_22506F000, v78, OS_LOG_TYPE_DEBUG, "Found empty package %@", buf, 0xCu);
     }
 
@@ -189,9 +189,9 @@ LABEL_33:
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218242;
-    v152 = v77;
-    v153 = 2112;
-    v154 = packageCopy;
+    v151 = v77;
+    v152 = 2112;
+    v153 = packageCopy;
     _os_log_debug_impl(&dword_22506F000, v80, OS_LOG_TYPE_DEBUG, "Read %ld sections from manifest for package %@", buf, 0x16u);
     if (v79)
     {
@@ -199,12 +199,12 @@ LABEL_33:
     }
 
 LABEL_70:
-    LODWORD(v147) = 0;
+    LODWORD(v146) = 0;
     v96 = 0;
     v86 = 0;
     v85 = 0;
     v15 = 0;
-    fileCopy = v145;
+    fileCopy = v144;
     goto LABEL_71;
   }
 
@@ -214,20 +214,20 @@ LABEL_70:
   }
 
 LABEL_42:
-  v146 = v79;
+  v145 = v79;
   v81 = objc_opt_class();
-  objc_msgSend_setClassOfNextMessage_(v148, v82, v81);
+  objc_msgSend_setClassOfNextMessage_(v147, v82, v81);
   v77 = 0;
   v15 = 0;
   v85 = 0;
   v86 = 0;
   v87 = 0;
   v88 = 0;
-  v147 = 0;
+  v146 = 0;
   while (1)
   {
     v89 = v87;
-    v87 = objc_msgSend_nextMessage(v148, v83, v84);
+    v87 = objc_msgSend_nextMessage(v147, v83, v84);
 
     if (!v87)
     {
@@ -239,7 +239,7 @@ LABEL_42:
 
     if (v85 && objc_msgSend_size(v87, v90, v91))
     {
-      v147 = (v147 + 1);
+      v146 = (v146 + 1);
 
       v88 = 0;
     }
@@ -249,17 +249,17 @@ LABEL_42:
       goto LABEL_51;
     }
 
-    if (v146 <= v147)
+    if (v145 <= v146)
     {
-      fileCopy = v145;
-      v13 = objc_msgSend_errorWithDomain_code_path_format_(MEMORY[0x277CBC560], v90, *MEMORY[0x277CBBF50], 1000, v145, @"Package manifest is corrupt - section index %ld is out of bounds", v147);
+      fileCopy = v144;
+      v13 = objc_msgSend_errorWithDomain_code_path_format_(MEMORY[0x277CBC560], v90, *MEMORY[0x277CBBF50], 1000, v144, @"Package manifest is corrupt - section index %ld is out of bounds", v146);
       v15 = 0;
       goto LABEL_65;
     }
 
-    v150 = 0;
-    v15 = objc_msgSend_sectionAtIndex_error_(packageCopy, v90, v147, &v150);
-    v92 = v150;
+    v149 = 0;
+    v15 = objc_msgSend_sectionAtIndex_error_(packageCopy, v90, v146, &v149);
+    v92 = v149;
     if (v92)
     {
       v13 = v92;
@@ -283,7 +283,7 @@ LABEL_51:
     v107 = objc_msgSend_signature(v87, v105, v106);
     objc_msgSend_setSignature_(v99, v108, v107);
 
-    v110 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v109, v147);
+    v110 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v109, v146);
     objc_msgSend_setSectionIndex_(v99, v111, v110);
 
     objc_msgSend_setOffset_(v99, v112, v88);
@@ -293,9 +293,9 @@ LABEL_51:
       v13 = v114;
 
 LABEL_68:
-      fileCopy = v145;
+      fileCopy = v144;
 
-      v10 = v142;
+      v10 = v141;
       goto LABEL_79;
     }
 
@@ -307,20 +307,20 @@ LABEL_68:
     v115 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v141 = v115;
-      v140 = objc_msgSend_size(v87, v120, v121);
+      v140 = v115;
+      v139 = objc_msgSend_size(v87, v120, v121);
       v124 = objc_msgSend_signature(v87, v122, v123);
       *buf = 134219010;
-      v152 = v77;
-      v153 = 2048;
-      v154 = v147;
-      v155 = 2048;
-      v156 = v88;
-      v157 = 2048;
-      v158 = v140;
-      v159 = 2112;
-      v160 = v124;
-      _os_log_debug_impl(&dword_22506F000, v141, OS_LOG_TYPE_DEBUG, "Read item with index %ld, section index %ld, section offset %llu, size %lld, signature %@", buf, 0x34u);
+      v151 = v77;
+      v152 = 2048;
+      v153 = v146;
+      v154 = 2048;
+      v155 = v88;
+      v156 = 2048;
+      v157 = v139;
+      v158 = 2112;
+      v159 = v124;
+      _os_log_debug_impl(&dword_22506F000, v140, OS_LOG_TYPE_DEBUG, "Read item with index %ld, section index %ld, section offset %llu, size %lld, signature %@", buf, 0x34u);
     }
 
     v86 += objc_msgSend_size(v99, v116, v117);
@@ -331,9 +331,9 @@ LABEL_68:
     if (objc_msgSend_lastItem(v87, v118, v119))
     {
 
-      fileCopy = v145;
-      v79 = v146;
-      v10 = v142;
+      fileCopy = v144;
+      v79 = v145;
+      v10 = v141;
       goto LABEL_71;
     }
   }
@@ -342,13 +342,13 @@ LABEL_68:
   v126 = *MEMORY[0x277CBBF50];
   v127 = @"Package manifest is corrupt - item boundary is not aligned with section boundary";
 LABEL_62:
-  fileCopy = v145;
-  v13 = objc_msgSend_errorWithDomain_code_path_format_(v125, v90, v126, 1000, v145, v127);
+  fileCopy = v144;
+  v13 = objc_msgSend_errorWithDomain_code_path_format_(v125, v90, v126, 1000, v144, v127);
 LABEL_65:
 
   v96 = v88;
-  v10 = v142;
-  v79 = v146;
+  v10 = v141;
+  v79 = v145;
   if (v13)
   {
     goto LABEL_79;
@@ -364,18 +364,18 @@ LABEL_71:
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v152 = v77;
-    v153 = 2048;
-    v154 = v86;
-    v155 = 2112;
-    v156 = packageCopy;
+    v151 = v77;
+    v152 = 2048;
+    v153 = v86;
+    v154 = 2112;
+    v155 = packageCopy;
     _os_log_debug_impl(&dword_22506F000, v128, OS_LOG_TYPE_DEBUG, "Read %ld items (%llu bytes) from manifest for package %@", buf, 0x20u);
   }
 
-  v131 = v147 + v85;
+  v131 = v146 + v85;
   if (v96 == 0 || v85)
   {
-    v74 = v144;
+    v74 = v143;
     if (v79 == v131)
     {
       v13 = 0;
@@ -406,7 +406,7 @@ LABEL_80:
     v13 = objc_msgSend_errorWithDomain_code_path_format_(v132, v136, v133, 1000, fileCopy, @"Package manifest is corrupt - section %lu contains %llu bytes, expected %llu bytes", v134, v135, v96);
 LABEL_79:
     error = errorCopy;
-    v74 = v144;
+    v74 = v143;
     if (errorCopy)
     {
       goto LABEL_80;
@@ -415,7 +415,6 @@ LABEL_79:
 
 LABEL_82:
 
-  v138 = *MEMORY[0x277D85DE8];
   return v13 == 0;
 }
 
@@ -441,7 +440,7 @@ LABEL_82:
 
 + (BOOL)writePackage:(id)package toFile:(id)file error:(id *)error
 {
-  v155 = *MEMORY[0x277D85DE8];
+  v154 = *MEMORY[0x277D85DE8];
   packageCopy = package;
   fileCopy = file;
   v11 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v9, v10);
@@ -494,21 +493,21 @@ LABEL_23:
     goto LABEL_60;
   }
 
-  v133 = v25;
+  v132 = v25;
   v38 = objc_msgSend_sectionCount(packageCopy, v36, v37);
   objc_msgSend_sectionEnumerator(packageCopy, v39, v40);
+  v142 = 0u;
   v143 = 0u;
   v144 = 0u;
-  v145 = 0u;
-  obj = v146 = 0u;
-  v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v41, &v143, v154, 16);
-  v123 = v38;
+  obj = v145 = 0u;
+  v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v41, &v142, v153, 16);
+  v122 = v38;
   if (!v42)
   {
     v72 = 0;
 LABEL_29:
 
-    v25 = v133;
+    v25 = v132;
     if (*MEMORY[0x277CBC880] != -1)
     {
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -518,9 +517,9 @@ LABEL_29:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218242;
-      v148 = v123;
-      v149 = 2112;
-      v150 = packageCopy;
+      v147 = v122;
+      v148 = 2112;
+      v149 = packageCopy;
       _os_log_debug_impl(&dword_22506F000, v74, OS_LOG_TYPE_DEBUG, "Wrote %ld sections to manifest for package %@", buf, 0x16u);
     }
 
@@ -531,38 +530,38 @@ LABEL_29:
 
     else
     {
-      v119 = v77;
+      v118 = v77;
       objc_msgSend_itemEnumerator(packageCopy, v78, v79);
+      v137 = 0u;
       v138 = 0u;
       v139 = 0u;
-      v140 = 0u;
-      v134 = v141 = 0u;
-      v83 = objc_msgSend_countByEnumeratingWithState_objects_count_(v134, v82, &v138, v153, 16);
+      v133 = v140 = 0u;
+      v83 = objc_msgSend_countByEnumeratingWithState_objects_count_(v133, v82, &v137, v152, 16);
       if (v83)
       {
         v84 = v83;
-        v130 = packageCopy;
+        v129 = packageCopy;
         errorCopy = error;
-        v126 = v19;
-        v128 = v11;
+        v125 = v19;
+        v127 = v11;
         v85 = 0;
         v86 = 0;
-        v136 = *v139;
-        v87 = v119 - 1;
-        v118 = v119 - 1;
+        v135 = *v138;
+        v87 = v118 - 1;
+        v117 = v118 - 1;
         while (2)
         {
           v88 = 0;
           v89 = v87 - v85;
-          v120 = v84 + v85;
+          v119 = v84 + v85;
           do
           {
-            if (*v139 != v136)
+            if (*v138 != v135)
             {
-              objc_enumerationMutation(v134);
+              objc_enumerationMutation(v133);
             }
 
-            v90 = *(*(&v138 + 1) + 8 * v88);
+            v90 = *(*(&v137 + 1) + 8 * v88);
             v91 = objc_autoreleasePoolPush();
             v92 = objc_alloc_init(CKDPPackageManifestItem);
             v95 = objc_msgSend_signature(v90, v93, v94);
@@ -575,7 +574,7 @@ LABEL_29:
               objc_msgSend_setLastItem_(v92, v101, 1);
             }
 
-            if (!objc_msgSend_writeMessage_(v22, v101, v92, v118))
+            if (!objc_msgSend_writeMessage_(v22, v101, v92, v117))
             {
               v72 = objc_msgSend_errorWithDomain_code_path_format_(MEMORY[0x277CBC560], v102, *MEMORY[0x277CBBF50], 1000, fileCopy, @"Failed writing item object to manifest");
 
@@ -592,12 +591,12 @@ LABEL_29:
             if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
             {
               v107 = v103;
-              v122 = objc_msgSend_size(v90, v108, v109);
-              v124 = objc_msgSend_signature(v90, v110, v111);
+              v121 = objc_msgSend_size(v90, v108, v109);
+              v123 = objc_msgSend_signature(v90, v110, v111);
               *buf = 134218242;
-              v148 = v122;
-              v149 = 2112;
-              v150 = v124;
+              v147 = v121;
+              v148 = 2112;
+              v149 = v123;
               _os_log_debug_impl(&dword_22506F000, v107, OS_LOG_TYPE_DEBUG, "Wrote package item with size:%lld, signature:%@", buf, 0x16u);
             }
 
@@ -608,9 +607,9 @@ LABEL_29:
           }
 
           while (v84 != v88);
-          v84 = objc_msgSend_countByEnumeratingWithState_objects_count_(v134, v106, &v138, v153, 16);
-          v85 = v120;
-          v87 = v118;
+          v84 = objc_msgSend_countByEnumeratingWithState_objects_count_(v133, v106, &v137, v152, 16);
+          v85 = v119;
+          v87 = v117;
           if (v84)
           {
             continue;
@@ -621,11 +620,11 @@ LABEL_29:
 
         v72 = 0;
 LABEL_54:
-        v11 = v128;
-        packageCopy = v130;
-        v19 = v126;
+        v11 = v127;
+        packageCopy = v129;
+        v19 = v125;
         error = errorCopy;
-        v25 = v133;
+        v25 = v132;
       }
 
       else
@@ -641,19 +640,19 @@ LABEL_54:
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v115 = *MEMORY[0x277CBC830];
+        v114 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218498;
-          v148 = v119;
-          v149 = 2048;
-          v150 = v86;
-          v151 = 2112;
-          v152 = packageCopy;
-          _os_log_debug_impl(&dword_22506F000, v115, OS_LOG_TYPE_DEBUG, "Wrote %ld items (%llu bytes) to manifest for package %@", buf, 0x20u);
+          v147 = v118;
+          v148 = 2048;
+          v149 = v86;
+          v150 = 2112;
+          v151 = packageCopy;
+          _os_log_debug_impl(&dword_22506F000, v114, OS_LOG_TYPE_DEBUG, "Wrote %ld items (%llu bytes) to manifest for package %@", buf, 0x20u);
         }
 
-        objc_msgSend_close(v19, v116, v117);
+        objc_msgSend_close(v19, v115, v116);
         v73 = 1;
         goto LABEL_61;
       }
@@ -673,26 +672,26 @@ LABEL_60:
   }
 
   v43 = v42;
-  v129 = packageCopy;
+  v128 = packageCopy;
   errorCopy2 = error;
-  v125 = v19;
-  v127 = v11;
+  v124 = v19;
+  v126 = v11;
   v44 = 0;
-  v45 = *v144;
+  v45 = *v143;
   v46 = v38 - 1;
-  v121 = v38 - 1;
+  v120 = v38 - 1;
 LABEL_7:
   v47 = 0;
   v48 = v46 - v44;
-  v135 = v43 + v44;
+  v134 = v43 + v44;
   while (1)
   {
-    if (*v144 != v45)
+    if (*v143 != v45)
     {
       objc_enumerationMutation(obj);
     }
 
-    v49 = *(*(&v143 + 1) + 8 * v47);
+    v49 = *(*(&v142 + 1) + 8 * v47);
     v50 = objc_alloc_init(CKDPPackageManifestSection);
     v53 = objc_msgSend_signature(v49, v51, v52);
     objc_msgSend_setSignature_(v50, v54, v53);
@@ -700,17 +699,17 @@ LABEL_7:
     v57 = objc_msgSend_verificationKey(v49, v55, v56);
     objc_msgSend_setVerificationKey_(v50, v58, v57);
 
-    v142 = 0;
-    v60 = objc_msgSend_size_(v49, v59, &v142);
-    v61 = v142;
+    v141 = 0;
+    v60 = objc_msgSend_size_(v49, v59, &v141);
+    v61 = v141;
     if (v61)
     {
       v72 = v61;
 
 LABEL_28:
-      v11 = v127;
-      packageCopy = v129;
-      v19 = v125;
+      v11 = v126;
+      packageCopy = v128;
+      v19 = v124;
       error = errorCopy2;
       goto LABEL_29;
     }
@@ -737,17 +736,17 @@ LABEL_28:
       v68 = v66;
       v71 = objc_msgSend_signature(v49, v69, v70);
       *buf = 134218242;
-      v148 = v60;
-      v149 = 2112;
-      v150 = v71;
+      v147 = v60;
+      v148 = 2112;
+      v149 = v71;
       _os_log_debug_impl(&dword_22506F000, v68, OS_LOG_TYPE_DEBUG, "Wrote package section with size:%lld, signature:%@", buf, 0x16u);
     }
 
     if (v43 == ++v47)
     {
-      v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v67, &v143, v154, 16);
-      v46 = v121;
-      v44 = v135;
+      v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v67, &v142, v153, 16);
+      v46 = v120;
+      v44 = v134;
       if (v43)
       {
         goto LABEL_7;
@@ -763,17 +762,16 @@ LABEL_28:
     *errorCopy2 = objc_msgSend_errorWithDomain_code_path_format_(MEMORY[0x277CBC560], v64, *MEMORY[0x277CBBF50], 1000, fileCopy, @"Failed writing section object to manifest");
   }
 
-  v19 = v125;
-  objc_msgSend_close(v125, v64, v65);
+  v19 = v124;
+  objc_msgSend_close(v124, v64, v65);
 
   v73 = 0;
-  v11 = v127;
-  packageCopy = v129;
-  v25 = v133;
+  v11 = v126;
+  packageCopy = v128;
+  v25 = v132;
 LABEL_61:
 
 LABEL_62:
-  v113 = *MEMORY[0x277D85DE8];
   return v73;
 }
 

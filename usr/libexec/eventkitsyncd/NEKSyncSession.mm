@@ -32,11 +32,10 @@
 
 - (void)dealloc
 {
-  ct_logger = self->_ct_logger;
   ct_green_tea_logger_destroy();
-  v4.receiver = self;
-  v4.super_class = NEKSyncSession;
-  [(NEKSyncSession *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = NEKSyncSession;
+  [(NEKSyncSession *)&v3 dealloc];
 }
 
 - (unsigned)syncSession:(id)session enqueueChanges:(id)changes error:(id *)error
@@ -52,43 +51,43 @@
     self->_preSyncCensus = v8;
   }
 
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x2020000000;
-  v57 = 0;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x2020000000;
   v53 = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = sub_10004FD38;
-  v48 = sub_10004FD48;
+  v54 = &v53;
+  v55 = 0x2020000000;
+  v56 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = sub_10004FD38;
+  v47 = sub_10004FD48;
   v10 = [NEKChangeTracker alloc];
   identifier = [sessionCopy identifier];
-  v49 = [(NEKChangeTracker *)v10 initForSessionAction:0 withSessionIdentifier:identifier];
+  v48 = [(NEKChangeTracker *)v10 initForSessionAction:0 withSessionIdentifier:identifier];
 
   do
   {
     changeSupplier = [(NEKSyncSession *)selfCopy changeSupplier];
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = sub_10004FD50;
-    v38[3] = &unk_1000B5C28;
-    v41 = &v50;
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_10004FD50;
+    v37[3] = &unk_1000B5C28;
+    v40 = &v49;
     v13 = changesCopy;
-    v40 = v13;
-    v38[4] = selfCopy;
-    v42 = &v54;
-    v43 = &v44;
+    v39 = v13;
+    v37[4] = selfCopy;
+    v41 = &v53;
+    v42 = &v43;
     v14 = sessionCopy;
-    v39 = v14;
-    [changeSupplier conditionalPop:v38];
+    v38 = v14;
+    [changeSupplier conditionalPop:v37];
   }
 
-  while (*(v51 + 24) != 1);
-  if (v55[6] < 1)
+  while (*(v50 + 24) != 1);
+  if (v54[6] < 1)
   {
     changeSupplier2 = [(NEKSyncSession *)selfCopy changeSupplier];
     error = [changeSupplier2 error];
@@ -101,11 +100,11 @@
         identifier2 = [v14 identifier];
         changeSupplier3 = [(NEKSyncSession *)selfCopy changeSupplier];
         error2 = [changeSupplier3 error];
-        *v58 = 138543618;
-        v59 = identifier2;
-        v60 = 2114;
-        v61 = error2;
-        _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "[Session: %{public}@] enqueueChanges finished pipe with error [%{public}@]", v58, 0x16u);
+        *v57 = 138543618;
+        v58 = identifier2;
+        v59 = 2114;
+        v60 = error2;
+        _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "[Session: %{public}@] enqueueChanges finished pipe with error [%{public}@]", v57, 0x16u);
       }
     }
 
@@ -119,20 +118,20 @@
 
       else
       {
-        v26 = selfCopy->_preSyncCensus == 0;
+        v25 = selfCopy->_preSyncCensus == 0;
 
-        if (!v26)
+        if (!v25)
         {
           v18 = [NEKValidationWrapper validationWrapperForSameSpan:selfCopy->_preSyncCensus];
-          v27 = [v18 isEqual:selfCopy->_preSyncCensus];
-          v28 = *(qword_1000D18A8 + 8);
-          v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG);
-          if (v27)
+          v26 = [v18 isEqual:selfCopy->_preSyncCensus];
+          v27 = *(qword_1000D18A8 + 8);
+          v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG);
+          if (v26)
           {
-            if (v29)
+            if (v28)
             {
               identifier3 = [v14 identifier];
-              sub_100073D3C(identifier3, v58, v28);
+              sub_100073D3C(identifier3, v57, v27);
             }
 
             (*(v13 + 2))(v13, v18);
@@ -140,10 +139,10 @@
 
           else
           {
-            if (v29)
+            if (v28)
             {
               identifier4 = [v14 identifier];
-              sub_100073CE4(identifier4, v58, v28);
+              sub_100073CE4(identifier4, v57, v27);
             }
           }
 
@@ -155,9 +154,9 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         identifier5 = [v14 identifier];
-        *v58 = 138543362;
-        v59 = identifier5;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[Session: %{public}@] enqueueChanges finished pipe without error", v58, 0xCu);
+        *v57 = 138543362;
+        v58 = identifier5;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[Session: %{public}@] enqueueChanges finished pipe without error", v57, 0xCu);
       }
     }
 
@@ -167,21 +166,20 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  [v45[5] logChanges];
+  [v44[5] logChanges];
   v15 = 1;
 LABEL_12:
-  ct_logger = selfCopy->_ct_logger;
-  v20 = getCTGreenTeaOsLogHandle();
-  v21 = v20;
-  if (v20 && os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v19 = getCTGreenTeaOsLogHandle();
+  v20 = v19;
+  if (v19 && os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Sending events", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Sending events", buf, 2u);
   }
 
-  _Block_object_dispose(&v44, 8);
-  _Block_object_dispose(&v50, 8);
-  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v53, 8);
 
   return v15;
 }

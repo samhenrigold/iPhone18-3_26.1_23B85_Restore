@@ -47,7 +47,7 @@
 
 - (CHRecentCall)chRecentCall
 {
-  v44[1] = *MEMORY[0x1E69E9840];
+  v43[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(CHRecentCall);
   face_time_data = [(CallRecord *)self face_time_data];
   [(CHRecentCall *)v3 setBytesOfDataUsed:face_time_data];
@@ -162,11 +162,9 @@
   -[CHRecentCall setCallType:](v3, "setCallType:", [calltype integerValue]);
 
   dictionaryRepresentation = [(CHRecentCall *)v3 dictionaryRepresentation];
-  v44[0] = dictionaryRepresentation;
-  v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:1];
+  v43[0] = dictionaryRepresentation;
+  v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
   [(CHRecentCall *)v3 setCallOccurrences:v41];
-
-  v42 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -211,7 +209,7 @@
 
 - (NSSet)chRemoteParticipantHandles
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   supportsRemoteParticipantHandles = [(CallRecord *)self supportsRemoteParticipantHandles];
   v4 = objc_alloc(MEMORY[0x1E695DFA8]);
   v5 = v4;
@@ -220,33 +218,33 @@
     remoteParticipantHandles = [(CallRecord *)self remoteParticipantHandles];
     v7 = [v5 initWithCapacity:{objc_msgSend(remoteParticipantHandles, "count")}];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     remoteParticipantHandles2 = [(CallRecord *)self remoteParticipantHandles];
-    v9 = [remoteParticipantHandles2 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v9 = [remoteParticipantHandles2 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(remoteParticipantHandles2);
           }
 
-          chHandle = [*(*(&v24 + 1) + 8 * i) chHandle];
+          chHandle = [*(*(&v23 + 1) + 8 * i) chHandle];
           if (chHandle)
           {
             [v7 addObject:chHandle];
           }
         }
 
-        v10 = [remoteParticipantHandles2 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v10 = [remoteParticipantHandles2 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v10);
@@ -281,7 +279,6 @@
   }
 
   v21 = [v7 copy];
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -297,40 +294,40 @@
 
 - (NSSet)chEmergencyMediaItems
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ([(CallRecord *)self supportsEmergencyMedia])
   {
     v3 = objc_alloc(MEMORY[0x1E695DFA8]);
     emergencyMediaItems = [(CallRecord *)self emergencyMediaItems];
     v5 = [v3 initWithCapacity:{objc_msgSend(emergencyMediaItems, "count")}];
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     emergencyMediaItems2 = [(CallRecord *)self emergencyMediaItems];
-    v7 = [emergencyMediaItems2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [emergencyMediaItems2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(emergencyMediaItems2);
           }
 
-          chEmergencyMediaItem = [*(*(&v15 + 1) + 8 * i) chEmergencyMediaItem];
+          chEmergencyMediaItem = [*(*(&v14 + 1) + 8 * i) chEmergencyMediaItem];
           if (chEmergencyMediaItem)
           {
             [v5 addObject:chEmergencyMediaItem];
           }
         }
 
-        v8 = [emergencyMediaItems2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [emergencyMediaItems2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -343,8 +340,6 @@
   }
 
   v12 = [v5 copy];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -554,36 +549,36 @@ LABEL_5:
 
 - (id)compositeRemoteParticipantHandlesForContext:(id)context
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if ([(CallRecord *)self supportsRemoteParticipantHandles])
   {
     remoteParticipantHandles = [(CallRecord *)self remoteParticipantHandles];
     v6 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(remoteParticipantHandles, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v7 = remoteParticipantHandles;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [*(*(&v17 + 1) + 8 * i) copyWithContext:{contextCopy, v17}];
+          v12 = [*(*(&v16 + 1) + 8 * i) copyWithContext:{contextCopy, v16}];
           [v6 addObject:v12];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -605,8 +600,6 @@ LABEL_5:
       v13 = 0;
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -678,36 +671,36 @@ LABEL_8:
 
 - (id)compositeEmergencyMediaItemsForContext:(id)context
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if ([(CallRecord *)self supportsEmergencyMedia])
   {
     emergencyMediaItems = [(CallRecord *)self emergencyMediaItems];
     v6 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(emergencyMediaItems, "count")}];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v7 = emergencyMediaItems;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [*(*(&v16 + 1) + 8 * i) copyWithContext:{contextCopy, v16}];
+          v12 = [*(*(&v15 + 1) + 8 * i) copyWithContext:{contextCopy, v15}];
           [v6 addObject:v12];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -721,42 +714,40 @@ LABEL_8:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (BOOL)addEmergencyMediaItem:(id)item
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   itemCopy = item;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   chEmergencyMediaItems = [(CallRecord *)self chEmergencyMediaItems];
-  v6 = [chEmergencyMediaItems countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v6 = [chEmergencyMediaItems countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
+    v8 = *v26;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(chEmergencyMediaItems);
         }
 
-        if ([*(*(&v26 + 1) + 8 * i) isEqualToMediaItem:itemCopy])
+        if ([*(*(&v25 + 1) + 8 * i) isEqualToMediaItem:itemCopy])
         {
           v19 = 0;
           goto LABEL_18;
         }
       }
 
-      v7 = [chEmergencyMediaItems countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v7 = [chEmergencyMediaItems countByEnumeratingWithState:&v25 objects:v30 count:16];
       if (v7)
       {
         continue;
@@ -770,29 +761,29 @@ LABEL_8:
   chEmergencyMediaItems2 = [(CallRecord *)self chEmergencyMediaItems];
   chEmergencyMediaItems = [v10 initWithCapacity:{objc_msgSend(chEmergencyMediaItems2, "count") + 1}];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   emergencyMediaItems = [(CallRecord *)self emergencyMediaItems];
-  v13 = [emergencyMediaItems countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v13 = [emergencyMediaItems countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v23;
+    v15 = *v22;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(emergencyMediaItems);
         }
 
-        [chEmergencyMediaItems addObject:*(*(&v22 + 1) + 8 * j)];
+        [chEmergencyMediaItems addObject:*(*(&v21 + 1) + 8 * j)];
       }
 
-      v14 = [emergencyMediaItems countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v14 = [emergencyMediaItems countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v14);
@@ -807,7 +798,6 @@ LABEL_8:
   v19 = 1;
 LABEL_18:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

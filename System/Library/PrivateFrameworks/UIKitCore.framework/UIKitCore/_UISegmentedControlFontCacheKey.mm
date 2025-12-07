@@ -72,9 +72,9 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v10 = [(NSString *)v7 isEqual:v8];
+    isEqual = objc_msgSend_isEqual_(v7);
 
-    if (!v10)
+    if (!isEqual)
     {
       goto LABEL_13;
     }

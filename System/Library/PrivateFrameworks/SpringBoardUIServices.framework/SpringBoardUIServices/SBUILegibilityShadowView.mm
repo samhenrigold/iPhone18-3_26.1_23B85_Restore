@@ -39,7 +39,7 @@ LABEL_5:
     goto LABEL_8;
   }
 
-  [legibilitySettings shadowSettings];
+  objc_msgSend_shadowSettings(legibilitySettings);
   if (v12 == 2)
   {
     compositingFilter = [layer compositingFilter];

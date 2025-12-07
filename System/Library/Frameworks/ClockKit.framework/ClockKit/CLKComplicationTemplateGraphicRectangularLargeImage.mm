@@ -90,27 +90,27 @@ void __101__CLKComplicationTemplateGraphicRectangularLargeImage__enumerateFullCo
   v4 = __101__CLKComplicationTemplateGraphicRectangularLargeImage__enumerateFullColorImageProviderKeysWithBlock___block_invoke_4([v7 setNewestAllowedSizeClass:&unk_284A34128], v2);
   v6 = v5;
 
-  _enumerateFullColorImageProviderKeysWithBlock___imageSize_1505 = *&v4;
+  *_enumerateFullColorImageProviderKeysWithBlock___imageSize_1505 = v4;
   unk_27DE91C50 = v6;
 }
 
 double __101__CLKComplicationTemplateGraphicRectangularLargeImage__enumerateFullColorImageProviderKeysWithBlock___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
   v3 = getCDGraphicLargeRectangularComplicationSizeSymbolLoc_ptr;
-  v18 = getCDGraphicLargeRectangularComplicationSizeSymbolLoc_ptr;
+  v19 = getCDGraphicLargeRectangularComplicationSizeSymbolLoc_ptr;
   if (!getCDGraphicLargeRectangularComplicationSizeSymbolLoc_ptr)
   {
     v4 = ComplicationDisplayLibrary();
-    v16[3] = dlsym(v4, "CDGraphicLargeRectangularComplicationSize");
-    getCDGraphicLargeRectangularComplicationSizeSymbolLoc_ptr = v16[3];
-    v3 = v16[3];
+    v17[3] = dlsym(v4, "CDGraphicLargeRectangularComplicationSize");
+    getCDGraphicLargeRectangularComplicationSizeSymbolLoc_ptr = v17[3];
+    v3 = v17[3];
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
   if (!v3)
   {
     [CLKComplicationIntentWidgetMigrationConfiguration encodeWithCoder:];
@@ -122,20 +122,20 @@ LABEL_12:
   v5 = v3(v2);
 
   v6 = v2;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
   v7 = getCDGraphicLargeRectangularComplicationInsetSymbolLoc_ptr;
-  v18 = getCDGraphicLargeRectangularComplicationInsetSymbolLoc_ptr;
+  v19 = getCDGraphicLargeRectangularComplicationInsetSymbolLoc_ptr;
   if (!getCDGraphicLargeRectangularComplicationInsetSymbolLoc_ptr)
   {
     v8 = ComplicationDisplayLibrary();
-    v16[3] = dlsym(v8, "CDGraphicLargeRectangularComplicationInset");
-    getCDGraphicLargeRectangularComplicationInsetSymbolLoc_ptr = v16[3];
-    v7 = v16[3];
+    v17[3] = dlsym(v8, "CDGraphicLargeRectangularComplicationInset");
+    getCDGraphicLargeRectangularComplicationInsetSymbolLoc_ptr = v17[3];
+    v7 = v17[3];
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
   if (!v7)
   {
     goto LABEL_12;
@@ -144,26 +144,27 @@ LABEL_12:
   v9 = v7(v6);
 
   v10 = v6;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
   v11 = getCDGraphicLargeRectangularComplicationLargeImageHeightSymbolLoc_ptr;
-  v18 = getCDGraphicLargeRectangularComplicationLargeImageHeightSymbolLoc_ptr;
+  v19 = getCDGraphicLargeRectangularComplicationLargeImageHeightSymbolLoc_ptr;
   if (!getCDGraphicLargeRectangularComplicationLargeImageHeightSymbolLoc_ptr)
   {
     v12 = ComplicationDisplayLibrary();
-    v16[3] = dlsym(v12, "CDGraphicLargeRectangularComplicationLargeImageHeight");
-    getCDGraphicLargeRectangularComplicationLargeImageHeightSymbolLoc_ptr = v16[3];
-    v11 = v16[3];
+    v17[3] = dlsym(v12, "CDGraphicLargeRectangularComplicationLargeImageHeight");
+    getCDGraphicLargeRectangularComplicationLargeImageHeightSymbolLoc_ptr = v17[3];
+    v11 = v17[3];
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
   if (!v11)
   {
 LABEL_13:
-    v14 = [CLKComplicationIntentWidgetMigrationConfiguration encodeWithCoder:];
-    _Block_object_dispose(&v15, 8);
-    _Unwind_Resume(v14);
+    [CLKComplicationIntentWidgetMigrationConfiguration encodeWithCoder:];
+    v15 = v14;
+    _Block_object_dispose(&v16, 8);
+    _Unwind_Resume(v15);
   }
 
   v11(v10);

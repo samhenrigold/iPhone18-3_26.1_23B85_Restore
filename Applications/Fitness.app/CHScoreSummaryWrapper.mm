@@ -14,7 +14,7 @@
   v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   ScoreSummary.init(elapsedSeconds:personalScore:communityLowerScore:communityLowerMiddleScore:communityUpperMiddleScore:communityUpperScore:)();
   (*(v10 + 32))(self + OBJC_IVAR___CHScoreSummaryWrapper_scoreSummary, v12, v9);
-  v13 = type metadata accessor for ScoreSummaryWrapper();
+  v13 = type metadata accessor for ScoreSummaryWrapper(0);
   v15.receiver = self;
   v15.super_class = v13;
   return [(CHScoreSummaryWrapper *)&v15 init];

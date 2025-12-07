@@ -35,7 +35,7 @@
 {
   if (self)
   {
-    [(WKNSArray *)self _protectedArray];
+    objc_msgSend__protectedArray(self, a2);
     v4 = v8;
   }
 

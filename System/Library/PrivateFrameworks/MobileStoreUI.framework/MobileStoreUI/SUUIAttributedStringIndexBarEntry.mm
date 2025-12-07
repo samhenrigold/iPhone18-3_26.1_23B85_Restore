@@ -136,8 +136,9 @@ LABEL_8:
 - (void)_invalidateSynthesizedAttributedString
 {
   self->_hasValidSynthesizedAttributedString = 0;
+  synthesizedAttributedString = self->_synthesizedAttributedString;
   self->_synthesizedAttributedString = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, synthesizedAttributedString);
 }
 
 - (id)_synthesizedAttributedString

@@ -26,8 +26,8 @@
   if (([dictionary isEqualToDictionary:v4] & 1) == 0)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    path = [(NSURL *)self->_directoryURL path];
-    v13 = [defaultManager fileExistsAtPath:path];
+    v12 = objc_msgSend_path(self->_directoryURL);
+    v13 = [defaultManager fileExistsAtPath:v12];
 
     if (v13)
     {
@@ -165,17 +165,17 @@
     [v30 appendString:@".png"];
 
     v31 = [(NSURL *)self->_directoryURL URLByAppendingPathComponent:v30];
-    path = [v31 path];
+    v32 = objc_msgSend_path(v31);
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v34 = [defaultManager fileExistsAtPath:path];
+    v34 = [defaultManager fileExistsAtPath:v32];
 
-    if (v34 && ([MEMORY[0x1E69DCAB8] imageWithContentsOfFile:path], (v20 = objc_claimAutoreleasedReturnValue()) != 0))
+    if (v34 && ([MEMORY[0x1E69DCAB8] imageWithContentsOfFile:v32], (v20 = objc_claimAutoreleasedReturnValue()) != 0))
     {
       v35 = GEOGetMKIconManagerLog();
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        *&buf[4] = path;
+        *&buf[4] = v32;
         _os_log_impl(&dword_1A2EA0000, v35, OS_LOG_TYPE_DEBUG, "Get image at %@", buf, 0xCu);
       }
 
@@ -198,7 +198,7 @@
         v48 = v46;
         v37 = v20;
         v49 = v37;
-        v50 = path;
+        v50 = v32;
         dispatch_async(storingQueue, block);
         v38 = v37;
       }

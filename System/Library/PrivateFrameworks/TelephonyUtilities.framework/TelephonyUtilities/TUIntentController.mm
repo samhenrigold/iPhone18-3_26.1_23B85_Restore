@@ -26,119 +26,117 @@
 
 - (id)personsByHandleForHandles:(id)handles
 {
-  v31[3] = *MEMORY[0x1E69E9840];
+  v30[3] = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v6 = *MEMORY[0x1E695C330];
-  v31[0] = *MEMORY[0x1E695C258];
-  v31[1] = v6;
+  v30[0] = *MEMORY[0x1E695C258];
+  v30[1] = v6;
   descriptorForUsedKeys = [MEMORY[0x1E696ADF0] descriptorForUsedKeys];
-  v31[2] = descriptorForUsedKeys;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:3];
+  v30[2] = descriptorForUsedKeys;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:3];
 
   contactProvider = [(TUIntentController *)self contactProvider];
-  v29 = 0;
-  v24 = v8;
-  v10 = [contactProvider tu_contactsByHandleForHandles:handlesCopy keyDescriptors:v8 error:&v29];
-  v23 = v29;
+  v28 = 0;
+  v23 = v8;
+  v10 = [contactProvider tu_contactsByHandleForHandles:handlesCopy keyDescriptors:v8 error:&v28];
+  v22 = v28;
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v11 = handlesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
+        v16 = *(*(&v24 + 1) + 8 * i);
         v17 = objc_opt_class();
-        v18 = [v10 objectForKeyedSubscript:{v16, v23}];
+        v18 = [v10 objectForKeyedSubscript:{v16, v22}];
         v19 = [v17 tu_INPersonsFromHandle:v16 contacts:v18];
         [v5 setObject:v19 forKeyedSubscript:v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v13);
   }
 
   v20 = [v5 copy];
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
 
 - (id)startCallIntentByHandleForHandles:(id)handles capability:(int64_t)capability destinationType:(int64_t)type
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
-  v22 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(handlesCopy, "count")}];
+  v21 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(handlesCopy, "count")}];
   v9 = [(TUIntentController *)self personsByHandleForHandles:handlesCopy];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = handlesCopy;
-  v10 = [obj countByEnumeratingWithState:&v23 objects:v32 count:16];
+  v10 = [obj countByEnumeratingWithState:&v22 objects:v31 count:16];
   if (v10)
   {
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
+        v13 = *(*(&v22 + 1) + 8 * i);
         v14 = [v9 objectForKeyedSubscript:v13];
-        v28 = 0;
-        v29 = &v28;
-        v30 = 0x2050000000;
+        v27 = 0;
+        v28 = &v27;
+        v29 = 0x2050000000;
         v15 = getINStartCallIntentClass_softClass;
-        v31 = getINStartCallIntentClass_softClass;
+        v30 = getINStartCallIntentClass_softClass;
         if (!getINStartCallIntentClass_softClass)
         {
-          v27[0] = MEMORY[0x1E69E9820];
-          v27[1] = 3221225472;
-          v27[2] = __getINStartCallIntentClass_block_invoke;
-          v27[3] = &unk_1E7424CD8;
-          v27[4] = &v28;
-          __getINStartCallIntentClass_block_invoke(v27);
-          v15 = v29[3];
+          v26[0] = MEMORY[0x1E69E9820];
+          v26[1] = 3221225472;
+          v26[2] = __getINStartCallIntentClass_block_invoke;
+          v26[3] = &unk_1E7424CD8;
+          v26[4] = &v27;
+          __getINStartCallIntentClass_block_invoke(v26);
+          v15 = v28[3];
         }
 
         v16 = v15;
-        _Block_object_dispose(&v28, 8);
+        _Block_object_dispose(&v27, 8);
         v17 = [[v15 alloc] initWithCallRecordFilter:0 callRecordToCallBack:0 audioRoute:0 destinationType:type contacts:v14 callCapability:capability];
         if (v17)
         {
-          [v22 setObject:v17 forKeyedSubscript:v13];
+          [v21 setObject:v17 forKeyedSubscript:v13];
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v23 objects:v32 count:16];
+      v10 = [obj countByEnumeratingWithState:&v22 objects:v31 count:16];
     }
 
     while (v10);
   }
 
-  v18 = [v22 copy];
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = [v21 copy];
 
   return v18;
 }
@@ -197,57 +195,57 @@
 
 + (id)tu_INPersonsFromHandle:(id)handle contacts:(id)contacts
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   contactsCopy = contacts;
   if (contactsCopy)
   {
     v7 = contactsCopy;
-    v30 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(contactsCopy, "count", contactsCopy)}];
+    v29 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(contactsCopy, "count", contactsCopy)}];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     obj = v7;
-    v8 = [obj countByEnumeratingWithState:&v32 objects:v45 count:16];
+    v8 = [obj countByEnumeratingWithState:&v31 objects:v44 count:16];
     if (v8)
     {
-      v31 = *v33;
+      v30 = *v32;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v33 != v31)
+          if (*v32 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v32 + 1) + 8 * i);
+          v10 = *(*(&v31 + 1) + 8 * i);
           v11 = [v10 tu_labeledValueForHandle:handleCopy];
           v12 = v11;
           if (v11)
           {
             v13 = v11;
-            v41 = 0;
-            v42 = &v41;
-            v43 = 0x2020000000;
+            v40 = 0;
+            v41 = &v40;
+            v42 = 0x2020000000;
             v14 = getINPersonHandleLabelForCNLabeledValueSymbolLoc_ptr;
-            v44 = getINPersonHandleLabelForCNLabeledValueSymbolLoc_ptr;
+            v43 = getINPersonHandleLabelForCNLabeledValueSymbolLoc_ptr;
             if (!getINPersonHandleLabelForCNLabeledValueSymbolLoc_ptr)
             {
-              v36 = MEMORY[0x1E69E9820];
-              v37 = 3221225472;
-              v38 = __getINPersonHandleLabelForCNLabeledValueSymbolLoc_block_invoke;
-              v39 = &unk_1E7424CD8;
-              v40 = &v41;
+              v35 = MEMORY[0x1E69E9820];
+              v36 = 3221225472;
+              v37 = __getINPersonHandleLabelForCNLabeledValueSymbolLoc_block_invoke;
+              v38 = &unk_1E7424CD8;
+              v39 = &v40;
               v15 = IntentsLibrary();
               v16 = dlsym(v15, "INPersonHandleLabelForCNLabeledValue");
-              *(v40[1] + 24) = v16;
-              getINPersonHandleLabelForCNLabeledValueSymbolLoc_ptr = *(v40[1] + 24);
-              v14 = v42[3];
+              *(v39[1] + 24) = v16;
+              getINPersonHandleLabelForCNLabeledValueSymbolLoc_ptr = *(v39[1] + 24);
+              v14 = v41[3];
             }
 
-            _Block_object_dispose(&v41, 8);
+            _Block_object_dispose(&v40, 8);
             if (!v14)
             {
               +[TUIntentController tu_INPersonsFromHandle:contacts:];
@@ -278,11 +276,11 @@
 
           if (v22)
           {
-            [v30 addObject:v22];
+            [v29 addObject:v22];
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v32 objects:v45 count:16];
+        v8 = [obj countByEnumeratingWithState:&v31 objects:v44 count:16];
       }
 
       while (v8);
@@ -295,18 +293,16 @@
     v24 = [objc_alloc(getINPersonClass()) initWithPersonHandle:v23 nameComponents:0 displayName:0 image:0 contactIdentifier:0 customIdentifier:0];
     if (v24)
     {
-      v30 = [MEMORY[0x1E695DF70] arrayWithObject:v24];
+      v29 = [MEMORY[0x1E695DF70] arrayWithObject:v24];
     }
 
     else
     {
-      v30 = 0;
+      v29 = 0;
     }
   }
 
-  v25 = [v30 copy];
-
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = [v29 copy];
 
   return v25;
 }

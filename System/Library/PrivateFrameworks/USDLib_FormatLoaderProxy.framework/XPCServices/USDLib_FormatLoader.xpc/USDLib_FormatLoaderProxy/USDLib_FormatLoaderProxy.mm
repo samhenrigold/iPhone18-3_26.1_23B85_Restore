@@ -27,14 +27,14 @@ uint64_t PlyConverter::PlyConverter(uint64_t a1, void *a2, __int128 *a3)
   return a1;
 }
 
-void sub_10000078C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000078C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1000042B8(va);
   _Unwind_Resume(a1);
 }
 
-BOOL PlyConverter::parsePly(uint64_t a1, void *a2)
+BOOL PlyConverter::parsePly(uint64_t *a1, void *a2)
 {
   __p[0] = 0;
   __p[1] = 0;
@@ -215,7 +215,7 @@ LABEL_67:
   sub_100004BA8(v26, v85);
   sub_1000049E0(&v88);
   v31 = *a1;
-  v32 = *(a1 + 8);
+  v32 = a1[1];
   if (*a1 != v32)
   {
     while (1)
@@ -255,8 +255,8 @@ LABEL_67:
 LABEL_85:
         if (*v34 == 1701011814)
         {
-          sub_10000309C(a1 + 120, 3 * v33);
-          sub_10000309C(a1 + 144, *(v31 + 48));
+          sub_10000309C((a1 + 15), 3 * v33);
+          sub_10000309C((a1 + 18), *(v31 + 48));
           v48 = *(v31 + 48);
           if (v48)
           {
@@ -284,14 +284,14 @@ LABEL_85:
                       {
                         sub_1000027A8(v87, a2, v50[1]);
                         LODWORD(v75) = v54;
-                        sub_10000313C((a1 + 120), &v75);
+                        sub_10000313C(a1 + 15, &v75);
                         ++v53;
                       }
 
                       while (v53 < SLODWORD(v88.__locale_));
                     }
 
-                    sub_10000313C((a1 + 144), &v88);
+                    sub_10000313C(a1 + 18, &v88);
                   }
 
                   else
@@ -389,15 +389,15 @@ LABEL_150:
     }
 
     v72 = v32;
-    sub_100002F24((a1 + 48), v33);
+    sub_100002F24(a1 + 6, v33);
     if (v45)
     {
-      sub_100002F24((a1 + 72), *(v31 + 48));
+      sub_100002F24(a1 + 9, *(v31 + 48));
     }
 
     if (v46)
     {
-      sub_100002F24((a1 + 96), *(v31 + 48));
+      sub_100002F24(a1 + 12, *(v31 + 48));
     }
 
     v88.__locale_ = 0;
@@ -421,15 +421,15 @@ LABEL_119:
     {
       if (v58 == v59)
       {
-        sub_10000304C((a1 + 48), &v88);
+        sub_10000304C(a1 + 6, &v88);
         if (v45)
         {
-          sub_10000304C((a1 + 72), &v75);
+          sub_10000304C(a1 + 9, &v75);
         }
 
         if (v46)
         {
-          sub_10000304C((a1 + 96), &v73);
+          sub_10000304C(a1 + 12, &v73);
         }
 
         if (++v57 >= *(v31 + 48))
@@ -1121,7 +1121,7 @@ LABEL_16:
   }
 }
 
-void sub_100001C20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, char a41)
+void sub_100001C20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56)
 {
   if (a28 < 0)
   {
@@ -1144,15 +1144,15 @@ void sub_100001C20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   std::ios::~ios();
-  if (*(v41 - 89) < 0)
+  if (*(v56 - 89) < 0)
   {
-    operator delete(*(v41 - 112));
+    operator delete(*(v56 - 112));
   }
 
   _Unwind_Resume(a1);
 }
 
-BOOL sub_100001D00(void *a1, uint64_t a2)
+BOOL sub_100001D00(void *a1, std::string *a2)
 {
   std::ios_base::getloc((a1 + *(*a1 - 24)));
   v4 = std::locale::use_facet(&v28, &std::ctype<char>::id);
@@ -1162,7 +1162,7 @@ BOOL sub_100001D00(void *a1, uint64_t a2)
   v7 = *(v6 + *(*v6 - 24) + 32) & 5;
   if (!v7)
   {
-    v8 = *(a2 + 23);
+    v8 = HIBYTE(a2->__r_.__value_.__r.__words[2]);
     v9 = v8;
     v10 = a2 + v8;
     if (v9 >= 0)
@@ -1172,7 +1172,7 @@ BOOL sub_100001D00(void *a1, uint64_t a2)
 
     else
     {
-      v11 = *a2 + *(a2 + 8);
+      v11 = a2->__r_.__value_.__r.__words[0] + a2->__r_.__value_.__l.__size_;
     }
 
     if (v9 >= 0)
@@ -1182,7 +1182,7 @@ BOOL sub_100001D00(void *a1, uint64_t a2)
 
     else
     {
-      v12 = *a2;
+      v12 = a2->__r_.__value_.__r.__words[0];
     }
 
     while (v11 != v12)
@@ -1194,7 +1194,7 @@ BOOL sub_100001D00(void *a1, uint64_t a2)
         if (!__maskrune(v13, 0x4000uLL))
         {
 LABEL_13:
-          v12 = v11 + 1;
+          v12 = (v11 + 1);
           break;
         }
       }
@@ -1205,7 +1205,7 @@ LABEL_13:
       }
     }
 
-    v15 = *(a2 + 23);
+    v15 = HIBYTE(a2->__r_.__value_.__r.__words[2]);
     v16 = v15;
     v17 = a2 + v15;
     if (v16 >= 0)
@@ -1215,13 +1215,13 @@ LABEL_13:
 
     else
     {
-      v17 = *a2 + *(a2 + 8);
-      v18 = *a2;
+      v17 = (a2->__r_.__value_.__r.__words[0] + a2->__r_.__value_.__l.__size_);
+      v18 = a2->__r_.__value_.__r.__words[0];
     }
 
     std::string::erase(a2, v12 - v18, v17 - v12);
-    v19 = *(a2 + 23);
-    v20 = *a2;
+    v19 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
+    v20 = a2->__r_.__value_.__r.__words[0];
     if (v19 >= 0)
     {
       v21 = a2;
@@ -1229,26 +1229,26 @@ LABEL_13:
 
     else
     {
-      v21 = *a2;
+      v21 = a2->__r_.__value_.__r.__words[0];
     }
 
     if (v19 >= 0)
     {
-      v22 = *(a2 + 23);
+      size = HIBYTE(a2->__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v22 = *(a2 + 8);
+      size = a2->__r_.__value_.__l.__size_;
     }
 
-    if (v22)
+    if (size)
     {
-      v23 = (v21 + v22);
+      v23 = (v21 + size);
       v24 = v21;
       do
       {
-        v25 = *v24;
+        v25 = v24->__r_.__value_.__s.__data_[0];
         if (v25 < 0)
         {
           if (!__maskrune(v25, 0x4000uLL))
@@ -1262,15 +1262,15 @@ LABEL_13:
           goto LABEL_31;
         }
 
-        ++v24;
-        --v22;
+        v24 = (v24 + 1);
+        --size;
       }
 
-      while (v22);
+      while (size);
       v24 = v23;
 LABEL_31:
-      LOBYTE(v19) = *(a2 + 23);
-      v20 = *a2;
+      LOBYTE(v19) = *(&a2->__r_.__value_.__s + 23);
+      v20 = a2->__r_.__value_.__r.__words[0];
     }
 
     else
@@ -1288,7 +1288,7 @@ LABEL_31:
       v26 = v20;
     }
 
-    std::string::erase(a2, v21 - v26, &v24[-v21]);
+    std::string::erase(a2, v21 - v26, v24 - v21);
   }
 
   return v7 == 0;
@@ -1437,7 +1437,6 @@ void sub_1000022C4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
   if ((*(v9 + *(v11 - 24) + 36) & 1) == 0)
   {
     __cxa_end_catch();
-    v12 = *v9;
     JUMPOUT(0x100002284);
   }
 
@@ -1923,7 +1922,7 @@ uint64_t sub_100002C84(uint64_t a1, int a2)
 
       else if (a2 == 7)
       {
-        return sub_100003DF8();
+        return sub_100003DF8(a1);
       }
     }
 
@@ -2005,7 +2004,7 @@ float sub_100002DA8(uint64_t a1, int a2)
 
   if (a2 == 7)
   {
-    return sub_100003DF8();
+    return sub_100003DF8(a1);
   }
 
   if (a2 == 6)
@@ -2179,11 +2178,11 @@ void sub_10000313C(const void **a1, int *a2)
   a1[1] = v6;
 }
 
-void PlyConverter::createPointCloud(uint64_t a1, const void **a2, const void **a3, serialize::Prim *a4)
+void PlyConverter::createPointCloud(uint64_t **a1, const void **a2, const void **a3, serialize::Prim *a4)
 {
   v8 = operator new(0x88uLL);
   sub_1000035A4(a2, 47, &v24);
-  fileFormatUtils::makeValidIdentifier((a1 + 24), &__p);
+  fileFormatUtils::makeValidIdentifier(a1 + 3, &__p);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -2253,14 +2252,14 @@ void PlyConverter::createPointCloud(uint64_t a1, const void **a2, const void **a
     operator delete(v24.__r_.__value_.__l.__data_);
   }
 
-  if (v8 + 64 != (a1 + 48))
+  if (v8 + 64 != (a1 + 6))
   {
-    sub_100005228(v8 + 8, *(a1 + 48), *(a1 + 56), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 56) - *(a1 + 48)) >> 2));
+    sub_100005228(v8 + 8, a1[6], a1[7], 0xAAAAAAAAAAAAAAABLL * ((a1[7] - a1[6]) >> 2));
   }
 
-  v15 = *(a1 + 96);
-  v16 = *(a1 + 104);
-  v17 = (a1 + 96);
+  v15 = a1[12];
+  v16 = a1[13];
+  v17 = (a1 + 12);
   if (v16 == v15)
   {
     v18 = operator new(0x40uLL);
@@ -2345,7 +2344,7 @@ void sub_10000352C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000035A4@<X0>(const void **a1@<X0>, char a2@<W1>, uint64_t a3@<X8>)
+char *sub_1000035A4@<X0>(const void **a1@<X0>, char a2@<W1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -2358,7 +2357,7 @@ uint64_t sub_1000035A4@<X0>(const void **a1@<X0>, char a2@<W1>, uint64_t a3@<X8>
   }
 
   result = sub_1000051AC(a3, v5 + 1);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v7 = result;
   }
@@ -2389,14 +2388,14 @@ uint64_t sub_1000035A4@<X0>(const void **a1@<X0>, char a2@<W1>, uint64_t a3@<X8>
   return result;
 }
 
-void PlyConverter::createMesh(uint64_t a1, const void **a2, const void **a3, serialize::Prim *a4)
+void PlyConverter::createMesh(uint64_t result, const void **a2, const void **a3, serialize::Prim *a4)
 {
-  v4 = (a1 + 144);
-  if (*(a1 + 152) != *(a1 + 144))
+  v4 = (result + 144);
+  if (*(result + 152) != *(result + 144))
   {
     v9 = operator new(0x128uLL);
     sub_1000035A4(a2, 47, &v27);
-    fileFormatUtils::makeValidIdentifier((a1 + 24), &__p);
+    fileFormatUtils::makeValidIdentifier((result + 24), &__p);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -2479,21 +2478,21 @@ void PlyConverter::createMesh(uint64_t a1, const void **a2, const void **a3, ser
 
     if (v9 + 64 != v4)
     {
-      sub_100005404(v9 + 8, *(a1 + 144), *(a1 + 152), (*(a1 + 152) - *(a1 + 144)) >> 2);
+      sub_100005404(v9 + 8, *(result + 144), *(result + 152), (*(result + 152) - *(result + 144)) >> 2);
     }
 
-    if (v9 + 160 != (a1 + 48))
+    if (v9 + 160 != (result + 48))
     {
-      sub_100005228(v9 + 20, *(a1 + 48), *(a1 + 56), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 56) - *(a1 + 48)) >> 2));
+      sub_100005228(v9 + 20, *(result + 48), *(result + 56), 0xAAAAAAAAAAAAAAABLL * ((*(result + 56) - *(result + 48)) >> 2));
     }
 
-    if (v9 + 88 != (a1 + 120))
+    if (v9 + 88 != (result + 120))
     {
-      sub_100005404(v9 + 11, *(a1 + 120), *(a1 + 128), (*(a1 + 128) - *(a1 + 120)) >> 2);
+      sub_100005404(v9 + 11, *(result + 120), *(result + 128), (*(result + 128) - *(result + 120)) >> 2);
     }
 
-    v16 = *(a1 + 96);
-    v17 = *(a1 + 104);
+    v16 = *(result + 96);
+    v17 = *(result + 104);
     if (v17 == v16)
     {
       v18 = operator new(0x40uLL);
@@ -2559,14 +2558,14 @@ void PlyConverter::createMesh(uint64_t a1, const void **a2, const void **a3, ser
       std::string::operator=((v9 + 272), (v18 + 16));
     }
 
-    else if (v9 + 208 != (a1 + 96))
+    else if (v9 + 208 != (result + 96))
     {
       sub_100005228(v9 + 26, v16, v17, 0xAAAAAAAAAAAAAAABLL * ((v17 - v16) >> 2));
     }
 
-    v23 = *(a1 + 72);
-    v24 = *(a1 + 80);
-    v25 = (a1 + 72);
+    v23 = *(result + 72);
+    v24 = *(result + 80);
+    v25 = (result + 72);
     if (v24 != v23)
     {
       if (v9 + 184 != v25)
@@ -2620,8 +2619,8 @@ serialize::Prim *PlyConverter::makeStage(PlyConverter *this)
   }
 
   inited = fileFormatUtils::Asset::initStage(v10);
-  fileFormatUtils::Asset::getGeomPath(v10, v6);
-  fileFormatUtils::Asset::getMaterialsPath(v10, v4);
+  fileFormatUtils::Asset::getGeomPath(v6, v10);
+  fileFormatUtils::Asset::getMaterialsPath(v4, v10);
   if (*(this + 19) != *(this + 18) || *(this + 7) == *(this + 6))
   {
     PlyConverter::createMesh(this, v6, v4, inited);
@@ -2686,24 +2685,24 @@ void sub_100003BF0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x100003BE8);
 }
 
-uint64_t sub_100003C1C(uint64_t a1, __int128 *a2, uint64_t a3)
+void *sub_100003C1C(void *a1, __int128 *a2, uint64_t a3)
 {
   *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (*(a2 + 23) < 0)
   {
-    sub_100003EAC((a1 + 24), *a2, *(a2 + 1));
+    sub_100003EAC(a1 + 24, *a2, *(a2 + 1));
   }
 
   else
   {
     v5 = *a2;
-    *(a1 + 40) = *(a2 + 2);
-    *(a1 + 24) = v5;
+    a1[5] = *(a2 + 2);
+    *(a1 + 3) = v5;
   }
 
-  *(a1 + 48) = a3;
+  a1[6] = a3;
   return a1;
 }
 
@@ -3135,9 +3134,9 @@ uint64_t sub_1000045BC(uint64_t *a1, uint64_t a2)
   return v15;
 }
 
-void sub_100004720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100004720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_1000048EC(va);
   _Unwind_Resume(a1);
 }
@@ -3650,7 +3649,7 @@ LABEL_21:
   v15 = v14 - result;
   if (0xAAAAAAAAAAAAAAABLL * ((v14 - result) >> 2) < a4)
   {
-    v16 = a2 + v15;
+    v16 = (a2 + v15);
     if (v14 != result)
     {
       do
@@ -3675,8 +3674,8 @@ LABEL_21:
       do
       {
         *v19 = *v16;
-        *(v19 + 2) = *(v16 + 8);
-        v16 += 12;
+        *(v19 + 2) = *(v16 + 2);
+        v16 = (v16 + 12);
         v19 += 12;
         v18 += 12;
       }
@@ -3715,7 +3714,7 @@ char *sub_1000053B8(void *a1, unint64_t a2)
   return result;
 }
 
-void *sub_100005404(void *result, char *__src, char *a3, unint64_t a4)
+void **sub_100005404(void **result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -3741,7 +3740,7 @@ void *sub_100005404(void *result, char *__src, char *a3, unint64_t a4)
       if (v15 != v9)
       {
         result = memmove(*result, __src, v16);
-        v15 = *(v7 + 8);
+        v15 = v7[1];
       }
 
       if (a3 != v17)
@@ -3761,8 +3760,8 @@ void *sub_100005404(void *result, char *__src, char *a3, unint64_t a4)
       operator delete(v9);
       v8 = 0;
       *v7 = 0;
-      *(v7 + 8) = 0;
-      *(v7 + 16) = 0;
+      v7[1] = 0;
+      v7[2] = 0;
     }
 
     if (a4 >> 62)
@@ -3787,17 +3786,17 @@ void *sub_100005404(void *result, char *__src, char *a3, unint64_t a4)
     }
 
     result = sub_100005530(v7, v11);
-    v12 = *(v7 + 8);
+    v12 = v7[1];
     v13 = a3 - __src;
     if (v13)
     {
-      result = memmove(*(v7 + 8), __src, v13);
+      result = memmove(v7[1], __src, v13);
     }
 
     v14 = (v12 + v13);
   }
 
-  *(v7 + 8) = v14;
+  v7[1] = v14;
   return result;
 }
 
@@ -3823,9 +3822,8 @@ void XpcSandbox::~XpcSandbox(XpcSandbox *this)
   {
     do
     {
-      v4 = *v2;
       sandbox_extension_release();
-      ++v2;
+      v2 += 8;
     }
 
     while (v2 != v3);
@@ -4593,7 +4591,7 @@ void sub_100006344(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void serialize::Serializer::sync(uint64_t a1, const char *a2, const void **a3)
+void serialize::Serializer::sync(uint64_t a1, const char *a2, void **a3)
 {
   if (*a1 == 1)
   {
@@ -4630,13 +4628,13 @@ void serialize::Serializer::sync(uint64_t a1, const char *a2, const void **a3)
   }
 }
 
-void serialize::Serializer::sync(uint64_t a1, const char *a2, uint64_t a3)
+void serialize::Serializer::sync(uint64_t a1, const char *a2, char **a3)
 {
   if (*a1 == 1)
   {
     v4 = *(a1 + 8);
     v5 = *a3;
-    v6 = *(a3 + 8) - *a3;
+    v6 = a3[1] - *a3;
 
     xpc_dictionary_set_data(v4, a2, v5, v6);
   }
@@ -4649,6 +4647,7 @@ void serialize::Serializer::sync(uint64_t a1, const char *a2, uint64_t a3)
   }
 }
 
+void serialize::Serializer::sync(uint64_t a1, const char *a2, uint64_t a3)
 {
   if (*a1 == 1)
   {
@@ -5169,8 +5168,7 @@ char *sub_100006F08(char **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
     while (v6 != a3)
     {
       v13 = *v6++;
-      *v12 = v13;
-      v12 += 8;
+      *v12++ = v13;
     }
 
 LABEL_21:
@@ -5205,8 +5203,7 @@ LABEL_21:
       do
       {
         v20 = *v16++;
-        *v19 = v20;
-        v19 += 8;
+        *v19++ = v20;
         v18 += 8;
       }
 
@@ -5275,15 +5272,15 @@ void sub_1000070FC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void StlConverter::parseStl(void *a1, void *a2)
+void StlConverter::parseStl(uint64_t a1, void *a2)
 {
   std::istream::seekg();
   std::istream::tellg();
-  a1[8] = v4;
+  *(a1 + 64) = v4;
   std::istream::seekg();
-  if (StlConverter::isBinary(a1))
+  if (StlConverter::isBinary(a1, a2))
   {
-    StlConverter::parseStlBinary(a1);
+    StlConverter::parseStlBinary(a1, a2);
   }
 
   else
@@ -5353,80 +5350,63 @@ void StlConverter::~StlConverter(StlConverter *this)
   operator delete(v1);
 }
 
-uint64_t StlConverter::isBinary(uint64_t a1)
+uint64_t StlConverter::isBinary(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 64) < 0x54uLL)
   {
     return 0;
   }
 
-  *(&v7[0].__r_.__value_.__s + 23) = 5;
-  strcpy(v7, "solid");
-  v16 = 0;
-  v14 = 0u;
+  *(&v8[0].__r_.__value_.__s + 23) = 5;
+  strcpy(v8, "solid");
+  v17 = 0;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  v8 = 0u;
+  v12 = 0u;
   v9 = 0u;
-  v3 = std::istream::seekg();
-  __chkstk_darwin(v3);
+  v10 = 0u;
+  v4 = std::istream::seekg();
+  __chkstk_darwin(v4);
   std::istream::read();
-  v6[5] = 0;
-  v16 = 0;
-  v14 = 0u;
+  v7[5] = 0;
+  v17 = 0;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
-  v9 = 0u;
-  std::istream::seekg();
-  if (std::string::compare(v7, v6) || *(a1 + 64) < 0x81uLL)
-  {
-    goto LABEL_11;
-  }
-
-  std::istream::read();
-  v16 = 0;
   v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
-  v8 = 0u;
+  v12 = 0u;
   v9 = 0u;
+  v10 = 0u;
   std::istream::seekg();
-  v4 = (v7[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(v7[0].__r_.__value_.__r.__words[2]) : v7[0].__r_.__value_.__l.__size_;
-  if (v4 <= 0x73)
+  if (!std::string::compare(v8, v7) && *(a1 + 64) >= 0x81uLL && ((std::istream::read(), v17 = 0, v15 = 0u, v16 = 0u, v13 = 0u, v14 = 0u, v11 = 0u, v12 = 0u, v9 = 0u, v10 = 0u, std::istream::seekg(), (v8[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0) ? (size = HIBYTE(v8[0].__r_.__value_.__r.__words[2])) : (size = v8[0].__r_.__value_.__l.__size_), size <= 0x73))
   {
-    while (strncmp("facet normal", &v7[1] + v4, 0xCuLL))
+    while (strncmp("facet normal", &v8[1] + size, 0xCuLL))
     {
-      if (++v4 == 116)
+      if (++size == 116)
       {
         goto LABEL_11;
       }
     }
 
-    v1 = 0;
+    v2 = 0;
   }
 
   else
   {
 LABEL_11:
-    v1 = 1;
+    v2 = 1;
   }
 
-  if (SHIBYTE(v7[0].__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v8[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v7[0].__r_.__value_.__l.__data_);
+    operator delete(v8[0].__r_.__value_.__l.__data_);
   }
 
-  return v1;
+  return v2;
 }
 
 void sub_1000074D8(_Unwind_Exception *exception_object)
@@ -5439,7 +5419,7 @@ void sub_1000074D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void StlConverter::addSolid(void *a1, uint64_t *a2)
+void StlConverter::addSolid(void *a1, uint64_t **a2)
 {
   fileFormatUtils::makeValidIdentifier(a2, &__p);
   v4 = a1[1];
@@ -6040,35 +6020,35 @@ LABEL_81:
   }
 }
 
-void sub_100007E98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21)
+void sub_100007E98(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, void *a8, void *a9, int a10, __int16 a11, char a12, char a13, char a14, __int16 _12, __int16 _14, char _16, char arg17, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
-  if (a14 < 0)
+  if (arg17 < 0)
   {
-    operator delete(__p);
+    operator delete(a9);
   }
 
-  if (a20 < 0)
+  if (SHIBYTE(a17) < 0)
   {
     operator delete(a15);
   }
 
   std::ios::~ios();
-  if (*(v21 - 89) < 0)
+  if (*(v35 - 89) < 0)
   {
-    operator delete(*(v21 - 112));
+    operator delete(*(v35 - 112));
   }
 
   _Unwind_Resume(a1);
 }
 
-void StlConverter::parseStlBinary(void *a1)
+void StlConverter::parseStlBinary(uint64_t **a1, uint64_t a2)
 {
   StlConverter::addSolid(a1, a1 + 5);
   std::istream::read();
-  v2 = 0;
+  v3 = 0;
   std::istream::read();
-  sub_100002F24((a1[4] + 48), 0);
-  sub_100002F24((a1[4] + 24), 0);
+  sub_100002F24(a1[4] + 6, 0);
+  sub_100002F24(a1[4] + 3, 0);
 }
 
 uint64_t sub_1000080A0(uint64_t *a1, uint64_t a2)
@@ -6375,7 +6355,7 @@ uint64_t StlConverter::makeStage(StlConverter *this)
 
   inited = fileFormatUtils::Asset::initStage(v18);
   *(inited + 88) = 981668463;
-  fileFormatUtils::Asset::getMaterialsPath(v18, v14);
+  fileFormatUtils::Asset::getMaterialsPath(v14, v18);
   v3 = operator new(0x40uLL);
   if ((v15 & 0x80u) == 0)
   {
@@ -6438,7 +6418,7 @@ uint64_t StlConverter::makeStage(StlConverter *this)
 
   v12[0] = v3;
   sub_100008440(inited + 40, v12);
-  fileFormatUtils::Asset::getGeomPath(v18, v12);
+  fileFormatUtils::Asset::getGeomPath(v12, v18);
   v10 = *(this + 1);
   v9 = *(this + 2);
   while (v10 != v9)
@@ -6838,7 +6818,7 @@ LABEL_7:
     sub_10000C92C(v6, *(a1 + 208));
     *(a1 + 128) = v6;
     v7.__r_.__value_.__r.__words[0] = &__p;
-    sub_10000E134((a1 + 104), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &v7)[7] = v6;
+    sub_10000E134((a1 + 104), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &v7, &v9)[7] = v6;
   }
 
   else
@@ -7263,7 +7243,7 @@ LABEL_7:
   v4 = sub_10000D848(a1 + 184, &__p.__r_.__value_.__l.__data_);
   if (a1 + 192 == v4)
   {
-    sub_100009800((a1 + 136), &__p);
+    sub_100009800(a1 + 136, &__p);
     sub_10000C820(&v7, &__p);
     sub_100009840((a1 + 160), &v7);
     if (v9 < 0)
@@ -7275,7 +7255,7 @@ LABEL_7:
     v5 = -1431655765 * ((*(a1 + 144) - *(a1 + 136)) >> 3) - 1;
     *(a1 + 208) = v5;
     v7.__r_.__value_.__r.__words[0] = &__p;
-    *(sub_10000DD00((a1 + 184), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &v7) + 14) = v5;
+    *(sub_10000DD00((a1 + 184), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &v7, &v11) + 14) = v5;
   }
 
   else
@@ -7306,10 +7286,10 @@ void sub_1000097CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-char *sub_100009800(void *a1, __int128 *a2)
+char *sub_100009800(uint64_t a1, __int128 *a2)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
   {
     result = sub_10000D530(a1, a2);
   }
@@ -7320,11 +7300,11 @@ char *sub_100009800(void *a1, __int128 *a2)
     result = (v3 + 24);
   }
 
-  a1[1] = result;
+  *(a1 + 8) = result;
   return result;
 }
 
-uint64_t sub_100009840(uint64_t *a1, uint64_t a2)
+uint64_t sub_100009840(unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -7408,7 +7388,7 @@ LABEL_7:
   v4 = sub_10000D848(a1 + 184, &__p.__r_.__value_.__l.__data_);
   if (a1 + 192 == v4)
   {
-    sub_100009800((a1 + 136), &__p);
+    sub_100009800(a1 + 136, &__p);
     sub_10000C820(&v6, &__p);
     sub_100009840((a1 + 160), &v6);
     if (v8 < 0)
@@ -7420,7 +7400,7 @@ LABEL_7:
     v5 = -1431655765 * ((*(a1 + 144) - *(a1 + 136)) >> 3) - 1;
     *(a1 + 212) = v5;
     v6.__r_.__value_.__r.__words[0] = &__p;
-    *(sub_10000DD00((a1 + 184), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &v6) + 14) = v5;
+    *(sub_10000DD00((a1 + 184), &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, &v6, &v10) + 14) = v5;
   }
 
   else
@@ -7477,7 +7457,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t ObjConverter::addUV(uint64_t a1, uint64_t *a2)
+uint64_t *ObjConverter::addUV(uint64_t a1, uint64_t *a2)
 {
   Float = fileFormatUtils::getFloat(a2);
   v5 = fileFormatUtils::getFloat(a2);
@@ -7485,7 +7465,7 @@ uint64_t ObjConverter::addUV(uint64_t a1, uint64_t *a2)
   v6 = *(a1 + 64);
   if (v6 >= *(a1 + 72))
   {
-    result = sub_10000E274(a1 + 56, &v8);
+    result = sub_10000E274((a1 + 56), &v8);
   }
 
   else
@@ -7778,34 +7758,34 @@ void ObjConverter::loadMaterialFile(uint64_t a1, uint64_t a2)
     {
       if (v4 != -1)
       {
-        std::string::basic_string(&v19, v3, 0, v4, &v17);
-        if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::string::basic_string(&v20, v3, 0, v4, &v18);
+        if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          size = HIBYTE(v19.__r_.__value_.__r.__words[2]);
+          size = HIBYTE(v20.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          size = v19.__r_.__value_.__l.__size_;
+          size = v20.__r_.__value_.__l.__size_;
         }
 
-        v9 = &v17;
-        sub_1000051AC(&v17, size + 1);
-        if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v9 = &v18;
+        sub_1000051AC(&v18, size + 1);
+        if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v9 = v17.__r_.__value_.__r.__words[0];
+          v9 = v18.__r_.__value_.__r.__words[0];
         }
 
         if (size)
         {
-          if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v10 = &v19;
+            v10 = &v20;
           }
 
           else
           {
-            v10 = v19.__r_.__value_.__r.__words[0];
+            v10 = v20.__r_.__value_.__r.__words[0];
           }
 
           memmove(v9, v10, size);
@@ -7832,10 +7812,10 @@ void ObjConverter::loadMaterialFile(uint64_t a1, uint64_t a2)
           v12 = *&__p[8];
         }
 
-        v13 = std::string::append(&v17, v11, v12);
+        v13 = std::string::append(&v18, v11, v12);
         v14 = v13->__r_.__value_.__r.__words[0];
-        v21[0] = v13->__r_.__value_.__l.__size_;
-        *(v21 + 7) = *(&v13->__r_.__value_.__r.__words[1] + 7);
+        v22[0] = v13->__r_.__value_.__l.__size_;
+        *(v22 + 7) = *(&v13->__r_.__value_.__r.__words[1] + 7);
         v15 = HIBYTE(v13->__r_.__value_.__r.__words[2]);
         v13->__r_.__value_.__l.__size_ = 0;
         v13->__r_.__value_.__r.__words[2] = 0;
@@ -7846,17 +7826,17 @@ void ObjConverter::loadMaterialFile(uint64_t a1, uint64_t a2)
         }
 
         *__p = v14;
-        *&__p[8] = v21[0];
-        *&__p[15] = *(v21 + 7);
+        *&__p[8] = v22[0];
+        *&__p[15] = *(v22 + 7);
         __p[23] = v15;
-        if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v17.__r_.__value_.__l.__data_);
+          operator delete(v18.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v19.__r_.__value_.__l.__data_);
+          operator delete(v20.__r_.__value_.__l.__data_);
         }
       }
 
@@ -7876,10 +7856,20 @@ LABEL_35:
   }
 
   XpcSandbox::consume(*(a1 + 352), v16);
-  sub_10000A4E4(&v19);
-  if (v20)
+  if (__p[23] >= 0)
   {
-    ObjConverter::parseMtl(a1, &v19);
+    v17 = __p;
+  }
+
+  else
+  {
+    v17 = *__p;
+  }
+
+  sub_10000A4E4(&v20, v17, 8);
+  if (v21)
+  {
+    ObjConverter::parseMtl(a1, &v20);
   }
 
   std::filebuf::~filebuf();
@@ -7911,16 +7901,16 @@ void sub_10000A468(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void (__cdecl ***sub_10000A4E4(void (__cdecl ***a1)(std::ifstream *__hidden this)))(std::ifstream *__hidden this)
+void (__cdecl ***sub_10000A4E4(void (__cdecl ***a1)(std::ifstream *__hidden this), uint64_t a2, int a3))(std::ifstream *__hidden this)
 {
   a1[59] = 0;
-  *a1 = v3;
-  *(*(v3 - 3) + a1) = v2;
+  *a1 = v5;
+  *(*(v5 - 3) + a1) = v4;
   a1[1] = 0;
-  v4 = (*(*a1 - 3) + a1);
-  std::ios_base::init(v4, a1 + 2);
-  v4[1].__vftable = 0;
-  v4[1].__fmtflags_ = -1;
+  v6 = (*(*a1 - 3) + a1);
+  std::ios_base::init(v6, a1 + 2);
+  v6[1].__vftable = 0;
+  v6[1].__fmtflags_ = -1;
   std::filebuf::basic_filebuf();
   if (!std::filebuf::open())
   {
@@ -8051,7 +8041,7 @@ LABEL_66:
 LABEL_56:
               v10 = 2;
 LABEL_92:
-              ObjConverter::addInputToMaterial(a1, v10);
+              ObjConverter::addInputToMaterial(a1, v10, v19);
               goto LABEL_98;
             }
 
@@ -8212,62 +8202,62 @@ void sub_10000ACC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ObjConverter::addInputToMaterial(uint64_t result, int a2)
+uint64_t ObjConverter::addInputToMaterial(uint64_t result, int a2, uint64_t a3)
 {
-  v33 = a2;
-  v2 = *(result + 212);
-  if (v2 != -1)
+  v34 = a2;
+  v3 = *(result + 212);
+  if (v3 != -1)
   {
-    v3 = (*(result + 160) + 48 * v2);
-    if (!fileFormatUtils::Material::hasInput(v3, a2))
+    v4 = *(result + 160) + 48 * v3;
+    if (!fileFormatUtils::Material::hasInput(v4, a2))
     {
-      sub_100005C7C(v21, &unk_100013366);
-      sub_100005C7C(v19, &unk_100013366);
-      sub_100005C7C(v17, "st");
-      sub_10000D250(__dst, v21, v19, v17);
-      v34 = &v33;
-      v4 = sub_10000E3FC(v3, &v33, &std::piecewise_construct, &v34);
-      v5 = v4;
-      if (*(v4 + 63) < 0)
+      sub_100005C7C(v22, &unk_100013366);
+      sub_100005C7C(v20, &unk_100013366);
+      sub_100005C7C(v18, "st");
+      sub_10000D250(__dst, v22, v20, v18);
+      v35 = &v34;
+      v5 = sub_10000E3FC(v4, &v34, &std::piecewise_construct, &v35);
+      v6 = v5;
+      if (*(v5 + 63) < 0)
       {
-        operator delete(v4[5]);
+        operator delete(v5[5]);
       }
 
-      v5[7] = v24;
-      *(v5 + 5) = *__dst;
-      HIBYTE(v24) = 0;
+      v6[7] = v25;
+      *(v6 + 5) = *__dst;
+      HIBYTE(v25) = 0;
       LOBYTE(__dst[0]) = 0;
-      if (*(v5 + 87) < 0)
+      if (*(v6 + 87) < 0)
       {
-        operator delete(v5[8]);
+        operator delete(v6[8]);
       }
 
-      v5[10] = v26;
-      *(v5 + 4) = v25;
-      HIBYTE(v26) = 0;
-      LOBYTE(v25) = 0;
-      if (*(v5 + 111) < 0)
+      v6[10] = v27;
+      *(v6 + 4) = v26;
+      HIBYTE(v27) = 0;
+      LOBYTE(v26) = 0;
+      if (*(v6 + 111) < 0)
       {
-        operator delete(v5[11]);
+        operator delete(v6[11]);
       }
 
-      v5[13] = v28;
-      *(v5 + 11) = __p;
-      HIBYTE(v28) = 0;
+      v6[13] = v29;
+      *(v6 + 11) = __p;
+      HIBYTE(v29) = 0;
       LOBYTE(__p) = 0;
-      if (*(v5 + 135) < 0)
+      if (*(v6 + 135) < 0)
       {
-        operator delete(v5[14]);
-        v8 = SHIBYTE(v28);
-        *(v5 + 7) = v29;
-        v9 = v30;
+        operator delete(v6[14]);
+        v9 = SHIBYTE(v29);
+        *(v6 + 7) = v30;
         v10 = v31;
-        HIBYTE(v30) = 0;
-        LOBYTE(v29) = 0;
-        v5[16] = v9;
-        v5[17] = v10;
-        *(v5 + 36) = v32;
-        if (v8 < 0)
+        v11 = v32;
+        HIBYTE(v31) = 0;
+        LOBYTE(v30) = 0;
+        v6[16] = v10;
+        v6[17] = v11;
+        *(v6 + 36) = v33;
+        if (v9 < 0)
         {
           operator delete(__p);
         }
@@ -8275,48 +8265,48 @@ uint64_t ObjConverter::addInputToMaterial(uint64_t result, int a2)
 
       else
       {
-        *(v5 + 7) = v29;
-        v6 = v30;
+        *(v6 + 7) = v30;
         v7 = v31;
-        HIBYTE(v30) = 0;
-        LOBYTE(v29) = 0;
-        v5[16] = v6;
-        v5[17] = v7;
-        *(v5 + 36) = v32;
+        v8 = v32;
+        HIBYTE(v31) = 0;
+        LOBYTE(v30) = 0;
+        v6[16] = v7;
+        v6[17] = v8;
+        *(v6 + 36) = v33;
       }
 
-      if (SHIBYTE(v26) < 0)
+      if (SHIBYTE(v27) < 0)
       {
-        operator delete(v25);
+        operator delete(v26);
       }
 
-      if (SHIBYTE(v24) < 0)
+      if (SHIBYTE(v25) < 0)
       {
         operator delete(__dst[0]);
       }
 
-      if (v18 < 0)
+      if (v19 < 0)
       {
-        operator delete(v17[0]);
+        operator delete(v18[0]);
       }
 
-      if (v20 < 0)
+      if (v21 < 0)
       {
-        operator delete(v19[0]);
+        operator delete(v20[0]);
       }
 
-      if (v22 < 0)
+      if (v23 < 0)
       {
-        operator delete(v21[0]);
+        operator delete(v22[0]);
       }
     }
 
-    __dst[0] = &v33;
-    v11 = sub_10000E3FC(v3, &v33, &std::piecewise_construct, __dst);
+    __dst[0] = &v34;
+    v12 = sub_10000E3FC(v4, &v34, &std::piecewise_construct, __dst);
     __asm { FMOV            V0.2S, #1.0 }
 
-    v11[17] = _D0;
-    *(v11 + 36) = 1065353216;
+    v12[17] = _D0;
+    *(v12 + 36) = 1065353216;
     std::istream::operator>>();
     std::istream::operator>>();
     return std::istream::operator>>();
@@ -8377,7 +8367,7 @@ void ObjConverter::addMapToMaterial(uint64_t a1, int a2, std::string *a3)
   v3 = *(a1 + 212);
   if (v3 != -1)
   {
-    v5 = (*(a1 + 160) + 48 * v3);
+    v5 = *(a1 + 160) + 48 * v3;
     if (fileFormatUtils::Material::hasInput(v5, a2))
     {
       __dst[0] = &v28;
@@ -8711,8 +8701,7 @@ LABEL_58:
 
 void sub_10000B68C(uint64_t *a1@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   sub_100002080(a1, a2);
   while (1)
@@ -8841,7 +8830,7 @@ void *ObjConverter::getSerializeMaterial(ObjConverter *this, unsigned int a2)
   v4 = (this + 240);
   if (!*(this + 30))
   {
-    fileFormatUtils::Asset::getMaterialsPath((this + 248), v14);
+    fileFormatUtils::Asset::getMaterialsPath(v14, (this + 248));
     v5 = operator new(0x40uLL);
     if ((v15 & 0x80u) == 0)
     {
@@ -8933,9 +8922,9 @@ void sub_10000BAEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ObjConverter::createMesh(ObjConverter *a1, const void **a2, uint64_t **a3, uint64_t *a4, uint64_t a5)
+void ObjConverter::createMesh(ObjConverter *a1, const void **a2, uint64_t **a3, uint64_t **a4, uint64_t a5)
 {
-  v5 = (a3 + 15);
+  v5 = a3 + 15;
   if (a3[16] != a3[15])
   {
     v11 = operator new(0x128uLL);
@@ -9035,12 +9024,13 @@ void ObjConverter::createMesh(ObjConverter *a1, const void **a2, uint64_t **a3, 
     if (v18 != v19 && v20 != v19)
     {
       v22 = *v18;
-      v23 = v18 + 1;
+      v23 = (v18 + 1);
       v24 = a3[4];
-      v25 = v18 + 1;
+      v25 = (v18 + 1);
       do
       {
-        v27 = *v25++;
+        v27 = *v25;
+        v25 = (v25 + 4);
         v26 = v27;
         if (v27 < v22)
         {
@@ -9112,17 +9102,18 @@ void ObjConverter::createMesh(ObjConverter *a1, const void **a2, uint64_t **a3, 
 
     v34 = a3[7];
     v35 = a3[8];
-    v36 = v34 + 1;
+    v36 = (v34 + 4);
     v37 = *v34;
     if (v34 != v35 && v36 != v35)
     {
       v38 = *v34;
-      v39 = v34 + 1;
+      v39 = (v34 + 4);
       v40 = a3[7];
-      v41 = v34 + 1;
+      v41 = (v34 + 4);
       do
       {
-        v43 = *v41++;
+        v43 = *v41;
+        v41 = (v41 + 4);
         v42 = v43;
         if (v43 < v38)
         {
@@ -9135,10 +9126,11 @@ void ObjConverter::createMesh(ObjConverter *a1, const void **a2, uint64_t **a3, 
 
       while (v41 != v35);
       v44 = *v40;
-      v45 = v34 + 1;
+      v45 = (v34 + 4);
       do
       {
-        v47 = *v45++;
+        v47 = *v45;
+        v45 = (v45 + 4);
         v46 = v47;
         v48 = v37 < v47;
         if (v37 <= v47)
@@ -9247,12 +9239,13 @@ void ObjConverter::createMesh(ObjConverter *a1, const void **a2, uint64_t **a3, 
     if (v55 != v56 && v57 != v56)
     {
       v60 = *v55;
-      v61 = v55 + 1;
+      v61 = (v55 + 1);
       v62 = a3[11];
-      v63 = v55 + 1;
+      v63 = (v55 + 1);
       do
       {
-        v65 = *v63++;
+        v65 = *v63;
+        v63 = (v63 + 4);
         v64 = v65;
         if (v65 < v60)
         {
@@ -9341,7 +9334,7 @@ void ObjConverter::createMesh(ObjConverter *a1, const void **a2, uint64_t **a3, 
 
     else
     {
-      for (; v72 != v73; ++v72)
+      for (; v72 != v73; v72 += 2)
       {
         v75 = *v72;
         if (*(*v72 + 8) != **v72)
@@ -9484,7 +9477,7 @@ void sub_10000C4AC(const void **a1, int **a2, int a3)
 uint64_t ObjConverter::makeStage(ObjConverter *this)
 {
   inited = fileFormatUtils::Asset::initStage((this + 248));
-  fileFormatUtils::Asset::getMaterialsPath((this + 248), &v31);
+  fileFormatUtils::Asset::getMaterialsPath(&v31, (this + 248));
   v3 = *(this + 20);
   for (i = *(this + 21); v3 != i; v3 = (v3 + 48))
   {
@@ -9555,7 +9548,7 @@ uint64_t ObjConverter::makeStage(ObjConverter *this)
     *(this + 28) = v9;
   }
 
-  fileFormatUtils::Asset::getGeomPath((this + 248), v29);
+  fileFormatUtils::Asset::getGeomPath(v29, (this + 248));
   v22 = *(this + 13);
   if (v22 != (this + 112))
   {
@@ -9803,8 +9796,9 @@ void sub_10000C9C4(void *a1, unint64_t a2)
   }
 }
 
-void (__cdecl ***sub_10000CA64(void (__cdecl ***a1)(std::basic_stringstream<char> *__hidden this), const std::string *a2, int a3))(std::basic_stringstream<char> *__hidden this)
+void (__cdecl ***sub_10000CA64(void (__cdecl ***a1)(std::basic_stringstream<char> *__hidden this), const std::string *a2, uint64_t a3))(std::basic_stringstream<char> *__hidden this)
 {
+  v3 = a3;
   a1[22] = 0;
   v6 = a1 + 2;
   *a1 = v8;
@@ -9817,6 +9811,6 @@ void (__cdecl ***sub_10000CA64(void (__cdecl ***a1)(std::basic_stringstream<char
   a1[2] = v11;
   *(*(v11 - 3) + v6) = v10;
   *a1 = v12;
-  sub_10000CF64((a1 + 3), a2, a3);
+  sub_10000CF64((a1 + 3), a2, v3);
   return a1;
 }

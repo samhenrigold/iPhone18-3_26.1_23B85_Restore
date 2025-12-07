@@ -18,7 +18,7 @@
   v4 = v3;
   if (v3)
   {
-    std::optional<LAUI_uniform_cubic_b_spline_renderer::renderer_t::shared_state_t>::operator=[abi:ne200100]<LAUI_uniform_cubic_b_spline_renderer::renderer_t::shared_state_t const&,void>(v3 + 8, a2);
+    std::optional<LAUI_uniform_cubic_b_spline_renderer::renderer_t::shared_state_t>::operator=[abi:ne200100]<LAUI_uniform_cubic_b_spline_renderer::renderer_t::shared_state_t const&,void>(v3 + 1, a2);
   }
 
   return v4;

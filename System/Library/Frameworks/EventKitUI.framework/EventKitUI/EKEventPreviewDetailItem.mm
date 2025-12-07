@@ -80,10 +80,10 @@
     [v9 addChildViewController:_dayPreviewViewController];
     [_dayPreviewViewController didMoveToParentViewController:v9];
     [_dayPreviewViewController setRespectsSelectedCalendarsFilter:{-[EKEventPreviewDetailItem inlineDayViewRespectsSelectedCalendarsFilter](self, "inlineDayViewRespectsSelectedCalendarsFilter")}];
-    contentView = [(UITableViewCell *)self->_cell contentView];
+    v26 = objc_msgSend_contentView(self->_cell);
     view = [_dayPreviewViewController view];
     [view setTranslatesAutoresizingMaskIntoConstraints:0];
-    [contentView addSubview:view];
+    [v26 addSubview:view];
     v11 = [(UITableViewCell *)self->_cell setSelectionStyle:0];
     v12 = MEMORY[0x1E696ACD8];
     v13 = self->_cell;

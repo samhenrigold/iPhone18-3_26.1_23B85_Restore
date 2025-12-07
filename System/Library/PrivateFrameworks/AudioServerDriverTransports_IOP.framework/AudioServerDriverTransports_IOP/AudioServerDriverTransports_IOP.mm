@@ -5,25 +5,26 @@ void sub_2416EA2E8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2416EA6AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2416EA6AC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ASDTIOPAudioVTDevice;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_2416EAA78(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
+void sub_2416EAA78(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
-  __cxa_free_exception(v10);
-  applesauce::CF::ObjectRef<__CFDictionary const*>::~ObjectRef(&a10);
+  va_start(va, a9);
+  __cxa_free_exception(v9);
+  applesauce::CF::ObjectRef<__CFDictionary const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
 
-ASDT::IOPAudio::VoiceTrigger::UserClient *ASDT::IOPAudio::VoiceTrigger::UserClient::UserClient(ASDT::IOPAudio::VoiceTrigger::UserClient *this)
+ASDT::IOPAudio::VoiceTrigger::UserClient *ASDT::IOPAudio::VoiceTrigger::UserClient::UserClient(ASDT::IOPAudio::VoiceTrigger::UserClient *this, unsigned int a2, unsigned int a3)
 {
-  v2 = ASDT::IOUserClient::IOUserClient(this);
-  *v2 = &unk_285357EC8;
-  std::__shared_mutex_base::__shared_mutex_base((v2 + 368));
+  v4 = ASDT::IOUserClient::IOUserClient(this);
+  *v4 = &unk_285357EC8;
+  std::__shared_mutex_base::__shared_mutex_base((v4 + 368));
   *(this + 536) = 0;
   *(this + 68) = 0;
   return this;
@@ -72,7 +73,7 @@ void sub_2416EAF8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::CopyIdentifier(ASDT::IOPAudio::IsolatedIOBuffer::UserClient *this@<X0>, CFTypeRef *a2@<X8>)
 {
-  v8 = 0;
+  v10 = 0;
   cf = CFStringCreateWithBytes(0, "identifier", 10, 0x8000100u, 0);
   if (!cf)
   {
@@ -81,36 +82,37 @@ void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::CopyIdentifier(ASDT::IOPAudio
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v4 = ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, &v8);
+  v5 = ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, &v10);
+  v6 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v4)
+  if (v5)
   {
-    *a2 = v8;
+    *a2 = v10;
   }
 
   else
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOPLogType(v6, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::CopyIdentifier(this);
+      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::CopyIdentifier();
     }
 
     *a2 = 0;
-    if (v8)
+    if (v10)
     {
-      CFRelease(v8);
+      CFRelease(v10);
     }
   }
 }
 
-void sub_2416EB234(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416EB234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
@@ -136,9 +138,9 @@ uint64_t ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(ASDT::IOUse
   return v5;
 }
 
-void sub_2416EB2E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416EB2E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -154,47 +156,49 @@ void applesauce::CF::StringRef::~StringRef(const void **this)
 
 BOOL ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetStreamDescription(ASDT::IOPAudio::IsolatedIOBuffer::UserClient *this, const AudioStreamBasicDescription *a2, unsigned int a3)
 {
-  v8 = a3;
+  v10 = a3;
   ASDT::IOAudio2::Helpers::AudioStreamBasicDescriptionToIOAudio2();
-  v4 = ASDT::IOUserClient::CallMethod(this, 0, &v8, 1, v7, 40, 0, 0, 0, 0, 0);
+  v4 = ASDT::IOUserClient::CallMethod(this, 0, &v10, 1, v9, 40, 0, 0, 0, 0, 0);
+  v6 = v4;
   if (v4)
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOPLogType(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetStreamDescription(this);
+      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetStreamDescription();
     }
   }
 
-  return v4 == 0;
+  return v6 == 0;
 }
 
 BOOL ASDT::IOPAudio::IsolatedIOBuffer::UserClient::GetStreamDescription(ASDT::IOPAudio::IsolatedIOBuffer::UserClient *this, AudioStreamBasicDescription *a2)
 {
-  v6 = 40;
-  if (ASDT::IOUserClient::CallMethod(this, 1, 0, 0, 0, 0, 0, 0, v7, &v6, 1))
+  v7 = 40;
+  v2 = ASDT::IOUserClient::CallMethod(this, 1, 0, 0, 0, 0, 0, 0, v8, &v7, 1);
+  if (v2)
   {
-    v3 = ASDTIOPLogType();
-    result = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+    v4 = ASDTIOPLogType(v2, v3);
+    result = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
     }
 
-    ASDT::IOPAudio::IsolatedIOBuffer::UserClient::GetStreamDescription(this);
+    ASDT::IOPAudio::IsolatedIOBuffer::UserClient::GetStreamDescription();
     return 0;
   }
 
-  if (v6 <= 0x27)
+  if (v7 <= 0x27)
   {
-    v5 = ASDTIOPLogType();
-    result = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    v6 = ASDTIOPLogType(v2, v3);
+    result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
     }
 
-    ASDT::IOPAudio::IsolatedIOBuffer::UserClient::GetStreamDescription(this);
+    ASDT::IOPAudio::IsolatedIOBuffer::UserClient::GetStreamDescription();
     return 0;
   }
 
@@ -204,32 +208,34 @@ BOOL ASDT::IOPAudio::IsolatedIOBuffer::UserClient::GetStreamDescription(ASDT::IO
 
 BOOL ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetupIO(ASDT::IOPAudio::IsolatedIOBuffer::UserClient *this)
 {
-  v2 = ASDT::IOUserClient::CallMethod(this, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  if (v2)
+  v1 = ASDT::IOUserClient::CallMethod(this, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  v3 = v1;
+  if (v1)
   {
-    v3 = ASDTIOPLogType();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = ASDTIOPLogType(v1, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetupIO(this);
+      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetupIO();
     }
   }
 
-  return v2 == 0;
+  return v3 == 0;
 }
 
 BOOL ASDT::IOPAudio::IsolatedIOBuffer::UserClient::TeardownIO(ASDT::IOPAudio::IsolatedIOBuffer::UserClient *this)
 {
-  v2 = ASDT::IOUserClient::CallMethod(this, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  if (v2)
+  v1 = ASDT::IOUserClient::CallMethod(this, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  v3 = v1;
+  if (v1)
   {
-    v3 = ASDTIOPLogType();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = ASDTIOPLogType(v1, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::TeardownIO(this);
+      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::TeardownIO();
     }
   }
 
-  return v2 == 0;
+  return v3 == 0;
 }
 
 BOOL ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetupClientIO(ASDT::IOPAudio::IsolatedIOBuffer::UserClient *this, unint64_t a2, unsigned int a3)
@@ -237,50 +243,51 @@ BOOL ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetupClientIO(ASDT::IOPAudio:
   v8[2] = *MEMORY[0x277D85DE8];
   v8[0] = a2;
   v8[1] = a3;
-  v4 = ASDT::IOUserClient::CallMethod(this, 4, v8, 2, 0, 0, 0, 0, 0, 0, 0);
-  if (v4)
+  v3 = ASDT::IOUserClient::CallMethod(this, 4, v8, 2, 0, 0, 0, 0, 0, 0, 0);
+  v5 = v3;
+  if (v3)
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOPLogType(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetupClientIO(this);
+      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetupClientIO();
     }
   }
 
-  result = v4 == 0;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 == 0;
 }
 
 BOOL ASDT::IOPAudio::IsolatedIOBuffer::UserClient::TeardownClientIO(ASDT::IOPAudio::IsolatedIOBuffer::UserClient *this, unint64_t a2)
 {
-  v6 = a2;
-  v3 = ASDT::IOUserClient::CallMethod(this, 5, &v6, 1, 0, 0, 0, 0, 0, 0, 0);
-  if (v3)
-  {
-    v4 = ASDTIOPLogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::TeardownClientIO(this);
-    }
-  }
-
-  return v3 == 0;
-}
-
-BOOL ASDT::IOPAudio::IsolatedIOBuffer::UserClient::ReadInput(ASDT::IOPAudio::IsolatedIOBuffer::UserClient *this)
-{
-  v2 = ASDT::IOUserClient::CallTrap3(this);
+  v7 = a2;
+  v2 = ASDT::IOUserClient::CallMethod(this, 5, &v7, 1, 0, 0, 0, 0, 0, 0, 0);
+  v4 = v2;
   if (v2)
   {
-    v3 = ASDTIOPLogType();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = ASDTIOPLogType(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::ReadInput(this);
+      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::TeardownClientIO();
     }
   }
 
-  return v2 == 0;
+  return v4 == 0;
+}
+
+BOOL ASDT::IOPAudio::IsolatedIOBuffer::UserClient::ReadInput(ASDT::IOPAudio::IsolatedIOBuffer::UserClient *this, unint64_t a2, unint64_t a3, unsigned int a4)
+{
+  v4 = ASDT::IOUserClient::CallTrap3(this);
+  v6 = v4;
+  if (v4)
+  {
+    v7 = ASDTIOPLogType(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::ReadInput();
+    }
+  }
+
+  return v6 == 0;
 }
 
 const void **applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(const void **a1)
@@ -311,34 +318,30 @@ void applesauce::CF::TypeRef::~TypeRef(const void **this)
   }
 }
 
-uint64_t OUTLINED_FUNCTION_0_0@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *(result + 39);
-  return result;
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
-}
-
-void OUTLINED_FUNCTION_0_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void ASDT::IOPAudio::LPMic::UserClient::CopyIdentifier(ASDT::IOPAudio::LPMic::UserClient *this@<X0>, CFTypeRef *a2@<X8>)
 {
-  v8 = 0;
+  v10 = 0;
   cf = CFStringCreateWithBytes(0, "identifier", 10, 0x8000100u, 0);
   if (!cf)
   {
@@ -347,36 +350,37 @@ void ASDT::IOPAudio::LPMic::UserClient::CopyIdentifier(ASDT::IOPAudio::LPMic::Us
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v4 = ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, &v8);
+  v5 = ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, &v10);
+  v6 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v4)
+  if (v5)
   {
-    *a2 = v8;
+    *a2 = v10;
   }
 
   else
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOPLogType(v6, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::CopyIdentifier(this);
+      ASDT::IOPAudio::IsolatedIOBuffer::UserClient::CopyIdentifier();
     }
 
     *a2 = 0;
-    if (v8)
+    if (v10)
     {
-      CFRelease(v8);
+      CFRelease(v10);
     }
   }
 }
 
-void sub_2416EC520(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416EC520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
@@ -405,7 +409,7 @@ CFStringRef *applesauce::CF::StringRef::StringRef(CFStringRef *a1, const UInt8 *
 
 uint64_t ASDT::IOPAudio::LPMic::UserClient::GetStreamDescription(ASDT::IOPAudio::LPMic::UserClient *this, StreamDescription *a2)
 {
-  v28 = 0;
+  v30 = 0;
   cf = CFStringCreateWithBytes(0, "input stream description", 24, 0x8000100u, 0);
   if (!cf)
   {
@@ -414,28 +418,29 @@ uint64_t ASDT::IOPAudio::LPMic::UserClient::GetStreamDescription(ASDT::IOPAudio:
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v4 = ASDT::IOUserClient::CopyProperty<applesauce::CF::DictionaryRef>(this, &cf, &v28);
+  v5 = ASDT::IOUserClient::CopyProperty<applesauce::CF::DictionaryRef>(this, &cf, &v30);
+  v6 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v28)
+  if (v30)
   {
-    v5 = v4;
+    v7 = v5;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
   }
 
-  if ((v5 & 1) == 0)
+  if ((v7 & 1) == 0)
   {
-    v17 = ASDTIOPLogType();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = ASDTIOPLogType(v6, v4);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::LPMic::UserClient::GetStreamDescription(this);
+      ASDT::IOPAudio::LPMic::UserClient::GetStreamDescription();
     }
 
     goto LABEL_35;
@@ -449,66 +454,12 @@ uint64_t ASDT::IOPAudio::LPMic::UserClient::GetStreamDescription(ASDT::IOPAudio:
   cf = CFStringCreateWithBytes(0, "sample rate", 11, 0x8000100u, 0);
   if (!cf)
   {
-    v20 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x245CEDDF0](v20, "Could not construct");
-    __cxa_throw(v20, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v6 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(v28, &cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if ((v6 & 0x100000000) == 0)
-  {
-    goto LABEL_35;
-  }
-
-  a2->var0 = v6;
-  if (!v28)
-  {
-    v21 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x245CEDDF0](v21, "Could not construct");
-    __cxa_throw(v21, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  cf = CFStringCreateWithBytes(0, "format flags", 12, 0x8000100u, 0);
-  if (!cf)
-  {
     v22 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x245CEDDF0](v22, "Could not construct");
     __cxa_throw(v22, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v7 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(v28, &cf);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  if ((v7 & 0x100000000) == 0)
-  {
-    goto LABEL_35;
-  }
-
-  a2->var2 = v7 & 0x1F;
-  if (!v28)
-  {
-    v23 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x245CEDDF0](v23, "Could not construct");
-    __cxa_throw(v23, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  cf = CFStringCreateWithBytes(0, "channels per frame", 18, 0x8000100u, 0);
-  if (!cf)
-  {
-    v24 = __cxa_allocate_exception(0x10uLL);
-    MEMORY[0x245CEDDF0](v24, "Could not construct");
-    __cxa_throw(v24, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v8 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(v28, &cf);
+  v8 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(v30, &cf);
   if (cf)
   {
     CFRelease(cf);
@@ -519,15 +470,42 @@ uint64_t ASDT::IOPAudio::LPMic::UserClient::GetStreamDescription(ASDT::IOPAudio:
     goto LABEL_35;
   }
 
-  a2->var6 = v8;
-  if (!v28)
+  a2->var0 = v8;
+  if (!v30)
+  {
+    v23 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x245CEDDF0](v23, "Could not construct");
+    __cxa_throw(v23, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  cf = CFStringCreateWithBytes(0, "format flags", 12, 0x8000100u, 0);
+  if (!cf)
+  {
+    v24 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x245CEDDF0](v24, "Could not construct");
+    __cxa_throw(v24, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v9 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(v30, &cf);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if ((v9 & 0x100000000) == 0)
+  {
+    goto LABEL_35;
+  }
+
+  a2->var2 = v9 & 0x1F;
+  if (!v30)
   {
     v25 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x245CEDDF0](v25, "Could not construct");
     __cxa_throw(v25, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  cf = CFStringCreateWithBytes(0, "bits per channel", 16, 0x8000100u, 0);
+  cf = CFStringCreateWithBytes(0, "channels per frame", 18, 0x8000100u, 0);
   if (!cf)
   {
     v26 = __cxa_allocate_exception(0x10uLL);
@@ -535,52 +513,79 @@ uint64_t ASDT::IOPAudio::LPMic::UserClient::GetStreamDescription(ASDT::IOPAudio:
     __cxa_throw(v26, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v9 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(v28, &cf);
+  v10 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(v30, &cf);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if ((v9 & 0x100000000) == 0 || (a2->var7 = v9, v10 = applesauce::CF::DictionaryRef::operator->(&v28), applesauce::CF::StringRef::StringRef(&cf, "bytes per frame", 15), v11 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*v10, &cf), applesauce::CF::StringRef::~StringRef(&cf), (v11 & 0x100000000) == 0))
+  if ((v10 & 0x100000000) == 0)
+  {
+    goto LABEL_35;
+  }
+
+  a2->var6 = v10;
+  if (!v30)
+  {
+    v27 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x245CEDDF0](v27, "Could not construct");
+    __cxa_throw(v27, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  cf = CFStringCreateWithBytes(0, "bits per channel", 16, 0x8000100u, 0);
+  if (!cf)
+  {
+    v28 = __cxa_allocate_exception(0x10uLL);
+    MEMORY[0x245CEDDF0](v28, "Could not construct");
+    __cxa_throw(v28, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v11 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(v30, &cf);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if ((v11 & 0x100000000) == 0 || (a2->var7 = v11, v12 = applesauce::CF::DictionaryRef::operator->(&v30), applesauce::CF::StringRef::StringRef(&cf, "bytes per frame", 15), v13 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*v12, &cf), applesauce::CF::StringRef::~StringRef(&cf), (v13 & 0x100000000) == 0))
   {
 LABEL_35:
-    v16 = 0;
+    v18 = 0;
     goto LABEL_36;
   }
 
-  a2->var5 = v11;
-  a2->var3 = a2->var4 * v11;
-  v12 = applesauce::CF::DictionaryRef::operator->(&v28);
+  a2->var5 = v13;
+  a2->var3 = a2->var4 * v13;
+  v14 = applesauce::CF::DictionaryRef::operator->(&v30);
   applesauce::CF::StringRef::StringRef(&cf, "latency in frames", 17);
-  v13 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*v12, &cf);
-  applesauce::CF::StringRef::~StringRef(&cf);
-  if ((v13 & 0x100000000) != 0)
-  {
-    a2->var9 = v13;
-  }
-
-  v14 = applesauce::CF::DictionaryRef::operator->(&v28);
-  applesauce::CF::StringRef::StringRef(&cf, "driver safety offset in frames", 30);
   v15 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*v14, &cf);
   applesauce::CF::StringRef::~StringRef(&cf);
   if ((v15 & 0x100000000) != 0)
   {
-    a2->var10 = v15;
+    a2->var9 = v15;
   }
 
-  v16 = 1;
-LABEL_36:
-  if (v28)
+  v16 = applesauce::CF::DictionaryRef::operator->(&v30);
+  applesauce::CF::StringRef::StringRef(&cf, "driver safety offset in frames", 30);
+  v17 = applesauce::CF::details::find_at_key_or_optional<unsigned int,applesauce::CF::StringRef>(*v16, &cf);
+  applesauce::CF::StringRef::~StringRef(&cf);
+  if ((v17 & 0x100000000) != 0)
   {
-    CFRelease(v28);
+    a2->var10 = v17;
   }
 
-  return v16;
+  v18 = 1;
+LABEL_36:
+  if (v30)
+  {
+    CFRelease(v30);
+  }
+
+  return v18;
 }
 
-void sub_2416ECB08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416ECB08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
@@ -606,9 +611,9 @@ uint64_t ASDT::IOUserClient::CopyProperty<applesauce::CF::DictionaryRef>(ASDT::I
   return v5;
 }
 
-void sub_2416ECC38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416ECC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -626,7 +631,7 @@ void *applesauce::CF::DictionaryRef::operator->(void *result)
 
 uint64_t ASDT::IOPAudio::LPMic::UserClient::GetClockDomain(ASDT::IOPAudio::LPMic::UserClient *this)
 {
-  v7 = 0;
+  v9 = 0;
   cf = CFStringCreateWithBytes(0, "clock domain", 12, 0x8000100u, 0);
   if (!cf)
   {
@@ -635,22 +640,23 @@ uint64_t ASDT::IOPAudio::LPMic::UserClient::GetClockDomain(ASDT::IOPAudio::LPMic
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v2 = ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v7);
+  v3 = ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v9);
+  v4 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v2)
+  if (v3)
   {
-    return v7;
+    return v9;
   }
 
-  v4 = ASDTIOPLogType();
-  result = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  v6 = ASDTIOPLogType(v4, v2);
+  result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
   if (result)
   {
-    ASDT::IOPAudio::LPMic::UserClient::GetClockDomain(this);
+    ASDT::IOPAudio::LPMic::UserClient::GetClockDomain();
     return 0;
   }
 
@@ -678,16 +684,16 @@ uint64_t ASDT::IOUserClient::CopyProperty<unsigned int>(ASDT::IOUserClient *a1, 
   return v5;
 }
 
-void sub_2416ECE38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416ECE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t ASDT::IOPAudio::LPMic::UserClient::GetZeroTimeStampInterval(ASDT::IOPAudio::LPMic::UserClient *this)
 {
-  v7 = 0;
+  v9 = 0;
   cf = CFStringCreateWithBytes(0, "zero timestamp wrap frames", 26, 0x8000100u, 0);
   if (!cf)
   {
@@ -696,22 +702,23 @@ uint64_t ASDT::IOPAudio::LPMic::UserClient::GetZeroTimeStampInterval(ASDT::IOPAu
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v2 = ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v7);
+  v3 = ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v9);
+  v4 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v2)
+  if (v3)
   {
-    return v7;
+    return v9;
   }
 
-  v4 = ASDTIOPLogType();
-  result = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  v6 = ASDTIOPLogType(v4, v2);
+  result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
   if (result)
   {
-    ASDT::IOPAudio::LPMic::UserClient::GetZeroTimeStampInterval(this);
+    ASDT::IOPAudio::LPMic::UserClient::GetZeroTimeStampInterval();
     return 0;
   }
 
@@ -720,7 +727,7 @@ uint64_t ASDT::IOPAudio::LPMic::UserClient::GetZeroTimeStampInterval(ASDT::IOPAu
 
 uint64_t ASDT::IOPAudio::LPMic::UserClient::GetRingBufferSize(ASDT::IOPAudio::LPMic::UserClient *this)
 {
-  v7 = 0;
+  v9 = 0;
   cf = CFStringCreateWithBytes(0, "io buffer frame size", 20, 0x8000100u, 0);
   if (!cf)
   {
@@ -729,22 +736,23 @@ uint64_t ASDT::IOPAudio::LPMic::UserClient::GetRingBufferSize(ASDT::IOPAudio::LP
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v2 = ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v7);
+  v3 = ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v9);
+  v4 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v2)
+  if (v3)
   {
-    return v7;
+    return v9;
   }
 
-  v4 = ASDTIOPLogType();
-  result = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  v6 = ASDTIOPLogType(v4, v2);
+  result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
   if (result)
   {
-    ASDT::IOPAudio::LPMic::UserClient::GetRingBufferSize(this);
+    ASDT::IOPAudio::LPMic::UserClient::GetRingBufferSize();
     return 0;
   }
 
@@ -753,7 +761,7 @@ uint64_t ASDT::IOPAudio::LPMic::UserClient::GetRingBufferSize(ASDT::IOPAudio::LP
 
 uint64_t ASDT::IOPAudio::LPMic::UserClient::GetHistoricDataSupported(ASDT::IOPAudio::LPMic::UserClient *this)
 {
-  v8 = 0;
+  v10 = 0;
   cf = CFStringCreateWithBytes(0, "historic data supported", 23, 0x8000100u, 0);
   if (!cf)
   {
@@ -762,29 +770,30 @@ uint64_t ASDT::IOPAudio::LPMic::UserClient::GetHistoricDataSupported(ASDT::IOPAu
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v2 = ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v8);
+  v3 = ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v10);
+  v4 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v2)
+  if (v3)
   {
-    v3 = v8;
+    v5 = v10;
   }
 
   else
   {
-    v4 = ASDTIOPLogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOPLogType(v4, v2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::LPMic::UserClient::GetHistoricDataSupported(this);
+      ASDT::IOPAudio::LPMic::UserClient::GetHistoricDataSupported();
     }
 
-    v3 = 0;
+    v5 = 0;
   }
 
-  return v3 & 1;
+  return v5 & 1;
 }
 
 uint64_t ASDT::IOUserClient::CopyProperty<BOOL>(ASDT::IOUserClient *a1, const applesauce::CF::StringRef *a2, const applesauce::CF::TypeRef *a3)
@@ -808,72 +817,75 @@ uint64_t ASDT::IOUserClient::CopyProperty<BOOL>(ASDT::IOUserClient *a1, const ap
   return v5;
 }
 
-void sub_2416ED208(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416ED208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
 BOOL ASDT::IOPAudio::LPMic::UserClient::StartIO(ASDT::IOPAudio::LPMic::UserClient *this)
 {
-  v2 = ASDT::IOUserClient::CallMethod(this, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  if (v2)
+  v1 = ASDT::IOUserClient::CallMethod(this, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  v3 = v1;
+  if (v1)
   {
-    v3 = ASDTIOPLogType();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = ASDTIOPLogType(v1, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::LPMic::UserClient::StartIO(this);
+      ASDT::IOPAudio::LPMic::UserClient::StartIO();
     }
   }
 
-  return v2 == 0;
+  return v3 == 0;
 }
 
 BOOL ASDT::IOPAudio::LPMic::UserClient::StopIO(ASDT::IOPAudio::LPMic::UserClient *this)
 {
-  v2 = ASDT::IOUserClient::CallMethod(this, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  if (v2)
+  v1 = ASDT::IOUserClient::CallMethod(this, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  v3 = v1;
+  if (v1)
   {
-    v3 = ASDTIOPLogType();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = ASDTIOPLogType(v1, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::LPMic::UserClient::StopIO(this);
+      ASDT::IOPAudio::LPMic::UserClient::StopIO();
     }
   }
 
-  return v2 == 0;
+  return v3 == 0;
 }
 
 BOOL ASDT::IOPAudio::LPMic::UserClient::GetControlValue(ASDT::IOUserClient *a1, unsigned int a2, _DWORD *a3)
 {
-  v10 = a2;
-  v9 = 0;
-  v8 = 1;
-  if (ASDT::IOUserClient::CallMethod(a1, 2, &v10, 1, 0, 0, &v9, &v8, 0, 0, 1))
+  v11 = a2;
+  v10 = 0;
+  v9 = 1;
+  v4 = ASDT::IOUserClient::CallMethod(a1, 2, &v11, 1, 0, 0, &v10, &v9, 0, 0, 1);
+  if (v4)
   {
-    v5 = ASDTIOPLogType();
-    result = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    v6 = ASDTIOPLogType(v4, v5);
+    result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
     }
 
-    ASDT::IOPAudio::LPMic::UserClient::GetControlValue(a1);
+    ASDT::IOPAudio::LPMic::UserClient::GetControlValue();
     return 0;
   }
 
-  if (v8 == 1)
+  if (v9 == 1)
   {
-    *a3 = v9;
+    *a3 = v10;
     return 1;
   }
 
-  v7 = ASDTIOPLogType();
-  result = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+  v8 = ASDTIOPLogType(v4, v5);
+  result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
   if (result)
   {
-    ASDT::IOPAudio::LPMic::UserClient::GetControlValue(a1);
+    ASDT::IOPAudio::LPMic::UserClient::GetControlValue();
     return 0;
   }
 
@@ -885,32 +897,31 @@ BOOL ASDT::IOPAudio::LPMic::UserClient::SetControlValue(ASDT::IOUserClient *a1, 
   v8[2] = *MEMORY[0x277D85DE8];
   v8[0] = a2;
   v8[1] = a3;
-  v4 = ASDT::IOUserClient::CallMethod(a1, 3, v8, 2, 0, 0, 0, 0, 0, 0, 1);
-  if (v4)
+  v3 = ASDT::IOUserClient::CallMethod(a1, 3, v8, 2, 0, 0, 0, 0, 0, 0, 1);
+  v5 = v3;
+  if (v3)
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOPLogType(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::LPMic::UserClient::SetControlValue(a1);
+      ASDT::IOPAudio::LPMic::UserClient::SetControlValue();
     }
   }
 
-  result = v4 == 0;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 == 0;
 }
 
 void ASDT::IOPAudio::LPMic::UserClient::MapEngineStatus(ASDT::IOPAudio::LPMic::UserClient *this@<X0>, uint64_t a2@<X8>)
 {
-  ASDT::IOUserClient::MapMemory(this);
+  v3 = ASDT::IOUserClient::MapMemory(this);
   if (*(a2 + 104))
   {
     if (*(a2 + 112) != 32)
     {
-      v4 = ASDTIOPLogType();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = ASDTIOPLogType(v3, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        ASDT::IOPAudio::LPMic::UserClient::MapEngineStatus(this);
+        ASDT::IOPAudio::LPMic::UserClient::MapEngineStatus();
       }
 
       ASDT::IOMemoryMap::Release(a2);
@@ -919,10 +930,10 @@ void ASDT::IOPAudio::LPMic::UserClient::MapEngineStatus(ASDT::IOPAudio::LPMic::U
 
   else
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOPLogType(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::LPMic::UserClient::MapEngineStatus(this);
+      ASDT::IOPAudio::LPMic::UserClient::MapEngineStatus();
     }
   }
 }
@@ -933,10 +944,6 @@ uint64_t ASDT::IOPAudio::LPMic::EngineStatus::Snapshot(ASDT::IOPAudio::LPMic::En
   v3 = *(this + 1);
   v4 = *(this + 2);
   v5 = *(this + 3);
-  v10 = *this;
-  v6 = *(this + 1);
-  v7 = *(this + 2);
-  v8 = *(this + 3);
   result = 1;
   a2->var0 = v2;
   a2->var1 = v3;
@@ -1206,12 +1213,13 @@ void ASDT::IOPAudio::VoiceTrigger::UserClient::Close(ASDT::IOPAudio::VoiceTrigge
   std::__shared_mutex_base::lock((this + 368));
   if (*(this + 536) == 1)
   {
-    if (ASDT::IOUserClient::CallMethod(this, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+    v3 = ASDT::IOUserClient::CallMethod(this, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    if (v3)
     {
-      v3 = ASDTIOPLogType();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v5 = ASDTIOPLogType(v3, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        ASDT::IOPAudio::VoiceTrigger::UserClient::Close(this);
+        ASDT::IOPAudio::VoiceTrigger::UserClient::Close();
       }
     }
 
@@ -1221,9 +1229,9 @@ void ASDT::IOPAudio::VoiceTrigger::UserClient::Close(ASDT::IOPAudio::VoiceTrigge
   std::__shared_mutex_base::unlock(v2);
 }
 
-void sub_2416EE88C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2416EE88C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1254,9 +1262,9 @@ void ASDT::IOPAudio::VoiceTrigger::UserClient::VTSharedLock(ASDT::IOPAudio::Voic
   std::__shared_mutex_base::lock_shared(v2);
 }
 
-void ASDT::IOPAudio::VoiceTrigger::UserClient::CopyIdentifier(ASDT::IOPAudio::VoiceTrigger::UserClient *this@<X0>, CFTypeRef *a2@<X8>)
+void ASDT::IOPAudio::VoiceTrigger::UserClient::CopyIdentifier(CFTypeRef *__return_ptr a1@<X8>, ASDT::IOPAudio::VoiceTrigger::UserClient *this@<X0>)
 {
-  v8 = 0;
+  v10 = 0;
   cf = CFStringCreateWithBytes(0, "identifier", 10, 0x8000100u, 0);
   if (!cf)
   {
@@ -1265,44 +1273,45 @@ void ASDT::IOPAudio::VoiceTrigger::UserClient::CopyIdentifier(ASDT::IOPAudio::Vo
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v4 = ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, &v8);
+  v5 = ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, &v10);
+  v6 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v4)
+  if (v5)
   {
-    *a2 = v8;
+    *a1 = v10;
   }
 
   else
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOPLogType(v6, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::VoiceTrigger::UserClient::CopyIdentifier(this);
+      ASDT::IOPAudio::VoiceTrigger::UserClient::CopyIdentifier();
     }
 
-    *a2 = 0;
-    if (v8)
+    *a1 = 0;
+    if (v10)
     {
-      CFRelease(v8);
+      CFRelease(v10);
     }
   }
 }
 
-void sub_2416EEA54(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416EEA54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
 
 BOOL ASDT::IOPAudio::VoiceTrigger::UserClient::GetIsConfigured(ASDT::IOPAudio::VoiceTrigger::UserClient *this)
 {
-  v11 = 0;
-  v10 = 0;
+  v13 = 0;
+  v12 = 0;
   cf = CFStringCreateWithBytes(0, "VTConfigured", 12, 0x8000100u, 0);
   if (!cf)
   {
@@ -1311,7 +1320,7 @@ BOOL ASDT::IOPAudio::VoiceTrigger::UserClient::GetIsConfigured(ASDT::IOPAudio::V
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v2 = ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v11);
+  v2 = ASDT::IOUserClient::CopyProperty<BOOL>(this, &cf, &v13);
   if (cf)
   {
     CFRelease(cf);
@@ -1319,7 +1328,7 @@ BOOL ASDT::IOPAudio::VoiceTrigger::UserClient::GetIsConfigured(ASDT::IOPAudio::V
 
   if (v2)
   {
-    return v11;
+    return v13;
   }
 
   else
@@ -1327,28 +1336,29 @@ BOOL ASDT::IOPAudio::VoiceTrigger::UserClient::GetIsConfigured(ASDT::IOPAudio::V
     cf = CFStringCreateWithBytes(0, "VTConfigured", 12, 0x8000100u, 0);
     if (!cf)
     {
-      v8 = __cxa_allocate_exception(0x10uLL);
-      MEMORY[0x245CEDDF0](v8, "Could not construct");
-      __cxa_throw(v8, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      v10 = __cxa_allocate_exception(0x10uLL);
+      MEMORY[0x245CEDDF0](v10, "Could not construct");
+      __cxa_throw(v10, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    v4 = ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v10);
+    v5 = ASDT::IOUserClient::CopyProperty<unsigned int>(this, &cf, &v12);
+    v6 = cf;
     if (cf)
     {
       CFRelease(cf);
     }
 
-    if (v4)
+    if (v5)
     {
-      return v10 != 0;
+      return v12 != 0;
     }
 
     else
     {
-      v5 = ASDTIOPLogType();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v7 = ASDTIOPLogType(v6, v4);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        ASDT::IOPAudio::VoiceTrigger::UserClient::GetIsConfigured(this);
+        ASDT::IOPAudio::VoiceTrigger::UserClient::GetIsConfigured();
       }
 
       return 0;
@@ -1356,9 +1366,9 @@ BOOL ASDT::IOPAudio::VoiceTrigger::UserClient::GetIsConfigured(ASDT::IOPAudio::V
   }
 }
 
-void ASDT::IOPAudio::VoiceTrigger::UserClient::CopyConfigurationInfo(ASDT::IOPAudio::VoiceTrigger::UserClient *this@<X0>, CFTypeRef *a2@<X8>)
+void ASDT::IOPAudio::VoiceTrigger::UserClient::CopyConfigurationInfo(CFTypeRef *__return_ptr a1@<X8>, ASDT::IOPAudio::VoiceTrigger::UserClient *this@<X0>)
 {
-  v8 = 0;
+  v10 = 0;
   cf = CFStringCreateWithBytes(0, "VTConfiguration", 15, 0x8000100u, 0);
   if (!cf)
   {
@@ -1367,36 +1377,37 @@ void ASDT::IOPAudio::VoiceTrigger::UserClient::CopyConfigurationInfo(ASDT::IOPAu
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v4 = ASDT::IOUserClient::CopyProperty<applesauce::CF::DictionaryRef>(this, &cf, &v8);
+  v5 = ASDT::IOUserClient::CopyProperty<applesauce::CF::DictionaryRef>(this, &cf, &v10);
+  v6 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v4)
+  if (v5)
   {
-    *a2 = v8;
+    *a1 = v10;
   }
 
   else
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = ASDTIOPLogType(v6, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      ASDT::IOPAudio::VoiceTrigger::UserClient::CopyConfigurationInfo(this);
+      ASDT::IOPAudio::VoiceTrigger::UserClient::CopyConfigurationInfo();
     }
 
-    *a2 = 0;
-    if (v8)
+    *a1 = 0;
+    if (v10)
     {
-      CFRelease(v8);
+      CFRelease(v10);
     }
   }
 }
 
-void sub_2416EED70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416EED70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
@@ -1420,16 +1431,16 @@ uint64_t ASDT::IOPAudio::VoiceTrigger::UserClient::SetConfigurationInfo(ASDT::IO
   return v4;
 }
 
-void sub_2416EEEA8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416EEEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
 
-void ASDT::IOPAudio::VoiceTrigger::UserClient::CopyEventInfo(ASDT::IOPAudio::VoiceTrigger::UserClient *this@<X0>, CFTypeRef *a2@<X8>)
+void ASDT::IOPAudio::VoiceTrigger::UserClient::CopyEventInfo(CFTypeRef *__return_ptr a1@<X8>, ASDT::IOPAudio::VoiceTrigger::UserClient *this@<X0>)
 {
-  v8 = 0;
+  v10 = 0;
   cf = CFStringCreateWithBytes(0, "VTEventInfo", 11, 0x8000100u, 0);
   if (!cf)
   {
@@ -1438,36 +1449,37 @@ void ASDT::IOPAudio::VoiceTrigger::UserClient::CopyEventInfo(ASDT::IOPAudio::Voi
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v4 = ASDT::IOUserClient::CopyProperty<applesauce::CF::DictionaryRef>(this, &cf, &v8);
+  v5 = ASDT::IOUserClient::CopyProperty<applesauce::CF::DictionaryRef>(this, &cf, &v10);
+  v6 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v4)
+  if (v5)
   {
-    *a2 = v8;
+    *a1 = v10;
   }
 
   else
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = ASDTIOPLogType(v6, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      ASDT::IOPAudio::VoiceTrigger::UserClient::CopyConfigurationInfo(this);
+      ASDT::IOPAudio::VoiceTrigger::UserClient::CopyConfigurationInfo();
     }
 
-    *a2 = 0;
-    if (v8)
+    *a1 = 0;
+    if (v10)
     {
-      CFRelease(v8);
+      CFRelease(v10);
     }
   }
 }
 
-void sub_2416EEFE4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416EEFE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
@@ -1479,12 +1491,13 @@ uint64_t ASDT::IOPAudio::VoiceTrigger::UserClient::Open(ASDT::IOPAudio::VoiceTri
   std::__shared_mutex_base::lock((this + 368));
   if ((*(this + 536) & 1) == 0)
   {
-    if (ASDT::IOUserClient::CallMethod(this, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+    v4 = ASDT::IOUserClient::CallMethod(this, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    if (v4)
     {
-      v4 = ASDTIOPLogType();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v6 = ASDTIOPLogType(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        ASDT::IOPAudio::VoiceTrigger::UserClient::Open(this);
+        ASDT::IOPAudio::VoiceTrigger::UserClient::Open();
       }
 
       v3 = 0;
@@ -1500,34 +1513,35 @@ uint64_t ASDT::IOPAudio::VoiceTrigger::UserClient::Open(ASDT::IOPAudio::VoiceTri
   return v3;
 }
 
-void sub_2416EF0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2416EF0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 BOOL ASDT::IOPAudio::VoiceTrigger::UserClient::GetControlValue(ASDT::IOUserClient *a1, unsigned int a2, _DWORD *a3)
 {
-  v9 = 0;
-  v10 = a2;
-  v8 = 1;
-  v5 = ASDT::IOUserClient::CallMethod(a1, 2, &v10, 1, 0, 0, &v9, &v8, 0, 0, 1);
-  if (v5)
+  v10 = 0;
+  v11 = a2;
+  v9 = 1;
+  v4 = ASDT::IOUserClient::CallMethod(a1, 2, &v11, 1, 0, 0, &v10, &v9, 0, 0, 1);
+  v6 = v4;
+  if (v4)
   {
-    v6 = ASDTIOPLogType();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOPLogType(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::LPMic::UserClient::GetControlValue(a1);
+      ASDT::IOPAudio::LPMic::UserClient::GetControlValue();
     }
   }
 
   else
   {
-    *a3 = v9;
+    *a3 = v10;
   }
 
-  return v5 == 0;
+  return v6 == 0;
 }
 
 BOOL ASDT::IOPAudio::VoiceTrigger::UserClient::SetControlValue(ASDT::IOUserClient *a1, unsigned int a2, unsigned int a3)
@@ -1535,121 +1549,126 @@ BOOL ASDT::IOPAudio::VoiceTrigger::UserClient::SetControlValue(ASDT::IOUserClien
   v8[2] = *MEMORY[0x277D85DE8];
   v8[0] = a2;
   v8[1] = a3;
-  v4 = ASDT::IOUserClient::CallMethod(a1, 3, v8, 2, 0, 0, 0, 0, 0, 0, 1);
-  if (v4)
+  v3 = ASDT::IOUserClient::CallMethod(a1, 3, v8, 2, 0, 0, 0, 0, 0, 0, 1);
+  v5 = v3;
+  if (v3)
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOPLogType(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::LPMic::UserClient::SetControlValue(a1);
+      ASDT::IOPAudio::LPMic::UserClient::SetControlValue();
     }
   }
 
-  result = v4 == 0;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 == 0;
 }
 
 BOOL ASDT::IOPAudio::VoiceTrigger::UserClient::GetVoiceTriggerEnabled(ASDT::IOPAudio::VoiceTrigger::UserClient *this, unsigned int *a2)
 {
-  v7 = 0;
-  ControlValue = ASDT::IOPAudio::VoiceTrigger::UserClient::GetControlValue(this, 0, &v7);
+  v8 = 0;
+  ControlValue = ASDT::IOPAudio::VoiceTrigger::UserClient::GetControlValue(this, 0, &v8);
+  v5 = ControlValue;
   if (ControlValue)
   {
-    *a2 = v7 != 0;
+    *a2 = v8 != 0;
   }
 
   else
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOPLogType(ControlValue, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::VoiceTrigger::UserClient::GetVoiceTriggerEnabled(this);
+      ASDT::IOPAudio::VoiceTrigger::UserClient::GetVoiceTriggerEnabled();
     }
   }
 
-  return ControlValue;
+  return v5;
 }
 
 BOOL ASDT::IOPAudio::VoiceTrigger::UserClient::SetVoiceTriggerEnabled(ASDT::IOPAudio::VoiceTrigger::UserClient *this, int a2)
 {
-  v3 = ASDT::IOPAudio::VoiceTrigger::UserClient::SetControlValue(this, 0, a2 != 0);
-  if (!v3)
+  v2 = ASDT::IOPAudio::VoiceTrigger::UserClient::SetControlValue(this, 0, a2 != 0);
+  v4 = v2;
+  if (!v2)
   {
-    v4 = ASDTIOPLogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ASDTIOPLogType(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::VoiceTrigger::UserClient::SetVoiceTriggerEnabled(this);
+      ASDT::IOPAudio::VoiceTrigger::UserClient::SetVoiceTriggerEnabled();
     }
   }
 
-  return v3;
+  return v4;
 }
 
 BOOL ASDT::IOPAudio::VoiceTrigger::UserClient::GetActiveChannelMask(ASDT::IOPAudio::VoiceTrigger::UserClient *this, unsigned int *a2)
 {
   ControlValue = ASDT::IOPAudio::VoiceTrigger::UserClient::GetControlValue(this, 1u, a2);
+  v4 = ControlValue;
   if (!ControlValue)
   {
-    v4 = ASDTIOPLogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ASDTIOPLogType(ControlValue, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::VoiceTrigger::UserClient::GetActiveChannelMask(this);
+      ASDT::IOPAudio::VoiceTrigger::UserClient::GetActiveChannelMask();
     }
   }
 
-  return ControlValue;
+  return v4;
 }
 
 BOOL ASDT::IOPAudio::VoiceTrigger::UserClient::GetModelCRC(ASDT::IOPAudio::VoiceTrigger::UserClient *this, unsigned int *a2)
 {
   ControlValue = ASDT::IOPAudio::VoiceTrigger::UserClient::GetControlValue(this, 2u, a2);
+  v4 = ControlValue;
   if (!ControlValue)
   {
-    v4 = ASDTIOPLogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ASDTIOPLogType(ControlValue, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::VoiceTrigger::UserClient::GetModelCRC(this);
+      ASDT::IOPAudio::VoiceTrigger::UserClient::GetModelCRC();
     }
   }
 
-  return ControlValue;
+  return v4;
 }
 
 BOOL ASDT::IOPAudio::VoiceTrigger::UserClient::GetDebugEnabled(ASDT::IOPAudio::VoiceTrigger::UserClient *this, unsigned int *a2)
 {
-  v7 = 0;
-  ControlValue = ASDT::IOPAudio::VoiceTrigger::UserClient::GetControlValue(this, 3u, &v7);
+  v8 = 0;
+  ControlValue = ASDT::IOPAudio::VoiceTrigger::UserClient::GetControlValue(this, 3u, &v8);
+  v5 = ControlValue;
   if (ControlValue)
   {
-    *a2 = v7 != 0;
+    *a2 = v8 != 0;
   }
 
   else
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOPLogType(ControlValue, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::VoiceTrigger::UserClient::GetDebugEnabled(this);
+      ASDT::IOPAudio::VoiceTrigger::UserClient::GetDebugEnabled();
     }
   }
 
-  return ControlValue;
+  return v5;
 }
 
 BOOL ASDT::IOPAudio::VoiceTrigger::UserClient::SetDebugEnabled(ASDT::IOPAudio::VoiceTrigger::UserClient *this, int a2)
 {
-  v3 = ASDT::IOPAudio::VoiceTrigger::UserClient::SetControlValue(this, 3u, a2 != 0);
-  if (!v3)
+  v2 = ASDT::IOPAudio::VoiceTrigger::UserClient::SetControlValue(this, 3u, a2 != 0);
+  v4 = v2;
+  if (!v2)
   {
-    v4 = ASDTIOPLogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ASDTIOPLogType(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::VoiceTrigger::UserClient::SetDebugEnabled(this);
+      ASDT::IOPAudio::VoiceTrigger::UserClient::SetDebugEnabled();
     }
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t ASDT::IOPAudio::VoiceTrigger::UserClient::SetPhraseDetectEventBlock(uint64_t a1, const void *a2)
@@ -1693,9 +1712,9 @@ uint64_t ASDT::IOPAudio::VoiceTrigger::UserClient::SetPhraseDetectEventBlock(uin
   return v7;
 }
 
-void sub_2416EF60C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2416EF60C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1754,15 +1773,16 @@ uint64_t std::shared_lock<std::shared_mutex>::~shared_lock[abi:ne200100](uint64_
   return a1;
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void ASDT::IOPAudio::IOBuffer::UserClient::CopyIdentifier(ASDT::IOPAudio::IOBuffer::UserClient *this@<X0>, CFTypeRef *a2@<X8>)
+void ASDT::IOPAudio::IOBuffer::UserClient::CopyIdentifier(CFTypeRef *__return_ptr a1@<X8>, ASDT::IOPAudio::IOBuffer::UserClient *this@<X0>)
 {
-  v8 = 0;
+  v10 = 0;
   cf = CFStringCreateWithBytes(0, "identifier", 10, 0x8000100u, 0);
   if (!cf)
   {
@@ -1771,56 +1791,57 @@ void ASDT::IOPAudio::IOBuffer::UserClient::CopyIdentifier(ASDT::IOPAudio::IOBuff
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v4 = ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, &v8);
+  v5 = ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, &v10);
+  v6 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v4)
+  if (v5)
   {
-    *a2 = v8;
+    *a1 = v10;
   }
 
   else
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOPLogType(v6, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::IOBuffer::UserClient::CopyIdentifier(this, v5);
+      ASDT::IOPAudio::IOBuffer::UserClient::CopyIdentifier(this, v7);
     }
 
-    *a2 = 0;
-    if (v8)
+    *a1 = 0;
+    if (v10)
     {
-      CFRelease(v8);
+      CFRelease(v10);
     }
   }
 }
 
-void sub_2416EFDC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416EFDC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
 
-void ASDT::IOPAudio::IOBuffer::UserClient::MapIOBuffer(ASDT::IOPAudio::IOBuffer::UserClient *this@<X0>, uint64_t a2@<X8>)
+void ASDT::IOPAudio::IOBuffer::UserClient::MapIOBuffer(uint64_t *__return_ptr a1@<X8>, ASDT::IOPAudio::IOBuffer::UserClient *this@<X0>)
 {
-  ASDT::IOUserClient::MapMemory(this);
-  if (!*(a2 + 104))
+  v4 = ASDT::IOUserClient::MapMemory(this);
+  if (!a1[13])
   {
-    v4 = ASDTIOPLogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOPLogType(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::IOBuffer::UserClient::MapIOBuffer(this, v4);
+      ASDT::IOPAudio::IOBuffer::UserClient::MapIOBuffer(this, v6);
     }
   }
 }
 
 void ASDT::IOPAudio::ClientManager::UserClient::CopyIdentifier(ASDT::IOPAudio::ClientManager::UserClient *this@<X0>, CFTypeRef *a2@<X8>)
 {
-  v8 = 0;
+  v10 = 0;
   cf = CFStringCreateWithBytes(0, "identifier", 10, 0x8000100u, 0);
   if (!cf)
   {
@@ -1829,165 +1850,173 @@ void ASDT::IOPAudio::ClientManager::UserClient::CopyIdentifier(ASDT::IOPAudio::C
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v4 = ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, &v8);
+  v5 = ASDT::IOUserClient::CopyProperty<applesauce::CF::StringRef>(this, &cf, &v10);
+  v6 = cf;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v4)
+  if (v5)
   {
-    *a2 = v8;
+    *a2 = v10;
   }
 
   else
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOPLogType(v6, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::VoiceTrigger::UserClient::CopyIdentifier(this);
+      ASDT::IOPAudio::VoiceTrigger::UserClient::CopyIdentifier();
     }
 
     *a2 = 0;
-    if (v8)
+    if (v10)
     {
-      CFRelease(v8);
+      CFRelease(v10);
     }
   }
 }
 
-void sub_2416F0680(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2416F0680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
 
 BOOL ASDT::IOPAudio::ClientManager::UserClient::Enable(ASDT::IOPAudio::ClientManager::UserClient *this, unsigned int a2)
 {
-  v6 = a2;
-  v3 = ASDT::IOUserClient::CallMethod(this, 0, &v6, 1, 0, 0, 0, 0, 0, 0, 1);
-  if (v3)
+  v7 = a2;
+  v2 = ASDT::IOUserClient::CallMethod(this, 0, &v7, 1, 0, 0, 0, 0, 0, 0, 1);
+  v4 = v2;
+  if (v2)
   {
-    v4 = ASDTIOPLogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ASDTIOPLogType(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::ClientManager::UserClient::Enable(this);
+      ASDT::IOPAudio::ClientManager::UserClient::Enable();
     }
   }
 
-  return v3 == 0;
+  return v4 == 0;
 }
 
 BOOL ASDT::IOPAudio::ClientManager::UserClient::Disable(ASDT::IOPAudio::ClientManager::UserClient *this, unsigned int a2)
 {
-  v6 = a2;
-  v3 = ASDT::IOUserClient::CallMethod(this, 1, &v6, 1, 0, 0, 0, 0, 0, 0, 1);
-  if (v3)
+  v7 = a2;
+  v2 = ASDT::IOUserClient::CallMethod(this, 1, &v7, 1, 0, 0, 0, 0, 0, 0, 1);
+  v4 = v2;
+  if (v2)
   {
-    v4 = ASDTIOPLogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ASDTIOPLogType(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::ClientManager::UserClient::Enable(this);
+      ASDT::IOPAudio::ClientManager::UserClient::Enable();
     }
   }
 
-  return v3 == 0;
+  return v4 == 0;
 }
 
 BOOL ASDT::IOPAudio::ClientManager::UserClient::GetEnableState(ASDT::IOPAudio::ClientManager::UserClient *this, BOOL *a2)
 {
-  v8 = 0;
-  v4 = ASDT::IOUserClient::CallMethod(this, 2, 0, 0, 0, 0, &v8, &v7, 0, 0, 1);
-  if (v4)
+  v9 = 0;
+  v3 = ASDT::IOUserClient::CallMethod(this, 2, 0, 0, 0, 0, &v9, &v8, 0, 0, 1);
+  v5 = v3;
+  if (v3)
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOPLogType(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::ClientManager::UserClient::GetEnableState(this);
+      ASDT::IOPAudio::ClientManager::UserClient::GetEnableState();
     }
   }
 
   else
   {
-    *a2 = v8 != 0;
+    *a2 = v9 != 0;
   }
 
-  return v4 == 0;
+  return v5 == 0;
 }
 
 BOOL ASDT::IOPAudio::ClientManager::UserClient::GetCurrentPowerState(ASDT::IOPAudio::ClientManager::UserClient *this, unsigned int *a2)
 {
-  v8 = 0;
-  v4 = ASDT::IOUserClient::CallMethod(this, 4, 0, 0, 0, 0, &v8, &v7, 0, 0, 1);
-  if (v4)
+  v9 = 0;
+  v3 = ASDT::IOUserClient::CallMethod(this, 4, 0, 0, 0, 0, &v9, &v8, 0, 0, 1);
+  v5 = v3;
+  if (v3)
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ASDTIOPLogType(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::ClientManager::UserClient::GetEnableState(this);
+      ASDT::IOPAudio::ClientManager::UserClient::GetEnableState();
     }
   }
 
   else
   {
-    *a2 = v8;
+    *a2 = v9;
+  }
+
+  return v5 == 0;
+}
+
+BOOL ASDT::IOPAudio::ClientManager::UserClient::MakePowerRequest(ASDT::IOUserClient *a1, void *a2)
+{
+  v2 = ASDT::IOUserClient::CallMethod(a1, 3, 0, 0, a2, 8, 0, 0, 0, 0, 1);
+  v4 = v2;
+  if (v2)
+  {
+    v5 = ASDTIOPLogType(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      ASDT::IOPAudio::ClientManager::UserClient::Enable();
+    }
   }
 
   return v4 == 0;
 }
 
-BOOL ASDT::IOPAudio::ClientManager::UserClient::MakePowerRequest(ASDT::IOUserClient *a1, void *a2)
-{
-  v3 = ASDT::IOUserClient::CallMethod(a1, 3, 0, 0, a2, 8, 0, 0, 0, 0, 1);
-  if (v3)
-  {
-    v4 = ASDTIOPLogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      ASDT::IOPAudio::ClientManager::UserClient::Enable(a1);
-    }
-  }
-
-  return v3 == 0;
-}
-
 BOOL ASDT::IOPAudio::ClientManager::UserClient::GetNodeProperty(ASDT::IOPAudio::ClientManager::UserClient *this, unsigned int a2, unsigned int *a3, void *a4)
 {
-  v9 = *a3;
-  v10 = a2;
-  v6 = ASDT::IOUserClient::CallMethod(this, 6, &v10, 1, 0, 0, 0, 0, a4, &v9, 1);
-  if (v6)
+  v10 = *a3;
+  v11 = a2;
+  v5 = ASDT::IOUserClient::CallMethod(this, 6, &v11, 1, 0, 0, 0, 0, a4, &v10, 1);
+  v7 = v5;
+  if (v5)
   {
-    v7 = ASDTIOPLogType();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = ASDTIOPLogType(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::ClientManager::UserClient::GetNodeProperty(this);
+      ASDT::IOPAudio::ClientManager::UserClient::GetNodeProperty();
     }
   }
 
   else
   {
-    *a3 = v9;
+    *a3 = v10;
   }
 
-  return v6 == 0;
+  return v7 == 0;
 }
 
 BOOL ASDT::IOPAudio::ClientManager::UserClient::SetNodeProperty(ASDT::IOPAudio::ClientManager::UserClient *this, unsigned int a2, unsigned int a3, const void *a4)
 {
-  v8 = a2;
-  v5 = ASDT::IOUserClient::CallMethod(this, 5, &v8, 1, a4, a3, 0, 0, 0, 0, 1);
-  if (v5)
+  v9 = a2;
+  v4 = ASDT::IOUserClient::CallMethod(this, 5, &v9, 1, a4, a3, 0, 0, 0, 0, 1);
+  v6 = v4;
+  if (v4)
   {
-    v6 = ASDTIOPLogType();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOPLogType(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOPAudio::ClientManager::UserClient::SetNodeProperty(this);
+      ASDT::IOPAudio::ClientManager::UserClient::SetNodeProperty();
     }
   }
 
-  return v5 == 0;
+  return v6 == 0;
 }
 
 void sub_2416F0DB4(_Unwind_Exception *a1)
@@ -2046,7 +2075,7 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
   return result;
 }
 
-uint64_t ASDTIOPLogType()
+uint64_t ASDTIOPLogType(uint64_t a1, uint64_t a2)
 {
   if (ASDTIOPLogType_onceToken != -1)
   {
@@ -2074,504 +2103,285 @@ void sub_2416F527C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::CopyIdentifier(uint64_t a1)
+void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::CopyIdentifier()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: GetIdentifier: Property missing", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: GetIdentifier: Property missing", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetStreamDescription(uint64_t a1)
+void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetStreamDescription()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed SetStreamDescription", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed SetStreamDescription", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::GetStreamDescription(uint64_t a1)
+void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::GetStreamDescription()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed GetStreamDescription", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed GetStreamDescription", v2, v3, v4, v5);
 }
 
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Bad Data Size GetStreamDescription", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Bad Data Size GetStreamDescription", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetupIO(uint64_t a1)
+void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetupIO()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed SetupIO", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed SetupIO", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::TeardownIO(uint64_t a1)
+void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::TeardownIO()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed TeardownIO", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed TeardownIO", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetupClientIO(uint64_t a1)
+void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::SetupClientIO()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed SetupClientIO", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed SetupClientIO", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::TeardownClientIO(uint64_t a1)
+void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::TeardownClientIO()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed TeardownClientIO", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed TeardownClientIO", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::ReadInput(uint64_t a1)
+void ASDT::IOPAudio::IsolatedIOBuffer::UserClient::ReadInput()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed ReadInput", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed ReadInput", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::LPMic::UserClient::GetStreamDescription(uint64_t a1)
+void ASDT::IOPAudio::LPMic::UserClient::GetStreamDescription()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: GetStreamDescription: Property missing", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: GetStreamDescription: Property missing", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::LPMic::UserClient::GetClockDomain(uint64_t a1)
+void ASDT::IOPAudio::LPMic::UserClient::GetClockDomain()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: GetInputClockDomain: Property missing", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: GetInputClockDomain: Property missing", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::LPMic::UserClient::GetZeroTimeStampInterval(uint64_t a1)
+void ASDT::IOPAudio::LPMic::UserClient::GetZeroTimeStampInterval()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: GetZeroTimeStampInterval: Property missing", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: GetZeroTimeStampInterval: Property missing", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::LPMic::UserClient::GetRingBufferSize(uint64_t a1)
+void ASDT::IOPAudio::LPMic::UserClient::GetRingBufferSize()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: GetRingBufferSize: Property missing", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: GetRingBufferSize: Property missing", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::LPMic::UserClient::GetHistoricDataSupported(uint64_t a1)
+void ASDT::IOPAudio::LPMic::UserClient::GetHistoricDataSupported()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: GetHistoricDataSupported: Property missing", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: GetHistoricDataSupported: Property missing", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::LPMic::UserClient::StartIO(uint64_t a1)
+void ASDT::IOPAudio::LPMic::UserClient::StartIO()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed StartIO", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed StartIO", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::LPMic::UserClient::StopIO(uint64_t a1)
+void ASDT::IOPAudio::LPMic::UserClient::StopIO()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed StopIO", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed StopIO", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::LPMic::UserClient::GetControlValue(uint64_t a1)
+void ASDT::IOPAudio::LPMic::UserClient::GetControlValue()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed GetControlValue", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed GetControlValue", v2, v3, v4, v5);
 }
 
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed GetControlValue: Bad valueCount.", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed GetControlValue: Bad valueCount.", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::LPMic::UserClient::SetControlValue(uint64_t a1)
+void ASDT::IOPAudio::LPMic::UserClient::SetControlValue()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed SetControlValue", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed SetControlValue", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::LPMic::UserClient::MapEngineStatus(uint64_t a1)
+void ASDT::IOPAudio::LPMic::UserClient::MapEngineStatus()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v3 < 0)
-  {
-    v4 = *v2;
-  }
-
-  v5 = *v1;
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  v10 = 1024;
-  v11 = v6;
-  v12 = 2048;
-  v13 = 32;
-  _os_log_error_impl(&dword_2416E9000, v7, OS_LOG_TYPE_ERROR, "%s: Unexpected EngineStatus memory map size: %u (expected %zu)", v9, 0x1Cu);
-  v8 = *MEMORY[0x277D85DE8];
+  v3 = 1024;
+  v4 = v0;
+  v5 = 2048;
+  v6 = 32;
+  _os_log_error_impl(&dword_2416E9000, v1, OS_LOG_TYPE_ERROR, "%s: Unexpected EngineStatus memory map size: %u (expected %zu)", v2, 0x1Cu);
 }
 
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed MapStreamStatus", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed MapStreamStatus", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::VoiceTrigger::UserClient::Close(uint64_t a1)
+void ASDT::IOPAudio::VoiceTrigger::UserClient::Close()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed Close", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed Close", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::VoiceTrigger::UserClient::CopyIdentifier(uint64_t a1)
+void ASDT::IOPAudio::VoiceTrigger::UserClient::CopyIdentifier()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: CopyIdentifier: Property missing", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: CopyIdentifier: Property missing", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::VoiceTrigger::UserClient::GetIsConfigured(uint64_t a1)
+void ASDT::IOPAudio::VoiceTrigger::UserClient::GetIsConfigured()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_2416E9000, v4, v5, "%s: GetIsConfigured: Property missing", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2416E9000, v0, v1, "%s: GetIsConfigured: Property missing", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::VoiceTrigger::UserClient::CopyConfigurationInfo(uint64_t a1)
+void ASDT::IOPAudio::VoiceTrigger::UserClient::CopyConfigurationInfo()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_2416E9000, v4, v5, "%s: CopyConfiguration: Property missing", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2416E9000, v0, v1, "%s: CopyConfiguration: Property missing", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::VoiceTrigger::UserClient::Open(uint64_t a1)
+void ASDT::IOPAudio::VoiceTrigger::UserClient::Open()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed Open", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed Open", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::VoiceTrigger::UserClient::GetVoiceTriggerEnabled(uint64_t a1)
+void ASDT::IOPAudio::VoiceTrigger::UserClient::GetVoiceTriggerEnabled()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed GetVoiceTriggerEnabled", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed GetVoiceTriggerEnabled", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::VoiceTrigger::UserClient::SetVoiceTriggerEnabled(uint64_t a1)
+void ASDT::IOPAudio::VoiceTrigger::UserClient::SetVoiceTriggerEnabled()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed SetVoiceTriggerEnabled", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed SetVoiceTriggerEnabled", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::VoiceTrigger::UserClient::GetActiveChannelMask(uint64_t a1)
+void ASDT::IOPAudio::VoiceTrigger::UserClient::GetActiveChannelMask()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed GetActiveChannelMask", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed GetActiveChannelMask", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::VoiceTrigger::UserClient::GetModelCRC(uint64_t a1)
+void ASDT::IOPAudio::VoiceTrigger::UserClient::GetModelCRC()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed GetModelCRC", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed GetModelCRC", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::VoiceTrigger::UserClient::GetDebugEnabled(uint64_t a1)
+void ASDT::IOPAudio::VoiceTrigger::UserClient::GetDebugEnabled()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed GetDebugEnabled", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed GetDebugEnabled", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::VoiceTrigger::UserClient::SetDebugEnabled(uint64_t a1)
+void ASDT::IOPAudio::VoiceTrigger::UserClient::SetDebugEnabled()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed SetDebugEnabled", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed SetDebugEnabled", v2, v3, v4, v5);
 }
 
 void ASDT::IOPAudio::IOBuffer::UserClient::CopyIdentifier(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 16);
   if (*(a1 + 39) < 0)
   {
     v2 = *v2;
   }
 
-  v4 = 136315138;
-  v5 = v2;
-  _os_log_error_impl(&dword_2416E9000, a2, OS_LOG_TYPE_ERROR, "%s: GetIdentifier: Property missing", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315138;
+  v4 = v2;
+  _os_log_error_impl(&dword_2416E9000, a2, OS_LOG_TYPE_ERROR, "%s: GetIdentifier: Property missing", &v3, 0xCu);
 }
 
 void ASDT::IOPAudio::IOBuffer::UserClient::MapIOBuffer(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 16);
   if (*(a1 + 39) < 0)
   {
     v2 = *v2;
   }
 
-  v4 = 136315138;
-  v5 = v2;
-  _os_log_error_impl(&dword_2416E9000, a2, OS_LOG_TYPE_ERROR, "%s: Failed MapIOBuffer", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315138;
+  v4 = v2;
+  _os_log_error_impl(&dword_2416E9000, a2, OS_LOG_TYPE_ERROR, "%s: Failed MapIOBuffer", &v3, 0xCu);
 }
 
-void ASDT::IOPAudio::ClientManager::UserClient::Enable(uint64_t a1)
+void ASDT::IOPAudio::ClientManager::UserClient::Enable()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed PowerRequest", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed PowerRequest", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::ClientManager::UserClient::GetEnableState(uint64_t a1)
+void ASDT::IOPAudio::ClientManager::UserClient::GetEnableState()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed GetCurrentPowerState", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed GetCurrentPowerState", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::ClientManager::UserClient::GetNodeProperty(uint64_t a1)
+void ASDT::IOPAudio::ClientManager::UserClient::GetNodeProperty()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed GetNodeProperty", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed GetNodeProperty", v2, v3, v4, v5);
 }
 
-void ASDT::IOPAudio::ClientManager::UserClient::SetNodeProperty(uint64_t a1)
+void ASDT::IOPAudio::ClientManager::UserClient::SetNodeProperty()
 {
-  OUTLINED_FUNCTION_0_0(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_2416E9000, v4, v5, "%s: Failed SetNodeProperty", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2416E9000, v0, v1, "%s: Failed SetNodeProperty", v2, v3, v4, v5);
 }
 
 void operator delete(void *__p)

@@ -107,7 +107,7 @@ void __69__UAFAssetUtilities_refreshUnderstandingOnDeviceAssetsAvailableAsync__b
 
 void __47__UAFAssetUtilities_refreshUAFAssetStatusAsync__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -120,9 +120,9 @@ void __47__UAFAssetUtilities_refreshUAFAssetStatusAsync__block_invoke_2(uint64_t
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v19 = "[UAFAssetUtilities refreshUAFAssetStatusAsync]_block_invoke";
-        v20 = 2112;
-        v21 = v6;
+        v18 = "[UAFAssetUtilities refreshUAFAssetStatusAsync]_block_invoke";
+        v19 = 2112;
+        v20 = v6;
         _os_log_error_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_ERROR, "%s #settings checkAssetStatus error: %@", buf, 0x16u);
       }
     }
@@ -130,57 +130,53 @@ void __47__UAFAssetUtilities_refreshUAFAssetStatusAsync__block_invoke_2(uint64_t
     else if (v5)
     {
       v10 = [WeakRetained statusQueue];
-      v12 = MEMORY[0x1E69E9820];
-      v13 = 3221225472;
-      v14 = __47__UAFAssetUtilities_refreshUAFAssetStatusAsync__block_invoke_3;
-      v15 = &unk_1E7FFD098;
-      v16 = v8;
-      v17 = v5;
-      dispatch_async(v10, &v12);
+      v11 = MEMORY[0x1E69E9820];
+      v12 = 3221225472;
+      v13 = __47__UAFAssetUtilities_refreshUAFAssetStatusAsync__block_invoke_3;
+      v14 = &unk_1E7FFD098;
+      v15 = v8;
+      v16 = v5;
+      dispatch_async(v10, &v11);
     }
 
     [*(a1 + 32) invalidate];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __47__UAFAssetUtilities_refreshUAFAssetStatusAsync__block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1 + 32) + 8);
-  v3 = nw_path_evaluator_copy_path();
-  if (![*(a1 + 40) state] && (objc_msgSend(*(a1 + 32), "_networkIsExpensiveForPath:", v3) & 1) == 0)
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = nw_path_evaluator_copy_path();
+  if (![*(a1 + 40) state] && (objc_msgSend(*(a1 + 32), "_networkIsExpensiveForPath:", v2) & 1) == 0)
   {
-    v4 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "[UAFAssetUtilities refreshUAFAssetStatusAsync]_block_invoke_3";
-      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s #settings Forcing unknown server state to not started until WiFi gets enabled", &v10, 0xCu);
+      v8 = 136315138;
+      v9 = "[UAFAssetUtilities refreshUAFAssetStatusAsync]_block_invoke_3";
+      _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s #settings Forcing unknown server state to not started until WiFi gets enabled", &v8, 0xCu);
     }
 
     [*(a1 + 40) setState:2];
   }
 
   [*(a1 + 32) setAssetStatus:*(a1 + 40)];
-  v5 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v4 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = +[UAFAssetStatus stringFromUAFAssetState:](UAFAssetStatus, "stringFromUAFAssetState:", [*(a1 + 40) state]);
-    v7 = [*(a1 + 40) value];
-    v8 = [v7 unsignedIntegerValue];
-    v10 = 136315650;
-    v11 = "[UAFAssetUtilities refreshUAFAssetStatusAsync]_block_invoke";
-    v12 = 2112;
-    v13 = v6;
-    v14 = 1024;
-    v15 = v8;
-    _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s #settings Refresh server side asset state %@ with value %d", &v10, 0x1Cu);
+    v5 = +[UAFAssetStatus stringFromUAFAssetState:](UAFAssetStatus, "stringFromUAFAssetState:", [*(a1 + 40) state]);
+    v6 = [*(a1 + 40) value];
+    v7 = [v6 unsignedIntegerValue];
+    v8 = 136315650;
+    v9 = "[UAFAssetUtilities refreshUAFAssetStatusAsync]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 1024;
+    v13 = v7;
+    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s #settings Refresh server side asset state %@ with value %d", &v8, 0x1Cu);
   }
 
   [*(a1 + 32) _triggerDelegateAssetStatusUpdated];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_triggerDelegateAssetStatusUpdated
@@ -199,13 +195,13 @@ void __47__UAFAssetUtilities_refreshUAFAssetStatusAsync__block_invoke_3(uint64_t
 
 void __55__UAFAssetUtilities__triggerDelegateAssetStatusUpdated__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[UAFAssetUtilities _triggerDelegateAssetStatusUpdated]_block_invoke";
-    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s #settings asset status update requested", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[UAFAssetUtilities _triggerDelegateAssetStatusUpdated]_block_invoke";
+    _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s #settings asset status update requested", &v7, 0xCu);
   }
 
   v3 = [*(a1 + 32) delegate];
@@ -216,21 +212,19 @@ void __55__UAFAssetUtilities__triggerDelegateAssetStatusUpdated__block_invoke(ui
     v5 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "[UAFAssetUtilities _triggerDelegateAssetStatusUpdated]_block_invoke";
-      _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s #settings asset status delegate", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[UAFAssetUtilities _triggerDelegateAssetStatusUpdated]_block_invoke";
+      _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s #settings asset status delegate", &v7, 0xCu);
     }
 
     v6 = [*(a1 + 32) delegate];
     [v6 handleAssetStatusUpdated];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)currentAssetStatus
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   assetStatus = [(UAFAssetUtilities *)self assetStatus];
   v4 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -238,10 +232,10 @@ void __55__UAFAssetUtilities__triggerDelegateAssetStatusUpdated__block_invoke(ui
     v5 = +[UAFAssetStatus stringFromUAFAssetState:](UAFAssetStatus, "stringFromUAFAssetState:", [assetStatus state]);
     value = [assetStatus value];
     *buf = 136315650;
-    v33 = "[UAFAssetUtilities currentAssetStatus]";
-    v34 = 2112;
-    v35 = v5;
-    v36 = 1024;
+    v32 = "[UAFAssetUtilities currentAssetStatus]";
+    v33 = 2112;
+    v34 = v5;
+    v35 = 1024;
     unsignedIntegerValue = [value unsignedIntegerValue];
     _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s #settings Current asset state %@ with value %d", buf, 0x1Cu);
   }
@@ -275,10 +269,10 @@ void __55__UAFAssetUtilities__triggerDelegateAssetStatusUpdated__block_invoke(ui
     block[1] = 3221225472;
     block[2] = __39__UAFAssetUtilities_currentAssetStatus__block_invoke;
     block[3] = &unk_1E7FFD110;
-    objc_copyWeak(&v31, buf);
+    objc_copyWeak(&v30, buf);
     dispatch_async(assistantQueue, block);
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(buf);
   }
 
@@ -298,15 +292,15 @@ LABEL_13:
     {
       v16 = +[UAFAssetStatus stringFromUAFAssetState:](UAFAssetStatus, "stringFromUAFAssetState:", [assetStatus state]);
       *buf = 136316162;
-      v33 = "[UAFAssetUtilities currentAssetStatus]";
-      v34 = 2112;
-      v35 = v16;
-      v36 = 1024;
+      v32 = "[UAFAssetUtilities currentAssetStatus]";
+      v33 = 2112;
+      v34 = v16;
+      v35 = 1024;
       unsignedIntegerValue = v7;
-      v38 = 1024;
-      v39 = v8;
-      v40 = 1024;
-      v41 = v9;
+      v37 = 1024;
+      v38 = v8;
+      v39 = 1024;
+      v40 = v9;
       _os_log_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_DEFAULT, "%s #settings Forcing display state to %@ (enabled:%d, hybridUOD:%d, fullUOD:%d)", buf, 0x28u);
     }
 
@@ -321,9 +315,9 @@ LABEL_13:
     {
       v15 = +[UAFAssetStatus stringFromUAFAssetState:](UAFAssetStatus, "stringFromUAFAssetState:", [assetStatus state]);
       *buf = 136315394;
-      v33 = "[UAFAssetUtilities currentAssetStatus]";
-      v34 = 2112;
-      v35 = v15;
+      v32 = "[UAFAssetUtilities currentAssetStatus]";
+      v33 = 2112;
+      v34 = v15;
       _os_log_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_DEFAULT, "%s #settings Forcing display state to %@ due to UOD available", buf, 0x16u);
     }
 
@@ -345,10 +339,10 @@ LABEL_22:
       value3 = [assetStatus value];
       unsignedIntegerValue2 = [value3 unsignedIntegerValue];
       *buf = 136315650;
-      v33 = "[UAFAssetUtilities currentAssetStatus]";
-      v34 = 2112;
-      v35 = v21;
-      v36 = 1024;
+      v32 = "[UAFAssetUtilities currentAssetStatus]";
+      v33 = 2112;
+      v34 = v21;
+      v35 = 1024;
       unsignedIntegerValue = unsignedIntegerValue2;
       _os_log_impl(&dword_1BCF2C000, v20, OS_LOG_TYPE_DEFAULT, "%s #settings Using mock asset state %@ with value %d", buf, 0x1Cu);
     }
@@ -361,22 +355,20 @@ LABEL_22:
     value4 = [assetStatus value];
     unsignedIntegerValue3 = [value4 unsignedIntegerValue];
     *buf = 136315650;
-    v33 = "[UAFAssetUtilities currentAssetStatus]";
-    v34 = 2112;
-    v35 = v25;
-    v36 = 1024;
+    v32 = "[UAFAssetUtilities currentAssetStatus]";
+    v33 = 2112;
+    v34 = v25;
+    v35 = 1024;
     unsignedIntegerValue = unsignedIntegerValue3;
     _os_log_impl(&dword_1BCF2C000, v24, OS_LOG_TYPE_DEFAULT, "%s #settings Returning state %@ with value %d", buf, 0x1Cu);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return assetStatus;
 }
 
 - (UAFAssetStatus)assetStatus
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   assistantGroup = [(UAFAssetUtilities *)self assistantGroup];
   [(UAFAssetUtilities *)self assetAvailableCheckTimeout];
   v5 = dispatch_time(0, (v4 * 1000000000.0));
@@ -398,23 +390,21 @@ LABEL_22:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy_;
-  v17 = __Block_byref_object_dispose_;
-  v18 = 0;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy_;
+  v16 = __Block_byref_object_dispose_;
+  v17 = 0;
   statusQueue2 = [(UAFAssetUtilities *)self statusQueue];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __32__UAFAssetUtilities_assetStatus__block_invoke;
-  v13[3] = &unk_1E7FFD0E8;
-  v13[4] = self;
-  v13[5] = &buf;
-  dispatch_sync(statusQueue2, v13);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __32__UAFAssetUtilities_assetStatus__block_invoke;
+  v12[3] = &unk_1E7FFD0E8;
+  v12[4] = self;
+  v12[5] = &buf;
+  dispatch_sync(statusQueue2, v12);
 
   v10 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -446,7 +436,7 @@ void __32__UAFAssetUtilities_assetStatus__block_invoke(uint64_t a1)
 
 - (BOOL)understandingOnDeviceAssetsAvailable
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (!self->_understandingOnDeviceAssetsAvailable)
   {
     assistantGroup = [(UAFAssetUtilities *)self assistantGroup];
@@ -459,9 +449,9 @@ void __32__UAFAssetUtilities_assetStatus__block_invoke(uint64_t a1)
       v7 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v17) = 136315138;
-        *(&v17 + 4) = "[UAFAssetUtilities understandingOnDeviceAssetsAvailable]";
-        _os_log_error_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_ERROR, "%s #settings Failed to check assistant UOD availability due to timeout", &v17, 0xCu);
+        LODWORD(v16) = 136315138;
+        *(&v16 + 4) = "[UAFAssetUtilities understandingOnDeviceAssetsAvailable]";
+        _os_log_error_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_ERROR, "%s #settings Failed to check assistant UOD availability due to timeout", &v16, 0xCu);
       }
     }
   }
@@ -469,20 +459,20 @@ void __32__UAFAssetUtilities_assetStatus__block_invoke(uint64_t a1)
   statusQueue = [(UAFAssetUtilities *)self statusQueue];
   dispatch_assert_queue_not_V2(statusQueue);
 
-  *&v17 = 0;
-  *(&v17 + 1) = &v17;
-  v18 = 0x2020000000;
-  v19 = 0;
+  *&v16 = 0;
+  *(&v16 + 1) = &v16;
+  v17 = 0x2020000000;
+  v18 = 0;
   statusQueue2 = [(UAFAssetUtilities *)self statusQueue];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __57__UAFAssetUtilities_understandingOnDeviceAssetsAvailable__block_invoke;
-  v14[3] = &unk_1E7FFD070;
-  v14[4] = self;
-  v14[5] = &v17;
-  dispatch_sync(statusQueue2, v14);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __57__UAFAssetUtilities_understandingOnDeviceAssetsAvailable__block_invoke;
+  v13[3] = &unk_1E7FFD070;
+  v13[4] = self;
+  v13[5] = &v16;
+  dispatch_sync(statusQueue2, v13);
 
-  if (*(*(&v17 + 1) + 24))
+  if (*(*(&v16 + 1) + 24))
   {
     v10 = 1;
   }
@@ -493,21 +483,20 @@ void __32__UAFAssetUtilities_assetStatus__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v16 = "[UAFAssetUtilities understandingOnDeviceAssetsAvailable]";
+      v15 = "[UAFAssetUtilities understandingOnDeviceAssetsAvailable]";
       _os_log_error_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_ERROR, "%s #settings NO returned for UOD", buf, 0xCu);
     }
 
-    v10 = *(*(&v17 + 1) + 24);
+    v10 = *(*(&v16 + 1) + 24);
   }
 
-  _Block_object_dispose(&v17, 8);
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v16, 8);
   return v10 & 1;
 }
 
 - (NSDictionary)assistantUODStatus
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   assistantGroup = [(UAFAssetUtilities *)self assistantGroup];
   [(UAFAssetUtilities *)self assetAvailableCheckTimeout];
   v5 = dispatch_time(0, (v4 * 1000000000.0));
@@ -529,23 +518,21 @@ void __32__UAFAssetUtilities_assetStatus__block_invoke(uint64_t a1)
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy_;
-  v17 = __Block_byref_object_dispose_;
-  v18 = 0;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy_;
+  v16 = __Block_byref_object_dispose_;
+  v17 = 0;
   statusQueue2 = [(UAFAssetUtilities *)self statusQueue];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __39__UAFAssetUtilities_assistantUODStatus__block_invoke;
-  v13[3] = &unk_1E7FFD070;
-  v13[4] = self;
-  v13[5] = &buf;
-  dispatch_sync(statusQueue2, v13);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __39__UAFAssetUtilities_assistantUODStatus__block_invoke;
+  v12[3] = &unk_1E7FFD070;
+  v12[4] = self;
+  v12[5] = &buf;
+  dispatch_sync(statusQueue2, v12);
 
   v10 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -616,12 +603,12 @@ void __32__UAFAssetUtilities_assetStatus__block_invoke(uint64_t a1)
 
 void __47__UAFAssetUtilities_startObserversWithOptions___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v31 = "[UAFAssetUtilities startObserversWithOptions:]_block_invoke";
+    v29 = "[UAFAssetUtilities startObserversWithOptions:]_block_invoke";
     _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s #settings Start observers", buf, 0xCu);
   }
 
@@ -633,7 +620,7 @@ void __47__UAFAssetUtilities_startObserversWithOptions___block_invoke(uint64_t a
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v31 = "[UAFAssetUtilities startObserversWithOptions:]_block_invoke";
+      v29 = "[UAFAssetUtilities startObserversWithOptions:]_block_invoke";
       _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s #settings Start preferences observer", buf, 0xCu);
     }
 
@@ -653,7 +640,7 @@ void __47__UAFAssetUtilities_startObserversWithOptions___block_invoke(uint64_t a
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v31 = "[UAFAssetUtilities startObserversWithOptions:]_block_invoke";
+      v29 = "[UAFAssetUtilities startObserversWithOptions:]_block_invoke";
       _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s #settings Start language observer", buf, 0xCu);
     }
 
@@ -673,7 +660,7 @@ void __47__UAFAssetUtilities_startObserversWithOptions___block_invoke(uint64_t a
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v31 = "[UAFAssetUtilities startObserversWithOptions:]_block_invoke";
+      v29 = "[UAFAssetUtilities startObserversWithOptions:]_block_invoke";
       _os_log_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_DEFAULT, "%s #settings Start UOD observer", buf, 0xCu);
     }
 
@@ -693,7 +680,7 @@ void __47__UAFAssetUtilities_startObserversWithOptions___block_invoke(uint64_t a
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v31 = "[UAFAssetUtilities startObserversWithOptions:]_block_invoke";
+      v29 = "[UAFAssetUtilities startObserversWithOptions:]_block_invoke";
       _os_log_impl(&dword_1BCF2C000, v17, OS_LOG_TYPE_DEFAULT, "%s #settings Start network observer", buf, 0xCu);
     }
 
@@ -710,38 +697,36 @@ void __47__UAFAssetUtilities_startObserversWithOptions___block_invoke(uint64_t a
       *(*v22 + 27) = [*(a1 + 32) _networkIsSatisfiedForPath:v21];
       *(*v22 + 28) = [*(a1 + 32) _networkIsExpensiveForPath:v21];
       objc_initWeak(buf, *(a1 + 32));
-      v23 = *(*(a1 + 32) + 8);
-      v24 = [*(a1 + 32) statusQueue];
-      objc_copyWeak(&v29, buf);
+      v23 = [*(a1 + 32) statusQueue];
+      objc_copyWeak(&v27, buf);
       nw_path_evaluator_set_update_handler();
 
-      objc_destroyWeak(&v29);
+      objc_destroyWeak(&v27);
       objc_destroyWeak(buf);
 
       v3 = *(a1 + 32);
     }
   }
 
-  v25 = *(v3 + 16);
-  if ((v25 & 0x10) == 0 && (*(a1 + 40) & 0x10) != 0)
+  v24 = *(v3 + 16);
+  if ((v24 & 0x10) == 0 && (*(a1 + 40) & 0x10) != 0)
   {
-    v26 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v25 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v31 = "[UAFAssetUtilities startObserversWithOptions:]_block_invoke_2";
-      _os_log_impl(&dword_1BCF2C000, v26, OS_LOG_TYPE_DEFAULT, "%s #settings Start UAFAssetStatus observer", buf, 0xCu);
+      v29 = "[UAFAssetUtilities startObserversWithOptions:]_block_invoke_2";
+      _os_log_impl(&dword_1BCF2C000, v25, OS_LOG_TYPE_DEFAULT, "%s #settings Start UAFAssetStatus observer", buf, 0xCu);
     }
 
-    v27 = CFNotificationCenterGetDarwinNotifyCenter();
-    CFNotificationCenterAddObserver(v27, *(a1 + 32), _UAFAssetStatusDidChangeCallback, @"kUAFAssetStatusDidChangeDarwinNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+    v26 = CFNotificationCenterGetDarwinNotifyCenter();
+    CFNotificationCenterAddObserver(v26, *(a1 + 32), _UAFAssetStatusDidChangeCallback, @"kUAFAssetStatusDidChangeDarwinNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
     [*(a1 + 32) refreshUAFAssetStatusAsync];
     v3 = *(a1 + 32);
-    v25 = *(v3 + 16);
+    v24 = *(v3 + 16);
   }
 
-  *(v3 + 16) = *(a1 + 40) | v25;
-  v28 = *MEMORY[0x1E69E9840];
+  *(v3 + 16) = *(a1 + 40) | v24;
 }
 
 void __47__UAFAssetUtilities_startObserversWithOptions___block_invoke_292(uint64_t a1, void *a2)
@@ -757,13 +742,13 @@ void __47__UAFAssetUtilities_startObserversWithOptions___block_invoke_292(uint64
 
 - (void)_stopObservers
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315138;
-    v15 = "[UAFAssetUtilities _stopObservers]";
-    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s #settings Stop observers", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[UAFAssetUtilities _stopObservers]";
+    _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s #settings Stop observers", &v13, 0xCu);
   }
 
   if (self->_pathEvaluator)
@@ -777,8 +762,8 @@ void __47__UAFAssetUtilities_startObserversWithOptions___block_invoke_292(uint64
   if ((observerOptions & 2) != 0)
   {
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
-    v9 = getAFLanguageCodeDidChangeDarwinNotification();
-    CFNotificationCenterRemoveObserver(DarwinNotifyCenter, self, v9, 0);
+    v8 = getAFLanguageCodeDidChangeDarwinNotification();
+    CFNotificationCenterRemoveObserver(DarwinNotifyCenter, self, v8, 0);
 
     observerOptions = self->_observerOptions;
     if ((observerOptions & 4) == 0)
@@ -790,9 +775,9 @@ LABEL_7:
       }
 
 LABEL_13:
-      v12 = CFNotificationCenterGetDarwinNotifyCenter();
-      v13 = getAFSiriXAssetDidChangeDarwinNotification();
-      CFNotificationCenterRemoveObserver(v12, self, v13, 0);
+      v11 = CFNotificationCenterGetDarwinNotifyCenter();
+      v12 = getAFSiriXAssetDidChangeDarwinNotification();
+      CFNotificationCenterRemoveObserver(v11, self, v12, 0);
 
       if ((self->_observerOptions & 0x10) == 0)
       {
@@ -808,9 +793,9 @@ LABEL_13:
     goto LABEL_7;
   }
 
-  v10 = CFNotificationCenterGetDarwinNotifyCenter();
-  v11 = getkAFPreferencesDidChangeDarwinNotification();
-  CFNotificationCenterRemoveObserver(v10, self, v11, 0);
+  v9 = CFNotificationCenterGetDarwinNotifyCenter();
+  v10 = getkAFPreferencesDidChangeDarwinNotification();
+  CFNotificationCenterRemoveObserver(v9, self, v10, 0);
 
   observerOptions = self->_observerOptions;
   if (observerOptions)
@@ -828,12 +813,11 @@ LABEL_9:
 
 LABEL_10:
   self->_observerOptions = 0;
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)assetsAreAvailableForLanguage:(id)language completion:(id)completion
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   completionCopy = completion;
   if (languageCopy)
@@ -845,16 +829,16 @@ LABEL_10:
       v17 = [languageCopy stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
       location = 0;
       p_location = &location;
-      v34 = 0x2050000000;
+      v33 = 0x2050000000;
       v18 = getAFSettingsConnectionClass_softClass;
-      v35 = getAFSettingsConnectionClass_softClass;
+      v34 = getAFSettingsConnectionClass_softClass;
       if (!getAFSettingsConnectionClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getAFSettingsConnectionClass_block_invoke;
-        v41 = &unk_1E7FFD1D8;
-        v42 = &location;
+        v40 = &unk_1E7FFD1D8;
+        v41 = &location;
         __getAFSettingsConnectionClass_block_invoke(buf);
         v18 = p_location[3];
       }
@@ -876,21 +860,21 @@ LABEL_10:
       assistantGroup = [(UAFAssetUtilities *)self assistantGroup];
       dispatch_group_enter(assistantGroup);
 
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __62__UAFAssetUtilities_assetsAreAvailableForLanguage_completion___block_invoke;
-      v25[3] = &unk_1E7FFCFF8;
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __62__UAFAssetUtilities_assetsAreAvailableForLanguage_completion___block_invoke;
+      v24[3] = &unk_1E7FFCFF8;
       v23 = v20;
-      v26 = v23;
-      objc_copyWeak(&v30, &location);
-      v29 = completionCopy;
+      v25 = v23;
+      objc_copyWeak(&v29, &location);
+      v28 = completionCopy;
       selfCopy = self;
-      v31 = v8;
+      v30 = v8;
       v13 = v17;
-      v28 = v13;
-      [v23 getAssetStatusForLanguage:v13 completionHandler:v25];
+      v27 = v13;
+      [v23 getAssetStatusForLanguage:v13 completionHandler:v24];
 
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v29);
       objc_destroyWeak(&location);
     }
 
@@ -906,9 +890,9 @@ LABEL_10:
 
       [(UAFAssetUtilities *)self _updateDelegateForUODAvailable:0 uodStatus:0];
       v11 = MEMORY[0x1E696ABC0];
-      v36 = *MEMORY[0x1E696A578];
-      v37 = @"UOD not supported";
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      v35 = *MEMORY[0x1E696A578];
+      v36 = @"UOD not supported";
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
       v13 = [v11 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v12];
 
       if (completionCopy)
@@ -929,9 +913,9 @@ LABEL_10:
     }
 
     v15 = MEMORY[0x1E696ABC0];
-    v38 = *MEMORY[0x1E696A578];
-    v39 = @"nil language";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+    v37 = *MEMORY[0x1E696A578];
+    v38 = @"nil language";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
     v13 = [v15 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v16];
 
     if (completionCopy)
@@ -939,13 +923,11 @@ LABEL_10:
       (*(completionCopy + 2))(completionCopy, 0, v13);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __62__UAFAssetUtilities_assetsAreAvailableForLanguage_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   WeakRetained = objc_loadWeakRetained((a1 + 64));
@@ -977,9 +959,9 @@ void __62__UAFAssetUtilities_assetsAreAvailableForLanguage_completion___block_in
   else
   {
     v8 = MEMORY[0x1E696ABC0];
-    v17 = *MEMORY[0x1E696A578];
-    v18[0] = @"self is nil";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696A578];
+    v17[0] = @"self is nil";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v10 = [v8 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:5000 userInfo:v9];
 
     v11 = *(a1 + 56);
@@ -991,8 +973,6 @@ void __62__UAFAssetUtilities_assetsAreAvailableForLanguage_completion___block_in
     v12 = [*(a1 + 40) assistantGroup];
     dispatch_group_leave(v12);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateDelegateForUODAvailable:(BOOL)available uodStatus:(id)status
@@ -1013,7 +993,7 @@ void __62__UAFAssetUtilities_assetsAreAvailableForLanguage_completion___block_in
 
 void __62__UAFAssetUtilities__updateDelegateForUODAvailable_uodStatus___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setAssistantUODStatus:*(a1 + 40)];
   v2 = [*(a1 + 32) delegateQueue];
   block[0] = MEMORY[0x1E69E9820];
@@ -1029,11 +1009,11 @@ void __62__UAFAssetUtilities__updateDelegateForUODAvailable_uodStatus___block_in
   {
     v5 = *(a1 + 48);
     *buf = 136315650;
-    v12 = "[UAFAssetUtilities _updateDelegateForUODAvailable:uodStatus:]_block_invoke";
-    v13 = 1024;
-    v14 = v5;
-    v15 = 1024;
-    v16 = v3;
+    v11 = "[UAFAssetUtilities _updateDelegateForUODAvailable:uodStatus:]_block_invoke";
+    v12 = 1024;
+    v13 = v5;
+    v14 = 1024;
+    v15 = v3;
     _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s #settings UOD check available:%d prev:%d", buf, 0x18u);
   }
 
@@ -1041,16 +1021,14 @@ void __62__UAFAssetUtilities__updateDelegateForUODAvailable_uodStatus___block_in
   {
     [*(a1 + 32) setUnderstandingOnDeviceAssetsAvailable:?];
     v6 = [*(a1 + 32) delegateQueue];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __62__UAFAssetUtilities__updateDelegateForUODAvailable_uodStatus___block_invoke_317;
-    v8[3] = &unk_1E7FFD020;
-    v8[4] = *(a1 + 32);
-    v9 = *(a1 + 48);
-    dispatch_async(v6, v8);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __62__UAFAssetUtilities__updateDelegateForUODAvailable_uodStatus___block_invoke_317;
+    v7[3] = &unk_1E7FFD020;
+    v7[4] = *(a1 + 32);
+    v8 = *(a1 + 48);
+    dispatch_async(v6, v7);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __62__UAFAssetUtilities__updateDelegateForUODAvailable_uodStatus___block_invoke_2(uint64_t a1)
@@ -1067,7 +1045,7 @@ void __62__UAFAssetUtilities__updateDelegateForUODAvailable_uodStatus___block_in
 
 void __62__UAFAssetUtilities__updateDelegateForUODAvailable_uodStatus___block_invoke_317(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) delegate];
   v3 = objc_opt_respondsToSelector();
 
@@ -1077,18 +1055,16 @@ void __62__UAFAssetUtilities__updateDelegateForUODAvailable_uodStatus___block_in
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
-      v8 = 136315394;
-      v9 = "[UAFAssetUtilities _updateDelegateForUODAvailable:uodStatus:]_block_invoke";
-      v10 = 1024;
-      v11 = v5;
-      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s #settings siriUODAvailabilityDidChange delegate available:%d", &v8, 0x12u);
+      v7 = 136315394;
+      v8 = "[UAFAssetUtilities _updateDelegateForUODAvailable:uodStatus:]_block_invoke";
+      v9 = 1024;
+      v10 = v5;
+      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s #settings siriUODAvailabilityDidChange delegate available:%d", &v7, 0x12u);
     }
 
     v6 = [*(a1 + 32) delegate];
     [v6 siriUODAvailabilityDidChange:*(a1 + 40)];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __39__UAFAssetUtilities_currentAssetStatus__block_invoke(uint64_t a1)
@@ -1114,7 +1090,7 @@ void __39__UAFAssetUtilities_currentAssetStatus__block_invoke(uint64_t a1)
 
 - (void)_handleNetworkPathUpdate:(id)update
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   statusQueue = [(UAFAssetUtilities *)self statusQueue];
   dispatch_assert_queue_V2(statusQueue);
@@ -1129,11 +1105,11 @@ void __39__UAFAssetUtilities_currentAssetStatus__block_invoke(uint64_t a1)
     v9 = self->_networkSatisfied;
     v10 = self->_networkExpensive;
     *buf = 136315650;
-    v27 = "[UAFAssetUtilities _handleNetworkPathUpdate:]";
-    v28 = 1024;
-    v29 = v9;
-    v30 = 1024;
-    v31 = v10;
+    v26 = "[UAFAssetUtilities _handleNetworkPathUpdate:]";
+    v27 = 1024;
+    v28 = v9;
+    v29 = 1024;
+    v30 = v10;
     _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s #settings Primary network (satisfied:%d, expensive: %d)", buf, 0x18u);
   }
 
@@ -1163,7 +1139,7 @@ void __39__UAFAssetUtilities_currentAssetStatus__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v27 = "[UAFAssetUtilities _handleNetworkPathUpdate:]";
+        v26 = "[UAFAssetUtilities _handleNetworkPathUpdate:]";
         _os_log_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_DEFAULT, "%s #settings Forcing downloading state to failed", buf, 0xCu);
       }
 
@@ -1182,7 +1158,7 @@ void __39__UAFAssetUtilities_currentAssetStatus__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v27 = "[UAFAssetUtilities _handleNetworkPathUpdate:]";
+      v26 = "[UAFAssetUtilities _handleNetworkPathUpdate:]";
       _os_log_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_DEFAULT, "%s #settings Network path nothing changed", buf, 0xCu);
     }
   }
@@ -1198,10 +1174,10 @@ LABEL_19:
       block[1] = 3221225472;
       block[2] = __46__UAFAssetUtilities__handleNetworkPathUpdate___block_invoke;
       block[3] = &unk_1E7FFD110;
-      objc_copyWeak(&v25, buf);
+      objc_copyWeak(&v24, buf);
       dispatch_async(assistantQueue, block);
 
-      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v24);
       objc_destroyWeak(buf);
     }
 
@@ -1212,33 +1188,31 @@ LABEL_19:
     {
       objc_initWeak(buf, self);
       delegateQueue = [(UAFAssetUtilities *)self delegateQueue];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __46__UAFAssetUtilities__handleNetworkPathUpdate___block_invoke_328;
-      v22[3] = &unk_1E7FFD110;
-      objc_copyWeak(&v23, buf);
-      dispatch_async(delegateQueue, v22);
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __46__UAFAssetUtilities__handleNetworkPathUpdate___block_invoke_328;
+      v21[3] = &unk_1E7FFD110;
+      objc_copyWeak(&v22, buf);
+      dispatch_async(delegateQueue, v21);
 
-      objc_destroyWeak(&v23);
+      objc_destroyWeak(&v22);
       objc_destroyWeak(buf);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __46__UAFAssetUtilities__handleNetworkPathUpdate___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v2 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "[UAFAssetUtilities _handleNetworkPathUpdate:]_block_invoke";
-      _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s #settings Auto retry download on network change", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[UAFAssetUtilities _handleNetworkPathUpdate:]_block_invoke";
+      _os_log_impl(&dword_1BCF2C000, v2, OS_LOG_TYPE_DEFAULT, "%s #settings Auto retry download on network change", &v4, 0xCu);
     }
 
     v3 = [WeakRetained retryState];
@@ -1248,8 +1222,6 @@ void __46__UAFAssetUtilities__handleNetworkPathUpdate___block_invoke(uint64_t a1
     [WeakRetained autoRetryDelayOnSettingsChanged];
     [WeakRetained _downloadSiriAssetsWithDelay:?];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __46__UAFAssetUtilities__handleNetworkPathUpdate___block_invoke_328(uint64_t a1)
@@ -1267,28 +1239,27 @@ void __46__UAFAssetUtilities__handleNetworkPathUpdate___block_invoke_328(uint64_
 
 - (void)downloadSiriAssetsIfNeeded
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[UAFAssetUtilities downloadSiriAssetsIfNeeded]";
+    v8 = "[UAFAssetUtilities downloadSiriAssetsIfNeeded]";
     _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s #settings Download API call", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   downloadQueue = [(UAFAssetUtilities *)self downloadQueue];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __47__UAFAssetUtilities_downloadSiriAssetsIfNeeded__block_invoke;
-  v6[3] = &unk_1E7FFD160;
-  objc_copyWeak(&v7, buf);
-  v6[4] = self;
-  dispatch_async(downloadQueue, v6);
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __47__UAFAssetUtilities_downloadSiriAssetsIfNeeded__block_invoke;
+  v5[3] = &unk_1E7FFD160;
+  objc_copyWeak(&v6, buf);
+  v5[4] = self;
+  dispatch_async(downloadQueue, v5);
 
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(buf);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __47__UAFAssetUtilities_downloadSiriAssetsIfNeeded__block_invoke(uint64_t a1)
@@ -1322,37 +1293,34 @@ void __47__UAFAssetUtilities_downloadSiriAssetsIfNeeded__block_invoke_2(uint64_t
 
 void __47__UAFAssetUtilities_downloadSiriAssetsIfNeeded__block_invoke_3(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (*(a1 + 40))
   {
     v1 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "[UAFAssetUtilities downloadSiriAssetsIfNeeded]_block_invoke_3";
-      _os_log_impl(&dword_1BCF2C000, v1, OS_LOG_TYPE_DEFAULT, "%s #settings Skip download due to assets available already", &v5, 0xCu);
+      v3 = 136315138;
+      v4 = "[UAFAssetUtilities downloadSiriAssetsIfNeeded]_block_invoke_3";
+      _os_log_impl(&dword_1BCF2C000, v1, OS_LOG_TYPE_DEFAULT, "%s #settings Skip download due to assets available already", &v3, 0xCu);
     }
-
-    v2 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = *(a1 + 32);
-    v4 = *MEMORY[0x1E69E9840];
+    v2 = *(a1 + 32);
 
-    [v3 _downloadSiriAssetsOverCellular:0];
+    [v2 _downloadSiriAssetsOverCellular:0];
   }
 }
 
 - (void)downloadSiriAssets
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[UAFAssetUtilities downloadSiriAssets]";
+    v9 = "[UAFAssetUtilities downloadSiriAssets]";
     _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s #settings Download API call", buf, 0xCu);
   }
 
@@ -1363,12 +1331,11 @@ void __47__UAFAssetUtilities_downloadSiriAssetsIfNeeded__block_invoke_3(uint64_t
   block[1] = 3221225472;
   block[2] = __39__UAFAssetUtilities_downloadSiriAssets__block_invoke;
   block[3] = &unk_1E7FFD110;
-  objc_copyWeak(&v8, buf);
+  objc_copyWeak(&v7, buf);
   dispatch_group_notify(assistantGroup, downloadQueue, block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __39__UAFAssetUtilities_downloadSiriAssets__block_invoke(uint64_t a1)
@@ -1379,12 +1346,12 @@ void __39__UAFAssetUtilities_downloadSiriAssets__block_invoke(uint64_t a1)
 
 - (void)downloadSiriAssetsOverCellular
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[UAFAssetUtilities downloadSiriAssetsOverCellular]";
+    v9 = "[UAFAssetUtilities downloadSiriAssetsOverCellular]";
     _os_log_impl(&dword_1BCF2C000, v3, OS_LOG_TYPE_DEFAULT, "%s #settings Download API call", buf, 0xCu);
   }
 
@@ -1395,12 +1362,11 @@ void __39__UAFAssetUtilities_downloadSiriAssets__block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __51__UAFAssetUtilities_downloadSiriAssetsOverCellular__block_invoke;
   block[3] = &unk_1E7FFD110;
-  objc_copyWeak(&v8, buf);
+  objc_copyWeak(&v7, buf);
   dispatch_group_notify(assistantGroup, downloadQueue, block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __51__UAFAssetUtilities_downloadSiriAssetsOverCellular__block_invoke(uint64_t a1)
@@ -1411,7 +1377,7 @@ void __51__UAFAssetUtilities_downloadSiriAssetsOverCellular__block_invoke(uint64
 
 - (void)_downloadSiriAssetsRetry
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   assistantQueue = [(UAFAssetUtilities *)self assistantQueue];
   dispatch_assert_queue_V2(assistantQueue);
 
@@ -1428,107 +1394,104 @@ void __51__UAFAssetUtilities_downloadSiriAssetsOverCellular__block_invoke(uint64
     goto LABEL_9;
   }
 
-  if (self->_networkSatisfied && !self->_networkExpensive)
+  if (!self->_networkSatisfied || self->_networkExpensive)
   {
-    *&buf = 0;
-    *(&buf + 1) = &buf;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy_;
-    v31 = __Block_byref_object_dispose_;
-    retryState = [(UAFAssetUtilities *)self retryState];
-    retryCount = [*(*(&buf + 1) + 40) retryCount];
-    if (retryCount >= [(UAFAssetUtilities *)self autoRetryLimit])
+    v4 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-      {
-        *v24 = 136315394;
-        v25 = "[UAFAssetUtilities _downloadSiriAssetsRetry]";
-        v26 = 1024;
-        v27 = retryCount;
-        v8 = "%s #settings Skip retry after hitting limit %d";
-        v9 = v7;
-        v10 = 18;
-        goto LABEL_17;
-      }
+      LODWORD(buf) = 136315138;
+      *(&buf + 4) = "[UAFAssetUtilities _downloadSiriAssetsRetry]";
+      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s #settings Auto retry skipped due to need for inexpensive network", &buf, 0xCu);
     }
-
-    else
-    {
-      if (![*(*(&buf + 1) + 40) pending])
-      {
-        [*(*(&buf + 1) + 40) setPending:1];
-        autoRetryLimit = [(UAFAssetUtilities *)self autoRetryLimit];
-        v12 = autoRetryLimit - retryCount;
-        if (autoRetryLimit != retryCount)
-        {
-          v13 = 0;
-          do
-          {
-            [(UAFAssetUtilities *)self autoRetryDelayOnFailure];
-            v15 = v14;
-            [(UAFAssetUtilities *)self autoRetryDelayOnFailureIncrement];
-            v17 = v16;
-            objc_initWeak(v24, self);
-            v18 = dispatch_time(0, ((v15 + v13 * v17) * 1000000000.0));
-            assistantQueue2 = [(UAFAssetUtilities *)self assistantQueue];
-            block[0] = MEMORY[0x1E69E9820];
-            block[1] = 3221225472;
-            block[2] = __45__UAFAssetUtilities__downloadSiriAssetsRetry__block_invoke;
-            block[3] = &unk_1E7FFD188;
-            objc_copyWeak(&v21, v24);
-            block[4] = &buf;
-            v22 = v13;
-            v23 = v12;
-            dispatch_after(v18, assistantQueue2, block);
-
-            objc_destroyWeak(&v21);
-            objc_destroyWeak(v24);
-            ++v13;
-          }
-
-          while (v12 != v13);
-        }
-
-        goto LABEL_19;
-      }
-
-      v7 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-      {
-        *v24 = 136315138;
-        v25 = "[UAFAssetUtilities _downloadSiriAssetsRetry]";
-        v8 = "%s #settings Skip retry attempt on pending execution";
-        v9 = v7;
-        v10 = 12;
-LABEL_17:
-        _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, v8, v24, v10);
-      }
-    }
-
-LABEL_19:
-    _Block_object_dispose(&buf, 8);
-
-    goto LABEL_10;
-  }
-
-  v4 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    LODWORD(buf) = 136315138;
-    *(&buf + 4) = "[UAFAssetUtilities _downloadSiriAssetsRetry]";
-    _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s #settings Auto retry skipped due to need for inexpensive network", &buf, 0xCu);
-  }
 
 LABEL_9:
 
-LABEL_10:
-  v5 = *MEMORY[0x1E69E9840];
+    return;
+  }
+
+  *&buf = 0;
+  *(&buf + 1) = &buf;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy_;
+  v30 = __Block_byref_object_dispose_;
+  retryState = [(UAFAssetUtilities *)self retryState];
+  retryCount = [*(*(&buf + 1) + 40) retryCount];
+  if (retryCount >= [(UAFAssetUtilities *)self autoRetryLimit])
+  {
+    v6 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *v23 = 136315394;
+      v24 = "[UAFAssetUtilities _downloadSiriAssetsRetry]";
+      v25 = 1024;
+      v26 = retryCount;
+      v7 = "%s #settings Skip retry after hitting limit %d";
+      v8 = v6;
+      v9 = 18;
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+    if (![*(*(&buf + 1) + 40) pending])
+    {
+      [*(*(&buf + 1) + 40) setPending:1];
+      autoRetryLimit = [(UAFAssetUtilities *)self autoRetryLimit];
+      v11 = autoRetryLimit - retryCount;
+      if (autoRetryLimit != retryCount)
+      {
+        v12 = 0;
+        do
+        {
+          [(UAFAssetUtilities *)self autoRetryDelayOnFailure];
+          v14 = v13;
+          [(UAFAssetUtilities *)self autoRetryDelayOnFailureIncrement];
+          v16 = v15;
+          objc_initWeak(v23, self);
+          v17 = dispatch_time(0, ((v14 + v12 * v16) * 1000000000.0));
+          assistantQueue2 = [(UAFAssetUtilities *)self assistantQueue];
+          block[0] = MEMORY[0x1E69E9820];
+          block[1] = 3221225472;
+          block[2] = __45__UAFAssetUtilities__downloadSiriAssetsRetry__block_invoke;
+          block[3] = &unk_1E7FFD188;
+          objc_copyWeak(&v20, v23);
+          block[4] = &buf;
+          v21 = v12;
+          v22 = v11;
+          dispatch_after(v17, assistantQueue2, block);
+
+          objc_destroyWeak(&v20);
+          objc_destroyWeak(v23);
+          ++v12;
+        }
+
+        while (v11 != v12);
+      }
+
+      goto LABEL_18;
+    }
+
+    v6 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *v23 = 136315138;
+      v24 = "[UAFAssetUtilities _downloadSiriAssetsRetry]";
+      v7 = "%s #settings Skip retry attempt on pending execution";
+      v8 = v6;
+      v9 = 12;
+LABEL_16:
+      _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, v7, v23, v9);
+    }
+  }
+
+LABEL_18:
+  _Block_object_dispose(&buf, 8);
 }
 
 void __45__UAFAssetUtilities__downloadSiriAssetsRetry__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -1540,11 +1503,11 @@ void __45__UAFAssetUtilities__downloadSiriAssetsRetry__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = *(a1 + 48);
-        v11 = 136315394;
-        v12 = "[UAFAssetUtilities _downloadSiriAssetsRetry]_block_invoke";
-        v13 = 1024;
-        v14 = v7;
-        _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s #settings Retry attempt %d skipped", &v11, 0x12u);
+        v10 = 136315394;
+        v11 = "[UAFAssetUtilities _downloadSiriAssetsRetry]_block_invoke";
+        v12 = 1024;
+        v13 = v7;
+        _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s #settings Retry attempt %d skipped", &v10, 0x12u);
       }
 
       [*(*(*(a1 + 32) + 8) + 40) setPending:0];
@@ -1553,15 +1516,15 @@ void __45__UAFAssetUtilities__downloadSiriAssetsRetry__block_invoke(uint64_t a1)
     else
     {
       [*(*(*(a1 + 32) + 8) + 40) setRetryCount:{objc_msgSend(*(*(*(a1 + 32) + 8) + 40), "retryCount") + 1}];
-      v9 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v8 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *(a1 + 48);
-        v11 = 136315394;
-        v12 = "[UAFAssetUtilities _downloadSiriAssetsRetry]_block_invoke";
-        v13 = 1024;
-        v14 = v10;
-        _os_log_impl(&dword_1BCF2C000, v9, OS_LOG_TYPE_DEFAULT, "%s #settings Retry attempt %d", &v11, 0x12u);
+        v9 = *(a1 + 48);
+        v10 = 136315394;
+        v11 = "[UAFAssetUtilities _downloadSiriAssetsRetry]_block_invoke";
+        v12 = 1024;
+        v13 = v9;
+        _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s #settings Retry attempt %d", &v10, 0x12u);
       }
 
       [v3 downloadSiriAssets];
@@ -1572,18 +1535,16 @@ void __45__UAFAssetUtilities__downloadSiriAssetsRetry__block_invoke(uint64_t a1)
       [*(*(*(a1 + 32) + 8) + 40) setPending:0];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_downloadSiriAssetsWithDelay:(double)delay
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[UAFAssetUtilities _downloadSiriAssetsWithDelay:]";
+    v11 = "[UAFAssetUtilities _downloadSiriAssetsWithDelay:]";
     _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s #settings Download API call", buf, 0xCu);
   }
 
@@ -1594,12 +1555,11 @@ void __45__UAFAssetUtilities__downloadSiriAssetsRetry__block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __50__UAFAssetUtilities__downloadSiriAssetsWithDelay___block_invoke;
   block[3] = &unk_1E7FFD110;
-  objc_copyWeak(&v10, buf);
+  objc_copyWeak(&v9, buf);
   dispatch_after(v6, downloadQueue, block);
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __50__UAFAssetUtilities__downloadSiriAssetsWithDelay___block_invoke(uint64_t a1)
@@ -1611,7 +1571,7 @@ void __50__UAFAssetUtilities__downloadSiriAssetsWithDelay___block_invoke(uint64_
 - (void)_downloadSiriAssetsOverCellular:(BOOL)cellular
 {
   cellularCopy = cellular;
-  v28 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   downloadQueue = [(UAFAssetUtilities *)self downloadQueue];
   dispatch_assert_queue_V2(downloadQueue);
 
@@ -1634,34 +1594,33 @@ void __50__UAFAssetUtilities__downloadSiriAssetsWithDelay___block_invoke(uint64_
       goto LABEL_21;
     }
 
-    pathEvaluator = self->_pathEvaluator;
-    v12 = nw_path_evaluator_copy_path();
-    v13 = [(UAFAssetUtilities *)self _networkIsSatisfiedForPath:v12];
-    if (cellularCopy || !v13)
+    v11 = nw_path_evaluator_copy_path();
+    v12 = [(UAFAssetUtilities *)self _networkIsSatisfiedForPath:v11];
+    if (cellularCopy || !v12)
     {
-      if (v13)
+      if (v12)
       {
         goto LABEL_10;
       }
     }
 
-    else if (![(UAFAssetUtilities *)self _networkIsExpensiveForPath:v12])
+    else if (![(UAFAssetUtilities *)self _networkIsExpensiveForPath:v11])
     {
 LABEL_10:
-      v14 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v13 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v23 = "[UAFAssetUtilities _downloadSiriAssetsOverCellular:]";
-        v24 = 2114;
-        v25 = getAssistantLanguageIfAvailableSync;
-        v26 = 1024;
-        v27 = cellularCopy;
-        _os_log_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_DEFAULT, "%s #settings Download requested for language (%{public}@) (cellular:%d)", buf, 0x1Cu);
+        v21 = "[UAFAssetUtilities _downloadSiriAssetsOverCellular:]";
+        v22 = 2114;
+        v23 = getAssistantLanguageIfAvailableSync;
+        v24 = 1024;
+        v25 = cellularCopy;
+        _os_log_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_DEFAULT, "%s #settings Download requested for language (%{public}@) (cellular:%d)", buf, 0x1Cu);
       }
 
       _createConnection = [(UAFAssetUtilities *)self _createConnection];
-      v16 = _createConnection;
+      v15 = _createConnection;
       if (cellularCopy)
       {
         [_createConnection downloadSiriAssetsOverCellular];
@@ -1676,21 +1635,21 @@ LABEL_20:
       goto LABEL_21;
     }
 
-    v17 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v23 = "[UAFAssetUtilities _downloadSiriAssetsOverCellular:]";
-      _os_log_impl(&dword_1BCF2C000, v17, OS_LOG_TYPE_DEFAULT, "%s #settings Skip download due to network path", buf, 0xCu);
+      v21 = "[UAFAssetUtilities _downloadSiriAssetsOverCellular:]";
+      _os_log_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_DEFAULT, "%s #settings Skip download due to network path", buf, 0xCu);
     }
 
     statusQueue2 = [(UAFAssetUtilities *)self statusQueue];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __53__UAFAssetUtilities__downloadSiriAssetsOverCellular___block_invoke_331;
-    v20[3] = &unk_1E7FFCFD0;
-    v20[4] = self;
-    dispatch_async(statusQueue2, v20);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __53__UAFAssetUtilities__downloadSiriAssetsOverCellular___block_invoke_331;
+    v18[3] = &unk_1E7FFCFD0;
+    v18[4] = self;
+    dispatch_async(statusQueue2, v18);
 
     goto LABEL_20;
   }
@@ -1699,12 +1658,11 @@ LABEL_20:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v23 = "[UAFAssetUtilities _downloadSiriAssetsOverCellular:]";
+    v21 = "[UAFAssetUtilities _downloadSiriAssetsOverCellular:]";
     _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s #settings Skip download due to nil language", buf, 0xCu);
   }
 
 LABEL_21:
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __53__UAFAssetUtilities__downloadSiriAssetsOverCellular___block_invoke(uint64_t a1)
@@ -1728,7 +1686,7 @@ uint64_t __53__UAFAssetUtilities__downloadSiriAssetsOverCellular___block_invoke_
 
 - (id)getDiskSpaceNeededInBytesForLanguage:(id)language forClient:(unint64_t)client
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   if (!languageCopy)
   {
@@ -1737,28 +1695,28 @@ uint64_t __53__UAFAssetUtilities__downloadSiriAssetsOverCellular___block_invoke_
   }
 
   v7 = dispatch_semaphore_create(0);
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy_;
-  v33 = __Block_byref_object_dispose_;
-  v34 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy_;
-  v27 = __Block_byref_object_dispose_;
   v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy_;
+  v26 = __Block_byref_object_dispose_;
+  v27 = 0;
   _createConnection = [(UAFAssetUtilities *)self _createConnection];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __68__UAFAssetUtilities_getDiskSpaceNeededInBytesForLanguage_forClient___block_invoke;
-  v19[3] = &unk_1E7FFD1B0;
-  v21 = &v29;
-  v22 = &v23;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __68__UAFAssetUtilities_getDiskSpaceNeededInBytesForLanguage_forClient___block_invoke;
+  v18[3] = &unk_1E7FFD1B0;
+  v20 = &v28;
+  v21 = &v22;
   v9 = v7;
-  v20 = v9;
-  [_createConnection diskSpaceNeededInBytesForLanguage:languageCopy forClient:client completion:v19];
+  v19 = v9;
+  [_createConnection diskSpaceNeededInBytesForLanguage:languageCopy forClient:client completion:v18];
   [(UAFAssetUtilities *)self assetAvailableCheckTimeout];
   v11 = dispatch_time(0, (v10 * 1000000000.0));
   if (dispatch_semaphore_wait(v9, v11))
@@ -1767,30 +1725,30 @@ uint64_t __53__UAFAssetUtilities__downloadSiriAssetsOverCellular___block_invoke_
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v36 = "[UAFAssetUtilities getDiskSpaceNeededInBytesForLanguage:forClient:]";
+      v35 = "[UAFAssetUtilities getDiskSpaceNeededInBytesForLanguage:forClient:]";
       _os_log_error_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_ERROR, "%s #settings Failed to check size due to timeout", buf, 0xCu);
     }
 
-    if (!v24[5])
+    if (!v23[5])
     {
       goto LABEL_12;
     }
   }
 
-  else if (!v24[5])
+  else if (!v23[5])
   {
-    v15 = (v30 + 5);
+    v15 = (v29 + 5);
     goto LABEL_13;
   }
 
   v14 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    v18 = v24[5];
+    v17 = v23[5];
     *buf = 136315394;
-    v36 = "[UAFAssetUtilities getDiskSpaceNeededInBytesForLanguage:forClient:]";
-    v37 = 2112;
-    v38 = v18;
+    v35 = "[UAFAssetUtilities getDiskSpaceNeededInBytesForLanguage:forClient:]";
+    v36 = 2112;
+    v37 = v17;
     _os_log_error_impl(&dword_1BCF2C000, v14, OS_LOG_TYPE_ERROR, "%s #settings Failed to check size due to error %@", buf, 0x16u);
   }
 
@@ -1799,11 +1757,10 @@ LABEL_12:
 LABEL_13:
   v13 = *v15;
 
-  _Block_object_dispose(&v23, 8);
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v28, 8);
 
 LABEL_14:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1827,28 +1784,26 @@ void __68__UAFAssetUtilities_getDiskSpaceNeededInBytesForLanguage_forClient___bl
 
 - (unint64_t)_checkFreeSpaceNeededForLanguage:(id)language forClient:(unint64_t)client
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = [(UAFAssetUtilities *)self getDiskSpaceNeededInBytesForLanguage:language forClient:client];
   unsignedIntegerValue = [v4 unsignedIntegerValue];
 
   if (unsignedIntegerValue)
   {
-    v6 = *MEMORY[0x1E69E9840];
 
     return [UAFCommonUtilities getFreeDiskSpaceNeededInBytes:unsignedIntegerValue];
   }
 
   else
   {
-    v8 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = UAFGetLogCategory(&UAFLogContextAssetUtilities);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "[UAFAssetUtilities _checkFreeSpaceNeededForLanguage:forClient:]";
-      _os_log_error_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_ERROR, "%s #settings Returning enough space for assets even with an unknown size requested", &v10, 0xCu);
+      v8 = 136315138;
+      v9 = "[UAFAssetUtilities _checkFreeSpaceNeededForLanguage:forClient:]";
+      _os_log_error_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_ERROR, "%s #settings Returning enough space for assets even with an unknown size requested", &v8, 0xCu);
     }
 
-    v9 = *MEMORY[0x1E69E9840];
     return 0;
   }
 }
@@ -1976,7 +1931,7 @@ void __68__UAFAssetUtilities_getDiskSpaceNeededInBytesForLanguage_forClient___bl
 
 void __45__UAFAssetUtilities__assistantLanguageUpdate__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 88);
   v3 = [*(a1 + 32) getAssistantLanguageIfAvailableSync];
   if (([v3 isEqualToString:v2] & 1) == 0)
@@ -1985,9 +1940,9 @@ void __45__UAFAssetUtilities__assistantLanguageUpdate__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v14 = "[UAFAssetUtilities _assistantLanguageUpdate]_block_invoke";
-      v15 = 2114;
-      v16 = v3;
+      v13 = "[UAFAssetUtilities _assistantLanguageUpdate]_block_invoke";
+      v14 = 2114;
+      v15 = v3;
       _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s #settings Siri language changed to : %{public}@", buf, 0x16u);
     }
 
@@ -1999,9 +1954,9 @@ void __45__UAFAssetUtilities__assistantLanguageUpdate__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v14 = "[UAFAssetUtilities _assistantLanguageUpdate]_block_invoke";
-        v15 = 2114;
-        v16 = v3;
+        v13 = "[UAFAssetUtilities _assistantLanguageUpdate]_block_invoke";
+        v14 = 2114;
+        v15 = v3;
         _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s #settings Auto retry download on language change, language = %{public}@", buf, 0x16u);
       }
 
@@ -2015,21 +1970,19 @@ void __45__UAFAssetUtilities__assistantLanguageUpdate__block_invoke(uint64_t a1)
     }
 
     v9 = [*(a1 + 32) delegateQueue];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __45__UAFAssetUtilities__assistantLanguageUpdate__block_invoke_336;
-    v11[3] = &unk_1E7FFD098;
-    v11[4] = *(a1 + 32);
-    v12 = v3;
-    dispatch_async(v9, v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __45__UAFAssetUtilities__assistantLanguageUpdate__block_invoke_336;
+    v10[3] = &unk_1E7FFD098;
+    v10[4] = *(a1 + 32);
+    v11 = v3;
+    dispatch_async(v9, v10);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __45__UAFAssetUtilities__assistantLanguageUpdate__block_invoke_336(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) delegate];
   v3 = objc_opt_respondsToSelector();
 
@@ -2039,18 +1992,16 @@ void __45__UAFAssetUtilities__assistantLanguageUpdate__block_invoke_336(uint64_t
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
-      v8 = 136315394;
-      v9 = "[UAFAssetUtilities _assistantLanguageUpdate]_block_invoke";
-      v10 = 2114;
-      v11 = v5;
-      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s #settings Calling delegate assistantLanguageDidChange : %{public}@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[UAFAssetUtilities _assistantLanguageUpdate]_block_invoke";
+      v9 = 2114;
+      v10 = v5;
+      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s #settings Calling delegate assistantLanguageDidChange : %{public}@", &v7, 0x16u);
     }
 
     v6 = [*(a1 + 32) delegate];
     [v6 assistantLanguageDidChange:*(a1 + 40)];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_assistantPreferencesUpdate
@@ -2066,7 +2017,7 @@ void __45__UAFAssetUtilities__assistantLanguageUpdate__block_invoke_336(uint64_t
 
 void __48__UAFAssetUtilities__assistantPreferencesUpdate__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 25);
   v3 = +[UAFCommonUtilities isAssistantEnabled];
   if (v2 != v3)
@@ -2082,9 +2033,9 @@ void __48__UAFAssetUtilities__assistantPreferencesUpdate__block_invoke(uint64_t 
       }
 
       *buf = 136315394;
-      v16 = "[UAFAssetUtilities _assistantPreferencesUpdate]_block_invoke";
-      v17 = 2080;
-      v18 = v6;
+      v15 = "[UAFAssetUtilities _assistantPreferencesUpdate]_block_invoke";
+      v16 = 2080;
+      v17 = v6;
       _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s #settings Assistant preferences changed to : %s", buf, 0x16u);
     }
 
@@ -2096,7 +2047,7 @@ void __48__UAFAssetUtilities__assistantPreferencesUpdate__block_invoke(uint64_t 
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v16 = "[UAFAssetUtilities _assistantPreferencesUpdate]_block_invoke";
+        v15 = "[UAFAssetUtilities _assistantPreferencesUpdate]_block_invoke";
         _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s #settings Auto retry download on enablement change", buf, 0xCu);
       }
 
@@ -2110,21 +2061,19 @@ void __48__UAFAssetUtilities__assistantPreferencesUpdate__block_invoke(uint64_t 
     }
 
     v11 = [*(a1 + 32) delegateQueue];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __48__UAFAssetUtilities__assistantPreferencesUpdate__block_invoke_341;
-    v13[3] = &unk_1E7FFD020;
-    v13[4] = *(a1 + 32);
-    v14 = v4;
-    dispatch_async(v11, v13);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __48__UAFAssetUtilities__assistantPreferencesUpdate__block_invoke_341;
+    v12[3] = &unk_1E7FFD020;
+    v12[4] = *(a1 + 32);
+    v13 = v4;
+    dispatch_async(v11, v12);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __48__UAFAssetUtilities__assistantPreferencesUpdate__block_invoke_341(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) delegate];
   v3 = objc_opt_respondsToSelector();
 
@@ -2139,18 +2088,16 @@ void __48__UAFAssetUtilities__assistantPreferencesUpdate__block_invoke_341(uint6
         v5 = "enabled";
       }
 
-      v8 = 136315394;
-      v9 = "[UAFAssetUtilities _assistantPreferencesUpdate]_block_invoke";
-      v10 = 2080;
-      v11 = v5;
-      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s #settings Calling delegate assistantEnabledDidChange : %s", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[UAFAssetUtilities _assistantPreferencesUpdate]_block_invoke";
+      v9 = 2080;
+      v10 = v5;
+      _os_log_impl(&dword_1BCF2C000, v4, OS_LOG_TYPE_DEFAULT, "%s #settings Calling delegate assistantEnabledDidChange : %s", &v7, 0x16u);
     }
 
     v6 = [*(a1 + 32) delegate];
     [v6 assistantEnabledDidChange:*(a1 + 40)];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

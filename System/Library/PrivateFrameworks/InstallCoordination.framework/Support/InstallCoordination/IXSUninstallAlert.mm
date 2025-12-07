@@ -393,7 +393,7 @@ LABEL_12:
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_10009F8C0(self, &error);
+      sub_10009F8C0(self);
     }
 
     typeDescription2 = [(IXSUninstallAlert *)self typeDescription];

@@ -138,19 +138,19 @@
   if (interval <= 0.0)
   {
     v10 = objc_autoreleasePoolPush();
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = HMFGetOSLogHandle(0, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = HMFGetLogIdentifier(0);
+      v13 = HMFGetLogIdentifier(0);
       *buf = 138543618;
-      v19 = v12;
+      v19 = v13;
       v20 = 2048;
       intervalCopy = interval;
-      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_ERROR, "%{public}@[HMFTimer] Expiration, %f, must be greater than 0", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_ERROR, "%{public}@[HMFTimer] Expiration, %f, must be greater than 0", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
-    v13 = 0;
+    v14 = 0;
   }
 
   else
@@ -165,7 +165,7 @@
       v7->_options = options;
       if ((options & 2) != 0)
       {
-        v14 = 1000000;
+        v15 = 1000000;
       }
 
       else
@@ -181,23 +181,22 @@
           v9 = v8 / 10.0;
         }
 
-        v14 = v9;
+        v15 = v9;
       }
 
-      v7->_leeway = v14;
+      v7->_leeway = v15;
     }
 
     selfCopy = v7;
-    v13 = selfCopy;
+    v14 = selfCopy;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v14;
 }
 
 - (id)attributeDescriptions
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   v4 = HMFBooleanToString([(HMFTimer *)self isRunning]);
   v5 = [(HMFAttributeDescription *)v3 initWithName:@"Running" value:v4];
@@ -206,14 +205,12 @@
   [(HMFTimer *)self timeInterval];
   v8 = [v7 numberWithDouble:?];
   v9 = [(HMFAttributeDescription *)v6 initWithName:@"Interval" value:v8];
-  v16[1] = v9;
+  v15[1] = v9;
   v10 = [HMFAttributeDescription alloc];
   v11 = HMFBooleanToString((self->_options >> 2) & 1);
   v12 = [(HMFAttributeDescription *)v10 initWithName:@"Repeating" value:v11];
-  v16[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
 
   return v13;
 }

@@ -6,6 +6,7 @@
 - (void)connectIdleUI:(id)i identifier:(id)identifier completion:(id)completion;
 - (void)connectionInvalidatedForIdentifier:(id)identifier;
 - (void)idleUIGotFocus:(id)focus identifier:(id)identifier completion:(id)completion;
+- (void)stashRequest:(id)request acceptsIdleUI:(BOOL)i;
 @end
 
 @implementation LACConcurrentEvaluationManager
@@ -28,13 +29,22 @@
   return v7;
 }
 
+- (void)stashRequest:(id)request acceptsIdleUI:(BOOL)i
+{
+  iCopy = i;
+  swift_unknownObjectRetain();
+  selfCopy = self;
+  [-[LACConcurrentEvaluationManager model](selfCopy model)];
+  swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
+}
+
 - (BOOL)restartRequestsForContextID:(id)d
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   model = [(LACConcurrentEvaluationManager *)selfCopy model];
@@ -42,7 +52,7 @@
   restartRequestsForContextID_ = [model restartRequestsForContextID_];
 
   swift_unknownObjectRelease();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   return restartRequestsForContextID_;
 }
 
@@ -50,9 +60,8 @@
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   model = [(LACConcurrentEvaluationManager *)selfCopy model];
@@ -60,7 +69,7 @@
   [model cancelRequestsForContextID_];
 
   swift_unknownObjectRelease();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)idleUIGotFocus:(id)focus identifier:(id)identifier completion:(id)completion

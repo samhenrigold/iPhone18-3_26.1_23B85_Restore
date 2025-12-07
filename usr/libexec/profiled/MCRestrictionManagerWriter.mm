@@ -39,6 +39,7 @@
 - (void)removeBoolSetting:(id)setting sender:(id)sender;
 - (void)removeValueSetting:(id)setting sender:(id)sender;
 - (void)resetAllSettingsToDefaultsSender:(id)sender;
+- (void)setBoolValue:(BOOL)value ask:(BOOL)ask forSetting:(id)setting sender:(id)sender;
 - (void)setIntersectionValues:(id)values forSetting:(id)setting sender:(id)sender;
 - (void)setShowNagMessage;
 - (void)setUnionValues:(id)values forSetting:(id)setting sender:(id)sender;
@@ -50,8 +51,8 @@
 
 - (void)memberQueueCommitUserSettingsToDisk
 {
-  v3 = _MCLogObjects;
-  if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
+  v3 = _MCLogObjects[0];
+  if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
   {
     *v14 = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Committing user settings.", v14, 2u);
@@ -1557,13 +1558,12 @@ LABEL_31:
 
   if ((v19 & 1) == 0)
   {
-    v60 = v19;
+    v59 = v19;
     memberQueueEffectiveUserSettings2 = [(MCRestrictionManagerWriter *)self memberQueueEffectiveUserSettings];
     v21 = [memberQueueEffectiveUserSettings2 copy];
 
     [(MCRestrictionManagerWriter *)self applyConfiguration:v9 toDomain:4 inNamespace:0 fromSender:@"MCRestrictionManagerWriter.RecomputeEffectiveUserSettings"];
     [(MCRestrictionManagerWriter *)self memberQueueCommitEffectiveUserSettingsToDiskOldEffectiveUserSettings:v21];
-    senderPID = self->_senderPID;
     MCSendEffectiveSettingsChangedNotification();
     if ([MCRestrictionManager intersectedValuesForFeature:MCFeatureAllowedExternalIntelligenceWorkspaceIDs changedBetweenOldRestrictions:v21 andNewRestrictions:v9])
     {
@@ -1573,30 +1573,30 @@ LABEL_31:
     if (([MCRestrictionManager intersectedValuesSetting:MCFeatureAppLockBundleIDs valueChangedBetweenOldSettings:v21 andNewSettings:v9]& 1) != 0 || ([MCRestrictionManager BOOLSetting:MCFeatureAppLockMultipleAppsAllowed valueChangedBetweenOldSettings:v21 andNewSettings:v9]& 1) != 0 || ([MCRestrictionManager BOOLSetting:MCFeatureAppLockAccessWithoutPasscodeAllowed valueChangedBetweenOldSettings:v21 andNewSettings:v9]& 1) != 0 || ([MCRestrictionManager BOOLSetting:MCFeatureAppLockGrantSupervisorAccessForced valueChangedBetweenOldSettings:v21 andNewSettings:v9]& 1) != 0 || [MCRestrictionManager BOOLSetting:MCFeatureAppLockLogoutAllowed valueChangedBetweenOldSettings:v21 andNewSettings:v9])
     {
       buf[0] = 0;
-      v23 = +[MCServerSideHacks sharedHacks];
+      v22 = +[MCServerSideHacks sharedHacks];
       memberQueueEffectiveUserSettings3 = [(MCRestrictionManagerWriter *)self memberQueueEffectiveUserSettings];
-      [v23 recomputeAppOptionsEffectiveUserSettings:memberQueueEffectiveUserSettings3 outEffectiveChangeDetected:buf];
+      [v22 recomputeAppOptionsEffectiveUserSettings:memberQueueEffectiveUserSettings3 outEffectiveChangeDetected:buf];
 
       if (buf[0] == 1)
       {
         MCSendAppWhitelistChangedNotification();
-        v25 = +[MDMClient sharedClient];
-        [v25 retryNotNowResponse];
+        v24 = +[MDMClient sharedClient];
+        [v24 retryNotNowResponse];
       }
     }
 
-    v61 = mCMutableDeepCopy;
-    v26 = [MCRestrictionManager isWebContentFilterUIActiveWithRestrictionDictionary:v21];
-    v27 = v26 ^ [MCRestrictionManager isWebContentFilterUIActiveWithRestrictionDictionary:v9];
-    if ((v27 & 1) != 0 || ([MCRestrictionManager intersectedValuesSetting:MCFeatureWebContentFilterAutoPermittedURLs valueChangedBetweenOldSettings:v21 andNewSettings:v9]& 1) != 0 || ([MCRestrictionManager intersectedValuesSetting:MCFeatureWebContentFilterWhitelistedURLs valueChangedBetweenOldSettings:v21 andNewSettings:v9]& 1) != 0 || ([MCRestrictionManager unionValuesSetting:MCFeatureWebContentFilterBlacklistedURLs valueChangedBetweenOldSettings:v21 andNewSettings:v9]& 1) != 0 || [MCRestrictionManager BOOLSetting:MCFeatureWebContentFilterAutoForced valueChangedBetweenOldSettings:v21 andNewSettings:v9])
+    v60 = mCMutableDeepCopy;
+    v25 = [MCRestrictionManager isWebContentFilterUIActiveWithRestrictionDictionary:v21];
+    v26 = v25 ^ [MCRestrictionManager isWebContentFilterUIActiveWithRestrictionDictionary:v9];
+    if ((v26 & 1) != 0 || ([MCRestrictionManager intersectedValuesSetting:MCFeatureWebContentFilterAutoPermittedURLs valueChangedBetweenOldSettings:v21 andNewSettings:v9]& 1) != 0 || ([MCRestrictionManager intersectedValuesSetting:MCFeatureWebContentFilterWhitelistedURLs valueChangedBetweenOldSettings:v21 andNewSettings:v9]& 1) != 0 || ([MCRestrictionManager unionValuesSetting:MCFeatureWebContentFilterBlacklistedURLs valueChangedBetweenOldSettings:v21 andNewSettings:v9]& 1) != 0 || [MCRestrictionManager BOOLSetting:MCFeatureWebContentFilterAutoForced valueChangedBetweenOldSettings:v21 andNewSettings:v9])
     {
       buf[0] = 0;
-      v62 = 0;
-      v28 = +[MCServerSideHacks sharedHacks];
+      v61 = 0;
+      v27 = +[MCServerSideHacks sharedHacks];
       memberQueueEffectiveUserSettings4 = [(MCRestrictionManagerWriter *)self memberQueueEffectiveUserSettings];
-      [v28 recomputeWebContentFilterEffectiveUserSettings:memberQueueEffectiveUserSettings4 outEffectiveChangeDetected:buf outMechanismChangedDetected:&v62];
+      [v27 recomputeWebContentFilterEffectiveUserSettings:memberQueueEffectiveUserSettings4 outEffectiveChangeDetected:buf outMechanismChangedDetected:&v61];
 
-      if (v62 == 1)
+      if (v61 == 1)
       {
         MCSendWebContentFilterTypeChangedNotification();
       }
@@ -1606,7 +1606,7 @@ LABEL_31:
         MCSendWebContentFilterChangedNotification();
       }
 
-      if (v27)
+      if (v26)
       {
         MCSendWebContentFilterUIActiveChangedNotification();
       }
@@ -1637,85 +1637,85 @@ LABEL_31:
       MCSendAllowHealthDataSubmissionChangedNotification();
     }
 
-    v30 = MCFeatureBookstoreEroticaAllowed;
+    v29 = MCFeatureBookstoreEroticaAllowed;
     memberQueueEffectiveUserSettings5 = [(MCRestrictionManagerWriter *)self memberQueueEffectiveUserSettings];
-    v59 = [MCRestrictionManager BOOLSettingForFeature:v30 withUserSettingDictionary:memberQueueEffectiveUserSettings5]!= 2;
+    v58 = [MCRestrictionManager BOOLSettingForFeature:v29 withUserSettingDictionary:memberQueueEffectiveUserSettings5]!= 2;
 
-    v32 = MCFeatureExplicitContentAllowed;
+    v31 = MCFeatureExplicitContentAllowed;
     memberQueueEffectiveUserSettings6 = [(MCRestrictionManagerWriter *)self memberQueueEffectiveUserSettings];
-    v58 = [MCRestrictionManager BOOLSettingForFeature:v32 withUserSettingDictionary:memberQueueEffectiveUserSettings6]!= 2;
+    v57 = [MCRestrictionManager BOOLSettingForFeature:v31 withUserSettingDictionary:memberQueueEffectiveUserSettings6]!= 2;
 
-    v34 = MCFeatureSpellCheckAllowed;
+    v33 = MCFeatureSpellCheckAllowed;
     memberQueueEffectiveUserSettings7 = [(MCRestrictionManagerWriter *)self memberQueueEffectiveUserSettings];
-    v36 = [MCRestrictionManager BOOLSettingForFeature:v34 withUserSettingDictionary:memberQueueEffectiveUserSettings7]!= 2;
+    v35 = [MCRestrictionManager BOOLSettingForFeature:v33 withUserSettingDictionary:memberQueueEffectiveUserSettings7]!= 2;
 
-    v37 = MCFeatureAutoCorrectionAllowed;
+    v36 = MCFeatureAutoCorrectionAllowed;
     memberQueueEffectiveUserSettings8 = [(MCRestrictionManagerWriter *)self memberQueueEffectiveUserSettings];
-    v39 = [MCRestrictionManager BOOLSettingForFeature:v37 withUserSettingDictionary:memberQueueEffectiveUserSettings8]!= 2;
+    v38 = [MCRestrictionManager BOOLSettingForFeature:v36 withUserSettingDictionary:memberQueueEffectiveUserSettings8]!= 2;
 
-    v40 = MCFeatureMaximumAppsRating;
+    v39 = MCFeatureMaximumAppsRating;
     memberQueueEffectiveUserSettings9 = [(MCRestrictionManagerWriter *)self memberQueueEffectiveUserSettings];
-    v42 = [MCRestrictionManager valueSettingForFeature:v40 withUserSettingDictionary:memberQueueEffectiveUserSettings9];
+    v41 = [MCRestrictionManager valueSettingForFeature:v39 withUserSettingDictionary:memberQueueEffectiveUserSettings9];
 
-    v43 = MCFeatureMaximumMoviesRating;
+    v42 = MCFeatureMaximumMoviesRating;
     memberQueueEffectiveUserSettings10 = [(MCRestrictionManagerWriter *)self memberQueueEffectiveUserSettings];
-    v45 = [MCRestrictionManager valueSettingForFeature:v43 withUserSettingDictionary:memberQueueEffectiveUserSettings10];
+    v44 = [MCRestrictionManager valueSettingForFeature:v42 withUserSettingDictionary:memberQueueEffectiveUserSettings10];
 
-    v46 = MCFeatureMaximumTVShowsRating;
+    v45 = MCFeatureMaximumTVShowsRating;
     memberQueueEffectiveUserSettings11 = [(MCRestrictionManagerWriter *)self memberQueueEffectiveUserSettings];
-    v48 = [MCRestrictionManager valueSettingForFeature:v46 withUserSettingDictionary:memberQueueEffectiveUserSettings11];
+    v47 = [MCRestrictionManager valueSettingForFeature:v45 withUserSettingDictionary:memberQueueEffectiveUserSettings11];
 
-    v64[0] = MCExplicitBooksAllowedThirdPartyQuery;
-    v49 = [NSNumber numberWithBool:v59];
-    v65[0] = v49;
-    v64[1] = MCExplicitMusicPodcastsAllowedThirdPartyQuery;
-    v50 = [NSNumber numberWithBool:v58];
-    v65[1] = v50;
-    v64[2] = MCSpellCheckAllowedThirdPartyQuery;
-    v51 = [NSNumber numberWithBool:v36];
-    v65[2] = v51;
-    v64[3] = MCAutoCorrectionAllowedThirdPartyQuery;
-    v52 = [NSNumber numberWithBool:v39];
-    v65[3] = v52;
-    v53 = [NSDictionary dictionaryWithObjects:v65 forKeys:v64 count:4];
+    v63[0] = MCExplicitBooksAllowedThirdPartyQuery;
+    v48 = [NSNumber numberWithBool:v58];
+    v64[0] = v48;
+    v63[1] = MCExplicitMusicPodcastsAllowedThirdPartyQuery;
+    v49 = [NSNumber numberWithBool:v57];
+    v64[1] = v49;
+    v63[2] = MCSpellCheckAllowedThirdPartyQuery;
+    v50 = [NSNumber numberWithBool:v35];
+    v64[2] = v50;
+    v63[3] = MCAutoCorrectionAllowedThirdPartyQuery;
+    v51 = [NSNumber numberWithBool:v38];
+    v64[3] = v51;
+    v52 = [NSDictionary dictionaryWithObjects:v64 forKeys:v63 count:4];
 
-    v54 = [[NSMutableDictionary alloc] initWithDictionary:v53];
-    v55 = objc_alloc_init(NSMutableArray);
-    v56 = v55;
-    if (v42)
+    v53 = [[NSMutableDictionary alloc] initWithDictionary:v52];
+    v54 = objc_alloc_init(NSMutableArray);
+    v55 = v54;
+    if (v41)
     {
-      [v54 setObject:v42 forKey:MCMaximumAppsRatingThirdPartyQuery];
+      [v53 setObject:v41 forKey:MCMaximumAppsRatingThirdPartyQuery];
     }
 
     else
     {
-      [v55 addObject:MCMaximumAppsRatingThirdPartyQuery];
+      [v54 addObject:MCMaximumAppsRatingThirdPartyQuery];
     }
 
-    if (v45)
+    if (v44)
     {
-      [v54 setObject:v45 forKey:MCMaximumMoviesRatingThirdPartyQuery];
+      [v53 setObject:v44 forKey:MCMaximumMoviesRatingThirdPartyQuery];
     }
 
     else
     {
-      [v56 addObject:MCMaximumMoviesRatingThirdPartyQuery];
+      [v55 addObject:MCMaximumMoviesRatingThirdPartyQuery];
     }
 
-    if (v48)
+    if (v47)
     {
-      [v54 setObject:v48 forKey:MCMaximumTVShowsRatingThirdPartyQuery];
+      [v53 setObject:v47 forKey:MCMaximumTVShowsRatingThirdPartyQuery];
     }
 
     else
     {
-      [v56 addObject:MCMaximumTVShowsRatingThirdPartyQuery];
+      [v55 addObject:MCMaximumTVShowsRatingThirdPartyQuery];
     }
 
-    [MCManagedPreferencesManager updateGlobalManagedPreferencesByAddingPreferences:v54 removingPreferences:v56];
+    [MCManagedPreferencesManager updateGlobalManagedPreferencesByAddingPreferences:v53 removingPreferences:v55];
 
-    mCMutableDeepCopy = v61;
-    v19 = v60;
+    mCMutableDeepCopy = v60;
+    v19 = v59;
   }
 
   return v19 ^ 1;
@@ -1916,6 +1916,37 @@ LABEL_31:
   LOBYTE(memberQueue) = *(v34 + 24);
   _Block_object_dispose(&v33, 8);
   return memberQueue;
+}
+
+- (void)setBoolValue:(BOOL)value ask:(BOOL)ask forSetting:(id)setting sender:(id)sender
+{
+  askCopy = ask;
+  valueCopy = value;
+  settingCopy = setting;
+  senderCopy = sender;
+  v12 = +[NSMutableDictionary dictionary];
+  v13 = [NSNumber numberWithBool:valueCopy];
+  [v12 setObject:v13 forKeyedSubscript:MCSettingParameterValueKey];
+
+  if (valueCopy)
+  {
+    v14 = [NSNumber numberWithBool:askCopy];
+    [v12 setObject:v14 forKeyedSubscript:MCSettingParameterAskKey];
+  }
+
+  else
+  {
+    [v12 setObject:&__kCFBooleanFalse forKeyedSubscript:MCSettingParameterAskKey];
+  }
+
+  v18 = v12;
+  v19 = MCRestrictedBoolKey;
+  v17 = settingCopy;
+  v15 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v20 = v15;
+  v16 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+
+  [(MCRestrictionManagerWriter *)self setParametersForSettingsByType:v16 sender:senderCopy];
 }
 
 - (void)setValue:(id)value forSetting:(id)setting sender:(id)sender

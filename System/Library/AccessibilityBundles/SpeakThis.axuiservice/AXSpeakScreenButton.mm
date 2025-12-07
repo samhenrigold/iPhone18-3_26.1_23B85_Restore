@@ -2,6 +2,7 @@
 - (UIVisualEffectView)buttonEffectView;
 - (void)setAlpha:(double)alpha;
 - (void)setEnabled:(BOOL)enabled;
+- (void)setHidden:(BOOL)hidden;
 @end
 
 @implementation AXSpeakScreenButton
@@ -16,6 +17,25 @@
   v6 = [UIVibrancyEffect effectForBlurEffect:v5 style:!enabledCopy];
   buttonEffectView = [(AXSpeakScreenButton *)self buttonEffectView];
   [buttonEffectView setEffect:v6];
+}
+
+- (void)setHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  v11.receiver = self;
+  v11.super_class = AXSpeakScreenButton;
+  [(AXSpeakScreenButton *)&v11 setHidden:?];
+  buttonEffectView = [(AXSpeakScreenButton *)self buttonEffectView];
+  [buttonEffectView setHidden:hiddenCopy];
+
+  borderEffectView = [(AXSpeakScreenButton *)self borderEffectView];
+  [borderEffectView setHidden:hiddenCopy];
+
+  borderEffectView2 = [(AXSpeakScreenButton *)self borderEffectView];
+  contentView = [borderEffectView2 contentView];
+  subviews = [contentView subviews];
+  lastObject = [subviews lastObject];
+  [lastObject setHidden:hiddenCopy];
 }
 
 - (void)setAlpha:(double)alpha

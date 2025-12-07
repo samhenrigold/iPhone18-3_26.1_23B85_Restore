@@ -129,193 +129,193 @@ void __70__PFSlowMotionUtilities_audioMixForScaledComposition_timeRangeMapper___
   return v17;
 }
 
-uint64_t __80__PFSlowMotionUtilities__setVolume_forSlowMotionRegionsInTrack_timeRangeMapper___block_invoke(uint64_t a1, double a2, double a3, float a4, float a5, float a6)
+void *__80__PFSlowMotionUtilities__setVolume_forSlowMotionRegionsInTrack_timeRangeMapper___block_invoke(uint64_t a1, const char *a2, double a3, double a4, float a5, float a6, float a7)
 {
-  v10 = *(a1 + 64);
-  if (*&a3 == a4)
+  v11 = *(a1 + 64);
+  if (*&a4 == a5)
   {
-    v11 = *(a1 + 32);
-    CMTimeMakeWithSeconds(v55, a4, 600);
-    *&v12 = v10;
-    result = [v11 setVolume:v55 atTime:v12];
+    v12 = *(a1 + 32);
+    CMTimeMakeWithSeconds(v56, a5, 600);
+    *&v13 = v11;
+    result = [v12 setVolume:v56 atTime:v13];
   }
 
   else
   {
-    v16 = *&a3;
-    if (*(a1 + 68) >= v10)
+    v17 = *&a4;
+    if (*(a1 + 68) >= v11)
     {
-      v22 = *(a1 + 32);
-      v23 = *(a1 + 56);
-      if (v23)
+      v23 = *(a1 + 32);
+      v24 = *(a1 + 56);
+      if (v24)
       {
-        LODWORD(a2) = LODWORD(a3);
-        *&a3 = a4;
-        [v23 _timeRangeFromTime:a2 toTime:a3];
+        LODWORD(a3) = LODWORD(a4);
+        *&a4 = a5;
+        objc_msgSend__timeRangeFromTime_toTime_(v24, a2, a3, a4);
       }
 
       else
       {
-        HIDWORD(v24) = 0;
-        v56 = 0u;
-        memset(v55, 0, sizeof(v55));
+        HIDWORD(v25) = 0;
+        v57 = 0u;
+        memset(v56, 0, sizeof(v56));
       }
 
-      LODWORD(v24) = 1.0;
-      v30 = v55;
-      v31 = v22;
-      *&a3 = v10;
+      LODWORD(v25) = 1.0;
+      v31 = v56;
+      v32 = v23;
+      *&a4 = v11;
     }
 
     else
     {
-      v56 = 0u;
-      memset(v55, 0, sizeof(v55));
-      v17 = *(a1 + 56);
+      v57 = 0u;
+      memset(v56, 0, sizeof(v56));
+      v18 = *(a1 + 56);
       [*(a1 + 40) volumeSuppressionIntroTime];
-      if (v17)
+      if (v18)
       {
-        v20 = v16;
-        v21 = v18 + v16;
-        *&v20 = v21;
-        *&v21 = v16;
-        [v17 _timeRangeFromTime:v21 toTime:v20];
+        v21 = v17;
+        v22 = v19 + v17;
+        *&v21 = v22;
+        *&v22 = v17;
+        objc_msgSend__timeRangeFromTime_toTime_(v18, v22, v21);
       }
 
       else
       {
-        v56 = 0u;
-        memset(v55, 0, sizeof(v55));
+        v57 = 0u;
+        memset(v56, 0, sizeof(v56));
       }
 
-      v25 = *(a1 + 32);
-      LODWORD(v19) = *(a1 + 68);
-      v52 = *v55;
-      v53 = *&v55[16];
-      v54 = v56;
-      [v25 setVolumeRampFromStartVolume:&v52 toEndVolume:COERCE_DOUBLE(__PAIR64__(DWORD1(v56) timeRange:{1.0)), v19}];
-      v53 = 0u;
+      v26 = *(a1 + 32);
+      LODWORD(v20) = *(a1 + 68);
+      v53 = *v56;
+      v54 = *&v56[16];
+      v55 = v57;
+      [v26 setVolumeRampFromStartVolume:&v53 toEndVolume:COERCE_DOUBLE(__PAIR64__(DWORD1(v57) timeRange:{1.0)), v20}];
       v54 = 0u;
-      v52 = 0u;
-      v26 = *(a1 + 56);
+      v55 = 0u;
+      v53 = 0u;
+      v27 = *(a1 + 56);
       [*(a1 + 40) volumeSuppressionOutroTime];
-      if (v26)
+      if (v27)
       {
-        v28 = a4;
-        v29 = a4 - v27;
-        *&v29 = v29;
-        *&v28 = a4;
-        [v26 _timeRangeFromTime:v29 toTime:v28];
+        v29 = a5;
+        v30 = a5 - v28;
+        *&v30 = v30;
+        *&v29 = a5;
+        objc_msgSend__timeRangeFromTime_toTime_(v27, v30, v29);
       }
 
       else
       {
-        HIDWORD(v24) = 0;
-        v53 = 0u;
+        HIDWORD(v25) = 0;
         v54 = 0u;
-        v52 = 0u;
+        v55 = 0u;
+        v53 = 0u;
       }
 
-      v31 = *(a1 + 32);
-      LODWORD(a3) = *(a1 + 64);
-      LODWORD(v24) = *(a1 + 68);
-      v49 = v52;
+      v32 = *(a1 + 32);
+      LODWORD(a4) = *(a1 + 64);
+      LODWORD(v25) = *(a1 + 68);
       v50 = v53;
       v51 = v54;
-      v30 = &v49;
+      v52 = v55;
+      v31 = &v50;
     }
 
-    result = [v31 setVolumeRampFromStartVolume:v30 toEndVolume:v24 timeRange:{a3, v49, v50, v51}];
+    result = [v32 setVolumeRampFromStartVolume:v31 toEndVolume:v25 timeRange:{a4, v50, v51, v52}];
   }
 
-  if (a5 < a6)
+  if (a6 < a7)
   {
-    v32 = *(a1 + 64);
-    if (*(a1 + 68) >= v32)
+    v33 = *(a1 + 64);
+    if (*(a1 + 68) >= v33)
     {
-      v39 = *(a1 + 32);
-      v40 = *(a1 + 56);
-      if (v40)
+      v40 = *(a1 + 32);
+      v41 = *(a1 + 56);
+      if (v41)
       {
-        *&v14 = a5;
         *&v15 = a6;
-        [v40 _timeRangeFromTime:v14 toTime:v15];
+        *&v16 = a7;
+        objc_msgSend__timeRangeFromTime_toTime_(v41, v15, v16);
       }
 
       else
       {
-        HIDWORD(v41) = 0;
-        v56 = 0u;
-        memset(v55, 0, sizeof(v55));
+        HIDWORD(v42) = 0;
+        v57 = 0u;
+        memset(v56, 0, sizeof(v56));
       }
 
-      LODWORD(v15) = 1.0;
-      v47 = v55;
-      v48 = v39;
-      *&v41 = v32;
+      LODWORD(v16) = 1.0;
+      v48 = v56;
+      v49 = v40;
+      *&v42 = v33;
     }
 
     else
     {
-      v56 = 0u;
-      memset(v55, 0, sizeof(v55));
-      v33 = *(a1 + 56);
+      v57 = 0u;
+      memset(v56, 0, sizeof(v56));
+      v34 = *(a1 + 56);
       [*(a1 + 48) volumeSuppressionOutroTime];
-      if (v33)
+      if (v34)
       {
-        v36 = a5;
-        v37 = v34 + a5;
-        *&v36 = v37;
-        *&v37 = a5;
-        [v33 _timeRangeFromTime:v37 toTime:v36];
+        v37 = a6;
+        v38 = v35 + a6;
+        *&v37 = v38;
+        *&v38 = a6;
+        objc_msgSend__timeRangeFromTime_toTime_(v34, v38, v37);
       }
 
       else
       {
-        HIDWORD(v38) = 0;
-        v56 = 0u;
-        memset(v55, 0, sizeof(v55));
+        HIDWORD(v39) = 0;
+        v57 = 0u;
+        memset(v56, 0, sizeof(v56));
       }
 
-      v42 = *(a1 + 32);
-      LODWORD(v38) = *(a1 + 64);
-      LODWORD(v35) = *(a1 + 68);
-      v52 = *v55;
-      v53 = *&v55[16];
-      v54 = v56;
-      [v42 setVolumeRampFromStartVolume:&v52 toEndVolume:v38 timeRange:v35];
-      v53 = 0u;
+      v43 = *(a1 + 32);
+      LODWORD(v39) = *(a1 + 64);
+      LODWORD(v36) = *(a1 + 68);
+      v53 = *v56;
+      v54 = *&v56[16];
+      v55 = v57;
+      [v43 setVolumeRampFromStartVolume:&v53 toEndVolume:v39 timeRange:v36];
       v54 = 0u;
-      v52 = 0u;
-      v43 = *(a1 + 56);
+      v55 = 0u;
+      v53 = 0u;
+      v44 = *(a1 + 56);
       [*(a1 + 48) volumeSuppressionIntroTime];
-      if (v43)
+      if (v44)
       {
-        v45 = a6;
-        v46 = a6 - v44;
-        *&v46 = v46;
-        *&v45 = a6;
-        [v43 _timeRangeFromTime:v46 toTime:v45];
+        v46 = a7;
+        v47 = a7 - v45;
+        *&v47 = v47;
+        *&v46 = a7;
+        objc_msgSend__timeRangeFromTime_toTime_(v44, v47, v46);
       }
 
       else
       {
-        HIDWORD(v41) = 0;
-        v53 = 0u;
+        HIDWORD(v42) = 0;
         v54 = 0u;
-        v52 = 0u;
+        v55 = 0u;
+        v53 = 0u;
       }
 
-      v48 = *(a1 + 32);
-      LODWORD(v41) = *(a1 + 68);
-      v49 = v52;
+      v49 = *(a1 + 32);
+      LODWORD(v42) = *(a1 + 68);
       v50 = v53;
       v51 = v54;
-      v15 = COERCE_DOUBLE(__PAIR64__(DWORD1(v54), 1.0));
-      v47 = &v49;
+      v52 = v55;
+      v16 = COERCE_DOUBLE(__PAIR64__(DWORD1(v55), 1.0));
+      v48 = &v50;
     }
 
-    return [v48 setVolumeRampFromStartVolume:v47 toEndVolume:v41 timeRange:{v15, v49, v50, v51}];
+    return [v49 setVolumeRampFromStartVolume:v48 toEndVolume:v42 timeRange:{v16, v50, v51, v52}];
   }
 
   return result;
@@ -350,7 +350,7 @@ uint64_t __80__PFSlowMotionUtilities__setVolume_forSlowMotionRegionsInTrack_time
     v11 = 0uLL;
     v12 = 0;
     [v7 nominalFrameRate];
-    [PFVideoAdjustments minFrameDurationForNominalFrameRate:?];
+    objc_msgSend_minFrameDurationForNominalFrameRate_(PFVideoAdjustments);
     v9 = v11;
     v10 = v12;
     [sessionCopy setMinVideoFrameDuration:&v9];
@@ -572,7 +572,7 @@ uint64_t __80__PFSlowMotionUtilities__setVolume_forSlowMotionRegionsInTrack_time
 LABEL_34:
             if (compositionCopy)
             {
-              [compositionCopy duration];
+              objc_msgSend_duration(compositionCopy);
               v46 = CMTimeGetSeconds(&time.start);
               v47 = v83[3];
               HIDWORD(v42) = 1062948481;
@@ -659,7 +659,7 @@ LABEL_39:
   return v31;
 }
 
-uint64_t __118__PFSlowMotionUtilities__scaleComposition_baseDuration_slowMotionRate_slowMotionRegions_forExport_outTimeRangeMapper___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__118__PFSlowMotionUtilities__scaleComposition_baseDuration_slowMotionRate_slowMotionRegions_forExport_outTimeRangeMapper___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = [*(a1 + 32) objectAtIndex:?];
   [v5 floatValue];
@@ -675,7 +675,7 @@ uint64_t __118__PFSlowMotionUtilities__scaleComposition_baseDuration_slowMotionR
   return result;
 }
 
-uint64_t __118__PFSlowMotionUtilities__scaleComposition_baseDuration_slowMotionRate_slowMotionRegions_forExport_outTimeRangeMapper___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__118__PFSlowMotionUtilities__scaleComposition_baseDuration_slowMotionRate_slowMotionRegions_forExport_outTimeRangeMapper___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = [*(a1 + 32) objectAtIndex:?];
   [v5 floatValue];
@@ -757,7 +757,7 @@ uint64_t __118__PFSlowMotionUtilities__scaleComposition_baseDuration_slowMotionR
 
   composition = [MEMORY[0x1E6988048] composition];
   memset(&v48, 0, sizeof(v48));
-  [assetCopy duration];
+  objc_msgSend_duration(assetCopy);
   memset(&v49, 0, sizeof(v49));
   *&start.start.value = *MEMORY[0x1E6960CC0];
   v38 = *&start.start.value;
@@ -812,7 +812,7 @@ uint64_t __118__PFSlowMotionUtilities__scaleComposition_baseDuration_slowMotionR
         {
           if (v19)
           {
-            [v19 preferredTransform];
+            objc_msgSend_preferredTransform(v19);
           }
 
           else
@@ -950,9 +950,11 @@ LABEL_8:
 
 uint64_t __44__PFSlowMotionUtilities_sharedConfiguration__block_invoke()
 {
-  sharedConfiguration_configuration = objc_alloc_init(PFSlowMotionConfiguration);
+  v0 = objc_alloc_init(PFSlowMotionConfiguration);
+  v1 = sharedConfiguration_configuration;
+  sharedConfiguration_configuration = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

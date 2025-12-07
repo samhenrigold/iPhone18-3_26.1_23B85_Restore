@@ -16,6 +16,7 @@
 - (MTLHashKey)getFunctionId:(SEL)id;
 - (MTLHashKey)getFunctionId:(SEL)id airScript:(id)script vendorPluginFunctionId:(const void *)functionId;
 - (MTLHashKey)getFunctionId:(SEL)id airScript:(id)script vendorPluginFunctionId:(const void *)functionId bitcodeHashList:(id *)list;
+- (RequiredFunctionKeys)requiredKeysForFunction:(SEL)function variantKey:(id)key frameworkData:(const VariantKey *)data compilerOptions:(id)options driverCompilerOptions:(int)compilerOptions airScript:(id)script archives:(const void *)archives compiledNextStageVariant:(id)self0;
 - (VariantEntry)computeVariantEntryWithDescriptor:(id)descriptor airDescriptor:(id)airDescriptor options:(unint64_t)options serializedComputeDataDescriptor:(id)dataDescriptor asyncCompile:(BOOL)compile pipelineCache:(id)cache destinationBinaryArchive:(id)archive computeProgram:(MTLProgramObject *)self0 kernelDriverCompileTimeData:(id *)self1 compileTimeStatistics:(id)self2 compilerTask:(id)self3;
 - (VariantEntry)tileVariantEntryWithDescriptor:(id)descriptor airDescriptor:(id)airDescriptor options:(unint64_t)options serializedTileDataDescriptor:(id)dataDescriptor asyncCompile:(BOOL)compile destinationBinaryArchive:(id)archive tileProgram:(MTLProgramObject *)program kernelDriverCompileTimeData:(id *)self0 compileTimeStatistics:(id)self1 compilerTask:(id)self2;
 - (id).cxx_construct;
@@ -33,8 +34,10 @@
 - (id)renderPipelineStateWithTileVariant:(VariantEntry *)variant descriptor:(id)descriptor options:(unint64_t)options tileProgram:(void *)program kernelDriverCompileTimeData:(id)data serializedTileDataDescriptor:(id)dataDescriptor compileTimeStatistics:(id)statistics reflection:(id *)self0 error:(id *)self1 compilerTask:(id)self2 completionHandler:(id)self3;
 - (void)addFunctionKeys:(RequiredFunctionKeys *)keys function:(id)function driverData:(id)data frameworkData:(id)frameworkData compilerOptions:(int)options;
 - (void)addLegacyCompiledOutput:(id)output cachedCompiledOutput:(id)compiledOutput importedSymbols:(id)symbols importedLibraries:(id)libraries hashKey:(id)key type:(char)type functionCache:(shared_ptr<MultiLevelBinaryCache>)cache;
+- (void)addLegacyCompiledOutput:(id)output importedSymbols:(id)symbols importedLibraries:(id)libraries hashKey:(id)key type:(char)type functionCache:(shared_ptr<MultiLevelBinaryCache>)cache;
 - (void)cacheLegacyCompilerData:(void *)data cachedData:(void *)cachedData hashMap:(void *)map libraryData:(void *)libraryData functionCache:(shared_ptr<MultiLevelBinaryCache>)cache;
 - (void)compileDynamicLibraryWithDescriptor:(id)descriptor computePipelineDescriptor:(id)pipelineDescriptor compilerTask:(id)task completionHandler:(id)handler;
+- (void)compileFunction:(id)function frameworkData:(id)data driverKeyData:(id)keyData options:(unint64_t)options pipelineCache:(id)cache sync:(BOOL)sync completionHandler:(id)handler;
 - (void)compileFunction:(id)function serializedData:(id)data stateData:(id)stateData options:(unint64_t)options compilerTask:(id)task completionHandler:(id)handler;
 - (void)compileFunction:(id)function serializedData:(id)data stateData:(id)stateData options:(unint64_t)options completionHandler:(id)handler;
 - (void)compileFunction:(id)function serializedPipelineData:(id)data stateData:(id)stateData linkDataSize:(unint64_t)size frameworkLinking:(BOOL)linking options:(unsigned int)options pipelineCache:(id)cache sync:(BOOL)self0 compilerTask:(id)self1 completionHandler:(id)self2;
@@ -49,15 +52,19 @@
 - (void)compileStatelessFunctionRequest:(id)request reflectionOnly:(BOOL)only compilerTask:(id)task completionHandler:(id)handler;
 - (void)dealloc;
 - (void)generateMachOWithID:(const char *)d binaryEntries:(shared_ptr<std:(const void *)entries :(int)a6 vector<machOEntry>>)a4 machOSpecializedData:(id)data machOType:(unint64_t)type Path:()shared_ptr<std:(NSObject<OS_dispatch_data> *) :()UnorderedContainerHash unordered_map<MTLUINT256_t platform:(UnorderedContainerHash>>)platform bitcodeList:(id)self0 compilerTask:(id)self1 completionHandler:;
+- (void)generateMachOWithID:(const char *)d binaryEntries:(shared_ptr<std:(const void *)entries :(int)a6 vector<machOEntry>>)a4 machOSpecializedData:(id)data machOType:(unint64_t)type Path:()shared_ptr<std:(NSObject<OS_dispatch_data> *) :()UnorderedContainerHash unordered_map<MTLUINT256_t platform:(UnorderedContainerHash>>)platform bitcodeList:(id)self0 completionHandler:;
 - (void)generateMachOWithID:binaryEntries:machOSpecializedData:machOType:Path:platform:bitcodeList:compilerTask:completionHandler:;
 - (void)getDataForScript:(const void *)script device:(id)device function:(id)function functionType:(unint64_t)type compilerOptions:(char *)options compilerOptionsSize:(unint64_t)size compiledNextStageVariant:(id)variant dataSize:(unint64_t *)self0;
 - (void)getFunctionKeyWithRenderPipelineDescriptor:(id)descriptor options:(unint64_t)options unfilteredOptions:(unint64_t)unfilteredOptions airScript:(const void *)script function:(id)function functionType:(unint64_t)type compiledNextStageVariant:(id)variant keySize:(unint64_t *)self0 functionDriverData:(void *)self1 functionDriverSize:(unint64_t *)self2;
 - (void)getHashForScript:(const void *)script device:(id)device function:(id)function functionType:(unint64_t)type compilerOptions:(char *)options compilerOptionsSize:(unint64_t)size compiledNextStageVariant:(id)variant;
+- (void)getProgramObject:(id)object destinationArchive:(id)archive sourceBinaryArchives:(id)archives variantKey:(const VariantKey *)key requiredKeys:(const RequiredFunctionKeys *)keys failOnMiss:(BOOL)miss;
 - (void)getProgramObjectForFunction:(id)function variantKey:(const VariantKey *)key requiredKeys:(const RequiredFunctionKeys *)keys sourceBinaryArchives:(id)archives;
 - (void)initializeFunctionRequestScriptAndFunctionId:(id)id script:(const void *)script driverCompilerOptions:(id)options compiledNextStageVariant:(id)variant;
+- (void)reflectionWithFunction:(id)function options:(unint64_t)options sync:(BOOL)sync pipelineLibrary:(id)library binaryArchives:(id)archives compilerTask:(id)task completionHandler:(id)handler;
 - (void)releaseCompilerOutputBlocks:(void *)blocks;
 - (void)releaseCompilerOutputBlocks:(void *)blocks hashMap:(void *)map;
 - (void)releaseHashMaps:(void *)maps;
+- (void)statelessBackendCompileRequestInternal:(void *)internal sync:(BOOL)sync compilerHash:(id *)hash reflectionOnly:(BOOL)only compilerTask:(id)task completionHandler:(id)handler;
 - (void)unloadShaderCaches;
 @end
 
@@ -72,20 +79,20 @@
 
 - (MTLCompiler)initWithTargetData:(id)data cacheUUID:(id *)d pluginPath:(id)path device:(id)device compilerFlags:(unint64_t)flags
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (path)
   {
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     if ((isKindOfClass & 1) == 0)
     {
-      [(MTLCompiler *)isKindOfClass initWithTargetData:v15 cacheUUID:v16 pluginPath:v17 device:v18 compilerFlags:v19, v20, v21, v27];
+      [(MTLCompiler *)isKindOfClass initWithTargetData:v15 cacheUUID:v16 pluginPath:v17 device:v18 compilerFlags:v19, v20, v21, v26.__ptr_];
     }
   }
 
   else
   {
-    [(MTLCompiler *)self initWithTargetData:a2 cacheUUID:data pluginPath:d device:0 compilerFlags:device, flags, v7, v27];
+    [(MTLCompiler *)self initWithTargetData:a2 cacheUUID:data pluginPath:d device:0 compilerFlags:device, flags, v7, v26.__ptr_];
   }
 
   CC_SHA256_Init(&c);
@@ -105,17 +112,16 @@
   v23 = _MTLGetMTLCompilerLLVMVersionForDevice(device);
   self->_compilerConnectionManager = getCompilerConnectionManager(self->_device, v23);
   self->_compilerId = (*(*self->_compilerConnectionManager + 16))(self->_compilerConnectionManager, [path cStringUsingEncoding:4], data);
-  v31 = *md;
-  v32 = v30;
-  addOrRemoveShaderFunctionCache(0, &v27);
+  v30 = *md;
+  v31 = v29;
+  addOrRemoveShaderFunctionCache(0, &v26);
   cntrl = self->_shaderCache.__cntrl_;
-  self->_shaderCache = v27;
+  self->_shaderCache = v26;
   if (cntrl)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](cntrl);
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -209,21 +215,19 @@
 
 - (MTLHashKey)getBuiltInFunctionId:(SEL)id
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ([MTLCompiler getBuiltInFunctionId:]::onceToken != -1)
   {
     [MTLCompiler getBuiltInFunctionId:];
   }
 
-  v10[0] = [MTLCompiler getBuiltInFunctionId:]::NullHash;
-  v10[1] = unk_1ED5B0AA1;
+  v9[0] = [MTLCompiler getBuiltInFunctionId:]::NullHash;
+  v9[1] = unk_1ED5B0AA1;
   v6 = *&a4->var0[16];
-  v10[2] = *a4->var0;
-  v10[3] = v6;
-  v9 = 0x40300000000;
-  result = MTLHashKey::MTLHashKey(retstr, v10, &v9, 2);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  v9[2] = *a4->var0;
+  v9[3] = v6;
+  v8 = 0x40300000000;
+  return MTLHashKey::MTLHashKey(retstr, v9, &v8, 2uLL);
 }
 
 double __36__MTLCompiler_getBuiltInFunctionId___block_invoke()
@@ -243,17 +247,17 @@ double __36__MTLCompiler_getBuiltInFunctionId___block_invoke()
 
 void __127__MTLCompiler_compileRequestInternal_binaryArchives_failOnBinaryArchiveMiss_pipelineCache_sync_compilerTask_completionHandler___block_invoke(uint64_t a1, void *a2, NSObject *a3, uint64_t a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v8 = *(a1 + 72);
-  v16[0] = *(a1 + 56);
-  v16[1] = v8;
-  *&v9 = MTLHashKey::MTLHashKey(&v15, a1 + 56).n128_u64[0];
+  v15[0] = *(a1 + 56);
+  v15[1] = v8;
+  *&v9 = MTLHashKey::MTLHashKey(&v14, a1 + 56).n128_u64[0];
   if (!a2 && a3)
   {
     buffer_ptr[0] = 0;
     size_ptr = 0;
     v10 = dispatch_data_create_map(a3, buffer_ptr, &size_ptr);
-    (*(**(a1 + 40) + 48))(*(a1 + 40), &v15, buffer_ptr[0], size_ptr);
+    (*(**(a1 + 40) + 48))(*(a1 + 40), &v14, buffer_ptr[0], size_ptr);
     dispatch_release(v10);
   }
 
@@ -269,11 +273,10 @@ void __127__MTLCompiler_compileRequestInternal_binaryArchives_failOnBinaryArchiv
 
   buffer_ptr[0] = a2;
   buffer_ptr[1] = v11;
-  buffer_ptr[2] = v16;
+  buffer_ptr[2] = v15;
   buffer_ptr[3] = a3;
   (*(*(a1 + 32) + 16))();
-  MTLHashKey::~MTLHashKey(&v15);
-  v12 = *MEMORY[0x1E69E9840];
+  MTLHashKey::~MTLHashKey(&v14);
 }
 
 - (void)compileRequest:(id)request compilerTask:(id)task completionHandler:(id)handler
@@ -286,27 +289,19 @@ void __127__MTLCompiler_compileRequestInternal_binaryArchives_failOnBinaryArchiv
   [(MTLCompiler *)self compileRequest:request pipelineCache:0 compilerTask:task completionHandler:v5];
 }
 
-uint64_t __61__MTLCompiler_compileRequest_compilerTask_completionHandler___block_invoke(uint64_t a1, uint64_t *a2)
-{
-  v2 = a2[3];
-  v4 = *a2;
-  v3 = a2[1];
-  return (*(*(a1 + 32) + 16))();
-}
-
 - (void)generateMachOWithID:(const char *)d binaryEntries:(shared_ptr<std:(const void *)entries :(int)a6 vector<machOEntry>>)a4 machOSpecializedData:(id)data machOType:(unint64_t)type Path:()shared_ptr<std:(NSObject<OS_dispatch_data> *) :()UnorderedContainerHash unordered_map<MTLUINT256_t platform:(UnorderedContainerHash>>)platform bitcodeList:(id)self0 compilerTask:(id)self1 completionHandler:
 {
   entriesCopy = entries;
   var1 = a4.var1;
-  v61 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   var0 = a4.var0;
   v16 = **a4.var0;
   v15 = *(*a4.var0 + 8);
-  memset(v59, 0, sizeof(v59));
-  *c.count = v59;
+  memset(v61, 0, sizeof(v61));
+  *c.count = v61;
   LOBYTE(c.hash[0]) = 0;
-  v52 = v16;
-  v53 = v15;
+  v54 = v16;
+  v55 = v15;
   v17 = 0x8E38E38E38E38E39 * ((v15 - v16) >> 3);
   if (v15 != v16)
   {
@@ -324,19 +319,20 @@ uint64_t __61__MTLCompiler_compileRequest_compilerTask_completionHandler___block
   *(v18 + 31) = dyld_get_active_platform();
   v18[1] = v17;
   *(v18 + 128) = entriesCopy;
-  *(v18 + 30) = [(MTLTargetDeviceArchitecture *)[(_MTLDevice *)self->_device targetDeviceArchitecture] versionCombined];
+  versionCombined = [(MTLTargetDeviceArchitecture *)[(_MTLDevice *)self->_device targetDeviceArchitecture] versionCombined];
+  *(v18 + 30) = versionCombined;
   v18[5] = 104 * v17 + 136;
-  uTF8String = [MTLGetGPUArchiverCachePath() UTF8String];
-  v20 = strlen(uTF8String) + 1;
-  *(v18 + 23) = v20;
-  v21 = 104 * v17 + v20 + 143;
-  v22 = v21 & 0xFFFFFFFFFFFFFFF8;
+  v21 = [MTLGetGPUArchiverCachePath(versionCombined v20)];
+  v22 = strlen(v21) + 1;
+  *(v18 + 23) = v22;
+  v23 = 104 * v17 + v22 + 143;
+  v24 = v23 & 0xFFFFFFFFFFFFFFF8;
   if (d)
   {
-    v23 = strlen(d) + 1;
-    *(v18 + 22) = v23;
-    v18[4] = v22;
-    v22 = ((v21 | 7) + v23) & 0xFFFFFFFFFFFFFFF8;
+    v25 = strlen(d) + 1;
+    *(v18 + 22) = v25;
+    v18[4] = v24;
+    v24 = ((v23 | 7) + v25) & 0xFFFFFFFFFFFFFFF8;
   }
 
   size_ptr = 0;
@@ -345,154 +341,154 @@ uint64_t __61__MTLCompiler_compileRequest_compilerTask_completionHandler___block
   {
     if (entriesCopy == 1)
     {
-      v18[8] = v22;
-      v24 = strlen(*var1) + 1;
-      *(v18 + 28) = v24;
-      v22 = (v24 + v22 + 7) & 0xFFFFFFFFFFFFFFF8;
-      v55 = 1;
+      v18[8] = v24;
+      v26 = strlen(*var1) + 1;
+      *(v18 + 28) = v26;
+      v24 = (v26 + v24 + 7) & 0xFFFFFFFFFFFFFFF8;
+      v57 = 1;
       goto LABEL_15;
     }
   }
 
   else
   {
-    v25 = *(var1 + 1);
-    if (v25)
+    v27 = *(var1 + 1);
+    if (v27)
     {
-      v18[7] = v22;
-      v26 = (v25 << 6);
-      *(v18 + 25) = v26;
-      v22 += v26;
+      v18[7] = v24;
+      v28 = (v27 << 6);
+      *(v18 + 25) = v28;
+      v24 += v28;
     }
 
-    v27 = *(var1 + 2);
-    if (v27 && dispatch_data_create_map(v27, &buffer_ptr, &size_ptr))
+    v29 = *(var1 + 2);
+    if (v29 && dispatch_data_create_map(v29, &buffer_ptr, &size_ptr))
     {
-      v55 = 0;
-      v18[9] = v22;
-      v28 = size_ptr;
+      v57 = 0;
+      v18[9] = v24;
+      v30 = size_ptr;
       *(v18 + 29) = size_ptr;
-      v22 = (v22 + v28 + 7) & 0xFFFFFFFFFFFFFFF8;
+      v24 = (v24 + v30 + 7) & 0xFFFFFFFFFFFFFFF8;
       goto LABEL_15;
     }
   }
 
-  v55 = 0;
+  v57 = 0;
 LABEL_15:
-  v29 = *type;
+  v31 = *type;
   if (*type)
   {
-    v18[10] = v22;
-    v30 = *(v29 + 24);
+    v18[10] = v24;
+    v32 = *(v31 + 24);
     *(v18 + 26) = 0;
-    *(v18 + 27) = v30;
+    *(v18 + 27) = v32;
     operator new();
   }
 
-  if (v53 != v52)
+  if (v55 != v54)
   {
-    v31 = 0;
+    v33 = 0;
     if (v17 <= 1)
     {
       v17 = 1;
     }
 
-    v32 = v18 + 29;
-    v33 = 56;
+    v34 = v18 + 29;
+    v35 = 56;
     do
     {
-      v34 = v59[0];
-      *(v32 - 10) = v22;
-      v35 = **var0;
-      v36 = *(v35 + v33 - 40);
-      if (v36)
+      v36 = v61[0];
+      *(v34 - 10) = v24;
+      v37 = **var0;
+      v38 = *(v37 + v35 - 40);
+      if (v38)
       {
-        *(v34 + v31) = dispatch_data_create_map(v36, (v34 + v31 + 56), v32 - 9);
-        v22 = (v22 + *(v32 - 9) + 7) & 0xFFFFFFFFFFFFFFF8;
+        *(v36 + v33) = dispatch_data_create_map(v38, (v36 + v33 + 56), v34 - 9);
+        v24 = (v24 + *(v34 - 9) + 7) & 0xFFFFFFFFFFFFFFF8;
       }
 
-      *(v32 - 8) = v22;
-      v37 = *(v35 + v33 - 32);
-      if (v37)
+      *(v34 - 8) = v24;
+      v39 = *(v37 + v35 - 32);
+      if (v39)
       {
-        v38 = v32 - 7;
-        *(v34 + v31 + 8) = dispatch_data_create_map(v37, (v34 + v31 + 64), v32 - 7);
-        v39 = *(v34 + v31 + 64);
-        if (*v39 == 248563483)
+        v40 = v34 - 7;
+        *(v36 + v33 + 8) = dispatch_data_create_map(v39, (v36 + v33 + 64), v34 - 7);
+        v41 = *(v36 + v33 + 64);
+        if (*v41 == 248563483)
         {
-          v40 = v39[2];
-          *v38 = v40;
+          v42 = v41[2];
+          *v40 = v42;
         }
 
         else
         {
-          v40 = *v38;
+          v42 = *v40;
         }
 
-        v22 = (v22 + v40 + 7) & 0xFFFFFFFFFFFFFFF8;
+        v24 = (v24 + v42 + 7) & 0xFFFFFFFFFFFFFFF8;
       }
 
-      *(v32 - 6) = v22;
-      v41 = v35 + v33;
-      v42 = *(v35 + v33 - 24);
-      if (v42)
+      *(v34 - 6) = v24;
+      v43 = v37 + v35;
+      v44 = *(v37 + v35 - 24);
+      if (v44)
       {
-        *(v34 + v31 + 16) = dispatch_data_create_map(v42, (v34 + v31 + 72), v32 - 5);
-        v22 = (v22 + *(v32 - 5) + 7) & 0xFFFFFFFFFFFFFFF8;
+        *(v36 + v33 + 16) = dispatch_data_create_map(v44, (v36 + v33 + 72), v34 - 5);
+        v24 = (v24 + *(v34 - 5) + 7) & 0xFFFFFFFFFFFFFFF8;
       }
 
-      v43 = *(v41 - 48);
-      if (v43)
+      v45 = *(v43 - 48);
+      if (v45)
       {
-        v43 = (*(v43 + 64) - *(v43 + 56)) >> 5;
-        v44 = v22 + 4 * v43 + 7;
-        v45 = v44 & 0xFFFFFFFFFFFFFFF8;
-        v46 = (v44 + 32 * v43) & 0xFFFFFFFFFFFFFFF8;
+        v45 = (*(v45 + 64) - *(v45 + 56)) >> 5;
+        v46 = v24 + 4 * v45 + 7;
+        v47 = v46 & 0xFFFFFFFFFFFFFFF8;
+        v48 = (v46 + 32 * v45) & 0xFFFFFFFFFFFFFFF8;
       }
 
       else
       {
-        v45 = v22;
-        v46 = v22;
+        v47 = v24;
+        v48 = v24;
       }
 
-      *(v32 - 24) = v43;
-      *(v32 - 4) = v22;
-      *(v32 - 3) = v45;
-      *(v32 - 2) = v46;
-      v47 = v55;
-      if (!*(v41 - 48))
+      *(v34 - 24) = v45;
+      *(v34 - 4) = v24;
+      *(v34 - 3) = v47;
+      *(v34 - 2) = v48;
+      v49 = v57;
+      if (!*(v43 - 48))
       {
-        v47 = 1;
+        v49 = 1;
       }
 
-      if ((v47 & 1) == 0)
+      if ((v49 & 1) == 0)
       {
-        *(v34 + v31 + 24) = dispatch_data_create_map(*(v35 + v33 - 16), (v34 + v31 + 80), v32 - 1);
-        v46 = (v46 + *(v32 - 1) + 7) & 0xFFFFFFFFFFFFFFF8;
+        *(v36 + v33 + 24) = dispatch_data_create_map(*(v37 + v35 - 16), (v36 + v33 + 80), v34 - 1);
+        v48 = (v48 + *(v34 - 1) + 7) & 0xFFFFFFFFFFFFFFF8;
       }
 
-      v48 = *(v35 + v33 - 8);
-      v49 = *(v35 + v33);
-      v50 = v49 - v48;
-      if (v49 != v48)
+      v50 = *(v37 + v35 - 8);
+      v51 = *(v37 + v35);
+      v52 = v51 - v50;
+      if (v51 != v50)
       {
-        v51 = (v34 + v31 + 32);
-        if ((v35 + v33 - 8) != v51)
+        v53 = (v36 + v33 + 32);
+        if ((v37 + v35 - 8) != v53)
         {
-          std::vector<MTLUINT256_t>::__assign_with_size[abi:ne200100]<MTLUINT256_t*,MTLUINT256_t*>(v51, v48, v49, v50 >> 5);
-          v50 = *(v35 + v33) - *(v35 + v33 - 8);
+          std::vector<MTLUINT256_t>::__assign_with_size[abi:ne200100]<MTLUINT256_t*,MTLUINT256_t*>(v53, v50, v51, v52 >> 5);
+          v52 = *(v37 + v35) - *(v37 + v35 - 8);
         }
 
-        *(v32 - 22) = v50 >> 5;
-        *v32 = v46;
-        v46 = (v46 + v50 + 7) & 0xFFFFFFFFFFFFFFF8;
+        *(v34 - 22) = v52 >> 5;
+        *v34 = v48;
+        v48 = (v48 + v52 + 7) & 0xFFFFFFFFFFFFFFF8;
       }
 
-      v32 += 13;
-      v33 += 72;
-      v31 += 88;
-      v22 = v46;
+      v34 += 13;
+      v35 += 72;
+      v33 += 88;
+      v24 = v48;
       --v17;
     }
 
@@ -519,6 +515,36 @@ uint64_t __137__MTLCompiler_generateMachOWithID_binaryEntries_machOSpecializedDa
   v9[2] = a1 + 40;
   v9[3] = a3;
   return (*(*(a1 + 32) + 16))(*(a1 + 32), v9, a3, a4);
+}
+
+- (void)generateMachOWithID:(const char *)d binaryEntries:(shared_ptr<std:(const void *)entries :(int)a6 vector<machOEntry>>)a4 machOSpecializedData:(id)data machOType:(unint64_t)type Path:()shared_ptr<std:(NSObject<OS_dispatch_data> *) :()UnorderedContainerHash unordered_map<MTLUINT256_t platform:(UnorderedContainerHash>>)platform bitcodeList:(id)self0 completionHandler:
+{
+  v10 = *(a4.var0 + 1);
+  v14 = *a4.var0;
+  v15 = v10;
+  if (v10)
+  {
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v11 = *(type + 8);
+  v12 = *type;
+  v13 = v11;
+  if (v11)
+  {
+    atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  [(MTLCompiler *)self generateMachOWithID:d binaryEntries:&v14 machOSpecializedData:a4.var1 machOType:entries Path:*&a6 platform:data bitcodeList:&v12 compilerTask:0 completionHandler:platform.__ptr_];
+  if (v13)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+  }
+
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+  }
 }
 
 uint64_t __83__MTLCompiler_createBinaryArchiveAsRecompileTarget_compilerTask_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -644,6 +670,23 @@ uint64_t __83__MTLCompiler_createBinaryArchiveAsRecompileTarget_compilerTask_com
   }
 }
 
+- (void)addLegacyCompiledOutput:(id)output importedSymbols:(id)symbols importedLibraries:(id)libraries hashKey:(id)key type:(char)type functionCache:(shared_ptr<MultiLevelBinaryCache>)cache
+{
+  v9 = v8[1];
+  v10 = *v8;
+  v11 = v9;
+  if (v9)
+  {
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  [(MTLCompiler *)self addLegacyCompiledOutput:output cachedCompiledOutput:0 importedSymbols:symbols importedLibraries:libraries hashKey:key type:type functionCache:&v10];
+  if (v11)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+  }
+}
+
 - (void)releaseCompilerOutputBlocks:(void *)blocks
 {
   for (i = *(blocks + 2); i; i = *i)
@@ -704,7 +747,7 @@ LABEL_7:
     if (cachedData)
     {
       v24 = &v23;
-      v13 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType const&>,std::tuple<>>(cachedData, &v23)[3];
+      v13 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType const&>,std::tuple<>>(cachedData, &v23, &std::piecewise_construct, &v24)[3];
       if (v23)
       {
 LABEL_11:
@@ -733,7 +776,7 @@ LABEL_14:
     v15 = 0;
 LABEL_15:
     v24 = &v23;
-    v16 = std::__hash_table<std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType const&>,std::tuple<>>(map, &v23)[3];
+    v16 = std::__hash_table<std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType const&>,std::tuple<>>(map, &v23, &std::piecewise_construct, &v24)[3];
     v17 = v23;
     v18 = *(var0 + 1);
     v21 = *var0;
@@ -755,7 +798,7 @@ LABEL_15:
 
 - (MTLHashKey)getFunctionId:(SEL)id airScript:(id)script vendorPluginFunctionId:(const void *)functionId bitcodeHashList:(id *)list
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   functionType = [script functionType];
   v14 = [(_MTLDevice *)self->_device featureProfile]< 8;
   if (!strncmp(functionId + 4, "AIRP", 4uLL))
@@ -785,44 +828,43 @@ LABEL_7:
   }
 
   v18 = *(v15 + 1);
-  v37 = *v15;
-  v38 = v18;
+  v36 = *v15;
+  v37 = v18;
   bitCodeHash = [script bitCodeHash];
+  v22 = 0;
   v23 = 0;
   v24 = 0;
-  v25 = 0;
-  std::vector<MTLUINT256_t const*>::__init_with_size[abi:ne200100]<MTLUINT256_t const**,MTLUINT256_t const**>(&v23, *a7, *(a7 + 1), (*(a7 + 1) - *a7) >> 3);
-  getGPUCompilerHashForScript(functionId, functionType, v29);
-  *&md[4] = v29[0];
-  *&md[20] = v29[1];
+  std::vector<MTLUINT256_t const*>::__init_with_size[abi:ne200100]<MTLUINT256_t const**,MTLUINT256_t const**>(&v22, *a7, *(a7 + 1), (*(a7 + 1) - *a7) >> 3);
+  getGPUCompilerHashForScript(functionId, functionType, v28);
+  *&md[4] = v28[0];
+  *&md[20] = v28[1];
   v19 = *&list->var0[16];
-  v32 = *list->var0;
+  v31 = *list->var0;
   *md = 1026;
-  v33 = v19;
-  v31 = 1027;
-  v34 = 1032;
+  v32 = v19;
+  v30 = 1027;
+  v33 = 1032;
+  v34 = v36;
   v35 = v37;
-  v36 = v38;
   __p = 0;
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
-  std::vector<std::pair<unsigned int,MTLUINT256_t const>>::__init_with_size[abi:ne200100]<std::pair<unsigned int,MTLUINT256_t const> const*,std::pair<unsigned int,MTLUINT256_t const> const*>(&__p, md, &v37, 3uLL);
+  std::vector<std::pair<unsigned int,MTLUINT256_t const>>::__init_with_size[abi:ne200100]<std::pair<unsigned int,MTLUINT256_t const> const*,std::pair<unsigned int,MTLUINT256_t const> const*>(&__p, md, &v36, 3uLL);
   free(v15);
   MTLHashKey::MTLHashKey(retstr, &bitCodeHash);
   if (__p)
   {
-    v27 = __p;
+    v26 = __p;
     operator delete(__p);
   }
 
-  result = v23;
-  if (v23)
+  result = v22;
+  if (v22)
   {
-    v24 = v23;
-    operator delete(v23);
+    v23 = v22;
+    operator delete(v22);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -856,14 +898,14 @@ LABEL_7:
 
 - (MTLHashKey)getFunctionId:(SEL)id
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if ([a4 airScript])
   {
+    v33 = 0uLL;
     v34 = 0uLL;
-    v35 = 0uLL;
     if (a4)
     {
-      [a4 vendorPluginFunctionId];
+      objc_msgSend_vendorPluginFunctionId(a4);
     }
 
     buffer_ptr = 0;
@@ -879,59 +921,59 @@ LABEL_7:
     }
 
     size_ptr = 0;
+    v28 = 0;
     v29 = 0;
-    v30 = 0;
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     visibleFunctions = [a4 visibleFunctions];
-    v10 = [visibleFunctions countByEnumeratingWithState:&v24 objects:v33 count:16];
+    v10 = [visibleFunctions countByEnumeratingWithState:&v23 objects:v32 count:16];
     if (v10)
     {
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(visibleFunctions);
           }
 
-          bitCodeHash = [*(*(&v24 + 1) + 8 * i) bitCodeHash];
+          bitCodeHash = [*(*(&v23 + 1) + 8 * i) bitCodeHash];
           std::vector<Air::FunctionStitching::Node const*>::push_back[abi:ne200100](&size_ptr, &bitCodeHash);
         }
 
-        v10 = [visibleFunctions countByEnumeratingWithState:&v24 objects:v33 count:16];
+        v10 = [visibleFunctions countByEnumeratingWithState:&v23 objects:v32 count:16];
       }
 
       while (v10);
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     privateVisibleFunctions = [a4 privateVisibleFunctions];
-    v14 = [privateVisibleFunctions countByEnumeratingWithState:&v19 objects:v32 count:16];
+    v14 = [privateVisibleFunctions countByEnumeratingWithState:&v18 objects:v31 count:16];
     if (v14)
     {
-      v15 = *v20;
+      v15 = *v19;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v20 != v15)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(privateVisibleFunctions);
           }
 
-          bitCodeHash = [*(*(&v19 + 1) + 8 * j) bitCodeHash];
+          bitCodeHash = [*(*(&v18 + 1) + 8 * j) bitCodeHash];
           std::vector<Air::FunctionStitching::Node const*>::push_back[abi:ne200100](&size_ptr, &bitCodeHash);
         }
 
-        v14 = [privateVisibleFunctions countByEnumeratingWithState:&v19 objects:v32 count:16];
+        v14 = [privateVisibleFunctions countByEnumeratingWithState:&v18 objects:v31 count:16];
       }
 
       while (v14);
@@ -940,7 +982,7 @@ LABEL_7:
     function = [a4 function];
     if (self)
     {
-      [(MTLCompiler *)self getFunctionId:function airScript:buffer_ptr vendorPluginFunctionId:&v34 bitcodeHashList:&size_ptr];
+      [(MTLCompiler *)self getFunctionId:function airScript:buffer_ptr vendorPluginFunctionId:&v33 bitcodeHashList:&size_ptr];
     }
 
     else
@@ -956,19 +998,18 @@ LABEL_7:
     result = size_ptr;
     if (size_ptr)
     {
-      v29 = size_ptr;
+      v28 = size_ptr;
       operator delete(size_ptr);
     }
   }
 
   else
   {
+    v33 = 0uLL;
     v34 = 0uLL;
-    v35 = 0uLL;
-    MTLHashKey::MTLHashKey(retstr, &v34);
+    MTLHashKey::MTLHashKey(retstr, &v33);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -997,14 +1038,13 @@ LABEL_7:
 
 - (void)initializeFunctionRequestScriptAndFunctionId:(id)id script:(const void *)script driverCompilerOptions:(id)options compiledNextStageVariant:(id)variant
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  -[MTLCompiler initializeVendorPluginFunctionId:airScript:driverCompilerOptions:compiledNextStageVariant:vendorPlugin:](self, "initializeVendorPluginFunctionId:airScript:driverCompilerOptions:compiledNextStageVariant:vendorPlugin:", [id function], script, options, variant, &v9);
-  v8[0] = v9;
-  v8[1] = v10;
-  [id setVendorPluginFunctionId:v8];
-  v7 = *MEMORY[0x1E69E9840];
+  -[MTLCompiler initializeVendorPluginFunctionId:airScript:driverCompilerOptions:compiledNextStageVariant:vendorPlugin:](self, "initializeVendorPluginFunctionId:airScript:driverCompilerOptions:compiledNextStageVariant:vendorPlugin:", [id function], script, options, variant, &v8);
+  v7[0] = v8;
+  v7[1] = v9;
+  [id setVendorPluginFunctionId:v7];
 }
 
 - (void)getHashForScript:(const void *)script device:(id)device function:(id)function functionType:(unint64_t)type compilerOptions:(char *)options compilerOptionsSize:(unint64_t)size compiledNextStageVariant:(id)variant
@@ -1147,68 +1187,68 @@ LABEL_7:
 
 - (id)newLinkedFunctionsBitcodeFromRequest:(id)request hashKey:(void *)key
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if ([objc_msgSend(request "visibleFunctions")] || objc_msgSend(objc_msgSend(request, "privateVisibleFunctions"), "count"))
   {
     [objc_msgSend(request "visibleFunctions")];
     [objc_msgSend(request "privateVisibleFunctions")];
-    memset(v27, 0, sizeof(v27));
-    v28 = 1065353216;
+    memset(v26, 0, sizeof(v26));
+    v27 = 1065353216;
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     visibleFunctions = [request visibleFunctions];
-    v6 = [visibleFunctions countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v6 = [visibleFunctions countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v6)
     {
-      v7 = *v24;
+      v7 = *v23;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v24 != v7)
+          if (*v23 != v7)
           {
             objc_enumerationMutation(visibleFunctions);
           }
 
-          v9 = *(*(&v23 + 1) + 8 * i);
+          v9 = *(*(&v22 + 1) + 8 * i);
           bitcodeDataInternal = [v9 bitcodeDataInternal];
           bitCodeHash = [v9 bitCodeHash];
-          std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(v27, bitCodeHash)[6] = bitcodeDataInternal;
+          std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(v26, bitCodeHash, &std::piecewise_construct, &bitCodeHash)[6] = bitcodeDataInternal;
         }
 
-        v6 = [visibleFunctions countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v6 = [visibleFunctions countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v6);
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     privateVisibleFunctions = [request privateVisibleFunctions];
-    v12 = [privateVisibleFunctions countByEnumeratingWithState:&v19 objects:v30 count:16];
+    v12 = [privateVisibleFunctions countByEnumeratingWithState:&v18 objects:v29 count:16];
     if (v12)
     {
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (j = 0; j != v12; ++j)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(privateVisibleFunctions);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * j);
+          v15 = *(*(&v18 + 1) + 8 * j);
           bitcodeDataInternal2 = [v15 bitcodeDataInternal];
           bitCodeHash = [v15 bitCodeHash];
-          std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(v27, bitCodeHash)[6] = bitcodeDataInternal2;
+          std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(v26, bitCodeHash, &std::piecewise_construct, &bitCodeHash)[6] = bitcodeDataInternal2;
         }
 
-        v12 = [privateVisibleFunctions countByEnumeratingWithState:&v19 objects:v30 count:16];
+        v12 = [privateVisibleFunctions countByEnumeratingWithState:&v18 objects:v29 count:16];
       }
 
       while (v12);
@@ -1217,7 +1257,6 @@ LABEL_7:
     operator new[]();
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -1282,7 +1321,7 @@ LABEL_7:
 {
   onlyCopy = only;
   linkingCopy = linking;
-  v46 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   function = [internal function];
   if (function)
   {
@@ -1291,7 +1330,7 @@ LABEL_7:
     {
       pipelineOptions = [internal pipelineOptions];
       function2 = [internal function];
-      v34 = linkingCopy;
+      v32 = linkingCopy;
       v18 = function2 && (v17 = function2, [function2 functionData]) && *(objc_msgSend(v17, "functionData") + 88) != 0;
       airScript = [internal airScript];
       v21 = (pipelineOptions & 0xC1280000) != 0 || airScript == 0;
@@ -1304,13 +1343,26 @@ LABEL_7:
       v27 = v26;
       if ((v26 & 0x4000) != 0)
       {
-        _MTLDebugIgnoreFailOnMissFlag();
+        if (_MTLDebugIgnoreFailOnMissFlag(v26))
+        {
+          v28 = 0;
+        }
+
+        else
+        {
+          v28 = 2;
+        }
+      }
+
+      else
+      {
+        v28 = 0;
       }
 
       [objc_msgSend(internal "gpuCompilerSPIOptions")];
       [internal binaryArchives];
-      [internal pipelineOptions];
-      if ((v27 & 2) == 0 && v34 && (self->_compilerFlags & 0x20) == 0)
+      v29 = [internal pipelineOptions] >> 32;
+      if ((v27 & 2) == 0 && v32 && (self->_compilerFlags & 0x20) == 0)
       {
         [(_MTLFunction *)v14 functionType];
       }
@@ -1320,55 +1372,45 @@ LABEL_7:
         [objc_msgSend(internal "destinationBinaryArchive")];
       }
 
-      v28 = v21 || v18;
-      v35 = 0;
-      v36 = &v35;
-      v37 = 0x2020000000;
+      v30 = v21 || v18;
+      v33[0] = 0;
+      v33[1] = v33;
+      v33[2] = 0x2020000000;
       if ((v27 & 2) != 0 || ![internal destinationBinaryArchive])
       {
-        LOBYTE(v29) = 0;
+        LOBYTE(v31) = 0;
       }
 
       else
       {
-        v29 = [objc_msgSend(internal "destinationBinaryArchive")] & (v28 ^ 1);
+        v31 = [objc_msgSend(internal "destinationBinaryArchive")] & (v30 ^ 1);
       }
 
-      v38 = v29;
+      v34 = v31;
       if ([internal pipelineOptions])
       {
         [internal pipelineOptions];
       }
 
       [(_MTLDevice *)self->_device featureProfile];
-      *(v36 + 24);
-      [internal pipelineCache];
-      binaryArchives = [internal binaryArchives];
-      destinationBinaryArchive = [internal destinationBinaryArchive];
-      ptr = self->_shaderCache.__ptr_;
-      MultiLevelCacheFactory::createBinaryCache(binaryArchives, destinationBinaryArchive);
+      MultiLevelCacheFactory::createBinaryCache([internal binaryArchives], objc_msgSend(internal, "destinationBinaryArchive"), objc_msgSend(internal, "pipelineCache"), self->_shaderCache.__ptr_, v29 & 4 | v28);
     }
   }
 
   else
   {
-    v39[0] = 2;
-    v39[1] = @"function is nil";
-    v40 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    (*(handler + 2))(handler, v39);
+    v35[0] = 2;
+    v35[1] = @"function is nil";
+    v36 = 0u;
+    v37 = 0u;
+    memset(v38, 0, 64);
+    (*(handler + 2))(handler, v35);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __122__MTLCompiler_compileFunctionRequestInternal_frameworkLinking_linkDataSize_reflectionOnly_compilerTask_completionHandler___block_invoke(uint64_t a1, uint64_t a2, NSObject *a3, uint64_t a4)
 {
-  v47 = a3;
+  v46 = a3;
   if ([*(a1 + 32) destinationBinaryArchive])
   {
     [objc_msgSend(*(a1 + 32) "destinationBinaryArchive")];
@@ -1382,8 +1424,8 @@ void __122__MTLCompiler_compileFunctionRequestInternal_frameworkLinking_linkData
       if (v9)
       {
         v10 = *(a1 + 104);
-        v41[0] = (i + 16);
-        std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType const&>,std::tuple<>>(v10, i + 16)[3] = v9;
+        v40[0] = i + 16;
+        std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType const&>,std::tuple<>>(v10, i + 16, &std::piecewise_construct, v40)[3] = v9;
         dispatch_retain(*(i + 3));
       }
     }
@@ -1391,127 +1433,126 @@ void __122__MTLCompiler_compileFunctionRequestInternal_frameworkLinking_linkData
     v11 = *(a1 + 152);
     if ((v11 & 2) != 0)
     {
-      v14 = *(a1 + 104);
-      LOBYTE(v41[0]) = 2;
+      v13 = *(a1 + 104);
+      LOBYTE(v40[0]) = 2;
     }
 
     else
     {
       if (v11)
       {
-        v41[0] = 0;
+        v40[0] = 0;
         size_ptr = 0;
         buffer_ptr = 0;
-        v12 = dispatch_data_create_map(v47, &buffer_ptr, &size_ptr);
-        v13 = *(a1 + 152);
-        deserializeCompilerOutputData(buffer_ptr, size_ptr, v41, *(a1 + 88), *(a1 + 104));
+        v12 = dispatch_data_create_map(v46, &buffer_ptr, &size_ptr);
+        deserializeCompilerOutputData(buffer_ptr, size_ptr, v40, *(a1 + 88), *(a1 + 104));
         dispatch_release(v12);
 LABEL_16:
         if (*(*(*(a1 + 72) + 8) + 24) == 1)
         {
-          v15 = *(a1 + 104);
+          v14 = *(a1 + 104);
           LOBYTE(size_ptr) = 0;
-          v41[0] = &size_ptr;
-          v16 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v15, &size_ptr)[3];
-          if (v16)
+          v40[0] = &size_ptr;
+          v15 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v14, &size_ptr, &std::piecewise_construct, v40)[3];
+          if (v15)
           {
-            v17 = *(a1 + 104);
-            v44 = 2;
-            v41[0] = &v44;
-            LOBYTE(v16) = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v17, &v44)[3] != 0;
+            v16 = *(a1 + 104);
+            v43 = 2;
+            v40[0] = &v43;
+            LOBYTE(v15) = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v16, &v43, &std::piecewise_construct, v40)[3] != 0;
           }
         }
 
         else
         {
-          LOBYTE(v16) = 0;
+          LOBYTE(v15) = 0;
         }
 
-        *(*(*(a1 + 72) + 8) + 24) = v16;
+        *(*(*(a1 + 72) + 8) + 24) = v15;
         if (*(*(*(a1 + 72) + 8) + 24) == 1)
         {
-          v18 = [MTLBinaryEntry alloc];
-          v19 = *(a1 + 104);
+          v17 = [MTLBinaryEntry alloc];
+          v18 = *(a1 + 104);
           LOBYTE(size_ptr) = 0;
-          v41[0] = &size_ptr;
-          v20 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v19, &size_ptr)[3];
-          v21 = *(a1 + 104);
-          v44 = 2;
-          v41[0] = &v44;
-          v22 = [(MTLBinaryEntry *)v18 initWithData:v20 reflectionBlock:std::__hash_table<std::__hash_value_type<CompilerOutputType, NSObject  {objcproto16OS_dispatch_data}*>, std::__unordered_map_hasher<CompilerOutputType, std::__hash_value_type<CompilerOutputType, NSObject  {objcproto16OS_dispatch_data}*>, std::hash<CompilerOutputType>, std::equal_to<CompilerOutputType>, true>, std::__unordered_map_equal<CompilerOutputType, std::__hash_value_type<CompilerOutputType, NSObject  {objcproto16OS_dispatch_data}*>, std::equal_to<CompilerOutputType>, std::hash<CompilerOutputType>, true>, std::allocator<std::__hash_value_type<CompilerOutputType, NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType, std::piecewise_construct_t const&, std::tuple<CompilerOutputType&&>, std::tuple<>>(v21, &v44)[3]];
+          v40[0] = &size_ptr;
+          v19 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v18, &size_ptr, &std::piecewise_construct, v40)[3];
+          v20 = *(a1 + 104);
+          v43 = 2;
+          v40[0] = &v43;
+          v21 = [(MTLBinaryEntry *)v17 initWithData:v19 reflectionBlock:std::__hash_table<std::__hash_value_type<CompilerOutputType, NSObject  {objcproto16OS_dispatch_data}*>, std::__unordered_map_hasher<CompilerOutputType, std::__hash_value_type<CompilerOutputType, NSObject  {objcproto16OS_dispatch_data}*>, std::hash<CompilerOutputType>, std::equal_to<CompilerOutputType>, true>, std::__unordered_map_equal<CompilerOutputType, std::__hash_value_type<CompilerOutputType, NSObject  {objcproto16OS_dispatch_data}*>, std::equal_to<CompilerOutputType>, std::hash<CompilerOutputType>, true>, std::allocator<std::__hash_value_type<CompilerOutputType, NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType, std::piecewise_construct_t const&, std::tuple<CompilerOutputType&&>, std::tuple<>>(v20, &v43, &std::piecewise_construct, v40)[3]];
           if ((*(a1 + 152) & 2) != 0)
           {
-            v23 = [*(a1 + 32) function];
-            -[MTLBinaryEntry setAirScript:](v22, "setAirScript:", [*(a1 + 32) airScript]);
-            v24 = [v23 bitcodeDataInternal];
-            [(MTLBinaryEntry *)v22 setBitcode:v24];
-            -[MTLBinaryEntry setLinkedBitcodes:](v22, "setLinkedBitcodes:", [*(a1 + 40) newLinkedFunctionsBitcodeFromRequest:*(a1 + 32) hashKey:*(*(a1 + 80) + 8) + 48]);
-            dispatch_release(v24);
+            v22 = [*(a1 + 32) function];
+            -[MTLBinaryEntry setAirScript:](v21, "setAirScript:", [*(a1 + 32) airScript]);
+            v23 = [v22 bitcodeDataInternal];
+            [(MTLBinaryEntry *)v21 setBitcode:v23];
+            -[MTLBinaryEntry setLinkedBitcodes:](v21, "setLinkedBitcodes:", [*(a1 + 40) newLinkedFunctionsBitcodeFromRequest:*(a1 + 32) hashKey:*(*(a1 + 80) + 8) + 48]);
+            dispatch_release(v23);
           }
 
           if (*(a1 + 156) != 1 || (*(a1 + 152) & 2) != 0)
           {
-            v31 = (*(**(a1 + 120) + 128))(*(a1 + 120), *(a1 + 48), v22, [*(a1 + 32) archiverId], objc_msgSend(*(a1 + 56), "functionType"));
-            v32 = *(a1 + 104);
+            v30 = (*(**(a1 + 120) + 128))(*(a1 + 120), *(a1 + 48), v21, [*(a1 + 32) archiverId], objc_msgSend(*(a1 + 56), "functionType"));
+            v31 = *(a1 + 104);
             LOBYTE(size_ptr) = 7;
-            v41[0] = &size_ptr;
-            std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v32, &size_ptr)[3] = v31;
+            v40[0] = &size_ptr;
+            std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v31, &size_ptr, &std::piecewise_construct, v40)[3] = v30;
           }
 
           else
           {
-            (*(**(a1 + 120) + 144))(*(a1 + 120), *(a1 + 48), v22);
+            (*(**(a1 + 120) + 144))(*(a1 + 120), *(a1 + 48), v21);
           }
 
-          v33 = *(a1 + 120);
-          v34 = *(a1 + 104);
+          v32 = *(a1 + 120);
+          v33 = *(a1 + 104);
           LOBYTE(size_ptr) = 7;
-          v41[0] = &size_ptr;
-          v35 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v34, &size_ptr)[3];
-          (*(*v33 + 136))(v33, v35, *(a1 + 48), [*(a1 + 56) functionType]);
+          v40[0] = &size_ptr;
+          v34 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v33, &size_ptr, &std::piecewise_construct, v40)[3];
+          (*(*v32 + 136))(v32, v34, *(a1 + 48), [*(a1 + 56) functionType]);
         }
 
         else
         {
-          v25 = *(a1 + 40);
-          v26 = *(a1 + 104);
-          v27 = *(a1 + 88);
-          v28 = *(a1 + 136);
-          v29 = [*(a1 + 56) libraryData];
-          v30 = *(a1 + 128);
-          v42 = *(a1 + 120);
-          v43 = v30;
-          if (v30)
+          v24 = *(a1 + 40);
+          v25 = *(a1 + 104);
+          v26 = *(a1 + 88);
+          v27 = *(a1 + 136);
+          v28 = [*(a1 + 56) libraryData];
+          v29 = *(a1 + 128);
+          v41 = *(a1 + 120);
+          v42 = v29;
+          if (v29)
           {
-            atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          [v25 cacheLegacyCompilerData:v26 cachedData:v27 hashMap:v28 libraryData:v29 functionCache:&v42];
-          if (v43)
+          [v24 cacheLegacyCompilerData:v25 cachedData:v26 hashMap:v27 libraryData:v28 functionCache:&v41];
+          if (v42)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v43);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v42);
           }
         }
 
         if (*(a1 + 157) == 1)
         {
-          v36 = *(a1 + 104);
+          v35 = *(a1 + 104);
           LOBYTE(size_ptr) = 3;
-          v41[0] = &size_ptr;
-          if (!std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v36, &size_ptr)[3])
+          v40[0] = &size_ptr;
+          if (!std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v35, &size_ptr, &std::piecewise_construct, v40)[3])
           {
-            v37 = *(a1 + 88);
-            v44 = 3;
-            v41[0] = &v44;
-            if (!std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v37, &v44)[3])
+            v36 = *(a1 + 88);
+            v43 = 3;
+            v40[0] = &v43;
+            if (!std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v36, &v43, &std::piecewise_construct, v40)[3])
             {
               LOBYTE(size_ptr) = 0;
-              v38 = *(a1 + 120);
-              v39 = *(a1 + 136);
-              v44 = 3;
-              v41[0] = &v44;
-              v40 = std::__hash_table<std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v39, &v44);
-              (*(*v38 + 56))(v38, v40[3], &size_ptr, 1);
+              v37 = *(a1 + 120);
+              v38 = *(a1 + 136);
+              v43 = 3;
+              v40[0] = &v43;
+              v39 = std::__hash_table<std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,MTLBinaryKey *>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v38, &v43, &std::piecewise_construct, v40);
+              (*(*v37 + 56))(v37, v39[3], &size_ptr, 1);
             }
           }
         }
@@ -1519,12 +1560,12 @@ LABEL_16:
         goto LABEL_36;
       }
 
-      v14 = *(a1 + 104);
-      LOBYTE(v41[0]) = 0;
+      v13 = *(a1 + 104);
+      LOBYTE(v40[0]) = 0;
     }
 
-    std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*&>(v14, v41);
-    dispatch_retain(v47);
+    std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*&>(v13, v40, v40, &v46);
+    dispatch_retain(v46);
     goto LABEL_16;
   }
 
@@ -1537,7 +1578,7 @@ LABEL_36:
 
   v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a4];
 LABEL_37:
-  FunctionReplyParameters::FunctionReplyParameters(v41, a2, v7, *(a1 + 104), *(a1 + 136));
+  FunctionReplyParameters::FunctionReplyParameters(v40, a2, v7, *(a1 + 104), *(a1 + 136));
   (*(*(a1 + 64) + 16))();
 
   [*(a1 + 40) releaseCompilerOutputBlocks:*(a1 + 88) hashMap:*(a1 + 136)];
@@ -1562,18 +1603,17 @@ LABEL_37:
 
 - (void)compileStatelessFunctionRequest:(id)request reflectionOnly:(BOOL)only compilerTask:(id)task completionHandler:(id)handler
 {
-  v11 = *MEMORY[0x1E69E9840];
   if (([request pipelineOptions] & 4) != 0)
   {
-    [request pipelineOptions];
+    v7 = ~([request pipelineOptions] >> 28) & 2;
   }
 
-  [request pipelineOptions];
-  binaryArchives = [request binaryArchives];
-  destinationBinaryArchive = [request destinationBinaryArchive];
-  [request pipelineCache];
-  ptr = self->_shaderCache.__ptr_;
-  MultiLevelCacheFactory::createBinaryCache(binaryArchives, destinationBinaryArchive);
+  else
+  {
+    v7 = 0;
+  }
+
+  MultiLevelCacheFactory::createBinaryCache([request binaryArchives], objc_msgSend(request, "destinationBinaryArchive"), objc_msgSend(request, "pipelineCache"), self->_shaderCache.__ptr_, (objc_msgSend(request, "pipelineOptions") >> 32) & 4 | v7);
 }
 
 uint64_t __93__MTLCompiler_compileStatelessFunctionRequest_reflectionOnly_compilerTask_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1589,24 +1629,24 @@ uint64_t __93__MTLCompiler_compileStatelessFunctionRequest_reflectionOnly_compil
       v5 = *(a1 + 80);
       v21 = 2;
       v24 = &v21;
-      v4 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v5, &v21)[3];
+      v4 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v5, &v21, &std::piecewise_construct, &v24)[3];
     }
 
     v20 = 2;
     v24 = &v20;
-    std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v22, &v20)[3] = v4;
+    std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v22, &v20, &std::piecewise_construct, &v24)[3] = v4;
     v6 = a2[3];
     if (!v6)
     {
       v7 = *(a1 + 80);
       v21 = 0;
       v24 = &v21;
-      v6 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v7, &v21)[3];
+      v6 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v7, &v21, &std::piecewise_construct, &v24)[3];
     }
 
     v20 = 0;
     v24 = &v20;
-    std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v22, &v20)[3] = v6;
+    std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v22, &v20, &std::piecewise_construct, &v24)[3] = v6;
     if (*(a1 + 128) != 1)
     {
       goto LABEL_11;
@@ -1665,7 +1705,6 @@ LABEL_11:
 
 - (void)compileLibraryRequest:(MTLCompileLibraryRequestData *)request compilerTask:(id)task completionHandler:(id)handler
 {
-  v15 = *MEMORY[0x1E69E9840];
   var1 = request->var1;
   v8 = [objc_msgSend(var1 "device")];
   if (v8)
@@ -1718,7 +1757,7 @@ LABEL_11:
 
 - (id)downgradeFunctionRequest:(const void *)request targetLLVMVersion:(unsigned int)version frameworkData:(void *)data compilerTask:(id)task error:(id *)error
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   MTLCompilerFunctionRequest::function(request);
   if ((MTLCompilerFunctionRequest::shouldRunFrameworkPasses(request) & 1) == 0)
   {
@@ -1726,14 +1765,14 @@ LABEL_11:
   }
 
   object = 0;
-  downgradeRequestHashAndData(&v13, &object, request, version);
-  v10 = *(_MTLGetLibrariesCache(self->_device) + 32);
+  downgradeRequestHashAndData(&v12, &object, request, version);
+  _MTLGetLibrariesCache(self->_device);
   MultiLevelCacheFactory::createAirCache();
 }
 
 void __91__MTLCompiler_downgradeFunctionRequest_targetLLVMVersion_frameworkData_compilerTask_error___block_invoke(uint64_t a1, uint64_t a2, NSObject *a3, uint64_t a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     if (*(a1 + 64))
@@ -1763,16 +1802,16 @@ void __91__MTLCompiler_downgradeFunctionRequest_targetLLVMVersion_frameworkData_
     v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v10 = *(a1 + 32);
     v11 = *(a1 + 56);
-    v17[0] = *(a1 + 48);
-    v17[1] = v11;
+    v16[0] = *(a1 + 48);
+    v16[1] = v11;
     if (v11)
     {
       atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    MTLHashKey::MTLHashKey(&v18, a1 + 84);
-    v12 = processCompiledLibrary(a3, v10, 7, v17, &v18, 1, 0, v8, v9, 0, *(a1 + 64), *(a1 + 72), *(a1 + 80));
-    MTLHashKey::~MTLHashKey(&v18);
+    MTLHashKey::MTLHashKey(&v17, a1 + 84);
+    v12 = processCompiledLibrary(a3, v10, 7, v16, &v17, 1, 0, v8, v9, 0, *(a1 + 64), *(a1 + 72), *(a1 + 80));
+    MTLHashKey::~MTLHashKey(&v17);
     if (v11)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v11);
@@ -1785,9 +1824,9 @@ void __91__MTLCompiler_downgradeFunctionRequest_targetLLVMVersion_frameworkData_
         v14 = *(a1 + 72);
         if (v14)
         {
-          v16 = 2;
-          v18.var0.var0 = &v16;
-          std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v14, &v16);
+          v15 = 2;
+          v17.var0.var0 = &v15;
+          std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(v14, &v15, &std::piecewise_construct, &v17);
         }
       }
 
@@ -1797,8 +1836,6 @@ void __91__MTLCompiler_downgradeFunctionRequest_targetLLVMVersion_frameworkData_
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)downgradeRequest:(void *)request frameworkData:(void *)data compilerTask:(id)task error:(id *)error
@@ -1825,7 +1862,7 @@ void __91__MTLCompiler_downgradeFunctionRequest_targetLLVMVersion_frameworkData_
       {
         v18 = 2;
         v19 = &v18;
-        v15 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(data, &v18)[3];
+        v15 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(data, &v18, &std::piecewise_construct, &v19)[3];
       }
 
       else
@@ -1844,6 +1881,108 @@ void __91__MTLCompiler_downgradeFunctionRequest_targetLLVMVersion_frameworkData_
 
     return v15 != 0;
   }
+}
+
+- (void)statelessBackendCompileRequestInternal:(void *)internal sync:(BOOL)sync compilerHash:(id *)hash reflectionOnly:(BOOL)only compilerTask:(id)task completionHandler:(id)handler
+{
+  syncCopy = sync;
+  v40 = *MEMORY[0x1E69E9840];
+  MTLCompilerRequest::setRequestType(internal, 10);
+  MTLCompilerFunctionRequest::setTargetLLVMBitcodeVersion(internal, [(_MTLDevice *)self->_device llvmVersion]);
+  v31 = 0;
+  if (only)
+  {
+    shouldRunFrameworkPasses = MTLCompilerFunctionRequest::shouldRunFrameworkPasses(internal);
+    v16 = shouldRunFrameworkPasses ^ 1;
+    v28 = 0u;
+    v29 = 0u;
+    if (shouldRunFrameworkPasses)
+    {
+      v17 = 0;
+    }
+
+    else
+    {
+      v17 = &v28;
+    }
+  }
+
+  else
+  {
+    v16 = 0;
+    v17 = 0;
+    v28 = 0u;
+    v29 = 0u;
+  }
+
+  v30 = 1065353216;
+  v18 = [(MTLCompiler *)self downgradeRequest:internal frameworkData:v17 compilerTask:task error:&v31];
+  if (v18)
+  {
+    if (v16)
+    {
+      LOBYTE(v32) = 2;
+      v20 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::find<CompilerOutputType>(&v28, &v32);
+      v39 = 0;
+      v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v32 = 0u;
+      *(&v34 + 1) = v20[3];
+      (*(handler + 2))(handler, &v32);
+    }
+
+    else
+    {
+      if (_MTLCompilePerformanceStatisticsEnabled(v18, v19))
+      {
+        Options = MTLCompilerFunctionRequest::getOptions(internal);
+        MTLCompilerFunctionRequest::setOptions(internal, Options | 0x200);
+      }
+
+      *&v32 = 0;
+      *(&v32 + 1) = &v32;
+      *&v33 = 0x5012000000;
+      *(&v33 + 1) = __Block_byref_object_copy__1378;
+      *&v34 = __Block_byref_object_dispose__1379;
+      *(&v34 + 1) = &unk_185DF1D43;
+      v23 = *&hash->var0[16];
+      v35 = *hash->var0;
+      v36 = v23;
+      compilerConnectionManager = self->_compilerConnectionManager;
+      compilerId = self->_compilerId;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __118__MTLCompiler_statelessBackendCompileRequestInternal_sync_compilerHash_reflectionOnly_compilerTask_completionHandler___block_invoke;
+      v26[3] = &unk_1E6EEC190;
+      onlyCopy = only;
+      v26[6] = &v32;
+      v26[7] = internal;
+      v26[4] = self;
+      v26[5] = handler;
+      (*(*compilerConnectionManager + 32))(compilerConnectionManager, compilerId, internal, syncCopy, task, v26);
+      _Block_object_dispose(&v32, 8);
+    }
+  }
+
+  else
+  {
+    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Downgrade failed with error: %@", objc_msgSend(v31, "localizedDescription")];
+    *&v32 = 2;
+    *(&v32 + 1) = v21;
+    v33 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    (*(handler + 2))(handler, &v32);
+  }
+
+  std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(&v28);
 }
 
 uint64_t __118__MTLCompiler_statelessBackendCompileRequestInternal_sync_compilerHash_reflectionOnly_compilerTask_completionHandler___block_invoke(uint64_t a1, uint64_t a2, NSObject *a3, uint64_t a4)
@@ -1880,7 +2019,7 @@ uint64_t __118__MTLCompiler_statelessBackendCompileRequestInternal_sync_compiler
   else if (*(a1 + 64) == 1)
   {
     LOBYTE(v19[0]) = 2;
-    std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*&>(&v24, v19);
+    std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*&>(&v24, v19, v19, &v36);
     dispatch_retain(v36);
     v8 = 0;
     v9 = 0;
@@ -1898,24 +2037,24 @@ uint64_t __118__MTLCompiler_statelessBackendCompileRequestInternal_sync_compiler
     deserializeCompilerOutputData(buffer_ptr, size_ptr, &v21, v19, &v24);
     v18 = 0;
     v37 = &v18;
-    *&v30 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(&v24, &v18)[3];
+    *&v30 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(&v24, &v18, &std::piecewise_construct, &v37)[3];
     v18 = 3;
     v37 = &v18;
-    *&v33 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(&v24, &v18)[3];
+    *&v33 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(&v24, &v18, &std::piecewise_construct, &v37)[3];
     v18 = 6;
     v37 = &v18;
-    *&v35 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(&v24, &v18)[3];
+    *&v35 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(&v24, &v18, &std::piecewise_construct, &v37)[3];
     v18 = 4;
     v37 = &v18;
-    v8 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(&v24, &v18)[3];
+    v8 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(&v24, &v18, &std::piecewise_construct, &v37)[3];
     *(&v33 + 1) = v8;
     v18 = 4;
     v37 = &v18;
-    v9 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(&v24, &v18)[3];
+    v9 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(&v24, &v18, &std::piecewise_construct, &v37)[3];
     *&v34 = v9;
     v18 = 2;
     v37 = &v18;
-    *&v31 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(&v24, &v18)[3];
+    *&v31 = std::__hash_table<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::hash<CompilerOutputType>,std::equal_to<CompilerOutputType>,true>,std::__unordered_map_equal<CompilerOutputType,std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>,std::equal_to<CompilerOutputType>,std::hash<CompilerOutputType>,true>,std::allocator<std::__hash_value_type<CompilerOutputType,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<CompilerOutputType,std::piecewise_construct_t const&,std::tuple<CompilerOutputType&&>,std::tuple<>>(&v24, &v18, &std::piecewise_construct, &v37)[3];
     dispatch_release(v10);
     std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::~__hash_table(v19);
   }
@@ -1980,16 +2119,17 @@ uint64_t __118__MTLCompiler_statelessBackendCompileRequestInternal_sync_compiler
   [(MTLCompiler *)self compileFunctionRequestInternal:v17 frameworkLinking:linkingCopy linkDataSize:size reflectionOnly:0 compilerTask:task completionHandler:v20];
 }
 
-uint64_t __152__MTLCompiler_compileFunction_serializedPipelineData_stateData_linkDataSize_frameworkLinking_options_pipelineCache_sync_compilerTask_completionHandler___block_invoke(uint64_t a1, void *a2)
+- (void)compileFunction:(id)function frameworkData:(id)data driverKeyData:(id)keyData options:(unint64_t)options pipelineCache:(id)cache sync:(BOOL)sync completionHandler:(id)handler
 {
-  v2 = a2[3];
-  v3 = a2[5];
-  v4 = a2[9];
-  v5 = a2[10];
-  v6 = a2[11];
-  v7 = a2[13];
-  v9 = a2[1];
-  return (*(*(a1 + 32) + 16))(*(a1 + 32), *a2);
+  syncCopy = sync;
+  v16 = objc_opt_new();
+  [v16 setSync:syncCopy];
+  [v16 setFunction:function];
+  [v16 setPipelineOptions:options];
+  [v16 setFrameworkData:data];
+  [v16 setDriverKeyData:keyData];
+  [v16 setPipelineCache:cache];
+  [(MTLCompiler *)self compileFunctionRequestInternal:v16 frameworkLinking:0 linkDataSize:0 reflectionOnly:0 compilerTask:0 completionHandler:handler];
 }
 
 - (void)compileFunction:(id)function visibleFunctions:(id)functions privateVisibleFunctions:(id)visibleFunctions visibleFunctionGroups:(id)groups frameworkData:(id)data driverKeyData:(id)keyData options:(unint64_t)options pipelineCache:(id)self0 sync:(BOOL)self1 completionHandler:(id)self2
@@ -2142,54 +2282,156 @@ id __96__MTLCompiler_compileDynamicLibraryWithDescriptor_computePipelineDescript
   [(MTLCompiler *)self compileFunction:function serializedData:data stateData:stateData options:v16 compilerTask:0 completionHandler:handler];
 }
 
-uint64_t __113__MTLCompiler_reflectionWithFunction_options_sync_pipelineLibrary_binaryArchives_compilerTask_completionHandler___block_invoke(uint64_t a1, uint64_t *a2)
+- (void)reflectionWithFunction:(id)function options:(unint64_t)options sync:(BOOL)sync pipelineLibrary:(id)library binaryArchives:(id)archives compilerTask:(id)task completionHandler:(id)handler
 {
-  v2 = a2[5];
-  v4 = *a2;
-  v3 = a2[1];
-  return (*(*(a1 + 32) + 16))();
+  syncCopy = sync;
+  optionsCopy = options;
+  v25 = *MEMORY[0x1E69E9840];
+  pipelineCache = [library pipelineCache];
+  v16 = objc_opt_new();
+  [v16 setSync:syncCopy];
+  [v16 setFunction:function];
+  [v16 setPipelineOptions:optionsCopy & 0x20200000 | 0x10003];
+  [v16 setPipelineCache:pipelineCache];
+  [v16 setBinaryArchives:archives];
+  bitCodeHash = [function bitCodeHash];
+  if (bitCodeHash)
+  {
+    v18 = bitCodeHash[1];
+    v23 = *bitCodeHash;
+    v24 = v18;
+    v21 = v23;
+    v22 = v18;
+  }
+
+  else
+  {
+    v21 = 0u;
+    v22 = 0u;
+  }
+
+  [v16 setArchiveHashKey:&v21];
+  if ([function functionType] == 6 || objc_msgSend(function, "functionType") == 5)
+  {
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __113__MTLCompiler_reflectionWithFunction_options_sync_pipelineLibrary_binaryArchives_compilerTask_completionHandler___block_invoke;
+    v20[3] = &unk_1E6EEC1B8;
+    v20[4] = handler;
+    [(MTLCompiler *)self compileStatelessFunctionRequest:v16 reflectionOnly:1 compilerTask:task completionHandler:v20];
+  }
+
+  else
+  {
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __113__MTLCompiler_reflectionWithFunction_options_sync_pipelineLibrary_binaryArchives_compilerTask_completionHandler___block_invoke_2;
+    v19[3] = &unk_1E6EEC1B8;
+    v19[4] = handler;
+    [(MTLCompiler *)self compileFunctionRequestInternal:v16 frameworkLinking:0 linkDataSize:0 reflectionOnly:1 compilerTask:task completionHandler:v19];
+  }
 }
 
-uint64_t __113__MTLCompiler_reflectionWithFunction_options_sync_pipelineLibrary_binaryArchives_compilerTask_completionHandler___block_invoke_2(uint64_t a1, uint64_t *a2)
+- (RequiredFunctionKeys)requiredKeysForFunction:(SEL)function variantKey:(id)key frameworkData:(const VariantKey *)data compilerOptions:(id)options driverCompilerOptions:(int)compilerOptions airScript:(id)script archives:(const void *)archives compiledNextStageVariant:(id)self0
 {
-  v2 = a2[5];
-  v4 = *a2;
-  v3 = a2[1];
-  return (*(*(a1 + 32) + 16))();
+  result = variant;
+  v26 = *MEMORY[0x1E69E9840];
+  *&retstr->var1[4] = 0u;
+  *&retstr->var1[6] = 0u;
+  *retstr->var1 = 0u;
+  *&retstr->var1[2] = 0u;
+  *&retstr->var0[4] = 0u;
+  *&retstr->var0[6] = 0u;
+  *retstr->var0 = 0u;
+  *&retstr->var0[2] = 0u;
+  if (variant)
+  {
+    v16 = *&compilerOptions;
+    result = [variant count];
+    if (result)
+    {
+      if (archives)
+      {
+        memset(v25, 0, sizeof(v25));
+        [(MTLCompiler *)self initializeVendorPluginFunctionId:key airScript:archives driverCompilerOptions:script compiledNextStageVariant:a11 vendorPlugin:v25];
+        if (self)
+        {
+          objc_msgSend_getFunctionId_airScript_vendorPluginFunctionId_(self);
+        }
+
+        else
+        {
+          memset(&buffer, 0, sizeof(buffer));
+        }
+
+        retstr->var1[0] = [[MTLBinaryKey alloc] initWithHash:&buffer];
+        MTLHashKey::~MTLHashKey(&buffer);
+      }
+
+      memset(&buffer, 0, 36);
+      memset(&buffer.var5, 0, 40);
+      var2 = data->var2;
+      var3 = data->var3;
+      var6 = data->var6;
+      buffer.var0 = malloc_type_malloc(var6 + var3 + var2, 0x100004077774924uLL);
+      memcpy(buffer.var0, data->var0, var2);
+      memcpy(&buffer.var0[var2], data->var1, var3);
+      memcpy(&buffer.var0[var2 + var3], data->var5, var6);
+      buffer.var1 = var2;
+      buffer.var2 = var3;
+      buffer.var3 = var6 + var3;
+      buffer.var5 = dispatch_group_create();
+      dispatch_group_enter(buffer.var5);
+      v23 = dispatch_data_create(buffer.var0, buffer.var2 + buffer.var1, 0, 0);
+      [(MTLCompiler *)self addFunctionKeys:retstr function:key driverData:v23 frameworkData:options compilerOptions:v16];
+      dispatch_release(v23);
+      os_unfair_lock_lock(&buffer.var4);
+      if (!buffer.var7)
+      {
+
+        buffer.var8 = [0 copy];
+      }
+
+      dispatch_group_leave(buffer.var5);
+      os_unfair_lock_unlock(&buffer.var4);
+      VariantEntry::~VariantEntry(&buffer);
+    }
+  }
+
+  return result;
 }
 
 - (void)getProgramObjectForFunction:(id)function variantKey:(const VariantKey *)key requiredKeys:(const RequiredFunctionKeys *)keys sourceBinaryArchives:(id)archives
 {
   archivesCopy = archives;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v10 = [archives countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v10 = [archives countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (!v10)
   {
-    v16 = 0;
-    goto LABEL_30;
+    return 0;
   }
 
   v11 = v10;
-  v12 = *v28;
-  v25 = *v28;
-  v26 = archivesCopy;
+  v12 = *v27;
+  v24 = *v27;
+  v25 = archivesCopy;
   do
   {
     v13 = 0;
     while (2)
     {
-      if (*v28 != v12)
+      if (*v27 != v12)
       {
         objc_enumerationMutation(archivesCopy);
       }
 
-      v14 = *(*(&v27 + 1) + 8 * v13);
+      v14 = *(*(&v26 + 1) + 8 * v13);
       functionCopy = function;
-      v16 = [v14 findProgramObjectForFunction:{objc_msgSend(function, "bitCodeHash", v25)}];
+      v16 = [v14 findProgramObjectForFunction:{objc_msgSend(function, "bitCodeHash", v24)}];
       v17 = 0;
       if ([v14 supportsAIRNT])
       {
@@ -2231,10 +2473,10 @@ LABEL_22:
         {
           if (!v16)
           {
-            v16 = [v14 programObjectForFunction:{objc_msgSend(functionCopy, "bitCodeHash")}];
+            return [v14 programObjectForFunction:{objc_msgSend(functionCopy, "bitCodeHash")}];
           }
 
-          goto LABEL_30;
+          return v16;
         }
       }
 
@@ -2261,8 +2503,8 @@ LABEL_21:
       ++v13;
       keys = keysCopy;
       function = functionCopy;
-      v12 = v25;
-      archivesCopy = v26;
+      v12 = v24;
+      archivesCopy = v25;
       if (v13 != v11)
       {
         continue;
@@ -2271,14 +2513,47 @@ LABEL_21:
       break;
     }
 
-    v11 = [v26 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v11 = [v25 countByEnumeratingWithState:&v26 objects:v30 count:16];
     v16 = 0;
   }
 
   while (v11);
-LABEL_30:
-  v23 = *MEMORY[0x1E69E9840];
   return v16;
+}
+
+- (void)getProgramObject:(id)object destinationArchive:(id)archive sourceBinaryArchives:(id)archives variantKey:(const VariantKey *)key requiredKeys:(const RequiredFunctionKeys *)keys failOnMiss:(BOOL)miss
+{
+  if (archive)
+  {
+    bitCodeHash = [object bitCodeHash];
+
+    return [archive programObjectForFunction:bitCodeHash];
+  }
+
+  else
+  {
+    if (archives)
+    {
+      result = [(MTLCompiler *)self getProgramObjectForFunction:object variantKey:key requiredKeys:keys sourceBinaryArchives:archives];
+      if (result)
+      {
+        return result;
+      }
+    }
+
+    else
+    {
+      result = 0;
+    }
+
+    if (!miss)
+    {
+
+      return [object programObject];
+    }
+  }
+
+  return result;
 }
 
 - (id)createMeshStageAndLinkPipelineWithFragment:(void *)fragment fragmentVariant:(id)variant objectFunction:(id)function serializedObjectDescriptor:(id)descriptor meshFunction:(id)meshFunction serializedMeshDescriptor:(id)meshDescriptor descriptor:(id)a9 airDescriptor:(id)self0 destinationArchive:(id)self1 options:(unint64_t)self2 reflection:(id *)self3 compileStatistics:(id)self4 fragmentCompileTimeData:(id)self5 pipelineArchiverId:(id)self6 error:(id *)self7 compilerTask:(id)self8 completionHandler:(id)self9
@@ -2641,45 +2916,40 @@ void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVaria
   v4 = *(a1 + 104);
   v5 = *(a1 + 112);
   v6 = *(a1 + 32);
-  v15[0] = v2;
-  v15[1] = v4;
-  v15[2] = v3;
-  v15[3] = v5;
+  v10[0] = v2;
+  v10[1] = v4;
+  v10[2] = v3;
+  v10[3] = v5;
   if (v6)
   {
-    v6 = dispatch_data_create_map(v6, &v17, &v18);
-    v7 = *(a1 + 32);
+    v6 = dispatch_data_create_map(v6, &v12, &v13);
   }
 
   else
   {
-    v7 = 0;
-    v17 = 0;
-    v18 = 0;
+    v12 = 0;
+    v13 = 0;
   }
 
-  v16 = v6;
-  v9 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v10 = *(a1 + 128);
-  v11 = [*(a1 + 56) driverCompilerOptions];
-  v12 = *(a1 + 120);
-  v13 = [*(a1 + 56) binaryArchives];
-  if (v9)
+  v11 = v6;
+  v7 = *(a1 + 40);
+  [*(a1 + 56) driverCompilerOptions];
+  v8 = [*(a1 + 56) binaryArchives];
+  if (v7)
   {
-    [v9 requiredKeysForFunction:v8 variantKey:v15 frameworkData:v7 compilerOptions:v10 driverCompilerOptions:v11 airScript:v12 archives:v13 compiledNextStageVariant:*(a1 + 64)];
+    objc_msgSend_requiredKeysForFunction_variantKey_frameworkData_compilerOptions_driverCompilerOptions_airScript_archives_compiledNextStageVariant_(v7, v8, *(a1 + 64));
   }
 
   else
   {
-    memset(&v14, 0, sizeof(v14));
+    memset(&v9, 0, sizeof(v9));
   }
 
-  *(*(*(a1 + 80) + 8) + 24) = [*(a1 + 40) getProgramObject:*(a1 + 48) destinationArchive:*(a1 + 72) sourceBinaryArchives:objc_msgSend(*(a1 + 56) variantKey:"binaryArchives") requiredKeys:v15 failOnMiss:{&v14, *(a1 + 132)}];
-  RequiredFunctionKeys::~RequiredFunctionKeys(&v14);
-  if (v16)
+  *(*(*(a1 + 80) + 8) + 24) = [*(a1 + 40) getProgramObject:*(a1 + 48) destinationArchive:*(a1 + 72) sourceBinaryArchives:objc_msgSend(*(a1 + 56) variantKey:"binaryArchives") requiredKeys:v10 failOnMiss:{&v9, *(a1 + 132)}];
+  RequiredFunctionKeys::~RequiredFunctionKeys(&v9);
+  if (v11)
   {
-    dispatch_release(v16);
+    dispatch_release(v11);
   }
 }
 
@@ -2690,26 +2960,26 @@ void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVaria
   v4 = *(a1 + 104);
   v5 = *(a1 + 112);
   v6 = *(a1 + 32);
-  v19[0] = v2;
-  v19[1] = v4;
-  v19[2] = v3;
-  v19[3] = v5;
+  v18[0] = v2;
+  v18[1] = v4;
+  v18[2] = v3;
+  v18[3] = v5;
   if (v6)
   {
-    v6 = dispatch_data_create_map(v6, &v21, &v22);
+    v6 = dispatch_data_create_map(v6, &v20, &v21);
   }
 
   else
   {
+    v20 = 0;
     v21 = 0;
-    v22 = 0;
   }
 
   object = v6;
-  *(*(*(a1 + 56) + 8) + 24) = VariantList<4u>::find<VariantKey>(*(*(*(a1 + 64) + 8) + 24), v19);
+  *(*(*(a1 + 56) + 8) + 24) = VariantList<4u>::find<VariantKey>(*(*(*(a1 + 64) + 8) + 24), v18);
   if (!*(*(*(a1 + 56) + 8) + 24))
   {
-    *(*(*(a1 + 56) + 8) + 24) = VariantList<4u>::newVariantEntry<VariantKey>(*(*(*(a1 + 64) + 8) + 24), v19);
+    *(*(*(a1 + 56) + 8) + 24) = VariantList<4u>::newVariantEntry<VariantKey>(*(*(*(a1 + 64) + 8) + 24), v18);
     *(*(*(a1 + 72) + 8) + 24) = 1;
   }
 
@@ -2738,18 +3008,17 @@ void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVaria
   {
     v14 = *(*(*(a1 + 64) + 8) + 24);
     v15 = [objc_msgSend(*(a1 + 48) "gpuCompilerSPIOptions")];
-    v16 = *(v14 + 432);
     if (v15)
     {
-      v17 = v15;
+      v16 = v15;
     }
 
     else
     {
-      v17 = &stru_1EF478240;
+      v16 = &stru_1EF478240;
     }
 
-    v13 = [*(v14 + 432) objectForKey:v17] == 0;
+    v13 = [*(v14 + 432) objectForKey:v16] == 0;
   }
 
   else
@@ -2760,10 +3029,10 @@ void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVaria
   *(*(*(a1 + 80) + 8) + 24) = v13;
   if (*(*(*(a1 + 80) + 8) + 24) == 1)
   {
-    v18 = *(*(*(a1 + 64) + 8) + 24);
-    if (!*(v18 + 424))
+    v17 = *(*(*(a1 + 64) + 8) + 24);
+    if (!*(v17 + 424))
     {
-      *(v18 + 424) = dispatch_queue_create("reflection Queue", 0);
+      *(v17 + 424) = dispatch_queue_create("reflection Queue", 0);
     }
   }
 
@@ -2773,7 +3042,7 @@ void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVaria
   }
 }
 
-void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVariant_objectFunction_serializedObjectDescriptor_meshFunction_serializedMeshDescriptor_descriptor_airDescriptor_destinationArchive_options_reflection_compileStatistics_fragmentCompileTimeData_pipelineArchiverId_error_compilerTask_completionHandler___block_invoke_6(uint64_t a1, uint64_t a2)
+void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVariant_objectFunction_serializedObjectDescriptor_meshFunction_serializedMeshDescriptor_descriptor_airDescriptor_destinationArchive_options_reflection_compileStatistics_fragmentCompileTimeData_pipelineArchiverId_error_compilerTask_completionHandler___block_invoke_6(uint64_t a1, uint64_t *a2)
 {
   if ((*(a1 + 89) & 2) != 0)
   {
@@ -2792,11 +3061,11 @@ void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVaria
 
   else
   {
-    v6 = [*(*(a1 + 32) + 8) newObjectVariantWithCompilerOutput:*(a2 + 24) pipelineStatisticsOutput:*(a2 + 72)];
+    v6 = [*(*(a1 + 32) + 8) newObjectVariantWithCompilerOutput:a2[3] pipelineStatisticsOutput:a2[9]];
     v5 = v6;
     if ((*(a1 + 89) & 0x10) != 0)
     {
-      [v6 setDebugInstrumentationData:*(a2 + 104)];
+      [v6 setDebugInstrumentationData:a2[13]];
     }
   }
 
@@ -2804,7 +3073,7 @@ void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVaria
   if ((v7 & 0x200) != 0)
   {
     v8 = *(a1 + 40);
-    v9 = *(a2 + 88);
+    v9 = a2[11];
     v10 = MTLPipelinePerformanceKeyObjectShader[0];
     v11 = [v8 objectForKey:MTLPipelinePerformanceKeyObjectShader[0]];
     if (v11)
@@ -2842,7 +3111,7 @@ LABEL_15:
   if (v7)
   {
     v14 = *(*(*(a1 + 56) + 8) + 24);
-    v15 = *(a2 + 40);
+    v15 = a2[5];
     v16 = [objc_msgSend(*(a1 + 48) "gpuCompilerSPIOptions")];
     if (v15)
     {
@@ -2858,14 +3127,14 @@ LABEL_15:
     }
   }
 
-  v18 = *(a2 + 80);
+  v18 = a2[10];
   if (v18)
   {
     *(*(*(a1 + 64) + 8) + 40) = v18;
     dispatch_retain(*(*(*(a1 + 64) + 8) + 40));
   }
 
-  VariantEntry::insertVariant(*(*(*(a1 + 72) + 8) + 24), v5, *a2, *(a2 + 8), *(a2 + 104));
+  VariantEntry::insertVariant(*(*(*(a1 + 72) + 8) + 24), v5, *a2, a2[1], a2[13]);
 }
 
 void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVariant_objectFunction_serializedObjectDescriptor_meshFunction_serializedMeshDescriptor_descriptor_airDescriptor_destinationArchive_options_reflection_compileStatistics_fragmentCompileTimeData_pipelineArchiverId_error_compilerTask_completionHandler___block_invoke_7(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -2902,34 +3171,28 @@ void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVaria
 {
   if (*(*(*(*(a1 + 72) + 8) + 24) + 48))
   {
-    v2 = *(*(*(a1 + 80) + 8) + 24);
-    v3 = *(*(*(a1 + 88) + 8) + 40);
-    v4 = *(a1 + 104);
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
     (*(*(a1 + 64) + 16))(*(a1 + 64), 0);
     (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v5 = *(a1 + 48);
     (*(*(a1 + 48) + 16))();
-    v6 = *(*(*(a1 + 72) + 8) + 24);
-    reportErrorMessage(*(v6 + 56), *(v6 + 64), *(a1 + 56), *(a1 + 96));
+    v2 = *(*(*(a1 + 72) + 8) + 24);
+    reportErrorMessage(*(v2 + 56), *(v2 + 64), *(a1 + 56), *(a1 + 96));
   }
 
-  v7 = *(*(*(a1 + 88) + 8) + 40);
-  if (v7)
+  v3 = *(*(*(a1 + 88) + 8) + 40);
+  if (v3)
   {
-    dispatch_release(v7);
+    dispatch_release(v3);
   }
 
-  v8 = *(a1 + 40);
-  if (v8)
+  v4 = *(a1 + 40);
+  if (v4)
   {
 
-    dispatch_release(v8);
+    dispatch_release(v4);
   }
 }
 
@@ -3116,45 +3379,40 @@ void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVaria
   v4 = *(a1 + 104);
   v5 = *(a1 + 112);
   v6 = *(a1 + 32);
-  v15[0] = v2;
-  v15[1] = v4;
-  v15[2] = v3;
-  v15[3] = v5;
+  v10[0] = v2;
+  v10[1] = v4;
+  v10[2] = v3;
+  v10[3] = v5;
   if (v6)
   {
-    v6 = dispatch_data_create_map(v6, &v17, &v18);
-    v7 = *(a1 + 32);
+    v6 = dispatch_data_create_map(v6, &v12, &v13);
   }
 
   else
   {
-    v7 = 0;
-    v17 = 0;
-    v18 = 0;
+    v12 = 0;
+    v13 = 0;
   }
 
-  v16 = v6;
-  v9 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v10 = *(a1 + 128);
-  v11 = [*(a1 + 56) driverCompilerOptions];
-  v12 = *(a1 + 120);
-  v13 = [*(a1 + 56) binaryArchives];
-  if (v9)
+  v11 = v6;
+  v7 = *(a1 + 40);
+  [*(a1 + 56) driverCompilerOptions];
+  v8 = [*(a1 + 56) binaryArchives];
+  if (v7)
   {
-    [v9 requiredKeysForFunction:v8 variantKey:v15 frameworkData:v7 compilerOptions:v10 driverCompilerOptions:v11 airScript:v12 archives:v13 compiledNextStageVariant:*(a1 + 64)];
+    objc_msgSend_requiredKeysForFunction_variantKey_frameworkData_compilerOptions_driverCompilerOptions_airScript_archives_compiledNextStageVariant_(v7, v8, *(a1 + 64));
   }
 
   else
   {
-    memset(&v14, 0, sizeof(v14));
+    memset(&v9, 0, sizeof(v9));
   }
 
-  *(*(*(a1 + 80) + 8) + 24) = [*(a1 + 40) getProgramObject:*(a1 + 48) destinationArchive:*(a1 + 72) sourceBinaryArchives:objc_msgSend(*(a1 + 56) variantKey:"binaryArchives") requiredKeys:v15 failOnMiss:{&v14, *(a1 + 132)}];
-  RequiredFunctionKeys::~RequiredFunctionKeys(&v14);
-  if (v16)
+  *(*(*(a1 + 80) + 8) + 24) = [*(a1 + 40) getProgramObject:*(a1 + 48) destinationArchive:*(a1 + 72) sourceBinaryArchives:objc_msgSend(*(a1 + 56) variantKey:"binaryArchives") requiredKeys:v10 failOnMiss:{&v9, *(a1 + 132)}];
+  RequiredFunctionKeys::~RequiredFunctionKeys(&v9);
+  if (v11)
   {
-    dispatch_release(v16);
+    dispatch_release(v11);
   }
 }
 
@@ -3165,26 +3423,26 @@ void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVaria
   v4 = *(a1 + 104);
   v5 = *(a1 + 112);
   v6 = *(a1 + 32);
-  v19[0] = v2;
-  v19[1] = v4;
-  v19[2] = v3;
-  v19[3] = v5;
+  v18[0] = v2;
+  v18[1] = v4;
+  v18[2] = v3;
+  v18[3] = v5;
   if (v6)
   {
-    v6 = dispatch_data_create_map(v6, &v21, &v22);
+    v6 = dispatch_data_create_map(v6, &v20, &v21);
   }
 
   else
   {
+    v20 = 0;
     v21 = 0;
-    v22 = 0;
   }
 
   object = v6;
-  *(*(*(a1 + 56) + 8) + 24) = VariantList<4u>::find<VariantKey>(*(*(*(a1 + 64) + 8) + 24), v19);
+  *(*(*(a1 + 56) + 8) + 24) = VariantList<4u>::find<VariantKey>(*(*(*(a1 + 64) + 8) + 24), v18);
   if (!*(*(*(a1 + 56) + 8) + 24))
   {
-    *(*(*(a1 + 56) + 8) + 24) = VariantList<4u>::newVariantEntry<VariantKey>(*(*(*(a1 + 64) + 8) + 24), v19);
+    *(*(*(a1 + 56) + 8) + 24) = VariantList<4u>::newVariantEntry<VariantKey>(*(*(*(a1 + 64) + 8) + 24), v18);
     *(*(*(a1 + 72) + 8) + 24) = 1;
   }
 
@@ -3213,18 +3471,17 @@ void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVaria
   {
     v14 = *(*(*(a1 + 64) + 8) + 24);
     v15 = [objc_msgSend(*(a1 + 48) "gpuCompilerSPIOptions")];
-    v16 = *(v14 + 432);
     if (v15)
     {
-      v17 = v15;
+      v16 = v15;
     }
 
     else
     {
-      v17 = &stru_1EF478240;
+      v16 = &stru_1EF478240;
     }
 
-    v13 = [*(v14 + 432) objectForKey:v17] == 0;
+    v13 = [*(v14 + 432) objectForKey:v16] == 0;
   }
 
   else
@@ -3235,10 +3492,10 @@ void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVaria
   *(*(*(a1 + 80) + 8) + 24) = v13;
   if (*(*(*(a1 + 80) + 8) + 24) == 1)
   {
-    v18 = *(*(*(a1 + 64) + 8) + 24);
-    if (!*(v18 + 424))
+    v17 = *(*(*(a1 + 64) + 8) + 24);
+    if (!*(v17 + 424))
     {
-      *(v18 + 424) = dispatch_queue_create("reflection Queue", 0);
+      *(v17 + 424) = dispatch_queue_create("reflection Queue", 0);
     }
   }
 
@@ -3377,12 +3634,8 @@ void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVaria
 {
   if (*(*(*(*(a1 + 72) + 8) + 24) + 48))
   {
-    v2 = *(*(*(a1 + 80) + 8) + 24);
-    v3 = *(*(*(a1 + 88) + 8) + 40);
     if (*(a1 + 32))
     {
-      v4 = *(a1 + 56);
-      v5 = *(*(*(a1 + 80) + 8) + 24);
       (*(*(a1 + 56) + 16))();
     }
 
@@ -3395,17 +3648,16 @@ void __315__MTLCompiler_createMeshStageAndLinkPipelineWithFragment_fragmentVaria
 
   else
   {
-    v6 = *(a1 + 40);
     (*(*(a1 + 40) + 16))();
-    v7 = *(*(*(a1 + 72) + 8) + 24);
-    reportErrorMessage(*(v7 + 56), *(v7 + 64), *(a1 + 48), *(a1 + 96));
+    v2 = *(*(*(a1 + 72) + 8) + 24);
+    reportErrorMessage(*(v2 + 56), *(v2 + 64), *(a1 + 48), *(a1 + 96));
   }
 
-  v8 = *(*(*(a1 + 88) + 8) + 40);
-  if (v8)
+  v3 = *(*(*(a1 + 88) + 8) + 40);
+  if (v3)
   {
 
-    dispatch_release(v8);
+    dispatch_release(v3);
   }
 }
 
@@ -3618,45 +3870,40 @@ void __279__MTLCompiler_createVertexStageAndLinkPipelineWithFragment_fragmentVar
   v4 = *(a1 + 112);
   v5 = *(a1 + 120);
   v6 = *(a1 + 32);
-  v15[0] = v2;
-  v15[1] = v4;
-  v15[2] = v3;
-  v15[3] = v5;
+  v10[0] = v2;
+  v10[1] = v4;
+  v10[2] = v3;
+  v10[3] = v5;
   if (v6)
   {
-    v6 = dispatch_data_create_map(v6, &v17, &v18);
-    v7 = *(a1 + 32);
+    v6 = dispatch_data_create_map(v6, &v12, &v13);
   }
 
   else
   {
-    v7 = 0;
-    v17 = 0;
-    v18 = 0;
+    v12 = 0;
+    v13 = 0;
   }
 
-  v16 = v6;
-  v9 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v10 = *(*(*(a1 + 80) + 8) + 24);
-  v11 = [*(a1 + 56) driverCompilerOptions];
-  v12 = *(a1 + 128);
-  v13 = [*(a1 + 56) binaryArchives];
-  if (v9)
+  v11 = v6;
+  v7 = *(a1 + 40);
+  [*(a1 + 56) driverCompilerOptions];
+  v8 = [*(a1 + 56) binaryArchives];
+  if (v7)
   {
-    [v9 requiredKeysForFunction:v8 variantKey:v15 frameworkData:v7 compilerOptions:v10 driverCompilerOptions:v11 airScript:v12 archives:v13 compiledNextStageVariant:*(a1 + 64)];
+    objc_msgSend_requiredKeysForFunction_variantKey_frameworkData_compilerOptions_driverCompilerOptions_airScript_archives_compiledNextStageVariant_(v7, v8, *(a1 + 64));
   }
 
   else
   {
-    memset(&v14, 0, sizeof(v14));
+    memset(&v9, 0, sizeof(v9));
   }
 
-  *(*(*(a1 + 88) + 8) + 24) = [*(a1 + 40) getProgramObject:*(a1 + 48) destinationArchive:*(a1 + 72) sourceBinaryArchives:objc_msgSend(*(a1 + 56) variantKey:"binaryArchives") requiredKeys:v15 failOnMiss:{&v14, *(a1 + 136)}];
-  RequiredFunctionKeys::~RequiredFunctionKeys(&v14);
-  if (v16)
+  *(*(*(a1 + 88) + 8) + 24) = [*(a1 + 40) getProgramObject:*(a1 + 48) destinationArchive:*(a1 + 72) sourceBinaryArchives:objc_msgSend(*(a1 + 56) variantKey:"binaryArchives") requiredKeys:v10 failOnMiss:{&v9, *(a1 + 136)}];
+  RequiredFunctionKeys::~RequiredFunctionKeys(&v9);
+  if (v11)
   {
-    dispatch_release(v16);
+    dispatch_release(v11);
   }
 }
 
@@ -3904,10 +4151,10 @@ void __279__MTLCompiler_createVertexStageAndLinkPipelineWithFragment_fragmentVar
 - (void)addFunctionKeys:(RequiredFunctionKeys *)keys function:(id)function driverData:(id)data frameworkData:(id)frameworkData compilerOptions:(int)options
 {
   optionsCopy = options;
-  FunctionHashFactory::FunctionHashFactory(v15, function, [function functionData], options & 0xFFFFBFFF, 0, 0, 0);
+  FunctionHashFactory::FunctionHashFactory(&v15, function, [function functionData], options & 0xFFFFBFFF, 0, 0, 0);
   if ((optionsCopy & 2) == 0)
   {
-    keys->var0[0] = FunctionHashFactory::createHash(v15, 0, data, frameworkData);
+    keys->var0[0] = FunctionHashFactory::createHash(&v15, 0, data, frameworkData);
   }
 
   if (optionsCopy)
@@ -3932,23 +4179,23 @@ void __279__MTLCompiler_createVertexStageAndLinkPipelineWithFragment_fragmentVar
       frameworkDataCopy = 0;
     }
 
-    keys->var0[2] = FunctionHashFactory::createHash(v15, 2, dataCopy, frameworkDataCopy);
+    keys->var0[2] = FunctionHashFactory::createHash(&v15, 2, dataCopy, frameworkDataCopy);
   }
 
   if ((optionsCopy & 0x100) != 0)
   {
-    keys->var0[3] = FunctionHashFactory::createHash(v15, 3, 0, 0, 0, 0);
+    keys->var0[3] = FunctionHashFactory::createHash(&v15, 3, 0, 0, 0, 0);
   }
 
   if ((optionsCopy & 0x1000) != 0)
   {
-    keys->var0[6] = FunctionHashFactory::createHash(v15, 6, data, frameworkData);
+    keys->var0[6] = FunctionHashFactory::createHash(&v15, 6, data, frameworkData);
   }
 
   functionType = [function functionType];
   if ((optionsCopy & 4) != 0 && functionType == 2)
   {
-    keys->var0[1] = FunctionHashFactory::createHash(v15, 1, data, frameworkData);
+    keys->var0[1] = FunctionHashFactory::createHash(&v15, 1, data, frameworkData);
   }
 }
 
@@ -4509,28 +4756,23 @@ LABEL_102:
 void __141__MTLCompiler_newRenderPipelineStateWithDescriptorInternal_options_reflection_destinationBinaryArchive_error_compilerTask_completionHandler___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = *(*(a1 + 72) + 8);
-  v5 = *(*(*(a1 + 80) + 8) + 24);
-  v6 = *(a1 + 48);
-  v7 = [*(a1 + 56) driverCompilerOptions];
-  v8 = *(a1 + 96);
-  v9 = [*(a1 + 56) binaryArchives];
+  [*(a1 + 56) driverCompilerOptions];
+  v3 = [*(a1 + 56) binaryArchives];
   if (v2)
   {
-    [v2 requiredKeysForFunction:v3 variantKey:v4 + 48 frameworkData:v6 compilerOptions:v5 driverCompilerOptions:v7 airScript:v8 archives:v9 compiledNextStageVariant:0];
+    objc_msgSend_requiredKeysForFunction_variantKey_frameworkData_compilerOptions_driverCompilerOptions_airScript_archives_compiledNextStageVariant_(v2, v3, 0);
   }
 
   else
   {
-    memset(&v10, 0, sizeof(v10));
+    memset(&v4, 0, sizeof(v4));
   }
 
-  *(*(*(a1 + 88) + 8) + 24) = [*(a1 + 32) getProgramObject:*(a1 + 40) destinationArchive:*(a1 + 64) sourceBinaryArchives:objc_msgSend(*(a1 + 56) variantKey:"binaryArchives") requiredKeys:*(*(a1 + 72) + 8) + 48 failOnMiss:{&v10, *(a1 + 104)}];
-  RequiredFunctionKeys::~RequiredFunctionKeys(&v10);
+  *(*(*(a1 + 88) + 8) + 24) = [*(a1 + 32) getProgramObject:*(a1 + 40) destinationArchive:*(a1 + 64) sourceBinaryArchives:objc_msgSend(*(a1 + 56) variantKey:"binaryArchives") requiredKeys:*(*(a1 + 72) + 8) + 48 failOnMiss:{&v4, *(a1 + 104)}];
+  RequiredFunctionKeys::~RequiredFunctionKeys(&v4);
 }
 
-void *__141__MTLCompiler_newRenderPipelineStateWithDescriptorInternal_options_reflection_destinationBinaryArchive_error_compilerTask_completionHandler___block_invoke_2(uint64_t a1)
+dispatch_queue_t __141__MTLCompiler_newRenderPipelineStateWithDescriptorInternal_options_reflection_destinationBinaryArchive_error_compilerTask_completionHandler___block_invoke_2(uint64_t a1)
 {
   result = VariantList<4u>::find<VariantKey>(*(*(*(a1 + 64) + 8) + 24), *(*(a1 + 72) + 8) + 48);
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -4747,23 +4989,15 @@ void __141__MTLCompiler_newRenderPipelineStateWithDescriptorInternal_options_ref
     v5 = *(*(a1[19] + 8) + 24);
     if (v4)
     {
-      v6 = a1[6];
-      v7 = a1[7];
-      v8 = a1[8];
-      v9 = a1[13];
-      v10 = [v3 createMeshStageAndLinkPipelineWithFragment:v5 fragmentVariant:a1[9] objectFunction:a1[10] serializedObjectDescriptor:a1[11] meshFunction:a1[23] serializedMeshDescriptor:a1[24] descriptor:a1[12] airDescriptor:*(*(a1[20] + 8) + 40) destinationArchive:*(*(a1[21] + 8) + 40) options:a1[22] reflection:v9 compileStatistics:a1[16] fragmentCompileTimeData:? pipelineArchiverId:? error:? compilerTask:? completionHandler:?];
+      v6 = [v3 createMeshStageAndLinkPipelineWithFragment:v5 fragmentVariant:a1[9] objectFunction:a1[10] serializedObjectDescriptor:a1[11] meshFunction:a1[23] serializedMeshDescriptor:a1[24] descriptor:a1[12] airDescriptor:*(*(a1[20] + 8) + 40) destinationArchive:*(*(a1[21] + 8) + 40) options:a1[22] reflection:a1[13] compileStatistics:a1[16] fragmentCompileTimeData:? pipelineArchiverId:? error:? compilerTask:? completionHandler:?];
     }
 
     else
     {
-      v11 = a1[9];
-      v12 = a1[10];
-      v13 = a1[13];
-      v14 = a1[15];
-      v10 = [v3 createVertexStageAndLinkPipelineWithFragment:v5 fragmentVariant:a1[11] vertexFunction:a1[23] serializedVertexDescriptor:a1[24] descriptor:a1[12] airDescriptor:*(*(a1[20] + 8) + 40) destinationArchive:*(*(a1[21] + 8) + 40) options:a1[22] reflection:v13 compileStatistics:a1[16] fragmentCompileTimeData:? pipelineArchiverId:? error:? compilerTask:? completionHandler:?];
+      v6 = [v3 createVertexStageAndLinkPipelineWithFragment:v5 fragmentVariant:a1[11] vertexFunction:a1[23] serializedVertexDescriptor:a1[24] descriptor:a1[12] airDescriptor:*(*(a1[20] + 8) + 40) destinationArchive:*(*(a1[21] + 8) + 40) options:a1[22] reflection:a1[13] compileStatistics:a1[16] fragmentCompileTimeData:? pipelineArchiverId:? error:? compilerTask:? completionHandler:?];
     }
 
-    *(*(a1[18] + 8) + 40) = v10;
+    *(*(a1[18] + 8) + 40) = v6;
   }
 
   else
@@ -4771,29 +5005,29 @@ void __141__MTLCompiler_newRenderPipelineStateWithDescriptorInternal_options_ref
     reportErrorMessage(*(v2 + 56), *(v2 + 64), a1[16], a1[22]);
   }
 
-  v15 = *(*(a1[21] + 8) + 40);
-  if (v15)
+  v7 = *(*(a1[21] + 8) + 40);
+  if (v7)
   {
-    dispatch_release(v15);
+    dispatch_release(v7);
   }
 
-  v16 = a1[15];
-  if (v16)
+  v8 = a1[15];
+  if (v8)
   {
-    dispatch_release(v16);
+    dispatch_release(v8);
   }
 
-  v17 = a1[7];
-  if (v17)
+  v9 = a1[7];
+  if (v9)
   {
-    dispatch_release(v17);
+    dispatch_release(v9);
   }
 
-  v18 = a1[8];
-  if (v18)
+  v10 = a1[8];
+  if (v10)
   {
 
-    dispatch_release(v18);
+    dispatch_release(v10);
   }
 }
 
@@ -5033,28 +5267,23 @@ void __141__MTLCompiler_newRenderPipelineStateWithDescriptorInternal_options_ref
 void __233__MTLCompiler_computeVariantEntryWithDescriptor_airDescriptor_options_serializedComputeDataDescriptor_asyncCompile_pipelineCache_destinationBinaryArchive_computeProgram_kernelDriverCompileTimeData_compileTimeStatistics_compilerTask___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = *(*(a1 + 72) + 8);
-  v5 = *(*(*(a1 + 80) + 8) + 24);
-  v6 = *(a1 + 48);
-  v7 = [*(a1 + 56) driverCompilerOptions];
-  v8 = *(a1 + 96);
-  v9 = [*(a1 + 56) binaryArchives];
+  [*(a1 + 56) driverCompilerOptions];
+  v3 = [*(a1 + 56) binaryArchives];
   if (v2)
   {
-    [v2 requiredKeysForFunction:v3 variantKey:v4 + 48 frameworkData:v6 compilerOptions:v5 driverCompilerOptions:v7 airScript:v8 archives:v9 compiledNextStageVariant:0];
+    objc_msgSend_requiredKeysForFunction_variantKey_frameworkData_compilerOptions_driverCompilerOptions_airScript_archives_compiledNextStageVariant_(v2, v3, 0);
   }
 
   else
   {
-    memset(&v10, 0, sizeof(v10));
+    memset(&v4, 0, sizeof(v4));
   }
 
-  *(*(*(a1 + 88) + 8) + 24) = [*(a1 + 32) getProgramObject:*(a1 + 40) destinationArchive:*(a1 + 64) sourceBinaryArchives:objc_msgSend(*(a1 + 56) variantKey:"binaryArchives") requiredKeys:*(*(a1 + 72) + 8) + 48 failOnMiss:{&v10, *(a1 + 104)}];
-  RequiredFunctionKeys::~RequiredFunctionKeys(&v10);
+  *(*(*(a1 + 88) + 8) + 24) = [*(a1 + 32) getProgramObject:*(a1 + 40) destinationArchive:*(a1 + 64) sourceBinaryArchives:objc_msgSend(*(a1 + 56) variantKey:"binaryArchives") requiredKeys:*(*(a1 + 72) + 8) + 48 failOnMiss:{&v4, *(a1 + 104)}];
+  RequiredFunctionKeys::~RequiredFunctionKeys(&v4);
 }
 
-void *__233__MTLCompiler_computeVariantEntryWithDescriptor_airDescriptor_options_serializedComputeDataDescriptor_asyncCompile_pipelineCache_destinationBinaryArchive_computeProgram_kernelDriverCompileTimeData_compileTimeStatistics_compilerTask___block_invoke_2(uint64_t a1)
+dispatch_queue_t __233__MTLCompiler_computeVariantEntryWithDescriptor_airDescriptor_options_serializedComputeDataDescriptor_asyncCompile_pipelineCache_destinationBinaryArchive_computeProgram_kernelDriverCompileTimeData_compileTimeStatistics_compilerTask___block_invoke_2(uint64_t a1)
 {
   result = VariantList<4u>::find<VariantKey>(*(*(*(a1 + 64) + 8) + 24), *(*(a1 + 72) + 8) + 48);
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -5250,169 +5479,164 @@ void __233__MTLCompiler_computeVariantEntryWithDescriptor_airDescriptor_options_
 
 void __191__MTLCompiler_pipelineStateWithVariant_descriptor_options_computeProgram_kernelDriverCompileTimeData_serializedComputeDataDescriptor_compileTimeStatistics_reflection_error_completionHandler___block_invoke(uint64_t a1)
 {
-  v35[16] = *MEMORY[0x1E69E9840];
+  v32[16] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 88);
   v3 = v2[6];
   if (v3)
   {
-    v30 = 0;
-    *(*(*(a1 + 72) + 8) + 40) = [*(*(a1 + 32) + 8) newComputePipelineWithDescriptor:*(a1 + 40) variant:v3 errorMessage:&v30];
-    if (*(*(*(a1 + 72) + 8) + 40))
+    v27 = 0;
+    *(*(*(a1 + 72) + 8) + 40) = [*(*(a1 + 32) + 8) newComputePipelineWithDescriptor:*(a1 + 40) variant:v3 errorMessage:&v27];
+    if (!*(*(*(a1 + 72) + 8) + 40))
     {
-      if (*(a1 + 104))
+      reportErrorMessage(2, v27, *(a1 + 64), *(a1 + 96));
+      return;
+    }
+
+    if (!*(a1 + 104))
+    {
+      if (*(a1 + 132) != 1)
       {
-        v4 = [*(*(a1 + 32) + 8) pipelineFlagsWithComputeVariant:v3];
-        if (*(a1 + 128))
-        {
-          v5 = [*(*(a1 + 112) + 432) objectForKey:&stru_1EF478240];
-        }
-
-        else
-        {
-          v5 = 0;
-        }
-
-        v11 = [[MTLComputePipelineReflection alloc] initWithSerializedData:v5 serializedStageInputDescriptor:*(a1 + 48) device:*(*(a1 + 32) + 8) options:*(a1 + 104) flags:v4];
-        v12 = *(a1 + 104);
-        if ((v12 & 0x440000) != 0)
-        {
-          v13 = [*(*(a1 + 32) + 8) pipelinePerformanceStatisticsWithComputeVariant:v3 compileTimeOutput:*(*(*(a1 + 80) + 8) + 40)];
-          v14 = *(*(*(a1 + 80) + 8) + 40);
-          if (v14)
-          {
-            dispatch_release(v14);
-            *(*(*(a1 + 80) + 8) + 40) = 0;
-          }
-
-          if ((*(a1 + 106) & 0x40) != 0)
-          {
-            v15 = *(a1 + 56);
-            if (([objc_msgSend(v15 objectForKey:{MTLCompileTimeStatisticsKeyCachedFunction[0]), "BOOLValue"}] & 1) == 0)
-            {
-              v16 = [v13 objectForKey:MTLPipelinePerformanceKeyCompileTimeStatistics[0]];
-              *v31 = 0u;
-              v32 = 0u;
-              v33 = 0u;
-              v34 = 0u;
-              v17 = [v16 countByEnumeratingWithState:v31 objects:v35 count:16];
-              if (v17)
-              {
-                v18 = v17;
-                v19 = *v32;
-                do
-                {
-                  for (i = 0; i != v18; ++i)
-                  {
-                    if (*v32 != v19)
-                    {
-                      objc_enumerationMutation(v16);
-                    }
-
-                    [v15 setObject:objc_msgSend(v16 forKey:{"objectForKey:", *(v31[1] + i)), *(v31[1] + i)}];
-                  }
-
-                  v18 = [v16 countByEnumeratingWithState:v31 objects:v35 count:16];
-                }
-
-                while (v18);
-              }
-            }
-          }
-
-          [(MTLComputePipelineReflection *)v11 setPerformanceStatistics:v13];
-          v12 = *(a1 + 104);
-        }
-
-        if ((v12 & 0x200000) != 0)
-        {
-          v35[0] = 0;
-          v31[0] = 0;
-          v29 = 0;
-          v28 = 0;
-          [*(*(a1 + 32) + 8) getConstantSamplersBitmasks:v35 uniqueIdentifiers:v31 constantSamplerCount:&v29 stride:&v28 forComputeVariant:v3];
-          if (v29)
-          {
-            [(MTLComputePipelineReflection *)v11 setConstantSamplerDescriptorsFromBitmasks:v35[0] stride:v28 count:?];
-            v21 = objc_alloc(MEMORY[0x1E695DF70]);
-            v22 = [v21 initWithCapacity:v29];
-            if (v29)
-            {
-              for (j = 0; j < v29; ++j)
-              {
-                [v22 setObject:objc_msgSend(MEMORY[0x1E696AD98] atIndexedSubscript:{"numberWithUnsignedLongLong:", *(v31[0] + j)), j}];
-              }
-            }
-
-            [(MTLComputePipelineReflection *)v11 setConstantSamplerUniqueIdentifiers:v22];
-          }
-
-          free(v35[0]);
-          free(v31[0]);
-          v12 = *(a1 + 104);
-        }
-
-        if ((v12 & 0x1000000) != 0)
-        {
-          v24 = [[MTLDebugInstrumentationData alloc] initWithData:*(*(a1 + 88) + 72)];
-          [*(*(*(a1 + 72) + 8) + 40) setDebugInstrumentationData:v24];
-        }
-
-        if ((*(a1 + 132) & 1) == 0)
-        {
-          if (!v11)
-          {
-            goto LABEL_38;
-          }
-
-          if (*(a1 + 120))
-          {
-            v27 = v11;
-            **(a1 + 120) = v11;
-            goto LABEL_38;
-          }
-
-          goto LABEL_37;
-        }
-
-LABEL_36:
-        v25 = *(*(*(a1 + 72) + 8) + 40);
-        (*(*(a1 + 64) + 16))();
-
-        *(*(*(a1 + 72) + 8) + 40) = 0;
-LABEL_37:
-
-        goto LABEL_38;
+        return;
       }
 
-      if (*(a1 + 132) == 1)
-      {
-        v11 = 0;
-        goto LABEL_36;
-      }
+      v10 = 0;
+      goto LABEL_36;
+    }
+
+    v4 = [*(*(a1 + 32) + 8) pipelineFlagsWithComputeVariant:v3];
+    if (*(a1 + 128))
+    {
+      v5 = [*(*(a1 + 112) + 432) objectForKey:&stru_1EF478240];
     }
 
     else
     {
-      reportErrorMessage(2, v30, *(a1 + 64), *(a1 + 96));
+      v5 = 0;
     }
 
-LABEL_38:
-    v26 = *MEMORY[0x1E69E9840];
-    return;
+    v10 = [[MTLComputePipelineReflection alloc] initWithSerializedData:v5 serializedStageInputDescriptor:*(a1 + 48) device:*(*(a1 + 32) + 8) options:*(a1 + 104) flags:v4];
+    v11 = *(a1 + 104);
+    if ((v11 & 0x440000) != 0)
+    {
+      v12 = [*(*(a1 + 32) + 8) pipelinePerformanceStatisticsWithComputeVariant:v3 compileTimeOutput:*(*(*(a1 + 80) + 8) + 40)];
+      v13 = *(*(*(a1 + 80) + 8) + 40);
+      if (v13)
+      {
+        dispatch_release(v13);
+        *(*(*(a1 + 80) + 8) + 40) = 0;
+      }
+
+      if ((*(a1 + 106) & 0x40) != 0)
+      {
+        v14 = *(a1 + 56);
+        if (([objc_msgSend(v14 objectForKey:{MTLCompileTimeStatisticsKeyCachedFunction[0]), "BOOLValue"}] & 1) == 0)
+        {
+          v15 = [v12 objectForKey:MTLPipelinePerformanceKeyCompileTimeStatistics[0]];
+          *v28 = 0u;
+          v29 = 0u;
+          v30 = 0u;
+          v31 = 0u;
+          v16 = [v15 countByEnumeratingWithState:v28 objects:v32 count:16];
+          if (v16)
+          {
+            v17 = v16;
+            v18 = *v29;
+            do
+            {
+              for (i = 0; i != v17; ++i)
+              {
+                if (*v29 != v18)
+                {
+                  objc_enumerationMutation(v15);
+                }
+
+                [v14 setObject:objc_msgSend(v15 forKey:{"objectForKey:", *(v28[1] + i)), *(v28[1] + i)}];
+              }
+
+              v17 = [v15 countByEnumeratingWithState:v28 objects:v32 count:16];
+            }
+
+            while (v17);
+          }
+        }
+      }
+
+      [(MTLComputePipelineReflection *)v10 setPerformanceStatistics:v12];
+      v11 = *(a1 + 104);
+    }
+
+    if ((v11 & 0x200000) != 0)
+    {
+      v32[0] = 0;
+      v28[0] = 0;
+      v26 = 0;
+      v25 = 0;
+      [*(*(a1 + 32) + 8) getConstantSamplersBitmasks:v32 uniqueIdentifiers:v28 constantSamplerCount:&v26 stride:&v25 forComputeVariant:v3];
+      if (v26)
+      {
+        [(MTLComputePipelineReflection *)v10 setConstantSamplerDescriptorsFromBitmasks:v32[0] stride:v25 count:?];
+        v20 = objc_alloc(MEMORY[0x1E695DF70]);
+        v21 = [v20 initWithCapacity:v26];
+        if (v26)
+        {
+          for (j = 0; j < v26; ++j)
+          {
+            [v21 setObject:objc_msgSend(MEMORY[0x1E696AD98] atIndexedSubscript:{"numberWithUnsignedLongLong:", *(v28[0] + j)), j}];
+          }
+        }
+
+        [(MTLComputePipelineReflection *)v10 setConstantSamplerUniqueIdentifiers:v21];
+      }
+
+      free(v32[0]);
+      free(v28[0]);
+      v11 = *(a1 + 104);
+    }
+
+    if ((v11 & 0x1000000) != 0)
+    {
+      v23 = [[MTLDebugInstrumentationData alloc] initWithData:*(*(a1 + 88) + 72)];
+      [*(*(*(a1 + 72) + 8) + 40) setDebugInstrumentationData:v23];
+    }
+
+    if (*(a1 + 132))
+    {
+LABEL_36:
+      (*(*(a1 + 64) + 16))();
+
+      *(*(*(a1 + 72) + 8) + 40) = 0;
+LABEL_37:
+
+      return;
+    }
+
+    if (v10)
+    {
+      if (*(a1 + 120))
+      {
+        v24 = v10;
+        **(a1 + 120) = v10;
+        return;
+      }
+
+      goto LABEL_37;
+    }
   }
 
-  v6 = v2[7];
-  v7 = v2[8];
-  v8 = *(a1 + 64);
-  v9 = *(a1 + 96);
-  v10 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v6 = v2[7];
+    v7 = v2[8];
+    v8 = *(a1 + 64);
+    v9 = *(a1 + 96);
 
-  reportErrorMessage(v6, v7, v8, v9);
+    reportErrorMessage(v6, v7, v8, v9);
+  }
 }
 
 - (id)newComputePipelineStateWithDescriptorInternal:(id)internal options:(unint64_t)options pipelineCache:(id)cache destinationBinaryArchive:(id)archive reflection:(id *)reflection error:(id *)error compilerTask:(id)task completionHandler:(id)self0
 {
-  v16 = _MTLCompilePerformanceStatisticsEnabled();
+  v16 = _MTLCompilePerformanceStatisticsEnabled(self, a2);
   if (v16)
   {
     optionsCopy = options | 0x400000;
@@ -5765,27 +5989,22 @@ void *__156__MTLCompiler_newComputePipelineStateWithDescriptorInternal_options_p
 void __210__MTLCompiler_tileVariantEntryWithDescriptor_airDescriptor_options_serializedTileDataDescriptor_asyncCompile_destinationBinaryArchive_tileProgram_kernelDriverCompileTimeData_compileTimeStatistics_compilerTask___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = *(*(a1 + 72) + 8);
-  v5 = *(*(*(a1 + 80) + 8) + 24);
-  v6 = *(a1 + 96);
-  v7 = *(a1 + 48);
-  v8 = [*(a1 + 56) binaryArchives];
+  v3 = [*(a1 + 56) binaryArchives];
   if (v2)
   {
-    [v2 requiredKeysForFunction:v3 variantKey:v4 + 48 frameworkData:v7 compilerOptions:v5 driverCompilerOptions:0 airScript:v6 archives:v8 compiledNextStageVariant:0];
+    objc_msgSend_requiredKeysForFunction_variantKey_frameworkData_compilerOptions_driverCompilerOptions_airScript_archives_compiledNextStageVariant_(v2, v3, 0);
   }
 
   else
   {
-    memset(&v9, 0, sizeof(v9));
+    memset(&v4, 0, sizeof(v4));
   }
 
-  *(*(*(a1 + 88) + 8) + 24) = [*(a1 + 32) getProgramObject:*(a1 + 40) destinationArchive:*(a1 + 64) sourceBinaryArchives:objc_msgSend(*(a1 + 56) variantKey:"binaryArchives") requiredKeys:*(*(a1 + 72) + 8) + 48 failOnMiss:{&v9, *(a1 + 104)}];
-  RequiredFunctionKeys::~RequiredFunctionKeys(&v9);
+  *(*(*(a1 + 88) + 8) + 24) = [*(a1 + 32) getProgramObject:*(a1 + 40) destinationArchive:*(a1 + 64) sourceBinaryArchives:objc_msgSend(*(a1 + 56) variantKey:"binaryArchives") requiredKeys:*(*(a1 + 72) + 8) + 48 failOnMiss:{&v4, *(a1 + 104)}];
+  RequiredFunctionKeys::~RequiredFunctionKeys(&v4);
 }
 
-void *__210__MTLCompiler_tileVariantEntryWithDescriptor_airDescriptor_options_serializedTileDataDescriptor_asyncCompile_destinationBinaryArchive_tileProgram_kernelDriverCompileTimeData_compileTimeStatistics_compilerTask___block_invoke_2(uint64_t a1)
+dispatch_queue_t __210__MTLCompiler_tileVariantEntryWithDescriptor_airDescriptor_options_serializedTileDataDescriptor_asyncCompile_destinationBinaryArchive_tileProgram_kernelDriverCompileTimeData_compileTimeStatistics_compilerTask___block_invoke_2(uint64_t a1)
 {
   result = VariantList<4u>::find<VariantKey>(*(*(*(a1 + 64) + 8) + 24), *(*(a1 + 72) + 8) + 48);
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -6062,11 +6281,11 @@ void __208__MTLCompiler_renderPipelineStateWithTileVariant_descriptor_options_ti
   v3 = v2[6];
   if (v3)
   {
-    v24 = 0;
-    *(*(*(a1 + 64) + 8) + 40) = [*(*(a1 + 32) + 8) newRenderPipelineWithTileDescriptor:*(a1 + 40) tileVariant:v3 errorMessage:&v24];
+    v23 = 0;
+    *(*(*(a1 + 64) + 8) + 40) = [*(*(a1 + 32) + 8) newRenderPipelineWithTileDescriptor:*(a1 + 40) tileVariant:v3 errorMessage:&v23];
     if (!*(*(*(a1 + 64) + 8) + 40))
     {
-      reportErrorMessage(2, v24, *(a1 + 56), *(a1 + 88));
+      reportErrorMessage(2, v23, *(a1 + 56), *(a1 + 88));
       return;
     }
 
@@ -6115,29 +6334,29 @@ void __208__MTLCompiler_renderPipelineStateWithTileVariant_descriptor_options_ti
 
     if ((v11 & 0x200000) != 0)
     {
-      v22 = 0;
-      v23 = 0;
       v21 = 0;
+      v22 = 0;
       v20 = 0;
-      [*(*(a1 + 32) + 8) getConstantSamplersBitmasks:&v23 uniqueIdentifiers:&v22 constantSamplerCount:&v21 stride:&v20 forTileVariant:v3];
-      if (v21)
+      v19 = 0;
+      [*(*(a1 + 32) + 8) getConstantSamplersBitmasks:&v22 uniqueIdentifiers:&v21 constantSamplerCount:&v20 stride:&v19 forTileVariant:v3];
+      if (v20)
       {
-        [(MTLRenderPipelineReflectionInternal *)v10 setConstantSamplerDescriptorsFromBitmasks:v23 stride:v20 count:?];
+        [(MTLRenderPipelineReflectionInternal *)v10 setConstantSamplerDescriptorsFromBitmasks:v22 stride:v19 count:?];
         v14 = objc_alloc(MEMORY[0x1E695DF70]);
-        v15 = [v14 initWithCapacity:v21];
-        if (v21)
+        v15 = [v14 initWithCapacity:v20];
+        if (v20)
         {
-          for (i = 0; i < v21; ++i)
+          for (i = 0; i < v20; ++i)
           {
-            [v15 setObject:objc_msgSend(MEMORY[0x1E696AD98] atIndexedSubscript:{"numberWithUnsignedLongLong:", *(v22 + i)), i}];
+            [v15 setObject:objc_msgSend(MEMORY[0x1E696AD98] atIndexedSubscript:{"numberWithUnsignedLongLong:", *(v21 + i)), i}];
           }
         }
 
         [(MTLRenderPipelineReflectionInternal *)v10 setConstantSamplerUniqueIdentifiers:v15];
       }
 
-      free(v23);
       free(v22);
+      free(v21);
       v11 = *(a1 + 96);
     }
 
@@ -6150,7 +6369,6 @@ void __208__MTLCompiler_renderPipelineStateWithTileVariant_descriptor_options_ti
     if (*(a1 + 132))
     {
 LABEL_29:
-      v18 = *(*(*(a1 + 64) + 8) + 40);
       (*(*(a1 + 56) + 16))();
 
       *(*(*(a1 + 64) + 8) + 40) = 0;
@@ -6163,7 +6381,7 @@ LABEL_30:
     {
       if (*(a1 + 120))
       {
-        v19 = v10;
+        v18 = v10;
         **(a1 + 120) = v10;
         return;
       }
@@ -6185,7 +6403,7 @@ LABEL_30:
 
 - (id)newRenderPipelineStateWithTileDescriptorInternal:(id)internal options:(unint64_t)options reflection:(id *)reflection destinationBinaryArchive:(id)archive error:(id *)error compilerTask:(id)task completionHandler:(id)handler
 {
-  v16 = _MTLCompilePerformanceStatisticsEnabled();
+  v16 = _MTLCompilePerformanceStatisticsEnabled(self, a2);
   if (v16)
   {
     optionsCopy = options | 0x400000;

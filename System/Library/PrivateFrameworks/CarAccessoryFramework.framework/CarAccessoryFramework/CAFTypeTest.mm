@@ -154,6 +154,7 @@
 - (unsigned)testUInt16;
 - (unsigned)testUInt32;
 - (unsigned)testUInt8;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)setTestArrayBool:(id)bool;
 - (void)setTestArrayData:(id)data;
@@ -167,6 +168,7 @@
 - (void)setTestArrayUInt32:(id)int32;
 - (void)setTestArrayUInt64:(id)int64;
 - (void)setTestArrayUInt8:(id)int8;
+- (void)setTestBool:(BOOL)bool;
 - (void)setTestComplexArrayItemValue:(id)value;
 - (void)setTestComplexItem:(id)item;
 - (void)setTestComplexItemList:(id)list;
@@ -177,10 +179,18 @@
 - (void)setTestComplexNestedListItemValue:(id)value;
 - (void)setTestData:(id)data;
 - (void)setTestDimensionUnit:(id)unit;
+- (void)setTestDimensionUnitRawValue:(unsigned __int16)value;
+- (void)setTestEnum:(unsigned __int8)enum;
 - (void)setTestFloat:(float)float;
+- (void)setTestInt16:(signed __int16)int16;
+- (void)setTestInt32:(int)int32;
 - (void)setTestInt64:(int64_t)int64;
+- (void)setTestInt8:(char)int8;
 - (void)setTestString:(id)string;
+- (void)setTestUInt16:(unsigned __int16)int16;
+- (void)setTestUInt32:(unsigned int)int32;
 - (void)setTestUInt64:(unint64_t)int64;
+- (void)setTestUInt8:(unsigned __int8)int8;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -263,6 +273,13 @@
   return bOOLValue;
 }
 
+- (void)setTestBool:(BOOL)bool
+{
+  boolCopy = bool;
+  testBoolCharacteristic = [(CAFTypeTest *)self testBoolCharacteristic];
+  [testBoolCharacteristic setBoolValue:boolCopy];
+}
+
 - (BOOL)hasTestBool
 {
   testBoolCharacteristic = [(CAFTypeTest *)self testBoolCharacteristic];
@@ -303,6 +320,13 @@
   uint8Value = [testUInt8Characteristic uint8Value];
 
   return uint8Value;
+}
+
+- (void)setTestUInt8:(unsigned __int8)int8
+{
+  int8Copy = int8;
+  testUInt8Characteristic = [(CAFTypeTest *)self testUInt8Characteristic];
+  [testUInt8Characteristic setUint8Value:int8Copy];
 }
 
 - (CAFUInt8Range)testUInt8Range
@@ -355,6 +379,13 @@
   return uint16Value;
 }
 
+- (void)setTestUInt16:(unsigned __int16)int16
+{
+  int16Copy = int16;
+  testUInt16Characteristic = [(CAFTypeTest *)self testUInt16Characteristic];
+  [testUInt16Characteristic setUint16Value:int16Copy];
+}
+
 - (CAFUInt16Range)testUInt16Range
 {
   testUInt16Characteristic = [(CAFTypeTest *)self testUInt16Characteristic];
@@ -403,6 +434,13 @@
   uint32Value = [testUInt32Characteristic uint32Value];
 
   return uint32Value;
+}
+
+- (void)setTestUInt32:(unsigned int)int32
+{
+  v3 = *&int32;
+  testUInt32Characteristic = [(CAFTypeTest *)self testUInt32Characteristic];
+  [testUInt32Characteristic setUint32Value:v3];
 }
 
 - (CAFUInt32Range)testUInt32Range
@@ -511,6 +549,13 @@
   return int8Value;
 }
 
+- (void)setTestInt8:(char)int8
+{
+  int8Copy = int8;
+  testInt8Characteristic = [(CAFTypeTest *)self testInt8Characteristic];
+  [testInt8Characteristic setInt8Value:int8Copy];
+}
+
 - (CAFInt8Range)testInt8Range
 {
   testInt8Characteristic = [(CAFTypeTest *)self testInt8Characteristic];
@@ -561,6 +606,13 @@
   return int16Value;
 }
 
+- (void)setTestInt16:(signed __int16)int16
+{
+  int16Copy = int16;
+  testInt16Characteristic = [(CAFTypeTest *)self testInt16Characteristic];
+  [testInt16Characteristic setInt16Value:int16Copy];
+}
+
 - (CAFInt16Range)testInt16Range
 {
   testInt16Characteristic = [(CAFTypeTest *)self testInt16Characteristic];
@@ -609,6 +661,13 @@
   int32Value = [testInt32Characteristic int32Value];
 
   return int32Value;
+}
+
+- (void)setTestInt32:(int)int32
+{
+  v3 = *&int32;
+  testInt32Characteristic = [(CAFTypeTest *)self testInt32Characteristic];
+  [testInt32Characteristic setInt32Value:v3];
 }
 
 - (CAFInt32Range)testInt32Range
@@ -915,6 +974,13 @@
   return buttonActionValue;
 }
 
+- (void)setTestEnum:(unsigned __int8)enum
+{
+  enumCopy = enum;
+  testEnumCharacteristic = [(CAFTypeTest *)self testEnumCharacteristic];
+  [testEnumCharacteristic setButtonActionValue:enumCopy];
+}
+
 - (BOOL)hasTestEnum
 {
   testEnumCharacteristic = [(CAFTypeTest *)self testEnumCharacteristic];
@@ -955,6 +1021,13 @@
   unitTypeValue = [testDimensionUnitRawValueCharacteristic unitTypeValue];
 
   return unitTypeValue;
+}
+
+- (void)setTestDimensionUnitRawValue:(unsigned __int16)value
+{
+  valueCopy = value;
+  testDimensionUnitRawValueCharacteristic = [(CAFTypeTest *)self testDimensionUnitRawValueCharacteristic];
+  [testDimensionUnitRawValueCharacteristic setUnitTypeValue:valueCopy];
 }
 
 - (NSUnitSpeed)testDimensionUnit
@@ -2010,6 +2083,763 @@
   v3 = testComplexNestedListItemValueCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x00000000FF000001"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    testBoolCharacteristic = [(CAFTypeTest *)self testBoolCharacteristic];
+    uniqueIdentifier2 = [testBoolCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers typeTestService:self didUpdateTestBool:{-[CAFTypeTest testBool](self, "testBool")}];
+LABEL_145:
+
+      goto LABEL_146;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x00000000FF000002"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    testUInt8Characteristic = [(CAFTypeTest *)self testUInt8Characteristic];
+    uniqueIdentifier4 = [testUInt8Characteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      [observers typeTestService:self didUpdateTestUInt8:{-[CAFTypeTest testUInt8](self, "testUInt8")}];
+      goto LABEL_145;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x00000000FF000003"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    testUInt16Characteristic = [(CAFTypeTest *)self testUInt16Characteristic];
+    uniqueIdentifier6 = [testUInt16Characteristic uniqueIdentifier];
+    v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v22)
+    {
+      observers = [(CAFService *)self observers];
+      [observers typeTestService:self didUpdateTestUInt16:{-[CAFTypeTest testUInt16](self, "testUInt16")}];
+      goto LABEL_145;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x00000000FF000004"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    testUInt32Characteristic = [(CAFTypeTest *)self testUInt32Characteristic];
+    uniqueIdentifier8 = [testUInt32Characteristic uniqueIdentifier];
+    v27 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v27)
+    {
+      observers = [(CAFService *)self observers];
+      [observers typeTestService:self didUpdateTestUInt32:{-[CAFTypeTest testUInt32](self, "testUInt32")}];
+      goto LABEL_145;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType5 = [updateCopy characteristicType];
+  if ([characteristicType5 isEqual:@"0x00000000FF000005"])
+  {
+    uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+    testUInt64Characteristic = [(CAFTypeTest *)self testUInt64Characteristic];
+    uniqueIdentifier10 = [testUInt64Characteristic uniqueIdentifier];
+    v32 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+    if (v32)
+    {
+      observers = [(CAFService *)self observers];
+      [observers typeTestService:self didUpdateTestUInt64:{-[CAFTypeTest testUInt64](self, "testUInt64")}];
+      goto LABEL_145;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType6 = [updateCopy characteristicType];
+  if ([characteristicType6 isEqual:@"0x00000000FF000006"])
+  {
+    uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+    testInt8Characteristic = [(CAFTypeTest *)self testInt8Characteristic];
+    uniqueIdentifier12 = [testInt8Characteristic uniqueIdentifier];
+    v37 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+    if (v37)
+    {
+      observers = [(CAFService *)self observers];
+      [observers typeTestService:self didUpdateTestInt8:{-[CAFTypeTest testInt8](self, "testInt8")}];
+      goto LABEL_145;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType7 = [updateCopy characteristicType];
+  if ([characteristicType7 isEqual:@"0x00000000FF000007"])
+  {
+    uniqueIdentifier13 = [updateCopy uniqueIdentifier];
+    testInt16Characteristic = [(CAFTypeTest *)self testInt16Characteristic];
+    uniqueIdentifier14 = [testInt16Characteristic uniqueIdentifier];
+    v42 = [uniqueIdentifier13 isEqual:uniqueIdentifier14];
+
+    if (v42)
+    {
+      observers = [(CAFService *)self observers];
+      [observers typeTestService:self didUpdateTestInt16:{-[CAFTypeTest testInt16](self, "testInt16")}];
+      goto LABEL_145;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType8 = [updateCopy characteristicType];
+  if ([characteristicType8 isEqual:@"0x00000000FF000008"])
+  {
+    uniqueIdentifier15 = [updateCopy uniqueIdentifier];
+    testInt32Characteristic = [(CAFTypeTest *)self testInt32Characteristic];
+    uniqueIdentifier16 = [testInt32Characteristic uniqueIdentifier];
+    v47 = [uniqueIdentifier15 isEqual:uniqueIdentifier16];
+
+    if (v47)
+    {
+      observers = [(CAFService *)self observers];
+      [observers typeTestService:self didUpdateTestInt32:{-[CAFTypeTest testInt32](self, "testInt32")}];
+      goto LABEL_145;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType9 = [updateCopy characteristicType];
+  if ([characteristicType9 isEqual:@"0x00000000FF000009"])
+  {
+    uniqueIdentifier17 = [updateCopy uniqueIdentifier];
+    testInt64Characteristic = [(CAFTypeTest *)self testInt64Characteristic];
+    uniqueIdentifier18 = [testInt64Characteristic uniqueIdentifier];
+    v52 = [uniqueIdentifier17 isEqual:uniqueIdentifier18];
+
+    if (v52)
+    {
+      observers = [(CAFService *)self observers];
+      [observers typeTestService:self didUpdateTestInt64:{-[CAFTypeTest testInt64](self, "testInt64")}];
+      goto LABEL_145;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType10 = [updateCopy characteristicType];
+  if ([characteristicType10 isEqual:@"0x00000000FF00000A"])
+  {
+    uniqueIdentifier19 = [updateCopy uniqueIdentifier];
+    testFloatCharacteristic = [(CAFTypeTest *)self testFloatCharacteristic];
+    uniqueIdentifier20 = [testFloatCharacteristic uniqueIdentifier];
+    v57 = [uniqueIdentifier19 isEqual:uniqueIdentifier20];
+
+    if (v57)
+    {
+      observers = [(CAFService *)self observers];
+      [(CAFTypeTest *)self testFloat];
+      [observers typeTestService:self didUpdateTestFloat:?];
+      goto LABEL_145;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType11 = [updateCopy characteristicType];
+  if ([characteristicType11 isEqual:@"0x00000000FF00000B"])
+  {
+    uniqueIdentifier21 = [updateCopy uniqueIdentifier];
+    testStringCharacteristic = [(CAFTypeTest *)self testStringCharacteristic];
+    uniqueIdentifier22 = [testStringCharacteristic uniqueIdentifier];
+    v62 = [uniqueIdentifier21 isEqual:uniqueIdentifier22];
+
+    if (v62)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testString];
+      [observers typeTestService:self didUpdateTestString:testString];
+LABEL_144:
+
+      goto LABEL_145;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType12 = [updateCopy characteristicType];
+  if ([characteristicType12 isEqual:@"0x00000000FF00000C"])
+  {
+    uniqueIdentifier23 = [updateCopy uniqueIdentifier];
+    testDataCharacteristic = [(CAFTypeTest *)self testDataCharacteristic];
+    uniqueIdentifier24 = [testDataCharacteristic uniqueIdentifier];
+    v68 = [uniqueIdentifier23 isEqual:uniqueIdentifier24];
+
+    if (v68)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testData];
+      [observers typeTestService:self didUpdateTestData:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType13 = [updateCopy characteristicType];
+  if ([characteristicType13 isEqual:@"0x00000000FF00000D"])
+  {
+    uniqueIdentifier25 = [updateCopy uniqueIdentifier];
+    testRawDataCharacteristic = [(CAFTypeTest *)self testRawDataCharacteristic];
+    uniqueIdentifier26 = [testRawDataCharacteristic uniqueIdentifier];
+    v73 = [uniqueIdentifier25 isEqual:uniqueIdentifier26];
+
+    if (v73)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testRawData];
+      [observers typeTestService:self didUpdateTestRawData:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType14 = [updateCopy characteristicType];
+  if ([characteristicType14 isEqual:@"0x00000000FF00000E"])
+  {
+    uniqueIdentifier27 = [updateCopy uniqueIdentifier];
+    testEnumCharacteristic = [(CAFTypeTest *)self testEnumCharacteristic];
+    uniqueIdentifier28 = [testEnumCharacteristic uniqueIdentifier];
+    v78 = [uniqueIdentifier27 isEqual:uniqueIdentifier28];
+
+    if (v78)
+    {
+      observers = [(CAFService *)self observers];
+      [observers typeTestService:self didUpdateTestEnum:{-[CAFTypeTest testEnum](self, "testEnum")}];
+      goto LABEL_145;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType15 = [updateCopy characteristicType];
+  if ([characteristicType15 isEqual:@"0x00000000FF00000F"])
+  {
+    uniqueIdentifier29 = [updateCopy uniqueIdentifier];
+    testDimensionUnitRawValueCharacteristic = [(CAFTypeTest *)self testDimensionUnitRawValueCharacteristic];
+    uniqueIdentifier30 = [testDimensionUnitRawValueCharacteristic uniqueIdentifier];
+    v83 = [uniqueIdentifier29 isEqual:uniqueIdentifier30];
+
+    if (v83)
+    {
+      observers = [(CAFService *)self observers];
+      [observers typeTestService:self didUpdateTestDimensionUnitRawValue:{-[CAFTypeTest testDimensionUnitRawValue](self, "testDimensionUnitRawValue")}];
+      goto LABEL_145;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType16 = [updateCopy characteristicType];
+  if ([characteristicType16 isEqual:@"0x00000000FF000010"])
+  {
+    uniqueIdentifier31 = [updateCopy uniqueIdentifier];
+    testComplexItemCharacteristic = [(CAFTypeTest *)self testComplexItemCharacteristic];
+    uniqueIdentifier32 = [testComplexItemCharacteristic uniqueIdentifier];
+    v88 = [uniqueIdentifier31 isEqual:uniqueIdentifier32];
+
+    if (v88)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testComplexItem];
+      [observers typeTestService:self didUpdateTestComplexItem:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType17 = [updateCopy characteristicType];
+  if ([characteristicType17 isEqual:@"0x00000000FF000011"])
+  {
+    uniqueIdentifier33 = [updateCopy uniqueIdentifier];
+    testArrayBoolCharacteristic = [(CAFTypeTest *)self testArrayBoolCharacteristic];
+    uniqueIdentifier34 = [testArrayBoolCharacteristic uniqueIdentifier];
+    v93 = [uniqueIdentifier33 isEqual:uniqueIdentifier34];
+
+    if (v93)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testArrayBool];
+      [observers typeTestService:self didUpdateTestArrayBool:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType18 = [updateCopy characteristicType];
+  if ([characteristicType18 isEqual:@"0x00000000FF000012"])
+  {
+    uniqueIdentifier35 = [updateCopy uniqueIdentifier];
+    testArrayUInt8Characteristic = [(CAFTypeTest *)self testArrayUInt8Characteristic];
+    uniqueIdentifier36 = [testArrayUInt8Characteristic uniqueIdentifier];
+    v98 = [uniqueIdentifier35 isEqual:uniqueIdentifier36];
+
+    if (v98)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testArrayUInt8];
+      [observers typeTestService:self didUpdateTestArrayUInt8:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType19 = [updateCopy characteristicType];
+  if ([characteristicType19 isEqual:@"0x00000000FF000013"])
+  {
+    uniqueIdentifier37 = [updateCopy uniqueIdentifier];
+    testArrayUInt16Characteristic = [(CAFTypeTest *)self testArrayUInt16Characteristic];
+    uniqueIdentifier38 = [testArrayUInt16Characteristic uniqueIdentifier];
+    v103 = [uniqueIdentifier37 isEqual:uniqueIdentifier38];
+
+    if (v103)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testArrayUInt16];
+      [observers typeTestService:self didUpdateTestArrayUInt16:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType20 = [updateCopy characteristicType];
+  if ([characteristicType20 isEqual:@"0x00000000FF000014"])
+  {
+    uniqueIdentifier39 = [updateCopy uniqueIdentifier];
+    testArrayUInt32Characteristic = [(CAFTypeTest *)self testArrayUInt32Characteristic];
+    uniqueIdentifier40 = [testArrayUInt32Characteristic uniqueIdentifier];
+    v108 = [uniqueIdentifier39 isEqual:uniqueIdentifier40];
+
+    if (v108)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testArrayUInt32];
+      [observers typeTestService:self didUpdateTestArrayUInt32:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType21 = [updateCopy characteristicType];
+  if ([characteristicType21 isEqual:@"0x00000000FF000015"])
+  {
+    uniqueIdentifier41 = [updateCopy uniqueIdentifier];
+    testArrayUInt64Characteristic = [(CAFTypeTest *)self testArrayUInt64Characteristic];
+    uniqueIdentifier42 = [testArrayUInt64Characteristic uniqueIdentifier];
+    v113 = [uniqueIdentifier41 isEqual:uniqueIdentifier42];
+
+    if (v113)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testArrayUInt64];
+      [observers typeTestService:self didUpdateTestArrayUInt64:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType22 = [updateCopy characteristicType];
+  if ([characteristicType22 isEqual:@"0x00000000FF000016"])
+  {
+    uniqueIdentifier43 = [updateCopy uniqueIdentifier];
+    testArrayInt8Characteristic = [(CAFTypeTest *)self testArrayInt8Characteristic];
+    uniqueIdentifier44 = [testArrayInt8Characteristic uniqueIdentifier];
+    v118 = [uniqueIdentifier43 isEqual:uniqueIdentifier44];
+
+    if (v118)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testArrayInt8];
+      [observers typeTestService:self didUpdateTestArrayInt8:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType23 = [updateCopy characteristicType];
+  if ([characteristicType23 isEqual:@"0x00000000FF000017"])
+  {
+    uniqueIdentifier45 = [updateCopy uniqueIdentifier];
+    testArrayInt16Characteristic = [(CAFTypeTest *)self testArrayInt16Characteristic];
+    uniqueIdentifier46 = [testArrayInt16Characteristic uniqueIdentifier];
+    v123 = [uniqueIdentifier45 isEqual:uniqueIdentifier46];
+
+    if (v123)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testArrayInt16];
+      [observers typeTestService:self didUpdateTestArrayInt16:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType24 = [updateCopy characteristicType];
+  if ([characteristicType24 isEqual:@"0x00000000FF000018"])
+  {
+    uniqueIdentifier47 = [updateCopy uniqueIdentifier];
+    testArrayInt32Characteristic = [(CAFTypeTest *)self testArrayInt32Characteristic];
+    uniqueIdentifier48 = [testArrayInt32Characteristic uniqueIdentifier];
+    v128 = [uniqueIdentifier47 isEqual:uniqueIdentifier48];
+
+    if (v128)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testArrayInt32];
+      [observers typeTestService:self didUpdateTestArrayInt32:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType25 = [updateCopy characteristicType];
+  if ([characteristicType25 isEqual:@"0x00000000FF000019"])
+  {
+    uniqueIdentifier49 = [updateCopy uniqueIdentifier];
+    testArrayInt64Characteristic = [(CAFTypeTest *)self testArrayInt64Characteristic];
+    uniqueIdentifier50 = [testArrayInt64Characteristic uniqueIdentifier];
+    v133 = [uniqueIdentifier49 isEqual:uniqueIdentifier50];
+
+    if (v133)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testArrayInt64];
+      [observers typeTestService:self didUpdateTestArrayInt64:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType26 = [updateCopy characteristicType];
+  if ([characteristicType26 isEqual:@"0x00000000FF00001A"])
+  {
+    uniqueIdentifier51 = [updateCopy uniqueIdentifier];
+    testArrayFloatCharacteristic = [(CAFTypeTest *)self testArrayFloatCharacteristic];
+    uniqueIdentifier52 = [testArrayFloatCharacteristic uniqueIdentifier];
+    v138 = [uniqueIdentifier51 isEqual:uniqueIdentifier52];
+
+    if (v138)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testArrayFloat];
+      [observers typeTestService:self didUpdateTestArrayFloat:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType27 = [updateCopy characteristicType];
+  if ([characteristicType27 isEqual:@"0x00000000FF00001B"])
+  {
+    uniqueIdentifier53 = [updateCopy uniqueIdentifier];
+    testArrayStringCharacteristic = [(CAFTypeTest *)self testArrayStringCharacteristic];
+    uniqueIdentifier54 = [testArrayStringCharacteristic uniqueIdentifier];
+    v143 = [uniqueIdentifier53 isEqual:uniqueIdentifier54];
+
+    if (v143)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testArrayString];
+      [observers typeTestService:self didUpdateTestArrayString:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType28 = [updateCopy characteristicType];
+  if ([characteristicType28 isEqual:@"0x00000000FF00001C"])
+  {
+    uniqueIdentifier55 = [updateCopy uniqueIdentifier];
+    testArrayDataCharacteristic = [(CAFTypeTest *)self testArrayDataCharacteristic];
+    uniqueIdentifier56 = [testArrayDataCharacteristic uniqueIdentifier];
+    v148 = [uniqueIdentifier55 isEqual:uniqueIdentifier56];
+
+    if (v148)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testArrayData];
+      [observers typeTestService:self didUpdateTestArrayData:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType29 = [updateCopy characteristicType];
+  if ([characteristicType29 isEqual:@"0x00000000FF00001D"])
+  {
+    uniqueIdentifier57 = [updateCopy uniqueIdentifier];
+    testArrayRawDataCharacteristic = [(CAFTypeTest *)self testArrayRawDataCharacteristic];
+    uniqueIdentifier58 = [testArrayRawDataCharacteristic uniqueIdentifier];
+    v153 = [uniqueIdentifier57 isEqual:uniqueIdentifier58];
+
+    if (v153)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testArrayRawData];
+      [observers typeTestService:self didUpdateTestArrayRawData:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType30 = [updateCopy characteristicType];
+  if ([characteristicType30 isEqual:@"0x00000000FF000020"])
+  {
+    uniqueIdentifier59 = [updateCopy uniqueIdentifier];
+    testComplexItemsCharacteristic = [(CAFTypeTest *)self testComplexItemsCharacteristic];
+    uniqueIdentifier60 = [testComplexItemsCharacteristic uniqueIdentifier];
+    v158 = [uniqueIdentifier59 isEqual:uniqueIdentifier60];
+
+    if (v158)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testComplexItems];
+      [observers typeTestService:self didUpdateTestComplexItems:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType31 = [updateCopy characteristicType];
+  if ([characteristicType31 isEqual:@"0x00000000FF000021"])
+  {
+    uniqueIdentifier61 = [updateCopy uniqueIdentifier];
+    testComplexItemValueCharacteristic = [(CAFTypeTest *)self testComplexItemValueCharacteristic];
+    uniqueIdentifier62 = [testComplexItemValueCharacteristic uniqueIdentifier];
+    v163 = [uniqueIdentifier61 isEqual:uniqueIdentifier62];
+
+    if (v163)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testComplexItemValue];
+      [observers typeTestService:self didUpdateTestComplexItemValue:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType32 = [updateCopy characteristicType];
+  if ([characteristicType32 isEqual:@"0x00000000FF000022"])
+  {
+    uniqueIdentifier63 = [updateCopy uniqueIdentifier];
+    testComplexItemListCharacteristic = [(CAFTypeTest *)self testComplexItemListCharacteristic];
+    uniqueIdentifier64 = [testComplexItemListCharacteristic uniqueIdentifier];
+    v168 = [uniqueIdentifier63 isEqual:uniqueIdentifier64];
+
+    if (v168)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testComplexItemList];
+      [observers typeTestService:self didUpdateTestComplexItemList:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType33 = [updateCopy characteristicType];
+  if ([characteristicType33 isEqual:@"0x00000000FF000024"])
+  {
+    uniqueIdentifier65 = [updateCopy uniqueIdentifier];
+    testComplexArrayItemValueCharacteristic = [(CAFTypeTest *)self testComplexArrayItemValueCharacteristic];
+    uniqueIdentifier66 = [testComplexArrayItemValueCharacteristic uniqueIdentifier];
+    v173 = [uniqueIdentifier65 isEqual:uniqueIdentifier66];
+
+    if (v173)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testComplexArrayItemValue];
+      [observers typeTestService:self didUpdateTestComplexArrayItemValue:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType34 = [updateCopy characteristicType];
+  if ([characteristicType34 isEqual:@"0x00000000FF000025"])
+  {
+    uniqueIdentifier67 = [updateCopy uniqueIdentifier];
+    testComplexNestedItemValueCharacteristic = [(CAFTypeTest *)self testComplexNestedItemValueCharacteristic];
+    uniqueIdentifier68 = [testComplexNestedItemValueCharacteristic uniqueIdentifier];
+    v178 = [uniqueIdentifier67 isEqual:uniqueIdentifier68];
+
+    if (v178)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testComplexNestedItemValue];
+      [observers typeTestService:self didUpdateTestComplexNestedItemValue:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType35 = [updateCopy characteristicType];
+  if ([characteristicType35 isEqual:@"0x00000000FF000026"])
+  {
+    uniqueIdentifier69 = [updateCopy uniqueIdentifier];
+    testComplexNestedItemListCharacteristic = [(CAFTypeTest *)self testComplexNestedItemListCharacteristic];
+    uniqueIdentifier70 = [testComplexNestedItemListCharacteristic uniqueIdentifier];
+    v183 = [uniqueIdentifier69 isEqual:uniqueIdentifier70];
+
+    if (v183)
+    {
+      observers = [(CAFService *)self observers];
+      testString = [(CAFTypeTest *)self testComplexNestedItemList];
+      [observers typeTestService:self didUpdateTestComplexNestedItemList:testString];
+      goto LABEL_144;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x00000000FF000027"])
+  {
+    goto LABEL_145;
+  }
+
+  uniqueIdentifier71 = [updateCopy uniqueIdentifier];
+  testComplexNestedListItemValueCharacteristic = [(CAFTypeTest *)self testComplexNestedListItemValueCharacteristic];
+  uniqueIdentifier72 = [testComplexNestedListItemValueCharacteristic uniqueIdentifier];
+  v187 = [uniqueIdentifier71 isEqual:uniqueIdentifier72];
+
+  if (v187)
+  {
+    observers = [(CAFService *)self observers];
+    testString = [(CAFTypeTest *)self testComplexNestedListItemValue];
+    [observers typeTestService:self didUpdateTestComplexNestedListItemValue:testString];
+    goto LABEL_144;
+  }
+
+LABEL_146:
+  v188.receiver = self;
+  v188.super_class = CAFTypeTest;
+  [(CAFService *)&v188 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForTestBool

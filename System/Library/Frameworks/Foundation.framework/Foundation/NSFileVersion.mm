@@ -54,7 +54,7 @@
 + (id)keyPathsForValuesAffectingValueForKey:(id)key
 {
   v8 = *MEMORY[0x1E69E9840];
-  if ([key isEqualToString:@"hasThumbnail"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"hasThumbnail"))
   {
     v5 = MEMORY[0x1E695DFD8];
 
@@ -418,7 +418,7 @@
 
 - (BOOL)isConflict
 {
-  if ([-[GSAddition nameSpace](self->_addition "nameSpace")] & 1) != 0 || (objc_msgSend(-[GSAddition nameSpace](self->_addition, "nameSpace"), "isEqualToString:", @"com.apple.FileProvider.conflict"))
+  if (objc_msgSend_isEqualToString_([(GSAddition *)self->_addition nameSpace]) & 1) != 0 || (objc_msgSend_isEqualToString_([(GSAddition *)self->_addition nameSpace]))
   {
     return 1;
   }
@@ -436,7 +436,7 @@
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"-[NSFileVersion setResolved:]: You can't make a conflict version unresolved once it's been resolved." userInfo:0]);
   }
 
-  if (([-[GSAddition nameSpace](self->_addition "nameSpace")] & 1) != 0 || objc_msgSend(-[GSAddition nameSpace](self->_addition, "nameSpace"), "isEqualToString:", @"com.apple.FileProvider.conflict"))
+  if ((objc_msgSend_isEqualToString_([(GSAddition *)self->_addition nameSpace]) & 1) != 0 || objc_msgSend_isEqualToString_([(GSAddition *)self->_addition nameSpace]))
   {
     if (qword_1ED440208 != -1)
     {
@@ -629,7 +629,7 @@ LABEL_23:
     goto LABEL_21;
   }
 
-  if (([-[GSAddition nameSpace](addition "nameSpace")] & 1) != 0 || objc_msgSend(-[GSAddition nameSpace](self->_addition, "nameSpace"), "isEqualToString:", @"com.apple.FileProvider.conflict"))
+  if ((objc_msgSend_isEqualToString_([(GSAddition *)addition nameSpace]) & 1) != 0 || objc_msgSend_isEqualToString_([(GSAddition *)self->_addition nameSpace]))
   {
     if (qword_1ED440208 != -1)
     {
@@ -1062,13 +1062,7 @@ uint64_t __91__NSFileVersion_NSPrivate__getNonlocalVersionsOfItemFromFPAtURL_opt
 
 + (BOOL)_isTemporaryStorageRequiredForGSError:(id)error andURL:(id)l
 {
-  if (!error)
-  {
-    return 1;
-  }
-
-  domain = [error domain];
-  if (![domain isEqualToString:_MergedGlobals_149] || objc_msgSend(error, "code") == 5 || objc_msgSend(error, "code") != 2)
+  if (!error || !objc_msgSend_isEqualToString_([error domain]) || objc_msgSend(error, "code") == 5 || objc_msgSend(error, "code") != 2)
   {
     return 1;
   }
@@ -1157,7 +1151,7 @@ uint64_t __91__NSFileVersion_NSPrivate__getNonlocalVersionsOfItemFromFPAtURL_opt
   v18 = *MEMORY[0x1E69E9840];
   v13 = 0;
   v12 = 0;
-  if (identifier && [*identifier isEqualToString:@"com.apple.NSFileVersionTestTempID"])
+  if (identifier && objc_msgSend_isEqualToString_(*identifier, a2, @"com.apple.NSFileVersionTestTempID"))
   {
     v7 = 1;
     v13 = 1;

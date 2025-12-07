@@ -8,9 +8,9 @@
 {
   identifierCopy = identifier;
   configurationCopy = configuration;
-  v34.receiver = self;
-  v34.super_class = ISIconPackage;
-  v8 = [(ISIconPackage *)&v34 init];
+  v35.receiver = self;
+  v35.super_class = ISIconPackage;
+  v8 = [(ISIconPackage *)&v35 init];
   if (v8)
   {
     v9 = [MEMORY[0x1E69636B0] typeRecordWithIdentifier:identifierCopy];
@@ -20,30 +20,30 @@
 
     if (v12)
     {
-      v13 = MEMORY[0x1E69636B0];
+      v14 = MEMORY[0x1E69636B0];
       identifier2 = [v10 identifier];
-      v15 = [v13 typeRecordWithIdentifier:identifier2];
+      v16 = [v14 typeRecordWithIdentifier:identifier2];
 
-      iconDictionary = [v15 iconDictionary];
-      v17 = [iconDictionary _IF_stringForKey:@"ISIconPackageIdentifier"];
+      iconDictionary = [v16 iconDictionary];
+      v18 = [iconDictionary _IF_stringForKey:@"ISIconPackageIdentifier"];
 
-      v18 = [MEMORY[0x1E69636B0] typeRecordWithIdentifier:v17];
+      v19 = [MEMORY[0x1E69636B0] typeRecordWithIdentifier:v18];
       if (!configurationCopy)
       {
         configurationCopy = objc_alloc_init(ISFolderIconConfiguration);
       }
 
-      v19 = [ISFolderIconConfigurationParser alloc];
+      v20 = [ISFolderIconConfigurationParser alloc];
       iconDictionary2 = [v9 iconDictionary];
-      v21 = [(ISFolderIconConfigurationParser *)v19 initWithIconDictionary:iconDictionary2];
+      v22 = [(ISFolderIconConfigurationParser *)v20 initWithIconDictionary:iconDictionary2];
 
-      if (v21)
+      if (v22)
       {
-        symbolName = [(ISIconConfigurationMarkupParser *)v21 symbolName];
+        symbolName = [(ISIconConfigurationMarkupParser *)v22 symbolName];
 
         if (symbolName)
         {
-          symbolName2 = [(ISIconConfigurationMarkupParser *)v21 symbolName];
+          symbolName2 = [(ISIconConfigurationMarkupParser *)v22 symbolName];
           [(ISFolderIconConfiguration *)configurationCopy setSymbolName:symbolName2];
         }
       }
@@ -51,29 +51,29 @@
 
     else
     {
-      v18 = 0;
+      v19 = 0;
     }
 
-    v24 = _ISDefaultLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v25 = _ISDefaultLog(v13);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      [ISIconPackage initWithTypeIdentifier:identifierCopy configuration:v24];
+      [ISIconPackage initWithTypeIdentifier:identifierCopy configuration:v25];
     }
 
-    v25 = objc_opt_new();
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __54__ISIconPackage_initWithTypeIdentifier_configuration___block_invoke;
-    v30[3] = &unk_1E77C6758;
-    v31 = identifierCopy;
+    v26 = objc_opt_new();
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __54__ISIconPackage_initWithTypeIdentifier_configuration___block_invoke;
+    v31[3] = &unk_1E77C6758;
+    v32 = identifierCopy;
     configurationCopy = configurationCopy;
-    v32 = configurationCopy;
-    v33 = v25;
-    v26 = v25;
-    [v18 enumerateChildTypesWithBlock:v30];
-    v27 = [v26 copy];
+    v33 = configurationCopy;
+    v34 = v26;
+    v27 = v26;
+    [v19 enumerateChildTypesWithBlock:v31];
+    v28 = [v27 copy];
     icons = v8->_icons;
-    v8->_icons = v27;
+    v8->_icons = v28;
   }
 
   return v8;
@@ -82,7 +82,7 @@
 void __54__ISIconPackage_initWithTypeIdentifier_configuration___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _ISDefaultLog();
+  v4 = _ISDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __54__ISIconPackage_initWithTypeIdentifier_configuration___block_invoke_cold_1(v3, a1, v4);
@@ -107,23 +107,20 @@ void __54__ISIconPackage_initWithTypeIdentifier_configuration___block_invoke(uin
 
 - (void)initWithTypeIdentifier:(uint64_t)a1 configuration:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
 }
 
 void __54__ISIconPackage_initWithTypeIdentifier_configuration___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = [a1 identifier];
   v6 = *(a2 + 32);
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
 }
 
 @end

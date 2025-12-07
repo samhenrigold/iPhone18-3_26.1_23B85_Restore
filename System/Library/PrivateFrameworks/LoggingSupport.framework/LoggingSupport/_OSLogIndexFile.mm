@@ -12,14 +12,14 @@
 
 - (BOOL)_determineTimespan
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = _index_log();
   if (os_signpost_enabled(v3))
   {
     path = self->_path;
-    v12 = 136315138;
-    v13 = path;
-    _os_signpost_emit_with_name_impl(&dword_22E01A000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Determine Timespan", "for %s", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = path;
+    _os_signpost_emit_with_name_impl(&dword_22E01A000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Determine Timespan", "for %s", &v11, 0xCu);
   }
 
   if (self->_timespanDetermined)
@@ -59,36 +59,35 @@ LABEL_14:
   v9 = _index_log();
   if (os_signpost_enabled(v9))
   {
-    v12 = 67109120;
-    LODWORD(v13) = v8;
-    _os_signpost_emit_with_name_impl(&dword_22E01A000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Determine Timespan", "success: %{BOOL}d", &v12, 8u);
+    v11 = 67109120;
+    LODWORD(v12) = v8;
+    _os_signpost_emit_with_name_impl(&dword_22E01A000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Determine Timespan", "success: %{BOOL}d", &v11, 8u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)_loadCatalogMetadataForTimespan
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = _index_log();
   if (os_signpost_enabled(v3))
   {
     path = self->_path;
     *buf = 136315138;
-    v14 = path;
+    v13 = path;
     _os_signpost_emit_with_name_impl(&dword_22E01A000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Read Catalogs", "for %s", buf, 0xCu);
   }
 
   v5 = self->_cs;
-  if (self->_cs || (cfr = self->_cfr) == 0 || (v11 = [(_OSLogChunkFileReference *)cfr copyMappedChunkFile:0], v5, (v5 = v11) != 0))
+  if (self->_cs || (cfr = self->_cfr) == 0 || (v10 = [(_OSLogChunkFileReference *)cfr copyMappedChunkFile:0], v5, (v5 = v10) != 0))
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __50___OSLogIndexFile__loadCatalogMetadataForTimespan__block_invoke;
-    v12[3] = &unk_2787ADD28;
-    v12[4] = self;
-    [(_OSLogChunkStore *)v5 enumerateChunksUsingBlock:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __50___OSLogIndexFile__loadCatalogMetadataForTimespan__block_invoke;
+    v11[3] = &unk_2787ADD28;
+    v11[4] = self;
+    [(_OSLogChunkStore *)v5 enumerateChunksUsingBlock:v11];
     if (!self->_cet)
     {
       self->_cet = -1;
@@ -98,7 +97,7 @@ LABEL_14:
     if (os_signpost_enabled(v6))
     {
       *buf = 67109120;
-      LODWORD(v14) = 1;
+      LODWORD(v13) = 1;
       _os_signpost_emit_with_name_impl(&dword_22E01A000, v6, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Read Catalogs", "success: %{BOOL}d", buf, 8u);
     }
 
@@ -111,14 +110,13 @@ LABEL_14:
     if (os_signpost_enabled(&v5->super))
     {
       *buf = 67109120;
-      LODWORD(v14) = 0;
+      LODWORD(v13) = 0;
       _os_signpost_emit_with_name_impl(&dword_22E01A000, &v5->super, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Read Catalogs", "success: %{BOOL}d", buf, 8u);
     }
 
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

@@ -50,9 +50,11 @@
 - (void)acceptHeadingData:(const HeadingInput *)data;
 - (void)acceptMagneticFieldStrength:(double)strength;
 - (void)acceptMotionActivity:(const MotionActivityInput *)activity;
+- (void)acceptNearbyObjectMovement:(BOOL)movement;
 - (void)acceptPedometerData:(const PedometerDataInput *)data;
 - (void)acceptPedometerEvent:(const PedometerEventInput *)event;
 - (void)acceptPeerData:(const void *)data fromPeer:(id)peer;
+- (void)acceptPeerDeviceType:(BOOL)type;
 - (void)acceptPeerLocationData:(const LocationInput *)data forPeer:(id)peer;
 - (void)acceptPositionDisplacement:(const void *)displacement;
 - (void)acceptRoseSolution:(const void *)solution;
@@ -157,7 +159,7 @@ LABEL_4:
     objc_storeStrong(&v22->_analyticsManager, manager);
     if (sourceCopy)
     {
-      [sourceCopy uniqueIdentifierForEngine:v23];
+      objc_msgSend_uniqueIdentifierForEngine_(sourceCopy);
     }
 
     else
@@ -302,7 +304,7 @@ LABEL_27:
       *buf = 0;
       v22 = 0;
       v23 = 0;
-      sub_100019AC4(buf, &unk_10056DC58, &xmmword_10056DCB0, 0xBuLL);
+      sub_100019AC4(buf, qword_10056DC58, &xmmword_10056DCB0, 0xBuLL);
       v16 = self->_protobufLogger.__ptr_;
       v18 = 0;
       v19 = 0;
@@ -332,55 +334,51 @@ LABEL_27:
   v6 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v59) = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#nrby-eng,configure", &v59, 2u);
+    LOWORD(v50) = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#nrby-eng,configure", &v50, 2u);
   }
 
   objc_storeStrong(&self->_configuration, configure);
-  configuration = self->_configuration;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [(NINearbyUpdatesEngine *)self _configureRangeBiasEstimator];
-    v8 = self->_configuration;
-    monitoredRegions = [(NIConfiguration *)v8 monitoredRegions];
-    v10 = [(NINearbyUpdatesEngine *)self _configureForRegionMonitoring:monitoredRegions];
+    v7 = self->_configuration;
+    monitoredRegions = [(NIConfiguration *)v7 monitoredRegions];
+    v9 = [(NINearbyUpdatesEngine *)self _configureForRegionMonitoring:monitoredRegions];
 
     self->_rangeMeasSourcePref = 1;
     goto LABEL_9;
   }
 
-  v11 = self->_configuration;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [(NINearbyUpdatesEngine *)self _configureRangeBiasEstimator];
 LABEL_8:
-    v10 = 0;
+    v9 = 0;
     self->_rangeMeasSourcePref = 1;
     goto LABEL_9;
   }
 
-  v12 = self->_configuration;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     goto LABEL_8;
   }
 
-  v26 = self->_configuration;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v27 = self->_configuration;
-    debugParameters = [(NIConfiguration *)v27 debugParameters];
+    v20 = self->_configuration;
+    debugParameters = [(NIConfiguration *)v20 debugParameters];
     if (debugParameters)
     {
-      debugParameters2 = [(NIConfiguration *)v27 debugParameters];
-      v30 = [debugParameters2 objectForKey:@"enableAdditionalUWBSignalFeatures"];
-      v31 = v30 == 0;
+      debugParameters2 = [(NIConfiguration *)v20 debugParameters];
+      v23 = [debugParameters2 objectForKey:@"enableAdditionalUWBSignalFeatures"];
+      v24 = v23 == 0;
 
-      if (!v31)
+      if (!v24)
       {
         [(NINearbyUpdatesEngine *)self _configureRangeBiasEstimator];
       }
@@ -397,54 +395,53 @@ LABEL_8:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v10 = [(NINearbyUpdatesEngine *)self _configureForLocalization:self->_configuration];
+      v9 = [(NINearbyUpdatesEngine *)self _configureForLocalization:self->_configuration];
       goto LABEL_9;
     }
 
 LABEL_72:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_9;
   }
 
-  v41 = self->_configuration;
-  monitoredRegions2 = [(NIConfiguration *)v41 monitoredRegions];
-  v43 = monitoredRegions2 == 0;
+  v34 = self->_configuration;
+  monitoredRegions2 = [(NIConfiguration *)v34 monitoredRegions];
+  v36 = monitoredRegions2 == 0;
 
-  if (v43)
+  if (v36)
   {
-    innerBoundary = [(NIConfiguration *)v41 innerBoundary];
-    v61[0] = innerBoundary;
-    outerBoundary = [(NIConfiguration *)v41 outerBoundary];
-    v61[1] = outerBoundary;
-    v58 = [NSArray arrayWithObjects:v61 count:2];
-    v10 = [(NINearbyUpdatesEngine *)self _configureForRegionMonitoring:v58];
+    innerBoundary = [(NIConfiguration *)v34 innerBoundary];
+    v52[0] = innerBoundary;
+    outerBoundary = [(NIConfiguration *)v34 outerBoundary];
+    v52[1] = outerBoundary;
+    v49 = [NSArray arrayWithObjects:v52 count:2];
+    v9 = [(NINearbyUpdatesEngine *)self _configureForRegionMonitoring:v49];
   }
 
   else
   {
-    innerBoundary = [(NIConfiguration *)v41 monitoredRegions];
-    v10 = [(NINearbyUpdatesEngine *)self _configureForRegionMonitoring:innerBoundary];
+    innerBoundary = [(NIConfiguration *)v34 monitoredRegions];
+    v9 = [(NINearbyUpdatesEngine *)self _configureForRegionMonitoring:innerBoundary];
   }
 
 LABEL_9:
-  v13 = +[NSUserDefaults standardUserDefaults];
-  v14 = [v13 BOOLForKey:@"ForcePeerFindingAlgorithms"];
+  v10 = +[NSUserDefaults standardUserDefaults];
+  v11 = [v10 BOOLForKey:@"ForcePeerFindingAlgorithms"];
 
-  if (v14)
+  if (v11)
   {
-    v15 = qword_1009F9820;
+    v12 = qword_1009F9820;
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v59) = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#nrby-eng,ForcePeerFindingAlgorithms set.  ", &v59, 2u);
+      LOWORD(v50) = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#nrby-eng,ForcePeerFindingAlgorithms set.  ", &v50, 2u);
     }
   }
 
-  v16 = self->_configuration;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v17 = qword_1009F9820;
+    v13 = qword_1009F9820;
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
     {
       p_uniqueIdentifier = &self->_uniqueIdentifier;
@@ -453,55 +450,55 @@ LABEL_9:
         p_uniqueIdentifier = p_uniqueIdentifier->__rep_.__l.__data_;
       }
 
-      v59 = 136315138;
-      v60 = p_uniqueIdentifier;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#nrby-eng,_configuration is NIFindingConfiguration. Unique identifier: %s", &v59, 0xCu);
+      v50 = 136315138;
+      v51 = p_uniqueIdentifier;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#nrby-eng,_configuration is NIFindingConfiguration. Unique identifier: %s", &v50, 0xCu);
     }
 
-    v19 = self->_configuration;
-    discoveryTokenVariant = [(NIConfiguration *)v19 discoveryTokenVariant];
+    v15 = self->_configuration;
+    discoveryTokenVariant = [(NIConfiguration *)v15 discoveryTokenVariant];
     if (discoveryTokenVariant > 1)
     {
       if (discoveryTokenVariant == 2)
       {
-        requestedMeasurementQuality = [(NIConfiguration *)v19 requestedMeasurementQuality];
+        requestedMeasurementQuality = [(NIConfiguration *)v15 requestedMeasurementQuality];
         if (requestedMeasurementQuality == 3)
         {
-          monitoredRegions3 = [(NIConfiguration *)v19 monitoredRegions];
-          v50 = monitoredRegions3 == 0;
+          monitoredRegions3 = [(NIConfiguration *)v15 monitoredRegions];
+          v41 = monitoredRegions3 == 0;
 
-          if (!v50)
+          if (!v41)
           {
-            monitoredRegions4 = [(NIConfiguration *)v19 monitoredRegions];
-            v52 = [(NINearbyUpdatesEngine *)self _configureForRegionMonitoring:monitoredRegions4];
+            monitoredRegions4 = [(NIConfiguration *)v15 monitoredRegions];
+            v43 = [(NINearbyUpdatesEngine *)self _configureForRegionMonitoring:monitoredRegions4];
 
-            v10 = v52;
+            v9 = v43;
           }
         }
 
         else if (requestedMeasurementQuality == 1)
         {
-          v38 = +[NSUserDefaults standardUserDefaults];
-          v39 = [v38 BOOLForKey:@"EnableWatchItemFindingOnPhone"];
+          v31 = +[NSUserDefaults standardUserDefaults];
+          v32 = [v31 BOOLForKey:@"EnableWatchItemFindingOnPhone"];
 
-          if (v39)
+          if (v32)
           {
-            v40 = qword_1009F9820;
+            v33 = qword_1009F9820;
             if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
             {
-              LOWORD(v59) = 0;
-              _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "#nrby-eng,For test purposes enabling watch item finding on phone", &v59, 2u);
+              LOWORD(v50) = 0;
+              _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "#nrby-eng,For test purposes enabling watch item finding on phone", &v50, 2u);
             }
 
             [(NINearbyUpdatesEngine *)self _createWatchItemFinderAlgoContainer];
-            LOWORD(v59) = 0;
-            [(NINearbyUpdatesEngine *)self acceptWatchOrientation:&v59];
+            LOWORD(v50) = 0;
+            [(NINearbyUpdatesEngine *)self acceptWatchOrientation:&v50];
           }
 
           else
           {
-            v55 = sub_1000054A8();
-            if (sub_100003AA8(v55[144]))
+            v46 = sub_1000054A8();
+            if (sub_100003AA8(v46[144]))
             {
               [(NINearbyUpdatesEngine *)self _createItemFinderAlgoContainer];
             }
@@ -525,18 +522,18 @@ LABEL_81:
     {
       if (discoveryTokenVariant == 1)
       {
-        if (([(NIConfiguration *)v19 isFinder]& 1) != 0)
+        if (([(NIConfiguration *)v15 isFinder]& 1) != 0)
         {
-          v21 = +[NSUserDefaults standardUserDefaults];
-          v22 = [v21 BOOLForKey:@"EnableDeviceFindingOnPhone"];
+          v17 = +[NSUserDefaults standardUserDefaults];
+          v18 = [v17 BOOLForKey:@"EnableDeviceFindingOnPhone"];
 
-          if (v22)
+          if (v18)
           {
-            v23 = qword_1009F9820;
+            v19 = qword_1009F9820;
             if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
             {
-              LOWORD(v59) = 0;
-              _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "#nrby-eng,For rdar://102527413 (Test hook to use Wenda arrow interface on phone), enabling device finding on phone", &v59, 2u);
+              LOWORD(v50) = 0;
+              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#nrby-eng,For rdar://102527413 (Test hook to use Wenda arrow interface on phone), enabling device finding on phone", &v50, 2u);
             }
 
             [(NINearbyUpdatesEngine *)self _createDeviceFinderAlgoContainer];
@@ -544,8 +541,8 @@ LABEL_81:
 
           else
           {
-            v54 = sub_1000054A8();
-            if (sub_100003AA8(v54[144]))
+            v45 = sub_1000054A8();
+            if (sub_100003AA8(v45[144]))
             {
               [(NINearbyUpdatesEngine *)self _createPeopleFinderAlgoContainer];
             }
@@ -569,22 +566,20 @@ LABEL_81:
     goto LABEL_81;
   }
 
-  if (v14)
+  if (v11)
   {
 LABEL_26:
     [(NINearbyUpdatesEngine *)self _createPeerFindingAlgoContainer];
     goto LABEL_82;
   }
 
-  _internalIsExtendedDistanceMeasurementEnabled = [(NIConfiguration *)self->_configuration _internalIsExtendedDistanceMeasurementEnabled];
-  v25 = self->_configuration;
-  if (_internalIsExtendedDistanceMeasurementEnabled)
+  if ([(NIConfiguration *)self->_configuration _internalIsExtendedDistanceMeasurementEnabled])
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v19 = self->_configuration;
-      if (![(NIConfiguration *)v19 useCase])
+      v15 = self->_configuration;
+      if (![(NIConfiguration *)v15 useCase])
       {
         [(NINearbyUpdatesEngine *)self _createPeerFindingAlgoContainer];
       }
@@ -598,7 +593,7 @@ LABEL_26:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v32 = qword_1009F9820;
+    v25 = qword_1009F9820;
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
     {
       data = &self->_uniqueIdentifier;
@@ -607,32 +602,32 @@ LABEL_26:
         data = data->__rep_.__l.__data_;
       }
 
-      v59 = 136315138;
-      v60 = data;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "#nrby-eng,_configuration is NIItemLocalizerConfiguration. Unique identifier: %s", &v59, 0xCu);
+      v50 = 136315138;
+      v51 = data;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "#nrby-eng,_configuration is NIItemLocalizerConfiguration. Unique identifier: %s", &v50, 0xCu);
     }
 
-    v34 = +[NSUserDefaults standardUserDefaults];
-    v35 = [v34 BOOLForKey:@"EnableWatchItemFindingOnPhone"];
+    v27 = +[NSUserDefaults standardUserDefaults];
+    v28 = [v27 BOOLForKey:@"EnableWatchItemFindingOnPhone"];
 
-    if (v35)
+    if (v28)
     {
-      v36 = qword_1009F9820;
+      v29 = qword_1009F9820;
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v59) = 0;
-        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "#nrby-eng,For test purposes enabling watch item finding on phone", &v59, 2u);
+        LOWORD(v50) = 0;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "#nrby-eng,For test purposes enabling watch item finding on phone", &v50, 2u);
       }
 
       [(NINearbyUpdatesEngine *)self _createWatchItemFinderAlgoContainer];
-      LOWORD(v59) = 0;
-      [(NINearbyUpdatesEngine *)self acceptWatchOrientation:&v59];
+      LOWORD(v50) = 0;
+      [(NINearbyUpdatesEngine *)self acceptWatchOrientation:&v50];
     }
 
     else
     {
-      v53 = sub_1000054A8();
-      if (sub_100003AA8(v53[144]))
+      v44 = sub_1000054A8();
+      if (sub_100003AA8(v44[144]))
       {
         [(NINearbyUpdatesEngine *)self _createItemFinderAlgoContainer];
       }
@@ -643,22 +638,21 @@ LABEL_26:
 
   else if ([(NIConfiguration *)self->_configuration _internalIsCameraAssistanceEnabled])
   {
-    v45 = self->_configuration;
     objc_opt_class();
-    if (objc_opt_isKindOfClass() & 1) != 0 || (v46 = self->_configuration, objc_opt_class(), (objc_opt_isKindOfClass()))
+    if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
     {
-      v47 = qword_1009F9820;
+      v38 = qword_1009F9820;
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
       {
-        v48 = &self->_uniqueIdentifier;
+        v39 = &self->_uniqueIdentifier;
         if (*(&self->_uniqueIdentifier.__rep_.__l + 23) < 0)
         {
-          v48 = v48->__rep_.__l.__data_;
+          v39 = v39->__rep_.__l.__data_;
         }
 
-        v59 = 136315138;
-        v60 = v48;
-        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "#nrby-eng,_configuration is NINearbyPeerConfiguration|NINearbyAccessoryConfiguration. Unique identifier: %s", &v59, 0xCu);
+        v50 = 136315138;
+        v51 = v39;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "#nrby-eng,_configuration is NINearbyPeerConfiguration|NINearbyAccessoryConfiguration. Unique identifier: %s", &v50, 0xCu);
       }
 
       [(NINearbyUpdatesEngine *)self _createSyntheticApertureAlgoContainer:1];
@@ -667,7 +661,7 @@ LABEL_26:
 
 LABEL_82:
 
-  return v10;
+  return v9;
 }
 
 - (id)_configureForRegionMonitoring:(id)monitoring
@@ -680,28 +674,28 @@ LABEL_82:
     regionDict = selfCopy->_regionDict;
     selfCopy->_regionDict = v4;
 
-    v154 = 0;
     v153 = 0;
-    v155 = 0;
+    v152 = 0;
+    v154 = 0;
+    v148 = 0u;
     v149 = 0u;
     v150 = 0u;
     v151 = 0u;
-    v152 = 0u;
     obj = monitoringCopy;
-    v6 = [obj countByEnumeratingWithState:&v149 objects:v237 count:16];
+    v6 = [obj countByEnumeratingWithState:&v148 objects:v236 count:16];
     if (v6)
     {
-      v7 = *v150;
+      v7 = *v149;
       do
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v150 != v7)
+          if (*v149 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v149 + 1) + 8 * i);
+          v9 = *(*(&v148 + 1) + 8 * i);
           v10 = [NIRegionKey alloc];
           name = [v9 name];
           v12 = -[NIRegionKey initWithName:regionSizeCategory:](v10, "initWithName:regionSizeCategory:", name, [v9 regionSizeCategory]);
@@ -709,7 +703,7 @@ LABEL_82:
           [(NSMutableDictionary *)selfCopy->_regionDict setObject:v9 forKey:v12];
           name2 = [v9 name];
           v14 = name2;
-          sub_100004A08(v121, [name2 UTF8String]);
+          sub_100004A08(v119, [name2 UTF8String]);
           [v9 radius];
           v16 = v15;
           regionSizeCategory = [v9 regionSizeCategory];
@@ -736,26 +730,26 @@ LABEL_82:
           }
 
           requiresUserIntent = [v9 requiresUserIntent];
-          if (SHIBYTE(v122[0]) < 0)
+          if (SHIBYTE(v120[0]) < 0)
           {
-            sub_1000056BC(__p, v121[0], v121[1]);
+            sub_1000056BC(__p, v119[0], v119[1]);
           }
 
           else
           {
-            *__p = *v121;
-            *&__p[16] = v122[0];
+            *__p = *v119;
+            *&__p[16] = v120[0];
           }
 
           *&__p[24] = v16;
           *&__p[28] = regionSizeCategory;
           *&__p[32] = v19;
           *&__p[36] = v21;
-          LOWORD(v172) = requiresUserIntent;
-          v23 = v154;
-          if (v154 >= v155)
+          LOWORD(v171) = requiresUserIntent;
+          v23 = v153;
+          if (v153 >= v154)
           {
-            v154 = sub_10038C618(&v153, __p);
+            v153 = sub_10038C618(&v152, __p);
             if ((__p[23] & 0x80000000) != 0)
             {
               operator delete(*__p);
@@ -765,22 +759,22 @@ LABEL_82:
           else
           {
             v24 = *__p;
-            *(v154 + 16) = *&__p[16];
+            *(v153 + 16) = *&__p[16];
             *v23 = v24;
             memset(__p, 0, 24);
-            v25 = v172;
+            v25 = v171;
             *(v23 + 24) = *&__p[24];
             *(v23 + 40) = v25;
-            v154 = v23 + 48;
+            v153 = v23 + 48;
           }
 
-          if (SHIBYTE(v122[0]) < 0)
+          if (SHIBYTE(v120[0]) < 0)
           {
-            operator delete(v121[0]);
+            operator delete(v119[0]);
           }
         }
 
-        v6 = [obj countByEnumeratingWithState:&v149 objects:v237 count:16];
+        v6 = [obj countByEnumeratingWithState:&v148 objects:v236 count:16];
       }
 
       while (v6);
@@ -789,30 +783,30 @@ LABEL_82:
     v26 = qword_1009F9820;
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
-      sub_1004C5B48(v236, [(NSMutableDictionary *)selfCopy->_regionDict count], v26);
+      sub_1004C5B48(v235, [(NSMutableDictionary *)selfCopy->_regionDict count], v26);
     }
 
-    v147 = 0u;
-    v148 = 0u;
-    v145 = 0u;
     v146 = 0u;
+    v147 = 0u;
+    v144 = 0u;
+    v145 = 0u;
     v27 = selfCopy->_regionDict;
-    v28 = [(NSMutableDictionary *)v27 countByEnumeratingWithState:&v145 objects:v235 count:16];
+    v28 = [(NSMutableDictionary *)v27 countByEnumeratingWithState:&v144 objects:v234 count:16];
     if (v28)
     {
       v29 = 0;
-      v30 = *v146;
+      v30 = *v145;
       do
       {
         v31 = 0;
         do
         {
-          if (*v146 != v30)
+          if (*v145 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          v32 = *(*(&v145 + 1) + 8 * v31);
+          v32 = *(*(&v144 + 1) + 8 * v31);
           v33 = qword_1009F9820;
           if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
           {
@@ -833,7 +827,7 @@ LABEL_82:
         }
 
         while (v28 != v31);
-        v28 = [(NSMutableDictionary *)v27 countByEnumeratingWithState:&v145 objects:v235 count:16];
+        v28 = [(NSMutableDictionary *)v27 countByEnumeratingWithState:&v144 objects:v234 count:16];
       }
 
       while (v28);
@@ -856,25 +850,25 @@ LABEL_82:
       _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#regions _configureForRegionMonitoring. Unique identifier: %s. Regions: %@", __p, 0x16u);
     }
 
-    v114 = +[NSUserDefaults standardUserDefaults];
-    [v114 doubleForKey:@"RegMonFilterAlphaOverride"];
+    v113 = +[NSUserDefaults standardUserDefaults];
+    [v113 doubleForKey:@"RegMonFilterAlphaOverride"];
     v41 = v40;
-    [v114 doubleForKey:@"RegMonHystEnterDistMOverride"];
+    [v113 doubleForKey:@"RegMonHystEnterDistMOverride"];
     v43 = v42;
-    [v114 doubleForKey:@"RegMonHystExitDistMOverride"];
+    [v113 doubleForKey:@"RegMonHystExitDistMOverride"];
     v45 = v44;
-    [v114 doubleForKey:@"HandoffUserIntentScoreThresholdOverride"];
+    [v113 doubleForKey:@"HandoffUserIntentScoreThresholdOverride"];
     v47 = v46;
-    v112 = DWORD1(xmmword_1009F7568);
+    v111 = DWORD1(xmmword_1009F7568);
     v48 = *&xmmword_1009F7568;
     v49 = *(&xmmword_1009F7568 + 3);
     v50 = *(&xmmword_1009F7568 + 2);
     v51 = qword_1009F7578;
-    v232 = unk_1009F75A0;
-    v233 = *&dword_1009F75B0;
-    v234 = qword_1009F75C0;
-    v230 = unk_1009F7580;
-    v231 = *&qword_1009F7590;
+    v231 = unk_1009F75A0;
+    v232 = *&dword_1009F75B0;
+    v233 = qword_1009F75C0;
+    v229 = unk_1009F7580;
+    v230 = *&qword_1009F7590;
     if (v41 > 0.0 && v41 < 1.0)
     {
       v52 = qword_1009F9820;
@@ -928,16 +922,16 @@ LABEL_82:
     }
 
     v56 = byte_1009F75C8;
-    v228 = unk_1009F7629;
-    v229[0] = *(&xmmword_1009F7638 + 1);
-    *(v229 + 15) = qword_1009F7648;
-    v224 = unk_1009F75E9;
-    v225 = *(&xmmword_1009F75F8 + 1);
-    v226 = *(&qword_1009F7608 + 1);
-    v227 = *(&xmmword_1009F7618 + 1);
-    v222 = unk_1009F75C9;
-    v223 = *(&xmmword_1009F75D8 + 1);
-    if ([v114 BOOLForKey:@"RegMonDisableRVKalmanFilter"])
+    v227 = unk_1009F7629;
+    v228[0] = *(&xmmword_1009F7638 + 1);
+    *(v228 + 15) = qword_1009F7648;
+    v223 = unk_1009F75E9;
+    v224 = *(&xmmword_1009F75F8 + 1);
+    v225 = *(&qword_1009F7608 + 1);
+    v226 = *(&xmmword_1009F7618 + 1);
+    v221 = unk_1009F75C9;
+    v222 = *(&xmmword_1009F75D8 + 1);
+    if ([v113 BOOLForKey:@"RegMonDisableRVKalmanFilter"])
     {
       v57 = qword_1009F9820;
       if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
@@ -949,28 +943,28 @@ LABEL_82:
       v56 = 1;
     }
 
-    sub_10038C990(v144, &unk_1009F7550);
-    v111 = qword_1009F7650;
+    sub_10038C990(v142, qword_1009F7550);
+    v110 = qword_1009F7650;
     v58 = *&xmmword_1009F7658;
-    v141 = *(&xmmword_1009F7658 + 8);
-    v142 = unk_1009F7670;
-    v143 = *(&xmmword_1009F7678 + 8);
+    v139 = *(&xmmword_1009F7658 + 8);
+    v140 = unk_1009F7670;
+    v141 = *(&xmmword_1009F7678 + 8);
     v60 = *(&xmmword_1009F7690 + 1);
     v59 = xmmword_1009F7690;
     v61 = qword_1009F76A0;
-    v221[0] = *(&xmmword_1009F76D0 + 8);
-    v221[1] = *&qword_1009F76E8;
-    v219 = *&qword_1009F76B8;
-    v220 = unk_1009F76C8;
-    v218 = xmmword_1009F76A8;
-    [v114 doubleForKey:@"RegMonKalmanFilterHystUpperOverride"];
-    v110 = v62;
-    [v114 doubleForKey:@"RegMonKalmanFilterHystLowerOverride"];
-    v109 = v63;
-    v64 = [v114 integerForKey:@"RegMonKalmanFilterNStartupMeasurementsOverride"];
-    [v114 doubleForKey:@"RegMonKalmanFilterProcessStdOverride"];
+    v220[0] = *(&xmmword_1009F76D0 + 8);
+    v220[1] = *&qword_1009F76E8;
+    v218 = *&qword_1009F76B8;
+    v219 = unk_1009F76C8;
+    v217 = xmmword_1009F76A8;
+    [v113 doubleForKey:@"RegMonKalmanFilterHystUpperOverride"];
+    v109 = v62;
+    [v113 doubleForKey:@"RegMonKalmanFilterHystLowerOverride"];
+    v108 = v63;
+    v64 = [v113 integerForKey:@"RegMonKalmanFilterNStartupMeasurementsOverride"];
+    [v113 doubleForKey:@"RegMonKalmanFilterProcessStdOverride"];
     v66 = v65;
-    v67 = [v114 integerForKey:@"RegMonKalmanFilterTimeoutSeconds"];
+    v67 = [v113 integerForKey:@"RegMonKalmanFilterTimeoutSeconds"];
     if (v64 > 0)
     {
       v68 = qword_1009F9820;
@@ -1010,43 +1004,42 @@ LABEL_82:
       v60 = v67 & 0x7FFFFFFF;
     }
 
-    v71 = [v114 integerForKey:@"RegMonThresholdDetectorBufferSize"];
-    *v121 = xmmword_1009F76F8;
-    sub_10029F1D8(v122, algn_1009F7708);
-    v123[0] = xmmword_1009F7720;
-    *(v123 + 12) = *(&xmmword_1009F7720 + 12);
-    sub_10029F2B8(v124, &byte_1009F7740);
-    v137 = xmmword_1009F7800;
-    v138 = *&dword_1009F7810;
-    v139 = xmmword_1009F7820;
-    v133 = xmmword_1009F77C0;
-    v134 = unk_1009F77D0;
-    v135 = xmmword_1009F77E0;
-    v136 = unk_1009F77F0;
-    v129 = *(&xmmword_1009F7778 + 8);
-    v130 = *(&xmmword_1009F7788 + 8);
-    v131 = *(&xmmword_1009F7798 + 8);
-    v132 = xmmword_1009F77B0;
-    v127 = xmmword_1009F7760;
-    v140 = qword_1009F7830;
-    v128 = *&byte_1009F7770;
+    v71 = [v113 integerForKey:@"RegMonThresholdDetectorBufferSize"];
+    *v119 = xmmword_1009F76F8;
+    sub_10029F1D8(v120, algn_1009F7708);
+    v121[0] = xmmword_1009F7720;
+    *(v121 + 12) = *(&xmmword_1009F7720 + 12);
+    sub_10029F2B8(v122, &byte_1009F7740);
+    v135 = xmmword_1009F7800;
+    v136 = *&dword_1009F7810;
+    v137 = xmmword_1009F7820;
+    v131 = xmmword_1009F77C0;
+    v132 = unk_1009F77D0;
+    v133 = xmmword_1009F77E0;
+    v134 = unk_1009F77F0;
+    v127 = *(&xmmword_1009F7778 + 8);
+    v128 = *(&xmmword_1009F7788 + 8);
+    v129 = *(&xmmword_1009F7798 + 8);
+    v130 = xmmword_1009F77B0;
+    v125 = xmmword_1009F7760;
+    v138 = qword_1009F7830;
+    v126 = *&byte_1009F7770;
     if (v71 >= 1)
     {
-      LODWORD(v121[0]) = v71;
+      LODWORD(v119[0]) = v71;
     }
 
-    configuration = selfCopy->_configuration;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v73 = selfCopy->_configuration;
-      token = [v73 token];
-      v75 = token == 0;
+      v72 = selfCopy->_configuration;
+      token = [v72 token];
+      v74 = token == 0;
 
-      if (!v75)
+      if (!v74)
       {
-        BYTE8(v127) = 1;
-        LOBYTE(v128) = 0;
+        BYTE8(v125) = 1;
+        LOBYTE(v126) = 0;
       }
 
 LABEL_77:
@@ -1057,19 +1050,19 @@ LABEL_77:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v80 = +[NSUserDefaults standardUserDefaults];
-      v81 = [v80 BOOLForKey:@"HomeDeviceSessionBTLeechingEnabled"];
+      v79 = +[NSUserDefaults standardUserDefaults];
+      v80 = [v79 BOOLForKey:@"HomeDeviceSessionBTLeechingEnabled"];
 
-      if (v81)
+      if (v80)
       {
-        BYTE8(v127) = 1;
-        LOBYTE(v128) = 0;
-        *&v132 = 1;
-        v73 = qword_1009F9820;
-        if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+        BYTE8(v125) = 1;
+        LOBYTE(v126) = 0;
+        *&v130 = 1;
+        v72 = qword_1009F9820;
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
         {
           *__p = 0;
-          _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#regions #config-override Enable BT-based region monitoring in Home session with HomeDeviceSessionBTLeechingEnabled.", __p, 2u);
+          _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#regions #config-override Enable BT-based region monitoring in Home session with HomeDeviceSessionBTLeechingEnabled.", __p, 2u);
         }
 
         goto LABEL_77;
@@ -1078,14 +1071,13 @@ LABEL_77:
 
     else
     {
-      v82 = selfCopy->_configuration;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v73 = selfCopy->_configuration;
-        if ([v73 requestedMeasurementQuality]== 3)
+        v72 = selfCopy->_configuration;
+        if ([v72 requestedMeasurementQuality]== 3)
         {
-          sub_10029E5A4(v121);
+          sub_10029E5A4(v119);
         }
 
         goto LABEL_77;
@@ -1093,107 +1085,107 @@ LABEL_77:
     }
 
 LABEL_78:
-    v76 = [v114 integerForKey:@"RegMonBoundedRegionRangeEstimatorType"];
-    if (v76 < 1)
+    v75 = [v113 integerForKey:@"RegMonBoundedRegionRangeEstimatorType"];
+    if (v75 < 1)
     {
       goto LABEL_99;
     }
 
-    if (v76 == 1)
+    if (v75 == 1)
     {
-      HIDWORD(v127) = 1;
-      v77 = qword_1009F9820;
-      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+      HIDWORD(v125) = 1;
+      v76 = qword_1009F9820;
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
       {
         *__p = 0;
-        v78 = "#nrby-eng,#regions #config-override RegMonBoundedRegionRangeEstimatorType = KALMAN_FILTER";
+        v77 = "#nrby-eng,#regions #config-override RegMonBoundedRegionRangeEstimatorType = KALMAN_FILTER";
         goto LABEL_97;
       }
     }
 
-    else if (v76 == 2)
+    else if (v75 == 2)
     {
-      HIDWORD(v127) = 2;
-      v77 = qword_1009F9820;
-      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+      HIDWORD(v125) = 2;
+      v76 = qword_1009F9820;
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
       {
         *__p = 0;
-        v78 = "#nrby-eng,#regions #config-override RegMonBoundedRegionRangeEstimatorType = MAX_OF_MEAN_OF_CHAN_FILTER";
+        v77 = "#nrby-eng,#regions #config-override RegMonBoundedRegionRangeEstimatorType = MAX_OF_MEAN_OF_CHAN_FILTER";
 LABEL_97:
-        _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, v78, __p, 2u);
+        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, v77, __p, 2u);
       }
     }
 
     else
     {
-      v77 = qword_1009F9820;
-      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+      v76 = qword_1009F9820;
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
       {
         *__p = 0;
-        v78 = "#nrby-eng,#regions #config-override Invalid value specified for RegMonBoundedRegionRangeEstimatorType, NOT overriding";
+        v77 = "#nrby-eng,#regions #config-override Invalid value specified for RegMonBoundedRegionRangeEstimatorType, NOT overriding";
         goto LABEL_97;
       }
     }
 
 LABEL_99:
-    sub_10038C990(__p, v144);
-    v83.f64[0] = v110;
-    v83.f64[1] = v109;
+    sub_10038C990(__p, v142);
+    v81.f64[0] = v109;
+    v81.f64[1] = v108;
     *&__p[24] = v48;
-    *&__p[28] = v112;
+    *&__p[28] = v111;
     *&__p[32] = v50;
     *&__p[36] = v49;
-    v172 = v51;
+    v171 = v51;
+    v174 = v231;
     v175 = v232;
     v176 = v233;
-    v177 = v234;
+    v172 = v229;
     v173 = v230;
-    v174 = v231;
-    v178 = v56;
-    v179 = v222;
-    v183 = v226;
+    v177 = v56;
+    v178 = v221;
     v182 = v225;
     v181 = v224;
     v180 = v223;
-    *&v186[15] = *(v229 + 15);
-    *v186 = v229[0];
-    v185 = v228;
+    v179 = v222;
+    *&v185[15] = *(v228 + 15);
+    *v185 = v228[0];
     v184 = v227;
-    v187 = v111;
-    v188 = v58;
-    v189 = v141;
-    v190 = v142;
-    v191 = v143;
-    v192 = v59;
-    v193 = v60;
-    v194 = vbsl_s8(vmovn_s64(vcgtzq_f64(v83)), vcvt_f32_f64(v83), v61);
-    v197 = v220;
-    v198[0] = v221[0];
-    *(v198 + 12) = *(v221 + 12);
-    v195 = v218;
+    v183 = v226;
+    v186 = v110;
+    v187 = v58;
+    v188 = v139;
+    v189 = v140;
+    v190 = v141;
+    v191 = v59;
+    v192 = v60;
+    v193 = vbsl_s8(vmovn_s64(vcgtzq_f64(v81)), vcvt_f32_f64(v81), v61);
     v196 = v219;
-    v198[2] = *v121;
-    sub_10029F1D8(v199, v122);
-    *(v200 + 12) = *(v123 + 12);
-    v200[0] = v123[0];
-    sub_10029F2B8(&v201, v124);
-    v214 = v137;
-    v215 = v138;
-    v216 = v139;
-    v217 = v140;
-    v210 = v133;
-    v211 = v134;
-    v212 = v135;
-    v213 = v136;
-    v206 = v129;
-    v207 = v130;
-    v208 = v131;
-    v209 = v132;
-    v204 = v127;
-    v205 = v128;
-    v84 = selfCopy;
+    v197[0] = v220[0];
+    *(v197 + 12) = *(v220 + 12);
+    v194 = v217;
+    v195 = v218;
+    v197[2] = *v119;
+    sub_10029F1D8(v198, v120);
+    *(v199 + 12) = *(v121 + 12);
+    v199[0] = v121[0];
+    sub_10029F2B8(&v200, v122);
+    v213 = v135;
+    v214 = v136;
+    v215 = v137;
+    v216 = v138;
+    v209 = v131;
+    v210 = v132;
+    v211 = v133;
+    v212 = v134;
+    v205 = v127;
+    v206 = v128;
+    v207 = v129;
+    v208 = v130;
+    v203 = v125;
+    v204 = v126;
+    v82 = selfCopy;
     selfCopy->_localIntentPredictorPreference = [(NINearbyUpdatesEngine *)selfCopy _setReadValidateDefaultsWriteForTypeOfPredictor];
-    sub_10030302C(v120);
+    sub_10030302C(v118);
     localIntentPredictorPreference = selfCopy->_localIntentPredictorPreference;
     if (localIntentPredictorPreference <= 1)
     {
@@ -1202,65 +1194,64 @@ LABEL_99:
         if (localIntentPredictorPreference != 1)
         {
 LABEL_133:
-          v167 = 0;
-          v165 = 0;
-          v163 = 0;
-          v161 = 0;
-          v159 = 0;
-          [(NINearbyUpdatesEngine *)v84 _getRegionSizeCategoriesFromRegions:obj];
-          if (v118 != &v119)
+          v166 = 0;
+          v164 = 0;
+          v162 = 0;
+          v160 = 0;
+          v158 = 0;
+          objc_msgSend__getRegionSizeCategoriesFromRegions_(v82);
+          if (v116 != &v117)
           {
-            v117 = *(v118 + 32);
-            sub_100303030(v120, &buf);
+            sub_100303030(&buf, v118);
             operator new();
           }
 
-          sub_10002074C(&v118, v119);
+          sub_10002074C(&v116, v117);
           ptr = selfCopy->_protobufLogger.__ptr_;
           if (ptr)
           {
-            v104 = sub_100015080();
-            v105 = v104;
-            sub_100004A08(&buf, [v104 UTF8String]);
-            v156 = 0;
-            v157 = 1;
-            sub_1002E2058(ptr, &selfCopy->_uniqueIdentifier, &v153, __p, &buf, &v156);
+            v103 = sub_100015080(v101);
+            v104 = v103;
+            sub_100004A08(&buf, [v103 UTF8String]);
+            v155 = 0;
+            v156 = 1;
+            sub_1002E2058(ptr, &selfCopy->_uniqueIdentifier, &v152, __p, &buf, &v155);
             if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(buf.__r_.__value_.__l.__data_);
             }
           }
 
-          sub_10038CC70(v158);
-          sub_10038CBF0(v160);
-          sub_10038CB70(v162);
-          sub_10038CAF0(v164);
-          sub_10038CA70(v166);
+          sub_10038CC70(v157);
+          sub_10038CBF0(v159);
+          sub_10038CB70(v161);
+          sub_10038CAF0(v163);
+          sub_10038CA70(v165);
           for (j = 0; j != -64; j -= 32)
           {
-            v107 = (&v120[0].__r_.__value_.__l.__data_ + j);
-            if (v120[2].__r_.__value_.__s.__data_[j + 8] == 1 && *(v107 + 55) < 0)
+            v106 = &v118[j];
+            if (v118[j + 56] == 1 && *(v106 + 55) < 0)
             {
-              operator delete(v107[4]);
+              operator delete(v106[4]);
             }
           }
 
-          if (v203 == 1 && v202 < 0)
+          if (v202 == 1 && v201 < 0)
           {
-            operator delete(v201);
+            operator delete(v200);
           }
 
-          sub_10002074C(v199, v199[1]);
+          sub_10002074C(v198, v198[1]);
           sub_10002074C(__p, *&__p[8]);
-          if (v126 == 1 && v125 < 0)
+          if (v124 == 1 && v123 < 0)
           {
-            operator delete(v124[0]);
+            operator delete(v122[0]);
           }
 
-          sub_10002074C(v122, v122[1]);
-          sub_10002074C(v144, v144[1]);
+          sub_10002074C(v120, v120[1]);
+          sub_10002074C(v142, v143);
 
-          *__p = &v153;
+          *__p = &v152;
           sub_10038C574(__p);
 
           goto LABEL_151;
@@ -1269,12 +1260,12 @@ LABEL_133:
         goto LABEL_106;
       }
 
-      v97 = qword_1009F9820;
-      if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+      v95 = qword_1009F9820;
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf.__r_.__value_.__l.__data_) = 134217984;
         *(buf.__r_.__value_.__r.__words + 4) = 0xBFB999999999999ALL;
-        _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#spatialGesturesPredictor Using default user intent threshold value for (no AoA + no spatial gestures) predictor: %f", &buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#spatialGesturesPredictor Using default user intent threshold value for (no AoA + no spatial gestures) predictor: %f", &buf, 0xCu);
       }
     }
 
@@ -1293,96 +1284,96 @@ LABEL_133:
         }
 
 LABEL_106:
-        sub_100303030(v120, &buf);
-        v86 = 0;
-        v87 = v169;
+        sub_100303030(&buf, v118);
+        v84 = 0;
+        v85 = v168;
         do
         {
-          v88 = (&buf.__r_.__value_.__l.__data_ + v86);
-          if (v170[v86] == 1 && *(v88 + 55) < 0)
+          v86 = (&buf.__r_.__value_.__l.__data_ + v84);
+          if (v169[v84] == 1 && *(v86 + 55) < 0)
           {
-            operator delete(v88[4]);
+            operator delete(v86[4]);
           }
 
-          v86 -= 32;
+          v84 -= 32;
         }
 
-        while (v86 != -64);
-        v89 = qword_1009F9820;
-        v90 = v89;
-        if (!v87)
+        while (v84 != -64);
+        v87 = qword_1009F9820;
+        v88 = v87;
+        if (!v85)
         {
-          if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
           {
             sub_1004C5B90();
           }
 
-          v84 = selfCopy;
+          v82 = selfCopy;
           selfCopy->_localIntentPredictorPreference = 0;
           goto LABEL_133;
         }
 
-        if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-          _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#spatialGesturesPredictor Successfully obtained trained model weights filepath", &buf, 2u);
+          _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#spatialGesturesPredictor Successfully obtained trained model weights filepath", &buf, 2u);
         }
 
-        v91 = +[NSUserDefaults standardUserDefaults];
-        v92 = [v91 objectForKey:@"SpatialGesturesIntentPredictorThresholdSingleAntenna"];
-        v93 = v92 == 0;
+        v89 = +[NSUserDefaults standardUserDefaults];
+        v90 = [v89 objectForKey:@"SpatialGesturesIntentPredictorThresholdSingleAntenna"];
+        v91 = v90 == 0;
 
-        if (!v93)
+        if (!v91)
         {
-          [v91 doubleForKey:@"SpatialGesturesIntentPredictorThresholdSingleAntenna"];
-          v95 = v94;
-          v96 = qword_1009F9820;
-          if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
+          [v89 doubleForKey:@"SpatialGesturesIntentPredictorThresholdSingleAntenna"];
+          v93 = v92;
+          v94 = qword_1009F9820;
+          if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(buf.__r_.__value_.__l.__data_) = 134217984;
-            *(buf.__r_.__value_.__r.__words + 4) = v95;
-            _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#spatialGesturesPredictor Setting user intent threshold value for spatial gestures single antenna predictor: %f", &buf, 0xCu);
+            *(buf.__r_.__value_.__r.__words + 4) = v93;
+            _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#spatialGesturesPredictor Setting user intent threshold value for spatial gestures single antenna predictor: %f", &buf, 0xCu);
           }
         }
 
-        v98 = [v91 objectForKey:@"SpatialGesturesIntentPredictorThresholdDualAntenna"];
-        v99 = v98 == 0;
+        v96 = [v89 objectForKey:@"SpatialGesturesIntentPredictorThresholdDualAntenna"];
+        v97 = v96 == 0;
 
-        if (!v99)
+        if (!v97)
         {
-          [v91 doubleForKey:@"SpatialGesturesIntentPredictorThresholdDualAntenna"];
-          v101 = v100;
-          v102 = qword_1009F9820;
-          if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
+          [v89 doubleForKey:@"SpatialGesturesIntentPredictorThresholdDualAntenna"];
+          v99 = v98;
+          v100 = qword_1009F9820;
+          if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(buf.__r_.__value_.__l.__data_) = 134217984;
-            *(buf.__r_.__value_.__r.__words + 4) = v101;
-            _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#spatialGesturesPredictor Setting user intent threshold value for spatial gestures dual antenna predictor: %f", &buf, 0xCu);
+            *(buf.__r_.__value_.__r.__words + 4) = v99;
+            _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#spatialGesturesPredictor Setting user intent threshold value for spatial gestures dual antenna predictor: %f", &buf, 0xCu);
           }
         }
 
         goto LABEL_132;
       }
 
-      v97 = qword_1009F9820;
-      if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+      v95 = qword_1009F9820;
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf.__r_.__value_.__l.__data_) = 134217984;
         *(buf.__r_.__value_.__r.__words + 4) = 0x3FE8000000000000;
-        _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#spatialGesturesPredictor Using default user intent threshold value for AoA predictor: %f", &buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#spatialGesturesPredictor Using default user intent threshold value for AoA predictor: %f", &buf, 0xCu);
       }
     }
 
 LABEL_132:
-    v84 = selfCopy;
+    v82 = selfCopy;
     goto LABEL_133;
   }
 
-  v79 = qword_1009F9820;
+  v78 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
   {
     *__p = 0;
-    _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#regions No regions to be monitored.", __p, 2u);
+    _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#regions No regions to be monitored.", __p, 2u);
   }
 
 LABEL_151:
@@ -1518,7 +1509,7 @@ LABEL_33:
 
 - (PeopleFinderAlgorithmConfig)_getPeopleFinderAlgorithmConfigForPeerSessions
 {
-  [(NINearbyUpdatesEngine *)self _getPeopleFinderAlgorithmConfig];
+  objc_msgSend__getPeopleFinderAlgorithmConfig(self, a3);
   *&retstr->var8 = vdupq_n_s64(0x7FF0000000000000uLL);
   *&retstr->var11 = 0u;
   *&retstr->var13 = 0u;
@@ -2041,10 +2032,8 @@ LABEL_33:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#nrby-eng,_findingAlgorithmContainer = PeerFindingAlgorithms", buf, 2u);
   }
 
-  [(NINearbyUpdatesEngine *)self _getPeopleFinderAlgorithmConfigForPeerSessions];
+  objc_msgSend__getPeopleFinderAlgorithmConfigForPeerSessions(self);
   [(NINearbyUpdatesEngine *)self _getFindeeAlgorithmConfig];
-  v6 = v4;
-  v7 = v5;
   operator new();
 }
 
@@ -2057,7 +2046,7 @@ LABEL_33:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#nrby-eng,_findingAlgorithmContainer = PeopleFinderAlgorithms", v4, 2u);
   }
 
-  [(NINearbyUpdatesEngine *)self _getPeopleFinderAlgorithmConfig];
+  objc_msgSend__getPeopleFinderAlgorithmConfig(self);
   operator new();
 }
 
@@ -2118,18 +2107,18 @@ LABEL_33:
   solutionCopy = solution;
   if (self->_findingAlgorithmContainer.__ptr_)
   {
-    sub_100224EF8();
-    (**self->_findingAlgorithmContainer.__ptr_)(v44);
-    sub_100224EF8();
+    sub_100224EF8(728958076, 1, 0, 0, 0, 0);
+    (**self->_findingAlgorithmContainer.__ptr_)(v45);
+    sub_100224EF8(728958076, 2, 0, 0, 0, 0);
     ptr = self->_protobufLogger.__ptr_;
     if (ptr)
     {
-      sub_1002E8224(ptr, &self->_uniqueIdentifier, v44);
+      sub_1002E8224(ptr, &self->_uniqueIdentifier, v45);
     }
 
-    [(NINearbyUpdatesEngine *)self logSolution:v44];
-    v7 = [(NINearbyUpdatesEngine *)self nearbyObjectFromSolution:v44];
-    if (v7 || self->_findingPeerToken && ([(NINearbyUpdatesEngine *)self nearbyObjectFromSolution:v44 forPeer:?], (v7 = objc_claimAutoreleasedReturnValue()) != 0))
+    [(NINearbyUpdatesEngine *)self logSolution:v45];
+    v7 = [(NINearbyUpdatesEngine *)self nearbyObjectFromSolution:v45];
+    if (v7 || self->_findingPeerToken && ([(NINearbyUpdatesEngine *)self nearbyObjectFromSolution:v45 forPeer:?], (v7 = objc_claimAutoreleasedReturnValue()) != 0))
     {
       v8 = self->_protobufLogger.__ptr_;
       if (v8)
@@ -2137,11 +2126,11 @@ LABEL_33:
         [v7 timestamp];
         v10 = v9;
         sub_1002D63A8(v7, &__p);
-        memset(&v40, 0, sizeof(v40));
-        sub_10038E568(&v40, &__p, v44, 1uLL);
-        sub_1002E16FC(v8, &self->_uniqueIdentifier, &v40, v10);
-        v39.__r_.__value_.__r.__words[0] = &v40;
-        sub_10038E814(&v39);
+        memset(&v41, 0, sizeof(v41));
+        sub_10038E568(&v41, &__p, v45, 1uLL);
+        sub_1002E16FC(v8, &self->_uniqueIdentifier, &v41, v10);
+        v40.__r_.__value_.__r.__words[0] = &v41;
+        sub_10038E814(&v40);
         if (__p.__r_.__value_.__r.__words[0])
         {
           __p.__r_.__value_.__l.__size_ = __p.__r_.__value_.__r.__words[0];
@@ -2152,7 +2141,7 @@ LABEL_33:
       analyticsManager = self->_analyticsManager;
       if (analyticsManager)
       {
-        [(NIServerAnalyticsManager *)analyticsManager updateWithSolution:v44];
+        [(NIServerAnalyticsManager *)analyticsManager updateWithSolution:v45];
       }
 
       if (solutionCopy)
@@ -2165,8 +2154,8 @@ LABEL_33:
         [v7 setSignalStrength:?];
       }
 
-      sub_100004A08(&v40, "");
-      sub_100004A08(&v39, "RawDist = ");
+      sub_100004A08(&v41, "");
+      sub_100004A08(&v40, "RawDist = ");
       if (solutionCopy)
       {
         objc_storeStrong(&self->_previousNIObjectUpdate, solution);
@@ -2178,7 +2167,7 @@ LABEL_33:
         [(NINearbyObject *)self->_previousNIObjectUpdate distance];
       }
 
-      sub_100383530(2);
+      sub_100383530(2, v12 * 3.28);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_p = &__p;
@@ -2199,114 +2188,114 @@ LABEL_33:
         size = __p.__r_.__value_.__l.__size_;
       }
 
-      std::string::append(&v39, p_p, size);
+      std::string::append(&v40, p_p, size);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v14 = &v39;
+        v15 = &v40;
       }
 
       else
       {
-        v14 = v39.__r_.__value_.__r.__words[0];
+        v15 = v40.__r_.__value_.__r.__words[0];
       }
 
-      if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v15 = HIBYTE(v39.__r_.__value_.__r.__words[2]);
+        v16 = HIBYTE(v40.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v15 = v39.__r_.__value_.__l.__size_;
+        v16 = v40.__r_.__value_.__l.__size_;
       }
 
-      std::string::append(&v40, v14, v15);
-      std::string::append(&v40, " ");
-      std::string::append(&v40, ", ");
-      if ((v45 & 0x100000000) != 0)
+      std::string::append(&v41, v15, v16);
+      std::string::append(&v41, " ");
+      std::string::append(&v41, ", ");
+      if ((v46 & 0x100000000) != 0)
       {
-        v16 = (&off_1009A8868)[v45];
+        v17 = (&off_1009A8868)[v46];
       }
 
       else
       {
-        v16 = "Unavailable";
+        v17 = "Unavailable";
       }
 
-      sub_100004A08(&v36, v16);
-      v17 = std::string::append(&v36, " : ");
-      v18 = *&v17->__r_.__value_.__l.__data_;
-      __p.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
-      *&__p.__r_.__value_.__l.__data_ = v18;
-      v17->__r_.__value_.__l.__size_ = 0;
-      v17->__r_.__value_.__r.__words[2] = 0;
-      v17->__r_.__value_.__r.__words[0] = 0;
-      if (v44[0].i32[0])
+      sub_100004A08(&v37, v17);
+      v18 = std::string::append(&v37, " : ");
+      v19 = *&v18->__r_.__value_.__l.__data_;
+      __p.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
+      *&__p.__r_.__value_.__l.__data_ = v19;
+      v18->__r_.__value_.__l.__size_ = 0;
+      v18->__r_.__value_.__r.__words[2] = 0;
+      v18->__r_.__value_.__r.__words[0] = 0;
+      if (v45[0].i32[0])
       {
-        v19 = "Converged   ";
+        v20 = "Converged   ";
       }
 
-      else if ((*v44 & 0x100000000) != 0)
+      else if ((*v45 & 0x100000000) != 0)
       {
-        v19 = "LowDisp     ";
+        v20 = "LowDisp     ";
       }
 
-      else if ((*v44 & 0x100000000000000) != 0)
+      else if ((*v45 & 0x100000000000000) != 0)
       {
-        v19 = "LowLighting ";
+        v20 = "LowLighting ";
       }
 
-      else if ((*v44 & 0x10000000000) != 0)
+      else if ((*v45 & 0x10000000000) != 0)
       {
-        v19 = "LowHorzDisp ";
+        v20 = "LowHorzDisp ";
       }
 
-      else if ((*v44 & 0x1000000000000) != 0)
+      else if ((*v45 & 0x1000000000000) != 0)
       {
-        v19 = "LowVertDisp ";
+        v20 = "LowVertDisp ";
       }
 
       else
       {
-        v19 = "NotConverged";
+        v20 = "NotConverged";
       }
 
-      sub_100004A08(v34, v19);
-      if ((v35 & 0x80u) == 0)
-      {
-        v20 = v34;
-      }
-
-      else
-      {
-        v20 = v34[0];
-      }
-
-      if ((v35 & 0x80u) == 0)
+      sub_100004A08(v35, v20);
+      if ((v36 & 0x80u) == 0)
       {
         v21 = v35;
       }
 
       else
       {
-        v21 = v34[1];
+        v21 = v35[0];
       }
 
-      v22 = std::string::append(&__p, v20, v21);
-      v23 = *&v22->__r_.__value_.__l.__data_;
-      v38 = v22->__r_.__value_.__r.__words[2];
-      *v37 = v23;
-      v22->__r_.__value_.__l.__size_ = 0;
-      v22->__r_.__value_.__r.__words[2] = 0;
-      v22->__r_.__value_.__r.__words[0] = 0;
-      if (v35 < 0)
+      if ((v36 & 0x80u) == 0)
       {
-        operator delete(v34[0]);
+        v22 = v36;
+      }
+
+      else
+      {
+        v22 = v35[1];
+      }
+
+      v23 = std::string::append(&__p, v21, v22);
+      v24 = *&v23->__r_.__value_.__l.__data_;
+      v39 = v23->__r_.__value_.__r.__words[2];
+      *v38 = v24;
+      v23->__r_.__value_.__l.__size_ = 0;
+      v23->__r_.__value_.__r.__words[2] = 0;
+      v23->__r_.__value_.__r.__words[0] = 0;
+      if (v36 < 0)
+      {
+        operator delete(v35[0]);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -2314,93 +2303,93 @@ LABEL_33:
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v36.__r_.__value_.__l.__data_);
+        operator delete(v37.__r_.__value_.__l.__data_);
       }
 
-      if (v38 >= 0)
+      if (v39 >= 0)
       {
-        v24 = v37;
-      }
-
-      else
-      {
-        v24 = v37[0];
-      }
-
-      if (v38 >= 0)
-      {
-        v25 = HIBYTE(v38);
+        v25 = v38;
       }
 
       else
       {
-        v25 = v37[1];
+        v25 = v38[0];
       }
 
-      std::string::append(&v40, v24, v25);
-      if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if (v39 >= 0)
       {
-        v26 = &v40;
+        v26 = HIBYTE(v39);
       }
 
       else
       {
-        v26 = v40.__r_.__value_.__r.__words[0];
+        v26 = v38[1];
       }
 
-      v27 = [NSString stringWithUTF8String:v26];
-      [v7 setDebugDisplayInfo:v27];
+      std::string::append(&v41, v25, v26);
+      if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v27 = &v41;
+      }
+
+      else
+      {
+        v27 = v41.__r_.__value_.__r.__words[0];
+      }
+
+      v28 = [NSString stringWithUTF8String:v27];
+      [v7 setDebugDisplayInfo:v28];
 
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
       if (objc_opt_respondsToSelector())
       {
-        v41 = v7;
-        v29 = [NSArray arrayWithObjects:&v41 count:1];
-        [WeakRetained updatesEngine:self didUpdateNearbyObjects:v29];
+        v42 = v7;
+        v30 = [NSArray arrayWithObjects:&v42 count:1];
+        [WeakRetained updatesEngine:self didUpdateNearbyObjects:v30];
       }
 
       if (self->_findingPeerToken)
       {
-        v30 = [(NINearbyUpdatesEngine *)self niConvergenceStateFromSolution:v44];
-        v31 = [(NSMutableDictionary *)self->_convStateForObject objectForKeyedSubscript:self->_findingPeerToken];
-        if (([v31 isEqual:v30] & 1) == 0)
+        v31 = [(NINearbyUpdatesEngine *)self niConvergenceStateFromSolution:v45];
+        v32 = [(NSMutableDictionary *)self->_convStateForObject objectForKeyedSubscript:self->_findingPeerToken];
+        if (([v32 isEqual:v31] & 1) == 0)
         {
-          [(NSMutableDictionary *)self->_convStateForObject setObject:v30 forKeyedSubscript:self->_findingPeerToken];
-          v32 = [[NINearbyObject alloc] initWithToken:self->_findingPeerToken];
+          [(NSMutableDictionary *)self->_convStateForObject setObject:v31 forKeyedSubscript:self->_findingPeerToken];
+          v33 = [[NINearbyObject alloc] initWithToken:self->_findingPeerToken];
           if (objc_opt_respondsToSelector())
           {
-            [WeakRetained updatesEngine:self didUpdateAlgorithmConvergenceState:v30 forObject:v32];
+            [WeakRetained updatesEngine:self didUpdateAlgorithmConvergenceState:v31 forObject:v33];
           }
 
-          v33 = qword_1009F9820;
+          v34 = qword_1009F9820;
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(__p.__r_.__value_.__l.__data_) = 138412802;
-            *(__p.__r_.__value_.__r.__words + 4) = v32;
+            *(__p.__r_.__value_.__r.__words + 4) = v33;
             WORD2(__p.__r_.__value_.__r.__words[1]) = 2112;
-            *(&__p.__r_.__value_.__r.__words[1] + 6) = v30;
+            *(&__p.__r_.__value_.__r.__words[1] + 6) = v31;
             HIWORD(__p.__r_.__value_.__r.__words[2]) = 2112;
-            v43 = v31;
-            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#finding, Updated convergence state for object: %@. New state: %@. Previous state: %@", &__p, 0x20u);
+            v44 = v32;
+            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#finding, Updated convergence state for object: %@. New state: %@. Previous state: %@", &__p, 0x20u);
           }
         }
       }
 
-      if (SHIBYTE(v38) < 0)
+      if (SHIBYTE(v39) < 0)
       {
-        operator delete(v37[0]);
-      }
-
-      if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v39.__r_.__value_.__l.__data_);
+        operator delete(v38[0]);
       }
 
       if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v40.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v41.__r_.__value_.__l.__data_);
       }
     }
   }
@@ -2459,9 +2448,9 @@ LABEL_13:
         [v8 setTimestamp:*(solution + 2)];
         [v9 setRequiresBiasCorrection:options->requiresBiasCorrection];
         obj = [v9 discoveryToken];
-        v121 = [obj hash];
-        buf[0] = &v121;
-        v10 = sub_100011060(&self->_hashToTokenMap.__table_.__bucket_list_.__ptr_, &v121);
+        v120 = [obj hash];
+        buf[0] = &v120;
+        v10 = sub_100011060(&self->_hashToTokenMap, &v120, &unk_100548C50, buf);
         objc_storeStrong(v10 + 3, obj);
         [v9 setRangeBiasEstimate:*&NINearbyObjectRangeBiasEstimateNotAvailable];
         [v9 setRangeUncertainty:*&NINearbyObjectRangeUncertaintyNotAvailable];
@@ -2521,199 +2510,198 @@ LABEL_13:
                     sub_1002E4938(self->_protobufLogger.__ptr_, solution);
                   }
 
-                  v106 = objc_alloc_init(UWBSignalFeatures);
-                  configuration = self->_configuration;
+                  v105 = objc_alloc_init(UWBSignalFeatures);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v25 = self->_configuration;
-                    debugParameters = [(NIConfiguration *)v25 debugParameters];
+                    v24 = self->_configuration;
+                    debugParameters = [(NIConfiguration *)v24 debugParameters];
                     if (debugParameters)
                     {
-                      debugParameters2 = [(NIConfiguration *)v25 debugParameters];
-                      v28 = [debugParameters2 objectForKey:@"enableAdditionalUWBSignalFeatures"];
-                      v105 = v28 != 0;
+                      debugParameters2 = [(NIConfiguration *)v24 debugParameters];
+                      v27 = [debugParameters2 objectForKey:@"enableAdditionalUWBSignalFeatures"];
+                      v104 = v27 != 0;
                     }
 
                     else
                     {
-                      v105 = 0;
+                      v104 = 0;
                     }
                   }
 
                   else
                   {
-                    v105 = 0;
+                    v104 = 0;
                   }
 
-                  v111 = [(NINearbyUpdatesEngine *)self _consolidateInputToMLModel:solution];
-                  v107 = [(RangeBiasEstimatorSingleAntennaModel *)self->_rangeBiasEstimatorSingleAntennaModel consumeInputFeatures:?];
-                  v109 = [(RangeBiasEstimatorSingleAntennaModel *)self->_rangeBiasEstimatorSingleAntennaModel preprocessInputFeatures:?];
-                  v52 = [(RangeBiasEstimatorSingleAntennaModel *)self->_rangeBiasEstimatorSingleAntennaModel predictOutput:v109];
+                  v110 = [(NINearbyUpdatesEngine *)self _consolidateInputToMLModel:solution];
+                  v106 = [(RangeBiasEstimatorSingleAntennaModel *)self->_rangeBiasEstimatorSingleAntennaModel consumeInputFeatures:?];
+                  v108 = [(RangeBiasEstimatorSingleAntennaModel *)self->_rangeBiasEstimatorSingleAntennaModel preprocessInputFeatures:?];
+                  v51 = [(RangeBiasEstimatorSingleAntennaModel *)self->_rangeBiasEstimatorSingleAntennaModel predictOutput:v108];
                   biasCorrectionEstimate = [(RangeBiasEstimatorSingleAntennaModel *)self->_rangeBiasEstimatorSingleAntennaModel biasCorrectionEstimate];
-                  if (biasCorrectionEstimate && v52)
+                  if (biasCorrectionEstimate && v51)
                   {
                     memset(buf, 0, sizeof(buf));
-                    v115 = [[NSMutableString alloc] initWithFormat:&stru_1009B1428];
-                    for (i = 0; [v52 count] > i; ++i)
+                    v114 = [[NSMutableString alloc] initWithFormat:&stru_1009B1428];
+                    for (i = 0; [v51 count] > i; ++i)
                     {
-                      v54 = v52;
-                      v55 = [v52 objectAtIndexedSubscript:i];
-                      [v55 doubleValue];
-                      v57 = v56;
+                      v53 = v51;
+                      v54 = [v51 objectAtIndexedSubscript:i];
+                      [v54 doubleValue];
+                      v56 = v55;
 
-                      [v115 appendFormat:@"%f ", v57];
-                      v58 = buf[1];
+                      [v114 appendFormat:@"%f ", v56];
+                      v57 = buf[1];
                       if (*&buf[1] >= *&buf[2])
                       {
-                        v60 = buf[0];
-                        v61 = *&buf[1] - *buf;
-                        v62 = (*&buf[1] - *buf) >> 3;
-                        v63 = v62 + 1;
-                        if ((v62 + 1) >> 61)
+                        v59 = buf[0];
+                        v60 = *&buf[1] - *buf;
+                        v61 = (*&buf[1] - *buf) >> 3;
+                        v62 = v61 + 1;
+                        if ((v61 + 1) >> 61)
                         {
                           sub_100019B38();
                         }
 
-                        v64 = *&buf[2] - *buf;
-                        if ((*&buf[2] - *buf) >> 2 > v63)
+                        v63 = *&buf[2] - *buf;
+                        if ((*&buf[2] - *buf) >> 2 > v62)
                         {
-                          v63 = v64 >> 2;
+                          v62 = v63 >> 2;
                         }
 
-                        v65 = v64 >= 0x7FFFFFFFFFFFFFF8;
-                        v66 = 0x1FFFFFFFFFFFFFFFLL;
-                        if (!v65)
+                        v64 = v63 >= 0x7FFFFFFFFFFFFFF8;
+                        v65 = 0x1FFFFFFFFFFFFFFFLL;
+                        if (!v64)
                         {
-                          v66 = v63;
+                          v65 = v62;
                         }
 
+                        if (v65)
+                        {
+                          sub_100012564(buf, v65);
+                        }
+
+                        *(8 * v61) = v56;
+                        v58 = 8 * v61 + 8;
+                        memcpy(0, v59, v60);
+                        v66 = buf[0];
+                        buf[0] = 0;
+                        buf[1] = v58;
+                        buf[2] = 0;
                         if (v66)
                         {
-                          sub_100012564(buf, v66);
+                          operator delete(v66);
                         }
 
-                        *(8 * v62) = v57;
-                        v59 = 8 * v62 + 8;
-                        memcpy(0, v60, v61);
-                        v67 = buf[0];
-                        buf[0] = 0;
-                        buf[1] = v59;
-                        buf[2] = 0;
-                        if (v67)
-                        {
-                          operator delete(v67);
-                        }
-
-                        v52 = v54;
+                        v51 = v53;
                       }
 
                       else
                       {
-                        **&buf[1] = v57;
-                        v59 = *&v58 + 8;
-                        v52 = v54;
+                        **&buf[1] = v56;
+                        v58 = *&v57 + 8;
+                        v51 = v53;
                       }
 
-                      buf[1] = v59;
+                      buf[1] = v58;
                     }
 
-                    v68 = v52;
-                    v71 = qword_1009F9820;
-                    if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+                    v67 = v51;
+                    v70 = qword_1009F9820;
+                    if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
                     {
-                      if (*(solution + 600) != 1 || (v72 = *(solution + 215), (v72 & 0x100) == 0))
+                      if (*(solution + 600) != 1 || (v71 = *(solution + 215), (v71 & 0x100) == 0))
                       {
                         sub_1000195BC();
                       }
 
-                      *v142 = 67109378;
-                      *&v142[4] = v72;
-                      *&v142[8] = 2112;
-                      *&v142[10] = v115;
-                      _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#bias-est Output probabilities for antenna mask %d : %@", v142, 0x12u);
+                      *v141 = 67109378;
+                      *&v141[4] = v71;
+                      *&v141[8] = 2112;
+                      *&v141[10] = v114;
+                      _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#bias-est Output probabilities for antenna mask %d : %@", v141, 0x12u);
                     }
 
-                    v73 = qword_1009F9820;
-                    if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+                    v72 = qword_1009F9820;
+                    if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
                     {
                       [v9 distance];
-                      v75 = v74;
+                      v74 = v73;
                       [v9 distance];
-                      v77 = v76;
+                      v76 = v75;
                       [biasCorrectionEstimate doubleValue];
-                      *v142 = 134218240;
-                      *&v142[4] = v75;
-                      *&v142[12] = 2048;
-                      *&v142[14] = v78 + v77;
-                      _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#bias-est Range result (raw) = %f, Corrected Range = %f", v142, 0x16u);
+                      *v141 = 134218240;
+                      *&v141[4] = v74;
+                      *&v141[12] = 2048;
+                      *&v141[14] = v77 + v76;
+                      _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#bias-est Range result (raw) = %f, Corrected Range = %f", v141, 0x16u);
                     }
 
                     [biasCorrectionEstimate doubleValue];
                     [v9 setRangeBiasEstimate:?];
-                    v79 = v105;
-                    if (!v111)
+                    v78 = v104;
+                    if (!v110)
                     {
-                      v79 = 0;
+                      v78 = 0;
                     }
 
-                    if (v79)
+                    if (v78)
                     {
-                      v80 = objc_alloc_init(BiasEstimatorOutputs);
+                      v79 = objc_alloc_init(BiasEstimatorOutputs);
                       [v9 distance];
-                      [(BiasEstimatorOutputs *)v80 setRawRange:v81];
+                      [(BiasEstimatorOutputs *)v79 setRawRange:v80];
                       [v9 distance];
-                      v83 = v82;
+                      v82 = v81;
                       [biasCorrectionEstimate doubleValue];
-                      [(BiasEstimatorOutputs *)v80 setCorrectedRange:v84 + v83];
-                      [(BiasEstimatorOutputs *)v80 setOutProbabilities:v68];
-                      [(UWBSignalFeatures *)v106 setInputFeatures:v111];
-                      [(UWBSignalFeatures *)v106 setOutputs:v80];
-                      [v9 setUwbSignalFeatures:v106];
+                      [(BiasEstimatorOutputs *)v79 setCorrectedRange:v83 + v82];
+                      [(BiasEstimatorOutputs *)v79 setOutProbabilities:v67];
+                      [(UWBSignalFeatures *)v105 setInputFeatures:v110];
+                      [(UWBSignalFeatures *)v105 setOutputs:v79];
+                      [v9 setUwbSignalFeatures:v105];
                     }
 
                     if (self->_protobufLogger.__ptr_)
                     {
-                      memset(v142, 0, sizeof(v142));
-                      v85 = [v107 featureValueForName:@"input"];
-                      multiArrayValue = [v85 multiArrayValue];
+                      memset(v141, 0, sizeof(v141));
+                      v84 = [v106 featureValueForName:@"input"];
+                      multiArrayValue = [v84 multiArrayValue];
 
                       __p = 0;
+                      v118 = 0;
                       v119 = 0;
-                      v120 = 0;
-                      v87 = [v109 featureValueForName:@"input"];
-                      multiArrayValue2 = [v87 multiArrayValue];
+                      v86 = [v108 featureValueForName:@"input"];
+                      multiArrayValue2 = [v86 multiArrayValue];
 
                       for (j = 0; [multiArrayValue count] > j; ++j)
                       {
-                        v90 = [multiArrayValue objectAtIndexedSubscript:j];
-                        [v90 doubleValue];
-                        v117 = v91;
-                        sub_100009734(v142, &v117);
+                        v89 = [multiArrayValue objectAtIndexedSubscript:j];
+                        [v89 doubleValue];
+                        v116 = v90;
+                        sub_100009734(v141, &v116);
 
-                        v92 = [multiArrayValue2 objectAtIndexedSubscript:j];
-                        [v92 doubleValue];
-                        v117 = v93;
-                        sub_100009734(&__p, &v117);
+                        v91 = [multiArrayValue2 objectAtIndexedSubscript:j];
+                        [v91 doubleValue];
+                        v116 = v92;
+                        sub_100009734(&__p, &v116);
                       }
 
-                      if ((*(solution + 600) & 1) == 0 || (v94 = *(solution + 215), (v94 & 0x100) == 0) || (ptr = self->_protobufLogger.__ptr_, [v9 distance], v97 = v96, objc_msgSend(biasCorrectionEstimate, "doubleValue"), (*(solution + 24) & 1) == 0))
+                      if ((*(solution + 600) & 1) == 0 || (v93 = *(solution + 215), (v93 & 0x100) == 0) || (ptr = self->_protobufLogger.__ptr_, [v9 distance], v96 = v95, objc_msgSend(biasCorrectionEstimate, "doubleValue"), (*(solution + 24) & 1) == 0))
                       {
                         sub_1000195BC();
                       }
 
-                      sub_1002E5170(ptr, v94, v97, v98, *(solution + 2), v142, &__p, buf, *(solution + 18), *(solution + 5));
+                      sub_1002E5170(ptr, v93, v96, v97, *(solution + 2), v141, &__p, buf, *(solution + 18), *(solution + 5));
 
                       if (__p)
                       {
-                        v119 = __p;
+                        v118 = __p;
                         operator delete(__p);
                       }
 
-                      if (*v142)
+                      if (*v141)
                       {
-                        *&v142[8] = *v142;
-                        operator delete(*v142);
+                        *&v141[8] = *v141;
+                        operator delete(*v141);
                       }
                     }
 
@@ -2726,16 +2714,16 @@ LABEL_13:
 
                   else
                   {
-                    v68 = v52;
+                    v67 = v51;
                     [(NINearbyUpdatesEngine *)self _getRangeUncertaintyWhenBiasEstimateNotAvailable];
                     [v9 setRangeUncertainty:?];
-                    v69 = qword_1009F9820;
-                    if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+                    v68 = qword_1009F9820;
+                    if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
                     {
                       [v9 rangeUncertainty];
                       buf[0].i32[0] = 134217984;
-                      *(buf + 4) = v70;
-                      _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#bias-est Could not compute bias estimate, override range uncertainty to %.2f", buf, 0xCu);
+                      *(buf + 4) = v69;
+                      _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#bias-est Could not compute bias estimate, override range uncertainty to %.2f", buf, 0xCu);
                     }
                   }
 
@@ -2782,7 +2770,7 @@ LABEL_153:
                       {
                         if (*(solution + 752) == 1)
                         {
-                          sub_100498E54(buf);
+                          sub_100498E54(buf, solution + 608);
                           v18 = qword_1009F9820;
                           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
                           {
@@ -2791,48 +2779,48 @@ LABEL_153:
                               sub_1000195BC();
                             }
 
-                            v102 = *(solution + 44);
-                            v103 = *(solution + 2);
+                            v101 = *(solution + 44);
+                            v102 = *(solution + 2);
                             p_uniqueIdentifier = &self->_uniqueIdentifier;
                             if (*(&self->_uniqueIdentifier.__rep_.__l + 23) < 0)
                             {
                               p_uniqueIdentifier = p_uniqueIdentifier->__rep_.__l.__data_;
                             }
 
-                            *v142 = 134219010;
-                            *&v142[4] = v102;
-                            *&v142[12] = 2048;
-                            *&v142[14] = v103;
-                            *&v142[22] = 2048;
-                            *v143 = v126;
-                            *&v143[8] = 2048;
-                            v144 = v125;
-                            v145 = 2080;
-                            v146 = p_uniqueIdentifier;
-                            _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "#nrby-eng,#sa_algo,New measurement with distance %4.3f m, timestamp %f, az %4.1f deg, and el %4.1f deg. Unique identifier: %s", v142, 0x34u);
+                            *v141 = 134219010;
+                            *&v141[4] = v101;
+                            *&v141[12] = 2048;
+                            *&v141[14] = v102;
+                            *&v141[22] = 2048;
+                            *v142 = v125;
+                            *&v142[8] = 2048;
+                            v143 = v124;
+                            v144 = 2080;
+                            v145 = p_uniqueIdentifier;
+                            _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "#nrby-eng,#sa_algo,New measurement with distance %4.3f m, timestamp %f, az %4.1f deg, and el %4.1f deg. Unique identifier: %s", v141, 0x34u);
                           }
 
-                          v19 = sub_1000422B8(v126);
-                          *&v20 = sub_1000422B8(v125);
+                          v19 = sub_1000422B8(v125);
+                          *&v20 = sub_1000422B8(v124);
                           sub_10002074C(&buf[2], p_data);
                           *&v19 = v19;
-                          v108 = LODWORD(v19);
+                          v107 = LODWORD(v19);
                           v21 = v20 << 32;
-                          v114 = 0x100000001;
+                          v113 = 0x100000001;
                         }
 
                         else
                         {
-                          v29 = qword_1009F9820;
-                          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+                          v28 = qword_1009F9820;
+                          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
                           {
                             if (*(solution + 600) != 1 || (*(solution + 24) & 1) == 0)
                             {
                               sub_1000195BC();
                             }
 
-                            v99 = *(solution + 352);
-                            v100 = *(solution + 16);
+                            v98 = *(solution + 352);
+                            v99 = *(solution + 16);
                             data = &self->_uniqueIdentifier;
                             if (*(&self->_uniqueIdentifier.__rep_.__l + 23) < 0)
                             {
@@ -2840,83 +2828,83 @@ LABEL_153:
                             }
 
                             buf[0].i32[0] = 134218498;
-                            *(buf + 4) = v99;
+                            *(buf + 4) = v98;
                             buf[1].i16[2] = 2048;
-                            *(&buf[1] + 6) = v100;
+                            *(&buf[1] + 6) = v99;
                             buf[2].i16[3] = 2080;
                             p_data = &data->__rep_.__l.__data_;
-                            _os_log_debug_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "#nrby-eng,#sa_algo,New measurement with distance %4.3f m, timestamp %f, no az or el. Unique identifier: %s", buf, 0x20u);
+                            _os_log_debug_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "#nrby-eng,#sa_algo,New measurement with distance %4.3f m, timestamp %f, no az or el. Unique identifier: %s", buf, 0x20u);
                           }
 
-                          v114 = 0;
+                          v113 = 0;
                           v21 = 0;
-                          v108 = 0;
+                          v107 = 0;
                         }
 
                         if (*(solution + 928) == 1)
                         {
-                          v30 = *(solution + 114) & 0xFFFFFFFFFFFFFF00;
-                          v110 = *(solution + 920);
-                          v31 = *(solution + 112) & 0xFFFFFFFFFFFFFF00;
-                          v112 = *(solution + 904);
-                          v32 = *(solution + 114);
-                          v33 = *(solution + 112);
+                          v29 = *(solution + 114) & 0xFFFFFFFFFFFFFF00;
+                          v109 = *(solution + 920);
+                          v30 = *(solution + 112) & 0xFFFFFFFFFFFFFF00;
+                          v111 = *(solution + 904);
+                          v31 = *(solution + 114);
+                          v32 = *(solution + 112);
                         }
 
                         else
                         {
-                          v33 = 0;
-                          v110 = 0;
-                          v112 = 0;
-                          v31 = 0;
                           v32 = 0;
+                          v109 = 0;
+                          v111 = 0;
                           v30 = 0;
+                          v31 = 0;
+                          v29 = 0;
                         }
 
                         discoveryToken2 = [v9 discoveryToken];
-                        v35 = [discoveryToken2 hash];
+                        v34 = [discoveryToken2 hash];
                         if ((*(solution + 24) & 1) == 0 || *(solution + 600) != 1)
                         {
                           sub_1000195BC();
                         }
 
-                        v36 = *(solution + 16);
-                        *&v37 = *(solution + 44);
-                        v38 = *(solution + 27);
-                        v39 = *(solution + 80) | 0x10000;
-                        v40 = *(solution + 257);
-                        v41 = *(solution + 280);
-                        buf[0] = v35;
-                        buf[1] = v36;
-                        buf[2] = (v37 | 0x100000000);
-                        p_data = (v108 | v21);
-                        v124 = v114;
+                        v35 = *(solution + 16);
+                        *&v36 = *(solution + 44);
+                        v37 = *(solution + 27);
+                        v38 = *(solution + 80) | 0x10000;
+                        v39 = *(solution + 257);
+                        v40 = *(solution + 280);
+                        buf[0] = v34;
+                        buf[1] = v35;
+                        buf[2] = (v36 | 0x100000000);
+                        p_data = (v107 | v21);
+                        v123 = v113;
+                        LOBYTE(v124) = 0;
+                        BYTE4(v124) = 0;
                         LOBYTE(v125) = 0;
                         BYTE4(v125) = 0;
-                        LOBYTE(v126) = 0;
-                        BYTE4(v126) = 0;
-                        v127 = v38;
-                        v128 = 1;
-                        v129 = 0;
-                        memset(v131, 0, 25);
-                        v130 = 0u;
-                        v131[48] = 0;
+                        v126 = v37;
+                        v127 = 1;
+                        v128 = 0;
+                        memset(v130, 0, 25);
+                        v129 = 0u;
+                        v130[48] = 0;
+                        v131 = 0;
                         v132 = 0;
-                        v133 = 0;
+                        v133 = v38;
                         v134 = v39;
                         v135 = v40;
-                        v136 = v41;
-                        v137 = v30 | v32;
-                        v138 = v110;
-                        v139 = *(solution + 72);
-                        v140 = v31 | v33;
-                        v141 = v112;
+                        v136 = v29 | v31;
+                        v137 = v109;
+                        v138 = *(solution + 72);
+                        v139 = v30 | v32;
+                        v140 = v111;
 
                         [(NINearbyUpdatesEngine *)self _sendTimeTupleToAlgorithms];
-                        v42 = self->_protobufLogger.__ptr_;
-                        if (v42)
+                        v41 = self->_protobufLogger.__ptr_;
+                        if (v41)
                         {
-                          sub_1002EA2EC(v42, &self->_uniqueIdentifier, buf);
+                          sub_1002EA2EC(v41, &self->_uniqueIdentifier, buf);
                         }
 
                         analyticsManager = self->_analyticsManager;
@@ -2930,38 +2918,38 @@ LABEL_153:
                           [(NIServerAnalyticsManager *)analyticsManager updateWithSuccessfulRange:*(solution + 28) uwbRSSI:*(solution + 232) nbRSSI:*(solution + 44), *(solution + 27)];
                         }
 
-                        v44 = *&buf[1];
+                        v43 = *&buf[1];
                         lastMeasurementTimeSeconds = self->_findingLatencyBookkeeping.lastMeasurementTimeSeconds;
                         *&self->_findingLatencyBookkeeping.lastMeasurementTimeSeconds = buf[1];
-                        v46 = sub_100005288();
-                        v47 = v44 - lastMeasurementTimeSeconds;
-                        v48 = v46 - self->_findingLatencyBookkeeping.lastProcessTimeSeconds;
-                        self->_findingLatencyBookkeeping.lastProcessTimeSeconds = v46;
-                        v49 = v48 - v47;
+                        v45 = sub_100005288();
+                        v46 = v43 - lastMeasurementTimeSeconds;
+                        v47 = v45 - self->_findingLatencyBookkeeping.lastProcessTimeSeconds;
+                        self->_findingLatencyBookkeeping.lastProcessTimeSeconds = v45;
+                        v48 = v47 - v46;
                         if (self->_findingLatencyBookkeeping.receivedFirstMeasurement)
                         {
-                          self->_findingLatencyBookkeeping.accumulatedExcessSeconds = v49 + self->_findingLatencyBookkeeping.accumulatedExcessSeconds;
+                          self->_findingLatencyBookkeeping.accumulatedExcessSeconds = v48 + self->_findingLatencyBookkeeping.accumulatedExcessSeconds;
                         }
 
-                        v50 = qword_1009F9820;
+                        v49 = qword_1009F9820;
                         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
                         {
                           accumulatedExcessSeconds = self->_findingLatencyBookkeeping.accumulatedExcessSeconds;
-                          *v142 = 134349824;
-                          *&v142[4] = v47;
-                          *&v142[12] = 2050;
-                          *&v142[14] = v48;
-                          *&v142[22] = 1026;
-                          *v143 = (v49 * 1000.0);
-                          *&v143[4] = 1026;
-                          *&v143[6] = (accumulatedExcessSeconds * 1000.0);
-                          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "#nrby-eng,Finding range result latency report. measDelta: %{public}0.3f [s]. processDelta: %{public}0.3f [s]. Excess ms: %{public}d. Accumulated excess ms: %{public}d", v142, 0x22u);
+                          *v141 = 134349824;
+                          *&v141[4] = v46;
+                          *&v141[12] = 2050;
+                          *&v141[14] = v47;
+                          *&v141[22] = 1026;
+                          *v142 = (v48 * 1000.0);
+                          *&v142[4] = 1026;
+                          *&v142[6] = (accumulatedExcessSeconds * 1000.0);
+                          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "#nrby-eng,Finding range result latency report. measDelta: %{public}0.3f [s]. processDelta: %{public}0.3f [s]. Excess ms: %{public}d. Accumulated excess ms: %{public}d", v141, 0x22u);
                         }
 
                         self->_findingLatencyBookkeeping.receivedFirstMeasurement = 1;
-                        sub_100224EF8();
+                        sub_100224EF8(728958016, 1, 1, 0, 0, 0);
                         (*(*self->_findingAlgorithmContainer.__ptr_ + 24))(self->_findingAlgorithmContainer.__ptr_, buf);
-                        sub_100224EF8();
+                        sub_100224EF8(728958016, 2, 1, 0, 0, 0);
                         if ((*(*self->_findingAlgorithmContainer.__ptr_ + 32))(self->_findingAlgorithmContainer.__ptr_))
                         {
                           [(NINearbyUpdatesEngine *)self provideFindingSolution:v9];
@@ -3349,16 +3337,14 @@ LABEL_45:
 
 - (void)acceptPositionDisplacement:(const void *)displacement
 {
-  ptr = self->_positionEngineManager.__ptr_;
-  if (ptr)
+  if (self->_positionEngineManager.__ptr_)
   {
     if (self->_protobufLogger.__ptr_)
     {
       sub_1002EA0F8(self->_protobufLogger.__ptr_, displacement);
-      ptr = self->_positionEngineManager.__ptr_;
     }
 
-    nullsub_171(ptr, displacement);
+    nullsub_171();
   }
 
   else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
@@ -3447,9 +3433,9 @@ LABEL_14:
           sub_1004C5E10();
         }
 
-        sub_100224EF8();
+        sub_100224EF8(728958016, 1, 0, 0, 0, 0);
         (*(*self->_findingAlgorithmContainer.__ptr_ + 296))();
-        sub_100224EF8();
+        sub_100224EF8(728958016, 2, 0, 0, 0, 0);
         if ((*(*self->_findingAlgorithmContainer.__ptr_ + 312))())
         {
           WeakRetained = objc_loadWeakRetained(&self->_dataSource);
@@ -3599,34 +3585,33 @@ LABEL_13:
 - (void)acceptDeviceMovingState:(BOOL)state
 {
   stateCopy = state;
-  configuration = self->_configuration;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = 0;
-    if (sub_100009BCC(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, &v9))
+    v8 = 0;
+    if (sub_100009BCC(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, &v8))
     {
-      v8 = 0;
-      v6 = sub_100009978(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, &v8);
-      if (!v6)
+      v7 = 0;
+      v5 = sub_100009978(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, &v7);
+      if (!v5)
       {
         goto LABEL_8;
       }
 
-      if (!v6[3])
+      if (!v5[3])
       {
         return;
       }
 
-      v9 = 0;
-      v7 = sub_100009978(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, &v9);
-      if (!v7)
+      v8 = 0;
+      v6 = sub_100009978(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, &v8);
+      if (!v6)
       {
 LABEL_8:
         sub_10017C290("unordered_map::at: key not found");
       }
 
-      sub_1004100E8(v7[3], stateCopy);
+      sub_1004100E8(v6[3], stateCopy);
     }
   }
 }
@@ -3646,10 +3631,10 @@ LABEL_8:
 - (void)acceptBluetoothSample:(const void *)sample coarseEstimation:(BOOL)estimation regionCategory:(int64_t)category
 {
   estimationCopy = estimation;
-  v46[0] = category;
-  if (sub_100009BCC(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, v46))
+  v48[0] = category;
+  if (sub_100009BCC(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, v48))
   {
-    v8 = sub_100009978(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, v46);
+    v8 = sub_100009978(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, v48);
     if (!v8)
     {
       sub_10017C290("unordered_map::at: key not found");
@@ -3669,67 +3654,68 @@ LABEL_8:
         }
 
         obj = [v10 discoveryToken];
-        v45 = [obj hash];
-        v37[0] = &v45;
-        v12 = sub_100011060(&self->_hashToTokenMap.__table_.__bucket_list_.__ptr_, &v45);
+        v47 = [obj hash];
+        v39[0] = &v47;
+        v12 = sub_100011060(&self->_hashToTokenMap, &v47, &unk_100548C50, v39);
         objc_storeStrong(v12 + 3, obj);
-        v13 = v46[0];
-        v14 = sub_100009978(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, v46);
+        v13 = LODWORD(v48[0]);
+        v14 = sub_100009978(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, v48);
         if (!v14)
         {
           sub_10017C290("unordered_map::at: key not found");
         }
 
-        sub_1000112BC(v14[3], estimationCopy, v13, &v43);
-        v42[0] = 0;
-        v42[1] = 0;
-        v41 = v42;
-        v15 = sub_100009978(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, v46);
+        sub_1000112BC(v14[3], estimationCopy, v13, &v45);
+        v44[0] = 0;
+        v44[1] = 0;
+        v43 = v44;
+        v15 = sub_100009978(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, v48);
         if (!v15)
         {
           goto LABEL_41;
         }
 
-        if (sub_100011440(v15[3], *(sample + 9), *(sample + 10)))
+        v16 = sub_100011440(v15[3], *(sample + 9), *(sample + 10));
+        if (v16)
         {
-          v16 = v43;
-          for (i = *v43; ; i = v27)
+          v18 = v45;
+          for (i = *v45; ; i = v29)
           {
-            v20 = v16[1];
-            v18 = v16 + 1;
-            v19 = v20;
-            if (v20)
+            v22 = v18[1];
+            v20 = v18 + 1;
+            v21 = v22;
+            if (v22)
             {
               do
               {
-                v21 = v19;
-                v19 = v19[1];
+                v23 = v21;
+                v21 = v21[1];
               }
 
-              while (v19);
+              while (v21);
             }
 
             else
             {
               do
               {
-                v21 = v18[2];
-                v22 = *v21 == v18;
-                v18 = v21;
+                v23 = v20[2];
+                v24 = *v23 == v20;
+                v20 = v23;
               }
 
-              while (v22);
+              while (v24);
             }
 
-            if (i == v21)
+            if (i == v23)
             {
               break;
             }
 
-            v23 = sub_100385D00();
-            v24 = *(i + 17);
-            v25 = sub_100015080();
-            sub_100004A08(v35, [v25 UTF8String]);
+            v25 = sub_100385D00(v16, v17);
+            v26 = *(i + 17);
+            v27 = sub_100015080(v25);
+            sub_100004A08(v37, [v27 UTF8String]);
             if (*(sample + 47) < 0)
             {
               sub_1000056BC(__p, *(sample + 3), *(sample + 4));
@@ -3738,77 +3724,77 @@ LABEL_8:
             else
             {
               *__p = *(sample + 24);
-              v34 = *(sample + 5);
+              v36 = *(sample + 5);
             }
 
-            sub_10029E5C4(v23, v24, v35, __p, v37);
-            if (SHIBYTE(v34) < 0)
+            sub_10029E5C4(v25, v26, v37, __p, v39);
+            if (SHIBYTE(v36) < 0)
             {
               operator delete(__p[0]);
             }
 
-            if (v36 < 0)
+            if (v38 < 0)
             {
-              operator delete(v35[0]);
+              operator delete(v37[0]);
             }
 
-            sub_10038EFA4(&v41, v37);
-            if (v40 == 1 && v39 < 0)
+            sub_10038EFA4(&v43, v39, v39);
+            if (v42 == 1 && v41 < 0)
             {
-              operator delete(v38[7]);
+              operator delete(v40[7]);
             }
 
-            sub_10002074C(v38, v38[1]);
-            v26 = i[1];
-            if (v26)
+            sub_10002074C(v40, v40[1]);
+            v28 = i[1];
+            if (v28)
             {
               do
               {
-                v27 = v26;
-                v26 = *v26;
+                v29 = v28;
+                v28 = *v28;
               }
 
-              while (v26);
+              while (v28);
             }
 
             else
             {
               do
               {
-                v27 = i[2];
-                v22 = *v27 == i;
-                i = v27;
+                v29 = i[2];
+                v24 = *v29 == i;
+                i = v29;
               }
 
-              while (!v22);
+              while (!v24);
             }
 
-            v16 = v43;
+            v18 = v45;
           }
         }
 
-        v28 = sub_100009978(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, v46);
-        if (!v28)
+        v30 = sub_100009978(&self->_regionMonitorMap.__table_.__bucket_list_.__ptr_, v48);
+        if (!v30)
         {
 LABEL_41:
           sub_10017C290("unordered_map::at: key not found");
         }
 
-        v29 = v28[3];
-        sub_1000114B4(v32, &v41);
-        v30 = sub_100005288();
-        sub_100011594(v29, sample, v32, v30, 0, estimationCopy, v13);
-        sub_100013328(v32, v32[1]);
-        sub_100013328(&v41, v42[0]);
-        if (v44)
+        v31 = v30[3];
+        sub_1000114B4(v34, &v43);
+        v32 = sub_100005288();
+        sub_100011594(v31, sample, v32, v34, 0, estimationCopy, v13);
+        sub_100013328(v34, v34[1]);
+        sub_100013328(&v43, v44[0]);
+        if (v46)
         {
-          sub_10000AD84(v44);
+          sub_10000AD84(v46);
         }
       }
 
       else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
-        sub_1004C5F0C(sample + 9);
+        sub_1004C5F0C();
       }
     }
   }
@@ -4304,7 +4290,7 @@ LABEL_14:
 
 - (void)_handleRegionChangeForDevice:(unint64_t)device currentRegion:(optional<nearby::algorithms::region_monitoring::Region> *)region prevRegion:timestamp:rangeResult:intentPrediction:regionTransitionSuppressed:
 {
-  v43 = v7;
+  v41 = v7;
   v9 = v6;
   v10 = v5;
   v11 = v8;
@@ -4312,7 +4298,7 @@ LABEL_14:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained)
   {
-    v41 = v9;
+    v39 = v9;
     if (region[1].var0.var0 == 1)
     {
       data = region;
@@ -4367,24 +4353,23 @@ LABEL_14:
       v24 = 0;
     }
 
-    if ((v41 & 0x100000000) != 0)
+    if ((v39 & 0x100000000) != 0)
     {
-      std::to_string(&v51, *&v41);
+      std::to_string(&v49, *&v39);
     }
 
     else
     {
-      sub_100004A08(&v51, "N/A");
+      sub_100004A08(&v49, "N/A");
     }
 
-    if ((v43 & 1) == 0)
+    if ((v41 & 1) == 0)
     {
       sub_100004A08(&__p, "NONE");
-      sub_100004A08(&v50, "NONE");
+      sub_100004A08(&v48, "NONE");
       if (*(v10 + 232) == 1)
       {
-        v25 = *(v10 + 16);
-        sub_100387C80();
+        sub_100387C80(*(v10 + 16));
         if (*(&__p.__rep_.__l + 23) < 0)
         {
           operator delete(__p.__rep_.__l.__data_);
@@ -4398,52 +4383,51 @@ LABEL_14:
 
         if (*(v10 + 72) == 1)
         {
-          v26 = *(v10 + 64);
-          sub_100387C80();
-          if (*(&v50.__rep_.__l + 23) < 0)
+          sub_100387C80(*(v10 + 64));
+          if (*(&v48.__rep_.__l + 23) < 0)
           {
-            operator delete(v50.__rep_.__l.__data_);
+            operator delete(v48.__rep_.__l.__data_);
           }
 
-          v50 = buf;
+          v48 = buf;
         }
       }
 
-      v27 = qword_1009F9820;
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v25 = qword_1009F9820;
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         p_uniqueIdentifier = &self->_uniqueIdentifier;
-        v40 = v24;
+        v38 = v24;
         if (*(&self->_uniqueIdentifier.__rep_.__l + 23) < 0)
         {
           p_uniqueIdentifier = p_uniqueIdentifier->__rep_.__l.__data_;
         }
 
-        v29 = *(v12 + 48);
-        v30 = "NONE";
-        if (v29 == 1)
+        v27 = *(v12 + 48);
+        v28 = "NONE";
+        if (v27 == 1)
         {
-          v30 = &v48;
+          v28 = &v46;
           sub_1003C7F08(v12);
-          if (v49 < 0)
+          if (v47 < 0)
           {
-            v30 = v48;
+            v28 = v46;
           }
         }
 
         if (region[1].var0.var0 == 1)
         {
           sub_1003C7F08(region);
-          v31 = &v46;
-          if (v47 < 0)
+          v29 = &v44;
+          if (v45 < 0)
           {
-            v31 = v46;
+            v29 = v44;
           }
 
-          v32 = &v51;
-          if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          v30 = &v49;
+          if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v32 = v51.__r_.__value_.__r.__words[0];
+            v30 = v49.__r_.__value_.__r.__words[0];
           }
 
           p_p = &__p;
@@ -4452,10 +4436,10 @@ LABEL_14:
             p_p = __p.__rep_.__l.__data_;
           }
 
-          v34 = &v50;
-          if (*(&v50.__rep_.__l + 23) < 0)
+          v32 = &v48;
+          if (*(&v48.__rep_.__l + 23) < 0)
           {
-            v34 = v50.__rep_.__l.__data_;
+            v32 = v48.__rep_.__l.__data_;
           }
 
           *buf.__rep_.__s.__data_ = 136316674;
@@ -4463,40 +4447,40 @@ LABEL_14:
           WORD2(buf.__rep_.__l.__size_) = 2048;
           *(&buf.__rep_.__l.__size_ + 6) = device;
           *(&buf.__rep_.__l + 11) = 2080;
-          v53 = v30;
+          v51 = v28;
+          v52 = 2080;
+          v53 = v29;
           v54 = 2080;
-          v55 = v31;
+          v55 = v30;
           v56 = 2080;
-          v57 = v32;
+          v57 = p_p;
           v58 = 2080;
-          v59 = p_p;
-          v60 = 2080;
-          v61 = v34;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#spatialGesturesPredictor #region change ses_id: %s dev: 0x%llx from %s -> %s, intent score: %s, range_m: %s, rssi_dbm: %s", &buf, 0x48u);
-          if (v47 < 0)
+          v59 = v32;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#spatialGesturesPredictor #region change ses_id: %s dev: 0x%llx from %s -> %s, intent score: %s, range_m: %s, rssi_dbm: %s", &buf, 0x48u);
+          if (v45 < 0)
           {
-            operator delete(v46);
+            operator delete(v44);
           }
         }
 
         else
         {
-          v35 = &v51;
-          if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          v33 = &v49;
+          if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v35 = v51.__r_.__value_.__r.__words[0];
+            v33 = v49.__r_.__value_.__r.__words[0];
           }
 
-          v36 = &__p;
+          v34 = &__p;
           if (*(&__p.__rep_.__l + 23) < 0)
           {
-            v36 = __p.__rep_.__l.__data_;
+            v34 = __p.__rep_.__l.__data_;
           }
 
-          v37 = &v50;
-          if (*(&v50.__rep_.__l + 23) < 0)
+          v35 = &v48;
+          if (*(&v48.__rep_.__l + 23) < 0)
           {
-            v37 = v50.__rep_.__l.__data_;
+            v35 = v48.__rep_.__l.__data_;
           }
 
           *buf.__rep_.__s.__data_ = 136316674;
@@ -4504,28 +4488,28 @@ LABEL_14:
           WORD2(buf.__rep_.__l.__size_) = 2048;
           *(&buf.__rep_.__l.__size_ + 6) = device;
           *(&buf.__rep_.__l + 11) = 2080;
-          v53 = v30;
+          v51 = v28;
+          v52 = 2080;
+          v53 = "NONE";
           v54 = 2080;
-          v55 = "NONE";
+          v55 = v33;
           v56 = 2080;
-          v57 = v35;
+          v57 = v34;
           v58 = 2080;
-          v59 = v36;
-          v60 = 2080;
-          v61 = v37;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#spatialGesturesPredictor #region change ses_id: %s dev: 0x%llx from %s -> %s, intent score: %s, range_m: %s, rssi_dbm: %s", &buf, 0x48u);
+          v59 = v35;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "#nrby-eng,#spatialGesturesPredictor #region change ses_id: %s dev: 0x%llx from %s -> %s, intent score: %s, range_m: %s, rssi_dbm: %s", &buf, 0x48u);
         }
 
-        v24 = v40;
-        if (v29 && v49 < 0)
+        v24 = v38;
+        if (v27 && v47 < 0)
         {
-          operator delete(v48);
+          operator delete(v46);
         }
       }
 
-      if (*(&v50.__rep_.__l + 23) < 0)
+      if (*(&v48.__rep_.__l + 23) < 0)
       {
-        operator delete(v50.__rep_.__l.__data_);
+        operator delete(v48.__rep_.__l.__data_);
       }
 
       if (*(&__p.__rep_.__l + 23) < 0)
@@ -4543,27 +4527,27 @@ LABEL_14:
     {
       [(NINearbyUpdatesEngine *)self nearbyObjectFromDeviceIdentifier:device];
     }
-    v38 = ;
+    v36 = ;
     if (v19)
     {
-      -[NINearbyUpdatesEngine _fillNearbyObject:fromRegionSizeCategory:](self, "_fillNearbyObject:fromRegionSizeCategory:", v38, [v19 regionSizeCategory]);
+      -[NINearbyUpdatesEngine _fillNearbyObject:fromRegionSizeCategory:](self, "_fillNearbyObject:fromRegionSizeCategory:", v36, [v19 regionSizeCategory]);
     }
 
-    if (v38)
+    if (v36)
     {
       if ([v19 devicePresencePreset] == 7 && *(v10 + 232) == 1)
       {
-        [v38 setTimestamp:*(v10 + 8)];
+        [v36 setTimestamp:*(v10 + 8)];
       }
 
       if (objc_opt_respondsToSelector())
       {
-        [WeakRetained updatesEngine:self object:v38 didUpdateRegion:v19 previousRegion:v24 regionTransitionSuppressed:v43];
+        [WeakRetained updatesEngine:self object:v36 didUpdateRegion:v19 previousRegion:v24 regionTransitionSuppressed:v41];
       }
 
       if (self->_protobufLogger.__ptr_)
       {
-        sub_1002D63A8(v38, &buf);
+        sub_1002D63A8(v36, &buf.__rep_.__l);
         ptr = self->_protobufLogger.__ptr_;
         if (*(&self->_uniqueIdentifier.__rep_.__l + 23) < 0)
         {
@@ -4575,9 +4559,9 @@ LABEL_14:
           __p = self->_uniqueIdentifier;
         }
 
-        v45 = 1;
-        sub_1002E3A24(ptr, &__p, &buf, region, v12, v41, v43, v11);
-        if (v45 == 1 && *(&__p.__rep_.__l + 23) < 0)
+        v43 = 1;
+        sub_1002E3A24(ptr, &__p, &buf, region, v12, v39, v41, v11);
+        if (v43 == 1 && *(&__p.__rep_.__l + 23) < 0)
         {
           operator delete(__p.__rep_.__l.__data_);
         }
@@ -4595,9 +4579,9 @@ LABEL_14:
       sub_1004C61F4();
     }
 
-    if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v51.__r_.__value_.__l.__data_);
+      operator delete(v49.__r_.__value_.__l.__data_);
     }
   }
 
@@ -5061,7 +5045,7 @@ LABEL_38:
         discoveryToken = [v12 discoveryToken];
         v69 = [discoveryToken hash];
         *buf = &v69;
-        v19 = sub_100011060(&self->_hashToTokenMap.__table_.__bucket_list_.__ptr_, &v69);
+        v19 = sub_100011060(&self->_hashToTokenMap, &v69, &unk_100548C50, buf);
         objc_storeStrong(v19 + 3, discoveryToken);
         v45[0] = [discoveryToken hash];
         *&v45[1] = v10;
@@ -5391,7 +5375,7 @@ LABEL_39:
     {
       if (*(solution + 752) == 1)
       {
-        sub_100498E54(__src);
+        sub_100498E54(__src, solution + 608);
         v13 = qword_1009F9820;
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
@@ -5631,7 +5615,16 @@ LABEL_39:
 
   else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
   {
-    sub_1004C637C(self);
+    sub_1004C637C();
+  }
+}
+
+- (void)acceptPeerDeviceType:(BOOL)type
+{
+  analyticsManager = self->_analyticsManager;
+  if (analyticsManager)
+  {
+    [(NIServerAnalyticsManager *)analyticsManager updateWithPeerDeviceType:type];
   }
 }
 
@@ -5653,9 +5646,9 @@ LABEL_39:
   {
     if ((*(*v6 + 80))(v6, a2))
     {
-      sub_100224EF8();
+      sub_100224EF8(728958020, 1, 0, 0, 0, 0);
       (*(*self->_findingAlgorithmContainer.__ptr_ + 72))(self->_findingAlgorithmContainer.__ptr_, input);
-      sub_100224EF8();
+      sub_100224EF8(728958020, 2, 0, 0, 0, 0);
       if ((*(*self->_findingAlgorithmContainer.__ptr_ + 88))(self->_findingAlgorithmContainer.__ptr_))
       {
 
@@ -5681,10 +5674,10 @@ LABEL_39:
   v6 = self->_findingAlgorithmContainer.__ptr_;
   if (v6 && (*(*v6 + 104))(v6, a2))
   {
-    sub_100224EF8();
+    sub_100224EF8(728958028, 1, 0, 0, 0, 0);
     (*(*self->_findingAlgorithmContainer.__ptr_ + 96))(self->_findingAlgorithmContainer.__ptr_, data);
 
-    sub_100224EF8();
+    sub_100224EF8(728958028, 2, 0, 0, 0, 0);
   }
 }
 
@@ -5957,9 +5950,9 @@ LABEL_39:
     if ((*(*v10 + 280))(v10))
     {
       [(NINearbyUpdatesEngine *)self setFindingPeerToken:peerCopy];
-      sub_100224EF8();
+      sub_100224EF8(728958024, 1, 0, 0, 0, 0);
       (*(*self->_findingAlgorithmContainer.__ptr_ + 272))(self->_findingAlgorithmContainer.__ptr_, v11);
-      sub_100224EF8();
+      sub_100224EF8(728958024, 2, 0, 0, 0, 0);
       if ((*(*self->_findingAlgorithmContainer.__ptr_ + 288))(self->_findingAlgorithmContainer.__ptr_))
       {
         [(NINearbyUpdatesEngine *)self provideFindingSolution:0];
@@ -6060,6 +6053,36 @@ LABEL_39:
   if (ptr)
   {
     (*(*ptr + 320))(ptr, orientation);
+  }
+}
+
+- (void)acceptNearbyObjectMovement:(BOOL)movement
+{
+  if (self->_findingAlgorithmContainer.__ptr_)
+  {
+    [(NINearbyUpdatesEngine *)self _sendTimeTupleToAlgorithms];
+  }
+
+  v6 = sub_100005288();
+  ptr = self->_protobufLogger.__ptr_;
+  if (ptr)
+  {
+    sub_1002E8F94(ptr, &self->_uniqueIdentifier, &v6);
+  }
+
+  v5 = self->_findingAlgorithmContainer.__ptr_;
+  if (v5 && (*(*v5 + 368))(v5))
+  {
+    if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEBUG))
+    {
+      sub_1004C6570();
+    }
+
+    (*(*self->_findingAlgorithmContainer.__ptr_ + 360))(self->_findingAlgorithmContainer.__ptr_, &v6);
+    if ((*(*self->_findingAlgorithmContainer.__ptr_ + 376))())
+    {
+      [(NINearbyUpdatesEngine *)self provideFindingSolution:0];
+    }
   }
 }
 
@@ -6362,85 +6385,83 @@ LABEL_20:
 
 - (void)logSolution:(const void *)solution
 {
-  sub_10026B0D4(&v16);
-  sub_10000EA44(&v16, "#solutionDebug: ", 16);
-  sub_10000EA44(&v16, "Range ", 6);
+  sub_10026B0D4(&v14);
+  sub_10000EA44(&v14, "#solutionDebug: ", 16);
+  sub_10000EA44(&v14, "Range ", 6);
   if (*(solution + 240) != 1 || *(solution + 6) == 1.1755e-38)
   {
-    sub_10000EA44(&v16, "-, ", 3);
+    sub_10000EA44(&v14, "-, ", 3);
   }
 
   else
   {
-    v4 = v16;
-    *(&v16 + *(v16 - 3) + 8) = *(&v16 + *(v16 - 3) + 8) & 0xFFFFFEFB | 4;
-    *(&v18[0].__locale_ + *(v4 - 3)) = 2;
+    v4 = v14;
+    *(&v14 + *(v14 - 3) + 8) = *(&v14 + *(v14 - 3) + 8) & 0xFFFFFEFB | 4;
+    *(&v16[0].__locale_ + *(v4 - 3)) = 2;
     v5 = std::ostream::operator<<();
     sub_10000EA44(v5, " m, ", 4);
   }
 
-  sub_10000EA44(&v16, "Horizontal angle ", 17);
+  sub_10000EA44(&v14, "Horizontal angle ", 17);
   if (*(solution + 256) == 1)
   {
-    v6 = v16;
-    *(&v16 + *(v16 - 3) + 8) = *(&v16 + *(v16 - 3) + 8) & 0xFFFFFEFB | 4;
-    *(&v18[0].__locale_ + *(v6 - 3)) = 2;
-    v7 = *(solution + 31);
-    v8 = std::ostream::operator<<();
-    sub_10000EA44(v8, " deg, ", 6);
+    v6 = v14;
+    *(&v14 + *(v14 - 3) + 8) = *(&v14 + *(v14 - 3) + 8) & 0xFFFFFEFB | 4;
+    *(&v16[0].__locale_ + *(v6 - 3)) = 2;
+    v7 = std::ostream::operator<<();
+    sub_10000EA44(v7, " deg, ", 6);
   }
 
   else
   {
-    sub_10000EA44(&v16, "-, ", 3);
+    sub_10000EA44(&v14, "-, ", 3);
   }
 
-  sub_10000EA44(&v16, "Horizontal angle unc ", 21);
+  sub_10000EA44(&v14, "Horizontal angle unc ", 21);
   if (*(solution + 376) == 1)
   {
-    v9 = v16;
-    *(&v16 + *(v16 - 3) + 8) = *(&v16 + *(v16 - 3) + 8) & 0xFFFFFEFB | 4;
-    *(&v18[0].__locale_ + *(v9 - 3)) = 2;
-    v10 = *(solution + 46);
-    v11 = std::ostream::operator<<();
-    sub_10000EA44(v11, " deg, ", 6);
+    v8 = v14;
+    *(&v14 + *(v14 - 3) + 8) = *(&v14 + *(v14 - 3) + 8) & 0xFFFFFEFB | 4;
+    *(&v16[0].__locale_ + *(v8 - 3)) = 2;
+    v9 = std::ostream::operator<<();
+    sub_10000EA44(v9, " deg, ", 6);
   }
 
   else
   {
-    sub_10000EA44(&v16, "-, ", 3);
+    sub_10000EA44(&v14, "-, ", 3);
   }
 
-  sub_10000EA44(&v16, "Vertical state ", 15);
-  v12 = *(solution + 70);
-  if (v12 <= 4)
+  sub_10000EA44(&v14, "Vertical state ", 15);
+  v10 = *(solution + 70);
+  if (v10 <= 4)
   {
-    sub_10000EA44(&v16, (&off_1009A88C8)[v12], qword_10056E1B0[v12]);
+    sub_10000EA44(&v14, (&off_1009A88C8)[v10], qword_10056E1B0[v10]);
   }
 
-  sub_10000EA44(&v16, ", Algorithm source ", 19);
+  sub_10000EA44(&v14, ", Algorithm source ", 19);
   if (*(solution + 416) == 1)
   {
-    v13 = *(solution + 103);
-    if (v13 <= 7)
+    v11 = *(solution + 103);
+    if (v11 <= 7)
     {
-      sub_10000EA44(&v16, (&off_1009A88F0)[v13], qword_10056E1D8[v13]);
+      sub_10000EA44(&v14, (&off_1009A88F0)[v11], qword_10056E1D8[v11]);
     }
   }
 
-  v14 = qword_1009F9820;
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v12 = qword_1009F9820;
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     std::stringbuf::str();
-    sub_1004C67F8(v15, buf, v14);
+    sub_1004C67F8(v13, buf, v12);
   }
 
-  if (v19 < 0)
+  if (v17 < 0)
   {
-    operator delete(v18[7].__locale_);
+    operator delete(v16[7].__locale_);
   }
 
-  std::locale::~locale(v18);
+  std::locale::~locale(v16);
   std::ostream::~ostream();
   std::ios::~ios();
 }
@@ -6676,7 +6697,7 @@ LABEL_7:
         }
 
         regionSizeCategory = [*(*(&v12 + 1) + 8 * v9) regionSizeCategory];
-        sub_10038F550(retstr, &regionSizeCategory);
+        sub_10038F550(retstr, &regionSizeCategory, &regionSizeCategory);
         v9 = v9 + 1;
       }
 

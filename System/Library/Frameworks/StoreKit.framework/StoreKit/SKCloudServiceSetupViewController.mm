@@ -221,13 +221,12 @@ LABEL_5:
     goto LABEL_10;
   }
 
-  v11[0] = 0;
-  LODWORD(v10) = 2;
-  v9 = _os_log_send_and_compose_impl();
+  v10[0] = 0;
+  v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1B23EF000, oSLogObject, 0, "SFSafariViewController did complete initial load.", v10, 2);
 
   if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, v11, v10}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
 LABEL_10:
@@ -264,13 +263,12 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v12[0] = 0;
-  LODWORD(v11) = 2;
-  v9 = _os_log_send_and_compose_impl();
+  v11[0] = 0;
+  v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1B23EF000, oSLogObject, 0, "SFSafariViewController did finish.", v11, 2);
 
   if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, v12, v11}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
 LABEL_10:
@@ -792,50 +790,54 @@ LABEL_61:
 
 void __71__SKCloudServiceSetupViewController_loadWithOptions_completionHandler___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [MEMORY[0x1E69D4938] sharedConfig];
   v7 = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = v7 | 2;
+    LODWORD(v8) = v7 | 2;
   }
 
   else
   {
-    v8 = v7;
+    LODWORD(v8) = v7;
   }
 
   v9 = [v6 OSLogObject];
-  if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (!v8)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  *v13 = 138543874;
-  *&v13[4] = objc_opt_class();
-  *&v13[12] = 1024;
-  *&v13[14] = a2;
-  *&v13[18] = 2114;
-  *&v13[20] = v5;
-  v10 = *&v13[4];
-  LODWORD(v12) = 28;
-  v11 = _os_log_send_and_compose_impl();
+  v12 = 138543874;
+  v13 = objc_opt_class();
+  v14 = 1024;
+  v15 = a2;
+  v16 = 2114;
+  v17 = v5;
+  v10 = v13;
+  v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1B23EF000, v9, 0, "%{public}@: Loaded music subscription offer view controller with success: %{BOOL}u, error: %{public}@", &v12, 28);
 
   if (v11)
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, v13, v12, *v13, *&v13[16]}];
+    v9 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
-  (*(*(a1 + 40) + 16))();
+  (*(*(a1 + 40) + 16))(*(a1 + 40));
 }
 
 void __71__SKCloudServiceSetupViewController_loadWithOptions_completionHandler___block_invoke_101(uint64_t a1, void *a2, void *a3)
@@ -1019,9 +1021,8 @@ void __65__SKCloudServiceSetupViewController__requestRemoteViewController__block
 
     if (v6)
     {
-      v9[0] = 0;
-      LODWORD(v8) = 2;
-      v7 = _os_log_send_and_compose_impl();
+      v8[0] = 0;
+      v7 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1B23EF000, v5, 0, "StoreFlowExtension request was interrupted.", v8, 2);
 
       if (!v7)
       {
@@ -1031,7 +1032,7 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      v5 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, v9, v8}];
+      v5 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
       free(v7);
       SSFileLog();
     }
@@ -1078,7 +1079,7 @@ void __65__SKCloudServiceSetupViewController__requestRemoteViewController__block
 - (void)_dismissCloudServiceSetupViewControllerWithAnimation:(BOOL)animation completion:(id)completion
 {
   animationCopy = animation;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   parentViewController = [(SKCloudServiceSetupViewController *)self parentViewController];
   if (parentViewController)
@@ -1108,12 +1109,11 @@ void __65__SKCloudServiceSetupViewController__requestRemoteViewController__block
 
     if (v12)
     {
-      v16 = 138543618;
+      v15 = 138543618;
       selfCopy = self;
-      v18 = 2114;
-      v19 = parentViewController;
-      LODWORD(v15) = 22;
-      v13 = _os_log_send_and_compose_impl();
+      v17 = 2114;
+      v18 = parentViewController;
+      v13 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1B23EF000, oSLogObject, 0, "Skipped dismissal of %{public}@ because it has a parent view controller: %{public}@.", &v15, 22);
 
       if (!v13)
       {
@@ -1122,7 +1122,7 @@ LABEL_12:
         goto LABEL_14;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v16, v15}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog();
     }
@@ -1315,8 +1315,8 @@ LABEL_17:
 
 - (uint64_t)_subscriptionOfferOptionsWithAction:messageIdentifier:.cold.1()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   return __get_MusicSubscriptionOfferViewControllerClass_block_invoke_cold_1();
 }
 

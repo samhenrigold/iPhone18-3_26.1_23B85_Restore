@@ -10,6 +10,7 @@
 - (id)palette;
 - (void)_applyDataMode;
 - (void)_applyOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot;
+- (void)_applyTransitionFraction:(double)fraction fromColorPalette:(id)palette toColorPalette:(id)colorPalette animateElements:(BOOL)elements;
 - (void)_applyTransitionFraction:(double)fraction fromOption:(id)option toOption:(id)toOption forCustomEditMode:(int64_t)mode slot:(id)slot;
 - (void)_applyTransitionFraction:(double)fraction fromView:(id)view toView:(id)toView;
 - (void)_cleanupAfterEditing;
@@ -36,6 +37,7 @@
 - (void)setOverrideDate:(id)date duration:(double)duration;
 - (void)setTimeOffset:(double)offset;
 - (void)updateMonochromeColorForRichComplicationView:(id)view;
+- (void)updateWithPalette:(id)palette isMulticolor:(BOOL)multicolor;
 @end
 
 @implementation NTKShibaFaceView
@@ -173,9 +175,7 @@
 {
   if (!self->_olympusController)
   {
-    v3 = [[NTKOlympusController alloc] initWithFaceView:self olympusView:self->_olympusView];
-    olympusController = self->_olympusController;
-    self->_olympusController = v3;
+    self->_olympusController = [[NTKOlympusController alloc] initWithFaceView:self olympusView:self->_olympusView];
 
     _objc_release_x1();
   }
@@ -416,6 +416,24 @@ LABEL_5:
     v10 = +[UIColor clearColor];
     [viewCopy setPlatterColor:v10];
   }
+}
+
+- (void)updateWithPalette:(id)palette isMulticolor:(BOOL)multicolor
+{
+  multicolorCopy = multicolor;
+  paletteCopy = palette;
+  cornerComplicationsAccentColor = [paletteCopy cornerComplicationsAccentColor];
+  complicationsAlternateColor = [paletteCopy complicationsAlternateColor];
+  [(NTKShibaFaceView *)self _updateComplicationsWithColor:cornerComplicationsAccentColor alternateColor:complicationsAlternateColor isMulticolor:multicolorCopy];
+
+  shibaTimeView = [(NTKShibaFaceView *)self shibaTimeView];
+  [shibaTimeView setPalette:paletteCopy];
+
+  [(NTKOlympusTimeView *)self->_olympusView setCurrentColorPalette:paletteCopy];
+  background = [paletteCopy background];
+
+  backgroundView = [(NTKShibaFaceView *)self backgroundView];
+  [backgroundView setBackgroundColor:background];
 }
 
 - (void)_updateBackgroundViewAlpha
@@ -704,6 +722,20 @@ LABEL_25:
     [toViewCopy setTransform:&v17];
     [toViewCopy setAlpha:v15];
   }
+}
+
+- (void)_applyTransitionFraction:(double)fraction fromColorPalette:(id)palette toColorPalette:(id)colorPalette animateElements:(BOOL)elements
+{
+  elementsCopy = elements;
+  colorPaletteCopy = colorPalette;
+  paletteCopy = palette;
+  shibaTimeView = [(NTKShibaFaceView *)self shibaTimeView];
+  [shibaTimeView applyTransitionFraction:paletteCopy fromColorPalette:colorPaletteCopy toColorPalette:elementsCopy animateElements:fraction];
+
+  v14 = [[NTKOlympusAnalogBackgroundPalette alloc] initWithOlympusColorPalette:paletteCopy];
+  v13 = [[NTKOlympusAnalogBackgroundPalette alloc] initWithOlympusColorPalette:colorPaletteCopy];
+  [(NTKVictoryAnalogBackgroundView *)self->_analogBackgroundView applyTransitionFraction:v14 fromPalette:v13 toPalette:5 style:elementsCopy animateElements:fraction];
+  [(NTKOlympusTimeView *)self->_olympusView applyTransitionFraction:paletteCopy fromColorPalette:colorPaletteCopy toColorPalette:elementsCopy animateElements:fraction];
 }
 
 - (void)_updateComplicationsWithColor:(id)color alternateColor:(id)alternateColor isMulticolor:(BOOL)multicolor

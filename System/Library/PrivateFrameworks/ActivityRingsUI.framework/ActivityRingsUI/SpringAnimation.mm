@@ -17,7 +17,7 @@
     return *&self->animationState[OBJC_IVAR____TtC15ActivityRingsUI15SpringAnimation_animationState + 8];
   }
 
-  sub_1CFD8D2BC();
+  sub_1CFD8D2BC("Fatal error", 11, 2, 0xD000000000000010, 0x80000001CFD92DA0, "ActivityRingsUI/SpringAnimation.swift", 37, 2, 47, 0);
   __break(1u);
   return result;
 }
@@ -56,7 +56,7 @@
 
   else
   {
-    sub_1CFD8D2BC();
+    sub_1CFD8D2BC("Fatal error", 11, 2, 0xD000000000000044, 0x80000001CFD92DC0, "ActivityRingsUI/SpringAnimation.swift", 37, 2, 119, 0);
     __break(1u);
   }
 }

@@ -41,7 +41,7 @@
 
   v6 = sub_1002545E0(v8);
 
-  sub_1000073B4(v8, &qword_1006BE7A0);
+  sub_1000073B4(v8, &qword_1006BE7A0, &unk_100535E20);
   return v6 & 1;
 }
 

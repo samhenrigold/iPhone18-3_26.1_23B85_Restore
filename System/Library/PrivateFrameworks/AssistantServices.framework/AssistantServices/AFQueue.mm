@@ -123,7 +123,7 @@
 
 - (void)enqueueObjects:(id)objects
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   v5 = [objectsCopy count];
   if (!v5)
@@ -131,34 +131,34 @@
     goto LABEL_18;
   }
 
-  v20 = v5;
+  v19 = v5;
   v6 = self->_head;
   v7 = self->_tail;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v8 = objectsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (!v9)
   {
     goto LABEL_15;
   }
 
   v10 = v9;
-  v11 = *v22;
+  v11 = *v21;
   do
   {
     v12 = 0;
     v13 = v7;
     do
     {
-      if (*v22 != v11)
+      if (*v21 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v14 = [[AFLinkedListItem alloc] initWithObject:*(*(&v21 + 1) + 8 * v12)];
+      v14 = [[AFLinkedListItem alloc] initWithObject:*(*(&v20 + 1) + 8 * v12)];
       v7 = v14;
       if (v6)
       {
@@ -185,7 +185,7 @@ LABEL_10:
     }
 
     while (v10 != v12);
-    v15 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v15 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     v10 = v15;
   }
 
@@ -194,7 +194,7 @@ LABEL_15:
 
   objc_storeStrong(&self->_head, v6);
   objc_storeStrong(&self->_tail, v7);
-  self->_count += v20;
+  self->_count += v19;
   delegate = [(AFQueue *)self delegate];
   v17 = objc_opt_respondsToSelector();
 
@@ -205,19 +205,17 @@ LABEL_15:
   }
 
 LABEL_18:
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enqueueObject:(id)object
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   v4 = MEMORY[0x1E695DEC8];
   objectCopy2 = object;
   v6 = [v4 arrayWithObjects:&objectCopy count:1];
 
-  [(AFQueue *)self enqueueObjects:v6, objectCopy, v9];
-  v7 = *MEMORY[0x1E69E9840];
+  [(AFQueue *)self enqueueObjects:v6, objectCopy, v8];
 }
 
 - (id)objectAtIndex:(unint64_t)index

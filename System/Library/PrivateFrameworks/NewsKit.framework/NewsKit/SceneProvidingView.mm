@@ -15,10 +15,10 @@
 
 - (void)didMoveToWindow
 {
-  v7.receiver = self;
-  v7.super_class = swift_getObjectType();
-  v2 = v7.receiver;
-  [(SceneProvidingView *)&v7 didMoveToWindow];
+  v6.receiver = self;
+  v6.super_class = swift_getObjectType();
+  v2 = v6.receiver;
+  [(SceneProvidingView *)&v6 didMoveToWindow];
   window = [v2 window];
   if (window)
   {
@@ -27,7 +27,6 @@
 
     if (windowScene)
     {
-      v6 = *&v2[OBJC_IVAR____TtC7NewsKit18SceneProvidingView_sceneProvider + 32];
       __swift_project_boxed_opaque_existential_1(&v2[OBJC_IVAR____TtC7NewsKit18SceneProvidingView_sceneProvider], *&v2[OBJC_IVAR____TtC7NewsKit18SceneProvidingView_sceneProvider + 24]);
       sub_25BEF8738();
     }

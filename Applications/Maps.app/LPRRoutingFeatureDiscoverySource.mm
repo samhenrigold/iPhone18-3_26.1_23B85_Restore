@@ -44,7 +44,7 @@
 
 - (void)valueChangedForGEOConfigKey:(id)key
 {
-  if (key.var0 == MapsFeaturesConfig_EnableAlberta && key.var1 == *(&MapsFeaturesConfig_EnableAlberta + 1))
+  if (key.var0 == LODWORD(MapsFeaturesConfig_EnableAlberta[0]) && key.var1 == MapsFeaturesConfig_EnableAlberta[1])
   {
     [(LPRRoutingFeatureDiscoverySource *)self _reloadAvailability];
   }

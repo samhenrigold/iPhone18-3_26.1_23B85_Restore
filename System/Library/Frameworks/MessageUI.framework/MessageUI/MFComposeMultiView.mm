@@ -413,7 +413,7 @@
   }
 }
 
-double __36__MFComposeMultiView_layoutSubviews__block_invoke(uint64_t a1, double a2, double a3, double a4)
+CGFloat __36__MFComposeMultiView_layoutSubviews__block_invoke(uint64_t a1, double a2, double a3, double a4)
 {
   if (*(a1 + 40) == 1)
   {

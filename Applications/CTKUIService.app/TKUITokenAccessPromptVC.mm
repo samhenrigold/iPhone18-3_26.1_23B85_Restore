@@ -8,6 +8,7 @@
 - (void)_presentAlertWithClientName:(id)name providerName:(id)providerName;
 - (void)configureWithContext:(id)context completion:(id)completion;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation TKUITokenAccessPromptVC
@@ -23,6 +24,14 @@
   }
 
   return result;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TKUITokenAccessPromptVC;
+  [(TKUITokenAccessPromptVC *)&v4 viewDidAppear:appear];
+  [(TKUITokenAccessPromptVC *)self _presentAlert];
 }
 
 - (int64_t)preferredStatusBarStyle
@@ -82,9 +91,9 @@
     v13 = objc_alloc_init(NSData);
   }
 
-  v18 = 0;
-  v14 = [NSKeyedUnarchiver unarchivedObjectOfClass:v10 fromData:v13 error:&v18];
-  v15 = v18;
+  v19 = 0;
+  v14 = [NSKeyedUnarchiver unarchivedObjectOfClass:v10 fromData:v13 error:&v19];
+  v15 = v19;
   info = self->_info;
   self->_info = v14;
 
@@ -94,10 +103,10 @@
 
   if (!self->_info)
   {
-    v17 = sub_1000015FC();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = sub_1000015FC(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_10000203C(v15, v17);
+      sub_10000203C(v15, v18);
     }
   }
 
@@ -188,7 +197,7 @@
 
 - (void)_finishTokenAccess
 {
-  v3 = sub_1000015FC();
+  v3 = sub_1000015FC(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10000213C(self, v3);

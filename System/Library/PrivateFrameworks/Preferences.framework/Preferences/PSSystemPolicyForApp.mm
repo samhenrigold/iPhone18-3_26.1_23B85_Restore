@@ -778,7 +778,7 @@ void __34__PSSystemPolicyForApp_specifiers__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __45__PSSystemPolicyForApp_notificationSpecifier__block_invoke()
+void *__45__PSSystemPolicyForApp_notificationSpecifier__block_invoke()
 {
   v0 = MEMORY[0x1E696AAE8];
   v1 = PSBundlePathForPreferenceBundle(@"NotificationsSettings");
@@ -995,30 +995,45 @@ LABEL_6:
 - (id)_journalingSuggestionsSpecifiers
 {
   array = [MEMORY[0x1E695DF70] array];
-  if ((self->_policyOptions & 0x100000000000) != 0 && [(PSSystemPolicyForApp *)self _supportsJournalingSuggestions]&& MomentsOnboardingAndSettingsLibraryCore_0())
+  if ((self->_policyOptions & 0x100000000000) != 0 && [(PSSystemPolicyForApp *)self _supportsJournalingSuggestions]&& MomentsOnboardingAndSettingsLibraryCore_0(0))
   {
-    if (!MomentsOnboardingAndSettingsLibraryCore_0())
+    v13 = 0;
+    v4 = MomentsOnboardingAndSettingsLibraryCore_0(&v13);
+    v5 = v13;
+    if (v4)
     {
-      v12 = 0;
-      v11 = abort_report_np();
-      free(v11);
+      if (!v13)
+      {
+LABEL_6:
+        v6 = [PSSpecifier groupSpecifierWithID:@"JOURNALING_SUGGESTIONS_GROUP"];
+        [array addObject:v6];
+        v7 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+        v8 = [v7 localizedStringForKey:@"JOURNALING_SUGGESTIONS" value:&stru_1EFE45030 table:@"PSSystemPolicy"];
+        v9 = [PSSpecifier preferenceSpecifierNamed:v8 target:self set:0 get:0 detail:NSClassFromString(&cfstr_Mosuggestionsh.isa) cell:2 edit:0];
+
+        v10 = MEMORY[0x1E695E118];
+        [v9 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"allowMultilineTitleKey"];
+        bundleIdentifier = [(PSSystemPolicyForApp *)self bundleIdentifier];
+        [v9 setObject:bundleIdentifier forKeyedSubscript:@"AppBundleID"];
+
+        [v9 setObject:v10 forKeyedSubscript:@"useLazyIcons"];
+        [v9 setObject:@"com.apple.graphic-icon.journaling-suggestions" forKeyedSubscript:@"iconUTTypeIdentifier"];
+        [array addObject:v9];
+
+        goto LABEL_7;
+      }
     }
 
-    v4 = [PSSpecifier groupSpecifierWithID:@"JOURNALING_SUGGESTIONS_GROUP", v12];
-    [array addObject:v4];
-    v5 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v6 = [v5 localizedStringForKey:@"JOURNALING_SUGGESTIONS" value:&stru_1EFE45030 table:@"PSSystemPolicy"];
-    v7 = [PSSpecifier preferenceSpecifierNamed:v6 target:self set:0 get:0 detail:NSClassFromString(&cfstr_Mosuggestionsh.isa) cell:2 edit:0];
+    else
+    {
+      v5 = abort_report_np("%s", v13);
+    }
 
-    v8 = MEMORY[0x1E695E118];
-    [v7 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"allowMultilineTitleKey"];
-    bundleIdentifier = [(PSSystemPolicyForApp *)self bundleIdentifier];
-    [v7 setObject:bundleIdentifier forKeyedSubscript:@"AppBundleID"];
-
-    [v7 setObject:v8 forKeyedSubscript:@"useLazyIcons"];
-    [v7 setObject:@"com.apple.graphic-icon.journaling-suggestions" forKeyedSubscript:@"iconUTTypeIdentifier"];
-    [array addObject:v7];
+    free(v5);
+    goto LABEL_6;
   }
+
+LABEL_7:
 
   return array;
 }
@@ -1228,9 +1243,10 @@ void __42__PSSystemPolicyForApp_calendarSpecifiers__block_invoke()
     v3 = v2;
     _CTServerConnectionCopyCellularUsageWorkspaceInfo();
     CFRelease(v3);
+    v2 = v12;
   }
 
-  v4 = _PSLoggingFacility();
+  v4 = _PSLoggingFacility(v2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -1882,59 +1898,60 @@ void __49__PSSystemPolicyForApp_setupNetworkConfiguration__block_invoke(uint64_t
 
 void __62__PSSystemPolicyForApp_loadNetworkConfigurationsForceRefresh___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _PSLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _PSLoggingFacility(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __62__PSSystemPolicyForApp_loadNetworkConfigurationsForceRefresh___block_invoke_cold_1(v6, v7);
+      __62__PSSystemPolicyForApp_loadNetworkConfigurationsForceRefresh___block_invoke_cold_1(v7, v8);
     }
   }
 
-  v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v9)
+  v20 = 0u;
+  v9 = v5;
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = *v19;
+    v11 = v10;
+    v12 = *v20;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v11)
+        if (*v20 != v12)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
-        v14 = [v13 name];
-        if ([v14 isEqualToString:@"com.apple.preferences.networkprivacy"])
+        v14 = *(*(&v19 + 1) + 8 * i);
+        v15 = [v14 name];
+        if ([v15 isEqualToString:@"com.apple.preferences.networkprivacy"])
         {
-          v15 = [v13 pathController];
+          v16 = [v14 pathController];
 
-          if (!v15)
+          if (!v16)
           {
             continue;
           }
 
-          v16 = *(a1 + 32);
-          v17 = v13;
-          v14 = *(v16 + 72);
-          *(v16 + 72) = v17;
+          v17 = *(a1 + 32);
+          v18 = v14;
+          v15 = *(v17 + 72);
+          *(v17 + 72) = v18;
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
 }
 
@@ -1954,12 +1971,13 @@ void __62__PSSystemPolicyForApp_loadNetworkConfigurationsForceRefresh___block_in
 void __48__PSSystemPolicyForApp_saveNetworkConfiguration__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _PSLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _PSLoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __48__PSSystemPolicyForApp_saveNetworkConfiguration__block_invoke_cold_1(v3, a1, v4);
+      __48__PSSystemPolicyForApp_saveNetworkConfiguration__block_invoke_cold_1(v4, a1, v5);
     }
   }
 }
@@ -2644,7 +2662,7 @@ void __54__PSSystemPolicyForApp_setPrivacyAccess_forSpecifier___block_invoke(uin
   v15 = TCCAccessCopyBundleIdentifiersForService();
   if (![v15 count])
   {
-    v16 = _PSLoggingFacility();
+    v16 = _PSLoggingFacility(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
@@ -2666,8 +2684,7 @@ void __54__PSSystemPolicyForApp_setPrivacyAccess_forSpecifier___block_invoke(uin
     v18 = 2;
   }
 
-  [MEMORY[0x1E69CA9B0] trackingStateOfRequestForSpecificApp:v18 view:@"AppSettings"];
-  v19 = _PSLoggingFacility();
+  v19 = _PSLoggingFacility([MEMORY[0x1E69CA9B0] trackingStateOfRequestForSpecificApp:v18 view:@"AppSettings"]);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     v20 = [WeakRetained bundleIdentifier];
@@ -2811,15 +2828,15 @@ void __54__PSSystemPolicyForApp_setPrivacyAccess_forSpecifier___block_invoke_5(u
 
 - (id)pasteboardAccessForSpecifier:(id)specifier
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = *MEMORY[0x1E69D55C0];
-  v19 = 0;
   v20 = 0;
-  v18 = 0;
-  PSGetAuthorizationStatesForService(v4, &v20, &v19, &v18);
-  v5 = v20;
-  v6 = v19;
-  v7 = v18;
+  v21 = 0;
+  v19 = 0;
+  PSGetAuthorizationStatesForService(v4, &v21, &v20, &v19);
+  v5 = v21;
+  v6 = v20;
+  v7 = v19;
   bundleIdentifier = [(PSSystemPolicyForApp *)self bundleIdentifier];
   v9 = [v5 containsObject:bundleIdentifier];
 
@@ -2850,15 +2867,15 @@ void __54__PSSystemPolicyForApp_setPrivacyAccess_forSpecifier___block_invoke_5(u
 
       else
       {
-        v15 = _PSLoggingFacility();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = _PSLoggingFacility(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           bundleIdentifier4 = [(PSSystemPolicyForApp *)self bundleIdentifier];
           *buf = 136315394;
-          v22 = "[PSSystemPolicyForApp pasteboardAccessForSpecifier:]";
-          v23 = 2112;
-          v24 = bundleIdentifier4;
-          _os_log_impl(&dword_18B008000, v15, OS_LOG_TYPE_DEFAULT, "%s: couldn't find auth state for %@", buf, 0x16u);
+          v23 = "[PSSystemPolicyForApp pasteboardAccessForSpecifier:]";
+          v24 = 2112;
+          v25 = bundleIdentifier4;
+          _os_log_impl(&dword_18B008000, v16, OS_LOG_TYPE_DEFAULT, "%s: couldn't find auth state for %@", buf, 0x16u);
         }
 
         v10 = &unk_1EFE65DA8;
@@ -3456,21 +3473,21 @@ LABEL_14:
 
 - (id)defaultBrowser:(id)browser
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E6963630]);
   v4 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:@"https://"];
-  v13 = 0;
-  v5 = [v3 initWithURL:v4 error:&v13];
-  v6 = v13;
+  v14 = 0;
+  v5 = [v3 initWithURL:v4 error:&v14];
+  v6 = v14;
 
-  v7 = _PSLoggingFacility();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _PSLoggingFacility(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     bundleRecord = [v5 bundleRecord];
     bundleIdentifier = [bundleRecord bundleIdentifier];
     *buf = 138543362;
-    v15 = bundleIdentifier;
-    _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "Default browser app is %{public}@", buf, 0xCu);
+    v16 = bundleIdentifier;
+    _os_log_impl(&dword_18B008000, v8, OS_LOG_TYPE_DEFAULT, "Default browser app is %{public}@", buf, 0xCu);
   }
 
   bundleRecord2 = [v5 bundleRecord];
@@ -3506,7 +3523,7 @@ void __52__PSSystemPolicyForApp_setDefaultBrowser_specifier___block_invoke(uint6
   v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v7 = _PSLoggingFacility();
+  v7 = _PSLoggingFacility(WeakRetained);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if ((a2 & 1) == 0)
   {
@@ -3563,21 +3580,21 @@ LABEL_8:
 
 - (id)defaultMailApp:(id)app
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E6963630]);
   v4 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:@"mailto://"];
-  v13 = 0;
-  v5 = [v3 initWithURL:v4 error:&v13];
-  v6 = v13;
+  v14 = 0;
+  v5 = [v3 initWithURL:v4 error:&v14];
+  v6 = v14;
 
-  v7 = _PSLoggingFacility();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _PSLoggingFacility(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     bundleRecord = [v5 bundleRecord];
     bundleIdentifier = [bundleRecord bundleIdentifier];
     *buf = 138543362;
-    v15 = bundleIdentifier;
-    _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "Default mail app is %{public}@", buf, 0xCu);
+    v16 = bundleIdentifier;
+    _os_log_impl(&dword_18B008000, v8, OS_LOG_TYPE_DEFAULT, "Default mail app is %{public}@", buf, 0xCu);
   }
 
   bundleRecord2 = [v5 bundleRecord];
@@ -3613,7 +3630,7 @@ void __52__PSSystemPolicyForApp_setDefaultMailApp_specifier___block_invoke(uint6
   v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v7 = _PSLoggingFacility();
+  v7 = _PSLoggingFacility(WeakRetained);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if ((a2 & 1) == 0)
   {

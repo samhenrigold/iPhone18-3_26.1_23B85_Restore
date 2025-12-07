@@ -41,6 +41,7 @@
 - (void)dismissRemoteUIWithIdleEndpoint:(id)endpoint wasInvalidated:(BOOL)invalidated completionHandler:(id)handler;
 - (void)handleButtonActions:(id)actions;
 - (void)handleSceneButton:(int64_t)button;
+- (void)idleTimerDisable:(BOOL)disable;
 - (void)mechanismEvent:(int64_t)event value:(id)value reply:(id)reply;
 - (void)noteActivatedWithPresentationMode:(int64_t)mode;
 - (void)sceneDeactivated;
@@ -54,8 +55,11 @@
 - (void)uiFallback;
 - (void)uiOpenURL:(id)l;
 - (void)uiSuccessWithResult:(id)result;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewModelDidReceiveAuthenticationDataWithInternalInfo:(id)info mechanism:(id)mechanism;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TransitionViewController
@@ -601,52 +605,48 @@ void __44__TransitionViewController__setupConnection__block_invoke_2_36(uint64_t
 
   if (v5)
   {
-    v43 = 0u;
-    v44 = 0u;
     v41 = 0u;
     v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     allKeys = [v5 allKeys];
-    v7 = [allKeys countByEnumeratingWithState:&v41 objects:v45 count:16];
+    v7 = [allKeys countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v42;
-      v10 = &_sScP8rawValues5UInt8Vvg_ptr;
+      v9 = *v40;
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v42 != v9)
+          if (*v40 != v9)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v12 = *(*(&v41 + 1) + 8 * i);
-          v13 = [v5 objectForKeyedSubscript:v12];
-          v14 = v10[187];
+          v11 = *(*(&v39 + 1) + 8 * i);
+          v12 = [v5 objectForKeyedSubscript:v11];
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) != 0 && [LACLocalizationUtils isLocalizationKey:v13])
+          if ((objc_opt_isKindOfClass() & 1) != 0 && [LACLocalizationUtils isLocalizationKey:v12])
           {
-            v40 = 0;
-            v38 = [LACLocalizationUtils decodeLocalizationKeyFromString:v13 shouldUseDeviceVariant:&v40];
-            v39[0] = _NSConcreteStackBlock;
-            v39[1] = 3221225472;
-            v39[2] = __56__TransitionViewController_didReceiveAuthenticationData__block_invoke;
-            v39[3] = &unk_1000AA438;
-            v39[4] = selfCopy;
-            __56__TransitionViewController_didReceiveAuthenticationData__block_invoke(v39, v38, v40);
-            v15 = allKeys;
-            v17 = v16 = selfCopy;
-            [v5 setObject:v17 forKeyedSubscript:v12];
+            v38 = 0;
+            v36 = [LACLocalizationUtils decodeLocalizationKeyFromString:v12 shouldUseDeviceVariant:&v38];
+            v37[0] = _NSConcreteStackBlock;
+            v37[1] = 3221225472;
+            v37[2] = __56__TransitionViewController_didReceiveAuthenticationData__block_invoke;
+            v37[3] = &unk_1000AA438;
+            v37[4] = selfCopy;
+            __56__TransitionViewController_didReceiveAuthenticationData__block_invoke(v37, v36, v38);
+            v13 = allKeys;
+            v15 = v14 = selfCopy;
+            [v5 setObject:v15 forKeyedSubscript:v11];
 
-            selfCopy = v16;
-            allKeys = v15;
-
-            v10 = &_sScP8rawValues5UInt8Vvg_ptr;
+            selfCopy = v14;
+            allKeys = v13;
           }
         }
 
-        v8 = [allKeys countByEnumeratingWithState:&v41 objects:v45 count:16];
+        v8 = [allKeys countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v8);
@@ -657,18 +657,18 @@ void __44__TransitionViewController__setupConnection__block_invoke_2_36(uint64_t
   options = selfCopy->_options;
   if (options)
   {
-    v19 = [(NSDictionary *)options objectForKey:&off_1000AF200];
+    v17 = [(NSDictionary *)options objectForKey:&off_1000AF200];
+    v18 = v17;
+    if (v17)
+    {
+      -[TransitionViewController setModalPresentationStyle:](selfCopy, "setModalPresentationStyle:", [v17 integerValue]);
+    }
+
+    v19 = [(NSDictionary *)selfCopy->_options objectForKey:&off_1000AF218];
     v20 = v19;
     if (v19)
     {
-      -[TransitionViewController setModalPresentationStyle:](selfCopy, "setModalPresentationStyle:", [v19 integerValue]);
-    }
-
-    v21 = [(NSDictionary *)selfCopy->_options objectForKey:&off_1000AF218];
-    v22 = v21;
-    if (v21)
-    {
-      -[TransitionViewController setModalTransitionStyle:](selfCopy, "setModalTransitionStyle:", [v21 integerValue]);
+      -[TransitionViewController setModalTransitionStyle:](selfCopy, "setModalTransitionStyle:", [v19 integerValue]);
     }
   }
 
@@ -676,45 +676,44 @@ void __44__TransitionViewController__setupConnection__block_invoke_2_36(uint64_t
   callerName = selfCopy->_callerName;
   selfCopy->_callerName = localizedCallerName;
 
-  v25 = [(NSDictionary *)selfCopy->_options objectForKeyedSubscript:&off_1000AF230];
-  selfCopy->_callerNameOverride = [v25 isEqualToString:selfCopy->_callerName];
+  v23 = [(NSDictionary *)selfCopy->_options objectForKeyedSubscript:&off_1000AF230];
+  selfCopy->_callerNameOverride = [v23 isEqualToString:selfCopy->_callerName];
 
-  v26 = [(NSDictionary *)selfCopy->_internalInfo objectForKey:@"CallerId"];
+  v24 = [(NSDictionary *)selfCopy->_internalInfo objectForKey:@"CallerId"];
   callerBundleId = selfCopy->_callerBundleId;
-  selfCopy->_callerBundleId = v26;
+  selfCopy->_callerBundleId = v24;
 
   options = [(TransitionViewController *)selfCopy options];
-  v29 = [options objectForKeyedSubscript:&off_1000AF248];
-  v30 = [LACStringHelper truncateString:v29 maxLength:512];
+  v27 = [options objectForKeyedSubscript:&off_1000AF248];
+  v28 = [LACStringHelper truncateString:v27 maxLength:512];
   authenticationTitle = selfCopy->_authenticationTitle;
-  selfCopy->_authenticationTitle = v30;
+  selfCopy->_authenticationTitle = v28;
 
   options2 = [(TransitionViewController *)selfCopy options];
-  v33 = [options2 objectForKeyedSubscript:&off_1000AF260];
-  v34 = [LACStringHelper truncateString:v33 maxLength:512];
+  v31 = [options2 objectForKeyedSubscript:&off_1000AF260];
+  v32 = [LACStringHelper truncateString:v31 maxLength:512];
   authenticationSubtitle = selfCopy->_authenticationSubtitle;
-  selfCopy->_authenticationSubtitle = v34;
+  selfCopy->_authenticationSubtitle = v32;
 
-  v36 = [[LACCachedExternalizedContext alloc] initWithExternalizationDelegate:selfCopy->_mechanism];
+  v34 = [[LACCachedExternalizedContext alloc] initWithExternalizationDelegate:selfCopy->_mechanism];
   cachedExternalizedContext = selfCopy->_cachedExternalizedContext;
-  selfCopy->_cachedExternalizedContext = v36;
+  selfCopy->_cachedExternalizedContext = v34;
 }
 
 id __56__TransitionViewController_didReceiveAuthenticationData__block_invoke(uint64_t a1, void *a2, int a3)
 {
-  v4 = *(a1 + 32);
-  v5 = a2;
-  v6 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = a2;
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
   if (a3)
   {
-    v7 = [UIDevice modelSpecificLocalizedStringKeyForKey:v5];
+    v6 = [UIDevice modelSpecificLocalizedStringKeyForKey:v4];
 
-    v5 = v7;
+    v4 = v6;
   }
 
-  v8 = [v6 localizedStringForKey:v5 value:&stru_1000ADB50 table:@"MobileUI"];
+  v7 = [v5 localizedStringForKey:v4 value:&stru_1000ADB50 table:@"MobileUI"];
 
-  return v8;
+  return v7;
 }
 
 - (NSString)description
@@ -1092,7 +1091,7 @@ void __82__TransitionViewController_transitionToController_internalInfo_completi
     {
       v7 = *(a1 + 72);
       *buf = 67109120;
-      *v42 = v7;
+      *v43 = v7;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "UI dismissing, bailing out, tid:%u", buf, 8u);
     }
 
@@ -1109,41 +1108,41 @@ LABEL_6:
     v10 = *(a1 + 64);
     v11 = *(a1 + 72);
     *buf = 67109376;
-    *v42 = v10;
-    *&v42[4] = 1024;
-    *&v42[6] = v11;
+    *v43 = v10;
+    *&v43[4] = 1024;
+    *&v43[6] = v11;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Preparing a new child controller: %d, tid:%u", buf, 0xEu);
   }
 
-  v12 = *(v3 + 7);
-  if (!v12)
+  v13 = *(v3 + 7);
+  if (!v13)
   {
-    v16 = *(a1 + 64);
-    if (v16 <= 3)
+    v17 = *(a1 + 64);
+    if (v17 <= 3)
     {
-      switch(v16)
+      switch(v17)
       {
         case 1:
-          v17 = TouchIdViewControllerAlloc();
+          v18 = TouchIdViewControllerAlloc(0, v12);
           goto LABEL_30;
         case 2:
-          v17 = PasscodeViewControllerAlloc(*(a1 + 32));
+          v18 = PasscodeViewControllerAlloc(*(a1 + 32));
           goto LABEL_30;
         case 3:
-          v17 = PinViewControllerAlloc(*(a1 + 32));
+          v18 = PinViewControllerAlloc(*(a1 + 32));
 LABEL_30:
-          v22 = *(v3 + 1);
-          *(v3 + 1) = v17;
+          v23 = *(v3 + 1);
+          *(v3 + 1) = v18;
 
-          v23 = [*(v3 + 1) initWithInternalInfo:*(a1 + 32) parent:*(a1 + 40) allowsLandscape:v3[24]];
-          v24 = *(v3 + 1);
-          *(v3 + 1) = v23;
+          v24 = [*(v3 + 1) initWithInternalInfo:*(a1 + 32) parent:*(a1 + 40) allowsLandscape:v3[24]];
+          v25 = *(v3 + 1);
+          *(v3 + 1) = v24;
 
           goto LABEL_31;
       }
 
 LABEL_25:
-      v19 = *(v3 + 1);
+      v20 = *(v3 + 1);
       *(v3 + 1) = 0;
 
       if (!*(a1 + 48))
@@ -1152,43 +1151,43 @@ LABEL_25:
       }
 
       v9 = [NSString stringWithFormat:@"Unexpected controller type (%d).", *(a1 + 64)];
-      v20 = *(a1 + 48);
-      v21 = [LAErrorHelper internalErrorWithMessage:v9];
-      (*(v20 + 16))(v20, 0, v21);
+      v21 = *(a1 + 48);
+      v22 = [LAErrorHelper internalErrorWithMessage:v9];
+      (*(v21 + 16))(v21, 0, v22);
 
       goto LABEL_6;
     }
 
-    switch(v16)
+    switch(v17)
     {
       case 4:
-        v18 = PasswordViewController;
+        v19 = PasswordViewController;
         break;
       case 5:
-        v18 = FaceIdViewController;
+        v19 = FaceIdViewController;
         break;
       case 6:
-        v18 = RatchetCoolOffViewController;
+        v19 = RatchetCoolOffViewController;
         break;
       default:
         goto LABEL_25;
     }
 
-    v17 = [v18 alloc];
+    v18 = [v19 alloc];
     goto LABEL_30;
   }
 
-  v13 = [v12 childControllerFor:*(v3 + 6) type:*(a1 + 64) allowsLandscape:v3[24]];
-  v14 = *(v3 + 1);
-  *(v3 + 1) = v13;
+  v14 = [v13 childControllerFor:*(v3 + 6) type:*(a1 + 64) allowsLandscape:v3[24]];
+  v15 = *(v3 + 1);
+  *(v3 + 1) = v14;
 
   if (!*(v3 + 1))
   {
-    v15 = LALogForCategory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = LALogForCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "New child controller is nil - nothing to show.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "New child controller is nil - nothing to show.", buf, 2u);
     }
 
     goto LABEL_39;
@@ -1198,19 +1197,19 @@ LABEL_31:
   v3[90] = 1;
   if (*(v3 + 2))
   {
-    v25 = LALogForCategory();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v26 = LALogForCategory();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      v26 = *(v3 + 2);
-      v27 = *(v3 + 1);
-      v28 = *(a1 + 72);
+      v27 = *(v3 + 2);
+      v28 = *(v3 + 1);
+      v29 = *(a1 + 72);
       *buf = 67109634;
-      *v42 = v26;
-      *&v42[4] = 2114;
-      *&v42[6] = v27;
-      *&v42[14] = 1024;
-      *&v42[16] = v28;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Forwarding cached event %d to %{public}@, tid:%u", buf, 0x18u);
+      *v43 = v27;
+      *&v43[4] = 2114;
+      *&v43[6] = v28;
+      *&v43[14] = 1024;
+      *&v43[16] = v29;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Forwarding cached event %d to %{public}@, tid:%u", buf, 0x18u);
     }
 
     [*(v3 + 1) mechanismEvent:*(v3 + 2) reply:&__block_literal_global];
@@ -1218,36 +1217,36 @@ LABEL_31:
   }
 
   [*(v3 + 1) setModalPresentationStyle:0];
-  v29 = [*(a1 + 40) view];
-  v30 = [v29 window];
-  v31 = [v30 _rootSheetPresentationController];
-  [v31 _setShouldScaleDownBehindDescendantSheets:0];
+  v30 = [*(a1 + 40) view];
+  v31 = [v30 window];
+  v32 = [v31 _rootSheetPresentationController];
+  [v32 _setShouldScaleDownBehindDescendantSheets:0];
 
-  v32 = LALogForCategory();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+  v33 = LALogForCategory();
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
   {
-    v33 = *(v3 + 1);
-    v34 = *(a1 + 40);
-    v35 = *(a1 + 72);
+    v34 = *(v3 + 1);
+    v35 = *(a1 + 40);
+    v36 = *(a1 + 72);
     *buf = 138543874;
-    *v42 = v33;
-    *&v42[8] = 2114;
-    *&v42[10] = v34;
-    *&v42[18] = 1024;
-    v43 = v35;
-    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "%{public}@ is being presented by %{public}@, tid:%u", buf, 0x1Cu);
+    *v43 = v34;
+    *&v43[8] = 2114;
+    *&v43[10] = v35;
+    *&v43[18] = 1024;
+    v44 = v36;
+    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "%{public}@ is being presented by %{public}@, tid:%u", buf, 0x1Cu);
   }
 
-  v36 = *(a1 + 40);
-  v37 = *(v3 + 1);
-  v38 = [v37 shouldPresentWithAnimation];
-  v39[0] = _NSConcreteStackBlock;
-  v39[1] = 3221225472;
-  v39[2] = __82__TransitionViewController_transitionToController_internalInfo_completionHandler___block_invoke_110;
-  v39[3] = &unk_1000AA568;
-  v39[4] = v3;
-  v40 = *(a1 + 48);
-  [v36 presentViewController:v37 animated:v38 completion:v39];
+  v37 = *(a1 + 40);
+  v38 = *(v3 + 1);
+  v39 = [v38 shouldPresentWithAnimation];
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = __82__TransitionViewController_transitionToController_internalInfo_completionHandler___block_invoke_110;
+  v40[3] = &unk_1000AA568;
+  v40[4] = v3;
+  v41 = *(a1 + 48);
+  [v37 presentViewController:v38 animated:v39 completion:v40];
 
 LABEL_39:
 }
@@ -1436,11 +1435,97 @@ void __39__TransitionViewController_viewDidLoad__block_invoke(uint64_t a1)
   [WeakRetained setNeedsStatusBarAppearanceUpdate];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = LALogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ viewDidAppear", buf, 0xCu);
+  }
+
+  v13.receiver = self;
+  v13.super_class = TransitionViewController;
+  [(TransitionViewController *)&v13 viewDidAppear:appearCopy];
+  view = [(TransitionViewController *)self view];
+  window = [view window];
+  windowScene = [window windowScene];
+  session = [windowScene session];
+  sceneSession = self->_sceneSession;
+  self->_sceneSession = session;
+
+  self->_disappeared = 0;
+  self->_appeared = 1;
+  self->_awaitingDisappear = 0;
+  appearedNotification = self->_appearedNotification;
+  if (appearedNotification)
+  {
+    appearedNotification[2]();
+    v12 = self->_appearedNotification;
+    self->_appearedNotification = 0;
+  }
+
+  if ([(TransitionViewController *)self isUiReady])
+  {
+    [(TransitionViewController *)self uiEvent:0 options:0];
+  }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = LALogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ viewWillAppear", buf, 0xCu);
+  }
+
+  v11.receiver = self;
+  v11.super_class = TransitionViewController;
+  [(TransitionViewController *)&v11 viewWillAppear:appearCopy];
+  v6 = objc_opt_class();
+  if (v6 == objc_opt_class())
+  {
+    v10.receiver = self;
+    v10.super_class = TransitionViewController;
+    _remoteViewControllerProxy = [(TransitionViewController *)&v10 _remoteViewControllerProxy];
+    [_remoteViewControllerProxy setDesiredHardwareButtonEvents:16];
+  }
+
+  _remoteViewControllerProxy2 = [(TransitionViewController *)self _remoteViewControllerProxy];
+  v9 = _remoteViewControllerProxy2;
+  if (_remoteViewControllerProxy2)
+  {
+    [_remoteViewControllerProxy2 setDismissalAnimationStyle:1];
+  }
+}
+
+- (void)idleTimerDisable:(BOOL)disable
+{
+  disableCopy = disable;
+  v5.receiver = self;
+  v5.super_class = TransitionViewController;
+  _remoteViewControllerProxy = [(TransitionViewController *)&v5 _remoteViewControllerProxy];
+  [_remoteViewControllerProxy setIdleTimerDisabled:disableCopy forReason:@"com.apple.LocalAuthentication"];
+}
+
 + (id)rootController
 {
   WeakRetained = objc_loadWeakRetained(&_rootController);
 
   return WeakRetained;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = TransitionViewController;
+  [(TransitionViewController *)&v4 viewDidDisappear:disappear];
+  [(TransitionViewController *)self _viewDidDisappear];
 }
 
 - (void)_viewDidDisappear
@@ -2043,10 +2128,9 @@ void __68__TransitionViewController__dismissChild_andRoot_reason_completion___bl
 
   else
   {
-    v2 = *(a1 + 40);
-    v3 = *(*(a1 + 40) + 16);
+    v2 = *(*(a1 + 40) + 16);
 
-    v3();
+    v2();
   }
 }
 
@@ -2443,11 +2527,11 @@ id __55__TransitionViewController__destroyCurrentSceneSession__block_invoke(uint
 
 void __51__TransitionViewController__destroyScenesSessions___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = LALogForCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = LALogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __51__TransitionViewController__destroyScenesSessions___block_invoke_cold_1(v3, a1);
+    __51__TransitionViewController__destroyScenesSessions___block_invoke_cold_1();
   }
 }
 
@@ -2580,13 +2664,12 @@ void __60__TransitionViewController__performOnMainQueueWhenAppeared___block_invo
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "supportedInterfaceOrientations: %s, _allowsLandscape: %s", &v5, 0x16u);
 }
 
-void __51__TransitionViewController__destroyScenesSessions___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __51__TransitionViewController__destroyScenesSessions___block_invoke_cold_1()
 {
-  v2 = *(a2 + 32);
   OUTLINED_FUNCTION_0();
-  v6 = 2114;
-  v7 = v3;
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Found error (%{public}@) while destroying %{public}@", v5, 0x16u);
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Found error (%{public}@) while destroying %{public}@", v2, 0x16u);
 }
 
 @end

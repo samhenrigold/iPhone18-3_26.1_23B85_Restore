@@ -70,9 +70,9 @@ void sub_1000020FC(uint64_t a1, uint64_t a2, void *a3)
   (*(v5 + 16))(v5, v12, v6, v7, v8, v9, v10, v11);
 }
 
-void sub_100002160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100002160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   sub_100002178(va);
   _Unwind_Resume(a1);
 }
@@ -82,10 +82,11 @@ void sub_100002178(uint64_t a1)
   v2 = *(a1 + 24);
 }
 
-void sub_100002854(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002854(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t start()
@@ -102,16 +103,16 @@ uint64_t start()
   return 0;
 }
 
-id sub_100002AF4()
+id sub_100002AF4(uint64_t a1)
 {
   if (qword_100015140 != -1)
   {
     sub_1000096E4();
   }
 
-  v1 = qword_100015138;
+  v2 = qword_100015138;
 
-  return v1;
+  return v2;
 }
 
 void sub_100002B38(id a1)
@@ -140,22 +141,23 @@ void sub_100003330(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   obj = v5;
   if (v6)
   {
-    v7 = sub_100002AF4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100002AF4(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_1000096F8(a1);
+      sub_1000096F8();
     }
 
-    v8 = [DSError errorWithCode:5];
-    v9 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
-    v37 = v8;
-    v10 = [NSArray arrayWithObjects:&v37 count:1];
-    v11 = [DSError errorWithCode:1 sourceName:v9 underlyingErrors:v10];
+    v9 = [DSError errorWithCode:5];
+    v10 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
+    v40 = v9;
+    v11 = [NSArray arrayWithObjects:&v40 count:1];
+    v12 = [DSError errorWithCode:1 sourceName:v10 underlyingErrors:v11];
 
-    [*(a1 + 48) addObject:v11];
+    [*(a1 + 48) addObject:v12];
     dispatch_group_leave(*(a1 + 56));
 
     v5 = obj;
@@ -163,71 +165,72 @@ void sub_100003330(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v29 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v12 = [v5 countByEnumeratingWithState:&v27 objects:v36 count:16];
-    if (v12)
+    v31 = 0u;
+    v13 = [v5 countByEnumeratingWithState:&v30 objects:v39 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v28;
+      v14 = v13;
+      v15 = *v31;
       do
       {
-        for (i = 0; i != v13; i = i + 1)
+        for (i = 0; i != v14; i = i + 1)
         {
-          if (*v28 != v14)
+          if (*v31 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v27 + 1) + 8 * i);
-          v17 = *(a1 + 32);
-          v18 = [v16 bundleId];
-          v19 = [v17 objectForKeyedSubscript:v18];
+          v17 = *(*(&v30 + 1) + 8 * i);
+          v18 = *(a1 + 32);
+          v19 = [v17 bundleId];
+          v20 = [v18 objectForKeyedSubscript:v19];
 
-          v20 = sub_100002AF4();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+          v22 = sub_100002AF4(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v33 = v19;
-            v34 = 2114;
-            v35 = v16;
-            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Got data usage policy for %{public}@: %{public}@", buf, 0x16u);
+            v36 = v20;
+            v37 = 2114;
+            v38 = v17;
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Got data usage policy for %{public}@: %{public}@", buf, 0x16u);
           }
 
-          v21 = [CTDataUsagePolicies ds_DataUsagePolicyWithPolicy:v16 sourceName:v19];
-          if (v21)
+          v23 = [CTDataUsagePolicies ds_DataUsagePolicyWithPolicy:v17 sourceName:v20];
+          v24 = v23;
+          if (v23)
           {
-            v22 = sub_100002AF4();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            v25 = sub_100002AF4(v23);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543618;
-              v33 = v21;
-              v34 = 2114;
-              v35 = v19;
-              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Required policy %{public}@ for %{public}@ not met.", buf, 0x16u);
+              v36 = v24;
+              v37 = 2114;
+              v38 = v20;
+              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Required policy %{public}@ for %{public}@ not met.", buf, 0x16u);
             }
 
-            [*(a1 + 64) setObject:0 forKeyedSubscript:v19];
-            v23 = [DSError errorWithCode:5];
-            v31 = v23;
-            v24 = [NSArray arrayWithObjects:&v31 count:1];
-            v25 = [DSError errorWithCode:1 sourceName:v19 underlyingErrors:v24];
+            [*(a1 + 64) setObject:0 forKeyedSubscript:v20];
+            v26 = [DSError errorWithCode:5];
+            v34 = v26;
+            v27 = [NSArray arrayWithObjects:&v34 count:1];
+            v28 = [DSError errorWithCode:1 sourceName:v20 underlyingErrors:v27];
 
-            [*(a1 + 48) addObject:v25];
+            [*(a1 + 48) addObject:v28];
           }
         }
 
         v5 = obj;
-        v13 = [obj countByEnumeratingWithState:&v27 objects:v36 count:16];
+        v14 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
     dispatch_group_leave(*(a1 + 56));
-    v6 = 0;
+    v7 = 0;
   }
 }
 
@@ -454,7 +457,7 @@ void sub_1000048F4(uint64_t a1, void *a2, void *a3)
   {
     if (os_log_type_enabled(qword_100015148, OS_LOG_TYPE_ERROR))
     {
-      sub_1000098E0((a1 + 32));
+      sub_1000098E0();
     }
 
     v12 = *(a1 + 32);
@@ -1607,10 +1610,11 @@ void sub_1000092F4(uint64_t a1)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_100009440(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100009440(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void sub_10000946C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -1647,7 +1651,7 @@ void sub_1000095C8(uint64_t a1, void *a2)
   v2 = [a2 client];
   v3 = [v2 name];
   sub_10000283C();
-  sub_100002854(&_mh_execute_header, v4, v5, "@Rejecting %@ request from: %@, client is not entitled", v6, v7, v8, v9, v10);
+  sub_100002854(&_mh_execute_header, v4, v5, "@Rejecting %@ request from: %@, client is not entitled", v6, v7, v8, v9);
 }
 
 void sub_10000966C(uint64_t a1, NSObject *a2)
@@ -1655,13 +1659,6 @@ void sub_10000966C(uint64_t a1, NSObject *a2)
   v2 = 138412290;
   v3 = a1;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "@Rejecting %@ request, client is nil", &v2, 0xCu);
-}
-
-void sub_1000096F8(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_100009484();
-  sub_10000949C(&_mh_execute_header, v2, v3, "Failed to get data usage policies for %{public}@ because %{public}@");
 }
 
 void sub_100009814(void *a1, uint64_t a2, uint64_t a3, void *a4)
@@ -1678,13 +1675,6 @@ void sub_100009814(void *a1, uint64_t a2, uint64_t a3, void *a4)
     v12 = v7;
     _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to fetch shared resources from %{public}@ because exception %{public}@", &v9, 0x16u);
   }
-}
-
-void sub_1000098E0(uint64_t *a1)
-{
-  v1 = *a1;
-  sub_100009484();
-  sub_10000949C(&_mh_execute_header, v2, v3, "Failed to fetch shared resources from %{public}@ because %{public}@");
 }
 
 void sub_10000994C(uint64_t *a1, NSObject *a2, uint64_t a3)
@@ -1716,7 +1706,7 @@ void sub_100009AB0(void **a1, void *a2)
   v3 = a2;
   v4 = [v2 name];
   sub_100009460();
-  sub_100009440(&_mh_execute_header, v5, v6, "Signpost for unsupported source name %{public}@", v7, v8, v9, v10, v11);
+  sub_100009440(&_mh_execute_header, v5, v6, "Signpost for unsupported source name %{public}@", v7, v8, v9, v10);
 }
 
 void sub_100009B44(void *a1, void *a2)
@@ -1724,5 +1714,5 @@ void sub_100009B44(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 name];
   sub_100009460();
-  sub_100009440(&_mh_execute_header, v5, v6, "Signpost for unsupported source name %{public}@", v7, v8, v9, v10, v11);
+  sub_100009440(&_mh_execute_header, v5, v6, "Signpost for unsupported source name %{public}@", v7, v8, v9, v10);
 }

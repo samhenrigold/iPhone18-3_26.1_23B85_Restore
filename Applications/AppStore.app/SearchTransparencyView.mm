@@ -20,8 +20,8 @@
 
   v9 = sub_1000056A8(v4, qword_1009D13D0);
   (*(v5 + 16))(v7, v9, v4);
-  v10 = objc_allocWithZone(type metadata accessor for DynamicTypeLinkedLabel());
-  *(&self->super.super.super.super.isa + v8) = sub_1002F5B8C(v7, 0, 0);
+  v10 = objc_allocWithZone(type metadata accessor for DynamicTypeLinkedLabel(0));
+  *(&self->super.super.super.super.isa + v8) = sub_1002F5B8C(v7, 0, 0, 0);
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;

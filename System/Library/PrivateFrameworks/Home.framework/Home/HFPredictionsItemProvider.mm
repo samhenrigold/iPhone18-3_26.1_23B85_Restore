@@ -56,9 +56,9 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFPredictionsItemProvider *)self home];
+  v5 = objc_msgSend_home(self);
   predictionsManager = [(HFPredictionsItemProvider *)self predictionsManager];
-  v7 = [v4 initWithHome:home predictionsManager:predictionsManager itemLimit:{-[HFPredictionsItemProvider itemLimit](self, "itemLimit")}];
+  v7 = [v4 initWithHome:v5 predictionsManager:predictionsManager itemLimit:{-[HFPredictionsItemProvider itemLimit](self, "itemLimit")}];
 
   return v7;
 }
@@ -75,41 +75,39 @@
 
 - (void)setThawPredictionsForNextReload:(BOOL)reload
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   self->_thawPredictionsForNextReload = reload;
   if (reload)
   {
     v4 = HFLogForCategory(0x38uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
+      v6 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@ set to thaw predictions for next reload", &v7, 0xCu);
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@ set to thaw predictions for next reload", &v6, 0xCu);
     }
 
     predictionsManager = [(HFPredictionsItemProvider *)self predictionsManager];
     [predictionsManager moduleDidUnfreezeItems];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchPredictions
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (-[HFPredictionsItemProvider freezePredictions](self, "freezePredictions") && !-[HFPredictionsItemProvider thawPredictionsForNextReload](self, "thawPredictionsForNextReload") && (-[HFPredictionsItemProvider lastPredictions](self, "lastPredictions"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 count], v3, v4))
   {
     v5 = HFLogForCategory(0x38uLL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      home = [(HFPredictionsItemProvider *)self home];
+      v6 = objc_msgSend_home(self);
       lastPredictions = [(HFPredictionsItemProvider *)self lastPredictions];
       *buf = 138412802;
       selfCopy2 = self;
-      v22 = 2112;
-      v23 = home;
-      v24 = 2112;
-      v25 = lastPredictions;
+      v21 = 2112;
+      v22 = v6;
+      v23 = 2112;
+      v24 = lastPredictions;
       _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@ asked to fetch predictions for home %@, but is frozen. Returning %@", buf, 0x20u);
     }
 
@@ -126,36 +124,34 @@
       v11 = HFLogForCategory(0x38uLL);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        home2 = [(HFPredictionsItemProvider *)self home];
+        v12 = objc_msgSend_home(self);
         *buf = 138412546;
         selfCopy2 = self;
-        v22 = 2112;
-        v23 = home2;
+        v21 = 2112;
+        v22 = v12;
         _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "%@ thawing predictions to be recomputed for home %@", buf, 0x16u);
       }
     }
 
     predictionsManager = [(HFPredictionsItemProvider *)self predictionsManager];
     fetchUserActionPredictions = [predictionsManager fetchUserActionPredictions];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __45__HFPredictionsItemProvider_fetchPredictions__block_invoke;
-    v17[3] = &unk_277DF52E0;
-    objc_copyWeak(&v18, &location);
-    v10 = [fetchUserActionPredictions flatMap:v17];
-    objc_destroyWeak(&v18);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __45__HFPredictionsItemProvider_fetchPredictions__block_invoke;
+    v16[3] = &unk_277DF52E0;
+    objc_copyWeak(&v17, &location);
+    v10 = [fetchUserActionPredictions flatMap:v16];
+    objc_destroyWeak(&v17);
 
     objc_destroyWeak(&location);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 id __45__HFPredictionsItemProvider_fetchPredictions__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if ([WeakRetained freezePredictions])
@@ -163,11 +159,11 @@ id __45__HFPredictionsItemProvider_fetchPredictions__block_invoke(uint64_t a1, v
     v5 = HFLogForCategory(0x38uLL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412546;
-      v12 = WeakRetained;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@ saving and returning predictions after thawing %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = WeakRetained;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@ saving and returning predictions after thawing %@", &v10, 0x16u);
     }
 
     [WeakRetained setThawPredictionsForNextReload:0];
@@ -179,8 +175,6 @@ id __45__HFPredictionsItemProvider_fetchPredictions__block_invoke(uint64_t a1, v
   }
 
   v8 = [MEMORY[0x277D2C900] futureWithResult:v3];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -522,7 +516,7 @@ id __52__HFPredictionsItemProvider_transformedPredictions___block_invoke(uint64_
 
 - (id)_backFillPredictions:(id)predictions
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   [(HFPredictionsItemProvider *)self setObjectPriorities:dictionary];
@@ -532,7 +526,7 @@ id __52__HFPredictionsItemProvider_transformedPredictions___block_invoke(uint64_
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v82 = predictionsCopy;
+    v81 = predictionsCopy;
     _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Initial predictions: %@", buf, 0xCu);
   }
 
@@ -550,7 +544,7 @@ id __52__HFPredictionsItemProvider_transformedPredictions___block_invoke(uint64_
     v12 = 1;
   }
 
-  v66 = predictionsCopy;
+  v65 = predictionsCopy;
   if (_os_feature_enabled_impl())
   {
     predictionsManager3 = [(HFPredictionsItemProvider *)self predictionsManager];
@@ -577,22 +571,22 @@ id __52__HFPredictionsItemProvider_transformedPredictions___block_invoke(uint64_
   }
 
   orderedSet = [MEMORY[0x277CBEB40] orderedSet];
-  v67 = orderedSet;
+  v66 = orderedSet;
   selfCopy = self;
   if (v12)
   {
-    home = [(HFPredictionsItemProvider *)self home];
-    hf_accessoryLikeObjects = [home hf_accessoryLikeObjects];
-    v78[0] = MEMORY[0x277D85DD0];
-    v78[1] = 3221225472;
-    v78[2] = __50__HFPredictionsItemProvider__backFillPredictions___block_invoke_2;
-    v78[3] = &unk_277DFEBF0;
-    v79 = &__block_literal_global_42_2;
-    [hf_accessoryLikeObjects na_map:v78];
+    v20 = objc_msgSend_home(self);
+    hf_accessoryLikeObjects = [v20 hf_accessoryLikeObjects];
+    v77[0] = MEMORY[0x277D85DD0];
+    v77[1] = 3221225472;
+    v77[2] = __50__HFPredictionsItemProvider__backFillPredictions___block_invoke_2;
+    v77[3] = &unk_277DFEBF0;
+    v78 = &__block_literal_global_42_2;
+    [hf_accessoryLikeObjects na_map:v77];
     v23 = v22 = v6;
     allObjects = [v23 allObjects];
-    home2 = [(HFPredictionsItemProvider *)selfCopy home];
-    hf_reorderableServicesList = [home2 hf_reorderableServicesList];
+    v25 = objc_msgSend_home(selfCopy);
+    hf_reorderableServicesList = [v25 hf_reorderableServicesList];
     [hf_reorderableServicesList sortedHomeKitObjectComparator];
     v28 = v27 = v18;
     v29 = [allObjects sortedArrayUsingComparator:v28];
@@ -600,26 +594,26 @@ id __52__HFPredictionsItemProvider_transformedPredictions___block_invoke(uint64_
     self = selfCopy;
     v6 = v22;
 
-    orderedSet = v67;
-    [v67 addObjectsFromArray:v29];
-    home3 = [(HFPredictionsItemProvider *)selfCopy home];
-    hf_orderedRooms = [home3 hf_orderedRooms];
-    v76[0] = MEMORY[0x277D85DD0];
-    v76[1] = 3221225472;
-    v76[2] = __50__HFPredictionsItemProvider__backFillPredictions___block_invoke_3;
-    v76[3] = &unk_277DFEC40;
-    v77 = &__block_literal_global_42_2;
-    v32 = [hf_orderedRooms na_flatMap:v76];
+    orderedSet = v66;
+    [v66 addObjectsFromArray:v29];
+    v30 = objc_msgSend_home(selfCopy);
+    hf_orderedRooms = [v30 hf_orderedRooms];
+    v75[0] = MEMORY[0x277D85DD0];
+    v75[1] = 3221225472;
+    v75[2] = __50__HFPredictionsItemProvider__backFillPredictions___block_invoke_3;
+    v75[3] = &unk_277DFEC40;
+    v76 = &__block_literal_global_42_2;
+    v32 = [hf_orderedRooms na_flatMap:v75];
 
-    [v67 addObjectsFromArray:v32];
+    [v66 addObjectsFromArray:v32];
     v18 = v27;
   }
 
   orderedSet2 = [MEMORY[0x277CBEB40] orderedSet];
   if (v18)
   {
-    home4 = [(HFPredictionsItemProvider *)self home];
-    hf_orderedActionSets = [home4 hf_orderedActionSets];
+    v34 = objc_msgSend_home(self);
+    hf_orderedActionSets = [v34 hf_orderedActionSets];
     v36 = [hf_orderedActionSets na_filter:&__block_literal_global_48_4];
 
     v37 = [v36 na_filter:&__block_literal_global_50_1];
@@ -633,7 +627,7 @@ id __52__HFPredictionsItemProvider_transformedPredictions___block_invoke(uint64_
   aBlock[2] = __50__HFPredictionsItemProvider__backFillPredictions___block_invoke_8;
   aBlock[3] = &unk_277DFEC68;
   v39 = v6;
-  v74 = v39;
+  v73 = v39;
   selfCopy2 = self;
   v40 = _Block_copy(aBlock);
   v41 = [v39 count];
@@ -655,7 +649,7 @@ id __52__HFPredictionsItemProvider_transformedPredictions___block_invoke(uint64_
     while (v42 < [(HFPredictionsItemProvider *)self itemLimit]);
   }
 
-  v65 = orderedSet2;
+  v64 = orderedSet2;
   +[HFAnalyticsCCPredictionEvent sendMetricsForPredictionEventAtStage:withCount:](HFAnalyticsCCPredictionEvent, "sendMetricsForPredictionEventAtStage:withCount:", 3, [v39 count]);
   if ((_os_feature_enabled_impl() & 1) == 0)
   {
@@ -673,32 +667,32 @@ id __52__HFPredictionsItemProvider_transformedPredictions___block_invoke(uint64_
       while (v43 < [(HFPredictionsItemProvider *)self itemLimit]);
     }
 
-    home5 = [(HFPredictionsItemProvider *)self home];
-    [v39 insertObject:home5 atIndex:0];
+    v45 = objc_msgSend_home(self);
+    [v39 insertObject:v45 atIndex:0];
   }
 
-  v64 = v40;
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
+  v63 = v40;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   v46 = v39;
-  v47 = [v46 countByEnumeratingWithState:&v69 objects:v80 count:16];
+  v47 = [v46 countByEnumeratingWithState:&v68 objects:v79 count:16];
   if (v47)
   {
     v48 = v47;
-    v49 = *v70;
+    v49 = *v69;
     v50 = 1;
     do
     {
       for (i = 0; i != v48; ++i)
       {
-        if (*v70 != v49)
+        if (*v69 != v49)
         {
           objc_enumerationMutation(v46);
         }
 
-        v52 = *(*(&v69 + 1) + 8 * i);
+        v52 = *(*(&v68 + 1) + 8 * i);
         objectPriorities = [(HFPredictionsItemProvider *)self objectPriorities];
         v54 = [MEMORY[0x277CCABB0] numberWithInteger:v50];
         uniqueIdentifier = [v52 uniqueIdentifier];
@@ -709,7 +703,7 @@ id __52__HFPredictionsItemProvider_transformedPredictions___block_invoke(uint64_
         ++v50;
       }
 
-      v48 = [v46 countByEnumeratingWithState:&v69 objects:v80 count:16];
+      v48 = [v46 countByEnumeratingWithState:&v68 objects:v79 count:16];
     }
 
     while (v48);
@@ -720,15 +714,13 @@ id __52__HFPredictionsItemProvider_transformedPredictions___block_invoke(uint64_
   {
     array = [v46 array];
     *buf = 138412290;
-    v82 = array;
+    v81 = array;
     _os_log_impl(&dword_20D9BF000, v57, OS_LOG_TYPE_DEFAULT, "Backfilled predictions: %@", buf, 0xCu);
   }
 
   v59 = MEMORY[0x277D2C900];
   array2 = [v46 array];
   v61 = [v59 futureWithResult:array2];
-
-  v62 = *MEMORY[0x277D85DE8];
 
   return v61;
 }
@@ -829,7 +821,7 @@ BOOL __50__HFPredictionsItemProvider__backFillPredictions___block_invoke_5(uint6
 
 void __50__HFPredictionsItemProvider__backFillPredictions___block_invoke_8(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) count];
   if (v4 < [*(a1 + 40) itemLimit])
@@ -840,32 +832,28 @@ void __50__HFPredictionsItemProvider__backFillPredictions___block_invoke_8(uint6
       v6 = HFLogForCategory(0x38uLL);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 138412290;
-        v9 = v5;
-        _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Backfilling %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v5;
+        _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Backfilling %@", &v7, 0xCu);
       }
 
       [*(a1 + 32) addObject:v5];
       [v3 removeObjectAtIndex:0];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)invalidationReasons
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = HFPredictionsItemProvider;
-  invalidationReasons = [(HFItemProvider *)&v7 invalidationReasons];
-  v8[0] = @"actionSet";
-  v8[1] = @"home";
-  v8[2] = @"user";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v7[3] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HFPredictionsItemProvider;
+  invalidationReasons = [(HFItemProvider *)&v6 invalidationReasons];
+  v7[0] = @"actionSet";
+  v7[1] = @"home";
+  v7[2] = @"user";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
   v4 = [invalidationReasons setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

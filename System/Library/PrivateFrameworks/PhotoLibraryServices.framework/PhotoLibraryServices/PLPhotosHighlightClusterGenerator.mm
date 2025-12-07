@@ -353,7 +353,7 @@ LABEL_18:
 - (id)_recentHighlightClusterWithRecentMoments:(id)moments
 {
   momentsCopy = moments;
-  if ([momentsCopy count])
+  if (objc_msgSend_count(momentsCopy))
   {
     v4 = [[PLPhotosHighlightCluster alloc] initWithMoments:momentsCopy];
     [(PLPhotosHighlightCluster *)v4 setCategory:1];
@@ -379,7 +379,7 @@ LABEL_18:
   dataManager = [(PLPhotosHighlightClusterGenerator *)self dataManager];
   v8 = [dataManager momentsBetweenDate:v4 andDate:v6 sorted:1 excludeExternal:1];
 
-  if ([v8 count])
+  if (objc_msgSend_count(v8))
   {
     v9 = [(PLLibraryClusterer *)self->_clusterer momentClustersForMomentsSortedByDate:v8 allowLocationSplits:0 allowExternalSplits:0];
     v10 = [(PLPhotosHighlightClusterGenerator *)self recentMomentsInMomentClusters:v9];
@@ -472,7 +472,7 @@ LABEL_18:
   clustersCopy = clusters;
   v33 = *MEMORY[0x1E69E9840];
   momentsCopy = moments;
-  if (![momentsCopy count])
+  if (!objc_msgSend_count(momentsCopy))
   {
     v23 = PLMomentsGetLog();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -650,7 +650,7 @@ LABEL_15:
     _os_log_impl(&dword_19BF1F000, v29, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", buf, 0x20u);
   }
 
-  if (![v7 count])
+  if (!objc_msgSend_count(v7))
   {
     v45 = v6;
     goto LABEL_85;
@@ -702,7 +702,7 @@ LABEL_15:
     _os_log_impl(&dword_19BF1F000, v41, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", buf, 0x20u);
   }
 
-  if ([v7 count] || clustersCopy)
+  if (objc_msgSend_count(v7) || clustersCopy)
   {
     spida = v29;
     v46 = MEMORY[0x1E695DFA0];
@@ -799,7 +799,7 @@ LABEL_15:
       _os_log_impl(&dword_19BF1F000, v68, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", buf, 0x20u);
     }
 
-    if (![v7 count])
+    if (!objc_msgSend_count(v7))
     {
       v110 = v6;
       goto LABEL_83;
@@ -889,7 +889,7 @@ LABEL_15:
       }
 
       v68 = v132;
-      if (![v7 count])
+      if (!objc_msgSend_count(v7))
       {
         v112 = v6;
 

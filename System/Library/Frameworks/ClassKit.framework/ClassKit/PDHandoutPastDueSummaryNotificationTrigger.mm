@@ -200,7 +200,7 @@ LABEL_12:
             v32 = sub_100176270(database, objectID3);
 
             v27 |= v32;
-            v28 |= !v32;
+            v28 |= v32 ^ 1;
             if (v28 & 1) != 0 && (v27)
             {
 

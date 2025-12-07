@@ -16,7 +16,7 @@
     swift_once();
   }
 
-  v5 = type metadata accessor for ScreenshotDisplayConfiguration();
+  v5 = type metadata accessor for ScreenshotDisplayConfiguration(0);
   v6 = sub_10000D0FC(v5, qword_10097ECF8);
   sub_100289598(v6, self + v4);
   result = sub_100754644();
@@ -39,7 +39,7 @@
   v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = self + OBJC_IVAR____TtC22SubscribePageExtension22BorderedScreenshotView_displayConfiguration;
   swift_beginAccess();
-  v10 = type metadata accessor for ScreenshotDisplayConfiguration();
+  v10 = type metadata accessor for ScreenshotDisplayConfiguration(0);
   (*(v6 + 16))(v8, &v9[*(v10 + 40)], v5);
   sub_1007504B4();
   v12 = v11;

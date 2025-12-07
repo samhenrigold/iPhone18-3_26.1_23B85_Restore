@@ -36,7 +36,10 @@
 - (NSString)watchIDsToPairingRecordsStorageFilePath;
 - (SDAutoUnlockAKSManager)init;
 - (id)aksAuthSessionForDeviceID:(id)d attestation:(BOOL)attestation sessionType:(int64_t)type escrowSecret:(id)secret;
+- (id)aksAuthSessionForDeviceID:(id)d originator:(BOOL)originator usingEscrow:(BOOL)escrow attestation:(BOOL)attestation sessionType:(int64_t)type;
 - (id)aksAuthorizationSessionForDeviceID:(id)d attestation:(BOOL)attestation originator:(BOOL)originator externalACMContext:(id)context sessionType:(int64_t)type;
+- (id)aksPairingSessionForDeviceID:(id)d originator:(BOOL)originator errorCode:(int64_t *)code requiresAttestation:(BOOL)attestation requiresEscrow:(BOOL)escrow;
+- (id)aksRegistrationSessionForDeviceID:(id)d originator:(BOOL)originator;
 - (id)allPairedWatchDeviceIDs;
 - (id)allRemoteLTKData;
 - (id)anyLongTermKeyForDeviceID:(id)d;
@@ -60,6 +63,7 @@
 - (id)keychainDevices:(BOOL)devices;
 - (id)loadCompanionIDs;
 - (id)loadLegacyWatchIDToCompanionIDMapping;
+- (id)longTermKeyForDevice:(id)device modern:(BOOL)modern;
 - (id)longTermKeyIDForDeviceID:(id)d;
 - (id)ltkHashForLocalLTK;
 - (id)ltkInfoForDeviceID:(id)d modern:(BOOL)modern attested:(BOOL)attested;
@@ -136,6 +140,7 @@
 - (void)transport:(id)transport didReceivePayload:(id)payload type:(unsigned __int16)type deviceID:(id)d;
 - (void)updateDynamicStoreEnabled;
 - (void)updateLTKs;
+- (void)updateLTKsForDeviceID:(id)d staleRemoteLTK:(BOOL)k;
 - (void)updateLocalLTK;
 - (void)updateLocalLTKForSignout;
 - (void)updatePreferredRemoteLTKForDeviceID:(id)d;
@@ -997,193 +1002,192 @@ LABEL_16:
 
 - (NSString)state
 {
-  v80 = 0;
+  v81 = 0;
   v3 = objc_opt_class();
-  v47 = NSStringFromClass(v3);
-  NSAppendPrintF();
-  v4 = 0;
+  v4 = NSStringFromClass(v3);
+  NSAppendPrintF(&v81, "%@\n", v4);
+  v5 = v81;
 
-  v79 = v4;
-  NSAppendPrintF();
-  v5 = v4;
+  v80 = v5;
+  NSAppendPrintF(&v80, "-------------\n");
+  v6 = v80;
 
-  v78 = v5;
+  v79 = v6;
   localDeviceID = [(SDAutoUnlockAKSManager *)self localDeviceID];
-  NSAppendPrintF();
-  v6 = v5;
+  NSAppendPrintF(&v79, "Local Unique ID: %@\n", localDeviceID);
+  v8 = v79;
 
-  v77 = v6;
-  NSAppendPrintF();
-  v7 = v6;
+  v78 = v8;
+  NSAppendPrintF(&v78, "\n");
+  v9 = v78;
 
-  v76 = v7;
+  v77 = v9;
   if ([(SDAutoUnlockAKSManager *)self viewSyncing])
   {
-    v8 = @"YES";
+    v10 = @"YES";
   }
 
   else
   {
-    v8 = @"NO";
+    v10 = @"NO";
   }
 
-  v49 = v8;
-  NSAppendPrintF();
-  v9 = v76;
+  NSAppendPrintF(&v77, "View Syncing: %@\n", v10);
+  v11 = v77;
 
-  v75 = v9;
-  v10 = +[SDStatusMonitor sharedMonitor];
-  if ([v10 deviceWasUnlockedOnce])
+  v76 = v11;
+  v12 = +[SDStatusMonitor sharedMonitor];
+  if ([v12 deviceWasUnlockedOnce])
   {
-    v11 = @"YES";
+    v13 = @"YES";
   }
 
   else
   {
-    v11 = @"NO";
+    v13 = @"NO";
   }
 
-  v50 = v11;
-  NSAppendPrintF();
-  v12 = v75;
+  NSAppendPrintF(&v76, "Device First Unlocked: %@\n", v13);
+  v14 = v76;
 
-  v74 = v12;
+  v75 = v14;
   allKeychainDevices = [(SDAutoUnlockAKSManager *)self allKeychainDevices];
   allObjects = [allKeychainDevices allObjects];
-  v51 = SFCompactStringFromCollection();
-  NSAppendPrintF();
-  v15 = v12;
+  v17 = SFCompactStringFromCollection();
+  NSAppendPrintF(&v75, "Keychain Devices: %@\n", v17);
+  v18 = v75;
 
-  v73 = v15;
+  v74 = v18;
   remoteLTKStorageFilePath = [(SDAutoUnlockAKSManager *)self remoteLTKStorageFilePath];
-  NSAppendPrintF();
-  v16 = v15;
+  NSAppendPrintF(&v74, "Remote LTK File Path: %@\n", remoteLTKStorageFilePath);
+  v20 = v74;
 
-  v72 = v16;
-  NSAppendPrintF();
-  v17 = v16;
+  v73 = v20;
+  NSAppendPrintF(&v73, "Remote LTKs\n");
+  v21 = v73;
 
   selfCopy = self;
   [(SDAutoUnlockAKSManager *)self remoteLTKList];
-  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
-  v61 = v71 = 0u;
-  obj = [v61 allKeys];
-  v18 = [obj countByEnumeratingWithState:&v68 objects:v82 count:16];
-  if (v18)
+  v71 = 0u;
+  v58 = v72 = 0u;
+  obj = [v58 allKeys];
+  v22 = [obj countByEnumeratingWithState:&v69 objects:v83 count:16];
+  if (v22)
   {
-    v19 = v18;
-    v20 = *v69;
+    v23 = v22;
+    v24 = *v70;
     do
     {
-      v21 = 0;
-      v22 = v17;
+      v25 = 0;
+      v26 = v21;
       do
       {
-        if (*v69 != v20)
+        if (*v70 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v68 + 1) + 8 * v21);
-        v24 = [v61 objectForKeyedSubscript:{v23, v53, v55, v57, v58}];
-        v25 = [v24 objectForKeyedSubscript:@"LTK Data"];
-        if (!v25)
+        v27 = *(*(&v69 + 1) + 8 * v25);
+        v28 = [v58 objectForKeyedSubscript:v27];
+        v29 = [v28 objectForKeyedSubscript:@"LTK Data"];
+        if (!v29)
         {
-          v25 = [v24 objectForKeyedSubscript:@"Attested LTK Data"];
+          v29 = [v28 objectForKeyedSubscript:@"Attested LTK Data"];
         }
 
-        v67 = v22;
-        v26 = [v24 objectForKeyedSubscript:@"LTK ID"];
-        v27 = sub_100021BD4(v25);
-        v28 = sub_10005CDC0(v27);
-        [v25 description];
-        v58 = v57 = v28;
-        v53 = v23;
-        v55 = v26;
-        NSAppendPrintF();
-        v17 = v22;
+        v68 = v26;
+        v30 = [v28 objectForKeyedSubscript:@"LTK ID"];
+        v31 = sub_100021BD4(v29);
+        v32 = sub_10005CDC0(v31);
+        v33 = [v29 description];
+        NSAppendPrintF(&v68, "Device ID: %@, Remote LTK ID: %@, ASK Peer State: %@, Remote LTK: %@\n", v27, v30, v32, v33);
+        v21 = v68;
 
-        v21 = v21 + 1;
-        v22 = v17;
+        v25 = v25 + 1;
+        v26 = v21;
       }
 
-      while (v19 != v21);
-      v19 = [obj countByEnumeratingWithState:&v68 objects:v82 count:{16, v53, v26, v28, v58}];
+      while (v23 != v25);
+      v23 = [obj countByEnumeratingWithState:&v69 objects:v83 count:16];
     }
 
-    while (v19);
+    while (v23);
   }
 
-  v66 = v17;
-  NSAppendPrintF();
-  v29 = v17;
+  v67 = v21;
+  NSAppendPrintF(&v67, "\n");
+  v34 = v67;
 
-  v30 = objc_opt_new();
-  v62 = 0u;
+  v35 = objc_opt_new();
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v31 = +[SDAutoUnlockTransport sharedTransport];
-  devicesWithLTKs = [v31 devicesWithLTKs];
+  v66 = 0u;
+  v36 = +[SDAutoUnlockTransport sharedTransport];
+  devicesWithLTKs = [v36 devicesWithLTKs];
   allObjects2 = [devicesWithLTKs allObjects];
 
-  v34 = [allObjects2 countByEnumeratingWithState:&v62 objects:v81 count:16];
-  if (v34)
+  v39 = [allObjects2 countByEnumeratingWithState:&v63 objects:v82 count:16];
+  if (v39)
   {
-    v35 = v34;
-    v36 = *v63;
-    v37 = selfCopy;
+    v40 = v39;
+    v41 = *v64;
+    v42 = selfCopy;
     do
     {
-      for (i = 0; i != v35; i = i + 1)
+      for (i = 0; i != v40; i = i + 1)
       {
-        if (*v63 != v36)
+        if (*v64 != v41)
         {
           objc_enumerationMutation(allObjects2);
         }
 
-        v39 = *(*(&v62 + 1) + 8 * i);
-        v40 = [(SDAutoUnlockAKSManager *)v37 localDeviceID:v53];
-        v41 = [v39 isEqualToString:v40];
+        v44 = *(*(&v63 + 1) + 8 * i);
+        localDeviceID2 = [(SDAutoUnlockAKSManager *)v42 localDeviceID];
+        v46 = [v44 isEqualToString:localDeviceID2];
 
-        if ((v41 & 1) == 0 && [(SDAutoUnlockAKSManager *)v37 escrowSecretExistsForDevice:v39])
+        if ((v46 & 1) == 0 && [(SDAutoUnlockAKSManager *)v42 escrowSecretExistsForDevice:v44])
         {
-          [v30 addObject:v39];
-          v42 = [(SDAutoUnlockAKSManager *)v37 rangingKeyForDeviceID:v39];
-          v56 = [v42 description];
-          NSAppendPrintF();
-          v43 = v29;
+          [v35 addObject:v44];
+          v62 = v34;
+          v47 = [(SDAutoUnlockAKSManager *)v42 rangingKeyForDeviceID:v44];
+          v48 = [v47 description];
+          NSAppendPrintF(&v62, "Ranging Key: %@ : %@\n", v44, v48);
+          v49 = v62;
 
-          [(SDAutoUnlockAKSManager *)selfCopy keyPairingIDForDeviceID:v39, v39, v56];
-          v55 = v53 = v39;
-          NSAppendPrintF();
-          v29 = v43;
+          v61 = v49;
+          v50 = [(SDAutoUnlockAKSManager *)selfCopy keyPairingIDForDeviceID:v44];
+          NSAppendPrintF(&v61, "Pairing ID: %@ : %@\n", v44, v50);
+          v34 = v61;
 
-          v37 = selfCopy;
+          v42 = selfCopy;
         }
       }
 
-      v35 = [allObjects2 countByEnumeratingWithState:&v62 objects:v81 count:16];
+      v40 = [allObjects2 countByEnumeratingWithState:&v63 objects:v82 count:16];
     }
 
-    while (v35);
+    while (v40);
   }
 
-  v54 = SFCompactStringFromCollection();
-  NSAppendPrintF();
-  v44 = v29;
+  v60 = v34;
+  v51 = SFCompactStringFromCollection();
+  NSAppendPrintF(&v60, "Escrow Exists: %@\n", v51);
+  v52 = v60;
 
-  NSAppendPrintF();
-  v45 = v44;
+  v59 = v52;
+  NSAppendPrintF(&v59, "\n");
+  v53 = v59;
+  v54 = v59;
 
-  return v44;
+  return v53;
 }
 
 - (BOOL)viewSyncing
 {
-  v2 = objc_alloc_init(off_1009717D0());
+  v2 = objc_alloc_init(off_1009717D0(self, a2));
   v7 = 0;
   v3 = [v2 isManateeAvailable:&v7];
   v4 = v7;
@@ -1218,18 +1222,8 @@ LABEL_16:
 - (id)remoteLTKList
 {
   remoteLTKs = [(SDAutoUnlockAKSManager *)self remoteLTKs];
-  if (!remoteLTKs)
+  if (!remoteLTKs || (v4 = remoteLTKs, -[SDAutoUnlockAKSManager remoteLTKs](self, "remoteLTKs"), v5 = objc_claimAutoreleasedReturnValue(), [v5 objectForKeyedSubscript:@"Remote LTKs"], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, !v6))
   {
-    goto LABEL_3;
-  }
-
-  v4 = remoteLTKs;
-  remoteLTKs2 = [(SDAutoUnlockAKSManager *)self remoteLTKs];
-  v6 = [remoteLTKs2 objectForKeyedSubscript:@"Remote LTKs"];
-
-  if (!v6)
-  {
-LABEL_3:
     v7 = auto_unlock_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
@@ -1237,8 +1231,8 @@ LABEL_3:
     }
   }
 
-  remoteLTKs3 = [(SDAutoUnlockAKSManager *)self remoteLTKs];
-  v9 = [remoteLTKs3 objectForKeyedSubscript:@"Remote LTKs"];
+  remoteLTKs2 = [(SDAutoUnlockAKSManager *)self remoteLTKs];
+  v9 = [remoteLTKs2 objectForKeyedSubscript:@"Remote LTKs"];
 
   return v9;
 }
@@ -1517,6 +1511,371 @@ LABEL_3:
     v6 = +[SDAutoUnlockAKSManager sharedManager];
     [v6 updateDynamicStoreEnabled];
   }
+}
+
+- (id)aksPairingSessionForDeviceID:(id)d originator:(BOOL)originator errorCode:(int64_t *)code requiresAttestation:(BOOL)attestation requiresEscrow:(BOOL)escrow
+{
+  escrowCopy = escrow;
+  attestationCopy = attestation;
+  originatorCopy = originator;
+  dCopy = d;
+  if (attestationCopy)
+  {
+    localAttestedLTK = [(SDAutoUnlockAKSManager *)self localAttestedLTK];
+  }
+
+  else
+  {
+    localAttestedLTK = [(SDAutoUnlockAKSManager *)self localLTK];
+    [(SDAutoUnlockAKSManager *)self checkRemoteLTKForDeviceID:dCopy];
+  }
+
+  v14 = [(SDAutoUnlockAKSManager *)self remoteLTKForDeviceID:dCopy];
+  if (v14 && localAttestedLTK)
+  {
+    if (attestationCopy)
+    {
+      v15 = 4;
+    }
+
+    else
+    {
+      v15 = 1;
+    }
+
+    if (attestationCopy && escrowCopy)
+    {
+      v16 = auto_unlock_log();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        *v27 = 0;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Using attested escrow pairing type", v27, 2u);
+      }
+
+      v15 = 6;
+    }
+
+    v17 = [[SDAutoUnlockAKSSession alloc] initWithLocalLTK:localAttestedLTK remoteLTK:v14 sessionType:v15 originator:originatorCopy deviceID:dCopy];
+  }
+
+  else
+  {
+    v18 = auto_unlock_log();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      viewSyncing = [(SDAutoUnlockAKSManager *)self viewSyncing];
+      v23 = @"NO";
+      *v27 = 138413827;
+      *&v27[4] = dCopy;
+      *&v27[12] = 2112;
+      if (viewSyncing)
+      {
+        v24 = @"YES";
+      }
+
+      else
+      {
+        v24 = @"NO";
+      }
+
+      *&v27[14] = v24;
+      if (attestationCopy)
+      {
+        v25 = @"YES";
+      }
+
+      else
+      {
+        v25 = @"NO";
+      }
+
+      *&v27[22] = 2112;
+      if (localAttestedLTK)
+      {
+        v26 = @"YES";
+      }
+
+      else
+      {
+        v26 = @"NO";
+      }
+
+      v28 = v25;
+      if (v14)
+      {
+        v23 = @"YES";
+      }
+
+      v29 = 2112;
+      v30 = v26;
+      v31 = 2113;
+      v32 = localAttestedLTK;
+      v33 = 2112;
+      v34 = v23;
+      v35 = 2113;
+      v36 = v14;
+      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "AKS session missing keys (device: %@, syncing %@, attestation: %@, local exists %@, local LTK: %{private}@, remote exists %@, remote LTK: %{private}@)", v27, 0x48u);
+    }
+
+    v17 = 0;
+    if (code)
+    {
+      if (v14)
+      {
+        if (localAttestedLTK)
+        {
+          v19 = 101;
+        }
+
+        else
+        {
+          v19 = 149;
+        }
+      }
+
+      else
+      {
+        v19 = 148;
+      }
+
+      *code = v19;
+    }
+  }
+
+  v20 = [(SDAutoUnlockAKSManager *)self activeAKSSessions:*v27];
+  [v20 setObject:v17 forKeyedSubscript:dCopy];
+
+  return v17;
+}
+
+- (id)aksRegistrationSessionForDeviceID:(id)d originator:(BOOL)originator
+{
+  originatorCopy = originator;
+  dCopy = d;
+  localAttestedLTK = [(SDAutoUnlockAKSManager *)self localAttestedLTK];
+  v8 = [(SDAutoUnlockAKSManager *)self remoteLTKForDeviceID:dCopy];
+  if (v8 && localAttestedLTK)
+  {
+    v9 = [[SDAutoUnlockAKSSession alloc] initWithLocalLTK:localAttestedLTK remoteLTK:v8 sessionType:5 originator:originatorCopy deviceID:dCopy];
+  }
+
+  else
+  {
+    v10 = auto_unlock_log();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v13 = @"NO";
+      *v15 = 138413315;
+      *&v15[4] = dCopy;
+      if (localAttestedLTK)
+      {
+        v14 = @"YES";
+      }
+
+      else
+      {
+        v14 = @"NO";
+      }
+
+      *&v15[14] = v14;
+      *&v15[12] = 2112;
+      if (v8)
+      {
+        v13 = @"YES";
+      }
+
+      *&v15[22] = 2113;
+      v16 = localAttestedLTK;
+      v17 = 2112;
+      v18 = v13;
+      v19 = 2113;
+      v20 = v8;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "AKS session missing keys (device: %@, local exists %@, local LTK: %{private}@, remote exists %@, remote LTK: %{private}@)", v15, 0x34u);
+    }
+
+    v9 = 0;
+  }
+
+  v11 = [(SDAutoUnlockAKSManager *)self activeAKSSessions:*v15];
+  [v11 setObject:v9 forKeyedSubscript:dCopy];
+
+  return v9;
+}
+
+- (id)aksAuthSessionForDeviceID:(id)d originator:(BOOL)originator usingEscrow:(BOOL)escrow attestation:(BOOL)attestation sessionType:(int64_t)type
+{
+  attestationCopy = attestation;
+  escrowCopy = escrow;
+  originatorCopy = originator;
+  dCopy = d;
+  if (attestationCopy)
+  {
+    [(SDAutoUnlockAKSManager *)self localAttestedLTK];
+  }
+
+  else
+  {
+    [(SDAutoUnlockAKSManager *)self localLTK];
+  }
+  v13 = ;
+  v14 = [(SDAutoUnlockAKSManager *)self remoteLTKForDeviceID:dCopy];
+  if (v14 && v13)
+  {
+    if (originatorCopy)
+    {
+      if (escrowCopy)
+      {
+        v15 = [(SDAutoUnlockAKSManager *)self escrowSecretForDevice:dCopy];
+        v16 = auto_unlock_log();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        {
+          v17 = @"YES";
+          if (!v15)
+          {
+            v17 = @"NO";
+          }
+
+          v37 = 138412546;
+          v38 = v17;
+          v39 = 2112;
+          v40 = dCopy;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Escrow secret (exists: %@, device ID: %@)", &v37, 0x16u);
+        }
+
+        v18 = auto_unlock_log();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        {
+          sub_10015E9D0();
+        }
+
+        if (v15)
+        {
+          v19 = [[SDAutoUnlockAKSSession alloc] initWithLocalLTK:v13 remoteLTK:v14 sessionType:type originator:1 deviceID:dCopy escrowSecret:v15];
+        }
+
+        else
+        {
+          v28 = auto_unlock_log();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          {
+            sub_10015EA38();
+          }
+
+          v19 = 0;
+        }
+
+        goto LABEL_25;
+      }
+
+      v21 = [SDAutoUnlockAKSSession alloc];
+      v22 = v13;
+      v23 = v14;
+      typeCopy2 = type;
+      v25 = 1;
+      v26 = dCopy;
+      v27 = 0;
+    }
+
+    else
+    {
+      v21 = [SDAutoUnlockAKSSession alloc];
+      v22 = v13;
+      v23 = v14;
+      typeCopy2 = type;
+      v25 = 0;
+      v26 = dCopy;
+      v27 = escrowCopy;
+    }
+
+    v19 = [(SDAutoUnlockAKSSession *)v21 initWithLocalLTK:v22 remoteLTK:v23 sessionType:typeCopy2 originator:v25 deviceID:v26 usingEscrow:v27];
+    goto LABEL_25;
+  }
+
+  v20 = auto_unlock_log();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  {
+    viewSyncing = [(SDAutoUnlockAKSManager *)self viewSyncing];
+    v31 = @"NO";
+    v37 = 138414339;
+    v38 = dCopy;
+    v39 = 2112;
+    if (viewSyncing)
+    {
+      v32 = @"YES";
+    }
+
+    else
+    {
+      v32 = @"NO";
+    }
+
+    v40 = v32;
+    if (v13)
+    {
+      v33 = @"YES";
+    }
+
+    else
+    {
+      v33 = @"NO";
+    }
+
+    v41 = 2112;
+    if (v14)
+    {
+      v34 = @"YES";
+    }
+
+    else
+    {
+      v34 = @"NO";
+    }
+
+    v42 = v33;
+    v43 = 2113;
+    if (originatorCopy)
+    {
+      v35 = @"YES";
+    }
+
+    else
+    {
+      v35 = @"NO";
+    }
+
+    v44 = v13;
+    if (escrowCopy)
+    {
+      v36 = @"YES";
+    }
+
+    else
+    {
+      v36 = @"NO";
+    }
+
+    v45 = 2112;
+    if (attestationCopy)
+    {
+      v31 = @"YES";
+    }
+
+    v46 = v34;
+    v47 = 2113;
+    v48 = v14;
+    v49 = 2112;
+    v50 = v35;
+    v51 = 2112;
+    v52 = v36;
+    v53 = 2112;
+    v54 = v31;
+    _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "AKS session missing keys (device: %@, syncing %@, local exists %@, local LTK: %{private}@, remote exists %@, remote LTK: %{private}@, originator: %@, escrow: %@, attested: %@)", &v37, 0x5Cu);
+  }
+
+  v19 = 0;
+LABEL_25:
+
+  return v19;
 }
 
 - (id)aksAuthSessionForDeviceID:(id)d attestation:(BOOL)attestation sessionType:(int64_t)type escrowSecret:(id)secret
@@ -2547,6 +2906,34 @@ LABEL_14:
   }
 }
 
+- (void)updateLTKsForDeviceID:(id)d staleRemoteLTK:(BOOL)k
+{
+  v5 = [SDStatusMonitor sharedMonitor:d];
+  deviceSupportsRanging = [v5 deviceSupportsRanging];
+
+  if (deviceSupportsRanging)
+  {
+    v7 = +[SDStatusMonitor sharedMonitor];
+    deviceWasUnlockedOnce = [v7 deviceWasUnlockedOnce];
+
+    if (deviceWasUnlockedOnce)
+    {
+
+      [(SDAutoUnlockAKSManager *)self loadRemoteLTKsIfNeeded];
+    }
+
+    else
+    {
+      v9 = auto_unlock_log();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        *v10 = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not updating remote LTKs because device not first unlocked", v10, 2u);
+      }
+    }
+  }
+}
+
 - (void)checkRemoteLTKForDeviceID:(id)d
 {
   dCopy = d;
@@ -2985,7 +3372,7 @@ LABEL_27:
 
         v27 = @"Attested LTK Data";
         v28 = v13;
-        v19 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1, *v23];
+        v19 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1, *v23, *&v23[8]];
         [v16 setObject:v19 forKeyedSubscript:dCopy];
 
         remoteLTKs = [(SDAutoUnlockAKSManager *)self remoteLTKs];
@@ -4129,7 +4516,7 @@ LABEL_36:
   }
 
   v29 = 0;
-  LODWORD(v25) = -1;
+  v25 = -1;
 LABEL_31:
   v31 = (v5 != 0 && v7) & viewSyncing;
   if (!v31)
@@ -5057,7 +5444,7 @@ LABEL_22:
           v21 = auto_unlock_log();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            sub_10015F8C4();
+            sub_10015F8C4(v12, v21);
           }
 
           v15 = objc_opt_new();
@@ -5941,6 +6328,14 @@ LABEL_8:
   v8 = v7;
 
   return v8;
+}
+
+- (id)longTermKeyForDevice:(id)device modern:(BOOL)modern
+{
+  v4 = [(SDAutoUnlockAKSManager *)self ltkInfoForDeviceID:device modern:modern];
+  v5 = [v4 ltk];
+
+  return v5;
 }
 
 - (id)longTermKeyIDForDeviceID:(id)d

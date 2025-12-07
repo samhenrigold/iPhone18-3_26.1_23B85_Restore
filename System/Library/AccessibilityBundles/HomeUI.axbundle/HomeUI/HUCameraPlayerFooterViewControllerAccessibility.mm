@@ -25,11 +25,10 @@
 
 id __93__HUCameraPlayerFooterViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke()
 {
-  v0 = *MEMORY[0x29EDC7378];
-  v1 = accessibilityHomeUILocalizedString(@"camera.live.button");
-  v2 = AXAttributedStringForBetterPronuciation();
+  v0 = accessibilityHomeUILocalizedString(@"camera.live.button");
+  v1 = AXAttributedStringForBetterPronuciation();
 
-  return v2;
+  return v1;
 }
 
 - (void)viewDidLoad

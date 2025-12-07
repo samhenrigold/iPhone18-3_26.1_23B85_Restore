@@ -261,7 +261,7 @@ LABEL_5:
       v21 = 0u;
       if (info)
       {
-        [info auditToken];
+        objc_msgSend_auditToken(info);
       }
 
       v19[0] = v20;

@@ -935,51 +935,38 @@ LABEL_12:
     {
       [(SDAirDropServer *)self sslSettings:1];
       _CFHTTPServerSetProperty();
-      server = self->_server;
       _CFHTTPServerSetProperty();
-      v6 = self->_server;
       _CFHTTPServerSetProperty();
       if (!sub_1001F2594() && ![(SDStatusMonitor *)self->_monitor enableDemoMode]|| SFDeviceIsVirtualMachine())
       {
-        registerAllInterfaces = [(SDStatusMonitor *)self->_monitor registerAllInterfaces];
-        v8 = &_kCFHTTPServerAllInterfacesIdentifier;
-        if (!registerAllInterfaces)
-        {
-          v8 = &off_1008CE598;
-        }
-
-        v9 = *v8;
-        v10 = self->_server;
+        [(SDStatusMonitor *)self->_monitor registerAllInterfaces];
         _CFHTTPServerSetProperty();
       }
 
-      v11 = self->_server;
       _CFHTTPServerSetProperty();
-      v12 = self->_server;
       CFRunLoopGetMain();
       _CFHTTPServerScheduleWithRunLoopAndMode();
-      v13 = self->_server;
-      v14 = _CFHTTPServerCopyProperty();
+      v5 = _CFHTTPServerCopyProperty();
       portNumber = self->_portNumber;
-      self->_portNumber = v14;
+      self->_portNumber = v5;
 
-      v16 = self->_portNumber;
-      v17 = airdrop_log();
-      v18 = v17;
-      if (v16)
+      v7 = self->_portNumber;
+      v8 = airdrop_log();
+      v9 = v8;
+      if (v7)
       {
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = self->_portNumber;
+          v10 = self->_portNumber;
           *buf = 138412290;
-          v25 = v19;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "AirDrop server scheduled on port %@", buf, 0xCu);
+          v16 = v10;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "AirDrop server scheduled on port %@", buf, 0xCu);
         }
 
         sub_100086D20(@"BonjourAdvertise", @"Start", self->_clientBundleID, self->_clientPid);
-        v20 = [[SDAirDropPublisher alloc] initWithPort:self->_portNumber identity:self->_identity];
+        v11 = [[SDAirDropPublisher alloc] initWithPort:self->_portNumber identity:self->_identity];
         publisher = self->_publisher;
-        self->_publisher = v20;
+        self->_publisher = v11;
 
         [(SDAirDropPublisher *)self->_publisher setDelegate:self];
         [(SDAirDropPublisher *)self->_publisher start];
@@ -987,7 +974,7 @@ LABEL_12:
 
       else
       {
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           sub_1000FE8D0();
         }
@@ -996,8 +983,8 @@ LABEL_12:
 
     else
     {
-      v22 = airdrop_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v13 = airdrop_log();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_1000FE90C();
       }
@@ -1221,11 +1208,10 @@ LABEL_7:
       v5 = airdrop_log();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Invalidating AirDrop server", v8, 2u);
+        *v7 = 0;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Invalidating AirDrop server", v7, 2u);
       }
 
-      server = self->_server;
       _CFHTTPServerInvalidate();
     }
 
@@ -1276,20 +1262,19 @@ LABEL_7:
 
 - (NSString)description
 {
-  NSAppendPrintF();
-  v34 = 0;
-  NSAppendPrintF();
-  v3 = v34;
+  v46 = 0;
+  NSAppendPrintF(&v46, "AirDropServer\n");
+  v3 = v46;
+  v45 = v3;
+  NSAppendPrintF(&v45, "--------------\n");
+  v4 = v45;
 
-  discoverableMode = self->_discoverableMode;
-  NSAppendPrintF();
-  v4 = v3;
+  v44 = v4;
+  NSAppendPrintF(&v44, "Discoverable mode:                   %@\n", self->_discoverableMode);
+  v5 = v44;
 
-  self->_screenOn;
-  NSAppendPrintF();
-  v5 = v4;
-
-  if (self->_contactsOnly)
+  v43 = v5;
+  if (self->_screenOn)
   {
     v6 = "yes";
   }
@@ -1299,11 +1284,11 @@ LABEL_7:
     v6 = "no";
   }
 
-  v26 = v6;
-  NSAppendPrintF();
-  v7 = v5;
+  NSAppendPrintF(&v43, "Screen On:                           %s\n", v6);
+  v7 = v43;
 
-  if ([(SDAirDropServer *)self discoverableByEveryone])
+  v42 = v7;
+  if (self->_contactsOnly)
   {
     v8 = "yes";
   }
@@ -1313,19 +1298,25 @@ LABEL_7:
     v8 = "no";
   }
 
-  v27 = v8;
-  NSAppendPrintF();
-  v9 = v7;
+  NSAppendPrintF(&v42, "Discoverable by contacts only:       %s\n", v8);
+  v9 = v42;
 
-  [(SDStatusMonitor *)self->_monitor deviceWasUnlockedOnce];
-  NSAppendPrintF();
-  v10 = v9;
+  v41 = v9;
+  if ([(SDAirDropServer *)self discoverableByEveryone])
+  {
+    v10 = "yes";
+  }
 
-  portNumber = self->_portNumber;
-  NSAppendPrintF();
-  v11 = v10;
+  else
+  {
+    v10 = "no";
+  }
 
-  if (self->_proximity)
+  NSAppendPrintF(&v41, "Discoverable by everyone:            %s\n", v10);
+  v11 = v41;
+
+  v40 = v11;
+  if ([(SDStatusMonitor *)self->_monitor deviceWasUnlockedOnce])
   {
     v12 = "yes";
   }
@@ -1335,58 +1326,88 @@ LABEL_7:
     v12 = "no";
   }
 
-  v29 = v12;
-  NSAppendPrintF();
-  v13 = v11;
+  NSAppendPrintF(&v40, "Unlocked once:                       %s\n", v12);
+  v13 = v40;
+
+  v39 = v13;
+  NSAppendPrintF(&v39, "Port Number:                         %@\n", self->_portNumber);
+  v14 = v39;
+
+  v38 = v14;
+  if (self->_proximity)
+  {
+    v15 = "yes";
+  }
+
+  else
+  {
+    v15 = "no";
+  }
+
+  NSAppendPrintF(&v38, "WirelessProx object:                 %s\n", v15);
+  v16 = v38;
 
   proximity = self->_proximity;
   if (proximity)
   {
+    v37 = v16;
     state = [(WPAWDL *)proximity state];
-    v16 = state > 5 ? "?" : off_1008D0500[state];
-    v30 = v16;
-    NSAppendPrintF();
-    v17 = v13;
+    v19 = state > 5 ? "?" : off_1008D0500[state];
+    NSAppendPrintF(&v37, "WirelessProx state:                  %s\n", v19);
+    v20 = v37;
 
-    v31 = [(NSMutableSet *)self->_discoveredHashes count];
-    NSAppendPrintF();
-    v13 = v17;
+    v36 = v20;
+    NSAppendPrintF(&v36, "Discovered hashes count:             %d\n", [(NSMutableSet *)self->_discoveredHashes count]);
+    v16 = v36;
 
     if ([(NSMutableSet *)self->_discoveredHashes count])
     {
+      v35 = v16;
       allObjects = [(NSMutableSet *)self->_discoveredHashes allObjects];
-      v32 = [allObjects componentsJoinedByString:{@", "}];
-      NSAppendPrintF();
-      v19 = v13;
+      v22 = [allObjects componentsJoinedByString:{@", "}];
+      NSAppendPrintF(&v35, "Discovered hashes:                   %@\n", v22);
+      v23 = v35;
 
-      v13 = v19;
+      v16 = v23;
     }
   }
 
-  self->_server;
-  NSAppendPrintF();
-  v20 = v13;
+  v34 = v16;
+  if (self->_server)
+  {
+    v24 = "yes";
+  }
+
+  else
+  {
+    v24 = "no";
+  }
+
+  NSAppendPrintF(&v34, "HTTP Server:                         %s\n", v24);
+  v25 = v34;
 
   if (self->_server)
   {
-    v33 = (CFAbsoluteTimeGetCurrent() - self->_startTime);
-    NSAppendPrintF();
-    v21 = v20;
+    v33 = v25;
+    Current = CFAbsoluteTimeGetCurrent();
+    NSAppendPrintF(&v33, "HTTP Server up time:                 %ll{dur}\n", (Current - self->_startTime));
+    v27 = v33;
 
-    v20 = v21;
+    v25 = v27;
   }
 
   connections = self->_connections;
   if (connections && CFDictionaryGetCount(connections))
   {
-    CFDictionaryGetCount(self->_connections);
-    NSAppendPrintF();
-    v23 = v20;
+    v32 = v25;
+    Count = CFDictionaryGetCount(self->_connections);
+    NSAppendPrintF(&v32, "HTTP Server connections:             %d\n", Count);
+    v30 = v32;
 
-    v20 = v23;
+    v25 = v30;
   }
 
-  return v20;
+  return v25;
 }
 
 - (void)_createOSTransactionIfNeeded

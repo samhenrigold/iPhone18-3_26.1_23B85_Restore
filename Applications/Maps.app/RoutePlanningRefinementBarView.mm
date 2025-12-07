@@ -30,7 +30,7 @@
 
 - (NSArray)refinements
 {
-  sub_100014C84(0, &unk_1019202B0);
+  sub_100014C84(0, &unk_1019202B0, off_1015F65C8);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -39,7 +39,7 @@
 
 - (void)setRefinements:(id)refinements
 {
-  sub_100014C84(0, &unk_1019202B0);
+  sub_100014C84(0, &unk_1019202B0, off_1015F65C8);
   *(self + OBJC_IVAR____TtC4Maps30RoutePlanningRefinementBarView_refinements) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
 
@@ -48,7 +48,7 @@
 
 - (_TtC4Maps30RoutePlanningRefinementBarView)initWithDelegate:(id)delegate refinements:(id)refinements
 {
-  sub_100014C84(0, &unk_1019202B0);
+  sub_100014C84(0, &unk_1019202B0, off_1015F65C8);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   delegateCopy = delegate;
   return sub_1003FD9C4(delegate, v5);

@@ -55,8 +55,8 @@
 
 - (void)doAfterSubTestForDisplayingRoutes
 {
-  options = [(MapsAppTest *)self options];
-  v4 = [options objectForKeyedSubscript:@"realtime"];
+  v3 = objc_msgSend_options(self, a2);
+  v4 = [v3 objectForKeyedSubscript:@"realtime"];
   bOOLValue = [v4 BOOLValue];
 
   if (bOOLValue)

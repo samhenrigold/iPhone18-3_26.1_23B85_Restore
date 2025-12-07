@@ -53,15 +53,16 @@
   v6 = (self + OBJC_IVAR____TtC6HomeUI19FindMyLocateSession_meDeviceUpdateCallback);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_20CEC8164(v7);
+  sub_20CEC8164(v7, v8);
 }
 
 - (void)startMonitoringPrefrenceChangesWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -86,7 +87,7 @@
 
 - (void)stopMonitoringPreferenceChangesWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -111,7 +112,7 @@
 
 - (void)getActiveLocationSharingDeviceWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -136,7 +137,7 @@
 
 - (void)getThisDeviceWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -161,7 +162,7 @@
 
 - (void)setActiveLocationSharingDeviceToThisDeviceWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

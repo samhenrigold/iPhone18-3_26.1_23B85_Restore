@@ -39,17 +39,17 @@
     +[SKUIMediaQueryNetworkTypeFeature supportsFeatureName:];
   }
 
-  v4 = [nameCopy isEqualToString:@"network"];
+  isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)evaluateWithValues:(id)values
 {
-  v4 = [values objectForKey:0x2827FFD28];
-  LOBYTE(self) = [v4 isEqualToString:self->_value];
+  v3 = [values objectForKey:0x2827FFD28];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  return self;
+  return isEqualToString;
 }
 
 - (id)notificationNames

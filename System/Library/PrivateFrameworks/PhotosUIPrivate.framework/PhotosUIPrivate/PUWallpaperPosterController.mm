@@ -179,7 +179,7 @@
         {
           if (objectCopy)
           {
-            [v14 duration];
+            objc_msgSend_duration(v14);
           }
 
           else
@@ -554,7 +554,7 @@ LABEL_7:
       [v16 setCenter:?];
       if (videoLayerView)
       {
-        [videoLayerView transform];
+        objc_msgSend_transform(videoLayerView);
       }
 
       else
@@ -2192,7 +2192,7 @@ LABEL_6:
   {
     if (environment)
     {
-      [environment deviceAttitude];
+      objc_msgSend_deviceAttitude(environment);
     }
 
     else
@@ -3995,7 +3995,7 @@ LABEL_131:
         v109 = currentLayoutInfo;
         if (currentLayoutInfo)
         {
-          [currentLayoutInfo additionalTransform];
+          objc_msgSend_additionalTransform(currentLayoutInfo);
         }
 
         else
@@ -4021,7 +4021,7 @@ LABEL_131:
         v123 = currentLayoutInfo2;
         if (currentLayoutInfo2)
         {
-          [currentLayoutInfo2 additionalTransform];
+          objc_msgSend_additionalTransform(currentLayoutInfo2);
         }
 
         else
@@ -4039,12 +4039,12 @@ LABEL_131:
         *v231 = *&v192.tx;
         [v92 setTransform:buf];
 
-        [(PUWallpaperPosterController *)selfCopy _inactiveTransform];
+        objc_msgSend__inactiveTransform(selfCopy);
         *buf = v189;
         *&buf[16] = v190;
         *v231 = v191;
         [v94 setTransform:buf];
-        [(PUWallpaperPosterController *)selfCopy _inactiveTransform];
+        objc_msgSend__inactiveTransform(selfCopy);
         *buf = v186;
         *&buf[16] = v187;
         *v231 = v188;
@@ -4223,30 +4223,30 @@ uint64_t __131__PUWallpaperPosterController__transitionToBacklightLuminance_prev
   return [v2 setAlpha:0.0];
 }
 
-void __131__PUWallpaperPosterController__transitionToBacklightLuminance_previousBacklightLuminance_animated_interruptSettlingEffectPlayback___block_invoke_3(uint64_t a1)
+void __131__PUWallpaperPosterController__transitionToBacklightLuminance_previousBacklightLuminance_animated_interruptSettlingEffectPlayback___block_invoke_3(uint64_t a1, const char *a2)
 {
-  if (*(a1 + 72) & 1) != 0 || (v2 = *(a1 + 73), memset(&v23, 0, sizeof(v23)), (v2))
+  if (*(a1 + 72) & 1) != 0 || (v3 = *(a1 + 73), memset(&v24, 0, sizeof(v24)), (v3))
   {
-    v3 = *(MEMORY[0x1E695EFD0] + 16);
-    *&v23.a = *MEMORY[0x1E695EFD0];
-    *&v23.c = v3;
-    *&v23.tx = *(MEMORY[0x1E695EFD0] + 32);
+    v4 = *(MEMORY[0x1E695EFD0] + 16);
+    *&v24.a = *MEMORY[0x1E695EFD0];
+    *&v24.c = v4;
+    *&v24.tx = *(MEMORY[0x1E695EFD0] + 32);
   }
 
   else
   {
-    v16 = *(a1 + 32);
-    if (v16)
+    v17 = *(a1 + 32);
+    if (v17)
     {
-      [v16 _inactiveTransform];
+      objc_msgSend__inactiveTransform(v17, a2);
     }
   }
 
-  v4 = [*(a1 + 40) currentLayoutInfo];
-  v5 = v4;
-  if (v4)
+  v5 = [*(a1 + 40) currentLayoutInfo];
+  v6 = v5;
+  if (v5)
   {
-    [v4 additionalTransform];
+    objc_msgSend_additionalTransform(v5);
   }
 
   else
@@ -4254,17 +4254,17 @@ void __131__PUWallpaperPosterController__transitionToBacklightLuminance_previous
     memset(&t2, 0, sizeof(t2));
   }
 
-  t1 = v23;
-  CGAffineTransformConcat(&v22, &t1, &t2);
-  v6 = *(a1 + 40);
-  t2 = v22;
-  [v6 setTransform:&t2];
+  t1 = v24;
+  CGAffineTransformConcat(&v23, &t1, &t2);
+  v7 = *(a1 + 40);
+  t2 = v23;
+  [v7 setTransform:&t2];
 
-  v7 = [*(a1 + 48) currentLayoutInfo];
-  v8 = v7;
-  if (v7)
+  v8 = [*(a1 + 48) currentLayoutInfo];
+  v9 = v8;
+  if (v8)
   {
-    [v7 additionalTransform];
+    objc_msgSend_additionalTransform(v8);
   }
 
   else
@@ -4272,17 +4272,35 @@ void __131__PUWallpaperPosterController__transitionToBacklightLuminance_previous
     memset(&t2, 0, sizeof(t2));
   }
 
-  t1 = v23;
+  t1 = v24;
+  CGAffineTransformConcat(&v20, &t1, &t2);
+  v10 = *(a1 + 48);
+  t2 = v20;
+  [v10 setTransform:&t2];
+
+  v11 = [*(a1 + 56) currentLayoutInfo];
+  v12 = v11;
+  if (v11)
+  {
+    objc_msgSend_additionalTransform(v11);
+  }
+
+  else
+  {
+    memset(&t2, 0, sizeof(t2));
+  }
+
+  t1 = v24;
   CGAffineTransformConcat(&v19, &t1, &t2);
-  v9 = *(a1 + 48);
+  v13 = *(a1 + 56);
   t2 = v19;
-  [v9 setTransform:&t2];
+  [v13 setTransform:&t2];
 
-  v10 = [*(a1 + 56) currentLayoutInfo];
-  v11 = v10;
-  if (v10)
+  v14 = [*(a1 + 64) currentLayoutInfo];
+  v15 = v14;
+  if (v14)
   {
-    [v10 additionalTransform];
+    objc_msgSend_additionalTransform(v14);
   }
 
   else
@@ -4290,29 +4308,11 @@ void __131__PUWallpaperPosterController__transitionToBacklightLuminance_previous
     memset(&t2, 0, sizeof(t2));
   }
 
-  t1 = v23;
+  t1 = v24;
   CGAffineTransformConcat(&v18, &t1, &t2);
-  v12 = *(a1 + 56);
+  v16 = *(a1 + 64);
   t2 = v18;
-  [v12 setTransform:&t2];
-
-  v13 = [*(a1 + 64) currentLayoutInfo];
-  v14 = v13;
-  if (v13)
-  {
-    [v13 additionalTransform];
-  }
-
-  else
-  {
-    memset(&t2, 0, sizeof(t2));
-  }
-
-  t1 = v23;
-  CGAffineTransformConcat(&v17, &t1, &t2);
-  v15 = *(a1 + 64);
-  t2 = v17;
-  [v15 setTransform:&t2];
+  [v16 setTransform:&t2];
 }
 
 void __131__PUWallpaperPosterController__transitionToBacklightLuminance_previousBacklightLuminance_animated_interruptSettlingEffectPlayback___block_invoke_4(uint64_t a1)
@@ -4330,7 +4330,7 @@ void __131__PUWallpaperPosterController__transitionToBacklightLuminance_previous
       v6 = v5;
       if (v5)
       {
-        [v5 additionalTransform];
+        objc_msgSend_additionalTransform(v5);
       }
 
       else
@@ -4353,7 +4353,7 @@ void __131__PUWallpaperPosterController__transitionToBacklightLuminance_previous
       v9 = v8;
       if (v8)
       {
-        [v8 additionalTransform];
+        objc_msgSend_additionalTransform(v8);
       }
 
       else
@@ -4373,7 +4373,7 @@ void __131__PUWallpaperPosterController__transitionToBacklightLuminance_previous
       v12 = v11;
       if (v11)
       {
-        [v11 additionalTransform];
+        objc_msgSend_additionalTransform(v11);
       }
 
       else
@@ -4393,7 +4393,7 @@ void __131__PUWallpaperPosterController__transitionToBacklightLuminance_previous
       v15 = v14;
       if (v14)
       {
-        [v14 additionalTransform];
+        objc_msgSend_additionalTransform(v14);
       }
 
       else

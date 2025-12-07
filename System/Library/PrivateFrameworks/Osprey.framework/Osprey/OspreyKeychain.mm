@@ -36,67 +36,69 @@
 {
   dataCopy = data;
   identifierCopy = identifier;
-  v8 = identifierCopy;
+  v9 = identifierCopy;
   if (dataCopy && identifierCopy)
   {
     createKeychainQuery = [(OspreyKeychain *)self createKeychainQuery];
-    [createKeychainQuery setObject:v8 forKey:*MEMORY[0x277CDBF20]];
-    v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v11 = *MEMORY[0x277CDC5E8];
-    [v10 setObject:dataCopy forKey:*MEMORY[0x277CDC5E8]];
-    v12 = SecItemUpdate(createKeychainQuery, v10);
-    if (v12 == -25300)
+    [createKeychainQuery setObject:v9 forKey:*MEMORY[0x277CDBF20]];
+    v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v12 = *MEMORY[0x277CDC5E8];
+    [v11 setObject:dataCopy forKey:*MEMORY[0x277CDC5E8]];
+    v13 = SecItemUpdate(createKeychainQuery, v11);
+    v15 = v13;
+    if (v13 == -25300)
     {
-      [createKeychainQuery setObject:dataCopy forKey:v11];
-      v12 = SecItemAdd(createKeychainQuery, 0);
+      [createKeychainQuery setObject:dataCopy forKey:v12];
+      v13 = SecItemAdd(createKeychainQuery, 0);
+      v15 = v13;
     }
 
-    if (v12)
+    if (v15)
     {
-      if (v12 != -34018)
+      if (v15 != -34018)
       {
-        OspreyLoggingInit();
+        OspreyLoggingInit(v13, v14);
         if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
         {
           [OspreyKeychain saveData:withIdentifier:];
         }
 
-        v13 = 0;
+        v16 = 0;
         goto LABEL_19;
       }
 
-      OspreyLoggingInit();
+      OspreyLoggingInit(v13, v14);
       if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
       {
         [OspreyKeychain saveData:withIdentifier:];
       }
     }
 
-    v13 = 1;
+    v16 = 1;
 LABEL_19:
 
     goto LABEL_20;
   }
 
-  OspreyLoggingInit();
-  v14 = os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR);
+  OspreyLoggingInit(identifierCopy, v8);
+  v17 = os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR);
   if (dataCopy)
   {
-    if (v14)
+    if (v17)
     {
       [OspreyKeychain saveData:withIdentifier:];
     }
   }
 
-  else if (v14)
+  else if (v17)
   {
     [OspreyKeychain saveData:withIdentifier:];
   }
 
-  v13 = 0;
+  v16 = 0;
 LABEL_20:
 
-  return v13;
+  return v16;
 }
 
 - (id)fetchDataWithIdentifier:(id)identifier
@@ -112,19 +114,19 @@ LABEL_20:
   {
     if (v6 == -34018)
     {
-      OspreyLoggingInit();
+      OspreyLoggingInit(v6, v7);
       if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
       {
         [OspreyKeychain fetchDataWithIdentifier:];
       }
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = [result copy];
+    v8 = [result copy];
     if (result)
     {
       CFRelease(result);
@@ -132,7 +134,7 @@ LABEL_20:
     }
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)deleteDataWithIdentifier:(id)identifier
@@ -142,11 +144,11 @@ LABEL_20:
   {
     createKeychainQuery = [(OspreyKeychain *)self createKeychainQuery];
     [createKeychainQuery setObject:identifierCopy forKey:*MEMORY[0x277CDBF20]];
-    v6 = SecItemDelete(createKeychainQuery);
-    v7 = v6 == 0;
-    if (v6 == -34018)
+    v7 = SecItemDelete(createKeychainQuery);
+    v9 = v7 == 0;
+    if (v7 == -34018)
     {
-      OspreyLoggingInit();
+      OspreyLoggingInit(v7, v8);
       if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
       {
         [OspreyKeychain deleteDataWithIdentifier:];
@@ -156,16 +158,16 @@ LABEL_20:
 
   else
   {
-    OspreyLoggingInit();
+    OspreyLoggingInit(0, v4);
     if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
     {
       [OspreyKeychain deleteDataWithIdentifier:];
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 - (void)saveData:withIdentifier:.cold.1()

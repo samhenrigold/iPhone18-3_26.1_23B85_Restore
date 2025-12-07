@@ -6,7 +6,6 @@
 
 + (id)DMCSafePropertyListWithData:()DMCSafeSerialization options:format:error:
 {
-  v14 = *MEMORY[0x1E69E9840];
   v10 = a3;
   if (v10)
   {
@@ -17,8 +16,6 @@
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

@@ -57,22 +57,20 @@
 
 + (id)WiFi
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForWiFi = [self configurationForWiFi];
   v3 = +[BMDeviceWiFi columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.WiFi" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.WiFi" schema:v9 configuration:configurationForWiFi];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -100,22 +98,20 @@
 
 + (id)AirplaneMode
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForAirplaneMode = [self configurationForAirplaneMode];
   v3 = +[BMDeviceAirplaneMode columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.AirplaneMode" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.AirplaneMode" schema:v9 configuration:configurationForAirplaneMode];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -143,22 +139,20 @@
 
 + (id)APSDInterfaceStatus
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForAPSDInterfaceStatus = [self configurationForAPSDInterfaceStatus];
   v3 = +[BMDeviceAPSDInterfaceStatus columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.APSDInterfaceStatus" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.APSDInterfaceStatus" schema:v9 configuration:configurationForAPSDInterfaceStatus];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -186,22 +180,20 @@
 
 + (id)Bluetooth
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForBluetooth = [self configurationForBluetooth];
   v3 = +[BMDeviceBluetooth columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.Bluetooth" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.Bluetooth" schema:v9 configuration:configurationForBluetooth];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -229,66 +221,62 @@
 
 + (id)syncPolicyForBluetooth
 {
-  v27[1] = *MEMORY[0x1E69E9840];
-  v21 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:2 direction:3];
-  v27[0] = v21;
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+  v26[1] = *MEMORY[0x1E69E9840];
   v20 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:2 direction:3];
-  v26 = v20;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+  v26[0] = v20;
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
   v19 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:2 direction:3];
   v25 = v19;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+  v18 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:2 direction:3];
+  v24 = v18;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
   v4 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:2 direction:3];
-  v24 = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+  v23 = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
   v6 = BMDevicePlatformAsKeyString();
-  v22[0] = v6;
-  v18 = v2;
-  v23[0] = v2;
+  v21[0] = v6;
+  v17 = v2;
+  v22[0] = v2;
   v7 = BMDevicePlatformAsKeyString();
-  v22[1] = v7;
-  v23[1] = v2;
+  v21[1] = v7;
+  v22[1] = v2;
   v8 = BMDevicePlatformAsKeyString();
-  v22[2] = v8;
-  v23[2] = v3;
+  v21[2] = v8;
+  v22[2] = v3;
   v9 = BMDevicePlatformAsKeyString();
-  v22[3] = v9;
-  v23[3] = v3;
+  v21[3] = v9;
+  v22[3] = v3;
   v10 = BMDevicePlatformAsKeyString();
-  v22[4] = v10;
-  v23[4] = v17;
+  v21[4] = v10;
+  v22[4] = v16;
   v11 = BMDevicePlatformAsKeyString();
-  v22[5] = v11;
-  v23[5] = v5;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:6];
+  v21[5] = v11;
+  v22[5] = v5;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:6];
 
   v13 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"7920E574-B675-4313-B1FB-4792805B3B25"];
   v14 = [objc_alloc(MEMORY[0x1E698F348]) initWithPolicyDictionary:v12 syncUUID:v13 legacySyncID:0 eventClass:objc_opt_class()];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 + (id)BluetoothGATTSession
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForBluetoothGATTSession = [self configurationForBluetoothGATTSession];
   v3 = +[BMDeviceBluetoothGATTSession columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.BluetoothGATTSession" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.BluetoothGATTSession" schema:v9 configuration:configurationForBluetoothGATTSession];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -316,22 +304,20 @@
 
 + (id)BluetoothNearbyDevice
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForBluetoothNearbyDevice = [self configurationForBluetoothNearbyDevice];
   v3 = +[BMDeviceBluetoothNearbyDevice columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.BluetoothNearbyDevice" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.BluetoothNearbyDevice" schema:v9 configuration:configurationForBluetoothNearbyDevice];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -359,22 +345,20 @@
 
 + (id)BluetoothPowerEnabled
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForBluetoothPowerEnabled = [self configurationForBluetoothPowerEnabled];
   v3 = +[BMDeviceBluetoothPowerEnabled columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.BluetoothPowerEnabled" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.BluetoothPowerEnabled" schema:v9 configuration:configurationForBluetoothPowerEnabled];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -402,22 +386,20 @@
 
 + (id)BluetoothUseCase
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForBluetoothUseCase = [self configurationForBluetoothUseCase];
   v3 = +[BMDeviceBluetoothUseCase columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.BluetoothUseCase" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.BluetoothUseCase" schema:v9 configuration:configurationForBluetoothUseCase];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -445,22 +427,20 @@
 
 + (id)CellularAvailabilityStatus
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForCellularAvailabilityStatus = [self configurationForCellularAvailabilityStatus];
   v3 = +[BMDeviceCellularAvailabilityStatus columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.CellularAvailabilityStatus" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.CellularAvailabilityStatus" schema:v9 configuration:configurationForCellularAvailabilityStatus];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -488,47 +468,43 @@
 
 + (id)syncPolicyForCellularAvailabilityStatus
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:2 direction:3];
-  v16[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v15[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
   v4 = [objc_alloc(MEMORY[0x1E698F340]) initWithTransportType:2 direction:3];
-  v15 = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
+  v14 = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
   v6 = BMDevicePlatformAsKeyString();
-  v13[0] = v6;
-  v14[0] = v3;
+  v12[0] = v6;
+  v13[0] = v3;
   v7 = BMDevicePlatformAsKeyString();
-  v13[1] = v7;
-  v14[1] = v5;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v12[1] = v7;
+  v13[1] = v5;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   v9 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"BC47690A-50B7-420A-A8C4-5DF634E008C9"];
   v10 = [objc_alloc(MEMORY[0x1E698F348]) initWithPolicyDictionary:v8 syncUUID:v9 legacySyncID:0 eventClass:objc_opt_class()];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)CellularDataEnabled
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForCellularDataEnabled = [self configurationForCellularDataEnabled];
   v3 = +[BMDeviceCellularDataEnabled columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.CellularDataEnabled" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.CellularDataEnabled" schema:v9 configuration:configurationForCellularDataEnabled];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -556,22 +532,20 @@
 
 + (id)CellularQualityStatus
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForCellularQualityStatus = [self configurationForCellularQualityStatus];
   v3 = +[BMDeviceCellularQualityStatus columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.CellularQualityStatus" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.CellularQualityStatus" schema:v9 configuration:configurationForCellularQualityStatus];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -599,22 +573,20 @@
 
 + (id)ConnectivityContext
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForConnectivityContext = [self configurationForConnectivityContext];
   v3 = +[BMDeviceConnectivityContext columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.ConnectivityContext" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.ConnectivityContext" schema:v9 configuration:configurationForConnectivityContext];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -642,22 +614,20 @@
 
 + (id)DefaultPairedNearby
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForDefaultPairedNearby = [self configurationForDefaultPairedNearby];
   v3 = +[BMDeviceDefaultPairedNearby columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.DefaultPairedNearby" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.DefaultPairedNearby" schema:v9 configuration:configurationForDefaultPairedNearby];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -685,22 +655,20 @@
 
 + (id)NFCTag
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForNFCTag = [self configurationForNFCTag];
   v3 = +[BMDeviceNFCTag columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.NFCTag" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.NFCTag" schema:v9 configuration:configurationForNFCTag];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -728,22 +696,20 @@
 
 + (id)WakeOnWiFiStatus
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForWakeOnWiFiStatus = [self configurationForWakeOnWiFiStatus];
   v3 = +[BMDeviceWakeOnWiFiStatus columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.WakeOnWiFiStatus" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.WakeOnWiFiStatus" schema:v9 configuration:configurationForWakeOnWiFiStatus];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -771,22 +737,20 @@
 
 + (id)WiFiAvailabilityStatus
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForWiFiAvailabilityStatus = [self configurationForWiFiAvailabilityStatus];
   v3 = +[BMDeviceWiFiAvailabilityStatus columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Wireless.WiFiAvailabilityStatus" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Wireless.WiFiAvailabilityStatus" schema:v9 configuration:configurationForWiFiAvailabilityStatus];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

@@ -12,39 +12,40 @@
 
 - (SBStartupTransitionController)initWithInitialRestartState:(id)state
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   stateCopy = state;
-  v15.receiver = self;
-  v15.super_class = SBStartupTransitionController;
-  v6 = [(SBStartupTransitionController *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = SBStartupTransitionController;
+  v6 = [(SBStartupTransitionController *)&v16 init];
+  v7 = v6;
   if (v6)
   {
-    v7 = SBLogWorkspace();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = SBLogWorkspace(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v17 = stateCopy;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "Startup transition controller initialized with initial state: %@", buf, 0xCu);
+      v18 = stateCopy;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Startup transition controller initialized with initial state: %@", buf, 0xCu);
     }
 
-    objc_storeStrong(&v6->_initialRestartState, state);
-    v8 = [[SBStartupTransitionFactory alloc] initWithInitialRestartState:v6->_initialRestartState];
-    transitionFactory = v6->_transitionFactory;
-    v6->_transitionFactory = v8;
+    objc_storeStrong(&v7->_initialRestartState, state);
+    v9 = [[SBStartupTransitionFactory alloc] initWithInitialRestartState:v7->_initialRestartState];
+    transitionFactory = v7->_transitionFactory;
+    v7->_transitionFactory = v9;
 
-    v10 = [SBStartupTransitionContextPersistence alloc];
-    bootDefaults = [(SBInitialRestartState *)v6->_initialRestartState bootDefaults];
-    v12 = [(SBStartupTransitionContextPersistence *)v10 initWithBootDefaults:bootDefaults loginSession:[(SBInitialRestartState *)v6->_initialRestartState isLoginSession]];
-    transitionContextPersistence = v6->_transitionContextPersistence;
-    v6->_transitionContextPersistence = v12;
+    v11 = [SBStartupTransitionContextPersistence alloc];
+    bootDefaults = [(SBInitialRestartState *)v7->_initialRestartState bootDefaults];
+    v13 = [(SBStartupTransitionContextPersistence *)v11 initWithBootDefaults:bootDefaults loginSession:[(SBInitialRestartState *)v7->_initialRestartState isLoginSession]];
+    transitionContextPersistence = v7->_transitionContextPersistence;
+    v7->_transitionContextPersistence = v13;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)initializeAndRunStartupTransition:(id)transition
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   transitionCopy = transition;
   kdebug_trace();
   BSDispatchQueueAssertMain();
@@ -65,8 +66,8 @@
     v4 = readTransitionContext;
   }
 
-  v44 = 0;
-  v7 = [(SBStartupTransitionFactory *)self->_transitionFactory transitionForContext:v4 outDestination:&v44];
+  v45 = 0;
+  v7 = [(SBStartupTransitionFactory *)self->_transitionFactory transitionForContext:v4 outDestination:&v45];
   transition = self->_transition;
   self->_transition = v7;
 
@@ -77,122 +78,123 @@
 
   objc_initWeak(&location, self);
   v9 = self->_transition;
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __67__SBStartupTransitionController_initializeAndRunStartupTransition___block_invoke;
-  v41[3] = &unk_2783B59B8;
-  objc_copyWeak(&v42, &location);
-  v41[4] = self;
-  [(SBStartupTransition *)v9 registerBlockObserver:v41];
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __67__SBStartupTransitionController_initializeAndRunStartupTransition___block_invoke;
+  v42[3] = &unk_2783B59B8;
+  objc_copyWeak(&v43, &location);
+  v42[4] = self;
+  [(SBStartupTransition *)v9 registerBlockObserver:v42];
   dismissActions = [MEMORY[0x277CF05E8] dismissActions];
   renderOverlayDismissActions = self->_renderOverlayDismissActions;
   self->_renderOverlayDismissActions = dismissActions;
 
-  if ([(NSSet *)self->_renderOverlayDismissActions count]>= 2)
+  v12 = [(NSSet *)self->_renderOverlayDismissActions count];
+  if (v12 >= 2)
   {
-    v12 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v39 = 0u;
+    v13 = objc_alloc_init(MEMORY[0x277CBEB58]);
     v40 = 0u;
-    v37 = 0u;
+    v41 = 0u;
     v38 = 0u;
-    v13 = self->_renderOverlayDismissActions;
-    v14 = [(NSSet *)v13 countByEnumeratingWithState:&v37 objects:v52 count:16];
-    if (v14)
+    v39 = 0u;
+    v14 = self->_renderOverlayDismissActions;
+    v15 = [(NSSet *)v14 countByEnumeratingWithState:&v38 objects:v53 count:16];
+    if (v15)
     {
-      v15 = 0;
-      v16 = *v38;
+      v16 = 0;
+      v17 = *v39;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v38 != v16)
+          if (*v39 != v17)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
-          v18 = *(*(&v37 + 1) + 8 * i);
-          overlayDescriptor = [v18 overlayDescriptor];
+          v19 = *(*(&v38 + 1) + 8 * i);
+          overlayDescriptor = [v19 overlayDescriptor];
           isInterstitial = [overlayDescriptor isInterstitial];
 
           if (isInterstitial)
           {
-            [v12 addObject:v18];
+            [v13 addObject:v19];
           }
 
           else
           {
-            v15 = 1;
+            v16 = 1;
           }
         }
 
-        v14 = [(NSSet *)v13 countByEnumeratingWithState:&v37 objects:v52 count:16];
+        v15 = [(NSSet *)v14 countByEnumeratingWithState:&v38 objects:v53 count:16];
       }
 
-      while (v14);
+      while (v15);
 
-      if ((v15 & 1) == 0 || ![v12 count])
+      if ((v16 & 1) == 0 || ![v13 count])
       {
         goto LABEL_29;
       }
 
-      v35 = 0u;
       v36 = 0u;
-      v33 = 0u;
+      v37 = 0u;
       v34 = 0u;
-      v21 = v12;
-      v22 = [v21 countByEnumeratingWithState:&v33 objects:v51 count:16];
-      if (v22)
+      v35 = 0u;
+      v22 = v13;
+      v23 = [v22 countByEnumeratingWithState:&v34 objects:v52 count:16];
+      if (v23)
       {
-        v23 = *v34;
+        v24 = *v35;
         do
         {
-          for (j = 0; j != v22; ++j)
+          for (j = 0; j != v23; ++j)
           {
-            if (*v34 != v23)
+            if (*v35 != v24)
             {
-              objc_enumerationMutation(v21);
+              objc_enumerationMutation(v22);
             }
 
-            [*(*(&v33 + 1) + 8 * j) dismiss];
+            [*(*(&v34 + 1) + 8 * j) dismiss];
           }
 
-          v22 = [v21 countByEnumeratingWithState:&v33 objects:v51 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v34 objects:v52 count:16];
         }
 
-        while (v22);
+        while (v23);
       }
 
-      v13 = [MEMORY[0x277CBEB58] setWithSet:self->_renderOverlayDismissActions];
-      [(NSSet *)v13 minusSet:v21];
-      v25 = [MEMORY[0x277CBEB98] setWithSet:v13];
-      v26 = self->_renderOverlayDismissActions;
-      self->_renderOverlayDismissActions = v25;
+      v14 = [MEMORY[0x277CBEB58] setWithSet:self->_renderOverlayDismissActions];
+      [(NSSet *)v14 minusSet:v22];
+      v26 = [MEMORY[0x277CBEB98] setWithSet:v14];
+      v27 = self->_renderOverlayDismissActions;
+      self->_renderOverlayDismissActions = v26;
     }
 
 LABEL_29:
   }
 
-  if (v31)
+  if (v32)
   {
-    (v31)[2](v31, self->_transitionObserver, self->_transition);
+    v12 = (v32)[2](v32, self->_transitionObserver, self->_transition);
   }
 
-  v27 = SBLogWorkspace();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v28 = SBLogWorkspace(v12);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = NSStringFromStartupTransitionDestination(v44);
-    v29 = self->_transition;
+    v29 = NSStringFromStartupTransitionDestination(v45);
+    v30 = self->_transition;
     *buf = 138543874;
-    v46 = v28;
-    v47 = 2114;
-    v48 = v29;
-    v49 = 2114;
-    v50 = readTransitionContext;
-    _os_log_impl(&dword_21ED4E000, v27, OS_LOG_TYPE_DEFAULT, "Startup transition destination: %{public}@, with transition: %{public}@ (context=%{public}@).", buf, 0x20u);
+    v47 = v29;
+    v48 = 2114;
+    v49 = v30;
+    v50 = 2114;
+    v51 = readTransitionContext;
+    _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_DEFAULT, "Startup transition destination: %{public}@, with transition: %{public}@ (context=%{public}@).", buf, 0x20u);
   }
 
   [(SBStartupTransition *)self->_transition begin];
-  objc_destroyWeak(&v42);
+  objc_destroyWeak(&v43);
   objc_destroyWeak(&location);
 }
 
@@ -274,21 +276,22 @@ void __67__SBStartupTransitionController_initializeAndRunStartupTransition___blo
 - (void)transactionDidComplete:(id)complete
 {
   completeCopy = complete;
+  v5 = completeCopy;
   if (!completeCopy)
   {
     [SBStartupTransitionController transactionDidComplete:];
   }
 
-  if (self->_transition != completeCopy)
+  if (self->_transition != v5)
   {
     [SBStartupTransitionController transactionDidComplete:];
   }
 
-  v5 = SBLogWorkspace();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = SBLogWorkspace(completeCopy);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Startup transition completed.", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Startup transition completed.", buf, 2u);
   }
 
   transition = self->_transition;

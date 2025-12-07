@@ -92,7 +92,6 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -104,14 +103,12 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    state = self->_state;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    stateEnum = self->_stateEnum;
 
     PBDataWriterWriteUint32Field();
   }
@@ -182,7 +179,6 @@
   }
 
   has = self->_has;
-  v7 = *(equal + 32);
   if (has)
   {
     if ((*(equal + 32) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -212,7 +208,6 @@
   {
     if ((*(equal + 32) & 4) != 0)
     {
-      v9 = *(equal + 28);
       if (self->_state)
       {
         if ((*(equal + 28) & 1) == 0)

@@ -104,7 +104,7 @@ void MPSDevice::~MPSDevice(MPSDevice *this)
   *(this + 2) = 0;
 }
 
-unint64_t MPSDevice::GetQueue(MPSDevice *this, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *MPSDevice::GetQueue(MPSDevice *this, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = (this + 1416);
   result = atomic_load_explicit(this + 177, memory_order_acquire);
@@ -1916,7 +1916,7 @@ unint64_t MPSLibrary::MPSKey_GetComputeInfo(void *a1, atomic_ullong *a2, int a3)
   return result;
 }
 
-unint64_t MPSLibrary::GetComputeStateAsync(void *a1, unsigned int a2, int64x2_t *a3, int a4, void *a5, uint64_t a6)
+unint64_t MPSLibrary::GetComputeStateAsync(void *a1, unsigned int a2, int64x2_t *a3, uint64_t a4, void *a5, uint64_t a6)
 {
   v8 = a2;
   if (a1[3] <= a2)
@@ -2009,11 +2009,11 @@ void MPSLibrary::~MPSLibrary(MPSLibrary *this)
   pthread_rwlock_destroy((this + 64));
 }
 
-uint64_t sub_22E370A64(void *a1, const char *a2, uint64_t a3, uint64_t *a4, uint64_t a5)
+uint64_t sub_22E370A64(void *a1, const char *a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
 {
   v10.i64[0] = -1;
   v10.i64[1] = -1;
-  if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_s64(vandq_s8(*a3, *(a3 + 32)), v10), vceqq_s64(vandq_s8(*(a3 + 16), *(a3 + 64)), v10))))) & 1) == 0 && (*(a3 + 48) == -1 ? (v11 = *(a3 + 56) == -1) : (v11 = 0), v11))
+  if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_s64(vandq_s8(*a3, *(a3 + 2)), v10), vceqq_s64(vandq_s8(*(a3 + 1), *(a3 + 4)), v10))))) & 1) == 0 && (a3[6] == -1 ? (v11 = a3[7] == -1) : (v11 = 0), v11))
   {
     v12 = objc_autoreleasePoolPush();
     v17 = MPSCreateFunctionConstantValues(a1, v13, v14, v15, v16);
@@ -2038,14 +2038,14 @@ uint64_t sub_22E370A64(void *a1, const char *a2, uint64_t a3, uint64_t *a4, uint
     v39 = MPSCreateFunctionConstantValues(a1, a2, a3, a4, a5);
     v44 = v39;
     v45 = *a3;
-    v46 = *(a3 + 8);
-    if (*a3 != -1 || ((v47.i64[0] = -1, v47.i64[1] = -1, v48 = vaddvq_s32(vbicq_s8(xmmword_22E37D510, vuzp1q_s32(vceqq_s64(*(a3 + 48), v47), vceqq_s64(*(a3 + 64), v47)))) & 0xF, (~vaddvq_s32(vandq_s8(vuzp1q_s32(vceqq_s64(v46, v47), vceqq_s64(*(a3 + 24), v47)), xmmword_22E37D510)) & 0xF) == 0) ? (v49 = v48 == 0) : (v49 = 0), v49 ? (v50 = *(a3 + 40) == -1) : (v50 = 0), !v50))
+    v46 = *(a3 + 1);
+    if (*a3 != -1 || ((v47.i64[0] = -1, v47.i64[1] = -1, v48 = vaddvq_s32(vbicq_s8(xmmword_22E37D510, vuzp1q_s32(vceqq_s64(*(a3 + 3), v47), vceqq_s64(*(a3 + 4), v47)))) & 0xF, (~vaddvq_s32(vandq_s8(vuzp1q_s32(vceqq_s64(v46, v47), vceqq_s64(*(a3 + 3), v47)), xmmword_22E37D510)) & 0xF) == 0) ? (v49 = v48 == 0) : (v49 = 0), v49 ? (v50 = a3[5] == -1) : (v50 = 0), !v50))
     {
       v51.i64[0] = -1;
       v51.i64[1] = -1;
       if ((vuzp1_s16(vmovn_s64(vceqq_s64(v46, v51)), *v46.i8).u8[0] & 1) == 0)
       {
-        v69 = *(a3 + 8);
+        v69 = *(a3 + 1);
         objc_msgSend_setConstantValue_type_atIndex_(v39, v40, &v69, 33, 126);
         v45 = *a3;
       }
@@ -2056,51 +2056,51 @@ uint64_t sub_22E370A64(void *a1, const char *a2, uint64_t a3, uint64_t *a4, uint
         objc_msgSend_setConstantValue_type_atIndex_(v44, v40, &v69, 33, 125);
       }
 
-      if (*(a3 + 16) != -1)
+      if (a3[2] != -1)
       {
-        v69 = *(a3 + 16);
+        v69 = a3[2];
         objc_msgSend_setConstantValue_type_atIndex_(v44, v40, &v69, 33, 124);
       }
 
-      if (*(a3 + 24) != -1)
+      if (a3[3] != -1)
       {
-        v69 = *(a3 + 24);
+        v69 = a3[3];
         objc_msgSend_setConstantValue_type_atIndex_(v44, v40, &v69, 33, 123);
       }
 
-      if (*(a3 + 32) != -1)
+      if (a3[4] != -1)
       {
-        v69 = *(a3 + 32);
+        v69 = a3[4];
         objc_msgSend_setConstantValue_type_atIndex_(v44, v40, &v69, 33, 119);
       }
 
-      if (*(a3 + 40) != -1)
+      if (a3[5] != -1)
       {
-        v69 = *(a3 + 40);
+        v69 = a3[5];
         objc_msgSend_setConstantValue_type_atIndex_(v44, v40, &v69, 33, 118);
       }
 
-      if (*(a3 + 64) != -1)
+      if (a3[8] != -1)
       {
-        v69 = *(a3 + 64);
+        v69 = a3[8];
         objc_msgSend_setConstantValue_type_atIndex_(v44, v40, &v69, 33, 122);
       }
 
-      if (*(a3 + 72) != -1)
+      if (a3[9] != -1)
       {
-        v69 = *(a3 + 72);
+        v69 = a3[9];
         objc_msgSend_setConstantValue_type_atIndex_(v44, v40, &v69, 33, 121);
       }
 
-      if (*(a3 + 48) != -1)
+      if (a3[6] != -1)
       {
-        v69 = *(a3 + 48);
+        v69 = a3[6];
         objc_msgSend_setConstantValue_type_atIndex_(v44, v40, &v69, 33, 117);
       }
 
-      if (*(a3 + 56) != -1)
+      if (a3[7] != -1)
       {
-        v69 = *(a3 + 56);
+        v69 = a3[7];
         objc_msgSend_setConstantValue_type_atIndex_(v44, v40, &v69, 33, 116);
       }
     }
@@ -2123,7 +2123,7 @@ uint64_t sub_22E370A64(void *a1, const char *a2, uint64_t a3, uint64_t *a4, uint
   return v38;
 }
 
-uint64_t MPSLibrary::NewComputePipelineState(void **a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t MPSLibrary::NewComputePipelineState(id *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5 = a4;
   v42 = 0;
@@ -2203,7 +2203,7 @@ uint64_t MPSLibrary::getKernelDAGLibrary(MPSLibrary *this)
   return v3;
 }
 
-char *MPSLibrary::CreateUberShaderKey(uint64_t a1, uint64_t a2, int64x2_t *a3, uint64_t a4, uint64_t (*a5)(void *a1, const char *a2, uint64_t a3, uint64_t *a4, uint64_t a5), uint64_t a6, int a7, int a8, unint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13)
+char *MPSLibrary::CreateUberShaderKey(uint64_t a1, uint64_t a2, int64x2_t *a3, uint64_t a4, uint64_t (*a5)(void *a1, const char *a2, uint64_t *a3, uint64_t *a4, uint64_t a5), uint64_t a6, int a7, int a8, unint64_t a9, void *a10, void *a11, void *a12, uint64_t a13)
 {
   v21 = *(a1 + 272);
   if (qword_280AFED78 == -1)
@@ -2515,7 +2515,7 @@ void *MPSLibrary::GetPipelineStateForMPSKey(void *a1, atomic_ullong *a2, void *a
   return explicit;
 }
 
-const char *sub_22E37180C()
+char *sub_22E37180C()
 {
   result = getenv("MPS_SHADER_PROFILING");
   if (result)
@@ -3012,7 +3012,7 @@ void MPSKernelUserDAGNode::~MPSKernelUserDAGNode(id *this)
   JUMPOUT(0x2318E5730);
 }
 
-void MPSKernelUserDAGOp::MPSKernelUserDAGOp(uint64_t a1)
+void MPSKernelUserDAGOp::MPSKernelUserDAGOp(uint64_t a1, uint64_t a2, const std::string *a3, const std::string *a4)
 {
   *a1 = &unk_2842171E0;
   *(a1 + 8) = 0u;
@@ -3259,7 +3259,7 @@ id sub_22E3750AC(uint64_t a1)
   return v2;
 }
 
-void sub_22E3753CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37)
+void sub_22E3753CC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37)
 {
   if (a37 < 0)
   {
@@ -3313,7 +3313,7 @@ LABEL_10:
   if (!a29)
   {
 LABEL_6:
-    MEMORY[0x2318E5730](v37, v38);
+    MEMORY[0x2318E5730](v37, v38, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(a1);
   }
 
@@ -3323,7 +3323,7 @@ LABEL_11:
   _Unwind_Resume(a1);
 }
 
-void sub_22E37574C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29)
+void sub_22E37574C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29)
 {
   if (*(v31 - 73) < 0)
   {
@@ -3377,7 +3377,7 @@ LABEL_10:
   if (!a29)
   {
 LABEL_6:
-    MEMORY[0x2318E5730](v29, v30);
+    MEMORY[0x2318E5730](v29, v30, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(a1);
   }
 
@@ -3404,23 +3404,24 @@ void sub_22E375950(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a3 + 23) < 0)
   {
-    sub_22E3404E0(v7, *a3, *(a3 + 8));
+    v5 = a2;
+    sub_22E3404E0(&v7, *a3, *(a3 + 8));
+    a2 = v5;
     if (*(a3 + 23) < 0)
     {
-      sub_22E3404E0(__p, *a3, *(a3 + 8));
+      sub_22E3404E0(&__p, *a3, *(a3 + 8));
+      a2 = v5;
 LABEL_5:
-      MPSKernelUserDAGOp::MPSKernelUserDAGOp(a1);
+      MPSKernelUserDAGOp::MPSKernelUserDAGOp(a1, a2, &v7, &__p);
     }
   }
 
   else
   {
-    *v7 = *a3;
-    v8 = *(a3 + 16);
+    v7 = *a3;
   }
 
-  *__p = *a3;
-  v6 = *(a3 + 16);
+  __p = *a3;
   goto LABEL_5;
 }
 
@@ -3678,7 +3679,7 @@ void sub_22E377390(MPSKernelUserDAGOp *a1)
   JUMPOUT(0x2318E5730);
 }
 
-uint64_t MPSEncodeCopyTexture(MPSDevice *this, const char *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, int64x2_t *a7)
+uint64_t MPSEncodeCopyTexture(MPSDevice *this, const char *a2, uint64_t a3, void *a4, void *a5, uint64_t a6, int64x2_t *a7)
 {
   v7 = a7;
   v8 = a4;

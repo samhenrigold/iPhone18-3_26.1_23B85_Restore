@@ -178,29 +178,29 @@ LABEL_29:
 
 - (void)setAPSCounterConfig:(id)config
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   configCopy = config;
   v5 = [configCopy objectForKeyedSubscript:@"Profile"];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = self->_supportedCounterProfiles;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
+        v10 = *(*(&v14 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -208,7 +208,7 @@ LABEL_29:
           v12 = v11;
           if (!v5 || (v13 = [v11 profile], v13 == objc_msgSend(v5, "unsignedIntValue")))
           {
-            [v12 setAPSCounterConfig:{configCopy, v15}];
+            [v12 setAPSCounterConfig:{configCopy, v14}];
           }
         }
 
@@ -216,62 +216,56 @@ LABEL_29:
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)minSampleInterval
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_supportedCounterProfiles;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (!v3)
   {
 
-LABEL_13:
-    v5 = 50000;
-    goto LABEL_14;
+    return 50000;
   }
 
-  v4 = *v11;
+  v4 = *v10;
   v5 = -1;
   do
   {
     for (i = 0; i != v3; ++i)
     {
-      if (*v11 != v4)
+      if (*v10 != v4)
       {
         objc_enumerationMutation(v2);
       }
 
-      defaultSampleInterval = [*(*(&v10 + 1) + 8 * i) defaultSampleInterval];
+      defaultSampleInterval = [*(*(&v9 + 1) + 8 * i) defaultSampleInterval];
       if (v5 >= defaultSampleInterval)
       {
         v5 = defaultSampleInterval;
       }
     }
 
-    v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   }
 
   while (v3);
 
   if (v5 == -1)
   {
-    goto LABEL_13;
+    return 50000;
   }
 
-LABEL_14:
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -304,33 +298,33 @@ LABEL_14:
 
 - (NSDictionary)deviceInfoDict
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_device);
 
   if (WeakRetained)
   {
-    v31 = objc_loadWeakRetained(&self->_device);
+    v30 = objc_loadWeakRetained(&self->_device);
     v4 = objc_opt_new();
     v5 = objc_opt_new();
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     supportedCounterProfiles = [(DTGPUDataSource *)self supportedCounterProfiles];
-    v7 = [supportedCounterProfiles countByEnumeratingWithState:&v32 objects:v38 count:16];
+    v7 = [supportedCounterProfiles countByEnumeratingWithState:&v31 objects:v37 count:16];
     if (v7)
     {
-      v8 = *v33;
+      v8 = *v32;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v33 != v8)
+          if (*v32 != v8)
           {
             objc_enumerationMutation(supportedCounterProfiles);
           }
 
-          v10 = *(*(&v32 + 1) + 8 * i);
+          v10 = *(*(&v31 + 1) + 8 * i);
           v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v10, "profile")}];
           [v4 addObject:v11];
 
@@ -338,65 +332,65 @@ LABEL_14:
           [v5 addObject:counterProfileForHost];
         }
 
-        v7 = [supportedCounterProfiles countByEnumeratingWithState:&v32 objects:v38 count:16];
+        v7 = [supportedCounterProfiles countByEnumeratingWithState:&v31 objects:v37 count:16];
       }
 
       while (v7);
     }
 
-    v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v31, "sharedMemorySize")}];
-    CFProperty = IORegistryEntryCreateCFProperty([v31 acceleratorPort], @"AGXTraceCodeVersion", 0, 0);
+    v28 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v30, "sharedMemorySize")}];
+    CFProperty = IORegistryEntryCreateCFProperty([v30 acceleratorPort], @"AGXTraceCodeVersion", 0, 0);
     v14 = @"0";
     if (CFProperty)
     {
       v14 = CFProperty;
     }
 
-    v28 = v14;
-    v36[0] = @"accelerator-id";
+    v27 = v14;
+    v35[0] = @"accelerator-id";
     v15 = MEMORY[0x277CCABB0];
-    v30 = objc_loadWeakRetained(&self->_device);
-    v26 = [v15 numberWithUnsignedLongLong:{objc_msgSend(v30, "registryID")}];
-    v37[0] = v26;
-    v36[1] = @"vendor-name";
-    vendorName = [v31 vendorName];
-    v37[1] = vendorName;
-    v36[2] = @"family-name";
-    familyName = [v31 familyName];
-    v37[2] = familyName;
-    v36[3] = @"product-name";
-    productName = [v31 productName];
-    v37[3] = productName;
-    v36[4] = @"device-name";
+    v29 = objc_loadWeakRetained(&self->_device);
+    v25 = [v15 numberWithUnsignedLongLong:{objc_msgSend(v29, "registryID")}];
+    v36[0] = v25;
+    v35[1] = @"vendor-name";
+    vendorName = [v30 vendorName];
+    v36[1] = vendorName;
+    v35[2] = @"family-name";
+    familyName = [v30 familyName];
+    v36[2] = familyName;
+    v35[3] = @"product-name";
+    productName = [v30 productName];
+    v36[3] = productName;
+    v35[4] = @"device-name";
     deviceName = [(DTGPUDataSource *)self deviceName];
-    v37[4] = deviceName;
-    v37[5] = v4;
-    v36[5] = @"supported-counter-profiles";
-    v36[6] = @"counter-profile-configs";
-    v37[6] = v5;
-    v36[7] = @"min-collection-interval";
+    v36[4] = deviceName;
+    v36[5] = v4;
+    v35[5] = @"supported-counter-profiles";
+    v35[6] = @"counter-profile-configs";
+    v36[6] = v5;
+    v35[7] = @"min-collection-interval";
     v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[DTGPUDataSource minSampleInterval](self, "minSampleInterval")}];
-    v37[7] = v19;
-    v37[8] = MEMORY[0x277CBEC28];
-    v36[8] = @"headless";
-    v36[9] = @"removable";
-    v37[9] = MEMORY[0x277CBEC28];
-    v37[10] = MEMORY[0x277CBEC28];
-    v36[10] = @"low-power";
-    v36[11] = @"recommended-max-working-set-size";
-    v37[11] = v29;
-    v36[12] = @"mobile";
+    v36[7] = v19;
+    v36[8] = MEMORY[0x277CBEC28];
+    v35[8] = @"headless";
+    v35[9] = @"removable";
+    v36[9] = MEMORY[0x277CBEC28];
+    v36[10] = MEMORY[0x277CBEC28];
+    v35[10] = @"low-power";
+    v35[11] = @"recommended-max-working-set-size";
+    v36[11] = v28;
+    v35[12] = @"mobile";
     v20 = [MEMORY[0x277CCABB0] numberWithBool:self->_isAGXDevice];
-    v37[12] = v20;
-    v36[13] = @"displays";
+    v36[12] = v20;
+    v35[13] = @"displays";
     _queryDisplayInfoDict = [(DTGPUDataSource *)self _queryDisplayInfoDict];
-    v37[13] = _queryDisplayInfoDict;
-    v37[14] = v28;
-    v36[14] = @"agx-tracecode-version";
-    v36[15] = @"perf-state";
+    v36[13] = _queryDisplayInfoDict;
+    v36[14] = v27;
+    v35[14] = @"agx-tracecode-version";
+    v35[15] = @"perf-state";
     currentConsistentGPUPerformanceState = [(DTGPUDataSource *)self currentConsistentGPUPerformanceState];
-    v37[15] = currentConsistentGPUPerformanceState;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:16];
+    v36[15] = currentConsistentGPUPerformanceState;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:16];
   }
 
   else
@@ -404,14 +398,12 @@ LABEL_14:
     v23 = MEMORY[0x277CBEC10];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 - (id)configure:(unsigned int)configure interval:(unint64_t)interval windowLimit:(unint64_t)limit
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   p_collectingProfile = &self->_collectingProfile;
   if (self->_collectingProfile)
   {
@@ -420,26 +412,26 @@ LABEL_14:
 
   else
   {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v10 = self->_supportedCounterProfiles;
-    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v41 objects:v45 count:16];
     if (v11)
     {
-      v12 = *v43;
+      v12 = *v42;
       configureCopy = configure;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v43 != v12)
+          if (*v42 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v42 + 1) + 8 * i);
+          v15 = *(*(&v41 + 1) + 8 * i);
           if ([v15 profile] == configureCopy)
           {
             objc_storeStrong(p_collectingProfile, v15);
@@ -447,7 +439,7 @@ LABEL_14:
           }
         }
 
-        v11 = [(NSArray *)v10 countByEnumeratingWithState:&v42 objects:v46 count:16];
+        v11 = [(NSArray *)v10 countByEnumeratingWithState:&v41 objects:v45 count:16];
         if (v11)
         {
           continue;
@@ -500,43 +492,43 @@ LABEL_13:
           p_sampleBuffers = &self->_sampleBuffers;
           while (end != begin)
           {
-            end -= 3;
-            v35[0] = end;
-            sub_247FBF570(v35);
+            end -= 24;
+            *&v34[0] = end;
+            sub_247FBF570(v34);
           }
 
-          v31 = 0;
+          v30 = 0;
           self->_sampleBuffers.__end_ = begin;
-          while (v31 < [ringBufferCounts count])
+          while (v30 < [ringBufferCounts count])
           {
-            memset(v41, 0, sizeof(v41));
-            v32 = [ringBufferCounts objectAtIndexedSubscript:v31];
-            unsignedIntegerValue = [v32 unsignedIntegerValue];
+            memset(v40, 0, sizeof(v40));
+            v31 = [ringBufferCounts objectAtIndexedSubscript:v30];
+            unsignedIntegerValue = [v31 unsignedIntegerValue];
 
             for (; unsignedIntegerValue; --unsignedIntegerValue)
             {
-              v34 = [sampleSizes objectAtIndexedSubscript:v31];
-              sub_247FBEB8C(v35, [v34 unsignedIntValue], v24);
-              sub_247FBEB8C(&v38, 4, v24);
+              v33 = [sampleSizes objectAtIndexedSubscript:v30];
+              sub_247FBEB8C(v34, [v33 unsignedIntValue], v24);
+              sub_247FBEB8C(&v37, 4, v24);
 
-              sub_247FBCF0C(v41, v35);
+              sub_247FBCF0C(v40, v34);
               if (__p)
               {
-                v40 = __p;
+                v39 = __p;
                 operator delete(__p);
               }
 
-              if (v36)
+              if (v35)
               {
-                v37 = v36;
-                operator delete(v36);
+                v36 = v35;
+                operator delete(v35);
               }
             }
 
-            sub_247FBCF4C(p_sampleBuffers, v41);
-            v35[0] = v41;
-            sub_247FBF570(v35);
-            ++v31;
+            sub_247FBCF4C(p_sampleBuffers, v40);
+            *&v34[0] = v40;
+            sub_247FBF570(v34);
+            ++v30;
           }
 
           collectingProfile = *p_collectingProfile;
@@ -560,8 +552,6 @@ LABEL_13:
       *p_collectingProfile = 0;
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -726,27 +716,27 @@ LABEL_13:
 
 - (id)_queryDisplayInfoDict
 {
-  v69 = *MEMORY[0x277D85DE8];
-  v33 = objc_opt_new();
+  v68 = *MEMORY[0x277D85DE8];
+  v32 = objc_opt_new();
   [MEMORY[0x277CD9E40] displays];
+  v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  obj = v52 = 0u;
-  v2 = [obj countByEnumeratingWithState:&v51 objects:v68 count:16];
+  v50 = 0u;
+  obj = v51 = 0u;
+  v2 = [obj countByEnumeratingWithState:&v50 objects:v67 count:16];
   if (v2)
   {
-    v3 = *v52;
+    v3 = *v51;
     do
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v52 != v3)
+        if (*v51 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v51 + 1) + 8 * i);
+        v5 = *(*(&v50 + 1) + 8 * i);
         if (([v5 isSupported] & 1) != 0 && objc_msgSend(v5, "displayType") != 3)
         {
           [v5 bounds];
@@ -767,27 +757,27 @@ LABEL_13:
               }
 
               displayType = [v5 displayType];
-              v49 = 0u;
-              v50 = 0u;
-              v47 = 0u;
               v48 = 0u;
+              v49 = 0u;
+              v46 = 0u;
+              v47 = 0u;
               availableModes = [v5 availableModes];
-              v11 = [availableModes countByEnumeratingWithState:&v47 objects:v67 count:16];
-              v43 = displayId2;
+              v11 = [availableModes countByEnumeratingWithState:&v46 objects:v66 count:16];
+              v42 = displayId2;
               v12 = 0;
               if (v11)
               {
-                v13 = *v48;
+                v13 = *v47;
                 do
                 {
                   for (j = 0; j != v11; ++j)
                   {
-                    if (*v48 != v13)
+                    if (*v47 != v13)
                     {
                       objc_enumerationMutation(availableModes);
                     }
 
-                    [*(*(&v47 + 1) + 8 * j) refreshRate];
+                    [*(*(&v46 + 1) + 8 * j) refreshRate];
                     v16 = vcvtpd_s64_f64(v15);
                     if (v12 <= v16)
                     {
@@ -800,19 +790,19 @@ LABEL_13:
                     }
                   }
 
-                  v11 = [availableModes countByEnumeratingWithState:&v47 objects:v67 count:16];
+                  v11 = [availableModes countByEnumeratingWithState:&v46 objects:v66 count:16];
                 }
 
                 while (v11);
               }
 
-              v56[0] = @"accelerator-id";
-              v41 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:0];
-              v57 = v41;
-              v56[1] = @"display-id";
-              v58 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:displayId];
-              v56[2] = @"device-name";
-              v42 = v58;
+              v55[0] = @"accelerator-id";
+              v40 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:0];
+              v56 = v40;
+              v55[1] = @"display-id";
+              v57 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:displayId];
+              v55[2] = @"device-name";
+              v41 = v57;
               if (displayType)
               {
                 deviceName = [v5 deviceName];
@@ -824,63 +814,61 @@ LABEL_13:
                 v17 = @"Built-In Display";
               }
 
-              v59 = v17;
-              v56[3] = @"framebuffer-index";
-              v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v43];
-              v60 = v44;
-              v56[4] = @"pixel-width";
+              v58 = v17;
+              v55[3] = @"framebuffer-index";
+              v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v42];
+              v59 = v43;
+              v55[4] = @"pixel-width";
               v18 = MEMORY[0x277CCABB0];
               [v5 bounds];
-              v40 = [v18 numberWithDouble:v19];
-              v61 = v40;
-              v56[5] = @"pixel-height";
+              v39 = [v18 numberWithDouble:v19];
+              v60 = v39;
+              v55[5] = @"pixel-height";
               v20 = MEMORY[0x277CCABB0];
               [v5 bounds];
-              v38 = [v20 numberWithDouble:v21];
-              v62 = v38;
-              v56[6] = @"resolution";
+              v37 = [v20 numberWithDouble:v21];
+              v61 = v37;
+              v55[6] = @"resolution";
               v22 = MEMORY[0x277CCABB0];
               currentMode = [v5 currentMode];
-              v36 = [v22 numberWithUnsignedLong:{objc_msgSend(currentMode, "width")}];
-              v55[0] = v36;
+              v35 = [v22 numberWithUnsignedLong:{objc_msgSend(currentMode, "width")}];
+              v54[0] = v35;
               v23 = MEMORY[0x277CCABB0];
               currentMode2 = [v5 currentMode];
-              v35 = [v23 numberWithUnsignedLong:{objc_msgSend(currentMode2, "height")}];
-              v55[1] = v35;
-              v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
-              v63 = v24;
-              v56[7] = @"built-in";
+              v34 = [v23 numberWithUnsignedLong:{objc_msgSend(currentMode2, "height")}];
+              v54[1] = v34;
+              v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
+              v62 = v24;
+              v55[7] = @"built-in";
               v25 = [MEMORY[0x277CCABB0] numberWithBool:displayType == 0];
-              v64 = v25;
-              v56[8] = @"max-refresh-rate";
+              v63 = v25;
+              v55[8] = @"max-refresh-rate";
               v26 = [MEMORY[0x277CCABB0] numberWithInt:v12];
-              v65 = v26;
-              v56[9] = @"is-main-display";
+              v64 = v26;
+              v55[9] = @"is-main-display";
               v27 = MEMORY[0x277CCABB0];
               mainDisplay = [MEMORY[0x277CD9E40] mainDisplay];
               v29 = [v27 numberWithBool:v5 == mainDisplay];
-              v66 = v29;
-              v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:v56 count:10];
+              v65 = v29;
+              v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:v55 count:10];
 
               if (displayType)
               {
               }
 
-              [v33 addObject:v30];
+              [v32 addObject:v30];
             }
           }
         }
       }
 
-      v2 = [obj countByEnumeratingWithState:&v51 objects:v68 count:16];
+      v2 = [obj countByEnumeratingWithState:&v50 objects:v67 count:16];
     }
 
     while (v2);
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
-  return v33;
+  return v32;
 }
 
 - (id)currentConsistentGPUPerformanceState

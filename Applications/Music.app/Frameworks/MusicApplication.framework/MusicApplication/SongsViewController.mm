@@ -24,19 +24,19 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v5 = type metadata accessor for MetricsEvent.Page(0);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for SongsViewController();
-  v12.receiver = self;
-  v12.super_class = v8;
+  type metadata accessor for MetricsEvent.Page(0);
+  __chkstk_darwin();
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for SongsViewController();
+  v11.receiver = self;
+  v11.super_class = v7;
   selfCopy = self;
-  [(SongsViewController *)&v12 viewDidAppear:appearCopy];
-  v10 = *MetricsReportingController.shared.unsafeMutableAddressor();
-  v11 = MetricsEvent.Page.librarySongsList.unsafeMutableAddressor();
-  sub_21B7EC(v11, v7, type metadata accessor for MetricsEvent.Page);
-  (*(&stru_68.reloff + (swift_isaMask & *v10)))(v7, 0, 0, 0, 0, 0);
-  sub_21B854(v7, type metadata accessor for MetricsEvent.Page);
+  [(SongsViewController *)&v11 viewDidAppear:appearCopy];
+  v9 = *MetricsReportingController.shared.unsafeMutableAddressor();
+  v10 = MetricsEvent.Page.librarySongsList.unsafeMutableAddressor();
+  sub_21B7EC(v10, v6, type metadata accessor for MetricsEvent.Page);
+  (*(&stru_68.reloff + (swift_isaMask & *v9)))(v6, 0, 0, 0, 0, 0);
+  sub_21B854(v6, type metadata accessor for MetricsEvent.Page);
 }
 
 - (void)viewDidLoad
@@ -49,7 +49,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_215E30(change);
+  sub_215E30(change, selfCopy, v6, v7);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -110,7 +110,7 @@
 {
   viewCopy = view;
   selfCopy = self;
-  sub_21AB04();
+  sub_21AB04(selfCopy);
   v7 = v6;
 
   return v7;
@@ -130,13 +130,13 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
   pathCopy = path;
   selfCopy = self;
-  sub_216990();
+  sub_216990(viewCopy, v10);
   v15 = v14;
 
   (*(v8 + 8))(v10, v7);
@@ -148,7 +148,7 @@
 {
   v9 = sub_AB3820();
   v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
+  __chkstk_darwin();
   v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = sub_AB92A0();
   v15 = v14;
@@ -157,7 +157,7 @@
   kindCopy = kind;
   pathCopy = path;
   selfCopy = self;
-  sub_217080(viewCopy, v13, v15);
+  sub_217080(viewCopy, v13, v15, v12);
   v21 = v20;
 
   (*(v10 + 8))(v12, v9);
@@ -186,31 +186,31 @@
 
 - (id)_collectionView:(id)view indexPathForSectionIndexTitle:(id)title atIndex:(int64_t)index
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_DE8E20);
-  __chkstk_darwin(v9 - 8);
-  v11 = &v21 - v10;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_DE8E20, &qword_AF7990);
+  __chkstk_darwin();
+  v10 = &v20 - v9;
   if (title)
   {
     sub_AB92A0();
-    title = v12;
+    title = v11;
   }
 
   viewCopy = view;
   selfCopy = self;
-  sub_218364(title, index, v11);
+  sub_218364(title, index, v10);
 
-  v15 = sub_AB3820();
-  v16 = *(v15 - 8);
-  v17 = (*(v16 + 48))(v11, 1, v15);
-  v18 = 0;
-  if (v17 != 1)
+  v14 = sub_AB3820();
+  v15 = *(v14 - 8);
+  v16 = (*(v15 + 48))(v10, 1, v14);
+  v17 = 0;
+  if (v16 != 1)
   {
     isa = sub_AB3770().super.isa;
-    (*(v16 + 8))(v11, v15);
-    v18 = isa;
+    (*(v15 + 8))(v10, v14);
+    v17 = isa;
   }
 
-  return v18;
+  return v17;
 }
 
 - (void)collectionView:(id)view willPerformPreviewActionForMenuWithConfiguration:(id)configuration animator:(id)animator
@@ -228,7 +228,7 @@
 {
   v9 = sub_AB3820();
   v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
+  __chkstk_darwin();
   v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
@@ -244,7 +244,7 @@
 {
   v6 = sub_AB3820();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
@@ -259,7 +259,7 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
@@ -276,7 +276,7 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;

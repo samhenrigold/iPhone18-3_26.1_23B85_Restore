@@ -66,25 +66,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_extension)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    delay = self->_delay;
     PBDataWriterWriteUint64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -143,7 +141,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 32);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0 || self->_timestamp != *(equalCopy + 2))
@@ -163,14 +160,14 @@
     if (![(NSString *)extension isEqual:?])
     {
 LABEL_14:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_15;
     }
 
     has = self->_has;
   }
 
-  v8 = (*(equalCopy + 32) & 1) == 0;
+  v7 = (*(equalCopy + 32) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_delay != *(equalCopy + 1))
@@ -178,12 +175,12 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_15:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

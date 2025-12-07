@@ -32,11 +32,11 @@
 
 - (CKBalloonDescriptor_t)balloonDescriptorForAbsentBalloonShape
 {
-  result = [(CKColoredBalloonView *)self balloonDescriptor];
+  result = objc_msgSend_balloonDescriptor(self, a3);
   *retstr = *CKBalloonDescriptorZero;
   if (v6 == 4)
   {
-    return [(CKColoredBalloonView *)self balloonDescriptor];
+    return objc_msgSend_balloonDescriptor(self);
   }
 
   return result;

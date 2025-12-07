@@ -74,7 +74,7 @@ void __IIO_HardwareDecoderDefaultValue_block_invoke()
   IIO_HardwareDecoderDefaultValue::hwDecoderDefaultValue = v1;
 }
 
-const char *__IIO_CreateIdentityToken_block_invoke()
+uint64_t __IIO_CreateIdentityToken_block_invoke()
 {
   result = task_create_identity_token(*MEMORY[0x1E69E9A60], &IIO_CreateIdentityToken::clientTokenID);
   if (result)

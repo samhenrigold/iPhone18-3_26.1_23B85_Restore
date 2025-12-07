@@ -287,28 +287,28 @@
   Width = CGImageGetWidth(image);
   Height = CGImageGetHeight(image);
   v12 = a5[1];
-  *&v24.a = *a5;
-  *&v24.c = v12;
-  *&v24.tx = a5[2];
+  *&v25.a = *a5;
+  *&v25.c = v12;
+  *&v25.tx = a5[2];
   v13 = v8;
   *&v12 = v9;
   v14 = Width;
   v15 = Height;
-  v26 = CGRectApplyAffineTransform(*(&v12 - 8), &v24);
-  x = v26.origin.x;
-  y = v26.origin.y;
-  v18 = ITKCreateRGBABitmapContext(0, v26.size.width, v26.size.height, a4);
-  if (!v18 || (v19 = v18, CGContextTranslateCTM(v18, -x, -y), v20 = a5[1], *&v24.a = *a5, *&v24.c = v20, *&v24.tx = a5[2], CGContextConcatCTM(v19, &v24), v27.origin.x = v8, v27.origin.y = v9, v27.size.width = Width, v27.size.height = Height, CGContextDrawImage(v19, v27, image), v21 = CGBitmapContextCreateImage(v19), CGContextRelease(v19), !v21) || ([MEMORY[0x277D755B8] itk_imageWithCGImage:v21 scale:0 orientation:a4], v22 = objc_claimAutoreleasedReturnValue(), CGImageRelease(v21), !v22))
+  v27 = CGRectApplyAffineTransform(*(&v12 - 8), &v25);
+  x = v27.origin.x;
+  y = v27.origin.y;
+  v19 = ITKCreateRGBABitmapContext(0, v18, v27.size.width, v27.size.height, a4);
+  if (!v19 || (v20 = v19, CGContextTranslateCTM(v19, -x, -y), v21 = a5[1], *&v25.a = *a5, *&v25.c = v21, *&v25.tx = a5[2], CGContextConcatCTM(v20, &v25), v28.origin.x = v8, v28.origin.y = v9, v28.size.width = Width, v28.size.height = Height, CGContextDrawImage(v20, v28, image), v22 = CGBitmapContextCreateImage(v20), CGContextRelease(v20), !v22) || ([MEMORY[0x277D755B8] itk_imageWithCGImage:v22 scale:0 orientation:a4], v23 = objc_claimAutoreleasedReturnValue(), CGImageRelease(v22), !v23))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       +[UIImage(ITKUtilities) itk_orientedImageFromCGImage:scale:transform:];
     }
 
-    v22 = [MEMORY[0x277D755B8] itk_imageWithCGImage:image];
+    v23 = [MEMORY[0x277D755B8] itk_imageWithCGImage:image];
   }
 
-  return v22;
+  return v23;
 }
 
 + (id)itk_orientedImageFromImage:()ITKUtilities fromOrientation:

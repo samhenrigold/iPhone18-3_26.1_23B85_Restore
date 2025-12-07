@@ -71,9 +71,9 @@
   dispatch_async(workQueue, v6);
 }
 
-uint64_t __38__EKTimedEventStorePurger_setTimeout___block_invoke(uint64_t a1)
+void *__38__EKTimedEventStorePurger_setTimeout___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) internalTimeout];
   v4 = v3;
   if (vabdd_f64(v3, *(a1 + 40)) >= 2.22044605e-16)
@@ -81,25 +81,24 @@ uint64_t __38__EKTimedEventStorePurger_setTimeout___block_invoke(uint64_t a1)
     v5 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v7 = *(a1 + 32);
-      v8 = MEMORY[0x1E696AD98];
-      v9 = v5;
-      v10 = [v8 numberWithDouble:v4];
-      v11 = [MEMORY[0x1E696AD98] numberWithDouble:*(a1 + 40)];
-      v12 = 138412802;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      _os_log_debug_impl(&dword_1A805E000, v9, OS_LOG_TYPE_DEBUG, "Changing timeout in [%@] from [%@] to [%@].", &v12, 0x20u);
+      v6 = *(a1 + 32);
+      v7 = MEMORY[0x1E696AD98];
+      v8 = v5;
+      v9 = [v7 numberWithDouble:v4];
+      v10 = [MEMORY[0x1E696AD98] numberWithDouble:*(a1 + 40)];
+      v11 = 138412802;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v10;
+      _os_log_debug_impl(&dword_1A805E000, v8, OS_LOG_TYPE_DEBUG, "Changing timeout in [%@] from [%@] to [%@].", &v11, 0x20u);
     }
 
     [*(a1 + 32) setInternalTimeout:*(a1 + 40)];
-    result = [*(a1 + 32) _resetIdleTimer];
+    return [*(a1 + 32) _resetIdleTimer];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -123,7 +122,7 @@ uint64_t __38__EKTimedEventStorePurger_setTimeout___block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __34__EKTimedEventStorePurger_timeout__block_invoke(uint64_t a1)
+void *__34__EKTimedEventStorePurger_timeout__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) internalTimeout];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -184,7 +183,7 @@ uint64_t __40__EKTimedEventStorePurger_creationBlock__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)setChangedBlock:(id)block
@@ -231,7 +230,7 @@ uint64_t __39__EKTimedEventStorePurger_changedBlock__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)setPurgingAllowed:(BOOL)allowed
@@ -246,9 +245,9 @@ uint64_t __39__EKTimedEventStorePurger_changedBlock__block_invoke(uint64_t a1)
   dispatch_async(workQueue, v6);
 }
 
-uint64_t __45__EKTimedEventStorePurger_setPurgingAllowed___block_invoke(uint64_t a1)
+void *__45__EKTimedEventStorePurger_setPurgingAllowed___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) internalPurgingAllowed];
   if (*(a1 + 40) != result)
   {
@@ -256,24 +255,22 @@ uint64_t __45__EKTimedEventStorePurger_setPurgingAllowed___block_invoke(uint64_t
     v3 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v5 = v3;
+      v4 = v3;
+      v5 = CalBooleanAsString();
       v6 = CalBooleanAsString();
-      v7 = *(a1 + 40);
-      v8 = CalBooleanAsString();
-      v9 = *(a1 + 32);
-      v10 = 138412802;
+      v7 = *(a1 + 32);
+      v8 = 138412802;
+      v9 = v5;
+      v10 = 2112;
       v11 = v6;
       v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v9;
-      _os_log_debug_impl(&dword_1A805E000, v5, OS_LOG_TYPE_DEBUG, "Set 'purgingAllowed' from [%@] to [%@] in [%@]", &v10, 0x20u);
+      v13 = v7;
+      _os_log_debug_impl(&dword_1A805E000, v4, OS_LOG_TYPE_DEBUG, "Set 'purgingAllowed' from [%@] to [%@] in [%@]", &v8, 0x20u);
     }
 
-    result = [*(a1 + 32) _resetIdleTimer];
+    return [*(a1 + 32) _resetIdleTimer];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -298,7 +295,7 @@ uint64_t __45__EKTimedEventStorePurger_setPurgingAllowed___block_invoke(uint64_t
   return selfCopy;
 }
 
-uint64_t __41__EKTimedEventStorePurger_purgingAllowed__block_invoke(uint64_t a1)
+void *__41__EKTimedEventStorePurger_purgingAllowed__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) internalPurgingAllowed];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -354,7 +351,7 @@ void __59__EKTimedEventStorePurger_acquireCachedEventStoreOrCreate___block_invok
     [*v2 setInternalStore:*(*(*v4 + 8) + 40)];
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      __59__EKTimedEventStorePurger_acquireCachedEventStoreOrCreate___block_invoke_cold_1(v2, v4);
+      __59__EKTimedEventStorePurger_acquireCachedEventStoreOrCreate___block_invoke_cold_1();
     }
 
     v11 = [MEMORY[0x1E696AD88] defaultCenter];
@@ -371,10 +368,89 @@ LABEL_2:
 
 - (void)_resetIdleTimer
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_1(&dword_1A805E000, v0, v1, "The purging timeout is 0.  Will not set up an idle timer for [%@].", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
+  [(EKTimedEventStorePurger *)self internalTimeout];
+  v4 = v3;
+  if (fabs(v3) < 2.22044605e-16)
+  {
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      [EKTimedEventStorePurger _resetIdleTimer];
+    }
+
+LABEL_17:
+    [(EKTimedEventStorePurger *)self _uninstallTimer];
+    return;
+  }
+
+  internalStore = [(EKTimedEventStorePurger *)self internalStore];
+
+  if (!internalStore)
+  {
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      [EKTimedEventStorePurger _resetIdleTimer];
+    }
+
+    goto LABEL_17;
+  }
+
+  if (![(EKTimedEventStorePurger *)self internalPurgingAllowed])
+  {
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      [EKTimedEventStorePurger _resetIdleTimer];
+    }
+
+    goto LABEL_17;
+  }
+
+  timer = [(EKTimedEventStorePurger *)self timer];
+  if (!timer)
+  {
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      [EKTimedEventStorePurger _resetIdleTimer];
+    }
+
+    workQueue = [(EKTimedEventStorePurger *)self workQueue];
+    timer = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, workQueue);
+
+    [(EKTimedEventStorePurger *)self setTimer:timer];
+    objc_initWeak(location, self);
+    handler[0] = MEMORY[0x1E69E9820];
+    handler[1] = 3221225472;
+    handler[2] = __42__EKTimedEventStorePurger__resetIdleTimer__block_invoke;
+    handler[3] = &unk_1E77FD3F0;
+    objc_copyWeak(&v17, location);
+    dispatch_source_set_event_handler(timer, handler);
+    dispatch_activate(timer);
+    objc_destroyWeak(&v17);
+    objc_destroyWeak(location);
+  }
+
+  v8 = dispatch_time(0, (v4 * 1000000000.0));
+  v9 = EKLogHandle;
+  if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    v10 = MEMORY[0x1E696AD98];
+    v11 = v9;
+    v12 = [v10 numberWithDouble:v4];
+    v13 = [MEMORY[0x1E696AD98] numberWithDouble:v4 * 0.1];
+    date = [MEMORY[0x1E695DF00] date];
+    v15 = [date dateByAddingTimeInterval:v4];
+    *location = 138413058;
+    *&location[4] = v12;
+    v19 = 2112;
+    v20 = v13;
+    v21 = 2112;
+    v22 = v15;
+    v23 = 2112;
+    selfCopy = self;
+    _os_log_debug_impl(&dword_1A805E000, v11, OS_LOG_TYPE_DEBUG, "Setting the timer's timeout to [%@] seconds and its leeway to [%@] seconds.  The timer will fire around [%@] in [%@]", location, 0x2Au);
+  }
+
+  dispatch_source_set_timer(timer, v8, 0xFFFFFFFFFFFFFFFFLL, (v4 * 0.1 * 1000000000.0));
 }
 
 void __42__EKTimedEventStorePurger__resetIdleTimer__block_invoke(uint64_t a1)
@@ -414,37 +490,46 @@ LABEL_8:
 
 - (void)_uninstallTimer
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_1(&dword_1A805E000, v0, v1, "Uninstalling dispatch timer in [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  timer = [(EKTimedEventStorePurger *)self timer];
+  if (timer)
+  {
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      [EKTimedEventStorePurger _uninstallTimer];
+    }
+
+    dispatch_source_cancel(timer);
+    [(EKTimedEventStorePurger *)self setTimer:0];
+  }
 }
 
 - (void)_addPersistentNotificationObservers
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_1(&dword_1A805E000, v0, v1, "Adding persistent notification observers for [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    [EKTimedEventStorePurger _addPersistentNotificationObservers];
+  }
+
+  [MEMORY[0x1E6992F98] addObserver:self selector:sel__databaseChangedExternally name:*MEMORY[0x1E6992E00]];
 }
 
 - (void)_removePersistentNotificationObservers
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_1(&dword_1A805E000, v0, v1, "Removing persistent notification observers for [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    [EKTimedEventStorePurger _removePersistentNotificationObservers];
+  }
+
+  [MEMORY[0x1E6992F98] removeObserver:self name:*MEMORY[0x1E6992E00]];
 }
 
 - (void)_databaseChangedExternally
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = *MEMORY[0x1E6992E00];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  v5 = 2112;
-  v6 = v1;
-  _os_log_debug_impl(&dword_1A805E000, v2, OS_LOG_TYPE_DEBUG, "[%@] received notification: [%@]", v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1A805E000, v1, OS_LOG_TYPE_DEBUG, "[%@] received notification: [%@]", v2, 0x16u);
 }
 
 void __53__EKTimedEventStorePurger__databaseChangedExternally__block_invoke(uint64_t a1)
@@ -454,7 +539,7 @@ void __53__EKTimedEventStorePurger__databaseChangedExternally__block_invoke(uint
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      __53__EKTimedEventStorePurger__databaseChangedExternally__block_invoke_cold_1(v1);
+      __53__EKTimedEventStorePurger__databaseChangedExternally__block_invoke_cold_1();
     }
   }
 
@@ -468,10 +553,17 @@ void __53__EKTimedEventStorePurger__databaseChangedExternally__block_invoke(uint
 
 - (void)_removeTransientEventStoreChangeObserver
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_3_0(&dword_1A805E000, v0, v1, "Removing transient event store change observer for event store [%@] in [%@]");
-  v2 = *MEMORY[0x1E69E9840];
+  internalStore = [(EKTimedEventStorePurger *)self internalStore];
+  if (internalStore)
+  {
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      [EKTimedEventStorePurger _removeTransientEventStoreChangeObserver];
+    }
+
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter removeObserver:self name:@"EKEventStoreChangedNotification" object:internalStore];
+  }
 }
 
 - (void)_eventStoreChangedNotification:(id)notification
@@ -518,60 +610,21 @@ uint64_t __44__EKTimedEventStorePurger__fireChangedBlock__block_invoke(uint64_t 
     __44__EKTimedEventStorePurger__fireChangedBlock__block_invoke_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
   }
 
-  v9 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))();
 }
 
-void __59__EKTimedEventStorePurger_acquireCachedEventStoreOrCreate___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
+void __53__EKTimedEventStorePurger__databaseChangedExternally__block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = *(*(*a2 + 8) + 40);
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_3_0(&dword_1A805E000, v4, v5, "No existing store was found in [%@].  Created event store: [%@].");
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __42__EKTimedEventStorePurger__resetIdleTimer__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_1(&dword_1A805E000, v0, v1, "Idle timer fired in [%@].", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __42__EKTimedEventStorePurger__resetIdleTimer__block_invoke_cold_2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_3_0(&dword_1A805E000, v0, v1, "Clearing event store: [%@] in [%@]");
   v2 = *MEMORY[0x1E69E9840];
-}
-
-void __53__EKTimedEventStorePurger__databaseChangedExternally__block_invoke_cold_1(uint64_t *a1)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = *MEMORY[0x1E6992E00];
-  v2 = *a1;
   OUTLINED_FUNCTION_4_0();
-  _os_log_debug_impl(&dword_1A805E000, v3, OS_LOG_TYPE_DEBUG, "Ignored low-level [%@] notification in [%@].", v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_eventStoreChangedNotification:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_3_0(&dword_1A805E000, v0, v1, "[%@] received notification: [%@]");
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1A805E000, v0, OS_LOG_TYPE_DEBUG, "Ignored low-level [%@] notification in [%@].", v1, 0x16u);
 }
 
 void __44__EKTimedEventStorePurger__fireChangedBlock__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_1_1(&dword_1A805E000, a2, a3, "Firing changed block from [%@]", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_1_1(&dword_1A805E000, a2, a3, "Firing changed block from [%@]", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

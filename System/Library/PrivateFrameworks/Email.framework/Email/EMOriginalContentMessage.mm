@@ -126,34 +126,34 @@
 
 - (NSString)ef_publicDescription
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   currentDevice = [MEMORY[0x1E699B7B0] currentDevice];
   isInternal = [currentDevice isInternal];
 
   if (isInternal)
   {
-    v30 = [objc_alloc(MEMORY[0x1E699B250]) initWithStyle:2];
+    v29 = [objc_alloc(MEMORY[0x1E699B250]) initWithStyle:2];
     v5 = MEMORY[0x1E696AEC0];
     v6 = objc_opt_class();
-    v29 = NSStringFromClass(v6);
+    v28 = NSStringFromClass(v6);
     searchableMessageID = [(EMOriginalContentMessage *)self searchableMessageID];
     v7 = MEMORY[0x1E699B858];
     bodyText = [(EMOriginalContentMessage *)self bodyText];
-    v27 = [v7 ec_partiallyRedactedStringForSubjectOrSummary:?];
+    v26 = [v7 ec_partiallyRedactedStringForSubjectOrSummary:?];
     v8 = MEMORY[0x1E699B858];
     subject = [(EMOriginalContentMessage *)self subject];
-    v26 = [v8 ec_partiallyRedactedStringForSubjectOrSummary:?];
+    v25 = [v8 ec_partiallyRedactedStringForSubjectOrSummary:?];
     sender = [(EMOriginalContentMessage *)self sender];
-    v31[0] = sender;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
-    v10 = [v30 stringFromEmailAddressList:v9];
+    v30[0] = sender;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+    v10 = [v29 stringFromEmailAddressList:v9];
     toList = [(EMOriginalContentMessage *)self toList];
-    v12 = [v30 stringFromEmailAddressList:toList];
+    v12 = [v29 stringFromEmailAddressList:toList];
     ccList = [(EMOriginalContentMessage *)self ccList];
-    v14 = [v30 stringFromEmailAddressList:ccList];
+    v14 = [v29 stringFromEmailAddressList:ccList];
     flags = [(EMOriginalContentMessage *)self flags];
     date = [(EMOriginalContentMessage *)self date];
-    v17 = [v5 stringWithFormat:@"<%@: %p>\n\tsearchableMessageID:%@\n\tbodyText:%@\n\tsubject:%@\n\tsender:%@\n\tto:%@\n\tcc:%@\n\tflags:%@\n\tdate:%@", v29, self, searchableMessageID, v27, v26, v10, v12, v14, flags, date];
+    v17 = [v5 stringWithFormat:@"<%@: %p>\n\tsearchableMessageID:%@\n\tbodyText:%@\n\tsubject:%@\n\tsender:%@\n\tto:%@\n\tcc:%@\n\tflags:%@\n\tdate:%@", v28, self, searchableMessageID, v26, v25, v10, v12, v14, flags, date];
   }
 
   else
@@ -163,8 +163,6 @@
     v20 = NSStringFromClass(v19);
     v17 = [v18 stringWithFormat:@"<%@: %p>", v20, self];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

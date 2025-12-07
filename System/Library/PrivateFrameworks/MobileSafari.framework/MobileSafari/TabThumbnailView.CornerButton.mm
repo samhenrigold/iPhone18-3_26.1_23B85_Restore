@@ -15,7 +15,7 @@
   state = [hoverCopy state];
   if (state != 1)
   {
-    state = [hoverCopy state] == 2;
+    LOBYTE(state) = [hoverCopy state] == 2;
   }
 
   sub_18BA6E818(state);
@@ -45,7 +45,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_18BA6E9F8();
+  sub_18BA6E9F8(selfCopy);
 }
 
 - (id)contextMenuInteraction:(id)interaction configurationForMenuAtLocation:(CGPoint)location
@@ -53,7 +53,7 @@
   v4 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtCC12MobileSafari16TabThumbnailView12CornerButton_menu);
   if (v4)
   {
-    sub_18B7B0AC0(0, &unk_1EA9D4F70);
+    sub_18B7B0AC0(0, &unk_1EA9D4F70, 0x1E69DC8D8);
     v5 = swift_allocObject();
     *(v5 + 16) = v4;
     v6 = v4;

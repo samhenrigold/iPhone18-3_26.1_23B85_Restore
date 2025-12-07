@@ -290,9 +290,12 @@ void __21__PHImportAsset_hash__block_invoke(uint64_t a1)
 
 uint64_t __41__PHImportAsset_accessibilityDescription__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) artworkContentDescription];
+  v2 = [*(*(a1 + 32) + 72) artworkContentDescription];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSString)assetDescription
@@ -318,9 +321,12 @@ uint64_t __41__PHImportAsset_accessibilityDescription__block_invoke(uint64_t a1)
 
 uint64_t __33__PHImportAsset_assetDescription__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) captionAbstract];
+  v2 = [*(*(a1 + 32) + 72) captionAbstract];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSSet)keywordTitles
@@ -380,9 +386,12 @@ void __30__PHImportAsset_keywordTitles__block_invoke(uint64_t a1)
 
 uint64_t __22__PHImportAsset_title__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) title];
+  v2 = [*(*(a1 + 32) + 72) title];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSTimeZone)timeZone
@@ -408,9 +417,12 @@ uint64_t __22__PHImportAsset_title__block_invoke(uint64_t a1)
 
 uint64_t __25__PHImportAsset_timeZone__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) timeZone];
+  v2 = [*(*(a1 + 32) + 72) timeZone];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSDate)creationDate
@@ -436,9 +448,12 @@ uint64_t __25__PHImportAsset_timeZone__block_invoke(uint64_t a1)
 
 uint64_t __29__PHImportAsset_creationDate__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) utcCreationDate];
+  v2 = [*(*(a1 + 32) + 72) utcCreationDate];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)originatingAssetID
@@ -464,9 +479,12 @@ uint64_t __29__PHImportAsset_creationDate__block_invoke(uint64_t a1)
 
 uint64_t __35__PHImportAsset_originatingAssetID__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) originatingAssetIdentifier];
+  v2 = [*(*(a1 + 32) + 72) originatingAssetIdentifier];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)copyToURL:(id)l completionHandler:(id)handler
@@ -522,9 +540,12 @@ uint64_t __35__PHImportAsset_originatingAssetID__block_invoke(uint64_t a1)
 
 uint64_t __45__PHImportAsset_copyToURL_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) copyFromURL:a2 toURL:a3];
+  v4 = [*(a1 + 32) copyFromURL:a2 toURL:a3];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v4, v6);
 }
 
 - (id)copyFromURL:(id)l toURL:(id)rL
@@ -967,7 +988,7 @@ LABEL_19:
   return v5;
 }
 
-uint64_t __49__PHImportAsset_validateMetadataForImportRecord___block_invoke(uint64_t a1)
+void *__49__PHImportAsset_validateMetadataForImportRecord___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) exifPixelSize];
   v4 = v3 != *MEMORY[0x1E695F060];
@@ -1084,7 +1105,7 @@ LABEL_25:
   v36 = v19;
   if (v18)
   {
-    [v18 preferredTransform];
+    objc_msgSend_preferredTransform(v18);
     v21 = *buf;
     v22 = *&buf[16];
   }
@@ -2601,9 +2622,12 @@ LABEL_10:
 
 uint64_t __28__PHImportAsset_trackFormat__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) audioTrackFormat];
+  v2 = [*(*(a1 + 32) + 72) audioTrackFormat];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSNumber)bitrate
@@ -2629,9 +2653,12 @@ uint64_t __28__PHImportAsset_trackFormat__block_invoke(uint64_t a1)
 
 uint64_t __24__PHImportAsset_bitrate__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) audioDataRate];
+  v2 = [*(*(a1 + 32) + 72) audioDataRate];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSNumber)sampleRate
@@ -2657,9 +2684,12 @@ uint64_t __24__PHImportAsset_bitrate__block_invoke(uint64_t a1)
 
 uint64_t __27__PHImportAsset_sampleRate__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) audioSampleRate];
+  v2 = [*(*(a1 + 32) + 72) audioSampleRate];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSNumber)fps
@@ -2685,9 +2715,12 @@ uint64_t __27__PHImportAsset_sampleRate__block_invoke(uint64_t a1)
 
 uint64_t __20__PHImportAsset_fps__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) nominalFrameRate];
+  v2 = [*(*(a1 + 32) + 72) nominalFrameRate];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSString)codec
@@ -2713,9 +2746,12 @@ uint64_t __20__PHImportAsset_fps__block_invoke(uint64_t a1)
 
 uint64_t __22__PHImportAsset_codec__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) videoCodecName];
+  v2 = [*(*(a1 + 32) + 72) videoCodecName];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSNumber)exposureTime
@@ -2741,9 +2777,12 @@ uint64_t __22__PHImportAsset_codec__block_invoke(uint64_t a1)
 
 uint64_t __29__PHImportAsset_exposureTime__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) exposureTime];
+  v2 = [*(*(a1 + 32) + 72) exposureTime];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSNumber)fNumber
@@ -2769,9 +2808,12 @@ uint64_t __29__PHImportAsset_exposureTime__block_invoke(uint64_t a1)
 
 uint64_t __24__PHImportAsset_fNumber__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) fNumber];
+  v2 = [*(*(a1 + 32) + 72) fNumber];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSNumber)exposureBias
@@ -2797,9 +2839,12 @@ uint64_t __24__PHImportAsset_fNumber__block_invoke(uint64_t a1)
 
 uint64_t __29__PHImportAsset_exposureBias__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) exposureBias];
+  v2 = [*(*(a1 + 32) + 72) exposureBias];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSNumber)digitalZoomRatio
@@ -2825,9 +2870,12 @@ uint64_t __29__PHImportAsset_exposureBias__block_invoke(uint64_t a1)
 
 uint64_t __33__PHImportAsset_digitalZoomRatio__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) digitalZoomRatio];
+  v2 = [*(*(a1 + 32) + 72) digitalZoomRatio];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSNumber)focalLengthIn35mm
@@ -2853,9 +2901,12 @@ uint64_t __33__PHImportAsset_digitalZoomRatio__block_invoke(uint64_t a1)
 
 uint64_t __34__PHImportAsset_focalLengthIn35mm__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) focalLengthIn35mm];
+  v2 = [*(*(a1 + 32) + 72) focalLengthIn35mm];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSNumber)focalLength
@@ -2881,9 +2932,12 @@ uint64_t __34__PHImportAsset_focalLengthIn35mm__block_invoke(uint64_t a1)
 
 uint64_t __28__PHImportAsset_focalLength__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) focalLength];
+  v2 = [*(*(a1 + 32) + 72) focalLength];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSNumber)iso
@@ -2909,9 +2963,12 @@ uint64_t __28__PHImportAsset_focalLength__block_invoke(uint64_t a1)
 
 uint64_t __20__PHImportAsset_iso__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) iso];
+  v2 = [*(*(a1 + 32) + 72) iso];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSNumber)meteringMode
@@ -2937,9 +2994,12 @@ uint64_t __20__PHImportAsset_iso__block_invoke(uint64_t a1)
 
 uint64_t __29__PHImportAsset_meteringMode__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) meteringMode];
+  v2 = [*(*(a1 + 32) + 72) meteringMode];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSNumber)whiteBalance
@@ -2965,9 +3025,12 @@ uint64_t __29__PHImportAsset_meteringMode__block_invoke(uint64_t a1)
 
 uint64_t __29__PHImportAsset_whiteBalance__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) whiteBalance];
+  v2 = [*(*(a1 + 32) + 72) whiteBalance];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSNumber)flashFired
@@ -2989,7 +3052,7 @@ uint64_t __29__PHImportAsset_whiteBalance__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __27__PHImportAsset_flashFired__block_invoke(uint64_t a1)
+void *__27__PHImportAsset_flashFired__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) flashFired];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3019,9 +3082,12 @@ uint64_t __27__PHImportAsset_flashFired__block_invoke(uint64_t a1)
 
 uint64_t __26__PHImportAsset_lensModel__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) lensModel];
+  v2 = [*(*(a1 + 32) + 72) lensModel];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSString)formattedCameraModel
@@ -3056,9 +3122,12 @@ uint64_t __26__PHImportAsset_lensModel__block_invoke(uint64_t a1)
 
 uint64_t __28__PHImportAsset_cameraModel__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) cameraModel];
+  v2 = [*(*(a1 + 32) + 72) cameraModel];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSString)cameraMake
@@ -3084,9 +3153,12 @@ uint64_t __28__PHImportAsset_cameraModel__block_invoke(uint64_t a1)
 
 uint64_t __27__PHImportAsset_cameraMake__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) cameraMake];
+  v2 = [*(*(a1 + 32) + 72) cameraMake];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSNumber)durationTimeInterval
@@ -3112,9 +3184,12 @@ uint64_t __27__PHImportAsset_cameraMake__block_invoke(uint64_t a1)
 
 uint64_t __37__PHImportAsset_durationTimeInterval__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) durationTimeInterval];
+  v2 = [*(*(a1 + 32) + 72) durationTimeInterval];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)spatialOverCaptureIdentifier
@@ -3140,9 +3215,12 @@ uint64_t __37__PHImportAsset_durationTimeInterval__block_invoke(uint64_t a1)
 
 uint64_t __45__PHImportAsset_spatialOverCaptureIdentifier__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) spatialOverCaptureIdentifier];
+  v2 = [*(*(a1 + 32) + 72) spatialOverCaptureIdentifier];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)livePhotoPairingIdentifier
@@ -3168,9 +3246,12 @@ uint64_t __45__PHImportAsset_spatialOverCaptureIdentifier__block_invoke(uint64_t
 
 uint64_t __43__PHImportAsset_livePhotoPairingIdentifier__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) livePhotoPairingIdentifier];
+  v2 = [*(*(a1 + 32) + 72) livePhotoPairingIdentifier];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (int)burstPickType
@@ -3208,9 +3289,12 @@ uint64_t __43__PHImportAsset_livePhotoPairingIdentifier__block_invoke(uint64_t a
 
 uint64_t __29__PHImportAsset_groupingUUID__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) groupingUuid];
+  v2 = [*(*(a1 + 32) + 72) groupingUuid];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSString)burstUUID
@@ -3240,9 +3324,12 @@ uint64_t __29__PHImportAsset_groupingUUID__block_invoke(uint64_t a1)
 
 uint64_t __26__PHImportAsset_burstUUID__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) burstUuid];
+  v2 = [*(*(a1 + 32) + 72) burstUuid];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (CGSize)transformedPixelSize
@@ -3297,7 +3384,7 @@ uint64_t __26__PHImportAsset_burstUUID__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __34__PHImportAsset_orientedPixelSize__block_invoke(uint64_t a1)
+void *__34__PHImportAsset_orientedPixelSize__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) orientedPixelSize];
   v3 = *(*(a1 + 40) + 8);
@@ -3331,7 +3418,7 @@ uint64_t __34__PHImportAsset_orientedPixelSize__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __30__PHImportAsset_exifPixelSize__block_invoke(uint64_t a1)
+void *__30__PHImportAsset_exifPixelSize__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) exifPixelSize];
   v3 = *(*(a1 + 40) + 8);
@@ -3358,7 +3445,7 @@ uint64_t __30__PHImportAsset_exifPixelSize__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __28__PHImportAsset_orientation__block_invoke(uint64_t a1)
+void *__28__PHImportAsset_orientation__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) orientation];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3919,7 +4006,7 @@ void __25__PHImportAsset_isRender__block_invoke()
   return v3;
 }
 
-uint64_t __23__PHImportAsset_isSDOF__block_invoke(uint64_t a1)
+void *__23__PHImportAsset_isSDOF__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) isSDOF];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3944,7 +4031,7 @@ uint64_t __23__PHImportAsset_isSDOF__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __22__PHImportAsset_isHDR__block_invoke(uint64_t a1)
+void *__22__PHImportAsset_isHDR__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) isHDR];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3981,7 +4068,7 @@ uint64_t __22__PHImportAsset_isHDR__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __28__PHImportAsset_isTimelapse__block_invoke(uint64_t a1)
+void *__28__PHImportAsset_isTimelapse__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) isTimelapse];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -4010,7 +4097,7 @@ uint64_t __28__PHImportAsset_isTimelapse__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __24__PHImportAsset_isSloMo__block_invoke(uint64_t a1)
+void *__24__PHImportAsset_isSloMo__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) isSloMo];
   *(*(*(a1 + 40) + 8) + 24) = result;

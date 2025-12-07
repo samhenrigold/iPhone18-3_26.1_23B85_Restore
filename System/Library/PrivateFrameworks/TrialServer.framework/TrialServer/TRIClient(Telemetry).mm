@@ -6,7 +6,7 @@
 
 - (uint64_t)shouldLogAtLevel:()Telemetry withPrivacyRadar:
 {
-  LODWORD(result) = [self shouldLogAtLevel:?];
+  LODWORD(result) = [self shouldLogAtLevel:a3];
   if (a4 == 54260918)
   {
     return result;

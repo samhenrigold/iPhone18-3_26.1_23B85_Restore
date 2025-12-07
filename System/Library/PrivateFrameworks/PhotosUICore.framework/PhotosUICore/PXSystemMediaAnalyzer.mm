@@ -285,19 +285,19 @@ LABEL_6:
   (*(*(a1 + 48) + 16))(*(a1 + 48), v5, v13, v14);
 }
 
-uint64_t __120__PXSystemMediaAnalyzer_requestMatchedTimeRangesForAsset_searchQueryMatchInfo_contextualVideoThumbnailID_resultHandler___block_invoke_369(uint64_t a1)
+uint64_t __120__PXSystemMediaAnalyzer_requestMatchedTimeRangesForAsset_searchQueryMatchInfo_contextualVideoThumbnailID_resultHandler___block_invoke_369(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = [*(a1 + 32) localIdentifier];
-    v4 = *(a1 + 48);
-    v6 = 138412546;
-    v7 = v3;
-    v8 = 1024;
-    v9 = v4;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_INFO, "PXSystemMediaAnalyzer: Canceling time range request for asset: %@, requestID: %d", &v6, 0x12u);
+    v4 = [*(a1 + 32) localIdentifier];
+    v5 = *(a1 + 48);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 1024;
+    v10 = v5;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_INFO, "PXSystemMediaAnalyzer: Canceling time range request for asset: %@, requestID: %d", &v7, 0x12u);
   }
 
   return [*(a1 + 40) cancelAnalysisWithRequestID:*(a1 + 48)];

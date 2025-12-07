@@ -133,11 +133,9 @@
   serviceIdentifierType = [(SFCredentialIdentity *)self serviceIdentifierType];
   externalRecordIdentifier = [(SFCredentialIdentity *)self externalRecordIdentifier];
   user = [(SFCredentialIdentity *)self user];
-  rank = [(SFCredentialIdentity *)self rank];
-  credentialID = self->_credentialID;
-  v12 = [(SFPasskeyCredentialIdentity *)v4 initWithRowIdentifier:rowIdentifier serviceIdentifier:serviceIdentifier serviceIdentifierType:serviceIdentifierType externalRecordIdentifier:externalRecordIdentifier user:user rank:rank credentialID:credentialID userHandle:self->_userHandle];
+  v10 = [(SFPasskeyCredentialIdentity *)v4 initWithRowIdentifier:rowIdentifier serviceIdentifier:serviceIdentifier serviceIdentifierType:serviceIdentifierType externalRecordIdentifier:externalRecordIdentifier user:user rank:[(SFCredentialIdentity *)self rank] credentialID:self->_credentialID userHandle:self->_userHandle];
 
-  return v12;
+  return v10;
 }
 
 @end

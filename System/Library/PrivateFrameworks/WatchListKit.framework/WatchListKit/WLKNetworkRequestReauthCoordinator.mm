@@ -24,9 +24,11 @@
 
 uint64_t __49__WLKNetworkRequestReauthCoordinator_coordinator__block_invoke()
 {
-  coordinator___coordinator = [[WLKNetworkRequestReauthCoordinator alloc] _init];
+  v0 = [[WLKNetworkRequestReauthCoordinator alloc] _init];
+  v1 = coordinator___coordinator;
+  coordinator___coordinator = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)_init

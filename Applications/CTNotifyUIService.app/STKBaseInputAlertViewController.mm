@@ -6,7 +6,9 @@
 - (void)_sendClicked;
 - (void)dealloc;
 - (void)setDigitsOnly:(BOOL)only;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation STKBaseInputAlertViewController
@@ -28,6 +30,22 @@
   [(STKBaseAlertViewController *)&v3 viewDidLoad];
   self->_minLength = 0;
   self->_maxLength = -1;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = STKBaseInputAlertViewController;
+  [(STKBaseInputAlertViewController *)&v4 viewDidAppear:appear];
+  [(UITextField *)self->_inputTextField becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = STKBaseInputAlertViewController;
+  [(STKBaseAlertViewController *)&v4 viewWillDisappear:disappear];
+  [(UITextField *)self->_inputTextField resignFirstResponder];
 }
 
 - (id)newTopBar

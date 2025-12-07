@@ -194,7 +194,7 @@
   v29 = *&v41.m23;
   *&retstr->m21 = *&v41.m21;
   *&retstr->m23 = v29;
-  result = [(UIFocusMovementHint *)self perspectiveTransform];
+  result = objc_msgSend_perspectiveTransform(self);
   retstr->m34 = v39;
   return result;
 }

@@ -1,4 +1,6 @@
 @interface VMUNonOverlappingRangeArray
+- (id)subtract:(id)subtract mergeRanges:(BOOL)ranges;
+- (void)_mergeAllBitsOfRange:(_VMURange)range excludingRanges:(id)ranges mergeRanges:(BOOL)mergeRanges;
 - (void)addOrExtendRange:(_VMURange)range;
 - (void)mergeRange:(_VMURange)range;
 - (void)mergeRange:(_VMURange)range excludingRanges:(id)ranges;
@@ -178,6 +180,73 @@ LABEL_18:
 
     while (v8);
   }
+}
+
+- (void)_mergeAllBitsOfRange:(_VMURange)range excludingRanges:(id)ranges mergeRanges:(BOOL)mergeRanges
+{
+  mergeRangesCopy = mergeRanges;
+  length = range.length;
+  location = range.location;
+  rangesCopy = ranges;
+  if (length)
+  {
+    v16 = rangesCopy;
+    v10 = 16 * rangesCopy[2];
+    while (1)
+    {
+      v11 = v10 - 16;
+      if (!v10)
+      {
+        break;
+      }
+
+      v12 = VMUIntersectionRange(location, length, *(*(v16 + 2) + v10 - 16), *(*(v16 + 2) + v10 - 8));
+      v10 = v11;
+      if (v13)
+      {
+        v14 = v12;
+        v15 = v13;
+        [(VMUNonOverlappingRangeArray *)self _mergeAllBitsOfRange:location excludingRanges:v12 - location mergeRanges:v16, mergeRangesCopy];
+        [(VMUNonOverlappingRangeArray *)self _mergeAllBitsOfRange:v14 + v15 excludingRanges:location + length - (v14 + v15) mergeRanges:v16, mergeRangesCopy];
+        goto LABEL_9;
+      }
+    }
+
+    if (mergeRangesCopy)
+    {
+      [(VMUNonOverlappingRangeArray *)self mergeRange:location, length];
+    }
+
+    else
+    {
+      [(VMURangeArray *)self addRange:location, length];
+    }
+
+LABEL_9:
+    rangesCopy = v16;
+  }
+}
+
+- (id)subtract:(id)subtract mergeRanges:(BOOL)ranges
+{
+  rangesCopy = ranges;
+  subtractCopy = subtract;
+  v7 = objc_opt_new();
+  if (self->super._count)
+  {
+    v8 = 0;
+    v9 = 0;
+    do
+    {
+      ++v9;
+      [v7 _mergeAllBitsOfRange:self->super._ranges[v8].location excludingRanges:self->super._ranges[v8].length mergeRanges:{subtractCopy, rangesCopy}];
+      ++v8;
+    }
+
+    while (v9 < self->super._count);
+  }
+
+  return v7;
 }
 
 @end

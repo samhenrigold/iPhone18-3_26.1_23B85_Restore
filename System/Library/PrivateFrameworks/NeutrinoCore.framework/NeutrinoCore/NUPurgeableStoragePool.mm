@@ -198,9 +198,12 @@ void *__75__NUPurgeableStoragePool__migrateAllNonPurgeableStorageIfNoRecentActiv
   result = a1[4];
   if (v2 == result[2])
   {
-    *(*(a1[5] + 8) + 40) = [result _popOldestNonPurgeableStorage];
+    v4 = [result _popOldestNonPurgeableStorage];
+    v5 = *(a1[5] + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v4, v6);
   }
 
   return result;
@@ -500,9 +503,12 @@ LABEL_23:
 uint64_t __38__NUPurgeableStoragePool_reapVolatile__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _reapVolatile];
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) copy];
+  v2 = [*(*(a1 + 32) + 8) copy];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)reapPurged
@@ -530,9 +536,12 @@ uint64_t __38__NUPurgeableStoragePool_reapVolatile__block_invoke(uint64_t a1)
 uint64_t __36__NUPurgeableStoragePool_reapPurged__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _reapPurged];
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) copy];
+  v2 = [*(*(a1 + 32) + 8) copy];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)purge:(BOOL)purge
@@ -569,9 +578,12 @@ uint64_t __36__NUPurgeableStoragePool_reapPurged__block_invoke(uint64_t a1)
 
 uint64_t __31__NUPurgeableStoragePool_stats__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) copy];
+  v2 = [*(*(a1 + 32) + 8) copy];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)_returnNonPurgeableStorage:(id)storage
@@ -1798,9 +1810,11 @@ LABEL_14:
 
 uint64_t __36__NUPurgeableStoragePool_initialize__block_invoke()
 {
-  s_pools = [MEMORY[0x1E696AE08] weakObjectsPointerArray];
+  v0 = [MEMORY[0x1E696AE08] weakObjectsPointerArray];
+  v1 = s_pools;
+  s_pools = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)interfaceTypeAsString:(int)string;
+- (id)protocolTypeAsString:(int)string;
 - (int)StringAsInterfaceType:(id)type;
 - (int)StringAsProtocolType:(id)type;
 - (int)interfaceType;
@@ -66,6 +68,19 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)interfaceTypeAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32AF0[string - 1];
+  }
 }
 
 - (int)StringAsInterfaceType:(id)type
@@ -241,6 +256,19 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)protocolTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32B10[string - 1];
+  }
+}
+
 - (int)StringAsProtocolType:(id)type
 {
   if ([type isEqualToString:@"NetworkServiceProxyProtocolType_IPv4"])
@@ -373,14 +401,12 @@ LABEL_15:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    interfaceType = self->_interfaceType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -389,16 +415,15 @@ LABEL_15:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x20) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x20) != 0)
   {
-    requestCount = self->_requestCount;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
-    if ((v7 & 0x40) == 0)
+    v5 = self->_has;
+    if ((v5 & 0x40) == 0)
     {
 LABEL_9:
-      if ((v7 & 2) == 0)
+      if ((v5 & 2) == 0)
       {
         goto LABEL_10;
       }
@@ -412,13 +437,12 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  requestFailedCount = self->_requestFailedCount;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((v7 & 2) == 0)
+  v5 = self->_has;
+  if ((v5 & 2) == 0)
   {
 LABEL_10:
-    if ((v7 & 4) == 0)
+    if ((v5 & 4) == 0)
     {
       goto LABEL_12;
     }
@@ -427,84 +451,76 @@ LABEL_10:
   }
 
 LABEL_31:
-  directConnectionCount = self->_directConnectionCount;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_11:
-    directConnectionFailedCount = self->_directConnectionFailedCount;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_12:
   if (self->_firstByteBuckets.count)
   {
-    v9 = 0;
+    v6 = 0;
     do
     {
-      v10 = self->_firstByteBuckets.list[v9];
       PBDataWriterWriteUint32Field();
-      ++v9;
+      ++v6;
     }
 
-    while (v9 < self->_firstByteBuckets.count);
+    while (v6 < self->_firstByteBuckets.count);
   }
 
   if (self->_lastByteBuckets.count)
   {
-    v11 = 0;
+    v7 = 0;
     do
     {
-      v12 = self->_lastByteBuckets.list[v11];
       PBDataWriterWriteUint32Field();
-      ++v11;
+      ++v7;
     }
 
-    while (v11 < self->_lastByteBuckets.count);
+    while (v7 < self->_lastByteBuckets.count);
   }
 
   if (self->_directConnectionFirstByteBuckets.count)
   {
-    v13 = 0;
+    v8 = 0;
     do
     {
-      v14 = self->_directConnectionFirstByteBuckets.list[v13];
       PBDataWriterWriteUint32Field();
-      ++v13;
+      ++v8;
     }
 
-    while (v13 < self->_directConnectionFirstByteBuckets.count);
+    while (v8 < self->_directConnectionFirstByteBuckets.count);
   }
 
   if (self->_directConnectionLastByteBuckets.count)
   {
-    v15 = 0;
+    v9 = 0;
     do
     {
-      v16 = self->_directConnectionLastByteBuckets.list[v15];
       PBDataWriterWriteUint32Field();
-      ++v15;
+      ++v9;
     }
 
-    while (v15 < self->_directConnectionLastByteBuckets.count);
+    while (v9 < self->_directConnectionLastByteBuckets.count);
   }
 
   if (self->_udpRttBuckets.count)
   {
-    v17 = 0;
+    v10 = 0;
     do
     {
-      v18 = self->_udpRttBuckets.list[v17];
       PBDataWriterWriteUint32Field();
-      ++v17;
+      ++v10;
     }
 
-    while (v17 < self->_udpRttBuckets.count);
+    while (v10 < self->_udpRttBuckets.count);
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    protocolType = self->_protocolType;
 
     PBDataWriterWriteInt32Field();
   }
@@ -743,7 +759,6 @@ LABEL_10:
   if (IsEqual)
   {
     has = self->_has;
-    v7 = *(equal + 168);
     if (has)
     {
       if ((*(equal + 168) & 1) == 0 || self->_timestamp != *(equal + 16))
@@ -784,7 +799,6 @@ LABEL_44:
       has = self->_has;
     }
 
-    v9 = *(equal + 168);
     if ((has & 0x20) != 0)
     {
       if ((*(equal + 168) & 0x20) == 0 || self->_requestCount != *(equal + 40))

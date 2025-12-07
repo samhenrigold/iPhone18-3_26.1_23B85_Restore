@@ -26,7 +26,7 @@
     v19 = 0u;
     v20 = 0u;
     v18 = 0u;
-    [(CKOrganicImageLivePhotoBalloonView *)self transform];
+    objc_msgSend_transform(self);
     v12 = *(MEMORY[0x1E695EFD0] + 16);
     v15 = *MEMORY[0x1E695EFD0];
     v16 = v12;

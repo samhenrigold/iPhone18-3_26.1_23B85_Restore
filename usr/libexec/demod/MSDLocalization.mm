@@ -48,7 +48,7 @@
 
     else
     {
-      v12 = sub_100063A54();
+      v12 = sub_100063A54(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1000DC75C(v12);
@@ -75,38 +75,38 @@
     localizationTable2 = [(MSDLocalization *)self localizationTable];
     v10 = [localizationTable2 objectForKey:keyCopy];
 
-    v11 = v10;
+    v12 = v10;
     if (!v10)
     {
-      v12 = sub_100063A54();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100063A54(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = +[NSLocale preferredLanguages];
-        v16 = 138543618;
-        v17 = keyCopy;
-        v18 = 2114;
-        v19 = v13;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Localization lookup failed for key %{public}@, preferred languages %{public}@", &v16, 0x16u);
+        v14 = +[NSLocale preferredLanguages];
+        v17 = 138543618;
+        v18 = keyCopy;
+        v19 = 2114;
+        v20 = v14;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Localization lookup failed for key %{public}@, preferred languages %{public}@", &v17, 0x16u);
       }
 
-      v11 = stringCopy;
+      v12 = stringCopy;
     }
 
-    v14 = v11;
+    v15 = v12;
   }
 
   else
   {
-    v14 = stringCopy;
+    v15 = stringCopy;
   }
 
-  return v14;
+  return v15;
 }
 
 + (id)getLocalizedOwnershipWarnings:(id)warnings
 {
   warningsCopy = warnings;
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(warningsCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -187,7 +187,7 @@
   v9 = v8;
   if (!v8)
   {
-    sub_1000DCAF0();
+    sub_1000DCAF0(0);
 LABEL_16:
     v11 = 0;
     goto LABEL_12;
@@ -195,13 +195,13 @@ LABEL_16:
 
   if (([v8 isEqualToString:@"iPhone"] & 1) == 0 && (objc_msgSend(v9, "isEqualToString:", @"iPad") & 1) == 0 && (objc_msgSend(v9, "isEqualToString:", @"iPod") & 1) == 0 && (objc_msgSend(v9, "isEqualToString:", @"Watch") & 1) == 0)
   {
-    sub_1000DC998();
+    sub_1000DC998(v9);
     goto LABEL_16;
   }
 
   if (([flagCopy isEqualToString:@"2"] & 1) == 0 && (objc_msgSend(flagCopy, "isEqualToString:", @"1") & 1) == 0)
   {
-    sub_1000DCA44();
+    sub_1000DCA44(flagCopy);
     goto LABEL_16;
   }
 

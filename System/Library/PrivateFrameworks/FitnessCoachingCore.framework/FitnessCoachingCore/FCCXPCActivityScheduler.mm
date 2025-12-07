@@ -56,7 +56,7 @@
 
 void __66__FCCXPCActivityScheduler_scheduleActivityWithName_scheduledDate___block_invoke(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   state = xpc_activity_get_state(v3);
   _HKInitializeLogging();
@@ -67,11 +67,11 @@ void __66__FCCXPCActivityScheduler_scheduleActivityWithName_scheduledDate___bloc
     v6 = a1[5];
     v8 = v5;
     v9 = [v6 _stringForXPCActivityState:state];
-    v13 = 138412546;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v9;
-    _os_log_impl(&dword_24B53B000, v8, OS_LOG_TYPE_DEFAULT, "XPC activity %@ fired with state: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v9;
+    _os_log_impl(&dword_24B53B000, v8, OS_LOG_TYPE_DEFAULT, "XPC activity %@ fired with state: %@", &v12, 0x16u);
   }
 
   v11 = a1[4];
@@ -85,8 +85,6 @@ void __66__FCCXPCActivityScheduler_scheduleActivityWithName_scheduledDate___bloc
   {
     [v10 _checkInActivity:v3 name:v11 scheduledDate:a1[6]];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelActivityWithName:(id)name
@@ -98,7 +96,7 @@ void __66__FCCXPCActivityScheduler_scheduleActivityWithName_scheduledDate___bloc
 
 - (void)_checkInActivity:(id)activity name:(id)name scheduledDate:(id)date
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   nameCopy = name;
   dateProvider = self->_dateProvider;
@@ -121,15 +119,13 @@ void __66__FCCXPCActivityScheduler_scheduleActivityWithName_scheduledDate___bloc
     v18 = *MEMORY[0x277CCC290];
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412290;
-      v21 = nameCopy;
-      _os_log_impl(&dword_24B53B000, v18, OS_LOG_TYPE_DEFAULT, "Updated criteria for xpc activity: %@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = nameCopy;
+      _os_log_impl(&dword_24B53B000, v18, OS_LOG_TYPE_DEFAULT, "Updated criteria for xpc activity: %@", &v19, 0xCu);
     }
 
     xpc_activity_set_criteria(activityCopy, v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runActivity:(id)activity name:(id)name
@@ -161,43 +157,41 @@ void __66__FCCXPCActivityScheduler_scheduleActivityWithName_scheduledDate___bloc
 
 void __45__FCCXPCActivityScheduler__runActivity_name___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_24B53B000, v2, OS_LOG_TYPE_DEFAULT, "Running xpc activity: %@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 24));
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __45__FCCXPCActivityScheduler__runActivity_name___block_invoke_293;
-  v8[3] = &unk_27900A100;
-  v9 = v5;
-  v10 = *(a1 + 48);
-  [WeakRetained scheduler:v6 performActivityWithName:v9 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __45__FCCXPCActivityScheduler__runActivity_name___block_invoke_293;
+  v7[3] = &unk_27900A100;
+  v8 = v5;
+  v9 = *(a1 + 48);
+  [WeakRetained scheduler:v6 performActivityWithName:v8 completion:v7];
 }
 
 void __45__FCCXPCActivityScheduler__runActivity_name___block_invoke_293(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = MEMORY[0x277CCC290];
   v3 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_24B53B000, v3, OS_LOG_TYPE_DEFAULT, "Setting xpc activity to done: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_24B53B000, v3, OS_LOG_TYPE_DEFAULT, "Setting xpc activity to done: %@", &v6, 0xCu);
   }
 
   if (!xpc_activity_set_state(*(a1 + 40), 5))
@@ -209,8 +203,6 @@ void __45__FCCXPCActivityScheduler__runActivity_name___block_invoke_293(uint64_t
       __45__FCCXPCActivityScheduler__runActivity_name___block_invoke_293_cold_1(a1, v5);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_stringForXPCActivityState:(int64_t)state
@@ -235,21 +227,19 @@ void __45__FCCXPCActivityScheduler__runActivity_name___block_invoke_293(uint64_t
 
 - (void)_runActivity:(uint64_t)a1 name:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24B53B000, a2, OS_LOG_TYPE_ERROR, "failed to set xpc activity state to continue: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24B53B000, a2, OS_LOG_TYPE_ERROR, "failed to set xpc activity state to continue: %@", &v2, 0xCu);
 }
 
 void __45__FCCXPCActivityScheduler__runActivity_name___block_invoke_293_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_24B53B000, a2, OS_LOG_TYPE_ERROR, "Failed to set xpc activity state to done: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_24B53B000, a2, OS_LOG_TYPE_ERROR, "Failed to set xpc activity state to done: %@", &v3, 0xCu);
 }
 
 @end

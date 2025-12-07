@@ -3,6 +3,7 @@
 - (WeatherInMemoryDefaults)init;
 - (id)objectForKey:(id)key;
 - (void)removeObjectForKey:(id)key;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setObject:(id)object forKey:(id)key;
 - (void)synchronizeWithCompletionHandler:(id)handler;
 @end
@@ -61,6 +62,15 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  inMemoryStore = [(WeatherInMemoryDefaults *)self inMemoryStore];
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:boolCopy];
+  [inMemoryStore setObject:v7 forKey:keyCopy];
 }
 
 - (void)synchronizeWithCompletionHandler:(id)handler

@@ -4,6 +4,7 @@
 - (BOOL)isEqual:(id)equal;
 - (JavaTextSimpleDateFormat)initWithNSString:(id)string;
 - (id)clone;
+- (id)errorWithJavaTextParsePosition:(id)position withInt:(int)int withJavaUtilTimeZone:(id)zone;
 - (id)formatToCharacterIteratorWithId:(id)id;
 - (id)get2DigitYearStart;
 - (id)getDateFormatSymbols;
@@ -192,6 +193,17 @@ LABEL_14:
 LABEL_8:
 
   return sub_100201CF4(selfCopy2, idCopy);
+}
+
+- (id)errorWithJavaTextParsePosition:(id)position withInt:(int)int withJavaUtilTimeZone:(id)zone
+{
+  if (!position || ([position setErrorIndexWithInt:*&int], (calendar = self->super.calendar_) == 0))
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaUtilCalendar *)calendar setTimeZoneWithJavaUtilTimeZone:zone];
+  return 0;
 }
 
 - (id)get2DigitYearStart
@@ -497,22 +509,8 @@ LABEL_45:
   v5 = v4;
   v6 = [v4 getWithNSString:@"serialVersionOnStream" withInt:0];
   v7 = new_JavaUtilDate_init();
-  if (v6 >= 1)
+  if (v6 >= 1 && (v7 = [v5 getWithNSString:@"defaultCenturyStart" withId:v7], objc_opt_class(), v7) && (objc_opt_isKindOfClass() & 1) == 0 || (-[JavaTextSimpleDateFormat set2DigitYearStartWithJavaUtilDate:](self, "set2DigitYearStartWithJavaUtilDate:", v7), v8 = objc_msgSend(v5, "getWithNSString:withId:", @"formatData", 0), objc_opt_class(), v8) && (objc_opt_isKindOfClass() & 1) == 0 || (JreStrongAssign(&self->formatData_, v8), v9 = objc_msgSend(v5, "getWithNSString:withId:", @"pattern", &stru_100484358), objc_opt_class(), v9) && (objc_opt_isKindOfClass() & 1) == 0)
   {
-    v7 = [v5 getWithNSString:@"defaultCenturyStart" withId:v7];
-    objc_opt_class();
-    if (v7)
-    {
-      if ((objc_opt_isKindOfClass() & 1) == 0)
-      {
-        goto LABEL_14;
-      }
-    }
-  }
-
-  if ((-[JavaTextSimpleDateFormat set2DigitYearStartWithJavaUtilDate:](self, "set2DigitYearStartWithJavaUtilDate:", v7), v8 = [v5 getWithNSString:@"formatData" withId:0], objc_opt_class(), v8) && (objc_opt_isKindOfClass() & 1) == 0 || (JreStrongAssign(&self->formatData_, v8), v9 = objc_msgSend(v5, "getWithNSString:withId:", @"pattern", &stru_100484358), objc_opt_class(), v9) && (objc_opt_isKindOfClass() & 1) == 0)
-  {
-LABEL_14:
     JreThrowClassCastException();
   }
 
@@ -531,14 +529,14 @@ LABEL_14:
   if (objc_opt_class() == self)
   {
     v2 = JavaUtilDate_class_();
-    v6[0] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"defaultCenturyStart", v2);
-    v3 = JavaTextDateFormatSymbols_class_();
-    v6[1] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"formatData", v3);
-    v4 = NSString_class_();
-    v6[2] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"pattern", v4);
-    v6[3] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"serialVersionOnStream", +[IOSClass intClass]);
-    v5 = [IOSObjectArray newArrayWithObjects:v6 count:4 type:JavaIoObjectStreamField_class_()];
-    JreStrongAssignAndConsume(&qword_100555020, v5);
+    v8[0] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"defaultCenturyStart", v2);
+    v4 = JavaTextDateFormatSymbols_class_(v8[0], v3);
+    v8[1] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"formatData", v4);
+    v5 = NSString_class_();
+    v8[2] = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"pattern", v5);
+    v9 = new_JavaIoObjectStreamField_initWithNSString_withIOSClass_(@"serialVersionOnStream", +[IOSClass intClass]);
+    v7 = [IOSObjectArray newArrayWithObjects:v8 count:4 type:JavaIoObjectStreamField_class_(v9, v6)];
+    JreStrongAssignAndConsume(&qword_100555020, v7);
     atomic_store(1u, JavaTextSimpleDateFormat__initialized);
   }
 }
@@ -551,16 +549,16 @@ LABEL_14:
   }
 
   Default = JavaUtilLocale_getDefault();
-  v1 = LibcoreIcuLocaleData_getWithJavaUtilLocale_(Default);
-  if (!v1)
+  v2 = LibcoreIcuLocaleData_getWithJavaUtilLocale_(Default, v1);
+  if (!v2)
   {
     JreThrowNullPointerException();
   }
 
-  v2 = v1;
-  v3 = [(LibcoreIcuLocaleData *)v1 getDateFormatWithInt:3];
-  [(LibcoreIcuLocaleData *)v2 getTimeFormatWithInt:3];
-  return JreStrcat("$C$", v4, v5, v6, v7, v8, v9, v10, v3);
+  v3 = v2;
+  v4 = [(LibcoreIcuLocaleData *)v2 getDateFormatWithInt:3];
+  [(LibcoreIcuLocaleData *)v3 getTimeFormatWithInt:3];
+  return JreStrcat("$C$", v5, v6, v7, v8, v9, v10, v11, v4);
 }
 
 @end

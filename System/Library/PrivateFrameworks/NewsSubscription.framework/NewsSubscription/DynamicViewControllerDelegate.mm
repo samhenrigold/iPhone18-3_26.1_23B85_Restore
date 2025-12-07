@@ -15,8 +15,9 @@
     swift_once();
   }
 
-  sub_1D78B60A4();
-  sub_1D78B42C4();
+  v7 = qword_1EE09C268;
+  v8 = sub_1D78B60A4();
+  sub_1D78B42C4("AMSUIDynamicViewControllerDelegate: dynamicViewControllerShouldDismiss callback", 79, 2, &dword_1D7739000, v7, v8, MEMORY[0x1E69E7CC0]);
   sub_1D78ACEAC(dismissCopy);
 
   return 1;

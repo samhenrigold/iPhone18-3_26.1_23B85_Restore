@@ -59,9 +59,9 @@
         goto LABEL_11;
       }
 
-      v9 = [(_UIDatePickerCalendarDateComponent *)v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
 
-      if (!v9)
+      if (!isEqual)
       {
         goto LABEL_11;
       }
@@ -121,7 +121,7 @@ LABEL_12:
   if ([(_UIDatePickerCalendarDateComponent *)&v13 isEqual:equalCopy])
   {
     v5 = equalCopy;
-    if ([(_UIDatePickerCalendarDateComponent *)self->_month isEqual:v5[3]])
+    if (objc_msgSend_isEqual_(self->_month))
     {
       v6 = v5[4];
       v7 = self->_assignedMonth;
@@ -129,7 +129,7 @@ LABEL_12:
       v9 = v8;
       if (v7 == v8)
       {
-        v11 = 1;
+        isEqual = 1;
       }
 
       else
@@ -146,28 +146,28 @@ LABEL_12:
 
         if (v10)
         {
-          v11 = 0;
+          isEqual = 0;
         }
 
         else
         {
-          v11 = [(_UIDatePickerCalendarDateComponent *)v7 isEqual:v8];
+          isEqual = objc_msgSend_isEqual_(v7);
         }
       }
     }
 
     else
     {
-      v11 = 0;
+      isEqual = 0;
     }
   }
 
   else
   {
-    v11 = 0;
+    isEqual = 0;
   }
 
-  return v11;
+  return isEqual;
 }
 
 - (id)description

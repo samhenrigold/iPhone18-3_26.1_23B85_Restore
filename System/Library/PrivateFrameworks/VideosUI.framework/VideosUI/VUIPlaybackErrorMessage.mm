@@ -48,19 +48,20 @@ void __41__VUIPlaybackErrorMessage_sharedInstance__block_invoke()
 
 void __93__VUIPlaybackErrorMessage_getLocalizedErrorMessageFor_withPlaybackMode_withError_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v5 = v4;
   if (!a2)
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = VUIDefaultLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = [MEMORY[0x1E696AF00] currentThread];
-      v7 = 138412546;
-      v8 = v6;
-      v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_INFO, "VUIPlaybackErrorMessage [%@] - emitting message:%@", &v7, 0x16u);
+      v7 = [MEMORY[0x1E696AF00] currentThread];
+      v8 = 138412546;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "VUIPlaybackErrorMessage [%@] - emitting message:%@", &v8, 0x16u);
     }
 
     goto LABEL_7;
@@ -68,10 +69,10 @@ void __93__VUIPlaybackErrorMessage_getLocalizedErrorMessageFor_withPlaybackMode_
 
   if (a2 == 1)
   {
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = VUIDefaultLogObject(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __93__VUIPlaybackErrorMessage_getLocalizedErrorMessageFor_withPlaybackMode_withError_completion___block_invoke_cold_1(v4, v5);
+      __93__VUIPlaybackErrorMessage_getLocalizedErrorMessageFor_withPlaybackMode_withError_completion___block_invoke_cold_1(v5, v6);
     }
 
 LABEL_7:

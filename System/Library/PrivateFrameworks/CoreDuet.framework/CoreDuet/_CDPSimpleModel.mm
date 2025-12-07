@@ -97,38 +97,38 @@
 
 - (unsigned)_newIdsForPeople:(id)people length:(unint64_t *)length
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   peopleCopy = people;
   v7 = malloc_type_calloc([peopleCopy count], 4uLL, 0x100004052888210uLL);
   v8 = self->_people;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v9 = peopleCopy;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = [(NSArray *)v8 indexOfObject:*(*(&v19 + 1) + 8 * i) inSortedRange:0 options:[(NSArray *)v8 count] usingComparator:256, &__block_literal_global_25];
+        v15 = [(NSArray *)v8 indexOfObject:*(*(&v18 + 1) + 8 * i) inSortedRange:0 options:[(NSArray *)v8 count] usingComparator:256, &__block_literal_global_25];
         if ([(NSArray *)v8 count]&& v15 != 0x7FFFFFFFFFFFFFFFLL)
         {
           v7[v12++] = v15;
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
@@ -145,7 +145,6 @@
     *length = v16;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -158,287 +157,283 @@
 
 - (_cdp_prediction_result)_newPredictionResultWithSeed:(unsigned int *)seed seedLength:(unint64_t)length realSeedLength:(unint64_t)seedLength maxTrainingEmailID:(unsigned int)d
 {
-  v87 = *MEMORY[0x1E69E9840];
-  if (self->_NEmail - 2501 >= 0xFFFFFFFFFFFFF63CLL)
+  v86 = *MEMORY[0x1E69E9840];
+  if (self->_NEmail - 2501 < 0xFFFFFFFFFFFFF63CLL)
   {
-    seedLengthCopy = seedLength;
-    if (self->_scoresAreDirty)
-    {
-      v11 = 0;
-      v12 = 1;
-      do
-      {
-        v13 = 0.0;
-        if (self->_userIsSender[v11])
-        {
-          [(_CDPSimpleModel *)self w0];
-          v13 = log2f(v14);
-        }
+    return 0;
+  }
 
-        v15 = self->_timestamp[v11];
-        [(_CDPSimpleModel *)self lambda];
-        v17 = v15 / (v16 * 86400.0);
-        self->_email2LogScore[v11] = v13 + v17;
-        v11 = v12;
+  seedLengthCopy = seedLength;
+  if (self->_scoresAreDirty)
+  {
+    v11 = 0;
+    v12 = 1;
+    do
+    {
+      v13 = 0.0;
+      if (self->_userIsSender[v11])
+      {
+        [(_CDPSimpleModel *)self w0];
+        v13 = log2f(v14);
       }
 
-      while (self->_NEmail > v12++);
-      self->_scoresAreDirty = 0;
+      v15 = self->_timestamp[v11];
+      [(_CDPSimpleModel *)self lambda];
+      v17 = v15 / (v16 * 86400.0);
+      self->_email2LogScore[v11] = v13 + v17;
+      v11 = v12;
     }
 
-    bzero(v86, 0x2710uLL);
-    bzero(v85, 0x2710uLL);
-    v82 = &v78;
-    v19 = &v78 - ((self->_NPeople * length + 15) & 0xFFFFFFFFFFFFFFF0);
-    bzero(v19, self->_NPeople * length);
-    standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-    v21 = [standardUserDefaults valueForKey:@"com.apple.coreduetd.people.social.min_seed_proportion"];
-    v80 = v21;
-    if (v21)
-    {
-      [v21 floatValue];
-      v23 = v22;
-    }
+    while (self->_NEmail > v12++);
+    self->_scoresAreDirty = 0;
+  }
 
-    else
-    {
-      v23 = 0.5;
-    }
+  bzero(v85, 0x2710uLL);
+  bzero(v84, 0x2710uLL);
+  v81 = &v77;
+  v19 = &v77 - ((self->_NPeople * length + 15) & 0xFFFFFFFFFFFFFFF0);
+  bzero(v19, self->_NPeople * length);
+  standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
+  v21 = [standardUserDefaults valueForKey:@"com.apple.coreduetd.people.social.min_seed_proportion"];
+  v79 = v21;
+  if (v21)
+  {
+    [v21 floatValue];
+    v23 = v22;
+  }
 
-    v24 = [standardUserDefaults objectForKey:@"com.apple.coreduetd.people.social.improved_scoring"];
+  else
+  {
+    v23 = 0.5;
+  }
 
-    v81 = standardUserDefaults;
-    if (v24)
-    {
-      v83 = [standardUserDefaults BOOLForKey:@"com.apple.coreduetd.people.social.improved_scoring"];
-    }
+  v24 = [standardUserDefaults objectForKey:@"com.apple.coreduetd.people.social.improved_scoring"];
 
-    else
-    {
-      v83 = 1;
-    }
+  v80 = standardUserDefaults;
+  if (v24)
+  {
+    v82 = [standardUserDefaults BOOLForKey:@"com.apple.coreduetd.people.social.improved_scoring"];
+  }
 
-    NEmail = self->_NEmail;
-    timestamp = self->_timestamp;
-    if (NEmail <= d)
-    {
-      v27 = (timestamp + (((NEmail << 32) - 0x100000000) >> 29));
-    }
+  else
+  {
+    v82 = 1;
+  }
 
-    else
-    {
-      v27 = &timestamp[d];
-    }
+  NEmail = self->_NEmail;
+  timestamp = self->_timestamp;
+  if (NEmail <= d)
+  {
+    v27 = (timestamp + (((NEmail << 32) - 0x100000000) >> 29));
+  }
 
-    v28 = *v27;
-    bzero(v84, 0x2710uLL);
-    v29 = 1;
-    if (length)
+  else
+  {
+    v27 = &timestamp[d];
+  }
+
+  v28 = *v27;
+  bzero(v83, 0x2710uLL);
+  v29 = 1;
+  if (length)
+  {
+    v30 = 0;
+    v31 = 0;
+    people2Email = self->_people2Email;
+    people2EmailLength = self->_people2EmailLength;
+    do
     {
-      v30 = 0;
-      v31 = 0;
-      people2Email = self->_people2Email;
-      people2EmailLength = self->_people2EmailLength;
-      do
+      v34 = seed[v30];
+      v35 = people2EmailLength[v34];
+      if (v35 >= 1)
       {
-        v34 = seed[v30];
-        v35 = people2EmailLength[v34];
-        if (v35 >= 1)
-        {
-          v36 = people2Email[v34];
-          v37 = &v36[v35];
-          do
-          {
-            v38 = *v36;
-            if (*v36 <= d && timestamp[v38] >= v28 + ((self->_lambda * -13.288) * 86400.0))
-            {
-              v39 = v84[v38];
-              v84[v38] = v39 + 1;
-              if (!v39)
-              {
-                v85[v31++] = v38;
-              }
-
-              if (self->_userIsSender[v38])
-              {
-                v40 = self->_emailLength[v38];
-                if (v40)
-                {
-                  v41 = self->_email[v38];
-                  do
-                  {
-                    v42 = *v41++;
-                    v19[v30 + v42 * length] = 1;
-                    --v40;
-                  }
-
-                  while (v40);
-                }
-              }
-            }
-
-            ++v36;
-          }
-
-          while (v36 < v37);
-        }
-
-        ++v30;
-      }
-
-      while (v30 != length);
-      if (v31)
-      {
-        v43 = v28 / (self->_lambda * 86400.0);
-        v44 = v31;
-        email2LogScore = self->_email2LogScore;
-        v46 = v85;
-        v47 = v31;
+        v36 = people2Email[v34];
+        v37 = &v36[v35];
         do
         {
-          v49 = *v46++;
-          v48 = v49;
-          v50 = exp2f(email2LogScore[v49] - v43);
-          v51 = v84[v49];
-          if (v83)
+          v38 = *v36;
+          if (*v36 <= d && timestamp[v38] >= v28 + ((self->_lambda * -13.288) * 86400.0))
           {
-            v52 = (v50 * (v51 * v51)) / self->_emailLength[v48];
+            v39 = v83[v38];
+            v83[v38] = v39 + 1;
+            if (!v39)
+            {
+              v84[v31++] = v38;
+            }
+
+            if (self->_userIsSender[v38])
+            {
+              v40 = self->_emailLength[v38];
+              if (v40)
+              {
+                v41 = self->_email[v38];
+                do
+                {
+                  v42 = *v41++;
+                  v19[v30 + v42 * length] = 1;
+                  --v40;
+                }
+
+                while (v40);
+              }
+            }
           }
 
-          else
-          {
-            v52 = v50 * v51;
-          }
-
-          *&v86[v48] = v52;
-          --v47;
+          ++v36;
         }
 
-        while (v47);
-        v29 = 0;
+        while (v36 < v37);
       }
 
-      else
+      ++v30;
+    }
+
+    while (v30 != length);
+    if (v31)
+    {
+      v43 = v28 / (self->_lambda * 86400.0);
+      v44 = v31;
+      email2LogScore = self->_email2LogScore;
+      v46 = v84;
+      v47 = v31;
+      do
       {
-        v44 = 0;
-        v29 = 1;
+        v49 = *v46++;
+        v48 = v49;
+        v50 = exp2f(email2LogScore[v49] - v43);
+        v51 = v83[v49];
+        if (v82)
+        {
+          v52 = (v50 * (v51 * v51)) / self->_emailLength[v48];
+        }
+
+        else
+        {
+          v52 = v50 * v51;
+        }
+
+        *&v85[v48] = v52;
+        --v47;
       }
+
+      while (v47);
+      v29 = 0;
     }
 
     else
     {
       v44 = 0;
-    }
-
-    v53 = malloc_type_calloc(self->_NPeople, 0x10uLL, 0x1000040451B5BE8uLL);
-    v6 = v53;
-    NPeople = self->_NPeople;
-    if (NPeople)
-    {
-      LODWORD(v55) = 0;
-      v56 = v53;
-      do
-      {
-        v56->var0 = v55;
-        ++v56;
-        v55 = (v55 + 1);
-      }
-
-      while (NPeople > v55);
-    }
-
-    if ((v29 & 1) == 0)
-    {
-      v57 = 0;
-      emailLength = self->_emailLength;
-      do
-      {
-        v59 = v85[v57];
-        v60 = emailLength[v59];
-        if (v60)
-        {
-          v61 = self->_email[v59];
-          v62 = *&v86[v59];
-          do
-          {
-            v63 = *v61++;
-            v53[v63].var1 = v62 + v53[v63].var1;
-            --v60;
-          }
-
-          while (v60);
-        }
-
-        ++v57;
-      }
-
-      while (v57 != v44);
-    }
-
-    requireOutgoingInteraction = [(_CDPSimpleModel *)self requireOutgoingInteraction];
-    v65 = v81;
-    if (requireOutgoingInteraction)
-    {
-      v66 = self->_NPeople;
-      if (v66)
-      {
-        v67 = 0;
-        v68 = v23 * seedLengthCopy;
-        do
-        {
-          if (length)
-          {
-            v69 = 0;
-            lengthCopy = length;
-            v71 = v19;
-            do
-            {
-              v72 = *v71++;
-              v69 += v72;
-              --lengthCopy;
-            }
-
-            while (lengthCopy);
-            v73 = v69;
-          }
-
-          else
-          {
-            v73 = 0.0;
-          }
-
-          if (v68 >= v73)
-          {
-            v6[v67].var1 = -1.0;
-          }
-
-          ++v67;
-          v19 += length;
-        }
-
-        while (v67 != v66);
-      }
-    }
-
-    if (length >= 1)
-    {
-      v74 = &seed[length];
-      do
-      {
-        v75 = *seed++;
-        v6[v75].var1 = -1.0;
-      }
-
-      while (seed < v74);
+      v29 = 1;
     }
   }
 
   else
   {
-    v6 = 0;
+    v44 = 0;
   }
 
-  v76 = *MEMORY[0x1E69E9840];
+  v53 = malloc_type_calloc(self->_NPeople, 0x10uLL, 0x1000040451B5BE8uLL);
+  v6 = v53;
+  NPeople = self->_NPeople;
+  if (NPeople)
+  {
+    LODWORD(v55) = 0;
+    v56 = v53;
+    do
+    {
+      v56->var0 = v55;
+      ++v56;
+      v55 = (v55 + 1);
+    }
+
+    while (NPeople > v55);
+  }
+
+  if ((v29 & 1) == 0)
+  {
+    v57 = 0;
+    emailLength = self->_emailLength;
+    do
+    {
+      v59 = v84[v57];
+      v60 = emailLength[v59];
+      if (v60)
+      {
+        v61 = self->_email[v59];
+        v62 = *&v85[v59];
+        do
+        {
+          v63 = *v61++;
+          v53[v63].var1 = v62 + v53[v63].var1;
+          --v60;
+        }
+
+        while (v60);
+      }
+
+      ++v57;
+    }
+
+    while (v57 != v44);
+  }
+
+  requireOutgoingInteraction = [(_CDPSimpleModel *)self requireOutgoingInteraction];
+  v65 = v80;
+  if (requireOutgoingInteraction)
+  {
+    v66 = self->_NPeople;
+    if (v66)
+    {
+      v67 = 0;
+      v68 = v23 * seedLengthCopy;
+      do
+      {
+        if (length)
+        {
+          v69 = 0;
+          lengthCopy = length;
+          v71 = v19;
+          do
+          {
+            v72 = *v71++;
+            v69 += v72;
+            --lengthCopy;
+          }
+
+          while (lengthCopy);
+          v73 = v69;
+        }
+
+        else
+        {
+          v73 = 0.0;
+        }
+
+        if (v68 >= v73)
+        {
+          v6[v67].var1 = -1.0;
+        }
+
+        ++v67;
+        v19 += length;
+      }
+
+      while (v67 != v66);
+    }
+  }
+
+  if (length >= 1)
+  {
+    v74 = &seed[length];
+    do
+    {
+      v75 = *seed++;
+      v6[v75].var1 = -1.0;
+    }
+
+    while (seed < v74);
+  }
+
   return v6;
 }
 

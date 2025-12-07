@@ -56,88 +56,95 @@
   sub_19B953A04(&__p);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    p_p = &__p;
+    v5 = objc_msgSend_stringWithUTF8String_(v2, v3, &__p, v4);
   }
 
   else
   {
-    p_p = __p.__r_.__value_.__r.__words[0];
+    v5 = objc_msgSend_stringWithUTF8String_(v2, v3, __p.__r_.__value_.__l.__data_, v4);
   }
 
-  v4 = [objc_msgSend(v2 stringWithUTF8String:{p_p), "stringByAppendingPathComponent:", @"SimulationScenarios"}];
+  v8 = objc_msgSend_stringByAppendingPathComponent_(v5, v6, @"SimulationScenarios", v7);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  return v4;
+  return v8;
 }
 
 - (id)availableScenarios
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = [objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")];
-  if (v2)
+  v34 = *MEMORY[0x1E69E9840];
+  v5 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], a2, v2, v3);
+  v9 = objc_msgSend_scenariosPath(self, v6, v7, v8);
+  v11 = objc_msgSend_contentsOfDirectoryAtPath_error_(v5, v10, v9, 0);
+  if (v11)
   {
-    v3 = v2;
-    array = [MEMORY[0x1E695DF70] array];
-    v11 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v5)
+    v15 = v11;
+    v16 = objc_msgSend_array(MEMORY[0x1E695DF70], v12, v13, v14);
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v17, &v29, v33, 16);
+    if (v18)
     {
-      v6 = v5;
-      v7 = *v12;
+      v22 = v18;
+      v23 = *v30;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v12 != v7)
+          if (*v30 != v23)
           {
-            objc_enumerationMutation(v3);
+            objc_enumerationMutation(v15);
           }
 
-          [array addObject:{objc_msgSend(*(*(&v11 + 1) + 8 * i), "stringByDeletingPathExtension")}];
+          v25 = objc_msgSend_stringByDeletingPathExtension(*(*(&v29 + 1) + 8 * i), v19, v20, v21);
+          objc_msgSend_addObject_(v16, v26, v25, v27);
         }
 
-        v6 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v19, &v29, v33, 16);
       }
 
-      while (v6);
+      while (v22);
     }
   }
 
   else
   {
     NSLog(&cfstr_CouldnTGetList.isa);
-    array = 0;
+    return 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-  return array;
+  return v16;
 }
 
 - (void)selectScenario:(id)scenario
 {
-  v4 = [-[CLSimulationManager scenariosPath](self "scenariosPath")];
-  [MEMORY[0x1E695DFF8] fileURLWithPath:v4];
+  v6 = objc_msgSend_scenariosPath(self, a2, scenario, v3);
+  v9 = objc_msgSend_stringByAppendingPathExtension_(scenario, v7, @"plist", v8);
+  v12 = objc_msgSend_stringByAppendingPathComponent_(v6, v10, v9, v11);
+  v15 = objc_msgSend_fileURLWithPath_(MEMORY[0x1E695DFF8], v13, v12, v14);
 
-  MEMORY[0x1EEE66B58](self, sel_loadScenarioFromURL_);
+  MEMORY[0x1EEE66B58](self, sel_loadScenarioFromURL_, v15, v16);
 }
 
 - (void)loadScenarioFromURL:(id)l
 {
-  if ([l isFileURL])
+  if (objc_msgSend_isFileURL(l, a2, l, v3))
   {
-    if ([objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")])
+    v9 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v6, v7, v8);
+    v13 = objc_msgSend_path(l, v10, v11, v12);
+    if (objc_msgSend_fileExistsAtPath_(v9, v14, v13, v15))
     {
-      if ([objc_msgSend(l "pathExtension")])
+      v19 = objc_msgSend_pathExtension(l, v16, v17, v18);
+      if (objc_msgSend_isEqualToString_(v19, v20, @"plist", v21))
       {
-        daemonProxy = [(CLSimulationManager *)self daemonProxy];
+        v25 = objc_msgSend_daemonProxy(self, v22, v23, v24);
 
-        MEMORY[0x1EEE66B58](daemonProxy, sel_setSimulationScenario_);
+        MEMORY[0x1EEE66B58](v25, sel_setSimulationScenario_, l, v26);
       }
 
       else
@@ -160,49 +167,51 @@
 
 - (void)setLocationDeliveryBehavior:(unsigned __int8)behavior
 {
+  behaviorCopy = behavior;
   self->_locationDeliveryBehavior = behavior;
-  daemonProxy = [(CLSimulationManager *)self daemonProxy];
+  v5 = objc_msgSend_daemonProxy(self, a2, behavior, v3);
 
-  MEMORY[0x1EEE66B58](daemonProxy, sel_setLocationDeliveryBehavior_);
+  MEMORY[0x1EEE66B58](v5, sel_setLocationDeliveryBehavior_, behaviorCopy, v6);
 }
 
 - (void)setLocationDistance:(double)distance
 {
   self->_locationDistance = distance;
-  daemonProxy = [(CLSimulationManager *)self daemonProxy];
+  v5 = objc_msgSend_daemonProxy(self, a2, v3, v4);
 
-  MEMORY[0x1EEE66B58](daemonProxy, sel_setIntermediateLocationDistance_);
+  MEMORY[0x1EEE66B58](v5, sel_setIntermediateLocationDistance_, v6, v7);
 }
 
 - (void)setLocationInterval:(double)interval
 {
   self->_locationInterval = interval;
-  daemonProxy = [(CLSimulationManager *)self daemonProxy];
+  v5 = objc_msgSend_daemonProxy(self, a2, v3, v4);
 
-  MEMORY[0x1EEE66B58](daemonProxy, sel_setLocationInterval_);
+  MEMORY[0x1EEE66B58](v5, sel_setLocationInterval_, v6, v7);
 }
 
 - (void)setLocationSpeed:(double)speed
 {
   self->_locationSpeed = speed;
-  daemonProxy = [(CLSimulationManager *)self daemonProxy];
+  v5 = objc_msgSend_daemonProxy(self, a2, v3, v4);
 
-  MEMORY[0x1EEE66B58](daemonProxy, sel_setLocationTravellingSpeed_);
+  MEMORY[0x1EEE66B58](v5, sel_setLocationTravellingSpeed_, v6, v7);
 }
 
 - (void)setLocationRepeatBehavior:(unsigned __int8)behavior
 {
+  behaviorCopy = behavior;
   self->_locationRepeatBehavior = behavior;
-  daemonProxy = [(CLSimulationManager *)self daemonProxy];
+  v5 = objc_msgSend_daemonProxy(self, a2, behavior, v3);
 
-  MEMORY[0x1EEE66B58](daemonProxy, sel_setLocationRepeatBehavior_);
+  MEMORY[0x1EEE66B58](v5, sel_setLocationRepeatBehavior_, behaviorCopy, v6);
 }
 
 - (void)clearSimulatedLocations
 {
-  daemonProxy = [(CLSimulationManager *)self daemonProxy];
+  v4 = objc_msgSend_daemonProxy(self, a2, v2, v3);
 
-  MEMORY[0x1EEE66B58](daemonProxy, sel_clearSimulatedLocations);
+  MEMORY[0x1EEE66B58](v4, sel_clearSimulatedLocations, v5, v6);
 }
 
 - (void)appendSimulatedLocation:(id)location
@@ -212,45 +221,46 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v16 = 0u;
-      memset(v17, 0, 28);
-      v15 = 0u;
-      v13 = 0u;
-      memset(v14, 0, sizeof(v14));
-      v11 = 0u;
-      v12 = 0u;
-      v10 = 0u;
-      [location clientLocation];
-      LODWORD(v15) = 1;
-      if (*(v14 + 12) <= 0.0)
+      v29 = 0u;
+      memset(v30, 0, 28);
+      v28 = 0u;
+      v26 = 0u;
+      memset(v27, 0, sizeof(v27));
+      v24 = 0u;
+      v25 = 0u;
+      v23 = 0u;
+      objc_msgSend_clientLocation(location, v5, v6, v7);
+      LODWORD(v28) = 1;
+      if (*(v27 + 12) <= 0.0)
       {
-        *(v14 + 12) = CFAbsoluteTimeGetCurrent();
+        *(v27 + 12) = CFAbsoluteTimeGetCurrent();
       }
 
-      if (*(&v14[1] + 1) == 0.0)
+      if (*(&v27[1] + 1) == 0.0)
       {
-        *(&v14[1] + 1) = 0xBFF0000000000000;
+        *(&v27[1] + 1) = 0xBFF0000000000000;
       }
 
-      if (*(&v11 + 4) == 0.0)
+      if (*(&v24 + 4) == 0.0)
       {
-        *(&v11 + 4) = 0x4014000000000000;
+        *(&v24 + 4) = 0x4014000000000000;
       }
 
-      v5 = objc_alloc(MEMORY[0x1E6985C40]);
-      v8[6] = v15;
-      v8[7] = v16;
-      v9[0] = v17[0];
-      *(v9 + 12) = *(v17 + 12);
-      v8[2] = v12;
-      v8[3] = v13;
-      v8[4] = v14[0];
-      v8[5] = v14[1];
-      v8[0] = v10;
-      v8[1] = v11;
-      v6 = [v5 initWithClientLocation:v8];
-      daemonProxy = [(CLSimulationManager *)self daemonProxy];
-      -[CLSimulationXPCServerInterface appendSimulatedLocations:](daemonProxy, "appendSimulatedLocations:", [MEMORY[0x1E695DEC8] arrayWithObject:v6]);
+      v8 = objc_alloc(MEMORY[0x1E6985C40]);
+      v21[6] = v28;
+      v21[7] = v29;
+      v22[0] = v30[0];
+      *(v22 + 12) = *(v30 + 12);
+      v21[2] = v25;
+      v21[3] = v26;
+      v21[4] = v27[0];
+      v21[5] = v27[1];
+      v21[0] = v23;
+      v21[1] = v24;
+      v11 = objc_msgSend_initWithClientLocation_(v8, v9, v21, v10);
+      v15 = objc_msgSend_daemonProxy(self, v12, v13, v14);
+      v18 = objc_msgSend_arrayWithObject_(MEMORY[0x1E695DEC8], v16, v11, v17);
+      objc_msgSend_appendSimulatedLocations_(v15, v19, v18, v20);
     }
 
     else
@@ -262,51 +272,51 @@
 
 - (void)startLocationSimulation
 {
-  daemonProxy = [(CLSimulationManager *)self daemonProxy];
+  v4 = objc_msgSend_daemonProxy(self, a2, v2, v3);
 
-  MEMORY[0x1EEE66B58](daemonProxy, sel_startLocationSimulation);
+  MEMORY[0x1EEE66B58](v4, sel_startLocationSimulation, v5, v6);
 }
 
 - (void)stopLocationSimulation
 {
-  daemonProxy = [(CLSimulationManager *)self daemonProxy];
+  v4 = objc_msgSend_daemonProxy(self, a2, v2, v3);
 
-  MEMORY[0x1EEE66B58](daemonProxy, sel_stopLocationSimulation);
+  MEMORY[0x1EEE66B58](v4, sel_stopLocationSimulation, v5, v6);
 }
 
 - (void)simulateVisit:(id)visit
 {
-  daemonProxy = [(CLSimulationManager *)self daemonProxy];
+  v5 = objc_msgSend_daemonProxy(self, a2, visit, v3);
 
-  MEMORY[0x1EEE66B58](daemonProxy, sel_simulateVisit_);
+  MEMORY[0x1EEE66B58](v5, sel_simulateVisit_, visit, v6);
 }
 
 - (void)simulateSignificantLocationChange:(id)change
 {
-  daemonProxy = [(CLSimulationManager *)self daemonProxy];
+  v5 = objc_msgSend_daemonProxy(self, a2, change, v3);
 
-  MEMORY[0x1EEE66B58](daemonProxy, sel_simulateSignificantLocationChange_);
+  MEMORY[0x1EEE66B58](v5, sel_simulateSignificantLocationChange_, change, v6);
 }
 
 - (void)getFencesForBundleID:(id)d withHandler:(id)handler
 {
-  daemonProxy = [(CLSimulationManager *)self daemonProxy];
+  v6 = objc_msgSend_daemonProxy(self, a2, d, handler);
 
-  MEMORY[0x1EEE66B58](daemonProxy, sel_getFencesForBundleID_withReply_);
+  MEMORY[0x1EEE66B58](v6, sel_getFencesForBundleID_withReply_, d, handler);
 }
 
 - (void)simulateFenceWithBundleID:(id)d andFenceID:(id)iD eventType:(unsigned __int8)type atLocation:(id)location
 {
-  daemonProxy = [(CLSimulationManager *)self daemonProxy];
+  v8 = objc_msgSend_daemonProxy(self, a2, d, iD);
 
-  MEMORY[0x1EEE66B58](daemonProxy, sel_simulateFenceWithBundleID_andFenceID_eventType_atLocation_);
+  MEMORY[0x1EEE66B58](v8, sel_simulateFenceWithBundleID_andFenceID_eventType_atLocation_, d, iD);
 }
 
 - (void)simulateBeaconWithProximityUUID:(id)d major:(int64_t)major minor:(int64_t)minor eventType:(unsigned __int8)type
 {
-  daemonProxy = [(CLSimulationManager *)self daemonProxy];
+  v8 = objc_msgSend_daemonProxy(self, a2, d, major);
 
-  MEMORY[0x1EEE66B58](daemonProxy, sel_simulateBeaconWithProximityUUID_major_minor_eventType_);
+  MEMORY[0x1EEE66B58](v8, sel_simulateBeaconWithProximityUUID_major_minor_eventType_, d, major);
 }
 
 - (void)clearSimulatedCells
@@ -333,15 +343,14 @@
       dispatch_once(&qword_1ED519088, &unk_1F0E6DA08);
     }
 
-    v4 = _os_log_send_and_compose_impl();
+    v5[0] = 0;
+    v4 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1ED519090, 16, "this SPI is obsolete and will be removed in the future", v5, 2);
     sub_19B885924("Generic", 1, 0, 0, "[CLSimulationManager clearSimulatedCells]", "CoreLocation: %s\n", v4);
     if (v4 != buf)
     {
       free(v4);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSimulatedCell:(id)cell
@@ -368,15 +377,14 @@
       dispatch_once(&qword_1ED519088, &unk_1F0E6DA08);
     }
 
-    v5 = _os_log_send_and_compose_impl();
+    v6[0] = 0;
+    v5 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1ED519090, 16, "this SPI is obsolete and will be removed in the future", v6, 2);
     sub_19B885924("Generic", 1, 0, 0, "[CLSimulationManager setSimulatedCell:]", "CoreLocation: %s\n", v5);
     if (v5 != buf)
     {
       free(v5);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startCellSimulation
@@ -403,15 +411,14 @@
       dispatch_once(&qword_1ED519088, &unk_1F0E6DA08);
     }
 
-    v4 = _os_log_send_and_compose_impl();
+    v5[0] = 0;
+    v4 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1ED519090, 16, "this SPI is obsolete and will be removed in the future", v5, 2);
     sub_19B885924("Generic", 1, 0, 0, "[CLSimulationManager startCellSimulation]", "CoreLocation: %s\n", v4);
     if (v4 != buf)
     {
       free(v4);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopCellSimulation
@@ -438,15 +445,14 @@
       dispatch_once(&qword_1ED519088, &unk_1F0E6DA08);
     }
 
-    v4 = _os_log_send_and_compose_impl();
+    v5[0] = 0;
+    v4 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1ED519090, 16, "this SPI is obsolete and will be removed in the future", v5, 2);
     sub_19B885924("Generic", 1, 0, 0, "[CLSimulationManager stopCellSimulation]", "CoreLocation: %s\n", v4);
     if (v4 != buf)
     {
       free(v4);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSimulatedCellRegistrationStatus:(BOOL)status
@@ -473,15 +479,14 @@
       dispatch_once(&qword_1ED519088, &unk_1F0E6DA08);
     }
 
-    v5 = _os_log_send_and_compose_impl();
+    v6[0] = 0;
+    v5 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1ED519090, 16, "this SPI is obsolete and will be removed in the future", v6, 2);
     sub_19B885924("Generic", 1, 0, 0, "[CLSimulationManager setSimulatedCellRegistrationStatus:]", "CoreLocation: %s\n", v5);
     if (v5 != buf)
     {
       free(v5);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setWifiScanResults:(id)results
@@ -508,15 +513,14 @@
       dispatch_once(&qword_1ED519088, &unk_1F0E6DA08);
     }
 
-    v5 = _os_log_send_and_compose_impl();
+    v6[0] = 0;
+    v5 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1ED519090, 16, "this SPI is obsolete and will be removed in the future", v6, 2);
     sub_19B885924("Generic", 1, 0, 0, "[CLSimulationManager setWifiScanResults:]", "CoreLocation: %s\n", v5);
     if (v5 != buf)
     {
       free(v5);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startWifiSimulation
@@ -543,15 +547,14 @@
       dispatch_once(&qword_1ED519088, &unk_1F0E6DA08);
     }
 
-    v4 = _os_log_send_and_compose_impl();
+    v5[0] = 0;
+    v4 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1ED519090, 16, "this SPI is obsolete and will be removed in the future", v5, 2);
     sub_19B885924("Generic", 1, 0, 0, "[CLSimulationManager startWifiSimulation]", "CoreLocation: %s\n", v4);
     if (v4 != buf)
     {
       free(v4);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopWifiSimulation
@@ -578,15 +581,14 @@
       dispatch_once(&qword_1ED519088, &unk_1F0E6DA08);
     }
 
-    v4 = _os_log_send_and_compose_impl();
+    v5[0] = 0;
+    v4 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1ED519090, 16, "this SPI is obsolete and will be removed in the future", v5, 2);
     sub_19B885924("Generic", 1, 0, 0, "[CLSimulationManager stopWifiSimulation]", "CoreLocation: %s\n", v4);
     if (v4 != buf)
     {
       free(v4);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSimulatedWifiPower:(BOOL)power
@@ -613,15 +615,14 @@
       dispatch_once(&qword_1ED519088, &unk_1F0E6DA08);
     }
 
-    v5 = _os_log_send_and_compose_impl();
+    v6[0] = 0;
+    v5 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1ED519090, 16, "this SPI is obsolete and will be removed in the future", v6, 2);
     sub_19B885924("Generic", 1, 0, 0, "[CLSimulationManager setSimulatedWifiPower:]", "CoreLocation: %s\n", v5);
     if (v5 != buf)
     {
       free(v5);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)flush
@@ -648,20 +649,19 @@
       dispatch_once(&qword_1ED519088, &unk_1F0E6DA08);
     }
 
-    v4 = _os_log_send_and_compose_impl();
+    v5[0] = 0;
+    v4 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1ED519090, 16, "this SPI is obsolete and will be removed in the future", v5, 2);
     sub_19B885924("Generic", 1, 0, 0, "[CLSimulationManager flush]", "CoreLocation: %s\n", v4);
     if (v4 != buf)
     {
       free(v4);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (CLSimulationXPCServerInterface)daemonProxy
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE4720 != -1)
   {
     dispatch_once(&qword_1EAFE4720, &unk_1F0E6DA28);
@@ -672,72 +672,77 @@
   {
     *buf = 68289026;
     *&buf[4] = 0;
-    *v14 = 2082;
-    *&v14[2] = "";
+    *v56 = 2082;
+    *&v56[2] = "";
     _os_log_impl(&dword_19B873000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:getDaemonProxy called}", buf, 0x12u);
   }
 
-  if (![(CLSimulationManager *)self connection])
+  if (!objc_msgSend_connection(self, v4, v5, v6))
   {
     if (qword_1EAFE4720 != -1)
     {
       dispatch_once(&qword_1EAFE4720, &unk_1F0E6DA28);
     }
 
-    v4 = qword_1EAFE46F0;
+    v10 = qword_1EAFE46F0;
     if (os_log_type_enabled(qword_1EAFE46F0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68289026;
       *&buf[4] = 0;
-      *v14 = 2082;
-      *&v14[2] = "";
-      _os_log_impl(&dword_19B873000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:no existing connection, trying to get one}", buf, 0x12u);
+      *v56 = 2082;
+      *&v56[2] = "";
+      _os_log_impl(&dword_19B873000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:no existing connection, trying to get one}", buf, 0x12u);
     }
 
-    -[CLSimulationManager setConnection:](self, "setConnection:", [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.locationd.simulation" options:4096]);
-    connection = [(CLSimulationManager *)self connection];
-    -[NSXPCConnection setRemoteObjectInterface:](connection, "setRemoteObjectInterface:", [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F0EAC988]);
-    [(NSXPCConnection *)[(CLSimulationManager *)self connection] setInterruptionHandler:&unk_1F0E6D9C8];
+    v11 = objc_alloc(MEMORY[0x1E696B0B8]);
+    v13 = objc_msgSend_initWithMachServiceName_options_(v11, v12, @"com.apple.locationd.simulation", 4096);
+    objc_msgSend_setConnection_(self, v14, v13, v15);
+    v19 = objc_msgSend_connection(self, v16, v17, v18);
+    v22 = objc_msgSend_interfaceWithProtocol_(MEMORY[0x1E696B0D0], v20, &unk_1F0EAC988, v21);
+    objc_msgSend_setRemoteObjectInterface_(v19, v23, v22, v24);
+    v28 = objc_msgSend_connection(self, v25, v26, v27);
+    objc_msgSend_setInterruptionHandler_(v28, v29, &unk_1F0E6D9C8, v30);
     *buf = 0;
-    *v14 = buf;
-    *&v14[8] = 0x3052000000;
-    *&v14[16] = sub_19B98C5C4;
-    *&v14[24] = sub_19B98C5D4;
+    *v56 = buf;
+    *&v56[8] = 0x3052000000;
+    *&v56[16] = sub_19B98C5C4;
+    *&v56[24] = sub_19B98C5D4;
     selfCopy = self;
-    connection2 = [(CLSimulationManager *)self connection];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = sub_19B98C5E0;
-    v12[3] = &unk_1E753CDF8;
-    v12[4] = buf;
-    [(NSXPCConnection *)connection2 setInvalidationHandler:v12];
-    [(NSXPCConnection *)[(CLSimulationManager *)self connection] resume];
+    v34 = objc_msgSend_connection(self, v31, v32, v33);
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = sub_19B98C5E0;
+    v54[3] = &unk_1E753CDF8;
+    v54[4] = buf;
+    objc_msgSend_setInvalidationHandler_(v34, v35, v54, v36);
+    v40 = objc_msgSend_connection(self, v37, v38, v39);
+    objc_msgSend_resume(v40, v41, v42, v43);
     _Block_object_dispose(buf, 8);
   }
 
-  v7 = [(NSXPCConnection *)[(CLSimulationManager *)self connection] remoteObjectProxyWithErrorHandler:&unk_1F0E6D9E8];
+  v44 = objc_msgSend_connection(self, v7, v8, v9);
+  v47 = objc_msgSend_remoteObjectProxyWithErrorHandler_(v44, v45, &unk_1F0E6D9E8, v46);
   if (qword_1EAFE4720 != -1)
   {
     dispatch_once(&qword_1EAFE4720, &unk_1F0E6DA28);
   }
 
-  v8 = qword_1EAFE46F0;
+  v48 = qword_1EAFE46F0;
   if (os_log_type_enabled(qword_1EAFE46F0, OS_LOG_TYPE_DEFAULT))
   {
-    connection3 = [(CLSimulationManager *)self connection];
+    v52 = objc_msgSend_connection(self, v49, v50, v51);
     *buf = 68289538;
     *&buf[4] = 0;
-    *v14 = 2082;
-    *&v14[2] = "";
-    *&v14[10] = 2114;
-    *&v14[12] = v7;
-    *&v14[20] = 2114;
-    *&v14[22] = connection3;
-    _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Do we have a proxy?, proxy:%{public, location:escape_only}@, connection:%{public, location:escape_only}@}", buf, 0x26u);
+    *v56 = 2082;
+    *&v56[2] = "";
+    *&v56[10] = 2114;
+    *&v56[12] = v47;
+    *&v56[20] = 2114;
+    *&v56[22] = v52;
+    _os_log_impl(&dword_19B873000, v48, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Do we have a proxy?, proxy:%{public, location:escape_only}@, connection:%{public, location:escape_only}@}", buf, 0x26u);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v7;
+  return v47;
 }
 
 @end

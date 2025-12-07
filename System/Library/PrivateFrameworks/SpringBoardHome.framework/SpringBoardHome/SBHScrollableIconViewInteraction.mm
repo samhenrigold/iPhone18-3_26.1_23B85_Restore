@@ -65,7 +65,7 @@
     x = v41.origin.x;
     height = v41.size.height;
     width = v41.size.width;
-    [scrollCopy bounds];
+    objc_msgSend_bounds(scrollCopy);
     v18 = v17;
     v20 = v19;
     v22 = v21;

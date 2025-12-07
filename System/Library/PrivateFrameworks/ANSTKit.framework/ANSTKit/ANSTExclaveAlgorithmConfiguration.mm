@@ -45,13 +45,13 @@
   {
     switch(v9)
     {
-      case 21:
+      case 0x15:
         v13 = @"DEFAULT";
         goto LABEL_17;
-      case 33:
+      case 0x21:
         v13 = @"USER_INTERACTIVE";
         goto LABEL_17;
-      case 25:
+      case 0x19:
         v13 = @"USER_INITIATED";
         goto LABEL_17;
     }
@@ -67,13 +67,13 @@
       case 9:
         v13 = @"BACKGROUND";
         goto LABEL_17;
-      case 17:
+      case 0x11:
         v13 = @"UTILITY";
         goto LABEL_17;
     }
   }
 
-  v14 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v14 = _ANSTLoggingGetOSLogForCategoryANSTKit(v9);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
   {
     sub_22E6585F0(v12, v14);

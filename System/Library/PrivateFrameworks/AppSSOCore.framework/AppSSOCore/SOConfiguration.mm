@@ -18,66 +18,65 @@
 
 - (SOConfiguration)initWithProfiles:(id)profiles
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   profilesCopy = profiles;
-  v6 = SO_LOG_SOConfiguration();
+  v6 = SO_LOG_SOConfiguration(profilesCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v23 = "[SOConfiguration initWithProfiles:]";
-    v24 = 2112;
+    v22 = "[SOConfiguration initWithProfiles:]";
+    v23 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1CA238000, v6, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
-  v20.receiver = self;
-  v20.super_class = SOConfiguration;
-  v7 = [(SOConfiguration *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = SOConfiguration;
+  v7 = [(SOConfiguration *)&v19 init];
   v8 = v7;
   if (v7)
   {
     objc_storeStrong(&v7->_profiles, profiles);
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v9 = v8->_profiles;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         v13 = 0;
         do
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [*(*(&v16 + 1) + 8 * v13++) preLoadURLData];
+          [*(*(&v15 + 1) + 8 * v13++) preLoadURLData];
         }
 
         while (v11 != v13);
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
       while (v11);
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (BOOL)willHandleURL:(id)l responseCode:(int64_t)code callerBundleIdentifier:(id)identifier
 {
   lCopy = l;
-  v21 = 0;
-  v9 = [(SOConfiguration *)self willHandleURL:lCopy responseCode:code callerBundleIdentifier:identifier profile:&v21];
-  v10 = v21;
+  v22 = 0;
+  v9 = [(SOConfiguration *)self willHandleURL:lCopy responseCode:code callerBundleIdentifier:identifier profile:&v22];
+  v10 = v22;
   v11 = v10;
   if (v9)
   {
@@ -119,7 +118,7 @@ LABEL_10:
 
     if ((v19 & 1) == 0)
     {
-      scheme = SO_LOG_SOConfiguration();
+      scheme = SO_LOG_SOConfiguration(v20);
       if (os_log_type_enabled(scheme, OS_LOG_TYPE_ERROR))
       {
         [SOConfiguration willHandleURL:code responseCode:scheme callerBundleIdentifier:?];
@@ -140,13 +139,13 @@ LABEL_13:
 
 - (int64_t)willHandleURL:(id)l responseCode:(int64_t)code callerBundleIdentifier:(id)identifier profile:(id *)profile
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v11 = [(SOConfiguration *)self profileForURL:l responseCode:code];
   v12 = v11;
   if (!v11)
   {
-    v16 = 1;
+    v17 = 1;
     goto LABEL_17;
   }
 
@@ -162,15 +161,15 @@ LABEL_13:
 
     if (type != 2)
     {
-      v15 = SO_LOG_SOConfiguration();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v16 = SO_LOG_SOConfiguration(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v23 = 138543362;
-        v24 = identifierCopy;
-        _os_log_impl(&dword_1CA238000, v15, OS_LOG_TYPE_INFO, "breaking calling recursion for caller with bundleIdentifier: %{public}@", &v23, 0xCu);
+        v24 = 138543362;
+        v25 = identifierCopy;
+        _os_log_impl(&dword_1CA238000, v16, OS_LOG_TYPE_INFO, "breaking calling recursion for caller with bundleIdentifier: %{public}@", &v24, 0xCu);
       }
 
-      v16 = 2;
+      v17 = 2;
       goto LABEL_17;
     }
   }
@@ -180,39 +179,38 @@ LABEL_13:
   }
 
   deniedBundleIdentifiers = [v12 deniedBundleIdentifiers];
-  v18 = [deniedBundleIdentifiers containsObject:identifierCopy];
+  v19 = [deniedBundleIdentifiers containsObject:identifierCopy];
 
-  if (!v18)
+  if (!v19)
   {
 LABEL_14:
     if (profile)
     {
-      v20 = v12;
-      v16 = 0;
+      v22 = v12;
+      v17 = 0;
       *profile = v12;
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
     goto LABEL_17;
   }
 
-  v19 = SO_LOG_SOConfiguration();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  v21 = SO_LOG_SOConfiguration(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
-    v23 = 138543362;
-    v24 = identifierCopy;
-    _os_log_impl(&dword_1CA238000, v19, OS_LOG_TYPE_INFO, "denied caller with bundleIdentifier: %{public}@", &v23, 0xCu);
+    v24 = 138543362;
+    v25 = identifierCopy;
+    _os_log_impl(&dword_1CA238000, v21, OS_LOG_TYPE_INFO, "denied caller with bundleIdentifier: %{public}@", &v24, 0xCu);
   }
 
-  v16 = 3;
+  v17 = 3;
 LABEL_17:
 
-  v21 = *MEMORY[0x1E69E9840];
-  return v16;
+  return v17;
 }
 
 - (id)profileForURL:(id)l responseCode:(int64_t)code
@@ -261,38 +259,38 @@ LABEL_17:
 
 - (id)realms
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v3 = SO_LOG_SOConfiguration();
+  v23 = *MEMORY[0x1E69E9840];
+  v3 = SO_LOG_SOConfiguration(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v21 = "[SOConfiguration realms]";
-    v22 = 2112;
+    v20 = "[SOConfiguration realms]";
+    v21 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1CA238000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   array = [MEMORY[0x1E695DF70] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = self->_profiles;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         if ([v10 type] == 2)
         {
           realm = [v10 realm];
@@ -305,13 +303,11 @@ LABEL_17:
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -319,40 +315,40 @@ LABEL_17:
 - (id)_profileForURLWithStandardScheme:(id)scheme isCredential:(BOOL)credential
 {
   credentialCopy = credential;
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   schemeCopy = scheme;
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v7 = self->_profiles;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v41;
-    v34 = v7;
-    v35 = schemeCopy;
-    v32 = credentialCopy;
-    v30 = *v41;
+    v10 = *v40;
+    v33 = v7;
+    v34 = schemeCopy;
+    v31 = credentialCopy;
+    v29 = *v40;
     selfCopy = self;
     while (2)
     {
       v11 = 0;
-      v33 = v9;
+      v32 = v9;
       do
       {
-        if (*v41 != v10)
+        if (*v40 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v40 + 1) + 8 * v11);
+        v12 = *(*(&v39 + 1) + 8 * v11);
         absoluteString = [schemeCopy absoluteString];
         if ([v12 type] == 1 && !credentialCopy && objc_msgSend(v12, "matchesURL:", absoluteString))
         {
 LABEL_32:
-          v29 = v12;
+          v28 = v12;
 LABEL_27:
 
           goto LABEL_29;
@@ -368,26 +364,26 @@ LABEL_27:
             goto LABEL_32;
           }
 
-          v38 = 0u;
-          v39 = 0u;
-          v36 = 0u;
           v37 = 0u;
+          v38 = 0u;
+          v35 = 0u;
+          v36 = 0u;
           uRLPrefix = [v12 URLPrefix];
-          v18 = [uRLPrefix countByEnumeratingWithState:&v36 objects:v44 count:16];
+          v18 = [uRLPrefix countByEnumeratingWithState:&v35 objects:v43 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v37;
+            v20 = *v36;
             while (2)
             {
               for (i = 0; i != v19; ++i)
               {
-                if (*v37 != v20)
+                if (*v36 != v20)
                 {
                   objc_enumerationMutation(uRLPrefix);
                 }
 
-                v22 = *(*(&v36 + 1) + 8 * i);
+                v22 = *(*(&v35 + 1) + 8 * i);
                 lowercaseString = [absoluteString lowercaseString];
                 lowercaseString2 = [v22 lowercaseString];
                 v25 = [lowercaseString hasPrefix:lowercaseString2];
@@ -396,13 +392,13 @@ LABEL_27:
                 {
                   v26 = v12;
 
-                  v7 = v34;
-                  schemeCopy = v35;
+                  v7 = v33;
+                  schemeCopy = v34;
                   goto LABEL_27;
                 }
               }
 
-              v19 = [uRLPrefix countByEnumeratingWithState:&v36 objects:v44 count:16];
+              v19 = [uRLPrefix countByEnumeratingWithState:&v35 objects:v43 count:16];
               if (v19)
               {
                 continue;
@@ -412,19 +408,19 @@ LABEL_27:
             }
           }
 
-          v7 = v34;
-          schemeCopy = v35;
-          credentialCopy = v32;
-          v10 = v30;
+          v7 = v33;
+          schemeCopy = v34;
+          credentialCopy = v31;
+          v10 = v29;
           self = selfCopy;
-          v9 = v33;
+          v9 = v32;
         }
 
         ++v11;
       }
 
       while (v11 != v9);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v39 objects:v44 count:16];
       v12 = 0;
       if (v9)
       {
@@ -442,35 +438,33 @@ LABEL_27:
 
 LABEL_29:
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)_profileForURLWithHostScheme:(id)scheme
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   schemeCopy = scheme;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = self->_profiles;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         if ([v10 type] == 2)
         {
           host = [schemeCopy host];
@@ -484,7 +478,7 @@ LABEL_29:
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -497,35 +491,33 @@ LABEL_29:
   v13 = 0;
 LABEL_12:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (BOOL)_matchHost:(id)host inCredentialProfile:(id)profile
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   hostCopy = host;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = [profile hosts];
-  v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         v11 = [v10 hasPrefix:@"."];
         lowercaseString = [hostCopy lowercaseString];
         lowercaseString2 = [v10 lowercaseString];
@@ -561,7 +553,7 @@ LABEL_16:
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v7)
       {
         continue;
@@ -574,34 +566,33 @@ LABEL_16:
   v18 = 0;
 LABEL_17:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (id)_profileForURLWithRealmScheme:(id)scheme
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   host = [scheme host];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = self->_profiles;
-  v5 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [(NSArray *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = 0;
-    v7 = *v20;
+    v7 = *v19;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         if ([v9 type] == 2)
         {
           realm = [v9 realm];
@@ -619,7 +610,7 @@ LABEL_17:
         }
       }
 
-      v5 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [(NSArray *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v5)
       {
         continue;
@@ -631,34 +622,32 @@ LABEL_17:
 
 LABEL_14:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)_profileForURLWithSSOIDScheme:(id)scheme
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   schemeCopy = scheme;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = self->_profiles;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         extensionBundleIdentifier = [v9 extensionBundleIdentifier];
         host = [schemeCopy host];
         v12 = [extensionBundleIdentifier isEqualToString:host];
@@ -670,7 +659,7 @@ LABEL_14:
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -682,18 +671,16 @@ LABEL_14:
 
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (SOConfiguration)initWithCoder:(id)coder
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v24.receiver = self;
-  v24.super_class = SOConfiguration;
-  v5 = [(SOConfiguration *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = SOConfiguration;
+  v5 = [(SOConfiguration *)&v23 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
@@ -705,38 +692,37 @@ LABEL_11:
     profiles = v5->_profiles;
     v5->_profiles = v11;
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v13 = v5->_profiles;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v21;
+      v16 = *v20;
       do
       {
         v17 = 0;
         do
         {
-          if (*v21 != v16)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          [*(*(&v20 + 1) + 8 * v17++) preLoadURLData];
+          [*(*(&v19 + 1) + 8 * v17++) preLoadURLData];
         }
 
         while (v15 != v17);
-        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v15);
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -765,11 +751,10 @@ LABEL_11:
 
 - (void)willHandleURL:(int)a1 responseCode:(NSObject *)a2 callerBundleIdentifier:.cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1CA238000, a2, OS_LOG_TYPE_ERROR, "invalid response code %u, expected 401 or 407", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1CA238000, a2, OS_LOG_TYPE_ERROR, "invalid response code %u, expected 401 or 407", v2, 8u);
 }
 
 @end

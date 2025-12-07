@@ -383,17 +383,15 @@ uint64_t __30__TCControlLabel_directionPad__block_invoke()
 
 - (GCSJSONObject)jsonObject
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   name = self->_name;
   role = self->_role;
-  v8[0] = @"name";
-  v8[1] = @"role";
-  v9[0] = name;
+  v7[0] = @"name";
+  v7[1] = @"role";
+  v8[0] = name;
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:role];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }

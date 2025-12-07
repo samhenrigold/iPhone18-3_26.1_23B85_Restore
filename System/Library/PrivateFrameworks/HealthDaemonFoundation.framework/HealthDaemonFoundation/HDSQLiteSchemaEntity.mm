@@ -27,7 +27,7 @@
 
 + (const)_cachedColumnDefinitionsWithCount:(unint64_t *)count
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = [self columnDefinitionsWithCount:?];
   if (!*count)
   {
@@ -46,7 +46,7 @@
       columnDefinitions = [v9 columnDefinitions];
 LABEL_19:
 
-      goto LABEL_20;
+      return columnDefinitions;
     }
 
     _columnDefinitionObjects = [self _columnDefinitionObjects];
@@ -81,17 +81,17 @@ LABEL_18:
 
     else
     {
-      v17 = [v8 isEqualToString:@"HDSQLiteSchemaEntity"];
+      v16 = [v8 isEqualToString:@"HDSQLiteSchemaEntity"];
 
-      if ((v17 & 1) == 0)
+      if ((v16 & 1) == 0)
       {
         _HKInitializeLogging();
-        v18 = *MEMORY[0x277CCC2A0];
+        v17 = *MEMORY[0x277CCC2A0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 138412290;
-          v20 = v8;
-          _os_log_impl(&dword_25156C000, v18, OS_LOG_TYPE_DEFAULT, "No column definitions for %@", &v19, 0xCu);
+          v18 = 138412290;
+          v19 = v8;
+          _os_log_impl(&dword_25156C000, v17, OS_LOG_TYPE_DEFAULT, "No column definitions for %@", &v18, 0xCu);
         }
       }
     }
@@ -101,10 +101,7 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  columnDefinitions = v5;
-LABEL_20:
-  v15 = *MEMORY[0x277D85DE8];
-  return columnDefinitions;
+  return v5;
 }
 
 + (id)disambiguatedSQLForProperty:(id)property
@@ -237,34 +234,33 @@ id __57__HDSQLiteSchemaEntity_updateSQLForProperties_predicate___block_invoke(ui
 + (id)databaseTable
 {
   objc_opt_class();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_10();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0_10(v2);
   return 0;
 }
 
 + (BOOL)hasROWID
 {
   objc_opt_class();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_10();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0_10(v2);
   return 1;
 }
 
 + (id)primaryKeyColumns
 {
   objc_opt_class();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_10();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0_10(v2);
   return 0;
 }
 
 + (void)_cachedColumnDefinitionsWithCount:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25156C000, a2, OS_LOG_TYPE_ERROR, "Error creating HDColumnCacheEntry for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25156C000, a2, OS_LOG_TYPE_ERROR, "Error creating HDColumnCacheEntry for %@", &v2, 0xCu);
 }
 
 @end

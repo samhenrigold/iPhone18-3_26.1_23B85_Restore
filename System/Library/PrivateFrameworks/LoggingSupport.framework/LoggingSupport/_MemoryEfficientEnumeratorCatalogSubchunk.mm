@@ -10,13 +10,11 @@
 
 - (unint64_t)getBootUUIDIndex:(os_trace_uuid_map_s *)index
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
-  v6[1] = 0;
-  [(NSUUID *)self->_buuid getUUIDBytes:v6];
-  result = _os_trace_uuid_map_lookup(index, v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[2] = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
+  v5[1] = 0;
+  [(NSUUID *)self->_buuid getUUIDBytes:v5];
+  return _os_trace_uuid_map_lookup(index, v5);
 }
 
 - (void)enumerateChunksUsingBlock:(id)block

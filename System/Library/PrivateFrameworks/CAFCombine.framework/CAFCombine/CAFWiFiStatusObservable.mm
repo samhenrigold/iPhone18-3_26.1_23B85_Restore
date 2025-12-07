@@ -23,28 +23,37 @@
 
 - (void)wiFiStatusService:(id)service didUpdateModuleStatus:(unsigned __int8)status
 {
+  statusCopy = status;
   serviceCopy = service;
   selfCopy = self;
-  CAFWiFiStatusObservable.wiFiStatusService(_:didUpdateModuleStatus:)(selfCopy, status);
+  CAFWiFiStatusObservable.wiFiStatusService(_:didUpdateModuleStatus:)(selfCopy, statusCopy);
 }
 
 - (void)wiFiStatusService:(id)service didUpdateSignalBars:(unsigned __int8)bars
 {
+  barsCopy = bars;
   serviceCopy = service;
   selfCopy = self;
-  CAFWiFiStatusObservable.wiFiStatusService(_:didUpdateSignalBars:)(selfCopy, bars);
+  CAFWiFiStatusObservable.wiFiStatusService(_:didUpdateSignalBars:)(selfCopy, barsCopy);
 }
 
 - (void)wiFiStatusService:(id)service didUpdateContentURLAction:(id)action
 {
   if (action)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v8 = v7;
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
   }
 
   serviceCopy = service;
   selfCopy = self;
-  CAFWiFiStatusObservable.wiFiStatusService(_:didUpdateContentURLAction:)();
+  CAFWiFiStatusObservable.wiFiStatusService(_:didUpdateContentURLAction:)(selfCopy, v6, v8);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

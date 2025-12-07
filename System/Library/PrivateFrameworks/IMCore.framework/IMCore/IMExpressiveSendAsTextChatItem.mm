@@ -8,21 +8,21 @@
 {
   itemCopy = item;
   textCopy = text;
-  v19.receiver = self;
-  v19.super_class = IMExpressiveSendAsTextChatItem;
-  v10 = [(IMChatItem *)&v19 _initWithItem:itemCopy];
-  if (v10)
+  v14.receiver = self;
+  v14.super_class = IMExpressiveSendAsTextChatItem;
+  v8 = [(IMChatItem *)&v14 _initWithItem:itemCopy];
+  if (v8)
   {
-    v11 = objc_msgSend_guid(itemCopy, v8, v9);
-    v12 = sub_1A83AC604();
+    guid = [itemCopy guid];
+    v10 = sub_1A83AC604();
 
-    objc_msgSend__setGUID_(v10, v13, v12);
-    v16 = objc_msgSend_copy(textCopy, v14, v15);
-    v17 = v10[7];
-    v10[7] = v16;
+    [v8 _setGUID:v10];
+    v11 = [textCopy copy];
+    v12 = v8[7];
+    v8[7] = v11;
   }
 
-  return v10;
+  return v8;
 }
 
 @end

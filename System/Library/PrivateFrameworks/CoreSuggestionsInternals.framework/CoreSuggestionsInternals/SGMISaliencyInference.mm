@@ -17,7 +17,7 @@
 + (id)evaluate:(id)evaluate enablePreFiltering:(BOOL)filtering config:(id)config error:(id *)error
 {
   filteringCopy = filtering;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   evaluateCopy = evaluate;
   mailMessage = [evaluateCopy mailMessage];
   if ([mailMessage isSent])
@@ -26,9 +26,9 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       messageId = [mailMessage messageId];
-      v29 = 138412290;
-      v30 = messageId;
-      _os_log_impl(&dword_231E60000, v11, OS_LOG_TYPE_DEFAULT, "SGMISaliencyInference: Mail %@ is a sent mail", &v29, 0xCu);
+      v28 = 138412290;
+      v29 = messageId;
+      _os_log_impl(&dword_231E60000, v11, OS_LOG_TYPE_DEFAULT, "SGMISaliencyInference: Mail %@ is a sent mail", &v28, 0xCu);
     }
 
     if (!error)
@@ -50,8 +50,8 @@ LABEL_17:
     v19 = sgMailIntelligenceLogHandle();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v29) = 0;
-      _os_log_error_impl(&dword_231E60000, v19, OS_LOG_TYPE_ERROR, "SGMISaliencyInference: Error - config shouldn't be nil when inferencing saliency", &v29, 2u);
+      LOWORD(v28) = 0;
+      _os_log_error_impl(&dword_231E60000, v19, OS_LOG_TYPE_ERROR, "SGMISaliencyInference: Error - config shouldn't be nil when inferencing saliency", &v28, 2u);
     }
 
     if (!error)
@@ -73,9 +73,9 @@ LABEL_17:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       messageId2 = [mailMessage messageId];
-      v29 = 138412290;
-      v30 = messageId2;
-      _os_log_impl(&dword_231E60000, v17, OS_LOG_TYPE_DEFAULT, "SGMISaliencyInference: No submodels for message ID: %@", &v29, 0xCu);
+      v28 = 138412290;
+      v29 = messageId2;
+      _os_log_impl(&dword_231E60000, v17, OS_LOG_TYPE_DEFAULT, "SGMISaliencyInference: No submodels for message ID: %@", &v28, 0xCu);
     }
 
     if (!error)
@@ -88,28 +88,28 @@ LABEL_17:
     goto LABEL_16;
   }
 
-  if (filteringCopy && (v24 = [SGMISaliencyModel ruleBasedInferenceFor:evaluateCopy], v24 != 2))
+  if (filteringCopy && (v23 = [SGMISaliencyModel ruleBasedInferenceFor:evaluateCopy], v23 != 2))
   {
-    v26 = v24;
-    v27 = sgMailIntelligenceLogHandle();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v25 = v23;
+    v26 = sgMailIntelligenceLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       messageId3 = [mailMessage messageId];
-      v29 = 138412290;
-      v30 = messageId3;
-      _os_log_impl(&dword_231E60000, v27, OS_LOG_TYPE_DEFAULT, "SGMISaliencyInference: rule based inference for message ID: %@", &v29, 0xCu);
+      v28 = 138412290;
+      v29 = messageId3;
+      _os_log_impl(&dword_231E60000, v26, OS_LOG_TYPE_DEFAULT, "SGMISaliencyInference: rule based inference for message ID: %@", &v28, 0xCu);
     }
 
-    defaultSaliencyOnError = [evaluateCopy defaultSaliencyOnOverrideFor:v26];
+    defaultSaliencyOnError = [evaluateCopy defaultSaliencyOnOverrideFor:v25];
   }
 
   else
   {
-    v25 = sgMailIntelligenceLogHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v24 = sgMailIntelligenceLogHandle();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v29) = 0;
-      _os_log_debug_impl(&dword_231E60000, v25, OS_LOG_TYPE_DEBUG, "SGMISaliencyInference: Performing saliency inference for e-mail message.", &v29, 2u);
+      LOWORD(v28) = 0;
+      _os_log_debug_impl(&dword_231E60000, v24, OS_LOG_TYPE_DEBUG, "SGMISaliencyInference: Performing saliency inference for e-mail message.", &v28, 2u);
     }
 
     defaultSaliencyOnError = [SGMISaliencyModel saliencyForFeatureVector:evaluateCopy];
@@ -117,8 +117,6 @@ LABEL_17:
 
 LABEL_18:
   v21 = defaultSaliencyOnError;
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

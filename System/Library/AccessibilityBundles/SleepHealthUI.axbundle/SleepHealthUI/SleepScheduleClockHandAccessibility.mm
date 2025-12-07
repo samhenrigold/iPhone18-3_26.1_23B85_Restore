@@ -7,6 +7,7 @@
 - (id)decrementComponents:(id)components;
 - (id)incrementComponents:(id)components;
 - (void)_axSpeakClockAlertIfNeeded;
+- (void)adjustClockHandIncrement:(BOOL)increment;
 @end
 
 @implementation SleepScheduleClockHandAccessibility
@@ -85,6 +86,52 @@
   text = [v8 text];
 
   return text;
+}
+
+- (void)adjustClockHandIncrement:(BOOL)increment
+{
+  incrementCopy = increment;
+  _axEditCell = [(SleepScheduleClockHandAccessibility *)self _axEditCell];
+  v6 = [_axEditCell safeValueForKey:@"accessibilityComponentsEditView"];
+  v7 = [v6 safeValueForKey:@"accessibilityClock"];
+
+  if ([(SleepScheduleClockHandAccessibility *)self _axIsValidSleepDurationIncrement:incrementCopy clock:v7 isAdjustingBedtime:[(SleepScheduleClockHandAccessibility *)self safeBoolForKey:@"accessibilityHandIsBedtime"]])
+  {
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = __Block_byref_object_copy_;
+    v25 = __Block_byref_object_dispose_;
+    v26 = 0;
+    LOBYTE(v15) = 0;
+    objc_opt_class();
+    v8 = [v7 safeValueForKey:@"accessibilityRoundedBedtimeComponents"];
+    v9 = __UIAccessibilityCastAsClass();
+
+    v10 = v22[5];
+    v22[5] = v9;
+
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x3032000000;
+    v18 = __Block_byref_object_copy_;
+    v19 = __Block_byref_object_dispose_;
+    v20 = 0;
+    objc_opt_class();
+    v11 = [v7 safeValueForKey:@"accessibilityRoundedWakeUpComponents"];
+    v12 = __UIAccessibilityCastAsClass();
+
+    v13 = v16[5];
+    v16[5] = v12;
+
+    v14 = v7;
+    AXPerformSafeBlock();
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
+    [(SleepScheduleClockHandAccessibility *)self _axSpeakClockAlertIfNeeded];
+
+    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v21, 8);
+  }
 }
 
 void __64__SleepScheduleClockHandAccessibility_adjustClockHandIncrement___block_invoke(uint64_t a1)

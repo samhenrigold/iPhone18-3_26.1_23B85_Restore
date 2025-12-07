@@ -106,7 +106,7 @@ void __86__HKHRAFibBurdenSevenDayAnalysisSchedulerXPCAlarm__unitTest_beginReceiv
 
 - (void)_stop
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = HKHRAFibBurdenLogForCategory();
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
@@ -116,14 +116,13 @@ void __86__HKHRAFibBurdenSevenDayAnalysisSchedulerXPCAlarm__unitTest_beginReceiv
     v5 = HKHRAFibBurdenLogForCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412290;
+      v6 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_229486000, v5, OS_LOG_TYPE_INFO, "[%@] Stopping observation", &v7, 0xCu);
+      _os_log_impl(&dword_229486000, v5, OS_LOG_TYPE_INFO, "[%@] Stopping observation", &v6, 0xCu);
     }
   }
 
   [(HDRestorableAlarm *)self->_scheduler invalidate];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_beginReceivingAlarmEvents
@@ -151,22 +150,20 @@ void __83__HKHRAFibBurdenSevenDayAnalysisSchedulerXPCAlarm__queue_beginReceiving
 
 - (void)_queue_alarm:(id)_queue_alarm didReceiveDueEvents:(id)events
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
   v5 = HKHRAFibBurdenLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
+    v7 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_229486000, v5, OS_LOG_TYPE_DEFAULT, "[%@] Alarm fired, rescheduling and firing", &v8, 0xCu);
+    _os_log_impl(&dword_229486000, v5, OS_LOG_TYPE_DEFAULT, "[%@] Alarm fired, rescheduling and firing", &v7, 0xCu);
   }
 
   [(HKHRAFibBurdenSevenDayAnalysisSchedulerXPCAlarm *)self _scheduleEventWithCompletion:0];
   delegate = [(HKHRAFibBurdenSevenDayAnalysisSchedulerXPCAlarm *)self delegate];
   [delegate initialAnalysisAlarmDidFireWithAlarm:self];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleEventWithCompletion:(id)completion
@@ -207,43 +204,39 @@ void __80__HKHRAFibBurdenSevenDayAnalysisSchedulerXPCAlarm__scheduleEventWithCom
 
 - (void)_queue_scheduleEvent
 {
-  *v4 = 138412546;
-  *&v4[4] = self;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_229486000, a2, a3, "[%@] Error while scheduling events: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = self;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_229486000, a2, a3, "[%@] Error while scheduling events: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (id)_determineNextEventDateComponents
 {
-  v18 = *MEMORY[0x277D85DE8];
-  defaults = self->_defaults;
-  v4 = HKHRAFibBurdenSevenDayAnalysisDetermineAlarmDateComponentsWithDefaults();
-  calendar = [v4 calendar];
-  v6 = (*(self->_dateGenerator + 2))();
-  v7 = [calendar nextDateAfterDate:v6 matchingComponents:v4 options:1024];
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = HKHRAFibBurdenSevenDayAnalysisDetermineAlarmDateComponentsWithDefaults();
+  calendar = [v3 calendar];
+  v5 = (*(self->_dateGenerator + 2))();
+  v6 = [calendar nextDateAfterDate:v5 matchingComponents:v3 options:1024];
 
   _HKInitializeLogging();
-  v8 = HKHRAFibBurdenLogForCategory();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v7 = HKHRAFibBurdenLogForCategory();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
+    v12 = 138412546;
     selfCopy = self;
-    v16 = 2112;
-    v17 = v7;
-    _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_DEFAULT, "[%@] Scheduling alarm to trigger analysis at %@", &v14, 0x16u);
+    v14 = 2112;
+    v15 = v6;
+    _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[%@] Scheduling alarm to trigger analysis at %@", &v12, 0x16u);
   }
 
   hk_gregorianCalendar = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
-  v10 = [hk_gregorianCalendar components:252 fromDate:v7];
-  [v10 setCalendar:hk_gregorianCalendar];
+  v9 = [hk_gregorianCalendar components:252 fromDate:v6];
+  [v9 setCalendar:hk_gregorianCalendar];
   timeZone = [hk_gregorianCalendar timeZone];
-  [v10 setTimeZone:timeZone];
+  [v9 setTimeZone:timeZone];
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v9;
 }
 
 - (HKHRAFibBurdenSevenDayAnalysisSchedulerAlarmDelegate)delegate
@@ -255,12 +248,11 @@ void __80__HKHRAFibBurdenSevenDayAnalysisSchedulerXPCAlarm__scheduleEventWithCom
 
 void __80__HKHRAFibBurdenSevenDayAnalysisSchedulerXPCAlarm__scheduleEventWithCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_229486000, a2, a3, "[%{public}@] Error checking for due events before rescheduling: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_229486000, a2, a3, "[%{public}@] Error checking for due events before rescheduling: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface _PASDispatch
 + (id)autoreleasingSerialQueueWithLabel:(const char *)label;
++ (id)autoreleasingSerialQueueWithLabel:(const char *)label qosClass:(unsigned int)class;
 + (unint64_t)dispatchTimeWithSecondsFromNow:(double)now;
 + (unsigned)waitForBlock:(id)block timeoutSeconds:(double)seconds;
 + (unsigned)waitForGroup:(id)group timeoutSeconds:(double)seconds;
@@ -81,6 +82,24 @@
 
   _Block_object_dispose(v34, 8);
   _Block_object_dispose(v36, 8);
+}
+
++ (id)autoreleasingSerialQueueWithLabel:(const char *)label qosClass:(unsigned int)class
+{
+  v4 = *&class;
+  v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v7 = dispatch_queue_attr_make_with_qos_class(v6, v4, 0);
+
+  if (!v7)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"dispatch_queue_t  _Nonnull _PASAutoreleasingSerialQueueWithQOS(const char * _Nullable, qos_class_t)"}];
+    [currentHandler handleFailureInFunction:v11 file:@"_PASDispatchInline.h" lineNumber:191 description:{@"Unsupported QOS class: %u", v4}];
+  }
+
+  v8 = dispatch_queue_create(label, v7);
+
+  return v8;
 }
 
 + (id)autoreleasingSerialQueueWithLabel:(const char *)label

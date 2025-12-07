@@ -1,5 +1,6 @@
 @interface AABattery
 + (id)invalidBattery;
+- (AABattery)initWithAACPBatteryInfo:(id)info productID:(unsigned int)d;
 - (AABattery)initWithCoder:(id)coder;
 - (AABattery)initWithLevel:(double)level productID:(unsigned int)d state:(int64_t)state type:(int64_t)type;
 - (BOOL)fullyCharged;
@@ -26,6 +27,71 @@
   [(AABattery *)v2 setType:0];
 
   return v2;
+}
+
+- (AABattery)initWithAACPBatteryInfo:(id)info productID:(unsigned int)d
+{
+  v5 = *&info.var0;
+  v6 = [(AABattery *)self init];
+  v7 = v6;
+  if (v6)
+  {
+    v6->_sourceFlags = 4;
+    v6->_lastOrigin = 3;
+    v6->_lastSeen = CFAbsoluteTimeGetCurrent();
+    v7->_productID = d;
+    if (BYTE3(v5) > 6u)
+    {
+      v8 = 0;
+    }
+
+    else
+    {
+      v8 = qword_241535FA8[(v5 >> 24) & 7];
+    }
+
+    v7->_state = v8;
+    if (v5 <= 3u)
+    {
+      if (v5 == 1)
+      {
+        v9 = 4;
+        goto LABEL_16;
+      }
+
+      if (v5 == 2)
+      {
+        v9 = 3;
+LABEL_16:
+        v7->_type = v9;
+        [(AABattery *)v7 setLevel:BYTE2(v5) / 100.0];
+        v10 = v7;
+        goto LABEL_17;
+      }
+    }
+
+    else
+    {
+      if (v5 == 4)
+      {
+        v9 = 2;
+        goto LABEL_16;
+      }
+
+      if (v5 == 8)
+      {
+        v9 = 1;
+        goto LABEL_16;
+      }
+    }
+
+    v9 = 0;
+    goto LABEL_16;
+  }
+
+LABEL_17:
+
+  return v7;
 }
 
 - (AABattery)initWithLevel:(double)level productID:(unsigned int)d state:(int64_t)state type:(int64_t)type
@@ -155,55 +221,74 @@
 - (id)description
 {
   type = self->_type;
-  if ((type - 1) < 4)
+  if ((type - 1) >= 4)
+  {
+    if (type == 5)
+    {
+      v4 = "LR";
+    }
+
+    else
+    {
+      v4 = "?";
+    }
+  }
+
+  else
   {
     v4 = off_278CDE410[type - 1];
   }
 
-  [(AABattery *)self charging];
-  v17[1] = 0;
-  lastSeen = self->_lastSeen;
-  v13 = CUPrintDateCF();
-  NSAppendPrintF_safe();
-  v6 = 0;
+  charging = [(AABattery *)self charging];
+  v19 = 0;
+  v6 = CUPrintDateCF();
+  NSAppendPrintF_safe(&v19, "ls: %@", v6);
+  v7 = v19;
 
   state = self->_state;
   if (state == 4)
   {
-    v16 = v6;
-    v8 = &v16;
+    v17 = v7;
+    v9 = &v17;
+    NSAppendPrintF_safe(&v17, ", DEOC");
   }
 
   else
   {
     if (state != 3)
     {
-      goto LABEL_8;
+      goto LABEL_11;
     }
 
-    v17[0] = v6;
+    v18 = v7;
     [(AABattery *)self chargingOBCTimeUntilCharged];
-    v8 = v17;
+    v9 = &v18;
+    NSAppendPrintF_safe(&v18, ", OBC until: %u min");
   }
 
-  NSAppendPrintF_safe();
-  v9 = *v8;
+  v10 = *v9;
 
-  v6 = v9;
-LABEL_8:
+  v7 = v10;
+LABEL_11:
   if (self->_sourceFlags)
   {
-    v14 = CUPrintFlags32();
-    NSAppendPrintF_safe();
-    v10 = v6;
+    v16 = v7;
+    v11 = CUPrintFlags32();
+    NSAppendPrintF_safe(&v16, ", sFL: %@", v11);
+    v12 = v16;
 
-    v6 = v10;
+    v7 = v12;
   }
 
-  v15 = self->_level * 100.0;
-  v11 = NSPrintF();
+  v13 = 45;
+  if (charging)
+  {
+    v13 = 43;
+  }
 
-  return v11;
+  v14 = NSPrintF("Batt %s '%c%.2f%%'[%@]", v4, v13, self->_level * 100.0, v7);
+
+  return v14;
 }
 
 - (int64_t)chargeStatus

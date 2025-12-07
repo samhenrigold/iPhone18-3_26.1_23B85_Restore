@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (CSAutomaticVolumeEnabledMonitor)init;
 - (void)_didReceiveAutomaticVolumeToggled:(BOOL)toggled;
+- (void)_notifyObserver:(id)observer withEnabled:(BOOL)enabled;
 - (void)_startMonitoringWithQueue:(id)queue;
 - (void)_stopMonitoring;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
@@ -26,6 +27,17 @@
   block[3] = &unk_100253C20;
   block[4] = self;
   dispatch_async(queue, block);
+}
+
+- (void)_notifyObserver:(id)observer withEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  observerCopy = observer;
+  [(CSAutomaticVolumeEnabledMonitor *)self notifyObserver:observerCopy];
+  if (objc_opt_respondsToSelector())
+  {
+    [observerCopy CSAutomaticVolumeEnabledMonitor:self didReceiveEnabled:enabledCopy];
+  }
 }
 
 - (void)_didReceiveAutomaticVolumeToggled:(BOOL)toggled

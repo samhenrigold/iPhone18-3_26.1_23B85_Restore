@@ -105,12 +105,12 @@ LABEL_8:
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v16[1] = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = INCodableEnumAttributeMetadata;
-  v4 = [(INCodableAttributeMetadata *)&v14 dictionaryRepresentationWithLocalizer:localizer];
+  v15[1] = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = INCodableEnumAttributeMetadata;
+  v4 = [(INCodableAttributeMetadata *)&v13 dictionaryRepresentationWithLocalizer:localizer];
   __INCodableDescriptionDefaultValueKey = [(INCodableEnumAttributeMetadata *)self __INCodableDescriptionDefaultValueKey];
-  v15 = __INCodableDescriptionDefaultValueKey;
+  v14 = __INCodableDescriptionDefaultValueKey;
   defaultValue = [(INCodableEnumAttributeMetadata *)self defaultValue];
   name = [defaultValue name];
   null = name;
@@ -119,8 +119,8 @@ LABEL_8:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[0] = null;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = null;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v10 = [v4 if_dictionaryByAddingEntriesFromDictionary:v9];
 
   if (!name)
@@ -128,8 +128,6 @@ LABEL_8:
   }
 
   if_dictionaryWithNonEmptyValues = [v10 if_dictionaryWithNonEmptyValues];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }

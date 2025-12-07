@@ -302,7 +302,7 @@
 - (id)valueForKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"_hostBundleID"] && (dyld_program_sdk_at_least() & 1) == 0 && (_UIMainBundleIdentifier(), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isEqualToString:", @"com.tencent.xin.sharetimeline"), v5, (v6 & 1) != 0))
+  if (objc_msgSend_isEqualToString_(keyCopy) && (dyld_program_sdk_at_least() & 1) == 0 && (_UIMainBundleIdentifier(), v5 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v5), v5, (isEqualToString & 1) != 0))
   {
     v7 = @"abusing.internal.api.is.a.bad.idea";
   }

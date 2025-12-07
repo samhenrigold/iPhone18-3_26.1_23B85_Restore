@@ -379,13 +379,13 @@ void __100__UIKeyboardCameraOverlayPresentationController_viewWillTransitionToSi
   [v20 setFrame:{v16, v17, v18, v19}];
 }
 
-uint64_t __100__UIKeyboardCameraOverlayPresentationController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2(uint64_t result)
+void *__100__UIKeyboardCameraOverlayPresentationController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2(void *result)
 {
   if (*(result + 56) == 1)
   {
-    v1 = *(*(result + 40) + 8);
-    v2 = *(*(result + 48) + 8);
-    return [*(result + 32) modifyKeyboardTrackingUsingNotificationType:1 from:0 to:v1[4] forStart:{v1[5], v1[6], v1[7], v2[4], v2[5], v2[6], v2[7]}];
+    v1 = *(*(result + 5) + 8);
+    v2 = *(*(result + 6) + 8);
+    return [*(result + 4) modifyKeyboardTrackingUsingNotificationType:1 from:0 to:v1[4] forStart:{v1[5], v1[6], v1[7], v2[4], v2[5], v2[6], v2[7]}];
   }
 
   return result;

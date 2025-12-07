@@ -2613,11 +2613,11 @@ void __42__MPMediaDownloadManager_cancelDownloads___block_invoke_24(uint64_t a1,
   dispatch_sync(queue, v7);
 }
 
-uint64_t __45__MPMediaDownloadManager_unregisterObserver___block_invoke(uint64_t result)
+void *__45__MPMediaDownloadManager_unregisterObserver___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(*(result + 40) + 64) removeObject:?];
+    return [*(result[5] + 64) removeObject:?];
   }
 
   return result;
@@ -2637,16 +2637,16 @@ uint64_t __45__MPMediaDownloadManager_unregisterObserver___block_invoke(uint64_t
   dispatch_sync(queue, v7);
 }
 
-uint64_t __43__MPMediaDownloadManager_registerObserver___block_invoke(uint64_t result)
+void *__43__MPMediaDownloadManager_registerObserver___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    result = [*(*(result + 40) + 64) containsObject:?];
+    result = [*(result[5] + 64) containsObject:?];
     if ((result & 1) == 0)
     {
-      v2 = *(v1 + 32);
-      v3 = *(*(v1 + 40) + 64);
+      v2 = v1[4];
+      v3 = *(v1[5] + 64);
 
       return [v3 addObject:v2];
     }

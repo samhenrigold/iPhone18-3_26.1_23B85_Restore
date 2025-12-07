@@ -3,6 +3,7 @@
 - (NSCacheDelegate)delegate;
 - (id)_entryForKey:(id)key;
 - (id)objectForKey:(id)key;
+- (void)_setObject:(id)object forKey:(id)key cost:(unint64_t)cost expiration:(double)expiration supportsDeferrals:(BOOL)deferrals preserveExpiration:(BOOL)preserveExpiration;
 - (void)cache:(id)cache willEvictObject:(id)object;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)removeObjectForKey:(id)key;
@@ -36,7 +37,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   v13 = objectCopy;
   if (qword_1EA911438 == context)
@@ -46,13 +47,13 @@
       goto LABEL_31;
     }
 
-    v56 = v13;
+    v55 = v13;
     v14 = v13;
     if (!self)
     {
 LABEL_30:
 
-      v13 = v56;
+      v13 = v55;
       goto LABEL_31;
     }
 
@@ -80,39 +81,39 @@ LABEL_30:
         }
       }
 
-      v54 = v20;
-      v55 = v14;
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
+      v53 = v20;
+      v54 = v14;
       v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       v29 = v20;
       v32 = objc_msgSend_set(MEMORY[0x1E695DFA8], v30, v31);
-      v66 = 0u;
-      v67 = 0u;
-      v64 = 0;
       v65 = 0u;
+      v66 = 0u;
+      v63 = 0;
+      v64 = 0u;
       v35 = objc_msgSend_mapTableRepresentation(selfCopy, v33, v34);
       v38 = objc_msgSend_keyEnumerator(v35, v36, v37);
 
-      v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v64, v68, 16);
-      v57 = v32;
+      v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v63, v67, 16);
+      v56 = v32;
       if (v40)
       {
-        v41 = *v65;
+        v41 = *v64;
         do
         {
           for (i = 0; i != v40; ++i)
           {
-            if (*v65 != v41)
+            if (*v64 != v41)
             {
               objc_enumerationMutation(v38);
             }
 
-            v43 = *(v64.super_class + i);
-            v63.receiver = selfCopy;
-            v63.super_class = CKExpiringCache;
-            v44 = [(CKExpiringCache *)&v63 objectForKey:v43, v54, v55];
+            v43 = *(v63.super_class + i);
+            v62.receiver = selfCopy;
+            v62.super_class = CKExpiringCache;
+            v44 = [(CKExpiringCache *)&v62 objectForKey:v43, v53, v54];
             v45 = v44 == v29;
 
             if (v45)
@@ -121,39 +122,39 @@ LABEL_30:
             }
           }
 
-          v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v46, &v64, v68, 16);
+          v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v46, &v63, v67, 16);
         }
 
         while (v40);
       }
 
-      v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v47, &v59, v68, 16);
+      v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v47, &v58, v67, 16);
       if (v48)
       {
-        v49 = *v60;
+        v49 = *v59;
         do
         {
           for (j = 0; j != v48; ++j)
           {
-            if (*v60 != v49)
+            if (*v59 != v49)
             {
-              objc_enumerationMutation(v57);
+              objc_enumerationMutation(v56);
             }
 
-            v51 = *(*(&v59 + 1) + 8 * j);
-            v64.receiver = selfCopy;
-            v64.super_class = CKExpiringCache;
-            [(CKExpiringCache *)&v64 removeObjectForKey:v51, v54, v55];
+            v51 = *(*(&v58 + 1) + 8 * j);
+            v63.receiver = selfCopy;
+            v63.super_class = CKExpiringCache;
+            [(CKExpiringCache *)&v63 removeObjectForKey:v51, v53, v54];
           }
 
-          v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v57, v52, &v59, v68, 16);
+          v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v56, v52, &v58, v67, 16);
         }
 
         while (v48);
       }
 
-      v20 = v54;
-      v14 = v55;
+      v20 = v53;
+      v14 = v54;
     }
 
 LABEL_29:
@@ -162,12 +163,10 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  v58.receiver = self;
-  v58.super_class = CKExpiringCache;
-  [(CKExpiringCache *)&v58 observeValueForKeyPath:path ofObject:objectCopy change:change context:context];
+  v57.receiver = self;
+  v57.super_class = CKExpiringCache;
+  [(CKExpiringCache *)&v57 observeValueForKeyPath:path ofObject:objectCopy change:change context:context];
 LABEL_31:
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_entryForKey:(id)key
@@ -242,6 +241,54 @@ LABEL_31:
       objc_msgSend_cache_willEvictObject_(v22, v23, self, objectCopy);
     }
   }
+}
+
+- (void)_setObject:(id)object forKey:(id)key cost:(unint64_t)cost expiration:(double)expiration supportsDeferrals:(BOOL)deferrals preserveExpiration:(BOOL)preserveExpiration
+{
+  deferralsCopy = deferrals;
+  objectCopy = object;
+  keyCopy = key;
+  if (expiration < 0.0)
+  {
+    v45 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v16, v17);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v45, v46, a2, self, @"CKExpiringCache.m", 391, @"Expiration must be greater or equal to 0.0: %f", *&expiration);
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v22 = objc_msgSend_entries(selfCopy, v20, v21);
+  v24 = objc_msgSend_objectForKey_(v22, v23, objectCopy);
+
+  if (v24)
+  {
+    if (!preserveExpiration)
+    {
+      objc_msgSend_setExpiration_(v24, v25, v26, expiration);
+      objc_msgSend_setSupportsDeferral_(v24, v27, deferralsCopy);
+    }
+  }
+
+  else
+  {
+    v28 = [_CKExpiringCacheEntry alloc];
+    v24 = objc_msgSend_initWithObject_(v28, v29, objectCopy);
+    objc_msgSend_setExpiration_(v24, v30, v31, expiration);
+    objc_msgSend_setSupportsDeferral_(v24, v32, deferralsCopy);
+    v33 = NSStringFromSelector(sel_isExpired);
+    objc_msgSend_addObserver_forKeyPath_options_context_(v24, v34, selfCopy, v33, 0, qword_1EA911438);
+
+    v37 = objc_msgSend_entries(selfCopy, v35, v36);
+    objc_msgSend_setObject_forKey_(v37, v38, v24, objectCopy);
+  }
+
+  v47.receiver = selfCopy;
+  v47.super_class = CKExpiringCache;
+  [(CKExpiringCache *)&v47 setObject:objectCopy forKey:keyCopy cost:cost];
+  v41 = objc_msgSend_weakCache(selfCopy, v39, v40);
+  objc_msgSend_setObject_forKey_(v41, v42, objectCopy, keyCopy);
+
+  objc_msgSend_defer(v24, v43, v44);
+  objc_sync_exit(selfCopy);
 }
 
 - (void)removeObjectForKey:(id)key

@@ -130,16 +130,16 @@ void __52__PKMessageTableCell_initWithStyle_reuseIdentifier___block_invoke(uint6
 
 - (void)layoutSubviews
 {
-  v11.receiver = self;
-  v11.super_class = PKMessageTableCell;
-  [(PKMessageTableCell *)&v11 layoutSubviews];
+  v19.receiver = self;
+  v19.super_class = PKMessageTableCell;
+  [(PKMessageTableCell *)&v19 layoutSubviews];
   _shouldReverseLayoutDirection = [(PKMessageTableCell *)self _shouldReverseLayoutDirection];
   [(PKMessageTableCell *)self bounds];
   remainder.origin.x = v4;
   remainder.origin.y = v5;
   remainder.size.width = v6;
   remainder.size.height = v7;
-  memset(&v9, 0, sizeof(v9));
+  memset(&v17, 0, sizeof(v17));
   if (_shouldReverseLayoutDirection)
   {
     v8 = CGRectMaxXEdge;
@@ -150,11 +150,17 @@ void __52__PKMessageTableCell_initWithStyle_reuseIdentifier___block_invoke(uint6
     v8 = CGRectMinXEdge;
   }
 
-  CGRectDivide(*&v4, &v9, &remainder, v6 + -20.0 + -20.0, v8);
-  [(UIListContentView *)self->_listContentView setFrame:*&v9.origin, *&v9.size];
-  CGRectDivide(remainder, &v9, &remainder, 10.0, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  CGRectDivide(*&v4, &v17, &remainder, v6 + -20.0 + -20.0, v8);
+  [(UIListContentView *)self->_listContentView setFrame:*&v17.origin, *&v17.size];
+  CGRectDivide(remainder, &v17, &remainder, 10.0, CGRectMinYEdge);
+  v9 = PKContentAlignmentMake();
+  v10.n128_u64[0] = *&remainder.origin.x;
+  v11.n128_u64[0] = *&remainder.origin.y;
+  v12.n128_u64[0] = *&remainder.size.width;
+  v13.n128_u64[0] = *&remainder.size.height;
+  v14.n128_u64[0] = 20.0;
+  v15.n128_u64[0] = 20.0;
+  PKSizeAlignedInRect(v9, v14, v15, v10, v11, v12, v13, v16);
   [(UIButton *)self->_dismissButton setFrame:?];
 }
 

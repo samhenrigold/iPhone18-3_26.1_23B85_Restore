@@ -10,6 +10,7 @@
 - (int)popoverPresentationMode;
 - (void)_updateInfo;
 - (void)_updateSubviewsForNewGeometry;
+- (void)presentReachabilityViewController:(id)controller animated:(BOOL)animated;
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)setItemName:(id)name;
 - (void)settingsControllerDidChange:(id)change changedAllowInviters:(BOOL)inviters;
@@ -20,6 +21,8 @@
 - (void)showShareSettings:(id)settings;
 - (void)updatePermissionOptions;
 - (void)updatePreferredContentSize:(id)size;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 - (void)waitForShareCreationWithActivityType:(id)type progressView:(id)view completion:(id)completion;
@@ -421,6 +424,20 @@ LABEL_8:
   return v19;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = _UIShareOverviewActionController;
+  [(_UIShareOverviewController *)&v7 viewWillAppear:appear];
+  v4 = objc_opt_new();
+  [v4 configureWithTransparentBackground];
+  navigationItem = [(_UIShareOverviewActionController *)self navigationItem];
+  [navigationItem setStandardAppearance:v4];
+
+  navigationItem2 = [(_UIShareOverviewActionController *)self navigationItem];
+  [navigationItem2 setLargeTitleDisplayMode:2];
+}
+
 - (void)viewWillLayoutSubviews
 {
   v25.receiver = self;
@@ -791,6 +808,18 @@ LABEL_42:
   [thumbnailView setHidden:v4];
 }
 
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = _UIShareOverviewActionController;
+  [(_UIShareOverviewController *)&v7 viewDidMoveToWindow:window shouldAppearOrDisappear:disappear];
+  if (window)
+  {
+    traitCollection = [(_UIShareOverviewActionController *)self traitCollection];
+    [(_UIShareOverviewActionController *)self updatePreferredContentSize:traitCollection];
+  }
+}
+
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
 {
   height = size.height;
@@ -984,6 +1013,17 @@ LABEL_42:
   v15 = completionCopy;
   v16 = viewCopy;
   [delegate shareViewController:self activityType:typeCopy waitForUploadWithProgress:v19 completion:v17];
+}
+
+- (void)presentReachabilityViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  navigationController = [(_UIShareOverviewActionController *)self navigationController];
+  v7 = [navigationController popToViewController:self animated:animatedCopy];
+
+  [controllerCopy setModalPresentationStyle:6];
+  [(_UIShareOverviewActionController *)self presentViewController:controllerCopy animated:animatedCopy completion:0];
 }
 
 - (int)popoverPresentationMode

@@ -26,7 +26,7 @@
       goto LABEL_8;
     }
 
-    v9 = _PTLogSystem();
+    v9 = _PTLogSystem(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [PTBrightSceneDetector initWithLuxLevelThreshold:v9 emaFilterCoefficient:? transitionTime:?];

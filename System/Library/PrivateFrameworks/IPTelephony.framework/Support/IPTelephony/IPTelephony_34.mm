@@ -1,84 +1,4 @@
-void sub_1E4EA368C(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t SipPreconditions::preconditionsSatisfiedInFork(uint64_t a1, void **a2)
-{
-  if (!SipPreconditions::preconditionsEnabled(a1, a2))
-  {
-    return 1;
-  }
-
-  result = SipPreconditions::localPreconditionsSatisfied(a1, a2);
-  if (result)
-  {
-
-    return SipPreconditions::remotePreconditionsSatisfiedInFork(a1, a2);
-  }
-
-  return result;
-}
-
-uint64_t SipPreconditions::preconditionsSatisfiedInAnyFork(SipPreconditions *this)
-{
-  v1 = *(this + 10);
-  if (v1 == (this + 88))
-  {
-    return 0;
-  }
-
-  while (1)
-  {
-    v2 = *(v1 + 7);
-    if (v2)
-    {
-      if (*(v2 + 44) != 5 || *(v2 + 52) != 1 || *(v2 + 53) == 1 && (*(v2 + 48) == 3 || *(v2 + 80) != 3))
-      {
-        break;
-      }
-    }
-
-    v3 = *(v1 + 1);
-    if (v3)
-    {
-      do
-      {
-        v4 = v3;
-        v3 = *v3;
-      }
-
-      while (v3);
-    }
-
-    else
-    {
-      do
-      {
-        v4 = *(v1 + 2);
-        v5 = *v4 == v1;
-        v1 = v4;
-      }
-
-      while (!v5);
-    }
-
-    v1 = v4;
-    if (v4 == (this + 88))
-    {
-      return 0;
-    }
-  }
-
-  return SipPreconditions::localPreconditionsSatisfied(this, v1 + 4);
-}
-
-uint64_t SipPreconditions::preconditionsActiveInFork(uint64_t a1, void **a2)
+uint64_t SipPreconditions::preconditionsActiveInFork(uint64_t a1, char *a2)
 {
   v4 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 80, a2);
   if (a1 + 88 == v4)
@@ -196,7 +116,7 @@ uint64_t SipPreconditions::preconditionsActiveInAnyFork(SipPreconditions *this)
   return 1;
 }
 
-void SipPreconditions::setRemotePreconditionsSatisfiedInFork(void *a1, void **a2, int a3)
+void SipPreconditions::setRemotePreconditionsSatisfiedInFork(void *a1, char *a2, int a3)
 {
   v7 = 0;
   v8 = 0;
@@ -611,19 +531,19 @@ void std::__shared_ptr_emplace<SipPreconditions::ForkStatus>::~__shared_ptr_empl
   JUMPOUT(0x1E69235B0);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v10 = 0;
+  v5 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v10, a2);
+  if (!v5)
   {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     std::__tree<std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::shared_ptr<SipPreconditions::ForkStatus>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -1096,107 +1016,107 @@ void BambiUnlistedEmergencyCall::prepareCall(BambiUnlistedEmergencyCall *this)
     if (!v6)
     {
       BambiUnlistedEmergencyCall::clearLocation(this);
+      v25 = 0;
       v26 = 0;
-      v27 = 0;
       std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&lpsrc, this + 19);
       {
-        v26 = v9;
-        v27 = v25;
+        v25 = v8;
+        v26 = v24;
         p_lpsrc = &lpsrc;
       }
 
       else
       {
-        p_lpsrc = &v26;
+        p_lpsrc = &v25;
       }
 
       *p_lpsrc = 0;
       p_lpsrc[1] = 0;
-      if (v25)
+      if (v24)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v24);
       }
 
       lpsrc = 0;
-      v25 = 0;
-      v22 = v5;
-      v23 = v4;
+      v24 = 0;
+      v21 = v5;
+      v22 = v4;
       atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-      v11 = v27;
+      v10 = v26;
+      v19 = v25;
       v20 = v26;
-      v21 = v27;
-      if (v27)
+      if (v26)
       {
-        atomic_fetch_add_explicit(&v27->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v26->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       }
 
-      BambiEmergencyCallHandler::createLocation(&v22, &v20, &lpsrc);
-      if (v21)
+      BambiEmergencyCallHandler::createLocation(&v21, &v19, &lpsrc);
+      if (v20)
       {
-        std::__shared_weak_count::__release_weak(v21);
+        std::__shared_weak_count::__release_weak(v20);
       }
 
-      if (v23)
+      if (v22)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v22);
       }
 
-      v12 = lpsrc;
+      v11 = lpsrc;
       if (lpsrc)
       {
         *(this + 506) = 1;
-        v13 = v25;
-        if (v25)
+        v12 = v24;
+        if (v24)
         {
-          atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        *(this + 254) = v12;
-        v14 = *(this + 255);
-        *(this + 255) = v13;
-        if (v14)
+        *(this + 254) = v11;
+        v13 = *(this + 255);
+        *(this + 255) = v12;
+        if (v13)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v13);
         }
 
         *(this + 1880) = 0u;
         *(this + 1896) = 0u;
         *(this + 239) = 0x40A7700000000000;
         *(this + 240) = 0;
-        v15 = (this + 1928);
+        v14 = (this + 1928);
         if (*(this + 1951) < 0)
         {
-          operator delete(*v15);
+          operator delete(*v14);
         }
 
-        v16 = (this + 1952);
-        *v15 = 0;
+        v15 = (this + 1952);
+        *v14 = 0;
         *(this + 242) = 0;
         *(this + 243) = 0;
         if (*(this + 1975) < 0)
         {
-          operator delete(*v16);
+          operator delete(*v15);
         }
 
-        v17 = (this + 1976);
-        *v16 = 0;
+        v16 = (this + 1976);
+        *v15 = 0;
         *(this + 245) = 0;
         *(this + 246) = 0;
         if (*(this + 1999) < 0)
         {
-          operator delete(*v17);
+          operator delete(*v16);
         }
 
-        v18 = (this + 2000);
-        *v17 = 0;
+        v17 = (this + 2000);
+        *v16 = 0;
         *(this + 248) = 0;
         *(this + 249) = 0;
         if (*(this + 2023) < 0)
         {
-          operator delete(*v18);
+          operator delete(*v17);
         }
 
-        *v18 = 0;
+        *v17 = 0;
         *(this + 251) = 0;
         *(this + 252) = 0;
         *(this + 1872) = 1;
@@ -1204,24 +1124,24 @@ void BambiUnlistedEmergencyCall::prepareCall(BambiUnlistedEmergencyCall *this)
 
       else
       {
-        v19 = (*(*(this + 1) + 64))(this + 8);
-        (*(*(this + 1) + 16))(this + 8, v19);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "Location lookup not required", 28);
-        *(v19 + 17) = 0;
-        (*(*v19 + 64))(v19, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-        *(v19 + 17) = 0;
+        v18 = (*(*(this + 1) + 64))(this + 8);
+        (*(*(this + 1) + 16))(this + 8, v18);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "Location lookup not required", 28);
+        *(v18 + 17) = 0;
+        (*(*v18 + 64))(v18, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+        *(v18 + 17) = 0;
         *(this + 506) = 3;
         BambiCall::prepareCall(this);
       }
 
-      if (v25)
+      if (v24)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v24);
       }
 
-      if (v11)
+      if (v10)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v10);
       }
 
       goto LABEL_12;
@@ -1282,7 +1202,7 @@ void SDPMediaLazuliSettings::~SDPMediaLazuliSettings(SDPMediaLazuliSettings *thi
   JUMPOUT(0x1E69235B0);
 }
 
-void SDPMediaLazuliSettings::SDPMediaLazuliSettings(uint64_t a1, uint64_t *a2, uint64_t *a3)
+void SDPMediaLazuliSettings::SDPMediaLazuliSettings(uint64_t a1, void *a2, void *a3, __int16 a4, __int16 a5, uint64_t a6, const LazuliRouteSet *a7)
 {
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
@@ -1300,26 +1220,26 @@ void SDPMediaLazuliSettings::SDPMediaLazuliSettings(uint64_t a1, uint64_t *a2, u
   *(a1 + 280) = 0;
   *(a1 + 288) = 0;
   *(a1 + 296) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1 + 280, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 280), *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
   *(a1 + 304) = 0;
   *(a1 + 312) = 0;
   *(a1 + 320) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1 + 304, *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 3));
-  std::allocate_shared[abi:ne200100]<LazuliRouteSet,std::allocator<LazuliRouteSet>,LazuliRouteSet&,0>();
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 304), *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 3));
+  std::allocate_shared[abi:ne200100]<LazuliRouteSet,std::allocator<LazuliRouteSet>,LazuliRouteSet&,0>((a1 + 328), a7);
 }
 
-void sub_1E4EA5560(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4EA5560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v4 = *(v2 + 42);
-  if (v4)
+  va_start(va, a3);
+  v5 = *(v3 + 42);
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  SDPMediaSettings::~SDPMediaSettings(v2);
+  SDPMediaSettings::~SDPMediaSettings(v3);
   _Unwind_Resume(a1);
 }
 
@@ -1330,11 +1250,11 @@ void SDPMediaLazuliSettings::SDPMediaLazuliSettings(SDPMediaLazuliSettings *this
   v4[36] = 0;
   v4[37] = 0;
   v4[35] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((v4 + 35), *(a2 + 35), *(a2 + 36), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 36) - *(a2 + 35)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v4 + 35, *(a2 + 35), *(a2 + 36), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 36) - *(a2 + 35)) >> 3));
   *(this + 38) = 0;
   *(this + 39) = 0;
   *(this + 40) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 304, *(a2 + 38), *(a2 + 39), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 39) - *(a2 + 38)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 38, *(a2 + 38), *(a2 + 39), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 39) - *(a2 + 38)) >> 3));
   v5 = *(a2 + 42);
   *(this + 41) = *(a2 + 41);
   *(this + 42) = v5;
@@ -1352,11 +1272,11 @@ void SDPMediaLazuliSettings::SDPMediaLazuliSettings(SDPMediaLazuliSettings *this
   }
 }
 
-void sub_1E4EA5684(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4EA5684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  SDPMediaSettings::~SDPMediaSettings(v2);
+  SDPMediaSettings::~SDPMediaSettings(v3);
   _Unwind_Resume(a1);
 }
 
@@ -1374,7 +1294,7 @@ uint64_t SDPMediaLazuliSettings::operator!=(uint64_t a1, uint64_t a2)
     v29 = 0;
     v30 = 0;
     std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v28, *(a2 + 280), *(a2 + 288), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 288) - *(a2 + 280)) >> 3));
-    v6 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (&v32[-v31] >> 3));
+    v6 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (v32 - v31));
     if (v32 == v31)
     {
       v7 = 0;
@@ -1401,7 +1321,7 @@ uint64_t SDPMediaLazuliSettings::operator!=(uint64_t a1, uint64_t a2)
     v10 = v31;
     v11 = v32;
     v12 = v28;
-    if (&v32[-v31] == (v29 - v28))
+    if (v32 - v31 == v29 - v28)
     {
       if (v31 == v32)
       {
@@ -1455,7 +1375,7 @@ uint64_t SDPMediaLazuliSettings::operator!=(uint64_t a1, uint64_t a2)
     v29 = 0;
     v30 = 0;
     std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v28, *(a2 + 304), *(a2 + 312), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 312) - *(a2 + 304)) >> 3));
-    v17 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (&v32[-v31] >> 3));
+    v17 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (v32 - v31));
     if (v32 == v31)
     {
       v18 = 0;
@@ -1482,7 +1402,7 @@ uint64_t SDPMediaLazuliSettings::operator!=(uint64_t a1, uint64_t a2)
     v21 = v31;
     v22 = v32;
     v23 = v28;
-    if (&v32[-v31] == (v29 - v28))
+    if (v32 - v31 == v29 - v28)
     {
       if (v31 == v32)
       {
@@ -1616,7 +1536,6 @@ void sub_1E4EBC810()
     {
       if (*(v1 - 233) < 0)
       {
-        v3 = *(v1 - 256);
         JUMPOUT(0x1E4EBC7F4);
       }
 
@@ -1722,7 +1641,7 @@ void ImsDefaultPrefs::~ImsDefaultPrefs(char **this)
   std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::destroy(this, this[1]);
 }
 
-BOOL ImsDefaultPrefs::isKeyRenamed(uint64_t a1, void **a2, std::string *a3)
+BOOL ImsDefaultPrefs::isKeyRenamed(uint64_t a1, char *a2, std::string *a3)
 {
   v5 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 24, a2);
   v6 = v5;
@@ -2016,7 +1935,7 @@ void sub_1E4EBCC74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ImsDefaultPrefs::isSection(__int128 **a1, void **a2)
+uint64_t ImsDefaultPrefs::isSection(__int128 **a1, char *a2)
 {
   v4 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1, a2);
   if (a1 + 1 == v4)
@@ -2085,7 +2004,7 @@ uint64_t ImsDefaultPrefs::isSection(__int128 **a1, void **a2)
   return 1;
 }
 
-std::__shared_weak_count *ImsDefaultPrefs::sectionPtrForKey@<X0>(uint64_t a1@<X0>, void **a2@<X1>, uint64_t *a3@<X8>)
+std::__shared_weak_count *ImsDefaultPrefs::sectionPtrForKey@<X0>(uint64_t a1@<X0>, char *a2@<X1>, uint64_t *a3@<X8>)
 {
   result = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 120, a2);
   if ((a1 + 128) == result)
@@ -2114,7 +2033,7 @@ std::__shared_weak_count *ImsDefaultPrefs::sectionPtrForKey@<X0>(uint64_t a1@<X0
   return result;
 }
 
-void ImsDefaultPrefs::sectionPathForKey(uint64_t a1@<X0>, void **a2@<X1>, std::string *a3@<X8>)
+void ImsDefaultPrefs::sectionPathForKey(uint64_t a1@<X0>, char *a2@<X1>, std::string *a3@<X8>)
 {
   v13 = 0;
   v14 = 0;
@@ -2339,11 +2258,11 @@ void ImsDefaultPrefs::logMergedPrefs(void *a1, uint64_t a2, uint64_t a3, uint64_
   }
 }
 
-void ImsDefaultPrefs::getOrCreatePrefSection(uint64_t *a1, uint64_t a2, std::string *a3)
+void ImsDefaultPrefs::getOrCreatePrefSection(std::string::size_type *a1, uint64_t **a2, uint64_t a3)
 {
   *a1 = 0;
   a1[1] = 0;
-  v6 = SHIBYTE(a3->__r_.__value_.__r.__words[2]);
+  v6 = *(a3 + 23);
   if (v6 >= 0)
   {
     v7 = a3;
@@ -2351,29 +2270,29 @@ void ImsDefaultPrefs::getOrCreatePrefSection(uint64_t *a1, uint64_t a2, std::str
 
   else
   {
-    v7 = a3->__r_.__value_.__r.__words[0];
+    v7 = *a3;
   }
 
   if (v6 >= 0)
   {
-    size = SHIBYTE(a3->__r_.__value_.__r.__words[2]);
+    v8 = *(a3 + 23);
   }
 
   else
   {
-    size = a3->__r_.__value_.__l.__size_;
+    v8 = *(a3 + 8);
   }
 
-  if (size < 1)
+  if (v8 < 1)
   {
     goto LABEL_21;
   }
 
-  v9 = v7 + size;
+  v9 = (v7 + v8);
   v10 = v7;
   while (1)
   {
-    v11 = memchr(v10, 47, size);
+    v11 = memchr(v10, 47, v8);
     if (!v11)
     {
       goto LABEL_21;
@@ -2384,26 +2303,26 @@ void ImsDefaultPrefs::getOrCreatePrefSection(uint64_t *a1, uint64_t a2, std::str
       break;
     }
 
-    v10 = (v11 + 1);
-    size = v9 - v10;
+    v10 = v11 + 1;
+    v8 = v9 - v10;
     if (v9 - v10 < 1)
     {
       goto LABEL_21;
     }
   }
 
-  if (v11 == v9 || v11 - v7 == -1)
+  if (v11 == v9 || &v11[-v7] == -1)
   {
 LABEL_21:
-    if (a2 + 8 == std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a2, &a3->__r_.__value_.__l.__data_))
+    if (a2 + 1 == std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a2, a3))
     {
-      std::allocate_shared[abi:ne200100]<ImsPrefsSection,std::allocator<ImsPrefsSection>,char const(&)[1],std::string const&,0>();
+      std::allocate_shared[abi:ne200100]<ImsPrefsSection,std::allocator<ImsPrefsSection>,char const(&)[1],std::string const&,0>(&v34, a3);
     }
 
     v34 = a3;
-    v14 = std::__tree<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, &a3->__r_.__value_.__l.__data_);
-    v16 = *(v14 + 56);
-    v15 = *(v14 + 64);
+    v14 = std::__tree<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, a3, &std::piecewise_construct, &v34, &__p);
+    v16 = v14[7];
+    v15 = v14[8];
     if (v15)
     {
       atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
@@ -2427,7 +2346,7 @@ LABEL_21:
   v12 = v35 - v34;
   if (v35 == v34)
   {
-    std::allocate_shared[abi:ne200100]<ImsPrefsSection,std::allocator<ImsPrefsSection>,char const(&)[1],std::string const&,0>();
+    std::allocate_shared[abi:ne200100]<ImsPrefsSection,std::allocator<ImsPrefsSection>,char const(&)[1],std::string const&,0>(&__p, a3);
   }
 
   memset(&__p, 0, sizeof(__p));
@@ -2438,32 +2357,32 @@ LABEL_21:
 
   else
   {
-    v13 = *(v35 - 3);
+    v13 = *(v35 - 24);
     __p.__r_.__value_.__r.__words[2] = *(v35 - 1);
     *&__p.__r_.__value_.__l.__data_ = v13;
   }
 
-  if (a2 + 8 == std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a2, &v34->__r_.__value_.__l.__data_))
+  if (a2 + 1 == std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a2, v34))
   {
-    std::allocate_shared[abi:ne200100]<ImsPrefsSection,std::allocator<ImsPrefsSection>,char const(&)[1],std::string const&,0>();
+    std::allocate_shared[abi:ne200100]<ImsPrefsSection,std::allocator<ImsPrefsSection>,char const(&)[1],std::string const&,0>(&v32, a3);
   }
 
   v32.__r_.__value_.__r.__words[0] = v34;
-  v17 = std::__tree<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, &v34->__r_.__value_.__l.__data_);
-  v19 = *(v17 + 56);
-  v18 = *(v17 + 64);
-  if (v18)
+  v17 = std::__tree<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, v34, &std::piecewise_construct, &v32, &v37);
+  v19 = v17[7];
+  size = v17[8];
+  if (size)
   {
-    atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&size->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v20 = 0xAAAAAAAAAAAAAAABLL * (v12 >> 3);
   v21 = 1;
-  for (i = 1; ; ++i)
+  for (i = 24; ; i += 24)
   {
-    v23 = v18;
-    ImsPrefsSection::getOrCreatePrefSection(v19, &v34[i].__r_.__value_.__l.__data_, 1, &v32);
-    v18 = v32.__r_.__value_.__l.__size_;
+    v23 = size;
+    ImsPrefsSection::getOrCreatePrefSection(v19, &v34[i], 1, &v32);
+    size = v32.__r_.__value_.__l.__size_;
     v19 = v32.__r_.__value_.__r.__words[0];
     *&v32.__r_.__value_.__l.__data_ = 0uLL;
     if (v23)
@@ -2564,25 +2483,25 @@ LABEL_57:
   if (!v29)
   {
 LABEL_67:
-    std::allocate_shared[abi:ne200100]<ImsPrefsSection,std::allocator<ImsPrefsSection>,char const(&)[1],std::string const&,0>();
+    std::allocate_shared[abi:ne200100]<ImsPrefsSection,std::allocator<ImsPrefsSection>,char const(&)[1],std::string const&,0>(&v32, a3);
   }
 
-  if (v18)
+  if (size)
   {
-    atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&size->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v31 = a1[1];
   *a1 = v19;
-  a1[1] = v18;
+  a1[1] = size;
   if (v31)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v31);
   }
 
-  if (v18)
+  if (size)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+    std::__shared_weak_count::__release_shared[abi:ne200100](size);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -2612,13 +2531,14 @@ void sub_1E4EBD7FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ImsDefaultPrefs::addBoolKey(uint64_t a1, char *a2, int a3, std::string *a4, uint64_t a5)
+void ImsDefaultPrefs::addBoolKey(uint64_t **a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v6 = a3;
   v17 = 0;
   v18 = 0;
   ImsDefaultPrefs::getOrCreatePrefSection(&v17, a1, a4);
   v9 = v17;
-  ImsPrefsSection::addBoolKey(v17, a2, a3);
+  ImsPrefsSection::addBoolKey(v17, a2, v6);
   v16 = 0u;
   *__p = 0u;
   v10 = v18;
@@ -2641,23 +2561,23 @@ void ImsDefaultPrefs::addBoolKey(uint64_t a1, char *a2, int a3, std::string *a4,
 
   DWORD2(v16) = 1;
   v19 = a2;
-  v11 = std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 120, a2);
+  v11 = std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 15, a2, &v19);
   v12 = v11;
   if (v14)
   {
     atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v13 = *(v11 + 64);
-  *(v12 + 56) = v9;
-  *(v12 + 64) = v14;
+  v13 = v11[8];
+  v12[7] = v9;
+  v12[8] = v14;
   if (v13)
   {
     std::__shared_weak_count::__release_weak(v13);
   }
 
-  std::string::operator=((v12 + 72), __p);
-  *(v12 + 96) = DWORD2(v16);
+  std::string::operator=(v12 + 3, __p);
+  *(v12 + 24) = DWORD2(v16);
   if (SBYTE7(v16) < 0)
   {
     operator delete(__p[0]);
@@ -2703,13 +2623,14 @@ void ImsPref::~ImsPref(void **this)
   }
 }
 
-void ImsDefaultPrefs::addIntKey(uint64_t a1, char *a2, unsigned int a3, std::string *a4, uint64_t a5)
+void ImsDefaultPrefs::addIntKey(uint64_t **a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v6 = a3;
   v17 = 0;
   v18 = 0;
   ImsDefaultPrefs::getOrCreatePrefSection(&v17, a1, a4);
   v9 = v17;
-  ImsPrefsSection::addIntKey(v17, a2, a3);
+  ImsPrefsSection::addIntKey(v17, a2, v6);
   v16 = 0u;
   *__p = 0u;
   v10 = v18;
@@ -2732,23 +2653,23 @@ void ImsDefaultPrefs::addIntKey(uint64_t a1, char *a2, unsigned int a3, std::str
 
   DWORD2(v16) = 2;
   v19 = a2;
-  v11 = std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 120, a2);
+  v11 = std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 15, a2, &v19);
   v12 = v11;
   if (v14)
   {
     atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v13 = *(v11 + 64);
-  *(v12 + 56) = v9;
-  *(v12 + 64) = v14;
+  v13 = v11[8];
+  v12[7] = v9;
+  v12[8] = v14;
   if (v13)
   {
     std::__shared_weak_count::__release_weak(v13);
   }
 
-  std::string::operator=((v12 + 72), __p);
-  *(v12 + 96) = DWORD2(v16);
+  std::string::operator=(v12 + 3, __p);
+  *(v12 + 24) = DWORD2(v16);
   if (SBYTE7(v16) < 0)
   {
     operator delete(__p[0]);
@@ -2780,7 +2701,7 @@ void sub_1E4EBDB98(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsDefaultPrefs::addStringKey(uint64_t a1, char *a2, uint64_t a3, std::string *a4, uint64_t a5)
+void ImsDefaultPrefs::addStringKey(uint64_t **a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v18 = 0;
   v19 = 0;
@@ -2824,23 +2745,23 @@ void ImsDefaultPrefs::addStringKey(uint64_t a1, char *a2, uint64_t a3, std::stri
 
   DWORD2(v16) = 3;
   v20 = a2;
-  v11 = std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 120, a2);
+  v11 = std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 15, a2, &v20);
   v12 = v11;
   if (v14)
   {
     atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v13 = *(v11 + 64);
-  *(v12 + 56) = v9;
-  *(v12 + 64) = v14;
+  v13 = v11[8];
+  v12[7] = v9;
+  v12[8] = v14;
   if (v13)
   {
     std::__shared_weak_count::__release_weak(v13);
   }
 
-  std::string::operator=((v12 + 72), __p);
-  *(v12 + 96) = DWORD2(v16);
+  std::string::operator=(v12 + 3, __p);
+  *(v12 + 24) = DWORD2(v16);
   if (SBYTE7(v16) < 0)
   {
     operator delete(__p[0]);
@@ -2872,7 +2793,7 @@ void sub_1E4EBDD48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsDefaultPrefs::addInterpolatedStringKey(uint64_t a1, char *a2, uint64_t a3, std::string *a4, uint64_t a5)
+void ImsDefaultPrefs::addInterpolatedStringKey(uint64_t **a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v18 = 0;
   v19 = 0;
@@ -2916,23 +2837,23 @@ void ImsDefaultPrefs::addInterpolatedStringKey(uint64_t a1, char *a2, uint64_t a
 
   DWORD2(v16) = 4;
   v20 = a2;
-  v11 = std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 120, a2);
+  v11 = std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 15, a2, &v20);
   v12 = v11;
   if (v14)
   {
     atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v13 = *(v11 + 64);
-  *(v12 + 56) = v9;
-  *(v12 + 64) = v14;
+  v13 = v11[8];
+  v12[7] = v9;
+  v12[8] = v14;
   if (v13)
   {
     std::__shared_weak_count::__release_weak(v13);
   }
 
-  std::string::operator=((v12 + 72), __p);
-  *(v12 + 96) = DWORD2(v16);
+  std::string::operator=(v12 + 3, __p);
+  *(v12 + 24) = DWORD2(v16);
   if (SBYTE7(v16) < 0)
   {
     operator delete(__p[0]);
@@ -2964,7 +2885,7 @@ void sub_1E4EBDF0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsDefaultPrefs::addDictKey(uint64_t a1, char *a2, std::string *a3, uint64_t a4)
+void ImsDefaultPrefs::addDictKey(uint64_t **a1, char *a2, uint64_t a3, uint64_t a4)
 {
   v19 = &unk_1F5EF3760;
   v20 = 0;
@@ -3005,23 +2926,23 @@ void ImsDefaultPrefs::addDictKey(uint64_t a1, char *a2, std::string *a3, uint64_
 
   DWORD2(v15) = 5;
   v21 = a2;
-  v10 = std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 120, a2);
+  v10 = std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 15, a2, &v21);
   v11 = v10;
   if (v13)
   {
     atomic_fetch_add_explicit(&v13->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v12 = *(v10 + 64);
-  *(v11 + 56) = v8;
-  *(v11 + 64) = v13;
+  v12 = v10[8];
+  v11[7] = v8;
+  v11[8] = v13;
   if (v12)
   {
     std::__shared_weak_count::__release_weak(v12);
   }
 
-  std::string::operator=((v11 + 72), __p);
-  *(v11 + 96) = DWORD2(v15);
+  std::string::operator=(v11 + 3, __p);
+  *(v11 + 24) = DWORD2(v15);
   if (SBYTE7(v15) < 0)
   {
     operator delete(__p[0]);
@@ -3056,7 +2977,7 @@ void sub_1E4EBE11C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ImsDefaultPrefs::addArrayKey(uint64_t a1, char *a2, std::string *a3, std::string *a4, uint64_t a5)
+void ImsDefaultPrefs::addArrayKey(uint64_t **a1, char *a2, std::string *a3, uint64_t a4, uint64_t a5)
 {
   v29 = 0;
   v30 = 0;
@@ -3120,7 +3041,7 @@ void ImsDefaultPrefs::addArrayKey(uint64_t a1, char *a2, std::string *a3, std::s
 
   DWORD2(v21) = 6;
   v32 = a2;
-  v13 = std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 120, a2);
+  v13 = std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 15, a2, &v32);
   v14 = v13;
   v16 = v18;
   v15 = v19;
@@ -3129,16 +3050,16 @@ void ImsDefaultPrefs::addArrayKey(uint64_t a1, char *a2, std::string *a3, std::s
     atomic_fetch_add_explicit(&v19->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v17 = *(v13 + 64);
-  *(v14 + 56) = v16;
-  *(v14 + 64) = v15;
+  v17 = v13[8];
+  v14[7] = v16;
+  v14[8] = v15;
   if (v17)
   {
     std::__shared_weak_count::__release_weak(v17);
   }
 
-  std::string::operator=((v14 + 72), __p);
-  *(v14 + 96) = DWORD2(v21);
+  std::string::operator=(v14 + 3, __p);
+  *(v14 + 24) = DWORD2(v21);
   if (SBYTE7(v21) < 0)
   {
     operator delete(__p[0]);
@@ -3160,8 +3081,9 @@ void ImsDefaultPrefs::addArrayKey(uint64_t a1, char *a2, std::string *a3, std::s
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v18);
 }
 
-void sub_1E4EBE3E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, char a19, uint64_t a20, char a21)
+void sub_1E4EBE3E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, uint64_t a20, ...)
 {
+  va_start(va, a20);
   if (a10)
   {
     std::__shared_weak_count::__release_weak(a10);
@@ -3173,59 +3095,58 @@ void sub_1E4EBE3E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   ims::CFType::~CFType(&a19);
-  ims::CFType::~CFType(&a21);
-  a9 = v21 - 80;
+  ims::CFType::~CFType(va);
+  a9 = v20 - 80;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void ImsDefaultPrefs::addEnumKey(uint64_t a1, char *a2, char **a3, std::string *a4, uint64_t a5)
+void ImsDefaultPrefs::addEnumKey(uint64_t **a1, char *a2, char **a3, uint64_t a4, uint64_t a5)
 {
-  v28 = &unk_1F5ED77D0;
-  v29 = 0;
-  ims::CFMutableEnum::create(&v28);
-  v10 = *a3;
-  v11 = a3[1];
-  v12 = *a3;
-  if (*a3 != v11)
+  v27 = &unk_1F5ED77D0;
+  v28 = 0;
+  ims::CFMutableEnum::create(&v27);
+  v10 = a3[1];
+  v11 = *a3;
+  if (*a3 != v10)
   {
     do
     {
-      ims::CFString::CFString(&v20, v12);
-      ims::CFMutableEnum::addToEnum(&v28, v21);
-      ims::CFType::~CFType(&v20);
-      v12 += 24;
+      ims::CFString::CFString(&v19, v11);
+      ims::CFMutableEnum::addToEnum(&v27, v20);
+      ims::CFType::~CFType(&v19);
+      v11 += 24;
     }
 
-    while (v12 != v11);
-    ims::CFString::CFString(&v20, *a3);
-    ims::CFMutableEnum::setValue(&v28, v21, v27);
-    ImsResult::~ImsResult(v27);
-    ims::CFType::~CFType(&v20);
+    while (v11 != v10);
+    ims::CFString::CFString(&v19, *a3);
+    ims::CFMutableEnum::setValue(v26, &v27, v20);
+    ImsResult::~ImsResult(v26);
+    ims::CFType::~CFType(&v19);
   }
 
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
-  ImsDefaultPrefs::getOrCreatePrefSection(&v25, a1, a4);
-  v13 = v25;
-  v24[0] = &unk_1F5EF3658;
-  v24[1] = v29;
-  if (v29)
+  ImsDefaultPrefs::getOrCreatePrefSection(&v24, a1, a4);
+  v12 = v24;
+  v23[0] = &unk_1F5EF3658;
+  v23[1] = v28;
+  if (v28)
   {
-    CFRetain(v29);
+    CFRetain(v28);
   }
 
-  v24[0] = &unk_1F5EC8B28;
-  ImsPrefsSection::addEnumKey(v13, a2, v24);
-  ims::CFType::~CFType(v24);
+  v23[0] = &unk_1F5EC8B28;
+  ImsPrefsSection::addEnumKey(v12, a2, v23);
+  ims::CFType::~CFType(v23);
   *__p = 0u;
-  v23 = 0u;
-  v14 = v26;
-  v20 = v13;
-  v21 = v26;
-  if (v26)
+  v22 = 0u;
+  v13 = v25;
+  v19 = v12;
+  v20 = v25;
+  if (v25)
   {
-    atomic_fetch_add_explicit(&v26->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v25->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
   if (*(a5 + 23) < 0)
@@ -3236,46 +3157,46 @@ void ImsDefaultPrefs::addEnumKey(uint64_t a1, char *a2, char **a3, std::string *
   else
   {
     *__p = *a5;
-    *&v23 = *(a5 + 16);
+    *&v22 = *(a5 + 16);
   }
 
-  DWORD2(v23) = 7;
-  v30 = a2;
-  v15 = std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 120, a2);
-  v16 = v15;
-  v18 = v20;
-  v17 = v21;
-  if (v21)
+  DWORD2(v22) = 7;
+  v29 = a2;
+  v14 = std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 15, a2, &v29);
+  v15 = v14;
+  v17 = v19;
+  v16 = v20;
+  if (v20)
   {
-    atomic_fetch_add_explicit(&v21->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v20->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v19 = *(v15 + 64);
-  *(v16 + 56) = v18;
-  *(v16 + 64) = v17;
-  if (v19)
+  v18 = v14[8];
+  v15[7] = v17;
+  v15[8] = v16;
+  if (v18)
   {
-    std::__shared_weak_count::__release_weak(v19);
+    std::__shared_weak_count::__release_weak(v18);
   }
 
-  std::string::operator=((v16 + 72), __p);
-  *(v16 + 96) = DWORD2(v23);
-  if (SBYTE7(v23) < 0)
+  std::string::operator=(v15 + 3, __p);
+  *(v15 + 24) = DWORD2(v22);
+  if (SBYTE7(v22) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v21)
+  if (v20)
   {
-    std::__shared_weak_count::__release_weak(v21);
+    std::__shared_weak_count::__release_weak(v20);
   }
 
-  if (v14)
+  if (v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
-  ims::CFType::~CFType(&v28);
+  ims::CFType::~CFType(&v27);
 }
 
 void sub_1E4EBE6A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18)
@@ -3294,7 +3215,7 @@ void sub_1E4EBE6A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-BOOL ImsDefaultPrefs::BOOLValue(uint64_t a1, void **a2)
+BOOL ImsDefaultPrefs::BOOLValue(uint64_t a1, char *a2)
 {
   if (a1 + 128 == std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 120, a2))
   {
@@ -3337,7 +3258,7 @@ void sub_1E4EBE7BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ImsDefaultPrefs::intValue(uint64_t a1, void **a2)
+uint64_t ImsDefaultPrefs::intValue(uint64_t a1, char *a2)
 {
   if (a1 + 128 == std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 120, a2))
   {
@@ -3377,7 +3298,7 @@ void sub_1E4EBE868(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsDefaultPrefs::stringValue(uint64_t a1@<X0>, void **a2@<X1>, _BYTE *a3@<X8>)
+void ImsDefaultPrefs::stringValue(uint64_t a1@<X0>, char *a2@<X1>, void *a3@<X8>)
 {
   if (a1 + 128 == std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 120, a2))
   {
@@ -3419,7 +3340,7 @@ void sub_1E4EBE968(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsDefaultPrefs::dictValue(uint64_t a1@<X0>, void **a2@<X1>, void *a3@<X8>)
+void ImsDefaultPrefs::dictValue(uint64_t a1@<X0>, char *a2@<X1>, void *a3@<X8>)
 {
   if (a1 + 128 == std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 120, a2))
   {
@@ -3460,7 +3381,7 @@ void sub_1E4EBEA40(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsDefaultPrefs::arrayValue(uint64_t a1@<X0>, void **a2@<X1>, void *a3@<X8>)
+void ImsDefaultPrefs::arrayValue(uint64_t a1@<X0>, char *a2@<X1>, void *a3@<X8>)
 {
   if (a1 + 128 == std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 120, a2))
   {
@@ -3501,7 +3422,7 @@ void sub_1E4EBEB18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsDefaultPrefs::enumAsString(uint64_t a1@<X0>, void **a2@<X1>, _BYTE *a3@<X8>)
+void ImsDefaultPrefs::enumAsString(uint64_t a1@<X0>, char *a2@<X1>, void *a3@<X8>)
 {
   if (a1 + 128 == std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 120, a2))
   {
@@ -3545,29 +3466,29 @@ void sub_1E4EBEC14(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ims::join<std::__wrap_iter<std::string *>>()
 {
-  v1 = 0;
-  memset(v0, 0, sizeof(v0));
-  ImsStringOutStream::ImsStringOutStream(v0);
+  v5 = 0;
+  memset(v4, 0, sizeof(v4));
+  ImsStringOutStream::ImsStringOutStream(v4, 1);
 }
 
-void sub_1E4EBED80(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E4EBED80(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void ImsDefaultPrefs::getSipTimers(ImsDefaultPrefs *this@<X0>, void *a2@<X8>)
+void ImsDefaultPrefs::getSipTimers(ImsDefaultPrefs *this@<X0>, uint64_t **a2@<X8>)
 {
   a2[2] = 0;
   a2[1] = 0;
-  *a2 = a2 + 1;
+  *a2 = (a2 + 1);
   std::string::basic_string[abi:ne200100]<0>(v48, "Signaling");
   v6 = *(this + 1);
   v4 = this + 8;
@@ -3586,11 +3507,11 @@ void ImsDefaultPrefs::getSipTimers(ImsDefaultPrefs *this@<X0>, void *a2@<X8>)
       v7 = v5;
     }
 
-    v5 = *&v5[(v8 >> 4) & 8];
+    v5 = *(v5 + ((v8 >> 4) & 8));
   }
 
   while (v5);
-  if (v7 == v4 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v48, v7 + 4) & 0x80) != 0)
+  if (v7 == v4 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v48, v7 + 32) & 0x80) != 0)
   {
 LABEL_8:
     v7 = v4;
@@ -3622,7 +3543,7 @@ LABEL_8:
       v11 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "A");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v11;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v11;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3639,7 +3560,7 @@ LABEL_8:
       v12 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "B");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v12;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v12;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3656,7 +3577,7 @@ LABEL_8:
       v13 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "C");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v13;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v13;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3673,7 +3594,7 @@ LABEL_8:
       v14 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "D");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v14;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v14;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3690,7 +3611,7 @@ LABEL_8:
       v15 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "E");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v15;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v15;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3707,7 +3628,7 @@ LABEL_8:
       v16 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "F");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v16;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v16;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3724,7 +3645,7 @@ LABEL_8:
       v17 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "G");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v17;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v17;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3741,7 +3662,7 @@ LABEL_8:
       v18 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "H");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v18;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v18;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3758,7 +3679,7 @@ LABEL_8:
       v19 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "I");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v19;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v19;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3775,7 +3696,7 @@ LABEL_8:
       v20 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "J");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v20;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v20;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3792,7 +3713,7 @@ LABEL_8:
       v21 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "T1");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v21;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v21;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3809,7 +3730,7 @@ LABEL_8:
       v22 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "T2");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v22;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v22;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3826,7 +3747,7 @@ LABEL_8:
       v23 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "T4");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v23;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v23;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3843,7 +3764,7 @@ LABEL_8:
       v24 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "200RetransmitTimer");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v24;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v24;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3860,7 +3781,7 @@ LABEL_8:
       v25 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "AckReceiveTimeout");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v25;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v25;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3877,7 +3798,7 @@ LABEL_8:
       v26 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "AckRetransmitTimer");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v26;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v26;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3894,7 +3815,7 @@ LABEL_8:
       v27 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "RegAwaitAuthTimeout");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v27;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v27;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3911,7 +3832,7 @@ LABEL_8:
       v28 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "InviteResponseTimeout");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v28;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v28;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3928,7 +3849,7 @@ LABEL_8:
       v29 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "EPSInviteResponseTimeout");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v29;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v29;
       if (v37 < 0)
       {
         operator delete(__p[0]);
@@ -3945,7 +3866,7 @@ LABEL_8:
       v30 = __p[0];
       std::string::basic_string[abi:ne200100]<0>(__p, "EmergencyInviteResponseTimeout");
       v50 = __p;
-      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p) + 56) = v30;
+      *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, __p, &std::piecewise_construct, &v50) + 56) = v30;
       if ((v37 & 0x80000000) == 0)
       {
         goto LABEL_102;
@@ -4105,26 +4026,26 @@ void std::__shared_ptr_emplace<ImsPrefsSection>::~__shared_ptr_emplace(std::__sh
   JUMPOUT(0x1E69235B0);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v10 = 0;
+  v5 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v10, a2);
+  if (!v5)
   {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     std::__tree<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_compare<std::string,std::__value_type<std::string,ImsPref>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ImsPref>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, __int128 **a3)
 {
-  v3 = (a1 + 8);
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1 + 1;
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_7;
   }
@@ -4133,52 +4054,52 @@ uint64_t std::__tree<std::__value_type<std::string,ImsPref>,std::__map_value_com
   {
     while (1)
     {
-      v5 = v2;
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, (v2 + 32)) & 0x80) == 0)
+      v6 = v3;
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v3 + 32) & 0x80) == 0)
       {
         break;
       }
 
-      v2 = *v5;
-      v3 = v5;
-      if (!*v5)
+      v3 = *v6;
+      v4 = v6;
+      if (!*v6)
       {
         goto LABEL_7;
       }
     }
 
-    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v5 + 4, a2) & 0x80) == 0)
+    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v6 + 4, a2) & 0x80) == 0)
     {
       break;
     }
 
-    v3 = v5 + 1;
-    v2 = v5[1];
-    if (!v2)
+    v4 = (v6 + 1);
+    v3 = v6[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 
-  if (!*v3)
+  if (!*v4)
   {
 LABEL_7:
     operator new();
   }
 
-  return *v3;
+  return *v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, _OWORD **a4)
 {
-  v4 = 0;
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v6 = 0;
+  v4 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 BOOL operator==(void *a1, uint64_t a2)
@@ -4231,7 +4152,7 @@ void SipTimers::SipTimers(SipTimers *this)
   SipTimers::resetDefaults(this);
 }
 
-uint64_t SipTimers::resetDefaults(char **this)
+uint64_t *SipTimers::resetDefaults(char **this)
 {
   v1 = this + 2;
   v2 = (this + 1);
@@ -4239,11 +4160,15 @@ uint64_t SipTimers::resetDefaults(char **this)
   *v1 = 0;
   v1[1] = 0;
   *(v1 - 1) = v1;
-  *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v2, &qword_1EE2BCD50) + 56) = 2000;
-  *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v2, &unk_1EE2BCD30) + 56) = 16000;
-  *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v2, &unk_1EE2BCD10) + 56) = 17000;
-  result = std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v2, &xmmword_1EE2BCE50);
-  *(result + 56) = 128000;
+  v5 = &qword_1EE2BCD50;
+  *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v2, &qword_1EE2BCD50, &std::piecewise_construct, &v5, &v4) + 14) = 2000;
+  v5 = &unk_1EE2BCD30;
+  *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v2, &unk_1EE2BCD30, &std::piecewise_construct, &v5, &v4) + 14) = 16000;
+  v5 = &unk_1EE2BCD10;
+  *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v2, &unk_1EE2BCD10, &std::piecewise_construct, &v5, &v4) + 14) = 17000;
+  v5 = byte_1EE2BCE50;
+  result = std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v2, byte_1EE2BCE50, &std::piecewise_construct, &v5, &v4);
+  *(result + 14) = 128000;
   return result;
 }
 
@@ -4316,17 +4241,17 @@ uint64_t SipTimers::timerValue(SipTimers *this, const SipTimer *a2, int a3)
     v13 = this + 16;
     do
     {
-      v14 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v12 + 4, &v22.__r_.__value_.__l.__data_);
+      v14 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v12 + 4, &v22);
       if ((v14 & 0x80u) == 0)
       {
         v13 = v12;
       }
 
-      v12 = *&v12[(v14 >> 4) & 8];
+      v12 = *(v12 + ((v14 >> 4) & 8));
     }
 
     while (v12);
-    if (v13 == v11 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v22, v13 + 4) & 0x80) != 0)
+    if (v13 == v11 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v22, v13 + 32) & 0x80) != 0)
     {
 LABEL_22:
       v13 = this + 16;
@@ -4485,7 +4410,7 @@ void SipTimers::setTimersFromPrefs(uint64_t **this, const ImsPrefs *a2)
         }
 
         v18[0] = &v20;
-        *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((this + 1), &v20.__r_.__value_.__l.__data_) + 56) = v4;
+        *(std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 1, &v20, &std::piecewise_construct, v18, v23) + 14) = v4;
       }
 
       else
@@ -4511,7 +4436,7 @@ void SipTimers::setTimersFromPrefs(uint64_t **this, const ImsPrefs *a2)
           operator delete(v18[0]);
         }
 
-        std::__tree<std::string>::__erase_unique<std::string>(this + 1, &v20.__r_.__value_.__l.__data_);
+        std::__tree<std::string>::__erase_unique<std::string>(this + 1, &v20);
       }
 
       if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
@@ -4558,7 +4483,7 @@ void SipTimers::log(SipTimers *this, ImsOutStream *a2)
   std::string::basic_string[abi:ne200100]<0>(&v2, ", ");
   v5 = 0;
   memset(v4, 0, sizeof(v4));
-  ImsStringOutStream::ImsStringOutStream(v4);
+  ImsStringOutStream::ImsStringOutStream(v4, 1);
 }
 
 void sub_1E4EC0E90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, uint64_t a34, char a35)
@@ -4619,16 +4544,16 @@ void sub_1E4EC107C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::map<std::string,unsigned int>::map[abi:ne200100](void *a1, uint64_t a2)
+uint64_t *std::map<std::string,unsigned int>::map[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   a1[2] = 0;
   a1[1] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   std::map<std::string,unsigned int>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,unsigned int>,std::__tree_node<std::__value_type<std::string,unsigned int>,void *> *,long>>>(a1, *a2, (a2 + 8));
   return a1;
 }
 
-void *std::map<std::string,unsigned int>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,unsigned int>,std::__tree_node<std::__value_type<std::string,unsigned int>,void *> *,long>>>(void *result, void **a2, void **a3)
+uint64_t *std::map<std::string,unsigned int>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,unsigned int>,std::__tree_node<std::__value_type<std::string,unsigned int>,void *> *,long>>>(uint64_t *result, char *a2, char *a3)
 {
   if (a2 != a3)
   {
@@ -4636,8 +4561,8 @@ void *std::map<std::string,unsigned int>::insert[abi:ne200100]<std::__map_const_
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(v5, (v5 + 1), v4 + 4);
-      v6 = v4[1];
+      result = std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(v5, (v5 + 8), v4 + 32, (v4 + 32));
+      v6 = *(v4 + 1);
       if (v6)
       {
         do
@@ -4653,7 +4578,7 @@ void *std::map<std::string,unsigned int>::insert[abi:ne200100]<std::__map_const_
       {
         do
         {
-          v7 = v4[2];
+          v7 = *(v4 + 2);
           v8 = *v7 == v4;
           v4 = v7;
         }
@@ -4670,11 +4595,11 @@ void *std::map<std::string,unsigned int>::insert[abi:ne200100]<std::__map_const_
   return result;
 }
 
-void *std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(void *a1, uint64_t a2, void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,unsigned int> const&>(uint64_t **a1, uint64_t *a2, char *a3, uint64_t a4)
 {
-  v4 = 0;
   v5 = 0;
-  result = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  v6 = 0;
+  result = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__construct_node<std::pair<std::string const,unsigned int> const&>();
@@ -4690,7 +4615,7 @@ void sub_1E4EC12A4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t **std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,unsigned int>,std::__tree_node<std::__value_type<std::string,unsigned int>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+uint64_t ***std::__tree<std::__value_type<std::string,unsigned int>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned int>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,unsigned int>,std::__tree_node<std::__value_type<std::string,unsigned int>,void *> *,long>>(uint64_t ***result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
@@ -4698,7 +4623,7 @@ uint64_t **std::__tree<std::__value_type<std::string,unsigned int>,std::__map_va
     v6 = *result;
     v7 = result[1];
     *result = (result + 1);
-    v7[2] = 0;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -4785,9 +4710,9 @@ uint64_t **std::__tree<std::__value_type<std::string,unsigned int>,std::__map_va
   return result;
 }
 
-void sub_1E4EC1470(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4EC1470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::string>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4974,14 +4899,14 @@ void sub_1E4EC1B8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SipAckReceiveHandler::SipAckReceiveHandler(uint64_t a1, void *a2, uint64_t *a3, uint64_t *a4)
+void SipAckReceiveHandler::SipAckReceiveHandler(uint64_t a1, SipSessionInterface **a2, uint64_t *a3, void *a4)
 {
   *a1 = &unk_1F5EBEEC0;
-  v8 = a1 + 8;
+  v7 = a1 + 8;
   std::string::basic_string[abi:ne200100]<0>(&__str, "sip.session");
-  std::__optional_destruct_base<ClientConfig const,false>::__optional_destruct_base[abi:ne200100]<ClientConfig const&>(v29, (*a2 + 192));
-  ImsLogContainer::ImsLogContainer(v8, &__str, v29);
-  if (v32 == 1 && v31 < 0)
+  std::__optional_destruct_base<ClientConfig const,false>::__optional_destruct_base[abi:ne200100]<ClientConfig const&>(v27, *a2 + 24);
+  ImsLogContainer::ImsLogContainer(v7, &__str, v27);
+  if (v30 == 1 && v29 < 0)
   {
     operator delete(__p);
   }
@@ -4991,50 +4916,50 @@ void SipAckReceiveHandler::SipAckReceiveHandler(uint64_t a1, void *a2, uint64_t 
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v27, "sip.session");
-  v9 = *a2;
-  v23 = *(*a2 + 192);
-  v24 = *(v9 + 200);
-  if (*(v9 + 231) < 0)
+  std::string::basic_string[abi:ne200100]<0>(v25, "sip.session");
+  v8 = *a2;
+  v21 = *(*a2 + 24);
+  v22 = *(v8 + 200);
+  if (*(v8 + 231) < 0)
   {
-    std::string::__init_copy_ctor_external(&v25, *(v9 + 208), *(v9 + 216));
+    std::string::__init_copy_ctor_external(&v23, *(v8 + 208), *(v8 + 216));
   }
 
   else
   {
-    v25 = *(v9 + 208);
+    v23 = *(v8 + 208);
   }
 
-  v26 = *(v9 + 232);
-  ims::getQueue(&v35);
-  ClientConfig::getLogTag(&v23, &v33);
-  if ((v28 & 0x80u) == 0)
+  v24 = *(v8 + 232);
+  ims::getQueue(&v33);
+  ClientConfig::getLogTag(&v31, &v21);
+  if ((v26 & 0x80u) == 0)
   {
-    v10 = v27;
+    v9 = v25;
   }
 
   else
   {
-    v10 = v27[0];
+    v9 = v25[0];
   }
 
-  if ((v28 & 0x80u) == 0)
+  if ((v26 & 0x80u) == 0)
   {
-    v11 = v28;
+    v10 = v26;
   }
 
   else
   {
-    v11 = v27[1];
+    v10 = v25[1];
   }
 
-  v12 = std::string::insert(&v33, 0, v10, v11);
-  v13 = *&v12->__r_.__value_.__l.__data_;
-  __str.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
-  *&__str.__r_.__value_.__l.__data_ = v13;
-  v12->__r_.__value_.__l.__size_ = 0;
-  v12->__r_.__value_.__r.__words[2] = 0;
-  v12->__r_.__value_.__r.__words[0] = 0;
+  v11 = std::string::insert(&v31, 0, v9, v10);
+  v12 = *&v11->__r_.__value_.__l.__data_;
+  __str.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+  *&__str.__r_.__value_.__l.__data_ = v12;
+  v11->__r_.__value_.__l.__size_ = 0;
+  v11->__r_.__value_.__r.__words[2] = 0;
+  v11->__r_.__value_.__r.__words[0] = 0;
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_str = &__str;
@@ -5047,11 +4972,11 @@ void SipAckReceiveHandler::SipAckReceiveHandler(uint64_t a1, void *a2, uint64_t 
 
   *(a1 + 152) = 0;
   *(a1 + 160) = 0;
-  v15 = v35;
-  *(a1 + 168) = v35;
-  if (v15)
+  v14 = v33;
+  *(a1 + 168) = v33;
+  if (v14)
   {
-    dispatch_retain(v15);
+    dispatch_retain(v14);
   }
 
   *(a1 + 176) = 0;
@@ -5061,25 +4986,25 @@ void SipAckReceiveHandler::SipAckReceiveHandler(uint64_t a1, void *a2, uint64_t 
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v33.__r_.__value_.__l.__data_);
+    operator delete(v31.__r_.__value_.__l.__data_);
   }
 
-  if (v15)
+  if (v14)
   {
-    dispatch_release(v15);
+    dispatch_release(v14);
   }
 
   *(a1 + 144) = &unk_1F5ED7A80;
-  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v25.__r_.__value_.__l.__data_);
+    operator delete(v23.__r_.__value_.__l.__data_);
   }
 
-  if (v28 < 0)
+  if (v26 < 0)
   {
-    operator delete(v27[0]);
+    operator delete(v25[0]);
   }
 
   *a1 = &unk_1F5ED78D8;
@@ -5090,37 +5015,36 @@ void SipAckReceiveHandler::SipAckReceiveHandler(uint64_t a1, void *a2, uint64_t 
   SipTimerContainer::SipTimerContainer((a1 + 224));
   *(a1 + 400) = 0;
   *(a1 + 408) = 0;
-  v17 = *a2;
-  v16 = a2[1];
-  if (v16)
+  v16 = *a2;
+  v15 = a2[1];
+  if (v15)
   {
-    atomic_fetch_add_explicit((v16 + 16), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v15 + 2, 1uLL, memory_order_relaxed);
   }
 
-  v18 = *(a1 + 200);
-  *(a1 + 192) = v17;
-  *(a1 + 200) = v16;
+  v17 = *(a1 + 200);
+  *(a1 + 192) = v16;
+  *(a1 + 200) = v15;
+  if (v17)
+  {
+    std::__shared_weak_count::__release_weak(v17);
+  }
+
+  v19 = *a3;
+  v18 = a3[1];
   if (v18)
   {
-    std::__shared_weak_count::__release_weak(v18);
+    atomic_fetch_add_explicit((v18 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v20 = *a3;
-  v19 = a3[1];
-  if (v19)
+  v20 = *(a1 + 216);
+  *(a1 + 208) = v19;
+  *(a1 + 216) = v18;
+  if (v20)
   {
-    atomic_fetch_add_explicit((v19 + 8), 1uLL, memory_order_relaxed);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
   }
 
-  v21 = *(a1 + 216);
-  *(a1 + 208) = v20;
-  *(a1 + 216) = v19;
-  if (v21)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
-  }
-
-  v22 = *a4;
   std::allocate_shared[abi:ne200100]<SipResponse,std::allocator<SipResponse>,SipResponse::EnforcePrivateConstructor,SipResponse const&,0>();
 }
 
@@ -5201,14 +5125,14 @@ void non-virtual thunk toSipAckReceiveHandler::~SipAckReceiveHandler(SipAckRecei
   JUMPOUT(0x1E69235B0);
 }
 
-void SipAckReceiveHandler::loggableName(SipAckReceiveHandler *this)
+void SipAckReceiveHandler::loggableName()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4EC2538(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18)
+void sub_1E4EC2538(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18)
 {
   if (v19)
   {
@@ -5224,7 +5148,7 @@ void sub_1E4EC2538(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   {
     if (a17)
     {
-      (*(*a17 + 8))(a17);
+      (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -5255,7 +5179,6 @@ void sub_1E4EC268C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t SipAckReceiveHandler::initialize(SipAckReceiveHandler *this)
 {
-  v16 = *MEMORY[0x1E69E9840];
   if (*(this + 26))
   {
     v2 = *(this + 25);
@@ -5270,13 +5193,12 @@ uint64_t SipAckReceiveHandler::initialize(SipAckReceiveHandler *this)
           v5 = *(this + 20);
           if (v5)
           {
-            v6 = *(this + 19);
-            v7 = std::__shared_weak_count::lock(v5);
-            if (v7)
+            v6 = std::__shared_weak_count::lock(v5);
+            if (v6)
             {
-              p_shared_weak_owners = &v7->__shared_weak_owners_;
-              atomic_fetch_add_explicit(&v7->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-              std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+              p_shared_weak_owners = &v6->__shared_weak_owners_;
+              atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v6);
               atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
               *(this + 98) = 1;
               if (*(v4 + 256) == 1)
@@ -5300,51 +5222,50 @@ uint64_t SipAckReceiveHandler::initialize(SipAckReceiveHandler *this)
       v3 = 0;
     }
 
-    v13 = *(this + 1);
-    v12 = this + 8;
-    v14 = (*(v13 + 56))(v12);
-    (*(*v12 + 16))(v12, v14);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), "no session specified", 20);
-    *(v14 + 17) = 0;
-    (*(*v14 + 64))(v14, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    v12 = *(this + 1);
+    v11 = this + 8;
+    v13 = (*(v12 + 56))(v11);
+    (*(*v11 + 16))(v11, v13);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v13 + 8), "no session specified", 20);
+    *(v13 + 17) = 0;
+    (*(*v13 + 64))(v13, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     result = 0;
-    *(v14 + 17) = 0;
+    *(v13 + 17) = 0;
     if (v3)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-      result = 0;
+      return 0;
     }
   }
 
   else
   {
-    v9 = this + 8;
-    v10 = (*(*(this + 1) + 56))(this + 8);
-    (*(*v9 + 16))(v9, v10);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "no transaction specified", 24);
-    *(v10 + 17) = 0;
-    (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    v8 = this + 8;
+    v9 = (*(*(this + 1) + 56))(this + 8);
+    (*(*v8 + 16))(v8, v9);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), "no transaction specified", 24);
+    *(v9 + 17) = 0;
+    (*(*v9 + 64))(v9, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     result = 0;
-    *(v10 + 17) = 0;
+    *(v9 + 17) = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1E4EC29E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1E4EC29E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(std::string &)>::~__value_func[abi:ne200100](va);
-  std::__shared_weak_count::__release_weak(v7);
-  std::__shared_weak_count::__release_weak(v7);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+  std::__shared_weak_count::__release_weak(v12);
+  std::__shared_weak_count::__release_weak(v12);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   _Unwind_Resume(a1);
 }
 
 void SipAckReceiveHandler::handleTimer(uint64_t a1, void *a2)
 {
-  v30[34] = *MEMORY[0x1E69E9840];
+  v26[34] = *MEMORY[0x1E69E9840];
   if (operator==(a2, &SipTimers::kTimer200Retransmit))
   {
     v4 = *(a1 + 208);
@@ -5386,22 +5307,21 @@ LABEL_8:
           *(v11 + 17) = 0;
           (*(*v11 + 64))(v11, std::endl[abi:ne200100]<char,std::char_traits<char>>);
           *(v11 + 17) = 0;
-          (*(**(a1 + 208) + 120))(v30);
-          ImsResult::~ImsResult(v30);
+          (*(**(a1 + 208) + 120))(v26);
+          ImsResult::~ImsResult(v26);
           *(a1 + 392) *= 2;
-          v21 = *(a1 + 160);
-          if (v21)
+          v19 = *(a1 + 160);
+          if (v19)
           {
-            v22 = *(a1 + 152);
-            v23 = std::__shared_weak_count::lock(v21);
-            if (v23)
+            v20 = std::__shared_weak_count::lock(v19);
+            if (v20)
             {
-              p_shared_weak_owners = &v23->__shared_weak_owners_;
-              atomic_fetch_add_explicit(&v23->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-              std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+              p_shared_weak_owners = &v20->__shared_weak_owners_;
+              atomic_fetch_add_explicit(&v20->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v20);
               atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
               atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
-              v30[33] = 0;
+              v26[33] = 0;
               operator new();
             }
           }
@@ -5413,8 +5333,6 @@ LABEL_8:
         *(v11 + 17) = 0;
         (*(*v11 + 64))(v11, std::endl[abi:ne200100]<char,std::char_traits<char>>);
         *(v11 + 17) = 0;
-        v19 = *(a1 + 208);
-        v20 = *(a1 + 400);
         std::allocate_shared[abi:ne200100]<SipResponse,std::allocator<SipResponse>,SipResponse::EnforcePrivateConstructor,SipResponse const&,0>();
       }
     }
@@ -5458,7 +5376,9 @@ LABEL_7:
             SipSessionInterface::terminationReason(v15);
           }
 
-          goto LABEL_26;
+LABEL_26:
+          std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+          return;
         }
       }
     }
@@ -5468,22 +5388,21 @@ LABEL_7:
       v14 = 0;
     }
 
-    v26 = *(a1 + 8);
-    v25 = a1 + 8;
-    v27 = (*(v26 + 56))(v25);
-    (*(*v25 + 16))(v25, v27);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v27 + 8), "No session to handle AckReceiveTimeout", 38);
-    *(v27 + 17) = 0;
-    (*(*v27 + 64))(v27, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v27 + 17) = 0;
-    if (v14)
+    v23 = *(a1 + 8);
+    v22 = a1 + 8;
+    v24 = (*(v23 + 56))(v22);
+    (*(*v22 + 16))(v22, v24);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v24 + 8), "No session to handle AckReceiveTimeout", 38);
+    *(v24 + 17) = 0;
+    (*(*v24 + 64))(v24, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v24 + 17) = 0;
+    if (!v14)
     {
-LABEL_26:
-      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+      return;
     }
-  }
 
-  v28 = *MEMORY[0x1E69E9840];
+    goto LABEL_26;
+  }
 }
 
 void sub_1E4EC3038(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
@@ -5812,12 +5731,12 @@ void SipListenSocketMultiplexer::~SipListenSocketMultiplexer(SipListenSocketMult
 
 void SipListenSocketMultiplexer::handleIncomingConnection(void *a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  (*(**a2 + 104))(&v14);
-  SipSocketMultiplexer<ImsListenSocketInterfaceDelegate>::delegateForRemoteAddress(a1, &v14, &__p);
-  if (v11)
+  v15 = *MEMORY[0x1E69E9840];
+  (*(**a2 + 104))(&v13);
+  SipSocketMultiplexer<ImsListenSocketInterfaceDelegate>::delegateForRemoteAddress(a1, &v13, &__p);
+  if (v10)
   {
-    v4 = std::__shared_weak_count::lock(v11);
+    v4 = std::__shared_weak_count::lock(v10);
     if (v4)
     {
       v5 = __p;
@@ -5828,9 +5747,9 @@ void SipListenSocketMultiplexer::handleIncomingConnection(void *a1, void *a2)
       v5 = 0;
     }
 
-    if (v11)
+    if (v10)
     {
-      std::__shared_weak_count::__release_weak(v11);
+      std::__shared_weak_count::__release_weak(v10);
     }
   }
 
@@ -5840,24 +5759,24 @@ void SipListenSocketMultiplexer::handleIncomingConnection(void *a1, void *a2)
     v5 = 0;
   }
 
-  if (v15)
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
 
   if (v5)
   {
     v6 = a2[1];
-    v12 = *a2;
-    v13 = v6;
+    v11 = *a2;
+    v12 = v6;
     if (v6)
     {
       atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    (*(*v5 + 16))(v5, &v12);
-    v7 = v13;
-    if (v13)
+    (*(*v5 + 16))(v5, &v11);
+    v7 = v12;
+    if (v12)
     {
 LABEL_14:
       std::__shared_weak_count::__release_shared[abi:ne200100](v7);
@@ -5866,13 +5785,13 @@ LABEL_14:
 
   else
   {
-    ims::getStaticLoggerFor("transport", &__p);
-    v9 = v11;
+    ims::getStaticLoggerFor(&__p, "transport");
+    v8 = v10;
     ctu::OsLogContext::~OsLogContext(&__p);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      (*(**a2 + 104))(&v14);
-      IpAddress::logStr(v14);
+      (*(**a2 + 104))(&v13);
+      IpAddress::logStr();
     }
 
     v7 = a2[1];
@@ -5888,8 +5807,6 @@ LABEL_14:
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4EC3C08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16)
@@ -5907,23 +5824,21 @@ void sub_1E4EC3C08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *SipSocketMultiplexer<ImsListenSocketInterfaceDelegate>::delegateForRemoteAddress@<X0>(void *result@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+void SipSocketMultiplexer<ImsListenSocketInterfaceDelegate>::delegateForRemoteAddress(void *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
-  if (result[3])
+  if (a1[3])
   {
-    v4 = *a2;
-    IpAddress::asString();
+    memset(__p, 0, sizeof(__p));
+    IpAddress::asString(*a2, __p, 3);
   }
 
-  v5 = result[5];
-  *a3 = result[4];
-  a3[1] = v5;
-  if (v5)
+  v4 = a1[5];
+  *a3 = a1[4];
+  a3[1] = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit((v5 + 16), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 16), 1uLL, memory_order_relaxed);
   }
-
-  return result;
 }
 
 void sub_1E4EC3D18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -5938,8 +5853,7 @@ void sub_1E4EC3D18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 std::string *ImsPrefsSection::ImsPrefsSection(std::string *a1, __int128 *a2, __int128 *a3)
 {
-  a1->__r_.__value_.__r.__words[2] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
   a1[1].__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[0] = &a1->__r_.__value_.__l.__size_;
   a1[1].__r_.__value_.__r.__words[0] = &a1[1].__r_.__value_.__l.__size_;
@@ -6002,12 +5916,12 @@ void ImsPrefsSection::~ImsPrefsSection(ImsPrefsSection *this)
   std::__tree<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>,ReasonCompare,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<BambiCallTerminationReason>>>>::destroy(this, *(this + 1));
 }
 
-void ImsPrefsSection::addSubSection(uint64_t a1@<X0>, void *a2@<X8>)
+void ImsPrefsSection::addSubSection(uint64_t a1@<X0>, std::string **a3@<X8>)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   memset(&__p, 0, sizeof(__p));
-  v4 = *(a1 + 71);
-  if (v4 < 0)
+  v5 = *(a1 + 71);
+  if (v5 < 0)
   {
     if (*(a1 + 56))
     {
@@ -6018,81 +5932,81 @@ void ImsPrefsSection::addSubSection(uint64_t a1@<X0>, void *a2@<X8>)
   else if (*(a1 + 71))
   {
 LABEL_3:
-    if (v4 >= 0)
+    if (v5 >= 0)
     {
-      v5 = *(a1 + 71);
+      v6 = *(a1 + 71);
     }
 
     else
     {
-      v5 = *(a1 + 56);
+      v6 = *(a1 + 56);
     }
 
-    memset(&v15, 0, sizeof(v15));
-    v6 = &v15;
-    std::string::basic_string[abi:ne200100](&v15, v5 + 1);
-    if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    memset(&v16, 0, sizeof(v16));
+    v7 = &v16;
+    std::string::basic_string[abi:ne200100](&v16, v6 + 1);
+    if ((v16.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v6 = v15.__r_.__value_.__r.__words[0];
+      v7 = v16.__r_.__value_.__r.__words[0];
     }
 
-    if (v5)
+    if (v6)
     {
       if (*(a1 + 71) >= 0)
       {
-        v7 = (a1 + 48);
+        v8 = (a1 + 48);
       }
 
       else
       {
-        v7 = *(a1 + 48);
+        v8 = *(a1 + 48);
       }
 
-      memmove(v6, v7, v5);
+      memmove(v7, v8, v6);
     }
 
-    *(&v6->__r_.__value_.__l.__data_ + v5) = 47;
-    v8 = *(a1 + 95);
-    if (v8 >= 0)
+    *(&v7->__r_.__value_.__l.__data_ + v6) = 47;
+    v9 = *(a1 + 95);
+    if (v9 >= 0)
     {
-      v9 = (a1 + 72);
-    }
-
-    else
-    {
-      v9 = *(a1 + 72);
-    }
-
-    if (v8 >= 0)
-    {
-      v10 = *(a1 + 95);
+      v10 = (a1 + 72);
     }
 
     else
     {
-      v10 = *(a1 + 80);
+      v10 = *(a1 + 72);
     }
 
-    v11 = std::string::append(&v15, v9, v10);
-    v12 = v11->__r_.__value_.__r.__words[0];
-    v16.__r_.__value_.__r.__words[0] = v11->__r_.__value_.__l.__size_;
-    *(v16.__r_.__value_.__r.__words + 7) = *(&v11->__r_.__value_.__r.__words[1] + 7);
-    v13 = HIBYTE(v11->__r_.__value_.__r.__words[2]);
-    v11->__r_.__value_.__l.__size_ = 0;
-    v11->__r_.__value_.__r.__words[2] = 0;
-    v11->__r_.__value_.__r.__words[0] = 0;
-    *(&__p.__r_.__value_.__r.__words[1] + 7) = *(v16.__r_.__value_.__r.__words + 7);
-    __p.__r_.__value_.__r.__words[0] = v12;
-    __p.__r_.__value_.__l.__size_ = v16.__r_.__value_.__r.__words[0];
-    *(&__p.__r_.__value_.__s + 23) = v13;
-    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+    if (v9 >= 0)
     {
-      operator delete(v15.__r_.__value_.__l.__data_);
+      v11 = *(a1 + 95);
+    }
+
+    else
+    {
+      v11 = *(a1 + 80);
+    }
+
+    v12 = std::string::append(&v16, v10, v11);
+    v13 = v12->__r_.__value_.__r.__words[0];
+    v17.__r_.__value_.__r.__words[0] = v12->__r_.__value_.__l.__size_;
+    *(v17.__r_.__value_.__r.__words + 7) = *(&v12->__r_.__value_.__r.__words[1] + 7);
+    v14 = HIBYTE(v12->__r_.__value_.__r.__words[2]);
+    v12->__r_.__value_.__l.__size_ = 0;
+    v12->__r_.__value_.__r.__words[2] = 0;
+    v12->__r_.__value_.__r.__words[0] = 0;
+    *(&__p.__r_.__value_.__r.__words[1] + 7) = *(v17.__r_.__value_.__r.__words + 7);
+    __p.__r_.__value_.__r.__words[0] = v13;
+    __p.__r_.__value_.__l.__size_ = v17.__r_.__value_.__r.__words[0];
+    *(&__p.__r_.__value_.__s + 23) = v14;
+    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v16.__r_.__value_.__l.__data_);
     }
 
 LABEL_23:
-    *a2 = 0;
-    a2[1] = 0;
+    *a3 = 0;
+    a3[1] = 0;
     operator new();
   }
 
@@ -6117,38 +6031,37 @@ void sub_1E4EC4124(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ImsPrefsSection::getOrCreatePrefSection@<X0>(uint64_t a1@<X0>, void **a2@<X1>, int a3@<W2>, void *a4@<X8>)
+double ImsPrefsSection::getOrCreatePrefSection@<D0>(uint64_t **a1@<X0>, uint64_t ***a2@<X1>, int a3@<W2>, uint64_t *a4@<X8>)
 {
   *a4 = 0;
   a4[1] = 0;
-  result = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1, a2);
-  if (a1 + 8 == result)
+  if (a1 + 1 == std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1, a2))
   {
     if (a3)
     {
-      ImsPrefsSection::addSubSection(a1, &v11);
+      ImsPrefsSection::addSubSection(a1, &v12);
     }
   }
 
   else
   {
-    *&v11 = a2;
-    result = std::__tree<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a2);
-    v10 = *(result + 56);
-    v9 = *(result + 64);
-    if (v9)
+    *&v12 = a2;
+    v9 = std::__tree<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<ImsPrefsSection>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a2, &std::piecewise_construct, &v12, &v13);
+    v11 = v9[7];
+    v10 = v9[8];
+    if (v10)
     {
-      atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
     }
 
-    *a4 = v10;
-    a4[1] = v9;
+    *a4 = v11;
+    a4[1] = v10;
   }
 
   return result;
 }
 
-uint64_t ImsPrefsSection::isSection(__int128 **a1, void **a2)
+uint64_t ImsPrefsSection::isSection(__int128 **a1, char *a2)
 {
   v4 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1, a2);
   if (a1 + 1 == v4)
@@ -6434,59 +6347,58 @@ void ImsPrefsSection::logMergedPrefs(void *a1, uint64_t a2, uint64_t a3, uint64_
 
 uint64_t SipMD5DigestAlgorithm::computeDigest(uint64_t a1, const void *a2, CC_LONG a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   memset(&c, 0, sizeof(c));
   *md = 0;
-  v21 = 0;
+  v20 = 0;
   CC_MD5_Init(&c);
   CC_MD5_Update(&c, a2, a3);
   CC_MD5_Final(md, &c);
-  v18 = 0;
-  memset(v17, 0, sizeof(v17));
+  v17 = 0;
+  memset(v16, 0, sizeof(v16));
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   *__p = 0u;
-  memset(v13, 0, sizeof(v13));
-  v12 = 0u;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v12);
-  LOBYTE(v10) = 48;
-  std::operator<<[abi:ne200100]<std::char_traits<char>>(&v12, &v10);
+  memset(v12, 0, sizeof(v12));
+  v11 = 0u;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
+  LOBYTE(v9) = 48;
+  std::operator<<[abi:ne200100]<std::char_traits<char>>(&v11, &v9);
   v7 = 0;
-  *(&v13[-1] + *(v12 - 24) + 8) = *(&v13[-1] + *(v12 - 24) + 8) & 0xFFFFFFB5 | 8;
+  *(&v12[-1] + *(v11 - 24) + 8) = *(&v12[-1] + *(v11 - 24) + 8) & 0xFFFFFFB5 | 8;
   do
   {
-    *(v13 + *(v12 - 24) + 8) = 2;
-    MEMORY[0x1E6923340](&v12, md[v7++]);
+    *(v12 + *(v11 - 24) + 8) = 2;
+    MEMORY[0x1E6923340](&v11, md[v7++]);
   }
 
   while (v7 != 16);
-  std::ostringstream::str[abi:ne200100](&v12, &v10);
+  std::ostringstream::str[abi:ne200100](&v11, &v9);
   if (*(a4 + 23) < 0)
   {
     operator delete(*a4);
   }
 
-  *a4 = v10;
-  *(a4 + 16) = v11;
-  *&v12 = *MEMORY[0x1E69E54E8];
-  *(&v13[-1] + *(v12 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  *(&v12 + 1) = MEMORY[0x1E69E5548] + 16;
-  if (SHIBYTE(v15) < 0)
+  *a4 = v9;
+  *(a4 + 16) = v10;
+  *&v11 = *MEMORY[0x1E69E54E8];
+  *(&v12[-1] + *(v11 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  *(&v11 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v14) < 0)
   {
     operator delete(__p[1]);
   }
 
-  *(&v12 + 1) = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v13);
+  *(&v11 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v12);
   std::ostream::~ostream();
-  MEMORY[0x1E6923510](v17);
-  v8 = *MEMORY[0x1E69E9840];
+  MEMORY[0x1E6923510](v16);
   return 1;
 }
 
-void sub_1E4EC4D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E4EC4D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6515,60 +6427,59 @@ uint64_t SipMD5DigestAlgorithm::computeHmac(int a1, const void *a2, size_t a3, c
 
 uint64_t SipSHA1DigestAlgorithm::computeDigest(uint64_t a1, const void *a2, CC_LONG a3, uint64_t a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   memset(&c, 0, sizeof(c));
   *md = 0;
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
   CC_SHA1_Init(&c);
   CC_SHA1_Update(&c, a2, a3);
   CC_SHA1_Final(md, &c);
-  v18 = 0;
-  memset(v17, 0, sizeof(v17));
+  v17 = 0;
+  memset(v16, 0, sizeof(v16));
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   *__p = 0u;
-  memset(v13, 0, sizeof(v13));
-  v12 = 0u;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v12);
-  LOBYTE(v10) = 48;
-  std::operator<<[abi:ne200100]<std::char_traits<char>>(&v12, &v10);
+  memset(v12, 0, sizeof(v12));
+  v11 = 0u;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
+  LOBYTE(v9) = 48;
+  std::operator<<[abi:ne200100]<std::char_traits<char>>(&v11, &v9);
   v7 = 0;
-  *(&v13[-1] + *(v12 - 24) + 8) = *(&v13[-1] + *(v12 - 24) + 8) & 0xFFFFFFB5 | 8;
+  *(&v12[-1] + *(v11 - 24) + 8) = *(&v12[-1] + *(v11 - 24) + 8) & 0xFFFFFFB5 | 8;
   do
   {
-    *(v13 + *(v12 - 24) + 8) = 2;
-    MEMORY[0x1E6923340](&v12, md[v7++]);
+    *(v12 + *(v11 - 24) + 8) = 2;
+    MEMORY[0x1E6923340](&v11, md[v7++]);
   }
 
   while (v7 != 20);
-  std::ostringstream::str[abi:ne200100](&v12, &v10);
+  std::ostringstream::str[abi:ne200100](&v11, &v9);
   if (*(a4 + 23) < 0)
   {
     operator delete(*a4);
   }
 
-  *a4 = v10;
-  *(a4 + 16) = v11;
-  *&v12 = *MEMORY[0x1E69E54E8];
-  *(&v13[-1] + *(v12 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  *(&v12 + 1) = MEMORY[0x1E69E5548] + 16;
-  if (SHIBYTE(v15) < 0)
+  *a4 = v9;
+  *(a4 + 16) = v10;
+  *&v11 = *MEMORY[0x1E69E54E8];
+  *(&v12[-1] + *(v11 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  *(&v11 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v14) < 0)
   {
     operator delete(__p[1]);
   }
 
-  *(&v12 + 1) = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v13);
+  *(&v11 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v12);
   std::ostream::~ostream();
-  MEMORY[0x1E6923510](v17);
-  v8 = *MEMORY[0x1E69E9840];
+  MEMORY[0x1E6923510](v16);
   return 1;
 }
 
-void sub_1E4EC50B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E4EC50B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6597,59 +6508,58 @@ uint64_t SipSHA1DigestAlgorithm::computeHmac(int a1, const void *a2, size_t a3, 
 
 uint64_t SipSHA256DigestAlgorithm::computeDigest(uint64_t a1, const void *a2, CC_LONG a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   memset(&c, 0, sizeof(c));
   *md = 0u;
-  v21 = 0u;
+  v20 = 0u;
   CC_SHA256_Init(&c);
   CC_SHA256_Update(&c, a2, a3);
   CC_SHA256_Final(md, &c);
-  v18 = 0;
-  memset(v17, 0, sizeof(v17));
+  v17 = 0;
+  memset(v16, 0, sizeof(v16));
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   *__p = 0u;
-  memset(v13, 0, sizeof(v13));
-  v12 = 0u;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v12);
-  LOBYTE(v10) = 48;
-  std::operator<<[abi:ne200100]<std::char_traits<char>>(&v12, &v10);
+  memset(v12, 0, sizeof(v12));
+  v11 = 0u;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
+  LOBYTE(v9) = 48;
+  std::operator<<[abi:ne200100]<std::char_traits<char>>(&v11, &v9);
   v7 = 0;
-  *(&v13[-1] + *(v12 - 24) + 8) = *(&v13[-1] + *(v12 - 24) + 8) & 0xFFFFFFB5 | 8;
+  *(&v12[-1] + *(v11 - 24) + 8) = *(&v12[-1] + *(v11 - 24) + 8) & 0xFFFFFFB5 | 8;
   do
   {
-    *(v13 + *(v12 - 24) + 8) = 2;
-    MEMORY[0x1E6923340](&v12, md[v7++]);
+    *(v12 + *(v11 - 24) + 8) = 2;
+    MEMORY[0x1E6923340](&v11, md[v7++]);
   }
 
   while (v7 != 32);
-  std::ostringstream::str[abi:ne200100](&v12, &v10);
+  std::ostringstream::str[abi:ne200100](&v11, &v9);
   if (*(a4 + 23) < 0)
   {
     operator delete(*a4);
   }
 
-  *a4 = v10;
-  *(a4 + 16) = v11;
-  *&v12 = *MEMORY[0x1E69E54E8];
-  *(&v13[-1] + *(v12 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  *(&v12 + 1) = MEMORY[0x1E69E5548] + 16;
-  if (SHIBYTE(v15) < 0)
+  *a4 = v9;
+  *(a4 + 16) = v10;
+  *&v11 = *MEMORY[0x1E69E54E8];
+  *(&v12[-1] + *(v11 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  *(&v11 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v14) < 0)
   {
     operator delete(__p[1]);
   }
 
-  *(&v12 + 1) = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v13);
+  *(&v11 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v12);
   std::ostream::~ostream();
-  MEMORY[0x1E6923510](v17);
-  v8 = *MEMORY[0x1E69E9840];
+  MEMORY[0x1E6923510](v16);
   return 1;
 }
 
-void sub_1E4EC5404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E4EC5404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6698,35 +6608,35 @@ void SipDigestAlgorithmManager::~SipDigestAlgorithmManager(SipDigestAlgorithmMan
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,SipDigestAlgorithm *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SipDigestAlgorithm *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SipDigestAlgorithm *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SipDigestAlgorithm *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,SipDigestAlgorithm *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,SipDigestAlgorithm *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,SipDigestAlgorithm *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,SipDigestAlgorithm *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2, uint64_t a3, __int128 **a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -6734,44 +6644,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
 uint64_t SipHost::SipHost(uint64_t a1, std::string *a2)
@@ -7057,37 +6967,37 @@ void SipHost::clear(SipHost *this)
   }
 }
 
-void SipHost::address(SipHost *this@<X0>, void *a2@<X8>)
+void SipHost::address(uint64_t *__return_ptr a1@<X8>, SipHost *this@<X0>)
 {
-  SipHost::resolve(this, 0, v5);
+  SipHost::resolve(v5, this, 0);
   ImsResult::~ImsResult(v5);
   v4 = *(this + 6);
-  *a2 = *(this + 5);
-  a2[1] = v4;
+  *a1 = *(this + 5);
+  a1[1] = v4;
   if (v4)
   {
     atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 }
 
-void SipHost::resolve(SipHost *this@<X0>, char a2@<W1>, uint64_t a3@<X8>)
+void SipHost::resolve(uint64_t *__return_ptr a1@<X8>, SipHost *this@<X0>, char a3@<W1>)
 {
   v5 = *(this + 5);
   if (v5)
   {
     if ((*(*v5 + 88))(v5))
     {
-      *(a3 + 24) = 0u;
-      *(a3 + 40) = 0u;
-      *(a3 + 56) = 0u;
-      *(a3 + 72) = 0u;
-      *a3 = &unk_1F5EBDEF8;
-      *(a3 + 8) = &_bambiDomain;
-      *(a3 + 16) = 0;
+      *(a1 + 3) = 0u;
+      *(a1 + 5) = 0u;
+      *(a1 + 7) = 0u;
+      *(a1 + 9) = 0u;
+      *a1 = &unk_1F5EBDEF8;
+      a1[1] = &_bambiDomain;
+      *(a1 + 4) = 0;
       return;
     }
 
-    if ((a2 & 1) == 0)
+    if ((a3 & 1) == 0)
     {
       v19 = 0u;
       v20 = 0u;
@@ -7097,20 +7007,20 @@ void SipHost::resolve(SipHost *this@<X0>, char a2@<W1>, uint64_t a3@<X8>)
       *(&v17 + 1) = &_bambiDomain;
       v18 = 0x40000000;
       v10 = ImsResult::operator<<<char [19]>(&v17, "address is invalid");
-      ImsResult::ImsResult(a3, v10);
+      ImsResult::ImsResult(a1, v10);
       ImsResult::~ImsResult(&v17);
       return;
     }
   }
 
-  *(a3 + 16) = 0;
-  *(a3 + 24) = 0;
-  *(a3 + 40) = 0u;
-  *(a3 + 56) = 0u;
-  *(a3 + 72) = 0u;
-  *a3 = &unk_1F5EBDEF8;
-  *(a3 + 8) = &_bambiDomain;
-  *(a3 + 32) = 0;
+  a1[2] = 0;
+  a1[3] = 0;
+  *(a1 + 5) = 0u;
+  *(a1 + 7) = 0u;
+  *(a1 + 9) = 0u;
+  *a1 = &unk_1F5EBDEF8;
+  a1[1] = &_bambiDomain;
+  a1[4] = 0;
   v7 = this + 8;
   if (*(this + 31) < 0)
   {
@@ -7145,7 +7055,7 @@ void SipHost::resolve(SipHost *this@<X0>, char a2@<W1>, uint64_t a3@<X8>)
     v18 = 0x40000000;
     v15 = gai_strerror(v8);
     v9 = ImsResult::operator<<<char const*>(&v17, &v15);
-    ImsResult::operator=(a3, v9);
+    ImsResult::operator=(a1, v9);
     ImsResult::~ImsResult(&v17);
 LABEL_12:
     if (v16)
@@ -7162,7 +7072,7 @@ LABEL_12:
     while (1)
     {
       v17 = 0uLL;
-      IpAddress::createAddress(v11->ai_addr, &v17);
+      IpAddress::createAddress(&v17, v11->ai_addr);
       v13 = *(&v17 + 1);
       v12 = v17;
       if (v17)
@@ -7244,33 +7154,33 @@ uint64_t SipHost::setAddress(uint64_t a1, void *a2)
   return result;
 }
 
-void SipHost::toString(SipHost *this)
+void SipHost::toString()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4EC6590(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E4EC6590(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void SipHost::ipAddress(SipHost *this@<X0>, void *a2@<X8>)
+void SipHost::ipAddress(uint64_t *__return_ptr a1@<X8>, SipHost *this@<X0>)
 {
-  SipHost::resolve(this, 0, v5);
+  SipHost::resolve(v5, this, 0);
   ImsResult::~ImsResult(v5);
   v4 = *(this + 6);
-  *a2 = *(this + 5);
-  a2[1] = v4;
+  *a1 = *(this + 5);
+  a1[1] = v4;
   if (v4)
   {
     atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
@@ -7313,18 +7223,17 @@ LABEL_3:
   v7 = *(this + 5);
   if (v7)
   {
-    v8 = *v7 + 144;
     if (a3)
     {
-      v9 = 3;
+      v8 = 3;
     }
 
     else
     {
-      v9 = 2;
+      v8 = 2;
     }
 
-    (*(*v7 + 144))(v7, a2, v9);
+    (*(*v7 + 144))(v7, a2, v8);
   }
 
   return a2;
@@ -7490,20 +7399,20 @@ LABEL_3:
   return IpAddress::equalsWithDefaultPort(result, v15, a3);
 }
 
-void SipHost::logStr(SipHost *this)
+void SipHost::logStr()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4EC6A6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E4EC6A6C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -7524,7 +7433,7 @@ void SipMultiPartBody::SipMultiPartBody(SipMultiPartBody *this)
   *(this + 8) = 0u;
   *(this + 24) = 0u;
   *(this + 40) = 0u;
-  ImsRandomNumberGenerator<unsigned char>::ImsRandomNumberGenerator(this + 7);
+  ImsRandomNumberGenerator<unsigned char>::ImsRandomNumberGenerator(this + 7, 0, 63);
 }
 
 void sub_1E4EC6BDC(_Unwind_Exception *exception_object)
@@ -7637,9 +7546,9 @@ LABEL_3:
   v4 = (*(*this + 40))(this);
   std::string::operator=((a2 + 104), v4);
   std::string::basic_string[abi:ne200100]<0>(__p, "boundary");
-  v8 = __p;
-  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2 + 72, __p);
-  std::string::operator=((v5 + 56), (this + 32));
+  v9 = __p;
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2 + 9, __p, &std::piecewise_construct, &v9, &v8);
+  std::string::operator=((v5 + 7), (this + 32));
   if (v7 < 0)
   {
     operator delete(__p[0]);
@@ -7658,49 +7567,53 @@ void sub_1E4EC6E78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void SipMultiPartBody::generateBoundary(SipMultiPartBody *this)
 {
-  v16 = 0uLL;
-  v17 = 0;
-  ImsRandomStringGenerator::randomString((this + 56), 20, v10);
-  v16 = *v10;
-  v17 = *&v10[16];
+  v19 = 0uLL;
+  locale = 0;
+  ImsRandomStringGenerator::randomString(&v10, (this + 56), 20);
+  v19 = v10;
+  locale = v11[0].__locale_;
   v2 = *(this + 1);
   if (v2 != *(this + 2))
   {
     v3 = *v2;
-    memset(v10, 0, 24);
-    SipBodyPart::encodeToString();
+    v10 = 0uLL;
+    v11[0].__locale_ = 0;
+    SipBodyPart::encodeToString(v3, &v10);
   }
 
-  v15 = 0;
-  memset(v14, 0, sizeof(v14));
-  v12 = 0u;
+  v18 = 0;
+  memset(v17, 0, sizeof(v17));
+  v15 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  *v11 = 0u;
-  memset(v10, 0, sizeof(v10));
-  std::ostringstream::basic_ostringstream[abi:ne200100](v10);
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "MIME_boundary_", 14);
-  if (v17 >= 0)
+  *v14 = 0u;
+  *&v11[0].__locale_ = 0u;
+  v12 = 0u;
+  v10 = 0u;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "MIME_boundary_", 14);
+  if (SHIBYTE(locale) >= 0)
   {
-    v5 = &v16;
+    v5 = &v19;
   }
 
   else
   {
-    v5 = v16;
+    v5 = v19;
   }
 
-  if (v17 >= 0)
+  if (SHIBYTE(locale) >= 0)
   {
-    v6 = HIBYTE(v17);
+    v6 = HIBYTE(locale);
   }
 
   else
   {
-    v6 = *(&v16 + 1);
+    v6 = *(&v19 + 1);
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v5, v6);
-  std::ostringstream::str[abi:ne200100](v10, &v8);
+  std::ostringstream::str[abi:ne200100](&v10, &v8);
   if (*(this + 55) < 0)
   {
     operator delete(*(this + 4));
@@ -7708,32 +7621,32 @@ void SipMultiPartBody::generateBoundary(SipMultiPartBody *this)
 
   *(this + 2) = v8;
   *(this + 6) = v9;
-  *v10 = *MEMORY[0x1E69E54E8];
-  *&v10[*(*v10 - 24)] = *(MEMORY[0x1E69E54E8] + 24);
-  *&v10[8] = MEMORY[0x1E69E5548] + 16;
-  if (SHIBYTE(v12) < 0)
+  *&v10 = *MEMORY[0x1E69E54E8];
+  *(&v11[-2].__locale_ + *(v10 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  *(&v10 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v15) < 0)
   {
-    operator delete(v11[1]);
+    operator delete(v14[1]);
   }
 
-  *&v10[8] = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(&v10[16]);
+  *(&v10 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v11);
   std::ostream::~ostream();
-  MEMORY[0x1E6923510](v14);
-  if (SHIBYTE(v17) < 0)
+  MEMORY[0x1E6923510](v17);
+  if (SHIBYTE(locale) < 0)
   {
-    operator delete(v16);
+    operator delete(v19);
   }
 }
 
-void sub_1E4EC71BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *__p, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+void sub_1E4EC71BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *__p, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  va_start(va, a24);
-  std::ostringstream::~ostringstream(&__p, MEMORY[0x1E69E54E8]);
+  va_start(va, a31);
+  std::ostringstream::~ostringstream(&a18, MEMORY[0x1E69E54E8]);
   MEMORY[0x1E6923510](va);
-  if (*(v24 - 105) < 0)
+  if (*(v31 - 105) < 0)
   {
-    operator delete(*(v24 - 128));
+    operator delete(*(v31 - 128));
   }
 
   _Unwind_Resume(a1);
@@ -7792,7 +7705,7 @@ LABEL_3:
   return v11 + v10;
 }
 
-void *SipMultiPartBody::encode(SipMultiPartBody *this, ImsOutStream *a2)
+void *SipMultiPartBody::encode(SipMultiPartBody *this, ImsOutStream *a2, BOOL a3)
 {
   if ((*(this + 55) & 0x8000000000000000) != 0)
   {
@@ -7809,17 +7722,17 @@ void *SipMultiPartBody::encode(SipMultiPartBody *this, ImsOutStream *a2)
 
   SipMultiPartBody::generateBoundary(this);
 LABEL_3:
-  v4 = *(this + 1);
-  v5 = *(this + 2);
-  while (v4 != v5)
+  v5 = *(this + 1);
+  v6 = *(this + 2);
+  while (v5 != v6)
   {
-    v6 = *v4++;
+    v7 = *v5++;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a2 + 1), "\r\n--", 4);
     *(a2 + 17) = 0;
     (*(*a2 + 32))(a2, this + 32);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a2 + 1), "\r\n", 2);
     *(a2 + 17) = 0;
-    SipBodyPart::encode(v6, a2);
+    SipBodyPart::encode(v7, a2);
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a2 + 1), "\r\n--", 4);
@@ -7886,136 +7799,124 @@ BOOL SipMultiPartBody::decode(uint64_t a1, const std::string *a2)
     if (*(a1 + 40))
     {
 LABEL_3:
-      v41 = 0;
-      v42 = 0;
-      v43 = 0;
-      std::operator+<char>();
       v34 = 0;
       v35 = 0;
       v36 = 0;
       std::operator+<char>();
-      v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
-      if (v3 < 0)
+      v27 = 0;
+      v28 = 0;
+      v29 = 0;
+      std::operator+<char>();
+      if ((SHIBYTE(a2->__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
       {
-        v4 = a2->__r_.__value_.__r.__words[0];
-        a2->__r_.__value_.__l.__size_;
+        v3 = a2->__r_.__value_.__r.__words[0];
       }
 
       else
       {
-        v4 = a2;
+        v3 = a2;
       }
 
-      v8 = memcmp(v4, &v41, 0) == 0;
-      v9 = !v8;
-      v23 = v9;
-      if (!v8 && v3 < 0)
+      if (!memcmp(v3, &v34, 0))
       {
-        v10 = a2->__r_.__value_.__r.__words[0];
-        size = a2->__r_.__value_.__l.__size_;
-      }
-
-      if (v23)
-      {
-        v12 = HIBYTE(v36);
-        if (v36 < 0)
+        v8 = SHIBYTE(v36);
+        if ((SHIBYTE(v36) & 0x8000000000000000) != 0)
         {
-          v12 = v35;
+          v8 = v35;
         }
-
-        v13 = v12;
       }
 
       else
       {
-        v13 = SHIBYTE(v43);
-        if ((SHIBYTE(v43) & 0x8000000000000000) != 0)
+        v7 = HIBYTE(v29);
+        if (v29 < 0)
         {
-          v13 = v42;
+          v7 = v28;
         }
+
+        v8 = v7;
       }
 
-      v14 = std::string::compare(a2, v13, 2uLL, "--");
-      v7 = v14 == 0;
-      if (!v14)
+      v9 = std::string::compare(a2, v8, 2uLL, "--");
+      v6 = v9 == 0;
+      if (!v9)
       {
-        goto LABEL_40;
+        goto LABEL_34;
       }
 
-      if (!std::string::compare(a2, v13, 2uLL, "\r\n"))
+      if (!std::string::compare(a2, v8, 2uLL, "\r\n"))
       {
         if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v16 = HIBYTE(a2->__r_.__value_.__r.__words[2]);
+          size = HIBYTE(a2->__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v15 = a2->__r_.__value_.__r.__words[0];
-          v16 = a2->__r_.__value_.__l.__size_;
+          size = a2->__r_.__value_.__l.__size_;
         }
 
-        if (v16 >= v13 + 2 && v13 != -3)
+        if (size >= v8 + 2 && v8 != -3)
         {
-          memset(&v33, 0, sizeof(v33));
-          std::string::basic_string(&v33, a2, v13 + 2, 0, &v24);
+          memset(&v26, 0, sizeof(v26));
+          std::string::basic_string(&v26, a2, v8 + 2, 0, &v17);
           operator new();
         }
 
-        v17 = std::string::basic_string[abi:ne200100]<0>(&v33, "sip.decode");
-        v25[0] = 0;
-        v28 = 0;
-        v18 = ims::error(v17, v25);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "SipMultiPartBody: missing boundary", 34);
-        *(v18 + 17) = 0;
-        (*(*v18 + 64))(v18, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-        *(v18 + 17) = 0;
-        if (v28 != 1 || (v27 & 0x80000000) == 0)
+        v11 = std::string::basic_string[abi:ne200100]<0>(&v26, "sip.decode");
+        v18[0] = 0;
+        v21 = 0;
+        v12 = ims::error(v11, v18);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), "SipMultiPartBody: missing boundary", 34);
+        *(v12 + 17) = 0;
+        (*(*v12 + 64))(v12, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+        *(v12 + 17) = 0;
+        if (v21 != 1 || (v20 & 0x80000000) == 0)
         {
-          goto LABEL_37;
+          goto LABEL_31;
         }
 
-        v19 = v26;
+        v13 = v19;
       }
 
       else
       {
-        v21 = std::string::basic_string[abi:ne200100]<0>(&v33, "sip.decode");
-        v29[0] = 0;
-        v32 = 0;
-        v22 = ims::error(v21, v29);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v22 + 8), "SipMultiPartBody: boundary must be followed by CRLF", 51);
-        *(v22 + 17) = 0;
-        (*(*v22 + 64))(v22, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-        *(v22 + 17) = 0;
-        if (v32 != 1 || (v31 & 0x80000000) == 0)
+        v15 = std::string::basic_string[abi:ne200100]<0>(&v26, "sip.decode");
+        v22[0] = 0;
+        v25 = 0;
+        v16 = ims::error(v15, v22);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v16 + 8), "SipMultiPartBody: boundary must be followed by CRLF", 51);
+        *(v16 + 17) = 0;
+        (*(*v16 + 64))(v16, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+        *(v16 + 17) = 0;
+        if (v25 != 1 || (v24 & 0x80000000) == 0)
         {
-          goto LABEL_37;
+          goto LABEL_31;
         }
 
-        v19 = v30;
+        v13 = v23;
       }
 
-      operator delete(v19);
-LABEL_37:
-      if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+      operator delete(v13);
+LABEL_31:
+      if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v33.__r_.__value_.__l.__data_);
+        operator delete(v26.__r_.__value_.__l.__data_);
       }
 
-      v7 = 0;
-LABEL_40:
+      v6 = 0;
+LABEL_34:
+      if (SHIBYTE(v29) < 0)
+      {
+        operator delete(v27);
+      }
+
       if (SHIBYTE(v36) < 0)
       {
         operator delete(v34);
       }
 
-      if (SHIBYTE(v43) < 0)
-      {
-        operator delete(v41);
-      }
-
-      return v7;
+      return v6;
     }
   }
 
@@ -8024,22 +7925,22 @@ LABEL_40:
     goto LABEL_3;
   }
 
-  v5 = std::string::basic_string[abi:ne200100]<0>(&v41, "sip.decode");
-  v37[0] = 0;
-  v40 = 0;
-  v6 = ims::error(v5, v37);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "SipMultiPartBody: no boundary specified in Content-Type header", 62);
-  *(v6 + 17) = 0;
-  (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v6 + 17) = 0;
-  if (v40 == 1 && v39 < 0)
+  v4 = std::string::basic_string[abi:ne200100]<0>(&v34, "sip.decode");
+  v30[0] = 0;
+  v33 = 0;
+  v5 = ims::error(v4, v30);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v5 + 8), "SipMultiPartBody: no boundary specified in Content-Type header", 62);
+  *(v5 + 17) = 0;
+  (*(*v5 + 64))(v5, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v5 + 17) = 0;
+  if (v33 == 1 && v32 < 0)
   {
-    operator delete(v38);
+    operator delete(v31);
   }
 
-  if (SHIBYTE(v43) < 0)
+  if (SHIBYTE(v36) < 0)
   {
-    operator delete(v41);
+    operator delete(v34);
   }
 
   return 0;
@@ -8060,20 +7961,20 @@ void sub_1E4EC7C50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SipMultiPartBody::encodeContentOnlyToString()
+void SipMultiPartBody::encodeContentOnlyToString(uint64_t a1, uint64_t a2)
 {
-  v1 = 0;
-  memset(v0, 0, sizeof(v0));
-  ImsStringOutStream::ImsStringOutStream(v0);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4EC7E5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1E4EC7E5C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
 {
   if (a15 == 1)
   {
     if (a14)
     {
-      (*(*a14 + 8))(a14);
+      (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -8139,7 +8040,7 @@ void std::vector<SipBodyPart *>::push_back[abi:ne200100](uint64_t a1, void *a2)
   *(a1 + 8) = v6;
 }
 
-uint64_t SipMultiPartBody::partWithContentType(uint64_t a1, uint64_t *a2)
+uint64_t SipMultiPartBody::partWithContentType(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -8170,7 +8071,7 @@ uint64_t SipMultiPartBody::partWithContentType(uint64_t a1, uint64_t *a2)
       v11 = v10;
       if ((v10 & 0x80u) != 0)
       {
-        v10 = a2[1];
+        v10 = *(a2 + 8);
       }
 
       if (v9 == v10)
@@ -8180,9 +8081,8 @@ uint64_t SipMultiPartBody::partWithContentType(uint64_t a1, uint64_t *a2)
           v7 = *v7;
         }
 
-        v12 = *a2;
-        v13 = v11 >= 0 ? a2 : *a2;
-        if (!memcmp(v7, v13, v9))
+        v12 = v11 >= 0 ? a2 : *a2;
+        if (!memcmp(v7, v12, v9))
         {
           break;
         }
@@ -8245,10 +8145,10 @@ void sub_1E4EC8550(_Unwind_Exception *a1)
 
 void XcapSession::setup(void *a1)
 {
-  v2 = std::string::basic_string[abi:ne200100]<0>(&v14, kXcapLoggingFacility);
-  v10[0] = 0;
-  v13 = 0;
-  v3 = ims::debug(v2, v10);
+  v2 = std::string::basic_string[abi:ne200100]<0>(&v12, kXcapLoggingFacility);
+  v8[0] = 0;
+  v11 = 0;
+  v3 = ims::debug(v2, v8);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v3 + 8), ": ", 2);
   *(v3 + 17) = 0;
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v3 + 8), "Setting up XcapSession: ", 24);
@@ -8257,14 +8157,14 @@ void XcapSession::setup(void *a1)
   *(v3 + 17) = 0;
   (*(*v3 + 64))(v3, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v3 + 17) = 0;
-  if (v13 == 1 && v12 < 0)
+  if (v11 == 1 && v10 < 0)
   {
     operator delete(__p);
   }
 
-  if (v15 < 0)
+  if (v13 < 0)
   {
-    operator delete(v14);
+    operator delete(v12);
   }
 
   a1[4] = ++XcapSession::_generateSessionId(void)const::kSessionId;
@@ -8290,13 +8190,11 @@ void XcapSession::setup(void *a1)
   v6 = a1[3];
   if (v6)
   {
-    v7 = a1[2];
-    v8 = std::__shared_weak_count::lock(v6);
-    if (v8)
+    v7 = std::__shared_weak_count::lock(v6);
+    if (v7)
     {
-      atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v7->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       (*(*v5 + 48))(v5);
-      v9 = a1[4];
       XcapNafServerInfo::create();
     }
   }
@@ -8473,31 +8371,31 @@ void non-virtual thunk toXcapSession::~XcapSession(XcapSession *this)
 
 void XcapSession::_sendRequest(uint64_t a1, int a2, uint64_t a3, uint64_t a4, void *aBlock)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   *(a1 + 440) = _Block_copy(aBlock);
   v9 = *(a1 + 448);
   v10 = *(a1 + 172);
   (*(*v9 + 80))(&__p, v9);
   v11 = (*(**(a1 + 448) + 88))(*(a1 + 448));
   v12 = (*(*v9 + 72))(v9, v10, &__p, v11);
-  if (v33 < 0)
+  if (v29 < 0)
   {
     operator delete(__p);
   }
 
   if ((v12 & 1) == 0)
   {
-    v36 = 0u;
-    v37 = 0u;
-    v38 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     __p = &unk_1F5EBDEF8;
-    v31 = &_bambiDomain;
-    v32 = 0x40000000;
-    v34 = 0;
-    v35 = 0;
+    v27 = &_bambiDomain;
+    v28 = 0x40000000;
+    v30 = 0;
+    v31 = 0;
     XcapSession::operationFailure(a1, &__p);
     ImsResult::~ImsResult(&__p);
-    goto LABEL_33;
+    return;
   }
 
   if (a2)
@@ -8511,33 +8409,33 @@ void XcapSession::_sendRequest(uint64_t a1, int a2, uint64_t a3, uint64_t a4, vo
     if (!v13)
     {
       std::string::basic_string[abi:ne200100]<0>(&__p, kXcapLoggingFacility);
-      v26[0] = 0;
-      v29 = 0;
-      v14 = ims::error(&__p, v26);
+      v22[0] = 0;
+      v25 = 0;
+      v14 = ims::error(&__p, v22);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), ": ", 2);
       *(v14 + 17) = 0;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), "PUT request doesn't have a body. Failing request", 48);
       *(v14 + 17) = 0;
       (*(*v14 + 64))(v14, std::endl[abi:ne200100]<char,std::char_traits<char>>);
       *(v14 + 17) = 0;
-      if (v29 == 1 && v28 < 0)
+      if (v25 == 1 && v24 < 0)
       {
-        operator delete(v27);
+        operator delete(v23);
       }
 
-      if (v33 < 0)
+      if (v29 < 0)
       {
         operator delete(__p);
       }
 
-      v36 = 0u;
-      v37 = 0u;
-      v38 = 0u;
+      v32 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       __p = &unk_1F5EBDEF8;
-      v31 = &_bambiDomain;
-      v32 = 0x40000000;
-      v34 = 0;
-      v35 = 0;
+      v27 = &_bambiDomain;
+      v28 = 0x40000000;
+      v30 = 0;
+      v31 = 0;
       XcapSession::operationFailure(a1, &__p);
       ImsResult::~ImsResult(&__p);
     }
@@ -8546,7 +8444,7 @@ void XcapSession::_sendRequest(uint64_t a1, int a2, uint64_t a3, uint64_t a4, vo
     XcapUrlHelper::createUrl((a3 + 16), (a3 + 40), &__p);
     v16 = (*(*v15 + 128))(v15, &__p, a4);
     v17 = v16;
-    if (v33 < 0)
+    if (v29 < 0)
     {
       operator delete(__p);
       if (v17)
@@ -8560,14 +8458,14 @@ void XcapSession::_sendRequest(uint64_t a1, int a2, uint64_t a3, uint64_t a4, vo
       goto LABEL_26;
     }
 
-    v36 = 0u;
-    v37 = 0u;
-    v38 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     __p = &unk_1F5EBDEF8;
-    v31 = &_bambiDomain;
-    v32 = 0x40000000;
-    v34 = 0;
-    v35 = 0;
+    v27 = &_bambiDomain;
+    v28 = 0x40000000;
+    v30 = 0;
+    v31 = 0;
     XcapSession::operationFailure(a1, &__p);
 LABEL_25:
     ImsResult::~ImsResult(&__p);
@@ -8578,7 +8476,7 @@ LABEL_25:
   XcapUrlHelper::createUrl((a3 + 16), (a3 + 40), &__p);
   v19 = (*(*v18 + 120))(v18, &__p);
   v20 = v19;
-  if (v33 < 0)
+  if (v29 < 0)
   {
     operator delete(__p);
     if (v20)
@@ -8592,20 +8490,19 @@ LABEL_25:
   if ((v19 & 1) == 0)
   {
 LABEL_22:
-    v36 = 0u;
-    v37 = 0u;
-    v38 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     __p = &unk_1F5EBDEF8;
-    v31 = &_bambiDomain;
-    v32 = 0x40000000;
-    v34 = 0;
-    v35 = 0;
+    v27 = &_bambiDomain;
+    v28 = 0x40000000;
+    v30 = 0;
+    v31 = 0;
     XcapSession::operationFailure(a1, &__p);
     goto LABEL_25;
   }
 
 LABEL_26:
-  v22 = *(a1 + 16);
   v21 = *(a1 + 24);
   if (v21)
   {
@@ -8613,9 +8510,8 @@ LABEL_26:
     atomic_fetch_add_explicit(&v21->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     if (*(a1 + 320))
     {
-      v23 = *(a1 + 480);
       atomic_fetch_add_explicit(&v21->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      goto LABEL_31;
+      goto LABEL_30;
     }
 
     std::__shared_weak_count::__release_weak(v21);
@@ -8624,14 +8520,10 @@ LABEL_26:
 
   else if (*(a1 + 320))
   {
-    v24 = *(a1 + 480);
-LABEL_31:
-    v39 = 0;
+LABEL_30:
+    v35 = 0;
     operator new();
   }
-
-LABEL_33:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void XcapSession::operationFailure(XcapSession *this, const ImsResult *a2)
@@ -8694,55 +8586,52 @@ void sub_1E4EC952C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void XcapSession::setDigestCredentials(XcapSession *this, char **lpsrc)
+void XcapSession::setDigestCredentials(XcapSession *this, const SipAuthResponse *lpsrc)
 {
-  v4 = *lpsrc;
-  v5 = **lpsrc;
   {
-    v6 = *(this + 58);
+    v4 = *(this + 58);
 LABEL_5:
-    v8 = *(*v6 + 104);
+    v5 = *(*v4 + 104);
 
-    v8();
+    v5();
     return;
   }
 
-  v7 = *v4;
   {
-    v6 = *(this + 56);
+    v4 = *(this + 56);
     goto LABEL_5;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v10, kXcapLoggingFacility);
-  v18[0] = 0;
-  v21 = 0;
-  v9 = ims::error(v10, v18);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), ": ", 2);
-  *(v9 + 17) = 0;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), "Non Digest/AKA authentication response is currently unsupported. Terminating session", 84);
-  *(v9 + 17) = 0;
-  (*(*v9 + 64))(v9, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v9 + 17) = 0;
-  if (v21 == 1 && v20 < 0)
+  std::string::basic_string[abi:ne200100]<0>(v7, kXcapLoggingFacility);
+  v15[0] = 0;
+  v18 = 0;
+  v6 = ims::error(v7, v15);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), ": ", 2);
+  *(v6 + 17) = 0;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "Non Digest/AKA authentication response is currently unsupported. Terminating session", 84);
+  *(v6 + 17) = 0;
+  (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v6 + 17) = 0;
+  if (v18 == 1 && v17 < 0)
   {
     operator delete(__p);
   }
 
-  if (v12 < 0)
+  if (v9 < 0)
   {
-    operator delete(v10[0]);
+    operator delete(v7[0]);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v10[0] = &unk_1F5EBDEF8;
-  v10[1] = &_bambiDomain;
-  v11 = 0x40000000;
-  v13 = 0;
-  v14 = 0;
-  XcapSession::operationFailure(this, v10);
-  ImsResult::~ImsResult(v10);
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v7[0] = &unk_1F5EBDEF8;
+  v7[1] = &_bambiDomain;
+  v8 = 0x40000000;
+  v10 = 0;
+  v11 = 0;
+  XcapSession::operationFailure(this, v7);
+  ImsResult::~ImsResult(v7);
 }
 
 void XcapSession::setGbaNafCredentials(void *a1, uint64_t *a2)
@@ -9340,7 +9229,7 @@ void XcapSession::onBootstrappingProcedureSuccess(XcapBsfServerInfo **this)
     v103 = 0;
     v104 = 0;
     v102 = 0;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<char *>,std::__wrap_iter<char *>>(&v102, v6, v6 + v7, v7);
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<char *>,std::__wrap_iter<char *>>(&v102, v6, &v6[v7], v7);
     v101 = v103 - v102;
     v8 = std::string::basic_string[abi:ne200100]<0>(&v90, kXcapLoggingFacility);
     LOBYTE(v97[0]) = 0;
@@ -9372,7 +9261,7 @@ void XcapSession::onBootstrappingProcedureSuccess(XcapBsfServerInfo **this)
     v94 = 0;
     v95 = 0;
     v96 = 0;
-    XcapBsfServerInfo::fetchRand(this[58], &v94);
+    XcapBsfServerInfo::fetchRand(&v94, this[58]);
     v93 = v95 - v94;
     std::string::basic_string[abi:ne200100]<0>(&v83, kXcapLoggingFacility);
     v90.__r_.__value_.__s.__data_[0] = 0;
@@ -9416,7 +9305,7 @@ void XcapSession::onBootstrappingProcedureSuccess(XcapBsfServerInfo **this)
     v87 = 0;
     v88 = 0;
     v89 = 0;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<char *>,std::__wrap_iter<char *>>(&v87, v12, v12 + v11, v11);
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<char *>,std::__wrap_iter<char *>>(&v87, v12, &v12[v11], v11);
     v20 = v87;
     if ((v88 - v87) >> 16)
     {
@@ -9560,7 +9449,7 @@ LABEL_54:
     v80 = 0;
     v81 = 0;
     v82 = 0;
-    XcapNafServerInfo::nafId(this[56], &v80);
+    XcapNafServerInfo::nafId(&v80, this[56]);
     v24 = v80;
     if ((v81 - v80) >> 16)
     {
@@ -9728,8 +9617,8 @@ LABEL_91:
       v16 = this[53];
       if (v16)
       {
-        XcapNafServerInfo::nafId(this[56], &v45);
-        XcapBsfServerInfo::fetchRand(this[58], v97);
+        XcapNafServerInfo::nafId(&v45, this[56]);
+        XcapBsfServerInfo::fetchRand(v97, this[58]);
         XcapBsfServerInfo::fetchBTid(this[58], &v90);
         XcapBsfServerInfo::fetchKeyLifetime(this[58], &v83);
         (*(*v16 + 32))(v16, &v45, v97, &v90, &v83);
@@ -9773,36 +9662,36 @@ void sub_1E4ECB564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a61);
   }
 
-  if (a72)
+  if (a65)
   {
-    STACK[0x200] = a72;
-    operator delete(a72);
+    STACK[0x200] = a65;
+    operator delete(a65);
   }
 
-  v74 = *(v72 - 192);
-  if (v74)
+  v67 = *(v65 - 192);
+  if (v67)
   {
-    *(v72 - 184) = v74;
-    operator delete(v74);
+    *(v65 - 184) = v67;
+    operator delete(v67);
   }
 
-  v75 = *(v72 - 104);
-  if (v75)
+  v68 = *(v65 - 104);
+  if (v68)
   {
-    *(v72 - 96) = v75;
-    operator delete(v75);
+    *(v65 - 96) = v68;
+    operator delete(v68);
   }
 
-  if (*(v72 - 57) < 0)
+  if (*(v65 - 57) < 0)
   {
-    operator delete(*(v72 - 80));
+    operator delete(*(v65 - 80));
   }
 
-  v76 = *(v72 - 56);
-  if (v76)
+  v69 = *(v65 - 56);
+  if (v69)
   {
-    *(v72 - 48) = v76;
-    operator delete(v76);
+    *(v65 - 48) = v69;
+    operator delete(v69);
   }
 
   if (a34)
@@ -9819,7 +9708,7 @@ void XcapConfig::XcapConfig(XcapConfig *this, const XcapConfig *a2)
   *(this + 1) = 0;
   *(this + 2) = 0;
   *(this + 3) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 8, *(a2 + 1), *(a2 + 2), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 2) - *(a2 + 1)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 1, *(a2 + 1), *(a2 + 2), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 2) - *(a2 + 1)) >> 3));
   if (*(a2 + 55) < 0)
   {
     std::string::__init_copy_ctor_external((this + 32), *(a2 + 4), *(a2 + 5));
@@ -9942,7 +9831,7 @@ void XcapConfig::XcapConfig(XcapConfig *this, const XcapConfig *a2)
   *(this + 38) = 0;
   *(this + 39) = 0;
   *(this + 37) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 296, *(a2 + 37), *(a2 + 38), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 38) - *(a2 + 37)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 37, *(a2 + 37), *(a2 + 38), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 38) - *(a2 + 37)) >> 3));
   *(this + 320) = *(a2 + 320);
   v16 = (this + 328);
   if (*(a2 + 351) < 0)

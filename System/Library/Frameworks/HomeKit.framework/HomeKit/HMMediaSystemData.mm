@@ -4,6 +4,7 @@
 - (BOOL)hasRoleIdentifier:(id)identifier;
 - (BOOL)isEqual:(id)equal;
 - (HMMediaSystemData)initWithCoder:(id)coder;
+- (HMMediaSystemData)initWithIdentifier:(id)identifier parentIdentifier:(id)parentIdentifier name:(id)name defaultName:(BOOL)defaultName associatedGroupIdentifier:(id)groupIdentifier leftDestinationIdentifier:(id)destinationIdentifier rightDestinationIdentifier:(id)rightDestinationIdentifier;
 - (HMMediaSystemData)initWithProtoBufferData:(id)data;
 - (id)attributeDescriptions;
 - (id)destinationUniqueIdentifiers;
@@ -154,24 +155,22 @@
 
 - (id)attributeDescriptions
 {
-  v15[2] = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = HMMediaSystemData;
-  attributeDescriptions = [(HMMediaGroup *)&v14 attributeDescriptions];
+  v14[2] = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = HMMediaSystemData;
+  attributeDescriptions = [(HMMediaGroup *)&v13 attributeDescriptions];
   v4 = [attributeDescriptions mutableCopy];
 
   v5 = objc_alloc(MEMORY[0x1E69A29C8]);
   leftDestinationIdentifier = [(HMMediaSystemData *)self leftDestinationIdentifier];
   v7 = [v5 initWithName:@"leftDestinationIdentifier" value:leftDestinationIdentifier];
-  v15[0] = v7;
+  v14[0] = v7;
   v8 = objc_alloc(MEMORY[0x1E69A29C8]);
   rightDestinationIdentifier = [(HMMediaSystemData *)self rightDestinationIdentifier];
   v10 = [v8 initWithName:@"rightDestinationIdentifier" value:rightDestinationIdentifier];
-  v15[1] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[1] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   [v4 addObjectsFromArray:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -206,11 +205,11 @@
 
 - (HMMediaSystemData)initWithProtoBufferData:(id)data
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v38.receiver = self;
-  v38.super_class = HMMediaSystemData;
-  v5 = [(HMMediaGroup *)&v38 initClassWithProtoBufferData:dataCopy];
+  v37.receiver = self;
+  v37.super_class = HMMediaSystemData;
+  v5 = [(HMMediaGroup *)&v37 initClassWithProtoBufferData:dataCopy];
   if (!v5)
   {
 LABEL_21:
@@ -232,9 +231,9 @@ LABEL_21:
 
     v21 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v40 = v21;
-    v41 = 2112;
-    v42 = 0;
+    v39 = v21;
+    v40 = 2112;
+    v41 = 0;
     v22 = "%{public}@Failed to decode event data: %@";
 LABEL_11:
     _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, v22, buf, 0x16u);
@@ -255,9 +254,9 @@ LABEL_12:
 
     v21 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v40 = v21;
-    v41 = 2112;
-    v42 = v7;
+    v39 = v21;
+    v40 = 2112;
+    v41 = v7;
     v22 = "%{public}@Missing field=groupRole from data=%@";
     goto LABEL_11;
   }
@@ -318,9 +317,9 @@ LABEL_12:
     v21 = HMFGetLogIdentifier();
     groupRole6 = [(HMMediaGroupProtoMediaGroupData *)v7 groupRole];
     *buf = 138543618;
-    v40 = v21;
-    v41 = 2112;
-    v42 = groupRole6;
+    v39 = v21;
+    v40 = 2112;
+    v41 = groupRole6;
     _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Missing field=mediaSystem from role=%@", buf, 0x16u);
 
     goto LABEL_12;
@@ -332,7 +331,6 @@ LABEL_13:
   v24 = 0;
 LABEL_22:
 
-  v36 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -356,16 +354,32 @@ LABEL_22:
 
 - (id)destinationUniqueIdentifiers
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   leftDestinationIdentifier = [(HMMediaSystemData *)self leftDestinationIdentifier];
-  v8[0] = leftDestinationIdentifier;
+  v7[0] = leftDestinationIdentifier;
   rightDestinationIdentifier = [(HMMediaSystemData *)self rightDestinationIdentifier];
-  v8[1] = rightDestinationIdentifier;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[1] = rightDestinationIdentifier;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
 
   return v5;
+}
+
+- (HMMediaSystemData)initWithIdentifier:(id)identifier parentIdentifier:(id)parentIdentifier name:(id)name defaultName:(BOOL)defaultName associatedGroupIdentifier:(id)groupIdentifier leftDestinationIdentifier:(id)destinationIdentifier rightDestinationIdentifier:(id)rightDestinationIdentifier
+{
+  defaultNameCopy = defaultName;
+  destinationIdentifierCopy = destinationIdentifier;
+  rightDestinationIdentifierCopy = rightDestinationIdentifier;
+  v21.receiver = self;
+  v21.super_class = HMMediaSystemData;
+  v18 = [(HMMediaGroup *)&v21 initWithIdentifier:identifier parentIdentifier:parentIdentifier name:name defaultName:defaultNameCopy destinationIdentifiers:MEMORY[0x1E695E0F0] associatedGroupIdentifier:groupIdentifier];
+  v19 = v18;
+  if (v18)
+  {
+    objc_storeStrong(&v18->_leftDestinationIdentifier, destinationIdentifier);
+    objc_storeStrong(&v19->_rightDestinationIdentifier, rightDestinationIdentifier);
+  }
+
+  return v19;
 }
 
 @end

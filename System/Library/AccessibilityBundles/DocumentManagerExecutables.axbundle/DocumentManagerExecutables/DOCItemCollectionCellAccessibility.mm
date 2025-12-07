@@ -67,102 +67,99 @@
 
 - (id)_axCustomActionsFromUIMenu:(id)menu
 {
-  v44 = *MEMORY[0x29EDCA608];
+  v42 = *MEMORY[0x29EDCA608];
   menuCopy = menu;
   array = [MEMORY[0x29EDB8DE8] array];
   v4 = objc_opt_new();
+  v36 = 0u;
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v22 = menuCopy;
+  v20 = menuCopy;
   obj = [menuCopy safeArrayForKey:@"children"];
-  v25 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
-  if (v25)
+  v23 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+  if (v23)
   {
-    v24 = *v39;
+    v22 = *v37;
     do
     {
       v5 = 0;
       do
       {
-        if (*v39 != v24)
+        if (*v37 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = v5;
-        v6 = [*(*(&v38 + 1) + 8 * v5) safeArrayForKey:@"children"];
-        v27 = [objc_alloc(MEMORY[0x29EDBA0F0]) initWithKey:@"title" ascending:1];
+        v27 = v5;
+        v6 = [*(*(&v36 + 1) + 8 * v5) safeArrayForKey:@"children"];
+        v25 = [objc_alloc(MEMORY[0x29EDBA0F0]) initWithKey:@"title" ascending:1];
         [MEMORY[0x29EDB8D80] arrayWithObject:?];
-        v26 = v28 = v6;
+        v24 = v26 = v6;
         v7 = [v6 sortedArrayUsingDescriptors:?];
+        v32 = 0u;
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v36 = 0u;
-        v37 = 0u;
         v8 = v7;
-        v9 = [v8 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v32 objects:v40 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v35;
+          v11 = *v33;
           do
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v35 != v11)
+              if (*v33 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v34 + 1) + 8 * i);
-              v33 = 0;
+              v31 = 0;
               objc_opt_class();
-              v14 = __UIAccessibilityCastAsClass();
-              if (v33 == 1)
+              v13 = __UIAccessibilityCastAsClass();
+              if (v31 == 1)
               {
                 abort();
               }
 
-              v15 = v14;
-              if (v14)
+              v14 = v13;
+              if (v13)
               {
-                title = [v14 title];
+                title = [v13 title];
                 if ([title length] && (objc_msgSend(v4, "containsObject:", title) & 1) == 0)
                 {
-                  v17 = [AXDocumentCustomAction alloc];
-                  v31[0] = MEMORY[0x29EDCA5F8];
-                  v31[1] = 3221225472;
-                  v31[2] = __65__DOCItemCollectionCellAccessibility__axCustomActionsFromUIMenu___block_invoke;
-                  v31[3] = &unk_29F2BB930;
-                  v18 = v15;
-                  v32 = v18;
-                  v19 = [(AXDocumentCustomAction *)v17 initWithName:title actionHandler:v31];
-                  [(AXDocumentCustomAction *)v19 setAction:v18];
-                  [array addObject:v19];
+                  v16 = [AXDocumentCustomAction alloc];
+                  v29[0] = MEMORY[0x29EDCA5F8];
+                  v29[1] = 3221225472;
+                  v29[2] = __65__DOCItemCollectionCellAccessibility__axCustomActionsFromUIMenu___block_invoke;
+                  v29[3] = &unk_29F2BB930;
+                  v17 = v14;
+                  v30 = v17;
+                  v18 = [(AXDocumentCustomAction *)v16 initWithName:title actionHandler:v29];
+                  [(AXDocumentCustomAction *)v18 setAction:v17];
+                  [array addObject:v18];
                   [v4 addObject:title];
                 }
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v34 objects:v42 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v32 objects:v40 count:16];
           }
 
           while (v10);
         }
 
-        v5 = v29 + 1;
+        v5 = v27 + 1;
       }
 
-      while (v29 + 1 != v25);
-      v25 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      while (v27 + 1 != v23);
+      v23 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
-    while (v25);
+    while (v23);
   }
-
-  v20 = *MEMORY[0x29EDCA608];
 
   return array;
 }
@@ -240,50 +237,44 @@ uint64_t __65__DOCItemCollectionCellAccessibility__axCustomActionsFromUIMenu___b
   return array;
 }
 
-void __64__DOCItemCollectionCellAccessibility_accessibilityCustomActions__block_invoke(uint64_t a1)
+void __64__DOCItemCollectionCellAccessibility_accessibilityCustomActions__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v20[1] = *MEMORY[0x29EDCA608];
-  v2 = [*(a1 + 32) _accessibilityAncestorIsKindOf:objc_opt_class()];
-  if (v2)
+  v19[1] = *MEMORY[0x29EDCA608];
+  v3 = [*(a1 + 32) _accessibilityAncestorIsKindOf:objc_opt_class()];
+  if (v3)
   {
-    LOBYTE(v14) = 0;
+    LOBYTE(v13) = 0;
     objc_opt_class();
-    v3 = *(a1 + 32);
     v4 = __UIAccessibilityCastAsClass();
     v5 = [*(a1 + 32) _accessibilityItemCollectionViewController];
     if (objc_opt_respondsToSelector())
     {
       v6 = [v4 _accessibilityIndexPath];
-      v20[0] = v6;
-      v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v20 count:1];
+      v19[0] = v6;
+      v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v19 count:1];
 
-      v14 = 0;
-      v15 = &v14;
-      v16 = 0x3032000000;
-      v17 = __Block_byref_object_copy_;
-      v18 = __Block_byref_object_dispose_;
-      v19 = 0;
-      v12 = v5;
-      v13 = v7;
+      v13 = 0;
+      v14 = &v13;
+      v15 = 0x3032000000;
+      v16 = __Block_byref_object_copy_;
+      v17 = __Block_byref_object_dispose_;
+      v18 = 0;
+      v11 = v5;
+      v12 = v7;
       AXPerformSafeBlock();
-      v8 = v15[5];
+      v8 = v14[5];
 
-      _Block_object_dispose(&v14, 8);
+      _Block_object_dispose(&v13, 8);
       v9 = *(*(a1 + 40) + 8);
       v10 = *(v9 + 40);
       *(v9 + 40) = v8;
     }
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __64__DOCItemCollectionCellAccessibility_accessibilityCustomActions__block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) contextMenuForItemsAt:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) contextMenuForItemsAt:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }

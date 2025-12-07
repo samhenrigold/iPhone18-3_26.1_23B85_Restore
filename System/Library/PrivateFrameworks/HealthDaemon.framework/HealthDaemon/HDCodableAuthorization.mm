@@ -209,12 +209,11 @@ LABEL_8:
 {
   toCopy = to;
   has = self->_has;
-  v12 = toCopy;
+  v6 = toCopy;
   if ((has & 0x20) != 0)
   {
-    objectType = self->_objectType;
     PBDataWriterWriteInt64Field();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -233,9 +232,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  authorizationStatus = self->_authorizationStatus;
   PBDataWriterWriteInt64Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -249,9 +247,8 @@ LABEL_4:
   }
 
 LABEL_15:
-  authorizationRequest = self->_authorizationRequest;
   PBDataWriterWriteInt64Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -265,9 +262,8 @@ LABEL_5:
   }
 
 LABEL_16:
-  modificationDate = self->_modificationDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -281,22 +277,20 @@ LABEL_6:
   }
 
 LABEL_17:
-  modificationEpoch = self->_modificationEpoch;
   PBDataWriterWriteInt64Field();
-  toCopy = v12;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_7:
-    authorizationMode = self->_authorizationMode;
     PBDataWriterWriteInt64Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_8:
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 }
 
@@ -486,7 +480,6 @@ LABEL_8:
     goto LABEL_34;
   }
 
-  v5 = *(equalCopy + 64);
   if ((*&self->_has & 0x20) != 0)
   {
     if ((*(equalCopy + 64) & 0x20) == 0 || self->_objectType != *(equalCopy + 6))
@@ -498,7 +491,7 @@ LABEL_8:
   else if ((*(equalCopy + 64) & 0x20) != 0)
   {
 LABEL_34:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_35;
   }
 
@@ -570,17 +563,17 @@ LABEL_34:
   syncIdentity = self->_syncIdentity;
   if (syncIdentity | *(equalCopy + 7))
   {
-    v7 = [(HDCodableSyncIdentity *)syncIdentity isEqual:?];
+    v6 = [(HDCodableSyncIdentity *)syncIdentity isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_35:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash
@@ -769,18 +762,30 @@ LABEL_8:
   v8 = v5[7];
   if (syncIdentity)
   {
-    if (v8)
+    if (!v8)
     {
-      [(HDCodableSyncIdentity *)syncIdentity mergeFrom:?];
+      goto LABEL_20;
     }
+
+    v9 = v5;
+    syncIdentity = [(HDCodableSyncIdentity *)syncIdentity mergeFrom:?];
   }
 
-  else if (v8)
+  else
   {
-    [(HDCodableAuthorization *)self setSyncIdentity:?];
+    if (!v8)
+    {
+      goto LABEL_20;
+    }
+
+    v9 = v5;
+    syncIdentity = [(HDCodableAuthorization *)self setSyncIdentity:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  v5 = v9;
+LABEL_20:
+
+  MEMORY[0x2821F96F8](syncIdentity, v5);
 }
 
 - (void)_setDataTypeCodeWithObjectType:(id)type
@@ -815,7 +820,6 @@ LABEL_8:
 {
   if ((*&self->_has & 8) != 0)
   {
-    modificationDate = self->_modificationDate;
     v3 = HDDecodeDateForValue();
   }
 

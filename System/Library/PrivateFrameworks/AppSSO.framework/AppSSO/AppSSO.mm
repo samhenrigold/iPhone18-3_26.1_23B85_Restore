@@ -1,13 +1,13 @@
-id SO_LOG_SOConfigurationHost()
+id SO_LOG_SOConfigurationHost(uint64_t a1)
 {
   if (SO_LOG_SOConfigurationHost_once != -1)
   {
     SO_LOG_SOConfigurationHost_cold_1();
   }
 
-  v1 = SO_LOG_SOConfigurationHost_log;
+  v2 = SO_LOG_SOConfigurationHost_log;
 
-  return v1;
+  return v2;
 }
 
 id getSOConfigurationClass()
@@ -34,9 +34,9 @@ id getSOConfigurationClass()
   return v1;
 }
 
-void sub_1C1318508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1318508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -65,31 +65,31 @@ id getSOAuthorizationResultCoreClass()
   return v1;
 }
 
-void sub_1C1318648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1318648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getSOAuthorizationResultCoreClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!AppSSOCoreLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __AppSSOCoreLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E813E250;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __AppSSOCoreLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E813E250;
+    v6 = 0;
     AppSSOCoreLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AppSSOCoreLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -97,7 +97,7 @@ Class __getSOAuthorizationResultCoreClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -112,30 +112,26 @@ LABEL_4:
   }
 
   getSOAuthorizationResultCoreClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AppSSOCoreLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOCoreLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-id SO_LOG_SOExtensionServiceConnection()
+id SO_LOG_SOExtensionServiceConnection(uint64_t a1)
 {
   if (SO_LOG_SOExtensionServiceConnection_once != -1)
   {
     SO_LOG_SOExtensionServiceConnection_cold_1();
   }
 
-  v1 = SO_LOG_SOExtensionServiceConnection_log;
+  v2 = SO_LOG_SOExtensionServiceConnection_log;
 
-  return v1;
+  return v2;
 }
 
 void __getSOInternalProtocolsClass_block_invoke(uint64_t a1)
@@ -156,43 +152,38 @@ void __getSOInternalProtocolsClass_block_invoke(uint64_t a1)
 
 void AppSSOCoreLibrary()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2[0] = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v1[0] = 0;
   if (!AppSSOCoreLibraryCore_frameworkLibrary_0)
   {
-    v2[1] = MEMORY[0x1E69E9820];
-    v2[2] = 3221225472;
-    v2[3] = __AppSSOCoreLibraryCore_block_invoke_0;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_1E813E2F8;
-    v4 = 0;
+    v1[1] = MEMORY[0x1E69E9820];
+    v1[2] = 3221225472;
+    v1[3] = __AppSSOCoreLibraryCore_block_invoke_0;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_1E813E2F8;
+    v3 = 0;
     AppSSOCoreLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!AppSSOCoreLibraryCore_frameworkLibrary_0)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __AppSSOCoreLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOCoreLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -212,22 +203,23 @@ void __getSOErrorHelperClass_block_invoke(uint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-id SO_LOG_SORemoteExtensionContext()
+id SO_LOG_SORemoteExtensionContext(uint64_t a1)
 {
   if (SO_LOG_SORemoteExtensionContext_once != -1)
   {
     SO_LOG_SORemoteExtensionContext_cold_1();
   }
 
-  v1 = SO_LOG_SORemoteExtensionContext_log;
+  v2 = SO_LOG_SORemoteExtensionContext_log;
 
-  return v1;
+  return v2;
 }
 
 id getSOErrorHelperClass()
@@ -254,16 +246,16 @@ id getSOErrorHelperClass()
   return v1;
 }
 
-void sub_1C1319D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1319D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C131A138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C131A138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -275,9 +267,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C131A2E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C131A2E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -306,38 +298,38 @@ id getASAuthorizationProviderExtensionAuthorizationRequestClass()
   return v1;
 }
 
-void sub_1C131A81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C131A81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C131B778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C131B778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getSOErrorHelperClass_block_invoke_0(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!AppSSOCoreLibraryCore_frameworkLibrary_1)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __AppSSOCoreLibraryCore_block_invoke_1;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E813E3D8;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __AppSSOCoreLibraryCore_block_invoke_1;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E813E3D8;
+    v6 = 0;
     AppSSOCoreLibraryCore_frameworkLibrary_1 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AppSSOCoreLibraryCore_frameworkLibrary_1)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -345,7 +337,7 @@ Class __getSOErrorHelperClass_block_invoke_0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -360,38 +352,34 @@ LABEL_4:
   }
 
   getSOErrorHelperClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AppSSOCoreLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOCoreLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getASAuthorizationProviderExtensionAuthorizationRequestClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!AuthenticationServicesLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __AuthenticationServicesLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E813E3F0;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __AuthenticationServicesLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E813E3F0;
+    v6 = 0;
     AuthenticationServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AuthenticationServicesLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -399,7 +387,7 @@ Class __getASAuthorizationProviderExtensionAuthorizationRequestClass_block_invok
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -414,42 +402,40 @@ LABEL_4:
   }
 
   getASAuthorizationProviderExtensionAuthorizationRequestClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AuthenticationServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AuthenticationServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-id SO_LOG_SOExtension()
+id SO_LOG_SOExtension(uint64_t a1)
 {
   if (SO_LOG_SOExtension_once != -1)
   {
     SO_LOG_SOExtension_cold_1();
   }
 
-  v1 = SO_LOG_SOExtension_log;
+  v2 = SO_LOG_SOExtension_log;
 
-  return v1;
+  return v2;
 }
 
 void sub_1C131CFD4(_Unwind_Exception *a1)
@@ -483,16 +469,16 @@ id getSOErrorHelperClass_0()
   return v1;
 }
 
-void sub_1C131D40C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C131D40C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C131F670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C131F670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -504,31 +490,31 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C1320044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1C1320044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getSOErrorHelperClass_block_invoke_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!AppSSOCoreLibraryCore_frameworkLibrary_2)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __AppSSOCoreLibraryCore_block_invoke_2;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E813E8A8;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __AppSSOCoreLibraryCore_block_invoke_2;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E813E8A8;
+    v6 = 0;
     AppSSOCoreLibraryCore_frameworkLibrary_2 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AppSSOCoreLibraryCore_frameworkLibrary_2)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -536,7 +522,7 @@ Class __getSOErrorHelperClass_block_invoke_1(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -551,24 +537,21 @@ LABEL_4:
   }
 
   getSOErrorHelperClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AppSSOCoreLibraryCore_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOCoreLibraryCore_frameworkLibrary_2 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void OUTLINED_FUNCTION_8(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -578,10 +561,11 @@ void OUTLINED_FUNCTION_8(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_9(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_9(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_10(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -593,22 +577,22 @@ void OUTLINED_FUNCTION_10(void *a1, uint64_t a2, os_log_t log, const char *a4, .
 
 Class __getSOAuthorizationParametersCoreClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!AppSSOCoreLibraryCore_frameworkLibrary_3)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __AppSSOCoreLibraryCore_block_invoke_3;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E813E8C0;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __AppSSOCoreLibraryCore_block_invoke_3;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E813E8C0;
+    v6 = 0;
     AppSSOCoreLibraryCore_frameworkLibrary_3 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AppSSOCoreLibraryCore_frameworkLibrary_3)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -616,7 +600,7 @@ Class __getSOAuthorizationParametersCoreClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -631,42 +615,38 @@ LABEL_4:
   }
 
   getSOAuthorizationParametersCoreClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AppSSOCoreLibraryCore_block_invoke_3(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOCoreLibraryCore_frameworkLibrary_3 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-id SO_LOG_SOExtensionManager()
+id SO_LOG_SOExtensionManager(uint64_t a1)
 {
   if (SO_LOG_SOExtensionManager_once != -1)
   {
     SO_LOG_SOExtensionManager_cold_1();
   }
 
-  v1 = SO_LOG_SOExtensionManager_log;
+  v2 = SO_LOG_SOExtensionManager_log;
 
-  return v1;
+  return v2;
 }
 
-void sub_1C1325D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1325D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C1325F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1325F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -678,31 +658,31 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C1326498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1326498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getSOErrorHelperClass_block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!AppSSOCoreLibraryCore_frameworkLibrary_4)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __AppSSOCoreLibraryCore_block_invoke_4;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E813E980;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __AppSSOCoreLibraryCore_block_invoke_4;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E813E980;
+    v6 = 0;
     AppSSOCoreLibraryCore_frameworkLibrary_4 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AppSSOCoreLibraryCore_frameworkLibrary_4)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -710,7 +690,7 @@ Class __getSOErrorHelperClass_block_invoke_2(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -725,17 +705,13 @@ LABEL_4:
   }
 
   getSOErrorHelperClass_softClass_2 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AppSSOCoreLibraryCore_block_invoke_4(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOCoreLibraryCore_frameworkLibrary_4 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -746,16 +722,16 @@ void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
-id SO_LOG_SORequestQueue()
+id SO_LOG_SORequestQueue(uint64_t a1)
 {
   if (SO_LOG_SORequestQueue_once != -1)
   {
     SO_LOG_SORequestQueue_cold_1();
   }
 
-  v1 = SO_LOG_SORequestQueue_log;
+  v2 = SO_LOG_SORequestQueue_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t OUTLINED_FUNCTION_0_3(uint64_t result, int a2, uint64_t a3, float a4)
@@ -767,9 +743,9 @@ uint64_t OUTLINED_FUNCTION_0_3(uint64_t result, int a2, uint64_t a3, float a4)
   return result;
 }
 
-void sub_1C1329E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1C1329E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -798,9 +774,9 @@ id getSOUtilsClass()
   return v1;
 }
 
-void sub_1C1329EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1329EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -823,43 +799,38 @@ void __getSOUtilsClass_block_invoke(uint64_t a1)
 
 void AppSSOCoreLibrary_0()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2[0] = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v1[0] = 0;
   if (!AppSSOCoreLibraryCore_frameworkLibrary_5)
   {
-    v2[1] = MEMORY[0x1E69E9820];
-    v2[2] = 3221225472;
-    v2[3] = __AppSSOCoreLibraryCore_block_invoke_5;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_1E813E9F0;
-    v4 = 0;
+    v1[1] = MEMORY[0x1E69E9820];
+    v1[2] = 3221225472;
+    v1[3] = __AppSSOCoreLibraryCore_block_invoke_5;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_1E813E9F0;
+    v3 = 0;
     AppSSOCoreLibraryCore_frameworkLibrary_5 = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!AppSSOCoreLibraryCore_frameworkLibrary_5)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __AppSSOCoreLibraryCore_block_invoke_5(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOCoreLibraryCore_frameworkLibrary_5 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -875,7 +846,7 @@ Class __getSOErrorHelperClass_block_invoke_3(uint64_t a1)
 
   else
   {
-    v3 = __getSOErrorHelperClass_block_invoke_cold_1();
+    __getSOErrorHelperClass_block_invoke_cold_1();
     return [(SOPreferences *)v3 BOOLValueForKey:v4 defaultValue:v5, v6];
   }
 
@@ -906,43 +877,43 @@ id getSOUtilsClass_0()
   return v1;
 }
 
-void sub_1C132A47C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C132A47C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id SO_LOG_SOPreferences()
+id SO_LOG_SOPreferences(uint64_t a1)
 {
   if (SO_LOG_SOPreferences_once != -1)
   {
     SO_LOG_SOPreferences_cold_1();
   }
 
-  v1 = SO_LOG_SOPreferences_log;
+  v2 = SO_LOG_SOPreferences_log;
 
-  return v1;
+  return v2;
 }
 
 Class __getSOUtilsClass_block_invoke_0(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!AppSSOCoreLibraryCore_frameworkLibrary_6)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __AppSSOCoreLibraryCore_block_invoke_6;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E813EA08;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __AppSSOCoreLibraryCore_block_invoke_6;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E813EA08;
+    v6 = 0;
     AppSSOCoreLibraryCore_frameworkLibrary_6 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AppSSOCoreLibraryCore_frameworkLibrary_6)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -950,7 +921,7 @@ Class __getSOUtilsClass_block_invoke_0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -965,42 +936,38 @@ LABEL_4:
   }
 
   getSOUtilsClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AppSSOCoreLibraryCore_block_invoke_6(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOCoreLibraryCore_frameworkLibrary_6 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-id SO_LOG_SOConfigurationManager()
+id SO_LOG_SOConfigurationManager(uint64_t a1)
 {
   if (SO_LOG_SOConfigurationManager_once != -1)
   {
     SO_LOG_SOConfigurationManager_cold_1();
   }
 
-  v1 = SO_LOG_SOConfigurationManager_log;
+  v2 = SO_LOG_SOConfigurationManager_log;
 
-  return v1;
+  return v2;
 }
 
-id SO_LOG_SOAuthorizationRequest()
+id SO_LOG_SOAuthorizationRequest(uint64_t a1)
 {
   if (SO_LOG_SOAuthorizationRequest_once != -1)
   {
     SO_LOG_SOAuthorizationRequest_cold_1();
   }
 
-  v1 = SO_LOG_SOAuthorizationRequest_log;
+  v2 = SO_LOG_SOAuthorizationRequest_log;
 
-  return v1;
+  return v2;
 }
 
 id getSOErrorHelperClass_1()
@@ -1027,9 +994,9 @@ id getSOErrorHelperClass_1()
   return v1;
 }
 
-void sub_1C132AF84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C132AF84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1058,37 +1025,38 @@ id getSOAuthorizationCredentialClass()
   return v1;
 }
 
-void sub_1C132B5DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C132B5DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id getASAuthorizationErrorDomain()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getASAuthorizationErrorDomainSymbolLoc_ptr;
-  v8 = getASAuthorizationErrorDomainSymbolLoc_ptr;
+  v9 = getASAuthorizationErrorDomainSymbolLoc_ptr;
   if (!getASAuthorizationErrorDomainSymbolLoc_ptr)
   {
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 3221225472;
-    v4[2] = __getASAuthorizationErrorDomainSymbolLoc_block_invoke;
-    v4[3] = &unk_1E813E230;
-    v4[4] = &v5;
-    __getASAuthorizationErrorDomainSymbolLoc_block_invoke(v4);
-    v0 = v6[3];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __getASAuthorizationErrorDomainSymbolLoc_block_invoke;
+    v5[3] = &unk_1E813E230;
+    v5[4] = &v6;
+    __getASAuthorizationErrorDomainSymbolLoc_block_invoke(v5);
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    ASAuthorizationErrorDomain_cold_1 = getASAuthorizationErrorDomain_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(ASAuthorizationErrorDomain_cold_1);
+    getASAuthorizationErrorDomain_cold_1();
+    v4 = v3;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v4);
   }
 
   v1 = *v0;
@@ -1096,9 +1064,9 @@ id getASAuthorizationErrorDomain()
   return v1;
 }
 
-void sub_1C132CF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C132CF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1124,45 +1092,41 @@ Class __getSOErrorHelperClass_block_invoke_4(uint64_t a1)
 
 uint64_t AppSSOCoreLibrary_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!AppSSOCoreLibraryCore_frameworkLibrary_7)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __AppSSOCoreLibraryCore_block_invoke_7;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E813EA70;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __AppSSOCoreLibraryCore_block_invoke_7;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E813EA70;
+    v5 = 0;
     AppSSOCoreLibraryCore_frameworkLibrary_7 = _sl_dlopen();
   }
 
   v0 = AppSSOCoreLibraryCore_frameworkLibrary_7;
-  v1 = v4[0];
+  v1 = v3[0];
   if (!AppSSOCoreLibraryCore_frameworkLibrary_7)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
-  if (v4[0])
+  if (v3[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t __AppSSOCoreLibraryCore_block_invoke_7(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOCoreLibraryCore_frameworkLibrary_7 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1187,23 +1151,23 @@ Class __getSOAuthorizationCredentialClass_block_invoke(uint64_t a1)
 
 void *__getASAuthorizationErrorDomainSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!AuthenticationServicesLibraryCore_frameworkLibrary_0)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __AuthenticationServicesLibraryCore_block_invoke_0;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E813EA88;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __AuthenticationServicesLibraryCore_block_invoke_0;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E813EA88;
+    v7 = 0;
     AuthenticationServicesLibraryCore_frameworkLibrary_0 = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = AuthenticationServicesLibraryCore_frameworkLibrary_0;
     if (AuthenticationServicesLibraryCore_frameworkLibrary_0)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -1211,7 +1175,7 @@ void *__getASAuthorizationErrorDomainSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -1223,17 +1187,13 @@ LABEL_5:
   result = dlsym(v2, "ASAuthorizationErrorDomain");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getASAuthorizationErrorDomainSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AuthenticationServicesLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AuthenticationServicesLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1248,22 +1208,22 @@ void *__getSOAuthorizationOptionCoreNoUserInterfaceSymbolLoc_block_invoke(uint64
 
 Class __getPOLoginManagerClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!PlatformSSOLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __PlatformSSOLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E813EAA0;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __PlatformSSOLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E813EAA0;
+    v6 = 0;
     PlatformSSOLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (PlatformSSOLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -1271,7 +1231,7 @@ Class __getPOLoginManagerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1286,17 +1246,13 @@ LABEL_4:
   }
 
   getPOLoginManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __PlatformSSOLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PlatformSSOLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1309,16 +1265,16 @@ uint64_t OUTLINED_FUNCTION_3_0(uint64_t result, uint64_t a2, int a3, float a4)
   return result;
 }
 
-id SO_LOG_SOAuthorization()
+id SO_LOG_SOAuthorization(uint64_t a1)
 {
   if (SO_LOG_SOAuthorization_once != -1)
   {
     SO_LOG_SOAuthorization_cold_1();
   }
 
-  v1 = SO_LOG_SOAuthorization_log;
+  v2 = SO_LOG_SOAuthorization_log;
 
-  return v1;
+  return v2;
 }
 
 id getSOAuthorizationCoreClass()
@@ -1345,16 +1301,16 @@ id getSOAuthorizationCoreClass()
   return v1;
 }
 
-void sub_1C132D868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C132D868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C132EEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1C132EEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1383,9 +1339,9 @@ id getSOErrorHelperClass_2()
   return v1;
 }
 
-void sub_1C132EFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C132EFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1414,48 +1370,42 @@ id getSOAuthorizationCredentialCoreClass()
   return v1;
 }
 
-void sub_1C1330248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1330248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C13306C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1C13306C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  objc_sync_exit(v15);
+  objc_sync_exit(v22);
   _Unwind_Resume(a1);
 }
 
-void sub_1C13315E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C13315E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t AppSSOCoreLibraryCore()
+uint64_t AppSSOCoreLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!AppSSOCoreLibraryCore_frameworkLibrary_8)
   {
     AppSSOCoreLibraryCore_frameworkLibrary_8 = _sl_dlopen();
   }
 
-  result = AppSSOCoreLibraryCore_frameworkLibrary_8;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return AppSSOCoreLibraryCore_frameworkLibrary_8;
 }
 
 uint64_t __AppSSOCoreLibraryCore_block_invoke_8(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOCoreLibraryCore_frameworkLibrary_8 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1477,10 +1427,19 @@ void __getSOAuthorizationCoreClass_block_invoke(uint64_t a1)
 
 void AppSSOCoreLibrary_2()
 {
-  if (!AppSSOCoreLibraryCore())
+  v2 = 0;
+  v0 = AppSSOCoreLibraryCore(&v2);
+  v1 = v2;
+  if (!v0)
   {
-    v0 = abort_report_np();
-    free(v0);
+    v1 = abort_report_np("%s", v2);
+    goto LABEL_5;
+  }
+
+  if (v2)
+  {
+LABEL_5:
+    free(v1);
   }
 }
 
@@ -1496,7 +1455,7 @@ Class __getSOErrorHelperClass_block_invoke_5(uint64_t a1)
 
   else
   {
-    v3 = __getSOErrorHelperClass_block_invoke_cold_1();
+    __getSOErrorHelperClass_block_invoke_cold_1();
     return __getSOAuthorizationRequestParametersCoreClass_block_invoke(v3);
   }
 
@@ -1562,22 +1521,22 @@ Class __getSOConfigurationClientClass_block_invoke(uint64_t a1)
 
 Class __getSOUIAuthorizationViewControllerClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!AppSSOUILibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __AppSSOUILibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E813ED68;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __AppSSOUILibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E813ED68;
+    v6 = 0;
     AppSSOUILibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AppSSOUILibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -1585,7 +1544,7 @@ Class __getSOUIAuthorizationViewControllerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1600,48 +1559,38 @@ LABEL_4:
   }
 
   getSOUIAuthorizationViewControllerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AppSSOUILibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOUILibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_4_1@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void OUTLINED_FUNCTION_5_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *(result + 40);
-  return result;
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_5_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
-}
-
-id SO_LOG_SOExtensionViewService()
+id SO_LOG_SOExtensionViewService(uint64_t a1)
 {
   if (SO_LOG_SOExtensionViewService_once != -1)
   {
     SO_LOG_SOExtensionViewService_cold_1();
   }
 
-  v1 = SO_LOG_SOExtensionViewService_log;
+  v2 = SO_LOG_SOExtensionViewService_log;
 
-  return v1;
+  return v2;
 }
 
-void sub_1C1332BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C1332BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1670,9 +1619,9 @@ id getSOErrorHelperClass_3()
   return v1;
 }
 
-void sub_1C1332F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1332F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1701,9 +1650,9 @@ id getSOFullProfileClass()
   return v1;
 }
 
-void sub_1C13334A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C13334A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1712,6 +1661,13 @@ void sub_1C1334FF4(_Unwind_Exception *a1)
 {
   objc_sync_exit(v2);
   objc_sync_exit(v1);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C13359F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1755,43 +1711,38 @@ void __getSOConfigurationVersionClass_block_invoke(uint64_t a1)
 
 void AppSSOCoreLibrary_3()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2[0] = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v1[0] = 0;
   if (!AppSSOCoreLibraryCore_frameworkLibrary_9)
   {
-    v2[1] = MEMORY[0x1E69E9820];
-    v2[2] = 3221225472;
-    v2[3] = __AppSSOCoreLibraryCore_block_invoke_9;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_1E813EE00;
-    v4 = 0;
+    v1[1] = MEMORY[0x1E69E9820];
+    v1[2] = 3221225472;
+    v1[3] = __AppSSOCoreLibraryCore_block_invoke_9;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_1E813EE00;
+    v3 = 0;
     AppSSOCoreLibraryCore_frameworkLibrary_9 = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!AppSSOCoreLibraryCore_frameworkLibrary_9)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __AppSSOCoreLibraryCore_block_invoke_9(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOCoreLibraryCore_frameworkLibrary_9 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1807,7 +1758,7 @@ Class __getSOErrorHelperClass_block_invoke_6(uint64_t a1)
 
   else
   {
-    v3 = __getSOErrorHelperClass_block_invoke_cold_1();
+    __getSOErrorHelperClass_block_invoke_cold_1();
     return __getSOConfigurationClass_block_invoke(v3);
   }
 
@@ -1888,10 +1839,11 @@ uint64_t OUTLINED_FUNCTION_13(uint64_t result, uint64_t a2, float a3)
   return result;
 }
 
-void OUTLINED_FUNCTION_14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_15(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -1900,9 +1852,9 @@ void OUTLINED_FUNCTION_15(void *a1, NSObject *a2, uint64_t a3, const char *a4, u
   _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, a5, 0x20u);
 }
 
-void sub_1C1339D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C1339D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1914,36 +1866,43 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-id SO_LOG_SOHostExtensionContext()
+id SO_LOG_SOHostExtensionContext(uint64_t a1)
 {
   if (SO_LOG_SOHostExtensionContext_once != -1)
   {
     SO_LOG_SOHostExtensionContext_cold_1();
   }
 
-  v1 = SO_LOG_SOHostExtensionContext_log;
+  v2 = SO_LOG_SOHostExtensionContext_log;
 
-  return v1;
+  return v2;
+}
+
+void sub_1C133B024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 Class __getPOProfileClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!PlatformSSOLibraryCore_frameworkLibrary_0)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __PlatformSSOLibraryCore_block_invoke_0;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E813EE68;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __PlatformSSOLibraryCore_block_invoke_0;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E813EE68;
+    v6 = 0;
     PlatformSSOLibraryCore_frameworkLibrary_0 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (PlatformSSOLibraryCore_frameworkLibrary_0)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -1951,7 +1910,7 @@ Class __getPOProfileClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1966,38 +1925,34 @@ LABEL_4:
   }
 
   getPOProfileClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __PlatformSSOLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PlatformSSOLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getSOFullProfileClass_block_invoke_0(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!AppSSOCoreLibraryCore_frameworkLibrary_10)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __AppSSOCoreLibraryCore_block_invoke_10;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E813EE80;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __AppSSOCoreLibraryCore_block_invoke_10;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E813EE80;
+    v6 = 0;
     AppSSOCoreLibraryCore_frameworkLibrary_10 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AppSSOCoreLibraryCore_frameworkLibrary_10)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -2005,7 +1960,7 @@ Class __getSOFullProfileClass_block_invoke_0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2020,43 +1975,40 @@ LABEL_4:
   }
 
   getSOFullProfileClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AppSSOCoreLibraryCore_block_invoke_10(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOCoreLibraryCore_frameworkLibrary_10 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void appSSO_init()
 {
-  if (AppSSOCoreLibraryCore_0())
+  if (AppSSOCoreLibraryCore_0(0))
   {
-    v4 = 0;
-    v5 = &v4;
-    v6 = 0x2020000000;
+    v5 = 0;
+    v6 = &v5;
+    v7 = 0x2020000000;
     v0 = getappSSO_initSymbolLoc_ptr;
-    v7 = getappSSO_initSymbolLoc_ptr;
+    v8 = getappSSO_initSymbolLoc_ptr;
     if (!getappSSO_initSymbolLoc_ptr)
     {
       v1 = AppSSOCoreLibrary_4();
-      v5[3] = dlsym(v1, "appSSO_init");
-      getappSSO_initSymbolLoc_ptr = v5[3];
-      v0 = v5[3];
+      v6[3] = dlsym(v1, "appSSO_init");
+      getappSSO_initSymbolLoc_ptr = v6[3];
+      v0 = v6[3];
     }
 
-    _Block_object_dispose(&v4, 8);
+    _Block_object_dispose(&v5, 8);
     if (!v0)
     {
-      ASAuthorizationErrorDomain_cold_1 = getASAuthorizationErrorDomain_cold_1();
-      _Block_object_dispose(&v4, 8);
-      _Unwind_Resume(ASAuthorizationErrorDomain_cold_1);
+      getASAuthorizationErrorDomain_cold_1();
+      v4 = v3;
+      _Block_object_dispose(&v5, 8);
+      _Unwind_Resume(v4);
     }
 
     v0();
@@ -2064,7 +2016,7 @@ void appSSO_init()
 
   else
   {
-    v2 = SO_LOG_AppSSOClientImpl();
+    v2 = SO_LOG_AppSSOClientImpl(0);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       +[SOAuthorization canPerformAuthorizationWithURL:responseCode:];
@@ -2072,41 +2024,42 @@ void appSSO_init()
   }
 }
 
-id SO_LOG_AppSSOClientImpl()
+id SO_LOG_AppSSOClientImpl(uint64_t a1)
 {
   if (SO_LOG_AppSSOClientImpl_once != -1)
   {
     SO_LOG_AppSSOClientImpl_cold_1();
   }
 
-  v1 = SO_LOG_AppSSOClientImpl_log;
+  v2 = SO_LOG_AppSSOClientImpl_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t appSSO_willPerform(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  if (AppSSOCoreLibraryCore_0())
+  if (AppSSOCoreLibraryCore_0(0))
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
     v8 = getappSSO_willPerformSymbolLoc_ptr;
-    v16 = getappSSO_willPerformSymbolLoc_ptr;
+    v17 = getappSSO_willPerformSymbolLoc_ptr;
     if (!getappSSO_willPerformSymbolLoc_ptr)
     {
       v9 = AppSSOCoreLibrary_4();
-      v14[3] = dlsym(v9, "appSSO_willPerform");
-      getappSSO_willPerformSymbolLoc_ptr = v14[3];
-      v8 = v14[3];
+      v15[3] = dlsym(v9, "appSSO_willPerform");
+      getappSSO_willPerformSymbolLoc_ptr = v15[3];
+      v8 = v15[3];
     }
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v14, 8);
     if (!v8)
     {
-      ASAuthorizationErrorDomain_cold_1 = getASAuthorizationErrorDomain_cold_1();
-      _Block_object_dispose(&v13, 8);
-      _Unwind_Resume(ASAuthorizationErrorDomain_cold_1);
+      getASAuthorizationErrorDomain_cold_1();
+      v13 = v12;
+      _Block_object_dispose(&v14, 8);
+      _Unwind_Resume(v13);
     }
 
     return v8(a1, a2, a3, a4);
@@ -2114,7 +2067,7 @@ uint64_t appSSO_willPerform(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    v11 = SO_LOG_AppSSOClientImpl();
+    v11 = SO_LOG_AppSSOClientImpl(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       +[SOAuthorization canPerformAuthorizationWithURL:responseCode:];
@@ -2127,28 +2080,29 @@ uint64_t appSSO_willPerform(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 void appSSO_performResponse(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
   v11 = a6;
-  if (AppSSOCoreLibraryCore_0())
+  if (AppSSOCoreLibraryCore_0(0))
   {
     v12 = v11;
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2020000000;
     v13 = getappSSO_performResponseSymbolLoc_ptr;
-    v21 = getappSSO_performResponseSymbolLoc_ptr;
+    v22 = getappSSO_performResponseSymbolLoc_ptr;
     if (!getappSSO_performResponseSymbolLoc_ptr)
     {
       v14 = AppSSOCoreLibrary_4();
-      v19[3] = dlsym(v14, "appSSO_performResponse");
-      getappSSO_performResponseSymbolLoc_ptr = v19[3];
-      v13 = v19[3];
+      v20[3] = dlsym(v14, "appSSO_performResponse");
+      getappSSO_performResponseSymbolLoc_ptr = v20[3];
+      v13 = v20[3];
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v19, 8);
     if (!v13)
     {
-      ASAuthorizationErrorDomain_cold_1 = getASAuthorizationErrorDomain_cold_1();
-      _Block_object_dispose(&v18, 8);
-      _Unwind_Resume(ASAuthorizationErrorDomain_cold_1);
+      getASAuthorizationErrorDomain_cold_1();
+      v18 = v17;
+      _Block_object_dispose(&v19, 8);
+      _Unwind_Resume(v18);
     }
 
     v13(a1, a2, a3, a4, a5, v12);
@@ -2156,7 +2110,7 @@ void appSSO_performResponse(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
 
   else
   {
-    v15 = SO_LOG_AppSSOClientImpl();
+    v15 = SO_LOG_AppSSOClientImpl(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       +[SOAuthorization canPerformAuthorizationWithURL:responseCode:];
@@ -2194,9 +2148,9 @@ id getSOErrorHelperClass_4()
   return v1;
 }
 
-void sub_1C133B954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C133B954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2204,28 +2158,29 @@ void sub_1C133B954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void appSSO_performResponseCredential(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v9 = a5;
-  if (AppSSOCoreLibraryCore_0())
+  if (AppSSOCoreLibraryCore_0(0))
   {
     v10 = v9;
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2020000000;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
     v11 = getappSSO_performResponseCredentialSymbolLoc_ptr;
-    v19 = getappSSO_performResponseCredentialSymbolLoc_ptr;
+    v20 = getappSSO_performResponseCredentialSymbolLoc_ptr;
     if (!getappSSO_performResponseCredentialSymbolLoc_ptr)
     {
       v12 = AppSSOCoreLibrary_4();
-      v17[3] = dlsym(v12, "appSSO_performResponseCredential");
-      getappSSO_performResponseCredentialSymbolLoc_ptr = v17[3];
-      v11 = v17[3];
+      v18[3] = dlsym(v12, "appSSO_performResponseCredential");
+      getappSSO_performResponseCredentialSymbolLoc_ptr = v18[3];
+      v11 = v18[3];
     }
 
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v17, 8);
     if (!v11)
     {
-      ASAuthorizationErrorDomain_cold_1 = getASAuthorizationErrorDomain_cold_1();
-      _Block_object_dispose(&v16, 8);
-      _Unwind_Resume(ASAuthorizationErrorDomain_cold_1);
+      getASAuthorizationErrorDomain_cold_1();
+      v16 = v15;
+      _Block_object_dispose(&v17, 8);
+      _Unwind_Resume(v16);
     }
 
     v11(a1, a2, a3, a4, v10);
@@ -2233,7 +2188,7 @@ void appSSO_performResponseCredential(uint64_t a1, uint64_t a2, uint64_t a3, uin
 
   else
   {
-    v13 = SO_LOG_AppSSOClientImpl();
+    v13 = SO_LOG_AppSSOClientImpl(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       +[SOAuthorization canPerformAuthorizationWithURL:responseCode:];
@@ -2249,27 +2204,28 @@ void appSSO_performResponseCredential(uint64_t a1, uint64_t a2, uint64_t a3, uin
 
 uint64_t appSSO_willHandle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  if (AppSSOCoreLibraryCore_0())
+  if (AppSSOCoreLibraryCore_0(0))
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
     v8 = getappSSO_willHandleSymbolLoc_ptr;
-    v16 = getappSSO_willHandleSymbolLoc_ptr;
+    v17 = getappSSO_willHandleSymbolLoc_ptr;
     if (!getappSSO_willHandleSymbolLoc_ptr)
     {
       v9 = AppSSOCoreLibrary_4();
-      v14[3] = dlsym(v9, "appSSO_willHandle");
-      getappSSO_willHandleSymbolLoc_ptr = v14[3];
-      v8 = v14[3];
+      v15[3] = dlsym(v9, "appSSO_willHandle");
+      getappSSO_willHandleSymbolLoc_ptr = v15[3];
+      v8 = v15[3];
     }
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v14, 8);
     if (!v8)
     {
-      ASAuthorizationErrorDomain_cold_1 = getASAuthorizationErrorDomain_cold_1();
-      _Block_object_dispose(&v13, 8);
-      _Unwind_Resume(ASAuthorizationErrorDomain_cold_1);
+      getASAuthorizationErrorDomain_cold_1();
+      v13 = v12;
+      _Block_object_dispose(&v14, 8);
+      _Unwind_Resume(v13);
     }
 
     return v8(a1, a2, a3, a4);
@@ -2277,7 +2233,7 @@ uint64_t appSSO_willHandle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   else
   {
-    v11 = SO_LOG_AppSSOClientImpl();
+    v11 = SO_LOG_AppSSOClientImpl(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       +[SOAuthorization canPerformAuthorizationWithURL:responseCode:];
@@ -2290,28 +2246,29 @@ uint64_t appSSO_willHandle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 void appSSO_handleResponse(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
   v11 = a6;
-  if (AppSSOCoreLibraryCore_0())
+  if (AppSSOCoreLibraryCore_0(0))
   {
     v12 = v11;
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2020000000;
     v13 = getappSSO_handleResponseSymbolLoc_ptr;
-    v21 = getappSSO_handleResponseSymbolLoc_ptr;
+    v22 = getappSSO_handleResponseSymbolLoc_ptr;
     if (!getappSSO_handleResponseSymbolLoc_ptr)
     {
       v14 = AppSSOCoreLibrary_4();
-      v19[3] = dlsym(v14, "appSSO_handleResponse");
-      getappSSO_handleResponseSymbolLoc_ptr = v19[3];
-      v13 = v19[3];
+      v20[3] = dlsym(v14, "appSSO_handleResponse");
+      getappSSO_handleResponseSymbolLoc_ptr = v20[3];
+      v13 = v20[3];
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v19, 8);
     if (!v13)
     {
-      ASAuthorizationErrorDomain_cold_1 = getASAuthorizationErrorDomain_cold_1();
-      _Block_object_dispose(&v18, 8);
-      _Unwind_Resume(ASAuthorizationErrorDomain_cold_1);
+      getASAuthorizationErrorDomain_cold_1();
+      v18 = v17;
+      _Block_object_dispose(&v19, 8);
+      _Unwind_Resume(v18);
     }
 
     v13(a1, a2, a3, a4, a5, v12);
@@ -2319,7 +2276,7 @@ void appSSO_handleResponse(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
 
   else
   {
-    v15 = SO_LOG_AppSSOClientImpl();
+    v15 = SO_LOG_AppSSOClientImpl(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       +[SOAuthorization canPerformAuthorizationWithURL:responseCode:];
@@ -2336,28 +2293,29 @@ void appSSO_handleResponse(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
 void appSSO_handleResponseCredential(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
 {
   v13 = a7;
-  if (AppSSOCoreLibraryCore_0())
+  if (AppSSOCoreLibraryCore_0(0))
   {
     v14 = v13;
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
     v15 = getappSSO_handleResponseCredentialSymbolLoc_ptr;
-    v23 = getappSSO_handleResponseCredentialSymbolLoc_ptr;
+    v24 = getappSSO_handleResponseCredentialSymbolLoc_ptr;
     if (!getappSSO_handleResponseCredentialSymbolLoc_ptr)
     {
       v16 = AppSSOCoreLibrary_4();
-      v21[3] = dlsym(v16, "appSSO_handleResponseCredential");
-      getappSSO_handleResponseCredentialSymbolLoc_ptr = v21[3];
-      v15 = v21[3];
+      v22[3] = dlsym(v16, "appSSO_handleResponseCredential");
+      getappSSO_handleResponseCredentialSymbolLoc_ptr = v22[3];
+      v15 = v22[3];
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v21, 8);
     if (!v15)
     {
-      ASAuthorizationErrorDomain_cold_1 = getASAuthorizationErrorDomain_cold_1();
-      _Block_object_dispose(&v20, 8);
-      _Unwind_Resume(ASAuthorizationErrorDomain_cold_1);
+      getASAuthorizationErrorDomain_cold_1();
+      v20 = v19;
+      _Block_object_dispose(&v21, 8);
+      _Unwind_Resume(v20);
     }
 
     v15(a1, a2, a3, a4, a5, a6, v14);
@@ -2365,7 +2323,7 @@ void appSSO_handleResponseCredential(uint64_t a1, uint64_t a2, uint64_t a3, uint
 
   else
   {
-    v17 = SO_LOG_AppSSOClientImpl();
+    v17 = SO_LOG_AppSSOClientImpl(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       +[SOAuthorization canPerformAuthorizationWithURL:responseCode:];
@@ -2382,28 +2340,29 @@ void appSSO_handleResponseCredential(uint64_t a1, uint64_t a2, uint64_t a3, uint
 void appSSO_handleResponseImpersonationCredential(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8)
 {
   v15 = a8;
-  if (AppSSOCoreLibraryCore_0())
+  if (AppSSOCoreLibraryCore_0(0))
   {
     v16 = v15;
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2020000000;
     v17 = getappSSO_handleResponseImpersonationCredentialSymbolLoc_ptr;
-    v25 = getappSSO_handleResponseImpersonationCredentialSymbolLoc_ptr;
+    v26 = getappSSO_handleResponseImpersonationCredentialSymbolLoc_ptr;
     if (!getappSSO_handleResponseImpersonationCredentialSymbolLoc_ptr)
     {
       v18 = AppSSOCoreLibrary_4();
-      v23[3] = dlsym(v18, "appSSO_handleResponseImpersonationCredential");
-      getappSSO_handleResponseImpersonationCredentialSymbolLoc_ptr = v23[3];
-      v17 = v23[3];
+      v24[3] = dlsym(v18, "appSSO_handleResponseImpersonationCredential");
+      getappSSO_handleResponseImpersonationCredentialSymbolLoc_ptr = v24[3];
+      v17 = v24[3];
     }
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v23, 8);
     if (!v17)
     {
-      ASAuthorizationErrorDomain_cold_1 = getASAuthorizationErrorDomain_cold_1();
-      _Block_object_dispose(&v22, 8);
-      _Unwind_Resume(ASAuthorizationErrorDomain_cold_1);
+      getASAuthorizationErrorDomain_cold_1();
+      v22 = v21;
+      _Block_object_dispose(&v23, 8);
+      _Unwind_Resume(v22);
     }
 
     v17(a1, a2, a3, a4, a5, a6, a7, v16);
@@ -2411,7 +2370,7 @@ void appSSO_handleResponseImpersonationCredential(uint64_t a1, uint64_t a2, uint
 
   else
   {
-    v19 = SO_LOG_AppSSOClientImpl();
+    v19 = SO_LOG_AppSSOClientImpl(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       +[SOAuthorization canPerformAuthorizationWithURL:responseCode:];
@@ -2425,26 +2384,20 @@ void appSSO_handleResponseImpersonationCredential(uint64_t a1, uint64_t a2, uint
   }
 }
 
-uint64_t AppSSOCoreLibraryCore_0()
+uint64_t AppSSOCoreLibraryCore_0(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!AppSSOCoreLibraryCore_frameworkLibrary_11)
   {
     AppSSOCoreLibraryCore_frameworkLibrary_11 = _sl_dlopen();
   }
 
-  result = AppSSOCoreLibraryCore_frameworkLibrary_11;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return AppSSOCoreLibraryCore_frameworkLibrary_11;
 }
 
 uint64_t __AppSSOCoreLibraryCore_block_invoke_11(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOCoreLibraryCore_frameworkLibrary_11 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2459,11 +2412,19 @@ void *__getappSSO_initSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t AppSSOCoreLibrary_4()
 {
-  v0 = AppSSOCoreLibraryCore_0();
+  v3 = 0;
+  v0 = AppSSOCoreLibraryCore_0(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -2490,7 +2451,7 @@ Class __getSOErrorHelperClass_block_invoke_7(uint64_t a1)
 
   else
   {
-    v3 = __getSOErrorHelperClass_block_invoke_cold_1();
+    __getSOErrorHelperClass_block_invoke_cold_1();
     return __getappSSO_performResponseSymbolLoc_block_invoke(v3);
   }
 
@@ -2551,16 +2512,16 @@ void *__getappSSO_handleResponseImpersonationCredentialSymbolLoc_block_invoke(ui
   return result;
 }
 
-id SO_LOG_SOExtensionFinder()
+id SO_LOG_SOExtensionFinder(uint64_t a1)
 {
   if (SO_LOG_SOExtensionFinder_once != -1)
   {
     SO_LOG_SOExtensionFinder_cold_1();
   }
 
-  v1 = SO_LOG_SOExtensionFinder_log;
+  v2 = SO_LOG_SOExtensionFinder_log;
 
-  return v1;
+  return v2;
 }
 
 id getSOErrorHelperClass_5()
@@ -2587,9 +2548,9 @@ id getSOErrorHelperClass_5()
   return v1;
 }
 
-void sub_1C133CE94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C133CE94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2603,22 +2564,22 @@ void sub_1C133D0C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 Class __getSOErrorHelperClass_block_invoke_8(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!AppSSOCoreLibraryCore_frameworkLibrary_12)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __AppSSOCoreLibraryCore_block_invoke_12;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E813EED8;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __AppSSOCoreLibraryCore_block_invoke_12;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E813EED8;
+    v6 = 0;
     AppSSOCoreLibraryCore_frameworkLibrary_12 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AppSSOCoreLibraryCore_frameworkLibrary_12)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -2626,7 +2587,7 @@ Class __getSOErrorHelperClass_block_invoke_8(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2641,23 +2602,19 @@ LABEL_4:
   }
 
   getSOErrorHelperClass_softClass_8 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AppSSOCoreLibraryCore_block_invoke_12(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppSSOCoreLibraryCore_frameworkLibrary_12 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t getASAuthorizationErrorDomain_cold_1()
+void getASAuthorizationErrorDomain_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return __81__SOAuthorizationRequest_presentAuthorizationViewControllerWithHints_completion___block_invoke_cold_1(v0);
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  __81__SOAuthorizationRequest_presentAuthorizationViewControllerWithHints_completion___block_invoke_cold_1(v1, v2, v3, v4, v5, v6, v7, v8);
 }

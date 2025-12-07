@@ -41,17 +41,17 @@ uint64_t __34__ACPersonaManager_sharedInstance__block_invoke()
 
 - (ACPersonaManager)init
 {
-  v6.receiver = self;
-  v6.super_class = ACPersonaManager;
-  v2 = [(ACPersonaManager *)&v6 init];
+  v7.receiver = self;
+  v7.super_class = ACPersonaManager;
+  v2 = [(ACPersonaManager *)&v7 init];
   v3 = v2;
   if (v2)
   {
     v2->_personaStorageLock._os_unfair_lock_opaque = 0;
-    v4 = _ACPLogSystem();
+    v4 = _ACPLogSystem(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [ACPersonaManager init];
+      [(ACPersonaManager *)v4 init];
     }
 
     [(ACPersonaManager *)v3 _lockedLoadCache];
@@ -76,10 +76,11 @@ uint64_t __34__ACPersonaManager_sharedInstance__block_invoke()
 
 - (void)_lockedUpdatePersonasUIDsIfNeeded
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_1(&dword_1AC3CD000, v0, v1, "personaAttributes: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v3) = 134218240;
+  *(&v3 + 4) = *self;
+  WORD6(v3) = 2048;
+  HIWORD(v3) = a2;
+  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, a2, a3, "_personaGenerationID changed from %llu to %llu, rebuild persona list", v3, *(&v3 + 1));
 }
 
 - (id)_cacheURL
@@ -96,18 +97,16 @@ uint64_t __34__ACPersonaManager_sharedInstance__block_invoke()
 
 - (void)_lockedSaveCurrentCache
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_1(&dword_1AC3CD000, v0, v1, "There was an error generating the plist data %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "ACPersonaManager: writing out %@ to %@");
 }
 
 - (void)_lockedLoadCache
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_1(&dword_1AC3CD000, v0, v1, "@Unable to load cache, %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *(self + 8);
+  OUTLINED_FUNCTION_4_1(&dword_1AC3CD000, a2, a3, "Loaded cached persona generation %llu", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (NSString)enterprisePersonaUID
@@ -221,14 +220,14 @@ id __45__ACPersonaManager_dataSeparatedPersonasUIDs__block_invoke(uint64_t a1)
   accountCopy = account;
   if (!accountCopy)
   {
-    v10 = MEMORY[0x1E69DF060];
+    v11 = MEMORY[0x1E69DF060];
     blockCopy = block;
-    sharedManager = [v10 sharedManager];
+    sharedManager = [v11 sharedManager];
     currentPersona = [sharedManager currentPersona];
     userPersonaNickName = [currentPersona userPersonaNickName];
 
-    v13 = _ACPLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = _ACPLogSystem(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       +[ACPersonaManager performWithinPersonaForAccount:withBlock:];
     }
@@ -243,7 +242,7 @@ id __45__ACPersonaManager_dataSeparatedPersonasUIDs__block_invoke(uint64_t a1)
 
   if ((v8 & 1) == 0)
   {
-    blockCopy = _ACPLogSystem();
+    blockCopy = _ACPLogSystem(v9);
     if (os_log_type_enabled(blockCopy, OS_LOG_TYPE_FAULT))
     {
       [ACPersonaManager performWithinPersonaForAccount:accountCopy withBlock:blockCopy];
@@ -272,8 +271,8 @@ LABEL_8:
 
     else
     {
-      v15 = _ACPLogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v17 = _ACPLogSystem(v11);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         [ACPersonaManager performWithinPersona:currentPersona withBlock:?];
       }
@@ -284,14 +283,14 @@ LABEL_8:
 
   else if (([currentPersona isEnterprisePersona] & 1) != 0 || objc_msgSend(currentPersona, "isGuestPersona"))
   {
-    v12 = +[ACPersonaManager sharedInstance];
-    personalPersonaUID = [v12 personalPersonaUID];
+    v13 = +[ACPersonaManager sharedInstance];
+    personalPersonaUID = [v13 personalPersonaUID];
 
-    v13 = _ACPLogSystem();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+    v15 = _ACPLogSystem(v14);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
     if (personalPersonaUID)
     {
-      if (v14)
+      if (v16)
       {
         +[ACPersonaManager performWithinPersona:withBlock:];
       }
@@ -299,7 +298,7 @@ LABEL_8:
 
     else
     {
-      if (v14)
+      if (v16)
       {
         +[ACPersonaManager performWithinPersona:withBlock:];
       }
@@ -316,13 +315,13 @@ LABEL_8:
     v10 = 1;
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __51__ACPersonaManager_performWithinPersona_withBlock___block_invoke;
-  v18[3] = &unk_1E7976E98;
-  v19 = blockCopy;
-  v16 = blockCopy;
-  [ACPersonaManager _changePersonaContextUsingPersonaID:personalPersonaUID withCompletion:v18];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __51__ACPersonaManager_performWithinPersona_withBlock___block_invoke;
+  v20[3] = &unk_1E7976E98;
+  v21 = blockCopy;
+  v18 = blockCopy;
+  [ACPersonaManager _changePersonaContextUsingPersonaID:personalPersonaUID withCompletion:v20];
 
   return v10;
 }
@@ -335,18 +334,17 @@ void __51__ACPersonaManager_performWithinPersona_withBlock___block_invoke(uint64
     v4 = [MEMORY[0x1E69DF060] sharedManager];
     v5 = [v4 currentPersona];
 
-    v6 = _ACPLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = _ACPLogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __51__ACPersonaManager_performWithinPersona_withBlock___block_invoke_cold_1(v5);
     }
 
     (*(*(a1 + 32) + 16))();
-    v7 = [MEMORY[0x1E69DF060] sharedManager];
-    v8 = [v7 currentPersona];
+    v8 = [MEMORY[0x1E69DF060] sharedManager];
+    v9 = [v8 currentPersona];
 
-    v9 = [v8 restorePersonaWithSavedPersonaContext:v3];
-    v10 = _ACPLogSystem();
+    v10 = _ACPLogSystem([v9 restorePersonaWithSavedPersonaContext:v3]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       __51__ACPersonaManager_performWithinPersona_withBlock___block_invoke_cold_2();
@@ -366,7 +364,7 @@ void __51__ACPersonaManager_performWithinPersona_withBlock___block_invoke(uint64
   v7 = completionCopy;
   if (dCopy)
   {
-    v8 = _ACPLogSystem();
+    v8 = _ACPLogSystem(completionCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       +[ACPersonaManager _changePersonaContextUsingPersonaID:withCompletion:];
@@ -375,13 +373,14 @@ void __51__ACPersonaManager_performWithinPersona_withBlock___block_invoke(uint64
     mEMORY[0x1E69DF060] = [MEMORY[0x1E69DF060] sharedManager];
     currentPersona = [mEMORY[0x1E69DF060] currentPersona];
 
-    v21 = 0;
-    v11 = [currentPersona copyCurrentPersonaContextWithError:&v21];
-    v12 = v21;
+    v24 = 0;
+    v11 = [currentPersona copyCurrentPersonaContextWithError:&v24];
+    v12 = v24;
+    v13 = v12;
     if (!v11)
     {
-      v18 = _ACPLogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = _ACPLogSystem(v12);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         +[ACPersonaManager _changePersonaContextUsingPersonaID:withCompletion:];
       }
@@ -390,9 +389,9 @@ void __51__ACPersonaManager_performWithinPersona_withBlock___block_invoke(uint64
       goto LABEL_24;
     }
 
-    v13 = [currentPersona createPersonaContextForBackgroundProcessingWithPersonaUniqueString:dCopy];
+    v14 = [currentPersona createPersonaContextForBackgroundProcessingWithPersonaUniqueString:dCopy];
 
-    if (!v13)
+    if (!v14)
     {
       (v7)[2](v7, v11);
 LABEL_24:
@@ -400,15 +399,15 @@ LABEL_24:
       goto LABEL_25;
     }
 
-    domain = [v13 domain];
-    v15 = *MEMORY[0x1E696A798];
+    domain = [v14 domain];
+    v16 = *MEMORY[0x1E696A798];
     if ([domain isEqualToString:*MEMORY[0x1E696A798]])
     {
-      code = [v13 code];
+      code = [v14 code];
 
       if (code == 1)
       {
-        domain2 = _ACPLogSystem();
+        domain2 = _ACPLogSystem(v18);
         if (os_log_type_enabled(domain2, OS_LOG_TYPE_ERROR))
         {
           +[ACPersonaManager _changePersonaContextUsingPersonaID:withCompletion:];
@@ -422,16 +421,16 @@ LABEL_24:
     {
     }
 
-    domain2 = [v13 domain];
-    if ([domain2 isEqualToString:v15])
+    domain2 = [v14 domain];
+    if ([domain2 isEqualToString:v16])
     {
-      code2 = [v13 code];
+      code2 = [v14 code];
 
       if (code2 != 22)
       {
 LABEL_21:
-        v20 = _ACPLogSystem();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v23 = _ACPLogSystem(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           +[ACPersonaManager _changePersonaContextUsingPersonaID:withCompletion:];
         }
@@ -440,7 +439,7 @@ LABEL_21:
         goto LABEL_24;
       }
 
-      domain2 = _ACPLogSystem();
+      domain2 = _ACPLogSystem(v22);
       if (os_log_type_enabled(domain2, OS_LOG_TYPE_ERROR))
       {
         +[ACPersonaManager _changePersonaContextUsingPersonaID:withCompletion:];
@@ -458,104 +457,58 @@ LABEL_25:
 
 - (void)init
 {
-  v6 = *MEMORY[0x1E69E9840];
-  ACIsAccountsd();
+  ACIsAccountsd(self, a2);
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 + (void)performWithinPersonaForAccount:(void *)a1 withBlock:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = [a1 accountType];
   v5 = [v4 accountTypeDescription];
-  v8 = 138412546;
-  v9 = a1;
+  v7 = 138412546;
+  v8 = a1;
   OUTLINED_FUNCTION_3();
-  v10 = v6;
-  _os_log_fault_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_FAULT, "Operation on account (%@) of type (%@) was not properly scoped.", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)performWithinPersonaForAccount:withBlock:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_1(&dword_1AC3CD000, v0, v1, "No account found for scoping operation! Performing block within %@ persona.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v9 = v6;
+  _os_log_fault_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_FAULT, "Operation on account (%@) of type (%@) was not properly scoped.", &v7, 0x16u);
 }
 
 + (void)performWithinPersona:(void *)a1 withBlock:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 userPersonaNickName];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)performWithinPersona:withBlock:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_1(&dword_1AC3CD000, v0, v1, "We are currently running in the Enterprise or Guest persona, but shouldn't be! Will set to %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __51__ACPersonaManager_performWithinPersona_withBlock___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [a1 userPersonaNickName];
   v3 = [a1 userPersonaUniqueString];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __51__ACPersonaManager_performWithinPersona_withBlock___block_invoke_cold_2()
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E69DF060] sharedManager];
   v1 = [v0 currentPersona];
   v2 = [v1 userPersonaNickName];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_changePersonaContextUsingPersonaID:withCompletion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4_1(&dword_1AC3CD000, v0, v1, "Changing persona to %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_changePersonaContextUsingPersonaID:withCompletion:.cold.4()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
-  v4 = v0;
-  _os_log_error_impl(&dword_1AC3CD000, v1, OS_LOG_TYPE_ERROR, "Failed to set persona ID (%@) with error %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_changePersonaContextUsingPersonaID:withCompletion:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_1(&dword_1AC3CD000, v0, v1, "Could not get current persona context with error %@. Leaving current persona intact.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_error_impl(&dword_1AC3CD000, v1, OS_LOG_TYPE_ERROR, "Failed to set persona ID (%@) with error %@", v2, 0x16u);
 }
 
 @end

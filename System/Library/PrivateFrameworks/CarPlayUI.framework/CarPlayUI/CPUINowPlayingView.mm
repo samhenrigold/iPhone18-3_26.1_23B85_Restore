@@ -698,7 +698,7 @@ uint64_t __38__CPUINowPlayingView__updateGameTimer__block_invoke()
   nowPlayingLayout = [(CPUINowPlayingView *)self nowPlayingLayout];
   traitCollection = [(CPUINowPlayingView *)self traitCollection];
   [traitCollection displayScale];
-  v28 = CPUINowPlayingLayoutForSafeAreaFrameScaleArtworkSports(artCopy, x, y, width, height, v17, v16, v15, v14, driveCopy, sportsCopy, v22, v23, v24, v25, v26, v27);
+  v28 = CPUINowPlayingLayoutForSafeAreaFrameScaleArtworkSports(artCopy, driveCopy, sportsCopy, x, y, width, height, v17, v16, v15, v14, v22, v23, v24, v25, v26, v27);
 
   if (layout || ([nowPlayingLayout isEqual:v28] & 1) == 0)
   {

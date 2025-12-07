@@ -94,10 +94,10 @@
 
 - (id)messageBody
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = FTShareChannelMessage;
-  messageBody = [(IDSBaseMessage *)&v19 messageBody];
+  v20 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = FTShareChannelMessage;
+  messageBody = [(IDSBaseMessage *)&v18 messageBody];
   v4 = [messageBody mutableCopy];
 
   messageID = [(FTShareChannelMessage *)self messageID];
@@ -185,8 +185,6 @@ LABEL_20:
 
 LABEL_25:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
@@ -215,13 +213,13 @@ LABEL_25:
 
 - (void)handleResponseHeaders:(id)headers
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   headersCopy = headers;
   v4 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = headersCopy;
+    v6 = headersCopy;
     _os_log_impl(&dword_195925000, v4, OS_LOG_TYPE_DEFAULT, "Web Tunnel Message Completed With Respone Headers %@", buf, 0xCu);
   }
 
@@ -229,8 +227,6 @@ LABEL_25:
   {
     _IDSLogV();
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

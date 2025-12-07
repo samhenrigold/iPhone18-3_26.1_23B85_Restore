@@ -8,7 +8,7 @@
 - (CGRect)outputMaskSurroundExtent
 {
   inputMaskImage = [(PIGreenFilter *)self inputMaskImage];
-  [inputMaskImage extent];
+  objc_msgSend_extent(inputMaskImage);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -24,7 +24,7 @@
   width = v30.size.width;
   height = v30.size.height;
   inputImage = [(PIGreenFilter *)self inputImage];
-  [inputImage extent];
+  objc_msgSend_extent(inputImage);
   v34.origin.x = v17;
   v34.origin.y = v18;
   v34.size.width = v19;
@@ -54,7 +54,7 @@
 {
   greenImage = [MEMORY[0x1E695F658] greenImage];
   inputImage = [(PIGreenFilter *)self inputImage];
-  [inputImage extent];
+  objc_msgSend_extent(inputImage);
   v5 = [greenImage imageByCroppingToRect:?];
 
   return v5;

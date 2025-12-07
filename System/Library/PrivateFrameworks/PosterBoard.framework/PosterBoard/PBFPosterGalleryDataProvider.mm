@@ -747,16 +747,16 @@ void __133__PBFPosterGalleryDataProvider_fetchComplicationPreviewImagesForPrevie
   [*(a1 + 32) removeObject:v5];
   objc_sync_exit(v7);
 
-  v8 = PBFLogGallery();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = PBFLogGallery(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __133__PBFPosterGalleryDataProvider_fetchComplicationPreviewImagesForPreview_complicationSnapshotReceivedHandler_errorHandler_completion___block_invoke_3_cold_1(v5, v6, v8);
+    __133__PBFPosterGalleryDataProvider_fetchComplicationPreviewImagesForPreview_complicationSnapshotReceivedHandler_errorHandler_completion___block_invoke_3_cold_1(v5, v6, v9);
   }
 
-  v9 = *(a1 + 40);
-  if (v9)
+  v10 = *(a1 + 40);
+  if (v10)
   {
-    (*(v9 + 16))(v9, v5, v6);
+    (*(v10 + 16))(v10, v5, v6);
   }
 }
 

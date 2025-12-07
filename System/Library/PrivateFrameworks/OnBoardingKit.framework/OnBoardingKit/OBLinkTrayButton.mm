@@ -91,14 +91,14 @@
 
 id __39__OBLinkTrayButton_updateConfiguration__block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x1E69E9840];
+  v8[3] = *MEMORY[0x1E69E9840];
   v1 = *MEMORY[0x1E69DB688];
-  v8[0] = *MEMORY[0x1E69DB648];
-  v8[1] = v1;
+  v7[0] = *MEMORY[0x1E69DB648];
+  v7[1] = v1;
   v2 = *(a1 + 40);
-  v9[0] = *(a1 + 32);
-  v9[1] = v2;
-  v8[2] = *MEMORY[0x1E69DB758];
+  v8[0] = *(a1 + 32);
+  v8[1] = v2;
+  v7[2] = *MEMORY[0x1E69DB758];
   v3 = UIAccessibilityButtonShapesEnabled();
   v4 = &unk_1F2CF8540;
   if (v3)
@@ -106,9 +106,8 @@ id __39__OBLinkTrayButton_updateConfiguration__block_invoke(uint64_t a1)
     v4 = &unk_1F2CF8528;
   }
 
-  v9[2] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  v6 = *MEMORY[0x1E69E9840];
+  v8[2] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }

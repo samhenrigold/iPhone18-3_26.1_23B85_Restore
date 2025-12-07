@@ -39,7 +39,6 @@
 
 - (void)_updateEnhancedStatusCodesFromLastResponse
 {
-  lastResponseLine = self->_lastResponseLine;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -47,33 +46,33 @@
     self->_statusString = 0;
 
     bytes = [self->_lastResponseLine bytes];
-    v7 = [self->_lastResponseLine length];
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __60__MFSMTPResponse__updateEnhancedStatusCodesFromLastResponse__block_invoke;
-    v19 = &unk_1E7AA33B0;
+    v6 = [self->_lastResponseLine length];
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __60__MFSMTPResponse__updateEnhancedStatusCodesFromLastResponse__block_invoke;
+    v18 = &unk_1E7AA33B0;
     selfCopy = self;
-    v21 = a2;
+    v20 = a2;
     if (_updateEnhancedStatusCodesFromLastResponse_once != -1)
     {
-      dispatch_once(&_updateEnhancedStatusCodesFromLastResponse_once, &v16);
+      dispatch_once(&_updateEnhancedStatusCodesFromLastResponse_once, &v15);
     }
 
-    v8 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v9 = [v8 initWithBytesNoCopy:bytes length:v7 encoding:1 freeWhenDone:{0, v16, v17, v18, v19, selfCopy, v21}];
-    v10 = [_updateEnhancedStatusCodesFromLastResponse__responseEnhancedStatusCodesRegex firstMatchInString:v9 options:0 range:{0, v7}];
-    v11 = v10;
-    if (v10)
+    v7 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v8 = [v7 initWithBytesNoCopy:bytes length:v6 encoding:1 freeWhenDone:{0, v15, v16, v17, v18, selfCopy, v20}];
+    v9 = [_updateEnhancedStatusCodesFromLastResponse__responseEnhancedStatusCodesRegex firstMatchInString:v8 options:0 range:{0, v6}];
+    v10 = v9;
+    if (v9)
     {
-      *(self + 12) = *(self + 12) & 0xFC00 | strtoul((bytes + [v10 rangeAtIndex:1]), 0, 10) & 0x3FF;
-      *(self + 25) = (4 * (strtoul((bytes + [v11 rangeAtIndex:2]), 0, 10) & 0x3FF)) | *(self + 25) & 0xF003;
-      *(self + 13) = (16 * (strtoul((bytes + [v11 rangeAtIndex:3]), 0, 10) & 0x3FF)) | *(self + 13) & 0xC00F;
-      v13 = [v11 rangeAtIndex:5];
-      if (v13 != 0x7FFFFFFFFFFFFFFFLL)
+      *(self + 12) = *(self + 12) & 0xFC00 | strtoul((bytes + [v9 rangeAtIndex:1]), 0, 10) & 0x3FF;
+      *(self + 25) = (4 * (strtoul((bytes + [v10 rangeAtIndex:2]), 0, 10) & 0x3FF)) | *(self + 25) & 0xF003;
+      *(self + 13) = (16 * (strtoul((bytes + [v10 rangeAtIndex:3]), 0, 10) & 0x3FF)) | *(self + 13) & 0xC00F;
+      v12 = [v10 rangeAtIndex:5];
+      if (v12 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v14 = [v9 substringWithRange:{v13, v12}];
-        v15 = self->_statusString;
-        self->_statusString = v14;
+        v13 = [v8 substringWithRange:{v12, v11}];
+        v14 = self->_statusString;
+        self->_statusString = v13;
       }
     }
 
@@ -200,12 +199,11 @@ LABEL_17:
 
   else
   {
-    status = self->_status;
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu %@", status, self->_statusString, v5, v6, v7];
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu %@", self->_status, self->_statusString, v4, v5, v6];
   }
-  v3 = ;
+  v2 = ;
 
-  return v3;
+  return v2;
 }
 
 @end

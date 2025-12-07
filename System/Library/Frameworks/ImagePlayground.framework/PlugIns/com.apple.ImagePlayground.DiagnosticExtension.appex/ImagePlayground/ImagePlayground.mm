@@ -75,11 +75,11 @@ char *sub_100000CA8(unint64_t a1)
   return result;
 }
 
-id sub_100000FC8()
+id sub_100000FC8(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ImagePlaygroundDiagnosticExtension();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for ImagePlaygroundDiagnosticExtension();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 uint64_t sub_100001020(uint64_t *a1, uint64_t *a2)
@@ -87,7 +87,6 @@ uint64_t sub_100001020(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -95,7 +94,7 @@ uint64_t sub_100001020(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-char *sub_100001068(char *a1, int64_t a2, char a3)
+char *sub_100001068(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1000010E4(a1, a2, a3, *v3);
   *v3 = result;

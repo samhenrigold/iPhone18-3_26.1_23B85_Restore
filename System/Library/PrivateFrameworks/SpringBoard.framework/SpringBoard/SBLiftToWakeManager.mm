@@ -187,24 +187,25 @@
 
 - (void)liftToWakeController:(id)controller didObserveTransition:(int64_t)transition deviceOrientation:(int64_t)orientation
 {
-  v56[3] = *MEMORY[0x277D85DE8];
+  v62[3] = *MEMORY[0x277D85DE8];
   v8 = NSStringFromSBLiftToWakeTransition(transition);
-  v9 = SBLogLiftToWake();
+  v9 = SBLogLiftToWake(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    *v50 = v8;
+    *v56 = v8;
     _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Transition received: %{public}@", buf, 0xCu);
   }
 
-  if (!BKSHIDServicesProximityDetectionActive())
+  v10 = BKSHIDServicesProximityDetectionActive();
+  if (!v10)
   {
     _policyAggregator = [(SBLiftToWakeManager *)self _policyAggregator];
-    v48 = 0;
-    v12 = [_policyAggregator allowsCapability:25 explanation:&v48];
-    v13 = v48;
+    v54 = 0;
+    v13 = [_policyAggregator allowsCapability:25 explanation:&v54];
+    v14 = v54;
 
-    if (v12)
+    if (v13)
     {
       if (transition <= 1)
       {
@@ -213,13 +214,14 @@
           if (transition == 1)
           {
 LABEL_19:
-            if ([SBApp caseIsEnabledAndLatched])
+            caseIsEnabledAndLatched = [SBApp caseIsEnabledAndLatched];
+            if (caseIsEnabledAndLatched)
             {
-              _idleTimerCoordinator = SBLogLiftToWake();
+              _idleTimerCoordinator = SBLogLiftToWake(caseIsEnabledAndLatched);
               if (os_log_type_enabled(_idleTimerCoordinator, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                *v50 = v8;
+                *v56 = v8;
                 _os_log_impl(&dword_21ED4E000, _idleTimerCoordinator, OS_LOG_TYPE_DEFAULT, "Ignoring %{public}@ because smart cover is locked", buf, 0xCu);
               }
             }
@@ -235,62 +237,62 @@ LABEL_19:
                 coverSheetViewController = [_lockScreenManager2 coverSheetViewController];
                 [coverSheetViewController registerExternalEventHandler:self];
 
-                v33 = BKLogOrientationDevice();
-                if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+                v38 = BKLogOrientationDevice();
+                if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
                 {
-                  v34 = BSDeviceOrientationDescription();
+                  v39 = BSDeviceOrientationDescription();
                   *buf = 138412290;
-                  *v50 = v34;
-                  _os_log_impl(&dword_21ED4E000, v33, OS_LOG_TYPE_INFO, "Waking with requested orientation %@", buf, 0xCu);
+                  *v56 = v39;
+                  _os_log_impl(&dword_21ED4E000, v38, OS_LOG_TYPE_INFO, "Waking with requested orientation %@", buf, 0xCu);
                 }
 
-                v35 = SBLogLiftToWake();
-                if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+                v41 = SBLogLiftToWake(v40);
+                if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  *v50 = v8;
-                  _os_log_impl(&dword_21ED4E000, v35, OS_LOG_TYPE_DEFAULT, "Attemping unlock for transition %{public}@", buf, 0xCu);
+                  *v56 = v8;
+                  _os_log_impl(&dword_21ED4E000, v41, OS_LOG_TYPE_DEFAULT, "Attemping unlock for transition %{public}@", buf, 0xCu);
                 }
 
-                v55[0] = @"SBUIUnlockOptionsTurnOnScreenFirstKey";
-                v36 = [MEMORY[0x277CCABB0] numberWithBool:1];
-                v56[0] = v36;
-                v55[1] = @"SBUIUnlockOptionsStartFadeInAnimation";
-                v37 = [MEMORY[0x277CCABB0] numberWithBool:1];
-                v56[1] = v37;
-                v55[2] = @"SBUIUnlockOptionsRequestedOrientationKey";
-                v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:orientation];
-                v56[2] = v38;
-                v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:3];
+                v61[0] = @"SBUIUnlockOptionsTurnOnScreenFirstKey";
+                v42 = [MEMORY[0x277CCABB0] numberWithBool:1];
+                v62[0] = v42;
+                v61[1] = @"SBUIUnlockOptionsStartFadeInAnimation";
+                v43 = [MEMORY[0x277CCABB0] numberWithBool:1];
+                v62[1] = v43;
+                v61[2] = @"SBUIUnlockOptionsRequestedOrientationKey";
+                v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:orientation];
+                v62[2] = v44;
+                v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:3];
 
                 if (transition == 4)
                 {
-                  v40 = 37;
+                  v46 = 37;
                 }
 
                 else
                 {
-                  v40 = 5;
+                  v46 = 5;
                 }
 
                 _lockScreenManager3 = [(SBLiftToWakeManager *)self _lockScreenManager];
-                [_lockScreenManager3 unlockUIFromSource:v40 withOptions:v39];
+                [_lockScreenManager3 unlockUIFromSource:v46 withOptions:v45];
 
                 self->_significantUserInteractionOccuredSinceWake = 0;
                 goto LABEL_50;
               }
 
-              v42 = SBLogLiftToWake();
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+              v48 = SBLogLiftToWake(v35);
+              if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                *v50 = v8;
-                _os_log_impl(&dword_21ED4E000, v42, OS_LOG_TYPE_DEFAULT, "Resetting idle timer for transition %{public}@", buf, 0xCu);
+                *v56 = v8;
+                _os_log_impl(&dword_21ED4E000, v48, OS_LOG_TYPE_DEFAULT, "Resetting idle timer for transition %{public}@", buf, 0xCu);
               }
 
               _idleTimerCoordinator = [(SBLiftToWakeManager *)self _idleTimerCoordinator];
-              v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"LiftToWakeTransition:%@", v8];
-              [_idleTimerCoordinator resetIdleTimerForReason:v43];
+              v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"LiftToWakeTransition:%@", v8];
+              [_idleTimerCoordinator resetIdleTimerForReason:v49];
             }
 
             goto LABEL_49;
@@ -301,11 +303,11 @@ LABEL_50:
           goto LABEL_51;
         }
 
-        v28 = SBLogLiftToWake();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v32 = SBLogLiftToWake(v15);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_DEFAULT, "Unknown transition!", buf, 2u);
+          _os_log_impl(&dword_21ED4E000, v32, OS_LOG_TYPE_DEFAULT, "Unknown transition!", buf, 2u);
         }
 
         selfCopy3 = self;
@@ -316,11 +318,11 @@ LABEL_50:
       {
         if (transition == 2)
         {
-          v18 = SBLogLiftToWake();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v21 = SBLogLiftToWake(v15);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Resetting idle timer for transition wake -> wake", buf, 2u);
+            _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "Resetting idle timer for transition wake -> wake", buf, 2u);
           }
 
           _backlightController = [(SBLiftToWakeManager *)self _backlightController];
@@ -356,11 +358,11 @@ LABEL_49:
 
         if (_gestureWokeScreen && _isLockScreenMainPageVisible && (isIdleTimerDisabled & 1) == 0 && !self->_significantUserInteractionOccuredSinceWake)
         {
-          v44 = SBLogLiftToWake();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+          v50 = SBLogLiftToWake(v29);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21ED4E000, v44, OS_LOG_TYPE_DEFAULT, "Turning screen off for transition wake -> sleep", buf, 2u);
+            _os_log_impl(&dword_21ED4E000, v50, OS_LOG_TYPE_DEFAULT, "Turning screen off for transition wake -> sleep", buf, 2u);
           }
 
           _backlightController3 = [(SBLiftToWakeManager *)self _backlightController];
@@ -373,19 +375,19 @@ LABEL_49:
           goto LABEL_50;
         }
 
-        v26 = SBLogLiftToWake();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v30 = SBLogLiftToWake(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           significantUserInteractionOccuredSinceWake = self->_significantUserInteractionOccuredSinceWake;
           *buf = 67109888;
-          *v50 = _gestureWokeScreen;
-          *&v50[4] = 1024;
-          *&v50[6] = _isLockScreenMainPageVisible;
-          v51 = 1024;
-          v52 = isIdleTimerDisabled ^ 1;
-          v53 = 1024;
-          v54 = significantUserInteractionOccuredSinceWake;
-          _os_log_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_DEFAULT, "Not turning screen off for transition wake -> sleep because gestureWokeScreen: %d isLockScreenMainPageVisible: %d idleTimerRunning: %d significantUserInteractionOccuredSinceWake: %d", buf, 0x1Au);
+          *v56 = _gestureWokeScreen;
+          *&v56[4] = 1024;
+          *&v56[6] = _isLockScreenMainPageVisible;
+          v57 = 1024;
+          v58 = isIdleTimerDisabled ^ 1;
+          v59 = 1024;
+          v60 = significantUserInteractionOccuredSinceWake;
+          _os_log_impl(&dword_21ED4E000, v30, OS_LOG_TYPE_DEFAULT, "Not turning screen off for transition wake -> sleep because gestureWokeScreen: %d isLockScreenMainPageVisible: %d idleTimerRunning: %d significantUserInteractionOccuredSinceWake: %d", buf, 0x1Au);
         }
 
         selfCopy3 = self;
@@ -395,12 +397,12 @@ LABEL_49:
 
     else
     {
-      v14 = SBLogLiftToWake();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = SBLogLiftToWake(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v50 = v13;
-        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Ignoring transition - policy aggregator denied with with reason: %@", buf, 0xCu);
+        *v56 = v14;
+        _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Ignoring transition - policy aggregator denied with with reason: %@", buf, 0xCu);
       }
 
       selfCopy3 = self;
@@ -411,11 +413,11 @@ LABEL_49:
     goto LABEL_50;
   }
 
-  v10 = SBLogLiftToWake();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = SBLogLiftToWake(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring transition -- prox is active", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Ignoring transition -- prox is active", buf, 2u);
   }
 
   [(SBLiftToWakeManager *)self _ignoredTransition:transition];

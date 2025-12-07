@@ -161,25 +161,26 @@ void __27__SHQuickNoteActivity_init__block_invoke_3(uint64_t a1)
   if (v2)
   {
     v3 = v2;
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x2020000000;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2020000000;
     v4 = getSYIsLinkableUserActivitySymbolLoc_ptr;
-    v13 = getSYIsLinkableUserActivitySymbolLoc_ptr;
+    v14 = getSYIsLinkableUserActivitySymbolLoc_ptr;
     if (!getSYIsLinkableUserActivitySymbolLoc_ptr)
     {
       v5 = SynapseLibrary();
-      v11[3] = dlsym(v5, "SYIsLinkableUserActivity");
-      getSYIsLinkableUserActivitySymbolLoc_ptr = v11[3];
-      v4 = v11[3];
+      v12[3] = dlsym(v5, "SYIsLinkableUserActivity");
+      getSYIsLinkableUserActivitySymbolLoc_ptr = v12[3];
+      v4 = v12[3];
     }
 
-    _Block_object_dispose(&v10, 8);
+    _Block_object_dispose(&v11, 8);
     if (!v4)
     {
-      v9 = [SHSheetRemoteSceneViewController reloadMetadata:];
-      _Block_object_dispose(&v10, 8);
-      _Unwind_Resume(v9);
+      [SHSheetRemoteSceneViewController reloadMetadata:];
+      v10 = v9;
+      _Block_object_dispose(&v11, 8);
+      _Unwind_Resume(v10);
     }
 
     v6 = v4(v3);
@@ -196,7 +197,7 @@ void __27__SHQuickNoteActivity_init__block_invoke_3(uint64_t a1)
       return;
     }
 
-    WeakRetained = SHQuickNoteLog();
+    WeakRetained = SHQuickNoteLog(a1);
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
     {
       __27__SHQuickNoteActivity_init__block_invoke_3_cold_2(v8, WeakRetained);
@@ -229,33 +230,33 @@ void __27__SHQuickNoteActivity_init__block_invoke_3(uint64_t a1)
 
 - (BOOL)canPerformWithActivityItems:(id)items
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   if (![itemsCopy count])
   {
     goto LABEL_22;
   }
 
-  v29 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
   v5 = itemsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v29;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v28 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 && ([MEMORY[0x1E69CDE78] isSWYActivityItemProvider:v10])
         {
@@ -264,7 +265,7 @@ void __27__SHQuickNoteActivity_init__block_invoke_3(uint64_t a1)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v7)
       {
         continue;
@@ -274,13 +275,14 @@ void __27__SHQuickNoteActivity_init__block_invoke_3(uint64_t a1)
     }
   }
 
-  if (![(SHQuickNoteActivity *)self canOpenFromManagedToUnmanaged])
+  canOpenFromManagedToUnmanaged = [(SHQuickNoteActivity *)self canOpenFromManagedToUnmanaged];
+  if ((canOpenFromManagedToUnmanaged & 1) == 0)
   {
-    v24 = SHQuickNoteLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v25 = SHQuickNoteLog(canOpenFromManagedToUnmanaged);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      *v26 = 0;
-      _os_log_impl(&dword_18B359000, v24, OS_LOG_TYPE_INFO, "Can't perform Quick Note activity from managed app.", v26, 2u);
+      *v27 = 0;
+      _os_log_impl(&dword_18B359000, v25, OS_LOG_TYPE_INFO, "Can't perform Quick Note activity from managed app.", v27, 2u);
     }
 
     goto LABEL_22;
@@ -289,38 +291,38 @@ void __27__SHQuickNoteActivity_init__block_invoke_3(uint64_t a1)
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
-  v13 = _os_feature_enabled_impl();
+  v14 = _os_feature_enabled_impl();
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
   lowercaseString = [bundleIdentifier lowercaseString];
-  v17 = [lowercaseString isEqualToString:@"com.apple.mobilesafari"];
+  v18 = [lowercaseString isEqualToString:@"com.apple.mobilesafari"];
 
   mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier2 = [mainBundle2 bundleIdentifier];
   lowercaseString2 = [bundleIdentifier2 lowercaseString];
-  v21 = [lowercaseString2 isEqualToString:@"com.apple.mobilenotes"];
+  v22 = [lowercaseString2 isEqualToString:@"com.apple.mobilenotes"];
 
-  v22 = 0;
-  if (!userInterfaceIdiom && v13)
+  v23 = 0;
+  if (!userInterfaceIdiom && v14)
   {
-    if (!(v17 & 1 | ![(SHQuickNoteActivity *)self isQuickNoteExtensionInstalled]| v21 & 1))
+    if (!(v18 & 1 | ![(SHQuickNoteActivity *)self isQuickNoteExtensionInstalled]| v22 & 1))
     {
-      v23 = _UIActivityItemCountOfType(v5, 2);
-      if (v23 <= 5)
+      v24 = _UIActivityItemCountOfType(v5, 2);
+      if (v24 <= 5)
       {
-        [(SHQuickNoteActivity *)self set_hasSupportedShareableItems:(v23 > 0) | _UIActivityHasAtMoreThan(v5, 4, 0)];
-        v22 = -[SHQuickNoteActivity _hasUserActivityCurrent](self, "_hasUserActivityCurrent") || [v5 count] != 0;
+        [(SHQuickNoteActivity *)self set_hasSupportedShareableItems:(v24 > 0) | _UIActivityHasAtMoreThan(v5, 4, 0)];
+        v23 = -[SHQuickNoteActivity _hasUserActivityCurrent](self, "_hasUserActivityCurrent") || [v5 count] != 0;
         goto LABEL_23;
       }
     }
 
 LABEL_22:
-    v22 = 0;
+    v23 = 0;
   }
 
 LABEL_23:
 
-  return v22;
+  return v23;
 }
 
 - (void)prepareWithActivityItems:(id)items
@@ -520,12 +522,13 @@ LABEL_23:
 void __76__SHQuickNoteActivity__presentActivityOnViewController_animated_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SHQuickNoteLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SHQuickNoteLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __76__SHQuickNoteActivity__presentActivityOnViewController_animated_completion___block_invoke_cold_1(v3, v4);
+      __76__SHQuickNoteActivity__presentActivityOnViewController_animated_completion___block_invoke_cold_1(v4, v5);
     }
   }
 
@@ -533,10 +536,10 @@ void __76__SHQuickNoteActivity__presentActivityOnViewController_animated_complet
   block[1] = 3221225472;
   block[2] = __76__SHQuickNoteActivity__presentActivityOnViewController_animated_completion___block_invoke_48;
   block[3] = &unk_1E71F9958;
-  v5 = *(a1 + 40);
+  v6 = *(a1 + 40);
   block[4] = *(a1 + 32);
-  v7 = v5;
-  v8 = *(a1 + 48);
+  v8 = v6;
+  v9 = *(a1 + 48);
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
@@ -653,10 +656,10 @@ uint64_t __78__SHQuickNoteActivity__dismissActivityFromViewController_animated_c
 
     if (code == 3072)
     {
-      v8 = SHQuickNoteLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = SHQuickNoteLog(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        [SHQuickNoteActivity systemPaperDidFinishWithError:v8];
+        [SHQuickNoteActivity systemPaperDidFinishWithError:v9];
       }
 
       goto LABEL_9;
@@ -669,10 +672,10 @@ uint64_t __78__SHQuickNoteActivity__dismissActivityFromViewController_animated_c
 
   if (errorCopy)
   {
-    v8 = SHQuickNoteLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SHQuickNoteLog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(SHQuickNoteActivity *)errorCopy systemPaperDidFinishWithError:v8];
+      [(SHQuickNoteActivity *)errorCopy systemPaperDidFinishWithError:v9];
     }
 
 LABEL_9:

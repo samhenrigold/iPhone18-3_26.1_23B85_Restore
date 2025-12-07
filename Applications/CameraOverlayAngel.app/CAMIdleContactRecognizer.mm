@@ -12,15 +12,13 @@
 
 - (CAMIdleContactRecognizerDelegate)delegate
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___CAMIdleContactRecognizer_delegate);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)setDelegate:(id)delegate
 {
-  v3 = *(&self->super.isa + OBJC_IVAR___CAMIdleContactRecognizer_delegate);
   *(&self->super.isa + OBJC_IVAR___CAMIdleContactRecognizer_delegate) = delegate;
   swift_unknownObjectRetain();
 

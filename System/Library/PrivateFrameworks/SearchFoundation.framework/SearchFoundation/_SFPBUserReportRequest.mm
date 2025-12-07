@@ -21,7 +21,7 @@
 
 - (_SFPBUserReportRequest)initWithFacade:(id)facade
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBUserReportRequest *)self init];
   if (v5)
@@ -61,33 +61,33 @@
       v13 = 0;
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     userReportOptions2 = [facadeCopy userReportOptions];
-    v15 = [userReportOptions2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v15 = [userReportOptions2 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v34;
+      v17 = *v33;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v34 != v17)
+          if (*v33 != v17)
           {
             objc_enumerationMutation(userReportOptions2);
           }
 
-          v19 = [[_SFPBPunchout alloc] initWithFacade:*(*(&v33 + 1) + 8 * i)];
+          v19 = [[_SFPBPunchout alloc] initWithFacade:*(*(&v32 + 1) + 8 * i)];
           if (v19)
           {
             [v13 addObject:v19];
           }
         }
 
-        v16 = [userReportOptions2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v16 = [userReportOptions2 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v16);
@@ -136,17 +136,16 @@
     v30 = v5;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBUserReportRequest)initWithDictionary:(id)dictionary
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v39.receiver = self;
-  v39.super_class = _SFPBUserReportRequest;
-  v5 = [(_SFPBUserReportRequest *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = _SFPBUserReportRequest;
+  v5 = [(_SFPBUserReportRequest *)&v38 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"affordanceText"];
@@ -165,7 +164,7 @@
       [(_SFPBUserReportRequest *)v5 setTitle:v9];
     }
 
-    v34 = v8;
+    v33 = v8;
     v10 = [dictionaryCopy objectForKeyedSubscript:@"dismissText"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -174,32 +173,32 @@
       [(_SFPBUserReportRequest *)v5 setDismissText:v11];
     }
 
-    v33 = v10;
+    v32 = v10;
     v12 = [dictionaryCopy objectForKeyedSubscript:@"userReportOptions"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v32 = v6;
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
+      v31 = v6;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       v13 = v12;
-      v14 = [v13 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v36;
+        v16 = *v35;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v36 != v16)
+            if (*v35 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v35 + 1) + 8 * i);
+            v18 = *(*(&v34 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -208,13 +207,13 @@
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
         }
 
         while (v15);
       }
 
-      v6 = v32;
+      v6 = v31;
     }
 
     v20 = [dictionaryCopy objectForKeyedSubscript:@"reportType"];
@@ -259,7 +258,6 @@
     v29 = v5;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -299,7 +297,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_affordanceText)
   {
@@ -378,26 +376,26 @@
   if ([(NSArray *)self->_userReportOptions count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v22 = self->_userReportOptions;
-    v23 = [(NSArray *)v22 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v23 = [(NSArray *)v22 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v32;
+      v25 = *v31;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v32 != v25)
+          if (*v31 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          dictionaryRepresentation2 = [*(*(&v31 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v30 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation2)
           {
             [array addObject:dictionaryRepresentation2];
@@ -410,7 +408,7 @@
           }
         }
 
-        v24 = [(NSArray *)v22 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v24 = [(NSArray *)v22 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v24);
@@ -418,8 +416,6 @@
 
     [dictionary setObject:array forKeyedSubscript:@"userReportOptions"];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -663,7 +659,7 @@ LABEL_44:
 
 - (void)writeTo:(id)to
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   toCopy = to;
   affordanceText = [(_SFPBUserReportRequest *)self affordanceText];
   if (affordanceText)
@@ -684,32 +680,31 @@ LABEL_44:
   }
 
   userReportOptions = [(_SFPBUserReportRequest *)self userReportOptions];
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v9 = [userReportOptions countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [userReportOptions countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v18;
     do
     {
       v12 = 0;
       do
       {
-        if (*v20 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(userReportOptions);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * v12);
         PBDataWriterWriteSubmessage();
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [userReportOptions countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [userReportOptions countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
@@ -743,33 +738,25 @@ LABEL_44:
   {
     PBDataWriterWriteStringField();
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAttachmentSectionTitle:(id)title
 {
-  v4 = [title copy];
-  attachmentSectionTitle = self->_attachmentSectionTitle;
-  self->_attachmentSectionTitle = v4;
+  self->_attachmentSectionTitle = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setDisclaimerText:(id)text
 {
-  v4 = [text copy];
-  disclaimerText = self->_disclaimerText;
-  self->_disclaimerText = v4;
+  self->_disclaimerText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setReportOptionsSectionTitle:(id)title
 {
-  v4 = [title copy];
-  reportOptionsSectionTitle = self->_reportOptionsSectionTitle;
-  self->_reportOptionsSectionTitle = v4;
+  self->_reportOptionsSectionTitle = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -794,36 +781,28 @@ LABEL_44:
 
 - (void)setUserReportOptions:(id)options
 {
-  v4 = [options copy];
-  userReportOptions = self->_userReportOptions;
-  self->_userReportOptions = v4;
+  self->_userReportOptions = [options copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setDismissText:(id)text
 {
-  v4 = [text copy];
-  dismissText = self->_dismissText;
-  self->_dismissText = v4;
+  self->_dismissText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTitle:(id)title
 {
-  v4 = [title copy];
-  title = self->_title;
-  self->_title = v4;
+  self->_title = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setAffordanceText:(id)text
 {
-  v4 = [text copy];
-  affordanceText = self->_affordanceText;
-  self->_affordanceText = v4;
+  self->_affordanceText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }

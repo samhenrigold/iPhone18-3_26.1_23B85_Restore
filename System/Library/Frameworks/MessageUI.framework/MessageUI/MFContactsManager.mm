@@ -36,7 +36,7 @@ void __34__MFContactsManager_sharedManager__block_invoke()
   return isAuthorizedToUseContacts_sIsAuthorizedToUseContacts;
 }
 
-uint64_t __46__MFContactsManager_isAuthorizedToUseContacts__block_invoke()
+char *__46__MFContactsManager_isAuthorizedToUseContacts__block_invoke()
 {
   result = [MEMORY[0x1E695CE18] authorizationStatusForEntityType:0];
   isAuthorizedToUseContacts_sIsAuthorizedToUseContacts = (result - 3) < 0xFFFFFFFFFFFFFFFELL;

@@ -789,7 +789,7 @@ id __78__CNUIPRLikenessLookup_basicMonogramObservableForContactFuture_monogramCo
   return v8;
 }
 
-id __64__CNUIPRLikenessLookup_basicMonogramObservableFromString_color___block_invoke(uint64_t a1, void *a2)
+CNUIPRLikenessProvider *__64__CNUIPRLikenessLookup_basicMonogramObservableFromString_color___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *MEMORY[0x1E6996568];
@@ -1552,7 +1552,7 @@ void __78__CNUIPRLikenessLookup_remoteImagesObservableWithContactFuture_workSche
   OUTLINED_FUNCTION_8();
   v1 = [*(v0 + 32) result:0];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[LikenessResolver] Received remote image %@ for contact %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[LikenessResolver] Received remote image %@ for contact %@", v4, v5, v6, v7);
 }
 
 - (void)basicMonogramWithContactFuture:monogramColor:.cold.1()
@@ -1560,7 +1560,7 @@ void __78__CNUIPRLikenessLookup_remoteImagesObservableWithContactFuture_workSche
   OUTLINED_FUNCTION_8();
   v1 = [v0 result:0];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[LikenessResolver] Creating basic monogram %@ for contact %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[LikenessResolver] Creating basic monogram %@ for contact %@", v4, v5, v6, v7);
 }
 
 void __79__CNUIPRLikenessLookup_basicMonogramObservableWithContactFuture_monogramColor___block_invoke_cold_1()
@@ -1568,7 +1568,7 @@ void __79__CNUIPRLikenessLookup_basicMonogramObservableWithContactFuture_monogra
   OUTLINED_FUNCTION_8();
   v1 = [*(v0 + 32) result:0];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[LikenessResolver] Creating basic monogram %@ for contact %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[LikenessResolver] Creating basic monogram %@ for contact %@", v4, v5, v6, v7);
 }
 
 + (void)photoWithPhotoFuture:likenessFingerprint:.cold.1()
@@ -1597,7 +1597,7 @@ void __79__CNUIPRLikenessLookup_basicMonogramObservableWithContactFuture_monogra
   OUTLINED_FUNCTION_8();
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v0, "length")}];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[LikenessResolver] Returning thumbnail/image of %@, length: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[LikenessResolver] Returning thumbnail/image of %@, length: %@", v4, v5, v6, v7);
 }
 
 @end

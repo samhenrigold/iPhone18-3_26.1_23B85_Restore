@@ -162,7 +162,7 @@
   controllerCopy = controller;
   selfCopy = self;
 
-  sub_1003CF424();
+  sub_1003CF424(v6);
   sub_1003C39C0();
   sub_1003CA968();
 }
@@ -242,14 +242,14 @@
 
   sub_1003CF0CC(segue);
 
-  sub_1000073B4(v10, &qword_1006BE7A0);
+  sub_1000073B4(v10, &qword_1006BE7A0, &unk_100535E20);
 }
 
 - (void)toolPickerVisibilityDidChange:(id)change
 {
   selfCopy = self;
   sub_1003C52FC();
-  sub_1003C28E8();
+  sub_1003C28E8(v3);
 }
 
 - (id)inkPaletteButtonViewWithInkPaletteController:(id)controller
@@ -296,7 +296,7 @@
 
 - (void)pageViewController:(id)controller willTransitionToViewControllers:(id)controllers
 {
-  sub_1000054A4(0, &unk_1006C8180);
+  sub_1000054A4(0, &unk_1006C8180, UIViewController_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
@@ -305,7 +305,7 @@
 
 - (void)pageViewController:(id)controller didFinishAnimating:(BOOL)animating previousViewControllers:(id)controllers transitionCompleted:(BOOL)completed
 {
-  sub_1000054A4(0, &unk_1006C8180);
+  sub_1000054A4(0, &unk_1006C8180, UIViewController_ptr);
   v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
@@ -314,7 +314,7 @@
 
 - (void)indexer:(id)indexer didChangeContentWithDifference:(id)difference controller:(id)controller
 {
-  v8 = sub_10015DA04(&unk_1006C67F0);
+  v8 = sub_10015DA04(&unk_1006C67F0, &unk_1005471B0);
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
   v11 = &v15 - v10;

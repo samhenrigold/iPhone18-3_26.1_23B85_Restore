@@ -16,11 +16,11 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v36 = *MEMORY[0x29EDCA608];
-  v34.receiver = self;
-  v34.super_class = OBPrivacySplashListViewAccessibility;
-  [(OBPrivacySplashListViewAccessibility *)&v34 _accessibilityLoadAccessibilityInformation];
-  v33 = 0;
+  v34 = *MEMORY[0x29EDCA608];
+  v32.receiver = self;
+  v32.super_class = OBPrivacySplashListViewAccessibility;
+  [(OBPrivacySplashListViewAccessibility *)&v32 _accessibilityLoadAccessibilityInformation];
+  v31 = 0;
   objc_opt_class();
   selfCopy = self;
   v3 = [(OBPrivacySplashListViewAccessibility *)self _accessibilityFindAncestor:&__block_literal_global_1 startWithSelf:0];
@@ -40,87 +40,84 @@
     v10 = 0;
   }
 
-  v33 = 0;
+  v31 = 0;
   objc_opt_class();
   v11 = [(OBPrivacySplashListViewAccessibility *)selfCopy safeValueForKey:@"_textViews"];
   v12 = __UIAccessibilityCastAsClass();
 
   if (v12)
   {
-    v25 = v12;
-    v26 = v4;
-    v31 = 0u;
-    v32 = 0u;
+    v23 = v12;
+    v24 = v4;
     v29 = 0u;
     v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     obj = v12;
-    v13 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+    v13 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
     if (!v13)
     {
       goto LABEL_23;
     }
 
     v14 = v13;
-    v15 = *v30;
+    v15 = *v28;
     while (1)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v30 != v15)
+        if (*v28 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * i);
-        v33 = 0;
+        v31 = 0;
         objc_opt_class();
-        v18 = __UIAccessibilityCastAsClass();
-        if (v33 == 1)
+        v17 = __UIAccessibilityCastAsClass();
+        if (v31 == 1)
         {
           abort();
         }
 
-        v19 = v18;
-        text = [v18 text];
+        v18 = v17;
+        text = [v17 text];
         if ([text length])
         {
         }
 
         else
         {
-          attributedText = [v19 attributedText];
+          attributedText = [v18 attributedText];
           string = [attributedText string];
-          v23 = [string length];
+          v22 = [string length];
 
-          if (!v23)
+          if (!v22)
           {
-            [v19 setIsAccessibilityElement:0];
+            [v18 setIsAccessibilityElement:0];
             goto LABEL_21;
           }
         }
 
-        [v19 _accessibilitySetTextViewShouldBreakUpParagraphs:{1, v25, v26}];
+        [v18 _accessibilitySetTextViewShouldBreakUpParagraphs:{1, v23, v24}];
         if (v10)
         {
-          [(OBPrivacySplashListViewAccessibility *)selfCopy _axSetupTextViewForSwitchControl:v19];
+          [(OBPrivacySplashListViewAccessibility *)selfCopy _axSetupTextViewForSwitchControl:v18];
         }
 
 LABEL_21:
       }
 
-      v14 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v14 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
       if (!v14)
       {
 LABEL_23:
 
-        v12 = v25;
-        v4 = v26;
+        v12 = v23;
+        v4 = v24;
         break;
       }
     }
   }
-
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __82__OBPrivacySplashListViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1, void *a2)
@@ -144,36 +141,36 @@ uint64_t __82__OBPrivacySplashListViewAccessibility__accessibilityLoadAccessibil
 
 - (void)_axSetupTextViewForSwitchControl:(id)control
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   controlCopy = control;
   accessibilityElements = [controlCopy accessibilityElements];
   if ([accessibilityElements count])
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v5 = accessibilityElements;
-    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(&v11 + 1) + 8 * v9++) setAccessibilityRespondsToUserInteraction:{1, v11}];
+          [*(*(&v10 + 1) + 8 * v9++) setAccessibilityRespondsToUserInteraction:{1, v10}];
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
@@ -185,8 +182,6 @@ uint64_t __82__OBPrivacySplashListViewAccessibility__accessibilityLoadAccessibil
     [controlCopy setIsAccessibilityElement:1];
     [controlCopy setAccessibilityRespondsToUserInteraction:1];
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 @end

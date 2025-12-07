@@ -44,7 +44,7 @@
 
 - (void)start
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   dispatch_group_enter(self->_startupGroup);
   if ([mEMORY[0x1E69DF068] isSharedIPad])
@@ -59,7 +59,7 @@
         fp_homeDirectory = [MEMORY[0x1E695DFF8] fp_homeDirectory];
         fp_shortDescription = [fp_homeDirectory fp_shortDescription];
         *buf = 138412290;
-        v18 = fp_shortDescription;
+        v17 = fp_shortDescription;
         v9 = "[INFO] shared iPad: running in sync bubble, checking in. Home directory is %@";
 LABEL_7:
         _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_INFO, v9, buf, 0xCu);
@@ -71,7 +71,7 @@ LABEL_7:
       fp_homeDirectory = [MEMORY[0x1E695DFF8] fp_homeDirectory];
       fp_shortDescription = [fp_homeDirectory fp_shortDescription];
       *buf = 138412290;
-      v18 = fp_shortDescription;
+      v17 = fp_shortDescription;
       v9 = "[INFO] shared iPad: checking in for running in sync bubble later. Home directory is %@";
       goto LABEL_7;
     }
@@ -85,21 +85,19 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = __22__FPDSyncBubble_start__block_invoke;
     block[3] = &unk_1E83BE068;
-    v16 = v10;
+    v15 = v10;
     v13 = v10;
     dispatch_group_notify(startupGroup, syncQueue, block);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __22__FPDSyncBubble_start__block_invoke(uint64_t a1)
+uint64_t __22__FPDSyncBubble_start__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1CEFC7000, v2, OS_LOG_TYPE_INFO, "[INFO] shared iPad: sync bubble checkin finished", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_INFO, "[INFO] shared iPad: sync bubble checkin finished", v5, 2u);
   }
 
   return [*(a1 + 32) end];
@@ -122,25 +120,25 @@ uint64_t __22__FPDSyncBubble_start__block_invoke(uint64_t a1)
   }
 }
 
-void __37__FPDSyncBubble_retryLaterWithError___block_invoke(uint64_t a1)
+void __37__FPDSyncBubble_retryLaterWithError___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __37__FPDSyncBubble_retryLaterWithError___block_invoke_cold_1(a1, v2);
+    __37__FPDSyncBubble_retryLaterWithError___block_invoke_cold_1(a1, v3);
   }
 
-  v3 = [MEMORY[0x1E69DF068] sharedManager];
-  v4 = MEMORY[0x1E696AEC0];
-  v5 = *(a1 + 40);
-  v6 = [*(a1 + 32) domain];
-  v7 = [v4 stringWithFormat:@"encountered error domain %@ code %ld", v6, objc_msgSend(*(a1 + 32), "code")];
-  [v3 unregisterStakeHolder:v5 status:1 reason:v7];
+  v4 = [MEMORY[0x1E69DF068] sharedManager];
+  v5 = MEMORY[0x1E696AEC0];
+  v6 = *(a1 + 40);
+  v7 = [*(a1 + 32) domain];
+  v8 = [v5 stringWithFormat:@"encountered error domain %@ code %ld", v7, objc_msgSend(*(a1 + 32), "code")];
+  [v4 unregisterStakeHolder:v6 status:1 reason:v8];
 }
 
 - (void)createSyncBubbleTasksIfNecessary
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v2 = fp_current_or_default_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -149,51 +147,51 @@ void __37__FPDSyncBubble_retryLaterWithError___block_invoke(uint64_t a1)
   }
 
   currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
-  v34 = [FPDRequest requestForXPCConnection:currentConnection];
+  v33 = [FPDRequest requestForXPCConnection:currentConnection];
 
-  v44 = 0u;
-  v45 = 0u;
   v43 = 0u;
+  v44 = 0u;
   v42 = 0u;
+  v41 = 0u;
   obj = [(FPDExtensionManager *)self->_extensionManager allProviders];
-  v32 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
-  if (v32)
+  v31 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
+  if (v31)
   {
-    v31 = *v43;
+    v30 = *v42;
     do
     {
       v4 = 0;
       do
       {
-        if (*v43 != v31)
+        if (*v42 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v33 = v4;
-        v5 = *(*(&v42 + 1) + 8 * v4);
+        v32 = v4;
+        v5 = *(*(&v41 + 1) + 8 * v4);
+        v37 = 0u;
         v38 = 0u;
         v39 = 0u;
         v40 = 0u;
-        v41 = 0u;
         relevantDomainsByID = [v5 relevantDomainsByID];
         allValues = [relevantDomainsByID allValues];
 
-        v8 = [allValues countByEnumeratingWithState:&v38 objects:v50 count:16];
+        v8 = [allValues countByEnumeratingWithState:&v37 objects:v49 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v39;
+          v10 = *v38;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v39 != v10)
+              if (*v38 != v10)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              v12 = *(*(&v38 + 1) + 8 * i);
+              v12 = *(*(&v37 + 1) + 8 * i);
               if (([v12 isUsingFPFS] & 1) == 0)
               {
                 v18 = fp_current_or_default_log();
@@ -204,7 +202,7 @@ void __37__FPDSyncBubble_retryLaterWithError___block_invoke(uint64_t a1)
 
                 providerDomainID = [v12 providerDomainID];
                 *buf = 138412290;
-                v47 = providerDomainID;
+                v46 = providerDomainID;
                 v26 = v18;
                 v27 = "[INFO] shared iPad: skipping %@ (doesn't use FPFS)";
 LABEL_25:
@@ -227,7 +225,7 @@ LABEL_25:
 
                 providerDomainID = [v12 providerDomainID];
                 *buf = 138412290;
-                v47 = providerDomainID;
+                v46 = providerDomainID;
                 v26 = v18;
                 v27 = "[INFO] shared iPad: skipping %@ (not supported in sync bubble)";
                 goto LABEL_25;
@@ -246,7 +244,7 @@ LABEL_25:
                 {
                   providerDomainID3 = [v12 providerDomainID];
                   *buf = 138412290;
-                  v47 = providerDomainID3;
+                  v46 = providerDomainID3;
                   _os_log_impl(&dword_1CEFC7000, v19, OS_LOG_TYPE_INFO, "[INFO] shared iPad: requesting stabilization in sync bubble for domain %@", buf, 0xCu);
                 }
 
@@ -256,22 +254,22 @@ LABEL_25:
                 {
                   defaultBackend = [v12 defaultBackend];
                   *buf = 138412546;
-                  v47 = v12;
-                  v48 = 2112;
-                  v49 = defaultBackend;
+                  v46 = v12;
+                  v47 = 2112;
+                  v48 = defaultBackend;
                   _os_log_impl(&dword_1CEFC7000, v22, OS_LOG_TYPE_INFO, "[INFO] domain: %@, backend: %@", buf, 0x16u);
                 }
 
                 defaultBackend2 = [v12 defaultBackend];
-                v36[0] = MEMORY[0x1E69E9820];
-                v36[1] = 3221225472;
-                v36[2] = __49__FPDSyncBubble_createSyncBubbleTasksIfNecessary__block_invoke;
-                v36[3] = &unk_1E83BDF78;
-                v36[4] = v12;
-                v36[5] = self;
+                v35[0] = MEMORY[0x1E69E9820];
+                v35[1] = 3221225472;
+                v35[2] = __49__FPDSyncBubble_createSyncBubbleTasksIfNecessary__block_invoke;
+                v35[3] = &unk_1E83BDF78;
+                v35[4] = v12;
+                v35[5] = self;
                 v18 = v18;
-                v37 = v18;
-                [defaultBackend2 waitForStabilizationForRequest:v34 mode:1 completionHandler:v36];
+                v36 = v18;
+                [defaultBackend2 waitForStabilizationForRequest:v33 mode:1 completionHandler:v35];
               }
 
               else
@@ -280,7 +278,7 @@ LABEL_25:
                 {
                   providerDomainID4 = [v12 providerDomainID];
                   *buf = 138412290;
-                  v47 = providerDomainID4;
+                  v46 = providerDomainID4;
                   _os_log_impl(&dword_1CEFC7000, v19, OS_LOG_TYPE_INFO, "[INFO] shared iPad: scheduling finalization in sync bubble for domain %@", buf, 0xCu);
                 }
 
@@ -290,28 +288,26 @@ LABEL_25:
 LABEL_29:
             }
 
-            v9 = [allValues countByEnumeratingWithState:&v38 objects:v50 count:16];
+            v9 = [allValues countByEnumeratingWithState:&v37 objects:v49 count:16];
           }
 
           while (v9);
         }
 
-        v4 = v33 + 1;
+        v4 = v32 + 1;
       }
 
-      while (v33 + 1 != v32);
-      v32 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
+      while (v32 + 1 != v31);
+      v31 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
     }
 
-    while (v32);
+    while (v31);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __49__FPDSyncBubble_createSyncBubbleTasksIfNecessary__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = fp_current_or_default_log();
   v5 = v4;
@@ -330,15 +326,13 @@ void __49__FPDSyncBubble_createSyncBubbleTasksIfNecessary__block_invoke(uint64_t
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_INFO, "[INFO] shared iPad: sync bubble stabilization finished successfully for %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_INFO, "[INFO] shared iPad: sync bubble stabilization finished successfully for %@", &v7, 0xCu);
     }
   }
 
   [*(a1 + 48) end];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)willSwitchUser
@@ -421,24 +415,22 @@ uint64_t __30__FPDSyncBubble_uploadContent__block_invoke(uint64_t a1)
 
 void __37__FPDSyncBubble_retryLaterWithError___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] shared iPad: Encountered an error forcing us to try to retry the sync bubble later - %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] shared iPad: Encountered an error forcing us to try to retry the sync bubble later - %@", &v3, 0xCu);
 }
 
 void __49__FPDSyncBubble_createSyncBubbleTasksIfNecessary__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1CEFC7000, log, OS_LOG_TYPE_ERROR, "[ERROR] shared iPad: sync bubble stabilization finished for %@ with error %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1CEFC7000, log, OS_LOG_TYPE_ERROR, "[ERROR] shared iPad: sync bubble stabilization finished for %@ with error %@", &v4, 0x16u);
 }
 
 @end

@@ -106,7 +106,7 @@ LABEL_22:
 
 - (id)jsonDictionary
 {
-  v16[4] = *MEMORY[0x1E69E9840];
+  v15[4] = *MEMORY[0x1E69E9840];
   clientIdentifier = [(BMModelCatalogExplicitRequests *)self clientIdentifier];
   legacyRequestName = [(BMModelCatalogExplicitRequests *)self legacyRequestName];
   subscription = [(BMModelCatalogExplicitRequests *)self subscription];
@@ -122,39 +122,39 @@ LABEL_22:
     v7 = 0;
   }
 
-  v15[0] = @"clientIdentifier";
+  v14[0] = @"clientIdentifier";
   null = clientIdentifier;
   if (!clientIdentifier)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[0] = null;
-  v15[1] = @"legacyRequestName";
+  v15[0] = null;
+  v14[1] = @"legacyRequestName";
   null2 = legacyRequestName;
   if (!legacyRequestName)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null2;
-  v15[2] = @"subscription";
+  v15[1] = null2;
+  v14[2] = @"subscription";
   null3 = jsonDictionary;
   if (!jsonDictionary)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[2] = null3;
-  v15[3] = @"subscribe";
+  v15[2] = null3;
+  v14[3] = @"subscribe";
   null4 = v7;
   if (!v7)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[3] = null4;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v15[3] = null4;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
   if (v7)
   {
     if (jsonDictionary)
@@ -199,14 +199,13 @@ LABEL_15:
 LABEL_22:
 
 LABEL_16:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (BMModelCatalogExplicitRequests)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"clientIdentifier"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -214,7 +213,7 @@ LABEL_16:
     v8 = 0;
 LABEL_4:
     v9 = [dictionaryCopy objectForKeyedSubscript:@"legacyRequestName"];
-    v33 = v7;
+    v32 = v7;
     if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -228,22 +227,22 @@ LABEL_4:
 
         v21 = objc_alloc(MEMORY[0x1E696ABC0]);
         v22 = *MEMORY[0x1E698F240];
-        v39 = *MEMORY[0x1E696A578];
+        v38 = *MEMORY[0x1E696A578];
         v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"legacyRequestName"];
-        v40 = v10;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+        v39 = v10;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
         v15 = 0;
         *error = [v21 initWithDomain:v22 code:2 userInfo:v12];
         error = 0;
         goto LABEL_33;
       }
 
-      v32 = v9;
+      v31 = v9;
     }
 
     else
     {
-      v32 = 0;
+      v31 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"subscription"];
@@ -260,18 +259,18 @@ LABEL_10:
         {
           if (error)
           {
-            v31 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v29 = *MEMORY[0x1E698F240];
-            v35 = *MEMORY[0x1E696A578];
-            v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"subscribe"];
-            v36 = v27;
-            v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-            *error = [v31 initWithDomain:v29 code:2 userInfo:v28];
+            v30 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v28 = *MEMORY[0x1E698F240];
+            v34 = *MEMORY[0x1E696A578];
+            v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"subscribe"];
+            v35 = v26;
+            v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+            *error = [v30 initWithDomain:v28 code:2 userInfo:v27];
           }
 
           v14 = 0;
           v15 = 0;
-          error = v32;
+          error = v31;
           goto LABEL_14;
         }
 
@@ -283,15 +282,15 @@ LABEL_10:
         v14 = 0;
       }
 
-      error = v32;
-      v15 = [(BMModelCatalogExplicitRequests *)selfCopy initWithClientIdentifier:v8 legacyRequestName:v32 subscription:v12 subscribe:v14];
+      error = v31;
+      v15 = [(BMModelCatalogExplicitRequests *)selfCopy initWithClientIdentifier:v8 legacyRequestName:v31 subscription:v12 subscribe:v14];
       selfCopy = v15;
 LABEL_14:
 
       self = selfCopy;
 LABEL_33:
 
-      v7 = v33;
+      v7 = v32;
 LABEL_34:
 
       goto LABEL_35;
@@ -301,9 +300,9 @@ LABEL_34:
     if (objc_opt_isKindOfClass())
     {
       v16 = v10;
-      v34 = 0;
-      v12 = [[BMModelCatalogSubscription alloc] initWithJSONDictionary:v16 error:&v34];
-      v17 = v34;
+      v33 = 0;
+      v12 = [[BMModelCatalogSubscription alloc] initWithJSONDictionary:v16 error:&v33];
+      v17 = v33;
       if (!v17)
       {
 
@@ -325,23 +324,23 @@ LABEL_34:
       if (!error)
       {
         v15 = 0;
-        error = v32;
+        error = v31;
         goto LABEL_34;
       }
 
-      v30 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v29 = objc_alloc(MEMORY[0x1E696ABC0]);
       v23 = *MEMORY[0x1E698F240];
-      v37 = *MEMORY[0x1E696A578];
+      v36 = *MEMORY[0x1E696A578];
       v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"subscription"];
-      v38 = v12;
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-      *error = [v30 initWithDomain:v23 code:2 userInfo:v24];
+      v37 = v12;
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      *error = [v29 initWithDomain:v23 code:2 userInfo:v24];
 
       v15 = 0;
     }
 
     self = selfCopy;
-    error = v32;
+    error = v31;
     goto LABEL_33;
   }
 
@@ -361,10 +360,10 @@ LABEL_34:
 
   v18 = objc_alloc(MEMORY[0x1E696ABC0]);
   v19 = *MEMORY[0x1E698F240];
-  v41 = *MEMORY[0x1E696A578];
+  v40 = *MEMORY[0x1E696A578];
   v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"clientIdentifier"];
-  v42[0] = v20;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+  v41[0] = v20;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
   v8 = 0;
   v15 = 0;
   *error = [v18 initWithDomain:v19 code:2 userInfo:v9];
@@ -372,7 +371,6 @@ LABEL_34:
 LABEL_35:
 
 LABEL_36:
-  v25 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -407,7 +405,6 @@ LABEL_36:
 
   if (self->_hasSubscribe)
   {
-    subscribe = self->_subscribe;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -644,48 +641,44 @@ LABEL_45:
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clientIdentifier" number:1 type:13 subMessageClass:0];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"legacyRequestName" number:2 type:13 subMessageClass:0];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"subscription" number:3 type:14 subMessageClass:objc_opt_class()];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"subscribe" number:4 type:12 subMessageClass:0];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clientIdentifier" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"legacyRequestName" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"subscription_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_100130];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"subscribe" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:12 convertedType:0];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
-id __41__BMModelCatalogExplicitRequests_columns__block_invoke(uint64_t a1, void *a2)
+id __41__BMModelCatalogExplicitRequests_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 subscription];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 subscription];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

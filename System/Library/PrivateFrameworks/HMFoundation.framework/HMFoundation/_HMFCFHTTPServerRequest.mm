@@ -74,14 +74,12 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", -[_HMFCFHTTPServerRequest requestRef](self, "requestRef")];
   v5 = [(HMFAttributeDescription *)v3 initWithName:@"Request" value:v4];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -96,37 +94,34 @@
 - (id)URL
 {
   [(_HMFCFHTTPServerRequest *)self requestRef];
-  v2 = *MEMORY[0x277CBAC40];
-  v3 = _CFHTTPServerRequestCopyProperty();
+  v2 = _CFHTTPServerRequestCopyProperty();
 
-  return v3;
+  return v2;
 }
 
 - (id)method
 {
   [(_HMFCFHTTPServerRequest *)self requestRef];
-  v2 = *MEMORY[0x277CBAC30];
-  v3 = _CFHTTPServerRequestCopyProperty();
+  v2 = _CFHTTPServerRequestCopyProperty();
 
-  return v3;
+  return v2;
 }
 
 - (id)headerFields
 {
   [(_HMFCFHTTPServerRequest *)self requestRef];
-  v2 = *MEMORY[0x277CBAC28];
-  v3 = _CFHTTPServerRequestCopyProperty();
-  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v2 = _CFHTTPServerRequestCopyProperty();
+  if (v2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v4 = [v3 objectForKey:*MEMORY[0x277CBAC20]];
+    v3 = [v2 objectForKey:*MEMORY[0x277CBAC20]];
   }
 
   else
   {
-    v4 = MEMORY[0x277CBEC10];
+    v3 = MEMORY[0x277CBEC10];
   }
 
-  return v4;
+  return v3;
 }
 
 - (id)body

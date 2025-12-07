@@ -51,51 +51,51 @@
   v6 = [[FMDBluetoothDiscoveryCoordinator alloc] initWithDiscovery:v3];
   [(FMDExtBluetoothDiscoveryFactory *)self setDiscoveryCoordinator:v6];
 
-  objc_initWeak(&location, self);
-  v7 = sub_100003F1C();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v8 = sub_100003F1C(inited);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = v3;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "starting up discovery %@", buf, 0xCu);
+    v23 = v3;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "starting up discovery %@", buf, 0xCu);
   }
 
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100009E6C;
-  v18[3] = &unk_10001D3E0;
-  objc_copyWeak(&v19, &location);
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_100009E6C;
+  v19[3] = &unk_10001D3E0;
+  objc_copyWeak(&v20, &location);
   discoveryCoordinator = [(FMDExtBluetoothDiscoveryFactory *)self discoveryCoordinator];
-  [discoveryCoordinator setDidDiscoverDevice:v18];
+  [discoveryCoordinator setDidDiscoverDevice:v19];
 
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_100009FDC;
-  v16[3] = &unk_10001D3E0;
-  objc_copyWeak(&v17, &location);
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_100009FDC;
+  v17[3] = &unk_10001D3E0;
+  objc_copyWeak(&v18, &location);
   discoveryCoordinator2 = [(FMDExtBluetoothDiscoveryFactory *)self discoveryCoordinator];
-  [discoveryCoordinator2 setDidLoseDevice:v16];
+  [discoveryCoordinator2 setDidLoseDevice:v17];
 
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_10000A14C;
-  v14[3] = &unk_10001D430;
-  objc_copyWeak(&v15, &location);
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_10000A14C;
+  v15[3] = &unk_10001D430;
+  objc_copyWeak(&v16, &location);
   discoveryCoordinator3 = [(FMDExtBluetoothDiscoveryFactory *)self discoveryCoordinator];
-  [discoveryCoordinator3 setDidEndDiscovery:v14];
+  [discoveryCoordinator3 setDidEndDiscovery:v15];
 
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_10000A260;
-  v12[3] = &unk_10001D330;
-  objc_copyWeak(&v13, &location);
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_10000A260;
+  v13[3] = &unk_10001D330;
+  objc_copyWeak(&v14, &location);
   discoveryCoordinator4 = [(FMDExtBluetoothDiscoveryFactory *)self discoveryCoordinator];
-  [discoveryCoordinator4 setDidStartDiscovery:v12];
+  [discoveryCoordinator4 setDidStartDiscovery:v13];
 
-  objc_destroyWeak(&v13);
-  objc_destroyWeak(&v15);
-  objc_destroyWeak(&v17);
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
 }
 
@@ -130,7 +130,7 @@
   if (v8)
   {
     v9 = [objc_opt_class() configurationDictWithBleDevice:deviceCopy];
-    v10 = sub_100003F1C();
+    v10 = sub_100003F1C(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       advertisementFields = [deviceCopy advertisementFields];
@@ -161,7 +161,7 @@
   if (v8)
   {
     v9 = [objc_opt_class() configurationDictWithBleDevice:deviceCopy];
-    v10 = sub_100003F1C();
+    v10 = sub_100003F1C(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       advertisementFields = [deviceCopy advertisementFields];
@@ -194,7 +194,7 @@
 
   v7 = v6;
 
-  v32 = [v7 isEqualToNumber:&off_100020810];
+  v33 = [v7 isEqualToNumber:&off_100020810];
   v8 = [advertisementFields objectForKeyedSubscript:@"hsStatus"];
   unsignedIntValue = [v8 unsignedIntValue];
   v10 = dword_10002873C & unsignedIntValue;
@@ -204,127 +204,127 @@
   v14 = dword_100028728 & unsignedIntValue;
   v15 = dword_100028734 & unsignedIntValue;
   v16 = dword_100028740 & unsignedIntValue;
-  v17 = sub_100003BEC();
+  v17 = sub_100003BEC(unsignedIntValue);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67110656;
-    v36 = v10 != 0;
-    v37 = 1024;
-    v38 = v16 != 0;
-    v39 = 1024;
-    v40 = v11 != 0;
-    v41 = 1024;
-    v42 = v12 != 0;
-    v43 = 1024;
-    v44 = v13 != 0;
-    v45 = 1024;
-    v46 = v14 != 0;
-    v47 = 1024;
-    v48 = v15 != 0;
+    v37 = v10 != 0;
+    v38 = 1024;
+    v39 = v16 != 0;
+    v40 = 1024;
+    v41 = v11 != 0;
+    v42 = 1024;
+    v43 = v12 != 0;
+    v44 = 1024;
+    v45 = v13 != 0;
+    v46 = 1024;
+    v47 = v14 != 0;
+    v48 = 1024;
+    v49 = v15 != 0;
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "MainHSSTATUS L %i P %i U %i C %i OC %i E %i OE %i", buf, 0x2Cu);
   }
 
   if (v16)
   {
-    v18 = v12 != 0;
+    v19 = v12 != 0;
     if (!v13)
     {
-      v18 = 0;
+      v19 = 0;
     }
 
     if (!(v12 | v13))
     {
-      v18 = 1;
+      v19 = 1;
     }
 
     if (v14 | v15)
     {
-      v19 = 1;
+      v20 = 1;
     }
 
     else
     {
-      v19 = v11 == 0;
+      v20 = v11 == 0;
     }
 
-    v20 = !v19 && v18;
+    v21 = !v20 && v19;
     if (v13)
     {
-      v21 = v20;
+      v22 = v21;
     }
 
     else
     {
-      v21 = 1;
+      v22 = 1;
     }
 
     if (v10)
-    {
-      v22 = @"right";
-    }
-
-    else
-    {
-      v22 = @"left";
-    }
-
-    if (v10)
-    {
-      v23 = @"left";
-    }
-
-    else
     {
       v23 = @"right";
     }
 
-    v24 = v22;
-    v25 = v23;
-    v26 = objc_alloc_init(NSMutableArray);
-    v27 = v26;
-    if ((v20 & 1) != 0 || !v12)
+    else
     {
-      [v26 addObject:v25];
+      v23 = @"left";
     }
 
-    if (((v11 != 0) & v21) == 1)
+    if (v10)
     {
-      [v27 addObject:v24];
-    }
-
-    if (v32)
-    {
-      v28 = v27;
+      v24 = @"left";
     }
 
     else
     {
-      v28 = &__NSArray0__struct;
+      v24 = @"right";
     }
 
-    v33[0] = @"components";
-    v33[1] = @"playing";
-    v34[0] = v27;
-    v34[1] = v28;
-    v33[2] = @"statusUpdateTime";
-    v30 = +[NSDate date];
-    v34[2] = v30;
-    v29 = [NSDictionary dictionaryWithObjects:v34 forKeys:v33 count:3];
+    v25 = v23;
+    v26 = v24;
+    v27 = objc_alloc_init(NSMutableArray);
+    v28 = v27;
+    if ((v21 & 1) != 0 || !v12)
+    {
+      [v27 addObject:v26];
+    }
+
+    if (((v11 != 0) & v22) == 1)
+    {
+      [v28 addObject:v25];
+    }
+
+    if (v33)
+    {
+      v29 = v28;
+    }
+
+    else
+    {
+      v29 = &__NSArray0__struct;
+    }
+
+    v34[0] = @"components";
+    v34[1] = @"playing";
+    v35[0] = v28;
+    v35[1] = v29;
+    v34[2] = @"statusUpdateTime";
+    v31 = +[NSDate date];
+    v35[2] = v31;
+    v30 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:3];
   }
 
   else
   {
-    v24 = sub_100003F1C();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v25 = sub_100003F1C(v18);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "ignoring advertisement from non primary bud", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "ignoring advertisement from non primary bud", buf, 2u);
     }
 
-    v29 = 0;
+    v30 = 0;
   }
 
-  return v29;
+  return v30;
 }
 
 @end

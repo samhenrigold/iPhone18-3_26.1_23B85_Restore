@@ -17,15 +17,8 @@
   v11.super_class = WiFiNWReliabilityMonitor;
   v6 = [(WiFiNWReliabilityMonitor *)&v11 init];
   v7 = v6;
-  if (!v6)
+  if (!v6 || (objc_storeStrong(&v6->_sharedMgrQueue, queue), !v7->_sharedMgrQueue) || (v7->_metrics = 1, *&v7->_isEvalInProgress = 0, +[NSMutableArray array], v8 = objc_claimAutoreleasedReturnValue(), sessions = v7->_sessions, v7->_sessions = v8, sessions, !v7->_sessions))
   {
-    goto LABEL_4;
-  }
-
-  objc_storeStrong(&v6->_sharedMgrQueue, queue);
-  if (!v7->_sharedMgrQueue || (v7->_metrics = 1, *&v7->_isEvalInProgress = 0, +[NSMutableArray array], v8 = objc_claimAutoreleasedReturnValue(), sessions = v7->_sessions, v7->_sessions = v8, sessions, !v7->_sessions))
-  {
-LABEL_4:
 
     v7 = 0;
   }

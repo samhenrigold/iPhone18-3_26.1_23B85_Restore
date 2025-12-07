@@ -20,42 +20,42 @@
 
 + (uint64_t)_validateHeaders:(uint64_t)headers dkimVerified:
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v19 = a2;
+  v25 = *MEMORY[0x1E69E9840];
+  v18 = a2;
   objc_opt_self();
-  encodedHeaders = [v19 encodedHeaders];
+  encodedHeaders = [v18 encodedHeaders];
   v5 = EMRecodeDataToNetwork(encodedHeaders);
 
   if (v5)
   {
-    v24 = 0;
-    v17 = objc_alloc_init(MEMORY[0x1E699B230]);
-    v6 = [v17 verificationContextForMessageData:v5 error:&v24];
-    v18 = v24;
+    v23 = 0;
+    v16 = objc_alloc_init(MEMORY[0x1E699B230]);
+    v6 = [v16 verificationContextForMessageData:v5 error:&v23];
+    v17 = v23;
     v7 = 2;
-    if (headers != 1 && v6 && !v18)
+    if (headers != 1 && v6 && !v17)
     {
       [v6 dkimSignatureHeaders];
+      v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
-      v8 = v21 = 0u;
-      v9 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v19 = 0u;
+      v8 = v20 = 0u;
+      v9 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
       if (v9)
       {
-        v10 = *v21;
+        v10 = *v20;
         v11 = *MEMORY[0x1E699B118];
         v12 = *MEMORY[0x1E699B120];
 LABEL_7:
         v13 = 0;
         while (1)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          signedHeaderFields = [*(*(&v20 + 1) + 8 * v13) signedHeaderFields];
+          signedHeaderFields = [*(*(&v19 + 1) + 8 * v13) signedHeaderFields];
           if ([signedHeaderFields containsObject:v11])
           {
             if ([signedHeaderFields containsObject:v12])
@@ -66,7 +66,7 @@ LABEL_7:
 
           if (v9 == ++v13)
           {
-            v9 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+            v9 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
             if (v9)
             {
               goto LABEL_7;
@@ -86,7 +86,7 @@ LABEL_7:
           v7 = 1;
         }
 
-        else if ([v17 verifyMessageWithContext:v6 options:1 error:0])
+        else if ([v16 verifyMessageWithContext:v6 options:1 error:0])
         {
           v7 = 1;
         }
@@ -112,7 +112,6 @@ LABEL_20:
     v7 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -217,7 +216,7 @@ LABEL_19:
 
 - (id)commandForMessage:(id)message mailToOnly:(BOOL)only dkimVerified:(unint64_t)verified
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   headers = [messageCopy headers];
   if ([(EMListUnsubscribeDetector *)self shouldIgnoreMessageWithHeaders:headers])
@@ -239,13 +238,13 @@ LABEL_19:
     else
     {
       v14 = MEMORY[0x1E699B7C8];
-      v51[0] = MEMORY[0x1E69E9820];
-      v51[1] = 3221225472;
-      v51[2] = __71__EMListUnsubscribeDetector_commandForMessage_mailToOnly_dkimVerified___block_invoke;
-      v51[3] = &unk_1E826D648;
-      v52 = headers;
+      v50[0] = MEMORY[0x1E69E9820];
+      v50[1] = 3221225472;
+      v50[2] = __71__EMListUnsubscribeDetector_commandForMessage_mailToOnly_dkimVerified___block_invoke;
+      v50[3] = &unk_1E826D648;
+      v51 = headers;
       verifiedCopy = verified;
-      v15 = [v14 futureWithBlock:v51];
+      v15 = [v14 futureWithBlock:v50];
       v16 = [v15 resultWithTimeout:0 error:3.0];
       v17 = v16;
       if (v16)
@@ -255,7 +254,7 @@ LABEL_19:
 
       else
       {
-        v18 = EMLogCategoryMessageLoading();
+        v18 = EMLogCategoryMessageLoading(0);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           v19 = objc_opt_class();
@@ -267,7 +266,7 @@ LABEL_19:
       }
     }
 
-    v50 = [headers firstHeaderForKey:*MEMORY[0x1E699B110]];
+    v49 = [headers firstHeaderForKey:*MEMORY[0x1E699B110]];
     v21 = [[_EMUnsubscribeInfo alloc] initWithHeaders:headers];
     v22 = v21;
     if (v21)
@@ -360,7 +359,7 @@ LABEL_19:
         v45 = 0;
       }
 
-      v10 = [EMListUnsubscribeCommand mailtoUnsubscribeCommandWithListID:v50 address:v29 sender:firstSenderAddress senderForUnsubscribeMessage:senderForUnsubscribeMessage subject:subject body:body account:v11 headerUnsubscribeTypes:v45];
+      v10 = [EMListUnsubscribeCommand mailtoUnsubscribeCommandWithListID:v49 address:v29 sender:firstSenderAddress senderForUnsubscribeMessage:senderForUnsubscribeMessage subject:subject body:body account:v11 headerUnsubscribeTypes:v45];
     }
 
     else
@@ -415,7 +414,7 @@ LABEL_19:
         v37 = 0;
       }
 
-      v10 = [EMListUnsubscribeCommand oneClickUnsubscribeCommandWithListID:v50 sender:firstSenderAddress2 senderForUnsubscribeMessage:toRecipients2 URL:v29 postContent:firstSenderAddress headerUnsubscribeTypes:v37];
+      v10 = [EMListUnsubscribeCommand oneClickUnsubscribeCommandWithListID:v49 sender:firstSenderAddress2 senderForUnsubscribeMessage:toRecipients2 URL:v29 postContent:firstSenderAddress headerUnsubscribeTypes:v37];
     }
 
 LABEL_47:
@@ -428,7 +427,6 @@ LABEL_48:
 LABEL_49:
 
 LABEL_50:
-  v46 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

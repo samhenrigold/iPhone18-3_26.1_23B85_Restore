@@ -12,6 +12,8 @@
 - (void)_forceEnableCECVolumeNotification:(id)notification;
 - (void)_initVolumeDataIfNeccessary;
 - (void)_onQueue_setVolume:(float)volume error:(id *)error;
+- (void)_postIsMutedDidChange:(BOOL)change;
+- (void)_postVolumeControlCapabilitiesDidChange:(unsigned int)change;
 - (void)_postVolumeDidChange:(float)change;
 - (void)_reloadVolumeDataWithReason:(id)reason;
 - (void)_setup;
@@ -576,6 +578,24 @@
   localOriginClient = [nowPlayingServer localOriginClient];
   *&v6 = change;
   [localOriginClient setVolume:v6];
+}
+
+- (void)_postIsMutedDidChange:(BOOL)change
+{
+  changeCopy = change;
+  v6 = +[MRDMediaRemoteServer server];
+  nowPlayingServer = [v6 nowPlayingServer];
+  localOriginClient = [nowPlayingServer localOriginClient];
+  [localOriginClient setIsMuted:changeCopy];
+}
+
+- (void)_postVolumeControlCapabilitiesDidChange:(unsigned int)change
+{
+  v3 = *&change;
+  v6 = +[MRDMediaRemoteServer server];
+  nowPlayingServer = [v6 nowPlayingServer];
+  localOriginClient = [nowPlayingServer localOriginClient];
+  [localOriginClient setVolumeControlCapabilities:v3];
 }
 
 @end

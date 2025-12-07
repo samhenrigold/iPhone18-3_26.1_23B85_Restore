@@ -10,7 +10,7 @@
 - (void)doSetNextReaderWithOrgApacheLuceneIndexLeafReaderContext:(id)context
 {
   JreStrongAssign(&self->currentReaderValues_, [(OrgApacheLuceneSearchFieldComparator_NumericComparator *)self getNumericDocValuesWithOrgApacheLuceneIndexLeafReaderContext:context withNSString:self->field_]);
-  if (!self->missingValue_ || (JreStrongAssign(&self->docsWithField_, [(OrgApacheLuceneSearchFieldComparator_NumericComparator *)self getDocsWithValueWithOrgApacheLuceneIndexLeafReaderContext:context withNSString:self->field_]), docsWithField = self->docsWithField_, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (!self->missingValue_ || (JreStrongAssign(&self->docsWithField_, [(OrgApacheLuceneSearchFieldComparator_NumericComparator *)self getDocsWithValueWithOrgApacheLuceneIndexLeafReaderContext:context withNSString:self->field_]), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
 
     JreStrongAssign(&self->docsWithField_, 0);

@@ -56,7 +56,7 @@
   valuesCopy = values;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if ([valuesCopy count] >= 0xFF)
+  if (objc_msgSend_count(valuesCopy) >= 0xFF)
   {
     logger = selfCopy->_logger;
     if (!os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
@@ -85,8 +85,8 @@ LABEL_7:
   }
 
   unsignedIntValue = [capacityCopy unsignedIntValue];
-  v15 = [valuesCopy count];
-  v16 = [weightsCopy count];
+  v15 = objc_msgSend_count(valuesCopy);
+  v16 = objc_msgSend_count(weightsCopy);
   v17 = unsignedIntValue + 1;
   selfCopy->_n_cols = v17;
   selfCopy->_n_rows = v15 + 1;

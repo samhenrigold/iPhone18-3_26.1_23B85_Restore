@@ -78,12 +78,12 @@
 
     if (isKindOfClass)
     {
-      v9 = _TSLogDomain();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = _TSLogDomain(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
         v17 = "[TSTravelSimCapabilitySelectionViewController prepare:]";
-        _os_log_impl(&dword_262AA8000, v9, OS_LOG_TYPE_DEFAULT, "Skip for CTRemotePlan @%s", buf, 0xCu);
+        _os_log_impl(&dword_262AA8000, v10, OS_LOG_TYPE_DEFAULT, "Skip for CTRemotePlan @%s", buf, 0xCu);
       }
 
       prepareCopy[2](prepareCopy, 0);
@@ -116,8 +116,6 @@
   {
     prepareCopy[2](prepareCopy, 0);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __56__TSTravelSimCapabilitySelectionViewController_prepare___block_invoke(uint64_t a1, void *a2)
@@ -125,40 +123,39 @@ void __56__TSTravelSimCapabilitySelectionViewController_prepare___block_invoke(u
   v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (!WeakRetained)
   {
     goto LABEL_6;
   }
 
-  v5 = _TSLogDomain();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _TSLogDomain(WeakRetained);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = WeakRetained[162];
+    v7 = v5[162];
     v9 = 138412802;
-    v10 = v6;
+    v10 = v7;
     v11 = 2112;
     v12 = v3;
     v13 = 2080;
     v14 = "[TSTravelSimCapabilitySelectionViewController prepare:]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "CTPlanTravelDetails for %@: %@ @%s", &v9, 0x20u);
+    _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "CTPlanTravelDetails for %@: %@ @%s", &v9, 0x20u);
   }
 
   if ([v3 isTraveleSIM])
   {
     [v3 isDataOnly];
 
-    v7 = *(*(a1 + 32) + 16);
+    v8 = *(*(a1 + 32) + 16);
   }
 
   else
   {
 LABEL_6:
-    v7 = *(*(a1 + 32) + 16);
+    v8 = *(*(a1 + 32) + 16);
   }
 
-  v7();
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8();
 }
 
 - (void)viewDidLoad
@@ -343,9 +340,9 @@ LABEL_9:
 
 - (void)_continueButtonTapped:(id)tapped
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   tappedCopy = tapped;
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(tappedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if (self->_isDataOnlySelected)
@@ -359,9 +356,9 @@ LABEL_9:
     }
 
     *buf = 138412546;
-    v16 = v6;
-    v17 = 2080;
-    v18 = "[TSTravelSimCapabilitySelectionViewController _continueButtonTapped:]";
+    v15 = v6;
+    v16 = 2080;
+    v17 = "[TSTravelSimCapabilitySelectionViewController _continueButtonTapped:]";
     _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "User has chosen this SIM to be %@ @%s", buf, 0x16u);
   }
 
@@ -382,16 +379,14 @@ LABEL_9:
 
   objc_initWeak(buf, self);
   client = self->_client;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __70__TSTravelSimCapabilitySelectionViewController__continueButtonTapped___block_invoke;
-  v13[3] = &unk_279B44828;
-  objc_copyWeak(&v14, buf);
-  [(CoreTelephonyClient *)client updateCellularPlanProperties:v10 appName:@"SimSetup" appType:1 completionHandler:v13];
-  objc_destroyWeak(&v14);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __70__TSTravelSimCapabilitySelectionViewController__continueButtonTapped___block_invoke;
+  v12[3] = &unk_279B44828;
+  objc_copyWeak(&v13, buf);
+  [(CoreTelephonyClient *)client updateCellularPlanProperties:v10 appName:@"SimSetup" appType:1 completionHandler:v12];
+  objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __70__TSTravelSimCapabilitySelectionViewController__continueButtonTapped___block_invoke(uint64_t a1, void *a2)
@@ -399,26 +394,25 @@ void __70__TSTravelSimCapabilitySelectionViewController__continueButtonTapped___
   v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (v3)
   {
-    v5 = _TSLogDomain();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _TSLogDomain(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138412546;
       v10 = v3;
       v11 = 2080;
       v12 = "[TSTravelSimCapabilitySelectionViewController _continueButtonTapped:]_block_invoke";
-      _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "Updating SIM property failed with [%@] @%s", &v9, 0x16u);
+      _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "Updating SIM property failed with [%@] @%s", &v9, 0x16u);
     }
   }
 
-  v6 = [WeakRetained delegate];
-  [v6 receivedResponseWithVC:WeakRetained];
+  v7 = [v5 delegate];
+  [v7 receivedResponseWithVC:v5];
 
-  v7 = [WeakRetained delegate];
-  [v7 viewControllerDidComplete:WeakRetained];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = [v5 delegate];
+  [v8 viewControllerDidComplete:v5];
 }
 
 - (void)_refreshTableView

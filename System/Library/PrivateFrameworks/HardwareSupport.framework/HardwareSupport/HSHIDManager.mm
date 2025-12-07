@@ -69,7 +69,7 @@ LABEL_7:
 
 - (BOOL)open:(id *)open
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v4 = IOHIDManagerOpen(self->_managerRef, 0);
   v5 = v4;
   if (open && v4)
@@ -77,23 +77,21 @@ LABEL_7:
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to open the IOHIDManager!"];
     v7 = MEMORY[0x277CCA9B8];
     v8 = *MEMORY[0x277CCA4A8];
-    v14 = *MEMORY[0x277CCA450];
-    v15[0] = v6;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA450];
+    v14[0] = v6;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v10 = [v7 errorWithDomain:v8 code:v5 userInfo:v9];
 
     v11 = v10;
     *open = v10;
   }
 
-  result = v5 == 0;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 == 0;
 }
 
 - (BOOL)close:(id *)close
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v4 = IOHIDManagerClose(self->_managerRef, 0);
   v5 = v4;
   if (close && v4)
@@ -101,52 +99,50 @@ LABEL_7:
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to close the IOHIDManager!"];
     v7 = MEMORY[0x277CCA9B8];
     v8 = *MEMORY[0x277CCA4A8];
-    v14 = *MEMORY[0x277CCA450];
-    v15[0] = v6;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA450];
+    v14[0] = v6;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v10 = [v7 errorWithDomain:v8 code:v5 userInfo:v9];
 
     v11 = v10;
     *close = v10;
   }
 
-  result = v5 == 0;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 == 0;
 }
 
 - (id)devices
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = IOHIDManagerCopyDevices(self->_managerRef);
   v3 = [MEMORY[0x277CBEB58] setWithCapacity:{-[__CFSet count](v2, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = v2;
-  v5 = [(__CFSet *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [(__CFSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         CFRetain(v9);
         v10 = [HSHIDDevice alloc];
-        v11 = [(HSHIDDevice *)v10 initWithDeviceRef:v9, v15];
+        v11 = [(HSHIDDevice *)v10 initWithDeviceRef:v9, v14];
         [v3 addObject:v11];
       }
 
-      v6 = [(__CFSet *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(__CFSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -157,9 +153,7 @@ LABEL_7:
     CFRelease(v4);
   }
 
-  v12 = [MEMORY[0x277CBEB98] setWithSet:{v3, v15}];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [MEMORY[0x277CBEB98] setWithSet:{v3, v14}];
 
   return v12;
 }

@@ -55,19 +55,19 @@
 
 void __69__CDPCustodianRecoveryController_startRecoverySessionWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v9 = _CDPLogSystem();
+  v9 = _CDPLogSystem(WeakRetained);
   v10 = v9;
   if (v6)
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = v6;
-      _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "Successfuly obtained custodian recovery session: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v6;
+      _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "Successfuly obtained custodian recovery session: %@", &v14, 0xCu);
     }
 
     if (WeakRetained)
@@ -98,8 +98,6 @@ LABEL_12:
       goto LABEL_12;
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)validateRecoveryCode:(id)code withCompletion:(id)completion
@@ -132,97 +130,95 @@ LABEL_12:
 
 void __70__CDPCustodianRecoveryController_validateRecoveryCode_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (v5 && ([v5 custodianUUID], v8 = objc_claimAutoreleasedReturnValue(), v8, v8))
+  v8 = WeakRetained;
+  if (v5 && ([v5 custodianUUID], v9 = objc_claimAutoreleasedReturnValue(), v9, v9))
   {
-    v9 = _CDPLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _CDPLogSystem(WeakRetained);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [v5 custodianUUID];
-      v11 = [v10 UUIDString];
-      v17 = 138412290;
-      v18 = v11;
-      _os_log_impl(&dword_1DED99000, v9, OS_LOG_TYPE_DEFAULT, "Successfuly validated custodian recovery code for custodian with UUID: %@", &v17, 0xCu);
+      v11 = [v5 custodianUUID];
+      v12 = [v11 UUIDString];
+      v18 = 138412290;
+      v19 = v12;
+      _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "Successfuly validated custodian recovery code for custodian with UUID: %@", &v18, 0xCu);
     }
 
-    v12 = _CDPLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = _CDPLogSystem(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      __70__CDPCustodianRecoveryController_validateRecoveryCode_withCompletion___block_invoke_cold_1(v12);
+      __70__CDPCustodianRecoveryController_validateRecoveryCode_withCompletion___block_invoke_cold_1(v14);
     }
 
-    [WeakRetained _fetchRecoveryInfoWithCompletion:*(a1 + 32)];
+    [v8 _fetchRecoveryInfoWithCompletion:*(a1 + 32)];
   }
 
   else
   {
-    v13 = _CDPLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = _CDPLogSystem(WeakRetained);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = [v5 custodianUUID];
-      v15 = [v14 UUIDString];
-      v17 = 138412546;
-      v18 = v15;
-      v19 = 2112;
-      v20 = v6;
-      _os_log_impl(&dword_1DED99000, v13, OS_LOG_TYPE_DEFAULT, "Validation of custodian recovery code for custodian with UUID: %@ failed with error: %@", &v17, 0x16u);
+      v16 = [v5 custodianUUID];
+      v17 = [v16 UUIDString];
+      v18 = 138412546;
+      v19 = v17;
+      v20 = 2112;
+      v21 = v6;
+      _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, "Validation of custodian recovery code for custodian with UUID: %@ failed with error: %@", &v18, 0x16u);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchRecoveryInfoWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 3221225472;
-  v13 = __67__CDPCustodianRecoveryController__fetchRecoveryInfoWithCompletion___block_invoke;
-  v14 = &unk_1E869DB38;
+  v10 = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = __67__CDPCustodianRecoveryController__fetchRecoveryInfoWithCompletion___block_invoke;
+  v13 = &unk_1E869DB38;
   selfCopy = self;
   v5 = completionCopy;
-  v16 = v5;
-  v6 = MEMORY[0x1E12CA380](&v11);
-  custodianController = self->_custodianController;
+  v15 = v5;
+  v6 = MEMORY[0x1E12CA380](&v10);
   if (objc_opt_respondsToSelector())
   {
-    v8 = objc_alloc_init(MEMORY[0x1E698B868]);
-    [v8 setRecoverySessionID:{self->_recoverySession, v11, v12, v13, v14, selfCopy}];
+    v7 = objc_alloc_init(MEMORY[0x1E698B868]);
+    [v7 setRecoverySessionID:{self->_recoverySession, v10, v11, v12, v13, selfCopy}];
     telemetryFlowID = [(CDPContext *)self->_context telemetryFlowID];
-    [v8 setTelemetryFlowID:telemetryFlowID];
+    [v7 setTelemetryFlowID:telemetryFlowID];
 
     altDSID = [(CDPContext *)self->_context altDSID];
-    [v8 setAltDSID:altDSID];
+    [v7 setAltDSID:altDSID];
 
-    [(AACustodianController *)self->_custodianController fetchCustodianRecoveryKeysWithContext:v8 completion:v6];
+    [(AACustodianController *)self->_custodianController fetchCustodianRecoveryKeysWithContext:v7 completion:v6];
   }
 
   else
   {
-    [(AACustodianController *)self->_custodianController fetchCustodianRecoveryKeysWithSessionID:self->_recoverySession completion:v6, v11, v12, v13, v14, selfCopy];
+    [(AACustodianController *)self->_custodianController fetchCustodianRecoveryKeysWithSessionID:self->_recoverySession completion:v6, v10, v11, v12, v13, selfCopy];
   }
 }
 
 void __67__CDPCustodianRecoveryController__fetchRecoveryInfoWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = _CDPLogSystem();
+  v7 = _CDPLogSystem(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
     if (v8)
     {
       v9 = *(*(a1 + 32) + 16);
-      v19 = 138412290;
-      v20 = v9;
-      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Successfuly obtained recovery keys for sessionID: %@", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = v9;
+      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Successfuly obtained recovery keys for sessionID: %@", &v18, 0xCu);
     }
 
     v10 = objc_opt_respondsToSelector();
@@ -249,26 +245,23 @@ void __67__CDPCustodianRecoveryController__fetchRecoveryInfoWithCompletion___blo
     if (v8)
     {
       v17 = *(*(a1 + 32) + 16);
-      v19 = 138412546;
-      v20 = v17;
-      v21 = 2112;
-      v22 = v6;
-      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Failed to fetch recovery keys for sessionID: %@ with error: %@", &v19, 0x16u);
+      v18 = 138412546;
+      v19 = v17;
+      v20 = 2112;
+      v21 = v6;
+      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Failed to fetch recovery keys for sessionID: %@ with error: %@", &v18, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __69__CDPCustodianRecoveryController_startRecoverySessionWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "Failed to obtain recoverySession with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "Failed to obtain recoverySession with error: %@", &v2, 0xCu);
 }
 
 @end

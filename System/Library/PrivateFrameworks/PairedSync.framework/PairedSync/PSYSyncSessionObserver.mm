@@ -23,51 +23,51 @@ void __48__PSYSyncSessionObserver__connectionInvalidated__block_invoke(uint64_t 
 {
   if ((*(*(a1 + 32) + 48) & 1) == 0)
   {
-    v2 = psy_log();
+    v2 = psy_log(a1);
     v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
     if (v3)
     {
-      v4 = psy_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = psy_log(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25DF25000, v4, OS_LOG_TYPE_DEFAULT, "PSYSyncSessionObserver clearing invalidated connection", buf, 2u);
+        _os_log_impl(&dword_25DF25000, v5, OS_LOG_TYPE_DEFAULT, "PSYSyncSessionObserver clearing invalidated connection", buf, 2u);
       }
     }
 
-    v5 = *(a1 + 32);
-    if (v5[1])
+    v6 = *(a1 + 32);
+    if (v6[1])
     {
-      [v5 _queue_invalidateSyncSession:?];
-      v5 = *(a1 + 32);
+      [v6 _queue_invalidateSyncSession:?];
+      v6 = *(a1 + 32);
     }
 
-    v6 = v5[4];
-    v5[4] = 0;
+    v7 = v6[4];
+    v6[4] = 0;
 
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 16);
-    *(v7 + 16) = 0;
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 16);
+    *(v8 + 16) = 0;
 
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 8);
-    *(v9 + 8) = 0;
+    v10 = *(a1 + 32);
+    v11 = *(v10 + 8);
+    *(v10 + 8) = 0;
 
-    v11 = *(a1 + 32);
-    if (*(v11 + 40) == 1)
+    v13 = *(a1 + 32);
+    if (*(v13 + 40) == 1)
     {
-      *(v11 + 40) = 0;
-      v12 = psy_log();
-      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+      *(v13 + 40) = 0;
+      v14 = psy_log(v12);
+      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-      if (v13)
+      if (v15)
       {
-        v14 = psy_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v17 = psy_log(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          *v15 = 0;
-          _os_log_impl(&dword_25DF25000, v14, OS_LOG_TYPE_DEFAULT, "PSYSyncSessionObserver - checking in following invalidation handler", v15, 2u);
+          *v18 = 0;
+          _os_log_impl(&dword_25DF25000, v17, OS_LOG_TYPE_DEFAULT, "PSYSyncSessionObserver - checking in following invalidation handler", v18, 2u);
         }
       }
 
@@ -154,16 +154,16 @@ void __48__PSYSyncSessionObserver__connectionInvalidated__block_invoke(uint64_t 
 
 void __55__PSYSyncSessionObserver__queue_loadConnectionIfNeeded__block_invoke(uint64_t a1)
 {
-  v2 = psy_log();
+  v2 = psy_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = psy_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = psy_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25DF25000, v4, OS_LOG_TYPE_DEFAULT, "PSYSyncSessionObserver connection invalidated", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25DF25000, v5, OS_LOG_TYPE_DEFAULT, "PSYSyncSessionObserver connection invalidated", v7, 2u);
     }
   }
 
@@ -201,16 +201,16 @@ void __55__PSYSyncSessionObserver__queue_loadConnectionIfNeeded__block_invoke(ui
 
 void __30__PSYSyncSessionObserver_init__block_invoke(uint64_t a1)
 {
-  v2 = psy_log();
+  v2 = psy_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = psy_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = psy_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25DF25000, v4, OS_LOG_TYPE_DEFAULT, "PSYSyncSessionObserver _daemonStarted", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25DF25000, v5, OS_LOG_TYPE_DEFAULT, "PSYSyncSessionObserver _daemonStarted", v7, 2u);
     }
   }
 
@@ -220,16 +220,16 @@ void __30__PSYSyncSessionObserver_init__block_invoke(uint64_t a1)
 
 - (void)willResignActive:(id)active
 {
-  v4 = psy_log();
+  v4 = psy_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = psy_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = psy_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25DF25000, v6, OS_LOG_TYPE_DEFAULT, "PairedSync Client: Will resign active! Invalidating progress connection.", buf, 2u);
+      _os_log_impl(&dword_25DF25000, v7, OS_LOG_TYPE_DEFAULT, "PairedSync Client: Will resign active! Invalidating progress connection.", buf, 2u);
     }
   }
 
@@ -244,16 +244,16 @@ void __30__PSYSyncSessionObserver_init__block_invoke(uint64_t a1)
 
 - (void)didBecomeActive:(id)active
 {
-  v4 = psy_log();
+  v4 = psy_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = psy_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = psy_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25DF25000, v6, OS_LOG_TYPE_DEFAULT, "PairedSync Client: Did become active! Possibly reconnecting to pairedsync...", buf, 2u);
+      _os_log_impl(&dword_25DF25000, v7, OS_LOG_TYPE_DEFAULT, "PairedSync Client: Did become active! Possibly reconnecting to pairedsync...", buf, 2u);
     }
   }
 
@@ -334,18 +334,18 @@ LABEL_9:
 {
   v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = psy_log();
+  v5 = psy_log(completionCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = psy_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = psy_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = MEMORY[0x25F8A84D0](completionCopy);
+      v9 = MEMORY[0x25F8A84D0](completionCopy);
       *buf = 134217984;
-      v15 = v8;
-      _os_log_impl(&dword_25DF25000, v7, OS_LOG_TYPE_DEFAULT, "PairedSync Client: Starting to observe sync session, completion=%p", buf, 0xCu);
+      v15 = v9;
+      _os_log_impl(&dword_25DF25000, v8, OS_LOG_TYPE_DEFAULT, "PairedSync Client: Starting to observe sync session, completion=%p", buf, 0xCu);
     }
   }
 
@@ -356,10 +356,8 @@ LABEL_9:
   v12[3] = &unk_2799FB818;
   v12[4] = self;
   v13 = completionCopy;
-  v10 = completionCopy;
+  v11 = completionCopy;
   dispatch_async(queue, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __67__PSYSyncSessionObserver_startObservingSyncSessionsWithCompletion___block_invoke(uint64_t a1)
@@ -409,36 +407,34 @@ void __67__PSYSyncSessionObserver_startObservingSyncSessionsWithCompletion___blo
   v8 = a2;
   v9 = a3;
   v10 = a4;
-  v11 = psy_log();
+  v11 = psy_log(v10);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
   if (v12)
   {
-    v13 = psy_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = psy_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v17 = 138543362;
       v18 = v8;
-      _os_log_impl(&dword_25DF25000, v13, OS_LOG_TYPE_DEFAULT, "Started observing sync session: %{public}@", &v17, 0xCu);
+      _os_log_impl(&dword_25DF25000, v14, OS_LOG_TYPE_DEFAULT, "Started observing sync session: %{public}@", &v17, 0xCu);
     }
   }
 
-  v14 = [*(a1 + 32) delegate];
+  v15 = [*(a1 + 32) delegate];
   [v8 setSupportsMigrationSync:objc_opt_respondsToSelector() & 1];
 
-  v15 = *(a1 + 32);
+  v16 = *(a1 + 32);
   if (*(a1 + 40))
   {
-    objc_storeStrong(v15 + 1, a2);
+    objc_storeStrong(v16 + 1, a2);
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    [v15 setCurrentSyncSession:v8];
+    [v16 setCurrentSyncSession:v8];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkin:(BOOL)_checkin
@@ -479,26 +475,26 @@ void __35__PSYSyncSessionObserver__checkin___block_invoke_2(uint64_t a1, void *a
 
       if (v6 == 4099)
       {
-        v7 = psy_log();
-        v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+        v8 = psy_log(v7);
+        v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
 
-        if (v8)
+        if (v9)
         {
-          v9 = psy_log();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v11 = psy_log(v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
-            __35__PSYSyncSessionObserver__checkin___block_invoke_2_cold_1(v9);
+            __35__PSYSyncSessionObserver__checkin___block_invoke_2_cold_1(v11);
           }
         }
 
-        v10 = *(a1 + 32);
-        v11 = *(v10 + 24);
+        v12 = *(a1 + 32);
+        v13 = *(v12 + 24);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __35__PSYSyncSessionObserver__checkin___block_invoke_17;
         block[3] = &unk_2799FB560;
-        block[4] = v10;
-        dispatch_async(v11, block);
+        block[4] = v12;
+        dispatch_async(v13, block);
       }
     }
 
@@ -551,7 +547,7 @@ void __35__PSYSyncSessionObserver__checkin___block_invoke_2(uint64_t a1, void *a
 
 void __47__PSYSyncSessionObserver_syncSessionWillStart___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 40) delegate];
   [*(a1 + 32) setSupportsMigrationSync:objc_opt_respondsToSelector() & 1];
 
@@ -562,23 +558,21 @@ void __47__PSYSyncSessionObserver_syncSessionWillStart___block_invoke(uint64_t a
     v4 = [*(a1 + 40) delegate];
     [v4 syncSessionObserver:*(a1 + 40) receivedSyncSession:*(a1 + 32)];
 
-    v5 = psy_log();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v6 = psy_log(v5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-    if (v6)
+    if (v7)
     {
-      v7 = psy_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = psy_log(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 32);
-        v10 = 138543362;
-        v11 = v8;
-        _os_log_impl(&dword_25DF25000, v7, OS_LOG_TYPE_DEFAULT, "syncSessionWillStart: %{public}@", &v10, 0xCu);
+        v10 = *(a1 + 32);
+        v11 = 138543362;
+        v12 = v10;
+        _os_log_impl(&dword_25DF25000, v9, OS_LOG_TYPE_DEFAULT, "syncSessionWillStart: %{public}@", &v11, 0xCu);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSyncSession:(id)session

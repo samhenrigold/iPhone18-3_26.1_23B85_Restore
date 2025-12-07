@@ -1,7 +1,7 @@
 @interface NSError(PKLAErrorExtensions)
 - (uint64_t)pk_isLAErrorAuthenticationFailed;
 - (uint64_t)pk_isLAErrorUserCancel;
-- (uint64_t)pk_shouldSuppressAfterAuthenticationPolicyWasLocationBased:()PKLAErrorExtensions;
+- (void)pk_shouldSuppressAfterAuthenticationPolicyWasLocationBased:()PKLAErrorExtensions;
 @end
 
 @implementation NSError(PKLAErrorExtensions)
@@ -32,7 +32,7 @@
   return v4;
 }
 
-- (uint64_t)pk_shouldSuppressAfterAuthenticationPolicyWasLocationBased:()PKLAErrorExtensions
+- (void)pk_shouldSuppressAfterAuthenticationPolicyWasLocationBased:()PKLAErrorExtensions
 {
   result = [self pk_isLAErrorUserCancel];
   if ((result & 1) == 0 && a3)

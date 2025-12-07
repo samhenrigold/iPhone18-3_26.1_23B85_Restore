@@ -23,7 +23,7 @@
   }
 
   v7.receiver = selfCopy;
-  v7.super_class = type metadata accessor for NotificationSettingsViewController();
+  v7.super_class = type metadata accessor for NotificationSettingsViewController(0);
   [(NotificationSettingsViewController *)&v7 dealloc];
 }
 

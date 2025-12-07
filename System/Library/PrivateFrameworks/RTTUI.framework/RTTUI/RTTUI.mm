@@ -1,6 +1,6 @@
-void sub_261726C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_261726C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -10,6 +10,13 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
+}
+
+void sub_2617274B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void *__getAXProcessIsInCallServiceSymbolLoc_block_invoke(uint64_t a1)
@@ -41,7 +48,7 @@ uint64_t AccessibilityUtilitiesLibrary()
   v1 = v3[0];
   if (!AccessibilityUtilitiesLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -54,7 +61,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke()
+uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityUtilitiesLibraryCore_frameworkLibrary = result;
@@ -70,9 +77,9 @@ void *__getAXProcessIsRTTNotificationContentExtensionSymbolLoc_block_invoke(uint
   return result;
 }
 
-void sub_261729B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_261729B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -95,44 +102,46 @@ void sub_26172A504(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t soft_AXProcessIsInCallService()
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
   v0 = getAXProcessIsInCallServiceSymbolLoc_ptr_0;
-  v7 = getAXProcessIsInCallServiceSymbolLoc_ptr_0;
+  v8 = getAXProcessIsInCallServiceSymbolLoc_ptr_0;
   if (!getAXProcessIsInCallServiceSymbolLoc_ptr_0)
   {
     v1 = AccessibilityUtilitiesLibrary_0();
-    v5[3] = dlsym(v1, "AXProcessIsInCallService");
-    getAXProcessIsInCallServiceSymbolLoc_ptr_0 = v5[3];
-    v0 = v5[3];
+    v6[3] = dlsym(v1, "AXProcessIsInCallService");
+    getAXProcessIsInCallServiceSymbolLoc_ptr_0 = v6[3];
+    v0 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
+  _Block_object_dispose(&v5, 8);
   if (!v0)
   {
-    v3 = [RTTUIConversationControllerCoordinator registerForCallUpdates:];
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    [RTTUIConversationControllerCoordinator registerForCallUpdates:];
+    v4 = v3;
+    _Block_object_dispose(&v5, 8);
+    _Unwind_Resume(v4);
   }
 
   return v0();
 }
 
-void sub_26172AF40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26172AF40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26172B66C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_26172B66C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  objc_destroyWeak((v33 + 32));
-  objc_destroyWeak((v34 - 96));
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v34 - 192), 8);
-  _Block_object_dispose((v34 - 144), 8);
+  va_start(va, a32);
+  objc_destroyWeak((v32 + 32));
+  objc_destroyWeak((v33 - 96));
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 192), 8);
+  _Block_object_dispose((v33 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -145,25 +154,26 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
 
 uint64_t soft_AXProcessIsRTTNotificationContentExtension()
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
   v0 = getAXProcessIsRTTNotificationContentExtensionSymbolLoc_ptr_0;
-  v7 = getAXProcessIsRTTNotificationContentExtensionSymbolLoc_ptr_0;
+  v8 = getAXProcessIsRTTNotificationContentExtensionSymbolLoc_ptr_0;
   if (!getAXProcessIsRTTNotificationContentExtensionSymbolLoc_ptr_0)
   {
     v1 = AccessibilityUtilitiesLibrary_0();
-    v5[3] = dlsym(v1, "AXProcessIsRTTNotificationContentExtension");
-    getAXProcessIsRTTNotificationContentExtensionSymbolLoc_ptr_0 = v5[3];
-    v0 = v5[3];
+    v6[3] = dlsym(v1, "AXProcessIsRTTNotificationContentExtension");
+    getAXProcessIsRTTNotificationContentExtensionSymbolLoc_ptr_0 = v6[3];
+    v0 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
+  _Block_object_dispose(&v5, 8);
   if (!v0)
   {
-    v3 = [RTTUIConversationControllerCoordinator registerForCallUpdates:];
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    [RTTUIConversationControllerCoordinator registerForCallUpdates:];
+    v4 = v3;
+    _Block_object_dispose(&v5, 8);
+    _Unwind_Resume(v4);
   }
 
   return v0();
@@ -190,24 +200,24 @@ void sub_2617331FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2617333A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2617333A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2617337B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2617337B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  _Block_object_dispose((v8 - 80), 8);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  _Block_object_dispose((v15 - 80), 8);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -238,7 +248,7 @@ Class __getLPLinkMetadataClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -256,7 +266,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __LinkPresentationLibraryCore_block_invoke()
+uint64_t __LinkPresentationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   LinkPresentationLibraryCore_frameworkLibrary = result;
@@ -292,7 +302,7 @@ uint64_t AccessibilityUtilitiesLibrary_0()
   v1 = v3[0];
   if (!AccessibilityUtilitiesLibraryCore_frameworkLibrary_0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -305,7 +315,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke_0()
+uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityUtilitiesLibraryCore_frameworkLibrary_0 = result;
@@ -366,7 +376,7 @@ void *__getAXUIKeyboardIsOnScreenSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -381,7 +391,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __AccessibilityUIUtilitiesLibraryCore_block_invoke()
+uint64_t __AccessibilityUIUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityUIUtilitiesLibraryCore_frameworkLibrary = result;
@@ -413,7 +423,7 @@ Class __getDDParsecCollectionViewControllerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -431,7 +441,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __DataDetectorsUILibraryCore_block_invoke()
+uint64_t __DataDetectorsUILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   DataDetectorsUILibraryCore_frameworkLibrary = result;
@@ -444,42 +454,44 @@ id OUTLINED_FUNCTION_0(id a1)
   return a1;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t Soft_AXProcessIsRTTNotificationContentExtension()
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
   v0 = getAXProcessIsRTTNotificationContentExtensionSymbolLoc_ptr_1;
-  v7 = getAXProcessIsRTTNotificationContentExtensionSymbolLoc_ptr_1;
+  v8 = getAXProcessIsRTTNotificationContentExtensionSymbolLoc_ptr_1;
   if (!getAXProcessIsRTTNotificationContentExtensionSymbolLoc_ptr_1)
   {
-    v3[0] = MEMORY[0x277D85DD0];
-    v3[1] = 3221225472;
-    v3[2] = __getAXProcessIsRTTNotificationContentExtensionSymbolLoc_block_invoke_1;
-    v3[3] = &unk_279AE4F10;
-    v3[4] = &v4;
-    __getAXProcessIsRTTNotificationContentExtensionSymbolLoc_block_invoke_1(v3);
-    v0 = v5[3];
+    v4[0] = MEMORY[0x277D85DD0];
+    v4[1] = 3221225472;
+    v4[2] = __getAXProcessIsRTTNotificationContentExtensionSymbolLoc_block_invoke_1;
+    v4[3] = &unk_279AE4F10;
+    v4[4] = &v5;
+    __getAXProcessIsRTTNotificationContentExtensionSymbolLoc_block_invoke_1(v4);
+    v0 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
+  _Block_object_dispose(&v5, 8);
   if (!v0)
   {
-    v2 = [RTTUIConversationControllerCoordinator registerForCallUpdates:];
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v2);
+    [RTTUIConversationControllerCoordinator registerForCallUpdates:];
+    v3 = v2;
+    _Block_object_dispose(&v5, 8);
+    _Unwind_Resume(v3);
   }
 
   return v0();
 }
 
-uint64_t __UIAccessibilityLibraryCore_block_invoke()
+uint64_t __UIAccessibilityLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   UIAccessibilityLibraryCore_frameworkLibrary = result;
@@ -512,7 +524,7 @@ void *__getAXProcessIsRTTNotificationContentExtensionSymbolLoc_block_invoke_1(ui
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -527,7 +539,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke_1()
+uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityUtilitiesLibraryCore_frameworkLibrary_1 = result;
@@ -545,10 +557,11 @@ id ttyImageNamed(void *a1)
   return v5;
 }
 
-void sub_261738448(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_261738448(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
-  objc_destroyWeak((v19 + 40));
-  _Block_object_dispose(&a19, 8);
+  va_start(va, location);
+  objc_destroyWeak((v18 + 40));
+  _Block_object_dispose(va, 8);
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
@@ -560,9 +573,9 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_261738724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_261738724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -574,17 +587,17 @@ void sub_26173AA44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26173CF84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26173CF84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *__getAXUIKeyboardIsOnScreenSymbolLoc_block_invoke_0(uint64_t a1)
+void *__getAXUIKeyboardIsOnScreenSymbolLoc_block_invoke_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = AccessibilityUIUtilitiesLibrary();
-  result = dlsym(v2, "AXUIKeyboardIsOnScreen");
+  v5 = AccessibilityUIUtilitiesLibrary();
+  result = dlsym(v5, "AXUIKeyboardIsOnScreen");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAXUIKeyboardIsOnScreenSymbolLoc_ptr_0 = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -610,7 +623,7 @@ uint64_t AccessibilityUIUtilitiesLibrary()
   v1 = v3[0];
   if (!AccessibilityUIUtilitiesLibraryCore_frameworkLibrary_0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -623,7 +636,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __AccessibilityUIUtilitiesLibraryCore_block_invoke_0()
+uint64_t __AccessibilityUIUtilitiesLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityUIUtilitiesLibraryCore_frameworkLibrary_0 = result;

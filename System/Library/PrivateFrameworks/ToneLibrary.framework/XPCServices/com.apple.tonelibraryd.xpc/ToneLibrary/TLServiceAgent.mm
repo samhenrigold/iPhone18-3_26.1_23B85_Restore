@@ -185,91 +185,93 @@ LABEL_17:
   v6 = [pathComponents count];
   if (v6 >= 2)
   {
-    v7 = [pathComponents subarrayWithRange:{0, v6 - 1}];
-    if (v7)
+    v6 = [pathComponents subarrayWithRange:{0, v6 - 1}];
+    if (v6)
     {
-      v8 = v7;
-      v9 = [NSString pathWithComponents:v7];
+      v8 = v6;
+      v9 = [NSString pathWithComponents:v6];
 
       if (v9)
       {
         v10 = +[NSFileManager defaultManager];
-        v20 = 0;
-        if ([v10 fileExistsAtPath:v9 isDirectory:&v20] && v20 == 1)
+        v25 = 0;
+        v11 = [v10 fileExistsAtPath:v9 isDirectory:&v25];
+        if (v11 && v25 == 1)
         {
-          v11 = TLLogVibrationManagement();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v13 = TLLogVibrationManagement(v11, v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "The directory containing user generated vibration store already exists.", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "The directory containing user generated vibration store already exists.", buf, 2u);
           }
 
           goto LABEL_23;
         }
 
-        v18 = 0;
-        v14 = [v10 createDirectoryAtPath:v9 withIntermediateDirectories:1 attributes:0 error:&v18];
-        v15 = v18;
-        v11 = v15;
-        if (v14)
+        v23 = 0;
+        v16 = [v10 createDirectoryAtPath:v9 withIntermediateDirectories:1 attributes:0 error:&v23];
+        v17 = v23;
+        v13 = v17;
+        if (v16)
         {
-          v16 = v15 == 0;
+          v19 = v17 == 0;
         }
 
         else
         {
-          v16 = 0;
+          v19 = 0;
         }
 
-        if (v16)
+        if (v19)
         {
-          v20 = 0;
-          if ([v10 fileExistsAtPath:v9 isDirectory:&v20] && (v20 & 1) != 0)
+          v25 = 0;
+          v21 = [v10 fileExistsAtPath:v9 isDirectory:&v25];
+          if (v21 && (v25 & 1) != 0)
           {
 LABEL_23:
-            v12 = 1;
+            v14 = 1;
 LABEL_27:
 
             goto LABEL_11;
           }
 
-          v17 = TLLogVibrationManagement();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v20 = TLLogVibrationManagement(v21, v22);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            sub_100003A24(v17);
+            sub_100003A24(v20);
           }
         }
 
         else
         {
-          v17 = TLLogVibrationManagement();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v20 = TLLogVibrationManagement(v17, v18);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            sub_1000039AC(v11, v17);
+            sub_1000039AC(v13, v20);
           }
         }
 
-        v12 = 0;
+        v14 = 0;
         goto LABEL_27;
       }
     }
   }
 
-  v9 = TLLogVibrationManagement();
+  v9 = TLLogVibrationManagement(v6, v7);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     sub_100003A68(v9);
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_11:
 
-  if (error && !v12)
+  if (error && !v14)
   {
     *error = [NSError tl_errorWithDomain:@"TLServicePersistenceErrorDomain" description:@"Failed to create directory containing store file for user generated vibration: %@.", v4];
   }
 
-  return v12;
+  return v14;
 }
 
 - (void)_postUserGeneratedVibrationPatternsDidChangeNotification
@@ -320,30 +322,31 @@ LABEL_11:
   connectionCopy = connection;
   v6 = [(TLServiceAgent *)self _connectionHasUserGeneratedVibrationPatternsReadAccessEntitlement:connectionCopy];
   v7 = v6 | [(TLServiceAgent *)self _connectionHasUserGeneratedVibrationPatternsWriteAccessEntitlement:connectionCopy];
-  v8 = [(TLServiceAgent *)self _connectionHasTonePreferencesReadAccessEntitlement:connectionCopy];
-  v9 = v7 | v8 | [(TLServiceAgent *)self _connectionHasTonePreferencesWriteAccessEntitlement:connectionCopy];
-  if (v9)
+  LOBYTE(v6) = [(TLServiceAgent *)self _connectionHasTonePreferencesReadAccessEntitlement:connectionCopy];
+  v8 = [(TLServiceAgent *)self _connectionHasTonePreferencesWriteAccessEntitlement:connectionCopy];
+  v10 = v7 | v6 | v8;
+  if (v10)
   {
-    v10 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___TLServiceAgentInterface];
-    v11 = objc_opt_class();
-    v12 = [NSSet setWithObjects:v11, objc_opt_class(), 0];
-    [v10 setClasses:v12 forSelector:"retrieveCurrentTonePreferencesWithCompletionHandler:" argumentIndex:0 ofReply:1];
+    v11 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___TLServiceAgentInterface];
+    v12 = objc_opt_class();
+    v13 = [NSSet setWithObjects:v12, objc_opt_class(), 0];
+    [v11 setClasses:v13 forSelector:"retrieveCurrentTonePreferencesWithCompletionHandler:" argumentIndex:0 ofReply:1];
 
-    [connectionCopy setExportedInterface:v10];
+    [connectionCopy setExportedInterface:v11];
     [connectionCopy setExportedObject:self];
     [connectionCopy resume];
   }
 
   else
   {
-    v13 = TLLogGeneral();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = TLLogGeneral(v8, v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_100003AAC(connectionCopy, v13);
+      sub_100003AAC(connectionCopy, v14);
     }
   }
 
-  return v9;
+  return v10;
 }
 
 @end

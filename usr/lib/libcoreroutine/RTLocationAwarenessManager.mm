@@ -2183,36 +2183,36 @@ void __58__RTLocationAwarenessManager_hourlySingleShotWithHandler___block_invoke
   dispatch_async(v4, v8);
 }
 
-void __58__RTLocationAwarenessManager_hourlySingleShotWithHandler___block_invoke_3(uint64_t a1)
+void __58__RTLocationAwarenessManager_hourlySingleShotWithHandler___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) == 2)
   {
-    v2 = [objc_opt_class() powerAssertion];
-    [*(a1 + 32) setXpcActivityPowerAssertion:v2];
+    v3 = [objc_opt_class() powerAssertion];
+    [*(a1 + 32) setXpcActivityPowerAssertion:v3];
 
-    v3 = [*(a1 + 32) locationManager];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __58__RTLocationAwarenessManager_hourlySingleShotWithHandler___block_invoke_64;
-    v7[3] = &unk_2788C8318;
-    v4 = *(a1 + 40);
-    v7[4] = *(a1 + 32);
-    v8 = v4;
-    [v3 fetchCurrentLocationWithHandler:v7];
+    v4 = [*(a1 + 32) locationManager];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __58__RTLocationAwarenessManager_hourlySingleShotWithHandler___block_invoke_64;
+    v8[3] = &unk_2788C8318;
+    v5 = *(a1 + 40);
+    v8[4] = *(a1 + 32);
+    v9 = v5;
+    [v4 fetchCurrentLocationWithHandler:v8];
   }
 
   else
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v5 = _rt_log_facility_get_os_log(RTLogFacilityLocationAwareness);
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = _rt_log_facility_get_os_log(RTLogFacilityLocationAwareness);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        v6 = NSStringFromSelector(*(a1 + 56));
+        v7 = NSStringFromSelector(*(a1 + 56));
         *buf = 138412290;
-        v10 = v6;
-        _os_log_debug_impl(&dword_2304B3000, v5, OS_LOG_TYPE_DEBUG, "%@, wifi requirement not satisfied, defer hourly single shot", buf, 0xCu);
+        v11 = v7;
+        _os_log_debug_impl(&dword_2304B3000, v6, OS_LOG_TYPE_DEBUG, "%@, wifi requirement not satisfied, defer hourly single shot", buf, 0xCu);
       }
     }
 
@@ -2383,48 +2383,48 @@ uint64_t __58__RTLocationAwarenessManager_hourlySingleShotWithHandler___block_in
   dispatch_async(v7, v6);
 }
 
-void __60__RTLocationAwarenessManager_onLeechedLocationNotification___block_invoke(uint64_t a1)
+void __60__RTLocationAwarenessManager_onLeechedLocationNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v2 = [*(a1 + 32) leechedLocations];
-    v21 = 0u;
+    v3 = [*(a1 + 32) leechedLocations];
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v3 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
-    if (v3)
+    v25 = 0u;
+    v4 = [v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    if (v4)
     {
-      v4 = v3;
-      v5 = 0;
-      v6 = *v22;
+      v5 = v4;
+      v6 = 0;
+      v7 = *v23;
       do
       {
-        for (i = 0; i != v4; ++i)
+        for (i = 0; i != v5; ++i)
         {
-          if (*v22 != v6)
+          if (*v23 != v7)
           {
-            objc_enumerationMutation(v2);
+            objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v21 + 1) + 8 * i);
-          if ([*(a1 + 40) validLocation:v8] && (!v5 || (objc_msgSend(v5, "timestamp"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "timestamp"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "compare:", v10), v10, v9, v11 == -1)))
+          v9 = *(*(&v22 + 1) + 8 * i);
+          if ([*(a1 + 40) validLocation:v9] && (!v6 || (objc_msgSend(v6, "timestamp"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "timestamp"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "compare:", v11), v11, v10, v12 == -1)))
           {
-            v13 = v8;
+            v14 = v9;
 
-            v5 = v13;
+            v6 = v14;
           }
 
           else
           {
-            v12 = [*(a1 + 40) activeOnset];
-            if (v12 && ([*(a1 + 40) activeRequestCoarseLocationReceived] & 1) == 0)
+            v13 = [*(a1 + 40) activeOnset];
+            if (v13 && ([*(a1 + 40) activeRequestCoarseLocationReceived] & 1) == 0)
             {
-              v14 = [*(a1 + 40) coarseLocation:v8];
+              v15 = [*(a1 + 40) coarseLocation:v9];
 
-              if (v14)
+              if (v15)
               {
                 [*(a1 + 40) setActiveRequestCoarseLocationReceived:1];
               }
@@ -2436,35 +2436,35 @@ void __60__RTLocationAwarenessManager_onLeechedLocationNotification___block_invo
           }
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
-      while (v4);
-      [*(a1 + 40) updateLocationAwarenessHistogramsWithLocations:v2];
-      if (v5)
+      while (v5);
+      [*(a1 + 40) updateLocationAwarenessHistogramsWithLocations:v3];
+      if (v6)
       {
-        v15 = [*(a1 + 40) lastValidLocation];
-        if (!v15 || (v16 = v15, [v5 timestamp], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 40), "lastValidLocation"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "timestamp"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v17, "compare:", v19), v19, v18, v17, v16, v20 == 1))
+        v16 = [*(a1 + 40) lastValidLocation];
+        if (!v16 || (v17 = v16, [v6 timestamp], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 40), "lastValidLocation"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "timestamp"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v18, "compare:", v20), v20, v19, v18, v17, v21 == 1))
         {
-          [*(a1 + 40) setLastValidLocation:v5];
+          [*(a1 + 40) setLastValidLocation:v6];
         }
       }
     }
 
     else
     {
-      [*(a1 + 40) updateLocationAwarenessHistogramsWithLocations:v2];
-      v5 = 0;
+      [*(a1 + 40) updateLocationAwarenessHistogramsWithLocations:v3];
+      v6 = 0;
     }
   }
 
   else
   {
-    v2 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2304B3000, v2, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [notification isKindOfClass:[RTLocationManagerNotificationLocationsLeeched class]]", buf, 2u);
+      _os_log_error_impl(&dword_2304B3000, v3, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [notification isKindOfClass:[RTLocationManagerNotificationLocationsLeeched class]]", buf, 2u);
     }
   }
 }

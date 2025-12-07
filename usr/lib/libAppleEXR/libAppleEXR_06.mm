@@ -4603,7 +4603,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                 v51 = xmmword_296B8F000;
                 do
                 {
-                  v255.val[0] = v50;
+                  v255 = v50;
                   v285.val[1] = *(v272[0] + v60 - 32);
                   v295.val[1] = *(v272[0] + v60 - 16);
                   v286.val[1] = *(v52 + v60 - 32);
@@ -4748,10 +4748,10 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   v36 = vaddq_s32(vaddq_s32(vdupq_lane_s32(*v295.val[0].i8, 1), v295.val[0]), vaddq_s32(vdupq_lane_s32(*v279.val[0].i8, 1), v279.val[0]));
                   v41 = vaddq_s32(v42, vaddq_s32(vdupq_lane_s32(*v286.val[1].i8, 1), v286.val[1]));
                   v35 = vaddq_s32(vaddq_s32(v41, vaddq_s32(vaddq_s32(vdupq_lane_s32(*v297.val[0].i8, 1), v297.val[0]), v43)), vaddq_s32(vaddq_s32(vaddq_s32(vdupq_lane_s32(*v82.i8, 1), v82), vaddq_s32(vdupq_lane_s32(*v297.val[1].i8, 1), v297.val[1])), v36));
-                  v50.i64[1] = v255.val[0].i64[1];
+                  v50.i64[1] = v255.i64[1];
                   *v36.i8 = vadd_s32(vadd_s32(*v286.val[0].i8, *v37.i8), vadd_s32(vadd_s32(vadd_s32(*v38.i8, *&vextq_s8(v38, v38, 8uLL)), vadd_s32(*v248.i8, *&vextq_s8(v248, v248, 8uLL))), vadd_s32(vadd_s32(*v253.i8, *&vextq_s8(v253, v253, 8uLL)), vadd_s32(*v251.i8, *&vextq_s8(v251, v251, 8uLL)))));
                   *v35.i8 = vzip2_s32(*v36.i8, vadd_s32(*v40.i8, *v39.i8));
-                  *v50.i8 = vadd_s32(*v35.i8, *v255.val[0].i8);
+                  *v50.i8 = vadd_s32(*v35.i8, *v255.i8);
                   v48 += v35.u32[3];
                   v60 += 32;
                 }
@@ -5011,7 +5011,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   v145 = vdupq_lane_s32(*v143.i8, 1);
                   v145.i64[0] = 0;
                   v146 = vaddq_s32(v145, v143);
-                  v147 = vdupq_lane_s32(*v282.val[0].i8, 1);
+                  v147 = vdupq_lane_s32(*v282.val[0].f32, 1);
                   v147.i64[0] = 0;
                   v307.val[0] = vdupq_lane_s32(*v283.val[1].i8, 1);
                   v282.val[0] = vaddq_s32(v147, v282.val[0]);
@@ -5047,7 +5047,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   v283.val[0] = vaddq_s32(vshlq_n_s64(v294.val[0], 0x20uLL), v294.val[0]);
                   v282.val[1] = vaddq_s32(vshlq_n_s64(v282.val[1], 0x20uLL), v282.val[1]);
                   v152 = vaddq_s32(vaddq_s32(vdupq_laneq_s32(v146, 3), v298.val[1]), v283.val[1]);
-                  v283.val[1] = vdupq_lane_s32(*v282.val[1].i8, 1);
+                  v283.val[1] = vdupq_lane_s32(*v282.val[1].f32, 1);
                   v283.val[1].i64[0] = 0;
                   v294.val[0] = vdupq_lane_s32(*v283.val[0].i8, 1);
                   v282.val[1] = vaddq_s32(v283.val[1], v282.val[1]);
@@ -5066,7 +5066,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   v282.val[1] = vaddq_s32(vshlq_n_s64(v282.val[1], 0x20uLL), v282.val[1]);
                   v283.val[0] = vaddq_s32(vshlq_n_s64(v283.val[0], 0x20uLL), v283.val[0]);
                   v153 = vdupq_lane_s32(*v283.val[0].i8, 1);
-                  v294.val[0] = vdupq_lane_s32(*v282.val[1].i8, 1);
+                  v294.val[0] = vdupq_lane_s32(*v282.val[1].f32, 1);
                   v294.val[0].i64[0] = 0;
                   v153.i64[0] = 0;
                   v43 = vdupq_laneq_s32(v152, 3);
@@ -5162,7 +5162,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   v44 = v257;
                   v282.val[1] = vqtbl2q_s8(v244, xmmword_296B8F020);
                   v282.val[1] = vaddq_s32(vshlq_n_s64(v282.val[1], 0x20uLL), v282.val[1]);
-                  v41 = vdupq_lane_s32(*v282.val[1].i8, 1);
+                  v41 = vdupq_lane_s32(*v282.val[1].f32, 1);
                   v41.i64[0] = 0;
                   v282.val[1] = vaddq_s32(vaddq_s32(vdupq_laneq_s32(v169, 3), vaddq_s32(v41, v282.val[1])), v287.val[0]);
                   v172 = v252.val[0];

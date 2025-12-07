@@ -9,12 +9,10 @@
 
 - (NSString)coreAnalyticsEventName
 {
-  v2 = *(self + OBJC_IVAR____TtC13HomeKitDaemon33ThermostatSuggestedPresetLogEvent_coreAnalyticsEventName);
-  v3 = *(self + OBJC_IVAR____TtC13HomeKitDaemon33ThermostatSuggestedPresetLogEvent_coreAnalyticsEventName + 8);
 
-  v4 = sub_22A4DD5AC();
+  v2 = sub_22A4DD5AC();
 
-  return v4;
+  return v2;
 }
 
 - (NSDictionary)coreAnalyticsEventDictionary

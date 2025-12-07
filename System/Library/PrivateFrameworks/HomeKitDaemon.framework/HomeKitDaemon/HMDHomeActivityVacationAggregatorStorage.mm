@@ -20,10 +20,9 @@
 
 void __55__HMDHomeActivityVacationAggregatorStorage_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_161465;
-  logCategory__hmf_once_v3_161465 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_161465;
+  logCategory__hmf_once_v3_161465 = v0;
 }
 
 - (id)userActivityReportWithActivityStatus:(id)status user:(id)user
@@ -45,7 +44,7 @@ void __55__HMDHomeActivityVacationAggregatorStorage_logCategory__block_invoke()
 
 - (void)updateMKFUserActivityStatus:(id)status withReport:(id)report
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   reportCopy = report;
   v8 = +[HMCContext currentContext];
@@ -91,12 +90,12 @@ void __55__HMDHomeActivityVacationAggregatorStorage_logCategory__block_invoke()
   v19 = [lastReportTimestamp dateByAddingTimeInterval:3600.0];
   [v9 lastUpdateTimestamp];
   v21 = v20 = self;
-  v33 = [v19 compare:v21];
+  v32 = [v19 compare:v21];
 
   v22 = v20;
   v13 = 0x277CCA000;
 
-  if (v33 == -1)
+  if (v32 == -1)
   {
 LABEL_13:
     lastUpdateTimestamp = [v11 lastUpdateTimestamp];
@@ -121,14 +120,12 @@ LABEL_13:
   {
     v26 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v35 = v26;
+    v34 = v26;
     _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Not storing activity report because the lastUpdateTimestamp is within the update interval", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v23);
 LABEL_14:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 @end

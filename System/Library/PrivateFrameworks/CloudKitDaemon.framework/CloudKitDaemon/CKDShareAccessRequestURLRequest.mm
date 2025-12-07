@@ -28,38 +28,37 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
 
 - (id)generateRequestOperations
 {
-  v50 = *MEMORY[0x277D85DE8];
-  v44 = objc_opt_new();
+  v49 = *MEMORY[0x277D85DE8];
+  v43 = objc_opt_new();
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   obj = objc_msgSend_shareMetadatasToRequestAccess(self, v3, v4);
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v45, v49, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v44, v48, 16);
   if (v6)
   {
     v9 = v6;
-    v10 = *v46;
+    v10 = *v45;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v46 != v10)
+        if (*v45 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v45 + 1) + 8 * i);
+        v12 = *(*(&v44 + 1) + 8 * i);
         v13 = objc_msgSend_operationType(self, v7, v8);
         v15 = objc_msgSend_operationRequestWithType_(self, v14, v13);
         v16 = objc_opt_new();
@@ -78,18 +77,16 @@
         v38 = objc_msgSend_operationUUID(v35, v36, v37);
         objc_msgSend_setObject_forKeyedSubscript_(v32, v39, v12, v38);
 
-        objc_msgSend_addObject_(v44, v40, v15);
+        objc_msgSend_addObject_(v43, v40, v15);
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v45, v49, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v44, v48, 16);
     }
 
     while (v9);
   }
 
-  v41 = *MEMORY[0x277D85DE8];
-
-  return v44;
+  return v43;
 }
 
 - (id)requestDidParseProtobufObject:(id)object

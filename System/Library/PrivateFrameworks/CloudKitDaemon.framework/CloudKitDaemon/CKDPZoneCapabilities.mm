@@ -266,7 +266,6 @@ LABEL_8:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    atomicSaves = self->_atomicSaves;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 8) == 0)
@@ -286,7 +285,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  fetchChanges = self->_fetchChanges;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -301,7 +299,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  ckql = self->_ckql;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -316,7 +313,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  sharingType = self->_sharingType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -331,12 +327,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  zoneSharing = self->_zoneSharing;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_7:
-    hierarchicalSharing = self->_hierarchicalSharing;
     PBDataWriterWriteBOOLField();
   }
 
@@ -528,7 +522,6 @@ LABEL_7:
       goto LABEL_39;
     }
 
-    v7 = *(equalCopy + 12);
     if (self->_atomicSaves)
     {
       if ((*(equalCopy + 12) & 1) == 0)
@@ -555,7 +548,6 @@ LABEL_7:
       goto LABEL_39;
     }
 
-    v8 = *(equalCopy + 14);
     if (self->_fetchChanges)
     {
       if ((*(equalCopy + 14) & 1) == 0)
@@ -582,7 +574,6 @@ LABEL_7:
       goto LABEL_39;
     }
 
-    v9 = *(equalCopy + 13);
     if (self->_ckql)
     {
       if ((*(equalCopy + 13) & 1) == 0)
@@ -622,7 +613,6 @@ LABEL_7:
       goto LABEL_39;
     }
 
-    v12 = *(equalCopy + 16);
     if (self->_zoneSharing)
     {
       if ((*(equalCopy + 16) & 1) == 0)
@@ -642,7 +632,7 @@ LABEL_7:
     goto LABEL_39;
   }
 
-  v10 = (*(equalCopy + 20) & 0x10) == 0;
+  v7 = (*(equalCopy + 20) & 0x10) == 0;
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 20) & 0x10) != 0)
@@ -658,18 +648,18 @@ LABEL_7:
       else if (!*(equalCopy + 15))
       {
 LABEL_47:
-        v10 = 1;
+        v7 = 1;
         goto LABEL_40;
       }
     }
 
 LABEL_39:
-    v10 = 0;
+    v7 = 0;
   }
 
 LABEL_40:
 
-  return v10;
+  return v7;
 }
 
 - (unint64_t)hash

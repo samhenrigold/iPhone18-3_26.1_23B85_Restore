@@ -19,6 +19,7 @@
 - (SRSensorWriter)initWithIdentifier:(id)identifier xpcConnection:(id)connection daemonNotification:(id)notification authStore:(id)store tccStore:(id)tccStore;
 - (id)chooseAuthStore;
 - (void)_requestWriterAuthorizationWithCompletion:(id)completion;
+- (void)authorizedServicesDidChange:(id)change deniedServices:(id)services dataCollectionEnabled:(BOOL)enabled onboardingCompleted:(BOOL)completed lastModifiedTimes:(id)times forBundleIdentifier:(id)identifier;
 - (void)bundleEligibility:(id)eligibility completion:(id)completion;
 - (void)checkForMonitoring;
 - (void)daemonForcedResetDatastoreFiles:(id)files;
@@ -28,6 +29,7 @@
 - (void)dealloc;
 - (void)didReceiveUpdateToConfigurationRequests;
 - (void)evaluateAuthorizationState;
+- (void)evaluateAuthorizationStateWithNewValue:(BOOL)value;
 - (void)flushDatabase;
 - (void)registerWithDaemonForWritingIfNeededWithReply:(id)reply;
 - (void)requestNewSegment;
@@ -107,10 +109,10 @@
 
 - (SRSensorWriter)initWithIdentifier:(id)identifier xpcConnection:(id)connection daemonNotification:(id)notification authStore:(id)store tccStore:(id)tccStore
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = SRSensorWriter;
-  v12 = [(SRSensorWriter *)&v22 init];
+  v24 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = SRSensorWriter;
+  v12 = [(SRSensorWriter *)&v21 init];
   if (v12)
   {
     if ([identifier length])
@@ -183,11 +185,10 @@
     else
     {
 
-      v12 = 0;
+      return 0;
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -221,35 +222,35 @@
 
 - (id)chooseAuthStore
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = [+[SRSensorDescription sensorDescriptionForSensor:](SRSensorDescription sensorDescriptionForSensor:{self->_sensorIdentifier), "authorizationStoreCohort"}];
   if (v3)
   {
     v4 = v3;
     v5 = [objc_alloc(MEMORY[0x277CBEB58]) initWithObjects:{self->_sensorIdentifier, 0}];
     v6 = objc_autoreleasePoolPush();
+    v19 = 0u;
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
     v7 = +[SRSensorsCache defaultCache];
     allSensorDescriptions = [(SRSensorsCache *)v7 allSensorDescriptions];
-    v9 = [allSensorDescriptions countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [allSensorDescriptions countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v20;
       do
       {
         v12 = 0;
         do
         {
-          if (*v22 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(allSensorDescriptions);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * v12);
+          v13 = *(*(&v19 + 1) + 8 * v12);
           v14 = objc_autoreleasePoolPush();
           if ([v4 isEqualToString:{objc_msgSend(v13, "authorizationStoreCohort")}])
           {
@@ -261,7 +262,7 @@
         }
 
         while (v10 != v12);
-        v10 = [allSensorDescriptions countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [allSensorDescriptions countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v10);
@@ -270,17 +271,15 @@
     objc_autoreleasePoolPop(v6);
     v15 = [SRAuthorizationStore sharedAuthorizationStoreForSensors:v5];
 
-    v16 = *MEMORY[0x277D85DE8];
     return v15;
   }
 
   else
   {
-    v18 = [SRAuthorizationStore alloc];
-    v19 = -[SRAuthorizationStore initWithSensors:withAuthorizationTimes:](v18, "initWithSensors:withAuthorizationTimes:", [MEMORY[0x277CBEB98] setWithObject:self->_sensorIdentifier], 0);
-    v20 = *MEMORY[0x277D85DE8];
+    v17 = [SRAuthorizationStore alloc];
+    v18 = -[SRAuthorizationStore initWithSensors:withAuthorizationTimes:](v17, "initWithSensors:withAuthorizationTimes:", [MEMORY[0x277CBEB98] setWithObject:self->_sensorIdentifier], 0);
 
-    return v19;
+    return v18;
   }
 }
 
@@ -315,19 +314,17 @@
 
 void __51__SRSensorWriter_daemonNotificationDaemonDidStart___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = SRLogWriter;
     if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = a2;
-      _os_log_error_impl(&dword_26561F000, v3, OS_LOG_TYPE_ERROR, "Failed to connect to daemon because %{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = a2;
+      _os_log_error_impl(&dword_26561F000, v3, OS_LOG_TYPE_ERROR, "Failed to connect to daemon because %{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)daemonNotificationDaemonDidChangeTimeSignificantly:(id)significantly
@@ -442,19 +439,17 @@ uint64_t __33__SRSensorWriter_setupConnection__block_invoke_63(uint64_t a1)
 
 void __36__SRSensorWriter_checkForMonitoring__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = SRLogWriter;
     if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138543362;
-      v6 = a2;
-      _os_log_error_impl(&dword_26561F000, v3, OS_LOG_TYPE_ERROR, "Failed to connect to daemon because %{public}@", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = a2;
+      _os_log_error_impl(&dword_26561F000, v3, OS_LOG_TYPE_ERROR, "Failed to connect to daemon because %{public}@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerWithDaemonForWritingIfNeededWithReply:(id)reply
@@ -498,44 +493,39 @@ uint64_t __64__SRSensorWriter_registerWithDaemonForWritingIfNeededWithReply___bl
 
 - (void)daemonForcedResetDatastoreFiles:(id)files
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if (![files objectForKeyedSubscript:0x287700DB0])
+  v9 = *MEMORY[0x277D85DE8];
+  if ([files objectForKeyedSubscript:0x287700DB0])
   {
-    v6 = SRLogWriter;
+    [(SRSensorWriter *)self resetDatastoreFiles:files];
+    if ([files count] && -[NSArray count](-[SRSensorWriter _requestedConfigurations](self, "_requestedConfigurations"), "count"))
+    {
+
+      [(SRSensorWriter *)self didReceiveUpdateToConfigurationRequests];
+    }
+  }
+
+  else
+  {
+    v5 = SRLogWriter;
     if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_DEFAULT))
     {
       sensorIdentifier = self->_sensorIdentifier;
-      v9 = 138543362;
-      v10 = sensorIdentifier;
-      _os_log_impl(&dword_26561F000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Daemon is resetting the writer datastore, asking for a new segment", &v9, 0xCu);
+      v7 = 138543362;
+      v8 = sensorIdentifier;
+      _os_log_impl(&dword_26561F000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Daemon is resetting the writer datastore, asking for a new segment", &v7, 0xCu);
     }
 
     [(SRSensorWriter *)self requestNewSegment];
-    goto LABEL_10;
   }
-
-  [(SRSensorWriter *)self resetDatastoreFiles:files];
-  if (![files count] || !-[NSArray count](-[SRSensorWriter _requestedConfigurations](self, "_requestedConfigurations"), "count"))
-  {
-LABEL_10:
-    v8 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
-
-  [(SRSensorWriter *)self didReceiveUpdateToConfigurationRequests];
 }
 
 - (SRDatastore)datastore
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   nextDatastoreFiles = [(SRSensorWriter *)self nextDatastoreFiles];
   if (!nextDatastoreFiles)
   {
-LABEL_19:
-    result = self->_datastore;
-    goto LABEL_23;
+    return self->_datastore;
   }
 
   v4 = nextDatastoreFiles;
@@ -552,15 +542,15 @@ LABEL_19:
   {
     sensorIdentifier = self->_sensorIdentifier;
     *buf = 138544386;
-    v23 = sensorIdentifier;
-    v24 = 2114;
-    v25 = v5;
-    v26 = 2114;
-    v27 = v6;
-    v28 = 2114;
-    v29 = v7;
-    v30 = 2114;
-    v31 = v8;
+    v22 = sensorIdentifier;
+    v23 = 2114;
+    v24 = v5;
+    v25 = 2114;
+    v26 = v6;
+    v27 = 2114;
+    v28 = v7;
+    v29 = 2114;
+    v30 = v8;
     _os_log_impl(&dword_26561F000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Creating a new datastore with samples: %{public}@, metadata: %{public}@, configuration: %{public}@, defaults: %{public}@", buf, 0x34u);
   }
 
@@ -582,7 +572,7 @@ LABEL_19:
       {
         lastMetadata = self->_lastMetadata;
         *buf = 138412290;
-        v23 = lastMetadata;
+        v22 = lastMetadata;
         _os_log_impl(&dword_26561F000, v12, OS_LOG_TYPE_INFO, "Carrying over previous metadata: %@", buf, 0xCu);
       }
 
@@ -596,18 +586,18 @@ LABEL_19:
       {
         lastConfiguration = self->_lastConfiguration;
         *buf = 138412290;
-        v23 = lastConfiguration;
+        v22 = lastConfiguration;
         _os_log_impl(&dword_26561F000, v14, OS_LOG_TYPE_INFO, "Carrying over previous configuration: %@", buf, 0xCu);
       }
 
-      v21 = 0;
-      if (![(SRSensorWriter *)self _setSensorConfiguration:[(SRSensorWriter *)self lastConfiguration] continuousTimestamp:[(SRSensorWriter *)self lastConfigurationContinuousTime] error:&v21])
+      v20 = 0;
+      if (![(SRSensorWriter *)self _setSensorConfiguration:[(SRSensorWriter *)self lastConfiguration] continuousTimestamp:[(SRSensorWriter *)self lastConfigurationContinuousTime] error:&v20])
       {
         v16 = SRLogWriter;
         if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v23 = v21;
+          v22 = v20;
           _os_log_error_impl(&dword_26561F000, v16, OS_LOG_TYPE_ERROR, "Error carrying over previous configuration because %{public}@", buf, 0xCu);
         }
       }
@@ -619,7 +609,7 @@ LABEL_19:
       [(SRSensorWriterDelegate *)delegate sensorWriterDidResetDatastore:self];
     }
 
-    goto LABEL_19;
+    return self->_datastore;
   }
 
   v19 = SRLogWriter;
@@ -629,10 +619,7 @@ LABEL_19:
     _os_log_debug_impl(&dword_26561F000, v19, OS_LOG_TYPE_DEBUG, "No sample file received so clearing the datastore", buf, 2u);
   }
 
-  result = 0;
-LABEL_23:
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (BOOL)provideSample:(id)sample error:(id *)error
@@ -860,7 +847,7 @@ LABEL_14:
 
 - (void)requestNewSegment
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ([(SRSensorWriter *)self requestNewSegmentInFlight])
   {
     v3 = SRLogWriter;
@@ -868,7 +855,7 @@ LABEL_14:
     {
       sensorIdentifier = self->_sensorIdentifier;
       *buf = 138543362;
-      v9 = sensorIdentifier;
+      v8 = sensorIdentifier;
       _os_log_impl(&dword_26561F000, v3, OS_LOG_TYPE_INFO, "[%{public}@] Request for a new segment is already inflight", buf, 0xCu);
     }
   }
@@ -877,29 +864,27 @@ LABEL_14:
   {
     [(SRSensorWriter *)self setRequestNewSegmentInFlight:1];
     objc_initWeak(buf, self);
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __35__SRSensorWriter_requestNewSegment__block_invoke;
-    v6[3] = &unk_279B99B98;
-    objc_copyWeak(&v7, buf);
-    [(SRSensorWriter *)self registerWithDaemonForWritingIfNeededWithReply:v6];
-    objc_destroyWeak(&v7);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __35__SRSensorWriter_requestNewSegment__block_invoke;
+    v5[3] = &unk_279B99B98;
+    objc_copyWeak(&v6, buf);
+    [(SRSensorWriter *)self registerWithDaemonForWritingIfNeededWithReply:v5];
+    objc_destroyWeak(&v6);
     objc_destroyWeak(buf);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __35__SRSensorWriter_requestNewSegment__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = SRLogWriter;
     if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v13 = a2;
+      v12 = a2;
       _os_log_error_impl(&dword_26561F000, v3, OS_LOG_TYPE_ERROR, "Error registering with daemon because %{public}@", buf, 0xCu);
     }
   }
@@ -907,44 +892,40 @@ void __35__SRSensorWriter_requestNewSegment__block_invoke(uint64_t a1, uint64_t 
   else
   {
     v5 = [objc_loadWeak((a1 + 32)) connection];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __35__SRSensorWriter_requestNewSegment__block_invoke_71;
-    v10[3] = &unk_279B99B98;
-    objc_copyWeak(&v11, (a1 + 32));
-    v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __35__SRSensorWriter_requestNewSegment__block_invoke_72;
-    v8[3] = &unk_279B99BC0;
-    objc_copyWeak(&v9, (a1 + 32));
-    [v6 requestFileHandleForWritingWithReply:v8];
-    objc_destroyWeak(&v9);
-    objc_destroyWeak(&v11);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __35__SRSensorWriter_requestNewSegment__block_invoke_71;
+    v9[3] = &unk_279B99B98;
+    objc_copyWeak(&v10, (a1 + 32));
+    v6 = [v5 remoteObjectProxyWithErrorHandler:v9];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __35__SRSensorWriter_requestNewSegment__block_invoke_72;
+    v7[3] = &unk_279B99BC0;
+    objc_copyWeak(&v8, (a1 + 32));
+    [v6 requestFileHandleForWritingWithReply:v7];
+    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v10);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __35__SRSensorWriter_requestNewSegment__block_invoke_71(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = SRLogWriter;
   if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = a2;
-    _os_log_error_impl(&dword_26561F000, v4, OS_LOG_TYPE_ERROR, "Unable to get proxy object to request a new segment because %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = a2;
+    _os_log_error_impl(&dword_26561F000, v4, OS_LOG_TYPE_ERROR, "Unable to get proxy object to request a new segment because %{public}@", &v6, 0xCu);
   }
 
-  result = [objc_loadWeak((a1 + 32)) setRequestNewSegmentInFlight:0];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [objc_loadWeak((a1 + 32)) setRequestNewSegmentInFlight:0];
 }
 
 uint64_t __35__SRSensorWriter_requestNewSegment__block_invoke_72(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   Weak = objc_loadWeak((a1 + 32));
   v4 = [a2 objectForKeyedSubscript:0x287700E30];
   if (v4)
@@ -953,9 +934,9 @@ uint64_t __35__SRSensorWriter_requestNewSegment__block_invoke_72(uint64_t a1, vo
     v6 = SRLogWriter;
     if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_error_impl(&dword_26561F000, v6, OS_LOG_TYPE_ERROR, "Error requesting new segment %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_error_impl(&dword_26561F000, v6, OS_LOG_TYPE_ERROR, "Error requesting new segment %{public}@", &v8, 0xCu);
     }
   }
 
@@ -965,9 +946,7 @@ uint64_t __35__SRSensorWriter_requestNewSegment__block_invoke_72(uint64_t a1, vo
     [Weak didReceiveUpdateToConfigurationRequests];
   }
 
-  result = [Weak setRequestNewSegmentInFlight:0];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [Weak setRequestNewSegmentInFlight:0];
 }
 
 - (void)setMetadata:(id)metadata
@@ -986,55 +965,50 @@ uint64_t __35__SRSensorWriter_requestNewSegment__block_invoke_72(uint64_t a1, vo
 
 - (void)setMetadata:(id)metadata continuousTimestamp:(unint64_t)timestamp datastore:(id)datastore
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:metadata requiringSecureCoding:1 error:&v21];
-  v10 = v21;
-  if (v21)
+  v25 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:metadata requiringSecureCoding:1 error:&v20];
+  v10 = v20;
+  if (v20)
   {
     v11 = SRLogWriter;
-    if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
     {
-      *buf = 138543618;
-      metadataCopy = metadata;
-      v24 = 2114;
-      v25 = v10;
-      v12 = "Error trying to archive metadata %{public}@ %{public}@";
-      v13 = v11;
-      v14 = 22;
-LABEL_9:
-      _os_log_error_impl(&dword_26561F000, v13, OS_LOG_TYPE_ERROR, v12, buf, v14);
+      return;
     }
+
+    *buf = 138543618;
+    metadataCopy = metadata;
+    v23 = 2114;
+    v24 = v10;
+    v12 = "Error trying to archive metadata %{public}@ %{public}@";
+    v13 = v11;
+    v14 = 22;
+    goto LABEL_9;
   }
 
-  else
+  v15 = v9;
+  bytes = [v9 bytes];
+  v17 = [v15 length];
+  v18 = SRAbsoluteTimeFromContinuousTime(timestamp);
+  if (datastore && (writeMetadataBytesForFrameStore(*(datastore + 6), bytes, v17, &v20, v18) & 1) != 0)
   {
-    v15 = v9;
-    bytes = [v9 bytes];
-    v17 = [v15 length];
-    v18 = SRAbsoluteTimeFromContinuousTime(timestamp);
-    if (datastore && (writeMetadataBytesForFrameStore(*(datastore + 6), bytes, v17, &v21, v18) & 1) != 0)
-    {
-      [(SRSensorWriter *)self setLastMetadata:metadata];
-      [(SRSensorWriter *)self setLastMetadataContinuousTime:timestamp];
-    }
-
-    else
-    {
-      v19 = SRLogWriter;
-      if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138543362;
-        metadataCopy = v21;
-        v12 = "Failed to write metadata because %{public}@";
-        v13 = v19;
-        v14 = 12;
-        goto LABEL_9;
-      }
-    }
+    [(SRSensorWriter *)self setLastMetadata:metadata];
+    [(SRSensorWriter *)self setLastMetadataContinuousTime:timestamp];
+    return;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = SRLogWriter;
+  if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 138543362;
+    metadataCopy = v20;
+    v12 = "Failed to write metadata because %{public}@";
+    v13 = v19;
+    v14 = 12;
+LABEL_9:
+    _os_log_error_impl(&dword_26561F000, v13, OS_LOG_TYPE_ERROR, v12, buf, v14);
+  }
 }
 
 - (BOOL)_setSensorConfiguration:(id)configuration error:(id *)error
@@ -1046,8 +1020,8 @@ LABEL_9:
 
 - (BOOL)_setSensorConfiguration:(id)configuration continuousTimestamp:(unint64_t)timestamp error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v22 = 0;
+  v26 = *MEMORY[0x277D85DE8];
+  v21 = 0;
   if (error)
   {
     errorCopy = error;
@@ -1055,7 +1029,7 @@ LABEL_9:
 
   else
   {
-    errorCopy = &v22;
+    errorCopy = &v21;
   }
 
   if (![(SRSensorWriter *)self authorized])
@@ -1065,7 +1039,7 @@ LABEL_12:
     v17 = [SRError errorWithCode:v16];
     LOBYTE(v15) = 0;
     *errorCopy = v17;
-    goto LABEL_13;
+    return v15;
   }
 
   if (![(SRSensorWriter *)self isMonitoring])
@@ -1077,22 +1051,20 @@ LABEL_12:
   v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:configuration requiringSecureCoding:1 error:errorCopy];
   if (!v9)
   {
-    v19 = SRLogWriter;
+    v18 = SRLogWriter;
     v15 = os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR);
     if (!v15)
     {
-      goto LABEL_13;
+      return v15;
     }
 
-    v20 = *errorCopy;
+    v19 = *errorCopy;
     *buf = 138543618;
     configurationCopy = configuration;
-    v25 = 2114;
-    v26 = v20;
-    _os_log_error_impl(&dword_26561F000, v19, OS_LOG_TYPE_ERROR, "Error trying to archive metadata %{public}@ %{public}@", buf, 0x16u);
-LABEL_16:
-    LOBYTE(v15) = 0;
-    goto LABEL_13;
+    v24 = 2114;
+    v25 = v19;
+    _os_log_error_impl(&dword_26561F000, v18, OS_LOG_TYPE_ERROR, "Error trying to archive metadata %{public}@ %{public}@", buf, 0x16u);
+    goto LABEL_16;
   }
 
   v10 = v9;
@@ -1102,7 +1074,9 @@ LABEL_16:
   v14 = SRAbsoluteTimeFromContinuousTime(timestamp);
   if (!datastore)
   {
-    goto LABEL_16;
+LABEL_16:
+    LOBYTE(v15) = 0;
+    return v15;
   }
 
   v15 = writeMetadataBytesForFrameStore(datastore->_configuration, bytes, v13, errorCopy, v14);
@@ -1113,8 +1087,6 @@ LABEL_16:
     LOBYTE(v15) = 1;
   }
 
-LABEL_13:
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -1149,7 +1121,7 @@ LABEL_13:
 - (void)setMonitoring:(BOOL)monitoring
 {
   monitoringCopy = monitoring;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   [(SRSensorWriter *)self setRetryGetMonitoring:0];
   isMonitoring = [(SRSensorWriter *)self isMonitoring];
   v6 = SRLogWriter;
@@ -1159,9 +1131,9 @@ LABEL_13:
     {
       sensorIdentifier = self->_sensorIdentifier;
       *buf = 138412546;
-      v20 = sensorIdentifier;
-      v21 = 1026;
-      LODWORD(v22) = [(SRSensorWriter *)self isMonitoring];
+      v19 = sensorIdentifier;
+      v20 = 1026;
+      LODWORD(v21) = [(SRSensorWriter *)self isMonitoring];
       _os_log_impl(&dword_26561F000, v6, OS_LOG_TYPE_INFO, "[%@] monitoring is already %{public, BOOL}d. Ignoring update", buf, 0x12u);
     }
   }
@@ -1172,9 +1144,9 @@ LABEL_13:
     {
       v7 = self->_sensorIdentifier;
       *buf = 138412546;
-      v20 = v7;
-      v21 = 1026;
-      LODWORD(v22) = monitoringCopy;
+      v19 = v7;
+      v20 = 1026;
+      LODWORD(v21) = monitoringCopy;
       _os_log_impl(&dword_26561F000, v6, OS_LOG_TYPE_DEFAULT, "[%@] monitoring requested to set to %{public, BOOL}d", buf, 0x12u);
     }
 
@@ -1184,14 +1156,14 @@ LABEL_13:
       if (_writerAuthorizationStatus == 1)
       {
         objc_initWeak(buf, self);
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __32__SRSensorWriter_setMonitoring___block_invoke;
-        v17[3] = &unk_279B99C10;
-        objc_copyWeak(&v18, buf);
-        v17[4] = self;
-        [(SRSensorWriter *)self registerWithDaemonForWritingIfNeededWithReply:v17];
-        objc_destroyWeak(&v18);
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __32__SRSensorWriter_setMonitoring___block_invoke;
+        v16[3] = &unk_279B99C10;
+        objc_copyWeak(&v17, buf);
+        v16[4] = self;
+        [(SRSensorWriter *)self registerWithDaemonForWritingIfNeededWithReply:v16];
+        objc_destroyWeak(&v17);
         objc_destroyWeak(buf);
       }
 
@@ -1202,11 +1174,11 @@ LABEL_13:
         {
           v15 = self->_sensorIdentifier;
           *buf = 138543874;
-          v20 = v15;
-          v21 = 2050;
-          v22 = _writerAuthorizationStatus;
-          v23 = 1026;
-          v24 = 0;
+          v19 = v15;
+          v20 = 2050;
+          v21 = _writerAuthorizationStatus;
+          v22 = 1026;
+          v23 = 0;
           _os_log_impl(&dword_26561F000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] does not have explicit writer authorization (status: %{public}ld). Setting monitoring to %{public, BOOL}d", buf, 0x1Cu);
         }
 
@@ -1224,9 +1196,9 @@ LABEL_13:
         v11 = self->_sensorIdentifier;
         isMonitoring2 = [(SRSensorWriter *)self isMonitoring];
         *buf = 138412546;
-        v20 = v11;
-        v21 = 1026;
-        LODWORD(v22) = isMonitoring2;
+        v19 = v11;
+        v20 = 1026;
+        LODWORD(v21) = isMonitoring2;
         _os_log_impl(&dword_26561F000, v10, OS_LOG_TYPE_DEFAULT, "[%@] monitoring set to %{public, BOOL}d", buf, 0x12u);
       }
 
@@ -1238,13 +1210,11 @@ LABEL_13:
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __32__SRSensorWriter_setMonitoring___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   Weak = objc_loadWeak((a1 + 40));
   v5 = Weak;
   if (a2)
@@ -1252,11 +1222,11 @@ void __32__SRSensorWriter_setMonitoring___block_invoke(uint64_t a1, uint64_t a2)
     v6 = SRLogWriter;
     if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(*(a1 + 32) + 56);
+      v8 = *(*(a1 + 32) + 56);
       *buf = 138412546;
-      v13 = v9;
-      v14 = 2114;
-      v15 = a2;
+      v12 = v8;
+      v13 = 2114;
+      v14 = a2;
       _os_log_error_impl(&dword_26561F000, v6, OS_LOG_TYPE_ERROR, "[%@] Error registering with daemon because %{public}@. Setting monitoring to false", buf, 0x16u);
     }
 
@@ -1267,22 +1237,20 @@ void __32__SRSensorWriter_setMonitoring___block_invoke(uint64_t a1, uint64_t a2)
   else
   {
     v7 = [objc_msgSend(Weak "connection")];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __32__SRSensorWriter_setMonitoring___block_invoke_130;
-    v10[3] = &unk_279B99BE8;
-    objc_copyWeak(&v11, (a1 + 40));
-    v10[4] = *(a1 + 32);
-    [v7 requestFileHandleForWritingWithReply:v10];
-    objc_destroyWeak(&v11);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __32__SRSensorWriter_setMonitoring___block_invoke_130;
+    v9[3] = &unk_279B99BE8;
+    objc_copyWeak(&v10, (a1 + 40));
+    v9[4] = *(a1 + 32);
+    [v7 requestFileHandleForWritingWithReply:v9];
+    objc_destroyWeak(&v10);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __32__SRSensorWriter_setMonitoring___block_invoke_130(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   Weak = objc_loadWeak((a1 + 40));
   v5 = [a2 objectForKeyedSubscript:0x287700E30];
   if (v5)
@@ -1291,12 +1259,12 @@ void __32__SRSensorWriter_setMonitoring___block_invoke_130(uint64_t a1, void *a2
     v7 = SRLogWriter;
     if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(*(a1 + 32) + 56);
-      v13 = 138412546;
-      v14 = v12;
-      v15 = 2114;
-      v16 = v6;
-      _os_log_error_impl(&dword_26561F000, v7, OS_LOG_TYPE_ERROR, "[%@] Error requesting file handle %{public}@. Setting monitoring to false", &v13, 0x16u);
+      v11 = *(*(a1 + 32) + 56);
+      v12 = 138412546;
+      v13 = v11;
+      v14 = 2114;
+      v15 = v6;
+      _os_log_error_impl(&dword_26561F000, v7, OS_LOG_TYPE_ERROR, "[%@] Error requesting file handle %{public}@. Setting monitoring to false", &v12, 0x16u);
     }
 
     [Weak resetDatastoreFiles:MEMORY[0x277CBEC10]];
@@ -1310,14 +1278,14 @@ void __32__SRSensorWriter_setMonitoring___block_invoke_130(uint64_t a1, void *a2
     if (Weak)
     {
       atomic_store(1u, Weak + 40);
-      v9 = SRLogWriter;
+      v8 = SRLogWriter;
       if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138412546;
-        v14 = [Weak sensorIdentifier];
-        v15 = 1026;
-        LODWORD(v16) = [Weak isMonitoring];
-        _os_log_impl(&dword_26561F000, v9, OS_LOG_TYPE_DEFAULT, "[%@] monitoring set to %{public, BOOL}d", &v13, 0x12u);
+        v12 = 138412546;
+        v13 = [Weak sensorIdentifier];
+        v14 = 1026;
+        LODWORD(v15) = [Weak isMonitoring];
+        _os_log_impl(&dword_26561F000, v8, OS_LOG_TYPE_DEFAULT, "[%@] monitoring set to %{public, BOOL}d", &v12, 0x12u);
       }
 
       if ([objc_msgSend(Weak "_requestedConfigurations")])
@@ -1325,25 +1293,23 @@ void __32__SRSensorWriter_setMonitoring___block_invoke_130(uint64_t a1, void *a2
         [Weak didReceiveUpdateToConfigurationRequests];
       }
 
-      v10 = [Weak delegate];
+      v9 = [Weak delegate];
       if (objc_opt_respondsToSelector())
       {
-        [v10 sensorWriterWillStartMonitoring:Weak];
+        [v9 sensorWriterWillStartMonitoring:Weak];
       }
     }
 
     else
     {
-      v11 = SRLogWriter;
+      v10 = SRLogWriter;
       if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v13) = 0;
-        _os_log_error_impl(&dword_26561F000, v11, OS_LOG_TYPE_ERROR, "Writer instance is nil so not setting the monitoring flag", &v13, 2u);
+        LOWORD(v12) = 0;
+        _os_log_error_impl(&dword_26561F000, v10, OS_LOG_TYPE_ERROR, "Writer instance is nil so not setting the monitoring flag", &v12, 2u);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDelegate:(id)delegate
@@ -1363,7 +1329,7 @@ void __32__SRSensorWriter_setMonitoring___block_invoke_130(uint64_t a1, void *a2
 
 - (void)_requestWriterAuthorizationWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   _writerAuthorizationStatus = [(SRSensorWriter *)self _writerAuthorizationStatus];
   if ((_writerAuthorizationStatus - 1) >= 2)
   {
@@ -1373,37 +1339,34 @@ void __32__SRSensorWriter_setMonitoring___block_invoke_130(uint64_t a1, void *a2
       {
         tccStore = self->_tccStore;
         writerAuthorizationService = [(SRSensorWriter *)self writerAuthorizationService];
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __60__SRSensorWriter__requestWriterAuthorizationWithCompletion___block_invoke;
-        v14[3] = &unk_279B99C38;
-        v14[4] = completion;
-        [(SRTCCStore *)tccStore requestAccessForService:writerAuthorizationService completion:v14];
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __60__SRSensorWriter__requestWriterAuthorizationWithCompletion___block_invoke;
+        v12[3] = &unk_279B99C38;
+        v12[4] = completion;
+        [(SRTCCStore *)tccStore requestAccessForService:writerAuthorizationService completion:v12];
       }
 
       else
       {
-        v11 = SRLogWriter;
+        v10 = SRLogWriter;
         if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_FAULT))
         {
           sensorIdentifier = self->_sensorIdentifier;
           *buf = 138543362;
-          v16 = sensorIdentifier;
-          _os_log_fault_impl(&dword_26561F000, v11, OS_LOG_TYPE_FAULT, "Failed to find authorization service for %{public}@. Unable to request authorization", buf, 0xCu);
+          v14 = sensorIdentifier;
+          _os_log_fault_impl(&dword_26561F000, v10, OS_LOG_TYPE_FAULT, "Failed to find authorization service for %{public}@. Unable to request authorization", buf, 0xCu);
         }
 
         (*(completion + 2))(completion, [SRError errorWithCode:4]);
       }
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     v6 = [SRError errorWithCode:4];
     v7 = *(completion + 2);
-    v8 = *MEMORY[0x277D85DE8];
 
     v7(completion, v6);
   }
@@ -1411,30 +1374,28 @@ void __32__SRSensorWriter_setMonitoring___block_invoke_130(uint64_t a1, void *a2
 
 uint64_t __60__SRSensorWriter__requestWriterAuthorizationWithCompletion___block_invoke(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = SRLogWriter;
   if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67240192;
-    v7[1] = a2;
-    _os_log_impl(&dword_26561F000, v4, OS_LOG_TYPE_DEFAULT, "TCC has returned from prompt with status: %{public, BOOL}d", v7, 8u);
+    v6[0] = 67240192;
+    v6[1] = a2;
+    _os_log_impl(&dword_26561F000, v4, OS_LOG_TYPE_DEFAULT, "TCC has returned from prompt with status: %{public, BOOL}d", v6, 8u);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (void)startUpdatingAuthorizations
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   writerAuthorizationUpdateQueue = [(SRSensorWriter *)self writerAuthorizationUpdateQueue];
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __45__SRSensorWriter_startUpdatingAuthorizations__block_invoke;
   handler[3] = &unk_279B99CD8;
-  objc_copyWeak(&v10, &location);
+  objc_copyWeak(&v9, &location);
   v4 = notify_register_dispatch("com.apple.tcc.access.changed", &self->_notifyToken, writerAuthorizationUpdateQueue, handler);
   if (v4)
   {
@@ -1442,7 +1403,7 @@ uint64_t __60__SRSensorWriter__requestWriterAuthorizationWithCompletion___block_
     if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_FAULT))
     {
       *buf = 67240192;
-      v13 = v4;
+      v12 = v4;
       _os_log_fault_impl(&dword_26561F000, v5, OS_LOG_TYPE_FAULT, "Failed to register for TCC notifications. Got status %{public}d", buf, 8u);
     }
   }
@@ -1454,9 +1415,8 @@ uint64_t __60__SRSensorWriter__requestWriterAuthorizationWithCompletion___block_
   block[3] = &unk_279B99C60;
   block[4] = self;
   dispatch_sync(writerAuthorizationUpdateQueue2, block);
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__SRSensorWriter_startUpdatingAuthorizations__block_invoke(uint64_t a1)
@@ -1468,7 +1428,7 @@ uint64_t __45__SRSensorWriter_startUpdatingAuthorizations__block_invoke(uint64_t
 
 - (void)updateWriterAuthorizationStatus
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dataCollectionEnabled = [+[SRAuthorizationClient sharedInstance](SRAuthorizationClient dataCollectionEnabled];
   v4 = [(SRTCCStore *)self->_tccStore preflightAuthorizationStatusForService:[(SRSensorWriter *)self writerAuthorizationService]];
   v5 = v4;
@@ -1494,14 +1454,14 @@ uint64_t __45__SRSensorWriter_startUpdatingAuthorizations__block_invoke(uint64_t
   {
     *buf = 138544386;
     writerAuthorizationService = [(SRSensorWriter *)self writerAuthorizationService];
-    v19 = 2050;
-    v20 = _writerAuthorizationStatus;
-    v21 = 2050;
-    v22 = v5;
-    v23 = 1026;
-    v24 = dataCollectionEnabled;
-    v25 = 2050;
-    v26 = v7;
+    v18 = 2050;
+    v19 = _writerAuthorizationStatus;
+    v20 = 2050;
+    v21 = v5;
+    v22 = 1026;
+    v23 = dataCollectionEnabled;
+    v24 = 2050;
+    v25 = v7;
     _os_log_impl(&dword_26561F000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got writer authorization status update. Current: %{public}ld, TCC: %{public}ld, Data Collection: %{public, BOOL}d, New: %{public}ld", buf, 0x30u);
   }
 
@@ -1528,13 +1488,13 @@ uint64_t __45__SRSensorWriter_startUpdatingAuthorizations__block_invoke(uint64_t
     else if (v7 == 1)
     {
       objc_initWeak(buf, self);
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __49__SRSensorWriter_updateWriterAuthorizationStatus__block_invoke;
-      v15[3] = &unk_279B99B98;
-      objc_copyWeak(&v16, buf);
-      [(SRSensorWriter *)self registerWithDaemonForWritingIfNeededWithReply:v15];
-      objc_destroyWeak(&v16);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __49__SRSensorWriter_updateWriterAuthorizationStatus__block_invoke;
+      v14[3] = &unk_279B99B98;
+      objc_copyWeak(&v15, buf);
+      [(SRSensorWriter *)self registerWithDaemonForWritingIfNeededWithReply:v14];
+      objc_destroyWeak(&v15);
       objc_destroyWeak(buf);
     }
 
@@ -1555,34 +1515,31 @@ uint64_t __45__SRSensorWriter_startUpdatingAuthorizations__block_invoke(uint64_t
         sensorIdentifier = self->_sensorIdentifier;
         *buf = 138412546;
         writerAuthorizationService = sensorIdentifier;
-        v19 = 2050;
-        v20 = delegate;
+        v18 = 2050;
+        v19 = delegate;
         _os_log_error_impl(&dword_26561F000, v12, OS_LOG_TYPE_ERROR, "[%@] Got a writer authorization change notification but the delegate (%{public}p) does not conform to SRSensorWriterAuthorizationDelegate", buf, 0x16u);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __49__SRSensorWriter_updateWriterAuthorizationStatus__block_invoke(uint64_t result, uint64_t a2)
+id *__49__SRSensorWriter_updateWriterAuthorizationStatus__block_invoke(id *result, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = result;
     v4 = SRLogWriter;
     if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138543362;
-      v7 = a2;
-      _os_log_error_impl(&dword_26561F000, v4, OS_LOG_TYPE_ERROR, "Failed to connect with daemon because %{public}@", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = a2;
+      _os_log_error_impl(&dword_26561F000, v4, OS_LOG_TYPE_ERROR, "Failed to connect with daemon because %{public}@", &v5, 0xCu);
     }
 
-    result = [objc_loadWeak((v3 + 32)) setRetryGetMonitoring:1];
+    return [objc_loadWeak(v3 + 4) setRetryGetMonitoring:1];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1593,9 +1550,42 @@ uint64_t __49__SRSensorWriter_updateWriterAuthorizationStatus__block_invoke(uint
   [(SRSensorWriter *)self evaluateAuthorizationStateWithNewValue:v3];
 }
 
+- (void)evaluateAuthorizationStateWithNewValue:(BOOL)value
+{
+  valueCopy = value;
+  *&v12[5] = *MEMORY[0x277D85DE8];
+  authorized = [(SRSensorWriter *)self authorized];
+  [(SRSensorWriter *)self setAuthorized:valueCopy];
+  v6 = SRLogWriter;
+  if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_INFO))
+  {
+    authorized2 = [(SRSensorWriter *)self authorized];
+    sensorIdentifier = self->_sensorIdentifier;
+    v11 = 67240450;
+    v12[0] = authorized2;
+    LOWORD(v12[1]) = 2112;
+    *(&v12[1] + 2) = sensorIdentifier;
+    _os_log_impl(&dword_26561F000, v6, OS_LOG_TYPE_INFO, "Authorization set to %{public, BOOL}d for %@", &v11, 0x12u);
+  }
+
+  if (!authorized && [(SRSensorWriter *)self authorized])
+  {
+    v9 = SRLogWriter;
+    if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = self->_sensorIdentifier;
+      v11 = 138543362;
+      *v12 = v10;
+      _os_log_impl(&dword_26561F000, v9, OS_LOG_TYPE_DEFAULT, "Writer is authorized for %{public}@ connecting to daemon to determine monitoring state", &v11, 0xCu);
+    }
+
+    [(SRSensorWriter *)self checkForMonitoring];
+  }
+}
+
 - (void)flushDatabase
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   datastore = self->_datastore;
   if (datastore)
   {
@@ -1603,15 +1593,64 @@ uint64_t __49__SRSensorWriter_updateWriterAuthorizationStatus__block_invoke(uint
     if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_DEFAULT))
     {
       sensorIdentifier = self->_sensorIdentifier;
-      v7 = 138543362;
-      v8 = sensorIdentifier;
-      _os_log_impl(&dword_26561F000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Flushing datastore to disk", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = sensorIdentifier;
+      _os_log_impl(&dword_26561F000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Flushing datastore to disk", &v6, 0xCu);
       datastore = self->_datastore;
     }
   }
 
   [(SRDatastore *)datastore syncMappedFiles];
-  v6 = *MEMORY[0x277D85DE8];
+}
+
+- (void)authorizedServicesDidChange:(id)change deniedServices:(id)services dataCollectionEnabled:(BOOL)enabled onboardingCompleted:(BOOL)completed lastModifiedTimes:(id)times forBundleIdentifier:(id)identifier
+{
+  completedCopy = completed;
+  enabledCopy = enabled;
+  v27 = *MEMORY[0x277D85DE8];
+  v14 = [identifier isEqualToString:{@"com.apple.private.SensorKit._compositeBundle", services, enabled, completed, times}];
+  v15 = SRLogWriter;
+  if (v14)
+  {
+    if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = 138544386;
+      identifierCopy = [(SRSensorWriter *)self writerAuthorizationService];
+      v19 = 1026;
+      v20 = enabledCopy;
+      v21 = 1026;
+      v22 = completedCopy;
+      v23 = 2114;
+      changeCopy = change;
+      v25 = 2114;
+      servicesCopy = services;
+      _os_log_impl(&dword_26561F000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got authorization client update: data collection: %{public, BOOL}d, onboarding: %{public, BOOL}d, authorized: %{public}@, denied: %{public}@", &v17, 0x2Cu);
+    }
+
+    v16 = 0;
+    if (enabledCopy && completedCopy)
+    {
+      if ([change containsObject:self->_sensorIdentifier])
+      {
+        v16 = [services containsObject:self->_sensorIdentifier] ^ 1;
+      }
+
+      else
+      {
+        v16 = 0;
+      }
+    }
+
+    [(SRSensorWriter *)self updateWriterAuthorizationStatus];
+    [(SRSensorWriter *)self evaluateAuthorizationStateWithNewValue:v16];
+  }
+
+  else if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_FAULT))
+  {
+    v17 = 138543362;
+    identifierCopy = identifier;
+    _os_log_fault_impl(&dword_26561F000, v15, OS_LOG_TYPE_FAULT, "Shouldn't be getting an auth update for %{public}@", &v17, 0xCu);
+  }
 }
 
 - (void)bundleEligibility:(id)eligibility completion:(id)completion
@@ -1649,14 +1688,14 @@ uint64_t __49__SRSensorWriter_updateWriterAuthorizationStatus__block_invoke(uint
 
 void __47__SRSensorWriter_bundleEligibility_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = SRLogWriter;
     if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v14 = a2;
+      v13 = a2;
       _os_log_error_impl(&dword_26561F000, v4, OS_LOG_TYPE_ERROR, "Error registering with daemon because %{public}@", buf, 0xCu);
     }
 
@@ -1666,56 +1705,52 @@ void __47__SRSensorWriter_bundleEligibility_completion___block_invoke(uint64_t a
   else
   {
     v5 = [objc_loadWeak((a1 + 56)) connection];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __47__SRSensorWriter_bundleEligibility_completion___block_invoke_141;
-    v12[3] = &unk_279B99B70;
-    v12[4] = *(a1 + 40);
-    v6 = [v5 remoteObjectProxyWithErrorHandler:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __47__SRSensorWriter_bundleEligibility_completion___block_invoke_141;
+    v11[3] = &unk_279B99B70;
+    v11[4] = *(a1 + 40);
+    v6 = [v5 remoteObjectProxyWithErrorHandler:v11];
     v7 = *(a1 + 32);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __47__SRSensorWriter_bundleEligibility_completion___block_invoke_142;
-    v10[3] = &unk_279B99C88;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __47__SRSensorWriter_bundleEligibility_completion___block_invoke_142;
+    v9[3] = &unk_279B99C88;
     v8 = *(a1 + 48);
-    v10[4] = v7;
-    v10[6] = v8;
-    objc_copyWeak(&v11, (a1 + 56));
-    v10[5] = *(a1 + 40);
-    [v6 fetchEligibilityStatusForBundleIdentifier:v7 reply:v10];
-    objc_destroyWeak(&v11);
+    v9[4] = v7;
+    v9[6] = v8;
+    objc_copyWeak(&v10, (a1 + 56));
+    v9[5] = *(a1 + 40);
+    [v6 fetchEligibilityStatusForBundleIdentifier:v7 reply:v9];
+    objc_destroyWeak(&v10);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__SRSensorWriter_bundleEligibility_completion___block_invoke_141(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = SRLogWriter;
   if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = a2;
-    _os_log_error_impl(&dword_26561F000, v4, OS_LOG_TYPE_ERROR, "Unable to get proxy object to request eligibility because %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = a2;
+    _os_log_error_impl(&dword_26561F000, v4, OS_LOG_TYPE_ERROR, "Unable to get proxy object to request eligibility because %{public}@", &v6, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 uint64_t __47__SRSensorWriter_bundleEligibility_completion___block_invoke_142(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = SRLogWriter;
   if (a3)
   {
     if (os_log_type_enabled(SRLogWriter, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138543362;
-      v13 = a3;
-      _os_log_error_impl(&dword_26561F000, v6, OS_LOG_TYPE_ERROR, "Error fetching eligibility %{public}@", &v12, 0xCu);
+      v10 = 138543362;
+      v11 = a3;
+      _os_log_error_impl(&dword_26561F000, v6, OS_LOG_TYPE_ERROR, "Error fetching eligibility %{public}@", &v10, 0xCu);
     }
   }
 
@@ -1728,19 +1763,16 @@ uint64_t __47__SRSensorWriter_bundleEligibility_completion___block_invoke_142(ui
       v7 = @"eligible";
     }
 
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v7;
-    _os_log_impl(&dword_26561F000, v6, OS_LOG_TYPE_INFO, "Bundle identifier %{public}@ %{public}@ for writing", &v12, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2114;
+    v13 = v7;
+    _os_log_impl(&dword_26561F000, v6, OS_LOG_TYPE_INFO, "Bundle identifier %{public}@ %{public}@ for writing", &v10, 0x16u);
   }
 
   *(*(*(a1 + 48) + 8) + 24) = a2;
   [objc_msgSend(objc_loadWeak((a1 + 56)) "eligibilityCache")];
-  v9 = *(*(*(a1 + 48) + 8) + 24);
-  result = (*(*(a1 + 40) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 @end

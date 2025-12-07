@@ -14,7 +14,7 @@
 
 - (BOOL)doesCycleExist
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   opGraph = [(HMDBackgroundOperationGraph *)self opGraph];
   inDegrees = [(HMDBackgroundOperationGraph *)self inDegrees];
@@ -24,39 +24,35 @@
   opGraph2 = [(HMDBackgroundOperationGraph *)self opGraph];
   v7 = [opGraph2 count];
 
-  if (v7)
+  if (!v7)
   {
-    v8 = 0;
-    while (2)
+    return 0;
+  }
+
+  v8 = 0;
+  while (2)
+  {
+    context = objc_autoreleasePoolPush();
+    v36 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    inDegrees2 = [(HMDBackgroundOperationGraph *)self inDegrees];
+    v10 = [inDegrees2 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    if (v10)
     {
-      context = objc_autoreleasePoolPush();
-      v37 = 0u;
-      v38 = 0u;
-      v39 = 0u;
-      v40 = 0u;
-      inDegrees2 = [(HMDBackgroundOperationGraph *)self inDegrees];
-      v10 = [inDegrees2 countByEnumeratingWithState:&v37 objects:v42 count:16];
-      if (!v10)
-      {
-LABEL_21:
-
-        objc_autoreleasePoolPop(context);
-        result = 1;
-        goto LABEL_22;
-      }
-
       v11 = v10;
-      v12 = *v38;
+      v12 = *v37;
 LABEL_5:
       v13 = 0;
       while (1)
       {
-        if (*v38 != v12)
+        if (*v37 != v12)
         {
           objc_enumerationMutation(inDegrees2);
         }
 
-        v14 = *(*(&v37 + 1) + 8 * v13);
+        v14 = *(*(&v36 + 1) + 8 * v13);
         inDegrees3 = [(HMDBackgroundOperationGraph *)self inDegrees];
         v16 = [inDegrees3 objectForKey:v14];
         unsignedIntValue = [v16 unsignedIntValue];
@@ -68,7 +64,7 @@ LABEL_5:
 
         if (v11 == ++v13)
         {
-          v11 = [inDegrees2 countByEnumeratingWithState:&v37 objects:v42 count:16];
+          v11 = [inDegrees2 countByEnumeratingWithState:&v36 objects:v41 count:16];
           if (v11)
           {
             goto LABEL_5;
@@ -83,33 +79,33 @@ LABEL_5:
       inDegrees4 = [(HMDBackgroundOperationGraph *)self inDegrees];
       __decrementInDegree(inDegrees4, v18);
 
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       opGraph3 = [(HMDBackgroundOperationGraph *)self opGraph];
       v21 = [opGraph3 objectForKey:v18];
 
-      v22 = [v21 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v32 objects:v40 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v34;
+        v24 = *v33;
         do
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v34 != v24)
+            if (*v33 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            v26 = *(*(&v33 + 1) + 8 * i);
+            v26 = *(*(&v32 + 1) + 8 * i);
             inDegrees5 = [(HMDBackgroundOperationGraph *)self inDegrees];
             __decrementInDegree(inDegrees5, v26);
           }
 
-          v23 = [v21 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v32 objects:v40 count:16];
         }
 
         while (v23);
@@ -125,14 +121,16 @@ LABEL_5:
         continue;
       }
 
-      break;
+      return 0;
     }
+
+    break;
   }
 
-  result = 0;
-LABEL_22:
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+LABEL_21:
+
+  objc_autoreleasePoolPop(context);
+  return 1;
 }
 
 - (BOOL)canAddEdgeFrom:(id)from to:(id)to
@@ -158,7 +156,7 @@ LABEL_22:
 
 - (id)getIndependentVertices
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB58];
   opGraph = [(HMDBackgroundOperationGraph *)self opGraph];
   v5 = [v3 setWithCapacity:{objc_msgSend(opGraph, "count")}];
@@ -168,26 +166,26 @@ LABEL_22:
   inDegrees = [(HMDBackgroundOperationGraph *)self inDegrees];
   __computeInDegrees(opGraph2, inDegrees);
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   inDegrees2 = [(HMDBackgroundOperationGraph *)self inDegrees];
-  v9 = [inDegrees2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [inDegrees2 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(inDegrees2);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         inDegrees3 = [(HMDBackgroundOperationGraph *)self inDegrees];
         v15 = [inDegrees3 objectForKey:v13];
         unsignedIntValue = [v15 unsignedIntValue];
@@ -198,16 +196,14 @@ LABEL_22:
         }
       }
 
-      v10 = [inDegrees2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [inDegrees2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
 
   objc_autoreleasePoolPop(context);
-  v17 = [v5 copy];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = objc_msgSend_copy(v5);
 
   return v17;
 }
@@ -280,37 +276,37 @@ LABEL_22:
 
 - (HMDBackgroundOperationGraph)initWithOperations:(id)operations
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   operationsCopy = operations;
-  v35.receiver = self;
-  v35.super_class = HMDBackgroundOperationGraph;
-  v5 = [(HMDBackgroundOperationGraph *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = HMDBackgroundOperationGraph;
+  v5 = [(HMDBackgroundOperationGraph *)&v34 init];
   v6 = v5;
   if (v5)
   {
-    v29 = v5;
-    v30 = operationsCopy;
+    v28 = v5;
+    v29 = operationsCopy;
     v7 = operationsCopy;
     weakToStrongObjectsMapTable = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     obj = v7;
-    v33 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
-    if (v33)
+    v32 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+    if (v32)
     {
-      v32 = *v41;
+      v31 = *v40;
       do
       {
-        for (i = 0; i != v33; ++i)
+        for (i = 0; i != v32; ++i)
         {
-          if (*v41 != v32)
+          if (*v40 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v40 + 1) + 8 * i);
+          v10 = *(*(&v39 + 1) + 8 * i);
           context = objc_autoreleasePoolPush();
           operationUUID = [v10 operationUUID];
           allDependencies = [v10 AllDependencies];
@@ -322,27 +318,27 @@ LABEL_22:
             [(NSMapTable *)weakToStrongObjectsMapTable setObject:weakObjectsHashTable forKey:operationUUID];
           }
 
-          v38 = 0u;
-          v39 = 0u;
-          v36 = 0u;
           v37 = 0u;
+          v38 = 0u;
+          v35 = 0u;
+          v36 = 0u;
           v15 = allDependencies;
-          v16 = [v15 countByEnumeratingWithState:&v36 objects:v44 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v35 objects:v43 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v37;
+            v18 = *v36;
             do
             {
               for (j = 0; j != v17; ++j)
               {
-                if (*v37 != v18)
+                if (*v36 != v18)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                v20 = *(*(&v36 + 1) + 8 * j);
-                v21 = [(NSMapTable *)weakToStrongObjectsMapTable objectForKey:v20, v29];
+                v20 = *(*(&v35 + 1) + 8 * j);
+                v21 = [(NSMapTable *)weakToStrongObjectsMapTable objectForKey:v20, v28];
 
                 if (!v21)
                 {
@@ -354,7 +350,7 @@ LABEL_22:
                 [v23 addObject:operationUUID];
               }
 
-              v17 = [v15 countByEnumeratingWithState:&v36 objects:v44 count:16];
+              v17 = [v15 countByEnumeratingWithState:&v35 objects:v43 count:16];
             }
 
             while (v17);
@@ -363,24 +359,23 @@ LABEL_22:
           objc_autoreleasePoolPop(context);
         }
 
-        v33 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v32 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
-      while (v33);
+      while (v32);
     }
 
-    v6 = v29;
-    opGraph = v29->_opGraph;
-    v29->_opGraph = weakToStrongObjectsMapTable;
+    v6 = v28;
+    opGraph = v28->_opGraph;
+    v28->_opGraph = weakToStrongObjectsMapTable;
 
     weakToStrongObjectsMapTable2 = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
-    inDegrees = v29->_inDegrees;
-    v29->_inDegrees = weakToStrongObjectsMapTable2;
+    inDegrees = v28->_inDegrees;
+    v28->_inDegrees = weakToStrongObjectsMapTable2;
 
-    operationsCopy = v30;
+    operationsCopy = v29;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -398,10 +393,9 @@ LABEL_22:
 
 void __42__HMDBackgroundOperationGraph_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_119383;
-  logCategory__hmf_once_v1_119383 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_119383;
+  logCategory__hmf_once_v1_119383 = v0;
 }
 
 @end

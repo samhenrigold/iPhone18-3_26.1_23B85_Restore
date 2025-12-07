@@ -13,11 +13,11 @@
 
 - (SFCommandButtonItem)initWithProtobuf:(id)protobuf
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v31.receiver = self;
-  v31.super_class = SFCommandButtonItem;
-  v5 = [(SFCommandButtonItem *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = SFCommandButtonItem;
+  v5 = [(SFCommandButtonItem *)&v30 init];
   if (v5)
   {
     image = [protobufCopy image];
@@ -59,33 +59,33 @@
       v17 = 0;
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     previewButtonItems2 = [protobufCopy previewButtonItems];
-    v19 = [previewButtonItems2 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v19 = [previewButtonItems2 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v28;
+      v21 = *v27;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v28 != v21)
+          if (*v27 != v21)
           {
             objc_enumerationMutation(previewButtonItems2);
           }
 
-          v23 = [[SFButtonItem alloc] initWithProtobuf:*(*(&v27 + 1) + 8 * i)];
+          v23 = [[SFButtonItem alloc] initWithProtobuf:*(*(&v26 + 1) + 8 * i)];
           if (v23)
           {
             [v17 addObject:v23];
           }
         }
 
-        v20 = [previewButtonItems2 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v20 = [previewButtonItems2 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v20);
@@ -105,7 +105,6 @@
     v24 = v5;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

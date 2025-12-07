@@ -80,64 +80,64 @@
 
 - (BOOL)canHandleInputOfContentClasses:(id)classes withSupportedClasses:(id)supportedClasses
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   classesCopy = classes;
   supportedClassesCopy = supportedClasses;
   if ([(WFContentItemFilterAction *)self inputRequired])
   {
-    v54.receiver = self;
-    v54.super_class = WFContentItemFilterAction;
-    v8 = [(WFAction *)&v54 canHandleInputOfContentClasses:classesCopy withSupportedClasses:supportedClassesCopy];
+    v53.receiver = self;
+    v53.super_class = WFContentItemFilterAction;
+    v8 = [(WFAction *)&v53 canHandleInputOfContentClasses:classesCopy withSupportedClasses:supportedClassesCopy];
   }
 
   else
   {
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v9 = supportedClassesCopy;
-    v36 = [v9 countByEnumeratingWithState:&v50 objects:v57 count:16];
-    if (v36)
+    v35 = [v9 countByEnumeratingWithState:&v49 objects:v56 count:16];
+    if (v35)
     {
-      v10 = *v51;
-      v40 = supportedClassesCopy;
-      v41 = classesCopy;
-      v39 = v9;
-      v35 = *v51;
+      v10 = *v50;
+      v39 = supportedClassesCopy;
+      v40 = classesCopy;
+      v38 = v9;
+      v34 = *v50;
       do
       {
         v11 = 0;
         do
         {
-          if (*v51 != v10)
+          if (*v50 != v10)
           {
             objc_enumerationMutation(v9);
           }
 
-          v37 = v11;
-          v12 = *(*(&v50 + 1) + 8 * v11);
+          v36 = v11;
+          v12 = *(*(&v49 + 1) + 8 * v11);
+          v45 = 0u;
           v46 = 0u;
           v47 = 0u;
           v48 = 0u;
-          v49 = 0u;
           v13 = classesCopy;
-          v14 = [v13 countByEnumeratingWithState:&v46 objects:v56 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v45 objects:v55 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v47;
+            v16 = *v46;
             do
             {
               v17 = 0;
               do
               {
-                if (*v47 != v16)
+                if (*v46 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v18 = *(*(&v46 + 1) + 8 * v17);
+                v18 = *(*(&v45 + 1) + 8 * v17);
                 if ([v18 isSubclassOfClass:v12])
                 {
                   contentItemClass = [(WFAction *)self contentItemClass];
@@ -148,8 +148,8 @@
 LABEL_57:
 
                       v8 = 1;
-                      supportedClassesCopy = v40;
-                      classesCopy = v41;
+                      supportedClassesCopy = v39;
+                      classesCopy = v40;
                       goto LABEL_58;
                     }
                   }
@@ -162,26 +162,26 @@ LABEL_57:
                   {
                     if ((v24 = [(WFAction *)self contentItemClass], v25 = objc_opt_class(), v26 = [(WFAction *)self contentItemClass], v26 != objc_opt_class()) && v24 != v25 || v18 != objc_opt_class() && v18 != objc_opt_class())
                     {
-                      v44 = 0u;
-                      v45 = 0u;
-                      v42 = 0u;
                       v43 = 0u;
+                      v44 = 0u;
+                      v41 = 0u;
+                      v42 = 0u;
                       obj = [v18 allSupportedTypes];
-                      v27 = [obj countByEnumeratingWithState:&v42 objects:v55 count:16];
+                      v27 = [obj countByEnumeratingWithState:&v41 objects:v54 count:16];
                       if (v27)
                       {
                         v28 = v27;
-                        v29 = *v43;
+                        v29 = *v42;
                         while (2)
                         {
                           for (i = 0; i != v28; ++i)
                           {
-                            if (*v43 != v29)
+                            if (*v42 != v29)
                             {
                               objc_enumerationMutation(obj);
                             }
 
-                            v31 = *(*(&v42 + 1) + 8 * i);
+                            v31 = *(*(&v41 + 1) + 8 * i);
                             objc_opt_class();
                             if (objc_opt_isKindOfClass() & 1) != 0 && ([v31 isDeclared])
                             {
@@ -190,7 +190,7 @@ LABEL_57:
                             }
                           }
 
-                          v28 = [obj countByEnumeratingWithState:&v42 objects:v55 count:16];
+                          v28 = [obj countByEnumeratingWithState:&v41 objects:v54 count:16];
                           if (v28)
                           {
                             continue;
@@ -207,25 +207,25 @@ LABEL_57:
               }
 
               while (v17 != v15);
-              v32 = [v13 countByEnumeratingWithState:&v46 objects:v56 count:16];
+              v32 = [v13 countByEnumeratingWithState:&v45 objects:v55 count:16];
               v15 = v32;
             }
 
             while (v32);
           }
 
-          v11 = v37 + 1;
-          supportedClassesCopy = v40;
-          classesCopy = v41;
-          v9 = v39;
-          v10 = v35;
+          v11 = v36 + 1;
+          supportedClassesCopy = v39;
+          classesCopy = v40;
+          v9 = v38;
+          v10 = v34;
         }
 
-        while (v37 + 1 != v36);
-        v36 = [v39 countByEnumeratingWithState:&v50 objects:v57 count:16];
+        while (v36 + 1 != v35);
+        v35 = [v38 countByEnumeratingWithState:&v49 objects:v56 count:16];
       }
 
-      while (v36);
+      while (v35);
     }
 
     v8 = 0;
@@ -233,7 +233,6 @@ LABEL_57:
 
 LABEL_58:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -300,9 +299,9 @@ void __56__WFContentItemFilterAction_runAsynchronouslyWithInput___block_invoke(u
   if ([(objc_class *)[(WFAction *)self contentItemClass] hasLibrary])
   {
     value = [v4 value];
-    v6 = [value isEqualToString:@"Library"];
+    isEqualToString = objc_msgSend_isEqualToString_(value);
 
-    v7 = ~v6 & 1;
+    v7 = ~isEqualToString & 1;
   }
 
   else
@@ -350,12 +349,12 @@ void __56__WFContentItemFilterAction_runAsynchronouslyWithInput___block_invoke(u
 
 - (WFContentQuery)query
 {
-  v25[5] = *MEMORY[0x1E69E9840];
+  v24[5] = *MEMORY[0x1E69E9840];
   v3 = [(WFAction *)self parameterValueForKey:@"WFContentItemSortProperty" ofClass:objc_opt_class()];
   v4 = WFLocalizedContentPropertyPossibleValueMarker(@"Random");
-  v5 = [v3 isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  if (v5)
+  if (isEqualToString)
   {
     randomSortDescriptor = [MEMORY[0x1E6996DA0] randomSortDescriptor];
   }
@@ -367,16 +366,16 @@ void __56__WFContentItemFilterAction_runAsynchronouslyWithInput___block_invoke(u
     v9 = [allProperties objectMatchingKey:@"name" value:v8];
 
     v10 = WFLocalizedContentPropertyPossibleValueMarker(@"Z to A");
-    v25[0] = v10;
+    v24[0] = v10;
     v11 = WFLocalizedContentPropertyPossibleValueMarker(@"Biggest First");
-    v25[1] = v11;
+    v24[1] = v11;
     v12 = WFLocalizedContentPropertyPossibleValueMarker(@"Latest First");
-    v25[2] = v12;
+    v24[2] = v12;
     v13 = WFLocalizedContentPropertyPossibleValueMarker(@"Longest First");
-    v25[3] = v13;
+    v24[3] = v13;
     v14 = WFLocalizedContentPropertyPossibleValueMarker(@"Descending");
-    v25[4] = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:5];
+    v24[4] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:5];
 
     v16 = [(WFAction *)self parameterValueForKey:@"WFContentItemSortOrder" ofClass:objc_opt_class()];
     v17 = [v15 containsObject:v16];
@@ -400,8 +399,6 @@ void __56__WFContentItemFilterAction_runAsynchronouslyWithInput___block_invoke(u
   slice = [(WFContentItemFilterAction *)self slice];
   [v20 setSlice:{slice, v22}];
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
@@ -415,7 +412,7 @@ void __56__WFContentItemFilterAction_runAsynchronouslyWithInput___block_invoke(u
 
 - (id)possibleStatesForEnumeration:(id)enumeration
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v4 = [(WFContentItemFilterAction *)self parameterStateForKey:@"WFContentItemSortProperty"];
   value = [v4 value];
 
@@ -433,10 +430,10 @@ void __56__WFContentItemFilterAction_runAsynchronouslyWithInput___block_invoke(u
 
 LABEL_6:
     v11 = WFLocalizedContentPropertyPossibleValueMarker(@"Ascending");
-    v18[0] = v11;
+    v17[0] = v11;
     v12 = WFLocalizedContentPropertyPossibleValueMarker(@"Descending");
-    v18[1] = v12;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+    v17[1] = v12;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
 
     if (([v8 hasPossibleValues] & 1) == 0)
     {
@@ -463,7 +460,6 @@ LABEL_6:
 LABEL_9:
 
 LABEL_10:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -478,178 +474,176 @@ WFStringSubstitutableState *__58__WFContentItemFilterAction_possibleStatesForEnu
 
 id __58__WFContentItemFilterAction_possibleStatesForEnumeration___block_invoke(uint64_t a1, void *a2)
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   if (([a2 isSubclassOfClass:objc_opt_class()] & 1) != 0 || objc_msgSend(a2, "isSubclassOfClass:", objc_opt_class()))
   {
     v3 = WFLocalizedContentPropertyPossibleValueMarker(@"A to Z");
-    v14[0] = v3;
+    v13[0] = v3;
     v4 = @"Z to A";
-    v5 = v14;
+    v5 = v13;
   }
 
   else if (([a2 isSubclassOfClass:objc_opt_class()] & 1) != 0 || (objc_msgSend(a2, "isSubclassOfClass:", objc_opt_class()) & 1) != 0 || objc_msgSend(a2, "isSubclassOfClass:", objc_opt_class()))
   {
     v3 = WFLocalizedContentPropertyPossibleValueMarker(@"Smallest First");
-    v13 = v3;
-    v4 = @"Biggest First";
-    v5 = &v13;
-  }
-
-  else if ([a2 isSubclassOfClass:objc_opt_class()])
-  {
-    v3 = WFLocalizedContentPropertyPossibleValueMarker(@"Oldest First");
     v12 = v3;
-    v4 = @"Latest First";
+    v4 = @"Biggest First";
     v5 = &v12;
   }
 
   else if ([a2 isSubclassOfClass:objc_opt_class()])
   {
-    v3 = WFLocalizedContentPropertyPossibleValueMarker(@"Shortest First");
+    v3 = WFLocalizedContentPropertyPossibleValueMarker(@"Oldest First");
     v11 = v3;
-    v4 = @"Longest First";
+    v4 = @"Latest First";
     v5 = &v11;
+  }
+
+  else if ([a2 isSubclassOfClass:objc_opt_class()])
+  {
+    v3 = WFLocalizedContentPropertyPossibleValueMarker(@"Shortest First");
+    v10 = v3;
+    v4 = @"Longest First";
+    v5 = &v10;
   }
 
   else
   {
     v3 = WFLocalizedContentPropertyPossibleValueMarker(@"Ascending");
-    v10 = v3;
+    v9 = v3;
     v4 = @"Descending";
-    v5 = &v10;
+    v5 = &v9;
   }
 
   v6 = WFLocalizedContentPropertyPossibleValueMarker(v4);
   v5[1] = v6;
   v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)parameterDefinitions
 {
-  v124[6] = *MEMORY[0x1E69E9840];
+  v123[6] = *MEMORY[0x1E69E9840];
   sortablePropertyNames = [(WFContentItemFilterAction *)self sortablePropertyNames];
   sortablePropertyDisplayNames = [(WFContentItemFilterAction *)self sortablePropertyDisplayNames];
   localizedTypeDescription = [(objc_class *)[(WFAction *)self contentItemClass] localizedTypeDescription];
   localizedPluralTypeDescription = [(objc_class *)[(WFAction *)self contentItemClass] localizedPluralTypeDescription];
-  v65 = [localizedTypeDescription isEqualToString:localizedPluralTypeDescription];
+  isEqualToString = objc_msgSend_isEqualToString_(localizedTypeDescription);
 
-  v76 = [sortablePropertyNames count] == 0;
-  v83 = MEMORY[0x1E695DF70];
+  v75 = [sortablePropertyNames count] == 0;
+  v82 = MEMORY[0x1E695DF70];
   v7 = [WFParameterDefinition alloc];
-  v122[0] = @"Class";
+  v121[0] = @"Class";
   v8 = objc_opt_class();
-  v94 = NSStringFromClass(v8);
-  v123[0] = v94;
-  v123[1] = @"WFContentItemFilter";
-  v122[1] = @"Key";
-  v122[2] = @"ContentItemClass";
-  v93 = NSStringFromClass([(WFAction *)self contentItemClass]);
-  v123[2] = v93;
-  v122[3] = @"DisallowedVariableTypes";
+  v93 = NSStringFromClass(v8);
+  v122[0] = v93;
+  v122[1] = @"WFContentItemFilter";
+  v121[1] = @"Key";
+  v121[2] = @"ContentItemClass";
+  v92 = NSStringFromClass([(WFAction *)self contentItemClass]);
+  v122[2] = v92;
+  v121[3] = @"DisallowedVariableTypes";
   disallowedVariableTypesForTableTemplate = [(WFContentItemFilterAction *)self disallowedVariableTypesForTableTemplate];
-  v123[3] = disallowedVariableTypesForTableTemplate;
-  v91 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v123 forKeys:v122 count:4];
-  v90 = [(WFParameterDefinition *)v7 initWithDictionary:?];
-  v124[0] = v90;
+  v122[3] = disallowedVariableTypesForTableTemplate;
+  v90 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v122 forKeys:v121 count:4];
+  v89 = [(WFParameterDefinition *)v7 initWithDictionary:?];
+  v123[0] = v89;
   v9 = [WFParameterDefinition alloc];
-  v120[0] = @"Class";
+  v119[0] = @"Class";
   v10 = objc_opt_class();
-  v89 = NSStringFromClass(v10);
-  v121[0] = v89;
-  v120[1] = @"Label";
-  v88 = WFLocalizedStringResourceWithKey(@"Sort by (ContentItemFilter)", @"Sort by");
-  v121[1] = v88;
-  v120[2] = @"Description";
-  v87 = [[WFContentItemFilterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:2];
-  v121[2] = v87;
-  v120[3] = @"DisallowedVariableTypes";
-  v119[0] = @"Ask";
-  v119[1] = @"Variable";
-  v86 = [MEMORY[0x1E695DEC8] arrayWithObjects:v119 count:2];
-  v121[3] = v86;
-  v121[4] = @"WFContentItemSortProperty";
-  v120[4] = @"Key";
-  v120[5] = @"Placeholder";
-  v85 = WFLocalizedStringResourceWithKey(@"None", @"None");
-  v121[5] = v85;
-  v121[6] = MEMORY[0x1E695E118];
-  v120[6] = @"AlwaysShowsButton";
-  v120[7] = @"Items";
+  v88 = NSStringFromClass(v10);
+  v120[0] = v88;
+  v119[1] = @"Label";
+  v87 = WFLocalizedStringResourceWithKey(@"Sort by (ContentItemFilter)", @"Sort by");
+  v120[1] = v87;
+  v119[2] = @"Description";
+  v86 = [[WFContentItemFilterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:2];
+  v120[2] = v86;
+  v119[3] = @"DisallowedVariableTypes";
+  v118[0] = @"Ask";
+  v118[1] = @"Variable";
+  v85 = [MEMORY[0x1E695DEC8] arrayWithObjects:v118 count:2];
+  v120[3] = v85;
+  v120[4] = @"WFContentItemSortProperty";
+  v119[4] = @"Key";
+  v119[5] = @"Placeholder";
+  v84 = WFLocalizedStringResourceWithKey(@"None", @"None");
+  v120[5] = v84;
+  v120[6] = MEMORY[0x1E695E118];
+  v119[6] = @"AlwaysShowsButton";
+  v119[7] = @"Items";
   WFLocalizedContentPropertyPossibleValueMarker(@"Random");
-  v82 = v96 = sortablePropertyNames;
-  v81 = [sortablePropertyNames arrayByAddingObject:?];
-  v121[7] = v81;
-  v120[8] = @"ItemDisplayNames";
-  v80 = WFLocalizedContentPropertyPossibleValueMarker(@"Random");
-  WFLocalizedContentPropertyPossibleValue(v80);
-  v79 = v95 = sortablePropertyDisplayNames;
-  v78 = [sortablePropertyDisplayNames arrayByAddingObject:?];
-  v121[8] = v78;
-  v120[9] = @"Hidden";
-  v77 = [MEMORY[0x1E696AD98] numberWithBool:v76];
-  v121[9] = v77;
-  v75 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v121 forKeys:v120 count:10];
-  v74 = [(WFParameterDefinition *)v9 initWithDictionary:?];
-  v124[1] = v74;
+  v81 = v95 = sortablePropertyNames;
+  v80 = [sortablePropertyNames arrayByAddingObject:?];
+  v120[7] = v80;
+  v119[8] = @"ItemDisplayNames";
+  v79 = WFLocalizedContentPropertyPossibleValueMarker(@"Random");
+  WFLocalizedContentPropertyPossibleValue(v79);
+  v78 = v94 = sortablePropertyDisplayNames;
+  v77 = [sortablePropertyDisplayNames arrayByAddingObject:?];
+  v120[8] = v77;
+  v119[9] = @"Hidden";
+  v76 = [MEMORY[0x1E696AD98] numberWithBool:v75];
+  v120[9] = v76;
+  v74 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v120 forKeys:v119 count:10];
+  v73 = [(WFParameterDefinition *)v9 initWithDictionary:?];
+  v123[1] = v73;
   v11 = [WFParameterDefinition alloc];
-  v117[0] = @"Class";
+  v116[0] = @"Class";
   v12 = objc_opt_class();
-  v73 = NSStringFromClass(v12);
-  v118[0] = v73;
-  v117[1] = @"Label";
-  v72 = WFLocalizedStringResourceWithKey(@"Order (ContentItemFilter)", @"Order");
-  v118[1] = v72;
-  v117[2] = @"Description";
-  v71 = [[WFContentItemFilterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:3];
-  v118[2] = v71;
-  v117[3] = @"DisallowedVariableTypes";
-  v116[0] = @"Ask";
-  v116[1] = @"Variable";
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v116 count:2];
-  v117[4] = @"Key";
-  v70 = v13;
-  v118[3] = v13;
-  v118[4] = @"WFContentItemSortOrder";
-  v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v118 forKeys:v117 count:5];
-  v68 = [(WFParameterDefinition *)v11 initWithDictionary:?];
-  v124[2] = v68;
+  v72 = NSStringFromClass(v12);
+  v117[0] = v72;
+  v116[1] = @"Label";
+  v71 = WFLocalizedStringResourceWithKey(@"Order (ContentItemFilter)", @"Order");
+  v117[1] = v71;
+  v116[2] = @"Description";
+  v70 = [[WFContentItemFilterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:3];
+  v117[2] = v70;
+  v116[3] = @"DisallowedVariableTypes";
+  v115[0] = @"Ask";
+  v115[1] = @"Variable";
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v115 count:2];
+  v116[4] = @"Key";
+  v69 = v13;
+  v117[3] = v13;
+  v117[4] = @"WFContentItemSortOrder";
+  v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v117 forKeys:v116 count:5];
+  v67 = [(WFParameterDefinition *)v11 initWithDictionary:?];
+  v123[2] = v67;
   v14 = [WFParameterDefinition alloc];
-  v114[0] = @"Class";
+  v113[0] = @"Class";
   v15 = objc_opt_class();
-  v67 = NSStringFromClass(v15);
-  v115[0] = v67;
-  v114[1] = @"Label";
-  v64 = WFLocalizedStringResourceWithKey(@"Limit (ContentItemFilter)", @"Limit");
-  v115[1] = v64;
-  v114[2] = @"Description";
-  v63 = [[WFContentItemFilterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:0];
-  v115[2] = v63;
-  v115[3] = MEMORY[0x1E695E110];
-  v114[3] = @"DefaultValue";
-  v114[4] = @"Key";
-  v115[4] = @"WFContentItemLimitEnabled";
-  v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v115 forKeys:v114 count:5];
-  v61 = [(WFParameterDefinition *)v14 initWithDictionary:?];
-  v124[3] = v61;
+  v66 = NSStringFromClass(v15);
+  v114[0] = v66;
+  v113[1] = @"Label";
+  v63 = WFLocalizedStringResourceWithKey(@"Limit (ContentItemFilter)", @"Limit");
+  v114[1] = v63;
+  v113[2] = @"Description";
+  v62 = [[WFContentItemFilterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:0];
+  v114[2] = v62;
+  v114[3] = MEMORY[0x1E695E110];
+  v113[3] = @"DefaultValue";
+  v113[4] = @"Key";
+  v114[4] = @"WFContentItemLimitEnabled";
+  v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v114 forKeys:v113 count:5];
+  v60 = [(WFParameterDefinition *)v14 initWithDictionary:?];
+  v123[3] = v60;
   v16 = [WFParameterDefinition alloc];
-  v112[0] = @"Class";
+  v111[0] = @"Class";
   v17 = objc_opt_class();
-  v60 = NSStringFromClass(v17);
-  v113[0] = v60;
-  v112[1] = @"Label";
-  v59 = WFLocalizedStringResourceWithKey(@"Get (ContentItemFilter)", @"Get");
-  v113[1] = v59;
-  v112[2] = @"Description";
-  v58 = [[WFContentItemFilterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:1];
-  v113[2] = v58;
-  v113[3] = @"WFContentItemLimitNumber";
-  v112[3] = @"Key";
-  v112[4] = @"StepperNoun";
-  if (v65)
+  v59 = NSStringFromClass(v17);
+  v112[0] = v59;
+  v111[1] = @"Label";
+  v58 = WFLocalizedStringResourceWithKey(@"Get (ContentItemFilter)", @"Get");
+  v112[1] = v58;
+  v111[2] = @"Description";
+  v57 = [[WFContentItemFilterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:1];
+  v112[2] = v57;
+  v112[3] = @"WFContentItemLimitNumber";
+  v111[3] = @"Key";
+  v111[4] = @"StepperNoun";
+  if (isEqualToString)
   {
     v18 = MEMORY[0x1E696AEC0];
     v19 = @"%d Items";
@@ -664,125 +658,123 @@ id __58__WFContentItemFilterAction_possibleStatesForEnumeration___block_invoke(u
     countDescription = [(objc_class *)[(WFAction *)self contentItemClass] countDescription];
   }
 
-  v66 = countDescription;
-  v113[4] = countDescription;
-  v112[5] = @"StepperPrefix";
-  v57 = WFLocalizedStringResourceWithKey(@"Get (ContentItemFilter)", @"Get");
-  v113[5] = v57;
-  v113[6] = &unk_1F4A9AE58;
-  v112[6] = @"DefaultValue";
-  v112[7] = @"RequiredResources";
-  v109[0] = @"WFResourceClass";
-  v109[1] = @"WFParameterKey";
-  v110[0] = @"WFParameterRelationResource";
-  v110[1] = @"WFContentItemLimitEnabled";
-  v109[2] = @"WFParameterValue";
-  v110[2] = MEMORY[0x1E695E118];
-  v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v110 forKeys:v109 count:3];
-  v111 = v56;
-  v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v111 count:1];
-  v113[7] = v55;
-  v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v113 forKeys:v112 count:8];
-  v53 = [(WFParameterDefinition *)v16 initWithDictionary:v54];
-  v124[4] = v53;
+  v65 = countDescription;
+  v112[4] = countDescription;
+  v111[5] = @"StepperPrefix";
+  v56 = WFLocalizedStringResourceWithKey(@"Get (ContentItemFilter)", @"Get");
+  v112[5] = v56;
+  v112[6] = &unk_1F4A9AE58;
+  v111[6] = @"DefaultValue";
+  v111[7] = @"RequiredResources";
+  v108[0] = @"WFResourceClass";
+  v108[1] = @"WFParameterKey";
+  v109[0] = @"WFParameterRelationResource";
+  v109[1] = @"WFContentItemLimitEnabled";
+  v108[2] = @"WFParameterValue";
+  v109[2] = MEMORY[0x1E695E118];
+  v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v109 forKeys:v108 count:3];
+  v110 = v55;
+  v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v110 count:1];
+  v112[7] = v54;
+  v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v112 forKeys:v111 count:8];
+  v52 = [(WFParameterDefinition *)v16 initWithDictionary:v53];
+  v123[4] = v52;
   v23 = [WFParameterDefinition alloc];
-  v107[0] = @"Class";
+  v106[0] = @"Class";
   v24 = objc_opt_class();
-  v52 = NSStringFromClass(v24);
-  v108[0] = v52;
-  v108[1] = @"WFCompoundType";
-  v107[1] = @"Key";
-  v107[2] = @"Items";
+  v51 = NSStringFromClass(v24);
+  v107[0] = v51;
+  v107[1] = @"WFCompoundType";
+  v106[1] = @"Key";
+  v106[2] = @"Items";
   stringValue = [&unk_1F4A9AE70 stringValue];
-  v106[0] = stringValue;
+  v105[0] = stringValue;
   stringValue2 = [&unk_1F4A9AE88 stringValue];
-  v106[1] = stringValue2;
-  v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:v106 count:2];
-  v108[2] = v49;
-  v107[3] = @"ItemDisplayNames";
+  v105[1] = stringValue2;
+  v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v105 count:2];
+  v107[2] = v48;
+  v106[3] = @"ItemDisplayNames";
   v25 = WFLocalizedStringResourceWithKey(@"Any (find/filter)", @"Any");
-  v105[0] = v25;
+  v104[0] = v25;
   v26 = WFLocalizedStringResourceWithKey(@"All (find/filter)", @"All");
-  v105[1] = v26;
-  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v105 count:2];
-  v108[3] = v27;
-  v107[4] = @"DefaultValue";
+  v104[1] = v26;
+  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v104 count:2];
+  v107[3] = v27;
+  v106[4] = @"DefaultValue";
   stringValue3 = [&unk_1F4A9AE70 stringValue];
-  v108[4] = stringValue3;
-  v107[5] = @"DisallowedVariableTypes";
+  v107[4] = stringValue3;
+  v106[5] = @"DisallowedVariableTypes";
   v29 = +[WFParameter allInsertableVariableTypes];
   allObjects = [v29 allObjects];
-  v108[5] = allObjects;
-  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v108 forKeys:v107 count:6];
+  v107[5] = allObjects;
+  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v107 forKeys:v106 count:6];
   v32 = [(WFParameterDefinition *)v23 initWithDictionary:v31];
-  v124[5] = v32;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v124 count:6];
-  v84 = [v83 arrayWithArray:v33];
+  v123[5] = v32;
+  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v123 count:6];
+  v83 = [v82 arrayWithArray:v33];
 
   LODWORD(allObjects) = [(objc_class *)[(WFAction *)self contentItemClass] hasLibrary];
   v34 = [WFParameterDefinition alloc];
   if (allObjects)
   {
-    v103[0] = @"Class";
+    v102[0] = @"Class";
     v35 = objc_opt_class();
     v36 = NSStringFromClass(v35);
-    v104[0] = v36;
-    v104[1] = @"WFContentItemInputParameter";
-    v103[1] = @"Key";
-    v103[2] = @"Label";
+    v103[0] = v36;
+    v103[1] = @"WFContentItemInputParameter";
+    v102[1] = @"Key";
+    v102[2] = @"Label";
     v37 = [[WFContentItemFilterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:4];
-    v104[2] = v37;
-    v103[3] = @"Placeholder";
+    v103[2] = v37;
+    v102[3] = @"Placeholder";
     v38 = [[WFContentItemFilterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:4];
-    v104[3] = v38;
-    v103[4] = @"Items";
-    v102 = @"Library";
-    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v102 count:1];
-    v104[4] = v39;
-    v103[5] = @"ItemDisplayNames";
+    v103[3] = v38;
+    v102[4] = @"Items";
+    v101 = @"Library";
+    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v101 count:1];
+    v103[4] = v39;
+    v102[5] = @"ItemDisplayNames";
     v40 = WFLocalizedStringResourceWithKey(@"Library (WFContentItemInputParameter)", @"Library");
-    v101 = v40;
-    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v101 count:1];
-    v104[5] = v41;
-    v104[6] = @"Library";
-    v103[6] = @"DefaultValue";
-    v103[7] = @"DisallowedVariableTypes";
-    v100[0] = @"CurrentDate";
-    v100[1] = @"Ask";
-    v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v100 count:2];
-    v104[7] = v42;
-    v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v104 forKeys:v103 count:8];
+    v100 = v40;
+    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v100 count:1];
+    v103[5] = v41;
+    v103[6] = @"Library";
+    v102[6] = @"DefaultValue";
+    v102[7] = @"DisallowedVariableTypes";
+    v99[0] = @"CurrentDate";
+    v99[1] = @"Ask";
+    v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v99 count:2];
+    v103[7] = v42;
+    v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v103 forKeys:v102 count:8];
     v44 = [(WFParameterDefinition *)v34 initWithDictionary:v43];
-    v45 = v84;
-    [v84 addObject:v44];
+    v45 = v83;
+    [v83 addObject:v44];
   }
 
   else
   {
-    v98[0] = @"Class";
+    v97[0] = @"Class";
     v46 = objc_opt_class();
     v36 = NSStringFromClass(v46);
-    v99[0] = v36;
-    v99[1] = @"WFContentItemInputParameter";
-    v98[1] = @"Key";
-    v98[2] = @"Label";
+    v98[0] = v36;
+    v98[1] = @"WFContentItemInputParameter";
+    v97[1] = @"Key";
+    v97[2] = @"Label";
     v37 = [[WFContentItemFilterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:4];
-    v99[2] = v37;
-    v98[3] = @"Placeholder";
+    v98[2] = v37;
+    v97[3] = @"Placeholder";
     v38 = [[WFContentItemFilterActionParameterDescription alloc] initWithContentItemClass:[(WFAction *)self contentItemClass] field:4];
-    v99[3] = v38;
-    v98[4] = @"DisallowedVariableTypes";
-    v97[0] = @"CurrentDate";
-    v97[1] = @"Ask";
-    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v97 count:2];
-    v99[4] = v39;
-    v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v99 forKeys:v98 count:5];
+    v98[3] = v38;
+    v97[4] = @"DisallowedVariableTypes";
+    v96[0] = @"CurrentDate";
+    v96[1] = @"Ask";
+    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v96 count:2];
+    v98[4] = v39;
+    v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v98 forKeys:v97 count:5];
     v41 = [(WFParameterDefinition *)v34 initWithDictionary:v40];
-    v45 = v84;
-    [v84 addObject:v41];
+    v45 = v83;
+    [v83 addObject:v41];
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 
   return v45;
 }
@@ -809,14 +801,14 @@ id __58__WFContentItemFilterAction_possibleStatesForEnumeration___block_invoke(u
 
 - (BOOL)setParameterState:(id)state forKey:(id)key
 {
-  v32[5] = *MEMORY[0x1E69E9840];
+  v31[5] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   keyCopy = key;
-  if (![keyCopy isEqualToString:@"WFCompoundType"] || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  if (!objc_msgSend_isEqualToString_(keyCopy) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
-    v31.receiver = self;
-    v31.super_class = WFContentItemFilterAction;
-    if (![(WFAction *)&v31 setParameterState:stateCopy forKey:keyCopy])
+    v30.receiver = self;
+    v30.super_class = WFContentItemFilterAction;
+    if (![(WFAction *)&v30 setParameterState:stateCopy forKey:keyCopy])
     {
       goto LABEL_8;
     }
@@ -835,7 +827,7 @@ id __58__WFContentItemFilterAction_possibleStatesForEnumeration___block_invoke(u
     {
       value = [v10 value];
       v14 = WFLocalizedContentPropertyPossibleValueMarker(@"Random");
-      [v12 setHidden:{objc_msgSend(value, "isEqualToString:", v14)}];
+      [v12 setHidden:objc_msgSend_isEqualToString_(value)];
     }
 
     else
@@ -844,29 +836,29 @@ id __58__WFContentItemFilterAction_possibleStatesForEnumeration___block_invoke(u
     }
 
     [v12 reloadPossibleStates];
-    if ([keyCopy isEqualToString:@"WFContentItemSortProperty"])
+    if (objc_msgSend_isEqualToString_(keyCopy))
     {
       possibleStates = [v12 possibleStates];
       v17 = [possibleStates containsObject:value3];
 
       if ((v17 & 1) == 0)
       {
-        v29 = WFLocalizedContentPropertyPossibleValueMarker(@"Z to A");
-        v32[0] = v29;
-        v28 = WFLocalizedContentPropertyPossibleValueMarker(@"Biggest First");
-        v32[1] = v28;
-        v27 = WFLocalizedContentPropertyPossibleValueMarker(@"Latest First");
-        v32[2] = v27;
+        v28 = WFLocalizedContentPropertyPossibleValueMarker(@"Z to A");
+        v31[0] = v28;
+        v27 = WFLocalizedContentPropertyPossibleValueMarker(@"Biggest First");
+        v31[1] = v27;
+        v26 = WFLocalizedContentPropertyPossibleValueMarker(@"Latest First");
+        v31[2] = v26;
         v18 = WFLocalizedContentPropertyPossibleValueMarker(@"Longest First");
-        v32[3] = v18;
+        v31[3] = v18;
         v19 = WFLocalizedContentPropertyPossibleValueMarker(@"Descending");
-        v32[4] = v19;
-        v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:5];
+        v31[4] = v19;
+        v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:5];
         value2 = [value3 value];
-        v26 = [v20 containsObject:value2];
+        v25 = [v20 containsObject:value2];
 
         possibleStates2 = [v12 possibleStates];
-        v23 = [possibleStates2 objectAtIndexedSubscript:v26];
+        v23 = [possibleStates2 objectAtIndexedSubscript:v25];
         [(WFContentItemFilterAction *)self setParameterState:v23 forKey:@"WFContentItemSortOrder"];
       }
     }
@@ -890,14 +882,13 @@ LABEL_8:
   v15 = 0;
 LABEL_16:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (id)parameterStateForKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"WFCompoundType"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v5 = [MEMORY[0x1E696AD98] numberWithInteger:{-[WFContentItemFilterAction tableTemplateCompoundType](self, "tableTemplateCompoundType")}];
     stringValue = [v5 stringValue];
@@ -959,7 +950,7 @@ LABEL_16:
   {
     value = [v3 value];
     v6 = WFLocalizedContentPropertyPossibleValueMarker(@"Random");
-    [v4 setHidden:{objc_msgSend(value, "isEqualToString:", v6)}];
+    [v4 setHidden:objc_msgSend_isEqualToString_(value)];
   }
 
   else
@@ -1111,9 +1102,9 @@ LABEL_16:
   parameterCopy = parameter;
   representationCopy = representation;
   v8 = [parameterCopy key];
-  v9 = [v8 isEqualToString:@"WFContentItemSortOrder"];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if (v9)
+  if (isEqualToString)
   {
     v10 = WFLocalizedContentPropertyPossibleValueMarker(representationCopy);
 

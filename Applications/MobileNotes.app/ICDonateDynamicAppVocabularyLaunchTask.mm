@@ -29,7 +29,7 @@
 
 - (void)runLaunchTaskWithCompletionHandler:(id)handler
 {
-  v5 = sub_10015DA04(&qword_1006C2170);
+  v5 = sub_10015DA04(&qword_1006C2170, &unk_100538AA0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

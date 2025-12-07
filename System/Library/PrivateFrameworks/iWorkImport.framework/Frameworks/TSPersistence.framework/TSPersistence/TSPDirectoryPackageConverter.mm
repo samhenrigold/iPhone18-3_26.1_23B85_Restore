@@ -9,47 +9,47 @@
 
 - (unint64_t)progressTotalUnitCountWithZipArchive:(id)archive
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v42.receiver = self;
-  v42.super_class = TSPDirectoryPackageConverter;
-  v4 = [(TSPPackageConverter *)&v42 progressTotalUnitCountWithZipArchive:archive];
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
+  v44 = *MEMORY[0x277D85DE8];
+  v41.receiver = self;
+  v41.super_class = TSPDirectoryPackageConverter;
+  v4 = [(TSPPackageConverter *)&v41 progressTotalUnitCountWithZipArchive:archive];
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v7 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v5, v6);
   v10 = objc_msgSend_URL(self, v8, v9);
   v11 = *MEMORY[0x277CBE868];
   v12 = *MEMORY[0x277CBE838];
-  v43[0] = *MEMORY[0x277CBE868];
-  v43[1] = v12;
-  v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v13, v43, 2);
+  v42[0] = *MEMORY[0x277CBE868];
+  v42[1] = v12;
+  v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v13, v42, 2);
   v16 = objc_msgSend_enumeratorAtURL_includingPropertiesForKeys_options_errorHandler_(v7, v15, v10, v14, 0, 0);
 
-  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v38, v44, 16);
+  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v37, v43, 16);
   if (v19)
   {
-    v20 = *v39;
+    v20 = *v38;
     do
     {
       v21 = 0;
       do
       {
-        if (*v39 != v20)
+        if (*v38 != v20)
         {
           objc_enumerationMutation(v16);
         }
 
-        v22 = *(*(&v38 + 1) + 8 * v21);
-        v37 = 0;
-        ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(v22, v18, &v37, v11, 0);
-        v24 = v37;
+        v22 = *(*(&v37 + 1) + 8 * v21);
+        v36 = 0;
+        ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(v22, v18, &v36, v11, 0);
+        v24 = v36;
         v27 = v24;
         if (ResourceValue_forKey_error && (objc_msgSend_BOOLValue(v24, v25, v26) & 1) == 0)
         {
-          v36 = 0;
-          v29 = objc_msgSend_getResourceValue_forKey_error_(v22, v28, &v36, v12, 0);
-          v30 = v36;
+          v35 = 0;
+          v29 = objc_msgSend_getResourceValue_forKey_error_(v22, v28, &v35, v12, 0);
+          v30 = v35;
           v33 = v30;
           if (v29)
           {
@@ -61,13 +61,12 @@
       }
 
       while (v19 != v21);
-      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v18, &v38, v44, 16);
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v18, &v37, v43, 16);
     }
 
     while (v19);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -163,34 +162,34 @@ LABEL_6:
 - (BOOL)enumeratePackageEntriesWithZipArchive:(id)archive needsReadChannel:(BOOL)channel accessor:(id)accessor
 {
   channelCopy = channel;
-  v142[3] = *MEMORY[0x277D85DE8];
+  v141[3] = *MEMORY[0x277D85DE8];
   archiveCopy = archive;
   accessorCopy = accessor;
   selfCopy = self;
-  v103 = objc_msgSend_URL(self, v7, v8);
+  v102 = objc_msgSend_URL(self, v7, v8);
   v11 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v9, v10);
   v12 = *MEMORY[0x277CBE838];
-  v105 = *MEMORY[0x277CBE868];
-  v142[0] = *MEMORY[0x277CBE868];
-  v142[1] = v12;
-  v142[2] = *MEMORY[0x277CBE7B0];
-  v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v13, v142, 3);
-  v99 = objc_msgSend_enumeratorAtURL_includingPropertiesForKeys_options_errorHandler_(v11, v15, v103, v14, 0, 0);
+  v104 = *MEMORY[0x277CBE868];
+  v141[0] = *MEMORY[0x277CBE868];
+  v141[1] = v12;
+  v141[2] = *MEMORY[0x277CBE7B0];
+  v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v13, v141, 3);
+  v98 = objc_msgSend_enumeratorAtURL_includingPropertiesForKeys_options_errorHandler_(v11, v15, v102, v14, 0, 0);
 
-  v18 = objc_msgSend_path(v103, v16, v17);
+  v18 = objc_msgSend_path(v102, v16, v17);
   v21 = objc_msgSend_stringByStandardizingPath(v18, v19, v20);
-  v100 = objc_msgSend_precomposedStringWithCanonicalMapping(v21, v22, v23);
+  v99 = objc_msgSend_precomposedStringWithCanonicalMapping(v21, v22, v23);
 
-  v114 = objc_msgSend_length(v100, v24, v25);
-  v104 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v102 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v113 = objc_msgSend_length(v99, v24, v25);
+  v103 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v101 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v136 = 0u;
-  v137 = 0u;
-  v134 = 0u;
+  v100 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v135 = 0u;
-  obj = v99;
-  v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v26, &v134, v141, 16);
+  v136 = 0u;
+  v133 = 0u;
+  v134 = 0u;
+  obj = v98;
+  v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v26, &v133, v140, 16);
   v28 = 0;
   if (!v27)
   {
@@ -198,20 +197,20 @@ LABEL_6:
     goto LABEL_22;
   }
 
-  v109 = *v135;
+  v108 = *v134;
   v29 = 1;
   do
   {
     v30 = 0;
-    v107 = v27;
+    v106 = v27;
     do
     {
-      if (*v135 != v109)
+      if (*v134 != v108)
       {
         objc_enumerationMutation(obj);
       }
 
-      v31 = *(*(&v134 + 1) + 8 * v30);
+      v31 = *(*(&v133 + 1) + 8 * v30);
       v32 = objc_autoreleasePoolPush();
       v36 = objc_msgSend_isCancelled(selfCopy, v33, v34) | v29 ^ 1;
       if (v36)
@@ -220,11 +219,11 @@ LABEL_6:
         goto LABEL_17;
       }
 
+      v131 = 0;
       v132 = 0;
-      v133 = 0;
-      ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(v31, v35, &v133, v105, &v132);
-      v38 = v133;
-      v39 = v132;
+      ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(v31, v35, &v132, v104, &v131);
+      v38 = v132;
+      v39 = v131;
 
       if (ResourceValue_forKey_error && (objc_msgSend_BOOLValue(v38, v40, v41) & 1) == 0)
       {
@@ -232,23 +231,23 @@ LABEL_6:
         v47 = objc_msgSend_stringByStandardizingPath(v44, v45, v46);
         v50 = objc_msgSend_precomposedStringWithCanonicalMapping(v47, v48, v49);
 
-        v52 = objc_msgSend_substringFromIndex_(v50, v51, v114 + 1);
+        v52 = objc_msgSend_substringFromIndex_(v50, v51, v113 + 1);
         isDataPath = objc_msgSend_isDataPath_(selfCopy, v53, v52);
-        v56 = v104;
+        v56 = v103;
         if ((isDataPath & 1) == 0)
         {
           if (objc_msgSend_isObjectArchivePath_(selfCopy, v54, v52))
           {
-            objc_msgSend_addObject_(v102, v54, v31, v99);
+            objc_msgSend_addObject_(v101, v54, v31, v98);
 LABEL_15:
 
             goto LABEL_16;
           }
 
-          v56 = v101;
+          v56 = v100;
         }
 
-        objc_msgSend_addObject_(v56, v54, v31, v99);
+        objc_msgSend_addObject_(v56, v54, v31, v98);
         goto LABEL_15;
       }
 
@@ -265,33 +264,33 @@ LABEL_17:
       v30 = v30 + 1;
     }
 
-    while (v107 != v30);
-    v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v57, &v134, v141, 16);
+    while (v106 != v30);
+    v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v57, &v133, v140, 16);
   }
 
   while (v27);
 LABEL_22:
 
-  objc_msgSend_sortUsingComparator_(v104, v58, &unk_2885C16D8);
-  v130 = 0u;
-  v131 = 0u;
-  v128 = 0u;
+  objc_msgSend_sortUsingComparator_(v103, v58, &unk_2885C16D8);
   v129 = 0u;
-  v110 = v104;
-  v60 = objc_msgSend_countByEnumeratingWithState_objects_count_(v110, v59, &v128, v140, 16);
+  v130 = 0u;
+  v127 = 0u;
+  v128 = 0u;
+  v109 = v103;
+  v60 = objc_msgSend_countByEnumeratingWithState_objects_count_(v109, v59, &v127, v139, 16);
   if (v60)
   {
-    v61 = *v129;
+    v61 = *v128;
 LABEL_24:
     v62 = 0;
     while (1)
     {
-      if (*v129 != v61)
+      if (*v128 != v61)
       {
-        objc_enumerationMutation(v110);
+        objc_enumerationMutation(v109);
       }
 
-      v63 = *(*(&v128 + 1) + 8 * v62);
+      v63 = *(*(&v127 + 1) + 8 * v62);
       v64 = objc_autoreleasePoolPush();
       v68 = objc_msgSend_isCancelled(selfCopy, v65, v66) | v29 ^ 1;
       if (v68)
@@ -301,9 +300,9 @@ LABEL_24:
 
       else
       {
-        v127 = v28;
-        v29 = objc_msgSend_performAccessor_filePathCharacterIndex_fileURL_needsReadChannel_zipArchive_error_(selfCopy, v67, accessorCopy, v114 + 1, v63, channelCopy, archiveCopy, &v127);
-        v69 = v127;
+        v126 = v28;
+        v29 = objc_msgSend_performAccessor_filePathCharacterIndex_fileURL_needsReadChannel_zipArchive_error_(selfCopy, v67, accessorCopy, v113 + 1, v63, channelCopy, archiveCopy, &v126);
+        v69 = v126;
 
         v28 = v69;
       }
@@ -316,7 +315,7 @@ LABEL_24:
 
       if (v60 == ++v62)
       {
-        v60 = objc_msgSend_countByEnumeratingWithState_objects_count_(v110, v70, &v128, v140, 16);
+        v60 = objc_msgSend_countByEnumeratingWithState_objects_count_(v109, v70, &v127, v139, 16);
         if (v60)
         {
           goto LABEL_24;
@@ -329,9 +328,9 @@ LABEL_24:
 
   if (v29)
   {
-    v126.receiver = selfCopy;
-    v126.super_class = TSPDirectoryPackageConverter;
-    v71 = [(TSPPackageConverter *)&v126 enumeratePackageEntriesWithZipArchive:archiveCopy needsReadChannel:channelCopy accessor:accessorCopy];
+    v125.receiver = selfCopy;
+    v125.super_class = TSPDirectoryPackageConverter;
+    v71 = [(TSPPackageConverter *)&v125 enumeratePackageEntriesWithZipArchive:archiveCopy needsReadChannel:channelCopy accessor:accessorCopy];
   }
 
   else
@@ -339,25 +338,25 @@ LABEL_24:
     v71 = 0;
   }
 
-  v125 = 0u;
-  v123 = 0u;
   v124 = 0u;
   v122 = 0u;
-  v108 = v102;
-  v73 = objc_msgSend_countByEnumeratingWithState_objects_count_(v108, v72, &v122, v139, 16);
+  v123 = 0u;
+  v121 = 0u;
+  v107 = v101;
+  v73 = objc_msgSend_countByEnumeratingWithState_objects_count_(v107, v72, &v121, v138, 16);
   if (v73)
   {
-    v74 = *v123;
+    v74 = *v122;
 LABEL_38:
     v75 = 0;
     while (1)
     {
-      if (*v123 != v74)
+      if (*v122 != v74)
       {
-        objc_enumerationMutation(v108);
+        objc_enumerationMutation(v107);
       }
 
-      v76 = *(*(&v122 + 1) + 8 * v75);
+      v76 = *(*(&v121 + 1) + 8 * v75);
       v77 = objc_autoreleasePoolPush();
       v81 = objc_msgSend_isCancelled(selfCopy, v78, v79) | v71 ^ 1;
       if (v81)
@@ -367,9 +366,9 @@ LABEL_38:
 
       else
       {
-        v121 = v28;
-        v71 = objc_msgSend_performAccessor_filePathCharacterIndex_fileURL_needsReadChannel_zipArchive_error_(selfCopy, v80, accessorCopy, v114 + 1, v76, channelCopy, archiveCopy, &v121);
-        v82 = v121;
+        v120 = v28;
+        v71 = objc_msgSend_performAccessor_filePathCharacterIndex_fileURL_needsReadChannel_zipArchive_error_(selfCopy, v80, accessorCopy, v113 + 1, v76, channelCopy, archiveCopy, &v120);
+        v82 = v120;
 
         v28 = v82;
       }
@@ -382,7 +381,7 @@ LABEL_38:
 
       if (v73 == ++v75)
       {
-        v73 = objc_msgSend_countByEnumeratingWithState_objects_count_(v108, v83, &v122, v139, 16);
+        v73 = objc_msgSend_countByEnumeratingWithState_objects_count_(v107, v83, &v121, v138, 16);
         if (v73)
         {
           goto LABEL_38;
@@ -393,25 +392,25 @@ LABEL_38:
     }
   }
 
-  v119 = 0u;
-  v120 = 0u;
-  v117 = 0u;
   v118 = 0u;
-  v84 = v101;
-  v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(v84, v85, &v117, v138, 16);
+  v119 = 0u;
+  v116 = 0u;
+  v117 = 0u;
+  v84 = v100;
+  v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(v84, v85, &v116, v137, 16);
   if (v86)
   {
-    v87 = *v118;
+    v87 = *v117;
 LABEL_49:
     v88 = 0;
     while (1)
     {
-      if (*v118 != v87)
+      if (*v117 != v87)
       {
         objc_enumerationMutation(v84);
       }
 
-      v89 = *(*(&v117 + 1) + 8 * v88);
+      v89 = *(*(&v116 + 1) + 8 * v88);
       v90 = objc_autoreleasePoolPush();
       v94 = objc_msgSend_isCancelled(selfCopy, v91, v92) | v71 ^ 1;
       if (v94)
@@ -421,9 +420,9 @@ LABEL_49:
 
       else
       {
-        v116 = v28;
-        v71 = objc_msgSend_performAccessor_filePathCharacterIndex_fileURL_needsReadChannel_zipArchive_error_(selfCopy, v93, accessorCopy, v114 + 1, v89, channelCopy, archiveCopy, &v116);
-        v95 = v116;
+        v115 = v28;
+        v71 = objc_msgSend_performAccessor_filePathCharacterIndex_fileURL_needsReadChannel_zipArchive_error_(selfCopy, v93, accessorCopy, v113 + 1, v89, channelCopy, archiveCopy, &v115);
+        v95 = v115;
 
         v28 = v95;
       }
@@ -436,7 +435,7 @@ LABEL_49:
 
       if (v86 == ++v88)
       {
-        v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(v84, v96, &v117, v138, 16);
+        v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(v84, v96, &v116, v137, 16);
         if (v86)
         {
           goto LABEL_49;
@@ -447,7 +446,6 @@ LABEL_49:
     }
   }
 
-  v97 = *MEMORY[0x277D85DE8];
   return v71;
 }
 

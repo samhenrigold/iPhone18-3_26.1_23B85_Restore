@@ -8,7 +8,7 @@
 
 + (id)registerSubjectRotationWithQueue:(id)queue usingBlock:(id)block
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   blockCopy = block;
   if (!queueCopy)
@@ -20,13 +20,13 @@
   }
 
   out_token = 0;
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __78__TRISubjectRotationNotification_registerSubjectRotationWithQueue_usingBlock___block_invoke;
-  v20 = &unk_27885ECF8;
-  v21 = blockCopy;
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __78__TRISubjectRotationNotification_registerSubjectRotationWithQueue_usingBlock___block_invoke;
+  v19 = &unk_27885ECF8;
+  v20 = blockCopy;
   v9 = blockCopy;
-  v10 = notify_register_dispatch("com.apple.trial.SubjectRotation", &out_token, queueCopy, &v17);
+  v10 = notify_register_dispatch("com.apple.trial.SubjectRotation", &out_token, queueCopy, &v16);
   if (v10)
   {
     v11 = v10;
@@ -34,7 +34,7 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v24 = v11;
+      v23 = v11;
       _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "notify_register_dispatch error: %lu", buf, 0xCu);
     }
 
@@ -44,10 +44,8 @@
   else
   {
     v14 = [TRINotificationState alloc];
-    v13 = [(TRINotificationState *)v14 initWithToken:out_token, v17, v18, v19, v20, v21];
+    v13 = [(TRINotificationState *)v14 initWithToken:out_token, v16, v17, v18, v19, v20];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -76,22 +74,20 @@ uint64_t __78__TRISubjectRotationNotification_registerSubjectRotationWithQueue_u
 
 + (BOOL)notifySubjectRotation
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = notify_post("com.apple.trial.SubjectRotation");
   if (v2)
   {
     v3 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v6 = 134217984;
-      v7 = v2;
-      _os_log_error_impl(&dword_22EA6B000, v3, OS_LOG_TYPE_ERROR, "notify_register_dispatch error: %lu", &v6, 0xCu);
+      v5 = 134217984;
+      v6 = v2;
+      _os_log_error_impl(&dword_22EA6B000, v3, OS_LOG_TYPE_ERROR, "notify_register_dispatch error: %lu", &v5, 0xCu);
     }
   }
 
-  result = v2 == 0;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return v2 == 0;
 }
 
 @end

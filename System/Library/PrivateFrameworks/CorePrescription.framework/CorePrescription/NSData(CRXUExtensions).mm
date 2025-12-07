@@ -112,12 +112,10 @@ LABEL_12:
 
 - (id)crxu_SHA256Hash
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   CC_SHA256([self bytes], objc_msgSend(self, "length"), md);
   v1 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:md length:32 freeWhenDone:0];
   crxu_asHexString = [v1 crxu_asHexString];
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return crxu_asHexString;
 }

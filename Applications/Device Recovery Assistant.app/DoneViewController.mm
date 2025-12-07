@@ -75,7 +75,7 @@
 
 - (void)_didTapInfoButton:(id)button
 {
-  v4 = sub_100012608();
+  v4 = sub_100012608(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136446210;
@@ -90,7 +90,7 @@
 
 - (void)_didTapRestartButton:(id)button
 {
-  v4 = sub_100012608();
+  v4 = sub_100012608(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136446210;

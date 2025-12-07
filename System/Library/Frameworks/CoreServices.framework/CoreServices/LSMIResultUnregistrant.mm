@@ -74,8 +74,7 @@
   v15[5] = &v24;
   v15[6] = v16;
   v15[7] = &v18;
-  [(LSRegistrantStrategy *)strategy runSyncBlockInWriteContext:v15];
-  v7 = registrationCleanupQueue();
+  v7 = registrationCleanupQueue([(LSRegistrantStrategy *)strategy runSyncBlockInWriteContext:v15]);
   v9 = MEMORY[0x1E69E9820];
   v10 = 3221225472;
   v11 = __44__LSMIResultUnregistrant_runWithCompletion___block_invoke_2;
@@ -136,61 +135,59 @@ void __44__LSMIResultUnregistrant_runWithCompletion___block_invoke(void *a1, voi
       v21 = v20;
 
       objc_storeStrong(v7, v20);
-      v17 = _LSInstallLog();
+      v17 = _LSInstallLog(v22);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = *(a1[4] + 32);
+        v23 = *(a1[4] + 32);
         *buf = 138412290;
-        *&buf[4] = v22;
+        *&buf[4] = v23;
         _os_log_impl(&dword_18162D000, v17, OS_LOG_TYPE_DEFAULT, "Unregistration precondition not met: %@", buf, 0xCu);
       }
     }
 
     [*(a1[4] + 8) endModificationOperation];
-    v23 = a1[4];
+    v24 = a1[4];
     if (*(*(a1[6] + 8) + 40))
     {
-      v24 = *(v23 + 24);
-      v25 = [[_LSDModificationPendingSaveToken alloc] initWithUUID:*(a1[4] + 16)];
-      v26 = *(a1[7] + 8);
-      v27 = *(v26 + 40);
-      *(v26 + 40) = v25;
+      v25 = *(v24 + 24);
+      v26 = [[_LSDModificationPendingSaveToken alloc] initWithUUID:*(a1[4] + 16)];
+      v27 = *(a1[7] + 8);
+      v28 = *(v27 + 40);
+      *(v27 + 40) = v26;
 
       v31[0] = MEMORY[0x1E69E9820];
       v31[1] = 3221225472;
       v31[2] = __44__LSMIResultUnregistrant_runWithCompletion___block_invoke_141;
       v31[3] = &unk_1E6A1E300;
-      v28 = v24;
-      v29 = a1[7];
-      v32 = v28;
-      v33 = v29;
+      v29 = v25;
+      v30 = a1[7];
+      v32 = v29;
+      v33 = v30;
       [v3 armSaveTimerIfNecessary:v31];
     }
 
     else
     {
-      [*(v23 + 8) flushModificationState];
+      [*(v24 + 8) flushModificationState];
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __44__LSMIResultUnregistrant_runWithCompletion___block_invoke_141(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a4;
-  v7 = _LSInstallLog();
+  v7 = _LSInstallLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
-    v13 = 138412802;
-    v14 = v8;
-    v15 = 1024;
-    v16 = a2;
-    v17 = 2112;
-    v18 = v6;
-    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Save after unregistration for %@ attempted: %d save error: %@", &v13, 0x1Cu);
+    v12 = 138412802;
+    v13 = v8;
+    v14 = 1024;
+    v15 = a2;
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Save after unregistration for %@ attempted: %d save error: %@", &v12, 0x1Cu);
   }
 
   v9 = v6;
@@ -203,8 +200,6 @@ void __44__LSMIResultUnregistrant_runWithCompletion___block_invoke_141(uint64_t 
   }
 
   [*(*(*(a1 + 40) + 8) + 40) saveDidHappen:v10 == 0 error:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__LSMIResultUnregistrant_runWithCompletion___block_invoke_2(uint64_t a1)

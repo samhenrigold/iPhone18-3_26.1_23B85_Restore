@@ -54,7 +54,7 @@
 
 - (void)setGradient:(id)gradient
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   gradientCopy = gradient;
   if (self->_gradient != gradientCopy)
   {
@@ -70,17 +70,17 @@
     {
       Pattern = CGColorSpaceCreatePattern(0);
       [(UIImage *)self->_gradient scale];
-      memset(&v12, 0, sizeof(v12));
+      memset(&v11, 0, sizeof(v11));
       v8 = *(MEMORY[0x277CBF2C0] + 16);
-      *&v13.a = *MEMORY[0x277CBF2C0];
-      *&v13.c = v8;
-      *&v13.tx = *(MEMORY[0x277CBF2C0] + 32);
-      CGAffineTransformScale(&v12, &v13, 1.0 / v9, -1.0 / v9);
-      v13 = v12;
+      *&v12.a = *MEMORY[0x277CBF2C0];
+      *&v12.c = v8;
+      *&v12.tx = *(MEMORY[0x277CBF2C0] + 32);
+      CGAffineTransformScale(&v11, &v12, 1.0 / v9, -1.0 / v9);
+      v12 = v11;
       v10 = CGPatternCreateWithImage2();
-      *&v13.a = xmmword_2433CA2D0;
-      *&v13.c = unk_2433CA2E0;
-      self->_patternColor = CGColorCreateWithPattern(Pattern, v10, &v13.a);
+      *&v12.a = xmmword_2433CA2D0;
+      *&v12.c = unk_2433CA2E0;
+      self->_patternColor = CGColorCreateWithPattern(Pattern, v10, &v12.a);
       if (Pattern)
       {
         CFRelease(Pattern);
@@ -92,32 +92,28 @@
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)drawRect:(CGRect)rect
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   CurrentContext = UIGraphicsGetCurrentContext();
   text = [(CertInfoGradientLabel *)self text];
   font = [(CertInfoGradientLabel *)self font];
   [(CertInfoGradientLabel *)self bounds];
   v8 = v7;
   v10 = v9;
-  v12[0] = xmmword_2433CA2F0;
-  v12[1] = unk_2433CA300;
-  CGContextSetFillColor(CurrentContext, v12);
+  v11[0] = xmmword_2433CA2F0;
+  v11[1] = unk_2433CA300;
+  CGContextSetFillColor(CurrentContext, v11);
   [text _legacy_drawAtPoint:font withFont:{v8, v10}];
   CGContextSetFillColorWithColor(CurrentContext, [(CertInfoGradientLabel *)self _patternColor]);
   CGContextSaveGState(CurrentContext);
-  v14.width = v8;
-  v14.height = v10;
-  CGContextSetPatternPhase(CurrentContext, v14);
+  v13.width = v8;
+  v13.height = v10;
+  CGContextSetPatternPhase(CurrentContext, v13);
   [text _legacy_drawAtPoint:font withFont:{v8, v10}];
   CGContextRestoreGState(CurrentContext);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

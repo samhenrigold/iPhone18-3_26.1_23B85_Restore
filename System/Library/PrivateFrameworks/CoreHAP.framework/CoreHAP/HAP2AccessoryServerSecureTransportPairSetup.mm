@@ -8,7 +8,7 @@
 
 - (void)transport:(id)transport didReceiveEvent:(id)event
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (hap2LogInitialize_onceToken != -1)
   {
     dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
@@ -17,12 +17,10 @@
   v5 = hap2Log_accessory;
   if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
+    v6 = 138412290;
     selfCopy = self;
-    _os_log_error_impl(&dword_22AADC000, v5, OS_LOG_TYPE_ERROR, "%@ Unexpected event received", &v7, 0xCu);
+    _os_log_error_impl(&dword_22AADC000, v5, OS_LOG_TYPE_ERROR, "%@ Unexpected event received", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (HAP2AccessoryServerSecureTransportPairSetup)initWithTransport:(id)transport operationQueue:(id)queue encryptedSession:(id)session

@@ -3,7 +3,7 @@
 
 @implementation AXSBrailleScreenInputEnabled
 
-uint64_t ___AXSBrailleScreenInputEnabled_block_invoke()
+void *___AXSBrailleScreenInputEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

@@ -37,36 +37,13 @@
     nameComponents = [v5 nameComponents];
     v8 = nameComponents == 0;
 
-    if (v6 == v8)
+    if (v6 == v8 || self->_nameComponents && ([v5 nameComponents], v9 = objc_claimAutoreleasedReturnValue(), v9, v9) && (nameComponents = self->_nameComponents, objc_msgSend(v5, "nameComponents"), v11 = objc_claimAutoreleasedReturnValue(), LODWORD(nameComponents) = -[BMNameComponents isEqual:](nameComponents, "isEqual:", v11), v11, !nameComponents))
     {
-      goto LABEL_8;
-    }
-
-    if (!self->_nameComponents)
-    {
-      goto LABEL_6;
-    }
-
-    nameComponents2 = [v5 nameComponents];
-
-    if (!nameComponents2)
-    {
-      goto LABEL_6;
-    }
-
-    nameComponents = self->_nameComponents;
-    nameComponents3 = [v5 nameComponents];
-    LODWORD(nameComponents) = [(BMNameComponents *)nameComponents isEqual:nameComponents3];
-
-    if (!nameComponents)
-    {
-LABEL_8:
       v14 = 0;
     }
 
     else
     {
-LABEL_6:
       name = self->_name;
       name = [v5 name];
       v14 = [(NSString *)name isEqualToString:name];

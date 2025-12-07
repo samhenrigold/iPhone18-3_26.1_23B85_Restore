@@ -74,25 +74,7 @@
 
     v6 = v5;
     v7 = v6;
-    if (!v6)
-    {
-      goto LABEL_9;
-    }
-
-    timestamp = [(HMDUserManagementOperationTimestamp *)v6 timestamp];
-    timestamp2 = [(HMDUserManagementOperationTimestamp *)self timestamp];
-    v10 = [timestamp isEqual:timestamp2];
-
-    if (!v10)
-    {
-      goto LABEL_9;
-    }
-
-    state = [(HMDUserManagementOperationTimestamp *)v7 state];
-    state2 = [(HMDUserManagementOperationTimestamp *)self state];
-    v13 = [state isEqual:state2];
-
-    if (v13)
+    if (v6 && (-[HMDUserManagementOperationTimestamp timestamp](v6, "timestamp"), v8 = objc_claimAutoreleasedReturnValue(), -[HMDUserManagementOperationTimestamp timestamp](self, "timestamp"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v8 isEqual:v9], v9, v8, v10) && (-[HMDUserManagementOperationTimestamp state](v7, "state"), v11 = objc_claimAutoreleasedReturnValue(), -[HMDUserManagementOperationTimestamp state](self, "state"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "isEqual:", v12), v12, v11, v13))
     {
       device = [(HMDUserManagementOperationTimestamp *)v7 device];
       device2 = [(HMDUserManagementOperationTimestamp *)self device];
@@ -101,7 +83,6 @@
 
     else
     {
-LABEL_9:
       v16 = 0;
     }
   }
@@ -111,21 +92,19 @@ LABEL_9:
 
 - (id)attributeDescriptions
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   device = [(HMDUserManagementOperationTimestamp *)self device];
   v5 = [v3 initWithName:@"Device" value:device];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   timestamp = [(HMDUserManagementOperationTimestamp *)self timestamp];
   v8 = [v6 initWithName:@"Timestamp" value:timestamp];
-  v15[1] = v8;
+  v14[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   state = [(HMDUserManagementOperationTimestamp *)self state];
   v11 = [v9 initWithName:@"State" value:state];
-  v15[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
 
   return v12;
 }

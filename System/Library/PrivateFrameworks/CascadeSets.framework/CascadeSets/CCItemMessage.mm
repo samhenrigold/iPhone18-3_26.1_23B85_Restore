@@ -1,4 +1,8 @@
 @interface CCItemMessage
++ (id)contentMessageForItemType:(unsigned __int16)type data:(id)data error:(id *)error;
++ (id)contentMessageForItemType:(unsigned __int16)type jsonDictionary:(id)dictionary error:(id *)error;
++ (id)metaContentMessageForItemType:(unsigned __int16)type data:(id)data error:(id *)error;
++ (id)metaContentMessageForItemType:(unsigned __int16)type jsonDictionary:(id)dictionary error:(id *)error;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)recursivelyEnumerateFieldsWithError:(id *)error forParentField:(id)field isRepeatedSubMessage:(BOOL)message repeatedSubMessageIndex:(unsigned int)index usingBlock:(id)block;
 - (CCItemMessage)initWithData:(id)data error:(id *)error;
@@ -9,6 +13,78 @@
 @end
 
 @implementation CCItemMessage
+
++ (id)contentMessageForItemType:(unsigned __int16)type data:(id)data error:(id *)error
+{
+  typeCopy = type;
+  dataCopy = data;
+  v8 = _resolveItemMessageSubclass(typeCopy, error);
+  if (v8)
+  {
+    v9 = [objc_alloc(objc_msgSend(v8 "contentMessageClass"))];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
+
++ (id)metaContentMessageForItemType:(unsigned __int16)type data:(id)data error:(id *)error
+{
+  typeCopy = type;
+  dataCopy = data;
+  v8 = _resolveItemMessageSubclass(typeCopy, error);
+  if (v8)
+  {
+    v9 = [objc_alloc(objc_msgSend(v8 "metaContentMessageClass"))];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
+
++ (id)contentMessageForItemType:(unsigned __int16)type jsonDictionary:(id)dictionary error:(id *)error
+{
+  typeCopy = type;
+  dictionaryCopy = dictionary;
+  v8 = _resolveItemMessageSubclass(typeCopy, error);
+  if (v8)
+  {
+    v9 = [objc_alloc(objc_msgSend(v8 "contentMessageClass"))];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
+
++ (id)metaContentMessageForItemType:(unsigned __int16)type jsonDictionary:(id)dictionary error:(id *)error
+{
+  typeCopy = type;
+  dictionaryCopy = dictionary;
+  v8 = _resolveItemMessageSubclass(typeCopy, error);
+  if (v8)
+  {
+    v9 = [objc_alloc(objc_msgSend(v8 "metaContentMessageClass"))];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
 
 - (CCItemMessage)initWithData:(id)data error:(id *)error
 {
@@ -105,7 +181,7 @@ LABEL_14:
 
 void __124__CCItemMessage_recursivelyEnumerateFieldsWithError_forParentField_isRepeatedSubMessage_repeatedSubMessageIndex_usingBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [v3 setParentMessageField:*(a1 + 32)];
   [v3 setRepeatedSubMessageIndex:*(a1 + 56)];
@@ -124,39 +200,39 @@ LABEL_11:
 
   if ([v3 dataType] == 19)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v4 = [v3 repeatedSubMessageValueNoCopy];
-    v7 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v7 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         v11 = 0;
         do
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v4);
           }
 
-          v12 = *(*(&v23 + 1) + 8 * v11);
+          v12 = *(*(&v22 + 1) + 8 * v11);
           v13 = *(a1 + 40);
           v14 = *(*(a1 + 48) + 8);
-          v22 = *(v14 + 40);
-          [v12 recursivelyEnumerateFieldsWithError:&v22 forParentField:v3 isRepeatedSubMessage:1 repeatedSubMessageIndex:v9 usingBlock:v13];
-          objc_storeStrong((v14 + 40), v22);
+          v21 = *(v14 + 40);
+          [v12 recursivelyEnumerateFieldsWithError:&v21 forParentField:v3 isRepeatedSubMessage:1 repeatedSubMessageIndex:v9 usingBlock:v13];
+          objc_storeStrong((v14 + 40), v21);
           v9 = (v9 + 1);
           ++v11;
         }
 
         while (v8 != v11);
-        v8 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v8 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v8);
@@ -166,21 +242,19 @@ LABEL_11:
   }
 
   (*(*(a1 + 40) + 16))();
-  v16 = [v3 error];
+  v15 = [v3 error];
 
-  if (v16)
+  if (v15)
   {
-    v17 = *(*(*(a1 + 48) + 8) + 40);
-    v18 = [v3 error];
-    v19 = CCErrorByJoiningMismatchedFieldAccessorErrorUnderlyingErrors(v17, v18);
-    v20 = *(*(a1 + 48) + 8);
-    v21 = *(v20 + 40);
-    *(v20 + 40) = v19;
+    v16 = *(*(*(a1 + 48) + 8) + 40);
+    v17 = [v3 error];
+    v18 = CCErrorByJoiningMismatchedFieldAccessorErrorUnderlyingErrors(v16, v17);
+    v19 = *(*(a1 + 48) + 8);
+    v20 = *(v19 + 40);
+    *(v19 + 40) = v18;
   }
 
 LABEL_12:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal

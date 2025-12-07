@@ -92,14 +92,12 @@
   has = self->_has;
   if (has)
   {
-    startCount = self->_startCount;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    successCount = self->_successCount;
     PBDataWriterWriteUint32Field();
   }
 
@@ -109,15 +107,14 @@
     PBDataWriterPlaceMark();
     if (p_failureCounts->count)
     {
-      v9 = 0;
+      v7 = 0;
       do
       {
-        v10 = p_failureCounts->list[v9];
         PBDataWriterWriteUint32Field();
-        ++v9;
+        ++v7;
       }
 
-      while (v9 < p_failureCounts->count);
+      while (v7 < p_failureCounts->count);
     }
 
     PBDataWriterRecallMark();
@@ -187,7 +184,6 @@
     goto LABEL_13;
   }
 
-  v5 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_startCount != *(equalCopy + 8))

@@ -154,13 +154,10 @@
 - (void)dealloc
 {
   OUTLINED_FUNCTION_18();
-  v8 = *MEMORY[0x277D85DE8];
   path = [*(v0 + 8) path];
   OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getChangesStreamSafeDBHolder
@@ -270,7 +267,7 @@ uint64_t __56__BRCPendingChangesStream__getChangesStreamSafeDBHolder__block_invo
 
 void __56__BRCPendingChangesStream__getChangesStreamSafeDBHolder__block_invoke_103(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = _pendingChangesStreamPool;
   objc_sync_enter(v2);
   v3 = NSAllMapTableKeys(_pendingChangesStreamPool);
@@ -279,7 +276,7 @@ void __56__BRCPendingChangesStream__getChangesStreamSafeDBHolder__block_invoke_1
   [v4 sortUsingComparator:&__block_literal_global_106];
   v5 = 0;
   *&v6 = 138412546;
-  v13 = v6;
+  v12 = v6;
   while (1)
   {
     v7 = *(a1 + 32);
@@ -293,10 +290,10 @@ void __56__BRCPendingChangesStream__getChangesStreamSafeDBHolder__block_invoke_1
     v10 = brc_default_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      *buf = v13;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v9;
+      *buf = v12;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
       _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] Closing changes stream %@%@", buf, 0x16u);
     }
 
@@ -312,7 +309,6 @@ void __56__BRCPendingChangesStream__getChangesStreamSafeDBHolder__block_invoke_1
   }
 
   objc_sync_exit(v2);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__BRCPendingChangesStream__getChangesStreamSafeDBHolder__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -373,7 +369,7 @@ uint64_t __62__BRCPendingChangesStream__dbBecameCorrupted_withDescription___bloc
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __62__BRCPendingChangesStream__dbBecameCorrupted_withDescription___block_invoke_cold_1(a1);
+    __62__BRCPendingChangesStream__dbBecameCorrupted_withDescription___block_invoke_cold_1();
   }
 
   return [*(a1 + 40) renameAndUnlinkInBackgroundItemAt:0xFFFFFFFFLL path:*(a1 + 32)];
@@ -574,7 +570,7 @@ uint64_t __51__BRCPendingChangesStream__createSchemaIfNecessary__block_invoke(ui
 
 - (void)_openDB
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   if (!self->_hasBeenCreated)
   {
@@ -594,33 +590,33 @@ uint64_t __51__BRCPendingChangesStream__createSchemaIfNecessary__block_invoke(ui
 
   v7 = [BRCPQLConnection alloc];
   label = self->_label;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __34__BRCPendingChangesStream__openDB__block_invoke;
-  v23[3] = &unk_2784FF828;
-  objc_copyWeak(&v24, &location);
-  v9 = [(BRCPQLConnection *)v7 initWithLabel:label dbCorruptionHandler:v23];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __34__BRCPendingChangesStream__openDB__block_invoke;
+  v22[3] = &unk_2784FF828;
+  objc_copyWeak(&v23, &location);
+  v9 = [(BRCPQLConnection *)v7 initWithLabel:label dbCorruptionHandler:v22];
   session = [(BRCServerZone *)self->_serverZone session];
   personaIdentifier = [session personaIdentifier];
   [(BRCPQLConnection *)v9 setAssertionPersonaIdentifier:personaIdentifier];
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __34__BRCPendingChangesStream__openDB__block_invoke_186;
-  v21[3] = &unk_2785019D8;
-  objc_copyWeak(&v22, &location);
-  [(BRCPQLConnection *)v9 setSqliteErrorHandler:v21];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __34__BRCPendingChangesStream__openDB__block_invoke_191;
-  v19[3] = &unk_2785019D8;
-  objc_copyWeak(&v20, &location);
-  [(BRCPQLConnection *)v9 setAutoRollbackHandler:v19];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __34__BRCPendingChangesStream__openDB__block_invoke_186;
+  v20[3] = &unk_2785019D8;
+  objc_copyWeak(&v21, &location);
+  [(BRCPQLConnection *)v9 setSqliteErrorHandler:v20];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __34__BRCPendingChangesStream__openDB__block_invoke_191;
+  v18[3] = &unk_2785019D8;
+  objc_copyWeak(&v19, &location);
+  [(BRCPQLConnection *)v9 setAutoRollbackHandler:v18];
   v12 = [(NSURL *)self->_databaseURL URLByAppendingPathComponent:@"db.db"];
-  v18 = 0;
-  [(BRCPQLConnection *)v9 openAtURL:v12 withFlags:3145734 error:&v18];
-  v13 = v18;
-  v14 = v18;
+  v17 = 0;
+  [(BRCPQLConnection *)v9 openAtURL:v12 withFlags:3145734 error:&v17];
+  v13 = v17;
+  v14 = v17;
   if (v14)
   {
     objc_storeStrong(&self->_error, v13);
@@ -641,12 +637,11 @@ uint64_t __51__BRCPendingChangesStream__createSchemaIfNecessary__block_invoke(ui
     [(BRCPQLConnection *)v9 useSerialQueue];
   }
 
-  objc_destroyWeak(&v20);
-  objc_destroyWeak(&v22);
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v23);
 
   objc_destroyWeak(&location);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __34__BRCPendingChangesStream__openDB__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -668,7 +663,7 @@ void __34__BRCPendingChangesStream__openDB__block_invoke(uint64_t a1, uint64_t a
 
 void __34__BRCPendingChangesStream__openDB__block_invoke_186(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -676,13 +671,13 @@ void __34__BRCPendingChangesStream__openDB__block_invoke_186(uint64_t a1, void *
   v11 = brc_default_log();
   if (os_log_type_enabled(v11, 0x90u))
   {
-    v18 = 138412802;
-    v19 = v8;
-    v20 = 2112;
-    v21 = v9;
-    v22 = 2112;
-    v23 = v10;
-    _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] sqlite error handler called on pending sync db - %@ (%@)%@", &v18, 0x20u);
+    v17 = 138412802;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v9;
+    v21 = 2112;
+    v22 = v10;
+    _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] sqlite error handler called on pending sync db - %@ (%@)%@", &v17, 0x20u);
   }
 
   v12 = [v9 domain];
@@ -709,13 +704,11 @@ void __34__BRCPendingChangesStream__openDB__block_invoke_186(uint64_t a1, void *
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _dbBecameCorrupted:v9 withDescription:@"DB Error Handler of BRCPendingChangesStream"];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __34__BRCPendingChangesStream__openDB__block_invoke_191(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -723,13 +716,13 @@ void __34__BRCPendingChangesStream__openDB__block_invoke_191(uint64_t a1, void *
   v11 = brc_default_log();
   if (os_log_type_enabled(v11, 0x90u))
   {
-    v18 = 138412802;
-    v19 = v8;
-    v20 = 2112;
-    v21 = v9;
-    v22 = 2112;
-    v23 = v10;
-    _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] Auto rollback handler called on pending sync db - %@ (%@)%@", &v18, 0x20u);
+    v17 = 138412802;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v9;
+    v21 = 2112;
+    v22 = v10;
+    _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] Auto rollback handler called on pending sync db - %@ (%@)%@", &v17, 0x20u);
   }
 
   v12 = [v9 domain];
@@ -756,8 +749,6 @@ void __34__BRCPendingChangesStream__openDB__block_invoke_191(uint64_t a1, void *
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _dbBecameCorrupted:v9 withDescription:@"Auto Rollback Handler of BRCPendingChangesStream"];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_closeChangeStream
@@ -793,13 +784,13 @@ void __34__BRCPendingChangesStream__openDB__block_invoke_191(uint64_t a1, void *
       if (_getChangesStreamSafeDBHolder)
       {
         v8 = [_getChangesStreamSafeDBHolder db];
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __43__BRCPendingChangesStream_fetchTokenState___block_invoke;
-        v14[3] = &unk_2785046D0;
-        v14[4] = self;
-        v15 = v5;
-        [v8 performWithFlags:1 action:v14];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __43__BRCPendingChangesStream_fetchTokenState___block_invoke;
+        v13[3] = &unk_2785046D0;
+        v13[4] = self;
+        v14 = v5;
+        [v8 performWithFlags:1 action:v13];
 
         goto LABEL_7;
       }
@@ -814,8 +805,6 @@ void __34__BRCPendingChangesStream__openDB__block_invoke_191(uint64_t a1, void *
       v11 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFACB0] code:15 description:@"unreachable: Trying to fetch token state without a db"];
       error = self->_error;
       self->_error = v11;
-
-      v13 = self->_error;
     }
 
     v5[2](v5, 0, 0);
@@ -883,7 +872,6 @@ uint64_t __43__BRCPendingChangesStream_fetchTokenState___block_invoke(uint64_t a
     {
     }
 
-    v14 = *(*(a1 + 32) + 16);
     (*(*(a1 + 40) + 16))();
   }
 
@@ -905,13 +893,13 @@ uint64_t __43__BRCPendingChangesStream_fetchTokenState___block_invoke(uint64_t a
       if (_getChangesStreamSafeDBHolder)
       {
         v8 = [_getChangesStreamSafeDBHolder db];
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __44__BRCPendingChangesStream_fetchQueryCursor___block_invoke;
-        v14[3] = &unk_2785046D0;
-        v14[4] = self;
-        v15 = v5;
-        [v8 performWithFlags:1 action:v14];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __44__BRCPendingChangesStream_fetchQueryCursor___block_invoke;
+        v13[3] = &unk_2785046D0;
+        v13[4] = self;
+        v14 = v5;
+        [v8 performWithFlags:1 action:v13];
 
         goto LABEL_7;
       }
@@ -926,8 +914,6 @@ uint64_t __43__BRCPendingChangesStream_fetchTokenState___block_invoke(uint64_t a
       v11 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFACB0] code:15 description:@"unreachable: Trying to fetch query cursor without a db"];
       error = self->_error;
       self->_error = v11;
-
-      v13 = self->_error;
     }
 
     v5[2](v5, 0, 0, 0);
@@ -998,7 +984,6 @@ uint64_t __44__BRCPendingChangesStream_fetchQueryCursor___block_invoke(uint64_t 
     {
     }
 
-    v16 = *(*(a1 + 32) + 16);
     (*(*(a1 + 40) + 16))();
   }
 
@@ -1186,18 +1171,16 @@ LABEL_14:
 
 void __68__BRCPendingChangesStream__recordTypeFromRecordID_isShare_isDelete___block_invoke()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v3[0] = @"alias/";
-  v3[1] = @"shareAlias/";
-  v3[2] = @"symlink/";
-  v3[3] = @"finderBookmark/";
-  v3[4] = @"directory/";
-  v3[5] = @"documentStructure/";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:6];
+  v2[6] = *MEMORY[0x277D85DE8];
+  v2[0] = @"alias/";
+  v2[1] = @"shareAlias/";
+  v2[2] = @"symlink/";
+  v2[3] = @"finderBookmark/";
+  v2[4] = @"directory/";
+  v2[5] = @"documentStructure/";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:6];
   v1 = _recordTypeFromRecordID_isShare_isDelete__structuralRecordPrefixes;
   _recordTypeFromRecordID_isShare_isDelete__structuralRecordPrefixes = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)saveEditedRecords:(id)records deletedRecordIDs:(id)ds deletedShareIDs:(id)iDs subResourceEditedRecords:(id)editedRecords serverChangeToken:(id)token clientChangeToken:(int64_t)changeToken
@@ -1236,48 +1219,37 @@ void __68__BRCPendingChangesStream__recordTypeFromRecordID_isShare_isDelete___bl
 
 uint64_t __139__BRCPendingChangesStream_saveEditedRecords_deletedRecordIDs_deletedShareIDs_subResourceEditedRecords_serverChangeToken_clientChangeToken___block_invoke(uint64_t a1, void *a2)
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v78 = 0u;
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
-  v83 = 0u;
   obj = *(a1 + 32);
-  v4 = [obj countByEnumeratingWithState:&v80 objects:v91 count:16];
+  v4 = [obj countByEnumeratingWithState:&v78 objects:v89 count:16];
   if (v4)
   {
     v5 = v4;
-    v66 = *v81;
-    v64 = *MEMORY[0x277CBC050];
+    v64 = *v79;
+    v62 = *MEMORY[0x277CBC050];
     LOBYTE(v6) = 1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v81 != v66)
+        if (*v79 != v64)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v80 + 1) + 8 * i);
+        v8 = *(*(&v78 + 1) + 8 * i);
         v9 = objc_autoreleasePoolPush();
         v10 = *(a1 + 40);
         v11 = [v8 recordID];
         v12 = [v8 recordType];
-        v13 = [v10 _recordTypeFromRecordID:v11 isShare:objc_msgSend(v12 isDelete:{"isEqualToString:", v64), 0}];
+        v13 = [v10 _recordTypeFromRecordID:v11 isShare:objc_msgSend(v12 isDelete:{"isEqualToString:", v62), 0}];
 
-        if ((v6 & 1) == 0 || ([v8 recordID], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v3, "execute:", @"INSERT OR REPLACE INTO record_changes (record_id, record_type, record) VALUES (%@, %d, %@)", v14, v13, v8), v14, !v15) || objc_msgSend(v3, "changes") != 1)
-        {
-          if ((__139__BRCPendingChangesStream_saveEditedRecords_deletedRecordIDs_deletedShareIDs_subResourceEditedRecords_serverChangeToken_clientChangeToken___block_invoke_cold_1() & 1) == 0)
-          {
-            goto LABEL_16;
-          }
-        }
-
-        v16 = [v8 recordID];
-        v17 = [v3 execute:{@"DELETE FROM records_needing_subresources WHERE record_id = %@", v16}];
-
-        if (v17)
+        if ((v6 & 1) != 0 && ([v8 recordID], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v3, "execute:", @"INSERT OR REPLACE INTO record_changes (record_id, record_type, record) VALUES (%@, %d, %@)", v14, v13, v8), v14, v15) && objc_msgSend(v3, "changes") == 1 || (__139__BRCPendingChangesStream_saveEditedRecords_deletedRecordIDs_deletedShareIDs_subResourceEditedRecords_serverChangeToken_clientChangeToken___block_invoke_cold_1()) && (objc_msgSend(v8, "recordID"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v3, "execute:", @"DELETE FROM records_needing_subresources WHERE record_id = %@", v16), v16, v17))
         {
           if ([v3 changes])
           {
@@ -1287,9 +1259,9 @@ uint64_t __139__BRCPendingChangesStream_saveEditedRecords_deletedRecordIDs_delet
             {
               v20 = [v8 recordID];
               *buf = 138412546;
-              v88 = v20;
-              v89 = 2112;
-              v90 = v18;
+              v86 = v20;
+              v87 = 2112;
+              v88 = v18;
               _os_log_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEFAULT, "[WARNING] Removed item in pending resources table because it was saved %@%@", buf, 0x16u);
             }
           }
@@ -1299,14 +1271,13 @@ uint64_t __139__BRCPendingChangesStream_saveEditedRecords_deletedRecordIDs_delet
 
         else
         {
-LABEL_16:
           LOBYTE(v6) = 0;
         }
 
         objc_autoreleasePoolPop(v9);
       }
 
-      v5 = [obj countByEnumeratingWithState:&v80 objects:v91 count:16];
+      v5 = [obj countByEnumeratingWithState:&v78 objects:v89 count:16];
     }
 
     while (v5);
@@ -1317,30 +1288,30 @@ LABEL_16:
     LOBYTE(v6) = 1;
   }
 
-  v78 = 0u;
-  v79 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v67 = *(a1 + 48);
-  v21 = [v67 countByEnumeratingWithState:&v76 objects:v86 count:16];
+  v74 = 0u;
+  v75 = 0u;
+  v65 = *(a1 + 48);
+  v21 = [v65 countByEnumeratingWithState:&v74 objects:v84 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v77;
+    v23 = *v75;
     v24 = @"INSERT OR REPLACE INTO record_changes (record_id, record_type, record) VALUES (%@, %d, %@)";
     v25 = @"DELETE FROM records_needing_subresources WHERE record_id = %@";
     do
     {
       v26 = 0;
-      v65 = v22;
+      v63 = v22;
       do
       {
-        if (*v77 != v23)
+        if (*v75 != v23)
         {
-          objc_enumerationMutation(v67);
+          objc_enumerationMutation(v65);
         }
 
-        v27 = *(*(&v76 + 1) + 8 * v26);
+        v27 = *(*(&v74 + 1) + 8 * v26);
         v28 = objc_autoreleasePoolPush();
         v29 = [*(a1 + 40) _recordTypeFromRecordID:v27 isShare:0 isDelete:1];
         if ((v6 & 1) != 0 && [v3 execute:{v24, v27, v29, 0}] && objc_msgSend(v3, "changes") == 1 || (__139__BRCPendingChangesStream_saveEditedRecords_deletedRecordIDs_deletedShareIDs_subResourceEditedRecords_serverChangeToken_clientChangeToken___block_invoke_cold_2()) && objc_msgSend(v3, "execute:", v25, v27))
@@ -1356,9 +1327,9 @@ LABEL_16:
             if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v88 = v27;
-              v89 = 2112;
-              v90 = v6;
+              v86 = v27;
+              v87 = 2112;
+              v88 = v6;
               _os_log_impl(&dword_223E7A000, v34, OS_LOG_TYPE_DEFAULT, "[WARNING] Removed item in pending resources table because it was deleted %@%@", buf, 0x16u);
             }
 
@@ -1367,7 +1338,7 @@ LABEL_16:
             v25 = v32;
             a1 = v31;
             v23 = v30;
-            v22 = v65;
+            v22 = v63;
           }
 
           else
@@ -1386,33 +1357,33 @@ LABEL_16:
       }
 
       while (v22 != v26);
-      v22 = [v67 countByEnumeratingWithState:&v76 objects:v86 count:16];
+      v22 = [v65 countByEnumeratingWithState:&v74 objects:v84 count:16];
     }
 
     while (v22);
   }
 
-  v74 = 0u;
-  v75 = 0u;
   v72 = 0u;
   v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   v35 = *(a1 + 56);
-  v36 = [v35 countByEnumeratingWithState:&v72 objects:v85 count:16];
+  v36 = [v35 countByEnumeratingWithState:&v70 objects:v83 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v73;
+    v38 = *v71;
     do
     {
       v39 = 0;
       do
       {
-        if (*v73 != v38)
+        if (*v71 != v38)
         {
           objc_enumerationMutation(v35);
         }
 
-        v40 = *(*(&v72 + 1) + 8 * v39);
+        v40 = *(*(&v70 + 1) + 8 * v39);
         v41 = objc_autoreleasePoolPush();
         v42 = [*(a1 + 40) _recordTypeFromRecordID:v40 isShare:1 isDelete:1];
         if ((v6 & 1) != 0 && [v3 execute:{@"INSERT OR REPLACE INTO record_changes (record_id, record_type, record) VALUES (%@, %d, %@)", v40, v42, 0}])
@@ -1429,41 +1400,41 @@ LABEL_16:
           LOBYTE(v6) = 0;
         }
 
-        __139__BRCPendingChangesStream_saveEditedRecords_deletedRecordIDs_deletedShareIDs_subResourceEditedRecords_serverChangeToken_clientChangeToken___block_invoke_cold_3(buf, &v88);
+        __139__BRCPendingChangesStream_saveEditedRecords_deletedRecordIDs_deletedShareIDs_subResourceEditedRecords_serverChangeToken_clientChangeToken___block_invoke_cold_3(buf, &v86);
 LABEL_47:
         objc_autoreleasePoolPop(v41);
         ++v39;
       }
 
       while (v37 != v39);
-      v43 = [v35 countByEnumeratingWithState:&v72 objects:v85 count:16];
+      v43 = [v35 countByEnumeratingWithState:&v70 objects:v83 count:16];
       v37 = v43;
     }
 
     while (v43);
   }
 
-  v70 = 0u;
-  v71 = 0u;
   v68 = 0u;
   v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   v44 = *(a1 + 64);
-  v45 = [v44 countByEnumeratingWithState:&v68 objects:v84 count:16];
+  v45 = [v44 countByEnumeratingWithState:&v66 objects:v82 count:16];
   if (v45)
   {
     v46 = v45;
     v47 = 0;
-    v48 = *v69;
+    v48 = *v67;
     do
     {
       for (j = 0; j != v46; ++j)
       {
-        if (*v69 != v48)
+        if (*v67 != v48)
         {
           objc_enumerationMutation(v44);
         }
 
-        v50 = *(*(&v68 + 1) + 8 * j);
+        v50 = *(*(&v66 + 1) + 8 * j);
         v51 = objc_autoreleasePoolPush();
         if (v6)
         {
@@ -1479,7 +1450,7 @@ LABEL_47:
       }
 
       v47 += v46;
-      v46 = [v44 countByEnumeratingWithState:&v68 objects:v84 count:16];
+      v46 = [v44 countByEnumeratingWithState:&v66 objects:v82 count:16];
     }
 
     while (v46);
@@ -1514,22 +1485,20 @@ LABEL_47:
 
 LABEL_69:
   v55 = [v3 lastError];
-  v57 = *(a1 + 40);
-  v56 = a1 + 40;
-  v58 = *(v57 + 16);
-  *(v57 + 16) = v55;
+  v56 = *(a1 + 40);
+  v57 = *(v56 + 16);
+  *(v56 + 16) = v55;
 
-  v59 = brc_bread_crumbs();
-  v60 = brc_default_log();
-  if (os_log_type_enabled(v60, 0x90u))
+  v58 = brc_bread_crumbs();
+  v59 = brc_default_log();
+  if (os_log_type_enabled(v59, 0x90u))
   {
-    __139__BRCPendingChangesStream_saveEditedRecords_deletedRecordIDs_deletedShareIDs_subResourceEditedRecords_serverChangeToken_clientChangeToken___block_invoke_cold_5(v56);
+    __139__BRCPendingChangesStream_saveEditedRecords_deletedRecordIDs_deletedShareIDs_subResourceEditedRecords_serverChangeToken_clientChangeToken___block_invoke_cold_5();
   }
 
   v54 = 0;
 LABEL_72:
 
-  v61 = *MEMORY[0x277D85DE8];
   return v54;
 }
 
@@ -1566,14 +1535,14 @@ LABEL_72:
 
 uint64_t __82__BRCPendingChangesStream_saveEditedRecords_subResourceEditedRecords_queryCursor___block_invoke(uint64_t a1, void *a2)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v49 = 0u;
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
-  v54 = 0u;
   obj = *(a1 + 32);
-  v4 = [obj countByEnumeratingWithState:&v51 objects:v60 count:16];
+  v4 = [obj countByEnumeratingWithState:&v49 objects:v58 count:16];
   if (!v4)
   {
 LABEL_24:
@@ -1585,26 +1554,26 @@ LABEL_24:
   v5 = v4;
   v6 = a1;
   v7 = 0;
-  v46 = *v52;
-  v45 = *MEMORY[0x277CBC050];
+  v44 = *v50;
+  v43 = *MEMORY[0x277CBC050];
   LOBYTE(v8) = 1;
   do
   {
-    v43 = v7;
+    v41 = v7;
     v9 = 0;
     do
     {
-      if (*v52 != v46)
+      if (*v50 != v44)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v51 + 1) + 8 * v9);
+      v10 = *(*(&v49 + 1) + 8 * v9);
       v11 = objc_autoreleasePoolPush();
       v12 = *(v6 + 40);
       v13 = [v10 recordID];
       v14 = [v10 recordType];
-      v15 = [v12 _recordTypeFromRecordID:v13 isShare:objc_msgSend(v14 isDelete:{"isEqualToString:", v45), 0}];
+      v15 = [v12 _recordTypeFromRecordID:v13 isShare:objc_msgSend(v14 isDelete:{"isEqualToString:", v43), 0}];
 
       if (v8 & 1) != 0 && ([v10 recordID], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v3, "execute:", @"INSERT OR REPLACE INTO record_changes (record_id, record_type, record) VALUES (%@, %d, %@)", v16, v15, v10), v16, v17) && objc_msgSend(v3, "changes") == 1 || (__82__BRCPendingChangesStream_saveEditedRecords_subResourceEditedRecords_queryCursor___block_invoke_cold_1())
       {
@@ -1621,9 +1590,9 @@ LABEL_24:
             {
               v21 = [v10 recordID];
               *buf = 138412546;
-              v57 = v21;
-              v58 = 2112;
-              v59 = v19;
+              v55 = v21;
+              v56 = 2112;
+              v57 = v19;
               _os_log_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEFAULT, "[WARNING] Removed item in pending resources table because it was saved %@%@", buf, 0x16u);
             }
           }
@@ -1642,8 +1611,8 @@ LABEL_24:
     }
 
     while (v5 != v9);
-    v7 = v43 + v5;
-    v22 = [obj countByEnumeratingWithState:&v51 objects:v60 count:16];
+    v7 = v41 + v5;
+    v22 = [obj countByEnumeratingWithState:&v49 objects:v58 count:16];
     v5 = v22;
   }
 
@@ -1664,27 +1633,27 @@ LABEL_24:
 
   a1 = v6;
 LABEL_26:
-  v49 = 0u;
-  v50 = 0u;
   v47 = 0u;
   v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v24 = *(a1 + 48);
-  v25 = [v24 countByEnumeratingWithState:&v47 objects:v55 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v45 objects:v53 count:16];
   if (v25)
   {
     v26 = v25;
     v27 = 0;
-    v28 = *v48;
+    v28 = *v46;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v48 != v28)
+        if (*v46 != v28)
         {
           objc_enumerationMutation(v24);
         }
 
-        v30 = *(*(&v47 + 1) + 8 * i);
+        v30 = *(*(&v45 + 1) + 8 * i);
         v31 = objc_autoreleasePoolPush();
         if (v8)
         {
@@ -1700,7 +1669,7 @@ LABEL_26:
       }
 
       v27 += v26;
-      v26 = [v24 countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v45 objects:v53 count:16];
     }
 
     while (v26);
@@ -1735,22 +1704,20 @@ LABEL_26:
 
 LABEL_43:
   v35 = [v3 lastError];
-  v37 = *(a1 + 40);
-  v36 = a1 + 40;
-  v38 = *(v37 + 16);
-  *(v37 + 16) = v35;
+  v36 = *(a1 + 40);
+  v37 = *(v36 + 16);
+  *(v36 + 16) = v35;
 
-  v39 = brc_bread_crumbs();
-  v40 = brc_default_log();
-  if (os_log_type_enabled(v40, 0x90u))
+  v38 = brc_bread_crumbs();
+  v39 = brc_default_log();
+  if (os_log_type_enabled(v39, 0x90u))
   {
-    __139__BRCPendingChangesStream_saveEditedRecords_deletedRecordIDs_deletedShareIDs_subResourceEditedRecords_serverChangeToken_clientChangeToken___block_invoke_cold_5(v36);
+    __139__BRCPendingChangesStream_saveEditedRecords_deletedRecordIDs_deletedShareIDs_subResourceEditedRecords_serverChangeToken_clientChangeToken___block_invoke_cold_5();
   }
 
   v34 = 0;
 LABEL_46:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
@@ -1787,7 +1754,7 @@ LABEL_46:
 
 uint64_t __88__BRCPendingChangesStream_saveSubResourceRecords_afterSavingMainTableItems_queryCursor___block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 execute:@"DELETE FROM record_changes WHERE 1"];
   LOBYTE(v5) = v4;
@@ -1801,27 +1768,27 @@ uint64_t __88__BRCPendingChangesStream_saveSubResourceRecords_afterSavingMainTab
     }
   }
 
-  v44 = 0u;
-  v45 = 0u;
   v42 = 0u;
   v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v8 = *(a1 + 32);
-  v9 = [v8 countByEnumeratingWithState:&v42 objects:v51 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v40 objects:v49 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v43;
+    v12 = *v41;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v43 != v12)
+        if (*v41 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v42 + 1) + 8 * i);
+        v14 = *(*(&v40 + 1) + 8 * i);
         v15 = objc_autoreleasePoolPush();
         if (v5)
         {
@@ -1837,7 +1804,7 @@ uint64_t __88__BRCPendingChangesStream_saveSubResourceRecords_afterSavingMainTab
       }
 
       v11 += v10;
-      v10 = [v8 countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v40 objects:v49 count:16];
     }
 
     while (v10);
@@ -1868,26 +1835,26 @@ LABEL_21:
 
   v18 = 0;
 LABEL_23:
-  v40 = 0u;
-  v41 = 0u;
   v38 = 0u;
   v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v19 = *(a1 + 56);
-  v20 = [v19 countByEnumeratingWithState:&v38 objects:v50 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v36 objects:v48 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v39;
+    v22 = *v37;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v39 != v22)
+        if (*v37 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        if ((v18 & 1) != 0 && (v24 = *(*(&v38 + 1) + 8 * j), [v24 recordID], v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v3, "execute:", @"DELETE FROM records_needing_subresources WHERE record_id = %@ AND record_id_needing_fetch = record_id", v25), v25, v26))
+        if ((v18 & 1) != 0 && (v24 = *(*(&v36 + 1) + 8 * j), [v24 recordID], v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v3, "execute:", @"DELETE FROM records_needing_subresources WHERE record_id = %@ AND record_id_needing_fetch = record_id", v25), v25, v26))
         {
           if ([v3 changes])
           {
@@ -1895,11 +1862,11 @@ LABEL_23:
             v28 = brc_default_log();
             if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
             {
-              v37 = [v24 recordID];
+              v35 = [v24 recordID];
               *buf = 138412546;
-              v47 = v37;
-              v48 = 2112;
-              v49 = v27;
+              v45 = v35;
+              v46 = 2112;
+              v47 = v27;
               _os_log_debug_impl(&dword_223E7A000, v28, OS_LOG_TYPE_DEBUG, "[DEBUG] Deleted %@ from the pending subResources table because it was persisted directly to the server truth%@", buf, 0x16u);
             }
           }
@@ -1913,7 +1880,7 @@ LABEL_23:
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v38 objects:v50 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v36 objects:v48 count:16];
     }
 
     while (v21);
@@ -1922,20 +1889,18 @@ LABEL_23:
   if ((v18 & 1) == 0)
   {
     v29 = [v3 lastError];
-    v31 = *(a1 + 40);
-    v30 = a1 + 40;
-    v32 = *(v31 + 16);
-    *(v31 + 16) = v29;
+    v30 = *(a1 + 40);
+    v31 = *(v30 + 16);
+    *(v30 + 16) = v29;
 
-    v33 = brc_bread_crumbs();
-    v34 = brc_default_log();
-    if (os_log_type_enabled(v34, 0x90u))
+    v32 = brc_bread_crumbs();
+    v33 = brc_default_log();
+    if (os_log_type_enabled(v33, 0x90u))
     {
-      __88__BRCPendingChangesStream_saveSubResourceRecords_afterSavingMainTableItems_queryCursor___block_invoke_cold_3(v30);
+      __88__BRCPendingChangesStream_saveSubResourceRecords_afterSavingMainTableItems_queryCursor___block_invoke_cold_3();
     }
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -2395,7 +2360,7 @@ uint64_t __43__BRCPendingChangesStream_hasRecordDeletes__block_invoke(uint64_t a
 
 - (BOOL)_saveSubResourceRecord:(id)record withDB:(id)b
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   bCopy = b;
   recordID = [recordCopy recordID];
@@ -2411,9 +2376,9 @@ uint64_t __43__BRCPendingChangesStream_hasRecordDeletes__block_invoke(uint64_t a
       {
         recordID2 = [recordCopy recordID];
         *buf = 138412546;
-        v31 = recordID2;
-        v32 = 2112;
-        v33 = v10;
+        v30 = recordID2;
+        v31 = 2112;
+        v32 = v10;
         _os_log_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] Removed recordID %@ from record changes table because it now needs sub resources%@", buf, 0x16u);
       }
     }
@@ -2468,11 +2433,11 @@ LABEL_17:
       changes = [bCopy changes];
       recordID5 = [recordCopy recordID];
       *buf = 134218498;
-      v31 = changes;
-      v32 = 2112;
-      v33 = recordID5;
-      v34 = 2112;
-      v35 = error;
+      v30 = changes;
+      v31 = 2112;
+      v32 = recordID5;
+      v33 = 2112;
+      v34 = error;
       _os_log_debug_impl(&dword_223E7A000, v23, OS_LOG_TYPE_DEBUG, "[DEBUG] Unblocked %lld records waiting on save of %@ even though it's a sub-resource record%@", buf, 0x20u);
     }
 
@@ -2484,7 +2449,6 @@ LABEL_15:
   v24 = 1;
 LABEL_18:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -2511,33 +2475,33 @@ LABEL_18:
 
 uint64_t __59__BRCPendingChangesStream_finishedFetchingXattrSignatures___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v19 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
-    v19 = a1;
-    v7 = *v21;
+    v18 = a1;
+    v7 = *v20;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         if (![v3 execute:{@"UPDATE records_needing_subresources SET xattr_sig = NULL WHERE xattr_sig = %@", v9}])
         {
           v14 = [v3 lastError];
-          v15 = *(v19 + 40);
+          v15 = *(v18 + 40);
           v16 = *(v15 + 16);
           *(v15 + 16) = v14;
 
@@ -2553,17 +2517,17 @@ uint64_t __59__BRCPendingChangesStream_finishedFetchingXattrSignatures___block_i
           {
             v12 = [v3 changes];
             *buf = 134218498;
-            v25 = v12;
-            v26 = 2112;
-            v27 = v9;
-            v28 = 2112;
-            v29 = v10;
+            v24 = v12;
+            v25 = 2112;
+            v26 = v9;
+            v27 = 2112;
+            v28 = v10;
             _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] Updated %llu items which no longer need to fetch xattr %@%@", buf, 0x20u);
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v19 objects:v29 count:16];
       if (v6)
       {
         continue;
@@ -2576,7 +2540,6 @@ uint64_t __59__BRCPendingChangesStream_finishedFetchingXattrSignatures___block_i
   v13 = 1;
 LABEL_15:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -2603,7 +2566,7 @@ LABEL_15:
 
 uint64_t __63__BRCPendingChangesStream_unblockRecordSavesWaitingOnRecordID___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 execute:{@"DELETE FROM records_needing_subresources WHERE record_id = %@ AND record IS NULL", *(a1 + 32)}];
   if ([v3 changes])
@@ -2612,13 +2575,13 @@ uint64_t __63__BRCPendingChangesStream_unblockRecordSavesWaitingOnRecordID___blo
     v6 = brc_default_log();
     if (os_log_type_enabled(v6, 0x90u))
     {
-      v16 = *(a1 + 32);
+      v15 = *(a1 + 32);
       *buf = 138412802;
-      v22 = v16;
-      v23 = 2048;
-      v24 = [v3 changes];
-      v25 = 2112;
-      v26 = v5;
+      v21 = v15;
+      v22 = 2048;
+      v23 = [v3 changes];
+      v24 = 2112;
+      v25 = v5;
       _os_log_error_impl(&dword_223E7A000, v6, 0x90u, "[ERROR] We couldn't fetch recordID %@ so it's not going to save. We deleted %lld items from pending subresources table for this%@", buf, 0x20u);
     }
   }
@@ -2634,14 +2597,14 @@ uint64_t __63__BRCPendingChangesStream_unblockRecordSavesWaitingOnRecordID___blo
     v8 = brc_default_log();
     if (os_log_type_enabled(v8, 0x90u))
     {
-      v17 = *(a1 + 32);
-      v18 = [v3 changes];
+      v16 = *(a1 + 32);
+      v17 = [v3 changes];
       *buf = 138412802;
-      v22 = v17;
-      v23 = 2048;
-      v24 = v18;
-      v25 = 2112;
-      v26 = v7;
+      v21 = v16;
+      v22 = 2048;
+      v23 = v17;
+      v24 = 2112;
+      v25 = v7;
       _os_log_error_impl(&dword_223E7A000, v8, 0x90u, "[ERROR] We couldn't fetch recordID %@ so it's not going to save. We marked %lld as not needing fetch anymore%@", buf, 0x20u);
     }
   }
@@ -2657,14 +2620,14 @@ uint64_t __63__BRCPendingChangesStream_unblockRecordSavesWaitingOnRecordID___blo
     v10 = brc_default_log();
     if (os_log_type_enabled(v10, 0x90u))
     {
-      v19 = *(a1 + 32);
-      v20 = [v3 changes];
+      v18 = *(a1 + 32);
+      v19 = [v3 changes];
       *buf = 138412802;
-      v22 = v19;
-      v23 = 2048;
-      v24 = v20;
-      v25 = 2112;
-      v26 = v9;
+      v21 = v18;
+      v22 = 2048;
+      v23 = v19;
+      v24 = 2112;
+      v25 = v9;
       _os_log_error_impl(&dword_223E7A000, v10, 0x90u, "[ERROR] We couldn't fetch recordID %@ so it's not going to save. We marked %lld as not blocked for save anymore%@", buf, 0x20u);
     }
   }
@@ -2677,7 +2640,6 @@ uint64_t __63__BRCPendingChangesStream_unblockRecordSavesWaitingOnRecordID___blo
     *(v12 + 16) = v11;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -2717,7 +2679,7 @@ uint64_t __63__BRCPendingChangesStream_unblockRecordSavesWaitingOnRecordID___blo
 
 uint64_t __57__BRCPendingChangesStream_unblockRecord_waitingOnRecord___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 execute:{@"UPDATE records_needing_subresources SET record_id_blocking_save = NULL WHERE record_id = %@ AND record_id_blocking_save = %@", *(a1 + 32), *(a1 + 40)}] && objc_msgSend(v3, "changes"))
   {
@@ -2725,14 +2687,14 @@ uint64_t __57__BRCPendingChangesStream_unblockRecord_waitingOnRecord___block_inv
     v5 = brc_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [*(a1 + 32) recordName];
-      v10 = [*(a1 + 40) recordName];
+      v8 = [*(a1 + 32) recordName];
+      v9 = [*(a1 + 40) recordName];
       *buf = 138412802;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v4;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v4;
       _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] Unblocked record %@ blocked on record %@%@", buf, 0x20u);
     }
 
@@ -2744,13 +2706,12 @@ uint64_t __57__BRCPendingChangesStream_unblockRecord_waitingOnRecord___block_inv
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)_finishedFetchingRecordMetadata:(id)metadata withDB:(id)b
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   bCopy = b;
   [bCopy assertOnQueue];
@@ -2773,10 +2734,10 @@ uint64_t __57__BRCPendingChangesStream_unblockRecord_waitingOnRecord___block_inv
     {
       *buf = 134218498;
       changes = [bCopy changes];
-      v18 = 2112;
-      v19 = recordID;
-      v20 = 2112;
-      v21 = v8;
+      v17 = 2112;
+      v18 = recordID;
+      v19 = 2112;
+      v20 = v8;
       _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] Updated %llu items to be unblocked for fetching %@%@", buf, 0x20u);
     }
   }
@@ -2792,10 +2753,10 @@ uint64_t __57__BRCPendingChangesStream_unblockRecord_waitingOnRecord___block_inv
         changes2 = [bCopy changes];
         *buf = 134218498;
         changes = changes2;
-        v18 = 2112;
-        v19 = recordID;
-        v20 = 2112;
-        v21 = v10;
+        v17 = 2112;
+        v18 = recordID;
+        v19 = 2112;
+        v20 = v10;
         _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] Updated %llu items to be unblocked for saving %@%@", buf, 0x20u);
       }
     }
@@ -2809,14 +2770,13 @@ LABEL_14:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)_closeDatabaseAndDestroy:(BOOL)destroy
 {
   destroyCopy = destroy;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = @"Closing";
   if (destroy)
   {
@@ -2828,13 +2788,13 @@ LABEL_14:
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v17 = 138412802;
+    v16 = 138412802;
     selfCopy = self;
-    v19 = 2112;
-    v20 = v6;
-    v21 = 2112;
-    v22 = v7;
-    _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - %@ the database%@", &v17, 0x20u);
+    v18 = 2112;
+    v19 = v6;
+    v20 = 2112;
+    v21 = v7;
+    _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - %@ the database%@", &v16, 0x20u);
   }
 
   if (self->_hasBeenCreated)
@@ -2848,15 +2808,15 @@ LABEL_14:
     v13 = brc_default_log();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v17 = 138413058;
+      v16 = 138413058;
       selfCopy = v9;
-      v19 = 2112;
-      v20 = v6;
-      v21 = 2112;
-      v22 = path;
-      v23 = 2112;
-      v24 = v12;
-      _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - %@ database at path: %@%@", &v17, 0x2Au);
+      v18 = 2112;
+      v19 = v6;
+      v20 = 2112;
+      v21 = path;
+      v22 = 2112;
+      v23 = v12;
+      _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - %@ database at path: %@%@", &v16, 0x2Au);
     }
 
     if (destroyCopy)
@@ -2869,8 +2829,6 @@ LABEL_14:
     [(BRCPendingChangesStream *)self _closeChangeStream];
     objc_sync_exit(v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

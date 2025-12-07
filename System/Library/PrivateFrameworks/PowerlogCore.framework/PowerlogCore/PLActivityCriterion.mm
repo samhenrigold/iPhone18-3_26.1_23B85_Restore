@@ -5,6 +5,7 @@
 - (void)didDisableActivity:(id)activity;
 - (void)didEnableActivity:(id)activity;
 - (void)didInterruptActivity:(id)activity;
+- (void)setSatisfied:(BOOL)satisfied;
 @end
 
 @implementation PLActivityCriterion
@@ -53,8 +54,8 @@
       v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLActivityCriterion didEnableActivity:]"];
       [PLCoreStorage logMessage:v6 fromFile:lastPathComponent fromFunction:v9 fromLineNumber:28];
 
-      v10 = PLLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -95,8 +96,8 @@ BOOL __41__PLActivityCriterion_didEnableActivity___block_invoke(uint64_t a1)
       v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLActivityCriterion didCompleteActivity:]"];
       [PLCoreStorage logMessage:v6 fromFile:lastPathComponent fromFunction:v9 fromLineNumber:33];
 
-      v10 = PLLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -135,8 +136,8 @@ BOOL __43__PLActivityCriterion_didCompleteActivity___block_invoke(uint64_t a1)
       v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLActivityCriterion didInterruptActivity:]"];
       [PLCoreStorage logMessage:v6 fromFile:lastPathComponent fromFunction:v9 fromLineNumber:37];
 
-      v10 = PLLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -175,8 +176,8 @@ BOOL __44__PLActivityCriterion_didInterruptActivity___block_invoke(uint64_t a1)
       v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLActivityCriterion didDisableActivity:]"];
       [PLCoreStorage logMessage:v6 fromFile:lastPathComponent fromFunction:v9 fromLineNumber:41];
 
-      v10 = PLLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -192,6 +193,48 @@ BOOL __42__PLActivityCriterion_didDisableActivity___block_invoke(uint64_t a1)
   result = [PLDefaults isClassDebugEnabled:*(a1 + 32)];
   didDisableActivity__classDebugEnabled = result;
   return result;
+}
+
+- (void)setSatisfied:(BOOL)satisfied
+{
+  if (self->_satisfied != satisfied)
+  {
+    v20 = v3;
+    v21 = v4;
+    satisfiedCopy = satisfied;
+    if (+[PLDefaults debugEnabled])
+    {
+      v7 = objc_opt_class();
+      block = MEMORY[0x1E69E9820];
+      v16 = 3221225472;
+      v17 = __36__PLActivityCriterion_setSatisfied___block_invoke;
+      v18 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v19 = v7;
+      if (setSatisfied__defaultOnce != -1)
+      {
+        dispatch_once(&setSatisfied__defaultOnce, &block);
+      }
+
+      if (setSatisfied__classDebugEnabled == 1)
+      {
+        v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLActivityCriterion::setSatisfied previouslySatisfied=%i, satisfied=%i for criterion=%@", self->_satisfied, satisfiedCopy, self, block, v16, v17, v18, v19];
+        v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/Activity/PLActivityCriterion.m"];
+        lastPathComponent = [v9 lastPathComponent];
+        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLActivityCriterion setSatisfied:]"];
+        [PLCoreStorage logMessage:v8 fromFile:lastPathComponent fromFunction:v11 fromLineNumber:51];
+
+        v13 = PLLogCommon(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        {
+          [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
+        }
+      }
+    }
+
+    self->_satisfied = satisfiedCopy;
+    delegate = [(PLActivityCriterion *)self delegate];
+    [delegate didChangeCriterion:self];
+  }
 }
 
 BOOL __36__PLActivityCriterion_setSatisfied___block_invoke(uint64_t a1)

@@ -285,13 +285,13 @@ void __41__PXGadgetDataSource_indexPathForGadget___block_invoke(uint64_t a1, uin
   [v6 _enumerateGadgetsInSection:a2 atSectionIndex:a3 usingBlock:v10];
 }
 
-uint64_t __41__PXGadgetDataSource_indexPathForGadget___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+id *__41__PXGadgetDataSource_indexPathForGadget___block_invoke_2(id *result, id a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  if (*(result + 32) == a2)
+  if (result[4] == a2)
   {
     v8 = result;
-    result = [*(result + 40) identifier];
-    v9 = *(*(v8 + 48) + 8);
+    result = [result[5] identifier];
+    v9 = *(v8[6] + 1);
     v9[4] = result;
     v9[5] = a3;
     v9[6] = a4;
@@ -389,7 +389,7 @@ float64x2_t __62__PXGadgetDataSource_indexPathForGadgetSectionWithIdentifier___b
 
   v10 = 0u;
   v11 = 0u;
-  [(PXGadgetDataSource *)self indexPathForGadgetSectionWithIdentifier:identifierCopy];
+  objc_msgSend_indexPathForGadgetSectionWithIdentifier_(self);
   if (*off_1E7721F68)
   {
     v9[0] = v10;

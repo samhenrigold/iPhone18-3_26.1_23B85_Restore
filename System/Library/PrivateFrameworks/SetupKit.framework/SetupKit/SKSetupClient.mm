@@ -56,10 +56,10 @@ LABEL_14:
         return;
       }
 
-      var0 = self->super._ucat->var0;
-      if (var0 <= 30)
+      ucat = self->super._ucat;
+      if (ucat->var0 <= 30)
       {
-        if (var0 != -1)
+        if (ucat->var0 != -1)
         {
           goto LABEL_17;
         }
@@ -74,12 +74,32 @@ LABEL_17:
             v8 = off_279BB8488[runState];
           }
 
-          if (v5 < 0xE && ((0x38FFu >> v5) & 1) != 0)
+          else if (runState <= 9)
           {
-            v10 = off_279BB8488[v5];
+            v8 = "?";
           }
 
-          LogPrintF();
+          else
+          {
+            v8 = "User";
+          }
+
+          if (v5 < 0xE && ((0x38FFu >> v5) & 1) != 0)
+          {
+            v9 = off_279BB8488[v5];
+          }
+
+          else if (v5 <= 9)
+          {
+            v9 = "?";
+          }
+
+          else
+          {
+            v9 = "User";
+          }
+
+          LogPrintF(ucat, "[SKSetupClient _run]", 30, "State: %s -> %s", v8, v9);
         }
       }
     }
@@ -131,7 +151,7 @@ uint64_t __29__SKSetupClient_tryPassword___block_invoke(uint64_t a1)
   v2 = *(*(a1 + 32) + 120);
   v3 = *(*(a1 + 32) + 144);
   v4 = *v3;
-  v9 = v2;
+  v7 = v2;
   if (v2)
   {
     if (v4 <= 30)
@@ -139,23 +159,23 @@ uint64_t __29__SKSetupClient_tryPassword___block_invoke(uint64_t a1)
       if (v4 == -1)
       {
         v5 = _LogCategory_Initialize();
-        v2 = v9;
+        v2 = v7;
         if (!v5)
         {
           goto LABEL_6;
         }
 
-        v7 = *(*(a1 + 32) + 144);
+        v3 = *(*(a1 + 32) + 144);
       }
 
-      LogPrintF();
-      v2 = v9;
+      LogPrintF(v3, "[SKSetupClient tryPassword:]_block_invoke", 30, "Try password");
+      v2 = v7;
     }
 
 LABEL_6:
     v3 = [v2 tryPassword:*(a1 + 40)];
 LABEL_7:
-    v2 = v9;
+    v2 = v7;
     goto LABEL_8;
   }
 
@@ -164,7 +184,7 @@ LABEL_7:
     if (v4 != -1)
     {
 LABEL_13:
-      v3 = LogPrintF();
+      v3 = LogPrintF(v3, "[SKSetupClient tryPassword:]_block_invoke", 90, "### Try password without connection");
       goto LABEL_7;
     }
 
@@ -172,7 +192,7 @@ LABEL_13:
     v2 = 0;
     if (v3)
     {
-      v6 = *(*(a1 + 32) + 144);
+      v3 = *(*(a1 + 32) + 144);
       goto LABEL_13;
     }
   }
@@ -219,27 +239,25 @@ void __40__SKSetupClient__prepareStepsOSRecovery__block_invoke(uint64_t a1, void
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v12 = v3;
+  v9 = v3;
   if (v3)
   {
-    v5 = *v4[18];
-    if (v5 > 60)
+    v5 = v4[18];
+    if (*v5 > 60)
     {
       goto LABEL_7;
     }
 
-    if (v5 != -1)
+    if (*v5 != -1)
     {
       goto LABEL_4;
     }
 
     if (_LogCategory_Initialize())
     {
-      v9 = *(*(a1 + 32) + 144);
+      v5 = *(*(a1 + 32) + 144);
 LABEL_4:
-      v10 = "[SKSetupClient _prepareStepsOSRecovery]_block_invoke";
-      v11 = v12;
-      LogPrintF();
+      LogPrintF(v5, "[SKSetupClient _prepareStepsOSRecovery]_block_invoke", 60, "%s: BasicConfig got error %@, ignoring", "[SKSetupClient _prepareStepsOSRecovery]_block_invoke", v9);
     }
   }
 
@@ -252,7 +270,7 @@ LABEL_4:
   }
 
 LABEL_7:
-  [*(a1 + 32) _completedStep:*(a1 + 40) error:{0, v10, v11}];
+  [*(a1 + 32) _completedStep:*(a1 + 40) error:0];
 }
 
 - (void)_prepareSteps
@@ -278,8 +296,9 @@ LABEL_7:
 - (void)_completeWithError:(id)error
 {
   errorCopy = error;
-  var0 = self->super._ucat->var0;
-  v15 = errorCopy;
+  ucat = self->super._ucat;
+  var0 = ucat->var0;
+  v14 = errorCopy;
   if (errorCopy)
   {
     if (var0 <= 60)
@@ -294,12 +313,12 @@ LABEL_7:
         ucat = self->super._ucat;
       }
 
-      v14 = CUPrintNSError();
-      LogPrintF();
+      v7 = CUPrintNSError();
+      LogPrintF(ucat, "[SKSetupClient _completeWithError:]", 60, "### Setup failed: %@", v7);
     }
 
 LABEL_9:
-    v6 = 3;
+    v8 = 3;
     goto LABEL_12;
   }
 
@@ -312,35 +331,35 @@ LABEL_9:
         goto LABEL_11;
       }
 
-      v13 = self->super._ucat;
+      ucat = self->super._ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SKSetupClient _completeWithError:]", 30, "Setup succeeded");
   }
 
 LABEL_11:
-  v6 = 4;
+  v8 = 4;
 LABEL_12:
-  self->super._runState = v6;
-  v7 = MEMORY[0x26676A4C0](self->_activateCompletion);
+  self->super._runState = v8;
+  v9 = MEMORY[0x26676A4C0](self->_activateCompletion);
   activateCompletion = self->_activateCompletion;
   self->_activateCompletion = 0;
 
-  if (v7)
+  if (v9)
   {
-    (v7)[2](v7, v15);
+    (v9)[2](v9, v14);
   }
 
-  v9 = [[SKEvent alloc] initWithEventType:20 error:v15];
-  [(SKSetupBase *)self _reportEvent:v9];
+  v11 = [[SKEvent alloc] initWithEventType:20 error:v14];
+  [(SKSetupBase *)self _reportEvent:v11];
 
-  v10 = MEMORY[0x26676A4C0](self->_overallCompletionHandler);
+  v12 = MEMORY[0x26676A4C0](self->_overallCompletionHandler);
   overallCompletionHandler = self->_overallCompletionHandler;
   self->_overallCompletionHandler = 0;
 
-  if (v10)
+  if (v12)
   {
-    (v10)[2](v10, v15);
+    (v12)[2](v12, v14);
   }
 }
 
@@ -348,8 +367,8 @@ LABEL_12:
 {
   if (self->super._invalidateCalled)
   {
-    v14 = v2;
-    v15 = v3;
+    v13 = v2;
+    v14 = v3;
     authCompletionHandler = self->_authCompletionHandler;
     self->_authCompletionHandler = 0;
 
@@ -362,23 +381,22 @@ LABEL_12:
 
     if (v7)
     {
-      v9 = *MEMORY[0x277CCA590];
-      v10 = NSErrorF_safe();
-      (v7)[2](v7, v10);
+      v9 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294896148, "Invalidated");
+      (v7)[2](v7, v9);
     }
 
-    v11 = MEMORY[0x26676A4C0](self->_invalidationHandler);
+    v10 = MEMORY[0x26676A4C0](self->_invalidationHandler);
     invalidationHandler = self->_invalidationHandler;
     self->_invalidationHandler = 0;
 
-    if (v11)
+    if (v10)
     {
-      v11[2](v11);
+      v10[2](v10);
     }
 
-    v13.receiver = self;
-    v13.super_class = SKSetupClient;
-    [(SKSetupBase *)&v13 _invalidated];
+    v12.receiver = self;
+    v12.super_class = SKSetupClient;
+    [(SKSetupBase *)&v12 _invalidated];
   }
 }
 
@@ -394,14 +412,13 @@ LABEL_12:
 
   if (v4)
   {
-    v6 = *MEMORY[0x277CCA590];
-    v7 = NSErrorF_safe();
-    (v4)[2](v4, v7);
+    v6 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294896148, "Invalidated");
+    (v4)[2](v4, v6);
   }
 
-  v8.receiver = self;
-  v8.super_class = SKSetupClient;
-  [(SKSetupBase *)&v8 _invalidate];
+  v7.receiver = self;
+  v7.super_class = SKSetupClient;
+  [(SKSetupBase *)&v7 _invalidate];
 }
 
 - (void)_setupConnectionCommon:(id)common
@@ -516,99 +533,100 @@ void __40__SKSetupClient__setupConnectionCommon___block_invoke_4(uint64_t a1, vo
   v4 = *(a1 + 40);
   if (*(a1 + 32) == *(v4 + 120))
   {
-    v10 = v3;
-    v5 = **(v4 + 144);
-    if (v5 <= 90)
+    v9 = v3;
+    v5 = *(v4 + 144);
+    if (*v5 <= 90)
     {
-      if (v5 == -1)
+      if (*v5 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_6;
         }
 
-        v8 = *(*(a1 + 40) + 144);
+        v5 = *(*(a1 + 40) + 144);
       }
 
-      v9 = CUPrintNSError();
-      LogPrintF();
+      v6 = CUPrintNSError();
+      LogPrintF(v5, "[SKSetupClient _setupConnectionCommon:]_block_invoke_4", 90, "### Connection error: %@", v6);
     }
 
 LABEL_6:
     [*(a1 + 32) invalidate];
-    v6 = *(a1 + 40);
-    v7 = *(v6 + 120);
-    *(v6 + 120) = 0;
+    v7 = *(a1 + 40);
+    v8 = *(v7 + 120);
+    *(v7 + 120) = 0;
 
-    v3 = v10;
+    v3 = v9;
   }
 }
 
 void __40__SKSetupClient__setupConnectionCommon___block_invoke_5(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  if (*(a1 + 32) != *(v2 + 120))
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  if (v2 != *(v3 + 120))
   {
     return;
   }
 
-  v4 = **(v2 + 144);
-  if (v4 <= 30)
+  v5 = *(v3 + 144);
+  if (*v5 <= 30)
   {
-    if (v4 == -1)
+    if (*v5 == -1)
     {
-      v5 = _LogCategory_Initialize();
-      v2 = *(a1 + 40);
-      if (!v5)
+      v6 = _LogCategory_Initialize();
+      v3 = *(a1 + 40);
+      if (!v6)
       {
         goto LABEL_6;
       }
 
-      v7 = *(v2 + 144);
-      v8 = *(a1 + 32);
+      v5 = *(v3 + 144);
+      v2 = *(a1 + 32);
     }
 
-    LogPrintF();
-    v2 = *(a1 + 40);
+    LogPrintF(v5, "[SKSetupClient _setupConnectionCommon:]_block_invoke_5", 30, "Connection ended: %@", v2);
+    v3 = *(a1 + 40);
   }
 
 LABEL_6:
-  v6 = *(v2 + 120);
-  *(v2 + 120) = 0;
+  v7 = *(v3 + 120);
+  *(v3 + 120) = 0;
 }
 
 void __40__SKSetupClient__setupConnectionCommon___block_invoke_6(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v5 = *v4[18];
-  v9 = v3;
-  if (v5 <= 30)
+  v5 = v4[18];
+  v8 = v3;
+  if (*v5 <= 30)
   {
-    if (v5 != -1)
+    if (*v5 != -1)
     {
 LABEL_3:
-      v8 = CUPrintNSObjectOneLine();
-      LogPrintF();
+      v6 = CUPrintNSObjectOneLine();
+      LogPrintF(v5, "[SKSetupClient _setupConnectionCommon:]_block_invoke_6", 30, "PairSetup config: %@", v6);
 
-      v3 = v9;
+      v3 = v8;
       v4 = *(a1 + 32);
       goto LABEL_6;
     }
 
-    v6 = _LogCategory_Initialize();
+    v7 = _LogCategory_Initialize();
     v4 = *(a1 + 32);
-    if (v6)
+    if (v7)
     {
-      v7 = v4[18];
+      v5 = v4[18];
       goto LABEL_3;
     }
 
-    v3 = v9;
+    v3 = v8;
   }
 
 LABEL_6:
-  [v4 _pairSetupConfig:{v3, v8}];
+  [v4 _pairSetupConfig:v3];
 }
 
 void *__40__SKSetupClient__setupConnectionCommon___block_invoke_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -638,29 +656,29 @@ void *__40__SKSetupClient__setupConnectionCommon___block_invoke_8(uint64_t a1, u
 - (void)_activateOOBWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v16[0] = 0;
-  v16[1] = v16;
-  v16[2] = 0x3032000000;
-  v16[3] = __Block_byref_object_copy__1505;
-  v16[4] = __Block_byref_object_dispose__1506;
-  v17 = 0;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __44__SKSetupClient__activateOOBWithCompletion___block_invoke;
-  v13[3] = &unk_279BB8500;
-  v15 = v16;
-  v13[4] = self;
+  v15[0] = 0;
+  v15[1] = v15;
+  v15[2] = 0x3032000000;
+  v15[3] = __Block_byref_object_copy__1505;
+  v15[4] = __Block_byref_object_dispose__1506;
+  v16 = 0;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __44__SKSetupClient__activateOOBWithCompletion___block_invoke;
+  v12[3] = &unk_279BB8500;
+  v14 = v15;
+  v12[4] = self;
   v5 = completionCopy;
-  v14 = v5;
-  v6 = MEMORY[0x26676A4C0](v13);
+  v13 = v5;
+  v6 = MEMORY[0x26676A4C0](v12);
   v7 = objc_alloc_init(SKConnection);
   objc_storeStrong(&self->super._skCnx, v7);
   [(SKConnection *)v7 setSendDataHandler:self->super._sendDataHandler];
   [(SKSetupClient *)self _setupConnectionCommon:v7];
-  var0 = self->super._ucat->var0;
-  if (var0 <= 30)
+  ucat = self->super._ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -670,138 +688,129 @@ void *__40__SKSetupClient__setupConnectionCommon___block_invoke_8(uint64_t a1, u
       ucat = self->super._ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SKSetupClient _activateOOBWithCompletion:]", 30, "Connection activate: %@", v7);
   }
 
 LABEL_5:
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __44__SKSetupClient__activateOOBWithCompletion___block_invoke_2;
-  v11[3] = &unk_279BB82F8;
-  v11[4] = v7;
-  v11[5] = self;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __44__SKSetupClient__activateOOBWithCompletion___block_invoke_2;
+  v10[3] = &unk_279BB82F8;
+  v10[4] = v7;
+  v10[5] = self;
   v9 = v5;
-  v12 = v9;
-  [(SKConnection *)v7 activateWithCompletion:v11];
+  v11 = v9;
+  [(SKConnection *)v7 activateWithCompletion:v10];
 
   v6[2](v6);
-  _Block_object_dispose(v16, 8);
+  _Block_object_dispose(v15, 8);
 }
 
 uint64_t __44__SKSetupClient__activateOOBWithCompletion___block_invoke(void *a1)
 {
-  v2 = a1[6];
-  result = *(*(v2 + 8) + 40);
+  result = *(*(a1[6] + 8) + 40);
   if (!result)
   {
     return result;
   }
 
-  v4 = **(a1[4] + 144);
-  if (v4 <= 90)
+  v3 = *(a1[4] + 144);
+  if (*v3 <= 90)
   {
-    if (v4 == -1)
+    if (*v3 == -1)
     {
-      v5 = *(a1[4] + 144);
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v9 = *(a1[4] + 144);
-      v10 = *(*(v2 + 8) + 40);
+      v3 = *(a1[4] + 144);
     }
 
-    v11 = CUPrintNSError();
-    LogPrintF();
-
-    v2 = a1[6];
+    v4 = CUPrintNSError();
+    LogPrintF(v3, "[SKSetupClient _activateOOBWithCompletion:]_block_invoke", 90, "### Activate failed: %@", v4);
   }
 
 LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = *(a1[5] + 16);
+  v5 = *(a1[5] + 16);
 
-  return v8();
+  return v5();
 }
 
 void __44__SKSetupClient__activateOOBWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 40);
-  v17 = v3;
+  v13 = v3;
   if (*(a1 + 32) != *(v4 + 120))
   {
-    v5 = *MEMORY[0x277CCA590];
-    v6 = NSErrorF_safe();
-    v7 = **(*(a1 + 40) + 144);
-    if (v7 <= 90)
+    v5 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294896148, "Invalidated before activate completed");
+    v6 = *(*(a1 + 40) + 144);
+    if (*v6 <= 90)
     {
-      if (v7 == -1)
+      if (*v6 == -1)
       {
-        v9 = *(*(a1 + 40) + 144);
         if (!_LogCategory_Initialize())
         {
           goto LABEL_13;
         }
 
-        v12 = *(*(a1 + 40) + 144);
+        v6 = *(*(a1 + 40) + 144);
       }
 
-      v16 = CUPrintNSError();
-      LogPrintF();
+      v7 = CUPrintNSError();
+      LogPrintF(v6, "[SKSetupClient _activateOOBWithCompletion:]_block_invoke_2", 90, "### Connection activate failed: %@", v7);
     }
 
 LABEL_13:
-    (*(*(a1 + 48) + 16))(*(a1 + 48));
+    (*(*(a1 + 48) + 16))();
 
     goto LABEL_18;
   }
 
-  v8 = **(v4 + 144);
+  v8 = *(v4 + 144);
+  v9 = *v8;
   if (v3)
   {
-    if (v8 <= 90)
+    if (v9 <= 90)
     {
-      if (v8 == -1)
+      if (v9 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_15;
         }
 
-        v13 = *(*(a1 + 40) + 144);
+        v8 = *(*(a1 + 40) + 144);
       }
 
-      v15 = CUPrintNSError();
-      LogPrintF();
+      v10 = CUPrintNSError();
+      LogPrintF(v8, "[SKSetupClient _activateOOBWithCompletion:]_block_invoke_2", 90, "### Connection activate failed: %@", v10);
     }
 
 LABEL_15:
     [*(a1 + 32) invalidate];
-    v10 = *(a1 + 40);
-    v11 = *(v10 + 120);
-    *(v10 + 120) = 0;
+    v11 = *(a1 + 40);
+    v12 = *(v11 + 120);
+    *(v11 + 120) = 0;
 
     (*(*(a1 + 48) + 16))();
     goto LABEL_18;
   }
 
-  if (v8 <= 30)
+  if (v9 <= 30)
   {
-    if (v8 == -1)
+    if (v9 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_17;
       }
 
-      v14 = *(*(a1 + 40) + 144);
+      v8 = *(*(a1 + 40) + 144);
     }
 
-    LogPrintF();
+    LogPrintF(v8, "[SKSetupClient _activateOOBWithCompletion:]_block_invoke_2", 30, "Connection activated");
   }
 
 LABEL_17:
@@ -822,10 +831,10 @@ LABEL_18:
     }
 
     [(SKSetupClient *)self _setupConnectionCommon:v5];
-    var0 = self->super._ucat->var0;
-    if (var0 <= 30)
+    ucat = self->super._ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -835,18 +844,17 @@ LABEL_18:
         ucat = self->super._ucat;
       }
 
-      v9 = v5;
-      LogPrintF();
+      LogPrintF(ucat, "[SKSetupClient _activateNANContinueWithError:]", 30, "Connection activate: %@", v5);
     }
 
 LABEL_9:
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __47__SKSetupClient__activateNANContinueWithError___block_invoke;
-    v10[3] = &unk_279BB8838;
-    v10[4] = v5;
-    v10[5] = self;
-    [(SKConnection *)v5 activateWithCompletion:v10, v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __47__SKSetupClient__activateNANContinueWithError___block_invoke;
+    v8[3] = &unk_279BB8838;
+    v8[4] = v5;
+    v8[5] = self;
+    [(SKConnection *)v5 activateWithCompletion:v8];
     goto LABEL_10;
   }
 
@@ -866,59 +874,57 @@ void __47__SKSetupClient__activateNANContinueWithError___block_invoke(uint64_t a
 {
   v3 = a2;
   v4 = *(a1 + 40);
-  v29 = v3;
-  if (*(a1 + 32) != *(v4 + 120))
+  v23 = v3;
+  if (*(a1 + 32) != v4[15])
   {
-    v5 = *MEMORY[0x277CCA590];
-    v6 = NSErrorF_safe();
-    v7 = *(a1 + 40);
-    v8 = **(v7 + 144);
-    if (v8 <= 90)
+    v5 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294896148, "Invalidated before activate completed");
+    v6 = *(a1 + 40);
+    v7 = *(v6 + 144);
+    if (*v7 <= 90)
     {
-      if (v8 == -1)
+      if (*v7 == -1)
       {
-        v10 = *(v7 + 144);
-        v11 = _LogCategory_Initialize();
-        v7 = *(a1 + 40);
-        if (!v11)
+        v12 = _LogCategory_Initialize();
+        v6 = *(a1 + 40);
+        if (!v12)
         {
           goto LABEL_13;
         }
 
-        v24 = *(v7 + 144);
+        v7 = *(v6 + 144);
       }
 
-      v28 = CUPrintNSError();
-      LogPrintF();
+      v8 = CUPrintNSError();
+      LogPrintF(v7, "[SKSetupClient _activateNANContinueWithError:]_block_invoke", 90, "### Connection activate failed: %@", v8);
 
-      v7 = *(a1 + 40);
+      v6 = *(a1 + 40);
     }
 
 LABEL_13:
-    v12 = MEMORY[0x26676A4C0](*(v7 + 208));
-    v13 = *(a1 + 40);
-    v14 = *(v13 + 208);
-    *(v13 + 208) = 0;
+    v13 = MEMORY[0x26676A4C0](*(v6 + 208));
+    v14 = *(a1 + 40);
+    v15 = *(v14 + 208);
+    *(v14 + 208) = 0;
 
-    if (v12)
+    if (v13)
     {
-      v12[2](v12, v6);
+      v13[2](v13, v5);
     }
 
     goto LABEL_16;
   }
 
-  v9 = **(v4 + 144);
+  v9 = v4[18];
+  v10 = *v9;
   if (v3)
   {
-    if (v9 > 90)
+    if (v10 > 90)
     {
       goto LABEL_20;
     }
 
-    if (v9 == -1)
+    if (v10 == -1)
     {
-      v15 = *(v4 + 144);
       if (!_LogCategory_Initialize())
       {
 LABEL_20:
@@ -927,56 +933,55 @@ LABEL_20:
         v17 = *(v16 + 120);
         *(v16 + 120) = 0;
 
-        v6 = MEMORY[0x26676A4C0](*(*(a1 + 40) + 208));
+        v5 = MEMORY[0x26676A4C0](*(*(a1 + 40) + 208));
         v18 = *(a1 + 40);
         v19 = *(v18 + 208);
         *(v18 + 208) = 0;
 
-        if (v6)
+        if (v5)
         {
-          (v6)[2](v6, v29);
+          (v5)[2](v5, v23);
         }
 
         goto LABEL_16;
       }
 
-      v25 = *(*(a1 + 40) + 144);
+      v9 = *(*(a1 + 40) + 144);
     }
 
-    v27 = CUPrintNSError();
-    LogPrintF();
+    v11 = CUPrintNSError();
+    LogPrintF(v9, "[SKSetupClient _activateNANContinueWithError:]_block_invoke", 90, "### Connection activate failed: %@", v11);
 
     goto LABEL_20;
   }
 
-  if (v9 <= 30)
+  if (v10 <= 30)
   {
-    if (v9 == -1)
+    if (v10 == -1)
     {
-      v20 = *(v4 + 144);
-      v21 = _LogCategory_Initialize();
+      v20 = _LogCategory_Initialize();
       v4 = *(a1 + 40);
-      if (!v21)
+      if (!v20)
       {
         goto LABEL_23;
       }
 
-      v26 = *(v4 + 144);
+      v9 = v4[18];
     }
 
-    LogPrintF();
+    LogPrintF(v9, "[SKSetupClient _activateNANContinueWithError:]_block_invoke", 30, "Connection activated");
     v4 = *(a1 + 40);
   }
 
 LABEL_23:
-  v6 = MEMORY[0x26676A4C0](*(v4 + 208));
-  v22 = *(a1 + 40);
-  v23 = *(v22 + 208);
-  *(v22 + 208) = 0;
+  v5 = MEMORY[0x26676A4C0](v4[26]);
+  v21 = *(a1 + 40);
+  v22 = *(v21 + 208);
+  *(v21 + 208) = 0;
 
-  if (v6)
+  if (v5)
   {
-    v6[2](v6, 0);
+    v5[2](v5, 0);
   }
 
   [*(a1 + 40) _run];
@@ -986,21 +991,21 @@ LABEL_16:
 - (void)_activateNANWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__1505;
-  v25 = __Block_byref_object_dispose__1506;
-  v26 = 0;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __44__SKSetupClient__activateNANWithCompletion___block_invoke;
-  v18[3] = &unk_279BB8500;
-  v20 = &v21;
-  v18[4] = self;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__1505;
+  v24 = __Block_byref_object_dispose__1506;
+  v25 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __44__SKSetupClient__activateNANWithCompletion___block_invoke;
+  v17[3] = &unk_279BB8500;
+  v19 = &v20;
+  v17[4] = self;
   v5 = completionCopy;
-  v19 = v5;
-  v6 = MEMORY[0x26676A4C0](v18);
+  v18 = v5;
+  v6 = MEMORY[0x26676A4C0](v17);
   v7 = objc_alloc_init(SKConnection);
   objc_storeStrong(&self->super._skCnx, v7);
   [(SKConnection *)v7 setClientMode:1];
@@ -1017,93 +1022,84 @@ LABEL_16:
     activateCompletion = self->_activateCompletion;
     self->_activateCompletion = v10;
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __44__SKSetupClient__activateNANWithCompletion___block_invoke_2;
-    v17[3] = &unk_279BB8320;
-    v17[4] = identifier;
-    v17[5] = self;
-    [v9 setEndpointFoundHandler:v17];
     v16[0] = MEMORY[0x277D85DD0];
     v16[1] = 3221225472;
-    v16[2] = __44__SKSetupClient__activateNANWithCompletion___block_invoke_3;
-    v16[3] = &unk_279BB8348;
-    v16[4] = v9;
+    v16[2] = __44__SKSetupClient__activateNANWithCompletion___block_invoke_2;
+    v16[3] = &unk_279BB8320;
+    v16[4] = identifier;
     v16[5] = self;
-    v16[6] = identifier;
-    v16[7] = v7;
-    [v9 setReceiveHandler:v16];
+    [v9 setEndpointFoundHandler:v16];
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
-    v15[2] = __44__SKSetupClient__activateNANWithCompletion___block_invoke_4;
-    v15[3] = &unk_279BB8398;
+    v15[2] = __44__SKSetupClient__activateNANWithCompletion___block_invoke_3;
+    v15[3] = &unk_279BB8348;
     v15[4] = v9;
     v15[5] = self;
-    [(SKConnection *)v7 setSendDataHandler:v15];
+    v15[6] = identifier;
+    v15[7] = v7;
+    [v9 setReceiveHandler:v15];
     v14[0] = MEMORY[0x277D85DD0];
     v14[1] = 3221225472;
-    v14[2] = __44__SKSetupClient__activateNANWithCompletion___block_invoke_6;
-    v14[3] = &unk_279BB8838;
+    v14[2] = __44__SKSetupClient__activateNANWithCompletion___block_invoke_4;
+    v14[3] = &unk_279BB8398;
     v14[4] = v9;
     v14[5] = self;
-    [v9 activateWithCompletion:v14];
+    [(SKConnection *)v7 setSendDataHandler:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __44__SKSetupClient__activateNANWithCompletion___block_invoke_6;
+    v13[3] = &unk_279BB8838;
+    v13[4] = v9;
+    v13[5] = self;
+    [v9 activateWithCompletion:v13];
   }
 
   else
   {
-    v12 = *MEMORY[0x277CCA590];
-    v13 = NSErrorF_safe();
-    v9 = v22[5];
-    v22[5] = v13;
+    v12 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960591, "No peer device ID");
+    v9 = v21[5];
+    v21[5] = v12;
   }
 
   v6[2](v6);
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
 uint64_t __44__SKSetupClient__activateNANWithCompletion___block_invoke(void *a1)
 {
-  v2 = a1[6];
-  result = *(*(v2 + 8) + 40);
+  result = *(*(a1[6] + 8) + 40);
   if (!result)
   {
     return result;
   }
 
-  v4 = **(a1[4] + 144);
-  if (v4 <= 90)
+  v3 = *(a1[4] + 144);
+  if (*v3 <= 90)
   {
-    if (v4 == -1)
+    if (*v3 == -1)
     {
-      v5 = *(a1[4] + 144);
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v9 = *(a1[4] + 144);
-      v10 = *(*(v2 + 8) + 40);
+      v3 = *(a1[4] + 144);
     }
 
-    v11 = CUPrintNSError();
-    LogPrintF();
-
-    v2 = a1[6];
+    v4 = CUPrintNSError();
+    LogPrintF(v3, "[SKSetupClient _activateNANWithCompletion:]_block_invoke", 90, "### Activate failed: %@", v4);
   }
 
 LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = *(a1[5] + 16);
+  v5 = *(a1[5] + 16);
 
-  return v8();
+  return v5();
 }
 
 void __44__SKSetupClient__activateNANWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = a2;
-  v4 = [v18 identifier];
+  v14 = a2;
+  v4 = [v14 identifier];
   v5 = *(a1 + 32);
   v6 = v4;
   v7 = v5;
@@ -1126,48 +1122,47 @@ void __44__SKSetupClient__activateNANWithCompletion___block_invoke_2(uint64_t a1
 LABEL_6:
     objc_storeStrong((*(a1 + 40) + 216), a2);
     v10 = *(a1 + 40);
-    v11 = *v10[18];
-    if (v11 <= 30)
+    v11 = v10[18];
+    if (*v11 <= 30)
     {
-      if (v11 != -1)
+      if (*v11 == -1)
       {
-LABEL_8:
-        LogPrintF();
-        [*(a1 + 40) _activateNANContinueWithError:{0, v6}];
-        goto LABEL_15;
+        v13 = _LogCategory_Initialize();
+        v10 = *(a1 + 40);
+        if (!v13)
+        {
+          goto LABEL_14;
+        }
+
+        v11 = v10[18];
       }
 
-      v13 = _LogCategory_Initialize();
+      LogPrintF(v11, "[SKSetupClient _activateNANWithCompletion:]_block_invoke_2", 30, "Found NAN endpoint: %@", v6);
       v10 = *(a1 + 40);
-      if (v13)
-      {
-        v15 = v10[18];
-        goto LABEL_8;
-      }
     }
 
-    [v10 _activateNANContinueWithError:{0, v16}];
+LABEL_14:
+    [v10 _activateNANContinueWithError:0];
     goto LABEL_15;
   }
 
 LABEL_10:
-  v12 = **(*(a1 + 40) + 144);
-  if (v12 > 30)
+  v12 = *(*(a1 + 40) + 144);
+  if (*v12 > 30)
   {
     goto LABEL_15;
   }
 
-  if (v12 != -1)
+  if (*v12 != -1)
   {
     goto LABEL_12;
   }
 
   if (_LogCategory_Initialize())
   {
-    v14 = *(*(a1 + 40) + 144);
+    v12 = *(*(a1 + 40) + 144);
 LABEL_12:
-    v17 = *(a1 + 32);
-    LogPrintF();
+    LogPrintF(v12, "[SKSetupClient _activateNANWithCompletion:]_block_invoke_2", 30, "Ignoring NAN endpoint: %@ vs %@", v6, *(a1 + 32));
   }
 
 LABEL_15:
@@ -1175,7 +1170,7 @@ LABEL_15:
 
 void __44__SKSetupClient__activateNANWithCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v18 = a2;
+  v15 = a2;
   v5 = a3;
   v6 = v5;
   if (*(a1 + 32) != *(*(a1 + 40) + 224))
@@ -1204,30 +1199,28 @@ void __44__SKSetupClient__activateNANWithCompletion___block_invoke_3(uint64_t a1
     }
 
 LABEL_7:
-    [*(a1 + 56) receivedData:v18];
+    [*(a1 + 56) receivedData:v15];
     goto LABEL_13;
   }
 
 LABEL_9:
-  v13 = **(*(a1 + 40) + 144);
-  if (v13 > 30)
+  v13 = *(*(a1 + 40) + 144);
+  if (*v13 > 30)
   {
     goto LABEL_13;
   }
 
-  if (v13 != -1)
+  if (*v13 != -1)
   {
     goto LABEL_11;
   }
 
-  v14 = *(*(a1 + 40) + 144);
   if (_LogCategory_Initialize())
   {
-    v15 = *(*(a1 + 40) + 144);
+    v13 = *(*(a1 + 40) + 144);
 LABEL_11:
-    v16 = [v6 identifier];
-    v17 = *(a1 + 48);
-    LogPrintF();
+    v14 = [v6 identifier];
+    LogPrintF(v13, "[SKSetupClient _activateNANWithCompletion:]_block_invoke_3", 30, "Ignoring NAN data: %@ vs %@", v14, *(a1 + 48));
   }
 
 LABEL_13:
@@ -1262,32 +1255,32 @@ void __44__SKSetupClient__activateNANWithCompletion___block_invoke_6(uint64_t a1
     v4 = *(a1 + 40);
     if (*(a1 + 32) == *(v4 + 224))
     {
-      v10 = v3;
-      v5 = **(v4 + 144);
-      if (v5 <= 90)
+      v9 = v3;
+      v5 = *(v4 + 144);
+      if (*v5 <= 90)
       {
-        if (v5 == -1)
+        if (*v5 == -1)
         {
           if (!_LogCategory_Initialize())
           {
             goto LABEL_7;
           }
 
-          v8 = *(*(a1 + 40) + 144);
+          v5 = *(*(a1 + 40) + 144);
         }
 
-        v9 = CUPrintNSError();
-        LogPrintF();
+        v6 = CUPrintNSError();
+        LogPrintF(v5, "[SKSetupClient _activateNANWithCompletion:]_block_invoke_6", 90, "### NAN publisher activate failed: %@", v6);
       }
 
 LABEL_7:
       [*(a1 + 32) invalidate];
-      v6 = *(a1 + 40);
-      v7 = *(v6 + 224);
-      *(v6 + 224) = 0;
+      v7 = *(a1 + 40);
+      v8 = *(v7 + 224);
+      *(v7 + 224) = 0;
 
-      [*(a1 + 40) _activateNANContinueWithError:v10];
-      v3 = v10;
+      [*(a1 + 40) _activateNANContinueWithError:v9];
+      v3 = v9;
     }
   }
 }
@@ -1298,25 +1291,25 @@ uint64_t __44__SKSetupClient__activateNANWithCompletion___block_invoke_5(uint64_
   v4 = v3;
   if (v3)
   {
-    v5 = **(*(a1 + 32) + 144);
-    if (v5 <= 90)
+    v5 = *(*(a1 + 32) + 144);
+    if (*v5 <= 90)
     {
-      v9 = v3;
-      if (v5 != -1)
+      v8 = v3;
+      if (*v5 != -1)
       {
 LABEL_4:
-        v8 = CUPrintNSError();
-        LogPrintF();
+        v6 = CUPrintNSError();
+        LogPrintF(v5, "[SKSetupClient _activateNANWithCompletion:]_block_invoke_5", 90, "### Send NAN data failed: %@", v6);
 
-        v4 = v9;
+        v4 = v8;
         goto LABEL_6;
       }
 
       v3 = _LogCategory_Initialize();
-      v4 = v9;
+      v4 = v8;
       if (v3)
       {
-        v6 = *(*(a1 + 32) + 144);
+        v5 = *(*(a1 + 32) + 144);
         goto LABEL_4;
       }
     }
@@ -1330,40 +1323,39 @@ LABEL_6:
 - (void)_activateBLEWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__1505;
-  v23 = __Block_byref_object_dispose__1506;
-  v24 = 0;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __44__SKSetupClient__activateBLEWithCompletion___block_invoke;
-  v16[3] = &unk_279BB8500;
-  v18 = &v19;
-  v16[4] = self;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__1505;
+  v21 = __Block_byref_object_dispose__1506;
+  v22 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __44__SKSetupClient__activateBLEWithCompletion___block_invoke;
+  v14[3] = &unk_279BB8500;
+  v16 = &v17;
+  v14[4] = self;
   v5 = completionCopy;
-  v17 = v5;
-  v6 = MEMORY[0x26676A4C0](v16);
+  v15 = v5;
+  v6 = MEMORY[0x26676A4C0](v14);
   v7 = objc_alloc_init(SKConnection);
   objc_storeStrong(&self->super._skCnx, v7);
   v8 = self->super._peerDevice;
   if (!v8)
   {
-    v10 = *MEMORY[0x277CCA590];
-    v11 = NSErrorF_safe();
-    v12 = v20[5];
-    v20[5] = v11;
+    v10 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960591, "No peer device");
+    v11 = v18[5];
+    v18[5] = v10;
 
     goto LABEL_7;
   }
 
   [(SKConnection *)v7 setBlePeerDevice:v8];
   [(SKSetupClient *)self _setupConnectionCommon:v7];
-  var0 = self->super._ucat->var0;
-  if (var0 <= 30)
+  ucat = self->super._ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -1373,139 +1365,130 @@ LABEL_6:
       ucat = self->super._ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SKSetupClient _activateBLEWithCompletion:]", 30, "Connection activate: %@", v7);
   }
 
 LABEL_6:
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __44__SKSetupClient__activateBLEWithCompletion___block_invoke_2;
-  v14[3] = &unk_279BB82F8;
-  v14[4] = v7;
-  v14[5] = self;
-  v15 = v5;
-  [(SKConnection *)v7 activateWithCompletion:v14];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __44__SKSetupClient__activateBLEWithCompletion___block_invoke_2;
+  v12[3] = &unk_279BB82F8;
+  v12[4] = v7;
+  v12[5] = self;
+  v13 = v5;
+  [(SKConnection *)v7 activateWithCompletion:v12];
 
 LABEL_7:
   v6[2](v6);
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v17, 8);
 }
 
 uint64_t __44__SKSetupClient__activateBLEWithCompletion___block_invoke(void *a1)
 {
-  v2 = a1[6];
-  result = *(*(v2 + 8) + 40);
+  result = *(*(a1[6] + 8) + 40);
   if (!result)
   {
     return result;
   }
 
-  v4 = **(a1[4] + 144);
-  if (v4 <= 90)
+  v3 = *(a1[4] + 144);
+  if (*v3 <= 90)
   {
-    if (v4 == -1)
+    if (*v3 == -1)
     {
-      v5 = *(a1[4] + 144);
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v9 = *(a1[4] + 144);
-      v10 = *(*(v2 + 8) + 40);
+      v3 = *(a1[4] + 144);
     }
 
-    v11 = CUPrintNSError();
-    LogPrintF();
-
-    v2 = a1[6];
+    v4 = CUPrintNSError();
+    LogPrintF(v3, "[SKSetupClient _activateBLEWithCompletion:]_block_invoke", 90, "### Activate failed: %@", v4);
   }
 
 LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = *(a1[5] + 16);
+  v5 = *(a1[5] + 16);
 
-  return v8();
+  return v5();
 }
 
 void __44__SKSetupClient__activateBLEWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 40);
-  v17 = v3;
+  v13 = v3;
   if (*(a1 + 32) != *(v4 + 120))
   {
-    v5 = *MEMORY[0x277CCA590];
-    v6 = NSErrorF_safe();
-    v7 = **(*(a1 + 40) + 144);
-    if (v7 <= 90)
+    v5 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294896148, "Invalidated before activate completed");
+    v6 = *(*(a1 + 40) + 144);
+    if (*v6 <= 90)
     {
-      if (v7 == -1)
+      if (*v6 == -1)
       {
-        v9 = *(*(a1 + 40) + 144);
         if (!_LogCategory_Initialize())
         {
           goto LABEL_13;
         }
 
-        v12 = *(*(a1 + 40) + 144);
+        v6 = *(*(a1 + 40) + 144);
       }
 
-      v16 = CUPrintNSError();
-      LogPrintF();
+      v7 = CUPrintNSError();
+      LogPrintF(v6, "[SKSetupClient _activateBLEWithCompletion:]_block_invoke_2", 90, "### Connection activate failed: %@", v7);
     }
 
 LABEL_13:
-    (*(*(a1 + 48) + 16))(*(a1 + 48));
+    (*(*(a1 + 48) + 16))();
 
     goto LABEL_18;
   }
 
-  v8 = **(v4 + 144);
+  v8 = *(v4 + 144);
+  v9 = *v8;
   if (v3)
   {
-    if (v8 <= 90)
+    if (v9 <= 90)
     {
-      if (v8 == -1)
+      if (v9 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_15;
         }
 
-        v13 = *(*(a1 + 40) + 144);
+        v8 = *(*(a1 + 40) + 144);
       }
 
-      v15 = CUPrintNSError();
-      LogPrintF();
+      v10 = CUPrintNSError();
+      LogPrintF(v8, "[SKSetupClient _activateBLEWithCompletion:]_block_invoke_2", 90, "### Connection activate failed: %@", v10);
     }
 
 LABEL_15:
     [*(a1 + 32) invalidate];
-    v10 = *(a1 + 40);
-    v11 = *(v10 + 120);
-    *(v10 + 120) = 0;
+    v11 = *(a1 + 40);
+    v12 = *(v11 + 120);
+    *(v11 + 120) = 0;
 
     (*(*(a1 + 48) + 16))();
     goto LABEL_18;
   }
 
-  if (v8 <= 30)
+  if (v9 <= 30)
   {
-    if (v8 == -1)
+    if (v9 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_17;
       }
 
-      v14 = *(*(a1 + 40) + 144);
+      v8 = *(*(a1 + 40) + 144);
     }
 
-    LogPrintF();
+    LogPrintF(v8, "[SKSetupClient _activateBLEWithCompletion:]_block_invoke_2", 30, "Connection activated");
   }
 
 LABEL_17:
@@ -1517,113 +1500,113 @@ LABEL_18:
 - (void)_activateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__1505;
-  v37 = __Block_byref_object_dispose__1506;
-  v38 = 0;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __41__SKSetupClient__activateWithCompletion___block_invoke;
-  v30[3] = &unk_279BB8500;
-  v32 = &v33;
-  v30[4] = self;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__1505;
+  v28 = __Block_byref_object_dispose__1506;
+  v29 = 0;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __41__SKSetupClient__activateWithCompletion___block_invoke;
+  v21[3] = &unk_279BB8500;
+  v23 = &v24;
+  v21[4] = self;
   v5 = completionCopy;
-  v31 = v5;
-  v6 = MEMORY[0x26676A4C0](v30);
-  if (self->super._activateCalled || self->super._invalidateCalled)
+  v22 = v5;
+  v6 = MEMORY[0x26676A4C0](v21);
+  if (self->super._activateCalled)
   {
-    v24 = *MEMORY[0x277CCA590];
-    v23 = NSErrorF_safe();
+    v19 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960575, "activate already called");
 LABEL_24:
-    v17 = v34[5];
-    v34[5] = v23;
+    v14 = v25[5];
+    v25[5] = v19;
     goto LABEL_25;
   }
 
-  var0 = self->super._ucat->var0;
-  if (var0 <= 30)
+  if (self->super._invalidateCalled)
   {
-    if (var0 == -1)
-    {
-      ucat = self->super._ucat;
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_13;
-      }
-
-      v11 = self->super._ucat;
-    }
-
-    setupType = self->super._setupType;
-    if (setupType > 5)
-    {
-      v9 = "?";
-    }
-
-    else
-    {
-      v9 = off_279BB8458[setupType];
-    }
-
-    controlFlags = self->super._controlFlags;
-    v13 = CUPrintFlags32();
-    peerDevice = self->super._peerDevice;
-    reversePairing = [(SKSetupBase *)self reversePairing];
-    v16 = "no";
-    if (reversePairing)
-    {
-      v16 = "yes";
-    }
-
-    v27 = peerDevice;
-    v28 = v16;
-    v25 = v9;
-    v26 = v13;
-    LogPrintF();
+    v19 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294896148, "activate after invalidate");
+    goto LABEL_24;
   }
+
+  ucat = self->super._ucat;
+  if (ucat->var0 > 30)
+  {
+    goto LABEL_13;
+  }
+
+  if (ucat->var0 == -1)
+  {
+    if (!_LogCategory_Initialize())
+    {
+      goto LABEL_13;
+    }
+
+    ucat = self->super._ucat;
+  }
+
+  setupType = self->super._setupType;
+  if (setupType > 5)
+  {
+    v9 = "?";
+  }
+
+  else
+  {
+    v9 = off_279BB8458[setupType];
+  }
+
+  v10 = CUPrintFlags32();
+  peerDevice = self->super._peerDevice;
+  reversePairing = [(SKSetupBase *)self reversePairing];
+  v13 = "no";
+  if (reversePairing)
+  {
+    v13 = "yes";
+  }
+
+  LogPrintF(ucat, "[SKSetupClient _activateWithCompletion:]", 30, "Activate: type %s, CF %@, Peer %@, reverse %s", v9, v10, peerDevice, v13);
 
 LABEL_13:
   self->super._activateCalled = 1;
   if (self->super._setupType == 1)
   {
-    v17 = objc_alloc_init(SKStepWiFiPreflight);
-    [(SKStepWiFiPreflight *)v17 setPreventAppleWiFi:0];
-    v18 = (v34 + 5);
-    obj = v34[5];
-    v19 = [(SKStepWiFiPreflight *)v17 checkWiFiAndReturnError:&obj];
-    objc_storeStrong(v18, obj);
-    if (!v19)
+    v14 = objc_alloc_init(SKStepWiFiPreflight);
+    [(SKStepWiFiPreflight *)v14 setPreventAppleWiFi:0];
+    v15 = (v25 + 5);
+    obj = v25[5];
+    v16 = [(SKStepWiFiPreflight *)v14 checkWiFiAndReturnError:&obj];
+    objc_storeStrong(v15, obj);
+    if (!v16)
     {
       (*(v5 + 2))(v5, 0);
-      [(SKSetupClient *)self _completeWithError:v34[5]];
-      v21 = v34[5];
-      v34[5] = 0;
+      [(SKSetupClient *)self _completeWithError:v25[5]];
+      v18 = v25[5];
+      v25[5] = 0;
 
 LABEL_25:
       goto LABEL_26;
     }
   }
 
-  [(SKSetupClient *)self _prepareSteps:v25];
+  [(SKSetupClient *)self _prepareSteps];
   if (!self->super._sendDataHandler)
   {
-    v20 = self->super._controlFlags;
-    if ((v20 & 2) != 0)
+    controlFlags = self->super._controlFlags;
+    if ((controlFlags & 2) != 0)
     {
       [(SKSetupClient *)self _activateNANWithCompletion:v5];
       goto LABEL_26;
     }
 
-    if ((v20 & 1) == 0)
+    if ((controlFlags & 1) == 0)
     {
       [(SKSetupClient *)self _activateBLEWithCompletion:v5];
       goto LABEL_26;
     }
 
-    v22 = *MEMORY[0x277CCA590];
-    v23 = NSErrorF_safe();
+    v19 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960591, "No transport specified");
     goto LABEL_24;
   }
 
@@ -1631,46 +1614,38 @@ LABEL_25:
 LABEL_26:
   v6[2](v6);
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v24, 8);
 }
 
 uint64_t __41__SKSetupClient__activateWithCompletion___block_invoke(void *a1)
 {
-  v2 = a1[6];
-  result = *(*(v2 + 8) + 40);
+  result = *(*(a1[6] + 8) + 40);
   if (!result)
   {
     return result;
   }
 
-  v4 = **(a1[4] + 144);
-  if (v4 <= 90)
+  v3 = *(a1[4] + 144);
+  if (*v3 <= 90)
   {
-    if (v4 == -1)
+    if (*v3 == -1)
     {
-      v5 = *(a1[4] + 144);
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v9 = *(a1[4] + 144);
-      v10 = *(*(v2 + 8) + 40);
+      v3 = *(a1[4] + 144);
     }
 
-    v11 = CUPrintNSError();
-    LogPrintF();
-
-    v2 = a1[6];
+    v4 = CUPrintNSError();
+    LogPrintF(v3, "[SKSetupClient _activateWithCompletion:]_block_invoke", 90, "### Activate failed: %@", v4);
   }
 
 LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = *(a1[5] + 16);
+  v5 = *(a1[5] + 16);
 
-  return v8();
+  return v5();
 }
 
 - (void)activateWithCompletion:(id)completion

@@ -66,7 +66,7 @@
   {
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
+      objc_msgSend_motionEffectRef(self);
     }
 
     else

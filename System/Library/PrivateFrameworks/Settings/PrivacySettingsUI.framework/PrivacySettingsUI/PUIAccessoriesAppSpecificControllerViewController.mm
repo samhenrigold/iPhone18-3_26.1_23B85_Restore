@@ -12,39 +12,38 @@
 - (id)specifiers
 {
   v13[1] = *MEMORY[0x277D85DE8];
-  if (_os_feature_enabled_impl())
+  v3 = _os_feature_enabled_impl();
+  if (v3)
   {
-    v3 = *MEMORY[0x277D3FC48];
-    v4 = *(&self->super.super.super.super.super.isa + v3);
-    if (!v4)
+    v4 = *MEMORY[0x277D3FC48];
+    v5 = *(&self->super.super.super.super.super.isa + v4);
+    if (!v5)
     {
-      v5 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"ACCESSORIES_GROUP"];
-      v13[0] = v5;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-      v7 = *(&self->super.super.super.super.super.isa + v3);
-      *(&self->super.super.super.super.super.isa + v3) = v6;
+      v6 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"ACCESSORIES_GROUP"];
+      v13[0] = v6;
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+      v8 = *(&self->super.super.super.super.super.isa + v4);
+      *(&self->super.super.super.super.super.isa + v4) = v7;
 
-      v4 = *(&self->super.super.super.super.super.isa + v3);
+      v5 = *(&self->super.super.super.super.super.isa + v4);
     }
 
-    v8 = v4;
+    v9 = v5;
   }
 
   else
   {
-    v9 = _PUILoggingFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _PUILoggingFacility(v3);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;
-      _os_log_impl(&dword_2657FE000, v9, OS_LOG_TYPE_DEFAULT, "AccessorySetupKit feature flag not enabled", v12, 2u);
+      _os_log_impl(&dword_2657FE000, v10, OS_LOG_TYPE_DEFAULT, "AccessorySetupKit feature flag not enabled", v12, 2u);
     }
 
-    v8 = MEMORY[0x277CBEBF8];
+    v9 = MEMORY[0x277CBEBF8];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v9;
 }
 
 - (void)viewDidLoad
@@ -191,16 +190,16 @@ void __69__PUIAccessoriesAppSpecificControllerViewController_refreshDADevices__b
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __69__PUIAccessoriesAppSpecificControllerViewController_refreshDADevices__block_invoke_2(uint64_t a1)
+void __69__PUIAccessoriesAppSpecificControllerViewController_refreshDADevices__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v26 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 32);
+  v3 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = _PUILoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _PUILoggingFacility(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __69__PUIAccessoriesAppSpecificControllerViewController_refreshDADevices__block_invoke_2_cold_1(v2, v3);
+      __69__PUIAccessoriesAppSpecificControllerViewController_refreshDADevices__block_invoke_2_cold_1(v3, v4);
     }
   }
 
@@ -209,52 +208,50 @@ void __69__PUIAccessoriesAppSpecificControllerViewController_refreshDADevices__b
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v5)
+  v5 = *(a1 + 40);
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v6)
   {
-    v6 = v5;
-    v7 = *v22;
+    v7 = v6;
+    v8 = *v22;
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v7)
+        if (*v22 != v8)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
-        v10 = [v9 appAccessInfoMap];
-        v11 = [v10 allKeys];
-        v12 = [v11 containsObject:*(*(a1 + 48) + 1456)];
+        v10 = *(*(&v21 + 1) + 8 * i);
+        v11 = [v10 appAccessInfoMap];
+        v12 = [v11 allKeys];
+        v13 = [v12 containsObject:*(*(a1 + 48) + 1456)];
 
-        if (v12)
+        if (v13)
         {
-          v13 = [*(a1 + 48) specifierForDevice:v9];
-          [v20 addObject:v13];
+          v14 = [*(a1 + 48) specifierForDevice:v10];
+          [v20 addObject:v14];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
-    while (v6);
+    while (v7);
   }
 
   [v20 sortUsingComparator:&__block_literal_global_3];
-  v14 = *(a1 + 48);
-  v15 = [v14 accessorySpecifiers];
-  [v14 removeContiguousSpecifiers:v15];
+  v15 = *(a1 + 48);
+  v16 = [v15 accessorySpecifiers];
+  [v15 removeContiguousSpecifiers:v16];
 
-  v16 = [v20 copy];
-  [*(a1 + 48) setAccessorySpecifiers:v16];
+  v17 = [v20 copy];
+  [*(a1 + 48) setAccessorySpecifiers:v17];
 
-  v17 = *(a1 + 48);
-  v18 = [v17 accessorySpecifiers];
-  [v17 insertContiguousSpecifiers:v18 afterSpecifierID:@"ACCESSORIES_GROUP"];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *(a1 + 48);
+  v19 = [v18 accessorySpecifiers];
+  [v18 insertContiguousSpecifiers:v19 afterSpecifierID:@"ACCESSORIES_GROUP"];
 }
 
 uint64_t __69__PUIAccessoriesAppSpecificControllerViewController_refreshDADevices__block_invoke_28(uint64_t a1, void *a2, void *a3)
@@ -269,14 +266,13 @@ uint64_t __69__PUIAccessoriesAppSpecificControllerViewController_refreshDADevice
 
 void __69__PUIAccessoriesAppSpecificControllerViewController_refreshDADevices__block_invoke_2_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 136315394;
-  v5 = "[PUIAccessoriesAppSpecificControllerViewController refreshDADevices]_block_invoke_2";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_2657FE000, a2, OS_LOG_TYPE_ERROR, "%s: Error getting devices: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "[PUIAccessoriesAppSpecificControllerViewController refreshDADevices]_block_invoke_2";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_2657FE000, a2, OS_LOG_TYPE_ERROR, "%s: Error getting devices: %@", &v3, 0x16u);
 }
 
 @end

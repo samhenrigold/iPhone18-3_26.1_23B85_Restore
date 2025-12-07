@@ -14,6 +14,7 @@
 - (CTFontRef)pui_maximumAllowedFontWeightFont;
 - (CTFontRef)pui_minimumAllowedFontWeightFont;
 - (__CFString)pui_postScriptName;
+- (char)pui_variantWeightRange;
 - (id)pui_UIFontWithDefaultFallbacksForRole:()PosterUIFoundation;
 - (id)pui_UIFontWithVariantWeight:()PosterUIFoundation forRole:;
 - (id)pui_defaultFontFallbacks;
@@ -28,7 +29,6 @@
 - (uint64_t)pui_isReferenceFileContainedInBundle:()PosterUIFoundation;
 - (uint64_t)pui_isReferenceFileContainedInDirectoryAtURL:()PosterUIFoundation;
 - (uint64_t)pui_variantWeight;
-- (uint64_t)pui_variantWeightRange;
 @end
 
 @implementation UIFont(PosterUIFoundation)
@@ -705,7 +705,7 @@ LABEL_18:
   }
 }
 
-- (uint64_t)pui_variantWeightRange
+- (char)pui_variantWeightRange
 {
   v28 = *MEMORY[0x1E69E9840];
   pui_minimumAllowedFontWeightFont = [self pui_minimumAllowedFontWeightFont];

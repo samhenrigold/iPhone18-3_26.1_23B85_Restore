@@ -2,13 +2,13 @@
 + (id)bundleIDCategory;
 + (id)sharedStatisticsManager;
 - (uint64_t)analyticsActionFromPreferredAction:(uint64_t)result;
-- (uint64_t)recordPencilAction:(uint64_t)result doubleTap:;
+- (uint64_t)recordPencilAction:(int)action doubleTap:;
 - (void)recordAutoMinimizeEnabledDidChange:(uint64_t)change type:;
 - (void)recordBitmapEraseWithInputType:(uint64_t)type;
 - (void)recordCollaboration:(uint64_t)collaboration;
 - (void)recordColorPanelInvoked:(uint64_t)invoked;
 - (void)recordColorsChangedBeforeChosen:(uint64_t)chosen;
-- (void)recordCopyAsTextWithLength:(uint64_t)length time:(uint64_t)time didShowHUD:(uint64_t)d invokedFromSmartSelection:(int)selection;
+- (void)recordCopyAsTextWithLength:(char)length time:(int)time didShowHUD:(double)d invokedFromSmartSelection:;
 - (void)recordCreateShapeWithType:(int)type fromMenu:(int)menu multiple:;
 - (void)recordDataDetectorItemAdd:(uint64_t)add;
 - (void)recordDataDetectorItemDefaultAction:(uint64_t)action;
@@ -22,24 +22,24 @@
 - (void)recordHashtagItemAdd;
 - (void)recordHashtagItemDeactivate;
 - (void)recordHashtagItemRemove;
-- (void)recordHoverDuration:(uint64_t)duration onScreenDuration:hoverEdgeDuration:hoverExteriorDuration:sessionDuration:showEffectsEnabled:shadowEnabled:scribbleEnabled:doubleTapOnlyInHoverRangeEnabled:doubleTapsInRange:doubleTapsOutsideRange:deviceIsConnectedToCharger:intentionalHoverDuration:intentionalToolPreviewHoverDuration:countIntentionalHoverActions:maxIntentionalHoverDuration:meanIntentionalHoverDuration:minIntentionalHoverDuration:;
-- (void)recordHoverLatency:(uint64_t)latency mean:max:shadowEnabled:isInPDF:;
-- (void)recordHoverToolType:(uint64_t)type hoverDuration:(uint64_t)duration intentionalToolPreviewHoverDuration:(uint64_t)hoverDuration intentionalHoverDuration:(uint64_t)intentionalHoverDuration maxIntentionalHoverDuration:(uint64_t)maxIntentionalHoverDuration meanIntentionalHoverDuration:(void *)meanIntentionalHoverDuration minIntentionalHoverDuration:countIntentionalHoverActions:activepencilminutes:onScreenDuration:settingShowEffectsEnabled:settingSystemShadowEnabled:settingScribbleEnabled:settingDoubleTapInRangeEnabled:bundleID:;
+- (void)recordHoverDuration:(char)duration onScreenDuration:(char)screenDuration hoverEdgeDuration:(char)edgeDuration hoverExteriorDuration:(uint64_t)exteriorDuration sessionDuration:(uint64_t)sessionDuration showEffectsEnabled:(char)enabled shadowEnabled:(double)shadowEnabled scribbleEnabled:(double)self0 doubleTapOnlyInHoverRangeEnabled:(double)self1 doubleTapsInRange:(double)self2 doubleTapsOutsideRange:(double)self3 deviceIsConnectedToCharger:(double)self4 intentionalHoverDuration:(double)self5 intentionalToolPreviewHoverDuration:(double)self6 countIntentionalHoverActions:(uint64_t)self7 maxIntentionalHoverDuration:(uint64_t)self8 meanIntentionalHoverDuration:(uint64_t)self9 minIntentionalHoverDuration:;
+- (void)recordHoverLatency:(char)latency mean:(float)mean max:(float)max shadowEnabled:(float)enabled isInPDF:;
+- (void)recordHoverToolType:(uint64_t)type hoverDuration:(char)duration intentionalToolPreviewHoverDuration:(char)hoverDuration intentionalHoverDuration:(char)intentionalHoverDuration maxIntentionalHoverDuration:(char)maxIntentionalHoverDuration meanIntentionalHoverDuration:(void *)meanIntentionalHoverDuration minIntentionalHoverDuration:(double)minIntentionalHoverDuration countIntentionalHoverActions:(double)self0 activepencilminutes:(double)self1 onScreenDuration:(double)self2 settingShowEffectsEnabled:(double)self3 settingSystemShadowEnabled:(double)self4 settingScribbleEnabled:(double)self5 settingDoubleTapInRangeEnabled:(double)self6 bundleID:;
 - (void)recordInkPickerNoOp:(uint64_t)op;
 - (void)recordInsertSpaceAddWhitespace:(uint64_t)whitespace;
 - (void)recordInsertSpaceWithType:(uint64_t)type;
 - (void)recordJumpToSettings;
-- (void)recordLatency:(uint64_t)latency mean:max:percentageOverLatencyThreshold:isInPDF:;
+- (void)recordLatency:(float)latency mean:(float)mean max:(float)max percentageOverLatencyThreshold:(float)threshold isInPDF:;
 - (void)recordMentionItemActivate;
 - (void)recordMentionItemAdd;
 - (void)recordMentionItemDeactivate;
 - (void)recordMentionItemRemove;
-- (void)recordNumberOfUndos:(uint64_t)undos numberOfStrokes:(uint64_t)strokes showEffectsEnabled:(uint64_t)enabled shadowEnabled:(void *)shadowEnabled bundleID:;
+- (void)recordNumberOfUndos:(uint64_t)undos numberOfStrokes:(char)strokes showEffectsEnabled:(char)enabled shadowEnabled:(void *)shadowEnabled bundleID:;
 - (void)recordObjectEraseWithInputType:(uint64_t)type;
 - (void)recordPalettePositionChange:(uint64_t)change type:;
-- (void)recordPerceivedLatency:(uint64_t)latency mean:max:isInPDF:;
+- (void)recordPerceivedLatency:(float)latency mean:(float)mean max:(float)max isInPDF:;
 - (void)recordPixelObjectEraseModeChange:(uint64_t)change;
-- (void)recordRulerInteractionEndedWithType:(uint64_t)type angle:(uint64_t)angle;
+- (void)recordRulerInteractionEndedWithType:(double)type angle:;
 - (void)recordSelectAllWithStrokeCount:(uint64_t)count externalElementsCount:;
 - (void)recordShapeEventWithType:(void *)type modeString:(void *)string;
 - (void)recordShapeUndoIfNecessary;
@@ -49,7 +49,7 @@
 - (void)recordTextLineStraighteningPerSession:(uint64_t)session Undos:;
 - (void)recordTextLineStraighteningUndoIfNecessary;
 - (void)recordTool:(uint64_t)tool;
-- (void)recordToolAttributePopoverAppearedForTool:(uint64_t)tool hadInteraction:(void *)interaction;
+- (void)recordToolAttributePopoverAppearedForTool:(char)tool hadInteraction:;
 - (void)recordUndo:(void *)undo forStrokes:(void *)strokes fallbackInkIdentifier:;
 - (void)recordUndoIfNecessary;
 - (void)submitRecentRollStroke;
@@ -65,9 +65,9 @@
     dispatch_once(&qword_1ED6A51D8, &__block_literal_global_21);
   }
 
-  v0 = qword_1ED6A51E0;
+  v1 = qword_1ED6A51E0;
 
-  return v0;
+  return v1;
 }
 
 void __46__PKStatisticsManager_sharedStatisticsManager__block_invoke()
@@ -89,9 +89,9 @@ void __46__PKStatisticsManager_sharedStatisticsManager__block_invoke()
     dispatch_once(&_MergedGlobals_148, &__block_literal_global_55);
   }
 
-  v0 = qword_1ED6A51D0;
+  v1 = qword_1ED6A51D0;
 
-  return v0;
+  return v1;
 }
 
 void __39__PKStatisticsManager_bundleIDCategory__block_invoke()
@@ -283,11 +283,11 @@ id __54__PKStatisticsManager_recordObjectEraseWithInputType___block_invoke(uint6
   return v2;
 }
 
-- (void)recordLatency:(uint64_t)latency mean:max:percentageOverLatencyThreshold:isInPDF:
+- (void)recordLatency:(float)latency mean:(float)mean max:(float)max percentageOverLatencyThreshold:(float)threshold isInPDF:
 {
-  if (latency)
+  if (self)
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"stroke.latency"];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"stroke.latency"];
     AnalyticsSendEventLazy();
   }
 }
@@ -319,11 +319,11 @@ id __85__PKStatisticsManager_recordLatency_mean_max_percentageOverLatencyThresho
   return v11;
 }
 
-- (void)recordPerceivedLatency:(uint64_t)latency mean:max:isInPDF:
+- (void)recordPerceivedLatency:(float)latency mean:(float)mean max:(float)max isInPDF:
 {
-  if (latency)
+  if (self)
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"stroke.perceivedLatency"];
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"stroke.perceivedLatency"];
     AnalyticsSendEventLazy();
   }
 }
@@ -351,11 +351,11 @@ id __63__PKStatisticsManager_recordPerceivedLatency_mean_max_isInPDF___block_inv
   return v9;
 }
 
-- (void)recordHoverLatency:(uint64_t)latency mean:max:shadowEnabled:isInPDF:
+- (void)recordHoverLatency:(char)latency mean:(float)mean max:(float)max shadowEnabled:(float)enabled isInPDF:
 {
-  if (latency)
+  if (self)
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"stroke.hoverLatency"];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"stroke.hoverLatency"];
     AnalyticsSendEventLazy();
   }
 }
@@ -386,11 +386,11 @@ id __73__PKStatisticsManager_recordHoverLatency_mean_max_shadowEnabled_isInPDF__
   return v10;
 }
 
-- (void)recordHoverDuration:(uint64_t)duration onScreenDuration:hoverEdgeDuration:hoverExteriorDuration:sessionDuration:showEffectsEnabled:shadowEnabled:scribbleEnabled:doubleTapOnlyInHoverRangeEnabled:doubleTapsInRange:doubleTapsOutsideRange:deviceIsConnectedToCharger:intentionalHoverDuration:intentionalToolPreviewHoverDuration:countIntentionalHoverActions:maxIntentionalHoverDuration:meanIntentionalHoverDuration:minIntentionalHoverDuration:
+- (void)recordHoverDuration:(char)duration onScreenDuration:(char)screenDuration hoverEdgeDuration:(char)edgeDuration hoverExteriorDuration:(uint64_t)exteriorDuration sessionDuration:(uint64_t)sessionDuration showEffectsEnabled:(char)enabled shadowEnabled:(double)shadowEnabled scribbleEnabled:(double)self0 doubleTapOnlyInHoverRangeEnabled:(double)self1 doubleTapsInRange:(double)self2 doubleTapsOutsideRange:(double)self3 deviceIsConnectedToCharger:(double)self4 intentionalHoverDuration:(double)self5 intentionalToolPreviewHoverDuration:(double)self6 countIntentionalHoverActions:(uint64_t)self7 maxIntentionalHoverDuration:(uint64_t)self8 meanIntentionalHoverDuration:(uint64_t)self9 minIntentionalHoverDuration:
 {
-  if (duration)
+  if (self)
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"hover"];
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"hover"];
     AnalyticsSendEventLazy();
   }
 }
@@ -460,14 +460,14 @@ id __441__PKStatisticsManager_recordHoverDuration_onScreenDuration_hoverEdgeDura
   return v11;
 }
 
-- (void)recordHoverToolType:(uint64_t)type hoverDuration:(uint64_t)duration intentionalToolPreviewHoverDuration:(uint64_t)hoverDuration intentionalHoverDuration:(uint64_t)intentionalHoverDuration maxIntentionalHoverDuration:(uint64_t)maxIntentionalHoverDuration meanIntentionalHoverDuration:(void *)meanIntentionalHoverDuration minIntentionalHoverDuration:countIntentionalHoverActions:activepencilminutes:onScreenDuration:settingShowEffectsEnabled:settingSystemShadowEnabled:settingScribbleEnabled:settingDoubleTapInRangeEnabled:bundleID:
+- (void)recordHoverToolType:(uint64_t)type hoverDuration:(char)duration intentionalToolPreviewHoverDuration:(char)hoverDuration intentionalHoverDuration:(char)intentionalHoverDuration maxIntentionalHoverDuration:(char)maxIntentionalHoverDuration meanIntentionalHoverDuration:(void *)meanIntentionalHoverDuration minIntentionalHoverDuration:(double)minIntentionalHoverDuration countIntentionalHoverActions:(double)self0 activepencilminutes:(double)self1 onScreenDuration:(double)self2 settingShowEffectsEnabled:(double)self3 settingSystemShadowEnabled:(double)self4 settingScribbleEnabled:(double)self5 settingDoubleTapInRangeEnabled:(double)self6 bundleID:
 {
-  v10 = a2;
+  v18 = a2;
   meanIntentionalHoverDurationCopy = meanIntentionalHoverDuration;
   if (self)
   {
-    v12 = v10;
-    v13 = meanIntentionalHoverDurationCopy;
+    v20 = v18;
+    v21 = meanIntentionalHoverDurationCopy;
     AnalyticsSendEventLazy();
   }
 }
@@ -590,7 +590,7 @@ id __47__PKStatisticsManager_recordColorPanelInvoked___block_invoke(uint64_t a1)
 {
   if (chosen)
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"colorpicker.colors"];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"colorpicker.colors"];
     AnalyticsSendEventLazy();
   }
 }
@@ -756,7 +756,7 @@ id __67__PKStatisticsManager_recordUndo_forStrokes_fallbackInkIdentifier___block
   return v2;
 }
 
-- (void)recordNumberOfUndos:(uint64_t)undos numberOfStrokes:(uint64_t)strokes showEffectsEnabled:(uint64_t)enabled shadowEnabled:(void *)shadowEnabled bundleID:
+- (void)recordNumberOfUndos:(uint64_t)undos numberOfStrokes:(char)strokes showEffectsEnabled:(char)enabled shadowEnabled:(void *)shadowEnabled bundleID:
 {
   shadowEnabledCopy = shadowEnabled;
   if (self && undos >= 1)
@@ -866,9 +866,9 @@ LABEL_11:
 
 - (void)recordTextLineStraighteningPerSession:(uint64_t)session Undos:
 {
-  if (session)
+  if (self)
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"textLineStraighteningPerSession"];
+    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"textLineStraighteningPerSession"];
     AnalyticsSendEventLazy();
   }
 }
@@ -887,26 +887,26 @@ id __67__PKStatisticsManager_recordTextLineStraighteningPerSession_Undos___block
   return v4;
 }
 
-- (void)recordCopyAsTextWithLength:(uint64_t)length time:(uint64_t)time didShowHUD:(uint64_t)d invokedFromSmartSelection:(int)selection
+- (void)recordCopyAsTextWithLength:(char)length time:(int)time didShowHUD:(double)d invokedFromSmartSelection:
 {
-  if (length)
+  if (self)
   {
-    v5 = +[PKCanvasSessionStatisticsManager sharedStatisticsManager];
-    v6 = v5;
-    if (v5)
+    v6 = +[PKCanvasSessionStatisticsManager sharedStatisticsManager];
+    v7 = v6;
+    if (v6)
     {
-      [(PKCanvasSessionStatisticsManager *)v5 logFeatureUsed:?];
+      [(PKCanvasSessionStatisticsManager *)v6 logFeatureUsed:?];
     }
 
-    v7 = @"lasso";
-    if (selection)
+    v8 = @"lasso";
+    if (time)
     {
-      v7 = @"smartSelection";
+      v8 = @"smartSelection";
     }
 
-    v8 = v7;
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"selection.copyAsText"];
-    v10 = v8;
+    v9 = v8;
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"selection.copyAsText"];
+    v11 = v9;
     AnalyticsSendEventLazy();
   }
 }
@@ -933,9 +933,9 @@ id __92__PKStatisticsManager_recordCopyAsTextWithLength_time_didShowHUD_invokedF
 
 - (void)recordSelectAllWithStrokeCount:(uint64_t)count externalElementsCount:
 {
-  if (count)
+  if (self)
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"selection.selectAll"];
+    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"selection.selectAll"];
     AnalyticsSendEventLazy();
   }
 }
@@ -1032,7 +1032,7 @@ id __54__PKStatisticsManager_recordInsertSpaceAddWhitespace___block_invoke(uint6
 {
   if (toggle)
   {
-    v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"palette.toggleDrawWithFinger"];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"palette.toggleDrawWithFinger"];
     AnalyticsSendEventLazy();
   }
 }
@@ -1057,20 +1057,20 @@ id __50__PKStatisticsManager_recordDrawWithFingerToggle___block_invoke(uint64_t 
   }
 }
 
-- (void)recordRulerInteractionEndedWithType:(uint64_t)type angle:(uint64_t)angle
+- (void)recordRulerInteractionEndedWithType:(double)type angle:
 {
-  if (type)
+  if (self)
   {
-    v2 = @"mask";
-    if (!angle)
+    v3 = @"mask";
+    if (!a2)
     {
-      v2 = @"snap";
+      v3 = @"snap";
     }
 
-    v3 = v2;
-    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"ruler.interaction"];
-    v6 = v3;
-    v5 = v3;
+    v4 = v3;
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"ruler.interaction"];
+    v7 = v4;
+    v6 = v4;
     AnalyticsSendEventLazy();
   }
 }
@@ -1106,12 +1106,12 @@ id __65__PKStatisticsManager_recordRulerInteractionEndedWithType_angle___block_i
   return result;
 }
 
-- (uint64_t)recordPencilAction:(uint64_t)result doubleTap:
+- (uint64_t)recordPencilAction:(int)action doubleTap:
 {
   if (result)
   {
-    v1 = +[PKPencilDevice activePencil];
-    [v1 pencilVersionForAnalytics];
+    v3 = +[PKPencilDevice activePencil];
+    [v3 pencilVersionForAnalytics];
 
     return AnalyticsSendEventLazy();
   }
@@ -1327,14 +1327,14 @@ id __56__PKStatisticsManager_recordPixelObjectEraseModeChange___block_invoke(uin
   return v2;
 }
 
-- (void)recordToolAttributePopoverAppearedForTool:(uint64_t)tool hadInteraction:(void *)interaction
+- (void)recordToolAttributePopoverAppearedForTool:(char)tool hadInteraction:
 {
-  interactionCopy = interaction;
-  v4 = interactionCopy;
-  if (tool && interactionCopy)
+  v4 = a2;
+  v5 = v4;
+  if (self && v4)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"palette.attributePopover.appear"];
-    v6 = v4;
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.pencilkit.%@", @"palette.attributePopover.appear"];
+    v7 = v5;
     AnalyticsSendEventLazy();
   }
 }

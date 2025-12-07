@@ -35,40 +35,41 @@
 
 - (void)_suspendOrResumeWebsiteFetchingOperationQueue
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!self->_isForTesting)
   {
     shouldFetchPasswordManagerWebsiteDataUsingPrivacyProxy = [(WBSPrivacyProxyAvailabilityManager *)self->_availabilityManager shouldFetchPasswordManagerWebsiteDataUsingPrivacyProxy];
-    v4 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v4 = shouldFetchPasswordManagerWebsiteDataUsingPrivacyProxy;
+    v6 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider(shouldFetchPasswordManagerWebsiteDataUsingPrivacyProxy, v5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+    if (v7)
     {
-      v10 = 67109120;
-      v11 = shouldFetchPasswordManagerWebsiteDataUsingPrivacyProxy;
-      _os_log_impl(&dword_1B1C8D000, v4, OS_LOG_TYPE_INFO, "_ASWebsiteNameProvider shouldFetchPasswordManagerWebsiteDataUsingPrivacyProxy: %d", &v10, 8u);
+      v15 = 67109120;
+      v16 = v4;
+      _os_log_impl(&dword_1B1C8D000, v6, OS_LOG_TYPE_INFO, "_ASWebsiteNameProvider shouldFetchPasswordManagerWebsiteDataUsingPrivacyProxy: %d", &v15, 8u);
     }
 
     websiteNameConsumer = self->_websiteNameConsumer;
-    v6 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v10 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider(v7, v8);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+    if (v11)
     {
-      v10 = 67109120;
-      v11 = websiteNameConsumer != 0;
-      _os_log_impl(&dword_1B1C8D000, v6, OS_LOG_TYPE_INFO, "_ASWebsiteNameProvider consumerExists: %d", &v10, 8u);
+      v15 = 67109120;
+      v16 = websiteNameConsumer != 0;
+      _os_log_impl(&dword_1B1C8D000, v10, OS_LOG_TYPE_INFO, "_ASWebsiteNameProvider consumerExists: %d", &v15, 8u);
     }
 
-    v7 = (websiteNameConsumer != 0) & shouldFetchPasswordManagerWebsiteDataUsingPrivacyProxy;
-    v8 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v13 = (websiteNameConsumer != 0) & v4;
+    v14 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v10 = 67109120;
-      v11 = v7;
-      _os_log_impl(&dword_1B1C8D000, v8, OS_LOG_TYPE_INFO, "_ASWebsiteNameProvider allowing fetching: %d", &v10, 8u);
+      v15 = 67109120;
+      v16 = v13;
+      _os_log_impl(&dword_1B1C8D000, v14, OS_LOG_TYPE_INFO, "_ASWebsiteNameProvider allowing fetching: %d", &v15, 8u);
     }
 
-    [(NSOperationQueue *)self->_websiteFetchingQueue setSuspended:v7 ^ 1u];
+    [(NSOperationQueue *)self->_websiteFetchingQueue setSuspended:v13 ^ 1u];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginLoadingBuiltInAndRemotelyUpdatableWebsiteNames
@@ -283,37 +284,37 @@ LABEL_16:
 
 - (void)debug_fetchWebsiteNamesForDomains:(id)domains completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   domainsCopy = domains;
   handlerCopy = handler;
   [(NSOperationQueue *)self->_websiteFetchingQueue setSuspended:0];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v8 = domainsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       v11 = 0;
       do
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = [[_ASWebsiteNameFetchOperation alloc] initWithDomain:*(*(&v20 + 1) + 8 * v11) metadataEntry:0 provider:self];
+        v12 = [[_ASWebsiteNameFetchOperation alloc] initWithDomain:*(*(&v19 + 1) + 8 * v11) metadataEntry:0 provider:self];
         [(NSOperationQueue *)self->_websiteFetchingQueue addOperation:v12];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
@@ -321,19 +322,17 @@ LABEL_16:
 
   objc_initWeak(&location, self);
   websiteFetchingQueue = self->_websiteFetchingQueue;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __78___ASWebsiteNameProvider_debug_fetchWebsiteNamesForDomains_completionHandler___block_invoke;
-  v16[3] = &unk_1E7AF81D0;
-  objc_copyWeak(&v18, &location);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __78___ASWebsiteNameProvider_debug_fetchWebsiteNamesForDomains_completionHandler___block_invoke;
+  v15[3] = &unk_1E7AF81D0;
+  objc_copyWeak(&v17, &location);
   v14 = handlerCopy;
-  v17 = v14;
-  [(NSOperationQueue *)websiteFetchingQueue addBarrierBlock:v16];
+  v16 = v14;
+  [(NSOperationQueue *)websiteFetchingQueue addBarrierBlock:v15];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIsForTesting:(BOOL)testing
@@ -435,35 +434,36 @@ LABEL_16:
   v8 = objc_alloc_init(MEMORY[0x1E696ECE0]);
   [v8 setTimeout:5.0];
   [v8 setShouldFetchSubresources:0];
-  if (objc_opt_respondsToSelector())
+  v9 = objc_opt_respondsToSelector();
+  if (v9)
   {
     [v8 setSourceApplicationSecondaryIdentifierForRequiringPrivacyProxyFailingClosed:@"com.apple.Passwords.PRIconFetching"];
-    v9 = MEMORY[0x1E695DFF8];
-    v10 = [@"https://" stringByAppendingString:domainCopy];
-    v11 = [v9 URLWithString:v10];
+    v11 = MEMORY[0x1E695DFF8];
+    v12 = [@"https://" stringByAppendingString:domainCopy];
+    v13 = [v11 URLWithString:v12];
 
-    v12 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v16 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      [_ASWebsiteNameProvider fetchWebsiteNameForDomain:domainCopy completionHandler:v12];
+      [_ASWebsiteNameProvider fetchWebsiteNameForDomain:domainCopy completionHandler:v16];
     }
 
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __70___ASWebsiteNameProvider_fetchWebsiteNameForDomain_completionHandler___block_invoke;
-    v14[3] = &unk_1E7AF8260;
-    v15 = domainCopy;
-    v16 = handlerCopy;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __70___ASWebsiteNameProvider_fetchWebsiteNameForDomain_completionHandler___block_invoke;
+    v18[3] = &unk_1E7AF8260;
+    v19 = domainCopy;
+    v20 = handlerCopy;
     selfCopy = self;
-    [v8 startFetchingMetadataForURL:v11 completionHandler:v14];
+    [v8 startFetchingMetadataForURL:v13 completionHandler:v18];
   }
 
   else
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider(v9, v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [_ASWebsiteNameProvider fetchWebsiteNameForDomain:domainCopy completionHandler:v13];
+      [_ASWebsiteNameProvider fetchWebsiteNameForDomain:domainCopy completionHandler:v17];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0);
@@ -506,51 +506,51 @@ LABEL_16:
 
 + (BOOL)_candidateWebsiteNameHasObviousFlaw:(id)flaw
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   flawCopy = flaw;
   v4 = [flawCopy length];
   if (v4 - 33 >= 0xFFFFFFFFFFFFFFE0)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
-    v8 = [&unk_1F28F04B8 countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (!v8)
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v7 = [&unk_1F28F04B8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (!v7)
     {
       v5 = 0;
       goto LABEL_3;
     }
 
-    v9 = *v17;
+    v8 = *v16;
 LABEL_6:
-    v10 = 0;
+    v9 = 0;
     while (1)
     {
-      if (*v17 != v9)
+      if (*v16 != v8)
       {
         objc_enumerationMutation(&unk_1F28F04B8);
       }
 
-      v11 = *(*(&v16 + 1) + 8 * v10);
-      v12 = [v11 length];
-      if (v4 >= v12)
+      v10 = *(*(&v15 + 1) + 8 * v9);
+      v11 = [v10 length];
+      if (v4 >= v11)
       {
-        v13 = [flawCopy substringToIndex:v12];
-        lowercaseString = [v13 lowercaseString];
-        v15 = [v11 isEqualToString:lowercaseString];
+        v12 = [flawCopy substringToIndex:v11];
+        lowercaseString = [v12 lowercaseString];
+        v14 = [v10 isEqualToString:lowercaseString];
 
-        if (v15)
+        if (v14)
         {
           break;
         }
       }
 
-      if (v8 == ++v10)
+      if (v7 == ++v9)
       {
-        v8 = [&unk_1F28F04B8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [&unk_1F28F04B8 countByEnumeratingWithState:&v15 objects:v19 count:16];
         v5 = 0;
-        if (v8)
+        if (v7)
         {
           goto LABEL_6;
         }
@@ -563,13 +563,12 @@ LABEL_6:
   v5 = 1;
 LABEL_3:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 + (id)_trimErrantLeadingAndTrailingCharacters:(id)characters
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   safari_stringByTrimmingWhitespace = [characters safari_stringByTrimmingWhitespace];
   _commonTitleDelimiters = [self _commonTitleDelimiters];
   v6 = _commonTitleDelimiters;
@@ -584,25 +583,25 @@ LABEL_3:
     v7 = +[_ASWebsiteNameProvider _trimErrantLeadingAndTrailingCharacters:]::prefixesToRemove;
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v11 = v7;
-  v12 = [v11 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v12)
   {
-    v13 = *v41;
+    v13 = *v40;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v41 != v13)
+        if (*v40 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = [safari_stringByTrimmingWhitespace safari_substringFromPrefix:*(*(&v40 + 1) + 8 * i)];
+        v15 = [safari_stringByTrimmingWhitespace safari_substringFromPrefix:*(*(&v39 + 1) + 8 * i)];
         if (v15)
         {
 
@@ -611,7 +610,7 @@ LABEL_3:
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v39 objects:v44 count:16];
       if (v12)
       {
         continue;
@@ -637,25 +636,25 @@ LABEL_13:
   }
 
   v22 = [safari_stringByTrimmingWhitespace length];
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v23 = +[_ASWebsiteNameProvider _trimErrantLeadingAndTrailingCharacters:]::suffixesToRemove;
-  v24 = [v23 countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (v24)
   {
-    v25 = *v37;
+    v25 = *v36;
     while (2)
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v37 != v25)
+        if (*v36 != v25)
         {
           objc_enumerationMutation(v23);
         }
 
-        v27 = *(*(&v36 + 1) + 8 * j);
+        v27 = *(*(&v35 + 1) + 8 * j);
         v28 = [v27 length];
         v29 = v22 - v28;
         if (v22 > v28)
@@ -674,7 +673,7 @@ LABEL_13:
         }
       }
 
-      v24 = [v23 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v35 objects:v43 count:16];
       if (v24)
       {
         continue;
@@ -685,8 +684,6 @@ LABEL_13:
   }
 
 LABEL_26:
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return safari_stringByTrimmingWhitespace;
 }
@@ -724,7 +721,7 @@ LABEL_26:
 + (id)_siteNameFromTitleLikeString:(id)string withURL:(id)l useHostAndTitlePrefixMatch:(BOOL)match
 {
   matchCopy = match;
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   lCopy = l;
   _lp_highLevelDomain = [lCopy _lp_highLevelDomain];
@@ -740,32 +737,32 @@ LABEL_26:
   }
 
   _lp_hostByStrippingTopLevelDomain = [lowercaseString _lp_hostByStrippingTopLevelDomain];
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   _commonTitleDelimiters = [self _commonTitleDelimiters];
   obj = _commonTitleDelimiters;
-  v11 = [_commonTitleDelimiters countByEnumeratingWithState:&v67 objects:v71 count:16];
+  v11 = [_commonTitleDelimiters countByEnumeratingWithState:&v66 objects:v70 count:16];
   if (v11)
   {
-    v62 = 0;
-    v64 = *v68;
+    v61 = 0;
+    v63 = *v67;
     v12 = 0.0;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v68 != v64)
+        if (*v67 != v63)
         {
           objc_enumerationMutation(obj);
         }
 
-        lowercaseString7 = [stringCopy componentsSeparatedByString:*(*(&v67 + 1) + 8 * i)];
-        v15 = [lowercaseString7 count];
+        lowercaseString6 = [stringCopy componentsSeparatedByString:*(*(&v66 + 1) + 8 * i)];
+        v15 = [lowercaseString6 count];
         if (v15 >= 3)
         {
-          v16 = [lowercaseString7 objectAtIndexedSubscript:0];
+          v16 = [lowercaseString6 objectAtIndexedSubscript:0];
           whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
           v18 = [v16 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
@@ -777,7 +774,7 @@ LABEL_26:
             goto LABEL_57;
           }
 
-          v20 = [lowercaseString7 objectAtIndexedSubscript:v15 - 1];
+          v20 = [lowercaseString6 objectAtIndexedSubscript:v15 - 1];
           whitespaceCharacterSet2 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
           v22 = [v20 stringByTrimmingCharactersInSet:whitespaceCharacterSet2];
 
@@ -793,13 +790,13 @@ LABEL_26:
           }
         }
 
-        if ([lowercaseString7 count] == 2)
+        if ([lowercaseString6 count] == 2)
         {
           whitespaceCharacterSet3 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-          v27 = [lowercaseString7 objectAtIndexedSubscript:0];
+          v27 = [lowercaseString6 objectAtIndexedSubscript:0];
           v28 = [v27 stringByTrimmingCharactersInSet:whitespaceCharacterSet3];
 
-          v29 = [lowercaseString7 objectAtIndexedSubscript:1];
+          v29 = [lowercaseString6 objectAtIndexedSubscript:1];
           v30 = [v29 stringByTrimmingCharactersInSet:whitespaceCharacterSet3];
 
           lowercaseString4 = [v28 lowercaseString];
@@ -862,14 +859,14 @@ LABEL_26:
 
             v46 = v45;
 
-            v62 = v46;
+            v61 = v46;
           }
 
           v12 = v44;
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v67 objects:v71 count:16];
+      v11 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
       if (v11)
       {
         continue;
@@ -878,9 +875,9 @@ LABEL_26:
       break;
     }
 
-    if (v62 && v12 >= 0.6)
+    if (v61 && v12 >= 0.6)
     {
-      v18 = v62;
+      v18 = v61;
       goto LABEL_60;
     }
   }
@@ -888,7 +885,7 @@ LABEL_26:
   else
   {
 
-    v62 = 0;
+    v61 = 0;
   }
 
   uppercaseString = [lowercaseString uppercaseString];
@@ -901,23 +898,12 @@ LABEL_26:
   {
     v49 = [stringCopy length];
     obj = uppercaseString;
-    if (v49 < [lowercaseString length])
+    if (v49 < [lowercaseString length] || ((objc_msgSend(stringCopy, "substringToIndex:", objc_msgSend(lowercaseString, "length")), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "lowercaseString"), v50 = objc_claimAutoreleasedReturnValue(), v51 = objc_msgSend(v50, "isEqualToString:", lowercaseString), v50, !v51) ? (v52 = v18) : (v52 = 0), v52, (v51 & 1) == 0))
     {
-      goto LABEL_48;
-    }
-
-    v18 = [stringCopy substringToIndex:{objc_msgSend(lowercaseString, "length")}];
-    lowercaseString6 = [v18 lowercaseString];
-    v51 = [lowercaseString6 isEqualToString:lowercaseString];
-
-    v52 = v51 ? 0 : v18;
-    if ((v51 & 1) == 0)
-    {
-LABEL_48:
       v53 = [stringCopy stringByReplacingOccurrencesOfString:@" " withString:&stru_1F28DE020];
-      lowercaseString7 = [v53 lowercaseString];
+      lowercaseString6 = [v53 lowercaseString];
 
-      if ([lowercaseString7 isEqualToString:_lp_hostByStrippingTopLevelDomain])
+      if ([lowercaseString6 isEqualToString:_lp_hostByStrippingTopLevelDomain])
       {
         v48 = 0;
         v18 = stringCopy;
@@ -925,25 +911,8 @@ LABEL_48:
 
       else
       {
-        if (!matchCopy)
+        if (!matchCopy || (v54 = [stringCopy length], v54 < objc_msgSend(_lp_hostByStrippingTopLevelDomain, "length")) || ((objc_msgSend(stringCopy, "substringToIndex:", objc_msgSend(_lp_hostByStrippingTopLevelDomain, "length")), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "lowercaseString"), v55 = objc_claimAutoreleasedReturnValue(), v56 = objc_msgSend(v55, "isEqualToString:", _lp_hostByStrippingTopLevelDomain), v55, !v56) ? (v57 = v18) : (v57 = 0), v57, (v56 & 1) == 0))
         {
-          goto LABEL_56;
-        }
-
-        v54 = [stringCopy length];
-        if (v54 < [_lp_hostByStrippingTopLevelDomain length])
-        {
-          goto LABEL_56;
-        }
-
-        v18 = [stringCopy substringToIndex:{objc_msgSend(_lp_hostByStrippingTopLevelDomain, "length")}];
-        lowercaseString8 = [v18 lowercaseString];
-        v56 = [lowercaseString8 isEqualToString:_lp_hostByStrippingTopLevelDomain];
-
-        v57 = v56 ? 0 : v18;
-        if ((v56 & 1) == 0)
-        {
-LABEL_56:
           v18 = 0;
         }
 
@@ -959,7 +928,6 @@ LABEL_58:
   }
 
 LABEL_60:
-  v58 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -1013,145 +981,143 @@ LABEL_60:
   domainCopy = domain;
   if ([domainCopy length])
   {
-    v5 = [(_ASWebsiteNameDictionary *)self->_websiteNameDictionary websiteNameForDomain:domainCopy];
-    if (v5)
+    v6 = [(_ASWebsiteNameDictionary *)self->_websiteNameDictionary websiteNameForDomain:domainCopy];
+    if (v6)
     {
       goto LABEL_21;
     }
 
-    v48 = 0;
-    v49 = &v48;
-    v50 = 0x3032000000;
-    v51 = __Block_byref_object_copy__0;
-    v52 = __Block_byref_object_dispose__0;
-    v53 = 0;
+    v47 = 0;
+    v48 = &v47;
+    v49 = 0x3032000000;
+    v50 = __Block_byref_object_copy__0;
+    v51 = __Block_byref_object_dispose__0;
+    v52 = 0;
     internalQueueForCachedWebsiteNames = self->_internalQueueForCachedWebsiteNames;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __52___ASWebsiteNameProvider_knownWebsiteNameForDomain___block_invoke;
     block[3] = &unk_1E7AF82F8;
-    v47 = &v48;
+    v46 = &v47;
     block[4] = self;
-    v7 = domainCopy;
-    v46 = v7;
+    v8 = domainCopy;
+    v45 = v8;
     dispatch_sync(internalQueueForCachedWebsiteNames, block);
-    v8 = v49[5];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v5 = v49[5];
+      v6 = v48[5];
 LABEL_20:
 
-      _Block_object_dispose(&v48, 8);
+      _Block_object_dispose(&v47, 8);
       goto LABEL_21;
     }
 
     if ([(_ASWebsiteNameProvider *)self _openDatabaseIfNeeded])
     {
-      v39 = 0;
-      v40 = &v39;
-      v41 = 0x3032000000;
-      v42 = __Block_byref_object_copy__0;
-      v43 = __Block_byref_object_dispose__0;
-      v44 = 0;
+      v38 = 0;
+      v39 = &v38;
+      v40 = 0x3032000000;
+      v41 = __Block_byref_object_copy__0;
+      v42 = __Block_byref_object_dispose__0;
+      v43 = 0;
       databaseQueue = self->_databaseQueue;
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __52___ASWebsiteNameProvider_knownWebsiteNameForDomain___block_invoke_2;
-      v36[3] = &unk_1E7AF8320;
-      v36[4] = self;
-      v11 = v7;
-      v37 = v11;
-      v38 = &v39;
-      dispatch_sync(databaseQueue, v36);
-      [(_ASWebsiteNameProvider *)self _cacheDatabaseBackedWebsiteName:v40[5] forDomain:v11];
-      v12 = v40[5];
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __52___ASWebsiteNameProvider_knownWebsiteNameForDomain___block_invoke_2;
+      v35[3] = &unk_1E7AF8320;
+      v35[4] = self;
+      v11 = v8;
+      v36 = v11;
+      v37 = &v38;
+      dispatch_sync(databaseQueue, v35);
+      [(_ASWebsiteNameProvider *)self _cacheDatabaseBackedWebsiteName:v39[5] forDomain:v11];
+      v12 = v39[5];
       if (v12)
       {
-        v5 = v12;
-        v13 = v37;
+        v6 = v12;
+        v13 = v36;
 LABEL_19:
 
-        _Block_object_dispose(&v39, 8);
+        _Block_object_dispose(&v38, 8);
         goto LABEL_20;
       }
 
-      _Block_object_dispose(&v39, 8);
+      _Block_object_dispose(&v38, 8);
     }
 
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x3032000000;
-    v42 = __Block_byref_object_copy__0;
-    v43 = __Block_byref_object_dispose__0;
-    v44 = 0;
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x3032000000;
+    v41 = __Block_byref_object_copy__0;
+    v42 = __Block_byref_object_dispose__0;
+    v43 = 0;
     v14 = self->_internalQueueForCachedWebsiteNames;
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __52___ASWebsiteNameProvider_knownWebsiteNameForDomain___block_invoke_3;
-    v33[3] = &unk_1E7AF82F8;
-    v35 = &v39;
-    v33[4] = self;
-    v15 = v7;
-    v34 = v15;
-    dispatch_sync(v14, v33);
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__0;
-    v31 = __Block_byref_object_dispose__0;
-    v32 = 0;
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __52___ASWebsiteNameProvider_knownWebsiteNameForDomain___block_invoke_3;
+    v32[3] = &unk_1E7AF82F8;
+    v34 = &v38;
+    v32[4] = self;
+    v15 = v8;
+    v33 = v15;
+    dispatch_sync(v14, v32);
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__0;
+    v30 = __Block_byref_object_dispose__0;
+    v31 = 0;
     v16 = self->_internalQueueForCachedWebsiteNames;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __52___ASWebsiteNameProvider_knownWebsiteNameForDomain___block_invoke_4;
-    v24[3] = &unk_1E7AF82F8;
-    v26 = &v27;
-    v24[4] = self;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __52___ASWebsiteNameProvider_knownWebsiteNameForDomain___block_invoke_4;
+    v23[3] = &unk_1E7AF82F8;
+    v25 = &v26;
+    v23[4] = self;
     v17 = v15;
-    v25 = v17;
-    dispatch_sync(v16, v24);
-    if (!v28[5] || [(_ASWebsiteNameProvider *)self _canRefreshDataForDateLastRefreshed:?])
+    v24 = v17;
+    dispatch_sync(v16, v23);
+    if (!v27[5] || [(_ASWebsiteNameProvider *)self _canRefreshDataForDateLastRefreshed:?])
     {
       websiteMetadataStore = self->_websiteMetadataStore;
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __52___ASWebsiteNameProvider_knownWebsiteNameForDomain___block_invoke_5;
-      v22[3] = &unk_1E7AF8348;
-      v22[4] = self;
-      v23 = v17;
-      [(WBSPasswordManagerWebsiteMetadataStore *)websiteMetadataStore metadataForDomain:v23 completionHandler:v22];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __52___ASWebsiteNameProvider_knownWebsiteNameForDomain___block_invoke_5;
+      v21[3] = &unk_1E7AF8348;
+      v21[4] = self;
+      v22 = v17;
+      [(WBSPasswordManagerWebsiteMetadataStore *)websiteMetadataStore metadataForDomain:v22 completionHandler:v21];
     }
 
-    v19 = v40[5];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v20 = v40[5];
+      v19 = v39[5];
     }
 
     else
     {
-      v20 = 0;
+      v19 = 0;
     }
 
-    v5 = v20;
+    v6 = v19;
 
-    _Block_object_dispose(&v27, 8);
-    v13 = v34;
+    _Block_object_dispose(&v26, 8);
+    v13 = v33;
     goto LABEL_19;
   }
 
-  v9 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider();
+  v9 = WBS_LOG_CHANNEL_PREFIXWebsiteNameProvider(0, v5);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [_ASWebsiteNameProvider knownWebsiteNameForDomain:v9];
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_21:
 
-  return v5;
+  return v6;
 }
 
 - (void)fetchOperation:(id)operation finishedWithResult:(id)result completion:(id)completion
@@ -1286,20 +1252,18 @@ LABEL_21:
 
 + (void)fetchWebsiteNameForDomain:(uint64_t)a1 completionHandler:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138739971;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B1C8D000, a2, OS_LOG_TYPE_ERROR, "Fetch for %{sensitive}@ intentionally failed due to absence of underlying platform support.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138739971;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B1C8D000, a2, OS_LOG_TYPE_ERROR, "Fetch for %{sensitive}@ intentionally failed due to absence of underlying platform support.", &v2, 0xCu);
 }
 
 + (void)fetchWebsiteNameForDomain:(uint64_t)a1 completionHandler:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138739971;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B1C8D000, a2, OS_LOG_TYPE_DEBUG, "Starting fetch for %{sensitive}@\n", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138739971;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B1C8D000, a2, OS_LOG_TYPE_DEBUG, "Starting fetch for %{sensitive}@\n", &v2, 0xCu);
 }
 
 @end

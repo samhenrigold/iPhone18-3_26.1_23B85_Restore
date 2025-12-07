@@ -206,7 +206,7 @@
     }
 
     v46 = objc_loadWeakRetained(&self->_paletteView);
-    [(PKSqueezePaletteView *)v46 updateUIStartAngle:1 endAngle:v55[3] clockwise:v45 animated:?];
+    [(PKSqueezePaletteView *)v46 updateUIStartAngle:v55[3] endAngle:v45 clockwise:1u animated:?];
 
     _Block_object_dispose(&v54, 8);
     objc_destroyWeak(&v60);

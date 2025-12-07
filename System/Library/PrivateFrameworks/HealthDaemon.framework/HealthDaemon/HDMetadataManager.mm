@@ -7,6 +7,7 @@
 - (id)_keyEntityForKey:(char)key createIfNecessary:(uint64_t)necessary transaction:(uint64_t)transaction error:;
 - (id)metadataForObjectID:(int64_t)d baseMetadata:(id)metadata keyFilter:(id)filter statement:(id)statement error:(id *)error;
 - (id)predicateWithMetadataKey:(id)key allowedValues:(id)values;
+- (id)predicateWithMetadataKey:(id)key exists:(BOOL)exists;
 - (id)predicateWithMetadataKey:(id)key value:(id)value operatorType:(unint64_t)type;
 - (id)unitTest_metadataForObjectID:(int64_t)d keyFilter:(id)filter error:(id *)error;
 - (id)unitTest_rawMetadataForObject:(id)object error:(id *)error;
@@ -386,77 +387,77 @@ uint64_t __57__HDMetadataManager_unitTest_rawMetadataForObject_error___block_inv
   return v7;
 }
 
-void __57__HDMetadataManager_unitTest_rawMetadataForObject_error___block_invoke_2(uint64_t a1)
+void __57__HDMetadataManager_unitTest_rawMetadataForObject_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = [*(a1 + 32) UUID];
+  v2 = [*(a1 + 32) UUID];
   HDSQLiteBindFoundationValueToStatement();
 }
 
-uint64_t __57__HDMetadataManager_unitTest_rawMetadataForObject_error___block_invoke_3(uint64_t a1)
+uint64_t __57__HDMetadataManager_unitTest_rawMetadataForObject_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnWithNameAsString();
-  v3 = HDSQLiteColumnWithNameAsInt64();
-  v4 = 0;
-  if (v3 <= 1)
+  v3 = HDSQLiteColumnWithNameAsString();
+  v4 = HDSQLiteColumnWithNameAsInt64();
+  v5 = 0;
+  if (v4 <= 1)
   {
-    if (v3)
+    if (v4)
     {
-      if (v3 != 1)
+      if (v4 != 1)
       {
         goto LABEL_18;
       }
 
-      v5 = HDSQLiteColumnWithNameAsNumber();
+      v6 = HDSQLiteColumnWithNameAsNumber();
     }
 
     else
     {
-      v5 = HDSQLiteColumnWithNameAsString();
+      v6 = HDSQLiteColumnWithNameAsString();
     }
 
     goto LABEL_12;
   }
 
-  if (v3 == 2)
+  if (v4 == 2)
   {
-    v5 = HDSQLiteColumnWithNameAsDate();
+    v6 = HDSQLiteColumnWithNameAsDate();
 LABEL_12:
-    v4 = v5;
+    v5 = v6;
     goto LABEL_13;
   }
 
-  if (v3 != 3)
+  if (v4 != 3)
   {
-    if (v3 != 4)
+    if (v4 != 4)
     {
       goto LABEL_18;
     }
 
-    v5 = HDSQLiteColumnWithNameAsData();
+    v6 = HDSQLiteColumnWithNameAsData();
     goto LABEL_12;
   }
 
-  v6 = MEMORY[0x277CCD7E8];
-  v7 = MEMORY[0x277CCDAB0];
-  v8 = HDSQLiteColumnWithNameAsString();
-  v9 = [v7 unitFromString:v8];
+  v7 = MEMORY[0x277CCD7E8];
+  v8 = MEMORY[0x277CCDAB0];
+  v9 = HDSQLiteColumnWithNameAsString();
+  v10 = [v8 unitFromString:v9];
   HDSQLiteColumnWithNameAsDouble();
-  v4 = [v6 quantityWithUnit:v9 doubleValue:?];
+  v5 = [v7 quantityWithUnit:v10 doubleValue:?];
 
 LABEL_13:
-  if (v2)
+  if (v3)
   {
-    v10 = v4 == 0;
+    v11 = v5 == 0;
   }
 
   else
   {
-    v10 = 1;
+    v11 = 1;
   }
 
-  if (!v10)
+  if (!v11)
   {
-    [*(a1 + 32) setObject:v4 forKeyedSubscript:v2];
+    [*(a1 + 32) setObject:v5 forKeyedSubscript:v3];
   }
 
 LABEL_18:
@@ -851,16 +852,14 @@ LABEL_24:
 {
   v2 = a2;
   objc_opt_self();
-  v3 = off_27860E7F0;
-  if (([v2 isEqualToString:*MEMORY[0x277CCC520]] & 1) == 0 && !objc_msgSend(v2, "isEqualToString:", *MEMORY[0x277CCC528]))
+  if (([v2 isEqualToString:*MEMORY[0x277CCC520]] & 1) == 0)
   {
-    v3 = off_27860EF20;
+    [v2 isEqualToString:*MEMORY[0x277CCC528]];
   }
 
-  v4 = *v3;
-  v5 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return v5;
+  return v3;
 }
 
 - (id)predicateWithMetadataKey:(id)key value:(id)value operatorType:(unint64_t)type
@@ -870,6 +869,15 @@ LABEL_24:
   v9 = [+[HDMetadataManager _metadataPredicateClassForKey:](HDMetadataManager keyCopy)];
 
   return v9;
+}
+
+- (id)predicateWithMetadataKey:(id)key exists:(BOOL)exists
+{
+  existsCopy = exists;
+  keyCopy = key;
+  v6 = [+[HDMetadataManager _metadataPredicateClassForKey:](HDMetadataManager keyCopy)];
+
+  return v6;
 }
 
 id __74__HDMetadataManager__keyEntityForKey_createIfNecessary_transaction_error___block_invoke(uint64_t a1, void *a2, void *a3)

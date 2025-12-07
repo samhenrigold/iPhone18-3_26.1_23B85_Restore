@@ -3,6 +3,7 @@
 - (BOOL)hasProperties:(id)properties;
 - (MAEdgeFilter)uniquelyIdentifyingFilter;
 - (PGGraphMobilityEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties;
+- (PGGraphMobilityEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (id)edgeDescription;
 - (id)initFromMomentNode:(id)node toMobilityNode:(id)mobilityNode confidence:(double)confidence;
 - (id)propertyDictionary;
@@ -30,13 +31,11 @@
 
 - (id)propertyDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"confidence";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"confidence";
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:self->_confidence];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -66,6 +65,30 @@
   }
 
   return v9;
+}
+
+- (PGGraphMobilityEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  nodeCopy = node;
+  targetNodeCopy = targetNode;
+  propertiesCopy = properties;
+  v18 = [propertiesCopy objectForKeyedSubscript:@"confidence"];
+
+  if (!v18)
+  {
+    v19 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:propertiesCopy];
+    *&v20 = weight;
+    v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+    [v19 setObject:v21 forKeyedSubscript:@"confidence"];
+
+    propertiesCopy = v19;
+  }
+
+  v22 = [(PGGraphMobilityEdge *)self initWithLabel:labelCopy sourceNode:nodeCopy targetNode:targetNodeCopy domain:domainCopy properties:propertiesCopy];
+
+  return v22;
 }
 
 - (PGGraphMobilityEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties

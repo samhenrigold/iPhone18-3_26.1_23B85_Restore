@@ -82,7 +82,7 @@ void __39__SFFeatureManager_allowsUnlimitedTabs__block_invoke()
   return showRectangularTabsInSeparateBar_showRectangularTabsInSeparateBar;
 }
 
-uint64_t __52__SFFeatureManager_showRectangularTabsInSeparateBar__block_invoke()
+void *__52__SFFeatureManager_showRectangularTabsInSeparateBar__block_invoke()
 {
   v0 = [MEMORY[0x1E695E000] safari_browserDefaults];
   showRectangularTabsInSeparateBar_showRectangularTabsInSeparateBar = [v0 safari_BOOLForKey:@"DebugUnifiedBarShowRectangularTabsInSeparateBar" defaultValue:0];
@@ -98,7 +98,7 @@ uint64_t __52__SFFeatureManager_showRectangularTabsInSeparateBar__block_invoke()
 
 - (int64_t)preferredCapsuleLayoutStyle
 {
-  if (_SFDeviceIsPad())
+  if (_SFDeviceIsPad(self, a2))
   {
     return 2;
   }
@@ -170,7 +170,7 @@ void __49__SFFeatureManager_usesFormatMenuInUnifiedTabBar__block_invoke()
 
 + (BOOL)isHideBarsWhileScrollingEnabled
 {
-  if (!_SFDeviceIsPad())
+  if (!_SFDeviceIsPad(self, a2))
   {
     return 1;
   }

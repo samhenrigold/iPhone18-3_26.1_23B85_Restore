@@ -15,13 +15,13 @@
 
 + (id)configurationFromFirewallRuleConfiguration:(id)configuration
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v4 = objc_alloc_init(HMDNetworkRouterWANFirewallConfiguration);
   hasFullAccessToWAN = [configurationCopy hasFullAccessToWAN];
   v6 = hasFullAccessToWAN;
   v7 = [[HMDNetworkRouterWANFirewall alloc] initWithType:hasFullAccessToWAN ^ 1u];
-  v68 = v4;
+  v67 = v4;
   [(HMDNetworkRouterWANFirewallConfiguration *)v4 setType:v7];
 
   if ((v6 & 1) == 0)
@@ -29,19 +29,19 @@
     v8 = objc_alloc_init(HMDNetworkRouterWANFirewallRuleList);
     [(HMDNetworkRouterWANFirewallConfiguration *)v4 setRuleList:v8];
 
-    v82 = 0u;
-    v83 = 0u;
-    v80 = 0u;
     v81 = 0u;
-    v62 = configurationCopy;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v61 = configurationCopy;
     obj = [configurationCopy wanRules];
-    v74 = [obj countByEnumeratingWithState:&v80 objects:v84 count:16];
-    if (!v74)
+    v73 = [obj countByEnumeratingWithState:&v79 objects:v83 count:16];
+    if (!v73)
     {
       goto LABEL_35;
     }
 
-    v73 = *v81;
+    v72 = *v80;
     v9 = 0x277CFE000uLL;
     v10 = 0x277CCA000uLL;
     while (1)
@@ -49,12 +49,12 @@
       v11 = 0;
       do
       {
-        if (*v81 != v73)
+        if (*v80 != v72)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v80 + 1) + 8 * v11);
+        v12 = *(*(&v79 + 1) + 8 * v11);
         if ([v12 transportProtocol] == 2)
         {
           icmpTypes = [v12 icmpTypes];
@@ -67,7 +67,7 @@
 
           v15 = 0;
           v16 = 0;
-          v77 = 0;
+          v76 = 0;
         }
 
         else
@@ -88,14 +88,14 @@ LABEL_13:
           LODWORD(v18) = [v12 portStart];
           if (v18 == [v12 portEnd])
           {
-            v77 = 0;
+            v76 = 0;
           }
 
           else
           {
             v20 = objc_alloc(*(v9 + 3224));
             v21 = [*(v10 + 2992) numberWithUnsignedShort:{objc_msgSend(v12, "portEnd")}];
-            v77 = [v20 initWithValue:v21];
+            v76 = [v20 initWithValue:v21];
           }
 
           v14 = 0;
@@ -104,38 +104,38 @@ LABEL_13:
         subject = [v12 subject];
         hostnames = [subject hostnames];
 
-        v75 = subject;
-        v76 = v15;
+        v74 = subject;
+        v75 = v15;
         if (hostnames)
         {
           hostnames2 = [subject hostnames];
           v25 = v14;
           v26 = v15;
           v27 = v16;
-          v28 = v77;
+          v28 = v76;
           [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(hostnames2, "count")}];
-          v70 = v14;
+          v69 = v14;
           v30 = v29 = v16;
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __HMDNetworkRouterWANRulesFromHostNames_block_invoke;
-          v86 = &unk_279727850;
-          v87 = v25;
-          v88 = v26;
-          v89 = v27;
-          v90 = v28;
-          v91 = v30;
+          v85 = &unk_279727850;
+          v86 = v25;
+          v87 = v26;
+          v88 = v27;
+          v89 = v28;
+          v90 = v30;
           v31 = v25;
           v32 = v26;
           v33 = v27;
           v34 = v28;
           v35 = v30;
           [hostnames2 hmf_enumerateWithAutoreleasePoolUsingBlock:buf];
-          addressRange = [v35 copy];
+          addressRange = objc_msgSend_copy(v35);
 
           v9 = 0x277CFE000;
           v16 = v29;
-          v14 = v70;
+          v14 = v69;
 
           goto LABEL_20;
         }
@@ -147,20 +147,20 @@ LABEL_13:
           hostnames2 = [subject addresses];
           v38 = v14;
           v39 = v15;
-          v71 = v16;
+          v70 = v16;
           v40 = v16;
-          v41 = v77;
+          v41 = v76;
           v42 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(hostnames2, "count")}];
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __HMDNetworkRouterWANRulesFromAddresses_block_invoke;
-          v86 = &unk_279727878;
-          v87 = v38;
-          v88 = v39;
-          v89 = v40;
-          v90 = v41;
-          v91 = v42;
-          v66 = v38;
+          v85 = &unk_279727878;
+          v86 = v38;
+          v87 = v39;
+          v88 = v40;
+          v89 = v41;
+          v90 = v42;
+          v65 = v38;
           v32 = v39;
           v33 = v40;
           v43 = v41;
@@ -168,15 +168,15 @@ LABEL_13:
           v44 = v43;
           v45 = v42;
           [hostnames2 hmf_enumerateWithAutoreleasePoolUsingBlock:buf];
-          addressRange = [v45 copy];
+          addressRange = objc_msgSend_copy(v45);
 
-          v16 = v71;
+          v16 = v70;
 LABEL_20:
 
 LABEL_21:
           v10 = 0x277CCA000;
-          subject = v75;
-          v15 = v76;
+          subject = v74;
+          v15 = v75;
           goto LABEL_22;
         }
 
@@ -186,14 +186,14 @@ LABEL_21:
         {
           addressRange2 = [subject addressRange];
           v50 = v14;
-          v63 = v15;
-          v72 = v16;
-          v67 = v16;
-          v65 = v77;
+          v62 = v15;
+          v71 = v16;
+          v66 = v16;
+          v64 = v76;
           addressStart = [addressRange2 addressStart];
           v52 = [HMDNetworkRouterIPAddress ipAddressFromRuleAddress:addressStart allowWildcard:0];
 
-          v64 = addressRange2;
+          v63 = addressRange2;
           v53 = addressRange2;
           v54 = v50;
           addressEnd = [v53 addressEnd];
@@ -202,20 +202,20 @@ LABEL_21:
           if (v50)
           {
             v57 = [[HMDNetworkRouterWANICMPRule alloc] initWithHostDNSName:0 hostIPStart:v52 hostIPEnd:v56 icmpTypes:v50];
-            v58 = v63;
+            v58 = v62;
           }
 
           else
           {
-            v58 = v63;
-            v57 = [[HMDNetworkRouterWANPortRule alloc] initWithProtocol:v63 hostDNSName:0 hostIPStart:v52 hostIPEnd:v56 hostPortStart:v67 hostPortEnd:v65];
+            v58 = v62;
+            v57 = [[HMDNetworkRouterWANPortRule alloc] initWithProtocol:v62 hostDNSName:0 hostIPStart:v52 hostIPEnd:v56 hostPortStart:v66 hostPortEnd:v64];
           }
 
           *buf = v57;
           addressRange = [MEMORY[0x277CBEA60] arrayWithObjects:buf count:1];
 
-          v16 = v72;
-          hostnames2 = v64;
+          v16 = v71;
+          hostnames2 = v63;
           goto LABEL_21;
         }
 
@@ -223,12 +223,12 @@ LABEL_22:
 
         if (addressRange)
         {
-          v78[0] = MEMORY[0x277D85DD0];
-          v78[1] = 3221225472;
-          v78[2] = __98__HMDNetworkRouterWANFirewallConfiguration_Additions__configurationFromFirewallRuleConfiguration___block_invoke;
-          v78[3] = &unk_279727828;
-          v79 = v68;
-          [addressRange hmf_enumerateWithAutoreleasePoolUsingBlock:v78];
+          v77[0] = MEMORY[0x277D85DD0];
+          v77[1] = 3221225472;
+          v77[2] = __98__HMDNetworkRouterWANFirewallConfiguration_Additions__configurationFromFirewallRuleConfiguration___block_invoke;
+          v77[3] = &unk_279727828;
+          v78 = v67;
+          [addressRange hmf_enumerateWithAutoreleasePoolUsingBlock:v77];
 
           goto LABEL_27;
         }
@@ -253,22 +253,20 @@ LABEL_27:
         ++v11;
       }
 
-      while (v74 != v11);
-      v59 = [obj countByEnumeratingWithState:&v80 objects:v84 count:16];
-      v74 = v59;
+      while (v73 != v11);
+      v59 = [obj countByEnumeratingWithState:&v79 objects:v83 count:16];
+      v73 = v59;
       if (!v59)
       {
 LABEL_35:
 
-        configurationCopy = v62;
+        configurationCopy = v61;
         break;
       }
     }
   }
 
-  v60 = *MEMORY[0x277D85DE8];
-
-  return v68;
+  return v67;
 }
 
 void __98__HMDNetworkRouterWANFirewallConfiguration_Additions__configurationFromFirewallRuleConfiguration___block_invoke(uint64_t a1, void *a2)
@@ -376,37 +374,37 @@ LABEL_15:
 
 - (id)serializeWithError:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
+  v39 = *MEMORY[0x277D85DE8];
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v18 = 0u;
   TLV8BufferInit();
   type = [(HMDNetworkRouterWANFirewallConfiguration *)self type];
 
   if (type)
   {
     type2 = [(HMDNetworkRouterWANFirewallConfiguration *)self type];
-    v18 = 0;
-    v7 = [type2 serializeWithError:&v18];
-    v8 = v18;
+    v17 = 0;
+    v7 = [type2 serializeWithError:&v17];
+    v8 = v17;
 
     if (v8)
     {
@@ -438,15 +436,15 @@ LABEL_9:
   if (!ruleList)
   {
 LABEL_11:
-    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v19 length:?];
+    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v18 length:?];
     v8 = 0;
     goto LABEL_14;
   }
 
   ruleList2 = [(HMDNetworkRouterWANFirewallConfiguration *)self ruleList];
-  v17 = 0;
-  v7 = [ruleList2 serializeWithError:&v17];
-  v8 = v17;
+  v16 = 0;
+  v7 = [ruleList2 serializeWithError:&v16];
+  v8 = v16;
 
   if (!v8)
   {
@@ -476,8 +474,6 @@ LABEL_13:
   v13 = 0;
 LABEL_14:
   TLV8BufferFree();
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

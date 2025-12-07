@@ -11,6 +11,7 @@
 - (void)setBackoffTimeout:(double)timeout showBackoffTitle:(BOOL)title passcodeFocused:(BOOL)focused;
 - (void)setPasscodeFocused:(BOOL)focused;
 - (void)traitCollectionDidChange:(id)change;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation PasscodeEmbeddedViewController
@@ -357,6 +358,15 @@
 
   [(UILabel *)self->_backoffSubtitle setHidden:1];
   [(UIStackView *)self->_mainContainer addArrangedSubview:self->_backoffSubtitle];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = PasscodeEmbeddedViewController;
+  [(PasscodeEmbeddedViewController *)&v4 viewWillDisappear:disappear];
+  [(UITextField *)self->_passcodeField setText:&stru_1000992A0];
+  [(UITextField *)self->_passcodeField endEditing:1];
 }
 
 - (void)traitCollectionDidChange:(id)change

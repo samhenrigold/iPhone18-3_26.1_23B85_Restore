@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000126DC();
+  sub_1000126DC(selfCopy);
 }
 
 - (void)didCompleteTextEntry:(id)entry

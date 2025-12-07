@@ -57,7 +57,7 @@
 
 - (KCJoiningRequestSecretSession)initWithSecretDelegate:(id)delegate dsid:(unint64_t)dsid altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID rng:(ccrng_state *)rng error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   dCopy = d;
   iDCopy = iD;
@@ -69,9 +69,9 @@
     _os_log_impl(&dword_22EB09000, v18, OS_LOG_TYPE_DEFAULT, "joining: initWithSecretDelegate called", buf, 2u);
   }
 
-  v36.receiver = self;
-  v36.super_class = KCJoiningRequestSecretSession;
-  v19 = [(KCJoiningRequestSecretSession *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = KCJoiningRequestSecretSession;
+  v19 = [(KCJoiningRequestSecretSession *)&v35 init];
   v20 = v19;
   if (v19)
   {
@@ -96,7 +96,7 @@
     {
       sessionUUID = [(KCJoiningRequestSecretSession *)v20 sessionUUID];
       *buf = 138412290;
-      v38 = sessionUUID;
+      v37 = sessionUUID;
       _os_log_impl(&dword_22EB09000, v26, OS_LOG_TYPE_DEFAULT, "joining: initWithSecretDelegate called, uuid=%@", buf, 0xCu);
     }
 
@@ -108,7 +108,6 @@
     v20->_context = v31;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -140,8 +139,8 @@
   v7 = secLogObjForScope("joining");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v18) = 0;
-    _os_log_impl(&dword_22EB09000, v7, OS_LOG_TYPE_DEFAULT, "joining: KCJoiningRequestSecretSession processMessage called", &v18, 2u);
+    *v18 = 0;
+    _os_log_impl(&dword_22EB09000, v7, OS_LOG_TYPE_DEFAULT, "joining: KCJoiningRequestSecretSession processMessage called", v18, 2u);
   }
 
   v8 = [KCJoiningMessage messageWithDER:messageCopy error:error];
@@ -152,7 +151,7 @@
     switch(state)
     {
       case 2:
-        KCJoiningErrorCreate(6, error, @"Done, no messages expected.", v9, v10, v11, v12, v13, v18);
+        KCJoiningErrorCreate(6, error, @"Done, no messages expected.", v9, v10, v11, v12, v13, *v18);
         break;
       case 1:
         v15 = [(KCJoiningRequestSecretSession *)self handleVerification:v8 error:error];
@@ -173,7 +172,7 @@ LABEL_12:
 
 - (id)handleVerification:(id)verification error:(id *)error
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   verificationCopy = verification;
   v7 = secLogObjForScope("joining");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -186,8 +185,8 @@ LABEL_12:
   altDSID = [(KCJoiningRequestSecretSession *)self altDSID];
   flowID = [(KCJoiningRequestSecretSession *)self flowID];
   deviceSessionID = [(KCJoiningRequestSecretSession *)self deviceSessionID];
-  LOBYTE(v51) = 1;
-  v12 = [(AAFAnalyticsEventSecurity *)v8 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.piggybackingSessionInitiatorHandleVerification" testsAreEnabled:metricsAreEnabled canSendMetrics:v51 category:&unk_2843768F0];
+  LOBYTE(v50) = 1;
+  v12 = [(AAFAnalyticsEventSecurity *)v8 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.piggybackingSessionInitiatorHandleVerification" testsAreEnabled:metricsAreEnabled canSendMetrics:v50 category:&unk_2843768F0];
 
   secretDelegate = [(KCJoiningRequestSecretSession *)self secretDelegate];
   if (![verificationCopy type])
@@ -224,9 +223,9 @@ LABEL_58:
     if (v27)
     {
       firstData2 = [verificationCopy firstData];
-      v55 = 0;
-      data = [(KCJoiningRequestSecretSession *)self handleChallengeData:firstData2 secret:v28 error:&v55];
-      v21 = v55;
+      v54 = 0;
+      data = [(KCJoiningRequestSecretSession *)self handleChallengeData:firstData2 secret:v28 error:&v54];
+      v21 = v54;
 
       if (data && !v21)
       {
@@ -261,9 +260,9 @@ LABEL_36:
 
     else
     {
-      v56 = 0;
-      data = [(KCJoiningRequestSecretSession *)self copyResponseForSecret:v28 error:&v56];
-      v41 = v56;
+      v55 = 0;
+      data = [(KCJoiningRequestSecretSession *)self copyResponseForSecret:v28 error:&v55];
+      v41 = v55;
       v21 = v41;
       if (data && !v41)
       {
@@ -338,17 +337,17 @@ LABEL_56:
 
   context = [(KCJoiningRequestSecretSession *)self context];
   firstData3 = [verificationCopy firstData];
-  v54 = 0;
-  v16 = [context verifyConfirmation:firstData3 error:&v54];
-  v17 = v54;
+  v53 = 0;
+  v16 = [context verifyConfirmation:firstData3 error:&v53];
+  v17 = v53;
 
   if (v16)
   {
     session = [(KCJoiningRequestSecretSession *)self session];
     secondData = [verificationCopy secondData];
-    v53 = v17;
-    v20 = [session decryptAndVerify:secondData error:&v53];
-    v21 = v53;
+    v52 = v17;
+    v20 = [session decryptAndVerify:secondData error:&v52];
+    v21 = v52;
 
     if (!v20 || v21)
     {
@@ -375,9 +374,9 @@ LABEL_56:
 
     else
     {
-      v52 = 0;
-      v22 = [MEMORY[0x277CCACA8] decodeFromDER:v20 error:&v52];
-      v23 = v52;
+      v51 = 0;
+      v22 = [MEMORY[0x277CCACA8] decodeFromDER:v20 error:&v51];
+      v23 = v51;
       v21 = v23;
       if (v22 && !v23)
       {
@@ -435,8 +434,8 @@ LABEL_68:
   {
     *buf = 138412546;
     selfCopy = self;
-    v59 = 2112;
-    v60 = v17;
+    v58 = 2112;
+    v59 = v17;
     _os_log_impl(&dword_22EB09000, v37, OS_LOG_TYPE_DEFAULT, "joining: Verification failed: %@, error: %@", buf, 0x16u);
   }
 
@@ -456,28 +455,26 @@ LABEL_68:
   v21 = v17;
 LABEL_69:
 
-  v49 = *MEMORY[0x277D85DE8];
-
   return data;
 }
 
 - (id)handleChallenge:(id)challenge error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   v7 = [AAFAnalyticsEventSecurity alloc];
   altDSID = [(KCJoiningRequestSecretSession *)self altDSID];
   flowID = [(KCJoiningRequestSecretSession *)self flowID];
   deviceSessionID = [(KCJoiningRequestSecretSession *)self deviceSessionID];
-  LOBYTE(v20) = 1;
-  v11 = [(AAFAnalyticsEventSecurity *)v7 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.piggybackingSessionInitiatorHandleChallenge" testsAreEnabled:metricsAreEnabled canSendMetrics:v20 category:&unk_2843768F0];
+  LOBYTE(v19) = 1;
+  v11 = [(AAFAnalyticsEventSecurity *)v7 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.piggybackingSessionInitiatorHandleChallenge" testsAreEnabled:metricsAreEnabled canSendMetrics:v19 category:&unk_2843768F0];
 
   secretDelegate = [(KCJoiningRequestSecretSession *)self secretDelegate];
   secret = [secretDelegate secret];
-  v21 = 0;
-  v14 = [(KCJoiningRequestSecretSession *)self handleChallenge:challengeCopy secret:secret error:&v21];
+  v20 = 0;
+  v14 = [(KCJoiningRequestSecretSession *)self handleChallenge:challengeCopy secret:secret error:&v20];
 
-  v15 = v21;
+  v15 = v20;
   if (!v14 || v15)
   {
     if (!v15)
@@ -489,7 +486,7 @@ LABEL_69:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v23 = v15;
+      v22 = v15;
       _os_log_impl(&dword_22EB09000, v16, OS_LOG_TYPE_DEFAULT, "Failed to create response message: %@", buf, 0xCu);
     }
 
@@ -506,21 +503,19 @@ LABEL_69:
     [(AAFAnalyticsEventSecurity *)v11 sendMetricWithResult:1 error:0];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)handleChallenge:(id)challenge secret:(id)secret error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   secretCopy = secret;
   v10 = secLogObjForScope("joining");
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    *v34 = 0;
-    _os_log_impl(&dword_22EB09000, v10, OS_LOG_TYPE_DEFAULT, "joining: KCJoiningRequestSecretSession handleChallenge called", v34, 2u);
+    *v33 = 0;
+    _os_log_impl(&dword_22EB09000, v10, OS_LOG_TYPE_DEFAULT, "joining: KCJoiningRequestSecretSession handleChallenge called", v33, 2u);
   }
 
   if ([challengeCopy type] == 1)
@@ -559,9 +554,9 @@ LABEL_69:
         {
           epoch = [(OTPairingMessage *)v24 epoch];
           dictionaryRepresentation = [epoch dictionaryRepresentation];
-          *v34 = 138412290;
-          *&v34[4] = dictionaryRepresentation;
-          _os_log_impl(&dword_22EB09000, v25, OS_LOG_TYPE_DEFAULT, "received epoch message: %@", v34, 0xCu);
+          *v33 = 138412290;
+          *&v33[4] = dictionaryRepresentation;
+          _os_log_impl(&dword_22EB09000, v25, OS_LOG_TYPE_DEFAULT, "received epoch message: %@", v33, 0xCu);
         }
 
         epoch2 = [(OTPairingMessage *)v24 epoch];
@@ -573,8 +568,8 @@ LABEL_69:
         v30 = secLogObjForScope("SecError");
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
-          *v34 = 0;
-          _os_log_impl(&dword_22EB09000, v30, OS_LOG_TYPE_DEFAULT, "octagon: acceptor did not send its epoch. discontinuing octagon protocol. downgrading to verison 1", v34, 2u);
+          *v33 = 0;
+          _os_log_impl(&dword_22EB09000, v30, OS_LOG_TYPE_DEFAULT, "octagon: acceptor did not send its epoch. discontinuing octagon protocol. downgrading to verison 1", v33, 2u);
         }
 
         [(KCJoiningRequestSecretSession *)self setPiggy_version:1];
@@ -587,11 +582,9 @@ LABEL_69:
 
   else
   {
-    KCJoiningErrorCreate(6, error, @"Expected challenge!", v11, v12, v13, v14, v15, *v34);
+    KCJoiningErrorCreate(6, error, @"Expected challenge!", v11, v12, v13, v14, v15, *v33);
     v29 = 0;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v29;
 }
@@ -706,18 +699,18 @@ LABEL_69:
 
 - (id)initialMessage:(id *)message
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = [AAFAnalyticsEventSecurity alloc];
   altDSID = [(KCJoiningRequestSecretSession *)self altDSID];
   flowID = [(KCJoiningRequestSecretSession *)self flowID];
   deviceSessionID = [(KCJoiningRequestSecretSession *)self deviceSessionID];
-  LOBYTE(v28) = 1;
-  v9 = [(AAFAnalyticsEventSecurity *)v5 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.piggybackingSessionInitiatorInitialMessage" testsAreEnabled:metricsAreEnabled canSendMetrics:v28 category:&unk_2843768F0];
+  LOBYTE(v27) = 1;
+  v9 = [(AAFAnalyticsEventSecurity *)v5 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.piggybackingSessionInitiatorInitialMessage" testsAreEnabled:metricsAreEnabled canSendMetrics:v27 category:&unk_2843768F0];
 
   context = self->_context;
-  v29 = 0;
-  v11 = [(KCSRPClientContext *)context copyStart:&v29];
-  v12 = v29;
+  v31 = 0;
+  v11 = [(KCSRPClientContext *)context copyStart:&v31];
+  v12 = v31;
   v13 = v12;
   if (v11 && !v12)
   {
@@ -733,10 +726,8 @@ LABEL_69:
       createUUID = [(KCJoiningRequestSecretSession *)self createUUID];
       v16 = [@"o" dataUsingEncoding:134217984];
       v17 = [MEMORY[0x277CBEB28] dataWithLength:{sizeof_initialmessage_version2(v11, 1, createUUID, v16)}];
-      [v17 mutableBytes];
-      [v17 mutableBytes];
-      [v17 length];
-      if (encode_initialmessage_version2(v11, createUUID, v16))
+      v30 = 0;
+      if (encode_initialmessage_version2(v11, createUUID, v16, &v30, [v17 mutableBytes], objc_msgSend(v17, "mutableBytes") + objc_msgSend(v17, "length")))
       {
 
 LABEL_14:
@@ -755,7 +746,7 @@ LABEL_29:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = v13;
+        v33 = v13;
         _os_log_impl(&dword_22EB09000, v20, OS_LOG_TYPE_DEFAULT, "failed to create version 2 message: %@", buf, 0xCu);
       }
 
@@ -772,27 +763,25 @@ LABEL_29:
       if ([(KCJoiningRequestSecretSession *)self piggy_version]!= 1)
       {
         v17 = [MEMORY[0x277CBEB28] dataWithLength:sizeof_initialmessage(v11)];
-        [v17 mutableBytes];
-        [v17 mutableBytes];
-        [v17 length];
-        if (encode_initialmessage(v11))
+        v28 = 0;
+        if (encode_initialmessage(v11, &v28, [v17 mutableBytes], objc_msgSend(v17, "mutableBytes") + objc_msgSend(v17, "length")))
         {
           goto LABEL_17;
         }
 
         v13 = [MEMORY[0x277CCA9B8] errorWithDomain:KCErrorDomain code:26 description:@"failed to create initial message"];
-        v26 = secLogObjForScope("SecError");
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v25 = secLogObjForScope("SecError");
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v31 = v13;
-          _os_log_impl(&dword_22EB09000, v26, OS_LOG_TYPE_DEFAULT, "failed to create version initial message: %@", buf, 0xCu);
+          v33 = v13;
+          _os_log_impl(&dword_22EB09000, v25, OS_LOG_TYPE_DEFAULT, "failed to create version initial message: %@", buf, 0xCu);
         }
 
         [(AAFAnalyticsEventSecurity *)v9 sendMetricWithResult:0 error:v13];
         if (message)
         {
-          v27 = v13;
+          v26 = v13;
           v19 = 0;
           *message = v13;
           goto LABEL_29;
@@ -805,10 +794,8 @@ LABEL_28:
 
       createUUID = [(KCJoiningRequestSecretSession *)self createUUID];
       v17 = [MEMORY[0x277CBEB28] dataWithLength:{sizeof_initialmessage_version1(v11, 1, createUUID)}];
-      [v17 mutableBytes];
-      [v17 mutableBytes];
-      [v17 length];
-      if (encode_initialmessage_version1(v11, createUUID))
+      v29 = 0;
+      if (encode_initialmessage_version1(v11, createUUID, 1, &v29, [v17 mutableBytes], objc_msgSend(v17, "mutableBytes") + objc_msgSend(v17, "length")))
       {
         goto LABEL_14;
       }
@@ -818,7 +805,7 @@ LABEL_28:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = v13;
+        v33 = v13;
         _os_log_impl(&dword_22EB09000, v22, OS_LOG_TYPE_DEFAULT, "failed to create version 1 message: %@", buf, 0xCu);
       }
 
@@ -853,24 +840,20 @@ LABEL_28:
 
 LABEL_30:
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (id)createUUID
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   uUID = [MEMORY[0x277CCAD78] UUID];
-  v8[0] = 0xAAAAAAAAAAAAAAAALL;
-  v8[1] = 0xAAAAAAAAAAAAAAAALL;
+  v7[0] = 0xAAAAAAAAAAAAAAAALL;
+  v7[1] = 0xAAAAAAAAAAAAAAAALL;
   uUIDString = [uUID UUIDString];
   [(KCJoiningRequestSecretSession *)self setPiggy_uuid:uUIDString];
 
-  [uUID getUUIDBytes:v8];
-  v5 = [MEMORY[0x277CBEA90] dataWithBytes:v8 length:16];
-
-  v6 = *MEMORY[0x277D85DE8];
+  [uUID getUUIDBytes:v7];
+  v5 = [MEMORY[0x277CBEA90] dataWithBytes:v7 length:16];
 
   return v5;
 }

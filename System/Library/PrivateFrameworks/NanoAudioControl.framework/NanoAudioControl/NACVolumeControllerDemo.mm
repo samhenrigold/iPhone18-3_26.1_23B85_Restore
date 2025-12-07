@@ -6,11 +6,11 @@
 - (id)_volumeDictionary;
 - (void)_applicationDidBecomeActiveNotification:(id)notification;
 - (void)_persistVolumeValue:(id)value;
-- (void)_setNeedsVolumeReload;
 - (void)beginObservingVolume;
 - (void)dealloc;
 - (void)setCurrentListeningMode:(id)mode;
 - (void)setVolumeValue:(float)value;
+- (void)setVolumeValue:(float)value muted:(BOOL)muted overrideEULimit:(BOOL)limit;
 @end
 
 @implementation NACVolumeControllerDemo
@@ -137,6 +137,14 @@ void __49__NACVolumeControllerDemo_initWithAudioCategory___block_invoke(uint64_t
   [(NACEventThrottler *)defaultsThrottler setValue:v7];
 }
 
+- (void)setVolumeValue:(float)value muted:(BOOL)muted overrideEULimit:(BOOL)limit
+{
+  mutedCopy = muted;
+  [(NACVolumeControllerDemo *)self setVolumeValue:muted, limit];
+
+  [(NACVolumeControllerDemo *)self setMuted:mutedCopy];
+}
+
 - (NSString)currentListeningMode
 {
   currentListeningMode = self->_currentListeningMode;
@@ -205,13 +213,6 @@ void __67__NACVolumeControllerDemo__applicationDidBecomeActiveNotification___blo
     v4 = objc_loadWeakRetained((*(a1 + 32) + 56));
     [v4 volumeControllerDidUpdateVolumeValue:*(a1 + 32)];
   }
-}
-
-- (void)_setNeedsVolumeReload
-{
-  volumeValue = self->_volumeValue;
-  self->_volumeValue = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 - (void)_persistVolumeValue:(id)value

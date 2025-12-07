@@ -4,6 +4,7 @@
 - (id)removeKeyFor:(id)for;
 - (void)invalidateFairPlayKeyFor:(int64_t)for completion:(id)completion;
 - (void)markAllFairPlayKeysForInvalidationWithShouldRemove:(BOOL)remove completion:(id)completion;
+- (void)markKeyForInvalidationAt:(id)at shouldRemove:(BOOL)remove;
 - (void)removalAllFairPlayKeysWithCompletion:(id)completion;
 - (void)removeKeyFor:(int64_t)for completion:(id)completion;
 @end
@@ -42,7 +43,23 @@
 
   selfCopy = self;
   DispatchingFairPlayInvalidationManaging.invalidateFairPlayKey(for:completion:)(for, v6, v7);
-  sub_1D8D15664(v6);
+  sub_1D8D15664(v6, v7);
+}
+
+- (void)markKeyForInvalidationAt:(id)at shouldRemove:(BOOL)remove
+{
+  removeCopy = remove;
+  v6 = sub_1D9176C2C();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1D9176B9C();
+  v10 = *(&self->super.isa + OBJC_IVAR___PFDispatchingFairPlayInvalidationManaging_wrappedInstance);
+  selfCopy = self;
+  v12 = sub_1D9176B1C();
+  [v10 markKeyForInvalidationAt:v12 shouldRemove:removeCopy];
+
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)markAllFairPlayKeysForInvalidationWithShouldRemove:(BOOL)remove completion:(id)completion
@@ -62,7 +79,7 @@
 
   selfCopy = self;
   DispatchingFairPlayInvalidationManaging.markAllFairPlayKeysForInvalidation(shouldRemove:completion:)(remove, v6, v7);
-  sub_1D8D15664(v6);
+  sub_1D8D15664(v6, v7);
 }
 
 - (void)removeKeyFor:(int64_t)for completion:(id)completion
@@ -110,7 +127,7 @@
 
   selfCopy = self;
   DispatchingFairPlayInvalidationManaging.removalAllFairPlayKeys(completion:)(v7, v6);
-  sub_1D8D15664(v7);
+  sub_1D8D15664(v7, v6);
 }
 
 - (PFDispatchingFairPlayInvalidationManaging)init

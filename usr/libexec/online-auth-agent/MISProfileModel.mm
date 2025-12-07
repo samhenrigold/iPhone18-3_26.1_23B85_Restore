@@ -34,34 +34,8 @@
   WeakRetained = objc_loadWeakRetained(&self->_weak_db);
   if (profileCopy)
   {
-    if (!lCopy)
+    if (!lCopy || (v22 = 0, v23 = &v22, v24 = 0x2020000000, v25 = 0, v20[0] = _NSConcreteStackBlock, v20[1] = 3221225472, v20[2] = sub_1000089C8, v20[3] = &unk_10005D880, v21 = profileCopy, v17[0] = _NSConcreteStackBlock, v17[1] = 3221225472, v17[2] = sub_100008A38, v17[3] = &unk_10005DD08, v19 = &v22, v18 = handlerCopy, v11 = [WeakRetained executeQuery:@"SELECT cms_blob FROM xml_profiles_cache WHERE uuid = @uuid" withBind:v20 withResults:v17], v12 = *(v23 + 24), v13 = v11 == 0, v18, v21, _Block_object_dispose(&v22, 8), (v12 & 1) == 0))
     {
-      goto LABEL_4;
-    }
-
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
-    v25 = 0;
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_1000089C8;
-    v20[3] = &unk_10005D880;
-    v21 = profileCopy;
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100008A38;
-    v17[3] = &unk_10005DD08;
-    v19 = &v22;
-    v18 = handlerCopy;
-    v11 = [WeakRetained executeQuery:@"SELECT cms_blob FROM xml_profiles_cache WHERE uuid = @uuid" withBind:v20 withResults:v17];
-    v12 = *(v23 + 24);
-    v13 = v11 == 0;
-
-    _Block_object_dispose(&v22, 8);
-    if ((v12 & 1) == 0)
-    {
-LABEL_4:
       v15[0] = _NSConcreteStackBlock;
       v15[1] = 3221225472;
       v15[2] = sub_100008A58;
@@ -147,26 +121,26 @@ LABEL_4:
   dCopy = d;
   v8 = objc_autoreleasePoolPush();
   WeakRetained = objc_loadWeakRetained(&self->_weak_db);
-  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v10 = identitiesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v25;
+    v13 = *v26;
     do
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v25 != v13)
+        if (*v26 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = SecCertificateCreateWithData(0, *(*(&v24 + 1) + 8 * i));
+        v15 = SecCertificateCreateWithData(0, *(*(&v25 + 1) + 8 * i));
         if (v15)
         {
           v16 = v15;
@@ -174,16 +148,16 @@ LABEL_4:
           CFRelease(v16);
           if (v17)
           {
-            v21[0] = _NSConcreteStackBlock;
-            v21[1] = 3221225472;
-            v21[2] = sub_10000917C;
-            v21[3] = &unk_10005D8D0;
-            v22 = dCopy;
+            v22[0] = _NSConcreteStackBlock;
+            v22[1] = 3221225472;
+            v22[2] = sub_10000917C;
+            v22[3] = &unk_10005D8D0;
+            v23 = dCopy;
             v17 = v17;
-            v23 = v17;
-            v18 = [WeakRetained executeQuery:@"INSERT OR IGNORE INTO signing_identities VALUES (NULL withBind:@uuid withResults:{@signing_identity)", v21, 0}];
+            v24 = v17;
+            v19 = [WeakRetained executeQuery:@"INSERT OR IGNORE INTO signing_identities VALUES (NULL withBind:@uuid withResults:{@signing_identity)", v22, 0}];
 
-            if (v18)
+            if (v19)
             {
 
               goto LABEL_19;
@@ -192,60 +166,60 @@ LABEL_4:
 
           else
           {
-            v19 = sub_100006750();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            v20 = sub_100006750(v18);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v29 = dCopy;
-              _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Couldn't get signing identity for %@", buf, 0xCu);
+              v30 = dCopy;
+              _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Couldn't get signing identity for %@", buf, 0xCu);
             }
           }
         }
 
         else
         {
-          v17 = sub_100006750();
+          v17 = sub_100006750(0);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v29 = dCopy;
+            v30 = dCopy;
             _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Couldn't create SecCertificate for %@", buf, 0xCu);
           }
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v12);
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
 LABEL_19:
 
   objc_autoreleasePoolPop(v8);
-  return v18;
+  return v19;
 }
 
 - (int)insertProfile:(void *)profile
 {
   WeakRetained = objc_loadWeakRetained(&self->_weak_db);
-  v35 = MISProvisioningProfileGetUUID();
-  v33 = MISProvisioningProfileGetName();
+  v35 = MISProvisioningProfileGetUUID(profile);
+  v33 = MISProvisioningProfileGetName(profile);
   v30 = MISProvisioningProfileGetDeveloperCertificatesHashes(profile);
-  v29 = MISXMLProvisioningProfileGetDeveloperCertificates();
-  v32 = MISProvisioningProfileGetTeamIdentifier();
-  v31 = MISProvisioningProfileGetExpirationDate();
+  v29 = MISXMLProvisioningProfileGetDeveloperCertificates(profile);
+  v32 = MISProvisioningProfileGetTeamIdentifier(profile);
+  v31 = MISProvisioningProfileGetExpirationDate(profile);
   DataRepresentation = MISProfileCreateDataRepresentation();
   v28 = MISProvisioningProfileGetEntitlements(profile);
-  v37 = MISProvisioningProfileGetEmbeddedDER();
-  v27 = MISProvisioningProfileProvisionsAllDevices();
-  v26 = MISProvisioningProfileIsForLocalProvisioning();
+  v37 = MISProvisioningProfileGetEmbeddedDER(profile);
+  v27 = MISProvisioningProfileProvisionsAllDevices(profile);
+  v26 = MISProvisioningProfileIsForLocalProvisioning(profile);
   v67 = 0;
   v68 = &v67;
   v69 = 0x2020000000;
@@ -290,7 +264,7 @@ LABEL_19:
   if (!v6)
   {
     v9 = MISProfileIsDEREncoded() != 0;
-    IsAppleInternalProfile = MISProvisioningProfileIsAppleInternalProfile();
+    IsAppleInternalProfile = MISProvisioningProfileIsAppleInternalProfile(profile);
     v11 = MISProvisioningProfileIsForBetaDeployment(profile) != 0;
     v53[0] = _NSConcreteStackBlock;
     v53[1] = 3221225472;
@@ -375,7 +349,7 @@ LABEL_19:
       v44 = v21;
       [entitlements emitEntitlementPredicates:v28 predicateHandler:v42];
 
-      v22 = MISProvisioningProfileGetTeamName();
+      v22 = MISProvisioningProfileGetTeamName(profile);
       v39[0] = _NSConcreteStackBlock;
       v39[1] = 3221225472;
       v39[2] = sub_100009D10;

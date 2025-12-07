@@ -1,845 +1,3 @@
-__int128 specialized static BinaryFloatingPoint<>.random<A>(in:using:)@<xmm0>(double a1@<xmm0>, double a2@<xmm1>)
-{
-  if (COERCE__INT64(fabs(a2 - a1)) > 0x7FEFFFFFFFFFFFFFLL)
-  {
-    BUG();
-  }
-
-  v7 = a2 - a1;
-  v2 = specialized RandomNumberGenerator.next<A>(upperBound:)(0x20000000000001uLL);
-  result = *&a2;
-  if (v2 != 0x20000000000000)
-  {
-    v4 = _mm_sub_pd(_mm_unpacklo_epi32(v2, xmmword_33D8B0), xmmword_33D8C0);
-    v5 = *&v7;
-    *&v5 = v7 * (_mm_hadd_pd(v4, v4).f64[0] * 1.110223024625157e-16) + a1;
-    return v5;
-  }
-
-  return result;
-}
-
-void *specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2)
-{
-  if (a1 < 0)
-  {
-    BUG();
-  }
-
-  v3 = *v2;
-  v4 = *(*v2 + 16);
-  if (v4 < a2)
-  {
-    BUG();
-  }
-
-  if (__OFSUB__(a2, a1))
-  {
-    BUG();
-  }
-
-  v5 = a1 - a2;
-  if (__OFSUB__(a1 - a2, 1))
-  {
-    BUG();
-  }
-
-  v6 = v4 - (a2 - a1);
-  if (__OFADD__(v5, v4))
-  {
-    BUG();
-  }
-
-  v14 = *(*v2 + 16);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v3);
-  if (!isUniquelyReferenced_nonNull_native || v3[3] >> 1 < v6)
-  {
-    if (v14 > v6)
-    {
-      v6 = v14;
-    }
-
-    v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v6, 1, v3);
-  }
-
-  result = swift_arrayDestroy(&v3[2 * a1 + 4], a2 - a1, &type metadata for String);
-  if (v5)
-  {
-    v9 = v3[2];
-    v10 = __OFSUB__(v9, a2);
-    v11 = v9 - a2;
-    if (v10)
-    {
-      BUG();
-    }
-
-    result = specialized UnsafeMutablePointer.moveInitialize(from:count:)(&v3[2 * a2 + 4], v11, &v3[2 * a1 + 4]);
-    v10 = __OFADD__(v3[2], v5);
-    v12 = v3[2] + v5;
-    if (v10)
-    {
-      BUG();
-    }
-
-    v3[2] = v12;
-  }
-
-  *v2 = v3;
-  return result;
-}
-
-void *specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, int64_t a2)
-{
-  if (a1 < 0)
-  {
-    BUG();
-  }
-
-  v3 = *v2;
-  v4 = *(*v2 + 16);
-  if (v4 < a2)
-  {
-    BUG();
-  }
-
-  if (__OFSUB__(a2, a1))
-  {
-    BUG();
-  }
-
-  if (__OFSUB__(a1 - a2, 1))
-  {
-    BUG();
-  }
-
-  v5 = v4 - (a2 - a1);
-  if (__OFADD__(a1 - a2, v4))
-  {
-    BUG();
-  }
-
-  v18 = a1 - a2;
-  v16 = v2;
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v3);
-  if (!isUniquelyReferenced_nonNull_native || v3[3] >> 1 < v5)
-  {
-    if (v4 > v5)
-    {
-      v5 = v4;
-    }
-
-    v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v5, 1, v3);
-  }
-
-  v7 = type metadata accessor for FeatureDescription(0);
-  v8 = *(v7 - 8);
-  v9 = v3 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
-  v10 = *(v8 + 72);
-  v11 = &v9[v10 * a1];
-  swift_arrayDestroy(v11, a2 - a1, v7);
-  if (v18)
-  {
-    v12 = v3[2];
-    v13 = __OFSUB__(v12, a2);
-    v14 = v12 - a2;
-    if (v13)
-    {
-      BUG();
-    }
-
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)(&v9[a2 * v10], v14, v11);
-    if (__OFADD__(v3[2], v18))
-    {
-      BUG();
-    }
-
-    v3[2] += v18;
-  }
-
-  result = v16;
-  *v16 = v3;
-  return result;
-}
-
-{
-  if (a1 < 0)
-  {
-    BUG();
-  }
-
-  v3 = *v2;
-  v4 = *(*v2 + 16);
-  if (v4 < a2)
-  {
-    BUG();
-  }
-
-  if (__OFSUB__(a2, a1))
-  {
-    BUG();
-  }
-
-  v5 = a1 - a2;
-  if (__OFSUB__(a1 - a2, 1))
-  {
-    BUG();
-  }
-
-  v15 = v2;
-  v6 = v5 + v4;
-  if (__OFADD__(v5, v4))
-  {
-    BUG();
-  }
-
-  result = swift_isUniquelyReferenced_nonNull_native(v3);
-  if (!result || v3[3] >> 1 < v6)
-  {
-    if (v4 > v6)
-    {
-      v6 = v4;
-    }
-
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v6, 1, v3);
-    v3 = result;
-  }
-
-  if (v5)
-  {
-    v9 = v3[2];
-    v10 = v9 - a2;
-    if (__OFSUB__(v9, a2))
-    {
-      BUG();
-    }
-
-    v11 = v3 + 4 * a2 + 32;
-    v12 = v3 + 4 * a1 + 32;
-    if (a1 != a2 || &v11[4 * v10] <= v12)
-    {
-      memmove(v12, v11, 4 * v10);
-      v9 = v3[2];
-    }
-
-    v13 = __OFADD__(v5, v9);
-    result = (v5 + v9);
-    if (v13)
-    {
-      BUG();
-    }
-
-    v3[2] = result;
-  }
-
-  *v15 = v3;
-  return result;
-}
-
-uint64_t specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, int64_t a2, uint64_t a3)
-{
-  if (a1 < 0)
-  {
-    BUG();
-  }
-
-  v4 = *v3;
-  v5 = *(*v3 + 16);
-  if (v5 < a2)
-  {
-    BUG();
-  }
-
-  v6 = a2 - a1;
-  if (__OFSUB__(a2, a1))
-  {
-    BUG();
-  }
-
-  v17 = *(a3 + 16);
-  v7 = v17 - v6;
-  if (__OFSUB__(v17, v6))
-  {
-    BUG();
-  }
-
-  v8 = v7 + v5;
-  if (__OFADD__(v7, v5))
-  {
-    BUG();
-  }
-
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v4);
-  if (!isUniquelyReferenced_nonNull_native || v4[3] >> 1 < v8)
-  {
-    if (v5 > v8)
-    {
-      v8 = v5;
-    }
-
-    v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v8, 1, v4);
-  }
-
-  v10 = &v4[a1 + 4];
-  if (v7)
-  {
-    v11 = v4[2];
-    v12 = __OFSUB__(v11, a2);
-    v13 = v11 - a2;
-    if (v12)
-    {
-      BUG();
-    }
-
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)(&v4[a2 + 4], v13, &v10[8 * v17]);
-    v12 = __OFADD__(v4[2], v7);
-    v14 = v4[2] + v7;
-    if (v12)
-    {
-      BUG();
-    }
-
-    v4[2] = v14;
-  }
-
-  if (v17)
-  {
-    if (*(a3 + 16) != v17)
-    {
-      BUG();
-    }
-
-    memcpy(v10, (a3 + 32), 8 * v17);
-  }
-
-  result = a3;
-  *v3 = v4;
-  return result;
-}
-
-void specialized closure #1 in linearSpace #1 <A>(from:through:count:) in static MLHandActionClassifier.randomMove(_:)(void *a1, float *a2, float *a3)
-{
-  v5 = v3;
-  v6 = specialized closure #1 in linearSpace #1 <A>(from:through:count:) in static MLHandActionClassifier.randomMove(_:)(*a1, *a2, *a3);
-  if (!v4)
-  {
-    *v5 = v6;
-  }
-}
-
-uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 40);
-  *(a1 + 32) = *(a2 + 32);
-  return v2;
-}
-
-uint64_t type metadata accessor for NSNumber(uint64_t a1, uint64_t *a2, void *a3)
-{
-  result = *a2;
-  if (!*a2)
-  {
-    v4 = objc_opt_self(*a3);
-    result = swift_getObjCClassMetadata(v4);
-    *a2 = result;
-  }
-
-  return result;
-}
-
-uint64_t InteractionTableBuilder.init(itemCount:maximumInteractionsPerItem:minimumInteractionScore:)(uint64_t a1, int64_t a2, double a3)
-{
-  *(v3 + 32) = a1;
-  v18 = a2;
-  *(v3 + 16) = a2;
-  *(v3 + 24) = a3;
-  ML11InteractionV_Tt0g5 = _s4HeapAAV12arrayLiteralAByxGxd_tcfC8CreateML11InteractionV_Tt0g5(_swiftEmptyArrayStorage);
-  ML11InteractionVG_Tt1g5 = _sSa9repeating5countSayxGx_SitcfC4HeapADVy8CreateML11InteractionVG_Tt1g5(ML11InteractionV_Tt0g5, a1);
-  *(v3 + 40) = ML11InteractionVG_Tt1g5;
-  v15 = *(ML11InteractionVG_Tt1g5 + 16);
-  if (v15)
-  {
-    v17 = v3;
-    v6 = (v3 + 40);
-    v7 = 0;
-    swift_beginAccess(v6, v14, 33, 0);
-    v8 = 32;
-    v16 = v6;
-    do
-    {
-      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(ML11InteractionVG_Tt1g5);
-      *v6 = ML11InteractionVG_Tt1g5;
-      if (!isUniquelyReferenced_nonNull_native)
-      {
-        ML11InteractionVG_Tt1g5 = specialized _ArrayBuffer._consumeAndCreateNew()(ML11InteractionVG_Tt1g5);
-        *v6 = ML11InteractionVG_Tt1g5;
-      }
-
-      if (v7 >= *(ML11InteractionVG_Tt1g5 + 16))
-      {
-        BUG();
-      }
-
-      v10 = *(ML11InteractionVG_Tt1g5 + 8 * v7 + 32);
-      v11 = swift_isUniquelyReferenced_nonNull_native(v10);
-      *(ML11InteractionVG_Tt1g5 + 8 * v7 + 32) = v10;
-      if (!v11 || *(v10 + 24) >> 1 < v18)
-      {
-        v12 = *(v10 + 16);
-        if (v12 <= v18)
-        {
-          v12 = v18;
-        }
-
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v11, v12, 0);
-        v6 = v16;
-      }
-
-      ++v7;
-      *v6 = ML11InteractionVG_Tt1g5;
-      v8 += 8;
-    }
-
-    while (v15 != v7);
-    swift_endAccess(v14);
-    return v17;
-  }
-
-  return v3;
-}
-
-char *_s4HeapAAV12arrayLiteralAByxGxd_tcfC8CreateML11InteractionV_Tt0g5(uint64_t a1)
-{
-  v1 = a1;
-  if (*(a1 + 16) >= 2uLL)
-  {
-    a1;
-    v2 = a1;
-    if (!swift_isUniquelyReferenced_nonNull_native(a1))
-    {
-      v2 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a1);
-    }
-
-    specialized Heap._UnsafeHandle.heapify()((v2 + 32), *(v2 + 2));
-    a1;
-    return v2;
-  }
-
-  return v1;
-}
-
-Swift::Void __swiftcall InteractionTableBuilder.insert(_:_:score:)(Swift::Int _, Swift::Int a2, Swift::Double score)
-{
-  if (score > *(v3 + 24))
-  {
-    v16 = score;
-    v5 = (v3 + 40);
-    swift_beginAccess(v3 + 40, v14, 0, 0);
-    if (_ < 0)
-    {
-      BUG();
-    }
-
-    v6 = *(v3 + 40);
-    if (*(v6 + 16) <= _)
-    {
-      BUG();
-    }
-
-    v7 = *(v6 + 8 * _ + 32);
-    if (v7[2] < *(v3 + 16))
-    {
-      swift_beginAccess(v3 + 40, v15, 33, 0);
-      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v6);
-      *v5 = v6;
-      if (!isUniquelyReferenced_nonNull_native)
-      {
-        v6 = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
-        *v5 = v6;
-      }
-
-      v9 = v16;
-      if (*(v6 + 16) <= _)
-      {
-        BUG();
-      }
-
-      v10 = a2;
-LABEL_16:
-      specialized Heap.insert(_:)(v10, v9);
-      *v5 = v6;
-      swift_endAccess(v15);
-      return;
-    }
-
-    specialized Collection.first.getter(v7);
-    if ((v12 & 1) == 0 && v16 > v11)
-    {
-      swift_beginAccess(v3 + 40, v15, 33, 0);
-      v13 = swift_isUniquelyReferenced_nonNull_native(v6);
-      *v5 = v6;
-      if (!v13)
-      {
-        v6 = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
-        *v5 = v6;
-      }
-
-      if (*(v6 + 16) <= _)
-      {
-        BUG();
-      }
-
-      specialized Heap.popMin()();
-      *v5 = v6;
-      if (*(v6 + 16) <= _)
-      {
-        BUG();
-      }
-
-      v10 = a2;
-      v9 = v16;
-      goto LABEL_16;
-    }
-  }
-}
-
-void specialized Heap.insert(_:)(uint64_t a1, double a2)
-{
-  v3 = *v2;
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(*v2);
-  *v2 = v3;
-  if (!isUniquelyReferenced_nonNull_native)
-  {
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v3 + 16) + 1, 1);
-    v3 = *v2;
-  }
-
-  v5 = *(v3 + 16);
-  v6 = v5 + 1;
-  if (*(v3 + 24) >> 1 <= v5)
-  {
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(*(v3 + 24) >= 2uLL, v5 + 1, 1);
-    v3 = *v2;
-  }
-
-  *(v3 + 16) = v6;
-  v7 = 16 * v5;
-  *(v3 + v7 + 32) = a1;
-  *(v3 + v7 + 40) = a2;
-  _BitScanReverse64(&v8, v6);
-  specialized Heap._UnsafeHandle.bubbleUp(_:)(v5, v8, v3 + 32, a2);
-  *v2 = v3;
-}
-
-uint64_t specialized Heap.popMin()()
-{
-  if (!*(*v0 + 2))
-  {
-    return 0;
-  }
-
-  v1 = specialized RangeReplaceableCollection<>.removeLast()();
-  v3 = v2;
-  v4 = *v0;
-  if (*(*v0 + 2))
-  {
-    if (!swift_isUniquelyReferenced_nonNull_native(v4))
-    {
-      v4 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v4);
-    }
-
-    v5 = *(v4 + 2);
-    v6 = *(v4 + 4);
-    v8 = *(v4 + 5);
-    *(v4 + 4) = v3;
-    *(v4 + 5) = v1;
-    specialized Heap._UnsafeHandle.trickleDownMin(_:)(0, 0, (v4 + 32), v5);
-    *v0 = v4;
-    return v6;
-  }
-
-  return v3;
-}
-
-CreateML::InteractionLookupTable __swiftcall InteractionTableBuilder.finalize()()
-{
-  v1 = *(v0 + 32);
-  v2 = v1 + 1;
-  if (__OFADD__(1, v1))
-  {
-    BUG();
-  }
-
-  if (v2 <= 0)
-  {
-    v2 = 0;
-  }
-
-  v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v2, 0, _swiftEmptyArrayStorage);
-  v4 = v1 * *(v0 + 16);
-  if (!is_mul_ok(v1, *(v0 + 16)))
-  {
-    BUG();
-  }
-
-  v5 = v3;
-  if (v4 <= 0)
-  {
-    v4 = 0;
-  }
-
-  v6 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v4, 0, _swiftEmptyArrayStorage);
-  if (v1 < 0)
-  {
-    BUG();
-  }
-
-  v39 = v6;
-  if (v1)
-  {
-    v7 = 0;
-    v8 = (v0 + 40);
-    v9 = 0;
-    swift_beginAccess(v8, v31, 0, 0);
-    v10 = 0;
-    v36 = v1;
-    v37 = v8;
-    do
-    {
-      v11 = *v8;
-      if (v10 >= *(*v8 + 16))
-      {
-        BUG();
-      }
-
-      v33 = v9;
-      v32 = v5;
-      v35 = v10;
-      v38 = *(v11 + 8 * v10 + 32);
-      swift_retain_n(v38, 2);
-      specialized MutableCollection<>.sort(by:)(&v38);
-      v34 = v7;
-      if (v7)
-      {
-
-        BUG();
-      }
-
-      v12 = v38;
-      v13 = *(v38 + 2);
-      v14 = v39[2];
-      v15 = v13 + v14;
-      if (__OFADD__(v13, v14))
-      {
-        BUG();
-      }
-
-      v16 = v39[3] >> 1;
-
-      if (v16 < v15)
-      {
-        if (v14 > v15)
-        {
-          v15 = v14;
-        }
-
-        v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(1, v15, 1, v39);
-        v14 = v18[2];
-        v17 = *(v12 + 2);
-      }
-
-      else
-      {
-        v17 = v13;
-        v18 = v39;
-      }
-
-      v39 = v18;
-      if (v17)
-      {
-        if (((v18[3] >> 1) - v14) < v13)
-        {
-          BUG();
-        }
-
-        memcpy(&v18[2 * v14 + 4], v12 + 32, 16 * v13);
-        if (v13)
-        {
-          v19 = __OFADD__(v39[2], v13);
-          v20 = v39[2] + v13;
-          if (v19)
-          {
-            BUG();
-          }
-
-          v39[2] = v20;
-        }
-      }
-
-      else if (v13)
-      {
-        BUG();
-      }
-
-      v21 = v32;
-      v22 = v32[2];
-      if (v32[3] >> 1 <= v22)
-      {
-        v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v32[3] >= 2uLL, v22 + 1, 1, v32);
-      }
-
-      v21[2] = v22 + 1;
-      v23 = v33;
-      v5 = v21;
-      v21[v22 + 4] = v33;
-      v24 = *(v12 + 2);
-
-      v19 = __OFADD__(v24, v23);
-      v9 = v24 + v23;
-      if (v19)
-      {
-        BUG();
-      }
-
-      v10 = v35 + 1;
-      v1 = v36;
-      v8 = v37;
-      v7 = v34;
-    }
-
-    while (v36 != v35 + 1);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v25 = v9;
-  v26 = v5[2];
-  v27 = v5;
-  if (v5[3] >> 1 <= v26)
-  {
-    v27 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v5[3] >= 2uLL, v26 + 1, 1, v5);
-  }
-
-  v28 = v27;
-  v27[2] = v26 + 1;
-  v27[v26 + 4] = v25;
-  v29 = v1;
-  v30 = v39;
-  result.boundaries._rawValue = v28;
-  result.interactions._rawValue = v30;
-  result.itemCount = v29;
-  return result;
-}
-
-unint64_t static InteractionTableBuilder.createFromItemInteractions(interactions:maximumInteractionsPerItem:minimumInteractionScore:)(uint64_t a1, int64_t a2, double a3)
-{
-  v12 = a3;
-  v5 = *(a1 + 16);
-  swift_initStackObject(v3, v11);
-  InteractionTableBuilder.init(itemCount:maximumInteractionsPerItem:minimumInteractionScore:)(v5, a2, v12);
-  if (v5)
-  {
-    a1;
-    v6 = (a1 + 48);
-    do
-    {
-      v7 = *(v6 - 2);
-      v8 = *(v6 - 1);
-      if (v7 != v8)
-      {
-        InteractionTableBuilder.insert(_:_:score:)(v7, v8, *v6);
-      }
-
-      v6 += 3;
-      --v5;
-    }
-
-    while (v5);
-    a1;
-  }
-
-  v9 = InteractionTableBuilder.finalize()();
-
-  return v9;
-}
-
-void specialized MutableCollection<>.sort(by:)(char **a1)
-{
-  v1 = *a1;
-  if (!swift_isUniquelyReferenced_nonNull_native(*a1))
-  {
-    v1 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v1);
-  }
-
-  v2 = *(v1 + 2);
-  v3[0] = (v1 + 32);
-  v3[1] = v2;
-  specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(v3);
-  *a1 = v1;
-}
-
-{
-  v1 = *a1;
-  if (!swift_isUniquelyReferenced_nonNull_native(*a1))
-  {
-    v1 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v1);
-  }
-
-  v2 = *(v1 + 2);
-  v3[0] = (v1 + 32);
-  v3[1] = v2;
-  specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(v3);
-  *a1 = v1;
-}
-
-{
-  v1 = *a1;
-  if (!swift_isUniquelyReferenced_nonNull_native(*a1))
-  {
-    v1 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v1);
-  }
-
-  v2 = *(v1 + 2);
-  v3[0] = (v1 + 32);
-  v3[1] = v2;
-  specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(v3);
-  *a1 = v1;
-}
-
-{
-  v1 = *a1;
-  if (!swift_isUniquelyReferenced_nonNull_native(*a1))
-  {
-    v1 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v1);
-  }
-
-  v2 = *(v1 + 2);
-  v3[0] = (v1 + 32);
-  v3[1] = v2;
-  specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(v3);
-  *a1 = v1;
-}
-
-{
-  v1 = *a1;
-  if (!swift_isUniquelyReferenced_nonNull_native(*a1))
-  {
-    v1 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v1);
-  }
-
-  v2 = *(v1 + 2);
-  v3[0] = (v1 + 32);
-  v3[1] = v2;
-  specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(v3);
-  *a1 = v1;
-}
-
-{
-  specialized MutableCollection<>.sort(by:)(a1);
-}
-
 uint64_t specialized Heap._UnsafeHandle.heapify()(uint64_t a1, uint64_t a2)
 {
   v2 = a2 / 2;
@@ -1289,10 +447,10 @@ LABEL_15:
       v16 = *(a3 + v15 + 8);
       if (v8 > v16)
       {
-        v17 = a3 + v15;
+        v17 = (a3 + v15);
         v18 = *v17;
         *v17 = v7;
-        *(v17 + 8) = v8;
+        v17[1] = v8;
         v7 = v18;
         v8 = v16;
       }
@@ -5621,7 +4779,7 @@ LABEL_106:
             v72 = *&v48[v71];
             v73 = *&v48[16 * v49 + 8];
             __dstb = &v48[16 * v49];
-            specialized _merge<A>(low:mid:high:buffer:by:)((v6 + 24 * v72), (v6 + 24 * *__dstb), v6 + 24 * v73, v88);
+            specialized _merge<A>(low:mid:high:buffer:by:)((v6 + 24 * v72), (v6 + 24 * *__dstb), (v6 + 24 * v73), v88);
             if (v1)
             {
               goto LABEL_135;
@@ -5727,7 +4885,7 @@ LABEL_137:
         v79 = 16 * (v46 - 1);
         v80 = *&v7[v79 + 40];
         v104 = *&v7[16 * v46];
-        specialized _merge<A>(low:mid:high:buffer:by:)((v78 + 24 * v104), (v78 + 24 * *&v7[v79 + 32]), v78 + 24 * v80, v88);
+        specialized _merge<A>(low:mid:high:buffer:by:)((v78 + 24 * v104), (v78 + 24 * *&v7[v79 + 32]), (v78 + 24 * v80), v88);
         if (v1)
         {
           break;
@@ -6269,580 +5427,6 @@ LABEL_96:
       v81;
       v79[2] = 0;
       v79;
-    }
-  }
-}
-
-{
-  v2 = a1[1];
-  v3 = _minimumMergeRunLength(_:)(v2);
-  if (v3 >= v2)
-  {
-    if (v2 < 0)
-    {
-      BUG();
-    }
-
-    if (v2)
-    {
-      specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(0, v2, 1, a1);
-    }
-  }
-
-  else
-  {
-    if (v2 < -1)
-    {
-      BUG();
-    }
-
-    v93 = v2;
-    v83 = v3;
-    if (v2 > 1)
-    {
-      v4 = static Array._allocateBufferUninitialized(minimumCapacity:)(v2 / 2, &type metadata for String);
-      *(v4 + 16) = v2 / 2;
-      v89 = v4;
-      v5 = (v4 + 32);
-LABEL_10:
-      v88 = v5;
-      v6 = *a1;
-      v84 = *a1 + 8;
-      v86 = *a1 - 16;
-      v7 = _swiftEmptyArrayStorage;
-      v8 = 0;
-      v9 = v2;
-      v94 = *a1;
-      while (1)
-      {
-        v10 = v8 + 1;
-        v11 = v9;
-        v96 = v8;
-        if (v8 + 1 >= v9)
-        {
-          goto LABEL_34;
-        }
-
-        v12 = 16 * v8;
-        v13 = *(v6 + 16 * v8);
-        v14 = *(v6 + 16 * v8 + 8);
-        if (__PAIR128__(v14 ^ *(v6 + 16 * v10 + 8), v13 ^ *(v6 + 16 * v10)) == 0)
-        {
-          break;
-        }
-
-        v17 = v8 + 1;
-        v18 = _stringCompareWithSmolCheck(_:_:expecting:)(*(v6 + 16 * v10), *(v6 + 16 * v10 + 8), v13, v14, 1);
-        v10 = v17;
-        v6 = v94;
-        v19 = v11;
-        v16 = v18;
-        v15 = v96 + 2;
-        if (v96 + 2 < v19)
-        {
-          goto LABEL_16;
-        }
-
-LABEL_25:
-        v10 = v15;
-        v28 = (v16 & 1) == 0;
-        v11 = v93;
-        if (v28)
-        {
-          goto LABEL_34;
-        }
-
-LABEL_26:
-        if (v15 < v96)
-        {
-          BUG();
-        }
-
-        if (v15 > v96)
-        {
-          v29 = (v86 + 16 * v15);
-          v30 = (v6 + v12);
-          v31 = v15;
-          v32 = v96;
-          do
-          {
-            if (v32 != --v31)
-            {
-              if (!v6)
-              {
-                BUG();
-              }
-
-              v33 = *v30;
-              *v30 = *v29;
-              *v29 = v33;
-            }
-
-            ++v32;
-            --v29;
-            ++v30;
-          }
-
-          while (v32 < v31);
-        }
-
-LABEL_33:
-        v10 = v15;
-LABEL_34:
-        if (v10 >= v11)
-        {
-          v34 = v96;
-        }
-
-        else
-        {
-          v34 = v96;
-          if (__OFSUB__(v10, v96))
-          {
-            BUG();
-          }
-
-          if (v10 - v96 < v83)
-          {
-            v35 = (v83 + v96);
-            if (__OFADD__(v83, v96))
-            {
-              BUG();
-            }
-
-            if (v35 >= v11)
-            {
-              v35 = v11;
-            }
-
-            if (v35 < v96)
-            {
-              BUG();
-            }
-
-            if (v10 != v35)
-            {
-              v100 = v7;
-              v36 = (v6 + 16 * v10);
-              __dst = v35;
-              do
-              {
-                v37 = *(v6 + 16 * v10);
-                v38 = *(v6 + 16 * v10 + 8);
-                v39 = v34;
-                v40 = v36;
-                do
-                {
-                  v41 = *(v40 - 2);
-                  v42 = *(v40 - 1);
-                  if (v37 == v41 && v38 == v42)
-                  {
-                    break;
-                  }
-
-                  v43 = v10;
-                  if ((_stringCompareWithSmolCheck(_:_:expecting:)(v37, v38, v41, v42, 1) & 1) == 0)
-                  {
-                    v6 = v94;
-                    v10 = v43;
-                    break;
-                  }
-
-                  v6 = v94;
-                  if (!v94)
-                  {
-                    BUG();
-                  }
-
-                  v10 = v43;
-                  v37 = *v40;
-                  v38 = v40[1];
-                  *v40 = *(v40 - 1);
-                  *(v40 - 2) = v37;
-                  *(v40 - 1) = v38;
-                  ++v39;
-                  v40 -= 2;
-                }
-
-                while (v43 != v39);
-                ++v10;
-                v36 += 2;
-                v34 = v96;
-              }
-
-              while (v10 != __dst);
-              v10 = __dst;
-              v7 = v100;
-            }
-          }
-        }
-
-        if (v10 < v34)
-        {
-          BUG();
-        }
-
-        v87 = v10;
-        if (!swift_isUniquelyReferenced_nonNull_native(v7))
-        {
-          v7 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v7 + 2) + 1, 1, v7);
-        }
-
-        v44 = *(v7 + 2);
-        v45 = v44 + 1;
-        v6 = v94;
-        v8 = v87;
-        if (*(v7 + 3) >> 1 <= v44)
-        {
-          v76 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(*(v7 + 3) >= 2uLL, v44 + 1, 1, v7);
-          v8 = v87;
-          v6 = v94;
-          v7 = v76;
-        }
-
-        *(v7 + 2) = v45;
-        v46 = 16 * v44;
-        *&v7[v46 + 32] = v34;
-        *&v7[v46 + 40] = v8;
-        if (v44)
-        {
-          v47 = v7 + 32;
-          v101 = v7;
-          v82 = v7 + 32;
-          while (1)
-          {
-            v48 = v45 - 1;
-            if (v45 >= 4)
-            {
-              v53 = 16 * v45;
-              v54 = *&v47[16 * v45 - 56];
-              v50 = __OFSUB__(v54, *&v47[16 * v45 - 64]);
-              v55 = v54 - *&v47[16 * v45 - 64];
-              if (v50)
-              {
-                BUG();
-              }
-
-              v56 = *&v47[v53 - 40];
-              v50 = __OFSUB__(v56, *&v47[v53 - 48]);
-              v51 = v56 - *&v47[v53 - 48];
-              v52 = v50;
-              if (v50)
-              {
-                BUG();
-              }
-
-              v57 = *&v7[v53 + 8];
-              v50 = __OFSUB__(v57, *&v7[16 * v45]);
-              v58 = v57 - *&v7[16 * v45];
-              if (v50)
-              {
-                BUG();
-              }
-
-              v50 = __OFADD__(v51, v58);
-              v59 = v51 + v58;
-              if (v50)
-              {
-                BUG();
-              }
-
-              if (v59 >= v55)
-              {
-                v68 = *&v47[16 * v48 + 8];
-                v50 = __OFSUB__(v68, *&v47[16 * v48]);
-                v69 = v68 - *&v47[16 * v48];
-                if (v50)
-                {
-                  BUG();
-                }
-
-                if (v51 < v69)
-                {
-LABEL_84:
-                  v48 = v45 - 2;
-                  goto LABEL_85;
-                }
-
-                goto LABEL_85;
-              }
-            }
-
-            else
-            {
-              if (v45 != 3)
-              {
-                if (v45 < 2)
-                {
-                  BUG();
-                }
-
-                v65 = *&v7[16 * v45 + 8];
-                v50 = __OFSUB__(v65, *&v7[16 * v45]);
-                v61 = v65 - *&v7[16 * v45];
-                v62 = v50;
-LABEL_78:
-                if (v62)
-                {
-                  BUG();
-                }
-
-                v66 = *&v47[16 * v48 + 8];
-                v50 = __OFSUB__(v66, *&v47[16 * v48]);
-                v67 = v66 - *&v47[16 * v48];
-                if (v50)
-                {
-                  BUG();
-                }
-
-                if (v67 < v61)
-                {
-                  v7 = v101;
-                  goto LABEL_94;
-                }
-
-                goto LABEL_85;
-              }
-
-              v49 = *(v7 + 5);
-              v50 = __OFSUB__(v49, *(v7 + 4));
-              v51 = v49 - *(v7 + 4);
-              v52 = v50;
-            }
-
-            if (v52)
-            {
-              BUG();
-            }
-
-            v60 = *&v7[16 * v45 + 8];
-            v50 = __OFSUB__(v60, *&v7[16 * v45]);
-            v61 = v60 - *&v7[16 * v45];
-            v62 = v50;
-            if (v50)
-            {
-              BUG();
-            }
-
-            v63 = *&v47[16 * v48 + 8];
-            v50 = __OFSUB__(v63, *&v47[16 * v48]);
-            v64 = v63 - *&v47[16 * v48];
-            if (v50)
-            {
-              BUG();
-            }
-
-            if (__OFADD__(v64, v61))
-            {
-              BUG();
-            }
-
-            if (v64 + v61 < v51)
-            {
-              goto LABEL_78;
-            }
-
-            if (v51 < v64)
-            {
-              goto LABEL_84;
-            }
-
-LABEL_85:
-            if (v48 - 1 >= v45)
-            {
-              BUG();
-            }
-
-            if (!v6)
-            {
-              BUG();
-            }
-
-            v70 = 16 * (v48 - 1);
-            v97 = v48;
-            v71 = *&v47[v70];
-            v72 = *&v47[16 * v48 + 8];
-            __dsta = &v47[16 * v48];
-            specialized _merge<A>(low:mid:high:buffer:by:)((v6 + 16 * v71), (v6 + 16 * *__dsta), v6 + 16 * v72, v88);
-            if (v1)
-            {
-              goto LABEL_108;
-            }
-
-            if (v72 < v71)
-            {
-              BUG();
-            }
-
-            v73 = &v47[v70];
-            v74 = *(v101 + 2);
-            if (v97 > v74)
-            {
-              BUG();
-            }
-
-            *v73 = v71;
-            *(v73 + 1) = v72;
-            if (v97 >= v74)
-            {
-              BUG();
-            }
-
-            v45 = v74 - 1;
-            memmove(__dsta, __dsta + 16, 16 * (v74 - 1 - v97));
-            v7 = v101;
-            *(v101 + 2) = v74 - 1;
-            v75 = v74 <= 2;
-            v6 = v94;
-            v8 = v87;
-            v47 = v82;
-            if (v75)
-            {
-              goto LABEL_94;
-            }
-          }
-        }
-
-        v45 = 1;
-LABEL_94:
-        v9 = v93;
-        if (v8 >= v93)
-        {
-          goto LABEL_97;
-        }
-      }
-
-      v15 = v8 + 2;
-      if (v8 + 2 >= v9)
-      {
-        goto LABEL_33;
-      }
-
-      v16 = 0;
-LABEL_16:
-      v99 = v7;
-      v20 = (v84 + 16 * v15);
-      do
-      {
-        v21 = *(v20 - 1);
-        v22 = *v20;
-        v23 = 16 * v10;
-        v24 = *(v6 + v23);
-        v25 = *(v6 + v23 + 8);
-        if (v21 == v24 && v22 == v25)
-        {
-          if (v16)
-          {
-            v7 = v99;
-            v11 = v93;
-            goto LABEL_26;
-          }
-        }
-
-        else
-        {
-          v26 = _stringCompareWithSmolCheck(_:_:expecting:)(v21, v22, v24, v25, 1);
-          v6 = v94;
-          if ((v16 ^ v26))
-          {
-            goto LABEL_24;
-          }
-        }
-
-        v27 = v15 + 1;
-        v20 += 2;
-        v10 = v15;
-        v15 = v27;
-      }
-
-      while (v27 < v93);
-      v15 = v27;
-LABEL_24:
-      v7 = v99;
-      goto LABEL_25;
-    }
-
-    if (v2 == 1)
-    {
-      v89 = _swiftEmptyArrayStorage;
-      v5 = &_swiftEmptyArrayStorage[4];
-      goto LABEL_10;
-    }
-
-    v7 = _swiftEmptyArrayStorage;
-    v88 = &_swiftEmptyArrayStorage[4];
-    v45 = _swiftEmptyArrayStorage[2];
-    v89 = _swiftEmptyArrayStorage;
-LABEL_97:
-    if (v45 < 2)
-    {
-LABEL_110:
-      v7;
-      v89[2] = 0;
-      v89;
-    }
-
-    else
-    {
-      v77 = *a1;
-      __dstb = *a1;
-      while (1)
-      {
-        v101 = v7;
-        if (!v77)
-        {
-          BUG();
-        }
-
-        v78 = 16 * (v45 - 1);
-        v79 = *&v7[v78 + 40];
-        v95 = *&v7[16 * v45];
-        specialized _merge<A>(low:mid:high:buffer:by:)((v77 + 16 * v95), (v77 + 16 * *&v7[v78 + 32]), v77 + 16 * v79, v88);
-        if (v1)
-        {
-          break;
-        }
-
-        if (v79 < v95)
-        {
-          BUG();
-        }
-
-        v98 = v79;
-        if (!swift_isUniquelyReferenced_nonNull_native(v7))
-        {
-          v101 = specialized _ArrayBuffer._consumeAndCreateNew()(v7);
-        }
-
-        v80 = *(v101 + 2);
-        if (v45 - 2 >= v80)
-        {
-          BUG();
-        }
-
-        *&v101[16 * v45] = v95;
-        *&v101[16 * v45 + 8] = v98;
-        v81 = v80 - v45;
-        if (v80 < v45)
-        {
-          BUG();
-        }
-
-        v7 = v101;
-        v45 = v80 - 1;
-        memmove(&v101[v78 + 32], &v101[v78 + 48], 16 * v81);
-        *(v101 + 2) = v80 - 1;
-        v77 = __dstb;
-        if (v80 <= 2)
-        {
-          goto LABEL_110;
-        }
-      }
-
-LABEL_108:
-      v101;
-      v89[2] = 0;
-      v89;
     }
   }
 }
@@ -7948,125 +6532,6 @@ LABEL_19:
 }
 
 {
-  v4 = a4;
-  v5 = a3;
-  v6 = a2;
-  v7 = __src;
-  v8 = a2 - __src;
-  v9 = a3 - v6;
-  v10 = (a3 - v6) / 56;
-  if (v8 / 56 >= v10)
-  {
-    v24 = (a3 - v6) / 56;
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)(v6, v10, a4);
-    v11 = &v4[7 * v24];
-    if (v9 < 56 || v7 >= v6)
-    {
-      goto LABEL_19;
-    }
-
-    while (1)
-    {
-      v17 = v5 - 56;
-      if (*(v11 - 1) <= *(v6 - 1))
-      {
-        break;
-      }
-
-      v18 = (v6 - 56);
-      v13 = v5 == v6;
-      v6 -= 56;
-      if (!v13)
-      {
-        goto LABEL_16;
-      }
-
-LABEL_17:
-      if (v6 > v7)
-      {
-        v5 -= 56;
-        if (v11 > v4)
-        {
-          continue;
-        }
-      }
-
-      goto LABEL_19;
-    }
-
-    v18 = v11 - 7;
-    v13 = v5 == v11;
-    v11 -= 7;
-    if (v13)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_16:
-    v19 = *v18;
-    v20 = *(v18 + 1);
-    v21 = *(v18 + 2);
-    *(v17 + 6) = v18[6];
-    *(v17 + 2) = v21;
-    *(v17 + 1) = v20;
-    *v17 = v19;
-    goto LABEL_17;
-  }
-
-  specialized UnsafeMutablePointer.moveInitialize(from:count:)(v7, v8 / 56, a4);
-  v11 = &v4[7 * (v8 / 56)];
-  if (v8 >= 56 && v6 < v5)
-  {
-    while (*(v6 + 6) > v4[6])
-    {
-      v12 = v6;
-      v13 = v7 == v6;
-      v6 += 56;
-      if (!v13)
-      {
-        goto LABEL_7;
-      }
-
-LABEL_8:
-      v7 += 56;
-      if (v4 >= v11 || v6 >= v5)
-      {
-        goto LABEL_10;
-      }
-    }
-
-    v12 = v4;
-    v13 = v7 == v4;
-    v4 += 7;
-    if (v13)
-    {
-      goto LABEL_8;
-    }
-
-LABEL_7:
-    v14 = *v12;
-    v15 = *(v12 + 1);
-    v16 = *(v12 + 2);
-    *(v7 + 6) = v12[6];
-    *(v7 + 2) = v16;
-    *(v7 + 1) = v15;
-    *v7 = v14;
-    goto LABEL_8;
-  }
-
-LABEL_10:
-  v6 = v7;
-LABEL_19:
-  v22 = 7 * ((v11 - v4) / 56);
-  if (v6 != v4 || v6 >= &v4[v22])
-  {
-    memmove(v6, v4, v22 * 8);
-  }
-
-  return 1;
-}
-
-{
   v4 = a3;
   v5 = a2;
   v6 = __src;
@@ -8175,7 +6640,7 @@ LABEL_19:
   v6 = a2;
   v7 = __src;
   v8 = a2 - __src;
-  v9 = a3 - v6;
+  v9 = (a3 - v6);
   v10 = (a3 - v6) / 8;
   if (v8 / 8 >= v10)
   {
@@ -8228,7 +6693,7 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  specialized UnsafeMutablePointer.moveInitialize(from:count:)(v7, v8 / 8, a4);
+  specialized UnsafeMutablePointer.moveInitialize(from:count:)(v7, (v8 / 8), a4);
   v11 = &v4[8 * (v8 / 8)];
   if (v8 >= 8 && v6 < v5)
   {
@@ -8428,12 +6893,11 @@ double specialized ContiguousArray.remove(at:)(unint64_t a1)
   }
 
   v4 = v3 - 1;
-  v7 = *&v2[16 * a1 + 40];
-  v5 = *&v2[16 * a1 + 32];
+  v6 = *&v2[16 * a1 + 40];
   specialized UnsafeMutablePointer.moveInitialize(from:count:)(&v2[16 * a1 + 48], v4 - a1, &v2[16 * a1 + 32]);
   *(v2 + 2) = v4;
   *v1 = v2;
-  return v7;
+  return v6;
 }
 
 uint64_t specialized ContiguousArray._customRemoveLast()()
@@ -8452,7 +6916,6 @@ uint64_t specialized ContiguousArray._customRemoveLast()()
 
   v3 = v2 - 1;
   result = *&v1[16 * v3 + 32];
-  v5 = *&v1[16 * v3 + 40];
   *(v1 + 2) = v3;
   *v0 = v1;
   return result;
@@ -8495,15 +6958,14 @@ uint64_t static MLWordTagger.evaluate(on:using:)(uint64_t a1, void *a2)
     }
 
     v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v6, 0, _swiftEmptyArrayStorage);
-    a1;
+
     v29 = a1;
     v10 = (a1 + 40);
     do
     {
       v11 = *(v10 - 1);
       v12 = *v10;
-      v11;
-      v12;
+
       specialized Array.append<A>(contentsOf:)(v12);
       isa = Array._bridgeToObjectiveC()().super.isa;
       v11;
@@ -8542,111 +7004,110 @@ uint64_t static MLWordTagger.evaluate(on:using:)(uint64_t a1, void *a2)
   return swift_storeEnumTagMultiPayload(v21, v23, 0);
 }
 
-uint64_t MLWordTagger.evaluation(on:tokenColumn:labelColumn:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t MLWordTagger.evaluation(on:tokenColumn:labelColumn:)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
-  v32 = v6;
-  v35 = a5;
-  v34 = a4;
-  v36 = v5;
-  v40 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[String]>);
-  v31 = *(v40 - 8);
-  v8 = *(v31 + 64);
+  v31 = v6;
+  v34 = a5;
+  v33 = a4;
+  v35 = v5;
+  v39 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Column<[String]>);
+  v30 = *(v39 - 8);
+  v8 = *(v30 + 64);
   v9 = alloca(v8);
   v10 = alloca(v8);
-  v30 = v29;
+  v29 = v28;
   v11 = alloca(v8);
   v12 = alloca(v8);
-  v44 = v29;
+  v43 = v28;
   v13 = type metadata accessor for DataFrame(0);
   v14 = *(v13 - 8);
   v15 = *(v14 + 64);
   v16 = alloca(v15);
   v17 = alloca(v15);
-  v41 = v29;
-  v37 = a1;
-  v39 = a2;
-  v38 = a3;
-  static MLWordTagger.validateDataFrame(_:tokenColumnName:labelColumnName:)(a1, a2, a3, v34, v35);
-  v43 = v13;
-  v42 = v14;
-  DataFrame.init()();
-  static MLWordTagger.createTextColumn(_:name:context:)(v37, v39, v38, 0x6E656B6F54, 0xE500000000000000);
+  v40 = v28;
+  v36 = a1;
+  v38 = a2;
+  v37 = a3;
+  static MLWordTagger.validateDataFrame(_:tokenColumnName:labelColumnName:)(a1, a2, a3, v33, v34);
+  v42 = v13;
+  v41 = v14;
+  DataFrame.init()(a1);
+  static MLWordTagger.createTextColumn(_:name:context:)(v36, v38, v37, 0x6E656B6F54, 0xE500000000000000);
   v18 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [String]);
-  v19 = v44;
-  v33 = v18;
-  DataFrame.append<A>(column:)(v44, v18);
-  v44 = *(v31 + 8);
-  (v44)(v19, v40);
-  v20 = v30;
-  v21 = v34;
-  v22 = v35;
-  static MLWordTagger.createTextColumn(_:name:context:)(v37, v34, v35, 0x6C6562614CLL, 0xE500000000000000);
-  v23 = v41;
-  DataFrame.append<A>(column:)(v20, v33);
-  (v44)(v20, v40);
-  v24 = static MLWordTagger.createLabeledTokenPairs(_:tokenColumnName:labelColumnName:)(v23, v39, v38, v21, v22);
-  v25 = v42;
-  v26 = v43;
-  v27 = v24;
-  static MLWordTagger.evaluate(on:using:)(v24, *v32);
+  v19 = v43;
+  v32 = v18;
+  DataFrame.append<A>(column:)(v43, v18);
+  v43 = *(v30 + 8);
+  v43(v19, v39);
+  v20 = v29;
+  v21 = v33;
+  v22 = v34;
+  static MLWordTagger.createTextColumn(_:name:context:)(v36, v33, v34, 0x6C6562614CLL, 0xE500000000000000);
+  v23 = v40;
+  DataFrame.append<A>(column:)(v20, v32);
+  v43(v20, v39);
+  v24 = static MLWordTagger.createLabeledTokenPairs(_:tokenColumnName:labelColumnName:)(v23, v38, v37, v21, v22);
+  v25 = v41;
+  v26 = v42;
+  LOBYTE(v21) = v24;
+  static MLWordTagger.evaluate(on:using:)(v24, *v31);
   (*(v25 + 8))(v23, v26);
-  return v27;
+  return v21;
 }
 
+uint64_t MLWordTagger.evaluation(on:tokenColumn:labelColumn:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6)
 {
-  v65 = a4;
-  v61 = v5;
-  v64 = v6;
-  v66 = a5;
-  v56 = type metadata accessor for DataFrame(0);
-  v57 = *(v56 - 8);
-  v8 = *(v57 + 64);
-  v9 = alloca(v8);
-  v10 = alloca(v8);
-  v58 = &v50;
-  v11 = *a1;
-  v12 = *(a1 + 8);
-  v71 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<String>);
-  inited = swift_initStackObject(v71, v52);
+  v63 = a4;
+  v59 = v6;
+  v62 = v7;
+  v64 = a5;
+  v54 = type metadata accessor for DataFrame(0);
+  v55 = *(v54 - 8);
+  v9 = *(v55 + 64);
+  v10 = alloca(v9);
+  v11 = alloca(v9);
+  v56 = &v48;
+  v12 = *a1;
+  v13 = *(a1 + 8);
+  v69 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<String>);
+  inited = swift_initStackObject(v69, v50);
   inited[2] = 1;
   inited[3] = 2;
-  v62 = a2;
+  v60 = a2;
   inited[4] = a2;
   inited[5] = a3;
-  v72 = v11;
-  v73._countAndFlagsBits = v11;
-  v74 = v12;
-  LOBYTE(v73._object) = v12;
-  a3;
-  v14 = 0;
-  static _ValidationUtilities.validateTableFormat(table:context:columns:)(&v73, 0x6E656B6F54, 0xE500000000000000, inited);
-  v67 = a3;
-  v73._countAndFlagsBits = v72;
-  LOBYTE(v73._object) = v74;
-  v15 = swift_initStackObject(v71, v53);
-  v15[2] = 1;
-  v15[3] = 2;
-  v15[4] = v65;
-  v16 = v66;
-  v15[5] = v66;
-  v16;
-  static _ValidationUtilities.validateTableFormat(table:context:columns:)(&v73, 0x6C6562614CLL, 0xE500000000000000, v15);
-  swift_setDeallocating(v15);
+  v70 = v12;
+  v71._countAndFlagsBits = v12;
+  v72 = v13;
+  LOBYTE(v71._object) = v13;
+
+  v15 = 0;
+  static _ValidationUtilities.validateTableFormat(table:context:columns:)(&v71, 0x6E656B6F54, 0xE500000000000000, inited);
+  v65 = a3;
+  v71._countAndFlagsBits = v70;
+  LOBYTE(v71._object) = v72;
+  v16 = swift_initStackObject(v69, v51);
+  v16[2] = 1;
+  v16[3] = 2;
+  v16[4] = v63;
+  v17 = v64;
+  v16[5] = v64;
+
+  static _ValidationUtilities.validateTableFormat(table:context:columns:)(&v71, 0x6C6562614CLL, 0xE500000000000000, v16);
+  swift_setDeallocating(v16);
   specialized _ContiguousArrayStorage.__deallocating_deinit();
   swift_setDeallocating(inited);
   specialized _ContiguousArrayStorage.__deallocating_deinit();
-  v17 = swift_initStackObject(v71, v51);
-  v17[2] = 2;
-  v17[3] = 4;
-  v17[4] = v62;
-  v18 = v67;
-  v17[5] = v67;
-  v17[6] = v65;
-  v17[7] = v16;
-  v18;
-  v16;
-  v70 = v74;
-  outlined copy of Result<_DataTable, Error>(v72, v74);
+  v18 = swift_initStackObject(v69, v49);
+  v18[2] = 2;
+  v18[3] = 4;
+  v18[4] = v60;
+  v18[5] = v65;
+  v18[6] = v63;
+  v18[7] = v17;
+
+  v68 = v72;
+  outlined copy of Result<_DataTable, Error>(v70, v72);
   empty = tc_v1_sframe_create_empty(0);
   if (!empty)
   {
@@ -8654,125 +7115,118 @@ uint64_t MLWordTagger.evaluation(on:tokenColumn:labelColumn:)(uint64_t a1, uint6
   }
 
   v20 = empty;
-  v54 = v17 + 4;
-  v71 = 0;
+  v52 = v18 + 4;
+  v69 = 0;
   v21 = type metadata accessor for CMLTable();
   v22 = swift_allocObject(v21, 24, 7);
-  v63 = v17;
+  v61 = v18;
   v23 = v22;
   *(v22 + 16) = v20;
   v24 = type metadata accessor for _DataTable();
-  v25 = 40;
   swift_allocObject(v24, 40, 7);
-  v68 = _DataTable.init(impl:)(v23);
-  v69 = 0;
-  v55 = "ml.activityclassifier" + 0x8000000000000000;
-  v26 = v63;
-  v63;
-  v27 = 0;
-  v28 = v74;
+  v66 = _DataTable.init(impl:)(v23);
+  v67 = 0;
+  v53 = "ml.activityclassifier" + 0x8000000000000000;
+
+  v25 = 0;
+  v26 = v72;
   do
   {
-    v29 = 2 * v27;
-    v30 = v54[v29];
-    v31 = v54[v29 + 1];
-    v59._countAndFlagsBits = v30;
-    if (v28)
+    v27 = 2 * v25;
+    v28 = v52[v27];
+    v29 = v52[v27 + 1];
+    v57._countAndFlagsBits = v28;
+    if (v26)
     {
-      v32 = v72;
-      swift_willThrow(v26, v25);
-      outlined copy of Result<_DataTable, Error>(v32, 1);
-      v31;
-      v60 = 0;
+      v30 = v70;
+      swift_willThrow();
+      outlined copy of Result<_DataTable, Error>(v30, 1);
+
+      v58 = 0;
 LABEL_7:
-      v35 = v31;
-      v73._countAndFlagsBits = 0;
-      v73._object = 0xE000000000000000;
+      v33 = v29;
+      v71._countAndFlagsBits = 0;
+      v71._object = 0xE000000000000000;
       _StringGuts.grow(_:)(34);
-      v73._object;
-      v73._countAndFlagsBits = 0xD00000000000001FLL;
-      v73._object = v55;
-      v36._countAndFlagsBits = v59._countAndFlagsBits;
-      v36._object = v31;
-      String.append(_:)(v36);
-      v36._countAndFlagsBits = 34;
-      v36._object = 0xE100000000000000;
-      String.append(_:)(v36);
-      v59 = v73;
-      v37 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-      v38 = swift_allocError(&type metadata for MLCreateError, v37, 0, 0);
-      *v39 = v59;
-      *(v39 + 16) = 0;
-      *(v39 + 32) = 0;
-      *(v39 + 48) = 1;
-      outlined consume of Result<_DataTable, Error>(v32, v70);
-      v25 = 1;
-      outlined consume of Result<_DataTable, Error>(v38, 1);
-      v26 = v35;
-      v35;
-      v41 = v67;
-      v42 = v66;
-      v14 = v60;
+      v71._object;
+      v71._countAndFlagsBits = 0xD00000000000001FLL;
+      v71._object = v53;
+      v34._countAndFlagsBits = v57._countAndFlagsBits;
+      v34._object = v29;
+      String.append(_:)(v34);
+      v34._countAndFlagsBits = 34;
+      v34._object = 0xE100000000000000;
+      String.append(_:)(v34);
+      v57 = v71;
+      v35 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+      v36 = swift_allocError(&type metadata for MLCreateError, v35, 0, 0);
+      *v37 = v57;
+      *(v37 + 16) = 0;
+      *(v37 + 32) = 0;
+      *(v37 + 48) = 1;
+      outlined consume of Result<_DataTable, Error>(v30, v68);
+      outlined consume of Result<_DataTable, Error>(v36, 1);
+      v33;
+      v39 = v65;
+      v40 = v64;
+      v15 = v58;
       goto LABEL_8;
     }
 
-    v32 = v72;
-    v33 = *(v72 + 16);
-    outlined copy of Result<_DataTable, Error>(v72, 0);
-    v31;
+    v30 = v70;
+    v31 = *(v70 + 16);
+    outlined copy of Result<_DataTable, Error>(v70, 0);
 
-    v34 = specialized String.withCString<A>(_:)(partial apply for closure #1 in CMLTable.column(name:), v33, v30, v31);
-    if (v14)
+    v32 = specialized String.withCString<A>(_:)(partial apply for closure #1 in CMLTable.column(name:), v31, v28, v29);
+    if (v15)
     {
-      v14;
+      v15;
 
-      v60 = 0;
+      v58 = 0;
       goto LABEL_7;
     }
 
-    v44 = v34;
+    v42 = v32;
 
-    outlined consume of Result<_DataTable, Error>(v32, 0);
-    v45 = type metadata accessor for _UntypedColumn();
-    v46 = swift_allocObject(v45, 24, 7);
-    *(v46 + 16) = v44;
-    outlined copy of Result<_DataTable, Error>(v46, 0);
+    outlined consume of Result<_DataTable, Error>(v30, 0);
+    v43 = type metadata accessor for _UntypedColumn();
+    v44 = swift_allocObject(v43, 24, 7);
+    *(v44 + 16) = v42;
+    outlined copy of Result<_DataTable, Error>(v44, 0);
     MLDataTable.willMutate()();
-    v73._countAndFlagsBits = v46;
-    LOBYTE(v73._object) = 0;
-    MLDataTable.setColumnImpl(newColumn:named:)(&v73, v59._countAndFlagsBits, v31);
-    v31;
-    outlined consume of Result<_DataTable, Error>(v46, 0);
-    if (!v69)
+    v71._countAndFlagsBits = v44;
+    LOBYTE(v71._object) = 0;
+    MLDataTable.setColumnImpl(newColumn:named:)(&v71, v57._countAndFlagsBits, v29);
+    v29;
+    outlined consume of Result<_DataTable, Error>(v44, 0);
+    if (!v67)
     {
-      v47 = v68;
-      outlined copy of Result<_DataTable, Error>(v68, 0);
+      v45 = v66;
+      outlined copy of Result<_DataTable, Error>(v66, 0);
       _DataTable.columnNamesDidChange()();
-      outlined consume of Result<_DataTable, Error>(v47, 0);
+      outlined consume of Result<_DataTable, Error>(v45, 0);
     }
 
-    v26 = v46;
-    v25 = 0;
-    outlined consume of Result<_DataTable, Error>(v46, 0);
-    v41 = v67;
-    v42 = v66;
+    outlined consume of Result<_DataTable, Error>(v44, 0);
+    v39 = v65;
+    v40 = v64;
 LABEL_8:
-    v27 = 1;
-    v43 = (v71 & 1) == 0;
-    LOBYTE(v40) = 1;
-    v71 = v40;
-    v28 = v74;
+    v25 = 1;
+    v41 = (v69 & 1) == 0;
+    LOBYTE(v38) = 1;
+    v69 = v38;
+    v26 = v72;
   }
 
-  while (v43);
-  swift_bridgeObjectRelease_n(v63, 2);
-  outlined consume of Result<_DataTable, Error>(v72, v70);
-  v73._countAndFlagsBits = v68;
-  LOBYTE(v73._object) = v69;
-  v48 = v58;
-  DataFrame.init(_:)(&v73);
-  MLWordTagger.evaluation(on:tokenColumn:labelColumn:)(v48, v62, v41, v65, v42);
-  return (*(v57 + 8))(v48, v56);
+  while (v41);
+  swift_bridgeObjectRelease_n(v61, 2);
+  outlined consume of Result<_DataTable, Error>(v70, v68);
+  v71._countAndFlagsBits = v66;
+  LOBYTE(v71._object) = v67;
+  v46 = v56;
+  DataFrame.init(_:)(&v71);
+  MLWordTagger.evaluation(on:tokenColumn:labelColumn:)(v46, v60, v39, v63, v40);
+  return (*(v55 + 8))(v46, v54);
 }
 
 uint64_t _sSa13_adoptStorage_5countSayxG_SpyxGts016_ContiguousArrayB0CyxGn_SitFZSS_Tt1g5(uint64_t a1, uint64_t a2)
@@ -8902,20 +7356,20 @@ char Rectangle.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
     if (a1 ^ 0x657A6973 | a2 ^ 0xE400000000000000)
     {
       v3 = _stringCompareWithSmolCheck(_:_:expecting:)(1702521203, 0xE400000000000000, a1, a2, 0);
-      a2, 0xE400000000000000;
+      a2;
       return 2 - (v3 & 1);
     }
 
     else
     {
-      a2, 0xE400000000000000;
+      a2;
       return 1;
     }
   }
 
   else
   {
-    a2, 0xE600000000000000;
+    a2;
     return 0;
   }
 }
@@ -9009,39 +7463,38 @@ Swift::Int Rectangle.hashValue.getter(float a1, float a2, float a3, float a4)
 
 uint64_t Rectangle.init(from:)(void *a1)
 {
-  v19 = v1;
-  v15 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for KeyedDecodingContainer<Rectangle.CodingKeys>);
-  v18 = *(v15 - 8);
-  v2 = *(v18 + 64);
+  v18 = v1;
+  v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for KeyedDecodingContainer<Rectangle.CodingKeys>);
+  v17 = *(v14 - 8);
+  v2 = *(v17 + 64);
   v3 = alloca(v2);
   v4 = alloca(v2);
   v5 = a1[3];
-  *&v16 = a1[4];
+  *&v15 = a1[4];
   __swift_project_boxed_opaque_existential_0Tm(a1, v5);
   v6 = lazy protocol witness table accessor for type Rectangle.CodingKeys and conformance Rectangle.CodingKeys();
-  v20 = &v14;
-  v7 = v19;
-  dispatch thunk of Decoder.container<A>(keyedBy:)(&unk_38F420, &unk_38F420, v6, v5, v16);
-  if (v7)
+  v19 = &v13;
+  dispatch thunk of Decoder.container<A>(keyedBy:)(&unk_38F420, &unk_38F420, v6, v5, v15);
+  if (v1)
   {
     return __swift_destroy_boxed_opaque_existential_1Tm(a1);
   }
 
-  v19 = a1;
-  v8 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for SIMD2<Float>);
-  v21[0] = 0;
-  v9 = lazy protocol witness table accessor for type SIMD2<Float> and conformance SIMD2<A>(&lazy protocol witness table cache variable for type SIMD2<Float> and conformance SIMD2<A>, &protocol conformance descriptor for SIMD2<A>);
-  v10 = v15;
-  KeyedDecodingContainer.decode<A>(_:forKey:)(v8, v21, v15, v8, v9);
-  v16 = v17;
-  v21[0] = 1;
-  v11 = lazy protocol witness table accessor for type Rectangle.Size and conformance Rectangle.Size();
-  v12 = v20;
-  KeyedDecodingContainer.decode<A>(_:forKey:)(&type metadata for Rectangle.Size, v21, v10, &type metadata for Rectangle.Size, v11);
-  (*(v18 + 8))(v12, v10);
-  LODWORD(v18) = HIDWORD(v17);
-  LODWORD(v20) = v17;
-  return __swift_destroy_boxed_opaque_existential_1Tm(v19);
+  v18 = a1;
+  v7 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for SIMD2<Float>);
+  v20[0] = 0;
+  v8 = lazy protocol witness table accessor for type SIMD2<Float> and conformance SIMD2<A>(&lazy protocol witness table cache variable for type SIMD2<Float> and conformance SIMD2<A>, &protocol conformance descriptor for SIMD2<A>);
+  v9 = v14;
+  KeyedDecodingContainer.decode<A>(_:forKey:)(v7, v20, v14, v7, v8);
+  v15 = v16;
+  v20[0] = 1;
+  v10 = lazy protocol witness table accessor for type Rectangle.Size and conformance Rectangle.Size();
+  v11 = v19;
+  KeyedDecodingContainer.decode<A>(_:forKey:)(&type metadata for Rectangle.Size, v20, v9, &type metadata for Rectangle.Size, v10);
+  (*(v17 + 8))(v11, v9);
+  LODWORD(v17) = HIDWORD(v16);
+  LODWORD(v19) = v16;
+  return __swift_destroy_boxed_opaque_existential_1Tm(v18);
 }
 
 char Rectangle.Size.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
@@ -9051,20 +7504,20 @@ char Rectangle.Size.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
     if (a1 ^ 0x746867696568 | a2 ^ 0xE600000000000000)
     {
       v3 = _stringCompareWithSmolCheck(_:_:expecting:)(0x746867696568, 0xE600000000000000, a1, a2, 0);
-      a2, 0xE600000000000000;
+      a2;
       return 2 - (v3 & 1);
     }
 
     else
     {
-      a2, 0xE600000000000000;
+      a2;
       return 1;
     }
   }
 
   else
   {
-    a2, 0xE500000000000000;
+    a2;
     return 0;
   }
 }
@@ -9547,17 +8000,17 @@ uint64_t initializeBufferWithCopyOfBuffer for MLRecommender.Identifier(uint64_t 
   return a1;
 }
 
-uint64_t assignWithCopy for MLRecommender.Identifier(uint64_t a1, uint64_t a2)
+uint64_t *assignWithCopy for MLRecommender.Identifier(uint64_t *a1, uint64_t a2)
 {
   v3 = *a2;
   v4 = *(a2 + 8);
   v5 = *(a2 + 16);
   outlined copy of MLRecommender.Identifier(*a2, v4, v5);
   v6 = *a1;
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   *a1 = v3;
-  *(a1 + 8) = v4;
-  v8 = *(a1 + 16);
+  a1[1] = v4;
+  v8 = *(a1 + 4);
   *(a1 + 16) = v5;
   outlined consume of MLRecommender.Identifier(v6, v7, v8);
   return a1;
@@ -9571,13 +8024,13 @@ uint64_t __swift_memcpy17_8(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t assignWithTake for MLRecommender.Identifier(uint64_t a1, uint64_t a2)
+uint64_t *assignWithTake for MLRecommender.Identifier(uint64_t *a1, uint64_t a2)
 {
   v3 = *(a2 + 16);
   v4 = *a1;
-  v5 = *(a1 + 8);
+  v5 = a1[1];
   *a1 = *a2;
-  v6 = *(a1 + 16);
+  v6 = *(a1 + 4);
   *(a1 + 16) = v3;
   outlined consume of MLRecommender.Identifier(v4, v5, v6);
   return a1;
@@ -9705,7 +8158,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t MLRecommender.Identifier.description.getter(uint64_t a1, char a2, char a3)
+uint64_t MLRecommender.Identifier.description.getter(uint64_t a1, uint64_t a2, char a3)
 {
   if (a3)
   {
@@ -9715,7 +8168,6 @@ uint64_t MLRecommender.Identifier.description.getter(uint64_t a1, char a2, char 
 
   else
   {
-    a2;
   }
 
   return a1;
@@ -9784,5 +8236,1625 @@ void MLRecommender.Identifier.hash(into:)(uint64_t a1, Swift::UInt a2, uint64_t 
   {
     Hasher._combine(_:)(0);
     String.hash(into:)(a1, a2);
+  }
+}
+
+Swift::Int MLRecommender.Identifier.hashValue.getter(Swift::UInt a1, uint64_t a2, char a3)
+{
+  Hasher.init(_seed:)(0);
+  if (a3)
+  {
+    Hasher._combine(_:)(1uLL);
+    Hasher._combine(_:)(a1);
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+    String.hash(into:)(v5, a1);
+  }
+
+  return Hasher._finalize()();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MLRecommender.Identifier(uint64_t a1)
+{
+  v2 = *v1;
+  v3 = *(v1 + 16);
+  Hasher.init(_seed:)(a1);
+  if (v3)
+  {
+    Hasher._combine(_:)(1uLL);
+    Hasher._combine(_:)(v2);
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+    String.hash(into:)(v5, v2);
+  }
+
+  return Hasher._finalize()();
+}
+
+uint64_t MLRecommender.IdentifierType.description.getter(char a1)
+{
+  v5 = v1;
+  if (a1)
+  {
+    v5 = &type metadata for Int;
+    v2 = &demangling cache variable for type metadata for Int.Type;
+  }
+
+  else
+  {
+    v5 = &type metadata for String;
+    v2 = &demangling cache variable for type metadata for String.Type;
+  }
+
+  v3 = __swift_instantiateConcreteTypeFromMangledName(v2);
+  return String.init<A>(describing:)(&v5, v3);
+}
+
+uint64_t lazy protocol witness table accessor for type MLRecommender.IdentifierType and conformance MLRecommender.IdentifierType()
+{
+  result = lazy protocol witness table cache variable for type MLRecommender.IdentifierType and conformance MLRecommender.IdentifierType;
+  if (!lazy protocol witness table cache variable for type MLRecommender.IdentifierType and conformance MLRecommender.IdentifierType)
+  {
+    result = swift_getWitnessTable(&protocol conformance descriptor for MLRecommender.IdentifierType, &type metadata for MLRecommender.IdentifierType);
+    lazy protocol witness table cache variable for type MLRecommender.IdentifierType and conformance MLRecommender.IdentifierType = result;
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type MLRecommender.Identifier and conformance MLRecommender.Identifier()
+{
+  result = lazy protocol witness table cache variable for type MLRecommender.Identifier and conformance MLRecommender.Identifier;
+  if (!lazy protocol witness table cache variable for type MLRecommender.Identifier and conformance MLRecommender.Identifier)
+  {
+    result = swift_getWitnessTable(&protocol conformance descriptor for MLRecommender.Identifier, &type metadata for MLRecommender.Identifier);
+    lazy protocol witness table cache variable for type MLRecommender.Identifier and conformance MLRecommender.Identifier = result;
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type MLRecommender.Identifier and conformance MLRecommender.Identifier;
+  if (!lazy protocol witness table cache variable for type MLRecommender.Identifier and conformance MLRecommender.Identifier)
+  {
+    result = swift_getWitnessTable(&protocol conformance descriptor for MLRecommender.Identifier, &type metadata for MLRecommender.Identifier);
+    lazy protocol witness table cache variable for type MLRecommender.Identifier and conformance MLRecommender.Identifier = result;
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type MLRecommender.Identifier and conformance MLRecommender.Identifier;
+  if (!lazy protocol witness table cache variable for type MLRecommender.Identifier and conformance MLRecommender.Identifier)
+  {
+    result = swift_getWitnessTable(&protocol conformance descriptor for MLRecommender.Identifier, &type metadata for MLRecommender.Identifier);
+    lazy protocol witness table cache variable for type MLRecommender.Identifier and conformance MLRecommender.Identifier = result;
+  }
+
+  return result;
+}
+
+uint64_t base witness table accessor for Equatable in MLRecommender.Identifier()
+{
+  return lazy protocol witness table accessor for type MLRecommender.Identifier and conformance MLRecommender.Identifier();
+}
+
+{
+  return base witness table accessor for Equatable in MLRecommender.Identifier();
+}
+
+uint64_t MLImageClassifier.CustomFeatureExtractor.modelPath.getter()
+{
+  v2 = v0;
+  v3 = type metadata accessor for URL(0);
+  return (*(*(v3 - 8) + 16))(v2, v1, v3);
+}
+
+uint64_t MLImageClassifier.CustomFeatureExtractor.outputName.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0) + 20));
+
+  return v1;
+}
+
+uint64_t MLImageClassifier.CustomFeatureExtractor.outputName.setter(uint64_t a1, uint64_t a2)
+{
+  v3 = *(type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0) + 20);
+  result = *(v2 + v3 + 8);
+  *(v2 + v3) = a1;
+  *(v2 + v3 + 8) = a2;
+  return result;
+}
+
+uint64_t MLImageClassifier.CustomFeatureExtractor.init(modelPath:outputName:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  v6 = *(type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0) + 20);
+  v7 = type metadata accessor for URL(0);
+  result = (*(*(v7 - 8) + 32))(v5, a1, v7);
+  *(v5 + v6) = a2;
+  *(v5 + v6 + 8) = a3;
+  return result;
+}
+
+Swift::Void __swiftcall __spoils<cf,zf,sf,of,pf,rax,rdx,rcx,rdi,rsi,r8,r9,r10,r11,r12,xmm0,xmm1,xmm2,xmm3,xmm4,xmm5,xmm6,xmm7> MLImageClassifier.CustomFeatureExtractor.validate()()
+{
+  v1 = *(type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0) + 20);
+  v2 = *(v0 + v1 + 8);
+  if (!v2)
+  {
+    goto LABEL_5;
+  }
+
+  v3 = HIBYTE(v2) & 0xF;
+  if ((v2 & 0x2000000000000000) == 0)
+  {
+    v3 = *(v0 + v1) & 0xFFFFFFFFFFFFLL;
+  }
+
+  if (!v3)
+  {
+    v15 = " is not readable." + 0x8000000000000000;
+    v14 = 0xD000000000000034;
+  }
+
+  else
+  {
+LABEL_5:
+    v4 = objc_opt_self(NSFileManager);
+    v5 = [v4 defaultManager];
+    v6 = v5;
+    v18[3] = v0;
+    URL.path.getter(v5);
+    v8 = v7;
+    v9 = String._bridgeToObjectiveC()();
+    v8;
+    v10 = [v6 isReadableFileAtPath:v9];
+
+    if (v10)
+    {
+      return;
+    }
+
+    _StringGuts.grow(_:)(32);
+    0;
+    strcpy(v18, "The model at ");
+    HIWORD(v18[1]) = -4864;
+    v11._countAndFlagsBits = URL.path.getter(0xE000000000000000);
+    object = v11._object;
+    String.append(_:)(v11);
+    object;
+    v13._object = " is not supported." + 0x8000000000000000;
+    v13._countAndFlagsBits = 0xD000000000000011;
+    String.append(_:)(v13);
+    v14 = v18[0];
+    v15 = v18[1];
+  }
+
+  v16 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+  swift_allocError(&type metadata for MLCreateError, v16, 0, 0);
+  *v17 = v14;
+  *(v17 + 8) = v15;
+  *(v17 + 16) = 0;
+  *(v17 + 32) = 0;
+  *(v17 + 48) = 0;
+  swift_willThrow();
+}
+
+uint64_t MLImageClassifier.CustomFeatureExtractor.buildTransformer()(uint64_t a1)
+{
+  v2[5] = v1;
+  v2[4] = a1;
+  v3 = type metadata accessor for MLModelImageFeatureExtractor(0);
+  v2[6] = v3;
+  v4 = *(v3 - 8);
+  v2[7] = v4;
+  v2[8] = swift_task_alloc((*(v4 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for ImageScaler(0);
+  v2[9] = v5;
+  v6 = *(v5 - 8);
+  v2[10] = v6;
+  v2[11] = swift_task_alloc((*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for FeatureType(0);
+  v2[12] = v7;
+  v8 = *(v7 - 8);
+  v2[13] = v8;
+  v9 = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v2[14] = swift_task_alloc(v9);
+  v2[15] = swift_task_alloc(v9);
+  v10 = (*(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FeatureDescription?) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v2[16] = swift_task_alloc(v10);
+  v2[17] = swift_task_alloc(v10);
+  v2[18] = swift_task_alloc(v10);
+  v2[19] = swift_task_alloc(v10);
+  v11 = type metadata accessor for FeatureType.ImageParameters(0);
+  v2[20] = v11;
+  v12 = *(v11 - 8);
+  v2[21] = v12;
+  v2[22] = swift_task_alloc((*(v12 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for Model(0);
+  v2[23] = v13;
+  v14 = *(v13 - 8);
+  v2[24] = v14;
+  v2[25] = swift_task_alloc((*(v14 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
+  return swift_task_switch(MLImageClassifier.CustomFeatureExtractor.buildTransformer(), 0, 0);
+}
+
+{
+  v3 = *(*v2 + 208);
+  v6 = *v2;
+  *(v6 + 216) = a1;
+  *(v6 + 224) = v1;
+  v3;
+  if (v1)
+  {
+    v4 = MLImageClassifier.CustomFeatureExtractor.buildTransformer();
+  }
+
+  else
+  {
+    v4 = MLImageClassifier.CustomFeatureExtractor.buildTransformer();
+  }
+
+  return swift_task_switch(v4, 0, 0);
+}
+
+uint64_t MLImageClassifier.CustomFeatureExtractor.buildTransformer()()
+{
+  MLImageClassifier.CustomFeatureExtractor.buildModel()();
+  type metadata accessor for MLModel();
+  v1 = swift_task_alloc(208);
+  *(v0 + 208) = v1;
+  *v1 = v0;
+  v1[1] = MLImageClassifier.CustomFeatureExtractor.buildTransformer();
+  return static MLModel.compile(_:)(*(v0 + 200));
+}
+
+{
+  v1 = *(v0 + 152);
+  v2 = Model.inputs.getter();
+  v3 = v2;
+  specialized Collection.first.getter(v2);
+  v3;
+  v64 = type metadata accessor for FeatureDescription(0);
+  if (__swift_getEnumTagSinglePayload(v1, 1, v64) == 1)
+  {
+    BUG();
+  }
+
+  v4 = *(v0 + 120);
+  v5 = *(v0 + 96);
+  v6 = *(v0 + 104);
+  FeatureDescription.type.getter();
+  if ((*(v6 + 88))(v4, v5) == enum case for FeatureType.image(_:))
+  {
+    v7 = *(v0 + 176);
+    v8 = *(v0 + 168);
+    v9 = *(v0 + 160);
+    v87 = *(v0 + 152);
+    v69 = *(v0 + 144);
+    v10 = *(v0 + 120);
+    (*(*(v0 + 104) + 96))(v10, *(v0 + 96));
+    (*(v8 + 32))(v7, v10, v9);
+    v11 = v87;
+    v88 = *(*(v64 - 8) + 8);
+    v88(v11, v64);
+    v78 = FeatureType.ImageParameters.width.getter();
+    v12 = FeatureType.ImageParameters.height.getter();
+    ImageScaler.init(targetSize:)(v78, v12);
+    v13 = Model.inputs.getter();
+    LOBYTE(v7) = v13;
+    specialized Collection.first.getter(v13);
+    v7;
+    if (__swift_getEnumTagSinglePayload(v69, 1, v64) == 1)
+    {
+      BUG();
+    }
+
+    v14 = *(v0 + 136);
+    v15 = *(v0 + 144);
+    v83 = FeatureDescription.name.getter();
+    v70 = v16;
+    v88(v15, v64);
+    v17 = Model.outputs.getter();
+    LOBYTE(v15) = v17;
+    specialized Collection.first.getter(v17);
+    v15;
+    if (__swift_getEnumTagSinglePayload(v14, 1, v64) == 1)
+    {
+      BUG();
+    }
+
+    v74 = *(v0 + 224);
+    v18 = *(v0 + 216);
+    v19 = *(v0 + 136);
+    v79 = FeatureDescription.name.getter();
+    v21 = v20;
+    v88(v19, v64);
+    v22 = objc_allocWithZone(CIContext);
+    v23 = [v22 init];
+    v24 = v18;
+    v25 = v21;
+    v26 = v74;
+    MLModelImageFeatureExtractor.init(model:inputName:outputName:context:)(v24, v83, v70, v79, v25, v23);
+    v27 = *(v0 + 216);
+    v28 = *(v0 + 200);
+    v71 = *(v0 + 192);
+    v89 = *(v0 + 184);
+    v84 = *(v0 + 176);
+    v80 = *(v0 + 160);
+    v75 = *(v0 + 168);
+    if (!v26)
+    {
+      v58 = *(v0 + 152);
+      v57 = *(v0 + 144);
+      v56 = *(v0 + 136);
+      v63 = *(v0 + 128);
+      v68 = *(v0 + 120);
+      v66 = *(v0 + 112);
+      v52 = *(v0 + 88);
+      v59 = *(v0 + 80);
+      v61 = *(v0 + 72);
+      v53 = *(v0 + 64);
+      v60 = *(v0 + 56);
+      v54 = *(v0 + 48);
+      Transformer.appending<A>(_:)(v53, v61, v54, &protocol witness table for ImageScaler, &protocol witness table for MLModelImageFeatureExtractor);
+
+      (*(v60 + 8))(v53, v54);
+      (*(v59 + 8))(v52, v61);
+      (*(v75 + 8))(v84, v80);
+      (*(v71 + 8))(v28, v89);
+      v28;
+      v84;
+      v58;
+      v57;
+      v56;
+      v63;
+      v68;
+      v66;
+      v52;
+      v53;
+      v50 = *(v0 + 8);
+      return v50();
+    }
+
+    v29 = *(v0 + 88);
+    v30 = *(v0 + 72);
+    v31 = *(v0 + 200);
+    v32 = *(v0 + 80);
+
+    (*(v32 + 8))(v29, v30);
+    (*(v75 + 8))(v84, v80);
+    v33 = v31;
+    v34 = v89;
+    v35 = v71;
+  }
+
+  else
+  {
+    v36 = *(v0 + 152);
+    v37 = *(v0 + 128);
+    v72 = *(*(v0 + 104) + 8);
+    v72(*(v0 + 120), *(v0 + 96));
+    v76 = *(*(v64 - 8) + 8);
+    v76(v36, v64);
+    *&v55 = 0;
+    *(&v55 + 1) = 0xE000000000000000;
+    _StringGuts.grow(_:)(50);
+    *(v0 + 16) = v55;
+    v38._object = "(no outputName found)" + 0x8000000000000000;
+    v38._countAndFlagsBits = 0xD000000000000027;
+    String.append(_:)(v38);
+    v39 = Model.inputs.getter();
+    LOBYTE(v36) = v39;
+    specialized Collection.first.getter(v39);
+    v36;
+    if (__swift_getEnumTagSinglePayload(v37, 1, v64) == 1)
+    {
+      BUG();
+    }
+
+    v62 = *(v0 + 216);
+    v81 = *(v0 + 200);
+    v85 = *(v0 + 192);
+    v67 = *(v0 + 184);
+    v40 = *(v0 + 128);
+    v41 = *(v0 + 96);
+    v42 = *(v0 + 112);
+    FeatureDescription.type.getter();
+    v76(v40, v64);
+    _print_unlocked<A, B>(_:_:)(v42, v0 + 16, v41, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+    v72(v42, v41);
+    v43._countAndFlagsBits = 0x64616574736E6920;
+    v43._object = 0xE90000000000002ELL;
+    String.append(_:)(v43);
+    v65 = *(v0 + 16);
+    v44 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v44, 0, 0);
+    *v45 = v65;
+    *(v45 + 16) = 0;
+    *(v45 + 32) = 0;
+    *(v45 + 48) = 2;
+    swift_willThrow();
+
+    v33 = v81;
+    v34 = v67;
+    v35 = v85;
+  }
+
+  (*(v35 + 8))(v33, v34);
+  v46 = *(v0 + 176);
+  v47 = *(v0 + 152);
+  v48 = *(v0 + 144);
+  v49 = *(v0 + 136);
+  v82 = *(v0 + 128);
+  v77 = *(v0 + 120);
+  v73 = *(v0 + 112);
+  v86 = *(v0 + 64);
+  v90 = *(v0 + 88);
+  *(v0 + 200);
+  v46;
+  v47;
+  v48;
+  v49;
+  v82;
+  v77;
+  v73;
+  v90;
+  v86;
+  v50 = *(v0 + 8);
+  return v50();
+}
+
+{
+  (*(*(v0 + 192) + 8))(*(v0 + 200), *(v0 + 184));
+  v1 = *(v0 + 176);
+  v2 = *(v0 + 152);
+  v3 = *(v0 + 144);
+  v4 = *(v0 + 136);
+  v10 = *(v0 + 128);
+  v9 = *(v0 + 120);
+  v8 = *(v0 + 112);
+  v6 = *(v0 + 64);
+  v7 = *(v0 + 88);
+  *(v0 + 200);
+  v1;
+  v2;
+  v3;
+  v4;
+  v10;
+  v9;
+  v8;
+  v7;
+  v6;
+  return (*(v0 + 8))();
+}
+
+uint64_t MLImageClassifier.CustomFeatureExtractor.buildModel()()
+{
+  v195 = v1;
+  *&v189 = v2;
+  v178 = v0;
+  v164 = type metadata accessor for FeatureType.ShapedArrayParameters.DataType(0);
+  v163 = *(v164 - 8);
+  v3 = *(v163 + 64);
+  v4 = alloca(v3);
+  v5 = alloca(v3);
+  v165 = &v152;
+  v179 = type metadata accessor for FeatureType.ShapedArrayParameters(0);
+  v162 = *(v179 - 8);
+  v6 = *(v162 + 64);
+  v7 = alloca(v6);
+  v8 = alloca(v6);
+  v186 = &v152;
+  v168 = type metadata accessor for NeuralNetwork.Layer.FlattenParameters.ChannelLayout(0);
+  v180 = *(v168 - 8);
+  v9 = *(v180 + 64);
+  v10 = alloca(v9);
+  v11 = alloca(v9);
+  v169 = &v152;
+  v177 = type metadata accessor for NeuralNetwork.Layer(0);
+  v184 = *(v177 - 8);
+  v12 = *(v184 + 64);
+  v13 = alloca(v12);
+  v14 = alloca(v12);
+  v185 = &v152;
+  v15 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for NeuralNetwork.Layer?) - 8) + 64);
+  v16 = alloca(v15);
+  v17 = alloca(v15);
+  v171 = &v152;
+  v18 = alloca(v15);
+  v19 = alloca(v15);
+  v170 = &v152;
+  v20 = alloca(v15);
+  v21 = alloca(v15);
+  v172 = &v152;
+  v22 = alloca(v15);
+  v23 = alloca(v15);
+  v161 = &v152;
+  v176 = type metadata accessor for FeatureType(0);
+  v175 = *(v176 - 8);
+  v24 = *(v175 + 64);
+  v25 = alloca(v24);
+  v26 = alloca(v24);
+  v166 = &v152;
+  v27 = alloca(v24);
+  v28 = alloca(v24);
+  v154 = &v152;
+  v29 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for FeatureDescription?) - 8) + 64);
+  v30 = alloca(v29);
+  v31 = alloca(v29);
+  v188 = &v152;
+  v159 = type metadata accessor for NeuralNetworkRegressor(0);
+  v158 = *(v159 - 8);
+  v32 = *(v158 + 64);
+  v33 = alloca(v32);
+  v34 = alloca(v32);
+  v160 = &v152;
+  v156 = type metadata accessor for NeuralNetworkClassifier(0);
+  v155 = *(v156 - 8);
+  v35 = *(v155 + 64);
+  v36 = alloca(v35);
+  v37 = alloca(v35);
+  v157 = &v152;
+  v153 = type metadata accessor for NeuralNetwork(0);
+  v183 = *(v153 - 8);
+  v38 = *(v183 + 64);
+  v39 = alloca(v38);
+  v40 = alloca(v38);
+  v182 = &v152;
+  v174 = type metadata accessor for ModelKind(0);
+  v173 = *(v174 - 8);
+  v41 = *(v173 + 64);
+  v42 = alloca(v41);
+  v43 = alloca(v41);
+  v167 = &v152;
+  v44 = alloca(v41);
+  v45 = alloca(v41);
+  v194 = &v152;
+  v46 = type metadata accessor for URL(0);
+  v47 = *(v46 - 8);
+  v48 = *(v47 + 64);
+  v49 = alloca(v48);
+  v50 = alloca(v48);
+  v191 = type metadata accessor for Model(0);
+  v192 = *(v191 - 8);
+  v51 = *(v192 + 64);
+  v52 = alloca(v51);
+  v53 = alloca(v51);
+  (*(v47 + 16))(&v152, v189, v46);
+  v54 = v195;
+  result = Model.init(contentsOf:)(&v152);
+  if (v54)
+  {
+    return result;
+  }
+
+  v56 = v182;
+  v187 = 0;
+  v57 = v194;
+  v193 = &v152;
+  Model.kind.getter();
+  v58 = v174;
+  v59 = v173;
+  v60 = (*(v173 + 88))(v57, v174);
+  if (v60 == enum case for ModelKind.neuralNetwork(_:))
+  {
+    v190 = enum case for ModelKind.neuralNetwork(_:);
+    v61 = v194;
+    (*(v59 + 96))(v194, v58);
+    v62 = v56;
+    v63 = v56;
+    v64 = v153;
+    v65 = v183;
+    (*(v183 + 32))(v63, v61, v153);
+    v195 = NeuralNetwork.layers.getter();
+    v66 = NeuralNetwork.preprocessors.getter();
+  }
+
+  else if (v60 == enum case for ModelKind.neuralNetworkClassifier(_:))
+  {
+    v190 = enum case for ModelKind.neuralNetwork(_:);
+    v67 = v194;
+    (*(v59 + 96))(v194, v58);
+    v62 = v157;
+    v68 = v67;
+    v64 = v156;
+    v65 = v155;
+    (*(v155 + 32))(v157, v68, v156);
+    v195 = NeuralNetworkClassifier.layers.getter();
+    v66 = NeuralNetworkClassifier.preprocessors.getter();
+  }
+
+  else
+  {
+    if (v60 != enum case for ModelKind.neuralNetworkRegressor(_:))
+    {
+      v101 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+      swift_allocError(&type metadata for MLCreateError, v101, 0, 0);
+      *v102 = 0xD00000000000006ALL;
+      *(v102 + 8) = " must be an image, got " + 0x8000000000000000;
+      *(v102 + 16) = 0;
+      *(v102 + 32) = 0;
+      *(v102 + 48) = 2;
+      swift_willThrow();
+      (*(v192 + 8))(v193, v191);
+      v103 = v194;
+      return (*(v59 + 8))(v103, v58);
+    }
+
+    v190 = enum case for ModelKind.neuralNetwork(_:);
+    v69 = v194;
+    (*(v59 + 96))(v194, v58);
+    v62 = v160;
+    v70 = v69;
+    v64 = v159;
+    v65 = v158;
+    (*(v158 + 32))(v160, v70, v159);
+    v195 = NeuralNetworkRegressor.layers.getter();
+    v66 = NeuralNetworkRegressor.preprocessors.getter();
+  }
+
+  v194 = v66;
+  (*(v65 + 8))(v62, v64);
+  v71 = v193;
+  v72 = Model.inputs.getter();
+  v73 = *(v72 + 16);
+  v72;
+  if (v73 != 1)
+  {
+    v195;
+    v194;
+    *&v181 = 0;
+    *(&v181 + 1) = 0xE000000000000000;
+    _StringGuts.grow(_:)(55);
+    v92._object = " neural network regressor." + 0x8000000000000000;
+    v92._countAndFlagsBits = 0xD00000000000002CLL;
+    String.append(_:)(v92);
+    v93 = Model.inputs.getter();
+    v94 = *(v93 + 16);
+    v93;
+    v152 = v94;
+    v95 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+    LOBYTE(v94) = v96;
+    v92._countAndFlagsBits = v95;
+    v92._object = v96;
+    String.append(_:)(v92);
+    v94;
+    v92._countAndFlagsBits = 0x64616574736E6920;
+    v92._object = 0xE90000000000002ELL;
+    String.append(_:)(v92);
+    v189 = v181;
+    v97 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v97, 0, 0);
+    *v98 = v189;
+    *(v98 + 16) = 0;
+    *(v98 + 32) = 0;
+    *(v98 + 48) = 2;
+    swift_willThrow();
+    v99 = v71;
+    return (*(v192 + 8))(v99, v191);
+  }
+
+  v74 = Model.inputs.getter();
+  v75 = v74;
+  v76 = v188;
+  specialized Collection.first.getter(v74);
+  v75;
+  v77 = type metadata accessor for FeatureDescription(0);
+  if (__swift_getEnumTagSinglePayload(v76, 1, v77) == 1)
+  {
+    BUG();
+  }
+
+  v78 = v154;
+  FeatureDescription.type.getter();
+  v79 = v176;
+  v80 = v175;
+  if ((*(v175 + 88))(v78, v176) != enum case for FeatureType.image(_:))
+  {
+    v195;
+    v194;
+    (*(v80 + 8))(v78, v79);
+    (*(*(v77 - 8) + 8))(v188, v77);
+    v88 = "ith only one input, but got " + 0x8000000000000000;
+    v100 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v100, 0, 0);
+    v91 = 0xD000000000000022;
+    goto LABEL_16;
+  }
+
+  (*(v80 + 8))(v78, v79);
+  v182 = *(v77 - 8);
+  (v182[1])(v188, v77);
+  v81 = *(type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0) + 20);
+  v82 = *(v189 + v81 + 8);
+  v59 = v192;
+  v58 = v191;
+  if (v82)
+  {
+    v83 = *(v189 + v81);
+
+    v84 = v195;
+
+    v85 = v187;
+    v86 = specialized Collection.firstIndex(where:)(v84, v83, v82);
+    LOBYTE(v83) = v87;
+    v84;
+    if (v83)
+    {
+      v84;
+      v194;
+      v88 = "least one layer." + 0x8000000000000000;
+      v89 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+      swift_allocError(&type metadata for MLCreateError, v89, 0, 0);
+      v91 = 0xD000000000000031;
+LABEL_16:
+      *v90 = v91;
+      *(v90 + 8) = v88;
+      *(v90 + 16) = 0;
+      *(v90 + 32) = 0;
+      *(v90 + 48) = 2;
+LABEL_17:
+      swift_willThrow();
+      v99 = v193;
+      return (*(v192 + 8))(v99, v191);
+    }
+
+    v105 = __OFADD__(1, v86);
+    v106 = v86 + 1;
+    if (v105)
+    {
+      BUG();
+    }
+
+    v187 = v85;
+    v58 = v191;
+    if (v106 < 0)
+    {
+      BUG();
+    }
+
+    v59 = v192;
+    if (v195[2] < v106)
+    {
+      BUG();
+    }
+
+    v104 = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufC20MLModelSpecification13NeuralNetworkV5LayerV_s10ArraySliceVyAHGTt0g5(v195, v195 + ((*(v184 + 80) + 32) & ~*(v184 + 80)), 0, 2 * v106 + 1);
+  }
+
+  else
+  {
+    v104 = v195;
+  }
+
+  if (!v104[2])
+  {
+    v104;
+    v194;
+    v140 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v140, 0, 0);
+    *v141 = 0xD000000000000030;
+    *(v141 + 8) = "ve 1 output, got " + 0x8000000000000000;
+    *(v141 + 16) = 0;
+    *(v141 + 32) = 0;
+    *(v141 + 48) = 2;
+    swift_willThrow();
+    v103 = v193;
+    return (*(v59 + 8))(v103, v58);
+  }
+
+  v107 = v161;
+  v195 = v104;
+  specialized BidirectionalCollection.last.getter(v104);
+  v108 = v177;
+  if (__swift_getEnumTagSinglePayload(v107, 1, v177) == 1)
+  {
+    BUG();
+  }
+
+  v109 = NeuralNetwork.Layer.outputNames.getter();
+  v110 = v107;
+  v111 = *(v184 + 8);
+  v111(v110, v108);
+  v112 = *(v109 + 16);
+  v109;
+  if (v112 != 1)
+  {
+    v142 = v111;
+    v194;
+    *&v181 = 0;
+    *(&v181 + 1) = 0xE000000000000000;
+    _StringGuts.grow(_:)(60);
+    v143._object = " must be an image." + 0x8000000000000000;
+    v143._countAndFlagsBits = 0xD000000000000031;
+    String.append(_:)(v143);
+    v144 = v171;
+    v145 = v195;
+    specialized BidirectionalCollection.last.getter(v195);
+    if (__swift_getEnumTagSinglePayload(v144, 1, v108) == 1)
+    {
+      BUG();
+    }
+
+    v145;
+    v146 = NeuralNetwork.Layer.outputNames.getter();
+    v142(v144, v108);
+    v147 = *(v146 + 16);
+    v146;
+    v152 = v147;
+    v148._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+    LOBYTE(v146) = v148._object;
+    String.append(_:)(v148);
+    v146;
+    v149._countAndFlagsBits = 0x64616574736E6920;
+    v149._object = 0xE90000000000002ELL;
+    String.append(_:)(v149);
+    v189 = v181;
+    v150 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v150, 0, 0);
+    *v151 = v189;
+    *(v151 + 16) = 0;
+    *(v151 + 32) = 0;
+    *(v151 + 48) = 2;
+    goto LABEL_17;
+  }
+
+  *&v189 = v111;
+  *&v181 = 0;
+  *(&v181 + 1) = 0xE000000000000000;
+  v113 = v172;
+  specialized BidirectionalCollection.last.getter(v195);
+  if (__swift_getEnumTagSinglePayload(v113, 1, v108) == 1)
+  {
+    BUG();
+  }
+
+  v114 = v113;
+  v115 = NeuralNetwork.Layer.name.getter();
+  v117 = v116;
+  (v189)(v114, v108);
+  v118._countAndFlagsBits = v115;
+  v118._object = v117;
+  String.append(_:)(v118);
+  v117;
+  v118._countAndFlagsBits = 0x6E657474616C46;
+  v118._object = 0xE700000000000000;
+  String.append(_:)(v118);
+  v188 = *(&v181 + 1);
+  v183 = v181;
+  v119 = v170;
+  specialized BidirectionalCollection.last.getter(v195);
+  if (__swift_getEnumTagSinglePayload(v119, 1, v108) == 1)
+  {
+    BUG();
+  }
+
+  v120 = NeuralNetwork.Layer.outputNames.getter();
+  (v189)(v119, v108);
+  v121 = v169;
+  if (!v120[2])
+  {
+    v120;
+    BUG();
+  }
+
+  *&v189 = v120[4];
+  v122 = v120[5];
+
+  v120;
+  v123 = v168;
+  (*(v180 + 104))(v121, enum case for NeuralNetwork.Layer.FlattenParameters.ChannelLayout.channelFirst(_:), v168);
+  v124 = v188;
+  static NeuralNetwork.Layer.flatten(name:inputName:outputName:targetChannelLayout:)(v183, v188, v189, v122, 0x7365727574616566, 0xE800000000000000, v121);
+  v124;
+  v122;
+  (*(v180 + 8))(v121, v123);
+  v125 = v195;
+  if (!swift_isUniquelyReferenced_nonNull_native(v195))
+  {
+    v125 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v125[2] + 1, 1, v125);
+  }
+
+  v126 = v186;
+  v127 = v125[2];
+  v128 = v125;
+  v129 = v185;
+  if (v125[3] >> 1 <= v127)
+  {
+    v128 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v125[3] >= 2uLL, v127 + 1, 1, v125);
+    v129 = v185;
+  }
+
+  v128[2] = v127 + 1;
+  v195 = v128;
+  (*(v184 + 32))(v128 + ((*(v184 + 80) + 32) & ~*(v184 + 80)) + *(v184 + 72) * v127, v129, v177);
+  FeatureType.ShapedArrayParameters.init()();
+  v130 = v165;
+  (*(v163 + 104))(v165, enum case for FeatureType.ShapedArrayParameters.DataType.float32(_:), v164);
+  v131 = v126;
+  FeatureType.ShapedArrayParameters.dataType.setter(v130);
+  Model.init()();
+  v132 = Model.specificationVersion.getter();
+  Model.specificationVersion.setter(v132);
+  v133 = Model.inputs.getter();
+  Model.inputs.setter(v133);
+  v134 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<FeatureDescription>);
+  v135 = swift_allocObject(v134, ((*(v182 + 80) + 32) & ~*(v182 + 80)) + v182[9], *(v182 + 80) | 7);
+  *(v135 + 16) = 1;
+  *(v135 + 24) = 2;
+  v136 = v166;
+  v137 = v131;
+  v138 = v162;
+  (*(v162 + 16))(v166, v137, v179);
+  (*(v175 + 104))(v136, enum case for FeatureType.shapedArray(_:), v176);
+  FeatureDescription.init(name:type:description:)(0x7365727574616566, 0xE800000000000000, v136, 0, 0xE000000000000000);
+  Model.outputs.setter(v135);
+  v139 = v167;
+  NeuralNetwork.init(layers:preprocessors:)(v195, v194);
+  (*(v173 + 104))(v139, v190, v174);
+  Model.kind.setter(v139);
+  (*(v138 + 8))(v186, v179);
+  return (*(v192 + 8))(v193, v191);
+}
+
+uint64_t specialized Collection.firstIndex(where:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v11 = *(a1 + 16);
+  if (v11)
+  {
+    v4 = *(type metadata accessor for NeuralNetwork.Layer(0) - 8);
+    v5 = ((*(v4 + 80) + 32) & ~*(v4 + 80)) + a1;
+    v12 = *(v4 + 72);
+    v6 = 0;
+    while (1)
+    {
+      v7 = NeuralNetwork.Layer.name.getter();
+      v9 = v8;
+      if (!(a2 ^ v7 | a3 ^ v8))
+      {
+        break;
+      }
+
+      v13 = _stringCompareWithSmolCheck(_:_:expecting:)(v7, v8, a2, a3, 0);
+      v9;
+      if (v13)
+      {
+        goto LABEL_9;
+      }
+
+      ++v6;
+      v5 += v12;
+      if (v11 == v6)
+      {
+        v6 = 0;
+        goto LABEL_9;
+      }
+    }
+
+    a3;
+    LOBYTE(a3) = v9;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+LABEL_9:
+  a3;
+  return v6;
+}
+
+Swift::Void __swiftcall __spoils<cf,zf,sf,of,pf,rax,rdx,rcx,rdi,rsi,r8,r9,r10,r11,r12,xmm0,xmm1,xmm2,xmm3,xmm4,xmm5,xmm6,xmm7> MLImageClassifier.FeatureExtractorType.validate()()
+{
+  *&v18 = v0;
+  v2 = *(*(type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0) - 8) + 64);
+  v3 = alloca(v2);
+  v4 = alloca(v2);
+  v5 = type metadata accessor for MLImageClassifier.FeatureExtractorType(0);
+  v6 = *(*(v5 - 8) + 64);
+  v7 = alloca(v6);
+  v8 = alloca(v6);
+  outlined init with copy of MLImageClassifier.FeatureExtractorType(v1, &v15);
+  if (swift_getEnumCaseMultiPayload(&v15, v5) == 1)
+  {
+    outlined init with take of MLImageClassifier.CustomFeatureExtractor(&v15, &v15);
+    MLImageClassifier.CustomFeatureExtractor.validate()();
+    outlined destroy of MLActivityClassifier.ModelParameters(&v15, type metadata accessor for MLImageClassifier.CustomFeatureExtractor);
+  }
+
+  else if (!v16)
+  {
+    v9 = v15;
+    if (!specialized Sequence<>.contains(_:)(v15, &outlined read-only object #0 of MLImageClassifier.FeatureExtractorType.validate()))
+    {
+      *&v16 = 0;
+      *(&v16 + 1) = 0xE000000000000000;
+      _StringGuts.grow(_:)(29);
+      SBYTE8(v16);
+      *&v16 = 0x6E6F697369766552;
+      *(&v16 + 1) = 0xE900000000000020;
+      v17 = v9;
+      v10._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+      object = v10._object;
+      String.append(_:)(v10);
+      object;
+      v12._object = "und in the model." + 0x8000000000000000;
+      v12._countAndFlagsBits = 0xD000000000000012;
+      String.append(_:)(v12);
+      v18 = v16;
+      v13 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+      swift_allocError(&type metadata for MLCreateError, v13, 0, 0);
+      *v14 = v18;
+      *(v14 + 16) = 0;
+      *(v14 + 32) = 0;
+      *(v14 + 48) = 0;
+      swift_willThrow();
+    }
+  }
+}
+
+uint64_t MLImageClassifier.FeatureExtractorType.description.getter()
+{
+  v1 = type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0);
+  v2 = *(*(v1 - 8) + 64);
+  v3 = alloca(v2);
+  v4 = alloca(v2);
+  v5 = type metadata accessor for MLImageClassifier.FeatureExtractorType(0);
+  v6 = *(*(v5 - 8) + 64);
+  v7 = alloca(v6);
+  v8 = alloca(v6);
+  outlined init with copy of MLImageClassifier.FeatureExtractorType(v0, v15);
+  if (swift_getEnumCaseMultiPayload(v15, v5) != 1)
+  {
+    return 0x697250656E656353;
+  }
+
+  outlined init with take of MLImageClassifier.CustomFeatureExtractor(v15, v15);
+  v9 = *(v1 + 20);
+  v10 = *(&v15[1] + v9);
+  v16 = v15;
+  if (v10)
+  {
+    v11._countAndFlagsBits = *(v15 + v9);
+    v12 = v10;
+  }
+
+  else
+  {
+    v12 = "interactionHeaps" + 0x8000000000000000;
+    v11._countAndFlagsBits = 0xD000000000000015;
+  }
+
+  strcpy(v15, "Custom model: ");
+  HIBYTE(v15[1]) = -18;
+  v11._object = v12;
+  String.append(_:)(v11);
+  v13 = v15[0];
+
+  v12;
+  outlined destroy of MLActivityClassifier.ModelParameters(v16, type metadata accessor for MLImageClassifier.CustomFeatureExtractor);
+  return v13;
+}
+
+uint64_t type metadata accessor for MLImageClassifier.CustomFeatureExtractor(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  result = *a2;
+  if (!*a2)
+  {
+    return swift_getSingletonMetadata(a1, a3);
+  }
+
+  return result;
+}
+
+uint64_t outlined init with copy of MLImageClassifier.FeatureExtractorType(uint64_t a1, uint64_t a2)
+{
+  v2 = type metadata accessor for MLImageClassifier.FeatureExtractorType(0);
+  (*(*(v2 - 8) + 16))(a2, a1, v2);
+  return a2;
+}
+
+uint64_t outlined init with take of MLImageClassifier.CustomFeatureExtractor(uint64_t a1, uint64_t a2)
+{
+  v2 = type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0);
+  (*(*(v2 - 8) + 32))(a2, a1, v2);
+  return a2;
+}
+
+void *MLImageClassifier.FeatureExtractorType.playgroundDescription.getter()
+{
+  v20 = v0;
+  v2 = type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0);
+  v3 = *(*(v2 - 8) + 64);
+  v4 = alloca(v3);
+  v5 = alloca(v3);
+  v6 = type metadata accessor for MLImageClassifier.FeatureExtractorType(0);
+  v7 = *(*(v6 - 8) + 64);
+  v8 = alloca(v7);
+  v9 = alloca(v7);
+  outlined init with copy of MLImageClassifier.FeatureExtractorType(v1, v18);
+  if (swift_getEnumCaseMultiPayload(v18, v6) == 1)
+  {
+    outlined init with take of MLImageClassifier.CustomFeatureExtractor(v18, v18);
+    v10 = *(v2 + 20);
+    v11 = *&v18[v10 + 8];
+    v21 = v18;
+    if (v11)
+    {
+      v12._countAndFlagsBits = *&v18[v10];
+      v13 = v11;
+    }
+
+    else
+    {
+      v13 = "interactionHeaps" + 0x8000000000000000;
+      v12._countAndFlagsBits = 0xD000000000000015;
+    }
+
+    strcpy(v19, "Custom model: ");
+    HIBYTE(v19[1]) = -18;
+    v12._object = v13;
+    String.append(_:)(v12);
+    v15 = v19[0];
+    v14 = v19[1];
+
+    v13;
+    outlined destroy of MLActivityClassifier.ModelParameters(v21, type metadata accessor for MLImageClassifier.CustomFeatureExtractor);
+  }
+
+  else
+  {
+    v14 = 0xEA0000000000746ELL;
+    v15 = 0x697250656E656353;
+  }
+
+  result = &type metadata for String;
+  v17 = v20;
+  v20[3] = &type metadata for String;
+  *v17 = v15;
+  v17[1] = v14;
+  return result;
+}
+
+char *initializeBufferWithCopyOfBuffer for MLImageClassifier.FeatureExtractorType(char *__dst, char *__src, uint64_t a3)
+{
+  v3 = __dst;
+  v4 = *(a3 - 8);
+  v5 = *(v4 + 80);
+  if ((v5 & 0x20000) != 0)
+  {
+    v9 = *__src;
+    *v3 = *__src;
+    v3 = (v9 + ((v5 + 16) & ~v5));
+
+    return v3;
+  }
+
+  if (swift_getEnumCaseMultiPayload(__src, a3) == 1)
+  {
+    v7 = type metadata accessor for URL(0);
+    (*(*(v7 - 8) + 16))(__dst, __src, v7);
+    v8 = *(type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0) + 20);
+    *&__dst[v8] = *&__src[v8];
+    *&__dst[v8 + 8] = *&__src[v8 + 8];
+
+    swift_storeEnumTagMultiPayload(__dst, a3, 1);
+    return v3;
+  }
+
+  return memcpy(__dst, __src, *(v4 + 64));
+}
+
+uint64_t destroy for MLImageClassifier.FeatureExtractorType(uint64_t a1, uint64_t a2)
+{
+  result = swift_getEnumCaseMultiPayload(a1, a2);
+  if (result == 1)
+  {
+    v3 = type metadata accessor for URL(0);
+    (*(*(v3 - 8) + 8))(a1, v3);
+    v4 = type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0);
+    return *(a1 + *(v4 + 20) + 8);
+  }
+
+  return result;
+}
+
+char *initializeWithCopy for MLImageClassifier.FeatureExtractorType(char *__dst, char *__src, uint64_t a3)
+{
+  if (swift_getEnumCaseMultiPayload(__src, a3) != 1)
+  {
+    return memcpy(__dst, __src, *(*(a3 - 8) + 64));
+  }
+
+  v4 = type metadata accessor for URL(0);
+  (*(*(v4 - 8) + 16))(__dst, __src, v4);
+  v5 = *(type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0) + 20);
+  *&__dst[v5] = *&__src[v5];
+  *&__dst[v5 + 8] = *&__src[v5 + 8];
+
+  swift_storeEnumTagMultiPayload(__dst, a3, 1);
+  return __dst;
+}
+
+char *assignWithCopy for MLImageClassifier.FeatureExtractorType(char *__dst, char *__src, uint64_t a3)
+{
+  if (__dst == __src)
+  {
+    return __dst;
+  }
+
+  outlined destroy of MLActivityClassifier.ModelParameters(__dst, type metadata accessor for MLImageClassifier.FeatureExtractorType);
+  if (swift_getEnumCaseMultiPayload(__src, a3) == 1)
+  {
+    v4 = type metadata accessor for URL(0);
+    (*(*(v4 - 8) + 16))(__dst, __src, v4);
+    v5 = *(type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0) + 20);
+    *&__dst[v5] = *&__src[v5];
+    *&__dst[v5 + 8] = *&__src[v5 + 8];
+
+    swift_storeEnumTagMultiPayload(__dst, a3, 1);
+    return __dst;
+  }
+
+  return memcpy(__dst, __src, *(*(a3 - 8) + 64));
+}
+
+char *initializeWithTake for MLImageClassifier.FeatureExtractorType(char *__dst, char *__src, uint64_t a3)
+{
+  if (swift_getEnumCaseMultiPayload(__src, a3) != 1)
+  {
+    return memcpy(__dst, __src, *(*(a3 - 8) + 64));
+  }
+
+  v4 = type metadata accessor for URL(0);
+  (*(*(v4 - 8) + 32))(__dst, __src, v4);
+  v5 = type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0);
+  *&__dst[*(v5 + 20)] = *&__src[*(v5 + 20)];
+  swift_storeEnumTagMultiPayload(__dst, a3, 1);
+  return __dst;
+}
+
+char *assignWithTake for MLImageClassifier.FeatureExtractorType(char *__dst, char *__src, uint64_t a3)
+{
+  if (__dst == __src)
+  {
+    return __dst;
+  }
+
+  outlined destroy of MLActivityClassifier.ModelParameters(__dst, type metadata accessor for MLImageClassifier.FeatureExtractorType);
+  if (swift_getEnumCaseMultiPayload(__src, a3) == 1)
+  {
+    v4 = type metadata accessor for URL(0);
+    (*(*(v4 - 8) + 32))(__dst, __src, v4);
+    v5 = type metadata accessor for MLImageClassifier.CustomFeatureExtractor(0);
+    *&__dst[*(v5 + 20)] = *&__src[*(v5 + 20)];
+    swift_storeEnumTagMultiPayload(__dst, a3, 1);
+    return __dst;
+  }
+
+  return memcpy(__dst, __src, *(*(a3 - 8) + 64));
+}
+
+uint64_t type metadata completion function for MLImageClassifier.FeatureExtractorType(uint64_t a1)
+{
+  v5[0] = "\t";
+  result = type metadata accessor for MLImageClassifier.CustomFeatureExtractor(319);
+  if (v4 <= 0x3F)
+  {
+    v5[1] = *(result - 8) + 64;
+    swift_initEnumMetadataMultiPayload(a1, 256, 2, v5, v2, v3);
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t *initializeBufferWithCopyOfBuffer for MLImageClassifier.CustomFeatureExtractor(uint64_t *a1, uint64_t *a2, uint64_t a3)
+{
+  v3 = a1;
+  v4 = *(*(a3 - 8) + 80);
+  if ((v4 & 0x20000) != 0)
+  {
+    v8 = *a2;
+    *v3 = *a2;
+    v3 = (v8 + ((v4 + 16) & ~v4));
+  }
+
+  else
+  {
+    v6 = type metadata accessor for URL(0);
+    (*(*(v6 - 8) + 16))(a1, a2, v6);
+    v7 = *(a3 + 20);
+    *(a1 + v7) = *(a2 + v7);
+    *(a1 + v7 + 8) = *(a2 + v7 + 8);
+  }
+
+  return v3;
+}
+
+uint64_t destroy for MLImageClassifier.CustomFeatureExtractor(uint64_t a1, uint64_t a2)
+{
+  v2 = type metadata accessor for URL(0);
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return *(a1 + *(a2 + 20) + 8);
+}
+
+uint64_t initializeWithCopy for MLImageClassifier.CustomFeatureExtractor(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = type metadata accessor for URL(0);
+  (*(*(v4 - 8) + 16))(a1, a2, v4);
+  v5 = *(a3 + 20);
+  *(a1 + v5) = *(a2 + v5);
+  *(a1 + v5 + 8) = *(a2 + v5 + 8);
+
+  return a1;
+}
+
+uint64_t assignWithCopy for MLImageClassifier.CustomFeatureExtractor(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = type metadata accessor for URL(0);
+  (*(*(v4 - 8) + 24))(a1, a2, v4);
+  v5 = *(a3 + 20);
+  *(a1 + v5) = *(a2 + v5);
+  v6 = *(a1 + v5 + 8);
+  *(a1 + v5 + 8) = *(a2 + v5 + 8);
+
+  v6;
+  return a1;
+}
+
+uint64_t initializeWithTake for MLImageClassifier.CustomFeatureExtractor(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = type metadata accessor for URL(0);
+  (*(*(v4 - 8) + 32))(a1, a2, v4);
+  *(a1 + *(a3 + 20)) = *(a2 + *(a3 + 20));
+  return a1;
+}
+
+uint64_t assignWithTake for MLImageClassifier.CustomFeatureExtractor(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = type metadata accessor for URL(0);
+  (*(*(v5 - 8) + 40))(a1, a2, v5);
+  v6 = *(a3 + 20);
+  *(a1 + v6) = *(a2 + v6);
+  v7 = *(a1 + v6 + 8);
+  *(a1 + v6 + 8) = *(a2 + v6 + 8);
+  v7;
+  return a1;
+}
+
+uint64_t sub_38D80(uint64_t a1, unsigned int a2, uint64_t a3)
+{
+  v4 = 0;
+  v5 = type metadata accessor for URL(0);
+  if (*(*(v5 - 8) + 84) == a2)
+  {
+    return __swift_getEnumTagSinglePayload(a1, a2, v5);
+  }
+
+  v7 = -1;
+  if (((*(a1 + *(a3 + 20) + 8) >> 1) - 1) >= 0)
+  {
+    v7 = (*(a1 + *(a3 + 20) + 8) >> 1) - 1;
+  }
+
+  v8 = v7 + 1;
+  if ((*(a1 + *(a3 + 20) + 8) & 0xFFFFFFFF00000001) == 0)
+  {
+    return v8;
+  }
+
+  return v4;
+}
+
+uint64_t sub_38E03(uint64_t a1, unsigned int a2, int a3, uint64_t a4)
+{
+  v6 = type metadata accessor for URL(0);
+  if (*(*(v6 - 8) + 84) == a3)
+  {
+    return __swift_storeEnumTagSinglePayload(a1, a2, a2, v6);
+  }
+
+  result = *(a4 + 20);
+  *(a1 + result + 8) = 2 * a2;
+  return result;
+}
+
+uint64_t type metadata completion function for MLImageClassifier.CustomFeatureExtractor(uint64_t a1)
+{
+  result = type metadata accessor for URL(319);
+  if (v2 <= 0x3F)
+  {
+    v3[0] = *(result - 8) + 64;
+    v3[1] = &unk_33DF18;
+    swift_initStructMetadata(a1, 256, 2, v3, a1 + 16);
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(uint64_t a1, uint64_t a2)
+{
+  v3 = *v2;
+  *(*v2 + 16) = a1 + 1;
+  v4 = type metadata accessor for NeuralNetwork.Layer(0);
+  return (*(*(v4 - 8) + 32))(v3 + ((*(*(v4 - 8) + 80) + 32) & ~*(*(v4 - 8) + 80)) + *(*(v4 - 8) + 72) * a1, a2, v4);
+}
+
+void *_sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay11TabularData9AnyColumnVG_SSs5NeverOTg504_s11d75Data0B5FrameV8CreateMLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
+    v2 = *(type metadata accessor for AnyColumn(0) - 8);
+    v3 = ((*(v2 + 80) + 32) & ~*(v2 + 80)) + a1;
+    v11 = *(v2 + 72);
+    do
+    {
+      v10 = v1;
+      v4 = AnyColumn.name.getter();
+      v6 = _swiftEmptyArrayStorage[2];
+      v7 = v6 + 1;
+      if (_swiftEmptyArrayStorage[3] >> 1 <= v6)
+      {
+        v12 = v4;
+        v13 = v5;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(_swiftEmptyArrayStorage[3] >= 2uLL, v7, 1);
+        v5 = v13;
+        v4 = v12;
+      }
+
+      _swiftEmptyArrayStorage[2] = v7;
+      v8 = 2 * v6;
+      _swiftEmptyArrayStorage[v8 + 4] = v4;
+      _swiftEmptyArrayStorage[v8 + 5] = v5;
+      v3 += v11;
+      v1 = v10 - 1;
+    }
+
+    while (v10 != 1);
+  }
+
+  return _swiftEmptyArrayStorage;
+}
+
+uint64_t static _ValidationUtilities.validateTableFormat(table:context:columns:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v35 = v4;
+  v36 = a4;
+  v6 = *a1;
+  v7 = *(a1 + 8) == 0;
+  v33[1] = a2;
+  if (v7)
+  {
+    outlined copy of Result<_DataTable, Error>(v6, 0);
+    _DataTable.columnNames.getter();
+    outlined consume of Result<_DataTable, Error>(v6, 0);
+    v37 = v30;
+  }
+
+  else
+  {
+    outlined copy of Result<_DataTable, Error>(v6, 1);
+    v8 = tc_v1_flex_list_create(0);
+    if (!v8)
+    {
+      BUG();
+    }
+
+    v9 = v8;
+    v10 = type metadata accessor for CMLSequence();
+    v11 = swift_allocObject(v10, 25, 7);
+    *(v11 + 16) = v9;
+    v37 = v11;
+    *(v11 + 24) = 1;
+    outlined consume of Result<_DataTable, Error>(v6, 1);
+  }
+
+  v30 = 0;
+  v12 = 0xE000000000000000;
+  v31 = 0xE000000000000000;
+  v13 = *(v36 + 16);
+  if (v13)
+  {
+    v33[2] = a3;
+
+    v14 = (v36 + 40);
+    while (1)
+    {
+      v32 = &v29;
+      v15 = *v14;
+      v33[0] = *(v14 - 1);
+      v34._countAndFlagsBits = v33[0];
+      v34._object = v15;
+      v16 = alloca(24);
+      v17 = alloca(32);
+      v31 = &v34;
+
+      v18 = v35;
+      v19 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), &v29, v37);
+      v35 = v18;
+      if ((v19 & 1) == 0)
+      {
+        break;
+      }
+
+      v15;
+      v14 += 2;
+      if (!--v13)
+      {
+        v36;
+        v20 = 0;
+        v12 = 0xE000000000000000;
+        goto LABEL_12;
+      }
+    }
+
+    v36;
+    v34._countAndFlagsBits = 0;
+    v34._object = 0xE000000000000000;
+    _StringGuts.grow(_:)(54);
+    String.append(_:)(*&v33[1]);
+    v21._countAndFlagsBits = 0x206E6D756C6F6320;
+    v21._object = 0xEE002720656D616ELL;
+    String.append(_:)(v21);
+    v21._countAndFlagsBits = v33[0];
+    v21._object = v15;
+    String.append(_:)(v21);
+    v15;
+    v21._object = "in elements with a type among: " + 0x8000000000000000;
+    v21._countAndFlagsBits = 0xD000000000000024;
+    String.append(_:)(v21);
+    object = v34._object;
+    String.append(_:)(v34);
+    object;
+    v20 = v30;
+    v12 = v31;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+LABEL_12:
+  v23 = HIBYTE(v12) & 0xF;
+  if ((v12 & 0x2000000000000000) == 0)
+  {
+    v23 = v20 & 0xFFFFFFFFFFFFLL;
+  }
+
+  if (v23)
+  {
+    v24 = static os_log_type_t.error.getter();
+    v25._countAndFlagsBits = v20;
+    v25._object = v12;
+    log(_:type:)(v25, v24);
+    v26 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v26, 0, 0);
+    *v27 = v20;
+    *(v27 + 8) = v12;
+    *(v27 + 16) = 0;
+    *(v27 + 32) = 0;
+    *(v27 + 48) = 1;
+    swift_willThrow();
+  }
+
+  else
+  {
+    v12;
   }
 }

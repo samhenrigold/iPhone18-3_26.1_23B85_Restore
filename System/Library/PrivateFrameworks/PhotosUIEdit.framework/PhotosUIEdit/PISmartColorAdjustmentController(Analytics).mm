@@ -49,7 +49,7 @@
           if (([analyticsKeysBlocklist containsObject:{v14, v46}] & 1) == 0)
           {
             autoKey = [MEMORY[0x277D3A988] autoKey];
-            if ([v14 isEqualToString:autoKey])
+            if (objc_msgSend_isEqualToString_(v14))
             {
               isAuto = [self isAuto];
 
@@ -67,7 +67,7 @@ LABEL_29:
             }
 
             offsetSaturationKey = [MEMORY[0x277D3A988] offsetSaturationKey];
-            if ([v14 isEqualToString:offsetSaturationKey])
+            if (objc_msgSend_isEqualToString_(v14))
             {
               [self offsetSaturation];
               v19 = v18;
@@ -93,7 +93,7 @@ LABEL_24:
             }
 
             offsetContrastKey = [MEMORY[0x277D3A988] offsetContrastKey];
-            if ([v14 isEqualToString:offsetContrastKey])
+            if (objc_msgSend_isEqualToString_(v14))
             {
               [self offsetContrast];
               v28 = v27;
@@ -116,7 +116,7 @@ LABEL_24:
             }
 
             inputColorKey = [MEMORY[0x277D3A988] inputColorKey];
-            if ([v14 isEqualToString:inputColorKey])
+            if (objc_msgSend_isEqualToString_(v14))
             {
               [self inputColor];
               v32 = v31;

@@ -5,6 +5,7 @@
 - (void)_handleTemplate:(id)template reason:(int64_t)reason;
 - (void)_setupContentViewForFamily:(int64_t)family;
 - (void)layoutSubviews;
+- (void)setEditing:(BOOL)editing;
 - (void)transitionToMonochromeWithFraction:(double)fraction;
 - (void)updateMonochromeColor;
 @end
@@ -53,6 +54,15 @@
   astronomyContentView = self->_astronomyContentView;
   metadata = [template metadata];
   [(NTKAstronomyRichComplicationContentView *)astronomyContentView handleTemplateMetadata:metadata reason:reason];
+}
+
+- (void)setEditing:(BOOL)editing
+{
+  editingCopy = editing;
+  v5.receiver = self;
+  v5.super_class = NTKAstronomyRichComplicationBaseCircularView;
+  [(NTKAstronomyRichComplicationBaseCircularView *)&v5 setEditing:?];
+  [(NTKAstronomyRichComplicationContentView *)self->_astronomyContentView setEditing:editingCopy];
 }
 
 - (int64_t)_desaturatedFilterStyle

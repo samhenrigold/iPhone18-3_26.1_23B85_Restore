@@ -11,8 +11,12 @@
 - (void)save;
 - (void)setAccountDescription:(id)description;
 - (void)setAccountProperty:(id)property forKey:(id)key;
+- (void)setAuthenticated:(BOOL)authenticated;
+- (void)setEnabledForCalendarsDataClass:(BOOL)class;
 - (void)setPassword:(id)password;
+- (void)setProvisionedForCalendarsDataClass:(BOOL)class;
 - (void)setUsername:(id)username;
+- (void)setVisible:(BOOL)visible;
 @end
 
 @implementation CalPlistSavingMigrationAccount
@@ -150,6 +154,13 @@
   return v7;
 }
 
+- (void)setVisible:(BOOL)visible
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:visible];
+  modifiedProperties = [(CalPlistSavingMigrationAccount *)self modifiedProperties];
+  [modifiedProperties setObject:v5 forKeyedSubscript:@"_CalPlistSavingMigrationAccount_visible"];
+}
+
 - (BOOL)enabledForCalendarsDataClass
 {
   modifiedProperties = [(CalPlistSavingMigrationAccount *)self modifiedProperties];
@@ -169,6 +180,13 @@
   v7 = bOOLValue;
 
   return v7;
+}
+
+- (void)setEnabledForCalendarsDataClass:(BOOL)class
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:class];
+  modifiedProperties = [(CalPlistSavingMigrationAccount *)self modifiedProperties];
+  [modifiedProperties setObject:v5 forKeyedSubscript:@"_CalPlistSavingMigrationAccount_enabledForCalendarsDataClass"];
 }
 
 - (BOOL)provisionedForCalendarsDataClass
@@ -192,6 +210,13 @@
   return v7;
 }
 
+- (void)setProvisionedForCalendarsDataClass:(BOOL)class
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:class];
+  modifiedProperties = [(CalPlistSavingMigrationAccount *)self modifiedProperties];
+  [modifiedProperties setObject:v5 forKeyedSubscript:@"_CalChangeFilterMigrationAccount_provisionedForCalendarsDataClass"];
+}
+
 - (BOOL)authenticated
 {
   modifiedProperties = [(CalPlistSavingMigrationAccount *)self modifiedProperties];
@@ -211,6 +236,13 @@
   v7 = bOOLValue;
 
   return v7;
+}
+
+- (void)setAuthenticated:(BOOL)authenticated
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:authenticated];
+  modifiedProperties = [(CalPlistSavingMigrationAccount *)self modifiedProperties];
+  [modifiedProperties setObject:v5 forKeyedSubscript:@"_CalChangeFilterMigrationAccount_authenticated"];
 }
 
 - (NSString)username

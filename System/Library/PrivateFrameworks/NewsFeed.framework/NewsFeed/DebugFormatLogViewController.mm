@@ -91,15 +91,16 @@
   v6 = sub_1D7258DBC();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6, v8);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D7258D6C();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_1D6E31DC8();
+  sub_1D6E31DC8(viewCopy, v10);
+  v14 = v13;
 
   (*(v7 + 8))(v10, v6);
 
-  return v13;
+  return v14;
 }
 
 - (double)tableView:(id)view heightForRowAtIndexPath:(id)path

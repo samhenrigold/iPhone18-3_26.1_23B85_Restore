@@ -1426,7 +1426,7 @@ unint64_t lazy protocol witness table accessor for type NumberFormatStyleConfigu
 
 uint64_t outlined assign with take of FloatingPointRoundingRule?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
@@ -1533,7 +1533,7 @@ unint64_t lazy protocol witness table accessor for type Int? and conformance <A>
   result = lazy protocol witness table cache variable for type Int? and conformance <A> A?;
   if (!lazy protocol witness table cache variable for type Int? and conformance <A> A?)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSiSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSiSgMd, &_sSiSgMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Int? and conformance <A> A?);
   }
@@ -1547,10 +1547,10 @@ uint64_t specialized static CurrencyFormatStyleConfiguration.Collection.== infix
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v48 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v48 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSg_ACtMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSg_ACtMd, &_ss25FloatingPointRoundingRuleOSg_ACtMR);
   MEMORY[0x1EEE9AC00](v11);
   v14 = &v48 - v13;
   v15 = *(a2 + 8);
@@ -1687,7 +1687,7 @@ uint64_t specialized static CurrencyFormatStyleConfiguration.Collection.== infix
       v37 = *(v5 + 8);
       v37(v7, v4);
       v37(v10, v4);
-      outlined destroy of TermOfAddress?(v14, &_ss25FloatingPointRoundingRuleOSgMd);
+      outlined destroy of TermOfAddress?(v14, &_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
       if ((v36 & 1) == 0)
       {
         return 0;
@@ -1698,7 +1698,7 @@ uint64_t specialized static CurrencyFormatStyleConfiguration.Collection.== infix
 
     (*(v5 + 8))(v10, v4);
 LABEL_36:
-    outlined destroy of TermOfAddress?(v14, &_ss25FloatingPointRoundingRuleOSg_ACtMd);
+    outlined destroy of TermOfAddress?(v14, &_ss25FloatingPointRoundingRuleOSg_ACtMd, &_ss25FloatingPointRoundingRuleOSg_ACtMR);
     return 0;
   }
 
@@ -1707,7 +1707,7 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  outlined destroy of TermOfAddress?(v14, &_ss25FloatingPointRoundingRuleOSgMd);
+  outlined destroy of TermOfAddress?(v14, &_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
 LABEL_40:
   v38 = v49[10];
   v39 = (a1 + v38);
@@ -1773,7 +1773,7 @@ LABEL_50:
 
 uint64_t specialized NumberFormatStyleConfiguration.RoundingIncrement.init(from:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation30NumberFormatStyleConfigurationO17RoundingIncrementO10CodingKeys33_7052156219470F75D5F20BC0C8A29F87LLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation30NumberFormatStyleConfigurationO17RoundingIncrementO10CodingKeys33_7052156219470F75D5F20BC0C8A29F87LLOGMd, &_ss22KeyedDecodingContainerVy10Foundation30NumberFormatStyleConfigurationO17RoundingIncrementO10CodingKeys33_7052156219470F75D5F20BC0C8A29F87LLOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v13[-v5];
@@ -1809,7 +1809,7 @@ uint64_t specialized NumberFormatStyleConfiguration.RoundingIncrement.init(from:
 
 uint64_t specialized NumberFormatStyleConfiguration.Precision.Option.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation30NumberFormatStyleConfigurationO9PrecisionV6OptionO10CodingKeys33_7052156219470F75D5F20BC0C8A29F87LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation30NumberFormatStyleConfigurationO9PrecisionV6OptionO10CodingKeys33_7052156219470F75D5F20BC0C8A29F87LLOGMd, &_ss22KeyedDecodingContainerVy10Foundation30NumberFormatStyleConfigurationO9PrecisionV6OptionO10CodingKeys33_7052156219470F75D5F20BC0C8A29F87LLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v32 - v7;
@@ -2291,28 +2291,28 @@ uint64_t (*ByteCountFormatStyle.style.modify(uint64_t a1))(uint64_t result)
   return Date.AnchoredRelativeFormatStyle.presentation.modify;
 }
 
-void *(*ByteCountFormatStyle.allowedUnits.modify(void *a1))(void *result)
+uint64_t (*ByteCountFormatStyle.allowedUnits.modify(void *a1))()
 {
   *a1 = *(v1 + 8);
   a1[1] = v1;
   return ByteCountFormatStyle.allowedUnits.modify;
 }
 
-_BYTE *(*ByteCountFormatStyle.spellsOutZero.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*ByteCountFormatStyle.spellsOutZero.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 16);
   return ByteCountFormatStyle.spellsOutZero.modify;
 }
 
-_BYTE *(*ByteCountFormatStyle.includesActualByteCount.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*ByteCountFormatStyle.includesActualByteCount.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 17);
   return ByteCountFormatStyle.includesActualByteCount.modify;
 }
 
-uint64_t (*ByteCountFormatStyle.locale.modify(uint64_t a1))(uint64_t *a1, char a2)
+uint64_t (*ByteCountFormatStyle.locale.modify(uint64_t a1))(void *a1, char a2)
 {
   *(a1 + 16) = v1;
   *a1 = *(v1 + 24);
@@ -2365,7 +2365,7 @@ Swift::String __swiftcall ByteCountFormatStyle.format(_:)(Swift::Int64 a1)
   return result;
 }
 
-uint64_t ByteCountFormatStyle.locale(_:)@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
+uint64_t ByteCountFormatStyle.locale(_:)@<X0>(__int128 *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *(v2 + 8);
   v4 = *(v2 + 16);
@@ -2743,7 +2743,7 @@ __n128 ByteCountFormatStyle.Attributed.locale.setter(__n128 *a1)
   return result;
 }
 
-uint64_t ByteCountFormatStyle.Attributed.locale(_:)@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
+uint64_t ByteCountFormatStyle.Attributed.locale(_:)@<X0>(__int128 *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *(v2 + 8);
   v4 = *(v2 + 16);
@@ -2790,7 +2790,7 @@ uint64_t ByteCountFormatStyle.Attributed.useSpelloutZero(forLocale:unit:)(uint64
   v6 = v14;
   v8 = v11;
 
-  outlined consume of Locale.LanguageCode?(v8, v5);
+  outlined consume of Locale.LanguageCode?(v8, v5, v7, v6);
   if ((v7 != 29281 || v6 != 0xE200000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 && (v7 != 24932 || v6 != 0xE200000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 && (v7 != 27749 || v6 != 0xE200000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 && (v7 != 28261 || v6 != 0xE200000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 && (v7 != 29286 || v6 != 0xE200000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 && (v7 != 26984 || v6 != 0xE200000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 && (v7 != 29288 || v6 != 0xE200000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 && (v7 != 25705 || v6 != 0xE200000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 && (v7 != 29801 || v6 != 0xE200000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 && (v7 != 29549 || v6 != 0xE200000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 && (v7 != 29808 || v6 != 0xE200000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 && (v7 != 28530 || v6 != 0xE200000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 && (v7 != 26740 || v6 != 0xE200000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     if (!a2)
@@ -2816,94 +2816,94 @@ LABEL_42:
   return v9 & 1;
 }
 
-uint64_t ByteCountFormatStyle.Attributed._format(_:doubleValue:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>, double a5@<D0>)
+uint64_t ByteCountFormatStyle.Attributed._format(_:doubleValue:)@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>, double a5@<D0>)
 {
-  v620 = a3;
-  v621 = a2;
-  v619 = a1;
-  v632 = a4;
-  v7 = v705;
-  v8 = &v679;
-  v9 = &v657;
-  v737 = *MEMORY[0x1E69E9840];
-  v630 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMd);
-  MEMORY[0x1EEE9AC00](v630);
-  v617 = &v610 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v619 = a3;
+  v620 = a2;
+  v618 = a1;
+  v631 = a4;
+  v7 = v704;
+  v8 = &v678;
+  v9 = &v656;
+  v736 = *MEMORY[0x1E69E9840];
+  v629 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMR);
+  MEMORY[0x1EEE9AC00](v629);
+  v616 = &v609 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v11);
-  v628 = &v610 - v12;
+  v627 = &v609 - v12;
   MEMORY[0x1EEE9AC00](v13);
-  v15 = &v610 - v14;
+  v15 = &v609 - v14;
   MEMORY[0x1EEE9AC00](v16);
-  v614 = &v610 - v17;
-  v646 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
-  v633 = *(v646 - 8);
-  MEMORY[0x1EEE9AC00](v646);
-  v615 = &v610 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v613 = &v609 - v17;
+  v645 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
+  v632 = *(v645 - 8);
+  MEMORY[0x1EEE9AC00](v645);
+  v614 = &v609 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v19);
-  v618 = &v610 - v20;
+  v617 = &v609 - v20;
   MEMORY[0x1EEE9AC00](v21);
-  v610 = &v610 - v22;
+  v609 = &v609 - v22;
   MEMORY[0x1EEE9AC00](v23);
-  v612 = &v610 - v24;
+  v611 = &v609 - v24;
   MEMORY[0x1EEE9AC00](v25);
-  v631 = &v610 - v26;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
+  v630 = &v609 - v26;
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
   MEMORY[0x1EEE9AC00](v27);
-  v640 = &v610 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v639 = &v609 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v29);
-  v637 = &v610 - v30;
-  v639 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
-  v31 = *(v639 - 8);
-  MEMORY[0x1EEE9AC00](v639);
-  v638 = &v610 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v636 = &v609 - v30;
+  v638 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
+  v31 = *(v638 - 8);
+  MEMORY[0x1EEE9AC00](v638);
+  v637 = &v609 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v33);
-  v629 = &v610 - v34;
+  v628 = &v609 - v34;
   MEMORY[0x1EEE9AC00](v35);
-  v635 = &v610 - v36;
+  v634 = &v609 - v36;
   MEMORY[0x1EEE9AC00](v37);
-  v616 = &v610 - v38;
-  v624 = type metadata accessor for AttributedString.Runs();
-  MEMORY[0x1EEE9AC00](v624);
-  v627 = &v610 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v615 = &v609 - v38;
+  v623 = type metadata accessor for AttributedString.Runs(0);
+  MEMORY[0x1EEE9AC00](v623);
+  v626 = &v609 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v40);
-  v634 = &v610 - v41;
+  v633 = &v609 - v41;
   MEMORY[0x1EEE9AC00](v42);
-  v613 = &v610 - v43;
+  v612 = &v609 - v43;
   MEMORY[0x1EEE9AC00](v44);
-  v625 = &v610 - v45;
-  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V09ByteCountH0O_GMd);
+  v624 = &v609 - v45;
+  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V09ByteCountH0O_GMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V09ByteCountH0O_GMR);
   MEMORY[0x1EEE9AC00](v46);
-  v636 = &v610 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v635 = &v609 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v48);
-  v611 = &v610 - v49;
+  v610 = &v609 - v49;
   v50 = type metadata accessor for ICULegacyNumberFormatter.NumberFormatType(0);
   MEMORY[0x1EEE9AC00](v50);
   v53 = v5[1];
-  v657 = *v5;
-  v658[0] = v53;
-  *&v658[1] = *(v5 + 4);
-  v622 = v46;
-  v623 = v27;
-  v626 = v31;
+  v656 = *v5;
+  v657[0] = v53;
+  *&v657[1] = *(v5 + 4);
+  v621 = v46;
+  v622 = v27;
+  v625 = v31;
   if ((v53 & 1) != 0 && a5 == 0.0)
   {
-    v628 = v51;
-    v629 = &v610 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v627 = v15;
-    v54 = (BYTE8(v657) >> 1) & 1;
-    *&v679 = 0;
-    *(&v679 + 1) = 0xE000000000000000;
+    v627 = v51;
+    v628 = &v609 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v626 = v15;
+    v54 = (BYTE8(v656) >> 1) & 1;
+    *&v678 = 0;
+    *(&v678 + 1) = 0xE000000000000000;
     _StringGuts.grow(_:)(25);
 
-    *&v679 = 0xD000000000000015;
-    *(&v679 + 1) = 0x800000018147F380;
+    *&v678 = 0xD000000000000015;
+    *(&v678 + 1) = 0x800000018147F380;
     v55 = &outlined read-only object #0 of one-time initialization function for unitNames + 16 * v54;
     v56 = *(v55 + 4);
     v57 = *(v55 + 5);
 
     MEMORY[0x1865CB0E0](v56, v57);
 
-    LODWORD(v645) = v54;
+    LODWORD(v644) = v54;
     if (v54)
     {
       v58 = 0;
@@ -2926,19 +2926,19 @@ uint64_t ByteCountFormatStyle.Attributed._format(_:doubleValue:)@<X0>(uint64_t a
 
     MEMORY[0x1865CB0E0](v58, v59);
 
-    v61 = *(&v679 + 1);
-    v60 = v679;
-    v704[0] = *(v658 + 8);
-    outlined init with copy of Locale(v704, &v679);
-    v62 = *(&v704[0] + 1);
+    v61 = *(&v678 + 1);
+    v60 = v678;
+    v703[0] = *(v657 + 8);
+    outlined init with copy of Locale(v703, &v678);
+    v62 = *(&v703[0] + 1);
     ObjectType = swift_getObjectType();
     v64 = *(v62 + 472);
-    outlined init with copy of ByteCountFormatStyle.Attributed(&v657, &v679);
-    outlined init with copy of ByteCountFormatStyle.Attributed(&v657, &v679);
+    outlined init with copy of ByteCountFormatStyle.Attributed(&v656, &v678);
+    outlined init with copy of ByteCountFormatStyle.Attributed(&v656, &v678);
 
-    v648 = v64;
-    *&v649 = ObjectType;
-    *&v650 = v62 + 472;
+    v647 = v64;
+    *&v648 = ObjectType;
+    *&v649 = v62 + 472;
     v65 = (v64)(ObjectType, v62);
     v67 = v66;
     if (one-time initialization token for cache != -1)
@@ -2948,22 +2948,22 @@ uint64_t ByteCountFormatStyle.Attributed._format(_:doubleValue:)@<X0>(uint64_t a
 
     while (1)
     {
-      v46 = &v610;
+      v46 = &v609;
       v31 = qword_1EA7AEDE0;
-      *&v647 = static ICUByteCountNumberFormatter.cache;
-      *&v669[0] = v60;
-      *(&v669[0] + 1) = v61;
-      *&v652 = v65;
-      *&v669[1] = v65;
-      *(&v669[1] + 1) = v67;
+      *&v646 = static ICUByteCountNumberFormatter.cache;
+      *&v668[0] = v60;
+      *(&v668[0] + 1) = v61;
+      *&v651 = v65;
+      *&v668[1] = v65;
+      *(&v668[1] + 1) = v67;
       MEMORY[0x1EEE9AC00](v65);
-      *(&v610 - 2) = v669;
+      *(&v609 - 2) = v668;
       os_unfair_lock_lock((v31 + 24));
-      partial apply for specialized closure #1 in FormatterCache.formatter(for:creator:)(v31 + 16, &v679);
-      *&v651 = v31;
+      partial apply for specialized closure #1 in FormatterCache.formatter(for:creator:)(v31 + 16, &v678);
+      *&v650 = v31;
       os_unfair_lock_unlock((v31 + 24));
-      v640 = v679;
-      if (v679 == 1)
+      v639 = v678;
+      if (v678 == 1)
       {
         break;
       }
@@ -2971,44 +2971,44 @@ uint64_t ByteCountFormatStyle.Attributed._format(_:doubleValue:)@<X0>(uint64_t a
 LABEL_137:
 
       swift_bridgeObjectRelease_n();
-      outlined destroy of ByteCountFormatStyle.Attributed(&v657);
-      if (!v640)
+      outlined destroy of ByteCountFormatStyle.Attributed(&v656);
+      if (!v639)
       {
-        outlined destroy of ByteCountFormatStyle.Attributed(&v657);
-        outlined destroy of ByteCountFormatStyle.Attributed(&v657);
+        outlined destroy of ByteCountFormatStyle.Attributed(&v656);
+        outlined destroy of ByteCountFormatStyle.Attributed(&v656);
         BigString.init(_:)();
-        result = AttributedString.init(_:attributes:)(&v679, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], v669);
-        v284 = *&v669[0];
+        result = AttributedString.init(_:attributes:)(&v678, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], v668);
+        v284 = *&v668[0];
         goto LABEL_365;
       }
 
       v184 = ICUNumberFormatterBase.attributedFormatPositions(_:)(0, 0, 0);
       if (!v185)
       {
-        *&v679 = 0;
+        *&v678 = 0;
         dispatch thunk of CustomStringConvertible.description.getter();
         BigString.init(_:)();
-        AttributedString.init(_:attributes:)(&v679, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], v669);
+        AttributedString.init(_:attributes:)(&v678, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], v668);
 
-        v61 = *&v669[0];
+        v61 = *&v668[0];
 LABEL_198:
-        *&v701 = v61;
-        v669[0] = v704[0];
-        v251 = ByteCountFormatStyle.Attributed.useSpelloutZero(forLocale:unit:)(v669, v645);
+        *&v700 = v61;
+        v668[0] = v703[0];
+        v251 = ByteCountFormatStyle.Attributed.useSpelloutZero(forLocale:unit:)(v668, v644);
         swift_unknownObjectRelease();
         if ((v251 & 1) == 0)
         {
-          outlined destroy of ByteCountFormatStyle.Attributed(&v657);
+          outlined destroy of ByteCountFormatStyle.Attributed(&v656);
 
-          *v632 = v61;
+          *v631 = v61;
           return result;
         }
 
-        v252 = v629;
-        *v629 = 770;
+        v252 = v628;
+        *v628 = 770;
         swift_storeEnumTagMultiPayload();
-        v669[0] = v704[0];
-        v253 = specialized static ICULegacyNumberFormatter.formatter(for:locale:lenient:)(v252, v669, 0);
+        v668[0] = v703[0];
+        v253 = specialized static ICULegacyNumberFormatter.formatter(for:locale:lenient:)(v252, v668, 0);
         swift_unknownObjectRelease();
         _s10Foundation16AttributedStringV4RunsVWOhTm_0(v252, type metadata accessor for ICULegacyNumberFormatter.NumberFormatType);
         if (!v253)
@@ -3016,7 +3016,7 @@ LABEL_198:
           goto LABEL_364;
         }
 
-        specialized _withResizingUCharBuffer(initialSize:_:)(32);
+        specialized _withResizingUCharBuffer(initialSize:_:)(32, v253, 0);
         v255 = v254;
 
         if (!v255)
@@ -3024,14 +3024,14 @@ LABEL_198:
           goto LABEL_260;
         }
 
-        *(&v644 + 1) = v253;
+        *(&v643 + 1) = v253;
         BigString.init(_:)();
-        AttributedString.init(_:attributes:)(v716, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v694);
+        AttributedString.init(_:attributes:)(v715, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v693);
         _s10Foundation16AttributedStringVy5ValueQzSgxmcAA0bC3KeyRzluisAA15AttributeScopesO0A10AttributesV09ByteCountF0O_Tt0B5(10);
         v256 = *(v61 + 40);
-        *v659 = *(v61 + 24);
-        *&v659[16] = v256;
-        *&v659[32] = *(v61 + 56);
+        *v658 = *(v61 + 24);
+        *&v658[16] = v256;
+        *&v658[32] = *(v61 + 56);
         v257 = BigString.startIndex.getter();
         v259 = v258;
         v261 = v260;
@@ -3043,117 +3043,117 @@ LABEL_198:
           goto LABEL_406;
         }
 
-        *&v669[0] = v257;
-        *(&v669[0] + 1) = v259;
-        *&v669[1] = v261;
-        *(&v669[1] + 1) = v263;
-        v670 = v264;
-        *v671 = v265;
-        *&v671[8] = v266;
-        *&v671[16] = v267;
+        *&v668[0] = v257;
+        *(&v668[0] + 1) = v259;
+        *&v668[1] = v261;
+        *(&v668[1] + 1) = v263;
+        v669 = v264;
+        *v670 = v265;
+        *&v670[8] = v266;
+        *&v670[16] = v267;
         lazy protocol witness table accessor for type BigString.Index and conformance BigString.Index();
 
         RangeSet.init(_:)();
-        *v625 = v61;
+        *v624 = v61;
         RangeSet.init()();
-        v268 = v631;
+        v268 = v630;
         RangeSet.ranges.getter();
-        v269 = v633;
-        v270 = v637;
-        v271 = v646;
-        (*(v633 + 16))(v637, v268, v646);
-        v272 = *(v623 + 36);
-        v273 = lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges);
+        v269 = v632;
+        v270 = v636;
+        v271 = v645;
+        (*(v632 + 16))(v636, v268, v645);
+        v272 = *(v622 + 36);
+        v273 = lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, MEMORY[0x1E69E7BC8]);
         dispatch thunk of Collection.startIndex.getter();
         v274 = *(v269 + 8);
-        v633 = v269 + 8;
-        v645 = v274;
+        v632 = v269 + 8;
+        v644 = v274;
         v274(v268, v271);
         dispatch thunk of Collection.endIndex.getter();
-        if (*(v270 + v272) != *&v669[0])
+        if (*(v270 + v272) != *&v668[0])
         {
-          v648 = v273;
-          *&v647 = v272;
+          v647 = v273;
+          *&v646 = v272;
           do
           {
             v423 = dispatch thunk of Collection.subscript.read();
             v425 = v424[5];
-            *&v653 = v424[4];
-            *&v652 = v425;
+            *&v652 = v424[4];
+            *&v651 = v425;
             v426 = v424[7];
-            *&v651 = v424[6];
-            *&v650 = v426;
-            v423(v669, 0);
+            *&v650 = v424[6];
+            *&v649 = v426;
+            v423(v668, 0);
             dispatch thunk of Collection.formIndex(after:)();
             v427 = *(v61 + 40);
-            v690 = *(v61 + 24);
-            v691 = v427;
-            v692 = *(v61 + 56);
+            v689 = *(v61 + 24);
+            v690 = v427;
+            v691 = *(v61 + 56);
             swift_unknownObjectRetain();
             v428 = BigString.UnicodeScalarView.index(roundingDown:)();
-            *&v649 = v429;
+            *&v648 = v429;
             v431 = v430;
             v433 = v432;
             swift_unknownObjectRelease();
             v434 = *(v61 + 40);
-            v728 = *(v61 + 24);
-            v729 = v434;
-            v730 = *(v61 + 56);
+            v727 = *(v61 + 24);
+            v728 = v434;
+            v729 = *(v61 + 56);
             swift_unknownObjectRetain();
             v435 = BigString.UnicodeScalarView.index(roundingDown:)();
             v437 = v436;
             v439 = v438;
             v441 = v440;
-            v271 = v646;
+            v271 = v645;
             swift_unknownObjectRelease();
-            *&v669[0] = v428;
-            *(&v669[0] + 1) = v649;
-            *&v669[1] = v431;
-            *(&v669[1] + 1) = v433;
-            v670 = v435;
-            *v671 = v437;
-            *&v671[8] = v439;
-            *&v671[16] = v441;
+            *&v668[0] = v428;
+            *(&v668[0] + 1) = v648;
+            *&v668[1] = v431;
+            *(&v668[1] + 1) = v433;
+            v669 = v435;
+            *v670 = v437;
+            *&v670[8] = v439;
+            *&v670[16] = v441;
             if ((v435 ^ v428) >= 0x400)
             {
               v442 = RangeSet._ranges.modify();
               RangeSet.Ranges._insert(contentsOf:)();
-              v442(v665, 0);
+              v442(v664, 0);
             }
 
-            v270 = v637;
+            v270 = v636;
             dispatch thunk of Collection.endIndex.getter();
           }
 
-          while (*(v270 + v647) != *&v669[0]);
+          while (*(v270 + v646) != *&v668[0]);
         }
 
-        outlined destroy of TermOfAddress?(v270, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
-        v275 = v624;
-        v276 = v625;
-        v277 = *(v624 + 24);
+        outlined destroy of TermOfAddress?(v270, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
+        v275 = v623;
+        v276 = v624;
+        v277 = *(v623 + 24);
         v278 = v271;
-        v279 = v639;
-        (*(v626 + 16))(v625 + v277, v635, v639);
-        v280 = v631;
+        v279 = v638;
+        (*(v625 + 16))(&v624[v277], v634, v638);
+        v280 = v630;
         RangeSet.ranges.getter();
         v281 = RangeSet.Ranges.count.getter();
-        v645(v280, v278);
+        v644(v280, v278);
         v282 = *(v275 + 28);
-        LODWORD(v647) = v281 > 1;
-        *(v276 + v282) = v647;
-        v283 = v612;
+        LODWORD(v646) = v281 > 1;
+        v276[v282] = v646;
+        v283 = v611;
         RangeSet.ranges.getter();
         dispatch thunk of Collection.startIndex.getter();
         dispatch thunk of Collection.endIndex.getter();
-        if (*v665 == *&v669[0])
+        if (*v664 == *&v668[0])
         {
-          v645(v283, v278);
+          v644(v283, v278);
           v237 = v279;
 LABEL_269:
           v448 = *(v61 + 72);
-          v239 = v705;
-          v244 = v625;
+          v239 = v704;
+          v244 = v624;
           if (!v448)
           {
             goto LABEL_272;
@@ -3161,7 +3161,7 @@ LABEL_269:
 
           v449 = *(v448 + 18);
 LABEL_273:
-          *&v653 = *(v61 + 96);
+          *&v652 = *(v61 + 96);
           v450 = *(v61 + 40);
           *(v239 + 352) = *(v61 + 24);
           *(v239 + 368) = v450;
@@ -3170,39 +3170,39 @@ LABEL_273:
           v454 = v451;
           v455 = v452;
           v456 = v453;
-          *&v652 = v457;
+          *&v651 = v457;
           v458 = *(v61 + 72);
-          *&v651 = *(v61 + 96);
+          *&v650 = *(v61 + 96);
           if (v458)
           {
-            *&v650 = *(v458 + 18);
-            *&v649 = v453;
+            *&v649 = *(v458 + 18);
+            *&v648 = v453;
             v459 = v452;
             v460 = v451;
             v461 = v237;
-            v462 = *(v626 + 8);
+            v462 = *(v625 + 8);
             swift_unknownObjectRetain();
-            v462(v616, v461);
+            v462(v615, v461);
             v463 = v461;
             v454 = v460;
             v455 = v459;
-            v456 = v649;
-            v462(v635, v463);
+            v456 = v648;
+            v462(v634, v463);
             swift_unknownObjectRelease();
           }
 
           else
           {
-            v464 = *(v626 + 8);
-            v464(v616, v237);
-            v464(v635, v237);
-            *&v650 = 0;
+            v464 = *(v625 + 8);
+            v464(v615, v237);
+            v464(v634, v237);
+            *&v649 = 0;
           }
 
           v465 = *(v61 + 40);
-          v716[3] = *(v61 + 24);
-          v716[4] = v465;
-          v716[5] = *(v61 + 56);
+          v715[3] = *(v61 + 24);
+          v715[4] = v465;
+          v715[5] = *(v61 + 56);
           v466 = BigString.startIndex.getter();
           v470 = 0;
           v471 = 0;
@@ -3213,109 +3213,109 @@ LABEL_273:
           v476 = v454;
           v477 = v455;
           v478 = v456;
-          v479 = v652;
-          v480 = v652;
+          v479 = v651;
+          v480 = v651;
           v481 = v466;
           v482 = v467;
           v483 = v468;
           v484 = v469;
           v485 = -1;
-          v486 = v653;
+          v486 = v652;
         }
 
         else
         {
           v443 = dispatch thunk of Collection.subscript.read();
           v445 = *v444;
-          v643 = v444[1];
-          *&v644 = v445;
+          v642 = v444[1];
+          *&v643 = v445;
           v446 = v444[2];
-          v641 = v444[3];
-          v642 = v446;
-          v443(v669, 0);
-          v645(v283, v278);
-          v447 = v610;
+          v640 = v444[3];
+          v641 = v446;
+          v443(v668, 0);
+          v644(v283, v278);
+          v447 = v609;
           RangeSet.ranges.getter();
           if (dispatch thunk of Collection.isEmpty.getter())
           {
             v237 = v279;
-            v645(v447, v278);
+            v644(v447, v278);
             goto LABEL_269;
           }
 
-          v621 = v277;
+          v620 = v277;
           dispatch thunk of Collection.endIndex.getter();
-          lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges);
+          lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, MEMORY[0x1E69E7BB0]);
           dispatch thunk of BidirectionalCollection.index(before:)();
           v492 = dispatch thunk of Collection.subscript.read();
           v481 = v493[4];
           v494 = v493[5];
           v495 = v493[6];
           v496 = v493[7];
-          v492(v669, 0);
+          v492(v668, 0);
           v497 = v447;
-          v498 = v645;
-          v645(v497, v278);
-          AttributedString.Guts.findRun(at:)(v644, v641, v669);
-          *&v653 = *&v669[0];
-          v624 = *(&v669[1] + 1);
-          v628 = *&v669[1];
-          v637 = *&v671[8];
-          v638 = *v671;
-          v648 = *(&v669[0] + 1);
-          *&v649 = *&v671[16];
-          *&v652 = *&v671[24];
+          v498 = v644;
+          v644(v497, v278);
+          AttributedString.Guts.findRun(at:)(v643, v640, v668);
+          *&v652 = *&v668[0];
+          v623 = *(&v668[1] + 1);
+          v627 = *&v668[1];
+          v636 = *&v670[8];
+          v637 = *v670;
+          v647 = *(&v668[0] + 1);
+          *&v648 = *&v670[16];
+          *&v651 = *&v670[24];
           v499 = *(v61 + 40);
-          v721 = *(v61 + 24);
-          v722 = v499;
-          v723 = *(v61 + 56);
+          v720 = *(v61 + 24);
+          v721 = v499;
+          v722 = *(v61 + 56);
           v500 = BigString.endIndex.getter();
-          v636 = v494;
-          v634 = v495;
-          v629 = v496;
+          v635 = v494;
+          v633 = v495;
+          v628 = v496;
           if ((v500 ^ v481) > 0x3FF)
           {
-            AttributedString.Guts.findRun(at:)(v481, v496, v669);
-            *&v650 = *(&v669[0] + 1);
-            *&v651 = *&v669[0];
-            v623 = *(&v669[1] + 1);
-            v474 = *&v669[1];
-            v646 = *v671;
-            v619 = *&v671[16];
-            v620 = *&v671[8];
-            v618 = *&v671[24];
-            v576 = v625;
-            v577 = v631;
-            v578 = v639;
+            AttributedString.Guts.findRun(at:)(v481, v496, v668);
+            *&v649 = *(&v668[0] + 1);
+            *&v650 = *&v668[0];
+            v622 = *(&v668[1] + 1);
+            v474 = *&v668[1];
+            v645 = *v670;
+            v618 = *&v670[16];
+            v619 = *&v670[8];
+            v617 = *&v670[24];
+            v576 = v624;
+            v577 = v630;
+            v578 = v638;
             RangeSet.ranges.getter();
             v485 = RangeSet.Ranges.count.getter();
-            v579 = *(v626 + 8);
-            v579(v616, v578);
-            v645(v577, v278);
-            v579(v635, v578);
-            v473 = v623;
-            v482 = v636;
-            v455 = v637;
+            v579 = *(v625 + 8);
+            v579(v615, v578);
+            v644(v577, v278);
+            v579(v634, v578);
+            v473 = v622;
+            v482 = v635;
+            v455 = v636;
             v244 = v576;
-            v469 = v618;
-            v468 = v619;
-            v467 = v620;
-            v466 = v646;
+            v469 = v617;
+            v468 = v618;
+            v467 = v619;
+            v466 = v645;
             v475 = 0;
-            v472 = v647;
-            v449 = v648;
-            v456 = v649;
-            v477 = v643;
-            v476 = v644;
-            v486 = v653;
-            v480 = v641;
-            v478 = v642;
-            v454 = v638;
-            v479 = v652;
-            v483 = v634;
-            v471 = v628;
-            v484 = v629;
-            v470 = v624;
+            v472 = v646;
+            v449 = v647;
+            v456 = v648;
+            v477 = v642;
+            v476 = v643;
+            v486 = v652;
+            v480 = v640;
+            v478 = v641;
+            v454 = v637;
+            v479 = v651;
+            v483 = v633;
+            v471 = v627;
+            v484 = v628;
+            v470 = v623;
           }
 
           else
@@ -3331,49 +3331,49 @@ LABEL_273:
               v502 = 0;
             }
 
-            v623 = v502;
+            v622 = v502;
             v503 = *(v61 + 96);
             v504 = swift_unknownObjectRetain();
-            *&v651 = v503;
-            *&v650 = specialized Rope._endPath.getter(v504);
+            *&v650 = v503;
+            *&v649 = specialized Rope._endPath.getter(v504);
             if (v501)
             {
               swift_unknownObjectRelease();
             }
 
-            v244 = v625;
-            v505 = v631;
-            v506 = v639;
+            v244 = v624;
+            v505 = v630;
+            v506 = v638;
             RangeSet.ranges.getter();
-            v507 = v646;
+            v507 = v645;
             v485 = RangeSet.Ranges.count.getter();
-            v508 = *(v626 + 8);
-            v508(v616, v506);
+            v508 = *(v625 + 8);
+            v508(v615, v506);
             v498(v505, v507);
-            v508(v635, v506);
+            v508(v634, v506);
             v475 = 0;
             v474 = 0;
             v466 = v481;
-            v482 = v636;
-            v455 = v637;
-            v467 = v636;
-            v483 = v634;
-            v468 = v634;
-            v471 = v628;
-            v484 = v629;
-            v469 = v629;
-            v472 = v647;
-            v449 = v648;
-            v456 = v649;
-            v477 = v643;
-            v476 = v644;
-            v486 = v653;
-            v480 = v641;
-            v478 = v642;
-            v454 = v638;
-            v479 = v652;
-            v473 = v623;
-            v470 = v624;
+            v482 = v635;
+            v455 = v636;
+            v467 = v635;
+            v483 = v633;
+            v468 = v633;
+            v471 = v627;
+            v484 = v628;
+            v469 = v628;
+            v472 = v646;
+            v449 = v647;
+            v456 = v648;
+            v477 = v642;
+            v476 = v643;
+            v486 = v652;
+            v480 = v640;
+            v478 = v641;
+            v454 = v637;
+            v479 = v651;
+            v473 = v622;
+            v470 = v623;
           }
         }
 
@@ -3392,10 +3392,10 @@ LABEL_273:
         *(v244 + 13) = v475;
         *(v244 + 112) = 0;
         *(v244 + 113) = v472;
-        v487 = v651;
+        v487 = v650;
         *(v244 + 15) = v473;
         *(v244 + 16) = v487;
-        *(v244 + 17) = v650;
+        *(v244 + 17) = v649;
         *(v244 + 18) = v474;
         *(v244 + 19) = v466;
         *(v244 + 20) = v467;
@@ -3408,13 +3408,13 @@ LABEL_273:
         *(v244 + 27) = v485;
         *(v244 + 224) = 0;
         *(v244 + 225) = v472;
-        v488 = v613;
-        outlined init with copy of AttributedString.Runs(v244, v613);
+        v488 = v612;
+        outlined init with copy of AttributedString.Runs(v244, v612);
         v489 = v488;
-        v490 = v614;
-        outlined init with copy of AttributedString.Runs(v489, v614);
-        *(v490 + *(v630 + 36)) = &outlined read-only object #0 of ByteCountFormatStyle.Attributed._format(_:doubleValue:);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMd);
+        v490 = v613;
+        outlined init with copy of AttributedString.Runs(v489, v613);
+        *(v490 + *(v629 + 36)) = &outlined read-only object #0 of ByteCountFormatStyle.Attributed._format(_:doubleValue:);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMd, &_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMR);
         v91 = static _SetStorage.allocate(capacity:)();
         v491 = v91 + 56;
         v90 = qword_1EEECE950;
@@ -3540,7 +3540,7 @@ LABEL_296:
           v514 = 1 << v511;
           if ((v513 & (1 << v511)) == 0)
           {
-            v244 = v625;
+            v244 = v624;
 LABEL_310:
             *(v491 + 8 * v512) = v513 | v514;
             v523 = (*(v91 + 48) + 16 * v511);
@@ -3552,8 +3552,8 @@ LABEL_310:
             if (!v179)
             {
               *(v91 + 16) = v525;
-              v526 = v614;
-              v527 = v611;
+              v526 = v613;
+              v527 = v610;
               goto LABEL_361;
             }
 
@@ -3573,14 +3573,14 @@ LABEL_408:
       v188 = v186;
       v189 = v185;
 
-      *&v644 = v187;
-      *(&v644 + 1) = v189;
+      *&v643 = v187;
+      *(&v643 + 1) = v189;
       BigString.init(_:)();
-      v65 = AttributedString.init(_:attributes:)(&v710, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v679);
-      v61 = v679;
-      v60 = &v657;
-      v643 = *(v188 + 16);
-      if (!v643)
+      v65 = AttributedString.init(_:attributes:)(&v709, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v678);
+      v61 = v678;
+      v60 = &v656;
+      v642 = *(v188 + 16);
+      if (!v642)
       {
 LABEL_196:
 
@@ -3588,24 +3588,24 @@ LABEL_196:
       }
 
       v190 = 0;
-      v642 = v188 + 32;
-      v638 = "ecified format, such as ";
-      v634 = "Foundation.NumberFormatSymbol";
-      v636 = "nguage";
-      v647 = xmmword_1812187D0;
-      v641 = v188;
+      v641 = v188 + 32;
+      v637 = "ecified format, such as ";
+      v633 = "Foundation.NumberFormatSymbol";
+      v635 = "nguage";
+      v646 = xmmword_1812187D0;
+      v640 = v188;
       while (v190 < *(v188 + 16))
       {
-        v648 = v190;
-        v191 = *(v642 + 24 * v190);
-        v67 = *(&v644 + 1);
-        v192 = v644;
-        v669[0] = v644;
+        v647 = v190;
+        v191 = *(v641 + 24 * v190);
+        v67 = *(&v643 + 1);
+        v192 = v643;
+        v668[0] = v643;
         v60 = lazy protocol witness table accessor for type String and conformance String();
 
         v62 = MEMORY[0x1E69E6158];
         v193 = String.Index.init<A>(utf16Offset:in:)();
-        v669[0] = __PAIR128__(v67, v192);
+        v668[0] = __PAIR128__(v67, v192);
 
         v65 = String.Index.init<A>(utf16Offset:in:)();
         if (v65 >> 14 < v193 >> 14)
@@ -3615,17 +3615,17 @@ LABEL_196:
 
         v194 = v65;
 
-        _sSn10FoundationAA16AttributedStringV5IndexVRszrlE6_range2inSnyAEGSgSnySSADVG_qd__tcAA0bC8ProtocolRd__lufCAC_Tt2B5(v193, v194, v61, v669);
-        if (*(&v669[1] + 1) == 2)
+        _sSn10FoundationAA16AttributedStringV5IndexVRszrlE6_range2inSnyAEGSgSnySSADVG_qd__tcAA0bC8ProtocolRd__lufCAC_Tt2B5(v193, v194, v61, v668);
+        if (*(&v668[1] + 1) == 2)
         {
           goto LABEL_408;
         }
 
-        v728 = MEMORY[0x1E69E7CC8];
-        v651 = v669[0];
-        v652 = v669[1];
-        v649 = *&v671[16];
-        v650 = *v671;
+        v727 = MEMORY[0x1E69E7CC8];
+        v650 = v668[0];
+        v651 = v668[1];
+        v648 = *&v670[16];
+        v649 = *v670;
         if (v191 <= 5)
         {
           switch(v191)
@@ -3636,16 +3636,16 @@ LABEL_196:
             case 1:
               v196 = 1;
 LABEL_162:
-              *v666 = &type metadata for AttributeScopes.FoundationAttributes.NumberFormatAttributes.NumberPartAttribute.NumberPart;
-              *&v666[8] = lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.NumberFormatAttributes.NumberPartAttribute.NumberPart and conformance AttributeScopes.FoundationAttributes.NumberFormatAttributes.NumberPartAttribute.NumberPart();
-              v665[0] = v196;
-              *&v666[16] = v647;
-              v666[32] = 1;
+              *v665 = &type metadata for AttributeScopes.FoundationAttributes.NumberFormatAttributes.NumberPartAttribute.NumberPart;
+              *&v665[8] = lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.NumberFormatAttributes.NumberPartAttribute.NumberPart and conformance AttributeScopes.FoundationAttributes.NumberFormatAttributes.NumberPartAttribute.NumberPart();
+              v664[0] = v196;
+              *&v665[16] = v646;
+              v665[32] = 1;
               v198 = 0xD00000000000001BLL;
-              *&v667 = 0;
-              v197 = v634 | 0x8000000000000000;
+              *&v666 = 0;
+              v197 = v633 | 0x8000000000000000;
 LABEL_163:
-              specialized AttributedString._AttributeStorage.subscript.setter(v665, v198, v197);
+              specialized AttributedString._AttributeStorage.subscript.setter(v664, v198, v197);
               break;
             case 2:
               v195 = 2;
@@ -3668,13 +3668,13 @@ LABEL_163:
             }
 
 LABEL_160:
-            *v666 = &type metadata for AttributeScopes.FoundationAttributes.NumberFormatAttributes.SymbolAttribute.Symbol;
-            *&v666[8] = lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.NumberFormatAttributes.SymbolAttribute.Symbol and conformance AttributeScopes.FoundationAttributes.NumberFormatAttributes.SymbolAttribute.Symbol();
-            v665[0] = v195;
-            *&v666[16] = v647;
-            v666[32] = 1;
-            *&v667 = 0;
-            v197 = v638 | 0x8000000000000000;
+            *v665 = &type metadata for AttributeScopes.FoundationAttributes.NumberFormatAttributes.SymbolAttribute.Symbol;
+            *&v665[8] = lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.NumberFormatAttributes.SymbolAttribute.Symbol and conformance AttributeScopes.FoundationAttributes.NumberFormatAttributes.SymbolAttribute.Symbol();
+            v664[0] = v195;
+            *&v665[16] = v646;
+            v665[32] = 1;
+            *&v666 = 0;
+            v197 = v637 | 0x8000000000000000;
             v198 = 0xD00000000000001DLL;
             goto LABEL_163;
           }
@@ -3692,37 +3692,37 @@ LABEL_160:
           }
         }
 
-        AttributeScopes.FoundationAttributes.ByteCountAttribute.Component.init(unumberFormatField:unit:)(v191, v645, v665);
-        v199 = v665[0];
-        if (v665[0] != 12)
+        AttributeScopes.FoundationAttributes.ByteCountAttribute.Component.init(unumberFormatField:unit:)(v191, v644, v664);
+        v199 = v664[0];
+        if (v664[0] != 12)
         {
-          *v666 = &type metadata for AttributeScopes.FoundationAttributes.ByteCountAttribute.Component;
-          *&v666[8] = lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.ByteCountAttribute.Component and conformance AttributeScopes.FoundationAttributes.ByteCountAttribute.Component();
-          v665[0] = v199;
-          *&v666[16] = v647;
-          v666[32] = 1;
-          *&v667 = 0;
-          specialized AttributedString._AttributeStorage.subscript.setter(v665, 0xD00000000000001DLL, v636 | 0x8000000000000000);
+          *v665 = &type metadata for AttributeScopes.FoundationAttributes.ByteCountAttribute.Component;
+          *&v665[8] = lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.ByteCountAttribute.Component and conformance AttributeScopes.FoundationAttributes.ByteCountAttribute.Component();
+          v664[0] = v199;
+          *&v665[16] = v646;
+          v665[32] = 1;
+          *&v666 = 0;
+          specialized AttributedString._AttributeStorage.subscript.setter(v664, 0xD00000000000001DLL, v635 | 0x8000000000000000);
         }
 
-        v200 = v728;
+        v200 = v727;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        *&v653 = *(&v200 + 1);
+        *&v652 = *(&v200 + 1);
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
           v202 = *(v61 + 40);
-          v676[0] = *(v61 + 24);
-          v676[1] = v202;
-          v677 = *(v61 + 56);
+          v675[0] = *(v61 + 24);
+          v675[1] = v202;
+          v676 = *(v61 + 56);
           v203 = *(v61 + 72);
           v204 = *(v61 + 80);
           v205 = *(v61 + 88);
           v206 = *(v61 + 96);
           type metadata accessor for AttributedString.Guts();
           swift_allocObject();
-          outlined init with copy of BigString(v676, v665);
+          outlined init with copy of BigString(v675, v664);
           swift_unknownObjectRetain();
-          v207 = AttributedString.Guts.init(string:runs:)(v676, v203, v204, v205, v206);
+          v207 = AttributedString.Guts.init(string:runs:)(v675, v203, v204, v205, v206);
 
           v61 = v207;
         }
@@ -3735,45 +3735,45 @@ LABEL_160:
         *(v61 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
         v208 = *(v61 + 24);
         v209 = *(v61 + 56);
-        v662 = *(v61 + 40);
-        v663 = v209;
-        v661 = v208;
+        v661 = *(v61 + 40);
+        v662 = v209;
+        v660 = v208;
         v210 = BigString.startIndex.getter();
         v212 = v211;
         v62 = v213;
         v215 = v214;
         v216 = BigString.endIndex.getter();
-        *v665 = v61;
-        *&v665[8] = v210;
-        *&v665[16] = v212;
-        *v666 = v62;
-        *&v666[8] = v215;
-        *&v666[16] = v216;
-        *&v666[24] = v217;
-        *&v666[32] = v218;
-        v667 = v219;
+        *v664 = v61;
+        *&v664[8] = v210;
+        *&v664[16] = v212;
+        *v665 = v62;
+        *&v665[8] = v215;
+        *&v665[16] = v216;
+        *&v665[24] = v217;
+        *&v665[32] = v218;
+        v666 = v219;
 
-        outlined destroy of AttributedString.CharacterView(v665);
-        v60 = v705;
+        outlined destroy of AttributedString.CharacterView(v664);
+        v60 = v704;
+        v723 = v650;
         v724 = v651;
-        v725 = v652;
-        v726 = v650;
-        v727 = v649;
+        v725 = v649;
+        v726 = v648;
         v220 = *(v61 + 40);
-        v734 = *(v61 + 24);
-        v735 = v220;
-        v736 = *(v61 + 56);
+        v733 = *(v61 + 24);
+        v734 = v220;
+        v735 = *(v61 + 56);
         swift_unknownObjectRetain();
 
         BigString.UnicodeScalarView.subscript.getter();
         swift_unknownObjectRelease();
-        outlined destroy of BigSubstring.UnicodeScalarView(&v679);
-        *&v659[32] = v685;
-        *&v659[48] = v686;
+        outlined destroy of BigSubstring.UnicodeScalarView(&v678);
+        *&v658[32] = v684;
+        *&v658[48] = v685;
+        v689 = v682;
         v690 = v683;
         v691 = v684;
         v692 = v685;
-        v693 = v686;
         if (one-time initialization token for currentIdentity != -1)
         {
           swift_once();
@@ -3791,9 +3791,9 @@ LABEL_160:
         *(v221 + 16) = v67;
         os_unfair_lock_unlock((v221 + 24));
         BigString.init()();
-        *v659 = 0;
-        MEMORY[0x1865D26B0](v659, 8);
-        v223 = *v659;
+        *v658 = 0;
+        MEMORY[0x1865D26B0](v658, 8);
+        v223 = *v658;
         type metadata accessor for AttributedString.Guts();
         v62 = swift_allocObject();
         v65 = BigString.isEmpty.getter();
@@ -3803,10 +3803,10 @@ LABEL_160:
         }
 
         *(v62 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-        v224 = v714;
-        *(v62 + 24) = v713;
+        v224 = v713;
+        *(v62 + 24) = v712;
         *(v62 + 40) = v224;
-        *(v62 + 56) = v715;
+        *(v62 + 56) = v714;
         *(v62 + 72) = 0;
         *(v62 + 80) = 0;
         *(v62 + 88) = 0;
@@ -3816,31 +3816,31 @@ LABEL_160:
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
           v225 = *(v61 + 40);
-          v731 = *(v61 + 24);
-          v732 = v225;
-          v733 = *(v61 + 56);
+          v730 = *(v61 + 24);
+          v731 = v225;
+          v732 = *(v61 + 56);
           v226 = *(v61 + 72);
           v227 = *(v61 + 80);
           v228 = v67;
           v229 = *(v61 + 88);
           v230 = *(v61 + 96);
           swift_allocObject();
-          outlined init with copy of BigString(&v731, v659);
+          outlined init with copy of BigString(&v730, v658);
           swift_unknownObjectRetain();
           v231 = v229;
           v67 = v228;
-          v232 = AttributedString.Guts.init(string:runs:)(&v731, v226, v227, v231, v230);
+          v232 = AttributedString.Guts.init(string:runs:)(&v730, v226, v227, v231, v230);
 
           v61 = v232;
         }
 
+        v716 = v689;
         v717 = v690;
         v718 = v691;
         v719 = v692;
-        v720 = v693;
-        AttributedString.Guts.unicodeScalarRange(roundingDown:)(&v697);
-        v233 = v697 >> 11;
-        v234 = v699 >> 11;
+        AttributedString.Guts.unicodeScalarRange(roundingDown:)(&v696);
+        v233 = v696 >> 11;
+        v234 = v698 >> 11;
 
         specialized AttributedString._InternalRunsSlice.updateEach(with:)(v61, v233, v234, v200, 0);
 
@@ -3850,9 +3850,9 @@ LABEL_160:
           goto LABEL_142;
         }
 
-        *&v649 = v234;
-        *&v650 = v233;
-        *&v651 = v67;
+        *&v648 = v234;
+        *&v649 = v233;
+        *&v650 = v67;
         v235 = 1 << *(v200 + 32);
         if (v235 < 64)
         {
@@ -3868,7 +3868,7 @@ LABEL_160:
         v238 = (v235 + 63) >> 6;
 
         v240 = 0;
-        *&v652 = MEMORY[0x1E69E7CC0];
+        *&v651 = MEMORY[0x1E69E7CC0];
         if (v237)
         {
 LABEL_181:
@@ -3878,11 +3878,11 @@ LABEL_181:
             {
               v241 = __clz(__rbit64(v237));
               v237 &= v237 - 1;
-              outlined init with copy of AttributedString._AttributeValue(*(v200 + 56) + 72 * (v241 | (*(&v200 + 1) << 6)), v659);
-              v242 = *&v659[40];
-              v243 = *&v659[48];
-              outlined copy of AttributedString.AttributeRunBoundaries?(*&v659[40], *&v659[48]);
-              outlined destroy of AttributedString._AttributeValue(v659);
+              outlined init with copy of AttributedString._AttributeValue(*(v200 + 56) + 72 * (v241 | (*(&v200 + 1) << 6)), v658);
+              v242 = *&v658[40];
+              v243 = *&v658[48];
+              outlined copy of AttributedString.AttributeRunBoundaries?(*&v658[40], *&v658[48]);
+              outlined destroy of AttributedString._AttributeValue(v658);
               if (v243 == 1)
               {
                 break;
@@ -3890,24 +3890,24 @@ LABEL_181:
 
               if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
               {
-                *&v652 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v652 + 16) + 1, 1, v652);
+                *&v651 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v651 + 16) + 1, 1, v651);
               }
 
-              v239 = *(v652 + 16);
-              v246 = *(v652 + 24);
+              v239 = *(v651 + 16);
+              v246 = *(v651 + 24);
               v247 = v239 + 1;
               if (v239 >= v246 >> 1)
               {
-                v620 = *(v652 + 16);
-                v621 = v239 + 1;
-                v250 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v246 > 1), v239 + 1, 1, v652);
-                v239 = v620;
-                v247 = v621;
-                *&v652 = v250;
+                v619 = *(v651 + 16);
+                v620 = v239 + 1;
+                v250 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v246 > 1), v239 + 1, 1, v651);
+                v239 = v619;
+                v247 = v620;
+                *&v651 = v250;
               }
 
-              v248 = v652;
-              *(v652 + 16) = v247;
+              v248 = v651;
+              *(v651 + 16) = v247;
               v249 = v248 + 16 * v239;
               *(v249 + 32) = v242;
               *(v249 + 40) = v243;
@@ -3927,7 +3927,7 @@ LABEL_181:
         }
 
 LABEL_183:
-        v244 = &v679;
+        v244 = &v678;
         while (1)
         {
           v245 = v240 + 1;
@@ -3953,22 +3953,22 @@ LABEL_272:
           }
         }
 
-        AttributedString.Guts.enforceAttributeConstraintsAfterMutation(in:type:constraintsInvolved:)(v650, v649, 0, v652);
+        AttributedString.Guts.enforceAttributeConstraintsAfterMutation(in:type:constraintsInvolved:)(v649, v648, 0, v651);
 
-        v67 = v651;
+        v67 = v650;
 LABEL_142:
-        v190 = (v648 + 1);
+        v190 = (v647 + 1);
 
-        *&v659[8] = v690;
-        *&v659[24] = v691;
-        *&v659[40] = v692;
-        *&v659[56] = v693;
-        *v659 = v61;
-        v660 = v67;
-        v65 = outlined destroy of AttributedSubstring(v659);
-        v60 = &v657;
-        v188 = v641;
-        if (v190 == v643)
+        *&v658[8] = v689;
+        *&v658[24] = v690;
+        *&v658[40] = v691;
+        *&v658[56] = v692;
+        *v658 = v61;
+        v659 = v67;
+        v65 = outlined destroy of AttributedSubstring(v658);
+        v60 = &v656;
+        v188 = v640;
+        if (v190 == v642)
         {
           goto LABEL_196;
         }
@@ -3990,18 +3990,18 @@ LABEL_377:
 LABEL_378:
       __break(1u);
 LABEL_379:
-      v589 = v65;
+      v588 = v65;
       swift_once();
-      v65 = v589;
+      v65 = v588;
     }
 
-    *&v653 = v67;
-    (v648)(v649, v62);
+    *&v652 = v67;
+    (v647)(v648, v62);
     type metadata accessor for ICUByteCountNumberFormatter();
     v68 = swift_allocObject();
     *(v68 + 24) = v60;
     *(v68 + 32) = v61;
-    v640 = v68;
+    v639 = v68;
 
     v69 = MEMORY[0x1865CB200](v60, v61);
     if (v69)
@@ -4009,9 +4009,9 @@ LABEL_379:
       v9 = v69;
       v8 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs6UInt16V_Tt1gq5(v69, 0);
 
-      v31 = specialized Sequence._copySequenceContents(initializing:)(&v679, (v8 + 2), v9, v60, v61);
+      v31 = specialized Sequence._copySequenceContents(initializing:)(&v678, (v8 + 2), v9, v60, v61);
 
-      v7 = v651;
+      v7 = v650;
       if (v31 != v9)
       {
         __break(1u);
@@ -4022,10 +4022,10 @@ LABEL_379:
     else
     {
       v8 = MEMORY[0x1E69E7CC0];
-      v7 = v651;
+      v7 = v650;
     }
 
-    LODWORD(v679) = 0;
+    LODWORD(v678) = 0;
     v9 = *(v8 + 2);
     if (v9 >> 31)
     {
@@ -4038,12 +4038,12 @@ LABEL_379:
 
     if (v168)
     {
-      if (v679 < 1)
+      if (v678 < 1)
       {
-        *(v640 + 2) = v168;
+        *(v639 + 16) = v168;
 LABEL_125:
         os_unfair_lock_lock((v7 + 24));
-        if (v647 >= *(*(v7 + 16) + 16))
+        if (v646 >= *(*(v7 + 16) + 16))
         {
         }
 
@@ -4052,13 +4052,13 @@ LABEL_125:
           *(v7 + 16) = MEMORY[0x1E69E7CC8];
         }
 
-        v46 = v653;
+        v46 = v652;
 
         v31 = swift_isUniquelyReferenced_nonNull_native();
-        *&v679 = *(v7 + 16);
-        v9 = v679;
+        *&v678 = *(v7 + 16);
+        v9 = v678;
         *(v7 + 16) = 0x8000000000000000;
-        v175 = specialized __RawDictionaryStorage.find<A>(_:)(v60, v61, v652, v46);
+        v175 = specialized __RawDictionaryStorage.find<A>(_:)(v60, v61, v651, v46);
         v177 = *(v9 + 16);
         v178 = (v176 & 1) == 0;
         v179 = __OFADD__(v177, v178);
@@ -4079,7 +4079,7 @@ LABEL_125:
 LABEL_132:
               v183 = v175;
 
-              *(*(v181 + 56) + 8 * v183) = v640;
+              *(*(v181 + 56) + 8 * v183) = v639;
 
 LABEL_136:
               *(v7 + 16) = v181;
@@ -4087,88 +4087,88 @@ LABEL_136:
               os_unfair_lock_unlock((v7 + 24));
 
               outlined consume of ICUMeasurementNumberFormatter??(1);
-              v67 = v653;
+              v67 = v652;
               goto LABEL_137;
             }
           }
 
           else
           {
-            v648 = v61;
-            *&v649 = v175;
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation27ICUByteCountNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMd);
-            v590 = static _DictionaryStorage.copy(original:)();
-            v181 = v590;
+            v647 = v61;
+            *&v648 = v175;
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation27ICUByteCountNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMd, &_ss18_DictionaryStorageCy10Foundation27ICUByteCountNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMR);
+            v589 = static _DictionaryStorage.copy(original:)();
+            v181 = v589;
             if (*(v9 + 16))
             {
-              *&v647 = v60;
-              v591 = (v590 + 64);
-              v592 = 1 << *(v181 + 32);
-              *&v650 = v9 + 64;
-              v593 = (v592 + 63) >> 6;
-              if (v181 != v9 || v591 >= v650 + 8 * v593)
+              *&v646 = v60;
+              v590 = (v589 + 64);
+              v591 = 1 << *(v181 + 32);
+              *&v649 = v9 + 64;
+              v592 = (v591 + 63) >> 6;
+              if (v181 != v9 || v590 >= v649 + 8 * v592)
               {
-                memmove(v591, v650, 8 * v593);
+                memmove(v590, v649, 8 * v592);
               }
 
-              v594 = 0;
+              v593 = 0;
               *(v181 + 16) = *(v9 + 16);
-              v595 = 1 << *(v9 + 32);
-              v596 = *(v9 + 64);
-              v597 = -1;
-              if (v595 < 64)
+              v594 = 1 << *(v9 + 32);
+              v595 = *(v9 + 64);
+              v596 = -1;
+              if (v594 < 64)
               {
-                v597 = ~(-1 << v595);
+                v596 = ~(-1 << v594);
               }
 
-              v598 = v597 & v596;
-              v599 = (v595 + 63) >> 6;
-              if ((v597 & v596) != 0)
+              v597 = v596 & v595;
+              v598 = (v594 + 63) >> 6;
+              if ((v596 & v595) != 0)
               {
 LABEL_395:
-                v600 = __clz(__rbit64(v598));
-                v598 &= v598 - 1;
+                v599 = __clz(__rbit64(v597));
+                v597 &= v597 - 1;
                 goto LABEL_401;
               }
 
 LABEL_396:
-              v601 = v594;
-              v60 = v647;
-              v7 = v651;
+              v600 = v593;
+              v60 = v646;
+              v7 = v650;
               while (1)
               {
-                v594 = v601 + 1;
-                if (__OFADD__(v601, 1))
+                v593 = v600 + 1;
+                if (__OFADD__(v600, 1))
                 {
                   break;
                 }
 
-                if (v594 >= v599)
+                if (v593 >= v598)
                 {
                   goto LABEL_403;
                 }
 
-                v602 = *(v650 + 8 * v594);
-                ++v601;
-                if (v602)
+                v601 = *(v649 + 8 * v593);
+                ++v600;
+                if (v601)
                 {
-                  v600 = __clz(__rbit64(v602));
-                  v598 = (v602 - 1) & v602;
+                  v599 = __clz(__rbit64(v601));
+                  v597 = (v601 - 1) & v601;
 LABEL_401:
-                  v603 = v600 | (v594 << 6);
-                  v604 = (*(v9 + 48) + 32 * v603);
-                  v605 = v604[1];
-                  v606 = v604[2];
-                  v607 = v604[3];
-                  v608 = *(*(v9 + 56) + 8 * v603);
-                  v609 = (*(v181 + 48) + 32 * v603);
-                  *v609 = *v604;
-                  v609[1] = v605;
-                  v609[2] = v606;
-                  v609[3] = v607;
-                  *(*(v181 + 56) + 8 * v603) = v608;
+                  v602 = v599 | (v593 << 6);
+                  v603 = (*(v9 + 48) + 32 * v602);
+                  v604 = v603[1];
+                  v605 = v603[2];
+                  v606 = v603[3];
+                  v607 = *(*(v9 + 56) + 8 * v602);
+                  v608 = (*(v181 + 48) + 32 * v602);
+                  *v608 = *v603;
+                  v608[1] = v604;
+                  v608[2] = v605;
+                  v608[3] = v606;
+                  *(*(v181 + 56) + 8 * v602) = v607;
 
-                  if (v598)
+                  if (v597)
                   {
                     goto LABEL_395;
                   }
@@ -4189,8 +4189,8 @@ LABEL_412:
 
 LABEL_403:
 
-            v61 = v648;
-            v175 = v649;
+            v61 = v647;
+            v175 = v648;
             if (v62)
             {
               goto LABEL_132;
@@ -4201,8 +4201,8 @@ LABEL_403:
         else
         {
           specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v180, v31);
-          v181 = v679;
-          v175 = specialized __RawDictionaryStorage.find<A>(_:)(v60, v61, v652, v653);
+          v181 = v678;
+          v175 = specialized __RawDictionaryStorage.find<A>(_:)(v60, v61, v651, v652);
           if ((v62 & 1) != (v182 & 1))
           {
             goto LABEL_415;
@@ -4214,7 +4214,7 @@ LABEL_403:
           }
         }
 
-        specialized _NativeDictionary._insert(at:key:value:)(v175, v60, v61, v652, v653, v640, v181);
+        specialized _NativeDictionary._insert(at:key:value:)(v175, v60, v61, v651, v652, v639, v181);
         goto LABEL_136;
       }
 
@@ -4223,16 +4223,16 @@ LABEL_403:
 
     type metadata accessor for ICUNumberFormatterBase();
     swift_deallocPartialClassInstance();
-    v640 = 0;
+    v639 = 0;
     goto LABEL_125;
   }
 
 LABEL_14:
   v70 = &outlined read-only object #0 of one-time initialization function for maxDecimalSizes;
   v71 = 1;
-  if (v657 <= 1u)
+  if (v656 <= 1u)
   {
-    if (!v657)
+    if (!v656)
     {
       goto LABEL_17;
     }
@@ -4240,7 +4240,7 @@ LABEL_14:
     goto LABEL_16;
   }
 
-  if (v657 != 2)
+  if (v656 != 2)
   {
 LABEL_16:
     v71 = 0;
@@ -4248,7 +4248,7 @@ LABEL_16:
   }
 
 LABEL_17:
-  v72 = closure #1 in ByteCountFormatStyle.Attributed._format(_:doubleValue:)(&v657, v70, fabs(a5));
+  v72 = closure #1 in ByteCountFormatStyle.Attributed._format(_:doubleValue:)(&v656, v70, fabs(a5));
 
   if (!v71)
   {
@@ -4275,7 +4275,7 @@ LABEL_384:
 
   v73 = &unk_1EEECE880;
 LABEL_24:
-  v645 = v72;
+  v644 = v72;
   if (v72 >= 2u)
   {
     if (v72 == 2)
@@ -4298,12 +4298,12 @@ LABEL_24:
   }
 
   v76 = v73[v72];
-  *&v679 = 0;
-  *(&v679 + 1) = 0xE000000000000000;
+  *&v678 = 0;
+  *(&v678 + 1) = 0xE000000000000000;
   _StringGuts.grow(_:)(29);
 
-  *&v679 = v75;
-  *(&v679 + 1) = v74;
+  *&v678 = v75;
+  *(&v678 + 1) = v74;
   MEMORY[0x1865CB0E0](0xD000000000000016, 0x800000018147F310);
   v77 = &outlined read-only object #0 of one-time initialization function for unitNames + 16 * v72;
   v78 = *(v77 + 4);
@@ -4312,7 +4312,7 @@ LABEL_24:
   MEMORY[0x1865CB0E0](v78, v79);
 
   MEMORY[0x1865CB0E0](32, 0xE100000000000000);
-  if (v645)
+  if (v644)
   {
     v80 = 0;
   }
@@ -4322,7 +4322,7 @@ LABEL_24:
     v80 = 0xD000000000000014;
   }
 
-  if (v645)
+  if (v644)
   {
     v81 = 0xE000000000000000;
   }
@@ -4334,12 +4334,12 @@ LABEL_24:
 
   MEMORY[0x1865CB0E0](v80, v81);
 
-  v82 = v679;
-  v656 = *(v9 + 24);
-  v679 = v656;
-  outlined init with copy of Locale(&v656, v669);
-  outlined init with copy of Locale(&v656, v669);
-  v83 = specialized static ICUByteCountNumberFormatter.create(for:locale:)(v82, *(&v82 + 1), &v679);
+  v82 = v678;
+  v655 = *(v9 + 24);
+  v678 = v655;
+  outlined init with copy of Locale(&v655, v668);
+  outlined init with copy of Locale(&v655, v668);
+  v83 = specialized static ICUByteCountNumberFormatter.create(for:locale:)(v82, *(&v82 + 1), &v678);
 
   swift_unknownObjectRelease();
   if (!v83)
@@ -4350,28 +4350,28 @@ LABEL_24:
   a5 = a5 / v76;
 
   v84 = ICUNumberFormatterBase.attributedFormatPositions(_:)(*&a5, 0, 0x100000000);
-  v616 = v83;
+  v615 = v83;
   if (v85)
   {
     v87 = v86;
     v88 = v85;
     v89 = v84;
 
-    *&v644 = v89;
-    *(&v644 + 1) = v88;
+    *&v643 = v89;
+    *(&v643 + 1) = v88;
     BigString.init(_:)();
-    AttributedString.init(_:attributes:)(&v668, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v679);
-    v90 = v679;
-    v643 = *(v87 + 16);
-    if (v643)
+    AttributedString.init(_:attributes:)(v667, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v678);
+    v90 = v678;
+    v642 = *(v87 + 16);
+    if (v642)
     {
       v91 = 0;
-      v642 = v87 + 32;
-      v637 = "ecified format, such as ";
-      v625 = "Foundation.NumberFormatSymbol";
-      v635 = "nguage";
-      v647 = xmmword_1812187D0;
-      v641 = v87;
+      v641 = v87 + 32;
+      v636 = "ecified format, such as ";
+      v624 = "Foundation.NumberFormatSymbol";
+      v634 = "nguage";
+      v646 = xmmword_1812187D0;
+      v640 = v87;
       do
       {
         if (v91 >= *(v87 + 16))
@@ -4392,62 +4392,61 @@ LABEL_358:
           v529 = v75;
 LABEL_360:
           outlined consume of AttributedString.AttributeRunBoundaries?(v528, v529);
-          v526 = v614;
-          v527 = v611;
-          v244 = v625;
+          v526 = v613;
+          v527 = v610;
+          v244 = v624;
 LABEL_361:
-          outlined destroy of TermOfAddress?(&qword_1EEECE950, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMd);
-          _s10Foundation16AttributedStringV4RunsVWOhTm_0(v613, type metadata accessor for AttributedString.Runs);
+          outlined destroy of TermOfAddress?(&qword_1EEECE950, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMd, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMR);
+          _s10Foundation16AttributedStringV4RunsVWOhTm_0(v612, type metadata accessor for AttributedString.Runs);
           _s10Foundation16AttributedStringV4RunsVWOhTm_0(v244, type metadata accessor for AttributedString.Runs);
-          *(v526 + *(v630 + 40)) = v91;
-          v580 = v627;
-          outlined init with copy of AttributedString.Runs.AttributesSlice1<AttributeScopes.FoundationAttributes.ByteCountAttribute>(v526, v627);
+          *(v526 + *(v629 + 40)) = v91;
+          v580 = v626;
+          outlined init with copy of AttributedString.Runs.AttributesSlice1<AttributeScopes.FoundationAttributes.ByteCountAttribute>(v526, v626);
           outlined init with copy of AttributedString.Runs.AttributesSlice1<AttributeScopes.FoundationAttributes.ByteCountAttribute>(v580, v527);
           v581 = *(v580 + 96);
           if (v581 != 2)
           {
             v582 = v527;
             v583 = *(v580 + 88);
-            v653 = *(v580 + 72);
-            outlined destroy of TermOfAddress?(v526, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMd);
+            v652 = *(v580 + 72);
+            outlined destroy of TermOfAddress?(v526, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMR);
             v584 = *(*v580 + 16);
-            outlined destroy of TermOfAddress?(v580, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMd);
-            v585 = v582 + *(v622 + 9);
-            *v585 = v653;
+            outlined destroy of TermOfAddress?(v580, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMR);
+            v585 = v582 + *(v621 + 9);
+            *v585 = v652;
             *(v585 + 16) = v583;
             *(v585 + 24) = v581;
             *(v585 + 32) = v584;
-            v586 = v694;
-            specialized AttributedString.Runs.AttributesSlice1.Iterator.next()(v669);
-            v587 = v669[0];
-            v705[0] = *(v669 + 1);
-            *(v705 + 15) = v669[1];
-            v588 = v670;
-            v707 = *v671;
-            v708 = *&v671[16];
-            for (i = *&v671[32]; v670 != 2; i = *&v671[32])
+            specialized AttributedString.Runs.AttributesSlice1.Iterator.next()(v668);
+            v586 = v668[0];
+            v704[0] = *(v668 + 1);
+            *(v704 + 15) = v668[1];
+            v587 = v669;
+            v706 = *v670;
+            v707 = *&v670[16];
+            for (i = *&v670[32]; v669 != 2; i = *&v670[32])
             {
-              *v665 = *(v705 + 7);
-              *&v665[16] = *(&v705[1] + 7);
-              *v666 = v588;
-              *&v666[8] = v707;
-              *&v666[24] = v708;
-              v667 = i;
-              if (v587 == 9)
+              *v664 = *(v704 + 7);
+              *&v664[16] = *(&v704[1] + 7);
+              *v665 = v587;
+              *&v665[8] = v706;
+              *&v665[24] = v707;
+              v666 = i;
+              if (v586 == 9)
               {
-                specialized AttributedString.replaceSubrange<A, B>(_:with:)(v665, v586);
+                specialized AttributedString.replaceSubrange<A, B>(_:with:)();
               }
 
-              specialized AttributedString.Runs.AttributesSlice1.Iterator.next()(v669);
-              v587 = v669[0];
-              v705[0] = *(v669 + 1);
-              *(v705 + 15) = v669[1];
-              v588 = v670;
-              v707 = *v671;
-              v708 = *&v671[16];
+              specialized AttributedString.Runs.AttributesSlice1.Iterator.next()(v668);
+              v586 = v668[0];
+              v704[0] = *(v668 + 1);
+              *(v704 + 15) = v668[1];
+              v587 = v669;
+              v706 = *v670;
+              v707 = *&v670[16];
             }
 
-            outlined destroy of TermOfAddress?(v582, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V09ByteCountH0O_GMd);
+            outlined destroy of TermOfAddress?(v582, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V09ByteCountH0O_GMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V09ByteCountH0O_GMR);
 
             goto LABEL_364;
           }
@@ -4462,14 +4461,14 @@ LABEL_415:
           return result;
         }
 
-        v648 = v91;
-        v91 = *(v642 + 24 * v91);
-        v93 = v644;
-        v679 = v644;
+        v647 = v91;
+        v91 = *(v641 + 24 * v91);
+        v93 = v643;
+        v678 = v643;
         v75 = lazy protocol witness table accessor for type String and conformance String();
 
         v94 = String.Index.init<A>(utf16Offset:in:)();
-        v679 = v93;
+        v678 = v93;
 
         v95 = String.Index.init<A>(utf16Offset:in:)();
         if (v95 >> 14 < v94 >> 14)
@@ -4479,20 +4478,20 @@ LABEL_415:
 
         v96 = v95;
 
-        _sSn10FoundationAA16AttributedStringV5IndexVRszrlE6_range2inSnyAEGSgSnySSADVG_qd__tcAA0bC8ProtocolRd__lufCAC_Tt2B5(v94, v96, v90, &v679);
-        if (*(&v680 + 1) == 2)
+        _sSn10FoundationAA16AttributedStringV5IndexVRszrlE6_range2inSnyAEGSgSnySSADVG_qd__tcAA0bC8ProtocolRd__lufCAC_Tt2B5(v94, v96, v90, &v678);
+        if (*(&v679 + 1) == 2)
         {
           goto LABEL_407;
         }
 
         v97 = *(v8 + 56);
         v98 = *(v8 + 40);
-        v690 = MEMORY[0x1E69E7CC8];
-        v7 = v705;
+        v689 = MEMORY[0x1E69E7CC8];
+        v7 = v704;
+        v650 = v678;
         v651 = v679;
-        v652 = v680;
-        v649 = v97;
-        v650 = v98;
+        v648 = v97;
+        v649 = v98;
         if (v91 <= 5)
         {
           switch(v91)
@@ -4503,16 +4502,16 @@ LABEL_415:
             case 1:
               v100 = 1;
 LABEL_60:
-              *v666 = &type metadata for AttributeScopes.FoundationAttributes.NumberFormatAttributes.NumberPartAttribute.NumberPart;
-              *&v666[8] = lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.NumberFormatAttributes.NumberPartAttribute.NumberPart and conformance AttributeScopes.FoundationAttributes.NumberFormatAttributes.NumberPartAttribute.NumberPart();
-              v665[0] = v100;
-              *&v666[16] = v647;
-              v666[32] = 1;
+              *v665 = &type metadata for AttributeScopes.FoundationAttributes.NumberFormatAttributes.NumberPartAttribute.NumberPart;
+              *&v665[8] = lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.NumberFormatAttributes.NumberPartAttribute.NumberPart and conformance AttributeScopes.FoundationAttributes.NumberFormatAttributes.NumberPartAttribute.NumberPart();
+              v664[0] = v100;
+              *&v665[16] = v646;
+              v665[32] = 1;
               v102 = 0xD00000000000001BLL;
-              *&v667 = 0;
-              v101 = v625 | 0x8000000000000000;
+              *&v666 = 0;
+              v101 = v624 | 0x8000000000000000;
 LABEL_61:
-              specialized AttributedString._AttributeStorage.subscript.setter(v665, v102, v101);
+              specialized AttributedString._AttributeStorage.subscript.setter(v664, v102, v101);
               break;
             case 2:
               v99 = 2;
@@ -4535,13 +4534,13 @@ LABEL_61:
             }
 
 LABEL_58:
-            *v666 = &type metadata for AttributeScopes.FoundationAttributes.NumberFormatAttributes.SymbolAttribute.Symbol;
-            *&v666[8] = lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.NumberFormatAttributes.SymbolAttribute.Symbol and conformance AttributeScopes.FoundationAttributes.NumberFormatAttributes.SymbolAttribute.Symbol();
-            v665[0] = v99;
-            *&v666[16] = v647;
-            v666[32] = 1;
-            *&v667 = 0;
-            v101 = v637 | 0x8000000000000000;
+            *v665 = &type metadata for AttributeScopes.FoundationAttributes.NumberFormatAttributes.SymbolAttribute.Symbol;
+            *&v665[8] = lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.NumberFormatAttributes.SymbolAttribute.Symbol and conformance AttributeScopes.FoundationAttributes.NumberFormatAttributes.SymbolAttribute.Symbol();
+            v664[0] = v99;
+            *&v665[16] = v646;
+            v665[32] = 1;
+            *&v666 = 0;
+            v101 = v636 | 0x8000000000000000;
             v102 = 0xD00000000000001DLL;
             goto LABEL_61;
           }
@@ -4559,37 +4558,37 @@ LABEL_58:
           }
         }
 
-        AttributeScopes.FoundationAttributes.ByteCountAttribute.Component.init(unumberFormatField:unit:)(v91, v645, v665);
-        v103 = v665[0];
-        if (v665[0] != 12)
+        AttributeScopes.FoundationAttributes.ByteCountAttribute.Component.init(unumberFormatField:unit:)(v91, v644, v664);
+        v103 = v664[0];
+        if (v664[0] != 12)
         {
-          *v666 = &type metadata for AttributeScopes.FoundationAttributes.ByteCountAttribute.Component;
-          *&v666[8] = lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.ByteCountAttribute.Component and conformance AttributeScopes.FoundationAttributes.ByteCountAttribute.Component();
-          v665[0] = v103;
-          *&v666[16] = v647;
-          v666[32] = 1;
-          *&v667 = 0;
-          specialized AttributedString._AttributeStorage.subscript.setter(v665, 0xD00000000000001DLL, v635 | 0x8000000000000000);
+          *v665 = &type metadata for AttributeScopes.FoundationAttributes.ByteCountAttribute.Component;
+          *&v665[8] = lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.ByteCountAttribute.Component and conformance AttributeScopes.FoundationAttributes.ByteCountAttribute.Component();
+          v664[0] = v103;
+          *&v665[16] = v646;
+          v665[32] = 1;
+          *&v666 = 0;
+          specialized AttributedString._AttributeStorage.subscript.setter(v664, 0xD00000000000001DLL, v634 | 0x8000000000000000);
         }
 
-        v104 = v690;
+        v104 = v689;
         v105 = swift_isUniquelyReferenced_nonNull_native();
-        *&v653 = *(&v104 + 1);
+        *&v652 = *(&v104 + 1);
         if ((v105 & 1) == 0)
         {
           v106 = *(v90 + 40);
-          v734 = *(v90 + 24);
-          v735 = v106;
-          v736 = *(v90 + 56);
+          v733 = *(v90 + 24);
+          v734 = v106;
+          v735 = *(v90 + 56);
           v107 = *(v90 + 72);
           v108 = *(v90 + 80);
           v109 = *(v90 + 88);
           v110 = *(v90 + 96);
           type metadata accessor for AttributedString.Guts();
           swift_allocObject();
-          outlined init with copy of BigString(&v734, v665);
+          outlined init with copy of BigString(&v733, v664);
           swift_unknownObjectRetain();
-          v111 = AttributedString.Guts.init(string:runs:)(&v734, v107, v108, v109, v110);
+          v111 = AttributedString.Guts.init(string:runs:)(&v733, v107, v108, v109, v110);
 
           v90 = v111;
         }
@@ -4602,45 +4601,45 @@ LABEL_58:
         *(v90 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
         v112 = *(v90 + 24);
         v113 = *(v90 + 56);
-        v732 = *(v90 + 40);
-        v733 = v113;
-        v731 = v112;
+        v731 = *(v90 + 40);
+        v732 = v113;
+        v730 = v112;
         v114 = BigString.startIndex.getter();
         v116 = v115;
         v75 = v117;
         v119 = v118;
         v120 = BigString.endIndex.getter();
-        *v665 = v90;
-        *&v665[8] = v114;
-        *&v665[16] = v116;
-        *v666 = v75;
-        *&v666[8] = v119;
-        *&v666[16] = v120;
-        *&v666[24] = v121;
-        *&v666[32] = v122;
-        v667 = v123;
+        *v664 = v90;
+        *&v664[8] = v114;
+        *&v664[16] = v116;
+        *v665 = v75;
+        *&v665[8] = v119;
+        *&v665[16] = v120;
+        *&v665[24] = v121;
+        *&v665[32] = v122;
+        v666 = v123;
 
-        outlined destroy of AttributedString.CharacterView(v665);
+        outlined destroy of AttributedString.CharacterView(v664);
+        v723 = v650;
         v724 = v651;
-        v725 = v652;
-        v726 = v650;
-        v727 = v649;
+        v725 = v649;
+        v726 = v648;
         v124 = *(v90 + 40);
-        v728 = *(v90 + 24);
-        v729 = v124;
-        v730 = *(v90 + 56);
-        v91 = v728;
+        v727 = *(v90 + 24);
+        v728 = v124;
+        v729 = *(v90 + 56);
+        v91 = v727;
         swift_unknownObjectRetain();
 
         BigString.UnicodeScalarView.subscript.getter();
         swift_unknownObjectRelease();
-        outlined destroy of BigSubstring.UnicodeScalarView(v669);
-        *&v659[32] = *&v671[40];
-        *&v659[48] = v672;
-        v697 = *&v671[8];
-        v698 = *&v671[24];
-        v699 = *&v671[40];
-        v700 = v672;
+        outlined destroy of BigSubstring.UnicodeScalarView(v668);
+        *&v658[32] = *&v670[40];
+        *&v658[48] = v671;
+        v696 = *&v670[8];
+        v697 = *&v670[24];
+        v698 = *&v670[40];
+        v699 = v671;
         if (one-time initialization token for currentIdentity != -1)
         {
           swift_once();
@@ -4658,9 +4657,9 @@ LABEL_58:
         *(v125 + 16) = v127;
         os_unfair_lock_unlock((v125 + 24));
         BigString.init()();
-        *v659 = 0;
-        MEMORY[0x1865D26B0](v659, 8);
-        v75 = *v659;
+        *v658 = 0;
+        MEMORY[0x1865D26B0](v658, 8);
+        v75 = *v658;
         type metadata accessor for AttributedString.Guts();
         v91 = swift_allocObject();
         if ((BigString.isEmpty.getter() & 1) == 0)
@@ -4669,10 +4668,10 @@ LABEL_58:
         }
 
         *(v91 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-        v128 = v674;
-        *(v91 + 24) = v673;
+        v128 = v673;
+        *(v91 + 24) = v672;
         *(v91 + 40) = v128;
-        *(v91 + 56) = v675;
+        *(v91 + 56) = v674;
         *(v91 + 72) = 0;
         *(v91 + 80) = 0;
         *(v91 + 88) = 0;
@@ -4682,30 +4681,30 @@ LABEL_58:
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
           v129 = *(v90 + 40);
-          v721 = *(v90 + 24);
-          v722 = v129;
-          v723 = *(v90 + 56);
+          v720 = *(v90 + 24);
+          v721 = v129;
+          v722 = *(v90 + 56);
           v130 = *(v90 + 72);
           v131 = *(v90 + 80);
           v132 = *(v90 + 88);
           v133 = *(v90 + 96);
           swift_allocObject();
-          outlined init with copy of BigString(&v721, v659);
+          outlined init with copy of BigString(&v720, v658);
           swift_unknownObjectRetain();
           v134 = v133;
-          v7 = v705;
-          v135 = AttributedString.Guts.init(string:runs:)(&v721, v130, v131, v132, v134);
+          v7 = v704;
+          v135 = AttributedString.Guts.init(string:runs:)(&v720, v130, v131, v132, v134);
 
           v90 = v135;
         }
 
+        v716 = v696;
         v717 = v697;
         v718 = v698;
         v719 = v699;
-        v720 = v700;
-        AttributedString.Guts.unicodeScalarRange(roundingDown:)(v676);
-        v136 = *&v676[0] >> 11;
-        v75 = v677 >> 11;
+        AttributedString.Guts.unicodeScalarRange(roundingDown:)(v675);
+        v136 = *&v675[0] >> 11;
+        v75 = v676 >> 11;
 
         specialized AttributedString._InternalRunsSlice.updateEach(with:)(v90, v136, v75, v104, 0);
 
@@ -4715,9 +4714,9 @@ LABEL_58:
           goto LABEL_40;
         }
 
-        *&v649 = v75;
-        *&v650 = *(&v104 + 1);
-        *&v651 = v127;
+        *&v648 = v75;
+        *&v649 = *(&v104 + 1);
+        *&v650 = v127;
         v137 = 1 << *(v104 + 32);
         if (v137 < 64)
         {
@@ -4733,7 +4732,7 @@ LABEL_58:
         v140 = (v137 + 63) >> 6;
 
         v141 = 0;
-        *&v652 = MEMORY[0x1E69E7CC0];
+        *&v651 = MEMORY[0x1E69E7CC0];
         if (v139)
         {
 LABEL_79:
@@ -4743,11 +4742,11 @@ LABEL_79:
             {
               v142 = __clz(__rbit64(v139));
               v139 &= v139 - 1;
-              outlined init with copy of AttributedString._AttributeValue(*(v104 + 56) + 72 * (v142 | (*(&v104 + 1) << 6)), v659);
-              v143 = *&v659[40];
-              v75 = *&v659[48];
-              outlined copy of AttributedString.AttributeRunBoundaries?(*&v659[40], *&v659[48]);
-              outlined destroy of AttributedString._AttributeValue(v659);
+              outlined init with copy of AttributedString._AttributeValue(*(v104 + 56) + 72 * (v142 | (*(&v104 + 1) << 6)), v658);
+              v143 = *&v658[40];
+              v75 = *&v658[48];
+              outlined copy of AttributedString.AttributeRunBoundaries?(*&v658[40], *&v658[48]);
+              outlined destroy of AttributedString._AttributeValue(v658);
               if (v75 == 1)
               {
                 break;
@@ -4755,24 +4754,24 @@ LABEL_79:
 
               if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
               {
-                *&v652 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v652 + 16) + 1, 1, v652);
+                *&v651 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v651 + 16) + 1, 1, v651);
               }
 
-              v146 = *(v652 + 16);
-              v145 = *(v652 + 24);
+              v146 = *(v651 + 16);
+              v145 = *(v651 + 24);
               v147 = v146 + 1;
               if (v146 >= v145 >> 1)
               {
-                v613 = *(v652 + 16);
-                v614 = v146 + 1;
-                v150 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v145 > 1), v146 + 1, 1, v652);
-                v146 = v613;
-                v147 = v614;
-                *&v652 = v150;
+                v612 = *(v651 + 16);
+                v613 = v146 + 1;
+                v150 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v145 > 1), v146 + 1, 1, v651);
+                v146 = v612;
+                v147 = v613;
+                *&v651 = v150;
               }
 
-              v148 = v652;
-              *(v652 + 16) = v147;
+              v148 = v651;
+              *(v651 + 16) = v147;
               v149 = v148 + 16 * v146;
               *(v149 + 32) = v143;
               *(v149 + 40) = v75;
@@ -4792,7 +4791,7 @@ LABEL_79:
         }
 
 LABEL_81:
-        v7 = v705;
+        v7 = v704;
         while (1)
         {
           v144 = v141 + 1;
@@ -4803,9 +4802,9 @@ LABEL_260:
 
 LABEL_364:
 
-            v284 = v701;
+            v284 = v700;
 LABEL_365:
-            *v632 = v284;
+            *v631 = v284;
             return result;
           }
 
@@ -4823,24 +4822,24 @@ LABEL_365:
           }
         }
 
-        AttributedString.Guts.enforceAttributeConstraintsAfterMutation(in:type:constraintsInvolved:)(v650, v649, 0, v652);
+        AttributedString.Guts.enforceAttributeConstraintsAfterMutation(in:type:constraintsInvolved:)(v649, v648, 0, v651);
 
-        v127 = v651;
+        v127 = v650;
 LABEL_40:
-        v92 = v648 + 1;
+        v92 = v647 + 1;
 
         v91 = v92;
 
-        v8 = &v679;
-        *&v659[8] = v697;
-        *&v659[24] = v698;
-        *&v659[40] = v699;
-        *&v659[56] = v700;
-        *v659 = v90;
-        v660 = v127;
-        outlined destroy of AttributedSubstring(v659);
-        v171 = v92 == v643;
-        v87 = v641;
+        v8 = &v678;
+        *&v658[8] = v696;
+        *&v658[24] = v697;
+        *&v658[40] = v698;
+        *&v658[56] = v699;
+        *v658 = v90;
+        v659 = v127;
+        outlined destroy of AttributedSubstring(v658);
+        v171 = v92 == v642;
+        v87 = v640;
       }
 
       while (!v171);
@@ -4851,30 +4850,30 @@ LABEL_40:
   {
     Double.description.getter();
     BigString.init(_:)();
-    AttributedString.init(_:attributes:)(v669, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v679);
+    AttributedString.init(_:attributes:)(v668, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v678);
 
-    v90 = v679;
+    v90 = v678;
   }
 
-  v655 = v90;
-  v9 = v634;
-  if ((BYTE1(v658[0]) & 1) == 0)
+  v654 = v90;
+  v9 = v633;
+  if ((BYTE1(v657[0]) & 1) == 0)
   {
-    outlined destroy of ByteCountFormatStyle.Attributed(&v657);
+    outlined destroy of ByteCountFormatStyle.Attributed(&v656);
 
     goto LABEL_320;
   }
 
-  *v8 = v656;
-  v31 = specialized static ICUByteCountNumberFormatter.create(for:locale:)(0xD00000000000002ELL, 0x800000018147F330, &v679);
+  *v8 = v655;
+  v31 = specialized static ICUByteCountNumberFormatter.create(for:locale:)(0xD00000000000002ELL, 0x800000018147F330, &v678);
   swift_unknownObjectRelease();
-  *v659 = 0;
-  v151 = *(&v656 + 1);
+  *v658 = 0;
+  v151 = *(&v655 + 1);
   v152 = swift_getObjectType();
   v153 = (*(v151 + 64))(v152, v151);
   v155 = v154;
   MEMORY[0x1EEE9AC00](v153);
-  *(&v610 - 2) = v659;
+  *(&v609 - 2) = v658;
   if ((v157 & 0x1000000000000000) != 0)
   {
     goto LABEL_380;
@@ -4882,34 +4881,34 @@ LABEL_40:
 
   if ((v155 & 0x2000000000000000) != 0)
   {
-    *&v679 = v156;
-    *(&v679 + 1) = v155 & 0xFFFFFFFFFFFFFFLL;
+    *&v678 = v156;
+    *(&v678 + 1) = v155 & 0xFFFFFFFFFFFFFFLL;
     v159 = ulocdata_open();
 
-    v642 = 0;
-    *v665 = v159;
+    v641 = 0;
+    *v664 = v159;
     goto LABEL_102;
   }
 
   if ((v156 & 0x1000000000000000) == 0)
   {
 LABEL_380:
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13OpaquePointerVSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13OpaquePointerVSgMd, &_ss13OpaquePointerVSgMR);
     _StringGuts._slowWithCString<A>(_:)();
-    v642 = 0;
+    v641 = 0;
 
     goto LABEL_102;
   }
 
-  *v665 = ulocdata_open();
+  *v664 = ulocdata_open();
 
-  v642 = 0;
+  v641 = 0;
 LABEL_102:
-  LODWORD(v46) = *v659;
-  if (*v659 < 1)
+  LODWORD(v46) = *v658;
+  if (*v658 < 1)
   {
     ExemplarSet = ulocdata_getExemplarSet();
-    if (!specialized UErrorCode.checkSuccessAndLogError(_:)(*v659))
+    if (!specialized UErrorCode.checkSuccessAndLogError(_:)(*v658))
     {
       uset_close();
       goto LABEL_207;
@@ -4946,8 +4945,8 @@ LABEL_102:
         v174 = 0xA300000000000000;
       }
 
-      *&v644 = v173;
-      *(&v644 + 1) = v174;
+      *&v643 = v173;
+      *(&v643 + 1) = v174;
       goto LABEL_208;
     }
 
@@ -4969,15 +4968,15 @@ LABEL_102:
     {
       v163 = swift_slowAlloc();
       v164 = swift_slowAlloc();
-      *&v679 = v164;
+      *&v678 = v164;
       *v163 = 136315394;
-      *(v163 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000015, 0x800000018147F360, &v679);
+      *(v163 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000015, 0x800000018147F360, &v678);
       *(v163 + 12) = 2080;
       v165 = ICUError.debugDescription.getter(v46);
-      v167 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v165, v166, &v679);
+      v167 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v165, v166, &v678);
 
       *(v163 + 14) = v167;
-      v9 = v634;
+      v9 = v633;
       _os_log_impl(&dword_18075C000, v161, v162, "%s. Error: %s", v163, 0x16u);
       swift_arrayDestroy();
       MEMORY[0x1865D2690](v164, -1, -1);
@@ -4986,27 +4985,27 @@ LABEL_102:
 
 LABEL_207:
     v172 = 0xE200000000000000;
-    *&v644 = 41;
-    *(&v644 + 1) = 0xE100000000000000;
+    *&v643 = 41;
+    *(&v643 + 1) = 0xE100000000000000;
 LABEL_208:
     ulocdata_close();
 
     BigString.init(_:)();
-    AttributedString.init(_:attributes:)(&v678, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v679);
-    specialized AttributedString.append<A>(_:)(v679);
+    AttributedString.init(_:attributes:)(v677, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], &v678);
+    specialized AttributedString.append<A>(_:)(v678);
 
     if (!v31)
     {
       goto LABEL_411;
     }
 
-    *&v647 = v172;
+    *&v646 = v172;
 
-    ICUByteCountNumberFormatter.attributedFormat(_:unit:)(v619, v621, v620 & 0xFFFFFFFFFFLL, 0, &v654);
+    ICUByteCountNumberFormatter.attributedFormat(_:unit:)(v618, v620, v619 & 0xFFFFFFFFFFLL, 0, &v653);
 
-    v285 = v654;
-    v286 = *(v654 + 40);
-    *(v7 + 240) = *(v654 + 24);
+    v285 = v653;
+    v286 = *(v653 + 40);
+    *(v7 + 240) = *(v653 + 24);
     *(v7 + 256) = v286;
     *(v7 + 272) = *(v285 + 56);
     v287 = BigString.startIndex.getter();
@@ -5027,55 +5026,55 @@ LABEL_387:
     swift_once();
   }
 
-  v643 = v31;
-  *&v679 = v287;
-  *(&v679 + 1) = v46;
-  *&v680 = v290;
-  *(&v680 + 1) = v292;
-  v681 = v293;
-  v682 = v294;
-  *&v683 = v295;
-  *(&v683 + 1) = v296;
+  v642 = v31;
+  *&v678 = v287;
+  *(&v678 + 1) = v46;
+  *&v679 = v290;
+  *(&v679 + 1) = v292;
+  v680 = v293;
+  v681 = v294;
+  *&v682 = v295;
+  *(&v682 + 1) = v296;
   lazy protocol witness table accessor for type BigString.Index and conformance BigString.Index();
 
   RangeSet.init(_:)();
-  *&v650 = v285;
+  *&v649 = v285;
   *v9 = v285;
   RangeSet.init()();
-  v297 = v631;
+  v297 = v630;
   RangeSet.ranges.getter();
-  v298 = v633;
-  v299 = v640;
-  v300 = v646;
-  (*(v633 + 16))(v640, v297, v646);
-  v301 = *(v623 + 36);
-  v302 = lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges);
+  v298 = v632;
+  v299 = v639;
+  v300 = v645;
+  (*(v632 + 16))(v639, v297, v645);
+  v301 = *(v622 + 36);
+  v302 = lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, MEMORY[0x1E69E7BC8]);
   dispatch thunk of Collection.startIndex.getter();
   v303 = *(v298 + 8);
-  v633 = v298 + 8;
+  v632 = v298 + 8;
   v303(v297, v300);
   v304 = v299;
   dispatch thunk of Collection.endIndex.getter();
   v305 = *&v301[v299];
-  v645 = v303;
-  if (v305 != v679)
+  v644 = v303;
+  if (v305 != v678)
   {
-    v648 = v301;
-    *&v649 = v302;
+    v647 = v301;
+    *&v648 = v302;
     do
     {
       v322 = dispatch thunk of Collection.subscript.read();
       v324 = v323[5];
-      *&v653 = v323[4];
-      *&v652 = v324;
-      *&v651 = v323[6];
-      v322(&v679, 0);
+      *&v652 = v323[4];
+      *&v651 = v324;
+      *&v650 = v323[6];
+      v322(&v678, 0);
       dispatch thunk of Collection.formIndex(after:)();
-      v325 = v650;
-      v326 = *(v650 + 40);
-      v716[0] = *(v650 + 24);
-      v716[1] = v326;
-      v716[2] = *(v650 + 56);
+      v325 = v649;
+      v326 = *(v649 + 40);
+      v715[0] = *(v649 + 24);
+      v715[1] = v326;
+      v715[2] = *(v649 + 56);
       swift_unknownObjectRetain();
       v327 = BigString.UnicodeScalarView.index(roundingDown:)();
       v329 = v328;
@@ -5083,78 +5082,78 @@ LABEL_387:
       v333 = v332;
       swift_unknownObjectRelease();
       v334 = *(v325 + 40);
-      v713 = *(v325 + 24);
-      v714 = v334;
-      v715 = *(v325 + 56);
+      v712 = *(v325 + 24);
+      v713 = v334;
+      v714 = *(v325 + 56);
       swift_unknownObjectRetain();
       v335 = BigString.UnicodeScalarView.index(roundingDown:)();
       v337 = v336;
       v339 = v338;
       v341 = v340;
       swift_unknownObjectRelease();
-      *&v679 = v327;
-      *(&v679 + 1) = v329;
-      *&v680 = v331;
-      *(&v680 + 1) = v333;
-      v681 = v335;
-      v682 = v337;
-      v300 = v646;
-      *&v683 = v339;
-      *(&v683 + 1) = v341;
+      *&v678 = v327;
+      *(&v678 + 1) = v329;
+      *&v679 = v331;
+      *(&v679 + 1) = v333;
+      v680 = v335;
+      v681 = v337;
+      v300 = v645;
+      *&v682 = v339;
+      *(&v682 + 1) = v341;
       if ((v335 ^ v327) >= 0x400)
       {
         v342 = RangeSet._ranges.modify();
         RangeSet.Ranges._insert(contentsOf:)();
-        v342(v665, 0);
+        v342(v664, 0);
       }
 
-      v304 = v640;
+      v304 = v639;
       dispatch thunk of Collection.endIndex.getter();
     }
 
-    while (*&v648[v304] != v679);
+    while (*&v647[v304] != v678);
   }
 
-  outlined destroy of TermOfAddress?(v304, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd);
-  v306 = v624;
-  v307 = *(v624 + 24);
+  outlined destroy of TermOfAddress?(v304, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GGMR);
+  v306 = v623;
+  v307 = *(v623 + 24);
   v308 = v300;
-  v309 = v626;
-  v310 = v634;
-  v311 = v639;
-  (*(v626 + 16))(v634 + v307, v638, v639);
-  v312 = v631;
+  v309 = v625;
+  v310 = v633;
+  v311 = v638;
+  (*(v625 + 16))(&v307[v633], v637, v638);
+  v312 = v630;
   RangeSet.ranges.getter();
   v313 = RangeSet.Ranges.count.getter();
-  v645(v312, v308);
+  v644(v312, v308);
   v314 = *(v306 + 28);
-  LODWORD(v648) = v313 > 1;
-  *(v310 + v314) = v648;
-  v315 = v618;
+  LODWORD(v647) = v313 > 1;
+  *(v310 + v314) = v647;
+  v315 = v617;
   RangeSet.ranges.getter();
   dispatch thunk of Collection.startIndex.getter();
   dispatch thunk of Collection.endIndex.getter();
-  if (*v665 == v679 || (v316 = dispatch thunk of Collection.subscript.read(), v318 = *v317, v640 = v317[1], v641 = v318, v319 = v317[3], v637 = v317[2], v635 = v319, v316(&v679, 0), v645(v315, v308), v625 = v307, v315 = v615, RangeSet.ranges.getter(), (dispatch thunk of Collection.isEmpty.getter() & 1) != 0))
+  if (*v664 == v678 || (v316 = dispatch thunk of Collection.subscript.read(), v318 = *v317, v639 = v317[1], v640 = v318, v319 = v317[3], v636 = v317[2], v634 = v319, v316(&v678, 0), v644(v315, v308), v624 = v307, v315 = v614, RangeSet.ranges.getter(), (dispatch thunk of Collection.isEmpty.getter() & 1) != 0))
   {
-    v645(v315, v308);
-    v320 = v650;
-    v321 = *(v650 + 72);
+    v644(v315, v308);
+    v320 = v649;
+    v321 = *(v649 + 72);
     if (v321)
     {
-      *&v653 = *(v321 + 18);
+      *&v652 = *(v321 + 18);
     }
 
     else
     {
-      *&v653 = 0;
+      *&v652 = 0;
     }
 
-    *&v651 = *(v650 + 96);
-    v343 = *(v650 + 40);
-    v710 = *(v650 + 24);
-    v711 = v343;
-    v712 = *(v650 + 56);
-    *&v649 = BigString.startIndex.getter();
+    *&v650 = *(v649 + 96);
+    v343 = *(v649 + 40);
+    v709 = *(v649 + 24);
+    v710 = v343;
+    v711 = *(v649 + 56);
+    *&v648 = BigString.startIndex.getter();
     v347 = v344;
     v348 = v345;
     v349 = v346;
@@ -5162,33 +5161,33 @@ LABEL_387:
     v351 = *(v320 + 96);
     if (v350)
     {
-      *&v652 = *(v350 + 18);
-      v646 = v351;
+      *&v651 = *(v350 + 18);
+      v645 = v351;
       v352 = v346;
       v353 = v345;
       v354 = v344;
       v355 = *(v309 + 8);
       swift_unknownObjectRetain();
-      v355(v629, v311);
-      v355(v638, v311);
+      v355(v628, v311);
+      v355(v637, v311);
       v347 = v354;
       v348 = v353;
       v349 = v352;
-      v351 = v646;
+      v351 = v645;
       swift_unknownObjectRelease();
     }
 
     else
     {
       v356 = *(v309 + 8);
-      v356(v629, v311);
-      v356(v638, v311);
-      *&v652 = 0;
+      v356(v628, v311);
+      v356(v637, v311);
+      *&v651 = 0;
     }
 
     v357 = *(v320 + 40);
-    v707 = *(v320 + 24);
-    v708 = v357;
+    v706 = *(v320 + 24);
+    v707 = v357;
     i = *(v320 + 56);
     v358 = BigString.startIndex.getter();
     v362 = 0;
@@ -5197,8 +5196,8 @@ LABEL_387:
     v365 = 0;
     v366 = 0;
     v367 = -1;
-    v368 = v649;
-    v369 = v649;
+    v368 = v648;
+    v369 = v648;
     v370 = v347;
     v371 = v348;
     v372 = v349;
@@ -5207,84 +5206,84 @@ LABEL_387:
     v375 = v360;
     v376 = v361;
     v377 = -1;
-    v378 = v653;
-    v379 = v651;
+    v378 = v652;
+    v379 = v650;
   }
 
   else
   {
     dispatch thunk of Collection.endIndex.getter();
-    lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges);
+    lazy protocol witness table accessor for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges(&lazy protocol witness table cache variable for type RangeSet<BigString.Index>.Ranges and conformance RangeSet<A>.Ranges, MEMORY[0x1E69E7BB0]);
     dispatch thunk of BidirectionalCollection.index(before:)();
     v385 = dispatch thunk of Collection.subscript.read();
     v373 = v386[4];
     v387 = v386[5];
     v389 = v386[6];
     v388 = v386[7];
-    v385(&v679, 0);
-    v645(v315, v308);
-    v390 = v650;
-    AttributedString.Guts.findRun(at:)(v641, v635, &v679);
-    *&v653 = *(&v679 + 1);
-    *&v651 = v679;
-    v614 = *(&v680 + 1);
-    v615 = v680;
-    *&v649 = v682;
-    v623 = *(&v683 + 1);
-    v624 = v683;
-    v621 = v684;
+    v385(&v678, 0);
+    v644(v315, v308);
+    v390 = v649;
+    AttributedString.Guts.findRun(at:)(v640, v634, &v678);
+    *&v652 = *(&v678 + 1);
+    *&v650 = v678;
+    v613 = *(&v679 + 1);
+    v614 = v679;
+    *&v648 = v681;
+    v622 = *(&v682 + 1);
+    v623 = v682;
+    v620 = v683;
     v391 = *(v390 + 40);
-    v710 = *(v390 + 24);
-    v711 = v391;
-    v712 = *(v390 + 56);
+    v709 = *(v390 + 24);
+    v710 = v391;
+    v711 = *(v390 + 56);
     v392 = BigString.endIndex.getter();
-    v619 = v389;
-    v620 = v387;
-    v618 = v388;
+    v618 = v389;
+    v619 = v387;
+    v617 = v388;
     if ((v392 ^ v373) > 0x3FF)
     {
-      AttributedString.Guts.findRun(at:)(v373, v388, &v679);
-      *&v652 = *(&v679 + 1);
-      v646 = v679;
-      v366 = v680;
-      *&v650 = v682;
-      v612 = v683;
-      v613 = *(&v680 + 1);
-      v610 = v684;
-      v611 = *(&v683 + 1);
-      v419 = v631;
-      v420 = v639;
+      AttributedString.Guts.findRun(at:)(v373, v388, &v678);
+      *&v651 = *(&v678 + 1);
+      v645 = v678;
+      v366 = v679;
+      *&v649 = v681;
+      v611 = v682;
+      v612 = *(&v679 + 1);
+      v609 = v683;
+      v610 = *(&v682 + 1);
+      v419 = v630;
+      v420 = v638;
       RangeSet.ranges.getter();
       v377 = RangeSet.Ranges.count.getter();
-      v421 = *(v626 + 8);
-      v421(v629, v420);
-      v645(v419, v308);
+      v421 = *(v625 + 8);
+      v421(v628, v420);
+      v644(v419, v308);
       v422 = v420;
-      v310 = v634;
-      v421(v638, v422);
-      v359 = v612;
-      v365 = v613;
-      v351 = v646;
-      v361 = v610;
-      v360 = v611;
-      v358 = v650;
+      v310 = v633;
+      v421(v637, v422);
+      v359 = v611;
+      v365 = v612;
+      v351 = v645;
+      v361 = v609;
+      v360 = v610;
+      v358 = v649;
       v367 = 0;
-      v364 = v648;
-      v378 = v653;
-      v370 = v640;
-      v369 = v641;
-      v379 = v651;
-      v371 = v637;
-      v372 = v635;
-      v368 = v649;
-      v348 = v623;
-      v347 = v624;
-      v374 = v620;
-      v349 = v621;
-      v376 = v618;
-      v375 = v619;
-      v362 = v614;
-      v363 = v615;
+      v364 = v647;
+      v378 = v652;
+      v370 = v639;
+      v369 = v640;
+      v379 = v650;
+      v371 = v636;
+      v372 = v634;
+      v368 = v648;
+      v348 = v622;
+      v347 = v623;
+      v374 = v619;
+      v349 = v620;
+      v376 = v617;
+      v375 = v618;
+      v362 = v613;
+      v363 = v614;
     }
 
     else
@@ -5300,49 +5299,49 @@ LABEL_387:
         v394 = 0;
       }
 
-      v613 = v394;
+      v612 = v394;
       v351 = *(v390 + 96);
       v395 = swift_unknownObjectRetain();
-      *&v652 = specialized Rope._endPath.getter(v395);
+      *&v651 = specialized Rope._endPath.getter(v395);
       if (v393)
       {
         swift_unknownObjectRelease();
       }
 
-      v396 = v631;
-      v397 = v639;
+      v396 = v630;
+      v397 = v638;
       RangeSet.ranges.getter();
-      v398 = v646;
+      v398 = v645;
       v377 = RangeSet.Ranges.count.getter();
-      v399 = *(v626 + 8);
-      v399(v629, v397);
-      v645(v396, v398);
+      v399 = *(v625 + 8);
+      v399(v628, v397);
+      v644(v396, v398);
       v400 = v397;
-      v310 = v634;
-      v399(v638, v400);
+      v310 = v633;
+      v399(v637, v400);
       v367 = 0;
       v366 = 0;
       v358 = v373;
-      v375 = v619;
-      v374 = v620;
-      v359 = v620;
-      v360 = v619;
-      v376 = v618;
-      v361 = v618;
-      v364 = v648;
-      v378 = v653;
-      v370 = v640;
-      v369 = v641;
-      v379 = v651;
-      v371 = v637;
-      v372 = v635;
-      v368 = v649;
-      v348 = v623;
-      v347 = v624;
-      v349 = v621;
-      v362 = v614;
-      v363 = v615;
-      v365 = v613;
+      v375 = v618;
+      v374 = v619;
+      v359 = v619;
+      v360 = v618;
+      v376 = v617;
+      v361 = v617;
+      v364 = v647;
+      v378 = v652;
+      v370 = v639;
+      v369 = v640;
+      v379 = v650;
+      v371 = v636;
+      v372 = v634;
+      v368 = v648;
+      v348 = v622;
+      v347 = v623;
+      v349 = v620;
+      v362 = v613;
+      v363 = v614;
+      v365 = v612;
     }
   }
 
@@ -5363,7 +5362,7 @@ LABEL_387:
   *(v310 + 113) = v364;
   *(v310 + 120) = v365;
   *(v310 + 128) = v351;
-  *(v310 + 136) = v652;
+  *(v310 + 136) = v651;
   *(v310 + 144) = v366;
   *(v310 + 152) = v358;
   *(v310 + 160) = v359;
@@ -5376,13 +5375,13 @@ LABEL_387:
   *(v310 + 216) = v377;
   *(v310 + 224) = 0;
   *(v310 + 225) = v364;
-  v380 = v627;
-  outlined init with copy of AttributedString.Runs(v310, v627);
+  v380 = v626;
+  outlined init with copy of AttributedString.Runs(v310, v626);
   v381 = v380;
-  v382 = v628;
-  outlined init with copy of AttributedString.Runs(v381, v628);
-  *(v382 + *(v630 + 36)) = &outlined read-only object #2 of ByteCountFormatStyle.Attributed._format(_:doubleValue:);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMd);
+  v382 = v627;
+  outlined init with copy of AttributedString.Runs(v381, v627);
+  *(v382 + *(v629 + 36)) = &outlined read-only object #2 of ByteCountFormatStyle.Attributed._format(_:doubleValue:);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMd, &_ss11_SetStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOSgGMR);
   v383 = static _SetStorage.allocate(capacity:)();
   v9 = v383 + 56;
   v384 = qword_1EEECE9B0;
@@ -5424,11 +5423,11 @@ LABEL_257:
     v415 = *(v383 + 16);
     v179 = __OFADD__(v415, 1);
     v416 = v415 + 1;
-    v31 = &v679;
+    v31 = &v678;
     if (!v179)
     {
       *(v383 + 16) = v416;
-      v67 = v705;
+      v67 = v704;
       goto LABEL_317;
     }
 
@@ -5534,17 +5533,17 @@ LABEL_244:
   v418 = 0;
 LABEL_316:
   outlined consume of AttributedString.AttributeRunBoundaries?(v417, v418);
-  v67 = v705;
+  v67 = v704;
 LABEL_317:
-  v530 = v617;
-  v531 = v628;
-  outlined destroy of TermOfAddress?(&qword_1EEECE9B0, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMd);
-  _s10Foundation16AttributedStringV4RunsVWOhTm_0(v627, type metadata accessor for AttributedString.Runs);
-  _s10Foundation16AttributedStringV4RunsVWOhTm_0(v634, type metadata accessor for AttributedString.Runs);
-  *(v531 + *(v630 + 40)) = v383;
+  v530 = v616;
+  v531 = v627;
+  outlined destroy of TermOfAddress?(&qword_1EEECE9B0, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMd, &_s10Foundation16AttributedStringV22AttributeRunBoundariesOSgMR);
+  _s10Foundation16AttributedStringV4RunsVWOhTm_0(v626, type metadata accessor for AttributedString.Runs);
+  _s10Foundation16AttributedStringV4RunsVWOhTm_0(v633, type metadata accessor for AttributedString.Runs);
+  *(v531 + *(v629 + 40)) = v383;
   outlined init with copy of AttributedString.Runs.AttributesSlice1<AttributeScopes.FoundationAttributes.ByteCountAttribute>(v531, v530);
-  v532 = v636;
-  outlined init with copy of AttributedString.Runs.AttributesSlice1<AttributeScopes.FoundationAttributes.ByteCountAttribute>(v530, v636);
+  v532 = v635;
+  outlined init with copy of AttributedString.Runs.AttributesSlice1<AttributeScopes.FoundationAttributes.ByteCountAttribute>(v530, v635);
   v533 = v531;
   v534 = *(v530 + 96);
   if (v534 == 2)
@@ -5553,39 +5552,39 @@ LABEL_317:
   }
 
   v60 = *(v530 + 88);
-  v653 = *(v530 + 72);
-  outlined destroy of TermOfAddress?(v533, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMd);
+  v652 = *(v530 + 72);
+  outlined destroy of TermOfAddress?(v533, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMR);
   v61 = *(*v530 + 16);
-  outlined destroy of TermOfAddress?(v530, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMd);
-  v535 = v532 + *(v622 + 9);
-  *v535 = v653;
+  outlined destroy of TermOfAddress?(v530, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMR);
+  v535 = v532 + *(v621 + 9);
+  *v535 = v652;
   *(v535 + 16) = v60;
   *(v535 + 24) = v534;
   *(v535 + 32) = v61;
-  v536 = v654;
+  v536 = v653;
   v537 = v532;
-  specialized AttributedString.Runs.AttributesSlice1.Iterator.next()(v665);
-  v538 = *v666;
-  if (*&v666[8] != 2)
+  specialized AttributedString.Runs.AttributesSlice1.Iterator.next()(v664);
+  v538 = *v665;
+  if (*&v665[8] != 2)
   {
-    v539 = v665[0];
-    v540 = *&v665[8];
-    v542 = *&v666[24];
-    v541 = v667;
+    v539 = v664[0];
+    v540 = *&v664[8];
+    v542 = *&v665[24];
+    v541 = v666;
     do
     {
       if (v539 == 9)
       {
-        v650 = v542;
-        v651 = v541;
-        v652 = v540;
-        v653 = v538;
+        v649 = v542;
+        v650 = v541;
+        v651 = v540;
+        v652 = v538;
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
           v543 = *(v536 + 40);
-          v705[0] = *(v536 + 24);
-          v705[1] = v543;
-          v706 = *(v536 + 56);
+          v704[0] = *(v536 + 24);
+          v704[1] = v543;
+          v705 = *(v536 + 56);
           v62 = *(v536 + 72);
           v544 = *(v536 + 80);
           v545 = *(v536 + 88);
@@ -5593,7 +5592,7 @@ LABEL_317:
           type metadata accessor for AttributedString.Guts();
           v546 = swift_allocObject();
           v547 = BigString.isEmpty.getter() & 1;
-          outlined init with copy of BigString(v705, v665);
+          outlined init with copy of BigString(v704, v664);
           v548 = swift_unknownObjectRetain();
           v65 = specialized Rope._endPath.getter(v548);
           if (v62)
@@ -5618,15 +5617,15 @@ LABEL_317:
           }
 
           *(v546 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-          v551 = v705[1];
-          *(v546 + 24) = v705[0];
+          v551 = v704[1];
+          *(v546 + 24) = v704[0];
           *(v546 + 40) = v551;
-          *(v546 + 56) = v706;
+          *(v546 + 56) = v705;
           *(v546 + 72) = v62;
           *(v546 + 80) = v544;
           *(v546 + 88) = v545;
           *(v546 + 96) = v67;
-          v67 = v705;
+          v67 = v704;
           *(v546 + 104) = MEMORY[0x1E69E7CC0];
 
           v536 = v546;
@@ -5640,44 +5639,44 @@ LABEL_317:
         *(v536 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
         v552 = *(v536 + 24);
         v553 = *(v536 + 56);
-        v704[1] = *(v536 + 40);
-        v704[2] = v553;
-        v704[0] = v552;
+        v703[1] = *(v536 + 40);
+        v703[2] = v553;
+        v703[0] = v552;
         v554 = BigString.startIndex.getter();
         v60 = v555;
         v62 = v556;
         v558 = v557;
         v559 = BigString.endIndex.getter();
-        *v665 = v536;
-        *&v665[8] = v554;
-        *&v665[16] = v60;
-        *v666 = v62;
-        *&v666[8] = v558;
-        *&v666[16] = v559;
-        *&v666[24] = v560;
-        *&v666[32] = v561;
-        v667 = v562;
+        *v664 = v536;
+        *&v664[8] = v554;
+        *&v664[16] = v60;
+        *v665 = v62;
+        *&v665[8] = v558;
+        *&v665[16] = v559;
+        *&v665[24] = v560;
+        *&v665[32] = v561;
+        v666 = v562;
 
-        outlined destroy of AttributedString.CharacterView(v665);
+        outlined destroy of AttributedString.CharacterView(v664);
+        v696 = v651;
         v697 = v652;
-        v698 = v653;
+        v698 = v649;
         v699 = v650;
-        v700 = v651;
         v563 = *(v536 + 40);
-        v701 = *(v536 + 24);
-        v702 = v563;
-        v703 = *(v536 + 56);
+        v700 = *(v536 + 24);
+        v701 = v563;
+        v702 = *(v536 + 56);
         swift_unknownObjectRetain();
 
         BigString.UnicodeScalarView.subscript.getter();
         swift_unknownObjectRelease();
-        outlined destroy of BigSubstring.UnicodeScalarView(&v679);
-        *&v659[32] = v685;
-        *&v659[48] = v686;
+        outlined destroy of BigSubstring.UnicodeScalarView(&v678);
+        *&v658[32] = v684;
+        *&v658[48] = v685;
+        v660 = v682;
         v661 = v683;
         v662 = v684;
         v663 = v685;
-        v664 = v686;
         if (one-time initialization token for currentIdentity != -1)
         {
           swift_once();
@@ -5695,9 +5694,9 @@ LABEL_317:
         *(v564 + 16) = v61;
         os_unfair_lock_unlock((v564 + 24));
         BigString.init()();
-        *v659 = 0;
-        MEMORY[0x1865D26B0](v659, 8);
-        v60 = *v659;
+        *v658 = 0;
+        MEMORY[0x1865D26B0](v658, 8);
+        v60 = *v658;
         v62 = type metadata accessor for AttributedString.Guts();
         v566 = swift_allocObject();
         v65 = BigString.isEmpty.getter();
@@ -5707,10 +5706,10 @@ LABEL_317:
         }
 
         *(v566 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-        v567 = v688;
-        *(v566 + 24) = v687;
+        v567 = v687;
+        *(v566 + 24) = v686;
         *(v566 + 40) = v567;
-        *(v566 + 56) = v689;
+        *(v566 + 56) = v688;
         *(v566 + 72) = 0;
         *(v566 + 80) = 0;
         *(v566 + 88) = 0;
@@ -5720,16 +5719,16 @@ LABEL_317:
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
           v568 = *(v536 + 40);
-          v694 = *(v536 + 24);
-          v695 = v568;
-          v696 = *(v536 + 56);
+          v693 = *(v536 + 24);
+          v694 = v568;
+          v695 = *(v536 + 56);
           v569 = *(v536 + 72);
           v67 = *(v536 + 80);
           v570 = *(v536 + 88);
           v60 = *(v536 + 96);
           v62 = swift_allocObject();
           v571 = BigString.isEmpty.getter() & 1;
-          outlined init with copy of BigString(&v694, v659);
+          outlined init with copy of BigString(&v693, v658);
           v572 = swift_unknownObjectRetain();
           v65 = specialized Rope._endPath.getter(v572);
           if (v569)
@@ -5749,10 +5748,10 @@ LABEL_317:
           }
 
           *(v62 + 16) = atomic_fetch_add_explicit(&static AttributedString.Guts._nextVersion, 1uLL, memory_order_relaxed);
-          v575 = v695;
-          *(v62 + 24) = v694;
+          v575 = v694;
+          *(v62 + 24) = v693;
           *(v62 + 40) = v575;
-          *(v62 + 56) = v696;
+          *(v62 + 56) = v695;
           *(v62 + 72) = v569;
           *(v62 + 80) = v67;
           *(v62 + 88) = v570;
@@ -5760,47 +5759,47 @@ LABEL_317:
           *(v62 + 104) = MEMORY[0x1E69E7CC0];
 
           v536 = v62;
-          v67 = v705;
+          v67 = v704;
         }
 
+        v689 = v660;
         v690 = v661;
         v691 = v662;
         v692 = v663;
-        v693 = v664;
-        _s10Foundation16AttributedStringV4GutsC17setAttributeValue_6forKey2iny0G0Qz_xmSny19CollectionsInternal03BigC0V5IndexVGtAA0bcI0Rzs8SendableAJRQlFAA0F6ScopesO0A10AttributesV09ByteCountF0O_Tt0B5(11);
+        _s10Foundation16AttributedStringV4GutsC17setAttributeValue_6forKey2iny0G0Qz_xmSny19CollectionsInternal03BigC0V5IndexVGtAA0bcI0Rzs8SendableAJRQlFAA0F6ScopesO0A10AttributesV09ByteCountF0O_Tt0B5(11, &v689);
 
-        *&v659[8] = v661;
-        *&v659[24] = v662;
-        *&v659[40] = v663;
-        *&v659[56] = v664;
-        *v659 = v536;
-        v660 = v61;
-        outlined destroy of AttributedSubstring(v659);
-        v537 = v636;
+        *&v658[8] = v660;
+        *&v658[24] = v661;
+        *&v658[40] = v662;
+        *&v658[56] = v663;
+        *v658 = v536;
+        v659 = v61;
+        outlined destroy of AttributedSubstring(v658);
+        v537 = v635;
       }
 
-      specialized AttributedString.Runs.AttributesSlice1.Iterator.next()(v665);
-      v539 = v665[0];
-      v538 = *v666;
-      v540 = *&v665[8];
-      v542 = *&v666[24];
-      v541 = v667;
+      specialized AttributedString.Runs.AttributesSlice1.Iterator.next()(v664);
+      v539 = v664[0];
+      v538 = *v665;
+      v540 = *&v664[8];
+      v542 = *&v665[24];
+      v541 = v666;
     }
 
-    while (*&v666[8] != 2);
+    while (*&v665[8] != 2);
   }
 
-  v654 = v536;
-  outlined destroy of TermOfAddress?(v537, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V09ByteCountH0O_GMd);
+  v653 = v536;
+  outlined destroy of TermOfAddress?(v537, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V09ByteCountH0O_GMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1V8IteratorVy__AA15AttributeScopesO0aE0V09ByteCountH0O_GMR);
   specialized AttributedString.append<A>(_:)(v536);
 
   BigString.init(_:)();
-  AttributedString.init(_:attributes:)(v665, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], v659);
-  specialized AttributedString.append<A>(_:)(*v659);
+  AttributedString.init(_:attributes:)(v664, MEMORY[0x1E69E7CC8], MEMORY[0x1E69E7CD0], v658);
+  specialized AttributedString.append<A>(_:)(*v658);
 
-  v90 = v655;
+  v90 = v654;
 LABEL_320:
-  *v632 = v90;
+  *v631 = v90;
   return result;
 }
 
@@ -5875,10 +5874,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance ByteCo
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance ByteCountFormatStyle.Attributed.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance ByteCountFormatStyle.Attributed.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized ByteCountFormatStyle.Attributed.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized ByteCountFormatStyle.Attributed.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -5898,7 +5897,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t ByteCountFormatStyle.Attributed.encode(to:)(void *a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation20ByteCountFormatStyleV10AttributedV10CodingKeys024_BAEECF0BEB7E4559D3F4104O7FA03815LLOGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation20ByteCountFormatStyleV10AttributedV10CodingKeys024_BAEECF0BEB7E4559D3F4104O7FA03815LLOGMd, &_ss22KeyedEncodingContainerVy10Foundation20ByteCountFormatStyleV10AttributedV10CodingKeys024_BAEECF0BEB7E4559D3F4104O7FA03815LLOGMR);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v10 - v6;
@@ -5937,7 +5936,7 @@ uint64_t ByteCountFormatStyle.Attributed.encode(to:)(void *a1)
 
 uint64_t ByteCountFormatStyle.Attributed.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation20ByteCountFormatStyleV10AttributedV10CodingKeys024_BAEECF0BEB7E4559D3F4104O7FA03815LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation20ByteCountFormatStyleV10AttributedV10CodingKeys024_BAEECF0BEB7E4559D3F4104O7FA03815LLOGMd, &_ss22KeyedDecodingContainerVy10Foundation20ByteCountFormatStyleV10AttributedV10CodingKeys024_BAEECF0BEB7E4559D3F4104O7FA03815LLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v14 - v7;
@@ -5975,7 +5974,7 @@ uint64_t ByteCountFormatStyle.Attributed.init(from:)@<X0>(void *a1@<X0>, uint64_
   return __swift_destroy_boxed_opaque_existential_1(a1);
 }
 
-uint64_t protocol witness for FormatStyle.locale(_:) in conformance ByteCountFormatStyle.Attributed@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for FormatStyle.locale(_:) in conformance ByteCountFormatStyle.Attributed@<X0>(__int128 *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *(v2 + 8);
   v4 = *(v2 + 16);
@@ -6023,7 +6022,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t ByteCountFormatStyle.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation20ByteCountFormatStyleV10CodingKeys024_BAEECF0BEB7E4559D3F4104N7FA03815LLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation20ByteCountFormatStyleV10CodingKeys024_BAEECF0BEB7E4559D3F4104N7FA03815LLOGMd, &_ss22KeyedEncodingContainerVy10Foundation20ByteCountFormatStyleV10CodingKeys024_BAEECF0BEB7E4559D3F4104N7FA03815LLOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v11 - v5;
@@ -6037,7 +6036,7 @@ uint64_t ByteCountFormatStyle.encode(to:)(void *a1)
   v11 = *(v1 + 24);
   swift_unknownObjectRetain();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v14 = v7;
+  v14[0] = v7;
   v15 = v8;
   v16 = v13;
   v17 = v12;
@@ -6199,7 +6198,7 @@ LABEL_25:
     v35 = v20;
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     if (*(&v42 + 1))
     {
@@ -6227,7 +6226,7 @@ LABEL_30:
 LABEL_27:
   Hasher._combine(_:)(1u);
   type metadata accessor for CFDictionaryRef(0);
-  _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+  _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
   _CFObject.hash(into:)();
   v36 = v35;
   if (v21)
@@ -6235,7 +6234,7 @@ LABEL_27:
 LABEL_28:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     goto LABEL_32;
   }
@@ -6247,7 +6246,7 @@ LABEL_32:
   {
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     v37 = *(&v44 + 1);
     if (v44)
@@ -6265,7 +6264,7 @@ LABEL_32:
 LABEL_34:
       Hasher._combine(_:)(1u);
       type metadata accessor for CFDictionaryRef(0);
-      _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+      _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
       _CFObject.hash(into:)();
       if (v37)
       {
@@ -6378,12 +6377,12 @@ LABEL_49:
   }
 
   Hasher._combine(_:)(v40);
-  outlined destroy of TermOfAddress?(&v48, &_s10Foundation17LocalePreferencesVSgMd);
+  outlined destroy of TermOfAddress?(&v48, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
 }
 
 uint64_t ByteCountFormatStyle.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation20ByteCountFormatStyleV10CodingKeys024_BAEECF0BEB7E4559D3F4104N7FA03815LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation20ByteCountFormatStyleV10CodingKeys024_BAEECF0BEB7E4559D3F4104N7FA03815LLOGMd, &_ss22KeyedDecodingContainerVy10Foundation20ByteCountFormatStyleV10CodingKeys024_BAEECF0BEB7E4559D3F4104N7FA03815LLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v14[-v7];
@@ -6417,66 +6416,66 @@ uint64_t protocol witness for FormatStyle.format(_:) in conformance ByteCountFor
   return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ByteCountFormatStyle.Attributed()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ByteCountFormatStyle.Attributed(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = v0[16];
-  v4 = v0[17];
-  v5 = *(v0 + 4);
+  v2 = *v1;
+  v3 = *(v1 + 1);
+  v4 = v1[16];
+  v5 = v1[17];
+  v6 = *(v1 + 4);
   Hasher.init(_seed:)();
-  MEMORY[0x1865CD060](v1);
   MEMORY[0x1865CD060](v2);
-  Hasher._combine(_:)(v3);
+  MEMORY[0x1865CD060](v3);
   Hasher._combine(_:)(v4);
+  Hasher._combine(_:)(v5);
   ObjectType = swift_getObjectType();
-  if ((*(v5 + 48))(ObjectType, v5))
+  if ((*(v6 + 48))(ObjectType, v6))
   {
-    v7 = 1;
+    v8 = 1;
 LABEL_5:
-    Hasher._combine(_:)(v7);
+    Hasher._combine(_:)(v8);
     return Hasher._finalize()();
   }
 
   Hasher._combine(_:)(0);
-  (*(v5 + 64))(ObjectType, v5);
+  (*(v6 + 64))(ObjectType, v6);
   String.hash(into:)();
 
-  (*(v5 + 464))(&v40, ObjectType, v5);
-  v48[6] = v46;
-  v49[0] = *v47;
-  *(v49 + 12) = *&v47[12];
-  v48[2] = v42;
-  v48[3] = v43;
-  v48[4] = v44;
-  v48[5] = v45;
-  v48[0] = v40;
-  v48[1] = v41;
-  if (_s10Foundation17LocalePreferencesVSgWOg(v48) == 1)
+  (*(v6 + 464))(&v41, ObjectType, v6);
+  v49[6] = v47;
+  v50[0] = *v48;
+  *(v50 + 12) = *&v48[12];
+  v49[2] = v43;
+  v49[3] = v44;
+  v49[4] = v45;
+  v49[5] = v46;
+  v49[0] = v41;
+  v49[1] = v42;
+  if (_s10Foundation17LocalePreferencesVSgWOg(v49) == 1)
   {
-    v7 = 0;
+    v8 = 0;
     goto LABEL_5;
   }
 
-  v8 = v40;
-  v9 = *(&v40 + 1);
+  v9 = v41;
   v10 = *(&v41 + 1);
   v11 = *(&v42 + 1);
-  v12 = v43;
-  v34 = v44;
+  v12 = *(&v43 + 1);
+  v13 = v44;
   v35 = v45;
-  v13 = v46;
-  v14 = *v47;
-  v36 = v47[24];
-  v37 = *&v47[16];
-  v15 = v47[25];
-  v38 = v47[26];
-  v39 = v47[27];
+  v36 = v46;
+  v14 = v47;
+  v15 = *v48;
+  v37 = v48[24];
+  v38 = *&v48[16];
+  v16 = v48[25];
+  v39 = v48[26];
+  v40 = v48[27];
   Hasher._combine(_:)(1u);
-  if (v8 == 2)
+  if (v9 == 2)
   {
     Hasher._combine(_:)(0);
-    if (v9)
+    if (v10)
     {
       goto LABEL_8;
     }
@@ -6485,29 +6484,29 @@ LABEL_5:
   else
   {
     Hasher._combine(_:)(1u);
-    Hasher._combine(_:)(v8 & 1);
-    if (v9)
+    Hasher._combine(_:)(v9 & 1);
+    if (v10)
     {
 LABEL_8:
       Hasher._combine(_:)(1u);
-      MEMORY[0x1865CD060](*(v9 + 16));
-      v16 = *(v9 + 16);
-      if (v16)
+      MEMORY[0x1865CD060](*(v10 + 16));
+      v17 = *(v10 + 16);
+      if (v17)
       {
-        v17 = v9 + 40;
+        v18 = v10 + 40;
         do
         {
 
           String.hash(into:)();
 
-          v17 += 16;
-          --v16;
+          v18 += 16;
+          --v17;
         }
 
-        while (v16);
+        while (v17);
       }
 
-      if (v10)
+      if (v11)
       {
         goto LABEL_12;
       }
@@ -6517,7 +6516,7 @@ LABEL_8:
   }
 
   Hasher._combine(_:)(0);
-  if (v10)
+  if (v11)
   {
 LABEL_12:
     Hasher._combine(_:)(1u);
@@ -6528,96 +6527,10 @@ LABEL_12:
 LABEL_15:
   Hasher._combine(_:)(0);
 LABEL_16:
-  if (v11)
-  {
-    Hasher._combine(_:)(1u);
-    String.hash(into:)();
-  }
-
-  else
-  {
-    Hasher._combine(_:)(0);
-  }
-
   if (v12)
   {
     Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(v50, v12, v18, v19, v20, v21, v22, v23);
-  }
-
-  else
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  if (*(&v12 + 1))
-  {
-    Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(v50, *(&v12 + 1), v24, v25, v26, v27, v28, v29);
-    if (v34)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  else
-  {
-    Hasher._combine(_:)(0);
-    if (v34)
-    {
-LABEL_24:
-      Hasher._combine(_:)(1u);
-      type metadata accessor for CFDictionaryRef(0);
-      _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-      _CFObject.hash(into:)();
-      if (*(&v34 + 1))
-      {
-        goto LABEL_25;
-      }
-
-LABEL_29:
-      v30 = v36;
-      Hasher._combine(_:)(0);
-      if (v35)
-      {
-        goto LABEL_26;
-      }
-
-      goto LABEL_30;
-    }
-  }
-
-  Hasher._combine(_:)(0);
-  if (!*(&v34 + 1))
-  {
-    goto LABEL_29;
-  }
-
-LABEL_25:
-  v30 = v36;
-  Hasher._combine(_:)(1u);
-  type metadata accessor for CFDictionaryRef(0);
-  _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-  _CFObject.hash(into:)();
-  if (v35)
-  {
-LABEL_26:
-    Hasher._combine(_:)(1u);
-    type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-    _CFObject.hash(into:)();
-    goto LABEL_31;
-  }
-
-LABEL_30:
-  Hasher._combine(_:)(0);
-LABEL_31:
-  if (*(&v35 + 1))
-  {
-    Hasher._combine(_:)(1u);
-    type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-    _CFObject.hash(into:)();
+    String.hash(into:)();
   }
 
   else
@@ -6628,9 +6541,7 @@ LABEL_31:
   if (v13)
   {
     Hasher._combine(_:)(1u);
-    type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-    _CFObject.hash(into:)();
+    specialized Dictionary<>.hash(into:)(v51, v13, v19, v20, v21, v22, v23, v24);
   }
 
   else
@@ -6641,8 +6552,96 @@ LABEL_31:
   if (*(&v13 + 1))
   {
     Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(v50, *(&v13 + 1));
-    if (v14)
+    specialized Dictionary<>.hash(into:)(v51, *(&v13 + 1), v25, v26, v27, v28, v29, v30);
+    if (v35)
+    {
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+    if (v35)
+    {
+LABEL_24:
+      Hasher._combine(_:)(1u);
+      type metadata accessor for CFDictionaryRef(0);
+      _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+      _CFObject.hash(into:)();
+      if (*(&v35 + 1))
+      {
+        goto LABEL_25;
+      }
+
+LABEL_29:
+      v31 = v37;
+      Hasher._combine(_:)(0);
+      if (v36)
+      {
+        goto LABEL_26;
+      }
+
+      goto LABEL_30;
+    }
+  }
+
+  Hasher._combine(_:)(0);
+  if (!*(&v35 + 1))
+  {
+    goto LABEL_29;
+  }
+
+LABEL_25:
+  v31 = v37;
+  Hasher._combine(_:)(1u);
+  type metadata accessor for CFDictionaryRef(0);
+  _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+  _CFObject.hash(into:)();
+  if (v36)
+  {
+LABEL_26:
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+    goto LABEL_31;
+  }
+
+LABEL_30:
+  Hasher._combine(_:)(0);
+LABEL_31:
+  if (*(&v36 + 1))
+  {
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  if (v14)
+  {
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  if (*(&v14 + 1))
+  {
+    Hasher._combine(_:)(1u);
+    specialized Dictionary<>.hash(into:)(v51, *(&v14 + 1));
+    if (v15)
     {
       goto LABEL_39;
     }
@@ -6651,12 +6650,12 @@ LABEL_31:
   else
   {
     Hasher._combine(_:)(0);
-    if (v14)
+    if (v15)
     {
 LABEL_39:
       Hasher._combine(_:)(1u);
-      specialized Dictionary<>.hash(into:)(v50, v14);
-      if (v37)
+      specialized Dictionary<>.hash(into:)(v51, v15);
+      if (v38)
       {
         goto LABEL_40;
       }
@@ -6666,12 +6665,12 @@ LABEL_39:
   }
 
   Hasher._combine(_:)(0);
-  if (v37)
+  if (v38)
   {
 LABEL_40:
     Hasher._combine(_:)(1u);
     String.hash(into:)();
-    if (v30 == 2)
+    if (v31 == 2)
     {
       goto LABEL_41;
     }
@@ -6681,61 +6680,61 @@ LABEL_40:
 
 LABEL_46:
   Hasher._combine(_:)(0);
-  if (v30 == 2)
+  if (v31 == 2)
   {
 LABEL_41:
     Hasher._combine(_:)(0);
-    if (v15 != 2)
+    if (v16 != 2)
     {
       goto LABEL_42;
     }
 
 LABEL_48:
     Hasher._combine(_:)(0);
-    if (v38 != 2)
+    if (v39 != 2)
     {
       goto LABEL_43;
     }
 
 LABEL_49:
-    v31 = 0;
+    v32 = 0;
     goto LABEL_50;
   }
 
 LABEL_47:
   Hasher._combine(_:)(1u);
-  MEMORY[0x1865CD060](v30 & 1);
-  if (v15 == 2)
+  MEMORY[0x1865CD060](v31 & 1);
+  if (v16 == 2)
   {
     goto LABEL_48;
   }
 
 LABEL_42:
   Hasher._combine(_:)(1u);
-  MEMORY[0x1865CD060](v15 & 1);
-  if (v38 == 2)
+  MEMORY[0x1865CD060](v16 & 1);
+  if (v39 == 2)
   {
     goto LABEL_49;
   }
 
 LABEL_43:
   Hasher._combine(_:)(1u);
-  v31 = v38 & 1;
+  v32 = v39 & 1;
 LABEL_50:
-  Hasher._combine(_:)(v31);
-  if (v39 == 2)
+  Hasher._combine(_:)(v32);
+  if (v40 == 2)
   {
-    v32 = 0;
+    v33 = 0;
   }
 
   else
   {
     Hasher._combine(_:)(1u);
-    v32 = v39 & 1;
+    v33 = v40 & 1;
   }
 
-  Hasher._combine(_:)(v32);
-  outlined destroy of TermOfAddress?(&v40, &_s10Foundation17LocalePreferencesVSgMd);
+  Hasher._combine(_:)(v33);
+  outlined destroy of TermOfAddress?(&v41, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
   return Hasher._finalize()();
 }
 
@@ -6745,7 +6744,7 @@ uint64_t static FormatStyle<>.byteCount(style:allowedUnits:spellsOutZero:include
   v9 = *a2;
   type metadata accessor for _LocaleAutoupdating();
   inited = swift_initStaticObject();
-  result = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating);
+  result = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating, &protocol conformance descriptor for _LocaleAutoupdating);
   *a5 = v8;
   *(a5 + 8) = v9;
   *(a5 + 16) = a3;
@@ -6760,7 +6759,7 @@ uint64_t static FormatStyle<>.byteCount(style:allowedUnits:spellsOutZero:include
   v9 = *a2;
   type metadata accessor for _LocaleAutoupdating();
   inited = swift_initStaticObject();
-  result = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating);
+  result = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating, &protocol conformance descriptor for _LocaleAutoupdating);
   *a5 = v8;
   *(a5 + 8) = v9;
   *(a5 + 16) = a3;
@@ -7108,7 +7107,7 @@ unint64_t lazy protocol witness table accessor for type ByteCountFormatStyle and
 
 uint64_t instantiation function for generic protocol witness table for ByteCountFormatStyle.Attributed(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void), uint64_t (*a6)(void))
 {
-  a1[1] = a4();
+  a1[1] = (a4)(a1, a2, a3);
   a1[2] = a5();
   result = a6();
   a1[3] = result;
@@ -7232,21 +7231,21 @@ uint64_t specialized ByteCountFormatStyle.Attributed.CodingKeys.init(stringValue
   }
 }
 
-uint64_t partial apply for closure #1 in localizedParens(locale:)@<X0>(uint64_t *a1@<X8>)
+uint64_t partial apply for closure #1 in localizedParens(locale:)@<X0>(uint64_t *a2@<X8>)
 {
   result = ulocdata_open();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
 uint64_t outlined init with copy of AttributedString.Runs.AttributesSlice1<AttributeScopes.FoundationAttributes.ByteCountAttribute>(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V09ByteCountG0OGMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-uint64_t static Duration.bound(for:in:countingDown:roundingRule:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
+uint64_t static Duration.bound(for:in:countingDown:roundingRule:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, int a5, uint64_t a6)
 {
   v85 = a6;
   v81 = a5;
@@ -7254,7 +7253,7 @@ uint64_t static Duration.bound(for:in:countingDown:roundingRule:)(uint64_t a1, u
   v86 = *(v88 - 8);
   MEMORY[0x1EEE9AC00](v88);
   v11 = &v74 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleO_SbtMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleO_SbtMd, &_ss25FloatingPointRoundingRuleO_SbtMR);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v83 = &v74 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v14);
@@ -7769,17 +7768,17 @@ __n128 Duration.TimeFormatStyle.init(pattern:locale:)@<Q0>(uint64_t a1@<X0>, __n
 
 uint64_t Duration.TimeFormatStyle.Pattern.Fields.encode(to:)(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO22MinuteSecondCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO22MinuteSecondCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO22MinuteSecondCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v56 = *(v2 - 8);
   v57 = v2;
   MEMORY[0x1EEE9AC00](v2);
   v55 = &v47 - v3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO26HourMinuteSecondCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO26HourMinuteSecondCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO26HourMinuteSecondCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v53 = *(v4 - 8);
   v54 = v4;
   MEMORY[0x1EEE9AC00](v4);
   v52 = &v47 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO20HourMinuteCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO20HourMinuteCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO20HourMinuteCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v48 = *(v6 - 8);
   v49 = v6;
   MEMORY[0x1EEE9AC00](v6);
@@ -7795,7 +7794,7 @@ uint64_t Duration.TimeFormatStyle.Pattern.Fields.encode(to:)(void *a1)
   v15 = type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields(0);
   MEMORY[0x1EEE9AC00](v15);
   v17 = &v47 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v19 = *(v18 - 8);
   v62 = v18;
   v63 = v19;
@@ -7811,7 +7810,7 @@ uint64_t Duration.TimeFormatStyle.Pattern.Fields.encode(to:)(void *a1)
   {
     if (EnumCaseMultiPayload == 1)
     {
-      v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd);
+      v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR);
       v24 = v61;
       v25 = v50;
       v26 = v64;
@@ -7829,7 +7828,7 @@ uint64_t Duration.TimeFormatStyle.Pattern.Fields.encode(to:)(void *a1)
       if (!v31)
       {
         v66 = 1;
-        lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type FloatingPointRoundingRule and conformance FloatingPointRoundingRule, MEMORY[0x1E69E7050]);
+        lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type FloatingPointRoundingRule and conformance FloatingPointRoundingRule, MEMORY[0x1E69E7050], &protocol conformance descriptor for FloatingPointRoundingRule);
         KeyedEncodingContainer.encode<A>(_:forKey:)();
       }
 
@@ -7840,7 +7839,7 @@ uint64_t Duration.TimeFormatStyle.Pattern.Fields.encode(to:)(void *a1)
 
     else
     {
-      v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd);
+      v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR);
       v39 = v61;
       v40 = v51;
       v41 = v64;
@@ -7858,7 +7857,7 @@ uint64_t Duration.TimeFormatStyle.Pattern.Fields.encode(to:)(void *a1)
       if (!v46)
       {
         v69 = 1;
-        lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type FloatingPointRoundingRule and conformance FloatingPointRoundingRule, MEMORY[0x1E69E7050]);
+        lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type FloatingPointRoundingRule and conformance FloatingPointRoundingRule, MEMORY[0x1E69E7050], &protocol conformance descriptor for FloatingPointRoundingRule);
         KeyedEncodingContainer.encode<A>(_:forKey:)();
       }
 
@@ -7878,7 +7877,7 @@ uint64_t Duration.TimeFormatStyle.Pattern.Fields.encode(to:)(void *a1)
     v35 = v62;
     v36 = v58;
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type FloatingPointRoundingRule and conformance FloatingPointRoundingRule, MEMORY[0x1E69E7050]);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type FloatingPointRoundingRule and conformance FloatingPointRoundingRule, MEMORY[0x1E69E7050], &protocol conformance descriptor for FloatingPointRoundingRule);
     v37 = v49;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     (*(v48 + 8))(v8, v37);
@@ -7887,65 +7886,65 @@ uint64_t Duration.TimeFormatStyle.Pattern.Fields.encode(to:)(void *a1)
   }
 }
 
-uint64_t Duration.TimeFormatStyle.Pattern.Fields.hash(into:)()
+uint64_t Duration.TimeFormatStyle.Pattern.Fields.hash(into:)(uint64_t a1)
 {
-  v1 = type metadata accessor for FloatingPointRoundingRule();
-  v2 = *(v1 - 8);
-  MEMORY[0x1EEE9AC00](v1);
-  v4 = &v14 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields(0);
-  MEMORY[0x1EEE9AC00](v5);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Duration.TimeFormatStyle.Pattern.Fields(v0, v7, type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields);
+  v2 = type metadata accessor for FloatingPointRoundingRule();
+  v3 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields(0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Duration.TimeFormatStyle.Pattern.Fields(v1, v8, type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload)
   {
-    v9 = *v7;
+    v10 = *v8;
     if (EnumCaseMultiPayload == 1)
     {
-      v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd);
-      (*(v2 + 32))(v4, &v7[*(v10 + 48)], v1);
-      v11 = 1;
+      v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR);
+      (*(v3 + 32))(v5, &v8[*(v11 + 48)], v2);
+      v12 = 1;
     }
 
     else
     {
-      v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd);
-      (*(v2 + 32))(v4, &v7[*(v12 + 48)], v1);
-      v11 = 2;
+      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR);
+      (*(v3 + 32))(v5, &v8[*(v13 + 48)], v2);
+      v12 = 2;
     }
 
-    MEMORY[0x1865CD060](v11);
+    MEMORY[0x1865CD060](v12);
   }
 
   else
   {
-    (*(v2 + 32))(v4, v7, v1);
-    v9 = 0;
+    (*(v3 + 32))(v5, v8, v2);
+    v10 = 0;
   }
 
-  MEMORY[0x1865CD060](v9);
+  MEMORY[0x1865CD060](v10);
   dispatch thunk of Hashable.hash(into:)();
-  return (*(v2 + 8))(v4, v1);
+  return (*(v3 + 8))(v5, v2);
 }
 
 uint64_t Duration.TimeFormatStyle.Pattern.Fields.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v58 = a2;
-  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO22MinuteSecondCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO22MinuteSecondCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO22MinuteSecondCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v53 = *(v55 - 8);
   MEMORY[0x1EEE9AC00](v55);
   v60 = &v47 - v3;
-  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO26HourMinuteSecondCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO26HourMinuteSecondCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO26HourMinuteSecondCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v52 = *(v54 - 8);
   MEMORY[0x1EEE9AC00](v54);
   v57 = &v47 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO20HourMinuteCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO20HourMinuteCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO20HourMinuteCodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v50 = *(v5 - 8);
   v51 = v5;
   MEMORY[0x1EEE9AC00](v5);
   v56 = &v47 - v6;
-  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV6FieldsO10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v59 = *(v61 - 8);
   MEMORY[0x1EEE9AC00](v61);
   v8 = &v47 - v7;
@@ -7996,12 +7995,12 @@ uint64_t Duration.TimeFormatStyle.Pattern.Fields.init(from:)@<X0>(void *a1@<X0>,
           v60 = v8;
           v68 = 0;
           v39 = KeyedDecodingContainer.decode(_:forKey:)();
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR);
           v40 = v47;
           *v47 = v39;
           type metadata accessor for FloatingPointRoundingRule();
           v68 = 1;
-          lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type FloatingPointRoundingRule and conformance FloatingPointRoundingRule, MEMORY[0x1E69E7050]);
+          lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type FloatingPointRoundingRule and conformance FloatingPointRoundingRule, MEMORY[0x1E69E7050], &protocol conformance descriptor for FloatingPointRoundingRule);
           v41 = v54;
           KeyedDecodingContainer.decode<A>(_:forKey:)();
           (*(v52 + 8))(v30, v41);
@@ -8021,12 +8020,12 @@ LABEL_12:
         v37 = v59;
         v68 = 0;
         v43 = KeyedDecodingContainer.decode(_:forKey:)();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR);
         v44 = v48;
         *v48 = v43;
         type metadata accessor for FloatingPointRoundingRule();
         v68 = 1;
-        lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type FloatingPointRoundingRule and conformance FloatingPointRoundingRule, MEMORY[0x1E69E7050]);
+        lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type FloatingPointRoundingRule and conformance FloatingPointRoundingRule, MEMORY[0x1E69E7050], &protocol conformance descriptor for FloatingPointRoundingRule);
         v45 = v60;
         KeyedDecodingContainer.decode<A>(_:forKey:)();
         v46 = v44;
@@ -8042,7 +8041,7 @@ LABEL_12:
         v36 = v23;
         KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
         type metadata accessor for FloatingPointRoundingRule();
-        lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type FloatingPointRoundingRule and conformance FloatingPointRoundingRule, MEMORY[0x1E69E7050]);
+        lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type FloatingPointRoundingRule and conformance FloatingPointRoundingRule, MEMORY[0x1E69E7050], &protocol conformance descriptor for FloatingPointRoundingRule);
         v46 = v49;
         v42 = v51;
         KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -8059,7 +8058,7 @@ LABEL_12:
     v32 = type metadata accessor for DecodingError();
     swift_allocError();
     v34 = v33;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
     *v34 = v62;
     KeyedDecodingContainer.codingPath.getter();
     DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
@@ -8072,7 +8071,7 @@ LABEL_12:
   return __swift_destroy_boxed_opaque_existential_1(v63);
 }
 
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance Duration.TimeFormatStyle.Pattern.Fields.CodingKeys()
+unint64_t protocol witness for CodingKey.stringValue.getter in conformance Duration.TimeFormatStyle.Pattern.Fields.CodingKeys()
 {
   v1 = 0xD000000000000010;
   if (*v0 != 1)
@@ -8091,10 +8090,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Durati
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Duration.TimeFormatStyle.Pattern.Fields.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Duration.TimeFormatStyle.Pattern.Fields.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized Duration.TimeFormatStyle.Pattern.Fields.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized Duration.TimeFormatStyle.Pattern.Fields.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8234,22 +8233,22 @@ uint64_t static Duration.TimeFormatStyle.Pattern.hourMinute(padHourToLength:roun
   return result;
 }
 
-uint64_t static Duration.TimeFormatStyle.Pattern.hourMinuteSecond(padHourToLength:fractionalSecondsLength:roundFractionalSeconds:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X8>)
+uint64_t static Duration.TimeFormatStyle.Pattern.hourMinuteSecond(padHourToLength:fractionalSecondsLength:roundFractionalSeconds:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a5@<X8>)
 {
-  return static Duration.TimeFormatStyle.Pattern.hourMinuteSecond(padHourToLength:fractionalSecondsLength:roundFractionalSeconds:)(a1, a2, a3, a4);
+  return static Duration.TimeFormatStyle.Pattern.hourMinuteSecond(padHourToLength:fractionalSecondsLength:roundFractionalSeconds:)(a1, a2, a3, a5);
 }
 
 {
-  v8 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd) + 48);
-  *a4 = a2;
-  v9 = type metadata accessor for FloatingPointRoundingRule();
-  (*(*(v9 - 8) + 16))(&a4[v8], a3, v9);
+  v9 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR) + 48);
+  *a5 = a2;
+  v10 = type metadata accessor for FloatingPointRoundingRule();
+  (*(*(v10 - 8) + 16))(&a5[v9], a3, v10);
   type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields(0);
   swift_storeEnumTagMultiPayload();
   result = type metadata accessor for Duration.TimeFormatStyle.Pattern(0);
-  v11 = &a4[*(result + 20)];
-  *v11 = a1;
-  v11[8] = 0;
+  v12 = &a5[*(result + 20)];
+  *v12 = a1;
+  v12[8] = 0;
   return result;
 }
 
@@ -8352,7 +8351,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t Duration.TimeFormatStyle.Pattern.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v8[-v5];
@@ -8361,7 +8360,7 @@ uint64_t Duration.TimeFormatStyle.Pattern.encode(to:)(void *a1)
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   v8[15] = 0;
   type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields(0);
-  lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields, type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields);
+  lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields, type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields, &protocol conformance descriptor for Duration.TimeFormatStyle.Pattern.Fields);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   if (!v1)
   {
@@ -8373,65 +8372,65 @@ uint64_t Duration.TimeFormatStyle.Pattern.encode(to:)(void *a1)
   return (*(v4 + 8))(v6, v3);
 }
 
-void Duration.TimeFormatStyle.Pattern.hash(into:)()
+void Duration.TimeFormatStyle.Pattern.hash(into:)(uint64_t a1)
 {
-  v1 = v0;
-  v2 = type metadata accessor for FloatingPointRoundingRule();
-  v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields(0);
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Duration.TimeFormatStyle.Pattern.Fields(v1, v8, type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields);
+  v2 = v1;
+  v3 = type metadata accessor for FloatingPointRoundingRule();
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields(0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Duration.TimeFormatStyle.Pattern.Fields(v2, v9, type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload)
   {
-    v10 = *v8;
+    v11 = *v9;
     if (EnumCaseMultiPayload == 1)
     {
-      v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd);
-      (*(v3 + 32))(v5, &v8[*(v11 + 48)], v2);
-      v12 = 1;
+      v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR);
+      (*(v4 + 32))(v6, &v9[*(v12 + 48)], v3);
+      v13 = 1;
     }
 
     else
     {
-      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd);
-      (*(v3 + 32))(v5, &v8[*(v13 + 48)], v2);
-      v12 = 2;
+      v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR);
+      (*(v4 + 32))(v6, &v9[*(v14 + 48)], v3);
+      v13 = 2;
     }
 
-    MEMORY[0x1865CD060](v12);
+    MEMORY[0x1865CD060](v13);
   }
 
   else
   {
-    (*(v3 + 32))(v5, v8, v2);
-    v10 = 0;
+    (*(v4 + 32))(v6, v9, v3);
+    v11 = 0;
   }
 
-  MEMORY[0x1865CD060](v10);
+  MEMORY[0x1865CD060](v11);
   dispatch thunk of Hashable.hash(into:)();
-  (*(v3 + 8))(v5, v2);
-  v14 = v1 + *(type metadata accessor for Duration.TimeFormatStyle.Pattern(0) + 20);
-  if (*(v14 + 8) == 1)
+  (*(v4 + 8))(v6, v3);
+  v15 = v2 + *(type metadata accessor for Duration.TimeFormatStyle.Pattern(0) + 20);
+  if (*(v15 + 8) == 1)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
-    v15 = *v14;
+    v16 = *v15;
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v15);
+    MEMORY[0x1865CD060](v16);
   }
 }
 
 Swift::Int Duration.TimeFormatStyle.Pattern.hashValue.getter()
 {
   Hasher.init(_seed:)();
-  Duration.TimeFormatStyle.Pattern.hash(into:)();
+  Duration.TimeFormatStyle.Pattern.hash(into:)(v1);
   return Hasher._finalize()();
 }
 
@@ -8441,7 +8440,7 @@ uint64_t Duration.TimeFormatStyle.Pattern.init(from:)@<X0>(void *a1@<X0>, uint64
   v4 = type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields(0);
   MEMORY[0x1EEE9AC00](v4);
   v25 = &v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV7PatternV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v24 = *(v26 - 8);
   MEMORY[0x1EEE9AC00](v26);
   v7 = &v21 - v6;
@@ -8460,7 +8459,7 @@ uint64_t Duration.TimeFormatStyle.Pattern.init(from:)@<X0>(void *a1@<X0>, uint64
   v11 = v10;
   v12 = v24;
   v28 = 0;
-  lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields, type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields);
+  lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields, type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields, &protocol conformance descriptor for Duration.TimeFormatStyle.Pattern.Fields);
   v14 = v25;
   v13 = v26;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -8479,14 +8478,14 @@ uint64_t Duration.TimeFormatStyle.Pattern.init(from:)@<X0>(void *a1@<X0>, uint64
   return outlined destroy of Duration.TimeFormatStyle.Pattern.Fields(v11, type metadata accessor for Duration.TimeFormatStyle.Pattern);
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance Duration.TimeFormatStyle.Pattern.Fields(uint64_t a1, uint64_t a2, void (*a3)(_BYTE *))
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance Duration.TimeFormatStyle.Pattern.Fields(uint64_t a1, uint64_t a2, void (*a3)(void *))
 {
   Hasher.init(_seed:)();
   a3(v5);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Duration.TimeFormatStyle.Pattern.Fields(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *))
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Duration.TimeFormatStyle.Pattern.Fields(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *))
 {
   Hasher.init(_seed:)();
   a4(v6);
@@ -8651,7 +8650,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t Duration.TimeFormatStyle.encode(to:)(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v7 - v4;
@@ -8659,7 +8658,7 @@ uint64_t Duration.TimeFormatStyle.encode(to:)(void *a1)
   lazy protocol witness table accessor for type Duration.TimeFormatStyle.CodingKeys and conformance Duration.TimeFormatStyle.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   type metadata accessor for Duration.TimeFormatStyle.Attributed(0);
-  lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Attributed and conformance Duration.TimeFormatStyle.Attributed, type metadata accessor for Duration.TimeFormatStyle.Attributed);
+  lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Attributed and conformance Duration.TimeFormatStyle.Attributed, type metadata accessor for Duration.TimeFormatStyle.Attributed, &protocol conformance descriptor for Duration.TimeFormatStyle.Attributed);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   return (*(v3 + 8))(v5, v2);
 }
@@ -8670,7 +8669,7 @@ uint64_t Duration.TimeFormatStyle.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X
   v4 = type metadata accessor for Duration.TimeFormatStyle.Attributed(0);
   MEMORY[0x1EEE9AC00](v4);
   v17 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v16 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v8 = &v15 - v7;
@@ -8683,7 +8682,7 @@ uint64_t Duration.TimeFormatStyle.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X
   if (!v2)
   {
     v12 = v15;
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Attributed and conformance Duration.TimeFormatStyle.Attributed, type metadata accessor for Duration.TimeFormatStyle.Attributed);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Attributed and conformance Duration.TimeFormatStyle.Attributed, type metadata accessor for Duration.TimeFormatStyle.Attributed, &protocol conformance descriptor for Duration.TimeFormatStyle.Attributed);
     v13 = v17;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v16 + 8))(v8, v6);
@@ -8708,7 +8707,7 @@ __n128 protocol witness for FormatStyle.locale(_:) in conformance Duration.TimeF
 
 uint64_t protocol witness for Encodable.encode(to:) in conformance Duration.TimeFormatStyle(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v7 - v4;
@@ -8716,121 +8715,121 @@ uint64_t protocol witness for Encodable.encode(to:) in conformance Duration.Time
   lazy protocol witness table accessor for type Duration.TimeFormatStyle.CodingKeys and conformance Duration.TimeFormatStyle.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   type metadata accessor for Duration.TimeFormatStyle.Attributed(0);
-  lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Attributed and conformance Duration.TimeFormatStyle.Attributed, type metadata accessor for Duration.TimeFormatStyle.Attributed);
+  lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Attributed and conformance Duration.TimeFormatStyle.Attributed, type metadata accessor for Duration.TimeFormatStyle.Attributed, &protocol conformance descriptor for Duration.TimeFormatStyle.Attributed);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   return (*(v3 + 8))(v5, v2);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Duration.TimeFormatStyle()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Duration.TimeFormatStyle(uint64_t a1)
 {
-  v1 = v0;
-  v2 = type metadata accessor for FloatingPointRoundingRule();
-  v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = v56 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields(0);
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = v56 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = v1;
+  v3 = type metadata accessor for FloatingPointRoundingRule();
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = v57 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields(0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = v57 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   Hasher.init(_seed:)();
-  outlined init with copy of Duration.TimeFormatStyle.Pattern.Fields(v1, v8, type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields);
+  outlined init with copy of Duration.TimeFormatStyle.Pattern.Fields(v2, v9, type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload)
   {
-    v10 = *v8;
+    v11 = *v9;
     if (EnumCaseMultiPayload == 1)
     {
-      v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd);
-      (*(v3 + 32))(v5, &v8[*(v11 + 48)], v2);
-      v12 = 1;
+      v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR);
+      (*(v4 + 32))(v6, &v9[*(v12 + 48)], v3);
+      v13 = 1;
     }
 
     else
     {
-      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd);
-      (*(v3 + 32))(v5, &v8[*(v13 + 48)], v2);
-      v12 = 2;
+      v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR);
+      (*(v4 + 32))(v6, &v9[*(v14 + 48)], v3);
+      v13 = 2;
     }
 
-    MEMORY[0x1865CD060](v12);
+    MEMORY[0x1865CD060](v13);
   }
 
   else
   {
-    (*(v3 + 32))(v5, v8, v2);
-    v10 = 0;
+    (*(v4 + 32))(v6, v9, v3);
+    v11 = 0;
   }
 
-  MEMORY[0x1865CD060](v10);
+  MEMORY[0x1865CD060](v11);
   dispatch thunk of Hashable.hash(into:)();
-  (*(v3 + 8))(v5, v2);
-  v14 = v1 + *(type metadata accessor for Duration.TimeFormatStyle.Pattern(0) + 20);
-  if (*(v14 + 8) == 1)
+  (*(v4 + 8))(v6, v3);
+  v15 = v2 + *(type metadata accessor for Duration.TimeFormatStyle.Pattern(0) + 20);
+  if (*(v15 + 8) == 1)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
-    v15 = *v14;
+    v16 = *v15;
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v15);
+    MEMORY[0x1865CD060](v16);
   }
 
-  v16 = type metadata accessor for Duration.TimeFormatStyle.Attributed(0);
-  MEMORY[0x1865CD060](*(v1 + *(v16 + 20)));
-  v17 = *(v1 + *(v16 + 24) + 8);
+  v17 = type metadata accessor for Duration.TimeFormatStyle.Attributed(0);
+  MEMORY[0x1865CD060](*(v2 + *(v17 + 20)));
+  v18 = *(v2 + *(v17 + 24) + 8);
   ObjectType = swift_getObjectType();
-  if ((*(v17 + 48))(ObjectType, v17))
+  if ((*(v18 + 48))(ObjectType, v18))
   {
-    v19 = 1;
+    v20 = 1;
 LABEL_14:
-    Hasher._combine(_:)(v19);
+    Hasher._combine(_:)(v20);
     return Hasher._finalize()();
   }
 
   Hasher._combine(_:)(0);
-  (*(v17 + 64))(ObjectType, v17);
+  (*(v18 + 64))(ObjectType, v18);
   String.hash(into:)();
 
-  (*(v17 + 464))(&v66, ObjectType, v17);
-  v74[6] = v72;
-  v75[0] = v73[0];
-  *(v75 + 12) = *(v73 + 12);
-  v74[2] = v68;
-  v74[3] = v69;
-  v74[4] = v70;
-  v74[5] = v71;
-  v74[0] = v66;
-  v74[1] = v67;
-  if (_s10Foundation17LocalePreferencesVSgWOg(v74) == 1)
+  (*(v18 + 464))(&v67, ObjectType, v18);
+  v75[6] = v73;
+  v76[0] = v74[0];
+  *(v76 + 12) = *(v74 + 12);
+  v75[2] = v69;
+  v75[3] = v70;
+  v75[4] = v71;
+  v75[5] = v72;
+  v75[0] = v67;
+  v75[1] = v68;
+  if (_s10Foundation17LocalePreferencesVSgWOg(v75) == 1)
   {
-    v19 = 0;
+    v20 = 0;
     goto LABEL_14;
   }
 
-  v20 = v66;
-  v21 = *(&v66 + 1);
+  v21 = v67;
   v22 = *(&v67 + 1);
-  v56[1] = v67;
   v23 = *(&v68 + 1);
-  v56[2] = v68;
-  v57 = v69;
-  v24 = v71;
+  v57[1] = v68;
+  v24 = *(&v69 + 1);
+  v57[2] = v69;
   v58 = v70;
-  v60 = *(&v71 + 1);
-  v61 = v72;
-  v56[3] = *(&v73[0] + 1);
-  v62 = *&v73[0];
-  v25 = BYTE8(v73[1]);
-  v63 = *&v73[1];
-  v64 = BYTE9(v73[1]);
-  v65 = BYTE10(v73[1]);
-  v26 = BYTE11(v73[1]);
+  v25 = v72;
+  v59 = v71;
+  v61 = *(&v72 + 1);
+  v62 = v73;
+  v57[3] = *(&v74[0] + 1);
+  v63 = *&v74[0];
+  v26 = BYTE8(v74[1]);
+  v64 = *&v74[1];
+  v65 = BYTE9(v74[1]);
+  v66 = BYTE10(v74[1]);
+  v27 = BYTE11(v74[1]);
   Hasher._combine(_:)(1u);
-  if (v20 == 2)
+  if (v21 == 2)
   {
     Hasher._combine(_:)(0);
-    if (v21)
+    if (v22)
     {
       goto LABEL_17;
     }
@@ -8839,29 +8838,29 @@ LABEL_14:
   else
   {
     Hasher._combine(_:)(1u);
-    Hasher._combine(_:)(v20 & 1);
-    if (v21)
+    Hasher._combine(_:)(v21 & 1);
+    if (v22)
     {
 LABEL_17:
       Hasher._combine(_:)(1u);
-      MEMORY[0x1865CD060](*(v21 + 16));
-      v27 = *(v21 + 16);
-      if (v27)
+      MEMORY[0x1865CD060](*(v22 + 16));
+      v28 = *(v22 + 16);
+      if (v28)
       {
-        v28 = v21 + 40;
+        v29 = v22 + 40;
         do
         {
 
           String.hash(into:)();
 
-          v28 += 16;
-          --v27;
+          v29 += 16;
+          --v28;
         }
 
-        while (v27);
+        while (v28);
       }
 
-      if (v22)
+      if (v23)
       {
         goto LABEL_21;
       }
@@ -8871,7 +8870,7 @@ LABEL_17:
   }
 
   Hasher._combine(_:)(0);
-  if (v22)
+  if (v23)
   {
 LABEL_21:
     Hasher._combine(_:)(1u);
@@ -8882,11 +8881,11 @@ LABEL_21:
 LABEL_24:
   Hasher._combine(_:)(0);
 LABEL_25:
-  v29 = v25;
-  v30 = v61;
-  v31 = v57;
-  v59 = v26;
-  if (v23)
+  v30 = v26;
+  v31 = v62;
+  v32 = v58;
+  v60 = v27;
+  if (v24)
   {
     Hasher._combine(_:)(1u);
     String.hash(into:)();
@@ -8897,20 +8896,20 @@ LABEL_25:
     Hasher._combine(_:)(0);
   }
 
-  v32 = v62;
   v33 = v63;
-  v34 = v24;
-  v35 = *(&v57 + 1);
-  if (v31)
+  v34 = v64;
+  v35 = v25;
+  v36 = *(&v58 + 1);
+  if (v32)
   {
     Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(v76, v31, v36, v37, v38, v39, v40, v41);
-    v42 = v64;
-    if (v35)
+    specialized Dictionary<>.hash(into:)(v77, v32, v37, v38, v39, v40, v41, v42);
+    v43 = v65;
+    if (v36)
     {
 LABEL_30:
       Hasher._combine(_:)(1u);
-      specialized Dictionary<>.hash(into:)(v76, v35, v43, v44, v45, v46, v47, v48);
+      specialized Dictionary<>.hash(into:)(v77, v36, v44, v45, v46, v47, v48, v49);
       goto LABEL_33;
     }
   }
@@ -8918,8 +8917,8 @@ LABEL_30:
   else
   {
     Hasher._combine(_:)(0);
-    v42 = v64;
-    if (v35)
+    v43 = v65;
+    if (v36)
     {
       goto LABEL_30;
     }
@@ -8927,20 +8926,20 @@ LABEL_30:
 
   Hasher._combine(_:)(0);
 LABEL_33:
-  v49 = v65;
-  if (v58)
+  v50 = v66;
+  if (v59)
   {
-    v50 = v29;
+    v51 = v30;
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
-    if (*(&v58 + 1))
+    if (*(&v59 + 1))
     {
 LABEL_35:
       Hasher._combine(_:)(1u);
       type metadata accessor for CFDictionaryRef(0);
-      lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+      lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
       _CFObject.hash(into:)();
       goto LABEL_38;
     }
@@ -8948,9 +8947,9 @@ LABEL_35:
 
   else
   {
-    v50 = v29;
+    v51 = v30;
     Hasher._combine(_:)(0);
-    if (*(&v58 + 1))
+    if (*(&v59 + 1))
     {
       goto LABEL_35;
     }
@@ -8958,11 +8957,11 @@ LABEL_35:
 
   Hasher._combine(_:)(0);
 LABEL_38:
-  if (v34)
+  if (v35)
   {
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
   }
 
@@ -8971,11 +8970,11 @@ LABEL_38:
     Hasher._combine(_:)(0);
   }
 
-  if (v60)
+  if (v61)
   {
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
   }
 
@@ -8984,14 +8983,14 @@ LABEL_38:
     Hasher._combine(_:)(0);
   }
 
-  v51 = *(&v61 + 1);
-  if (v30)
+  v52 = *(&v62 + 1);
+  if (v31)
   {
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
-    if (v51)
+    if (v52)
     {
       goto LABEL_46;
     }
@@ -9000,12 +8999,12 @@ LABEL_38:
   else
   {
     Hasher._combine(_:)(0);
-    if (v51)
+    if (v52)
     {
 LABEL_46:
       Hasher._combine(_:)(1u);
-      specialized Dictionary<>.hash(into:)(v76, v51);
-      if (v32)
+      specialized Dictionary<>.hash(into:)(v77, v52);
+      if (v33)
       {
         goto LABEL_47;
       }
@@ -9015,13 +9014,13 @@ LABEL_46:
   }
 
   Hasher._combine(_:)(0);
-  if (v32)
+  if (v33)
   {
 LABEL_47:
     Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(v76, v32);
-    v52 = v59;
-    if (v33)
+    specialized Dictionary<>.hash(into:)(v77, v33);
+    v53 = v60;
+    if (v34)
     {
       goto LABEL_48;
     }
@@ -9031,13 +9030,13 @@ LABEL_47:
 
 LABEL_54:
   Hasher._combine(_:)(0);
-  v52 = v59;
-  if (v33)
+  v53 = v60;
+  if (v34)
   {
 LABEL_48:
     Hasher._combine(_:)(1u);
     String.hash(into:)();
-    if (v50 == 2)
+    if (v51 == 2)
     {
       goto LABEL_49;
     }
@@ -9047,61 +9046,61 @@ LABEL_48:
 
 LABEL_55:
   Hasher._combine(_:)(0);
-  if (v50 == 2)
+  if (v51 == 2)
   {
 LABEL_49:
     Hasher._combine(_:)(0);
-    if (v42 != 2)
+    if (v43 != 2)
     {
       goto LABEL_50;
     }
 
 LABEL_57:
     Hasher._combine(_:)(0);
-    if (v49 != 2)
+    if (v50 != 2)
     {
       goto LABEL_51;
     }
 
 LABEL_58:
-    v53 = 0;
+    v54 = 0;
     goto LABEL_59;
   }
 
 LABEL_56:
   Hasher._combine(_:)(1u);
-  MEMORY[0x1865CD060](v50 & 1);
-  if (v42 == 2)
+  MEMORY[0x1865CD060](v51 & 1);
+  if (v43 == 2)
   {
     goto LABEL_57;
   }
 
 LABEL_50:
   Hasher._combine(_:)(1u);
-  MEMORY[0x1865CD060](v42 & 1);
-  if (v49 == 2)
+  MEMORY[0x1865CD060](v43 & 1);
+  if (v50 == 2)
   {
     goto LABEL_58;
   }
 
 LABEL_51:
   Hasher._combine(_:)(1u);
-  v53 = v49 & 1;
+  v54 = v50 & 1;
 LABEL_59:
-  Hasher._combine(_:)(v53);
-  if (v52 == 2)
+  Hasher._combine(_:)(v54);
+  if (v53 == 2)
   {
-    v54 = 0;
+    v55 = 0;
   }
 
   else
   {
     Hasher._combine(_:)(1u);
-    v54 = v52 & 1;
+    v55 = v53 & 1;
   }
 
-  Hasher._combine(_:)(v54);
-  outlined destroy of TermOfAddress?(&v66, &_s10Foundation17LocalePreferencesVSgMd);
+  Hasher._combine(_:)(v55);
+  outlined destroy of TermOfAddress?(&v67, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
   return Hasher._finalize()();
 }
 
@@ -9136,10 +9135,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Durati
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Duration.TimeFormatStyle.Attributed.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Duration.TimeFormatStyle.Attributed.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized Duration.TimeFormatStyle.Attributed.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized Duration.TimeFormatStyle.Attributed.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -9160,7 +9159,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 uint64_t Duration.TimeFormatStyle.Attributed.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10AttributedV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10AttributedV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedEncodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10AttributedV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v11 - v7;
@@ -9169,7 +9168,7 @@ uint64_t Duration.TimeFormatStyle.Attributed.encode(to:)(void *a1)
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   LOBYTE(v12) = 0;
   type metadata accessor for Duration.TimeFormatStyle.Pattern(0);
-  lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Pattern and conformance Duration.TimeFormatStyle.Pattern, type metadata accessor for Duration.TimeFormatStyle.Pattern);
+  lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Pattern and conformance Duration.TimeFormatStyle.Pattern, type metadata accessor for Duration.TimeFormatStyle.Pattern, &protocol conformance descriptor for Duration.TimeFormatStyle.Pattern);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   if (!v2)
   {
@@ -9207,14 +9206,14 @@ void Duration.TimeFormatStyle.hash(into:)(Swift::Int a1)
     v12 = *v10;
     if (EnumCaseMultiPayload == 1)
     {
-      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd);
+      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR);
       (*(v5 + 32))(v7, &v10[*(v13 + 48)], v4);
       v14 = 1;
     }
 
     else
     {
-      v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd);
+      v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR);
       (*(v5 + 32))(v7, &v10[*(v15 + 48)], v4);
       v14 = 2;
     }
@@ -9398,7 +9397,7 @@ LABEL_32:
 LABEL_33:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     if (v34)
     {
@@ -9415,7 +9414,7 @@ LABEL_44:
 LABEL_34:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     if (v62)
     {
@@ -9432,7 +9431,7 @@ LABEL_45:
 LABEL_35:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     v51 = v32;
     if (v33)
@@ -9451,7 +9450,7 @@ LABEL_46:
 LABEL_36:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     if (v64)
     {
@@ -9468,7 +9467,7 @@ LABEL_47:
 LABEL_37:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     v52 = v68;
     v53 = v69;
@@ -9577,13 +9576,13 @@ LABEL_53:
   }
 
   Hasher._combine(_:)(v57);
-  outlined destroy of TermOfAddress?(&v70, &_s10Foundation17LocalePreferencesVSgMd);
+  outlined destroy of TermOfAddress?(&v70, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
 }
 
-uint64_t Duration.TimeFormatStyle.hashValue.getter(void (*a1)(void), unint64_t *a2, void (*a3)(uint64_t))
+uint64_t Duration.TimeFormatStyle.hashValue.getter(uint64_t (*a1)(void), unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   a1(0);
-  lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(a2, a3);
+  lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(a2, a3, a4);
 
   return dispatch thunk of Hashable._rawHashValue(seed:)();
 }
@@ -9594,7 +9593,7 @@ uint64_t Duration.TimeFormatStyle.Attributed.init(from:)@<X0>(void *a1@<X0>, uin
   v19 = type metadata accessor for Duration.TimeFormatStyle.Pattern(0);
   MEMORY[0x1EEE9AC00](v19);
   v21 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10AttributedV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10AttributedV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMd, &_ss22KeyedDecodingContainerVys8DurationV10FoundationE15TimeFormatStyleV10AttributedV10CodingKeys33_D7219F805DFD42A580CB806B557B4301LLOGMR);
   v18 = *(v20 - 8);
   MEMORY[0x1EEE9AC00](v20);
   v6 = &v16 - v5;
@@ -9615,7 +9614,7 @@ uint64_t Duration.TimeFormatStyle.Attributed.init(from:)@<X0>(void *a1@<X0>, uin
   v12 = v18;
   v13 = v9;
   LOBYTE(v22) = 0;
-  lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Pattern and conformance Duration.TimeFormatStyle.Pattern, type metadata accessor for Duration.TimeFormatStyle.Pattern);
+  lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type Duration.TimeFormatStyle.Pattern and conformance Duration.TimeFormatStyle.Pattern, type metadata accessor for Duration.TimeFormatStyle.Pattern, &protocol conformance descriptor for Duration.TimeFormatStyle.Pattern);
   v14 = v20;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
   outlined init with take of Duration.TimeFormatStyle.Pattern(v21, v13, type metadata accessor for Duration.TimeFormatStyle.Pattern);
@@ -9663,14 +9662,14 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dur
     v13 = *v11;
     if (EnumCaseMultiPayload == 1)
     {
-      v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd);
+      v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR);
       (*(v6 + 32))(v8, &v11[*(v14 + 48)], v5);
       v15 = 1;
     }
 
     else
     {
-      v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd);
+      v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR);
       (*(v6 + 32))(v8, &v11[*(v16 + 48)], v5);
       v15 = 2;
     }
@@ -9856,14 +9855,14 @@ LABEL_33:
     v52 = v31;
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     if (*(&v60 + 1))
     {
 LABEL_35:
       Hasher._combine(_:)(1u);
       type metadata accessor for CFDictionaryRef(0);
-      lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+      lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
       _CFObject.hash(into:)();
       goto LABEL_38;
     }
@@ -9885,7 +9884,7 @@ LABEL_38:
   {
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
   }
 
@@ -9898,7 +9897,7 @@ LABEL_38:
   {
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
   }
 
@@ -9912,7 +9911,7 @@ LABEL_38:
   {
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     if (v53)
     {
@@ -10024,6 +10023,6 @@ LABEL_59:
   }
 
   Hasher._combine(_:)(v56);
-  outlined destroy of TermOfAddress?(&v68, &_s10Foundation17LocalePreferencesVSgMd);
+  outlined destroy of TermOfAddress?(&v68, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
   return Hasher._finalize()();
 }

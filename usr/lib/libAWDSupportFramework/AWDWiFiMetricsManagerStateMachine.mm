@@ -57,14 +57,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    stateChanges = self->_stateChanges;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    stateDuration = self->_stateDuration;
 
     PBDataWriterWriteUint64Field();
   }

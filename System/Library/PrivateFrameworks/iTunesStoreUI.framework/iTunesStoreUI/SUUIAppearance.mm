@@ -440,7 +440,7 @@ uint64_t __37__SUUIAppearance_styleNavigationBar___block_invoke(uint64_t a1, voi
   return [v4 setBackgroundImage:a3 forBarMetrics:v5];
 }
 
-uint64_t __37__SUUIAppearance_styleNavigationBar___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
+void *__37__SUUIAppearance_styleNavigationBar___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
   v6 = [a3 objectForKey:*MEMORY[0x1E69DB6A8]];
   result = [a3 objectForKey:*MEMORY[0x1E69DB650]];

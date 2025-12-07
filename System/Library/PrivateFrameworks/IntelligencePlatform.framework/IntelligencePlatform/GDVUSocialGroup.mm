@@ -8,9 +8,9 @@
 - (GDVUSocialGroup)initWithNumberOfMomentNodes:(id)nodes tags:(id)tags
 {
   sub_1ABF21F04();
-  sub_1ABF240D4();
+  v5 = sub_1ABF240D4();
   nodesCopy = nodes;
-  return GDVUSocialGroup.init(numberOfMomentNodes:tags:)();
+  return GDVUSocialGroup.init(numberOfMomentNodes:tags:)(nodes, v5);
 }
 
 - (NSNumber)numberOfMomentNodes

@@ -339,36 +339,28 @@ LABEL_23:
 
 - (void)setPattern_template_directory:(id)pattern_template_directory
 {
-  v4 = [pattern_template_directory copy];
-  pattern_template_directory = self->_pattern_template_directory;
-  self->_pattern_template_directory = v4;
+  self->_pattern_template_directory = [pattern_template_directory copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPattern_bundle_id:(id)pattern_bundle_id
 {
-  v4 = [pattern_bundle_id copy];
-  pattern_bundle_id = self->_pattern_bundle_id;
-  self->_pattern_bundle_id = v4;
+  self->_pattern_bundle_id = [pattern_bundle_id copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPattern_parameters:(id)pattern_parameters
 {
-  v4 = [pattern_parameters copy];
-  pattern_parameters = self->_pattern_parameters;
-  self->_pattern_parameters = v4;
+  self->_pattern_parameters = [pattern_parameters copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPattern_id:(id)pattern_id
 {
-  v4 = [pattern_id copy];
-  pattern_id = self->_pattern_id;
-  self->_pattern_id = v4;
+  self->_pattern_id = [pattern_id copy];
 
   MEMORY[0x1EEE66BB8]();
 }

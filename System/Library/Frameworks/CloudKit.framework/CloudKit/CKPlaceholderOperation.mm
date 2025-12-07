@@ -26,7 +26,7 @@
 
 - (void)start
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (ck_log_initialization_predicate != -1)
   {
     dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
@@ -35,17 +35,17 @@
   v3 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v13 = v3;
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
-    v17 = sub_18843BD9C(self, v16);
+    v12 = v3;
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
+    v16 = sub_18843BD9C(self, v15);
     *buf = 138543874;
-    v19 = v15;
-    v20 = 2048;
+    v18 = v14;
+    v19 = 2048;
     selfCopy = self;
-    v22 = 2114;
-    v23 = v17;
-    _os_log_debug_impl(&dword_1883EA000, v13, OS_LOG_TYPE_DEBUG, "Placeholder op <%{public}@: %p; %{public}@> starting", buf, 0x20u);
+    v21 = 2114;
+    v22 = v16;
+    _os_log_debug_impl(&dword_1883EA000, v12, OS_LOG_TYPE_DEBUG, "Placeholder op <%{public}@: %p; %{public}@> starting", buf, 0x20u);
   }
 
   if ((objc_msgSend_isExecuting(self, v4, v5) & 1) != 0 || objc_msgSend_isFinished(self, v6, v7))
@@ -70,7 +70,6 @@
   v9 = objc_autoreleasePoolPush();
   objc_msgSend_main(self, v10, v11);
   objc_autoreleasePoolPop(v9);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)main

@@ -10,7 +10,7 @@
 {
   typeCopy = type;
   selfCopy = self;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D23C0);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D23C0, &unk_1D22532E0);
   v17 = MEMORY[0x1EEE9AC00](v16 - 8);
   v19 = &v49 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v17);
@@ -101,7 +101,7 @@ LABEL_11:
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
   v12 = &v22[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D23C0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D23C0, &unk_1D22532E0);
   v14 = MEMORY[0x1EEE9AC00](v13 - 8);
   v16 = &v22[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v14);

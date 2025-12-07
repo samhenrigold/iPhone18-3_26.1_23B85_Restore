@@ -12,10 +12,12 @@
 - (void)remoteHostDismissViewControllerWithCompletion:(id)completion;
 - (void)remoteHostDisplayAlertWithHeader:(id)header message:(id)message buttonStrings:(id)strings completion:(id)completion;
 - (void)remoteHostDisplayInstructions:(id)instructions style:(int)style imageLocators:(id)locators title:(id)title subtitle:(id)subtitle iconLocator:(id)locator options:(id)options navigationBarActions:(id)self0 completion:(id)self1;
+- (void)remoteHostEnableVolumeHUD:(BOOL)d;
 - (void)remoteHostGetAsset:(id)asset completion:(id)completion;
 - (void)remoteHostHideStatusBar;
 - (void)remoteHostRequestPluginReloadOnFinishWithCompletion:(id)completion;
 - (void)remoteHostRequestSessionAccessoryIdentifierWithCompletion:(id)completion;
+- (void)remoteHostSetScreenToBrightness:(float)brightness animate:(BOOL)animate;
 - (void)remoteHostSetStatusBarStyle:(int64_t)style;
 - (void)remoteHostShowStatusBar;
 - (void)remoteHostShowUI:(id)i completion:(id)completion;
@@ -108,7 +110,7 @@ void __58__DKDiagnosticHostContext__extensionAuxiliaryHostProtocol__block_invoke
 
 - (void)startWithPayload:(id)payload completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   completionCopy = completion;
   v8 = DiagnosticsKitLogHandleForCategory(4);
@@ -119,23 +121,23 @@ void __58__DKDiagnosticHostContext__extensionAuxiliaryHostProtocol__block_invoke
   }
 
   _helperConnnection = [(DKDiagnosticHostContext *)self _helperConnnection];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __55__DKDiagnosticHostContext_startWithPayload_completion___block_invoke;
-  v18 = &unk_278F6C3F8;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __55__DKDiagnosticHostContext_startWithPayload_completion___block_invoke;
+  v17 = &unk_278F6C3F8;
   selfCopy = self;
   v10 = completionCopy;
-  v20 = v10;
-  v11 = [_helperConnnection remoteObjectProxyWithErrorHandler:&v15];
+  v19 = v10;
+  v11 = [_helperConnnection remoteObjectProxyWithErrorHandler:&v14];
 
   v12 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = MEMORY[0x24C1E6340](v10);
     *buf = 138412546;
-    v22 = v11;
-    v23 = 2112;
-    v24 = v13;
+    v21 = v11;
+    v22 = 2112;
+    v23 = v13;
     _os_log_impl(&dword_248B9D000, v12, OS_LOG_TYPE_DEFAULT, "Got ROP: %@, completion: %@", buf, 0x16u);
   }
 
@@ -146,15 +148,13 @@ void __58__DKDiagnosticHostContext__extensionAuxiliaryHostProtocol__block_invoke
 
   if (v11)
   {
-    [v11 startRemoteDiagnosticWithDiagnosticParameters:payloadCopy completion:{v10, v15, v16, v17, v18, selfCopy}];
+    [v11 startRemoteDiagnosticWithDiagnosticParameters:payloadCopy completion:{v10, v14, v15, v16, v17, selfCopy}];
   }
 
   else
   {
     (*(v10 + 2))(v10, 0);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __55__DKDiagnosticHostContext_startWithPayload_completion___block_invoke(uint64_t a1, void *a2)
@@ -224,7 +224,7 @@ void __48__DKDiagnosticHostContext_cancelWithCompletion___block_invoke(uint64_t 
 
 - (void)setNotAllowListedWithContactMessage:(id)message
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -234,18 +234,18 @@ void __48__DKDiagnosticHostContext_cancelWithCompletion___block_invoke(uint64_t 
   }
 
   _helperConnnection = [(DKDiagnosticHostContext *)self _helperConnnection];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __63__DKDiagnosticHostContext_setNotAllowListedWithContactMessage___block_invoke;
-  v11[3] = &unk_278F6BFA8;
-  v11[4] = self;
-  v7 = [_helperConnnection remoteObjectProxyWithErrorHandler:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __63__DKDiagnosticHostContext_setNotAllowListedWithContactMessage___block_invoke;
+  v10[3] = &unk_278F6BFA8;
+  v10[4] = self;
+  v7 = [_helperConnnection remoteObjectProxyWithErrorHandler:v10];
 
   v8 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v7;
+    v12 = v7;
     _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "Got ROP: %@", buf, 0xCu);
   }
 
@@ -257,7 +257,6 @@ void __48__DKDiagnosticHostContext_cancelWithCompletion___block_invoke(uint64_t 
   }
 
   [v7 setRemoteDiagnosticNotAllowListedWithContactMessage:messageCopy];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __63__DKDiagnosticHostContext_setNotAllowListedWithContactMessage___block_invoke(uint64_t a1, void *a2)
@@ -279,7 +278,7 @@ void __63__DKDiagnosticHostContext_setNotAllowListedWithContactMessage___block_i
 
 - (void)checkShouldShowViewController:(id)controller
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   v5 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -289,18 +288,18 @@ void __63__DKDiagnosticHostContext_setNotAllowListedWithContactMessage___block_i
   }
 
   _helperConnnection = [(DKDiagnosticHostContext *)self _helperConnnection];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __57__DKDiagnosticHostContext_checkShouldShowViewController___block_invoke;
-  v11[3] = &unk_278F6BFA8;
-  v11[4] = self;
-  v7 = [_helperConnnection remoteObjectProxyWithErrorHandler:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __57__DKDiagnosticHostContext_checkShouldShowViewController___block_invoke;
+  v10[3] = &unk_278F6BFA8;
+  v10[4] = self;
+  v7 = [_helperConnnection remoteObjectProxyWithErrorHandler:v10];
 
   v8 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v7;
+    v12 = v7;
     _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "Got ROP: %@", buf, 0xCu);
   }
 
@@ -312,7 +311,6 @@ void __63__DKDiagnosticHostContext_setNotAllowListedWithContactMessage___block_i
   }
 
   [v7 checkShouldShowRemoteDiagnosticViewController:controllerCopy];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __57__DKDiagnosticHostContext_checkShouldShowViewController___block_invoke(uint64_t a1, void *a2)
@@ -334,7 +332,7 @@ void __57__DKDiagnosticHostContext_checkShouldShowViewController___block_invoke(
 
 - (void)setNeedsUpdateResponder
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -343,18 +341,18 @@ void __57__DKDiagnosticHostContext_checkShouldShowViewController___block_invoke(
   }
 
   _helperConnnection = [(DKDiagnosticHostContext *)self _helperConnnection];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __50__DKDiagnosticHostContext_setNeedsUpdateResponder__block_invoke;
-  v9[3] = &unk_278F6BFA8;
-  v9[4] = self;
-  v5 = [_helperConnnection remoteObjectProxyWithErrorHandler:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __50__DKDiagnosticHostContext_setNeedsUpdateResponder__block_invoke;
+  v8[3] = &unk_278F6BFA8;
+  v8[4] = self;
+  v5 = [_helperConnnection remoteObjectProxyWithErrorHandler:v8];
 
   v6 = DiagnosticsKitLogHandleForCategory(4);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = v5;
+    v10 = v5;
     _os_log_impl(&dword_248B9D000, v6, OS_LOG_TYPE_DEFAULT, "Got ROP: %@", buf, 0xCu);
   }
 
@@ -366,7 +364,6 @@ void __57__DKDiagnosticHostContext_checkShouldShowViewController___block_invoke(
   }
 
   [v5 setNeedsUpdateResponder];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __50__DKDiagnosticHostContext_setNeedsUpdateResponder__block_invoke(uint64_t a1, void *a2)
@@ -400,6 +397,39 @@ void __50__DKDiagnosticHostContext_setNeedsUpdateResponder__block_invoke(uint64_
     hostServicesDelegate2 = [delegate2 hostServicesDelegate];
 
     [hostServicesDelegate2 updateProgress:progressCopy forTest:testCopy];
+  }
+}
+
+- (void)remoteHostEnableVolumeHUD:(BOOL)d
+{
+  dCopy = d;
+  delegate = [(DKDiagnosticHostContext *)self delegate];
+  hostServicesDelegate = [delegate hostServicesDelegate];
+  v7 = [hostServicesDelegate conformsToProtocol:&unk_285B9E730];
+
+  if (v7)
+  {
+    delegate2 = [(DKDiagnosticHostContext *)self delegate];
+    hostServicesDelegate2 = [delegate2 hostServicesDelegate];
+
+    [hostServicesDelegate2 enableVolumeHUD:dCopy];
+  }
+}
+
+- (void)remoteHostSetScreenToBrightness:(float)brightness animate:(BOOL)animate
+{
+  animateCopy = animate;
+  delegate = [(DKDiagnosticHostContext *)self delegate];
+  hostServicesDelegate = [delegate hostServicesDelegate];
+  v9 = [hostServicesDelegate conformsToProtocol:&unk_285B9E6B0];
+
+  if (v9)
+  {
+    delegate2 = [(DKDiagnosticHostContext *)self delegate];
+    hostServicesDelegate2 = [delegate2 hostServicesDelegate];
+
+    *&v11 = brightness;
+    [hostServicesDelegate2 setScreenToBrightness:animateCopy animate:v11];
   }
 }
 
@@ -675,42 +705,37 @@ void __50__DKDiagnosticHostContext_setNeedsUpdateResponder__block_invoke(uint64_
 
 void __55__DKDiagnosticHostContext_startWithPayload_completion___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_248B9D000, v0, v1, "%s Failed to retrieve remote object proxy: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_248B9D000, v0, v1, "%s Failed to retrieve remote object proxy: %@", v2, v3, v4, v5, v6);
 }
 
 void __48__DKDiagnosticHostContext_cancelWithCompletion___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_248B9D000, v0, v1, "%s Failed to retrieve remote object proxy: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_248B9D000, v0, v1, "%s Failed to retrieve remote object proxy: %@", v2, v3, v4, v5, v6);
 }
 
 void __63__DKDiagnosticHostContext_setNotAllowListedWithContactMessage___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_248B9D000, v0, v1, "%s Failed to retrieve remote object proxy: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_248B9D000, v0, v1, "%s Failed to retrieve remote object proxy: %@", v2, v3, v4, v5, v6);
 }
 
 void __57__DKDiagnosticHostContext_checkShouldShowViewController___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_248B9D000, v0, v1, "%s Failed to retrieve remote object proxy: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_248B9D000, v0, v1, "%s Failed to retrieve remote object proxy: %@", v2, v3, v4, v5, v6);
 }
 
 void __50__DKDiagnosticHostContext_setNeedsUpdateResponder__block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_248B9D000, v0, v1, "%s Failed to retrieve remote object proxy: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_248B9D000, v0, v1, "%s Failed to retrieve remote object proxy: %@", v2, v3, v4, v5, v6);
 }
 
 @end

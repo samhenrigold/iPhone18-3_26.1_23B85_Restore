@@ -215,17 +215,18 @@ uint64_t __24__RUIStyle_defaultStyle__block_invoke()
 
 - (void)applyToNavigationBar:(id)bar
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   barCopy = bar;
-  [barCopy setRequestedContentSize:3];
-  if (_isInternalInstall())
+  v4 = [barCopy setRequestedContentSize:3];
+  isInternalInstall = _isInternalInstall(v4, v5);
+  if (isInternalInstall)
   {
-    v4 = _RUILoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v7 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = barCopy;
-      _os_log_impl(&dword_21B93D000, v4, OS_LOG_TYPE_DEFAULT, "applyToNavigationBar: %@", &v5, 0xCu);
+      v8 = 138412290;
+      v9 = barCopy;
+      _os_log_impl(&dword_21B93D000, v7, OS_LOG_TYPE_DEFAULT, "applyToNavigationBar: %@", &v8, 0xCu);
     }
   }
 }

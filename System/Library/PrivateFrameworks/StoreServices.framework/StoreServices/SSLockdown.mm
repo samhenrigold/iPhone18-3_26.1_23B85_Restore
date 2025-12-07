@@ -20,7 +20,7 @@
   return sharedInstance_sSharedInstance;
 }
 
-id __28__SSLockdown_sharedInstance__block_invoke()
+id __28__SSLockdown_sharedInstance__block_invoke(uint64_t a1)
 {
   result = objc_alloc_init(objc_opt_class());
   sharedInstance_sSharedInstance = result;

@@ -550,7 +550,7 @@ LABEL_19:
 
 void __68__SUScriptMediaLibrary_playSongsInCollectionWithAdamID_firstItemID___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E6970618] albumsQuery];
   v3 = MEMORY[0x1E6970610];
   v4 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(*(a1 + 32), "longLongValue")}];
@@ -560,21 +560,21 @@ void __68__SUScriptMediaLibrary_playSongsInCollectionWithAdamID_firstItemID___bl
   {
     v6 = [objc_alloc(MEMORY[0x1E69705E0]) initWithItems:v5];
     v7 = *(a1 + 48);
-    if (v7 && (v8 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v7, "longLongValue")}], v33 = 0u, v34 = 0u, v35 = 0u, v36 = 0u, (v9 = objc_msgSend(v5, "countByEnumeratingWithState:objects:count:", &v33, v37, 16)) != 0))
+    if (v7 && (v8 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v7, "longLongValue")}], v34 = 0u, v35 = 0u, v36 = 0u, v37 = 0u, (v9 = objc_msgSend(v5, "countByEnumeratingWithState:objects:count:", &v34, v38, 16)) != 0))
     {
       v10 = v9;
-      v11 = *v34;
+      v11 = *v35;
       v12 = *MEMORY[0x1E696FB60];
 LABEL_5:
       v13 = 0;
       while (1)
       {
-        if (*v34 != v11)
+        if (*v35 != v11)
         {
           objc_enumerationMutation(v5);
         }
 
-        v14 = *(*(&v33 + 1) + 8 * v13);
+        v14 = *(*(&v34 + 1) + 8 * v13);
         if ([objc_msgSend(v14 valueForProperty:{v12), "isEqualToNumber:", v8}])
         {
           break;
@@ -582,7 +582,7 @@ LABEL_5:
 
         if (v10 == ++v13)
         {
-          v10 = [v5 countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v10 = [v5 countByEnumeratingWithState:&v34 objects:v38 count:16];
           v14 = 0;
           if (v10)
           {
@@ -603,80 +603,89 @@ LABEL_5:
     v16 = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v17 = v16 | 2;
+      LODWORD(v17) = v16 | 2;
     }
 
     else
     {
-      v17 = v16;
+      LODWORD(v17) = v16;
     }
 
-    if (!os_log_type_enabled([v15 OSLogObject], OS_LOG_TYPE_DEBUG))
+    v18 = [v15 OSLogObject];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
 
     if (v17)
     {
-      v18 = objc_opt_class();
-      v19 = [v5 count];
-      v38 = 138412546;
-      v39 = v18;
-      v40 = 2048;
-      v41 = v19;
-      LODWORD(v32) = 22;
-      v31 = &v38;
-      v20 = _os_log_send_and_compose_impl();
-      if (v20)
+      v19 = objc_opt_class();
+      v20 = [v5 count];
+      v39 = 138412546;
+      v40 = v19;
+      v41 = 2048;
+      v42 = v20;
+      v21 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1C21AF000, v18, 2, "%@: Starting playback for query with %lu items", &v39, 22);
+      if (v21)
       {
-        v21 = v20;
-        v22 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v38, v32}];
-        free(v21);
-        v31 = v22;
+        v22 = v21;
+        v23 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
+        free(v22);
+        v33 = v23;
         SSFileLog();
       }
     }
 
-    v23 = [MEMORY[0x1E69707E8] systemMusicPlayer];
-    [v23 setQueueWithItemCollection:v6];
-    [*(a1 + 40) _launchMusicAppAfterPlayback:v23 firstItem:v14];
+    v24 = [MEMORY[0x1E69707E8] systemMusicPlayer];
+    [v24 setQueueWithItemCollection:v6];
+    [*(a1 + 40) _launchMusicAppAfterPlayback:v24 firstItem:v14];
     *(*(*(a1 + 56) + 8) + 24) = 1;
   }
 
   else
   {
-    v24 = [MEMORY[0x1E69D4938] sharedConfig];
-    v25 = [v24 shouldLog];
-    if ([v24 shouldLogToDisk])
+    v25 = [MEMORY[0x1E69D4938] sharedConfig];
+    v26 = [v25 shouldLog];
+    if ([v25 shouldLogToDisk])
     {
-      v26 = v25 | 2;
+      LODWORD(v27) = v26 | 2;
     }
 
     else
     {
-      v26 = v25;
+      LODWORD(v27) = v26;
     }
 
-    if (!os_log_type_enabled([v24 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    v28 = [v25 OSLogObject];
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v26 &= 2u;
+      v27 = v27;
     }
 
-    if (v26)
+    else
     {
-      v27 = objc_opt_class();
-      v28 = *(a1 + 32);
-      v38 = 138412546;
-      v39 = v27;
-      v40 = 2112;
-      v41 = v28;
-      LODWORD(v32) = 22;
-      v29 = _os_log_send_and_compose_impl();
-      if (v29)
+      v27 &= 2u;
+    }
+
+    if (v27)
+    {
+      v29 = objc_opt_class();
+      v30 = *(a1 + 32);
+      v39 = 138412546;
+      v40 = v29;
+      v41 = 2112;
+      v42 = v30;
+      v31 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_1C21AF000, v28, 0, "%@: No items for collection ID: %@", &v39, 22);
+      if (v31)
       {
-        v30 = v29;
-        [MEMORY[0x1E696AEC0] stringWithCString:v29 encoding:{4, &v38, v32}];
-        free(v30);
+        v32 = v31;
+        [MEMORY[0x1E696AEC0] stringWithCString:v31 encoding:4];
+        free(v32);
         SSFileLog();
       }
     }
@@ -718,47 +727,47 @@ LABEL_5:
 
 void __45__SUScriptMediaLibrary_playSongsWithAdamIDs___block_invoke(uint64_t a1)
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v34 = 0u;
+  v44 = *MEMORY[0x1E69E9840];
+  v33 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
   obj = *(a1 + 32);
-  v1 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v1 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (v1)
   {
     v2 = v1;
-    v3 = *v35;
+    v3 = *v36;
     v4 = *MEMORY[0x1E696FB60];
     do
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v35 != v3)
+        if (*v36 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = [MEMORY[0x1E6970610] predicateWithValue:objc_msgSend(MEMORY[0x1E696AD98] forProperty:{"numberWithLongLong:", objc_msgSend(*(*(&v34 + 1) + 8 * i), "longLongValue")), v4}];
+        v6 = [MEMORY[0x1E6970610] predicateWithValue:objc_msgSend(MEMORY[0x1E696AD98] forProperty:{"numberWithLongLong:", objc_msgSend(*(*(&v35 + 1) + 8 * i), "longLongValue")), v4}];
         v7 = objc_alloc(MEMORY[0x1E6970618]);
         v8 = [v7 initWithFilterPredicates:{objc_msgSend(MEMORY[0x1E695DFD8], "setWithObjects:", v6, 0)}];
         v9 = [v8 items];
         if ([v9 count] == 1)
         {
-          [v32 addObject:{objc_msgSend(v9, "objectAtIndex:", 0)}];
+          [v33 addObject:{objc_msgSend(v9, "objectAtIndex:", 0)}];
         }
       }
 
-      v2 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v2 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
     while (v2);
   }
 
-  if ([v32 count])
+  if ([v33 count])
   {
-    v10 = [objc_alloc(MEMORY[0x1E69705E0]) initWithItems:v32];
+    v10 = [objc_alloc(MEMORY[0x1E69705E0]) initWithItems:v33];
     v11 = [MEMORY[0x1E69D4938] sharedConfig];
     v12 = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
@@ -771,82 +780,81 @@ void __45__SUScriptMediaLibrary_playSongsWithAdamIDs___block_invoke(uint64_t a1)
       v13 = v12;
     }
 
-    if (os_log_type_enabled([v11 OSLogObject], OS_LOG_TYPE_DEBUG))
+    v14 = [v11 OSLogObject];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v14 = v13;
+      v15 = v13;
     }
 
     else
     {
-      v14 = v13 & 2;
+      v15 = v13 & 2;
     }
 
-    if (v14)
+    if (v15)
     {
-      v15 = objc_opt_class();
-      v16 = [v10 count];
-      v38 = 138412546;
-      v39 = v15;
-      v40 = 2048;
-      v41 = v16;
-      LODWORD(v30) = 22;
-      v29 = &v38;
-      v17 = _os_log_send_and_compose_impl();
-      if (v17)
+      v16 = objc_opt_class();
+      v17 = [v10 count];
+      v39 = 138412546;
+      v40 = v16;
+      v41 = 2048;
+      v42 = v17;
+      v18 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1C21AF000, v14, 2, "%@: Starting playback for %lu items", &v39, 22);
+      if (v18)
       {
-        v18 = v17;
-        v19 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v38, v30}];
-        free(v18);
-        v29 = v19;
+        v19 = v18;
+        v20 = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:4];
+        free(v19);
+        v31 = v20;
         SSFileLog();
       }
     }
 
-    v20 = [MEMORY[0x1E69707E8] systemMusicPlayer];
-    [v20 setQueueWithItemCollection:v10];
-    [*(a1 + 40) _launchMusicAppAfterPlayback:v20 firstItem:0];
+    v21 = [MEMORY[0x1E69707E8] systemMusicPlayer];
+    [v21 setQueueWithItemCollection:v10];
+    [*(a1 + 40) _launchMusicAppAfterPlayback:v21 firstItem:0];
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
 
   else
   {
-    v21 = [MEMORY[0x1E69D4938] sharedConfig];
-    v22 = [v21 shouldLog];
-    if ([v21 shouldLogToDisk])
+    v22 = [MEMORY[0x1E69D4938] sharedConfig];
+    v23 = [v22 shouldLog];
+    if ([v22 shouldLogToDisk])
     {
-      v23 = v22 | 2;
+      v24 = v23 | 2;
     }
 
     else
-    {
-      v23 = v22;
-    }
-
-    if (os_log_type_enabled([v21 OSLogObject], OS_LOG_TYPE_DEFAULT))
     {
       v24 = v23;
     }
 
-    else
+    v25 = [v22 OSLogObject];
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = v23 & 2;
+      v26 = v24;
     }
 
-    if (v24)
+    else
     {
-      v25 = objc_opt_class();
-      v26 = *(a1 + 32);
-      v38 = 138412546;
-      v39 = v25;
-      v40 = 2112;
-      v41 = v26;
-      LODWORD(v30) = 22;
-      v27 = _os_log_send_and_compose_impl();
-      if (v27)
+      v26 = v24 & 2;
+    }
+
+    if (v26)
+    {
+      v27 = objc_opt_class();
+      v28 = *(a1 + 32);
+      v39 = 138412546;
+      v40 = v27;
+      v41 = 2112;
+      v42 = v28;
+      v29 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &dword_1C21AF000, v25, 0, "%@: No items for IDs: %@", &v39, 22);
+      if (v29)
       {
-        v28 = v27;
-        [MEMORY[0x1E696AEC0] stringWithCString:v27 encoding:{4, &v38, v30}];
-        free(v28);
+        v30 = v29;
+        [MEMORY[0x1E696AEC0] stringWithCString:v29 encoding:4];
+        free(v30);
         SSFileLog();
       }
     }
@@ -886,7 +894,7 @@ void __45__SUScriptMediaLibrary_playSongsWithAdamIDs___block_invoke(uint64_t a1)
 
 void __44__SUScriptMediaLibrary_playVideoWithAdamID___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(*(a1 + 32), "longLongValue")}];
   v3 = [MEMORY[0x1E6970610] predicateWithValue:v2 forProperty:*MEMORY[0x1E696FB60]];
   v4 = objc_alloc(MEMORY[0x1E6970618]);
@@ -899,34 +907,38 @@ void __44__SUScriptMediaLibrary_playVideoWithAdamID___block_invoke(uint64_t a1)
     v9 = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = v9 | 2;
+      LODWORD(v10) = v9 | 2;
     }
 
     else
     {
-      v10 = v9;
+      LODWORD(v10) = v9;
     }
 
-    if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_DEBUG))
+    v11 = [v8 OSLogObject];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
 
     if (v10)
     {
-      v23 = 138412546;
-      v24 = objc_opt_class();
-      v25 = 2112;
-      v26 = v2;
-      LODWORD(v22) = 22;
-      v21 = &v23;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      v24 = 138412546;
+      v25 = objc_opt_class();
+      v26 = 2112;
+      v27 = v2;
+      v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1C21AF000, v11, 2, "%@: Opening URL to play video: %@", &v24, 22);
+      if (v12)
       {
-        v12 = v11;
-        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v23, v22}];
-        free(v12);
-        v21 = v13;
+        v13 = v12;
+        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+        free(v13);
+        v23 = v14;
         SSFileLog();
       }
     }
@@ -936,38 +948,43 @@ void __44__SUScriptMediaLibrary_playVideoWithAdamID___block_invoke(uint64_t a1)
 
   else
   {
-    v14 = [MEMORY[0x1E69D4938] sharedConfig];
-    v15 = [v14 shouldLog];
-    if ([v14 shouldLogToDisk])
+    v15 = [MEMORY[0x1E69D4938] sharedConfig];
+    v16 = [v15 shouldLog];
+    if ([v15 shouldLogToDisk])
     {
-      v16 = v15 | 2;
+      LODWORD(v17) = v16 | 2;
     }
 
     else
     {
-      v16 = v15;
+      LODWORD(v17) = v16;
     }
 
-    if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    v18 = [v15 OSLogObject];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v16 &= 2u;
+      v17 = v17;
     }
 
-    if (v16)
+    else
     {
-      v17 = objc_opt_class();
-      v18 = *(a1 + 32);
-      v23 = 138412546;
-      v24 = v17;
-      v25 = 2112;
-      v26 = v18;
-      LODWORD(v22) = 22;
-      v19 = _os_log_send_and_compose_impl();
-      if (v19)
+      v17 &= 2u;
+    }
+
+    if (v17)
+    {
+      v19 = objc_opt_class();
+      v20 = *(a1 + 32);
+      v24 = 138412546;
+      v25 = v19;
+      v26 = 2112;
+      v27 = v20;
+      v21 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1C21AF000, v18, 0, "%@: No items for ID: %@", &v24, 22);
+      if (v21)
       {
-        v20 = v19;
-        [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:{4, &v23, v22}];
-        free(v20);
+        v22 = v21;
+        [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
+        free(v22);
         SSFileLog();
       }
     }
@@ -1034,7 +1051,7 @@ uint64_t __44__SUScriptMediaLibrary__connectNativeObject__block_invoke(uint64_t 
   _Block_object_dispose(&v15, 8);
 }
 
-uint64_t __63__SUScriptMediaLibrary__launchMusicAppAfterPlayback_firstItem___block_invoke(uint64_t a1)
+void *__63__SUScriptMediaLibrary__launchMusicAppAfterPlayback_firstItem___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) playbackState];
@@ -1044,15 +1061,21 @@ uint64_t __63__SUScriptMediaLibrary__launchMusicAppAfterPlayback_firstItem___blo
     v4 = [v3 shouldLog];
     if ([v3 shouldLogToDisk])
     {
-      v5 = v4 | 2;
+      LODWORD(v5) = v4 | 2;
     }
 
     else
     {
-      v5 = v4;
+      LODWORD(v5) = v4;
     }
 
-    if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_DEBUG))
+    v6 = [v3 OSLogObject];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      v5 = v5;
+    }
+
+    else
     {
       v5 &= 2u;
     }
@@ -1061,15 +1084,13 @@ uint64_t __63__SUScriptMediaLibrary__launchMusicAppAfterPlayback_firstItem___blo
     {
       v11 = 138412290;
       v12 = objc_opt_class();
-      LODWORD(v10) = 12;
-      v9 = &v11;
-      v6 = _os_log_send_and_compose_impl();
-      if (v6)
+      v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, v6, 2, "%@: Launching music app after playback start", &v11, 12);
+      if (v7)
       {
-        v7 = v6;
-        v8 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:{4, &v11, v10}];
-        free(v7);
-        v9 = v8;
+        v8 = v7;
+        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
+        free(v8);
+        v10 = v9;
         SSFileLog();
       }
     }
@@ -1084,25 +1105,31 @@ uint64_t __63__SUScriptMediaLibrary__launchMusicAppAfterPlayback_firstItem___blo
   return result;
 }
 
-uint64_t __63__SUScriptMediaLibrary__launchMusicAppAfterPlayback_firstItem___block_invoke_92(uint64_t result)
+void *__63__SUScriptMediaLibrary__launchMusicAppAfterPlayback_firstItem___block_invoke_92(void *result)
 {
   v12 = *MEMORY[0x1E69E9840];
-  if (*(*(*(result + 56) + 8) + 40))
+  if (*(*(result[7] + 8) + 40))
   {
     v1 = result;
     v2 = [MEMORY[0x1E69D4938] sharedConfig];
     v3 = [v2 shouldLog];
     if ([v2 shouldLogToDisk])
     {
-      v4 = v3 | 2;
+      LODWORD(v4) = v3 | 2;
     }
 
     else
     {
-      v4 = v3;
+      LODWORD(v4) = v3;
     }
 
-    if (!os_log_type_enabled([v2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    v5 = [v2 OSLogObject];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = v4;
+    }
+
+    else
     {
       v4 &= 2u;
     }
@@ -1111,24 +1138,22 @@ uint64_t __63__SUScriptMediaLibrary__launchMusicAppAfterPlayback_firstItem___blo
     {
       v10 = 138412290;
       v11 = objc_opt_class();
-      LODWORD(v9) = 12;
-      v8 = &v10;
-      v5 = _os_log_send_and_compose_impl();
-      if (v5)
+      v6 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1C21AF000, v5, 0, "%@: Playback timeout, launching music app", &v10, 12);
+      if (v6)
       {
-        v6 = v5;
-        v7 = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:{4, &v10, v9}];
-        free(v6);
-        v8 = v7;
+        v7 = v6;
+        v8 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:4];
+        free(v7);
+        v9 = v8;
         SSFileLog();
       }
     }
 
-    [*(v1 + 32) _launchMusicApp];
-    [*(v1 + 40) removeObserver:*(*(*(v1 + 56) + 8) + 40)];
+    [v1[4] _launchMusicApp];
+    [v1[5] removeObserver:*(*(v1[7] + 8) + 40)];
 
-    *(*(*(v1 + 56) + 8) + 40) = 0;
-    return [*(v1 + 48) endGeneratingPlaybackNotifications];
+    *(*(v1[7] + 8) + 40) = 0;
+    return [v1[6] endGeneratingPlaybackNotifications];
   }
 
   return result;

@@ -4,6 +4,7 @@
 - (BOOL)useSeparatedTransformGrading;
 - (BOOL)validateTransformForHitTestInfo:(id)info;
 - (CLLocationButtonMechanism)initWithConnection:(id)connection;
+- (id)drawingWithStyle:(id)style tag:(id)tag forRemote:(BOOL)remote;
 - (void)deriveAnalyticsFromTag:(id)tag;
 - (void)getRemoteContentForStyle:(id)style layerContext:(unint64_t)context tag:(id)tag sandboxExtension:(id)extension completionHandler:(id)handler;
 - (void)onPrimaryTouchDownEvent:(id)event;
@@ -20,7 +21,7 @@
 
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -406,12 +407,12 @@ LABEL_11:
   v29 = 0u;
   if (infoCopy)
   {
-    [infoCopy cumulativeContentsTransform];
+    objc_msgSend_cumulativeContentsTransform(infoCopy);
   }
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_100003148(&v28);
+    sub_100003148();
   }
 
   v26 = 0u;
@@ -424,12 +425,12 @@ LABEL_11:
   v21 = 0u;
   if (v5)
   {
-    [v5 cumulativeLayerTransform];
+    objc_msgSend_cumulativeLayerTransform(v5);
   }
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_100003218(&v20);
+    sub_100003218();
   }
 
   v36 = xmmword_100004240;
@@ -477,6 +478,16 @@ LABEL_11:
   objc_destroyWeak(&v7);
 
   objc_destroyWeak(&location);
+}
+
+- (id)drawingWithStyle:(id)style tag:(id)tag forRemote:(BOOL)remote
+{
+  remoteCopy = remote;
+  tagCopy = tag;
+  styleCopy = style;
+  v9 = [[CLLocationButtonDrawing alloc] initWithStyle:styleCopy tag:tagCopy remote:remoteCopy];
+
+  return v9;
 }
 
 - (BOOL)useSeparatedTransformGrading

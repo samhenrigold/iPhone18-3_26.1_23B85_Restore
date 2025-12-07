@@ -202,52 +202,79 @@ LABEL_30:
 
 - (void)layoutSubviews
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = PKExpressBannerLabelView;
-  [(PKExpressBannerLabelView *)&v14 layoutSubviews];
+  v38 = *MEMORY[0x1E69E9840];
+  v36.receiver = self;
+  v36.super_class = PKExpressBannerLabelView;
+  [(PKExpressBannerLabelView *)&v36 layoutSubviews];
   [(PKExpressBannerLabelView *)self bounds];
-  if (self && self->_alignmentEdge >= 4)
+  v10 = v3.n128_u64[0];
+  v11 = v4.n128_u64[0];
+  v12 = v5.n128_u64[0];
+  v13 = v6.n128_u64[0];
+  if (self)
   {
-    __break(1u);
+    alignmentEdge = self->_alignmentEdge;
+    if (alignmentEdge >= 4)
+    {
+      __break(1u);
+    }
+
+    v15 = qword_1BE117068[alignmentEdge] | qword_1BE117048[alignmentEdge];
+  }
+
+  else
+  {
+    v15 = 0;
   }
 
   label = self->_label;
   if (label)
   {
-    PKSizeAlignedInRect();
+    v4.n128_u64[0] = *&self->_size.height;
+    v3.n128_f64[0] = fmin(self->_size.width, v5.n128_f64[0]);
+    v5.n128_u64[0] = v10;
+    v6.n128_u64[0] = v11;
+    v7.n128_u64[0] = v12;
+    v8.n128_u64[0] = v13;
+    PKSizeAlignedInRect(v15, v3, v4, v5, v6, v7, v8, v9);
     [(UILabel *)label setFrame:?];
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v4 = self->_obsoleteLabels;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
-  if (v5)
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v17 = self->_obsoleteLabels;
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  if (v18)
   {
-    v6 = v5;
-    v7 = *v11;
+    v19 = v18;
+    v20 = *v33;
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v11 != v7)
+        if (*v33 != v20)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v17);
         }
 
-        v9 = *(*(&v10 + 1) + 8 * i);
-        [v9 frame];
-        PKSizeAlignedInRect();
-        [v9 setFrame:?];
+        v22 = *(*(&v32 + 1) + 8 * i);
+        [v22 frame];
+        v24.n128_u64[0] = v23;
+        v26.n128_u64[0] = v25;
+        v27.n128_u64[0] = v10;
+        v28.n128_u64[0] = v11;
+        v29.n128_u64[0] = v12;
+        v30.n128_u64[0] = v13;
+        PKSizeAlignedInRect(v15, v24, v26, v27, v28, v29, v30, v31);
+        [v22 setFrame:?];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
-    while (v6);
+    while (v19);
   }
 }
 

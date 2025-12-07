@@ -50,7 +50,7 @@
 
 - (id)realScopedIdentifierForRemappedScopedIdentifier:(id)identifier
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = [(NSMutableDictionary *)self->_perTransactionRemappedScopedIdentifiers objectForKeyedSubscript:identifierCopy];
   if (!v5)
@@ -69,7 +69,7 @@ LABEL_7:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v29 = v7;
+          v28 = v7;
           _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "Infinite remaps: %@", buf, 0xCu);
         }
       }
@@ -113,71 +113,69 @@ LABEL_7:
       self->_perTransactionRemappedScopedIdentifiers = v14;
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v16 = v7;
-    v17 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v24;
+      v19 = *v23;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v24 != v19)
+          if (*v23 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          [(NSMutableDictionary *)self->_perTransactionRemappedScopedIdentifiers setObject:v5 forKeyedSubscript:*(*(&v23 + 1) + 8 * i), v23];
+          [(NSMutableDictionary *)self->_perTransactionRemappedScopedIdentifiers setObject:v5 forKeyedSubscript:*(*(&v22 + 1) + 8 * i), v22];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v18);
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)_fixupRemappedRecordsAndReturnBestCloudScopedIdentifierFromRemappedScopedIdentifiers:(id)identifiers fallback:(id)fallback
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   fallbackCopy = fallback;
   engineStore = [(CPLEngineStorage *)self engineStore];
   idMapping = [engineStore idMapping];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v10 = identifiersCopy;
-  v11 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
   v12 = fallbackCopy;
   if (v11)
   {
     v13 = v11;
-    v14 = *v31;
+    v14 = *v30;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v31 != v14)
+        if (*v30 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v30 + 1) + 8 * i);
-        v29 = 0;
-        v17 = [idMapping localScopedIdentifierForCloudScopedIdentifier:v16 isFinal:&v29];
+        v16 = *(*(&v29 + 1) + 8 * i);
+        v28 = 0;
+        v17 = [idMapping localScopedIdentifierForCloudScopedIdentifier:v16 isFinal:&v28];
         if (v17)
         {
           v18 = v17;
@@ -185,25 +183,25 @@ LABEL_7:
 
           v19 = [v12 copy];
           engineStore2 = [(CPLEngineStorage *)self engineStore];
-          v27[0] = MEMORY[0x1E69E9820];
-          v27[1] = 3221225472;
-          v27[2] = __122__CPLEngineRemappedRecords__fixupRemappedRecordsAndReturnBestCloudScopedIdentifierFromRemappedScopedIdentifiers_fallback___block_invoke;
-          v27[3] = &unk_1E86205B8;
-          v27[4] = self;
-          v28 = v19;
-          v25[0] = MEMORY[0x1E69E9820];
-          v25[1] = 3221225472;
-          v25[2] = __122__CPLEngineRemappedRecords__fixupRemappedRecordsAndReturnBestCloudScopedIdentifierFromRemappedScopedIdentifiers_fallback___block_invoke_3;
-          v25[3] = &unk_1E86205E0;
-          v26 = v28;
-          v21 = v28;
-          v22 = [engineStore2 performWriteTransactionWithBlock:v27 completionHandler:v25];
+          v26[0] = MEMORY[0x1E69E9820];
+          v26[1] = 3221225472;
+          v26[2] = __122__CPLEngineRemappedRecords__fixupRemappedRecordsAndReturnBestCloudScopedIdentifierFromRemappedScopedIdentifiers_fallback___block_invoke;
+          v26[3] = &unk_1E86205B8;
+          v26[4] = self;
+          v27 = v19;
+          v24[0] = MEMORY[0x1E69E9820];
+          v24[1] = 3221225472;
+          v24[2] = __122__CPLEngineRemappedRecords__fixupRemappedRecordsAndReturnBestCloudScopedIdentifierFromRemappedScopedIdentifiers_fallback___block_invoke_3;
+          v24[3] = &unk_1E86205E0;
+          v25 = v27;
+          v21 = v27;
+          v22 = [engineStore2 performWriteTransactionWithBlock:v26 completionHandler:v24];
 
           goto LABEL_11;
         }
       }
 
-      v13 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v13 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v13)
       {
         continue;
@@ -216,8 +214,6 @@ LABEL_7:
   }
 
 LABEL_11:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -236,7 +232,7 @@ void __122__CPLEngineRemappedRecords__fixupRemappedRecordsAndReturnBestCloudScop
 
 void __122__CPLEngineRemappedRecords__fixupRemappedRecordsAndReturnBestCloudScopedIdentifierFromRemappedScopedIdentifiers_fallback___block_invoke_3(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
@@ -247,15 +243,13 @@ void __122__CPLEngineRemappedRecords__fixupRemappedRecordsAndReturnBestCloudScop
     {
       v6 = *(a1 + 32);
       v7 = [v3 error];
-      v9 = 138412546;
-      v10 = v6;
-      v11 = 2112;
-      v12 = v7;
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Failed to fixup infinite loop for remapped identifiers related to %@: %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v7;
+      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Failed to fixup infinite loop for remapped identifiers related to %@: %@", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __122__CPLEngineRemappedRecords__fixupRemappedRecordsAndReturnBestCloudScopedIdentifierFromRemappedScopedIdentifiers_fallback___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -268,12 +262,12 @@ uint64_t __122__CPLEngineRemappedRecords__fixupRemappedRecordsAndReturnBestCloud
 
 - (BOOL)removeRemappedRecordWithScopedIdentifier:(id)identifier error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   platformObject = [(CPLEngineStorage *)self platformObject];
-  v15 = 0;
-  v8 = [platformObject removeRemappedRecordWithScopedIdentifier:identifierCopy error:&v15];
-  v9 = v15;
+  v14 = 0;
+  v8 = [platformObject removeRemappedRecordWithScopedIdentifier:identifierCopy error:&v14];
+  v9 = v14;
 
   if (v8)
   {
@@ -289,9 +283,9 @@ uint64_t __122__CPLEngineRemappedRecords__fixupRemappedRecordsAndReturnBestCloud
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v17 = identifierCopy;
-        v18 = 2112;
-        v19 = v9;
+        v16 = identifierCopy;
+        v17 = 2112;
+        v18 = v9;
         _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Failed to discard remapped record %@: %@ - ignoring", buf, 0x16u);
       }
     }
@@ -303,19 +297,18 @@ uint64_t __122__CPLEngineRemappedRecords__fixupRemappedRecordsAndReturnBestCloud
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (BOOL)addRemappedRecordWithScopedIdentifier:(id)identifier realScopedIdentifier:(id)scopedIdentifier error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   scopedIdentifierCopy = scopedIdentifier;
   platformObject = [(CPLEngineStorage *)self platformObject];
-  v17 = 0;
-  v11 = [platformObject addRemappedRecordWithScopedIdentifier:identifierCopy realScopedIdentifier:scopedIdentifierCopy error:&v17];
-  v12 = v17;
+  v16 = 0;
+  v11 = [platformObject addRemappedRecordWithScopedIdentifier:identifierCopy realScopedIdentifier:scopedIdentifierCopy error:&v16];
+  v12 = v16;
 
   if (v11)
   {
@@ -330,11 +323,11 @@ uint64_t __122__CPLEngineRemappedRecords__fixupRemappedRecordsAndReturnBestCloud
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v19 = identifierCopy;
-        v20 = 2112;
-        v21 = scopedIdentifierCopy;
-        v22 = 2112;
-        v23 = v12;
+        v18 = identifierCopy;
+        v19 = 2112;
+        v20 = scopedIdentifierCopy;
+        v21 = 2112;
+        v22 = v12;
         _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "Failed to remapped record %@ -> %@: %@ - ignoring", buf, 0x20u);
       }
     }
@@ -346,7 +339,6 @@ uint64_t __122__CPLEngineRemappedRecords__fixupRemappedRecordsAndReturnBestCloud
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

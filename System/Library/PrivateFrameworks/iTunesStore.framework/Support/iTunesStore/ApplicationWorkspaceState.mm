@@ -16,15 +16,21 @@
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_ERROR))
+  oSLogObject = [v5 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
@@ -35,13 +41,12 @@
     v13 = objc_opt_class();
     v14 = 2112;
     identifierCopy = identifier;
-    LODWORD(v11) = 22;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%@] Ignoring complete notification for %@ because appstored is enabled", &v12, 22);
+    if (v9)
     {
-      v9 = v8;
-      [NSString stringWithCString:v8 encoding:4, &v12, v11];
-      free(v9);
+      v10 = v9;
+      [NSString stringWithCString:v9 encoding:4];
+      free(v10);
       SSFileLog();
     }
   }
@@ -51,10 +56,10 @@
 
 + (BOOL)_incompleteNotification:(id)notification forDownload:(int64_t)download bundleIdentifier:(id)identifier
 {
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
   if (SSDebugShouldUseAppstored())
   {
     v8 = +[SSLogConfig sharedDaemonConfig];
@@ -63,36 +68,41 @@
       v8 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v8 shouldLog];
+    LODWORD(v9) = [v8 shouldLog];
     shouldLogToDisk = [v8 shouldLogToDisk];
     oSLogObject = [v8 OSLogObject];
+    v12 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v9) = v9 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v9 = v9;
     }
 
-    if (shouldLog)
+    else
     {
-      v12 = objc_opt_class();
-      v13 = +[SSStackShot generateSymbolicatedStackShot];
-      v32 = 138412802;
-      v33 = v12;
-      v34 = 2048;
+      v9 &= 2u;
+    }
+
+    if (v9)
+    {
+      v13 = objc_opt_class();
+      v14 = +[SSStackShot generateSymbolicatedStackShot];
+      v33 = 138412802;
+      v34 = v13;
+      v35 = 2048;
       notificationCopy = download;
-      v36 = 2112;
-      identifierCopy = v13;
-      LODWORD(v26) = 32;
-      v14 = _os_log_send_and_compose_impl();
-      if (v14)
+      v37 = 2112;
+      identifierCopy = v14;
+      v15 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, v12, 16, "[%@] Ignoring incomplete notification for %lld because appstored is enabled: %@", &v33, 32);
+      if (v15)
       {
-        v15 = v14;
-        [NSString stringWithCString:v14 encoding:4, &v32, v26];
-        free(v15);
+        v16 = v15;
+        [NSString stringWithCString:v15 encoding:4];
+        free(v16);
         SSFileLog();
       }
     }
@@ -100,65 +110,70 @@
 
   else
   {
-    v16 = +[SSLogConfig sharedDaemonConfig];
-    if (!v16)
+    v17 = +[SSLogConfig sharedDaemonConfig];
+    if (!v17)
     {
-      v16 = +[SSLogConfig sharedConfig];
+      v17 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v16 shouldLog];
-    shouldLogToDisk2 = [v16 shouldLogToDisk];
-    oSLogObject2 = [v16 OSLogObject];
+    LODWORD(v18) = [v17 shouldLog];
+    shouldLogToDisk2 = [v17 shouldLogToDisk];
+    oSLogObject2 = [v17 OSLogObject];
+    v21 = oSLogObject2;
     if (shouldLogToDisk2)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v18) = v18 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      shouldLog2 &= 2u;
+      v18 = v18;
     }
 
-    if (shouldLog2)
+    else
     {
-      v20 = objc_opt_class();
-      v32 = 138412802;
-      v33 = v20;
-      v34 = 2112;
+      v18 &= 2u;
+    }
+
+    if (v18)
+    {
+      v22 = objc_opt_class();
+      v33 = 138412802;
+      v34 = v22;
+      v35 = 2112;
       notificationCopy = notification;
-      v36 = 2112;
+      v37 = 2112;
       identifierCopy = identifier;
-      LODWORD(v26) = 32;
-      v21 = _os_log_send_and_compose_impl();
-      if (v21)
+      v23 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, v21, 1, "[%@] Requesting [%@] Notification: [%@]", &v33, 32);
+      if (v23)
       {
-        v22 = v21;
-        [NSString stringWithCString:v21 encoding:4, &v32, v26];
-        free(v22);
+        v24 = v23;
+        [NSString stringWithCString:v23 encoding:4];
+        free(v24);
         SSFileLog();
       }
     }
 
-    v23 = objc_autoreleasePoolPush();
+    v25 = objc_autoreleasePoolPush();
     if ([identifier length])
     {
-      v27[0] = _NSConcreteStackBlock;
-      v27[1] = 3221225472;
-      v27[2] = sub_1000CDDB4;
-      v27[3] = &unk_100328120;
-      v27[4] = identifier;
-      v27[5] = notification;
-      v27[6] = &v28;
-      v27[7] = download;
+      v28[0] = _NSConcreteStackBlock;
+      v28[1] = 3221225472;
+      v28[2] = sub_1000CDDB4;
+      v28[3] = &unk_100328120;
+      v28[4] = identifier;
+      v28[5] = notification;
+      v28[6] = &v29;
+      v28[7] = download;
       [+[DownloadsDatabase downloadsDatabase](DownloadsDatabase "downloadsDatabase")];
     }
 
-    objc_autoreleasePoolPop(v23);
+    objc_autoreleasePoolPop(v25);
   }
 
-  v24 = *(v29 + 24);
-  _Block_object_dispose(&v28, 8);
-  return v24;
+  v26 = *(v30 + 24);
+  _Block_object_dispose(&v29, 8);
+  return v26;
 }
 
 @end

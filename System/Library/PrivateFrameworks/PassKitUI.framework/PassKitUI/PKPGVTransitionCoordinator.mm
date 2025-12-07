@@ -1021,7 +1021,7 @@ LABEL_8:
   }
 }
 
-uint64_t __89__PKPGVTransitionCoordinator__beginTransitionWithContext_dirty_completion_subtransition___block_invoke_5(uint64_t a1)
+void *__89__PKPGVTransitionCoordinator__beginTransitionWithContext_dirty_completion_subtransition___block_invoke_5(uint64_t a1)
 {
   result = [*(a1 + 32) invalidate];
   if (result)
@@ -1171,7 +1171,7 @@ LABEL_8:
   }
 }
 
-uint64_t __48__PKPGVTransitionCoordinator__becomeInteractive__block_invoke_4(uint64_t a1)
+void *__48__PKPGVTransitionCoordinator__becomeInteractive__block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) invalidate];
   if (result)
@@ -1271,7 +1271,7 @@ void __48__PKPGVTransitionCoordinator__becomeInteractive__block_invoke_6(uint64_
 LABEL_8:
 }
 
-uint64_t __48__PKPGVTransitionCoordinator__becomeInteractive__block_invoke_8(uint64_t a1)
+void *__48__PKPGVTransitionCoordinator__becomeInteractive__block_invoke_8(uint64_t a1)
 {
   result = [*(a1 + 32) invalidate];
   if (result)
@@ -1350,7 +1350,7 @@ void __48__PKPGVTransitionCoordinator__becomeInteractive__block_invoke_9(uint64_
 LABEL_8:
 }
 
-uint64_t __48__PKPGVTransitionCoordinator__becomeInteractive__block_invoke_11(uint64_t a1)
+void *__48__PKPGVTransitionCoordinator__becomeInteractive__block_invoke_11(uint64_t a1)
 {
   result = [*(a1 + 32) invalidate];
   if (result)
@@ -1497,10 +1497,10 @@ LABEL_8:
   __break(1u);
 }
 
-uint64_t __44__PKPGVTransitionCoordinator__endTransition__block_invoke_2(uint64_t result)
+unsigned __int8 *__44__PKPGVTransitionCoordinator__endTransition__block_invoke_2(unsigned __int8 *result)
 {
   v1 = result;
-  v2 = *(result + 32);
+  v2 = *(result + 4);
   if (v2)
   {
     if ((v2[18] & 1) == 0 || v2[19] == 1 || v2[20] == 1)
@@ -1512,12 +1512,12 @@ uint64_t __44__PKPGVTransitionCoordinator__endTransition__block_invoke_2(uint64_
     v2[19] = 1;
   }
 
-  result = [*(result + 40) transitionCoordinatorWillEndTransition:*(result + 48) wasDirty:*(result + 64)];
-  if (*(v1 + 65) == 1)
+  result = [*(result + 5) transitionCoordinatorWillEndTransition:*(result + 6) wasDirty:result[64]];
+  if (v1[65] == 1)
   {
-    v4 = *(v1 + 48);
-    v3 = *(v1 + 56);
-    v5 = *(v1 + 64);
+    v4 = *(v1 + 6);
+    v3 = *(v1 + 7);
+    v5 = v1[64];
 
     return [v3 transitionCoordinatorWillEndTransition:v4 wasDirty:v5];
   }
@@ -1962,7 +1962,7 @@ void __62__PKPGVTransitionCoordinator__finishInteractionForTransition___block_in
 LABEL_8:
 }
 
-uint64_t __62__PKPGVTransitionCoordinator__finishInteractionForTransition___block_invoke_4(uint64_t a1)
+void *__62__PKPGVTransitionCoordinator__finishInteractionForTransition___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) invalidate];
   if (result)

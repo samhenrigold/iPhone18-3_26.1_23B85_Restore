@@ -14,7 +14,7 @@
 - (BOOL)validateOperation
 {
   selfCopy = self;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (self && self->_database)
   {
     goto LABEL_5;
@@ -22,16 +22,16 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"multi-fetch query requires a database"];
-    v13 = 136315906;
-    v14 = "[FCCKMultiFetchQueryOperation validateOperation]";
-    v15 = 2080;
-    v16 = "FCCKMultiFetchQueryOperation.m";
-    v17 = 1024;
-    v18 = 35;
-    v19 = 2114;
-    v20 = v10;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v13, 0x26u);
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"multi-fetch query requires a database"];
+    v12 = 136315906;
+    v13 = "[FCCKMultiFetchQueryOperation validateOperation]";
+    v14 = 2080;
+    v15 = "FCCKMultiFetchQueryOperation.m";
+    v16 = 1024;
+    v17 = 35;
+    v18 = 2114;
+    v19 = v9;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
 
     if (selfCopy)
     {
@@ -53,16 +53,16 @@ LABEL_5:
 LABEL_6:
   if (![(NSArray *)recordIDs count]&& os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"multi-fetch query requires at least one record ID"];
-    v13 = 136315906;
-    v14 = "[FCCKMultiFetchQueryOperation validateOperation]";
-    v15 = 2080;
-    v16 = "FCCKMultiFetchQueryOperation.m";
-    v17 = 1024;
-    v18 = 36;
-    v19 = 2114;
-    v20 = v11;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v13, 0x26u);
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"multi-fetch query requires at least one record ID"];
+    v12 = 136315906;
+    v13 = "[FCCKMultiFetchQueryOperation validateOperation]";
+    v14 = 2080;
+    v15 = "FCCKMultiFetchQueryOperation.m";
+    v16 = 1024;
+    v17 = 36;
+    v18 = 2114;
+    v19 = v10;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
   }
 
   if (selfCopy)
@@ -77,26 +77,26 @@ LABEL_6:
 
   if (![(NSArray *)recordSpecs count]&& os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"multi-fetch query requires at least one record spec"];
-    v13 = 136315906;
-    v14 = "[FCCKMultiFetchQueryOperation validateOperation]";
-    v15 = 2080;
-    v16 = "FCCKMultiFetchQueryOperation.m";
-    v17 = 1024;
-    v18 = 37;
-    v19 = 2114;
-    v20 = v12;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v13, 0x26u);
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"multi-fetch query requires at least one record spec"];
+    v12 = 136315906;
+    v13 = "[FCCKMultiFetchQueryOperation validateOperation]";
+    v14 = 2080;
+    v15 = "FCCKMultiFetchQueryOperation.m";
+    v16 = 1024;
+    v17 = 37;
+    v18 = 2114;
+    v19 = v11;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
 
     if (!selfCopy)
     {
-      goto LABEL_20;
+      return selfCopy;
     }
   }
 
   else if (!selfCopy)
   {
-    goto LABEL_20;
+    return selfCopy;
   }
 
   v5 = selfCopy->_database;
@@ -120,8 +120,6 @@ LABEL_6:
     LOBYTE(selfCopy) = 0;
   }
 
-LABEL_20:
-  v8 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -174,25 +172,25 @@ id __48__FCCKMultiFetchQueryOperation_prepareOperation__block_invoke(uint64_t a1
     array5 = [MEMORY[0x1E695DF70] array];
     array6 = [MEMORY[0x1E695DF70] array];
     [(NSArray *)self->_recordSpecs sortedArrayUsingComparator:&__block_literal_global_16_1];
+    v76 = 0u;
     v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    obj = v76 = 0u;
-    v2 = [obj countByEnumeratingWithState:&v75 objects:location count:16];
+    v74 = 0u;
+    obj = v75 = 0u;
+    v2 = [obj countByEnumeratingWithState:&v74 objects:location count:16];
     if (v2)
     {
-      v3 = *v76;
+      v3 = *v75;
       do
       {
         v4 = 0;
         do
         {
-          if (*v76 != v3)
+          if (*v75 != v3)
           {
             objc_enumerationMutation(obj);
           }
 
-          v5 = *(*(&v75 + 1) + 8 * v4);
+          v5 = *(*(&v74 + 1) + 8 * v4);
           if (v5)
           {
             [array addObject:*(v5 + 16)];
@@ -251,7 +249,7 @@ id __48__FCCKMultiFetchQueryOperation_prepareOperation__block_invoke(uint64_t a1
         }
 
         while (v2 != v4);
-        v16 = [obj countByEnumeratingWithState:&v75 objects:location count:16];
+        v16 = [obj countByEnumeratingWithState:&v74 objects:location count:16];
         v2 = v16;
       }
 
@@ -262,31 +260,31 @@ id __48__FCCKMultiFetchQueryOperation_prepareOperation__block_invoke(uint64_t a1
     allKeys = [(NSDictionary *)v17 allKeys];
     v19 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-    v74 = 0u;
-    v72 = 0u;
     v73 = 0u;
     v71 = 0u;
+    v72 = 0u;
+    v70 = 0u;
     v20 = v19;
-    v21 = [v20 countByEnumeratingWithState:&v71 objects:v79 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v70 objects:v78 count:16];
     if (v21)
     {
-      v22 = *v72;
+      v22 = *v71;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v72 != v22)
+          if (*v71 != v22)
           {
             objc_enumerationMutation(v20);
           }
 
-          v24 = *(*(&v71 + 1) + 8 * i);
+          v24 = *(*(&v70 + 1) + 8 * i);
           [array5 addObject:v24];
           v25 = [(NSDictionary *)self->_knownRecordIDsToEtags objectForKeyedSubscript:v24];
           [array6 addObject:v25];
         }
 
-        v21 = [v20 countByEnumeratingWithState:&v71 objects:v79 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v70 objects:v78 count:16];
       }
 
       while (v21);
@@ -397,8 +395,8 @@ id __48__FCCKMultiFetchQueryOperation_prepareOperation__block_invoke(uint64_t a1
     if (v45)
     {
       *(v45 + 372) = 0;
-      objc_setProperty_nonatomic_copy(v45, v58, 0, 480);
-      objc_setProperty_nonatomic_copy(v45, v59, 0, 448);
+      objc_setProperty_nonatomic_copy(v45, v57, 0, 480);
+      objc_setProperty_nonatomic_copy(v45, v58, 0, 448);
       v47 = 0;
       allObjects = 0;
       *(v45 + 368) = 0;
@@ -430,33 +428,31 @@ id __48__FCCKMultiFetchQueryOperation_prepareOperation__block_invoke(uint64_t a1
   }
 
   objc_initWeak(location, v45);
-  v68[0] = MEMORY[0x1E69E9820];
-  v68[1] = 3221225472;
-  v68[2] = __48__FCCKMultiFetchQueryOperation_performOperation__block_invoke_2;
-  v68[3] = &unk_1E7C46098;
-  v68[4] = self;
-  objc_copyWeak(&v69, location);
+  v67[0] = MEMORY[0x1E69E9820];
+  v67[1] = 3221225472;
+  v67[2] = __48__FCCKMultiFetchQueryOperation_performOperation__block_invoke_2;
+  v67[3] = &unk_1E7C46098;
+  v67[4] = self;
+  objc_copyWeak(&v68, location);
   if (!v47)
   {
-    objc_setProperty_nonatomic_copy(v45, v56, v68, 424);
+    objc_setProperty_nonatomic_copy(v45, v56, v67, 424);
   }
 
   [(FCOperation *)self associateChildOperation:v45];
   [v45 start];
-  objc_destroyWeak(&v69);
+  objc_destroyWeak(&v68);
   objc_destroyWeak(location);
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 void __44__FCCKMultiFetchQueryOperation__desiredKeys__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = *(a1 + 32);
   if (v4)
   {
@@ -464,22 +460,22 @@ void __44__FCCKMultiFetchQueryOperation__desiredKeys__block_invoke(uint64_t a1, 
   }
 
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         if (v10)
         {
           v11 = *(v10 + 24);
@@ -490,12 +486,12 @@ void __44__FCCKMultiFetchQueryOperation__desiredKeys__block_invoke(uint64_t a1, 
           v11 = 0;
         }
 
-        [v3 addObjectsFromArray:{v11, v14}];
+        [v3 addObjectsFromArray:{v11, v13}];
         ++v9;
       }
 
       while (v7 != v9);
-      v12 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v12 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       v7 = v12;
     }
 
@@ -503,7 +499,6 @@ void __44__FCCKMultiFetchQueryOperation__desiredKeys__block_invoke(uint64_t a1, 
   }
 
   [v3 addObject:@"notFound"];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __48__FCCKMultiFetchQueryOperation_performOperation__block_invoke(uint64_t a1, void *a2)

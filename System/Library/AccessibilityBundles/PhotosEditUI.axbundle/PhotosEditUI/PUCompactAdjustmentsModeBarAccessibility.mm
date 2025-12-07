@@ -1,6 +1,7 @@
 @interface PUCompactAdjustmentsModeBarAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)_updateTitleViewAnimated:(BOOL)animated;
 @end
 
 @implementation PUCompactAdjustmentsModeBarAccessibility
@@ -22,6 +23,14 @@
   v4 = __UIAccessibilityCastAsClass();
 
   [v4 setIsAccessibilityElement:0];
+}
+
+- (void)_updateTitleViewAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = PUCompactAdjustmentsModeBarAccessibility;
+  [(PUCompactAdjustmentsModeBarAccessibility *)&v4 _updateTitleViewAnimated:animated];
+  [(PUCompactAdjustmentsModeBarAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

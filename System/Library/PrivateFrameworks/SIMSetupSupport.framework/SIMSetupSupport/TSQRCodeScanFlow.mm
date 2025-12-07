@@ -51,25 +51,24 @@
 
 - (id)firstViewController
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v3 = +[TSCellularPlanManagerCache sharedInstance];
   [v3 setDelegate:self];
 
   v4 = [[SSQRCodeIntroViewController alloc] initWithPlans:self->_plans withBackButton:self->_withBackButton];
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = objc_opt_class();
-    v10 = 2080;
-    v11 = "[TSQRCodeScanFlow firstViewController]";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "first view controller : %@ @%s", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = objc_opt_class();
+    v9 = 2080;
+    v10 = "[TSQRCodeScanFlow firstViewController]";
+    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "first view controller : %@ @%s", &v7, 0x16u);
   }
 
   [(SSQRCodeIntroViewController *)v4 setDelegate:self];
   [(TSSIMSetupFlow *)self setTopViewController:v4];
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -86,7 +85,7 @@
 
 - (id)nextViewControllerFrom:(id)from
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   fromCopy = from;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -101,20 +100,20 @@ LABEL_3:
   {
     self->_isPreinstallingViewControllerActive = 0;
     v7 = [TSSubFlowViewController alloc];
-    v30[0] = @"FlowTypeKey";
-    v30[1] = @"SkipActivatingPane";
-    v31[0] = &unk_287583A60;
-    v31[1] = MEMORY[0x277CBEC38];
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+    v29[0] = @"FlowTypeKey";
+    v29[1] = @"SkipActivatingPane";
+    v30[0] = &unk_287583A60;
+    v30[1] = MEMORY[0x277CBEC38];
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
     navigationController = [(TSSIMSetupFlow *)self navigationController];
     v6 = [(TSSubFlowViewController *)v7 initWithOptions:v8 navigationController:navigationController delegate:self];
 
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __43__TSQRCodeScanFlow_nextViewControllerFrom___block_invoke;
-    v25[3] = &unk_279B44578;
-    v25[4] = self;
-    dispatch_async(MEMORY[0x277D85CD0], v25);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __43__TSQRCodeScanFlow_nextViewControllerFrom___block_invoke;
+    v24[3] = &unk_279B44578;
+    v24[4] = self;
+    dispatch_async(MEMORY[0x277D85CD0], v24);
     goto LABEL_33;
   }
 
@@ -158,13 +157,13 @@ LABEL_3:
       {
         self->_isPreinstallingViewControllerActive = 0;
         v20 = [TSSubFlowViewController alloc];
-        v26[0] = @"FlowTypeKey";
-        v26[1] = @"SkipActivatingPane";
-        v27[0] = &unk_287583A60;
-        v27[1] = MEMORY[0x277CBEC38];
-        v26[2] = @"PlanSetupTypeKey";
-        v27[2] = &unk_287583A90;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
+        v25[0] = @"FlowTypeKey";
+        v25[1] = @"SkipActivatingPane";
+        v26[0] = &unk_287583A60;
+        v26[1] = MEMORY[0x277CBEC38];
+        v25[2] = @"PlanSetupTypeKey";
+        v26[2] = &unk_287583A90;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
         navigationController2 = [(TSSIMSetupFlow *)self navigationController];
         v6 = [(TSSubFlowViewController *)v20 initWithOptions:v21 navigationController:navigationController2 delegate:self];
 
@@ -208,13 +207,13 @@ LABEL_3:
 
         self->_isPreinstallingViewControllerActive = 0;
         v18 = [TSSubFlowViewController alloc];
-        v28[0] = @"FlowTypeKey";
-        v28[1] = @"SkipActivatingPane";
-        v29[0] = &unk_287583A60;
-        v29[1] = MEMORY[0x277CBEC38];
-        v28[2] = @"PlanSetupTypeKey";
-        v29[2] = &unk_287583A78;
-        fauxCardData = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
+        v27[0] = @"FlowTypeKey";
+        v27[1] = @"SkipActivatingPane";
+        v28[0] = &unk_287583A60;
+        v28[1] = MEMORY[0x277CBEC38];
+        v27[2] = @"PlanSetupTypeKey";
+        v28[2] = &unk_287583A78;
+        fauxCardData = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
         navigationController3 = [(TSSIMSetupFlow *)self navigationController];
         v6 = [(TSSubFlowViewController *)v18 initWithOptions:fauxCardData navigationController:navigationController3 delegate:self];
 
@@ -236,8 +235,6 @@ LABEL_9:
 
 LABEL_32:
 LABEL_33:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -499,13 +496,13 @@ void __32__TSQRCodeScanFlow_handleError___block_invoke_7(uint64_t a1)
 
 - (void)planItemsUpdated:(id)updated planListError:(id)error
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   errorCopy = error;
   v8 = errorCopy;
   if (self->_planInstallError)
   {
-    topViewController = _TSLogDomain();
+    topViewController = _TSLogDomain(errorCopy);
     if (os_log_type_enabled(topViewController, OS_LOG_TYPE_ERROR))
     {
       [TSQRCodeScanFlow planItemsUpdated:topViewController planListError:?];
@@ -516,10 +513,10 @@ void __32__TSQRCodeScanFlow_handleError___block_invoke_7(uint64_t a1)
 
   if (errorCopy)
   {
-    v11 = _TSLogDomain();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = _TSLogDomain(errorCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [TSQRCodeScanFlow planItemsUpdated:v8 planListError:v11];
+      [TSQRCodeScanFlow planItemsUpdated:v8 planListError:v10];
     }
 
     domain = [v8 domain];
@@ -538,9 +535,9 @@ void __32__TSQRCodeScanFlow_handleError___block_invoke_7(uint64_t a1)
     {
     }
 
-    v32 = [TSUtilities isRegulatoryRestrictionActive:v8];
+    v33 = [TSUtilities isRegulatoryRestrictionActive:v8];
     objc_storeStrong(&self->_planInstallError, error);
-    if (!v32)
+    if (!v33)
     {
       [(TSQRCodeScanFlow *)self handleError:v8];
       goto LABEL_5;
@@ -553,68 +550,68 @@ void __32__TSQRCodeScanFlow_handleError___block_invoke_7(uint64_t a1)
   {
     if (self->_isPreinstallingViewControllerActive)
     {
-      v37 = 0u;
       v38 = 0u;
-      v35 = 0u;
+      v39 = 0u;
       v36 = 0u;
-      v14 = [updatedCopy countByEnumeratingWithState:&v35 objects:v43 count:16];
-      if (v14)
+      v37 = 0u;
+      v13 = [updatedCopy countByEnumeratingWithState:&v36 objects:v44 count:16];
+      if (v13)
       {
-        v15 = v14;
-        v33 = 98;
-        v34 = 0;
-        v16 = 0;
-        v17 = *v36;
+        v14 = v13;
+        v34 = 98;
+        v35 = 0;
+        v15 = 0;
+        v16 = *v37;
         do
         {
-          for (i = 0; i != v15; ++i)
+          for (i = 0; i != v14; ++i)
           {
-            if (*v36 != v17)
+            if (*v37 != v16)
             {
               objc_enumerationMutation(updatedCopy);
             }
 
-            v19 = *(*(&v35 + 1) + 8 * i);
-            if ([v19 isInstalling])
+            v18 = *(*(&v36 + 1) + 8 * i);
+            if ([v18 isInstalling])
             {
-              plan = [v19 plan];
+              plan = [v18 plan];
               status = [plan status];
 
               if (status != 6)
               {
-                carrierName = [v19 carrierName];
-                v23 = [carrierName copy];
+                carrierName = [v18 carrierName];
+                v22 = [carrierName copy];
                 name = self->_name;
-                self->_name = v23;
+                self->_name = v22;
 
-                iccid = [v19 iccid];
-                v16 = [iccid length] != 0;
+                iccid = [v18 iccid];
+                v15 = [iccid length] != 0;
 
-                v26 = _TSLogDomain();
+                v26 = _TSLogDomain(v25);
                 if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
                 {
                   v27 = self->_name;
                   *buf = 138412546;
-                  v40 = v27;
-                  v41 = 2080;
-                  v42 = "[TSQRCodeScanFlow planItemsUpdated:planListError:]";
+                  v41 = v27;
+                  v42 = 2080;
+                  v43 = "[TSQRCodeScanFlow planItemsUpdated:planListError:]";
                   _os_log_impl(&dword_262AA8000, v26, OS_LOG_TYPE_DEFAULT, "installing [%@] @%s", buf, 0x16u);
                 }
               }
             }
 
-            if (([v19 isSelected] & 1) == 0)
+            if (([v18 isSelected] & 1) == 0)
             {
-              [v19 isInstalling];
+              [v18 isInstalling];
             }
           }
 
-          v15 = [updatedCopy countByEnumeratingWithState:&v35 objects:v43 count:16];
+          v14 = [updatedCopy countByEnumeratingWithState:&v36 objects:v44 count:16];
         }
 
-        while (v15);
-        v8 = v34;
-        if (v16)
+        while (v14);
+        v8 = v35;
+        if (v15)
         {
           v28 = +[TSCellularPlanManagerCache sharedInstance];
           v29 = [v28 calculateInstallConsentTextTypeFor:updatedCopy];
@@ -625,15 +622,15 @@ void __32__TSQRCodeScanFlow_handleError___block_invoke_7(uint64_t a1)
             {
               if (v29 == 1)
               {
-                v30 = _TSLogDomain();
-                if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+                v31 = _TSLogDomain(v30);
+                if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315138;
-                  v40 = "[TSQRCodeScanFlow planItemsUpdated:planListError:]";
-                  _os_log_impl(&dword_262AA8000, v30, OS_LOG_TYPE_DEFAULT, "disable not allowed @%s", buf, 0xCu);
+                  v41 = "[TSQRCodeScanFlow planItemsUpdated:planListError:]";
+                  _os_log_impl(&dword_262AA8000, v31, OS_LOG_TYPE_DEFAULT, "disable not allowed @%s", buf, 0xCu);
                 }
 
-                v31 = 3;
+                v32 = 3;
               }
 
               else
@@ -643,15 +640,15 @@ void __32__TSQRCodeScanFlow_handleError___block_invoke_7(uint64_t a1)
                   goto LABEL_35;
                 }
 
-                v30 = _TSLogDomain();
-                if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+                v31 = _TSLogDomain(v30);
+                if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315138;
-                  v40 = "[TSQRCodeScanFlow planItemsUpdated:planListError:]";
-                  _os_log_impl(&dword_262AA8000, v30, OS_LOG_TYPE_DEFAULT, "delete not allowed @%s", buf, 0xCu);
+                  v41 = "[TSQRCodeScanFlow planItemsUpdated:planListError:]";
+                  _os_log_impl(&dword_262AA8000, v31, OS_LOG_TYPE_DEFAULT, "delete not allowed @%s", buf, 0xCu);
                 }
 
-                v31 = 2;
+                v32 = 2;
               }
 
               goto LABEL_34;
@@ -661,12 +658,12 @@ void __32__TSQRCodeScanFlow_handleError___block_invoke_7(uint64_t a1)
           else if ((v29 - 3) >= 5)
           {
 LABEL_35:
-            if (*(&self->super.super.isa + v33) != 1)
+            if (*(&self->super.super.isa + v34) != 1)
             {
               goto LABEL_5;
             }
 
-            *(&self->super.super.isa + v33) = 0;
+            *(&self->super.super.isa + v34) = 0;
 LABEL_39:
             topViewController = [(TSSIMSetupFlow *)self topViewController];
             [(TSSIMSetupFlow *)self viewControllerDidComplete:topViewController];
@@ -675,18 +672,18 @@ LABEL_4:
             goto LABEL_5;
           }
 
-          v30 = _TSLogDomain();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          v31 = _TSLogDomain(v30);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v40 = "[TSQRCodeScanFlow planItemsUpdated:planListError:]";
-            _os_log_impl(&dword_262AA8000, v30, OS_LOG_TYPE_DEFAULT, "Invalid consent @%s", buf, 0xCu);
+            v41 = "[TSQRCodeScanFlow planItemsUpdated:planListError:]";
+            _os_log_impl(&dword_262AA8000, v31, OS_LOG_TYPE_DEFAULT, "Invalid consent @%s", buf, 0xCu);
           }
 
-          v31 = 0;
+          v32 = 0;
 LABEL_34:
 
-          self->_userConsentType = v31;
+          self->_userConsentType = v32;
           goto LABEL_35;
         }
       }
@@ -694,31 +691,27 @@ LABEL_34:
   }
 
 LABEL_5:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)planItemsUpdated:(uint64_t *)a1 planListError:(NSObject *)a2 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412546;
-  v5 = v2;
-  v6 = 2080;
-  v7 = "[TSQRCodeScanFlow planItemsUpdated:planListError:]";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]received error already : %@ @%s", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = v2;
+  v5 = 2080;
+  v6 = "[TSQRCodeScanFlow planItemsUpdated:planListError:]";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]received error already : %@ @%s", &v3, 0x16u);
 }
 
 - (void)planItemsUpdated:(uint64_t)a1 planListError:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2080;
-  v6 = "[TSQRCodeScanFlow planItemsUpdated:planListError:]";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]error: %@ @%s", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2080;
+  v5 = "[TSQRCodeScanFlow planItemsUpdated:planListError:]";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]error: %@ @%s", &v2, 0x16u);
 }
 
 @end

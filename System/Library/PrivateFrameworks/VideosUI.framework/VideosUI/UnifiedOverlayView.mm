@@ -102,7 +102,7 @@
 
 - (VUILabel)textLabel
 {
-  v2 = sub_1E3EB2FF0();
+  v2 = sub_1E3EB2FF0(self);
 
   return v2;
 }
@@ -111,8 +111,8 @@
 {
   labelCopy = label;
   selfCopy = self;
-  OUTLINED_FUNCTION_10_0();
-  sub_1E3EB307C();
+  v6 = OUTLINED_FUNCTION_10_0();
+  sub_1E3EB307C(v6);
 }
 
 - (void)vui_setSelected:(BOOL)selected animated:(BOOL)animated withAnimationCoordinator:(id)coordinator

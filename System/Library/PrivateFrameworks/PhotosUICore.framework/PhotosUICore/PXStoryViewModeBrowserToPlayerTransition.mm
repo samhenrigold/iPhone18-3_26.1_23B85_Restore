@@ -40,7 +40,7 @@
   timeline = [snapshotCopy timeline];
   if (snapshotCopy)
   {
-    [snapshotCopy timeRange];
+    objc_msgSend_timeRange(snapshotCopy);
   }
 
   else

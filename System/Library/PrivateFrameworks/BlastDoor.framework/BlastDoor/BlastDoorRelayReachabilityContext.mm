@@ -21,13 +21,12 @@
 
 - (NSString)senderLastAddressedHandle
 {
-  v3 = type metadata accessor for RelayReachabilityContext();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for RelayReachabilityContext(0);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_213FB568C(self + OBJC_IVAR___BlastDoorRelayReachabilityContext_relayReachabilityContext, v6, type metadata accessor for RelayReachabilityContext);
-  v7 = *(v6 + 8);
-  if (v7 == 1)
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_213FB568C(self + OBJC_IVAR___BlastDoorRelayReachabilityContext_relayReachabilityContext, v5, type metadata accessor for RelayReachabilityContext);
+  v6 = *(v5 + 8);
+  if (v6 == 1)
   {
     result = sub_2146DA018();
     __break(1u);
@@ -35,22 +34,21 @@
 
   else
   {
-    v8 = *(v6 + 7);
-    v9 = *(v6 + 8);
+    v7 = *(v5 + 7);
 
-    sub_213FB5844(v6, type metadata accessor for RelayReachabilityContext);
-    if (v7)
+    sub_213FB5844(v5, type metadata accessor for RelayReachabilityContext);
+    if (v6)
     {
-      v10 = sub_2146D9588();
-      sub_213FDC6D0(v8, v7);
+      v8 = sub_2146D9588();
+      sub_213FDC6D0(v7, v6);
     }
 
     else
     {
-      v10 = 0;
+      v8 = 0;
     }
 
-    return v10;
+    return v8;
   }
 
   return result;
@@ -59,44 +57,40 @@
 - (NSUUID)senderLastAddressedSIMID
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C904F30, &unk_2146EFA20);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = self + OBJC_IVAR___BlastDoorRelayReachabilityContext_relayReachabilityContext;
-  v8 = type metadata accessor for RelayReachabilityContext();
-  sub_213FB2E54(&v7[*(v8 + 28)], v6, &unk_27C904F30, &unk_2146EFA20);
-  v9 = sub_2146D8B88();
-  v10 = *(v9 - 8);
-  v11 = (*(v10 + 48))(v6, 1, v9);
-  v12 = 0;
-  if (v11 != 1)
+  v5 = &v14 - v4;
+  v6 = self + OBJC_IVAR___BlastDoorRelayReachabilityContext_relayReachabilityContext;
+  v7 = type metadata accessor for RelayReachabilityContext(0);
+  sub_213FB2E54(&v6[*(v7 + 28)], v5, &unk_27C904F30, &unk_2146EFA20);
+  v8 = sub_2146D8B88();
+  v9 = *(v8 - 8);
+  v10 = (*(v9 + 48))(v5, 1, v8);
+  v11 = 0;
+  if (v10 != 1)
   {
-    v13 = sub_2146D8B38();
-    (*(v10 + 8))(v6, v9);
-    v12 = v13;
+    v12 = sub_2146D8B38();
+    (*(v9 + 8))(v5, v8);
+    v11 = v12;
   }
 
-  return v12;
+  return v11;
 }
 
 - (NSString)serviceOfLastMessage
 {
   v2 = self + OBJC_IVAR___BlastDoorRelayReachabilityContext_relayReachabilityContext;
-  v3 = &v2[*(type metadata accessor for RelayReachabilityContext() + 36)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for RelayReachabilityContext(0) + 36) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (BlastDoorRelayReachabilityContext)init

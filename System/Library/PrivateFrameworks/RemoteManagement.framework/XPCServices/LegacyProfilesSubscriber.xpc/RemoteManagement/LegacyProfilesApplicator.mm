@@ -1,6 +1,7 @@
 @interface LegacyProfilesApplicator
 + (id)supportedConfigurationTypes;
 - (_TtC24LegacyProfilesSubscriber24LegacyProfilesApplicator)init;
+- (_TtC24LegacyProfilesSubscriber24LegacyProfilesApplicator)initWithAdapter:(id)adapter inPlaceUpdates:(BOOL)updates;
 @end
 
 @implementation LegacyProfilesApplicator
@@ -8,13 +9,25 @@
 - (_TtC24LegacyProfilesSubscriber24LegacyProfilesApplicator)init
 {
   ObjectType = swift_getObjectType();
-  v4 = [objc_allocWithZone(type metadata accessor for LegacyProfilesAdapter()) init];
-  v7.receiver = self;
-  v7.super_class = ObjectType;
-  v5 = [(LegacyProfilesApplicator *)&v7 initWithAdapter:v4 inPlaceUpdates:1];
+  v6 = [objc_allocWithZone(type metadata accessor for LegacyProfilesAdapter(0 v4];
+  v9.receiver = self;
+  v9.super_class = ObjectType;
+  v7 = [(LegacyProfilesApplicator *)&v9 initWithAdapter:v6 inPlaceUpdates:1];
 
-  [(LegacyProfilesApplicator *)v5 setRetryOnce:1];
-  return v5;
+  [(LegacyProfilesApplicator *)v7 setRetryOnce:1];
+  return v7;
+}
+
+- (_TtC24LegacyProfilesSubscriber24LegacyProfilesApplicator)initWithAdapter:(id)adapter inPlaceUpdates:(BOOL)updates
+{
+  updatesCopy = updates;
+  v8.receiver = self;
+  v8.super_class = swift_getObjectType();
+  swift_unknownObjectRetain();
+  v6 = [(LegacyProfilesApplicator *)&v8 initWithAdapter:adapter inPlaceUpdates:updatesCopy];
+  [(LegacyProfilesApplicator *)v6 setRetryOnce:1, v8.receiver, v8.super_class];
+  swift_unknownObjectRelease();
+  return v6;
 }
 
 + (id)supportedConfigurationTypes

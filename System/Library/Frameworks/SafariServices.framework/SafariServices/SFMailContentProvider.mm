@@ -12,7 +12,7 @@ uint64_t __123___SFMailContentProvider_prepareMailComposeViewController_withMail
 
   else
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXOther();
+    v3 = WBS_LOG_CHANNEL_PREFIXOther(a1, 0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __123___SFMailContentProvider_prepareMailComposeViewController_withMailToURL_contentURL_preferredContentType_completionHandler___block_invoke_2_cold_1(v3);

@@ -16,8 +16,8 @@ void __78__NSManagedObject_HomeKitDaemon__mkf_synchronizeRelation_items_allowCre
 
 void __78__NSManagedObject_HomeKitDaemon__mkf_synchronizeRelation_items_allowCreation___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = a2;
-  v3 = [v13 backingModelKey];
+  v14 = a2;
+  v3 = [v14 backingModelKey];
   if (!v3)
   {
     _HMFPreconditionFailure();
@@ -34,7 +34,7 @@ void __78__NSManagedObject_HomeKitDaemon__mkf_synchronizeRelation_items_allowCre
 
   else
   {
-    v7 = [v13 backingModelType];
+    v7 = [v14 backingModelType];
     v8 = [HMCContext managedObjectClassFromProtocol:v7];
 
     if (*(a1 + 72) != 1)
@@ -45,15 +45,15 @@ void __78__NSManagedObject_HomeKitDaemon__mkf_synchronizeRelation_items_allowCre
 
     v9 = *(a1 + 40);
     v10 = *(a1 + 48);
-    v11 = [v13 backingModelKey];
+    v11 = [v14 backingModelKey];
     v6 = __createNewObject(v9, v8, v10, v11);
   }
 
-  if (([v13 updateBackingModel:v6 error:0] & 1) == 0)
+  if (([v14 updateBackingModel:v6 error:0] & 1) == 0)
   {
 LABEL_13:
     v12 = _HMFPreconditionFailure();
-    __78__NSManagedObject_HomeKitDaemon__mkf_synchronizeRelation_items_allowCreation___block_invoke_3(v12);
+    __78__NSManagedObject_HomeKitDaemon__mkf_synchronizeRelation_items_allowCreation___block_invoke_3(v12, v13);
     return;
   }
 

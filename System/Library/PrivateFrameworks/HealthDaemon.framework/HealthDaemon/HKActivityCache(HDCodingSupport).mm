@@ -9,11 +9,11 @@
 
 - (HDCodableActivityCache)codableRepresentationForSync
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(HDCodableActivityCache);
-  v38.receiver = self;
-  v38.super_class = &off_283D425D8;
-  v3 = objc_msgSendSuper2(&v38, sel_codableRepresentationForSync);
+  v37.receiver = self;
+  v37.super_class = &off_283D425D8;
+  v3 = objc_msgSendSuper2(&v37, sel_codableRepresentationForSync);
   [(HDCodableActivityCache *)v2 setSample:v3];
   -[HDCodableActivityCache setCacheIndex:](v2, "setCacheIndex:", [self cacheIndex]);
   -[HDCodableActivityCache setSequence:](v2, "setSequence:", [self sequence]);
@@ -108,30 +108,30 @@
   -[HDCodableActivityCache setVersion:](v2, "setVersion:", [self version]);
   if ([self hasDailyEnergyBurnedStatistics])
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     dailyEnergyBurnedStatistics = [self dailyEnergyBurnedStatistics];
-    v7 = [dailyEnergyBurnedStatistics countByEnumeratingWithState:&v34 objects:v41 count:16];
+    v7 = [dailyEnergyBurnedStatistics countByEnumeratingWithState:&v33 objects:v40 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v35;
+      v9 = *v34;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v35 != v9)
+          if (*v34 != v9)
           {
             objc_enumerationMutation(dailyEnergyBurnedStatistics);
           }
 
-          codableRepresentationForSync = [*(*(&v34 + 1) + 8 * i) codableRepresentationForSync];
+          codableRepresentationForSync = [*(*(&v33 + 1) + 8 * i) codableRepresentationForSync];
           [(HDCodableActivityCache *)v2 addDailyEnergyBurnedStatistics:codableRepresentationForSync];
         }
 
-        v8 = [dailyEnergyBurnedStatistics countByEnumeratingWithState:&v34 objects:v41 count:16];
+        v8 = [dailyEnergyBurnedStatistics countByEnumeratingWithState:&v33 objects:v40 count:16];
       }
 
       while (v8);
@@ -140,30 +140,30 @@
 
   if ([self hasDailyMoveMinutesStatistics])
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     dailyMoveMinutesStatistics = [self dailyMoveMinutesStatistics];
-    v13 = [dailyMoveMinutesStatistics countByEnumeratingWithState:&v30 objects:v40 count:16];
+    v13 = [dailyMoveMinutesStatistics countByEnumeratingWithState:&v29 objects:v39 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v31;
+      v15 = *v30;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v31 != v15)
+          if (*v30 != v15)
           {
             objc_enumerationMutation(dailyMoveMinutesStatistics);
           }
 
-          codableRepresentationForSync2 = [*(*(&v30 + 1) + 8 * j) codableRepresentationForSync];
+          codableRepresentationForSync2 = [*(*(&v29 + 1) + 8 * j) codableRepresentationForSync];
           [(HDCodableActivityCache *)v2 addDailyMoveMinutesStatistics:codableRepresentationForSync2];
         }
 
-        v14 = [dailyMoveMinutesStatistics countByEnumeratingWithState:&v30 objects:v40 count:16];
+        v14 = [dailyMoveMinutesStatistics countByEnumeratingWithState:&v29 objects:v39 count:16];
       }
 
       while (v14);
@@ -172,37 +172,35 @@
 
   if ([self hasDailyBriskMinutesStatistics])
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     dailyBriskMinutesStatistics = [self dailyBriskMinutesStatistics];
-    v19 = [dailyBriskMinutesStatistics countByEnumeratingWithState:&v26 objects:v39 count:16];
+    v19 = [dailyBriskMinutesStatistics countByEnumeratingWithState:&v25 objects:v38 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v27;
+      v21 = *v26;
       do
       {
         for (k = 0; k != v20; ++k)
         {
-          if (*v27 != v21)
+          if (*v26 != v21)
           {
             objc_enumerationMutation(dailyBriskMinutesStatistics);
           }
 
-          codableRepresentationForSync3 = [*(*(&v26 + 1) + 8 * k) codableRepresentationForSync];
+          codableRepresentationForSync3 = [*(*(&v25 + 1) + 8 * k) codableRepresentationForSync];
           [(HDCodableActivityCache *)v2 addDailyBriskMinutesStatistics:codableRepresentationForSync3];
         }
 
-        v20 = [dailyBriskMinutesStatistics countByEnumeratingWithState:&v26 objects:v39 count:16];
+        v20 = [dailyBriskMinutesStatistics countByEnumeratingWithState:&v25 objects:v38 count:16];
       }
 
       while (v20);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

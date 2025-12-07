@@ -2,6 +2,7 @@
 - (BOOL)rcs_isValid;
 - (id)rc_userInfoForKey:(id)key;
 - (void)rc_setUserInfo:(id)info forKey:(id)key;
+- (void)rcs_setValid:(BOOL)valid;
 @end
 
 @implementation NSXPCConnection
@@ -12,6 +13,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)rcs_setValid:(BOOL)valid
+{
+  v4 = [NSNumber numberWithBool:valid];
+  objc_setAssociatedObject(self, "RCSNSXPCConnectionIsValidKey", v4, 1);
 }
 
 - (void)rc_setUserInfo:(id)info forKey:(id)key

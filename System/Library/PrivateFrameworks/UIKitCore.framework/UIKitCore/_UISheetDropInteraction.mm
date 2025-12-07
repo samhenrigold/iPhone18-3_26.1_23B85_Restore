@@ -134,9 +134,9 @@ LABEL_9:
           persistentIdentifier = [v23 persistentIdentifier];
           v25 = v16;
           sceneIdentifier2 = [v16 sceneIdentifier];
-          v27 = [persistentIdentifier isEqualToString:sceneIdentifier2];
+          isEqualToString = objc_msgSend_isEqualToString_(persistentIdentifier);
 
-          if (v27)
+          if (isEqualToString)
           {
             scene = [v23 scene];
 

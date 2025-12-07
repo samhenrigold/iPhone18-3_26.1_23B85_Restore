@@ -9,7 +9,7 @@
   selfCopy = self;
   sub_1002150C0();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for RouteAssetView();
+  v3.super_class = type metadata accessor for RouteAssetView(0);
   [(RouteAssetView *)&v3 layoutSubviews];
 }
 

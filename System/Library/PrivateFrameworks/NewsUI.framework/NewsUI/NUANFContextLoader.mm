@@ -344,7 +344,7 @@ uint64_t __64__NUANFContextLoader_loadImagesForImageRequest_completionBlock___bl
 
 void __64__NUANFContextLoader_loadImagesForImageRequest_completionBlock___block_invoke_9(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) loadingBlock];
 
   if (v2)
@@ -356,12 +356,10 @@ void __64__NUANFContextLoader_loadImagesForImageRequest_completionBlock___block_
   v4 = *(a1 + 48);
   if (v4)
   {
-    v7[0] = *(a1 + 40);
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = *(a1 + 40);
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
     (*(v4 + 16))(v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64__NUANFContextLoader_loadImagesForImageRequest_completionBlock___block_invoke_10(uint64_t a1)
@@ -583,7 +581,7 @@ uint64_t __57__NUANFContextLoader_asyncLoadContextOnceWithCompletion___block_inv
 
 - (id)fallbackAssetForImageRequest:(id)request original:(id)original
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   originalCopy = original;
   networkReachability = [(NUANFContextLoader *)self networkReachability];
@@ -591,12 +589,12 @@ uint64_t __57__NUANFContextLoader_asyncLoadContextOnceWithCompletion___block_inv
 
   if (isNetworkReachable)
   {
-    v43 = MEMORY[0x277D85DD0];
-    v44 = 3221225472;
-    v45 = __60__NUANFContextLoader_fallbackAssetForImageRequest_original___block_invoke;
-    v46 = &unk_2799A32B0;
-    v47 = originalCopy;
-    v10 = v47;
+    v42 = MEMORY[0x277D85DD0];
+    v43 = 3221225472;
+    v44 = __60__NUANFContextLoader_fallbackAssetForImageRequest_original___block_invoke;
+    v45 = &unk_2799A32B0;
+    v46 = originalCopy;
+    v10 = v46;
     v11 = v10;
   }
 
@@ -604,30 +602,30 @@ uint64_t __57__NUANFContextLoader_asyncLoadContextOnceWithCompletion___block_inv
   {
     context = [(NUANFContextLoader *)self context];
     documentController = [context documentController];
-    v38 = requestCopy;
+    v37 = requestCopy;
     imageIdentifier = [requestCopy imageIdentifier];
     v11 = [documentController allResourcesForImageIdentifier:imageIdentifier];
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     reverseObjectEnumerator = [v11 reverseObjectEnumerator];
-    v16 = [reverseObjectEnumerator countByEnumeratingWithState:&v39 objects:v48 count:16];
+    v16 = [reverseObjectEnumerator countByEnumeratingWithState:&v38 objects:v47 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v40;
+      v18 = *v39;
       while (2)
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v40 != v18)
+          if (*v39 != v18)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v20 = *(*(&v39 + 1) + 8 * i);
+          v20 = *(*(&v38 + 1) + 8 * i);
           assetLoader = [(NUANFContextLoader *)self assetLoader];
           v22 = [v20 URL];
           v23 = [assetLoader resourceIDForResourceURL:v22];
@@ -639,12 +637,12 @@ uint64_t __57__NUANFContextLoader_asyncLoadContextOnceWithCompletion___block_inv
           {
             assetHandle = [v25 assetHandle];
 
-            requestCopy = v38;
+            requestCopy = v37;
             goto LABEL_18;
           }
         }
 
-        v17 = [reverseObjectEnumerator countByEnumeratingWithState:&v39 objects:v48 count:16];
+        v17 = [reverseObjectEnumerator countByEnumeratingWithState:&v38 objects:v47 count:16];
         if (v17)
         {
           continue;
@@ -654,8 +652,8 @@ uint64_t __57__NUANFContextLoader_asyncLoadContextOnceWithCompletion___block_inv
       }
     }
 
-    requestCopy = v38;
-    imageIdentifier2 = [v38 imageIdentifier];
+    requestCopy = v37;
+    imageIdentifier2 = [v37 imageIdentifier];
     context2 = [(NUANFContextLoader *)self context];
     documentController2 = [context2 documentController];
     metadata = [documentController2 metadata];
@@ -681,8 +679,6 @@ uint64_t __57__NUANFContextLoader_asyncLoadContextOnceWithCompletion___block_inv
 
   assetHandle = v10;
 LABEL_18:
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return assetHandle;
 }

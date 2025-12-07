@@ -50,7 +50,7 @@
   isa = subviews;
   if (subviews)
   {
-    sub_100003540(0, &qword_10076B020);
+    sub_100003540(0, &qword_10076B020, UIView_ptr);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     isa = Array._bridgeToObjectiveC()().super.isa;
   }

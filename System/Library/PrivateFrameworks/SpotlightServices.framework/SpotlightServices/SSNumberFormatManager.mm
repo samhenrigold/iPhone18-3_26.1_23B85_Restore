@@ -1,6 +1,7 @@
 @interface SSNumberFormatManager
 + (id)currencyStringWithAmount:(id)amount currencyCode:(id)code;
 + (id)stringFromByteCount:(int64_t)count;
++ (id)stringFromInt:(int)int withMinimumDigits:(unint64_t)digits;
 + (void)initialize;
 - (SSNumberFormatManager)init;
 @end
@@ -41,6 +42,17 @@
   }
 
   return v2;
+}
+
++ (id)stringFromInt:(int)int withMinimumDigits:(unint64_t)digits
+{
+  v5 = *&int;
+  numberFormatter = [sharedNumberFormatManager numberFormatter];
+  [numberFormatter setMinimumIntegerDigits:digits];
+  v7 = [MEMORY[0x1E696AD98] numberWithInt:v5];
+  v8 = [numberFormatter stringFromNumber:v7];
+
+  return v8;
 }
 
 + (id)stringFromByteCount:(int64_t)count

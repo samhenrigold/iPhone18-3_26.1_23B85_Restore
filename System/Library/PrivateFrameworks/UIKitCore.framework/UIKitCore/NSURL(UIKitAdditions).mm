@@ -143,7 +143,7 @@ LABEL_9:
   scheme = [self scheme];
   lowercaseString = [scheme lowercaseString];
 
-  if (([lowercaseString isEqualToString:@"rdar"] & 1) != 0 || objc_msgSend(lowercaseString, "isEqualToString:", @"radar"))
+  if ((objc_msgSend_isEqualToString_(lowercaseString) & 1) != 0 || objc_msgSend_isEqualToString_(lowercaseString))
   {
     resourceSpecifier = [self resourceSpecifier];
     if (resourceSpecifier)
@@ -182,9 +182,9 @@ LABEL_9:
 - (id)searchResultDomain
 {
   scheme = [self scheme];
-  v3 = [scheme isEqualToString:@"search"];
+  isEqualToString = objc_msgSend_isEqualToString_(scheme);
 
-  if (v3)
+  if (isEqualToString)
   {
     v4 = MEMORY[0x1E696AD98];
     path = [self path];
@@ -204,9 +204,9 @@ LABEL_9:
 - (id)searchResultIdentifier
 {
   scheme = [self scheme];
-  v3 = [scheme isEqualToString:@"search"];
+  isEqualToString = objc_msgSend_isEqualToString_(scheme);
 
-  if (v3)
+  if (isEqualToString)
   {
     path = [self path];
     lastPathComponent = [path lastPathComponent];
@@ -247,12 +247,12 @@ LABEL_9:
   scheme = [self scheme];
   lowercaseString = [scheme lowercaseString];
 
-  if ([lowercaseString isEqualToString:@"webcal"])
+  if (objc_msgSend_isEqualToString_(lowercaseString))
   {
     v4 = 1;
   }
 
-  else if (([lowercaseString isEqualToString:@"http"] & 1) != 0 || objc_msgSend(lowercaseString, "isEqualToString:", @"https"))
+  else if ((objc_msgSend_isEqualToString_(lowercaseString) & 1) != 0 || objc_msgSend_isEqualToString_(lowercaseString))
   {
     path = [self path];
     v6 = path;

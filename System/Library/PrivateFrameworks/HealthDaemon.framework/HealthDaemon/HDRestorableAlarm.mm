@@ -41,7 +41,7 @@
   if (v12)
   {
     objc_storeStrong(&v12->_scheduler, scheduler);
-    v14 = [identifierCopy copy];
+    v14 = objc_msgSend_copy(identifierCopy);
     clientIdentifier = v13->_clientIdentifier;
     v13->_clientIdentifier = v14;
 
@@ -65,7 +65,7 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDRestorableAlarm.m" lineNumber:70 description:{@"Invalid parameter not satisfying: %@", @"_eventsHandler == nil"}];
   }
 
-  v5 = [handlerCopy copy];
+  v5 = objc_msgSend_copy(handlerCopy);
   eventsHandler = self->_eventsHandler;
   self->_eventsHandler = v5;
 
@@ -138,7 +138,7 @@
 
 - (BOOL)scheduleEvents:(id)events error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   _HKInitializeLogging();
   v7 = HKLogInfrastructure();
@@ -146,55 +146,54 @@
   {
     *buf = 138543618;
     selfCopy = self;
-    v25 = 2048;
-    v26 = [eventsCopy count];
+    v24 = 2048;
+    v25 = [eventsCopy count];
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Scheduled %lu new events", buf, 0x16u);
   }
 
   v8 = [(HDRestorableAlarmSchedulerProtocol *)self->_scheduler scheduleEvents:eventsCopy error:error];
   os_unfair_lock_lock(&self->_lock);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v9 = eventsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
         outstandingEventIdentifiers = self->_outstandingEventIdentifiers;
-        eventIdentifier = [*(*(&v18 + 1) + 8 * v13) eventIdentifier];
+        eventIdentifier = [*(*(&v17 + 1) + 8 * v13) eventIdentifier];
         [(NSMutableSet *)outstandingEventIdentifiers removeObject:eventIdentifier];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)removeEvents:(id)events error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   _HKInitializeLogging();
   v7 = HKLogInfrastructure();
@@ -202,65 +201,64 @@
   {
     *buf = 138543618;
     selfCopy = self;
-    v25 = 2048;
-    v26 = [eventsCopy count];
+    v24 = 2048;
+    v25 = [eventsCopy count];
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Removing %lu events", buf, 0x16u);
   }
 
   v8 = [(HDRestorableAlarmSchedulerProtocol *)self->_scheduler removeEvents:eventsCopy error:error];
   os_unfair_lock_lock(&self->_lock);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v9 = eventsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
         outstandingEventIdentifiers = self->_outstandingEventIdentifiers;
-        eventIdentifier = [*(*(&v18 + 1) + 8 * v13) eventIdentifier];
+        eventIdentifier = [*(*(&v17 + 1) + 8 * v13) eventIdentifier];
         [(NSMutableSet *)outstandingEventIdentifiers removeObject:eventIdentifier];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)replaceAllScheduledEventsWithEvents:(id)events error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   _HKInitializeLogging();
   v7 = HKLogInfrastructure();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543618;
+    v12 = 138543618;
     selfCopy = self;
-    v15 = 2048;
-    v16 = [eventsCopy count];
-    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Replacing all scheduled events with %lu new events", &v13, 0x16u);
+    v14 = 2048;
+    v15 = [eventsCopy count];
+    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Replacing all scheduled events with %lu new events", &v12, 0x16u);
   }
 
   scheduler = self->_scheduler;
@@ -271,21 +269,19 @@
   [(NSMutableSet *)self->_outstandingEventIdentifiers removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (BOOL)removeAllEventsWithError:(id *)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = HKLogInfrastructure();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
+    v10 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Removing all scheduled events", &v11, 0xCu);
+    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Removing all scheduled events", &v10, 0xCu);
   }
 
   scheduler = self->_scheduler;
@@ -295,7 +291,6 @@
   os_unfair_lock_lock(&self->_lock);
   [(NSMutableSet *)self->_outstandingEventIdentifiers removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -333,31 +328,31 @@ void __53__HDRestorableAlarm_checkForDueEventsWithCompletion___block_invoke(uint
 
 - (void)eventsDidFire:(id)fire
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(fireCopy, "count")}];
   os_unfair_lock_lock(&self->_lock);
-  v22 = _Block_copy(self->_eventsHandler);
+  v21 = _Block_copy(self->_eventsHandler);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v6 = fireCopy;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         outstandingEventIdentifiers = self->_outstandingEventIdentifiers;
         eventIdentifier = [v11 eventIdentifier];
         LODWORD(outstandingEventIdentifiers) = [(NSMutableSet *)outstandingEventIdentifiers containsObject:eventIdentifier];
@@ -371,8 +366,8 @@ void __53__HDRestorableAlarm_checkForDueEventsWithCompletion___block_invoke(uint
             eventIdentifier2 = [v11 eventIdentifier];
             *buf = 138543618;
             selfCopy = self;
-            v32 = 2114;
-            v33 = eventIdentifier2;
+            v31 = 2114;
+            v32 = eventIdentifier2;
             _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ Skipping notification for in-flight event %{public}@", buf, 0x16u);
           }
         }
@@ -387,7 +382,7 @@ void __53__HDRestorableAlarm_checkForDueEventsWithCompletion___block_invoke(uint
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v8);
@@ -396,7 +391,7 @@ void __53__HDRestorableAlarm_checkForDueEventsWithCompletion___block_invoke(uint
   os_unfair_lock_unlock(&self->_lock);
   if ([v5 count])
   {
-    if (!v22)
+    if (!v21)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"HDRestorableAlarm.m" lineNumber:210 description:{@"Invalid parameter not satisfying: %@", @"eventsHandler != nil"}];
@@ -407,18 +402,16 @@ void __53__HDRestorableAlarm_checkForDueEventsWithCompletion___block_invoke(uint
     block[1] = 3221225472;
     block[2] = __35__HDRestorableAlarm_eventsDidFire___block_invoke;
     block[3] = &unk_278616488;
-    v25 = v22;
+    v24 = v21;
     block[4] = self;
-    v24 = v5;
+    v23 = v5;
     dispatch_async(eventHandlerQueue, block);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)diagnosticDescription
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_not_owner(&self->_lock);
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = [(HDRestorableAlarm *)self description];
@@ -426,30 +419,30 @@ void __53__HDRestorableAlarm_checkForDueEventsWithCompletion___block_invoke(uint
 
   os_unfair_lock_lock(&self->_lock);
   [v3 addObject:@"\tOutstanding event identifiers:"];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = self->_outstandingEventIdentifiers;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"\t\t%@", *(*(&v14 + 1) + 8 * i)];
+        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"\t\t%@", *(*(&v13 + 1) + 8 * i)];
         [v3 addObject:v10];
       }
 
-      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -457,8 +450,6 @@ void __53__HDRestorableAlarm_checkForDueEventsWithCompletion___block_invoke(uint
 
   os_unfair_lock_unlock(&self->_lock);
   v11 = [v3 componentsJoinedByString:@"\n"];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

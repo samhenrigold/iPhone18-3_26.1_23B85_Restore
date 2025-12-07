@@ -1,3 +1,425 @@
+double one-time initialization function for color()
+{
+  v0 = type metadata accessor for UnitCurve();
+  v1 = *(v0 - 8);
+  v26 = *(v1 + 64);
+  MEMORY[0x1EEE9AC00](v0);
+  v3 = &v19 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = &v19 - v5;
+  _sSay7SwiftUI4TextV0C16AnimationSupportE6EffectO6TimingV05GlyphG0VGMaTm_0(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<ExplodeTextEffect.Timeline<Double>.Keyframe>, type metadata accessor for ExplodeTextEffect.Timeline<Double>.Keyframe, MEMORY[0x1E69E6F90]);
+  v7 = swift_allocObject();
+  *(v7 + 16) = xmmword_195CCE9D0;
+  v27 = 0;
+  v28 = 0;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v8 = v29;
+  *(v7 + 32) = v30;
+  *(v7 + 40) = v8;
+  v25 = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer;
+  *(v7 + 48) = 0x3FE8000000000000;
+  *(v7 + 56) = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer;
+  *(v7 + 64) = 0;
+  static UnitCurve.bezier(startControlPoint:endControlPoint:)();
+  v24 = *(v1 + 16);
+  v19 = v3;
+  v24(v3, v6, v0);
+  v27 = 0x3FF0000000000000;
+  v28 = 0;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v23 = *(v1 + 8);
+  v20 = v0;
+  v23(v6, v0);
+  v9 = (*(v1 + 80) + 16) & ~*(v1 + 80);
+  v10 = swift_allocObject();
+  v11 = *(v1 + 32);
+  v21 = v1 + 32;
+  v22 = v11;
+  v11(v10 + v9, v3, v0);
+  v12 = v29;
+  *(v7 + 72) = v30;
+  *(v7 + 80) = v12;
+  *(v7 + 88) = 0x3FEF74BC6A7EF9DBLL;
+  *(v7 + 96) = partial apply for implicit closure #2 in implicit closure #1 in ExplodeTextEffect.Timeline.Keyframe.init(from:to:duration:curve:);
+  *(v7 + 104) = v10;
+  v27 = 0x3FF0000000000000;
+  v28 = 0x3FF0000000000000;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v13 = v29;
+  *(v7 + 112) = v30;
+  *(v7 + 120) = v13;
+  *(v7 + 128) = 0x3FE6E147AE147AE1;
+  *(v7 + 136) = v25;
+  *(v7 + 144) = 0;
+  static UnitCurve.bezier(startControlPoint:endControlPoint:)();
+  v15 = v19;
+  v14 = v20;
+  v24(v19, v6, v20);
+  v27 = 0;
+  v28 = 0x3FF0000000000000;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v23(v6, v14);
+  v16 = swift_allocObject();
+  v22(v16 + v9, v15, v14);
+  v18 = v29;
+  result = v30;
+  *(v7 + 152) = v30;
+  *(v7 + 160) = v18;
+  *(v7 + 168) = 0x3FBDB22D0E560419;
+  *(v7 + 176) = implicit closure #2 in implicit closure #1 in ExplodeTextEffect.Timeline.Keyframe.init(from:to:duration:curve:)partial apply;
+  *(v7 + 184) = v16;
+  static ExplodeTextEffect.Target.color = v7;
+  return result;
+}
+
+double one-time initialization function for vibration()
+{
+  v0 = type metadata accessor for UnitCurve();
+  v1 = *(v0 - 8);
+  v25 = *(v1 + 64);
+  MEMORY[0x1EEE9AC00](v0);
+  v3 = &v18 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = &v18 - v5;
+  _sSay7SwiftUI4TextV0C16AnimationSupportE6EffectO6TimingV05GlyphG0VGMaTm_0(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<ExplodeTextEffect.Timeline<Double>.Keyframe>, type metadata accessor for ExplodeTextEffect.Timeline<Double>.Keyframe, MEMORY[0x1E69E6F90]);
+  v7 = swift_allocObject();
+  *(v7 + 16) = xmmword_195CCE9D0;
+  v26 = 0;
+  v27 = 0;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v8 = v28;
+  *(v7 + 32) = v29;
+  *(v7 + 40) = v8;
+  v24 = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer;
+  *(v7 + 48) = 0x3FC999999999999ALL;
+  *(v7 + 56) = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer;
+  *(v7 + 64) = 0;
+  static UnitCurve.bezier(startControlPoint:endControlPoint:)();
+  v23 = *(v1 + 16);
+  v23(v3, v6, v0);
+  v26 = 0x3FF0000000000000;
+  v27 = 0;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v22 = *(v1 + 8);
+  v19 = v0;
+  v22(v6, v0);
+  v9 = (*(v1 + 80) + 16) & ~*(v1 + 80);
+  v10 = swift_allocObject();
+  v11 = *(v1 + 32);
+  v20 = v3;
+  v21 = v11;
+  v11(v10 + v9, v3, v0);
+  v12 = v28;
+  *(v7 + 72) = v29;
+  *(v7 + 80) = v12;
+  *(v7 + 88) = 0x3FE083126E978D50;
+  *(v7 + 96) = implicit closure #2 in implicit closure #1 in ExplodeTextEffect.Timeline.Keyframe.init(from:to:duration:curve:)partial apply;
+  *(v7 + 104) = v10;
+  static UnitCurve.bezier(startControlPoint:endControlPoint:)();
+  v13 = v19;
+  v23(v3, v6, v19);
+  v26 = 0;
+  v27 = 0x3FF0000000000000;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v22(v6, v13);
+  v14 = swift_allocObject();
+  v21(v14 + v9, v20, v13);
+  v15 = v28;
+  *(v7 + 112) = v29;
+  *(v7 + 120) = v15;
+  *(v7 + 128) = 0x3FE10E5604189375;
+  *(v7 + 136) = implicit closure #2 in implicit closure #1 in ExplodeTextEffect.Timeline.Keyframe.init(from:to:duration:curve:)partial apply;
+  *(v7 + 144) = v14;
+  v26 = 0;
+  v27 = 0;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v17 = v28;
+  result = v29;
+  *(v7 + 152) = v29;
+  *(v7 + 160) = v17;
+  *(v7 + 168) = 0x3FF11EB851EB851FLL;
+  *(v7 + 176) = v24;
+  *(v7 + 184) = 0;
+  static ExplodeTextEffect.Target.vibration = v7;
+  return result;
+}
+
+double one-time initialization function for x()
+{
+  v0 = type metadata accessor for UnitCurve();
+  v1 = *(v0 - 8);
+  v29 = *(v1 + 64);
+  MEMORY[0x1EEE9AC00](v0);
+  v3 = &v22 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = &v22 - v5;
+  _sSay7SwiftUI4TextV0C16AnimationSupportE6EffectO6TimingV05GlyphG0VGMaTm_0(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<ExplodeTextEffect.Timeline<Double>.Keyframe>, type metadata accessor for ExplodeTextEffect.Timeline<Double>.Keyframe, MEMORY[0x1E69E6F90]);
+  v7 = swift_allocObject();
+  *(v7 + 16) = xmmword_195CCE9E0;
+  v30 = 0;
+  v31 = 0;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v8 = v32;
+  *(v7 + 32) = v33;
+  *(v7 + 40) = v8;
+  v28 = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer;
+  *(v7 + 48) = 0x3FCDD2F1A9FBE76DLL;
+  *(v7 + 56) = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer;
+  *(v7 + 64) = 0;
+  static UnitCurve.bezier(startControlPoint:endControlPoint:)();
+  v27 = *(v1 + 16);
+  v24 = v6;
+  v27(v3, v6, v0);
+  v30 = 0xBFA999999999999ALL;
+  v31 = 0;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v26 = *(v1 + 8);
+  v23 = v0;
+  v26(v6, v0);
+  v9 = (*(v1 + 80) + 16) & ~*(v1 + 80);
+  v10 = swift_allocObject();
+  v25 = *(v1 + 32);
+  v22 = v3;
+  v25(v10 + v9, v3, v0);
+  v11 = v32;
+  *(v7 + 72) = v33;
+  *(v7 + 80) = v11;
+  *(v7 + 88) = 0x3FCDD2F1A9FBE76DLL;
+  *(v7 + 96) = implicit closure #2 in implicit closure #1 in ExplodeTextEffect.Timeline.Keyframe.init(from:to:duration:curve:)partial apply;
+  *(v7 + 104) = v10;
+  v30 = 0xBFA999999999999ALL;
+  v31 = 0xBFA999999999999ALL;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v12 = v32;
+  *(v7 + 112) = v33;
+  *(v7 + 120) = v12;
+  v13 = v28;
+  *(v7 + 128) = 0x3FD0000000000000;
+  *(v7 + 136) = v13;
+  *(v7 + 144) = 0;
+  v14 = v24;
+  static UnitCurve.bezier(startControlPoint:endControlPoint:)();
+  v15 = v23;
+  v27(v3, v14, v23);
+  v31 = 0xBFA999999999999ALL;
+  v30 = 0x3FF0000000000000;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v26(v14, v15);
+  v16 = swift_allocObject();
+  v25(v16 + v9, v22, v15);
+  v17 = v32;
+  *(v7 + 152) = v33;
+  *(v7 + 160) = v17;
+  *(v7 + 168) = 0x3FF1DB22D0E56042;
+  *(v7 + 176) = implicit closure #2 in implicit closure #1 in ExplodeTextEffect.Timeline.Keyframe.init(from:to:duration:curve:)partial apply;
+  *(v7 + 184) = v16;
+  v30 = 0x3FF0000000000000;
+  v31 = 0x3FF0000000000000;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v18 = v32;
+  *(v7 + 192) = v33;
+  *(v7 + 200) = v18;
+  v19 = v28;
+  *(v7 + 208) = 0x3FD54FDF3B645A1DLL;
+  *(v7 + 216) = v19;
+  *(v7 + 224) = 0;
+  v30 = 0;
+  v31 = 0x3FF0000000000000;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v21 = v32;
+  result = v33;
+  *(v7 + 232) = v33;
+  *(v7 + 240) = v21;
+  *(v7 + 248) = 0x3FD883126E978D50;
+  *(v7 + 256) = v19;
+  *(v7 + 264) = 0;
+  static ExplodeTextEffect.Target.x = v7;
+  return result;
+}
+
+double one-time initialization function for y()
+{
+  v0 = type metadata accessor for UnitCurve();
+  v1 = *(v0 - 8);
+  MEMORY[0x1EEE9AC00](v0);
+  v3 = &v45 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v55 = v2;
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = &v45 - v5;
+  _sSay7SwiftUI4TextV0C16AnimationSupportE6EffectO6TimingV05GlyphG0VGMaTm_0(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<ExplodeTextEffect.Timeline<Double>.Keyframe>, type metadata accessor for ExplodeTextEffect.Timeline<Double>.Keyframe, MEMORY[0x1E69E6F90]);
+  v7 = swift_allocObject();
+  *(v7 + 16) = xmmword_195CCE9F0;
+  v57 = 0;
+  v58 = 0;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v8 = v59;
+  *(v7 + 32) = v60;
+  *(v7 + 40) = v8;
+  v47 = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer;
+  *(v7 + 48) = 0x3FCDD2F1A9FBE76DLL;
+  *(v7 + 56) = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer;
+  *(v7 + 64) = 0;
+  static UnitCurve.bezier(startControlPoint:endControlPoint:)();
+  v9 = *(v1 + 16);
+  v50 = v1 + 16;
+  v51 = v9;
+  v9(v3, v6, v0);
+  v57 = 0xBFB999999999999ALL;
+  v58 = 0;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v53 = *(v1 + 8);
+  v54 = v1 + 8;
+  v53(v6, v0);
+  v56 = *(v1 + 80);
+  v10 = (v56 + 16) & ~v56;
+  v11 = swift_allocObject();
+  v12 = *(v1 + 32);
+  v48 = v3;
+  v49 = v12;
+  v52 = v1 + 32;
+  v12(v11 + v10, v3, v0);
+  v13 = v59;
+  *(v7 + 72) = v60;
+  *(v7 + 80) = v13;
+  *(v7 + 88) = 0x3FCDD2F1A9FBE76DLL;
+  *(v7 + 96) = implicit closure #2 in implicit closure #1 in ExplodeTextEffect.Timeline.Keyframe.init(from:to:duration:curve:)partial apply;
+  *(v7 + 104) = v11;
+  v57 = 0xBFB999999999999ALL;
+  v58 = 0xBFB999999999999ALL;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v14 = v59;
+  *(v7 + 112) = v60;
+  *(v7 + 120) = v14;
+  v15 = v47;
+  *(v7 + 128) = 0x3FD0000000000000;
+  *(v7 + 136) = v15;
+  *(v7 + 144) = 0;
+  v16 = v6;
+  static UnitCurve.bezier(startControlPoint:endControlPoint:)();
+  v17 = v6;
+  v18 = v51;
+  v51(v3, v17, v0);
+  v58 = 0xBFB999999999999ALL;
+  v57 = 0x3FF0000000000000;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v19 = v0;
+  v20 = v53;
+  v53(v16, v0);
+  v46 = v10;
+  v21 = swift_allocObject();
+  v22 = v21 + v10;
+  v23 = v48;
+  v24 = v49;
+  v49(v22, v48, v19);
+  v25 = v59;
+  *(v7 + 152) = v60;
+  *(v7 + 160) = v25;
+  *(v7 + 168) = 0x3FD76C8B43958106;
+  *(v7 + 176) = implicit closure #2 in implicit closure #1 in ExplodeTextEffect.Timeline.Keyframe.init(from:to:duration:curve:)partial apply;
+  *(v7 + 184) = v21;
+  static UnitCurve.bezier(startControlPoint:endControlPoint:)();
+  v18(v23, v16, v19);
+  v57 = 0xBFE0000000000000;
+  v58 = 0x3FF0000000000000;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v20(v16, v19);
+  v26 = v46;
+  v27 = swift_allocObject();
+  v28 = v27 + v26;
+  v29 = v48;
+  v24(v28, v48, v19);
+  v30 = v59;
+  *(v7 + 192) = v60;
+  *(v7 + 200) = v30;
+  *(v7 + 208) = 0x3FD21CAC083126E9;
+  *(v7 + 216) = implicit closure #2 in implicit closure #1 in ExplodeTextEffect.Timeline.Keyframe.init(from:to:duration:curve:)partial apply;
+  *(v7 + 224) = v27;
+  static UnitCurve.bezier(startControlPoint:endControlPoint:)();
+  v31 = v51;
+  v51(v29, v16, v19);
+  v57 = 0x3FC999999999999ALL;
+  v58 = 0xBFE0000000000000;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v53(v16, v19);
+  v32 = v46;
+  v33 = swift_allocObject();
+  v34 = v48;
+  v35 = v49;
+  v49(v33 + v32, v48, v19);
+  v36 = v59;
+  *(v7 + 232) = v60;
+  *(v7 + 240) = v36;
+  *(v7 + 248) = 0x3FCDD2F1A9FBE76DLL;
+  *(v7 + 256) = implicit closure #2 in implicit closure #1 in ExplodeTextEffect.Timeline.Keyframe.init(from:to:duration:curve:)partial apply;
+  *(v7 + 264) = v33;
+  static UnitCurve.bezier(startControlPoint:endControlPoint:)();
+  v45 = v16;
+  v31(v34, v16, v19);
+  v58 = 0x3FC999999999999ALL;
+  v57 = 0xBFE3333333333333;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v53(v16, v19);
+  v37 = swift_allocObject();
+  v38 = v34;
+  v35(v37 + v32, v34, v19);
+  v39 = v59;
+  *(v7 + 272) = v60;
+  *(v7 + 280) = v39;
+  *(v7 + 288) = 0x3FCDD2F1A9FBE76DLL;
+  *(v7 + 296) = implicit closure #2 in implicit closure #1 in ExplodeTextEffect.Timeline.Keyframe.init(from:to:duration:curve:)partial apply;
+  *(v7 + 304) = v37;
+  v57 = 0xBFE3333333333333;
+  v58 = 0xBFE3333333333333;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v40 = v59;
+  *(v7 + 312) = v60;
+  *(v7 + 320) = v40;
+  *(v7 + 328) = 0x3FE6E978D4FDF3B6;
+  *(v7 + 336) = v47;
+  *(v7 + 344) = 0;
+  v41 = v45;
+  static UnitCurve.bezier(startControlPoint:endControlPoint:)();
+  v51(v38, v41, v19);
+  v57 = 0;
+  v58 = 0xBFE3333333333333;
+  dispatch thunk of Animatable.animatableData.getter();
+  dispatch thunk of Animatable.animatableData.getter();
+  v53(v41, v19);
+  v42 = swift_allocObject();
+  v49(v42 + v32, v38, v19);
+  v44 = v59;
+  result = v60;
+  *(v7 + 352) = v60;
+  *(v7 + 360) = v44;
+  *(v7 + 368) = 0x3FBDB22D0E560419;
+  *(v7 + 376) = implicit closure #2 in implicit closure #1 in ExplodeTextEffect.Timeline.Keyframe.init(from:to:duration:curve:)partial apply;
+  *(v7 + 384) = v42;
+  static ExplodeTextEffect.Target.y = v7;
+  return result;
+}
+
 double one-time initialization function for z()
 {
   v18 = type metadata accessor for UnitCurve();
@@ -111,14 +533,14 @@ LABEL_7:
   return result;
 }
 
-double protocol witness for static Text.Effect.Base.animatorConfiguration(from:) in conformance ExplodeTextEffect@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double protocol witness for static Text.Effect.Base.animatorConfiguration(from:) in conformance ExplodeTextEffect@<D0>(uint64_t a1@<X8>, uint64_t a2@<X0>)
 {
-  specialized static ExplodeTextEffect.animatorConfiguration(from:)(a1, &v5);
+  specialized static ExplodeTextEffect.animatorConfiguration(from:)(a2, &v5);
   result = *&v5;
   v4 = *v6;
-  *a2 = v5;
-  *(a2 + 16) = v4;
-  *(a2 + 30) = *&v6[14];
+  *a1 = v5;
+  *(a1 + 16) = v4;
+  *(a1 + 30) = *&v6[14];
   return result;
 }
 
@@ -133,15 +555,16 @@ double protocol witness for Text.Effect.Base.timing(for:from:to:duration:) in co
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for ExplodeTextEffect(uint64_t a1)
+unint64_t instantiation function for generic protocol witness table for ExplodeTextEffect(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *(a1 + 8) = lazy protocol witness table accessor for type ExplodeTextEffect and conformance ExplodeTextEffect();
-  result = lazy protocol witness table accessor for type ExplodeTextEffect and conformance ExplodeTextEffect();
+  v4 = lazy protocol witness table accessor for type ExplodeTextEffect and conformance ExplodeTextEffect(a1, a2, a3);
+  *(a1 + 8) = v4;
+  result = lazy protocol witness table accessor for type ExplodeTextEffect and conformance ExplodeTextEffect(v4, v5, v6);
   *(a1 + 16) = result;
   return result;
 }
 
-Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
+void specialized MutableCollection<>.sort(by:)(char **a1)
 {
   v2 = *a1;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -152,8 +575,8 @@ Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
   v3 = *(v2 + 2);
   v18[0] = (v2 + 32);
   v18[1] = v3;
-  result = _minimumMergeRunLength(_:)(v3);
-  if (result >= v3)
+  v4 = _minimumMergeRunLength(_:)(v3);
+  if (v4 >= v3)
   {
     if (v3 >= 2)
     {
@@ -190,8 +613,8 @@ Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
 
   else
   {
-    v5 = result;
-    v6 = v3 >> 1;
+    v5 = v4;
+    v6 = (v3 >> 1);
     if (v3 >= 2)
     {
       v7 = static Array._allocateBufferUninitialized(minimumCapacity:)();
@@ -203,14 +626,13 @@ Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
       v7 = MEMORY[0x1E69E7CC0];
     }
 
-    v16[0] = v7 + 32;
+    v16[0] = (v7 + 32);
     v16[1] = v6;
     specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(v16, v17, v18, v5);
     *(v7 + 16) = 0;
   }
 
   *a1 = v2;
-  return result;
 }
 
 {
@@ -223,8 +645,8 @@ Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
   v3 = *(v2 + 2);
   v18[0] = (v2 + 32);
   v18[1] = v3;
-  result = _minimumMergeRunLength(_:)(v3);
-  if (result >= v3)
+  v4 = _minimumMergeRunLength(_:)(v3);
+  if (v4 >= v3)
   {
     if (v3 >= 2)
     {
@@ -262,8 +684,8 @@ Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
 
   else
   {
-    v5 = result;
-    v6 = v3 >> 1;
+    v5 = v4;
+    v6 = (v3 >> 1);
     if (v3 >= 2)
     {
       v7 = static Array._allocateBufferUninitialized(minimumCapacity:)();
@@ -275,14 +697,13 @@ Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
       v7 = MEMORY[0x1E69E7CC0];
     }
 
-    v16[0] = v7 + 32;
+    v16[0] = (v7 + 32);
     v16[1] = v6;
     specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(v16, v17, v18, v5);
     *(v7 + 16) = 0;
   }
 
   *a1 = v2;
-  return result;
 }
 
 {
@@ -295,8 +716,8 @@ Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
   v3 = *(v2 + 2);
   v33[0] = (v2 + 32);
   v33[1] = v3;
-  result = _minimumMergeRunLength(_:)(v3);
-  if (result >= v3)
+  v4 = _minimumMergeRunLength(_:)(v3);
+  if (v4 >= v3)
   {
     if (v3 >= 2)
     {
@@ -355,7 +776,7 @@ Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
 
   else
   {
-    v5 = result;
+    v5 = v4;
     v6 = v3 >> 1;
     if (v3 >= 2)
     {
@@ -375,44 +796,41 @@ Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
   }
 
   *a1 = v2;
-  return result;
 }
 
-uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t result, uint64_t a2, uint64_t *a3, uint64_t a4)
+void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(double **a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
-  v84 = result;
   v6 = a3[1];
   if (v6 < 1)
   {
     v8 = MEMORY[0x1E69E7CC0];
 LABEL_88:
-    v5 = *v84;
-    if (!*v84)
+    v5 = *a1;
+    if (!*a1)
     {
       goto LABEL_128;
     }
 
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
 LABEL_122:
-      result = specialized _ArrayBuffer._consumeAndCreateNew()(v8);
-      v8 = result;
+      v8 = specialized _ArrayBuffer._consumeAndCreateNew()(v8);
     }
 
-    v76 = (v8 + 16);
-    v77 = *(v8 + 16);
+    v76 = v8 + 16;
+    v77 = *(v8 + 2);
     if (v77 >= 2)
     {
       while (*a3)
       {
-        v78 = (v8 + 16 * v77);
+        v78 = &v8[16 * v77];
         v79 = *v78;
         v80 = &v76[2 * v77];
         v81 = v80[1];
         specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 8 * *v78), (*a3 + 8 * *v80), (*a3 + 8 * v81), v5);
         if (v4)
         {
+          goto LABEL_97;
         }
 
         if (v81 < v79)
@@ -426,7 +844,7 @@ LABEL_122:
         }
 
         *v78 = v79;
-        v78[1] = v81;
+        *(v78 + 1) = v81;
         v82 = *v76 - v77;
         if (*v76 < v77)
         {
@@ -434,15 +852,20 @@ LABEL_122:
         }
 
         v77 = *v76 - 1;
-        result = memmove(v80, v80 + 2, 16 * v82);
+        memmove(v80, v80 + 2, 16 * v82);
         *v76 = v77;
         if (v77 <= 1)
         {
+          goto LABEL_97;
         }
       }
 
       goto LABEL_126;
     }
+
+LABEL_97:
+
+    return;
   }
 
   v7 = 0;
@@ -558,29 +981,26 @@ LABEL_37:
       goto LABEL_117;
     }
 
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v8 + 16) + 1, 1, v8);
-      v8 = result;
+      v8 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v8 + 2) + 1, 1, v8);
     }
 
-    v5 = *(v8 + 16);
-    v30 = *(v8 + 24);
+    v5 = *(v8 + 2);
+    v30 = *(v8 + 3);
     v31 = v5 + 1;
     if (v5 >= v30 >> 1)
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v30 > 1), v5 + 1, 1, v8);
-      v8 = result;
+      v8 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v30 > 1), v5 + 1, 1, v8);
     }
 
-    *(v8 + 16) = v31;
+    *(v8 + 2) = v31;
     v32 = v8 + 32;
-    v33 = (v8 + 32 + 16 * v5);
+    v33 = &v8[16 * v5 + 32];
     *v33 = v9;
-    v33[1] = v7;
-    v85 = *v84;
-    if (!*v84)
+    *(v33 + 1) = v7;
+    v85 = *a1;
+    if (!*a1)
     {
       goto LABEL_127;
     }
@@ -597,8 +1017,8 @@ LABEL_37:
 
         if (v31 == 3)
         {
-          v34 = *(v8 + 32);
-          v35 = *(v8 + 40);
+          v34 = *(v8 + 4);
+          v35 = *(v8 + 5);
           v44 = __OFSUB__(v35, v34);
           v36 = v35 - v34;
           v37 = v44;
@@ -608,9 +1028,9 @@ LABEL_57:
             goto LABEL_104;
           }
 
-          v50 = (v8 + 16 * v31);
+          v50 = &v8[16 * v31];
           v52 = *v50;
-          v51 = v50[1];
+          v51 = *(v50 + 1);
           v53 = __OFSUB__(v51, v52);
           v54 = v51 - v52;
           v55 = v53;
@@ -619,9 +1039,9 @@ LABEL_57:
             goto LABEL_106;
           }
 
-          v56 = (v32 + 16 * v5);
+          v56 = &v32[16 * v5];
           v58 = *v56;
-          v57 = v56[1];
+          v57 = *(v56 + 1);
           v44 = __OFSUB__(v57, v58);
           v59 = v57 - v58;
           if (v44)
@@ -652,9 +1072,9 @@ LABEL_57:
           goto LABEL_112;
         }
 
-        v60 = (v8 + 16 * v31);
+        v60 = &v8[16 * v31];
         v62 = *v60;
-        v61 = v60[1];
+        v61 = *(v60 + 1);
         v44 = __OFSUB__(v61, v62);
         v54 = v61 - v62;
         v55 = v44;
@@ -664,9 +1084,9 @@ LABEL_72:
           goto LABEL_108;
         }
 
-        v63 = (v32 + 16 * v5);
+        v63 = &v32[16 * v5];
         v65 = *v63;
-        v64 = v63[1];
+        v64 = *(v63 + 1);
         v44 = __OFSUB__(v64, v65);
         v66 = v64 - v65;
         if (v44)
@@ -735,13 +1155,14 @@ LABEL_120:
           goto LABEL_124;
         }
 
-        v71 = (v32 + 16 * (v5 - 1));
+        v71 = &v32[16 * v5 - 16];
         v72 = *v71;
-        v73 = (v32 + 16 * v5);
-        v74 = v73[1];
+        v73 = &v32[16 * v5];
+        v74 = *(v73 + 1);
         specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 8 * *v71), (*a3 + 8 * *v73), (*a3 + 8 * v74), v85);
         if (v4)
         {
+          goto LABEL_97;
         }
 
         if (v74 < v72)
@@ -749,31 +1170,31 @@ LABEL_120:
           goto LABEL_99;
         }
 
-        if (v5 > *(v8 + 16))
+        if (v5 > *(v8 + 2))
         {
           goto LABEL_100;
         }
 
         *v71 = v72;
-        v71[1] = v74;
-        v75 = *(v8 + 16);
+        *(v71 + 1) = v74;
+        v75 = *(v8 + 2);
         if (v5 >= v75)
         {
           goto LABEL_101;
         }
 
         v31 = v75 - 1;
-        result = memmove((v32 + 16 * v5), v73 + 2, 16 * (v75 - 1 - v5));
-        *(v8 + 16) = v75 - 1;
+        memmove(&v32[16 * v5], v73 + 16, 16 * (v75 - 1 - v5));
+        *(v8 + 2) = v75 - 1;
         if (v75 <= 2)
         {
           goto LABEL_3;
         }
       }
 
-      v38 = v32 + 16 * v31;
-      v39 = *(v38 - 64);
-      v40 = *(v38 - 56);
+      v38 = &v32[16 * v31];
+      v39 = *(v38 - 8);
+      v40 = *(v38 - 7);
       v44 = __OFSUB__(v40, v39);
       v41 = v40 - v39;
       if (v44)
@@ -781,8 +1202,8 @@ LABEL_120:
         goto LABEL_102;
       }
 
-      v43 = *(v38 - 48);
-      v42 = *(v38 - 40);
+      v43 = *(v38 - 6);
+      v42 = *(v38 - 5);
       v44 = __OFSUB__(v42, v43);
       v36 = v42 - v43;
       v37 = v44;
@@ -791,9 +1212,9 @@ LABEL_120:
         goto LABEL_103;
       }
 
-      v45 = (v8 + 16 * v31);
+      v45 = &v8[16 * v31];
       v47 = *v45;
-      v46 = v45[1];
+      v46 = *(v45 + 1);
       v44 = __OFSUB__(v46, v47);
       v48 = v46 - v47;
       if (v44)
@@ -810,9 +1231,9 @@ LABEL_120:
 
       if (v49 >= v41)
       {
-        v67 = (v32 + 16 * v5);
+        v67 = &v32[16 * v5];
         v69 = *v67;
-        v68 = v67[1];
+        v68 = *(v67 + 1);
         v44 = __OFSUB__(v68, v69);
         v70 = v68 - v69;
         if (v44)
@@ -890,43 +1311,40 @@ LABEL_127:
   __break(1u);
 LABEL_128:
   __break(1u);
-  return result;
 }
 
 {
-  v87 = result;
   v6 = a3[1];
   if (v6 < 1)
   {
     v8 = MEMORY[0x1E69E7CC0];
 LABEL_88:
-    v5 = *v87;
-    if (!*v87)
+    v5 = *a1;
+    if (!*a1)
     {
       goto LABEL_128;
     }
 
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
 LABEL_122:
-      result = specialized _ArrayBuffer._consumeAndCreateNew()(v8);
-      v8 = result;
+      v8 = specialized _ArrayBuffer._consumeAndCreateNew()(v8);
     }
 
-    v79 = (v8 + 16);
-    v80 = *(v8 + 16);
+    v79 = v8 + 16;
+    v80 = *(v8 + 2);
     if (v80 >= 2)
     {
       while (*a3)
       {
-        v81 = (v8 + 16 * v80);
+        v81 = &v8[16 * v80];
         v82 = *v81;
         v83 = &v79[2 * v80];
         v84 = v83[1];
         specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 16 * *v81), (*a3 + 16 * *v83), (*a3 + 16 * v84), v5);
         if (v4)
         {
+          goto LABEL_97;
         }
 
         if (v84 < v82)
@@ -940,7 +1358,7 @@ LABEL_122:
         }
 
         *v81 = v82;
-        v81[1] = v84;
+        *(v81 + 1) = v84;
         v85 = *v79 - v80;
         if (*v79 < v80)
         {
@@ -948,15 +1366,20 @@ LABEL_122:
         }
 
         v80 = *v79 - 1;
-        result = memmove(v83, v83 + 2, 16 * v85);
+        memmove(v83, v83 + 2, 16 * v85);
         *v79 = v80;
         if (v80 <= 1)
         {
+          goto LABEL_97;
         }
       }
 
       goto LABEL_126;
     }
+
+LABEL_97:
+
+    return;
   }
 
   v7 = 0;
@@ -1076,29 +1499,26 @@ LABEL_37:
       goto LABEL_117;
     }
 
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v8 + 16) + 1, 1, v8);
-      v8 = result;
+      v8 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v8 + 2) + 1, 1, v8);
     }
 
-    v5 = *(v8 + 16);
-    v33 = *(v8 + 24);
+    v5 = *(v8 + 2);
+    v33 = *(v8 + 3);
     v34 = v5 + 1;
     if (v5 >= v33 >> 1)
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v33 > 1), v5 + 1, 1, v8);
-      v8 = result;
+      v8 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v33 > 1), v5 + 1, 1, v8);
     }
 
-    *(v8 + 16) = v34;
+    *(v8 + 2) = v34;
     v35 = v8 + 32;
-    v36 = (v8 + 32 + 16 * v5);
+    v36 = &v8[16 * v5 + 32];
     *v36 = v9;
-    v36[1] = v7;
-    v88 = *v87;
-    if (!*v87)
+    *(v36 + 1) = v7;
+    v88 = *a1;
+    if (!*a1)
     {
       goto LABEL_127;
     }
@@ -1115,8 +1535,8 @@ LABEL_37:
 
         if (v34 == 3)
         {
-          v37 = *(v8 + 32);
-          v38 = *(v8 + 40);
+          v37 = *(v8 + 4);
+          v38 = *(v8 + 5);
           v47 = __OFSUB__(v38, v37);
           v39 = v38 - v37;
           v40 = v47;
@@ -1126,9 +1546,9 @@ LABEL_57:
             goto LABEL_104;
           }
 
-          v53 = (v8 + 16 * v34);
+          v53 = &v8[16 * v34];
           v55 = *v53;
-          v54 = v53[1];
+          v54 = *(v53 + 1);
           v56 = __OFSUB__(v54, v55);
           v57 = v54 - v55;
           v58 = v56;
@@ -1137,9 +1557,9 @@ LABEL_57:
             goto LABEL_106;
           }
 
-          v59 = (v35 + 16 * v5);
+          v59 = &v35[16 * v5];
           v61 = *v59;
-          v60 = v59[1];
+          v60 = *(v59 + 1);
           v47 = __OFSUB__(v60, v61);
           v62 = v60 - v61;
           if (v47)
@@ -1170,9 +1590,9 @@ LABEL_57:
           goto LABEL_112;
         }
 
-        v63 = (v8 + 16 * v34);
+        v63 = &v8[16 * v34];
         v65 = *v63;
-        v64 = v63[1];
+        v64 = *(v63 + 1);
         v47 = __OFSUB__(v64, v65);
         v57 = v64 - v65;
         v58 = v47;
@@ -1182,9 +1602,9 @@ LABEL_72:
           goto LABEL_108;
         }
 
-        v66 = (v35 + 16 * v5);
+        v66 = &v35[16 * v5];
         v68 = *v66;
-        v67 = v66[1];
+        v67 = *(v66 + 1);
         v47 = __OFSUB__(v67, v68);
         v69 = v67 - v68;
         if (v47)
@@ -1253,13 +1673,14 @@ LABEL_120:
           goto LABEL_124;
         }
 
-        v74 = (v35 + 16 * (v5 - 1));
+        v74 = &v35[16 * v5 - 16];
         v75 = *v74;
-        v76 = (v35 + 16 * v5);
-        v77 = v76[1];
+        v76 = &v35[16 * v5];
+        v77 = *(v76 + 1);
         specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 16 * *v74), (*a3 + 16 * *v76), (*a3 + 16 * v77), v88);
         if (v4)
         {
+          goto LABEL_97;
         }
 
         if (v77 < v75)
@@ -1267,31 +1688,31 @@ LABEL_120:
           goto LABEL_99;
         }
 
-        if (v5 > *(v8 + 16))
+        if (v5 > *(v8 + 2))
         {
           goto LABEL_100;
         }
 
         *v74 = v75;
-        v74[1] = v77;
-        v78 = *(v8 + 16);
+        *(v74 + 1) = v77;
+        v78 = *(v8 + 2);
         if (v5 >= v78)
         {
           goto LABEL_101;
         }
 
         v34 = v78 - 1;
-        result = memmove((v35 + 16 * v5), v76 + 2, 16 * (v78 - 1 - v5));
-        *(v8 + 16) = v78 - 1;
+        memmove(&v35[16 * v5], v76 + 16, 16 * (v78 - 1 - v5));
+        *(v8 + 2) = v78 - 1;
         if (v78 <= 2)
         {
           goto LABEL_3;
         }
       }
 
-      v41 = v35 + 16 * v34;
-      v42 = *(v41 - 64);
-      v43 = *(v41 - 56);
+      v41 = &v35[16 * v34];
+      v42 = *(v41 - 8);
+      v43 = *(v41 - 7);
       v47 = __OFSUB__(v43, v42);
       v44 = v43 - v42;
       if (v47)
@@ -1299,8 +1720,8 @@ LABEL_120:
         goto LABEL_102;
       }
 
-      v46 = *(v41 - 48);
-      v45 = *(v41 - 40);
+      v46 = *(v41 - 6);
+      v45 = *(v41 - 5);
       v47 = __OFSUB__(v45, v46);
       v39 = v45 - v46;
       v40 = v47;
@@ -1309,9 +1730,9 @@ LABEL_120:
         goto LABEL_103;
       }
 
-      v48 = (v8 + 16 * v34);
+      v48 = &v8[16 * v34];
       v50 = *v48;
-      v49 = v48[1];
+      v49 = *(v48 + 1);
       v47 = __OFSUB__(v49, v50);
       v51 = v49 - v50;
       if (v47)
@@ -1328,9 +1749,9 @@ LABEL_120:
 
       if (v52 >= v44)
       {
-        v70 = (v35 + 16 * v5);
+        v70 = &v35[16 * v5];
         v72 = *v70;
-        v71 = v70[1];
+        v71 = *(v70 + 1);
         v47 = __OFSUB__(v71, v72);
         v73 = v71 - v72;
         if (v47)
@@ -1409,43 +1830,40 @@ LABEL_127:
   __break(1u);
 LABEL_128:
   __break(1u);
-  return result;
 }
 
 {
-  v89 = result;
   v5 = a3[1];
   if (v5 < 1)
   {
     v7 = MEMORY[0x1E69E7CC0];
 LABEL_88:
-    v90 = *v89;
-    if (!*v89)
+    v90 = *a1;
+    if (!*a1)
     {
       goto LABEL_128;
     }
 
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
 LABEL_122:
-      result = specialized _ArrayBuffer._consumeAndCreateNew()(v7);
-      v7 = result;
+      v7 = specialized _ArrayBuffer._consumeAndCreateNew()(v7);
     }
 
-    v81 = (v7 + 16);
-    v82 = *(v7 + 16);
+    v81 = v7 + 16;
+    v82 = *(v7 + 2);
     if (v82 >= 2)
     {
       while (*a3)
       {
-        v83 = (v7 + 16 * v82);
+        v83 = &v7[16 * v82];
         v84 = *v83;
         v85 = &v81[2 * v82];
         v86 = v85[1];
         specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 96 * *v83), (*a3 + 96 * *v85), (*a3 + 96 * v86), v90);
         if (v4)
         {
+          goto LABEL_97;
         }
 
         if (v86 < v84)
@@ -1459,7 +1877,7 @@ LABEL_122:
         }
 
         *v83 = v84;
-        v83[1] = v86;
+        *(v83 + 1) = v86;
         v87 = *v81 - v82;
         if (*v81 < v82)
         {
@@ -1467,15 +1885,20 @@ LABEL_122:
         }
 
         v82 = *v81 - 1;
-        result = memmove(v85, v85 + 2, 16 * v87);
+        memmove(v85, v85 + 2, 16 * v87);
         *v81 = v82;
         if (v82 <= 1)
         {
+          goto LABEL_97;
         }
       }
 
       goto LABEL_126;
     }
+
+LABEL_97:
+
+    return;
   }
 
   v6 = 0;
@@ -1545,7 +1968,7 @@ LABEL_11:
             v101 = *(v22 + v10 + 80);
             v91 = *(v22 + v10);
             v93 = *(v22 + v10 + 16);
-            result = memmove((v22 + v10), (v22 + v18), 0x60uLL);
+            memmove((v22 + v10), (v22 + v18), 0x60uLL);
             v21[2] = v95;
             v21[3] = v97;
             v21[4] = v99;
@@ -1604,29 +2027,26 @@ LABEL_37:
       goto LABEL_117;
     }
 
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v7 + 16) + 1, 1, v7);
-      v7 = result;
+      v7 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v7 + 2) + 1, 1, v7);
     }
 
-    v34 = *(v7 + 16);
-    v33 = *(v7 + 24);
+    v34 = *(v7 + 2);
+    v33 = *(v7 + 3);
     v35 = v34 + 1;
     if (v34 >= v33 >> 1)
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v33 > 1), v34 + 1, 1, v7);
-      v7 = result;
+      v7 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v33 > 1), v34 + 1, 1, v7);
     }
 
-    *(v7 + 16) = v35;
+    *(v7 + 2) = v35;
     v36 = v7 + 32;
-    v37 = (v7 + 32 + 16 * v34);
+    v37 = &v7[16 * v34 + 32];
     *v37 = v8;
-    v37[1] = v6;
-    v90 = *v89;
-    if (!*v89)
+    *(v37 + 1) = v6;
+    v90 = *a1;
+    if (!*a1)
     {
       goto LABEL_127;
     }
@@ -1643,8 +2063,8 @@ LABEL_37:
 
         if (v35 == 3)
         {
-          v39 = *(v7 + 32);
-          v40 = *(v7 + 40);
+          v39 = *(v7 + 4);
+          v40 = *(v7 + 5);
           v49 = __OFSUB__(v40, v39);
           v41 = v40 - v39;
           v42 = v49;
@@ -1654,9 +2074,9 @@ LABEL_57:
             goto LABEL_104;
           }
 
-          v55 = (v7 + 16 * v35);
+          v55 = &v7[16 * v35];
           v57 = *v55;
-          v56 = v55[1];
+          v56 = *(v55 + 1);
           v58 = __OFSUB__(v56, v57);
           v59 = v56 - v57;
           v60 = v58;
@@ -1665,9 +2085,9 @@ LABEL_57:
             goto LABEL_106;
           }
 
-          v61 = (v36 + 16 * v38);
+          v61 = &v36[16 * v38];
           v63 = *v61;
-          v62 = v61[1];
+          v62 = *(v61 + 1);
           v49 = __OFSUB__(v62, v63);
           v64 = v62 - v63;
           if (v49)
@@ -1698,9 +2118,9 @@ LABEL_57:
           goto LABEL_112;
         }
 
-        v65 = (v7 + 16 * v35);
+        v65 = &v7[16 * v35];
         v67 = *v65;
-        v66 = v65[1];
+        v66 = *(v65 + 1);
         v49 = __OFSUB__(v66, v67);
         v59 = v66 - v67;
         v60 = v49;
@@ -1710,9 +2130,9 @@ LABEL_72:
           goto LABEL_108;
         }
 
-        v68 = (v36 + 16 * v38);
+        v68 = &v36[16 * v38];
         v70 = *v68;
-        v69 = v68[1];
+        v69 = *(v68 + 1);
         v49 = __OFSUB__(v69, v70);
         v71 = v69 - v70;
         if (v49)
@@ -1781,13 +2201,14 @@ LABEL_120:
           goto LABEL_124;
         }
 
-        v76 = (v36 + 16 * (v38 - 1));
+        v76 = &v36[16 * v38 - 16];
         v77 = *v76;
-        v78 = (v36 + 16 * v38);
-        v79 = v78[1];
+        v78 = &v36[16 * v38];
+        v79 = *(v78 + 1);
         specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 96 * *v76), (*a3 + 96 * *v78), (*a3 + 96 * v79), v90);
         if (v4)
         {
+          goto LABEL_97;
         }
 
         if (v79 < v77)
@@ -1795,31 +2216,31 @@ LABEL_120:
           goto LABEL_99;
         }
 
-        if (v38 > *(v7 + 16))
+        if (v38 > *(v7 + 2))
         {
           goto LABEL_100;
         }
 
         *v76 = v77;
-        v76[1] = v79;
-        v80 = *(v7 + 16);
+        *(v76 + 1) = v79;
+        v80 = *(v7 + 2);
         if (v38 >= v80)
         {
           goto LABEL_101;
         }
 
         v35 = v80 - 1;
-        result = memmove((v36 + 16 * v38), v78 + 2, 16 * (v80 - 1 - v38));
-        *(v7 + 16) = v80 - 1;
+        memmove(&v36[16 * v38], v78 + 16, 16 * (v80 - 1 - v38));
+        *(v7 + 2) = v80 - 1;
         if (v80 <= 2)
         {
           goto LABEL_3;
         }
       }
 
-      v43 = v36 + 16 * v35;
-      v44 = *(v43 - 64);
-      v45 = *(v43 - 56);
+      v43 = &v36[16 * v35];
+      v44 = *(v43 - 8);
+      v45 = *(v43 - 7);
       v49 = __OFSUB__(v45, v44);
       v46 = v45 - v44;
       if (v49)
@@ -1827,8 +2248,8 @@ LABEL_120:
         goto LABEL_102;
       }
 
-      v48 = *(v43 - 48);
-      v47 = *(v43 - 40);
+      v48 = *(v43 - 6);
+      v47 = *(v43 - 5);
       v49 = __OFSUB__(v47, v48);
       v41 = v47 - v48;
       v42 = v49;
@@ -1837,9 +2258,9 @@ LABEL_120:
         goto LABEL_103;
       }
 
-      v50 = (v7 + 16 * v35);
+      v50 = &v7[16 * v35];
       v52 = *v50;
-      v51 = v50[1];
+      v51 = *(v50 + 1);
       v49 = __OFSUB__(v51, v52);
       v53 = v51 - v52;
       if (v49)
@@ -1856,9 +2277,9 @@ LABEL_120:
 
       if (v54 >= v46)
       {
-        v72 = (v36 + 16 * v38);
+        v72 = &v36[16 * v38];
         v74 = *v72;
-        v73 = v72[1];
+        v73 = *(v72 + 1);
         v49 = __OFSUB__(v73, v74);
         v75 = v73 - v74;
         if (v49)
@@ -1953,7 +2374,6 @@ LABEL_127:
   __break(1u);
 LABEL_128:
   __break(1u);
-  return result;
 }
 
 uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(double *__dst, double *__src, double *a3, double *a4)
@@ -2341,15 +2761,35 @@ LABEL_31:
   return 1;
 }
 
+uint64_t specialized thunk for @escaping @callee_guaranteed (@in_guaranteed A.Text.Effect.Base.Timing, @guaranteed Text.Effect.DrawableFragment<A>, @unowned Text.Effect.QuantizationContext) -> (@owned Text.Effect.Drawable)@<X0>(__n128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+{
+  v5 = *(a2 + 16);
+  v11[0] = *a2;
+  v11[1] = v5;
+  v11[2] = *(a2 + 32);
+  v12 = *(a2 + 48);
+  v6 = *(a3 + 16);
+  v13[0] = *a3;
+  v13[1] = v6;
+  v14 = *(a3 + 32);
+  v7 = a1[1];
+  v9[0] = *a1;
+  v9[1] = v7;
+  v10 = a1[2];
+  result = closure #1 in ExplodeTextEffect.configuration(_:)(v9, v11, v13, v10);
+  *a4 = result;
+  return result;
+}
+
 void specialized static ExplodeTextEffect.animatorConfiguration(from:)(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
+  v31 = 1;
   v30 = 1;
-  v29 = 1;
-  if (!*(a1 + 16) || (v4 = specialized __RawDictionaryStorage.find<A>(_:)(0x6F43656372756F73, 0xEB00000000726F6CLL), (v5 & 1) == 0) || (outlined init with copy of Any(*(a1 + 56) + 32 * v4, v28), type metadata accessor for NSObject(), (swift_dynamicCast() & 1) == 0))
+  if (!*(a1 + 16) || (v5 = specialized __RawDictionaryStorage.find<A>(_:)(0x6F43656372756F73, 0xEB00000000726F6CLL), (v6 & 1) == 0) || (outlined init with copy of Any(*(a1 + 56) + 32 * v5, v29), type metadata accessor for NSObject(), (swift_dynamicCast() & 1) == 0))
   {
 LABEL_8:
-    v8 = 0;
-    v10 = 0;
+    v9 = 0;
+    v11 = 0;
     if (!*(a1 + 16))
     {
       goto LABEL_14;
@@ -2358,109 +2798,109 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v7 = CGColorForCoreColor(v27, v6);
-  if (!v7)
+  v8 = CGColorForCoreColor(v28, v7);
+  if (!v8)
   {
 
     goto LABEL_8;
   }
 
-  v8 = Color.Resolved.init(failableCGColor:)(v7);
-  v10 = v9;
-  v12 = v11;
+  v9 = Color.Resolved.init(failableCGColor:)(v8);
+  v11 = v10;
+  v13 = v12;
 
-  v30 = v12 & 1;
+  v31 = v13 & 1;
   if (!*(a1 + 16))
   {
     goto LABEL_14;
   }
 
 LABEL_9:
-  v13 = specialized __RawDictionaryStorage.find<A>(_:)(0x6F43746567726174, 0xEB00000000726F6CLL);
-  if (v14)
+  v14 = specialized __RawDictionaryStorage.find<A>(_:)(0x6F43746567726174, 0xEB00000000726F6CLL);
+  if (v15)
   {
-    outlined init with copy of Any(*(a1 + 56) + 32 * v13, v28);
+    outlined init with copy of Any(*(a1 + 56) + 32 * v14, v29);
     type metadata accessor for NSObject();
     if (swift_dynamicCast())
     {
-      v16 = CGColorForCoreColor(v27, v15);
-      if (v16)
+      v17 = CGColorForCoreColor(v28, v16);
+      if (v17)
       {
-        v17 = Color.Resolved.init(failableCGColor:)(v16);
-        v19 = v18;
-        v21 = v20;
+        v18 = Color.Resolved.init(failableCGColor:)(v17);
+        v20 = v19;
+        v22 = v21;
 
-        v29 = v21 & 1;
+        v30 = v22 & 1;
         goto LABEL_15;
       }
     }
   }
 
 LABEL_14:
-  v17 = 0;
-  v19 = 0;
+  v18 = 0;
+  v20 = 0;
 LABEL_15:
-  v22 = v30 | (v17 << 32);
-  *(&v24 + 1) = v19;
-  *&v24 = v17;
-  v23 = v24 >> 32;
-  v25 = v29 == 0;
-  v26 = 1;
-  *a2 = v8;
-  *(a2 + 8) = v10;
-  if (v25)
+  v23 = v31 | (v18 << 32);
+  *(&v25 + 1) = v20;
+  *&v25 = v18;
+  v24 = v25 >> 32;
+  v26 = v30 == 0;
+  v27 = 1;
+  *a2 = v9;
+  *(a2 + 8) = v11;
+  if (v26)
   {
-    v26 = 0;
+    v27 = 0;
   }
 
-  *(a2 + 16) = v22;
-  *(a2 + 24) = v23;
-  *(a2 + 32) = HIDWORD(v19);
-  *(a2 + 36) = v26;
+  *(a2 + 16) = v23;
+  *(a2 + 24) = v24;
+  *(a2 + 32) = HIDWORD(v20);
+  *(a2 + 36) = v27;
   *(a2 + 37) = 0;
 }
 
 double specialized ExplodeTextEffect.timing(for:from:to:duration:)@<D0>(uint64_t a1@<X0>, char *a2@<X1>, char a3@<W2>, _OWORD *a4@<X8>)
 {
   type metadata accessor for Text.Effect.DrawableFragment<ExplodeTextEffect>(0, &lazy cache variable for type metadata for Text.Effect.DrawableContent<ExplodeTextEffect>, lazy protocol witness table accessor for type ExplodeTextEffect and conformance ExplodeTextEffect, &type metadata for ExplodeTextEffect, type metadata accessor for Text.Effect.DrawableContent);
-  MEMORY[0x1EEE9AC00](v8 - 8);
-  v10 = &v18[-v9];
-  v11 = type metadata accessor for Spring();
-  v12 = *(v11 - 8);
-  MEMORY[0x1EEE9AC00](v11);
-  v14 = &v18[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v18[24] = 0;
-  v18[16] = 1;
-  v21 = xmmword_195CCEA00;
-  v22 = 0;
-  v23 = 0;
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v20[-v10];
+  v12 = type metadata accessor for Spring();
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v20[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v20[24] = 0;
+  v20[16] = 1;
+  v23 = xmmword_195CCEA00;
   v24 = 0;
-  v25 = 2;
-  v27 = 0;
-  v28 = 0;
+  v25 = 0;
   v26 = 0;
+  v27 = 2;
   v29 = 0;
   v30 = 0;
+  v28 = 0;
   v31 = 0;
-  v32 = 1;
-  v33 = MEMORY[0x1E69E7CC0];
-  v34 = 0;
-  v35 = xmmword_195CCB160;
+  v32 = 0;
+  v33 = 0;
+  v34 = 1;
+  v35 = MEMORY[0x1E69E7CC0];
   v36 = 0;
+  v37 = xmmword_195CCB160;
+  v38 = 0;
   if (one-time initialization token for defaultSpring != -1)
   {
     swift_once();
   }
 
-  v15 = __swift_project_value_buffer(v11, static ExplodeTextEffect.defaultSpring);
-  (*(v12 + 16))(v14, v15, v11);
-  outlined init with copy of Text.Effect.DrawableFragment<ExplodeTextEffect>(a1, v10, &lazy cache variable for type metadata for Text.Effect.DrawableContent<ExplodeTextEffect>, lazy protocol witness table accessor for type ExplodeTextEffect and conformance ExplodeTextEffect, &type metadata for ExplodeTextEffect, type metadata accessor for Text.Effect.DrawableContent);
-  _s7SwiftUI4TextV0C16AnimationSupportE6EffectO6TimingV13configuration8duration6spring7contentA2H13ConfigurationV_SdSgAA6SpringVAF15DrawableContentVy__xGtcAD0cF0RzlufCAD07ExplodecF0V_Tt3g5(&v21, a2, a3 & 1, v14, v10, v19);
-  v16 = v19[1];
-  *a4 = v19[0];
-  a4[1] = v16;
-  result = *&v20;
-  a4[2] = v20;
+  v16 = __swift_project_value_buffer(v12, static ExplodeTextEffect.defaultSpring);
+  v17.n128_f64[0] = (*(v13 + 16))(v15, v16, v12);
+  outlined init with copy of Text.Effect.DrawableFragment<ExplodeTextEffect>(a1, v11, &lazy cache variable for type metadata for Text.Effect.DrawableContent<ExplodeTextEffect>, lazy protocol witness table accessor for type ExplodeTextEffect and conformance ExplodeTextEffect, &type metadata for ExplodeTextEffect, type metadata accessor for Text.Effect.DrawableContent, v17);
+  _s7SwiftUI4TextV0C16AnimationSupportE6EffectO6TimingV13configuration8duration6spring7contentA2H13ConfigurationV_SdSgAA6SpringVAF15DrawableContentVy__xGtcAD0cF0RzlufCAD07ExplodecF0V_Tt3g5(&v23, a2, a3 & 1, v15, v11, v21);
+  v18 = v21[1];
+  *a4 = v21[0];
+  a4[1] = v18;
+  result = *&v22;
+  a4[2] = v22;
   return result;
 }
 
@@ -2521,14 +2961,14 @@ void specialized ExplodeTextEffect.Target.amplitude(for:at:of:)(uint64_t a1, dou
   }
 }
 
-void type metadata accessor for ExplodeTextEffect.Timeline<Double>.Keyframe()
+void type metadata accessor for ExplodeTextEffect.Timeline<Double>.Keyframe(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!lazy cache variable for type metadata for ExplodeTextEffect.Timeline<Double>.Keyframe)
   {
-    v0 = type metadata accessor for ExplodeTextEffect.Timeline.Keyframe();
-    if (!v1)
+    v4 = type metadata accessor for ExplodeTextEffect.Timeline.Keyframe(0, MEMORY[0x1E69E63B0], MEMORY[0x1E6981FE0], a4);
+    if (!v5)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ExplodeTextEffect.Timeline<Double>.Keyframe);
+      atomic_store(v4, &lazy cache variable for type metadata for ExplodeTextEffect.Timeline<Double>.Keyframe);
     }
   }
 }
@@ -2546,17 +2986,17 @@ void _sSay7SwiftUI4TextV0C16AnimationSupportE6EffectO6TimingV05GlyphG0VGMaTm_0(u
   }
 }
 
-uint64_t outlined init with copy of Text.Effect.DrawableFragment<ExplodeTextEffect>(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t (*a4)(void), uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t))
+uint64_t outlined init with copy of Text.Effect.DrawableFragment<ExplodeTextEffect>(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t (*a4)(void), uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t), __n128 a7)
 {
   type metadata accessor for Text.Effect.DrawableFragment<ExplodeTextEffect>(0, a3, a4, a5, a6);
-  (*(*(v8 - 8) + 16))(a2, a1, v8);
+  (*(*(v9 - 8) + 16))(a2, a1, v9);
   return a2;
 }
 
-uint64_t outlined destroy of Text.Effect.DrawableFragment<ScaleRippleTextEffect>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void), uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t, uint64_t))
+uint64_t outlined destroy of Text.Effect.DrawableFragment<ScaleRippleTextEffect>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void), uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t, uint64_t), __n128 a6)
 {
   type metadata accessor for Text.Effect.DrawableFragment<ExplodeTextEffect>(0, a2, a3, a4, a5);
-  (*(*(v6 - 8) + 8))(a1, v6);
+  (*(*(v7 - 8) + 8))(a1, v7);
   return a1;
 }
 
@@ -2569,7 +3009,7 @@ uint64_t objectdestroy_6Tm()
   v5 = *(v2 + 64);
   (*(v2 + 8))(v0 + v4, v1);
 
-  return MEMORY[0x1EEE6BDD0](v0, v4 + v5, v3 | 7);
+  return MEMORY[0x1EEE6BDD0](v0, v4 + v5, v3 | 7, v6);
 }
 
 uint64_t outlined destroy of Text.Effect.Timing.GlyphTiming(uint64_t a1, uint64_t (*a2)(void))
@@ -2605,13 +3045,13 @@ unint64_t type metadata accessor for NSObject()
   return result;
 }
 
-unint64_t type metadata completion function for ExplodeTextEffect.Timeline.Keyframe()
+unint64_t type metadata completion function for ExplodeTextEffect.Timeline.Keyframe(uint64_t a1)
 {
   result = swift_getAssociatedTypeWitness();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for ()();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -2621,78 +3061,78 @@ unint64_t type metadata completion function for ExplodeTextEffect.Timeline.Keyfr
   return result;
 }
 
-uint64_t getEnumTagSinglePayload for ExplodeTextEffect.Timeline.Keyframe(int *a1, unsigned int a2)
+uint64_t getEnumTagSinglePayload for ExplodeTextEffect.Timeline.Keyframe(int *a1, unsigned int a2, uint64_t a3)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v5 = *(AssociatedTypeWitness - 8);
-  v6 = *(v5 + 84);
-  if (v6 <= 0x7FFFFFFF)
+  v6 = *(AssociatedTypeWitness - 8);
+  v7 = *(v6 + 84);
+  if (v7 <= 0x7FFFFFFF)
   {
-    v7 = 0x7FFFFFFF;
+    v8 = 0x7FFFFFFF;
   }
 
   else
   {
-    v7 = *(v5 + 84);
+    v8 = *(v6 + 84);
   }
 
-  v8 = *(*(AssociatedTypeWitness - 8) + 64);
+  v9 = *(*(AssociatedTypeWitness - 8) + 64);
   if (!a2)
   {
     return 0;
   }
 
-  v9 = *(v5 + 80);
-  v10 = v8 + v9;
-  v11 = v8 + 7;
-  if (v7 >= a2)
+  v10 = *(v6 + 80);
+  v11 = v9 + v10;
+  v12 = v9 + 7;
+  if (v8 >= a2)
   {
     goto LABEL_27;
   }
 
-  v12 = ((((v11 + (v10 & ~v9)) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 16;
-  v13 = v12 & 0xFFFFFFF8;
-  if ((v12 & 0xFFFFFFF8) != 0)
-  {
-    v14 = 2;
-  }
-
-  else
-  {
-    v14 = a2 - v7 + 1;
-  }
-
-  if (v14 >= 0x10000)
-  {
-    v15 = 4;
-  }
-
-  else
+  v13 = ((((v12 + (v11 & ~v10)) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 16;
+  v14 = v13 & 0xFFFFFFF8;
+  if ((v13 & 0xFFFFFFF8) != 0)
   {
     v15 = 2;
   }
 
-  if (v14 < 0x100)
+  else
   {
-    v15 = 1;
+    v15 = a2 - v8 + 1;
   }
 
-  if (v14 >= 2)
+  if (v15 >= 0x10000)
   {
-    v16 = v15;
+    v16 = 4;
   }
 
   else
   {
-    v16 = 0;
+    v16 = 2;
   }
 
-  if (v16 > 1)
+  if (v15 < 0x100)
   {
-    if (v16 == 2)
+    v16 = 1;
+  }
+
+  if (v15 >= 2)
+  {
+    v17 = v16;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  if (v17 > 1)
+  {
+    if (v17 == 2)
     {
-      v17 = *(a1 + v12);
-      if (!v17)
+      v18 = *(a1 + v13);
+      if (!v18)
       {
         goto LABEL_27;
       }
@@ -2700,83 +3140,83 @@ uint64_t getEnumTagSinglePayload for ExplodeTextEffect.Timeline.Keyframe(int *a1
 
     else
     {
-      v17 = *(a1 + v12);
-      if (!v17)
+      v18 = *(a1 + v13);
+      if (!v18)
       {
         goto LABEL_27;
       }
     }
 
 LABEL_24:
-    v19 = v17 - 1;
-    if (v13)
+    v20 = v18 - 1;
+    if (v14)
     {
-      v19 = 0;
-      v20 = *a1;
+      v20 = 0;
+      v21 = *a1;
     }
 
     else
     {
-      v20 = 0;
+      v21 = 0;
     }
 
-    return v7 + (v20 | v19) + 1;
+    return v8 + (v21 | v20) + 1;
   }
 
-  if (v16)
+  if (v17)
   {
-    v17 = *(a1 + v12);
-    if (v17)
+    v18 = *(a1 + v13);
+    if (v18)
     {
       goto LABEL_24;
     }
   }
 
 LABEL_27:
-  if (v6 < 0x7FFFFFFF)
+  if (v7 < 0x7FFFFFFF)
   {
-    v22 = *((((v11 + ((a1 + v10) & ~v9)) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8);
-    if (v22 >= 0xFFFFFFFF)
+    v23 = *((((v12 + ((a1 + v11) & ~v10)) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8);
+    if (v23 >= 0xFFFFFFFF)
     {
-      LODWORD(v22) = -1;
+      LODWORD(v23) = -1;
     }
 
-    return (v22 + 1);
+    return (v23 + 1);
   }
 
   else
   {
-    v21 = *(v5 + 48);
+    v22 = *(v6 + 48);
 
-    return v21(a1);
+    return v22(a1);
   }
 }
 
-void storeEnumTagSinglePayload for ExplodeTextEffect.Timeline.Keyframe(_DWORD *a1, uint64_t a2, unsigned int a3)
+void storeEnumTagSinglePayload for ExplodeTextEffect.Timeline.Keyframe(_DWORD *a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
-  v6 = *(swift_getAssociatedTypeWitness() - 8);
-  v7 = *(v6 + 84);
-  v8 = *(v6 + 64);
-  if (v7 <= 0x7FFFFFFF)
+  v7 = *(swift_getAssociatedTypeWitness() - 8);
+  v8 = *(v7 + 84);
+  v9 = *(v7 + 64);
+  if (v8 <= 0x7FFFFFFF)
   {
-    v9 = 0x7FFFFFFF;
+    v10 = 0x7FFFFFFF;
   }
 
   else
   {
-    v9 = *(v6 + 84);
+    v10 = *(v7 + 84);
   }
 
-  v10 = *(v6 + 80);
-  v11 = v8 + v10;
-  v12 = (v8 + v10) & ~v10;
-  v13 = v8 + 7;
-  v14 = ((((v13 + v12) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 16;
-  if (v9 >= a3)
+  v11 = *(v7 + 80);
+  v12 = v9 + v11;
+  v13 = (v9 + v11) & ~v11;
+  v14 = v9 + 7;
+  v15 = ((((v14 + v13) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 16;
+  if (v10 >= a3)
   {
-    v17 = 0;
-    v18 = a2 - v9;
-    if (a2 <= v9)
+    v18 = 0;
+    v19 = a2 - v10;
+    if (a2 <= v10)
     {
       goto LABEL_17;
     }
@@ -2784,19 +3224,9 @@ void storeEnumTagSinglePayload for ExplodeTextEffect.Timeline.Keyframe(_DWORD *a
 
   else
   {
-    if (((((v13 + v12) & 0xFFFFFFF8) + 15) & 0xFFFFFFF8) == 0xFFFFFFF0)
+    if (((((v14 + v13) & 0xFFFFFFF8) + 15) & 0xFFFFFFF8) == 0xFFFFFFF0)
     {
-      v15 = a3 - v9 + 1;
-    }
-
-    else
-    {
-      v15 = 2;
-    }
-
-    if (v15 >= 0x10000)
-    {
-      v16 = 4;
+      v16 = a3 - v10 + 1;
     }
 
     else
@@ -2804,30 +3234,40 @@ void storeEnumTagSinglePayload for ExplodeTextEffect.Timeline.Keyframe(_DWORD *a
       v16 = 2;
     }
 
-    if (v15 < 0x100)
+    if (v16 >= 0x10000)
     {
-      v16 = 1;
-    }
-
-    if (v15 >= 2)
-    {
-      v17 = v16;
+      v17 = 4;
     }
 
     else
     {
-      v17 = 0;
+      v17 = 2;
     }
 
-    v18 = a2 - v9;
-    if (a2 <= v9)
+    if (v16 < 0x100)
+    {
+      v17 = 1;
+    }
+
+    if (v16 >= 2)
+    {
+      v18 = v17;
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+
+    v19 = a2 - v10;
+    if (a2 <= v10)
     {
 LABEL_17:
-      if (v17 > 1)
+      if (v18 > 1)
       {
-        if (v17 != 2)
+        if (v18 != 2)
         {
-          *(a1 + v14) = 0;
+          *(a1 + v15) = 0;
           if (!a2)
           {
             return;
@@ -2836,12 +3276,12 @@ LABEL_17:
           goto LABEL_33;
         }
 
-        *(a1 + v14) = 0;
+        *(a1 + v15) = 0;
       }
 
-      else if (v17)
+      else if (v18)
       {
-        *(a1 + v14) = 0;
+        *(a1 + v15) = 0;
         if (!a2)
         {
           return;
@@ -2856,65 +3296,65 @@ LABEL_17:
       }
 
 LABEL_33:
-      if (v7 < 0x7FFFFFFF)
+      if (v8 < 0x7FFFFFFF)
       {
-        v22 = ((((v13 + ((a1 + v11) & ~v10)) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8);
+        v23 = ((((v14 + ((a1 + v12) & ~v11)) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8);
         if ((a2 & 0x80000000) != 0)
         {
-          *v22 = a2 & 0x7FFFFFFF;
-          v22[1] = 0;
+          *v23 = a2 & 0x7FFFFFFF;
+          v23[1] = 0;
         }
 
         else
         {
-          *v22 = (a2 - 1);
+          *v23 = (a2 - 1);
         }
       }
 
       else
       {
-        v21 = *(v6 + 56);
+        v22 = *(v7 + 56);
 
-        v21(a1, a2);
+        v22(a1, a2);
       }
 
       return;
     }
   }
 
-  if (v14)
+  if (v15)
   {
-    v19 = 1;
+    v20 = 1;
   }
 
   else
   {
-    v19 = v18;
+    v20 = v19;
   }
 
-  if (v14)
+  if (v15)
   {
-    v20 = ~v9 + a2;
-    bzero(a1, v14);
-    *a1 = v20;
+    v21 = ~v10 + a2;
+    bzero(a1, v15);
+    *a1 = v21;
   }
 
-  if (v17 > 1)
+  if (v18 > 1)
   {
-    if (v17 == 2)
+    if (v18 == 2)
     {
-      *(a1 + v14) = v19;
+      *(a1 + v15) = v20;
     }
 
     else
     {
-      *(a1 + v14) = v19;
+      *(a1 + v15) = v20;
     }
   }
 
-  else if (v17)
+  else if (v18)
   {
-    *(a1 + v14) = v19;
+    *(a1 + v15) = v20;
   }
 }
 
@@ -2973,7 +3413,7 @@ uint64_t storeEnumTagSinglePayload for ExplodeTextEffect.AnimatorConfiguration(u
   return result;
 }
 
-uint64_t type metadata instantiation function for ExplodeTextEffect.Timeline()
+uint64_t type metadata instantiation function for ExplodeTextEffect.Timeline(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -2994,64 +3434,62 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Text.Ef
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Text.Effect.DefaultAnimatorPhase()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Text.Effect.DefaultAnimatorPhase(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x19A8BDE60](0);
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for LosslessStringConvertible.init(_:) in conformance Text.Effect.DefaultAnimatorPhase@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void protocol witness for LosslessStringConvertible.init(_:) in conformance Text.Effect.DefaultAnimatorPhase(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
   if (a1 == 0x746C7561666564 && a2 == 0xE700000000000000)
   {
 
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
     v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    v7 = v5 ^ 1;
+    v6 = v5 ^ 1;
   }
 
-  *a3 = v7 & 1;
-  return result;
+  *a3 = v6 & 1;
 }
 
-uint64_t protocol witness for LosslessStringConvertible.init(_:) in conformance Text.Effect.OnOffAnimatorPhase@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+void protocol witness for LosslessStringConvertible.init(_:) in conformance Text.Effect.OnOffAnimatorPhase(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
 {
   v5 = a1 == 6710895 && a2 == 0xE300000000000000;
   if (v5 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
 
-    v8 = 0;
+    v7 = 0;
   }
 
   else if (a1 == 28271 && a2 == 0xE200000000000000)
   {
 
-    v8 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v9)
+    if (v8)
     {
-      v8 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v8 = 2;
+      v7 = 2;
     }
   }
 
-  *a3 = v8;
-  return result;
+  *a3 = v7;
 }
 
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Text.Effect.OnOffAnimatorPhase()
@@ -3084,13 +3522,13 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance Text.Effect.Re
   return MEMORY[0x19A8BDE60](v1);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Text.Effect.RelativeIdentifierKey()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Text.Effect.RelativeIdentifierKey(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
+  v2 = *v1;
+  v3 = v1[1];
   Hasher.init(_seed:)();
-  MEMORY[0x19A8BDE80](v1);
-  MEMORY[0x19A8BDE60](v2);
+  MEMORY[0x19A8BDE80](v2);
+  MEMORY[0x19A8BDE60](v3);
   return Hasher._finalize()();
 }
 
@@ -3187,28 +3625,28 @@ LABEL_5:
   Hasher._combine(_:)(v1 & 1);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Text.Effect.Phase.Storage()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Text.Effect.Phase.Storage(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  if (v1 == 2)
+  if (v2 == 2)
   {
-    v2 = 1;
+    v3 = 1;
   }
 
   else
   {
-    if (v1 != 3)
+    if (v2 != 3)
     {
       MEMORY[0x19A8BDE60](0);
-      Hasher._combine(_:)(v1 & 1);
+      Hasher._combine(_:)(v2 & 1);
       return Hasher._finalize()();
     }
 
-    v2 = 2;
+    v3 = 2;
   }
 
-  MEMORY[0x19A8BDE60](v2);
+  MEMORY[0x19A8BDE60](v3);
   return Hasher._finalize()();
 }
 
@@ -3283,13 +3721,13 @@ __n128 protocol witness for static AdditiveArithmetic.zero.getter in conformance
   return result;
 }
 
-float64_t protocol witness for static AdditiveArithmetic.+= infix(_:_:) in conformance Text.Effect.DrawingState(float64x2_t *a1, uint64_t a2)
+float64_t protocol witness for static AdditiveArithmetic.+= infix(_:_:) in conformance Text.Effect.DrawingState(float64x2_t *a1, _OWORD *a2)
 {
-  v2 = *(a2 + 48);
-  v5[2] = *(a2 + 32);
+  v2 = a2[3];
+  v5[2] = *(a2 + 2);
   v6[0] = v2;
   *(v6 + 9) = *(a2 + 57);
-  v3 = *(a2 + 16);
+  v3 = *(a2 + 1);
   v5[0] = *a2;
   v5[1] = v3;
   return specialized static Text.Effect.DrawingState.+= infix(_:_:)(a1, v5);
@@ -3322,13 +3760,13 @@ __n128 protocol witness for static AdditiveArithmetic.+ infix(_:_:) in conforman
   return result;
 }
 
-float64_t protocol witness for static AdditiveArithmetic.-= infix(_:_:) in conformance Text.Effect.DrawingState(float64x2_t *a1, uint64_t a2)
+float64_t protocol witness for static AdditiveArithmetic.-= infix(_:_:) in conformance Text.Effect.DrawingState(float64x2_t *a1, _OWORD *a2)
 {
-  v2 = *(a2 + 48);
-  v5[2] = *(a2 + 32);
+  v2 = a2[3];
+  v5[2] = *(a2 + 2);
   v6[0] = v2;
   *(v6 + 9) = *(a2 + 57);
-  v3 = *(a2 + 16);
+  v3 = *(a2 + 1);
   v5[0] = *a2;
   v5[1] = v3;
   return specialized static Text.Effect.DrawingState.-= infix(_:_:)(a1, v5);
@@ -3385,10 +3823,10 @@ float64x2_t Text.Effect.CubicStates.applying(weights:)@<Q0>(uint64_t a1@<X8>, do
   return result;
 }
 
-uint64_t type metadata completion function for Text.Effect.ConcreteLayoutState()
+uint64_t type metadata completion function for Text.Effect.ConcreteLayoutState(uint64_t a1)
 {
   result = swift_getAssociatedTypeWitness();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_initClassMetadata2();
     if (!result)
@@ -3408,48 +3846,48 @@ uint64_t Text.Effect.ConcreteLayoutState.init(state:)(uint64_t a1)
   return v1;
 }
 
-uint64_t Text.Effect.ConcreteLayoutState.isEqual(to:)()
+uint64_t Text.Effect.ConcreteLayoutState.isEqual(to:)(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v3 = *(AssociatedTypeWitness - 8);
+  v4 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = &v15 - v7;
-  v9 = swift_dynamicCastClass();
-  if (v9)
+  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v16 - v8;
+  v10 = swift_dynamicCastClass();
+  if (v10)
   {
-    v10 = v9;
-    v11 = *(v3 + 16);
-    v11(v8, &v0[*(v1 + 128)], AssociatedTypeWitness);
-    v11(v5, (v10 + *(*v10 + 128)), AssociatedTypeWitness);
+    v11 = v10;
+    v12 = *(v4 + 16);
+    v12(v9, &v1[*(v2 + 128)], AssociatedTypeWitness);
+    v12(v6, (v11 + *(*v11 + 128)), AssociatedTypeWitness);
     swift_getAssociatedConformanceWitness();
-    v12 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v13 = *(v3 + 8);
-    v13(v5, AssociatedTypeWitness);
-    v13(v8, AssociatedTypeWitness);
+    v13 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v14 = *(v4 + 8);
+    v14(v6, AssociatedTypeWitness);
+    v14(v9, AssociatedTypeWitness);
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12 & 1;
+  return v13 & 1;
 }
 
-uint64_t Text.Effect.ConcreteLayoutState.hash(into:)()
+uint64_t Text.Effect.ConcreteLayoutState.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v3 = *(AssociatedTypeWitness - 8);
-  v4 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v6 = &v8 - v5;
-  (*(v3 + 16))(&v8 - v5, &v0[*(v1 + 128)], AssociatedTypeWitness, v4);
+  v4 = *(AssociatedTypeWitness - 8);
+  v5 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v7 = &v9 - v6;
+  (*(v4 + 16))(&v9 - v6, &v1[*(v2 + 128)], AssociatedTypeWitness, v5);
   swift_getAssociatedConformanceWitness();
   dispatch thunk of Hashable.hash(into:)();
-  return (*(v3 + 8))(v6, AssociatedTypeWitness);
+  return (*(v4 + 8))(v7, AssociatedTypeWitness);
 }
 
 uint64_t Text.Effect.ConcreteLayoutState.name.getter()
@@ -3484,10 +3922,10 @@ uint64_t Text.Effect.ConcreteLayoutState.deinit()
   return v0;
 }
 
-uint64_t type metadata completion function for Text.Effect.ConcretePhase()
+uint64_t type metadata completion function for Text.Effect.ConcretePhase(uint64_t a1)
 {
   result = swift_getAssociatedTypeWitness();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_initClassMetadata2();
     if (!result)
@@ -3507,10 +3945,10 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Text.Ef
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Text.Effect.AnyPhase()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Text.Effect.AnyPhase(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  (*(**v0 + 96))(v2);
+  (*(**v1 + 96))(v3);
   return Hasher._finalize()();
 }
 
@@ -3522,48 +3960,48 @@ uint64_t Text.Effect.ConcretePhase.init(_:)(uint64_t a1)
   return v1;
 }
 
-uint64_t Text.Effect.ConcretePhase.isEqual(to:)()
+uint64_t Text.Effect.ConcretePhase.isEqual(to:)(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v3 = *(AssociatedTypeWitness - 8);
+  v4 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = &v15 - v7;
-  v9 = swift_dynamicCastClass();
-  if (v9)
+  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v16 - v8;
+  v10 = swift_dynamicCastClass();
+  if (v10)
   {
-    v10 = v9;
-    v11 = *(v3 + 16);
-    v11(v8, &v0[*(v1 + 160)], AssociatedTypeWitness);
-    v11(v5, (v10 + *(*v10 + 160)), AssociatedTypeWitness);
+    v11 = v10;
+    v12 = *(v4 + 16);
+    v12(v9, &v1[*(v2 + 160)], AssociatedTypeWitness);
+    v12(v6, (v11 + *(*v11 + 160)), AssociatedTypeWitness);
     swift_getAssociatedConformanceWitness();
-    v12 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v13 = *(v3 + 8);
-    v13(v5, AssociatedTypeWitness);
-    v13(v8, AssociatedTypeWitness);
+    v13 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v14 = *(v4 + 8);
+    v14(v6, AssociatedTypeWitness);
+    v14(v9, AssociatedTypeWitness);
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12 & 1;
+  return v13 & 1;
 }
 
-uint64_t Text.Effect.ConcretePhase.hash(into:)()
+uint64_t Text.Effect.ConcretePhase.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v3 = *(AssociatedTypeWitness - 8);
-  v4 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v6 = &v8 - v5;
-  (*(v3 + 16))(&v8 - v5, &v0[*(v1 + 160)], AssociatedTypeWitness, v4);
+  v4 = *(AssociatedTypeWitness - 8);
+  v5 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v7 = &v9 - v6;
+  (*(v4 + 16))(&v9 - v6, &v1[*(v2 + 160)], AssociatedTypeWitness, v5);
   swift_getAssociatedConformanceWitness();
   dispatch thunk of Hashable.hash(into:)();
-  return (*(v3 + 8))(v6, AssociatedTypeWitness);
+  return (*(v4 + 8))(v7, AssociatedTypeWitness);
 }
 
 uint64_t Text.Effect.ConcretePhase.isDefaultPhase.getter()
@@ -3623,10 +4061,10 @@ uint64_t Text.Effect.ConcretePhase.deinit()
   return v0;
 }
 
-uint64_t type metadata completion function for Text.Effect.ConcreteConfiguration()
+uint64_t type metadata completion function for Text.Effect.ConcreteConfiguration(uint64_t a1)
 {
   result = swift_getAssociatedTypeWitness();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_initClassMetadata2();
     if (!result)
@@ -3859,7 +4297,7 @@ uint64_t storeEnumTagSinglePayload for Text.Effect.DrawingState(uint64_t result,
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type Text.Effect.Variant and conformance Text.Effect.Variant()
+unint64_t lazy protocol witness table accessor for type Text.Effect.Variant and conformance Text.Effect.Variant(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type Text.Effect.Variant and conformance Text.Effect.Variant;
   if (!lazy protocol witness table cache variable for type Text.Effect.Variant and conformance Text.Effect.Variant)
@@ -4169,7 +4607,7 @@ LABEL_20:
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type Text.Effect.DrawingState.InteractionFlags and conformance Text.Effect.DrawingState.InteractionFlags()
+unint64_t lazy protocol witness table accessor for type Text.Effect.DrawingState.InteractionFlags and conformance Text.Effect.DrawingState.InteractionFlags(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type Text.Effect.DrawingState.InteractionFlags and conformance Text.Effect.DrawingState.InteractionFlags;
   if (!lazy protocol witness table cache variable for type Text.Effect.DrawingState.InteractionFlags and conformance Text.Effect.DrawingState.InteractionFlags)
@@ -4214,7 +4652,7 @@ unint64_t lazy protocol witness table accessor for type Text.Effect.DrawingState
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type Text.Effect.Phase and conformance Text.Effect.Phase()
+unint64_t lazy protocol witness table accessor for type Text.Effect.Phase and conformance Text.Effect.Phase(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type Text.Effect.Phase and conformance Text.Effect.Phase;
   if (!lazy protocol witness table cache variable for type Text.Effect.Phase and conformance Text.Effect.Phase)
@@ -4226,7 +4664,7 @@ unint64_t lazy protocol witness table accessor for type Text.Effect.Phase and co
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type Text.Effect.Variant.Storage and conformance Text.Effect.Variant.Storage()
+unint64_t lazy protocol witness table accessor for type Text.Effect.Variant.Storage and conformance Text.Effect.Variant.Storage(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type Text.Effect.Variant.Storage and conformance Text.Effect.Variant.Storage;
   if (!lazy protocol witness table cache variable for type Text.Effect.Variant.Storage and conformance Text.Effect.Variant.Storage)
@@ -4583,7 +5021,7 @@ _BYTE *destructiveInjectEnumTag for Text.Effect.Phase.Storage(_BYTE *result, int
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type Text.Effect.Phase.Storage and conformance Text.Effect.Phase.Storage()
+unint64_t lazy protocol witness table accessor for type Text.Effect.Phase.Storage and conformance Text.Effect.Phase.Storage(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type Text.Effect.Phase.Storage and conformance Text.Effect.Phase.Storage;
   if (!lazy protocol witness table cache variable for type Text.Effect.Phase.Storage and conformance Text.Effect.Phase.Storage)
@@ -4595,10 +5033,10 @@ unint64_t lazy protocol witness table accessor for type Text.Effect.Phase.Storag
   return result;
 }
 
-uint64_t type metadata completion function for AnyDynamicFontModifier()
+uint64_t type metadata completion function for AnyDynamicFontModifier(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_initClassMetadata2();
     if (!result)
@@ -4618,22 +5056,22 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance AnyFont
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AnyFontModifier()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AnyFontModifier(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  (*(**v0 + 96))(v2);
+  (*(**v1 + 96))(v3);
   return Hasher._finalize()();
 }
 
-uint64_t AnyDynamicFontModifier.isEqual(to:)()
+uint64_t AnyDynamicFontModifier.isEqual(to:)(uint64_t a1)
 {
   result = swift_dynamicCastClass();
   if (result)
   {
 
-    v1 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v2 = dispatch thunk of static Equatable.== infix(_:_:)();
 
-    return v1 & 1;
+    return v2 & 1;
   }
 
   return result;
@@ -4659,9 +5097,9 @@ unint64_t lazy protocol witness table accessor for type AnyFontModifier and conf
   return result;
 }
 
-uint64_t NSAttributedString.replacingLineBreakModes(_:)(uint64_t a1)
+void NSAttributedString.replacingLineBreakModes(_:)(uint64_t a1)
 {
-  v13 = 0;
+  v10 = 0;
   if (one-time initialization token for kitParagraphStyle != -1)
   {
     swift_once();
@@ -4671,7 +5109,7 @@ uint64_t NSAttributedString.replacingLineBreakModes(_:)(uint64_t a1)
   v4 = [v1 length];
   v5 = swift_allocObject();
   v5[2] = a1;
-  v5[3] = &v13;
+  v5[3] = &v10;
   v5[4] = v1;
   v6 = swift_allocObject();
   *(v6 + 16) = partial apply for closure #1 in NSAttributedString.replacingLineBreakModes(_:);
@@ -4696,22 +5134,11 @@ uint64_t NSAttributedString.replacingLineBreakModes(_:)(uint64_t a1)
 
   else
   {
-    v10 = v13;
-    if (v13)
+    if (!v10)
     {
-
-      return v10;
-    }
-
-    else
-    {
-      v11 = v8;
-
-      return v11;
+      v8;
     }
   }
-
-  return result;
 }
 
 void closure #1 in NSAttributedString.replacingLineBreakModes(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, id a5, void **a6, void *a7)
@@ -4719,7 +5146,7 @@ void closure #1 in NSAttributedString.replacingLineBreakModes(_:)(uint64_t a1, u
   outlined init with copy of Any?(a1, v19);
   if (v20)
   {
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSParagraphStyle);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSParagraphStyle, 0x1E69DB7D0);
     if (swift_dynamicCast())
     {
       if ([v18 lineBreakMode] == a5)
@@ -4732,7 +5159,7 @@ LABEL_11:
       [v18 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
-      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSMutableParagraphStyle);
+      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSMutableParagraphStyle, 0x1E69DB7C8);
       swift_dynamicCast();
       [v18 setLineBreakMode_];
       v12 = *a6;
@@ -4744,7 +5171,7 @@ LABEL_11:
       [a7 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
-      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSMutableAttributedString);
+      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSMutableAttributedString, 0x1E696AD40);
       v13 = swift_dynamicCast();
       v14 = v18;
       if (!v13)
@@ -4785,7 +5212,7 @@ uint64_t one-time initialization function for oversizedScalars()
   v1 = *(v0 - 8);
   MEMORY[0x1EEE9AC00](v0);
   v3 = &v12 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for CharacterSet?();
+  type metadata accessor for CharacterSet?(0);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_allocate_value_buffer(v0, static NSAttributedString.oversizedScalars);
@@ -5005,15 +5432,15 @@ uint64_t one-time initialization function for _textFilterAnimation()
   return result;
 }
 
-void type metadata accessor for CharacterSet?()
+void type metadata accessor for CharacterSet?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for CharacterSet?)
   {
     type metadata accessor for CharacterSet();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for CharacterSet?);
+      atomic_store(v1, &lazy cache variable for type metadata for CharacterSet?);
     }
   }
 }
@@ -5058,7 +5485,7 @@ uint64_t specialized Sequence.reduce<A>(_:_:)(uint64_t a1, uint64_t a2)
   type metadata accessor for Text.Effect.DrawableFragment<BounceTextEffect>(0, &lazy cache variable for type metadata for Text.Effect.DrawableContent<BounceTextEffect>, lazy protocol witness table accessor for type BounceTextEffect and conformance BounceTextEffect, &type metadata for BounceTextEffect, type metadata accessor for Text.Effect.DrawableContent);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = (&v42 - v5);
-  type metadata accessor for IndexingIterator<Text.Effect.DrawableContent<BounceTextEffect>>();
+  type metadata accessor for IndexingIterator<Text.Effect.DrawableContent<BounceTextEffect>>(0);
   v44 = v7;
   MEMORY[0x1EEE9AC00](v7);
   v9 = (&v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
@@ -5252,7 +5679,7 @@ LABEL_38:
   v4 = type metadata accessor for Text.Effect.BaseContent(0);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = (&v42 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  type metadata accessor for IndexingIterator<Text.Effect.BaseContent>();
+  type metadata accessor for IndexingIterator<Text.Effect.BaseContent>(0);
   v44 = v7;
   MEMORY[0x1EEE9AC00](v7);
   v9 = (&v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
@@ -5446,7 +5873,7 @@ LABEL_38:
   v4 = type metadata accessor for Text.Effect.BaseContent(0);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = (&v41 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  type metadata accessor for IndexingIterator<Text.Effect.BaseContent>();
+  type metadata accessor for IndexingIterator<Text.Effect.BaseContent>(0);
   v43 = v7;
   MEMORY[0x1EEE9AC00](v7);
   v9 = (&v41 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
@@ -5617,7 +6044,7 @@ LABEL_30:
   type metadata accessor for Text.Effect.DrawableContent<BigTextEffect>(0, &lazy cache variable for type metadata for Text.Effect.DrawableContent<BigTextEffect>, type metadata accessor for Text.Effect.DrawableContent);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = (&v42 - v5);
-  type metadata accessor for IndexingIterator<Text.Effect.DrawableContent<BigTextEffect>>();
+  type metadata accessor for IndexingIterator<Text.Effect.DrawableContent<BigTextEffect>>(0);
   v44 = v7;
   MEMORY[0x1EEE9AC00](v7);
   v9 = (&v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
@@ -5880,54 +6307,54 @@ LABEL_15:
   return result;
 }
 
-uint64_t closure #1 in BounceTextEffect.configuration(_:)(__int128 *a1, uint64_t a2, uint64_t a3)
+uint64_t closure #1 in BounceTextEffect.configuration(_:)(__n128 *a1, uint64_t a2, uint64_t a3)
 {
   v6 = type metadata accessor for Text.Layout.Line();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = &v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *&v48 = type metadata accessor for Text.Layout.Run();
-  v10 = *(v48 - 8);
-  MEMORY[0x1EEE9AC00](v48);
-  v12 = &v42 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v52 = *a1;
-  v13 = *(a1 + 3);
-  v46 = *(a1 + 2);
-  v45 = v13;
-  v14 = *(a1 + 5);
-  v44 = *(a1 + 4);
-  v43 = v14;
-  outlined init with copy of Text.Effect.DrawableFragment<BounceTextEffect>(a2, v50, &lazy cache variable for type metadata for Text.Effect.DrawableFragment<BounceTextEffect>, lazy protocol witness table accessor for type BounceTextEffect and conformance BounceTextEffect, &type metadata for BounceTextEffect, type metadata accessor for Text.Effect.DrawableFragment);
-  _s7SwiftUI4TextV0C16AnimationSupportE6EffectO16PathInterpolatorV_12quantization7optionsAhF16DrawableFragmentVy__xG_AF19QuantizationContextVAH7OptionsVtcAD0cF0RzlufCAD06BouncecF0V_Tt2g5(a2, a3, 7, v50);
+  v9 = &v43 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v49 = type metadata accessor for Text.Layout.Run();
+  v10 = *(v49 - 8);
+  MEMORY[0x1EEE9AC00](v49);
+  v12 = &v43 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v53 = *a1;
+  v13 = a1[1].n128_u64[1];
+  v47 = a1[1].n128_u64[0];
+  v46 = v13;
+  v14 = a1[2].n128_u64[1];
+  v45 = a1[2].n128_u64[0];
+  v44 = v14;
+  outlined init with copy of Text.Effect.DrawableFragment<BounceTextEffect>(a2, v51, &lazy cache variable for type metadata for Text.Effect.DrawableFragment<BounceTextEffect>, lazy protocol witness table accessor for type BounceTextEffect and conformance BounceTextEffect, &type metadata for BounceTextEffect, type metadata accessor for Text.Effect.DrawableFragment);
+  _s7SwiftUI4TextV0C16AnimationSupportE6EffectO16PathInterpolatorV_12quantization7optionsAhF16DrawableFragmentVy__xG_AF19QuantizationContextVAH7OptionsVtcAD0cF0RzlufCAD06BouncecF0V_Tt2g5(a2, a3, 7, v51);
   v15 = *(a2 + 24);
   v16 = *(v15 + 16);
   v17 = 0.0;
   if (v16 == *(v15 + 24))
   {
 LABEL_2:
-    v18 = v46;
-    v19 = v45;
-    v53 = v46;
-    v54 = v45;
-    v20 = v44;
-    v21 = v43;
-    v55 = v44;
-    v56 = v43;
+    v18 = v47;
+    v19 = v46;
+    v54 = v47;
+    v55 = v46;
+    v20 = v45;
+    v21 = v44;
+    v56 = v45;
+    v57 = v44;
     v22 = swift_allocObject();
-    *(v22 + 16) = v52;
+    *(v22 + 16) = v53;
     *(v22 + 32) = v18;
     *(v22 + 40) = v19;
     *(v22 + 48) = v20;
     *(v22 + 56) = v21;
     *(v22 + 64) = v17;
     v23 = swift_allocObject();
-    v24 = v50[3];
-    *(v23 + 48) = v50[2];
+    v24 = v51[3];
+    *(v23 + 48) = v51[2];
     *(v23 + 64) = v24;
-    *(v23 + 80) = v50[4];
-    v25 = v51;
-    v26 = v50[1];
-    *(v23 + 16) = v50[0];
+    *(v23 + 80) = v51[4];
+    v25 = v52;
+    v26 = v51[1];
+    *(v23 + 16) = v51[0];
     *(v23 + 32) = v26;
     *(v23 + 96) = v25;
     *(v23 + 104) = partial apply for closure #1 in closure #1 in BounceTextEffect.configuration(_:);
@@ -5935,48 +6362,49 @@ LABEL_2:
     v27 = MEMORY[0x1E69E6F90];
     type metadata accessor for _ContiguousArrayStorage<Text.Effect.Drawable.Fragment>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Text.Effect.Drawable.Fragment>, &type metadata for Text.Effect.Drawable.Fragment, MEMORY[0x1E69E6F90]);
     inited = swift_initStackObject();
-    v48 = xmmword_195CC8D00;
+    v49 = xmmword_195CC8D00;
     *(inited + 16) = xmmword_195CC8D00;
     *(inited + 32) = partial apply for closure #1 in Text.Effect.DrawableFragment.transform(with:transform:);
     *(inited + 40) = v23;
     type metadata accessor for _ContiguousArrayStorage<Text.Effect.Drawable.Fragment>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Text.Effect.Drawable>, &type metadata for Text.Effect.Drawable, v27);
     v29 = swift_initStackObject();
-    *(v29 + 16) = v48;
+    *(v29 + 16) = v49;
     *(v29 + 32) = inited;
     v30 = MEMORY[0x1E69E62F8];
-    outlined init with copy of [Text.Effect.Timing.GlyphTiming](&v53, v49, &lazy cache variable for type metadata for [Text.Effect.Timing.GlyphInfo], &type metadata for Text.Effect.Timing.GlyphInfo, MEMORY[0x1E69E62F8], type metadata accessor for _ContiguousArrayStorage<Text.Effect.Drawable.Fragment>);
-    outlined init with copy of [Text.Effect.Timing.GlyphTiming](&v54, v49, &lazy cache variable for type metadata for [Text.Effect.Timing.Fragment], &type metadata for Text.Effect.Timing.Fragment, v30, type metadata accessor for _ContiguousArrayStorage<Text.Effect.Drawable.Fragment>);
-    outlined init with copy of [Text.Effect.Timing.GlyphTiming](&v55, v49, &lazy cache variable for type metadata for [Text.Effect.Timing.GlyphTiming], type metadata accessor for Text.Effect.Timing.GlyphTiming, MEMORY[0x1E69E62F8], type metadata accessor for [Text.Effect.Timing.GlyphTiming]);
-    outlined init with copy of Text.Effect.ChunkCollection(&v56, v49);
-    v31 = specialized static Text.Effect.DrawingBuilder.buildBlock(_:)(v29);
+    outlined init with copy of [Text.Effect.Timing.GlyphTiming](&v54, v50, &lazy cache variable for type metadata for [Text.Effect.Timing.GlyphInfo], &type metadata for Text.Effect.Timing.GlyphInfo, MEMORY[0x1E69E62F8], type metadata accessor for _ContiguousArrayStorage<Text.Effect.Drawable.Fragment>);
+    outlined init with copy of [Text.Effect.Timing.GlyphTiming](&v55, v50, &lazy cache variable for type metadata for [Text.Effect.Timing.Fragment], &type metadata for Text.Effect.Timing.Fragment, v30, type metadata accessor for _ContiguousArrayStorage<Text.Effect.Drawable.Fragment>);
+    outlined init with copy of [Text.Effect.Timing.GlyphTiming](&v56, v50, &lazy cache variable for type metadata for [Text.Effect.Timing.GlyphTiming], type metadata accessor for Text.Effect.Timing.GlyphTiming, MEMORY[0x1E69E62F8], type metadata accessor for [Text.Effect.Timing.GlyphTiming]);
+    outlined init with copy of Text.Effect.ChunkCollection(&v57, v50);
+    specialized static Text.Effect.DrawingBuilder.buildBlock(_:)(v29);
+    v32 = v31;
     swift_setDeallocating();
     outlined destroy of Text.Effect.Drawable(v29 + 32);
-    return v31;
+    return v32;
   }
 
   else
   {
-    v47 = OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_line;
-    v33 = v7 + 16;
-    v34 = *(v7 + 16);
-    v35 = v10;
-    v36 = (v33 - 8);
-    v37 = (v35 + 8);
-    v34(v9, v15 + OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_line, v6);
+    v48 = OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_line;
+    v34 = v7 + 16;
+    v35 = *(v7 + 16);
+    v36 = v10;
+    v37 = (v34 - 8);
+    v38 = (v36 + 8);
+    v35(v9, v15 + OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_line, v6);
     while (1)
     {
       Text.Layout.Line.subscript.getter();
-      result = (*v36)(v9, v6);
+      result = (*v37)(v9, v6);
       if (v16 < *(v15 + 16) || v16 >= *(v15 + 24))
       {
         break;
       }
 
-      v41 = Text.Layout.Run.font.getter();
-      if (v41)
+      v42 = Text.Layout.Run.font.getter();
+      if (v42)
       {
-        v38 = v41;
-        Size = CTFontGetSize(v41);
+        v39 = v42;
+        Size = CTFontGetSize(v42);
       }
 
       else
@@ -5985,7 +6413,7 @@ LABEL_2:
       }
 
       ++v16;
-      (*v37)(v12, v48);
+      (*v38)(v12, v49);
       if (v17 <= Size)
       {
         v17 = Size;
@@ -5996,7 +6424,7 @@ LABEL_2:
         goto LABEL_2;
       }
 
-      v34(v9, v15 + v47, v6);
+      v35(v9, v15 + v48, v6);
     }
 
     __break(1u);
@@ -6009,16 +6437,16 @@ void closure #1 in closure #1 in BounceTextEffect.configuration(_:)(unint64_t a1
 {
   type metadata accessor for [Text.Effect.Timing.GlyphTiming](0, &lazy cache variable for type metadata for Spring?, MEMORY[0x1E6981850], MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v132 = &v116 - v9;
+  v133 = &v117 - v9;
   type metadata accessor for Text.Effect.DrawableFragment<BounceTextEffect>(0, &lazy cache variable for type metadata for Text.Effect.AttributeTracker.Value<Text.Effect.DrawingStateAttribute>, lazy protocol witness table accessor for type Text.Effect.DrawingStateAttribute and conformance Text.Effect.DrawingStateAttribute, &type metadata for Text.Effect.DrawingStateAttribute, type metadata accessor for Text.Effect.AttributeTracker.Value);
-  v131 = v10;
+  v132 = v10;
   MEMORY[0x1EEE9AC00](v10);
-  v130 = &v116 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v131 = (&v117 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x1EEE9AC00](v12);
-  v14 = (&v116 - v13);
+  v14 = (&v117 - v13);
   v15 = type metadata accessor for Text.Effect.Timing.GlyphTiming(0);
   MEMORY[0x1EEE9AC00](v15);
-  v18 = (&v116 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v18 = (&v117 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
   if ((a1 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -6042,7 +6470,7 @@ LABEL_46:
   }
 
   v21 = *(v19 + 32 * a1 + 32);
-  outlined init with copy of Text.Effect.Timing.GlyphTiming(v20 + ((*(v16 + 80) + 32) & ~*(v16 + 80)) + *(v16 + 72) * a1, &v116 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+  outlined init with copy of Text.Effect.Timing.GlyphTiming(v20 + ((*(v16 + 80) + 32) & ~*(v16 + 80)) + *(v16 + 72) * a1, &v117 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
   v22 = *(a2 + 5) - *(a2 + 4);
   v23 = *v18;
   v24 = 0.0;
@@ -6080,11 +6508,11 @@ LABEL_47:
   }
 
   v27 = *(a2 + 30);
-  v145 = *(a2 + 29);
-  v146 = *&v27;
-  v28 = *(a2 + 28);
-  v143 = *(a2 + 27);
-  v144 = v28;
+  v146 = a2[29];
+  v147 = *&v27;
+  v28 = a2[28];
+  v144 = a2[27];
+  v145 = *&v28;
   v29 = *(a2 + 26);
   v30 = ((sin((v24 * 1.375 + -0.4375) * 6.28318531) + 1.0) * 0.5 + -0.308658284) * 1.44646269 * 0.1 + 1.0;
   v31 = v24 * ((v21 * 0.5 + 1.0) * (((sin((v24 * 1.1 + -0.3) * 6.28318531) + 1.0) * 0.5 + -0.0244717419) * -1.02508563)) * 0.75 * a4;
@@ -6098,10 +6526,10 @@ LABEL_47:
     v32 = 0.0;
   }
 
-  v33 = v144;
+  v33 = v145;
   if (*&v26 == a1)
   {
-    v34 = v143;
+    v34 = *&v144;
   }
 
   else
@@ -6114,8 +6542,8 @@ LABEL_47:
     v33 = 0.0;
   }
 
-  v35 = v145;
-  v36 = v146;
+  v35 = *&v146;
+  v36 = v147;
   if (*&v26 != a1)
   {
     v35 = 0.0;
@@ -6125,355 +6553,355 @@ LABEL_47:
   v37 = v34 - v35;
   v38 = v36 + v35;
   MidX = CGRectGetMidX(*&v32);
-  v220 = 0uLL;
-  v221 = v31;
-  v222 = 0;
-  v223 = MidX;
-  v224 = v34;
-  v225 = 0x3FF0000000000000;
-  v226 = v30;
-  v227 = 0x3FF0000000000000;
-  v228 = 0;
-  Text.Effect.TransformContext.record(target:for:spring:)(&v220, a1, v18 + *(v15 + 24), &v173);
-  memcpy(v219, a2, 0x179uLL);
-  v40 = Text.Effect.TransformContext.subcomponents(for:)(a1);
-  v41 = *(v40 + 16);
-  if (v41)
+  v221 = 0uLL;
+  v222 = v31;
+  v223 = 0;
+  v224 = MidX;
+  v225 = v34;
+  v226 = 0x3FF0000000000000;
+  v227 = v30;
+  v228 = 0x3FF0000000000000;
+  v229 = 0;
+  Text.Effect.TransformContext.record(target:for:spring:)(&v221, a1, v18 + *(v15 + 24), v174);
+  memcpy(v220, a2, 0x179uLL);
+  v41 = Text.Effect.TransformContext.subcomponents(for:)(a1, v40);
+  v42 = *(v41 + 2);
+  if (v42)
   {
-    v117 = v18;
-    v42 = BYTE8(v219[3]);
-    v136 = *(&v219[0] + 1);
-    v127 = *&v219[0];
-    v125 = v219[8];
-    v126 = v219[7];
-    v123 = v219[10];
-    v124 = v219[9];
-    v121 = v219[12];
-    v122 = v219[11];
-    v119 = v219[14];
-    v120 = v219[13];
-    v118 = v219[15];
-    v43 = *(a2 + 41);
-    v170 = *(a2 + 39);
-    v171 = v43;
-    v172 = *(a2 + 43);
-    v44 = *(a2 + 37);
-    v168 = *(a2 + 35);
-    v169 = v44;
-    v45 = v41 - 1;
-    v116 = v40;
-    v46 = (v40 + 48);
+    v118 = v18;
+    v43 = BYTE8(v220[3]);
+    v137 = *(&v220[0] + 1);
+    v128 = *&v220[0];
+    v126 = v220[8];
+    v127 = v220[7];
+    v124 = v220[10];
+    v125 = v220[9];
+    v122 = v220[12];
+    v123 = v220[11];
+    v120 = v220[14];
+    v121 = v220[13];
+    v119 = v220[15];
+    v44 = *(a2 + 41);
+    v171 = *(a2 + 39);
+    v172 = v44;
+    v173 = *(a2 + 43);
+    v45 = *(a2 + 37);
+    v169 = *(a2 + 35);
+    v170 = v45;
+    v46 = v42 - 1;
+    v117 = v41;
+    v47 = (v41 + 48);
     __asm { FMOV            V0.2D, #1.0 }
 
-    v135 = _Q0;
-    v138 = *&v219[23];
-    v139 = *(&v219[22] + 1);
-    v137 = BYTE8(v219[23]);
-    v146 = *(&v219[16] + 1);
-    v134 = *&v219[16];
-    v143 = *(a2 + 34);
-    v129 = a2;
-    v128 = BYTE8(v219[3]);
+    v136 = _Q0;
+    v139 = *&v220[23];
+    v140 = *(&v220[22] + 1);
+    v138 = BYTE8(v220[23]);
+    v147 = *(&v220[16] + 1);
+    v135 = *&v220[16];
+    v144 = a2[34];
+    v130 = a2;
+    v129 = BYTE8(v220[3]);
     while (1)
     {
-      v52 = *(v46 - 2);
-      v53 = *(v46 - 1);
-      v145 = *&v46;
-      v54 = *v46;
-      v183 = 0u;
+      v53 = *(v47 - 2);
+      v54 = *(v47 - 1);
+      v146 = v47;
+      v55 = *v47;
       v184 = 0u;
       v185 = 0u;
-      v186[0] = v135;
-      *&v186[1] = 0x3FF0000000000000;
-      BYTE8(v186[1]) = 0;
-      v141 = v53;
-      v142 = v52;
-      v140 = v54;
-      if (v42)
+      v186 = 0u;
+      v187[0] = v136;
+      *&v187[1] = 0x3FF0000000000000;
+      BYTE8(v187[1]) = 0;
+      v142 = v54;
+      v143 = v53;
+      v141 = v55;
+      if (v43)
       {
-        v133 = v45;
-        v215[0] = &type metadata for Text.Effect.DrawingStateAttribute;
-        v215[1] = v136;
-        v215[2] = v52;
-        v215[3] = v53;
-        v216 = 0;
-        v217 = v54;
-        v218 = 0;
+        v134 = v46;
+        v216[0] = &type metadata for Text.Effect.DrawingStateAttribute;
+        v216[1] = v137;
+        v216[2] = v53;
+        v216[3] = v54;
+        v217 = 0;
+        v218 = v55;
+        v219 = 0;
         if (one-time initialization token for zero != -1)
         {
           swift_once();
         }
 
-        v149[2] = xmmword_1EAEE98D0;
-        v149[3] = unk_1EAEE98E0;
-        *(&v149[3] + 9) = unk_1EAEE98E9;
-        v149[0] = static Text.Effect.DrawingState.zero;
-        v149[1] = unk_1EAEE98C0;
-        v55 = type metadata accessor for Spring();
-        v56 = *(*(v55 - 8) + 56);
-        v57 = v132;
-        v56(v132, 1, 1, v55);
-        v58 = v184;
+        v150[2] = xmmword_1EAEE98D0;
+        v150[3] = unk_1EAEE98E0;
+        *(&v150[3] + 9) = unk_1EAEE98E9;
+        v150[0] = static Text.Effect.DrawingState.zero;
+        v150[1] = unk_1EAEE98C0;
+        v56 = type metadata accessor for Spring();
+        v57 = *(*(v56 - 8) + 56);
+        v58 = v133;
+        v57(v133, 1, 1, v56);
         v59 = v185;
-        v60 = v186[0];
-        v14[2] = v185;
-        v14[3] = v60;
-        v61 = *(v186 + 9);
-        *(v14 + 57) = *(v186 + 9);
-        v62 = v183;
-        *v14 = v183;
-        v14[1] = v58;
-        v14[7] = v59;
-        v14[8] = v60;
-        *(v14 + 137) = v61;
-        v14[5] = v62;
-        v14[6] = v58;
-        v63 = v149[0];
-        v64 = v149[1];
-        v65 = v149[2];
-        v66 = v149[3];
-        *(v14 + 217) = *(&v149[3] + 9);
-        v14[12] = v65;
-        v14[13] = v66;
-        v14[10] = v63;
-        v14[11] = v64;
-        v67 = v131;
-        v68 = *(v131 + 44);
-        v56(v14 + v68, 1, 1, v55);
-        v69 = v14 + *(v67 + 48);
-        v70 = v14 + *(v67 + 52);
-        outlined assign with take of Spring?(v57, v14 + v68);
-        *v69 = 0;
-        v69[8] = 1;
+        v60 = v186;
+        v61 = v187[0];
+        v14[2] = v186;
+        v14[3] = v61;
+        v62 = *(v187 + 9);
+        *(v14 + 57) = *(v187 + 9);
+        v63 = v184;
+        *v14 = v184;
+        v14[1] = v59;
+        v14[7] = v60;
+        v14[8] = v61;
+        *(v14 + 137) = v62;
+        v14[5] = v63;
+        v14[6] = v59;
+        v64 = v150[0];
+        v65 = v150[1];
+        v66 = v150[2];
+        v67 = v150[3];
+        *(v14 + 217) = *(&v150[3] + 9);
+        v14[12] = v66;
+        v14[13] = v67;
+        v14[10] = v64;
+        v14[11] = v65;
+        v68 = v132;
+        v69 = *(v132 + 44);
+        v57(v14 + v69, 1, 1, v56);
+        v70 = v14 + *(v68 + 48);
+        v71 = v14 + *(v68 + 52);
+        outlined assign with take of Spring?(v58, v14 + v69);
         *v70 = 0;
         v70[8] = 1;
-        v71 = v130;
-        outlined init with copy of Text.Effect.DrawableFragment<BounceTextEffect>(v14, v130, &lazy cache variable for type metadata for Text.Effect.AttributeTracker.Value<Text.Effect.DrawingStateAttribute>, lazy protocol witness table accessor for type Text.Effect.DrawingStateAttribute and conformance Text.Effect.DrawingStateAttribute, &type metadata for Text.Effect.DrawingStateAttribute, type metadata accessor for Text.Effect.AttributeTracker.Value);
+        *v71 = 0;
+        v71[8] = 1;
+        v72 = v131;
+        outlined init with copy of Text.Effect.DrawableFragment<BounceTextEffect>(v14, v131, &lazy cache variable for type metadata for Text.Effect.AttributeTracker.Value<Text.Effect.DrawingStateAttribute>, lazy protocol witness table accessor for type Text.Effect.DrawingStateAttribute and conformance Text.Effect.DrawingStateAttribute, &type metadata for Text.Effect.DrawingStateAttribute, type metadata accessor for Text.Effect.AttributeTracker.Value);
         swift_beginAccess();
-        specialized Text.Effect.AttributeTracker.Tracker.subscript.setter(v71, v215);
+        specialized Text.Effect.AttributeTracker.Tracker.subscript.setter(v72, v216);
         swift_endAccess();
         outlined destroy of Text.Effect.AttributeTracker.Value<Text.Effect.DrawingStateAttribute>(v14, &lazy cache variable for type metadata for Text.Effect.AttributeTracker.Value<Text.Effect.DrawingStateAttribute>, lazy protocol witness table accessor for type Text.Effect.DrawingStateAttribute and conformance Text.Effect.DrawingStateAttribute, &type metadata for Text.Effect.DrawingStateAttribute, type metadata accessor for Text.Effect.AttributeTracker.Value);
-        v72 = 0;
-        v144 = 1.0;
         v73 = 0;
+        v145 = 1.0;
         v74 = 0;
         v75 = 0;
         v76 = 0;
         v77 = 0;
         v78 = 0;
-        v79 = 1.0;
+        v79 = 0;
         v80 = 1.0;
-        a2 = v129;
-        v42 = v128;
-        v45 = v133;
+        v81 = 1.0;
+        a2 = v130;
+        v43 = v129;
+        v46 = v134;
       }
 
       else
       {
-        v81 = *(a2 + 4);
-        v191 = *(a2 + 3);
-        v192 = v81;
-        v82 = *(a2 + 6);
-        v193 = *(a2 + 5);
-        v194 = v82;
-        v83 = *(a2 + 2);
-        v189 = *(a2 + 1);
-        v190 = v83;
-        v84 = *(a2 + 20);
-        v208 = *(a2 + 19);
-        v209 = v84;
-        v210 = *(a2 + 21);
-        v211 = a2[44];
-        v85 = *(a2 + 18);
-        v206 = *(a2 + 17);
-        v207 = v85;
-        LOBYTE(v149[0]) = v137;
-        v187 = v127;
-        v188 = v136;
-        v195 = v126;
-        v196 = v125;
-        v197 = v124;
-        v198 = v123;
-        v199 = v122;
-        v200 = v121;
-        v201 = v120;
-        v202 = v119;
-        v203 = v118;
-        v204 = v134;
-        v205 = *&v146;
-        v212 = v139;
-        v213 = v138;
-        v214 = v137;
-        Text.Effect.TransformContext.cancelPosition(target:)(&v183, &v174);
-        v74 = *(&v174 + 1);
-        v73 = v174;
-        v75 = v175;
+        v82 = *(a2 + 4);
+        v192 = *(a2 + 3);
+        v193 = v82;
+        v83 = *(a2 + 6);
+        v194 = *(a2 + 5);
+        v195 = v83;
+        v84 = *(a2 + 2);
+        v190 = *(a2 + 1);
+        v191 = v84;
+        v85 = *(a2 + 20);
+        v209 = *(a2 + 19);
+        v210 = v85;
+        v211 = *(a2 + 21);
+        v212 = a2[44];
+        v86 = *(a2 + 18);
+        v207 = *(a2 + 17);
+        v208 = v86;
+        LOBYTE(v150[0]) = v138;
+        v188 = v128;
+        v189 = v137;
+        v196 = v127;
+        v197 = v126;
+        v198 = v125;
+        v199 = v124;
+        v200 = v123;
+        v201 = v122;
+        v202 = v121;
+        v203 = v120;
+        v204 = v119;
+        v205 = v135;
+        v206 = *&v147;
+        v213 = v140;
+        v214 = v139;
+        v215 = v138;
+        Text.Effect.TransformContext.cancelPosition(target:)(&v184, &v175, v119);
+        v75 = *(&v175 + 1);
+        v74 = v175;
         v76 = v176;
         v77 = v177;
         v78 = v178;
-        v144 = v179;
-        v79 = v180;
+        v79 = v179;
+        v145 = v180;
         v80 = v181;
-        v72 = v182;
+        v81 = v182;
+        v73 = v183;
       }
 
-      v165 = v170;
       v166 = v171;
       v167 = v172;
-      v163 = v168;
+      v168 = v173;
       v164 = v169;
-      if (v143 == 0.0)
+      v165 = v170;
+      if (*&v144 == 0.0)
       {
-        v101 = v45;
+        v102 = v46;
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v146 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v146 + 16) + 1, 1, *&v146));
+          v147 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v147 + 16) + 1, 1, *&v147));
         }
 
-        v103 = *(*&v146 + 16);
-        v102 = *(*&v146 + 24);
-        if (v103 >= v102 >> 1)
+        v104 = *(*&v147 + 16);
+        v103 = *(*&v147 + 24);
+        if (v104 >= v103 >> 1)
         {
-          v146 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v102 > 1), v103 + 1, 1, *&v146));
+          v147 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v103 > 1), v104 + 1, 1, *&v147));
         }
 
-        LOBYTE(v157) = v137;
-        *&v149[0] = v73;
-        *(&v149[0] + 1) = v74;
-        *&v149[1] = v75;
-        *(&v149[1] + 1) = v76;
-        *&v149[2] = v77;
-        *(&v149[2] + 1) = v78;
-        *&v149[3] = v144;
-        *(&v149[3] + 1) = v79;
-        *&v149[4] = v80;
-        BYTE8(v149[4]) = v72;
-        *(&v149[4] + 12) = v139;
-        *(&v149[5] + 4) = v138;
-        BYTE12(v149[5]) = v137;
-        _s7SwiftUI4TextV0C16AnimationSupportE6EffectO11DisplayInfoV13DrawOperationOWOi_(v149);
-        v104 = *&v146;
-        *(*&v146 + 16) = v103 + 1;
-        v105 = &v104[216 * v103];
-        v106 = v149[1];
-        *(v105 + 2) = v149[0];
-        *(v105 + 3) = v106;
-        v107 = v149[2];
-        v108 = v149[3];
-        v109 = v149[5];
-        *(v105 + 6) = v149[4];
-        *(v105 + 7) = v109;
-        *(v105 + 4) = v107;
-        *(v105 + 5) = v108;
-        v110 = v150;
+        LOBYTE(v158) = v138;
+        *&v150[0] = v74;
+        *(&v150[0] + 1) = v75;
+        *&v150[1] = v76;
+        *(&v150[1] + 1) = v77;
+        *&v150[2] = v78;
+        *(&v150[2] + 1) = v79;
+        *&v150[3] = v145;
+        *(&v150[3] + 1) = v80;
+        *&v150[4] = v81;
+        BYTE8(v150[4]) = v73;
+        *(&v150[4] + 12) = v140;
+        *(&v150[5] + 4) = v139;
+        BYTE12(v150[5]) = v138;
+        _s7SwiftUI4TextV0C16AnimationSupportE6EffectO11DisplayInfoV13DrawOperationOWOi_(v150);
+        v105 = *&v147;
+        *(*&v147 + 16) = v104 + 1;
+        v106 = &v105[216 * v104];
+        v107 = v150[1];
+        *(v106 + 2) = v150[0];
+        *(v106 + 3) = v107;
+        v108 = v150[2];
+        v109 = v150[3];
+        v110 = v150[5];
+        *(v106 + 6) = v150[4];
+        *(v106 + 7) = v110;
+        *(v106 + 4) = v108;
+        *(v106 + 5) = v109;
         v111 = v151;
-        v112 = v153;
-        *(v105 + 10) = v152;
-        *(v105 + 11) = v112;
-        *(v105 + 8) = v110;
-        *(v105 + 9) = v111;
-        v113 = v154[0];
-        v114 = v154[1];
-        v115 = v155;
-        v105[240] = v156;
-        *(v105 + 13) = v114;
-        *(v105 + 14) = v115;
-        *(v105 + 12) = v113;
-        v45 = v101;
-        v100 = v145;
-        if (!v101)
+        v112 = v152;
+        v113 = v154;
+        *(v106 + 10) = v153;
+        *(v106 + 11) = v113;
+        *(v106 + 8) = v111;
+        *(v106 + 9) = v112;
+        v114 = v155[0];
+        v115 = v155[1];
+        v116 = v156;
+        v106[240] = v157;
+        *(v106 + 13) = v115;
+        *(v106 + 14) = v116;
+        *(v106 + 12) = v114;
+        v46 = v102;
+        v101 = v146;
+        if (!v102)
         {
 LABEL_41:
 
-          *(a2 + 33) = v146;
-          v18 = v117;
+          *(a2 + 33) = v147;
+          v18 = v118;
           goto LABEL_43;
         }
       }
 
       else
       {
-        v157 = v143;
-        v159 = v169;
+        v158 = v144;
         v160 = v170;
         v161 = v171;
         v162 = v172;
-        v158 = v168;
-        outlined init with copy of Text.Effect.PathInterpolator(&v157, v149);
+        v163 = v173;
+        v159 = v169;
+        outlined init with copy of Text.Effect.PathInterpolator(&v158, v150);
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v146 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v146 + 16) + 1, 1, *&v146));
+          v147 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(*&v147 + 16) + 1, 1, *&v147));
         }
 
-        v87 = *(*&v146 + 16);
-        v86 = *(*&v146 + 24);
-        if (v87 >= v86 >> 1)
+        v88 = *(*&v147 + 16);
+        v87 = *(*&v147 + 24);
+        if (v88 >= v87 >> 1)
         {
-          v146 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v86 > 1), v87 + 1, 1, *&v146));
+          v147 = COERCE_DOUBLE(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v87 > 1), v88 + 1, 1, *&v147));
         }
 
-        *(&v149[1] + 8) = v164;
-        *(&v149[2] + 8) = v165;
-        *(&v149[3] + 8) = v166;
-        *(&v149[4] + 8) = v167;
-        *(v149 + 8) = v163;
-        v148 = v137;
-        v147 = 0;
-        *v149 = v143;
-        *(&v149[5] + 1) = v73;
-        *&v150 = v74;
-        *(&v150 + 1) = v75;
-        *&v151 = v76;
-        *(&v151 + 1) = v77;
-        *&v152 = v78;
-        *(&v152 + 1) = v144;
+        *(&v150[1] + 8) = v165;
+        *(&v150[2] + 8) = v166;
+        *(&v150[3] + 8) = v167;
+        *(&v150[4] + 8) = v168;
+        *(v150 + 8) = v164;
+        v149 = v138;
+        v148 = 0;
+        *&v150[0] = v144;
+        *(&v150[5] + 1) = v74;
+        *&v151 = v75;
+        *(&v151 + 1) = v76;
+        *&v152 = v77;
+        *(&v152 + 1) = v78;
         *&v153 = v79;
-        *(&v153 + 1) = v80;
-        LOBYTE(v154[0]) = v72;
-        *(v154 + 4) = v139;
-        *(v154 + 12) = v138;
-        BYTE4(v154[1]) = v137;
-        *(&v154[1] + 1) = v142;
-        *&v155 = v141;
-        *(&v155 + 1) = v140;
-        v156 = 0;
-        _s7SwiftUI4TextV0C16AnimationSupportE6EffectO11DisplayInfoV13DrawOperationOWOi0_(v149);
-        v88 = *&v146;
-        *(*&v146 + 16) = v87 + 1;
-        v89 = &v88[216 * v87];
-        v90 = v149[1];
-        *(v89 + 2) = v149[0];
-        *(v89 + 3) = v90;
-        v91 = v149[2];
-        v92 = v149[3];
-        v93 = v149[5];
-        *(v89 + 6) = v149[4];
-        *(v89 + 7) = v93;
-        *(v89 + 4) = v91;
-        *(v89 + 5) = v92;
-        v94 = v150;
+        *(&v153 + 1) = v145;
+        *&v154 = v80;
+        *(&v154 + 1) = v81;
+        LOBYTE(v155[0]) = v73;
+        *(v155 + 4) = v140;
+        *(v155 + 12) = v139;
+        BYTE4(v155[1]) = v138;
+        *(&v155[1] + 1) = v143;
+        *&v156 = v142;
+        *(&v156 + 1) = v141;
+        v157 = 0;
+        _s7SwiftUI4TextV0C16AnimationSupportE6EffectO11DisplayInfoV13DrawOperationOWOi0_(v150);
+        v89 = *&v147;
+        *(*&v147 + 16) = v88 + 1;
+        v90 = &v89[216 * v88];
+        v91 = v150[1];
+        *(v90 + 2) = v150[0];
+        *(v90 + 3) = v91;
+        v92 = v150[2];
+        v93 = v150[3];
+        v94 = v150[5];
+        *(v90 + 6) = v150[4];
+        *(v90 + 7) = v94;
+        *(v90 + 4) = v92;
+        *(v90 + 5) = v93;
         v95 = v151;
-        v96 = v153;
-        *(v89 + 10) = v152;
-        *(v89 + 11) = v96;
-        *(v89 + 8) = v94;
-        *(v89 + 9) = v95;
-        v97 = v154[0];
-        v98 = v154[1];
-        v99 = v155;
-        v89[240] = v156;
-        *(v89 + 13) = v98;
-        *(v89 + 14) = v99;
-        *(v89 + 12) = v97;
-        v100 = v145;
-        if (!v45)
+        v96 = v152;
+        v97 = v154;
+        *(v90 + 10) = v153;
+        *(v90 + 11) = v97;
+        *(v90 + 8) = v95;
+        *(v90 + 9) = v96;
+        v98 = v155[0];
+        v99 = v155[1];
+        v100 = v156;
+        v90[240] = v157;
+        *(v90 + 13) = v99;
+        *(v90 + 14) = v100;
+        *(v90 + 12) = v98;
+        v101 = v146;
+        if (!v46)
         {
           goto LABEL_41;
         }
       }
 
-      v46 = (*&v100 + 24);
-      --v45;
+      v47 = (v101 + 24);
+      --v46;
     }
   }
 
@@ -6492,10 +6920,11 @@ double protocol witness for Text.Effect.Base.timing(for:from:to:duration:) in co
   return result;
 }
 
-unint64_t instantiation function for generic protocol witness table for BounceTextEffect(uint64_t a1)
+unint64_t instantiation function for generic protocol witness table for BounceTextEffect(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *(a1 + 8) = lazy protocol witness table accessor for type BounceTextEffect and conformance BounceTextEffect();
-  result = lazy protocol witness table accessor for type BounceTextEffect and conformance BounceTextEffect();
+  v4 = lazy protocol witness table accessor for type BounceTextEffect and conformance BounceTextEffect(a1, a2, a3);
+  *(a1 + 8) = v4;
+  result = lazy protocol witness table accessor for type BounceTextEffect and conformance BounceTextEffect(v4, v5, v6);
   *(a1 + 16) = result;
   return result;
 }
@@ -6776,14 +7205,14 @@ uint64_t thunk for @escaping @callee_guaranteed (@in_guaranteed Any?, @unowned _
 
 id makeAttributedString #1 () in static TextAnimationsProvider.drawStatic(string:attributes:options:rect:padding:forceClipping:cgContext:stringDrawingContext:)(uint64_t a1, uint64_t a2)
 {
-  outlined init with copy of Any(a1, v13);
+  outlined init with copy of Any(a1, v14);
   type metadata accessor for NSAttributedString();
   if (swift_dynamicCast())
   {
-    return v11;
+    return v12;
   }
 
-  outlined init with copy of Any(a1, v13);
+  outlined init with copy of Any(a1, v14);
   if (!swift_dynamicCast())
   {
     v6 = 0;
@@ -6794,44 +7223,45 @@ id makeAttributedString #1 () in static TextAnimationsProvider.drawStatic(string
     }
 
 LABEL_7:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_8;
   }
 
-  v6 = v11;
-  v5 = v12;
+  v6 = v12;
+  v5 = v13;
   if (!a2)
   {
     goto LABEL_7;
   }
 
 LABEL_5:
-  v7 = specialized _dictionaryDownCastConditional<A, B, C, D>(_:)(a2);
+  specialized _dictionaryDownCastConditional<A, B, C, D>(_:)(a2);
+  v8 = v7;
 LABEL_8:
-  v8 = MEMORY[0x19A8BD5F0](v6, v5);
+  v9 = MEMORY[0x19A8BD5F0](v6, v5);
 
-  if (v7)
+  if (v8)
   {
     type metadata accessor for NSAttributedStringKey(0);
     lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey();
-    v9.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    v10.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v9.super.isa = 0;
+    v10.super.isa = 0;
   }
 
-  v10 = [objc_allocWithZone(MEMORY[0x1E696AAB0]) initWithString:v8 attributes:v9.super.isa];
+  v11 = [objc_allocWithZone(MEMORY[0x1E696AAB0]) initWithString:v9 attributes:v10.super.isa];
 
-  return v10;
+  return v11;
 }
 
-uint64_t specialized _dictionaryDownCastConditional<A, B, C, D>(_:)(uint64_t a1)
+void specialized _dictionaryDownCastConditional<A, B, C, D>(_:)(uint64_t a1)
 {
   if (*(a1 + 16))
   {
-    type metadata accessor for _DictionaryStorage<NSAttributedStringKey, Any>();
+    type metadata accessor for _DictionaryStorage<NSAttributedStringKey, Any>(0);
     v1 = static _DictionaryStorage.allocate(capacity:)();
   }
 
@@ -6855,107 +7285,101 @@ uint64_t specialized _dictionaryDownCastConditional<A, B, C, D>(_:)(uint64_t a1)
   v5 = (v2 + 63) >> 6;
   v6 = v1 + 64;
 
-  v8 = 0;
-  while (1)
+  v7 = 0;
+  while (v4)
   {
-    if (!v4)
-    {
-      while (1)
-      {
-        v10 = v8 + 1;
-        if (__OFADD__(v8, 1))
-        {
-          break;
-        }
-
-        if (v10 >= v5)
-        {
-
-          return v1;
-        }
-
-        v4 = *(a1 + 64 + 8 * v10);
-        ++v8;
-        if (v4)
-        {
-          v8 = v10;
-          goto LABEL_15;
-        }
-      }
-
-      __break(1u);
-      goto LABEL_29;
-    }
-
 LABEL_15:
-    v11 = __clz(__rbit64(v4)) | (v8 << 6);
-    outlined init with copy of AnyHashable(*(a1 + 48) + 40 * v11, v31);
-    outlined init with copy of Any(*(a1 + 56) + 32 * v11, v32 + 8);
-    v29[0] = v32[0];
-    v29[1] = v32[1];
-    v30 = v33;
+    v10 = __clz(__rbit64(v4)) | (v7 << 6);
+    outlined init with copy of AnyHashable(*(a1 + 48) + 40 * v10, v30);
+    outlined init with copy of Any(*(a1 + 56) + 32 * v10, v31 + 8);
     v28[0] = v31[0];
     v28[1] = v31[1];
-    outlined init with copy of AnyHashable(v28, v25);
+    v29 = v32;
+    v27[0] = v30[0];
+    v27[1] = v30[1];
+    outlined init with copy of AnyHashable(v27, v24);
     type metadata accessor for NSAttributedStringKey(0);
     if (!swift_dynamicCast())
     {
-      break;
+      _sypSgWOhTm_1(v27, type metadata accessor for (key: AnyHashable, value: Any));
+
+      return;
     }
 
-    v12 = v24;
-    outlined init with copy of Any(v29 + 8, v26 + 8);
-    _sypSgWOhTm_1(v28, type metadata accessor for (key: AnyHashable, value: Any));
-    outlined init with take of Any((v26 + 8), v23);
-    v13 = v12;
-    outlined init with take of Any(v23, v27);
-    outlined init with take of Any(v27, v26);
+    v11 = v23;
+    outlined init with copy of Any(v28 + 8, v25 + 8);
+    _sypSgWOhTm_1(v27, type metadata accessor for (key: AnyHashable, value: Any));
+    outlined init with take of Any((v25 + 8), v22);
+    v12 = v11;
+    outlined init with take of Any(v22, v26);
+    outlined init with take of Any(v26, v25);
     static String._unconditionallyBridgeFromObjectiveC(_:)();
     Hasher.init(_seed:)();
     String.hash(into:)();
-    v14 = Hasher._finalize()();
+    v13 = Hasher._finalize()();
 
-    v15 = -1 << *(v1 + 32);
-    v16 = v14 & ~v15;
-    v17 = v16 >> 6;
-    if (((-1 << v16) & ~*(v6 + 8 * (v16 >> 6))) == 0)
+    v14 = -1 << *(v1 + 32);
+    v15 = v13 & ~v14;
+    v16 = v15 >> 6;
+    if (((-1 << v15) & ~*(v6 + 8 * (v15 >> 6))) == 0)
     {
-      v18 = 0;
-      v19 = (63 - v15) >> 6;
-      while (++v17 != v19 || (v18 & 1) == 0)
+      v17 = 0;
+      v18 = (63 - v14) >> 6;
+      while (++v16 != v18 || (v17 & 1) == 0)
       {
-        v20 = v17 == v19;
-        if (v17 == v19)
+        v19 = v16 == v18;
+        if (v16 == v18)
         {
-          v17 = 0;
+          v16 = 0;
         }
 
-        v18 |= v20;
-        v21 = *(v6 + 8 * v17);
-        if (v21 != -1)
+        v17 |= v19;
+        v20 = *(v6 + 8 * v16);
+        if (v20 != -1)
         {
-          v9 = __clz(__rbit64(~v21)) + (v17 << 6);
+          v8 = __clz(__rbit64(~v20)) + (v16 << 6);
           goto LABEL_9;
         }
       }
 
-LABEL_29:
-      __break(1u);
-      return result;
+      goto LABEL_28;
     }
 
-    v9 = __clz(__rbit64((-1 << v16) & ~*(v6 + 8 * (v16 >> 6)))) | v16 & 0x7FFFFFFFFFFFFFC0;
+    v8 = __clz(__rbit64((-1 << v15) & ~*(v6 + 8 * (v15 >> 6)))) | v15 & 0x7FFFFFFFFFFFFFC0;
 LABEL_9:
-    *(v6 + ((v9 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v9;
+    *(v6 + ((v8 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v8;
     v4 &= v4 - 1;
-    *(*(v1 + 48) + 8 * v9) = v13;
-    result = outlined init with take of Any(v26, (*(v1 + 56) + 32 * v9));
+    *(*(v1 + 48) + 8 * v8) = v12;
+    outlined init with take of Any(v25, (*(v1 + 56) + 32 * v8));
     ++*(v1 + 16);
   }
 
-  _sypSgWOhTm_1(v28, type metadata accessor for (key: AnyHashable, value: Any));
+  while (1)
+  {
+    v9 = v7 + 1;
+    if (__OFADD__(v7, 1))
+    {
+      break;
+    }
 
-  return 0;
+    if (v9 >= v5)
+    {
+
+      return;
+    }
+
+    v4 = *(a1 + 64 + 8 * v9);
+    ++v7;
+    if (v4)
+    {
+      v7 = v9;
+      goto LABEL_15;
+    }
+  }
+
+  __break(1u);
+LABEL_28:
+  __break(1u);
 }
 
 uint64_t closure #1 in static TextAnimationsProvider.drawStatic(string:attributes:options:rect:padding:forceClipping:cgContext:stringDrawingContext:)(void *a1, uint64_t a2)
@@ -7568,113 +7992,114 @@ id specialized static TextAnimationsProvider.textEffect(named:)(uint64_t a1, uin
   return [(objc_super *)v7 init];
 }
 
-uint64_t specialized static TextAnimationsProvider.drawStatic(string:attributes:options:rect:padding:forceClipping:cgContext:stringDrawingContext:)(uint64_t a1, uint64_t a2, void *a3, void *a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9)
+void specialized static TextAnimationsProvider.drawStatic(string:attributes:options:rect:padding:forceClipping:cgContext:stringDrawingContext:)(uint64_t a1, uint64_t a2, void *a3, void *a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9)
 {
   v18 = type metadata accessor for FloatingPointRoundingRule();
-  v123 = *(v18 - 1);
+  v124 = *(v18 - 1);
   MEMORY[0x1EEE9AC00](v18);
-  v20 = &v108 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v116 = type metadata accessor for EnvironmentValues();
-  v115 = *(v116 - 8);
-  MEMORY[0x1EEE9AC00](v116);
-  v114 = &v108 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = &v109 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v117 = type metadata accessor for EnvironmentValues();
+  v116 = *(v117 - 8);
+  MEMORY[0x1EEE9AC00](v117);
+  v115 = &v109 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   v22 = [objc_allocWithZone(MEMORY[0x1E69DB808]) init];
   v23 = [objc_allocWithZone(MEMORY[0x1E69DB828]) init];
   v24 = [objc_allocWithZone(MEMORY[0x1E69DB800]) init];
   [v24 setLineFragmentPadding_];
-  v126 = a5;
-  v138.origin.x = a5;
-  v138.origin.y = a6;
-  v138.size.width = a7;
-  v138.size.height = a8;
-  Width = CGRectGetWidth(v138);
+  v127 = a5;
+  v139.origin.x = a5;
+  v139.origin.y = a6;
+  v139.size.width = a7;
+  v139.size.height = a8;
+  Width = CGRectGetWidth(v139);
   [v24 size];
   [v24 setSize_];
   [v23 setTextContainer_];
   [v24 setLineBreakMode_];
-  v125 = a4;
+  v126 = a4;
   v26 = [a4 maximumNumberOfLines];
-  v122 = v24;
+  v123 = v24;
   [v24 setMaximumNumberOfLines_];
   _NSTextLayoutManagerRequiresCTLine(v23);
   v27 = makeAttributedString #1 () in static TextAnimationsProvider.drawStatic(string:attributes:options:rect:padding:forceClipping:cgContext:stringDrawingContext:)(a1, a2);
-  v28 = NSAttributedString.replacingLineBreakModes(_:)(0);
+  NSAttributedString.replacingLineBreakModes(_:)(0);
+  v29 = v28;
 
-  v128 = v28;
+  v129 = v29;
   [v22 setAttributedString_];
   [v23 replaceTextContentManager_];
-  v29 = [v23 documentRange];
+  v30 = [v23 documentRange];
   [v23 invalidateLayoutForRange_];
 
-  v30 = [v23 documentRange];
-  v127 = v23;
+  v31 = [v23 documentRange];
+  v128 = v23;
   [v23 ensureLayoutForRange_];
 
-  v31 = [objc_allocWithZone(type metadata accessor for TextEffectsRenderer()) init];
-  v32 = a3;
-  v33 = v31;
-  v124 = v32;
-  if (v32)
+  v32 = [objc_allocWithZone(type metadata accessor for TextEffectsRenderer()) init];
+  v33 = a3;
+  v34 = v32;
+  v125 = v33;
+  if (v33)
   {
-    CGContextGetCTM(&aBlock, v32);
-    v34 = fabs(aBlock.a);
-    v35 = fabs(aBlock.d);
-    if (aBlock.c == 0.0 && aBlock.b == 0.0 && v34 == v35)
+    CGContextGetCTM(&aBlock, v33);
+    v35 = fabs(aBlock.a);
+    v36 = fabs(aBlock.d);
+    if (aBlock.c == 0.0 && aBlock.b == 0.0 && v35 == v36)
     {
-      v38 = v34;
+      v39 = v35;
     }
 
     else
     {
-      v38 = 1.0;
+      v39 = 1.0;
     }
   }
 
   else
   {
-    v38 = 1.0;
+    v39 = 1.0;
   }
 
-  v39 = *&v33[OBJC_IVAR____TtC20TextAnimationSupport19TextEffectsRenderer_contentsScale];
-  v120 = OBJC_IVAR____TtC20TextAnimationSupport19TextEffectsRenderer_contentsScale;
-  *&v33[OBJC_IVAR____TtC20TextAnimationSupport19TextEffectsRenderer_contentsScale] = v38;
-  TextEffectsRenderer.contentsScale.didset(v39);
-  v40 = OBJC_IVAR____TtC20TextAnimationSupport19TextEffectsRenderer_updatedFragments;
+  v40 = *&v34[OBJC_IVAR____TtC20TextAnimationSupport19TextEffectsRenderer_contentsScale];
+  v121 = OBJC_IVAR____TtC20TextAnimationSupport19TextEffectsRenderer_contentsScale;
+  *&v34[OBJC_IVAR____TtC20TextAnimationSupport19TextEffectsRenderer_contentsScale] = v39;
+  TextEffectsRenderer.contentsScale.didset(v40);
+  v41 = OBJC_IVAR____TtC20TextAnimationSupport19TextEffectsRenderer_updatedFragments;
   swift_beginAccess();
-  v41 = MEMORY[0x1E69E7CC0];
-  *&v33[v40] = MEMORY[0x1E69E7CC0];
+  v42 = MEMORY[0x1E69E7CC0];
+  *&v34[v41] = MEMORY[0x1E69E7CC0];
 
-  v42 = swift_allocObject();
-  *(v42 + 16) = v33;
   v43 = swift_allocObject();
-  *(v43 + 16) = partial apply for closure #1 in static TextAnimationsProvider.drawStatic(string:attributes:options:rect:padding:forceClipping:cgContext:stringDrawingContext:);
-  *(v43 + 24) = v42;
-  v121 = v42;
+  *(v43 + 16) = v34;
+  v44 = swift_allocObject();
+  *(v44 + 16) = partial apply for closure #1 in static TextAnimationsProvider.drawStatic(string:attributes:options:rect:padding:forceClipping:cgContext:stringDrawingContext:);
+  *(v44 + 24) = v43;
+  v122 = v43;
   *&aBlock.tx = partial apply for thunk for @callee_guaranteed (@guaranteed NSTextLayoutFragment) -> (@unowned Bool);
-  *&aBlock.ty = v43;
+  *&aBlock.ty = v44;
   *&aBlock.a = MEMORY[0x1E69E9820];
   *&aBlock.b = 1107296256;
   *&aBlock.c = thunk for @escaping @callee_guaranteed (@guaranteed NSTextLayoutFragment) -> (@unowned Bool);
   *&aBlock.d = &block_descriptor_2;
-  v44 = _Block_copy(&aBlock);
-  v45 = v33;
+  v45 = _Block_copy(&aBlock);
+  v46 = v34;
 
-  v46 = [v127 enumerateTextLayoutFragmentsFromLocation:0 options:4 usingBlock:v44];
+  v47 = [v128 enumerateTextLayoutFragmentsFromLocation:0 options:4 usingBlock:v45];
   swift_unknownObjectRelease();
-  _Block_release(v44);
-  LOBYTE(v44) = swift_isEscapingClosureAtFileLocation();
+  _Block_release(v45);
+  LOBYTE(v45) = swift_isEscapingClosureAtFileLocation();
 
-  if (v44)
+  if (v45)
   {
     __break(1u);
   }
 
   else
   {
-    v118 = v22;
-    v119 = v20;
-    specialized TextEffectsRenderer.endLayout(with:)(v45);
-    v136 = v41;
+    v119 = v22;
+    v120 = v20;
+    specialized TextEffectsRenderer.endLayout(with:)(v46);
+    v137 = v42;
     if (one-time initialization token for _textAnimation == -1)
     {
       goto LABEL_14;
@@ -7683,27 +8108,27 @@ uint64_t specialized static TextAnimationsProvider.drawStatic(string:attributes:
 
   swift_once();
 LABEL_14:
-  v47 = static NSAttributedStringKey._textAnimation;
-  v48 = v128;
-  v49 = [v128 length];
-  v50 = swift_allocObject();
-  *(v50 + 16) = v45;
-  *(v50 + 24) = &v136;
+  v48 = static NSAttributedStringKey._textAnimation;
+  v49 = v129;
+  v50 = [v129 length];
   v51 = swift_allocObject();
-  *(v51 + 16) = partial apply for closure #3 in static TextAnimationsProvider.drawStatic(string:attributes:options:rect:padding:forceClipping:cgContext:stringDrawingContext:);
-  *(v51 + 24) = v50;
-  v117 = v50;
+  *(v51 + 16) = v46;
+  *(v51 + 24) = &v137;
+  v52 = swift_allocObject();
+  *(v52 + 16) = partial apply for closure #3 in static TextAnimationsProvider.drawStatic(string:attributes:options:rect:padding:forceClipping:cgContext:stringDrawingContext:);
+  *(v52 + 24) = v51;
+  v118 = v51;
   *&aBlock.tx = _sypSgSo8_NSRangeVSpy10ObjectiveC8ObjCBoolVGIgnyy_AacGIegnyy_TRTA_0;
-  *&aBlock.ty = v51;
+  *&aBlock.ty = v52;
   *&aBlock.a = MEMORY[0x1E69E9820];
   *&aBlock.b = 1107296256;
   *&aBlock.c = thunk for @escaping @callee_guaranteed (@in_guaranteed Any?, @unowned _NSRange, @unowned UnsafeMutablePointer<ObjCBool>) -> ();
   *&aBlock.d = &block_descriptor_14;
-  v52 = _Block_copy(&aBlock);
-  v53 = v45;
+  v53 = _Block_copy(&aBlock);
+  v54 = v46;
 
-  [v48 enumerateAttribute:v47 inRange:0 options:v49 usingBlock:{0, v52}];
-  _Block_release(v52);
+  [v49 enumerateAttribute:v48 inRange:0 options:v50 usingBlock:{0, v53}];
+  _Block_release(v53);
   isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
   if (isEscapingClosureAtFileLocation)
@@ -7712,150 +8137,146 @@ LABEL_14:
     goto LABEL_40;
   }
 
-  specialized TextEffectsRenderer.updateForStaticRendering(with:)(v53);
-  v47 = TextEffectsRenderer.baselineOffsets.getter();
-  v55 = v125;
-  v56 = [v125 wantsBaselineOffset];
-  v57 = MEMORY[0x1E69E7CC0];
-  if (v56)
+  specialized TextEffectsRenderer.updateForStaticRendering(with:)(v54);
+  v48 = TextEffectsRenderer.baselineOffsets.getter();
+  v56 = v126;
+  v57 = [v126 wantsBaselineOffset];
+  v58 = MEMORY[0x1E69E7CC0];
+  if (v57)
   {
-    v58 = *(v47 + 2);
-    if (v58)
+    if (*(v48 + 2))
     {
-      result = _NSStringDrawingContextSetBaselineOffset(v55, *&v47[8 * v58 + 24]);
-      if (!*(v47 + 2))
+      _NSStringDrawingContextSetBaselineOffset(v56);
+      if (!*(v48 + 2))
       {
         goto LABEL_42;
       }
-
-      v60 = *(v47 + 4);
     }
 
     else
     {
-      v60 = 0.0;
-      _NSStringDrawingContextSetBaselineOffset(v55, 0.0);
+      _NSStringDrawingContextSetBaselineOffset(v56);
     }
 
-    _NSStringDrawingContextSetFirstBaselineOffset(v55, v60);
+    _NSStringDrawingContextSetFirstBaselineOffset(v56);
   }
 
-  if (v124)
+  if (v125)
   {
-    v125 = v18;
+    v126 = v18;
+    v134 = 0;
     v133 = 0;
     v132 = 0;
-    v131 = 0;
-    v129 = 0;
-    v130 = 1;
+    v130 = 0;
+    v131 = 1;
+    v136 = 0;
     v135 = 0;
-    v134 = 0;
-    v124 = v124;
-    v61 = [v128 string];
-    v62 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v64 = v63;
+    v125 = v125;
+    v59 = [v129 string];
+    v60 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v62 = v61;
 
-    *&aBlock.a = v62;
-    aBlock.b = v64;
+    *&aBlock.a = v60;
+    aBlock.b = v62;
     if (one-time initialization token for oversizedScalars == -1)
     {
 LABEL_23:
-      v65 = type metadata accessor for CharacterSet();
-      __swift_project_value_buffer(v65, static NSAttributedString.oversizedScalars);
-      lazy protocol witness table accessor for type String and conformance String();
+      v63 = type metadata accessor for CharacterSet();
+      v64 = __swift_project_value_buffer(v63, static NSAttributedString.oversizedScalars);
+      lazy protocol witness table accessor for type String and conformance String(v64, v65, v66);
       StringProtocol.rangeOfCharacter(from:options:range:)();
-      v67 = v66;
+      v68 = v67;
 
-      v68 = v67 ^ 1;
+      v69 = v68 ^ 1;
       if (one-time initialization token for kitFont != -1)
       {
         swift_once();
       }
 
-      v69 = static NSAttributedStringKey.kitFont;
-      v70 = v128;
-      v71 = [v128 length];
-      v72 = swift_allocObject();
-      *(v72 + 16) = &v133;
-      *(v72 + 24) = &v132;
-      *(v72 + 32) = &v131;
-      *(v72 + 40) = &v129;
-      *(v72 + 48) = v68 & 1;
-      *(v72 + 56) = &v134;
+      v70 = static NSAttributedStringKey.kitFont;
+      v71 = v129;
+      v72 = [v129 length];
       v73 = swift_allocObject();
-      *(v73 + 16) = partial apply for closure #1 in NSAttributedString.maxFontMetrics.getter;
-      *(v73 + 24) = v72;
+      *(v73 + 16) = &v134;
+      *(v73 + 24) = &v133;
+      *(v73 + 32) = &v132;
+      *(v73 + 40) = &v130;
+      *(v73 + 48) = v69 & 1;
+      *(v73 + 56) = &v135;
+      v74 = swift_allocObject();
+      *(v74 + 16) = partial apply for closure #1 in NSAttributedString.maxFontMetrics.getter;
+      *(v74 + 24) = v73;
       *&aBlock.tx = thunk for @callee_guaranteed (@in_guaranteed Any?, @unowned _NSRange, @unowned UnsafeMutablePointer<ObjCBool>) -> ()partial apply;
-      *&aBlock.ty = v73;
+      *&aBlock.ty = v74;
       *&aBlock.a = MEMORY[0x1E69E9820];
       *&aBlock.b = 1107296256;
       *&aBlock.c = thunk for @escaping @callee_guaranteed (@in_guaranteed Any?, @unowned _NSRange, @unowned UnsafeMutablePointer<ObjCBool>) -> ();
       *&aBlock.d = &block_descriptor_24;
-      v74 = _Block_copy(&aBlock);
+      v75 = _Block_copy(&aBlock);
 
-      [v70 enumerateAttribute:v69 inRange:0 options:v71 usingBlock:{0x100000, v74}];
-      _Block_release(v74);
-      LOBYTE(v71) = swift_isEscapingClosureAtFileLocation();
+      [v71 enumerateAttribute:v70 inRange:0 options:v72 usingBlock:{0x100000, v75}];
+      _Block_release(v75);
+      LOBYTE(v72) = swift_isEscapingClosureAtFileLocation();
 
-      if ((v71 & 1) == 0)
+      if ((v72 & 1) == 0)
       {
-        v112 = v38;
-        v75 = v134;
+        v113 = v39;
         v76 = v135;
+        v77 = v136;
 
-        v77 = v126;
-        v111 = CGRect.outset(by:)(v75.x, v75.y, v76.width, v76.height, v126, a6, a7, a8);
-        v110 = v78;
-        v109 = v79;
-        v108 = v80;
-        v81 = TextEffectsRenderer.drawingBounds.getter();
-        v83 = v82;
-        v85 = v84;
-        v87 = v86;
-        v139.origin.x = v77;
-        v113 = a6;
-        v139.origin.y = a6;
-        v88 = a7;
-        v139.size.width = a7;
-        v89 = a8;
-        v139.size.height = a8;
-        MinX = CGRectGetMinX(v139);
-        v91 = *(v47 + 2);
-        if (v91)
+        v78 = v127;
+        v112 = CGRect.outset(by:)(v76.x, v76.y, v77.width, v77.height, v127, a6, a7, a8);
+        v111 = v79;
+        v110 = v80;
+        v109 = v81;
+        v82 = TextEffectsRenderer.drawingBounds.getter();
+        v84 = v83;
+        v86 = v85;
+        v88 = v87;
+        v140.origin.x = v78;
+        v114 = a6;
+        v140.origin.y = a6;
+        v89 = a7;
+        v140.size.width = a7;
+        v90 = a8;
+        v140.size.height = a8;
+        MinX = CGRectGetMinX(v140);
+        v92 = *(v48 + 2);
+        if (v92)
         {
-          v92 = *&v47[8 * v91 + 24];
+          v93 = *&v48[8 * v92 + 24];
         }
 
         else
         {
-          v92 = 0.0;
+          v93 = 0.0;
         }
 
-        v18 = v125;
-        v57 = MEMORY[0x1E69E7CC0];
+        v18 = v126;
+        v58 = MEMORY[0x1E69E7CC0];
 
-        v93 = CGRect.transformToFit(within:anchor:)(&aBlock, v111, v110, v109, v108, MinX, v92, v81, v83, v85, v87);
-        MEMORY[0x1EEE9AC00](v93);
-        *(&v108 - 6) = v126;
-        *(&v108 - 5) = v113;
-        *(&v108 - 4) = v88;
-        *(&v108 - 3) = v89;
+        v94 = CGRect.transformToFit(within:anchor:)(&aBlock, v112, v111, v110, v109, MinX, v93, v82, v84, v86, v88);
+        MEMORY[0x1EEE9AC00](v94);
+        *(&v109 - 6) = v127;
+        *(&v109 - 5) = v114;
+        *(&v109 - 4) = v89;
+        *(&v109 - 3) = v90;
         p_aBlock = &aBlock;
-        v107 = v53;
-        v94 = v114;
+        v108 = v54;
+        v95 = v115;
         EnvironmentValues.init()();
-        v95 = v124;
+        v96 = v125;
         static GraphicsContext.renderingTo(cgContext:environment:deviceScale:content:)();
 
-        (*(v115 + 8))(v94, v116);
-        v38 = v112;
+        (*(v116 + 8))(v95, v117);
+        v39 = v113;
         goto LABEL_31;
       }
 
       __break(1u);
 LABEL_42:
       __break(1u);
-      return result;
+      return;
     }
 
 LABEL_40:
@@ -7864,44 +8285,44 @@ LABEL_40:
   }
 
 LABEL_31:
-  v96 = 1.0;
-  if (v38 == 0.0)
+  v97 = 1.0;
+  if (v39 == 0.0)
   {
-    v97 = 1.0;
+    v98 = 1.0;
   }
 
   else
   {
-    v97 = 1.0 / v38;
+    v98 = 1.0 / v39;
   }
 
-  v98 = &v53[OBJC_IVAR____TtC20TextAnimationSupport19TextEffectsRenderer_currentBounds];
-  v99 = *&v33[v120];
-  if (v99 != 0.0)
+  v99 = &v54[OBJC_IVAR____TtC20TextAnimationSupport19TextEffectsRenderer_currentBounds];
+  v100 = *&v34[v121];
+  if (v100 != 0.0)
   {
-    v96 = 1.0 / v99;
+    v97 = 1.0 / v100;
   }
 
-  v134 = *v98;
-  v135 = v98[1];
-  CGRect.roundCoordinatesToNearestOrUp(toMultipleOf:)(v96);
-  v100 = v134;
+  v135 = *v99;
+  v136 = v99[1];
+  CGRect.roundCoordinatesToNearestOrUp(toMultipleOf:)(v97);
   v101 = v135;
-  v102 = *&v53[OBJC_IVAR____TtC20TextAnimationSupport19TextEffectsRenderer_layoutBounds + 16];
-  v103 = *&v53[OBJC_IVAR____TtC20TextAnimationSupport19TextEffectsRenderer_layoutBounds + 24];
-  v104 = v123;
-  v105 = v119;
-  (*(v123 + 104))(v119, *MEMORY[0x1E69E7040], v18);
-  v134.x = v102;
-  v129 = v103;
-  specialized FloatingPoint.round(_:toMultipleOf:)(v105, v97);
-  specialized FloatingPoint.round(_:toMultipleOf:)(v105, v97);
-  (*(v104 + 8))(v105, v18);
-  v140.origin = v100;
-  v140.size = v101;
-  CGRectGetWidth(v140);
+  v102 = v136;
+  v103 = *&v54[OBJC_IVAR____TtC20TextAnimationSupport19TextEffectsRenderer_layoutBounds + 16];
+  v104 = *&v54[OBJC_IVAR____TtC20TextAnimationSupport19TextEffectsRenderer_layoutBounds + 24];
+  v105 = v124;
+  v106 = v120;
+  (*(v124 + 104))(v120, *MEMORY[0x1E69E7040], v18);
+  v135.x = v103;
+  v130 = v104;
+  specialized FloatingPoint.round(_:toMultipleOf:)(v106, v98);
+  specialized FloatingPoint.round(_:toMultipleOf:)(v106, v98);
+  (*(v105 + 8))(v106, v18);
+  v141.origin = v101;
+  v141.size = v102;
+  CGRectGetWidth(v141);
 
-  v136 = v57;
+  v137 = v58;
 }
 
 void partial apply for closure #5 in static TextAnimationsProvider.drawStatic(string:attributes:options:rect:padding:forceClipping:cgContext:stringDrawingContext:)(uint64_t *a1)
@@ -7957,7 +8378,7 @@ void type metadata accessor for (key: AnyHashable, value: Any)()
   }
 }
 
-unint64_t lazy protocol witness table accessor for type GlimmerTextEffect and conformance GlimmerTextEffect()
+unint64_t lazy protocol witness table accessor for type GlimmerTextEffect and conformance GlimmerTextEffect(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type GlimmerTextEffect and conformance GlimmerTextEffect;
   if (!lazy protocol witness table cache variable for type GlimmerTextEffect and conformance GlimmerTextEffect)
@@ -7980,7 +8401,7 @@ unint64_t lazy protocol witness table accessor for type GlimmerTextEffect and co
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type GradientBlurTextEffect and conformance GradientBlurTextEffect()
+unint64_t lazy protocol witness table accessor for type GradientBlurTextEffect and conformance GradientBlurTextEffect(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type GradientBlurTextEffect and conformance GradientBlurTextEffect;
   if (!lazy protocol witness table cache variable for type GradientBlurTextEffect and conformance GradientBlurTextEffect)
@@ -8016,99 +8437,101 @@ void type metadata accessor for TextFilterEffect<GlimmerTextEffect>(uint64_t a1,
   }
 }
 
-uint64_t RangeSet<>.IndexSequence.makeIterator()@<X0>(char *a1@<X8>)
+uint64_t RangeSet<>.IndexSequence.makeIterator()@<X0>(void *a1@<X0>, char *a2@<X8>)
 {
-  v3 = type metadata accessor for RangeSet.Ranges();
-  v4 = MEMORY[0x1EEE9AC00](v3);
-  v6 = &v9 - v5;
-  (*(v7 + 16))(&v9 - v5, v1, v4);
-  return RangeSet<>.IndexSequence.Iterator.init(ranges:)(v6, a1);
+  v5 = a1[2];
+  v6 = a1[3];
+  v7 = type metadata accessor for RangeSet.Ranges();
+  v8 = MEMORY[0x1EEE9AC00](v7);
+  v10 = &v13 - v9;
+  (*(v11 + 16))(&v13 - v9, v2, v8);
+  return RangeSet<>.IndexSequence.Iterator.init(ranges:)(v10, v5, v6, a1[4], a2);
 }
 
 uint64_t RangeSet<>.IndexSequence.Iterator.next()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v66 = a2;
+  v70 = a2;
   v5 = *(a1 + 16);
   v4 = *(a1 + 24);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v65 = *(AssociatedTypeWitness - 8);
+  v69 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v64 = v55 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v68 = v59 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v70 = v55 - v9;
-  v60 = *(swift_getAssociatedConformanceWitness() + 8);
-  v69 = *(v60 + 16);
-  v68 = swift_getAssociatedTypeWitness();
-  MEMORY[0x1EEE9AC00](v68);
-  v67 = v55 - v10;
-  v71 = v4;
-  v62 = type metadata accessor for Range();
-  v72 = *(v62 - 8);
-  MEMORY[0x1EEE9AC00](v62);
-  v61 = v55 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v74 = v59 - v9;
+  v64 = *(swift_getAssociatedConformanceWitness() + 8);
+  v73 = *(v64 + 16);
+  v72 = swift_getAssociatedTypeWitness();
+  MEMORY[0x1EEE9AC00](v72);
+  v71 = v59 - v10;
+  v75 = v4;
+  v66 = type metadata accessor for Range();
+  v76 = *(v66 - 8);
+  MEMORY[0x1EEE9AC00](v66);
+  v65 = v59 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v12);
-  v14 = v55 - v13;
-  v73 = *(v5 - 8);
+  v14 = v59 - v13;
+  v77 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v15);
-  v17 = v55 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = v59 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v18);
-  v20 = v55 - v19;
+  v20 = v59 - v19;
   v21 = *v2;
-  v63 = a1;
+  v67 = a1;
   v22 = *(a1 + 48);
   v23 = type metadata accessor for RangeSet.Ranges();
   if (v21 < RangeSet.Ranges.count.getter())
   {
-    v55[2] = v22;
-    v59 = v21;
-    v55[3] = v23;
+    v59[2] = v22;
+    v63 = v21;
+    v59[3] = v23;
     RangeSet.Ranges.subscript.getter();
-    (*(v73 + 16))(v17, v14, v5);
-    v24 = *(v72 + 8);
-    v72 += 8;
-    v56 = v24;
-    v25 = v62;
-    v24(v14, v62);
-    v26 = v63;
-    v27 = *(v63 + 44);
-    v58 = v20;
+    (*(v77 + 16))(v17, v14, v5);
+    v24 = *(v76 + 8);
+    v76 += 8;
+    v60 = v24;
+    v25 = v66;
+    v24(v14, v66);
+    v26 = v67;
+    v27 = *(v67 + 44);
+    v62 = v20;
     dispatch thunk of Strideable.advanced(by:)();
-    (*(v73 + 8))(v17, v5);
-    v55[1] = swift_getAssociatedConformanceWitness();
+    (*(v77 + 8))(v17, v5);
+    v59[1] = swift_getAssociatedConformanceWitness();
     dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-    v28 = v70;
+    v28 = v74;
     dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
     dispatch thunk of static AdditiveArithmetic.+= infix(_:_:)();
-    v29 = v65;
-    v60 = *(v65 + 8);
-    v57 = v65 + 8;
-    (v60)(v28, AssociatedTypeWitness);
-    v30 = v61;
+    v29 = v69;
+    v64 = *(v69 + 8);
+    v61 = v69 + 8;
+    (v64)(v28, AssociatedTypeWitness);
+    v30 = v65;
     RangeSet.Ranges.subscript.getter();
     v31 = *(v26 + 32);
-    v75 = v71;
-    v76 = v31;
+    v79 = v75;
+    v80 = v31;
     swift_getWitnessTable();
-    v63 = Collection.count.getter();
-    v56(v30, v25);
+    v67 = Collection.count.getter();
+    v60(v30, v25);
     v32 = *(v29 + 16);
-    v72 = v27;
-    v33 = v64;
-    v32(v64, v2 + v27, AssociatedTypeWitness);
+    v76 = v27;
+    v33 = v68;
+    v32(v68, v2 + v27, AssociatedTypeWitness);
     v34 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v55[0] = v2;
+    v59[0] = v2;
     if (v34)
     {
       v35 = dispatch thunk of BinaryInteger.bitWidth.getter();
-      v36 = v66;
+      v38 = v70;
       if (v35 < 64)
       {
-        v37 = dispatch thunk of BinaryInteger._lowWord.getter();
-        (v60)(v33, AssociatedTypeWitness);
+        v39 = dispatch thunk of BinaryInteger._lowWord.getter();
+        (v64)(v33, AssociatedTypeWitness);
 LABEL_5:
-        v38 = v70;
-        v39 = v58;
-        if (v37 < v63)
+        v40 = v74;
+        v41 = v62;
+        if (v39 < v67)
         {
           goto LABEL_27;
         }
@@ -8116,46 +8539,46 @@ LABEL_5:
         goto LABEL_26;
       }
 
-      v74 = v63;
-      lazy protocol witness table accessor for type Int and conformance Int();
-      v38 = v70;
+      v78 = v67;
+      lazy protocol witness table accessor for type Int and conformance Int(v35, v36, v37);
+      v40 = v74;
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
       swift_getAssociatedConformanceWitness();
-      v45 = dispatch thunk of static Comparable.< infix(_:_:)();
-      v47 = v60;
-      (v60)(v38, AssociatedTypeWitness);
-      v47(v33, AssociatedTypeWitness);
+      v49 = dispatch thunk of static Comparable.< infix(_:_:)();
+      v51 = v64;
+      (v64)(v40, AssociatedTypeWitness);
+      v51(v33, AssociatedTypeWitness);
     }
 
     else
     {
-      v43 = dispatch thunk of static BinaryInteger.isSigned.getter();
-      v44 = dispatch thunk of BinaryInteger.bitWidth.getter();
-      v36 = v66;
-      if ((v43 & 1) == 0)
+      v45 = dispatch thunk of static BinaryInteger.isSigned.getter();
+      v46 = dispatch thunk of BinaryInteger.bitWidth.getter();
+      v38 = v70;
+      if ((v45 & 1) == 0)
       {
-        v39 = v58;
-        if (v44 >= 64)
+        v41 = v62;
+        if (v46 >= 64)
         {
-          v29 = v65;
-          if (v63 < 1)
+          v29 = v69;
+          if (v67 < 1)
           {
-            (v60)(v33, AssociatedTypeWitness);
-            v38 = v70;
+            (v64)(v33, AssociatedTypeWitness);
+            v40 = v74;
           }
 
           else
           {
-            v74 = v63;
-            lazy protocol witness table accessor for type Int and conformance Int();
-            v38 = v70;
+            v78 = v67;
+            lazy protocol witness table accessor for type Int and conformance Int(v46, v47, v48);
+            v40 = v74;
             dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
             swift_getAssociatedConformanceWitness();
-            v52 = dispatch thunk of static Comparable.< infix(_:_:)();
-            v53 = v60;
-            (v60)(v38, AssociatedTypeWitness);
-            v53(v33, AssociatedTypeWitness);
-            if (v52)
+            v56 = dispatch thunk of static Comparable.< infix(_:_:)();
+            v57 = v64;
+            (v64)(v40, AssociatedTypeWitness);
+            v57(v33, AssociatedTypeWitness);
+            if (v56)
             {
               goto LABEL_27;
             }
@@ -8164,63 +8587,63 @@ LABEL_5:
 
         else
         {
-          v48 = dispatch thunk of BinaryInteger._lowWord.getter();
-          (v60)(v33, AssociatedTypeWitness);
-          v29 = v65;
-          v38 = v70;
-          if (v48 < v63)
+          v52 = dispatch thunk of BinaryInteger._lowWord.getter();
+          (v64)(v33, AssociatedTypeWitness);
+          v29 = v69;
+          v40 = v74;
+          if (v52 < v67)
           {
             goto LABEL_27;
           }
         }
 
 LABEL_26:
-        v54 = v55[0];
-        *v55[0] = v59 + 1;
+        v58 = v59[0];
+        *v59[0] = v63 + 1;
         dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
         dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-        (*(v29 + 40))(v54 + v72, v38, AssociatedTypeWitness);
+        (*(v29 + 40))(v58 + v76, v40, AssociatedTypeWitness);
         goto LABEL_27;
       }
 
-      if (v44 <= 64)
+      if (v46 <= 64)
       {
         dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
-        v49 = v70;
+        v53 = v74;
         dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
         swift_getAssociatedConformanceWitness();
-        v50 = dispatch thunk of static Comparable.< infix(_:_:)();
-        v51 = v60;
-        (v60)(v49, AssociatedTypeWitness);
-        v29 = v65;
-        if (v50)
+        v54 = dispatch thunk of static Comparable.< infix(_:_:)();
+        v55 = v64;
+        (v64)(v53, AssociatedTypeWitness);
+        v29 = v69;
+        if (v54)
         {
-          v51(v33, AssociatedTypeWitness);
-          v39 = v58;
+          v55(v33, AssociatedTypeWitness);
+          v41 = v62;
 LABEL_27:
-          (*(v73 + 32))(v36, v39, v5);
-          return (*(v73 + 56))(v36, 0, 1, v5);
+          (*(v77 + 32))(v38, v41, v5);
+          return (*(v77 + 56))(v38, 0, 1, v5);
         }
 
-        v37 = dispatch thunk of BinaryInteger._lowWord.getter();
-        v51(v33, AssociatedTypeWitness);
+        v39 = dispatch thunk of BinaryInteger._lowWord.getter();
+        v55(v33, AssociatedTypeWitness);
         goto LABEL_5;
       }
 
-      v74 = v63;
-      lazy protocol witness table accessor for type Int and conformance Int();
-      v38 = v70;
+      v78 = v67;
+      lazy protocol witness table accessor for type Int and conformance Int(v46, v47, v48);
+      v40 = v74;
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
       swift_getAssociatedConformanceWitness();
-      v45 = dispatch thunk of static Comparable.< infix(_:_:)();
-      v46 = v60;
-      (v60)(v38, AssociatedTypeWitness);
-      v46(v33, AssociatedTypeWitness);
-      v29 = v65;
+      v49 = dispatch thunk of static Comparable.< infix(_:_:)();
+      v50 = v64;
+      (v64)(v40, AssociatedTypeWitness);
+      v50(v33, AssociatedTypeWitness);
+      v29 = v69;
     }
 
-    v39 = v58;
-    if (v45)
+    v41 = v62;
+    if (v49)
     {
       goto LABEL_27;
     }
@@ -8228,42 +8651,42 @@ LABEL_27:
     goto LABEL_26;
   }
 
-  v40 = *(v73 + 56);
-  v41 = v66;
+  v42 = *(v77 + 56);
+  v43 = v70;
 
-  return v40(v41, 1, 1, v5);
+  return v42(v43, 1, 1, v5);
 }
 
-uint64_t RangeSet<>.IndexSequence.Iterator.init(ranges:)@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
+uint64_t RangeSet<>.IndexSequence.Iterator.init(ranges:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X8>)
 {
   swift_getAssociatedTypeWitness();
   swift_getAssociatedConformanceWitness();
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  *a2 = 0;
-  v4 = type metadata accessor for RangeSet<>.IndexSequence.Iterator();
+  *a5 = 0;
+  v10 = type metadata accessor for RangeSet<>.IndexSequence.Iterator(0, a2, a3, a4);
   swift_getAssociatedConformanceWitness();
   dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
   swift_checkMetadataState();
   dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-  v5 = *(v4 + 48);
-  v6 = type metadata accessor for RangeSet.Ranges();
-  return (*(*(v6 - 8) + 32))(&a2[v5], a1, v6);
+  v11 = *(v10 + 48);
+  v12 = type metadata accessor for RangeSet.Ranges();
+  return (*(*(v12 - 8) + 32))(&a5[v11], a1, v12);
 }
 
-uint64_t protocol witness for Sequence.makeIterator() in conformance RangeSet<A><>.IndexSequence@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
+uint64_t protocol witness for Sequence.makeIterator() in conformance RangeSet<A><>.IndexSequence@<X0>(void *a1@<X0>, char *a2@<X8>)
 {
-  RangeSet<>.IndexSequence.makeIterator()(a2);
-  v4 = *(*(a1 - 8) + 8);
+  RangeSet<>.IndexSequence.makeIterator()(a1, a2);
+  v4 = *(*(a1 - 1) + 8);
 
   return v4(v2, a1);
 }
 
-uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance RangeSet<A><>.IndexSequence(uint64_t a1)
+uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance RangeSet<A><>.IndexSequence(uint64_t a1, uint64_t a2)
 {
-  v3 = specialized Sequence._copyToContiguousArray()();
-  (*(*(a1 - 8) + 8))(v1, a1);
-  return v3;
+  v4 = specialized Sequence._copyToContiguousArray()();
+  (*(*(a1 - 8) + 8))(v2, a1);
+  return v4;
 }
 
 uint64_t specialized RandomAccessCollection<>.indices.getter()
@@ -8682,33 +9105,33 @@ BOOL protocol witness for static Equatable.== infix(_:_:) in conformance Text.Ef
   return v4 == 2 && v7 == 0;
 }
 
-uint64_t Text.Effect.FractionalIndexFunction.summary(of:content:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, char a6@<W5>, double *a7@<X8>)
+uint64_t Text.Effect.FractionalIndexFunction.summary(of:content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, char a6@<W5>, double *a7@<X8>)
 {
-  v95 = a5;
-  v94 = a7;
-  v93 = type metadata accessor for ClusterIndexSequence.Iterator(0);
-  MEMORY[0x1EEE9AC00](v93);
-  v13 = (&v80 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v98 = a5;
+  v97 = a7;
+  v96 = type metadata accessor for ClusterIndexSequence.Iterator(0);
+  MEMORY[0x1EEE9AC00](v96);
+  v13 = (&v83 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x1EEE9AC00](v14);
-  v97 = &v80 - v15;
-  v87 = type metadata accessor for Text.Layout.Run();
-  v86 = *(v87 - 8);
-  MEMORY[0x1EEE9AC00](v87);
-  v85 = &v80 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v100 = &v83 - v15;
+  v90 = type metadata accessor for Text.Layout.Run();
+  v89 = *(v90 - 8);
+  MEMORY[0x1EEE9AC00](v90);
+  v88 = &v83 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for (fragment: Text.Effect.BaseFragment, range: Range<Text.Effect.ClusterIndex>)?(0, &lazy cache variable for type metadata for Text.Layout.RunSlice?, MEMORY[0x1E6981060]);
   MEMORY[0x1EEE9AC00](v17 - 8);
-  v92 = &v80 - v18;
-  v88 = type metadata accessor for Text.Layout.Cluster();
-  v19 = *(v88 - 8);
-  MEMORY[0x1EEE9AC00](v88);
-  v21 = &v80 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v91 = type metadata accessor for Text.Layout.RunSlice();
-  v90 = *(v91 - 8);
+  v95 = &v83 - v18;
+  v91 = type metadata accessor for Text.Layout.Cluster();
+  v19 = *(v91 - 8);
   MEMORY[0x1EEE9AC00](v91);
-  v89 = &v80 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = &v83 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v94 = type metadata accessor for Text.Layout.RunSlice();
+  v93 = *(v94 - 8);
+  MEMORY[0x1EEE9AC00](v94);
+  v92 = &v83 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
   v23 = type metadata accessor for ClusterIndexSequence(0);
   MEMORY[0x1EEE9AC00](v23);
-  v25 = &v80 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = &v83 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
   v26 = type metadata accessor for LayoutDirection();
   MEMORY[0x1EEE9AC00](v26);
   v32 = MEMORY[0x1EEE9AC00](v27);
@@ -8716,9 +9139,9 @@ uint64_t Text.Effect.FractionalIndexFunction.summary(of:content:)@<X0>(unint64_t
   {
     if (a4 >= a2)
     {
-      v42 = v94;
-      *v94 = a2;
-      *(v42 + 1) = a4;
+      v44 = v97;
+      *v97 = a2;
+      *(v44 + 1) = a4;
       type metadata accessor for Text.Effect.FractionalIndexFunction.Summary(0);
 
       return swift_storeEnumTagMultiPayload();
@@ -8729,63 +9152,63 @@ LABEL_51:
     goto LABEL_52;
   }
 
-  v81 = v31;
-  v83 = v30;
+  v84 = v31;
+  v86 = v30;
   v33 = *(v30 + 104);
-  v82 = &v80 - v28;
-  v84 = v29;
+  v85 = &v83 - v28;
+  v87 = v29;
   v33(v32);
-  outlined init with copy of Text.Effect.BaseContent(v95, v25, type metadata accessor for Text.Effect.BaseContent);
+  outlined init with copy of Text.Effect.BaseContent(v98, v25, type metadata accessor for Text.Effect.BaseContent);
   v34 = &v25[*(v23 + 20)];
   *v34 = a1;
-  *(v34 + 1) = a2;
+  v34[1] = a2;
   v35 = &v25[*(v23 + 24)];
   *v35 = a3;
   *(v35 + 1) = a4;
-  v96 = a4;
-  specialized Sequence.first(where:)(v25, &v98);
+  v99 = a4;
+  specialized Sequence.first(where:)(v25, &v101);
   outlined destroy of FragmentRangeSequence.Iterator(v25, type metadata accessor for ClusterIndexSequence);
-  v102 = v98;
-  v103 = v99;
-  v104 = v100;
   v105 = v101;
-  if (v98)
+  v106 = v102;
+  v107 = v103;
+  v108 = v104;
+  if (v101)
   {
-    v36 = *(&v105 + 1) - v105;
-    if (!__OFSUB__(*(&v105 + 1), v105))
+    v36 = *(&v108 + 1) - v108;
+    if (!__OFSUB__(*(&v108 + 1), v108))
     {
       if ((v36 & 0x8000000000000000) == 0)
       {
-        v37 = *(*(&v103 + 1) + OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_clusters);
+        v37 = *(*(&v106 + 1) + OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_clusters);
         if (v36 < *(v37 + 16))
         {
-          v38 = v88;
-          (*(v19 + 16))(v21, v37 + ((*(v19 + 80) + 32) & ~*(v19 + 80)) + *(v19 + 72) * v36, v88);
-          v39 = v92;
-          specialized Collection.first.getter(v92);
+          v38 = v91;
+          (*(v19 + 16))(v21, v37 + ((*(v19 + 80) + 32) & ~*(v19 + 80)) + *(v19 + 72) * v36, v91);
+          v39 = v95;
+          specialized Collection.first.getter(v95);
           (*(v19 + 8))(v21, v38);
-          v40 = v90;
-          v41 = v91;
-          if ((*(v90 + 48))(v39, 1, v91) == 1)
+          v40 = v93;
+          v41 = v94;
+          if ((*(v93 + 48))(v39, 1, v94) == 1)
           {
-            outlined destroy of Text.Layout.RunSlice?(&v102, &lazy cache variable for type metadata for (fragment: Text.Effect.BaseFragment, cluster: Text.Effect.ClusterIndex)?, type metadata accessor for (fragment: Text.Effect.BaseFragment, cluster: Text.Effect.ClusterIndex));
-            outlined destroy of Text.Layout.RunSlice?(v39, &lazy cache variable for type metadata for Text.Layout.RunSlice?, MEMORY[0x1E6981060]);
+            outlined destroy of Text.Layout.RunSlice?(&v105, &lazy cache variable for type metadata for (fragment: Text.Effect.BaseFragment, cluster: Text.Effect.ClusterIndex)?, type metadata accessor for (fragment: Text.Effect.BaseFragment, cluster: Text.Effect.ClusterIndex), v42);
+            outlined destroy of Text.Layout.RunSlice?(v39, &lazy cache variable for type metadata for Text.Layout.RunSlice?, MEMORY[0x1E6981060], v43);
           }
 
           else
           {
             (*(v40 + 32))();
-            v44 = v85;
+            v46 = v88;
             Text.Layout.RunSlice.run.getter();
             Text.Layout.Run.layoutDirection.getter();
-            outlined destroy of Text.Layout.RunSlice?(&v102, &lazy cache variable for type metadata for (fragment: Text.Effect.BaseFragment, cluster: Text.Effect.ClusterIndex)?, type metadata accessor for (fragment: Text.Effect.BaseFragment, cluster: Text.Effect.ClusterIndex));
-            (*(v86 + 8))(v44, v87);
-            (*(v40 + 8))(v89, v41);
-            v45 = v83;
-            v46 = v82;
-            v47 = v84;
-            (*(v83 + 8))(v82, v84);
-            (*(v45 + 32))(v46, v81, v47);
+            outlined destroy of Text.Layout.RunSlice?(&v105, &lazy cache variable for type metadata for (fragment: Text.Effect.BaseFragment, cluster: Text.Effect.ClusterIndex)?, type metadata accessor for (fragment: Text.Effect.BaseFragment, cluster: Text.Effect.ClusterIndex), v47);
+            (*(v89 + 8))(v46, v90);
+            (*(v40 + 8))(v92, v41);
+            v48 = v86;
+            v49 = v85;
+            v50 = v87;
+            (*(v86 + 8))(v85, v87);
+            (*(v48 + 32))(v49, v84, v50);
           }
 
           goto LABEL_13;
@@ -8813,30 +9236,30 @@ LABEL_52:
   }
 
 LABEL_13:
-  v48 = v96;
-  v49 = v93;
-  outlined init with copy of Text.Effect.BaseContent(v95, v25, type metadata accessor for Text.Effect.BaseContent);
-  v50 = &v25[*(v23 + 20)];
-  *v50 = a1;
-  *(v50 + 1) = a2;
-  v51 = &v25[*(v23 + 24)];
-  *v51 = a3;
-  *(v51 + 1) = v48;
-  v52 = v97;
-  outlined init with take of Text.Effect.BaseContent(v25, v97);
-  v53 = (v52 + v49[5]);
+  v51 = v99;
+  v52 = v96;
+  outlined init with copy of Text.Effect.BaseContent(v98, v25, type metadata accessor for Text.Effect.BaseContent);
+  v53 = &v25[*(v23 + 20)];
   *v53 = a1;
   v53[1] = a2;
-  v54 = (v52 + v49[6]);
+  v54 = &v25[*(v23 + 24)];
   *v54 = a3;
-  v54[1] = v48;
-  v55 = (v52 + v49[7]);
-  *v55 = a1;
-  v55[1] = a2;
-  v56 = INFINITY;
-  v57 = -INFINITY;
+  *(v54 + 1) = v51;
+  v55 = v100;
+  outlined init with take of Text.Effect.BaseContent(v25, v100);
+  v56 = (v55 + v52[5]);
+  *v56 = a1;
+  v56[1] = a2;
+  v57 = (v55 + v52[6]);
+  *v57 = a3;
+  v57[1] = v51;
+  v58 = (v55 + v52[7]);
+  *v58 = a1;
+  v58[1] = a2;
+  v59 = INFINITY;
+  v60 = -INFINITY;
 LABEL_14:
-  v58 = a2;
+  v61 = a2;
   while (1)
   {
     if (a1 >= a3)
@@ -8846,62 +9269,62 @@ LABEL_14:
         goto LABEL_49;
       }
 
-      if (a1 != a3 || v58 >= v96)
+      if (a1 != a3 || v61 >= v99)
       {
         break;
       }
     }
 
-    outlined init with copy of Text.Effect.BaseContent(v97, v13, type metadata accessor for ClusterIndexSequence.Iterator);
-    v59 = *v13;
-    v60 = v13[1];
-    v61 = v13[2];
+    outlined init with copy of Text.Effect.BaseContent(v100, v13, type metadata accessor for ClusterIndexSequence.Iterator);
+    v62 = *v13;
+    v63 = v13[1];
+    v64 = v13[2];
     swift_beginAccess();
-    v62 = *(v59 + 48);
-    v63 = *(v62 + 16);
+    v65 = *(v62 + 48);
+    v66 = *(v65 + 16);
 
-    if (!v63)
+    if (!v66)
     {
       goto LABEL_56;
     }
 
-    v64 = specialized __RawDictionaryStorage.find<A>(_:)(v60, v61);
-    if ((v65 & 1) == 0)
+    v67 = specialized __RawDictionaryStorage.find<A>(_:)(v63, v64);
+    if ((v68 & 1) == 0)
     {
       goto LABEL_56;
     }
 
-    v66 = *(*(v62 + 56) + 16 * v64);
+    v69 = *(*(v65 + 56) + 16 * v67);
     swift_endAccess();
-    if ((a1 & 0x8000000000000000) != 0)
+    if (a1 < 0)
     {
       goto LABEL_42;
     }
 
-    v67 = *(v66 + 16);
-    if (a1 >= v67)
+    v70 = *(v69 + 16);
+    if (a1 >= v70)
     {
       goto LABEL_43;
     }
 
-    v68 = (v66 + 32);
-    v69 = *(v66 + 32 + 8 * a1);
-    v70 = 0;
+    v71 = (v69 + 32);
+    v72 = *(v69 + 32 + 8 * a1);
+    v73 = 0;
     if (a1)
     {
-      v71 = a1;
+      v74 = a1;
       while (1)
       {
-        v72 = *(*(*v68 + OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_clusters) + 16);
-        v73 = __OFADD__(v70, v72);
-        v70 += v72;
-        if (v73)
+        v75 = *(*(*v71 + OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_clusters) + 16);
+        v76 = __OFADD__(v73, v75);
+        v73 += v75;
+        if (v76)
         {
           break;
         }
 
-        ++v68;
-        if (!--v71)
+        ++v71;
+        if (!--v74)
         {
           goto LABEL_27;
         }
@@ -8930,93 +9353,93 @@ LABEL_50:
     }
 
 LABEL_27:
-    *&v98 = v59;
-    *(&v98 + 1) = v60;
-    *&v99 = v61;
-    *(&v99 + 1) = v69;
-    *&v100 = a1;
-    *(&v100 + 1) = v67;
-    *&v101 = v70;
+    *&v101 = v62;
+    *(&v101 + 1) = v63;
+    *&v102 = v64;
+    *(&v102 + 1) = v72;
+    *&v103 = a1;
+    *(&v103 + 1) = v70;
+    *&v104 = v73;
 
     outlined destroy of FragmentRangeSequence.Iterator(v13, type metadata accessor for Text.Effect.BaseContent);
-    a2 = v58 + 1;
-    if (__OFADD__(v58, 1))
+    a2 = v61 + 1;
+    if (__OFADD__(v61, 1))
     {
       goto LABEL_44;
     }
 
-    v55[1] = a2;
-    v74 = *(*(*(&v99 + 1) + OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_clusters) + 16);
-    v73 = __OFADD__(v101, v74);
-    v75 = v101 + v74;
-    if (v73)
+    v58[1] = a2;
+    v77 = *(*(*(&v102 + 1) + OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_clusters) + 16);
+    v76 = __OFADD__(v104, v77);
+    v78 = v104 + v77;
+    if (v76)
     {
       goto LABEL_45;
     }
 
-    if (v75 < v101)
+    if (v78 < v104)
     {
       goto LABEL_46;
     }
 
-    if (__OFSUB__(v75, a2))
+    if (__OFSUB__(v78, a2))
     {
       goto LABEL_47;
     }
 
-    if (v75 == a2)
+    if (v78 == a2)
     {
-      v73 = __OFADD__(a1++, 1);
-      if (v73)
+      v76 = __OFADD__(a1++, 1);
+      if (v76)
       {
         goto LABEL_50;
       }
 
-      *v55 = a1;
+      *v58 = a1;
     }
 
-    if (a2 < v58)
+    if (a2 < v61)
     {
       goto LABEL_48;
     }
 
-    Text.Effect.BaseFragment.typographicBounds(for:)(v58, v58 + 1, v106);
-    *&v110.origin.x = v106[0];
-    *&v110.size.width = v106[2];
-    v110.origin.y = *&v106[1] - v107;
-    v110.size.height = v107 + v108;
-    MidX = CGRectGetMidX(v110);
-    outlined destroy of Text.Effect.BaseFragment(&v98);
-    if (MidX < v56)
+    Text.Effect.BaseFragment.typographicBounds(for:)(v61, v61 + 1, v109);
+    *&v113.origin.x = v109[0];
+    *&v113.size.width = v109[2];
+    v113.origin.y = *&v109[1] - v110;
+    v113.size.height = v110 + v111;
+    MidX = CGRectGetMidX(v113);
+    outlined destroy of Text.Effect.BaseFragment(&v101);
+    if (MidX < v59)
     {
-      v56 = MidX;
+      v59 = MidX;
     }
 
-    ++v58;
-    if (v57 <= MidX)
+    ++v61;
+    if (v60 <= MidX)
     {
-      v57 = MidX;
+      v60 = MidX;
       goto LABEL_14;
     }
   }
 
-  outlined destroy of FragmentRangeSequence.Iterator(v97, type metadata accessor for ClusterIndexSequence.Iterator);
-  type metadata accessor for (ClosedRange<CGFloat>, LayoutDirection)();
-  if (v56 > v57)
+  outlined destroy of FragmentRangeSequence.Iterator(v100, type metadata accessor for ClusterIndexSequence.Iterator);
+  type metadata accessor for (ClosedRange<CGFloat>, LayoutDirection)(0);
+  if (v59 > v60)
   {
     goto LABEL_55;
   }
 
-  v78 = *(v77 + 48);
-  v79 = v94;
-  *v94 = v56;
-  v79[1] = v57;
-  (*(v83 + 32))(v79 + v78, v82, v84);
+  v81 = *(v80 + 48);
+  v82 = v97;
+  *v97 = v59;
+  v82[1] = v60;
+  (*(v86 + 32))(v82 + v81, v85, v87);
   type metadata accessor for Text.Effect.FractionalIndexFunction.Summary(0);
   return swift_storeEnumTagMultiPayload();
 }
 
-uint64_t Text.Effect.ChunkingFunction.chunk(_:)(uint64_t *a1, uint64_t a2, uint64_t a3, char a4)
+char *Text.Effect.ChunkingFunction.chunk(_:)(uint64_t *a1, uint64_t a2, uint64_t a3, char a4)
 {
   v115 = a3;
   v7 = MEMORY[0x1E6981010];
@@ -9598,403 +10021,4 @@ LABEL_124:
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;
-}
-
-unint64_t protocol witness for Text.Effect.DurationProvider.animationInterval(for:) in conformance Text.Effect.Timing(unint64_t result)
-{
-  if ((result & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    v2 = *(v1 + 24);
-    if (*(v2 + 16) > result)
-    {
-      return *(v2 + 16 * result + 32);
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-void Text.Effect.Timing.Chunk.computeInfos(configuration:chunk:content:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v117 = a5;
-  v116 = a4;
-  v115 = a3;
-  v107 = type metadata accessor for Text.Layout.Cluster();
-  v10 = *(v107 - 8);
-  MEMORY[0x1EEE9AC00](v107);
-  v106 = &v97 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for LayoutDirection();
-  v110 = *(v12 - 8);
-  MEMORY[0x1EEE9AC00](v12);
-  v101 = &v97 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v97 - v15;
-  v113 = type metadata accessor for FragmentRangeSequence(0) - 8;
-  MEMORY[0x1EEE9AC00](v113);
-  v111 = &v97 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v112 = type metadata accessor for FragmentRangeSequence.Iterator(0) - 8;
-  MEMORY[0x1EEE9AC00](v112);
-  v97 = &v97 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v108 = type metadata accessor for Text.Effect.FractionalIndexFunction.Summary(0);
-  MEMORY[0x1EEE9AC00](v108);
-  v20 = (&v97 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v21);
-  v23 = (&v97 - v22);
-
-  v24 = MEMORY[0x1E69E7CC0];
-  *v6 = MEMORY[0x1E69E7CC0];
-
-  v114 = v6;
-  v6[2] = v24;
-  v25 = *(a1 + 112);
-  v109 = v23;
-  v26 = v23;
-  v27 = a2;
-  v28 = a2;
-  v29 = v115;
-  v30 = v116;
-  v31 = v117;
-  Text.Effect.FractionalIndexFunction.summary(of:content:)(v28, v115, v116, v117, a6, v25, v26);
-  v32 = v111;
-  outlined init with copy of Text.Effect.BaseContent(a6, v111, type metadata accessor for Text.Effect.BaseContent);
-  v33 = v113;
-  v34 = (v32 + *(v113 + 28));
-  *v34 = v27;
-  v34[1] = v29;
-  v35 = (v32 + *(v33 + 32));
-  *v35 = v30;
-  v35[1] = v31;
-  v36 = v32;
-  v37 = v97;
-  outlined init with take of Text.Effect.BaseContent(v36, v97);
-  v38 = v112;
-  v39 = (v37 + *(v112 + 28));
-  *v39 = v27;
-  v39[1] = v29;
-  v40 = (v37 + *(v38 + 32));
-  *v40 = v30;
-  v40[1] = v31;
-  v41 = (v37 + *(v38 + 36));
-  *v41 = v27;
-  v41[1] = v29;
-  FragmentRangeSequence.Iterator.next()(v118);
-  v42 = v118[0];
-  if (v118[0])
-  {
-    v44 = v123;
-    v43 = v124;
-    v45 = v122;
-    v46 = v120;
-    v47 = v119;
-    v104 = (v110 + 32);
-    v103 = (v110 + 8);
-    v100 = *MEMORY[0x1E697E7D0];
-    v99 = (v110 + 104);
-    v105 = v10 + 8;
-    v48 = MEMORY[0x1E69E7CC0];
-    v49 = MEMORY[0x1E69E7CC0];
-    v116 = v16;
-    v102 = v10 + 16;
-    while (1)
-    {
-      v98 = v49;
-      v128 = v42;
-      v129 = v118[1];
-      v130 = v118[2];
-      v131 = v47;
-      v117 = v47;
-      v132 = v46;
-      v133 = v121;
-      v115 = v45;
-      v134 = v45;
-      if (__OFSUB__(v43, v44))
-      {
-        break;
-      }
-
-      if (v44 <= v43)
-      {
-        v50 = v43;
-      }
-
-      else
-      {
-        v50 = v44;
-      }
-
-      v113 = v50;
-      v51 = v44;
-      v112 = v43;
-      v111 = v44;
-      v110 = v46;
-      while (v43 != v51)
-      {
-        if (v43 < v44)
-        {
-          goto LABEL_52;
-        }
-
-        if (v113 == v51)
-        {
-          goto LABEL_53;
-        }
-
-        v52 = v51 + 1;
-        outlined init with copy of Text.Effect.BaseContent(v109, v20, type metadata accessor for Text.Effect.FractionalIndexFunction.Summary);
-        if (swift_getEnumCaseMultiPayload() == 1)
-        {
-          v53 = *v20;
-          v54 = v20[1];
-          type metadata accessor for (ClosedRange<CGFloat>, LayoutDirection)();
-          (*v104)(v16, v20 + *(v55 + 48), v12);
-          v56 = v54 - v53;
-          if (v56 <= 0.0)
-          {
-            (*v103)(v16, v12);
-            v58 = 0.0;
-          }
-
-          else
-          {
-            Text.Effect.BaseFragment.typographicBounds(for:)(v51, v51 + 1, v125);
-            *&v136.origin.x = v125[0];
-            *&v136.size.width = v125[2];
-            v136.origin.y = *&v125[1] - v126;
-            v136.size.height = v126 + v127;
-            v57 = (CGRectGetMidX(v136) - v53) / v56;
-            if (v57 < 0.0)
-            {
-              v57 = 0.0;
-            }
-
-            if (v57 <= 1.0)
-            {
-              v58 = v57;
-            }
-
-            else
-            {
-              v58 = 1.0;
-            }
-
-            v59 = v101;
-            (*v99)(v101, v100, v12);
-            v60 = static LayoutDirection.== infix(_:_:)();
-            v61 = *v103;
-            (*v103)(v59, v12);
-            v61(v116, v12);
-            if ((v60 & 1) == 0)
-            {
-              v58 = 1.0 - v58;
-            }
-          }
-        }
-
-        else
-        {
-          v62 = *v20;
-          v63 = *(v20 + 1);
-          v64 = __OFSUB__(v63, *v20);
-          v65 = v63 - *v20;
-          if (v64)
-          {
-            goto LABEL_58;
-          }
-
-          v58 = 0.0;
-          v93 = v65 <= 1;
-          v66 = v65 - 1;
-          if (!v93)
-          {
-            v64 = __OFSUB__(v51, *&v62);
-            v67 = v51 - *&v62;
-            if (v64)
-            {
-              goto LABEL_59;
-            }
-
-            v58 = v67 / v66;
-          }
-        }
-
-        v68 = v51 - v115;
-        if (__OFSUB__(v51, v115))
-        {
-          goto LABEL_54;
-        }
-
-        if ((v68 & 0x8000000000000000) != 0)
-        {
-          goto LABEL_55;
-        }
-
-        v69 = *(v117 + OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_clusters);
-        if (v68 >= *(v69 + 16))
-        {
-          goto LABEL_56;
-        }
-
-        v70 = v12;
-        v71 = v106;
-        v72 = v107;
-        (*(v10 + 16))(v106, v69 + ((*(v10 + 80) + 32) & ~*(v10 + 80)) + *(v10 + 72) * v68, v107);
-        v73 = Text.Layout.Cluster.characterRange.getter();
-        v75 = v74;
-        (*(v10 + 8))(v71, v72);
-        v76 = CFAttributedStringGetString(*(v117 + OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_attributedString));
-        if (__OFSUB__(v75, v73))
-        {
-          goto LABEL_57;
-        }
-
-        v77 = v76;
-        v135.location = v73;
-        v135.length = v75 - v73;
-        v78 = CFStringCreateWithSubstring(0, v76, v135);
-        if (!v78)
-        {
-          goto LABEL_64;
-        }
-
-        v79 = v78;
-        v80 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v82 = v81;
-
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v48 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v48 + 2) + 1, 1, v48);
-        }
-
-        v84 = *(v48 + 2);
-        v83 = *(v48 + 3);
-        v43 = v112;
-        v44 = v111;
-        v85 = v110;
-        if (v84 >= v83 >> 1)
-        {
-          v87 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v83 > 1), v84 + 1, 1, v48);
-          v85 = v110;
-          v44 = v111;
-          v43 = v112;
-          v48 = v87;
-        }
-
-        *(v48 + 2) = v84 + 1;
-        v86 = &v48[32 * v84];
-        *(v86 + 4) = v58;
-        *(v86 + 5) = v80;
-        *(v86 + 6) = v82;
-        *(v86 + 7) = v85;
-        *v114 = v48;
-        v51 = v52;
-        v12 = v70;
-        v16 = v116;
-        if (__OFSUB__(v43, v52))
-        {
-          goto LABEL_51;
-        }
-      }
-
-      v88 = *(*(v117 + OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_clusters) + 16);
-      v64 = __OFADD__(v115, v88);
-      v89 = v115 + v88;
-      if (v64)
-      {
-        goto LABEL_60;
-      }
-
-      v90 = v89 - v115;
-      if (__OFSUB__(v89, v115))
-      {
-        goto LABEL_61;
-      }
-
-      v91 = *(v48 + 2);
-      v92 = v91 - v90;
-      if (__OFSUB__(v91, v90))
-      {
-        goto LABEL_62;
-      }
-
-      v93 = v89 < v115 || v91 < v92;
-      if (v93)
-      {
-        goto LABEL_63;
-      }
-
-      v49 = v98;
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v49 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v49 + 2) + 1, 1, v49);
-      }
-
-      v95 = *(v49 + 2);
-      v94 = *(v49 + 3);
-      if (v95 >= v94 >> 1)
-      {
-        v49 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v94 > 1), v95 + 1, 1, v49);
-      }
-
-      outlined destroy of Text.Layout.RunSlice?(v118, &lazy cache variable for type metadata for (fragment: Text.Effect.BaseFragment, range: Range<Text.Effect.ClusterIndex>)?, type metadata accessor for (fragment: Text.Effect.BaseFragment, range: Range<Text.Effect.ClusterIndex>));
-      *(v49 + 2) = v95 + 1;
-      v96 = &v49[16 * v95];
-      *(v96 + 4) = v92;
-      *(v96 + 5) = v91;
-      v114[2] = v49;
-      FragmentRangeSequence.Iterator.next()(v118);
-      v42 = v118[0];
-      v47 = v119;
-      v46 = v120;
-      v45 = v122;
-      v44 = v123;
-      v43 = v124;
-      v16 = v116;
-      if (!v118[0])
-      {
-        goto LABEL_50;
-      }
-    }
-
-LABEL_51:
-    __break(1u);
-LABEL_52:
-    __break(1u);
-LABEL_53:
-    __break(1u);
-LABEL_54:
-    __break(1u);
-LABEL_55:
-    __break(1u);
-LABEL_56:
-    __break(1u);
-LABEL_57:
-    __break(1u);
-LABEL_58:
-    __break(1u);
-LABEL_59:
-    __break(1u);
-LABEL_60:
-    __break(1u);
-LABEL_61:
-    __break(1u);
-LABEL_62:
-    __break(1u);
-LABEL_63:
-    __break(1u);
-LABEL_64:
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_50:
-    outlined destroy of FragmentRangeSequence.Iterator(v97, type metadata accessor for FragmentRangeSequence.Iterator);
-    outlined destroy of FragmentRangeSequence.Iterator(v109, type metadata accessor for Text.Effect.FractionalIndexFunction.Summary);
-  }
 }

@@ -72,9 +72,17 @@ LABEL_5:
   equalCopy = equal;
   v7.receiver = self;
   v7.super_class = _UIImageSymbolVariableColorEffect;
-  v5 = [(_UIImageSymbolEffect *)&v7 isEqual:equalCopy]&& self->_styleOptions == equalCopy[2] && [(_UIImageSymbolEffectRepeatBehavior *)self->_repeatBehavior isEqual:equalCopy[3]];
+  if ([(_UIImageSymbolEffect *)&v7 isEqual:equalCopy]&& self->_styleOptions == equalCopy[2])
+  {
+    isEqual = objc_msgSend_isEqual_(self->_repeatBehavior);
+  }
 
-  return v5;
+  else
+  {
+    isEqual = 0;
+  }
+
+  return isEqual;
 }
 
 - (unint64_t)hash

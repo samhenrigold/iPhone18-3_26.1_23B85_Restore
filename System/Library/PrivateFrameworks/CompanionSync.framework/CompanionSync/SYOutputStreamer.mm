@@ -74,14 +74,13 @@ void __40___SYOutputStreamer_stream_handleEvent___block_invoke(uint64_t a1)
 
 void __61___SYOutputStreamer_initWithCompressedFileURL_callbackQueue___block_invoke_cold_2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v4 = a2;
-  v5 = [a3 streamError];
-  v6 = _SYObfuscate(v5);
+  v5 = a2;
+  v6 = [a3 streamError];
+  v7 = _SYObfuscate(v6);
+  LODWORD(v14) = 138543618;
+  *(&v14 + 4) = a1;
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_6_1(&dword_1DF835000, v7, v8, "Output streamer %{public}@: Error from underlying stream: %{public}@", v9, v10, v11, v12, 2u);
-
-  v13 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_1(&dword_1DF835000, v8, v9, "Output streamer %{public}@: Error from underlying stream: %{public}@", v10, v11, v12, v13, v14, DWORD2(v14));
 }
 
 @end

@@ -7,10 +7,10 @@
 - (uint64_t)cam_compareUsingQuality:()CAMCaptureEngine;
 - (uint64_t)cam_supportsFrameDuration:()CAMCaptureEngine;
 - (uint64_t)cam_supportsFrameRate:()CAMCaptureEngine;
-- (uint64_t)cam_supportsFrameRate:()CAMCaptureEngine width:height:colorSpace:enableProResVideo:requireVideoBinned:;
 - (uint64_t)cam_supportsFrontFacingFormatForVideoConfiguration:()CAMCaptureEngine colorSpace:enableProResVideo:dynamicAspectRatio:useSquareFormat:requireVideoBinned:;
 - (uint64_t)cam_supportsPanoramaConfiguration:()CAMCaptureEngine;
 - (uint64_t)cam_supportsVideoConfiguration:()CAMCaptureEngine colorSpace:enableProResVideo:requireVideoBinned:;
+- (void)cam_supportsFrameRate:()CAMCaptureEngine width:height:colorSpace:enableProResVideo:requireVideoBinned:;
 @end
 
 @implementation AVCaptureDeviceFormat(CAMCaptureEngine)
@@ -156,7 +156,7 @@ LABEL_33:
   return [self cam_supportsFrameRate:v12 width:v13 height:a4 colorSpace:a5 enableProResVideo:a6 requireVideoBinned:v9];
 }
 
-- (uint64_t)cam_supportsFrameRate:()CAMCaptureEngine width:height:colorSpace:enableProResVideo:requireVideoBinned:
+- (void)cam_supportsFrameRate:()CAMCaptureEngine width:height:colorSpace:enableProResVideo:requireVideoBinned:
 {
   formatDescription = [self formatDescription];
   if (CMFormatDescriptionGetMediaType(formatDescription) != 1986618469)

@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   v2.receiver = self;
-  v2.super_class = type metadata accessor for MediaFirstPartyView();
+  v2.super_class = type metadata accessor for MediaFirstPartyView(0);
   [(MediaFirstPartyView *)&v2 layoutSubviews];
 }
 

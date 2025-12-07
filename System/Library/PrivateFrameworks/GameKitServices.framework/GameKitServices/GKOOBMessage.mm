@@ -20,7 +20,7 @@
 
 - (GKOOBMessage)initWithBytes:(const void *)bytes length:(unint64_t)length
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v7 = VRTraceErrorLogLevelToCSTR();
@@ -28,22 +28,22 @@
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136316162;
-      v19 = v7;
-      v20 = 2080;
-      v21 = "[GKOOBMessage initWithBytes:length:]";
-      v22 = 1024;
-      v23 = 25;
-      v24 = 2048;
+      v18 = v7;
+      v19 = 2080;
+      v20 = "[GKOOBMessage initWithBytes:length:]";
+      v21 = 1024;
+      v22 = 25;
+      v23 = 2048;
       bytesCopy = bytes;
-      v26 = 1024;
+      v25 = 1024;
       lengthCopy = length;
       _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKOOBMessage initWithBytes (%p, %d)", buf, 0x2Cu);
     }
   }
 
-  v17.receiver = self;
-  v17.super_class = GKOOBMessage;
-  v9 = [(GKOOBMessage *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = GKOOBMessage;
+  v9 = [(GKOOBMessage *)&v16 init];
   v10 = v9;
   if (v9)
   {
@@ -74,8 +74,7 @@
 
 LABEL_25:
 
-      v10 = 0;
-      goto LABEL_26;
+      return 0;
     }
 
     v11 = bswap32(*bytes) >> 16;
@@ -91,12 +90,12 @@ LABEL_25:
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315906;
-            v19 = v12;
-            v20 = 2080;
-            v21 = "[GKOOBMessage initWithBytes:length:]";
-            v22 = 1024;
-            v23 = 53;
-            v24 = 1024;
+            v18 = v12;
+            v19 = 2080;
+            v20 = "[GKOOBMessage initWithBytes:length:]";
+            v21 = 1024;
+            v22 = 53;
+            v23 = 1024;
             LODWORD(bytesCopy) = v11;
             _os_log_impl(&dword_24E50C000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKOOBMessage init: Message type mismatch - type = %d", buf, 0x22u);
           }
@@ -128,56 +127,48 @@ LABEL_25:
     v10->_type = v11;
   }
 
-LABEL_26:
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)initWithBytes:(os_log_t)log length:.cold.1(uint64_t a1, unsigned __int16 a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = 136315906;
-  v5 = a1;
-  v6 = 2080;
-  v7 = "[GKOOBMessage initWithBytes:length:]";
-  v8 = 1024;
-  v9 = 53;
-  v10 = 1024;
-  v11 = a2;
-  _os_log_debug_impl(&dword_24E50C000, log, OS_LOG_TYPE_DEBUG, " [%s] %s:%d GKOOBMessage init: Message type mismatch - type = %d", &v4, 0x22u);
-  v3 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = 136315906;
+  v4 = a1;
+  v5 = 2080;
+  v6 = "[GKOOBMessage initWithBytes:length:]";
+  v7 = 1024;
+  v8 = 53;
+  v9 = 1024;
+  v10 = a2;
+  _os_log_debug_impl(&dword_24E50C000, log, OS_LOG_TYPE_DEBUG, " [%s] %s:%d GKOOBMessage init: Message type mismatch - type = %d", &v3, 0x22u);
 }
 
 - (void)initWithBytes:length:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
-  *&v5[4] = v0;
-  *&v5[6] = "[GKOOBMessage initWithBytes:length:]";
-  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v1, v2, " [%s] %s:%d GKOOBMessage is the wrong size: %u", v4, *v5, "[GKOOBMessage initWithBytes:length:]" >> 16, 46);
-  v3 = *MEMORY[0x277D85DE8];
+  *&v4[4] = v0;
+  *&v4[6] = "[GKOOBMessage initWithBytes:length:]";
+  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v1, v2, " [%s] %s:%d GKOOBMessage is the wrong size: %u", v3, *v4, "[GKOOBMessage initWithBytes:length:]" >> 16, 46);
 }
 
 - (void)initWithBytes:length:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
-  *&v5[4] = v0;
-  *&v5[6] = "[GKOOBMessage initWithBytes:length:]";
-  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v1, v2, " [%s] %s:%d GKOOBMessage init: size is too small %d", v4, *v5, "[GKOOBMessage initWithBytes:length:]" >> 16, 36);
-  v3 = *MEMORY[0x277D85DE8];
+  *&v4[4] = v0;
+  *&v4[6] = "[GKOOBMessage initWithBytes:length:]";
+  OUTLINED_FUNCTION_1_1(&dword_24E50C000, v1, v2, " [%s] %s:%d GKOOBMessage init: size is too small %d", v3, *v4, "[GKOOBMessage initWithBytes:length:]" >> 16, 36);
 }
 
 - (void)initWithBytes:length:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
-  v4 = v0;
-  v5 = "[GKOOBMessage initWithBytes:length:]";
-  v6 = 1024;
-  v7 = 30;
-  _os_log_error_impl(&dword_24E50C000, v1, OS_LOG_TYPE_ERROR, " [%s] %s:%d GKOOBMessage init: null buffer", v3, 0x1Cu);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  v4 = "[GKOOBMessage initWithBytes:length:]";
+  v5 = 1024;
+  v6 = 30;
+  _os_log_error_impl(&dword_24E50C000, v1, OS_LOG_TYPE_ERROR, " [%s] %s:%d GKOOBMessage init: null buffer", v2, 0x1Cu);
 }
 
 @end

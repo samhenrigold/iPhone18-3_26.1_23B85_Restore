@@ -14,6 +14,7 @@
 - (void)_axResetTimer;
 - (void)_axStartTimer;
 - (void)_axStopTimer;
+- (void)animateToState:(int)state completion:(id)completion;
 - (void)didMoveToWindow;
 @end
 
@@ -127,50 +128,48 @@ LABEL_6:
 
 - (id)_axLabelKeysForDirection
 {
-  v6[8] = *MEMORY[0x29EDCA608];
-  v5[0] = &unk_2A21279A8;
-  v5[1] = &unk_2A21279B8;
-  v6[0] = @"pearl.direction.right";
-  v6[1] = @"pearl.direction.up.right";
-  v5[2] = &unk_2A21279C8;
-  v5[3] = &unk_2A21279D8;
-  v6[2] = @"pearl.direction.up";
-  v6[3] = @"pearl.direction.up.left";
-  v5[4] = &unk_2A21279E8;
-  v5[5] = &unk_2A21279F8;
-  v6[4] = @"pearl.direction.left";
-  v6[5] = @"pearl.direction.down.left";
-  v5[6] = &unk_2A2127A08;
-  v5[7] = &unk_2A2127A18;
-  v6[6] = @"pearl.direction.down";
-  v6[7] = @"pearl.direction.down.right";
-  v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v6 forKeys:v5 count:8];
-  v3 = *MEMORY[0x29EDCA608];
+  v5[8] = *MEMORY[0x29EDCA608];
+  v4[0] = &unk_2A21279A8;
+  v4[1] = &unk_2A21279B8;
+  v5[0] = @"pearl.direction.right";
+  v5[1] = @"pearl.direction.up.right";
+  v4[2] = &unk_2A21279C8;
+  v4[3] = &unk_2A21279D8;
+  v5[2] = @"pearl.direction.up";
+  v5[3] = @"pearl.direction.up.left";
+  v4[4] = &unk_2A21279E8;
+  v4[5] = &unk_2A21279F8;
+  v5[4] = @"pearl.direction.left";
+  v5[5] = @"pearl.direction.down.left";
+  v4[6] = &unk_2A2127A08;
+  v4[7] = &unk_2A2127A18;
+  v5[6] = @"pearl.direction.down";
+  v5[7] = @"pearl.direction.down.right";
+  v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v5 forKeys:v4 count:8];
 
   return v2;
 }
 
 - (id)_axLookKeysForDirection
 {
-  v6[8] = *MEMORY[0x29EDCA608];
-  v5[0] = &unk_2A21279A8;
-  v5[1] = &unk_2A21279B8;
-  v6[0] = @"pearl.direction.look.right";
-  v6[1] = @"pearl.direction.look.up.right";
-  v5[2] = &unk_2A21279C8;
-  v5[3] = &unk_2A21279D8;
-  v6[2] = @"pearl.direction.look.up";
-  v6[3] = @"pearl.direction.look.up.left";
-  v5[4] = &unk_2A21279E8;
-  v5[5] = &unk_2A21279F8;
-  v6[4] = @"pearl.direction.look.left";
-  v6[5] = @"pearl.direction.look.down.left";
-  v5[6] = &unk_2A2127A08;
-  v5[7] = &unk_2A2127A18;
-  v6[6] = @"pearl.direction.look.down";
-  v6[7] = @"pearl.direction.look.down.right";
-  v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v6 forKeys:v5 count:8];
-  v3 = *MEMORY[0x29EDCA608];
+  v5[8] = *MEMORY[0x29EDCA608];
+  v4[0] = &unk_2A21279A8;
+  v4[1] = &unk_2A21279B8;
+  v5[0] = @"pearl.direction.look.right";
+  v5[1] = @"pearl.direction.look.up.right";
+  v4[2] = &unk_2A21279C8;
+  v4[3] = &unk_2A21279D8;
+  v5[2] = @"pearl.direction.look.up";
+  v5[3] = @"pearl.direction.look.up.left";
+  v4[4] = &unk_2A21279E8;
+  v4[5] = &unk_2A21279F8;
+  v5[4] = @"pearl.direction.look.left";
+  v5[5] = @"pearl.direction.look.down.left";
+  v4[6] = &unk_2A2127A08;
+  v4[7] = &unk_2A2127A18;
+  v5[6] = @"pearl.direction.look.down";
+  v5[7] = @"pearl.direction.look.down.right";
+  v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v5 forKeys:v4 count:8];
 
   return v2;
 }
@@ -197,41 +196,41 @@ float __62__BKUIPearlPillContainerViewAccessibility__axSectionForAngle___block_i
 
 - (id)_accessibilityUnfilledDirections
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   _axUnfilledDirections = [(BKUIPearlPillContainerViewAccessibility *)self _axUnfilledDirections];
   if (!_axUnfilledDirections)
   {
     _axUnfilledDirections = [MEMORY[0x29EDB8DE8] array];
     _axAnglesToCheck = [(BKUIPearlPillContainerViewAccessibility *)self _axAnglesToCheck];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v5 = [_axAnglesToCheck countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [_axAnglesToCheck countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(_axAnglesToCheck);
           }
 
-          [*(*(&v17 + 1) + 8 * i) floatValue];
-          v11 = MEMORY[0x29EDCA5F8];
-          v12 = 3221225472;
-          v13 = __75__BKUIPearlPillContainerViewAccessibility__accessibilityUnfilledDirections__block_invoke;
-          v14 = &unk_29F2A82A0;
+          [*(*(&v16 + 1) + 8 * i) floatValue];
+          v10 = MEMORY[0x29EDCA5F8];
+          v11 = 3221225472;
+          v12 = __75__BKUIPearlPillContainerViewAccessibility__accessibilityUnfilledDirections__block_invoke;
+          v13 = &unk_29F2A82A0;
           selfCopy = self;
-          v16 = _axUnfilledDirections;
+          v15 = _axUnfilledDirections;
           AXPerformSafeBlock();
         }
 
-        v6 = [_axAnglesToCheck countByEnumeratingWithState:&v17 objects:v21 count:{16, v11, 3221225472, __75__BKUIPearlPillContainerViewAccessibility__accessibilityUnfilledDirections__block_invoke, &unk_29F2A82A0, self}];
+        v6 = [_axAnglesToCheck countByEnumeratingWithState:&v16 objects:v20 count:{16, v10, 3221225472, __75__BKUIPearlPillContainerViewAccessibility__accessibilityUnfilledDirections__block_invoke, &unk_29F2A82A0, self}];
       }
 
       while (v6);
@@ -239,8 +238,6 @@ float __62__BKUIPearlPillContainerViewAccessibility__axSectionForAngle___block_i
 
     [(BKUIPearlPillContainerViewAccessibility *)self _setAXUnfilledDirections:_axUnfilledDirections];
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 
   return _axUnfilledDirections;
 }
@@ -282,43 +279,43 @@ void __75__BKUIPearlPillContainerViewAccessibility__accessibilityUnfilledDirecti
 
 - (id)_accessibilityScrollStatus
 {
-  v28 = *MEMORY[0x29EDCA608];
-  v26.receiver = self;
-  v26.super_class = BKUIPearlPillContainerViewAccessibility;
-  _accessibilityScrollStatus = [(BKUIPearlPillContainerViewAccessibility *)&v26 _accessibilityScrollStatus];
+  v27 = *MEMORY[0x29EDCA608];
+  v25.receiver = self;
+  v25.super_class = BKUIPearlPillContainerViewAccessibility;
+  _accessibilityScrollStatus = [(BKUIPearlPillContainerViewAccessibility *)&v25 _accessibilityScrollStatus];
   _accessibilityUnfilledDirections = [(BKUIPearlPillContainerViewAccessibility *)self _accessibilityUnfilledDirections];
   if ([_accessibilityUnfilledDirections count])
   {
-    v21 = _accessibilityScrollStatus;
+    v20 = _accessibilityScrollStatus;
     v5 = accessibilityLocalizedString(@"pearl.direction.incomplete");
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v20 = _accessibilityUnfilledDirections;
+    v19 = _accessibilityUnfilledDirections;
     v6 = _accessibilityUnfilledDirections;
-    v7 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v23;
+      v9 = *v22;
       do
       {
         v10 = 0;
         v11 = v5;
         do
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * v10);
-          v13 = [(BKUIPearlPillContainerViewAccessibility *)self _axLabelKeysForDirection:v18];
+          v12 = *(*(&v21 + 1) + 8 * v10);
+          v13 = [(BKUIPearlPillContainerViewAccessibility *)self _axLabelKeysForDirection:v17];
           v14 = [v13 objectForKey:v12];
 
-          v18 = accessibilityLocalizedString(v14);
-          v19 = @"__AXStringForVariablesSentinel";
+          v17 = accessibilityLocalizedString(v14);
+          v18 = @"__AXStringForVariablesSentinel";
           v5 = __UIAXStringForVariables();
 
           ++v10;
@@ -326,7 +323,7 @@ void __75__BKUIPearlPillContainerViewAccessibility__accessibilityUnfilledDirecti
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:{16, v18, @"__AXStringForVariablesSentinel"}];
+        v8 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:{16, v17, @"__AXStringForVariablesSentinel"}];
       }
 
       while (v8);
@@ -335,10 +332,8 @@ void __75__BKUIPearlPillContainerViewAccessibility__accessibilityUnfilledDirecti
     v15 = __UIAXStringForVariables();
 
     _accessibilityScrollStatus = v15;
-    _accessibilityUnfilledDirections = v20;
+    _accessibilityUnfilledDirections = v19;
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 
   return _accessibilityScrollStatus;
 }
@@ -475,6 +470,47 @@ void __75__BKUIPearlPillContainerViewAccessibility__accessibilityUnfilledDirecti
   }
 
 LABEL_15:
+}
+
+- (void)animateToState:(int)state completion:(id)completion
+{
+  v7.receiver = self;
+  v7.super_class = BKUIPearlPillContainerViewAccessibility;
+  [(BKUIPearlPillContainerViewAccessibility *)&v7 animateToState:*&state completion:completion];
+  if (UIAccessibilityIsVoiceOverRunning())
+  {
+    if (state <= 6)
+    {
+      if (state != 5)
+      {
+        if (state == 6)
+        {
+          [(BKUIPearlPillContainerViewAccessibility *)self _axStopTimer];
+          _axSpokenDirections = [(BKUIPearlPillContainerViewAccessibility *)self _axSpokenDirections];
+          [_axSpokenDirections removeAllObjects];
+          [(BKUIPearlPillContainerViewAccessibility *)self _setAXUnfilledDirections:0];
+          [(BKUIPearlPillContainerViewAccessibility *)self _setAXCurrentNudgeDirection:0];
+          [(BKUIPearlPillContainerViewAccessibility *)self _setAXCurrentNudgeCount:0];
+        }
+
+        return;
+      }
+
+LABEL_9:
+      [(BKUIPearlPillContainerViewAccessibility *)self _axStartTimer];
+      return;
+    }
+
+    if (state == 7)
+    {
+      goto LABEL_9;
+    }
+
+    if (state == 8)
+    {
+      [(BKUIPearlPillContainerViewAccessibility *)self _axStopTimer];
+    }
+  }
 }
 
 @end

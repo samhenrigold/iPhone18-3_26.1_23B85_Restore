@@ -17,9 +17,10 @@
   *(&self->super.super.isa + OBJC_IVAR____TtC5UIKit30_UIDurationBounceAnimationSpec_duration) = 0;
   *(&self->super.super.isa + OBJC_IVAR____TtC5UIKit30_UIDurationBounceAnimationSpec_bounce) = 0;
   *(&self->super.super.isa + OBJC_IVAR____TtC5UIKit30_UIDurationBounceAnimationSpec_delay) = 0;
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for _UIDurationBounceAnimationSpec();
-  return [(PTSettings *)&v3 initWithDefaultValues];
+  v3 = type metadata accessor for _UIDurationBounceAnimationSpec();
+  v6.receiver = self;
+  v6.super_class = v4;
+  return [(PTSettings *)&v6 initWithDefaultValues];
 }
 
 @end

@@ -72,94 +72,95 @@
         integerValue = [v21 integerValue];
 
         v23 = [v17 objectForKeyedSubscript:@"domainOwner"];
-        if (![v18 isEqualToString:@"unnamed_domains"])
+        v24 = [v18 isEqualToString:@"unnamed_domains"];
+        if (!v24)
         {
-          v28 = MEMORY[0x277D3FAD8];
-          v29 = [MEMORY[0x277CBEBC0] URLWithString:v18];
-          _lp_simplifiedDisplayString = [v29 _lp_simplifiedDisplayString];
-          v27 = [v28 preferenceSpecifierNamed:_lp_simplifiedDisplayString target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
+          v29 = MEMORY[0x277D3FAD8];
+          v30 = [MEMORY[0x277CBEBC0] URLWithString:v18];
+          _lp_simplifiedDisplayString = [v30 _lp_simplifiedDisplayString];
+          v28 = [v29 preferenceSpecifierNamed:_lp_simplifiedDisplayString target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
 
           goto LABEL_18;
         }
 
-        v24 = _PUILoggingFacility();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v25 = _PUILoggingFacility(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
           v73 = "+[PUIReportDomainListController domainSpecifiersFromResults:showDates:showAppAndWebsiteCounts:app:appOther:website:]";
           v74 = 2112;
           v75 = v17;
-          _os_log_impl(&dword_2657FE000, v24, OS_LOG_TYPE_DEFAULT, "%s: unnamed domains entry: %@", buf, 0x16u);
+          _os_log_impl(&dword_2657FE000, v25, OS_LOG_TYPE_DEFAULT, "%s: unnamed domains entry: %@", buf, 0x16u);
         }
 
         if (integerValue)
         {
-          v25 = MEMORY[0x277D3FAD8];
-          v26 = PUI_LocalizedStringForAppReport(@"UNNAMED_DOMAINS");
-          v27 = [v25 preferenceSpecifierNamed:v26 target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
+          v26 = MEMORY[0x277D3FAD8];
+          v27 = PUI_LocalizedStringForAppReport(@"UNNAMED_DOMAINS");
+          v28 = [v26 preferenceSpecifierNamed:v27 target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
 
-          [v27 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"PUIReportDomainListShowIPAddresses"];
-          [v27 setObject:appCopy forKeyedSubscript:@"PUIReportDomainListEntries"];
-          [v27 setObject:otherCopy forKeyedSubscript:@"PUIReportDomainListAppOther"];
-          [v27 setObject:websiteCopy forKeyedSubscript:@"PUIReportDomainListWebsite"];
+          [v28 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"PUIReportDomainListShowIPAddresses"];
+          [v28 setObject:appCopy forKeyedSubscript:@"PUIReportDomainListEntries"];
+          [v28 setObject:otherCopy forKeyedSubscript:@"PUIReportDomainListAppOther"];
+          [v28 setObject:websiteCopy forKeyedSubscript:@"PUIReportDomainListWebsite"];
 LABEL_18:
-          [v27 setIdentifier:v18];
-          [v27 setObject:v18 forKeyedSubscript:@"PUIReportDomainKey"];
-          v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:integerValue];
-          [v27 setObject:v31 forKeyedSubscript:@"PUITrackerBarValueKey"];
+          [v28 setIdentifier:v18];
+          [v28 setObject:v18 forKeyedSubscript:@"PUIReportDomainKey"];
+          v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:integerValue];
+          [v28 setObject:v32 forKeyedSubscript:@"PUITrackerBarValueKey"];
 
           systemBlueColor = [MEMORY[0x277D75348] systemBlueColor];
-          [v27 setObject:systemBlueColor forKeyedSubscript:@"PUITrackerBarColorKey"];
+          [v28 setObject:systemBlueColor forKeyedSubscript:@"PUITrackerBarColorKey"];
 
-          [v27 setObject:objc_opt_class() forKeyedSubscript:v57];
-          [v27 setObject:v23 forKeyedSubscript:@"PUIReportDomainDetailOwnerKey"];
-          v33 = [v17 objectForKeyedSubscript:@"domainType"];
-          [v27 setObject:v33 forKeyedSubscript:@"PUIReportDomainDetailTrackerTypeKey"];
+          [v28 setObject:objc_opt_class() forKeyedSubscript:v57];
+          [v28 setObject:v23 forKeyedSubscript:@"PUIReportDomainDetailOwnerKey"];
+          v34 = [v17 objectForKeyedSubscript:@"domainType"];
+          [v28 setObject:v34 forKeyedSubscript:@"PUIReportDomainDetailTrackerTypeKey"];
 
           if (v59)
           {
-            v34 = MEMORY[0x277CBEAA8];
-            v35 = [v17 objectForKeyedSubscript:@"maxTimeStamp"];
-            v36 = [v34 dateWithTimeIntervalSinceReferenceDate:{objc_msgSend(v35, "integerValue")}];
+            v35 = MEMORY[0x277CBEAA8];
+            v36 = [v17 objectForKeyedSubscript:@"maxTimeStamp"];
+            v37 = [v35 dateWithTimeIntervalSinceReferenceDate:{objc_msgSend(v36, "integerValue")}];
 
-            v37 = [v56 stringFromDate:v36];
+            v38 = [v56 stringFromDate:v37];
             if ([v23 length])
             {
-              v38 = MEMORY[0x277CCACA8];
-              v39 = PUI_LocalizedStringForAppReport(@"TIME_AND_OWNER");
-              v40 = [v38 stringWithFormat:v39, v37, v23];
+              v39 = MEMORY[0x277CCACA8];
+              v40 = PUI_LocalizedStringForAppReport(@"TIME_AND_OWNER");
+              v41 = [v39 stringWithFormat:v40, v38, v23];
 
               v14 = v52;
             }
 
             else
             {
-              v40 = v37;
+              v41 = v38;
             }
           }
 
           else
           {
-            v40 = v23;
+            v41 = v23;
           }
 
-          if ([(__CFString *)v40 length])
+          if ([(__CFString *)v41 length])
           {
-            v41 = v40;
+            v42 = v41;
           }
 
           else
           {
-            v41 = &stru_28771E540;
+            v42 = &stru_28771E540;
           }
 
-          [v27 setObject:v41 forKeyedSubscript:@"PUITrackerBarDomainOwnerKey"];
+          [v28 setObject:v42 forKeyedSubscript:@"PUITrackerBarDomainOwnerKey"];
           if (integerValue > v15)
           {
             v15 = integerValue;
           }
 
-          [v60 addObject:v27];
+          [v60 addObject:v28];
         }
       }
 
@@ -173,36 +174,35 @@ LABEL_18:
   v66 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v42 = v60;
-  v43 = [v42 countByEnumeratingWithState:&v63 objects:v71 count:16];
-  if (v43)
+  v43 = v60;
+  v44 = [v43 countByEnumeratingWithState:&v63 objects:v71 count:16];
+  if (v44)
   {
-    v44 = v43;
-    v45 = *v64;
+    v45 = v44;
+    v46 = *v64;
     do
     {
-      for (j = 0; j != v44; ++j)
+      for (j = 0; j != v45; ++j)
       {
-        if (*v64 != v45)
+        if (*v64 != v46)
         {
-          objc_enumerationMutation(v42);
+          objc_enumerationMutation(v43);
         }
 
-        v47 = *(*(&v63 + 1) + 8 * j);
-        v48 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v15];
-        [v47 setObject:v48 forKeyedSubscript:@"PUITrackerBarCapacityKey"];
+        v48 = *(*(&v63 + 1) + 8 * j);
+        v49 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v15];
+        [v48 setObject:v49 forKeyedSubscript:@"PUITrackerBarCapacityKey"];
       }
 
-      v44 = [v42 countByEnumeratingWithState:&v63 objects:v71 count:16];
+      v45 = [v43 countByEnumeratingWithState:&v63 objects:v71 count:16];
     }
 
-    while (v44);
+    while (v45);
   }
 
-  v49 = [v42 copy];
-  v50 = *MEMORY[0x277D85DE8];
+  v50 = [v43 copy];
 
-  return v49;
+  return v50;
 }
 
 + (BOOL)domainSpecifiersWithLimit:(unint64_t)limit showDates:(BOOL)dates showAppAndWebsiteCounts:(BOOL)counts showIPAddresses:(BOOL)addresses completion:(id)completion
@@ -440,21 +440,20 @@ LABEL_22:
 
 void __43__PUIReportDomainListController_specifiers__block_invoke(void *a1, void *a2)
 {
-  v3 = a1[4];
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = [v4 objectForKeyedSubscript:@"result"];
+  v3 = a2;
+  v4 = objc_opt_class();
+  v5 = [v3 objectForKeyedSubscript:@"result"];
 
-  v7 = [v5 domainSpecifiersFromResults:v6 showDates:0 showAppAndWebsiteCounts:0 app:a1[5] appOther:a1[6] website:a1[7]];
+  v6 = [v4 domainSpecifiersFromResults:v5 showDates:0 showAppAndWebsiteCounts:0 app:a1[5] appOther:a1[6] website:a1[7]];
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __43__PUIReportDomainListController_specifiers__block_invoke_2;
-  v9[3] = &unk_279BA10B0;
-  v9[4] = a1[4];
-  v10 = v7;
-  v8 = v7;
-  dispatch_async(MEMORY[0x277D85CD0], v9);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __43__PUIReportDomainListController_specifiers__block_invoke_2;
+  v8[3] = &unk_279BA10B0;
+  v8[4] = a1[4];
+  v9 = v6;
+  v7 = v6;
+  dispatch_async(MEMORY[0x277D85CD0], v8);
 }
 
 uint64_t __43__PUIReportDomainListController_specifiers__block_invoke_2(uint64_t a1)
@@ -482,18 +481,17 @@ void __43__PUIReportDomainListController_specifiers__block_invoke_4(uint64_t a1)
 {
   [*(a1 + 32) setCachedSpecifiers:*(a1 + 40)];
   [*(a1 + 32) reloadSpecifiers];
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = [*(a1 + 32) showWebsiteAndAppCounts];
-  v5 = [*(a1 + 32) specifier];
-  v6 = [v5 objectForKeyedSubscript:@"PUIReportDomainListShowIPAddresses"];
-  v7 = [v6 BOOLValue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __43__PUIReportDomainListController_specifiers__block_invoke_5;
-  v8[3] = &unk_279BA2008;
-  v8[4] = *(a1 + 32);
-  [v3 domainSpecifiersWithLimit:0 showDates:0 showAppAndWebsiteCounts:v4 showIPAddresses:v7 completion:v8];
+  v2 = objc_opt_class();
+  v3 = [*(a1 + 32) showWebsiteAndAppCounts];
+  v4 = [*(a1 + 32) specifier];
+  v5 = [v4 objectForKeyedSubscript:@"PUIReportDomainListShowIPAddresses"];
+  v6 = [v5 BOOLValue];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __43__PUIReportDomainListController_specifiers__block_invoke_5;
+  v7[3] = &unk_279BA2008;
+  v7[4] = *(a1 + 32);
+  [v2 domainSpecifiersWithLimit:0 showDates:0 showAppAndWebsiteCounts:v3 showIPAddresses:v6 completion:v7];
 }
 
 void __43__PUIReportDomainListController_specifiers__block_invoke_5(uint64_t a1, void *a2)
@@ -567,7 +565,7 @@ uint64_t __43__PUIReportDomainListController_specifiers__block_invoke_7(uint64_t
   [(PUIReportDomainListController *)self presentViewController:v3 animated:1 completion:0];
 }
 
-uint64_t __48__PUIReportDomainListController_sortByWasTapped__block_invoke(uint64_t a1)
+void *__48__PUIReportDomainListController_sortByWasTapped__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) alphabeticalSort];
   if (result)
@@ -581,7 +579,7 @@ uint64_t __48__PUIReportDomainListController_sortByWasTapped__block_invoke(uint6
   return result;
 }
 
-uint64_t __48__PUIReportDomainListController_sortByWasTapped__block_invoke_2(uint64_t a1)
+void *__48__PUIReportDomainListController_sortByWasTapped__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) alphabeticalSort];
   if ((result & 1) == 0)

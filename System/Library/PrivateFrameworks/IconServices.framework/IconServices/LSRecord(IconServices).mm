@@ -39,48 +39,49 @@
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v8 = legacyResourceNames();
-    v9 = expandedNamesFromResourceNames(v8);
+    v9 = legacyResourceNames(isKindOfClass);
+    v10 = expandedNamesFromResourceNames(v9);
 
     v26 = 0u;
     v27 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
-    if (v11)
+    v11 = v10;
+    v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v12)
     {
-      v12 = v11;
+      v13 = v12;
       v23 = iconDictionary;
-      v13 = *v25;
+      v14 = *v25;
       while (2)
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v25 != v13)
+          if (*v25 != v14)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v24 + 1) + 8 * i);
-          v16 = [self URL];
-          v17 = [v16 URLByAppendingPathComponent:v15];
+          v16 = *(*(&v24 + 1) + 8 * i);
+          v17 = [self URL];
+          v18 = [v17 URLByAppendingPathComponent:v16];
 
           defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-          path = [v17 path];
-          v20 = [defaultManager fileExistsAtPath:path];
+          path = [v18 path];
+          v21 = [defaultManager fileExistsAtPath:path];
 
-          if (v20)
+          if (v21)
           {
             v7 = 1;
             goto LABEL_19;
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
-        if (v12)
+        v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        if (v13)
         {
           continue;
         }
@@ -106,7 +107,6 @@ LABEL_19:
 
 LABEL_22:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -132,40 +132,39 @@ LABEL_22:
 
 + (id)_is_resourceTokenForRecords:()IconServices
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a3;
   v4 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:{16 * objc_msgSend(v3, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        persistentIdentifier = [*(*(&v14 + 1) + 8 * i) persistentIdentifier];
+        persistentIdentifier = [*(*(&v13 + 1) + 8 * i) persistentIdentifier];
         [v4 appendData:persistentIdentifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [v4 copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

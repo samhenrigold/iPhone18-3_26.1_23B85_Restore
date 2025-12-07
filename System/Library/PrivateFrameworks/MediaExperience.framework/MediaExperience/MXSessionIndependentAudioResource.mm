@@ -22,7 +22,7 @@
 
 - (void)dumpDebugInfo
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -47,8 +47,6 @@
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

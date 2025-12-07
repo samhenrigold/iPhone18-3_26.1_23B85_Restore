@@ -1,372 +1,3 @@
-telephonytransport::PCIReadRegisterResponse *telephonytransport::PCIReadRegisterResponse::PCIReadRegisterResponse(telephonytransport::PCIReadRegisterResponse *this, const telephonytransport::PCIReadRegisterResponse *a2)
-{
-  *this = &unk_2A1E9E6C8;
-  *(this + 1) = 0;
-  v4 = (this + 8);
-  *(this + 2) = 0;
-  *(this + 3) = 0;
-  v5 = *(a2 + 2);
-  if (v5)
-  {
-    v6 = operator new(0x18uLL);
-    *(this + 2) = telephonytransport::PCIMessageId::PCIMessageId(v6, v5);
-  }
-
-  if (*(a2 + 28))
-  {
-    v7 = *(a2 + 6);
-    *(this + 28) = 1;
-    *(this + 6) = v7;
-  }
-
-  v8 = *(a2 + 1);
-  if (v8)
-  {
-    v9 = operator new(0x10uLL);
-    PB::Data::Data(v9, v8);
-    std::unique_ptr<PB::Data>::reset[abi:ne200100](v4, v9);
-  }
-
-  return this;
-}
-
-uint64_t telephonytransport::PCIReadRegisterResponse::operator=(uint64_t a1, const telephonytransport::PCIReadRegisterResponse *a2)
-{
-  if (a1 != a2)
-  {
-    *&v3 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *v8 = v3;
-    *&v8[16] = v3;
-    telephonytransport::PCIReadRegisterResponse::PCIReadRegisterResponse(v8, a2);
-    v4 = *(a1 + 24);
-    v5 = *(a1 + 28);
-    *(a1 + 24) = *&v8[24];
-    *&v8[24] = v4;
-    *&v8[28] = v5;
-    v6 = *(a1 + 8);
-    *(a1 + 8) = *&v8[8];
-    *&v8[8] = v6;
-    telephonytransport::PCIReadRegisterResponse::~PCIReadRegisterResponse(v8);
-  }
-
-  return a1;
-}
-
-uint64_t telephonytransport::swap(uint64_t this, telephonytransport::PCIReadRegisterResponse *a2, telephonytransport::PCIReadRegisterResponse *a3)
-{
-  v3 = *(this + 28);
-  *(this + 28) = *(a2 + 7);
-  *(a2 + 7) = v3;
-  v4 = *(this + 16);
-  *(this + 16) = *(a2 + 2);
-  *(a2 + 2) = v4;
-  LODWORD(v4) = *(this + 24);
-  *(this + 24) = *(a2 + 6);
-  *(a2 + 6) = v4;
-  v5 = *(this + 8);
-  *(this + 8) = *(a2 + 1);
-  *(a2 + 1) = v5;
-  return this;
-}
-
-uint64_t telephonytransport::PCIReadRegisterResponse::PCIReadRegisterResponse(uint64_t a1, uint64_t a2)
-{
-  *a1 = &unk_2A1E9E6C8;
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 28) = *(a2 + 28);
-  *(a2 + 28) = 0;
-  v5 = *(a2 + 16);
-  *(a2 + 16) = 0;
-  v6 = *(a1 + 16);
-  *(a1 + 16) = v5;
-  if (v6)
-  {
-    (*(*v6 + 8))(v6);
-  }
-
-  *(a1 + 24) = *(a2 + 24);
-  v7 = *(a2 + 8);
-  *(a2 + 8) = 0;
-  std::unique_ptr<PB::Data>::reset[abi:ne200100](v4, v7);
-  return a1;
-}
-
-uint64_t telephonytransport::PCIReadRegisterResponse::operator=(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    *&v3 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *v8 = v3;
-    *&v8[16] = v3;
-    telephonytransport::PCIReadRegisterResponse::PCIReadRegisterResponse(v8, a2);
-    v4 = *(a1 + 24);
-    v5 = *(a1 + 28);
-    *(a1 + 24) = *&v8[24];
-    *&v8[24] = v4;
-    *&v8[28] = v5;
-    v6 = *(a1 + 8);
-    *(a1 + 8) = *&v8[8];
-    *&v8[8] = v6;
-    telephonytransport::PCIReadRegisterResponse::~PCIReadRegisterResponse(v8);
-  }
-
-  return a1;
-}
-
-uint64_t telephonytransport::PCIReadRegisterResponse::formatText(telephonytransport::PCIReadRegisterResponse *this, PB::TextFormatter *a2, const char *a3)
-{
-  PB::TextFormatter::beginObject(a2, a3);
-  if (*(this + 1))
-  {
-    PB::TextFormatter::format();
-  }
-
-  v5 = *(this + 2);
-  if (v5)
-  {
-    (*(*v5 + 32))(v5, a2, "messageId");
-  }
-
-  if (*(this + 28))
-  {
-    v6 = *(this + 6);
-    PB::TextFormatter::format(a2, "result");
-  }
-
-  return MEMORY[0x2A1C68DE0](a2);
-}
-
-uint64_t telephonytransport::PCIReadRegisterResponse::readFrom(void ***this, PB::Reader *a2)
-{
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
-  {
-    while (1)
-    {
-      v7 = *a2;
-      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
-      {
-        break;
-      }
-
-      v8 = 0;
-      v9 = 0;
-      v10 = 0;
-      v11 = (v7 + v2);
-      v12 = v2 + 1;
-      while (1)
-      {
-        *(a2 + 1) = v12;
-        v13 = *v11++;
-        v10 |= (v13 & 0x7F) << v8;
-        if ((v13 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v8 += 7;
-        ++v12;
-        v14 = v9++ > 8;
-        if (v14)
-        {
-          goto LABEL_17;
-        }
-      }
-
-LABEL_21:
-      if ((v10 & 7) == 4)
-      {
-        v4 = 0;
-        goto LABEL_51;
-      }
-
-      v22 = v10 >> 3;
-      if ((v10 >> 3) == 3)
-      {
-        v34 = operator new(0x10uLL);
-        *v34 = 0;
-        v34[1] = 0;
-        std::unique_ptr<PB::Data>::reset[abi:ne200100](this + 1, v34);
-        PB::Reader::read(a2, this[1]);
-      }
-
-      else if (v22 == 2)
-      {
-        *(this + 28) |= 1u;
-        v26 = *(a2 + 1);
-        v25 = *(a2 + 2);
-        v27 = *a2;
-        if (v26 > 0xFFFFFFFFFFFFFFF5 || v26 + 10 > v25)
-        {
-          v35 = 0;
-          v36 = 0;
-          v30 = 0;
-          v37 = (v27 + v26);
-          v18 = v25 >= v26;
-          v38 = v25 - v26;
-          if (!v18)
-          {
-            v38 = 0;
-          }
-
-          v39 = v26 + 1;
-          while (1)
-          {
-            if (!v38)
-            {
-              LODWORD(v30) = 0;
-              *(a2 + 24) = 1;
-              goto LABEL_49;
-            }
-
-            v40 = *v37;
-            *(a2 + 1) = v39;
-            v30 |= (v40 & 0x7F) << v35;
-            if ((v40 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v35 += 7;
-            ++v37;
-            --v38;
-            ++v39;
-            v14 = v36++ > 8;
-            if (v14)
-            {
-LABEL_45:
-              LODWORD(v30) = 0;
-              goto LABEL_49;
-            }
-          }
-
-          if (*(a2 + 24))
-          {
-            LODWORD(v30) = 0;
-          }
-        }
-
-        else
-        {
-          v28 = 0;
-          v29 = 0;
-          v30 = 0;
-          v31 = (v27 + v26);
-          v32 = v26 + 1;
-          while (1)
-          {
-            *(a2 + 1) = v32;
-            v33 = *v31++;
-            v30 |= (v33 & 0x7F) << v28;
-            if ((v33 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v28 += 7;
-            ++v32;
-            v14 = v29++ > 8;
-            if (v14)
-            {
-              goto LABEL_45;
-            }
-          }
-        }
-
-LABEL_49:
-        *(this + 6) = v30;
-      }
-
-      else if (v22 == 1)
-      {
-        v23 = operator new(0x18uLL);
-        *v23 = &unk_2A1E9E7A8;
-        *(v23 + 5) = 0;
-        v24 = this[2];
-        this[2] = v23;
-        if (v24)
-        {
-          (*(*v24 + 1))(v24);
-          v23 = this[2];
-        }
-
-        if (!PB::Reader::placeMark() || !(*(*v23 + 2))(v23, a2))
-        {
-LABEL_53:
-          v41 = 0;
-          return v41 & 1;
-        }
-
-        PB::Reader::recallMark();
-      }
-
-      else
-      {
-LABEL_17:
-        if ((PB::Reader::skip(a2) & 1) == 0)
-        {
-          goto LABEL_53;
-        }
-      }
-
-      v2 = *(a2 + 1);
-      v3 = *(a2 + 2);
-      v4 = *(a2 + 24);
-      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
-      {
-        goto LABEL_51;
-      }
-    }
-
-    v15 = 0;
-    v16 = 0;
-    v10 = 0;
-    v17 = (v7 + v2);
-    v18 = v3 >= v2;
-    v19 = v3 - v2;
-    if (!v18)
-    {
-      v19 = 0;
-    }
-
-    v20 = v2 + 1;
-    while (v19)
-    {
-      v21 = *v17;
-      *(a2 + 1) = v20;
-      v10 |= (v21 & 0x7F) << v15;
-      if ((v21 & 0x80) == 0)
-      {
-        goto LABEL_21;
-      }
-
-      v15 += 7;
-      ++v17;
-      --v19;
-      ++v20;
-      v14 = v16++ > 8;
-      if (v14)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v4 = 1;
-    *(a2 + 24) = 1;
-  }
-
-LABEL_51:
-  v41 = v4 ^ 1;
-  return v41 & 1;
-}
-
 uint64_t telephonytransport::PCIReadRegisterResponse::writeTo(uint64_t this, PB::Writer *a2)
 {
   v3 = this;
@@ -378,7 +9,6 @@ uint64_t telephonytransport::PCIReadRegisterResponse::writeTo(uint64_t this, PB:
 
   if (*(v3 + 28))
   {
-    v5 = *(v3 + 24);
     this = PB::Writer::writeVarInt(a2);
   }
 
@@ -408,7 +38,6 @@ BOOL telephonytransport::PCIReadRegisterResponse::operator==(uint64_t a1, uint64
     return 0;
   }
 
-  v6 = *(a2 + 28);
   if (*(a1 + 28))
   {
     if ((*(a2 + 28) & 1) == 0 || *(a1 + 24) != *(a2 + 24))
@@ -479,20 +108,17 @@ uint64_t telephonytransport::PCIReadRegisterResponse::hash_value(telephonytransp
     v6 = 0;
   }
 
-  v7 = *(this + 1);
-  if (v7)
+  if (*(this + 1))
   {
-    v8 = *v7;
-    v9 = v7[1];
-    v10 = PBHashBytes();
+    v7 = PBHashBytes();
   }
 
   else
   {
-    v10 = 0;
+    v7 = 0;
   }
 
-  return v6 ^ v5 ^ v10;
+  return v6 ^ v5 ^ v7;
 }
 
 void *telephonytransport::PCIReadRegisterResponse::makeMessageId(void *this)
@@ -689,27 +315,24 @@ uint64_t telephonytransport::PCIReadRegisterRequest::formatText(telephonytranspo
   PB::TextFormatter::beginObject(a2, a3);
   if (*(this + 28))
   {
-    v5 = *(this + 4);
     PB::TextFormatter::format(a2, "bytesToRead");
   }
 
-  v6 = *(this + 1);
-  if (v6)
+  v5 = *(this + 1);
+  if (v5)
   {
-    (*(*v6 + 32))(v6, a2, "messageId");
+    (*(*v5 + 32))(v5, a2, "messageId");
   }
 
-  v7 = *(this + 28);
-  if ((v7 & 2) != 0)
+  v6 = *(this + 28);
+  if ((v6 & 2) != 0)
   {
-    v8 = *(this + 5);
     PB::TextFormatter::format(a2, "timeoutMs");
-    v7 = *(this + 28);
+    v6 = *(this + 28);
   }
 
-  if ((v7 & 4) != 0)
+  if ((v6 & 4) != 0)
   {
-    v9 = *(this + 6);
     PB::TextFormatter::format(a2, "whichRegister");
   }
 
@@ -1133,7 +756,6 @@ uint64_t telephonytransport::PCIReadRegisterRequest::writeTo(uint64_t this, PB::
     }
 
 LABEL_8:
-    v7 = *(v3 + 20);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 28) & 1) == 0)
     {
@@ -1143,7 +765,6 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v6 = *(v3 + 24);
   this = PB::Writer::writeVarInt(a2);
   v5 = *(v3 + 28);
   if ((v5 & 2) != 0)
@@ -1158,7 +779,6 @@ LABEL_5:
   }
 
 LABEL_9:
-  v8 = *(v3 + 16);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -2045,14 +1665,12 @@ uint64_t telephonytransport::PCIMessageId::formatText(telephonytransport::PCIMes
   v5 = *(this + 20);
   if ((v5 & 2) != 0)
   {
-    v6 = *(this + 4);
     PB::TextFormatter::format(a2, "transportToken");
     v5 = *(this + 20);
   }
 
   if (v5)
   {
-    v7 = *(this + 1);
     PB::TextFormatter::format(a2, "txnId");
   }
 
@@ -2365,14 +1983,12 @@ uint64_t telephonytransport::PCIMessageId::writeTo(uint64_t this, PB::Writer *a2
   v4 = *(this + 20);
   if ((v4 & 2) != 0)
   {
-    v5 = *(this + 16);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 20);
   }
 
   if (v4)
   {
-    v6 = *(v3 + 8);
 
     return PB::Writer::writeVarInt(a2);
   }
@@ -2765,20 +2381,17 @@ uint64_t telephonytransport::PCIReadIndication::hash_value(telephonytransport::P
     v5 = 0;
   }
 
-  v6 = *(this + 1);
-  if (v6)
+  if (*(this + 1))
   {
-    v7 = *v6;
-    v8 = v6[1];
-    v9 = PBHashBytes();
+    v6 = PBHashBytes();
   }
 
   else
   {
-    v9 = 0;
+    v6 = 0;
   }
 
-  return v9 ^ v5;
+  return v6 ^ v5;
 }
 
 void *telephonytransport::PCIReadIndication::makeMessageId(void *this)
@@ -3040,33 +2653,30 @@ uint64_t telephonytransport::PCICreateRequest::formatText(telephonytransport::PC
   v5 = *(this + 40);
   if (v5)
   {
-    v6 = *(this + 4);
     PB::TextFormatter::format(a2, "createTimeOutMs");
     v5 = *(this + 40);
   }
 
   if ((v5 & 2) != 0)
   {
-    v7 = *(this + 5);
     PB::TextFormatter::format(a2, "flags");
   }
 
-  v8 = *(this + 1);
-  if (v8)
+  v6 = *(this + 1);
+  if (v6)
   {
-    (*(*v8 + 32))(v8, a2, "messageId");
+    (*(*v6 + 32))(v6, a2, "messageId");
   }
 
-  v9 = *(this + 40);
-  if ((v9 & 4) != 0)
+  v7 = *(this + 40);
+  if ((v7 & 4) != 0)
   {
-    v11 = *(this + 6);
     PB::TextFormatter::format(a2, "numReadIO");
-    v9 = *(this + 40);
-    if ((v9 & 8) == 0)
+    v7 = *(this + 40);
+    if ((v7 & 8) == 0)
     {
 LABEL_9:
-      if ((v9 & 0x10) == 0)
+      if ((v7 & 0x10) == 0)
       {
         goto LABEL_10;
       }
@@ -3080,13 +2690,12 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v12 = *(this + 7);
   PB::TextFormatter::format(a2, "openRetryCount");
-  v9 = *(this + 40);
-  if ((v9 & 0x10) == 0)
+  v7 = *(this + 40);
+  if ((v7 & 0x10) == 0)
   {
 LABEL_10:
-    if ((v9 & 0x20) == 0)
+    if ((v7 & 0x20) == 0)
     {
       goto LABEL_12;
     }
@@ -3095,12 +2704,10 @@ LABEL_10:
   }
 
 LABEL_17:
-  v13 = *(this + 8);
   PB::TextFormatter::format(a2, "pciTransportInterface");
   if ((*(this + 40) & 0x20) != 0)
   {
 LABEL_11:
-    v10 = *(this + 9);
     PB::TextFormatter::format(a2, "sizeReadIO");
   }
 
@@ -3790,7 +3397,6 @@ uint64_t telephonytransport::PCICreateRequest::writeTo(uint64_t this, PB::Writer
   v5 = *(v3 + 40);
   if ((v5 & 0x10) != 0)
   {
-    v6 = *(v3 + 32);
     this = PB::Writer::writeVarInt(a2);
     v5 = *(v3 + 40);
     if ((v5 & 1) == 0)
@@ -3810,7 +3416,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v7 = *(v3 + 16);
   this = PB::Writer::writeVarInt(a2);
   v5 = *(v3 + 40);
   if ((v5 & 8) == 0)
@@ -3825,7 +3430,6 @@ LABEL_6:
   }
 
 LABEL_12:
-  v8 = *(v3 + 28);
   this = PB::Writer::writeVarInt(a2);
   v5 = *(v3 + 40);
   if ((v5 & 2) == 0)
@@ -3837,7 +3441,6 @@ LABEL_7:
     }
 
 LABEL_14:
-    v10 = *(v3 + 24);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 40) & 0x20) == 0)
     {
@@ -3848,7 +3451,6 @@ LABEL_14:
   }
 
 LABEL_13:
-  v9 = *(v3 + 20);
   this = PB::Writer::writeVarInt(a2);
   v5 = *(v3 + 40);
   if ((v5 & 4) != 0)
@@ -3863,7 +3465,6 @@ LABEL_8:
   }
 
 LABEL_15:
-  v11 = *(v3 + 36);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -4248,7 +3849,6 @@ uint64_t telephonytransport::PCIReadResponse::formatText(telephonytransport::PCI
 
   if (*(this + 28))
   {
-    v6 = *(this + 6);
     PB::TextFormatter::format(a2, "result");
   }
 
@@ -4492,7 +4092,6 @@ uint64_t telephonytransport::PCIReadResponse::writeTo(uint64_t this, PB::Writer 
 
   if (*(v3 + 28))
   {
-    v5 = *(v3 + 24);
     this = PB::Writer::writeVarInt(a2);
   }
 
@@ -4522,7 +4121,6 @@ BOOL telephonytransport::PCIReadResponse::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v6 = *(a2 + 28);
   if (*(a1 + 28))
   {
     if ((*(a2 + 28) & 1) == 0 || *(a1 + 24) != *(a2 + 24))
@@ -4593,20 +4191,17 @@ uint64_t telephonytransport::PCIReadResponse::hash_value(telephonytransport::PCI
     v6 = 0;
   }
 
-  v7 = *(this + 1);
-  if (v7)
+  if (*(this + 1))
   {
-    v8 = *v7;
-    v9 = v7[1];
-    v10 = PBHashBytes();
+    v7 = PBHashBytes();
   }
 
   else
   {
-    v10 = 0;
+    v7 = 0;
   }
 
-  return v6 ^ v5 ^ v10;
+  return v6 ^ v5 ^ v7;
 }
 
 void *telephonytransport::PCIReadResponse::makeMessageId(void *this)
@@ -4796,7 +4391,6 @@ uint64_t telephonytransport::PCISendImageRequest::formatText(telephonytransport:
 
   if (*(this + 28))
   {
-    v6 = *(this + 6);
     PB::TextFormatter::format(a2, "timeoutMs");
   }
 
@@ -5040,7 +4634,6 @@ uint64_t telephonytransport::PCISendImageRequest::writeTo(uint64_t this, PB::Wri
 
   if (*(v3 + 28))
   {
-    v5 = *(v3 + 24);
     this = PB::Writer::writeVarInt(a2);
   }
 
@@ -5070,7 +4663,6 @@ BOOL telephonytransport::PCISendImageRequest::operator==(uint64_t a1, uint64_t a
     return 0;
   }
 
-  v6 = *(a2 + 28);
   if (*(a1 + 28))
   {
     if ((*(a2 + 28) & 1) == 0 || *(a1 + 24) != *(a2 + 24))
@@ -5141,20 +4733,17 @@ uint64_t telephonytransport::PCISendImageRequest::hash_value(telephonytransport:
     v6 = 0;
   }
 
-  v7 = *(this + 1);
-  if (v7)
+  if (*(this + 1))
   {
-    v8 = *v7;
-    v9 = v7[1];
-    v10 = PBHashBytes();
+    v7 = PBHashBytes();
   }
 
   else
   {
-    v10 = 0;
+    v7 = 0;
   }
 
-  return v6 ^ v5 ^ v10;
+  return v6 ^ v5 ^ v7;
 }
 
 void *telephonytransport::PCISendImageRequest::makeMessageId(void *this)
@@ -5334,19 +4923,17 @@ uint64_t telephonytransport::PCICreateResponse::formatText(telephonytransport::P
   PB::TextFormatter::beginObject(a2, a3);
   if (*(this + 24))
   {
-    v5 = *(this + 4);
     PB::TextFormatter::format(a2, "createdTransportToken");
   }
 
-  v6 = *(this + 1);
-  if (v6)
+  v5 = *(this + 1);
+  if (v5)
   {
-    (*(*v6 + 32))(v6, a2, "messageId");
+    (*(*v5 + 32))(v5, a2, "messageId");
   }
 
   if ((*(this + 24) & 2) != 0)
   {
-    v7 = *(this + 5);
     PB::TextFormatter::format(a2, "result");
   }
 
@@ -5669,14 +5256,12 @@ uint64_t telephonytransport::PCICreateResponse::writeTo(uint64_t this, PB::Write
   v5 = *(v3 + 24);
   if ((v5 & 2) != 0)
   {
-    v6 = *(v3 + 20);
     this = PB::Writer::writeVarInt(a2);
     v5 = *(v3 + 24);
   }
 
   if (v5)
   {
-    v7 = *(v3 + 16);
 
     return PB::Writer::writeVarInt(a2);
   }
@@ -5944,19 +5529,17 @@ uint64_t telephonytransport::PCIReadRequest::formatText(telephonytransport::PCIR
   PB::TextFormatter::beginObject(a2, a3);
   if (*(this + 24))
   {
-    v5 = *(this + 4);
     PB::TextFormatter::format(a2, "bytesToRead");
   }
 
-  v6 = *(this + 1);
-  if (v6)
+  v5 = *(this + 1);
+  if (v5)
   {
-    (*(*v6 + 32))(v6, a2, "messageId");
+    (*(*v5 + 32))(v5, a2, "messageId");
   }
 
   if ((*(this + 24) & 2) != 0)
   {
-    v7 = *(this + 5);
     PB::TextFormatter::format(a2, "timeoutMs");
   }
 
@@ -6279,14 +5862,12 @@ uint64_t telephonytransport::PCIReadRequest::writeTo(uint64_t this, PB::Writer *
   v5 = *(v3 + 24);
   if ((v5 & 2) != 0)
   {
-    v6 = *(v3 + 20);
     this = PB::Writer::writeVarInt(a2);
     v5 = *(v3 + 24);
   }
 
   if (v5)
   {
-    v7 = *(v3 + 16);
 
     return PB::Writer::writeVarInt(a2);
   }
@@ -6532,7 +6113,6 @@ uint64_t telephonytransport::PCIFreeResponse::formatText(telephonytransport::PCI
 
   if (*(this + 20))
   {
-    v6 = *(this + 4);
     PB::TextFormatter::format(a2, "result");
   }
 
@@ -6766,7 +6346,6 @@ uint64_t telephonytransport::PCIFreeResponse::writeTo(uint64_t this, PB::Writer 
 
   if (*(v3 + 20))
   {
-    v5 = *(v3 + 16);
 
     return PB::Writer::writeVarInt(a2);
   }
@@ -7021,7 +6600,6 @@ uint64_t telephonytransport::PCIWriteRequest::formatText(telephonytransport::PCI
 
   if (*(this + 28))
   {
-    v6 = *(this + 6);
     PB::TextFormatter::format(a2, "timeoutMs");
   }
 
@@ -7265,7 +6843,6 @@ uint64_t telephonytransport::PCIWriteRequest::writeTo(uint64_t this, PB::Writer 
 
   if (*(v3 + 28))
   {
-    v5 = *(v3 + 24);
     this = PB::Writer::writeVarInt(a2);
   }
 
@@ -7295,7 +6872,6 @@ BOOL telephonytransport::PCIWriteRequest::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v6 = *(a2 + 28);
   if (*(a1 + 28))
   {
     if ((*(a2 + 28) & 1) == 0 || *(a1 + 24) != *(a2 + 24))
@@ -7366,20 +6942,17 @@ uint64_t telephonytransport::PCIWriteRequest::hash_value(telephonytransport::PCI
     v6 = 0;
   }
 
-  v7 = *(this + 1);
-  if (v7)
+  if (*(this + 1))
   {
-    v8 = *v7;
-    v9 = v7[1];
-    v10 = PBHashBytes();
+    v7 = PBHashBytes();
   }
 
   else
   {
-    v10 = 0;
+    v7 = 0;
   }
 
-  return v6 ^ v5 ^ v10;
+  return v6 ^ v5 ^ v7;
 }
 
 void *telephonytransport::PCIWriteRequest::makeMessageId(void *this)
@@ -7580,26 +7153,23 @@ uint64_t telephonytransport::PCIStatusIndication::formatText(telephonytransport:
   v5 = *(this + 36);
   if (v5)
   {
-    v6 = *(this + 1);
     PB::TextFormatter::format(a2, "arg1");
     v5 = *(this + 36);
   }
 
   if ((v5 & 2) != 0)
   {
-    v7 = *(this + 2);
     PB::TextFormatter::format(a2, "arg2");
   }
 
-  v8 = *(this + 3);
-  if (v8)
+  v6 = *(this + 3);
+  if (v6)
   {
-    (*(*v8 + 32))(v8, a2, "messageId");
+    (*(*v6 + 32))(v6, a2, "messageId");
   }
 
   if ((*(this + 36) & 4) != 0)
   {
-    v9 = *(this + 8);
     PB::TextFormatter::format(a2, "status");
   }
 
@@ -8023,7 +7593,6 @@ uint64_t telephonytransport::PCIStatusIndication::writeTo(uint64_t this, PB::Wri
     }
 
 LABEL_8:
-    v7 = *(v3 + 8);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 36) & 2) == 0)
     {
@@ -8033,7 +7602,6 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v6 = *(v3 + 32);
   this = PB::Writer::writeVarInt(a2);
   v5 = *(v3 + 36);
   if (v5)
@@ -8048,7 +7616,6 @@ LABEL_5:
   }
 
 LABEL_9:
-  v8 = *(v3 + 16);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -8661,19 +8228,17 @@ uint64_t telephonytransport::PCIWriteResponse::formatText(telephonytransport::PC
   PB::TextFormatter::beginObject(a2, a3);
   if (*(this + 24))
   {
-    v5 = *(this + 4);
     PB::TextFormatter::format(a2, "bytesWritten");
   }
 
-  v6 = *(this + 1);
-  if (v6)
+  v5 = *(this + 1);
+  if (v5)
   {
-    (*(*v6 + 32))(v6, a2, "messageId");
+    (*(*v5 + 32))(v5, a2, "messageId");
   }
 
   if ((*(this + 24) & 2) != 0)
   {
-    v7 = *(this + 5);
     PB::TextFormatter::format(a2, "result");
   }
 
@@ -8996,14 +8561,12 @@ uint64_t telephonytransport::PCIWriteResponse::writeTo(uint64_t this, PB::Writer
   v5 = *(v3 + 24);
   if ((v5 & 2) != 0)
   {
-    v6 = *(v3 + 20);
     this = PB::Writer::writeVarInt(a2);
     v5 = *(v3 + 24);
   }
 
   if (v5)
   {
-    v7 = *(v3 + 16);
 
     return PB::Writer::writeVarInt(a2);
   }
@@ -9211,8 +8774,7 @@ void sub_2980AFAD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void telephonytransport::BaseProtocol::init(uint64_t a1, __int128 *a2)
 {
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v4 = *(a1 + 160);
   *(a1 + 152) = v3;
   if (v4)
@@ -9223,7 +8785,7 @@ void telephonytransport::BaseProtocol::init(uint64_t a1, __int128 *a2)
 
 uint64_t telephonytransport::BaseProtocol::BaseProtocol(uint64_t a1, uint64_t a2, char *a3)
 {
-  telephonytransport::OSLogHandle::create("baseproto", a3, (a1 + 8));
+  telephonytransport::OSLogHandle::create((a1 + 8), "baseproto", a3);
   *(a1 + 24) = 0;
   *a1 = &unk_2A1E9EC48;
   *(a1 + 32) = 0;
@@ -9300,14 +8862,14 @@ void std::vector<unsigned char>::reserve(uint64_t a1)
   }
 }
 
-void telephonytransport::BaseProtocol::handleRead(telephonytransport::BaseProtocol *this, char *__src, size_t __len)
+void telephonytransport::BaseProtocol::handleRead(unint64_t this, char *__src, NSObject *__len)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   if (__len)
   {
     v3 = __len;
-    v7 = *(this + 3);
-    v6 = *(this + 4);
+    v7 = *(this + 24);
+    v6 = *(this + 32);
     v8 = (this + 24);
     while (1)
     {
@@ -9317,12 +8879,11 @@ void telephonytransport::BaseProtocol::handleRead(telephonytransport::BaseProtoc
       }
 
       v9 = v6 - v7;
-      if (v6 - v7 + v3 <= 7)
+      if (v3 + v6 - v7 <= 7)
       {
 LABEL_23:
-        v24 = *MEMORY[0x29EDCA608];
 
-        std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v8, v6, __src, &__src[v3], v3);
+        std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v8, v6, __src, v3 + __src, v3);
         return;
       }
 
@@ -9331,9 +8892,9 @@ LABEL_23:
         v10 = 8 - v9;
         v11 = &__src[8 - v9];
         std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v8, v6, __src, v11, 8 - v9);
-        v3 -= v10;
-        v7 = *(this + 3);
-        v6 = *(this + 4);
+        v3 = (v3 - v10);
+        v7 = *(this + 24);
+        v6 = *(this + 32);
         v9 = v6 - v7;
         __src = v11;
       }
@@ -9342,8 +8903,8 @@ LABEL_23:
       v13 = v12 - v9;
       if (v12 < v9)
       {
-        v16 = *(this + 1);
-        v15 = *(this + 2);
+        v16 = *(this + 8);
+        v15 = *(this + 16);
         if (v15)
         {
           atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -9361,7 +8922,7 @@ LABEL_23:
           goto LABEL_19;
         }
 
-        LOWORD(v29) = 0;
+        LOWORD(v26) = 0;
         v17 = "Data available in buffer must not be greater than kHeaderSize + payloadLength";
         goto LABEL_17;
       }
@@ -9374,33 +8935,33 @@ LABEL_23:
       v14 = __src;
       __src += v13;
       std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v8, v6, v14, __src, v13);
-      if (telephonytransport::BaseProtocol::processData(this, *(this + 3), *(this + 4) - *(this + 3)) != v12)
+      if (telephonytransport::BaseProtocol::processData(this, *(this + 24), *(this + 32) - *(this + 24)) != v12)
       {
         break;
       }
 
-      v6 = *(this + 3);
-      *(this + 4) = v6;
+      v6 = *(this + 24);
+      *(this + 32) = v6;
       v7 = v6;
-      v3 -= v13;
+      v3 = (v3 - v13);
       if (!v3)
       {
-        goto LABEL_36;
+        return;
       }
     }
 
-    v26 = *(this + 1);
-    v25 = *(this + 2);
-    if (v25)
+    v25 = *(this + 8);
+    v24 = *(this + 16);
+    if (v24)
     {
-      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
-      v3 = *v26;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+      atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
+      v3 = *v25;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v24);
     }
 
     else
     {
-      v3 = *v26;
+      v3 = *v25;
     }
 
     if (!os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
@@ -9408,13 +8969,13 @@ LABEL_23:
       goto LABEL_19;
     }
 
-    LOWORD(v29) = 0;
+    LOWORD(v26) = 0;
     v17 = "Failed to process the message properly";
 LABEL_17:
     v18 = v3;
     v19 = 2;
 LABEL_18:
-    _os_log_fault_impl(&dword_29808D000, v18, OS_LOG_TYPE_FAULT, v17, &v29, v19);
+    _os_log_fault_impl(&dword_29808D000, v18, OS_LOG_TYPE_FAULT, v17, &v26, v19);
 LABEL_19:
     while (1)
     {
@@ -9427,8 +8988,8 @@ LABEL_20:
         break;
       }
 
-      v23 = *(this + 1);
-      v22 = *(this + 2);
+      v23 = *(this + 8);
+      v22 = *(this + 16);
       if (v22)
       {
         atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -9443,10 +9004,10 @@ LABEL_20:
 
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
-        v29 = 134218240;
-        v30 = v21;
-        v31 = 2048;
-        v32 = v3;
+        v26 = 134218240;
+        v27 = v21;
+        v28 = 2048;
+        v29 = v3;
         v17 = "Processed bytes cannot exceed length. Processed: %zu, Length: %zu";
         v18 = v8;
         v19 = 22;
@@ -9456,15 +9017,10 @@ LABEL_20:
 
     if (v3 != v20)
     {
-      v28 = *MEMORY[0x29EDCA608];
 
-      std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v8, &__src[v20], &__src[v3], v3 - v20);
-      return;
+      std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v8->isa, &__src[v20], v3 + __src, v3 - v20);
     }
   }
-
-LABEL_36:
-  v27 = *MEMORY[0x29EDCA608];
 }
 
 unint64_t telephonytransport::BaseProtocol::processData(telephonytransport::BaseProtocol *this, unsigned __int8 *a2, unint64_t a3)
@@ -9522,9 +9078,9 @@ uint64_t telephonytransport::BaseProtocol::sendMessage(std::mutex *this, unsigne
   return v6;
 }
 
-void sub_2980B01C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2980B01C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PB::Writer::~Writer(va);
   _Unwind_Resume(a1);
 }
@@ -9551,10 +9107,9 @@ uint64_t telephonytransport::BaseProtocol::sendMessage(std::mutex *this, unsigne
   *sig = bswap32(a2);
   *(this[2].__m_.__sig + 4) = bswap32(a4);
   memcpy((this[2].__m_.__sig + 8), a3, a4);
-  v10 = *this[2].__m_.__opaque - this[2].__m_.__sig;
-  v11 = (***&this[2].__m_.__opaque[16])();
+  v10 = (***&this[2].__m_.__opaque[16])();
   std::mutex::unlock(this + 1);
-  return v11;
+  return v10;
 }
 
 void telephonytransport::BaseProtocol::~BaseProtocol(std::mutex *this)
@@ -9632,7 +9187,7 @@ void telephonytransport::BaseProtocol::~BaseProtocol(std::mutex *this)
   operator delete(this);
 }
 
-void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -9658,7 +9213,7 @@ void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char
       if (v15 != v9)
       {
         result = memmove(*result, __src, v16);
-        v15 = *(v7 + 8);
+        v15 = v7[1];
       }
 
       if (a3 != v17)
@@ -9678,8 +9233,8 @@ void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char
       operator delete(v9);
       v8 = 0;
       *v7 = 0;
-      *(v7 + 8) = 0;
-      *(v7 + 16) = 0;
+      v7[1] = 0;
+      v7[2] = 0;
     }
 
     if ((a4 & 0x8000000000000000) != 0)
@@ -9704,17 +9259,17 @@ void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char
     }
 
     result = std::vector<unsigned char>::__vallocate[abi:ne200100](v7, v11);
-    v12 = *(v7 + 8);
+    v12 = v7[1];
     v13 = a3 - __src;
     if (v13)
     {
-      result = memmove(*(v7 + 8), __src, v13);
+      result = memmove(v7[1], __src, v13);
     }
 
-    v14 = (v12 + v13);
+    v14 = &v12[v13];
   }
 
-  *(v7 + 8) = v14;
+  v7[1] = v14;
   return result;
 }
 
@@ -10049,8 +9604,7 @@ __n128 telephonytransport::NetworkSocketBridge::NetworkSocketBridge(_OWORD *a1, 
   *(a2 + 8) = 0;
   result = *a3;
   a1[1] = *a3;
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
+  *a3 = 0uLL;
   return result;
 }
 
@@ -10060,8 +9614,7 @@ __n128 telephonytransport::NetworkSocketBridge::NetworkSocketBridge(_OWORD *a1, 
   *(a2 + 8) = 0;
   result = *a3;
   a1[1] = *a3;
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
+  *a3 = 0uLL;
   return result;
 }
 

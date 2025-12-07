@@ -138,22 +138,6 @@ uint64_t sub_100002880@<X0>(uint64_t result@<X0>, uint64_t a2@<X5>, uint64_t a3@
   return result;
 }
 
-uint64_t *sub_1000028BC@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  v4 = result[1];
-  v5 = result[2];
-  v6 = result[3];
-  v7 = result[4];
-  v8 = result[5];
-  v9 = result[6];
-  v10 = result[7];
-  v12 = result[8];
-  v11 = result[9];
-  return result;
-}
-
 uint64_t CLCommonCalculateGcd(uint64_t a1, uint64_t a2)
 {
   if (!a2)
@@ -301,28 +285,20 @@ void sub_1000030C0(void *a1)
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-void sub_100003148(uint64_t *a1)
+void sub_100003148()
 {
-  v1 = sub_1000028BC(a1, __stack_chk_guard);
-  v2 = v1[10];
-  v3 = v1[11];
-  v4 = v1[12];
-  v5 = v1[14];
-  sub_100002880(v1[15], v1[13], v6);
+  sub_1000028BC(__stack_chk_guard);
+  sub_100002880(*(v0 + 120), *(v0 + 104), v1);
   sub_100002874();
-  _os_log_debug_impl(v7, v8, v9, v10, v11, 0xA2u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xA2u);
 }
 
-void sub_100003218(uint64_t *a1)
+void sub_100003218()
 {
-  v1 = sub_1000028BC(a1, __stack_chk_guard);
-  v2 = v1[10];
-  v3 = v1[11];
-  v4 = v1[12];
-  v5 = v1[14];
-  sub_100002880(v1[15], v1[13], v6);
+  sub_1000028BC(__stack_chk_guard);
+  sub_100002880(*(v0 + 120), *(v0 + 104), v1);
   sub_100002874();
-  _os_log_debug_impl(v7, v8, v9, v10, v11, 0xA2u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xA2u);
 }
 
 void sub_1000032E8()

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)errorTypeAsString:(int)string;
 - (int)StringAsErrorType:(id)type;
 - (int)errorType;
 - (unint64_t)hash;
@@ -139,20 +140,18 @@ LABEL_12:
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    errorType = self->_errorType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteUint64Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -225,6 +224,21 @@ LABEL_12:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)errorTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E86C2DF8[string];
   }
 
   return v4;

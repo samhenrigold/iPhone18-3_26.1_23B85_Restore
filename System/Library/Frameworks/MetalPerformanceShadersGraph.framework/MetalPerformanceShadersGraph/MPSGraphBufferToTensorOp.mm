@@ -29,107 +29,107 @@
 {
   v42 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphBufferToTensorOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphTensorBufferOpsPrivate.mm", v35);
+  mpsFileLoc(v36, "[MPSGraphBufferToTensorOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphTensorBufferOpsPrivate.mm");
   v10 = nameCopy;
   v41 = 260;
-  v40[0] = v35;
+  v40[0] = v36;
   StringAttr = mlir::Builder::getStringAttr(builder, v40);
-  v13 = mlir::FileLineColLoc::get(StringAttr, 0xA1u, 0);
+  v14 = mlir::FileLineColLoc::get(StringAttr, 0xA1u, 0);
   if (v10)
   {
-    v14 = v10;
+    v15 = v10;
     uTF8String = [v10 UTF8String];
-    v16 = strlen(uTF8String);
-    if (v16 >= 0x7FFFFFFFFFFFFFF8)
+    v17 = strlen(uTF8String);
+    if (v17 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v17 = v16;
-    if (v16 >= 0x17)
+    v18 = v17;
+    if (v17 >= 0x17)
     {
       operator new();
     }
 
-    v39[2] = v16;
-    if (v16)
+    *(&__dst[0].__r_.__value_.__s + 23) = v17;
+    if (v17)
     {
-      memmove(__dst, uTF8String, v16);
+      memmove(__dst, uTF8String, v17);
     }
 
-    v18 = &__dst[v17];
+    v19 = __dst + v18;
   }
 
   else
   {
-    v39[2] = 21;
-    qmemcpy(__dst, "mpsx.buffer_to_tensor", sizeof(__dst));
-    v18 = v39;
+    *(&__dst[0].__r_.__value_.__s + 23) = 21;
+    qmemcpy(__dst, "mpsx.buffer_to_tensor", 21);
+    v19 = &__dst[0].__r_.__value_.__s.__data_[21];
   }
 
-  *v18 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, __dst, v12, &__p);
+  *v19 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, __dst, &__p, v12, v13);
   p_p = __p.__r_.__value_.__r.__words[0];
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
   }
 
-  v20 = 1;
+  v21 = 1;
   HIBYTE(v41) = 1;
   if (p_p->__r_.__value_.__s.__data_[0])
   {
     v40[0] = p_p;
-    v20 = 3;
+    v21 = 3;
   }
 
-  LOBYTE(v41) = v20;
-  v21 = mlir::Builder::getStringAttr(builder, v40);
-  v22 = mlir::NameLoc::get(v21, v13);
+  LOBYTE(v41) = v21;
+  v22 = mlir::Builder::getStringAttr(builder, v40);
+  v23 = mlir::NameLoc::get(v22, v14);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((v39[2] & 0x80000000) == 0)
+    if ((SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
   }
 
-  else if ((v39[2] & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_16;
   }
 
-  operator delete(*__dst);
+  operator delete(__dst[0].__r_.__value_.__l.__data_);
 LABEL_16:
 
-  if (v36 < 0)
+  if (v37 < 0)
   {
-    operator delete(v35[0]);
+    operator delete(v36[0]);
     shape = self->_shape;
     builderCopy2 = builder;
     if (shape)
     {
 LABEL_18:
-      v25 = [(NSArray *)shape count];
+      v26 = [(NSArray *)shape count];
       getMLIRElementType(*builderCopy2, self->_type);
-      v26 = malloc_type_malloc(4 * v25, 0x100004052888210uLL);
-      v27 = malloc_type_malloc(4 * v25, 0x100004052888210uLL);
-      if (v25)
+      v27 = malloc_type_malloc(4 * v26, 0x100004052888210uLL);
+      v28 = malloc_type_malloc(4 * v26, 0x100004052888210uLL);
+      if (v26)
       {
-        for (i = 0; i != v25; ++i)
+        for (i = 0; i != v26; ++i)
         {
-          v29 = [(NSArray *)self->_shape objectAtIndexedSubscript:i];
-          v26[i] = [v29 intValue];
-
-          v30 = [(NSArray *)self->_interleave objectAtIndexedSubscript:i];
+          v30 = [(NSArray *)self->_shape objectAtIndexedSubscript:i];
           v27[i] = [v30 intValue];
+
+          v31 = [(NSArray *)self->_interleave objectAtIndexedSubscript:i];
+          v28[i] = [v31 intValue];
         }
       }
 
       if (*(values + 1) != *values)
       {
-        arrayToU64Attr(builder, v26);
+        arrayToU64Attr(builder, v27, v26);
       }
 
       std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
@@ -151,7 +151,7 @@ LABEL_18:
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v40[0] = mlir::OpBuilder::create<mlir::mpsx::BufferToTensorOp,mlir::Value &>(builderCopy2, v22, *values) - 16;
+  v40[0] = (mlir::OpBuilder::create<mlir::mpsx::BufferToTensorOp,mlir::Value &>(builderCopy2, v23, *values) - 16);
   DefiningOp = mlir::Value::getDefiningOp(v40);
 
   return DefiningOp;

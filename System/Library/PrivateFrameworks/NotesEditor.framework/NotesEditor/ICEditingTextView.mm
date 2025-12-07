@@ -5031,11 +5031,11 @@ void __65__ICEditingTextView_DragAndDrop__textDraggableView_itemsForDrag___block
   [animator addCompletion:v5];
 }
 
-uint64_t __88__ICEditingTextView_DragAndDrop__textDraggableView_willAnimateLiftWithAnimator_session___block_invoke(uint64_t result, uint64_t a2)
+id *__88__ICEditingTextView_DragAndDrop__textDraggableView_willAnimateLiftWithAnimator_session___block_invoke(id *result, uint64_t a2)
 {
   if (a2 == 1)
   {
-    return [*(result + 32) resetViewsGhostedForDrag];
+    return [result[4] resetViewsGhostedForDrag];
   }
 
   return result;
@@ -5675,7 +5675,7 @@ void __86__ICEditingTextView_DragAndDrop__textPasteConfigurationSupporting_trans
   [v11 submitAttachmentAddEventForAttachment:v9];
 }
 
-unint64_t __86__ICEditingTextView_DragAndDrop__textPasteConfigurationSupporting_transformPasteItem___block_invoke_3(uint64_t a1)
+void *__86__ICEditingTextView_DragAndDrop__textPasteConfigurationSupporting_transformPasteItem___block_invoke_3(uint64_t a1)
 {
   if ([*(a1 + 32) attachmentType] == 3 || (result = objc_msgSend(*(a1 + 32), "attachmentType"), result == 5))
   {
@@ -5991,75 +5991,75 @@ void __105__ICEditingTextView_DragAndDrop__textPasteConfigurationSupporting_comb
   [v7 performBlockAndWait:v10];
 }
 
-void __105__ICEditingTextView_DragAndDrop__textPasteConfigurationSupporting_combineItemAttributedStrings_forRange___block_invoke_4(uint64_t a1)
+void __105__ICEditingTextView_DragAndDrop__textPasteConfigurationSupporting_combineItemAttributedStrings_forRange___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v4 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v5 = [*(a1 + 32) itemProviderPasteSession];
-  v30 = [v2 temporaryTextStorageWithAttributedString:v4 note:v3 filterAttributedString:{objc_msgSend(v5, "shouldFilterAttributedString")}];
+  v3 = objc_opt_class();
+  v5 = *(a1 + 40);
+  v4 = *(a1 + 48);
+  v6 = [*(a1 + 32) itemProviderPasteSession];
+  v31 = [v3 temporaryTextStorageWithAttributedString:v5 note:v4 filterAttributedString:{objc_msgSend(v6, "shouldFilterAttributedString")}];
 
-  v6 = [v30 attributedString];
-  v7 = *(*(a1 + 56) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v6;
+  v7 = [v31 attributedString];
+  v8 = *(*(a1 + 56) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 
-  v9 = [*(*(*(a1 + 56) + 8) + 40) string];
-  LOBYTE(v3) = [v9 ic_containsNonWhitespaceAndAttachmentCharacters];
+  v10 = [*(*(*(a1 + 56) + 8) + 40) string];
+  LOBYTE(v4) = [v10 ic_containsNonWhitespaceAndAttachmentCharacters];
 
-  if ((v3 & 1) == 0)
+  if ((v4 & 1) == 0)
   {
-    v10 = *(*(*(a1 + 56) + 8) + 40);
-    v11 = [*(a1 + 48) managedObjectContext];
-    v12 = [v10 ic_attributedStringByFlatteningCalculateAttachmentsWithContext:v11];
-    v13 = *(*(a1 + 56) + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = v12;
+    v11 = *(*(*(a1 + 56) + 8) + 40);
+    v12 = [*(a1 + 48) managedObjectContext];
+    v13 = [v11 ic_attributedStringByFlatteningCalculateAttachmentsWithContext:v12];
+    v14 = *(*(a1 + 56) + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = v13;
   }
 
   if (*(*(*(a1 + 64) + 8) + 24) == 1)
   {
-    v15 = [*(*(*(a1 + 56) + 8) + 40) attributedSubstringFromRange:{1, objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "length") - 1}];
-    v16 = *(*(a1 + 56) + 8);
-    v17 = *(v16 + 40);
-    *(v16 + 40) = v15;
+    v16 = [*(*(*(a1 + 56) + 8) + 40) attributedSubstringFromRange:{1, objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "length") - 1}];
+    v17 = *(*(a1 + 56) + 8);
+    v18 = *(v17 + 40);
+    *(v17 + 40) = v16;
   }
 
   if ((![*(a1 + 32) isDraggingChecklistItem] || (objc_msgSend(*(a1 + 32), "isDraggingOverChecklistItem") & 1) == 0) && objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "length") >= 2)
   {
-    v18 = [*(a1 + 32) itemProviderPasteSession];
-    v19 = [v18 isForDragAndDrop];
+    v19 = [*(a1 + 32) itemProviderPasteSession];
+    v20 = [v19 isForDragAndDrop];
 
-    if (v19)
+    if (v20)
     {
-      v20 = [MEMORY[0x277CCA900] newlineCharacterSet];
-      v21 = [*(*(*(a1 + 56) + 8) + 40) length] - 1;
-      v22 = -1;
-      v23 = v21;
-      while (v23)
+      v21 = [MEMORY[0x277CCA900] newlineCharacterSet];
+      v22 = [*(*(*(a1 + 56) + 8) + 40) length] - 1;
+      v23 = -1;
+      v24 = v22;
+      while (v24)
       {
-        v24 = [*(*(*(a1 + 56) + 8) + 40) string];
-        v25 = [v24 characterAtIndex:v23];
+        v25 = [*(*(*(a1 + 56) + 8) + 40) string];
+        v26 = [v25 characterAtIndex:v24];
 
-        --v23;
-        ++v22;
-        if (([v20 characterIsMember:v25] & 1) == 0)
+        --v24;
+        ++v23;
+        if (([v21 characterIsMember:v26] & 1) == 0)
         {
           goto LABEL_14;
         }
       }
 
-      v22 = v21;
+      v23 = v22;
 LABEL_14:
-      v26 = [*(a1 + 32) itemProviderPasteSession];
-      [v26 setNumberOfTrailingNewlinesStripped:v22];
+      v27 = [*(a1 + 32) itemProviderPasteSession];
+      [v27 setNumberOfTrailingNewlinesStripped:v23];
 
-      if (v22)
+      if (v23)
       {
-        v27 = [*(*(*(a1 + 56) + 8) + 40) attributedSubstringFromRange:{0, objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "length") - v22}];
-        v28 = *(*(a1 + 56) + 8);
-        v29 = *(v28 + 40);
-        *(v28 + 40) = v27;
+        v28 = [*(*(*(a1 + 56) + 8) + 40) attributedSubstringFromRange:{0, objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "length") - v23}];
+        v29 = *(*(a1 + 56) + 8);
+        v30 = *(v29 + 40);
+        *(v29 + 40) = v28;
       }
     }
   }
@@ -8368,12 +8368,12 @@ uint64_t __60__ICEditingTextView_ICAccessibility_iOS__automationElements__block_
   return v5;
 }
 
-uint64_t __78__ICEditingTextView_ICAccessibility_iOS___icaxAdditionalElementsForAutomation__block_invoke(uint64_t a1)
+uint64_t __78__ICEditingTextView_ICAccessibility_iOS___icaxAdditionalElementsForAutomation__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
+  v2 = *(a1 + 32);
+  v3 = objc_opt_class();
 
-  return [v1 containsObject:v2];
+  return [v2 containsObject:v3];
 }
 
 - (id)accessibilityCustomActions
@@ -10715,19 +10715,19 @@ void __65__ICEditingTextView_ICAccessibility_iOS___icaxAttachmentElements__block
 
 uint64_t __59__ICEditingTextView_ICAccessibility_iOS___icaxTodoElements__block_invoke(uint64_t a1, void *a2)
 {
-  v6 = a2;
-  v3 = [v6 todo];
+  v7 = a2;
+  v3 = [v7 todo];
 
   if (v3)
   {
-    v4 = [*(a1 + 32) _icaxTodoButtonForParagraphStyle:v6];
-    if (v4)
+    v5 = [*(a1 + 32) _icaxTodoButtonForParagraphStyle:v7];
+    if (v5)
     {
-      [*(a1 + 40) addObject:v4];
+      [*(a1 + 40) addObject:v5];
     }
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](v4);
 }
 
 - (void)_icaxUpdateFakeTextSelectionRange
@@ -10910,11 +10910,11 @@ LABEL_6:
   }
 }
 
-uint64_t __83__ICEditingTextView_ICAccessibility_iOS___icaxAddPredictiveTextToAttributedString___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__83__ICEditingTextView_ICAccessibility_iOS___icaxAddPredictiveTextToAttributedString___block_invoke(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) addAttribute:*(result + 40) value:a2 range:{a3, a4}];
+    return [result[4] addAttribute:result[5] value:a2 range:{a3, a4}];
   }
 
   return result;
@@ -11119,7 +11119,7 @@ uint64_t __83__ICEditingTextView_ICAccessibility_iOS___icaxAddPredictiveTextToAt
   return v3;
 }
 
-uint64_t __57__ICEditingTextView_StyleAdditions__ic_canIndentByDelta___block_invoke(void *a1, uint64_t a2, void *a3)
+void *__57__ICEditingTextView_StyleAdditions__ic_canIndentByDelta___block_invoke(void *a1, uint64_t a2, void *a3)
 {
   result = [a3 canIndentTextView:a1[4] byDelta:a1[6]];
   *(*(a1[5] + 8) + 24) = result;
@@ -11707,22 +11707,22 @@ uint64_t __99__ICEditingTextView_StyleAdditions__ic_enumerateTableAttachmentView
 {
   v4 = a3;
   objc_opt_class();
-  v8 = ICDynamicCast();
+  v9 = ICDynamicCast();
 
-  if (v8)
+  if (v9)
   {
-    v5 = [*(a1 + 32) tableViewControllerForAttachment:v8 createIfNeeded:0];
-    if (v5)
+    v6 = [*(a1 + 32) tableViewControllerForAttachment:v9 createIfNeeded:0];
+    if (v6)
     {
-      v6 = *(a1 + 40);
-      if (v6)
+      v7 = *(a1 + 40);
+      if (v7)
       {
-        (*(v6 + 16))(v6, v5);
+        (*(v7 + 16))(v7, v6);
       }
     }
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](v5);
 }
 
 void __99__ICEditingTextView_StyleAdditions__ic_enumerateTableAttachmentViewControllersInRanges_usingBlock___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -13939,11 +13939,11 @@ uint64_t __26__ICEditingTextView_copy___block_invoke(uint64_t a1, void *a2)
   [(ICEditingTextView *)self showRemoveAttachmentAlertIfNecessaryForOperation:1 selectedRange:selectedRange completionHandler:v7, v9];
 }
 
-uint64_t __25__ICEditingTextView_cut___block_invoke(uint64_t result, int a2)
+id *__25__ICEditingTextView_cut___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reallyCut:*(result + 40)];
+    return [result[4] _reallyCut:result[5]];
   }
 
   return result;
@@ -14096,18 +14096,18 @@ void __42__ICEditingTextView_insertAttributedText___block_invoke(uint64_t a1, in
   [(ICEditingTextView *)self showRemoveAttachmentAlertIfNecessaryForOperation:2 selectedRange:selectedRange completionHandler:v12, v15];
 }
 
-uint64_t __32__ICEditingTextView_insertText___block_invoke(uint64_t result, int a2)
+id *__32__ICEditingTextView_insertText___block_invoke(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) setCoalesceAuthorHighlightUpdates:1];
-    v3 = *(v2 + 40);
-    v4.receiver = *(v2 + 48);
+    [result[4] setCoalesceAuthorHighlightUpdates:1];
+    v3 = v2[5];
+    v4.receiver = v2[6];
     v4.super_class = ICEditingTextView;
     objc_msgSendSuper2(&v4, sel_insertText_, v3);
-    [*(v2 + 32) setCoalesceAuthorHighlightUpdates:0];
-    return [*(v2 + 48) didInsertText:*(v2 + 40) range:{*(v2 + 56), *(v2 + 64)}];
+    [v2[4] setCoalesceAuthorHighlightUpdates:0];
+    return [v2[6] didInsertText:v2[5] range:{v2[7], v2[8]}];
   }
 
   return result;

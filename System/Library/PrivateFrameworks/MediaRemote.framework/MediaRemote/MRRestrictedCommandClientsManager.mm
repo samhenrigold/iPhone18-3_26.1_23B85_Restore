@@ -47,7 +47,7 @@ uint64_t __62__MRRestrictedCommandClientsManager_restrictCommandClientsTo___bloc
 {
   if (a2)
   {
-    [a2 realToken];
+    objc_msgSend_realToken(a2);
   }
 
   else
@@ -63,15 +63,13 @@ uint64_t __62__MRRestrictedCommandClientsManager_restrictCommandClientsTo___bloc
 
 - (void)republishStateIfNeeded
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   lastAcceptedTokens = [self lastAcceptedTokens];
-  v7 = 138412546;
-  v8 = lastAcceptedTokens;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "[RestrictedCommandClients Mode] Republish Error: \n Tried to restrict to %@ but %@ was accepted.", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = lastAcceptedTokens;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "[RestrictedCommandClients Mode] Republish Error: \n Tried to restrict to %@ but %@ was accepted.", &v6, 0x16u);
 }
 
 - (id)_restrictCommandClientsTo:(id)to
@@ -93,7 +91,7 @@ id __63__MRRestrictedCommandClientsManager__restrictCommandClientsTo___block_inv
 {
   if (a2)
   {
-    [a2 realToken];
+    objc_msgSend_realToken(a2);
   }
 
   else

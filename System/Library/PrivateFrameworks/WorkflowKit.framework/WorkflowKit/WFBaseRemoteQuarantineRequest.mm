@@ -35,15 +35,14 @@
 
 + (id)JSONKeyPathsByPropertyKey
 {
-  v6[3] = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
+  v4[0] = @"appVersion";
+  v4[1] = @"osVersion";
   v5[0] = @"appVersion";
   v5[1] = @"osVersion";
-  v6[0] = @"appVersion";
-  v6[1] = @"osVersion";
+  v4[2] = @"userLocale";
   v5[2] = @"userLocale";
-  v6[2] = @"userLocale";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:3];
 
   return v2;
 }

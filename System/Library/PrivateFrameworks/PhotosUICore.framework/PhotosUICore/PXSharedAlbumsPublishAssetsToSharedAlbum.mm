@@ -67,7 +67,7 @@ void ___PXSharedAlbumsPublishAssetsToSharedAlbum_block_invoke_2(id *a1, uint64_t
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t ___PXSharedAlbumsPublishAssetsToSharedAlbum_block_invoke_3(uint64_t a1)
+void ___PXSharedAlbumsPublishAssetsToSharedAlbum_block_invoke_3(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
@@ -103,13 +103,11 @@ uint64_t ___PXSharedAlbumsPublishAssetsToSharedAlbum_block_invoke_3(uint64_t a1)
     _os_log_impl(&dword_1A3C1C000, v4, OS_LOG_TYPE_DEFAULT, "Succesfully posted assets to shared album with UUID=%{public}@", buf, 0xCu);
   }
 
-  result = *(a1 + 64);
-  if (result)
+  v8 = *(a1 + 64);
+  if (v8)
   {
-    return (*(result + 16))(result, 1, 0);
+    (*(v8 + 16))(v8, 1, 0);
   }
-
-  return result;
 }
 
 void ___PXSharedAlbumsPublishAssetsToSharedAlbum_block_invoke_342(uint64_t a1, void *a2)

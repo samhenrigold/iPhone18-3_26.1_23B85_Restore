@@ -23,37 +23,37 @@
 
 - (BOOL)validateOperation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   query = [(FCArticleSearchOperation *)self query];
 
   if (!query && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"article search operation requires a query"];
-    v10 = 136315906;
-    v11 = "[FCArticleSearchOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCArticleSearchOperation.m";
-    v14 = 1024;
-    v15 = 80;
-    v16 = 2114;
-    v17 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"article search operation requires a query"];
+    v9 = 136315906;
+    v10 = "[FCArticleSearchOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCArticleSearchOperation.m";
+    v13 = 1024;
+    v14 = 80;
+    v15 = 2114;
+    v16 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
   }
 
   articleSearchCompletion = [(FCArticleSearchOperation *)self articleSearchCompletion];
 
   if (!articleSearchCompletion && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"article search operation requires a completion"];
-    v10 = 136315906;
-    v11 = "[FCArticleSearchOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCArticleSearchOperation.m";
-    v14 = 1024;
-    v15 = 84;
-    v16 = 2114;
-    v17 = v9;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"article search operation requires a completion"];
+    v9 = 136315906;
+    v10 = "[FCArticleSearchOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCArticleSearchOperation.m";
+    v13 = 1024;
+    v14 = 84;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
   }
 
   if (query)
@@ -66,9 +66,7 @@
     v5 = 1;
   }
 
-  result = !v5;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return !v5;
 }
 
 - (void)performOperation

@@ -1,5 +1,4 @@
 @interface BWVideoDepthNode
-- (BOOL)_processPCEDepth:(CFTypeRef *)depth toDepthSampleBuffer:;
 - (BWVideoDepthNode)initWithInferenceScheduler:(id)scheduler captureDevice:(id)device videoDepthConfiguration:(id)configuration extraDepthOutputRetainedBufferCount:(int)count error:(int *)error;
 - (CGFloat)_getInferenceCropRectAndAttachRenderingCropRect:(uint64_t)rect;
 - (id)inputFormatForAttachedMediaKey:(id)key;
@@ -8,6 +7,7 @@
 - (id)outputFormatForAttachedMediaKey:(id)key;
 - (id)outputVideoFormatForAttachedMediaKey:(id)key;
 - (id)preparedOutputPixelBufferPoolForAttachedMediaKey:(id)key format:(id)format;
+- (uint64_t)_processPCEDepth:(CFTypeRef *)depth toDepthSampleBuffer:;
 - (void)_releaseResources;
 - (void)_removeNonPropagatedAttachedMediaFromSampleBuffer:(uint64_t)buffer;
 - (void)dealloc;
@@ -42,26 +42,26 @@
 
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     [(BWNodeOutput *)self->super._output setFormat:format];
   }
 
-  else if (([key isEqualToString:0x1F219EC10] & 1) != 0 || objc_msgSend(key, "isEqualToString:", 0x1F219EA90))
+  else if ((objc_msgSend_isEqualToString_(key) & 1) != 0 || objc_msgSend_isEqualToString_(key))
   {
     v9 = -[BWVideoFormatRequirements initWithPixelBufferAttributes:]([BWInferenceVideoFormatRequirements alloc], "initWithPixelBufferAttributes:", [format pixelBufferAttributes]);
     [(BWInferenceVideoFormatRequirements *)v9 setIncludesInvalidContent:0];
     v16 = v9;
     v10 = +[BWInferenceVideoFormat formatByResolvingRequirements:](BWInferenceVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1]);
     [(NSMutableDictionary *)self->_inferenceVideoFormatsToPrepareByAttachedMediaKeys setObject:v10 forKeyedSubscript:key];
-    if ([key isEqualToString:0x1F219EC10])
+    if (objc_msgSend_isEqualToString_(key))
     {
 
       self->_primaryMediaInputFormat = v10;
     }
   }
 
-  else if (!self->_useMonocularInference && [key isEqualToString:@"Depth"])
+  else if (!self->_useMonocularInference && objc_msgSend_isEqualToString_(key))
   {
     v11 = objc_alloc_init(BWInferenceVideoFormatRequirements);
     -[BWVideoFormatRequirements setWidth:](v11, "setWidth:", [format width]);
@@ -102,9 +102,9 @@
     v11 = CMGetAttachment(AttachedMedia, *off_1E798A360, 0);
     memset(&rect, 0, sizeof(rect));
     CGRectMakeWithDictionaryRepresentation(v11, &rect);
-    v12.f64[0] = FigCaptureMetadataUtilitiesScaleRect(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, self->_cropRectScaleFactor);
-    v72.origin.x = FigCaptureMetadataUtilitiesClampRectToBoundingRect(v12, v13, v14, v15, 0.0, 0.0, 1.0, 1.0);
-    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v72);
+    v13.f64[0] = FigCaptureMetadataUtilitiesScaleRect(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, self->_cropRectScaleFactor, v12);
+    v73.origin.x = FigCaptureMetadataUtilitiesClampRectToBoundingRect(v13, v14, v15, v16, 0.0, 0.0, 1.0, 1.0);
+    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v73);
     CMSetAttachment(AttachedMedia, v10, DictionaryRepresentation, 1u);
     CFRelease(DictionaryRepresentation);
   }
@@ -113,12 +113,12 @@
   {
     if (v8)
     {
-      v17 = BWSampleBufferGetAttachedMedia(buffer, 0x1F21AAAD0);
-      v18 = CGRectCreateDictionaryRepresentation(self->_lastInferenceCropRect);
-      CMSetAttachment(v17, *off_1E798A360, v18, 1u);
-      if (v18)
+      v18 = BWSampleBufferGetAttachedMedia(buffer, 0x1F21AAAD0);
+      v19 = CGRectCreateDictionaryRepresentation(self->_lastInferenceCropRect);
+      CMSetAttachment(v18, *off_1E798A360, v19, 1u);
+      if (v19)
       {
-        CFRelease(v18);
+        CFRelease(v19);
       }
 
       [(BWVideoDepthNode *)self _getInferenceCropRectAndAttachRenderingCropRect:buffer];
@@ -167,26 +167,26 @@
 
   if (self->_previousDisparitySampleBuffer)
   {
-    v21 = self->_previousFeaturesSampleBuffer == 0;
+    v22 = self->_previousFeaturesSampleBuffer == 0;
   }
 
   else
   {
-    v21 = 1;
+    v22 = 1;
   }
 
   if (self->_useMonocularInference && [(BWVideoDepthInferenceConfiguration *)self->_videoDepthConfiguration colorInputRotationChangesWithAspectRatio])
   {
-    v22 = CMGetAttachment(buffer, *off_1E798A440, 0);
-    if (v22)
+    v23 = CMGetAttachment(buffer, *off_1E798A440, 0);
+    if (v23)
     {
-      LODWORD(v22) = [v22 BOOLValue];
+      LODWORD(v23) = [v23 BOOLValue];
     }
 
-    self->_networkInputIsRotated = v22 ^ 1;
-    v23 = self->_previousAspectRatioIsLandscape != v22;
-    self->_previousAspectRatioIsLandscape = v22;
-    if (!v23 && !v21)
+    self->_networkInputIsRotated = v23 ^ 1;
+    v24 = self->_previousAspectRatioIsLandscape != v23;
+    self->_previousAspectRatioIsLandscape = v23;
+    if (!v24 && !v22)
     {
       goto LABEL_35;
     }
@@ -194,20 +194,20 @@
     goto LABEL_30;
   }
 
-  if (v21)
+  if (v22)
   {
 LABEL_30:
-    v24 = self->_previousFeaturesSampleBuffer;
-    if (v24)
-    {
-      CFRelease(v24);
-      self->_previousFeaturesSampleBuffer = 0;
-    }
-
-    v25 = self->_previousDisparitySampleBuffer;
+    v25 = self->_previousFeaturesSampleBuffer;
     if (v25)
     {
       CFRelease(v25);
+      self->_previousFeaturesSampleBuffer = 0;
+    }
+
+    v26 = self->_previousDisparitySampleBuffer;
+    if (v26)
+    {
+      CFRelease(v26);
       self->_previousDisparitySampleBuffer = 0;
     }
 
@@ -227,16 +227,16 @@ LABEL_35:
 
   if (self->_disparityScalingFactor <= 0.0)
   {
-    v26 = [(BWVideoDepthNode *)self _getInferenceCropRectAndAttachRenderingCropRect:buffer];
-    v28 = v27;
-    v30 = v29;
-    v32 = v31;
+    v27 = [(BWVideoDepthNode *)self _getInferenceCropRectAndAttachRenderingCropRect:buffer];
+    v29 = v28;
+    v31 = v30;
+    v33 = v32;
     [(BWVideoDepthInferenceConfiguration *)self->_videoDepthConfiguration getMonocularDepthScaleFactor:buffer inputImageIsRotated:self->_networkInputIsRotated inferenceCropRect:?];
-    self->_disparityScalingFactor = v33;
-    self->_lastInferenceCropRect.origin.x = v26;
-    self->_lastInferenceCropRect.origin.y = v28;
-    self->_lastInferenceCropRect.size.width = v30;
-    self->_lastInferenceCropRect.size.height = v32;
+    self->_disparityScalingFactor = v34;
+    self->_lastInferenceCropRect.origin.x = v27;
+    self->_lastInferenceCropRect.origin.y = v29;
+    self->_lastInferenceCropRect.size.width = v31;
+    self->_lastInferenceCropRect.size.height = v33;
   }
 
   if (CVPixelBufferLockBaseAddress(self->_disparityMultiplierPixelBuffer, 0))
@@ -261,21 +261,21 @@ LABEL_35:
       SampleBuffer = CreateSampleBuffer();
       if (SampleBuffer)
       {
-        v41 = SampleBuffer;
+        v42 = SampleBuffer;
         BWSampleBufferSetAttachedMedia(buffer, 0x1F219EC70, SampleBuffer);
-        CFRelease(v41);
+        CFRelease(v42);
 LABEL_42:
-        v42 = self->_previousFeaturesSampleBuffer;
-        if (v42)
-        {
-          CFRelease(v42);
-          self->_previousFeaturesSampleBuffer = 0;
-        }
-
-        v43 = self->_previousDisparitySampleBuffer;
+        v43 = self->_previousFeaturesSampleBuffer;
         if (v43)
         {
           CFRelease(v43);
+          self->_previousFeaturesSampleBuffer = 0;
+        }
+
+        v44 = self->_previousDisparitySampleBuffer;
+        if (v44)
+        {
+          CFRelease(v44);
           self->_previousDisparitySampleBuffer = 0;
         }
 
@@ -284,8 +284,8 @@ LABEL_42:
           goto LABEL_61;
         }
 
-        v44 = BWSampleBufferGetAttachedMedia(buffer, @"Depth");
-        ImageBuffer = CMSampleBufferGetImageBuffer(v44);
+        v45 = BWSampleBufferGetAttachedMedia(buffer, @"Depth");
+        ImageBuffer = CMSampleBufferGetImageBuffer(v45);
         *&time.value = rect.origin;
         time.epoch = *&rect.size.width;
         if (BWSampleBufferCreateFromPixelBuffer(ImageBuffer, &time, &self->_depthFormatDescription, &target))
@@ -293,10 +293,10 @@ LABEL_42:
           goto LABEL_61;
         }
 
-        v46 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:2];
-        [v46 setObject:objc_msgSend(v7 forKeyedSubscript:{"objectForKeyedSubscript:", *off_1E798B540), *off_1E798B540}];
-        [v46 setObject:objc_msgSend(v7 forKeyedSubscript:{"objectForKeyedSubscript:", @"MirroredHorizontal", @"MirroredHorizontal"}];
-        CMSetAttachment(target, v6, v46, 1u);
+        v47 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:2];
+        [v47 setObject:objc_msgSend(v7 forKeyedSubscript:{"objectForKeyedSubscript:", *off_1E798B540), *off_1E798B540}];
+        [v47 setObject:objc_msgSend(v7 forKeyedSubscript:{"objectForKeyedSubscript:", @"MirroredHorizontal", @"MirroredHorizontal"}];
+        CMSetAttachment(target, v6, v47, 1u);
 
         BWSampleBufferSetAttachedMedia(buffer, @"Depth", target);
         if (!self->_useMonocularInference)
@@ -304,15 +304,15 @@ LABEL_42:
           goto LABEL_57;
         }
 
-        v47 = [(BWVideoDepthNode *)self _getInferenceCropRectAndAttachRenderingCropRect:buffer];
-        v51 = v47;
+        v48 = [(BWVideoDepthNode *)self _getInferenceCropRectAndAttachRenderingCropRect:buffer];
         v52 = v48;
         v53 = v49;
         v54 = v50;
-        self->_lastInferenceCropRect.origin.x = v47;
-        self->_lastInferenceCropRect.origin.y = v48;
-        self->_lastInferenceCropRect.size.width = v49;
-        self->_lastInferenceCropRect.size.height = v50;
+        v55 = v51;
+        self->_lastInferenceCropRect.origin.x = v48;
+        self->_lastInferenceCropRect.origin.y = v49;
+        self->_lastInferenceCropRect.size.width = v50;
+        self->_lastInferenceCropRect.size.height = v51;
         disparityAPSScaling = self->_disparityAPSScaling;
         if (disparityAPSScaling)
         {
@@ -325,20 +325,20 @@ LABEL_42:
             if (CMTimeGetSeconds(&time) > 0.200000003)
             {
               [(BWDisparityAPSScaling *)self->_disparityAPSScaling previewScalingFactorWithDisparityBuffer:ImageBuffer sbuf:buffer];
-              if (v57 <= 0.0)
+              if (v58 <= 0.0)
               {
-                [(BWVideoDepthInferenceConfiguration *)self->_videoDepthConfiguration getMonocularDepthScaleFactor:buffer inputImageIsRotated:self->_networkInputIsRotated inferenceCropRect:v51, v52, v53, v54];
+                [(BWVideoDepthInferenceConfiguration *)self->_videoDepthConfiguration getMonocularDepthScaleFactor:buffer inputImageIsRotated:self->_networkInputIsRotated inferenceCropRect:v52, v53, v54, v55];
                 disparityScalingFactor = self->_disparityScalingFactor;
               }
 
               else
               {
                 disparityScalingFactor = self->_disparityScalingFactor;
-                v59 = v57 * disparityScalingFactor;
+                v60 = v58 * disparityScalingFactor;
               }
 
-              v65 = disparityScalingFactor * 0.8 + v59 * 0.2;
-              self->_disparityScalingFactor = v65;
+              v66 = disparityScalingFactor * 0.8 + v60 * 0.2;
+              self->_disparityScalingFactor = v66;
               *&self->_lastTimeStampWhenAPSComputed.value = rect.origin;
               self->_lastTimeStampWhenAPSComputed.epoch = *&rect.size.width;
             }
@@ -346,32 +346,32 @@ LABEL_42:
             goto LABEL_57;
           }
 
-          [(BWVideoDepthInferenceConfiguration *)self->_videoDepthConfiguration getMonocularDepthScaleFactor:buffer inputImageIsRotated:self->_networkInputIsRotated inferenceCropRect:v51, v52, v53, v54];
-          v56 = self->_disparityScalingFactor * 0.8 + v60 * 0.2;
+          [(BWVideoDepthInferenceConfiguration *)self->_videoDepthConfiguration getMonocularDepthScaleFactor:buffer inputImageIsRotated:self->_networkInputIsRotated inferenceCropRect:v52, v53, v54, v55];
+          v57 = self->_disparityScalingFactor * 0.8 + v61 * 0.2;
         }
 
         else
         {
-          [(BWVideoDepthInferenceConfiguration *)self->_videoDepthConfiguration getMonocularDepthScaleFactor:buffer inputImageIsRotated:self->_networkInputIsRotated inferenceCropRect:v47, v48, v49, v50];
+          [(BWVideoDepthInferenceConfiguration *)self->_videoDepthConfiguration getMonocularDepthScaleFactor:buffer inputImageIsRotated:self->_networkInputIsRotated inferenceCropRect:v48, v49, v50, v51];
         }
 
-        self->_disparityScalingFactor = v56;
+        self->_disparityScalingFactor = v57;
 LABEL_57:
         disparityPostprocessingInStateSampleBuffer = self->_disparityPostprocessingInStateSampleBuffer;
         self->_disparityPostprocessingInStateSampleBuffer = self->_disparityPostprocessingOutStateSampleBuffer;
         self->_disparityPostprocessingOutStateSampleBuffer = disparityPostprocessingInStateSampleBuffer;
-        v62 = BWSampleBufferGetAttachedMedia(buffer, 0x1F219EBF0);
-        self->_previousDisparitySampleBuffer = v62;
-        if (v62)
-        {
-          CFRetain(v62);
-        }
-
-        v63 = BWSampleBufferGetAttachedMedia(buffer, 0x1F219EC50);
-        self->_previousFeaturesSampleBuffer = v63;
+        v63 = BWSampleBufferGetAttachedMedia(buffer, 0x1F219EBF0);
+        self->_previousDisparitySampleBuffer = v63;
         if (v63)
         {
           CFRetain(v63);
+        }
+
+        v64 = BWSampleBufferGetAttachedMedia(buffer, 0x1F219EC50);
+        self->_previousFeaturesSampleBuffer = v64;
+        if (v64)
+        {
+          CFRetain(v64);
         }
       }
     }
@@ -429,7 +429,7 @@ LABEL_13:
         Width = CVPixelBufferGetWidth(ImageBuffer);
         Height = CVPixelBufferGetHeight(ImageBuffer);
         FigCaptureMetadataUtilitiesExtendRectToAspectRatioOfTargetDimensions(Width | (Height << 32), *(rect + 248), &v43.origin.x, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-        FigCaptureMetadataUtilitiesDenormalizeCropRect(v41.origin.x, v41.origin.y, v41.size.width, v41.size.height);
+        FigCaptureMetadataUtilitiesDenormalizeCropRect(v41.origin.x, v41.origin.y, v41.size.width, v41.size.height, Width, Height);
         v14 = v13;
         v16 = v15;
         matched = FigCaptureMetadataUtilitiesMatchOrientationOfSize(*(rect + 248), *(rect + 252), v13, v15);
@@ -442,7 +442,7 @@ LABEL_13:
 
         else
         {
-          FigCaptureMetadataUtilitiesDenormalizeCropRect(v43.origin.x, v43.origin.y, v43.size.width, v43.size.height);
+          FigCaptureMetadataUtilitiesDenormalizeCropRect(v43.origin.x, v43.origin.y, v43.size.width, v43.size.height, Width, Height);
           v23 = matched * (v14 / v22);
           v25 = v19 * (v16 / v24);
           v26 = v23;
@@ -527,16 +527,16 @@ LABEL_13:
 
 - (id)preparedOutputPixelBufferPoolForAttachedMediaKey:(id)key format:(id)format
 {
-  if (![key isEqualToString:{@"Depth", format}])
+  if (!objc_msgSend_isEqualToString_(key, a2, @"Depth", format))
   {
-    if ([key isEqualToString:0x1F219EBF0])
+    if (objc_msgSend_isEqualToString_(key))
     {
       v8 = 288;
     }
 
     else
     {
-      if (![key isEqualToString:0x1F219EC50])
+      if (!objc_msgSend_isEqualToString_(key))
       {
         return 0;
       }
@@ -561,25 +561,25 @@ LABEL_13:
 
 - (id)inputVideoFormatForAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:0x1F219EAF0])
+  if (objc_msgSend_isEqualToString_(key, a2, 0x1F219EAF0))
   {
     v5 = 280;
     return *(&self->super.super.isa + v5);
   }
 
-  if (([key isEqualToString:0x1F219EB70] & 1) != 0 || objc_msgSend(key, "isEqualToString:", 0x1F219EB90))
+  if ((objc_msgSend_isEqualToString_(key) & 1) != 0 || objc_msgSend_isEqualToString_(key))
   {
     v5 = 272;
     return *(&self->super.super.isa + v5);
   }
 
-  if (([key isEqualToString:0x1F219EC50] & 1) != 0 || objc_msgSend(key, "isEqualToString:", 0x1F219EC30))
+  if ((objc_msgSend_isEqualToString_(key) & 1) != 0 || objc_msgSend_isEqualToString_(key))
   {
     v5 = 264;
     return *(&self->super.super.isa + v5);
   }
 
-  if ([key isEqualToString:0x1F219EC70])
+  if (objc_msgSend_isEqualToString_(key))
   {
     v5 = 336;
     return *(&self->super.super.isa + v5);
@@ -592,13 +592,13 @@ LABEL_13:
 
 - (id)inputInferenceVideoFormatForAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:0x1F219EAD0])
+  if (objc_msgSend_isEqualToString_(key, a2, 0x1F219EAD0))
   {
     v5 = &OBJC_IVAR___BWVideoDepthNode__disparityInputFormat;
     return *(&self->super.super.isa + *v5);
   }
 
-  if ([key isEqualToString:0x1F219EC10])
+  if (objc_msgSend_isEqualToString_(key))
   {
     v5 = &OBJC_IVAR___BWVideoDepthNode__primaryMediaInputFormat;
     return *(&self->super.super.isa + *v5);
@@ -875,251 +875,265 @@ LABEL_13:
 
 - (void)prepareForCurrentConfigurationToBecomeLive
 {
-  v24.receiver = self;
-  v24.super_class = BWVideoDepthNode;
-  [(BWNode *)&v24 prepareForCurrentConfigurationToBecomeLive];
-  if (!self->_nodePrepared)
+  v26.receiver = self;
+  v26.super_class = BWVideoDepthNode;
+  [(BWNode *)&v26 prepareForCurrentConfigurationToBecomeLive];
+  if (self->_nodePrepared)
   {
-    PixelBuffer = CreatePixelBuffer();
-    self->_disparityPostprocessingInStateSampleBuffer = CreateSampleBuffer();
-    if (PixelBuffer)
+    return;
+  }
+
+  PixelBuffer = CreatePixelBuffer();
+  self->_disparityPostprocessingInStateSampleBuffer = CreateSampleBuffer();
+  if (PixelBuffer)
+  {
+    CFRelease(PixelBuffer);
+  }
+
+  v4 = CreatePixelBuffer();
+  self->_disparityPostprocessingOutStateSampleBuffer = CreateSampleBuffer();
+  if (v4)
+  {
+    CFRelease(v4);
+  }
+
+  if (FigCaptureOptimizedBWInferenceScalingPathSupported())
+  {
+    v5 = objc_alloc_init(BWInferenceProcessingConfiguration);
+    [(BWInferenceProcessingConfiguration *)v5 setScalingStrategy:10];
+    [(BWInferenceProcessingConfiguration *)v5 setFilterType:2];
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = [[BWInferenceEngine alloc] initWithScheduler:self->_inferenceScheduler priority:6 processingConfiguration:v5 name:0];
+  self->_inferenceEngine = v6;
+  if (self->_useMonocularInference)
+  {
+    if ([+[FigCaptureCameraParameters monocularStreamingDepthType]!= 2 sharedInstance]
     {
-      CFRelease(PixelBuffer);
+      goto LABEL_13;
     }
 
-    v4 = CreatePixelBuffer();
-    self->_disparityPostprocessingOutStateSampleBuffer = CreateSampleBuffer();
-    if (v4)
+    [(BWVideoDepthInferenceConfiguration *)self->_videoDepthConfiguration loadMonocularVideoPipeline];
+    v7 = [(BWInferenceEngine *)self->_inferenceEngine addInferenceOfType:119 version:BWInferenceVersionMakeMajor(1) & 0xFFFFFFFFFFFFLL configuration:self->_videoDepthConfiguration];
+    if (!v7)
     {
-      CFRelease(v4);
-    }
-
-    if (FigCaptureOptimizedBWInferenceScalingPathSupported())
-    {
-      v5 = objc_alloc_init(BWInferenceProcessingConfiguration);
-      [(BWInferenceProcessingConfiguration *)v5 setScalingStrategy:10];
-      [(BWInferenceProcessingConfiguration *)v5 setFilterType:2];
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-
-    v6 = [[BWInferenceEngine alloc] initWithScheduler:self->_inferenceScheduler priority:6 processingConfiguration:v5 name:0];
-    self->_inferenceEngine = v6;
-    if (self->_useMonocularInference)
-    {
-      if ([+[FigCaptureCameraParameters monocularStreamingDepthType]!= 2 sharedInstance]
+      v8 = CreatePixelBuffer();
+      self->_disparityMultiplierPixelBuffer = v8;
+      if (!v8)
       {
-        goto LABEL_33;
+LABEL_13:
+        fig_log_get_emitter();
+        OUTLINED_FUNCTION_2_33();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+        return;
       }
 
-      [(BWVideoDepthInferenceConfiguration *)self->_videoDepthConfiguration loadMonocularVideoPipeline];
-      if ([(BWInferenceEngine *)self->_inferenceEngine addInferenceOfType:119 version:BWInferenceVersionMakeMajor(1) & 0xFFFFFFFFFFFFLL configuration:self->_videoDepthConfiguration])
-      {
-        goto LABEL_33;
-      }
-
-      v7 = CreatePixelBuffer();
-      self->_disparityMultiplierPixelBuffer = v7;
-      if (!v7)
-      {
-        goto LABEL_33;
-      }
+      goto LABEL_15;
     }
 
-    else if ([(BWInferenceEngine *)v6 addInferenceOfType:109 version:BWInferenceVersionMakeMajor(1) & 0xFFFFFFFFFFFFLL configuration:self->_videoDepthConfiguration])
-    {
-LABEL_33:
-      fig_log_get_emitter();
-      OUTLINED_FUNCTION_2_33();
-      FigDebugAssert3();
-      return;
-    }
+LABEL_34:
+    v18 = v7;
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_2_33();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18);
+    return;
+  }
 
-    initialDisparityPixelBuffer = self->_initialDisparityPixelBuffer;
-    if (initialDisparityPixelBuffer)
-    {
-      CFRelease(initialDisparityPixelBuffer);
-      self->_initialDisparityPixelBuffer = 0;
-    }
+  v7 = [(BWInferenceEngine *)v6 addInferenceOfType:109 version:BWInferenceVersionMakeMajor(1) & 0xFFFFFFFFFFFFLL configuration:self->_videoDepthConfiguration];
+  if (v7)
+  {
+    goto LABEL_34;
+  }
 
-    [(BWVideoFormat *)self->_internalDisparityVideoFormat width];
-    [(BWVideoFormat *)self->_internalDisparityVideoFormat height];
-    [(BWVideoFormat *)self->_internalDisparityVideoFormat pixelFormat];
-    self->_initialDisparityPixelBuffer = CreatePixelBuffer();
-    self->_previousDisparitySampleBuffer = CreateSampleBuffer();
-    initialFeaturesPixelBuffer = self->_initialFeaturesPixelBuffer;
-    if (initialFeaturesPixelBuffer)
-    {
-      CFRelease(initialFeaturesPixelBuffer);
-      self->_initialFeaturesPixelBuffer = 0;
-    }
+LABEL_15:
+  initialDisparityPixelBuffer = self->_initialDisparityPixelBuffer;
+  if (initialDisparityPixelBuffer)
+  {
+    CFRelease(initialDisparityPixelBuffer);
+    self->_initialDisparityPixelBuffer = 0;
+  }
 
-    [(BWVideoFormat *)self->_featuresVideoFormat width];
-    [(BWVideoFormat *)self->_featuresVideoFormat height];
-    [(BWVideoFormat *)self->_featuresVideoFormat pixelFormat];
-    self->_initialFeaturesPixelBuffer = CreatePixelBuffer();
-    self->_previousFeaturesSampleBuffer = CreateSampleBuffer();
-    v20 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    obj = self->_inferenceVideoFormatsToPrepareByAttachedMediaKeys;
-    v10 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v20 objects:v19 count:16];
-    if (v10)
+  [(BWVideoFormat *)self->_internalDisparityVideoFormat width];
+  [(BWVideoFormat *)self->_internalDisparityVideoFormat height];
+  [(BWVideoFormat *)self->_internalDisparityVideoFormat pixelFormat];
+  self->_initialDisparityPixelBuffer = CreatePixelBuffer();
+  self->_previousDisparitySampleBuffer = CreateSampleBuffer();
+  initialFeaturesPixelBuffer = self->_initialFeaturesPixelBuffer;
+  if (initialFeaturesPixelBuffer)
+  {
+    CFRelease(initialFeaturesPixelBuffer);
+    self->_initialFeaturesPixelBuffer = 0;
+  }
+
+  [(BWVideoFormat *)self->_featuresVideoFormat width];
+  [(BWVideoFormat *)self->_featuresVideoFormat height];
+  [(BWVideoFormat *)self->_featuresVideoFormat pixelFormat];
+  self->_initialFeaturesPixelBuffer = CreatePixelBuffer();
+  self->_previousFeaturesSampleBuffer = CreateSampleBuffer();
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  obj = self->_inferenceVideoFormatsToPrepareByAttachedMediaKeys;
+  v11 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v22 objects:v21 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v23;
+    do
     {
-      v11 = v10;
-      v12 = *v21;
+      v14 = 0;
+      v19 = v12;
       do
       {
-        v13 = 0;
-        v17 = v11;
-        do
+        if (*v23 != v13)
         {
-          if (*v21 != v12)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          v14 = *(*(&v20 + 1) + 8 * v13);
-          v15 = [(NSMutableDictionary *)self->_inferenceVideoFormatsToPrepareByAttachedMediaKeys objectForKeyedSubscript:v14];
-          if ([v14 isEqual:0x1F219EAD0])
-          {
-            blankDisparityPixelBuffer = self->_blankDisparityPixelBuffer;
-            if (blankDisparityPixelBuffer)
-            {
-              CFRelease(blankDisparityPixelBuffer);
-              self->_blankDisparityPixelBuffer = 0;
-            }
-
-            [v15 width];
-            [v15 height];
-            self->_blankDisparityPixelBuffer = CreatePixelBuffer();
-            v11 = v17;
-          }
-
-          [(BWInferenceEngine *)self->_inferenceEngine prepareForInputInferenceVideoFormat:v15 attachedMediaKey:v14];
-          ++v13;
+          objc_enumerationMutation(obj);
         }
 
-        while (v11 != v13);
-        v11 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v20 objects:v19 count:16];
+        v15 = *(*(&v22 + 1) + 8 * v14);
+        v16 = [(NSMutableDictionary *)self->_inferenceVideoFormatsToPrepareByAttachedMediaKeys objectForKeyedSubscript:v15];
+        if ([v15 isEqual:0x1F219EAD0])
+        {
+          blankDisparityPixelBuffer = self->_blankDisparityPixelBuffer;
+          if (blankDisparityPixelBuffer)
+          {
+            CFRelease(blankDisparityPixelBuffer);
+            self->_blankDisparityPixelBuffer = 0;
+          }
+
+          [v16 width];
+          [v16 height];
+          self->_blankDisparityPixelBuffer = CreatePixelBuffer();
+          v12 = v19;
+        }
+
+        [(BWInferenceEngine *)self->_inferenceEngine prepareForInputInferenceVideoFormat:v16 attachedMediaKey:v15];
+        ++v14;
       }
 
-      while (v11);
+      while (v12 != v14);
+      v12 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v22 objects:v21 count:16];
     }
 
-    [(NSMutableDictionary *)self->_inferenceVideoFormatsToPrepareByAttachedMediaKeys removeAllObjects];
-    if (![(BWInferenceEngine *)self->_inferenceEngine prepareForInferenceWithFormatProvider:self pixelBufferPoolProvider:self])
-    {
-      [(BWFigVideoCaptureDevice *)self->_captureDevice setPreviewVideoDepthNodeUnprepared:0];
-      self->_nodePrepared = 1;
-    }
+    while (v12);
+  }
+
+  [(NSMutableDictionary *)self->_inferenceVideoFormatsToPrepareByAttachedMediaKeys removeAllObjects];
+  if (![(BWInferenceEngine *)self->_inferenceEngine prepareForInferenceWithFormatProvider:self pixelBufferPoolProvider:self])
+  {
+    [(BWFigVideoCaptureDevice *)self->_captureDevice setPreviewVideoDepthNodeUnprepared:0];
+    self->_nodePrepared = 1;
   }
 }
 
-- (BOOL)_processPCEDepth:(CFTypeRef *)depth toDepthSampleBuffer:
+- (uint64_t)_processPCEDepth:(CFTypeRef *)depth toDepthSampleBuffer:
 {
   if (result)
   {
-    v5 = result;
+    v6 = result;
     AttachedMedia = BWSampleBufferGetAttachedMedia(a2, @"Depth");
     *depth = AttachedMedia;
     if (AttachedMedia)
     {
       CFRetain(AttachedMedia);
-      v7 = *depth != 0;
+      v8 = *depth != 0;
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    v8 = [CMGetAttachment(a2 *off_1E798D2A8];
-    if (*(v5 + 257) == 1)
+    v9 = [CMGetAttachment(a2 *off_1E798D2A8];
+    if (*(v6 + 257) == 1)
     {
-      *(v5 + 257) = v8 == 1 || !v7;
-      if ((*(v5 + 257) & 1) == 0)
+      *(v6 + 257) = v9 == 1 || !v8;
+      if ((*(v6 + 257) & 1) == 0)
       {
         goto LABEL_14;
       }
 
-      v9 = *(v5 + 257) ^ 1;
+      v10 = *(v6 + 257) ^ 1;
     }
 
     else
     {
-      *(v5 + 257) = v8 == 1;
-      if ((*(v5 + 257) & 1) == 0)
+      *(v6 + 257) = v9 == 1;
+      if ((*(v6 + 257) & 1) == 0)
       {
-        return ((v7 | [CMGetAttachment(a2 @"DepthDisabled"]) & 1) != 0;
+        return ((v8 | [CMGetAttachment(a2 @"DepthDisabled"]) & 1) != 0;
       }
 
-      v9 = 0;
+      v10 = 0;
     }
 
-    v10 = OUTLINED_FUNCTION_2_81();
-    [v11 updateSDOFBackgroundShiftSum:v10 invalidShiftRatio:? closeCanonicalDisparityAverage:? faceCanonicalDisparityAverages:? erodedForegroundRatio:? foregroundRatio:? occluded:? faces:? personSegmentationRatio:?];
+    v11 = OUTLINED_FUNCTION_2_81();
+    [v12 updateSDOFBackgroundShiftSum:v11 invalidShiftRatio:? closeCanonicalDisparityAverage:? faceCanonicalDisparityAverages:? erodedForegroundRatio:? foregroundRatio:? occluded:? faces:? personSegmentationRatio:?];
     if (*depth)
     {
       CFRelease(*depth);
       *depth = 0;
     }
 
-    memset(&v20, 0, sizeof(v20));
-    CMSampleBufferGetPresentationTimeStamp(&v20, a2);
-    v12 = *(v5 + 240);
-    v19 = v20;
-    if (BWSampleBufferCreateFromPixelBuffer(v12, &v19, (v5 + 176), depth))
+    memset(&v23, 0, sizeof(v23));
+    CMSampleBufferGetPresentationTimeStamp(&v23, a2);
+    v13 = *(v6 + 240);
+    v22 = v23;
+    v14 = BWSampleBufferCreateFromPixelBuffer(v13, &v22, (v6 + 176), depth);
+    if (v14)
     {
+      v21 = v14;
       fig_log_get_emitter();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v21, v3, v22.value, *&v22.timescale, LODWORD(v22.epoch), v23.value, *&v23.timescale, LODWORD(v23.epoch));
       return 0;
     }
 
     CMSetAttachment(a2, *off_1E798D2B0, MEMORY[0x1E695E118], 1u);
-    if ((v9 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
-      return ((v7 | [CMGetAttachment(a2 @"DepthDisabled"]) & 1) != 0;
+      return ((v8 | [CMGetAttachment(a2 @"DepthDisabled"]) & 1) != 0;
     }
 
 LABEL_14:
-    v13 = *(v5 + 192);
-    if (v13)
+    v15 = *(v6 + 192);
+    if (v15)
     {
-      CFRelease(v13);
+      CFRelease(v15);
     }
 
-    *(v5 + 192) = CreateSampleBuffer();
-    v14 = *(v5 + 200);
-    if (v14)
-    {
-      CFRelease(v14);
-    }
-
-    *(v5 + 200) = CreateSampleBuffer();
-    [*(v5 + 272) width];
-    [*(v5 + 272) height];
-    [*(v5 + 272) pixelFormat];
-    PixelBuffer = CreatePixelBuffer();
-    v16 = *(v5 + 208);
+    *(v6 + 192) = CreateSampleBuffer();
+    v16 = *(v6 + 200);
     if (v16)
     {
       CFRelease(v16);
     }
 
-    *(v5 + 208) = CreateSampleBuffer();
+    *(v6 + 200) = CreateSampleBuffer();
+    [*(v6 + 272) width];
+    [*(v6 + 272) height];
+    [*(v6 + 272) pixelFormat];
+    PixelBuffer = CreatePixelBuffer();
+    v18 = *(v6 + 208);
+    if (v18)
+    {
+      CFRelease(v18);
+    }
+
+    *(v6 + 208) = CreateSampleBuffer();
     if (PixelBuffer)
     {
       CFRelease(PixelBuffer);
     }
 
-    v17 = OUTLINED_FUNCTION_2_81();
-    [v18 updateSDOFBackgroundShiftSum:v17 invalidShiftRatio:? closeCanonicalDisparityAverage:? faceCanonicalDisparityAverages:? erodedForegroundRatio:? foregroundRatio:? occluded:? faces:? personSegmentationRatio:?];
-    return ((v7 | [CMGetAttachment(a2 @"DepthDisabled"]) & 1) != 0;
+    v19 = OUTLINED_FUNCTION_2_81();
+    [v20 updateSDOFBackgroundShiftSum:v19 invalidShiftRatio:? closeCanonicalDisparityAverage:? faceCanonicalDisparityAverages:? erodedForegroundRatio:? foregroundRatio:? occluded:? faces:? personSegmentationRatio:?];
+    return ((v8 | [CMGetAttachment(a2 @"DepthDisabled"]) & 1) != 0;
   }
 
   return result;
@@ -1145,34 +1159,6 @@ LABEL_14:
 
     BWSampleBufferRemoveAttachedMedia(a2, 0x1F21AAAD0);
   }
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_getInferenceCropRectAndAttachRenderingCropRect:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_getInferenceCropRectAndAttachRenderingCropRect:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

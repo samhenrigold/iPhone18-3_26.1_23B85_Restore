@@ -71,7 +71,7 @@
 {
   intoCopy = into;
   contextCopy = context;
-  if ((atomic_load_explicit(qword_280A47C10, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280A47C10, memory_order_acquire) & 1) == 0)
   {
     sub_2764A8810();
   }

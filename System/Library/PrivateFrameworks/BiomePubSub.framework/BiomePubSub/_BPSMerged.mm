@@ -98,17 +98,17 @@
 
 - (void)receiveCompletion:(id)completion atIndex:(int64_t)index
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   selfCopy = self;
   v8 = __biome_log_for_category();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v84 = objc_opt_class();
-    v85 = 2048;
+    v82 = objc_opt_class();
+    v83 = 2048;
     indexCopy = index;
-    v9 = v84;
+    v9 = v82;
     _os_log_impl(&dword_1C871B000, v8, OS_LOG_TYPE_INFO, "%@ - completion at index %ld", buf, 0x16u);
   }
 
@@ -122,25 +122,24 @@
     subscriptions = [(_BPSMerged *)selfCopy subscriptions];
     [subscriptions setObject:null atIndexedSubscript:index];
 
-    v72 = 0u;
-    v73 = 0u;
     v70 = 0u;
     v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
     buffers = [(_BPSMerged *)selfCopy buffers];
-    v37 = [buffers countByEnumeratingWithState:&v70 objects:v81 count:16];
+    v37 = [buffers countByEnumeratingWithState:&v68 objects:v79 count:16];
     if (v37)
     {
-      v38 = *v71;
+      v38 = *v69;
       while (2)
       {
         for (i = 0; i != v37; ++i)
         {
-          if (*v71 != v38)
+          if (*v69 != v38)
           {
             objc_enumerationMutation(buffers);
           }
 
-          v40 = *(*(&v70 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -149,7 +148,7 @@
           }
         }
 
-        v37 = [buffers countByEnumeratingWithState:&v70 objects:v81 count:16];
+        v37 = [buffers countByEnumeratingWithState:&v68 objects:v79 count:16];
         if (v37)
         {
           continue;
@@ -162,88 +161,88 @@
 LABEL_32:
 
     upstreamFinished = [(_BPSMerged *)selfCopy upstreamFinished];
-    v42 = [(_BPSMerged *)selfCopy count];
-    if ((v37 & 1) == 0 && upstreamFinished == v42)
+    v41 = [(_BPSMerged *)selfCopy count];
+    if ((v37 & 1) == 0 && upstreamFinished == v41)
     {
       [(_BPSMerged *)selfCopy setFinished:1];
       subscriptions2 = [(_BPSMerged *)selfCopy subscriptions];
-      v44 = [subscriptions2 copy];
+      v43 = [subscriptions2 copy];
 
       subscriptions3 = [(_BPSMerged *)selfCopy subscriptions];
-      v46 = [subscriptions3 count];
+      v45 = [subscriptions3 count];
 
-      if (v46)
+      if (v45)
       {
-        v47 = 0;
+        v46 = 0;
         do
         {
           null2 = [MEMORY[0x1E695DFB0] null];
           subscriptions4 = [(_BPSMerged *)selfCopy subscriptions];
-          [subscriptions4 setObject:null2 atIndexedSubscript:v47];
+          [subscriptions4 setObject:null2 atIndexedSubscript:v46];
 
-          ++v47;
+          ++v46;
           subscriptions5 = [(_BPSMerged *)selfCopy subscriptions];
-          v51 = [subscriptions5 count];
+          v50 = [subscriptions5 count];
         }
 
-        while (v47 < v51);
+        while (v46 < v50);
       }
 
       buffers2 = [(_BPSMerged *)selfCopy buffers];
-      v53 = [buffers2 count];
+      v52 = [buffers2 count];
 
-      if (v53)
+      if (v52)
       {
-        v54 = 0;
+        v53 = 0;
         do
         {
           null3 = [MEMORY[0x1E695DFB0] null];
           buffers3 = [(_BPSMerged *)selfCopy buffers];
-          [buffers3 setObject:null3 atIndexedSubscript:v54];
+          [buffers3 setObject:null3 atIndexedSubscript:v53];
 
-          ++v54;
+          ++v53;
           buffers4 = [(_BPSMerged *)selfCopy buffers];
-          v58 = [buffers4 count];
+          v57 = [buffers4 count];
         }
 
-        while (v54 < v58);
+        while (v53 < v57);
       }
 
       os_unfair_lock_unlock(&selfCopy->_lock);
-      v68 = 0u;
-      v69 = 0u;
       v66 = 0u;
       v67 = 0u;
-      v27 = v44;
-      v59 = [v27 countByEnumeratingWithState:&v66 objects:v80 count:16];
-      if (v59)
+      v64 = 0u;
+      v65 = 0u;
+      v27 = v43;
+      v58 = [v27 countByEnumeratingWithState:&v64 objects:v78 count:16];
+      if (v58)
       {
-        v60 = v59;
-        v61 = *v67;
+        v59 = v58;
+        v60 = *v65;
         do
         {
-          for (j = 0; j != v60; ++j)
+          for (j = 0; j != v59; ++j)
           {
-            if (*v67 != v61)
+            if (*v65 != v60)
             {
               objc_enumerationMutation(v27);
             }
 
-            v63 = *(*(&v66 + 1) + 8 * j);
+            v62 = *(*(&v64 + 1) + 8 * j);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              [v63 cancel];
+              [v62 cancel];
             }
           }
 
-          v60 = [v27 countByEnumeratingWithState:&v66 objects:v80 count:16];
+          v59 = [v27 countByEnumeratingWithState:&v64 objects:v78 count:16];
         }
 
-        while (v60);
+        while (v59);
       }
 
-      v64 = [(_BPSMerged *)selfCopy applyDownstreamWhileLocked:0 apply:&__block_literal_global_0];
+      v63 = [(_BPSMerged *)selfCopy applyDownstreamWhileLocked:0 apply:&__block_literal_global_0];
       goto LABEL_50;
     }
 
@@ -303,26 +302,26 @@ LABEL_51:
       }
 
       os_unfair_lock_unlock(&selfCopy->_lock);
-      v78 = 0u;
-      v79 = 0u;
       v76 = 0u;
       v77 = 0u;
+      v74 = 0u;
+      v75 = 0u;
       v27 = v12;
-      v28 = [v27 countByEnumeratingWithState:&v76 objects:v82 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v74 objects:v80 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v77;
+        v30 = *v75;
         do
         {
           for (k = 0; k != v29; ++k)
           {
-            if (*v77 != v30)
+            if (*v75 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            v32 = *(*(&v76 + 1) + 8 * k);
+            v32 = *(*(&v74 + 1) + 8 * k);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -330,18 +329,18 @@ LABEL_51:
             }
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v76 objects:v82 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v74 objects:v80 count:16];
         }
 
         while (v29);
       }
 
-      v74[0] = MEMORY[0x1E69E9820];
-      v74[1] = 3221225472;
-      v74[2] = __40___BPSMerged_receiveCompletion_atIndex___block_invoke;
-      v74[3] = &unk_1E8320CA8;
-      v75 = completionCopy;
-      v33 = [(_BPSMerged *)selfCopy applyDownstreamWhileLocked:0 apply:v74];
+      v72[0] = MEMORY[0x1E69E9820];
+      v72[1] = 3221225472;
+      v72[2] = __40___BPSMerged_receiveCompletion_atIndex___block_invoke;
+      v72[3] = &unk_1E8320CA8;
+      v73 = completionCopy;
+      v33 = [(_BPSMerged *)selfCopy applyDownstreamWhileLocked:0 apply:v72];
 
 LABEL_50:
       goto LABEL_52;
@@ -351,8 +350,6 @@ LABEL_50:
   }
 
 LABEL_52:
-
-  v65 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)receiveInput:(id)input atIndex:(int64_t)index
@@ -460,7 +457,7 @@ LABEL_9:
 
 - (void)requestDemand:(int64_t)demand
 {
-  v111 = *MEMORY[0x1E69E9840];
+  v109 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   os_unfair_lock_lock(&selfCopy->_lock);
   if ([(_BPSMerged *)selfCopy terminated])
@@ -487,112 +484,112 @@ LABEL_2:
     [(_BPSMerged *)selfCopy setDemand:0x7FFFFFFFFFFFFFFFLL];
     buffers = [(_BPSMerged *)selfCopy buffers];
     buffers2 = [(_BPSMerged *)selfCopy buffers];
-    v9 = [buffers2 count];
+    v8 = [buffers2 count];
 
-    if (v9)
+    if (v8)
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
         null = [MEMORY[0x1E695DFB0] null];
         buffers3 = [(_BPSMerged *)selfCopy buffers];
-        [buffers3 setObject:null atIndexedSubscript:v10];
+        [buffers3 setObject:null atIndexedSubscript:v9];
 
-        ++v10;
+        ++v9;
         buffers4 = [(_BPSMerged *)selfCopy buffers];
-        v14 = [buffers4 count];
+        v13 = [buffers4 count];
       }
 
-      while (v10 < v14);
+      while (v9 < v13);
     }
 
     upstreamFinished = [(_BPSMerged *)selfCopy upstreamFinished];
-    v78 = [(_BPSMerged *)selfCopy count];
+    v76 = [(_BPSMerged *)selfCopy count];
     subscriptions = [(_BPSMerged *)selfCopy subscriptions];
-    v15 = selfCopy;
+    v14 = selfCopy;
     os_unfair_lock_unlock(&selfCopy->_lock);
-    v104 = 0u;
-    v105 = 0u;
     v102 = 0u;
     v103 = 0u;
+    v100 = 0u;
+    v101 = 0u;
     obj = buffers;
-    v16 = [obj countByEnumeratingWithState:&v102 objects:v110 count:16];
-    if (v16)
+    v15 = [obj countByEnumeratingWithState:&v100 objects:v108 count:16];
+    if (v15)
     {
-      v17 = v16;
-      v18 = *v103;
+      v16 = v15;
+      v17 = *v101;
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v103 != v18)
+          if (*v101 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v102 + 1) + 8 * i);
+          v19 = *(*(&v100 + 1) + 8 * i);
           null2 = [MEMORY[0x1E695DFB0] null];
-          v22 = [v20 isEqual:null2];
+          v21 = [v19 isEqual:null2];
 
-          if ((v22 & 1) == 0)
+          if ((v21 & 1) == 0)
           {
-            v101[0] = MEMORY[0x1E69E9820];
-            v101[1] = 3221225472;
-            v101[2] = __28___BPSMerged_requestDemand___block_invoke;
-            v101[3] = &unk_1E8320CF0;
-            v101[4] = v20;
-            v23 = [(_BPSMerged *)v15 applyDownstreamWhileLocked:0 apply:v101];
+            v99[0] = MEMORY[0x1E69E9820];
+            v99[1] = 3221225472;
+            v99[2] = __28___BPSMerged_requestDemand___block_invoke;
+            v99[3] = &unk_1E8320CF0;
+            v99[4] = v19;
+            v22 = [(_BPSMerged *)v14 applyDownstreamWhileLocked:0 apply:v99];
           }
         }
 
-        v17 = [obj countByEnumeratingWithState:&v102 objects:v110 count:16];
+        v16 = [obj countByEnumeratingWithState:&v100 objects:v108 count:16];
       }
 
-      while (v17);
+      while (v16);
     }
 
-    if (upstreamFinished == v78)
+    if (upstreamFinished == v76)
     {
-      selfCopy = v15;
-      v24 = [(_BPSMerged *)v15 applyDownstreamWhileLocked:0 apply:&__block_literal_global_11];
+      selfCopy = v14;
+      v23 = [(_BPSMerged *)v14 applyDownstreamWhileLocked:0 apply:&__block_literal_global_11];
     }
 
     else
     {
-      v99 = 0u;
-      v100 = 0u;
       v97 = 0u;
       v98 = 0u;
-      v60 = subscriptions;
-      v61 = [v60 countByEnumeratingWithState:&v97 objects:v109 count:16];
-      selfCopy = v15;
-      if (v61)
+      v95 = 0u;
+      v96 = 0u;
+      v58 = subscriptions;
+      v59 = [v58 countByEnumeratingWithState:&v95 objects:v107 count:16];
+      selfCopy = v14;
+      if (v59)
       {
-        v62 = v61;
-        v63 = *v98;
+        v60 = v59;
+        v61 = *v96;
         do
         {
-          for (j = 0; j != v62; ++j)
+          for (j = 0; j != v60; ++j)
           {
-            if (*v98 != v63)
+            if (*v96 != v61)
             {
-              objc_enumerationMutation(v60);
+              objc_enumerationMutation(v58);
             }
 
-            v65 = *(*(&v97 + 1) + 8 * j);
+            v63 = *(*(&v95 + 1) + 8 * j);
             null3 = [MEMORY[0x1E695DFB0] null];
-            v67 = [v65 isEqual:null3];
+            v65 = [v63 isEqual:null3];
 
-            if ((v67 & 1) == 0)
+            if ((v65 & 1) == 0)
             {
-              [v65 requestDemand:0x7FFFFFFFFFFFFFFFLL];
+              [v63 requestDemand:0x7FFFFFFFFFFFFFFFLL];
             }
           }
 
-          v62 = [v60 countByEnumeratingWithState:&v97 objects:v109 count:16];
+          v60 = [v58 countByEnumeratingWithState:&v95 objects:v107 count:16];
         }
 
-        while (v62);
+        while (v60);
       }
     }
   }
@@ -600,15 +597,15 @@ LABEL_2:
   else
   {
     [(_BPSMerged *)selfCopy setDemand:[(_BPSMerged *)selfCopy demand]+ demand];
-    v25 = MEMORY[0x1E695E0F0];
-    v26 = [MEMORY[0x1E695E0F0] mutableCopy];
-    v27 = [v25 mutableCopy];
+    v24 = MEMORY[0x1E695E0F0];
+    v25 = [MEMORY[0x1E695E0F0] mutableCopy];
+    v26 = [v24 mutableCopy];
     buffers5 = [(_BPSMerged *)selfCopy buffers];
-    v29 = [buffers5 count];
+    v28 = [buffers5 count];
 
-    if (v29)
+    if (v28)
     {
-      v30 = 0;
+      v29 = 0;
       do
       {
         if (![(_BPSMerged *)selfCopy demand])
@@ -617,58 +614,57 @@ LABEL_2:
         }
 
         buffers6 = [(_BPSMerged *)selfCopy buffers];
-        v32 = [buffers6 objectAtIndexedSubscript:v30];
+        v31 = [buffers6 objectAtIndexedSubscript:v29];
 
         null4 = [MEMORY[0x1E695DFB0] null];
-        v34 = [v32 isEqual:null4];
+        v33 = [v31 isEqual:null4];
 
-        if ((v34 & 1) == 0)
+        if ((v33 & 1) == 0)
         {
           [(_BPSMerged *)selfCopy setDemand:[(_BPSMerged *)selfCopy demand]- 1];
-          [v26 addObject:v32];
+          [v25 addObject:v31];
           subscriptions2 = [(_BPSMerged *)selfCopy subscriptions];
-          v36 = [subscriptions2 objectAtIndexedSubscript:v30];
-          [v27 addObject:v36];
+          v35 = [subscriptions2 objectAtIndexedSubscript:v29];
+          [v26 addObject:v35];
         }
 
-        ++v30;
+        ++v29;
         buffers7 = [(_BPSMerged *)selfCopy buffers];
-        v38 = [buffers7 count];
+        v37 = [buffers7 count];
       }
 
-      while (v30 < v38);
+      while (v29 < v37);
     }
 
-    v95 = 0u;
-    v96 = 0u;
     v93 = 0u;
     v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
     buffers8 = [(_BPSMerged *)selfCopy buffers];
-    v40 = [buffers8 countByEnumeratingWithState:&v93 objects:v108 count:16];
-    if (v40)
+    v39 = [buffers8 countByEnumeratingWithState:&v91 objects:v106 count:16];
+    if (v39)
     {
-      v41 = v40;
-      v42 = *v94;
+      v40 = v39;
+      v41 = *v92;
       while (2)
       {
-        for (k = 0; k != v41; ++k)
+        for (k = 0; k != v40; ++k)
         {
-          if (*v94 != v42)
+          if (*v92 != v41)
           {
             objc_enumerationMutation(buffers8);
           }
 
-          v44 = *(*(&v93 + 1) + 8 * k);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v45 = 0;
+            v43 = 0;
             goto LABEL_40;
           }
         }
 
-        v41 = [buffers8 countByEnumeratingWithState:&v93 objects:v108 count:16];
-        if (v41)
+        v40 = [buffers8 countByEnumeratingWithState:&v91 objects:v106 count:16];
+        if (v40)
         {
           continue;
         }
@@ -677,141 +673,137 @@ LABEL_2:
       }
     }
 
-    v45 = 1;
+    v43 = 1;
 LABEL_40:
-    v81 = v27;
+    v79 = v26;
 
     upstreamFinished2 = [(_BPSMerged *)selfCopy upstreamFinished];
     if (upstreamFinished2 == [(_BPSMerged *)selfCopy count])
     {
-      v47 = v45;
+      v45 = v43;
     }
 
     else
     {
-      v47 = 0;
+      v45 = 0;
     }
 
-    v79 = v47;
-    if (v47 == 1)
+    v77 = v45;
+    if (v45 == 1)
     {
       [(_BPSMerged *)selfCopy setFinished:1];
     }
 
-    v48 = selfCopy;
+    v46 = selfCopy;
     os_unfair_lock_unlock(&selfCopy->_lock);
-    v49 = 0;
-    v91 = 0u;
-    v92 = 0u;
+    v47 = 0;
     v89 = 0u;
     v90 = 0u;
-    v50 = v26;
-    v51 = [v50 countByEnumeratingWithState:&v89 objects:v107 count:16];
-    if (v51)
+    v87 = 0u;
+    v88 = 0u;
+    v48 = v25;
+    v49 = [v48 countByEnumeratingWithState:&v87 objects:v105 count:16];
+    if (v49)
     {
-      v52 = v51;
-      v53 = *v90;
-      v49 = 0;
+      v50 = v49;
+      v51 = *v88;
+      v47 = 0;
       do
       {
-        for (m = 0; m != v52; ++m)
+        for (m = 0; m != v50; ++m)
         {
-          if (*v90 != v53)
+          if (*v88 != v51)
           {
-            objc_enumerationMutation(v50);
+            objc_enumerationMutation(v48);
           }
 
-          v55 = *(*(&v89 + 1) + 8 * m);
-          v88[0] = MEMORY[0x1E69E9820];
-          v88[1] = 3221225472;
-          v88[2] = __28___BPSMerged_requestDemand___block_invoke_3;
-          v88[3] = &unk_1E8320CA8;
-          v88[4] = v55;
-          v56 = [(os_unfair_lock_s *)v48 applyDownstreamWhileLocked:0 apply:v88];
-          v49 += [v56 integerValue];
+          v53 = *(*(&v87 + 1) + 8 * m);
+          v86[0] = MEMORY[0x1E69E9820];
+          v86[1] = 3221225472;
+          v86[2] = __28___BPSMerged_requestDemand___block_invoke_3;
+          v86[3] = &unk_1E8320CA8;
+          v86[4] = v53;
+          v54 = [(os_unfair_lock_s *)v46 applyDownstreamWhileLocked:0 apply:v86];
+          v47 += [v54 integerValue];
         }
 
-        v52 = [v50 countByEnumeratingWithState:&v89 objects:v107 count:16];
+        v50 = [v48 countByEnumeratingWithState:&v87 objects:v105 count:16];
       }
 
-      while (v52);
+      while (v50);
     }
 
-    os_unfair_lock_lock(v48 + 2);
-    pending = [(os_unfair_lock_s *)v48 pending];
-    [(os_unfair_lock_s *)v48 setPending:0];
-    os_unfair_lock_unlock(v48 + 2);
-    if (v79)
+    os_unfair_lock_lock(v46 + 2);
+    pending = [(os_unfair_lock_s *)v46 pending];
+    [(os_unfair_lock_s *)v46 setPending:0];
+    os_unfair_lock_unlock(v46 + 2);
+    if (v77)
     {
-      v58 = [(os_unfair_lock_s *)v48 applyDownstreamWhileLocked:0 apply:&__block_literal_global_13];
-      selfCopy = v48;
-      v59 = v81;
+      v56 = [(os_unfair_lock_s *)v46 applyDownstreamWhileLocked:0 apply:&__block_literal_global_13];
+      selfCopy = v46;
+      v57 = v79;
     }
 
     else
     {
-      v68 = pending + v49;
-      v69 = pending + v49 < 1;
-      selfCopy = v48;
-      if (!v69)
+      v66 = pending + v47;
+      v67 = pending + v47 < 1;
+      selfCopy = v46;
+      if (!v67)
       {
-        os_unfair_lock_lock(v48 + 2);
-        [(os_unfair_lock_s *)v48 setDemand:[(os_unfair_lock_s *)v48 demand]+ v68];
-        os_unfair_lock_unlock(v48 + 2);
+        os_unfair_lock_lock(v46 + 2);
+        [(os_unfair_lock_s *)v46 setDemand:[(os_unfair_lock_s *)v46 demand]+ v66];
+        os_unfair_lock_unlock(v46 + 2);
       }
 
-      v86 = 0u;
-      v87 = 0u;
       v84 = 0u;
       v85 = 0u;
-      v59 = v81;
-      v70 = v81;
-      v71 = [v70 countByEnumeratingWithState:&v84 objects:v106 count:16];
-      if (v71)
+      v82 = 0u;
+      v83 = 0u;
+      v57 = v79;
+      v68 = v79;
+      v69 = [v68 countByEnumeratingWithState:&v82 objects:v104 count:16];
+      if (v69)
       {
-        v72 = v71;
-        v73 = *v85;
+        v70 = v69;
+        v71 = *v83;
         do
         {
-          for (n = 0; n != v72; ++n)
+          for (n = 0; n != v70; ++n)
           {
-            if (*v85 != v73)
+            if (*v83 != v71)
             {
-              objc_enumerationMutation(v70);
+              objc_enumerationMutation(v68);
             }
 
-            v75 = *(*(&v84 + 1) + 8 * n);
+            v73 = *(*(&v82 + 1) + 8 * n);
             null5 = [MEMORY[0x1E695DFB0] null];
-            v77 = [v75 isEqual:null5];
+            v75 = [v73 isEqual:null5];
 
-            if ((v77 & 1) == 0)
+            if ((v75 & 1) == 0)
             {
-              [v75 requestDemand:1];
+              [v73 requestDemand:1];
             }
           }
 
-          v72 = [v70 countByEnumeratingWithState:&v84 objects:v106 count:16];
+          v70 = [v68 countByEnumeratingWithState:&v82 objects:v104 count:16];
         }
 
-        while (v72);
+        while (v70);
       }
     }
   }
 
 LABEL_3:
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancel
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = 138412290;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_debug_impl(&dword_1C871B000, a2, OS_LOG_TYPE_DEBUG, "%@ - cancel", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_debug_impl(&dword_1C871B000, a2, OS_LOG_TYPE_DEBUG, "%@ - cancel", &v4, 0xCu);
 }
 
 - (id)upstreamSubscriptions
@@ -893,22 +885,19 @@ LABEL_3:
 
 - (void)upstreamSubscriptions
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = 138412290;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_error_impl(&dword_1C871B000, a2, OS_LOG_TYPE_ERROR, "%@ - upstreamSubscriptions are nil", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_1C871B000, a2, OS_LOG_TYPE_ERROR, "%@ - upstreamSubscriptions are nil", &v4, 0xCu);
 }
 
 - (void)updateBookmarksWhenLockedForIndex:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C871B000, a2, OS_LOG_TYPE_ERROR, "Subscription %@ could not create bookmark", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C871B000, a2, OS_LOG_TYPE_ERROR, "Subscription %@ could not create bookmark", &v2, 0xCu);
 }
 
 @end

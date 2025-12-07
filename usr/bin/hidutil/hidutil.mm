@@ -235,13 +235,14 @@ LABEL_51:
   return v18;
 }
 
-uint64_t start(int a1, char **a2)
+uint64_t start(uint64_t a1, char **a2)
 {
   if (a1 <= 1)
   {
     goto LABEL_2;
   }
 
+  v4 = a1;
   v5 = a2[optind];
   if (!strcmp(v5, "help") || *v5 == 45 && v5[1] == 104 && !v5[2] || !strcmp(v5, "--help"))
   {
@@ -252,13 +253,13 @@ uint64_t start(int a1, char **a2)
   else if (!strcmp(v5, "dump"))
   {
 
-    return sub_100001B20(a1, a2);
+    return sub_100001B20(v4, a2);
   }
 
   else if (!strcmp(v5, "list"))
   {
 
-    return sub_100002DE4(a1, a2);
+    return sub_100002DE4(v4, a2);
   }
 
   else
@@ -271,7 +272,7 @@ LABEL_2:
       return 1;
     }
 
-    return sub_100001794(a1, a2);
+    return sub_100001794(v4, a2);
   }
 }
 
@@ -1126,7 +1127,7 @@ void sub_100002AC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id sub_100002AF0(void *a1)
+NSMutableString *sub_100002AF0(void *a1)
 {
   v1 = a1;
   v2 = objc_opt_new();
@@ -1141,7 +1142,7 @@ id sub_100002AF0(void *a1)
       do
       {
         v5 = [v3 objectAtIndexedSubscript:v4];
-        v6 = sub_100002AF0();
+        v6 = sub_100002AF0(v5);
         [v2 appendString:v6];
 
         if (v4 < [v3 count] - 1)
@@ -1188,7 +1189,7 @@ id sub_100002AF0(void *a1)
             v13 = *(*(&v19 + 1) + 8 * i);
             [v2 appendFormat:@"%@:", v13];
             v14 = [v7 objectForKeyedSubscript:v13];
-            v15 = sub_100002AF0();
+            v15 = sub_100002AF0(v14);
             [v2 appendString:v15];
 
             v16 = [v8 lastObject];

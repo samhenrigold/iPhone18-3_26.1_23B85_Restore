@@ -144,7 +144,7 @@
 {
   dateCopy = date;
   os_unfair_lock_lock(&self->_lock);
-  v7 = [(NSMutableArray *)self->_occurrences count];
+  v7 = objc_msgSend_count(self->_occurrences);
   os_unfair_lock_unlock(&self->_lock);
   if (extension)
   {

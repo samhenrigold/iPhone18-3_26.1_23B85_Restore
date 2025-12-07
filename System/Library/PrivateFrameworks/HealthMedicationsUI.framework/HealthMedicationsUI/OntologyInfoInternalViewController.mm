@@ -59,17 +59,16 @@ LABEL_6:
 {
   v6 = sub_22838F760();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22838F720();
   viewCopy = view;
   selfCopy = self;
-  v13 = OntologyInfoInternalViewController.tableView(_:cellForRowAt:)(viewCopy, v10);
+  v12 = OntologyInfoInternalViewController.tableView(_:cellForRowAt:)(viewCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (_TtC19HealthMedicationsUI34OntologyInfoInternalViewController)initWithUsingInsetStyling:(BOOL)styling

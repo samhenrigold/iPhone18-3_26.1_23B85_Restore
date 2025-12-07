@@ -71,18 +71,18 @@
 
 - (id)outputImage
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v22[3] = *MEMORY[0x1E69E9840];
   v3 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_logHistogram];
   inputImage = self->super.inputImage;
   [(NSNumber *)self->inputMinimumStop floatValue];
   v6 = v5;
-  [(NSNumber *)self->inputMaximumStop floatValue];
-  if (v7 <= v6)
+  floatValue = [(NSNumber *)self->inputMaximumStop floatValue];
+  if (v9 <= v6)
   {
-    v17 = ci_logger_filter();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = ci_logger_filter(floatValue, v8);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [CIAreaLogarithmicHistogram outputImage];
+      [(CIAreaLogarithmicHistogram *)self outputImage];
     }
 
     return 0;
@@ -92,19 +92,19 @@
   {
     [(CIImage *)inputImage extent];
     inputMinimumStop = self->inputMinimumStop;
-    v20[0] = inputImage;
-    v20[1] = inputMinimumStop;
-    v20[2] = self->inputMaximumStop;
-    v13 = -[CIColorKernel applyWithExtent:arguments:](v3, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3], v9, v10, v11, v12);
+    v22[0] = inputImage;
+    v22[1] = inputMinimumStop;
+    v22[2] = self->inputMaximumStop;
+    v15 = -[CIColorKernel applyWithExtent:arguments:](v3, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:3], v11, v12, v13, v14);
     inputExtent = self->super.inputExtent;
-    v18[0] = @"inputExtent";
-    v18[1] = @"inputScale";
+    v20[0] = @"inputExtent";
+    v20[1] = @"inputScale";
     inputScale = self->super.inputScale;
-    v19[0] = inputExtent;
-    v19[1] = inputScale;
-    v18[2] = @"inputCount";
-    v19[2] = self->super.inputCount;
-    return -[CIImage imageByApplyingFilter:withInputParameters:](v13, "imageByApplyingFilter:withInputParameters:", @"CIAreaHistogram", [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3]);
+    v21[0] = inputExtent;
+    v21[1] = inputScale;
+    v20[2] = @"inputCount";
+    v21[2] = self->super.inputCount;
+    return -[CIImage imageByApplyingFilter:withInputParameters:](v15, "imageByApplyingFilter:withInputParameters:", @"CIAreaHistogram", [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3]);
   }
 }
 
@@ -112,7 +112,7 @@
 {
   [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_19CC36000, v0, v1, "%{public}@: inputMinimumStop must be greater than inputMaximumStop.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_19CC36000, v2, v3, "%{public}@: inputMinimumStop must be greater than inputMaximumStop.", v4, v5, v6, v7);
 }
 
 @end

@@ -156,20 +156,20 @@ LABEL_11:
         LODWORD(buf) = 138412290;
         *(&buf + 4) = objc_opt_class();
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Resetting the %@ cache", &buf, 0xCu);
-        v24 = objc_opt_class();
-        _MBLog();
+        v13 = objc_opt_class();
+        _MBLog(@"Df", "Resetting the %@ cache", v13);
       }
 
       [qword_1004219E0 reset];
     }
 
     dictionaryRepresentation = [requestCopy dictionaryRepresentation];
-    v14 = [NSMutableDictionary dictionaryWithDictionary:dictionaryRepresentation];
+    v15 = [NSMutableDictionary dictionaryWithDictionary:dictionaryRepresentation];
 
-    v15 = +[NSUUID UUID];
-    uUIDString = [v15 UUIDString];
+    v16 = +[NSUUID UUID];
+    uUIDString = [v16 UUIDString];
 
-    [v14 setObject:uUIDString forKeyedSubscript:@"MBPeerMessengerTransactionID"];
+    [v15 setObject:uUIDString forKeyedSubscript:@"MBPeerMessengerTransactionID"];
     v48[0] = _NSConcreteStackBlock;
     v48[1] = 3221225472;
     v48[2] = sub_1001B23F8;
@@ -177,7 +177,7 @@ LABEL_11:
     v49 = handlerCopy;
     selfCopy = self;
     v48[4] = v11;
-    v16 = objc_retainBlock(v48);
+    v17 = objc_retainBlock(v48);
     *&buf = 0;
     *(&buf + 1) = &buf;
     v52 = 0x3032000000;
@@ -193,14 +193,14 @@ LABEL_11:
     v35[1] = 3221225472;
     v35[2] = sub_1001B2558;
     v35[3] = &unk_1003C0D38;
-    v17 = requestCopy;
-    v36 = v17;
-    v18 = sessionCopy;
+    v18 = requestCopy;
+    v36 = v18;
+    v19 = sessionCopy;
     selfCopy2 = self;
-    v37 = v18;
+    v37 = v19;
     v38 = v11;
-    v19 = v14;
-    v39 = v19;
+    v20 = v15;
+    v39 = v20;
     p_buf = &buf;
     v47 = objc_retainBlock(v35);
     v34[0] = 0;
@@ -211,15 +211,15 @@ LABEL_11:
     v28[1] = 3221225472;
     v28[2] = sub_1001B2674;
     v28[3] = &unk_1003C0D60;
-    v29 = v17;
+    v29 = v18;
     v32 = v34;
-    v30 = v18;
+    v30 = v19;
     v33 = &v42;
-    v20 = v16;
-    v31 = v20;
-    v21 = [v28 copy];
-    v22 = *(*(&buf + 1) + 40);
-    *(*(&buf + 1) + 40) = v21;
+    v21 = v17;
+    v31 = v21;
+    v22 = [v28 copy];
+    v23 = *(*(&buf + 1) + 40);
+    *(*(&buf + 1) + 40) = v22;
 
     (*(v43[5] + 16))();
     _Block_object_dispose(v34, 8);
@@ -230,8 +230,8 @@ LABEL_11:
 
   else
   {
-    v23 = [MBError errorWithCode:10 description:@"Failed to encode request for class"];
-    (*(handlerCopy + 2))(handlerCopy, 0, v23);
+    v24 = [MBError errorWithCode:10 description:@"Failed to encode request for class"];
+    (*(handlerCopy + 2))(handlerCopy, 0, v24);
   }
 
   objc_autoreleasePoolPop(context);

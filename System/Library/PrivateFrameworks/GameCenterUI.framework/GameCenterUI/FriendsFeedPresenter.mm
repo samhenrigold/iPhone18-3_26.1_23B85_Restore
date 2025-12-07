@@ -14,9 +14,10 @@
 
 - (void)loadMoreActivityFeedWithContinuationToken:(id)token
 {
-  sub_24E347CF8();
+  v4 = sub_24E347CF8();
+  v6 = v5;
   selfCopy = self;
-  sub_24E064158();
+  sub_24E064158(v4, v6);
 }
 
 - (_TtC12GameCenterUI20FriendsFeedPresenter)initWithPlayerId:(id)id

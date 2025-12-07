@@ -18,21 +18,21 @@
     return v10;
   }
 
-  *v10->_anon_10 = C3DBezierCurveGeometryGetTransform(geometry);
-  *&v10->_anon_10[16] = v11;
-  *&v10->_anon_10[32] = v12;
-  *&v10->_anon_10[48] = v13;
+  *(v10 + 1) = C3DBezierCurveGeometryGetTransform(geometry);
+  *(v10 + 2) = v11;
+  *(v10 + 3) = v12;
+  *(v10 + 4) = v13;
   BezierCurve = C3DBezierCurveGeometryGetBezierCurve(geometry);
   CurveInfo = C3DBezierCurveGetCurveInfo(BezierCurve);
   v17 = v16;
   v43 = 0;
   CurveSegmentsControlPointIndices = C3DBezierCurveGetCurveSegmentsControlPointIndices(BezierCurve, &v43);
-  v10->_curveControlPointCount = CurveInfo;
-  v10->_curveInfo.segmentCountLinear = WORD2(CurveInfo);
-  v10->_curveInfo.segmentCountQuadratic = v17;
+  *(v10 + 25) = CurveInfo;
+  v10[42] = WORD2(CurveInfo);
+  v10[43] = v17;
   v19 = HIDWORD(v17);
-  v10->_curveInfo.segmentCountCubic = WORD2(v17);
-  v10->_curveInfo.segmentInfoOffsetLinear = 20;
+  v10[44] = WORD2(v17);
+  v10[45] = 20;
   if (HIDWORD(CurveInfo))
   {
     v20 = HIDWORD(CurveInfo) + 20;
@@ -55,7 +55,7 @@
     if (!v17)
     {
 LABEL_9:
-      v10->_curveInfo.segmentInfoOffsetQuadratic = v20;
+      v10[46] = v20;
       if (v19)
       {
         goto LABEL_10;
@@ -65,7 +65,7 @@ LABEL_9:
     }
   }
 
-  v10->_curveInfo.segmentInfoOffsetQuadratic = v20;
+  v10[46] = v20;
   v20 += v21;
   if (v19)
   {
@@ -75,13 +75,13 @@ LABEL_10:
       [SCNMTLBezierCurveDeformer initWithMeshlessGeometry:outputs:deformDataKind:finalDataKind:resourceManager:computeContext:];
     }
 
-    v10->_curveInfo.segmentInfoOffsetCubic = v20;
+    v10[47] = v20;
     v20 += 114 * (8 * HIDWORD(v17));
     goto LABEL_12;
   }
 
 LABEL_8:
-  v10->_curveInfo.segmentInfoOffsetCubic = v20;
+  v10[47] = v20;
 LABEL_12:
   if (v20 >= 0xFFFF)
   {
@@ -91,14 +91,14 @@ LABEL_12:
   v22 = (v20 + 1) & 0xFFFE;
   v23 = v43;
   v24 = 2 * v43;
-  v10->_curveInfo.controlPointIndicesOffset = v22;
+  v10[48] = v22;
   v25 = malloc_type_malloc(v22 + 2 * v23, 0x100004077774924uLL);
-  v26 = *&v10->_curveInfo.monotonicSubsegmentCountCubic;
-  v25[4] = *&v10->_curveInfo.controlPointIndicesOffset;
+  v26 = *(v10 + 5);
+  v25[4] = *(v10 + 24);
   *v25 = v26;
-  memcpy(v25 + v10->_curveInfo.controlPointIndicesOffset, CurveSegmentsControlPointIndices, v24);
+  memcpy(v25 + v10[48], CurveSegmentsControlPointIndices, v24);
   [SCNMTLResourceManager newBufferWithBytes:manager length:? options:?];
-  v10->_bezierCurveInfoBuffer = v27;
+  *(v10 + 16) = v27;
   free(v25);
   vertexDescriptor = [MEMORY[0x277CD7090] vertexDescriptor];
   Size = SCNMTLVertexFormatGetSize(30);
@@ -118,23 +118,23 @@ LABEL_12:
   [v34 setStride:v30];
   [v34 setStepFunction:1];
   [SCNMTLResourceManager newBufferWithLength:manager options:?];
-  v10->_quadTexcoordsBuffer = v35;
+  *(v10 + 15) = v35;
   [SCNMTLResourceManager newBufferWithLength:manager options:?];
-  v10->_quadPositionsBuffer = v36;
+  *(v10 + 14) = v36;
   v37 = objc_alloc_init(SCNMTLMeshElement);
   [(SCNMTLMesh *)v37 setMutabilityTimestamp:?];
   [(SCNMTLMeshElement *)v37 setPrimitiveRange:2];
   v38 = objc_alloc_init(SCNMTLMesh);
-  v10->_quadMesh = v38;
+  *(v10 + 13) = v38;
   [(SCNMTLMesh *)v38 setVertexDescriptor:vertexDescriptor];
-  v46 = *&v10->_quadPositionsBuffer;
-  -[SCNMTLMesh setBuffers:](v10->_quadMesh, [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:2]);
+  v46 = *(v10 + 7);
+  -[SCNMTLMesh setBuffers:](*(v10 + 13), [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:2]);
   v45 = v37;
-  -[SCNMTLMesh setElements:](v10->_quadMesh, [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1]);
+  -[SCNMTLMesh setElements:](*(v10 + 13), [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1]);
 
-  v10->_buildQuadGeometryPipeline = [manager computePipelineStateForKernel:@"deformer_bezier_build_quad_geometry"];
-  v10->_initBezierCurveInfoPipeline = [manager computePipelineStateForKernel:@"deformer_bezier_init_info"];
-  if (v10->_curveInfo.segmentCountLinear)
+  *(v10 + 18) = [manager computePipelineStateForKernel:@"deformer_bezier_build_quad_geometry"];
+  *(v10 + 19) = [manager computePipelineStateForKernel:@"deformer_bezier_init_info"];
+  if (v10[42])
   {
     v39 = [manager computePipelineStateForKernel:@"deformer_bezier_build_info_linear"];
   }
@@ -144,8 +144,8 @@ LABEL_12:
     v39 = 0;
   }
 
-  v10->_buildBezierCurveInfoPipelineLinear = v39;
-  if (v10->_curveInfo.segmentCountQuadratic)
+  *(v10 + 20) = v39;
+  if (v10[43])
   {
     v40 = [manager computePipelineStateForKernel:@"deformer_bezier_build_info_quadratic"];
   }
@@ -155,8 +155,8 @@ LABEL_12:
     v40 = 0;
   }
 
-  v10->_buildBezierCurveInfoPipelineQuadratic = v40;
-  if (v10->_curveInfo.segmentCountCubic)
+  *(v10 + 21) = v40;
+  if (v10[44])
   {
     v41 = [manager computePipelineStateForKernel:@"deformer_bezier_build_info_cubic"];
   }
@@ -166,7 +166,7 @@ LABEL_12:
     v41 = 0;
   }
 
-  v10->_buildBezierCurveInfoPipelineCubic = v41;
+  *(v10 + 22) = v41;
   return v10;
 }
 
@@ -179,13 +179,13 @@ LABEL_12:
 
 - (id)bufferForCommonProfileArgumentNamed:(id)named
 {
-  if ([named isEqualToString:@"scn_bezier_curve_data"])
+  if (objc_msgSend_isEqualToString_(named, a2, @"scn_bezier_curve_data"))
   {
     v5 = 128;
     return *(&self->super.isa + v5);
   }
 
-  if ([named isEqualToString:@"scn_bezier_curve_controlPoints"])
+  if (objc_msgSend_isEqualToString_(named))
   {
     v5 = 136;
     return *(&self->super.isa + v5);

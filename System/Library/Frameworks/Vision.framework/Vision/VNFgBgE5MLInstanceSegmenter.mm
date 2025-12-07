@@ -142,12 +142,11 @@ LABEL_12:
 
 - (vector<std::vector<CGPoint>,)computeVectorConnectedComponentSegmentation:(VNFgBgE5MLInstanceSegmenter *)self minimumMaskPixelCount:(SEL)count withQueryID:(id)d
 {
-  v6 = *&a6;
   dCopy = d;
   configuration = [(VNFgBgE5MLInstanceSegmenter *)self configuration];
   thresholds = [configuration thresholds];
   [thresholds maskThreshold];
-  v14 = v13;
+  v13 = v12;
 
   configuration2 = [(VNFgBgE5MLInstanceSegmenter *)self configuration];
   thresholds2 = [configuration2 thresholds];
@@ -156,24 +155,24 @@ LABEL_12:
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
-  LODWORD(v17) = v14;
-  [(VNFgBgE5MLInstanceSegmenter *)self generateInstanceConnectedComponentsFromMLMultiArray:dCopy maskThreshold:v6 queryID:0 inverseColor:v17];
-  for (i = 0; i < (v27 - v26) >> 3; ++i)
+  LODWORD(v16) = v13;
+  objc_msgSend_generateInstanceConnectedComponentsFromMLMultiArray_maskThreshold_queryID_inverseColor_(self, v16);
+  for (i = 0; i < (v26 - v25) >> 3; ++i)
   {
-    if (*(v26 + i) > a5)
+    if (*(v25 + i) > a5)
     {
+      v18 = 0;
       v19 = 0;
-      v20 = 0;
       memset(__p, 0, sizeof(__p));
       do
       {
-        v23 = *(*(v32 + 24 * i) + v19);
-        std::vector<CGPoint>::push_back[abi:ne200100](__p, &v23);
-        ++v20;
-        v19 += 16;
+        v22 = *(*(v31 + 24 * i) + v18);
+        std::vector<CGPoint>::push_back[abi:ne200100](__p, &v22);
+        ++v19;
+        v18 += 16;
       }
 
-      while (*(v26 + i) > v20);
+      while (*(v25 + i) > v19);
       std::vector<std::vector<CGPoint>>::push_back[abi:ne200100](&retstr->var0, __p);
       if (__p[0])
       {
@@ -182,31 +181,31 @@ LABEL_12:
     }
   }
 
-  __p[0] = &v32;
+  __p[0] = &v31;
   std::vector<std::vector<long long>>::__destroy_vector::operator()[abi:ne200100](__p);
-  if (v30)
+  if (v29)
   {
-    v31 = v30;
-    operator delete(v30);
+    v30 = v29;
+    operator delete(v29);
   }
 
-  if (v28)
+  if (v27)
   {
-    v29 = v28;
-    operator delete(v28);
+    v28 = v27;
+    operator delete(v27);
   }
 
-  if (v26)
+  if (v25)
   {
-    v27 = v26;
-    operator delete(v26);
+    v26 = v25;
+    operator delete(v25);
   }
 
-  v21 = v25;
-  v25 = 0;
-  if (v21)
+  v20 = v24;
+  v24 = 0;
+  if (v20)
   {
-    MEMORY[0x1AC556AE0](v21, 0x1000C8000313F17);
+    MEMORY[0x1AC556AE0](v20, 0x1000C8000313F17);
   }
 
   return result;
@@ -272,7 +271,7 @@ LABEL_12:
         v24 = *(*(&v30 + 1) + 8 * i);
         if (v24)
         {
-          [v24 segmentation];
+          objc_msgSend_segmentation(v24);
           for (j = v28; j != v29; j += 2)
           {
             if (*j < v21)
@@ -421,7 +420,7 @@ LABEL_12:
         v26 = *(*(&v122 + 1) + 8 * i);
         if ([v26 miyoshiCategory] == box && v26)
         {
-          [v26 segmentation];
+          objc_msgSend_segmentation(v26);
           v27 = __p;
           v28 = v121;
           if (__p != v121)
@@ -1108,12 +1107,12 @@ LABEL_37:
         v105 = 0;
         if (count)
         {
-          [(VNFgBgE5MLInstanceSegmenter *)self computeVectorConnectedComponentSegmentation:featuresCopy minimumMaskPixelCount:count withQueryID:v32];
+          objc_msgSend_computeVectorConnectedComponentSegmentation_minimumMaskPixelCount_withQueryID_(self);
         }
 
         else
         {
-          [(VNFgBgE5MLInstanceSegmenter *)self computeSegmentation:featuresCopy withQueryID:v32];
+          objc_msgSend_computeSegmentation_withQueryID_(self);
         }
 
         std::vector<std::vector<CGPoint>>::__vdeallocate(&v104);
@@ -1186,122 +1185,119 @@ LABEL_44:
 - (ConnectedComponentResult)generateInstanceConnectedComponentsFromMask:(SEL)mask fillGapsAreaRatio:(vImage_Buffer *)ratio
 {
   v9 = *&ratio->width;
-  v47 = *&ratio->data;
-  v48 = v9;
-  [(VNFgBgE5MLInstanceSegmenter *)self generateInstanceConnectedComponentsFromMask:&v47 inverseColor:1];
-  v10 = *&ratio->width;
-  v47 = *&ratio->data;
-  v48 = v10;
-  [(VNFgBgE5MLInstanceSegmenter *)self generateInstanceConnectedComponentsFromMask:&v47 inverseColor:0];
-  for (i = 0; i < (v51 - v50) >> 3; ++i)
+  v46[0] = *&ratio->data;
+  v46[1] = v9;
+  objc_msgSend_generateInstanceConnectedComponentsFromMask_inverseColor_(self, mask, v46, 1);
+  objc_msgSend_generateInstanceConnectedComponentsFromMask_inverseColor_(self, ratio->data, ratio->height, ratio->width, ratio->rowBytes);
+  for (i = 0; i < (v49 - v48) >> 3; ++i)
   {
-    if (((v56[3] * a5) * v56[4]) >= *(v50 + i))
+    if (((v54[3] * a5) * v54[4]) >= *(v48 + i))
     {
-      v12 = 0;
-      v13 = (v52 + 32 * i);
-      v14 = v13[2];
-      v15 = v14;
-      v16 = *v13;
-      v17 = (v13[3] - v14 + 1);
-      v18 = (v13[1] - *v13 + 1);
-      v19 = -1;
-      while (v19 + 1 < (retstr->var1.__end_ - retstr->var1.__begin_))
+      v11 = 0;
+      v12 = (v50 + 32 * i);
+      v13 = v12[2];
+      v14 = v13;
+      v15 = *v12;
+      v16 = (v12[3] - v13 + 1);
+      v17 = (v12[1] - *v12 + 1);
+      v18 = -1;
+      while (v18 + 1 < (retstr->var1.__end_ - retstr->var1.__begin_))
       {
-        v20 = (retstr->var2.var0 + v12);
-        v21 = v20[2];
-        v57.origin.x = v21;
-        v57.origin.y = *v20;
-        v57.size.width = (v20[3] - v21 + 1);
-        v57.size.height = (v20[1] - *v20 + 1);
-        v58.origin.x = v15;
-        v58.origin.y = v16;
-        v58.size.width = v17;
-        v58.size.height = v18;
-        ++v19;
-        v12 += 32;
-        if (CGRectContainsRect(v57, v58))
+        v19 = (retstr->var2.var0 + v11);
+        v20 = v19[2];
+        v55.origin.x = v20;
+        v55.origin.y = *v19;
+        v55.size.width = (v19[3] - v20 + 1);
+        v55.size.height = (v19[1] - *v19 + 1);
+        v56.origin.x = v14;
+        v56.origin.y = v15;
+        v56.size.width = v16;
+        v56.size.height = v17;
+        ++v18;
+        v11 += 32;
+        if (CGRectContainsRect(v55, v56))
         {
-          v22 = v50;
-          retstr->var8 += *(v50 + i);
-          retstr->var1.__begin_[v19] += v22[i];
-          v23 = v56[0] + 24 * i;
-          v25 = *v23;
-          v24 = *(v23 + 8);
-          v26 = v24 - v25;
-          v27 = (v24 - v25) >> 4;
-          if (v27 >= 1)
+          v21 = v48;
+          retstr->var8 += *(v48 + i);
+          retstr->var1.__begin_[v18] += v21[i];
+          v22 = v54[0] + 24 * i;
+          v24 = *v22;
+          v23 = *(v22 + 8);
+          v25 = v23 - v24;
+          v26 = (v23 - v24) >> 4;
+          if (v26 >= 1)
           {
-            v28 = retstr->var4.var0 + 24 * v19;
-            v30 = *(v28 + 1);
-            v29 = *(v28 + 2);
-            if (v29 - v30 >= v26)
+            v27 = retstr->var4.var0 + 24 * v18;
+            v29 = *(v27 + 1);
+            v28 = *(v27 + 2);
+            if (v28 - v29 >= v25)
             {
-              if (v25 != v24)
+              if (v24 != v23)
               {
-                memmove(*(v28 + 1), v25, v24 - v25);
+                memmove(*(v27 + 1), v24, v23 - v24);
               }
 
-              *(v28 + 1) = &v30[v26];
+              *(v27 + 1) = &v29[v25];
             }
 
             else
             {
-              v31 = *v28;
-              v32 = &v30[-*v28];
-              v33 = v27 + (v32 >> 4);
-              if (v33 >> 60)
+              v30 = *v27;
+              v31 = &v29[-*v27];
+              v32 = v26 + (v31 >> 4);
+              if (v32 >> 60)
               {
                 std::vector<float>::__throw_length_error[abi:ne200100]();
               }
 
-              v34 = v29 - v31;
-              v35 = (v29 - v31) >> 3;
-              if (v35 > v33)
+              v33 = v28 - v30;
+              v34 = (v28 - v30) >> 3;
+              if (v34 > v32)
               {
-                v33 = v35;
+                v32 = v34;
               }
 
-              if (v34 >= 0x7FFFFFFFFFFFFFF0)
+              if (v33 >= 0x7FFFFFFFFFFFFFF0)
               {
-                v36 = 0xFFFFFFFFFFFFFFFLL;
+                v35 = 0xFFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v36 = v33;
+                v35 = v32;
               }
 
-              if (v36)
+              if (v35)
               {
-                std::__allocate_at_least[abi:ne200100]<std::allocator<vision::mod::DescriptorItemSideInfo>>(v36);
+                std::__allocate_at_least[abi:ne200100]<std::allocator<vision::mod::DescriptorItemSideInfo>>(v35);
               }
 
-              v37 = 16 * (v32 >> 4);
-              v38 = (v37 + v26);
-              v39 = v37;
+              v36 = 16 * (v31 >> 4);
+              v37 = (v36 + v25);
+              v38 = v36;
               do
               {
-                v40 = *v25;
-                v25 += 16;
-                *v39++ = v40;
-                v26 -= 16;
+                v39 = *v24;
+                v24 += 16;
+                *v38++ = v39;
+                v25 -= 16;
               }
 
-              while (v26);
-              memcpy(v38, v30, *(v28 + 1) - v30);
-              v41 = *v28;
-              v42 = &v38[*(v28 + 1) - v30];
-              *(v28 + 1) = v30;
-              v43 = v30 - v41;
-              v44 = (v37 - (v30 - v41));
-              memcpy(v44, v41, v43);
-              v45 = *v28;
-              *v28 = v44;
-              *(v28 + 1) = v42;
-              *(v28 + 2) = 0;
-              if (v45)
+              while (v25);
+              memcpy(v37, v29, *(v27 + 1) - v29);
+              v40 = *v27;
+              v41 = &v37[*(v27 + 1) - v29];
+              *(v27 + 1) = v29;
+              v42 = v29 - v40;
+              v43 = (v36 - (v29 - v40));
+              memcpy(v43, v40, v42);
+              v44 = *v27;
+              *v27 = v43;
+              *(v27 + 1) = v41;
+              *(v27 + 2) = 0;
+              if (v44)
               {
-                operator delete(v45);
+                operator delete(v44);
               }
             }
           }
@@ -1312,18 +1308,12 @@ LABEL_44:
     }
   }
 
-  *&v47 = v56;
-  std::vector<std::vector<long long>>::__destroy_vector::operator()[abi:ne200100](&v47);
+  *&v46[0] = v54;
+  std::vector<std::vector<long long>>::__destroy_vector::operator()[abi:ne200100](v46);
   if (__p)
   {
-    v55 = __p;
+    v53 = __p;
     operator delete(__p);
-  }
-
-  if (v52)
-  {
-    v53 = v52;
-    operator delete(v52);
   }
 
   if (v50)
@@ -1332,8 +1322,14 @@ LABEL_44:
     operator delete(v50);
   }
 
-  result = v49;
-  v49 = 0;
+  if (v48)
+  {
+    v49 = v48;
+    operator delete(v48);
+  }
+
+  result = v47;
+  v47 = 0;
   if (result)
   {
     return MEMORY[0x1AC556AE0](result, 0x1000C8000313F17);

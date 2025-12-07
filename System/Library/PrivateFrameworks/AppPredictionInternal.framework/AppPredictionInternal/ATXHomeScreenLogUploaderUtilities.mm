@@ -161,7 +161,7 @@
 
 + (id)stackShownEventsForPseudoTapIfPossible:(id)possible currentEvent:(id)event
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   possibleCopy = possible;
   eventCopy = event;
   eventBody = [eventCopy eventBody];
@@ -298,55 +298,55 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v31 = homeScreenEvent;
+  v30 = homeScreenEvent;
 
   v15 = objc_opt_new();
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v32 = possibleCopy;
-  v22 = possibleCopy;
-  v23 = [v22 countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (v23)
+  v31 = possibleCopy;
+  v21 = possibleCopy;
+  v22 = [v21 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  if (v22)
   {
-    v24 = v23;
-    v25 = *v34;
+    v23 = v22;
+    v24 = *v33;
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v34 != v25)
+        if (*v33 != v24)
         {
-          objc_enumerationMutation(v22);
+          objc_enumerationMutation(v21);
         }
 
-        v27 = [v22 objectForKeyedSubscript:*(*(&v33 + 1) + 8 * i)];
+        v26 = [v21 objectForKeyedSubscript:*(*(&v32 + 1) + 8 * i)];
         [eventCopy timestamp];
-        if ([self _isDwellLongEnoughForPseudoTap:v27 endingEventTime:?])
+        if ([self _isDwellLongEnoughForPseudoTap:v26 endingEventTime:?])
         {
-          eventBody2 = [v27 eventBody];
+          eventBody2 = [v26 eventBody];
           [eventBody2 homeScreenEvent];
-          v30 = v29 = self;
-          [v15 addObject:v30];
+          v29 = v28 = self;
+          [v15 addObject:v29];
 
-          self = v29;
+          self = v28;
         }
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
 
-  [v22 removeAllObjects];
+  [v21 removeAllObjects];
   if (![v15 count])
   {
 
     v11 = 8;
-    homeScreenEvent = v31;
-    possibleCopy = v32;
+    homeScreenEvent = v30;
+    possibleCopy = v31;
 LABEL_18:
     stackId = [homeScreenEvent stackId];
     if (!stackId)
@@ -402,11 +402,9 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  homeScreenEvent = v31;
-  possibleCopy = v32;
+  homeScreenEvent = v30;
+  possibleCopy = v31;
 LABEL_33:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -417,7 +415,7 @@ LABEL_33:
   allSuggestionsInLayout = [layoutCopy allSuggestionsInLayout];
   if (![allSuggestionsInLayout count])
   {
-    firstObject = __atxlog_handle_home_screen();
+    firstObject = __atxlog_handle_home_screen(0);
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
     {
       [ATXHomeScreenLogUploaderUtilities suggestionReasonForSuggestionLayout:firstObject];
@@ -428,31 +426,32 @@ LABEL_33:
 
   if (([layoutCopy isValidForSuggestionsWidget] & 1) == 0)
   {
-    if ([allSuggestionsInLayout count] >= 2)
+    v7 = [allSuggestionsInLayout count];
+    if (v7 >= 2)
     {
-      v7 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v8 = __atxlog_handle_home_screen(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
-        [(ATXHomeScreenLogUploaderUtilities *)allSuggestionsInLayout suggestionReasonForSuggestionLayout:layoutCopy, v7];
+        [(ATXHomeScreenLogUploaderUtilities *)allSuggestionsInLayout suggestionReasonForSuggestionLayout:layoutCopy, v8];
       }
     }
 
     firstObject = [allSuggestionsInLayout firstObject];
-    v8 = MEMORY[0x277D42070];
+    v9 = MEMORY[0x277D42070];
     clientModelSpecification = [firstObject clientModelSpecification];
     clientModelId = [clientModelSpecification clientModelId];
-    v11 = [v8 clientModelTypeFromClientModelId:clientModelId];
+    v12 = [v9 clientModelTypeFromClientModelId:clientModelId];
 
     if ([layoutCopy isLowConfidenceStackRotationForStaleStack])
     {
-      if (v11 == 19)
+      if (v12 == 19)
       {
         v5 = 3;
       }
 
       else
       {
-        v5 = 8 * (v11 == 20);
+        v5 = 8 * (v12 == 20);
       }
 
       goto LABEL_17;
@@ -469,7 +468,7 @@ LABEL_33:
 
     if (executableType == 3)
     {
-      switch(v11)
+      switch(v12)
       {
         case 18:
           v5 = 4;
@@ -485,10 +484,10 @@ LABEL_33:
 
     else
     {
-      v15 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v17 = __atxlog_handle_home_screen(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
-        [(ATXHomeScreenLogUploaderUtilities *)firstObject suggestionReasonForSuggestionLayout:v15];
+        [(ATXHomeScreenLogUploaderUtilities *)firstObject suggestionReasonForSuggestionLayout:v17];
       }
     }
 
@@ -507,29 +506,29 @@ LABEL_18:
 
 + (id)countsForRotationEngagementStatusHistory:(id)history
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   historyCopy = history;
   v5 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   engagementStatusHistory = [historyCopy engagementStatusHistory];
-  v7 = [engagementStatusHistory countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [engagementStatusHistory countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(engagementStatusHistory);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         [v11 unsignedIntValue];
         if ([v11 unsignedIntValue] <= 4)
         {
@@ -537,13 +536,11 @@ LABEL_18:
         }
       }
 
-      v8 = [engagementStatusHistory countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [engagementStatusHistory countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -560,35 +557,33 @@ LABEL_18:
   return v3;
 }
 
-void __44__ATXHomeScreenLogUploaderUtilities_abGroup__block_invoke()
+void __44__ATXHomeScreenLogUploaderUtilities_abGroup__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5 = objc_opt_new();
-  v0 = [v5 abGroupIdentifierForConsumerSubType:36];
-  v1 = [v5 abGroupIdentifierForConsumerSubType:37];
-  v2 = [v5 abGroupIdentifierForConsumerSubType:38];
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu:%@:%@:%@", 0, v0, v1, v2];
-  v4 = abGroup_abGroup;
-  abGroup_abGroup = v3;
+  v7 = objc_opt_new();
+  v2 = [v7 abGroupIdentifierForConsumerSubType:36];
+  v3 = [v7 abGroupIdentifierForConsumerSubType:37];
+  v4 = [v7 abGroupIdentifierForConsumerSubType:38];
+  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu:%@:%@:%@", 0, v2, v3, v4];
+  v6 = abGroup_abGroup;
+  abGroup_abGroup = v5;
 }
 
 + (void)suggestionReasonForSuggestionLayout:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = 134218242;
-  v7 = [a1 count];
-  v8 = 2112;
-  v9 = a2;
-  _os_log_fault_impl(&dword_2263AA000, a3, OS_LOG_TYPE_FAULT, "ATXHomeScreenLogUploader: Unexpected behavior - %lu suggestions exist in a stackLayout that is not valid for a suggestions widget. Continuing to use first suggestion. Layout: %@", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = 134218242;
+  v6 = [a1 count];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_fault_impl(&dword_2263AA000, a3, OS_LOG_TYPE_FAULT, "ATXHomeScreenLogUploader: Unexpected behavior - %lu suggestions exist in a stackLayout that is not valid for a suggestions widget. Continuing to use first suggestion. Layout: %@", &v5, 0x16u);
 }
 
 + (void)suggestionReasonForSuggestionLayout:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "ATXHomeScreenLogUploader: Suggestion is not of type widget: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "ATXHomeScreenLogUploader: Suggestion is not of type widget: %@", &v2, 0xCu);
 }
 
 @end

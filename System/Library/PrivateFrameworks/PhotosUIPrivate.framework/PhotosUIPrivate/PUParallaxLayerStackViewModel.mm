@@ -2253,11 +2253,11 @@ LABEL_15:
   [(PUParallaxLayerStackViewModel *)self _updateVisibleFrameWithContainerFrameUsingConfiguration];
 }
 
-uint64_t __83__PUParallaxLayerStackViewModel__updateVisibleFrameWithContainerFrameSetFirstTime___block_invoke(uint64_t result, double a2, double a3, double a4, double a5, double a6)
+id *__83__PUParallaxLayerStackViewModel__updateVisibleFrameWithContainerFrameSetFirstTime___block_invoke(id *result, double a2, double a3, double a4, double a5, double a6)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) needsToAdjustVisibleFrame];
+    return [result[4] needsToAdjustVisibleFrame];
   }
 
   return result;

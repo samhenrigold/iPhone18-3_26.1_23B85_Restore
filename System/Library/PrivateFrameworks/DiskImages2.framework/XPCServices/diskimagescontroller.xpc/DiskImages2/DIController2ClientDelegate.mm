@@ -9,40 +9,48 @@
   handleCopy = handle;
   replyCopy = reply;
   v8 = *__error();
-  if (sub_1000E044C())
+  v9 = sub_1000E044C();
+  if (v9)
   {
-    v18[1] = 0;
-    v9 = sub_1000E03D8();
-    os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    *buf = 68158210;
-    v20 = 63;
-    v21 = 2080;
-    v22 = "[DIController2ClientDelegate attachCompletedWithHandle:reply:]";
-    v23 = 2114;
-    v24 = handleCopy;
-    LODWORD(v17) = 28;
-    v16 = buf;
-    v10 = _os_log_send_and_compose_impl();
-
-    if (v10)
+    v20 = 0;
+    v11 = sub_1000E03D8(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(__stderrp, "%s\n", v10);
-      free(v10);
+      v12 = 3;
+    }
+
+    else
+    {
+      v12 = 2;
+    }
+
+    *buf = 68158210;
+    v22 = 63;
+    v23 = 2080;
+    v24 = "[DIController2ClientDelegate attachCompletedWithHandle:reply:]";
+    v25 = 2114;
+    v26 = handleCopy;
+    v13 = _os_log_send_and_compose_impl(v12, &v20, 0, 0, &_mh_execute_header, v11, 0, "%.*s: Received: %{public}@", buf, 28);
+
+    if (v13)
+    {
+      fprintf(__stderrp, "%s\n", v13);
+      free(v13);
     }
   }
 
   else
   {
-    v11 = sub_1000E03D8();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_1000E03D8(v9, v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68158210;
-      v20 = 63;
-      v21 = 2080;
-      v22 = "[DIController2ClientDelegate attachCompletedWithHandle:reply:]";
-      v23 = 2114;
-      v24 = handleCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%.*s: Received: %{public}@", buf, 0x1Cu);
+      v22 = 63;
+      v23 = 2080;
+      v24 = "[DIController2ClientDelegate attachCompletedWithHandle:reply:]";
+      v25 = 2114;
+      v26 = handleCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%.*s: Received: %{public}@", buf, 0x1Cu);
     }
   }
 
@@ -51,21 +59,21 @@
 
   if (xpcEndpoint)
   {
-    v18[0] = 0;
-    v13 = [handleCopy addToRefCountWithError:v18];
-    v14 = v18[0];
-    v15 = v14;
-    if ((v13 & 1) == 0)
+    v19 = 0;
+    v16 = [handleCopy addToRefCountWithError:&v19];
+    v17 = v19;
+    v18 = v17;
+    if ((v16 & 1) == 0)
     {
-      replyCopy[2](replyCopy, v14);
+      replyCopy[2](replyCopy, v17);
 
-      goto LABEL_12;
+      goto LABEL_15;
     }
   }
 
-  [(DIController2ClientDelegate *)self setDeviceHandle:handleCopy, v16, v17];
+  [(DIController2ClientDelegate *)self setDeviceHandle:handleCopy];
   replyCopy[2](replyCopy, 0);
-LABEL_12:
+LABEL_15:
 }
 
 @end

@@ -10,6 +10,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)getMacAddressAsString;
+- (unint64_t)hash;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -20,15 +21,17 @@
 {
   if (HIWORD(int))
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v12 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, int, d);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v12, v13, a2, self, @"CLRangingPeer.m", 161, @"Invalid parameter not satisfying: %@", @"(macAddress & 0xFFFF000000000000) == 0");
   }
 
-  v9.receiver = self;
-  v9.super_class = _CLRangingPeer;
-  v7 = [(_CLRangingPeer *)&v9 init];
+  v14.receiver = self;
+  v14.super_class = _CLRangingPeer;
+  v7 = [(_CLRangingPeer *)&v14 init];
   if (v7)
   {
-    v7->_internal = [[_CLRangingPeerInternal alloc] initWithMacAddressAsUInt:int secureRangingKeyID:d];
+    v8 = [_CLRangingPeerInternal alloc];
+    v7->_internal = objc_msgSend_initWithMacAddressAsUInt_secureRangingKeyID_(v8, v9, int, d);
   }
 
   return v7;
@@ -38,29 +41,33 @@
 {
   if (!string)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v11 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, d);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v11, v12, a2, self, @"CLRangingPeer.m", 172, @"Invalid parameter not satisfying: %@", @"macAddress");
   }
 
-  v7 = [_CLRangingPeer uintMacAddressFromString:string];
+  v7 = objc_msgSend_uintMacAddressFromString_(_CLRangingPeer, a2, string, d);
   if (v7 == -1)
   {
     return 0;
   }
 
-  return [(_CLRangingPeer *)self initWithMacAddressAsUInt:v7 secureRangingKeyID:d];
+  return objc_msgSend_initWithMacAddressAsUInt_secureRangingKeyID_(self, v8, v7, d);
 }
 
 - (_CLRangingPeer)initWithMacAddressAsData:(id)data secureRangingKeyID:(id)d
 {
   if (!data)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v14 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, d);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v14, v15, a2, self, @"CLRangingPeer.m", 183, @"Invalid parameter not satisfying: %@", @"macAddress");
   }
 
-  *&v8.octet[4] = 0;
-  *v8.octet = 0;
-  [data getBytes:&v8 length:6];
-  return -[_CLRangingPeer initWithMacAddressAsString:secureRangingKeyID:](self, "initWithMacAddressAsString:secureRangingKeyID:", [MEMORY[0x1E696AEC0] stringWithUTF8String:ether_ntoa(&v8)], d);
+  *&v16.octet[4] = 0;
+  *v16.octet = 0;
+  objc_msgSend_getBytes_length_(data, a2, &v16, 6);
+  v7 = ether_ntoa(&v16);
+  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v8, v7, v9);
+  return objc_msgSend_initWithMacAddressAsString_secureRangingKeyID_(self, v11, v10, d);
 }
 
 - (void)dealloc
@@ -72,64 +79,73 @@
 
 - (id)getMacAddressAsString
 {
-  [(_CLRangingPeer *)self macAddress];
+  v4 = objc_msgSend_macAddress(self, a2, v2, v3);
 
-  return MEMORY[0x1EEE66B58](_CLRangingPeer, sel_hexStringMacAddressFromUInt_);
+  return MEMORY[0x1EEE66B58](_CLRangingPeer, sel_hexStringMacAddressFromUInt_, v4, v5);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
   internal = self->_internal;
-  v6 = internal[1];
-  v7 = internal[2];
+  v11 = internal[1];
+  v12 = internal[2];
 
-  return [v4 initWithMacAddressAsUInt:v6 secureRangingKeyID:v7];
+  return objc_msgSend_initWithMacAddressAsUInt_secureRangingKeyID_(v8, v9, v11, v12);
 }
 
 - (_CLRangingPeer)initWithCoder:(id)coder
 {
-  if (([coder allowsKeyedCoding] & 1) == 0)
+  if ((objc_msgSend_allowsKeyedCoding(coder, a2, coder, v3) & 1) == 0)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v16 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v7, v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v16, v17, a2, self, @"CLRangingPeer.m", 231, @"Invalid parameter not satisfying: %@", @"[aDecoder allowsKeyedCoding]");
   }
 
-  v6 = [coder decodeInt64ForKey:@"kCLCodingKeyRangingPeerMacAddress"];
-  v7 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLCodingKeyRangingPeerSecureRangingKeyID"];
+  v10 = objc_msgSend_decodeInt64ForKey_(coder, v7, @"kCLCodingKeyRangingPeerMacAddress", v9);
+  v11 = objc_opt_class();
+  v14 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v12, v11, @"kCLCodingKeyRangingPeerSecureRangingKeyID");
 
-  return [(_CLRangingPeer *)self initWithMacAddressAsUInt:v6 secureRangingKeyID:v7];
+  return objc_msgSend_initWithMacAddressAsUInt_secureRangingKeyID_(self, v13, v10, v14);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  if (([coder allowsKeyedCoding] & 1) == 0)
+  if ((objc_msgSend_allowsKeyedCoding(coder, a2, coder, v3) & 1) == 0)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v13 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v7, v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v13, v14, a2, self, @"CLRangingPeer.m", 241, @"Invalid parameter not satisfying: %@", @"[aCoder allowsKeyedCoding]");
   }
 
   internal = self->_internal;
-  [coder encodeInt64:internal[1] forKey:@"kCLCodingKeyRangingPeerMacAddress"];
-  v7 = internal[2];
+  objc_msgSend_encodeInt64_forKey_(coder, v7, internal[1], @"kCLCodingKeyRangingPeerMacAddress");
+  v12 = internal[2];
 
-  [coder encodeObject:v7 forKey:@"kCLCodingKeyRangingPeerSecureRangingKeyID"];
+  objc_msgSend_encodeObject_forKey_(coder, v11, v12, @"kCLCodingKeyRangingPeerSecureRangingKeyID");
 }
 
 - (id)description
 {
   internal = self->_internal;
-  v3 = MEMORY[0x1E696AEC0];
-  getMacAddressAsString = [(_CLRangingPeer *)self getMacAddressAsString];
+  v5 = MEMORY[0x1E696AEC0];
+  MacAddressAsString = objc_msgSend_getMacAddressAsString(self, a2, v2, v3);
   if (internal[2])
   {
-    v5 = "Yes";
+    return objc_msgSend_stringWithFormat_(v5, v7, @"Peer:%@ hasKey:%s", v8, MacAddressAsString, "Yes");
   }
 
   else
   {
-    v5 = "No";
+    return objc_msgSend_stringWithFormat_(v5, v7, @"Peer:%@ hasKey:%s", v8, MacAddressAsString, "No");
   }
+}
 
-  return [v3 stringWithFormat:@"Peer:%@ hasKey:%s", getMacAddressAsString, v5];
+- (unint64_t)hash
+{
+  v5 = objc_msgSend_macAddress(self, a2, v2, v3);
+  v9 = objc_msgSend_secureRangingKeyID(self, v6, v7, v8);
+  return objc_msgSend_hash(v9, v10, v11, v12) ^ v5;
 }
 
 - (BOOL)isEqualToPeer:(id)peer
@@ -139,8 +155,27 @@
     return 1;
   }
 
-  macAddress = [(_CLRangingPeer *)self macAddress];
-  return macAddress == [peer macAddress] && (objc_msgSend(peer, "secureRangingKeyID") && -[NSData isEqualToData:](-[_CLRangingPeer secureRangingKeyID](self, "secureRangingKeyID"), "isEqualToData:", objc_msgSend(peer, "secureRangingKeyID")) || !objc_msgSend(peer, "secureRangingKeyID") && !-[_CLRangingPeer secureRangingKeyID](self, "secureRangingKeyID"));
+  v6 = objc_msgSend_macAddress(self, a2, peer, v3);
+  result = 0;
+  if (v6 == objc_msgSend_macAddress(peer, v7, v8, v9))
+  {
+    if (objc_msgSend_secureRangingKeyID(peer, v10, v11, v12))
+    {
+      v16 = objc_msgSend_secureRangingKeyID(self, v13, v14, v15);
+      v20 = objc_msgSend_secureRangingKeyID(peer, v17, v18, v19);
+      if (objc_msgSend_isEqualToData_(v16, v21, v20, v22))
+      {
+        return 1;
+      }
+    }
+
+    if (!objc_msgSend_secureRangingKeyID(peer, v13, v14, v15) && !objc_msgSend_secureRangingKeyID(self, v23, v24, v25))
+    {
+      return 1;
+    }
+  }
+
+  return result;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -161,130 +196,131 @@
     return 0;
   }
 
-  return MEMORY[0x1EEE66B58](self, sel_isEqualToPeer_);
+  return MEMORY[0x1EEE66B58](self, sel_isEqualToPeer_, equal, v5);
 }
 
 + (unint64_t)uintMacAddressFromString:(id)string
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (!string)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v31 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, v3);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v31, v32, a2, self, @"CLRangingPeer.m", 291, @"Invalid parameter not satisfying: %@", @"macAddress");
   }
 
-  v6 = [string length];
-  if ((v6 - 18) <= 0xFFFFFFFFFFFFFFF8)
+  v10 = objc_msgSend_length(string, a2, string, v3);
+  if ((v10 - 18) <= 0xFFFFFFFFFFFFFFF8)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v33 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v7, v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v33, v34, a2, self, @"CLRangingPeer.m", 300, @"Invalid parameter not satisfying: %@", @"(len >= 11) && (len <= 17)");
   }
 
-  [string getCharacters:v20 range:{0, v6}];
-  if (v6 >= 1)
+  objc_msgSend_getCharacters_range_(string, v7, v36, 0, v10);
+  if (v10 >= 1)
   {
-    v7 = 0;
-    v8 = 0;
-    v9 = 0;
-    v10 = 0;
-    v11 = v6 & 0x7FFFFFFF;
-    v12 = v11 + 1;
-    v13 = &v20[v11 - 1];
+    v13 = 0;
+    v14 = 0;
+    v15 = 0;
+    v16 = 0;
+    v17 = v10 & 0x7FFFFFFF;
+    v18 = v17 + 1;
+    v19 = &v36[v17 - 1];
     while (1)
     {
-      v14 = *v13--;
-      v15 = v14 << 24;
-      if (v14 << 24 == 973078528)
+      v20 = *v19--;
+      v21 = v20 << 24;
+      if (v20 << 24 == 973078528)
       {
-        ++v8;
-        if (v10 == 2)
+        ++v14;
+        if (v16 == 2)
         {
-          v10 = 0;
+          v16 = 0;
           goto LABEL_16;
         }
 
-        if (v10 != 1)
+        if (v16 != 1)
         {
           goto LABEL_20;
         }
 
-        v10 = 0;
+        v16 = 0;
       }
 
       else
       {
-        v19 = 0;
-        if (![objc_msgSend(MEMORY[0x1E696AE88] scannerWithString:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%c", (v15 >> 24))), "scanHexInt:", &v19}] || v19 == -1)
+        v35 = 0;
+        v22 = MEMORY[0x1E696AE88];
+        v23 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v11, @"%c", v12, (v21 >> 24));
+        v26 = objc_msgSend_scannerWithString_(v22, v24, v23, v25);
+        if (!objc_msgSend_scanHexInt_(v26, v27, &v35, v28) || v35 == -1)
         {
 LABEL_20:
-          v16 = 0;
+          v29 = 0;
           goto LABEL_21;
         }
 
-        v7 += v19 << v9;
-        ++v10;
+        v13 += v35 << v15;
+        ++v16;
       }
 
-      v9 += 4;
+      v15 += 4;
 LABEL_16:
-      if (--v12 <= 1)
+      if (--v18 <= 1)
       {
         goto LABEL_19;
       }
     }
   }
 
-  v7 = 0;
-  v8 = 0;
+  v13 = 0;
+  v14 = 0;
 LABEL_19:
-  v16 = 1;
+  v29 = 1;
 LABEL_21:
-  if ((v16 & (v8 == 5)) != 0)
+  if ((v29 & (v14 == 5)) != 0)
   {
-    result = v7;
+    return v13;
   }
 
   else
   {
-    result = -1;
+    return -1;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 + (id)hexStringMacAddressFromUInt:(unint64_t)int
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (HIWORD(int))
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v13 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, int, v3);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v13, v14, a2, self, @"CLRangingPeer.m", 341, @"Invalid parameter not satisfying: %@", @"(macAddress & 0xFFFF000000000000) == 0");
   }
 
-  v4 = xmmword_19BA8C830;
-  v5 = v12;
-  v6 = 8;
-  v7 = vdupq_n_s64(6uLL);
-  v8 = vdupq_n_s64(2uLL);
+  v5 = xmmword_19BA8C830;
+  v6 = v16;
+  v7 = 8;
+  v8 = vdupq_n_s64(6uLL);
+  v9 = vdupq_n_s64(2uLL);
   do
   {
-    if (vmovn_s64(vcgtq_u64(v7, v4)).u8[0])
+    if (vmovn_s64(vcgtq_u64(v8, v5)).u8[0])
     {
-      *(v5 - 1) = (int >> (v6 - 8));
+      *(v6 - 1) = (int >> (v7 - 8));
     }
 
-    if (vmovn_s64(vcgtq_u64(vdupq_n_s64(6uLL), *&v4)).i32[1])
+    if (vmovn_s64(vcgtq_u64(vdupq_n_s64(6uLL), *&v5)).i32[1])
     {
-      *v5 = (int >> v6);
+      *v6 = (int >> v7);
     }
 
-    v4 = vaddq_s64(v4, v8);
-    v6 += 16;
-    v5 += 2;
+    v5 = vaddq_s64(v5, v9);
+    v7 += 16;
+    v6 += 2;
   }
 
-  while (v6 != 56);
-  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"%02X:%02X:%02X:%02X:%02X:%02X", *v4.i64, v12[4], v12[3], v12[2], v12[1], v12[0], v11];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  while (v7 != 56);
+  return objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"%02X:%02X:%02X:%02X:%02X:%02X", v3, *v5.i64, v16[4], v16[3], v16[2], v16[1], v16[0], v15);
 }
 
 @end

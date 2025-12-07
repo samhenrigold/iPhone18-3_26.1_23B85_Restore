@@ -58,7 +58,7 @@ __CFString *__40__MFError_initWithDomain_code_userInfo___block_invoke_2(uint64_t
 
 + (MFError)errorWithDomain:(id)domain code:(int64_t)code localizedDescription:(id)description title:(id)title userInfo:(id)info
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   descriptionCopy = description;
   titleCopy = title;
@@ -99,7 +99,7 @@ __CFString *__40__MFError_initWithDomain_code_userInfo___block_invoke_2(uint64_t
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           ef_publicDescription = [v17 ef_publicDescription];
-          [MFError errorWithDomain:ef_publicDescription code:v26 localizedDescription:v22 title:? userInfo:?];
+          [MFError errorWithDomain:ef_publicDescription code:v25 localizedDescription:v22 title:? userInfo:?];
         }
       }
     }
@@ -114,8 +114,6 @@ __CFString *__40__MFError_initWithDomain_code_userInfo___block_invoke_2(uint64_t
   {
     v17 = 0;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

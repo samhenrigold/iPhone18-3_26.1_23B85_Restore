@@ -67,7 +67,7 @@
 
   if (![(HAPMetadata *)v7 parseVersion:dictionaryCopy])
   {
-    v15 = sub_10007FAA0();
+    v15 = sub_10007FAA0(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = sub_10007FAFC(0);
@@ -91,7 +91,7 @@
 
   if (unsignedIntegerValue != v11)
   {
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = sub_10007FAFC(0);
@@ -120,7 +120,7 @@ LABEL_15:
   v12 = [dictionaryCopy hmf_dictionaryForKey:@"HAP"];
   if (![(HAPMetadata *)v7 parseMetadata:v12])
   {
-    v21 = sub_10007FAA0();
+    v21 = sub_10007FAA0(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v22 = sub_10007FAFC(0);
@@ -222,7 +222,7 @@ LABEL_22:
         v13 = [[HAPMetadataUnit alloc] initWithName:v10 description:v12];
         if (!v13)
         {
-          v16 = sub_10007FAA0();
+          v16 = sub_10007FAA0(0);
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             v17 = sub_10007FAFC(0);
@@ -301,7 +301,7 @@ LABEL_13:
         {
           v15 = v7;
           v16 = v6;
-          v17 = sub_10007FAA0();
+          v17 = sub_10007FAA0(0);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             v18 = sub_10007FAFC(0);
@@ -370,7 +370,7 @@ LABEL_16:
   {
     if (v6)
     {
-      v11 = sub_10007FAA0();
+      v11 = sub_10007FAA0(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v15 = sub_10007FAFC(0);
@@ -444,7 +444,7 @@ LABEL_3:
 
       if (v15)
       {
-        v28 = sub_10007FAA0();
+        v28 = sub_10007FAA0(0);
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           v29 = sub_10007FAFC(0);
@@ -492,7 +492,7 @@ LABEL_23:
 
       else
       {
-        v25 = sub_10007FAA0();
+        v25 = sub_10007FAA0(0);
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           v35 = sub_10007FAFC(0);
@@ -530,7 +530,7 @@ LABEL_23:
       }
     }
 
-    v28 = sub_10007FAA0();
+    v28 = sub_10007FAA0(0);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       v29 = sub_10007FAFC(0);
@@ -595,7 +595,7 @@ LABEL_26:
         v12 = [(HAPMetadata *)self characteristicTypeFromUTI:v11, v18];
         if (!v12)
         {
-          v15 = sub_10007FAA0();
+          v15 = sub_10007FAA0(0);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             v16 = sub_10007FAFC(0);
@@ -678,7 +678,7 @@ LABEL_4:
 
         if (v16)
         {
-          v18 = sub_10007FAA0();
+          v18 = sub_10007FAA0(0);
           if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_45;
@@ -707,7 +707,7 @@ LABEL_4:
 
         if (![v20 count])
         {
-          v48 = sub_10007FAA0();
+          v48 = sub_10007FAA0(0);
           if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
             v49 = sub_10007FAFC(0);
@@ -748,7 +748,7 @@ LABEL_4:
           v32 = [v30 length];
           if (v32 != kMetadataBTLEUUIDLength)
           {
-            v50 = sub_10007FAA0();
+            v50 = sub_10007FAA0(0);
             if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
             {
               v51 = sub_10007FAFC(0);
@@ -787,7 +787,7 @@ LABEL_46:
 
           if (v34)
           {
-            v50 = sub_10007FAA0();
+            v50 = sub_10007FAA0(0);
             if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
             {
               v51 = sub_10007FAFC(0);
@@ -832,7 +832,7 @@ LABEL_42:
 
         else
         {
-          v39 = sub_10007FAA0();
+          v39 = sub_10007FAA0(0);
           if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             v40 = sub_10007FAFC(0);
@@ -866,7 +866,7 @@ LABEL_42:
         }
       }
 
-      v18 = sub_10007FAA0();
+      v18 = sub_10007FAA0(0);
       if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_45;
@@ -901,7 +901,7 @@ LABEL_47:
 
   else
   {
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v43 = sub_10007FAFC(0);
@@ -988,7 +988,7 @@ LABEL_9:
       v23 = [[HAPMetadataTuple alloc] initWithCharacteristicType:v13 serviceType:v21];
       if (!v23)
       {
-        v26 = sub_10007FAA0();
+        v26 = sub_10007FAA0(0);
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           v27 = sub_10007FAFC(0);
@@ -1038,7 +1038,7 @@ LABEL_16:
       }
     }
 
-    v22 = sub_10007FAA0();
+    v22 = sub_10007FAA0(0);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       v26 = sub_10007FAFC(0);
@@ -1056,7 +1056,7 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v13 = sub_10007FAA0();
+  v13 = sub_10007FAA0(0);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     v29 = sub_10007FAFC(0);
@@ -1082,7 +1082,7 @@ LABEL_26:
   v6 = v5;
   if (!v5)
   {
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v18 = sub_10007FAFC(0);
@@ -1103,7 +1103,7 @@ LABEL_14:
   v7 = [v5 length];
   if (v7 != kMetadataBaseUUIDSuffixLength)
   {
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v18 = sub_10007FAFC(0);
@@ -1156,7 +1156,7 @@ LABEL_14:
 
           else
           {
-            v28 = sub_10007FAA0();
+            v28 = sub_10007FAA0(0);
             if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
               v30 = sub_10007FAFC(0);
@@ -1174,7 +1174,7 @@ LABEL_14:
 
         else
         {
-          v26 = sub_10007FAA0();
+          v26 = sub_10007FAA0(0);
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             sub_10007FAFC(0);
@@ -1194,7 +1194,7 @@ LABEL_14:
 
       else
       {
-        v24 = sub_10007FAA0();
+        v24 = sub_10007FAA0(0);
         v35 = v24;
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
@@ -1212,7 +1212,7 @@ LABEL_14:
 
     else
     {
-      v12 = sub_10007FAA0();
+      v12 = sub_10007FAA0(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v23 = sub_10007FAFC(0);
@@ -1229,7 +1229,7 @@ LABEL_14:
 
   else
   {
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v22 = sub_10007FAFC(0);
@@ -1897,7 +1897,7 @@ LABEL_45:
 
   else
   {
-    v4 = sub_10007FAA0();
+    v4 = sub_10007FAA0(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = sub_10007FAFC(0);
@@ -1991,7 +1991,7 @@ LABEL_45:
 
         else
         {
-          propertyType = sub_10007FAA0();
+          propertyType = sub_10007FAA0(0);
           if (os_log_type_enabled(propertyType, OS_LOG_TYPE_DEFAULT))
           {
             v24 = sub_10007FAFC(0);
@@ -2059,7 +2059,7 @@ LABEL_45:
 
         else
         {
-          name2 = sub_10007FAA0();
+          name2 = sub_10007FAA0(0);
           if (os_log_type_enabled(name2, OS_LOG_TYPE_DEFAULT))
           {
             v37 = sub_10007FAFC(0);
@@ -2116,7 +2116,7 @@ LABEL_45:
 
         else
         {
-          name4 = sub_10007FAA0();
+          name4 = sub_10007FAA0(0);
           if (os_log_type_enabled(name4, OS_LOG_TYPE_DEFAULT))
           {
             v49 = sub_10007FAFC(0);

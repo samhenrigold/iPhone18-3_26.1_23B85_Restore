@@ -8,90 +8,88 @@
 
 - (id)initForReadingContentsOfURL:(id)l version:(id)version
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   lCopy = l;
   versionCopy = version;
-  v8 = lCopy;
-  v11 = objc_msgSend_fileSystemRepresentation(v8, v9, v10);
-  v12 = fopen(v11, "r");
-  if (!v12)
+  v8 = fopen([lCopy fileSystemRepresentation], "r");
+  if (!v8)
   {
-    v16 = OdmlLogForCategory(2uLL);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v12 = OdmlLogForCategory(2uLL);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v32 = objc_opt_class();
-      v33 = 2112;
-      v34 = lCopy;
-      v17 = v32;
-      _os_log_impl(&dword_260ECB000, v16, OS_LOG_TYPE_DEFAULT, "[%@] Could not open file for reading at %@.", buf, 0x16u);
+      v27 = objc_opt_class();
+      v28 = 2112;
+      v29 = lCopy;
+      v13 = v27;
+      _os_log_impl(&dword_260ECB000, v12, OS_LOG_TYPE_DEFAULT, "[%@] Could not open file for reading at %@.", buf, 0x16u);
     }
 
     goto LABEL_21;
   }
 
-  v13 = v12;
+  v9 = v8;
   __ptr = 0;
-  if (fread(&__ptr, 8uLL, 1uLL, v12) != 1)
+  if (fread(&__ptr, 8uLL, 1uLL, v8) != 1)
   {
-    if (feof(v13))
+    if (feof(v9))
     {
-      v18 = OdmlLogForCategory(2uLL);
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v14 = OdmlLogForCategory(2uLL);
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_19;
       }
 
-      v19 = objc_opt_class();
+      v15 = objc_opt_class();
       *buf = 138412290;
-      v32 = v19;
-      v20 = v19;
-      v21 = "[%@] Reached EOF reading header of AppVectorFile.";
+      v27 = v15;
+      v16 = v15;
+      v17 = "[%@] Reached EOF reading header of AppVectorFile.";
     }
 
     else
     {
-      if (!ferror(v13))
+      if (!ferror(v9))
       {
 LABEL_20:
-        fclose(v13);
+        fclose(v9);
 LABEL_21:
         selfCopy = 0;
         goto LABEL_22;
       }
 
-      v18 = OdmlLogForCategory(2uLL);
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v14 = OdmlLogForCategory(2uLL);
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_19;
       }
 
-      v25 = objc_opt_class();
+      v21 = objc_opt_class();
       *buf = 138412290;
-      v32 = v25;
-      v20 = v25;
-      v21 = "[%@] Internal inconsistency reading AppVectorFile.  Failed to read header.";
+      v27 = v21;
+      v16 = v21;
+      v17 = "[%@] Internal inconsistency reading AppVectorFile.  Failed to read header.";
     }
 
-    v23 = v18;
-    v24 = OS_LOG_TYPE_ERROR;
+    v19 = v14;
+    v20 = OS_LOG_TYPE_ERROR;
     goto LABEL_18;
   }
 
   if (__ptr != 1447253107)
   {
-    v18 = OdmlLogForCategory(2uLL);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v14 = OdmlLogForCategory(2uLL);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = objc_opt_class();
+      v18 = objc_opt_class();
       *buf = 138412290;
-      v32 = v22;
-      v20 = v22;
-      v21 = "[%@] Internal inconsistency reading AppVectorFile.  Invalid header for vector file.";
-      v23 = v18;
-      v24 = OS_LOG_TYPE_DEFAULT;
+      v27 = v18;
+      v16 = v18;
+      v17 = "[%@] Internal inconsistency reading AppVectorFile.  Invalid header for vector file.";
+      v19 = v14;
+      v20 = OS_LOG_TYPE_DEFAULT;
 LABEL_18:
-      _os_log_impl(&dword_260ECB000, v23, v24, v21, buf, 0xCu);
+      _os_log_impl(&dword_260ECB000, v19, v20, v17, buf, 0xCu);
     }
 
 LABEL_19:
@@ -99,28 +97,27 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v29.receiver = self;
-  v29.super_class = APOdmlAppVectorsFile;
-  v14 = [(APOdmlAppVectorsFile *)&v29 init];
-  v15 = v14;
-  if (v14)
+  v24.receiver = self;
+  v24.super_class = APOdmlAppVectorsFile;
+  v10 = [(APOdmlAppVectorsFile *)&v24 init];
+  v11 = v10;
+  if (v10)
   {
-    v14->_numberOfVectors = HIDWORD(__ptr);
-    objc_storeStrong(&v14->_vectorVersion, version);
-    v15->_file = v13;
-    v15->_nextIndex = 0;
+    v10->_numberOfVectors = HIDWORD(__ptr);
+    objc_storeStrong(&v10->_vectorVersion, version);
+    v11->_file = v9;
+    v11->_nextIndex = 0;
   }
 
   else
   {
-    fclose(v13);
+    fclose(v9);
   }
 
-  self = v15;
+  self = v11;
   selfCopy = self;
 LABEL_22:
 
-  v27 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -139,30 +136,30 @@ LABEL_22:
 
 - (id)nextVector
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nextIndex = self->_nextIndex;
-  if (objc_msgSend_numberOfVectors(self, a2, v2) <= nextIndex)
+  if ([(APOdmlAppVectorsFile *)self numberOfVectors]<= nextIndex)
   {
     goto LABEL_20;
   }
 
-  v25 = 0;
-  v26 = 0;
-  if (fread(&v25, 0x10uLL, 1uLL, self->_file) != 1)
+  v20 = 0;
+  v21 = 0;
+  if (fread(&v20, 0x10uLL, 1uLL, self->_file) != 1)
   {
     if (feof(self->_file))
     {
-      v14 = OdmlLogForCategory(2uLL);
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v10 = OdmlLogForCategory(2uLL);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_19;
       }
 
-      v15 = objc_opt_class();
+      v11 = objc_opt_class();
       *buf = 138412290;
-      v28 = v15;
-      v16 = v15;
-      v17 = "[%@] Reached EOF reading vector.";
+      v23 = v11;
+      v12 = v11;
+      v13 = "[%@] Reached EOF reading vector.";
     }
 
     else
@@ -172,41 +169,41 @@ LABEL_22:
         goto LABEL_20;
       }
 
-      v14 = OdmlLogForCategory(2uLL);
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v10 = OdmlLogForCategory(2uLL);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
 LABEL_19:
 
         goto LABEL_20;
       }
 
-      v21 = objc_opt_class();
+      v17 = objc_opt_class();
       *buf = 138412290;
-      v28 = v21;
-      v16 = v21;
-      v17 = "[%@] Internal inconsistency reading AppVectorFile.  Failed to read header for vector.";
+      v23 = v17;
+      v12 = v17;
+      v13 = "[%@] Internal inconsistency reading AppVectorFile.  Failed to read header for vector.";
     }
 
 LABEL_17:
-    v19 = v14;
-    v20 = OS_LOG_TYPE_ERROR;
+    v15 = v10;
+    v16 = OS_LOG_TYPE_ERROR;
     goto LABEL_18;
   }
 
-  if (v26 != *"RTCV")
+  if (v21 != *"RTCV")
   {
-    v14 = OdmlLogForCategory(2uLL);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v10 = OdmlLogForCategory(2uLL);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = objc_opt_class();
+      v14 = objc_opt_class();
       *buf = 138412290;
-      v28 = v18;
-      v16 = v18;
-      v17 = "[%@] Internal inconsistency reading AppVectorFile.  Missing signature for start of next vector.";
-      v19 = v14;
-      v20 = OS_LOG_TYPE_DEFAULT;
+      v23 = v14;
+      v12 = v14;
+      v13 = "[%@] Internal inconsistency reading AppVectorFile.  Missing signature for start of next vector.";
+      v15 = v10;
+      v16 = OS_LOG_TYPE_DEFAULT;
 LABEL_18:
-      _os_log_impl(&dword_260ECB000, v19, v20, v17, buf, 0xCu);
+      _os_log_impl(&dword_260ECB000, v15, v16, v13, buf, 0xCu);
 
       goto LABEL_19;
     }
@@ -214,42 +211,41 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v5 = 4 * HIDWORD(v26);
-  v6 = malloc_type_malloc(v5, 0x3FC57CECuLL);
-  if (v6)
+  v4 = 4 * HIDWORD(v21);
+  v5 = malloc_type_malloc(v4, 0x3FC57CECuLL);
+  if (v5)
   {
-    v7 = v6;
-    if (fread(v6, 1uLL, v5, self->_file) == v5)
+    v6 = v5;
+    if (fread(v5, 1uLL, v4, self->_file) == v4)
     {
-      v8 = [APOdmlAppVector alloc];
-      v11 = objc_msgSend_vectorVersion(self, v9, v10);
-      v13 = objc_msgSend_initWithVersion_header_floats_(v8, v12, v11, &v25, v7);
+      v7 = [APOdmlAppVector alloc];
+      vectorVersion = [(APOdmlAppVectorsFile *)self vectorVersion];
+      v9 = [(APOdmlAppVector *)v7 initWithVersion:vectorVersion header:&v20 floats:v6];
 
-      free(v7);
+      free(v6);
       ++self->_nextIndex;
       goto LABEL_21;
     }
 
-    v14 = OdmlLogForCategory(2uLL);
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v10 = OdmlLogForCategory(2uLL);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_19;
     }
 
-    v22 = objc_opt_class();
+    v18 = objc_opt_class();
     *buf = 138412290;
-    v28 = v22;
-    v16 = v22;
-    v17 = "[%@] Internal inconsistency reading AppVectorFile.  Couldn't read required number of bytes.";
+    v23 = v18;
+    v12 = v18;
+    v13 = "[%@] Internal inconsistency reading AppVectorFile.  Couldn't read required number of bytes.";
     goto LABEL_17;
   }
 
 LABEL_20:
-  v13 = 0;
+  v9 = 0;
 LABEL_21:
-  v23 = *MEMORY[0x277D85DE8];
 
-  return v13;
+  return v9;
 }
 
 @end

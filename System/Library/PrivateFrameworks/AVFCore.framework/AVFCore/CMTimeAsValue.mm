@@ -163,7 +163,7 @@
   v3 = *MEMORY[0x1E695E480];
   if (self)
   {
-    [(CMTimeAsValue *)self CMTimeValue];
+    objc_msgSend_CMTimeValue(self, a2);
   }
 
   else
@@ -192,7 +192,7 @@
   p_time = &self->_time;
   if (value)
   {
-    [value CMTimeValue];
+    objc_msgSend_CMTimeValue(value);
   }
 
   else
@@ -236,7 +236,7 @@
   {
     if (coder)
     {
-      [coder decodeCMTimeForKey:@"CMTime"];
+      objc_msgSend_decodeCMTimeForKey_(coder);
     }
 
     else

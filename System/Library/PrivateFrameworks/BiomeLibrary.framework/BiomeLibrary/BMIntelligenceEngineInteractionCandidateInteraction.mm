@@ -93,7 +93,7 @@ LABEL_19:
 
 - (id)jsonDictionary
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   candidateId = [(BMIntelligenceEngineInteractionCandidateInteraction *)self candidateId];
   jsonDictionary = [candidateId jsonDictionary];
 
@@ -112,39 +112,39 @@ LABEL_19:
     v9 = [v8 numberWithDouble:?];
   }
 
-  v17[0] = @"candidateId";
+  v16[0] = @"candidateId";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = null;
-  v17[1] = @"userAlignment";
+  v17[0] = null;
+  v16[1] = @"userAlignment";
   null2 = v5;
   if (!v5)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null2;
-  v17[2] = @"parameterName";
+  v17[1] = null2;
+  v16[2] = @"parameterName";
   null3 = parameterName;
   if (!parameterName)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[2] = null3;
-  v17[3] = @"searchLikelihood";
+  v17[2] = null3;
+  v16[3] = @"searchLikelihood";
   null4 = v9;
   if (!v9)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[3] = null4;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v17[3] = null4;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
   if (v9)
   {
     if (parameterName)
@@ -189,14 +189,13 @@ LABEL_16:
 LABEL_23:
 
 LABEL_17:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (BMIntelligenceEngineInteractionCandidateInteraction)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"candidateId"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -209,9 +208,9 @@ LABEL_17:
   if (objc_opt_isKindOfClass())
   {
     v10 = v7;
-    v37 = 0;
-    v8 = [[BMIntelligenceEngineInteractionCandidateID alloc] initWithJSONDictionary:v10 error:&v37];
-    v11 = v37;
+    v36 = 0;
+    v8 = [[BMIntelligenceEngineInteractionCandidateID alloc] initWithJSONDictionary:v10 error:&v36];
+    v11 = v36;
     if (v11)
     {
       v12 = v10;
@@ -247,14 +246,14 @@ LABEL_4:
             goto LABEL_28;
           }
 
-          v36 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v30 = *MEMORY[0x1E698F240];
-          v42 = *MEMORY[0x1E696A578];
+          v35 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v29 = *MEMORY[0x1E698F240];
+          v41 = *MEMORY[0x1E696A578];
           v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"userAlignment"];
-          v43 = v20;
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+          v42 = v20;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
           v13 = 0;
-          *error = [v36 initWithDomain:v30 code:2 userInfo:v18];
+          *error = [v35 initWithDomain:v29 code:2 userInfo:v18];
           error = 0;
 LABEL_27:
 
@@ -265,15 +264,15 @@ LABEL_28:
         v14 = [MEMORY[0x1E696AD98] numberWithInt:BMIntelligenceEngineInteractionUserAlignmentFromString(v9)];
       }
 
-      v34 = v14;
+      v33 = v14;
     }
 
     else
     {
-      v34 = 0;
+      v33 = 0;
     }
 
-    v35 = v7;
+    v34 = v7;
     v18 = [dictionaryCopy objectForKeyedSubscript:@"parameterName"];
     selfCopy = self;
     if (v18 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -285,23 +284,23 @@ LABEL_28:
         {
           v20 = 0;
           v13 = 0;
-          error = v34;
-          v7 = v35;
+          error = v33;
+          v7 = v34;
           goto LABEL_27;
         }
 
-        v25 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v24 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
-        v26 = *MEMORY[0x1E698F240];
-        v40 = *MEMORY[0x1E696A578];
+        v25 = *MEMORY[0x1E698F240];
+        v39 = *MEMORY[0x1E696A578];
         v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"parameterName"];
-        v41 = v22;
-        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-        v27 = [v25 initWithDomain:v26 code:2 userInfo:v21];
+        v40 = v22;
+        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+        v26 = [v24 initWithDomain:v25 code:2 userInfo:v21];
         v20 = 0;
         v13 = 0;
-        error = v34;
-        *errorCopy = v27;
+        error = v33;
+        *errorCopy = v26;
         goto LABEL_26;
       }
 
@@ -321,18 +320,18 @@ LABEL_28:
       {
         if (error)
         {
-          v33 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v31 = *MEMORY[0x1E698F240];
-          v38 = *MEMORY[0x1E696A578];
-          v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"searchLikelihood"];
-          v39 = v28;
-          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-          *error = [v33 initWithDomain:v31 code:2 userInfo:v29];
+          v32 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v30 = *MEMORY[0x1E698F240];
+          v37 = *MEMORY[0x1E696A578];
+          v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"searchLikelihood"];
+          v38 = v27;
+          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+          *error = [v32 initWithDomain:v30 code:2 userInfo:v28];
         }
 
         v22 = 0;
         v13 = 0;
-        error = v34;
+        error = v33;
         goto LABEL_26;
       }
 
@@ -344,13 +343,13 @@ LABEL_28:
       v22 = 0;
     }
 
-    error = v34;
-    v13 = -[BMIntelligenceEngineInteractionCandidateInteraction initWithCandidateId:userAlignment:parameterName:searchLikelihood:](selfCopy, "initWithCandidateId:userAlignment:parameterName:searchLikelihood:", v8, [v34 intValue], v20, v22);
+    error = v33;
+    v13 = -[BMIntelligenceEngineInteractionCandidateInteraction initWithCandidateId:userAlignment:parameterName:searchLikelihood:](selfCopy, "initWithCandidateId:userAlignment:parameterName:searchLikelihood:", v8, [v33 intValue], v20, v22);
     selfCopy = v13;
 LABEL_26:
 
     self = selfCopy;
-    v7 = v35;
+    v7 = v34;
     goto LABEL_27;
   }
 
@@ -362,17 +361,16 @@ LABEL_26:
 
   v15 = objc_alloc(MEMORY[0x1E696ABC0]);
   v16 = *MEMORY[0x1E698F240];
-  v44 = *MEMORY[0x1E696A578];
+  v43 = *MEMORY[0x1E696A578];
   v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"candidateId"];
-  v45[0] = v8;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+  v44[0] = v8;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
   v13 = 0;
   *error = [v15 initWithDomain:v16 code:2 userInfo:v17];
   error = v17;
 LABEL_29:
 
 LABEL_30:
-  v23 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -395,7 +393,6 @@ LABEL_30:
     PBDataWriterRecallMark();
   }
 
-  userAlignment = self->_userAlignment;
   PBDataWriterWriteUint32Field();
   if (self->_parameterName)
   {
@@ -404,7 +401,6 @@ LABEL_30:
 
   if (self->_hasSearchLikelihood)
   {
-    searchLikelihood = self->_searchLikelihood;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -654,48 +650,44 @@ LABEL_50:
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"candidateId" number:1 type:14 subMessageClass:objc_opt_class()];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"userAlignment" number:2 type:4 subMessageClass:0];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"parameterName" number:3 type:13 subMessageClass:0];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"searchLikelihood" number:4 type:0 subMessageClass:0];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"candidateId_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_198];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"userAlignment" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"parameterName" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"searchLikelihood" dataType:1 requestOnly:0 fieldNumber:4 protoDataType:0 convertedType:0];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
-id __62__BMIntelligenceEngineInteractionCandidateInteraction_columns__block_invoke(uint64_t a1, void *a2)
+id __62__BMIntelligenceEngineInteractionCandidateInteraction_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 candidateId];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 candidateId];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

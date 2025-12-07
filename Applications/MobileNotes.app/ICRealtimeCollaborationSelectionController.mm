@@ -32,7 +32,7 @@
 
 - (void)editorDidChangeSelection:(id)selection
 {
-  v4 = sub_10015DA04(&qword_1006C2530);
+  v4 = sub_10015DA04(&qword_1006C2530, &qword_10053F4C0);
   __chkstk_darwin(v4 - 8);
   v6 = (&v13 - v5);
   v7 = type metadata accessor for Notification();
@@ -45,7 +45,7 @@
   sub_10028F950(v6);
   RealtimeCollaborationController.postLocalSelection(_:asDelta:)(v6, 1);
 
-  sub_1000073B4(v6, &qword_1006C2530);
+  sub_1000073B4(v6, &qword_1006C2530, &qword_10053F4C0);
   (*(v8 + 8))(v10, v7);
 }
 

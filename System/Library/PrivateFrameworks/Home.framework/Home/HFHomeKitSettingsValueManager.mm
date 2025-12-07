@@ -40,14 +40,14 @@
 
 - (id)changeValueForSetting:(id)setting toValue:(id)value changeType:(unint64_t)type
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   valueCopy = value;
   if (settingCopy)
   {
     dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-    v38 = [(HFHomeKitSettingsValueManager *)self _valueForSetting:settingCopy logRead:0];
-    v9 = [[_HFHomeKitSettingsVendorSettingsWriteValueTransaction alloc] initWithSetting:settingCopy previousValue:v38 value:valueCopy changeType:type];
+    v37 = [(HFHomeKitSettingsValueManager *)self _valueForSetting:settingCopy logRead:0];
+    v9 = [[_HFHomeKitSettingsVendorSettingsWriteValueTransaction alloc] initWithSetting:settingCopy previousValue:v37 value:valueCopy changeType:type];
     transactionStacks = [(HFHomeKitSettingsValueManager *)self transactionStacks];
     keyPath = [settingCopy keyPath];
     v12 = [transactionStacks na_objectForKey:keyPath withDefaultValue:&__block_literal_global_139];
@@ -97,9 +97,9 @@
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __HFHomeKitSettingsValueManagerDispatchWillWriteValueForSettings_block_invoke;
-    v49 = &unk_277DFD750;
-    v50 = v22;
-    v51 = v23;
+    v48 = &unk_277DFD750;
+    v49 = v22;
+    v50 = v23;
     v25 = v23;
     v26 = v22;
     [v24 dispatchHomeKitSettingMessage:buf sender:0];
@@ -126,23 +126,23 @@
     objc_initWeak(buf, v9);
     objc_initWeak(&location, self);
     settingWriteFuture2 = [(_HFHomeKitSettingsVendorSettingsWriteValueTransaction *)v9 settingWriteFuture];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __74__HFHomeKitSettingsValueManager_changeValueForSetting_toValue_changeType___block_invoke_128;
-    v40[3] = &unk_277DFD700;
-    objc_copyWeak(&v45, &location);
-    objc_copyWeak(&v46, buf);
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __74__HFHomeKitSettingsValueManager_changeValueForSetting_toValue_changeType___block_invoke_128;
+    v39[3] = &unk_277DFD700;
+    objc_copyWeak(&v44, &location);
+    objc_copyWeak(&v45, buf);
     v33 = v26;
-    v41 = v33;
+    v40 = v33;
     v34 = v25;
-    v42 = v34;
+    v41 = v34;
     v35 = homeKitObjectIdentifiers;
-    v43 = v35;
-    v44 = settingCopy;
-    v31 = [settingWriteFuture2 addCompletionBlock:v40];
+    v42 = v35;
+    v43 = settingCopy;
+    v31 = [settingWriteFuture2 addCompletionBlock:v39];
 
-    objc_destroyWeak(&v46);
     objc_destroyWeak(&v45);
+    objc_destroyWeak(&v44);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
   }
@@ -153,8 +153,6 @@
     v30 = [MEMORY[0x277CCA9B8] hf_errorWithCode:7];
     v31 = [v29 futureWithError:v30];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -168,7 +166,7 @@ id __74__HFHomeKitSettingsValueManager_changeValueForSetting_toValue_changeType_
 
 void __74__HFHomeKitSettingsValueManager_changeValueForSetting_toValue_changeType___block_invoke_128(uint64_t a1, uint64_t a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v4 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v6 = objc_loadWeakRetained((a1 + 72));
@@ -189,9 +187,9 @@ void __74__HFHomeKitSettingsValueManager_changeValueForSetting_toValue_changeTyp
     {
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        *v33 = 138412290;
-        *&v33[4] = v6;
-        _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_INFO, "--> Cancelled write transaction %@", v33, 0xCu);
+        *v32 = 138412290;
+        *&v32[4] = v6;
+        _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_INFO, "--> Cancelled write transaction %@", v32, 0xCu);
       }
     }
 
@@ -199,13 +197,13 @@ void __74__HFHomeKitSettingsValueManager_changeValueForSetting_toValue_changeTyp
     {
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        *v33 = 138412802;
-        *&v33[4] = v6;
-        *&v33[12] = 2048;
-        *&v33[14] = v10;
-        *&v33[22] = 2112;
-        v34 = v4;
-        _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "--> FAILED write transaction %@ (Execution Time: %.3f) error: %@", v33, 0x20u);
+        *v32 = 138412802;
+        *&v32[4] = v6;
+        *&v32[12] = 2048;
+        *&v32[14] = v10;
+        *&v32[22] = 2112;
+        v33 = v4;
+        _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "--> FAILED write transaction %@ (Execution Time: %.3f) error: %@", v32, 0x20u);
       }
 
       v24 = *(a1 + 40);
@@ -214,18 +212,18 @@ void __74__HFHomeKitSettingsValueManager_changeValueForSetting_toValue_changeTyp
       v27 = v24;
       v28 = v25;
       v29 = +[HFHomeKitDispatcher sharedDispatcher];
-      *v33 = MEMORY[0x277D85DD0];
-      *&v33[8] = 3221225472;
-      *&v33[16] = __HFHomeKitSettingsValueManagerDispatchDidWriteValueForSettings_block_invoke;
-      v34 = &unk_277DFD778;
-      v35 = v26;
-      v36 = 0;
-      v37 = v27;
-      v38 = v28;
+      *v32 = MEMORY[0x277D85DD0];
+      *&v32[8] = 3221225472;
+      *&v32[16] = __HFHomeKitSettingsValueManagerDispatchDidWriteValueForSettings_block_invoke;
+      v33 = &unk_277DFD778;
+      v34 = v26;
+      v35 = 0;
+      v36 = v27;
+      v37 = v28;
       v30 = v28;
       v31 = v27;
       v13 = v26;
-      [v29 dispatchHomeKitSettingMessage:v33 sender:0];
+      [v29 dispatchHomeKitSettingMessage:v32 sender:0];
     }
   }
 
@@ -234,11 +232,11 @@ void __74__HFHomeKitSettingsValueManager_changeValueForSetting_toValue_changeTyp
     v14 = HFLogForCategory(0x3EuLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v33 = 138412546;
-      *&v33[4] = v6;
-      *&v33[12] = 2048;
-      *&v33[14] = v10;
-      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "--> Finished write transaction for %@ (Execution Time: %.3f)", v33, 0x16u);
+      *v32 = 138412546;
+      *&v32[4] = v6;
+      *&v32[12] = 2048;
+      *&v32[14] = v10;
+      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "--> Finished write transaction for %@ (Execution Time: %.3f)", v32, 0x16u);
     }
 
     v15 = *(a1 + 40);
@@ -247,30 +245,28 @@ void __74__HFHomeKitSettingsValueManager_changeValueForSetting_toValue_changeTyp
     v18 = v15;
     v19 = v16;
     v20 = +[HFHomeKitDispatcher sharedDispatcher];
-    *v33 = MEMORY[0x277D85DD0];
-    *&v33[8] = 3221225472;
-    *&v33[16] = __HFHomeKitSettingsValueManagerDispatchDidWriteValueForSettings_block_invoke;
-    v34 = &unk_277DFD778;
-    v35 = v17;
-    v36 = v18;
-    v37 = 0;
-    v38 = v19;
+    *v32 = MEMORY[0x277D85DD0];
+    *&v32[8] = 3221225472;
+    *&v32[16] = __HFHomeKitSettingsValueManagerDispatchDidWriteValueForSettings_block_invoke;
+    v33 = &unk_277DFD778;
+    v34 = v17;
+    v35 = v18;
+    v36 = 0;
+    v37 = v19;
     v21 = v19;
     v22 = v18;
     v23 = v17;
-    [v20 dispatchHomeKitSettingMessage:v33 sender:0];
+    [v20 dispatchHomeKitSettingMessage:v32 sender:0];
 
     [WeakRetained _clearTransaction:v6];
   }
 
   [WeakRetained _executeNextPendingWriteForSetting:*(a1 + 56)];
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_executeNextPendingWriteForSetting:(id)setting
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   transactionStacks = [(HFHomeKitSettingsValueManager *)self transactionStacks];
   keyPath = [settingCopy keyPath];
@@ -290,7 +286,7 @@ void __74__HFHomeKitSettingsValueManager_changeValueForSetting_toValue_changeTyp
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v19 = firstObject;
+        v18 = firstObject;
         _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "--> Executing pending write transaction %@", buf, 0xCu);
       }
 
@@ -327,8 +323,6 @@ void __74__HFHomeKitSettingsValueManager_changeValueForSetting_toValue_changeTyp
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)valueForSetting:(id)setting
@@ -342,7 +336,7 @@ void __74__HFHomeKitSettingsValueManager_changeValueForSetting_toValue_changeTyp
 - (id)_valueForSetting:(id)setting logRead:(BOOL)read
 {
   readCopy = read;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   keyPath = [settingCopy keyPath];
   transactionStacks = [(HFHomeKitSettingsValueManager *)self transactionStacks];
@@ -374,20 +368,19 @@ void __74__HFHomeKitSettingsValueManager_changeValueForSetting_toValue_changeTyp
   v16 = HFLogForCategory(0x3EuLL);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v19 = NSStringFromSelector(a2);
-    v20 = 138413058;
-    v21 = v19;
-    v22 = 2112;
-    v23 = v14;
-    v24 = 2112;
-    v25 = keyPath;
-    v26 = 2112;
-    v27 = v15;
-    _os_log_debug_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEBUG, "--> (%@) Reading %@ Value for %@ (%@)", &v20, 0x2Au);
+    v18 = NSStringFromSelector(a2);
+    v19 = 138413058;
+    v20 = v18;
+    v21 = 2112;
+    v22 = v14;
+    v23 = 2112;
+    v24 = keyPath;
+    v25 = 2112;
+    v26 = v15;
+    _os_log_debug_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEBUG, "--> (%@) Reading %@ Value for %@ (%@)", &v19, 0x2Au);
   }
 
 LABEL_8:
-  v17 = *MEMORY[0x277D85DE8];
 
   return value;
 }
@@ -437,7 +430,7 @@ void __46__HFHomeKitSettingsValueManager_pendingWrites__block_invoke(uint64_t a1
 
 - (void)_clearTransaction:(id)transaction
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   if (transactionCopy)
   {
@@ -450,7 +443,7 @@ void __46__HFHomeKitSettingsValueManager_pendingWrites__block_invoke(uint64_t a1
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = transactionCopy;
+      v13 = transactionCopy;
       _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_INFO, "--> Clearing transaction %@", buf, 0xCu);
     }
 
@@ -464,7 +457,7 @@ void __46__HFHomeKitSettingsValueManager_pendingWrites__block_invoke(uint64_t a1
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = transactionCopy;
+      v13 = transactionCopy;
       _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_INFO, "--> Cleared transaction %@", buf, 0xCu);
     }
 
@@ -474,15 +467,13 @@ void __46__HFHomeKitSettingsValueManager_pendingWrites__block_invoke(uint64_t a1
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v14 = keyPath;
+        v13 = keyPath;
         _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_INFO, "--> Tearing down transactionStack for setting key path '%@'", buf, 0xCu);
       }
 
       [transactionStacks removeObjectForKey:keyPath];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

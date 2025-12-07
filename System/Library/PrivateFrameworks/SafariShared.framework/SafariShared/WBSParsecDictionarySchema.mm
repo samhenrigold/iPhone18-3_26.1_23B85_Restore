@@ -13,10 +13,10 @@ void __93___WBSParsecDictionarySchema__validateChild_ofParent_withParentAssociat
 
   if ((v9 & 1) == 0)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __93___WBSParsecDictionarySchema__validateChild_ofParent_withParentAssociatedError_errorHandler___block_invoke_cold_1(v5, a1 + 4, v10);
+      __93___WBSParsecDictionarySchema__validateChild_ofParent_withParentAssociatedError_errorHandler___block_invoke_cold_1(v5, a1 + 4, v12);
     }
 
     *(*(a1[7] + 8) + 24) = 0;

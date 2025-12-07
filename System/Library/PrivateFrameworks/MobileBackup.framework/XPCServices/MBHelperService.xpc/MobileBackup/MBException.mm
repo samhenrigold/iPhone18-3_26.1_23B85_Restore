@@ -1,9 +1,28 @@
 @interface MBException
+- (MBException)initWithCode:(int)code format:(id)format args:(char *)args;
 - (id)error;
 - (int)errorCode;
 @end
 
 @implementation MBException
+
+- (MBException)initWithCode:(int)code format:(id)format args:(char *)args
+{
+  v6 = *&code;
+  formatCopy = format;
+  v9 = [[NSString alloc] initWithFormat:formatCopy arguments:args];
+
+  v15 = @"MBErrorCode";
+  v10 = [NSNumber numberWithInt:v6];
+  v16 = v10;
+  v11 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+
+  v14.receiver = self;
+  v14.super_class = MBException;
+  v12 = [(MBException *)&v14 initWithName:@"MBException" reason:v9 userInfo:v11];
+
+  return v12;
+}
 
 - (int)errorCode
 {

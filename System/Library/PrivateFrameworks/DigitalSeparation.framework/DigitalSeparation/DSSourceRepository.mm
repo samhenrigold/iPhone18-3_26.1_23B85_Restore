@@ -44,47 +44,47 @@
 
 + (DSSourceRepository)repositoryWithURL:(id)l
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v3 = DSLog_2;
   if (os_log_type_enabled(DSLog_2, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v52 = lCopy;
+    v51 = lCopy;
     _os_log_impl(&dword_248C40000, v3, OS_LOG_TYPE_INFO, "Searching %{public}@ for sharing sources", buf, 0xCu);
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v5 = [defaultManager enumeratorAtURL:v43 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:1 errorHandler:&__block_literal_global_5];
+  v5 = [defaultManager enumeratorAtURL:v42 includingPropertiesForKeys:MEMORY[0x277CBEBF8] options:1 errorHandler:&__block_literal_global_5];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+  v6 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
   if (v6)
   {
-    v7 = *v48;
+    v7 = *v47;
     do
     {
       v8 = 0;
       do
       {
-        if (*v48 != v7)
+        if (*v47 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = [MEMORY[0x277CCA8D8] bundleWithURL:*(*(&v47 + 1) + 8 * v8)];
+        v9 = [MEMORY[0x277CCA8D8] bundleWithURL:*(*(&v46 + 1) + 8 * v8)];
         if (v9)
         {
           v10 = DSLog_2;
           if (os_log_type_enabled(DSLog_2, OS_LOG_TYPE_INFO))
           {
             *buf = 138543362;
-            v52 = v9;
+            v51 = v9;
             _os_log_impl(&dword_248C40000, v10, OS_LOG_TYPE_INFO, "Found potential source %{public}@", buf, 0xCu);
           }
 
@@ -102,9 +102,9 @@
                 v21 = v20;
                 v22 = NSStringFromClass(principalClass);
                 *buf = 138543618;
-                v52 = v9;
-                v53 = 2114;
-                v54 = v22;
+                v51 = v9;
+                v52 = 2114;
+                v53 = v22;
                 _os_log_error_impl(&dword_248C40000, v21, OS_LOG_TYPE_ERROR, "Source from %{public}@ with class %{public}@ doesn't have a name", buf, 0x16u);
               }
 
@@ -117,9 +117,9 @@
               if (os_log_type_enabled(DSLog_2, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543618;
-                v52 = v9;
-                v53 = 2114;
-                v54 = name;
+                v51 = v9;
+                v52 = 2114;
+                v53 = name;
                 _os_log_error_impl(&dword_248C40000, v23, OS_LOG_TYPE_ERROR, "Runtime feature flags for %{public}@ with name %{public}@ are not enabled, not adding bundle.", buf, 0x16u);
               }
 
@@ -137,9 +137,9 @@
                 v17 = v16;
                 name2 = [v13 name];
                 *buf = 138543618;
-                v52 = name2;
-                v53 = 2114;
-                v54 = v9;
+                v51 = name2;
+                v52 = 2114;
+                v53 = v9;
                 _os_log_impl(&dword_248C40000, v17, OS_LOG_TYPE_DEFAULT, "Adding sharing sub sources %{public}@ from %{public}@", buf, 0x16u);
               }
 
@@ -157,9 +157,9 @@
                 v27 = v26;
                 name3 = [v13 name];
                 *buf = 138543618;
-                v52 = bundleIdentifier;
-                v53 = 2114;
-                v54 = name3;
+                v51 = bundleIdentifier;
+                v52 = 2114;
+                v53 = name3;
                 _os_log_impl(&dword_248C40000, v27, OS_LOG_TYPE_DEFAULT, "Found additional bundle %{public}@ for source %{public}@", buf, 0x16u);
               }
 
@@ -171,9 +171,9 @@
                   v36 = v29;
                   name4 = [v13 name];
                   *buf = 138543618;
-                  v52 = bundleIdentifier;
-                  v53 = 2114;
-                  v54 = name4;
+                  v51 = bundleIdentifier;
+                  v52 = 2114;
+                  v53 = name4;
                   _os_log_error_impl(&dword_248C40000, v36, OS_LOG_TYPE_ERROR, "Duplicate implementation %{public}@ is unexpected for %{public}@, not adding bundle.", buf, 0x16u);
                 }
 
@@ -189,7 +189,7 @@ LABEL_35:
                 if (os_log_type_enabled(DSLog_2, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  v52 = v9;
+                  v51 = v9;
                   _os_log_impl(&dword_248C40000, v35, OS_LOG_TYPE_DEFAULT, "Ignoring deprecated FindMy bundle %{public}@", buf, 0xCu);
                 }
 
@@ -204,9 +204,9 @@ LABEL_35:
               v33 = v32;
               name5 = [v13 name];
               *buf = 138543618;
-              v52 = name5;
-              v53 = 2114;
-              v54 = v9;
+              v51 = name5;
+              v52 = 2114;
+              v53 = v9;
               _os_log_impl(&dword_248C40000, v33, OS_LOG_TYPE_DEFAULT, "Adding sharing source for %{public}@ from %{public}@", buf, 0x16u);
             }
 
@@ -219,9 +219,9 @@ LABEL_35:
             v30 = v19;
             v31 = NSStringFromClass(principalClass);
             *buf = 138543618;
-            v52 = v9;
-            v53 = 2114;
-            v54 = v31;
+            v51 = v9;
+            v52 = 2114;
+            v53 = v31;
             _os_log_error_impl(&dword_248C40000, v30, OS_LOG_TYPE_ERROR, "Found bundle %{public}@ whose principal class %{public}@ does not conform to DSSource", buf, 0x16u);
           }
         }
@@ -232,7 +232,7 @@ LABEL_36:
       }
 
       while (v6 != v8);
-      v38 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v38 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
       v6 = v38;
     }
 
@@ -240,7 +240,6 @@ LABEL_36:
   }
 
   v39 = [[DSSourceRepository alloc] initWithSources:dictionary];
-  v40 = *MEMORY[0x277D85DE8];
 
   return v39;
 }
@@ -302,13 +301,12 @@ uint64_t __40__DSSourceRepository_repositoryWithURL___block_invoke(uint64_t a1, 
 
 void __40__DSSourceRepository_repositoryWithURL___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_248C40000, log, OS_LOG_TYPE_ERROR, "Failed to enumerate %{public}@ because %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_248C40000, log, OS_LOG_TYPE_ERROR, "Failed to enumerate %{public}@ because %{public}@", &v3, 0x16u);
 }
 
 @end

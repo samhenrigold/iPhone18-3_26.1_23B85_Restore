@@ -72,7 +72,7 @@
 
 - (void)_createAndStartTimerWithQueue:(id)queue handler:(id)handler
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v7 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, queue);
   [(ANTimer *)self setTimer:v7];
@@ -85,9 +85,9 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       timer2 = [(ANTimer *)self timer];
-      v13 = 138412290;
-      v14 = timer2;
-      _os_log_impl(&dword_2237C8000, v9, OS_LOG_TYPE_DEFAULT, "Created Timer %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = timer2;
+      _os_log_impl(&dword_2237C8000, v9, OS_LOG_TYPE_DEFAULT, "Created Timer %@", &v12, 0xCu);
     }
 
     timer3 = [(ANTimer *)self timer];
@@ -95,23 +95,21 @@
 
     [(ANTimer *)self _startTimer];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startTimer
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [(ANTimer *)self log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     timer = [(ANTimer *)self timer];
     [(ANTimer *)self timeoutValue];
-    v12 = 138412546;
-    v13 = timer;
-    v14 = 2048;
-    v15 = v5;
-    _os_log_impl(&dword_2237C8000, v3, OS_LOG_TYPE_DEFAULT, "Starting Timer (%@) for %f seconds", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = timer;
+    v13 = 2048;
+    v14 = v5;
+    _os_log_impl(&dword_2237C8000, v3, OS_LOG_TYPE_DEFAULT, "Starting Timer (%@) for %f seconds", &v11, 0x16u);
   }
 
   timer2 = [(ANTimer *)self timer];
@@ -122,13 +120,11 @@
 
   timer3 = [(ANTimer *)self timer];
   dispatch_resume(timer3);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reset
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   timer = [(ANTimer *)self timer];
 
   if (timer)
@@ -140,20 +136,18 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       timer3 = [(ANTimer *)self timer];
-      v8 = 138412290;
-      v9 = timer3;
-      _os_log_impl(&dword_2237C8000, v5, OS_LOG_TYPE_DEFAULT, "Restarting Timer %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = timer3;
+      _os_log_impl(&dword_2237C8000, v5, OS_LOG_TYPE_DEFAULT, "Restarting Timer %@", &v7, 0xCu);
     }
 
     [(ANTimer *)self _startTimer];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   timer = [(ANTimer *)self timer];
 
   if (timer)
@@ -162,9 +156,9 @@
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       timer2 = [(ANTimer *)self timer];
-      v8 = 138412290;
-      v9 = timer2;
-      _os_log_impl(&dword_2237C8000, v4, OS_LOG_TYPE_DEFAULT, "Canceling and removing Timer %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = timer2;
+      _os_log_impl(&dword_2237C8000, v4, OS_LOG_TYPE_DEFAULT, "Canceling and removing Timer %@", &v7, 0xCu);
     }
 
     timer3 = [(ANTimer *)self timer];
@@ -172,8 +166,6 @@
 
     [(ANTimer *)self setTimer:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

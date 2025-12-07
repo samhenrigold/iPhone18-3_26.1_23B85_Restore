@@ -7,7 +7,7 @@
 - (void)didChangeRadioState:(BOOL)state
 {
   selfCopy = self;
-  sub_23810784C();
+  sub_23810784C(selfCopy, v3);
 }
 
 @end

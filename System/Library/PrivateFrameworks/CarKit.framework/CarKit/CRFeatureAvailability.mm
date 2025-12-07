@@ -31,7 +31,7 @@
   v8 = &v7;
   v9 = 0x2020000000;
   v10 = 0;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CRFeatureAvailability isCarPlayAllowed];
@@ -64,7 +64,7 @@ void __41__CRFeatureAvailability_isCarPlayAllowed__block_invoke_2(uint64_t a1, c
 {
   v7 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 32) + 8) + 24) = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     if (*(*(*(a1 + 32) + 8) + 24))
@@ -86,7 +86,7 @@ void __41__CRFeatureAvailability_isCarPlayAllowed__block_invoke_2(uint64_t a1, c
 void __41__CRFeatureAvailability_isCarPlayAllowed__block_invoke_27(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __41__CRFeatureAvailability_isCarPlayAllowed__block_invoke_27_cold_1();
@@ -99,7 +99,7 @@ void __41__CRFeatureAvailability_isCarPlayAllowed__block_invoke_27(uint64_t a1, 
   v9 = &v8;
   v10 = 0x2020000000;
   v11 = 0;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CRFeatureAvailability deviceSupportedCarPlayFeatures];
@@ -130,25 +130,27 @@ uint64_t __55__CRFeatureAvailability_deviceSupportedCarPlayFeatures__block_invok
 
 void __55__CRFeatureAvailability_deviceSupportedCarPlayFeatures__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    *(*(*(a1 + 32) + 8) + 24) = [a2 unsignedIntegerValue];
-    v6 = CarGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = [a2 unsignedIntegerValue];
+    *(*(*(a1 + 32) + 8) + 24) = v7;
+    v8 = CarGeneralLogging(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v7 = *(*(*(a1 + 32) + 8) + 24);
-      v8 = 134349056;
-      v9 = v7;
-      _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_INFO, "deviceSupportedFeatures %{public}lu", &v8, 0xCu);
+      v9 = *(*(*(a1 + 32) + 8) + 24);
+      v10 = 134349056;
+      v11 = v9;
+      _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_INFO, "deviceSupportedFeatures %{public}lu", &v10, 0xCu);
     }
   }
 
   else
   {
-    v6 = CarGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = CarGeneralLogging(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __55__CRFeatureAvailability_deviceSupportedCarPlayFeatures__block_invoke_2_cold_1();
     }
@@ -158,7 +160,7 @@ void __55__CRFeatureAvailability_deviceSupportedCarPlayFeatures__block_invoke_2(
 void __55__CRFeatureAvailability_deviceSupportedCarPlayFeatures__block_invoke_30(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__CRFeatureAvailability_deviceSupportedCarPlayFeatures__block_invoke_2_cold_1();
@@ -172,7 +174,7 @@ void __55__CRFeatureAvailability_deviceSupportedCarPlayFeatures__block_invoke_30
   v17 = &v16;
   v18 = 0x2020000000;
   v19 = 1;
-  v7 = CarGeneralLogging();
+  v7 = CarGeneralLogging(identifierCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [(CRFeatureAvailability *)identifierCopy disablesCarPlayFeatures:features forVehicleIdentifier:v7];
@@ -206,37 +208,39 @@ uint64_t __70__CRFeatureAvailability_disablesCarPlayFeatures_forVehicleIdentifie
 
 void __70__CRFeatureAvailability_disablesCarPlayFeatures_forVehicleIdentifier___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    *(*(*(a1 + 32) + 8) + 24) = [a2 BOOLValue];
-    v6 = CarGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = [a2 BOOLValue];
+    *(*(*(a1 + 32) + 8) + 24) = v7;
+    v8 = CarGeneralLogging(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 40);
+      v9 = *(a1 + 40);
       if (*(*(*(a1 + 32) + 8) + 24))
       {
-        v8 = @"YES";
+        v10 = @"YES";
       }
 
       else
       {
-        v8 = @"NO";
+        v10 = @"NO";
       }
 
-      v9 = 134349314;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v8;
-      _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_INFO, "disablesCarPlayFeatures %{public}lu: %@", &v9, 0x16u);
+      v11 = 134349314;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v10;
+      _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_INFO, "disablesCarPlayFeatures %{public}lu: %@", &v11, 0x16u);
     }
   }
 
   else
   {
-    v6 = CarGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = CarGeneralLogging(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __70__CRFeatureAvailability_disablesCarPlayFeatures_forVehicleIdentifier___block_invoke_2_cold_1();
     }
@@ -246,7 +250,7 @@ void __70__CRFeatureAvailability_disablesCarPlayFeatures_forVehicleIdentifier___
 void __70__CRFeatureAvailability_disablesCarPlayFeatures_forVehicleIdentifier___block_invoke_33(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __70__CRFeatureAvailability_disablesCarPlayFeatures_forVehicleIdentifier___block_invoke_2_cold_1();
@@ -257,7 +261,7 @@ void __70__CRFeatureAvailability_disablesCarPlayFeatures_forVehicleIdentifier___
 {
   v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v9 = CarGeneralLogging();
+  v9 = CarGeneralLogging(identifierCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134349314;
@@ -310,7 +314,7 @@ uint64_t __74__CRFeatureAvailability_setCarPlayFeatures_disabled_forVehicleIdent
 void __74__CRFeatureAvailability_setCarPlayFeatures_disabled_forVehicleIdentifier___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
-  v6 = CarGeneralLogging();
+  v6 = CarGeneralLogging(v5);
   v7 = v6;
   if (a2)
   {
@@ -338,7 +342,7 @@ void __74__CRFeatureAvailability_setCarPlayFeatures_disabled_forVehicleIdentifie
 void __74__CRFeatureAvailability_setCarPlayFeatures_disabled_forVehicleIdentifier___block_invoke_36(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarGeneralLogging();
+  v4 = CarGeneralLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CRFeatureAvailability_setCarPlayFeatures_disabled_forVehicleIdentifier___block_invoke_2_cold_1();
@@ -354,7 +358,7 @@ void __74__CRFeatureAvailability_setCarPlayFeatures_disabled_forVehicleIdentifie
   v15 = &v14;
   v16 = 0x2020000000;
   v17 = 0;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(sessionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [CRFeatureAvailability supportedCarPlayFeaturesForSession:];
@@ -390,25 +394,27 @@ uint64_t __60__CRFeatureAvailability_supportedCarPlayFeaturesForSession___block_
 
 void __60__CRFeatureAvailability_supportedCarPlayFeaturesForSession___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    *(*(*(a1 + 32) + 8) + 24) = [a2 unsignedIntegerValue];
-    v6 = CarGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = [a2 unsignedIntegerValue];
+    *(*(*(a1 + 32) + 8) + 24) = v7;
+    v8 = CarGeneralLogging(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v7 = *(*(*(a1 + 32) + 8) + 24);
-      v8 = 134349056;
-      v9 = v7;
-      _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_INFO, "supportedFeaturesForSession: %{public}lu", &v8, 0xCu);
+      v9 = *(*(*(a1 + 32) + 8) + 24);
+      v10 = 134349056;
+      v11 = v9;
+      _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_INFO, "supportedFeaturesForSession: %{public}lu", &v10, 0xCu);
     }
   }
 
   else
   {
-    v6 = CarGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = CarGeneralLogging(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __60__CRFeatureAvailability_supportedCarPlayFeaturesForSession___block_invoke_2_cold_1();
     }
@@ -418,7 +424,7 @@ void __60__CRFeatureAvailability_supportedCarPlayFeaturesForSession___block_invo
 void __60__CRFeatureAvailability_supportedCarPlayFeaturesForSession___block_invoke_37(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __60__CRFeatureAvailability_supportedCarPlayFeaturesForSession___block_invoke_37_cold_1();
@@ -427,43 +433,43 @@ void __60__CRFeatureAvailability_supportedCarPlayFeaturesForSession___block_invo
 
 - (id)supportedAirPlayFeaturesForVehicleIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
-  v5 = CarGeneralLogging();
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy_;
+  v20 = __Block_byref_object_dispose_;
+  v21 = 0;
+  v5 = CarGeneralLogging(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [CRFeatureAvailability supportedAirPlayFeaturesForVehicleIdentifier:];
   }
 
   serviceClient = [(CRFeatureAvailability *)self serviceClient];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __70__CRFeatureAvailability_supportedAirPlayFeaturesForVehicleIdentifier___block_invoke;
-  v12[3] = &unk_1E82FC0F8;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __70__CRFeatureAvailability_supportedAirPlayFeaturesForVehicleIdentifier___block_invoke;
+  v13[3] = &unk_1E82FC0F8;
   v7 = identifierCopy;
-  v13 = v7;
-  v14 = &v15;
-  [serviceClient performSynchronousServiceBlock:v12 errorHandler:&__block_literal_global_43];
+  v14 = v7;
+  v15 = &v16;
+  [serviceClient performSynchronousServiceBlock:v13 errorHandler:&__block_literal_global_43];
 
-  v8 = CarGeneralLogging();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = CarGeneralLogging(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = v16[5];
+    v10 = v17[5];
     *buf = 138543362;
-    v22 = v9;
-    _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_INFO, "supportedAirPlayFeaturesForVehicleIdentifier: %{public}@", buf, 0xCu);
+    v23 = v10;
+    _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_INFO, "supportedAirPlayFeaturesForVehicleIdentifier: %{public}@", buf, 0xCu);
   }
 
-  v10 = v16[5];
-  _Block_object_dispose(&v15, 8);
+  v11 = v17[5];
+  _Block_object_dispose(&v16, 8);
 
-  return v10;
+  return v11;
 }
 
 uint64_t __70__CRFeatureAvailability_supportedAirPlayFeaturesForVehicleIdentifier___block_invoke(uint64_t a1, void *a2)
@@ -481,6 +487,7 @@ void __70__CRFeatureAvailability_supportedAirPlayFeaturesForVehicleIdentifier___
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v6)
   {
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
@@ -488,8 +495,8 @@ void __70__CRFeatureAvailability_supportedAirPlayFeaturesForVehicleIdentifier___
 
   else
   {
-    v8 = CarGeneralLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = CarGeneralLogging(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __70__CRFeatureAvailability_supportedAirPlayFeaturesForVehicleIdentifier___block_invoke_2_cold_1();
     }
@@ -499,7 +506,7 @@ void __70__CRFeatureAvailability_supportedAirPlayFeaturesForVehicleIdentifier___
 void __70__CRFeatureAvailability_supportedAirPlayFeaturesForVehicleIdentifier___block_invoke_41(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __70__CRFeatureAvailability_supportedAirPlayFeaturesForVehicleIdentifier___block_invoke_41_cold_1();
@@ -510,7 +517,7 @@ void __70__CRFeatureAvailability_supportedAirPlayFeaturesForVehicleIdentifier___
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  v8 = CarGeneralLogging();
+  v8 = CarGeneralLogging(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [CRFeatureAvailability fetchSupportedAirPlayFeaturesForVehicleIdentifier:completion:];
@@ -548,7 +555,7 @@ void __86__CRFeatureAvailability_fetchSupportedAirPlayFeaturesForVehicleIdentifi
 {
   v5 = a2;
   v6 = a3;
-  v7 = CarGeneralLogging();
+  v7 = CarGeneralLogging(v6);
   v8 = v7;
   if (v5)
   {
@@ -573,7 +580,7 @@ void __86__CRFeatureAvailability_fetchSupportedAirPlayFeaturesForVehicleIdentifi
 void __86__CRFeatureAvailability_fetchSupportedAirPlayFeaturesForVehicleIdentifier_completion___block_invoke_44(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarGeneralLogging();
+  v4 = CarGeneralLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __70__CRFeatureAvailability_supportedAirPlayFeaturesForVehicleIdentifier___block_invoke_41_cold_1();

@@ -39,7 +39,7 @@
 
 - (ATXTripDuetEvent)initWithCurrentContextStoreValuesWithOriginLOI:(id)i ignoreBeforeDate:(id)date
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   iCopy = i;
   dateCopy = date;
   userContext = [MEMORY[0x277CFE318] userContext];
@@ -49,111 +49,114 @@
   if (v10)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v11 = v10;
-      if ([v11 count])
+      v13 = v10;
+      if ([v13 count])
       {
-        v12 = [v11 objectAtIndexedSubscript:0];
+        v14 = [v13 objectAtIndexedSubscript:0];
         objc_opt_class();
-        isKindOfClass = objc_opt_isKindOfClass();
+        v15 = objc_opt_isKindOfClass();
 
-        if (isKindOfClass)
+        if (v15)
         {
-          v39 = v11;
-          v14 = [v11 objectAtIndexedSubscript:0];
+          v42 = v13;
+          v17 = [v13 objectAtIndexedSubscript:0];
           locationOfInterestTypeKey = [MEMORY[0x277CFE338] locationOfInterestTypeKey];
-          v16 = [v14 objectForKeyedSubscript:locationOfInterestTypeKey];
-          integerValue = [v16 integerValue];
+          v19 = [v17 objectForKeyedSubscript:locationOfInterestTypeKey];
+          integerValue = [v19 integerValue];
 
-          v41 = [(ATXTripDuetEvent *)self rtLocationToBMSemanticLocation:integerValue];
+          v44 = [(ATXTripDuetEvent *)self rtLocationToBMSemanticLocation:integerValue];
           transitionWithinTimeIntervalKey = [MEMORY[0x277CFE338] transitionWithinTimeIntervalKey];
-          v40 = v14;
-          v19 = [v14 objectForKeyedSubscript:transitionWithinTimeIntervalKey];
-          [v19 doubleValue];
-          v21 = v20;
+          v43 = v17;
+          v22 = [v17 objectForKeyedSubscript:transitionWithinTimeIntervalKey];
+          [v22 doubleValue];
+          v24 = v23;
 
           keyPathForPredictedLocationOfInterestTransitions2 = [MEMORY[0x277CFE338] keyPathForPredictedLocationOfInterestTransitions];
-          v23 = [userContext lastModifiedDateForContextualKeyPath:keyPathForPredictedLocationOfInterestTransitions2];
+          v26 = [userContext lastModifiedDateForContextualKeyPath:keyPathForPredictedLocationOfInterestTransitions2];
 
-          v24 = [v23 dateByAddingTimeInterval:v21];
-          if (dateCopy && ([dateCopy laterDate:v24], v25 = objc_claimAutoreleasedReturnValue(), v25, v25 == dateCopy))
+          v27 = [v26 dateByAddingTimeInterval:v24];
+          v28 = v27;
+          if (dateCopy && ([dateCopy laterDate:v27], v29 = objc_claimAutoreleasedReturnValue(), v29, v29 == dateCopy))
           {
-            v36 = __atxlog_handle_default();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+            v40 = __atxlog_handle_default(v27);
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v43 = v24;
-              _os_log_impl(&dword_2263AA000, v36, OS_LOG_TYPE_DEFAULT, "Ignoring current predicted transition because expected commute date is in the past: %@", buf, 0xCu);
+              v46 = v28;
+              _os_log_impl(&dword_2263AA000, v40, OS_LOG_TYPE_DEFAULT, "Ignoring current predicted transition because expected commute date is in the past: %@", buf, 0xCu);
             }
 
             selfCopy = 0;
-            v11 = v39;
+            v13 = v42;
           }
 
           else
           {
             if (iCopy)
             {
-              v26 = -[ATXTripDuetEvent rtLocationToBMSemanticLocation:](self, "rtLocationToBMSemanticLocation:", [iCopy type]);
+              v27 = -[ATXTripDuetEvent rtLocationToBMSemanticLocation:](self, "rtLocationToBMSemanticLocation:", [iCopy type]);
+              v30 = v27;
             }
 
             else
             {
-              v26 = 0;
+              v30 = 0;
             }
 
-            v11 = v39;
-            v35 = __atxlog_handle_default();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+            v13 = v42;
+            v39 = __atxlog_handle_default(v27);
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134218242;
-              v43 = v41;
-              v44 = 2112;
-              v45 = v24;
-              _os_log_impl(&dword_2263AA000, v35, OS_LOG_TYPE_DEFAULT, "Current expected commute to %lu at %@", buf, 0x16u);
+              v46 = v44;
+              v47 = 2112;
+              v48 = v28;
+              _os_log_impl(&dword_2263AA000, v39, OS_LOG_TYPE_DEFAULT, "Current expected commute to %lu at %@", buf, 0x16u);
             }
 
-            self = [(ATXTripDuetEvent *)self initWithOrigin:v26 destination:v41 durationAtOrigin:v24 startDate:v24 endDate:0.0];
+            self = [(ATXTripDuetEvent *)self initWithOrigin:v30 destination:v44 durationAtOrigin:v28 startDate:v28 endDate:0.0];
             selfCopy = self;
           }
 
           goto LABEL_31;
         }
 
-        v34 = __atxlog_handle_default();
+        v38 = __atxlog_handle_default(v16);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        {
+          [ATXTripDuetEvent initWithCurrentContextStoreValuesWithOriginLOI:ignoreBeforeDate:];
+        }
+
+        v35 = MEMORY[0x277CBEAD8];
+        v36 = *MEMORY[0x277CBE658];
+        v37 = @"ContextStore's 'keyPathForPredictedLocationOfInterestTransitions' contained no elements.";
+      }
+
+      else
+      {
+        v34 = __atxlog_handle_default(0);
         if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
           [ATXTripDuetEvent initWithCurrentContextStoreValuesWithOriginLOI:ignoreBeforeDate:];
         }
 
-        v31 = MEMORY[0x277CBEAD8];
-        v32 = *MEMORY[0x277CBE658];
-        v33 = @"ContextStore's 'keyPathForPredictedLocationOfInterestTransitions' contained no elements.";
+        v35 = MEMORY[0x277CBEAD8];
+        v36 = *MEMORY[0x277CBE658];
+        v37 = @"ContextStore's 'keyPathForPredictedLocationOfInterestTransitions' is an empty NSArray.";
       }
 
-      else
-      {
-        v30 = __atxlog_handle_default();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
-        {
-          [ATXTripDuetEvent initWithCurrentContextStoreValuesWithOriginLOI:ignoreBeforeDate:];
-        }
-
-        v31 = MEMORY[0x277CBEAD8];
-        v32 = *MEMORY[0x277CBE658];
-        v33 = @"ContextStore's 'keyPathForPredictedLocationOfInterestTransitions' is an empty NSArray.";
-      }
-
-      [v31 raise:v32 format:v33];
+      [v35 raise:v36 format:v37];
       selfCopy = 0;
 LABEL_31:
 
       goto LABEL_32;
     }
 
-    v28 = __atxlog_handle_default();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v32 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       [ATXTripDuetEvent initWithCurrentContextStoreValuesWithOriginLOI:ignoreBeforeDate:];
     }
@@ -163,8 +166,8 @@ LABEL_31:
 
   else
   {
-    v27 = __atxlog_handle_default();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v31 = __atxlog_handle_default(v11);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       [ATXTripDuetEvent initWithCurrentContextStoreValuesWithOriginLOI:ignoreBeforeDate:];
     }
@@ -173,7 +176,6 @@ LABEL_31:
   selfCopy = 0;
 LABEL_32:
 
-  v37 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

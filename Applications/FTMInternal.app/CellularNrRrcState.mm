@@ -1,6 +1,7 @@
 @interface CellularNrRrcState
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)deploymentAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (int)StringAsDeployment:(id)deployment;
@@ -59,6 +60,29 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)deploymentAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"DEPLOYMENT_NSA";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"DEPLOYMENT_SA";
+  }
+
+  return v4;
 }
 
 - (int)StringAsDeployment:(id)deployment
@@ -252,7 +276,6 @@ LABEL_8:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -272,7 +295,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  state = self->_state;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -287,7 +309,6 @@ LABEL_4:
   }
 
 LABEL_16:
-  deployment = self->_deployment;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -302,12 +323,10 @@ LABEL_5:
   }
 
 LABEL_17:
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_6:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -319,7 +338,6 @@ LABEL_7:
 
   if ((*&self->_has & 0x20) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -493,7 +511,6 @@ LABEL_7:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 44);
   if (has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -565,14 +582,14 @@ LABEL_7:
     if (![(NSData *)plmn isEqual:?])
     {
 LABEL_34:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_35;
     }
 
     has = self->_has;
   }
 
-  v8 = (*(equalCopy + 44) & 0x20) == 0;
+  v7 = (*(equalCopy + 44) & 0x20) == 0;
   if ((has & 0x20) != 0)
   {
     if ((*(equalCopy + 44) & 0x20) == 0 || self->_subsId != *(equalCopy + 10))
@@ -580,12 +597,12 @@ LABEL_34:
       goto LABEL_34;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_35:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

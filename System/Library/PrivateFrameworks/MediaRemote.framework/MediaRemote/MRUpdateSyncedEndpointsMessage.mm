@@ -1,9 +1,31 @@
 @interface MRUpdateSyncedEndpointsMessage
+- (MRUpdateSyncedEndpointsMessage)initWithEndpoints:(id)endpoints endpointFeature:(unsigned int)feature;
 - (NSArray)endpoints;
 - (unsigned)features;
 @end
 
 @implementation MRUpdateSyncedEndpointsMessage
+
+- (MRUpdateSyncedEndpointsMessage)initWithEndpoints:(id)endpoints endpointFeature:(unsigned int)feature
+{
+  v4 = *&feature;
+  endpointsCopy = endpoints;
+  v12.receiver = self;
+  v12.super_class = MRUpdateSyncedEndpointsMessage;
+  v7 = [(MRProtocolMessage *)&v12 init];
+  if (v7)
+  {
+    v8 = objc_alloc_init(_MRUpdateEndpointsMessageProtobuf);
+    v9 = [endpointsCopy mr_map:&__block_literal_global_77];
+    v10 = [v9 mutableCopy];
+    [(_MRUpdateEndpointsMessageProtobuf *)v8 setEndpoints:v10];
+
+    [(_MRUpdateEndpointsMessageProtobuf *)v8 setEndpointFeatures:v4];
+    [(MRProtocolMessage *)v7 setUnderlyingCodableMessage:v8];
+  }
+
+  return v7;
+}
 
 - (NSArray)endpoints
 {

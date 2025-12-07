@@ -8,6 +8,7 @@
 - (id)effectiveNotificationEnvironmentPromise;
 - (void)_handleApproverNotification:(id)notification;
 - (void)_handleCloudNotificationPayload:(id)payload;
+- (void)_handleRequesterNotification:(id)notification andSuppressDialog:(BOOL)dialog;
 - (void)_handleStoreNotificationPayload:(id)payload;
 - (void)_registerCloudPublicToken:(id)token;
 - (void)_startConnection;
@@ -519,6 +520,21 @@ LABEL_29:
   }
 
 LABEL_30:
+}
+
+- (void)_handleRequesterNotification:(id)notification andSuppressDialog:(BOOL)dialog
+{
+  dialogCopy = dialog;
+  notificationCopy = notification;
+  v7 = [[RequesterRemoteNotificationTask alloc] initWithPayload:notificationCopy andSuppressDialog:dialogCopy];
+
+  perform = [(RequesterRemoteNotificationTask *)v7 perform];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10001B494;
+  v9[3] = &unk_100054F78;
+  v9[4] = self;
+  [perform addFinishBlock:v9];
 }
 
 - (void)_registerCloudPublicToken:(id)token

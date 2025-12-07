@@ -88,39 +88,39 @@
 - (id)copyMatchingItemsWithDatabase:(CalDatabase *)database
 {
   AuxilliaryDatabaseID = CalDatabaseGetAuxilliaryDatabaseID();
-  v5 = [(EKPredicate *)self calendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
-  v6 = [(EKPredicate *)self restrictedCalendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
-  FilterFromRowIDs = CreateFilterFromRowIDs(v5, v6);
-  v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v6 = [(EKPredicate *)self calendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
+  v7 = [(EKPredicate *)self restrictedCalendarRowIDsForDatabaseID:AuxilliaryDatabaseID];
+  FilterFromRowIDs = CreateFilterFromRowIDs(v6, v7, 2, database);
+  v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
   urlString = [(CADEventsForConferenceURLPredicate *)self urlString];
   [(CADEventsForConferenceURLPredicate *)self limit];
-  v10 = CalDatabaseCopyEventOccurrenceCache();
-  if (v10)
+  v11 = CalDatabaseCopyEventOccurrenceCache();
+  if (v11)
   {
-    v11 = v10;
+    v12 = v11;
     if (urlString)
     {
-      v12 = CalDatabaseCopyEventIDsOfEventsMatching();
-      if (v12)
+      v13 = CalDatabaseCopyEventIDsOfEventsMatching();
+      if (v13)
       {
-        v13 = v12;
+        v14 = v13;
         CFAbsoluteTimeGetCurrent();
-        v14 = CalEventOccurrenceCacheCopyEventOccurrencesWithIDsAfterDate();
-        CFRelease(v13);
-        if (v14)
+        v15 = CalEventOccurrenceCacheCopyEventOccurrencesWithIDsAfterDate();
+        CFRelease(v14);
+        if (v15)
         {
-          [v8 addObjectsFromArray:v14];
-          CFRelease(v14);
+          [v9 addObjectsFromArray:v15];
+          CFRelease(v15);
         }
       }
     }
 
-    CFRelease(v11);
+    CFRelease(v12);
   }
 
   CFRelease(FilterFromRowIDs);
 
-  return v8;
+  return v9;
 }
 
 @end

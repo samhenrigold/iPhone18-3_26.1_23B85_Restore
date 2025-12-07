@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)predictionTypeAsString:(int)string;
 - (int)StringAsPredictionType:(id)type;
 - (int)predictionType;
 - (unint64_t)hash;
@@ -295,7 +296,6 @@ LABEL_22:
       goto LABEL_34;
     }
 
-    v13 = *(equalCopy + 65);
     if (self->_modelHasSignificantData)
     {
       if ((*(equalCopy + 65) & 1) == 0)
@@ -496,58 +496,55 @@ LABEL_17:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v7 = toCopy;
   if (self->_homeIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_targetIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_targetAccessoryServiceIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    score = self->_score;
     PBDataWriterWriteDoubleField();
-    toCopy = v12;
+    toCopy = v7;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    predictionType = self->_predictionType;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v7;
   }
 
   if (self->_reason)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
-  v8 = self->_has;
-  if (v8)
+  v6 = self->_has;
+  if (v6)
   {
-    legacyScore = self->_legacyScore;
     PBDataWriterWriteDoubleField();
-    toCopy = v12;
-    v8 = self->_has;
-    if ((v8 & 0x10) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 0x10) == 0)
     {
 LABEL_15:
-      if ((v8 & 8) == 0)
+      if ((v6 & 8) == 0)
       {
         goto LABEL_17;
       }
@@ -561,15 +558,13 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  modelHasSignificantData = self->_modelHasSignificantData;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v7;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_16:
-    mapIsValid = self->_mapIsValid;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v7;
   }
 
 LABEL_17:
@@ -730,6 +725,21 @@ LABEL_20:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)predictionTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E754E4A0[string];
   }
 
   return v4;

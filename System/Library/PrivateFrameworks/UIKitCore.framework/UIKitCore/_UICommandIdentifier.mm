@@ -94,21 +94,21 @@
     propertyList = self->_propertyList;
     if (propertyList | equalCopy[2])
     {
-      v5 = [propertyList isEqual:?];
+      isEqual = objc_msgSend_isEqual_(propertyList);
     }
 
     else
     {
-      v5 = 1;
+      isEqual = 1;
     }
   }
 
   else
   {
-    v5 = 0;
+    isEqual = 0;
   }
 
-  return v5;
+  return isEqual;
 }
 
 @end

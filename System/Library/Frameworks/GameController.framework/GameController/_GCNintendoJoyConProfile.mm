@@ -83,7 +83,7 @@ LABEL_12:
   }
 
   v12 = 0;
-  v13 = &PlayerLightsConfig;
+  v13 = PlayerLightsConfig;
   while (v15 != *v13)
   {
     ++v12;
@@ -100,7 +100,7 @@ LABEL_12:
 
 + (void)physicalDevice:(id)device setIndicatedPlayerIndex:(int64_t)index
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   v4 = index + 1;
   if ((index + 1) <= 8)
   {
@@ -108,7 +108,7 @@ LABEL_12:
     service = [serviceInfo service];
     v7 = PlayerLightsConfig[v4];
     v8 = PlayerLightsConfig[v4];
-    v23 = @"LED";
+    v22 = @"LED";
     if (v8 >= 3)
     {
       v10 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:v7];
@@ -120,7 +120,7 @@ LABEL_12:
       v9 = off_1E8419DE8[v7 & 3];
     }
 
-    v22[0] = v9;
+    v21[0] = v9;
     if (BYTE1(v7) >= 3u)
     {
       v12 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:BYTE1(v7)];
@@ -132,7 +132,7 @@ LABEL_12:
       v11 = off_1E8419DE8[(v7 >> 8) & 3];
     }
 
-    v22[1] = v11;
+    v21[1] = v11;
     if (BYTE2(v7) >= 3u)
     {
       v14 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:BYTE2(v7)];
@@ -145,7 +145,7 @@ LABEL_12:
     }
 
     v15 = v7 >> 24;
-    v22[2] = v13;
+    v21[2] = v13;
     if (BYTE3(v7) >= 3u)
     {
       v17 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:v15];
@@ -157,16 +157,14 @@ LABEL_12:
       v16 = off_1E8419DE8[v15];
     }
 
-    v22[3] = v16;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:4];
-    v24[0] = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v21[3] = v16;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
+    v23[0] = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
 
     v20 = v19;
     IOHIDServiceClientSetProperty(service, @"JoyConPlayerLights", v19);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (void)physicalDevice:(id)device getBatteryWithReply:(id)reply

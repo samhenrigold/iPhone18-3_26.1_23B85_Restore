@@ -56,7 +56,6 @@
 - (void)setStyle:(unint64_t)style
 {
   self->_style = style;
-  cachedIdentifier = self->_cachedIdentifier;
   self->_cachedIdentifier = 0;
   _objc_release_x1();
 }

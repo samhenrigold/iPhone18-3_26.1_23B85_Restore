@@ -170,16 +170,17 @@
     v17 = 12.0;
   }
 
-  v51.origin.x = x;
-  v51.origin.y = y;
-  v51.size.width = width;
-  v51.size.height = height;
-  v52 = CGRectInset(v51, 15.0, v17);
-  v18 = v52.origin.x;
-  v19 = v52.origin.y;
-  v20 = v52.size.width;
-  v21 = v52.size.height;
-  remainder = v52;
+  v65.origin.x = x;
+  v65.origin.y = y;
+  v60 = width;
+  v65.size.width = width;
+  v65.size.height = height;
+  v66 = CGRectInset(v65, 15.0, v17);
+  v18 = v66.origin.x;
+  v19 = v66.origin.y;
+  v20 = v66.size.width;
+  v21 = v66.size.height;
+  remainder = v66;
   memset(&slice, 0, sizeof(slice));
   text = [(UILabel *)self->_headingLabel text];
   if ([text length])
@@ -239,13 +240,13 @@
       v31 = CGRectMinYEdge;
     }
 
-    v53.origin.x = v18;
-    v53.origin.y = v19;
-    v53.size.width = v20;
-    v53.size.height = v21;
-    CGRectDivide(v53, &slice, &remainder, 116.0, v30);
-    memset(&v47, 0, sizeof(v47));
-    CGRectDivide(slice, &slice, &v47, 116.0, v31);
+    v67.origin.x = v18;
+    v67.origin.y = v19;
+    v67.size.width = v20;
+    v67.size.height = v21;
+    CGRectDivide(v67, &slice, &remainder, 116.0, v30);
+    memset(&v61, 0, sizeof(v61));
+    CGRectDivide(slice, &slice, &v61, 116.0, v31);
     if (!template)
     {
       [(UIImageView *)self->_imageView setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
@@ -269,51 +270,62 @@
       }
     }
 
-    v46 = v28;
+    v59 = v28;
     v20 = remainder.size.width;
     v21 = remainder.size.height;
-    v45 = 116.0;
+    v58 = 116.0;
   }
 
   else
   {
-    v45 = 0.0;
-    v46 = v17 + v17;
+    v58 = 0.0;
+    v59 = v17 + v17;
   }
 
   [(UILabel *)self->_headingLabel sizeThatFits:v20, v21];
   v37 = v36;
   [(UILabel *)self->_titleLabel sizeThatFits:remainder.size.width, remainder.size.height];
   v39 = v38;
-  v40 = v24 + v37 + v38;
-  CGRectDivide(remainder, &slice, &remainder, v40, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v47 = v54;
-  CGRectDivide(v54, &slice, &v47, v37, CGRectMinYEdge);
+  v40 = v24;
+  v41 = v24 + v37 + v38;
+  v42 = remainder.origin.x;
+  v43 = remainder.origin.y;
+  v45 = remainder.size.width;
+  v44 = remainder.size.height;
+  CGRectDivide(remainder, &slice, &remainder, v41, CGRectMinYEdge);
+  v46 = PKContentAlignmentMake();
+  v47.n128_u64[0] = *&slice.size.width;
+  v48.n128_u64[0] = *&slice.size.height;
+  v49.n128_f64[0] = v42;
+  v50.n128_f64[0] = v43;
+  v51.n128_f64[0] = v45;
+  v52.n128_f64[0] = v44;
+  PKSizeAlignedInRect(v46, v47, v48, v49, v50, v51, v52, v53);
+  v61 = v68;
+  CGRectDivide(v68, &slice, &v61, v37, CGRectMinYEdge);
   if (!template)
   {
     [(UILabel *)self->_headingLabel setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
   }
 
-  CGRectDivide(v47, &slice, &v47, v24, CGRectMinYEdge);
-  CGRectDivide(v47, &slice, &v47, v39, CGRectMinYEdge);
+  CGRectDivide(v61, &slice, &v61, v40, CGRectMinYEdge);
+  CGRectDivide(v61, &slice, &v61, v39, CGRectMinYEdge);
   if (!template)
   {
     [(UILabel *)self->_titleLabel setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
   }
 
-  v41 = v45 + v40;
-  v42 = fmax(v40, v45);
+  v54 = v58 + v41;
+  v55 = fmax(v41, v58);
   if (v12 != NSOrderedDescending)
   {
-    v41 = v42;
+    v54 = v55;
   }
 
-  v43 = v46 + v41;
-  v44 = width;
-  result.height = v43;
-  result.width = v44;
+  v56 = v59 + v54;
+  v57 = v60;
+  result.height = v56;
+  result.width = v57;
   return result;
 }
 

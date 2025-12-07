@@ -152,7 +152,7 @@
   encoderCopy = encoder;
   passCopy = pass;
   queueCopy = queue;
-  SKCRenderer::getBackingContext(self->_skcRenderer, &v15);
+  SKCRenderer::getBackingContext(&v15, self->_skcRenderer);
   if (!v15)
   {
     v11 = 0;
@@ -200,7 +200,7 @@ LABEL_7:
   encoderCopy = encoder;
   passCopy = pass;
   queueCopy = queue;
-  SKCRenderer::getBackingContext(self->_skcRenderer, &v26);
+  SKCRenderer::getBackingContext(&v26, self->_skcRenderer);
   if (!v26)
   {
     v19 = 0;
@@ -251,7 +251,7 @@ LABEL_7:
 {
   textureCopy = texture;
   queueCopy = queue;
-  SKCRenderer::getBackingContext(self->_skcRenderer, &v11);
+  SKCRenderer::getBackingContext(&v11, self->_skcRenderer);
   if (!v11)
   {
     v8 = 0;
@@ -293,7 +293,7 @@ LABEL_7:
 
 - (void)renderToFramebuffer:(int)framebuffer shouldClear:(BOOL)clear
 {
-  SKCRenderer::getBackingContext(self->_skcRenderer, &v8);
+  SKCRenderer::getBackingContext(&v8, self->_skcRenderer);
   if (!v8)
   {
     v4 = 0;
@@ -339,7 +339,7 @@ LABEL_7:
 - (void)render:(BOOL)render
 {
   renderCopy = render;
-  SKCRenderer::getBackingContext(self->_skcRenderer, &lpsrc);
+  SKCRenderer::getBackingContext(&lpsrc, self->_skcRenderer);
   if (!lpsrc)
   {
     v5 = 0;
@@ -400,7 +400,7 @@ LABEL_7:
   v13 = *&outputTexture;
   v14 = *&texture;
   transitionCopy = transition;
-  SKCRenderer::getBackingContext(self->_skcRenderer, &lpsrc);
+  SKCRenderer::getBackingContext(&lpsrc, self->_skcRenderer);
   if (!lpsrc)
   {
     v17 = 0;
@@ -448,7 +448,7 @@ LABEL_7:
 - (void)renderTransition:(id)transition toFramebuffer:(int)framebuffer withInputTexture:(unsigned int)texture outputTexture:(unsigned int)outputTexture inputTextureSize:(CGSize)size outputTextureSize:(CGSize)textureSize time:(float)time
 {
   transitionCopy = transition;
-  SKCRenderer::getBackingContext(self->_skcRenderer, lpsrc);
+  SKCRenderer::getBackingContext(lpsrc, self->_skcRenderer);
   if (!lpsrc[0])
   {
     v11 = 0;
@@ -514,11 +514,11 @@ LABEL_7:
 + (id)rendererWithDevice:(id)device options:(id)options
 {
   deviceCopy = device;
-  if (SKGetShouldEnableMetal())
+  if (SKGetShouldEnableMetal(deviceCopy, v5))
   {
-    v5 = SKGetGlobalMetalDevice();
+    v6 = SKGetGlobalMetalDevice();
 
-    if (!v5)
+    if (!v6)
     {
       SKSetGlobalMetalDevice(deviceCopy);
     }
@@ -532,8 +532,8 @@ LABEL_7:
 + (id)rendererWithContext:(id)context options:(id)options
 {
   contextCopy = context;
-  SKSetPrefersOpenGL(1);
-  if ((SKGetShouldEnableMetal() & 1) == 0)
+  v5 = SKSetPrefersOpenGL(1);
+  if ((SKGetShouldEnableMetal(v5, v6) & 1) == 0)
   {
     [SKSCNRenderer getOpenGLFramebuffer:contextCopy];
     operator new();

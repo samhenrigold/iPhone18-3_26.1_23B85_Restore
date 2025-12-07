@@ -11,6 +11,7 @@
 - (void)doCopyAdvertisedUUIDWithCompletionHandler:(id)handler;
 - (void)doCopyAllUUIDsOfType:(unint64_t)type withCompletionHandler:(id)handler;
 - (void)doCopyDebuggingInfo:(id)info completionHandler:(id)handler;
+- (void)doCopyDefaults:(BOOL)defaults completionHandler:(id)handler;
 - (void)doCopyDynamicUserActivitiesString:(id)string completionHandler:(id)handler;
 - (void)doCopyEnabledUUIDsWithCompletionHandler:(id)handler;
 - (void)doCopyRecentActions:(id)actions completionHandler:(id)handler;
@@ -28,12 +29,15 @@
 - (void)doReplayCommands:(id)commands completionHandler:(id)handler;
 - (void)doSetDebugOption:(id)option value:(id)value;
 - (void)doSetDefaults:(id)defaults archivedValue:(id)value;
+- (void)doSetLocalPasteboardReflection:(BOOL)reflection;
+- (void)doSetRemotePasteboardAvailable:(BOOL)available;
 - (void)doSetupNetworkedPairs:(id)pairs port:(int64_t)port;
 - (void)doSetupRendevous:(id)rendevous domain:(id)domain activate:(BOOL)activate;
 - (void)doTerminateServer;
 - (void)doWillSaveDelegate:(id)delegate completionHandler:(id)handler;
 - (void)receivePing:(id)ping;
 - (void)resume;
+- (void)setDebugging:(BOOL)debugging;
 - (void)setSupportNetworkPeers:(BOOL)peers;
 - (void)startAdvertisingPingWithTimeInterval:(double)interval;
 - (void)stopAdvertisingPing;
@@ -96,10 +100,16 @@
   [networkConnectionHandler resume];
 }
 
+- (void)setDebugging:(BOOL)debugging
+{
+  v4 = [NSNumber numberWithBool:debugging];
+  [(ActivityManagerDebuggingManager *)self doSetDebugOption:@"EnableLogging" value:?];
+}
+
 + (void)appendRecentAction:(id)action
 {
   actionCopy = action;
-  v3 = sub_100001BB0();
+  v3 = sub_100001BB0(actionCopy);
   objc_sync_enter(v3);
   if ([v3 count] - 49 <= 0xFFFFFFFFFFFFFFCDLL)
   {
@@ -116,7 +126,7 @@
 {
   clearCopy = clear;
   v28 = +[NSMutableArray array];
-  v8 = sub_100001BB0();
+  v8 = sub_100001BB0(v28);
   v9 = +[NSDate date];
   v10 = v8;
   objc_sync_enter(v10);
@@ -350,7 +360,7 @@ LABEL_11:
     v16 = [UAAuditToken alloc];
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -1596,6 +1606,15 @@ LABEL_13:
   }
 }
 
+- (void)doCopyDefaults:(BOOL)defaults completionHandler:(id)handler
+{
+  defaultsCopy = defaults;
+  handlerCopy = handler;
+  v5 = +[UAUserActivityDefaults sharedDefaults];
+  v6 = [v5 defaults:defaultsCopy];
+  handlerCopy[2](handlerCopy, v6, 0);
+}
+
 - (void)doSetDefaults:(id)defaults archivedValue:(id)value
 {
   defaultsCopy = defaults;
@@ -1618,6 +1637,22 @@ LABEL_13:
     v10 = +[UAUserActivityDefaults sharedDefaults];
     [v10 setDefault:defaultsCopy value:v9];
   }
+}
+
+- (void)doSetRemotePasteboardAvailable:(BOOL)available
+{
+  availableCopy = available;
+  manager = [(ActivityManagerDebuggingManager *)self manager];
+  pasteboardController = [manager pasteboardController];
+  [pasteboardController setRemotePasteboardAvalibility:availableCopy withDataRequester:0];
+}
+
+- (void)doSetLocalPasteboardReflection:(BOOL)reflection
+{
+  reflectionCopy = reflection;
+  manager = [(ActivityManagerDebuggingManager *)self manager];
+  pasteboardController = [manager pasteboardController];
+  [pasteboardController setLocalPasteboardReflection:reflectionCopy];
 }
 
 - (void)doGetLoggingFileForClient:(id)client options:(id)options completionHandler:(id)handler

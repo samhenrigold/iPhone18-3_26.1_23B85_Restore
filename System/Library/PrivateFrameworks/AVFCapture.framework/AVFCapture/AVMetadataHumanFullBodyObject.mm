@@ -51,7 +51,7 @@
   v13 = [v11 stringWithFormat:@"<%@: %p, bodyID=%d, bounds={%.1f, %.1f %.1fx%.1f}", NSStringFromClass(v12), self, -[AVMetadataBodyObject bodyID](self, "bodyID"), v4, v6, v8, v10];
   if (self)
   {
-    [(AVMetadataObject *)self time];
+    objc_msgSend_time(self);
     v14 = v16;
   }
 

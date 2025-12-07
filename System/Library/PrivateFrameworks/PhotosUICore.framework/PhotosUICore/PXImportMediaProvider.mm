@@ -300,7 +300,7 @@ LABEL_16:
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __57__PXImportMediaProvider_performIdleProcessingIfNecessary__block_invoke(uint64_t a1)
+void *__57__PXImportMediaProvider_performIdleProcessingIfNecessary__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = v2[7];
@@ -1421,11 +1421,11 @@ LABEL_3:
   return v18;
 }
 
-void __93__PXImportMediaProvider_requestCGImageForAsset_targetSize_contentMode_options_resultHandler___block_invoke(uint64_t a1, void *a2)
+void __93__PXImportMediaProvider_requestCGImageForAsset_targetSize_contentMode_options_resultHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, char a4)
 {
-  v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = v3;
+  v5 = a2;
+  v6 = *(a1 + 32);
+  v7 = v5;
   px_dispatch_on_main_queue();
 }
 

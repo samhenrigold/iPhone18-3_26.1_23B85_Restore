@@ -12,22 +12,22 @@
 {
   elementCopy = element;
   factoryCopy = factory;
-  v36.receiver = self;
-  v36.super_class = SUUIVideoViewElement;
-  v10 = [(SUUIViewElement *)&v36 initWithDOMElement:elementCopy parent:parent elementFactory:factoryCopy];
+  v37.receiver = self;
+  v37.super_class = SUUIVideoViewElement;
+  v10 = [(SUUIViewElement *)&v37 initWithDOMElement:elementCopy parent:parent elementFactory:factoryCopy];
   if (!v10)
   {
     goto LABEL_31;
   }
 
-  v35 = [elementCopy getAttribute:@"playback"];
-  if ([v35 isEqualToString:@"inline"])
+  v36 = [elementCopy getAttribute:@"playback"];
+  if (objc_msgSend_isEqualToString_(v36))
   {
     v10->_playbackStyle = 1;
   }
 
-  v34 = [(SUUIViewElement *)v10 firstChildForElementType:49];
-  if (!v34)
+  v35 = [(SUUIViewElement *)v10 firstChildForElementType:49];
+  if (!v35)
   {
     v11 = objc_opt_class();
     [v11 registerClass:objc_opt_class() forElementName:@"video" elementType:49];
@@ -58,7 +58,7 @@
     v18 = -1;
   }
 
-  v33 = v17;
+  v34 = v17;
   v10->_enabled = v18;
   v19 = [elementCopy getAttribute:@"data-content-id"];
   if ([v19 length])
@@ -111,29 +111,31 @@ LABEL_23:
   if (objc_opt_isKindOfClass())
   {
     v29 = v28;
+    isEqualToString = objc_msgSend_isEqualToString_(v29);
   }
 
   else
   {
     v29 = 0;
+    isEqualToString = objc_msgSend_isEqualToString_(0);
   }
 
-  if ([v29 isEqualToString:@"movie"])
+  if (isEqualToString)
   {
-    v30 = 1;
+    v31 = 1;
   }
 
   else
   {
-    v31 = [v29 isEqualToString:@"tvEpisode"];
-    v30 = 2;
-    if (!v31)
+    v32 = objc_msgSend_isEqualToString_(v29);
+    v31 = 2;
+    if (!v32)
     {
-      v30 = 0;
+      v31 = 0;
     }
   }
 
-  v10->_kind = v30;
+  v10->_kind = v31;
 
 LABEL_31:
   return v10;

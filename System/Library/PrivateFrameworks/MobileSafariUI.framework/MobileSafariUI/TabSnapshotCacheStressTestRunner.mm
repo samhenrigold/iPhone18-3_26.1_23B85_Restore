@@ -23,7 +23,7 @@
 
 - (void)start
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (!start_temporaryCacheDirectoryURL)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -45,13 +45,13 @@
   self->_cache = v12;
 
   srand(1u);
-  v14 = WBS_LOG_CHANNEL_PREFIXPerformanceTest();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v16 = WBS_LOG_CHANNEL_PREFIXPerformanceTest(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     iterations = self->_iterations;
-    v16 = 134217984;
-    v17 = iterations;
-    _os_log_impl(&dword_215819000, v14, OS_LOG_TYPE_INFO, "TabSnapshotCacheStressTest starting with %lu iterations", &v16, 0xCu);
+    v18 = 134217984;
+    v19 = iterations;
+    _os_log_impl(&dword_215819000, v16, OS_LOG_TYPE_INFO, "TabSnapshotCacheStressTest starting with %lu iterations", &v18, 0xCu);
   }
 
   [(TabSnapshotCacheStressTestRunner *)self _runIteration];
@@ -85,7 +85,7 @@
   v3 = self->_iterations + 1;
   self->_iterations = v3;
   maxIterations = self->_maxIterations;
-  v5 = WBS_LOG_CHANNEL_PREFIXPerformanceTest();
+  v5 = WBS_LOG_CHANNEL_PREFIXPerformanceTest(self, a2);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
   if (v3 <= maxIterations)
   {

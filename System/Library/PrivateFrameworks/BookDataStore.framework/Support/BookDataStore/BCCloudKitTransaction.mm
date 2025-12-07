@@ -100,27 +100,27 @@
 
   if (verboseLoggingEnabled)
   {
-    v5 = sub_10000DB80();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10000DB80(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       transactionName = [(BCCloudKitTransaction *)self transactionName];
       *buf = 138412290;
-      v11 = transactionName;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "\\Transaction signaling for %@\\"", buf, 0xCu);
+      v12 = transactionName;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "\\Transaction signaling for %@\", buf, 0xCu);
     }
   }
 
   objc_initWeak(buf, self);
   coalescedNotification = [(BCCloudKitTransaction *)self coalescedNotification];
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_10003AA64;
-  v8[3] = &unk_100240E00;
-  v8[4] = self;
-  objc_copyWeak(&v9, buf);
-  [coalescedNotification signalWithCompletion:v8];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10003AA64;
+  v9[3] = &unk_100240E00;
+  v9[4] = self;
+  objc_copyWeak(&v10, buf);
+  [coalescedNotification signalWithCompletion:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
 }
 
@@ -135,34 +135,34 @@
 
     if (verboseLoggingEnabled)
     {
-      v6 = sub_10000DB80();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_10000DB80(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         transactionName = [(BCCloudKitTransaction *)self transactionName];
         *buf = 138412290;
-        v15 = transactionName;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "\\Transaction scheduletransactionLifetime for %@\\"", buf, 0xCu);
+        v16 = transactionName;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "\\Transaction scheduletransactionLifetime for %@\", buf, 0xCu);
       }
     }
 
     lifecycleAccessQueue = [(BCCloudKitTransaction *)self lifecycleAccessQueue];
-    v9 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, lifecycleAccessQueue);
+    v10 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, lifecycleAccessQueue);
 
-    v10 = dispatch_time(0, 5000000000);
-    dispatch_source_set_timer(v9, v10, 0xFFFFFFFFFFFFFFFFLL, 0xBEBC200uLL);
+    v11 = dispatch_time(0, 5000000000);
+    dispatch_source_set_timer(v10, v11, 0xFFFFFFFFFFFFFFFFLL, 0xBEBC200uLL);
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_10003AEDC;
     handler[3] = &unk_10023F6B0;
     handler[4] = self;
-    dispatch_source_set_event_handler(v9, handler);
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10003AFF4;
-    v12[3] = &unk_10023F6B0;
-    v12[4] = self;
-    dispatch_source_set_cancel_handler(v9, v12);
-    [(BCCloudKitTransaction *)self setTransactionLifetime:v9];
+    dispatch_source_set_event_handler(v10, handler);
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10003AFF4;
+    v13[3] = &unk_10023F6B0;
+    v13[4] = self;
+    dispatch_source_set_cancel_handler(v10, v13);
+    [(BCCloudKitTransaction *)self setTransactionLifetime:v10];
     transactionLifetime2 = [(BCCloudKitTransaction *)self transactionLifetime];
     dispatch_resume(transactionLifetime2);
   }

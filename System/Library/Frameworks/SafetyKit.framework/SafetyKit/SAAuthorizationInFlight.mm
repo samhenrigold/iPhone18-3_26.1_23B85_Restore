@@ -4,7 +4,6 @@
 - (NSString)getToBundleLocalizedName;
 - (id)description;
 - (void)getFromBundleLocalizedNameWithCompletion:(id)completion;
-- (void)getToBundleLocalizedName;
 - (void)reset;
 @end
 
@@ -29,7 +28,6 @@
 
 uint64_t __41__SAAuthorizationInFlight_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sSAServerAuthorizationInFlight = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -42,7 +40,7 @@ uint64_t __41__SAAuthorizationInFlight_sharedInstance__block_invoke(uint64_t a1)
     v2 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:?];
     if (!v2)
     {
-      v3 = sa_default_log();
+      v3 = sa_default_log(0);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         [(SAAuthorizationInFlight *)v3 getToBundleLocalizedName:v4];
@@ -119,13 +117,6 @@ LABEL_6:
   v10 = [v3 stringWithFormat:@"Authorization, isInFlight: %d, from: %@ (%@), to: %@ (%@)", isInFlight, bundleId, getFromBundleLocalizedName, toBundleId, getToBundleLocalizedName];
 
   return v10;
-}
-
-- (void)getToBundleLocalizedName
-{
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_0(&dword_23AA4D000, self, a3, "Unable to get Bundle for app requesting authorization: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

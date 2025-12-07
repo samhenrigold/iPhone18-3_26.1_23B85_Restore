@@ -30,8 +30,8 @@
 
 - (id)toDict
 {
-  v23[5] = *MEMORY[0x277D85DE8];
-  v22[0] = @"collabActivityContextPath";
+  v22[5] = *MEMORY[0x277D85DE8];
+  v21[0] = @"collabActivityContextPath";
   collabActivityContextPath = [(ICASCollabActivityData *)self collabActivityContextPath];
   if (collabActivityContextPath)
   {
@@ -44,8 +44,8 @@
   }
 
   v4 = collabActivityContextPath2;
-  v23[0] = collabActivityContextPath2;
-  v22[1] = @"clickContext";
+  v22[0] = collabActivityContextPath2;
+  v21[1] = @"clickContext";
   clickContext = [(ICASCollabActivityData *)self clickContext];
   if (clickContext)
   {
@@ -58,8 +58,8 @@
   }
 
   v7 = clickContext2;
-  v23[1] = clickContext2;
-  v22[2] = @"mode";
+  v22[1] = clickContext2;
+  v21[2] = @"mode";
   mode = [(ICASCollabActivityData *)self mode];
   if (mode)
   {
@@ -72,8 +72,8 @@
   }
 
   v10 = mode2;
-  v23[2] = mode2;
-  v22[3] = @"isUserMentioned";
+  v22[2] = mode2;
+  v21[3] = @"isUserMentioned";
   isUserMentioned = [(ICASCollabActivityData *)self isUserMentioned];
   if (isUserMentioned)
   {
@@ -86,8 +86,8 @@
   }
 
   v13 = isUserMentioned2;
-  v23[3] = isUserMentioned2;
-  v22[4] = @"hasRecentUpdates";
+  v22[3] = isUserMentioned2;
+  v21[4] = @"hasRecentUpdates";
   hasRecentUpdates = [(ICASCollabActivityData *)self hasRecentUpdates];
   if (hasRecentUpdates)
   {
@@ -100,10 +100,8 @@
   }
 
   v16 = hasRecentUpdates2;
-  v23[4] = hasRecentUpdates2;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v22[4] = hasRecentUpdates2;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:5];
 
   return v17;
 }

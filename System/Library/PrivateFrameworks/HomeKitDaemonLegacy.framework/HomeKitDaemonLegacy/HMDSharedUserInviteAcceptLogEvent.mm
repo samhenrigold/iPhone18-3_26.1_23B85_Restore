@@ -43,7 +43,7 @@
   v14 = [MEMORY[0x277CCABB0] numberWithLongLong:{-[HMDSharedUserInviteAcceptLogEvent sharedUserTotalMS](self, "sharedUserTotalMS")}];
   [v3 setObject:v14 forKeyedSubscript:@"sharedUserTotalMS"];
 
-  v15 = [v3 copy];
+  v15 = objc_msgSend_copy(v3);
 
   return v15;
 }

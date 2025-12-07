@@ -158,13 +158,13 @@ BOOL __50__ECMessageBodyStringAccumulator_debugDescription__block_invoke(uint64_
 {
   length = range.length;
   location = range.location;
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (length >= 0x3200001)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[ECMessageBodyStringAccumulator appendRange:ofString:]"];
-    [currentHandler handleFailureInFunction:v15 file:@"ECMessageBodyStringAccumulator.m" lineNumber:133 description:{@"Temporary buffer too large or with a negative count (%zu).", length}];
+    v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[ECMessageBodyStringAccumulator appendRange:ofString:]"];
+    [currentHandler handleFailureInFunction:v14 file:@"ECMessageBodyStringAccumulator.m" lineNumber:133 description:{@"Temporary buffer too large or with a negative count (%zu).", length}];
   }
 
   if (length <= 1)
@@ -178,8 +178,8 @@ BOOL __50__ECMessageBodyStringAccumulator_debugDescription__block_invoke(uint64_
   }
 
   MEMORY[0x28223BE20]();
-  v10 = v16 - v9;
-  memset(v16 - v9, 170, v11);
+  v10 = v15 - v9;
+  memset(v15 - v9, 170, v11);
   if (length > 0x400)
   {
     v12 = malloc_type_calloc(v8, 2uLL, 0x1000040BDFB0063uLL);
@@ -199,8 +199,6 @@ BOOL __50__ECMessageBodyStringAccumulator_debugDescription__block_invoke(uint64_
   [stringCopy getCharacters:v10 range:{location, length}];
   [(ECMessageBodyStringAccumulator *)self appendCharacters:v10 length:length];
   free(v12);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appendCharacters:(const unsigned __int16 *)characters length:(unint64_t)length
@@ -612,7 +610,7 @@ LABEL_136:
 
 - (void)appendInnerTextWithConsumableNode:(id)node
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{nodeCopy, 0}];
   while ([v5 count] && !-[ECMessageBodyStringAccumulator isFull](self, "isFull"))
@@ -621,30 +619,30 @@ LABEL_136:
     lastObject = [v5 lastObject];
     v8 = [lastObject copyConsumableNodesAndAppendInnerTextToStringAccumulator:self];
     [v5 removeLastObject];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     reverseObjectEnumerator = [v8 reverseObjectEnumerator];
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v10)
     {
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         v12 = 0;
         do
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          [v5 addObject:*(*(&v14 + 1) + 8 * v12++)];
+          [v5 addObject:*(*(&v13 + 1) + 8 * v12++)];
         }
 
         while (v10 != v12);
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v10);
@@ -652,8 +650,6 @@ LABEL_136:
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

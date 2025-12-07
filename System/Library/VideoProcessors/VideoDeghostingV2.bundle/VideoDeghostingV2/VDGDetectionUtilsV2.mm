@@ -1,6 +1,8 @@
 @interface VDGDetectionUtilsV2
 - ($BEDB99FD0828BB334BE1A07B64442EB9)configuration;
 - (BOOL)ghostIsHighConfidence:(id)confidence;
+- (BOOL)isBoxSizeValidForProcessing:(float)processing AndErodeBy:;
+- (BOOL)locIsInSearchRange:(float)range searchLocation:(float)location defaultSearchLocation:(BOOL)searchLocation searchRadius:defaultSearchRange:searchInGivenLocsOnly:;
 - (BOOL)updatePrevLSDoGAndLumaFeaturesWithMetalBuffers:(id *)buffers;
 - (CGPoint)calcOpticalCenterFromMetaData:(id)data;
 - (VDGDetectionUtilsV2)initWithMetalToolBox:(id)box configuration:(id *)configuration tuningParams:(id *)params;
@@ -12,15 +14,18 @@
 - (id)getBestROIInROIList:(id)list referenceROI:(id)i;
 - (void)clearReferencedROIsForROIList:(id)list;
 - (void)dealloc;
+- (void)findTinyKeypointLocationsFromLS:(id)s inputTexture:(id)texture dilation:(float)dilation estimatedOpticalCenter:(id *)center metalBuffers:(int)buffers maxBufferLength:(float)length keypointSampleStepCount:;
 - (void)generateBoxesForDoGAndLumaAndForLSROIs:(id)is prevGGROIs:(id)oIs inputTexture:(id)texture opticalCenter:(id *)center metalBuffers:(int)buffers maxBufferLength:;
 - (void)generateBoxesForDoGAndLumaAndForPrevLSROIs:(double)is homography:(double)homography metalBuffers:(uint64_t)buffers maxBufferLength:(void *)length;
 - (void)generateTrajectoryForROI:(id)i isGG:(BOOL)g;
+- (void)generateTrajectoryForROIList:(id)list isGG:(BOOL)g;
 - (void)getGGCandidatesFromROIList:(id)list GGList:(id *)gList;
 - (void)getHighRiskLS:(id)s;
 - (void)getTopGhostsInList:(id)list k:(signed __int16)k opticalCenter:(int)center ghostCntGatingTh:;
 - (void)getTopLSInListByDroppingBottoms:(id)bottoms k:(signed __int16)k dist2ghostTol:(float)tol;
 - (void)getTopLSInListByKeepingTops:(id)tops k:(signed __int16)k dist2ghostTol:(float)tol;
 - (void)pruneGGList:(id *)list LSBBoxList:(id *)boxList reflectedLSBBoxList:getMatchedLS:pruneLS:pruneGG:;
+- (void)pruneGGList:(id *)list LSList:(id *)sList opticalCenter:(float)center costToKeepLS:(float)s costToKeepGG:;
 - (void)pruneLSBasedOnDist2Ghost:(id)ghost;
 - (void)pruneUsingTrajectoryGGList:(id)list;
 - (void)removeDuplicateRois:(id)rois;
@@ -169,7 +174,7 @@ LABEL_11:
     v33 = 0u;
     v30 = 0u;
     v31 = 0u;
-    [v8 descriptor];
+    objc_msgSend_descriptor(v8);
     *(&v39 + 1) = v17;
     v26 = v36;
     v27 = v37;
@@ -201,7 +206,7 @@ LABEL_11:
   v31 = 0u;
   if (v6)
   {
-    [v6 descriptor];
+    objc_msgSend_descriptor(v6);
   }
 
   *&v39 = v17;
@@ -218,13 +223,48 @@ LABEL_11:
   [v6 setDescriptor:&v20];
 }
 
+- (void)generateTrajectoryForROIList:(id)list isGG:(BOOL)g
+{
+  gCopy = g;
+  listCopy = list;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v7 = [listCopy countByEnumeratingWithState:&v12 objects:v11 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v13;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v13 != v9)
+        {
+          objc_enumerationMutation(listCopy);
+        }
+
+        [(VDGDetectionUtilsV2 *)self generateTrajectoryForROI:*(*(&v12 + 1) + 8 * v10) isGG:gCopy];
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [listCopy countByEnumeratingWithState:&v12 objects:v11 count:16];
+    }
+
+    while (v8);
+  }
+}
+
 - (float)getTrajectoryMatchingCostGG:(id)g
 {
   gCopy = g;
   matchedLS = [gCopy matchedLS];
   if (gCopy)
   {
-    [gCopy descriptor];
+    objc_msgSend_descriptor(gCopy);
     v6 = v53;
   }
 
@@ -282,7 +322,7 @@ LABEL_11:
             v21 = *(*(&v40 + 1) + 8 * i);
             if (v21)
             {
-              [v21 descriptor];
+              objc_msgSend_descriptor(v21);
               v22 = v38;
             }
 
@@ -419,7 +459,7 @@ LABEL_11:
         v9 = *(*(&v27 + 1) + 8 * i);
         if (v9)
         {
-          [v9 descriptor];
+          objc_msgSend_descriptor(v9);
           v10 = v25;
         }
 
@@ -534,14 +574,14 @@ LABEL_11:
       v15 = *(*(&v27 + 1) + 8 * i);
       if (v15)
       {
-        [v15 descriptor];
+        objc_msgSend_descriptor(v15);
         v16 = vceq_f32(v25, v13);
         if ((vpmin_u32(v16, v16).u32[0] & 0x80000000) != 0)
         {
           continue;
         }
 
-        [v15 descriptor];
+        objc_msgSend_descriptor(v15);
         v17 = v24;
       }
 
@@ -579,6 +619,28 @@ LABEL_17:
 LABEL_18:
 
   return *&v19;
+}
+
+- (BOOL)locIsInSearchRange:(float)range searchLocation:(float)location defaultSearchLocation:(BOOL)searchLocation searchRadius:defaultSearchRange:searchInGivenLocsOnly:
+{
+  v8 = vsub_f32(*&location, *&range);
+  v9 = sqrtf(vaddv_f32(vmul_f32(v8, v8))) <= v6;
+  v10 = vsub_f32(v5, *&range);
+  v11 = !searchLocation;
+  if (sqrtf(vaddv_f32(vmul_f32(v10, v10))) > v7)
+  {
+    v11 = 0;
+  }
+
+  if (location == INFINITY)
+  {
+    return v11;
+  }
+
+  else
+  {
+    return v9;
+  }
 }
 
 - (void)removeRedundantLS:(id)s
@@ -732,8 +794,8 @@ LABEL_28:
     locationCopy = location;
     selfCopy = self;
     v6 = a6;
-    [v6 descriptor];
-    [v6 descriptor];
+    objc_msgSend_descriptor(v6);
+    objc_msgSend_descriptor(v6);
 
     v7 = v16;
     self = selfCopy;
@@ -795,7 +857,7 @@ LABEL_28:
 
               if (v12)
               {
-                [v12 descriptor];
+                objc_msgSend_descriptor(v12);
                 v20 = vcvt_s32_f32(v46);
               }
 
@@ -870,7 +932,7 @@ LABEL_43:
 
         if (v12)
         {
-          [v12 descriptor];
+          objc_msgSend_descriptor(v12);
           v44 = vcvt_s32_f32(v45);
         }
 
@@ -972,7 +1034,7 @@ LABEL_38:
 
         if (v14)
         {
-          [v14 descriptor];
+          objc_msgSend_descriptor(v14);
           v15 = *(&v39 + 8);
           if (iCopy)
           {
@@ -994,16 +1056,16 @@ LABEL_11:
           }
 
 LABEL_6:
-          [iCopy descriptor];
+          objc_msgSend_descriptor(iCopy);
           v16 = v38;
         }
 
         v19 = vaddv_f32(vabd_f32(v15, v16));
         if (v14)
         {
-          [v14 descriptor];
+          objc_msgSend_descriptor(v14);
           v13 = v37;
-          [v14 descriptor];
+          objc_msgSend_descriptor(v14);
           v12 = v36;
         }
 
@@ -1022,7 +1084,7 @@ LABEL_6:
 
       if (v14)
       {
-        [v14 descriptor];
+        objc_msgSend_descriptor(v14);
         v17 = *(&v35 + 8);
         if (iCopy)
         {
@@ -1037,7 +1099,7 @@ LABEL_6:
         if (iCopy)
         {
 LABEL_9:
-          [iCopy descriptor];
+          objc_msgSend_descriptor(iCopy);
           v18 = *(&v34 + 8);
           goto LABEL_16;
         }
@@ -1061,9 +1123,9 @@ LABEL_16:
           goto LABEL_30;
         }
 
-        [v9 descriptor];
+        objc_msgSend_descriptor(v9);
         v13 = *(&v33 + 3);
-        [v9 descriptor];
+        objc_msgSend_descriptor(v9);
         v12 = v32;
         goto LABEL_22;
       }
@@ -1108,28 +1170,28 @@ LABEL_16:
           goto LABEL_19;
         }
 
-        [v14 descriptor];
+        objc_msgSend_descriptor(v14);
         LODWORD(v20) = HIDWORD(v31);
         if (*(&v31 + 3) >= (v13 + 0.03))
         {
           v9 = v14;
 
-          [v9 descriptor];
+          objc_msgSend_descriptor(v9);
           v13 = *(&v30 + 3);
-          [v9 descriptor];
+          objc_msgSend_descriptor(v9);
           v12 = v29;
           goto LABEL_22;
         }
 
-        [v14 descriptor];
+        objc_msgSend_descriptor(v14, v20);
         if (vabds_f32(v28, v13) <= 0.03)
         {
-          [v14 descriptor];
+          objc_msgSend_descriptor(v14);
           if (v27 >= v12)
           {
             v9 = v14;
 
-            [v9 descriptor];
+            objc_msgSend_descriptor(v9);
             v12 = v26;
 LABEL_22:
             v14 = v9;
@@ -1230,6 +1292,207 @@ LABEL_40:
   return result;
 }
 
+- (void)pruneGGList:(id *)list LSList:(id *)sList opticalCenter:(float)center costToKeepLS:(float)s costToKeepGG:
+{
+  v7 = v6;
+  v9 = *&center;
+  v11 = +[NSMutableArray array];
+  +[NSMutableArray array];
+  v46 = v45 = sList;
+  v66 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  obj = *sList;
+  v12 = [obj countByEnumeratingWithState:&v66 objects:v65 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = 0;
+    v48 = *v67;
+    do
+    {
+      v15 = 0;
+      v16 = v14;
+      do
+      {
+        if (*v67 != v48)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v14 = *(*(&v66 + 1) + 8 * v15);
+
+        [v14 reflectAroundCenter:v9];
+        v63 = 0u;
+        v64 = 0u;
+        v61 = 0u;
+        v62 = 0u;
+        v17 = *list;
+        v18 = [v17 countByEnumeratingWithState:&v61 objects:v60 count:16];
+        if (v18)
+        {
+          v19 = v18;
+          v20 = 0;
+          v21 = *v62;
+          v22 = INFINITY;
+          do
+          {
+            v23 = 0;
+            v24 = v20;
+            do
+            {
+              if (*v62 != v21)
+              {
+                objc_enumerationMutation(v17);
+              }
+
+              v20 = *(*(&v61 + 1) + 8 * v23);
+
+              [v14 getLocationMatchCostWith:v20];
+              if (v25 < v22)
+              {
+                v22 = v25;
+              }
+
+              v23 = v23 + 1;
+              v24 = v20;
+            }
+
+            while (v19 != v23);
+            v19 = [v17 countByEnumeratingWithState:&v61 objects:v60 count:16];
+          }
+
+          while (v19);
+        }
+
+        else
+        {
+          v22 = INFINITY;
+        }
+
+        if (v22 <= s)
+        {
+          [v11 addObject:v14];
+        }
+
+        v15 = v15 + 1;
+        v16 = v14;
+      }
+
+      while (v15 != v13);
+      v13 = [obj countByEnumeratingWithState:&v66 objects:v65 count:16];
+    }
+
+    while (v13);
+  }
+
+  v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  v26 = *list;
+  v27 = [v26 countByEnumeratingWithState:&v56 objects:v55 count:16];
+  if (v27)
+  {
+    v28 = v27;
+    v29 = 0;
+    v30 = 0;
+    v31 = *v57;
+    do
+    {
+      v32 = 0;
+      v33 = v30;
+      do
+      {
+        if (*v57 != v31)
+        {
+          objc_enumerationMutation(v26);
+        }
+
+        v30 = *(*(&v56 + 1) + 8 * v32);
+
+        if ([v11 count])
+        {
+          v34 = 0;
+          v35 = 1;
+          v36 = INFINITY;
+          v37 = v29;
+          do
+          {
+            v29 = [v11 objectAtIndexedSubscript:v34];
+
+            [v30 getLocationMatchCostWith:v29];
+            if (v38 < v36)
+            {
+              v36 = v38;
+            }
+
+            v34 = v35;
+            v39 = [v11 count] > v35++;
+            v37 = v29;
+          }
+
+          while (v39);
+        }
+
+        else
+        {
+          v36 = INFINITY;
+        }
+
+        if (v36 <= v7)
+        {
+          [v46 addObject:v30];
+        }
+
+        v32 = v32 + 1;
+        v33 = v30;
+      }
+
+      while (v32 != v28);
+      v28 = [v26 countByEnumeratingWithState:&v56 objects:v55 count:16];
+    }
+
+    while (v28);
+  }
+
+  else
+  {
+    v29 = 0;
+  }
+
+  objc_storeStrong(list, v46);
+  objc_storeStrong(v45, v11);
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v40 = *v45;
+  v41 = [v40 countByEnumeratingWithState:&v51 objects:v50 count:16];
+  if (v41)
+  {
+    v42 = v41;
+    v43 = *v52;
+    do
+    {
+      for (i = 0; i != v42; i = i + 1)
+      {
+        if (*v52 != v43)
+        {
+          objc_enumerationMutation(v40);
+        }
+
+        [*(*(&v51 + 1) + 8 * i) reflectAroundCenter:v9];
+      }
+
+      v42 = [v40 countByEnumeratingWithState:&v51 objects:v50 count:16];
+    }
+
+    while (v42);
+  }
+}
+
 - (void)sortKPs:(id)ps opticalCenter:
 {
   v4 = v3;
@@ -1245,27 +1508,27 @@ LABEL_40:
     v9 = 0;
     do
     {
-      v10 = [psCopy objectAtIndexedSubscript:{v9, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40}];
+      v10 = [psCopy objectAtIndexedSubscript:{v9, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39}];
       v11 = v10;
       if (v10)
       {
-        [v10 descriptor];
-        v12 = v31;
+        objc_msgSend_descriptor(v10);
+        v12 = v30;
       }
 
       else
       {
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
         v38 = 0u;
-        v35 = 0u;
+        v39 = 0u;
         v36 = 0u;
-        v33 = 0u;
+        v37 = 0u;
         v34 = 0u;
-        v12 = 0;
-        v31 = 0u;
+        v35 = 0u;
         v32 = 0u;
+        v33 = 0u;
+        v12 = 0;
+        v30 = 0u;
+        v31 = 0u;
       }
 
       *(*self->_locationList + 8 * v9) = v12;
@@ -1297,9 +1560,8 @@ LABEL_40:
         do
         {
           v17 = *(v24 + 8 * v26);
-          v27 = kpIsFromHWList[v26];
           *&v18 = dist2OpticalCenterList[v26];
-          if (!v25 && kpIsFromHWList[v26] || (!v25 || kpIsFromHWList[v26]) && (*&v18 < *&v15 || *&v18 <= *&v15 && ((v28 = vcgt_f32(*&v16, *&v17), (v28.i8[0] & 1) != 0) || (vceq_f32(*&v17, *&v16).u32[0] & 1) != 0 && (v28.i8[4] & 1) != 0)))
+          if (!v25 && kpIsFromHWList[v26] || (!v25 || kpIsFromHWList[v26]) && (*&v18 < *&v15 || *&v18 <= *&v15 && ((v27 = vcgt_f32(*&v16, *&v17), (v27.i8[0] & 1) != 0) || (vceq_f32(*&v17, *&v16).u32[0] & 1) != 0 && (v27.i8[4] & 1) != 0)))
           {
             v25 = kpIsFromHWList[v26];
             *&v15 = dist2OpticalCenterList[v26];
@@ -1316,15 +1578,15 @@ LABEL_40:
       if (v19 != v23)
       {
         [psCopy exchangeObjectAtIndex:v19 withObjectAtIndex:{v23, v15, v16, v17, v18}];
-        v29 = *self->_locationList;
-        v15 = *(v29 + 8 * v19);
-        v16 = *(v29 + 8 * v23);
-        *(v29 + 8 * v19) = v16;
+        v28 = *self->_locationList;
+        v15 = *(v28 + 8 * v19);
+        v16 = *(v28 + 8 * v23);
+        *(v28 + 8 * v19) = v16;
         *(*self->_locationList + 8 * v23) = v15;
         kpIsFromHWList = self->_kpIsFromHWList;
-        v30 = kpIsFromHWList[v19];
+        v29 = kpIsFromHWList[v19];
         kpIsFromHWList[v19] = kpIsFromHWList[v23];
-        kpIsFromHWList[v23] = v30;
+        kpIsFromHWList[v23] = v29;
         dist2OpticalCenterList = self->_dist2OpticalCenterList;
         *&v15 = dist2OpticalCenterList[v19];
         *&v16 = dist2OpticalCenterList[v23];
@@ -1673,6 +1935,100 @@ LABEL_54:
   return v4;
 }
 
+- (void)findTinyKeypointLocationsFromLS:(id)s inputTexture:(id)texture dilation:(float)dilation estimatedOpticalCenter:(id *)center metalBuffers:(int)buffers maxBufferLength:(float)length keypointSampleStepCount:
+{
+  v11 = *&length;
+  v40 = *&dilation;
+  v42 = v8;
+  sCopy = s;
+  textureCopy = texture;
+  contents = [center->var5 contents];
+  width = [textureCopy width];
+  height = [textureCopy height];
+  if ([sCopy count])
+  {
+    v18 = 0;
+    v19 = 0;
+    v20 = vadd_s32(__PAIR64__(height, width), 0x200000002);
+    *v17.i32 = *v40.i32 + *v40.i32;
+    v21 = vdup_lane_s32(v40, 0);
+    v22 = vdup_lane_s32(v17, 0);
+    v23 = vadd_s32(__PAIR64__(height, width), -1);
+    v24 = vdup_lane_s32(v42, 0);
+    v43 = 0u;
+    do
+    {
+      v25 = [sCopy objectAtIndexedSubscript:v18];
+      [v25 reflectAroundCenter:v11];
+      [v25 bbox];
+      v41 = vmax_s32(vcvt_s32_f32(vsub_f32(v26, v21)), 0);
+      [v25 bbox];
+      v38 = v27;
+      [v25 bbox];
+      v39 = vmin_s32(v23, vcvt_s32_f32(vadd_f32(v21, vadd_f32(v38, *&vextq_s8(v28, v28, 8uLL)))));
+      [v25 bbox];
+      v30 = __PAIR64__(DWORD1(v43), v41.u32[0]);
+      *(&v31 + 1) = *(&v43 + 1);
+      if (vcgt_s32(v41, v39).u8[0])
+      {
+        *&v31 = __PAIR64__(DWORD1(v43), v41.u32[0]);
+      }
+
+      else
+      {
+        v32 = vcvt_s32_f32(vdiv_f32(vadd_f32(v22, *&vextq_s8(v29, v29, 8uLL)), v24));
+        v33 = vclez_s32(v32);
+        v34 = vsub_s32(vbic_s8(v32, v33), v33);
+        do
+        {
+          v30.i32[1] = v41.i32[1];
+          if (v41.i32[1] <= v39.i32[1])
+          {
+            v35 = v41.i32[1];
+            do
+            {
+              v36 = vcgt_s32(v30, 0x100000001);
+              if ((vpmin_u32(v36, v36).u32[0] & 0x80000000) != 0)
+              {
+                v37 = vcge_s32(v20, v30);
+                if ((vpmin_u32(v37, v37).u32[0] & 0x80000000) != 0 && v19 < buffers)
+                {
+                  contents[v19++] = vcvt_f32_s32(v30);
+                }
+              }
+
+              v35 += v34.i32[1];
+              v30.i32[1] = v35;
+            }
+
+            while (v35 <= v39.i32[1]);
+          }
+
+          LODWORD(v31) = vadd_s32(v30, v34).u32[0];
+          DWORD1(v31) = v30.i32[1];
+          v30.i32[0] = v31;
+        }
+
+        while (v31 <= v39.i32[0]);
+      }
+
+      v43 = v31;
+      [v25 reflectAroundCenter:v11];
+
+      ++v18;
+    }
+
+    while ([sCopy count] > v18);
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  *[center->var7 contents] = v19;
+}
+
 - (void)getGGCandidatesFromROIList:(id)list GGList:(id *)gList
 {
   listCopy = list;
@@ -1700,7 +2056,7 @@ LABEL_54:
 
         if (v8)
         {
-          [v8 descriptor];
+          objc_msgSend_descriptor(v8);
           *&v12 = v13;
           if (v13 > 0.99)
           {
@@ -1719,6 +2075,24 @@ LABEL_54:
 
     while (v7);
   }
+}
+
+- (BOOL)isBoxSizeValidForProcessing:(float)processing AndErodeBy:
+{
+  v5 = v3;
+  if (v3 >= v6)
+  {
+    v5 = v6;
+  }
+
+  *v4.i32 = *v4.i32 + *v4.i32;
+  if (v5 <= *v4.i32)
+  {
+    return 0;
+  }
+
+  v7 = vsub_f32(*&vextq_s8(*&processing, *&processing, 8uLL), vdup_lane_s32(v4, 0));
+  return sqrtf(0.03125 * vmul_lane_f32(v7, v7, 1).f32[0]) > 0.0;
 }
 
 - (void)generateBoxesForDoGAndLumaAndForLSROIs:(id)is prevGGROIs:(id)oIs inputTexture:(id)texture opticalCenter:(id *)center metalBuffers:(int)buffers maxBufferLength:
@@ -1994,7 +2368,7 @@ LABEL_54:
         do
         {
           v14 = [v13 objectAtIndexedSubscript:v11];
-          if ((sub_44A8(v10, v14, tol) & 1) == 0)
+          if (!sub_44A8(v10, v14, tol))
           {
             v15 = v14;
 
@@ -2300,47 +2674,44 @@ LABEL_26:
     if (v9 >= 1)
     {
       *&v10 = sub_4BAC();
-      v28 = v10;
-      v29 = v10;
+      v25 = v10;
+      v26 = v10;
       do
       {
         v11 = v3;
-        v3 = [(NSMutableArray *)self->_processedROIs objectAtIndexedSubscript:buffersCopy, v28, v29];
+        v3 = [(NSMutableArray *)self->_processedROIs objectAtIndexedSubscript:buffersCopy, v25, v26];
 
-        memcpy(__dst, &contents[17 * buffersCopy], 0x88uLL);
-        v12 = 0;
+        memcpy(__dst, &contents[136 * buffersCopy], sizeof(__dst));
         do
         {
-          v13 = __dst[v12];
           sub_4B98();
-          v30[v15] = v14;
+          v27[v13] = v12;
           sub_4B84();
         }
 
-        while (!v18);
-        v28 = v17;
-        v29 = v16;
-        v19 = contents[17 * buffersCopy + 16];
-        v20 = [(NSMutableArray *)self->_processedType objectAtIndexedSubscript:buffersCopy];
-        intValue = [v20 intValue];
+        while (!v16);
+        v25 = v15;
+        v26 = v14;
+        v17 = [(NSMutableArray *)self->_processedType objectAtIndexedSubscript:buffersCopy];
+        intValue = [v17 intValue];
 
         if (intValue)
         {
-          v22 = [(NSMutableArray *)self->_processedType objectAtIndexedSubscript:buffersCopy];
-          intValue2 = [v22 intValue];
+          v19 = [(NSMutableArray *)self->_processedType objectAtIndexedSubscript:buffersCopy];
+          intValue2 = [v19 intValue];
 
           if (intValue2 == 1)
           {
             [sub_4B14() setLumaFeatureVectorReflection:?];
-            v24 = sub_4B78();
-            [v25 setDifferenceOfGaussianAndLumaFeatureReflection:v24];
+            v21 = sub_4B78();
+            [v22 setDifferenceOfGaussianAndLumaFeatureReflection:v21];
           }
 
           else
           {
             [sub_4B14() setLumaFeatureVectorPredictedLocation:?];
-            v26 = sub_4B78();
-            [v27 setDifferenceOfGaussianAndLumaFeaturePredictedLocation:v26];
+            v23 = sub_4B78();
+            [v24 setDifferenceOfGaussianAndLumaFeaturePredictedLocation:v23];
           }
         }
 
@@ -2350,12 +2721,12 @@ LABEL_26:
           bzero(__src, 0xA0uLL);
           if (v3)
           {
-            [v3 descriptor];
+            objc_msgSend_descriptor(v3);
           }
 
           sub_4B48();
-          memcpy(v31, __src, sizeof(v31));
-          [v3 setDescriptor:v31];
+          memcpy(v28, __src, sizeof(v28));
+          [v3 setDescriptor:v28];
         }
 
         buffersCopy = (buffersCopy + 1);
@@ -2389,48 +2760,45 @@ LABEL_26:
   if (var21 >= 1)
   {
     *&v8 = sub_4BAC();
-    v29 = v8;
-    v30 = v8;
+    v26 = v8;
+    v27 = v8;
     v10 = v9;
     do
     {
       v11 = v3;
-      v3 = [(NSMutableArray *)self->_processedPrevLSROIs objectAtIndexedSubscript:buffersCopy, v29, v30];
+      v3 = [(NSMutableArray *)self->_processedPrevLSROIs objectAtIndexedSubscript:buffersCopy, v26, v27];
 
-      memcpy(__dst, &contents[17 * buffersCopy], 0x88uLL);
-      v12 = 0;
+      memcpy(__dst, &contents[136 * buffersCopy], sizeof(__dst));
       do
       {
-        v13 = __dst[v12];
         sub_4B98();
-        v31[v15] = v14;
+        v28[v13] = v12;
         sub_4B84();
       }
 
-      while (!v18);
-      v29 = v17;
-      v30 = v16;
-      v19 = contents[17 * buffersCopy + 16];
-      v20 = [(NSMutableArray *)self->_processedPrevLSType objectAtIndexedSubscript:buffersCopy];
-      intValue = [v20 intValue];
+      while (!v16);
+      v26 = v15;
+      v27 = v14;
+      v17 = [(NSMutableArray *)self->_processedPrevLSType objectAtIndexedSubscript:buffersCopy];
+      intValue = [v17 intValue];
 
       if (intValue)
       {
-        v22 = [(NSMutableArray *)self->_processedPrevLSType objectAtIndexedSubscript:buffersCopy];
-        intValue2 = [v22 intValue];
+        v19 = [(NSMutableArray *)self->_processedPrevLSType objectAtIndexedSubscript:buffersCopy];
+        intValue2 = [v19 intValue];
 
         if (intValue2 == 1)
         {
           [sub_4B14() setLumaFeatureVectorReflection:?];
-          v24 = sub_4B78();
-          [v25 setDifferenceOfGaussianAndLumaFeatureReflection:v24];
+          v21 = sub_4B78();
+          [v22 setDifferenceOfGaussianAndLumaFeatureReflection:v21];
         }
 
         else
         {
           [sub_4B14() setLumaFeatureVectorPredictedLocation:?];
-          v26 = sub_4B78();
-          [v27 setDifferenceOfGaussianAndLumaFeaturePredictedLocation:v26];
+          v23 = sub_4B78();
+          [v24 setDifferenceOfGaussianAndLumaFeaturePredictedLocation:v23];
         }
       }
 
@@ -2440,12 +2808,12 @@ LABEL_26:
         bzero(__src, 0xA0uLL);
         if (v3)
         {
-          [v3 descriptor];
+          objc_msgSend_descriptor(v3);
         }
 
         sub_4B48();
-        memcpy(v32, __src, sizeof(v32));
-        [v3 setDescriptor:v32];
+        memcpy(v29, __src, sizeof(v29));
+        [v3 setDescriptor:v29];
       }
 
       buffersCopy = (buffersCopy + 1);

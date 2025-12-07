@@ -17,39 +17,37 @@
 
 - (void)updateWithGame:(id)game
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   gameCopy = game;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   secureCodedPropertyKeys = [objc_opt_class() secureCodedPropertyKeys];
-  v6 = [secureCodedPropertyKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [secureCodedPropertyKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(secureCodedPropertyKeys);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         v11 = [gameCopy valueForKey:v10];
         [(GKGameRecordInternal *)self setValue:v11 forKey:v10];
       }
 
-      v7 = [secureCodedPropertyKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [secureCodedPropertyKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)secureCodedPropertyKeys
@@ -71,37 +69,35 @@
 
 void __47__GKGameRecordInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1)
 {
-  v8[9] = *MEMORY[0x277D85DE8];
-  v6.receiver = *(a1 + 32);
-  v6.super_class = &OBJC_METACLASS___GKGameRecordInternal;
-  v1 = objc_msgSendSuper2(&v6, sel_secureCodedPropertyKeys);
+  v7[9] = *MEMORY[0x277D85DE8];
+  v5.receiver = *(a1 + 32);
+  v5.super_class = &OBJC_METACLASS___GKGameRecordInternal;
+  v1 = objc_msgSendSuper2(&v5, sel_secureCodedPropertyKeys);
   v2 = [v1 mutableCopy];
 
-  v7[0] = @"score";
-  v8[0] = objc_opt_class();
-  v7[1] = @"lastPlayedDate";
-  v8[1] = objc_opt_class();
-  v7[2] = @"purchaseDate";
-  v8[2] = objc_opt_class();
-  v7[3] = @"achievements";
-  v8[3] = objc_opt_class();
-  v7[4] = @"achievementPoints";
-  v8[4] = objc_opt_class();
-  v7[5] = @"friendRank";
-  v8[5] = objc_opt_class();
-  v7[6] = @"maxFriendRank";
-  v8[6] = objc_opt_class();
-  v7[7] = @"rank";
-  v8[7] = objc_opt_class();
-  v7[8] = @"maxRank";
-  v8[8] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:9];
+  v6[0] = @"score";
+  v7[0] = objc_opt_class();
+  v6[1] = @"lastPlayedDate";
+  v7[1] = objc_opt_class();
+  v6[2] = @"purchaseDate";
+  v7[2] = objc_opt_class();
+  v6[3] = @"achievements";
+  v7[3] = objc_opt_class();
+  v6[4] = @"achievementPoints";
+  v7[4] = objc_opt_class();
+  v6[5] = @"friendRank";
+  v7[5] = objc_opt_class();
+  v6[6] = @"maxFriendRank";
+  v7[6] = objc_opt_class();
+  v6[7] = @"rank";
+  v7[7] = objc_opt_class();
+  v6[8] = @"maxRank";
+  v7[8] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:9];
   [v2 addEntriesFromDictionary:v3];
 
   v4 = secureCodedPropertyKeys_sSecureCodedKeys_222;
   secureCodedPropertyKeys_sSecureCodedKeys_222 = v2;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

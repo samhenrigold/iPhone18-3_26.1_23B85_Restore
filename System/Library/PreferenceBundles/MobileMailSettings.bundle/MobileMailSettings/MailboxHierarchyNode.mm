@@ -1,5 +1,6 @@
 @interface MailboxHierarchyNode
 - (MailboxHierarchyNode)initWithMailbox:(id)mailbox;
+- (id)_findNodeForMailbox:(id)mailbox removeNode:(BOOL)node;
 - (id)description;
 - (id)findNodeForMailbox:(id)mailbox;
 - (id)removeNodeForMailbox:(id)mailbox;
@@ -44,6 +45,102 @@
   }
 
   [(NSMutableArray *)children ef_insertObject:childCopy usingSortFunction:sub_8ED4 context:0 allowDuplicates:1];
+}
+
+- (id)_findNodeForMailbox:(id)mailbox removeNode:(BOOL)node
+{
+  nodeCopy = node;
+  mailboxCopy = mailbox;
+  children = [(MailboxHierarchyNode *)self children];
+  mailbox = [(MailboxHierarchyNode *)self mailbox];
+
+  if (mailbox == mailboxCopy)
+  {
+    selfCopy = self;
+    v18 = selfCopy;
+    if (!selfCopy)
+    {
+      goto LABEL_21;
+    }
+
+    goto LABEL_19;
+  }
+
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v9 = children;
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v10)
+  {
+    v11 = *v22;
+    while (2)
+    {
+      for (i = 0; i != v10; i = i + 1)
+      {
+        if (*v22 != v11)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        v13 = *(*(&v21 + 1) + 8 * i);
+        mailbox2 = [v13 mailbox];
+        v15 = mailbox2 == mailboxCopy;
+
+        if (v15)
+        {
+          v17 = v13;
+          v18 = v17;
+          goto LABEL_18;
+        }
+
+        children2 = [v13 children];
+
+        if (children2)
+        {
+          v17 = [v13 _findNodeForMailbox:mailboxCopy removeNode:nodeCopy];
+          if (v17)
+          {
+            goto LABEL_17;
+          }
+        }
+      }
+
+      v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v17 = 0;
+      v18 = 0;
+      if (v10)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  else
+  {
+    v17 = 0;
+LABEL_17:
+    v18 = 0;
+  }
+
+LABEL_18:
+
+  selfCopy = v17;
+  if (v18)
+  {
+LABEL_19:
+    if (nodeCopy)
+    {
+      [children removeObject:v18];
+    }
+  }
+
+LABEL_21:
+
+  return selfCopy;
 }
 
 - (id)removeNodeForMailbox:(id)mailbox

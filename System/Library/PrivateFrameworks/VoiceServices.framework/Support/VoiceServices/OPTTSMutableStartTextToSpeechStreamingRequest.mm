@@ -7,6 +7,7 @@
 - (void)setAudio_type:(int64_t)audio_type;
 - (void)setContext:(id)context;
 - (void)setContext_info:(id)context_info;
+- (void)setEnable_word_timing_info:(BOOL)enable_word_timing_info;
 - (void)setExperiment:(id)experiment;
 - (void)setFeature_flags:(id)feature_flags;
 - (void)setGender:(id)gender;
@@ -48,13 +49,13 @@
 
 - (void)setPreferred_voice_type:(int64_t)preferred_voice_type
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:preferred_voice_type];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (int64_t)preferred_voice_type
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"preferred_voice_type"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   integerValue = [v2 integerValue];
 
   return integerValue;
@@ -72,9 +73,15 @@
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
+- (void)setEnable_word_timing_info:(BOOL)enable_word_timing_info
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:?];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (BOOL)enable_word_timing_info
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"enable_word_timing_info"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
@@ -82,13 +89,13 @@
 
 - (void)setAudio_type:(int64_t)audio_type
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:audio_type];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (int64_t)audio_type
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"audio_type"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   integerValue = [v2 integerValue];
 
   return integerValue;
@@ -132,7 +139,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v4 = [objc_msgSend(objc_opt_class() "allocWithZone:"init"")];
   v5 = [(NSMutableDictionary *)self->super._storage copy];
   v6 = v4[1];
   v4[1] = v5;

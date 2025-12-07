@@ -19,15 +19,15 @@
 
 - (void)_drainVariantFragmentQueue
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   fullFragmentTimeRanges = [(HMDCameraRecordingSessionVariantFragmentManager *)self fullFragmentTimeRanges];
   lastObject = [fullFragmentTimeRanges lastObject];
 
   if (lastObject)
   {
-    memset(&v36, 0, sizeof(v36));
-    v26 = lastObject;
-    [lastObject CMTimeRangeValue];
+    memset(&v35, 0, sizeof(v35));
+    v25 = lastObject;
+    objc_msgSend_CMTimeRangeValue(lastObject);
     variantFragments = [(HMDCameraRecordingSessionVariantFragmentManager *)self variantFragments];
     v6 = [variantFragments count];
 
@@ -40,19 +40,19 @@
 
         if (firstObject)
         {
-          [firstObject timeRange];
+          objc_msgSend_timeRange(firstObject);
         }
 
         else
         {
-          v34 = 0u;
-          v32 = 0u;
           v33 = 0u;
+          v31 = 0u;
+          v32 = 0u;
         }
 
-        *&time1.value = v32;
-        time1.epoch = v33;
-        range = v36;
+        *&time1.value = v31;
+        time1.epoch = v32;
+        range = v35;
         CMTimeRangeGetEnd(&time2, &range);
         if ((CMTimeCompare(&time1, &time2) & 0x80000000) == 0)
         {
@@ -60,13 +60,13 @@
         }
 
         fullFragmentTimeRanges2 = [(HMDCameraRecordingSessionVariantFragmentManager *)self fullFragmentTimeRanges];
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFragmentQueue__block_invoke;
-        v29[3] = &unk_27972B7E0;
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFragmentQueue__block_invoke;
+        v28[3] = &unk_27972B7E0;
         v10 = firstObject;
-        v30 = v10;
-        v11 = [fullFragmentTimeRanges2 na_any:v29];
+        v29 = v10;
+        v11 = [fullFragmentTimeRanges2 na_any:v28];
 
         v12 = objc_autoreleasePoolPush();
         selfCopy = self;
@@ -92,13 +92,13 @@
         [variantFragments3 hmf_removeFirstObject];
 
         fullFragmentTimeRanges3 = [(HMDCameraRecordingSessionVariantFragmentManager *)selfCopy fullFragmentTimeRanges];
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFragmentQueue__block_invoke_6;
-        v27[3] = &unk_27972B808;
-        v28 = v10;
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFragmentQueue__block_invoke_6;
+        v26[3] = &unk_27972B808;
+        v27 = v10;
         v20 = v10;
-        v21 = [fullFragmentTimeRanges3 indexesOfObjectsPassingTest:v27];
+        v21 = [fullFragmentTimeRanges3 indexesOfObjectsPassingTest:v26];
 
         fullFragmentTimeRanges4 = [(HMDCameraRecordingSessionVariantFragmentManager *)selfCopy fullFragmentTimeRanges];
         [fullFragmentTimeRanges4 removeObjectsAtIndexes:v21];
@@ -114,10 +114,8 @@
     }
 
 LABEL_12:
-    lastObject = v26;
+    lastObject = v25;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFragmentQueue__block_invoke(uint64_t a1, void *a2)
@@ -126,7 +124,7 @@ BOOL __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFragment
   v4 = v3;
   if (v3)
   {
-    [v3 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(v3);
   }
 
   else
@@ -137,7 +135,7 @@ BOOL __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFragment
   v5 = *(a1 + 32);
   if (v5)
   {
-    [v5 timeRange];
+    objc_msgSend_timeRange(v5);
   }
 
   else
@@ -153,7 +151,7 @@ BOOL __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFragment
 
   if (v4)
   {
-    [v4 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(v4);
   }
 
   else
@@ -164,7 +162,7 @@ BOOL __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFragment
   v6 = *(a1 + 32);
   if (v6)
   {
-    [v6 timeRange];
+    objc_msgSend_timeRange(v6);
   }
 
   else
@@ -180,7 +178,7 @@ BOOL __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFragment
 
   if (v4)
   {
-    [v4 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(v4);
   }
 
   else
@@ -191,7 +189,7 @@ BOOL __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFragment
   v7 = *(a1 + 32);
   if (v7)
   {
-    [v7 timeRange];
+    objc_msgSend_timeRange(v7);
   }
 
   else
@@ -207,7 +205,7 @@ BOOL __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFragment
 
   if (v4)
   {
-    [v4 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(v4);
   }
 
   else
@@ -218,7 +216,7 @@ BOOL __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFragment
   v10 = *(a1 + 32);
   if (v10)
   {
-    [v10 timeRange];
+    objc_msgSend_timeRange(v10);
   }
 
   else
@@ -237,7 +235,7 @@ LABEL_22:
   {
     if (v4)
     {
-      [v4 CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(v4);
     }
 
     else
@@ -248,7 +246,7 @@ LABEL_22:
     v11 = *(a1 + 32);
     if (v11)
     {
-      [v11 timeRange];
+      objc_msgSend_timeRange(v11);
     }
 
     else
@@ -272,7 +270,7 @@ uint64_t __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFrag
   v4 = v3;
   if (v3)
   {
-    [v3 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(v3);
   }
 
   else
@@ -284,7 +282,7 @@ uint64_t __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFrag
   v5 = *(a1 + 32);
   if (v5)
   {
-    [v5 timeRange];
+    objc_msgSend_timeRange(v5);
   }
 
   else
@@ -300,7 +298,7 @@ uint64_t __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFrag
 
 - (void)handleVariantFragment:(id)fragment
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   fragmentCopy = fragment;
   if (!fragmentCopy)
   {
@@ -322,11 +320,11 @@ uint64_t __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFrag
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v24 = 138543618;
-      v25 = v13;
-      v26 = 2112;
-      v27 = v5;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Selecting non-overlapping variant fragment: %@", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v13;
+      v25 = 2112;
+      v26 = v5;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Selecting non-overlapping variant fragment: %@", &v23, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -345,13 +343,13 @@ uint64_t __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFrag
     v19 = HMFGetLogIdentifier();
     variantFragments4 = [(HMDCameraRecordingSessionVariantFragmentManager *)selfCopy2 variantFragments];
     v21 = [variantFragments4 count];
-    v24 = 138543874;
-    v25 = v19;
-    v26 = 2112;
-    v27 = v5;
-    v28 = 2048;
-    v29 = v21 + 1;
-    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Buffering variant fragment: %@, count: %lu", &v24, 0x20u);
+    v23 = 138543874;
+    v24 = v19;
+    v25 = 2112;
+    v26 = v5;
+    v27 = 2048;
+    v28 = v21 + 1;
+    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Buffering variant fragment: %@, count: %lu", &v23, 0x20u);
   }
 
   objc_autoreleasePoolPop(v16);
@@ -359,7 +357,6 @@ uint64_t __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFrag
   [variantFragments5 addObject:v5];
 
   [(HMDCameraRecordingSessionVariantFragmentManager *)selfCopy2 _drainVariantFragmentQueue];
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFullFragment:(id)fragment
@@ -370,7 +367,7 @@ uint64_t __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFrag
     v5 = fragmentCopy;
     fullFragmentTimeRanges = [(HMDCameraRecordingSessionVariantFragmentManager *)self fullFragmentTimeRanges];
     v7 = MEMORY[0x277CCAE60];
-    [v5 timeRange];
+    objc_msgSend_timeRange(v5);
     v8 = [v7 valueWithCMTimeRange:&v11];
     [fullFragmentTimeRanges addObject:v8];
 
@@ -428,12 +425,11 @@ uint64_t __77__HMDCameraRecordingSessionVariantFragmentManager__drainVariantFrag
 
 uint64_t __62__HMDCameraRecordingSessionVariantFragmentManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_114831;
-  logCategory__hmf_once_v4_114831 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_114831;
+  logCategory__hmf_once_v4_114831 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

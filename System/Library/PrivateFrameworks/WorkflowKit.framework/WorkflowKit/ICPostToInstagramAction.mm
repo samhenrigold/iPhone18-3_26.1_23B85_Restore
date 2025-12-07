@@ -30,7 +30,7 @@
 
 void __102__ICPostToInstagramAction_shareAsImageFileWithItem_caption_userInterface_successHandler_errorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -39,9 +39,9 @@ void __102__ICPostToInstagramAction_shareAsImageFileWithItem_caption_userInterfa
     v6 = [v5 stringByAppendingPathExtension:@"ig"];
 
     v7 = [MEMORY[0x1E6996F68] proposedTemporaryFileURLForFilename:v6];
-    v24 = 0;
-    [v4 writeToFileURL:v7 overwriting:0 error:&v24];
-    v8 = v24;
+    v23 = 0;
+    [v4 writeToFileURL:v7 overwriting:0 error:&v23];
+    v8 = v23;
     v9 = MEMORY[0x1E6996E20];
     v10 = [MEMORY[0x1E69E0AF8] typeWithString:@"com.instagram.photo"];
     v11 = [v9 fileWithURL:v7 options:1 ofType:v10];
@@ -58,29 +58,27 @@ void __102__ICPostToInstagramAction_shareAsImageFileWithItem_caption_userInterfa
 
     [*(a1 + 32) setInstagramRepresentation:v11];
     v15 = *(a1 + 40);
-    v25 = @"InstagramCaption";
-    v26[0] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = @"InstagramCaption";
+    v25[0] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v17 = [(objc_class *)getUIPasteboardClass_49609() generalPasteboard];
     [v17 setString:*(a1 + 40)];
 
     v18 = [*(a1 + 32) app];
     v19 = [v11 fileURL];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __102__ICPostToInstagramAction_shareAsImageFileWithItem_caption_userInterface_successHandler_errorHandler___block_invoke_2;
-    v21[3] = &unk_1E837B3A0;
-    v22 = *(a1 + 56);
-    v23 = *(a1 + 48);
-    [v18 openFile:v19 withAnnotation:v16 completionHandler:v21];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __102__ICPostToInstagramAction_shareAsImageFileWithItem_caption_userInterface_successHandler_errorHandler___block_invoke_2;
+    v20[3] = &unk_1E837B3A0;
+    v21 = *(a1 + 56);
+    v22 = *(a1 + 48);
+    [v18 openFile:v19 withAnnotation:v16 completionHandler:v20];
   }
 
   else
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __102__ICPostToInstagramAction_shareAsImageFileWithItem_caption_userInterface_successHandler_errorHandler___block_invoke_2(uint64_t a1, int a2)
@@ -131,38 +129,36 @@ uint64_t __102__ICPostToInstagramAction_shareAsImageFileWithItem_caption_userInt
 
 - (void)performActionWithInput:(id)input parameters:(id)parameters userInterface:(id)interface successHandler:(id)handler errorHandler:(id)errorHandler
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   inputCopy = input;
   parametersCopy = parameters;
   interfaceCopy = interface;
   handlerCopy = handler;
   errorHandlerCopy = errorHandler;
-  v31[0] = objc_opt_class();
-  v31[1] = objc_opt_class();
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __103__ICPostToInstagramAction_performActionWithInput_parameters_userInterface_successHandler_errorHandler___block_invoke;
-  v24[3] = &unk_1E83806C0;
-  v25 = inputCopy;
-  v26 = parametersCopy;
+  v30[0] = objc_opt_class();
+  v30[1] = objc_opt_class();
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __103__ICPostToInstagramAction_performActionWithInput_parameters_userInterface_successHandler_errorHandler___block_invoke;
+  v23[3] = &unk_1E83806C0;
+  v24 = inputCopy;
+  v25 = parametersCopy;
   selfCopy = self;
-  v28 = interfaceCopy;
-  v29 = errorHandlerCopy;
-  v30 = handlerCopy;
+  v27 = interfaceCopy;
+  v28 = errorHandlerCopy;
+  v29 = handlerCopy;
   v18 = handlerCopy;
   v19 = interfaceCopy;
   v20 = parametersCopy;
   v21 = errorHandlerCopy;
   v22 = inputCopy;
-  [v22 generateCollectionByCoercingToItemClasses:v17 completionHandler:v24];
-
-  v23 = *MEMORY[0x1E69E9840];
+  [v22 generateCollectionByCoercingToItemClasses:v17 completionHandler:v23];
 }
 
 void __103__ICPostToInstagramAction_performActionWithInput_parameters_userInterface_successHandler_errorHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   v6 = a4;
   v7 = [a2 items];
   v8 = [v7 firstObject];
@@ -205,28 +201,26 @@ void __103__ICPostToInstagramAction_performActionWithInput_parameters_userInterf
 
     v18 = MEMORY[0x1E696ABC0];
     v19 = *MEMORY[0x1E696A798];
-    v24[0] = *MEMORY[0x1E696A588];
+    v23[0] = *MEMORY[0x1E696A588];
     v12 = WFLocalizedString(@"Could Not Post Video");
-    v25[0] = v12;
-    v24[1] = *MEMORY[0x1E696A578];
+    v24[0] = v12;
+    v23[1] = *MEMORY[0x1E696A578];
     v20 = WFLocalizedString(@"Shortcuts can only post video on Instagram if the video is in a photo album.\n\nTry putting a “Save to Photos” action before “Post on Instagram.”");
-    v25[1] = v20;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v24[1] = v20;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
     v22 = [v18 errorWithDomain:v19 code:79 userInfo:v21];
     (*(v17 + 16))(v17, v22);
   }
 
 LABEL_11:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)inputContentClasses
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
 
   return v2;
 }

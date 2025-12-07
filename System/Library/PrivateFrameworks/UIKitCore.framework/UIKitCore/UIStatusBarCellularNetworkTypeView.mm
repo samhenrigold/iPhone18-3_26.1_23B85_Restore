@@ -130,17 +130,17 @@ void __109___UIStatusBarCellularNetworkTypeView__animateUpdateToText_prefixLengt
   }
 }
 
-uint64_t __109___UIStatusBarCellularNetworkTypeView__animateUpdateToText_prefixLength_styleAttributes_attributedText_type___block_invoke_9(uint64_t result)
+void *__109___UIStatusBarCellularNetworkTypeView__animateUpdateToText_prefixLength_styleAttributes_attributedText_type___block_invoke_9(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 408) == 1)
   {
     v2 = result;
     [*(v1 + 432) setHidden:1];
-    [*(*(v2 + 32) + 440) setHidden:1];
-    result = [*(*(v2 + 32) + 424) setAlpha:1.0];
-    *(*(v2 + 32) + 416) = *(v2 + 40);
-    *(*(v2 + 32) + 408) = 0;
+    [*(v2[4] + 440) setHidden:1];
+    result = [*(v2[4] + 424) setAlpha:1.0];
+    *(v2[4] + 416) = v2[5];
+    *(v2[4] + 408) = 0;
   }
 
   return result;

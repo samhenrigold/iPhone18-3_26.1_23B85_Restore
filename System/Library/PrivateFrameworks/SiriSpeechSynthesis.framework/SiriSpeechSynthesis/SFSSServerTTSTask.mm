@@ -89,7 +89,7 @@ void __31__SFSSServerTTSTask_startTask___block_invoke(uint64_t a1, void *a2)
   *buf = 0u;
   v18 = 0u;
   v6 = [v3 decoder_description];
-  [SFSSServerTTSTask audioStreamBasicDescription:v6];
+  objc_msgSend_audioStreamBasicDescription_(SFSSServerTTSTask);
 
   v7 = [v3 meta_info];
   v8 = [v7 voice];
@@ -110,14 +110,14 @@ void __31__SFSSServerTTSTask_startTask___block_invoke(uint64_t a1, void *a2)
 
 void __31__SFSSServerTTSTask_startTask___block_invoke_19(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = SFSSGetLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v13[0] = 67109120;
-    v13[1] = [v3 current_pkt_number];
-    _os_log_debug_impl(&dword_269079000, v4, OS_LOG_TYPE_DEBUG, "Received streaming partial response. pkt_number=%d", v13, 8u);
+    v12[0] = 67109120;
+    v12[1] = [v3 current_pkt_number];
+    _os_log_debug_impl(&dword_269079000, v4, OS_LOG_TYPE_DEBUG, "Received streaming partial response. pkt_number=%d", v12, 8u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -134,13 +134,11 @@ void __31__SFSSServerTTSTask_startTask___block_invoke_19(uint64_t a1, void *a2)
     v11 = [SFSSServerTTSTask flatPhonemeSequence:v10];
     [WeakRetained handleSynthesisFrontendFeaturePhoneme:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __31__SFSSServerTTSTask_startTask___block_invoke_23(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained handleSynthesisEnd:v3];
@@ -149,9 +147,9 @@ void __31__SFSSServerTTSTask_startTask___block_invoke_23(uint64_t a1, void *a2)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [WeakRetained error];
-    v12 = 138412290;
-    v13 = v6;
-    _os_log_impl(&dword_269079000, v5, OS_LOG_TYPE_INFO, "Server tts complete. error=%@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v6;
+    _os_log_impl(&dword_269079000, v5, OS_LOG_TYPE_INFO, "Server tts complete. error=%@", &v11, 0xCu);
   }
 
   v7 = *(*(*(a1 + 32) + 8) + 40);
@@ -164,23 +162,19 @@ void __31__SFSSServerTTSTask_startTask___block_invoke_23(uint64_t a1, void *a2)
     v10 = *(v9 + 40);
     *(v9 + 40) = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __31__SFSSServerTTSTask_startTask___block_invoke_21(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = SFSSGetLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5[0] = 67109120;
-    v5[1] = [v2 total_pkt_number];
-    _os_log_impl(&dword_269079000, v3, OS_LOG_TYPE_INFO, "Received streaming end response. total_pkt=%d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = [v2 total_pkt_number];
+    _os_log_impl(&dword_269079000, v3, OS_LOG_TYPE_INFO, "Received streaming end response. total_pkt=%d", v4, 8u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (SFSSServerTTSTask)initWithRequest:(id)request
@@ -249,91 +243,89 @@ void __31__SFSSServerTTSTask_startTask___block_invoke_21(uint64_t a1, void *a2)
 
 + (id)flatPhonemeSequence:(id)sequence
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   sequenceCopy = sequence;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = sequenceCopy;
-  v22 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
-  if (v22)
+  v21 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+  if (v21)
   {
-    v21 = *v32;
+    v20 = *v31;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v32 != v21)
+        if (*v31 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v31 + 1) + 8 * i);
+        v6 = *(*(&v30 + 1) + 8 * i);
+        v26 = 0u;
         v27 = 0u;
         v28 = 0u;
         v29 = 0u;
-        v30 = 0u;
         word_phonemes = [v6 word_phonemes];
-        v8 = [word_phonemes countByEnumeratingWithState:&v27 objects:v36 count:16];
+        v8 = [word_phonemes countByEnumeratingWithState:&v26 objects:v35 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v28;
+          v10 = *v27;
           do
           {
             for (j = 0; j != v9; ++j)
             {
-              if (*v28 != v10)
+              if (*v27 != v10)
               {
                 objc_enumerationMutation(word_phonemes);
               }
 
-              v12 = *(*(&v27 + 1) + 8 * j);
+              v12 = *(*(&v26 + 1) + 8 * j);
+              v22 = 0u;
               v23 = 0u;
               v24 = 0u;
               v25 = 0u;
-              v26 = 0u;
               phonemes = [v12 phonemes];
-              v14 = [phonemes countByEnumeratingWithState:&v23 objects:v35 count:16];
+              v14 = [phonemes countByEnumeratingWithState:&v22 objects:v34 count:16];
               if (v14)
               {
                 v15 = v14;
-                v16 = *v24;
+                v16 = *v23;
                 do
                 {
                   for (k = 0; k != v15; ++k)
                   {
-                    if (*v24 != v16)
+                    if (*v23 != v16)
                     {
                       objc_enumerationMutation(phonemes);
                     }
 
-                    [v4 addObject:*(*(&v23 + 1) + 8 * k)];
+                    [v4 addObject:*(*(&v22 + 1) + 8 * k)];
                   }
 
-                  v15 = [phonemes countByEnumeratingWithState:&v23 objects:v35 count:16];
+                  v15 = [phonemes countByEnumeratingWithState:&v22 objects:v34 count:16];
                 }
 
                 while (v15);
               }
             }
 
-            v9 = [word_phonemes countByEnumeratingWithState:&v27 objects:v36 count:16];
+            v9 = [word_phonemes countByEnumeratingWithState:&v26 objects:v35 count:16];
           }
 
           while (v9);
         }
       }
 
-      v22 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+      v21 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -371,23 +363,21 @@ void __31__SFSSServerTTSTask_startTask___block_invoke_21(uint64_t a1, void *a2)
 
 + (id)createGrpcHeadersFromRequest:(id)request
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   devServiceType = [requestCopy devServiceType];
   if ([devServiceType length])
   {
-    v9 = @"tts-dev-proxy-service-name";
+    v8 = @"tts-dev-proxy-service-name";
     devServiceType2 = [requestCopy devServiceType];
-    v10[0] = devServiceType2;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v9[0] = devServiceType2;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
 
   else
   {
     v6 = MEMORY[0x277CBEC10];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -479,7 +469,7 @@ void __31__SFSSServerTTSTask_startTask___block_invoke_21(uint64_t a1, void *a2)
   v22 = prosodyTransferData8;
   if (prosodyTransferData8)
   {
-    [prosodyTransferData8 asbd];
+    objc_msgSend_asbd(prosodyTransferData8);
     v23 = *&v27;
   }
 

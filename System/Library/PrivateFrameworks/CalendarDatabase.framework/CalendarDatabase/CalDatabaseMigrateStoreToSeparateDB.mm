@@ -26,11 +26,10 @@ uint64_t ___CalDatabaseMigrateStoreToSeparateDB_block_invoke_3(uint64_t a1, uint
 uint64_t ___CalDatabaseMigrateStoreToSeparateDB_block_invoke_63(uint64_t a1, uint64_t a2)
 {
   sqlite3_bind_text(*(a2 + 8), 1, [*(a1 + 32) UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
-  v4 = *(a2 + 8);
-  v5 = *(a1 + 40);
+  v3 = *(a2 + 8);
   ID = CPRecordGetID();
 
-  return sqlite3_bind_int(v4, 2, ID);
+  return sqlite3_bind_int(v3, 2, ID);
 }
 
 @end

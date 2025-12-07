@@ -1,198 +1,3 @@
-void sub_2389BD8DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, void *a18, uint64_t a19, char a20, void *a21, uint64_t a22, char a23, void *a24, uint64_t a25, char a26, void *a27)
-{
-  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&a20, a21);
-
-  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&a23, a24);
-  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&a26, a27);
-
-  _Unwind_Resume(a1);
-}
-
-void GKCDecisionTree::splitOnValueOfAttribute(GKCDecisionTree *this@<X0>, NSArray *a2@<X1>, NSNumber *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
-{
-  v49[2] = *MEMORY[0x277D85DE8];
-  v7 = a2;
-  v8 = a3;
-  a5[1] = 0;
-  v9 = a5 + 1;
-  a5[2] = 0;
-  v45 = v8;
-  *a5 = a5 + 1;
-  v48[0] = @"predicate";
-  v41 = v7;
-  v10 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF <= %@", v8];
-  v48[1] = @"value";
-  v49[0] = v10;
-  v49[1] = v8;
-  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
-
-  v46[0] = @"predicate";
-  v11 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF > %@", v8];
-  v46[1] = @"value";
-  v47[0] = v11;
-  v47[1] = v8;
-  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
-
-  v12 = 0;
-  v13 = 0;
-  while ([(NSArray *)v7 count]> v12)
-  {
-    v14 = [(NSArray *)v7 objectAtIndexedSubscript:v12];
-    v15 = [v14 objectAtIndexedSubscript:a4];
-
-    [v15 floatValue];
-    v17 = v16;
-    [(NSNumber *)v45 floatValue];
-    v18 = v43;
-    if (v17 > v19)
-    {
-      v18 = v44;
-    }
-
-    v20 = v18;
-
-    v21 = v20;
-    v13 = v21;
-    v22 = *v9;
-    if (!*v9)
-    {
-LABEL_11:
-      operator new();
-    }
-
-    while (1)
-    {
-      while (1)
-      {
-        v23 = v22;
-        v24 = v22[4];
-        if (v21 >= v24)
-        {
-          break;
-        }
-
-        v22 = *v23;
-        if (!*v23)
-        {
-          goto LABEL_11;
-        }
-      }
-
-      if (v24 >= v21)
-      {
-        break;
-      }
-
-      v22 = v23[1];
-      if (!v22)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    v25 = v23[5] == 0;
-
-    if (v25)
-    {
-      v30 = objc_alloc(MEMORY[0x277CBEB18]);
-      v31 = [(NSArray *)v7 objectAtIndexedSubscript:v12];
-      v32 = [v30 initWithObjects:{v31, 0}];
-      v33 = v13;
-      v34 = v33;
-      v35 = *v9;
-      if (!*v9)
-      {
-LABEL_26:
-        operator new();
-      }
-
-      while (1)
-      {
-        while (1)
-        {
-          v36 = v35;
-          v37 = v35[4];
-          if (v33 >= v37)
-          {
-            break;
-          }
-
-          v35 = *v36;
-          if (!*v36)
-          {
-            goto LABEL_26;
-          }
-        }
-
-        if (v37 >= v33)
-        {
-          break;
-        }
-
-        v35 = v36[1];
-        if (!v35)
-        {
-          goto LABEL_26;
-        }
-      }
-
-      v7 = v41;
-      v39 = v36[5];
-      v36[5] = v32;
-    }
-
-    else
-    {
-      v26 = v13;
-      v27 = *v9;
-      if (!*v9)
-      {
-LABEL_19:
-        operator new();
-      }
-
-      while (1)
-      {
-        while (1)
-        {
-          v28 = v27;
-          v29 = v27[4];
-          if (v26 >= v29)
-          {
-            break;
-          }
-
-          v27 = *v28;
-          if (!*v28)
-          {
-            goto LABEL_19;
-          }
-        }
-
-        if (v29 >= v26)
-        {
-          break;
-        }
-
-        v27 = v28[1];
-        if (!v27)
-        {
-          goto LABEL_19;
-        }
-      }
-
-      v31 = v26;
-      v38 = v28[5];
-      v34 = [(NSArray *)v7 objectAtIndexedSubscript:v12];
-      [v38 addObject:v34];
-    }
-
-    ++v12;
-  }
-
-  v40 = *MEMORY[0x277D85DE8];
-}
-
 void sub_2389BE05C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, void *a14, uint64_t a15)
 {
   std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(a15, *(a15 + 8));
@@ -200,24 +5,21 @@ void sub_2389BE05C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void GKCDecisionTree::binarySplitByAttributeValue(GKCDecisionTree *this@<X0>, NSArray *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void GKCDecisionTree::binarySplitByAttributeValue(uint64_t *__return_ptr a1@<X8>, NSArray *a2@<X1>, uint64_t a3@<X2>)
 {
-  v12[6] = *MEMORY[0x277D85DE8];
-  v7 = a2;
-  a4[1] = 0;
-  a4[2] = 0;
-  *a4 = 0;
-  v10 = v7;
-  GKCDecisionTree::multiwaySplitByAttributeValue(this, v7, a3, &v11);
-  if (v11 != v12)
+  v8[6] = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  v6 = v5;
+  GKCDecisionTree::multiwaySplitByAttributeValue(&v7, v5, a3);
+  if (v7 != v8)
   {
-    v8 = *(v11 + 40);
     operator new();
   }
 
-  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v11, v12[0]);
-
-  v9 = *MEMORY[0x277D85DE8];
+  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v7, v8[0]);
 }
 
 void sub_2389BE7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
@@ -227,7 +29,7 @@ void sub_2389BE7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void **std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::~vector[abi:ne200100](void **a1)
+char **std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -254,21 +56,21 @@ void **std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}
   return a1;
 }
 
-void GKCDecisionTree::splitByAttribute(GKCDecisionTree *this@<X0>, NSArray *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void GKCDecisionTree::splitByAttribute(uint64_t *__return_ptr a1@<X8>, NSArray *a2@<X1>, uint64_t a3@<X2>)
 {
-  v25 = a2;
-  v5 = 0;
-  a4[1] = 0;
-  v6 = a4 + 1;
-  a4[2] = 0;
-  *a4 = a4 + 1;
-  for (i = [(NSArray *)v25 count]; i > v5; i = [(NSArray *)v25 count])
+  v24 = a2;
+  v4 = 0;
+  a1[1] = 0;
+  v5 = a1 + 1;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
+  for (i = [(NSArray *)v24 count]; i > v4; i = [(NSArray *)v24 count])
   {
-    v9 = [(NSArray *)v25 objectAtIndexedSubscript:v5];
-    v10 = [v9 objectAtIndexedSubscript:a3];
+    v8 = [(NSArray *)v24 objectAtIndexedSubscript:v4];
+    v9 = [v8 objectAtIndexedSubscript:a3];
 
-    v11 = *v6;
-    if (!*v6)
+    v10 = *v5;
+    if (!*v5)
     {
 LABEL_10:
       operator new();
@@ -278,36 +80,36 @@ LABEL_10:
     {
       while (1)
       {
-        v12 = v11;
-        v13 = v11[4];
-        if (v10 >= v13)
+        v11 = v10;
+        v12 = v10[4];
+        if (v9 >= v12)
         {
           break;
         }
 
-        v11 = *v12;
-        if (!*v12)
+        v10 = *v11;
+        if (!*v11)
         {
           goto LABEL_10;
         }
       }
 
-      if (v13 >= v10)
+      if (v12 >= v9)
       {
         break;
       }
 
-      v11 = v12[1];
-      if (!v11)
+      v10 = v11[1];
+      if (!v10)
       {
         goto LABEL_10;
       }
     }
 
-    if (v12[5])
+    if (v11[5])
     {
-      v14 = *v6;
-      if (!*v6)
+      v13 = *v5;
+      if (!*v5)
       {
 LABEL_17:
         operator new();
@@ -317,44 +119,44 @@ LABEL_17:
       {
         while (1)
         {
-          v15 = v14;
-          v16 = v14[4];
-          if (v10 >= v16)
+          v14 = v13;
+          v15 = v13[4];
+          if (v9 >= v15)
           {
             break;
           }
 
-          v14 = *v15;
-          if (!*v15)
+          v13 = *v14;
+          if (!*v14)
           {
             goto LABEL_17;
           }
         }
 
-        if (v16 >= v10)
+        if (v15 >= v9)
         {
           break;
         }
 
-        v14 = v15[1];
-        if (!v14)
+        v13 = v14[1];
+        if (!v13)
         {
           goto LABEL_17;
         }
       }
 
-      v23 = v15[5];
-      v18 = [(NSArray *)v25 objectAtIndexedSubscript:v5];
-      [v23 addObject:v18];
+      v22 = v14[5];
+      v17 = [(NSArray *)v24 objectAtIndexedSubscript:v4];
+      [v22 addObject:v17];
     }
 
     else
     {
-      v17 = objc_alloc(MEMORY[0x277CBEB18]);
-      v18 = [(NSArray *)v25 objectAtIndexedSubscript:v5];
-      v19 = [v17 initWithObjects:{v18, 0}];
-      v20 = *v6;
-      if (!*v6)
+      v16 = objc_alloc(MEMORY[0x277CBEB18]);
+      v17 = [(NSArray *)v24 objectAtIndexedSubscript:v4];
+      v18 = [v16 initWithObjects:{v17, 0}];
+      v19 = *v5;
+      if (!*v5)
       {
 LABEL_25:
         operator new();
@@ -364,37 +166,37 @@ LABEL_25:
       {
         while (1)
         {
-          v21 = v20;
-          v22 = v20[4];
-          if (v10 >= v22)
+          v20 = v19;
+          v21 = v19[4];
+          if (v9 >= v21)
           {
             break;
           }
 
-          v20 = *v21;
-          if (!*v21)
+          v19 = *v20;
+          if (!*v20)
           {
             goto LABEL_25;
           }
         }
 
-        if (v22 >= v10)
+        if (v21 >= v9)
         {
           break;
         }
 
-        v20 = v21[1];
-        if (!v20)
+        v19 = v20[1];
+        if (!v19)
         {
           goto LABEL_25;
         }
       }
 
-      v8 = v21[5];
-      v21[5] = v19;
+      v7 = v20[5];
+      v20[5] = v18;
     }
 
-    ++v5;
+    ++v4;
   }
 }
 
@@ -405,19 +207,19 @@ void sub_2389BEBF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void GKCDecisionTree::splitOnIndex(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+void GKCDecisionTree::splitOnIndex(GKCDecisionTree *a1, uint64_t a2, void *a3, void *a4, void *a5, uint64_t a6, unint64_t a7, unint64_t a8)
 {
-  v5 = a3;
-  if (*a4 != a4 + 8)
+  v9 = a3;
+  if (*a4 != a4 + 1)
   {
-    v6 = *(*a4 + 32);
+    v10 = *(*a4 + 32);
     operator new();
   }
 }
 
 id GKCDecisionTree::sortByAttributeWithAction(uint64_t a1, void *a2)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = *a2;
   v4 = a2 + 1;
@@ -429,11 +231,11 @@ id GKCDecisionTree::sortByAttributeWithAction(uint64_t a1, void *a2)
       for (i = 0; [v5[5] count] > i; ++i)
       {
         v8 = v5[5];
-        v18[0] = v5[4];
+        v17[0] = v5[4];
         v9 = [v8 objectAtIndexedSubscript:i];
         v10 = [v9 lastObject];
-        v18[1] = v10;
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+        v17[1] = v10;
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
 
         [v3 addObject:v11];
       }
@@ -469,8 +271,6 @@ id GKCDecisionTree::sortByAttributeWithAction(uint64_t a1, void *a2)
   }
 
   v15 = [v3 sortedArrayUsingComparator:&__block_literal_global_1];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -532,15 +332,15 @@ void std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__str
   }
 }
 
-uint64_t std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_hint_unique_key_args<objc_object * {__strong},std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(void *a1, void *a2, unint64_t *a3)
+uint64_t *std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_hint_unique_key_args<objc_object * {__strong},std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(uint64_t **a1, void *a2, unint64_t *a3, id *a4)
 {
-  v3 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__find_equal<objc_object * {__strong}>(a1, a2, &v6, &v5, a3);
-  if (!*v3)
+  v4 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__find_equal<objc_object * {__strong}>(a1, a2, &v7, &v6, a3);
+  if (!*v4)
   {
     operator new();
   }
 
-  return *v3;
+  return *v4;
 }
 
 void *std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__find_equal<objc_object * {__strong}>(void *a1, void *a2, void *a3, void *a4, unint64_t *a5)
@@ -822,8 +622,8 @@ LABEL_18:
       objc_storeStrong(v9 + 4, v15[4]);
       objc_storeStrong(v9 + 5, v15[5]);
       v16 = *v8;
-      v17 = (v5 + 8);
-      v18 = (v5 + 8);
+      v17 = v5 + 1;
+      v18 = (v5 + 1);
       if (*v8)
       {
         break;
@@ -841,8 +641,8 @@ LABEL_27:
       }
 
 LABEL_29:
-      std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(*(v5 + 8), v9);
-      ++*(v5 + 16);
+      std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(v5[1], v9);
+      ++v5[2];
       if (v10)
       {
         v10 = v10[2];
@@ -983,7 +783,7 @@ LABEL_13:
 LABEL_19:
   if (v4 != a3)
   {
-    std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_multi<std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>();
+    std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_multi<std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(v5, v4 + 4);
   }
 }
 
@@ -1007,7 +807,7 @@ uint64_t **std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(uin
       }
 
 LABEL_6:
-      v6[1] = v2;
+      *(v6 + 8) = v2;
       v8 = *(v3 + 24);
       if (v3 == a2)
       {
@@ -1089,7 +889,7 @@ LABEL_10:
 
   else
   {
-    v7 = v6[1];
+    v7 = *(v6 + 8);
     v8 = *(v3 + 24);
     if (v3 != a2)
     {
@@ -1119,7 +919,6 @@ LABEL_21:
   {
     v14 = v7[2];
     v15 = *v14;
-    v16 = *(v7 + 24);
     if (*v14 == v7)
     {
       break;
@@ -1129,19 +928,19 @@ LABEL_21:
     {
       *(v7 + 24) = 1;
       *(v14 + 24) = 0;
-      v17 = v14[1];
-      v18 = *v17;
-      v14[1] = *v17;
-      if (v18)
+      v16 = *(v14 + 8);
+      v17 = *v16;
+      *(v14 + 8) = *v16;
+      if (v17)
       {
-        *(v18 + 16) = v14;
+        *(v17 + 16) = v14;
       }
 
-      v19 = v14[2];
-      v17[2] = v19;
-      v19[*v19 != v14] = v17;
-      *v17 = v14;
-      v14[2] = v17;
+      v18 = *(v14 + 16);
+      v16[2] = v18;
+      v18[*v18 != v14] = v16;
+      *v16 = v14;
+      *(v14 + 16) = v16;
       if (result == *v7)
       {
         result = v7;
@@ -1150,63 +949,63 @@ LABEL_21:
       v7 = *(*v7 + 8);
     }
 
-    v20 = *v7;
-    if (*v7 && *(v20 + 24) != 1)
+    v19 = *v7;
+    if (*v7 && *(v19 + 24) != 1)
     {
-      v21 = v7[1];
-      if (!v21)
+      v20 = v7[1];
+      if (!v20)
       {
         goto LABEL_62;
       }
 
 LABEL_61:
-      if (*(v21 + 24) == 1)
+      if (*(v20 + 24) == 1)
       {
 LABEL_62:
-        *(v20 + 24) = 1;
+        *(v19 + 24) = 1;
         *(v7 + 24) = 0;
-        v29 = v20[1];
-        *v7 = v29;
-        if (v29)
+        v28 = v19[1];
+        *v7 = v28;
+        if (v28)
         {
-          *(v29 + 16) = v7;
+          *(v28 + 16) = v7;
         }
 
-        v30 = v7[2];
-        v30[*v30 != v7] = v20;
-        v20[1] = v7;
-        v20[2] = v30;
-        v7[2] = v20;
-        v21 = v7;
+        v29 = v7[2];
+        v29[*v29 != v7] = v19;
+        v19[1] = v7;
+        v19[2] = v29;
+        v7[2] = v19;
+        v20 = v7;
       }
 
       else
       {
-        v20 = v7;
+        v19 = v7;
       }
 
-      v31 = v20[2];
-      *(v20 + 24) = *(v31 + 24);
-      *(v31 + 24) = 1;
-      *(v21 + 24) = 1;
-      v32 = *(v31 + 8);
-      v33 = *v32;
-      *(v31 + 8) = *v32;
-      if (v33)
+      v30 = v19[2];
+      *(v19 + 24) = *(v30 + 24);
+      *(v30 + 24) = 1;
+      *(v20 + 24) = 1;
+      v31 = *(v30 + 8);
+      v32 = *v31;
+      *(v30 + 8) = *v31;
+      if (v32)
       {
-        *(v33 + 16) = v31;
+        *(v32 + 16) = v30;
       }
 
-      v34 = *(v31 + 16);
-      v32[2] = v34;
-      v34[*v34 != v31] = v32;
-      *v32 = v31;
-      *(v31 + 16) = v32;
+      v33 = *(v30 + 16);
+      v31[2] = v33;
+      v33[*v33 != v30] = v31;
+      *v31 = v30;
+      *(v30 + 16) = v31;
       return result;
     }
 
-    v21 = v7[1];
-    if (v21 && *(v21 + 24) != 1)
+    v20 = v7[1];
+    if (v20 && *(v20 + 24) != 1)
     {
       goto LABEL_61;
     }
@@ -1226,35 +1025,35 @@ LABEL_28:
   {
     *(v7 + 24) = 1;
     *(v14 + 24) = 0;
-    v22 = v15[1];
-    *v14 = v22;
-    if (v22)
+    v21 = v15[1];
+    *v14 = v21;
+    if (v21)
     {
-      v22[2] = v14;
+      *(v21 + 16) = v14;
     }
 
-    v23 = v14[2];
-    v23[*v23 != v14] = v15;
+    v22 = *(v14 + 16);
+    v22[*v22 != v14] = v15;
     v15[1] = v14;
-    v15[2] = v23;
-    v14[2] = v15;
-    v24 = v7[1];
-    if (result == v24)
+    v15[2] = v22;
+    *(v14 + 16) = v15;
+    v23 = v7[1];
+    if (result == v23)
     {
       result = v7;
     }
 
-    v7 = *v24;
+    v7 = *v23;
   }
 
-  v25 = *v7;
-  if (*v7 && *(v25 + 24) != 1)
+  v24 = *v7;
+  if (*v7 && *(v24 + 24) != 1)
   {
     goto LABEL_69;
   }
 
-  v26 = v7[1];
-  if (!v26 || *(v26 + 24) == 1)
+  v25 = v7[1];
+  if (!v25 || *(v25 + 24) == 1)
   {
     *(v7 + 24) = 0;
     v12 = v7[2];
@@ -1268,52 +1067,52 @@ LABEL_59:
     goto LABEL_28;
   }
 
-  if (v25 && (v25[3] & 1) == 0)
+  if (v24 && (v24[3] & 1) == 0)
   {
 LABEL_69:
-    v26 = v7;
+    v25 = v7;
   }
 
   else
   {
-    *(v26 + 24) = 1;
+    *(v25 + 24) = 1;
     *(v7 + 24) = 0;
-    v27 = *v26;
-    v7[1] = *v26;
-    if (v27)
+    v26 = *v25;
+    v7[1] = *v25;
+    if (v26)
     {
-      *(v27 + 16) = v7;
+      *(v26 + 16) = v7;
     }
 
-    v28 = v7[2];
-    v26[2] = v28;
-    v28[*v28 != v7] = v26;
-    *v26 = v7;
-    v7[2] = v26;
-    v25 = v7;
+    v27 = v7[2];
+    v25[2] = v27;
+    v27[*v27 != v7] = v25;
+    *v25 = v7;
+    v7[2] = v25;
+    v24 = v7;
   }
 
-  v35 = v26[2];
-  *(v26 + 24) = *(v35 + 24);
-  *(v35 + 24) = 1;
-  *(v25 + 24) = 1;
-  v36 = *v35;
-  v37 = *(*v35 + 8);
-  *v35 = v37;
-  if (v37)
+  v34 = v25[2];
+  *(v25 + 24) = *(v34 + 24);
+  *(v34 + 24) = 1;
+  *(v24 + 24) = 1;
+  v35 = *v34;
+  v36 = *(*v34 + 8);
+  *v34 = v36;
+  if (v36)
   {
-    *(v37 + 16) = v35;
+    *(v36 + 16) = v34;
   }
 
-  v38 = v35[2];
-  v38[*v38 != v35] = v36;
-  *(v36 + 8) = v35;
-  *(v36 + 16) = v38;
-  v35[2] = v36;
+  v37 = *(v34 + 16);
+  v37[*v37 != v34] = v35;
+  *(v35 + 8) = v34;
+  *(v35 + 16) = v37;
+  *(v34 + 16) = v35;
   return result;
 }
 
-void *std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::__emplace_back_slow_path<std::allocator<std::pair<objc_object * const {__strong},NSMutableArray * {__strong}>> const&>(void *a1, void *a2)
+unint64_t std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::__emplace_back_slow_path<std::allocator<std::pair<objc_object * const {__strong},NSMutableArray * {__strong}>> const&>(unint64_t *a1, id **a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3) + 1;
   if (v2 > 0xAAAAAAAAAAAAAAALL)
@@ -1346,15 +1145,15 @@ void *std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  v5 = (8 * ((a1[1] - *a1) >> 3));
-  v5[1] = 0;
-  v5[2] = 0;
-  *v5 = v5 + 1;
+  v5 = 8 * ((a1[1] - *a1) >> 3);
+  *(v5 + 8) = 0;
+  *(v5 + 16) = 0;
+  *v5 = v5 + 8;
   v6 = a2 + 1;
   v7 = *a2;
-  if (*a2 == a2 + 1)
+  if (*a2 == (a2 + 1))
   {
-    v8 = v5 + 3;
+    v8 = v5 + 24;
     v9 = *a1;
     v10 = a1[1];
     v11 = v5 + *a1 - v10;
@@ -1368,7 +1167,7 @@ void *std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>
   {
     do
     {
-      std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_hint_unique_key_args<objc_object * {__strong},std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(v5, v5 + 1, v7 + 4);
+      std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_hint_unique_key_args<objc_object * {__strong},std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(v5, (v5 + 8), v7 + 4, v7 + 4);
       v12 = v7[1];
       if (v12)
       {
@@ -1397,7 +1196,7 @@ void *std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>
     }
 
     while (v13 != v6);
-    v8 = v5 + 3;
+    v8 = v5 + 24;
     v9 = *a1;
     v10 = a1[1];
     v11 = v5 + *a1 - v10;
@@ -1412,12 +1211,12 @@ void *std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>
   {
     while (1)
     {
-      v16 = &v11[v15 * 8];
+      v16 = (v11 + v15 * 8);
       v17 = &v9[v15 + 1];
       v18 = *v17;
       *v16 = v9[v15];
-      *&v11[v15 * 8 + 8] = v18;
-      v19 = &v11[v15 * 8 + 8];
+      *(v11 + v15 * 8 + 8) = v18;
+      v19 = v11 + v15 * 8 + 8;
       v20 = v9[v15 + 2];
       v16[2] = v20;
       if (!v20)
@@ -1462,10 +1261,10 @@ LABEL_27:
   return v8;
 }
 
-void sub_2389BFDD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2389BFDD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(v2, *(v2 + 8));
+  va_start(va, a3);
+  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(v3, *(v3 + 8));
   std::__split_buffer<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1577,106 +1376,88 @@ void sub_2389C0DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>>::steerToAvoidObstacles(uint64_t a1, const void ***a2, float a3)
 {
-  v48 = 0;
-  v49 = 0;
-  v50 = 0;
+  v31 = 0;
+  v32 = 0;
+  v33 = 0;
   (*(*a1 + 200))(a1);
-  v46 = 0;
+  v29 = 0;
   v8 = *a2;
   if (*a2 != a2[1])
   {
     v9 = 0;
-    v44 = v7 * a3;
-    v45 = a3;
-    v10 = 0.0;
-    v11 = 0.0;
-    v12 = 0.0;
+    v27 = v7 * a3;
+    v28 = a3;
     do
     {
-      v13 = *v8;
+      v10 = *v8;
       if (*v8)
       {
-        v14 = *v13;
-        v15 = **v13;
+        v11 = *v10;
         {
-          v46 = 0;
-          v51 = v13;
-          v16 = (*(*a1 + 88))(a1, v13 + 12);
-          v18 = v17 * -2.0;
-          v20 = ((v19 * v19) + (v16 * v16)) + (v17 * v17);
-          v21 = *(v13 + 2);
-          v22 = (*(*a1 + 176))(a1);
-          v23 = (-(v20 - ((v22 + v21) * (v22 + v21))) * 4.0) + (v18 * v18);
-          if (v23 >= 0.0)
+          v29 = 0;
+          v34 = v10;
+          v12 = (*(*a1 + 88))(a1, v10 + 12);
+          v14 = v13 * -2.0;
+          v16 = ((v15 * v15) + (v12 * v12)) + (v13 * v13);
+          v17 = *(v10 + 2);
+          v18 = (*(*a1 + 176))(a1);
+          v19 = (-(v16 - ((v18 + v17) * (v18 + v17))) * 4.0) + (v14 * v14);
+          if (v19 >= 0.0)
           {
-            v24 = sqrtf(v23);
-            v25 = (v24 - v18) * 0.5;
-            v26 = (v24 + v18) * -0.5;
-            if (v25 >= 0.0 || v26 >= 0.0)
+            v20 = sqrtf(v19);
+            v21 = (v20 - v14) * 0.5;
+            v22 = (v20 + v14) * -0.5;
+            if (v21 >= 0.0 || v22 >= 0.0)
             {
-              v46 = 1;
-              v27 = *(v13 + 12);
-              LODWORD(v49) = *(v13 + 5);
-              v48 = v27;
-              v28 = fminf(v25, v26);
-              if (v26 <= 0.0)
+              v29 = 1;
+              v23 = *(v10 + 12);
+              LODWORD(v32) = *(v10 + 5);
+              v31 = v23;
+              v24 = fminf(v21, v22);
+              if (v22 <= 0.0)
               {
-                v28 = v25;
+                v24 = v21;
               }
 
-              if (v25 <= 0.0)
+              if (v21 <= 0.0)
               {
-                v29 = v26;
+                v25 = v22;
               }
 
               else
               {
-                v29 = v28;
+                v25 = v24;
               }
 
-              v47 = v29;
+              v30 = v25;
             }
           }
         }
 
-        else
         {
-          v30 = *v14;
-          {
-            v14[3](v13, a1, &v46, v45);
-          }
+          (*(v11 + 24))(v10, a1, &v29, v28);
         }
       }
 
-      if (!v9 || (v46 ? (v31 = v47 < v3) : (v31 = 0), v31))
+      if (!v9 || (v29 ? (v26 = v30 < v3) : (v26 = 0), v26))
       {
-        v11 = *(&v48 + 1);
-        v10 = *&v48;
-        v9 = v46;
-        v3 = v47;
-        v12 = *&v49;
+        v9 = v29;
+        v3 = v30;
       }
 
       ++v8;
     }
 
     while (v8 != a2[1]);
-    if (v9 && v3 < v44)
+    if (v9)
     {
-      (*(*a1 + 256))(a1, v44, 0.0, 0.0);
-      v32 = (*(*a1 + 48))(a1) - v10;
-      v34 = v33 - v11;
-      v36 = v35 - v12;
-      v37 = (*(*a1 + 32))(a1);
-      v40 = ((v37 * v32) + (v38 * v34)) + (v39 * v36);
-      v41 = v32 - (v40 * v37);
-      v42 = sqrtf(((v41 * v41) + ((v34 - (v40 * v38)) * (v34 - (v40 * v38)))) + ((v36 - (v40 * v39)) * (v36 - (v40 * v39))));
-      if (v42 > 0.0)
+      if (v3 < v27)
       {
-        v41 = v41 * (1.0 / v42);
+        (*(*a1 + 256))(a1, v27, 0.0, 0.0);
+        (*(*a1 + 48))(a1);
+        (*(*a1 + 32))(a1);
+        (*(*a1 + 224))(a1);
       }
-
-      v43 = (*(*a1 + 224))(a1) * v41;
     }
   }
 }
@@ -1691,7 +1472,7 @@ void sub_2389C1480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>>::steerToAvoidNeighbors(float *a1, uint64_t **a2, float a3)
+void OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>>::steerToAvoidNeighbors(float *a1, float ***a2, float a3)
 {
   OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>>::steerToAvoidCloseNeighbors(a1, a2, 0.0);
   if (v7 == *&_static_vec3_zero && v5 == *(&_static_vec3_zero + 1) && v6 == *&dword_27DF48758)
@@ -1700,29 +1481,29 @@ void OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::Abstract
     if (*a2 == a2[1])
     {
       v9 = 0;
-      v83 = 0.0;
-      v84 = 0.0;
       v82 = 0.0;
-      v86 = 0.0;
-      v87 = 0.0;
+      v83 = 0.0;
+      v81 = 0.0;
       v85 = 0.0;
+      v86 = 0.0;
+      v84 = 0.0;
     }
 
     else
     {
       v9 = 0;
+      v84 = 0.0;
       v85 = 0.0;
       v86 = 0.0;
-      v87 = 0.0;
+      v81 = 0.0;
       v82 = 0.0;
       v83 = 0.0;
-      v84 = 0.0;
       do
       {
         v10 = *v8;
         if (*v8 != a1)
         {
-          v89 = (*(*a1 + 176))(a1);
+          v88 = (*(*a1 + 176))(a1);
           v11 = (*(*a1 + 192))(a1);
           v13 = v12;
           v15 = v14;
@@ -1746,14 +1527,14 @@ void OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::Abstract
             v33 = v32;
             v35 = v34;
             v36 = (*(*a1 + 200))(a1) * v22;
-            v88 = (*(*v10 + 32))(v10);
+            v87 = (*(*v10 + 32))(v10);
             v38 = v37;
             v40 = v39;
             v41 = (*(*v10 + 200))(v10) * v22;
             v42 = (*(*a1 + 48))(a1) + (v36 * v31);
             v44 = v43 + (v36 * v33);
             v46 = v45 + (v36 * v35);
-            v47 = (*(*v10 + 48))(v10) + (v41 * v88);
+            v47 = (*(*v10 + 48))(v10) + (v41 * v87);
             v49 = v48 + (v41 * v38);
             v51 = v50 + (v41 * v40);
             a1[20] = v44;
@@ -1762,14 +1543,14 @@ void OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::Abstract
             a1[17] = v49;
             a1[18] = v51;
             a1[19] = v42;
-            if (sqrtf((((v42 - v47) * (v42 - v47)) + ((v44 - v49) * (v44 - v49))) + ((v46 - v51) * (v46 - v51))) < (v89 + v89))
+            if (sqrtf((((v42 - v47) * (v42 - v47)) + ((v44 - v49) * (v44 - v49))) + ((v46 - v51) * (v46 - v51))) < (v88 + v88))
             {
-              v83 = v44;
-              v84 = v46;
-              v82 = v42;
-              v86 = v49;
-              v87 = v51;
-              v85 = v47;
+              v82 = v44;
+              v83 = v46;
+              v81 = v42;
+              v85 = v49;
+              v86 = v51;
+              v84 = v47;
               a3 = v22;
               v9 = v10;
             }
@@ -1782,18 +1563,15 @@ void OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::Abstract
       while (v8 != a2[1]);
     }
 
-    *v92 = v85;
-    *&v92[1] = v86;
-    *&v92[2] = v87;
-    *v91 = v82;
-    *&v91[1] = v83;
-    *&v91[2] = v84;
+    *v91 = v84;
+    *&v91[1] = v85;
+    *&v91[2] = v86;
+    *v90 = v81;
+    *&v90[1] = v82;
+    *&v90[2] = v83;
     if (!v9)
     {
-      v69 = 0.0;
-LABEL_27:
-      v81 = (**a1)(a1) * v69;
-      return;
+      goto LABEL_27;
     }
 
     v52 = (*(*a1 + 32))(a1);
@@ -1803,16 +1581,18 @@ LABEL_27:
     v60 = ((v57 * v52) + (v58 * v54)) + (v59 * v56);
     if (v60 >= -0.707)
     {
-      v70 = *v9;
+      v69 = *v9;
       if (v60 <= 0.707)
       {
-        v78 = (*(v70 + 200))(v9);
-        v69 = 0.0;
-        if (v78 > (*(*a1 + 200))(a1))
+        v77 = (*(v69 + 200))(v9);
+        v78 = 0.0;
+        if (v77 > (*(*a1 + 200))(a1))
         {
 LABEL_26:
-          (*(*a1 + 280))(a1, v9, v91, v92, v69);
-          goto LABEL_27;
+          (*(*a1 + 280))(a1, v9, v90, v91, v78);
+LABEL_27:
+          (**a1)(a1);
+          return;
         }
 
         v61 = (**a1)(a1);
@@ -1823,32 +1603,32 @@ LABEL_26:
 
       else
       {
-        v71 = (*(v70 + 48))(v9);
-        v73 = v72;
-        v75 = v74;
-        v61 = v71 - (*(*a1 + 48))(a1);
-        v63 = v73 - v76;
-        v65 = v75 - v77;
+        v70 = (*(v69 + 48))(v9);
+        v72 = v71;
+        v74 = v73;
+        v61 = v70 - (*(*a1 + 48))(a1);
+        v63 = v72 - v75;
+        v65 = v74 - v76;
         (**a1)(a1);
       }
     }
 
     else
     {
-      v61 = v85 - (*(*a1 + 48))(a1);
-      v63 = v86 - v62;
-      v65 = v87 - v64;
+      v61 = v84 - (*(*a1 + 48))(a1);
+      v63 = v85 - v62;
+      v65 = v86 - v64;
       (**a1)(a1);
     }
 
     if ((((v66 * v61) + (v67 * v63)) + (v68 * v65)) <= 0.0)
     {
-      v69 = 1.0;
+      v78 = 1.0;
     }
 
     else
     {
-      v69 = -1.0;
+      v78 = -1.0;
     }
 
     goto LABEL_26;
@@ -2116,14 +1896,14 @@ float OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::Abstrac
 void OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::AbstractVehicle>>::steerToFollowPath(uint64_t a1, int a2, uint64_t a3, float a4)
 {
   v7 = a2 * (a4 * (*(*a1 + 200))(a1));
-  v29[0] = (*(*a1 + 216))(a1, a4);
-  v29[1] = v8;
-  v29[2] = v9;
-  LODWORD(v27) = (*(*a1 + 48))(a1);
-  HIDWORD(v27) = v10;
-  v28 = v11;
-  v12 = (*(*a3 + 16))(a3, &v27);
-  v13 = (*(*a3 + 16))(a3, v29);
+  v25[0] = (*(*a1 + 216))(a1, a4);
+  v25[1] = v8;
+  v25[2] = v9;
+  LODWORD(v23) = (*(*a1 + 48))(a1);
+  HIDWORD(v23) = v10;
+  v24 = v11;
+  v12 = (*(*a3 + 16))(a3, &v23);
+  v13 = (*(*a3 + 16))(a3, v25);
   if (v7 <= 0.0)
   {
     v14 = v12 <= v13;
@@ -2134,32 +1914,21 @@ void OpenSteer::SteerLibraryMixin<OpenSteer::LocalSpaceMixin<OpenSteer::Abstract
     v14 = v12 >= v13;
   }
 
-  v28 = 0;
-  v27 = 0;
-  v26 = 0.0;
-  v25[0] = (**a3)(a3, v29, &v27, &v26);
-  v25[1] = v15;
-  v25[2] = v16;
-  if (v26 >= 0.0 || v14)
+  v24 = 0;
+  v23 = 0;
+  v22 = 0.0;
+  v21[0] = (**a3)(a3, v25, &v23, &v22);
+  v21[1] = v15;
+  v21[2] = v16;
+  if (v22 >= 0.0 || v14)
   {
-    v24[0] = (*(*a3 + 8))(a3, v12 + v7);
-    v24[1] = v17;
-    v24[2] = v18;
-    v19.n128_f32[0] = v26;
-    (*(*a1 + 264))(a1, v29, v25, v24, v19);
-    v20 = (*(*a1 + 48))(a1);
-    v21 = v24[0] - v20;
-    if (v21 == 0.0)
-    {
-      v22 = 0.00000011921;
-    }
-
-    else
-    {
-      v22 = v21;
-    }
-
-    v23 = v22 - (*(*a1 + 192))(a1);
+    v20[0] = (*(*a3 + 8))(a3, v12 + v7);
+    v20[1] = v17;
+    v20[2] = v18;
+    v19.n128_f32[0] = v22;
+    (*(*a1 + 264))(a1, v25, v21, v20, v19);
+    (*(*a1 + 48))(a1);
+    (*(*a1 + 192))(a1);
   }
 }
 
@@ -2239,12 +2008,10 @@ void sub_2389C5468(_Unwind_Exception *a1)
 
 void GKCHybridStrategist::bestMoveForActivePlayer(GKCHybridStrategist *this)
 {
-  v2 = *(this + 7);
   *(this + 104) = objc_opt_respondsToSelector() & 1;
-  v3 = *(this + 7);
   *(this + 105) = objc_opt_respondsToSelector() & 1;
-  v4 = [*(this + 7) players];
-  *(this + 12) = [v4 count];
+  v2 = [*(this + 7) players];
+  *(this + 12) = [v2 count];
 
   GKCHybridStrategist::setupMinmax(this);
   [*(this + 7) copyWithZone:0];
@@ -2268,7 +2035,7 @@ void GKCHybridStrategist::GKCHybridStrategist(GKCHybridStrategist *this)
 
 void sub_2389C5B2C(_Unwind_Exception *a1)
 {
-  std::vector<std::vector<ClipperLib::IntPoint>>::~vector[abi:ne200100](v1 + 3);
+  std::vector<std::vector<ClipperLib::IntPoint>>::~vector[abi:ne200100]((v1 + 24));
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](v1);
   _Unwind_Resume(a1);
 }
@@ -2735,47 +2502,47 @@ void sub_2389C8A3C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2389C8C90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2389C8C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389C8CA8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2389C8CA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389C8CBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2389C8CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-
-  std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_2389C8DC4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
 
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389C8DDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2389C8DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
+
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389C8DF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2389C8DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
+  std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void sub_2389C8DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
 
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -2811,8 +2578,8 @@ void GKCQuadTree<NSObject>::~GKCQuadTree(void *a1)
 uint64_t GKCQuadTreeNode<NSObject>::GKCQuadTreeNode(uint64_t a1, uint64_t a2, float32x2_t a3, float32x2_t a4, float a5)
 {
   *a1 = &unk_284B50338;
-  *(a1 + 8) = *&a3;
-  *(a1 + 16) = *&a4;
+  *(a1 + 8) = a3;
+  *(a1 + 16) = a4;
   v6 = vsub_f32(a4, a3);
   *(a1 + 24) = v6;
   *(a1 + 32) = vmla_f32(a3, v6, 0x3F0000003F000000);
@@ -2899,11 +2666,11 @@ uint64_t GKCQuadTreeNode<NSObject>::~GKCQuadTreeNode(uint64_t a1)
   return a1;
 }
 
-uint64_t GKCQuadTreeNode<NSObject>::addPoint(uint64_t a1, void *a2, double a3)
+uint64_t GKCQuadTreeNode<NSObject>::addPoint(uint64_t a1, void *a2, float32x2_t a3)
 {
   v5 = a2;
   v6 = v5;
-  v20 = v5;
+  v15 = v5;
   v7 = vmul_f32(*(a1 + 24), 0x3F0000003F000000);
   v8 = *(a1 + 40);
   if (v7.f32[0] < v8 || v7.f32[1] < v8)
@@ -2911,8 +2678,8 @@ uint64_t GKCQuadTreeNode<NSObject>::addPoint(uint64_t a1, void *a2, double a3)
     v10 = *(a1 + 96);
     if (v10 >= *(a1 + 104))
     {
-      v13 = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>((a1 + 88), &v20);
-      v6 = v20;
+      v13 = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>((a1 + 88), &v15);
+      v6 = v15;
       *(a1 + 96) = v13;
     }
 
@@ -2926,43 +2693,47 @@ uint64_t GKCQuadTreeNode<NSObject>::addPoint(uint64_t a1, void *a2, double a3)
 
   else
   {
-    v11 = vcgt_f32(*(a1 + 32), *&a3);
+    v11 = vcgt_f32(*(a1 + 32), a3);
     if (v11.i8[0])
     {
       if (v11.i8[4])
       {
-        if (!*(a1 + 72))
+        v12 = *(a1 + 72);
+        if (!v12)
         {
-          v12 = *(a1 + 8);
           operator new();
         }
       }
 
-      else if (!*(a1 + 56))
+      else
       {
-        v16 = *(a1 + 8);
-        v17 = *(a1 + 16);
-        operator new();
+        v12 = *(a1 + 56);
+        if (!v12)
+        {
+          operator new();
+        }
       }
     }
 
     else if (v11.i8[4])
     {
-      if (!*(a1 + 80))
+      v12 = *(a1 + 80);
+      if (!v12)
       {
-        v14 = *(a1 + 8);
-        v15 = *(a1 + 16);
         operator new();
       }
     }
 
-    else if (!*(a1 + 64))
+    else
     {
-      v19 = *(a1 + 16);
-      operator new();
+      v12 = *(a1 + 64);
+      if (!v12)
+      {
+        operator new();
+      }
     }
 
-    a1 = GKCQuadTreeNode<NSObject>::addPoint(a3);
+    a1 = GKCQuadTreeNode<NSObject>::addPoint(v12, v6, a3);
   }
 
   return a1;
@@ -2970,94 +2741,92 @@ uint64_t GKCQuadTreeNode<NSObject>::addPoint(uint64_t a1, void *a2, double a3)
 
 void sub_2389C947C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  MEMORY[0x23EE6C500](a11, 0x10A1C4057B0C30BLL);
+  MEMORY[0x23EE6C500](a11, 0x10A1C4057B0C30BLL, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
 
-uint64_t GKCQuadTreeNode<NSObject>::addQuad(uint64_t a1, void *a2, __n128 a3, double a4)
+uint64_t GKCQuadTreeNode<NSObject>::addQuad(uint64_t a1, void *a2, __n128 a3, float32x2_t a4)
 {
   v6 = a2;
-  v30 = v6;
-  v9.n128_u64[0] = vmul_f32(*(a1 + 24), 0x3F0000003F000000);
-  v10 = *(a1 + 40);
-  v11 = v9.n128_f32[1];
-  if (v9.n128_f32[0] > v10 && v9.n128_f32[1] > v10)
+  v7 = v6;
+  v25 = v6;
+  v8 = vmul_f32(*(a1 + 24), 0x3F0000003F000000);
+  v9 = *(a1 + 40);
+  if (v8.f32[0] > v9 && v8.f32[1] > v9)
   {
-    v7.n128_u64[0] = *(a1 + 32);
-    v14 = vcgt_f32(v7.n128_u64[0], a3.n128_u64[0]).u8[0];
-    v15 = vadd_f32(*&a4, a3.n128_u64[0]);
-    v28 = v7;
-    v7.n128_u64[0] = vcgt_f32(v15, vadd_f32(v7.n128_u64[0], v9.n128_u64[0]));
-    v16 = v14 | v7.n128_u8[0];
-    if ((v16 & 1) == 0 && ((v8.n128_u64[1] = v28.n128_u64[1], v7.n128_u32[0] = v15.u32[1], a3.n128_f32[1] >= v28.n128_f32[1]) ? (v17 = v15.f32[1] <= (v28.n128_f32[1] + v9.n128_f32[1])) : (v17 = 0), v17))
+    v12 = *(a1 + 32);
+    v13 = vadd_f32(a4, a3.n128_u64[0]);
+    v14 = vcgt_f32(v12, a3.n128_u64[0]).u8[0] | vcgt_f32(v13, vadd_f32(v12, v8)).u8[0];
+    if ((v14 & 1) == 0 && (a3.n128_f32[1] >= v12.f32[1] ? (v15 = v13.f32[1] <= (v12.f32[1] + v8.f32[1])) : (v15 = 0), v15))
     {
-      if (!*(a1 + 64))
+      v22 = *(a1 + 64);
+      if (!v22)
       {
-        v24 = *(a1 + 16);
         operator new();
       }
     }
 
     else
     {
-      v8.n128_u64[0] = *(a1 + 8);
-      v18 = vcgt_f32(v8.n128_u64[0], a3.n128_u64[0]).u8[0] | vcgt_f32(v15, vadd_f32(v8.n128_u64[0], v9.n128_u64[0])).u8[0];
-      if ((v18 & 1) == 0 && ((v7 = v28, v9 = a3, v9.n128_u32[0] = v15.u32[1], v7.n128_f32[0] = v28.n128_f32[1] + v11, a3.n128_f32[1] >= v28.n128_f32[1]) ? (v19 = v15.f32[1] <= v7.n128_f32[0]) : (v19 = 0), v19))
+      v16 = *(a1 + 8);
+      v17 = vcgt_f32(v16, a3.n128_u64[0]).u8[0] | vcgt_f32(v13, vadd_f32(v16, v8)).u8[0];
+      if ((v17 & 1) == 0 && (a3.n128_f32[1] >= COERCE_FLOAT(HIDWORD(*(a1 + 32))) ? (v18 = v13.f32[1] <= (v12.f32[1] + v8.f32[1])) : (v18 = 0), v18))
       {
-        if (!*(a1 + 56))
+        v22 = *(a1 + 56);
+        if (!v22)
         {
-          v25 = *(a1 + 16);
           operator new();
         }
       }
 
-      else if ((v16 & 1) == 0 && ((v9 = a3, v7 = v8, v9.n128_u32[0] = v15.u32[1], v7.n128_f32[0] = v8.n128_f32[1] + v11, a3.n128_f32[1] >= v8.n128_f32[1]) ? (v20 = v15.f32[1] <= v7.n128_f32[0]) : (v20 = 0), v20))
+      else if ((v14 & 1) == 0 && (a3.n128_f32[1] >= v16.f32[1] ? (v19 = v13.f32[1] <= (v16.f32[1] + v8.f32[1])) : (v19 = 0), v19))
       {
-        if (!*(a1 + 80))
+        v22 = *(a1 + 80);
+        if (!v22)
         {
-          v26 = *(a1 + 16);
           operator new();
         }
       }
 
       else
       {
-        if ((v18 & 1) != 0 || ((v9 = a3, v9.n128_u32[0] = a3.n128_u32[1], v7 = v8, v7.n128_u32[0] = HIDWORD(*(a1 + 8)), v21 = v8.n128_f32[1] + v11, a3.n128_f32[1] >= v8.n128_f32[1]) ? (v22 = v15.f32[1] <= v21) : (v22 = 0), !v22))
+        if ((v17 & 1) != 0 || (a3.n128_f32[1] >= v16.f32[1] ? (v20 = v13.f32[1] <= (v16.f32[1] + v8.f32[1])) : (v20 = 0), !v20))
         {
-          v13 = *(a1 + 96);
-          if (v13 < *(a1 + 104))
+          v11 = *(a1 + 96);
+          if (v11 < *(a1 + 104))
           {
             goto LABEL_29;
           }
 
 LABEL_30:
-          v23 = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>((a1 + 88), &v30);
+          v21 = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>((a1 + 88), &v25);
           goto LABEL_31;
         }
 
-        if (!*(a1 + 72))
+        v22 = *(a1 + 72);
+        if (!v22)
         {
           operator new();
         }
       }
     }
 
-    a1 = GKCQuadTreeNode<NSObject>::addQuad(a3, a4, v9, v7);
+    a1 = GKCQuadTreeNode<NSObject>::addQuad(v22, v7, a3, a4);
     goto LABEL_40;
   }
 
-  v13 = *(a1 + 96);
-  if (v13 >= *(a1 + 104))
+  v11 = *(a1 + 96);
+  if (v11 >= *(a1 + 104))
   {
     goto LABEL_30;
   }
 
 LABEL_29:
-  *v13 = v6;
-  v23 = (v13 + 1);
+  *v11 = v6;
+  v21 = v11 + 1;
 LABEL_31:
-  *(a1 + 96) = v23;
+  *(a1 + 96) = v21;
 LABEL_40:
 
   return a1;
@@ -3198,11 +2967,11 @@ LABEL_34:
     while (v46 != v31);
     v32 = a1[1];
 LABEL_37:
-    v48 = v28 + v32 - v5;
+    v48 = (v28 + v32 - v5);
     a1[1] = v5;
     v49 = *a1;
     v50 = v5 - *a1;
-    v51 = v26 - v50;
+    v51 = (v26 - v50);
     if (*a1 != v5)
     {
       v52 = v50 - 8;
@@ -3213,7 +2982,7 @@ LABEL_37:
         goto LABEL_98;
       }
 
-      v55 = v49 >= &v25[(v52 & 0xFFFFFFFFFFFFFFF8) - v50 + 8] || v51 >= v49 + (v52 & 0xFFFFFFFFFFFFFFF8) + 8;
+      v55 = v49 >= &v25[(v52 & 0xFFFFFFFFFFFFFFF8) - v50 + 8] || v51 >= (v49 + (v52 & 0xFFFFFFFFFFFFFFF8) + 8);
       v53 = *a1;
       v54 = (v26 - v50);
       if (!v55)
@@ -3225,7 +2994,7 @@ LABEL_37:
       v57 = (v52 >> 3) + 1;
       v58 = v57 & 0x3FFFFFFFFFFFFFFCLL;
       v53 = &v49[v58];
-      v54 = (v51 + v58 * 8);
+      v54 = &v51[v58];
       v59 = (-8 * v56 + 8 * v109 + 16);
       v60 = (v49 + 2);
       v61 = v57 & 0x3FFFFFFFFFFFFFFCLL;
@@ -3293,8 +3062,7 @@ LABEL_98:
       do
       {
         v67 = *v66++;
-        *v19 = v67;
-        v19 += 8;
+        *v19++ = v67;
       }
 
       while (v66 != a4);
@@ -3307,7 +3075,7 @@ LABEL_98:
     }
 
     v68 = 8 * a5;
-    v69 = (v19 - 8 * a5);
+    v69 = &v19[-a5];
     if (v69 >= v10)
     {
       v72 = v19;
@@ -3324,17 +3092,17 @@ LABEL_98:
       v71 = &v70[v68 / 8] + ~v19;
       if (v71 > 0xC7)
       {
-        v91 = v19 + (v71 & 0xFFFFFFFFFFFFFFF8);
-        v92 = v69 >= v91 + 8 || v19 >= v91 - v68 + 8;
+        v91 = (v19 + (v71 & 0xFFFFFFFFFFFFFFF8));
+        v92 = v69 >= v91 + 1 || v19 >= &v91[v68 / 0xFFFFFFFFFFFFFFF8 + 1];
         v72 = v19;
         if (v92)
         {
           v93 = (v71 >> 3) + 1;
-          v94 = 8 * (v93 & 0x3FFFFFFFFFFFFFFCLL);
-          v69 = (v69 + v94);
-          v72 = (v19 + v94);
-          v95 = (v19 + 16);
-          v96 = (v19 + 16 - v68);
+          v94 = v93 & 0x3FFFFFFFFFFFFFFCLL;
+          v69 = (v69 + v94 * 8);
+          v72 = &v19[v94];
+          v95 = v19 + 2;
+          v96 = &v19[v68 / 0xFFFFFFFFFFFFFFF8 + 2];
           v97 = v93 & 0x3FFFFFFFFFFFFFFCLL;
           do
           {
@@ -3345,7 +3113,7 @@ LABEL_98:
             *(v95 - 1) = v98;
             *v95 = v99;
             v95 += 2;
-            v96 += 2;
+            v96 += 4;
             v97 -= 4;
           }
 
@@ -3376,9 +3144,9 @@ LABEL_87:
     a1[1] = v72;
     if (v19 != &v5[a5])
     {
-      v101 = (v19 - 8);
+      v101 = v19 - 1;
       v102 = &v5[v68 / 8] - v19;
-      v103 = (v19 - 8 - v68);
+      v103 = &v19[v68 / 0xFFFFFFFFFFFFFFF8 - 1];
       do
       {
         v104 = *v103;
@@ -3505,62 +3273,61 @@ LABEL_72:
   return v5;
 }
 
-id *GKCQuadTreeNode<NSObject>::queryQuad(id *result, float32x2_t *a2, float32x2_t *a3, void ***a4)
+float32x2_t *GKCQuadTreeNode<NSObject>::queryQuad(float32x2_t *result, float32x2_t *a2, int32x2_t *a3, void ***a4)
 {
   v7 = result;
   while (1)
   {
     while (1)
     {
-      v8 = *(v7 + 11);
-      v9 = v7[12];
-      v10 = v7[11];
-      if (v9 != v10)
+      v8 = v7[12];
+      v9 = v7[11];
+      if (v8 != v9)
       {
-        result = std::vector<NSObject * {__strong}>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NSObject * const {__strong}*>,NSObject * const {__strong}*>(a4, a4[1], v10, v9, v9 - v10);
+        result = std::vector<NSObject * {__strong}>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NSObject * const {__strong}*>,NSObject * const {__strong}*>(a4, a4[1], v9, v8, v8 - v9);
       }
 
-      v11 = v7[4];
-      v12 = vmul_f32(v7[3], 0x3F0000003F000000);
-      v13 = *a2;
-      v14 = *a3;
-      v15 = vadd_f32(*a3, *a2);
-      if ((vcgt_f32(*a2, v11).u32[0] & 1) == 0)
+      v10 = v7[4];
+      v11 = vmul_f32(v7[3], 0x3F0000003F000000);
+      v12 = *a2;
+      v13 = *a3;
+      v14 = vadd_f32(*a3, *a2);
+      if ((vcgt_f32(*a2, v10).u32[0] & 1) == 0)
       {
         break;
       }
 
-      v16 = vadd_f32(v11, v12);
-      if (vcgt_f32(v15, v11).u32[0] & 1) != 0 && (vcgt_f32(v16, v13).u8[0])
+      v15 = vadd_f32(v10, v11);
+      if (vcgt_f32(v14, v10).u32[0] & 1) != 0 && (vcgt_f32(v15, v12).u8[0])
       {
-        v17 = vcgt_f32(vadd_f32(vzip2_s32(v14, v11), vzip2_s32(v13, v12)), vzip2_s32(v11, v13));
-        if (v17.i32[1] & v17.i32[0])
+        v16 = vcgt_f32(vadd_f32(vzip2_s32(v13, v10), vzip2_s32(v12, v11)), vzip2_s32(v10, v12));
+        if (v16.i32[1] & v16.i32[0])
         {
           result = v7[8];
           if (result)
           {
             result = GKCQuadTreeNode<NSObject>::queryQuad(result, a2, a3, a4);
-            v11 = v7[4];
-            v13 = *a2;
-            v14 = *a3;
-            v15.i32[0] = vadd_f32(*a3, *a2).u32[0];
-            v16.i32[0] = vadd_f32(v11, v12).u32[0];
+            v10 = v7[4];
+            v12 = *a2;
+            v13 = *a3;
+            v14.i32[0] = vadd_f32(*a3, *a2).u32[0];
+            v15.i32[0] = vadd_f32(v10, v11).u32[0];
           }
         }
       }
 
-      if (v11.f32[0] >= v15.f32[0] || v16.f32[0] <= v13.f32[0])
+      if (v10.f32[0] >= v14.f32[0] || v15.f32[0] <= v12.f32[0])
       {
         return result;
       }
 
 LABEL_50:
-      v33.i32[0] = vdup_lane_s32(v14, 1).u32[0];
-      v33.i32[1] = *(v7 + 3);
-      v34 = vzip2_s32(v13, v12);
-      v13.i32[0] = v33.i32[1];
-      v35 = vcgt_f32(vadd_f32(v33, v34), v13);
-      if (v35.i32[1] & v35.i32[0])
+      v32.i32[0] = vdup_lane_s32(v13, 1).u32[0];
+      v32.i32[1] = v7[1].i32[1];
+      v33 = vzip2_s32(v12, v11);
+      v12.i32[0] = v32.i32[1];
+      v34 = vcgt_f32(vadd_f32(v32, v33), v12);
+      if (v34.i32[1] & v34.i32[0])
       {
         v7 = v7[10];
         if (v7)
@@ -3572,36 +3339,36 @@ LABEL_50:
       return result;
     }
 
-    v19 = v7[1];
-    v20 = vadd_f32(v19, v12);
-    v21 = vcgt_f32(v15, v19).u8[0] & vcgt_f32(v20, v13).u8[0];
-    if ((vcgt_f32(v11, v15).u32[0] & 1) == 0)
+    v18 = v7[1];
+    v19 = vadd_f32(v18, v11);
+    v20 = vcgt_f32(v14, v18).u8[0] & vcgt_f32(v19, v12).u8[0];
+    if ((vcgt_f32(v10, v14).u32[0] & 1) == 0)
     {
       break;
     }
 
-    if (v21)
+    if (v20)
     {
-      v22 = vcgt_f32(vadd_f32(vzip2_s32(v14, v11), vzip2_s32(v13, v12)), vzip2_s32(v11, v13));
-      if (v22.i32[1] & v22.i32[0])
+      v21 = vcgt_f32(vadd_f32(vzip2_s32(v13, v10), vzip2_s32(v12, v11)), vzip2_s32(v10, v12));
+      if (v21.i32[1] & v21.i32[0])
       {
         result = v7[7];
         if (result)
         {
           result = GKCQuadTreeNode<NSObject>::queryQuad(result, a2, a3, a4);
-          v19 = v7[1];
-          v13 = *a2;
-          v14 = *a3;
-          v15.i32[0] = vadd_f32(*a3, *a2).u32[0];
-          v20.i32[0] = vadd_f32(v19, v12).u32[0];
+          v18 = v7[1];
+          v12 = *a2;
+          v13 = *a3;
+          v14.i32[0] = vadd_f32(*a3, *a2).u32[0];
+          v19.i32[0] = vadd_f32(v18, v11).u32[0];
         }
       }
     }
 
-    if (v19.f32[0] < v15.f32[0] && v20.f32[0] > v13.f32[0])
+    if (v18.f32[0] < v14.f32[0] && v19.f32[0] > v12.f32[0])
     {
-      v24 = vcgt_f32(vadd_f32(vzip2_s32(v14, v19), vzip2_s32(v13, v12)), vzip2_s32(v19, v13));
-      if (v24.i32[1] & v24.i32[0])
+      v23 = vcgt_f32(vadd_f32(vzip2_s32(v13, v18), vzip2_s32(v12, v11)), vzip2_s32(v18, v12));
+      if (v23.i32[1] & v23.i32[0])
       {
         v7 = v7[9];
         if (v7)
@@ -3614,61 +3381,61 @@ LABEL_50:
     return result;
   }
 
-  if (v21)
+  if (v20)
   {
-    v25 = vcgt_f32(vadd_f32(vzip2_s32(v14, v11), vzip2_s32(v13, v12)), vzip2_s32(v11, v13));
-    if (v25.i32[1] & v25.i32[0])
+    v24 = vcgt_f32(vadd_f32(vzip2_s32(v13, v10), vzip2_s32(v12, v11)), vzip2_s32(v10, v12));
+    if (v24.i32[1] & v24.i32[0])
     {
       result = v7[7];
       if (result)
       {
         result = GKCQuadTreeNode<NSObject>::queryQuad(result, a2, a3, a4);
-        v19 = v7[1];
-        v13 = *a2;
-        v14 = *a3;
-        v15.i32[0] = vadd_f32(*a3, *a2).u32[0];
-        v20.i32[0] = vadd_f32(v19, v12).u32[0];
+        v18 = v7[1];
+        v12 = *a2;
+        v13 = *a3;
+        v14.i32[0] = vadd_f32(*a3, *a2).u32[0];
+        v19.i32[0] = vadd_f32(v18, v11).u32[0];
       }
     }
   }
 
-  if (v19.f32[0] < v15.f32[0] && v20.f32[0] > v13.f32[0])
+  if (v18.f32[0] < v14.f32[0] && v19.f32[0] > v12.f32[0])
   {
-    v27 = vcgt_f32(vadd_f32(vzip2_s32(v14, v19), vzip2_s32(v13, v12)), vzip2_s32(v19, v13));
-    if (v27.i32[1] & v27.i32[0])
+    v26 = vcgt_f32(vadd_f32(vzip2_s32(v13, v18), vzip2_s32(v12, v11)), vzip2_s32(v18, v12));
+    if (v26.i32[1] & v26.i32[0])
     {
       result = v7[9];
       if (result)
       {
         result = GKCQuadTreeNode<NSObject>::queryQuad(result, a2, a3, a4);
-        v13 = *a2;
-        v14 = *a3;
-        v15.i32[0] = vadd_f32(*a3, *a2).u32[0];
+        v12 = *a2;
+        v13 = *a3;
+        v14.i32[0] = vadd_f32(*a3, *a2).u32[0];
       }
     }
   }
 
-  v28 = v7[4];
-  LODWORD(v29) = vadd_f32(v28, v12).u32[0];
-  if (v28.f32[0] < v15.f32[0] && v29 > v13.f32[0])
+  v27 = v7[4];
+  LODWORD(v28) = vadd_f32(v27, v11).u32[0];
+  if (v27.f32[0] < v14.f32[0] && v28 > v12.f32[0])
   {
-    v31 = vcgt_f32(vadd_f32(vzip2_s32(v14, v28), vzip2_s32(v13, v12)), vzip2_s32(v28, v13));
-    if (v31.i32[1] & v31.i32[0])
+    v30 = vcgt_f32(vadd_f32(vzip2_s32(v13, v27), vzip2_s32(v12, v11)), vzip2_s32(v27, v12));
+    if (v30.i32[1] & v30.i32[0])
     {
       result = v7[8];
       if (result)
       {
         result = GKCQuadTreeNode<NSObject>::queryQuad(result, a2, a3, a4);
-        v28 = v7[4];
-        v13 = *a2;
-        v14 = *a3;
-        v15.i32[0] = vadd_f32(*a3, *a2).u32[0];
-        LODWORD(v29) = vadd_f32(v28, v12).u32[0];
+        v27 = v7[4];
+        v12 = *a2;
+        v13 = *a3;
+        v14.i32[0] = vadd_f32(*a3, *a2).u32[0];
+        LODWORD(v28) = vadd_f32(v27, v11).u32[0];
       }
     }
   }
 
-  if (v28.f32[0] < v15.f32[0] && v29 > v13.f32[0])
+  if (v27.f32[0] < v14.f32[0] && v28 > v12.f32[0])
   {
     goto LABEL_50;
   }
@@ -3821,19 +3588,19 @@ id *GKCGraphNode::removeConnectionToNode(id *this, id *a2, char a3)
       v11 = -8 * v8;
       do
       {
-        v12 = *(v5 + 8);
-        v13 = (v12 + v9);
-        if (*(v12 + v9 - 8) == a2)
+        v12 = v5[1];
+        v13 = &v12[v9];
+        if (*&v12[v9 - 8] == a2)
         {
           v14 = v13 - 8;
-          v15 = &v6[v11 - v12];
+          v15 = (v11 + v6 - v12);
           if (v13 != v6)
           {
-            memmove(v13 - 8, v13, &v6[v11 - v12]);
+            memmove(v13 - 8, v13, v11 + v6 - v12);
           }
 
-          v6 = &v14[v15];
-          *(v5 + 16) = &v14[v15];
+          v6 = &v15[v14];
+          v5[2] = &v15[v14];
         }
 
         v9 -= 8;
@@ -3844,7 +3611,7 @@ id *GKCGraphNode::removeConnectionToNode(id *this, id *a2, char a3)
       while (v10 > 1);
     }
 
-    WeakRetained = objc_loadWeakRetained((v5 + 56));
+    WeakRetained = objc_loadWeakRetained(v5 + 7);
     v17 = [WeakRetained mutConnectedNodes];
     v18 = objc_loadWeakRetained(a2 + 7);
     [v17 removeObject:v18];
@@ -3985,21 +3752,16 @@ void GKCGridGraphNode::estimatedCostToNode(id *this, id *a2)
   }
 }
 
-void GKCGridGraphNode::costToNode(int32x2_t *this, id *a2)
+void GKCGridGraphNode::costToNode(id *this, id *a2)
 {
   v4 = objc_opt_class();
   if (methodOverridden(a2, v4, sel_costToNode_))
   {
-    WeakRetained = objc_loadWeakRetained(&this[7]);
+    WeakRetained = objc_loadWeakRetained(this + 7);
     v6 = objc_loadWeakRetained(a2 + 7);
     [WeakRetained costToNode:v6];
   }
 
-  {
-    v9 = vsub_f32(vcvt_f32_s32(v8[8]), vcvt_f32_s32(this[8]));
-  }
-
-  else
   {
 
     GKCGraphNode::estimatedCostToNode(this, a2);
@@ -4048,21 +3810,16 @@ void GKCGraphNode2D::estimatedCostToNode(id *this, id *a2)
   }
 }
 
-void GKCGraphNode2D::costToNode(float32x2_t *this, id *a2)
+void GKCGraphNode2D::costToNode(id *this, id *a2)
 {
   v4 = objc_opt_class();
   if (methodOverridden(a2, v4, sel_costToNode_))
   {
-    WeakRetained = objc_loadWeakRetained(&this[7]);
+    WeakRetained = objc_loadWeakRetained(this + 7);
     v6 = objc_loadWeakRetained(a2 + 7);
     [WeakRetained costToNode:v6];
   }
 
-  {
-    v9 = vsub_f32(v8[8], this[8]);
-  }
-
-  else
   {
 
     GKCGraphNode::estimatedCostToNode(this, a2);
@@ -4112,7 +3869,7 @@ void GKCGraphNode3D::estimatedCostToNode(id *this, id *a2)
   }
 }
 
-void GKCGraphNode3D::costToNode(GKCGraphNode3D *this, id *a2)
+void GKCGraphNode3D::costToNode(id *this, id *a2)
 {
   v4 = objc_opt_class();
   if (methodOverridden(a2, v4, sel_costToNode_))
@@ -4122,11 +3879,6 @@ void GKCGraphNode3D::costToNode(GKCGraphNode3D *this, id *a2)
     [WeakRetained costToNode:v6];
   }
 
-  {
-    v9 = vsubq_f32(v8[4], *(this + 4));
-  }
-
-  else
   {
 
     GKCGraphNode::estimatedCostToNode(this, a2);
@@ -4539,7 +4291,7 @@ double ClipperLib::Area(uint64_t a1)
   return v2 * 0.5;
 }
 
-uint64_t ClipperLib::PointIsVertex(uint64_t *a1, void *a2)
+BOOL ClipperLib::PointIsVertex(uint64_t *a1, void *a2)
 {
   v2 = *a1;
   v3 = a1[1];
@@ -5266,7 +5018,7 @@ LABEL_46:
   return result;
 }
 
-int8x16_t ClipperLib::ReversePolyPtLinks(unint64_t a1)
+int8x16_t ClipperLib::ReversePolyPtLinks(uint64_t a1)
 {
   if (a1)
   {
@@ -5366,7 +5118,7 @@ __n128 ClipperLib::SwapPoints(__n128 *a1, __n128 *a2)
   return result;
 }
 
-BOOL ClipperLib::GetOverlapSegment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10)
+BOOL ClipperLib::GetOverlapSegment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9, uint64_t *a10)
 {
   v10 = a1 - a3;
   if (a1 - a3 < 0)
@@ -5801,7 +5553,7 @@ uint64_t ClipperLib::Pt2IsBetweenPt1AndPt3(uint64_t a1, uint64_t a2, uint64_t a3
   return (a3 > a1) ^ (a3 >= a5);
 }
 
-BOOL ClipperLib::HorzSegmentsOverlap(ClipperLib *this, uint64_t a2, uint64_t a3, uint64_t a4)
+BOOL ClipperLib::HorzSegmentsOverlap(ClipperLib *this, ClipperLib *a2, uint64_t a3, uint64_t a4)
 {
   if (this >= a2)
   {
@@ -6148,7 +5900,7 @@ uint64_t ClipperLib::ClipperBase::ProcessBound(uint64_t a1, uint64_t *a2, int a3
       v38 = *(v8 + 8);
       v39 = v8;
       *(v8 + 80) = 0;
-      v10 = ClipperLib::ClipperBase::ProcessBound();
+      v10 = ClipperLib::ClipperBase::ProcessBound(a1, v8, a3);
       std::vector<ClipperLib::LocalMinimum>::push_back[abi:ne200100](a1 + 16, &v38);
       return v10;
     }
@@ -6372,7 +6124,7 @@ LABEL_3:
   *(a1 + 8) = v6;
 }
 
-uint64_t ClipperLib::ClipperBase::AddPath(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t ClipperLib::ClipperBase::AddPath(uint64_t a1, int64x2_t **a2, int a3, char a4)
 {
   if ((a4 & 1) == 0)
   {
@@ -6381,7 +6133,7 @@ uint64_t ClipperLib::ClipperBase::AddPath(uint64_t a1, uint64_t a2, uint64_t a3,
   }
 
   v4 = *a2;
-  v5 = (*(a2 + 8) - *a2) >> 4;
+  v5 = (a2[1] - *a2) >> 4;
   v6 = v5 - 1;
   if (v5 >= 2)
   {
@@ -6468,7 +6220,7 @@ void ClipperLib::clipperException::~clipperException(std::exception *this)
   JUMPOUT(0x23EE6C500);
 }
 
-uint64_t ClipperLib::ClipperBase::AddPaths(uint64_t a1, uint64_t *a2, uint64_t a3, char a4)
+uint64_t ClipperLib::ClipperBase::AddPaths(uint64_t a1, uint64_t *a2, int a3, char a4)
 {
   v4 = *a2;
   if (a2[1] == *a2)
@@ -6483,7 +6235,7 @@ uint64_t ClipperLib::ClipperBase::AddPaths(uint64_t a1, uint64_t *a2, uint64_t a
     v11 = 0;
     do
     {
-      v11 |= ClipperLib::ClipperBase::AddPath(a1, v4 + v9, a3, a4);
+      v11 |= ClipperLib::ClipperBase::AddPath(a1, (v4 + v9), a3, a4);
       ++v10;
       v4 = *a2;
       v9 += 24;
@@ -6543,7 +6295,7 @@ void ClipperLib::ClipperBase::Reset(ClipperLib::ClipperBase *this, __n128 a2)
   *(this + 1) = v3;
   if (v3 != v4)
   {
-    std::__introsort<std::_ClassicAlgPolicy,ClipperLib::LocMinSorter &,ClipperLib::LocalMinimum *,false>(v3, v4, &v8, 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (&v4[-v3] >> 3)), 1, a2);
+    std::__introsort<std::_ClassicAlgPolicy,ClipperLib::LocMinSorter &,ClipperLib::LocalMinimum *,false>(v3, v4, &v8, 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v4 - v3) >> 3)), 1, a2);
     for (i = *(this + 2); i != *(this + 3); i += 24)
     {
       v6 = *(i + 8);
@@ -6850,7 +6602,7 @@ void ClipperLib::Clipper::Reset(ClipperLib::Clipper *this, __n128 a2)
   v3[1] = v4;
   if (v4 != v5)
   {
-    std::__introsort<std::_ClassicAlgPolicy,ClipperLib::LocMinSorter &,ClipperLib::LocalMinimum *,false>(v4, v5, &v23, 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (&v5[-v4] >> 3)), 1, a2);
+    std::__introsort<std::_ClassicAlgPolicy,ClipperLib::LocMinSorter &,ClipperLib::LocalMinimum *,false>(v4, v5, &v23, 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v5 - v4) >> 3)), 1, a2);
     for (i = v3[2]; i != v3[3]; i += 24)
     {
       v7 = *(i + 8);
@@ -6971,9 +6723,9 @@ void ClipperLib::Clipper::InsertScanbeam(ClipperLib::Clipper *this, uint64_t a2)
   }
 }
 
-uint64_t ClipperLib::Clipper::Execute(uint64_t a1, int a2, uint64_t *a3, int a4, int a5)
+uint64_t ClipperLib::Clipper::Execute(uint64_t *a1, int a2, uint64_t *a3, int a4, int a5)
 {
-  if (*(a1 + 160))
+  if (a1[20])
   {
     return 0;
   }
@@ -7010,9 +6762,9 @@ uint64_t ClipperLib::Clipper::Execute(uint64_t a1, int a2, uint64_t *a3, int a4,
     v7 = *a1;
   }
 
-  *(a1 + 164) = a5;
-  *(a1 + 168) = a4;
-  *(a1 + 104) = a2;
+  *(a1 + 41) = a5;
+  *(a1 + 42) = a4;
+  *(a1 + 26) = a2;
   *(a1 + 173) = 0;
   v17 = (*(v7 + 24))(a1);
   if (v17)
@@ -7020,8 +6772,8 @@ uint64_t ClipperLib::Clipper::Execute(uint64_t a1, int a2, uint64_t *a3, int a4,
     ClipperLib::Clipper::BuildResult(a1, a3);
   }
 
-  v18 = *(a1 + 8);
-  if (*(a1 + 16) != v18)
+  v18 = a1[1];
+  if (a1[2] != v18)
   {
     v19 = 0;
     do
@@ -7039,73 +6791,70 @@ uint64_t ClipperLib::Clipper::Execute(uint64_t a1, int a2, uint64_t *a3, int a4,
       }
 
       MEMORY[0x23EE6C500](v21, 0x1020C401FC46325);
-      v18 = *(a1 + 8);
-      v20 = *(a1 + 16);
+      v18 = a1[1];
+      v20 = a1[2];
       *(v18 + 8 * v19++) = 0;
     }
 
     while (v19 < (v20 - v18) >> 3);
   }
 
-  *(a1 + 16) = v18;
+  a1[2] = v18;
   *(a1 + 160) = 0;
   return v17;
 }
 
-uint64_t ClipperLib::Clipper::BuildResult(uint64_t result, void *a2)
+void ClipperLib::Clipper::BuildResult(uint64_t a1, void *a2)
 {
-  v2 = (*(result + 16) - *(result + 8)) >> 3;
+  v2 = (*(a1 + 16) - *(a1 + 8)) >> 3;
   if (0xAAAAAAAAAAAAAAABLL * ((a2[2] - *a2) >> 3) < v2)
   {
     if (v2 < 0xAAAAAAAAAAAAAABLL)
     {
-      v3 = a2[1] - *a2;
       operator new();
     }
 
     _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE20__throw_length_errorB8ne200100Ev();
   }
 
-  v4 = *(result + 8);
-  v5 = *(result + 16);
-  if (v5 != v4)
+  v3 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  if (v4 != v3)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      if (*(*(v4 + 8 * v6) + 24))
+      if (*(*(v3 + 8 * v5) + 24))
       {
-        v7 = *(*(*(v4 + 8 * v6) + 24) + 32);
-        if (v7)
+        v6 = *(*(*(v3 + 8 * v5) + 24) + 32);
+        if (v6)
         {
-          v8 = 0;
-          v9 = 1;
-          v10 = v7;
+          v7 = 0;
+          v8 = 1;
+          v9 = v6;
           do
           {
-            v11 = v8++;
-            v10 = *(v10 + 24);
-            ++v9;
+            v10 = v7++;
+            v9 = *(v9 + 24);
+            ++v8;
           }
 
-          while (v10 != v7);
-          if (v11)
+          while (v9 != v6);
+          if (v10)
           {
             operator new();
           }
         }
 
-        v4 = *(result + 8);
-        v5 = *(result + 16);
+        v3 = *(a1 + 8);
+        v4 = *(a1 + 16);
       }
 
-      ++v6;
+      ++v5;
     }
 
-    while (v6 < (v5 - v4) >> 3);
+    while (v5 < (v4 - v3) >> 3);
   }
-
-  return result;
 }
 
 void sub_2389CEDE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
@@ -7252,56 +7001,55 @@ void ClipperLib::Clipper::BuildResult2(ClipperLib::Clipper *this, ClipperLib::Po
   {
     if ((v10 & 0x8000000000000000) == 0)
     {
-      v11 = *(this + 2) - *(this + 1);
       operator new();
     }
 
     goto LABEL_47;
   }
 
-  v13 = *(this + 1);
-  v12 = *(this + 2);
-  if (v12 != v13)
+  v12 = *(this + 1);
+  v11 = *(this + 2);
+  if (v11 != v12)
   {
-    v14 = 0;
+    v13 = 0;
     do
     {
-      v17 = *(v13 + 8 * v14);
-      v18 = *(v17 + 24);
-      if (v18)
+      v15 = *(v12 + 8 * v13);
+      v16 = *(v15 + 24);
+      if (v16)
       {
-        v19 = -1;
-        v20 = 1;
-        v21 = *(v17 + 24);
+        v17 = -1;
+        v18 = 1;
+        v19 = *(v15 + 24);
         do
         {
-          v21 = *(v21 + 24);
-          ++v19;
-          ++v20;
+          v19 = *(v19 + 24);
+          ++v17;
+          ++v18;
         }
 
-        while (v21 != v18);
-        v22 = *(v17 + 5) ? 1 : 2;
-        if (v19 >= v22)
+        while (v19 != v16);
+        v20 = *(v15 + 5) ? 1 : 2;
+        if (v17 >= v20)
         {
-          v23 = *(v17 + 8);
-          if (v23)
+          v21 = *(v15 + 8);
+          if (v21)
           {
-            v24 = *(v17 + 4);
-            if (v24 == *(v23 + 4) || !*(v23 + 24))
+            v22 = *(v15 + 4);
+            if (v22 == *(v21 + 4) || !*(v21 + 24))
             {
               do
               {
-                if (*(v23 + 4) != v24 && *(v23 + 24))
+                if (*(v21 + 4) != v22 && *(v21 + 24))
                 {
                   break;
                 }
 
-                v23 = *(v23 + 8);
+                v21 = *(v21 + 8);
               }
 
-              while (v23);
-              *(v17 + 8) = v23;
+              while (v21);
+              *(v15 + 8) = v21;
             }
           }
 
@@ -7309,19 +7057,16 @@ void ClipperLib::Clipper::BuildResult2(ClipperLib::Clipper *this, ClipperLib::Po
         }
       }
 
-      ++v14;
-      v15 = v12 - v13;
-      v16 = (v12 - v13) >> 3;
+      ++v13;
+      v14 = (v11 - v12) >> 3;
     }
 
-    while (v14 < v16);
+    while (v13 < v14);
     v9 = a2 + 32;
-    v25 = *(a2 + 4);
-    if (*(a2 + 6) - v25 < v15)
+    if (*(a2 + 6) - *(a2 + 4) < (v11 - v12))
     {
-      if (!(v16 >> 61))
+      if (!(v14 >> 61))
       {
-        v26 = *(a2 + 5) - v25;
         operator new();
       }
 
@@ -7330,48 +7075,48 @@ LABEL_47:
     }
   }
 
-  v27 = *(this + 1);
-  if (*(this + 2) != v27)
+  v23 = *(this + 1);
+  if (*(this + 2) != v23)
   {
-    for (i = 0; i < (*(this + 2) - v27) >> 3; ++i)
+    for (i = 0; i < (*(this + 2) - v23) >> 3; ++i)
     {
-      v31 = *(v27 + 8 * i);
-      v32 = *(v31 + 16);
-      if (!v32)
+      v27 = *(v23 + 8 * i);
+      v28 = *(v27 + 16);
+      if (!v28)
       {
         goto LABEL_40;
       }
 
-      if (*(v31 + 5) == 1)
+      if (*(v27 + 5) == 1)
       {
-        *(v32 + 68) = 1;
+        *(v28 + 68) = 1;
       }
 
       else
       {
-        v33 = *(v31 + 8);
-        if (v33)
+        v29 = *(v27 + 8);
+        if (v29)
         {
-          v30 = *(v33 + 16);
-          if (v30)
+          v26 = *(v29 + 16);
+          if (v26)
           {
-            v29 = *(v30 + 5) - *(v30 + 4);
-            v34 = v32;
-            std::vector<GKCPolygonObstacle *>::push_back[abi:ne200100](v30 + 32, &v34);
+            v25 = *(v26 + 5) - *(v26 + 4);
+            v30 = v28;
+            std::vector<GKCPolygonObstacle *>::push_back[abi:ne200100](v26 + 32, &v30);
             goto LABEL_39;
           }
         }
       }
 
-      v29 = *(a2 + 5) - *(a2 + 4);
-      v34 = v32;
-      std::vector<GKCPolygonObstacle *>::push_back[abi:ne200100](v9, &v34);
-      v30 = a2;
+      v25 = *(a2 + 5) - *(a2 + 4);
+      v30 = v28;
+      std::vector<GKCPolygonObstacle *>::push_back[abi:ne200100](v9, &v30);
+      v26 = a2;
 LABEL_39:
-      *(v32 + 56) = v30;
-      *(v32 + 64) = v29 >> 3;
+      *(v28 + 56) = v26;
+      *(v28 + 64) = v25 >> 3;
 LABEL_40:
-      v27 = *(this + 1);
+      v23 = *(this + 1);
     }
   }
 }
@@ -7846,7 +7591,7 @@ void ClipperLib::Clipper::InsertLocalMinimaIntoAEL(ClipperLib::Clipper *this, ui
   v6 = v3[2];
   if (v5 != v6)
   {
-    v62 = this + 40;
+    v57 = this + 40;
     do
     {
       if (*v4 != a2)
@@ -7890,14 +7635,14 @@ void ClipperLib::Clipper::InsertLocalMinimaIntoAEL(ClipperLib::Clipper *this, ui
           v13 = 0;
         }
 
-        v63 = *(v11 + 40);
-        std::vector<long long>::push_back[abi:ne200100](this + 112, &v63);
+        v58 = *(v11 + 40);
+        std::vector<long long>::push_back[abi:ne200100](this + 112, &v58);
         v14 = *(this + 14);
         v15 = *(this + 15);
         v16 = (v15 - v14) >> 3;
-        v60 = v16 < 2;
+        v56 = v16 < 2;
         v17 = v16 - 2;
-        if (v60)
+        if (v56)
         {
           goto LABEL_27;
         }
@@ -7943,14 +7688,14 @@ void ClipperLib::Clipper::InsertLocalMinimaIntoAEL(ClipperLib::Clipper *this, ui
           v13 = 0;
         }
 
-        v63 = *(v11 + 40);
-        std::vector<long long>::push_back[abi:ne200100](this + 112, &v63);
+        v58 = *(v11 + 40);
+        std::vector<long long>::push_back[abi:ne200100](this + 112, &v58);
         v24 = *(this + 14);
         v25 = *(this + 15);
         v26 = (v25 - v24) >> 3;
-        v60 = v26 < 2;
+        v56 = v26 < 2;
         v27 = v26 - 2;
-        if (v60)
+        if (v56)
         {
           goto LABEL_27;
         }
@@ -7989,14 +7734,14 @@ LABEL_27:
       {
         if (*(v12 + 56))
         {
-          v63 = *(v12 + 40);
-          std::vector<long long>::push_back[abi:ne200100](this + 112, &v63);
+          v58 = *(v12 + 40);
+          std::vector<long long>::push_back[abi:ne200100](this + 112, &v58);
           v32 = *(this + 14);
           v33 = *(this + 15);
           v34 = (v33 - v32) >> 3;
-          v60 = v34 < 2;
+          v56 = v34 < 2;
           v35 = v34 - 2;
-          if (!v60)
+          if (!v56)
           {
             v36 = v35 >> 1;
             v37 = (v32 + 8 * v36);
@@ -8045,61 +7790,60 @@ LABEL_27:
           {
             if (!*(v12 + 56))
             {
-              v51 = *(this + 7);
-              v50 = *(this + 8);
-              if (v50 != v51)
+              v47 = *(this + 7);
+              v46 = *(this + 8);
+              if (v46 != v47)
               {
                 if (*(v12 + 80))
                 {
-                  v52 = 0;
+                  v48 = 0;
                   do
                   {
-                    v53 = *(v51 + 8 * v52);
-                    v54 = *(*v53 + 8);
-                    v55 = v53[2];
-                    v56 = *v12;
-                    v57 = *(v12 + 32);
-                    if (v54 >= v55)
+                    v49 = *(v47 + 8 * v48);
+                    v50 = *(*v49 + 8);
+                    v51 = v49[2];
+                    v52 = *v12;
+                    v53 = *(v12 + 32);
+                    if (v50 >= v51)
                     {
-                      v58 = v53[2];
+                      v54 = v49[2];
                     }
 
                     else
                     {
-                      v58 = *(*v53 + 8);
+                      v54 = *(*v49 + 8);
                     }
 
-                    if (v54 <= v55)
+                    if (v50 <= v51)
                     {
-                      v54 = v53[2];
+                      v50 = v49[2];
                     }
 
-                    if (v56 >= v57)
+                    if (v52 >= v53)
                     {
-                      v59 = *(v12 + 32);
+                      v55 = *(v12 + 32);
                     }
 
                     else
                     {
-                      v59 = *v12;
+                      v55 = *v12;
                     }
 
-                    if (v56 <= v57)
+                    if (v52 <= v53)
                     {
-                      v56 = *(v12 + 32);
+                      v52 = *(v12 + 32);
                     }
 
-                    v60 = v58 < v56 && v59 < v54;
-                    if (v60)
+                    v56 = v54 < v52 && v55 < v50;
+                    if (v56)
                     {
-                      v61 = v53[3];
                       operator new();
                     }
 
-                    ++v52;
+                    ++v48;
                   }
 
-                  while (v52 < (v50 - v51) >> 3);
+                  while (v48 < (v46 - v47) >> 3);
                 }
               }
             }
@@ -8110,40 +7854,36 @@ LABEL_27:
             v43 = *(v11 + 128);
             if (v43)
             {
-              if (*(v43 + 16) == *v11 && (*(v43 + 92) & 0x80000000) == 0 && ClipperLib::SlopesEqual(*(v11 + 128), v11, v62[*(*this - 24)]) && *(v11 + 80) && *(v43 + 80))
+              if (*(v43 + 16) == *v11 && (*(v43 + 92) & 0x80000000) == 0 && ClipperLib::SlopesEqual(*(v11 + 128), v11, v57[*(*this - 24)]) && *(v11 + 80) && *(v43 + 80))
               {
                 ClipperLib::Clipper::AddOutPt(this, v43, v11);
-                v44 = *(v11 + 32);
-                v45 = *(v11 + 40);
                 operator new();
               }
             }
           }
 
-          v46 = *(v11 + 120);
-          if (v46 != v12)
+          v44 = *(v11 + 120);
+          if (v44 != v12)
           {
             if ((*(v12 + 92) & 0x80000000) == 0)
             {
-              v47 = *(v12 + 128);
-              if ((*(v47 + 92) & 0x80000000) == 0 && ClipperLib::SlopesEqual(*(v12 + 128), v12, v62[*(*this - 24)]) && *(v12 + 80) && *(v47 + 80))
+              v45 = *(v12 + 128);
+              if ((*(v45 + 92) & 0x80000000) == 0 && ClipperLib::SlopesEqual(*(v12 + 128), v12, v57[*(*this - 24)]) && *(v12 + 80) && *(v45 + 80))
               {
-                ClipperLib::Clipper::AddOutPt(this, v47, v12);
-                v48 = *(v12 + 32);
-                v49 = *(v12 + 40);
+                ClipperLib::Clipper::AddOutPt(this, v45, v12);
                 operator new();
               }
             }
 
-            if (v46 && v46 != v12)
+            if (v44 && v44 != v12)
             {
               do
               {
-                ClipperLib::Clipper::IntersectEdges(this, v12, v46, (v11 + 16));
-                v46 = *(v46 + 120);
+                ClipperLib::Clipper::IntersectEdges(this, v12, v44, (v11 + 16));
+                v44 = *(v44 + 120);
               }
 
-              while (v46 != v12);
+              while (v44 != v12);
             }
           }
         }
@@ -8192,10 +7932,10 @@ uint64_t ClipperLib::Clipper::ClearGhostJoins(uint64_t this)
   return this;
 }
 
-void ClipperLib::Clipper::ProcessHorizontals(ClipperLib::Clipper *this, int a2)
+void ClipperLib::Clipper::ProcessHorizontals(void *this, int a2)
 {
-  v4 = (this + 152);
-  for (i = *(this + 19); i; i = *(this + 19))
+  v4 = this + 19;
+  for (i = this[19]; i; i = this[19])
   {
     v6 = i[17];
     v7 = i[18];
@@ -8262,7 +8002,7 @@ void ClipperLib::Clipper::ProcessEdgesAtTopOfScanbeam(ClipperLib::Clipper *this,
 {
   v5 = (this + 144);
   v4 = *(this + 18);
-  v38 = v4;
+  v34 = v4;
   if (v4)
   {
     while (v4[5] == a2)
@@ -8278,7 +8018,7 @@ void ClipperLib::Clipper::ProcessEdgesAtTopOfScanbeam(ClipperLib::Clipper *this,
         }
 
         v4 = *v15;
-        v38 = v4;
+        v34 = v4;
         if (!v4)
         {
           goto LABEL_45;
@@ -8290,11 +8030,11 @@ void ClipperLib::Clipper::ProcessEdgesAtTopOfScanbeam(ClipperLib::Clipper *this,
         v6 = v4[14];
         if (v6 && !*(v6 + 56))
         {
-          ClipperLib::Clipper::UpdateEdgeIntoAEL(this, &v38);
-          v4 = v38;
-          if ((*(v38 + 23) & 0x80000000) == 0)
+          ClipperLib::Clipper::UpdateEdgeIntoAEL(this, &v34);
+          v4 = v34;
+          if ((*(v34 + 23) & 0x80000000) == 0)
           {
-            ClipperLib::Clipper::AddOutPt(this, v38, v38);
+            ClipperLib::Clipper::AddOutPt(this, v34, v34);
           }
 
           v16 = *(this + 19);
@@ -8321,9 +8061,9 @@ LABEL_14:
               {
                 if ((*(v9 + 92) & 0x80000000) == 0 && *(v9 + 16) == v4[2] && *(v9 + 80))
                 {
-                  v37 = *(v4 + 1);
-                  ClipperLib::Clipper::AddOutPt(this, v9, &v37);
-                  ClipperLib::Clipper::AddOutPt(this, v4, &v37);
+                  v33 = *(v4 + 1);
+                  ClipperLib::Clipper::AddOutPt(this, v9, &v33);
+                  ClipperLib::Clipper::AddOutPt(this, v4, &v33);
                   operator new();
                 }
               }
@@ -8342,7 +8082,7 @@ LABEL_14:
 
 LABEL_3:
         v4 = v4[15];
-        v38 = v4;
+        v34 = v4;
         if (!v4)
         {
           goto LABEL_45;
@@ -8402,7 +8142,7 @@ LABEL_45:
   }
 
   v18 = *v5;
-  v38 = v18;
+  v34 = v18;
   if (v18)
   {
     v19 = this + 40;
@@ -8410,7 +8150,7 @@ LABEL_45:
     {
 LABEL_56:
       v18 = v18[15];
-      v38 = v18;
+      v34 = v18;
       if (!v18)
       {
         return;
@@ -8420,10 +8160,10 @@ LABEL_56:
     if ((*(v18 + 23) & 0x80000000) != 0)
     {
       v23 = 0;
-      ClipperLib::Clipper::UpdateEdgeIntoAEL(this, &v38);
-      v18 = v38;
-      v24 = v38[15];
-      v25 = v38[16];
+      ClipperLib::Clipper::UpdateEdgeIntoAEL(this, &v34);
+      v18 = v34;
+      v24 = v34[15];
+      v25 = v34[16];
       if (!v25)
       {
         goto LABEL_74;
@@ -8433,30 +8173,28 @@ LABEL_56:
     else
     {
       v23 = ClipperLib::Clipper::AddOutPt(this, v18, v18 + 4);
-      ClipperLib::Clipper::UpdateEdgeIntoAEL(this, &v38);
-      v18 = v38;
-      v24 = v38[15];
-      v25 = v38[16];
+      ClipperLib::Clipper::UpdateEdgeIntoAEL(this, &v34);
+      v18 = v34;
+      v24 = v34[15];
+      v25 = v34[16];
       if (!v25)
       {
 LABEL_74:
         if (v24 && *(v24 + 16) == *v18)
         {
-          v32 = *(v24 + 24);
-          v33 = v32 != v18[1] || v23 == 0;
-          if (!v33 && (*(v24 + 92) & 0x80000000) == 0 && v32 > *(v24 + 40))
+          v30 = *(v24 + 24);
+          v31 = v30 != v18[1] || v23 == 0;
+          if (!v31 && (*(v24 + 92) & 0x80000000) == 0 && v30 > *(v24 + 40))
           {
-            v34 = v18;
+            v32 = v18;
             if (ClipperLib::SlopesEqual(v18, v24, v19[*(*this - 24)]))
             {
-              v18 = v34;
-              if (*(v34 + 20))
+              v18 = v32;
+              if (*(v32 + 20))
               {
                 if (*(v24 + 80))
                 {
-                  ClipperLib::Clipper::AddOutPt(this, v24, v34);
-                  v35 = v34[4];
-                  v36 = v34[5];
+                  ClipperLib::Clipper::AddOutPt(this, v24, v32);
                   operator new();
                 }
               }
@@ -8464,7 +8202,7 @@ LABEL_74:
 
             else
             {
-              v18 = v34;
+              v18 = v32;
             }
           }
         }
@@ -8484,8 +8222,6 @@ LABEL_74:
         if (v29 && *(v28 + 20) && *(v25 + 80))
         {
           ClipperLib::Clipper::AddOutPt(this, v25, v28);
-          v30 = v28[4];
-          v31 = v28[5];
           operator new();
         }
       }
@@ -8623,7 +8359,7 @@ void *ClipperLib::Clipper::FixupOutPolygon(void *a1, uint64_t a2)
 {
   *(a2 + 32) = 0;
   v2 = *(a2 + 24);
-  v3 = v2 + 4;
+  v3 = (v2 + 4);
   v4 = v2[4];
   if (v4 != v2)
   {
@@ -8679,7 +8415,7 @@ LABEL_23:
           v5 = v25;
         }
 
-        v3 = v26 + 4;
+        v3 = (v26 + 4);
         v4 = v26[4];
         v2 = v26;
         if (v4 == v26)
@@ -8721,7 +8457,7 @@ LABEL_3:
       result = v6;
       v5 = 0;
       v8 = v6[4];
-      v3 = v6 + 4;
+      v3 = (v6 + 4);
       v4 = v8;
       v2 = result;
       if (v8 == result)
@@ -9092,7 +8828,7 @@ BOOL ClipperLib::Clipper::IsEvenOddAltFillType(uint64_t a1, uint64_t a2)
   return *(a1 + v2) == 0;
 }
 
-uint64_t ClipperLib::Clipper::IsContributing(uint64_t a1, _DWORD *a2)
+BOOL ClipperLib::Clipper::IsContributing(uint64_t a1, _DWORD *a2)
 {
   v2 = a2[18];
   v3 = 164;
@@ -9319,8 +9055,6 @@ LABEL_20:
       if (*(v9 + 80))
       {
         ClipperLib::Clipper::AddOutPt(a1, v9, a4);
-        v21 = *(v6 + 32);
-        v20 = *(v6 + 40);
         operator new();
       }
     }
@@ -9765,4 +9499,369 @@ LABEL_32:
   *(a2 + 128) = a3;
   *result = a2;
   return result;
+}
+
+uint64_t ClipperLib::Clipper::IntersectEdges(uint64_t result, _DWORD *a2, _DWORD *a3, void *a4)
+{
+  v7 = a2[23];
+  v8 = a3[23];
+  v9 = a2[18];
+  v10 = a3[18];
+  if (v9 == v10)
+  {
+    v11 = 164;
+    if (!v9)
+    {
+      v11 = 168;
+    }
+
+    v12 = *(result + v11);
+    v13 = a2[21];
+    if (v12)
+    {
+      if (a3[20] + v13)
+      {
+        v14 = a3[20] + v13;
+      }
+
+      else
+      {
+        v14 = -v13;
+      }
+
+      a2[21] = v14;
+      v15 = a3[21];
+      v16 = v15 - a2[20];
+      if (v16)
+      {
+        a3[21] = v16;
+      }
+
+      else
+      {
+        a3[21] = -v15;
+      }
+    }
+
+    else
+    {
+      a2[21] = a3[21];
+      a3[21] = v13;
+    }
+  }
+
+  else
+  {
+    v17 = 164;
+    if (!v10)
+    {
+      v17 = 168;
+    }
+
+    if (*(result + v17))
+    {
+      v18 = a2[22] + a3[20];
+    }
+
+    else
+    {
+      v18 = a2[22] == 0;
+    }
+
+    a2[22] = v18;
+    v19 = 164;
+    if (!v9)
+    {
+      v19 = 168;
+    }
+
+    if (*(result + v19))
+    {
+      v20 = a3[22] - a2[20];
+    }
+
+    else
+    {
+      v20 = a3[22] == 0;
+    }
+
+    a3[22] = v20;
+  }
+
+  v21 = 164;
+  if (v9)
+  {
+    v22 = 164;
+  }
+
+  else
+  {
+    v22 = 168;
+  }
+
+  if (v9)
+  {
+    v23 = 168;
+  }
+
+  else
+  {
+    v23 = 164;
+  }
+
+  v24 = *(result + v23);
+  v25 = *(result + v22);
+  if (v10)
+  {
+    v26 = 164;
+  }
+
+  else
+  {
+    v26 = 168;
+  }
+
+  if (v10)
+  {
+    v21 = 168;
+  }
+
+  v27 = *(result + v21);
+  v28 = *(result + v26);
+  v29 = a2[21];
+  v30 = -v29;
+  if ((v29 & 0x80000000) == 0)
+  {
+    v31 = v29;
+  }
+
+  else
+  {
+    v31 = -v29;
+  }
+
+  if (v25 != 2)
+  {
+    v29 = v31;
+  }
+
+  if (v25 == 3)
+  {
+    v29 = v30;
+  }
+
+  v32 = a3[21];
+  v33 = -v32;
+  if ((v32 & 0x80000000) == 0)
+  {
+    v34 = v32;
+  }
+
+  else
+  {
+    v34 = -v32;
+  }
+
+  if (v28 != 2)
+  {
+    v32 = v34;
+  }
+
+  if (v28 == 3)
+  {
+    v35 = v33;
+  }
+
+  else
+  {
+    v35 = v32;
+  }
+
+  if (v7 < 0 || v8 < 0)
+  {
+    if ((v7 & 0x80000000) == 0)
+    {
+      if (v35 > 1)
+      {
+        return result;
+      }
+
+      v37 = a2;
+      goto LABEL_65;
+    }
+
+    if ((v8 & 0x80000000) == 0)
+    {
+      if (v29 > 1)
+      {
+        return result;
+      }
+
+      goto LABEL_64;
+    }
+
+    if (v29 > 1 || v35 > 1)
+    {
+      return result;
+    }
+
+    v48 = a2[22];
+    v49 = -v48;
+    if (v48 >= 0)
+    {
+      v50 = v48;
+    }
+
+    else
+    {
+      v50 = -v48;
+    }
+
+    if (v24 != 2)
+    {
+      v48 = v50;
+    }
+
+    if (v24 != 3)
+    {
+      v49 = v48;
+    }
+
+    v51 = a3[22];
+    if (v27 == 3)
+    {
+      v51 = -v51;
+    }
+
+    else if (v27 != 2)
+    {
+      if (v51 >= 0)
+      {
+        v51 = v51;
+      }
+
+      else
+      {
+        v51 = -v51;
+      }
+    }
+
+    if (v9 == v10)
+    {
+      if (v29 != 1 || v35 != 1)
+      {
+        v53 = a2[19];
+        a2[19] = a3[19];
+        a3[19] = v53;
+        return result;
+      }
+
+      v52 = *(result + 104);
+      if (v52 <= 1)
+      {
+        if (!v52)
+        {
+          if (v49 < 1 || v51 < 1)
+          {
+            return result;
+          }
+
+          goto LABEL_110;
+        }
+
+        if (v52 != 1)
+        {
+          return result;
+        }
+
+        goto LABEL_108;
+      }
+
+      if (v52 == 2)
+      {
+        if (v9 != 1 || v49 < 1 || v51 <= 0)
+        {
+          if (v9)
+          {
+            return result;
+          }
+
+LABEL_108:
+          if (v49 > 0 || v51 > 0)
+          {
+            return result;
+          }
+        }
+      }
+
+      else if (v52 != 3)
+      {
+        return result;
+      }
+    }
+
+LABEL_110:
+
+    return ClipperLib::Clipper::AddLocalMinPoly(result, a2, a3, a4);
+  }
+
+  if (v29 <= 1 && v35 <= 1 && (v9 == v10 || *(result + 104) == 3))
+  {
+    v36 = result;
+    ClipperLib::Clipper::AddOutPt(result, a2, a4);
+    result = v36;
+LABEL_64:
+    v37 = a3;
+LABEL_65:
+    result = ClipperLib::Clipper::AddOutPt(result, v37, a4);
+    v42 = a2[19];
+    a2[19] = a3[19];
+    a3[19] = v42;
+    v43 = a2[23];
+    a2[23] = a3[23];
+    a3[23] = v43;
+    return result;
+  }
+
+  v38 = result;
+  result = ClipperLib::Clipper::AddOutPt(result, a2, a4);
+  if (a3[20])
+  {
+    v39 = a2[23];
+    v40 = a3[23];
+    v41 = v39 < v40;
+    if (v39 == v40)
+    {
+LABEL_61:
+      a2[23] = -1;
+      a3[23] = -1;
+      return result;
+    }
+  }
+
+  else
+  {
+    result = ClipperLib::Clipper::AddOutPt(v38, a3, a4);
+    v44 = a2[23];
+    v45 = a3[23];
+    v41 = v44 < v45;
+    if (v44 == v45)
+    {
+      goto LABEL_61;
+    }
+  }
+
+  if (v41)
+  {
+    v46 = a2;
+    v47 = a3;
+  }
+
+  else
+  {
+    v46 = a3;
+    v47 = a2;
+  }
+
+  return ClipperLib::Clipper::AppendPolygon(v38, v46, v47);
 }

@@ -9,16 +9,16 @@ void sub_100001310(id a1, OS_xpc_object *a2)
   [v4 handleXPCEvent:v2];
 }
 
-id sub_100001600()
+id sub_100001600(uint64_t a1)
 {
   if (qword_100036BC0 != -1)
   {
     sub_100018CF0();
   }
 
-  v1 = qword_100036CE8;
+  v2 = qword_100036CE8;
 
-  return v1;
+  return v2;
 }
 
 id sub_1000016CC(uint64_t a1)
@@ -37,22 +37,25 @@ id sub_1000016CC(uint64_t a1)
   return [*(a1 + 32) setNfcTransaction:0];
 }
 
-void sub_100003058(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003058(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_10000308C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000308C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void sub_1000030A8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000030A8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100003184(id a1)
@@ -388,16 +391,16 @@ void sub_100008828(id a1)
   _objc_release_x1();
 }
 
-id sub_10000973C(uint64_t a1)
+id sub_10000973C(uint64_t a1, uint64_t a2)
 {
-  v2 = [NSNumber numberWithBool:IOPSDrawingUnlimitedPower()];
-  v3 = [*(a1 + 32) currentContext];
-  [v3 setObject:v2 forKeyedSubscript:@"kPluggedInContext"];
+  v3 = [NSNumber numberWithBool:IOPSDrawingUnlimitedPower()];
+  v4 = [*(a1 + 32) currentContext];
+  [v4 setObject:v3 forKeyedSubscript:@"kPluggedInContext"];
 
   [*(a1 + 32) handleBatteryLevelChange];
-  v4 = *(a1 + 32);
+  v5 = *(a1 + 32);
 
-  return [v4 handleAdapterDetails];
+  return [v5 handleAdapterDetails];
 }
 
 id *sub_100009A24(id *result, unsigned int a2)
@@ -566,16 +569,15 @@ void sub_10000B81C(uint64_t a1)
 
 void start()
 {
-  v0 = objc_autoreleasePoolPush();
-  v1 = sub_100001600();
-  v2 = qword_100036CE8;
-  qword_100036CE8 = v1;
+  v0 = sub_100001600(objc_autoreleasePoolPush());
+  v1 = qword_100036CE8;
+  qword_100036CE8 = v0;
 
-  v3 = sub_100001600();
+  v3 = sub_100001600(v2);
   dispatch_sync(v3, &stru_10002C8C0);
 
-  v4 = sub_100001600();
-  xpc_set_event_stream_handler("com.apple.notifyd.matching", v4, &stru_10002C900);
+  v5 = sub_100001600(v4);
+  xpc_set_event_stream_handler("com.apple.notifyd.matching", v5, &stru_10002C900);
 
   dispatch_main();
 }
@@ -622,18 +624,19 @@ void sub_10000BD94(id a1)
 void sub_10000BED8(uint64_t a1)
 {
   v2 = qword_100036BD8;
-  if (os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_DEFAULT))
+  v3 = os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = [NSNumber numberWithUnsignedInteger:v3];
-    v6 = 138412290;
-    v7 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Updating CLTM with charging policy: slow: %@", &v6, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = v2;
+    v6 = [NSNumber numberWithUnsignedInteger:v4];
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating CLTM with charging policy: slow: %@", &v7, 0xCu);
   }
 
   *(&xmmword_100036CF0 + 1) = *(a1 + 32);
-  if (sub_10000C008() && os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_ERROR))
+  if (sub_10000C008(v3) && os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_ERROR))
   {
     sub_100018D18();
   }
@@ -641,13 +644,13 @@ void sub_10000BED8(uint64_t a1)
   ++BYTE2(xmmword_100036CF0);
 }
 
-uint64_t sub_10000C008()
+uint64_t sub_10000C008(uint64_t a1)
 {
-  v0 = sub_100001600();
-  dispatch_assert_queue_V2(v0);
+  v1 = sub_100001600(a1);
+  dispatch_assert_queue_V2(v1);
 
-  v1 = sub_10000CB44();
-  if (v1 || !dword_100036BE0)
+  v2 = sub_10000CB44();
+  if (v2 || !dword_100036BE0)
   {
     if (os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_ERROR))
     {
@@ -657,12 +660,11 @@ uint64_t sub_10000C008()
 
   else
   {
-    strcpy(v5, "zEPE");
-    v26 = xmmword_100036CF0;
-    v24 = 0u;
-    memset(v25, 0, sizeof(v25));
+    strcpy(v6, "zEPE");
+    v27 = xmmword_100036CF0;
+    v25 = 0u;
+    memset(v26, 0, sizeof(v26));
     memset(outputStruct, 0, sizeof(outputStruct));
-    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
@@ -670,39 +672,40 @@ uint64_t sub_10000C008()
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v31 = unk_100036D40;
-    v32 = xmmword_100036D50;
-    v27 = *&dword_100036D00;
-    v28 = xmmword_100036D10;
+    v22 = 0u;
+    v32 = unk_100036D40;
+    v33 = xmmword_100036D50;
+    v28 = *&dword_100036D00;
+    v29 = xmmword_100036D10;
     outputStructCnt = 168;
-    v22 = 0;
-    BYTE2(v25[5]) = 6;
+    v23 = 0;
+    BYTE2(v26[5]) = 6;
     inputStruct = 2051362885;
-    v25[2] = 120;
-    v33 = qword_100036D60;
-    v29 = unk_100036D20;
-    v30 = xmmword_100036D30;
-    v2 = IOConnectCallStructMethod(dword_100036BE0, 2u, &inputStruct, 0xA8uLL, outputStruct, &outputStructCnt);
-    if (v2 || (v1 = 0, BYTE8(v14)))
+    v26[2] = 120;
+    v34 = qword_100036D60;
+    v30 = unk_100036D20;
+    v31 = xmmword_100036D30;
+    v3 = IOConnectCallStructMethod(dword_100036BE0, 2u, &inputStruct, 0xA8uLL, outputStruct, &outputStructCnt);
+    if (v3 || (v2 = 0, BYTE8(v15)))
     {
-      v3 = qword_100036BD8;
+      v4 = qword_100036BD8;
       if (os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v8 = v5;
-        v9 = 1024;
-        v10 = v2;
-        v11 = 1024;
-        v12 = BYTE8(v14);
-        _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Write failed for key '%s' (0x%X, 0x%X)", buf, 0x18u);
+        v9 = v6;
+        v10 = 1024;
+        v11 = v3;
+        v12 = 1024;
+        v13 = BYTE8(v15);
+        _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Write failed for key '%s' (0x%X, 0x%X)", buf, 0x18u);
       }
 
-      if (BYTE8(v14) == 132 && os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_ERROR))
+      if (BYTE8(v15) == 132 && os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_ERROR))
       {
         sub_100018D88();
       }
 
-      v1 = v2;
+      v2 = v3;
     }
   }
 
@@ -711,27 +714,28 @@ uint64_t sub_10000C008()
     sub_10000CC00();
   }
 
-  return v1;
+  return v2;
 }
 
 void sub_10000C2AC(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = qword_100036BD8;
-  if (os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_DEFAULT))
+  v4 = os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    v4 = *(a1 + 32);
-    v5 = v3;
-    v6 = [NSNumber numberWithUnsignedInteger:v4];
-    v7 = 138412546;
-    v8 = v6;
-    v9 = 2048;
-    v10 = v2;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating CLTM with mobile charging policy: %@, %f", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = v3;
+    v7 = [NSNumber numberWithUnsignedInteger:v5];
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 2048;
+    v11 = v2;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Updating CLTM with mobile charging policy: %@, %f", &v8, 0x16u);
   }
 
   dword_100036D00 = LODWORD(v2);
-  if (sub_10000C008() && os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_ERROR))
+  if (sub_10000C008(v4) && os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_ERROR))
   {
     sub_100018D18();
   }
@@ -742,45 +746,46 @@ void sub_10000C2AC(uint64_t a1)
 void sub_10000C4A0(uint64_t a1)
 {
   v2 = qword_100036BD8;
-  if (os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_DEFAULT))
+  v3 = os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v12 = 138412546;
-    v13 = v3;
-    v14 = 1024;
-    v15 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Updating SMC with debug mode %@:%d", &v12, 0x12u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 1024;
+    v10 = v5;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Updating SMC with debug mode %@:%d", &v7, 0x12u);
   }
 
-  LODWORD(v5) = 0;
+  LODWORD(v6) = 0;
   if (*(a1 + 40) == 1)
   {
-    v6 = [*(a1 + 32) isEqualToString:{@"RestrictedPerfMode", 0.0}];
-    LODWORD(v5) = 1.0;
-    if ((v6 & 1) == 0)
+    v3 = [*(a1 + 32) isEqualToString:{@"RestrictedPerfMode", 0.0}];
+    LODWORD(v6) = 1.0;
+    if ((v3 & 1) == 0)
     {
-      v7 = [*(a1 + 32) isEqualToString:{@"InUseChargingMode", v5}];
-      LODWORD(v5) = 2.0;
-      if ((v7 & 1) == 0)
+      v3 = [*(a1 + 32) isEqualToString:{@"InUseChargingMode", v6}];
+      LODWORD(v6) = 2.0;
+      if ((v3 & 1) == 0)
       {
-        v8 = [*(a1 + 32) isEqualToString:{@"AcceleratedChargingMode", v5}];
-        LODWORD(v5) = 3.0;
-        if ((v8 & 1) == 0)
+        v3 = [*(a1 + 32) isEqualToString:{@"AcceleratedChargingMode", v6}];
+        LODWORD(v6) = 3.0;
+        if ((v3 & 1) == 0)
         {
-          v9 = [*(a1 + 32) isEqualToString:{@"LongChargingMode", v5}];
-          LODWORD(v5) = 4.0;
-          if ((v9 & 1) == 0)
+          v3 = [*(a1 + 32) isEqualToString:{@"LongChargingMode", v6}];
+          LODWORD(v6) = 4.0;
+          if ((v3 & 1) == 0)
           {
-            v10 = [*(a1 + 32) isEqualToString:{@"ActiveWarmWorkload", v5}];
-            LODWORD(v5) = 5.0;
-            if ((v10 & 1) == 0)
+            v3 = [*(a1 + 32) isEqualToString:{@"ActiveWarmWorkload", v6}];
+            LODWORD(v6) = 5.0;
+            if ((v3 & 1) == 0)
             {
-              v11 = [*(a1 + 32) isEqualToString:{@"DefaultMode", v5}];
-              LODWORD(v5) = 0;
-              if (v11)
+              v3 = [*(a1 + 32) isEqualToString:{@"DefaultMode", v6}];
+              LODWORD(v6) = 0;
+              if (v3)
               {
-                *&v5 = 6.0;
+                *&v6 = 6.0;
               }
             }
           }
@@ -789,8 +794,8 @@ void sub_10000C4A0(uint64_t a1)
     }
   }
 
-  DWORD2(xmmword_100036CF0) = LODWORD(v5);
-  if (sub_10000C008() && os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_ERROR))
+  DWORD2(xmmword_100036CF0) = LODWORD(v6);
+  if (sub_10000C008(v3) && os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_ERROR))
   {
     sub_100018D18();
   }
@@ -801,18 +806,19 @@ void sub_10000C4A0(uint64_t a1)
 void sub_10000C6D4(uint64_t a1)
 {
   v2 = qword_100036BD8;
-  if (os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_DEFAULT))
+  v3 = os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = [NSNumber numberWithUnsignedInteger:v3];
-    v6 = 138412290;
-    v7 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Updating CLTM with thermal policy %@", &v6, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = v2;
+    v6 = [NSNumber numberWithUnsignedInteger:v4];
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating CLTM with thermal policy %@", &v7, 0xCu);
   }
 
   *(&xmmword_100036CF0 + 3) = *(a1 + 32);
-  if (sub_10000C008() && os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_ERROR))
+  if (sub_10000C008(v3) && os_log_type_enabled(qword_100036BD8, OS_LOG_TYPE_ERROR))
   {
     sub_100018E38();
   }
@@ -1399,9 +1405,9 @@ id sub_10000FFE4()
   return v1;
 }
 
-void sub_1000100AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000100AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1430,7 +1436,7 @@ Class sub_100011004(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1450,7 +1456,6 @@ LABEL_4:
 
 uint64_t sub_100011148(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100036C50 = result;
   return result;
@@ -1632,20 +1637,20 @@ void sub_100011D60(id a1)
   _objc_release_x1();
 }
 
-id sub_100011F94(uint64_t a1)
+id sub_100011F94(uint64_t a1, uint64_t a2)
 {
-  v2 = MKBDeviceUnlockedSinceBoot();
-  v3 = *(a1 + 32);
-  if (v2)
+  v3 = MKBDeviceUnlockedSinceBoot();
+  v4 = *(a1 + 32);
+  if (v3)
   {
 
-    return [v3 restoreState];
+    return [v4 restoreState];
   }
 
   else
   {
 
-    return [v3 clearState];
+    return [v4 clearState];
   }
 }
 
@@ -1671,35 +1676,34 @@ void sub_100012758(uint64_t a1)
     v3 = qword_100036C70;
     if (os_log_type_enabled(qword_100036C70, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 48);
-      v5 = v3;
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 56);
-      v16 = 138412546;
-      v17 = v7;
-      v18 = 2048;
-      v19 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Evaluating %@ after entry delay %f seconds", &v16, 0x16u);
+      v4 = v3;
+      v5 = objc_opt_class();
+      v6 = NSStringFromClass(v5);
+      v7 = *(a1 + 56);
+      v15 = 138412546;
+      v16 = v6;
+      v17 = 2048;
+      v18 = v7;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Evaluating %@ after entry delay %f seconds", &v15, 0x16u);
     }
 
-    v9 = *(a1 + 48);
-    v10 = [*(a1 + 40) resourceManager];
-    v11 = [v10 resourceHints];
-    v12 = [*(a1 + 40) deviceContext];
-    v13 = [v12 currentContext];
-    LODWORD(v9) = [v9 evaluatePowerModeWithResourceHints:v11 andContext:v13];
+    v8 = *(a1 + 48);
+    v9 = [*(a1 + 40) resourceManager];
+    v10 = [v9 resourceHints];
+    v11 = [*(a1 + 40) deviceContext];
+    v12 = [v11 currentContext];
+    LODWORD(v8) = [v8 evaluatePowerModeWithResourceHints:v10 andContext:v12];
 
-    v14 = *(a1 + 40);
-    v15 = *(a1 + 48);
-    if (v9)
+    v13 = *(a1 + 40);
+    v14 = *(a1 + 48);
+    if (v8)
     {
-      [v14 enterMode:v15];
+      [v13 enterMode:v14];
     }
 
     else
     {
-      [v14 exitMode:v15];
+      [v13 exitMode:v14];
     }
   }
 }
@@ -1712,16 +1716,15 @@ id sub_100012D78(uint64_t a1)
     v3 = qword_100036C70;
     if (os_log_type_enabled(qword_100036C70, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v5 = v3;
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v8 = *(a1 + 48);
-      v9 = 138412546;
-      v10 = v7;
-      v11 = 2048;
-      v12 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Exiting mode %@ after max engagement duration %f", &v9, 0x16u);
+      v4 = v3;
+      v5 = objc_opt_class();
+      v6 = NSStringFromClass(v5);
+      v7 = *(a1 + 48);
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2048;
+      v11 = v7;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Exiting mode %@ after max engagement duration %f", &v8, 0x16u);
     }
 
     [*(a1 + 32) updateExitReason:4];
@@ -2438,6 +2441,13 @@ void sub_1000198C0(void *a1, void *a2)
   v4[0] = 67109120;
   v4[1] = [a2 processIdentifier];
   _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "PowerModesManager: rejected new connection from pid %d. Not entitled", v4, 8u);
+}
+
+void sub_10001995C(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_1000030A8(&_mh_execute_header, a2, a3, "Unable to find mode %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100019A00(id *a1, void *a2)

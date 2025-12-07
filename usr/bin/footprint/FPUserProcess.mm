@@ -1010,8 +1010,7 @@ LABEL_6:
 {
   if ([(FPUserProcess *)self _isAlive])
   {
-    [(FPProcess *)self pid];
-    v3 = sub_10001B844();
+    v3 = sub_10001B844([(FPProcess *)self pid]);
     if (v3)
     {
       v4 = v3;
@@ -1043,7 +1042,7 @@ LABEL_6:
 
 - (void)_gatherSharedCacheFromDyldSnapshot:(dyld_process_snapshot_s *)snapshot
 {
-  v4 = sub_100002964();
+  v4 = sub_100002964(FPSharedCache, snapshot);
   sharedCache = self->super._sharedCache;
   self->super._sharedCache = v4;
 
@@ -1052,38 +1051,37 @@ LABEL_6:
 
 - (void)_gatherImageData
 {
-  v9 = 0;
-  task = self->_task;
+  v8 = 0;
   if (dyld_process_create_for_task())
   {
-    v9 = 0;
-    v4 = dyld_process_snapshot_create_for_process();
+    v8 = 0;
+    v3 = dyld_process_snapshot_create_for_process();
     dyld_process_dispose();
-    if (v4)
+    if (v3)
     {
-      [(FPUserProcess *)self _gatherSharedCacheFromDyldSnapshot:v4];
-      v7[0] = 0;
-      v7[1] = v7;
-      v7[2] = 0x2020000000;
-      v8 = 0;
-      v5[0] = 0;
-      v5[1] = v5;
-      v5[2] = 0x3032000000;
-      v5[3] = sub_1000072EC;
-      v5[4] = sub_1000072FC;
-      v6 = objc_alloc_init(NSMutableSet);
+      [(FPUserProcess *)self _gatherSharedCacheFromDyldSnapshot:v3];
+      v6[0] = 0;
+      v6[1] = v6;
+      v6[2] = 0x2020000000;
+      v7 = 0;
+      v4[0] = 0;
+      v4[1] = v4;
+      v4[2] = 0x3032000000;
+      v4[3] = sub_1000072EC;
+      v4[4] = sub_1000072FC;
+      v5 = objc_alloc_init(NSMutableSet);
       dyld_process_snapshot_for_each_image();
       dyld_process_snapshot_dispose();
-      [(NSMutableArray *)self->_images sortUsingComparator:&stru_100029240, _NSConcreteStackBlock, 3221225472, sub_10000847C, &unk_100029200, self, v5, v7];
-      _Block_object_dispose(v5, 8);
+      [(NSMutableArray *)self->_images sortUsingComparator:&stru_100029240, _NSConcreteStackBlock, 3221225472, sub_10000847C, &unk_100029200, self, v4, v6];
+      _Block_object_dispose(v4, 8);
 
-      _Block_object_dispose(v7, 8);
+      _Block_object_dispose(v6, 8);
     }
   }
 
   else
   {
-    sub_100006D50(self, v9, @"dyld_process_create_for_task");
+    sub_100006D50(self, v8, @"dyld_process_create_for_task");
   }
 }
 

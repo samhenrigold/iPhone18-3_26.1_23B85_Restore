@@ -1712,7 +1712,7 @@ LABEL_5:
   currentTransitionSource = self->_currentTransitionSource;
   if (currentTransitionSource)
   {
-    [(CSCoverSheetViewTransitionSource *)currentTransitionSource transitionContext];
+    objc_msgSend_transitionContext(currentTransitionSource);
   }
 
   BSIntervalFractionForValue();
@@ -5233,7 +5233,7 @@ LABEL_6:
     currentTransitionSource = self->_currentTransitionSource;
     if (currentTransitionSource)
     {
-      [(CSCoverSheetViewTransitionSource *)currentTransitionSource transitionContext];
+      objc_msgSend_transitionContext(currentTransitionSource);
     }
 
     v7 = 0.0;
@@ -17812,7 +17812,7 @@ uint64_t __64__CSCoverSheetViewController_deactivateTodayViewWithCompletion___bl
       v21 = self->_currentTransitionSource;
       if (v21)
       {
-        [(CSCoverSheetViewTransitionSource *)v21 transitionContext];
+        objc_msgSend_transitionContext(v21);
         v22 = *(&v26 + 1);
       }
 
@@ -18546,7 +18546,7 @@ LABEL_3:
   completionCopy = completion;
   v9 = [(CSAppearance *)self->_localAppearance componentForType:15 identifier:@"SwitcherZoomingPresentation"];
   v10 = v9;
-  if (!v9 || ([v9 transitionInputs], (BSFloatEqualToFloat() & 1) == 0))
+  if (!v9 || (objc_msgSend_transitionInputs(v9), (BSFloatEqualToFloat() & 1) == 0))
   {
     cameraExtensionSettings = [(CSLockScreenSettings *)self->_prototypeSettings cameraExtensionSettings];
     coverSheetContentScaleSettings = [cameraExtensionSettings coverSheetContentScaleSettings];
@@ -19290,7 +19290,7 @@ uint64_t __58__CSCoverSheetViewController_updateQuickActionsVisibility__block_in
 
 - (BOOL)_shouldLoadComplications
 {
-  v2 = CSAutobahnEnabledForPlatform();
+  v2 = CSAutobahnEnabledForPlatform(self, a2);
   if (v2)
   {
 
@@ -20972,7 +20972,7 @@ void __86__CSCoverSheetViewController_willUIUnlockFromSource_isLockScreenDisable
 
   if (v6)
   {
-    [CSCoverSheetViewController finishUIUnlockFromSource:a2];
+    [(CSCoverSheetViewController *)a2 finishUIUnlockFromSource:?];
   }
 
   [(CSCoverSheetViewController *)self _handleEventType:12];
@@ -22060,9 +22060,9 @@ LABEL_11:
       v20 = 0u;
       v21 = 0u;
       v19 = 0u;
-      *&v16 = [(CSCoverSheetViewController *)self _indexOfMainPage];
-      *&v17 = *&v16;
-      *(&v16 + 1) = 1;
+      v16.n128_f64[0] = [(CSCoverSheetViewController *)self _indexOfMainPage];
+      *&v17 = v16.n128_f64[0];
+      v16.n128_u64[1] = 1;
       *(&v17 + 1) = 1;
       v15 = [(CSCoverSheetViewController *)self coverSheetView:CSCoverSheetTransitionContextMake(&v16];
       v16 = v19;
@@ -22209,7 +22209,7 @@ LABEL_11:
 
 - (BOOL)_isComplicationContainerVisible
 {
-  v2 = CSAutobahnEnabledForPlatform();
+  v2 = CSAutobahnEnabledForPlatform(self, a2);
   if (v2)
   {
 
@@ -23168,7 +23168,7 @@ LABEL_16:
   currentTransitionSource = self->_currentTransitionSource;
   if (currentTransitionSource)
   {
-    [(CSCoverSheetViewTransitionSource *)currentTransitionSource transitionContext];
+    objc_msgSend_transitionContext(currentTransitionSource, a2);
     LOBYTE(currentTransitionSource) = v4 == 3;
   }
 
@@ -23324,7 +23324,7 @@ LABEL_16:
         v17 = self->_currentTransitionSource;
         if (v17)
         {
-          [(CSCoverSheetViewTransitionSource *)v17 transitionContext];
+          objc_msgSend_transitionContext(v17);
         }
 
         else
@@ -23483,9 +23483,9 @@ LABEL_16:
   }
 }
 
-uint64_t __78__CSCoverSheetViewController_transitionSource_didUpdateTransitionWithContext___block_invoke(uint64_t result, void *a2, uint64_t a3)
+void *__78__CSCoverSheetViewController_transitionSource_didUpdateTransitionWithContext___block_invoke(void *result, void *a2, uint64_t a3)
 {
-  if (*(result + 32) == a3)
+  if (result[4] == a3)
   {
     return [a2 updateTransitionWhileRubberBandingInProgress:1];
   }
@@ -23528,7 +23528,7 @@ void __78__CSCoverSheetViewController_transitionSource_didUpdateTransitionWithCo
 
 - (void)transitionSource:(id)source didEndWithContext:(id *)context
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v7 = self->_currentTransitionSource == sourceCopy;
   v8 = SBLogDashBoard();
@@ -23542,7 +23542,7 @@ void __78__CSCoverSheetViewController_transitionSource_didUpdateTransitionWithCo
       v16 = *&context->var1.var0.var1;
       *buf = *&context->var0;
       *&buf[16] = v16;
-      v58 = *&context->var1.var1.var1;
+      v57 = *&context->var1.var1.var1;
       v17 = NSStringFromCoverSheetTransitionContext(buf);
       *buf = 138412546;
       *&buf[4] = v15;
@@ -23562,12 +23562,12 @@ void __78__CSCoverSheetViewController_transitionSource_didUpdateTransitionWithCo
         {
           var0 = context->var1.var1.var0;
           _allowedPageViewControllers = [(CSCoverSheetViewController *)self _allowedPageViewControllers];
-          v56[0] = MEMORY[0x277D85DD0];
-          v56[1] = 3221225472;
-          v56[2] = __65__CSCoverSheetViewController_transitionSource_didEndWithContext___block_invoke;
-          v56[3] = &__block_descriptor_40_e37_v32__0__CSPageViewController_8Q16_B24l;
-          v56[4] = var0;
-          [_allowedPageViewControllers enumerateObjectsUsingBlock:v56];
+          v55[0] = MEMORY[0x277D85DD0];
+          v55[1] = 3221225472;
+          v55[2] = __65__CSCoverSheetViewController_transitionSource_didEndWithContext___block_invoke;
+          v55[3] = &__block_descriptor_40_e37_v32__0__CSPageViewController_8Q16_B24l;
+          v55[4] = var0;
+          [_allowedPageViewControllers enumerateObjectsUsingBlock:v55];
         }
       }
     }
@@ -23595,15 +23595,15 @@ void __78__CSCoverSheetViewController_transitionSource_didUpdateTransitionWithCo
         scrollView2 = [coverSheetView2 scrollView];
         -[CSCoverSheetViewController _setLastSettledPageIndex:](self, "_setLastSettledPageIndex:", [scrollView2 currentPageIndex]);
 
-        lastSettledPageIndex = self->_lastSettledPageIndex;
-        v54 = *&lastSettledPageIndex;
-        p_lastSettledPageIndex = 1;
-        v55 = 1;
-        CSCoverSheetTransitionContextMake(&lastSettledPageIndex, 0, buf);
+        v52.n128_f64[0] = self->_lastSettledPageIndex;
+        v53 = v52.n128_u64[0];
+        v52.n128_u64[1] = 1;
+        v54 = 1;
+        CSCoverSheetTransitionContextMake(&v52, 0, buf);
         v27 = *&buf[16];
         *&self->_transitionContext.value = *buf;
         *&self->_transitionContext.interval.start.inclusive = v27;
-        *&self->_transitionContext.interval.end.inclusive = v58;
+        *&self->_transitionContext.interval.end.inclusive = v57;
       }
 
       else
@@ -23621,7 +23621,7 @@ void __78__CSCoverSheetViewController_transitionSource_didUpdateTransitionWithCo
         v34 = *&self->_transitionContext.interval.start.inclusive;
         *buf = *&self->_transitionContext.value;
         *&buf[16] = v34;
-        v58 = *&self->_transitionContext.interval.end.inclusive;
+        v57 = *&self->_transitionContext.interval.end.inclusive;
         v35 = NSStringFromCoverSheetTransitionContext(buf);
         *buf = 138412290;
         *&buf[4] = v35;
@@ -23632,10 +23632,10 @@ void __78__CSCoverSheetViewController_transitionSource_didUpdateTransitionWithCo
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
       buf[24] = 0;
-      lastSettledPageIndex = 0.0;
-      p_lastSettledPageIndex = &lastSettledPageIndex;
-      v54 = 0x2020000000;
-      LOBYTE(v55) = 0;
+      v52.n128_u64[0] = 0;
+      v52.n128_u64[1] = &v52;
+      v53 = 0x2020000000;
+      LOBYTE(v54) = 0;
       v36 = self->_transitionContext.interval.end;
       start = self->_transitionContext.interval.start;
       v51 = v36;
@@ -23649,11 +23649,11 @@ void __78__CSCoverSheetViewController_transitionSource_didUpdateTransitionWithCo
       v49 = v37 == 0;
       v48[4] = self;
       v48[5] = buf;
-      v48[6] = &lastSettledPageIndex;
+      v48[6] = &v52;
       v48[7] = v38;
       [_allowedPageViewControllers2 enumerateObjectsUsingBlock:v48];
 
-      _Block_object_dispose(&lastSettledPageIndex, 8);
+      _Block_object_dispose(&v52, 8);
       _Block_object_dispose(buf, 8);
     }
 
@@ -23705,9 +23705,9 @@ void __78__CSCoverSheetViewController_transitionSource_didUpdateTransitionWithCo
   }
 }
 
-uint64_t __65__CSCoverSheetViewController_transitionSource_didEndWithContext___block_invoke(uint64_t result, void *a2, uint64_t a3)
+void *__65__CSCoverSheetViewController_transitionSource_didEndWithContext___block_invoke(void *result, void *a2, uint64_t a3)
 {
-  if (*(result + 32) == a3)
+  if (result[4] == a3)
   {
     return [a2 updateTransitionWhileRubberBandingInProgress:0];
   }
@@ -23934,28 +23934,28 @@ LABEL_11:
     v9 = v8;
     v11 = v10;
 
+    v67[0] = MEMORY[0x277D85DD0];
+    v67[1] = 3221225472;
+    v67[2] = __59__CSCoverSheetViewController_gestureRecognizerShouldBegin___block_invoke;
+    v67[3] = &unk_27838BF48;
+    v67[4] = self;
+    v12 = MEMORY[0x223D698D0](v67);
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = __59__CSCoverSheetViewController_gestureRecognizerShouldBegin___block_invoke_2;
+    v66[3] = &unk_27838BF70;
+    v66[4] = self;
+    v13 = MEMORY[0x223D698D0](v66);
     v65[0] = MEMORY[0x277D85DD0];
     v65[1] = 3221225472;
-    v65[2] = __59__CSCoverSheetViewController_gestureRecognizerShouldBegin___block_invoke;
+    v65[2] = __59__CSCoverSheetViewController_gestureRecognizerShouldBegin___block_invoke_3;
     v65[3] = &unk_27838BF48;
     v65[4] = self;
-    v12 = MEMORY[0x223D698D0](v65);
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __59__CSCoverSheetViewController_gestureRecognizerShouldBegin___block_invoke_2;
-    v64[3] = &unk_27838BF70;
-    v64[4] = self;
-    v13 = MEMORY[0x223D698D0](v64);
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = __59__CSCoverSheetViewController_gestureRecognizerShouldBegin___block_invoke_3;
-    v63[3] = &unk_27838BF48;
-    v63[4] = self;
-    v14 = MEMORY[0x223D698D0](v63);
+    v14 = MEMORY[0x223D698D0](v65);
     combinedListViewController = [(CSMainPageContentViewController *)self->_mainPageContentViewController combinedListViewController];
     hasUserInteraction = [combinedListViewController hasUserInteraction];
 
-    if (self->_wallpaperGestureRecognizer != beginCopy || !CSAutobahnEnabledForPlatform() || ((v12[2](v12, v9, v11) | hasUserInteraction) & 1) != 0)
+    if (self->_wallpaperGestureRecognizer != beginCopy || !CSAutobahnEnabledForPlatform(v17, v18) || ((v12[2](v12, v9, v11) | hasUserInteraction) & 1) != 0)
     {
       if (self->_backgroundContentGestureRecognizer == beginCopy)
       {
@@ -23990,10 +23990,10 @@ LABEL_38:
             goto LABEL_36;
           }
 
-          *v62 = 0;
-          v20 = "Live wallpaper gesture not beginning due to no user presence.";
-          v47 = sidebarComplicationContainerViewController;
-          v48 = OS_LOG_TYPE_INFO;
+          *v64 = 0;
+          v22 = "Live wallpaper gesture not beginning due to no user presence.";
+          v49 = sidebarComplicationContainerViewController;
+          v50 = OS_LOG_TYPE_INFO;
           goto LABEL_35;
         }
 
@@ -24005,20 +24005,20 @@ LABEL_37:
       if ([(UITapGestureRecognizer *)beginCopy isEqual:self->_posterSwitcherGestureRecognizer])
       {
         activeBehavior = [(CSCoverSheetViewController *)self activeBehavior];
-        v18 = [activeBehavior areRestrictedCapabilities:0x800000];
+        v20 = [activeBehavior areRestrictedCapabilities:0x800000];
 
-        if (v18)
+        if (v20)
         {
           sidebarComplicationContainerViewController = SBLogDashBoard();
           if (os_log_type_enabled(sidebarComplicationContainerViewController, OS_LOG_TYPE_DEFAULT))
           {
-            *v62 = 0;
-            v20 = "Rejecting Poster Switcher gesture – capability is restricted.";
+            *v64 = 0;
+            v22 = "Rejecting Poster Switcher gesture – capability is restricted.";
 LABEL_34:
-            v47 = sidebarComplicationContainerViewController;
-            v48 = OS_LOG_TYPE_DEFAULT;
+            v49 = sidebarComplicationContainerViewController;
+            v50 = OS_LOG_TYPE_DEFAULT;
 LABEL_35:
-            _os_log_impl(&dword_21EB05000, v47, v48, v20, v62, 2u);
+            _os_log_impl(&dword_21EB05000, v49, v50, v22, v64, 2u);
             goto LABEL_36;
           }
 
@@ -24027,46 +24027,46 @@ LABEL_35:
 
         view2 = [(CSCoverSheetViewController *)self view];
         [view2 bounds];
-        v23 = v22;
         v25 = v24;
         v27 = v26;
         v29 = v28;
+        v31 = v30;
 
-        v70.origin.x = v23;
-        v70.origin.y = v25;
-        v70.size.width = v27;
-        v70.size.height = v29;
-        Width = CGRectGetWidth(v70);
-        v71.origin.x = v23;
-        v71.origin.y = v25;
-        v71.size.width = v27;
-        v71.size.height = v29;
-        Height = CGRectGetHeight(v71);
+        v72.origin.x = v25;
+        v72.origin.y = v27;
+        v72.size.width = v29;
+        v72.size.height = v31;
+        Width = CGRectGetWidth(v72);
+        v73.origin.x = v25;
+        v73.origin.y = v27;
+        v73.size.width = v29;
+        v73.size.height = v31;
+        Height = CGRectGetHeight(v73);
         view3 = [(CSCoverSheetViewController *)self view];
         [view3 safeAreaInsets];
-        v34 = v33;
         v36 = v35;
+        v38 = v37;
 
         currentDevice = [MEMORY[0x277D75418] currentDevice];
         userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
         if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) != 1)
         {
-          v72.origin.x = 0.0;
-          v72.origin.y = 0.0;
-          v72.size.width = Width;
-          v72.size.height = v34;
-          v66.x = v9;
-          v66.y = v11;
-          v39 = CGRectContainsPoint(v72, v66);
-          v73.origin.y = Height - v36;
-          v73.origin.x = 0.0;
-          v73.size.width = Width;
-          v73.size.height = v36;
-          v67.x = v9;
-          v67.y = v11;
-          v40 = CGRectContainsPoint(v73, v67);
-          if (v39 || v40)
+          v74.origin.x = 0.0;
+          v74.origin.y = 0.0;
+          v74.size.width = Width;
+          v74.size.height = v36;
+          v68.x = v9;
+          v68.y = v11;
+          v41 = CGRectContainsPoint(v74, v68);
+          v75.origin.y = Height - v38;
+          v75.origin.x = 0.0;
+          v75.size.width = Width;
+          v75.size.height = v38;
+          v69.x = v9;
+          v69.y = v11;
+          v42 = CGRectContainsPoint(v75, v69);
+          if (v41 || v42)
           {
             sidebarComplicationContainerViewController = SBLogDashBoard();
             if (!os_log_type_enabled(sidebarComplicationContainerViewController, OS_LOG_TYPE_DEFAULT))
@@ -24074,8 +24074,8 @@ LABEL_35:
               goto LABEL_36;
             }
 
-            *v62 = 0;
-            v20 = "Rejecting Poster Switcher gesture – location is in safe area";
+            *v64 = 0;
+            v22 = "Rejecting Poster Switcher gesture – location is in safe area";
             goto LABEL_34;
           }
         }
@@ -24087,23 +24087,23 @@ LABEL_35:
         {
           combinedListViewController2 = [(CSMainPageContentViewController *)self->_mainPageContentViewController combinedListViewController];
           [combinedListViewController2 horizontalInsetMargin];
-          v45 = v44;
+          v47 = v46;
 
-          v74.origin.x = 0.0;
-          v74.origin.y = 0.0;
-          v74.size.width = v45;
-          v74.size.height = Height;
-          v68.x = v9;
-          v68.y = v11;
-          LOBYTE(combinedListViewController2) = CGRectContainsPoint(v74, v68);
-          v75.origin.x = Width - v45;
-          v75.origin.y = 0.0;
-          v75.size.width = v45;
-          v75.size.height = Height;
-          v69.x = v9;
-          v69.y = v11;
-          v46 = CGRectContainsPoint(v75, v69);
-          if ((combinedListViewController2 & 1) != 0 || v46)
+          v76.origin.x = 0.0;
+          v76.origin.y = 0.0;
+          v76.size.width = v47;
+          v76.size.height = Height;
+          v70.x = v9;
+          v70.y = v11;
+          LOBYTE(combinedListViewController2) = CGRectContainsPoint(v76, v70);
+          v77.origin.x = Width - v47;
+          v77.origin.y = 0.0;
+          v77.size.width = v47;
+          v77.size.height = Height;
+          v71.x = v9;
+          v71.y = v11;
+          v48 = CGRectContainsPoint(v77, v71);
+          if ((combinedListViewController2 & 1) != 0 || v48)
           {
             sidebarComplicationContainerViewController = SBLogDashBoard();
             if (!os_log_type_enabled(sidebarComplicationContainerViewController, OS_LOG_TYPE_DEFAULT))
@@ -24111,8 +24111,8 @@ LABEL_35:
               goto LABEL_36;
             }
 
-            *v62 = 0;
-            v20 = "Rejecting Poster Switcher gesture – location is in notification list gutter";
+            *v64 = 0;
+            v22 = "Rejecting Poster Switcher gesture – location is in notification list gutter";
             goto LABEL_34;
           }
         }
@@ -24122,8 +24122,8 @@ LABEL_35:
           sidebarComplicationContainerViewController = SBLogDashBoard();
           if (os_log_type_enabled(sidebarComplicationContainerViewController, OS_LOG_TYPE_DEFAULT))
           {
-            *v62 = 0;
-            v20 = "Rejecting Poster Switcher gesture – location is in combined list";
+            *v64 = 0;
+            v22 = "Rejecting Poster Switcher gesture – location is in combined list";
             goto LABEL_34;
           }
 
@@ -24133,23 +24133,7 @@ LABEL_36:
         }
 
         view4 = [(UITapGestureRecognizer *)beginCopy view];
-        v51 = (v13)[2](v13, view4, v9, v11);
-
-        if (v51)
-        {
-          sidebarComplicationContainerViewController = SBLogDashBoard();
-          if (!os_log_type_enabled(sidebarComplicationContainerViewController, OS_LOG_TYPE_DEFAULT))
-          {
-            goto LABEL_36;
-          }
-
-          *v62 = 0;
-          v20 = "Rejecting Poster Switcher gesture – location is over a quick action button";
-          goto LABEL_34;
-        }
-
-        view5 = [(UITapGestureRecognizer *)beginCopy view];
-        v53 = [(CSCoverSheetViewController *)self _quickActionButtonInterpretsLocation:view5 asBesideContentForGestureView:v9, v11];
+        v53 = (v13)[2](v13, view4, v9, v11);
 
         if (v53)
         {
@@ -24159,8 +24143,24 @@ LABEL_36:
             goto LABEL_36;
           }
 
-          *v62 = 0;
-          v20 = "Rejecting Poster Switcher gesture – location is beside the quick action buttons";
+          *v64 = 0;
+          v22 = "Rejecting Poster Switcher gesture – location is over a quick action button";
+          goto LABEL_34;
+        }
+
+        view5 = [(UITapGestureRecognizer *)beginCopy view];
+        v55 = [(CSCoverSheetViewController *)self _quickActionButtonInterpretsLocation:view5 asBesideContentForGestureView:v9, v11];
+
+        if (v55)
+        {
+          sidebarComplicationContainerViewController = SBLogDashBoard();
+          if (!os_log_type_enabled(sidebarComplicationContainerViewController, OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_36;
+          }
+
+          *v64 = 0;
+          v22 = "Rejecting Poster Switcher gesture – location is beside the quick action buttons";
           goto LABEL_34;
         }
 
@@ -24172,27 +24172,27 @@ LABEL_36:
             goto LABEL_36;
           }
 
-          *v62 = 0;
-          v20 = "Rejecting Poster Switcher gesture – location is in a complication";
+          *v64 = 0;
+          v22 = "Rejecting Poster Switcher gesture – location is in a complication";
           goto LABEL_34;
         }
 
         sidebarComplicationContainerViewController = [(CSCoverSheetViewController *)self sidebarComplicationContainerViewController];
         view6 = [sidebarComplicationContainerViewController view];
         [(UITapGestureRecognizer *)beginCopy locationInView:view6];
-        v56 = v55;
         v58 = v57;
+        v60 = v59;
 
         view7 = [sidebarComplicationContainerViewController view];
-        v60 = [view7 hitTest:0 forEvent:{v56, v58}];
+        v62 = [view7 hitTest:0 forEvent:{v58, v60}];
 
-        if (([sidebarComplicationContainerViewController interpretsViewAsContent:v60]& 1) != 0)
+        if (([sidebarComplicationContainerViewController interpretsViewAsContent:v62]& 1) != 0)
         {
-          v61 = SBLogDashBoard();
-          if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+          v63 = SBLogDashBoard();
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
           {
-            *v62 = 0;
-            _os_log_impl(&dword_21EB05000, v61, OS_LOG_TYPE_DEFAULT, "Poster Switcher gesture not beginning because location for the gesture is in a sidebar complication", v62, 2u);
+            *v64 = 0;
+            _os_log_impl(&dword_21EB05000, v63, OS_LOG_TYPE_DEFAULT, "Poster Switcher gesture not beginning because location for the gesture is in a sidebar complication", v64, 2u);
           }
 
           goto LABEL_36;
@@ -24204,8 +24204,8 @@ LABEL_36:
         sidebarComplicationContainerViewController = SBLogDashBoard();
         if (os_log_type_enabled(sidebarComplicationContainerViewController, OS_LOG_TYPE_DEFAULT))
         {
-          *v62 = 0;
-          v20 = "Complication Selection gesture not beginning because location for the gesture is not in a complication";
+          *v64 = 0;
+          v22 = "Complication Selection gesture not beginning because location for the gesture is not in a complication";
           goto LABEL_34;
         }
 
@@ -24349,18 +24349,20 @@ uint64_t __59__CSCoverSheetViewController_gestureRecognizerShouldBegin___block_i
 - (BOOL)gestureRecognizer:(id)recognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(id)gestureRecognizer
 {
   recognizerCopy = recognizer;
-  v6 = ([(UILongPressGestureRecognizer *)recognizerCopy isEqual:self->_quickNoteGestureRecognizer]& 1) == 0 && (self->_wallpaperGestureRecognizer != recognizerCopy || (CSAutobahnEnabledForPlatform() & 1) == 0) && self->_posterSwitcherGestureRecognizer != recognizerCopy;
+  v6 = [(UILongPressGestureRecognizer *)recognizerCopy isEqual:self->_quickNoteGestureRecognizer];
+  v8 = (v6 & 1) == 0 && (self->_wallpaperGestureRecognizer != recognizerCopy || (CSAutobahnEnabledForPlatform(v6, v7) & 1) == 0) && self->_posterSwitcherGestureRecognizer != recognizerCopy;
 
-  return v6;
+  return v8;
 }
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldRequireFailureOfGestureRecognizer:(id)gestureRecognizer
 {
   recognizerCopy = recognizer;
   gestureRecognizerCopy = gestureRecognizer;
-  v8 = self->_wallpaperGestureRecognizer == recognizerCopy && (CSAutobahnEnabledForPlatform() & 1) != 0 || self->_backgroundContentGestureRecognizer == recognizerCopy && self->_posterSwitcherGestureRecognizer == gestureRecognizerCopy;
+  v9 = gestureRecognizerCopy;
+  v10 = self->_wallpaperGestureRecognizer == recognizerCopy && (CSAutobahnEnabledForPlatform(gestureRecognizerCopy, v8) & 1) != 0 || self->_backgroundContentGestureRecognizer == recognizerCopy && self->_posterSwitcherGestureRecognizer == v9;
 
-  return v8;
+  return v10;
 }
 
 - (void)postNotificationRequest:(id)request
@@ -28064,7 +28066,7 @@ void __107__CSCoverSheetViewController_spotlightPresenter_dismissDismissableModa
   dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
-uint64_t __75__CSCoverSheetViewController_appProtectionSubjectsChanged_forSubscription___block_invoke(uint64_t a1)
+void *__75__CSCoverSheetViewController_appProtectionSubjectsChanged_forSubscription___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isEqual:*(*(a1 + 40) + 1824)];
   if (result)
@@ -28791,7 +28793,7 @@ void __67__CSCoverSheetViewController_activatePage_animated_withCompletion___blo
   controllerCopy = controller;
   if ([(CSCoverSheetViewController *)self isTransitioning])
   {
-    [CSCoverSheetViewController _updateVisibilityForPageViewControllersWithVisiblePageViewController:a2];
+    [(CSCoverSheetViewController *)a2 _updateVisibilityForPageViewControllersWithVisiblePageViewController:?];
   }
 
   coverSheetView = [(CSCoverSheetViewController *)self coverSheetView];
@@ -28802,7 +28804,7 @@ void __67__CSCoverSheetViewController_activatePage_animated_withCompletion___blo
     _indexOfMainPage = [(CSCoverSheetViewController *)self _indexOfMainPage];
     if (_indexOfMainPage == 0x7FFFFFFFFFFFFFFFLL)
     {
-      [CSCoverSheetViewController _updateVisibilityForPageViewControllersWithVisiblePageViewController:a2];
+      [(CSCoverSheetViewController *)a2 _updateVisibilityForPageViewControllersWithVisiblePageViewController:?];
     }
   }
 
@@ -28837,9 +28839,9 @@ void __67__CSCoverSheetViewController_activatePage_animated_withCompletion___blo
     v20 = 0u;
     v21 = 0u;
     *buf = 0u;
-    *&v16 = v9;
+    v16.n128_f64[0] = v9;
     *&v17 = v9;
-    *(&v16 + 1) = 1;
+    v16.n128_u64[1] = 1;
     *(&v17 + 1) = 1;
     [(CSCoverSheetViewController *)self transitionSource:self willBeginWithType:2, CSCoverSheetTransitionContextMake(&v16, 1, buf).n128_f64[0]];
     v16 = *buf;
@@ -29340,7 +29342,7 @@ LABEL_11:
   v64 = 0u;
   v65 = 0u;
   v63 = 0u;
-  [(CSCoverSheetViewController *)self transitionContext];
+  objc_msgSend_transitionContext(self);
   v15 = [(CSCoverSheetViewController *)self pageViewControllerAtIndex:0.0];
   if (v15)
   {
@@ -29758,7 +29760,7 @@ uint64_t __63__CSCoverSheetViewController__updateActiveAppearanceForReason___blo
   return [v2 _updateGlassContentInterfaceStyle];
 }
 
-uint64_t __63__CSCoverSheetViewController__updateActiveAppearanceForReason___block_invoke_2(uint64_t a1)
+void *__63__CSCoverSheetViewController__updateActiveAppearanceForReason___block_invoke_2(uint64_t a1)
 {
   if (([*(a1 + 32) isTransitioning] & 1) == 0)
   {
@@ -32203,7 +32205,7 @@ void __62__CSCoverSheetViewController_accessoryAnimationStatusChanged___block_in
   dispatch_async(MEMORY[0x277D85CD0], v4);
 }
 
-uint64_t __90__CSCoverSheetViewController__updateAccessoryAnimationPresenting_userInteractionDisabled___block_invoke(uint64_t a1)
+id *__90__CSCoverSheetViewController__updateAccessoryAnimationPresenting_userInteractionDisabled___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
@@ -32242,13 +32244,13 @@ LABEL_7:
     result = *(a1 + 32);
     if (v5)
     {
-      [*(result + 2104) setRestrictedCapabilities:{objc_msgSend(result, "_accessoryAnimationRestrictions")}];
+      [result[263] setRestrictedCapabilities:{objc_msgSend(result, "_accessoryAnimationRestrictions")}];
       v9 = @"AccessoryAnimationPresentationWillStart";
       return [*v4 _updateActiveBehaviorsForReason:v9];
     }
 
 LABEL_11:
-    result = [*(result + 2104) restrictedCapabilities];
+    result = [result[263] restrictedCapabilities];
     if (!result)
     {
       return result;
@@ -37507,17 +37509,193 @@ LABEL_25:
   return result;
 }
 
-void __62__CSCoverSheetViewController_Layout__prominentBaselineToListY__block_invoke()
+void __62__CSCoverSheetViewController_Layout__prominentBaselineToListY__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = __sb__runningInSpringBoard();
-  v3 = &CSProminentBaselineToListY;
-  if (v2)
+  v4 = __sb__runningInSpringBoard();
+  v5 = &CSProminentBaselineToListY;
+  if (v4)
   {
     if (SBFEffectiveDeviceClass() != 2)
     {
-      v4 = 0;
-      v5 = 0;
+      v6 = 0;
+      v7 = 0;
       goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    v122 = [MEMORY[0x277D75418] currentDevice];
+    if ([v122 userInterfaceIdiom] != 1)
+    {
+      v6 = 0;
+      v7 = 1;
+      goto LABEL_10;
+    }
+  }
+
+  v7 = v4 ^ 1u;
+  if (SBFEffectiveHomeButtonType() == 2)
+  {
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
+    {
+      __sb__mainScreenReferenceBounds();
+    }
+
+    else
+    {
+      v123 = [MEMORY[0x277D759A0] mainScreen];
+      [v123 _referenceBounds];
+    }
+
+    v6 = v8 ^ 1;
+    BSSizeRoundForScale();
+    if (v27 == *(MEMORY[0x277D66E30] + 288) && v26 == *(MEMORY[0x277D66E30] + 296))
+    {
+      v151 = v8 ^ 1;
+      v152 = v7;
+      v139 = 0;
+      v140 = 0;
+      v137 = 0;
+      v138 = 0;
+      v141 = 0;
+      v142 = 0;
+      v135 = 0;
+      v136 = 0;
+      v133 = 0;
+      v134 = 0;
+      v143 = 0uLL;
+      v131 = 0;
+      v132 = 0;
+      v129 = 0;
+      v130 = 0;
+      v144 = 0;
+      v145 = 0;
+      v128 = 0;
+      v127 = 0;
+      v146 = 0;
+      v147 = 0;
+      v126 = 0;
+      v125 = 0;
+      v148 = 0;
+      v149 = 0;
+      v124 = 0;
+      v153 = 0;
+      v18 = 0;
+      v150 = 0;
+      v19 = 0;
+      v20 = 0;
+      v21 = 0;
+      v22 = 0;
+      v23 = &qword_21EC96890;
+      goto LABEL_67;
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+LABEL_10:
+  v9 = __sb__runningInSpringBoard();
+  v151 = v6;
+  v152 = v7;
+  if (v9)
+  {
+    if (SBFEffectiveDeviceClass() != 2)
+    {
+      v10 = 0;
+      v2 = 0;
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+    v121 = [MEMORY[0x277D75418] currentDevice];
+    if ([v121 userInterfaceIdiom] != 1)
+    {
+      v10 = 0;
+      v2 = 1;
+      goto LABEL_19;
+    }
+  }
+
+  v2 = v9 ^ 1u;
+  if (SBFEffectiveHomeButtonType() == 2)
+  {
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
+    {
+      __sb__mainScreenReferenceBounds();
+    }
+
+    else
+    {
+      v113 = [MEMORY[0x277D759A0] mainScreen];
+      [v113 _referenceBounds];
+    }
+
+    v10 = v8 ^ 1;
+    BSSizeRoundForScale();
+    if (v29 >= *(MEMORY[0x277D66E30] + 440))
+    {
+      v149 = v8 ^ 1;
+      v150 = v2;
+      v139 = 0;
+      v140 = 0;
+      v137 = 0;
+      v138 = 0;
+      v141 = 0;
+      v142 = 0;
+      v135 = 0;
+      v136 = 0;
+      v133 = 0;
+      v134 = 0;
+      v143 = 0uLL;
+      v131 = 0;
+      v132 = 0;
+      v129 = 0;
+      v130 = 0;
+      v144 = 0;
+      v145 = 0;
+      v128 = 0;
+      v127 = 0;
+      v146 = 0;
+      v147 = 0;
+      v126 = 0;
+      v125 = 0;
+      v148 = 0;
+      v124 = 0;
+      v153 = 0;
+      v18 = 0;
+      v19 = 0;
+      v20 = 0;
+      v21 = 0;
+      v22 = 0;
+      v23 = &qword_21EC968B8;
+      goto LABEL_67;
+    }
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+LABEL_19:
+  v11 = __sb__runningInSpringBoard();
+  v149 = v10;
+  v150 = v2;
+  if (v11)
+  {
+    if (SBFEffectiveDeviceClass() != 2)
+    {
+      v3 = 0;
+      v12 = 0;
+      goto LABEL_28;
     }
   }
 
@@ -37526,87 +37704,83 @@ void __62__CSCoverSheetViewController_Layout__prominentBaselineToListY__block_in
     v120 = [MEMORY[0x277D75418] currentDevice];
     if ([v120 userInterfaceIdiom] != 1)
     {
-      v4 = 0;
-      v5 = 1;
-      goto LABEL_10;
+      v3 = 0;
+      v12 = 1;
+      goto LABEL_28;
     }
   }
 
-  v5 = v2 ^ 1u;
+  v12 = v11 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
     {
       __sb__mainScreenReferenceBounds();
     }
 
     else
     {
-      v121 = [MEMORY[0x277D759A0] mainScreen];
-      [v121 _referenceBounds];
+      v112 = [MEMORY[0x277D759A0] mainScreen];
+      [v112 _referenceBounds];
     }
 
-    v4 = v6 ^ 1;
+    v3 = v8 ^ 1;
     BSSizeRoundForScale();
-    if (v25 == *(MEMORY[0x277D66E30] + 288) && v24 == *(MEMORY[0x277D66E30] + 296))
+    if (v30 >= *(MEMORY[0x277D66E30] + 376))
     {
-      v149 = v6 ^ 1;
-      v150 = v5;
-      v137 = 0;
-      v138 = 0;
-      v135 = 0;
-      v136 = 0;
+      v147 = v8 ^ 1;
+      v148 = v12;
       v139 = 0;
       v140 = 0;
+      v137 = 0;
+      v138 = 0;
+      v141 = 0;
+      v142 = 0;
+      v135 = 0;
+      v136 = 0;
       v133 = 0;
       v134 = 0;
+      v143 = 0uLL;
       v131 = 0;
       v132 = 0;
-      v141 = 0uLL;
       v129 = 0;
       v130 = 0;
-      v127 = 0;
-      v128 = 0;
-      v142 = 0;
-      v143 = 0;
-      v126 = 0;
-      v125 = 0;
       v144 = 0;
       v145 = 0;
-      v124 = 0;
-      v123 = 0;
+      v128 = 0;
+      v127 = 0;
       v146 = 0;
-      v147 = 0;
-      v122 = 0;
-      v151 = 0;
-      v16 = 0;
-      v148 = 0;
-      v17 = 0;
+      v125 = 0;
+      v126 = 0;
+      v124 = 0;
+      v153 = 0;
       v18 = 0;
       v19 = 0;
       v20 = 0;
-      v21 = &qword_21EC96890;
+      v21 = 0;
+      v22 = 0;
+      v23 = &qword_21EC968A8;
       goto LABEL_67;
     }
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-LABEL_10:
-  v7 = __sb__runningInSpringBoard();
-  v149 = v4;
-  v150 = v5;
-  if (v7)
+LABEL_28:
+  v13 = __sb__runningInSpringBoard();
+  v147 = v3;
+  v148 = v12;
+  if (v13)
   {
     if (SBFEffectiveDeviceClass() != 2)
     {
-      v8 = 0;
-      v0 = 0;
-      goto LABEL_19;
+      v5 = 0;
+      v14 = 0;
+      goto LABEL_37;
     }
   }
 
@@ -37615,85 +37789,73 @@ LABEL_10:
     v119 = [MEMORY[0x277D75418] currentDevice];
     if ([v119 userInterfaceIdiom] != 1)
     {
-      v8 = 0;
-      v0 = 1;
-      goto LABEL_19;
+      v5 = 0;
+      v14 = 1;
+      goto LABEL_37;
     }
   }
 
-  v0 = v7 ^ 1u;
-  if (SBFEffectiveHomeButtonType() == 2)
+  v14 = v13 ^ 1;
+  v8 = __sb__runningInSpringBoard();
+  if (v8)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
-    {
-      __sb__mainScreenReferenceBounds();
-    }
-
-    else
-    {
-      v111 = [MEMORY[0x277D759A0] mainScreen];
-      [v111 _referenceBounds];
-    }
-
-    v8 = v6 ^ 1;
-    BSSizeRoundForScale();
-    if (v27 >= *(MEMORY[0x277D66E30] + 440))
-    {
-      v147 = v6 ^ 1;
-      v148 = v0;
-      v137 = 0;
-      v138 = 0;
-      v135 = 0;
-      v136 = 0;
-      v139 = 0;
-      v140 = 0;
-      v133 = 0;
-      v134 = 0;
-      v131 = 0;
-      v132 = 0;
-      v141 = 0uLL;
-      v129 = 0;
-      v130 = 0;
-      v127 = 0;
-      v128 = 0;
-      v142 = 0;
-      v143 = 0;
-      v126 = 0;
-      v125 = 0;
-      v144 = 0;
-      v145 = 0;
-      v124 = 0;
-      v123 = 0;
-      v146 = 0;
-      v122 = 0;
-      v151 = 0;
-      v16 = 0;
-      v17 = 0;
-      v18 = 0;
-      v19 = 0;
-      v20 = 0;
-      v21 = &qword_21EC968B8;
-      goto LABEL_67;
-    }
+    __sb__mainScreenReferenceBounds();
   }
 
   else
   {
-    v8 = 0;
+    v116 = [MEMORY[0x277D759A0] mainScreen];
+    [v116 _referenceBounds];
   }
 
-LABEL_19:
-  v9 = __sb__runningInSpringBoard();
-  v147 = v8;
-  v148 = v0;
-  if (v9)
+  v5 = v8 ^ 1;
+  BSSizeRoundForScale();
+  if (v15 >= *(MEMORY[0x277D66E30] + 280))
+  {
+    v145 = v8 ^ 1;
+    v146 = v14;
+    v139 = 0;
+    v140 = 0;
+    v137 = 0;
+    v138 = 0;
+    v141 = 0;
+    v142 = 0;
+    v135 = 0;
+    v136 = 0;
+    v133 = 0;
+    v134 = 0;
+    v143 = 0uLL;
+    v131 = 0;
+    v132 = 0;
+    v129 = 0;
+    v130 = 0;
+    v144 = 0;
+    v127 = 0;
+    v128 = 0;
+    v125 = 0;
+    v126 = 0;
+    v124 = 0;
+    v153 = 0;
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC968B0;
+    goto LABEL_67;
+  }
+
+LABEL_37:
+  v16 = __sb__runningInSpringBoard();
+  v145 = v5;
+  v146 = v14;
+  if (v16)
   {
     if (SBFEffectiveDeviceClass() != 2)
     {
-      v1 = 0;
-      v10 = 0;
-      goto LABEL_28;
+      HIDWORD(v143) = 0;
+      v17 = 0;
+      goto LABEL_47;
     }
   }
 
@@ -37702,100 +37864,15 @@ LABEL_19:
     v118 = [MEMORY[0x277D75418] currentDevice];
     if ([v118 userInterfaceIdiom] != 1)
     {
-      v1 = 0;
-      v10 = 1;
-      goto LABEL_28;
+      HIDWORD(v143) = 0;
+      v17 = 1;
+      goto LABEL_47;
     }
   }
 
-  v10 = v9 ^ 1;
-  if (SBFEffectiveHomeButtonType() == 2)
-  {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
-    {
-      __sb__mainScreenReferenceBounds();
-    }
-
-    else
-    {
-      v110 = [MEMORY[0x277D759A0] mainScreen];
-      [v110 _referenceBounds];
-    }
-
-    v1 = v6 ^ 1;
-    BSSizeRoundForScale();
-    if (v28 >= *(MEMORY[0x277D66E30] + 376))
-    {
-      v145 = v6 ^ 1;
-      v146 = v10;
-      v137 = 0;
-      v138 = 0;
-      v135 = 0;
-      v136 = 0;
-      v139 = 0;
-      v140 = 0;
-      v133 = 0;
-      v134 = 0;
-      v131 = 0;
-      v132 = 0;
-      v141 = 0uLL;
-      v129 = 0;
-      v130 = 0;
-      v127 = 0;
-      v128 = 0;
-      v142 = 0;
-      v143 = 0;
-      v126 = 0;
-      v125 = 0;
-      v144 = 0;
-      v123 = 0;
-      v124 = 0;
-      v122 = 0;
-      v151 = 0;
-      v16 = 0;
-      v17 = 0;
-      v18 = 0;
-      v19 = 0;
-      v20 = 0;
-      v21 = &qword_21EC968A8;
-      goto LABEL_67;
-    }
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-LABEL_28:
-  v11 = __sb__runningInSpringBoard();
-  v145 = v1;
-  v146 = v10;
-  if (v11)
-  {
-    if (SBFEffectiveDeviceClass() != 2)
-    {
-      v3 = 0;
-      v12 = 0;
-      goto LABEL_37;
-    }
-  }
-
-  else
-  {
-    v117 = [MEMORY[0x277D75418] currentDevice];
-    if ([v117 userInterfaceIdiom] != 1)
-    {
-      v3 = 0;
-      v12 = 1;
-      goto LABEL_37;
-    }
-  }
-
-  v12 = v11 ^ 1;
-  v6 = __sb__runningInSpringBoard();
-  if (v6)
+  v17 = v16 ^ 1;
+  v8 = __sb__runningInSpringBoard();
+  if (v8)
   {
     __sb__mainScreenReferenceBounds();
   }
@@ -37806,189 +37883,114 @@ LABEL_28:
     [v114 _referenceBounds];
   }
 
-  v3 = v6 ^ 1;
+  HIDWORD(v143) = v8 ^ 1;
   BSSizeRoundForScale();
-  if (v13 >= *(MEMORY[0x277D66E30] + 280))
+  if (v24 >= *(MEMORY[0x277D66E30] + 264))
   {
-    v143 = v6 ^ 1;
-    v144 = v12;
-    v137 = 0;
-    v138 = 0;
-    v135 = 0;
-    v136 = 0;
+    v144 = v17;
     v139 = 0;
     v140 = 0;
-    v133 = 0;
-    v134 = 0;
-    v131 = 0;
-    v132 = 0;
-    v141 = 0uLL;
-    v129 = 0;
-    v130 = 0;
-    v127 = 0;
-    v128 = 0;
+    v137 = 0;
+    v138 = 0;
+    v141 = 0;
     v142 = 0;
-    v125 = 0;
-    v126 = 0;
-    v123 = 0;
-    v124 = 0;
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = &qword_21EC968B0;
-    goto LABEL_67;
-  }
-
-LABEL_37:
-  v14 = __sb__runningInSpringBoard();
-  v143 = v3;
-  v144 = v12;
-  if (v14)
-  {
-    if (SBFEffectiveDeviceClass() != 2)
-    {
-      HIDWORD(v141) = 0;
-      v15 = 0;
-      goto LABEL_47;
-    }
-  }
-
-  else
-  {
-    v116 = [MEMORY[0x277D75418] currentDevice];
-    if ([v116 userInterfaceIdiom] != 1)
-    {
-      HIDWORD(v141) = 0;
-      v15 = 1;
-      goto LABEL_47;
-    }
-  }
-
-  v15 = v14 ^ 1;
-  v6 = __sb__runningInSpringBoard();
-  if (v6)
-  {
-    __sb__mainScreenReferenceBounds();
-  }
-
-  else
-  {
-    v112 = [MEMORY[0x277D759A0] mainScreen];
-    [v112 _referenceBounds];
-  }
-
-  HIDWORD(v141) = v6 ^ 1;
-  BSSizeRoundForScale();
-  if (v22 >= *(MEMORY[0x277D66E30] + 264))
-  {
-    v142 = v15;
-    v137 = 0;
-    v138 = 0;
     v135 = 0;
     v136 = 0;
-    v139 = 0;
-    v140 = 0;
     v133 = 0;
     v134 = 0;
+    *&v143 = 0;
     v131 = 0;
     v132 = 0;
-    *&v141 = 0;
+    DWORD2(v143) = 0;
     v129 = 0;
     v130 = 0;
-    DWORD2(v141) = 0;
     v127 = 0;
     v128 = 0;
     v125 = 0;
     v126 = 0;
-    v123 = 0;
     v124 = 0;
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
+    v153 = 0;
     v18 = 0;
     v19 = 0;
     v20 = 0;
-    v21 = &qword_21EC968A0;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC968A0;
     goto LABEL_67;
   }
 
 LABEL_47:
-  v23 = __sb__runningInSpringBoard();
-  v142 = v15;
-  if (v23)
+  v25 = __sb__runningInSpringBoard();
+  v144 = v17;
+  if (v25)
   {
     if (SBFEffectiveDeviceClass() != 2)
     {
-      *(&v141 + 4) = 0;
+      *(&v143 + 4) = 0;
       goto LABEL_187;
     }
   }
 
   else
   {
-    v115 = [MEMORY[0x277D75418] currentDevice];
-    if ([v115 userInterfaceIdiom] != 1)
+    v117 = [MEMORY[0x277D75418] currentDevice];
+    if ([v117 userInterfaceIdiom] != 1)
     {
-      *(&v141 + 4) = 0x100000000;
+      *(&v143 + 4) = 0x100000000;
       goto LABEL_187;
     }
   }
 
-  DWORD2(v141) = v23 ^ 1;
-  v6 = __sb__runningInSpringBoard();
-  if (v6)
+  DWORD2(v143) = v25 ^ 1;
+  v8 = __sb__runningInSpringBoard();
+  if (v8)
   {
     __sb__mainScreenReferenceBounds();
   }
 
   else
   {
-    v109 = [MEMORY[0x277D759A0] mainScreen];
-    [v109 _referenceBounds];
+    v111 = [MEMORY[0x277D759A0] mainScreen];
+    [v111 _referenceBounds];
   }
 
-  DWORD1(v141) = v6 ^ 1;
+  DWORD1(v143) = v8 ^ 1;
   BSSizeRoundForScale();
-  if (v29 >= *(MEMORY[0x277D66E30] + 248))
+  if (v31 >= *(MEMORY[0x277D66E30] + 248))
   {
-    v137 = 0;
-    v138 = 0;
-    v135 = 0;
-    v136 = 0;
     v139 = 0;
     v140 = 0;
+    v137 = 0;
+    v138 = 0;
+    v141 = 0;
+    v142 = 0;
+    v135 = 0;
+    v136 = 0;
     v133 = 0;
     v134 = 0;
+    LODWORD(v143) = 0;
     v131 = 0;
     v132 = 0;
-    LODWORD(v141) = 0;
     v129 = 0;
     v130 = 0;
     v127 = 0;
     v128 = 0;
     v125 = 0;
     v126 = 0;
-    v123 = 0;
     v124 = 0;
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
+    v153 = 0;
     v18 = 0;
     v19 = 0;
     v20 = 0;
-    v21 = &qword_21EC96898;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC96898;
     goto LABEL_67;
   }
 
 LABEL_187:
-  v6 = __sb__runningInSpringBoard();
-  if (v6)
+  v8 = __sb__runningInSpringBoard();
+  if (v8)
   {
     if (SBFEffectiveDeviceClass() != 2)
     {
@@ -37996,12 +37998,14 @@ LABEL_187:
     }
 
 LABEL_195:
-    v137 = 0;
-    v138 = 0;
-    v135 = 0;
-    v136 = 0;
     v139 = 0;
     v140 = 0;
+    v137 = 0;
+    v138 = 0;
+    v141 = 0;
+    v142 = 0;
+    v135 = 0;
+    v136 = 0;
     v133 = 0;
     v134 = 0;
     v131 = 0;
@@ -38012,37 +38016,35 @@ LABEL_195:
     v128 = 0;
     v125 = 0;
     v126 = 0;
-    v123 = 0;
     v124 = 0;
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
+    v153 = 0;
     v18 = 0;
     v19 = 0;
     v20 = 0;
-    v21 = &qword_21EC96888;
-    LODWORD(v141) = v6 ^ 1;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC96888;
+    LODWORD(v143) = v8 ^ 1;
     goto LABEL_67;
   }
 
-  v113 = [MEMORY[0x277D75418] currentDevice];
-  if ([v113 userInterfaceIdiom] == 1)
+  v115 = [MEMORY[0x277D75418] currentDevice];
+  if ([v115 userInterfaceIdiom] == 1)
   {
     goto LABEL_195;
   }
 
 LABEL_189:
-  LODWORD(v141) = v6 ^ 1;
+  LODWORD(v143) = v8 ^ 1;
   if (!_SBF_Private_IsD94Like())
   {
 LABEL_193:
-    v140 = 0;
+    v142 = 0;
     goto LABEL_203;
   }
 
-  v30 = __sb__runningInSpringBoard();
-  if (v30)
+  v32 = __sb__runningInSpringBoard();
+  if (v32)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
@@ -38052,38 +38054,40 @@ LABEL_193:
 
   else
   {
-    v107 = [MEMORY[0x277D75418] currentDevice];
-    if ([v107 userInterfaceIdiom])
+    v109 = [MEMORY[0x277D75418] currentDevice];
+    if ([v109 userInterfaceIdiom])
     {
-      v140 = 0x100000000;
+      v142 = 0x100000000;
       goto LABEL_203;
     }
   }
 
-  HIDWORD(v140) = v30 ^ 1;
+  HIDWORD(v142) = v32 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
     {
       __sb__mainScreenReferenceBounds();
     }
 
     else
     {
-      v100 = [MEMORY[0x277D759A0] mainScreen];
-      [v100 _referenceBounds];
+      v102 = [MEMORY[0x277D759A0] mainScreen];
+      [v102 _referenceBounds];
     }
 
-    LODWORD(v140) = v6 ^ 1;
+    LODWORD(v142) = v8 ^ 1;
     BSSizeRoundForScale();
-    if (v33 >= *(MEMORY[0x277D66E30] + 200))
+    if (v35 >= *(MEMORY[0x277D66E30] + 200))
     {
+      v139 = 0;
+      v140 = 0;
       v137 = 0;
       v138 = 0;
+      v141 = 0;
       v135 = 0;
       v136 = 0;
-      v139 = 0;
       v133 = 0;
       v134 = 0;
       v131 = 0;
@@ -38094,16 +38098,171 @@ LABEL_193:
       v128 = 0;
       v125 = 0;
       v126 = 0;
-      v123 = 0;
       v124 = 0;
-      v122 = 0;
-      v151 = 0;
-      v16 = 0;
-      v17 = 0;
+      v153 = 0;
       v18 = 0;
       v19 = 0;
       v20 = 0;
-      v21 = &qword_21EC96868;
+      v21 = 0;
+      v22 = 0;
+      v23 = &qword_21EC96868;
+      goto LABEL_67;
+    }
+  }
+
+  else
+  {
+    LODWORD(v142) = 0;
+  }
+
+LABEL_203:
+  v8 = __sb__runningInSpringBoard();
+  if (v8)
+  {
+    if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+    {
+      v141 = 0;
+      goto LABEL_213;
+    }
+  }
+
+  else
+  {
+    v110 = [MEMORY[0x277D75418] currentDevice];
+    if ([v110 userInterfaceIdiom])
+    {
+      v141 = 0x100000000;
+      goto LABEL_213;
+    }
+  }
+
+  HIDWORD(v141) = v8 ^ 1;
+  if (SBFEffectiveHomeButtonType() == 2)
+  {
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
+    {
+      __sb__mainScreenReferenceBounds();
+    }
+
+    else
+    {
+      v105 = [MEMORY[0x277D759A0] mainScreen];
+      [v105 _referenceBounds];
+    }
+
+    LODWORD(v141) = v8 ^ 1;
+    BSSizeRoundForScale();
+    if (v33 >= *(MEMORY[0x277D66E30] + 200))
+    {
+      goto LABEL_217;
+    }
+  }
+
+  else
+  {
+    LODWORD(v141) = 0;
+  }
+
+LABEL_213:
+  if (_SBF_Private_IsD94Like())
+  {
+    v139 = 0;
+    v140 = 0;
+    v137 = 0;
+    v138 = 0;
+    v135 = 0;
+    v136 = 0;
+    v133 = 0;
+    v134 = 0;
+    v131 = 0;
+    v132 = 0;
+    v129 = 0;
+    v130 = 0;
+    v127 = 0;
+    v128 = 0;
+    v125 = 0;
+    v126 = 0;
+    v124 = 0;
+    v153 = 0;
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC96870;
+    goto LABEL_67;
+  }
+
+LABEL_217:
+  if (!_SBF_Private_IsD64Like())
+  {
+LABEL_221:
+    v140 = 0;
+    goto LABEL_231;
+  }
+
+  v34 = __sb__runningInSpringBoard();
+  if (v34)
+  {
+    if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+    {
+      goto LABEL_221;
+    }
+  }
+
+  else
+  {
+    v106 = [MEMORY[0x277D75418] currentDevice];
+    if ([v106 userInterfaceIdiom])
+    {
+      v140 = 0x100000000;
+      goto LABEL_231;
+    }
+  }
+
+  HIDWORD(v140) = v34 ^ 1;
+  if (SBFEffectiveHomeButtonType() == 2)
+  {
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
+    {
+      __sb__mainScreenReferenceBounds();
+    }
+
+    else
+    {
+      v97 = [MEMORY[0x277D759A0] mainScreen];
+      [v97 _referenceBounds];
+    }
+
+    LODWORD(v140) = v8 ^ 1;
+    BSSizeRoundForScale();
+    if (v40 >= *(MEMORY[0x277D66E30] + 136))
+    {
+      v138 = 0;
+      v139 = 0;
+      v136 = 0;
+      v137 = 0;
+      v134 = 0;
+      v135 = 0;
+      v132 = 0;
+      v133 = 0;
+      v130 = 0;
+      v131 = 0;
+      v129 = 0;
+      v127 = 0;
+      v128 = 0;
+      v125 = 0;
+      v126 = 0;
+      v124 = 0;
+      v153 = 0;
+      v18 = 0;
+      v19 = 0;
+      v20 = 0;
+      v21 = 0;
+      v22 = 0;
+      v23 = &qword_21EC96878;
       goto LABEL_67;
     }
   }
@@ -38113,14 +38272,14 @@ LABEL_193:
     LODWORD(v140) = 0;
   }
 
-LABEL_203:
-  v6 = __sb__runningInSpringBoard();
-  if (v6)
+LABEL_231:
+  v8 = __sb__runningInSpringBoard();
+  if (v8)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
       v139 = 0;
-      goto LABEL_213;
+      goto LABEL_241;
     }
   }
 
@@ -38130,30 +38289,30 @@ LABEL_203:
     if ([v108 userInterfaceIdiom])
     {
       v139 = 0x100000000;
-      goto LABEL_213;
+      goto LABEL_241;
     }
   }
 
-  HIDWORD(v139) = v6 ^ 1;
+  HIDWORD(v139) = v8 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
     {
       __sb__mainScreenReferenceBounds();
     }
 
     else
     {
-      v103 = [MEMORY[0x277D759A0] mainScreen];
-      [v103 _referenceBounds];
+      v101 = [MEMORY[0x277D759A0] mainScreen];
+      [v101 _referenceBounds];
     }
 
-    LODWORD(v139) = v6 ^ 1;
+    LODWORD(v139) = v8 ^ 1;
     BSSizeRoundForScale();
-    if (v31 >= *(MEMORY[0x277D66E30] + 200))
+    if (v36 >= *(MEMORY[0x277D66E30] + 136))
     {
-      goto LABEL_217;
+      goto LABEL_245;
     }
   }
 
@@ -38162,8 +38321,8 @@ LABEL_203:
     LODWORD(v139) = 0;
   }
 
-LABEL_213:
-  if (_SBF_Private_IsD94Like())
+LABEL_241:
+  if (_SBF_Private_IsD64Like())
   {
     v137 = 0;
     v138 = 0;
@@ -38179,64 +38338,57 @@ LABEL_213:
     v128 = 0;
     v125 = 0;
     v126 = 0;
-    v123 = 0;
     v124 = 0;
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
+    v153 = 0;
     v18 = 0;
     v19 = 0;
     v20 = 0;
-    v21 = &qword_21EC96870;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC96880;
     goto LABEL_67;
   }
 
-LABEL_217:
-  if (!_SBF_Private_IsD64Like())
-  {
-LABEL_221:
-    v138 = 0;
-    goto LABEL_231;
-  }
-
-  v32 = __sb__runningInSpringBoard();
-  if (v32)
+LABEL_245:
+  v37 = __sb__runningInSpringBoard();
+  if (v37)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
-      goto LABEL_221;
+      v138 = 0;
+      goto LABEL_255;
     }
   }
 
   else
   {
-    v104 = [MEMORY[0x277D75418] currentDevice];
-    if ([v104 userInterfaceIdiom])
+    v107 = [MEMORY[0x277D75418] currentDevice];
+    if ([v107 userInterfaceIdiom])
     {
       v138 = 0x100000000;
-      goto LABEL_231;
+      goto LABEL_255;
     }
   }
 
-  HIDWORD(v138) = v32 ^ 1;
+  HIDWORD(v138) = v37 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
+    v38 = __sb__runningInSpringBoard();
+    if (v38)
     {
       __sb__mainScreenReferenceBounds();
     }
 
     else
     {
-      v95 = [MEMORY[0x277D759A0] mainScreen];
-      [v95 _referenceBounds];
+      v98 = [MEMORY[0x277D759A0] mainScreen];
+      [v98 _referenceBounds];
     }
 
-    LODWORD(v138) = v6 ^ 1;
+    v8 = v38 ^ 1u;
     BSSizeRoundForScale();
-    if (v38 >= *(MEMORY[0x277D66E30] + 136))
+    LODWORD(v138) = v8;
+    if (v39 >= *(MEMORY[0x277D66E30] + 136))
     {
       v136 = 0;
       v137 = 0;
@@ -38246,21 +38398,19 @@ LABEL_221:
       v133 = 0;
       v130 = 0;
       v131 = 0;
-      v128 = 0;
       v129 = 0;
       v127 = 0;
+      v128 = 0;
       v125 = 0;
       v126 = 0;
-      v123 = 0;
       v124 = 0;
-      v122 = 0;
-      v151 = 0;
-      v16 = 0;
-      v17 = 0;
+      v153 = 0;
       v18 = 0;
       v19 = 0;
       v20 = 0;
-      v21 = &qword_21EC96878;
+      v21 = 0;
+      v22 = 0;
+      v23 = &qword_21EC96858;
       goto LABEL_67;
     }
   }
@@ -38270,109 +38420,32 @@ LABEL_221:
     LODWORD(v138) = 0;
   }
 
-LABEL_231:
-  v6 = __sb__runningInSpringBoard();
-  if (v6)
+LABEL_255:
+  v8 = __sb__runningInSpringBoard();
+  if (v8)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
       v137 = 0;
-      goto LABEL_241;
+      goto LABEL_265;
     }
   }
 
   else
   {
-    v106 = [MEMORY[0x277D75418] currentDevice];
-    if ([v106 userInterfaceIdiom])
+    v104 = [MEMORY[0x277D75418] currentDevice];
+    if ([v104 userInterfaceIdiom])
     {
       v137 = 0x100000000;
-      goto LABEL_241;
+      goto LABEL_265;
     }
   }
 
-  HIDWORD(v137) = v6 ^ 1;
+  HIDWORD(v137) = v8 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
-    {
-      __sb__mainScreenReferenceBounds();
-    }
-
-    else
-    {
-      v99 = [MEMORY[0x277D759A0] mainScreen];
-      [v99 _referenceBounds];
-    }
-
-    LODWORD(v137) = v6 ^ 1;
-    BSSizeRoundForScale();
-    if (v34 >= *(MEMORY[0x277D66E30] + 136))
-    {
-      goto LABEL_245;
-    }
-  }
-
-  else
-  {
-    LODWORD(v137) = 0;
-  }
-
-LABEL_241:
-  if (_SBF_Private_IsD64Like())
-  {
-    v135 = 0;
-    v136 = 0;
-    v133 = 0;
-    v134 = 0;
-    v131 = 0;
-    v132 = 0;
-    v129 = 0;
-    v130 = 0;
-    v127 = 0;
-    v128 = 0;
-    v125 = 0;
-    v126 = 0;
-    v123 = 0;
-    v124 = 0;
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = &qword_21EC96880;
-    goto LABEL_67;
-  }
-
-LABEL_245:
-  v35 = __sb__runningInSpringBoard();
-  if (v35)
-  {
-    if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
-    {
-      v136 = 0;
-      goto LABEL_255;
-    }
-  }
-
-  else
-  {
-    v105 = [MEMORY[0x277D75418] currentDevice];
-    if ([v105 userInterfaceIdiom])
-    {
-      v136 = 0x100000000;
-      goto LABEL_255;
-    }
-  }
-
-  HIDWORD(v136) = v35 ^ 1;
-  if (SBFEffectiveHomeButtonType() == 2)
-  {
-    v36 = __sb__runningInSpringBoard();
-    if (v36)
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
     {
       __sb__mainScreenReferenceBounds();
     }
@@ -38383,10 +38456,85 @@ LABEL_245:
       [v96 _referenceBounds];
     }
 
-    v6 = v36 ^ 1u;
+    LODWORD(v137) = v8 ^ 1;
     BSSizeRoundForScale();
-    LODWORD(v136) = v6;
-    if (v37 >= *(MEMORY[0x277D66E30] + 136))
+    if (v41 >= *(MEMORY[0x277D66E30] + 136))
+    {
+      goto LABEL_275;
+    }
+  }
+
+  else
+  {
+    LODWORD(v137) = 0;
+  }
+
+LABEL_265:
+  if (_SBF_Private_IsD54())
+  {
+    v135 = 0;
+    v136 = 0;
+    v133 = 0;
+    v134 = 0;
+    v131 = 0;
+    v132 = 0;
+    v129 = 0;
+    v130 = 0;
+    v127 = 0;
+    v128 = 0;
+    v125 = 0;
+    v126 = 0;
+    v124 = 0;
+    v153 = 0;
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC96860;
+    goto LABEL_67;
+  }
+
+LABEL_275:
+  v42 = __sb__runningInSpringBoard();
+  if (v42)
+  {
+    if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+    {
+      v136 = 0;
+      goto LABEL_285;
+    }
+  }
+
+  else
+  {
+    v103 = [MEMORY[0x277D75418] currentDevice];
+    if ([v103 userInterfaceIdiom])
+    {
+      v136 = 0x100000000;
+      goto LABEL_285;
+    }
+  }
+
+  HIDWORD(v136) = v42 ^ 1;
+  if (SBFEffectiveHomeButtonType() == 2)
+  {
+    v43 = __sb__runningInSpringBoard();
+    if (v43)
+    {
+      __sb__mainScreenReferenceBounds();
+    }
+
+    else
+    {
+      v93 = [MEMORY[0x277D759A0] mainScreen];
+      [v93 _referenceBounds];
+    }
+
+    v8 = v43 ^ 1u;
+    BSSizeRoundForScale();
+    LODWORD(v136) = v8;
+    if (v44 >= *(MEMORY[0x277D66E30] + 120) && (_SBF_Private_IsN84OrSimilarDevice() & 1) != 0)
     {
       v134 = 0;
       v135 = 0;
@@ -38394,21 +38542,19 @@ LABEL_245:
       v133 = 0;
       v130 = 0;
       v131 = 0;
-      v128 = 0;
       v129 = 0;
       v127 = 0;
+      v128 = 0;
       v125 = 0;
       v126 = 0;
-      v123 = 0;
       v124 = 0;
-      v122 = 0;
-      v151 = 0;
-      v16 = 0;
-      v17 = 0;
+      v153 = 0;
       v18 = 0;
       v19 = 0;
       v20 = 0;
-      v21 = &qword_21EC96858;
+      v21 = 0;
+      v22 = 0;
+      v23 = &qword_21EC96818;
       goto LABEL_67;
     }
   }
@@ -38418,47 +38564,47 @@ LABEL_245:
     LODWORD(v136) = 0;
   }
 
-LABEL_255:
-  v6 = __sb__runningInSpringBoard();
-  if (v6)
+LABEL_285:
+  v8 = __sb__runningInSpringBoard();
+  if (v8)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
       v135 = 0;
-      goto LABEL_265;
+      goto LABEL_295;
     }
   }
 
   else
   {
-    v102 = [MEMORY[0x277D75418] currentDevice];
-    if ([v102 userInterfaceIdiom])
+    v100 = [MEMORY[0x277D75418] currentDevice];
+    if ([v100 userInterfaceIdiom])
     {
       v135 = 0x100000000;
-      goto LABEL_265;
+      goto LABEL_295;
     }
   }
 
-  HIDWORD(v135) = v6 ^ 1;
+  HIDWORD(v135) = v8 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
     {
       __sb__mainScreenReferenceBounds();
     }
 
     else
     {
-      v94 = [MEMORY[0x277D759A0] mainScreen];
-      [v94 _referenceBounds];
+      v92 = [MEMORY[0x277D759A0] mainScreen];
+      [v92 _referenceBounds];
     }
 
-    LODWORD(v135) = v6 ^ 1;
+    LODWORD(v135) = v8 ^ 1;
     BSSizeRoundForScale();
-    if (v39 >= *(MEMORY[0x277D66E30] + 136))
+    if (v45 >= *(MEMORY[0x277D66E30] + 120))
     {
-      goto LABEL_275;
+      goto LABEL_304;
     }
   }
 
@@ -38467,8 +38613,8 @@ LABEL_255:
     LODWORD(v135) = 0;
   }
 
-LABEL_265:
-  if (_SBF_Private_IsD54())
+LABEL_295:
+  if (_SBF_Private_IsD33OrSimilarDevice() && (_SBF_Private_IsN84ZoomedOrSimilarDevice() & 1) != 0)
   {
     v133 = 0;
     v134 = 0;
@@ -38480,158 +38626,14 @@ LABEL_265:
     v128 = 0;
     v125 = 0;
     v126 = 0;
-    v123 = 0;
     v124 = 0;
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
+    v153 = 0;
     v18 = 0;
     v19 = 0;
     v20 = 0;
-    v21 = &qword_21EC96860;
-    goto LABEL_67;
-  }
-
-LABEL_275:
-  v40 = __sb__runningInSpringBoard();
-  if (v40)
-  {
-    if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
-    {
-      v134 = 0;
-      goto LABEL_285;
-    }
-  }
-
-  else
-  {
-    v101 = [MEMORY[0x277D75418] currentDevice];
-    if ([v101 userInterfaceIdiom])
-    {
-      v134 = 0x100000000;
-      goto LABEL_285;
-    }
-  }
-
-  HIDWORD(v134) = v40 ^ 1;
-  if (SBFEffectiveHomeButtonType() == 2)
-  {
-    v41 = __sb__runningInSpringBoard();
-    if (v41)
-    {
-      __sb__mainScreenReferenceBounds();
-    }
-
-    else
-    {
-      v91 = [MEMORY[0x277D759A0] mainScreen];
-      [v91 _referenceBounds];
-    }
-
-    v6 = v41 ^ 1u;
-    BSSizeRoundForScale();
-    LODWORD(v134) = v6;
-    if (v42 >= *(MEMORY[0x277D66E30] + 120) && (_SBF_Private_IsN84OrSimilarDevice() & 1) != 0)
-    {
-      v132 = 0;
-      v133 = 0;
-      v130 = 0;
-      v131 = 0;
-      v128 = 0;
-      v129 = 0;
-      v127 = 0;
-      v125 = 0;
-      v126 = 0;
-      v123 = 0;
-      v124 = 0;
-      v122 = 0;
-      v151 = 0;
-      v16 = 0;
-      v17 = 0;
-      v18 = 0;
-      v19 = 0;
-      v20 = 0;
-      v21 = &qword_21EC96818;
-      goto LABEL_67;
-    }
-  }
-
-  else
-  {
-    LODWORD(v134) = 0;
-  }
-
-LABEL_285:
-  v6 = __sb__runningInSpringBoard();
-  if (v6)
-  {
-    if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
-    {
-      v133 = 0;
-      goto LABEL_295;
-    }
-  }
-
-  else
-  {
-    v98 = [MEMORY[0x277D75418] currentDevice];
-    if ([v98 userInterfaceIdiom])
-    {
-      v133 = 0x100000000;
-      goto LABEL_295;
-    }
-  }
-
-  HIDWORD(v133) = v6 ^ 1;
-  if (SBFEffectiveHomeButtonType() == 2)
-  {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
-    {
-      __sb__mainScreenReferenceBounds();
-    }
-
-    else
-    {
-      v90 = [MEMORY[0x277D759A0] mainScreen];
-      [v90 _referenceBounds];
-    }
-
-    LODWORD(v133) = v6 ^ 1;
-    BSSizeRoundForScale();
-    if (v43 >= *(MEMORY[0x277D66E30] + 120))
-    {
-      goto LABEL_304;
-    }
-  }
-
-  else
-  {
-    LODWORD(v133) = 0;
-  }
-
-LABEL_295:
-  if (_SBF_Private_IsD33OrSimilarDevice() && (_SBF_Private_IsN84ZoomedOrSimilarDevice() & 1) != 0)
-  {
-    v131 = 0;
-    v132 = 0;
-    v129 = 0;
-    v130 = 0;
-    v127 = 0;
-    v128 = 0;
-    v125 = 0;
-    v126 = 0;
-    v123 = 0;
-    v124 = 0;
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = &qword_21EC96820;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC96820;
     goto LABEL_67;
   }
 
@@ -38639,12 +38641,12 @@ LABEL_304:
   if (!_SBF_Private_IsD93Like())
   {
 LABEL_308:
-    v132 = 0;
+    v134 = 0;
     goto LABEL_315;
   }
 
-  v44 = __sb__runningInSpringBoard();
-  if (v44)
+  v46 = __sb__runningInSpringBoard();
+  if (v46)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
@@ -38654,98 +38656,98 @@ LABEL_308:
 
   else
   {
-    v93 = [MEMORY[0x277D75418] currentDevice];
-    if ([v93 userInterfaceIdiom])
+    v95 = [MEMORY[0x277D75418] currentDevice];
+    if ([v95 userInterfaceIdiom])
     {
-      v132 = 0x100000000;
+      v134 = 0x100000000;
       goto LABEL_315;
     }
   }
 
-  HIDWORD(v132) = v44 ^ 1;
+  HIDWORD(v134) = v46 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
     {
       __sb__mainScreenReferenceBounds();
     }
 
     else
     {
-      v84 = [MEMORY[0x277D759A0] mainScreen];
-      [v84 _referenceBounds];
+      v86 = [MEMORY[0x277D759A0] mainScreen];
+      [v86 _referenceBounds];
     }
 
-    LODWORD(v132) = v6 ^ 1;
+    LODWORD(v134) = v8 ^ 1;
     BSSizeRoundForScale();
-    if (v47 >= *(MEMORY[0x277D66E30] + 184))
+    if (v49 >= *(MEMORY[0x277D66E30] + 184))
     {
+      v132 = 0;
+      v133 = 0;
       v130 = 0;
       v131 = 0;
-      v128 = 0;
       v129 = 0;
       v127 = 0;
+      v128 = 0;
       v125 = 0;
       v126 = 0;
-      v123 = 0;
       v124 = 0;
-      v122 = 0;
-      v151 = 0;
-      v16 = 0;
-      v17 = 0;
+      v153 = 0;
       v18 = 0;
       v19 = 0;
       v20 = 0;
-      v21 = &qword_21EC96808;
+      v21 = 0;
+      v22 = 0;
+      v23 = &qword_21EC96808;
       goto LABEL_67;
     }
   }
 
   else
   {
-    LODWORD(v132) = 0;
+    LODWORD(v134) = 0;
   }
 
 LABEL_315:
-  v6 = __sb__runningInSpringBoard();
-  if (v6)
+  v8 = __sb__runningInSpringBoard();
+  if (v8)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
-      v131 = 0;
+      v133 = 0;
       goto LABEL_325;
     }
   }
 
   else
   {
-    v97 = [MEMORY[0x277D75418] currentDevice];
-    if ([v97 userInterfaceIdiom])
+    v99 = [MEMORY[0x277D75418] currentDevice];
+    if ([v99 userInterfaceIdiom])
     {
-      v131 = 0x100000000;
+      v133 = 0x100000000;
       goto LABEL_325;
     }
   }
 
-  HIDWORD(v131) = v6 ^ 1;
+  HIDWORD(v133) = v8 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
     {
       __sb__mainScreenReferenceBounds();
     }
 
     else
     {
-      v87 = [MEMORY[0x277D759A0] mainScreen];
-      [v87 _referenceBounds];
+      v89 = [MEMORY[0x277D759A0] mainScreen];
+      [v89 _referenceBounds];
     }
 
-    LODWORD(v131) = v6 ^ 1;
+    LODWORD(v133) = v8 ^ 1;
     BSSizeRoundForScale();
-    if (v45 >= *(MEMORY[0x277D66E30] + 184))
+    if (v47 >= *(MEMORY[0x277D66E30] + 184))
     {
       goto LABEL_329;
     }
@@ -38753,28 +38755,28 @@ LABEL_315:
 
   else
   {
-    LODWORD(v131) = 0;
+    LODWORD(v133) = 0;
   }
 
 LABEL_325:
   if (_SBF_Private_IsD93Like())
   {
+    v131 = 0;
+    v132 = 0;
     v129 = 0;
     v130 = 0;
     v127 = 0;
     v128 = 0;
     v125 = 0;
     v126 = 0;
-    v123 = 0;
     v124 = 0;
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
+    v153 = 0;
     v18 = 0;
     v19 = 0;
     v20 = 0;
-    v21 = &qword_21EC96810;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC96810;
     goto LABEL_67;
   }
 
@@ -38782,12 +38784,12 @@ LABEL_329:
   if (!_SBF_Private_IsD63Like())
   {
 LABEL_333:
-    v130 = 0;
+    v132 = 0;
     goto LABEL_343;
   }
 
-  v46 = __sb__runningInSpringBoard();
-  if (v46)
+  v48 = __sb__runningInSpringBoard();
+  if (v48)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
@@ -38797,98 +38799,98 @@ LABEL_333:
 
   else
   {
-    v89 = [MEMORY[0x277D75418] currentDevice];
-    if ([v89 userInterfaceIdiom])
+    v91 = [MEMORY[0x277D75418] currentDevice];
+    if ([v91 userInterfaceIdiom])
     {
-      v130 = 0x100000000;
+      v132 = 0x100000000;
       goto LABEL_343;
     }
   }
 
-  HIDWORD(v130) = v46 ^ 1;
+  HIDWORD(v132) = v48 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
     {
       __sb__mainScreenReferenceBounds();
     }
 
     else
     {
-      v80 = [MEMORY[0x277D759A0] mainScreen];
-      [v80 _referenceBounds];
+      v82 = [MEMORY[0x277D759A0] mainScreen];
+      [v82 _referenceBounds];
     }
 
-    LODWORD(v130) = v6 ^ 1;
+    LODWORD(v132) = v8 ^ 1;
     BSSizeRoundForScale();
-    if (v52 >= *(MEMORY[0x277D66E30] + 104))
+    if (v54 >= *(MEMORY[0x277D66E30] + 104))
     {
-      v128 = 0;
+      v130 = 0;
+      v131 = 0;
       v129 = 0;
       v127 = 0;
+      v128 = 0;
       v125 = 0;
       v126 = 0;
-      v123 = 0;
       v124 = 0;
-      v122 = 0;
-      v151 = 0;
-      v16 = 0;
-      v17 = 0;
+      v153 = 0;
       v18 = 0;
       v19 = 0;
       v20 = 0;
-      v21 = &qword_21EC96838;
+      v21 = 0;
+      v22 = 0;
+      v23 = &qword_21EC96838;
       goto LABEL_67;
     }
   }
 
   else
   {
-    LODWORD(v130) = 0;
+    LODWORD(v132) = 0;
   }
 
 LABEL_343:
-  v48 = __sb__runningInSpringBoard();
-  if (v48)
+  v50 = __sb__runningInSpringBoard();
+  if (v50)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
-      HIDWORD(v129) = 0;
-      v6 = 0;
+      HIDWORD(v131) = 0;
+      v8 = 0;
       goto LABEL_353;
     }
   }
 
   else
   {
-    v92 = [MEMORY[0x277D75418] currentDevice];
-    if ([v92 userInterfaceIdiom])
+    v94 = [MEMORY[0x277D75418] currentDevice];
+    if ([v94 userInterfaceIdiom])
     {
-      v6 = 0;
-      HIDWORD(v129) = 1;
+      v8 = 0;
+      HIDWORD(v131) = 1;
       goto LABEL_353;
     }
   }
 
-  HIDWORD(v129) = v48 ^ 1;
+  HIDWORD(v131) = v50 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v49 = __sb__runningInSpringBoard();
-    if (v49)
+    v51 = __sb__runningInSpringBoard();
+    if (v51)
     {
       __sb__mainScreenReferenceBounds();
     }
 
     else
     {
-      v83 = [MEMORY[0x277D759A0] mainScreen];
-      [v83 _referenceBounds];
+      v85 = [MEMORY[0x277D759A0] mainScreen];
+      [v85 _referenceBounds];
     }
 
-    v6 = v49 ^ 1u;
+    v8 = v51 ^ 1u;
     BSSizeRoundForScale();
-    if (v50 >= *(MEMORY[0x277D66E30] + 104))
+    if (v52 >= *(MEMORY[0x277D66E30] + 104))
     {
       goto LABEL_357;
     }
@@ -38896,41 +38898,41 @@ LABEL_343:
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
 LABEL_353:
   if (_SBF_Private_IsD63Like())
   {
-    LODWORD(v129) = v6;
+    LODWORD(v131) = v8;
+    v129 = 0;
+    v130 = 0;
     v127 = 0;
     v128 = 0;
     v125 = 0;
     v126 = 0;
-    v123 = 0;
     v124 = 0;
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
+    v153 = 0;
     v18 = 0;
     v19 = 0;
     v20 = 0;
-    v21 = &qword_21EC96840;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC96840;
     goto LABEL_67;
   }
 
 LABEL_357:
-  LODWORD(v129) = v6;
+  LODWORD(v131) = v8;
   if (!_SBF_Private_IsD23Like())
   {
 LABEL_361:
-    v128 = 0;
+    v130 = 0;
     goto LABEL_371;
   }
 
-  v51 = __sb__runningInSpringBoard();
-  if (v51)
+  v53 = __sb__runningInSpringBoard();
+  if (v53)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
@@ -38940,63 +38942,130 @@ LABEL_361:
 
   else
   {
-    v85 = [MEMORY[0x277D75418] currentDevice];
-    if ([v85 userInterfaceIdiom])
+    v87 = [MEMORY[0x277D75418] currentDevice];
+    if ([v87 userInterfaceIdiom])
     {
-      v128 = 0x100000000;
+      v130 = 0x100000000;
       goto LABEL_371;
     }
   }
 
-  HIDWORD(v128) = v51 ^ 1;
+  HIDWORD(v130) = v53 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
     {
       __sb__mainScreenReferenceBounds();
     }
 
     else
     {
-      v76 = [MEMORY[0x277D759A0] mainScreen];
-      [v76 _referenceBounds];
+      v78 = [MEMORY[0x277D759A0] mainScreen];
+      [v78 _referenceBounds];
     }
 
-    LODWORD(v128) = v6 ^ 1;
+    LODWORD(v130) = v8 ^ 1;
     BSSizeRoundForScale();
-    if (v56 >= *(MEMORY[0x277D66E30] + 216))
+    if (v58 >= *(MEMORY[0x277D66E30] + 216))
     {
+      v129 = 0;
       v127 = 0;
+      v128 = 0;
       v125 = 0;
       v126 = 0;
-      v123 = 0;
       v124 = 0;
-      v122 = 0;
-      v151 = 0;
-      v16 = 0;
-      v17 = 0;
+      v153 = 0;
       v18 = 0;
       v19 = 0;
       v20 = 0;
-      v21 = &qword_21EC96848;
+      v21 = 0;
+      v22 = 0;
+      v23 = &qword_21EC96848;
       goto LABEL_67;
     }
   }
 
   else
   {
-    LODWORD(v128) = 0;
+    LODWORD(v130) = 0;
   }
 
 LABEL_371:
-  v6 = __sb__runningInSpringBoard();
-  if (v6)
+  v8 = __sb__runningInSpringBoard();
+  if (v8)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
-      v127 = 0;
+      v129 = 0;
       goto LABEL_381;
+    }
+  }
+
+  else
+  {
+    v90 = [MEMORY[0x277D75418] currentDevice];
+    if ([v90 userInterfaceIdiom])
+    {
+      v129 = 0x100000000;
+      goto LABEL_381;
+    }
+  }
+
+  HIDWORD(v129) = v8 ^ 1;
+  if (SBFEffectiveHomeButtonType() == 2)
+  {
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
+    {
+      __sb__mainScreenReferenceBounds();
+    }
+
+    else
+    {
+      v81 = [MEMORY[0x277D759A0] mainScreen];
+      [v81 _referenceBounds];
+    }
+
+    LODWORD(v129) = v8 ^ 1;
+    BSSizeRoundForScale();
+    if (v55 >= *(MEMORY[0x277D66E30] + 216))
+    {
+      goto LABEL_385;
+    }
+  }
+
+  else
+  {
+    LODWORD(v129) = 0;
+  }
+
+LABEL_381:
+  if (_SBF_Private_IsD23Like())
+  {
+    v127 = 0;
+    v128 = 0;
+    v125 = 0;
+    v126 = 0;
+    v124 = 0;
+    v153 = 0;
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC96850;
+    goto LABEL_67;
+  }
+
+LABEL_385:
+  v56 = __sb__runningInSpringBoard();
+  if (v56)
+  {
+    if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+    {
+      v128 = 0;
+      goto LABEL_395;
     }
   }
 
@@ -39005,16 +39074,16 @@ LABEL_371:
     v88 = [MEMORY[0x277D75418] currentDevice];
     if ([v88 userInterfaceIdiom])
     {
-      v127 = 0x100000000;
-      goto LABEL_381;
+      v128 = 0x100000000;
+      goto LABEL_395;
     }
   }
 
-  HIDWORD(v127) = v6 ^ 1;
+  HIDWORD(v128) = v56 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
     {
       __sb__mainScreenReferenceBounds();
     }
@@ -39025,63 +39094,56 @@ LABEL_371:
       [v79 _referenceBounds];
     }
 
-    LODWORD(v127) = v6 ^ 1;
+    LODWORD(v128) = v8 ^ 1;
     BSSizeRoundForScale();
-    if (v53 >= *(MEMORY[0x277D66E30] + 216))
+    if (v57 >= *(MEMORY[0x277D66E30] + 120))
     {
-      goto LABEL_385;
+      v126 = 0;
+      v127 = 0;
+      v124 = 0;
+      v125 = 0;
+      v153 = 0;
+      v18 = 0;
+      v19 = 0;
+      v20 = 0;
+      v21 = 0;
+      v22 = 0;
+      v23 = &qword_21EC96828;
+      goto LABEL_67;
     }
   }
 
   else
   {
-    LODWORD(v127) = 0;
+    LODWORD(v128) = 0;
   }
 
-LABEL_381:
-  if (_SBF_Private_IsD23Like())
-  {
-    v125 = 0;
-    v126 = 0;
-    v123 = 0;
-    v124 = 0;
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = &qword_21EC96850;
-    goto LABEL_67;
-  }
-
-LABEL_385:
-  v54 = __sb__runningInSpringBoard();
-  if (v54)
+LABEL_395:
+  v8 = __sb__runningInSpringBoard();
+  if (v8)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
-      v126 = 0;
-      goto LABEL_395;
+      v127 = 0;
+      goto LABEL_405;
     }
   }
 
   else
   {
-    v86 = [MEMORY[0x277D75418] currentDevice];
-    if ([v86 userInterfaceIdiom])
+    v84 = [MEMORY[0x277D75418] currentDevice];
+    if ([v84 userInterfaceIdiom])
     {
-      v126 = 0x100000000;
-      goto LABEL_395;
+      v127 = 0x100000000;
+      goto LABEL_405;
     }
   }
 
-  HIDWORD(v126) = v54 ^ 1;
+  HIDWORD(v127) = v8 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
     {
       __sb__mainScreenReferenceBounds();
     }
@@ -39092,21 +39154,84 @@ LABEL_385:
       [v77 _referenceBounds];
     }
 
-    LODWORD(v126) = v6 ^ 1;
+    LODWORD(v127) = v8 ^ 1;
     BSSizeRoundForScale();
-    if (v55 >= *(MEMORY[0x277D66E30] + 120))
+    if (v59 >= *(MEMORY[0x277D66E30] + 120))
+    {
+      goto LABEL_415;
+    }
+  }
+
+  else
+  {
+    LODWORD(v127) = 0;
+  }
+
+LABEL_405:
+  if (_SBF_Private_IsD33OrSimilarDevice())
+  {
+    v125 = 0;
+    v126 = 0;
+    v124 = 0;
+    v153 = 0;
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC96830;
+    goto LABEL_67;
+  }
+
+LABEL_415:
+  v60 = __sb__runningInSpringBoard();
+  if (v60)
+  {
+    if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+    {
+      v126 = 0;
+      goto LABEL_425;
+    }
+  }
+
+  else
+  {
+    v83 = [MEMORY[0x277D75418] currentDevice];
+    if ([v83 userInterfaceIdiom])
+    {
+      v126 = 0x100000000;
+      goto LABEL_425;
+    }
+  }
+
+  HIDWORD(v126) = v60 ^ 1;
+  if (SBFEffectiveHomeButtonType() == 2)
+  {
+    v8 = __sb__runningInSpringBoard();
+    if (v8)
+    {
+      __sb__mainScreenReferenceBounds();
+    }
+
+    else
+    {
+      v76 = [MEMORY[0x277D759A0] mainScreen];
+      [v76 _referenceBounds];
+    }
+
+    LODWORD(v126) = v8 ^ 1;
+    BSSizeRoundForScale();
+    if (v63 >= *(MEMORY[0x277D66E30] + 104))
     {
       v124 = 0;
       v125 = 0;
-      v122 = 0;
-      v123 = 0;
-      v151 = 0;
-      v16 = 0;
-      v17 = 0;
+      v153 = 0;
       v18 = 0;
       v19 = 0;
       v20 = 0;
-      v21 = &qword_21EC96828;
+      v21 = 0;
+      v22 = 0;
+      v23 = &qword_21EC967F8;
       goto LABEL_67;
     }
   }
@@ -39116,32 +39241,34 @@ LABEL_385:
     LODWORD(v126) = 0;
   }
 
-LABEL_395:
-  v6 = __sb__runningInSpringBoard();
-  if (v6)
+LABEL_425:
+  v61 = __sb__runningInSpringBoard();
+  if (v61)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
-      v125 = 0;
-      goto LABEL_405;
+      HIDWORD(v125) = 0;
+      v8 = 0;
+      goto LABEL_435;
     }
   }
 
   else
   {
-    v82 = [MEMORY[0x277D75418] currentDevice];
-    if ([v82 userInterfaceIdiom])
+    v80 = [MEMORY[0x277D75418] currentDevice];
+    if ([v80 userInterfaceIdiom])
     {
-      v125 = 0x100000000;
-      goto LABEL_405;
+      v8 = 0;
+      HIDWORD(v125) = 1;
+      goto LABEL_435;
     }
   }
 
-  HIDWORD(v125) = v6 ^ 1;
+  HIDWORD(v125) = v61 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
+    v62 = __sb__runningInSpringBoard();
+    if (v62)
     {
       __sb__mainScreenReferenceBounds();
     }
@@ -39152,84 +39279,134 @@ LABEL_395:
       [v75 _referenceBounds];
     }
 
-    LODWORD(v125) = v6 ^ 1;
+    v8 = v62 ^ 1u;
     BSSizeRoundForScale();
-    if (v57 >= *(MEMORY[0x277D66E30] + 120))
+    if (v64 >= *(MEMORY[0x277D66E30] + 104))
     {
-      goto LABEL_415;
+      goto LABEL_442;
     }
   }
 
   else
   {
-    LODWORD(v125) = 0;
+    v8 = 0;
   }
 
-LABEL_405:
-  if (_SBF_Private_IsD33OrSimilarDevice())
+LABEL_435:
+  if (_SBF_Private_IsD53())
   {
-    v123 = 0;
+    LODWORD(v125) = v8;
     v124 = 0;
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
+    v153 = 0;
     v18 = 0;
     v19 = 0;
     v20 = 0;
-    v21 = &qword_21EC96830;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC96800;
     goto LABEL_67;
   }
 
-LABEL_415:
-  v58 = __sb__runningInSpringBoard();
-  if (v58)
+LABEL_442:
+  LODWORD(v125) = v8;
+  if (_SBF_Private_IsD16() && (_SBF_Private_IsD52OrSimilarDevice() & 1) != 0)
+  {
+    v124 = 0;
+    v153 = 0;
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC967D8;
+    goto LABEL_67;
+  }
+
+  if (_SBF_Private_IsD52ZoomedOrSimilarDevice() && (_SBF_Private_IsD16() & 1) != 0)
+  {
+    v124 = 0;
+    v153 = 0;
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC967E0;
+    goto LABEL_67;
+  }
+
+  if (_SBF_Private_IsD52OrSimilarDevice())
+  {
+    v124 = 0;
+    v153 = 0;
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC967C8;
+    goto LABEL_67;
+  }
+
+  if (_SBF_Private_IsD52ZoomedOrSimilarDevice())
+  {
+    v124 = 0;
+    v153 = 0;
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC967D0;
+    goto LABEL_67;
+  }
+
+  v65 = __sb__runningInSpringBoard();
+  if (v65)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
       v124 = 0;
-      goto LABEL_425;
+      goto LABEL_462;
     }
   }
 
   else
   {
-    v81 = [MEMORY[0x277D75418] currentDevice];
-    if ([v81 userInterfaceIdiom])
+    v74 = [MEMORY[0x277D75418] currentDevice];
+    if ([v74 userInterfaceIdiom])
     {
       v124 = 0x100000000;
-      goto LABEL_425;
+      goto LABEL_462;
     }
   }
 
-  HIDWORD(v124) = v58 ^ 1;
+  HIDWORD(v124) = v65 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v6 = __sb__runningInSpringBoard();
-    if (v6)
+    v7 = __sb__runningInSpringBoard();
+    if (v7)
     {
       __sb__mainScreenReferenceBounds();
     }
 
     else
     {
-      v74 = [MEMORY[0x277D759A0] mainScreen];
-      [v74 _referenceBounds];
+      v72 = [MEMORY[0x277D759A0] mainScreen];
+      [v72 _referenceBounds];
     }
 
-    LODWORD(v124) = v6 ^ 1;
+    LODWORD(v124) = v7 ^ 1;
     BSSizeRoundForScale();
-    if (v61 >= *(MEMORY[0x277D66E30] + 104))
+    if (v68 >= *(MEMORY[0x277D66E30] + 88))
     {
-      v122 = 0;
-      v123 = 0;
-      v151 = 0;
-      v16 = 0;
-      v17 = 0;
+      v153 = 0;
       v18 = 0;
       v19 = 0;
       v20 = 0;
-      v21 = &qword_21EC967F8;
+      v21 = 0;
+      v22 = 0;
+      v23 = &qword_21EC967E8;
       goto LABEL_67;
     }
   }
@@ -39239,263 +39416,136 @@ LABEL_415:
     LODWORD(v124) = 0;
   }
 
-LABEL_425:
-  v59 = __sb__runningInSpringBoard();
-  if (v59)
-  {
-    if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
-    {
-      HIDWORD(v123) = 0;
-      v6 = 0;
-      goto LABEL_435;
-    }
-  }
-
-  else
-  {
-    v78 = [MEMORY[0x277D75418] currentDevice];
-    if ([v78 userInterfaceIdiom])
-    {
-      v6 = 0;
-      HIDWORD(v123) = 1;
-      goto LABEL_435;
-    }
-  }
-
-  HIDWORD(v123) = v59 ^ 1;
-  if (SBFEffectiveHomeButtonType() == 2)
-  {
-    v60 = __sb__runningInSpringBoard();
-    if (v60)
-    {
-      __sb__mainScreenReferenceBounds();
-    }
-
-    else
-    {
-      v73 = [MEMORY[0x277D759A0] mainScreen];
-      [v73 _referenceBounds];
-    }
-
-    v6 = v60 ^ 1u;
-    BSSizeRoundForScale();
-    if (v62 >= *(MEMORY[0x277D66E30] + 104))
-    {
-      goto LABEL_442;
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-LABEL_435:
-  if (_SBF_Private_IsD53())
-  {
-    LODWORD(v123) = v6;
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = &qword_21EC96800;
-    goto LABEL_67;
-  }
-
-LABEL_442:
-  LODWORD(v123) = v6;
-  if (_SBF_Private_IsD16() && (_SBF_Private_IsD52OrSimilarDevice() & 1) != 0)
-  {
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = &qword_21EC967D8;
-    goto LABEL_67;
-  }
-
-  if (_SBF_Private_IsD52ZoomedOrSimilarDevice() && (_SBF_Private_IsD16() & 1) != 0)
-  {
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = &qword_21EC967E0;
-    goto LABEL_67;
-  }
-
-  if (_SBF_Private_IsD52OrSimilarDevice())
-  {
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = &qword_21EC967C8;
-    goto LABEL_67;
-  }
-
-  if (_SBF_Private_IsD52ZoomedOrSimilarDevice())
-  {
-    v122 = 0;
-    v151 = 0;
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = &qword_21EC967D0;
-    goto LABEL_67;
-  }
-
-  v63 = __sb__runningInSpringBoard();
-  if (v63)
-  {
-    if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
-    {
-      v122 = 0;
-      goto LABEL_462;
-    }
-  }
-
-  else
-  {
-    v72 = [MEMORY[0x277D75418] currentDevice];
-    if ([v72 userInterfaceIdiom])
-    {
-      v122 = 0x100000000;
-      goto LABEL_462;
-    }
-  }
-
-  HIDWORD(v122) = v63 ^ 1;
-  if (SBFEffectiveHomeButtonType() == 2)
-  {
-    v5 = __sb__runningInSpringBoard();
-    if (v5)
-    {
-      __sb__mainScreenReferenceBounds();
-    }
-
-    else
-    {
-      v70 = [MEMORY[0x277D759A0] mainScreen];
-      [v70 _referenceBounds];
-    }
-
-    LODWORD(v122) = v5 ^ 1;
-    BSSizeRoundForScale();
-    if (v66 >= *(MEMORY[0x277D66E30] + 88))
-    {
-      v151 = 0;
-      v16 = 0;
-      v17 = 0;
-      v18 = 0;
-      v19 = 0;
-      v20 = 0;
-      v21 = &qword_21EC967E8;
-      goto LABEL_67;
-    }
-  }
-
-  else
-  {
-    LODWORD(v122) = 0;
-  }
-
 LABEL_462:
-  v64 = __sb__runningInSpringBoard();
-  if (v64)
+  v66 = __sb__runningInSpringBoard();
+  if (v66)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
-      v151 = 0;
-      v16 = 0;
+      v153 = 0;
+      v18 = 0;
       goto LABEL_472;
     }
   }
 
   else
   {
-    v71 = [MEMORY[0x277D75418] currentDevice];
-    if ([v71 userInterfaceIdiom])
+    v73 = [MEMORY[0x277D75418] currentDevice];
+    if ([v73 userInterfaceIdiom])
     {
-      v16 = 0;
-      v151 = 1;
+      v18 = 0;
+      v153 = 1;
       goto LABEL_472;
     }
   }
 
-  v151 = v64 ^ 1;
+  v153 = v66 ^ 1;
   if (SBFEffectiveHomeButtonType() == 2)
   {
-    v5 = __sb__runningInSpringBoard();
-    if (v5)
+    v7 = __sb__runningInSpringBoard();
+    if (v7)
     {
       __sb__mainScreenReferenceBounds();
     }
 
     else
     {
-      v6 = [MEMORY[0x277D759A0] mainScreen];
-      [v6 _referenceBounds];
+      v8 = [MEMORY[0x277D759A0] mainScreen];
+      [v8 _referenceBounds];
     }
 
-    v16 = v5 ^ 1;
+    v18 = v7 ^ 1;
     BSSizeRoundForScale();
-    if (v67 >= *(MEMORY[0x277D66E30] + 72))
+    if (v69 >= *(MEMORY[0x277D66E30] + 72))
     {
-      v17 = 0;
-      v18 = 0;
       v19 = 0;
       v20 = 0;
-      v21 = &qword_21EC967F0;
+      v21 = 0;
+      v22 = 0;
+      v23 = &qword_21EC967F0;
       goto LABEL_67;
     }
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
 LABEL_472:
+  v7 = __sb__runningInSpringBoard();
+  if (v7)
+  {
+    if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+    {
+      v19 = 0;
+      v20 = 0;
+      goto LABEL_482;
+    }
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x277D75418] currentDevice];
+    if ([v2 userInterfaceIdiom])
+    {
+      v20 = 0;
+      v19 = 1;
+      goto LABEL_482;
+    }
+  }
+
+  v19 = v7 ^ 1;
+  v3 = __sb__runningInSpringBoard();
+  if (v3)
+  {
+    __sb__mainScreenReferenceBounds();
+  }
+
+  else
+  {
+    v7 = [MEMORY[0x277D759A0] mainScreen];
+    [v7 _referenceBounds];
+  }
+
+  v20 = v3 ^ 1;
+  BSSizeRoundForScale();
+  if (v67 >= *(MEMORY[0x277D66E30] + 56))
+  {
+    v21 = 0;
+    v22 = 0;
+    v23 = &qword_21EC967C0;
+    goto LABEL_67;
+  }
+
+LABEL_482:
   v5 = __sb__runningInSpringBoard();
   if (v5)
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
-      v17 = 0;
-      v18 = 0;
-      goto LABEL_482;
+      v21 = 0;
+      v22 = 0;
+LABEL_499:
+      v23 = &CSProminentBaselineToListY;
+      goto LABEL_67;
     }
   }
 
   else
   {
-    v0 = [MEMORY[0x277D75418] currentDevice];
-    if ([v0 userInterfaceIdiom])
+    v3 = [MEMORY[0x277D75418] currentDevice];
+    if ([v3 userInterfaceIdiom])
     {
-      v18 = 0;
-      v17 = 1;
-      goto LABEL_482;
+      v22 = 0;
+      v21 = 1;
+      goto LABEL_499;
     }
   }
 
-  v17 = v5 ^ 1;
-  v1 = __sb__runningInSpringBoard();
-  if (v1)
+  v21 = v5 ^ 1;
+  v70 = __sb__runningInSpringBoard();
+  if (v70)
   {
     __sb__mainScreenReferenceBounds();
   }
@@ -39506,64 +39556,24 @@ LABEL_472:
     [v5 _referenceBounds];
   }
 
-  v18 = v1 ^ 1;
+  v22 = v70 ^ 1;
   BSSizeRoundForScale();
-  if (v65 >= *(MEMORY[0x277D66E30] + 56))
-  {
-    v19 = 0;
-    v20 = 0;
-    v21 = &qword_21EC967C0;
-    goto LABEL_67;
-  }
-
-LABEL_482:
-  v3 = __sb__runningInSpringBoard();
-  if (v3)
-  {
-    if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
-    {
-      v19 = 0;
-      v20 = 0;
-LABEL_499:
-      v21 = &CSProminentBaselineToListY;
-      goto LABEL_67;
-    }
-  }
-
-  else
-  {
-    v1 = [MEMORY[0x277D75418] currentDevice];
-    if ([v1 userInterfaceIdiom])
-    {
-      v20 = 0;
-      v19 = 1;
-      goto LABEL_499;
-    }
-  }
-
-  v19 = v3 ^ 1;
-  v68 = __sb__runningInSpringBoard();
-  if (v68)
-  {
-    __sb__mainScreenReferenceBounds();
-  }
-
-  else
-  {
-    v3 = [MEMORY[0x277D759A0] mainScreen];
-    [v3 _referenceBounds];
-  }
-
-  v20 = v68 ^ 1;
-  BSSizeRoundForScale();
-  if (v69 < *(MEMORY[0x277D66E30] + 40))
+  if (v71 < *(MEMORY[0x277D66E30] + 40))
   {
     goto LABEL_499;
   }
 
-  v21 = &qword_21EC967B8;
+  v23 = &qword_21EC967B8;
 LABEL_67:
-  prominentBaselineToListY_prominentBaselineToListY = *v21;
+  prominentBaselineToListY_prominentBaselineToListY = *v23;
+  if (v22)
+  {
+  }
+
+  if (v21)
+  {
+  }
+
   if (v20)
   {
   }
@@ -39576,31 +39586,7 @@ LABEL_67:
   {
   }
 
-  if (v17)
-  {
-  }
-
-  if (v16)
-  {
-  }
-
-  if (v151)
-  {
-  }
-
-  if (v122)
-  {
-  }
-
-  if (HIDWORD(v122))
-  {
-  }
-
-  if (v123)
-  {
-  }
-
-  if (HIDWORD(v123))
+  if (v153)
   {
   }
 
@@ -39744,27 +39730,43 @@ LABEL_67:
   {
   }
 
-  if (DWORD1(v141))
-  {
-  }
-
-  if (DWORD2(v141))
-  {
-  }
-
   if (HIDWORD(v141))
   {
+  }
 
-    if (!v142)
+  if (v142)
+  {
+  }
+
+  if (HIDWORD(v142))
+  {
+  }
+
+  if (v143)
+  {
+  }
+
+  if (DWORD1(v143))
+  {
+  }
+
+  if (DWORD2(v143))
+  {
+  }
+
+  if (HIDWORD(v143))
+  {
+
+    if (!v144)
     {
       goto LABEL_163;
     }
   }
 
-  else if (!v142)
+  else if (!v144)
   {
 LABEL_163:
-    if (v143)
+    if (v145)
     {
       goto LABEL_164;
     }
@@ -39772,11 +39774,11 @@ LABEL_163:
     goto LABEL_174;
   }
 
-  if (v143)
+  if (v145)
   {
 LABEL_164:
 
-    if (!v144)
+    if (!v146)
     {
       goto LABEL_165;
     }
@@ -39785,10 +39787,10 @@ LABEL_164:
   }
 
 LABEL_174:
-  if (!v144)
+  if (!v146)
   {
 LABEL_165:
-    if (v145)
+    if (v147)
     {
       goto LABEL_166;
     }
@@ -39798,11 +39800,11 @@ LABEL_165:
 
 LABEL_175:
 
-  if (v145)
+  if (v147)
   {
 LABEL_166:
 
-    if (!v146)
+    if (!v148)
     {
       goto LABEL_167;
     }
@@ -39811,10 +39813,10 @@ LABEL_166:
   }
 
 LABEL_176:
-  if (!v146)
+  if (!v148)
   {
 LABEL_167:
-    if (v147)
+    if (v149)
     {
       goto LABEL_168;
     }
@@ -39824,11 +39826,11 @@ LABEL_167:
 
 LABEL_177:
 
-  if (v147)
+  if (v149)
   {
 LABEL_168:
 
-    if (!v148)
+    if (!v150)
     {
       goto LABEL_169;
     }
@@ -39837,16 +39839,16 @@ LABEL_168:
   }
 
 LABEL_178:
-  if (!v148)
+  if (!v150)
   {
 LABEL_169:
-    if (v149)
+    if (v151)
     {
       goto LABEL_170;
     }
 
 LABEL_180:
-    if (!v150)
+    if (!v152)
     {
       return;
     }
@@ -39856,14 +39858,14 @@ LABEL_180:
 
 LABEL_179:
 
-  if (!v149)
+  if (!v151)
   {
     goto LABEL_180;
   }
 
 LABEL_170:
 
-  if (!v150)
+  if (!v152)
   {
     return;
   }
@@ -40189,19 +40191,19 @@ void __98__CSCoverSheetViewController_activateCameraWithHostableEntity_animated_
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)finishUIUnlockFromSource:(const char *)a1 .cold.1(const char *a1)
+- (void)finishUIUnlockFromSource:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[[self activeBehavior] areRestrictedCapabilities:CSCapabilityUnlock] == NO"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_8(&dword_21EB05000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[[self activeBehavior] areRestrictedCapabilities:CSCapabilityUnlock] == NO", v11, v12);
+    OUTLINED_FUNCTION_8(&dword_21EB05000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -40277,36 +40279,36 @@ void __98__CSCoverSheetViewController_activateCameraWithHostableEntity_animated_
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
 }
 
-- (void)_updateVisibilityForPageViewControllersWithVisiblePageViewController:(const char *)a1 .cold.1(const char *a1)
+- (void)_updateVisibilityForPageViewControllersWithVisiblePageViewController:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"newPageIndex != NSNotFound"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_8(&dword_21EB05000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"newPageIndex != NSNotFound", v11, v12);
+    OUTLINED_FUNCTION_8(&dword_21EB05000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_updateVisibilityForPageViewControllersWithVisiblePageViewController:(const char *)a1 .cold.2(const char *a1)
+- (void)_updateVisibilityForPageViewControllersWithVisiblePageViewController:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"![self isTransitioning]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_8(&dword_21EB05000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"![self isTransitioning]", v11, v12);
+    OUTLINED_FUNCTION_8(&dword_21EB05000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

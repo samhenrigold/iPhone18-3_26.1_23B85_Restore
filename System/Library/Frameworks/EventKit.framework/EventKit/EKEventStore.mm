@@ -17,12 +17,14 @@
 + (int64_t)realAuthorizationStatusForEntityType:(unint64_t)type;
 + (void)EKObjectIDsFromData:(id)data deletedObjectIDOffsets:(id)offsets outChangedIDs:(id *)ds outDeletedIDs:(id *)iDs;
 + (void)_addDaysSpannedByEvent:(id)event toCountedSet:(id)set inRange:(id)range withNSCalendar:(id)calendar;
++ (void)_refreshFolderListForSource:(id)source isUserRequested:(BOOL)requested;
 + (void)setReminderStoreContainerTokenProvider:(id)provider;
 - (BOOL)_calendar:(id)_calendar supportsEntityType:(unint64_t)type;
 - (BOOL)_commit:(id *)_commit;
 - (BOOL)_commitObjectsWithIdentifiers:(id)identifiers error:(id *)error;
 - (BOOL)_isRegisteredObject:(id)object;
 - (BOOL)_parseURI:(id)i expectedScheme:(id)scheme identifier:(id *)identifier options:(id *)options;
+- (BOOL)_refreshDASource:(id)source isUserRequested:(BOOL)requested;
 - (BOOL)_removeCalendar:(id)calendar commit:(BOOL)commit error:(id *)error;
 - (BOOL)_removeEvent:(id)event span:(int64_t)span commit:(BOOL)commit error:(id *)error;
 - (BOOL)_removeEventCalendar:(id)calendar commit:(BOOL)commit error:(id *)error;
@@ -61,8 +63,12 @@
 - (BOOL)needsGeocodingForEvent:(id)event;
 - (BOOL)objectWithIDExists:(id)exists;
 - (BOOL)objectsHaveChangesToCommit:(id)commit;
+- (BOOL)occurrencesExistInRangeForEvent:(id)event startDate:(id)date endDate:(id)endDate mustStartInInterval:(BOOL)interval timezone:(id)timezone;
+- (BOOL)removeCalendar:(EKCalendar *)calendar commit:(BOOL)commit error:(NSError *)error;
+- (BOOL)removeEvent:(EKEvent *)event span:(EKSpan)span commit:(BOOL)commit error:(NSError *)error;
 - (BOOL)removeInviteReplyNotification:(id)notification error:(id *)error;
 - (BOOL)removeInviteReplyNotifications:(id)notifications error:(id *)error;
+- (BOOL)removeReminder:(EKReminder *)reminder commit:(BOOL)commit error:(NSError *)error;
 - (BOOL)removeResourceChange:(id)change error:(id *)error;
 - (BOOL)removeResourceChanges:(id)changes error:(id *)error;
 - (BOOL)removeResourceChangesForCalendarItem:(id)item error:(id *)error;
@@ -73,10 +79,13 @@
 - (BOOL)returnReminderResults;
 - (BOOL)save:(id *)save;
 - (BOOL)saveAttachment:(id)attachment commit:(BOOL)commit error:(id *)error;
+- (BOOL)saveCalendar:(EKCalendar *)calendar commit:(BOOL)commit error:(NSError *)error;
 - (BOOL)saveColor:(id)color commit:(BOOL)commit error:(id *)error;
 - (BOOL)saveDraftOfEvent:(id)event;
+- (BOOL)saveEvent:(EKEvent *)event span:(EKSpan)span commit:(BOOL)commit error:(NSError *)error;
 - (BOOL)saveNotification:(id)notification commit:(BOOL)commit error:(id *)error;
 - (BOOL)saveNotificationCollection:(id)collection commit:(BOOL)commit error:(id *)error;
+- (BOOL)saveReminder:(EKReminder *)reminder commit:(BOOL)commit error:(NSError *)error;
 - (BOOL)saveSource:(id)source commit:(BOOL)commit error:(id *)error;
 - (BOOL)setInvitationStatus:(unint64_t)status forEvent:(id)event error:(id *)error;
 - (BOOL)setInvitationStatus:(unint64_t)status forEvents:(id)events error:(id *)error;
@@ -97,7 +106,10 @@
 - (EKCalendarItem)calendarItemWithIdentifier:(NSString *)identifier;
 - (EKEvent)eventWithIdentifier:(NSString *)identifier;
 - (EKEventStore)initWithBirthdayCalendarModifications;
+- (EKEventStore)initWithEKOptions:(unint64_t)options path:(id)path containerProvider:(id)provider tccPermissionChecker:(id)checker changeTrackingClientId:(id)id enablePropertyModificationLogging:(BOOL)logging allowDelegateSources:(BOOL)sources allowedSourceIdentifiers:(id)self0;
 - (EKEventStore)initWithEKOptions:(unint64_t)options path:(id)path sources:(id)sources;
+- (EKEventStore)initWithOptions:(int)options path:(id)path allowDelegateSources:(BOOL)sources;
+- (EKEventStore)initWithOptions:(int)options path:(id)path changeTrackingClientId:(id)id enablePropertyModificationLogging:(BOOL)logging allowDelegateSources:(BOOL)sources;
 - (EKImageCache)imageCache;
 - (EKSource)sourceWithIdentifier:(NSString *)identifier;
 - (NSArray)calendarItemsWithExternalIdentifier:(NSString *)externalIdentifier;
@@ -135,8 +147,10 @@
 - (id)_fetchConstraintsForObjectWithCADObjectID:(id)d;
 - (id)_fetchPersistentNotificationCollectionForSourceWithCADObjectID:(id)d;
 - (id)_imageCache;
+- (id)_importEventsWithExternalIDs:(id)ds fromICSData:(id)data intoCalendarsWithIDs:(id)iDs options:(unint64_t)options batchSize:(int)size;
 - (id)_invalidCADObjectIDs:(id)ds;
 - (id)_loadDraftOfEventWithOccurrenceID:(id)d fromDirectory:(id)directory withVersion:(id)version;
+- (id)_localSourceWithEnableIfNeeded:(BOOL)needed;
 - (id)_markObjectsWithIdentifiersAsCommitted:(id)committed excludingObjects:(id)objects;
 - (id)_nextEventsWithFetchBlock:(id)block steps:(id)steps limit:(unint64_t)limit;
 - (id)_sourceWithID:(id)d;
@@ -161,6 +175,7 @@
 - (id)calendarsForEntityType:(unint64_t)type inSource:(id)source;
 - (id)calendarsWithIdentifiers:(id)identifiers;
 - (id)calendarsWithObjectIDs:(id)ds;
+- (id)closestCachedOccurrenceToDate:(double)date forEventObjectID:(id)d prefersForwardSearch:(BOOL)search;
 - (id)colorStringForNewCalendar;
 - (id)colorWithProviderIdentifier:(id)identifier externalIdentifier:(id)externalIdentifier;
 - (id)combineEventCalendars:(id)calendars withReminderCalendars:(id)reminderCalendars;
@@ -174,6 +189,7 @@
 - (id)doEvents:(id)events haveOccurrencesAfterDate:(id)date;
 - (id)eventForObjectID:(id)d occurrenceDate:(id)date checkValid:(BOOL)valid;
 - (id)eventForUID:(id)d occurrenceDate:(id)date checkValid:(BOOL)valid;
+- (id)eventNotificationsAfterDate:(id)date excludingUncheckedCalendars:(BOOL)calendars filteredByShowsNotificationsFlag:(BOOL)flag earliestExpiringNotification:(id *)notification;
 - (id)eventObjectIDsMatchingPredicate:(id)predicate;
 - (id)eventSourceForReminderSource:(id)source;
 - (id)eventSourceIDForReminderSourceID:(id)d;
@@ -191,6 +207,7 @@
 - (id)fetchRemindersMatchingPredicate:(NSPredicate *)predicate completion:(void *)completion;
 - (id)fetchStorageUsage;
 - (id)getSubscribedCalendarsSourceCreateIfNeededWithError:(id *)error;
+- (id)importEventsWithExternalIDs:(id)ds fromICSData:(id)data intoCalendars:(id)calendars options:(unint64_t)options batchSize:(int)size;
 - (id)importICS:(id)s intoCalendar:(id)calendar options:(unint64_t)options;
 - (id)importICSData:(id)data intoCalendar:(id)calendar options:(unint64_t)options;
 - (id)importICSData:(id)data intoCalendars:(id)calendars options:(unint64_t)options;
@@ -224,6 +241,7 @@
 - (id)predicateForEventsInSubscribedCalendar:(id)calendar;
 - (id)predicateForEventsWithAttendeesInCalendar:(id)calendar;
 - (id)predicateForEventsWithConferenceURL:(id)l limit:(int64_t)limit;
+- (id)predicateForEventsWithStartDate:(id)date endDate:(id)endDate calendars:(id)calendars exclusionOptions:(int64_t)options filterdOutTitles:(id)titles randomize:(BOOL)randomize limit:(int64_t)limit;
 - (id)predicateForEventsWithStartDate:(id)date endDate:(id)endDate calendars:(id)calendars loadDefaultProperties:(BOOL)properties;
 - (id)predicateForEventsWithStartDate:(id)date endDate:(id)endDate calendars:(id)calendars matchingContacts:(id)contacts;
 - (id)predicateForEventsWithStartDate:(id)date endDate:(id)endDate uniqueID:(id)d calendars:(id)calendars;
@@ -246,6 +264,9 @@
 - (id)publicObjectWithPersistentObject:(id)object;
 - (id)readWriteCalendarsForEntityType:(unint64_t)type;
 - (id)redactedMimicSaveEvent:(id)event oldToNewObjectIDMap:(id)map serializedDictionary:(id)dictionary objectIDToChangeSetDictionaryMap:(id)dictionaryMap objectIDToPersistentDictionaryMap:(id)persistentDictionaryMap;
+- (id)refreshEverythingIfNecessary:(BOOL)necessary;
+- (id)refreshFolderListsIfNecessary:(BOOL)necessary;
+- (id)refreshSourcesIfNecessary:(BOOL)necessary;
 - (id)registerFetchedObjectWithID:(id)d withDefaultLoadedPropertyKeys:(id)keys values:(id)values;
 - (id)reminderIntegrationCalendar;
 - (id)reminderSourceForEventSource:(id)source;
@@ -274,6 +295,8 @@
 - (int64_t)registerForDetailedChangeTrackingInSource:(id)source error:(id *)error;
 - (unint64_t)addressValidationStatus:(id)status;
 - (unint64_t)countOfEventsInSource:(id)source;
+- (unint64_t)eventNotificationCountExcludingUncheckedCalendars:(BOOL)calendars expanded:(BOOL)expanded;
+- (unint64_t)eventNotificationCountForSource:(id)source excludingDelegateSources:(BOOL)sources filteredByShowsNotificationsFlag:(BOOL)flag excludeObjectIDs:(id)ds expanded:(BOOL)expanded;
 - (unint64_t)lastConfirmedSplashScreenVersion;
 - (unint64_t)timeToLeaveLocationAuthorizationStatus;
 - (void)_accessStatusChanged;
@@ -300,6 +323,7 @@
 - (void)_fetchAndClearEventsNeedingGeocoding:(id *)geocoding withCommittedObjects:(id)objects;
 - (void)_fetchProperties:(id)properties forObjects:(id)objects;
 - (void)_forgetRegisteredObjects;
+- (void)_handleExternalDatabaseChangeNotification:(id)notification synchronously:(BOOL)synchronously;
 - (void)_implicitUpgradeToFullAccessIfNeededWithReason:(int64_t)reason;
 - (void)_implicitlyRequestEventAccessForOlderApps;
 - (void)_insertObject:(id)object;
@@ -344,6 +368,7 @@
 - (void)confirmSuggestedEvent:(id)event;
 - (void)consumeAllChangesUpToToken:(id)token;
 - (void)daemonRestarted;
+- (void)databaseRestoreGenerationChangedExternally:(int)externally;
 - (void)dealloc;
 - (void)deleteAllDrafts;
 - (void)deleteDraftOfEventWithOccurrenceID:(id)d;
@@ -372,10 +397,13 @@
 - (void)removeExchangeDelegate:(id)delegate completion:(id)completion;
 - (void)removePendingIntegrationEvent:(id)event;
 - (void)removeSuggestedEventCalendar;
+- (void)requestAccessToEntityType:(unint64_t)type desiredFullAccess:(BOOL)access testing:(BOOL)testing synchronous:(BOOL)synchronous reason:(int64_t)reason completion:(id)completion;
 - (void)requestIntegrationCatchupSync;
 - (void)reset;
 - (void)respondToSharedCalendarInvitation:(id)invitation withStatus:(unint64_t)status;
 - (void)rollbackObjectsWithIdentifiers:(id)identifiers;
+- (void)setBirthdayCalendarEnabled:(BOOL)enabled;
+- (void)setBirthdayCalendarVersion:(int)version;
 - (void)setCachedDefaultAlarmOffsetsToNSNotFound;
 - (void)setCachedEKSourceConstraintObject:(id)object forKey:(id)key;
 - (void)setDefaultCalendar:(id)calendar forNewEventsInDelegateSource:(id)source;
@@ -384,6 +412,9 @@
 - (void)setPrivacyClientIdentity:(id)identity;
 - (void)setRemoteClientIdentity:(id)identity;
 - (void)setRestoreGenerationChanged:(BOOL)changed;
+- (void)setShowCompletedReminders:(BOOL)reminders;
+- (void)setShowDeclinedEvents:(BOOL)events;
+- (void)setSourceAccountManagement:(int)management withBundleID:(id)d;
 - (void)setTimeZone:(id)zone;
 - (void)showCompletedRemindersChanged:(id)changed;
 - (void)showDeclinedEventsChanged:(id)changed;
@@ -429,20 +460,18 @@ uint64_t __55__EKEventStore_Reminders__invalidateReminderSourceMaps__block_invok
 
 void __36__EKEventStore_reminderStoreChanged__block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v5[2] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v5[0] = @"EKEventStoreRemindersDataChangedUserInfoKey";
-    v5[1] = @"EKEventStoreCalendarDataChangedUserInfoKey";
-    v6[0] = MEMORY[0x1E695E118];
-    v6[1] = MEMORY[0x1E695E110];
-    v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
+    v4[0] = @"EKEventStoreRemindersDataChangedUserInfoKey";
+    v4[1] = @"EKEventStoreCalendarDataChangedUserInfoKey";
+    v5[0] = MEMORY[0x1E695E118];
+    v5[1] = MEMORY[0x1E695E110];
+    v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
     v3 = [MEMORY[0x1E696AD88] defaultCenter];
     [v3 postNotificationName:@"EKEventStoreChangedNotification" object:WeakRetained userInfo:v2];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_allCalendars
@@ -515,7 +544,7 @@ void __36__EKEventStore_reminderStoreChanged__block_invoke(uint64_t a1)
 
 void __29__EKEventStore__allCalendars__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _loadCalendarsIfNeeded];
   v2 = *(*(a1 + 32) + 56);
   if (v2)
@@ -526,43 +555,41 @@ void __29__EKEventStore__allCalendars__block_invoke(uint64_t a1)
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v7 = v3;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         v11 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * v11);
+          v12 = *(*(&v15 + 1) + 8 * v11);
           v13 = [EKCalendar alloc];
-          v14 = [(EKObject *)v13 initWithPersistentObject:v12, v16];
+          v14 = [(EKObject *)v13 initWithPersistentObject:v12, v15];
           [*(*(*(a1 + 40) + 8) + 40) addObject:v14];
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadCalendarsIfNeeded
@@ -745,43 +772,43 @@ void __29__EKEventStore__allCalendars__block_invoke(uint64_t a1)
 
 void __28__EKEventStore_eventSources__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _loadSourcesIfNeeded];
   v2 = *(*(a1 + 32) + 64);
   if (v2)
   {
     v3 = [v2 allValues];
     v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         v9 = 0;
         do
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * v9);
+          v10 = *(*(&v16 + 1) + 8 * v9);
           v11 = [EKSource alloc];
-          v12 = [(EKObject *)v11 initWithPersistentObject:v10, v17];
+          v12 = [(EKObject *)v11 initWithPersistentObject:v10, v16];
           [v4 addObject:v12];
 
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -792,8 +819,6 @@ void __28__EKEventStore_eventSources__block_invoke(uint64_t a1)
     v15 = *(v14 + 40);
     *(v14 + 40) = v13;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)combinedReminderAndEventSources
@@ -888,11 +913,12 @@ void __58__EKEventStore_Reminders__combinedReminderAndEventSources__block_invoke
   return v4;
 }
 
-void __36__EKEventStore__loadSourcesIfNeeded__block_invoke(uint64_t a1, int a2, void *a3, void *a4)
+void __36__EKEventStore__loadSourcesIfNeeded__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
+  v6 = a2;
   v8 = a3;
   v9 = a4;
-  if (a2)
+  if (v6)
   {
     v10 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -926,35 +952,28 @@ void __44__EKEventStore_insertSuggestedEventCalendar__block_invoke(uint64_t a1)
   [v1 CADDatabaseInsertSuggestedEventCalendarWithReply:&__block_literal_global_428];
 }
 
-void __44__EKEventStore_insertSuggestedEventCalendar__block_invoke_2(uint64_t a1, int a2)
+void __44__EKEventStore_insertSuggestedEventCalendar__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
     if (a2 == 1020)
     {
+      v2 = EKLogHandle;
       if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
       {
-        __44__EKEventStore_insertSuggestedEventCalendar__block_invoke_2_cold_1();
+        __44__EKEventStore_insertSuggestedEventCalendar__block_invoke_2_cold_1(v2, v3, v4);
       }
     }
 
     else
     {
-      v2 = EKLogHandle;
+      v5 = EKLogHandle;
       if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
       {
-        __44__EKEventStore_insertSuggestedEventCalendar__block_invoke_2_cold_2(v2);
+        __44__EKEventStore_insertSuggestedEventCalendar__block_invoke_2_cold_2(v5);
       }
     }
   }
-}
-
-void __44__EKEventStore_insertSuggestedEventCalendar__block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -1001,7 +1020,7 @@ uint64_t __36__EKEventStore_objectsPendingCommit__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NSSet)deletedObjectIDsPendingCommit
@@ -1033,7 +1052,7 @@ uint64_t __45__EKEventStore_deletedObjectIDsPendingCommit__block_invoke(uint64_t
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)reminderSources
@@ -1051,11 +1070,12 @@ uint64_t __45__EKEventStore_deletedObjectIDsPendingCommit__block_invoke(uint64_t
   return sources;
 }
 
-void __38__EKEventStore__loadCalendarsIfNeeded__block_invoke(uint64_t a1, int a2, void *a3, void *a4)
+void __38__EKEventStore__loadCalendarsIfNeeded__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
+  v6 = a2;
   v8 = a3;
   v9 = a4;
-  if (a2)
+  if (v6)
   {
     v10 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -1090,7 +1110,7 @@ void __38__EKEventStore__loadCalendarsIfNeeded__block_invoke(uint64_t a1, int a2
   return v3;
 }
 
-uint64_t __34__EKEventStore_showDeclinedEvents__block_invoke(uint64_t a1)
+void *__34__EKEventStore_showDeclinedEvents__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = v2[23];
@@ -1125,7 +1145,7 @@ uint64_t __34__EKEventStore_showDeclinedEvents__block_invoke(uint64_t a1)
 
 - (id)_combineEventSources:(id)sources withReminderSources:(id)reminderSources
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   sourcesCopy = sources;
   reminderSourcesCopy = reminderSources;
   [(EKEventStore *)self _rebuildSourceMapsWithEventSources:sourcesCopy reminderSources:reminderSourcesCopy];
@@ -1145,28 +1165,28 @@ LABEL_15:
   }
 
   v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(sourcesCopy, "count") + objc_msgSend(reminderSourcesCopy, "count")}];
-  v21 = sourcesCopy;
+  v20 = sourcesCopy;
   [v9 addObjectsFromArray:sourcesCopy];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v10 = reminderSourcesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
+        v15 = *(*(&v21 + 1) + 8 * i);
         sourceIdentifier = [v15 sourceIdentifier];
         v17 = [reminderSourceIDToEventSourceIDMapping objectForKeyedSubscript:sourceIdentifier];
 
@@ -1176,52 +1196,50 @@ LABEL_15:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v12);
   }
 
-  sourcesCopy = v21;
+  sourcesCopy = v20;
 LABEL_16:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (void)_rebuildSourceMapsWithEventSources:(id)sources reminderSources:(id)reminderSources
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   sourcesCopy = sources;
   reminderSourcesCopy = reminderSources;
   if ([reminderSourcesCopy count] && objc_msgSend(sourcesCopy, "count"))
   {
     selfCopy = self;
-    v38 = reminderSourcesCopy;
+    v37 = reminderSourcesCopy;
     v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
-    v37 = sourcesCopy;
+    v36 = sourcesCopy;
     v9 = sourcesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v46 objects:v59 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v45 objects:v58 count:16];
     if (v10)
     {
       v11 = v10;
-      v41 = 0;
-      v12 = *v47;
+      v40 = 0;
+      v12 = *v46;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v47 != v12)
+          if (*v46 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v46 + 1) + 8 * i);
+          v14 = *(*(&v45 + 1) + 8 * i);
           externalID = [v14 externalID];
           if (externalID)
           {
@@ -1232,11 +1250,11 @@ LABEL_16:
           {
             v16 = v14;
 
-            v41 = v16;
+            v40 = v16;
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v46 objects:v59 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v45 objects:v58 count:16];
       }
 
       while (v11);
@@ -1244,7 +1262,7 @@ LABEL_16:
 
     else
     {
-      v41 = 0;
+      v40 = 0;
     }
 
     v18 = [reminderSourcesCopy count];
@@ -1254,28 +1272,28 @@ LABEL_16:
       v18 = v19;
     }
 
-    v40 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v18];
     v39 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v18];
+    v38 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v18];
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     v20 = reminderSourcesCopy;
-    v21 = [v20 countByEnumeratingWithState:&v42 objects:v58 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v41 objects:v57 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v43;
+      v23 = *v42;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v43 != v23)
+          if (*v42 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v42 + 1) + 8 * j);
+          v25 = *(*(&v41 + 1) + 8 * j);
           externalID2 = [v25 externalID];
           v27 = [v8 objectForKeyedSubscript:externalID2];
 
@@ -1304,21 +1322,21 @@ LABEL_27:
               if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138413058;
-                v51 = sourceIdentifier;
-                v52 = 2112;
-                v53 = v31;
-                v54 = 2112;
-                v55 = v27;
-                v56 = 2112;
-                v57 = v25;
+                v50 = sourceIdentifier;
+                v51 = 2112;
+                v52 = v31;
+                v53 = 2112;
+                v54 = v27;
+                v55 = 2112;
+                v56 = v25;
                 _os_log_error_impl(&dword_1A805E000, v33, OS_LOG_TYPE_ERROR, "Event or reminder source without ID: eventSourceID=%@, reminderSourceID=%@, eventSource=%@, reminderSource=%@", buf, 0x2Au);
               }
             }
 
             else
             {
-              [v40 setObject:sourceIdentifier forKeyedSubscript:sourceIdentifier2];
-              [v39 setObject:v31 forKeyedSubscript:sourceIdentifier];
+              [v39 setObject:sourceIdentifier forKeyedSubscript:sourceIdentifier2];
+              [v38 setObject:v31 forKeyedSubscript:sourceIdentifier];
             }
 
             continue;
@@ -1326,26 +1344,26 @@ LABEL_27:
 
           if (![v25 sourceType])
           {
-            v27 = v41;
-            if ([v25 isWritable] && v41 != 0)
+            v27 = v40;
+            if ([v25 isWritable] && v40 != 0)
             {
-              v41 = 0;
+              v40 = 0;
               goto LABEL_27;
             }
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v42 objects:v58 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v41 objects:v57 count:16];
       }
 
       while (v22);
     }
 
-    [(EKEventStore *)selfCopy setReminderSourceIDToEventSourceIDMapping:v40];
-    [(EKEventStore *)selfCopy setEventSourceIDToReminderSourceIDMapping:v39];
+    [(EKEventStore *)selfCopy setReminderSourceIDToEventSourceIDMapping:v39];
+    [(EKEventStore *)selfCopy setEventSourceIDToReminderSourceIDMapping:v38];
 
-    sourcesCopy = v37;
-    reminderSourcesCopy = v38;
+    sourcesCopy = v36;
+    reminderSourcesCopy = v37;
   }
 
   else
@@ -1354,8 +1372,6 @@ LABEL_27:
     [(EKEventStore *)self setReminderSourceIDToEventSourceIDMapping:MEMORY[0x1E695E0F8]];
     [(EKEventStore *)self setEventSourceIDToReminderSourceIDMapping:v17];
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (id)combineEventCalendars:(id)calendars withReminderCalendars:(id)reminderCalendars
@@ -1492,7 +1508,7 @@ uint64_t __71__EKEventStore_Reminders__getMapsWithReminderSourceMap_eventSourceM
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v8, v10);
 }
 
 - (id)reminderSourceMap
@@ -1565,15 +1581,15 @@ uint64_t __71__EKEventStore_Reminders__getMapsWithReminderSourceMap_eventSourceM
 
 uint64_t __35__EKEventStore_classForEntityName___block_invoke()
 {
-  v19 = objc_alloc(MEMORY[0x1E695DF20]);
+  v21 = objc_alloc(MEMORY[0x1E695DF20]);
+  v20 = objc_opt_class();
+  v19 = objc_opt_class();
   v18 = objc_opt_class();
   v17 = objc_opt_class();
   v16 = objc_opt_class();
   v15 = objc_opt_class();
   v14 = objc_opt_class();
   v13 = objc_opt_class();
-  v12 = objc_opt_class();
-  v11 = objc_opt_class();
   v0 = objc_opt_class();
   v1 = objc_opt_class();
   v2 = objc_opt_class();
@@ -1584,9 +1600,11 @@ uint64_t __35__EKEventStore_classForEntityName___block_invoke()
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  classForEntityName__sClassMap = [v19 initWithObjectsAndKeys:{v18, @"Source", v17, @"Calendar", v16, @"Event", v15, @"Alarm", v14, @"Attachment", v13, @"Attendee", v12, @"Organizer", v11, @"RecurrenceRule", v0, @"ExceptionDate", v1, @"EventAction", v2, @"Location", v3, @"Sharee", v4, @"ResourceChange", v5, @"SuggestionNotification", v6, @"InviteReplyNotification", v7, @"SuggestedEventInfo", v8, @"Error", v9, @"Image", objc_opt_class(), @"Color", 0}];
+  v10 = [v21 initWithObjectsAndKeys:{v20, @"Source", v19, @"Calendar", v18, @"Event", v17, @"Alarm", v16, @"Attachment", v15, @"Attendee", v14, @"Organizer", v13, @"RecurrenceRule", v0, @"ExceptionDate", v1, @"EventAction", v2, @"Location", v3, @"Sharee", v4, @"ResourceChange", v5, @"SuggestionNotification", v6, @"InviteReplyNotification", v7, @"SuggestedEventInfo", v8, @"Error", v9, @"Image", objc_opt_class(), @"Color", 0}];
+  v11 = classForEntityName__sClassMap;
+  classForEntityName__sClassMap = v10;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v10, v11);
 }
 
 + (id)reminderStoreContainerTokenProvider
@@ -1598,9 +1616,11 @@ uint64_t __35__EKEventStore_classForEntityName___block_invoke()
 
 + (void)setReminderStoreContainerTokenProvider:(id)provider
 {
-  _reminderStoreContainerTokenProvider = _Block_copy(provider);
+  v3 = _Block_copy(provider);
+  v4 = _reminderStoreContainerTokenProvider;
+  _reminderStoreContainerTokenProvider = v3;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 - (EKEventStore)initWithEKOptions:(unint64_t)options path:(id)path sources:(id)sources
@@ -1621,6 +1641,279 @@ uint64_t __35__EKEventStore_classForEntityName___block_invoke()
   }
 
   return result;
+}
+
+- (EKEventStore)initWithOptions:(int)options path:(id)path allowDelegateSources:(BOOL)sources
+{
+  sourcesCopy = sources;
+  v6 = *&options;
+  pathCopy = path;
+  sourcesCopy = [(EKEventStore *)self initWithEKOptions:[EKEventStore ekEventStoreInitOptionsFromCalDatabaseInitOptions:?]enablePropertyModificationLogging:pathCopy allowDelegateSources:0, 1, sourcesCopy];
+
+  return sourcesCopy;
+}
+
+- (EKEventStore)initWithEKOptions:(unint64_t)options path:(id)path containerProvider:(id)provider tccPermissionChecker:(id)checker changeTrackingClientId:(id)id enablePropertyModificationLogging:(BOOL)logging allowDelegateSources:(BOOL)sources allowedSourceIdentifiers:(id)self0
+{
+  loggingCopy = logging;
+  pathCopy = path;
+  providerCopy = provider;
+  checkerCopy = checker;
+  idCopy = id;
+  identifiersCopy = identifiers;
+  v92.receiver = self;
+  v92.super_class = EKEventStore;
+  v19 = [(EKEventStore *)&v92 init];
+  if (v19)
+  {
+    EKLogInitIfNeeded();
+    v20 = EKLogHandle;
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      [EKEventStore initWithEKOptions:v19 path:v20 containerProvider:? tccPermissionChecker:? changeTrackingClientId:? enablePropertyModificationLogging:? allowDelegateSources:? allowedSourceIdentifiers:?];
+    }
+
+    v19->_options = options;
+    [MEMORY[0x1E6992398] setValidator:objc_opt_class()];
+    v21 = dispatch_queue_create("com.apple.eventkit.eventstore.calendars", 0);
+    calendarSourcesAndDefaultsQueue = v19->_calendarSourcesAndDefaultsQueue;
+    v19->_calendarSourcesAndDefaultsQueue = v21;
+
+    v23 = dispatch_queue_create("com.apple.eventkit.eventstore.registered", 0);
+    registeredQueue = v19->_registeredQueue;
+    v19->_registeredQueue = v23;
+
+    v25 = dispatch_queue_create("com.apple.eventkit.eventstore.unsaved", 0);
+    unsavedChangesQueue = v19->_unsavedChangesQueue;
+    v19->_unsavedChangesQueue = v25;
+
+    v27 = dispatch_queue_create("com.apple.eventkit.eventstore.dbchanged", 0);
+    dbChangedQueue = v19->_dbChangedQueue;
+    v19->_dbChangedQueue = v27;
+
+    v29 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v30 = dispatch_queue_create("com.apple.eventkit.EKPredicateSearch", v29);
+    asynchronousSearchQueue = v19->_asynchronousSearchQueue;
+    v19->_asynchronousSearchQueue = v30;
+
+    v32 = dispatch_queue_create("com.apple.eventkit.eventstore.constraintsCache", 0);
+    constraintsCacheQueue = v19->_constraintsCacheQueue;
+    v19->_constraintsCacheQueue = v32;
+
+    v34 = dispatch_queue_create("com.apple.eventkit.eventstore.notificationCollectionCache", 0);
+    notificationCollectionCacheQueue = v19->_notificationCollectionCacheQueue;
+    v19->_notificationCollectionCacheQueue = v34;
+
+    array = [MEMORY[0x1E695DF70] array];
+    databaseWaitCallbacks = v19->_databaseWaitCallbacks;
+    v19->_databaseWaitCallbacks = array;
+
+    array2 = [MEMORY[0x1E695DF70] array];
+    databaseWaitTimestamps = v19->_databaseWaitTimestamps;
+    v19->_databaseWaitTimestamps = array2;
+
+    timestampForNow = [MEMORY[0x1E6992368] timestampForNow];
+    lastDatabaseNotificationTimestamp = v19->_lastDatabaseNotificationTimestamp;
+    v19->_lastDatabaseNotificationTimestamp = timestampForNow;
+
+    objc_initWeak(&location, v19);
+    v42 = objc_alloc_init(EKDataProtectionObserver);
+    [(EKEventStore *)v19 setDataProtectionObserver:v42];
+
+    v89[0] = MEMORY[0x1E69E9820];
+    v89[1] = 3221225472;
+    v89[2] = __181__EKEventStore_initWithEKOptions_path_containerProvider_tccPermissionChecker_changeTrackingClientId_enablePropertyModificationLogging_allowDelegateSources_allowedSourceIdentifiers___block_invoke;
+    v89[3] = &unk_1E77FD3F0;
+    objc_copyWeak(&v90, &location);
+    dataProtectionObserver = [(EKEventStore *)v19 dataProtectionObserver];
+    [dataProtectionObserver setStateChangedCallback:v89];
+
+    v44 = objc_alloc_init(MEMORY[0x1E6992328]);
+    initializationOptions = v19->_initializationOptions;
+    v19->_initializationOptions = v44;
+
+    [(CADDatabaseInitializationOptions *)v19->_initializationOptions setDatabaseInitOptions:[EKEventStore calDatabaseInitOptionsFromEKEventStoreInitOptions:options]];
+    cADChangeTrackingClientId = [idCopy CADChangeTrackingClientId];
+    v47 = cADChangeTrackingClientId;
+    if (!cADChangeTrackingClientId)
+    {
+      v47 = objc_opt_new();
+    }
+
+    [(CADDatabaseInitializationOptions *)v19->_initializationOptions setChangeTrackingClientId:v47];
+    if (!cADChangeTrackingClientId)
+    {
+    }
+
+    [(CADDatabaseInitializationOptions *)v19->_initializationOptions setEnablePropertyModificationLogging:loggingCopy];
+    if (pathCopy)
+    {
+      v48 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy];
+    }
+
+    else
+    {
+      v48 = 0;
+    }
+
+    [(CADDatabaseInitializationOptions *)v19->_initializationOptions setDatabaseDirectory:v48];
+    if (pathCopy)
+    {
+    }
+
+    [(CADDatabaseInitializationOptions *)v19->_initializationOptions setCalendarDataContainerProvider:providerCopy];
+    [(CADDatabaseInitializationOptions *)v19->_initializationOptions setAllowDelegateSources:sources];
+    [(CADDatabaseInitializationOptions *)v19->_initializationOptions setAllowedSourceIdentifiers:identifiersCopy];
+    [(CADDatabaseInitializationOptions *)v19->_initializationOptions setUnitTesting:(options >> 12) & 1];
+    [(CADDatabaseInitializationOptions *)v19->_initializationOptions setAllowIntegrations:(options >> 13) & 1];
+    if (pathCopy)
+    {
+      v49 = [MEMORY[0x1E6993000] preferencesStoreForPath:pathCopy];
+      v50 = objc_alloc(MEMORY[0x1E6993020]);
+      v51 = [v50 initWithDomain:*MEMORY[0x1E6993168] store:v49];
+      v52 = [[EKPreferences alloc] initWithPreferences:v51];
+      preferences = v19->_preferences;
+      v19->_preferences = v52;
+    }
+
+    else
+    {
+      v54 = +[EKPreferences shared];
+      v49 = v19->_preferences;
+      v19->_preferences = v54;
+    }
+
+    v19->_flagsLock._os_unfair_lock_opaque = 0;
+    if ([objc_opt_class() _shouldUseInProcessXPCWithInitOptions:options])
+    {
+      if (!checkerCopy)
+      {
+        checkerCopy = objc_opt_new();
+      }
+
+      v55 = [[EKLocalXPCConnectionFactory alloc] initWithTCCPermissionChecker:checkerCopy];
+      [(CADDatabaseInitializationOptions *)v19->_initializationOptions setDatabaseInitOptions:[(CADDatabaseInitializationOptions *)v19->_initializationOptions databaseInitOptions]| 0x2000];
+    }
+
+    else
+    {
+      v55 = +[EKRemoteXPCConnectionFactory sharedInstance];
+    }
+
+    v56 = [[EKDaemonConnection alloc] initWithConnectionFactory:v55];
+    database = v19->_database;
+    v19->_database = v56;
+
+    [(EKDaemonConnection *)v19->_database setDelegate:v19];
+    [(EKDaemonConnection *)v19->_database setInitializationOptions:v19->_initializationOptions];
+    v58 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    registeredObjects = v19->_registeredObjects;
+    v19->_registeredObjects = v58;
+
+    v60 = [MEMORY[0x1E696AC70] hashTableWithOptions:5];
+    eventsNeedsGeocoding = v19->_eventsNeedsGeocoding;
+    v19->_eventsNeedsGeocoding = v60;
+
+    if ((options & 0x200) != 0)
+    {
+      v62 = objc_alloc_init(MEMORY[0x1E695DEE0]);
+      deletedEventUniqueIdentifiersCache = v19->_deletedEventUniqueIdentifiersCache;
+      v19->_deletedEventUniqueIdentifiersCache = v62;
+
+      [(NSCache *)v19->_deletedEventUniqueIdentifiersCache setCountLimit:1000];
+    }
+
+    [(EKEventStore *)v19 _updateDefaultDelayForThrottleEventStoreChangedNotifications];
+    v64 = objc_alloc(MEMORY[0x1E6992F08]);
+    v78 = identifiersCopy;
+    v80 = providerCopy;
+    v65 = MEMORY[0x1E69E96A0];
+    v66 = MEMORY[0x1E69E96A0];
+    v87[0] = MEMORY[0x1E69E9820];
+    v87[1] = 3221225472;
+    v87[2] = __181__EKEventStore_initWithEKOptions_path_containerProvider_tccPermissionChecker_changeTrackingClientId_enablePropertyModificationLogging_allowDelegateSources_allowedSourceIdentifiers___block_invoke_183;
+    v87[3] = &unk_1E77FE500;
+    objc_copyWeak(&v88, &location);
+    v85[0] = MEMORY[0x1E69E9820];
+    v85[1] = 3221225472;
+    v85[2] = __181__EKEventStore_initWithEKOptions_path_containerProvider_tccPermissionChecker_changeTrackingClientId_enablePropertyModificationLogging_allowDelegateSources_allowedSourceIdentifiers___block_invoke_2;
+    v85[3] = &unk_1E78006D8;
+    objc_copyWeak(&v86, &location);
+    v67 = [v64 initWithQueue:v65 andBlock:v87 throttle:v85];
+    notificationAccumulatingQueue = v19->_notificationAccumulatingQueue;
+    v19->_notificationAccumulatingQueue = v67;
+
+    if ((options & 0x104) == 0)
+    {
+      v69 = MEMORY[0x1E6992F98];
+      eventStoreChangedDistributedNotificationName = [objc_opt_class() eventStoreChangedDistributedNotificationName];
+      [v69 addObserver:v19 selector:sel__handleExternalDatabaseChangedNotificationAsynchronously_ name:eventStoreChangedDistributedNotificationName];
+
+      if ((options & 0x40) != 0)
+      {
+        [MEMORY[0x1E6992F98] addObserver:v19 selector:sel__handleExternalDatabaseChangedNotificationAsynchronously_ name:*MEMORY[0x1E6992E10]];
+      }
+
+      if ((options & 0x2000) != 0)
+      {
+        [MEMORY[0x1E6992F98] addObserver:v19 selector:sel__handleExternalDatabaseChangedNotificationAsynchronously_ name:*MEMORY[0x1E6992E08]];
+      }
+
+      [MEMORY[0x1E6992F98] addObserver:v19 selector:sel__handleExternalDatabaseChangedNotificationAsynchronously_ name:{*MEMORY[0x1E6992E40], identifiersCopy, providerCopy}];
+      [MEMORY[0x1E6992F98] addObserver:v19 selector:sel__handleExternalDatabaseChangedNotificationAsynchronously_ name:@"com.apple.calendar.defaultAlarmChangedNotification"];
+      [MEMORY[0x1E6992F98] addObserver:v19 selector:sel__handleExternalDatabaseChangedNotificationAsynchronously_ name:*MEMORY[0x1E6992430]];
+      [MEMORY[0x1E6992F98] addObserver:v19 selector:sel_showDeclinedEventsChanged_ name:@"com.apple.mobilecal.showdeclinedchanged"];
+      [MEMORY[0x1E6992F98] addObserver:v19 selector:sel_showCompletedRemindersChanged_ name:@"com.apple.mobilecal.showCompletedRemindersChanged"];
+    }
+
+    if (!_CFExecutableLinkedOnOrAfter())
+    {
+      [(EKEventStore *)v19 _implicitlyRequestEventAccessForOlderApps];
+    }
+
+    [(EKEventStore *)v19 initializeEKEventStorePlusReminders:v78];
+    if ([(EKEventStore *)v19 allowAccessToEventsOnly])
+    {
+      v71 = [[EKStaticAuthStatusChecker alloc] initWithEventAccessLevel:2 hasAccessToReminders:0];
+      authStatusChecker = v19->_authStatusChecker;
+      v19->_authStatusChecker = v71;
+
+      v73 = EKLogHandle;
+      if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1A805E000, v73, OS_LOG_TYPE_DEFAULT, "Initialized event store with access to events only", buf, 2u);
+      }
+    }
+
+    else
+    {
+      objc_storeStrong(&v19->_authStatusChecker, v19->_database);
+      if (_reminderStoreContainerTokenProvider)
+      {
+        v74 = (*(_reminderStoreContainerTokenProvider + 16))();
+      }
+
+      else
+      {
+        v74 = 0;
+      }
+
+      v75 = [[EKReminderStore alloc] initWithEventStore:v19 token:v74];
+      reminderStore = v19->_reminderStore;
+      v19->_reminderStore = v75;
+    }
+
+    objc_destroyWeak(&v86);
+    objc_destroyWeak(&v88);
+
+    objc_destroyWeak(&v90);
+    objc_destroyWeak(&location);
+    identifiersCopy = v79;
+    providerCopy = v81;
+  }
+
+  return v19;
 }
 
 void __181__EKEventStore_initWithEKOptions_path_containerProvider_tccPermissionChecker_changeTrackingClientId_enablePropertyModificationLogging_allowDelegateSources_allowedSourceIdentifiers___block_invoke(uint64_t a1)
@@ -1669,7 +1962,19 @@ double __181__EKEventStore_initWithEKOptions_path_containerProvider_tccPermissio
   return v9;
 }
 
-void __23__EKEventStore_dealloc__block_invoke(uint64_t a1, int a2)
+- (EKEventStore)initWithOptions:(int)options path:(id)path changeTrackingClientId:(id)id enablePropertyModificationLogging:(BOOL)logging allowDelegateSources:(BOOL)sources
+{
+  sourcesCopy = sources;
+  loggingCopy = logging;
+  v10 = *&options;
+  idCopy = id;
+  pathCopy = path;
+  sourcesCopy = [(EKEventStore *)self initWithEKOptions:[EKEventStore ekEventStoreInitOptionsFromCalDatabaseInitOptions:?]enablePropertyModificationLogging:pathCopy allowDelegateSources:idCopy, loggingCopy, sourcesCopy];
+
+  return sourcesCopy;
+}
+
+void __23__EKEventStore_dealloc__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -1809,7 +2114,6 @@ LABEL_10:
     return 0;
   }
 
-  v7 = *token;
   v5 = tcc_authorization_check_audit_token();
   if (v5 > 1)
   {
@@ -1862,17 +2166,124 @@ LABEL_10:
   }
 }
 
+- (void)requestAccessToEntityType:(unint64_t)type desiredFullAccess:(BOOL)access testing:(BOOL)testing synchronous:(BOOL)synchronous reason:(int64_t)reason completion:(id)completion
+{
+  testingCopy = testing;
+  accessCopy = access;
+  v34 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  v15 = completionCopy;
+  if (type)
+  {
+    if (type != 1)
+    {
+      goto LABEL_9;
+    }
+
+    v16 = MEMORY[0x1E69D55D8];
+  }
+
+  else
+  {
+    v16 = MEMORY[0x1E69D5518];
+  }
+
+  if (*v16)
+  {
+    v17 = [EKEventStore realAuthorizationStatusForEntityType:type];
+    if (testingCopy)
+    {
+      if (type)
+      {
+        [EKEventStore setDenyAccessToReminders:0];
+      }
+
+      else
+      {
+        [EKEventStore setDenyAccessToEvents:0];
+      }
+    }
+
+    connection = [(EKEventStore *)self connection];
+    v20 = connection;
+    if (synchronous)
+    {
+      cADOperationProxySync = [connection CADOperationProxySync];
+
+      isMainThread = [MEMORY[0x1E696AF00] isMainThread];
+    }
+
+    else
+    {
+      cADOperationProxySync = [connection CADOperationProxy];
+
+      isMainThread = 0;
+    }
+
+    v22 = EKLogHandle;
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      v23 = @"write-only";
+      if (accessCopy)
+      {
+        v23 = @"full";
+      }
+
+      v24 = @"events";
+      if (type)
+      {
+        v24 = @"reminders";
+      }
+
+      *buf = 138543618;
+      v31 = v23;
+      v32 = 2114;
+      v33 = v24;
+      _os_log_impl(&dword_1A805E000, v22, OS_LOG_TYPE_DEFAULT, "Requesting %{public}@ access to %{public}@", buf, 0x16u);
+    }
+
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __98__EKEventStore_requestAccessToEntityType_desiredFullAccess_testing_synchronous_reason_completion___block_invoke;
+    v25[3] = &unk_1E7800720;
+    typeCopy = type;
+    v28 = v17;
+    v25[4] = self;
+    v29 = accessCopy;
+    v26 = v15;
+    [cADOperationProxySync CADDatabaseRequestAccessForEntityType:type desiredFullAccess:accessCopy isBlockingUIThread:isMainThread reason:reason reply:v25];
+
+LABEL_24:
+    goto LABEL_25;
+  }
+
+LABEL_9:
+  if (completionCopy)
+  {
+    cADOperationProxySync = [MEMORY[0x1E696ABC0] errorWithEKErrorCode:27];
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      [EKEventStore requestAccessToEntityType:desiredFullAccess:testing:synchronous:reason:completion:];
+    }
+
+    (v15)[2](v15, 0, cADOperationProxySync);
+    goto LABEL_24;
+  }
+
+LABEL_25:
+}
+
 void __98__EKEventStore_requestAccessToEntityType_desiredFullAccess_testing_synchronous_reason_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = EKLogHandle;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 67109376;
-    v13 = a3;
-    v14 = 1024;
-    v15 = a2;
-    _os_log_impl(&dword_1A805E000, v6, OS_LOG_TYPE_DEFAULT, "Access request result: %d, error = %d", &v12, 0xEu);
+    v11 = 67109376;
+    v12 = a3;
+    v13 = 1024;
+    v14 = a2;
+    _os_log_impl(&dword_1A805E000, v6, OS_LOG_TYPE_DEFAULT, "Access request result: %d, error = %d", &v11, 0xEu);
   }
 
   if ([EKEventStore _staticAccessFlagSaysDeniedForEntityType:*(a1 + 48)])
@@ -1880,9 +2291,9 @@ void __98__EKEventStore_requestAccessToEntityType_desiredFullAccess_testing_sync
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
+      LOWORD(v11) = 0;
       a3 = 2;
-      _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_DEFAULT, "Coercing access request result to denied due to static access flags", &v12, 2u);
+      _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_DEFAULT, "Coercing access request result to denied due to static access flags", &v11, 2u);
     }
 
     else
@@ -1911,9 +2322,9 @@ void __98__EKEventStore_requestAccessToEntityType_desiredFullAccess_testing_sync
     v9 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 67109120;
-      v13 = v8;
-      _os_log_impl(&dword_1A805E000, v9, OS_LOG_TYPE_DEFAULT, "Calling request access completion handler with result: %{BOOL}d", &v12, 8u);
+      v11 = 67109120;
+      v12 = v8;
+      _os_log_impl(&dword_1A805E000, v9, OS_LOG_TYPE_DEFAULT, "Calling request access completion handler with result: %{BOOL}d", &v11, 8u);
     }
 
     if (a2)
@@ -1928,8 +2339,6 @@ void __98__EKEventStore_requestAccessToEntityType_desiredFullAccess_testing_sync
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isDataProtected
@@ -1974,8 +2383,21 @@ void __36__EKEventStore__accessStatusChanged__block_invoke(uint64_t a1)
     timeZone = self->_timeZone;
     self->_timeZone = v5;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v5, timeZone);
   }
+}
+
+- (void)setSourceAccountManagement:(int)management withBundleID:(id)d
+{
+  v4 = *&management;
+  initializationOptions = self->_initializationOptions;
+  dCopy = d;
+  [(CADDatabaseInitializationOptions *)initializationOptions setManagement:v4];
+  [(CADDatabaseInitializationOptions *)self->_initializationOptions setManagementBundleIdentifier:dCopy];
+
+  v8 = self->_initializationOptions;
+  connection = [(EKEventStore *)self connection];
+  [connection setInitializationOptions:v8];
 }
 
 - (void)setRemoteClientIdentity:(id)identity
@@ -2066,10 +2488,11 @@ void __36__EKEventStore__accessStatusChanged__block_invoke(uint64_t a1)
   return v4;
 }
 
-void __29__EKEventStore_sequenceToken__block_invoke(uint64_t a1, int a2, void *a3)
+void __29__EKEventStore_sequenceToken__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -2099,11 +2522,12 @@ void __29__EKEventStore_sequenceToken__block_invoke(uint64_t a1, int a2, void *a
   [cADOperationProxySync CADDatabaseGetChangesSinceSequenceToken:tokenCopy reply:v11];
 }
 
-void __53__EKEventStore_changesSinceSequenceToken_completion___block_invoke(uint64_t a1, int a2, void *a3, void *a4)
+void __53__EKEventStore_changesSinceSequenceToken_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
+  v5 = a2;
   v7 = a3;
   v8 = a4;
-  if (a2)
+  if (v5)
   {
     v9 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -2149,12 +2573,13 @@ void __53__EKEventStore_changesSinceSequenceToken_completion___block_invoke(uint
   return v8;
 }
 
-void __37__EKEventStore__invalidCADObjectIDs___block_invoke(uint64_t a1, int a2, void *a3)
+void __37__EKEventStore__invalidCADObjectIDs___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
-    if (a2 == 1010)
+    if (v4 == 1010)
     {
       if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
       {
@@ -2183,29 +2608,49 @@ void __37__EKEventStore__invalidCADObjectIDs___block_invoke(uint64_t a1, int a2,
   }
 }
 
+- (void)_handleExternalDatabaseChangeNotification:(id)notification synchronously:(BOOL)synchronously
+{
+  synchronouslyCopy = synchronously;
+  notificationCopy = notification;
+  if (_handleExternalDatabaseChangeNotification_synchronously__onceToken != -1)
+  {
+    [EKEventStore _handleExternalDatabaseChangeNotification:synchronously:];
+  }
+
+  v7 = [_handleExternalDatabaseChangeNotification_synchronously__notificationToAction objectForKeyedSubscript:notificationCopy];
+  v8 = v7;
+  if (v7)
+  {
+    (*(v7 + 16))(v7, self, synchronouslyCopy);
+  }
+
+  else if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    [EKEventStore _handleExternalDatabaseChangeNotification:synchronously:];
+  }
+}
+
 void __72__EKEventStore__handleExternalDatabaseChangeNotification_synchronously___block_invoke()
 {
-  v7[6] = *MEMORY[0x1E69E9840];
+  v6[6] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992E10];
-  v6[0] = *MEMORY[0x1E6992E00];
-  v6[1] = v0;
-  v7[0] = &__block_literal_global_232;
-  v7[1] = &__block_literal_global_234;
+  v5[0] = *MEMORY[0x1E6992E00];
+  v5[1] = v0;
+  v6[0] = &__block_literal_global_232;
+  v6[1] = &__block_literal_global_234;
   v1 = *MEMORY[0x1E6992E40];
-  v6[2] = *MEMORY[0x1E6992E08];
-  v6[3] = v1;
-  v7[2] = &__block_literal_global_236;
-  v7[3] = &__block_literal_global_238;
+  v5[2] = *MEMORY[0x1E6992E08];
+  v5[3] = v1;
+  v6[2] = &__block_literal_global_236;
+  v6[3] = &__block_literal_global_238;
   v2 = *MEMORY[0x1E6992430];
-  v6[4] = @"com.apple.calendar.defaultAlarmChangedNotification";
-  v6[5] = v2;
-  v7[4] = &__block_literal_global_240;
-  v7[5] = &__block_literal_global_242;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:6];
+  v5[4] = @"com.apple.calendar.defaultAlarmChangedNotification";
+  v5[5] = v2;
+  v6[4] = &__block_literal_global_240;
+  v6[5] = &__block_literal_global_242;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:6];
   v4 = _handleExternalDatabaseChangeNotification_synchronously__notificationToAction;
   _handleExternalDatabaseChangeNotification_synchronously__notificationToAction = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __72__EKEventStore__handleExternalDatabaseChangeNotification_synchronously___block_invoke_7(uint64_t a1, void *a2)
@@ -2302,12 +2747,13 @@ void __64__EKEventStore__databaseChangedExternally_processSynchronously___block_
   _Block_object_dispose(&v23, 8);
 }
 
-void __64__EKEventStore__databaseChangedExternally_processSynchronously___block_invoke_2(void *a1, int a2, void *a3, void *a4, void *a5, char a6)
+void __64__EKEventStore__databaseChangedExternally_processSynchronously___block_invoke_2(void *a1, uint64_t a2, void *a3, void *a4, void *a5, char a6)
 {
+  v10 = a2;
   v12 = a3;
   v13 = a4;
   v14 = a5;
-  if (a2)
+  if (v10)
   {
     v15 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -2327,14 +2773,14 @@ void __64__EKEventStore__databaseChangedExternally_processSynchronously___block_
 
 + (void)EKObjectIDsFromData:(id)data deletedObjectIDOffsets:(id)offsets outChangedIDs:(id *)ds outDeletedIDs:(id *)iDs
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   offsetsCopy = offsets;
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
-  v11 = [dataCopy countByEnumeratingWithState:&v52 objects:v57 count:16];
+  v11 = [dataCopy countByEnumeratingWithState:&v51 objects:v56 count:16];
   dsCopy = ds;
   iDsCopy = iDs;
   if (v11)
@@ -2342,17 +2788,17 @@ void __64__EKEventStore__databaseChangedExternally_processSynchronously___block_
     v12 = v11;
     v13 = 0;
     v14 = 0;
-    v15 = *v53;
+    v15 = *v52;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v53 != v15)
+        if (*v52 != v15)
         {
           objc_enumerationMutation(dataCopy);
         }
 
-        v17 = *(*(&v52 + 1) + 8 * i);
+        v17 = *(*(&v51 + 1) + 8 * i);
         v18 = [dataCopy objectForKeyedSubscript:v17];
         v19 = [offsetsCopy objectForKeyedSubscript:v17];
         unsignedIntegerValue = [v19 unsignedIntegerValue];
@@ -2360,7 +2806,7 @@ void __64__EKEventStore__databaseChangedExternally_processSynchronously___block_
         v13 = v13 - unsignedIntegerValue + ([v18 length] >> 3);
       }
 
-      v12 = [dataCopy countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v12 = [dataCopy countByEnumeratingWithState:&v51 objects:v56 count:16];
     }
 
     while (v12);
@@ -2374,32 +2820,32 @@ void __64__EKEventStore__databaseChangedExternally_processSynchronously___block_
 
   v21 = [MEMORY[0x1E695DF70] arrayWithCapacity:v14];
   v22 = [MEMORY[0x1E695DF70] arrayWithCapacity:v13];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   obj = dataCopy;
-  v43 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
-  if (v43)
+  v42 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+  if (v42)
   {
-    v41 = *v49;
-    v42 = offsetsCopy;
+    v40 = *v48;
+    v41 = offsetsCopy;
     do
     {
-      for (j = 0; j != v43; ++j)
+      for (j = 0; j != v42; ++j)
       {
-        if (*v49 != v41)
+        if (*v48 != v40)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v48 + 1) + 8 * j);
+        v24 = *(*(&v47 + 1) + 8 * j);
         v25 = [obj objectForKeyedSubscript:v24];
-        v46 = [offsetsCopy objectForKeyedSubscript:v24];
-        unsignedIntegerValue2 = [v46 unsignedIntegerValue];
-        v45 = [v25 length];
+        v45 = [offsetsCopy objectForKeyedSubscript:v24];
+        unsignedIntegerValue2 = [v45 unsignedIntegerValue];
+        v44 = [v25 length];
         intValue = [v24 intValue];
-        v47 = v25;
+        v46 = v25;
         bytes = [v25 bytes];
         v29 = bytes;
         if (unsignedIntegerValue2)
@@ -2418,8 +2864,8 @@ void __64__EKEventStore__databaseChangedExternally_processSynchronously___block_
           while (v31);
         }
 
-        v33 = (v45 >> 3) - unsignedIntegerValue2;
-        if (v45 >> 3 > unsignedIntegerValue2)
+        v33 = (v44 >> 3) - unsignedIntegerValue2;
+        if (v44 >> 3 > unsignedIntegerValue2)
         {
           v34 = (v29 + 8 * unsignedIntegerValue2 + 4);
           do
@@ -2434,33 +2880,31 @@ void __64__EKEventStore__databaseChangedExternally_processSynchronously___block_
           while (v33);
         }
 
-        offsetsCopy = v42;
+        offsetsCopy = v41;
       }
 
-      v43 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v42 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
-    while (v43);
+    while (v42);
   }
 
   v36 = v21;
   *dsCopy = v21;
   v37 = v22;
   *iDsCopy = v22;
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processExternalChangesWithLatestTimestamp:(id)timestamp changedObjectIDsData:(id)data deletedObjectIDOffsets:(id)offsets changesWereSyncStatusOnly:(BOOL)only forceImmediateNotification:(BOOL)notification
 {
   notificationCopy = notification;
   onlyCopy = only;
-  v126 = *MEMORY[0x1E69E9840];
+  v124 = *MEMORY[0x1E69E9840];
   timestampCopy = timestamp;
   dataCopy = data;
   offsetsCopy = offsets;
   dispatch_assert_queue_V2(self->_dbChangedQueue);
-  v67 = timestampCopy;
+  v65 = timestampCopy;
   if (timestampCopy)
   {
     objc_storeStrong(&self->_lastDatabaseNotificationTimestamp, timestamp);
@@ -2475,12 +2919,12 @@ void __64__EKEventStore__databaseChangedExternally_processSynchronously___block_
   {
     if (dataCopy)
     {
-      v118 = 0;
-      v117 = 0;
+      v116 = 0;
+      v115 = 0;
       [EKEventStore EKObjectIDsFromData:"EKObjectIDsFromData:deletedObjectIDOffsets:outChangedIDs:outDeletedIDs:" deletedObjectIDOffsets:? outChangedIDs:? outDeletedIDs:?];
       v12 = 0;
       v13 = 0;
-      v73 = v12;
+      v71 = v12;
       if (!(v12 | v13))
       {
         goto LABEL_70;
@@ -2491,44 +2935,44 @@ void __64__EKEventStore__databaseChangedExternally_processSynchronously___block_
 
     else
     {
-      v111 = 0;
-      v112 = &v111;
-      v113 = 0x3032000000;
-      v114 = __Block_byref_object_copy__24;
-      v115 = __Block_byref_object_dispose__24;
-      v116 = 0;
+      v109 = 0;
+      v110 = &v109;
+      v111 = 0x3032000000;
+      v112 = __Block_byref_object_copy__24;
+      v113 = __Block_byref_object_dispose__24;
+      v114 = 0;
       registeredQueue = self->_registeredQueue;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke;
       block[3] = &unk_1E77FD530;
-      block[5] = &v111;
+      block[5] = &v109;
       block[4] = self;
       dispatch_sync(registeredQueue, block);
-      v16 = [v112[5] valueForKey:@"CADObjectID"];
-      v74 = [(EKEventStore *)self _invalidCADObjectIDs:v16];
+      v16 = [v110[5] valueForKey:@"CADObjectID"];
+      v72 = [(EKEventStore *)self _invalidCADObjectIDs:v16];
       v17 = [MEMORY[0x1E695DFA8] setWithArray:?];
-      v73 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v16, "count") - objc_msgSend(v74, "count")}];
-      v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v74, "count")}];
-      v108 = 0u;
-      v109 = 0u;
+      v71 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v16, "count") - objc_msgSend(v72, "count")}];
+      v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v72, "count")}];
       v106 = 0u;
       v107 = 0u;
+      v104 = 0u;
+      v105 = 0u;
       v18 = v16;
-      v19 = [v18 countByEnumeratingWithState:&v106 objects:v125 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v104 objects:v123 count:16];
       if (v19)
       {
-        v20 = *v107;
+        v20 = *v105;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v107 != v20)
+            if (*v105 != v20)
             {
               objc_enumerationMutation(v18);
             }
 
-            v22 = *(*(&v106 + 1) + 8 * i);
+            v22 = *(*(&v104 + 1) + 8 * i);
             v23 = [EKObjectID objectIDWithCADObjectID:v22];
             if ([v17 containsObject:v22])
             {
@@ -2537,239 +2981,238 @@ void __64__EKEventStore__databaseChangedExternally_processSynchronously___block_
 
             else
             {
-              v24 = v73;
+              v24 = v71;
             }
 
             [v24 addObject:v23];
           }
 
-          v19 = [v18 countByEnumeratingWithState:&v106 objects:v125 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v104 objects:v123 count:16];
         }
 
         while (v19);
       }
 
-      _Block_object_dispose(&v111, 8);
+      _Block_object_dispose(&v109, 8);
     }
 
     eventAccessLevel = [(EKEventStore *)self eventAccessLevel];
-    v102 = 0;
-    v103 = &v102;
-    v104 = 0x2020000000;
-    v105 = 0;
+    v100 = 0;
+    v101 = &v100;
+    v102 = 0x2020000000;
+    v103 = 0;
+    v96 = 0u;
+    v97 = 0u;
     v98 = 0u;
     v99 = 0u;
-    v100 = 0u;
-    v101 = 0u;
     obj = v14;
-    v25 = [obj countByEnumeratingWithState:&v98 objects:v124 count:16];
+    v25 = [obj countByEnumeratingWithState:&v96 objects:v122 count:16];
     if (v25)
     {
-      v26 = *v99;
+      v26 = *v97;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v99 != v26)
+          if (*v97 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v98 + 1) + 8 * j);
-          v111 = 0;
-          v112 = &v111;
-          v113 = 0x3032000000;
-          v114 = __Block_byref_object_copy__24;
-          v115 = __Block_byref_object_dispose__24;
-          v116 = 0;
+          v28 = *(*(&v96 + 1) + 8 * j);
+          v109 = 0;
+          v110 = &v109;
+          v111 = 0x3032000000;
+          v112 = __Block_byref_object_copy__24;
+          v113 = __Block_byref_object_dispose__24;
+          v114 = 0;
           v29 = self->_registeredQueue;
-          v97[0] = MEMORY[0x1E69E9820];
-          v97[1] = 3221225472;
-          v97[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_2;
-          v97[3] = &unk_1E77FD688;
-          v97[6] = &v111;
-          v97[4] = self;
-          v97[5] = v28;
-          dispatch_sync(v29, v97);
-          v30 = v112[5];
+          v95[0] = MEMORY[0x1E69E9820];
+          v95[1] = 3221225472;
+          v95[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_2;
+          v95[3] = &unk_1E77FD688;
+          v95[6] = &v109;
+          v95[4] = self;
+          v95[5] = v28;
+          dispatch_sync(v29, v95);
+          v30 = v110[5];
           if (v30 && ([v30 isNew] & 1) == 0)
           {
-            [(EKEventStore *)self _cacheDeletedEventIdentifierIfNeededForObject:v112[5]];
+            [(EKEventStore *)self _cacheDeletedEventIdentifierIfNeededForObject:v110[5]];
             calendarSourcesAndDefaultsQueue = self->_calendarSourcesAndDefaultsQueue;
-            v95[0] = MEMORY[0x1E69E9820];
-            v95[1] = 3221225472;
-            v95[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_3;
-            v95[3] = &unk_1E7800808;
-            v95[4] = self;
-            v95[5] = &v111;
-            v96 = eventAccessLevel;
-            v95[6] = &v102;
-            dispatch_sync(calendarSourcesAndDefaultsQueue, v95);
+            v93[0] = MEMORY[0x1E69E9820];
+            v93[1] = 3221225472;
+            v93[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_3;
+            v93[3] = &unk_1E7800808;
+            v93[4] = self;
+            v93[5] = &v109;
+            v94 = eventAccessLevel;
+            v93[6] = &v100;
+            dispatch_sync(calendarSourcesAndDefaultsQueue, v93);
             unsavedChangesQueue = self->_unsavedChangesQueue;
-            v94[0] = MEMORY[0x1E69E9820];
-            v94[1] = 3221225472;
-            v94[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_4;
-            v94[3] = &unk_1E77FD440;
-            v94[4] = self;
-            v94[5] = &v111;
-            dispatch_sync(unsavedChangesQueue, v94);
-            v33 = v112[5];
+            v92[0] = MEMORY[0x1E69E9820];
+            v92[1] = 3221225472;
+            v92[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_4;
+            v92[3] = &unk_1E77FD440;
+            v92[4] = self;
+            v92[5] = &v109;
+            dispatch_sync(unsavedChangesQueue, v92);
             objc_opt_class();
             isKindOfClass = objc_opt_isKindOfClass();
-            v35 = v112[5];
+            v34 = v110[5];
             if (isKindOfClass)
             {
-              [(EKEventStore *)self _detachObject:v35];
+              [(EKEventStore *)self _detachObject:v34];
             }
 
             else
             {
-              [(EKEventStore *)self _unregisterObject:v35];
+              [(EKEventStore *)self _unregisterObject:v34];
             }
           }
 
-          _Block_object_dispose(&v111, 8);
+          _Block_object_dispose(&v109, 8);
         }
 
-        v25 = [obj countByEnumeratingWithState:&v98 objects:v124 count:16];
+        v25 = [obj countByEnumeratingWithState:&v96 objects:v122 count:16];
       }
 
       while (v25);
     }
 
-    v36 = self->_unsavedChangesQueue;
-    v91[0] = MEMORY[0x1E69E9820];
-    v91[1] = 3221225472;
-    v91[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_5;
-    v91[3] = &unk_1E77FD580;
-    v71 = obj;
-    v92 = v71;
+    v35 = self->_unsavedChangesQueue;
+    v89[0] = MEMORY[0x1E69E9820];
+    v89[1] = 3221225472;
+    v89[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_5;
+    v89[3] = &unk_1E77FD580;
+    v69 = obj;
+    v90 = v69;
     selfCopy = self;
-    dispatch_sync(v36, v91);
-    v111 = 0;
-    v112 = &v111;
-    v113 = 0x3032000000;
-    v114 = __Block_byref_object_copy__24;
-    v115 = __Block_byref_object_dispose__24;
-    v116 = 0;
-    v37 = self->_registeredQueue;
-    v87[0] = MEMORY[0x1E69E9820];
-    v87[1] = 3221225472;
-    v87[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_6;
-    v87[3] = &unk_1E77FD7F0;
-    v90 = dataCopy != 0;
-    v89 = &v111;
-    v87[4] = self;
-    v38 = v73;
-    v88 = v38;
-    dispatch_sync(v37, v87);
-    v85 = 0u;
-    v86 = 0u;
+    dispatch_sync(v35, v89);
+    v109 = 0;
+    v110 = &v109;
+    v111 = 0x3032000000;
+    v112 = __Block_byref_object_copy__24;
+    v113 = __Block_byref_object_dispose__24;
+    v114 = 0;
+    v36 = self->_registeredQueue;
+    v85[0] = MEMORY[0x1E69E9820];
+    v85[1] = 3221225472;
+    v85[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_6;
+    v85[3] = &unk_1E77FD7F0;
+    v88 = dataCopy != 0;
+    v87 = &v109;
+    v85[4] = self;
+    v37 = v71;
+    v86 = v37;
+    dispatch_sync(v36, v85);
     v83 = 0u;
     v84 = 0u;
-    v39 = v112[5];
-    v40 = [v39 countByEnumeratingWithState:&v83 objects:v123 count:16];
-    if (v40)
+    v81 = 0u;
+    v82 = 0u;
+    v38 = v110[5];
+    v39 = [v38 countByEnumeratingWithState:&v81 objects:v121 count:16];
+    if (v39)
     {
-      v41 = *v84;
+      v40 = *v82;
       do
       {
-        for (k = 0; k != v40; ++k)
+        for (k = 0; k != v39; ++k)
         {
-          if (*v84 != v41)
+          if (*v82 != v40)
           {
-            objc_enumerationMutation(v39);
+            objc_enumerationMutation(v38);
           }
 
-          v43 = *(*(&v83 + 1) + 8 * k);
-          v44 = objc_autoreleasePoolPush();
+          v42 = *(*(&v81 + 1) + 8 * k);
+          v43 = objc_autoreleasePoolPush();
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0 && ([v43 isNew] & 1) == 0)
+          if ((objc_opt_isKindOfClass() & 1) == 0 && ([v42 isNew] & 1) == 0)
           {
-            [v43 refresh];
+            [v42 refresh];
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & (eventAccessLevel != 1)) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & (eventAccessLevel == 1)) == 1))
             {
-              cADObjectID = [v43 CADObjectID];
+              cADObjectID = [v42 CADObjectID];
               [(EKEventStore *)self _clearCachedConstraintsForObjectWithCADObjectID:cADObjectID];
             }
           }
 
-          objc_autoreleasePoolPop(v44);
+          objc_autoreleasePoolPop(v43);
         }
 
-        v40 = [v39 countByEnumeratingWithState:&v83 objects:v123 count:16];
+        v39 = [v38 countByEnumeratingWithState:&v81 objects:v121 count:16];
       }
 
-      while (v40);
+      while (v39);
     }
 
-    v46 = self->_calendarSourcesAndDefaultsQueue;
-    v79[0] = MEMORY[0x1E69E9820];
-    v79[1] = 3221225472;
-    v79[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_7;
-    v79[3] = &unk_1E7800830;
-    v82 = dataCopy != 0;
-    v79[4] = self;
-    v76 = v38;
-    v80 = v76;
-    v81 = &v102;
-    dispatch_sync(v46, v79);
-    if (*(v103 + 24) == 1)
+    v45 = self->_calendarSourcesAndDefaultsQueue;
+    v77[0] = MEMORY[0x1E69E9820];
+    v77[1] = 3221225472;
+    v77[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_7;
+    v77[3] = &unk_1E7800830;
+    v80 = dataCopy != 0;
+    v77[4] = self;
+    v74 = v37;
+    v78 = v74;
+    v79 = &v100;
+    dispatch_sync(v45, v77);
+    if (*(v101 + 24) == 1)
     {
       [(EKEventStore *)self invalidateReminderSourceMaps];
     }
 
-    v70 = [(EKEventStore *)self _checkPendingIntegrationEvents:v76 changedIDsValid:dataCopy != 0];
+    v68 = [(EKEventStore *)self _checkPendingIntegrationEvents:v74 changedIDsValid:dataCopy != 0];
     databaseWaitCallbacks = self->_databaseWaitCallbacks;
     if (databaseWaitCallbacks && [(NSMutableArray *)databaseWaitCallbacks count])
     {
-      v48 = EKLogHandle;
+      v47 = EKLogHandle;
       if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A805E000, v48, OS_LOG_TYPE_DEFAULT, "EKEventStore - Should loop _databaseWaitCallbacks", buf, 2u);
+        _os_log_impl(&dword_1A805E000, v47, OS_LOG_TYPE_DEFAULT, "EKEventStore - Should loop _databaseWaitCallbacks", buf, 2u);
       }
 
-      v49 = [(NSMutableArray *)self->_databaseWaitCallbacks copy];
-      v50 = [(NSMutableArray *)self->_databaseWaitTimestamps copy];
-      for (m = 0; m < [v49 count]; ++m)
+      v48 = [(NSMutableArray *)self->_databaseWaitCallbacks copy];
+      v49 = [(NSMutableArray *)self->_databaseWaitTimestamps copy];
+      for (m = 0; m < [v48 count]; ++m)
       {
+        v51 = [v48 objectAtIndexedSubscript:m];
         v52 = [v49 objectAtIndexedSubscript:m];
-        v53 = [v50 objectAtIndexedSubscript:m];
-        v54 = [MEMORY[0x1E6992368] doesTimestamp:self->_lastDatabaseNotificationTimestamp includeAllChangesVisibleToTimestamp:v53];
-        v55 = EKLogHandle;
-        v56 = os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT);
-        if (v54)
+        v53 = [MEMORY[0x1E6992368] doesTimestamp:self->_lastDatabaseNotificationTimestamp includeAllChangesVisibleToTimestamp:v52];
+        v54 = EKLogHandle;
+        v55 = os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT);
+        if (v53)
         {
-          if (v56)
+          if (v55)
           {
             *buf = 138412290;
-            v120 = v53;
-            _os_log_impl(&dword_1A805E000, v55, OS_LOG_TYPE_DEFAULT, "Triggering database wait callback for timestamp: %@", buf, 0xCu);
+            v118 = v52;
+            _os_log_impl(&dword_1A805E000, v54, OS_LOG_TYPE_DEFAULT, "Triggering database wait callback for timestamp: %@", buf, 0xCu);
           }
 
-          v57 = self->_databaseWaitCallbacks;
-          v58 = _Block_copy(v52);
-          [(NSMutableArray *)v57 removeObject:v58];
+          v56 = self->_databaseWaitCallbacks;
+          v57 = _Block_copy(v51);
+          [(NSMutableArray *)v56 removeObject:v57];
 
-          [(NSMutableArray *)self->_databaseWaitTimestamps removeObject:v53];
-          v77[0] = MEMORY[0x1E69E9820];
-          v77[1] = 3221225472;
-          v77[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_252;
-          v77[3] = &unk_1E77FEB38;
-          v78 = v52;
-          dispatch_async(MEMORY[0x1E69E96A0], v77);
+          [(NSMutableArray *)self->_databaseWaitTimestamps removeObject:v52];
+          v75[0] = MEMORY[0x1E69E9820];
+          v75[1] = 3221225472;
+          v75[2] = __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_252;
+          v75[3] = &unk_1E77FEB38;
+          v76 = v51;
+          dispatch_async(MEMORY[0x1E69E96A0], v75);
         }
 
-        else if (v56)
+        else if (v55)
         {
           lastDatabaseNotificationTimestamp = self->_lastDatabaseNotificationTimestamp;
           *buf = 138412546;
-          v120 = lastDatabaseNotificationTimestamp;
-          v121 = 2112;
-          v122 = v53;
-          _os_log_impl(&dword_1A805E000, v55, OS_LOG_TYPE_DEFAULT, "Timestamp after DB refresh is still older than timestamp it's waiting on. This is might be an error unless there are multiple waiting callbacks. currTimestamp: %@. waitOnTimestamp: %@", buf, 0x16u);
+          v118 = lastDatabaseNotificationTimestamp;
+          v119 = 2112;
+          v120 = v52;
+          _os_log_impl(&dword_1A805E000, v54, OS_LOG_TYPE_DEFAULT, "Timestamp after DB refresh is still older than timestamp it's waiting on. This is might be an error unless there are multiple waiting callbacks. currTimestamp: %@. waitOnTimestamp: %@", buf, 0x16u);
         }
       }
     }
@@ -2778,41 +3221,39 @@ void __64__EKEventStore__databaseChangedExternally_processSynchronously___block_
     {
       if (dataCopy)
       {
-        v60 = [v76 arrayByAddingObjectsFromArray:v71];
-        v61 = v60;
-        if (v70)
+        v59 = [v74 arrayByAddingObjectsFromArray:v69];
+        v60 = v59;
+        if (v68)
         {
-          v62 = [v60 arrayByAddingObjectsFromArray:?];
+          v61 = [v59 arrayByAddingObjectsFromArray:?];
 
-          v61 = v62;
+          v60 = v61;
         }
       }
 
       else
       {
-        v61 = 0;
+        v60 = 0;
       }
 
       if (onlyCopy)
       {
-        v63 = 2;
+        v62 = 2;
       }
 
       else
       {
-        v63 = 1;
+        v62 = 1;
       }
 
-      [(EKEventStore *)self _postEventStoreChangedNotificationWithChangeType:v63 changedObjectIDs:v61 forceImmediate:notificationCopy];
+      [(EKEventStore *)self _postEventStoreChangedNotificationWithChangeType:v62 changedObjectIDs:v60 forceImmediate:notificationCopy];
     }
 
-    _Block_object_dispose(&v111, 8);
-    _Block_object_dispose(&v102, 8);
+    _Block_object_dispose(&v109, 8);
+    _Block_object_dispose(&v100, 8);
   }
 
 LABEL_70:
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke(uint64_t a1)
@@ -2822,7 +3263,7 @@ uint64_t __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedO
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 uint64_t __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_2(void *a1)
@@ -2832,28 +3273,26 @@ uint64_t __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedO
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
-void __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_3(uint64_t a1)
+void __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 40);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v3 = *(a1 + 32);
-    v7 = [*(*(*(a1 + 40) + 8) + 40) CADObjectID];
-    [v3 _removeCachedCalendarWithCADID:v7];
+    v6 = [*(*(*(a1 + 40) + 8) + 40) CADObjectID];
+    [v3 _removeCachedCalendarWithCADID:v6];
   }
 
   else
   {
-    v4 = *(*(*(a1 + 40) + 8) + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [*(a1 + 32) _clearCachedSources];
-      v5 = *(a1 + 32);
+      v4 = *(a1 + 32);
       if (*(a1 + 56) == 1)
       {
         [*(a1 + 32) _clearAllCachedConstraints];
@@ -2861,8 +3300,8 @@ void __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjec
 
       else
       {
-        v6 = [*(*(*(a1 + 40) + 8) + 40) CADObjectID];
-        [v5 _clearCachedConstraintsForObjectWithCADObjectID:v6];
+        v5 = [*(*(*(a1 + 40) + 8) + 40) CADObjectID];
+        [v4 _clearCachedConstraintsForObjectWithCADObjectID:v5];
       }
 
       *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -2885,33 +3324,33 @@ uint64_t __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedO
 
 void __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_5(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) count] && objc_msgSend(*(*(a1 + 40) + 112), "count"))
   {
     v2 = [MEMORY[0x1E695DFD8] setWithArray:*(a1 + 32)];
     v3 = objc_alloc_init(MEMORY[0x1E696AD50]);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v4 = *(*(a1 + 40) + 112);
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         v9 = 0;
         do
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = [*(*(&v13 + 1) + 8 * v9) objectID];
+          v10 = [*(*(&v12 + 1) + 8 * v9) objectID];
           v11 = [v2 containsObject:v10];
 
           if (v11)
@@ -2924,7 +3363,7 @@ void __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjec
         }
 
         while (v6 != v9);
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -2932,8 +3371,6 @@ void __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjec
 
     [*(*(a1 + 40) + 112) removeObjectsAtIndexes:v3];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_6(uint64_t a1)
@@ -2942,147 +3379,148 @@ uint64_t __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedO
   if (*(a1 + 56) == 1)
   {
     v3 = *(a1 + 40);
-    [MEMORY[0x1E695DFB0] null];
-    v4 = [v2 objectsForKeys:v3 notFoundMarker:objc_claimAutoreleasedReturnValue()];
+    v11 = [MEMORY[0x1E695DFB0] null];
+    v4 = [v2 objectsForKeys:v3 notFoundMarker:v11];
     v5 = *(*(a1 + 48) + 8);
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
+
+    v8 = v11;
   }
 
   else
   {
     v7 = [*(*(a1 + 32) + 440) allValues];
-    v8 = *(*(a1 + 48) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v9 = *(*(a1 + 48) + 8);
+    v8 = *(v9 + 40);
+    *(v9 + 40) = v7;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v7, v8);
 }
 
 void __156__EKEventStore__processExternalChangesWithLatestTimestamp_changedObjectIDsData_deletedObjectIDOffsets_changesWereSyncStatusOnly_forceImmediateNotification___block_invoke_7(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 56);
   v3 = *(a1 + 32);
-  if (v2 != 1 || !v3[7] && !v3[8])
+  if (v2 == 1 && (v3[7] || v3[8]))
   {
-    [v3 _clearCachedSources];
-    [*(a1 + 32) _clearCachedCalendars];
-    *(*(*(a1 + 48) + 8) + 24) = 1;
-    goto LABEL_24;
-  }
-
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
-  if (!v5)
-  {
-    goto LABEL_22;
-  }
-
-  v6 = v5;
-  v7 = *v21;
-  do
-  {
-    for (i = 0; i != v6; ++i)
+    v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v4 = *(a1 + 40);
+    v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (!v5)
     {
-      if (*v21 != v7)
-      {
-        objc_enumerationMutation(v4);
-      }
+      goto LABEL_22;
+    }
 
-      v9 = *(*(&v20 + 1) + 8 * i);
-      v10 = [v9 entityType];
-      v11 = *(a1 + 32);
-      if (v10 == 6)
+    v6 = v5;
+    v7 = *v20;
+    while (1)
+    {
+      for (i = 0; i != v6; ++i)
       {
-        [v11 _clearCachedCalendars];
-        *(*(*(a1 + 48) + 8) + 24) = 1;
-        v12 = *(a1 + 32);
-        if (!v12[8])
+        if (*v20 != v7)
         {
-          continue;
+          objc_enumerationMutation(v4);
         }
 
-        v13 = [v12 database];
-        v14 = [v9 CADObjectIDWithGeneration:{objc_msgSend(v13, "databaseRestoreGeneration")}];
-
-        v15 = [*(*(a1 + 32) + 64) objectForKey:v14];
-
-        if (!v15)
+        v9 = *(*(&v19 + 1) + 8 * i);
+        v10 = [v9 entityType];
+        v11 = *(a1 + 32);
+        if (v10 == 6)
         {
-          [*(a1 + 32) _clearCachedSources];
+          [v11 _clearCachedCalendars];
+          *(*(*(a1 + 48) + 8) + 24) = 1;
+          v12 = *(a1 + 32);
+          if (!v12[8])
+          {
+            continue;
+          }
+
+          v13 = [v12 database];
+          v14 = [v9 CADObjectIDWithGeneration:{objc_msgSend(v13, "databaseRestoreGeneration")}];
+
+          v15 = [*(*(a1 + 32) + 64) objectForKey:v14];
+
+          if (!v15)
+          {
+            [*(a1 + 32) _clearCachedSources];
+          }
+
+          goto LABEL_19;
         }
 
-        goto LABEL_19;
-      }
-
-      if (v10 == 1 && v11[7] != 0)
-      {
-        v17 = [v11 database];
-        v14 = [v9 CADObjectIDWithGeneration:{objc_msgSend(v17, "databaseRestoreGeneration")}];
-
-        v18 = [*(*(a1 + 32) + 56) objectForKey:v14];
-
-        if (!v18)
+        if (v10 == 1 && v11[7] != 0)
         {
-          [*(a1 + 32) _cacheCalendarWithCADObjectID:v14 withDefaultLoadedPropertyValues:0 forKeys:0];
-        }
+          v17 = [v11 database];
+          v14 = [v9 CADObjectIDWithGeneration:{objc_msgSend(v17, "databaseRestoreGeneration")}];
+
+          v18 = [*(*(a1 + 32) + 56) objectForKey:v14];
+
+          if (!v18)
+          {
+            [*(a1 + 32) _cacheCalendarWithCADObjectID:v14 withDefaultLoadedPropertyValues:0 forKeys:0];
+          }
 
 LABEL_19:
 
-        continue;
+          continue;
+        }
       }
-    }
 
-    v6 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
-  }
-
-  while (v6);
+      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      if (!v6)
+      {
 LABEL_22:
 
-LABEL_24:
-  v19 = *MEMORY[0x1E69E9840];
+        return;
+      }
+    }
+  }
+
+  [v3 _clearCachedSources];
+  [*(a1 + 32) _clearCachedCalendars];
+  *(*(*(a1 + 48) + 8) + 24) = 1;
 }
 
 - (id)_checkPendingIntegrationEvents:(id)events changedIDsValid:(BOOL)valid
 {
   validCopy = valid;
-  v108 = *MEMORY[0x1E69E9840];
+  v107 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   dispatch_assert_queue_V2(self->_dbChangedQueue);
   if (validCopy)
   {
-    v98 = 0u;
-    v99 = 0u;
-    v96 = 0u;
     v97 = 0u;
+    v98 = 0u;
+    v95 = 0u;
+    v96 = 0u;
     v6 = eventsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v96 objects:v107 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v95 objects:v106 count:16];
     if (v7)
     {
-      v8 = *v97;
+      v8 = *v96;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v97 != v8)
+          if (*v96 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          if ([*(*(&v96 + 1) + 8 * i) entityType] == 2)
+          if ([*(*(&v95 + 1) + 8 * i) entityType] == 2)
           {
 
             goto LABEL_12;
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v96 objects:v107 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v95 objects:v106 count:16];
         if (v7)
         {
           continue;
@@ -3096,134 +3534,134 @@ LABEL_24:
   }
 
 LABEL_12:
-  v94 = 0u;
-  v95 = 0u;
-  v92 = 0u;
   v93 = 0u;
+  v94 = 0u;
+  v91 = 0u;
+  v92 = 0u;
   obj = self->_pendingIntegrationEvents;
-  v51 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v92 objects:v106 count:16];
-  if (!v51)
+  v50 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v91 objects:v105 count:16];
+  if (!v50)
   {
 
     v6 = 0;
 LABEL_83:
-    v56 = 0;
+    v55 = 0;
     goto LABEL_84;
   }
 
-  v56 = 0;
-  v49 = *v93;
-  v50 = 0;
+  v55 = 0;
+  v48 = *v92;
+  v49 = 0;
   do
   {
-    for (j = 0; j != v51; ++j)
+    for (j = 0; j != v50; ++j)
     {
-      if (*v93 != v49)
+      if (*v92 != v48)
       {
         objc_enumerationMutation(obj);
       }
 
-      v54 = *(*(&v92 + 1) + 8 * j);
-      v53 = [(NSMutableDictionary *)self->_pendingIntegrationEvents objectForKeyedSubscript:?];
-      [(EKEventStore *)self removeEmptyTablesInArray:v53];
-      if ([v53 count])
+      v53 = *(*(&v91 + 1) + 8 * j);
+      v52 = [(NSMutableDictionary *)self->_pendingIntegrationEvents objectForKeyedSubscript:?];
+      [(EKEventStore *)self removeEmptyTablesInArray:v52];
+      if ([v52 count])
       {
-        v86 = 0;
-        v87 = &v86;
-        v88 = 0x3032000000;
-        v89 = __Block_byref_object_copy__24;
-        v90 = __Block_byref_object_dispose__24;
-        v91 = 0;
+        v85 = 0;
+        v86 = &v85;
+        v87 = 0x3032000000;
+        v88 = __Block_byref_object_copy__24;
+        v89 = __Block_byref_object_dispose__24;
+        v90 = 0;
         connection = [(EKEventStore *)self connection];
         cADOperationProxySync = [connection CADOperationProxySync];
-        v80 = MEMORY[0x1E69E9820];
-        v81 = 3221225472;
-        v82 = __63__EKEventStore__checkPendingIntegrationEvents_changedIDsValid___block_invoke;
-        v83 = &unk_1E77FED28;
-        v84 = v54;
-        v85 = &v86;
+        v79 = MEMORY[0x1E69E9820];
+        v80 = 3221225472;
+        v81 = __63__EKEventStore__checkPendingIntegrationEvents_changedIDsValid___block_invoke;
+        v82 = &unk_1E77FED28;
+        v83 = v53;
+        v84 = &v85;
         [cADOperationProxySync CADDatabaseGetAllEventsWithUniqueID:? reply:?];
 
-        v12 = [v87[5] count];
+        v12 = [v86[5] count];
         if (v12)
         {
-          v62 = [MEMORY[0x1E695DF70] arrayWithCapacity:v12];
-          v78 = 0u;
-          v79 = 0u;
-          v76 = 0u;
+          v61 = [MEMORY[0x1E695DF70] arrayWithCapacity:v12];
           v77 = 0u;
-          v13 = v87[5];
-          v14 = [v13 countByEnumeratingWithState:&v76 objects:v105 count:16];
+          v78 = 0u;
+          v75 = 0u;
+          v76 = 0u;
+          v13 = v86[5];
+          v14 = [v13 countByEnumeratingWithState:&v75 objects:v104 count:16];
           if (v14)
           {
-            v15 = *v77;
+            v15 = *v76;
             do
             {
               for (k = 0; k != v14; ++k)
               {
-                if (*v77 != v15)
+                if (*v76 != v15)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v17 = [EKObjectID objectIDWithCADObjectID:*(*(&v76 + 1) + 8 * k)];
+                v17 = [EKObjectID objectIDWithCADObjectID:*(*(&v75 + 1) + 8 * k)];
                 v18 = [(EKEventStore *)self publicObjectWithFetchedObjectID:v17];
 
                 if (v18)
                 {
-                  [v62 addObject:v18];
+                  [v61 addObject:v18];
                 }
               }
 
-              v14 = [v13 countByEnumeratingWithState:&v76 objects:v105 count:16];
+              v14 = [v13 countByEnumeratingWithState:&v75 objects:v104 count:16];
             }
 
             while (v14);
           }
 
-          v74 = 0u;
-          v75 = 0u;
-          v72 = 0u;
           v73 = 0u;
-          v55 = v53;
-          v59 = [v55 countByEnumeratingWithState:&v72 objects:v104 count:16];
-          if (v59)
+          v74 = 0u;
+          v71 = 0u;
+          v72 = 0u;
+          v54 = v52;
+          v58 = [v54 countByEnumeratingWithState:&v71 objects:v103 count:16];
+          if (v58)
           {
-            v61 = 0;
-            v57 = *v73;
+            v60 = 0;
+            v56 = *v72;
             do
             {
-              for (m = 0; m != v59; ++m)
+              for (m = 0; m != v58; ++m)
               {
-                if (*v73 != v57)
+                if (*v72 != v56)
                 {
-                  objc_enumerationMutation(v55);
+                  objc_enumerationMutation(v54);
                 }
 
-                v19 = *(*(&v72 + 1) + 8 * m);
+                v19 = *(*(&v71 + 1) + 8 * m);
                 anyObject = [v19 anyObject];
                 if (anyObject)
                 {
-                  v58 = v19;
-                  v70 = 0u;
-                  v71 = 0u;
-                  v68 = 0u;
+                  v57 = v19;
                   v69 = 0u;
-                  v21 = v62;
-                  v22 = [v21 countByEnumeratingWithState:&v68 objects:v103 count:16];
+                  v70 = 0u;
+                  v67 = 0u;
+                  v68 = 0u;
+                  v21 = v61;
+                  v22 = [v21 countByEnumeratingWithState:&v67 objects:v102 count:16];
                   if (v22)
                   {
-                    v23 = *v69;
+                    v23 = *v68;
                     while (2)
                     {
                       for (n = 0; n != v22; ++n)
                       {
-                        if (*v69 != v23)
+                        if (*v68 != v23)
                         {
                           objc_enumerationMutation(v21);
                         }
 
-                        v25 = *(*(&v68 + 1) + 8 * n);
+                        v25 = *(*(&v67 + 1) + 8 * n);
                         calendar = [v25 calendar];
                         calendar2 = [anyObject calendar];
                         v28 = [calendar isEqual:calendar2];
@@ -3235,30 +3673,30 @@ LABEL_83:
                           {
                             privacySafeIntegrationEventDescription = [anyObject privacySafeIntegrationEventDescription];
                             *buf = 138543362;
-                            v102 = privacySafeIntegrationEventDescription;
+                            v101 = privacySafeIntegrationEventDescription;
                             _os_log_impl(&dword_1A805E000, v29, OS_LOG_TYPE_INFO, "Pending integration event has been matched; removing it: %{public}@", buf, 0xCu);
                           }
 
                           objectID = [anyObject objectID];
-                          v66 = 0u;
-                          v67 = 0u;
-                          v64 = 0u;
                           v65 = 0u;
-                          v31 = v58;
-                          v32 = [v31 countByEnumeratingWithState:&v64 objects:v100 count:16];
+                          v66 = 0u;
+                          v63 = 0u;
+                          v64 = 0u;
+                          v31 = v57;
+                          v32 = [v31 countByEnumeratingWithState:&v63 objects:v99 count:16];
                           if (v32)
                           {
-                            v33 = *v65;
+                            v33 = *v64;
                             do
                             {
                               for (ii = 0; ii != v32; ++ii)
                               {
-                                if (*v65 != v33)
+                                if (*v64 != v33)
                                 {
                                   objc_enumerationMutation(v31);
                                 }
 
-                                v35 = *(*(&v64 + 1) + 8 * ii);
+                                v35 = *(*(&v63 + 1) + 8 * ii);
                                 backingObject = [v35 backingObject];
                                 [(EKEventStore *)self _objectDidReset:backingObject];
 
@@ -3268,34 +3706,34 @@ LABEL_83:
                                 [v35 _resetAfterUpdatingChangeSetOrBackingObject];
                               }
 
-                              v32 = [v31 countByEnumeratingWithState:&v64 objects:v100 count:16];
+                              v32 = [v31 countByEnumeratingWithState:&v63 objects:v99 count:16];
                             }
 
                             while (v32);
                           }
 
-                          v38 = v56;
-                          if (!v56)
+                          v38 = v55;
+                          if (!v55)
                           {
                             v38 = objc_alloc_init(MEMORY[0x1E695DF70]);
                           }
 
-                          v56 = v38;
+                          v55 = v38;
                           [v38 addObject:objectID];
-                          v39 = v61;
-                          if (!v61)
+                          v39 = v60;
+                          if (!v60)
                           {
                             v39 = objc_alloc_init(MEMORY[0x1E695DF70]);
                           }
 
-                          v61 = v39;
+                          v60 = v39;
                           [v39 addObject:v31];
 
                           goto LABEL_57;
                         }
                       }
 
-                      v22 = [v21 countByEnumeratingWithState:&v68 objects:v103 count:16];
+                      v22 = [v21 countByEnumeratingWithState:&v67 objects:v102 count:16];
                       if (v22)
                       {
                         continue;
@@ -3314,77 +3752,77 @@ LABEL_57:
                   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138543362;
-                    v102 = v54;
+                    v101 = v53;
                     _os_log_impl(&dword_1A805E000, v40, OS_LOG_TYPE_INFO, "Discarding empty pending integration event table for: %{public}@", buf, 0xCu);
                   }
 
-                  v41 = v61;
-                  if (!v61)
+                  v41 = v60;
+                  if (!v60)
                   {
                     v41 = objc_alloc_init(MEMORY[0x1E695DF70]);
                   }
 
-                  v61 = v41;
+                  v60 = v41;
                   [v41 addObject:v19];
                 }
               }
 
-              v59 = [v55 countByEnumeratingWithState:&v72 objects:v104 count:16];
+              v58 = [v54 countByEnumeratingWithState:&v71 objects:v103 count:16];
             }
 
-            while (v59);
+            while (v58);
           }
 
           else
           {
-            v61 = 0;
+            v60 = 0;
           }
 
-          v43 = v50;
-          v44 = [v61 count];
-          if (v44 == [v55 count])
+          v43 = v49;
+          v44 = [v60 count];
+          if (v44 == [v54 count])
           {
-            if (!v50)
+            if (!v49)
             {
               v43 = objc_alloc_init(MEMORY[0x1E695DF70]);
             }
 
-            [v43 addObject:v54];
+            [v43 addObject:v53];
           }
 
-          else if (v61)
+          else if (v60)
           {
-            [v55 removeObjectsInArray:?];
+            [v54 removeObjectsInArray:?];
           }
 
-          v50 = v43;
+          v49 = v43;
         }
 
-        _Block_object_dispose(&v86, 8);
+        _Block_object_dispose(&v85, 8);
       }
 
       else
       {
-        v42 = v50;
-        if (!v50)
+        v42 = v49;
+        if (!v49)
         {
           v42 = objc_alloc_init(MEMORY[0x1E695DF70]);
         }
 
-        v50 = v42;
-        [v42 addObject:v54];
+        v49 = v42;
+        [v42 addObject:v53];
       }
     }
 
-    v51 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v92 objects:v106 count:16];
+    v50 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v91 objects:v105 count:16];
   }
 
-  while (v51);
+  while (v50);
 
-  if (v50)
+  if (v49)
   {
     [(NSMutableDictionary *)self->_pendingIntegrationEvents removeObjectsForKeys:?];
-    v6 = v50;
+    v6 = v49;
   }
 
   else
@@ -3394,19 +3832,18 @@ LABEL_57:
 
 LABEL_84:
 
-  v45 = *MEMORY[0x1E69E9840];
-
-  return v56;
+  return v55;
 }
 
-void __63__EKEventStore__checkPendingIntegrationEvents_changedIDsValid___block_invoke(uint64_t a1, int a2, void *a3)
+void __63__EKEventStore__checkPendingIntegrationEvents_changedIDsValid___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __63__EKEventStore__checkPendingIntegrationEvents_changedIDsValid___block_invoke_cold_1(a1);
+      __63__EKEventStore__checkPendingIntegrationEvents_changedIDsValid___block_invoke_cold_1();
     }
   }
 
@@ -3418,29 +3855,29 @@ void __63__EKEventStore__checkPendingIntegrationEvents_changedIDsValid___block_i
 
 - (void)removeEmptyTablesInArray:(id)array
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [arrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [arrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        anyObject = [*(*(&v12 + 1) + 8 * i) anyObject];
+        anyObject = [*(*(&v11 + 1) + 8 * i) anyObject];
 
         if (!anyObject)
         {
@@ -3455,7 +3892,7 @@ void __63__EKEventStore__checkPendingIntegrationEvents_changedIDsValid___block_i
         ++v6;
       }
 
-      v5 = [arrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [arrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -3464,8 +3901,6 @@ void __63__EKEventStore__checkPendingIntegrationEvents_changedIDsValid___block_i
       [arrayCopy removeObjectsAtIndexes:v7];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cacheDeletedEventIdentifierIfNeededForObject:(id)object
@@ -3526,35 +3961,33 @@ LABEL_11:
 
 void __71__EKEventStore__contextForNotificationWithChangeType_changedObjectIDs___block_invoke()
 {
-  v13[1] = *MEMORY[0x1E69E9840];
-  v12 = @"EKEventStoreUnknownChangeKey";
+  v12[1] = *MEMORY[0x1E69E9840];
+  v11 = @"EKEventStoreUnknownChangeKey";
   v0 = MEMORY[0x1E695E118];
-  v13[0] = MEMORY[0x1E695E118];
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = MEMORY[0x1E695E118];
+  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v2 = _contextForNotificationWithChangeType_changedObjectIDs__contextForSyncOnlyWithUnknownChanges;
   _contextForNotificationWithChangeType_changedObjectIDs__contextForSyncOnlyWithUnknownChanges = v1;
 
-  v10 = @"EKEventStoreNonSyncOnlyChangeKey";
-  v11 = v0;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v9 = @"EKEventStoreNonSyncOnlyChangeKey";
+  v10 = v0;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
   v4 = _contextForNotificationWithChangeType_changedObjectIDs__contextForNonSyncOnlyWithKnownChanges;
   _contextForNotificationWithChangeType_changedObjectIDs__contextForNonSyncOnlyWithKnownChanges = v3;
 
-  v8[0] = @"EKEventStoreUnknownChangeKey";
-  v8[1] = @"EKEventStoreNonSyncOnlyChangeKey";
-  v9[0] = v0;
-  v9[1] = v0;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  v7[0] = @"EKEventStoreUnknownChangeKey";
+  v7[1] = @"EKEventStoreNonSyncOnlyChangeKey";
+  v8[0] = v0;
+  v8[1] = v0;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
   v6 = _contextForNotificationWithChangeType_changedObjectIDs__contextForNonSyncOnlyWithUnknownChanges;
   _contextForNotificationWithChangeType_changedObjectIDs__contextForNonSyncOnlyWithUnknownChanges = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postEventStoreChangedNotificationWithChangeType:(unint64_t)type changedObjectIDs:(id)ds forceImmediate:(BOOL)immediate
 {
   immediateCopy = immediate;
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v9 = [objc_opt_class() _contextForNotificationWithChangeType:type changedObjectIDs:dsCopy];
   v10 = v9;
@@ -3570,20 +4003,18 @@ void __71__EKEventStore__contextForNotificationWithChangeType_changedObjectIDs__
 
     else
     {
-      v13 = @"EKEventStoreForceImmediateChangeKey";
-      v14[0] = MEMORY[0x1E695E118];
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = @"EKEventStoreForceImmediateChangeKey";
+      v13[0] = MEMORY[0x1E695E118];
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     }
   }
 
   [(CalAccumulatingQueue *)self->_notificationAccumulatingQueue updateTagsAndExecuteBlock:dsCopy withContext:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postEventStoreChangedNotificationWithTags:(id)tags context:(id)context
 {
-  v27[4] = *MEMORY[0x1E69E9840];
+  v26[4] = *MEMORY[0x1E69E9840];
   tagsCopy = tags;
   contextCopy = context;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
@@ -3612,16 +4043,16 @@ void __71__EKEventStore__contextForNotificationWithChangeType_changedObjectIDs__
     }
 
 LABEL_7:
-    v24[0] = @"EKEventStoreChangeTypeUserInfoKey";
+    v23[0] = @"EKEventStoreChangeTypeUserInfoKey";
     v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v15];
-    v25[0] = v16;
-    v25[1] = MEMORY[0x1E695E118];
-    v24[1] = @"EKEventStoreCalendarDataChangedUserInfoKey";
-    v24[2] = @"EKEventStoreRemindersDataChangedUserInfoKey";
-    v25[2] = MEMORY[0x1E695E110];
+    v24[0] = v16;
+    v24[1] = MEMORY[0x1E695E118];
+    v23[1] = @"EKEventStoreCalendarDataChangedUserInfoKey";
+    v23[2] = @"EKEventStoreRemindersDataChangedUserInfoKey";
+    v24[2] = MEMORY[0x1E695E110];
     v17 = MEMORY[0x1E695DF20];
-    v18 = v25;
-    v19 = v24;
+    v18 = v24;
+    v19 = v23;
     v20 = 3;
     goto LABEL_8;
   }
@@ -3634,26 +4065,24 @@ LABEL_7:
   }
 
 LABEL_5:
-  v27[0] = v12;
-  v26[0] = @"EKEventStoreChangedObjectIDsUserInfoKey";
-  v26[1] = @"EKEventStoreChangeTypeUserInfoKey";
+  v26[0] = v12;
+  v25[0] = @"EKEventStoreChangedObjectIDsUserInfoKey";
+  v25[1] = @"EKEventStoreChangeTypeUserInfoKey";
   v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v15];
-  v27[1] = v16;
-  v27[2] = MEMORY[0x1E695E118];
-  v26[2] = @"EKEventStoreCalendarDataChangedUserInfoKey";
-  v26[3] = @"EKEventStoreRemindersDataChangedUserInfoKey";
-  v27[3] = MEMORY[0x1E695E110];
+  v26[1] = v16;
+  v26[2] = MEMORY[0x1E695E118];
+  v25[2] = @"EKEventStoreCalendarDataChangedUserInfoKey";
+  v25[3] = @"EKEventStoreRemindersDataChangedUserInfoKey";
+  v26[3] = MEMORY[0x1E695E110];
   v17 = MEMORY[0x1E695DF20];
-  v18 = v27;
-  v19 = v26;
+  v18 = v26;
+  v19 = v25;
   v20 = 4;
 LABEL_8:
   v21 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:v20];
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter postNotificationName:@"EKEventStoreChangedNotification" object:self userInfo:v21];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 + (double)_defaultDelayForThrottledNotificationsWithInitializationOptions:(id)options
@@ -3778,6 +4207,30 @@ void __46__EKEventStore__defaultAlarmChangedExternally__block_invoke(uint64_t a1
   }
 }
 
+- (void)databaseRestoreGenerationChangedExternally:(int)externally
+{
+  if ([(EKEventStore *)self ignoreExternalChanges])
+  {
+    if (databaseRestoreGenerationChangedExternally__onceToken != -1)
+    {
+      [EKEventStore databaseRestoreGenerationChangedExternally:];
+    }
+
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __59__EKEventStore_databaseRestoreGenerationChangedExternally___block_invoke_2;
+    block[3] = &unk_1E77FD418;
+    block[4] = self;
+    dispatch_async(databaseRestoreGenerationChangedExternally__autoResetQueue, block);
+  }
+
+  else
+  {
+
+    [(EKEventStore *)self setRestoreGenerationChanged:1];
+  }
+}
+
 void __59__EKEventStore_databaseRestoreGenerationChangedExternally___block_invoke()
 {
   v0 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -3811,10 +4264,11 @@ void __59__EKEventStore_databaseRestoreGenerationChangedExternally___block_invok
   return v4;
 }
 
-void __36__EKEventStore_eventStoreIdentifier__block_invoke(uint64_t a1, int a2, void *a3)
+void __36__EKEventStore_eventStoreIdentifier__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -3990,45 +4444,45 @@ LABEL_9:
 
 void __33__EKEventStore__deletableSources__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__24;
-  v21 = __Block_byref_object_dispose__24;
-  v22 = 0;
+  v23 = *MEMORY[0x1E69E9840];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__24;
+  v20 = __Block_byref_object_dispose__24;
+  v21 = 0;
   v2 = [*(a1 + 32) connection];
   v3 = [v2 CADOperationProxySync];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __33__EKEventStore__deletableSources__block_invoke_2;
-  v16[3] = &unk_1E7800918;
-  v16[4] = &v17;
-  [v3 CADDatabaseGetDeletableSources:v16];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __33__EKEventStore__deletableSources__block_invoke_2;
+  v15[3] = &unk_1E7800918;
+  v15[4] = &v16;
+  [v3 CADDatabaseGetDeletableSources:v15];
 
-  v4 = v18[5];
+  v4 = v17[5];
   if (v4)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v12 objects:v23 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v22 count:16];
     if (v6)
     {
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         v8 = 0;
         do
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = [EKObjectID objectIDWithCADObjectID:*(*(&v12 + 1) + 8 * v8), v12];
+          v9 = [EKObjectID objectIDWithCADObjectID:*(*(&v11 + 1) + 8 * v8), v11];
           v10 = [*(a1 + 32) _sourceWithID:v9];
           if (v10)
           {
@@ -4039,22 +4493,21 @@ void __33__EKEventStore__deletableSources__block_invoke(uint64_t a1)
         }
 
         while (v6 != v8);
-        v6 = [v5 countByEnumeratingWithState:&v12 objects:v23 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v11 objects:v22 count:16];
       }
 
       while (v6);
     }
   }
 
-  _Block_object_dispose(&v17, 8);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v16, 8);
 }
 
-void __33__EKEventStore__deletableSources__block_invoke_2(uint64_t a1, int a2, void *a3)
+void __33__EKEventStore__deletableSources__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -4116,23 +4569,8 @@ void __33__EKEventStore__deletableSources__block_invoke_2(uint64_t a1, int a2, v
 void __68__EKEventStore_getSubscribedCalendarsSourceCreateIfNeededWithError___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (v2[6])
+  if (v2[6] || ([v2 connection], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "CADOperationProxySync"), v4 = objc_claimAutoreleasedReturnValue(), v8[0] = MEMORY[0x1E69E9820], v8[1] = 3221225472, v8[2] = __68__EKEventStore_getSubscribedCalendarsSourceCreateIfNeededWithError___block_invoke_2, v8[3] = &unk_1E77FFEC8, v9 = *(a1 + 32), objc_msgSend(v4, "CADDatabaseGetOrCreateSubscribedCalendarsSource:", v8), v4, v3, *(*(a1 + 32) + 48)))
   {
-    goto LABEL_3;
-  }
-
-  v3 = [v2 connection];
-  v4 = [v3 CADOperationProxySync];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __68__EKEventStore_getSubscribedCalendarsSourceCreateIfNeededWithError___block_invoke_2;
-  v8[3] = &unk_1E77FFEC8;
-  v9 = *(a1 + 32);
-  [v4 CADDatabaseGetOrCreateSubscribedCalendarsSource:v8];
-
-  if (*(*(a1 + 32) + 48))
-  {
-LABEL_3:
     v5 = [EKObjectID objectIDWithCADObjectID:?];
     v6 = *(*(a1 + 48) + 8);
     v7 = *(v6 + 40);
@@ -4146,25 +4584,23 @@ void __68__EKEventStore_getSubscribedCalendarsSourceCreateIfNeededWithError___bl
   if (a2)
   {
     v6 = [MEMORY[0x1E696ABC0] errorWithCADResult:a2];
-    v8 = *(a1 + 40);
-    v7 = a1 + 40;
-    v9 = *(v8 + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v6;
+    v7 = *(*(a1 + 40) + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
 
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __68__EKEventStore_getSubscribedCalendarsSourceCreateIfNeededWithError___block_invoke_2_cold_1(v7);
+      __68__EKEventStore_getSubscribedCalendarsSourceCreateIfNeededWithError___block_invoke_2_cold_1();
     }
   }
 
   else
   {
-    v11 = [*(a1 + 32) database];
-    v12 = [v5 stampedCopyWithGeneration:{objc_msgSend(v11, "databaseRestoreGeneration")}];
-    v13 = *(a1 + 32);
-    v14 = *(v13 + 48);
-    *(v13 + 48) = v12;
+    v9 = [*(a1 + 32) database];
+    v10 = [v5 stampedCopyWithGeneration:{objc_msgSend(v9, "databaseRestoreGeneration")}];
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 48);
+    *(v11 + 48) = v10;
   }
 }
 
@@ -4229,25 +4665,23 @@ void __61__EKEventStore_localBirthdayCalendarCreateIfNeededWithError___block_inv
   if (a2)
   {
     v6 = [MEMORY[0x1E696ABC0] errorWithCADResult:a2];
-    v8 = *(a1 + 40);
-    v7 = a1 + 40;
-    v9 = *(v8 + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v6;
+    v7 = *(*(a1 + 40) + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
 
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __61__EKEventStore_localBirthdayCalendarCreateIfNeededWithError___block_invoke_cold_1(v7);
+      __61__EKEventStore_localBirthdayCalendarCreateIfNeededWithError___block_invoke_cold_1();
     }
   }
 
   else
   {
-    v11 = [*(a1 + 32) database];
-    v12 = [v5 stampedCopyWithGeneration:{objc_msgSend(v11, "databaseRestoreGeneration")}];
-    v13 = *(*(a1 + 48) + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = v12;
+    v9 = [*(a1 + 32) database];
+    v10 = [v5 stampedCopyWithGeneration:{objc_msgSend(v9, "databaseRestoreGeneration")}];
+    v11 = *(*(a1 + 48) + 8);
+    v12 = *(v11 + 40);
+    *(v11 + 40) = v10;
   }
 }
 
@@ -4288,29 +4722,29 @@ uint64_t __41__EKEventStore_delegateSourcesForSource___block_invoke(uint64_t a1,
 
 - (id)parentSourceForDelegateSource:(id)source
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   delegatedAccountOwnerStoreID = [source delegatedAccountOwnerStoreID];
   if (delegatedAccountOwnerStoreID)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     eventSources = [(EKEventStore *)self eventSources];
-    v6 = [eventSources countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [eventSources countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(eventSources);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           externalID = [v9 externalID];
           v11 = [externalID isEqual:delegatedAccountOwnerStoreID];
 
@@ -4321,7 +4755,7 @@ uint64_t __41__EKEventStore_delegateSourcesForSource___block_invoke(uint64_t a1,
           }
         }
 
-        v6 = [eventSources countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [eventSources countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -4344,8 +4778,6 @@ LABEL_12:
     v6 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
@@ -4366,10 +4798,11 @@ LABEL_12:
   [cADOperationProxy CADSourceGetGrantedDelegatesList:cADObjectID reply:v12];
 }
 
-void __55__EKEventStore_fetchGrantedDelegatesForSource_results___block_invoke(uint64_t a1, int a2, void *a3)
+void __55__EKEventStore_fetchGrantedDelegatesForSource_results___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     v6 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -4624,10 +5057,66 @@ uint64_t __50__EKEventStore_removeExchangeDelegate_completion___block_invoke_3(u
   return [v2 _clearCachedConstraintsForObjectWithCADObjectID:v3];
 }
 
-void __47__EKEventStore__localSourceWithEnableIfNeeded___block_invoke(uint64_t a1, int a2, void *a3)
+- (id)_localSourceWithEnableIfNeeded:(BOOL)needed
 {
+  neededCopy = needed;
+  v5 = +[EKSource primaryLocalSourceID];
+  v6 = [(EKEventStore *)self registerFetchedObjectWithID:v5];
+  v7 = [(EKObject *)[EKSource alloc] initWithPersistentObject:v6];
+  isEnabledForEvents = [(EKSource *)v7 isEnabledForEvents];
+  sourceType = [(EKSource *)v7 sourceType];
+  v10 = sourceType;
+  if (neededCopy & ~isEnabledForEvents || sourceType)
+  {
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x3032000000;
+    v20 = __Block_byref_object_copy__24;
+    v21 = __Block_byref_object_dispose__24;
+    v22 = 0;
+    connection = [(EKEventStore *)self connection];
+    cADOperationProxySync = [connection CADOperationProxySync];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __47__EKEventStore__localSourceWithEnableIfNeeded___block_invoke;
+    v16[3] = &unk_1E7800A70;
+    v16[4] = &v17;
+    [cADOperationProxySync CADDatabaseGetLocalSourceWithEnableIfNeeded:neededCopy reply:v16];
+
+    if (v10)
+    {
+      [(EKEventStore *)self _clearAllCaches];
+    }
+
+    if (v18[5])
+    {
+      v14 = [(EKEventStore *)self registerFetchedObjectWithID:?];
+
+      v11 = [(EKObject *)[EKSource alloc] initWithPersistentObject:v14];
+      v6 = v14;
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    _Block_object_dispose(&v17, 8);
+  }
+
+  else
+  {
+    v11 = v7;
+  }
+
+  return v11;
+}
+
+void __47__EKEventStore__localSourceWithEnableIfNeeded___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+{
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     v6 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -4679,23 +5168,8 @@ void __47__EKEventStore__localSourceWithEnableIfNeeded___block_invoke(uint64_t a
 void __43__EKEventStore_localBirthdayCalendarSource__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (v2[2])
+  if (v2[2] || ([v2 connection], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "CADOperationProxySync"), v4 = objc_claimAutoreleasedReturnValue(), v8[0] = MEMORY[0x1E69E9820], v8[1] = 3221225472, v8[2] = __43__EKEventStore_localBirthdayCalendarSource__block_invoke_2, v8[3] = &unk_1E7800A98, v8[4] = *(a1 + 32), objc_msgSend(v4, "CADDatabaseGetLocalBirthdaySource:", v8), v4, v3, *(*(a1 + 32) + 16)))
   {
-    goto LABEL_3;
-  }
-
-  v3 = [v2 connection];
-  v4 = [v3 CADOperationProxySync];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __43__EKEventStore_localBirthdayCalendarSource__block_invoke_2;
-  v8[3] = &unk_1E7800A98;
-  v8[4] = *(a1 + 32);
-  [v4 CADDatabaseGetLocalBirthdaySource:v8];
-
-  if (*(*(a1 + 32) + 16))
-  {
-LABEL_3:
     v5 = [EKObjectID objectIDWithCADObjectID:?];
     v6 = *(*(a1 + 40) + 8);
     v7 = *(v6 + 40);
@@ -4703,10 +5177,11 @@ LABEL_3:
   }
 }
 
-void __43__EKEventStore_localBirthdayCalendarSource__block_invoke_2(uint64_t a1, int a2, void *a3)
+void __43__EKEventStore_localBirthdayCalendarSource__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     v6 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -4727,30 +5202,30 @@ void __43__EKEventStore_localBirthdayCalendarSource__block_invoke_2(uint64_t a1,
 
 - (EKSource)sourceWithIdentifier:(NSString *)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = identifier;
   if ([(EKEventStore *)self returnEventResults])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     sources = [(EKEventStore *)self sources];
-    v6 = [sources countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [sources countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(sources);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           sourceIdentifier = [v10 sourceIdentifier];
           v12 = [sourceIdentifier isEqualToString:v4];
 
@@ -4762,7 +5237,7 @@ void __43__EKEventStore_localBirthdayCalendarSource__block_invoke_2(uint64_t a1,
           }
         }
 
-        v7 = [sources countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [sources countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v7)
         {
           continue;
@@ -4785,34 +5260,32 @@ void __43__EKEventStore_localBirthdayCalendarSource__block_invoke_2(uint64_t a1,
 
 LABEL_15:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (id)sourceWithExternalID:(id)d
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   sources = [(EKEventStore *)self sources];
-  v6 = [sources countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [sources countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(sources);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         externalID = [v9 externalID];
         v11 = [externalID isEqualToString:dCopy];
 
@@ -4823,7 +5296,7 @@ LABEL_15:
         }
       }
 
-      v6 = [sources countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [sources countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -4835,33 +5308,31 @@ LABEL_15:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (id)primaryAppleAccountSource
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   eventSources = [(EKEventStore *)self eventSources];
-  v3 = [eventSources countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [eventSources countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(eventSources);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 isPrimaryAppleAccount])
         {
           v3 = v6;
@@ -4869,7 +5340,7 @@ LABEL_11:
         }
       }
 
-      v3 = [eventSources countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [eventSources countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -4880,8 +5351,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -4987,7 +5456,7 @@ LABEL_12:
 {
   sources = self->_sources;
   self->_sources = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, sources);
 }
 
 - (BOOL)isSourceManaged:(id)managed
@@ -5059,20 +5528,20 @@ LABEL_12:
   return bOOLValue;
 }
 
-void __32__EKEventStore_isSourceManaged___block_invoke(uint64_t a1, uint64_t a2, char a3)
+void __32__EKEventStore_isSourceManaged___block_invoke(uint64_t result, uint64_t a2, char a3)
 {
   if (a2)
   {
     v5 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __32__EKEventStore_isSourceManaged___block_invoke_cold_1(a1, v5, a2);
+      __32__EKEventStore_isSourceManaged___block_invoke_cold_1(result, v5, a2);
     }
   }
 
   else
   {
-    *(*(*(a1 + 40) + 8) + 24) = a3;
+    *(*(*(result + 40) + 8) + 24) = a3;
   }
 }
 
@@ -5099,10 +5568,11 @@ void __32__EKEventStore_isSourceManaged___block_invoke(uint64_t a1, uint64_t a2,
   return v4;
 }
 
-void __31__EKEventStore_dbStatsBySource__block_invoke(uint64_t a1, int a2, void *a3)
+void __31__EKEventStore_dbStatsBySource__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -5191,10 +5661,11 @@ void __47__EKEventStore_personaIdentifierForDatabaseID___block_invoke(uint64_t a
   }
 }
 
-void __47__EKEventStore_personaIdentifierForDatabaseID___block_invoke_2(uint64_t a1, int a2, void *a3)
+void __47__EKEventStore_personaIdentifierForDatabaseID___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -5218,29 +5689,29 @@ void __47__EKEventStore_personaIdentifierForDatabaseID___block_invoke_2(uint64_t
 
 - (NSArray)calendars
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   _allCalendars = [(EKEventStore *)self _allCalendars];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:0];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = _allCalendars;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         if ([v9 allowedEntityTypes])
         {
           source = [v9 source];
@@ -5253,20 +5724,18 @@ void __47__EKEventStore_personaIdentifierForDatabaseID___block_invoke_2(uint64_t
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BOOL)hideCalendarsFromNotificationCenter:(id)center error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   centerCopy = center;
   if ([centerCopy count])
   {
@@ -5275,31 +5744,31 @@ void __47__EKEventStore_personaIdentifierForDatabaseID___block_invoke_2(uint64_t
       *error = 0;
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     obj = centerCopy;
-    v7 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v7 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v7)
     {
-      v8 = *v34;
+      v8 = *v33;
 LABEL_6:
       v9 = 0;
       while (1)
       {
-        if (*v34 != v8)
+        if (*v33 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v33 + 1) + 8 * v9);
+        v10 = *(*(&v32 + 1) + 8 * v9);
         if (!v10)
         {
           break;
         }
 
-        eventStore = [*(*(&v33 + 1) + 8 * v9) eventStore];
+        eventStore = [*(*(&v32 + 1) + 8 * v9) eventStore];
         v12 = eventStore == 0;
 
         if (v12)
@@ -5324,37 +5793,37 @@ LABEL_22:
           break;
         }
 
-        v29 = 0;
-        v30 = &v29;
-        v31 = 0x2020000000;
-        v32 = 0;
-        v23 = 0;
-        v24 = &v23;
-        v25 = 0x3032000000;
-        v26 = __Block_byref_object_copy__24;
-        v27 = __Block_byref_object_dispose__24;
         v28 = 0;
+        v29 = &v28;
+        v30 = 0x2020000000;
+        v31 = 0;
+        v22 = 0;
+        v23 = &v22;
+        v24 = 0x3032000000;
+        v25 = __Block_byref_object_copy__24;
+        v26 = __Block_byref_object_dispose__24;
+        v27 = 0;
         connection = [(EKEventStore *)self connection];
         cADOperationProxySync = [connection CADOperationProxySync];
         cADObjectID = [v10 CADObjectID];
-        v22[0] = MEMORY[0x1E69E9820];
-        v22[1] = 3221225472;
-        v22[2] = __58__EKEventStore_hideCalendarsFromNotificationCenter_error___block_invoke;
-        v22[3] = &unk_1E7800B00;
-        v22[4] = v10;
-        v22[5] = &v23;
-        v22[6] = &v29;
-        [cADOperationProxySync CADCalendarSetClearedFromNotificationCenter:cADObjectID error:v22];
+        v21[0] = MEMORY[0x1E69E9820];
+        v21[1] = 3221225472;
+        v21[2] = __58__EKEventStore_hideCalendarsFromNotificationCenter_error___block_invoke;
+        v21[3] = &unk_1E7800B00;
+        v21[4] = v10;
+        v21[5] = &v22;
+        v21[6] = &v28;
+        [cADOperationProxySync CADCalendarSetClearedFromNotificationCenter:cADObjectID error:v21];
 
         if (error)
         {
-          *error = v24[5];
+          *error = v23[5];
         }
 
-        v18 = *(v30 + 24) == 0;
-        _Block_object_dispose(&v23, 8);
+        v18 = *(v29 + 24) == 0;
+        _Block_object_dispose(&v22, 8);
 
-        _Block_object_dispose(&v29, 8);
+        _Block_object_dispose(&v28, 8);
         if (v18)
         {
           goto LABEL_22;
@@ -5362,7 +5831,7 @@ LABEL_22:
 
         if (v7 == ++v9)
         {
-          v7 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v7 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
           LOBYTE(v10) = 1;
           if (v7)
           {
@@ -5385,7 +5854,6 @@ LABEL_22:
     LOBYTE(v10) = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -5413,7 +5881,7 @@ void __58__EKEventStore_hideCalendarsFromNotificationCenter_error___block_invoke
 
 - (NSArray)calendarsForEntityType:(EKEntityType)entityType
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (entityType >= 2)
   {
     [EKEventStore calendarsForEntityType:];
@@ -5421,29 +5889,29 @@ void __58__EKEventStore_hideCalendarsFromNotificationCenter_error___block_invoke
 
   _allCalendars = [(EKEventStore *)self _allCalendars];
   v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:0];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = _allCalendars;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         if (entityType == EKEntityTypeReminder)
         {
-          if (([*(*(&v19 + 1) + 8 * i) allowedEntityTypes] & 2) != 0)
+          if (([*(*(&v18 + 1) + 8 * i) allowedEntityTypes] & 2) != 0)
           {
             source = [v12 source];
             allowsTasks = [source allowsTasks];
@@ -5451,13 +5919,13 @@ void __58__EKEventStore_hideCalendarsFromNotificationCenter_error___block_invoke
             if (allowsTasks)
             {
 LABEL_15:
-              [v6 addObject:{v12, v19}];
+              [v6 addObject:{v12, v18}];
               continue;
             }
           }
         }
 
-        else if (entityType == EKEntityTypeEvent && ([*(*(&v19 + 1) + 8 * i) allowedEntityTypes] & 1) != 0)
+        else if (entityType == EKEntityTypeEvent && ([*(*(&v18 + 1) + 8 * i) allowedEntityTypes] & 1) != 0)
         {
           source2 = [v12 source];
           allowsEvents = [source2 allowsEvents];
@@ -5469,20 +5937,18 @@ LABEL_15:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)calendarsForEntityType:(unint64_t)type inSource:(id)source
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   v7 = sourceCopy;
   if (type >= 2)
@@ -5507,9 +5973,9 @@ LABEL_15:
       block[2] = __48__EKEventStore_calendarsForEntityType_inSource___block_invoke;
       block[3] = &unk_1E77FD7C8;
       block[4] = self;
-      v26 = backingObject;
+      v25 = backingObject;
       v8 = v8;
-      v27 = v8;
+      v26 = v8;
       calendars = backingObject;
       dispatch_sync(calendarSourcesAndDefaultsQueue, block);
 
@@ -5529,26 +5995,26 @@ LABEL_20:
   v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   if (type == 1 && [(EKEventStore *)self returnReminderResults])
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     calendars = [(EKReminderStore *)self->_reminderStore calendars];
-    v10 = [calendars countByEnumeratingWithState:&v21 objects:v28 count:16];
+    v10 = [calendars countByEnumeratingWithState:&v20 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(calendars);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * i);
+          v14 = *(*(&v20 + 1) + 8 * i);
           source = [v14 source];
           v16 = [source isEqual:v7];
 
@@ -5558,7 +6024,7 @@ LABEL_20:
           }
         }
 
-        v11 = [calendars countByEnumeratingWithState:&v21 objects:v28 count:16];
+        v11 = [calendars countByEnumeratingWithState:&v20 objects:v27 count:16];
       }
 
       while (v11);
@@ -5569,36 +6035,34 @@ LABEL_19:
 
 LABEL_21:
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 void __48__EKEventStore_calendarsForEntityType_inSource___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _loadCalendarsIfNeeded];
   v2 = [*(*(a1 + 32) + 56) allValues];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     v6 = *MEMORY[0x1E6992870];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         v9 = [v8 valueForKey:v6];
         if ([v9 isEqual:*(a1 + 40)])
         {
@@ -5610,13 +6074,11 @@ void __48__EKEventStore_calendarsForEntityType_inSource___block_invoke(uint64_t 
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cacheCalendarWithCADObjectID:(id)d withDefaultLoadedPropertyValues:(id)values forKeys:(id)keys
@@ -5691,45 +6153,45 @@ void __38__EKEventStore__loadCalendarsIfNeeded__block_invoke_314(uint64_t a1, vo
 
 void __35__EKEventStore__deletableCalendars__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__24;
-  v21 = __Block_byref_object_dispose__24;
-  v22 = 0;
+  v23 = *MEMORY[0x1E69E9840];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__24;
+  v20 = __Block_byref_object_dispose__24;
+  v21 = 0;
   v2 = [*(a1 + 32) connection];
   v3 = [v2 CADOperationProxySync];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __35__EKEventStore__deletableCalendars__block_invoke_2;
-  v16[3] = &unk_1E7800918;
-  v16[4] = &v17;
-  [v3 CADDatabaseGetDeletableCalendars:v16];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __35__EKEventStore__deletableCalendars__block_invoke_2;
+  v15[3] = &unk_1E7800918;
+  v15[4] = &v16;
+  [v3 CADDatabaseGetDeletableCalendars:v15];
 
-  v4 = v18[5];
+  v4 = v17[5];
   if (v4)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v12 objects:v23 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v22 count:16];
     if (v6)
     {
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         v8 = 0;
         do
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = [EKObjectID objectIDWithCADObjectID:*(*(&v12 + 1) + 8 * v8), v12];
+          v9 = [EKObjectID objectIDWithCADObjectID:*(*(&v11 + 1) + 8 * v8), v11];
           v10 = [*(a1 + 32) calendarWithID:v9];
           if (v10)
           {
@@ -5740,22 +6202,21 @@ void __35__EKEventStore__deletableCalendars__block_invoke(uint64_t a1)
         }
 
         while (v6 != v8);
-        v6 = [v5 countByEnumeratingWithState:&v12 objects:v23 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v11 objects:v22 count:16];
       }
 
       while (v6);
     }
   }
 
-  _Block_object_dispose(&v17, 8);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v16, 8);
 }
 
-void __35__EKEventStore__deletableCalendars__block_invoke_2(uint64_t a1, int a2, void *a3)
+void __35__EKEventStore__deletableCalendars__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -5806,35 +6267,35 @@ LABEL_10:
 
 - (int)readWriteCalendarCountForEntityType:(unint64_t)type
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   _allCalendars = [(EKEventStore *)self _allCalendars];
-  v6 = [_allCalendars countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [_allCalendars countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(_allCalendars);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         if ([(EKEventStore *)self _calendar:v11 supportsEntityType:type])
         {
           v8 += [v11 allowsContentModifications];
         }
       }
 
-      v7 = [_allCalendars countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [_allCalendars countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -5845,34 +6306,33 @@ LABEL_10:
     v8 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (id)readWriteCalendarsForEntityType:(unint64_t)type
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   _allCalendars = [(EKEventStore *)self _allCalendars];
-  v6 = [_allCalendars countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [_allCalendars countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
     array = 0;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(_allCalendars);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         if (-[EKEventStore _calendar:supportsEntityType:](self, "_calendar:supportsEntityType:", v11, type) && [v11 allowsContentModifications])
         {
           if (!array)
@@ -5884,7 +6344,7 @@ LABEL_10:
         }
       }
 
-      v7 = [_allCalendars countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [_allCalendars countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -5894,8 +6354,6 @@ LABEL_10:
   {
     array = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -5988,6 +6446,36 @@ uint64_t __43__EKEventStore__addObjectToPendingCommits___block_invoke(uint64_t a
   v10 = *(*(a1 + 32) + 336);
 
   return [v10 addObject:v9];
+}
+
+- (BOOL)saveCalendar:(EKCalendar *)calendar commit:(BOOL)commit error:(NSError *)error
+{
+  v13 = 0;
+  v6 = [(EKEventStore *)self _saveCalendar:calendar commit:commit error:&v13];
+  v7 = v13;
+  v8 = v7;
+  if (error)
+  {
+    v9 = v7;
+    *error = v8;
+  }
+
+  v10 = EKLogHandle;
+  if (v6)
+  {
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
+    {
+      v12 = 0;
+      _os_log_impl(&dword_1A805E000, v10, OS_LOG_TYPE_INFO, "Saved calendar successfully", &v12, 2u);
+    }
+  }
+
+  else if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    [EKEventStore saveCalendar:commit:error:];
+  }
+
+  return v6;
 }
 
 - (BOOL)_saveCalendar:(id)calendar commit:(BOOL)commit error:(id *)error
@@ -6152,6 +6640,36 @@ LABEL_13:
 LABEL_15:
 
   return cADObjectID;
+}
+
+- (BOOL)removeCalendar:(EKCalendar *)calendar commit:(BOOL)commit error:(NSError *)error
+{
+  v13 = 0;
+  v6 = [(EKEventStore *)self _removeCalendar:calendar commit:commit error:&v13];
+  v7 = v13;
+  v8 = v7;
+  if (error)
+  {
+    v9 = v7;
+    *error = v8;
+  }
+
+  v10 = EKLogHandle;
+  if (v6)
+  {
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
+    {
+      v12 = 0;
+      _os_log_impl(&dword_1A805E000, v10, OS_LOG_TYPE_INFO, "Removed calendar successfully", &v12, 2u);
+    }
+  }
+
+  else if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    [EKEventStore removeCalendar:commit:error:];
+  }
+
+  return v6;
 }
 
 - (BOOL)_removeCalendar:(id)calendar commit:(BOOL)commit error:(id *)error
@@ -6329,17 +6847,17 @@ LABEL_17:
 
 - (BOOL)futureScheduledEventsExistOnCalendar:(id)calendar
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v4 = [(EKEventStore *)self predicateForEventsWithAttendeesInCalendar:calendar];
   selfCopy = self;
   v5 = [(EKEventStore *)self eventsMatchingPredicate:v4];
   v6 = [MEMORY[0x1E695DF00] now];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = v5;
-  v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (!v7)
   {
     v18 = 0;
@@ -6347,18 +6865,18 @@ LABEL_17:
   }
 
   v8 = v7;
-  v21 = v4;
-  v9 = *v25;
+  v20 = v4;
+  v9 = *v24;
   while (2)
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v25 != v9)
+      if (*v24 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v24 + 1) + 8 * i);
+      v11 = *(*(&v23 + 1) + 8 * i);
       endDateUnadjustedForLegacyClients = [v11 endDateUnadjustedForLegacyClients];
       if ([v6 compare:endDateUnadjustedForLegacyClients] == -1)
       {
@@ -6392,7 +6910,7 @@ LABEL_17:
       }
     }
 
-    v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v8)
     {
       continue;
@@ -6403,40 +6921,39 @@ LABEL_17:
 
   v18 = 0;
 LABEL_18:
-  v4 = v21;
+  v4 = v20;
 LABEL_19:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (BOOL)eventsMarkedScheduleAgentClientExistOnCalendar:(id)calendar
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = [(EKEventStore *)self predicateForScheduleAgentClientEventsInCalendar:calendar];
   v5 = [(EKEventStore *)self eventsMatchingPredicate:v4];
   v6 = [MEMORY[0x1E695DF00] now];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v20 = v4;
-    v10 = *v22;
+    v19 = v4;
+    v10 = *v21;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         if (([v12 suppressNotificationForChanges] & 1) == 0)
         {
           v13 = [MEMORY[0x1E695DEC8] arrayWithObject:v12];
@@ -6452,7 +6969,7 @@ LABEL_19:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v9)
       {
         continue;
@@ -6463,7 +6980,7 @@ LABEL_19:
 
     v17 = 0;
 LABEL_12:
-    v4 = v20;
+    v4 = v19;
   }
 
   else
@@ -6471,56 +6988,54 @@ LABEL_12:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (id)eventsWithIdentifiers:(id)identifiers
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = identifiersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(EKEventStore *)self eventWithIdentifier:*(*(&v15 + 1) + 8 * i), v15];
+        v11 = [(EKEventStore *)self eventWithIdentifier:*(*(&v14 + 1) + 8 * i), v14];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [v5 copy];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)eventWithAppEntityIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = [EKRecurrenceIdentifier recurrenceIdentifierWithString:identifierCopy];
   v6 = [(EKEventStore *)self eventWithRecurrenceIdentifier:v5 isAppEntityID:1];
@@ -6533,18 +7048,16 @@ LABEL_12:
       v9 = EKLogHandle;
       if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138543618;
-        v13 = appEntityIdentifier;
-        v14 = 2114;
-        v15 = identifierCopy;
-        _os_log_impl(&dword_1A805E000, v9, OS_LOG_TYPE_DEFAULT, "Found event that should have had the identifier %{public}@ using the identifier %{public}@ instead. Pretending that these are the same thing.", &v12, 0x16u);
+        v11 = 138543618;
+        v12 = appEntityIdentifier;
+        v13 = 2114;
+        v14 = identifierCopy;
+        _os_log_impl(&dword_1A805E000, v9, OS_LOG_TYPE_DEFAULT, "Found event that should have had the identifier %{public}@ using the identifier %{public}@ instead. Pretending that these are the same thing.", &v11, 0x16u);
       }
 
       [v7 setAppEntityIdentifierOverride:identifierCopy];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -6552,7 +7065,7 @@ LABEL_12:
 - (id)eventWithRecurrenceIdentifier:(id)identifier isAppEntityID:(BOOL)d
 {
   dCopy = d;
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   localUID = [identifierCopy localUID];
   v8 = [(EKEventStore *)self calendarItemWithIdentifier:localUID];
@@ -6600,42 +7113,42 @@ LABEL_12:
 
       v18 = v17;
 
-      v56 = v18;
-      v58 = [MEMORY[0x1E69930C8] calendarDateWithDate:recurrenceDate timeZone:v18];
-      v57 = objc_alloc_init(EKRecurrenceGenerator);
+      v55 = v18;
+      v57 = [MEMORY[0x1E69930C8] calendarDateWithDate:recurrenceDate timeZone:v18];
+      v56 = objc_alloc_init(EKRecurrenceGenerator);
+      v64 = 0u;
       v65 = 0u;
       v66 = 0u;
       v67 = 0u;
-      v68 = 0u;
       recurrenceRules = [v8 recurrenceRules];
-      v20 = [recurrenceRules countByEnumeratingWithState:&v65 objects:v71 count:16];
+      v20 = [recurrenceRules countByEnumeratingWithState:&v64 objects:v70 count:16];
       if (v20)
       {
         v21 = v20;
-        v59 = recurrenceDate;
+        v58 = recurrenceDate;
         v22 = identifierCopy;
-        v23 = *v66;
+        v23 = *v65;
         while (2)
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v66 != v23)
+            if (*v65 != v23)
             {
               objc_enumerationMutation(recurrenceRules);
             }
 
-            v25 = [(EKRecurrenceGenerator *)v57 occurrenceDate:v58 matchesRecurrenceRule:*(*(&v65 + 1) + 8 * i) forEvent:v8 includeDetachedEventsInSeries:0];
+            v25 = [(EKRecurrenceGenerator *)v56 occurrenceDate:v57 matchesRecurrenceRule:*(*(&v64 + 1) + 8 * i) forEvent:v8 includeDetachedEventsInSeries:0];
             if (v25)
             {
 
               identifierCopy = v22;
-              recurrenceDate = v59;
+              recurrenceDate = v58;
               goto LABEL_22;
             }
           }
 
           v26 = v25;
-          v21 = [recurrenceRules countByEnumeratingWithState:&v65 objects:v71 count:16];
+          v21 = [recurrenceRules countByEnumeratingWithState:&v64 objects:v70 count:16];
           if (v21)
           {
             continue;
@@ -6645,7 +7158,7 @@ LABEL_12:
         }
 
         identifierCopy = v22;
-        recurrenceDate = v59;
+        recurrenceDate = v58;
         if (v26 || !dCopy)
         {
           goto LABEL_43;
@@ -6663,63 +7176,63 @@ LABEL_12:
 
       if ([v8 isFloating])
       {
-        v55 = identifierCopy;
-        v34 = [recurrenceDate dateByAddingTimeInterval:-100800.0];
-        v60 = recurrenceDate;
-        v35 = [recurrenceDate dateByAddingTimeInterval:100800.0];
+        v54 = identifierCopy;
+        v33 = [recurrenceDate dateByAddingTimeInterval:-100800.0];
+        v59 = recurrenceDate;
+        v34 = [recurrenceDate dateByAddingTimeInterval:100800.0];
         calendar = [v8 calendar];
-        v70 = calendar;
-        v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v70 count:1];
-        v53 = v35;
-        v54 = v34;
-        v38 = [(EKEventStore *)self predicateForEventsWithStartDate:v34 endDate:v35 calendars:v37];
+        v69 = calendar;
+        v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v69 count:1];
+        v52 = v34;
+        v53 = v33;
+        v37 = [(EKEventStore *)self predicateForEventsWithStartDate:v33 endDate:v34 calendars:v36];
 
-        v52 = v38;
-        v39 = [(EKEventStore *)self eventsMatchingPredicate:v38];
+        v51 = v37;
+        v38 = [(EKEventStore *)self eventsMatchingPredicate:v37];
+        v60 = 0u;
         v61 = 0u;
         v62 = 0u;
         v63 = 0u;
-        v64 = 0u;
-        v40 = [v39 countByEnumeratingWithState:&v61 objects:v69 count:16];
-        if (v40)
+        v39 = [v38 countByEnumeratingWithState:&v60 objects:v68 count:16];
+        if (v39)
         {
-          v41 = v40;
+          v40 = v39;
           v12 = 0;
-          v42 = *v62;
-          v43 = 1.79769313e308;
+          v41 = *v61;
+          v42 = 1.79769313e308;
           do
           {
-            for (j = 0; j != v41; ++j)
+            for (j = 0; j != v40; ++j)
             {
-              if (*v62 != v42)
+              if (*v61 != v41)
               {
-                objc_enumerationMutation(v39);
+                objc_enumerationMutation(v38);
               }
 
-              v45 = *(*(&v61 + 1) + 8 * j);
-              localUID2 = [v45 localUID];
-              v47 = [localUID2 isEqualToString:localUID];
+              v44 = *(*(&v60 + 1) + 8 * j);
+              localUID2 = [v44 localUID];
+              v46 = [localUID2 isEqualToString:localUID];
 
-              if (v47)
+              if (v46)
               {
-                startDate = [v45 startDate];
-                [startDate timeIntervalSinceDate:v60];
-                v50 = fabs(v49);
+                startDate = [v44 startDate];
+                [startDate timeIntervalSinceDate:v59];
+                v49 = fabs(v48);
 
-                if (v50 < v43)
+                if (v49 < v42)
                 {
-                  v51 = v45;
+                  v50 = v44;
 
-                  v12 = v51;
-                  v43 = v50;
+                  v12 = v50;
+                  v42 = v49;
                 }
               }
             }
 
-            v41 = [v39 countByEnumeratingWithState:&v61 objects:v69 count:16];
+            v40 = [v38 countByEnumeratingWithState:&v60 objects:v68 count:16];
           }
 
-          while (v41);
+          while (v40);
         }
 
         else
@@ -6727,16 +7240,16 @@ LABEL_12:
           v12 = 0;
         }
 
-        identifierCopy = v55;
-        persistentObject = v56;
-        recurrenceDate = v60;
+        identifierCopy = v54;
+        persistentObject = v55;
+        recurrenceDate = v59;
         goto LABEL_25;
       }
 
 LABEL_43:
 
       v12 = 0;
-      persistentObject = v56;
+      persistentObject = v55;
 LABEL_25:
 
       goto LABEL_26;
@@ -6762,7 +7275,6 @@ LABEL_22:
 LABEL_26:
 
 LABEL_27:
-  v32 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -6798,33 +7310,33 @@ LABEL_27:
 
 - (id)validatedNonDeletedPersistentObjectWithObjectID:(id)d
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!dCopy)
   {
     goto LABEL_17;
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   objectsPendingCommit = [(EKEventStore *)self objectsPendingCommit];
-  v6 = [objectsPendingCommit countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [objectsPendingCommit countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
 LABEL_4:
     v9 = 0;
     while (1)
     {
-      if (*v28 != v8)
+      if (*v27 != v8)
       {
         objc_enumerationMutation(objectsPendingCommit);
       }
 
-      v10 = *(*(&v27 + 1) + 8 * v9);
+      v10 = *(*(&v26 + 1) + 8 * v9);
       objectID = [v10 objectID];
       v12 = [objectID isEqual:dCopy];
 
@@ -6835,7 +7347,7 @@ LABEL_4:
 
       if (v7 == ++v9)
       {
-        v7 = [objectsPendingCommit countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v7 = [objectsPendingCommit countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v7)
         {
           goto LABEL_4;
@@ -6863,27 +7375,27 @@ LABEL_10:
   {
     persistentObject = v14;
 LABEL_14:
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2020000000;
-    v26 = 0;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2020000000;
+    v25 = 0;
     unsavedChangesQueue = self->_unsavedChangesQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __64__EKEventStore_validatedNonDeletedPersistentObjectWithObjectID___block_invoke;
     block[3] = &unk_1E77FD688;
-    v22 = &v23;
+    v21 = &v22;
     block[4] = self;
     v16 = persistentObject;
-    v21 = v16;
+    v20 = v16;
     dispatch_sync(unsavedChangesQueue, block);
     v17 = 0;
-    if ((v24[3] & 1) == 0)
+    if ((v23[3] & 1) == 0)
     {
       v17 = v16;
     }
 
-    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v22, 8);
   }
 
   else
@@ -6892,12 +7404,10 @@ LABEL_17:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
-uint64_t __64__EKEventStore_validatedNonDeletedPersistentObjectWithObjectID___block_invoke(void *a1)
+void *__64__EKEventStore_validatedNonDeletedPersistentObjectWithObjectID___block_invoke(void *a1)
 {
   result = [*(a1[4] + 312) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -6930,37 +7440,37 @@ uint64_t __64__EKEventStore_validatedNonDeletedPersistentObjectWithObjectID___bl
 
 - (id)_eventWithEventIdentifier:(id)identifier
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy)
   {
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x3032000000;
-    v33 = __Block_byref_object_copy__24;
-    v34 = __Block_byref_object_dispose__24;
-    v35 = 0;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x3032000000;
+    v32 = __Block_byref_object_copy__24;
+    v33 = __Block_byref_object_dispose__24;
+    v34 = 0;
     if ([(EKEventStore *)self eventAccessLevel]== 2)
     {
       [(EKEventStore *)self objectsPendingCommit];
+      v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
-      v5 = v27 = 0u;
-      v6 = [v5 countByEnumeratingWithState:&v26 objects:v36 count:16];
+      v25 = 0u;
+      v5 = v26 = 0u;
+      v6 = [v5 countByEnumeratingWithState:&v25 objects:v35 count:16];
       if (v6)
       {
-        v7 = *v27;
+        v7 = *v26;
         while (2)
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v27 != v7)
+            if (*v26 != v7)
             {
               objc_enumerationMutation(v5);
             }
 
-            v9 = *(*(&v26 + 1) + 8 * i);
+            v9 = *(*(&v25 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -6970,15 +7480,15 @@ uint64_t __64__EKEventStore_validatedNonDeletedPersistentObjectWithObjectID___bl
               if (v11)
               {
                 objectID = [v9 objectID];
-                v14 = v31[5];
-                v31[5] = objectID;
+                v14 = v30[5];
+                v30[5] = objectID;
 
                 goto LABEL_15;
               }
             }
           }
 
-          v6 = [v5 countByEnumeratingWithState:&v26 objects:v36 count:16];
+          v6 = [v5 countByEnumeratingWithState:&v25 objects:v35 count:16];
           if (v6)
           {
             continue;
@@ -6991,24 +7501,24 @@ uint64_t __64__EKEventStore_validatedNonDeletedPersistentObjectWithObjectID___bl
 LABEL_15:
     }
 
-    v15 = v31[5];
+    v15 = v30[5];
     if (!v15)
     {
       connection = [(EKEventStore *)self connection];
       cADOperationProxySync = [connection CADOperationProxySync];
-      v20 = MEMORY[0x1E69E9820];
-      v21 = 3221225472;
-      v22 = __42__EKEventStore__eventWithEventIdentifier___block_invoke;
-      v23 = &unk_1E7800B28;
-      v24 = identifierCopy;
-      v25 = &v30;
-      [cADOperationProxySync CADDatabaseGetEventWithEventIdentifier:v24 reply:&v20];
+      v19 = MEMORY[0x1E69E9820];
+      v20 = 3221225472;
+      v21 = __42__EKEventStore__eventWithEventIdentifier___block_invoke;
+      v22 = &unk_1E7800B28;
+      v23 = identifierCopy;
+      v24 = &v29;
+      [cADOperationProxySync CADDatabaseGetEventWithEventIdentifier:v23 reply:&v19];
 
-      v15 = v31[5];
+      v15 = v30[5];
     }
 
-    v12 = [(EKEventStore *)self validatedNonDeletedPublicObjectWithObjectID:v15, v20, v21, v22, v23];
-    _Block_object_dispose(&v30, 8);
+    v12 = [(EKEventStore *)self validatedNonDeletedPublicObjectWithObjectID:v15, v19, v20, v21, v22];
+    _Block_object_dispose(&v29, 8);
   }
 
   else
@@ -7016,19 +7526,18 @@ LABEL_15:
     v12 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
-void __42__EKEventStore__eventWithEventIdentifier___block_invoke(uint64_t a1, int a2, void *a3)
+void __42__EKEventStore__eventWithEventIdentifier___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __42__EKEventStore__eventWithEventIdentifier___block_invoke_cold_1(a1);
+      __42__EKEventStore__eventWithEventIdentifier___block_invoke_cold_1();
     }
   }
 
@@ -7315,14 +7824,15 @@ LABEL_31:
   return v15;
 }
 
-void __41__EKEventStore__eventWithURI_checkValid___block_invoke(uint64_t a1, int a2, void *a3)
+void __41__EKEventStore__eventWithURI_checkValid___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __41__EKEventStore__eventWithURI_checkValid___block_invoke_cold_1(a1);
+      __41__EKEventStore__eventWithURI_checkValid___block_invoke_cold_1();
     }
   }
 
@@ -7352,23 +7862,7 @@ void __41__EKEventStore__eventWithURI_checkValid___block_invoke(uint64_t a1, int
   v8 = v7;
   if (v5)
   {
-    if (!v7)
-    {
-      goto LABEL_11;
-    }
-
-    v9 = [v7 objectForKey:@"o"];
-    v10 = v9;
-    if (!v9)
-    {
-      goto LABEL_11;
-    }
-
-    v11 = MEMORY[0x1E695DF00];
-    [v9 doubleValue];
-    v12 = [v11 dateWithTimeIntervalSinceReferenceDate:?];
-
-    if (v12)
+    if (v7 && ([v7 objectForKey:@"o"], v9 = objc_claimAutoreleasedReturnValue(), (v10 = v9) != 0) && (v11 = MEMORY[0x1E695DF00], objc_msgSend(v9, "doubleValue"), objc_msgSend(v11, "dateWithTimeIntervalSinceReferenceDate:"), v12 = objc_claimAutoreleasedReturnValue(), v10, v12))
     {
       connection = [(EKEventStore *)self connection];
       cADOperationProxySync = [connection CADOperationProxySync];
@@ -7406,7 +7900,6 @@ void __41__EKEventStore__eventWithURI_checkValid___block_invoke(uint64_t a1, int
 
     else
     {
-LABEL_11:
       v18 = [(EKEventStore *)self _eventWithURI:iCopy checkValid:1];
     }
   }
@@ -7426,14 +7919,15 @@ LABEL_11:
   return v18;
 }
 
-void __40__EKEventStore__eventOccurrenceWithURI___block_invoke(uint64_t a1, int a2, void *a3)
+void __40__EKEventStore__eventOccurrenceWithURI___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __41__EKEventStore__eventWithURI_checkValid___block_invoke_cold_1(a1);
+      __41__EKEventStore__eventWithURI_checkValid___block_invoke_cold_1();
     }
   }
 
@@ -7514,7 +8008,7 @@ LABEL_12:
   return v15;
 }
 
-void __54__EKEventStore_eventForUID_occurrenceDate_checkValid___block_invoke(uint64_t a1, int a2, char a3)
+void __54__EKEventStore_eventForUID_occurrenceDate_checkValid___block_invoke(uint64_t result, uint64_t a2, char a3)
 {
   if (a2)
   {
@@ -7527,7 +8021,7 @@ void __54__EKEventStore_eventForUID_occurrenceDate_checkValid___block_invoke(uin
 
   else
   {
-    *(*(*(a1 + 32) + 8) + 24) = a3;
+    *(*(*(result + 32) + 8) + 24) = a3;
   }
 }
 
@@ -7602,7 +8096,7 @@ LABEL_15:
   return v15;
 }
 
-void __59__EKEventStore_eventForObjectID_occurrenceDate_checkValid___block_invoke(uint64_t a1, int a2, char a3)
+void __59__EKEventStore_eventForObjectID_occurrenceDate_checkValid___block_invoke(uint64_t result, uint64_t a2, char a3)
 {
   if (a2)
   {
@@ -7615,42 +8109,42 @@ void __59__EKEventStore_eventForObjectID_occurrenceDate_checkValid___block_invok
 
   else
   {
-    *(*(*(a1 + 32) + 8) + 24) = a3;
+    *(*(*(result + 32) + 8) + 24) = a3;
   }
 }
 
 - (id)eventWithUniqueId:(id)id occurrenceDate:(id)date
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   idCopy = id;
   dateCopy = date;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__24;
-  v35 = __Block_byref_object_dispose__24;
-  v36 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__24;
+  v34 = __Block_byref_object_dispose__24;
+  v35 = 0;
   if (idCopy)
   {
     [(EKEventStore *)self objectsPendingCommit];
+    v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
-    v7 = v28 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v26 = 0u;
+    v7 = v27 = 0u;
+    v8 = [v7 countByEnumeratingWithState:&v26 objects:v36 count:16];
     if (v8)
     {
-      v9 = *v28;
+      v9 = *v27;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v28 != v9)
+          if (*v27 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v27 + 1) + 8 * i);
+          v11 = *(*(&v26 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -7660,15 +8154,15 @@ void __59__EKEventStore_eventForObjectID_occurrenceDate_checkValid___block_invok
             if (v13)
             {
               objectID = [v11 objectID];
-              v16 = v32[5];
-              v32[5] = objectID;
+              v16 = v31[5];
+              v31[5] = objectID;
 
               goto LABEL_14;
             }
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v27 objects:v37 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v26 objects:v36 count:16];
         if (v8)
         {
           continue;
@@ -7680,20 +8174,20 @@ void __59__EKEventStore_eventForObjectID_occurrenceDate_checkValid___block_invok
 
 LABEL_14:
 
-    v17 = v32[5];
+    v17 = v31[5];
     if (!v17)
     {
       connection = [(EKEventStore *)self connection];
       cADOperationProxySync = [connection CADOperationProxySync];
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __49__EKEventStore_eventWithUniqueId_occurrenceDate___block_invoke;
-      v24[3] = &unk_1E7800B28;
-      v25 = idCopy;
-      v26 = &v31;
-      [cADOperationProxySync CADDatabaseGetEventWithUniqueID:v25 reply:v24];
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __49__EKEventStore_eventWithUniqueId_occurrenceDate___block_invoke;
+      v23[3] = &unk_1E7800B28;
+      v24 = idCopy;
+      v25 = &v30;
+      [cADOperationProxySync CADDatabaseGetEventWithUniqueID:v24 reply:v23];
 
-      v17 = v32[5];
+      v17 = v31[5];
     }
 
     v20 = [(EKEventStore *)self validatedNonDeletedPersistentObjectWithObjectID:v17];
@@ -7713,21 +8207,20 @@ LABEL_14:
     v14 = 0;
   }
 
-  _Block_object_dispose(&v31, 8);
-
-  v21 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v30, 8);
 
   return v14;
 }
 
-void __49__EKEventStore_eventWithUniqueId_occurrenceDate___block_invoke(uint64_t a1, int a2, void *a3)
+void __49__EKEventStore_eventWithUniqueId_occurrenceDate___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __49__EKEventStore_eventWithUniqueId_occurrenceDate___block_invoke_cold_1(a1);
+      __49__EKEventStore_eventWithUniqueId_occurrenceDate___block_invoke_cold_1();
     }
   }
 
@@ -7796,14 +8289,15 @@ void __49__EKEventStore_eventWithUniqueId_occurrenceDate___block_invoke(uint64_t
   return v13;
 }
 
-void __45__EKEventStore_eventWithUUID_occurrenceDate___block_invoke(uint64_t a1, int a2, void *a3)
+void __45__EKEventStore_eventWithUUID_occurrenceDate___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __45__EKEventStore_eventWithUUID_occurrenceDate___block_invoke_cold_1(a1);
+      __45__EKEventStore_eventWithUUID_occurrenceDate___block_invoke_cold_1();
     }
   }
 
@@ -7842,14 +8336,15 @@ void __45__EKEventStore_eventWithUUID_occurrenceDate___block_invoke(uint64_t a1,
   return v15;
 }
 
-void __74__EKEventStore__entityWrappersForEventUUIDs_inCalendars_propertiesToLoad___block_invoke(uint64_t a1, int a2, void *a3)
+void __74__EKEventStore__entityWrappersForEventUUIDs_inCalendars_propertiesToLoad___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __74__EKEventStore__entityWrappersForEventUUIDs_inCalendars_propertiesToLoad___block_invoke_cold_1(a1);
+      __74__EKEventStore__entityWrappersForEventUUIDs_inCalendars_propertiesToLoad___block_invoke_cold_1();
     }
   }
 
@@ -7861,117 +8356,116 @@ void __74__EKEventStore__entityWrappersForEventUUIDs_inCalendars_propertiesToLoa
 
 - (BOOL)eventWithUUID:(id)d isInCalendars:(id)calendars
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v6 = MEMORY[0x1E695DEC8];
   calendarsCopy = calendars;
   dCopy2 = d;
   v9 = [v6 arrayWithObjects:&dCopy count:1];
 
-  v10 = [(EKEventStore *)self _entityWrappersForEventUUIDs:v9 inCalendars:calendarsCopy propertiesToLoad:MEMORY[0x1E695E0F0], dCopy, v14];
+  v10 = [(EKEventStore *)self _entityWrappersForEventUUIDs:v9 inCalendars:calendarsCopy propertiesToLoad:MEMORY[0x1E695E0F0], dCopy, v13];
 
   LOBYTE(dCopy2) = [v10 count] != 0;
-  v11 = *MEMORY[0x1E69E9840];
   return dCopy2;
 }
 
 - (id)eventsWithUUIDToOccurrenceDateMap:(id)map inCalendars:(id)calendars
 {
-  v48[5] = *MEMORY[0x1E69E9840];
+  v47[5] = *MEMORY[0x1E69E9840];
   mapCopy = map;
   calendarsCopy = calendars;
   if (mapCopy)
   {
     v8 = *MEMORY[0x1E6992600];
-    v48[0] = *MEMORY[0x1E6992B08];
-    v48[1] = v8;
+    v47[0] = *MEMORY[0x1E6992B08];
+    v47[1] = v8;
     v9 = *MEMORY[0x1E6992968];
-    v48[2] = *MEMORY[0x1E69926C8];
-    v48[3] = v9;
-    v48[4] = *MEMORY[0x1E6992658];
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:5];
+    v47[2] = *MEMORY[0x1E69926C8];
+    v47[3] = v9;
+    v47[4] = *MEMORY[0x1E6992658];
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:5];
     v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(mapCopy, "count")}];
     allKeys = [mapCopy allKeys];
-    v36 = v10;
+    v35 = v10;
     v13 = [(EKEventStore *)self _entityWrappersForEventUUIDs:allKeys inCalendars:calendarsCopy propertiesToLoad:v10];
 
     if (v13)
     {
-      v30 = v13;
-      v31 = calendarsCopy;
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
+      v29 = v13;
+      v30 = calendarsCopy;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       obj = v13;
-      v37 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
-      if (v37)
+      v36 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+      if (v36)
       {
-        v34 = mapCopy;
-        v35 = *v43;
+        v33 = mapCopy;
+        v34 = *v42;
         selfCopy = self;
         do
         {
-          for (i = 0; i != v37; ++i)
+          for (i = 0; i != v36; ++i)
           {
-            if (*v43 != v35)
+            if (*v42 != v34)
             {
               objc_enumerationMutation(obj);
             }
 
-            v15 = *(*(&v42 + 1) + 8 * i);
+            v15 = *(*(&v41 + 1) + 8 * i);
             loadedValues = [v15 loadedValues];
             firstObject = [loadedValues firstObject];
 
             objectID = [v15 objectID];
             v19 = [EKObjectID objectIDWithCADObjectID:objectID];
             loadedValues2 = [v15 loadedValues];
-            v21 = [(EKEventStore *)self registerFetchedObjectWithID:v19 withDefaultLoadedPropertyKeys:v36 values:loadedValues2];
+            v21 = [(EKEventStore *)self registerFetchedObjectWithID:v19 withDefaultLoadedPropertyKeys:v35 values:loadedValues2];
 
             if (v21)
             {
-              v40 = 0u;
-              v41 = 0u;
-              v38 = 0u;
               v39 = 0u;
+              v40 = 0u;
+              v37 = 0u;
+              v38 = 0u;
               v22 = [mapCopy objectForKeyedSubscript:firstObject];
-              v23 = [v22 countByEnumeratingWithState:&v38 objects:v46 count:16];
+              v23 = [v22 countByEnumeratingWithState:&v37 objects:v45 count:16];
               if (v23)
               {
                 v24 = v23;
-                v25 = *v39;
+                v25 = *v38;
                 do
                 {
                   for (j = 0; j != v24; ++j)
                   {
-                    if (*v39 != v25)
+                    if (*v38 != v25)
                     {
                       objc_enumerationMutation(v22);
                     }
 
-                    v27 = [[EKEvent alloc] initWithPersistentObject:v21 occurrenceDate:*(*(&v38 + 1) + 8 * j)];
+                    v27 = [[EKEvent alloc] initWithPersistentObject:v21 occurrenceDate:*(*(&v37 + 1) + 8 * j)];
                     [v11 addObject:v27];
                   }
 
-                  v24 = [v22 countByEnumeratingWithState:&v38 objects:v46 count:16];
+                  v24 = [v22 countByEnumeratingWithState:&v37 objects:v45 count:16];
                 }
 
                 while (v24);
               }
 
               self = selfCopy;
-              mapCopy = v34;
+              mapCopy = v33;
             }
           }
 
-          v37 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+          v36 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
         }
 
-        while (v37);
+        while (v36);
       }
 
-      v13 = v30;
-      calendarsCopy = v31;
+      v13 = v29;
+      calendarsCopy = v30;
     }
   }
 
@@ -7980,54 +8474,52 @@ void __74__EKEventStore__entityWrappersForEventUUIDs_inCalendars_propertiesToLoa
     v11 = MEMORY[0x1E695E0F0];
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (id)allEventsWithUniqueId:(id)id occurrenceDate:(id)date
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   idCopy = id;
   dateCopy = date;
-  v19 = objc_opt_new();
+  v18 = objc_opt_new();
   if (idCopy)
   {
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__24;
-    v31 = __Block_byref_object_dispose__24;
-    v32 = 0;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__24;
+    v30 = __Block_byref_object_dispose__24;
+    v31 = 0;
     connection = [(EKEventStore *)self connection];
     cADOperationProxySync = [connection CADOperationProxySync];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __53__EKEventStore_allEventsWithUniqueId_occurrenceDate___block_invoke;
-    v24[3] = &unk_1E77FED28;
-    v25 = idCopy;
-    v26 = &v27;
-    [cADOperationProxySync CADDatabaseGetAllEventsWithUniqueID:v25 reply:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __53__EKEventStore_allEventsWithUniqueId_occurrenceDate___block_invoke;
+    v23[3] = &unk_1E77FED28;
+    v24 = idCopy;
+    v25 = &v26;
+    [cADOperationProxySync CADDatabaseGetAllEventsWithUniqueID:v24 reply:v23];
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v10 = v28[5];
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v33 count:16];
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v10 = v27[5];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v32 count:16];
     if (v11)
     {
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          if (*(*(&v20 + 1) + 8 * i))
+          if (*(*(&v19 + 1) + 8 * i))
           {
             v14 = [EKObjectID objectIDWithCADObjectID:?];
             v15 = [(EKEventStore *)self registerFetchedObjectWithID:v14];
@@ -8035,33 +8527,32 @@ void __74__EKEventStore__entityWrappersForEventUUIDs_inCalendars_propertiesToLoa
             if (v15)
             {
               v16 = [[EKEvent alloc] initWithPersistentObject:v15 occurrenceDate:dateCopy];
-              [v19 addObject:v16];
+              [v18 addObject:v16];
             }
           }
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v20 objects:v33 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v19 objects:v32 count:16];
       }
 
       while (v11);
     }
 
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v26, 8);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v18;
 }
 
-void __53__EKEventStore_allEventsWithUniqueId_occurrenceDate___block_invoke(uint64_t a1, int a2, void *a3)
+void __53__EKEventStore_allEventsWithUniqueId_occurrenceDate___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __53__EKEventStore_allEventsWithUniqueId_occurrenceDate___block_invoke_cold_1(a1);
+      __53__EKEventStore_allEventsWithUniqueId_occurrenceDate___block_invoke_cold_1();
     }
   }
 
@@ -8069,6 +8560,57 @@ void __53__EKEventStore_allEventsWithUniqueId_occurrenceDate___block_invoke(uint
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
   }
+}
+
+- (BOOL)saveEvent:(EKEvent *)event span:(EKSpan)span commit:(BOOL)commit error:(NSError *)error
+{
+  v7 = commit;
+  v10 = EKSavingSignpostsHandle;
+  v11 = event;
+  v12 = os_signpost_id_generate(v10);
+  v13 = EKSavingSignpostsHandle;
+  v14 = v13;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_1A805E000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "saveEvent", "", buf, 2u);
+  }
+
+  v25 = 0;
+  v15 = [(EKEventStore *)self _saveEvent:v11 span:span commit:v7 error:&v25];
+
+  v16 = v25;
+  v17 = v16;
+  if (error)
+  {
+    v18 = v16;
+    *error = v17;
+  }
+
+  v19 = EKLogHandle;
+  if (v15)
+  {
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
+    {
+      *v24 = 0;
+      _os_log_impl(&dword_1A805E000, v19, OS_LOG_TYPE_INFO, "Saved event successfully", v24, 2u);
+    }
+  }
+
+  else if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    [EKEventStore saveEvent:span:commit:error:];
+  }
+
+  v20 = EKSavingSignpostsHandle;
+  v21 = v20;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  {
+    v23[0] = 0;
+    _os_signpost_emit_with_name_impl(&dword_1A805E000, v21, OS_SIGNPOST_INTERVAL_END, v12, "saveEvent", "", v23, 2u);
+  }
+
+  return v15;
 }
 
 - (BOOL)_saveEvent:(id)event span:(int64_t)span commit:(BOOL)commit error:(id *)error
@@ -8194,10 +8736,61 @@ LABEL_30:
   return v12;
 }
 
+- (BOOL)removeEvent:(EKEvent *)event span:(EKSpan)span commit:(BOOL)commit error:(NSError *)error
+{
+  v7 = commit;
+  v10 = EKSavingSignpostsHandle;
+  v11 = event;
+  v12 = os_signpost_id_generate(v10);
+  v13 = EKSavingSignpostsHandle;
+  v14 = v13;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_1A805E000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "removeEvent", "", buf, 2u);
+  }
+
+  v25 = 0;
+  v15 = [(EKEventStore *)self _removeEvent:v11 span:span commit:v7 error:&v25];
+
+  v16 = v25;
+  v17 = v16;
+  if (error)
+  {
+    v18 = v16;
+    *error = v17;
+  }
+
+  v19 = EKLogHandle;
+  if (v15)
+  {
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
+    {
+      *v24 = 0;
+      _os_log_impl(&dword_1A805E000, v19, OS_LOG_TYPE_INFO, "Removed event successfully", v24, 2u);
+    }
+  }
+
+  else if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    [EKEventStore removeEvent:span:commit:error:];
+  }
+
+  v20 = EKSavingSignpostsHandle;
+  v21 = v20;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  {
+    v23[0] = 0;
+    _os_signpost_emit_with_name_impl(&dword_1A805E000, v21, OS_SIGNPOST_INTERVAL_END, v12, "removeEvent", "", v23, 2u);
+  }
+
+  return v15;
+}
+
 - (BOOL)_removeEvent:(id)event span:(int64_t)span commit:(BOOL)commit error:(id *)error
 {
   commitCopy = commit;
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if (error)
   {
@@ -8251,11 +8844,11 @@ LABEL_11:
     goto LABEL_14;
   }
 
-  v19 = objc_alloc(objc_opt_class());
+  v18 = objc_alloc(objc_opt_class());
   persistentObject = [eventCopy persistentObject];
-  v21 = [v19 initWithPersistentObject:persistentObject objectForCopy:eventCopy];
+  v20 = [v18 initWithPersistentObject:persistentObject objectForCopy:eventCopy];
 
-  if ([eventCopy _hasChangesForKey:*MEMORY[0x1E6992620]] && (objc_msgSend(eventCopy, "virtualConference"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "virtualConference"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v22, "isEqual:", v23), v23, v22, (v24 & 1) == 0))
+  if ([eventCopy _hasChangesForKey:*MEMORY[0x1E6992620]] && (objc_msgSend(eventCopy, "virtualConference"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "virtualConference"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v21, "isEqual:", v22), v22, v21, (v23 & 1) == 0))
   {
     virtualConference = [eventCopy virtualConference];
   }
@@ -8265,74 +8858,74 @@ LABEL_11:
     virtualConference = 0;
   }
 
-  v40 = v21;
-  [v21 virtualConference];
+  v39 = v20;
+  [v20 virtualConference];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v38 = v48 = 0u;
-  joinMethods = [v38 joinMethods];
-  v26 = [joinMethods countByEnumeratingWithState:&v45 objects:v50 count:16];
-  if (v26)
+  v37 = v47 = 0u;
+  joinMethods = [v37 joinMethods];
+  v25 = [joinMethods countByEnumeratingWithState:&v44 objects:v49 count:16];
+  if (v25)
   {
-    v27 = v26;
-    v28 = *v46;
+    v26 = v25;
+    v27 = *v45;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v46 != v28)
+        if (*v45 != v27)
         {
           objc_enumerationMutation(joinMethods);
         }
 
-        v30 = [*(*(&v45 + 1) + 8 * i) URL];
-        [eventCopy invalidateVirtualConferenceURLIfNeededOnCommit:v30];
+        v29 = [*(*(&v44 + 1) + 8 * i) URL];
+        [eventCopy invalidateVirtualConferenceURLIfNeededOnCommit:v29];
       }
 
-      v27 = [joinMethods countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v26 = [joinMethods countByEnumeratingWithState:&v44 objects:v49 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
 
-  if ([v40 removeWithSpan:span error:error])
+  if ([v39 removeWithSpan:span error:error])
   {
     [(EKEventStore *)self _addRemovedObjectToPendingCommits:eventCopy];
-    v31 = virtualConference;
+    v30 = virtualConference;
     if ([(EKEventStore *)self save:error])
     {
       [eventCopy markAsDeleted];
       v12 = !commitCopy || [(EKEventStore *)self commitWithRollbackForNewClients:error];
       if (v12 && virtualConference)
       {
-        v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
         v42 = 0u;
+        v43 = 0u;
+        v40 = 0u;
+        v41 = 0u;
         joinMethods2 = [virtualConference joinMethods];
-        v33 = [joinMethods2 countByEnumeratingWithState:&v41 objects:v49 count:16];
-        if (v33)
+        v32 = [joinMethods2 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        if (v32)
         {
-          v34 = v33;
-          v35 = *v42;
+          v33 = v32;
+          v34 = *v41;
           do
           {
-            for (j = 0; j != v34; ++j)
+            for (j = 0; j != v33; ++j)
             {
-              if (*v42 != v35)
+              if (*v41 != v34)
               {
                 objc_enumerationMutation(joinMethods2);
               }
 
-              v37 = [*(*(&v41 + 1) + 8 * j) URL];
-              [EKConferenceUtils invalidateConferenceURL:v37];
+              v36 = [*(*(&v40 + 1) + 8 * j) URL];
+              [EKConferenceUtils invalidateConferenceURL:v36];
             }
 
-            v34 = [joinMethods2 countByEnumeratingWithState:&v41 objects:v49 count:16];
+            v33 = [joinMethods2 countByEnumeratingWithState:&v40 objects:v48 count:16];
           }
 
-          while (v34);
+          while (v33);
         }
 
         LOBYTE(v12) = 1;
@@ -8348,17 +8941,16 @@ LABEL_11:
   else
   {
     LOBYTE(v12) = 0;
-    v31 = virtualConference;
+    v30 = virtualConference;
   }
 
 LABEL_14:
-  v17 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (BOOL)setInvitationStatus:(unint64_t)status forEvent:(id)event error:(id *)error
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v9 = eventCopy;
   if (error)
@@ -8368,8 +8960,8 @@ LABEL_14:
 
   if (eventCopy)
   {
-    v14[0] = eventCopy;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = eventCopy;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
     v11 = [(EKEventStore *)self setInvitationStatus:status forEvents:v10 error:error];
   }
 
@@ -8378,45 +8970,44 @@ LABEL_14:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)setInvitationStatus:(unint64_t)status forEvents:(id)events error:(id *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   if (error)
   {
     *error = 0;
   }
 
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__24;
-  v46 = __Block_byref_object_dispose__24;
-  v47 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__24;
+  v45 = __Block_byref_object_dispose__24;
+  v46 = 0;
   v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(eventsCopy, "count")}];
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v10 = eventsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v38 objects:v49 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v37 objects:v48 count:16];
   if (v11)
   {
-    v12 = *v39;
+    v12 = *v38;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v39 != v12)
+        if (*v38 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v38 + 1) + 8 * i);
+        v14 = *(*(&v37 + 1) + 8 * i);
         eventStore = [v14 eventStore];
         v16 = eventStore == 0;
 
@@ -8445,7 +9036,7 @@ LABEL_26:
         [v9 addObject:cADObjectID];
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v38 objects:v49 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v37 objects:v48 count:16];
       if (v11)
       {
         continue;
@@ -8455,65 +9046,64 @@ LABEL_26:
     }
   }
 
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
   connection = [(EKEventStore *)self connection];
   cADOperationProxySync = [connection CADOperationProxySync];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __52__EKEventStore_setInvitationStatus_forEvents_error___block_invoke;
-  v33[3] = &unk_1E7800B50;
-  v33[4] = &v42;
-  v33[5] = &v34;
-  [cADOperationProxySync CADEventSetInvitationStatus:status forEvents:v9 error:v33];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __52__EKEventStore_setInvitationStatus_forEvents_error___block_invoke;
+  v32[3] = &unk_1E7800B50;
+  v32[4] = &v41;
+  v32[5] = &v33;
+  [cADOperationProxySync CADEventSetInvitationStatus:status forEvents:v9 error:v32];
 
   if (error)
   {
-    *error = v43[5];
+    *error = v42[5];
   }
 
-  if (*(v35 + 24) == 1)
+  if (*(v34 + 24) == 1)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v22 = v10;
-    v23 = [v22 countByEnumeratingWithState:&v29 objects:v48 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v28 objects:v47 count:16];
     if (v23)
     {
-      v24 = *v30;
+      v24 = *v29;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v30 != v24)
+          if (*v29 != v24)
           {
             objc_enumerationMutation(v22);
           }
 
-          [*(*(&v29 + 1) + 8 * j) clearInvitationStatus];
+          [*(*(&v28 + 1) + 8 * j) clearInvitationStatus];
         }
 
-        v23 = [v22 countByEnumeratingWithState:&v29 objects:v48 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v28 objects:v47 count:16];
       }
 
       while (v23);
     }
   }
 
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v33, 8);
   v26 = 1;
 LABEL_27:
 
-  _Block_object_dispose(&v42, 8);
-  v27 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v41, 8);
   return v26;
 }
 
-void __52__EKEventStore_setInvitationStatus_forEvents_error___block_invoke(uint64_t a1, int a2)
+void __52__EKEventStore_setInvitationStatus_forEvents_error___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -8560,10 +9150,11 @@ void __52__EKEventStore_setInvitationStatus_forEvents_error___block_invoke(uint6
   return v8;
 }
 
-void __46__EKEventStore_creatorTeamIdentifierForEvent___block_invoke(uint64_t a1, int a2, void *a3)
+void __46__EKEventStore_creatorTeamIdentifierForEvent___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     v6 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -8635,16 +9226,58 @@ void __46__EKEventStore_creatorTeamIdentifierForEvent___block_invoke(uint64_t a1
   return v10;
 }
 
-void __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWithIDs_options_batchSize___block_invoke(uint64_t a1, int a2, void *a3)
+- (id)importEventsWithExternalIDs:(id)ds fromICSData:(id)data intoCalendars:(id)calendars options:(unint64_t)options batchSize:(int)size
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v7 = *&size;
+  dataCopy = data;
+  dsCopy = ds;
+  v14 = [calendars valueForKey:@"CADObjectID"];
+  v15 = [(EKEventStore *)self _importEventsWithExternalIDs:dsCopy fromICSData:dataCopy intoCalendarsWithIDs:v14 options:options batchSize:v7];
+
+  return v15;
+}
+
+- (id)_importEventsWithExternalIDs:(id)ds fromICSData:(id)data intoCalendarsWithIDs:(id)iDs options:(unint64_t)options batchSize:(int)size
+{
+  v7 = *&size;
+  dsCopy = ds;
+  dataCopy = data;
+  iDsCopy = iDs;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__24;
+  v28 = __Block_byref_object_dispose__24;
+  v29 = 0;
+  connection = [(EKEventStore *)self connection];
+  cADOperationProxySync = [connection CADOperationProxySync];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWithIDs_options_batchSize___block_invoke;
+  v20[3] = &unk_1E7800BA0;
+  v17 = iDsCopy;
+  selfCopy = self;
+  v23 = &v24;
+  v21 = v17;
+  [cADOperationProxySync CADDatabaseImportEvents:dsCopy fromICSData:dataCopy intoCalendarsWithIDs:v17 optionsMask:options batchSize:v7 reply:v20];
+
+  v18 = v25[5];
+  _Block_object_dispose(&v24, 8);
+
+  return v18;
+}
+
+void __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWithIDs_options_batchSize___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+{
+  v3 = a2;
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = v5;
-  if (a2)
+  if (v3)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWithIDs_options_batchSize___block_invoke_cold_1(a1);
+      __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWithIDs_options_batchSize___block_invoke_cold_1();
     }
   }
 
@@ -8655,51 +9288,51 @@ void __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWi
     v9 = *(v8 + 40);
     *(v8 + 40) = v7;
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
-    v21 = v6;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v20 = v6;
     obj = v6;
-    v24 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
-    if (v24)
+    v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+    if (v23)
     {
-      v23 = *v31;
+      v22 = *v30;
       do
       {
         v10 = 0;
         do
         {
-          if (*v31 != v23)
+          if (*v30 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = v10;
-          v11 = *(*(&v30 + 1) + 8 * v10);
+          v24 = v10;
+          v11 = *(*(&v29 + 1) + 8 * v10);
           v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v11, "count")}];
           [*(*(*(a1 + 48) + 8) + 40) addObject:v12];
-          v28 = 0u;
-          v29 = 0u;
-          v26 = 0u;
           v27 = 0u;
+          v28 = 0u;
+          v25 = 0u;
+          v26 = 0u;
           v13 = [EKObjectID EKObjectIDsFromCADObjectIDs:v11];
-          v14 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v27;
+            v16 = *v26;
             do
             {
               v17 = 0;
               do
               {
-                if (*v27 != v16)
+                if (*v26 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v18 = [*(a1 + 40) registerFetchedObjectWithID:*(*(&v26 + 1) + 8 * v17)];
+                v18 = [*(a1 + 40) registerFetchedObjectWithID:*(*(&v25 + 1) + 8 * v17)];
                 if (v18)
                 {
                   objc_opt_class();
@@ -8714,31 +9347,29 @@ void __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWi
               }
 
               while (v15 != v17);
-              v15 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
             }
 
             while (v15);
           }
 
-          v10 = v25 + 1;
+          v10 = v24 + 1;
         }
 
-        while (v25 + 1 != v24);
-        v24 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+        while (v24 + 1 != v23);
+        v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
-      while (v24);
+      while (v23);
     }
 
-    v6 = v21;
+    v6 = v20;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)importICSData:(id)data intoCalendar:(id)calendar options:(unint64_t)options
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   calendarCopy = calendar;
   v10 = calendarCopy;
@@ -8754,10 +9385,10 @@ void __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWi
       [MEMORY[0x1E695DFB0] null];
     }
     v12 = ;
-    v19[0] = dataCopy;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
-    v18 = v12;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+    v18[0] = dataCopy;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v17 = v12;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
     v15 = [(EKEventStore *)self _importEventsWithExternalIDs:0 fromICSData:v13 intoCalendarsWithIDs:v14 options:options batchSize:0];
     firstObject = [v15 firstObject];
   }
@@ -8767,45 +9398,43 @@ void __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWi
     firstObject = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return firstObject;
 }
 
 - (id)ICSDataForCalendarItems:(id)items options:(unint64_t)options
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__24;
-  v27 = __Block_byref_object_dispose__24;
-  v28 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__24;
+  v26 = __Block_byref_object_dispose__24;
+  v27 = 0;
   v7 = objc_opt_new();
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v8 = itemsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v29 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v28 count:16];
   if (v9)
   {
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        cADObjectID = [*(*(&v19 + 1) + 8 * i) CADObjectID];
+        cADObjectID = [*(*(&v18 + 1) + 8 * i) CADObjectID];
         [v7 addObject:cADObjectID];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v19 objects:v29 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v18 objects:v28 count:16];
     }
 
     while (v9);
@@ -8813,17 +9442,15 @@ void __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWi
 
   connection = [(EKEventStore *)self connection];
   cADOperationProxySync = [connection CADOperationProxySync];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __48__EKEventStore_ICSDataForCalendarItems_options___block_invoke;
-  v18[3] = &unk_1E77FDD00;
-  v18[4] = &v23;
-  [cADOperationProxySync CADDatabaseExportICSDataForCalendarItems:v7 options:options reply:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __48__EKEventStore_ICSDataForCalendarItems_options___block_invoke;
+  v17[3] = &unk_1E77FDD00;
+  v17[4] = &v22;
+  [cADOperationProxySync CADDatabaseExportICSDataForCalendarItems:v7 options:options reply:v17];
 
-  v15 = v24[5];
-  _Block_object_dispose(&v23, 8);
-
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = v23[5];
+  _Block_object_dispose(&v22, 8);
 
   return v15;
 }
@@ -8845,76 +9472,76 @@ void __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWi
 
 - (id)importVCSData:(id)data intoCalendars:(id)calendars error:(id *)error
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   calendarsCopy = calendars;
   v10 = 0x1E695D000uLL;
   v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(dataCopy, "count")}];
   if (calendarsCopy && (v12 = [calendarsCopy count], v12 == objc_msgSend(dataCopy, "count")))
   {
-    v36 = v11;
+    v35 = v11;
     if ([dataCopy count])
     {
       v13 = 0;
       errorCopy = error;
-      v34 = calendarsCopy;
-      v35 = dataCopy;
+      v33 = calendarsCopy;
+      v34 = dataCopy;
       while (1)
       {
         v14 = [dataCopy objectAtIndexedSubscript:v13];
         v15 = [calendarsCopy objectAtIndexedSubscript:v13];
         [*(v10 + 3952) array];
         v17 = v16 = dataCopy;
-        v40 = v14;
+        v39 = v14;
         v18 = [MEMORY[0x1E69E3D18] parseVCSData:v14];
         v19 = [v18 count];
         v20 = v19;
-        v39 = v18;
+        v38 = v18;
         if (v19)
         {
-          v37 = v19;
-          v38 = v13;
-          v51 = 0u;
-          v52 = 0u;
-          v49 = 0u;
+          v36 = v19;
+          v37 = v13;
           v50 = 0u;
+          v51 = 0u;
+          v48 = 0u;
+          v49 = 0u;
           obj = v18;
-          v43 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
-          if (v43)
+          v42 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+          if (v42)
           {
-            v42 = *v50;
+            v41 = *v49;
             do
             {
               v21 = 0;
               do
               {
-                if (*v50 != v42)
+                if (*v49 != v41)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v44 = v21;
-                v22 = *(*(&v49 + 1) + 8 * v21);
+                v43 = v21;
+                v22 = *(*(&v48 + 1) + 8 * v21);
+                v44 = 0u;
                 v45 = 0u;
                 v46 = 0u;
                 v47 = 0u;
-                v48 = 0u;
                 children = [v22 children];
-                v24 = [children countByEnumeratingWithState:&v45 objects:v53 count:16];
+                v24 = [children countByEnumeratingWithState:&v44 objects:v52 count:16];
                 if (v24)
                 {
                   v25 = v24;
-                  v26 = *v46;
+                  v26 = *v45;
                   do
                   {
                     for (i = 0; i != v25; ++i)
                     {
-                      if (*v46 != v26)
+                      if (*v45 != v26)
                       {
                         objc_enumerationMutation(children);
                       }
 
-                      v28 = *(*(&v45 + 1) + 8 * i);
+                      v28 = *(*(&v44 + 1) + 8 * i);
                       if ([v28 entityType] == 2)
                       {
                         v29 = [EKEvent eventWithEventStore:self];
@@ -8923,29 +9550,29 @@ void __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWi
                       }
                     }
 
-                    v25 = [children countByEnumeratingWithState:&v45 objects:v53 count:16];
+                    v25 = [children countByEnumeratingWithState:&v44 objects:v52 count:16];
                   }
 
                   while (v25);
                 }
 
-                v21 = v44 + 1;
+                v21 = v43 + 1;
               }
 
-              while (v44 + 1 != v43);
-              v43 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
+              while (v43 + 1 != v42);
+              v42 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
             }
 
-            while (v43);
+            while (v42);
           }
 
-          [v36 addObject:v17];
-          calendarsCopy = v34;
-          dataCopy = v35;
+          [v35 addObject:v17];
+          calendarsCopy = v33;
+          dataCopy = v34;
           error = errorCopy;
           v10 = 0x1E695D000;
-          v20 = v37;
-          v13 = v38;
+          v20 = v36;
+          v13 = v37;
         }
 
         else
@@ -8975,14 +9602,14 @@ void __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWi
 LABEL_27:
       if ([(EKEventStore *)self commitWithRollback:error])
       {
-        v11 = v36;
-        v30 = v36;
+        v11 = v35;
+        v30 = v35;
         goto LABEL_33;
       }
     }
 
     v30 = 0;
-    v11 = v36;
+    v11 = v35;
   }
 
   else if (error)
@@ -8998,26 +9625,24 @@ LABEL_27:
 
 LABEL_33:
 
-  v31 = *MEMORY[0x1E69E9840];
-
   return v30;
 }
 
 - (CGColor)copyCGColorForNewCalendar
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   colorStringForNewCalendar = [(EKEventStore *)self colorStringForNewCalendar];
   v3 = colorStringForNewCalendar;
   if (colorStringForNewCalendar)
   {
-    v9 = 0;
     v8 = 0;
+    v7 = 0;
     CFStringGetCString(colorStringForNewCalendar, buffer, 100, 0x8000100u);
-    sscanf(buffer, "#%02X%02X%02X", &v9 + 4, &v9, &v8);
+    sscanf(buffer, "#%02X%02X%02X", &v8 + 4, &v8, &v7);
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
-    *components = vcvtq_f64_f32(vdiv_f32(vcvt_f32_s32(__PAIR64__(v9, HIDWORD(v9))), vdup_n_s32(0x437F0000u)));
-    v11 = (v8 / 255.0);
-    v12 = 0x3FF0000000000000;
+    *components = vcvtq_f64_f32(vdiv_f32(vcvt_f32_s32(__PAIR64__(v8, HIDWORD(v8))), vdup_n_s32(0x437F0000u)));
+    v10 = (v7 / 255.0);
+    v11 = 0x3FF0000000000000;
     v5 = CGColorCreate(DeviceRGB, components);
     CFRelease(DeviceRGB);
   }
@@ -9027,35 +9652,34 @@ LABEL_33:
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)colorStringForNewCalendar
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v2 = [(EKEventStore *)self calendarsForEntityType:0];
   v3 = objc_alloc_init(MEMORY[0x1E696AB50]);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v30;
+    v7 = *v29;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v29 + 1) + 8 * i);
+        v9 = *(*(&v28 + 1) + 8 * i);
         if (([v9 isHidden] & 1) == 0)
         {
           colorString = [v9 colorString];
@@ -9063,7 +9687,7 @@ LABEL_33:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v6);
@@ -9071,28 +9695,28 @@ LABEL_33:
 
   v11 = EKGetDefaultCalendarColors();
   firstObject = [v11 firstObject];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v13 = v11;
-  v14 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v26;
+    v16 = *v25;
     v17 = -1;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v26 != v16)
+        if (*v25 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v25 + 1) + 8 * j);
-        v20 = [v3 countForObject:{v19, v25}];
+        v19 = *(*(&v24 + 1) + 8 * j);
+        v20 = [v3 countForObject:{v19, v24}];
         if (v20 < v17)
         {
           v21 = v20;
@@ -9103,13 +9727,11 @@ LABEL_33:
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v15);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -9147,10 +9769,11 @@ LABEL_33:
   return v6;
 }
 
-void __36__EKEventStore_defaultLocalCalendar__block_invoke(uint64_t a1, int a2, void *a3)
+void __36__EKEventStore_defaultLocalCalendar__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -9219,47 +9842,48 @@ void __36__EKEventStore_defaultLocalCalendar__block_invoke(uint64_t a1, int a2, 
   return selfCopy;
 }
 
-void __60__EKEventStore_defaultCalendarForNewEventsInDelegateSource___block_invoke(uint64_t a1)
+void __60__EKEventStore_defaultCalendarForNewEventsInDelegateSource___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 32) + 24);
-  if (!v2)
+  v3 = *(*(a1 + 32) + 24);
+  if (!v3)
   {
-    v3 = objc_opt_new();
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 24);
-    *(v4 + 24) = v3;
+    v4 = objc_opt_new();
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 24);
+    *(v5 + 24) = v4;
 
-    v2 = *(*(a1 + 32) + 24);
+    v3 = *(*(a1 + 32) + 24);
   }
 
-  v6 = [v2 objectForKeyedSubscript:*(a1 + 40)];
+  v7 = [v3 objectForKeyedSubscript:*(a1 + 40)];
 
-  if (!v6)
+  if (!v7)
   {
-    v7 = [*(a1 + 32) connection];
-    v8 = [v7 CADOperationProxySync];
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __60__EKEventStore_defaultCalendarForNewEventsInDelegateSource___block_invoke_2;
-    v17 = &unk_1E7800BC8;
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 48);
-    v18 = *(a1 + 32);
-    v19 = v9;
-    [v8 CADDatabaseGetDefaultCalendarForNewEventsInDelegateSource:v10 withReply:&v14];
+    v8 = [*(a1 + 32) connection];
+    v9 = [v8 CADOperationProxySync];
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __60__EKEventStore_defaultCalendarForNewEventsInDelegateSource___block_invoke_2;
+    v18 = &unk_1E7800BC8;
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 48);
+    v19 = *(a1 + 32);
+    v20 = v10;
+    [v9 CADDatabaseGetDefaultCalendarForNewEventsInDelegateSource:v11 withReply:&v15];
   }
 
-  v11 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:{*(a1 + 40), v14, v15, v16, v17, v18}];
-  v12 = *(*(a1 + 56) + 8);
-  v13 = *(v12 + 40);
-  *(v12 + 40) = v11;
+  v12 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:{*(a1 + 40), v15, v16, v17, v18, v19}];
+  v13 = *(*(a1 + 56) + 8);
+  v14 = *(v13 + 40);
+  *(v13 + 40) = v12;
 }
 
-void __60__EKEventStore_defaultCalendarForNewEventsInDelegateSource___block_invoke_2(uint64_t a1, int a2, void *a3)
+void __60__EKEventStore_defaultCalendarForNewEventsInDelegateSource___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v6 = v5;
-  if (a2)
+  if (v3)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -9278,7 +9902,7 @@ void __60__EKEventStore_defaultCalendarForNewEventsInDelegateSource___block_invo
 
 - (void)setDefaultCalendar:(id)calendar forNewEventsInDelegateSource:(id)source
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   calendarCopy = calendar;
   sourceCopy = source;
   if ([calendarCopy type] == 6)
@@ -9300,9 +9924,9 @@ void __60__EKEventStore_defaultCalendarForNewEventsInDelegateSource___block_invo
       objectID = [calendarCopy objectID];
       title = [calendarCopy title];
       *buf = 138543618;
-      v30 = objectID;
-      v31 = 2112;
-      v32 = title;
+      v29 = objectID;
+      v30 = 2112;
+      v31 = title;
       _os_log_impl(&dword_1A805E000, v11, OS_LOG_TYPE_DEFAULT, "Setting default calendar for new events to %{public}@ (%@)", buf, 0x16u);
       goto LABEL_11;
     }
@@ -9315,9 +9939,9 @@ LABEL_12:
     block[3] = &unk_1E77FD7C8;
     block[4] = self;
     v19 = sourceCopy;
-    v27 = v19;
+    v26 = v19;
     v20 = calendarCopy;
-    v28 = v20;
+    v27 = v20;
     dispatch_sync(calendarSourcesAndDefaultsQueue, block);
     connection = [(EKEventStore *)self connection];
     cADOperationProxySync = [connection CADOperationProxySync];
@@ -9345,15 +9969,15 @@ LABEL_12:
         externalID = [sourceCopy externalID];
         title2 = [sourceCopy title];
         *buf = 138544386;
-        v30 = objectID;
-        v31 = 2112;
-        v32 = title;
-        v33 = 2114;
-        v34 = objectID2;
-        v35 = 2114;
-        v36 = externalID;
-        v37 = 2112;
-        v38 = title2;
+        v29 = objectID;
+        v30 = 2112;
+        v31 = title;
+        v32 = 2114;
+        v33 = objectID2;
+        v34 = 2114;
+        v35 = externalID;
+        v36 = 2112;
+        v37 = title2;
         _os_log_impl(&dword_1A805E000, v11, OS_LOG_TYPE_DEFAULT, "Setting default calendar for new events to %{public}@ (%@) in source %{public}@ (%{public}@ - %@)", buf, 0x34u);
 
 LABEL_11:
@@ -9375,8 +9999,6 @@ LABEL_11:
   }
 
 LABEL_17:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __64__EKEventStore_setDefaultCalendar_forNewEventsInDelegateSource___block_invoke(uint64_t a1)
@@ -9397,7 +10019,7 @@ void __64__EKEventStore_setDefaultCalendar_forNewEventsInDelegateSource___block_
   [v3 setObject:v5 forKeyedSubscript:v4];
 }
 
-void __64__EKEventStore_setDefaultCalendar_forNewEventsInDelegateSource___block_invoke_2(uint64_t a1, int a2)
+void __64__EKEventStore_setDefaultCalendar_forNewEventsInDelegateSource___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -9444,36 +10066,36 @@ void __64__EKEventStore_setDefaultCalendar_forNewEventsInDelegateSource___block_
 
 - (void)_removeCachedCalendarFromSource:(id)source
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   if (self->_defaultCalendarsForNewEventsIDBySourceID)
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     null = [MEMORY[0x1E695DFB0] null];
-    v34[0] = null;
+    v33[0] = null;
     cADObjectID = [sourceCopy CADObjectID];
-    v34[1] = cADObjectID;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+    v33[1] = cADObjectID;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
 
     obj = v6;
-    v7 = [v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v31;
+      v9 = *v30;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v31 != v9)
+          if (*v30 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v30 + 1) + 8 * i);
+          v11 = *(*(&v29 + 1) + 8 * i);
           v12 = [(NSMutableDictionary *)self->_defaultCalendarsForNewEventsIDBySourceID objectForKeyedSubscript:v11];
           if (v12)
           {
@@ -9489,7 +10111,7 @@ void __64__EKEventStore_setDefaultCalendar_forNewEventsInDelegateSource___block_
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v8 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v8);
@@ -9523,38 +10145,36 @@ void __64__EKEventStore_setDefaultCalendar_forNewEventsInDelegateSource___block_
       self->_naturalLanguageSuggestedEventCalendarID = 0;
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeCachedCalendarWithCADID:(id)d
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [(NSMutableDictionary *)self->_calendars removeObjectForKey:dCopy];
   calendarsByIdentifier = self->_calendarsByIdentifier;
   self->_calendarsByIdentifier = 0;
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   allKeys = [(NSMutableDictionary *)self->_defaultCalendarsForNewEventsIDBySourceID allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         v12 = [(NSMutableDictionary *)self->_defaultCalendarsForNewEventsIDBySourceID objectForKeyedSubscript:v11];
         if ([v12 isEqual:dCopy])
         {
@@ -9562,7 +10182,7 @@ void __64__EKEventStore_setDefaultCalendar_forNewEventsInDelegateSource___block_
         }
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -9579,8 +10199,6 @@ void __64__EKEventStore_setDefaultCalendar_forNewEventsInDelegateSource___block_
     naturalLanguageSuggestedEventCalendarID = self->_naturalLanguageSuggestedEventCalendarID;
     self->_naturalLanguageSuggestedEventCalendarID = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (id)eventDraftsPath
@@ -9602,25 +10220,25 @@ void __64__EKEventStore_setDefaultCalendar_forNewEventsInDelegateSource___block_
 
 - (BOOL)_saveDraftOfEvent:(id)event toDirectory:(id)directory withVersion:(id)version
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   directoryCopy = directory;
   versionCopy = version;
   eventOccurrenceID = [eventCopy eventOccurrenceID];
   if ([eventCopy hasChanges] && (objc_msgSend(eventCopy, "isDeleted") & 1) == 0)
   {
-    v16 = EKLogHandle;
+    v15 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v41 = "[EKEventStore _saveDraftOfEvent:toDirectory:withVersion:]";
-      v42 = 2114;
-      v43 = eventOccurrenceID;
-      v44 = 2112;
-      v45 = directoryCopy;
-      v46 = 2112;
+      v40 = "[EKEventStore _saveDraftOfEvent:toDirectory:withVersion:]";
+      v41 = 2114;
+      v42 = eventOccurrenceID;
+      v43 = 2112;
+      v44 = directoryCopy;
+      v45 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_1A805E000, v16, OS_LOG_TYPE_DEFAULT, "%s: Serializing %{public}@ to path %@ for event store %@", buf, 0x2Au);
+      _os_log_impl(&dword_1A805E000, v15, OS_LOG_TYPE_DEFAULT, "%s: Serializing %{public}@ to path %@ for event store %@", buf, 0x2Au);
     }
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -9631,11 +10249,11 @@ void __64__EKEventStore_setDefaultCalendar_forNewEventsInDelegateSource___block_
         [EKEventStore _saveDraftOfEvent:toDirectory:withVersion:];
       }
 
-      v39 = 0;
-      v18 = [defaultManager createDirectoryAtPath:directoryCopy withIntermediateDirectories:1 attributes:0 error:&v39];
-      v19 = v39;
-      v20 = v19;
-      if ((v18 & 1) == 0)
+      v38 = 0;
+      v17 = [defaultManager createDirectoryAtPath:directoryCopy withIntermediateDirectories:1 attributes:0 error:&v38];
+      v18 = v38;
+      v19 = v18;
+      if ((v17 & 1) == 0)
       {
         if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
         {
@@ -9647,64 +10265,64 @@ void __64__EKEventStore_setDefaultCalendar_forNewEventsInDelegateSource___block_
     }
 
     eventOccurrenceID2 = [eventCopy eventOccurrenceID];
-    v36 = [(EKEventStore *)self _draftPathForEventWithOccurrenceID:eventOccurrenceID2 draftDirectory:directoryCopy];
+    v35 = [(EKEventStore *)self _draftPathForEventWithOccurrenceID:eventOccurrenceID2 draftDirectory:directoryCopy];
 
-    v22 = EKLogHandle;
+    v21 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = v22;
+      v22 = v21;
       attendees = [eventCopy attendees];
       changeSet = [eventCopy changeSet];
       summary = [changeSet summary];
       *buf = 136316162;
-      v41 = "[EKEventStore _saveDraftOfEvent:toDirectory:withVersion:]";
-      v42 = 2114;
-      v43 = eventOccurrenceID;
-      v44 = 2112;
-      v45 = attendees;
-      v46 = 2112;
+      v40 = "[EKEventStore _saveDraftOfEvent:toDirectory:withVersion:]";
+      v41 = 2114;
+      v42 = eventOccurrenceID;
+      v43 = 2112;
+      v44 = attendees;
+      v45 = 2112;
       selfCopy = summary;
-      v48 = 2112;
-      v49 = v36;
-      _os_log_impl(&dword_1A805E000, v23, OS_LOG_TYPE_DEFAULT, "%s: Serializing event %{public}@ with attendees %@ and with changeset %@ to file %@", buf, 0x34u);
+      v47 = 2112;
+      v48 = v35;
+      _os_log_impl(&dword_1A805E000, v22, OS_LOG_TYPE_DEFAULT, "%s: Serializing event %{public}@ with attendees %@ and with changeset %@ to file %@", buf, 0x34u);
     }
 
-    v27 = [EKDefaultSerializerFactory createSerializerWithEventStore:self withVersion:versionCopy];
-    v38 = 0;
-    v28 = [v27 serializeEvent:eventCopy error:&v38];
-    v29 = v38;
-    v30 = v29;
-    if (v28)
+    v26 = [EKDefaultSerializerFactory createSerializerWithEventStore:self withVersion:versionCopy];
+    v37 = 0;
+    v27 = [v26 serializeEvent:eventCopy error:&v37];
+    v28 = v37;
+    v29 = v28;
+    if (v27)
     {
 
-      v37 = 0;
-      v31 = [v28 writeToFile:v36 options:1 error:&v37];
-      v30 = v37;
-      v32 = EKLogHandle;
-      if (!v31)
+      v36 = 0;
+      v30 = [v27 writeToFile:v35 options:1 error:&v36];
+      v29 = v36;
+      v31 = EKLogHandle;
+      if (!v30)
       {
         if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
         {
-          v33 = v32;
+          v32 = v31;
           changeSet2 = [eventCopy changeSet];
           summary2 = [changeSet2 summary];
           *buf = 136316162;
-          v41 = "[EKEventStore _saveDraftOfEvent:toDirectory:withVersion:]";
-          v42 = 2114;
-          v43 = eventOccurrenceID;
-          v44 = 2112;
-          v45 = summary2;
-          v46 = 2112;
-          selfCopy = v36;
-          v48 = 2112;
-          v49 = v30;
-          _os_log_error_impl(&dword_1A805E000, v33, OS_LOG_TYPE_ERROR, "%s: Failed to serialize changeset event %{public}@ with changeset %@ to file %@: %@", buf, 0x34u);
+          v40 = "[EKEventStore _saveDraftOfEvent:toDirectory:withVersion:]";
+          v41 = 2114;
+          v42 = eventOccurrenceID;
+          v43 = 2112;
+          v44 = summary2;
+          v45 = 2112;
+          selfCopy = v35;
+          v47 = 2112;
+          v48 = v29;
+          _os_log_error_impl(&dword_1A805E000, v32, OS_LOG_TYPE_ERROR, "%s: Failed to serialize changeset event %{public}@ with changeset %@ to file %@: %@", buf, 0x34u);
         }
 
         v13 = 0;
 LABEL_29:
 
-        if (v28)
+        if (v27)
         {
           goto LABEL_6;
         }
@@ -9717,8 +10335,8 @@ LABEL_30:
       if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v41 = "[EKEventStore _saveDraftOfEvent:toDirectory:withVersion:]";
-        _os_log_impl(&dword_1A805E000, v32, OS_LOG_TYPE_DEFAULT, "%s: Serialization successful", buf, 0xCu);
+        v40 = "[EKEventStore _saveDraftOfEvent:toDirectory:withVersion:]";
+        _os_log_impl(&dword_1A805E000, v31, OS_LOG_TYPE_DEFAULT, "%s: Serialization successful", buf, 0xCu);
       }
     }
 
@@ -9735,16 +10353,15 @@ LABEL_30:
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v41 = "[EKEventStore _saveDraftOfEvent:toDirectory:withVersion:]";
-    v42 = 2114;
-    v43 = eventOccurrenceID;
+    v40 = "[EKEventStore _saveDraftOfEvent:toDirectory:withVersion:]";
+    v41 = 2114;
+    v42 = eventOccurrenceID;
     _os_log_impl(&dword_1A805E000, v12, OS_LOG_TYPE_DEFAULT, "%s: Event %{public}@ has no changes (or was deleted).  Not serializing", buf, 0x16u);
   }
 
   v13 = 1;
 LABEL_6:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -9759,7 +10376,7 @@ LABEL_6:
 
 - (id)_loadDraftOfEventWithOccurrenceID:(id)d fromDirectory:(id)directory withVersion:(id)version
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   dCopy = d;
   directoryCopy = directory;
   versionCopy = version;
@@ -9767,12 +10384,12 @@ LABEL_6:
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v59 = "[EKEventStore _loadDraftOfEventWithOccurrenceID:fromDirectory:withVersion:]";
-    v60 = 2114;
-    v61 = dCopy;
-    v62 = 2112;
-    v63 = directoryCopy;
-    v64 = 2112;
+    v58 = "[EKEventStore _loadDraftOfEventWithOccurrenceID:fromDirectory:withVersion:]";
+    v59 = 2114;
+    v60 = dCopy;
+    v61 = 2112;
+    v62 = directoryCopy;
+    v63 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1A805E000, v11, OS_LOG_TYPE_DEFAULT, "%s: Loading event with occurrenceID %{public}@ from path %@ for event store %@", buf, 0x2Au);
   }
@@ -9796,16 +10413,16 @@ LABEL_6:
         version = [v15 version];
       }
 
-      v55 = version;
+      v54 = version;
       if ([version isEqualToString:@"3.0"])
       {
+        v55 = 0;
         v56 = 0;
-        v57 = 0;
-        v52 = v16;
-        v20 = [v16 deserializeData:v14 isNew:&v57 error:&v56];
-        v53 = v57;
-        v51 = v56;
-        v54 = v20;
+        v51 = v16;
+        v20 = [v16 deserializeData:v14 isNew:&v56 error:&v55];
+        v52 = v56;
+        v50 = v55;
+        v53 = v20;
         if (v20)
         {
           [(EKEventStore *)self _deleteDraft:v12];
@@ -9814,7 +10431,7 @@ LABEL_6:
           if (calendar)
           {
             v22 = [(EKEventStore *)self eventWithIdentifier:dCopy];
-            v50 = v22;
+            v49 = v22;
             if (v22)
             {
               v23 = v22;
@@ -9830,16 +10447,16 @@ LABEL_6:
                 [EKEventStore _loadDraftOfEventWithOccurrenceID:v25 fromDirectory:? withVersion:?];
               }
 
-              v48 = v24;
+              v47 = v24;
               changeSetForDiff = [v24 changeSetForDiff];
               changedKeys = [changeSetForDiff changedKeys];
               v27 = [changedKeys mutableCopy];
 
-              changeSet = [v54 changeSet];
+              changeSet = [v53 changeSet];
               changedKeys2 = [changeSet changedKeys];
               [v27 minusSet:changedKeys2];
 
-              v47 = v27;
+              v46 = v27;
               allObjects = [v27 allObjects];
               [changeSetForDiff rollbackChangesForKeys:allObjects];
 
@@ -9849,42 +10466,42 @@ LABEL_6:
                 [EKEventStore _loadDraftOfEventWithOccurrenceID:v31 fromDirectory:? withVersion:?];
               }
 
-              v32 = v50;
-              [v50 applyChanges:changeSetForDiff];
+              v32 = v49;
+              [v49 applyChanges:changeSetForDiff];
               v33 = EKLogHandle;
               if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
               {
                 v34 = v33;
-                changeSet2 = [v50 changeSet];
+                changeSet2 = [v49 changeSet];
                 summary = [changeSet2 summary];
                 *buf = 136315394;
-                v59 = "[EKEventStore _loadDraftOfEventWithOccurrenceID:fromDirectory:withVersion:]";
-                v60 = 2112;
-                v61 = summary;
+                v58 = "[EKEventStore _loadDraftOfEventWithOccurrenceID:fromDirectory:withVersion:]";
+                v59 = 2112;
+                v60 = summary;
                 _os_log_impl(&dword_1A805E000, v34, OS_LOG_TYPE_DEFAULT, "%s: Applied changes to event: %@", buf, 0x16u);
 
-                v32 = v50;
+                v32 = v49;
               }
 
               v19 = v32;
 
               v37 = v32;
-              v16 = v52;
-              v38 = v53;
-              v39 = v51;
+              v16 = v51;
+              v38 = v52;
+              v39 = v50;
             }
 
             else
             {
-              v38 = v53;
-              if (v53 && ![v53 BOOLValue])
+              v38 = v52;
+              if (v52 && ![v52 BOOLValue])
               {
                 v44 = EKLogHandle;
-                v16 = v52;
+                v16 = v51;
                 if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  v59 = dCopy;
+                  v58 = dCopy;
                   _os_log_impl(&dword_1A805E000, v44, OS_LOG_TYPE_DEFAULT, "Discarding draft for event %{public}@ because the draft was for an event that has been deleted.", buf, 0xCu);
                 }
 
@@ -9899,22 +10516,22 @@ LABEL_6:
                   v42 = v41;
                   attendees = [v20 attendees];
                   *buf = 136315650;
-                  v59 = "[EKEventStore _loadDraftOfEventWithOccurrenceID:fromDirectory:withVersion:]";
-                  v60 = 2112;
-                  v61 = v20;
-                  v62 = 2112;
-                  v63 = attendees;
+                  v58 = "[EKEventStore _loadDraftOfEventWithOccurrenceID:fromDirectory:withVersion:]";
+                  v59 = 2112;
+                  v60 = v20;
+                  v61 = 2112;
+                  v62 = attendees;
                   _os_log_impl(&dword_1A805E000, v42, OS_LOG_TYPE_DEFAULT, "%s: Return deserialized event %@ with attendees %@", buf, 0x20u);
                 }
 
                 [v20 markAsNew];
                 v19 = v20;
-                v16 = v52;
-                v38 = v53;
+                v16 = v51;
+                v38 = v52;
               }
 
               v37 = 0;
-              v39 = v51;
+              v39 = v50;
             }
           }
 
@@ -9924,20 +10541,20 @@ LABEL_6:
             if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v59 = dCopy;
+              v58 = dCopy;
               _os_log_impl(&dword_1A805E000, v40, OS_LOG_TYPE_DEFAULT, "Discarding draft for event %{public}@ because the draft was on a calendar that has been deleted.", buf, 0xCu);
             }
 
             v19 = 0;
-            v16 = v52;
-            v38 = v53;
-            v39 = v51;
+            v16 = v51;
+            v38 = v52;
+            v39 = v50;
           }
         }
 
         else
         {
-          v39 = v51;
+          v39 = v50;
           if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
           {
             [EKEventStore _loadDraftOfEventWithOccurrenceID:fromDirectory:withVersion:];
@@ -9945,8 +10562,8 @@ LABEL_6:
 
           [(EKEventStore *)self _deleteDraft:v12];
           v19 = 0;
-          v16 = v52;
-          v38 = v53;
+          v16 = v51;
+          v38 = v52;
         }
       }
 
@@ -9979,16 +10596,14 @@ LABEL_6:
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v59 = "[EKEventStore _loadDraftOfEventWithOccurrenceID:fromDirectory:withVersion:]";
-      v60 = 2112;
-      v61 = v12;
+      v58 = "[EKEventStore _loadDraftOfEventWithOccurrenceID:fromDirectory:withVersion:]";
+      v59 = 2112;
+      v60 = v12;
       _os_log_impl(&dword_1A805E000, v18, OS_LOG_TYPE_DEFAULT, "%s: No file exists at path %@", buf, 0x16u);
     }
 
     v19 = 0;
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -10002,11 +10617,9 @@ LABEL_6:
 
 - (void)deleteAllDrafts
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Error trying to cleanup files from events pending changes: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_deleteDraftOfEventWithOccurrenceID:(id)d fromDirectory:(id)directory
@@ -10044,6 +10657,36 @@ LABEL_6:
   v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", directoryCopy, v7];
 
   return v8;
+}
+
+- (BOOL)saveReminder:(EKReminder *)reminder commit:(BOOL)commit error:(NSError *)error
+{
+  v13 = 0;
+  v6 = [(EKEventStore *)self _saveReminder:reminder commit:commit error:&v13];
+  v7 = v13;
+  v8 = v7;
+  if (error)
+  {
+    v9 = v7;
+    *error = v8;
+  }
+
+  v10 = EKLogHandle;
+  if (v6)
+  {
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
+    {
+      v12 = 0;
+      _os_log_impl(&dword_1A805E000, v10, OS_LOG_TYPE_INFO, "Saved reminder successfully", &v12, 2u);
+    }
+  }
+
+  else if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    [EKEventStore saveReminder:commit:error:];
+  }
+
+  return v6;
 }
 
 - (BOOL)_saveReminder:(id)reminder commit:(BOOL)commit error:(id *)error
@@ -10099,6 +10742,36 @@ LABEL_13:
 LABEL_14:
 
   return v12;
+}
+
+- (BOOL)removeReminder:(EKReminder *)reminder commit:(BOOL)commit error:(NSError *)error
+{
+  v13 = 0;
+  v6 = [(EKEventStore *)self _removeReminder:reminder commit:commit error:&v13];
+  v7 = v13;
+  v8 = v7;
+  if (error)
+  {
+    v9 = v7;
+    *error = v8;
+  }
+
+  v10 = EKLogHandle;
+  if (v6)
+  {
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
+    {
+      v12 = 0;
+      _os_log_impl(&dword_1A805E000, v10, OS_LOG_TYPE_INFO, "Removed reminder successfully", &v12, 2u);
+    }
+  }
+
+  else if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    [EKEventStore removeReminder:commit:error:];
+  }
+
+  return v6;
 }
 
 - (BOOL)_removeReminder:(id)reminder commit:(BOOL)commit error:(id *)error
@@ -10182,7 +10855,7 @@ LABEL_12:
 
 - (id)eventsWithSameRecurrenceSetAsEvent:(id)event
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if ([eventCopy isDetached])
   {
@@ -10198,43 +10871,43 @@ LABEL_12:
   if (recurrenceSet)
   {
     v6 = objc_opt_new();
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__24;
-    v31 = __Block_byref_object_dispose__24;
-    v32 = 0;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__24;
+    v30 = __Block_byref_object_dispose__24;
+    v31 = 0;
     connection = [(EKEventStore *)self connection];
     cADOperationProxySync = [connection CADOperationProxySync];
     calendar = [eventCopy calendar];
     cADObjectID = [calendar CADObjectID];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __51__EKEventStore_eventsWithSameRecurrenceSetAsEvent___block_invoke;
-    v24[3] = &unk_1E77FED28;
-    v25 = recurrenceSet;
-    v26 = &v27;
-    [cADOperationProxySync CADDatabaseGetCalendarItemsWithRecurrenceSet:v25 inCalendar:cADObjectID reply:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __51__EKEventStore_eventsWithSameRecurrenceSetAsEvent___block_invoke;
+    v23[3] = &unk_1E77FED28;
+    v24 = recurrenceSet;
+    v25 = &v26;
+    [cADOperationProxySync CADDatabaseGetCalendarItemsWithRecurrenceSet:v24 inCalendar:cADObjectID reply:v23];
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v11 = v28[5];
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v33 count:16];
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v11 = v27[5];
+    v12 = [v11 countByEnumeratingWithState:&v19 objects:v32 count:16];
     if (v12)
     {
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = [EKObjectID objectIDWithCADObjectID:*(*(&v20 + 1) + 8 * i)];
+          v15 = [EKObjectID objectIDWithCADObjectID:*(*(&v19 + 1) + 8 * i)];
           v16 = [(EKEventStore *)self publicObjectWithFetchedObjectID:v15];
 
           if (v16)
@@ -10243,13 +10916,13 @@ LABEL_12:
           }
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v20 objects:v33 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v19 objects:v32 count:16];
       }
 
       while (v12);
     }
 
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v26, 8);
   }
 
   else
@@ -10257,19 +10930,18 @@ LABEL_12:
     v6 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
-void __51__EKEventStore_eventsWithSameRecurrenceSetAsEvent___block_invoke(uint64_t a1, int a2, void *a3)
+void __51__EKEventStore_eventsWithSameRecurrenceSetAsEvent___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __51__EKEventStore_eventsWithSameRecurrenceSetAsEvent___block_invoke_cold_1(a1);
+      __51__EKEventStore_eventsWithSameRecurrenceSetAsEvent___block_invoke_cold_1();
     }
   }
 
@@ -10281,47 +10953,47 @@ void __51__EKEventStore_eventsWithSameRecurrenceSetAsEvent___block_invoke(uint64
 
 - (id)calendarItemsWithUniqueIdentifier:(id)identifier inCalendar:(id)calendar
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   calendarCopy = calendar;
   v7 = objc_opt_new();
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__24;
-  v32 = __Block_byref_object_dispose__24;
-  v33 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__24;
+  v31 = __Block_byref_object_dispose__24;
+  v32 = 0;
   connection = [(EKEventStore *)self connection];
   cADOperationProxySync = [connection CADOperationProxySync];
   cADObjectID = [calendarCopy CADObjectID];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __61__EKEventStore_calendarItemsWithUniqueIdentifier_inCalendar___block_invoke;
-  v25[3] = &unk_1E77FED28;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __61__EKEventStore_calendarItemsWithUniqueIdentifier_inCalendar___block_invoke;
+  v24[3] = &unk_1E77FED28;
   v11 = identifierCopy;
-  v26 = v11;
-  v27 = &v28;
-  [cADOperationProxySync CADDatabaseGetCalendarItemsWithUniqueIdentifier:v11 inCalendar:cADObjectID reply:v25];
+  v25 = v11;
+  v26 = &v27;
+  [cADOperationProxySync CADDatabaseGetCalendarItemsWithUniqueIdentifier:v11 inCalendar:cADObjectID reply:v24];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
-  v12 = v29[5];
-  v13 = [v12 countByEnumeratingWithState:&v21 objects:v34 count:16];
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v12 = v28[5];
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v33 count:16];
   if (v13)
   {
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = [EKObjectID objectIDWithCADObjectID:*(*(&v21 + 1) + 8 * i)];
+        v16 = [EKObjectID objectIDWithCADObjectID:*(*(&v20 + 1) + 8 * i)];
         v17 = [(EKEventStore *)self publicObjectWithFetchedObjectID:v16];
 
         if (v17)
@@ -10330,26 +11002,26 @@ void __51__EKEventStore_eventsWithSameRecurrenceSetAsEvent___block_invoke(uint64
         }
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v21 objects:v34 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v20 objects:v33 count:16];
     }
 
     while (v13);
   }
 
-  _Block_object_dispose(&v28, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v27, 8);
 
   return v7;
 }
 
-void __61__EKEventStore_calendarItemsWithUniqueIdentifier_inCalendar___block_invoke(uint64_t a1, int a2, void *a3)
+void __61__EKEventStore_calendarItemsWithUniqueIdentifier_inCalendar___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __61__EKEventStore_calendarItemsWithUniqueIdentifier_inCalendar___block_invoke_cold_1(a1);
+      __61__EKEventStore_calendarItemsWithUniqueIdentifier_inCalendar___block_invoke_cold_1();
     }
   }
 
@@ -10361,37 +11033,37 @@ void __61__EKEventStore_calendarItemsWithUniqueIdentifier_inCalendar___block_inv
 
 - (EKCalendarItem)calendarItemWithIdentifier:(NSString *)identifier
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v4 = identifier;
   if (![(EKEventStore *)self returnReminderResults]|| ([(EKReminderStore *)self->_reminderStore reminderWithIdentifier:v4], (v5 = objc_claimAutoreleasedReturnValue()) == 0))
   {
     if ([(EKEventStore *)self returnEventResults])
     {
-      v31 = 0;
-      v32 = &v31;
-      v33 = 0x3032000000;
-      v34 = __Block_byref_object_copy__24;
-      v35 = __Block_byref_object_dispose__24;
-      v36 = 0;
+      v30 = 0;
+      v31 = &v30;
+      v32 = 0x3032000000;
+      v33 = __Block_byref_object_copy__24;
+      v34 = __Block_byref_object_dispose__24;
+      v35 = 0;
       [(EKEventStore *)self objectsPendingCommit];
+      v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
-      v6 = v28 = 0u;
-      v7 = [v6 countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v26 = 0u;
+      v6 = v27 = 0u;
+      v7 = [v6 countByEnumeratingWithState:&v26 objects:v36 count:16];
       if (v7)
       {
-        v8 = *v28;
+        v8 = *v27;
         while (2)
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v28 != v8)
+            if (*v27 != v8)
             {
               objc_enumerationMutation(v6);
             }
 
-            v10 = *(*(&v27 + 1) + 8 * i);
+            v10 = *(*(&v26 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -10401,15 +11073,15 @@ void __61__EKEventStore_calendarItemsWithUniqueIdentifier_inCalendar___block_inv
               if (v12)
               {
                 objectID = [v10 objectID];
-                v14 = v32[5];
-                v32[5] = objectID;
+                v14 = v31[5];
+                v31[5] = objectID;
 
                 goto LABEL_16;
               }
             }
           }
 
-          v7 = [v6 countByEnumeratingWithState:&v27 objects:v37 count:16];
+          v7 = [v6 countByEnumeratingWithState:&v26 objects:v36 count:16];
           if (v7)
           {
             continue;
@@ -10421,24 +11093,24 @@ void __61__EKEventStore_calendarItemsWithUniqueIdentifier_inCalendar___block_inv
 
 LABEL_16:
 
-      v15 = v32[5];
+      v15 = v31[5];
       if (!v15)
       {
         [(EKEventStore *)self _implicitUpgradeToFullAccessIfNeededWithReason:4];
         connection = [(EKEventStore *)self connection];
         cADOperationProxySync = [connection CADOperationProxySync];
-        v21 = MEMORY[0x1E69E9820];
-        v22 = 3221225472;
-        v23 = __43__EKEventStore_calendarItemWithIdentifier___block_invoke;
-        v24 = &unk_1E7800B28;
-        v25 = v4;
-        v26 = &v31;
-        [cADOperationProxySync CADDatabaseGetCalendarItemWithUUID:v25 reply:&v21];
+        v20 = MEMORY[0x1E69E9820];
+        v21 = 3221225472;
+        v22 = __43__EKEventStore_calendarItemWithIdentifier___block_invoke;
+        v23 = &unk_1E7800B28;
+        v24 = v4;
+        v25 = &v30;
+        [cADOperationProxySync CADDatabaseGetCalendarItemWithUUID:v24 reply:&v20];
 
-        v15 = v32[5];
+        v15 = v31[5];
       }
 
-      v18 = [(EKEventStore *)self validatedNonDeletedPublicObjectWithObjectID:v15, v21, v22, v23, v24];
+      v18 = [(EKEventStore *)self validatedNonDeletedPublicObjectWithObjectID:v15, v20, v21, v22, v23];
       if (v18)
       {
         v5 = [(EKEventStore *)self _apiExpectedEventForEvent:v18];
@@ -10449,7 +11121,7 @@ LABEL_16:
         v5 = 0;
       }
 
-      _Block_object_dispose(&v31, 8);
+      _Block_object_dispose(&v30, 8);
     }
 
     else
@@ -10458,19 +11130,18 @@ LABEL_16:
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
-void __43__EKEventStore_calendarItemWithIdentifier___block_invoke(uint64_t a1, int a2, void *a3)
+void __43__EKEventStore_calendarItemWithIdentifier___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __45__EKEventStore_eventWithUUID_occurrenceDate___block_invoke_cold_1(a1);
+      __45__EKEventStore_eventWithUUID_occurrenceDate___block_invoke_cold_1();
     }
   }
 
@@ -10624,24 +11295,25 @@ LABEL_25:
   {
     if (type)
     {
-      v3 = os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR);
-      if (!v3)
+      v5 = EKLogHandle;
+      v4 = os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR);
+      if (!v4)
       {
-        return v3;
+        return v4;
       }
 
-      [EKEventStore accessGrantedForEntityType:];
+      [(EKEventStore *)type accessGrantedForEntityType:v5, v6];
     }
 
     else if ((denyAccessToEvents & 1) == 0)
     {
-      LOBYTE(v3) = [(EKAuthStatusChecker *)self->_authStatusChecker eventAccessLevel]!= 0;
-      return v3;
+      LOBYTE(v4) = [(EKAuthStatusChecker *)self->_authStatusChecker eventAccessLevel]!= 0;
+      return v4;
     }
 
 LABEL_6:
-    LOBYTE(v3) = 0;
-    return v3;
+    LOBYTE(v4) = 0;
+    return v4;
   }
 
   if (denyAccessToReminders)
@@ -10651,8 +11323,8 @@ LABEL_6:
 
   authStatusChecker = self->_authStatusChecker;
 
-  LOBYTE(v3) = [(EKAuthStatusChecker *)authStatusChecker hasAccessToReminders];
-  return v3;
+  LOBYTE(v4) = [(EKAuthStatusChecker *)authStatusChecker hasAccessToReminders];
+  return v4;
 }
 
 - (BOOL)shouldSaveCalendarAsEventCalendar:(id)calendar
@@ -10685,6 +11357,56 @@ LABEL_6:
   }
 
   return v4;
+}
+
+- (id)closestCachedOccurrenceToDate:(double)date forEventObjectID:(id)d prefersForwardSearch:(BOOL)search
+{
+  searchCopy = search;
+  dCopy = d;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__24;
+  v36 = __Block_byref_object_dispose__24;
+  v37 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__24;
+  v30 = __Block_byref_object_dispose__24;
+  v31 = 0;
+  database = [(EKEventStore *)self database];
+  v10 = [dCopy CADObjectIDWithGeneration:{objc_msgSend(database, "databaseRestoreGeneration")}];
+
+  connection = [(EKEventStore *)self connection];
+  cADOperationProxySync = [connection CADOperationProxySync];
+  v13 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:date];
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __84__EKEventStore_closestCachedOccurrenceToDate_forEventObjectID_prefersForwardSearch___block_invoke;
+  v21 = &unk_1E7800C18;
+  v14 = dCopy;
+  v22 = v14;
+  selfCopy = self;
+  v24 = &v32;
+  v25 = &v26;
+  [cADOperationProxySync CADOccurrenceCacheGetOccurrenceDateOfEventWithObjectID:v10 nearestDate:v13 prefersForwardSearch:searchCopy reply:&v18];
+
+  if (v33[5] && v27[5])
+  {
+    v15 = [EKEvent alloc];
+    v16 = [(EKEvent *)v15 initWithPersistentObject:v33[5] occurrenceDate:v27[5], v18, v19, v20, v21];
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v32, 8);
+
+  return v16;
 }
 
 void __84__EKEventStore_closestCachedOccurrenceToDate_forEventObjectID_prefersForwardSearch___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -10733,7 +11455,7 @@ void __84__EKEventStore_closestCachedOccurrenceToDate_forEventObjectID_prefersFo
   return connection;
 }
 
-void __53__EKEventStore_countOfEventsFromStartDate_toEndDate___block_invoke(uint64_t a1, int a2, int a3)
+void __53__EKEventStore_countOfEventsFromStartDate_toEndDate___block_invoke(uint64_t result, uint64_t a2, int a3)
 {
   if (a2)
   {
@@ -10746,7 +11468,7 @@ void __53__EKEventStore_countOfEventsFromStartDate_toEndDate___block_invoke(uint
 
   else
   {
-    *(*(*(a1 + 32) + 8) + 24) = a3;
+    *(*(*(result + 32) + 8) + 24) = a3;
   }
 }
 
@@ -10775,7 +11497,7 @@ void __53__EKEventStore_countOfEventsFromStartDate_toEndDate___block_invoke(uint
   return connection;
 }
 
-void __73__EKEventStore_countOfEventsCalendarFromStartDate_toEndDate_ByCalendars___block_invoke(uint64_t a1, int a2, int a3)
+void __73__EKEventStore_countOfEventsCalendarFromStartDate_toEndDate_ByCalendars___block_invoke(uint64_t result, uint64_t a2, int a3)
 {
   if (a2)
   {
@@ -10788,7 +11510,7 @@ void __73__EKEventStore_countOfEventsCalendarFromStartDate_toEndDate_ByCalendars
 
   else
   {
-    *(*(*(a1 + 32) + 8) + 24) = a3;
+    *(*(*(result + 32) + 8) + 24) = a3;
   }
 }
 
@@ -10817,7 +11539,7 @@ void __73__EKEventStore_countOfEventsCalendarFromStartDate_toEndDate_ByCalendars
   return v14;
 }
 
-void __73__EKEventStore_sumOfDurationCalendarFromStartDate_toEndDate_ByCalendars___block_invoke(uint64_t a1, int a2, int a3)
+void __73__EKEventStore_sumOfDurationCalendarFromStartDate_toEndDate_ByCalendars___block_invoke(uint64_t result, uint64_t a2, int a3)
 {
   if (a2)
   {
@@ -10830,7 +11552,7 @@ void __73__EKEventStore_sumOfDurationCalendarFromStartDate_toEndDate_ByCalendars
 
   else
   {
-    *(*(*(a1 + 32) + 8) + 24) = a3;
+    *(*(*(result + 32) + 8) + 24) = a3;
   }
 }
 
@@ -10874,20 +11596,20 @@ void __73__EKEventStore_sumOfDurationCalendarFromStartDate_toEndDate_ByCalendars
   return v8;
 }
 
-void __38__EKEventStore_countOfEventsInSource___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void __38__EKEventStore_countOfEventsInSource___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
     v5 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __38__EKEventStore_countOfEventsInSource___block_invoke_cold_1(a1, v5, a2);
+      __38__EKEventStore_countOfEventsInSource___block_invoke_cold_1(result, v5, a2);
     }
   }
 
   else
   {
-    *(*(*(a1 + 40) + 8) + 24) = a3;
+    *(*(*(result + 40) + 8) + 24) = a3;
   }
 }
 
@@ -10917,10 +11639,11 @@ void __38__EKEventStore_countOfEventsInSource___block_invoke(uint64_t a1, uint64
   return v11;
 }
 
-void __50__EKEventStore_doEvents_haveOccurrencesAfterDate___block_invoke(uint64_t a1, int a2, void *a3)
+void __50__EKEventStore_doEvents_haveOccurrencesAfterDate___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -10937,7 +11660,7 @@ void __50__EKEventStore_doEvents_haveOccurrencesAfterDate___block_invoke(uint64_
 
 - (id)calendarWithUniqueID:(id)d
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = objc_alloc(MEMORY[0x1E695DFA8]);
   _allCalendars = [(EKEventStore *)self _allCalendars];
@@ -10946,25 +11669,25 @@ void __50__EKEventStore_doEvents_haveOccurrencesAfterDate___block_invoke(uint64_
   v8 = [(EKEventStore *)self sharedCalendarInvitationsForEntityTypes:3];
   [v7 addObjectsFromArray:v8];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
-    v11 = *v19;
+    v11 = *v18;
     while (2)
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         uniqueIdentifier = [v13 uniqueIdentifier];
         v15 = [uniqueIdentifier isEqualToString:dCopy];
 
@@ -10975,7 +11698,7 @@ void __50__EKEventStore_doEvents_haveOccurrencesAfterDate___block_invoke(uint64_
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v10)
       {
         continue;
@@ -10987,14 +11710,12 @@ void __50__EKEventStore_doEvents_haveOccurrencesAfterDate___block_invoke(uint64_
 
 LABEL_11:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (id)calendarWithExternalID:(id)d
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if ([(EKEventStore *)self returnEventResults])
   {
@@ -11005,25 +11726,25 @@ LABEL_11:
     v8 = [(EKEventStore *)self sharedCalendarInvitationsForEntityTypes:3];
     [v7 addObjectsFromArray:v8];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
-      v11 = *v19;
+      v11 = *v18;
       while (2)
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
+          v13 = *(*(&v17 + 1) + 8 * i);
           externalID = [v13 externalID];
           v15 = [externalID isEqualToString:dCopy];
 
@@ -11034,7 +11755,7 @@ LABEL_11:
           }
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v10)
         {
           continue;
@@ -11051,8 +11772,6 @@ LABEL_13:
   {
     v10 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -11117,12 +11836,12 @@ uint64_t __45__EKEventStore__eventCalendarWithIdentifier___block_invoke(uint64_t
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (EKCalendar)calendarWithIdentifier:(NSString *)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = identifier;
   if ([(EKEventStore *)self returnEventResults])
   {
@@ -11133,25 +11852,25 @@ uint64_t __45__EKEventStore__eventCalendarWithIdentifier___block_invoke(uint64_t
     }
 
     [(EKEventStore *)self sharedCalendarInvitationsForEntityTypes:3];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v6 = v19 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = v18 = 0u;
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
+          v11 = *(*(&v15 + 1) + 8 * i);
           calendarIdentifier = [v11 calendarIdentifier];
           v13 = [calendarIdentifier isEqualToString:v4];
 
@@ -11163,7 +11882,7 @@ uint64_t __45__EKEventStore__eventCalendarWithIdentifier___block_invoke(uint64_t
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v8)
         {
           continue;
@@ -11186,93 +11905,89 @@ uint64_t __45__EKEventStore__eventCalendarWithIdentifier___block_invoke(uint64_t
 
 LABEL_16:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)calendarsWithIdentifiers:(id)identifiers
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = identifiersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(EKEventStore *)self calendarWithIdentifier:*(*(&v15 + 1) + 8 * i), v15];
+        v11 = [(EKEventStore *)self calendarWithIdentifier:*(*(&v14 + 1) + 8 * i), v14];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [v5 copy];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)calendarsWithObjectIDs:(id)ds
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(dsCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(EKEventStore *)self publicObjectWithObjectID:*(*(&v15 + 1) + 8 * i), v15];
+        v11 = [(EKEventStore *)self publicObjectWithObjectID:*(*(&v14 + 1) + 8 * i), v14];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [v5 copy];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -11292,38 +12007,38 @@ LABEL_16:
 
 void __46__EKEventStore_familyCalendarsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 count])
   {
     v4 = [MEMORY[0x1E695DF70] array];
     v5 = [*(a1 + 32) calendarsForEntityType:0];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v12 + 1) + 8 * i);
+          v10 = *(*(&v11 + 1) + 8 * i);
           if ([EKFamilyCircleManager isFamilyCalendar:v10 givenFamilySharees:v3])
           {
             [v4 addObject:v10];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
@@ -11336,8 +12051,6 @@ void __46__EKEventStore_familyCalendarsWithCompletion___block_invoke(uint64_t a1
   {
     (*(*(a1 + 40) + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)calendarWithExternalURI:(id)i
@@ -11371,9 +12084,9 @@ void __46__EKEventStore_familyCalendarsWithCompletion___block_invoke(uint64_t a1
 
 - (id)uniqueIdentifiersForEventsWithObjectIDs:(id)ds
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
-  v49 = dsCopy;
+  v48 = dsCopy;
   if (![dsCopy count])
   {
     v44 = [MEMORY[0x1E695DFD8] set];
@@ -11386,34 +12099,34 @@ void __46__EKEventStore_familyCalendarsWithCompletion___block_invoke(uint64_t a1
   block[1] = 3221225472;
   block[2] = __56__EKEventStore_uniqueIdentifiersForEventsWithObjectIDs___block_invoke;
   block[3] = &unk_1E77FD7C8;
-  v6 = v49;
-  v79 = v6;
+  v6 = v48;
+  v78 = v6;
   selfCopy = self;
   v7 = v4;
-  v81 = v7;
+  v80 = v7;
   dispatch_sync(registeredQueue, block);
   v8 = [v6 mutableCopy];
   v9 = +[(EKPersistentCalendarItem *)EKPersistentEvent];
   v10 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v7, "count")}];
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
   v75 = 0u;
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
   v11 = v7;
-  v12 = [v11 countByEnumeratingWithState:&v74 objects:v87 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v73 objects:v86 count:16];
   if (v12)
   {
-    v13 = *v75;
+    v13 = *v74;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v75 != v13)
+        if (*v74 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v74 + 1) + 8 * i);
+        v15 = *(*(&v73 + 1) + 8 * i);
         v16 = [v15 loadedOrUpdatedPropertyValue:v9 wasAvailable:0];
         if (v16)
         {
@@ -11423,7 +12136,7 @@ void __46__EKEventStore_familyCalendarsWithCompletion___block_invoke(uint64_t a1
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v74 objects:v87 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v73 objects:v86 count:16];
     }
 
     while (v12);
@@ -11436,25 +12149,25 @@ void __46__EKEventStore_familyCalendarsWithCompletion___block_invoke(uint64_t a1
       goto LABEL_23;
     }
 
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
     v71 = 0u;
+    v72 = 0u;
+    v69 = 0u;
+    v70 = 0u;
     allObjects = [v8 allObjects];
-    v19 = [allObjects countByEnumeratingWithState:&v70 objects:v86 count:16];
+    v19 = [allObjects countByEnumeratingWithState:&v69 objects:v85 count:16];
     if (v19)
     {
-      v20 = *v71;
+      v20 = *v70;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v71 != v20)
+          if (*v70 != v20)
           {
             objc_enumerationMutation(allObjects);
           }
 
-          v22 = *(*(&v70 + 1) + 8 * j);
+          v22 = *(*(&v69 + 1) + 8 * j);
           v23 = [(NSCache *)self->_deletedEventUniqueIdentifiersCache objectForKey:v22];
           if (v23)
           {
@@ -11463,7 +12176,7 @@ void __46__EKEventStore_familyCalendarsWithCompletion___block_invoke(uint64_t a1
           }
         }
 
-        v19 = [allObjects countByEnumeratingWithState:&v70 objects:v86 count:16];
+        v19 = [allObjects countByEnumeratingWithState:&v69 objects:v85 count:16];
       }
 
       while (v19);
@@ -11472,80 +12185,80 @@ void __46__EKEventStore_familyCalendarsWithCompletion___block_invoke(uint64_t a1
     if ([v8 count])
     {
 LABEL_23:
-      v53 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v8, "count")}];
+      v52 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v8, "count")}];
       database = [(EKEventStore *)self database];
       databaseRestoreGeneration = [database databaseRestoreGeneration];
 
-      v68 = 0u;
-      v69 = 0u;
-      v66 = 0u;
       v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
       v26 = v8;
-      v27 = [v26 countByEnumeratingWithState:&v66 objects:v85 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v65 objects:v84 count:16];
       if (v27)
       {
-        v28 = *v67;
+        v28 = *v66;
         do
         {
           for (k = 0; k != v27; ++k)
           {
-            if (*v67 != v28)
+            if (*v66 != v28)
             {
               objc_enumerationMutation(v26);
             }
 
-            v30 = *(*(&v66 + 1) + 8 * k);
+            v30 = *(*(&v65 + 1) + 8 * k);
             if (([v30 isTemporary] & 1) == 0 && objc_msgSend(v30, "entityType") == 2)
             {
               v31 = [v30 CADObjectIDWithGeneration:databaseRestoreGeneration];
-              [v53 addObject:v31];
+              [v52 addObject:v31];
             }
           }
 
-          v27 = [v26 countByEnumeratingWithState:&v66 objects:v85 count:16];
+          v27 = [v26 countByEnumeratingWithState:&v65 objects:v84 count:16];
         }
 
         while (v27);
       }
 
-      if (v53)
+      if (v52)
       {
-        v60 = 0;
-        v61 = &v60;
-        v62 = 0x3032000000;
-        v63 = __Block_byref_object_copy__24;
-        v64 = __Block_byref_object_dispose__24;
-        v65 = 0;
+        v59 = 0;
+        v60 = &v59;
+        v61 = 0x3032000000;
+        v62 = __Block_byref_object_copy__24;
+        v63 = __Block_byref_object_dispose__24;
+        v64 = 0;
         database2 = [(EKEventStore *)self database];
         cADOperationProxySync = [database2 CADOperationProxySync];
-        v84 = v9;
-        v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v84 count:1];
-        v59[0] = MEMORY[0x1E69E9820];
-        v59[1] = 3221225472;
-        v59[2] = __56__EKEventStore_uniqueIdentifiersForEventsWithObjectIDs___block_invoke_2;
-        v59[3] = &unk_1E7800918;
-        v59[4] = &v60;
-        [cADOperationProxySync CADObjects:v53 getPropertiesWithNames:v34 reply:v59];
+        v83 = v9;
+        v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v83 count:1];
+        v58[0] = MEMORY[0x1E69E9820];
+        v58[1] = 3221225472;
+        v58[2] = __56__EKEventStore_uniqueIdentifiersForEventsWithObjectIDs___block_invoke_2;
+        v58[3] = &unk_1E7800918;
+        v58[4] = &v59;
+        [cADOperationProxySync CADObjects:v52 getPropertiesWithNames:v34 reply:v58];
 
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
         v56 = 0u;
-        obj = v61[5];
-        v51 = [obj countByEnumeratingWithState:&v55 objects:v83 count:16];
-        if (v51)
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
+        obj = v60[5];
+        v50 = [obj countByEnumeratingWithState:&v54 objects:v82 count:16];
+        if (v50)
         {
-          v50 = *v56;
+          v49 = *v55;
           while (2)
           {
-            for (m = 0; m != v51; ++m)
+            for (m = 0; m != v50; ++m)
             {
-              if (*v56 != v50)
+              if (*v55 != v49)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v36 = *(*(&v55 + 1) + 8 * m);
+              v36 = *(*(&v54 + 1) + 8 * m);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -11562,8 +12275,8 @@ LABEL_23:
               {
                 objectID2 = [v37 objectID];
                 v40 = [EKObjectID objectIDWithCADObjectID:objectID2];
-                v82 = v9;
-                v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v82 count:1];
+                v81 = v9;
+                v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v81 count:1];
                 loadedValues2 = [v37 loadedValues];
                 v43 = [(EKEventStore *)self registerFetchedObjectWithID:v40 withDefaultLoadedPropertyKeys:v41 values:loadedValues2];
 
@@ -11571,8 +12284,8 @@ LABEL_23:
               }
             }
 
-            v51 = [obj countByEnumeratingWithState:&v55 objects:v83 count:16];
-            if (v51)
+            v50 = [obj countByEnumeratingWithState:&v54 objects:v82 count:16];
+            if (v50)
             {
               continue;
             }
@@ -11583,7 +12296,7 @@ LABEL_23:
 
         v44 = [v10 copy];
 LABEL_48:
-        _Block_object_dispose(&v60, 8);
+        _Block_object_dispose(&v59, 8);
       }
 
       else
@@ -11606,34 +12319,33 @@ LABEL_48:
 LABEL_53:
 
 LABEL_54:
-  v46 = *MEMORY[0x1E69E9840];
 
   return v44;
 }
 
 void __56__EKEventStore_uniqueIdentifiersForEventsWithObjectIDs___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         if ([v7 entityType] == 2)
         {
           v8 = [*(*(a1 + 40) + 440) objectForKeyedSubscript:v7];
@@ -11644,57 +12356,59 @@ void __56__EKEventStore_uniqueIdentifiersForEventsWithObjectIDs___block_invoke(u
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __56__EKEventStore_uniqueIdentifiersForEventsWithObjectIDs___block_invoke_2(uint64_t a1, int a2, void *a3)
+void __56__EKEventStore_uniqueIdentifiersForEventsWithObjectIDs___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  if (a2 && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  if (a2)
   {
-    __56__EKEventStore_uniqueIdentifiersForEventsWithObjectIDs___block_invoke_2_cold_1();
+    v6 = EKLogHandle;
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      __56__EKEventStore_uniqueIdentifiersForEventsWithObjectIDs___block_invoke_2_cold_1(a2, v6, v7);
+    }
   }
 
-  v6 = *(*(a1 + 32) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v8 = *(*(a1 + 32) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v5;
 }
 
 - (id)uniqueIdentifiersForAllObjectsWithChangesRelatedToObjects:(id)objects
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   v4 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(objectsCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = objectsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        frozenObject = [*(*(&v15 + 1) + 8 * i) frozenObject];
+        frozenObject = [*(*(&v14 + 1) + 8 * i) frozenObject];
         [v4 addObject:frozenObject];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -11702,8 +12416,6 @@ void __56__EKEventStore_uniqueIdentifiersForEventsWithObjectIDs___block_invoke_2
 
   v11 = [EKPersistentObject allObjectsWithChangesRelatedToObjects:v4];
   v12 = [v11 valueForKey:@"uniqueIdentifier"];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -11728,7 +12440,7 @@ void __56__EKEventStore_uniqueIdentifiersForEventsWithObjectIDs___block_invoke_2
   return connection;
 }
 
-void __30__EKEventStore_syncErrorCount__block_invoke(uint64_t a1, int a2, int a3)
+void __30__EKEventStore_syncErrorCount__block_invoke(uint64_t result, uint64_t a2, int a3)
 {
   if (a2)
   {
@@ -11741,7 +12453,7 @@ void __30__EKEventStore_syncErrorCount__block_invoke(uint64_t a1, int a2, int a3
 
   else
   {
-    *(*(*(a1 + 32) + 8) + 24) = a3;
+    *(*(*(result + 32) + 8) + 24) = a3;
   }
 }
 
@@ -11769,12 +12481,13 @@ void __30__EKEventStore_syncErrorCount__block_invoke(uint64_t a1, int a2, int a3
   return v5;
 }
 
-void __43__EKEventStore_eventsWithErrorsPerSourceID__block_invoke(uint64_t a1, int a2, void *a3)
+void __43__EKEventStore_eventsWithErrorsPerSourceID__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = v5;
-  if (a2)
+  if (v3)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -11790,27 +12503,27 @@ void __43__EKEventStore_eventsWithErrorsPerSourceID__block_invoke(uint64_t a1, i
     v10 = *(v9 + 40);
     *(v9 + 40) = v8;
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v11 = v6;
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
       v14 = 0;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = [EKObjectID objectIDWithCADObjectID:*(*(&v21 + 1) + 8 * i), v21];
+          v17 = [EKObjectID objectIDWithCADObjectID:*(*(&v20 + 1) + 8 * i), v20];
           v18 = v17;
           if (v14)
           {
@@ -11826,14 +12539,12 @@ void __43__EKEventStore_eventsWithErrorsPerSourceID__block_invoke(uint64_t a1, i
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v13);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (EKImageCache)imageCache
@@ -11865,7 +12576,7 @@ uint64_t __26__EKEventStore_imageCache__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)_imageCache
@@ -11935,10 +12646,11 @@ uint64_t __26__EKEventStore_imageCache__block_invoke(uint64_t a1)
   return v10;
 }
 
-void __63__EKEventStore_colorWithProviderIdentifier_externalIdentifier___block_invoke(uint64_t a1, int a2, void *a3)
+void __63__EKEventStore_colorWithProviderIdentifier_externalIdentifier___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     v6 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -12015,39 +12727,39 @@ LABEL_13:
 
 - (id)occurrenceCacheGetOccurrencesForCalendars:(id)calendars onDay:(id)day
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   calendarsCopy = calendars;
   dayCopy = day;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__24;
-  v31 = __Block_byref_object_dispose__24;
-  v32 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__24;
+  v30 = __Block_byref_object_dispose__24;
+  v31 = 0;
   v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(calendarsCopy, "count")}];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v9 = calendarsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v33 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v22 objects:v32 count:16];
   if (v10)
   {
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        cADObjectID = [*(*(&v23 + 1) + 8 * i) CADObjectID];
+        cADObjectID = [*(*(&v22 + 1) + 8 * i) CADObjectID];
         [v8 addObject:cADObjectID];
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v23 objects:v33 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v22 objects:v32 count:16];
     }
 
     while (v10);
@@ -12055,32 +12767,31 @@ LABEL_13:
 
   connection = [(EKEventStore *)self connection];
   cADOperationProxySync = [connection CADOperationProxySync];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __64__EKEventStore_occurrenceCacheGetOccurrencesForCalendars_onDay___block_invoke;
-  v20[3] = &unk_1E77FED28;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __64__EKEventStore_occurrenceCacheGetOccurrencesForCalendars_onDay___block_invoke;
+  v19[3] = &unk_1E77FED28;
   v16 = v8;
-  v21 = v16;
-  v22 = &v27;
-  [cADOperationProxySync CADOccurrenceCacheGetOccurrencesForCalendars:v16 onDay:dayCopy reply:v20];
+  v20 = v16;
+  v21 = &v26;
+  [cADOperationProxySync CADOccurrenceCacheGetOccurrencesForCalendars:v16 onDay:dayCopy reply:v19];
 
-  v17 = v28[5];
-  _Block_object_dispose(&v27, 8);
-
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = v27[5];
+  _Block_object_dispose(&v26, 8);
 
   return v17;
 }
 
-void __64__EKEventStore_occurrenceCacheGetOccurrencesForCalendars_onDay___block_invoke(uint64_t a1, int a2, void *a3)
+void __64__EKEventStore_occurrenceCacheGetOccurrencesForCalendars_onDay___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v6 = v5;
-  if (a2)
+  if (v3)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __64__EKEventStore_occurrenceCacheGetOccurrencesForCalendars_onDay___block_invoke_cold_1(a1);
+      __64__EKEventStore_occurrenceCacheGetOccurrencesForCalendars_onDay___block_invoke_cold_1();
     }
   }
 
@@ -12095,7 +12806,7 @@ void __64__EKEventStore_occurrenceCacheGetOccurrencesForCalendars_onDay___block_
 
 id __64__EKEventStore_occurrenceCacheGetOccurrencesForCalendars_onDay___block_invoke_411(uint64_t a1, void *a2)
 {
-  v17[3] = *MEMORY[0x1E69E9840];
+  v16[3] = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [v2 objectForKeyedSubscript:@"nextReminderDate"];
   v4 = [v2 objectForKeyedSubscript:@"objectID"];
@@ -12105,71 +12816,69 @@ id __64__EKEventStore_occurrenceCacheGetOccurrencesForCalendars_onDay___block_in
 
   if (v3)
   {
-    v16[0] = @"occurrenceDate";
-    v16[1] = @"objectID";
-    v17[0] = v6;
-    v17[1] = v5;
-    v16[2] = @"nextReminderDate";
-    v17[2] = v3;
+    v15[0] = @"occurrenceDate";
+    v15[1] = @"objectID";
+    v16[0] = v6;
+    v16[1] = v5;
+    v15[2] = @"nextReminderDate";
+    v16[2] = v3;
     v7 = MEMORY[0x1E695DF20];
-    v8 = v17;
-    v9 = v16;
+    v8 = v16;
+    v9 = v15;
     v10 = 3;
   }
 
   else
   {
-    v14[0] = @"occurrenceDate";
-    v14[1] = @"objectID";
-    v15[0] = v6;
-    v15[1] = v5;
+    v13[0] = @"occurrenceDate";
+    v13[1] = @"objectID";
+    v14[0] = v6;
+    v14[1] = v5;
     v7 = MEMORY[0x1E695DF20];
-    v8 = v15;
-    v9 = v14;
+    v8 = v14;
+    v9 = v13;
     v10 = 2;
   }
 
   v11 = [v7 dictionaryWithObjects:v8 forKeys:v9 count:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (id)occurrenceCacheGetOccurrenceCountsForCalendars:(id)calendars
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   calendarsCopy = calendars;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__24;
-  v28 = __Block_byref_object_dispose__24;
-  v29 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__24;
+  v27 = __Block_byref_object_dispose__24;
+  v28 = 0;
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(calendarsCopy, "count")}];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v6 = calendarsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v29 count:16];
   if (v7)
   {
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        cADObjectID = [*(*(&v20 + 1) + 8 * i) CADObjectID];
+        cADObjectID = [*(*(&v19 + 1) + 8 * i) CADObjectID];
         [v5 addObject:cADObjectID];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v20 objects:v30 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v19 objects:v29 count:16];
     }
 
     while (v7);
@@ -12177,31 +12886,30 @@ id __64__EKEventStore_occurrenceCacheGetOccurrencesForCalendars_onDay___block_in
 
   connection = [(EKEventStore *)self connection];
   cADOperationProxySync = [connection CADOperationProxySync];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __63__EKEventStore_occurrenceCacheGetOccurrenceCountsForCalendars___block_invoke;
-  v17[3] = &unk_1E77FED28;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __63__EKEventStore_occurrenceCacheGetOccurrenceCountsForCalendars___block_invoke;
+  v16[3] = &unk_1E77FED28;
   v13 = v5;
-  v18 = v13;
-  v19 = &v24;
-  [cADOperationProxySync CADOccurrenceCacheGetOccurrenceCountsForCalendars:v13 reply:v17];
+  v17 = v13;
+  v18 = &v23;
+  [cADOperationProxySync CADOccurrenceCacheGetOccurrenceCountsForCalendars:v13 reply:v16];
 
-  v14 = v25[5];
-  _Block_object_dispose(&v24, 8);
-
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = v24[5];
+  _Block_object_dispose(&v23, 8);
 
   return v14;
 }
 
-void __63__EKEventStore_occurrenceCacheGetOccurrenceCountsForCalendars___block_invoke(uint64_t a1, int a2, void *a3)
+void __63__EKEventStore_occurrenceCacheGetOccurrenceCountsForCalendars___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __63__EKEventStore_occurrenceCacheGetOccurrenceCountsForCalendars___block_invoke_cold_1(a1);
+      __63__EKEventStore_occurrenceCacheGetOccurrenceCountsForCalendars___block_invoke_cold_1();
     }
   }
 
@@ -12211,19 +12919,32 @@ void __63__EKEventStore_occurrenceCacheGetOccurrenceCountsForCalendars___block_i
   }
 }
 
-void __38__EKEventStore_setShowDeclinedEvents___block_invoke(uint64_t a1, int a2)
+- (void)setShowDeclinedEvents:(BOOL)events
+{
+  eventsCopy = events;
+  connection = [(EKEventStore *)self connection];
+  cADOperationProxySync = [connection CADOperationProxySync];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __38__EKEventStore_setShowDeclinedEvents___block_invoke;
+  v6[3] = &__block_descriptor_33_e8_v12__0i8l;
+  v7 = eventsCopy;
+  [cADOperationProxySync CADDatabaseSetShowsDeclinedEvents:eventsCopy reply:v6];
+}
+
+void __38__EKEventStore_setShowDeclinedEvents___block_invoke(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
     v3 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __38__EKEventStore_setShowDeclinedEvents___block_invoke_cold_1(a1, v3);
+      __38__EKEventStore_setShowDeclinedEvents___block_invoke_cold_1(result, v3);
     }
   }
 }
 
-void __34__EKEventStore_showDeclinedEvents__block_invoke_2(uint64_t a1, int a2, char a3)
+void __34__EKEventStore_showDeclinedEvents__block_invoke_2(uint64_t result, uint64_t a2, char a3)
 {
   if (a2)
   {
@@ -12234,7 +12955,7 @@ void __34__EKEventStore_showDeclinedEvents__block_invoke_2(uint64_t a1, int a2, 
     }
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = a3;
+  *(*(*(result + 32) + 8) + 24) = a3;
 }
 
 - (void)showDeclinedEventsChanged:(id)changed
@@ -12255,14 +12976,27 @@ void __42__EKEventStore_showDeclinedEventsChanged___block_invoke(uint64_t a1)
   *(v1 + 184) = 0;
 }
 
-void __42__EKEventStore_setShowCompletedReminders___block_invoke(uint64_t a1, int a2)
+- (void)setShowCompletedReminders:(BOOL)reminders
+{
+  remindersCopy = reminders;
+  connection = [(EKEventStore *)self connection];
+  cADOperationProxySync = [connection CADOperationProxySync];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __42__EKEventStore_setShowCompletedReminders___block_invoke;
+  v6[3] = &__block_descriptor_33_e8_v12__0i8l;
+  v7 = remindersCopy;
+  [cADOperationProxySync CADDatabaseSetShowsCompletedReminders:remindersCopy reply:v6];
+}
+
+void __42__EKEventStore_setShowCompletedReminders___block_invoke(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
     v3 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __42__EKEventStore_setShowCompletedReminders___block_invoke_cold_1(a1, v3);
+      __42__EKEventStore_setShowCompletedReminders___block_invoke_cold_1(result, v3);
     }
   }
 }
@@ -12286,7 +13020,7 @@ void __42__EKEventStore_setShowCompletedReminders___block_invoke(uint64_t a1, in
   return v3;
 }
 
-uint64_t __38__EKEventStore_showCompletedReminders__block_invoke(uint64_t a1)
+void *__38__EKEventStore_showCompletedReminders__block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 192);
   if (!v2)
@@ -12329,11 +13063,12 @@ void __46__EKEventStore_showCompletedRemindersChanged___block_invoke(uint64_t a1
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __38__EKEventStore_rebuildOccurrenceCache__block_invoke(uint64_t a1, int a2)
+void __38__EKEventStore_rebuildOccurrenceCache__block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = EKLogHandle;
   v4 = os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG);
-  if (a2)
+  if (v2)
   {
     if (v4)
     {
@@ -12367,7 +13102,7 @@ void __38__EKEventStore_rebuildOccurrenceCache__block_invoke(uint64_t a1, int a2
   return connection;
 }
 
-void __39__EKEventStore_birthdayCalendarEnabled__block_invoke(uint64_t a1, int a2, char a3)
+void __39__EKEventStore_birthdayCalendarEnabled__block_invoke(uint64_t result, uint64_t a2, char a3)
 {
   if (a2)
   {
@@ -12380,11 +13115,19 @@ void __39__EKEventStore_birthdayCalendarEnabled__block_invoke(uint64_t a1, int a
 
   else
   {
-    *(*(*(a1 + 32) + 8) + 24) = a3;
+    *(*(*(result + 32) + 8) + 24) = a3;
   }
 }
 
-void __43__EKEventStore_setBirthdayCalendarEnabled___block_invoke(uint64_t a1, int a2)
+- (void)setBirthdayCalendarEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  connection = [(EKEventStore *)self connection];
+  cADOperationProxySync = [connection CADOperationProxySync];
+  [cADOperationProxySync CADDatabaseSetBirthdayCalendarEnabled:enabledCopy withReply:&__block_literal_global_425];
+}
+
+void __43__EKEventStore_setBirthdayCalendarEnabled___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -12416,7 +13159,7 @@ void __43__EKEventStore_setBirthdayCalendarEnabled___block_invoke(uint64_t a1, i
   return connection;
 }
 
-void __39__EKEventStore_birthdayCalendarVersion__block_invoke(uint64_t a1, int a2, int a3)
+void __39__EKEventStore_birthdayCalendarVersion__block_invoke(uint64_t result, uint64_t a2, int a3)
 {
   if (a2)
   {
@@ -12429,18 +13172,31 @@ void __39__EKEventStore_birthdayCalendarVersion__block_invoke(uint64_t a1, int a
 
   else
   {
-    *(*(*(a1 + 32) + 8) + 24) = a3;
+    *(*(*(result + 32) + 8) + 24) = a3;
   }
 }
 
-void __43__EKEventStore_setBirthdayCalendarVersion___block_invoke(uint64_t a1, int a2)
+- (void)setBirthdayCalendarVersion:(int)version
+{
+  v3 = *&version;
+  connection = [(EKEventStore *)self connection];
+  cADOperationProxySync = [connection CADOperationProxySync];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __43__EKEventStore_setBirthdayCalendarVersion___block_invoke;
+  v6[3] = &__block_descriptor_36_e8_v12__0i8l;
+  v7 = v3;
+  [cADOperationProxySync CADDatabaseSetBirthdayCalendarVersion:v3 withReply:v6];
+}
+
+void __43__EKEventStore_setBirthdayCalendarVersion___block_invoke(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
     v3 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __43__EKEventStore_setBirthdayCalendarVersion___block_invoke_cold_1(a1, v3);
+      __43__EKEventStore_setBirthdayCalendarVersion___block_invoke_cold_1(result, v3);
     }
   }
 }
@@ -12518,10 +13274,11 @@ LABEL_5:
   }
 }
 
-void __38__EKEventStore_suggestedEventCalendar__block_invoke_2(uint64_t a1, int a2, void *a3)
+void __38__EKEventStore_suggestedEventCalendar__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     v6 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -12558,7 +13315,7 @@ void __44__EKEventStore_removeSuggestedEventCalendar__block_invoke(uint64_t a1)
   [v1 CADDatabaseRemoveSuggestedEventCalendarWithReply:&__block_literal_global_431];
 }
 
-void __44__EKEventStore_removeSuggestedEventCalendar__block_invoke_2(uint64_t a1, int a2)
+void __44__EKEventStore_removeSuggestedEventCalendar__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -12578,18 +13335,22 @@ void __44__EKEventStore_removeSuggestedEventCalendar__block_invoke_2(uint64_t a1
   if (uniqueKey)
   {
     serviceForEvents = [(objc_class *)[(EKEventStore *)self _SGSuggestionsServiceClass] serviceForEvents];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __38__EKEventStore_confirmSuggestedEvent___block_invoke;
-    v8[3] = &unk_1E7800D38;
-    v9 = serviceForEvents;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __38__EKEventStore_confirmSuggestedEvent___block_invoke;
+    v11[3] = &unk_1E7800D38;
+    v12 = serviceForEvents;
     v7 = serviceForEvents;
-    [v7 eventFromUniqueId:uniqueKey withCompletion:v8];
+    [v7 eventFromUniqueId:uniqueKey withCompletion:v11];
   }
 
-  else if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  else
   {
-    [EKEventStore confirmSuggestedEvent:];
+    v8 = EKLogHandle;
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      [(EKEventStore *)v8 confirmSuggestedEvent:v9, v10];
+    }
   }
 }
 
@@ -12658,9 +13419,9 @@ LABEL_4:
   uniqueKey = [suggestionInfo uniqueKey];
   v7 = [uniqueKey copy];
 
-  v16 = 0;
-  v8 = [(EKEventStore *)self removeEvent:eventCopy span:2 error:&v16];
-  v9 = v16;
+  v19 = 0;
+  v8 = [(EKEventStore *)self removeEvent:eventCopy span:2 error:&v19];
+  v9 = v19;
   v10 = EKLogHandle;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -12685,18 +13446,22 @@ LABEL_4:
     }
 
     serviceForEvents = [(objc_class *)[(EKEventStore *)self _SGSuggestionsServiceClass] serviceForEvents];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __37__EKEventStore_deleteSuggestedEvent___block_invoke;
-    v14[3] = &unk_1E7800D38;
-    v15 = serviceForEvents;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __37__EKEventStore_deleteSuggestedEvent___block_invoke;
+    v17[3] = &unk_1E7800D38;
+    v18 = serviceForEvents;
     v13 = serviceForEvents;
-    [v13 eventFromUniqueId:v7 withCompletion:v14];
+    [v13 eventFromUniqueId:v7 withCompletion:v17];
   }
 
-  else if (!v7 && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  else if (!v7)
   {
-    [EKEventStore deleteSuggestedEvent:];
+    v14 = EKLogHandle;
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      [(EKEventStore *)v14 deleteSuggestedEvent:v15, v16];
+    }
   }
 }
 
@@ -12757,7 +13522,7 @@ void __47__EKEventStore_canModifySuggestedEventCalendar__block_invoke_2(uint64_t
   [v1 CADDatabaseCanModifySuggestedEventCalendar:&__block_literal_global_448];
 }
 
-void __47__EKEventStore_canModifySuggestedEventCalendar__block_invoke_3(uint64_t a1, int a2, char a3)
+void __47__EKEventStore_canModifySuggestedEventCalendar__block_invoke_3(uint64_t a1, uint64_t a2, char a3)
 {
   if (a2)
   {
@@ -12832,10 +13597,11 @@ void __53__EKEventStore_naturalLanguageSuggestedEventCalendar__block_invoke(uint
   objc_storeStrong(v4, v3);
 }
 
-void __53__EKEventStore_naturalLanguageSuggestedEventCalendar__block_invoke_2(uint64_t a1, int a2, void *a3)
+void __53__EKEventStore_naturalLanguageSuggestedEventCalendar__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     v6 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -12967,45 +13733,45 @@ LABEL_17:
 
 - (id)sharedCalendarInvitationsForEntityTypes:(unint64_t)types
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (([MEMORY[0x1E6992FA0] currentProcessIsCalendarDaemon] & 1) != 0 || (objc_msgSend(MEMORY[0x1E6992FA0], "currentProcessHasSyncClientEntitlement") & 1) != 0 || (objc_msgSend(MEMORY[0x1E6992FA0], "currentProcessHasCalendarToolEntitlement") & 1) != 0 || (objc_msgSend(MEMORY[0x1E6992FA0], "currentProcessIsFirstPartyCalendarApp") & 1) != 0 || objc_msgSend(MEMORY[0x1E6992FA0], "currentProcessHasTestingEntitlement"))
   {
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x3032000000;
-    v26 = __Block_byref_object_copy__24;
-    v27 = __Block_byref_object_dispose__24;
-    v28 = 0;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x3032000000;
+    v25 = __Block_byref_object_copy__24;
+    v26 = __Block_byref_object_dispose__24;
+    v27 = 0;
     connection = [(EKEventStore *)self connection];
     cADOperationProxySync = [connection CADOperationProxySync];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __56__EKEventStore_sharedCalendarInvitationsForEntityTypes___block_invoke;
-    v22[3] = &unk_1E7800D80;
-    v22[4] = &v23;
-    v22[5] = types;
-    [cADOperationProxySync CADDatabaseGetSharedCalendarInvitationsWithReply:v22];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __56__EKEventStore_sharedCalendarInvitationsForEntityTypes___block_invoke;
+    v21[3] = &unk_1E7800D80;
+    v21[4] = &v22;
+    v21[5] = types;
+    [cADOperationProxySync CADDatabaseGetSharedCalendarInvitationsWithReply:v21];
 
     array = [MEMORY[0x1E695DF70] array];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
-    v6 = v24[5];
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v29 count:16];
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v6 = v23[5];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v28 count:16];
     if (v7)
     {
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [EKObjectID objectIDWithCADObjectID:*(*(&v18 + 1) + 8 * i), array];
+          v10 = [EKObjectID objectIDWithCADObjectID:*(*(&v17 + 1) + 8 * i), array];
           v11 = [(EKEventStore *)self registerFetchedObjectWithID:v10];
           if (v11)
           {
@@ -13017,14 +13783,14 @@ LABEL_17:
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v18 objects:v29 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v17 objects:v28 count:16];
       }
 
       while (v7);
     }
 
     v13 = [array copy];
-    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v22, 8);
   }
 
   else
@@ -13032,15 +13798,14 @@ LABEL_17:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
-void __56__EKEventStore_sharedCalendarInvitationsForEntityTypes___block_invoke(uint64_t a1, int a2, void *a3)
+void __56__EKEventStore_sharedCalendarInvitationsForEntityTypes___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -13108,9 +13873,10 @@ LABEL_6:
     goto LABEL_9;
   }
 
+  v15 = EKLogHandle;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
   {
-    [EKEventStore respondToSharedCalendarInvitation:withStatus:];
+    [(EKEventStore *)v15 respondToSharedCalendarInvitation:v16 withStatus:v17];
   }
 
 LABEL_9:
@@ -13118,7 +13884,7 @@ LABEL_9:
 
 void __61__EKEventStore_respondToSharedCalendarInvitation_withStatus___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   v8 = a4;
@@ -13127,59 +13893,57 @@ void __61__EKEventStore_respondToSharedCalendarInvitation_withStatus___block_inv
     v9 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543874;
-      v12 = v6;
-      v13 = 2114;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_error_impl(&dword_1A805E000, v9, OS_LOG_TYPE_ERROR, "Failed to respond to shared calendar invitation with calendar ID %{public}@, account ID %{public}@: %@", &v11, 0x20u);
+      v10 = 138543874;
+      v11 = v6;
+      v12 = 2114;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v8;
+      _os_log_error_impl(&dword_1A805E000, v9, OS_LOG_TYPE_ERROR, "Failed to respond to shared calendar invitation with calendar ID %{public}@, account ID %{public}@: %@", &v10, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)resourceChangesForEntityTypes:(unint64_t)types
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__24;
-  v28 = __Block_byref_object_dispose__24;
-  v29 = 0;
+  v30 = *MEMORY[0x1E69E9840];
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__24;
+  v27 = __Block_byref_object_dispose__24;
+  v28 = 0;
   connection = [(EKEventStore *)self connection];
   cADOperationProxySync = [connection CADOperationProxySync];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __46__EKEventStore_resourceChangesForEntityTypes___block_invoke;
-  v23[3] = &unk_1E7800918;
-  v23[4] = &v24;
-  [cADOperationProxySync CADDatabaseGetResourceChanges:v23];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __46__EKEventStore_resourceChangesForEntityTypes___block_invoke;
+  v22[3] = &unk_1E7800918;
+  v22[4] = &v23;
+  [cADOperationProxySync CADDatabaseGetResourceChanges:v22];
 
-  if (v25[5])
+  if (v24[5])
   {
-    v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
+    v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v20 = 0u;
-    obj = v25[5];
-    v7 = [obj countByEnumeratingWithState:&v19 objects:v30 count:16];
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    obj = v24[5];
+    v7 = [obj countByEnumeratingWithState:&v18 objects:v29 count:16];
     if (v7)
     {
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = [EKObjectID objectIDWithCADObjectID:*(*(&v19 + 1) + 8 * i), v17];
+          v10 = [EKObjectID objectIDWithCADObjectID:*(*(&v18 + 1) + 8 * i), v16];
           v11 = [(EKEventStore *)self registerFetchedObjectWithID:v10];
           if (v11)
           {
@@ -13188,12 +13952,12 @@ void __61__EKEventStore_respondToSharedCalendarInvitation_withStatus___block_inv
             calendar = [v12 calendar];
             if (types & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()) || (types & 2) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()) || !calendarItem && ([calendar allowedEntityTypes] & types) != 0)
             {
-              [v17 addObject:v12];
+              [v16 addObject:v12];
             }
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v19 objects:v30 count:16];
+        v7 = [obj countByEnumeratingWithState:&v18 objects:v29 count:16];
       }
 
       while (v7);
@@ -13202,20 +13966,19 @@ void __61__EKEventStore_respondToSharedCalendarInvitation_withStatus___block_inv
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v23, 8);
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v17;
+  return v16;
 }
 
-void __46__EKEventStore_resourceChangesForEntityTypes___block_invoke(uint64_t a1, int a2, void *a3)
+void __46__EKEventStore_resourceChangesForEntityTypes___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -13358,7 +14121,7 @@ void __55__EKEventStore_markResourceChangeAlertedAndSave_error___block_invoke(ui
 
 - (BOOL)removeResourceChanges:(id)changes error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   v7 = changesCopy;
   if (error)
@@ -13371,26 +14134,26 @@ void __55__EKEventStore_markResourceChangeAlertedAndSave_error___block_invoke(ui
     goto LABEL_17;
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v8 = changesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         eventStore = [v13 eventStore];
 
         if (eventStore != self)
@@ -13409,7 +14172,7 @@ void __55__EKEventStore_markResourceChangeAlertedAndSave_error___block_invoke(ui
         [(EKEventStore *)self _addRemovedObjectToPendingCommits:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v10)
       {
         continue;
@@ -13430,7 +14193,6 @@ LABEL_17:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -13462,14 +14224,56 @@ uint64_t __59__EKEventStore_removeResourceChangesForCalendarItem_error___block_i
   return v6;
 }
 
-void __134__EKEventStore_eventNotificationsAfterDate_excludingUncheckedCalendars_filteredByShowsNotificationsFlag_earliestExpiringNotification___block_invoke(void *a1, int a2, void *a3, void *a4, void *a5, void *a6)
+- (id)eventNotificationsAfterDate:(id)date excludingUncheckedCalendars:(BOOL)calendars filteredByShowsNotificationsFlag:(BOOL)flag earliestExpiringNotification:(id *)notification
 {
+  flagCopy = flag;
+  calendarsCopy = calendars;
+  dateCopy = date;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__24;
+  v26 = __Block_byref_object_dispose__24;
+  v27 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__24;
+  v20 = __Block_byref_object_dispose__24;
+  v21 = 0;
+  connection = [(EKEventStore *)self connection];
+  cADOperationProxySync = [connection CADOperationProxySync];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __134__EKEventStore_eventNotificationsAfterDate_excludingUncheckedCalendars_filteredByShowsNotificationsFlag_earliestExpiringNotification___block_invoke;
+  v15[3] = &unk_1E7800DD0;
+  v15[4] = self;
+  v15[5] = &v22;
+  v15[6] = &v16;
+  [cADOperationProxySync CADDatabaseGetEventNotificationItemsAfterDate:dateCopy excludingUncheckedCalendars:calendarsCopy filteredByShowsNotificationsFlag:flagCopy reply:v15];
+
+  if (notification)
+  {
+    *notification = v17[5];
+  }
+
+  v13 = v23[5];
+  _Block_object_dispose(&v16, 8);
+
+  _Block_object_dispose(&v22, 8);
+
+  return v13;
+}
+
+void __134__EKEventStore_eventNotificationsAfterDate_excludingUncheckedCalendars_filteredByShowsNotificationsFlag_earliestExpiringNotification___block_invoke(void *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6)
+{
+  v9 = a2;
   v11 = a3;
   v12 = a4;
   v39 = a5;
   v13 = a6;
   v14 = v13;
-  if (a2)
+  if (v9)
   {
     v15 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -13543,7 +14347,29 @@ void __134__EKEventStore_eventNotificationsAfterDate_excludingUncheckedCalendars
   }
 }
 
-void __75__EKEventStore_eventNotificationCountExcludingUncheckedCalendars_expanded___block_invoke(uint64_t a1, int a2, uint64_t a3)
+- (unint64_t)eventNotificationCountExcludingUncheckedCalendars:(BOOL)calendars expanded:(BOOL)expanded
+{
+  expandedCopy = expanded;
+  calendarsCopy = calendars;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  connection = [(EKEventStore *)self connection];
+  cADOperationProxySync = [connection CADOperationProxySync];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __75__EKEventStore_eventNotificationCountExcludingUncheckedCalendars_expanded___block_invoke;
+  v10[3] = &unk_1E7800880;
+  v10[4] = &v11;
+  [cADOperationProxySync CADDatabaseGetNotificationCountExcludingUncheckedCalendars:calendarsCopy expanded:expandedCopy reply:v10];
+
+  v8 = v12[3];
+  _Block_object_dispose(&v11, 8);
+  return v8;
+}
+
+void __75__EKEventStore_eventNotificationCountExcludingUncheckedCalendars_expanded___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -13556,15 +14382,45 @@ void __75__EKEventStore_eventNotificationCountExcludingUncheckedCalendars_expand
 
   else
   {
-    *(*(*(a1 + 32) + 8) + 24) = a3;
+    *(*(*(result + 32) + 8) + 24) = a3;
   }
 }
 
-void __132__EKEventStore_eventNotificationCountForSource_excludingDelegateSources_filteredByShowsNotificationsFlag_excludeObjectIDs_expanded___block_invoke(uint64_t a1, int a2, uint64_t a3, void *a4)
+- (unint64_t)eventNotificationCountForSource:(id)source excludingDelegateSources:(BOOL)sources filteredByShowsNotificationsFlag:(BOOL)flag excludeObjectIDs:(id)ds expanded:(BOOL)expanded
 {
-  v20 = *MEMORY[0x1E69E9840];
+  expandedCopy = expanded;
+  flagCopy = flag;
+  sourcesCopy = sources;
+  sourceCopy = source;
+  dsCopy = ds;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
+  connection = [(EKEventStore *)self connection];
+  cADOperationProxySync = [connection CADOperationProxySync];
+  externalID = [sourceCopy externalID];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __132__EKEventStore_eventNotificationCountForSource_excludingDelegateSources_filteredByShowsNotificationsFlag_excludeObjectIDs_expanded___block_invoke;
+  v20[3] = &unk_1E7800DF8;
+  v17 = dsCopy;
+  v21 = v17;
+  v22 = &v23;
+  [cADOperationProxySync CADDatabaseGetNotificationCountForSourceWithExternalIdentifier:externalID excludingDelegateSources:sourcesCopy filteredByShowsNotificationsFlag:flagCopy expanded:expandedCopy reply:v20];
+
+  v18 = v24[3];
+  _Block_object_dispose(&v23, 8);
+
+  return v18;
+}
+
+void __132__EKEventStore_eventNotificationCountForSource_excludingDelegateSources_filteredByShowsNotificationsFlag_excludeObjectIDs_expanded___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+{
+  v5 = a2;
+  v19 = *MEMORY[0x1E69E9840];
   v7 = a4;
-  if (a2)
+  if (v5)
   {
     v8 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -13575,21 +14431,21 @@ void __132__EKEventStore_eventNotificationCountForSource_excludingDelegateSource
 
   else
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v9 = *(a1 + 32);
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
 LABEL_6:
       v13 = 0;
       while (1)
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
@@ -13599,10 +14455,10 @@ LABEL_6:
           break;
         }
 
-        a3 -= [v7 containsObject:{*(*(&v15 + 1) + 8 * v13++), v15}];
+        a3 -= [v7 containsObject:{*(*(&v14 + 1) + 8 * v13++), v14}];
         if (v11 == v13)
         {
-          v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
           if (v11)
           {
             goto LABEL_6;
@@ -13615,40 +14471,38 @@ LABEL_6:
 
     *(*(*(a1 + 40) + 8) + 24) = a3;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)acknowledgeNotifications:(id)notifications error:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   notificationsCopy = notifications;
-  v7 = [notificationsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [notificationsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(notificationsCopy);
         }
 
-        if (![*(*(&v14 + 1) + 8 * i) acknowledgeWithEventStore:self error:{error, v14}])
+        if (![*(*(&v13 + 1) + 8 * i) acknowledgeWithEventStore:self error:{error, v13}])
         {
           v11 = 0;
           goto LABEL_11;
         }
       }
 
-      v8 = [notificationsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [notificationsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         continue;
@@ -13661,7 +14515,6 @@ LABEL_6:
   v11 = 1;
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -13688,11 +14541,12 @@ LABEL_11:
   return v4;
 }
 
-void __40__EKEventStore_inboxRepliedSectionItems__block_invoke(uint64_t a1, int a2, void *a3, void *a4)
+void __40__EKEventStore_inboxRepliedSectionItems__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
+  v5 = a2;
   v7 = a3;
   v8 = a4;
-  if (a2)
+  if (v5)
   {
     v9 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -13736,7 +14590,7 @@ void __40__EKEventStore_inboxRepliedSectionItems__block_invoke(uint64_t a1, int 
 
 - (BOOL)removeInviteReplyNotifications:(id)notifications error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   notificationsCopy = notifications;
   v7 = notificationsCopy;
   if (error)
@@ -13749,26 +14603,26 @@ void __40__EKEventStore_inboxRepliedSectionItems__block_invoke(uint64_t a1, int 
     goto LABEL_17;
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v8 = notificationsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         eventStore = [v13 eventStore];
 
         if (eventStore != self)
@@ -13787,7 +14641,7 @@ void __40__EKEventStore_inboxRepliedSectionItems__block_invoke(uint64_t a1, int 
         [(EKEventStore *)self _addRemovedObjectToPendingCommits:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v10)
       {
         continue;
@@ -13808,7 +14662,6 @@ LABEL_17:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -13839,14 +14692,15 @@ LABEL_17:
   return v8;
 }
 
-void __35__EKEventStore_attachmentWithUUID___block_invoke(uint64_t a1, int a2, void *a3)
+void __35__EKEventStore_attachmentWithUUID___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __35__EKEventStore_attachmentWithUUID___block_invoke_cold_1(a1);
+      __35__EKEventStore_attachmentWithUUID___block_invoke_cold_1();
     }
   }
 
@@ -13920,7 +14774,41 @@ LABEL_10:
   return v11;
 }
 
-void __49__EKEventStore__refreshDASource_isUserRequested___block_invoke(uint64_t a1, int a2, char a3)
+- (BOOL)_refreshDASource:(id)source isUserRequested:(BOOL)requested
+{
+  requestedCopy = requested;
+  sourceCopy = source;
+  externalID = [sourceCopy externalID];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  if (externalID)
+  {
+    connection = [(EKEventStore *)self connection];
+    cADOperationProxySync = [connection CADOperationProxySync];
+    cADObjectID = [sourceCopy CADObjectID];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __49__EKEventStore__refreshDASource_isUserRequested___block_invoke;
+    v13[3] = &unk_1E77FFEA0;
+    v13[4] = &v14;
+    [cADOperationProxySync CADSourceRefresh:cADObjectID isUserRequested:requestedCopy reply:v13];
+
+    v11 = *(v15 + 24);
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  _Block_object_dispose(&v14, 8);
+
+  return v11 & 1;
+}
+
+void __49__EKEventStore__refreshDASource_isUserRequested___block_invoke(uint64_t result, uint64_t a2, char a3)
 {
   if (a2)
   {
@@ -13933,7 +14821,7 @@ void __49__EKEventStore__refreshDASource_isUserRequested___block_invoke(uint64_t
 
   else
   {
-    *(*(*(a1 + 32) + 8) + 24) = a3;
+    *(*(*(result + 32) + 8) + 24) = a3;
   }
 }
 
@@ -13953,6 +14841,111 @@ void __49__EKEventStore__refreshDASource_isUserRequested___block_invoke(uint64_t
   }
 
   return v6;
+}
+
++ (void)_refreshFolderListForSource:(id)source isUserRequested:(BOOL)requested
+{
+  requestedCopy = requested;
+  v5 = MEMORY[0x1E69998A8];
+  sourceCopy = source;
+  sharedConnection = [v5 sharedConnection];
+  externalID = [sourceCopy externalID];
+
+  [sharedConnection updateFolderListForAccountID:externalID andDataclasses:4 isUserRequested:requestedCopy];
+}
+
+- (id)refreshSourcesIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  v18 = *MEMORY[0x1E69E9840];
+  v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  if ([(EKEventStore *)self canModifyCalendarDatabase])
+  {
+    v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    eventSources = [(EKEventStore *)self eventSources];
+    v7 = [eventSources countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = *v14;
+      do
+      {
+        for (i = 0; i != v8; ++i)
+        {
+          if (*v14 != v9)
+          {
+            objc_enumerationMutation(eventSources);
+          }
+
+          v11 = *(*(&v13 + 1) + 8 * i);
+          if ([objc_opt_class() _shouldRefreshSource:v11] && -[EKEventStore _refreshDASource:isUserRequested:](self, "_refreshDASource:isUserRequested:", v11, necessaryCopy))
+          {
+            [v5 addObject:v11];
+          }
+        }
+
+        v8 = [eventSources countByEnumeratingWithState:&v13 objects:v17 count:16];
+      }
+
+      while (v8);
+    }
+  }
+
+  return v5;
+}
+
+- (id)refreshFolderListsIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  v18 = *MEMORY[0x1E69E9840];
+  v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  eventSources = [(EKEventStore *)self eventSources];
+  v7 = [eventSources countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v14;
+    do
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v14 != v9)
+        {
+          objc_enumerationMutation(eventSources);
+        }
+
+        v11 = *(*(&v13 + 1) + 8 * i);
+        if ([objc_opt_class() _shouldRefreshSource:v11])
+        {
+          [objc_opt_class() _refreshFolderListForSource:v11 isUserRequested:necessaryCopy];
+          [v5 addObject:v11];
+        }
+      }
+
+      v8 = [eventSources countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v8);
+  }
+
+  return v5;
+}
+
+- (id)refreshEverythingIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  v5 = [(EKEventStore *)self refreshFolderListsIfNecessary:?];
+  v6 = [(EKEventStore *)self refreshSourcesIfNecessary:necessaryCopy];
+  v7 = [v5 setByAddingObjectsFromSet:v6];
+
+  return v7;
 }
 
 - (void)_registerObjectImmediate:(id)immediate
@@ -14007,17 +15000,17 @@ void __49__EKEventStore__refreshDASource_isUserRequested___block_invoke(uint64_t
   dispatch_sync(registeredQueue, v7);
 }
 
-uint64_t __34__EKEventStore__unregisterObject___block_invoke(uint64_t result)
+void *__34__EKEventStore__unregisterObject___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 440);
+  v1 = *(*(result + 4) + 440);
   if (v1)
   {
     v2 = result;
-    v3 = [*(result + 40) objectID];
+    v3 = [*(result + 5) objectID];
     [v1 removeObjectForKey:v3];
 
-    v4 = *(v2 + 32);
-    v5 = *(v2 + 40);
+    v4 = v2[4];
+    v5 = v2[5];
 
     return [v4 _uncacheImage:v5];
   }
@@ -14039,17 +15032,17 @@ uint64_t __34__EKEventStore__unregisterObject___block_invoke(uint64_t result)
   dispatch_sync(registeredQueue, v7);
 }
 
-uint64_t __30__EKEventStore__detachObject___block_invoke(uint64_t result)
+void *__30__EKEventStore__detachObject___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 440);
+  v1 = *(*(result + 4) + 440);
   if (v1)
   {
     v2 = result;
-    v3 = [*(result + 40) objectID];
+    v3 = [*(result + 5) objectID];
     [v1 removeObjectForKey:v3];
 
-    v4 = *(v2 + 32);
-    v5 = *(v2 + 40);
+    v4 = v2[4];
+    v5 = v2[5];
 
     return [v4 _uncacheImage:v5];
   }
@@ -14281,19 +15274,19 @@ void __81__EKEventStore_registerFetchedObjectWithID_withDefaultLoadedPropertyKey
   return v8;
 }
 
-void __35__EKEventStore_objectWithIDExists___block_invoke(uint64_t a1, int a2, char a3)
+void __35__EKEventStore_objectWithIDExists___block_invoke(uint64_t result, uint64_t a2, char a3)
 {
   if (a2)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __35__EKEventStore_objectWithIDExists___block_invoke_cold_1(a1);
+      __35__EKEventStore_objectWithIDExists___block_invoke_cold_1();
     }
   }
 
   else
   {
-    *(*(*(a1 + 40) + 8) + 24) = a3;
+    *(*(*(result + 40) + 8) + 24) = a3;
   }
 }
 
@@ -14434,7 +15427,7 @@ uint64_t __37__EKEventStore__trackModifiedObject___block_invoke(uint64_t a1)
 
 void __32__EKEventStore__objectDidReset___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 320) removeObject:*(a1 + 40)];
   v2 = *(*(a1 + 32) + 112);
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
@@ -14442,27 +15435,27 @@ void __32__EKEventStore__objectDidReset___block_invoke(uint64_t a1)
   v5 = *(v4 + 112);
   *(v4 + 112) = v3;
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = v2;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
+        v11 = *(*(&v15 + 1) + 8 * v10);
         v12 = [*(a1 + 40) objectID];
         v13 = [v11 objectID];
         v14 = [v12 isEqual:v13];
@@ -14476,7 +15469,7 @@ void __32__EKEventStore__objectDidReset___block_invoke(uint64_t a1)
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -14489,8 +15482,6 @@ void __32__EKEventStore__objectDidReset___block_invoke(uint64_t a1)
   [*(a1 + 40) _setPendingDelete:0];
   [*(a1 + 40) _setPendingUpdate:0];
   [*(a1 + 40) _setPendingInsert:0];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_insertObject:(id)object
@@ -14663,7 +15654,7 @@ uint64_t __41__EKEventStore__markObjectUncommittable___block_invoke(uint64_t a1)
   return unsavedChangesQueue;
 }
 
-uint64_t __33__EKEventStore_isObjectInserted___block_invoke(void *a1)
+void *__33__EKEventStore_isObjectInserted___block_invoke(void *a1)
 {
   result = [*(a1[4] + 304) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -14713,7 +15704,7 @@ LABEL_9:
 
 void __30__EKEventStore__deleteObject___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (!*(*(a1 + 32) + 312))
   {
     v2 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:1];
@@ -14754,26 +15745,26 @@ LABEL_5:
 
   [*(*(a1 + 32) + 312) addObject:*(a1 + 40)];
 LABEL_11:
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v9 = [*(*(a1 + 32) + 112) copy];
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * i);
+        v14 = *(*(&v18 + 1) + 8 * i);
         v15 = [v14 objectID];
         v16 = [*(a1 + 40) objectID];
         v17 = [v15 isEqual:v16];
@@ -14784,13 +15775,11 @@ LABEL_11:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rollbackObjectsWithIdentifiers:(id)identifiers
@@ -14807,168 +15796,163 @@ LABEL_11:
   dispatch_sync(unsavedChangesQueue, v7);
 }
 
-void __47__EKEventStore_rollbackObjectsWithIdentifiers___block_invoke(uint64_t a1)
+void __47__EKEventStore_rollbackObjectsWithIdentifiers___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v65 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
+  v62 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = *(a1 + 40);
   v5 = [*(*(a1 + 32) + 304) allObjects];
   v6 = [v3 _filteredObjectsWithIdentifiers:v4 fromObjects:v5 excludingObjects:0];
 
-  v7 = *(a1 + 32);
-  v8 = objc_opt_class();
-  v9 = *(a1 + 40);
-  v10 = [*(*(a1 + 32) + 320) allObjects];
-  v11 = [v8 _filteredObjectsWithIdentifiers:v9 fromObjects:v10 excludingObjects:0];
+  v7 = objc_opt_class();
+  v8 = *(a1 + 40);
+  v9 = [*(*(a1 + 32) + 320) allObjects];
+  v10 = [v7 _filteredObjectsWithIdentifiers:v8 fromObjects:v9 excludingObjects:0];
 
-  v12 = *(a1 + 32);
-  v13 = objc_opt_class();
-  v14 = *(a1 + 40);
-  v15 = [*(*(a1 + 32) + 312) allObjects];
-  v16 = [v13 _filteredObjectsWithIdentifiers:v14 fromObjects:v15 excludingObjects:0];
+  v11 = objc_opt_class();
+  v12 = *(a1 + 40);
+  v13 = [*(*(a1 + 32) + 312) allObjects];
+  v14 = [v11 _filteredObjectsWithIdentifiers:v12 fromObjects:v13 excludingObjects:0];
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v17 = v6;
-  v18 = [v17 countByEnumeratingWithState:&v57 objects:v64 count:16];
-  if (v18)
-  {
-    v19 = v18;
-    v20 = *v58;
-    do
-    {
-      for (i = 0; i != v19; ++i)
-      {
-        if (*v58 != v20)
-        {
-          objc_enumerationMutation(v17);
-        }
-
-        [*(*(&v57 + 1) + 8 * i) _setPendingInsert:0];
-      }
-
-      v19 = [v17 countByEnumeratingWithState:&v57 objects:v64 count:16];
-    }
-
-    while (v19);
-  }
-
-  v55 = 0u;
   v56 = 0u;
-  v53 = 0u;
+  v57 = 0u;
   v54 = 0u;
-  v22 = v11;
-  v23 = [v22 countByEnumeratingWithState:&v53 objects:v63 count:16];
-  if (v23)
+  v55 = 0u;
+  v15 = v6;
+  v16 = [v15 countByEnumeratingWithState:&v54 objects:v61 count:16];
+  if (v16)
   {
-    v24 = v23;
-    v25 = *v54;
+    v17 = v16;
+    v18 = *v55;
     do
     {
-      for (j = 0; j != v24; ++j)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v54 != v25)
+        if (*v55 != v18)
         {
-          objc_enumerationMutation(v22);
+          objc_enumerationMutation(v15);
         }
 
-        v27 = *(*(&v53 + 1) + 8 * j);
-        [v27 rollback];
-        [v27 _setPendingUpdate:0];
+        [*(*(&v54 + 1) + 8 * i) _setPendingInsert:0];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v53 objects:v63 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v54 objects:v61 count:16];
     }
 
-    while (v24);
+    while (v17);
   }
 
-  v51 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v28 = v16;
-  v29 = [v28 countByEnumeratingWithState:&v49 objects:v62 count:16];
-  if (v29)
+  v51 = 0u;
+  v20 = v10;
+  v21 = [v20 countByEnumeratingWithState:&v50 objects:v60 count:16];
+  if (v21)
   {
-    v30 = v29;
-    v31 = *v50;
+    v22 = v21;
+    v23 = *v51;
     do
     {
-      for (k = 0; k != v30; ++k)
+      for (j = 0; j != v22; ++j)
       {
-        if (*v50 != v31)
+        if (*v51 != v23)
         {
-          objc_enumerationMutation(v28);
+          objc_enumerationMutation(v20);
         }
 
-        v33 = *(*(&v49 + 1) + 8 * k);
-        [v33 rollback];
-        [v33 _setPendingDelete:0];
+        v25 = *(*(&v50 + 1) + 8 * j);
+        [v25 rollback];
+        [v25 _setPendingUpdate:0];
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v49 objects:v62 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v50 objects:v60 count:16];
     }
 
-    while (v30);
+    while (v22);
   }
 
-  v35 = *(a1 + 32);
-  v34 = *(a1 + 40);
-  v36 = *(v35 + 112);
-  if (v34)
+  v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v26 = v14;
+  v27 = [v26 countByEnumeratingWithState:&v46 objects:v59 count:16];
+  if (v27)
   {
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __47__EKEventStore_rollbackObjectsWithIdentifiers___block_invoke_2;
-    v47[3] = &unk_1E7800E98;
-    v48 = v34;
-    [v36 CalFilterUsingBlock:v47];
+    v28 = v27;
+    v29 = *v47;
+    do
+    {
+      for (k = 0; k != v28; ++k)
+      {
+        if (*v47 != v29)
+        {
+          objc_enumerationMutation(v26);
+        }
+
+        v31 = *(*(&v46 + 1) + 8 * k);
+        [v31 rollback];
+        [v31 _setPendingDelete:0];
+      }
+
+      v28 = [v26 countByEnumeratingWithState:&v46 objects:v59 count:16];
+    }
+
+    while (v28);
+  }
+
+  v33 = *(a1 + 32);
+  v32 = *(a1 + 40);
+  v34 = *(v33 + 112);
+  if (v32)
+  {
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __47__EKEventStore_rollbackObjectsWithIdentifiers___block_invoke_2;
+    v44[3] = &unk_1E7800E98;
+    v45 = v32;
+    [v34 CalFilterUsingBlock:v44];
   }
 
   else
   {
-    [*(v35 + 112) removeAllObjects];
+    [*(v33 + 112) removeAllObjects];
   }
 
-  v45 = 0u;
-  v46 = 0u;
+  v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v37 = v17;
-  v38 = [v37 countByEnumeratingWithState:&v43 objects:v61 count:16];
-  if (v38)
+  v40 = 0u;
+  v41 = 0u;
+  v35 = v15;
+  v36 = [v35 countByEnumeratingWithState:&v40 objects:v58 count:16];
+  if (v36)
   {
-    v39 = v38;
-    v40 = *v44;
+    v37 = v36;
+    v38 = *v41;
     do
     {
-      for (m = 0; m != v39; ++m)
+      for (m = 0; m != v37; ++m)
       {
-        if (*v44 != v40)
+        if (*v41 != v38)
         {
-          objc_enumerationMutation(v37);
+          objc_enumerationMutation(v35);
         }
 
-        [*(*(a1 + 32) + 304) removeObject:{*(*(&v43 + 1) + 8 * m), v43}];
+        [*(*(a1 + 32) + 304) removeObject:{*(*(&v40 + 1) + 8 * m), v40}];
       }
 
-      v39 = [v37 countByEnumeratingWithState:&v43 objects:v61 count:16];
+      v37 = [v35 countByEnumeratingWithState:&v40 objects:v58 count:16];
     }
 
-    while (v39);
+    while (v37);
   }
 
-  [*(*(a1 + 32) + 312) minusSet:v28];
-  [*(*(a1 + 32) + 320) minusSet:v22];
-  [*(*(a1 + 32) + 328) minusSet:v37];
-  [*(*(a1 + 32) + 328) minusSet:v22];
-  [*(*(a1 + 32) + 328) minusSet:v28];
-
-  v42 = *MEMORY[0x1E69E9840];
+  [*(*(a1 + 32) + 312) minusSet:v26];
+  [*(*(a1 + 32) + 320) minusSet:v20];
+  [*(*(a1 + 32) + 328) minusSet:v35];
+  [*(*(a1 + 32) + 328) minusSet:v20];
+  [*(*(a1 + 32) + 328) minusSet:v26];
 }
 
 uint64_t __47__EKEventStore_rollbackObjectsWithIdentifiers___block_invoke_2(uint64_t a1, void *a2)
@@ -15003,92 +15987,92 @@ uint64_t __47__EKEventStore_rollbackObjectsWithIdentifiers___block_invoke_2(uint
 
 uint64_t __31__EKEventStore__clearAllCaches__block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v2 = *(*(a1 + 32) + 304);
-  v3 = [v2 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v31;
+    v5 = *v30;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v31 != v5)
+        if (*v30 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v30 + 1) + 8 * i);
+        v7 = *(*(&v29 + 1) + 8 * i);
         [v7 _setPendingInsert:0];
         [v7 _setEventStore:0];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v4);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v8 = *(*(a1 + 32) + 320);
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v35 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v34 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       for (j = 0; j != v10; ++j)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * j);
+        v13 = *(*(&v25 + 1) + 8 * j);
         [v13 _setPendingUpdate:0];
         [v13 _setEventStore:0];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v26 objects:v35 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v25 objects:v34 count:16];
     }
 
     while (v10);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v14 = *(*(a1 + 32) + 312);
-  v15 = [v14 countByEnumeratingWithState:&v22 objects:v34 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v21 objects:v33 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       for (k = 0; k != v16; ++k)
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v22 + 1) + 8 * k);
-        [v19 _setPendingDelete:{0, v22}];
+        v19 = *(*(&v21 + 1) + 8 * k);
+        [v19 _setPendingDelete:{0, v21}];
         [v19 _setEventStore:0];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v22 objects:v34 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v21 objects:v33 count:16];
     }
 
     while (v16);
@@ -15098,9 +16082,7 @@ uint64_t __31__EKEventStore__clearAllCaches__block_invoke(uint64_t a1)
   [*(*(a1 + 32) + 312) removeAllObjects];
   [*(*(a1 + 32) + 320) removeAllObjects];
   [*(*(a1 + 32) + 328) removeAllObjects];
-  result = [*(*(a1 + 32) + 112) removeAllObjects];
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 112) removeAllObjects];
 }
 
 void __31__EKEventStore__clearAllCaches__block_invoke_2(uint64_t a1)
@@ -15132,79 +16114,78 @@ void __31__EKEventStore__clearAllCaches__block_invoke_2(uint64_t a1)
 
 - (BOOL)save:(id *)save
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__24;
-  v19 = __Block_byref_object_dispose__24;
-  v20 = 0;
+  v21 = *MEMORY[0x1E69E9840];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__24;
+  v18 = __Block_byref_object_dispose__24;
+  v19 = 0;
   unsavedChangesQueue = self->_unsavedChangesQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __21__EKEventStore_save___block_invoke;
   block[3] = &unk_1E77FD440;
   block[4] = self;
-  block[5] = &v15;
+  block[5] = &v14;
   dispatch_sync(unsavedChangesQueue, block);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
-  v4 = v16[5];
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v21 count:16];
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v4 = v15[5];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v20 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) markAsSaved];
+        [*(*(&v9 + 1) + 8 * v7++) markAsSaved];
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v21 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v20 count:16];
     }
 
     while (v5);
   }
 
-  _Block_object_dispose(&v15, 8);
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v14, 8);
   return 1;
 }
 
 void __21__EKEventStore_save___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(*(a1 + 32) + 336), "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = *(*(a1 + 32) + 336);
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [v8 persistentObject];
         if (![v9 isNew] || objc_msgSend(*(*(a1 + 32) + 304), "containsObject:", v9))
         {
@@ -15212,7 +16193,7 @@ void __21__EKEventStore_save___block_invoke(uint64_t a1)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -15224,7 +16205,6 @@ void __21__EKEventStore_save___block_invoke(uint64_t a1)
   v12 = v2;
 
   [*(*(a1 + 32) + 336) removeAllObjects];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)commit:(NSError *)error
@@ -15398,7 +16378,7 @@ void __21__EKEventStore_save___block_invoke(uint64_t a1)
 
 + (id)_filteredObjectsWithIdentifiers:(id)identifiers fromObjects:(id)objects excludingObjects:(id)excludingObjects
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   objectsCopy = objects;
   excludingObjectsCopy = excludingObjects;
@@ -15406,27 +16386,27 @@ void __21__EKEventStore_save___block_invoke(uint64_t a1)
   if (identifiersCopy)
   {
     v11 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(objectsCopy, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v23 = objectsCopy;
+    v22 = objectsCopy;
     v12 = objectsCopy;
-    v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * i);
+          v17 = *(*(&v23 + 1) + 8 * i);
           objectID = [v17 objectID];
           if ([identifiersCopy containsObject:objectID])
           {
@@ -15443,14 +16423,14 @@ void __21__EKEventStore_save___block_invoke(uint64_t a1)
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v14);
     }
 
     v20 = [v11 copy];
-    objectsCopy = v23;
+    objectsCopy = v22;
   }
 
   else if ([excludingObjectsCopy count])
@@ -15464,41 +16444,39 @@ void __21__EKEventStore_save___block_invoke(uint64_t a1)
     v20 = [MEMORY[0x1E695DFD8] setWithArray:objectsCopy];
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 + (id)_filteredArrayWithIdentifiers:(id)identifiers fromObjects:(id)objects excludingObjects:(id)excludingObjects
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   objectsCopy = objects;
   excludingObjectsCopy = excludingObjects;
   if (identifiersCopy)
   {
-    v22 = objectsCopy;
-    v23 = objc_opt_new();
+    v21 = objectsCopy;
+    v22 = objc_opt_new();
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v10 = objectsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v25;
+      v13 = *v24;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v25 != v13)
+          if (*v24 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v24 + 1) + 8 * i);
+          v15 = *(*(&v23 + 1) + 8 * i);
           objectID = [v15 objectID];
           if ([identifiersCopy containsObject:objectID])
           {
@@ -15507,7 +16485,7 @@ void __21__EKEventStore_save___block_invoke(uint64_t a1)
 
             if ((v18 & 1) == 0)
             {
-              [v23 addObject:v15];
+              [v22 addObject:v15];
             }
           }
 
@@ -15516,22 +16494,20 @@ void __21__EKEventStore_save___block_invoke(uint64_t a1)
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v12);
     }
 
-    v19 = [v23 copy];
-    objectsCopy = v22;
+    v19 = [v22 copy];
+    objectsCopy = v21;
   }
 
   else
   {
     v19 = [objectsCopy copy];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -15586,47 +16562,45 @@ void __21__EKEventStore_save___block_invoke(uint64_t a1)
 
 uint64_t __56__EKEventStore__clearPendingChangesForObjectsWithOwner___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 320) minusSet:*(a1 + 40)];
   [*(*(a1 + 32) + 312) minusSet:*(a1 + 40)];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v2 = *(a1 + 40);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(a1 + 32) + 304) removeObject:{*(*(&v9 + 1) + 8 * v6++), v9}];
+        [*(*(a1 + 32) + 304) removeObject:{*(*(&v8 + 1) + 8 * v6++), v8}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(*(a1 + 32) + 328) minusSet:*(a1 + 40)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 328) minusSet:*(a1 + 40)];
 }
 
 - (BOOL)_commitObjectsWithIdentifiers:(id)identifiers error:(id *)error
 {
-  v164 = *MEMORY[0x1E69E9840];
+  v163 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -15638,120 +16612,120 @@ uint64_t __56__EKEventStore__clearPendingChangesForObjectsWithOwner___block_invo
     *error = 0;
   }
 
-  v145 = 0;
-  v146 = &v145;
-  v147 = 0x2020000000;
-  v148 = 0;
+  v144 = 0;
+  v145 = &v144;
+  v146 = 0x2020000000;
+  v147 = 0;
   if ([(EKEventStore *)self canModifyCalendarDatabase])
   {
-    v139 = 0;
-    v140 = &v139;
-    v141 = 0x3032000000;
-    v142 = __Block_byref_object_copy__24;
-    v143 = __Block_byref_object_dispose__24;
-    v144 = 0;
-    v133 = 0;
-    v134 = &v133;
-    v135 = 0x3032000000;
-    v136 = __Block_byref_object_copy__24;
-    v137 = __Block_byref_object_dispose__24;
     v138 = 0;
-    v127 = 0;
-    v128 = &v127;
-    v129 = 0x3032000000;
-    v130 = __Block_byref_object_copy__24;
-    v131 = __Block_byref_object_dispose__24;
+    v139 = &v138;
+    v140 = 0x3032000000;
+    v141 = __Block_byref_object_copy__24;
+    v142 = __Block_byref_object_dispose__24;
+    v143 = 0;
     v132 = 0;
-    v125[0] = 0;
-    v125[1] = v125;
-    v125[2] = 0x3032000000;
-    v125[3] = __Block_byref_object_copy__24;
-    v125[4] = __Block_byref_object_dispose__24;
+    v133 = &v132;
+    v134 = 0x3032000000;
+    v135 = __Block_byref_object_copy__24;
+    v136 = __Block_byref_object_dispose__24;
+    v137 = 0;
     v126 = 0;
+    v127 = &v126;
+    v128 = 0x3032000000;
+    v129 = __Block_byref_object_copy__24;
+    v130 = __Block_byref_object_dispose__24;
+    v131 = 0;
+    v124[0] = 0;
+    v124[1] = v124;
+    v124[2] = 0x3032000000;
+    v124[3] = __Block_byref_object_copy__24;
+    v124[4] = __Block_byref_object_dispose__24;
+    v125 = 0;
     unsavedChangesQueue = self->_unsavedChangesQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke;
     block[3] = &unk_1E7800EC0;
-    v121 = v125;
+    v120 = v124;
     block[4] = self;
-    v122 = &v139;
+    v121 = &v138;
     v6 = identifiersCopy;
-    v120 = v6;
-    v123 = &v133;
-    v124 = &v127;
+    v119 = v6;
+    v122 = &v132;
+    v123 = &v126;
     dispatch_sync(unsavedChangesQueue, block);
-    if ([v140[5] count] || objc_msgSend(v134[5], "count") || objc_msgSend(v128[5], "count"))
+    if ([v139[5] count] || objc_msgSend(v133[5], "count") || objc_msgSend(v127[5], "count"))
     {
-      v57 = v6;
+      v56 = v6;
       errorCopy = error;
       v7 = EKLogHandle;
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v8 = [v140[5] count];
-        v9 = [v134[5] count];
-        v10 = [v128[5] count];
+        v8 = [v139[5] count];
+        v9 = [v133[5] count];
+        v10 = [v127[5] count];
         *buf = 67109632;
         *&buf[4] = v8;
-        LOWORD(v159) = 1024;
-        *(&v159 + 2) = v9;
-        HIWORD(v159) = 1024;
-        LODWORD(v160) = v10;
+        LOWORD(v158) = 1024;
+        *(&v158 + 2) = v9;
+        HIWORD(v158) = 1024;
+        LODWORD(v159) = v10;
         _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_INFO, "Committing with %d insertions, %d updates, %d deletions", buf, 0x14u);
       }
 
       *buf = 0;
-      v159 = buf;
-      v160 = 0x3032000000;
-      v161 = __Block_byref_object_copy__24;
-      v162 = __Block_byref_object_dispose__24;
-      v163 = objc_opt_new();
-      v113 = 0u;
-      v114 = 0u;
-      v111 = 0u;
+      v158 = buf;
+      v159 = 0x3032000000;
+      v160 = __Block_byref_object_copy__24;
+      v161 = __Block_byref_object_dispose__24;
+      v162 = objc_opt_new();
       v112 = 0u;
-      v11 = v128[5];
+      v113 = 0u;
+      v110 = 0u;
+      v111 = 0u;
+      v11 = v127[5];
       v12 = 0;
-      v13 = [v11 countByEnumeratingWithState:&v111 objects:v157 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v110 objects:v156 count:16];
       if (v13)
       {
-        v14 = *v112;
+        v14 = *v111;
         attendees2 = 136315394;
         do
         {
           v15 = 0;
           do
           {
-            if (*v112 != v14)
+            if (*v111 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v111 + 1) + 8 * v15);
+            v16 = *(*(&v110 + 1) + 8 * v15);
             v17 = objc_opt_class();
-            v110 = 0;
-            v18 = [v17 _isConfirmedSuggestedEvent:v16 uniqueKey:&v110];
-            v19 = v110;
+            v109 = 0;
+            v18 = [v17 _isConfirmedSuggestedEvent:v16 uniqueKey:&v109];
+            v19 = v109;
             if (v18)
             {
               v20 = EKLogHandle;
               if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
               {
-                *v151 = 136315394;
-                *&v151[4] = "[EKEventStore _commitObjectsWithIdentifiers:error:]";
-                *&v151[12] = 2112;
-                *&v151[14] = v16;
-                _os_log_debug_impl(&dword_1A805E000, v20, OS_LOG_TYPE_DEBUG, "%s - Notifying suggestions we have deleted previously confirmed event %@", v151, 0x16u);
+                *v150 = 136315394;
+                *&v150[4] = "[EKEventStore _commitObjectsWithIdentifiers:error:]";
+                *&v150[12] = 2112;
+                *&v150[14] = v16;
+                _os_log_debug_impl(&dword_1A805E000, v20, OS_LOG_TYPE_DEBUG, "%s - Notifying suggestions we have deleted previously confirmed event %@", v150, 0x16u);
               }
 
               serviceForEvents = [(objc_class *)[(EKEventStore *)self _SGSuggestionsServiceClass] serviceForEvents];
-              v108[0] = MEMORY[0x1E69E9820];
-              v108[1] = 3221225472;
-              v108[2] = __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_509;
-              v108[3] = &unk_1E7800D38;
+              v107[0] = MEMORY[0x1E69E9820];
+              v107[1] = 3221225472;
+              v107[2] = __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_509;
+              v107[3] = &unk_1E7800D38;
               v22 = serviceForEvents;
-              v109 = v22;
-              [v22 eventFromUniqueId:v19 withCompletion:v108];
+              v108 = v22;
+              [v22 eventFromUniqueId:v19 withCompletion:v107];
             }
 
             v23 = [objc_opt_class() _iMIPScheduledEvent:v16];
@@ -15761,7 +16735,7 @@ uint64_t __56__EKEventStore__clearPendingChangesForObjectsWithOwner___block_invo
               attendees = [v23 attendees];
               v26 = [(EKiMIPCancel *)v24 initWithEvent:v23 andAttendees:attendees];
 
-              [*(v159 + 5) addObject:v26];
+              [*(v158 + 5) addObject:v26];
             }
 
             objc_opt_class();
@@ -15772,7 +16746,7 @@ uint64_t __56__EKEventStore__clearPendingChangesForObjectsWithOwner___block_invo
           }
 
           while (v13 != v15);
-          v13 = [v11 countByEnumeratingWithState:&v111 objects:v157 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v110 objects:v156 count:16];
         }
 
         while (v13);
@@ -15785,58 +16759,58 @@ uint64_t __56__EKEventStore__clearPendingChangesForObjectsWithOwner___block_invo
       aBlock[4] = self;
       aBlock[5] = buf;
       v28 = _Block_copy(aBlock);
-      v105 = 0u;
-      v106 = 0u;
-      v103 = 0u;
       v104 = 0u;
-      v29 = v140[5];
-      v30 = [v29 countByEnumeratingWithState:&v103 objects:v156 count:16];
+      v105 = 0u;
+      v102 = 0u;
+      v103 = 0u;
+      v29 = v139[5];
+      v30 = [v29 countByEnumeratingWithState:&v102 objects:v155 count:16];
       if (v30)
       {
-        v31 = *v104;
+        v31 = *v103;
         do
         {
           for (i = 0; i != v30; ++i)
           {
-            if (*v104 != v31)
+            if (*v103 != v31)
             {
               objc_enumerationMutation(v29);
             }
 
-            v28[2](v28, *(*(&v103 + 1) + 8 * i));
+            v28[2](v28, *(*(&v102 + 1) + 8 * i));
           }
 
-          v30 = [v29 countByEnumeratingWithState:&v103 objects:v156 count:16];
+          v30 = [v29 countByEnumeratingWithState:&v102 objects:v155 count:16];
         }
 
         while (v30);
       }
 
-      v101 = 0u;
-      v102 = 0u;
-      v99 = 0u;
       v100 = 0u;
-      obj = v134[5];
-      v33 = [obj countByEnumeratingWithState:&v99 objects:v155 count:16];
+      v101 = 0u;
+      v98 = 0u;
+      v99 = 0u;
+      obj = v133[5];
+      v33 = [obj countByEnumeratingWithState:&v98 objects:v154 count:16];
       if (v33)
       {
-        v34 = *v100;
+        v34 = *v99;
         do
         {
           for (j = 0; j != v33; ++j)
           {
-            if (*v100 != v34)
+            if (*v99 != v34)
             {
               objc_enumerationMutation(obj);
             }
 
-            v36 = *(*(&v99 + 1) + 8 * j);
+            v36 = *(*(&v98 + 1) + 8 * j);
             if (v12)
             {
               v37 = [objc_opt_class() _iMIPScheduledEvent:v36];
-              v98 = 0;
-              v38 = [EKiMIPCancel shouldSendEmailForEvent:v37 removedAttendees:&v98];
-              v39 = v98;
+              v97 = 0;
+              v38 = [EKiMIPCancel shouldSendEmailForEvent:v37 removedAttendees:&v97];
+              v39 = v97;
               if (v38)
               {
                 v40 = [EKiMIPCancel alloc];
@@ -15852,134 +16826,134 @@ uint64_t __56__EKEventStore__clearPendingChangesForObjectsWithOwner___block_invo
                 {
                 }
 
-                [*(v159 + 5) addObject:v42];
+                [*(v158 + 5) addObject:v42];
               }
             }
 
             v28[2](v28, v36);
           }
 
-          v33 = [obj countByEnumeratingWithState:&v99 objects:v155 count:16];
+          v33 = [obj countByEnumeratingWithState:&v98 objects:v154 count:16];
         }
 
         while (v33);
       }
 
-      *v151 = 0;
-      *&v151[8] = v151;
-      *&v151[16] = 0x3032000000;
-      v152 = __Block_byref_object_copy__24;
-      v153 = __Block_byref_object_dispose__24;
-      v154 = 0;
-      v92 = 0;
-      v93 = &v92;
-      v94 = 0x3032000000;
-      v95 = __Block_byref_object_copy__24;
-      v96 = __Block_byref_object_dispose__24;
-      v97 = 0;
-      v90[0] = 0;
-      v90[1] = v90;
-      v90[2] = 0x3032000000;
-      v90[3] = __Block_byref_object_copy__24;
-      v90[4] = __Block_byref_object_dispose__24;
+      *v150 = 0;
+      *&v150[8] = v150;
+      *&v150[16] = 0x3032000000;
+      v151 = __Block_byref_object_copy__24;
+      v152 = __Block_byref_object_dispose__24;
+      v153 = 0;
       v91 = 0;
-      v88[0] = 0;
-      v88[1] = v88;
-      v88[2] = 0x3032000000;
-      v88[3] = __Block_byref_object_copy__24;
-      v88[4] = __Block_byref_object_dispose__24;
-      v89 = 0;
-      v86[0] = 0;
-      v86[1] = v86;
-      v86[2] = 0x3032000000;
-      v86[3] = __Block_byref_object_copy__24;
-      v86[4] = __Block_byref_object_dispose__24;
-      v87 = 0;
-      v84[0] = 0;
-      v84[1] = v84;
-      v84[2] = 0x2020000000;
-      v85 = 0;
+      v92 = &v91;
+      v93 = 0x3032000000;
+      v94 = __Block_byref_object_copy__24;
+      v95 = __Block_byref_object_dispose__24;
+      v96 = 0;
+      v89[0] = 0;
+      v89[1] = v89;
+      v89[2] = 0x3032000000;
+      v89[3] = __Block_byref_object_copy__24;
+      v89[4] = __Block_byref_object_dispose__24;
+      v90 = 0;
+      v87[0] = 0;
+      v87[1] = v87;
+      v87[2] = 0x3032000000;
+      v87[3] = __Block_byref_object_copy__24;
+      v87[4] = __Block_byref_object_dispose__24;
+      v88 = 0;
+      v85[0] = 0;
+      v85[1] = v85;
+      v85[2] = 0x3032000000;
+      v85[3] = __Block_byref_object_copy__24;
+      v85[4] = __Block_byref_object_dispose__24;
+      v86 = 0;
+      v83[0] = 0;
+      v83[1] = v83;
+      v83[2] = 0x2020000000;
+      v84 = 0;
       dbChangedQueue = self->_dbChangedQueue;
-      v71[0] = MEMORY[0x1E69E9820];
-      v71[1] = 3221225472;
-      v71[2] = __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_2_518;
-      v71[3] = &unk_1E7800F88;
-      v71[4] = self;
-      v73 = &v139;
-      v74 = &v133;
-      v75 = &v127;
-      v76 = &v92;
-      v77 = v88;
-      v78 = v86;
-      v79 = v90;
-      v80 = v84;
-      v72 = v57;
-      v81 = v125;
-      v82 = v151;
-      v83 = &v145;
-      dispatch_sync(dbChangedQueue, v71);
+      v70[0] = MEMORY[0x1E69E9820];
+      v70[1] = 3221225472;
+      v70[2] = __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_2_518;
+      v70[3] = &unk_1E7800F88;
+      v70[4] = self;
+      v72 = &v138;
+      v73 = &v132;
+      v74 = &v126;
+      v75 = &v91;
+      v76 = v87;
+      v77 = v85;
+      v78 = v89;
+      v79 = v83;
+      v71 = v56;
+      v80 = v124;
+      v81 = v150;
+      v82 = &v144;
+      dispatch_sync(dbChangedQueue, v70);
       if (errorCopy)
       {
-        *errorCopy = v93[5];
+        *errorCopy = v92[5];
       }
 
-      if (*(v146 + 24) == 1)
+      if (*(v145 + 24) == 1)
       {
-        v69 = 0u;
-        v70 = 0u;
-        v67 = 0u;
         v68 = 0u;
-        v44 = *(v159 + 5);
-        v45 = [v44 countByEnumeratingWithState:&v67 objects:v150 count:16];
+        v69 = 0u;
+        v66 = 0u;
+        v67 = 0u;
+        v44 = *(v158 + 5);
+        v45 = [v44 countByEnumeratingWithState:&v66 objects:v149 count:16];
         if (v45)
         {
-          v46 = *v68;
+          v46 = *v67;
           do
           {
             for (k = 0; k != v45; ++k)
             {
-              if (*v68 != v46)
+              if (*v67 != v46)
               {
                 objc_enumerationMutation(v44);
               }
 
-              [*(*(&v67 + 1) + 8 * k) sendEmail];
+              [*(*(&v66 + 1) + 8 * k) sendEmail];
             }
 
-            v45 = [v44 countByEnumeratingWithState:&v67 objects:v150 count:16];
+            v45 = [v44 countByEnumeratingWithState:&v66 objects:v149 count:16];
           }
 
           while (v45);
         }
 
-        v65 = 0u;
-        v66 = 0u;
-        v63 = 0u;
         v64 = 0u;
-        v48 = *(*&v151[8] + 40);
-        v49 = [v48 countByEnumeratingWithState:&v63 objects:v149 count:16];
+        v65 = 0u;
+        v62 = 0u;
+        v63 = 0u;
+        v48 = *(*&v150[8] + 40);
+        v49 = [v48 countByEnumeratingWithState:&v62 objects:v148 count:16];
         if (v49)
         {
-          v50 = *v64;
+          v50 = *v63;
           do
           {
             for (m = 0; m != v49; ++m)
             {
-              if (*v64 != v50)
+              if (*v63 != v50)
               {
                 objc_enumerationMutation(v48);
               }
 
-              [EKMapsUtilities geocodeEventIfNeeded:*(*(&v63 + 1) + 8 * m)];
+              [EKMapsUtilities geocodeEventIfNeeded:*(*(&v62 + 1) + 8 * m)];
             }
 
-            v49 = [v48 countByEnumeratingWithState:&v63 objects:v149 count:16];
+            v49 = [v48 countByEnumeratingWithState:&v62 objects:v148 count:16];
           }
 
           while (v49);
         }
 
-        v52 = *(v146 + 24);
+        v52 = *(v145 + 24);
       }
 
       else
@@ -15987,57 +16961,57 @@ uint64_t __56__EKEventStore__clearPendingChangesForObjectsWithOwner___block_invo
         v52 = 0;
       }
 
-      _Block_object_dispose(v84, 8);
-      _Block_object_dispose(v86, 8);
+      _Block_object_dispose(v83, 8);
+      _Block_object_dispose(v85, 8);
 
-      _Block_object_dispose(v88, 8);
-      _Block_object_dispose(v90, 8);
+      _Block_object_dispose(v87, 8);
+      _Block_object_dispose(v89, 8);
 
-      _Block_object_dispose(&v92, 8);
-      _Block_object_dispose(v151, 8);
+      _Block_object_dispose(&v91, 8);
+      _Block_object_dispose(v150, 8);
 
       _Block_object_dispose(buf, 8);
     }
 
     else
     {
-      v55 = EKLogHandle;
+      v54 = EKLogHandle;
       if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A805E000, v55, OS_LOG_TYPE_INFO, "Nothing to commit. Bailing early.", buf, 2u);
+        _os_log_impl(&dword_1A805E000, v54, OS_LOG_TYPE_INFO, "Nothing to commit. Bailing early.", buf, 2u);
       }
 
       *buf = 0;
-      v159 = buf;
-      v160 = 0x3032000000;
-      v161 = __Block_byref_object_copy__24;
-      v162 = __Block_byref_object_dispose__24;
-      v163 = 0;
-      v56 = self->_unsavedChangesQueue;
-      v115[0] = MEMORY[0x1E69E9820];
-      v115[1] = 3221225472;
-      v115[2] = __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_508;
-      v115[3] = &unk_1E77FF5B8;
-      v115[4] = self;
-      v116 = v6;
-      v117 = v125;
-      v118 = buf;
-      dispatch_sync(v56, v115);
-      if ([*(v159 + 5) count])
+      v158 = buf;
+      v159 = 0x3032000000;
+      v160 = __Block_byref_object_copy__24;
+      v161 = __Block_byref_object_dispose__24;
+      v162 = 0;
+      v55 = self->_unsavedChangesQueue;
+      v114[0] = MEMORY[0x1E69E9820];
+      v114[1] = 3221225472;
+      v114[2] = __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_508;
+      v114[3] = &unk_1E77FF5B8;
+      v114[4] = self;
+      v115 = v6;
+      v116 = v124;
+      v117 = buf;
+      dispatch_sync(v55, v114);
+      if ([*(v158 + 5) count])
       {
-        [(EKEventStore *)self _postEventStoreChangedNotificationWithChangeType:1 changedObjectIDs:*(v159 + 5) forceImmediate:1];
+        [(EKEventStore *)self _postEventStoreChangedNotificationWithChangeType:1 changedObjectIDs:*(v158 + 5) forceImmediate:1];
       }
 
       _Block_object_dispose(buf, 8);
       v52 = 1;
     }
 
-    _Block_object_dispose(v125, 8);
-    _Block_object_dispose(&v127, 8);
+    _Block_object_dispose(v124, 8);
+    _Block_object_dispose(&v126, 8);
 
-    _Block_object_dispose(&v133, 8);
-    _Block_object_dispose(&v139, 8);
+    _Block_object_dispose(&v132, 8);
+    _Block_object_dispose(&v138, 8);
   }
 
   else
@@ -16055,9 +17029,8 @@ uint64_t __56__EKEventStore__clearPendingChangesForObjectsWithOwner___block_invo
     v52 = 0;
   }
 
-  _Block_object_dispose(&v145, 8);
+  _Block_object_dispose(&v144, 8);
 
-  v53 = *MEMORY[0x1E69E9840];
   return v52 & 1;
 }
 
@@ -16072,32 +17045,29 @@ void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke(void 
     *(v3 + 40) = v2;
   }
 
-  v5 = a1[4];
-  v6 = objc_opt_class();
-  v7 = a1[5];
-  v8 = [*(a1[4] + 304) allObjects];
-  v9 = [v6 _filteredObjectsWithIdentifiers:v7 fromObjects:v8 excludingObjects:*(*(a1[6] + 8) + 40)];
-  v10 = *(a1[7] + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v9;
+  v5 = objc_opt_class();
+  v6 = a1[5];
+  v7 = [*(a1[4] + 304) allObjects];
+  v8 = [v5 _filteredObjectsWithIdentifiers:v6 fromObjects:v7 excludingObjects:*(*(a1[6] + 8) + 40)];
+  v9 = *(a1[7] + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 
-  v12 = a1[4];
-  v13 = objc_opt_class();
-  v14 = a1[5];
-  v15 = [*(a1[4] + 320) allObjects];
-  v16 = [v13 _filteredObjectsWithIdentifiers:v14 fromObjects:v15 excludingObjects:*(*(a1[6] + 8) + 40)];
-  v17 = *(a1[8] + 8);
-  v18 = *(v17 + 40);
-  *(v17 + 40) = v16;
+  v11 = objc_opt_class();
+  v12 = a1[5];
+  v13 = [*(a1[4] + 320) allObjects];
+  v14 = [v11 _filteredObjectsWithIdentifiers:v12 fromObjects:v13 excludingObjects:*(*(a1[6] + 8) + 40)];
+  v15 = *(a1[8] + 8);
+  v16 = *(v15 + 40);
+  *(v15 + 40) = v14;
 
-  v19 = a1[4];
-  v20 = objc_opt_class();
-  v21 = a1[5];
-  v25 = [*(a1[4] + 312) allObjects];
-  v22 = [v20 _filteredObjectsWithIdentifiers:v21 fromObjects:v25 excludingObjects:*(*(a1[6] + 8) + 40)];
-  v23 = *(a1[9] + 8);
-  v24 = *(v23 + 40);
-  *(v23 + 40) = v22;
+  v17 = objc_opt_class();
+  v18 = a1[5];
+  v22 = [*(a1[4] + 312) allObjects];
+  v19 = [v17 _filteredObjectsWithIdentifiers:v18 fromObjects:v22 excludingObjects:*(*(a1[6] + 8) + 40)];
+  v20 = *(a1[9] + 8);
+  v21 = *(v20 + 40);
+  *(v20 + 40) = v19;
 }
 
 void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_508(uint64_t a1)
@@ -16136,44 +17106,43 @@ void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_2(uin
 
 void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_513(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v10 = [objc_opt_class() _iMIPScheduledEvent:v4];
+  v3 = a2;
+  v9 = [objc_opt_class() _iMIPScheduledEvent:v3];
 
-  v5 = v10;
-  if (v10)
+  v4 = v9;
+  if (v9)
   {
-    v6 = [v10 diffFromCommitted];
-    if ([EKiMIPInvitation shouldSendEmailForEvent:v10 withDiff:v6])
+    v5 = [v9 diffFromCommitted];
+    if ([EKiMIPInvitation shouldSendEmailForEvent:v9 withDiff:v5])
     {
-      v7 = [[EKiMIPInvitation alloc] initWithEvent:v10 withDiff:v6];
+      v6 = [[EKiMIPInvitation alloc] initWithEvent:v9 withDiff:v5];
     }
 
     else
     {
-      if ([EKiMIPUpdate shouldSendEmailForEvent:v10 withDiff:v6])
+      if ([EKiMIPUpdate shouldSendEmailForEvent:v9 withDiff:v5])
       {
-        v8 = EKiMIPUpdate;
+        v7 = EKiMIPUpdate;
       }
 
       else
       {
-        if (![EKiMIPReply shouldSendEmailForEvent:v10 withDiff:v6])
+        if (![EKiMIPReply shouldSendEmailForEvent:v9 withDiff:v5])
         {
 LABEL_10:
 
-          v5 = v10;
+          v4 = v9;
           goto LABEL_11;
         }
 
-        v8 = EKiMIPReply;
+        v7 = EKiMIPReply;
       }
 
-      v7 = [[v8 alloc] initWithEvent:v10];
+      v6 = [[v7 alloc] initWithEvent:v9];
     }
 
-    v9 = v7;
-    [*(*(*(a1 + 40) + 8) + 40) addObject:v7];
+    v8 = v6;
+    [*(*(*(a1 + 40) + 8) + 40) addObject:v6];
 
     goto LABEL_10;
   }
@@ -16210,31 +17179,31 @@ void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_2_518
 
 void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_3(uint64_t a1)
 {
-  v124 = *MEMORY[0x1E69E9840];
-  v67 = [MEMORY[0x1E695DFA8] setWithSet:*(*(*(a1 + 48) + 8) + 40)];
-  [v67 unionSet:*(*(*(a1 + 56) + 8) + 40)];
-  if ([v67 count])
+  v121 = *MEMORY[0x1E69E9840];
+  v64 = [MEMORY[0x1E695DFA8] setWithSet:*(*(*(a1 + 48) + 8) + 40)];
+  [v64 unionSet:*(*(*(a1 + 56) + 8) + 40)];
+  if ([v64 count])
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v112 = 0u;
+    v113 = 0u;
+    v114 = 0u;
     v115 = 0u;
-    v116 = 0u;
-    v117 = 0u;
-    v118 = 0u;
-    v3 = v67;
-    v4 = [v3 countByEnumeratingWithState:&v115 objects:v123 count:16];
+    v3 = v64;
+    v4 = [v3 countByEnumeratingWithState:&v112 objects:v120 count:16];
     if (v4)
     {
-      v5 = *v116;
+      v5 = *v113;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v116 != v5)
+          if (*v113 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          v7 = *(*(&v115 + 1) + 8 * i);
+          v7 = *(*(&v112 + 1) + 8 * i);
           v8 = [v7 dirtyPropertiesAndValues];
           if (v8)
           {
@@ -16243,7 +17212,7 @@ void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_3(uin
           }
         }
 
-        v4 = [v3 countByEnumeratingWithState:&v115 objects:v123 count:16];
+        v4 = [v3 countByEnumeratingWithState:&v112 objects:v120 count:16];
       }
 
       while (v4);
@@ -16258,270 +17227,267 @@ void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_3(uin
   v10 = [*(*(*(a1 + 64) + 8) + 40) valueForKey:@"CADObjectID"];
   v11 = [v10 allObjects];
 
-  v113[0] = 0;
-  v113[1] = v113;
-  v113[2] = 0x2020000000;
-  v114 = 0;
+  v110[0] = 0;
+  v110[1] = v110;
+  v110[2] = 0x2020000000;
+  v111 = 0;
+  v106 = 0;
+  v107 = &v106;
+  v108 = 0x2020000000;
   v109 = 0;
-  v110 = &v109;
-  v111 = 0x2020000000;
-  v112 = 0;
-  v103 = 0;
-  v104 = &v103;
-  v105 = 0x3032000000;
-  v106 = __Block_byref_object_copy__24;
-  v107 = __Block_byref_object_dispose__24;
-  v108 = 0;
+  v100 = 0;
+  v101 = &v100;
+  v102 = 0x3032000000;
+  v103 = __Block_byref_object_copy__24;
+  v104 = __Block_byref_object_dispose__24;
+  v105 = 0;
   if (([MEMORY[0x1E6992F30] isProgramSDKAtLeast:0x7E70901FFFFFFFFLL] & 1) == 0)
   {
-    v12 = [*(a1 + 32) eventAccessLevel] == 1;
+    [*(a1 + 32) eventAccessLevel];
   }
 
-  v13 = [*(a1 + 32) database];
-  v14 = [v13 CADOperationProxySync];
-  v15 = *(*(a1 + 32) + 352);
-  v91 = MEMORY[0x1E69E9820];
-  v92 = 3221225472;
-  v93 = __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_4;
-  v94 = &unk_1E7800F10;
-  v16 = *(a1 + 72);
-  v97 = v113;
-  v98 = v16;
-  v95 = v11;
-  v96 = v2;
-  v99 = &v109;
-  v100 = &v103;
-  v17 = *(a1 + 96);
-  v101 = *(a1 + 80);
-  v102 = v17;
-  v65 = v96;
-  v66 = v95;
-  [v14 CADDatabaseCommitDeletes:v95 updatesAndInserts:? options:? andFetchChangesSinceTimestamp:? withReply:?];
+  v12 = [*(a1 + 32) database];
+  v13 = [v12 CADOperationProxySync];
+  v88 = MEMORY[0x1E69E9820];
+  v89 = 3221225472;
+  v90 = __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_4;
+  v91 = &unk_1E7800F10;
+  v14 = *(a1 + 72);
+  v94 = v110;
+  v95 = v14;
+  v92 = v11;
+  v93 = v2;
+  v96 = &v106;
+  v97 = &v100;
+  v15 = *(a1 + 96);
+  v98 = *(a1 + 80);
+  v99 = v15;
+  v62 = v93;
+  v63 = v92;
+  [v13 CADDatabaseCommitDeletes:v92 updatesAndInserts:? options:? andFetchChangesSinceTimestamp:? withReply:?];
 
-  if (*(v110 + 24) == 1)
+  if (*(v107 + 24) == 1)
   {
     if ([*(a1 + 32) shouldRecordObjectIDMap])
     {
-      v89 = 0u;
-      v90 = 0u;
+      v86 = 0u;
       v87 = 0u;
-      v88 = 0u;
-      v18 = v104[5];
-      v19 = [v18 countByEnumeratingWithState:&v87 objects:v122 count:16];
-      if (v19)
+      v84 = 0u;
+      v85 = 0u;
+      v16 = v101[5];
+      v17 = [v16 countByEnumeratingWithState:&v84 objects:v119 count:16];
+      if (v17)
       {
-        v20 = *v88;
+        v18 = *v85;
         do
         {
-          for (j = 0; j != v19; ++j)
+          for (j = 0; j != v17; ++j)
           {
-            if (*v88 != v20)
+            if (*v85 != v18)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v16);
             }
 
-            v22 = *(*(&v87 + 1) + 8 * j);
-            v23 = [v104[5] objectForKeyedSubscript:v22];
-            v24 = [EKObjectID objectIDWithCADObjectID:v22];
-            v25 = [EKObjectID objectIDWithCADObjectID:v23];
-            v26 = [*(*(a1 + 32) + 136) objectForKeyedSubscript:v24];
-            v27 = *(*(a1 + 32) + 128);
-            if (v26)
+            v20 = *(*(&v84 + 1) + 8 * j);
+            v21 = [v101[5] objectForKeyedSubscript:v20];
+            v22 = [EKObjectID objectIDWithCADObjectID:v20];
+            v23 = [EKObjectID objectIDWithCADObjectID:v21];
+            v24 = [*(*(a1 + 32) + 136) objectForKeyedSubscript:v22];
+            v25 = *(*(a1 + 32) + 128);
+            if (v24)
             {
-              [v27 setObject:v25 forKeyedSubscript:v26];
+              [v25 setObject:v23 forKeyedSubscript:v24];
             }
 
             else
             {
-              [v27 setObject:v25 forKeyedSubscript:v24];
+              [v25 setObject:v23 forKeyedSubscript:v22];
             }
           }
 
-          v19 = [v18 countByEnumeratingWithState:&v87 objects:v122 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v84 objects:v119 count:16];
         }
 
-        while (v19);
+        while (v17);
       }
     }
 
     if ([*(*(*(a1 + 48) + 8) + 40) count])
     {
-      v85 = 0u;
-      v86 = 0u;
+      v82 = 0u;
       v83 = 0u;
-      v84 = 0u;
+      v80 = 0u;
+      v81 = 0u;
       obj = *(*(*(a1 + 48) + 8) + 40);
-      v28 = [obj countByEnumeratingWithState:&v83 objects:v121 count:16];
-      if (v28)
+      v26 = [obj countByEnumeratingWithState:&v80 objects:v118 count:16];
+      if (v26)
       {
-        v29 = *v84;
+        v27 = *v81;
         do
         {
-          for (k = 0; k != v28; ++k)
+          for (k = 0; k != v26; ++k)
           {
-            if (*v84 != v29)
+            if (*v81 != v27)
             {
               objc_enumerationMutation(obj);
             }
 
-            v31 = *(*(&v83 + 1) + 8 * k);
-            [*(*(a1 + 32) + 304) removeObject:v31];
-            v32 = v104[5];
-            v33 = [v31 CADObjectID];
-            v34 = [v32 objectForKey:v33];
+            v29 = *(*(&v80 + 1) + 8 * k);
+            [*(*(a1 + 32) + 304) removeObject:v29];
+            v30 = v101[5];
+            v31 = [v29 CADObjectID];
+            v32 = [v30 objectForKey:v31];
 
-            if (v34)
+            if (v32)
             {
-              v35 = [EKObjectID objectIDWithCADObjectID:v34];
-              v36 = [*(a1 + 32) database];
-              [v31 _setObjectID:v35 inDatabaseRestoreGeneration:{objc_msgSend(v36, "databaseRestoreGeneration")}];
+              v33 = [EKObjectID objectIDWithCADObjectID:v32];
+              v34 = [*(a1 + 32) database];
+              [v29 _setObjectID:v33 inDatabaseRestoreGeneration:{objc_msgSend(v34, "databaseRestoreGeneration")}];
 
-              [*(a1 + 32) _registerObject:v31];
+              [*(a1 + 32) _registerObject:v29];
             }
 
-            [v31 _setPendingInsert:0];
-            [v31 didCommit];
-            v37 = *(a1 + 32);
-            v38 = *(v37 + 360);
+            [v29 _setPendingInsert:0];
+            [v29 didCommit];
+            v35 = *(a1 + 32);
+            v36 = *(v35 + 360);
             block[0] = MEMORY[0x1E69E9820];
             block[1] = 3221225472;
             block[2] = __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_520;
             block[3] = &unk_1E77FD580;
-            block[4] = v37;
-            block[5] = v31;
-            dispatch_sync(v38, block);
+            block[4] = v35;
+            block[5] = v29;
+            dispatch_sync(v36, block);
           }
 
-          v28 = [obj countByEnumeratingWithState:&v83 objects:v121 count:16];
+          v26 = [obj countByEnumeratingWithState:&v80 objects:v118 count:16];
         }
 
-        while (v28);
+        while (v26);
       }
     }
 
-    v80 = 0u;
-    v81 = 0u;
+    v77 = 0u;
     v78 = 0u;
-    v79 = 0u;
-    v39 = *(*(*(a1 + 56) + 8) + 40);
-    v40 = 0;
-    v41 = 0;
-    v42 = [v39 countByEnumeratingWithState:&v78 objects:v120 count:16];
-    if (v42)
+    v75 = 0u;
+    v76 = 0u;
+    v37 = *(*(*(a1 + 56) + 8) + 40);
+    v38 = 0;
+    v39 = 0;
+    v40 = [v37 countByEnumeratingWithState:&v75 objects:v117 count:16];
+    if (v40)
     {
-      v43 = *v79;
+      v41 = *v76;
       do
       {
-        for (m = 0; m != v42; ++m)
+        for (m = 0; m != v40; ++m)
         {
-          if (*v79 != v43)
+          if (*v76 != v41)
           {
-            objc_enumerationMutation(v39);
+            objc_enumerationMutation(v37);
           }
 
-          v45 = *(*(&v78 + 1) + 8 * m);
-          [v45 _setPendingUpdate:0];
-          [v45 didCommit];
+          v43 = *(*(&v75 + 1) + 8 * m);
+          [v43 _setPendingUpdate:0];
+          [v43 didCommit];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v40 = 1;
+            v38 = 1;
           }
 
           else
           {
             objc_opt_class();
-            v41 |= objc_opt_isKindOfClass();
+            v39 |= objc_opt_isKindOfClass();
           }
         }
 
-        v42 = [v39 countByEnumeratingWithState:&v78 objects:v120 count:16];
+        v40 = [v37 countByEnumeratingWithState:&v75 objects:v117 count:16];
       }
 
-      while (v42);
+      while (v40);
     }
 
-    if ((v40 | v41))
+    if ((v38 | v39))
     {
-      v46 = *(a1 + 32);
-      v47 = *(v46 + 360);
-      v75[0] = MEMORY[0x1E69E9820];
-      v75[1] = 3221225472;
-      v75[2] = __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_2_521;
-      v75[3] = &unk_1E7800F38;
-      v76 = v40 & 1;
-      v75[4] = v46;
-      v77 = v41 & 1;
-      dispatch_sync(v47, v75);
+      v44 = *(a1 + 32);
+      v45 = *(v44 + 360);
+      v72[0] = MEMORY[0x1E69E9820];
+      v72[1] = 3221225472;
+      v72[2] = __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_2_521;
+      v72[3] = &unk_1E7800F38;
+      v73 = v38 & 1;
+      v72[4] = v44;
+      v74 = v39 & 1;
+      dispatch_sync(v45, v72);
     }
 
-    v73 = 0u;
-    v74 = 0u;
+    v70 = 0u;
     v71 = 0u;
-    v72 = 0u;
-    v48 = *(*(*(a1 + 64) + 8) + 40);
-    v49 = [v48 countByEnumeratingWithState:&v71 objects:v119 count:16];
-    if (v49)
+    v68 = 0u;
+    v69 = 0u;
+    v46 = *(*(*(a1 + 64) + 8) + 40);
+    v47 = [v46 countByEnumeratingWithState:&v68 objects:v116 count:16];
+    if (v47)
     {
-      v50 = *v72;
+      v48 = *v69;
       do
       {
-        for (n = 0; n != v49; ++n)
+        for (n = 0; n != v47; ++n)
         {
-          if (*v72 != v50)
+          if (*v69 != v48)
           {
-            objc_enumerationMutation(v48);
+            objc_enumerationMutation(v46);
           }
 
-          v52 = *(*(&v71 + 1) + 8 * n);
-          [v52 _setPendingDelete:0];
-          [*(a1 + 32) _unregisterObject:v52];
-          v53 = *(a1 + 32);
-          v54 = *(v53 + 360);
-          v70[0] = MEMORY[0x1E69E9820];
-          v70[1] = 3221225472;
-          v70[2] = __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_3_522;
-          v70[3] = &unk_1E77FD580;
-          v70[4] = v52;
-          v70[5] = v53;
-          dispatch_sync(v54, v70);
+          v50 = *(*(&v68 + 1) + 8 * n);
+          [v50 _setPendingDelete:0];
+          [*(a1 + 32) _unregisterObject:v50];
+          v51 = *(a1 + 32);
+          v52 = *(v51 + 360);
+          v67[0] = MEMORY[0x1E69E9820];
+          v67[1] = 3221225472;
+          v67[2] = __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_3_522;
+          v67[3] = &unk_1E77FD580;
+          v67[4] = v50;
+          v67[5] = v51;
+          dispatch_sync(v52, v67);
         }
 
-        v49 = [v48 countByEnumeratingWithState:&v71 objects:v119 count:16];
+        v47 = [v46 countByEnumeratingWithState:&v68 objects:v116 count:16];
       }
 
-      while (v49);
+      while (v47);
     }
 
     [*(*(a1 + 32) + 312) minusSet:*(*(*(a1 + 64) + 8) + 40)];
     [*(*(a1 + 32) + 320) minusSet:*(*(*(a1 + 56) + 8) + 40)];
-    v55 = *(a1 + 40);
+    v53 = *(a1 + 40);
     if ([*(*(*(a1 + 48) + 8) + 40) count])
     {
-      v56 = [*(*(*(a1 + 48) + 8) + 40) valueForKey:@"objectID"];
-      v57 = [v55 setByAddingObjectsFromSet:v56];
+      v54 = [*(*(*(a1 + 48) + 8) + 40) valueForKey:@"objectID"];
+      v55 = [v53 setByAddingObjectsFromSet:v54];
 
-      v55 = v57;
+      v53 = v55;
     }
 
-    v58 = [*(a1 + 32) _markObjectsWithIdentifiersAsCommitted:v55 excludingObjects:*(*(*(a1 + 112) + 8) + 40)];
-    v59 = *(a1 + 32);
-    v69 = 0;
-    [v59 _fetchAndClearEventsNeedingGeocoding:&v69 withCommittedObjects:v58];
-    v60 = v69;
-    v61 = *(*(a1 + 120) + 8);
-    v62 = *(v61 + 40);
-    *(v61 + 40) = v60;
-    v63 = v60;
+    v56 = [*(a1 + 32) _markObjectsWithIdentifiersAsCommitted:v53 excludingObjects:*(*(*(a1 + 112) + 8) + 40)];
+    v57 = *(a1 + 32);
+    v66 = 0;
+    [v57 _fetchAndClearEventsNeedingGeocoding:&v66 withCommittedObjects:v56];
+    v58 = v66;
+    v59 = *(*(a1 + 120) + 8);
+    v60 = *(v59 + 40);
+    *(v59 + 40) = v58;
+    v61 = v58;
 
     *(*(*(a1 + 128) + 8) + 24) = 1;
   }
 
-  _Block_object_dispose(&v103, 8);
-  _Block_object_dispose(&v109, 8);
-  _Block_object_dispose(v113, 8);
-
-  v64 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v100, 8);
+  _Block_object_dispose(&v106, 8);
+  _Block_object_dispose(v110, 8);
 }
 
 void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_4(void *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, char a7)
@@ -16540,12 +17506,12 @@ void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_4(voi
 
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_4_cold_1((a1 + 7));
+      __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_4_cold_1();
     }
 
     if (a2 == 1010 && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_4_cold_2(a1);
+      __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_4_cold_2();
     }
 
     v20 = 0;
@@ -16564,46 +17530,45 @@ void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_4(voi
   *(*(a1[8] + 8) + 24) = v20;
 }
 
-void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_520(uint64_t a1)
+void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_520(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (v2[7] && (v3 = *(a1 + 40), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v2 = *(a1 + 32), (isKindOfClass & 1) != 0))
+  v3 = *(a1 + 32);
+  if (v3[7] && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v3 = *(a1 + 32), (isKindOfClass & 1) != 0))
   {
-    v7 = [*(a1 + 40) CADObjectID];
-    [v2 _cacheCalendarWithCADObjectID:? withDefaultLoadedPropertyValues:? forKeys:?];
+    v6 = [*(a1 + 40) CADObjectID];
+    [v3 _cacheCalendarWithCADObjectID:? withDefaultLoadedPropertyValues:? forKeys:?];
   }
 
   else
   {
-    if (!v2[8])
+    if (!v3[8])
     {
       return;
     }
 
-    v5 = *(a1 + 40);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       return;
     }
 
-    v6 = *(a1 + 32);
-    v7 = [*(a1 + 40) CADObjectID];
-    [v6 _cacheSourceWithCADObjectID:? withDefaultLoadedPropertyValues:? forKeys:?];
+    v5 = *(a1 + 32);
+    v6 = [*(a1 + 40) CADObjectID];
+    [v5 _cacheSourceWithCADObjectID:? withDefaultLoadedPropertyValues:? forKeys:?];
   }
 }
 
-uint64_t __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_2_521(uint64_t result)
+id *__52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_2_521(id *result)
 {
   v1 = result;
   if (*(result + 40) == 1)
   {
-    result = [*(result + 32) _clearCachedCalendars];
+    result = [result[4] _clearCachedCalendars];
   }
 
   if (*(v1 + 41) == 1)
   {
-    v2 = *(v1 + 32);
+    v2 = v1[4];
 
     return [v2 _clearCachedSources];
   }
@@ -16611,20 +17576,18 @@ uint64_t __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_2
   return result;
 }
 
-void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_3_522(uint64_t a1)
+void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_3_522(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v3 = *(a1 + 40);
-    v7 = [*(a1 + 32) CADObjectID];
+    v6 = [*(a1 + 32) CADObjectID];
     [v3 _removeCachedCalendarWithCADID:?];
   }
 
   else
   {
-    v4 = *(a1 + 32);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -16632,85 +17595,83 @@ void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_3_522
     }
 
     [*(a1 + 40) _removeCachedCalendarFromSource:*(a1 + 32)];
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 40) + 64);
-    v7 = [v5 CADObjectID];
-    [v6 removeObjectForKey:?];
+    v4 = *(a1 + 32);
+    v5 = *(*(a1 + 40) + 64);
+    v6 = [v4 CADObjectID];
+    [v5 removeObjectForKey:?];
   }
 }
 
 - (id)_markObjectsWithIdentifiersAsCommitted:(id)committed excludingObjects:(id)objects
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   committedCopy = committed;
   objectsCopy = objects;
   dispatch_assert_queue_V2(self->_unsavedChangesQueue);
   v8 = [objc_opt_class() _filteredArrayWithIdentifiers:committedCopy fromObjects:self->_objectsPendingCommit excludingObjects:objectsCopy];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
+        v13 = *(*(&v15 + 1) + 8 * i);
         [v13 markAsCommitted];
         [(NSMutableArray *)self->_objectsPendingCommit removeObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (void)_fetchAndClearEventsNeedingGeocoding:(id *)geocoding withCommittedObjects:(id)objects
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   dispatch_assert_queue_V2(self->_unsavedChangesQueue);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = objectsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       v11 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * v11);
+        v12 = *(*(&v15 + 1) + 8 * v11);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v13 = v12;
-          if ([(NSHashTable *)self->_eventsNeedsGeocoding containsObject:v13, v16])
+          if ([(NSHashTable *)self->_eventsNeedsGeocoding containsObject:v13, v15])
           {
             [(NSHashTable *)self->_eventsNeedsGeocoding removeObject:v13];
             if (geocoding)
@@ -16731,61 +17692,59 @@ void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_3_522
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ensureLoadedProperties:(id)properties forObjects:(id)objects
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   objectsCopy = objects;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v7 = [objectsCopy countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v7 = [objectsCopy countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
     selfCopy = self;
     v9 = 0;
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(objectsCopy);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
+        v12 = *(*(&v25 + 1) + 8 * i);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         v13 = propertiesCopy;
-        v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v23;
+          v16 = *v22;
           while (2)
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v23 != v16)
+              if (*v22 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              if ([v12 isPropertyUnavailable:*(*(&v22 + 1) + 8 * j)])
+              if ([v12 isPropertyUnavailable:*(*(&v21 + 1) + 8 * j)])
               {
                 if (!v9)
                 {
@@ -16807,7 +17766,7 @@ void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_3_522
               }
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
             if (v15)
             {
               continue;
@@ -16820,7 +17779,7 @@ void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_3_522
 LABEL_21:
       }
 
-      v8 = [objectsCopy countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v8 = [objectsCopy countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v8);
@@ -16829,60 +17788,58 @@ LABEL_21:
       [(EKEventStore *)selfCopy _fetchProperties:v13 forObjects:v9];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchProperties:(id)properties forObjects:(id)objects
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   objectsCopy = objects;
   if ([objectsCopy count])
   {
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x3032000000;
-    v31 = __Block_byref_object_copy__24;
-    v32 = __Block_byref_object_dispose__24;
-    v33 = 0;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x3032000000;
+    v30 = __Block_byref_object_copy__24;
+    v31 = __Block_byref_object_dispose__24;
+    v32 = 0;
     selfCopy = self;
     cADOperationProxySync = [(EKDaemonConnection *)self->_database CADOperationProxySync];
     v7 = [objectsCopy valueForKey:@"CADObjectID"];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __44__EKEventStore__fetchProperties_forObjects___block_invoke;
-    v27[3] = &unk_1E7800918;
-    v27[4] = &v28;
-    [cADOperationProxySync CADObjects:v7 getPropertiesWithNames:propertiesCopy reply:v27];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __44__EKEventStore__fetchProperties_forObjects___block_invoke;
+    v26[3] = &unk_1E7800918;
+    v26[4] = &v27;
+    [cADOperationProxySync CADObjects:v7 getPropertiesWithNames:propertiesCopy reply:v26];
 
-    v8 = [v29[5] count];
+    v8 = [v28[5] count];
     if (v8 != [objectsCopy count] && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
       [EKEventStore _fetchProperties:forObjects:];
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v9 = v29[5];
-    v10 = [v9 countByEnumeratingWithState:&v23 objects:v34 count:16];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v9 = v28[5];
+    v10 = [v9 countByEnumeratingWithState:&v22 objects:v33 count:16];
     if (v10)
     {
       v11 = 0;
-      v12 = *v24;
+      v12 = *v23;
       do
       {
         v13 = 0;
         do
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * v13);
+          v14 = *(*(&v22 + 1) + 8 * v13);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -16898,29 +17855,31 @@ LABEL_21:
         }
 
         while (v10 != v13);
-        v10 = [v9 countByEnumeratingWithState:&v23 objects:v34 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v22 objects:v33 count:16];
       }
 
       while (v10);
     }
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v27, 8);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
-void __44__EKEventStore__fetchProperties_forObjects___block_invoke(uint64_t a1, int a2, void *a3)
+void __44__EKEventStore__fetchProperties_forObjects___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  if (a2 && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  if (a2)
   {
-    __56__EKEventStore_uniqueIdentifiersForEventsWithObjectIDs___block_invoke_2_cold_1();
+    v6 = EKLogHandle;
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      __56__EKEventStore_uniqueIdentifiersForEventsWithObjectIDs___block_invoke_2_cold_1(a2, v6, v7);
+    }
   }
 
-  v6 = *(*(a1 + 32) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v8 = *(*(a1 + 32) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v5;
 }
 
 - (BOOL)isPendingIntegrationEvent:(id)event
@@ -16989,16 +17948,16 @@ void __43__EKEventStore_addPendingIntegrationEvent___block_invoke(uint64_t a1)
 
 - (void)_addPendingIntegrationEvent:(id)event toArrayOfHashTables:(id)tables
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   tablesCopy = tables;
   objectID = [eventCopy objectID];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v7 = tablesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (!v8)
   {
 
@@ -17010,17 +17969,17 @@ LABEL_15:
 
   v9 = v8;
   v10 = 0;
-  v11 = *v23;
+  v11 = *v22;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v23 != v11)
+      if (*v22 != v11)
       {
         objc_enumerationMutation(v7);
       }
 
-      v13 = *(*(&v22 + 1) + 8 * i);
+      v13 = *(*(&v21 + 1) + 8 * i);
       anyObject = [v13 anyObject];
       v15 = anyObject;
       if (eventCopy)
@@ -17045,7 +18004,7 @@ LABEL_15:
       }
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
   }
 
   while (v9);
@@ -17058,22 +18017,20 @@ LABEL_12:
 
 LABEL_16:
   [v10 addObject:eventCopy];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pendingIntegrationEventChangedIdentifierFrom:(id)from to:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   toCopy = to;
   v8 = EKLogHandle;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v17 = fromCopy;
-    v18 = 2114;
-    v19 = toCopy;
+    v16 = fromCopy;
+    v17 = 2114;
+    v18 = toCopy;
     _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_INFO, "Updating pending integration event ID from %{public}@ to %{public}@", buf, 0x16u);
   }
 
@@ -17083,18 +18040,16 @@ LABEL_16:
   block[2] = __64__EKEventStore_pendingIntegrationEventChangedIdentifierFrom_to___block_invoke;
   block[3] = &unk_1E77FD7C8;
   block[4] = self;
-  v14 = fromCopy;
-  v15 = toCopy;
+  v13 = fromCopy;
+  v14 = toCopy;
   v10 = toCopy;
   v11 = fromCopy;
   dispatch_sync(dbChangedQueue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __64__EKEventStore_pendingIntegrationEventChangedIdentifierFrom_to___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 104) objectForKeyedSubscript:*(a1 + 40)];
   v3 = [*(*(a1 + 32) + 104) objectForKeyedSubscript:*(a1 + 48)];
   v4 = v3;
@@ -17110,63 +18065,63 @@ void __64__EKEventStore_pendingIntegrationEventChangedIdentifierFrom_to___block_
 
   if (!v5)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v19 = v3;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v18 = v3;
     v6 = v3;
-    v7 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v25;
+      v9 = *v24;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v25 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v24 + 1) + 8 * i);
+          v11 = *(*(&v23 + 1) + 8 * i);
+          v19 = 0u;
           v20 = 0u;
           v21 = 0u;
           v22 = 0u;
-          v23 = 0u;
           v12 = v11;
-          v13 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v21;
+            v15 = *v20;
             do
             {
               for (j = 0; j != v14; ++j)
               {
-                if (*v21 != v15)
+                if (*v20 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                [*(a1 + 32) _addPendingIntegrationEvent:*(*(&v20 + 1) + 8 * j) toArrayOfHashTables:v2];
+                [*(a1 + 32) _addPendingIntegrationEvent:*(*(&v19 + 1) + 8 * j) toArrayOfHashTables:v2];
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
             }
 
             while (v14);
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v8);
     }
 
-    v4 = v19;
+    v4 = v18;
   }
 
   if (v2)
@@ -17178,13 +18133,11 @@ void __64__EKEventStore_pendingIntegrationEventChangedIdentifierFrom_to___block_
 
   [*(*(a1 + 32) + 104) setObject:0 forKeyedSubscript:*(a1 + 40)];
   [*(*(a1 + 32) + 104) setObject:v4 forKeyedSubscript:*(a1 + 48)];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removePendingIntegrationEvent:(id)event
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = EKLogHandle;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_INFO))
@@ -17192,52 +18145,50 @@ void __64__EKEventStore_pendingIntegrationEventChangedIdentifierFrom_to___block_
     v6 = v5;
     privacySafeIntegrationEventDescription = [eventCopy privacySafeIntegrationEventDescription];
     *buf = 138543362;
-    v18 = privacySafeIntegrationEventDescription;
+    v17 = privacySafeIntegrationEventDescription;
     _os_log_impl(&dword_1A805E000, v6, OS_LOG_TYPE_INFO, "Removing pending integration event: %{public}@", buf, 0xCu);
   }
 
   dbChangedQueue = self->_dbChangedQueue;
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 3221225472;
-  v13 = __46__EKEventStore_removePendingIntegrationEvent___block_invoke;
-  v14 = &unk_1E77FD580;
-  v15 = eventCopy;
+  v10 = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = __46__EKEventStore_removePendingIntegrationEvent___block_invoke;
+  v13 = &unk_1E77FD580;
+  v14 = eventCopy;
   selfCopy = self;
   v9 = eventCopy;
-  dispatch_sync(dbChangedQueue, &v11);
+  dispatch_sync(dbChangedQueue, &v10);
   [v9 reset];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __46__EKEventStore_removePendingIntegrationEvent___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) uniqueID];
   v3 = [*(*(a1 + 40) + 104) objectForKeyedSubscript:v2];
   v4 = objc_alloc_init(MEMORY[0x1E696AD50]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        [v11 removeObject:{*(a1 + 32), v15}];
+        v11 = *(*(&v14 + 1) + 8 * i);
+        [v11 removeObject:{*(a1 + 32), v14}];
         v12 = [v11 anyObject];
 
         if (!v12)
@@ -17248,7 +18199,7 @@ void __46__EKEventStore_removePendingIntegrationEvent___block_invoke(uint64_t a1
         ++v8;
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -17264,32 +18215,30 @@ void __46__EKEventStore_removePendingIntegrationEvent___block_invoke(uint64_t a1
   {
     [v5 removeObjectsAtIndexes:v4];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)reminderIntegrationCalendar
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   [(EKEventStore *)self sources];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v2 = v13 = 0u;
-  anyObject = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = v12 = 0u;
+  anyObject = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (anyObject)
   {
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != anyObject; i = i + 1)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         if ([v6 sourceType] == 6)
         {
           allCalendars = [v6 allCalendars];
@@ -17299,7 +18248,7 @@ void __46__EKEventStore_removePendingIntegrationEvent___block_invoke(uint64_t a1
         }
       }
 
-      anyObject = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      anyObject = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (anyObject)
       {
         continue;
@@ -17311,8 +18260,6 @@ void __46__EKEventStore_removePendingIntegrationEvent___block_invoke(uint64_t a1
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return anyObject;
 }
 
@@ -17322,7 +18269,7 @@ LABEL_11:
   [cADOperationProxy CADCatchUpIntegrationSyncingIfBehind:&__block_literal_global_527];
 }
 
-void __45__EKEventStore_requestIntegrationCatchupSync__block_invoke(uint64_t a1, int a2)
+void __45__EKEventStore_requestIntegrationCatchupSync__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -17374,11 +18321,12 @@ void __45__EKEventStore_requestIntegrationCatchupSync__block_invoke(uint64_t a1,
   _Block_object_dispose(&v18, 8);
 }
 
-void __48__EKEventStore_loadEventIDs_uniqueIDs_calendar___block_invoke(uint64_t a1, int a2, void *a3, void *a4)
+void __48__EKEventStore_loadEventIDs_uniqueIDs_calendar___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
+  v5 = a2;
   v7 = a3;
   v8 = a4;
-  if (a2)
+  if (v5)
   {
     v9 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -17399,47 +18347,47 @@ void __48__EKEventStore_loadEventIDs_uniqueIDs_calendar___block_invoke(uint64_t 
 
 - (id)redactedMimicSaveEvent:(id)event oldToNewObjectIDMap:(id)map serializedDictionary:(id)dictionary objectIDToChangeSetDictionaryMap:(id)dictionaryMap objectIDToPersistentDictionaryMap:(id)persistentDictionaryMap
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   mapCopy = map;
   dictionaryCopy = dictionary;
   dictionaryMapCopy = dictionaryMap;
   persistentDictionaryMapCopy = persistentDictionaryMap;
-  v40 = eventCopy;
+  v39 = eventCopy;
   if (!eventCopy)
   {
-    v40 = [EKEvent eventWithEventStore:self];
+    v39 = [EKEvent eventWithEventStore:self];
   }
 
-  v36 = persistentDictionaryMapCopy;
-  v37 = objc_alloc_init(_TtC8EventKit26EKRemoteUIObjectSerializer);
+  v35 = persistentDictionaryMapCopy;
+  v36 = objc_alloc_init(_TtC8EventKit26EKRemoteUIObjectSerializer);
   selfCopy = self;
-  v41 = [(EKRemoteUIObjectSerializer *)v37 deserializedRepresentationWithSerializedDictionary:dictionaryCopy objectIDToChangeSetDictionaryMap:dictionaryMapCopy objectIDToPersistentDictionaryMap:persistentDictionaryMapCopy eventStore:self occurrenceDate:0];
-  deserializedObject = [v41 deserializedObject];
-  tempObjectIDMap = [v41 tempObjectIDMap];
-  [(EKEventStore *)self _resetAndApplyChangesForRedactedMimicCommitOnObject:v40 usingModifiedObject:deserializedObject];
+  v40 = [(EKRemoteUIObjectSerializer *)v36 deserializedRepresentationWithSerializedDictionary:dictionaryCopy objectIDToChangeSetDictionaryMap:dictionaryMapCopy objectIDToPersistentDictionaryMap:persistentDictionaryMapCopy eventStore:self occurrenceDate:0];
+  deserializedObject = [v40 deserializedObject];
+  tempObjectIDMap = [v40 tempObjectIDMap];
+  [(EKEventStore *)self _resetAndApplyChangesForRedactedMimicCommitOnObject:v39 usingModifiedObject:deserializedObject];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v17 = tempObjectIDMap;
-  v18 = [v17 countByEnumeratingWithState:&v49 objects:v57 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v48 objects:v56 count:16];
   if (v18)
   {
-    v19 = *v50;
+    v19 = *v49;
     v20 = dictionaryCopy;
     v21 = dictionaryMapCopy;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v50 != v19)
+        if (*v49 != v19)
         {
           objc_enumerationMutation(v17);
         }
 
-        v23 = *(*(&v49 + 1) + 8 * i);
+        v23 = *(*(&v48 + 1) + 8 * i);
         v24 = [v17 objectForKeyedSubscript:v23];
         v25 = [mapCopy objectForKeyedSubscript:v23];
         if (v25)
@@ -17464,7 +18412,7 @@ void __48__EKEventStore_loadEventIDs_uniqueIDs_calendar___block_invoke(uint64_t 
         dictionaryMapCopy = v21;
       }
 
-      v18 = [v17 countByEnumeratingWithState:&v49 objects:v57 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v48 objects:v56 count:16];
     }
 
     while (v18);
@@ -17477,39 +18425,37 @@ void __48__EKEventStore_loadEventIDs_uniqueIDs_calendar___block_invoke(uint64_t 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v54 = __Block_byref_object_copy__24;
-  v55 = __Block_byref_object_dispose__24;
-  v56 = 0;
+  v53 = __Block_byref_object_copy__24;
+  v54 = __Block_byref_object_dispose__24;
+  v55 = 0;
   unsavedChangesQueue = selfCopy->_unsavedChangesQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __147__EKEventStore_redactedMimicSaveEvent_oldToNewObjectIDMap_serializedDictionary_objectIDToChangeSetDictionaryMap_objectIDToPersistentDictionaryMap___block_invoke;
   block[3] = &unk_1E77FD688;
-  v48 = buf;
+  v47 = buf;
   block[4] = selfCopy;
   v31 = v29;
-  v47 = v31;
+  v46 = v31;
   dispatch_sync(unsavedChangesQueue, block);
   [(EKEventStore *)selfCopy _mimicCommitWithOldToNewObjectIDMap:dictionary insertedObjectsToCommit:*(*&buf[8] + 40) updatedObjectsToCommit:0 deletedObjectsToCommit:0];
   v32 = selfCopy->_unsavedChangesQueue;
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __147__EKEventStore_redactedMimicSaveEvent_oldToNewObjectIDMap_serializedDictionary_objectIDToChangeSetDictionaryMap_objectIDToPersistentDictionaryMap___block_invoke_2;
-  v44[3] = &unk_1E77FD580;
-  v44[4] = selfCopy;
-  v45 = v31;
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = __147__EKEventStore_redactedMimicSaveEvent_oldToNewObjectIDMap_serializedDictionary_objectIDToChangeSetDictionaryMap_objectIDToPersistentDictionaryMap___block_invoke_2;
+  v43[3] = &unk_1E77FD580;
+  v43[4] = selfCopy;
+  v44 = v31;
   v33 = v31;
-  dispatch_sync(v32, v44);
+  dispatch_sync(v32, v43);
 
   _Block_object_dispose(buf, 8);
-  v34 = *MEMORY[0x1E69E9840];
 
-  return v40;
+  return v39;
 }
 
-void __147__EKEventStore_redactedMimicSaveEvent_oldToNewObjectIDMap_serializedDictionary_objectIDToChangeSetDictionaryMap_objectIDToPersistentDictionaryMap___block_invoke(void *a1)
+void __147__EKEventStore_redactedMimicSaveEvent_oldToNewObjectIDMap_serializedDictionary_objectIDToChangeSetDictionaryMap_objectIDToPersistentDictionaryMap___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
   v3 = objc_opt_class();
   v4 = a1[5];
   v8 = [*(a1[4] + 304) allObjects];
@@ -17521,7 +18467,7 @@ void __147__EKEventStore_redactedMimicSaveEvent_oldToNewObjectIDMap_serializedDi
 
 - (void)_resetAndApplyChangesForRedactedMimicCommitOnObject:(id)object usingModifiedObject:(id)modifiedObject
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   modifiedObjectCopy = modifiedObject;
   [objectCopy setChangeSet:0];
@@ -17530,25 +18476,25 @@ void __147__EKEventStore_redactedMimicSaveEvent_oldToNewObjectIDMap_serializedDi
 
   [objectCopy _resetAfterUpdatingChangeSetOrBackingObjectWithForce:1];
   knownRelationshipSingleValueKeys = [objc_opt_class() knownRelationshipSingleValueKeys];
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
-  v9 = [knownRelationshipSingleValueKeys countByEnumeratingWithState:&v60 objects:v67 count:16];
+  v9 = [knownRelationshipSingleValueKeys countByEnumeratingWithState:&v59 objects:v66 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v61;
+    v11 = *v60;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v61 != v11)
+        if (*v60 != v11)
         {
           objc_enumerationMutation(knownRelationshipSingleValueKeys);
         }
 
-        v13 = *(*(&v60 + 1) + 8 * i);
+        v13 = *(*(&v59 + 1) + 8 * i);
         v14 = [objectCopy cachedMeltedObjectForSingleValueKey:v13];
         v15 = [modifiedObjectCopy cachedMeltedObjectForSingleValueKey:v13];
         v16 = v15;
@@ -17568,64 +18514,64 @@ void __147__EKEventStore_redactedMimicSaveEvent_oldToNewObjectIDMap_serializedDi
         }
       }
 
-      v10 = [knownRelationshipSingleValueKeys countByEnumeratingWithState:&v60 objects:v67 count:16];
+      v10 = [knownRelationshipSingleValueKeys countByEnumeratingWithState:&v59 objects:v66 count:16];
     }
 
     while (v10);
   }
 
-  v35 = knownRelationshipSingleValueKeys;
+  v34 = knownRelationshipSingleValueKeys;
   [objc_opt_class() knownRelationshipMultiValueKeys];
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
-  obj = v59 = 0u;
-  v40 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
-  if (v40)
+  obj = v58 = 0u;
+  v39 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
+  if (v39)
   {
-    v37 = *v57;
-    v38 = modifiedObjectCopy;
-    v39 = objectCopy;
+    v36 = *v56;
+    v37 = modifiedObjectCopy;
+    v38 = objectCopy;
     do
     {
       v18 = 0;
       do
       {
-        if (*v57 != v37)
+        if (*v56 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v41 = v18;
-        v19 = *(*(&v56 + 1) + 8 * v18);
+        v40 = v18;
+        v19 = *(*(&v55 + 1) + 8 * v18);
         v20 = [objectCopy cachedMeltedObjectsForMultiValueKey:v19];
-        v45 = [modifiedObjectCopy cachedMeltedObjectsForMultiValueKey:v19];
+        v44 = [modifiedObjectCopy cachedMeltedObjectsForMultiValueKey:v19];
+        v51 = 0u;
         v52 = 0u;
         v53 = 0u;
         v54 = 0u;
-        v55 = 0u;
-        v43 = v20;
-        v47 = [v43 countByEnumeratingWithState:&v52 objects:v65 count:16];
-        if (v47)
+        v42 = v20;
+        v46 = [v42 countByEnumeratingWithState:&v51 objects:v64 count:16];
+        if (v46)
         {
-          v44 = *v53;
+          v43 = *v52;
           do
           {
-            for (j = 0; j != v47; ++j)
+            for (j = 0; j != v46; ++j)
             {
-              if (*v53 != v44)
+              if (*v52 != v43)
               {
-                objc_enumerationMutation(v43);
+                objc_enumerationMutation(v42);
               }
 
-              v22 = *(*(&v52 + 1) + 8 * j);
+              v22 = *(*(&v51 + 1) + 8 * j);
               objectID = [v22 objectID];
+              v47 = 0u;
               v48 = 0u;
               v49 = 0u;
               v50 = 0u;
-              v51 = 0u;
-              v24 = v45;
-              v25 = [v24 countByEnumeratingWithState:&v48 objects:v64 count:16];
+              v24 = v44;
+              v25 = [v24 countByEnumeratingWithState:&v47 objects:v63 count:16];
               if (!v25)
               {
                 v27 = v24;
@@ -17633,19 +18579,19 @@ void __147__EKEventStore_redactedMimicSaveEvent_oldToNewObjectIDMap_serializedDi
               }
 
               v26 = v25;
-              v46 = v22;
+              v45 = v22;
               v27 = 0;
-              v28 = *v49;
+              v28 = *v48;
               do
               {
                 for (k = 0; k != v26; ++k)
                 {
-                  if (*v49 != v28)
+                  if (*v48 != v28)
                   {
                     objc_enumerationMutation(v24);
                   }
 
-                  v30 = *(*(&v48 + 1) + 8 * k);
+                  v30 = *(*(&v47 + 1) + 8 * k);
                   objectID2 = [v30 objectID];
                   v32 = [objectID2 isEqual:objectID];
 
@@ -17657,37 +18603,35 @@ void __147__EKEventStore_redactedMimicSaveEvent_oldToNewObjectIDMap_serializedDi
                   }
                 }
 
-                v26 = [v24 countByEnumeratingWithState:&v48 objects:v64 count:16];
+                v26 = [v24 countByEnumeratingWithState:&v47 objects:v63 count:16];
               }
 
               while (v26);
 
               if (v27)
               {
-                [(EKEventStore *)self _resetAndApplyChangesForRedactedMimicCommitOnObject:v46 usingModifiedObject:v27];
+                [(EKEventStore *)self _resetAndApplyChangesForRedactedMimicCommitOnObject:v45 usingModifiedObject:v27];
 LABEL_36:
               }
             }
 
-            v47 = [v43 countByEnumeratingWithState:&v52 objects:v65 count:16];
+            v46 = [v42 countByEnumeratingWithState:&v51 objects:v64 count:16];
           }
 
-          while (v47);
+          while (v46);
         }
 
-        v18 = v41 + 1;
-        modifiedObjectCopy = v38;
-        objectCopy = v39;
+        v18 = v40 + 1;
+        modifiedObjectCopy = v37;
+        objectCopy = v38;
       }
 
-      while (v41 + 1 != v40);
-      v40 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
+      while (v40 + 1 != v39);
+      v39 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
     }
 
-    while (v40);
+    while (v39);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (id)mimicSaveAndCommitEvent:(id)event oldToNewObjectIDMap:(id)map insertedObjectIDs:(id)ds updatedObjectIDs:(id)iDs deletedObjectIDs:(id)objectIDs
@@ -17759,9 +18703,8 @@ LABEL_36:
   return eventCopy;
 }
 
-void __112__EKEventStore_mimicSaveAndCommitEvent_oldToNewObjectIDMap_insertedObjectIDs_updatedObjectIDs_deletedObjectIDs___block_invoke(void *a1)
+void __112__EKEventStore_mimicSaveAndCommitEvent_oldToNewObjectIDMap_insertedObjectIDs_updatedObjectIDs_deletedObjectIDs___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
   v3 = objc_opt_class();
   v4 = a1[5];
   v5 = [*(a1[4] + 304) allObjects];
@@ -17770,23 +18713,21 @@ void __112__EKEventStore_mimicSaveAndCommitEvent_oldToNewObjectIDMap_insertedObj
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  v9 = a1[4];
-  v10 = objc_opt_class();
-  v11 = a1[6];
-  v12 = [*(a1[4] + 320) allObjects];
-  v13 = [v10 _filteredObjectsWithIdentifiers:v11 fromObjects:v12 excludingObjects:0];
-  v14 = *(a1[9] + 8);
-  v15 = *(v14 + 40);
-  *(v14 + 40) = v13;
+  v9 = objc_opt_class();
+  v10 = a1[6];
+  v11 = [*(a1[4] + 320) allObjects];
+  v12 = [v9 _filteredObjectsWithIdentifiers:v10 fromObjects:v11 excludingObjects:0];
+  v13 = *(a1[9] + 8);
+  v14 = *(v13 + 40);
+  *(v13 + 40) = v12;
 
-  v16 = a1[4];
-  v17 = objc_opt_class();
-  v18 = a1[7];
-  v22 = [*(a1[4] + 312) allObjects];
-  v19 = [v17 _filteredObjectsWithIdentifiers:v18 fromObjects:v22 excludingObjects:0];
-  v20 = *(a1[10] + 8);
-  v21 = *(v20 + 40);
-  *(v20 + 40) = v19;
+  v15 = objc_opt_class();
+  v16 = a1[7];
+  v20 = [*(a1[4] + 312) allObjects];
+  v17 = [v15 _filteredObjectsWithIdentifiers:v16 fromObjects:v20 excludingObjects:0];
+  v18 = *(a1[10] + 8);
+  v19 = *(v18 + 40);
+  *(v18 + 40) = v17;
 }
 
 - (void)_mimicCommitWithOldToNewObjectIDMap:(id)map insertedObjectsToCommit:(id)commit updatedObjectsToCommit:(id)toCommit deletedObjectsToCommit:(id)objectsToCommit
@@ -17833,31 +18774,31 @@ void __122__EKEventStore__mimicCommitWithOldToNewObjectIDMap_insertedObjectsToCo
   dispatch_sync(v3, block);
 }
 
-uint64_t __122__EKEventStore__mimicCommitWithOldToNewObjectIDMap_insertedObjectsToCommit_updatedObjectsToCommit_deletedObjectsToCommit___block_invoke_2(uint64_t a1)
+void *__122__EKEventStore__mimicCommitWithOldToNewObjectIDMap_insertedObjectsToCommit_updatedObjectsToCommit_deletedObjectsToCommit___block_invoke_2(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) count])
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v2 = *(a1 + 32);
-    v3 = [v2 countByEnumeratingWithState:&v34 objects:v40 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v33 objects:v39 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v35;
+      v5 = *v34;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v35 != v5)
+          if (*v34 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v34 + 1) + 8 * i);
+          v7 = *(*(&v33 + 1) + 8 * i);
           [*(*(a1 + 40) + 304) removeObject:v7];
           v8 = *(a1 + 48);
           v9 = [v7 objectID];
@@ -17875,7 +18816,7 @@ uint64_t __122__EKEventStore__mimicCommitWithOldToNewObjectIDMap_insertedObjects
           [v7 didCommit];
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v34 objects:v40 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v33 objects:v39 count:16];
       }
 
       while (v4);
@@ -17884,31 +18825,31 @@ uint64_t __122__EKEventStore__mimicCommitWithOldToNewObjectIDMap_insertedObjects
 
   if ([*(a1 + 56) count])
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v12 = *(a1 + 56);
-    v13 = [v12 countByEnumeratingWithState:&v30 objects:v39 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v29 objects:v38 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v31;
+      v15 = *v30;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v31 != v15)
+          if (*v30 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v30 + 1) + 8 * j);
+          v17 = *(*(&v29 + 1) + 8 * j);
           [v17 _setPendingUpdate:0];
           [v17 didCommit];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v30 objects:v39 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v29 objects:v38 count:16];
       }
 
       while (v14);
@@ -17920,46 +18861,45 @@ uint64_t __122__EKEventStore__mimicCommitWithOldToNewObjectIDMap_insertedObjects
   result = [*(a1 + 64) count];
   if (result)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v19 = *(a1 + 64);
-    v20 = [v19 countByEnumeratingWithState:&v26 objects:v38 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v25 objects:v37 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v27;
+      v22 = *v26;
       do
       {
         for (k = 0; k != v21; ++k)
         {
-          if (*v27 != v22)
+          if (*v26 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v26 + 1) + 8 * k);
-          [v24 _setPendingDelete:{0, v26}];
+          v24 = *(*(&v25 + 1) + 8 * k);
+          [v24 _setPendingDelete:{0, v25}];
           [*(a1 + 40) _unregisterObject:v24];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v26 objects:v38 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v25 objects:v37 count:16];
       }
 
       while (v21);
     }
 
-    result = [*(*(a1 + 40) + 312) minusSet:*(a1 + 64)];
+    return [*(*(a1 + 40) + 312) minusSet:*(a1 + 64)];
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_resetForMimicCommitOnObject:(id)object oldToNewObjectIDMap:(id)map
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   mapCopy = map;
   [objectCopy setChangeSet:0];
@@ -17967,8 +18907,8 @@ uint64_t __122__EKEventStore__mimicCommitWithOldToNewObjectIDMap_insertedObjects
   objectID = [backingObject objectID];
 
   v10 = [mapCopy objectForKeyedSubscript:objectID];
-  v30 = v10;
-  v31 = objectID;
+  v29 = v10;
+  v30 = objectID;
   if (v10)
   {
     backingObject2 = [(EKEventStore *)self registerFetchedObjectWithID:v10];
@@ -17983,25 +18923,25 @@ uint64_t __122__EKEventStore__mimicCommitWithOldToNewObjectIDMap_insertedObjects
 
   [objectCopy _resetAfterUpdatingChangeSetOrBackingObjectWithForce:1];
   knownRelationshipSingleValueKeys = [objc_opt_class() knownRelationshipSingleValueKeys];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v13 = [knownRelationshipSingleValueKeys countByEnumeratingWithState:&v41 objects:v47 count:16];
+  v13 = [knownRelationshipSingleValueKeys countByEnumeratingWithState:&v40 objects:v46 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v42;
+    v15 = *v41;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v42 != v15)
+        if (*v41 != v15)
         {
           objc_enumerationMutation(knownRelationshipSingleValueKeys);
         }
 
-        v17 = *(*(&v41 + 1) + 8 * i);
+        v17 = *(*(&v40 + 1) + 8 * i);
         v18 = [objectCopy cachedMeltedObjectForSingleValueKey:v17];
         if (v18 && ([objc_opt_class() isWeakRelationObject:v18 forKey:v17] & 1) == 0)
         {
@@ -18009,68 +18949,66 @@ uint64_t __122__EKEventStore__mimicCommitWithOldToNewObjectIDMap_insertedObjects
         }
       }
 
-      v14 = [knownRelationshipSingleValueKeys countByEnumeratingWithState:&v41 objects:v47 count:16];
+      v14 = [knownRelationshipSingleValueKeys countByEnumeratingWithState:&v40 objects:v46 count:16];
     }
 
     while (v14);
   }
 
-  v29 = knownRelationshipSingleValueKeys;
+  v28 = knownRelationshipSingleValueKeys;
   [objc_opt_class() knownRelationshipMultiValueKeys];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  obj = v40 = 0u;
-  v19 = [obj countByEnumeratingWithState:&v37 objects:v46 count:16];
+  obj = v39 = 0u;
+  v19 = [obj countByEnumeratingWithState:&v36 objects:v45 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v38;
+    v21 = *v37;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v38 != v21)
+        if (*v37 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = [objectCopy cachedMeltedObjectsForMultiValueKey:{*(*(&v37 + 1) + 8 * j), v29, v30, v31}];
+        v23 = [objectCopy cachedMeltedObjectsForMultiValueKey:{*(*(&v36 + 1) + 8 * j), v28, v29, v30}];
+        v32 = 0u;
         v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v36 = 0u;
-        v24 = [v23 countByEnumeratingWithState:&v33 objects:v45 count:16];
+        v24 = [v23 countByEnumeratingWithState:&v32 objects:v44 count:16];
         if (v24)
         {
           v25 = v24;
-          v26 = *v34;
+          v26 = *v33;
           do
           {
             for (k = 0; k != v25; ++k)
             {
-              if (*v34 != v26)
+              if (*v33 != v26)
               {
                 objc_enumerationMutation(v23);
               }
 
-              [(EKEventStore *)self _resetForMimicCommitOnObject:*(*(&v33 + 1) + 8 * k) oldToNewObjectIDMap:mapCopy];
+              [(EKEventStore *)self _resetForMimicCommitOnObject:*(*(&v32 + 1) + 8 * k) oldToNewObjectIDMap:mapCopy];
             }
 
-            v25 = [v23 countByEnumeratingWithState:&v33 objects:v45 count:16];
+            v25 = [v23 countByEnumeratingWithState:&v32 objects:v44 count:16];
           }
 
           while (v25);
         }
       }
 
-      v20 = [obj countByEnumeratingWithState:&v37 objects:v46 count:16];
+      v20 = [obj countByEnumeratingWithState:&v36 objects:v45 count:16];
     }
 
     while (v20);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (id)insertedObjectIDs
@@ -18093,42 +19031,40 @@ uint64_t __122__EKEventStore__mimicCommitWithOldToNewObjectIDMap_insertedObjects
 
 void __33__EKEventStore_insertedObjectIDs__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = [*(a1 + 32) insertedObjects];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 40);
-        v8 = [*(*(&v10 + 1) + 8 * v6) objectID];
+        v8 = [*(*(&v9 + 1) + 8 * v6) objectID];
         [v7 addObject:v8];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)updatedObjectIDs
@@ -18151,42 +19087,40 @@ void __33__EKEventStore_insertedObjectIDs__block_invoke(uint64_t a1)
 
 void __32__EKEventStore_updatedObjectIDs__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = [*(a1 + 32) updatedObjects];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 40);
-        v8 = [*(*(&v10 + 1) + 8 * v6) objectID];
+        v8 = [*(*(&v9 + 1) + 8 * v6) objectID];
         [v7 addObject:v8];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)deletedObjectIDs
@@ -18209,42 +19143,40 @@ void __32__EKEventStore_updatedObjectIDs__block_invoke(uint64_t a1)
 
 void __32__EKEventStore_deletedObjectIDs__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = [*(a1 + 32) deletedObjects];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 40);
-        v8 = [*(*(&v10 + 1) + 8 * v6) objectID];
+        v8 = [*(*(&v9 + 1) + 8 * v6) objectID];
         [v7 addObject:v8];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)lastCommitTempToPermanentObjectIDMap
@@ -18318,9 +19250,9 @@ void __32__EKEventStore_deletedObjectIDs__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __63__EKEventStore_waitUntilDatabaseUpdatedToTimestamp_completion___block_invoke(uint64_t a1)
+void *__63__EKEventStore_waitUntilDatabaseUpdatedToTimestamp_completion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   result = [MEMORY[0x1E6992368] doesTimestamp:*(*(a1 + 32) + 352) includeAllChangesVisibleToTimestamp:*(a1 + 40)];
   *(*(*(a1 + 56) + 8) + 24) = result;
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
@@ -18329,19 +19261,18 @@ uint64_t __63__EKEventStore_waitUntilDatabaseUpdatedToTimestamp_completion___blo
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 40);
-      v8 = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_1A805E000, v3, OS_LOG_TYPE_DEFAULT, "database wait callback must wait until eventStore is refreshed. waitUntilTimestamp: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&dword_1A805E000, v3, OS_LOG_TYPE_DEFAULT, "database wait callback must wait until eventStore is refreshed. waitUntilTimestamp: %@", &v7, 0xCu);
     }
 
     v5 = *(*(a1 + 32) + 144);
     v6 = _Block_copy(*(a1 + 48));
     [v5 addObject:v6];
 
-    result = [*(*(a1 + 32) + 152) addObject:*(a1 + 40)];
+    return [*(*(a1 + 32) + 152) addObject:*(a1 + 40)];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -18384,7 +19315,7 @@ uint64_t __63__EKEventStore_waitUntilDatabaseUpdatedToTimestamp_completion___blo
   dispatch_sync(unsavedChangesQueue, block);
 }
 
-uint64_t __62__EKEventStore_recordObjectRebaseWithOldObjectID_newObjectID___block_invoke(uint64_t a1)
+void *__62__EKEventStore_recordObjectRebaseWithOldObjectID_newObjectID___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shouldRecordObjectIDMap];
   if (result)
@@ -18473,7 +19404,7 @@ void __46__EKEventStore_stopRecordingObjectIDChangeMap__block_invoke(uint64_t a1
 
 - (NSArray)eventsMatchingPredicate:(NSPredicate *)predicate
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v4 = predicate;
   [(EKEventStore *)self _validateEventPredicate:v4];
   [(EKEventStore *)self _implicitUpgradeToFullAccessIfNeededWithReason:7];
@@ -18482,18 +19413,16 @@ void __46__EKEventStore_stopRecordingObjectIDChangeMap__block_invoke(uint64_t a1
   runSynchronously = [v5 runSynchronously];
   mach_absolute_time();
   CalAnalyticsTimeIntervalFromMachTimes();
-  v11 = @"duration";
+  v10 = @"duration";
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:?];
-  v12[0] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   CalAnalyticsSendEvent();
 
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEBUG))
   {
     [EKEventStore eventsMatchingPredicate:];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return runSynchronously;
 }
@@ -18514,7 +19443,7 @@ void __46__EKEventStore_stopRecordingObjectIDChangeMap__block_invoke(uint64_t a1
 
 - (void)enumerateEventsMatchingPredicate:(NSPredicate *)predicate usingBlock:(EKEventSearchCallback)block
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v6 = predicate;
   v7 = block;
   if (!v7)
@@ -18523,35 +19452,35 @@ void __46__EKEventStore_stopRecordingObjectIDChangeMap__block_invoke(uint64_t a1
   }
 
   [(EKEventStore *)self eventsMatchingPredicate:v6];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v8 = v19 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = v18 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
 LABEL_5:
     v12 = 0;
     while (1)
     {
-      if (*v17 != v11)
+      if (*v16 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v16 + 1) + 8 * v12);
-      v15 = 0;
-      v7[2](v7, v13, &v15);
-      if (v15)
+      v13 = *(*(&v15 + 1) + 8 * v12);
+      v14 = 0;
+      v7[2](v7, v13, &v14);
+      if (v14)
       {
         break;
       }
 
       if (v10 == ++v12)
       {
-        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v10)
         {
           goto LABEL_5;
@@ -18566,8 +19495,6 @@ LABEL_5:
   {
     [EKEventStore enumerateEventsMatchingPredicate:usingBlock:];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fetchEventsMatchingPredicate:(id)predicate resultHandler:(id)handler
@@ -18616,7 +19543,7 @@ LABEL_5:
 
 void __80__EKEventStore_fetchEventCountsInRange_inCalendars_exclusionOptions_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E696AB50] set];
   v5 = [MEMORY[0x1E695DEE8] currentCalendar];
@@ -18625,39 +19552,37 @@ void __80__EKEventStore_fetchEventCountsInRange_inCalendars_exclusionOptions_com
   v7 = [*(a1 + 32) timeZone];
   [v6 setTimeZone:v7];
 
-  v17 = 0u;
-  v18 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = v3;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(a1 + 32);
-        [objc_opt_class() _addDaysSpannedByEvent:*(*(&v15 + 1) + 8 * v12++) toCountedSet:v4 inRange:*(a1 + 40) withNSCalendar:{v6, v15}];
+        [objc_opt_class() _addDaysSpannedByEvent:*(*(&v13 + 1) + 8 * v12++) toCountedSet:v4 inRange:*(a1 + 40) withNSCalendar:{v6, v13}];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
 
   (*(*(a1 + 48) + 16))();
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_addDaysSpannedByEvent:(id)event toCountedSet:(id)set inRange:(id)range withNSCalendar:(id)calendar
@@ -18734,44 +19659,42 @@ uint64_t __75__EKEventStore__addDaysSpannedByEvent_toCountedSet_inRange_withNSCa
 
 - (id)nextEventWithCalendarIdentifiers:(id)identifiers exclusionOptions:(int64_t)options
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = identifiersCopy;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [(EKEventStore *)self calendarWithIdentifier:*(*(&v17 + 1) + 8 * i), v17];
+        v13 = [(EKEventStore *)self calendarWithIdentifier:*(*(&v16 + 1) + 8 * i), v16];
         if (v13)
         {
           [v7 addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
   v14 = [(EKEventStore *)self nextEventWithCalendars:v7 exclusionOptions:options];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -18816,46 +19739,46 @@ id __63__EKEventStore_nextEventsWithCalendars_limit_exclusionOptions___block_inv
 
 - (id)_nextEventsWithFetchBlock:(id)block steps:(id)steps limit:(unint64_t)limit
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   stepsCopy = steps;
   v8 = objc_opt_new();
   calSimulatedDateForNow = [MEMORY[0x1E695DF00] CalSimulatedDateForNow];
-  v26 = calSimulatedDateForNow;
+  v25 = calSimulatedDateForNow;
   if ([stepsCopy count])
   {
     v10 = 0;
-    v28 = stepsCopy;
+    v27 = stepsCopy;
     v11 = calSimulatedDateForNow;
     while (1)
     {
-      v12 = [stepsCopy objectAtIndexedSubscript:{v10, v26}];
+      v12 = [stepsCopy objectAtIndexedSubscript:{v10, v25}];
       integerValue = [v12 integerValue];
 
       v14 = [MEMORY[0x1E6992F70] rangeWithStartDate:v11 duration:(86400 * integerValue)];
       v15 = blockCopy[2](blockCopy, v14);
       v16 = [v15 sortedArrayUsingComparator:&__block_literal_global_557];
 
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       v17 = v16;
-      v18 = [v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v31;
+        v20 = *v30;
 LABEL_5:
         v21 = 0;
         while (1)
         {
-          if (*v31 != v20)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v30 + 1) + 8 * v21);
+          v22 = *(*(&v29 + 1) + 8 * v21);
           if ([v8 count] >= limit)
           {
             break;
@@ -18864,7 +19787,7 @@ LABEL_5:
           [v8 addObject:v22];
           if (v19 == ++v21)
           {
-            v19 = [v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v29 objects:v33 count:16];
             if (v19)
             {
               goto LABEL_5;
@@ -18883,22 +19806,20 @@ LABEL_5:
       calSimulatedDateForNow = [v14 endDate];
 
       ++v10;
-      stepsCopy = v28;
+      stepsCopy = v27;
       v11 = calSimulatedDateForNow;
-      if ([v28 count] <= v10)
+      if ([v27 count] <= v10)
       {
         goto LABEL_15;
       }
     }
 
     calSimulatedDateForNow = v11;
-    stepsCopy = v28;
+    stepsCopy = v27;
   }
 
 LABEL_15:
   v23 = [v8 copy];
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -18947,14 +19868,15 @@ uint64_t __54__EKEventStore__nextEventsWithFetchBlock_steps_limit___block_invoke
   return v7;
 }
 
-void __30__EKEventStore_alarmWithUUID___block_invoke(uint64_t a1, int a2, void *a3)
+void __30__EKEventStore_alarmWithUUID___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __30__EKEventStore_alarmWithUUID___block_invoke_cold_1(a1);
+      __30__EKEventStore_alarmWithUUID___block_invoke_cold_1();
     }
   }
 
@@ -19008,14 +19930,15 @@ void __30__EKEventStore_alarmWithUUID___block_invoke(uint64_t a1, int a2, void *
   return v7;
 }
 
-void __36__EKEventStore_alarmWithExternalID___block_invoke(uint64_t a1, int a2, void *a3)
+void __36__EKEventStore_alarmWithExternalID___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __36__EKEventStore_alarmWithExternalID___block_invoke_cold_1(a1);
+      __36__EKEventStore_alarmWithExternalID___block_invoke_cold_1();
     }
   }
 
@@ -19058,12 +19981,13 @@ void __36__EKEventStore_alarmWithExternalID___block_invoke(uint64_t a1, int a2, 
   return v4;
 }
 
-void __46__EKEventStore_alarmOccurrencesFromAlarmCache__block_invoke(uint64_t a1, int a2, void *a3)
+void __46__EKEventStore_alarmOccurrencesFromAlarmCache__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = v5;
-  if (a2)
+  if (v3)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -19075,36 +19999,36 @@ void __46__EKEventStore_alarmOccurrencesFromAlarmCache__block_invoke(uint64_t a1
   else
   {
     v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       do
       {
         v13 = 0;
         do
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * v13);
+          v14 = *(*(&v20 + 1) + 8 * v13);
           v15 = objc_alloc(MEMORY[0x1E6992408]);
-          v16 = [v15 initWithDictionaryRepresentation:{v14, v21}];
+          v16 = [v15 initWithDictionaryRepresentation:{v14, v20}];
           [v8 addObject:v16];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v11);
@@ -19115,23 +20039,21 @@ void __46__EKEventStore_alarmOccurrencesFromAlarmCache__block_invoke(uint64_t a1
     v19 = *(v18 + 40);
     *(v18 + 40) = v17;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 + (id)calendarObjectIDsForPredicate:(id)predicate
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   if (predicateCopy)
   {
     v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(predicateCopy, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v5 = predicateCopy;
-    v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (!v6)
     {
 LABEL_15:
@@ -19140,19 +20062,19 @@ LABEL_15:
     }
 
     v7 = v6;
-    v18 = predicateCopy;
+    v17 = predicateCopy;
     v8 = 0;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         backingObject = [v11 backingObject];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -19169,14 +20091,14 @@ LABEL_15:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
 
     if (v8)
     {
-      predicateCopy = v18;
+      predicateCopy = v17;
       if ([v4 count])
       {
         goto LABEL_18;
@@ -19188,7 +20110,7 @@ LABEL_15:
       goto LABEL_15;
     }
 
-    predicateCopy = v18;
+    predicateCopy = v17;
   }
 
   else
@@ -19197,8 +20119,6 @@ LABEL_15:
   }
 
 LABEL_18:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -19347,6 +20267,71 @@ LABEL_3:
   return v18;
 }
 
+- (id)predicateForEventsWithStartDate:(id)date endDate:(id)endDate calendars:(id)calendars exclusionOptions:(int64_t)options filterdOutTitles:(id)titles randomize:(BOOL)randomize limit:(int64_t)limit
+{
+  randomizeCopy = randomize;
+  dateCopy = date;
+  endDateCopy = endDate;
+  calendarsCopy = calendars;
+  titlesCopy = titles;
+  v19 = titlesCopy;
+  if (dateCopy)
+  {
+    if (endDateCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v35 = titlesCopy;
+    v26 = calendarsCopy;
+    v27 = randomizeCopy;
+    v28 = MEMORY[0x1E695DF30];
+    v29 = *MEMORY[0x1E695D940];
+    v30 = _NSMethodExceptionProem();
+    v31 = v28;
+    randomizeCopy = v27;
+    calendarsCopy = v26;
+    v19 = v35;
+    [v31 raise:v29 format:{@"%@: startDate is nil", v30}];
+
+    if (endDateCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v32 = MEMORY[0x1E695DF30];
+  v33 = *MEMORY[0x1E695D940];
+  v34 = _NSMethodExceptionProem();
+  [v32 raise:v33 format:{@"%@: endDate is nil", v34}];
+
+LABEL_3:
+  v36 = endDateCopy;
+  restrictDateRange(dateCopy, &v36);
+  v20 = v36;
+
+  v21 = [EKEventStore calendarObjectIDsForPredicate:calendarsCopy];
+  v22 = MEMORY[0x1E6992340];
+  timeZone = [(EKEventStore *)self timeZone];
+  v24 = [v22 predicateWithStartDate:dateCopy endDate:v20 timeZone:timeZone calendars:v21 propertyLoadMode:_predicatePropertyLoadMode];
+
+  [v24 setExcludeTimedEvents:(options >> 1) & 1];
+  [v24 setExcludeAllDayEvents:options & 1];
+  [v24 setExcludeDeclined:(options >> 2) & 1];
+  [v24 setExcludeProposed:(options >> 3) & 1];
+  [v24 setExcludeDeclinedUnlessProposed:(options >> 4) & 1];
+  [v24 setExcludeNoAttendeeEvents:(options >> 5) & 1];
+  [v24 setExcludeNoLocationEvents:(options >> 6) & 1];
+  [v24 setRandomize:randomizeCopy];
+  [v24 setLimit:limit];
+  [v24 setFilteredOutTitles:v19];
+
+  return v24;
+}
+
 - (id)predicateForAssistantEventSearchWithTimeZone:(id)zone startDate:(id)date endDate:(id)endDate title:(id)title location:(id)location notes:(id)notes participants:(id)participants calendars:(id)self0 limit:(int64_t)self1
 {
   v17 = MEMORY[0x1E6992350];
@@ -19377,43 +20362,41 @@ LABEL_3:
 
 - (id)predicateForScheduleAgentClientEventsInCalendar:(id)calendar
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   cADObjectID = [calendar CADObjectID];
-  v8[0] = cADObjectID;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = cADObjectID;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
 
   v5 = [MEMORY[0x1E6992418] predicateWithCalendarIDs:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (BOOL)hasImmediatelyEligibleTravelEvents
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   calSimulatedDateForNow = [MEMORY[0x1E695DF00] CalSimulatedDateForNow];
   distantFuture = [MEMORY[0x1E695DF00] distantFuture];
   v5 = [(EKEventStore *)self calendarsForEntityType:0];
   [(EKEventStore *)self travelEligibleEventsInCalendars:v5 startDate:calSimulatedDateForNow endDate:distantFuture];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v6 = v17 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = v16 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        preferredLocation = [*(*(&v14 + 1) + 8 * i) preferredLocation];
+        preferredLocation = [*(*(&v13 + 1) + 8 * i) preferredLocation];
         hasKnownSpatialData = [preferredLocation hasKnownSpatialData];
 
         if (hasKnownSpatialData)
@@ -19423,7 +20406,7 @@ LABEL_3:
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -19435,49 +20418,46 @@ LABEL_3:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (id)travelEligibleEventsInCalendars:(id)calendars startDate:(id)date endDate:(id)endDate
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = [(EKEventStore *)self predicateForPotentialTravelEventsInCalendars:calendars startDate:date endDate:endDate];
   v7 = [(EKEventStore *)self eventsMatchingPredicate:v6];
   v8 = [MEMORY[0x1E695DF70] arrayWithArray:v7];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
+        v14 = *(*(&v16 + 1) + 8 * i);
         if (([v14 potentiallyEligibleForTravelAdvisories] & 1) == 0)
         {
           [v8 removeObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -19655,24 +20635,23 @@ LABEL_6:
 
 - (id)predicateForMasterEventsWithExternalTrackingStatusInCalendar:(id)calendar
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E69923A0];
   calendarCopy = calendar;
   v5 = [[v3 alloc] initWithProperty:0 comparison:1 integerValue:0];
   v6 = objc_alloc(MEMORY[0x1E69923A8]);
-  v12[0] = v5;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = v5;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   cADObjectID = [calendarCopy CADObjectID];
 
   v9 = [v6 initWithEntityType:2 filters:v7 calendar:cADObjectID];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)predicateForCalendarItemsOfType:(unint64_t)type withUniqueIdentifier:(id)identifier inCalendar:(id)calendar
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69923A0];
   calendarCopy = calendar;
   identifierCopy = identifier;
@@ -19699,19 +20678,18 @@ LABEL_6:
     v13 = v12;
   }
 
-  v19[0] = v10;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v18[0] = v10;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
   cADObjectID = [calendarCopy CADObjectID];
 
   v16 = [v11 initWithEntityType:v13 filters:v14 calendar:cADObjectID];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (id)predicateForCalendarItemsOfType:(unint64_t)type withUniqueIdentifier:(id)identifier inSource:(id)source
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69923A0];
   sourceCopy = source;
   identifierCopy = identifier;
@@ -19738,19 +20716,18 @@ LABEL_6:
     v13 = v12;
   }
 
-  v19[0] = v10;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v18[0] = v10;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
   cADObjectID = [sourceCopy CADObjectID];
 
   v16 = [v11 initWithEntityType:v13 filters:v14 source:cADObjectID];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (id)predicateForCalendarItemsOfType:(unint64_t)type withExternalID:(id)d inCalendar:(id)calendar
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69923A0];
   calendarCopy = calendar;
   dCopy = d;
@@ -19777,19 +20754,18 @@ LABEL_6:
     v13 = v12;
   }
 
-  v19[0] = v10;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v18[0] = v10;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
   cADObjectID = [calendarCopy CADObjectID];
 
   v16 = [v11 initWithEntityType:v13 filters:v14 calendar:cADObjectID];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (id)predicateForCalendarItemsOfType:(unint64_t)type withExternalID:(id)d inSource:(id)source
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69923A0];
   sourceCopy = source;
   dCopy = d;
@@ -19816,36 +20792,34 @@ LABEL_6:
     v13 = v12;
   }
 
-  v19[0] = v10;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v18[0] = v10;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
   cADObjectID = [sourceCopy CADObjectID];
 
   v16 = [v11 initWithEntityType:v13 filters:v14 source:cADObjectID];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (id)predicateForEventsWithAttendeesInCalendar:(id)calendar
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E69923A0];
   calendarCopy = calendar;
   v5 = [[v3 alloc] initWithProperty:12 comparison:0 integerValue:1];
   v6 = objc_alloc(MEMORY[0x1E69923A8]);
-  v12[0] = v5;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = v5;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   cADObjectID = [calendarCopy CADObjectID];
 
   v9 = [v6 initWithEntityType:2 filters:v7 calendar:cADObjectID];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)predicateForMasterEventsWithStartDate:(id)date title:(id)title inCalendar:(id)calendar
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69923A0];
   calendarCopy = calendar;
   titleCopy = title;
@@ -19854,13 +20828,12 @@ LABEL_6:
 
   v12 = [objc_alloc(MEMORY[0x1E69923A0]) initWithProperty:5 comparison:0 dateValue:dateCopy];
   v13 = objc_alloc(MEMORY[0x1E69923A8]);
-  v19[0] = v11;
-  v19[1] = v12;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v18[0] = v11;
+  v18[1] = v12;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
   cADObjectID = [calendarCopy CADObjectID];
 
   v16 = [v13 initWithEntityType:2 filters:v14 calendar:cADObjectID];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -19882,7 +20855,7 @@ LABEL_6:
   dayCopy = day;
   locationCopy = location;
   attendeeCopy = attendee;
-  v57[2] = *MEMORY[0x1E69E9840];
+  v56[2] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   titlesCopy = titles;
@@ -19900,73 +20873,73 @@ LABEL_6:
     [v18 addObject:v20];
   }
 
-  v45 = endDateCopy;
-  v46 = dateCopy;
+  v44 = endDateCopy;
+  v45 = dateCopy;
   if (dateCopy && endDateCopy)
   {
     v21 = [objc_alloc(MEMORY[0x1E69923A0]) initWithProperty:5 comparison:2 dateValue:endDateCopy];
     v22 = [objc_alloc(MEMORY[0x1E69923A0]) initWithProperty:6 comparison:4 dateValue:dateCopy];
     v23 = objc_alloc(MEMORY[0x1E6992318]);
-    v57[0] = v21;
-    v57[1] = v22;
-    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:2];
+    v56[0] = v21;
+    v56[1] = v22;
+    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:2];
     v25 = [v23 initWithFilters:v24 operation:0];
 
     [v18 addObject:v25];
   }
 
-  v43 = [objc_alloc(MEMORY[0x1E69923A0]) initWithProperty:14 comparison:0 integerValue:dayCopy];
+  v42 = [objc_alloc(MEMORY[0x1E69923A0]) initWithProperty:14 comparison:0 integerValue:dayCopy];
   [v18 addObject:?];
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v26 = titlesCopy;
-  v27 = [v26 countByEnumeratingWithState:&v51 objects:v56 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v50 objects:v55 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v52;
+    v29 = *v51;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v52 != v29)
+        if (*v51 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = [objc_alloc(MEMORY[0x1E69923A0]) initWithProperty:4 comparison:1 stringValue:*(*(&v51 + 1) + 8 * i)];
+        v31 = [objc_alloc(MEMORY[0x1E69923A0]) initWithProperty:4 comparison:1 stringValue:*(*(&v50 + 1) + 8 * i)];
         [v18 addObject:v31];
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v50 objects:v55 count:16];
     }
 
     while (v28);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v32 = calendarsCopy;
-  v33 = [v32 countByEnumeratingWithState:&v47 objects:v55 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v46 objects:v54 count:16];
   if (v33)
   {
     v34 = v33;
     v35 = 0;
-    v36 = *v48;
+    v36 = *v47;
     do
     {
       for (j = 0; j != v34; ++j)
       {
-        if (*v48 != v36)
+        if (*v47 != v36)
         {
           objc_enumerationMutation(v32);
         }
 
-        v38 = *(*(&v47 + 1) + 8 * j);
+        v38 = *(*(&v46 + 1) + 8 * j);
         if (!v35)
         {
           v35 = objc_opt_new();
@@ -19976,7 +20949,7 @@ LABEL_6:
         [v35 addObject:cADObjectID];
       }
 
-      v34 = [v32 countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v46 objects:v54 count:16];
     }
 
     while (v34);
@@ -19988,7 +20961,6 @@ LABEL_6:
   }
 
   v40 = [objc_alloc(MEMORY[0x1E69923A8]) initWithEntityType:2 filters:v18 calendars:v35 limit:limit randomize:1];
-  v41 = *MEMORY[0x1E69E9840];
 
   return v40;
 }
@@ -20007,48 +20979,46 @@ LABEL_6:
 
 - (id)predicateForMasterEventsWithOccurrencesWithStartDate:(id)date endDate:(id)endDate inCalendar:(id)calendar
 {
-  v33[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69923A0];
   calendarCopy = calendar;
   endDateCopy = endDate;
   dateCopy = date;
-  v28 = [[v7 alloc] initWithProperty:10 comparison:0 integerValue:1];
+  v27 = [[v7 alloc] initWithProperty:10 comparison:0 integerValue:1];
   v11 = [objc_alloc(MEMORY[0x1E69923A0]) initWithProperty:5 comparison:2 dateValue:endDateCopy];
-  v29 = [objc_alloc(MEMORY[0x1E69923A0]) initWithProperty:6 comparison:4 dateValue:dateCopy];
+  v28 = [objc_alloc(MEMORY[0x1E69923A0]) initWithProperty:6 comparison:4 dateValue:dateCopy];
   v12 = objc_alloc(MEMORY[0x1E6992318]);
-  v33[0] = v11;
-  v33[1] = v29;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
+  v32[0] = v11;
+  v32[1] = v28;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
   v14 = [v12 initWithFilters:v13 operation:0];
 
   v15 = objc_alloc(MEMORY[0x1E6992318]);
-  v32[0] = v11;
-  v32[1] = v28;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
+  v31[0] = v11;
+  v31[1] = v27;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
   v17 = [v15 initWithFilters:v16 operation:0];
 
   v18 = objc_alloc(MEMORY[0x1E6992318]);
-  v31[0] = v14;
-  v31[1] = v17;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+  v30[0] = v14;
+  v30[1] = v17;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
   v20 = [v18 initWithFilters:v19 operation:1];
 
   v21 = objc_alloc(MEMORY[0x1E69923A8]);
-  v30 = v20;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+  v29 = v20;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
   cADObjectID = [calendarCopy CADObjectID];
 
   v24 = [v21 initWithEntityType:2 filters:v22 calendar:cADObjectID];
   v25 = [objc_alloc(MEMORY[0x1E6992348]) initWithPredicate:v24 limitWithStartDate:dateCopy endDate:endDateCopy mustStartInInterval:0];
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
 
 - (id)predicateForMasterEventsWithInvitationsAndOccurrencesAfter:(id)after inCalendar:(id)calendar
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69923A0];
   calendarCopy = calendar;
   afterCopy = after;
@@ -20056,23 +21026,21 @@ LABEL_6:
   v9 = [objc_alloc(MEMORY[0x1E69923A0]) initWithProperty:9 comparison:1 integerValue:0];
   v10 = [objc_alloc(MEMORY[0x1E69923A0]) initWithProperty:5 comparison:5 dateValue:afterCopy];
   v11 = objc_alloc(MEMORY[0x1E6992318]);
-  v24[0] = v8;
-  v24[1] = v10;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+  v23[0] = v8;
+  v23[1] = v10;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
   v13 = [v11 initWithFilters:v12 operation:1];
 
   v14 = objc_alloc(MEMORY[0x1E69923A8]);
-  v23[0] = v9;
-  v23[1] = v13;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v22[0] = v9;
+  v22[1] = v13;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
   cADObjectID = [calendarCopy CADObjectID];
 
   v17 = [v14 initWithEntityType:2 filters:v15 calendar:cADObjectID];
   v18 = objc_alloc(MEMORY[0x1E6992348]);
   distantFuture = [MEMORY[0x1E695DF00] distantFuture];
   v20 = [v18 initWithPredicate:v17 limitWithStartDate:afterCopy endDate:distantFuture mustStartInInterval:0];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -20107,7 +21075,7 @@ LABEL_6:
   return v4;
 }
 
-void __54__EKEventStore_timeToLeaveLocationAuthorizationStatus__block_invoke(uint64_t a1, int a2, uint64_t a3)
+void __54__EKEventStore_timeToLeaveLocationAuthorizationStatus__block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -20120,7 +21088,7 @@ void __54__EKEventStore_timeToLeaveLocationAuthorizationStatus__block_invoke(uin
 
   else
   {
-    *(*(*(a1 + 32) + 8) + 24) = a3;
+    *(*(*(result + 32) + 8) + 24) = a3;
   }
 }
 
@@ -20171,26 +21139,24 @@ void __54__EKEventStore_timeToLeaveLocationAuthorizationStatus__block_invoke(uin
   return v10;
 }
 
-void __64__EKEventStore_registerForDetailedChangeTrackingInSource_error___block_invoke(uint64_t a1, uint64_t a2)
+void __64__EKEventStore_registerForDetailedChangeTrackingInSource_error___block_invoke(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
     v3 = [MEMORY[0x1E696ABC0] errorWithCADResult:a2];
-    v5 = *(a1 + 32);
-    v4 = a1 + 32;
-    v6 = *(v5 + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v3;
+    v4 = *(*(result + 32) + 8);
+    v5 = *(v4 + 40);
+    *(v4 + 40) = v3;
 
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __64__EKEventStore_registerForDetailedChangeTrackingInSource_error___block_invoke_cold_1(v4);
+      __64__EKEventStore_registerForDetailedChangeTrackingInSource_error___block_invoke_cold_1();
     }
   }
 
   else
   {
-    *(*(*(a1 + 40) + 8) + 24) = 1;
+    *(*(*(result + 40) + 8) + 24) = 1;
   }
 }
 
@@ -20222,20 +21188,18 @@ void __64__EKEventStore_registerForDetailedChangeTrackingInSource_error___block_
   return v6;
 }
 
-void __52__EKEventStore_unregisterForDetailedChangeTracking___block_invoke(uint64_t a1, uint64_t a2)
+void __52__EKEventStore_unregisterForDetailedChangeTracking___block_invoke(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
     v3 = [MEMORY[0x1E696ABC0] errorWithCADResult:a2];
-    v5 = *(a1 + 32);
-    v4 = a1 + 32;
-    v6 = *(v5 + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v3;
+    v4 = *(*(result + 32) + 8);
+    v5 = *(v4 + 40);
+    *(v4 + 40) = v3;
 
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __52__EKEventStore_unregisterForDetailedChangeTracking___block_invoke_cold_1(v4);
+      __52__EKEventStore_unregisterForDetailedChangeTracking___block_invoke_cold_1();
     }
   }
 }
@@ -20353,7 +21317,7 @@ void __57__EKEventStore_changedObjectIDsSinceToken_resultHandler___block_invoke(
 - (void)_processChangedObjectIDsWithErrorCode:(int)code changesTruncated:(BOOL)truncated latestToken:(id)token changeData:(id)data resultHandler:(id)handler
 {
   truncatedCopy = truncated;
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   dataCopy = data;
   handlerCopy = handler;
@@ -20369,41 +21333,41 @@ void __57__EKEventStore_changedObjectIDsSinceToken_resultHandler___block_invoke(
     goto LABEL_52;
   }
 
-  v55 = truncatedCopy;
-  v56 = dataCopy;
-  v57 = tokenCopy;
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
+  v54 = truncatedCopy;
+  v55 = dataCopy;
+  v56 = tokenCopy;
   v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   v15 = dataCopy;
-  v65 = [(EKSequenceToken *)v15 countByEnumeratingWithState:&v70 objects:v82 count:16];
-  v61 = handlerCopy;
-  if (v65)
+  v64 = [(EKSequenceToken *)v15 countByEnumeratingWithState:&v69 objects:v81 count:16];
+  v60 = handlerCopy;
+  if (v64)
   {
+    v57 = 0;
     v58 = 0;
-    v59 = 0;
     v17 = 0;
     v18 = 0;
     v19 = 0;
-    v63 = *v71;
-    v60 = 0;
+    v62 = *v70;
+    v59 = 0;
     *&v16 = 134218752;
-    v54 = v16;
-    v64 = v15;
+    v53 = v16;
+    v63 = v15;
 LABEL_7:
     v20 = 0;
     while (1)
     {
-      v69 = v18;
-      v68 = v17;
-      if (*v71 != v63)
+      v68 = v18;
+      v67 = v17;
+      if (*v70 != v62)
       {
         objc_enumerationMutation(v15);
       }
 
-      v21 = *(*(&v70 + 1) + 8 * v20);
-      v22 = [(EKSequenceToken *)v15 objectForKeyedSubscript:v21, v54];
+      v21 = *(*(&v69 + 1) + 8 * v20);
+      v22 = [(EKSequenceToken *)v15 objectForKeyedSubscript:v21, v53];
       v23 = [v22 objectForKeyedSubscript:@"changes"];
       v24 = [v22 objectForKeyedSubscript:@"inserts"];
       unsignedIntegerValue = [v24 unsignedIntegerValue];
@@ -20411,7 +21375,7 @@ LABEL_7:
       v26 = [v22 objectForKeyedSubscript:@"updates"];
       unsignedIntegerValue2 = [v26 unsignedIntegerValue];
 
-      v67 = v22;
+      v66 = v22;
       v28 = [v22 objectForKeyedSubscript:@"deletes"];
       unsignedIntegerValue3 = [v28 unsignedIntegerValue];
 
@@ -20434,41 +21398,41 @@ LABEL_7:
 
       v38 = v37 || v34 == 0;
       v39 = !v38;
-      v66 = v39;
+      v65 = v39;
       if (v38)
       {
-        v62 = v31;
+        v61 = v31;
         v43 = EKLogHandle;
         v41 = v33;
         if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
         {
           v51 = v43;
           v52 = [v33 length];
-          *buf = v54;
-          v75 = unsignedIntegerValue;
-          v76 = 2048;
-          v77 = unsignedIntegerValue2;
-          v78 = 2048;
-          v79 = unsignedIntegerValue3;
-          v80 = 2048;
-          v81 = v52;
+          *buf = v53;
+          v74 = unsignedIntegerValue;
+          v75 = 2048;
+          v76 = unsignedIntegerValue2;
+          v77 = 2048;
+          v78 = unsignedIntegerValue3;
+          v79 = 2048;
+          v80 = v52;
           _os_log_error_impl(&dword_1A805E000, v51, OS_LOG_TYPE_ERROR, "Change data was the wrong size to hold the changes we received. Told of %lu inserts, %lu updates, and %lu deletes, but change data was only %lu bytes long.", buf, 0x2Au);
         }
 
-        (*(v61 + 2))(v61, 0, 0, 0, 0, 0);
-        v18 = v69;
-        v17 = v68;
-        v15 = v64;
-        v31 = v62;
+        (*(v60 + 2))(v60, 0, 0, 0, 0, 0);
+        v18 = v68;
+        v17 = v67;
+        v15 = v63;
+        v31 = v61;
         goto LABEL_41;
       }
 
       if (v19 && [v19 count])
       {
-        v18 = v69;
-        v40 = v60;
+        v18 = v68;
+        v40 = v59;
         v41 = v33;
-        if (!v60)
+        if (!v59)
         {
           v42 = [v19 mutableCopy];
 
@@ -20476,10 +21440,10 @@ LABEL_7:
           v19 = v42;
         }
 
-        v17 = v68;
-        v60 = v40;
+        v17 = v67;
+        v59 = v40;
         [v40 addObjectsFromArray:v31];
-        if (!v69)
+        if (!v68)
         {
 LABEL_35:
           v47 = v36;
@@ -20499,10 +21463,10 @@ LABEL_35:
         v44 = v31;
 
         v19 = v44;
-        v17 = v68;
-        v18 = v69;
+        v17 = v67;
+        v18 = v68;
         v41 = v33;
-        if (!v69)
+        if (!v68)
         {
           goto LABEL_35;
         }
@@ -20513,8 +21477,8 @@ LABEL_35:
         goto LABEL_35;
       }
 
-      v45 = v59;
-      if (!v59)
+      v45 = v58;
+      if (!v58)
       {
         v46 = [v18 mutableCopy];
 
@@ -20522,7 +21486,7 @@ LABEL_35:
         v18 = v46;
       }
 
-      v59 = v45;
+      v58 = v45;
       [v45 addObjectsFromArray:v36];
       if (!v17)
       {
@@ -20532,8 +21496,8 @@ LABEL_35:
 LABEL_36:
       if ([v17 count])
       {
-        v48 = v58;
-        if (!v58)
+        v48 = v57;
+        if (!v57)
         {
           v49 = [v17 mutableCopy];
 
@@ -20541,8 +21505,8 @@ LABEL_36:
           v17 = v49;
         }
 
-        v15 = v64;
-        v58 = v48;
+        v15 = v63;
+        v57 = v48;
         [v48 addObjectsFromArray:v35];
         goto LABEL_41;
       }
@@ -20551,21 +21515,21 @@ LABEL_40:
       v50 = v35;
 
       v17 = v50;
-      v15 = v64;
+      v15 = v63;
 LABEL_41:
 
-      if (!v66)
+      if (!v65)
       {
-        dataCopy = v56;
-        tokenCopy = v57;
-        handlerCopy = v61;
+        dataCopy = v55;
+        tokenCopy = v56;
+        handlerCopy = v60;
         goto LABEL_51;
       }
 
-      if (v65 == ++v20)
+      if (v64 == ++v20)
       {
-        v65 = [(EKSequenceToken *)v15 countByEnumeratingWithState:&v70 objects:v82 count:16];
-        if (v65)
+        v64 = [(EKSequenceToken *)v15 countByEnumeratingWithState:&v69 objects:v81 count:16];
+        if (v64)
         {
           goto LABEL_7;
         }
@@ -20575,18 +21539,18 @@ LABEL_41:
     }
   }
 
+  v57 = 0;
   v58 = 0;
   v59 = 0;
-  v60 = 0;
   v17 = 0;
   v18 = 0;
   v19 = 0;
 LABEL_47:
 
-  tokenCopy = v57;
-  if (v57)
+  tokenCopy = v56;
+  if (v56)
   {
-    v15 = [[EKSequenceToken alloc] initWithCADSequenceToken:v57];
+    v15 = [[EKSequenceToken alloc] initWithCADSequenceToken:v56];
   }
 
   else
@@ -20594,13 +21558,12 @@ LABEL_47:
     v15 = 0;
   }
 
-  handlerCopy = v61;
-  (*(v61 + 2))(v61, v55, v15, v19, v18, v17);
-  dataCopy = v56;
+  handlerCopy = v60;
+  (*(v60 + 2))(v60, v54, v15, v19, v18, v17);
+  dataCopy = v55;
 LABEL_51:
 
 LABEL_52:
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markChangedObjectIDsConsumedUpToToken:(int64_t)token
@@ -20637,7 +21600,7 @@ LABEL_52:
   [cADOperationProxySync CADDatabaseMarkChangedObjectIDsConsumedUpToSequenceToken:cADToken reply:&__block_literal_global_603];
 }
 
-void __43__EKEventStore_consumeAllChangesUpToToken___block_invoke(uint64_t a1, int a2)
+void __43__EKEventStore_consumeAllChangesUpToToken___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -20710,8 +21673,8 @@ void __43__EKEventStore_consumeAllChangesUpToToken___block_invoke(uint64_t a1, i
 - (void)clearSuperfluousChanges
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Somebody called clearSuperfluousChanges. This call is no longer needed and does nothing.");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 - (void)setCachedDefaultAlarmOffsetsToNSNotFound
@@ -20776,10 +21739,11 @@ void __39__EKEventStore_defaultTimedAlarmOffset__block_invoke(uint64_t a1)
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), v3);
 }
 
-void __39__EKEventStore_defaultTimedAlarmOffset__block_invoke_2(uint64_t a1, int a2, void *a3)
+void __39__EKEventStore_defaultTimedAlarmOffset__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -20847,10 +21811,11 @@ void __40__EKEventStore_defaultAllDayAlarmOffset__block_invoke(uint64_t a1)
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), v3);
 }
 
-void __40__EKEventStore_defaultAllDayAlarmOffset__block_invoke_2(uint64_t a1, int a2, void *a3)
+void __40__EKEventStore_defaultAllDayAlarmOffset__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -20872,7 +21837,7 @@ void __40__EKEventStore_defaultAllDayAlarmOffset__block_invoke_2(uint64_t a1, in
   [cADOperationProxySync CADPurgeChangeTrackingReply:&__block_literal_global_610];
 }
 
-void __30__EKEventStore_purgeChangelog__block_invoke(uint64_t a1, int a2)
+void __30__EKEventStore_purgeChangelog__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -20907,6 +21872,33 @@ void __30__EKEventStore_purgeChangelog__block_invoke(uint64_t a1, int a2)
   intValue = [v3 intValue];
 
   return intValue;
+}
+
+- (BOOL)occurrencesExistInRangeForEvent:(id)event startDate:(id)date endDate:(id)endDate mustStartInInterval:(BOOL)interval timezone:(id)timezone
+{
+  intervalCopy = interval;
+  eventCopy = event;
+  dateCopy = date;
+  endDateCopy = endDate;
+  timezoneCopy = timezone;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  connection = [(EKEventStore *)self connection];
+  cADOperationProxySync = [connection CADOperationProxySync];
+  cADObjectID = [eventCopy CADObjectID];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __95__EKEventStore_occurrencesExistInRangeForEvent_startDate_endDate_mustStartInInterval_timezone___block_invoke;
+  v20[3] = &unk_1E77FFEA0;
+  v20[4] = &v21;
+  [cADOperationProxySync CADOccurrencesExistInRangeForEvent:cADObjectID startDate:dateCopy endDate:endDateCopy mustStartInInterval:intervalCopy timezone:timezoneCopy reply:v20];
+
+  LOBYTE(intervalCopy) = *(v22 + 24);
+  _Block_object_dispose(&v21, 8);
+
+  return intervalCopy;
 }
 
 - (id)cachedConstraintsForSource:(id)source
@@ -21264,10 +22256,11 @@ void __58__EKEventStore_cacheConstraints_forObjectWithCADObjectID___block_invoke
   return v8;
 }
 
-void __58__EKEventStore__fetchConstraintsForObjectWithCADObjectID___block_invoke(uint64_t a1, int a2, void *a3)
+void __58__EKEventStore__fetchConstraintsForObjectWithCADObjectID___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -21328,10 +22321,11 @@ void __58__EKEventStore__fetchConstraintsForObjectWithCADObjectID___block_invoke
   return sourceIdentifier;
 }
 
-void __41__EKEventStore_sourceIdentifierForEvent___block_invoke(uint64_t a1, int a2, void *a3)
+void __41__EKEventStore_sourceIdentifierForEvent___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -21460,11 +22454,12 @@ void __48__EKEventStore_notificationCollectionForSource___block_invoke(uint64_t 
   return v8;
 }
 
-void __79__EKEventStore__fetchPersistentNotificationCollectionForSourceWithCADObjectID___block_invoke(uint64_t a1, int a2, void *a3)
+void __79__EKEventStore__fetchPersistentNotificationCollectionForSourceWithCADObjectID___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v6 = v5;
-  if (a2)
+  if (v3)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -21484,7 +22479,7 @@ void __79__EKEventStore__fetchPersistentNotificationCollectionForSourceWithCADOb
 
   else if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
   {
-    __79__EKEventStore__fetchPersistentNotificationCollectionForSourceWithCADObjectID___block_invoke_cold_2(a1);
+    __79__EKEventStore__fetchPersistentNotificationCollectionForSourceWithCADObjectID___block_invoke_cold_2();
   }
 }
 
@@ -21511,7 +22506,7 @@ void __79__EKEventStore__fetchPersistentNotificationCollectionForSourceWithCADOb
   return unsavedChangesQueue;
 }
 
-uint64_t __39__EKEventStore_needsGeocodingForEvent___block_invoke(void *a1)
+void *__39__EKEventStore_needsGeocodingForEvent___block_invoke(void *a1)
 {
   result = [*(a1[4] + 120) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -21571,7 +22566,7 @@ uint64_t __43__EKEventStore_setNeedsGeocoding_forEvent___block_invoke(uint64_t a
   return connection;
 }
 
-void __57__EKEventStore_shouldPermitOrganizerEmailFromJunkChecks___block_invoke(uint64_t a1, int a2, char a3)
+void __57__EKEventStore_shouldPermitOrganizerEmailFromJunkChecks___block_invoke(uint64_t result, uint64_t a2, char a3)
 {
   if (a2)
   {
@@ -21584,7 +22579,7 @@ void __57__EKEventStore_shouldPermitOrganizerEmailFromJunkChecks___block_invoke(
 
   else
   {
-    *(*(*(a1 + 32) + 8) + 24) = a3;
+    *(*(*(result + 32) + 8) + 24) = a3;
   }
 }
 
@@ -21610,7 +22605,7 @@ void __57__EKEventStore_shouldPermitOrganizerEmailFromJunkChecks___block_invoke(
   return connection;
 }
 
-void __63__EKEventStore_shouldPermitOrganizerPhoneNumberFromJunkChecks___block_invoke(uint64_t a1, int a2, char a3)
+void __63__EKEventStore_shouldPermitOrganizerPhoneNumberFromJunkChecks___block_invoke(uint64_t result, uint64_t a2, char a3)
 {
   if (a2)
   {
@@ -21623,7 +22618,7 @@ void __63__EKEventStore_shouldPermitOrganizerPhoneNumberFromJunkChecks___block_i
 
   else
   {
-    *(*(*(a1 + 32) + 8) + 24) = a3;
+    *(*(*(result + 32) + 8) + 24) = a3;
   }
 }
 
@@ -21650,10 +22645,11 @@ void __63__EKEventStore_shouldPermitOrganizerPhoneNumberFromJunkChecks___block_i
   return v4;
 }
 
-void __33__EKEventStore_fetchStorageUsage__block_invoke(uint64_t a1, int a2, void *a3)
+void __33__EKEventStore_fetchStorageUsage__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     v7 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
@@ -21698,16 +22694,16 @@ void __33__EKEventStore_fetchStorageUsage__block_invoke(uint64_t a1, int a2, voi
 
 - (void)postSyntheticRouteHypothesis:(id)hypothesis forEventWithExternalURL:(id)l
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   hypothesisCopy = hypothesis;
   lCopy = l;
   v8 = EKLogHandle;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v19 = lCopy;
-    v20 = 2112;
-    v21 = hypothesisCopy;
+    v18 = lCopy;
+    v19 = 2112;
+    v20 = hypothesisCopy;
     _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_DEFAULT, "Posting synthetic route hypothesis for event external url = %{public}@, route hypothesis = %@", buf, 0x16u);
   }
 
@@ -21723,26 +22719,24 @@ void __33__EKEventStore_fetchStorageUsage__block_invoke(uint64_t a1, int a2, voi
 
   connection = [(EKEventStore *)self connection];
   cADOperationProxySync = [connection CADOperationProxySync];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __69__EKEventStore_postSyntheticRouteHypothesis_forEventWithExternalURL___block_invoke;
-  v15[3] = &unk_1E7801168;
-  v16 = lCopy;
-  v17 = v9;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __69__EKEventStore_postSyntheticRouteHypothesis_forEventWithExternalURL___block_invoke;
+  v14[3] = &unk_1E7801168;
+  v15 = lCopy;
+  v16 = v9;
   v12 = v9;
   v13 = lCopy;
-  [cADOperationProxySync CADPostSyntheticRouteHypothesis:v12 forEventWithExternalURL:v13 reply:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [cADOperationProxySync CADPostSyntheticRouteHypothesis:v12 forEventWithExternalURL:v13 reply:v14];
 }
 
-void __69__EKEventStore_postSyntheticRouteHypothesis_forEventWithExternalURL___block_invoke(uint64_t a1, int a2)
+void __69__EKEventStore_postSyntheticRouteHypothesis_forEventWithExternalURL___block_invoke(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __69__EKEventStore_postSyntheticRouteHypothesis_forEventWithExternalURL___block_invoke_cold_1(a1);
+      __69__EKEventStore_postSyntheticRouteHypothesis_forEventWithExternalURL___block_invoke_cold_1();
     }
   }
 }
@@ -21790,11 +22784,11 @@ LABEL_6:
   destinationCopy = destination;
   v9 = destinationCopy;
   v23 = 0;
-  v24[0] = &v23;
-  v24[1] = 0x3032000000;
-  v24[2] = __Block_byref_object_copy__24;
-  v24[3] = __Block_byref_object_dispose__24;
-  v25 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__24;
+  v27 = __Block_byref_object_dispose__24;
+  v28 = 0;
   if (format != 2)
   {
     lastPathComponent = [destinationCopy lastPathComponent];
@@ -21813,8 +22807,8 @@ LABEL_6:
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v11 = (v24[0] + 40);
-  obj = *(v24[0] + 40);
+  v11 = (v24 + 5);
+  obj = v24[5];
   v12 = [defaultManager createDirectoryAtURL:v9 withIntermediateDirectories:0 attributes:0 error:&obj];
   objc_storeStrong(v11, obj);
 
@@ -21822,7 +22816,7 @@ LABEL_6:
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      [EKEventStore backupDatabaseToDestination:v24 withFormat:? error:?];
+      [EKEventStore backupDatabaseToDestination:withFormat:error:];
       if (error)
       {
         goto LABEL_11;
@@ -21833,7 +22827,7 @@ LABEL_6:
     {
 LABEL_11:
       v18 = 0;
-      *error = *(v24[0] + 40);
+      *error = v24[5];
       goto LABEL_8;
     }
 
@@ -21854,48 +22848,44 @@ LABEL_5:
 
   if (error)
   {
-    *error = *(v24[0] + 40);
+    *error = v24[5];
   }
 
-  v18 = *(v24[0] + 40) == 0;
+  v18 = v24[5] == 0;
 LABEL_8:
   _Block_object_dispose(&v23, 8);
 
   return v18;
 }
 
-void __61__EKEventStore_backupDatabaseToDestination_withFormat_error___block_invoke(uint64_t a1, uint64_t a2)
+void __61__EKEventStore_backupDatabaseToDestination_withFormat_error___block_invoke(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
     v3 = [MEMORY[0x1E696ABC0] errorWithCADResult:a2];
-    v5 = *(a1 + 32);
-    v4 = a1 + 32;
-    v6 = *(v5 + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v3;
+    v4 = *(*(result + 32) + 8);
+    v5 = *(v4 + 40);
+    *(v4 + 40) = v3;
 
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __61__EKEventStore_backupDatabaseToDestination_withFormat_error___block_invoke_cold_1(v4);
+      __61__EKEventStore_backupDatabaseToDestination_withFormat_error___block_invoke_cold_1();
     }
   }
 }
 
-void __61__EKEventStore_backupDatabaseToDestination_withFormat_error___block_invoke_623(uint64_t a1, uint64_t a2)
+void __61__EKEventStore_backupDatabaseToDestination_withFormat_error___block_invoke_623(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
     v3 = [MEMORY[0x1E696ABC0] errorWithCADResult:a2];
-    v5 = *(a1 + 32);
-    v4 = a1 + 32;
-    v6 = *(v5 + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v3;
+    v4 = *(*(result + 32) + 8);
+    v5 = *(v4 + 40);
+    *(v4 + 40) = v3;
 
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __61__EKEventStore_backupDatabaseToDestination_withFormat_error___block_invoke_cold_1(v4);
+      __61__EKEventStore_backupDatabaseToDestination_withFormat_error___block_invoke_cold_1();
     }
   }
 }
@@ -21959,26 +22949,24 @@ void __59__EKEventStore_restoreDatabaseFromBackup_withFormat_error___block_invok
   if (a2)
   {
     v4 = [MEMORY[0x1E696ABC0] errorWithCADResult:a2];
-    v6 = *(a1 + 40);
-    v5 = a1 + 40;
-    v7 = *(v6 + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v4;
+    v5 = *(*(a1 + 40) + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
 
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __59__EKEventStore_restoreDatabaseFromBackup_withFormat_error___block_invoke_cold_1(v5);
+      __59__EKEventStore_restoreDatabaseFromBackup_withFormat_error___block_invoke_cold_1();
     }
   }
 
   else
   {
-    v10 = [*(a1 + 32) connection];
-    [v10 databaseRestoreGenerationChangedByThisClient:a3];
+    v8 = [*(a1 + 32) connection];
+    [v8 databaseRestoreGenerationChangedByThisClient:a3];
 
-    v11 = *(a1 + 32);
+    v9 = *(a1 + 32);
 
-    [v11 _resetAndNotifyAfterDatabaseRestoreGenerationChanged];
+    [v9 _resetAndNotifyAfterDatabaseRestoreGenerationChanged];
   }
 }
 
@@ -21992,15 +22980,13 @@ void __59__EKEventStore_restoreDatabaseFromBackup_withFormat_error___block_invok
 
 - (void)initWithEKOptions:(uint64_t)a1 path:(void *)a2 containerProvider:tccPermissionChecker:changeTrackingClientId:enablePropertyModificationLogging:allowDelegateSources:allowedSourceIdentifiers:.cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AE30];
   v3 = a2;
   v4 = [v2 processInfo];
   v5 = [v4 processName];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_20(&dword_1A805E000, v3, v6, "[%@] initialized in process: [%@]", v8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_20(&dword_1A805E000, v3, v6, "[%@] initialized in process: [%@]", v7);
 }
 
 void __181__EKEventStore_initWithEKOptions_path_containerProvider_tccPermissionChecker_changeTrackingClientId_enablePropertyModificationLogging_allowDelegateSources_allowedSourceIdentifiers___block_invoke_cold_1()
@@ -22019,153 +23005,121 @@ void __181__EKEventStore_initWithEKOptions_path_containerProvider_tccPermissionC
 
 void __23__EKEventStore_dealloc__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)authorizationStatusWithAuditToken:entityType:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Unexpected tcc_authorization_right_t (int value: %llu): we don't support this kind of authorization.");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)requestAccessToEntityType:desiredFullAccess:testing:synchronous:reason:completion:.cold.1()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Calling request access completion handler with invalid entity type error");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __29__EKEventStore_sequenceToken__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __53__EKEventStore_changesSinceSequenceToken_completion___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidCADObjectIDs:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __37__EKEventStore__invalidCADObjectIDs___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Got a not found error when validating an array of objectIDs. Assuming all are invalid");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __37__EKEventStore__invalidCADObjectIDs___block_invoke_cold_2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleExternalDatabaseChangeNotification:synchronously:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Not handling notification %@ because there is no action for that notification name.");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __64__EKEventStore__databaseChangedExternally_processSynchronously___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = *(*(a1 + 32) + 352);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
-void __63__EKEventStore__checkPendingIntegrationEvents_changedIDsValid___block_invoke_cold_1(uint64_t a1)
+void __63__EKEventStore__checkPendingIntegrationEvents_changedIDsValid___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __36__EKEventStore_eventStoreIdentifier__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cacheSourceWithCADObjectID:withDefaultLoadedPropertyValues:forKeys:.cold.1()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Attempted to cache a source before _sources was initialized. Ignoring.");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __36__EKEventStore__loadSourcesIfNeeded__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __44__EKEventStore_sourcesEnabledForEntityType___block_invoke_cold_1(uint64_t *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AD98];
   v3 = *a1;
   v4 = a2;
@@ -22173,135 +23127,105 @@ void __44__EKEventStore_sourcesEnabledForEntityType___block_invoke_cold_1(uint64
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __33__EKEventStore__deletableSources__block_invoke_2_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __68__EKEventStore_getSubscribedCalendarsSourceCreateIfNeededWithError___block_invoke_2_cold_1(uint64_t a1)
+void __68__EKEventStore_getSubscribedCalendarsSourceCreateIfNeededWithError___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4_5(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Failed to get scubscribed calendars source: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void __61__EKEventStore_localBirthdayCalendarCreateIfNeededWithError___block_invoke_cold_1(uint64_t a1)
+void __61__EKEventStore_localBirthdayCalendarCreateIfNeededWithError___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_4_5(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Failed to get local birthday calendar: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)parentSourceForDelegateSource:.cold.1()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "parentSourceForDelegateSource called with non-delegate source");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __55__EKEventStore_fetchGrantedDelegatesForSource_results___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __63__EKEventStore_updateGrantedDelegate_action_source_completion___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isSourceManaged:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 sourceIdentifier];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_21();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __32__EKEventStore_isSourceManaged___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 32);
   v6 = a2;
   v7 = [v5 sourceIdentifier];
   v8 = [*(a1 + 32) objectID];
   [v8 rowID];
-  v15 = [MEMORY[0x1E696ABC0] errorWithCADResult:a3];
+  v14 = [MEMORY[0x1E696ABC0] errorWithCADResult:a3];
   OUTLINED_FUNCTION_21();
   _os_log_error_impl(v9, v10, v11, v12, v13, 0x1Cu);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __31__EKEventStore_dbStatsBySource__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __47__EKEventStore_personaIdentifierForDatabaseID___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 40);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x12u);
 }
 
 void __58__EKEventStore_hideCalendarsFromNotificationCenter_error___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v5 = *(a1 + 32);
-  v6 = a2;
-  v7 = [OUTLINED_FUNCTION_5() objectID];
-  v8 = [MEMORY[0x1E696ABC0] errorWithCADResult:a3];
+  v5 = a2;
+  v6 = [OUTLINED_FUNCTION_5() objectID];
+  v7 = [MEMORY[0x1E696ABC0] errorWithCADResult:a3];
   OUTLINED_FUNCTION_22();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v9, v10, v11, v12, v13, 0x16u);
-
-  v14 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v8, v9, v10, v11, v12, 0x16u);
 }
 
 - (void)calendarsForEntityType:.cold.1()
@@ -22322,42 +23246,34 @@ void __58__EKEventStore_hideCalendarsFromNotificationCenter_error___block_invoke
 
 - (void)_cacheCalendarWithCADObjectID:withDefaultLoadedPropertyValues:forKeys:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Cached calendar has no calendarIdentifier: %{public}@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_cacheCalendarWithCADObjectID:withDefaultLoadedPropertyValues:forKeys:.cold.2()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Attempted to cache a calendar before _calendars was initialized. Ignoring.");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __38__EKEventStore__loadCalendarsIfNeeded__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __35__EKEventStore__deletableCalendars__block_invoke_2_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_calendar:supportsEntityType:.cold.1()
@@ -22370,394 +23286,312 @@ void __35__EKEventStore__deletableCalendars__block_invoke_2_cold_1(void *a1)
 
 - (void)saveCalendar:commit:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Failed to save calendar: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_saveCalendar:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Failed to save local source when attempting to enable events to save a new calendar: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)removeCalendar:commit:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Failed to remove calendar: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void __42__EKEventStore__eventWithEventIdentifier___block_invoke_cold_1(uint64_t a1)
+void __42__EKEventStore__eventWithEventIdentifier___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 - (void)_eventWithURI:checkValid:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_3();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Malformed event URI (%@) passed to _eventWithURI. Expected scheme: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void __41__EKEventStore__eventWithURI_checkValid___block_invoke_cold_1(uint64_t a1)
+void __41__EKEventStore__eventWithURI_checkValid___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __54__EKEventStore_eventForUID_occurrenceDate_checkValid___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)eventForObjectID:occurrenceDate:checkValid:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Error: objectID provided is nil or has the wrong entity type %{public}@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __59__EKEventStore_eventForObjectID_occurrenceDate_checkValid___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __49__EKEventStore_eventWithUniqueId_occurrenceDate___block_invoke_cold_1(uint64_t a1)
+void __49__EKEventStore_eventWithUniqueId_occurrenceDate___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
-void __45__EKEventStore_eventWithUUID_occurrenceDate___block_invoke_cold_1(uint64_t a1)
+void __45__EKEventStore_eventWithUUID_occurrenceDate___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
-void __74__EKEventStore__entityWrappersForEventUUIDs_inCalendars_propertiesToLoad___block_invoke_cold_1(uint64_t a1)
+void __74__EKEventStore__entityWrappersForEventUUIDs_inCalendars_propertiesToLoad___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
-void __53__EKEventStore_allEventsWithUniqueId_occurrenceDate___block_invoke_cold_1(uint64_t a1)
+void __53__EKEventStore_allEventsWithUniqueId_occurrenceDate___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 - (void)saveEvent:span:commit:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Failed to save event: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)removeEvent:span:commit:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Failed to remove event: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __52__EKEventStore_setInvitationStatus_forEvents_error___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWithIDs_options_batchSize___block_invoke_cold_1(uint64_t a1)
+void __96__EKEventStore__importEventsWithExternalIDs_fromICSData_intoCalendarsWithIDs_options_batchSize___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __36__EKEventStore_defaultLocalCalendar__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)defaultCalendarForNewEventsInDelegateSource:.cold.1()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Non-delegate sources do not have their own default calendar.  Pass nil to get the default across all non-delegate sources");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __60__EKEventStore_defaultCalendarForNewEventsInDelegateSource___block_invoke_2_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDefaultCalendar:forNewEventsInDelegateSource:.cold.1()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "You cannot set a default calendar on a non-delegate source.  Pass nil to set the default across all non-delegate sources");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 - (void)setDefaultCalendar:forNewEventsInDelegateSource:.cold.2()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "A delegate source's default calendar must be one of its own calendars.");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 - (void)setDefaultCalendar:forNewEventsInDelegateSource:.cold.3()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "The default calendar cannot be an integration calendar");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __64__EKEventStore_setDefaultCalendar_forNewEventsInDelegateSource___block_invoke_2_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_saveDraftOfEvent:toDirectory:withVersion:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_saveDraftOfEvent:toDirectory:withVersion:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_23();
   OUTLINED_FUNCTION_9_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_saveDraftOfEvent:toDirectory:withVersion:.cold.3()
 {
   OUTLINED_FUNCTION_0_6();
-  v11 = *MEMORY[0x1E69E9840];
   v2 = v1;
   v3 = [v0 changeSet];
-  v10 = [v3 summary];
+  v9 = [v3 summary];
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Au);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadDraftOfEventWithOccurrenceID:fromDirectory:withVersion:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_23();
   OUTLINED_FUNCTION_9_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadDraftOfEventWithOccurrenceID:fromDirectory:withVersion:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadDraftOfEventWithOccurrenceID:(void *)a1 fromDirectory:withVersion:.cold.3(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5_0() summaryString];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_20(v4, v5, v6, v7, v8);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadDraftOfEventWithOccurrenceID:(void *)a1 fromDirectory:withVersion:.cold.4(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5_0() summary];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_20(v4, v5, v6, v7, v8);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadDraftOfEventWithOccurrenceID:fromDirectory:withVersion:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_23();
   OUTLINED_FUNCTION_9_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadDraftOfEventWithOccurrenceID:fromDirectory:withVersion:.cold.6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "%s: Unable to read data from path %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)_deleteDraft:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_23();
   OUTLINED_FUNCTION_9_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deleteDraft:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveReminder:commit:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Failed to save reminder: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_saveReminder:commit:error:.cold.1()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Can't save reminder either because you have no access or you're trying to save using the legacy store, which is no longer supported");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 - (void)removeReminder:commit:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Failed to remove reminder: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)reminderWithExternalURI:.cold.1()
@@ -22770,118 +23604,84 @@ void __64__EKEventStore_setDefaultCalendar_forNewEventsInDelegateSource___block_
 
 - (void)reminderWithExternalURI:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_3();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Malformed event URI (%@) passed to _reminderWithURI. Expected scheme: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)reminderWithExternalURI:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Malformed event URI passed to _reminderWithURI: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void __51__EKEventStore_eventsWithSameRecurrenceSetAsEvent___block_invoke_cold_1(uint64_t a1)
+void __51__EKEventStore_eventsWithSameRecurrenceSetAsEvent___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
-void __61__EKEventStore_calendarItemsWithUniqueIdentifier_inCalendar___block_invoke_cold_1(uint64_t a1)
+void __61__EKEventStore_calendarItemsWithUniqueIdentifier_inCalendar___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
-}
-
-- (void)accessGrantedForEntityType:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __84__EKEventStore_closestCachedOccurrenceToDate_forEventObjectID_prefersForwardSearch___block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v8 = v7;
+  OUTLINED_FUNCTION_3_3();
+  v7 = v6;
   [v3 rowID];
   [*(a1 + 32) databaseID];
-  v15 = [MEMORY[0x1E696ABC0] errorWithCADResult:a3];
+  v13 = [MEMORY[0x1E696ABC0] errorWithCADResult:a3];
   OUTLINED_FUNCTION_21();
-  _os_log_error_impl(v9, v10, v11, v12, v13, 0x18u);
-
-  v14 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v8, v9, v10, v11, v12, 0x18u);
 }
 
 void __53__EKEventStore_countOfEventsFromStartDate_toEndDate___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __73__EKEventStore_sumOfDurationCalendarFromStartDate_toEndDate_ByCalendars___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __38__EKEventStore_countOfEventsInSource___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v5 = *(a1 + 32);
-  v6 = a2;
-  v7 = [OUTLINED_FUNCTION_5() CADObjectID];
-  v8 = [MEMORY[0x1E696ABC0] errorWithCADResult:a3];
+  v5 = a2;
+  v6 = [OUTLINED_FUNCTION_5() CADObjectID];
+  v7 = [MEMORY[0x1E696ABC0] errorWithCADResult:a3];
   OUTLINED_FUNCTION_22();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v9, v10, v11, v12, v13, 0x16u);
-
-  v14 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v8, v9, v10, v11, v12, 0x16u);
 }
 
 void __50__EKEventStore_doEvents_haveOccurrencesAfterDate___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)calendarWithExternalURI:.cold.1()
@@ -22894,130 +23694,92 @@ void __50__EKEventStore_doEvents_haveOccurrencesAfterDate___block_invoke_cold_1(
 
 - (void)calendarWithExternalURI:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __56__EKEventStore_uniqueIdentifiersForEventsWithObjectIDs___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Malformed calendar URI passed to calendarWithExternalURI: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __30__EKEventStore_syncErrorCount__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __43__EKEventStore_eventsWithErrorsPerSourceID__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __63__EKEventStore_colorWithProviderIdentifier_externalIdentifier___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __64__EKEventStore_occurrenceCacheGetOccurrencesForCalendars_onDay___block_invoke_cold_1(uint64_t a1)
+void __64__EKEventStore_occurrenceCacheGetOccurrencesForCalendars_onDay___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
-void __63__EKEventStore_occurrenceCacheGetOccurrenceCountsForCalendars___block_invoke_cold_1(uint64_t a1)
+void __63__EKEventStore_occurrenceCacheGetOccurrenceCountsForCalendars___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __38__EKEventStore_setShowDeclinedEvents___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x12u);
 }
 
 void __34__EKEventStore_showDeclinedEvents__block_invoke_2_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __42__EKEventStore_setShowCompletedReminders___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x12u);
 }
 
 void __38__EKEventStore_rebuildOccurrenceCache__block_invoke_cold_1(void *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1A805E000, v1, OS_LOG_TYPE_DEBUG, "The occurrence cache was not rebuilt successfully.  Error: [%@]", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1A805E000, v1, OS_LOG_TYPE_DEBUG, "The occurrence cache was not rebuilt successfully.  Error: [%@]", v4, 0xCu);
 }
 
 void __38__EKEventStore_rebuildOccurrenceCache__block_invoke_cold_2()
@@ -23029,291 +23791,205 @@ void __38__EKEventStore_rebuildOccurrenceCache__block_invoke_cold_2()
 
 void __39__EKEventStore_birthdayCalendarEnabled__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __43__EKEventStore_setBirthdayCalendarEnabled___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __39__EKEventStore_birthdayCalendarVersion__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __43__EKEventStore_setBirthdayCalendarVersion___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v11 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  v3 = a2;
+  v9 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x1Cu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x1Cu);
 }
 
 void __38__EKEventStore_suggestedEventCalendar__block_invoke_2_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __44__EKEventStore_insertSuggestedEventCalendar__block_invoke_2_cold_2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __44__EKEventStore_removeSuggestedEventCalendar__block_invoke_2_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-- (void)confirmSuggestedEvent:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __38__EKEventStore_confirmSuggestedEvent___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "%s - confirmEventByRecordId failed with error %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)acceptSuggestedEvent:(NSObject *)a3 placeOnCalendar:.cold.1(char a1, uint64_t a2, NSObject *a3)
 {
-  v6 = *MEMORY[0x1E69E9840];
   v3 = @"FAILED";
-  *&v5[4] = "[EKEventStore acceptSuggestedEvent:placeOnCalendar:]";
-  *v5 = 136315650;
-  *&v5[12] = 2112;
+  *&v4[4] = "[EKEventStore acceptSuggestedEvent:placeOnCalendar:]";
+  *v4 = 136315650;
+  *&v4[12] = 2112;
   if (a1)
   {
     v3 = @"succeeded";
   }
 
-  *&v5[14] = v3;
-  *&v5[22] = 2112;
-  OUTLINED_FUNCTION_24(&dword_1A805E000, a2, a3, "%s - promoting saveEvent %@ - had error %@", *v5, *&v5[8], *&v5[16], a2);
-  v4 = *MEMORY[0x1E69E9840];
+  *&v4[14] = v3;
+  *&v4[22] = 2112;
+  OUTLINED_FUNCTION_24(&dword_1A805E000, a2, a3, "%s - promoting saveEvent %@ - had error %@", *v4, *&v4[8], *&v4[16], a2);
 }
 
 - (void)deleteSuggestedEvent:(NSObject *)a3 .cold.1(char a1, uint64_t a2, NSObject *a3)
 {
-  v6 = *MEMORY[0x1E69E9840];
   v3 = @"FAILED";
-  *&v5[4] = "[EKEventStore deleteSuggestedEvent:]";
-  *v5 = 136315650;
-  *&v5[12] = 2112;
+  *&v4[4] = "[EKEventStore deleteSuggestedEvent:]";
+  *v4 = 136315650;
+  *&v4[12] = 2112;
   if (a1)
   {
     v3 = @"succeeded";
   }
 
-  *&v5[14] = v3;
-  *&v5[22] = 2112;
-  OUTLINED_FUNCTION_24(&dword_1A805E000, a2, a3, "%s - removeEvent %@ - had error %@", *v5, *&v5[8], *&v5[16], a2);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)deleteSuggestedEvent:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  *&v4[14] = v3;
+  *&v4[22] = 2112;
+  OUTLINED_FUNCTION_24(&dword_1A805E000, a2, a3, "%s - removeEvent %@ - had error %@", *v4, *&v4[8], *&v4[16], a2);
 }
 
 - (void)deleteSuggestedEvent:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __37__EKEventStore_deleteSuggestedEvent___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "%s - rejectEventByRecordId failed with error %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __47__EKEventStore_canModifySuggestedEventCalendar__block_invoke_3_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __53__EKEventStore_naturalLanguageSuggestedEventCalendar__block_invoke_2_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __56__EKEventStore_sharedCalendarInvitationsForEntityTypes___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 40);
-  v4 = a2;
-  v11 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  v3 = a2;
+  v9 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x12u);
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-- (void)respondToSharedCalendarInvitation:withStatus:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
 }
 
 void __46__EKEventStore_resourceChangesForEntityTypes___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __55__EKEventStore_markResourceChangeAlertedAndSave_error___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Error marking resource change alerted: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __134__EKEventStore_eventNotificationsAfterDate_excludingUncheckedCalendars_filteredByShowsNotificationsFlag_earliestExpiringNotification___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __75__EKEventStore_eventNotificationCountExcludingUncheckedCalendars_expanded___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __40__EKEventStore_inboxRepliedSectionItems__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __35__EKEventStore_attachmentWithUUID___block_invoke_cold_1(uint64_t a1)
+void __35__EKEventStore_attachmentWithUUID___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __49__EKEventStore__refreshDASource_isUserRequested___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerObjectImmediate:.cold.1()
@@ -23326,34 +24002,28 @@ void __49__EKEventStore__refreshDASource_isUserRequested___block_invoke_cold_1(v
 
 - (void)_addFetchedObjectWithID:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v4 = a1;
   [OUTLINED_FUNCTION_5_0() entityType];
   [a2 rowID];
   OUTLINED_FUNCTION_18();
   _os_log_fault_impl(v5, v6, OS_LOG_TYPE_FAULT, v7, v8, 0xEu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)objectWithIDExists:.cold.1()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "No object ID provided.  Will not find out if the object exists.");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
-void __35__EKEventStore_objectWithIDExists___block_invoke_cold_1(uint64_t a1)
+void __35__EKEventStore_objectWithIDExists___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 - (void)publicObjectWithPersistentObject:.cold.1()
@@ -23372,29 +24042,23 @@ void __37__EKEventStore__trackModifiedObject___block_invoke_cold_1(uint64_t a1)
 
 - (void)commit:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Failed to commit: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)commitWithRollback:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Rolling back changes after commit error: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_commitObjectsWithIdentifiers:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_commitObjectsWithIdentifiers:error:.cold.2()
@@ -23406,98 +24070,78 @@ void __37__EKEventStore__trackModifiedObject___block_invoke_cold_1(uint64_t a1)
 
 void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "%s - deleteEventByRecordId failed with error %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_4_cold_1(uint64_t a1)
+void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_4_5(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Error committing event store: [%@]");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_4_cold_2(uint64_t a1)
+void __52__EKEventStore__commitObjectsWithIdentifiers_error___block_invoke_4_cold_2()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Failed to delete %{public}@ update/insert %{public}@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)_fetchProperties:forObjects:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_9_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addPendingIntegrationEvent:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5_0() privacySafeIntegrationEventDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_18();
   _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addPendingIntegrationEvent:.cold.2()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "New integration events without identifiers cannot be matched with their permanent events.");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __45__EKEventStore_requestIntegrationCatchupSync__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)eventsMatchingPredicate:.cold.1()
 {
   OUTLINED_FUNCTION_17();
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = v2;
   [OUTLINED_FUNCTION_5() count];
   OUTLINED_FUNCTION_5_3();
-  v7 = v0;
-  OUTLINED_FUNCTION_20(&dword_1A805E000, v1, v4, "%ld events were found for predicate: %@", v6);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6 = v0;
+  OUTLINED_FUNCTION_20(&dword_1A805E000, v1, v4, "%ld events were found for predicate: %@", v5);
 }
 
 - (void)enumerateEventsMatchingPredicate:usingBlock:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelFetchRequest:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   OUTLINED_FUNCTION_5_0();
   objc_opt_class();
@@ -23505,334 +24149,261 @@ void __45__EKEventStore_requestIntegrationCatchupSync__block_invoke_cold_1(void 
   v4 = v3;
   OUTLINED_FUNCTION_18();
   _os_log_fault_impl(v5, v6, OS_LOG_TYPE_FAULT, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __30__EKEventStore_alarmWithUUID___block_invoke_cold_1(uint64_t a1)
+void __30__EKEventStore_alarmWithUUID___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
-void __36__EKEventStore_alarmWithExternalID___block_invoke_cold_1(uint64_t a1)
+void __36__EKEventStore_alarmWithExternalID___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __46__EKEventStore_alarmOccurrencesFromAlarmCache__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)predicateForPotentialTravelEventsInCalendars:startDate:endDate:.cold.1()
 {
   OUTLINED_FUNCTION_17();
-  v10 = *MEMORY[0x1E69E9840];
   v2 = v1;
   OUTLINED_FUNCTION_5();
   v3 = _NSMethodExceptionProem();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)predicateForPotentialTravelEventsInCalendars:startDate:endDate:.cold.2()
 {
   OUTLINED_FUNCTION_17();
-  v10 = *MEMORY[0x1E69E9840];
   v2 = v1;
   OUTLINED_FUNCTION_5();
   v3 = _NSMethodExceptionProem();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)predicateForUpNextEventsInCalendars:startDate:endDate:startDateRestrictionThreshold:.cold.1()
 {
   OUTLINED_FUNCTION_17();
-  v10 = *MEMORY[0x1E69E9840];
   v2 = v1;
   OUTLINED_FUNCTION_5();
   v3 = _NSMethodExceptionProem();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)predicateForUpNextEventsInCalendars:startDate:endDate:startDateRestrictionThreshold:.cold.2()
 {
   OUTLINED_FUNCTION_17();
-  v10 = *MEMORY[0x1E69E9840];
   v2 = v1;
   OUTLINED_FUNCTION_5();
   v3 = _NSMethodExceptionProem();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __54__EKEventStore_timeToLeaveLocationAuthorizationStatus__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __64__EKEventStore_registerForDetailedChangeTrackingInSource_error___block_invoke_cold_1(uint64_t a1)
+void __64__EKEventStore_registerForDetailedChangeTrackingInSource_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_4_5(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Error registering for detailed change tracking: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void __52__EKEventStore_unregisterForDetailedChangeTracking___block_invoke_cold_1(uint64_t a1)
+void __52__EKEventStore_unregisterForDetailedChangeTracking___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_4_5(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Error unregistering for detailed change tracking: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)_processChangedObjectIDsWithErrorCode:(void *)a1 changesTruncated:latestToken:changeData:resultHandler:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markChangedObjectIDsConsumedUpToToken:.cold.1()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "A client is passing a token other than the one it most recently fetched to -markChangedObjectIDsConsumedUpToToken:. That's no longer supported.");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __43__EKEventStore_consumeAllChangesUpToToken___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __39__EKEventStore_defaultTimedAlarmOffset__block_invoke_2_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __40__EKEventStore_defaultAllDayAlarmOffset__block_invoke_2_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __30__EKEventStore_purgeChangelog__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cachedConstraintsForSource:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5_0() sourceIdentifier];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_18();
   _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cachedConstraintsForEventOrSourceWithCADObjectID:.cold.1()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "This method (cachedConstraintsForEventOrSourceWithCADObjectID:) doesn't intend to handle an event if the client isn't in limited access mode. Use a source instead.");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 - (void)cacheConstraints:forObjectWithCADObjectID:.cold.1()
 {
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Error caching constraints for objectWithCADObjectID");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
 }
 
 void __58__EKEventStore__fetchConstraintsForObjectWithCADObjectID___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __79__EKEventStore__fetchPersistentNotificationCollectionForSourceWithCADObjectID___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __79__EKEventStore__fetchPersistentNotificationCollectionForSourceWithCADObjectID___block_invoke_cold_2(uint64_t a1)
+void __79__EKEventStore__fetchPersistentNotificationCollectionForSourceWithCADObjectID___block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_6();
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "NotificationCollectionID requested when it has not yet been created. SourceID: %@");
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __57__EKEventStore_shouldPermitOrganizerEmailFromJunkChecks___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __63__EKEventStore_shouldPermitOrganizerPhoneNumberFromJunkChecks___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __33__EKEventStore_fetchStorageUsage__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __69__EKEventStore_postSyntheticRouteHypothesis_forEventWithExternalURL___block_invoke_cold_1(uint64_t a1)
+void __69__EKEventStore_postSyntheticRouteHypothesis_forEventWithExternalURL___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_9_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-- (void)backupDatabaseToDestination:(uint64_t)a1 withFormat:error:.cold.1(uint64_t a1)
+- (void)backupDatabaseToDestination:withFormat:error:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(*a1 + 40);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_6();
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Failed to create destination .icbu: %@");
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __61__EKEventStore_backupDatabaseToDestination_withFormat_error___block_invoke_cold_1(uint64_t a1)
+void __61__EKEventStore_backupDatabaseToDestination_withFormat_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_4_5(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Failed to backup: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void __59__EKEventStore_restoreDatabaseFromBackup_withFormat_error___block_invoke_cold_1(uint64_t a1)
+void __59__EKEventStore_restoreDatabaseFromBackup_withFormat_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_4_5(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "Failed to restore: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 @end

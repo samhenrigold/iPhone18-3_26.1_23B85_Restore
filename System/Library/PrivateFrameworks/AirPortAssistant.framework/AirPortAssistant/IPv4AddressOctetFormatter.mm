@@ -24,7 +24,7 @@ LABEL_6:
     v18 = 0;
     while (1)
     {
-      v19 = objc_msgSend_length(string, a2, valid);
+      v19 = objc_msgSend_length(string, a2, valid, range);
       v21 = objc_msgSend_rangeOfString_options_range_(string, v20, @".", 0, v18, v19 - v18);
       v18 = &a2[v21];
       if (!&a2[v21])
@@ -48,20 +48,20 @@ LABEL_6:
 - (BOOL)isPartialStringValid:(id)valid newEditingString:(id *)string errorDescription:(id *)description
 {
   maxLength = self->super.super._maxLength;
-  v27.receiver = self;
-  v27.super_class = IPv4AddressOctetFormatter;
-  LODWORD(v7) = [(IPv4AddressFormatter *)&v27 isPartialStringValid:valid newEditingString:string errorDescription:description];
+  v35.receiver = self;
+  v35.super_class = IPv4AddressOctetFormatter;
+  LODWORD(v7) = [(IPv4AddressFormatter *)&v35 isPartialStringValid:valid newEditingString:string errorDescription:description];
   if (v7)
   {
-    v9 = objc_msgSend_componentsSeparatedByString_(valid, v8, @".");
-    if (objc_msgSend_count(v9, v10, v11) <= WORD1(maxLength))
+    v10 = objc_msgSend_componentsSeparatedByString_(valid, v8, @".", v9);
+    if (objc_msgSend_count(v10, v11, v12, v13) <= WORD1(maxLength))
     {
       LOBYTE(v7) = 0;
     }
 
     else
     {
-      if (objc_msgSend_count(v9, v12, v13) < 4)
+      if (objc_msgSend_count(v10, v14, v15, v16) < 4)
       {
         goto LABEL_15;
       }
@@ -76,19 +76,19 @@ LABEL_6:
         goto LABEL_13;
       }
 
-      v15 = objc_msgSend_objectAtIndex_(v9, v14, 2);
-      v7 = objc_msgSend_integerValue(v15, v16, v17);
-      v18 = v7 == BYTE1(maxLength);
+      v19 = objc_msgSend_objectAtIndex_(v10, v17, 2, v18);
+      v7 = objc_msgSend_integerValue(v19, v20, v21, v22);
+      v23 = v7 == BYTE1(maxLength);
       LOBYTE(v7) = v7 != BYTE1(maxLength);
-      v18 = v18 || maxLength == 0;
-      if (!v18)
+      v23 = v23 || maxLength == 0;
+      if (!v23)
       {
 LABEL_13:
-        v19 = objc_msgSend_objectAtIndex_(v9, v14, 3);
-        if (objc_msgSend_length(v19, v20, v21))
+        v24 = objc_msgSend_objectAtIndex_(v10, v17, 3, v18);
+        if (objc_msgSend_length(v24, v25, v26, v27))
         {
-          v23 = objc_msgSend_objectAtIndex_(v9, v22, 3);
-          LOBYTE(v7) = objc_msgSend_integerValue(v23, v24, v25) <= maxLength;
+          v30 = objc_msgSend_objectAtIndex_(v10, v28, 3, v29);
+          LOBYTE(v7) = objc_msgSend_integerValue(v30, v31, v32, v33) <= maxLength;
           return v7;
         }
 

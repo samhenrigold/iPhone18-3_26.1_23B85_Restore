@@ -161,22 +161,20 @@
 
 void __37__FSKitConstants_project__errorTypes__block_invoke()
 {
-  v5[8] = *MEMORY[0x277D85DE8];
+  v4[8] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v5[6] = objc_opt_class();
-  v5[7] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v4[7] = objc_opt_class();
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:8];
   v2 = [v0 setWithArray:v1];
   v3 = errorTypes_errorTypes;
   errorTypes_errorTypes = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (NSSet)plistTypes
@@ -193,24 +191,22 @@ void __37__FSKitConstants_project__errorTypes__block_invoke()
 
 void __37__FSKitConstants_project__plistTypes__block_invoke()
 {
-  v5[10] = *MEMORY[0x277D85DE8];
+  v4[10] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v5[6] = objc_opt_class();
-  v5[7] = objc_opt_class();
-  v5[8] = objc_opt_class();
-  v5[9] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:10];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v4[7] = objc_opt_class();
+  v4[8] = objc_opt_class();
+  v4[9] = objc_opt_class();
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:10];
   v2 = [v0 setWithArray:v1];
   v3 = plistTypes_plistTypes;
   plistTypes_plistTypes = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (NSSet)plistAndValueTypes
@@ -257,7 +253,7 @@ void __45__FSKitConstants_project__plistAndValueTypes__block_invoke(uint64_t a1)
 
 void __45__FSKitConstants_project__extensionItemTypes__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB58];
   v3 = [*(a1 + 32) plistTypes];
   v4 = [v2 setWithSet:v3];
@@ -265,19 +261,17 @@ void __45__FSKitConstants_project__extensionItemTypes__block_invoke(uint64_t a1)
   v5 = [*(a1 + 32) errorTypes];
   [v4 unionSet:v5];
 
+  v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = objc_opt_class();
-  v14 = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:5];
-  [v4 addObjectsFromArray:{v6, v10, v11, v12, v13}];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:5];
+  [v4 addObjectsFromArray:{v6, v9, v10, v11, v12}];
 
   v7 = [v4 copy];
   v8 = extensionItemTypes_types;
   extensionItemTypes_types = v7;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -69,10 +69,10 @@
 
 - (void)viewWillLayoutSubviews
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v48.receiver = self;
-  v48.super_class = BCUI2x4AvocadoViewController;
-  [(BCUIAvocadoViewController *)&v48 viewWillLayoutSubviews];
+  v55 = *MEMORY[0x1E69E9840];
+  v53.receiver = self;
+  v53.super_class = BCUI2x4AvocadoViewController;
+  [(BCUIAvocadoViewController *)&v53 viewWillLayoutSubviews];
   [(BCUI2x4AvocadoViewController *)self _maximumNumberOfBatteryDeviceViews];
   view = [(BCUI2x4AvocadoViewController *)self view];
   [view bounds];
@@ -82,19 +82,21 @@
   v11 = v10;
   [BCUI2x4AvocadoViewController _columnWidthForBounds:"_columnWidthForBounds:andMaxNumViews:" andMaxNumViews:?];
   v13 = v12;
-  v51.origin.x = v5;
-  v51.origin.y = v7;
-  v51.size.width = v9;
-  v51.size.height = v11;
-  CGRectGetHeight(v51);
+  v58.origin.x = v5;
+  v58.origin.y = v7;
+  v48 = v11;
+  v58.size.width = v9;
+  v58.size.height = v11;
+  Height = CGRectGetHeight(v58);
   _shouldReverseLayoutDirection = [view _shouldReverseLayoutDirection];
+  v16 = 19.0;
   if (_shouldReverseLayoutDirection)
   {
-    v52.origin.y = v7;
-    v52.origin.x = v5;
-    v52.size.height = v11;
-    v52.size.width = v9;
-    v15 = CGRectGetMaxX(v52) + -19.0;
+    v59.origin.y = v7;
+    v59.origin.x = v5;
+    v59.size.height = v48;
+    v59.size.width = v9;
+    v16 = CGRectGetMaxX(v59) + -19.0 - v13;
   }
 
   window = [view window];
@@ -103,74 +105,80 @@
     window2 = [view window];
     screen = [window2 screen];
     [screen scale];
-    v20 = v19;
+    v21 = v20;
   }
 
   else
   {
     window2 = [MEMORY[0x1E69DCEB0] mainScreen];
     [window2 scale];
-    v20 = v21;
+    v21 = v22;
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   _batteryDeviceViews = [(BCUIAvocadoViewController *)self _batteryDeviceViews];
-  v23 = [_batteryDeviceViews countByEnumeratingWithState:&v44 objects:v49 count:16];
-  if (v23)
+  v24 = [_batteryDeviceViews countByEnumeratingWithState:&v49 objects:v54 count:16];
+  if (v24)
   {
-    v24 = v23;
-    v25 = *v45;
+    v25 = v24;
+    v26 = *v50;
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v45 != v25)
+        if (*v50 != v26)
         {
           objc_enumerationMutation(_batteryDeviceViews);
         }
 
-        v27 = *(*(&v44 + 1) + 8 * i);
-        [v27 ringScale];
-        if (v28 == 1.0)
+        v28 = *(*(&v49 + 1) + 8 * i);
+        ringScale = [v28 ringScale];
+        if (v32 == 1.0)
         {
-          UIRectIntegralWithScale();
+          v56.height = 0.0;
+          v56.width = v16;
+          v57.width = Height;
+          v57.height = v21;
+          UIRectIntegralWithScale(ringScale, v30, v56, v13, v57, v31);
         }
 
         else
         {
-          v43 = v20;
+          v47 = v21;
           UIRectCenteredYInRectScale();
         }
 
-        v33 = v29;
-        v34 = v30;
-        v35 = v31;
-        v36 = v32;
-        [v27 setFrame:v43];
         v37 = v33;
         v38 = v34;
         v39 = v35;
         v40 = v36;
+        [v28 setFrame:*&v47];
+        v41 = v37;
+        v42 = v38;
+        v43 = v39;
+        v44 = v40;
         if (_shouldReverseLayoutDirection)
         {
-          MaxX = CGRectGetMinX(*&v37) - v13;
-          v42 = -17.0;
+          MaxX = CGRectGetMinX(*&v41) - v13;
+          v46 = -17.0;
         }
 
         else
         {
-          MaxX = CGRectGetMaxX(*&v37);
-          v42 = 17.0;
+          MaxX = CGRectGetMaxX(*&v41);
+          v46 = 17.0;
         }
+
+        v16 = MaxX + v46;
       }
 
-      v24 = [_batteryDeviceViews countByEnumeratingWithState:&v44 objects:v49 count:{16, MaxX, v42}];
+      v25 = [_batteryDeviceViews countByEnumeratingWithState:&v49 objects:v54 count:16];
     }
 
-    while (v24);
+    while (v25);
   }
 }
 

@@ -1,3 +1,727 @@
+void __CIMetalRenderToImageblocks_block_invoke(uint64_t a1, uint64_t a2)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  if (CI_KDEBUG())
+  {
+    kdebug_trace();
+  }
+
+  v4 = CI_VERBOSE_SIGNPOSTS();
+  if (v4)
+  {
+    v6 = ci_signpost_log_render(v4, v5);
+    v7 = *(a1 + 64) | (*(a1 + 56) << 32);
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v8 = v6;
+      if (os_signpost_enabled(v6))
+      {
+        v9 = *(a1 + 48);
+        v10 = *(a1 + 40);
+        v11 = 134218496;
+        v12 = a2;
+        v13 = 1024;
+        v14 = v10;
+        v15 = 1024;
+        v16 = v9;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v7, "gpu_compute", "cb:%p [%u, %u]", &v11, 0x18u);
+      }
+    }
+  }
+}
+
+void __CIMetalRenderToImageblocks_block_invoke_110(uint64_t a1, void *a2)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  if (CI_KDEBUG())
+  {
+    kdebug_trace();
+  }
+
+  v4 = CI_VERBOSE_SIGNPOSTS();
+  if (v4)
+  {
+    v6 = ci_signpost_log_render(v4, v5);
+    v7 = *(a1 + 64) | (*(a1 + 56) << 32);
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v8 = v6;
+      if (os_signpost_enabled(v6))
+      {
+        v9 = *(a1 + 48);
+        v10 = *(a1 + 40);
+        v11 = 134218496;
+        v12 = a2;
+        v13 = 1024;
+        v14 = v10;
+        v15 = 1024;
+        v16 = v9;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v8, OS_SIGNPOST_INTERVAL_END, v7, "gpu_compute", "cb:%p [%u, %u]", &v11, 0x18u);
+      }
+    }
+  }
+
+  CIAbortIfICSAndUnsuccessfulCommandBufferExecution(a2);
+}
+
+void CIAbortIfICSAndUnsuccessfulCommandBufferExecution(void *a1)
+{
+  if ([a1 status] == 5)
+  {
+    if ([a1 label])
+    {
+      [objc_msgSend(a1 "label")];
+    }
+
+    v2 = [a1 error];
+    if (v2)
+    {
+      v4 = ci_logger_render(v2, v3);
+      v2 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+      if (v2)
+      {
+        CIAbortIfICSAndUnsuccessfulCommandBufferExecution_cold_1(a1);
+      }
+    }
+
+    if (isImageConversionServiceProcess_onceToken != -1)
+    {
+      __CIMetalRenderToTextures_block_invoke_101_cold_1();
+    }
+
+    if (isImageConversionServiceProcess_isICS == 1)
+    {
+      v5 = ci_logger_render(v2, v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        CIAbortIfICSAndUnsuccessfulCommandBufferExecution_cold_3();
+      }
+
+      exit(1);
+    }
+  }
+}
+
+void *CIMetalCommandBufferAddCompletionHandler(void *result, uint64_t a2)
+{
+  if (a2)
+  {
+    v2[0] = MEMORY[0x1E69E9820];
+    v2[1] = 3221225472;
+    v2[2] = __CIMetalCommandBufferAddCompletionHandler_block_invoke;
+    v2[3] = &unk_1E75C35F0;
+    v2[4] = a2;
+    return [result addCompletedHandler:v2];
+  }
+
+  return result;
+}
+
+uint64_t __CIMetalCommandBufferAddCompletionHandler_block_invoke(uint64_t a1, void *a2)
+{
+  CIAbortIfICSAndUnsuccessfulCommandBufferExecution(a2);
+  v3 = *(*(a1 + 32) + 16);
+
+  return v3();
+}
+
+void *CIMetalCommandBufferCopyTexture(void *result, uint64_t a2, uint64_t a3, double a4, double a5, double a6, double a7, double a8, double a9)
+{
+  if (a2 && result)
+  {
+    if (a3)
+    {
+      v17 = [result blitCommandEncoder];
+      v20[0] = a6;
+      v20[1] = a7;
+      v20[2] = 0;
+      v19[0] = a8;
+      v19[1] = a9;
+      v19[2] = 1;
+      v18[0] = a4;
+      v18[1] = a5;
+      v18[2] = 0;
+      [v17 copyFromTexture:a3 sourceSlice:0 sourceLevel:0 sourceOrigin:v20 sourceSize:v19 toTexture:a2 destinationSlice:0 destinationLevel:0 destinationOrigin:v18];
+      return [v17 endEncoding];
+    }
+  }
+
+  return result;
+}
+
+void CIMetalCommandBufferWaitUntilScheduled(void *a1)
+{
+  if ([a1 status] < 2)
+  {
+    NSLog(&cfstr_MetalCommandBu.isa);
+  }
+
+  else
+  {
+
+    [a1 waitUntilScheduled];
+  }
+}
+
+void CIMetalCommandBufferWaitUntilCompleted(void *a1)
+{
+  if ([a1 status] < 2)
+  {
+    NSLog(&cfstr_MetalCommandBu.isa);
+  }
+
+  else
+  {
+
+    [a1 waitUntilCompleted];
+  }
+}
+
+void *CIMetalCommandBufferGetGPUTime(void *a1)
+{
+  result = [a1 status];
+  if (result >= 4)
+  {
+    [a1 GPUEndTime];
+    return [a1 GPUStartTime];
+  }
+
+  return result;
+}
+
+void serializeBinaryArchive(void *a1, uint64_t a2)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v3 = [a1 serializeToURL:objc_msgSend(MEMORY[0x1E695DFF8] error:{"URLWithString:", a2), &v8}];
+  v4 = v3;
+  v6 = ci_logger_render(v3, v5);
+  v7 = v6;
+  if (v4)
+  {
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138543362;
+      v10 = a2;
+      _os_log_impl(&dword_19CC36000, v7, OS_LOG_TYPE_INFO, "Serialized binary archive to %{public}@\n", buf, 0xCu);
+    }
+  }
+
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  {
+    serializeBinaryArchive_cold_1(a2, &v8);
+  }
+}
+
+void *__isHarvestingForThisProcess_block_invoke(uint64_t a1)
+{
+  v1 = [MEMORY[0x1E696AEC0] stringWithCString:*(a1 + 32) encoding:1];
+  result = [MEMORY[0x1E696AE30] processInfo];
+  if (result)
+  {
+    result = [v1 containsString:{objc_msgSend(result, "processName")}];
+  }
+
+  isHarvestingForThisProcess_isListed = result;
+  return result;
+}
+
+void __ArchiveLibraryUsingDescriptor_block_invoke(uint64_t a1)
+{
+  v34 = *MEMORY[0x1E69E9840];
+  if (CI_PREVENT_HARVEST_DUPLICATE_ENTRIES())
+  {
+    v2 = [MEMORY[0x1E696AC08] defaultManager];
+    v3 = [v2 temporaryDirectory];
+    v5 = [objc_msgSend(v3 URLByAppendingPathComponent:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%s/ci_%016llX.txt", CI_HARVEST_BIN_ARCHIVE_FOLDER_NAME(v3, v4), *(a1 + 72))), "path"}];
+    if ([v2 fileExistsAtPath:v5 isDirectory:0])
+    {
+      return;
+    }
+
+    v6 = [v2 createFileAtPath:v5 contents:objc_msgSend(objc_msgSend(MEMORY[0x1E696AEC0] attributes:{"stringWithFormat:", @"0x%016llX %@\n", *(a1 + 72), *(a1 + 32)), "dataUsingEncoding:", 4), 0}];
+    if ((v6 & 1) == 0)
+    {
+      v8 = ci_logger_render(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        __ArchiveLibraryUsingDescriptor_block_invoke_cold_1();
+      }
+    }
+  }
+
+  v28 = 0;
+  v9 = *(a1 + 40);
+  if (v9 && (v10 = [*(a1 + 48) addLibraryWithDescriptor:v9 error:&v28], (v10 & 1) == 0))
+  {
+    v19 = ci_logger_render(v10, v11);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      __ArchiveLibraryUsingDescriptor_block_invoke_cold_2(&v28);
+    }
+  }
+
+  else
+  {
+    v12 = [*(a1 + 48) addComputePipelineFunctionsWithDescriptor:*(a1 + 56) error:&v28];
+    v13 = v12;
+    v15 = ci_logger_render(v12, v14);
+    v16 = v15;
+    if (v13)
+    {
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      {
+        v17 = *(a1 + 32);
+        v18 = [*(a1 + 64) lastPathComponent];
+        *buf = 138543618;
+        *&buf[4] = v17;
+        *&buf[12] = 2114;
+        *&buf[14] = v18;
+        _os_log_impl(&dword_19CC36000, v16, OS_LOG_TYPE_INFO, "%{public}@ program added to %{public}@\n", buf, 0x16u);
+      }
+
+      if (CI_BIN_ARCHIVE_SERIALIZATION_METHOD() == 1)
+      {
+        serializeBinaryArchive(*(a1 + 48), *(a1 + 64));
+      }
+
+      else if (CI_BIN_ARCHIVE_SERIALIZATION_METHOD() == 2)
+      {
+        v20 = CIGetHarvestingBinaryArchiveDict(0);
+        v21 = [v20 objectForKeyedSubscript:@"bin"];
+        v22 = [v20 objectForKeyedSubscript:@"queue"];
+        v23 = [v20 objectForKeyedSubscript:@"path"];
+        v24 = CI_BIN_ARCHIVE_SERIALIZATION_DELAY();
+        v25 = dispatch_time(0, (v24 / 1000.0 * 1000000000.0));
+        if ((scheduleSerializingHarvestedBinaryArchive_serialization_pending & 1) == 0)
+        {
+          v26 = v25;
+          scheduleSerializingHarvestedBinaryArchive_serialization_pending = 1;
+          global_queue = dispatch_get_global_queue(0, 0);
+          *buf = MEMORY[0x1E69E9820];
+          *&buf[8] = 3221225472;
+          *&buf[16] = __scheduleSerializingHarvestedBinaryArchive_block_invoke;
+          v30 = &unk_1E75C3640;
+          v31 = v22;
+          v32 = v21;
+          v33 = v23;
+          dispatch_after(v26, global_queue, buf);
+        }
+      }
+    }
+
+    else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      __ArchiveLibraryUsingDescriptor_block_invoke_cold_3(&v28);
+    }
+  }
+}
+
+void __scheduleSerializingHarvestedBinaryArchive_block_invoke(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  v2[0] = MEMORY[0x1E69E9820];
+  v2[1] = 3221225472;
+  v2[2] = __scheduleSerializingHarvestedBinaryArchive_block_invoke_2;
+  v2[3] = &unk_1E75C20F8;
+  v3 = *(a1 + 40);
+  dispatch_sync(v1, v2);
+}
+
+uint64_t __CreateFunctionFromDefaultLibrary_block_invoke()
+{
+  v0 = [MEMORY[0x1E695DF70] arrayWithArray:{objc_msgSend(MEMORY[0x1E696AAE8], "allBundles")}];
+  CreateFunctionFromDefaultLibrary_bundles = v0;
+  v1 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.CoreImage"];
+
+  return [v0 addObject:v1];
+}
+
+uint64_t (**__configureQueue_block_invoke(uint64_t (**result)(void), void *a2, void *a3, unint64_t a4))(void)
+{
+  if (a4)
+  {
+    v6 = result;
+    v7 = [a3 bytes];
+    v8 = 0;
+    v9 = 0;
+    v10 = v6[4];
+    v11 = 2 * v10;
+    v12 = v7 + 8 * v10;
+    v13 = 0.0;
+    do
+    {
+      v14 = (v7 + 8 * v8);
+      v15 = (v12 + 8 * v8);
+      v13 = v13 + (*v15 - *v14);
+      v9 = v9 - v14[1] + v15[1];
+      v8 += v11;
+    }
+
+    while (v8 < a4);
+    result = [objc_msgSend(a2 "userDictionary")];
+    if (result)
+    {
+      v16 = result[2];
+
+      return v16();
+    }
+  }
+
+  return result;
+}
+
+void *__useOneDispatchPerCommandBuffer_block_invoke()
+{
+  result = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
+  if (result)
+  {
+    v1 = [result BOOLValue];
+    useOneDispatchPerCommandBuffer_result = v1;
+    useOneDispatchPerCommandBuffer_setOverride = 1;
+    v9 = "NO";
+    if (v1)
+    {
+      v9 = "YES";
+    }
+
+    return x_log(v1, v2, v3, v4, v5, v6, v7, v8, v9);
+  }
+
+  return result;
+}
+
+unint64_t CI::sw_minimumComponent(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
+{
+  v5 = *(a1 + 40);
+  v6 = *(v5 + 16);
+  v7 = *(v5 + 8);
+  v8 = a3 + 16 * v7;
+  v9 = a2 + (v7 << 6);
+  if (v6 == 5)
+  {
+    v9 = v8;
+  }
+
+  *&a5 = fminf(fminf(COERCE_FLOAT(*v9), COERCE_FLOAT(HIDWORD(*v9))), COERCE_FLOAT(*(v9 + 8)));
+  return vdupq_lane_s32(*&a5, 0).u64[0];
+}
+
+unint64_t CI::sw_maximumComponent(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
+{
+  v5 = *(a1 + 40);
+  v6 = *(v5 + 16);
+  v7 = *(v5 + 8);
+  v8 = a3 + 16 * v7;
+  v9 = a2 + (v7 << 6);
+  if (v6 == 5)
+  {
+    v9 = v8;
+  }
+
+  *&a5 = fmaxf(fmaxf(COERCE_FLOAT(*v9), COERCE_FLOAT(HIDWORD(*v9))), COERCE_FLOAT(*(v9 + 8)));
+  return vdupq_lane_s32(*&a5, 0).u64[0];
+}
+
+__n128 extendDOD@<Q0>(uint64_t a1@<X0>, _OWORD *a2@<X8>, float32x2_t a3@<D0>, float32x2_t a4@<D1>, __n128 a5@<Q2>, int8x16_t a6@<Q3>, int8x16_t a7@<Q4>)
+{
+  v23 = vsub_f32(a3, *a6.i8);
+  if ((a5.n128_f32[2] + vaddv_f32(vmul_f32(a5.n128_u64[0], v23))) < 0.001)
+  {
+    Rectangle::Union(&v21, a1, &v23);
+    if (&v21 != a1)
+    {
+      v11 = v22;
+      *a1 = v21;
+      *(a1 + 16) = v11;
+    }
+
+    v12 = vsub_f32(vsub_f32(a3, a4), *&vextq_s8(a6, a6, 8uLL));
+    v13 = vmul_f32(v12, *a7.i8);
+    v14 = vmul_f32(v12, *&vextq_s8(a7, a7, 8uLL));
+    v23 = vadd_f32(vzip1_s32(v13, v14), vzip2_s32(v13, v14));
+    v20 = vadd_f32(a4, v23);
+    Rectangle::Union(&v21, a1, &v20);
+    if (&v21 != a1)
+    {
+      v15 = v22;
+      *a1 = v21;
+      *(a1 + 16) = v15;
+    }
+  }
+
+  result = *a1;
+  v17 = *(a1 + 16);
+  *a2 = *a1;
+  a2[1] = v17;
+  return result;
+}
+
+float32x2_t CI::sw_mirror(CI *a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 5);
+  v4 = *(v3 + 8);
+  v5 = (a3 + 16 * v4);
+  v6 = (a2 + (v4 << 6));
+  if (*(v3 + 16) == 5)
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = v6;
+  }
+
+  v8 = *(v3 + 32);
+  v9 = *(v3 + 56);
+  v10 = (a3 + 16 * v9);
+  v11 = (a2 + (v9 << 6));
+  if (*(v3 + 64) == 5)
+  {
+    v12 = v10;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  v13 = *(v3 + 88);
+  v14 = *(v3 + 80);
+  v15 = (a3 + 16 * v14);
+  v16 = (a2 + (v14 << 6));
+  if (v13 == 5)
+  {
+    v16 = v15;
+  }
+
+  v17 = *v7;
+  v28 = *v12;
+  v26 = *(a2 + (v8 << 6));
+  v27 = *v16;
+  DC = CI::getDC(a1);
+  v19 = *(&v26 + 2) + vaddv_f32(vmul_f32(*&v26, *DC));
+  v20 = vsub_f32(*CI::getDC(DC), v17);
+  v21 = vmul_f32(*v27.i8, v20);
+  v22 = vmul_f32(*&vextq_s8(v27, v27, 8uLL), v20);
+  v23 = COERCE_DOUBLE(vadd_f32(*&vextq_s8(v28, v28, 8uLL), vadd_f32(vzip1_s32(v21, v22), vzip2_s32(v21, v22))));
+  v24 = COERCE_DOUBLE(vadd_f32(*v28.i8, v20));
+  if (v19 >= 0.0)
+  {
+    v24 = v23;
+  }
+
+  return vadd_f32(v17, *&v24);
+}
+
+int64x2_t Rectangle::Union@<Q0>(int64x2_t *__return_ptr a1@<X8>, Rectangle *this@<X0>, const vec2 *a3@<X1>)
+{
+  v3.f64[0] = this->var0;
+  if (fabs(this->var0) == INFINITY || (var1 = this->var1, fabs(var1) == INFINITY))
+  {
+    result = vcvtq_f64_f32(*a3);
+    *a1 = result;
+    a1[1] = 0uLL;
+  }
+
+  else
+  {
+    v6 = v3.f64[0] == -8.98846567e307 && var1 == -8.98846567e307;
+    if (v6 && this->var2 == 1.79769313e308 && this->var3 == 1.79769313e308)
+    {
+      result = vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL);
+      *a1 = result;
+      a1[1] = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
+    }
+
+    else
+    {
+      v3.f64[1] = this->var1;
+      v7 = vaddq_f64(v3, *&this->var2);
+      v8 = vcvtq_f64_f32(*a3);
+      v9 = vminnmq_f64(vminnmq_f64(v3, v7), v8);
+      result = vsubq_f64(vmaxnmq_f64(vmaxnmq_f64(v3, v7), v8), v9);
+      *a1 = v9;
+      a1[1] = result;
+    }
+  }
+
+  return result;
+}
+
+__n128 extendROI@<Q0>(uint64_t a1@<X0>, _OWORD *a2@<X8>, float32x2_t a3@<D0>, float32x2_t a4@<D1>, __n128 a5@<Q2>, int8x16_t a6@<Q3>, int8x16_t a7@<Q4>)
+{
+  if ((a5.n128_f32[2] + vaddv_f32(vmul_f32(a5.n128_u64[0], vsub_f32(a3, *a6.i8)))) < 0.001)
+  {
+    v9 = a5.n128_f32[2] + vaddv_f32(vmul_f32(a3, a5.n128_u64[0]));
+    v10 = vsub_f32(a3, a4);
+    v11 = v9 < 0.0;
+    v12 = vmul_f32(v10, *a7.i8);
+    v13 = vmul_f32(v10, *&vextq_s8(a7, a7, 8uLL));
+    v14 = COERCE_DOUBLE(vadd_f32(*&vextq_s8(a6, a6, 8uLL), vadd_f32(vzip1_s32(v12, v13), vzip2_s32(v12, v13))));
+    v15 = COERCE_DOUBLE(vadd_f32(v10, *a6.i8));
+    if (!v11)
+    {
+      v15 = v14;
+    }
+
+    v20 = vadd_f32(a4, *&v15);
+    Rectangle::Union(v19, a1, &v20);
+    if (v19 != a1)
+    {
+      v16 = v19[1];
+      *a1 = v19[0];
+      *(a1 + 16) = v16;
+    }
+  }
+
+  result = *a1;
+  v18 = *(a1 + 16);
+  *a2 = *a1;
+  a2[1] = v18;
+  return result;
+}
+
+unint64_t CI::sw_modTransition(CI *a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 5);
+  v4 = *(v3 + 8);
+  v5 = (a3 + 16 * v4);
+  v6 = (a2 + (v4 << 6));
+  if (*(v3 + 16) == 5)
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = v6;
+  }
+
+  v8 = *(v3 + 32);
+  v9 = (a3 + 16 * v8);
+  v10 = (a2 + (v8 << 6));
+  if (*(v3 + 40) == 5)
+  {
+    v11 = v9;
+  }
+
+  else
+  {
+    v11 = v10;
+  }
+
+  v12 = *(v3 + 56);
+  v13 = (a3 + 16 * v12);
+  v14 = (a2 + (v12 << 6));
+  if (*(v3 + 64) == 5)
+  {
+    v15 = v13;
+  }
+
+  else
+  {
+    v15 = v14;
+  }
+
+  v16 = *(v3 + 80);
+  v17 = (a3 + 16 * v16);
+  v18 = (a2 + (v16 << 6));
+  if (*(v3 + 88) == 5)
+  {
+    v19 = v17;
+  }
+
+  else
+  {
+    v19 = v18;
+  }
+
+  v20 = *(v3 + 104);
+  v21 = (a3 + 16 * v20);
+  v22 = (a2 + (v20 << 6));
+  if (*(v3 + 112) == 5)
+  {
+    v23 = v21;
+  }
+
+  else
+  {
+    v23 = v22;
+  }
+
+  v24 = *(v3 + 128);
+  v25 = (a3 + 16 * v24);
+  v26 = (a2 + (v24 << 6));
+  if (*(v3 + 136) == 5)
+  {
+    v27 = v25;
+  }
+
+  else
+  {
+    v27 = v26;
+  }
+
+  v28 = *(v3 + 160);
+  v29 = *(v3 + 152);
+  v30 = (a3 + 16 * v29);
+  v31 = (a2 + (v29 << 6));
+  if (v28 == 5)
+  {
+    v31 = v30;
+  }
+
+  v55 = *v11;
+  v56 = *v7;
+  v32 = *v15;
+  v51 = *v27;
+  v52 = *v19;
+  v53 = *v31;
+  v54 = *v23;
+  v33 = vsub_f32(*CI::getDC(a1), *v15);
+  v34 = vmuls_lane_f32(v33.f32[0], v52, 2);
+  if (v34 >= 0.5)
+  {
+    v35 = *(&v53 + 3) + (*(&v53 + 2) / (*(&v53 + 1) + (v34 * *&v53)));
+  }
+
+  else
+  {
+    v35 = *(&v51 + 3) + (*(&v51 + 2) / (*(&v51 + 1) + (v34 * *&v51)));
+  }
+
+  v33.i32[0] = vmuls_lane_f32(v35, v52, 3);
+  v36 = vmul_f32(*v54.i8, v33);
+  v37 = vmul_f32(*&vextq_s8(v54, v54, 8uLL), v33);
+  v38 = vadd_f32(v32, vadd_f32(vzip1_s32(v36, v37), vzip2_s32(v36, v37)));
+  v39 = vminnm_f32(vsub_f32(v38, vrndm_f32(v38)), vdup_n_s32(0x3F7FFFFFu));
+  __asm { FMOV            V1.2S, #1.0 }
+
+  v45 = vminnm_f32(v39, vsub_f32(_D1, v39));
+  v46 = vadd_f32(v45, v45);
+  v47 = v52.f32[1] + (sqrtf(vaddv_f32(vmul_f32(v46, v46))) * v52.f32[0]);
+  if (v47 <= 1.0)
+  {
+    v48 = v47;
+  }
+
+  else
+  {
+    v48 = 1.0;
+  }
+
+  _NF = v47 < 0.0;
+  v49 = 0.0;
+  if (!_NF)
+  {
+    v49 = v48;
+  }
+
+  return vmlaq_n_f32(vmulq_n_f32(v55, 1.0 - v49), v56, v49).u64[0];
+}
+
 uint64_t CI::sw_maxDisk(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = *(a1 + 5);
@@ -10,36 +734,38 @@ uint64_t CI::sw_maxDisk(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v11.i32[0] = *(v5 + 36);
   *v12.i32 = vmuls_lane_f32(*(v5 + 32), *v9, 1);
   *&v13 = *v12.i32 + (COERCE_FLOAT(*v9) * *(v5 + 28));
-  *&v14 = *&v10 + (vmuls_lane_f32(*(v5 + 20), *v9, 1) + (COERCE_FLOAT(*v9) * *(v5 + 16)));
+  v14.n128_f32[0] = *&v10 + (vmuls_lane_f32(*(v5 + 20), *v9, 1) + (COERCE_FLOAT(*v9) * *(v5 + 16)));
   *v15.f64 = *v11.i32 + *&v13;
-  *(&v14 + 1) = *v11.i32 + *&v13;
+  v14.n128_f32[1] = *v11.i32 + *&v13;
   *v18.i64 = CI::BitmapSampler::read(*(v5 + 8), v14, v15, v10, v13, v12, v11, v16, v17);
   v25 = v18;
   v26 = ceilf(v6);
   if (v26 >= 0.0)
   {
     v27 = v6 * v6;
-    *&v20 = -v26;
+    v20.n128_f32[0] = -v26;
     do
     {
       *v21.i32 = -v26;
       v31 = v20;
       do
       {
-        *&v19.f64[0] = vmul_f32(__PAIR64__(v21.u32[0], v20), __PAIR64__(v21.u32[0], v20));
+        v28 = v20;
+        v28.n128_u32[1] = v21.i32[0];
+        *&v19.f64[0] = vmul_f32(v28.n128_u64[0], v28.n128_u64[0]);
         if (vaddv_f32(*&v19.f64[0]) <= v27)
         {
-          v28 = vadd_f32(v8, __PAIR64__(v21.u32[0], v20));
+          v28.n128_u64[0] = vadd_f32(v8, v28.n128_u64[0]);
           v32 = v21;
           v33 = v25;
           v25.i32[0] = *(v5 + 24);
           v22.i32[0] = *(v5 + 36);
-          *v21.i32 = vmuls_lane_f32(*(v5 + 32), v28, 1);
-          *&v20 = *v21.i32 + (v28.f32[0] * *(v5 + 28));
-          v28.f32[0] = v25.f32[0] + (vmuls_lane_f32(*(v5 + 20), v28, 1) + (v28.f32[0] * *(v5 + 16)));
-          *v19.f64 = *v22.i32 + *&v20;
-          v28.f32[1] = *v22.i32 + *&v20;
-          *v29.i64 = CI::BitmapSampler::read(*(v5 + 8), *&v28, v19, *v25.i64, *&v20, v21, v22, v23, v24);
+          *v21.i32 = vmuls_lane_f32(*(v5 + 32), v28.n128_u64[0], 1);
+          v20.n128_f32[0] = *v21.i32 + (v28.n128_f32[0] * *(v5 + 28));
+          v28.n128_f32[0] = v25.f32[0] + (vmuls_lane_f32(*(v5 + 20), v28.n128_u64[0], 1) + (v28.n128_f32[0] * *(v5 + 16)));
+          *v19.f64 = *v22.i32 + v20.n128_f32[0];
+          v28.n128_f32[1] = *v22.i32 + v20.n128_f32[0];
+          *v29.i64 = CI::BitmapSampler::read(*(v5 + 8), v28, v19, *v25.i64, v20.n128_f64[0], v21, v22, v23, v24);
           v20 = v31;
           v21 = v32;
           v25 = vmaxnmq_f32(v33, v29);
@@ -49,10 +775,10 @@ uint64_t CI::sw_maxDisk(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
       }
 
       while (*v21.i32 <= v26);
-      *&v20 = *&v20 + 1.0;
+      v20.n128_f32[0] = v20.n128_f32[0] + 1.0;
     }
 
-    while (*&v20 <= v26);
+    while (v20.n128_f32[0] <= v26);
   }
 
   return v25.i64[0];
@@ -70,36 +796,38 @@ uint64_t CI::sw_minDisk(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v11.i32[0] = *(v5 + 36);
   *v12.i32 = vmuls_lane_f32(*(v5 + 32), *v9, 1);
   *&v13 = *v12.i32 + (COERCE_FLOAT(*v9) * *(v5 + 28));
-  *&v14 = *&v10 + (vmuls_lane_f32(*(v5 + 20), *v9, 1) + (COERCE_FLOAT(*v9) * *(v5 + 16)));
+  v14.n128_f32[0] = *&v10 + (vmuls_lane_f32(*(v5 + 20), *v9, 1) + (COERCE_FLOAT(*v9) * *(v5 + 16)));
   *v15.f64 = *v11.i32 + *&v13;
-  *(&v14 + 1) = *v11.i32 + *&v13;
+  v14.n128_f32[1] = *v11.i32 + *&v13;
   *v18.i64 = CI::BitmapSampler::read(*(v5 + 8), v14, v15, v10, v13, v12, v11, v16, v17);
   v25 = v18;
   v26 = ceilf(v6);
   if (v26 >= 0.0)
   {
     v27 = v6 * v6;
-    *&v20 = -v26;
+    v20.n128_f32[0] = -v26;
     do
     {
       *v21.i32 = -v26;
       v31 = v20;
       do
       {
-        *&v19.f64[0] = vmul_f32(__PAIR64__(v21.u32[0], v20), __PAIR64__(v21.u32[0], v20));
+        v28 = v20;
+        v28.n128_u32[1] = v21.i32[0];
+        *&v19.f64[0] = vmul_f32(v28.n128_u64[0], v28.n128_u64[0]);
         if (vaddv_f32(*&v19.f64[0]) <= v27)
         {
-          v28 = vadd_f32(v8, __PAIR64__(v21.u32[0], v20));
+          v28.n128_u64[0] = vadd_f32(v8, v28.n128_u64[0]);
           v32 = v21;
           v33 = v25;
           v25.i32[0] = *(v5 + 24);
           v22.i32[0] = *(v5 + 36);
-          *v21.i32 = vmuls_lane_f32(*(v5 + 32), v28, 1);
-          *&v20 = *v21.i32 + (v28.f32[0] * *(v5 + 28));
-          v28.f32[0] = v25.f32[0] + (vmuls_lane_f32(*(v5 + 20), v28, 1) + (v28.f32[0] * *(v5 + 16)));
-          *v19.f64 = *v22.i32 + *&v20;
-          v28.f32[1] = *v22.i32 + *&v20;
-          *v29.i64 = CI::BitmapSampler::read(*(v5 + 8), *&v28, v19, *v25.i64, *&v20, v21, v22, v23, v24);
+          *v21.i32 = vmuls_lane_f32(*(v5 + 32), v28.n128_u64[0], 1);
+          v20.n128_f32[0] = *v21.i32 + (v28.n128_f32[0] * *(v5 + 28));
+          v28.n128_f32[0] = v25.f32[0] + (vmuls_lane_f32(*(v5 + 20), v28.n128_u64[0], 1) + (v28.n128_f32[0] * *(v5 + 16)));
+          *v19.f64 = *v22.i32 + v20.n128_f32[0];
+          v28.n128_f32[1] = *v22.i32 + v20.n128_f32[0];
+          *v29.i64 = CI::BitmapSampler::read(*(v5 + 8), v28, v19, *v25.i64, v20.n128_f64[0], v21, v22, v23, v24);
           v20 = v31;
           v21 = v32;
           v25 = vminnmq_f32(v33, v29);
@@ -109,10 +837,10 @@ uint64_t CI::sw_minDisk(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
       }
 
       while (*v21.i32 <= v26);
-      *&v20 = *&v20 + 1.0;
+      v20.n128_f32[0] = v20.n128_f32[0] + 1.0;
     }
 
-    while (*&v20 <= v26);
+    while (v20.n128_f32[0] <= v26);
   }
 
   return v25.i64[0];
@@ -132,117 +860,125 @@ double CI::sw_max3x3(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   v10 = a4 + 80 * v5;
-  v89 = *v9;
-  v11.i64[0] = *CI::getDC(a1);
-  v93 = v11;
-  v12 = v89;
-  v13 = vdup_lane_s32(*&v89.f64[0], 1);
-  *v11.i8 = vsub_f32(*v11.i8, v13);
+  v96 = *v9;
+  v11.n128_u64[0] = *CI::getDC(a1);
+  v100 = v11;
+  v12 = v96;
+  v13 = vdup_lane_s32(*&v96.f64[0], 1);
+  v11.n128_u64[0] = vsub_f32(v11.n128_u64[0], v13);
   LODWORD(v14) = *(v10 + 24);
   v15.i32[0] = *(v10 + 36);
-  *v16.i32 = vmuls_lane_f32(*(v10 + 32), *v11.i8, 1);
-  *&v17 = *v16.i32 + (*v11.i32 * *(v10 + 28));
-  *v11.i32 = *&v14 + (vmuls_lane_f32(*(v10 + 20), *v11.i8, 1) + (*v11.i32 * *(v10 + 16)));
+  *v16.i32 = vmuls_lane_f32(*(v10 + 32), v11.n128_u64[0], 1);
+  *&v17 = *v16.i32 + (v11.n128_f32[0] * *(v10 + 28));
+  v11.n128_f32[0] = *&v14 + (vmuls_lane_f32(*(v10 + 20), v11.n128_u64[0], 1) + (v11.n128_f32[0] * *(v10 + 16)));
   *v12.f64 = *v15.i32 + *&v17;
-  *&v11.i32[1] = *v15.i32 + *&v17;
-  *v20.i64 = CI::BitmapSampler::read(*(v10 + 8), *v11.i64, v12, v14, v17, v16, v15, v18, v19);
-  v84 = v20;
-  v21 = v89;
+  v11.n128_f32[1] = *v15.i32 + *&v17;
+  v20.n128_f64[0] = CI::BitmapSampler::read(*(v10 + 8), v11, v12, v14, v17, v16, v15, v18, v19);
+  v91 = v20;
+  v21 = v96;
+  v20.n128_u64[1] = v100.u64[1];
   v22 = vextq_s8(v21, v21, 8uLL);
-  v86 = *&v22.f64[0];
-  v23 = vext_s8(*&v22.f64[0], *&v89.f64[0], 4uLL);
-  *v20.f32 = vsub_f32(*v93.i8, v23);
+  v93 = *&v22.f64[0];
+  v23 = vext_s8(*&v22.f64[0], *&v96.f64[0], 4uLL);
+  v20.n128_u64[0] = vsub_f32(*v100.i8, v23);
   v21.i32[0] = *(v10 + 24);
   v24.i32[0] = *(v10 + 36);
-  *v25.i32 = vmuls_lane_f32(*(v10 + 32), *v20.f32, 1);
-  *&v26 = *v25.i32 + (v20.f32[0] * *(v10 + 28));
-  v20.f32[0] = *v21.i32 + (vmuls_lane_f32(*(v10 + 20), *v20.f32, 1) + (v20.f32[0] * *(v10 + 16)));
+  *v25.i32 = vmuls_lane_f32(*(v10 + 32), v20.n128_u64[0], 1);
+  *&v26 = *v25.i32 + (v20.n128_f32[0] * *(v10 + 28));
+  v20.n128_f32[0] = *v21.i32 + (vmuls_lane_f32(*(v10 + 20), v20.n128_u64[0], 1) + (v20.n128_f32[0] * *(v10 + 16)));
   *v22.f64 = *v24.i32 + *&v26;
-  v20.f32[1] = *v24.i32 + *&v26;
-  *v29.i64 = CI::BitmapSampler::read(*(v10 + 8), *v20.i64, v22, *v21.i64, v26, v25, v24, v27, v28);
-  HIDWORD(v30) = HIDWORD(v89.f64[0]);
-  v31 = vext_s8(*&v89.f64[0], v86, 4uLL);
-  *&v32.f64[1] = v93.i64[1];
-  *&v32.f64[0] = vadd_f32(v31, *v93.i8);
+  v20.n128_f32[1] = *v24.i32 + *&v26;
+  *v29.i64 = CI::BitmapSampler::read(*(v10 + 8), v20, v22, *v21.i64, v26, v25, v24, v27, v28);
+  HIDWORD(v30) = HIDWORD(v96.f64[0]);
+  v31 = vext_s8(*&v96.f64[0], v93, 4uLL);
+  *&v32.f64[1] = v100.i64[1];
+  *&v32.f64[0] = vadd_f32(v31, *v100.i8);
   *&v30 = vmuls_lane_f32(*(v10 + 20), *&v32.f64[0], 1) + (*v32.f64 * *(v10 + 16));
   LODWORD(v33) = *(v10 + 24);
   v34.i32[0] = *(v10 + 36);
   *v35.i32 = vmuls_lane_f32(*(v10 + 32), *&v32.f64[0], 1);
-  v36 = v84;
-  v85 = vmaxnmq_f32(v84, v29);
-  v29.f32[0] = *&v33 + *&v30;
+  v36 = v91;
+  v37 = vmaxnmq_f32(v91, v29);
+  v92 = v37;
+  v37.n128_f32[0] = *&v33 + *&v30;
   *v32.f64 = *v34.i32 + (*v35.i32 + (*v32.f64 * *(v10 + 28)));
-  v29.i32[1] = LODWORD(v32.f64[0]);
-  *v38.i64 = CI::BitmapSampler::read(*(v10 + 8), *v29.i64, v32, v30, v33, v36, v35, v34, v37);
-  *&v89.f64[0] = __PAIR64__(v86.u32[1], LODWORD(v89.f64[0]));
-  v39 = v89.f64[0];
-  *&v40.f64[1] = v93.i64[1];
-  *&v40.f64[0] = vsub_f32(*v93.i8, *&v89.f64[0]);
-  *&v39 = vmuls_lane_f32(*(v10 + 20), *&v40.f64[0], 1) + (*v40.f64 * *(v10 + 16));
-  LODWORD(v41) = *(v10 + 24);
-  v42.i32[0] = *(v10 + 36);
-  *v43.i32 = vmuls_lane_f32(*(v10 + 32), *&v40.f64[0], 1);
-  v87 = vmaxnmq_f32(v85, v38);
-  v38.f32[0] = *&v41 + *&v39;
-  *v40.f64 = *v42.i32 + (*v43.i32 + (*v40.f64 * *(v10 + 28)));
-  v38.i32[1] = LODWORD(v40.f64[0]);
-  *v45.i64 = CI::BitmapSampler::read(*(v10 + 8), *v38.i64, v40, v39, v41, v85, v43, v42, v44);
-  v46 = v87;
-  v88 = vmaxnmq_f32(v87, v45);
-  LODWORD(v47) = *(v10 + 28);
-  v45.f32[0] = *(v10 + 24) + (vmuls_lane_f32(*(v10 + 20), *v93.i8, 1) + (*v93.i32 * *(v10 + 16)));
-  LODWORD(v48) = *(v10 + 36);
-  *v46.f64 = *&v48 + (vmuls_lane_f32(*(v10 + 32), *v93.i8, 1) + (*v93.i32 * *&v47));
-  v45.i32[1] = LODWORD(v46.f64[0]);
-  *v52.i64 = CI::BitmapSampler::read(*(v10 + 8), *v45.i64, v46, v47, v48, v93, v49, v50, v51);
-  HIDWORD(v54) = HIDWORD(v89.f64[0]);
-  *&v53.f64[1] = v93.i64[1];
-  *&v53.f64[0] = vadd_f32(*&v89.f64[0], *v93.i8);
-  *&v54 = vmuls_lane_f32(*(v10 + 20), *&v53.f64[0], 1) + (*v53.f64 * *(v10 + 16));
-  LODWORD(v55) = *(v10 + 24);
-  v56.i32[0] = *(v10 + 36);
-  *v57.i32 = vmuls_lane_f32(*(v10 + 32), *&v53.f64[0], 1);
-  v90 = vmaxnmq_f32(v88, v52);
-  v52.f32[0] = *&v55 + *&v54;
-  *v53.f64 = *v56.i32 + (*v57.i32 + (*v53.f64 * *(v10 + 28)));
-  v52.i32[1] = LODWORD(v53.f64[0]);
-  *v59.i64 = CI::BitmapSampler::read(*(v10 + 8), *v52.i64, v53, v54, v55, v88, v57, v56, v58);
-  *&v60.f64[1] = v93.i64[1];
-  *&v60.f64[0] = vsub_f32(*v93.i8, v31);
-  *&v61 = vmuls_lane_f32(*(v10 + 20), *&v60.f64[0], 1) + (*v60.f64 * *(v10 + 16));
-  LODWORD(v62) = *(v10 + 24);
-  v63.i32[0] = *(v10 + 36);
-  *v64.i32 = vmuls_lane_f32(*(v10 + 32), *&v60.f64[0], 1);
-  v65 = v90;
-  v91 = vmaxnmq_f32(v90, v59);
-  v59.f32[0] = *&v62 + *&v61;
-  *v60.f64 = *v63.i32 + (*v64.i32 + (*v60.f64 * *(v10 + 28)));
-  v59.i32[1] = LODWORD(v60.f64[0]);
-  *v67.i64 = CI::BitmapSampler::read(*(v10 + 8), *v59.i64, v60, v61, v62, v65, v64, v63, v66);
-  *&v68.f64[1] = v93.i64[1];
-  *&v68.f64[0] = vadd_f32(v23, *v93.i8);
-  *&v69 = vmuls_lane_f32(*(v10 + 20), *&v68.f64[0], 1) + (*v68.f64 * *(v10 + 16));
-  LODWORD(v70) = *(v10 + 24);
-  v71.i32[0] = *(v10 + 36);
-  *v72.i32 = vmuls_lane_f32(*(v10 + 32), *&v68.f64[0], 1);
-  v73 = v91;
-  v92 = vmaxnmq_f32(v91, v67);
-  v67.f32[0] = *&v70 + *&v69;
-  *v68.f64 = *v71.i32 + (*v72.i32 + (*v68.f64 * *(v10 + 28)));
-  v67.i32[1] = LODWORD(v68.f64[0]);
-  *v75.i64 = CI::BitmapSampler::read(*(v10 + 8), *v67.i64, v68, v69, v70, v73, v72, v71, v74);
-  *&v76.f64[1] = v93.i64[1];
-  *&v76.f64[0] = vadd_f32(v13, *v93.i8);
-  *&v77 = vmuls_lane_f32(*(v10 + 20), *&v76.f64[0], 1) + (*v76.f64 * *(v10 + 16));
-  LODWORD(v78) = *(v10 + 24);
-  v79.i32[0] = *(v10 + 36);
-  *v80.i32 = vmuls_lane_f32(*(v10 + 32), *&v76.f64[0], 1);
-  v94 = vmaxnmq_f32(v92, v75);
-  v75.f32[0] = *&v78 + *&v77;
-  *v76.f64 = *v79.i32 + (*v80.i32 + (*v76.f64 * *(v10 + 28)));
-  v75.i32[1] = LODWORD(v76.f64[0]);
-  *v82.i64 = CI::BitmapSampler::read(*(v10 + 8), *v75.i64, v76, v77, v78, v92, v80, v79, v81);
-  *&result = vmaxnmq_f32(v94, v82).u64[0];
+  v37.n128_u32[1] = LODWORD(v32.f64[0]);
+  *v39.i64 = CI::BitmapSampler::read(*(v10 + 8), v37, v32, v30, v33, v36, v35, v34, v38);
+  *&v96.f64[0] = __PAIR64__(v93.u32[1], LODWORD(v96.f64[0]));
+  v40 = v96.f64[0];
+  *&v41.f64[1] = v100.i64[1];
+  *&v41.f64[0] = vsub_f32(*v100.i8, *&v96.f64[0]);
+  *&v40 = vmuls_lane_f32(*(v10 + 20), *&v41.f64[0], 1) + (*v41.f64 * *(v10 + 16));
+  LODWORD(v42) = *(v10 + 24);
+  v43.i32[0] = *(v10 + 36);
+  *v44.i32 = vmuls_lane_f32(*(v10 + 32), *&v41.f64[0], 1);
+  v45 = vmaxnmq_f32(v92, v39);
+  v94 = v45;
+  v45.n128_f32[0] = *&v42 + *&v40;
+  *v41.f64 = *v43.i32 + (*v44.i32 + (*v41.f64 * *(v10 + 28)));
+  v45.n128_u32[1] = LODWORD(v41.f64[0]);
+  *v47.i64 = CI::BitmapSampler::read(*(v10 + 8), v45, v41, v40, v42, v92, v44, v43, v46);
+  v48 = v94;
+  v49 = vmaxnmq_f32(v94, v47);
+  v95 = v49;
+  LODWORD(v50) = *(v10 + 28);
+  v49.n128_f32[0] = *(v10 + 24) + (vmuls_lane_f32(*(v10 + 20), *v100.i8, 1) + (*v100.i32 * *(v10 + 16)));
+  LODWORD(v51) = *(v10 + 36);
+  *v48.f64 = *&v51 + (vmuls_lane_f32(*(v10 + 32), *v100.i8, 1) + (*v100.i32 * *&v50));
+  v49.n128_u32[1] = LODWORD(v48.f64[0]);
+  *v55.i64 = CI::BitmapSampler::read(*(v10 + 8), v49, v48, v50, v51, v100, v52, v53, v54);
+  HIDWORD(v57) = HIDWORD(v96.f64[0]);
+  *&v56.f64[1] = v100.i64[1];
+  *&v56.f64[0] = vadd_f32(*&v96.f64[0], *v100.i8);
+  *&v57 = vmuls_lane_f32(*(v10 + 20), *&v56.f64[0], 1) + (*v56.f64 * *(v10 + 16));
+  LODWORD(v58) = *(v10 + 24);
+  v59.i32[0] = *(v10 + 36);
+  *v60.i32 = vmuls_lane_f32(*(v10 + 32), *&v56.f64[0], 1);
+  v61 = vmaxnmq_f32(v95, v55);
+  v97 = v61;
+  v61.n128_f32[0] = *&v58 + *&v57;
+  *v56.f64 = *v59.i32 + (*v60.i32 + (*v56.f64 * *(v10 + 28)));
+  v61.n128_u32[1] = LODWORD(v56.f64[0]);
+  *v63.i64 = CI::BitmapSampler::read(*(v10 + 8), v61, v56, v57, v58, v95, v60, v59, v62);
+  *&v64.f64[1] = v100.i64[1];
+  *&v64.f64[0] = vsub_f32(*v100.i8, v31);
+  *&v65 = vmuls_lane_f32(*(v10 + 20), *&v64.f64[0], 1) + (*v64.f64 * *(v10 + 16));
+  LODWORD(v66) = *(v10 + 24);
+  v67.i32[0] = *(v10 + 36);
+  *v68.i32 = vmuls_lane_f32(*(v10 + 32), *&v64.f64[0], 1);
+  v69 = v97;
+  v70 = vmaxnmq_f32(v97, v63);
+  v98 = v70;
+  v70.n128_f32[0] = *&v66 + *&v65;
+  *v64.f64 = *v67.i32 + (*v68.i32 + (*v64.f64 * *(v10 + 28)));
+  v70.n128_u32[1] = LODWORD(v64.f64[0]);
+  *v72.i64 = CI::BitmapSampler::read(*(v10 + 8), v70, v64, v65, v66, v69, v68, v67, v71);
+  *&v73.f64[1] = v100.i64[1];
+  *&v73.f64[0] = vadd_f32(v23, *v100.i8);
+  *&v74 = vmuls_lane_f32(*(v10 + 20), *&v73.f64[0], 1) + (*v73.f64 * *(v10 + 16));
+  LODWORD(v75) = *(v10 + 24);
+  v76.i32[0] = *(v10 + 36);
+  *v77.i32 = vmuls_lane_f32(*(v10 + 32), *&v73.f64[0], 1);
+  v78 = v98;
+  v79 = vmaxnmq_f32(v98, v72);
+  v99 = v79;
+  v79.n128_f32[0] = *&v75 + *&v74;
+  *v73.f64 = *v76.i32 + (*v77.i32 + (*v73.f64 * *(v10 + 28)));
+  v79.n128_u32[1] = LODWORD(v73.f64[0]);
+  *v81.i64 = CI::BitmapSampler::read(*(v10 + 8), v79, v73, v74, v75, v78, v77, v76, v80);
+  *&v82.f64[1] = v100.i64[1];
+  *&v82.f64[0] = vadd_f32(v13, *v100.i8);
+  *&v83 = vmuls_lane_f32(*(v10 + 20), *&v82.f64[0], 1) + (*v82.f64 * *(v10 + 16));
+  LODWORD(v84) = *(v10 + 24);
+  v85.i32[0] = *(v10 + 36);
+  *v86.i32 = vmuls_lane_f32(*(v10 + 32), *&v82.f64[0], 1);
+  v87 = vmaxnmq_f32(v99, v81);
+  v101 = v87;
+  v87.n128_f32[0] = *&v84 + *&v83;
+  *v82.f64 = *v85.i32 + (*v86.i32 + (*v82.f64 * *(v10 + 28)));
+  v87.n128_u32[1] = LODWORD(v82.f64[0]);
+  *v89.i64 = CI::BitmapSampler::read(*(v10 + 8), v87, v82, v83, v84, v99, v86, v85, v88);
+  *&result = vmaxnmq_f32(v101, v89).u64[0];
   return result;
 }
 
@@ -260,117 +996,125 @@ double CI::sw_min3x3(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   v10 = a4 + 80 * v5;
-  v89 = *v9;
-  v11.i64[0] = *CI::getDC(a1);
-  v93 = v11;
-  v12 = v89;
-  v13 = vdup_lane_s32(*&v89.f64[0], 1);
-  *v11.i8 = vsub_f32(*v11.i8, v13);
+  v96 = *v9;
+  v11.n128_u64[0] = *CI::getDC(a1);
+  v100 = v11;
+  v12 = v96;
+  v13 = vdup_lane_s32(*&v96.f64[0], 1);
+  v11.n128_u64[0] = vsub_f32(v11.n128_u64[0], v13);
   LODWORD(v14) = *(v10 + 24);
   v15.i32[0] = *(v10 + 36);
-  *v16.i32 = vmuls_lane_f32(*(v10 + 32), *v11.i8, 1);
-  *&v17 = *v16.i32 + (*v11.i32 * *(v10 + 28));
-  *v11.i32 = *&v14 + (vmuls_lane_f32(*(v10 + 20), *v11.i8, 1) + (*v11.i32 * *(v10 + 16)));
+  *v16.i32 = vmuls_lane_f32(*(v10 + 32), v11.n128_u64[0], 1);
+  *&v17 = *v16.i32 + (v11.n128_f32[0] * *(v10 + 28));
+  v11.n128_f32[0] = *&v14 + (vmuls_lane_f32(*(v10 + 20), v11.n128_u64[0], 1) + (v11.n128_f32[0] * *(v10 + 16)));
   *v12.f64 = *v15.i32 + *&v17;
-  *&v11.i32[1] = *v15.i32 + *&v17;
-  *v20.i64 = CI::BitmapSampler::read(*(v10 + 8), *v11.i64, v12, v14, v17, v16, v15, v18, v19);
-  v84 = v20;
-  v21 = v89;
+  v11.n128_f32[1] = *v15.i32 + *&v17;
+  v20.n128_f64[0] = CI::BitmapSampler::read(*(v10 + 8), v11, v12, v14, v17, v16, v15, v18, v19);
+  v91 = v20;
+  v21 = v96;
+  v20.n128_u64[1] = v100.u64[1];
   v22 = vextq_s8(v21, v21, 8uLL);
-  v86 = *&v22.f64[0];
-  v23 = vext_s8(*&v22.f64[0], *&v89.f64[0], 4uLL);
-  *v20.f32 = vsub_f32(*v93.i8, v23);
+  v93 = *&v22.f64[0];
+  v23 = vext_s8(*&v22.f64[0], *&v96.f64[0], 4uLL);
+  v20.n128_u64[0] = vsub_f32(*v100.i8, v23);
   v21.i32[0] = *(v10 + 24);
   v24.i32[0] = *(v10 + 36);
-  *v25.i32 = vmuls_lane_f32(*(v10 + 32), *v20.f32, 1);
-  *&v26 = *v25.i32 + (v20.f32[0] * *(v10 + 28));
-  v20.f32[0] = *v21.i32 + (vmuls_lane_f32(*(v10 + 20), *v20.f32, 1) + (v20.f32[0] * *(v10 + 16)));
+  *v25.i32 = vmuls_lane_f32(*(v10 + 32), v20.n128_u64[0], 1);
+  *&v26 = *v25.i32 + (v20.n128_f32[0] * *(v10 + 28));
+  v20.n128_f32[0] = *v21.i32 + (vmuls_lane_f32(*(v10 + 20), v20.n128_u64[0], 1) + (v20.n128_f32[0] * *(v10 + 16)));
   *v22.f64 = *v24.i32 + *&v26;
-  v20.f32[1] = *v24.i32 + *&v26;
-  *v29.i64 = CI::BitmapSampler::read(*(v10 + 8), *v20.i64, v22, *v21.i64, v26, v25, v24, v27, v28);
-  HIDWORD(v30) = HIDWORD(v89.f64[0]);
-  v31 = vext_s8(*&v89.f64[0], v86, 4uLL);
-  *&v32.f64[1] = v93.i64[1];
-  *&v32.f64[0] = vadd_f32(v31, *v93.i8);
+  v20.n128_f32[1] = *v24.i32 + *&v26;
+  *v29.i64 = CI::BitmapSampler::read(*(v10 + 8), v20, v22, *v21.i64, v26, v25, v24, v27, v28);
+  HIDWORD(v30) = HIDWORD(v96.f64[0]);
+  v31 = vext_s8(*&v96.f64[0], v93, 4uLL);
+  *&v32.f64[1] = v100.i64[1];
+  *&v32.f64[0] = vadd_f32(v31, *v100.i8);
   *&v30 = vmuls_lane_f32(*(v10 + 20), *&v32.f64[0], 1) + (*v32.f64 * *(v10 + 16));
   LODWORD(v33) = *(v10 + 24);
   v34.i32[0] = *(v10 + 36);
   *v35.i32 = vmuls_lane_f32(*(v10 + 32), *&v32.f64[0], 1);
-  v36 = v84;
-  v85 = vminnmq_f32(v84, v29);
-  v29.f32[0] = *&v33 + *&v30;
+  v36 = v91;
+  v37 = vminnmq_f32(v91, v29);
+  v92 = v37;
+  v37.n128_f32[0] = *&v33 + *&v30;
   *v32.f64 = *v34.i32 + (*v35.i32 + (*v32.f64 * *(v10 + 28)));
-  v29.i32[1] = LODWORD(v32.f64[0]);
-  *v38.i64 = CI::BitmapSampler::read(*(v10 + 8), *v29.i64, v32, v30, v33, v36, v35, v34, v37);
-  *&v89.f64[0] = __PAIR64__(v86.u32[1], LODWORD(v89.f64[0]));
-  v39 = v89.f64[0];
-  *&v40.f64[1] = v93.i64[1];
-  *&v40.f64[0] = vsub_f32(*v93.i8, *&v89.f64[0]);
-  *&v39 = vmuls_lane_f32(*(v10 + 20), *&v40.f64[0], 1) + (*v40.f64 * *(v10 + 16));
-  LODWORD(v41) = *(v10 + 24);
-  v42.i32[0] = *(v10 + 36);
-  *v43.i32 = vmuls_lane_f32(*(v10 + 32), *&v40.f64[0], 1);
-  v87 = vminnmq_f32(v85, v38);
-  v38.f32[0] = *&v41 + *&v39;
-  *v40.f64 = *v42.i32 + (*v43.i32 + (*v40.f64 * *(v10 + 28)));
-  v38.i32[1] = LODWORD(v40.f64[0]);
-  *v45.i64 = CI::BitmapSampler::read(*(v10 + 8), *v38.i64, v40, v39, v41, v85, v43, v42, v44);
-  v46 = v87;
-  v88 = vminnmq_f32(v87, v45);
-  LODWORD(v47) = *(v10 + 28);
-  v45.f32[0] = *(v10 + 24) + (vmuls_lane_f32(*(v10 + 20), *v93.i8, 1) + (*v93.i32 * *(v10 + 16)));
-  LODWORD(v48) = *(v10 + 36);
-  *v46.f64 = *&v48 + (vmuls_lane_f32(*(v10 + 32), *v93.i8, 1) + (*v93.i32 * *&v47));
-  v45.i32[1] = LODWORD(v46.f64[0]);
-  *v52.i64 = CI::BitmapSampler::read(*(v10 + 8), *v45.i64, v46, v47, v48, v93, v49, v50, v51);
-  HIDWORD(v54) = HIDWORD(v89.f64[0]);
-  *&v53.f64[1] = v93.i64[1];
-  *&v53.f64[0] = vadd_f32(*&v89.f64[0], *v93.i8);
-  *&v54 = vmuls_lane_f32(*(v10 + 20), *&v53.f64[0], 1) + (*v53.f64 * *(v10 + 16));
-  LODWORD(v55) = *(v10 + 24);
-  v56.i32[0] = *(v10 + 36);
-  *v57.i32 = vmuls_lane_f32(*(v10 + 32), *&v53.f64[0], 1);
-  v90 = vminnmq_f32(v88, v52);
-  v52.f32[0] = *&v55 + *&v54;
-  *v53.f64 = *v56.i32 + (*v57.i32 + (*v53.f64 * *(v10 + 28)));
-  v52.i32[1] = LODWORD(v53.f64[0]);
-  *v59.i64 = CI::BitmapSampler::read(*(v10 + 8), *v52.i64, v53, v54, v55, v88, v57, v56, v58);
-  *&v60.f64[1] = v93.i64[1];
-  *&v60.f64[0] = vsub_f32(*v93.i8, v31);
-  *&v61 = vmuls_lane_f32(*(v10 + 20), *&v60.f64[0], 1) + (*v60.f64 * *(v10 + 16));
-  LODWORD(v62) = *(v10 + 24);
-  v63.i32[0] = *(v10 + 36);
-  *v64.i32 = vmuls_lane_f32(*(v10 + 32), *&v60.f64[0], 1);
-  v65 = v90;
-  v91 = vminnmq_f32(v90, v59);
-  v59.f32[0] = *&v62 + *&v61;
-  *v60.f64 = *v63.i32 + (*v64.i32 + (*v60.f64 * *(v10 + 28)));
-  v59.i32[1] = LODWORD(v60.f64[0]);
-  *v67.i64 = CI::BitmapSampler::read(*(v10 + 8), *v59.i64, v60, v61, v62, v65, v64, v63, v66);
-  *&v68.f64[1] = v93.i64[1];
-  *&v68.f64[0] = vadd_f32(v23, *v93.i8);
-  *&v69 = vmuls_lane_f32(*(v10 + 20), *&v68.f64[0], 1) + (*v68.f64 * *(v10 + 16));
-  LODWORD(v70) = *(v10 + 24);
-  v71.i32[0] = *(v10 + 36);
-  *v72.i32 = vmuls_lane_f32(*(v10 + 32), *&v68.f64[0], 1);
-  v73 = v91;
-  v92 = vminnmq_f32(v91, v67);
-  v67.f32[0] = *&v70 + *&v69;
-  *v68.f64 = *v71.i32 + (*v72.i32 + (*v68.f64 * *(v10 + 28)));
-  v67.i32[1] = LODWORD(v68.f64[0]);
-  *v75.i64 = CI::BitmapSampler::read(*(v10 + 8), *v67.i64, v68, v69, v70, v73, v72, v71, v74);
-  *&v76.f64[1] = v93.i64[1];
-  *&v76.f64[0] = vadd_f32(v13, *v93.i8);
-  *&v77 = vmuls_lane_f32(*(v10 + 20), *&v76.f64[0], 1) + (*v76.f64 * *(v10 + 16));
-  LODWORD(v78) = *(v10 + 24);
-  v79.i32[0] = *(v10 + 36);
-  *v80.i32 = vmuls_lane_f32(*(v10 + 32), *&v76.f64[0], 1);
-  v94 = vminnmq_f32(v92, v75);
-  v75.f32[0] = *&v78 + *&v77;
-  *v76.f64 = *v79.i32 + (*v80.i32 + (*v76.f64 * *(v10 + 28)));
-  v75.i32[1] = LODWORD(v76.f64[0]);
-  *v82.i64 = CI::BitmapSampler::read(*(v10 + 8), *v75.i64, v76, v77, v78, v92, v80, v79, v81);
-  *&result = vminnmq_f32(v94, v82).u64[0];
+  v37.n128_u32[1] = LODWORD(v32.f64[0]);
+  *v39.i64 = CI::BitmapSampler::read(*(v10 + 8), v37, v32, v30, v33, v36, v35, v34, v38);
+  *&v96.f64[0] = __PAIR64__(v93.u32[1], LODWORD(v96.f64[0]));
+  v40 = v96.f64[0];
+  *&v41.f64[1] = v100.i64[1];
+  *&v41.f64[0] = vsub_f32(*v100.i8, *&v96.f64[0]);
+  *&v40 = vmuls_lane_f32(*(v10 + 20), *&v41.f64[0], 1) + (*v41.f64 * *(v10 + 16));
+  LODWORD(v42) = *(v10 + 24);
+  v43.i32[0] = *(v10 + 36);
+  *v44.i32 = vmuls_lane_f32(*(v10 + 32), *&v41.f64[0], 1);
+  v45 = vminnmq_f32(v92, v39);
+  v94 = v45;
+  v45.n128_f32[0] = *&v42 + *&v40;
+  *v41.f64 = *v43.i32 + (*v44.i32 + (*v41.f64 * *(v10 + 28)));
+  v45.n128_u32[1] = LODWORD(v41.f64[0]);
+  *v47.i64 = CI::BitmapSampler::read(*(v10 + 8), v45, v41, v40, v42, v92, v44, v43, v46);
+  v48 = v94;
+  v49 = vminnmq_f32(v94, v47);
+  v95 = v49;
+  LODWORD(v50) = *(v10 + 28);
+  v49.n128_f32[0] = *(v10 + 24) + (vmuls_lane_f32(*(v10 + 20), *v100.i8, 1) + (*v100.i32 * *(v10 + 16)));
+  LODWORD(v51) = *(v10 + 36);
+  *v48.f64 = *&v51 + (vmuls_lane_f32(*(v10 + 32), *v100.i8, 1) + (*v100.i32 * *&v50));
+  v49.n128_u32[1] = LODWORD(v48.f64[0]);
+  *v55.i64 = CI::BitmapSampler::read(*(v10 + 8), v49, v48, v50, v51, v100, v52, v53, v54);
+  HIDWORD(v57) = HIDWORD(v96.f64[0]);
+  *&v56.f64[1] = v100.i64[1];
+  *&v56.f64[0] = vadd_f32(*&v96.f64[0], *v100.i8);
+  *&v57 = vmuls_lane_f32(*(v10 + 20), *&v56.f64[0], 1) + (*v56.f64 * *(v10 + 16));
+  LODWORD(v58) = *(v10 + 24);
+  v59.i32[0] = *(v10 + 36);
+  *v60.i32 = vmuls_lane_f32(*(v10 + 32), *&v56.f64[0], 1);
+  v61 = vminnmq_f32(v95, v55);
+  v97 = v61;
+  v61.n128_f32[0] = *&v58 + *&v57;
+  *v56.f64 = *v59.i32 + (*v60.i32 + (*v56.f64 * *(v10 + 28)));
+  v61.n128_u32[1] = LODWORD(v56.f64[0]);
+  *v63.i64 = CI::BitmapSampler::read(*(v10 + 8), v61, v56, v57, v58, v95, v60, v59, v62);
+  *&v64.f64[1] = v100.i64[1];
+  *&v64.f64[0] = vsub_f32(*v100.i8, v31);
+  *&v65 = vmuls_lane_f32(*(v10 + 20), *&v64.f64[0], 1) + (*v64.f64 * *(v10 + 16));
+  LODWORD(v66) = *(v10 + 24);
+  v67.i32[0] = *(v10 + 36);
+  *v68.i32 = vmuls_lane_f32(*(v10 + 32), *&v64.f64[0], 1);
+  v69 = v97;
+  v70 = vminnmq_f32(v97, v63);
+  v98 = v70;
+  v70.n128_f32[0] = *&v66 + *&v65;
+  *v64.f64 = *v67.i32 + (*v68.i32 + (*v64.f64 * *(v10 + 28)));
+  v70.n128_u32[1] = LODWORD(v64.f64[0]);
+  *v72.i64 = CI::BitmapSampler::read(*(v10 + 8), v70, v64, v65, v66, v69, v68, v67, v71);
+  *&v73.f64[1] = v100.i64[1];
+  *&v73.f64[0] = vadd_f32(v23, *v100.i8);
+  *&v74 = vmuls_lane_f32(*(v10 + 20), *&v73.f64[0], 1) + (*v73.f64 * *(v10 + 16));
+  LODWORD(v75) = *(v10 + 24);
+  v76.i32[0] = *(v10 + 36);
+  *v77.i32 = vmuls_lane_f32(*(v10 + 32), *&v73.f64[0], 1);
+  v78 = v98;
+  v79 = vminnmq_f32(v98, v72);
+  v99 = v79;
+  v79.n128_f32[0] = *&v75 + *&v74;
+  *v73.f64 = *v76.i32 + (*v77.i32 + (*v73.f64 * *(v10 + 28)));
+  v79.n128_u32[1] = LODWORD(v73.f64[0]);
+  *v81.i64 = CI::BitmapSampler::read(*(v10 + 8), v79, v73, v74, v75, v78, v77, v76, v80);
+  *&v82.f64[1] = v100.i64[1];
+  *&v82.f64[0] = vadd_f32(v13, *v100.i8);
+  *&v83 = vmuls_lane_f32(*(v10 + 20), *&v82.f64[0], 1) + (*v82.f64 * *(v10 + 16));
+  LODWORD(v84) = *(v10 + 24);
+  v85.i32[0] = *(v10 + 36);
+  *v86.i32 = vmuls_lane_f32(*(v10 + 32), *&v82.f64[0], 1);
+  v87 = vminnmq_f32(v99, v81);
+  v101 = v87;
+  v87.n128_f32[0] = *&v84 + *&v83;
+  *v82.f64 = *v85.i32 + (*v86.i32 + (*v82.f64 * *(v10 + 28)));
+  v87.n128_u32[1] = LODWORD(v82.f64[0]);
+  *v89.i64 = CI::BitmapSampler::read(*(v10 + 8), v87, v82, v83, v84, v99, v86, v85, v88);
+  *&result = vminnmq_f32(v101, v89).u64[0];
   return result;
 }
 
@@ -501,39 +1245,39 @@ double CI::sw_morphmin(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   DC = CI::getDC(a1);
   *v15.i8 = *DC;
   LODWORD(v16) = *(v11 + 28);
-  *&v17 = *(v11 + 24) + (vmuls_lane_f32(*(v11 + 20), *DC, 1) + (COERCE_FLOAT(*DC) * *(v11 + 16)));
+  v17.n128_f32[0] = *(v11 + 24) + (vmuls_lane_f32(*(v11 + 20), *DC, 1) + (COERCE_FLOAT(*DC) * *(v11 + 16)));
   LODWORD(v18) = *(v11 + 36);
-  v36 = v15;
+  v34 = v15;
   *v19.f64 = *&v18 + (vmuls_lane_f32(*(v11 + 32), *DC, 1) + (COERCE_FLOAT(*DC) * *&v16));
-  HIDWORD(v17) = LODWORD(v19.f64[0]);
-  *v23.i64 = CI::BitmapSampler::read(*(v11 + 8), v17, v19, v16, v18, v15, v20, v21, v22);
+  v17.n128_u32[1] = LODWORD(v19.f64[0]);
+  v23.n128_f64[0] = CI::BitmapSampler::read(*(v11 + 8), v17, v19, v16, v18, v15, v20, v21, v22);
   if (v12 >= 0.0)
   {
     *&v24 = -v12;
     do
     {
-      v37 = v24;
-      v38 = v23;
-      v31 = vmul_n_f32(v13, *&v24);
-      v32 = v36;
-      v33 = vadd_f32(*&v36.f64[0], v31);
+      v35 = v24;
+      v36 = v23;
+      v23.n128_u64[0] = vmul_n_f32(v13, *&v24);
+      v31 = v34;
+      v23.n128_u64[0] = vadd_f32(*&v34.f64[0], v23.n128_u64[0]);
       LODWORD(v25) = *(v11 + 24);
       v28.i32[0] = *(v11 + 36);
-      *v27.i32 = vmuls_lane_f32(*(v11 + 32), v33, 1);
-      *&v26 = *v27.i32 + (v33.f32[0] * *(v11 + 28));
-      v33.f32[0] = *&v25 + (vmuls_lane_f32(*(v11 + 20), v33, 1) + (v33.f32[0] * *(v11 + 16)));
-      *v32.f64 = *v28.i32 + *&v26;
-      v33.f32[1] = *v28.i32 + *&v26;
-      *v34.i64 = CI::BitmapSampler::read(*(v11 + 8), *&v33, v32, v25, v26, v27, v28, v29, v30);
-      v24 = v37;
-      v23 = vminnmq_f32(v38, v34);
-      *&v24 = *&v37 + 1.0;
+      *v27.i32 = vmuls_lane_f32(*(v11 + 32), v23.n128_u64[0], 1);
+      *&v26 = *v27.i32 + (v23.n128_f32[0] * *(v11 + 28));
+      v23.n128_f32[0] = *&v25 + (vmuls_lane_f32(*(v11 + 20), v23.n128_u64[0], 1) + (v23.n128_f32[0] * *(v11 + 16)));
+      *v31.f64 = *v28.i32 + *&v26;
+      v23.n128_f32[1] = *v28.i32 + *&v26;
+      *v32.i64 = CI::BitmapSampler::read(*(v11 + 8), v23, v31, v25, v26, v27, v28, v29, v30);
+      v24 = v35;
+      v23 = vminnmq_f32(v36, v32);
+      *&v24 = *&v35 + 1.0;
     }
 
-    while ((*&v37 + 1.0) <= v12);
+    while ((*&v35 + 1.0) <= v12);
   }
 
-  return *v23.i64;
+  return v23.n128_f64[0];
 }
 
 double CI::sw_morphmax(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -556,56 +1300,56 @@ double CI::sw_morphmax(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   DC = CI::getDC(a1);
   *v15.i8 = *DC;
   LODWORD(v16) = *(v11 + 28);
-  *&v17 = *(v11 + 24) + (vmuls_lane_f32(*(v11 + 20), *DC, 1) + (COERCE_FLOAT(*DC) * *(v11 + 16)));
+  v17.n128_f32[0] = *(v11 + 24) + (vmuls_lane_f32(*(v11 + 20), *DC, 1) + (COERCE_FLOAT(*DC) * *(v11 + 16)));
   LODWORD(v18) = *(v11 + 36);
-  v36 = v15;
+  v34 = v15;
   *v19.f64 = *&v18 + (vmuls_lane_f32(*(v11 + 32), *DC, 1) + (COERCE_FLOAT(*DC) * *&v16));
-  HIDWORD(v17) = LODWORD(v19.f64[0]);
-  *v23.i64 = CI::BitmapSampler::read(*(v11 + 8), v17, v19, v16, v18, v15, v20, v21, v22);
+  v17.n128_u32[1] = LODWORD(v19.f64[0]);
+  v23.n128_f64[0] = CI::BitmapSampler::read(*(v11 + 8), v17, v19, v16, v18, v15, v20, v21, v22);
   if (v12 >= 0.0)
   {
     *&v24 = -v12;
     do
     {
-      v37 = v24;
-      v38 = v23;
-      v31 = vmul_n_f32(v13, *&v24);
-      v32 = v36;
-      v33 = vadd_f32(*&v36.f64[0], v31);
+      v35 = v24;
+      v36 = v23;
+      v23.n128_u64[0] = vmul_n_f32(v13, *&v24);
+      v31 = v34;
+      v23.n128_u64[0] = vadd_f32(*&v34.f64[0], v23.n128_u64[0]);
       LODWORD(v25) = *(v11 + 24);
       v28.i32[0] = *(v11 + 36);
-      *v27.i32 = vmuls_lane_f32(*(v11 + 32), v33, 1);
-      *&v26 = *v27.i32 + (v33.f32[0] * *(v11 + 28));
-      v33.f32[0] = *&v25 + (vmuls_lane_f32(*(v11 + 20), v33, 1) + (v33.f32[0] * *(v11 + 16)));
-      *v32.f64 = *v28.i32 + *&v26;
-      v33.f32[1] = *v28.i32 + *&v26;
-      *v34.i64 = CI::BitmapSampler::read(*(v11 + 8), *&v33, v32, v25, v26, v27, v28, v29, v30);
-      v24 = v37;
-      v23 = vmaxnmq_f32(v38, v34);
-      *&v24 = *&v37 + 1.0;
+      *v27.i32 = vmuls_lane_f32(*(v11 + 32), v23.n128_u64[0], 1);
+      *&v26 = *v27.i32 + (v23.n128_f32[0] * *(v11 + 28));
+      v23.n128_f32[0] = *&v25 + (vmuls_lane_f32(*(v11 + 20), v23.n128_u64[0], 1) + (v23.n128_f32[0] * *(v11 + 16)));
+      *v31.f64 = *v28.i32 + *&v26;
+      v23.n128_f32[1] = *v28.i32 + *&v26;
+      *v32.i64 = CI::BitmapSampler::read(*(v11 + 8), v23, v31, v25, v26, v27, v28, v29, v30);
+      v24 = v35;
+      v23 = vmaxnmq_f32(v36, v32);
+      *&v24 = *&v35 + 1.0;
     }
 
-    while ((*&v37 + 1.0) <= v12);
+    while ((*&v35 + 1.0) <= v12);
   }
 
-  return *v23.i64;
+  return v23.n128_f64[0];
 }
 
-int64x2_t Rectangle::Union@<Q0>(Rectangle *this@<X0>, const Rectangle *a2@<X1>, uint64_t a3@<X8>, int64x2_t result@<Q0>)
+int64x2_t Rectangle::Union@<Q0>(int64x2_t *__return_ptr a1@<X8>, Rectangle *this@<X0>, const Rectangle *a3@<X1>, int64x2_t result@<Q0>)
 {
   var0 = this->var0;
   if (fabs(this->var0) == INFINITY || (var1 = this->var1, fabs(var1) == INFINITY))
   {
-    result = *&a2->var0;
-    v6 = *&a2->var2;
+    result = *&a3->var0;
+    v6 = *&a3->var2;
 LABEL_4:
-    *a3 = result;
-    *(a3 + 16) = v6;
+    *a1 = result;
+    a1[1] = v6;
     return result;
   }
 
-  v7 = a2->var0;
-  if (fabs(a2->var0) == INFINITY || (v8 = a2->var1, fabs(v8) == INFINITY))
+  v7 = a3->var0;
+  if (fabs(a3->var0) == INFINITY || (v8 = a3->var1, fabs(v8) == INFINITY))
   {
     result = *&this->var0;
     v6 = *&this->var2;
@@ -620,26 +1364,26 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v10 = *&a2->var2;
+  v10 = *&a3->var2;
   v11 = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
-  if (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(*&a2->var0, vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL)), vceqq_f64(v10, v11))))))
+  if (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(*&a3->var0, vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL)), vceqq_f64(v10, v11))))))
   {
     v12 = var0 + this->var2;
     v13 = fmin(fmin(var0, v12), fmin(v7, v7 + v10.f64[0]));
     v14 = var1 + this->var3;
     v15 = fmin(fmin(var1, v14), fmin(v8, v8 + v10.f64[1]));
     *result.i64 = fmax(fmax(var0, v12), fmax(v7, v7 + v10.f64[0])) - v13;
-    *a3 = v13;
-    *(a3 + 8) = v15;
-    *(a3 + 16) = result.i64[0];
-    *(a3 + 24) = fmax(fmax(var1, v14), fmax(v8, v8 + v10.f64[1])) - v15;
+    *a1->i64 = v13;
+    *&a1->i64[1] = v15;
+    a1[1].i64[0] = result.i64[0];
+    *&a1[1].i64[1] = fmax(fmax(var1, v14), fmax(v8, v8 + v10.f64[1])) - v15;
   }
 
   else
   {
     result = vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL);
-    *a3 = result;
-    *(a3 + 16) = v11;
+    *a1 = result;
+    a1[1] = v11;
   }
 
   return result;
@@ -662,55 +1406,59 @@ double CI::sw_motionBlur(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v58 = *v9;
   v11.f64[0] = *CI::getDC(a1);
   v57 = v11;
-  v12 = vadd_f32(*v58.f32, *v58.f32);
-  v13 = vsub_f32(*&v11.f64[0], v12);
+  v12 = v58;
+  v13 = vadd_f32(v12.n128_u64[0], v12.n128_u64[0]);
+  v12.n128_u64[0] = vsub_f32(*&v11.f64[0], v13);
   LODWORD(v14) = *(v10 + 24);
   v15.i32[0] = *(v10 + 36);
-  *v16.i32 = vmuls_lane_f32(*(v10 + 32), v13, 1);
-  *&v17 = *v16.i32 + (v13.f32[0] * *(v10 + 28));
-  v13.f32[0] = *&v14 + (vmuls_lane_f32(*(v10 + 20), v13, 1) + (v13.f32[0] * *(v10 + 16)));
+  *v16.i32 = vmuls_lane_f32(*(v10 + 32), v12.n128_u64[0], 1);
+  *&v17 = *v16.i32 + (v12.n128_f32[0] * *(v10 + 28));
+  v12.n128_f32[0] = *&v14 + (vmuls_lane_f32(*(v10 + 20), v12.n128_u64[0], 1) + (v12.n128_f32[0] * *(v10 + 16)));
   *v11.f64 = *v15.i32 + *&v17;
-  v13.f32[1] = *v15.i32 + *&v17;
-  *v20.i64 = CI::BitmapSampler::read(*(v10 + 8), *&v13, v11, v14, v17, v16, v15, v18, v19);
+  v12.n128_f32[1] = *v15.i32 + *&v17;
+  v20.n128_f64[0] = CI::BitmapSampler::read(*(v10 + 8), v12, v11, v14, v17, v16, v15, v18, v19);
   v56 = v20;
+  v20.n128_u64[1] = v58.u64[1];
   v21 = v57;
-  *v20.f32 = vsub_f32(*v57.i8, *v58.f32);
+  v20.n128_u64[0] = vsub_f32(*v57.i8, *v58.f32);
   LODWORD(v22) = *(v10 + 24);
   v23.i32[0] = *(v10 + 36);
-  *v24.i32 = vmuls_lane_f32(*(v10 + 32), *v20.f32, 1);
-  *&v25 = *v24.i32 + (v20.f32[0] * *(v10 + 28));
-  v20.f32[0] = *&v22 + (vmuls_lane_f32(*(v10 + 20), *v20.f32, 1) + (v20.f32[0] * *(v10 + 16)));
+  *v24.i32 = vmuls_lane_f32(*(v10 + 32), v20.n128_u64[0], 1);
+  *&v25 = *v24.i32 + (v20.n128_f32[0] * *(v10 + 28));
+  v20.n128_f32[0] = *&v22 + (vmuls_lane_f32(*(v10 + 20), v20.n128_u64[0], 1) + (v20.n128_f32[0] * *(v10 + 16)));
   *v21.f64 = *v23.i32 + *&v25;
-  v20.f32[1] = *v23.i32 + *&v25;
-  *v28.i64 = CI::BitmapSampler::read(*(v10 + 8), *v20.i64, v21, v22, v25, v24, v23, v26, v27);
+  v20.n128_f32[1] = *v23.i32 + *&v25;
+  v28.n128_f64[0] = CI::BitmapSampler::read(*(v10 + 8), v20, v21, v22, v25, v24, v23, v26, v27);
   v55 = v28;
   LODWORD(v29) = *(v10 + 28);
-  v28.f32[0] = *(v10 + 24) + (vmuls_lane_f32(*(v10 + 20), *v57.i8, 1) + (*v57.i32 * *(v10 + 16)));
+  v28.n128_f32[0] = *(v10 + 24) + (vmuls_lane_f32(*(v10 + 20), *v57.i8, 1) + (*v57.i32 * *(v10 + 16)));
   LODWORD(v30) = *(v10 + 36);
   *v31.f64 = *&v30 + (vmuls_lane_f32(*(v10 + 32), *v57.i8, 1) + (*v57.i32 * *&v29));
-  v28.i32[1] = LODWORD(v31.f64[0]);
-  *v35.i64 = CI::BitmapSampler::read(*(v10 + 8), *v28.i64, v31, v29, v30, v57, v32, v33, v34);
+  v28.n128_u32[1] = LODWORD(v31.f64[0]);
+  v35.n128_f64[0] = CI::BitmapSampler::read(*(v10 + 8), v28, v31, v29, v30, v57, v32, v33, v34);
   v54 = v35;
+  v35.n128_u64[1] = v58.u64[1];
   v36 = v57;
-  *v35.f32 = vadd_f32(*v58.f32, *v57.i8);
+  v35.n128_u64[0] = vadd_f32(*v58.f32, *v57.i8);
   LODWORD(v37) = *(v10 + 24);
   v38.i32[0] = *(v10 + 36);
-  *v39.i32 = vmuls_lane_f32(*(v10 + 32), *v35.f32, 1);
-  *&v40 = *v39.i32 + (v35.f32[0] * *(v10 + 28));
-  v35.f32[0] = *&v37 + (vmuls_lane_f32(*(v10 + 20), *v35.f32, 1) + (v35.f32[0] * *(v10 + 16)));
+  *v39.i32 = vmuls_lane_f32(*(v10 + 32), v35.n128_u64[0], 1);
+  *&v40 = *v39.i32 + (v35.n128_f32[0] * *(v10 + 28));
+  v35.n128_f32[0] = *&v37 + (vmuls_lane_f32(*(v10 + 20), v35.n128_u64[0], 1) + (v35.n128_f32[0] * *(v10 + 16)));
   *v36.f64 = *v38.i32 + *&v40;
-  v35.f32[1] = *v38.i32 + *&v40;
-  *v43.i64 = CI::BitmapSampler::read(*(v10 + 8), *v35.i64, v36, v37, v40, v39, v38, v41, v42);
+  v35.n128_f32[1] = *v38.i32 + *&v40;
+  v43.n128_f64[0] = CI::BitmapSampler::read(*(v10 + 8), v35, v36, v37, v40, v39, v38, v41, v42);
   v53 = v43;
-  *v43.f32 = vadd_f32(v12, *v57.i8);
+  v43.n128_u64[1] = v57.u64[1];
+  v43.n128_u64[0] = vadd_f32(v13, *v57.i8);
   LODWORD(v44) = *(v10 + 24);
   v45.i32[0] = *(v10 + 36);
-  *v46.i32 = vmuls_lane_f32(*(v10 + 32), *v43.f32, 1);
-  *&v47 = *v46.i32 + (v43.f32[0] * *(v10 + 28));
-  v43.f32[0] = *&v44 + (vmuls_lane_f32(*(v10 + 20), *v43.f32, 1) + (v43.f32[0] * *(v10 + 16)));
+  *v46.i32 = vmuls_lane_f32(*(v10 + 32), v43.n128_u64[0], 1);
+  *&v47 = *v46.i32 + (v43.n128_f32[0] * *(v10 + 28));
+  v43.n128_f32[0] = *&v44 + (vmuls_lane_f32(*(v10 + 20), v43.n128_u64[0], 1) + (v43.n128_f32[0] * *(v10 + 16)));
   *v48.f64 = *v45.i32 + *&v47;
-  v43.f32[1] = *v45.i32 + *&v47;
-  *v51.i64 = CI::BitmapSampler::read(*(v10 + 8), *v43.i64, v48, v44, v47, v46, v45, v49, v50);
+  v43.n128_f32[1] = *v45.i32 + *&v47;
+  *v51.i64 = CI::BitmapSampler::read(*(v10 + 8), v43, v48, v44, v47, v46, v45, v49, v50);
   *&result = vaddq_f32(vmulq_laneq_f32(v54, v58, 2), vmulq_laneq_f32(vaddq_f32(vaddq_f32(v55, v53), vmulq_laneq_f32(vaddq_f32(v56, v51), v58, 3)), v58, 3)).u64[0];
   return result;
 }
@@ -769,50 +1517,54 @@ double CI::sw_zoomBlur(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v23.i32[0] = *(v17 + 36);
   *v24.i32 = vmuls_lane_f32(*(v17 + 32), *v21, 1);
   *&v25 = *v24.i32 + (COERCE_FLOAT(*v21) * *(v17 + 28));
-  *&v26 = *&v22 + (vmuls_lane_f32(*(v17 + 20), *v21, 1) + (COERCE_FLOAT(*v21) * *(v17 + 16)));
+  v26.n128_f32[0] = *&v22 + (vmuls_lane_f32(*(v17 + 20), *v21, 1) + (COERCE_FLOAT(*v21) * *(v17 + 16)));
   *v27.f64 = *v23.i32 + *&v25;
-  *(&v26 + 1) = *v23.i32 + *&v25;
-  *v30.i64 = CI::BitmapSampler::read(*(v17 + 8), v26, v27, v22, v25, v24, v23, v28, v29);
+  v26.n128_f32[1] = *v23.i32 + *&v25;
+  v30.n128_f64[0] = CI::BitmapSampler::read(*(v17 + 8), v26, v27, v22, v25, v24, v23, v28, v29);
   v67 = v30;
-  *v30.f32 = vadd_f32(v18, vmul_n_f32(v20, v70.f32[0]));
+  v30.n128_u64[1] = v70.u64[1];
+  v30.n128_u64[0] = vadd_f32(v18, vmul_n_f32(v20, v70.f32[0]));
   LODWORD(v31) = *(v17 + 24);
   v32.i32[0] = *(v17 + 36);
-  *v33.i32 = vmuls_lane_f32(*(v17 + 32), *v30.f32, 1);
-  *&v34 = *v33.i32 + (v30.f32[0] * *(v17 + 28));
-  v30.f32[0] = *&v31 + (vmuls_lane_f32(*(v17 + 20), *v30.f32, 1) + (v30.f32[0] * *(v17 + 16)));
+  *v33.i32 = vmuls_lane_f32(*(v17 + 32), v30.n128_u64[0], 1);
+  *&v34 = *v33.i32 + (v30.n128_f32[0] * *(v17 + 28));
+  v30.n128_f32[0] = *&v31 + (vmuls_lane_f32(*(v17 + 20), v30.n128_u64[0], 1) + (v30.n128_f32[0] * *(v17 + 16)));
   *v35.f64 = *v32.i32 + *&v34;
-  v30.f32[1] = *v32.i32 + *&v34;
-  *v38.i64 = CI::BitmapSampler::read(*(v17 + 8), *v30.i64, v35, v31, v34, v33, v32, v36, v37);
+  v30.n128_f32[1] = *v32.i32 + *&v34;
+  v38.n128_f64[0] = CI::BitmapSampler::read(*(v17 + 8), v30, v35, v31, v34, v33, v32, v36, v37);
   v66 = v38;
-  *v38.f32 = vadd_f32(v18, vmul_lane_f32(v20, *v70.f32, 1));
+  v38.n128_u64[1] = v70.u64[1];
+  v38.n128_u64[0] = vadd_f32(v18, vmul_lane_f32(v20, *v70.f32, 1));
   LODWORD(v39) = *(v17 + 24);
   v40.i32[0] = *(v17 + 36);
-  *v41.i32 = vmuls_lane_f32(*(v17 + 32), *v38.f32, 1);
-  *&v42 = *v41.i32 + (v38.f32[0] * *(v17 + 28));
-  v38.f32[0] = *&v39 + (vmuls_lane_f32(*(v17 + 20), *v38.f32, 1) + (v38.f32[0] * *(v17 + 16)));
+  *v41.i32 = vmuls_lane_f32(*(v17 + 32), v38.n128_u64[0], 1);
+  *&v42 = *v41.i32 + (v38.n128_f32[0] * *(v17 + 28));
+  v38.n128_f32[0] = *&v39 + (vmuls_lane_f32(*(v17 + 20), v38.n128_u64[0], 1) + (v38.n128_f32[0] * *(v17 + 16)));
   *v43.f64 = *v40.i32 + *&v42;
-  v38.f32[1] = *v40.i32 + *&v42;
-  *v46.i64 = CI::BitmapSampler::read(*(v17 + 8), *v38.i64, v43, v39, v42, v41, v40, v44, v45);
+  v38.n128_f32[1] = *v40.i32 + *&v42;
+  v46.n128_f64[0] = CI::BitmapSampler::read(*(v17 + 8), v38, v43, v39, v42, v41, v40, v44, v45);
   v65 = v46;
-  *v46.f32 = vadd_f32(v18, vmul_laneq_f32(v20, v70, 2));
+  v46.n128_u64[1] = v70.u64[1];
+  v46.n128_u64[0] = vadd_f32(v18, vmul_laneq_f32(v20, v70, 2));
   LODWORD(v47) = *(v17 + 24);
   v48.i32[0] = *(v17 + 36);
-  *v49.i32 = vmuls_lane_f32(*(v17 + 32), *v46.f32, 1);
-  *&v50 = *v49.i32 + (v46.f32[0] * *(v17 + 28));
-  v46.f32[0] = *&v47 + (vmuls_lane_f32(*(v17 + 20), *v46.f32, 1) + (v46.f32[0] * *(v17 + 16)));
+  *v49.i32 = vmuls_lane_f32(*(v17 + 32), v46.n128_u64[0], 1);
+  *&v50 = *v49.i32 + (v46.n128_f32[0] * *(v17 + 28));
+  v46.n128_f32[0] = *&v47 + (vmuls_lane_f32(*(v17 + 20), v46.n128_u64[0], 1) + (v46.n128_f32[0] * *(v17 + 16)));
   *v51.f64 = *v48.i32 + *&v50;
-  v46.f32[1] = *v48.i32 + *&v50;
-  *v54.i64 = CI::BitmapSampler::read(*(v17 + 8), *v46.i64, v51, v47, v50, v49, v48, v52, v53);
+  v46.n128_f32[1] = *v48.i32 + *&v50;
+  v54.n128_f64[0] = CI::BitmapSampler::read(*(v17 + 8), v46, v51, v47, v50, v49, v48, v52, v53);
   v64 = v54;
-  *v54.f32 = vadd_f32(v18, vmul_laneq_f32(v20, v70, 3));
+  v54.n128_u64[1] = v70.u64[1];
+  v54.n128_u64[0] = vadd_f32(v18, vmul_laneq_f32(v20, v70, 3));
   LODWORD(v55) = *(v17 + 24);
   v56.i32[0] = *(v17 + 36);
-  *v57.i32 = vmuls_lane_f32(*(v17 + 32), *v54.f32, 1);
-  *&v58 = *v57.i32 + (v54.f32[0] * *(v17 + 28));
-  v54.f32[0] = *&v55 + (vmuls_lane_f32(*(v17 + 20), *v54.f32, 1) + (v54.f32[0] * *(v17 + 16)));
+  *v57.i32 = vmuls_lane_f32(*(v17 + 32), v54.n128_u64[0], 1);
+  *&v58 = *v57.i32 + (v54.n128_f32[0] * *(v17 + 28));
+  v54.n128_f32[0] = *&v55 + (vmuls_lane_f32(*(v17 + 20), v54.n128_u64[0], 1) + (v54.n128_f32[0] * *(v17 + 16)));
   *v59.f64 = *v56.i32 + *&v58;
-  v54.f32[1] = *v56.i32 + *&v58;
-  *v62.i64 = CI::BitmapSampler::read(*(v17 + 8), *v54.i64, v59, v55, v58, v57, v56, v60, v61);
+  v54.n128_f32[1] = *v56.i32 + *&v58;
+  *v62.i64 = CI::BitmapSampler::read(*(v17 + 8), v54, v59, v55, v58, v57, v56, v60, v61);
   *&result = vaddq_f32(vmulq_n_f32(v67, v69), vaddq_f32(vmulq_laneq_f32(v66, v68, 3), vaddq_f32(vmulq_laneq_f32(v65, v68, 2), vaddq_f32(vmulq_lane_f32(v64, *v68.f32, 1), vmulq_n_f32(v62, v68.f32[0]))))).u64[0];
   return result;
 }
@@ -841,24 +1593,24 @@ uint64_t CI::sw_zoom(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v20 = 0.0;
   v21 = 100;
   v22 = vdupq_n_s32(0x3C23D70Au);
-  v28 = v22;
+  v25 = v22;
   do
   {
-    v29 = v19;
-    v23 = v20 / 99.0;
+    v26 = v19;
+    v19.n128_f32[0] = v20 / 99.0;
     v22.f64[0] = 0.5;
-    v24 = ((v23 + -0.5) + (((v23 + -0.5) * (v23 + -0.5)) * (v23 + -0.5))) * 0.8 + 0.5;
-    v25 = vadd_f32(v10, vmul_n_f32(v18, v24 + (v11 * (1.0 - v24))));
+    v19.n128_f32[0] = ((v19.n128_f32[0] + -0.5) + (((v19.n128_f32[0] + -0.5) * (v19.n128_f32[0] + -0.5)) * (v19.n128_f32[0] + -0.5))) * 0.8 + 0.5;
+    v19.n128_u64[0] = vadd_f32(v10, vmul_n_f32(v18, v19.n128_f32[0] + (v11 * (1.0 - v19.n128_f32[0]))));
     LODWORD(v12) = *(v9 + 24);
     v15.i32[0] = *(v9 + 36);
-    *v14.i32 = vmuls_lane_f32(*(v9 + 32), v25, 1);
-    *&v13 = *v14.i32 + (v25.f32[0] * *(v9 + 28));
-    v25.f32[0] = *&v12 + (vmuls_lane_f32(*(v9 + 20), v25, 1) + (v25.f32[0] * *(v9 + 16)));
+    *v14.i32 = vmuls_lane_f32(*(v9 + 32), v19.n128_u64[0], 1);
+    *&v13 = *v14.i32 + (v19.n128_f32[0] * *(v9 + 28));
+    v19.n128_f32[0] = *&v12 + (vmuls_lane_f32(*(v9 + 20), v19.n128_u64[0], 1) + (v19.n128_f32[0] * *(v9 + 16)));
     *v22.f64 = *v15.i32 + *&v13;
-    v25.f32[1] = *v15.i32 + *&v13;
-    *v26.i64 = CI::BitmapSampler::read(*(v9 + 8), *&v25, v22, v12, v13, v14, v15, v16, v17);
-    HIDWORD(v12) = v28.i32[1];
-    v22 = vaddq_f32(v29, vmulq_f32(v26, v28));
+    v19.n128_f32[1] = *v15.i32 + *&v13;
+    *v23.i64 = CI::BitmapSampler::read(*(v9 + 8), v19, v22, v12, v13, v14, v15, v16, v17);
+    HIDWORD(v12) = v25.i32[1];
+    v22 = vaddq_f32(v26, vmulq_f32(v23, v25));
     v19 = v22;
     v20 = v20 + 1.0;
     --v21;
@@ -913,18 +1665,18 @@ double CI::sw_opTile(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v33 = *v17;
   v20 = vsub_f32(*CI::getDC(a1), *v9);
   v21 = vmul_lane_f32(vrndm_f32(vmul_n_f32(v20, v32.f32[0])), v32, 1);
-  v22 = vsub_f32(v20, v21);
+  v22.n128_u64[0] = vsub_f32(v20, v21);
   v23 = vmul_f32(*v33.i8, v21);
   v24 = vmul_f32(*&vextq_s8(v33, v33, 8uLL), v21);
   v25 = vzip1_s32(v23, v24);
-  *&v26.f64[0] = vadd_f32(v19, vadd_f32(v22, vadd_f32(v25, vzip2_s32(v23, v24))));
+  *&v26.f64[0] = vadd_f32(v19, vadd_f32(v22.n128_u64[0], vadd_f32(v25, vzip2_s32(v23, v24))));
   v25.i32[0] = *(v18 + 28);
-  v22.f32[0] = *(v18 + 24) + (vmuls_lane_f32(*(v18 + 20), *&v26.f64[0], 1) + (*v26.f64 * *(v18 + 16)));
+  v22.n128_f32[0] = *(v18 + 24) + (vmuls_lane_f32(*(v18 + 20), *&v26.f64[0], 1) + (*v26.f64 * *(v18 + 16)));
   v27.i32[0] = *(v18 + 36);
   *v23.i32 = vmuls_lane_f32(*(v18 + 32), *&v26.f64[0], 1);
   *v26.f64 = *v27.i32 + (*v23.i32 + (*v26.f64 * v25.f32[0]));
-  v22.i32[1] = LODWORD(v26.f64[0]);
-  return CI::BitmapSampler::read(*(v18 + 8), *&v22, v26, *&v23, *&v25, v27, v28, v29, v30);
+  v22.n128_u32[1] = LODWORD(v26.f64[0]);
+  return CI::BitmapSampler::read(*(v18 + 8), v22, v26, *&v23, *&v25, v27, v28, v29, v30);
 }
 
 __n128 pageCurlMapInverse(CGPoint a1, CGAffineTransform *a2, CGAffineTransform *a3)
@@ -1388,7 +2140,7 @@ double CI::sw_pageCurlTransition(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   v58 = vextq_s8(v96, v96, 8uLL).u64[0];
   v59 = v96;
   *&v53.f64[0] = vmul_f32(v58, *&v53.f64[0]);
-  v60 = vadd_f32(v42, vadd_f32(vzip1_s32(v57, *&v53.f64[0]), vzip2_s32(v57, *&v53.f64[0])));
+  v60.n128_u64[0] = vadd_f32(v42, vadd_f32(vzip1_s32(v57, *&v53.f64[0]), vzip2_s32(v57, *&v53.f64[0])));
   *&v53.f64[0] = vmul_f32(*v96.i8, v56);
   v61 = vmul_f32(v58, v56);
   *&v53.f64[0] = vadd_f32(v42, vadd_f32(vzip1_s32(*&v53.f64[0], v61), vzip2_s32(*&v53.f64[0], v61)));
@@ -1400,41 +2152,41 @@ double CI::sw_pageCurlTransition(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   v65 = vadd_f32(v43, vadd_f32(*v55.i8, vzip2_s32(v63, *v64.i8)));
   *&v53.f64[0] = vbsl_s8(v62, v65, *&v53.f64[0]);
   v97 = v53;
-  *&v53.f64[0] = vbsl_s8(v62, v45, v60);
+  *&v53.f64[0] = vbsl_s8(v62, v45, v60.n128_u64[0]);
   v65.i32[0] = *(v40 + 28);
-  *v60.i32 = *(v40 + 24) + (vmuls_lane_f32(*(v40 + 20), *&v53.f64[0], 1) + (*v53.f64 * *(v40 + 16)));
+  v60.n128_f32[0] = *(v40 + 24) + (vmuls_lane_f32(*(v40 + 20), *&v53.f64[0], 1) + (*v53.f64 * *(v40 + 16)));
   v64.i32[0] = *(v40 + 36);
   *v62.i32 = vmuls_lane_f32(*(v40 + 32), *&v53.f64[0], 1);
   *v53.f64 = *v64.i32 + (*v62.i32 + (*v53.f64 * *v65.i32));
-  v60.i32[1] = LODWORD(v53.f64[0]);
-  *v67.i64 = CI::BitmapSampler::read(*(v40 + 8), *&v60, v53, *&v62, *&v65, v64, v55, v59, v66);
+  v60.n128_u32[1] = LODWORD(v53.f64[0]);
+  v67.n128_f64[0] = CI::BitmapSampler::read(*(v40 + 8), v60, v53, *&v62, *&v65, v64, v55, v59, v66);
   v100 = v67;
   HIDWORD(v68) = v97.i32[1];
   v69.i32[0] = *(v39 + 36);
   *&v70 = vmuls_lane_f32(*(v39 + 32), *v97.i8, 1);
   *&v68 = *&v70 + (*v97.i32 * *(v39 + 28));
-  v67.f32[0] = *(v39 + 24) + (vmuls_lane_f32(*(v39 + 20), *v97.i8, 1) + (*v97.i32 * *(v39 + 16)));
+  v67.n128_f32[0] = *(v39 + 24) + (vmuls_lane_f32(*(v39 + 20), *v97.i8, 1) + (*v97.i32 * *(v39 + 16)));
   *v71.f64 = *v69.i32 + *&v68;
-  v67.f32[1] = *v69.i32 + *&v68;
-  *v74.i64 = CI::BitmapSampler::read(*(v39 + 8), *v67.i64, v71, v68, v70, v69, v97, v72, v73);
+  v67.n128_f32[1] = *v69.i32 + *&v68;
+  v74.n128_f64[0] = CI::BitmapSampler::read(*(v39 + 8), v67, v71, v68, v70, v69, v97, v72, v73);
   v98 = v74;
   __asm { FMOV            V1.2S, #-1.0 }
 
-  *v74.f32 = vmaxnm_f32(vmul_n_f32(*v103.i8, v44 * *v102.f64), _D1);
+  v74.n128_u64[0] = vmaxnm_f32(vmul_n_f32(*v103.i8, v44 * *v102.f64), _D1);
   __asm { FMOV            V1.2S, #1.0 }
 
-  *v74.f32 = vbsl_s8(vdup_lane_s32(vcgt_f32(0, *&v102.f64[0]), 0), 0x3F0000003F000000, vadd_f32(vmul_f32(vminnm_f32(*v74.f32, _D1), 0x3F0000003F000000), 0x3F0000003F000000));
+  v74.n128_u64[0] = vbsl_s8(vdup_lane_s32(vcgt_f32(0, *&v102.f64[0]), 0), 0x3F0000003F000000, vadd_f32(vmul_f32(vminnm_f32(v74.n128_u64[0], _D1), 0x3F0000003F000000), 0x3F0000003F000000));
   v81 = v101;
   v82 = vextq_s8(v81, v81, 8uLL);
-  *v74.f32 = vadd_f32(*v101.i8, vmul_f32(*&v82.f64[0], *v74.f32));
+  v74.n128_u64[0] = vadd_f32(*v101.i8, vmul_f32(*&v82.f64[0], v74.n128_u64[0]));
   v81.i32[0] = *(v38 + 24);
   v83.i32[0] = *(v38 + 36);
-  *v84.i32 = vmuls_lane_f32(*(v38 + 32), *v74.f32, 1);
-  *&v85 = *v84.i32 + (v74.f32[0] * *(v38 + 28));
-  v74.f32[0] = *v81.i32 + (vmuls_lane_f32(*(v38 + 20), *v74.f32, 1) + (v74.f32[0] * *(v38 + 16)));
+  *v84.i32 = vmuls_lane_f32(*(v38 + 32), v74.n128_u64[0], 1);
+  *&v85 = *v84.i32 + (v74.n128_f32[0] * *(v38 + 28));
+  v74.n128_f32[0] = *v81.i32 + (vmuls_lane_f32(*(v38 + 20), v74.n128_u64[0], 1) + (v74.n128_f32[0] * *(v38 + 16)));
   *v82.f64 = *v83.i32 + *&v85;
-  v74.f32[1] = *v83.i32 + *&v85;
-  *v88.i64 = CI::BitmapSampler::read(*(v38 + 8), *v74.i64, v82, *v81.i64, v85, v84, v83, v86, v87);
+  v74.n128_f32[1] = *v83.i32 + *&v85;
+  *v88.i64 = CI::BitmapSampler::read(*(v38 + 8), v74, v82, *v81.i64, v85, v84, v83, v86, v87);
   v89 = vmulq_laneq_f32(v88, v98, 3);
   v90 = 1.0;
   v91 = vaddq_f32(v89, vmulq_n_f32(v98, 1.0 - v89.f32[3]));
@@ -1566,7 +2318,7 @@ double CI::sw_pageCurlTransNoEmap(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
   v47 = vextq_s8(v71, v71, 8uLL).u64[0];
   v48.i64[1] = v71.i64[1];
   *&v43.f64[0] = vmul_f32(v47, *&v43.f64[0]);
-  v49 = vadd_f32(v32, vadd_f32(vzip1_s32(v46, *&v43.f64[0]), vzip2_s32(v46, *&v43.f64[0])));
+  v49.n128_u64[0] = vadd_f32(v32, vadd_f32(vzip1_s32(v46, *&v43.f64[0]), vzip2_s32(v46, *&v43.f64[0])));
   *&v43.f64[0] = vmul_f32(*v71.i8, v45);
   v50 = vmul_f32(v47, v45);
   *&v43.f64[0] = vadd_f32(v32, vadd_f32(vzip1_s32(*&v43.f64[0], v50), vzip2_s32(*&v43.f64[0], v50)));
@@ -1578,23 +2330,23 @@ double CI::sw_pageCurlTransNoEmap(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
   v54 = vadd_f32(v33, vadd_f32(*v48.i8, vzip2_s32(v52, *v53.i8)));
   *&v43.f64[0] = vbsl_s8(v51, v54, *&v43.f64[0]);
   v74 = v43;
-  *&v43.f64[0] = vbsl_s8(v51, v35, v49);
+  *&v43.f64[0] = vbsl_s8(v51, v35, v49.n128_u64[0]);
   v54.i32[0] = *(v30 + 28);
-  *v49.i32 = *(v30 + 24) + (vmuls_lane_f32(*(v30 + 20), *&v43.f64[0], 1) + (*v43.f64 * *(v30 + 16)));
+  v49.n128_f32[0] = *(v30 + 24) + (vmuls_lane_f32(*(v30 + 20), *&v43.f64[0], 1) + (*v43.f64 * *(v30 + 16)));
   v53.i32[0] = *(v30 + 36);
   *v51.i32 = vmuls_lane_f32(*(v30 + 32), *&v43.f64[0], 1);
   *v43.f64 = *v53.i32 + (*v51.i32 + (*v43.f64 * *v54.i32));
-  v49.i32[1] = LODWORD(v43.f64[0]);
-  *v56.i64 = CI::BitmapSampler::read(*(v30 + 8), *&v49, v43, *&v51, *&v54, v53, v48, v70, v55);
+  v49.n128_u32[1] = LODWORD(v43.f64[0]);
+  v56.n128_f64[0] = CI::BitmapSampler::read(*(v30 + 8), v49, v43, *&v51, *&v54, v53, v48, v70, v55);
   v72 = v56;
   HIDWORD(v57) = v74.i32[1];
   v58.i32[0] = *(v29 + 36);
   *&v59 = vmuls_lane_f32(*(v29 + 32), *v74.i8, 1);
   *&v57 = *&v59 + (*v74.i32 * *(v29 + 28));
-  v56.f32[0] = *(v29 + 24) + (vmuls_lane_f32(*(v29 + 20), *v74.i8, 1) + (*v74.i32 * *(v29 + 16)));
+  v56.n128_f32[0] = *(v29 + 24) + (vmuls_lane_f32(*(v29 + 20), *v74.i8, 1) + (*v74.i32 * *(v29 + 16)));
   *v60.f64 = *v58.i32 + *&v57;
-  v56.f32[1] = *v58.i32 + *&v57;
-  *v63.i64 = CI::BitmapSampler::read(*(v29 + 8), *v56.i64, v60, v57, v59, v58, v74, v61, v62);
+  v56.n128_f32[1] = *v58.i32 + *&v57;
+  *v63.i64 = CI::BitmapSampler::read(*(v29 + 8), v56, v60, v57, v59, v58, v74, v61, v62);
   v64 = 1.0;
   v65 = vaddq_f32(v63, vmulq_n_f32(v72, 1.0 - v63.f32[3]));
   v66 = (1.0 - v39) * v34;
@@ -1736,312 +2488,313 @@ double CI::sw_pageCurlWithShadowTransition(uint64_t a1, uint64_t a2, uint64_t a3
   v45 = *v13;
   v46 = a4 + 80 * v9;
   v47 = a4 + 80 * v8;
-  v153 = *v6;
-  v155 = *v17;
+  v150 = *v6;
+  v152 = *v17;
   v48 = *v21;
-  v144 = *v25;
+  v141 = *v25;
   v49 = *v29;
-  v147 = *(a2 + (v30 << 6));
-  v151 = *v34;
+  v144 = *(a2 + (v30 << 6));
+  v148 = *v34;
   v50 = *(a2 + (v35 << 6));
-  v152 = *(a2 + (v36 << 6));
-  v149 = *v40;
-  v150 = *v44;
+  v149 = *(a2 + (v36 << 6));
+  v146 = *v40;
+  v147 = *v44;
   v52 = *CI::getDC(v34);
-  v53 = vmul_f32(*v153.i8, v52);
-  v57 = vextq_s8(v153, v153, 8uLL);
-  *&v57.f64[0] = vmul_f32(*&v57.f64[0], v52);
-  *v54.i8 = vadd_f32(v45, vadd_f32(vzip1_s32(v53, *&v57.f64[0]), vzip2_s32(v53, *&v57.f64[0])));
-  v55 = *v54.i32;
-  v56 = *v54.i8;
-  LODWORD(v57.f64[0]) = v54.i32[0];
-  v58 = 0.0;
-  v59 = *v54.i32;
-  v154 = v54;
-  if (*v54.i32 > 0.0)
+  v55.n128_u64[0] = vmul_f32(*v150.i8, v52);
+  v56 = vextq_s8(v150, v150, 8uLL);
+  *&v56.f64[0] = vmul_f32(*&v56.f64[0], v52);
+  *v53.i8 = vadd_f32(v45, vadd_f32(vzip1_s32(v55.n128_u64[0], *&v56.f64[0]), vzip2_s32(v55.n128_u64[0], *&v56.f64[0])));
+  v54 = *v53.i32;
+  v55.n128_u64[0] = v53.i64[0];
+  LODWORD(v56.f64[0]) = v53.i32[0];
+  v57 = 0.0;
+  v58 = *v53.i32;
+  v151 = v53;
+  if (*v53.i32 > 0.0)
   {
-    v60 = pow(*v54.i32, 1.5);
-    v54 = v154;
-    *&v60 = sqrt(1.0 - v60) + -1.0;
-    v61 = v55 + (*&v60 * *&v60) * 0.5625;
-    v62 = v55 * 9999.0;
-    v63 = 1.0;
-    if (*v154.i32 < 1.0)
+    v59 = pow(*v53.i32, 1.5);
+    v53 = v151;
+    *&v59 = sqrt(1.0 - v59) + -1.0;
+    v60 = v54 + (*&v59 * *&v59) * 0.5625;
+    v61 = v54 * 9999.0;
+    v62 = 1.0;
+    if (*v151.i32 < 1.0)
     {
-      v62 = v61;
+      v61 = v60;
     }
 
-    *v57.f64 = v62;
-    v56 = __PAIR64__(v154.u32[1], LODWORD(v57.f64[0]));
-    v64 = (*v154.i32 + -0.607) / 0.693;
-    if (v64 <= 1.0)
+    *v56.f64 = v61;
+    v55 = v151;
+    v55.n128_u32[0] = LODWORD(v56.f64[0]);
+    v63 = (*v151.i32 + -0.607) / 0.693;
+    if (v63 <= 1.0)
     {
-      v63 = (*v154.i32 + -0.607) / 0.693;
+      v62 = (*v151.i32 + -0.607) / 0.693;
     }
 
-    if (v64 < 0.0)
+    if (v63 < 0.0)
     {
-      v63 = 0.0;
+      v62 = 0.0;
     }
 
-    if (v55 >= 0.9)
+    if (v54 >= 0.9)
     {
-      v61 = v55 + ((v63 * v63) * ((v63 * -2.0) + 3.0)) * 0.570796327;
+      v60 = v54 + ((v62 * v62) * ((v62 * -2.0) + 3.0)) * 0.570796327;
     }
 
-    v59 = v61;
-    v58 = *v154.i32;
+    v58 = v60;
+    v57 = *v151.i32;
   }
 
-  v148 = v59;
-  v65.i32[1] = v54.i32[1];
-  v65.f32[0] = 3.1416 - *v57.f64;
-  *&v57.f64[0] = vmul_f32(*v155.i8, v56);
-  v66 = vextq_s8(v155, v155, 8uLL);
-  v67 = vmul_f32(*v66.i8, v56);
-  v68 = vadd_f32(v48, vadd_f32(vzip1_s32(*&v57.f64[0], v67), vzip2_s32(*&v57.f64[0], v67)));
-  *&v57.f64[0] = vmul_f32(*v155.i8, v65);
-  v146 = *v66.i8;
-  v69 = vmul_f32(*v66.i8, v65);
-  *&v57.f64[0] = vadd_f32(v48, vadd_f32(vzip1_s32(*&v57.f64[0], v69), vzip2_s32(*&v57.f64[0], v69)));
-  v70 = vdup_lane_s32(vcgt_f32(0, *v54.i8), 0);
-  v71 = vmul_f32(*v144.i8, v52);
-  v72 = vextq_s8(v144, v144, 8uLL);
-  *v72.i8 = vmul_f32(*v72.i8, v52);
-  *v66.i8 = vzip1_s32(v71, *v72.i8);
-  v73 = vadd_f32(*v66.i8, vzip2_s32(v71, *v72.i8));
-  v74 = vadd_f32(v49, v73);
-  *&v57.f64[0] = vbsl_s8(v70, v74, *&v57.f64[0]);
-  v143 = v57;
-  *&v57.f64[0] = vbsl_s8(v70, v52, v68);
-  v73.i32[0] = *(v47 + 28);
-  *v68.i32 = *(v47 + 24) + (vmuls_lane_f32(*(v47 + 20), *&v57.f64[0], 1) + (*v57.f64 * *(v47 + 16)));
-  v72.i32[0] = *(v47 + 36);
-  *v70.i32 = vmuls_lane_f32(*(v47 + 32), *&v57.f64[0], 1);
-  *v57.f64 = *v72.i32 + (*v70.i32 + (*v57.f64 * v73.f32[0]));
-  v68.i32[1] = LODWORD(v57.f64[0]);
-  *v75.i64 = CI::BitmapSampler::read(*(v47 + 8), *&v68, v57, *&v70, *&v73, v72, v66, v54, v51);
-  v145 = v75;
-  HIDWORD(v76) = v143.i32[1];
-  v77.i32[0] = *(v46 + 36);
-  *&v78 = vmuls_lane_f32(*(v46 + 32), *v143.i8, 1);
-  *&v76 = *&v78 + (*v143.i32 * *(v46 + 28));
-  v75.f32[0] = *(v46 + 24) + (vmuls_lane_f32(*(v46 + 20), *v143.i8, 1) + (*v143.i32 * *(v46 + 16)));
-  *v79.f64 = *v77.i32 + *&v76;
-  v75.f32[1] = *v77.i32 + *&v76;
-  *v82.i64 = CI::BitmapSampler::read(*(v46 + 8), *v75.i64, v79, v76, v78, v77, v143, v80, v81);
-  v83 = (v58 + -0.6) * 2.5;
-  v84 = 1.0;
-  if (v83 <= 1.0)
+  v145 = v58;
+  v64.i32[1] = v53.i32[1];
+  v64.f32[0] = 3.1416 - *v56.f64;
+  *&v56.f64[0] = vmul_f32(*v152.i8, v55.n128_u64[0]);
+  v65 = vextq_s8(v152, v152, 8uLL);
+  v55.n128_u64[0] = vmul_f32(*v65.i8, v55.n128_u64[0]);
+  v55.n128_u64[0] = vadd_f32(v48, vadd_f32(vzip1_s32(*&v56.f64[0], v55.n128_u64[0]), vzip2_s32(*&v56.f64[0], v55.n128_u64[0])));
+  *&v56.f64[0] = vmul_f32(*v152.i8, v64);
+  v143 = *v65.i8;
+  v66 = vmul_f32(*v65.i8, v64);
+  *&v56.f64[0] = vadd_f32(v48, vadd_f32(vzip1_s32(*&v56.f64[0], v66), vzip2_s32(*&v56.f64[0], v66)));
+  v67 = vdup_lane_s32(vcgt_f32(0, *v53.i8), 0);
+  v68 = vmul_f32(*v141.i8, v52);
+  v69 = vextq_s8(v141, v141, 8uLL);
+  *v69.i8 = vmul_f32(*v69.i8, v52);
+  *v65.i8 = vzip1_s32(v68, *v69.i8);
+  v70 = vadd_f32(*v65.i8, vzip2_s32(v68, *v69.i8));
+  v71 = vadd_f32(v49, v70);
+  *&v56.f64[0] = vbsl_s8(v67, v71, *&v56.f64[0]);
+  v140 = v56;
+  *&v56.f64[0] = vbsl_s8(v67, v52, v55.n128_u64[0]);
+  v70.i32[0] = *(v47 + 28);
+  v55.n128_f32[0] = *(v47 + 24) + (vmuls_lane_f32(*(v47 + 20), *&v56.f64[0], 1) + (*v56.f64 * *(v47 + 16)));
+  v69.i32[0] = *(v47 + 36);
+  *v67.i32 = vmuls_lane_f32(*(v47 + 32), *&v56.f64[0], 1);
+  *v56.f64 = *v69.i32 + (*v67.i32 + (*v56.f64 * v70.f32[0]));
+  v55.n128_u32[1] = LODWORD(v56.f64[0]);
+  v72.n128_f64[0] = CI::BitmapSampler::read(*(v47 + 8), v55, v56, *&v67, *&v70, v69, v65, v53, v51);
+  v142 = v72;
+  HIDWORD(v73) = v140.i32[1];
+  v74.i32[0] = *(v46 + 36);
+  *&v75 = vmuls_lane_f32(*(v46 + 32), *v140.i8, 1);
+  *&v73 = *&v75 + (*v140.i32 * *(v46 + 28));
+  v72.n128_f32[0] = *(v46 + 24) + (vmuls_lane_f32(*(v46 + 20), *v140.i8, 1) + (*v140.i32 * *(v46 + 16)));
+  *v76.f64 = *v74.i32 + *&v73;
+  v72.n128_f32[1] = *v74.i32 + *&v73;
+  *v79.i64 = CI::BitmapSampler::read(*(v46 + 8), v72, v76, v73, v75, v74, v140, v77, v78);
+  v80 = (v57 + -0.6) * 2.5;
+  v81 = 1.0;
+  if (v80 <= 1.0)
   {
-    v84 = (v58 + -0.6) * 2.5;
+    v81 = (v57 + -0.6) * 2.5;
   }
 
-  if (v83 < 0.0)
+  if (v80 < 0.0)
   {
-    v84 = 0.0;
+    v81 = 0.0;
   }
 
-  v85 = v84;
-  if (v84 <= 0.75)
+  v82 = v81;
+  if (v81 <= 0.75)
   {
-    v86 = v85 * 0.375 * v85 + v85 * 0.35;
+    v83 = v82 * 0.375 * v82 + v82 * 0.35;
   }
 
   else
   {
-    v86 = (v85 + -0.82) * 15.0 * (v85 + -0.82) + 0.4;
+    v83 = (v82 + -0.82) * 15.0 * (v82 + -0.82) + 0.4;
   }
 
-  v87 = 1.0 - v55;
-  v88 = (1.0 - v55) * v147;
-  if (v88 <= 1.0)
+  v84 = 1.0 - v54;
+  v85 = (1.0 - v54) * v144;
+  if (v85 <= 1.0)
   {
-    v89 = (1.0 - v55) * v147;
+    v86 = (1.0 - v54) * v144;
   }
 
   else
   {
-    v89 = 1.0;
+    v86 = 1.0;
   }
 
-  _NF = v88 < 0.0;
-  v91 = 0.0;
+  _NF = v85 < 0.0;
+  v88 = 0.0;
   if (_NF)
   {
-    v89 = 0.0;
+    v86 = 0.0;
   }
 
-  v92 = vmulq_n_f32(v82, v89);
-  v93 = vmulq_n_f32(v145, v89);
-  v94.i32[1] = v154.i32[1];
-  v94.f32[0] = 3.1416 - v148;
-  v95 = vmul_f32(*v155.i8, v94);
-  v96 = vmul_f32(v146, v94);
-  *v102.i32 = 1.0 - (v50 + v50);
-  *v97.f32 = vmla_n_f32(vmul_n_f32(vadd_f32(v48, vadd_f32(vzip1_s32(v95, v96), vzip2_s32(v95, v96))), *v102.i32), v74, v50 + v50);
-  v98 = vmul_f32(*v155.i8, __PAIR64__(v154.u32[1], LODWORD(v148)));
-  v99 = vmul_f32(v146, __PAIR64__(v154.u32[1], LODWORD(v148)));
-  *v100.f32 = vmla_n_f32(vmul_n_f32(vadd_f32(v48, vadd_f32(vzip1_s32(v98, v99), vzip2_s32(v98, v99))), *v102.i32), v52, v50 + v50);
-  v101 = v86;
-  v102.i32[1] = v150.i32[1];
-  v103 = vmulq_laneq_f32(vmlaq_n_f32(vmulq_n_f32(v149, 1.0 - v101), v150, v101), v92, 3);
-  v104 = vaddq_f32(v103, vmulq_n_f32(v92, 1.0 - v103.f32[3]));
-  v105 = (*v154.i32 + -0.5) + (*v154.i32 + -0.5);
-  if (v105 <= 1.0)
+  v89 = vmulq_n_f32(v79, v86);
+  v90 = vmulq_n_f32(v142, v86);
+  v91.i32[1] = v151.i32[1];
+  v91.f32[0] = 3.1416 - v145;
+  v92 = vmul_f32(*v152.i8, v91);
+  v93 = vmul_f32(v143, v91);
+  *v99.i32 = 1.0 - (v50 + v50);
+  *v94.f32 = vmla_n_f32(vmul_n_f32(vadd_f32(v48, vadd_f32(vzip1_s32(v92, v93), vzip2_s32(v92, v93))), *v99.i32), v71, v50 + v50);
+  v95 = vmul_f32(*v152.i8, __PAIR64__(v151.u32[1], LODWORD(v145)));
+  v96 = vmul_f32(v143, __PAIR64__(v151.u32[1], LODWORD(v145)));
+  *v97.f32 = vmla_n_f32(vmul_n_f32(vadd_f32(v48, vadd_f32(vzip1_s32(v95, v96), vzip2_s32(v95, v96))), *v99.i32), v52, v50 + v50);
+  v98 = v83;
+  v99.i32[1] = v147.i32[1];
+  v100 = vmulq_laneq_f32(vmlaq_n_f32(vmulq_n_f32(v146, 1.0 - v98), v147, v98), v89, 3);
+  v101 = vaddq_f32(v100, vmulq_n_f32(v89, 1.0 - v100.f32[3]));
+  v102 = (*v151.i32 + -0.5) + (*v151.i32 + -0.5);
+  if (v102 <= 1.0)
   {
-    v106 = (*v154.i32 + -0.5) + (*v154.i32 + -0.5);
+    v103 = (*v151.i32 + -0.5) + (*v151.i32 + -0.5);
   }
 
   else
   {
-    v106 = 1.0;
+    v103 = 1.0;
   }
 
-  if (v105 >= 0.0)
+  if (v102 >= 0.0)
   {
-    v107 = v106;
+    v104 = v103;
   }
 
   else
   {
-    v107 = 0.0;
+    v104 = 0.0;
   }
 
-  v108 = v50 * (vmuls_lane_f32((((v107 * v107) * ((v107 * -2.0) + 3.0)) * 1.25) + ((1.0 - ((v107 * v107) * ((v107 * -2.0) + 3.0))) * 2.0), v93, 3) + ((1.0 - v93.f32[3]) * 2.3));
-  *v102.i32 = v147 * v108;
-  v109 = v151;
-  v110 = vextq_s8(v109, v109, 8uLL).u64[0];
-  v111.i64[0] = v151.i64[0];
-  v111.i64[1] = v97.i64[0];
-  v97.i64[1] = v110;
-  v112 = vsubq_f32(v97, v111);
-  v113 = vdupq_n_s32(0x3F23D70Au);
-  v114 = vdivq_f32(v112, vdupq_lane_s32(v102, 0));
-  v115.i64[0] = 0x3F0000003F000000;
-  v115.i64[1] = 0x3F0000003F000000;
-  v116 = vdupq_n_s32(0x3E0F5C29u);
+  v105 = v50 * (vmuls_lane_f32((((v104 * v104) * ((v104 * -2.0) + 3.0)) * 1.25) + ((1.0 - ((v104 * v104) * ((v104 * -2.0) + 3.0))) * 2.0), v90, 3) + ((1.0 - v90.f32[3]) * 2.3));
+  *v99.i32 = v144 * v105;
+  v106 = v148;
+  v107 = vextq_s8(v106, v106, 8uLL).u64[0];
+  v108.i64[0] = v148.i64[0];
+  v108.i64[1] = v94.i64[0];
+  v94.i64[1] = v107;
+  v109 = vsubq_f32(v94, v108);
+  v110 = vdupq_n_s32(0x3F23D70Au);
+  v111 = vdivq_f32(v109, vdupq_lane_s32(v99, 0));
+  v112.i64[0] = 0x3F0000003F000000;
+  v112.i64[1] = 0x3F0000003F000000;
+  v113 = vdupq_n_s32(0x3E0F5C29u);
   __asm
   {
     FMOV            V18.4S, #1.0
     FMOV            V21.4S, #-1.0
   }
 
-  v122 = vbslq_s8(vcltzq_f32(vaddq_f32(v114, _Q21)), vbicq_s8(vsubq_f32(vaddq_f32(vmulq_f32(v114, v113), v115), vmulq_f32(v114, vmulq_f32(v114, vmulq_f32(v114, v116)))), vcltzq_f32(vaddq_f32(v114, _Q18))), _Q18);
-  v123 = v87 / v108;
-  v124 = v123 * 0.64 + 0.5 + v123 * -0.14 * v123 * v123;
-  if (v123 <= -1.0)
+  v119 = vbslq_s8(vcltzq_f32(vaddq_f32(v111, _Q21)), vbicq_s8(vsubq_f32(vaddq_f32(vmulq_f32(v111, v110), v112), vmulq_f32(v111, vmulq_f32(v111, vmulq_f32(v111, v113)))), vcltzq_f32(vaddq_f32(v111, _Q18))), _Q18);
+  v120 = v84 / v105;
+  v121 = v120 * 0.64 + 0.5 + v120 * -0.14 * v120 * v120;
+  if (v120 <= -1.0)
   {
-    v124 = 0.0;
+    v121 = 0.0;
   }
 
-  if (v123 < 1.0)
+  if (v120 < 1.0)
+  {
+    v122 = v121;
+  }
+
+  else
+  {
+    v122 = 1.0;
+  }
+
+  v123 = v122 * vmuls_lane_f32(vmuls_lane_f32(vmuls_lane_f32(v119.f32[0], *v119.f32, 1), v119, 2), v119, 3);
+  if (v123 <= 1.0)
+  {
+    v124 = v123;
+  }
+
+  else
+  {
+    v124 = 1.0;
+  }
+
+  if (v123 >= 0.0)
   {
     v125 = v124;
   }
 
   else
   {
-    v125 = 1.0;
+    v125 = 0.0;
   }
 
-  v126 = v125 * vmuls_lane_f32(vmuls_lane_f32(vmuls_lane_f32(v122.f32[0], *v122.f32, 1), v122, 2), v122, 3);
-  if (v126 <= 1.0)
+  v126 = vmul_f32(*v151.i8, *v151.i8).f32[0];
+  if (v126 > 1.5)
   {
-    v127 = v126;
+    v126 = 1.5;
+  }
+
+  v127 = v126 * 0.65;
+  *&v127 = v127;
+  v128 = v84 / (v50 * 2.5);
+  v129 = v128 * 0.64 + 0.5 + v128 * -0.14 * v128 * v128;
+  if (v128 <= -1.0)
+  {
+    v129 = 0.0;
+  }
+
+  if (v128 < 1.0)
+  {
+    v130 = v129;
   }
 
   else
   {
-    v127 = 1.0;
+    v130 = 1.0;
   }
 
-  if (v126 >= 0.0)
+  if (*v151.i32 <= 1.0)
   {
-    v128 = v127;
+    v131 = *v151.i32;
   }
 
   else
   {
-    v128 = 0.0;
+    v131 = 1.0;
   }
 
-  v129 = vmul_f32(*v154.i8, *v154.i8).f32[0];
-  if (v129 > 1.5)
+  if (*v151.i32 < 0.0)
   {
-    v129 = 1.5;
+    *&v127 = 0.0;
   }
 
-  v130 = v129 * 0.65;
-  *&v130 = v130;
-  v131 = v87 / (v50 * 2.5);
-  v132 = v131 * 0.64 + 0.5 + v131 * -0.14 * v131 * v131;
-  if (v131 <= -1.0)
+  v106.i64[1] = v97.i64[0];
+  *&v127 = v144 * ((v50 * *&v127) * 2.5);
+  v97.i64[1] = v107;
+  v132 = vdivq_f32(vsubq_f32(v97, v106), vdupq_lane_s32(*&v127, 0));
+  v133 = vbslq_s8(vcltzq_f32(vaddq_f32(v132, _Q21)), vbicq_s8(vsubq_f32(vaddq_f32(vmulq_f32(v132, v110), v112), vmulq_f32(v132, vmulq_f32(v132, vmulq_f32(v132, v113)))), vcltzq_f32(vaddq_f32(v132, _Q18))), _Q18);
+  v134 = (1.0 - v90.f32[3]) * (v130 * vmuls_lane_f32(vmuls_lane_f32(vmuls_lane_f32(v133.f32[0], *v133.f32, 1), v133, 2), v133, 3));
+  if (*v151.i32 >= 0.0)
   {
-    v132 = 0.0;
-  }
-
-  if (v131 < 1.0)
-  {
-    v133 = v132;
+    v135 = v131;
   }
 
   else
   {
-    v133 = 1.0;
+    v135 = 0.0;
   }
 
-  if (*v154.i32 <= 1.0)
+  v136 = v135 * v134;
+  if (v136 <= 1.0)
   {
-    v134 = *v154.i32;
+    v137 = v136;
   }
 
   else
   {
-    v134 = 1.0;
+    v137 = 1.0;
   }
 
-  if (*v154.i32 < 0.0)
+  if (fminf(*v151.i32, v136) >= 0.0)
   {
-    *&v130 = 0.0;
+    v88 = v137;
   }
 
-  v109.i64[1] = v100.i64[0];
-  *&v130 = v147 * ((v50 * *&v130) * 2.5);
-  v100.i64[1] = v110;
-  v135 = vdivq_f32(vsubq_f32(v100, v109), vdupq_lane_s32(*&v130, 0));
-  v136 = vbslq_s8(vcltzq_f32(vaddq_f32(v135, _Q21)), vbicq_s8(vsubq_f32(vaddq_f32(vmulq_f32(v135, v113), v115), vmulq_f32(v135, vmulq_f32(v135, vmulq_f32(v135, v116)))), vcltzq_f32(vaddq_f32(v135, _Q18))), _Q18);
-  v137 = (1.0 - v93.f32[3]) * (v133 * vmuls_lane_f32(vmuls_lane_f32(vmuls_lane_f32(v136.f32[0], *v136.f32, 1), v136, 2), v136, 3));
-  if (*v154.i32 >= 0.0)
-  {
-    v138 = v134;
-  }
-
-  else
-  {
-    v138 = 0.0;
-  }
-
-  v139 = v138 * v137;
-  if (v139 <= 1.0)
-  {
-    v140 = v139;
-  }
-
-  else
-  {
-    v140 = 1.0;
-  }
-
-  if (fminf(*v154.i32, v139) >= 0.0)
-  {
-    v91 = v140;
-  }
-
-  v141.i64[0] = 0;
-  v141.i32[2] = 0;
-  v141.f32[3] = v152 * fminf(fmaxf(v128, v91), 0.5);
-  *&result = vaddq_f32(v104, vmulq_n_f32(vaddq_f32(v141, vmulq_n_f32(v93, 1.0 - v141.f32[3])), 1.0 - v104.f32[3])).u64[0];
+  v138.i64[0] = 0;
+  v138.i32[2] = 0;
+  v138.f32[3] = v149 * fminf(fmaxf(v125, v88), 0.5);
+  *&result = vaddq_f32(v101, vmulq_n_f32(vaddq_f32(v138, vmulq_n_f32(v90, 1.0 - v138.f32[3])), 1.0 - v101.f32[3])).u64[0];
   return result;
 }
 
@@ -2154,22 +2907,22 @@ double CI::sw_pageCurlNoShadowTransition(uint64_t a1, uint64_t a2, uint64_t a3, 
   v41 = a4 + 80 * v7;
   v42 = a4 + 80 * v6;
   v43 = *v15;
-  v90 = *v11;
-  v92 = *v19;
+  v87 = *v11;
+  v89 = *v19;
   v44 = *v23;
   v45 = *v31;
   v46 = *(a2 + (v32 << 6));
-  v94 = *v27;
-  v96 = *v36;
-  v97 = *v40;
+  v91 = *v27;
+  v93 = *v36;
+  v94 = *v40;
   v47 = *CI::getDC(v36);
-  v48 = vmul_f32(*v90.i8, v47);
-  v49 = vmul_f32(*&vextq_s8(v90, v90, 8uLL), v47);
+  v48 = vmul_f32(*v87.i8, v47);
+  v49 = vmul_f32(*&vextq_s8(v87, v87, 8uLL), v47);
   *v50.i8 = vadd_f32(v43, vadd_f32(vzip1_s32(v48, v49), vzip2_s32(v48, v49)));
-  v91 = v50;
+  v88 = v50;
   v4.i32[0] = v50.i32[0];
   v51 = *v50.i32;
-  v52 = pow(*v50.i32, 1.5);
+  v52.n128_f64[0] = pow(*v50.i32, 1.5);
   v55 = v51;
   if (v4.f32[0] > 0.0)
   {
@@ -2180,104 +2933,104 @@ double CI::sw_pageCurlNoShadowTransition(uint64_t a1, uint64_t a2, uint64_t a3, 
 
     else
     {
-      v56 = sqrt(1.0 - v52) + -1.0;
+      v56 = sqrt(1.0 - v52.n128_f64[0]) + -1.0;
       v55 = v51 + (v56 * v56) * 0.5625;
     }
   }
 
-  v57 = v55;
-  v58 = v91;
-  v59 = v91;
-  *v59.f64 = v57;
-  *v58.i32 = 3.1416 - v57;
-  v60 = vmul_f32(*v92.i8, *&v59.f64[0]);
-  v61 = vextq_s8(v92, v92, 8uLL).u64[0];
-  *&v59.f64[0] = vmul_f32(v61, *&v59.f64[0]);
-  v62 = vadd_f32(v44, vadd_f32(vzip1_s32(v60, *&v59.f64[0]), vzip2_s32(v60, *&v59.f64[0])));
-  *&v59.f64[0] = vmul_f32(*v92.i8, *v58.i8);
-  v63 = vmul_f32(v61, *v58.i8);
-  *&v59.f64[0] = vadd_f32(v44, vadd_f32(vzip1_s32(*&v59.f64[0], v63), vzip2_s32(*&v59.f64[0], v63)));
-  v64 = vdup_lane_s32(vcgt_f32(0, v4), 0);
-  v65 = vmul_f32(*v94.i8, v47);
-  v66 = vextq_s8(v94, v94, 8uLL);
-  *v66.i8 = vmul_f32(*v66.i8, v47);
-  *v58.i8 = vzip1_s32(v65, *v66.i8);
-  v67 = vadd_f32(v45, vadd_f32(*v58.i8, vzip2_s32(v65, *v66.i8)));
-  *&v59.f64[0] = vbsl_s8(v64, v67, *&v59.f64[0]);
-  v93 = v59;
-  *&v59.f64[0] = vbsl_s8(v64, v47, v62);
-  v67.i32[0] = *(v42 + 28);
-  *v62.i32 = *(v42 + 24) + (vmuls_lane_f32(*(v42 + 20), *&v59.f64[0], 1) + (*v59.f64 * *(v42 + 16)));
-  v66.i32[0] = *(v42 + 36);
-  *v64.i32 = vmuls_lane_f32(*(v42 + 32), *&v59.f64[0], 1);
-  *v59.f64 = *v66.i32 + (*v64.i32 + (*v59.f64 * *v67.i32));
-  v62.i32[1] = LODWORD(v59.f64[0]);
-  *v68.i64 = CI::BitmapSampler::read(*(v42 + 8), *&v62, v59, *&v64, *&v67, v66, v58, v53, v54);
-  v95 = v68;
-  HIDWORD(v69) = v93.i32[1];
-  v70.i32[0] = *(v41 + 36);
-  *&v71 = vmuls_lane_f32(*(v41 + 32), *v93.i8, 1);
-  *&v69 = *&v71 + (*v93.i32 * *(v41 + 28));
-  v68.f32[0] = *(v41 + 24) + (vmuls_lane_f32(*(v41 + 20), *v93.i8, 1) + (*v93.i32 * *(v41 + 16)));
-  *v72.f64 = *v70.i32 + *&v69;
-  v68.f32[1] = *v70.i32 + *&v69;
-  *v75.i64 = CI::BitmapSampler::read(*(v41 + 8), *v68.i64, v72, v69, v71, v70, v93, v73, v74);
+  v52.n128_f32[0] = v55;
+  v57 = v88;
+  v58 = v88;
+  LODWORD(v58.f64[0]) = v52.n128_u32[0];
+  *v57.i32 = 3.1416 - v52.n128_f32[0];
+  v52.n128_u64[0] = vmul_f32(*v89.i8, *&v58.f64[0]);
+  v59 = vextq_s8(v89, v89, 8uLL).u64[0];
+  *&v58.f64[0] = vmul_f32(v59, *&v58.f64[0]);
+  v52.n128_u64[0] = vadd_f32(v44, vadd_f32(vzip1_s32(v52.n128_u64[0], *&v58.f64[0]), vzip2_s32(v52.n128_u64[0], *&v58.f64[0])));
+  *&v58.f64[0] = vmul_f32(*v89.i8, *v57.i8);
+  v60 = vmul_f32(v59, *v57.i8);
+  *&v58.f64[0] = vadd_f32(v44, vadd_f32(vzip1_s32(*&v58.f64[0], v60), vzip2_s32(*&v58.f64[0], v60)));
+  v61 = vdup_lane_s32(vcgt_f32(0, v4), 0);
+  v62 = vmul_f32(*v91.i8, v47);
+  v63 = vextq_s8(v91, v91, 8uLL);
+  *v63.i8 = vmul_f32(*v63.i8, v47);
+  *v57.i8 = vzip1_s32(v62, *v63.i8);
+  v64 = vadd_f32(v45, vadd_f32(*v57.i8, vzip2_s32(v62, *v63.i8)));
+  *&v58.f64[0] = vbsl_s8(v61, v64, *&v58.f64[0]);
+  v90 = v58;
+  *&v58.f64[0] = vbsl_s8(v61, v47, v52.n128_u64[0]);
+  v64.i32[0] = *(v42 + 28);
+  v52.n128_f32[0] = *(v42 + 24) + (vmuls_lane_f32(*(v42 + 20), *&v58.f64[0], 1) + (*v58.f64 * *(v42 + 16)));
+  v63.i32[0] = *(v42 + 36);
+  *v61.i32 = vmuls_lane_f32(*(v42 + 32), *&v58.f64[0], 1);
+  *v58.f64 = *v63.i32 + (*v61.i32 + (*v58.f64 * *v64.i32));
+  v52.n128_u32[1] = LODWORD(v58.f64[0]);
+  v65.n128_f64[0] = CI::BitmapSampler::read(*(v42 + 8), v52, v58, *&v61, *&v64, v63, v57, v53, v54);
+  v92 = v65;
+  HIDWORD(v66) = v90.i32[1];
+  v67.i32[0] = *(v41 + 36);
+  *&v68 = vmuls_lane_f32(*(v41 + 32), *v90.i8, 1);
+  *&v66 = *&v68 + (*v90.i32 * *(v41 + 28));
+  v65.n128_f32[0] = *(v41 + 24) + (vmuls_lane_f32(*(v41 + 20), *v90.i8, 1) + (*v90.i32 * *(v41 + 16)));
+  *v69.f64 = *v67.i32 + *&v66;
+  v65.n128_f32[1] = *v67.i32 + *&v66;
+  *v72.i64 = CI::BitmapSampler::read(*(v41 + 8), v65, v69, v66, v68, v67, v90, v70, v71);
   if (v4.f32[0] > 0.0)
   {
-    v76 = v4.f32[0];
+    v73 = v4.f32[0];
   }
 
   else
   {
-    v76 = 0.0;
+    v73 = 0.0;
   }
 
-  v77 = (v76 + -0.6) * 2.5;
-  v78 = 1.0;
-  if (v77 <= 1.0)
+  v74 = (v73 + -0.6) * 2.5;
+  v75 = 1.0;
+  if (v74 <= 1.0)
   {
-    v78 = v77;
+    v75 = v74;
   }
 
-  if (v77 < 0.0)
+  if (v74 < 0.0)
   {
-    v78 = 0.0;
+    v75 = 0.0;
   }
 
-  v79 = v78;
-  if (v78 <= 0.75)
+  v76 = v75;
+  if (v75 <= 0.75)
   {
-    v80 = v79 * 0.375 * v79 + v79 * 0.35;
+    v77 = v76 * 0.375 * v76 + v76 * 0.35;
   }
 
   else
   {
-    v80 = (v79 + -0.82) * 15.0 * (v79 + -0.82) + 0.4;
+    v77 = (v76 + -0.82) * 15.0 * (v76 + -0.82) + 0.4;
   }
 
-  v81 = (1.0 - v51) * v46;
-  if (v81 <= 1.0)
+  v78 = (1.0 - v51) * v46;
+  if (v78 <= 1.0)
   {
-    v82 = (1.0 - v51) * v46;
+    v79 = (1.0 - v51) * v46;
   }
 
   else
   {
-    v82 = 1.0;
+    v79 = 1.0;
   }
 
-  v83 = v81 < 0.0;
-  v84 = 0.0;
-  if (!v83)
+  v80 = v78 < 0.0;
+  v81 = 0.0;
+  if (!v80)
   {
-    v84 = v82;
+    v81 = v79;
   }
 
-  v85 = vmulq_n_f32(v75, v84);
-  v86 = v80;
-  v87 = vmulq_laneq_f32(vmlaq_n_f32(vmulq_n_f32(v96, 1.0 - v86), v97, v86), v85, 3);
-  v88 = vaddq_f32(v87, vmulq_n_f32(v85, 1.0 - v87.f32[3]));
-  *&result = vaddq_f32(v88, vmulq_n_f32(vmulq_n_f32(v95, v84), 1.0 - v88.f32[3])).u64[0];
+  v82 = vmulq_n_f32(v72, v81);
+  v83 = v77;
+  v84 = vmulq_laneq_f32(vmlaq_n_f32(vmulq_n_f32(v93, 1.0 - v83), v94, v83), v82, 3);
+  v85 = vaddq_f32(v84, vmulq_n_f32(v82, 1.0 - v84.f32[3]));
+  *&result = vaddq_f32(v85, vmulq_n_f32(vmulq_n_f32(v92, v81), 1.0 - v85.f32[3])).u64[0];
   return result;
 }
 
@@ -2336,7 +3089,7 @@ float32x2_t CI::sw_parallelogramTile(CI *a1, uint64_t a2, uint64_t a3)
   return vadd_f32(v16, vadd_f32(vzip1_s32(v29, v30), vzip2_s32(v29, v30)));
 }
 
-uint64_t ci_signpost_log_perspectiveAC(void)
+uint64_t ci_signpost_log_perspectiveAC(uint64_t a1, uint64_t a2)
 {
   if (ci_signpost_log_perspectiveAC(void)::onceToken != -1)
   {
@@ -2353,7 +3106,7 @@ os_log_t ___Z29ci_signpost_log_perspectiveACv_block_invoke()
   return result;
 }
 
-uint64_t CIPerspectiveAutoCalcDefaultImpl(void)
+double CIPerspectiveAutoCalcDefaultImpl(void)
 {
   v0 = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   if (v0)
@@ -2371,10 +3124,11 @@ uint64_t CIPerspectiveAutoCalcDefaultImpl(void)
     }
   }
 
-  return objc_opt_class();
+  objc_opt_class();
+  return result;
 }
 
-uint64_t CI::Perspective::plotLines<CI::Perspective::Line>(void *a1, CGColor *a2, uint64_t **a3)
+CIImage *CI::Perspective::plotLines<CI::Perspective::Line>(void *a1, CGColor *a2, uint64_t **a3)
 {
   [a1 extent];
   v7 = v6;
@@ -2461,19 +3215,17 @@ uint64_t CI::Perspective::plotLines<CI::Perspective::Line>(void *a1, CGColor *a2
   return v40;
 }
 
-void *std::vector<CI::Perspective::Line>::reserve(void *result, unint64_t a2)
+void std::vector<CI::Perspective::Line>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<CI::Perspective::Line>>(result, a2);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<CI::Perspective::Line>>(a1, a2);
     }
 
     std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
 void sub_19CD83E40(_Unwind_Exception *exception_object)
@@ -2488,7 +3240,7 @@ void sub_19CD83E40(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CI::Perspective::Line>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<CI::Perspective::Line>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -2749,7 +3501,7 @@ void std::vector<CI::Perspective::Line>::push_back[abi:nn200100](uint64_t a1, _O
   *(a1 + 8) = v6;
 }
 
-void *std::vector<CI::Perspective::Line>::__assign_with_size[abi:nn200100]<CI::Perspective::Line*,CI::Perspective::Line*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<CI::Perspective::Line>::__assign_with_size[abi:nn200100]<CI::Perspective::Line*,CI::Perspective::Line*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2836,19 +3588,17 @@ void sub_19CD88AB0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<LineCostProxy>::reserve(void *result, unint64_t a2)
+void std::vector<LineCostProxy>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0xAAAAAAAAAAAAAABLL)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<IRect>>(result, a2);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<IRect>>(a1, a2);
     }
 
     std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
 void std::vector<LineCostProxy>::push_back[abi:nn200100](uint64_t a1, __int128 *a2)
@@ -3235,19 +3985,17 @@ void sub_19CD8B250(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *_ZNSt3__16vectorIN2CI11Perspective9NMSimplexIDv3_fE8NMVertexENS_9allocatorIS6_EEE7reserveEm(void *result, unint64_t a2)
+void _ZNSt3__16vectorIN2CI11Perspective9NMSimplexIDv3_fE8NMVertexENS_9allocatorIS6_EEE7reserveEm(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 5)
+  if (a2 > (a1[2] - *a1) >> 5)
   {
     if (!(a2 >> 59))
     {
-      _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIN2CI11Perspective9NMSimplexIDv3_fE8NMVertexEEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERSB_m(result, a2);
+      _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIN2CI11Perspective9NMSimplexIDv3_fE8NMVertexEEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERSB_m(a1, a2);
     }
 
     std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
 BOOL _ZNK2CI11Perspective9NMSimplexIDv3_fE15shouldTerminateEv(uint64_t a1)
@@ -3331,14 +4079,14 @@ LABEL_2:
         result.n128_u32[0] = a2[-1].n128_u32[0];
         if (result.n128_f32[0] < *(n128_u64 + 16))
         {
-          v108 = *n128_u64;
-          v136 = *(n128_u64 + 16);
-          v65 = a2[-1];
+          v107 = *n128_u64;
+          v135 = *(n128_u64 + 16);
+          v64 = a2[-1];
           *n128_u64 = a2[-2];
-          *(n128_u64 + 16) = v65;
-          a2[-2] = v108;
-          result = v136;
-          a2[-1] = v136;
+          *(n128_u64 + 16) = v64;
+          a2[-2] = v107;
+          result = v135;
+          a2[-1] = v135;
         }
 
         return result;
@@ -3354,98 +4102,98 @@ LABEL_2:
 
     if (v15 == 4)
     {
-      v66 = *(n128_u64 + 48);
-      v67 = *(n128_u64 + 80);
-      if (v66 >= *(n128_u64 + 16))
+      v65 = *(n128_u64 + 48);
+      v66 = *(n128_u64 + 80);
+      if (v65 >= *(n128_u64 + 16))
       {
-        if (v67 < v66)
+        if (v66 < v65)
         {
-          v71 = *(n128_u64 + 32);
+          v70 = *(n128_u64 + 32);
           result = *(n128_u64 + 48);
-          v72 = *(n128_u64 + 80);
+          v71 = *(n128_u64 + 80);
           *(n128_u64 + 32) = *(n128_u64 + 64);
-          *(n128_u64 + 48) = v72;
-          *(n128_u64 + 64) = v71;
+          *(n128_u64 + 48) = v71;
+          *(n128_u64 + 64) = v70;
           *(n128_u64 + 80) = result;
           if (*(n128_u64 + 48) < *(n128_u64 + 16))
           {
-            v110 = *n128_u64;
-            v138 = *(n128_u64 + 16);
-            v73 = *(n128_u64 + 48);
+            v109 = *n128_u64;
+            v137 = *(n128_u64 + 16);
+            v72 = *(n128_u64 + 48);
             *n128_u64 = *(n128_u64 + 32);
-            *(n128_u64 + 16) = v73;
-            result = v110;
-            *(n128_u64 + 32) = v110;
-            *(n128_u64 + 48) = v138;
+            *(n128_u64 + 16) = v72;
+            result = v109;
+            *(n128_u64 + 32) = v109;
+            *(n128_u64 + 48) = v137;
           }
         }
       }
 
-      else if (v67 >= v66)
+      else if (v66 >= v65)
       {
-        v112 = *n128_u64;
-        v140 = *(n128_u64 + 16);
-        v77 = *(n128_u64 + 48);
+        v111 = *n128_u64;
+        v139 = *(n128_u64 + 16);
+        v76 = *(n128_u64 + 48);
         *n128_u64 = *(n128_u64 + 32);
-        *(n128_u64 + 16) = v77;
-        *(n128_u64 + 32) = v112;
-        *(n128_u64 + 48) = v140;
-        if (v67 < *(n128_u64 + 48))
+        *(n128_u64 + 16) = v76;
+        *(n128_u64 + 32) = v111;
+        *(n128_u64 + 48) = v139;
+        if (v66 < *(n128_u64 + 48))
         {
-          v78 = *(n128_u64 + 32);
+          v77 = *(n128_u64 + 32);
           result = *(n128_u64 + 48);
-          v79 = *(n128_u64 + 80);
+          v78 = *(n128_u64 + 80);
           *(n128_u64 + 32) = *(n128_u64 + 64);
-          *(n128_u64 + 48) = v79;
-          *(n128_u64 + 64) = v78;
+          *(n128_u64 + 48) = v78;
+          *(n128_u64 + 64) = v77;
           *(n128_u64 + 80) = result;
         }
       }
 
       else
       {
-        v109 = *n128_u64;
-        v137 = *(n128_u64 + 16);
-        v68 = *(n128_u64 + 80);
+        v108 = *n128_u64;
+        v136 = *(n128_u64 + 16);
+        v67 = *(n128_u64 + 80);
         *n128_u64 = *(n128_u64 + 64);
-        *(n128_u64 + 16) = v68;
-        result = v109;
-        *(n128_u64 + 64) = v109;
-        *(n128_u64 + 80) = v137;
+        *(n128_u64 + 16) = v67;
+        result = v108;
+        *(n128_u64 + 64) = v108;
+        *(n128_u64 + 80) = v136;
       }
 
       result.n128_u32[0] = a2[-1].n128_u32[0];
       if (result.n128_f32[0] < *(n128_u64 + 80))
       {
-        v80 = *(n128_u64 + 64);
+        v79 = *(n128_u64 + 64);
         result = *(n128_u64 + 80);
-        v81 = a2[-1];
+        v80 = a2[-1];
         *(n128_u64 + 64) = *v9;
-        *(n128_u64 + 80) = v81;
-        *v9 = v80;
+        *(n128_u64 + 80) = v80;
+        *v9 = v79;
         a2[-1] = result;
         result.n128_u32[0] = *(n128_u64 + 80);
         if (result.n128_f32[0] < *(n128_u64 + 48))
         {
-          v82 = *(n128_u64 + 32);
+          v81 = *(n128_u64 + 32);
           result = *(n128_u64 + 48);
-          v83 = *(n128_u64 + 80);
+          v82 = *(n128_u64 + 80);
           *(n128_u64 + 32) = *(n128_u64 + 64);
-          *(n128_u64 + 48) = v83;
-          *(n128_u64 + 64) = v82;
+          *(n128_u64 + 48) = v82;
+          *(n128_u64 + 64) = v81;
           *(n128_u64 + 80) = result;
 LABEL_103:
           result.n128_u32[0] = *(n128_u64 + 48);
           if (result.n128_f32[0] < *(n128_u64 + 16))
           {
-            v113 = *n128_u64;
-            v141 = *(n128_u64 + 16);
-            v84 = *(n128_u64 + 48);
+            v112 = *n128_u64;
+            v140 = *(n128_u64 + 16);
+            v83 = *(n128_u64 + 48);
             *n128_u64 = *(n128_u64 + 32);
-            *(n128_u64 + 16) = v84;
-            result = v113;
-            *(n128_u64 + 32) = v113;
-            *(n128_u64 + 48) = v141;
+            *(n128_u64 + 16) = v83;
+            result = v112;
+            *(n128_u64 + 32) = v112;
+            *(n128_u64 + 48) = v140;
           }
 
           return result;
@@ -3500,22 +4248,22 @@ LABEL_10:
       {
         if (v17 < v18)
         {
-          v88 = *v16;
-          v116 = *(v16 + 16);
+          v87 = *v16;
+          v115 = *(v16 + 16);
           v22 = a2[-1];
           *v16 = *v9;
           *(v16 + 16) = v22;
-          *v9 = v88;
-          a2[-1] = v116;
+          *v9 = v87;
+          a2[-1] = v115;
           if (*(v16 + 16) < *(n128_u64 + 16))
           {
-            v89 = *n128_u64;
-            v117 = *(n128_u64 + 16);
+            v88 = *n128_u64;
+            v116 = *(n128_u64 + 16);
             v23 = *(v16 + 16);
             *n128_u64 = *v16;
             *(n128_u64 + 16) = v23;
-            *v16 = v89;
-            *(v16 + 16) = v117;
+            *v16 = v88;
+            *(v16 + 16) = v116;
           }
         }
       }
@@ -3524,31 +4272,31 @@ LABEL_10:
       {
         if (v17 < v18)
         {
-          v86 = *n128_u64;
-          v114 = *(n128_u64 + 16);
+          v85 = *n128_u64;
+          v113 = *(n128_u64 + 16);
           v19 = a2[-1];
           *n128_u64 = *v9;
           *(n128_u64 + 16) = v19;
           goto LABEL_27;
         }
 
-        v92 = *n128_u64;
-        v120 = *(n128_u64 + 16);
+        v91 = *n128_u64;
+        v119 = *(n128_u64 + 16);
         v26 = *(v16 + 16);
         *n128_u64 = *v16;
         *(n128_u64 + 16) = v26;
-        *v16 = v92;
-        *(v16 + 16) = v120;
+        *v16 = v91;
+        *(v16 + 16) = v119;
         if (a2[-1].n128_f32[0] < *(v16 + 16))
         {
-          v86 = *v16;
-          v114 = *(v16 + 16);
+          v85 = *v16;
+          v113 = *(v16 + 16);
           v27 = a2[-1];
           *v16 = *v9;
           *(v16 + 16) = v27;
 LABEL_27:
-          *v9 = v86;
-          a2[-1] = v114;
+          *v9 = v85;
+          a2[-1] = v113;
         }
       }
 
@@ -3559,22 +4307,22 @@ LABEL_27:
       {
         if (v30 < v29)
         {
-          v93 = *v28;
-          v121 = *(v16 - 16);
+          v92 = *v28;
+          v120 = *(v16 - 16);
           v34 = a2[-3];
           *v28 = *v10;
           *(v16 - 16) = v34;
-          *v10 = v93;
-          a2[-3] = v121;
+          *v10 = v92;
+          a2[-3] = v120;
           if (*(v16 - 16) < *(n128_u64 + 48))
           {
-            v94 = *(n128_u64 + 32);
-            v122 = *(n128_u64 + 48);
+            v93 = *(n128_u64 + 32);
+            v121 = *(n128_u64 + 48);
             v35 = *(v16 - 16);
             *(n128_u64 + 32) = *v28;
             *(n128_u64 + 48) = v35;
-            *v28 = v94;
-            *(v16 - 16) = v122;
+            *v28 = v93;
+            *(v16 - 16) = v121;
           }
         }
       }
@@ -3592,22 +4340,22 @@ LABEL_27:
           goto LABEL_39;
         }
 
-        v96 = *(n128_u64 + 32);
-        v124 = *(n128_u64 + 48);
+        v95 = *(n128_u64 + 32);
+        v123 = *(n128_u64 + 48);
         v38 = *(v16 - 16);
         *(n128_u64 + 32) = *v28;
         *(n128_u64 + 48) = v38;
-        *v28 = v96;
-        *(v16 - 16) = v124;
+        *v28 = v95;
+        *(v16 - 16) = v123;
         if (a2[-3].n128_f32[0] < *(v16 - 16))
         {
-          v97 = *v28;
-          v125 = *(v16 - 16);
+          v96 = *v28;
+          v124 = *(v16 - 16);
           v39 = a2[-3];
           *v28 = *v10;
           *(v16 - 16) = v39;
-          *v10 = v97;
-          v31 = v125;
+          *v10 = v96;
+          v31 = v124;
 LABEL_39:
           a2[-3] = v31;
         }
@@ -3620,22 +4368,22 @@ LABEL_39:
       {
         if (v42 < v41)
         {
-          v98 = *v40;
-          v126 = *(v16 + 48);
+          v97 = *v40;
+          v125 = *(v16 + 48);
           v46 = a2[-5];
           *v40 = *v11;
           *(v16 + 48) = v46;
-          *v11 = v98;
-          a2[-5] = v126;
+          *v11 = v97;
+          a2[-5] = v125;
           if (*(v16 + 48) < *(n128_u64 + 80))
           {
-            v99 = *(n128_u64 + 64);
-            v127 = *(n128_u64 + 80);
+            v98 = *(n128_u64 + 64);
+            v126 = *(n128_u64 + 80);
             v47 = *(v16 + 48);
             *(n128_u64 + 64) = *v40;
             *(n128_u64 + 80) = v47;
-            *v40 = v99;
-            *(v16 + 48) = v127;
+            *v40 = v98;
+            *(v16 + 48) = v126;
           }
         }
       }
@@ -3653,22 +4401,22 @@ LABEL_39:
           goto LABEL_48;
         }
 
-        v100 = *(n128_u64 + 64);
-        v128 = *(n128_u64 + 80);
+        v99 = *(n128_u64 + 64);
+        v127 = *(n128_u64 + 80);
         v48 = *(v16 + 48);
         *(n128_u64 + 64) = *v40;
         *(n128_u64 + 80) = v48;
-        *v40 = v100;
-        *(v16 + 48) = v128;
+        *v40 = v99;
+        *(v16 + 48) = v127;
         if (a2[-5].n128_f32[0] < *(v16 + 48))
         {
-          v101 = *v40;
-          v129 = *(v16 + 48);
+          v100 = *v40;
+          v128 = *(v16 + 48);
           v49 = a2[-5];
           *v40 = *v11;
           *(v16 + 48) = v49;
-          *v11 = v101;
-          v43 = v129;
+          *v11 = v100;
+          v43 = v128;
 LABEL_48:
           a2[-5] = v43;
         }
@@ -3680,22 +4428,22 @@ LABEL_48:
       {
         if (v51 < v50)
         {
-          v103 = *v16;
-          v131 = *(v16 + 16);
+          v102 = *v16;
+          v130 = *(v16 + 16);
           v53 = *(v16 + 48);
           *v16 = *v40;
           *(v16 + 16) = v53;
-          *v40 = v103;
-          *(v16 + 48) = v131;
+          *v40 = v102;
+          *(v16 + 48) = v130;
           if (*(v16 + 16) < *(v16 - 16))
           {
-            v104 = *v28;
-            v132 = *(v16 - 16);
+            v103 = *v28;
+            v131 = *(v16 - 16);
             v54 = *(v16 + 16);
             *v28 = *v16;
             *(v16 - 16) = v54;
-            *v16 = v104;
-            *(v16 + 16) = v132;
+            *v16 = v103;
+            *(v16 + 16) = v131;
           }
         }
       }
@@ -3704,41 +4452,41 @@ LABEL_48:
       {
         if (v51 < v50)
         {
-          v102 = *v28;
-          v130 = *(v16 - 16);
+          v101 = *v28;
+          v129 = *(v16 - 16);
           v52 = *(v16 + 48);
           *v28 = *v40;
           *(v16 - 16) = v52;
           goto LABEL_57;
         }
 
-        v105 = *v28;
-        v133 = *(v16 - 16);
+        v104 = *v28;
+        v132 = *(v16 - 16);
         v55 = *(v16 + 16);
         *v28 = *v16;
         *(v16 - 16) = v55;
-        *v16 = v105;
-        *(v16 + 16) = v133;
+        *v16 = v104;
+        *(v16 + 16) = v132;
         if (*(v16 + 48) < *(v16 + 16))
         {
-          v102 = *v16;
-          v130 = *(v16 + 16);
+          v101 = *v16;
+          v129 = *(v16 + 16);
           v56 = *(v16 + 48);
           *v16 = *v40;
           *(v16 + 16) = v56;
 LABEL_57:
-          *v40 = v102;
-          *(v16 + 48) = v130;
+          *v40 = v101;
+          *(v16 + 48) = v129;
         }
       }
 
-      v106 = *n128_u64;
-      v134 = *(n128_u64 + 16);
+      v105 = *n128_u64;
+      v133 = *(n128_u64 + 16);
       v57 = *(v16 + 16);
       *n128_u64 = *v16;
       *(n128_u64 + 16) = v57;
-      *v16 = v106;
-      *(v16 + 16) = v134;
+      *v16 = v105;
+      *(v16 + 16) = v133;
       goto LABEL_59;
     }
 
@@ -3747,22 +4495,22 @@ LABEL_57:
     {
       if (v17 < v20)
       {
-        v90 = *n128_u64;
-        v118 = *(n128_u64 + 16);
+        v89 = *n128_u64;
+        v117 = *(n128_u64 + 16);
         v24 = a2[-1];
         *n128_u64 = *v9;
         *(n128_u64 + 16) = v24;
-        *v9 = v90;
-        a2[-1] = v118;
+        *v9 = v89;
+        a2[-1] = v117;
         if (*(n128_u64 + 16) < *(v16 + 16))
         {
-          v91 = *v16;
-          v119 = *(v16 + 16);
+          v90 = *v16;
+          v118 = *(v16 + 16);
           v25 = *(n128_u64 + 16);
           *v16 = *n128_u64;
           *(v16 + 16) = v25;
-          *n128_u64 = v91;
-          *(n128_u64 + 16) = v119;
+          *n128_u64 = v90;
+          *(n128_u64 + 16) = v118;
         }
       }
     }
@@ -3771,28 +4519,28 @@ LABEL_57:
     {
       if (v17 < v20)
       {
-        v87 = *v16;
-        v115 = *(v16 + 16);
+        v86 = *v16;
+        v114 = *(v16 + 16);
         v21 = a2[-1];
         *v16 = *v9;
         *(v16 + 16) = v21;
 LABEL_36:
-        *v9 = v87;
-        a2[-1] = v115;
+        *v9 = v86;
+        a2[-1] = v114;
         goto LABEL_59;
       }
 
-      v95 = *v16;
-      v123 = *(v16 + 16);
+      v94 = *v16;
+      v122 = *(v16 + 16);
       v36 = *(n128_u64 + 16);
       *v16 = *n128_u64;
       *(v16 + 16) = v36;
-      *n128_u64 = v95;
-      *(n128_u64 + 16) = v123;
+      *n128_u64 = v94;
+      *(n128_u64 + 16) = v122;
       if (a2[-1].n128_f32[0] < *(n128_u64 + 16))
       {
-        v87 = *n128_u64;
-        v115 = *(n128_u64 + 16);
+        v86 = *n128_u64;
+        v114 = *(n128_u64 + 16);
         v37 = a2[-1];
         *n128_u64 = *v9;
         *(n128_u64 + 16) = v37;
@@ -3808,18 +4556,18 @@ LABEL_59:
     }
 
     v58 = _ZNSt3__132__partition_with_equals_on_rightB8nn200100INS_17_ClassicAlgPolicyEPN2CI11Perspective9NMSimplexIDv3_fE8NMVertexERZNS6_13orderVerticesEvEUlRKS7_SA_E_EENS_4pairIT0_bEESE_SE_T1_(n128_u64, a2);
-    if ((v60 & 1) == 0)
+    if ((v59 & 1) == 0)
     {
       goto LABEL_64;
     }
 
-    v61 = _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEbT1_SD_T0_(n128_u64, v58, v59);
+    v60 = _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEbT1_SD_T0_(n128_u64, v58, result);
     n128_u64 = v58[2].n128_u64;
-    if (_ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEbT1_SD_T0_(v58 + 2, a2, v62))
+    if (_ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEbT1_SD_T0_(v58 + 2, a2, v61))
     {
       a4 = -v14;
       a2 = v58;
-      if (v61)
+      if (v60)
       {
         return result;
       }
@@ -3828,10 +4576,10 @@ LABEL_59:
     }
 
     v13 = v14 + 1;
-    if (!v61)
+    if (!v60)
     {
 LABEL_64:
-      _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_Lb0EEEvT1_SD_T0_NS_15iterator_traitsISD_E15difference_typeEb(a1, v58, a3, -v14, a5 & 1);
+      result = _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_Lb0EEEvT1_SD_T0_NS_15iterator_traitsISD_E15difference_typeEb(a1, v58, a3, -v14, a5 & 1, result);
       n128_u64 = v58[2].n128_u64;
 LABEL_66:
       a5 = 0;
@@ -3841,57 +4589,57 @@ LABEL_66:
   }
 
   result.n128_u32[0] = *(n128_u64 + 48);
-  v63 = a2[-1].n128_f32[0];
+  v62 = a2[-1].n128_f32[0];
   if (result.n128_f32[0] >= *(n128_u64 + 16))
   {
-    if (v63 >= result.n128_f32[0])
+    if (v62 >= result.n128_f32[0])
     {
       return result;
     }
 
-    v69 = *(n128_u64 + 32);
+    v68 = *(n128_u64 + 32);
     result = *(n128_u64 + 48);
-    v70 = a2[-1];
+    v69 = a2[-1];
     *(n128_u64 + 32) = *v9;
-    *(n128_u64 + 48) = v70;
-    *v9 = v69;
+    *(n128_u64 + 48) = v69;
+    *v9 = v68;
     a2[-1] = result;
     goto LABEL_103;
   }
 
-  if (v63 >= result.n128_f32[0])
+  if (v62 >= result.n128_f32[0])
   {
-    v111 = *n128_u64;
-    v139 = *(n128_u64 + 16);
-    v74 = *(n128_u64 + 48);
+    v110 = *n128_u64;
+    v138 = *(n128_u64 + 16);
+    v73 = *(n128_u64 + 48);
     *n128_u64 = *(n128_u64 + 32);
-    *(n128_u64 + 16) = v74;
-    result = v111;
-    *(n128_u64 + 32) = v111;
-    *(n128_u64 + 48) = v139;
+    *(n128_u64 + 16) = v73;
+    result = v110;
+    *(n128_u64 + 32) = v110;
+    *(n128_u64 + 48) = v138;
     result.n128_u32[0] = a2[-1].n128_u32[0];
     if (result.n128_f32[0] < *(n128_u64 + 48))
     {
-      v75 = *(n128_u64 + 32);
+      v74 = *(n128_u64 + 32);
       result = *(n128_u64 + 48);
-      v76 = a2[-1];
+      v75 = a2[-1];
       *(n128_u64 + 32) = *v9;
-      *(n128_u64 + 48) = v76;
-      *v9 = v75;
+      *(n128_u64 + 48) = v75;
+      *v9 = v74;
       a2[-1] = result;
     }
   }
 
   else
   {
-    v107 = *n128_u64;
-    v135 = *(n128_u64 + 16);
-    v64 = a2[-1];
+    v106 = *n128_u64;
+    v134 = *(n128_u64 + 16);
+    v63 = a2[-1];
     *n128_u64 = *v9;
-    *(n128_u64 + 16) = v64;
-    *v9 = v107;
-    result = v135;
-    a2[-1] = v135;
+    *(n128_u64 + 16) = v63;
+    *v9 = v106;
+    result = v134;
+    a2[-1] = v134;
   }
 
   return result;
@@ -4038,12 +4786,12 @@ LABEL_10:
   return result;
 }
 
-uint64_t _ZNSt3__116__insertion_sortB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEvT1_SD_T0_(uint64_t result, _OWORD *a2)
+_OWORD *_ZNSt3__116__insertion_sortB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEvT1_SD_T0_(_OWORD *result, _OWORD *a2)
 {
   if (result != a2)
   {
-    v2 = (result + 32);
-    if ((result + 32) != a2)
+    v2 = result + 2;
+    if (result + 2 != a2)
     {
       v3 = 0;
       v4 = result;
@@ -4061,17 +4809,17 @@ uint64_t _ZNSt3__116__insertion_sortB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Pe
           {
             v8 = result + v7;
             v9 = *(result + v7 + 16);
-            *(v8 + 32) = *(result + v7);
-            *(v8 + 48) = v9;
+            *(v8 + 2) = *(result + v7);
+            *(v8 + 3) = v9;
             if (!v7)
             {
               break;
             }
 
             v7 -= 32;
-            if (v6 >= *(v8 - 16))
+            if (v6 >= *(v8 - 4))
             {
-              v10 = result + v7 + 32;
+              v10 = (result + v7 + 32);
               goto LABEL_10;
             }
           }
@@ -4079,9 +4827,9 @@ uint64_t _ZNSt3__116__insertion_sortB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Pe
           v10 = result;
 LABEL_10:
           *v10 = v11;
-          *(v10 + 16) = v6;
+          *(v10 + 4) = v6;
           *(v10 + 20) = v12;
-          *(v10 + 28) = v13;
+          *(v10 + 7) = v13;
         }
 
         v2 = v5 + 2;
@@ -4142,7 +4890,7 @@ unint64_t _ZNSt3__131__partition_with_equals_on_leftB8nn200100INS_17_ClassicAlgP
   v20 = *(a1 + 7);
   if (v2 >= *(a2 - 4))
   {
-    v6 = (a1 + 2);
+    v6 = a1 + 2;
     do
     {
       v4 = v6;
@@ -4151,8 +4899,8 @@ unint64_t _ZNSt3__131__partition_with_equals_on_leftB8nn200100INS_17_ClassicAlgP
         break;
       }
 
-      v7 = *(v6 + 16);
-      v6 += 32;
+      v7 = *(v6 + 4);
+      v6 += 2;
     }
 
     while (v2 >= v7);
@@ -4163,9 +4911,9 @@ unint64_t _ZNSt3__131__partition_with_equals_on_leftB8nn200100INS_17_ClassicAlgP
     v3 = a1;
     do
     {
-      v4 = (v3 + 8);
-      v5 = v3[12];
-      v3 += 8;
+      v4 = (v3 + 2);
+      v5 = *(v3 + 12);
+      v3 += 2;
     }
 
     while (v2 >= v5);
@@ -4228,7 +4976,7 @@ unint64_t _ZNSt3__131__partition_with_equals_on_leftB8nn200100INS_17_ClassicAlgP
   return v4;
 }
 
-unint64_t _ZNSt3__132__partition_with_equals_on_rightB8nn200100INS_17_ClassicAlgPolicyEPN2CI11Perspective9NMSimplexIDv3_fE8NMVertexERZNS6_13orderVerticesEvEUlRKS7_SA_E_EENS_4pairIT0_bEESE_SE_T1_(__int128 *a1, float *a2)
+__int128 *_ZNSt3__132__partition_with_equals_on_rightB8nn200100INS_17_ClassicAlgPolicyEPN2CI11Perspective9NMSimplexIDv3_fE8NMVertexERZNS6_13orderVerticesEvEUlRKS7_SA_E_EENS_4pairIT0_bEESE_SE_T1_(__int128 *a1, float *a2)
 {
   v2 = 0;
   v18 = *a1;
@@ -4279,23 +5027,23 @@ LABEL_9:
     do
     {
       v11 = *v9;
-      v19 = *(v9 + 16);
-      v12 = *(v10 + 1);
+      v19 = v9[1];
+      v12 = v10[1];
       *v9 = *v10;
-      *(v9 + 16) = v12;
+      v9[1] = v12;
       *v10 = v11;
-      *(v10 + 1) = v19;
+      v10[1] = v19;
       do
       {
-        v13 = *(v9 + 48);
-        v9 += 32;
+        v13 = *(v9 + 12);
+        v9 += 2;
       }
 
       while (v13 < v3);
       do
       {
         v14 = *(v10 - 4);
-        v10 -= 8;
+        v10 -= 2;
       }
 
       while (v14 >= v3);
@@ -4304,19 +5052,19 @@ LABEL_9:
     while (v9 < v10);
   }
 
-  v15 = (v9 - 32);
-  if ((v9 - 32) != a1)
+  v15 = v9 - 2;
+  if (v9 - 2 != a1)
   {
-    v16 = *(v9 - 16);
+    v16 = *(v9 - 1);
     *a1 = *v15;
     a1[1] = v16;
   }
 
   *v15 = v18;
-  *(v9 - 16) = v3;
-  *(v9 - 4) = v21;
+  *(v9 - 4) = v3;
+  *(v9 - 1) = v21;
   *(v9 - 12) = v20;
-  return v9 - 32;
+  return v9 - 2;
 }
 
 BOOL _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEbT1_SD_T0_(__n128 *a1, __n128 *a2, __n128 a3)
@@ -4595,8 +5343,8 @@ LABEL_33:
     if (v52 < v13[1].n128_f32[0])
     {
       v72 = *v49;
-      v73 = *(v49[1].n128_i64 + 4);
-      v74 = v49[1].n128_i32[3];
+      v73 = *(v49[1].n128_u64 + 4);
+      v74 = v49[1].n128_u32[3];
       v53 = v50;
       while (1)
       {
@@ -4612,7 +5360,7 @@ LABEL_33:
         v53 -= 32;
         if (v52 >= v54[3].n128_f32[0])
         {
-          v56 = &a1[6] + v53;
+          v56 = (a1 + v53 + 96);
           goto LABEL_41;
         }
       }
@@ -4620,9 +5368,9 @@ LABEL_33:
       v56 = a1;
 LABEL_41:
       *v56 = v72;
-      *(v56 + 16) = v52;
-      *(v56 + 20) = v73;
-      *(v56 + 28) = v74;
+      v56[1].n128_f32[0] = v52;
+      *(v56[1].n128_u64 + 4) = v73;
+      v56[1].n128_u32[3] = v74;
       if (++v51 == 8)
       {
         return &v49[2] == a2;
@@ -4639,7 +5387,7 @@ LABEL_41:
   }
 }
 
-float *_ZNSt3__119__partial_sort_implB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_SC_EET1_SD_SD_T2_OT0_(uint64_t a1, float *a2, float *a3, uint64_t a4)
+float *_ZNSt3__119__partial_sort_implB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_SC_EET1_SD_SD_T2_OT0_(float *a1, float *a2, float *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -4649,7 +5397,7 @@ float *_ZNSt3__119__partial_sort_implB8nn200100INS_17_ClassicAlgPolicyERZN2CI11P
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = (a1 + 32 * v9);
+      v11 = &a1[8 * v9];
       do
       {
         _ZNSt3__111__sift_downB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEvT1_OT0_NS_15iterator_traitsISD_E15difference_typeESD_(a1, a4, v8, v11);
@@ -4666,15 +5414,15 @@ float *_ZNSt3__119__partial_sort_implB8nn200100INS_17_ClassicAlgPolicyERZN2CI11P
       v12 = v6;
       do
       {
-        if (v12[4] < *(a1 + 16))
+        if (v12[4] < a1[4])
         {
           v14 = *v12;
           v13 = *(v12 + 1);
-          v15 = *(a1 + 16);
+          v15 = *(a1 + 1);
           *v12 = *a1;
           *(v12 + 1) = v15;
           *a1 = v14;
-          *(a1 + 16) = v13;
+          *(a1 + 1) = v13;
           _ZNSt3__111__sift_downB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEvT1_OT0_NS_15iterator_traitsISD_E15difference_typeESD_(a1, a4, v8, a1);
         }
 
@@ -4690,11 +5438,11 @@ float *_ZNSt3__119__partial_sort_implB8nn200100INS_17_ClassicAlgPolicyERZN2CI11P
       {
         v16 = 0;
         v28 = *a1;
-        v29 = *(a1 + 16);
+        v29 = *(a1 + 1);
         v17 = a1;
         do
         {
-          v18 = &v17[2 * v16];
+          v18 = &v17[8 * v16];
           v19 = v18 + 8;
           v20 = (2 * v16) | 1;
           v16 = 2 * v16 + 2;
@@ -4721,7 +5469,7 @@ float *_ZNSt3__119__partial_sort_implB8nn200100INS_17_ClassicAlgPolicyERZN2CI11P
 
           v24 = *(v19 + 1);
           *v17 = *v19;
-          v17[1] = v24;
+          *(v17 + 1) = v24;
           v17 = v19;
         }
 
@@ -4740,7 +5488,7 @@ float *_ZNSt3__119__partial_sort_implB8nn200100INS_17_ClassicAlgPolicyERZN2CI11P
           *(v19 + 1) = v25;
           *v6 = v28;
           *(v6 + 1) = v29;
-          _ZNSt3__19__sift_upB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEvT1_SD_OT0_NS_15iterator_traitsISD_E15difference_typeE(a1, (v19 + 8), a4, (v19 - a1 + 32) >> 5);
+          _ZNSt3__19__sift_upB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv3_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEvT1_SD_OT0_NS_15iterator_traitsISD_E15difference_typeE(a1, (v19 + 8), a4, ((v19 + 8) - a1) >> 5);
         }
       }
 
@@ -5051,19 +5799,17 @@ void sub_19CD8CCF8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *_ZNSt3__16vectorIN2CI11Perspective9NMSimplexIDv2_fE8NMVertexENS_9allocatorIS6_EEE7reserveEm(void *result, unint64_t a2)
+void _ZNSt3__16vectorIN2CI11Perspective9NMSimplexIDv2_fE8NMVertexENS_9allocatorIS6_EEE7reserveEm(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIN2CI11Perspective9NMSimplexIDv2_fE8NMVertexEEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERSB_m(result, a2);
+      _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIN2CI11Perspective9NMSimplexIDv2_fE8NMVertexEEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERSB_m(a1, a2);
     }
 
     std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
 BOOL _ZNK2CI11Perspective9NMSimplexIDv2_fE15shouldTerminateEv(uint64_t a1)
@@ -5125,7 +5871,7 @@ __n128 _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimpl
 {
 LABEL_1:
   v10 = a2 - 1;
-  v39 = a2 - 2;
+  v38 = a2 - 2;
   v11 = a2 - 3;
   v12 = a1;
 LABEL_2:
@@ -5147,10 +5893,10 @@ LABEL_2:
         result.n128_u32[0] = a2[-1].n128_u32[2];
         if (result.n128_f32[0] < v12->n128_f32[2])
         {
-          v62 = *v12;
+          v61 = *v12;
           *v12 = a2[-1];
-          result = v62;
-          a2[-1] = v62;
+          result = v61;
+          a2[-1] = v61;
         }
 
         return result;
@@ -5166,39 +5912,39 @@ LABEL_2:
 
     if (v15 == 4)
     {
-      v37 = v12[1].n128_f32[2];
-      v38 = v12[2].n128_f32[2];
-      if (v37 >= v12->n128_f32[2])
+      v36 = v12[1].n128_f32[2];
+      v37 = v12[2].n128_f32[2];
+      if (v36 >= v12->n128_f32[2])
       {
-        if (v38 < v37)
+        if (v37 < v36)
         {
           result = v12[1];
           v12[1] = v12[2];
           v12[2] = result;
           if (v12[1].n128_f32[2] < v12->n128_f32[2])
           {
-            v64 = *v12;
+            v63 = *v12;
             *v12 = v12[1];
-            result = v64;
-            v12[1] = v64;
+            result = v63;
+            v12[1] = v63;
           }
         }
       }
 
       else
       {
-        if (v38 < v37)
+        if (v37 < v36)
         {
-          v63 = *v12;
+          v62 = *v12;
           *v12 = v12[2];
-          result = v63;
+          result = v62;
           goto LABEL_103;
         }
 
-        v66 = *v12;
+        v65 = *v12;
         *v12 = v12[1];
-        v12[1] = v66;
-        if (v38 < v12[1].n128_f32[2])
+        v12[1] = v65;
+        if (v37 < v12[1].n128_f32[2])
         {
           result = v12[1];
           v12[1] = v12[2];
@@ -5229,10 +5975,10 @@ LABEL_107:
       result.n128_u32[0] = v12[1].n128_u32[2];
       if (result.n128_f32[0] < v12->n128_f32[2])
       {
-        v67 = *v12;
+        v66 = *v12;
         *v12 = v12[1];
-        result = v67;
-        v12[1] = v67;
+        result = v66;
+        v12[1] = v66;
       }
 
       return result;
@@ -5283,14 +6029,14 @@ LABEL_10:
       {
         if (v17 < v18)
         {
-          v42 = *v16;
+          v41 = *v16;
           *v16 = *v10;
-          *v10 = v42;
+          *v10 = v41;
           if (v16->n128_f32[2] < v12->n128_f32[2])
           {
-            v43 = *v12;
+            v42 = *v12;
             *v12 = *v16;
-            *v16 = v43;
+            *v16 = v42;
           }
         }
       }
@@ -5299,20 +6045,20 @@ LABEL_10:
       {
         if (v17 < v18)
         {
-          v40 = *v12;
+          v39 = *v12;
           *v12 = *v10;
           goto LABEL_28;
         }
 
-        v46 = *v12;
+        v45 = *v12;
         *v12 = *v16;
-        *v16 = v46;
+        *v16 = v45;
         if (a2[-1].n128_f32[2] < v16->n128_f32[2])
         {
-          v40 = *v16;
+          v39 = *v16;
           *v16 = *v10;
 LABEL_28:
-          *v10 = v40;
+          *v10 = v39;
         }
       }
 
@@ -5323,14 +6069,14 @@ LABEL_28:
       {
         if (v22 < v21)
         {
-          v47 = *v20;
-          *v20 = *v39;
-          *v39 = v47;
+          v46 = *v20;
+          *v20 = *v38;
+          *v38 = v46;
           if (v16[-1].n128_f32[2] < v12[1].n128_f32[2])
           {
-            v48 = v12[1];
+            v47 = v12[1];
             v12[1] = *v20;
-            *v20 = v48;
+            *v20 = v47;
           }
         }
       }
@@ -5341,19 +6087,19 @@ LABEL_28:
         {
           v23 = v12[1];
           v24 = a2 - 2;
-          v12[1] = *v39;
+          v12[1] = *v38;
           goto LABEL_42;
         }
 
-        v50 = v12[1];
+        v49 = v12[1];
         v12[1] = *v20;
-        *v20 = v50;
+        *v20 = v49;
         if (a2[-2].n128_f32[2] < v16[-1].n128_f32[2])
         {
-          v51 = *v20;
+          v50 = *v20;
           v24 = a2 - 2;
-          *v20 = *v39;
-          v23 = v51;
+          *v20 = *v38;
+          v23 = v50;
 LABEL_42:
           *v24 = v23;
         }
@@ -5366,14 +6112,14 @@ LABEL_42:
       {
         if (v27 < v26)
         {
-          v52 = *v25;
+          v51 = *v25;
           *v25 = *v11;
-          *v11 = v52;
+          *v11 = v51;
           if (v16[1].n128_f32[2] < v12[2].n128_f32[2])
           {
-            v53 = v12[2];
+            v52 = v12[2];
             v12[2] = *v25;
-            *v25 = v53;
+            *v25 = v52;
           }
         }
       }
@@ -5387,14 +6133,14 @@ LABEL_42:
           goto LABEL_51;
         }
 
-        v54 = v12[2];
+        v53 = v12[2];
         v12[2] = *v25;
-        *v25 = v54;
+        *v25 = v53;
         if (a2[-3].n128_f32[2] < v16[1].n128_f32[2])
         {
-          v55 = *v25;
+          v54 = *v25;
           *v25 = *v11;
-          v28 = v55;
+          v28 = v54;
 LABEL_51:
           *v11 = v28;
         }
@@ -5406,14 +6152,14 @@ LABEL_51:
       {
         if (v30 < v29)
         {
-          v57 = *v16;
+          v56 = *v16;
           *v16 = *v25;
-          *v25 = v57;
+          *v25 = v56;
           if (v16->n128_f32[2] < v16[-1].n128_f32[2])
           {
-            v58 = *v20;
+            v57 = *v20;
             *v20 = *v16;
-            *v16 = v58;
+            *v16 = v57;
           }
         }
       }
@@ -5422,26 +6168,26 @@ LABEL_51:
       {
         if (v30 < v29)
         {
-          v56 = *v20;
+          v55 = *v20;
           *v20 = *v25;
           goto LABEL_60;
         }
 
-        v59 = *v20;
+        v58 = *v20;
         *v20 = *v16;
-        *v16 = v59;
+        *v16 = v58;
         if (v16[1].n128_f32[2] < v16->n128_f32[2])
         {
-          v56 = *v16;
+          v55 = *v16;
           *v16 = *v25;
 LABEL_60:
-          *v25 = v56;
+          *v25 = v55;
         }
       }
 
-      v60 = *v12;
+      v59 = *v12;
       *v12 = *v16;
-      *v16 = v60;
+      *v16 = v59;
       if (a5)
       {
         goto LABEL_63;
@@ -5455,20 +6201,20 @@ LABEL_60:
     {
       if (v17 < v19)
       {
-        v41 = *v16;
+        v40 = *v16;
         *v16 = *v10;
         goto LABEL_37;
       }
 
-      v49 = *v16;
+      v48 = *v16;
       *v16 = *v12;
-      *v12 = v49;
+      *v12 = v48;
       if (a2[-1].n128_f32[2] < v12->n128_f32[2])
       {
-        v41 = *v12;
+        v40 = *v12;
         *v12 = *v10;
 LABEL_37:
-        *v10 = v41;
+        *v10 = v40;
       }
 
 LABEL_38:
@@ -5485,17 +6231,17 @@ LABEL_38:
       goto LABEL_38;
     }
 
-    v44 = *v12;
+    v43 = *v12;
     *v12 = *v10;
-    *v10 = v44;
+    *v10 = v43;
     if (v12->n128_f32[2] >= v16->n128_f32[2])
     {
       goto LABEL_38;
     }
 
-    v45 = *v16;
+    v44 = *v16;
     *v16 = *v12;
-    *v12 = v45;
+    *v12 = v44;
     if (a5)
     {
       goto LABEL_63;
@@ -5510,18 +6256,18 @@ LABEL_62:
 
 LABEL_63:
     v31 = _ZNSt3__132__partition_with_equals_on_rightB8nn200100INS_17_ClassicAlgPolicyEPN2CI11Perspective9NMSimplexIDv2_fE8NMVertexERZNS6_13orderVerticesEvEUlRKS7_SA_E_EENS_4pairIT0_bEESE_SE_T1_(v12, a2);
-    if ((v33 & 1) == 0)
+    if ((v32 & 1) == 0)
     {
       goto LABEL_66;
     }
 
-    v34 = _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv2_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEbT1_SD_T0_(v12, v31, v32);
+    v33 = _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv2_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEbT1_SD_T0_(v12, v31, result);
     v12 = v31 + 1;
-    if (_ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv2_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEbT1_SD_T0_(v31 + 1, a2, v35))
+    if (_ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv2_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEbT1_SD_T0_(v31 + 1, a2, v34))
     {
       a4 = -v14;
       a2 = v31;
-      if (v34)
+      if (v33)
       {
         return result;
       }
@@ -5530,10 +6276,10 @@ LABEL_63:
     }
 
     v13 = v14 + 1;
-    if (!v34)
+    if (!v33)
     {
 LABEL_66:
-      _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv2_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_Lb0EEEvT1_SD_T0_NS_15iterator_traitsISD_E15difference_typeEb(a1, v31, a3, -v14, a5 & 1);
+      result = _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv2_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_Lb0EEEvT1_SD_T0_NS_15iterator_traitsISD_E15difference_typeEb(a1, v31, a3, -v14, a5 & 1, result);
       v12 = v31 + 1;
 LABEL_68:
       a5 = 0;
@@ -5543,10 +6289,10 @@ LABEL_68:
   }
 
   result.n128_u32[0] = v12[1].n128_u32[2];
-  v36 = a2[-1].n128_f32[2];
+  v35 = a2[-1].n128_f32[2];
   if (result.n128_f32[0] >= v12->n128_f32[2])
   {
-    if (v36 >= result.n128_f32[0])
+    if (v35 >= result.n128_f32[0])
     {
       return result;
     }
@@ -5557,12 +6303,12 @@ LABEL_68:
     goto LABEL_107;
   }
 
-  if (v36 >= result.n128_f32[0])
+  if (v35 >= result.n128_f32[0])
   {
-    v65 = *v12;
+    v64 = *v12;
     *v12 = v12[1];
-    result = v65;
-    v12[1] = v65;
+    result = v64;
+    v12[1] = v64;
     result.n128_u32[0] = a2[-1].n128_u32[2];
     if (result.n128_f32[0] >= v12[1].n128_f32[2])
     {
@@ -5575,9 +6321,9 @@ LABEL_68:
 
   else
   {
-    v61 = *v12;
+    v60 = *v12;
     *v12 = *v10;
-    result = v61;
+    result = v60;
   }
 
   *v10 = result;
@@ -5678,12 +6424,12 @@ LABEL_10:
   return result;
 }
 
-uint64_t _ZNSt3__116__insertion_sortB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv2_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEvT1_SD_T0_(uint64_t result, void *a2)
+void *_ZNSt3__116__insertion_sortB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv2_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEvT1_SD_T0_(void *result, void *a2)
 {
   if (result != a2)
   {
-    v2 = (result + 16);
-    if ((result + 16) != a2)
+    v2 = result + 2;
+    if (result + 2 != a2)
     {
       v3 = 0;
       v4 = result;
@@ -5708,7 +6454,7 @@ uint64_t _ZNSt3__116__insertion_sortB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Pe
             v9 -= 16;
             if (v6 >= v10)
             {
-              v11 = result + v9 + 16;
+              v11 = (result + v9 + 16);
               goto LABEL_10;
             }
           }
@@ -5716,8 +6462,8 @@ uint64_t _ZNSt3__116__insertion_sortB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Pe
           v11 = result;
 LABEL_10:
           *v11 = v7;
-          *(v11 + 8) = v6;
-          *(v11 + 12) = v8;
+          v11[2] = v6;
+          *(v11 + 3) = v8;
         }
 
         v2 = v5 + 2;
@@ -5732,16 +6478,16 @@ LABEL_10:
   return result;
 }
 
-void *_ZNSt3__126__insertion_sort_unguardedB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv2_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEvT1_SD_T0_(void *result, void *a2)
+float *_ZNSt3__126__insertion_sort_unguardedB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv2_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEvT1_SD_T0_(float *result, float *a2)
 {
   if (result != a2)
   {
-    v2 = result + 2;
+    v2 = result + 4;
     while (v2 != a2)
     {
       v3 = v2;
-      v4 = *(result + 6);
-      if (v4 < *(result + 2))
+      v4 = result[6];
+      if (v4 < result[2])
       {
         v5 = *v2;
         v6 = *(result + 7);
@@ -5750,16 +6496,16 @@ void *_ZNSt3__126__insertion_sort_unguardedB8nn200100INS_17_ClassicAlgPolicyERZN
         {
           *v7 = *(v7 - 1);
           v8 = *(v7 - 6);
-          v7 -= 2;
+          v7 -= 4;
         }
 
         while (v4 < v8);
         *v7 = v5;
-        *(v7 + 2) = v4;
+        v7[2] = v4;
         *(v7 + 3) = v6;
       }
 
-      v2 = v3 + 2;
+      v2 = v3 + 4;
       result = v3;
     }
   }
@@ -5772,7 +6518,7 @@ unint64_t _ZNSt3__131__partition_with_equals_on_leftB8nn200100INS_17_ClassicAlgP
   v2 = a1[2];
   if (v2 >= *(a2 - 2))
   {
-    v6 = (a1 + 4);
+    v6 = a1 + 4;
     do
     {
       v4 = v6;
@@ -5781,8 +6527,8 @@ unint64_t _ZNSt3__131__partition_with_equals_on_leftB8nn200100INS_17_ClassicAlgP
         break;
       }
 
-      v7 = *(v6 + 8);
-      v6 += 16;
+      v7 = v6[2];
+      v6 += 4;
     }
 
     while (v2 >= v7);
@@ -5852,7 +6598,7 @@ unint64_t _ZNSt3__131__partition_with_equals_on_leftB8nn200100INS_17_ClassicAlgP
   return v4;
 }
 
-unint64_t _ZNSt3__132__partition_with_equals_on_rightB8nn200100INS_17_ClassicAlgPolicyEPN2CI11Perspective9NMSimplexIDv2_fE8NMVertexERZNS6_13orderVerticesEvEUlRKS7_SA_E_EENS_4pairIT0_bEESE_SE_T1_(float *a1, float *a2)
+float *_ZNSt3__132__partition_with_equals_on_rightB8nn200100INS_17_ClassicAlgPolicyEPN2CI11Perspective9NMSimplexIDv2_fE8NMVertexERZNS6_13orderVerticesEvEUlRKS7_SA_E_EENS_4pairIT0_bEESE_SE_T1_(float *a1, float *a2)
 {
   v2 = 0;
   v3 = *a1;
@@ -5906,8 +6652,8 @@ LABEL_9:
       *v12 = v13;
       do
       {
-        v14 = *(v11 + 24);
-        v11 += 16;
+        v14 = v11[6];
+        v11 += 4;
       }
 
       while (v14 < v4);
@@ -5923,15 +6669,15 @@ LABEL_9:
     while (v11 < v12);
   }
 
-  if ((v11 - 16) != a1)
+  if (v11 - 4 != a1)
   {
-    *a1 = *(v11 - 16);
+    *a1 = *(v11 - 1);
   }
 
-  *(v11 - 16) = v3;
-  *(v11 - 8) = v4;
-  *(v11 - 4) = v5;
-  return v11 - 16;
+  *(v11 - 2) = v3;
+  *(v11 - 2) = v4;
+  *(v11 - 1) = v5;
+  return v11 - 4;
 }
 
 BOOL _ZNSt3__127__insertion_sort_incompleteB8nn200100INS_17_ClassicAlgPolicyERZN2CI11Perspective9NMSimplexIDv2_fE13orderVerticesEvEUlRKNS6_8NMVertexES9_E_PS7_EEbT1_SD_T0_(__n128 *a1, __n128 *a2, __n128 a3)
@@ -6154,16 +6900,16 @@ LABEL_33:
         v31 -= 16;
         if (v28 >= v32)
         {
-          v33 = &a1[3] + v31;
+          v33 = (a1 + v31 + 48);
           goto LABEL_41;
         }
       }
 
       v33 = a1;
 LABEL_41:
-      *v33 = v29;
-      *(v33 + 8) = v28;
-      *(v33 + 12) = v30;
+      v33->n128_u64[0] = v29;
+      v33->n128_f32[2] = v28;
+      v33->n128_u32[3] = v30;
       if (++v27 == 8)
       {
         return &v25[1] == a2;
@@ -6487,7 +7233,7 @@ double CI::sw_perspectiveWarp(CI *a1, uint64_t a2)
 float64x2_t computeHomogeneousPerspectiveTransformAndInverse(uint64_t a1, uint64_t a2, double a3, float32x2_t a4, float32x2_t a5, float32x2_t a6)
 {
   v6 = vsub_f32(vadd_f32(vsub_f32(*&a3, a4), a5), a6);
-  if (v6.f32[0] == 0.0 && v6.f32[1] == 0.0)
+  if (*v6.i32 == 0.0 && *&v6.i32[1] == 0.0)
   {
     v7 = vcvtq_f64_f32(vsub_f32(a4, *&a3));
     v8 = vcvtq_f64_f32(vsub_f32(a5, a4));
@@ -6503,26 +7249,26 @@ float64x2_t computeHomogeneousPerspectiveTransformAndInverse(uint64_t a1, uint64
     v14 = vneg_f32(__PAIR64__(v11.u32[1], v13.u32[0]));
     v13.i32[0] = v10.i32[0];
     _Q2 = vdivq_f64(vcvtq_f64_f32(vmla_f32(vmul_f32(v13, v14), v6, vrev64_s32(v12))), vdupq_lane_s64(COERCE__INT64((vmul_lane_f32(v10, v14, 1).f32[0] + (*v12.i32 * *&v12.i32[1]))), 0));
-    v7 = vmlaq_n_f64(vcvtq_f64_f32(vsub_f32(a4, *&a3)), vcvtq_f64_f32(a4), _Q2.f64[0]);
+    v7 = vmlaq_n_f64(vcvtq_f64_f32(vsub_f32(a4, *&a3)), vcvtq_f64_f32(a4), *_Q2.i64);
     v8 = vmlaq_laneq_f64(vcvtq_f64_f32(vsub_f32(a6, *&a3)), vcvtq_f64_f32(a6), _Q2, 1);
   }
 
   _D3 = *(&a3 + 1);
   _D0 = *&a3;
   *a2 = v7;
-  *(a2 + 16) = _Q2.f64[0];
+  *(a2 + 16) = _Q2.i64[0];
   *(a2 + 24) = v8;
   v17 = vmulq_f64(vzip2q_s64(v8, _Q2), v7);
-  v18 = vmuld_lane_f64(-_Q2.f64[0], v8, 1);
+  v18 = vmuld_lane_f64(-*_Q2.i64, v8, 1);
   __asm { FMLS            D5, D3, V2.D[1] }
 
   v24 = vnegq_f64(v7);
-  v25 = vdupq_lane_s64(*&v8.f64[0], 0);
+  v25 = vdupq_lane_s64(v8.i64[0], 0);
   v25.f64[0] = _D3;
   v26 = vmulq_f64(v25, v24);
-  v27 = vmuld_lane_f64(v24.f64[0], _Q2, 1);
+  v27 = vmuld_lane_f64(*v24.i64, _Q2, 1);
   v17.f64[0] = v26.f64[1] + v17.f64[0] + vmuld_lane_f64(_D0, v17, 1) + vmulq_f64(_Q2, v8).f64[0] * _D3 + v18 * _D0 + v27 * _D3;
-  *(a2 + 40) = _Q2.f64[1];
+  *(a2 + 40) = _Q2.i64[1];
   *(a2 + 48) = _D0;
   *(a2 + 56) = _D3;
   *(a2 + 64) = 0x3FF0000000000000;
@@ -6536,10 +7282,10 @@ float64x2_t computeHomogeneousPerspectiveTransformAndInverse(uint64_t a1, uint64
   v31 = vdupq_lane_s64(*&v17.f64[0], 0);
   *(a1 + 8) = vdivq_f64(vmlaq_f64(v30, v28, _Q2), v31);
   *(a1 + 24) = _D22 / v17.f64[0];
-  *(a1 + 32) = (v7.f64[0] - _D0 * _Q2.f64[0]) / v17.f64[0];
-  *(a1 + 40) = (v27 + _Q2.f64[0] * v8.f64[0]) / v17.f64[0];
-  *(a1 + 48) = (v8.f64[0] * _D3 - v8.f64[1] * _D0) / v17.f64[0];
-  v8.f64[0] = _D0;
+  *(a1 + 32) = (v7.f64[0] - _D0 * *_Q2.i64) / v17.f64[0];
+  *(a1 + 40) = (v27 + *_Q2.i64 * *v8.i64) / v17.f64[0];
+  *(a1 + 48) = (*v8.i64 * _D3 - *&v8.i64[1] * _D0) / v17.f64[0];
+  *v8.i64 = _D0;
   result = vdivq_f64(vmlaq_f64(v26, v8, vextq_s8(v7, v7, 8uLL)), v31);
   *(a1 + 56) = result;
   return result;
@@ -6897,9 +7643,9 @@ LABEL_9:
   return *&v9;
 }
 
-double regionOf(CGRect a1, float32x2_t a2, float32_t a3, float a4, float a5)
+double regionOf(CGRect a1, __n128 a2, float a3, float a4, float a5)
 {
-  v72 = a2.f32[0];
+  v72 = a2.n128_f32[0];
   height = a1.size.height;
   width = a1.size.width;
   y = a1.origin.y;
@@ -6907,8 +7653,8 @@ double regionOf(CGRect a1, float32x2_t a2, float32_t a3, float a4, float a5)
   x = a1.origin.x;
   v9 = *MEMORY[0x1E695F050];
   v10 = *(MEMORY[0x1E695F050] + 8);
-  a2.f32[1] = a3;
-  v82 = a2;
+  a2.n128_f32[1] = a3;
+  v82 = a2.n128_u64[0];
   v11 = *(MEMORY[0x1E695F050] + 16);
   v12 = *(MEMORY[0x1E695F050] + 24);
   v13.f32[0] = a1.origin.x;
@@ -6916,7 +7662,7 @@ double regionOf(CGRect a1, float32x2_t a2, float32_t a3, float a4, float a5)
   v14 = a1.origin.y;
   v75 = LODWORD(v14);
   v13.f32[1] = v14;
-  map_point(v13, a2, a5, a4);
+  map_point(v13, a2.n128_u64[0], a5, a4);
   v16 = unionPointWithRect(v15, v9, v10, v11, v12);
   v18 = v17;
   v20 = v19;
@@ -7198,45 +7944,47 @@ unint64_t CI::sw_hexagonalPixellate(CI *a1, uint64_t a2, uint64_t a3, uint64_t a
   v56 = vbslq_s8(v55, v53, _Q0);
   v57 = vbslq_s8(v55, _Q0, v53);
   v58 = vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_lane_s16(vmovn_s32(vcgtq_f32(v57, v54)), 2)), 0x1FuLL));
-  v73 = v56;
-  v74 = vbslq_s8(v58, v54, v57);
+  v59 = vbslq_s8(v58, v54, v57);
+  v74 = v56;
+  v75 = v59;
   *v54.f32 = vadd_f32(v18, *v56.i8);
   v56.i32[0] = *(v17 + 28);
-  v57.f32[0] = *(v17 + 24) + (vmuls_lane_f32(*(v17 + 20), *v54.f32, 1) + (v54.f32[0] * *(v17 + 16)));
+  v59.n128_f32[0] = *(v17 + 24) + (vmuls_lane_f32(*(v17 + 20), *v54.f32, 1) + (v54.f32[0] * *(v17 + 16)));
   v53.i32[0] = *(v17 + 36);
   *v58.i32 = vmuls_lane_f32(*(v17 + 32), *v54.f32, 1);
   v54.f32[0] = v53.f32[0] + (*v58.i32 + (v54.f32[0] * *v56.i32));
-  v57.i32[1] = v54.i32[0];
-  *v59.i64 = CI::BitmapSampler::read(*(v17 + 8), *v57.i64, v54, *v58.i64, *v56.i64, v53, v40, v50, v51);
-  v72 = v59;
-  *v59.f32 = vadd_f32(v18, *v74.f32);
-  LODWORD(v60) = *(v17 + 24);
-  v61.i32[0] = *(v17 + 36);
-  *v62.i32 = vmuls_lane_f32(*(v17 + 32), *v59.f32, 1);
-  *&v63 = *v62.i32 + (v59.f32[0] * *(v17 + 28));
-  v59.f32[0] = *&v60 + (vmuls_lane_f32(*(v17 + 20), *v59.f32, 1) + (v59.f32[0] * *(v17 + 16)));
-  *v64.f64 = *v61.i32 + *&v63;
-  v59.f32[1] = *v61.i32 + *&v63;
-  *v67.i64 = CI::BitmapSampler::read(*(v17 + 8), *v59.i64, v64, v60, v63, v62, v61, v65, v66);
-  v68 = COERCE_FLOAT(vsubq_f32(v73, v74).i32[2]) * 0.5 + 0.5;
-  if (v68 <= 1.0)
-  {
-    v69 = v68;
-  }
-
-  else
-  {
-    v69 = 1.0;
-  }
-
-  _NF = v68 < 0.0;
-  v70 = 0.0;
-  if (!_NF)
+  v59.n128_u32[1] = v54.i32[0];
+  v60.n128_f64[0] = CI::BitmapSampler::read(*(v17 + 8), v59, v54, *v58.i64, *v56.i64, v53, v40, v50, v51);
+  v73 = v60;
+  v60.n128_u64[1] = v75.u64[1];
+  v60.n128_u64[0] = vadd_f32(v18, *v75.f32);
+  LODWORD(v61) = *(v17 + 24);
+  v62.i32[0] = *(v17 + 36);
+  *v63.i32 = vmuls_lane_f32(*(v17 + 32), v60.n128_u64[0], 1);
+  *&v64 = *v63.i32 + (v60.n128_f32[0] * *(v17 + 28));
+  v60.n128_f32[0] = *&v61 + (vmuls_lane_f32(*(v17 + 20), v60.n128_u64[0], 1) + (v60.n128_f32[0] * *(v17 + 16)));
+  *v65.f64 = *v62.i32 + *&v64;
+  v60.n128_f32[1] = *v62.i32 + *&v64;
+  *v68.i64 = CI::BitmapSampler::read(*(v17 + 8), v60, v65, v61, v64, v63, v62, v66, v67);
+  v69 = COERCE_FLOAT(vsubq_f32(v74, v75).i32[2]) * 0.5 + 0.5;
+  if (v69 <= 1.0)
   {
     v70 = v69;
   }
 
-  return vmlaq_n_f32(vmulq_n_f32(v72, 1.0 - v70), v67, v70).u64[0];
+  else
+  {
+    v70 = 1.0;
+  }
+
+  _NF = v69 < 0.0;
+  v71 = 0.0;
+  if (!_NF)
+  {
+    v71 = v70;
+  }
+
+  return vmlaq_n_f32(vmulq_n_f32(v73, 1.0 - v71), v68, v71).u64[0];
 }
 
 uint64_t CI::sw_interleavedToPlanar3(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7247,108 +7995,110 @@ uint64_t CI::sw_interleavedToPlanar3(CI *a1, uint64_t a2, uint64_t a3, uint64_t 
   v7.f64[0] = *CI::getDC(a1);
   v12 = *(v7.f64 + 1);
   v13 = *(v7.f64 + 1);
-  v14 = v6;
-  v15 = v14 + v14;
+  v14.n128_f64[0] = v6;
+  v15 = v14.n128_f64[0] + v14.n128_f64[0];
   v16 = *(v7.f64 + 1) + v6 * -2.0;
-  if (v14 + v14 > *(v7.f64 + 1))
+  if (v14.n128_f64[0] + v14.n128_f64[0] > *(v7.f64 + 1))
   {
     v16 = *(v7.f64 + 1) - v6;
   }
 
   HIDWORD(v17) = 0x80000000;
-  v18 = v13 + v14 * -0.0;
+  v14.n128_f64[0] = v13 + v14.n128_f64[0] * -0.0;
   if (*(v7.f64 + 1) >= v6)
   {
-    v18 = v16;
+    v14.n128_f64[0] = v16;
   }
 
-  *&v16 = v18;
+  *&v16 = v14.n128_f64[0];
   v8.i32[0] = *(v5 + 28);
-  *&v19 = *(v5 + 24) + ((*(v5 + 20) * *&v16) + (*v7.f64 * *(v5 + 16)));
+  v14.n128_f32[0] = *(v5 + 24) + ((*(v5 + 20) * *&v16) + (*v7.f64 * *(v5 + 16)));
   LODWORD(v17) = *(v5 + 32);
   v9.i32[0] = *(v5 + 36);
   *&v16 = *&v17 * *&v16;
   *v7.f64 = *v9.i32 + (*&v16 + (*v7.f64 * *v8.i32));
-  HIDWORD(v19) = LODWORD(v7.f64[0]);
-  v20 = CI::BitmapSampler::read(*(v5 + 8), v19, v7, v16, v17, v8, v9, v10, v11);
-  HIDWORD(v22) = 0;
+  v14.n128_u32[1] = LODWORD(v7.f64[0]);
+  v18 = CI::BitmapSampler::read(*(v5 + 8), v14, v7, v16, v17, v8, v9, v10, v11);
+  HIDWORD(v20) = 0;
   if (v12 >= v6)
   {
     if (v15 <= v13)
     {
-      LODWORD(v22) = LODWORD(v20);
+      LODWORD(v20) = LODWORD(v18);
     }
 
     else
     {
-      LODWORD(v22) = HIDWORD(v20);
+      LODWORD(v20) = HIDWORD(v18);
     }
   }
 
   else
   {
-    LODWORD(v22) = v21;
+    LODWORD(v20) = v19;
   }
 
-  return v22;
+  return v20;
 }
 
-unint64_t CI::sw_planarToInterleaved3(CI *a1, uint64_t a2, double a3, uint64_t a4, uint64_t a5)
+unint64_t CI::sw_planarToInterleaved3(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5)
 {
   v6 = *(a1 + 5);
   v7 = *(v6 + 8);
-  LODWORD(a3) = *(a2 + (*(v6 + 32) << 6));
-  v42 = a3;
+  LODWORD(a5) = *(a2 + (*(v6 + 32) << 6));
+  v41 = a5;
   DC = CI::getDC(a1);
-  HIDWORD(v14) = HIDWORD(v42);
-  v15.f64[0] = *DC;
-  if (COERCE_FLOAT(*DC) < 0.0 || *v15.f64 > *&v42)
+  HIDWORD(v15) = HIDWORD(v41);
+  v16.f64[0] = *DC;
+  if (COERCE_FLOAT(*DC) < 0.0 || *v16.f64 > *&v41)
   {
     return 0;
   }
 
-  if (*(v15.f64 + 1) < 0.0 || *(v15.f64 + 1) > *&v42)
+  if (*(v16.f64 + 1) < 0.0 || *(v16.f64 + 1) > *&v41)
   {
     return 0;
   }
 
-  v19 = a5 + 80 * v7;
-  v20.i32[0] = 0;
-  v20.i32[1] = LODWORD(v42);
-  v40 = v15;
-  v41 = v20;
-  v21 = vadd_f32(vadd_f32(v20, v20), *&v15.f64[0]);
-  LODWORD(v14) = *(v19 + 24);
-  v11.i32[0] = *(v19 + 36);
-  *v10.i32 = vmuls_lane_f32(*(v19 + 32), v21, 1);
-  *&v9 = *v10.i32 + (v21.f32[0] * *(v19 + 28));
-  v21.f32[0] = *&v14 + (vmuls_lane_f32(*(v19 + 20), v21, 1) + (v21.f32[0] * *(v19 + 16)));
-  *v15.f64 = *v11.i32 + *&v9;
-  v21.f32[1] = *v11.i32 + *&v9;
-  v22 = CI::BitmapSampler::read(*(v19 + 8), *&v21, v15, v14, v9, v10, v11, v12, v13);
-  v43 = LODWORD(v22);
-  v23 = v40;
-  v24 = vadd_f32(v41, *&v40.f64[0]);
-  LODWORD(v25) = *(v19 + 24);
-  v26.i32[0] = *(v19 + 36);
-  *v27.i32 = vmuls_lane_f32(*(v19 + 32), v24, 1);
-  *&v28 = *v27.i32 + (v24.f32[0] * *(v19 + 28));
-  v24.f32[0] = *&v25 + (vmuls_lane_f32(*(v19 + 20), v24, 1) + (v24.f32[0] * *(v19 + 16)));
-  *v23.f64 = *v26.i32 + *&v28;
-  v24.f32[1] = *v26.i32 + *&v28;
-  v31 = CI::BitmapSampler::read(*(v19 + 8), *&v24, v23, v25, v28, v27, v26, v29, v30);
-  v44 = __PAIR64__(LODWORD(v31), v43);
-  v32 = v40;
-  v33 = vadd_f32(vmul_f32(v41, 0), *&v40.f64[0]);
-  LODWORD(v34) = *(v19 + 24);
-  v35.i32[0] = *(v19 + 36);
-  *v36.i32 = vmuls_lane_f32(*(v19 + 32), v33, 1);
-  *&v37 = *v36.i32 + (v33.f32[0] * *(v19 + 28));
-  v33.f32[0] = *&v34 + (vmuls_lane_f32(*(v19 + 20), v33, 1) + (v33.f32[0] * *(v19 + 16)));
-  *v32.f64 = *v35.i32 + *&v37;
-  v33.f32[1] = *v35.i32 + *&v37;
-  CI::BitmapSampler::read(*(v19 + 8), *&v33, v32, v34, v37, v36, v35, v38, v39);
-  return v44;
+  v20 = a4 + 80 * v7;
+  v9.n128_u32[0] = 0;
+  v9.n128_u32[1] = LODWORD(v41);
+  v39 = v16;
+  v40 = v9;
+  v9.n128_u64[0] = vadd_f32(vadd_f32(v9.n128_u64[0], v9.n128_u64[0]), *&v16.f64[0]);
+  LODWORD(v15) = *(v20 + 24);
+  v12.i32[0] = *(v20 + 36);
+  *v11.i32 = vmuls_lane_f32(*(v20 + 32), v9.n128_u64[0], 1);
+  *&v10 = *v11.i32 + (v9.n128_f32[0] * *(v20 + 28));
+  v9.n128_f32[0] = *&v15 + (vmuls_lane_f32(*(v20 + 20), v9.n128_u64[0], 1) + (v9.n128_f32[0] * *(v20 + 16)));
+  *v16.f64 = *v12.i32 + *&v10;
+  v9.n128_f32[1] = *v12.i32 + *&v10;
+  v21 = CI::BitmapSampler::read(*(v20 + 8), v9, v16, v15, v10, v11, v12, v13, v14);
+  v42 = LODWORD(v21);
+  v23 = v39;
+  v22.n128_u64[1] = v40.n128_u64[1];
+  v22.n128_u64[0] = vadd_f32(v40.n128_u64[0], *&v39.f64[0]);
+  LODWORD(v24) = *(v20 + 24);
+  v25.i32[0] = *(v20 + 36);
+  *v26.i32 = vmuls_lane_f32(*(v20 + 32), v22.n128_u64[0], 1);
+  *&v27 = *v26.i32 + (v22.n128_f32[0] * *(v20 + 28));
+  v22.n128_f32[0] = *&v24 + (vmuls_lane_f32(*(v20 + 20), v22.n128_u64[0], 1) + (v22.n128_f32[0] * *(v20 + 16)));
+  *v23.f64 = *v25.i32 + *&v27;
+  v22.n128_f32[1] = *v25.i32 + *&v27;
+  v30 = CI::BitmapSampler::read(*(v20 + 8), v22, v23, v24, v27, v26, v25, v28, v29);
+  v43 = __PAIR64__(LODWORD(v30), v42);
+  v31.n128_u64[1] = v40.n128_u64[1];
+  v32 = v39;
+  v31.n128_u64[0] = vadd_f32(vmul_f32(v40.n128_u64[0], 0), *&v39.f64[0]);
+  LODWORD(v33) = *(v20 + 24);
+  v34.i32[0] = *(v20 + 36);
+  *v35.i32 = vmuls_lane_f32(*(v20 + 32), v31.n128_u64[0], 1);
+  *&v36 = *v35.i32 + (v31.n128_f32[0] * *(v20 + 28));
+  v31.n128_f32[0] = *&v33 + (vmuls_lane_f32(*(v20 + 20), v31.n128_u64[0], 1) + (v31.n128_f32[0] * *(v20 + 16)));
+  *v32.f64 = *v34.i32 + *&v36;
+  v31.n128_f32[1] = *v34.i32 + *&v36;
+  CI::BitmapSampler::read(*(v20 + 8), v31, v32, v33, v36, v35, v34, v37, v38);
+  return v43;
 }
 
 uint64_t CI::sw_interleavedToPlanar4(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7361,126 +8111,129 @@ uint64_t CI::sw_interleavedToPlanar4(CI *a1, uint64_t a2, uint64_t a3, uint64_t 
   v14 = *(v7.f64 + 1);
   v15 = v6;
   v16 = v15 + v15;
-  v17 = *(v7.f64 + 1) + v6 * -3.0;
+  v17.n128_f64[0] = *(v7.f64 + 1) + v6 * -3.0;
   if (v6 * 3.0 > *(v7.f64 + 1))
   {
-    v17 = *(v7.f64 + 1) + v6 * -2.0;
+    v17.n128_f64[0] = *(v7.f64 + 1) + v6 * -2.0;
   }
 
   if (v16 > v14)
   {
-    v17 = v14 - v15;
+    v17.n128_f64[0] = v14 - v15;
   }
 
   v18 = v14 + v15 * -0.0;
   if (*(v7.f64 + 1) < v6)
   {
-    v17 = v14 + v15 * -0.0;
+    v17.n128_f64[0] = v14 + v15 * -0.0;
   }
 
-  *&v18 = v17;
+  *&v18 = v17.n128_f64[0];
   v9.i32[0] = *(v5 + 28);
-  *&v19 = *(v5 + 24) + ((*(v5 + 20) * *&v18) + (*v7.f64 * *(v5 + 16)));
+  v17.n128_f32[0] = *(v5 + 24) + ((*(v5 + 20) * *&v18) + (*v7.f64 * *(v5 + 16)));
   LODWORD(v8) = *(v5 + 32);
   v10.i32[0] = *(v5 + 36);
   *&v18 = *&v8 * *&v18;
   *v7.f64 = *v10.i32 + (*&v18 + (*v7.f64 * *v9.i32));
-  HIDWORD(v19) = LODWORD(v7.f64[0]);
-  v20 = CI::BitmapSampler::read(*(v5 + 8), v19, v7, v18, v8, v9, v10, v11, v12);
+  v17.n128_u32[1] = LODWORD(v7.f64[0]);
+  v19 = CI::BitmapSampler::read(*(v5 + 8), v17, v7, v18, v8, v9, v10, v11, v12);
   if (v13 < v6)
-  {
-    return v22;
-  }
-
-  if (v16 > v14)
   {
     return v21;
   }
 
-  HIDWORD(v23) = 0;
+  if (v16 > v14)
+  {
+    return v20;
+  }
+
+  HIDWORD(v22) = 0;
   if (v15 * 3.0 <= v14)
   {
-    LODWORD(v23) = LODWORD(v20);
+    LODWORD(v22) = LODWORD(v19);
   }
 
   else
   {
-    LODWORD(v23) = HIDWORD(v20);
+    LODWORD(v22) = HIDWORD(v19);
   }
 
-  return v23;
+  return v22;
 }
 
-uint64_t CI::sw_planarToInterleaved4(CI *a1, uint64_t a2, double a3, uint64_t a4, uint64_t a5)
+uint64_t CI::sw_planarToInterleaved4(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5)
 {
   v6 = *(a1 + 5);
   v7 = *(v6 + 8);
-  LODWORD(a3) = *(a2 + (*(v6 + 32) << 6));
-  v52 = a3;
+  LODWORD(a5) = *(a2 + (*(v6 + 32) << 6));
+  v53 = a5;
   DC = CI::getDC(a1);
-  HIDWORD(v14) = HIDWORD(v52);
-  v15.f64[0] = *DC;
-  if (COERCE_FLOAT(*DC) < 0.0 || *v15.f64 > *&v52)
+  HIDWORD(v15) = HIDWORD(v53);
+  v16.f64[0] = *DC;
+  if (COERCE_FLOAT(*DC) < 0.0 || *v16.f64 > *&v53)
   {
     return 0;
   }
 
-  if (*(v15.f64 + 1) < 0.0 || *(v15.f64 + 1) > *&v52)
+  if (*(v16.f64 + 1) < 0.0 || *(v16.f64 + 1) > *&v53)
   {
     return 0;
   }
 
-  v19 = a5 + 80 * v7;
-  LODWORD(v9) = 0;
-  DWORD1(v9) = LODWORD(v52);
-  v51 = v15;
-  v53 = v9;
+  v20 = a4 + 80 * v7;
+  v10.n128_u32[0] = 0;
+  v10.n128_u32[1] = LODWORD(v53);
+  v52 = v16;
+  v54 = v10;
   __asm { FMOV            V0.2S, #3.0 }
 
-  v25 = vadd_f32(vmul_f32(*&v9, _D0), *&v15.f64[0]);
-  LODWORD(v9) = *(v19 + 24);
-  v11.i32[0] = *(v19 + 36);
-  *v10.i32 = vmuls_lane_f32(*(v19 + 32), v25, 1);
-  *&v14 = *v10.i32 + (v25.f32[0] * *(v19 + 28));
-  v25.f32[0] = *&v9 + (vmuls_lane_f32(*(v19 + 20), v25, 1) + (v25.f32[0] * *(v19 + 16)));
-  *v15.f64 = *v11.i32 + *&v14;
-  v25.f32[1] = *v11.i32 + *&v14;
-  *v26.i64 = CI::BitmapSampler::read(*(v19 + 8), *&v25, v15, *&v9, v14, v10, v11, v12, v13);
-  v50 = v26;
-  v27 = v51;
-  *v26.i8 = vadd_f32(vadd_f32(*&v53, *&v53), *&v51.f64[0]);
-  LODWORD(v28) = *(v19 + 24);
-  v29.i32[0] = *(v19 + 36);
-  *v30.i32 = vmuls_lane_f32(*(v19 + 32), *v26.i8, 1);
-  *&v31 = *v30.i32 + (*v26.i32 * *(v19 + 28));
-  *v26.i32 = *&v28 + (vmuls_lane_f32(*(v19 + 20), *v26.i8, 1) + (*v26.i32 * *(v19 + 16)));
+  _Q0.n128_u64[0] = vadd_f32(vmul_f32(v10.n128_u64[0], _Q0.n128_u64[0]), *&v16.f64[0]);
+  v10.n128_u32[0] = *(v20 + 24);
+  v12.i32[0] = *(v20 + 36);
+  *v11.i32 = vmuls_lane_f32(*(v20 + 32), _Q0.n128_u64[0], 1);
+  *&v15 = *v11.i32 + (_Q0.n128_f32[0] * *(v20 + 28));
+  _Q0.n128_f32[0] = v10.n128_f32[0] + (vmuls_lane_f32(*(v20 + 20), _Q0.n128_u64[0], 1) + (_Q0.n128_f32[0] * *(v20 + 16)));
+  *v16.f64 = *v12.i32 + *&v15;
+  _Q0.n128_f32[1] = *v12.i32 + *&v15;
+  *v25.i64 = CI::BitmapSampler::read(*(v20 + 8), _Q0, v16, v10.n128_f64[0], v15, v11, v12, v13, v14);
+  v51 = v25;
+  v27 = v52;
+  v26 = v54;
+  v26.n128_u64[0] = vadd_f32(vadd_f32(v26.n128_u64[0], v26.n128_u64[0]), *&v52.f64[0]);
+  LODWORD(v28) = *(v20 + 24);
+  v29.i32[0] = *(v20 + 36);
+  *v30.i32 = vmuls_lane_f32(*(v20 + 32), v26.n128_u64[0], 1);
+  *&v31 = *v30.i32 + (v26.n128_f32[0] * *(v20 + 28));
+  v26.n128_f32[0] = *&v28 + (vmuls_lane_f32(*(v20 + 20), v26.n128_u64[0], 1) + (v26.n128_f32[0] * *(v20 + 16)));
   *v27.f64 = *v29.i32 + *&v31;
-  *&v26.i32[1] = *v29.i32 + *&v31;
-  *v34.i64 = CI::BitmapSampler::read(*(v19 + 8), *v26.i64, v27, v28, v31, v30, v29, v32, v33);
-  HIDWORD(v36) = HIDWORD(v51.f64[0]);
-  v35.f64[1] = *(&v53 + 1);
-  *&v35.f64[0] = vadd_f32(*&v53, *&v51.f64[0]);
-  *&v36 = vmuls_lane_f32(*(v19 + 20), *&v35.f64[0], 1) + (*v35.f64 * *(v19 + 16));
-  LODWORD(v37) = *(v19 + 24);
-  v38.i32[0] = *(v19 + 36);
-  *v39.i32 = vmuls_lane_f32(*(v19 + 32), *&v35.f64[0], 1);
-  v40 = v50;
-  v50.i64[0] = vzip1q_s32(v50, v34).u64[0];
-  *v34.i32 = *&v37 + *&v36;
-  *v35.f64 = *v38.i32 + (*v39.i32 + (*v35.f64 * *(v19 + 28)));
-  v34.i32[1] = LODWORD(v35.f64[0]);
-  CI::BitmapSampler::read(*(v19 + 8), *v34.i64, v35, v36, v37, v40, v39, v38, v41);
-  v42 = v51;
-  v43 = vadd_f32(vmul_f32(*&v53, 0), *&v51.f64[0]);
-  LODWORD(v44) = *(v19 + 24);
-  v45.i32[0] = *(v19 + 36);
-  *v46.i32 = vmuls_lane_f32(*(v19 + 32), v43, 1);
-  *&v47 = *v46.i32 + (v43.f32[0] * *(v19 + 28));
-  v43.f32[0] = *&v44 + (vmuls_lane_f32(*(v19 + 20), v43, 1) + (v43.f32[0] * *(v19 + 16)));
-  *v42.f64 = *v45.i32 + *&v47;
-  v43.f32[1] = *v45.i32 + *&v47;
-  CI::BitmapSampler::read(*(v19 + 8), *&v43, v42, v44, v47, v46, v45, v48, v49);
-  return v50.i64[0];
+  v26.n128_f32[1] = *v29.i32 + *&v31;
+  *v34.i64 = CI::BitmapSampler::read(*(v20 + 8), v26, v27, v28, v31, v30, v29, v32, v33);
+  HIDWORD(v36) = HIDWORD(v52.f64[0]);
+  *&v35.f64[1] = v54.n128_u64[1];
+  *&v35.f64[0] = vadd_f32(v54.n128_u64[0], *&v52.f64[0]);
+  *&v36 = vmuls_lane_f32(*(v20 + 20), *&v35.f64[0], 1) + (*v35.f64 * *(v20 + 16));
+  LODWORD(v37) = *(v20 + 24);
+  v38.i32[0] = *(v20 + 36);
+  *v39.i32 = vmuls_lane_f32(*(v20 + 32), *&v35.f64[0], 1);
+  v40 = v51;
+  v41 = vzip1q_s32(v51, v34);
+  v51.i64[0] = v41.n128_u64[0];
+  v41.n128_f32[0] = *&v37 + *&v36;
+  *v35.f64 = *v38.i32 + (*v39.i32 + (*v35.f64 * *(v20 + 28)));
+  v41.n128_u32[1] = LODWORD(v35.f64[0]);
+  CI::BitmapSampler::read(*(v20 + 8), v41, v35, v36, v37, v40, v39, v38, v42);
+  v43.n128_u64[1] = v54.n128_u64[1];
+  v44 = v52;
+  v43.n128_u64[0] = vadd_f32(vmul_f32(v54.n128_u64[0], 0), *&v52.f64[0]);
+  LODWORD(v45) = *(v20 + 24);
+  v46.i32[0] = *(v20 + 36);
+  *v47.i32 = vmuls_lane_f32(*(v20 + 32), v43.n128_u64[0], 1);
+  *&v48 = *v47.i32 + (v43.n128_f32[0] * *(v20 + 28));
+  v43.n128_f32[0] = *&v45 + (vmuls_lane_f32(*(v20 + 20), v43.n128_u64[0], 1) + (v43.n128_f32[0] * *(v20 + 16)));
+  *v44.f64 = *v46.i32 + *&v48;
+  v43.n128_f32[1] = *v46.i32 + *&v48;
+  CI::BitmapSampler::read(*(v20 + 8), v43, v44, v45, v48, v47, v46, v49, v50);
+  return v51.i64[0];
 }
 
 double CI::sw_pointillize(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7499,158 +8252,162 @@ double CI::sw_pointillize(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   v11 = a4 + 80 * v6;
   v12 = a4 + 80 * v5;
-  v166 = *v10;
+  v163 = *v10;
   DC = CI::getDC(a1);
   LODWORD(v14) = *(v12 + 24);
   v15.i32[0] = *(v12 + 36);
   *v16.i32 = vmuls_lane_f32(*(v12 + 32), *DC, 1);
   *&v17 = *v16.i32 + (COERCE_FLOAT(*DC) * *(v12 + 28));
-  *&v18 = *&v14 + (vmuls_lane_f32(*(v12 + 20), *DC, 1) + (COERCE_FLOAT(*DC) * *(v12 + 16)));
+  v18.n128_f32[0] = *&v14 + (vmuls_lane_f32(*(v12 + 20), *DC, 1) + (COERCE_FLOAT(*DC) * *(v12 + 16)));
   *v19.f64 = *v15.i32 + *&v17;
-  *(&v18 + 1) = *v15.i32 + *&v17;
+  v18.n128_f32[1] = *v15.i32 + *&v17;
   *v22.i64 = CI::BitmapSampler::read(*(v12 + 8), v18, v19, v14, v17, v16, v15, v20, v21);
-  v162 = v22;
-  v23.i32[0] = vdup_laneq_s32(v166, 2).u32[0];
-  v163 = v23.i32[0];
-  v23.i32[1] = v166.i32[2];
-  v160 = v23;
+  v159 = v22;
+  v23.i32[0] = vdup_laneq_s32(v163, 2).u32[0];
+  v160 = v23.i32[0];
+  v23.i32[1] = v163.i32[2];
+  v157 = v23;
   v25 = *CI::getDC(v24);
-  v26 = vmul_laneq_f32(v25, v166, 3);
-  v27 = vadd_f32(vadd_f32(*v166.f32, 0x3F0000003F000000), vrndm_f32(vadd_f32(v26, 0x3F0000003F000000)));
-  v28 = vdup_n_s32(0x3B800000u);
-  *&v29.f64[0] = vrndm_f32(vmul_f32(v27, v28));
-  v30 = vdup_n_s32(0xC3800000);
-  v153 = v30;
-  v31 = vmla_f32(v27, v30, *&v29.f64[0]);
-  v30.i32[0] = *(v11 + 24);
+  v26.n128_u64[1] = v163.u64[1];
+  v27 = vmul_laneq_f32(v25, v163, 3);
+  v28 = vadd_f32(vadd_f32(*v163.f32, 0x3F0000003F000000), vrndm_f32(vadd_f32(v27, 0x3F0000003F000000)));
+  v29 = vdup_n_s32(0x3B800000u);
+  *&v30.f64[0] = vrndm_f32(vmul_f32(v28, v29));
+  v31 = vdup_n_s32(0xC3800000);
+  v150 = v31;
+  v26.n128_u64[0] = vmla_f32(v28, v31, *&v30.f64[0]);
+  v31.i32[0] = *(v11 + 24);
   v32.i32[0] = *(v11 + 36);
-  *v33.i32 = vmuls_lane_f32(*(v11 + 32), v31, 1);
-  *&v34 = *v33.i32 + (v31.f32[0] * *(v11 + 28));
-  v31.f32[0] = v30.f32[0] + (vmuls_lane_f32(*(v11 + 20), v31, 1) + (v31.f32[0] * *(v11 + 16)));
-  *v29.f64 = *v32.i32 + *&v34;
-  v31.f32[1] = *v32.i32 + *&v34;
-  *&v37 = CI::BitmapSampler::read(*(v11 + 8), *&v31, v29, *&v30, v34, v33, v32, v35, v36);
-  v156 = v37;
-  *v38.i8 = vadd_f32(vmul_laneq_f32(vadd_f32(vrndm_f32(vadd_f32(v26, 0xBF000000BF000000)), 0x3F0000003F000000), v166, 2), 0x3F0000003F000000);
-  v39 = vadd_f32(v160, *v38.i8);
+  *v33.i32 = vmuls_lane_f32(*(v11 + 32), v26.n128_u64[0], 1);
+  *&v34 = *v33.i32 + (v26.n128_f32[0] * *(v11 + 28));
+  v26.n128_f32[0] = v31.f32[0] + (vmuls_lane_f32(*(v11 + 20), v26.n128_u64[0], 1) + (v26.n128_f32[0] * *(v11 + 16)));
+  *v30.f64 = *v32.i32 + *&v34;
+  v26.n128_f32[1] = *v32.i32 + *&v34;
+  v37.n128_f64[0] = CI::BitmapSampler::read(*(v11 + 8), v26, v30, *&v31, v34, v33, v32, v35, v36);
+  v153 = v37;
+  *v38.i8 = vadd_f32(vmul_laneq_f32(vadd_f32(vrndm_f32(vadd_f32(v27, 0xBF000000BF000000)), 0x3F0000003F000000), v163, 2), 0x3F0000003F000000);
+  v39 = vadd_f32(v157, *v38.i8);
   v40 = vdup_n_s32(0x3F266666u);
-  v152 = v40;
-  *&v41.f64[0] = vmul_f32(vmul_laneq_f32(vadd_f32(*&v37, 0xBF000000BF000000), v166, 2), v40);
-  *&v37 = vadd_f32(v39, *&v41.f64[0]);
-  *v41.f64 = vmuls_lane_f32(*(v12 + 20), *&v37, 1) + (*&v37 * *(v12 + 16));
+  v149 = v40;
+  *&v41.f64[0] = vmul_f32(vmul_laneq_f32(vadd_f32(v37.n128_u64[0], 0xBF000000BF000000), v163, 2), v40);
+  v37.n128_u64[0] = vadd_f32(v39, *&v41.f64[0]);
+  *v41.f64 = vmuls_lane_f32(*(v12 + 20), v37.n128_u64[0], 1) + (v37.n128_f32[0] * *(v12 + 16));
   v40.i32[0] = *(v12 + 24);
   v42.i32[0] = *(v12 + 36);
-  *v38.i32 = vmuls_lane_f32(*(v12 + 32), *&v37, 1);
-  v39.f32[0] = *v38.i32 + (*&v37 * *(v12 + 28));
-  *&v37 = vsub_f32(*&v37, v25);
-  *&v37 = vmul_f32(*&v37, *&v37);
-  v159 = v37;
-  *&v37 = v40.f32[0] + *v41.f64;
+  *v38.i32 = vmuls_lane_f32(*(v12 + 32), v37.n128_u64[0], 1);
+  v39.f32[0] = *v38.i32 + (v37.n128_f32[0] * *(v12 + 28));
+  v37.n128_u64[0] = vsub_f32(v37.n128_u64[0], v25);
+  v37.n128_u64[0] = vmul_f32(v37.n128_u64[0], v37.n128_u64[0]);
+  v156 = v37;
+  v37.n128_f32[0] = v40.f32[0] + *v41.f64;
   *v41.f64 = *v42.i32 + v39.f32[0];
-  *(&v37 + 1) = *v42.i32 + v39.f32[0];
-  *v45.i64 = CI::BitmapSampler::read(*(v12 + 8), *&v37, v41, *&v40, *&v39, v38, v42, v43, v44);
-  v46.i32[1] = DWORD1(v156);
-  *v46.i32 = (*(&v156 + 2) + -0.5) * 0.1;
+  v37.n128_f32[1] = *v42.i32 + v39.f32[0];
+  *v45.i64 = CI::BitmapSampler::read(*(v12 + 8), v37, v41, *&v40, *&v39, v38, v42, v43, v44);
+  v46.i32[1] = v153.n128_i32[1];
+  *v46.i32 = (v153.n128_f32[2] + -0.5) * 0.1;
   v47 = vaddq_f32(v45, vmulq_laneq_f32(vdupq_lane_s32(v46, 0), v45, 3));
   v47.i32[3] = v45.i32[3];
-  v161 = v47;
-  v47.i64[1] = v166.i64[1];
+  v158 = v47;
+  v47.i64[1] = v163.i64[1];
   v47.i32[0] = 0;
-  v47.i32[1] = vextq_s8(v166, v166, 8uLL).u32[0];
-  v157 = v47;
+  v47.i32[1] = vextq_s8(v163, v163, 8uLL).u32[0];
+  v154 = v47;
   v49 = *CI::getDC(v48);
-  v50 = vmul_laneq_f32(v49, v166, 3);
-  v51 = vadd_f32(vadd_f32(*v166.f32, COERCE_FLOAT32X2_T(--0.0000305175998)), vrndm_f32(vadd_f32(v50, 0x3F0000003F000000)));
-  *&v52.f64[0] = vrndm_f32(vmul_f32(v51, v28));
-  v53 = vmla_f32(v51, v153, *&v52.f64[0]);
+  v50.n128_u64[1] = v163.u64[1];
+  v51 = vmul_laneq_f32(v49, v163, 3);
+  v52 = vadd_f32(vadd_f32(*v163.f32, COERCE_FLOAT32X2_T(--0.0000305175998)), vrndm_f32(vadd_f32(v51, 0x3F0000003F000000)));
+  *&v53.f64[0] = vrndm_f32(vmul_f32(v52, v29));
+  v50.n128_u64[0] = vmla_f32(v52, v150, *&v53.f64[0]);
   LODWORD(v54) = *(v11 + 24);
   v55.i32[0] = *(v11 + 36);
-  *v56.i32 = vmuls_lane_f32(*(v11 + 32), v53, 1);
-  *&v57 = *v56.i32 + (v53.f32[0] * *(v11 + 28));
-  v53.f32[0] = *&v54 + (vmuls_lane_f32(*(v11 + 20), v53, 1) + (v53.f32[0] * *(v11 + 16)));
-  *v52.f64 = *v55.i32 + *&v57;
-  v53.f32[1] = *v55.i32 + *&v57;
-  *&v60 = CI::BitmapSampler::read(*(v11 + 8), *&v53, v52, v54, v57, v56, v55, v58, v59);
-  v150 = v60;
-  HIDWORD(v61) = v166.i32[1];
-  *&v62.f64[1] = v157.i64[1];
-  v63 = vadd_f32(*v157.f32, vadd_f32(vmul_laneq_f32(vadd_f32(vrndm_f32(vadd_f32(v50, 0xBF000000BF000000)), 0x3F0000003F000000), v166, 2), 0x3F0000003F000000));
-  *&v62.f64[0] = vmul_f32(vmul_laneq_f32(vadd_f32(*&v60, 0xBF000000BF000000), v166, 2), v152);
-  *&v60 = vadd_f32(v63, *&v62.f64[0]);
-  *v62.f64 = vmuls_lane_f32(*(v12 + 20), *&v60, 1) + (*&v60 * *(v12 + 16));
+  *v56.i32 = vmuls_lane_f32(*(v11 + 32), v50.n128_u64[0], 1);
+  *&v57 = *v56.i32 + (v50.n128_f32[0] * *(v11 + 28));
+  v50.n128_f32[0] = *&v54 + (vmuls_lane_f32(*(v11 + 20), v50.n128_u64[0], 1) + (v50.n128_f32[0] * *(v11 + 16)));
+  *v53.f64 = *v55.i32 + *&v57;
+  v50.n128_f32[1] = *v55.i32 + *&v57;
+  v60.n128_f64[0] = CI::BitmapSampler::read(*(v11 + 8), v50, v53, v54, v57, v56, v55, v58, v59);
+  v147 = v60;
+  HIDWORD(v61) = v163.i32[1];
+  *&v62.f64[1] = v154.i64[1];
+  v63 = vadd_f32(*v154.f32, vadd_f32(vmul_laneq_f32(vadd_f32(vrndm_f32(vadd_f32(v51, 0xBF000000BF000000)), 0x3F0000003F000000), v163, 2), 0x3F0000003F000000));
+  *&v62.f64[0] = vmul_f32(vmul_laneq_f32(vadd_f32(v60.n128_u64[0], 0xBF000000BF000000), v163, 2), v149);
+  v60.n128_u64[0] = vadd_f32(v63, *&v62.f64[0]);
+  *v62.f64 = vmuls_lane_f32(*(v12 + 20), v60.n128_u64[0], 1) + (v60.n128_f32[0] * *(v12 + 16));
   LODWORD(v61) = *(v12 + 24);
   v64.i32[0] = *(v12 + 36);
-  *v65.i32 = vmuls_lane_f32(*(v12 + 32), *&v60, 1);
-  v63.f32[0] = *v65.i32 + (*&v60 * *(v12 + 28));
-  *&v60 = vsub_f32(*&v60, v49);
-  v155 = vmul_f32(*&v60, *&v60);
-  *&v60 = *&v61 + *v62.f64;
+  *v65.i32 = vmuls_lane_f32(*(v12 + 32), v60.n128_u64[0], 1);
+  v63.f32[0] = *v65.i32 + (v60.n128_f32[0] * *(v12 + 28));
+  v60.n128_u64[0] = vsub_f32(v60.n128_u64[0], v49);
+  v152 = vmul_f32(v60.n128_u64[0], v60.n128_u64[0]);
+  v60.n128_f32[0] = *&v61 + *v62.f64;
   *v62.f64 = *v64.i32 + v63.f32[0];
-  *(&v60 + 1) = *v64.i32 + v63.f32[0];
-  *v68.i64 = CI::BitmapSampler::read(*(v12 + 8), *&v60, v62, v61, *&v63, v65, v64, v66, v67);
-  v69.i32[1] = DWORD1(v150);
-  *v69.i32 = (*(&v150 + 2) + -0.5) * 0.1;
+  v60.n128_f32[1] = *v64.i32 + v63.f32[0];
+  *v68.i64 = CI::BitmapSampler::read(*(v12 + 8), v60, v62, v61, *&v63, v65, v64, v66, v67);
+  v69.i32[1] = v147.n128_i32[1];
+  *v69.i32 = (v147.n128_f32[2] + -0.5) * 0.1;
   v70 = vaddq_f32(v68, vmulq_laneq_f32(vdupq_lane_s32(v69, 0), v68, 3));
   v70.i32[3] = v68.i32[3];
-  v158 = v70;
+  v155 = v70;
   v72 = *CI::getDC(v71);
-  v73 = vmul_laneq_f32(v72, v166, 3);
-  v74 = vadd_f32(vadd_f32(*v166.f32, COERCE_FLOAT32X2_T(-0.0000305175853)), vrndm_f32(vadd_f32(v73, 0x3F0000003F000000)));
-  *&v75.f64[0] = vrndm_f32(vmul_f32(v74, v28));
-  v76 = vmla_f32(v74, v153, *&v75.f64[0]);
+  v73.n128_u64[1] = v163.u64[1];
+  v74 = vmul_laneq_f32(v72, v163, 3);
+  v75 = vadd_f32(vadd_f32(*v163.f32, COERCE_FLOAT32X2_T(-0.0000305175853)), vrndm_f32(vadd_f32(v74, 0x3F0000003F000000)));
+  *&v76.f64[0] = vrndm_f32(vmul_f32(v75, v29));
+  v73.n128_u64[0] = vmla_f32(v75, v150, *&v76.f64[0]);
   LODWORD(v77) = *(v11 + 24);
   v78.i32[0] = *(v11 + 36);
-  *v79.i32 = vmuls_lane_f32(*(v11 + 32), v76, 1);
-  *&v80 = *v79.i32 + (v76.f32[0] * *(v11 + 28));
-  v76.f32[0] = *&v77 + (vmuls_lane_f32(*(v11 + 20), v76, 1) + (v76.f32[0] * *(v11 + 16)));
-  *v75.f64 = *v78.i32 + *&v80;
-  v76.f32[1] = *v78.i32 + *&v80;
-  *&v83 = CI::BitmapSampler::read(*(v11 + 8), *&v76, v75, v77, v80, v79, v78, v81, v82);
-  v151 = v83;
-  HIDWORD(v84) = v166.i32[1];
-  *v85.i8 = vadd_f32(vmul_laneq_f32(vadd_f32(vrndm_f32(vadd_f32(v73, 0xBF000000BF000000)), 0x3F0000003F000000), v166, 2), 0x3F0000003F000000);
-  v86 = vadd_f32(v163, *v85.i8);
-  *&v87.f64[0] = vmul_f32(vmul_laneq_f32(vadd_f32(*&v83, 0xBF000000BF000000), v166, 2), v152);
-  *&v83 = vadd_f32(v86, *&v87.f64[0]);
-  *v87.f64 = vmuls_lane_f32(*(v12 + 20), *&v83, 1) + (*&v83 * *(v12 + 16));
+  *v79.i32 = vmuls_lane_f32(*(v11 + 32), v73.n128_u64[0], 1);
+  *&v80 = *v79.i32 + (v73.n128_f32[0] * *(v11 + 28));
+  v73.n128_f32[0] = *&v77 + (vmuls_lane_f32(*(v11 + 20), v73.n128_u64[0], 1) + (v73.n128_f32[0] * *(v11 + 16)));
+  *v76.f64 = *v78.i32 + *&v80;
+  v73.n128_f32[1] = *v78.i32 + *&v80;
+  v83.n128_f64[0] = CI::BitmapSampler::read(*(v11 + 8), v73, v76, v77, v80, v79, v78, v81, v82);
+  v148 = v83;
+  HIDWORD(v84) = v163.i32[1];
+  *v85.i8 = vadd_f32(vmul_laneq_f32(vadd_f32(vrndm_f32(vadd_f32(v74, 0xBF000000BF000000)), 0x3F0000003F000000), v163, 2), 0x3F0000003F000000);
+  v86 = vadd_f32(v160, *v85.i8);
+  *&v87.f64[0] = vmul_f32(vmul_laneq_f32(vadd_f32(v83.n128_u64[0], 0xBF000000BF000000), v163, 2), v149);
+  v83.n128_u64[0] = vadd_f32(v86, *&v87.f64[0]);
+  *v87.f64 = vmuls_lane_f32(*(v12 + 20), v83.n128_u64[0], 1) + (v83.n128_f32[0] * *(v12 + 16));
   LODWORD(v84) = *(v12 + 24);
   v88.i32[0] = *(v12 + 36);
-  *v85.i32 = vmuls_lane_f32(*(v12 + 32), *&v83, 1);
-  v86.f32[0] = *v85.i32 + (*&v83 * *(v12 + 28));
-  *&v83 = vsub_f32(*&v83, v72);
-  v89 = vmul_f32(*&v83, *&v83);
-  *&v83 = *&v84 + *v87.f64;
+  *v85.i32 = vmuls_lane_f32(*(v12 + 32), v83.n128_u64[0], 1);
+  v86.f32[0] = *v85.i32 + (v83.n128_f32[0] * *(v12 + 28));
+  v83.n128_u64[0] = vsub_f32(v83.n128_u64[0], v72);
+  v89 = vmul_f32(v83.n128_u64[0], v83.n128_u64[0]);
+  v83.n128_f32[0] = *&v84 + *v87.f64;
   *v87.f64 = *v88.i32 + v86.f32[0];
-  *(&v83 + 1) = *v88.i32 + v86.f32[0];
-  *v92.i64 = CI::BitmapSampler::read(*(v12 + 8), *&v83, v87, v84, *&v86, v85, v88, v90, v91);
-  v93.i32[1] = DWORD1(v151);
-  *v93.i32 = (*(&v151 + 2) + -0.5) * 0.1;
+  v83.n128_f32[1] = *v88.i32 + v86.f32[0];
+  *v92.i64 = CI::BitmapSampler::read(*(v12 + 8), v83, v87, v84, *&v86, v85, v88, v90, v91);
+  v93.i32[1] = v148.n128_i32[1];
+  *v93.i32 = (v148.n128_f32[2] + -0.5) * 0.1;
   v94 = vaddq_f32(v92, vmulq_laneq_f32(vdupq_lane_s32(v93, 0), v92, 3));
   v94.i32[3] = v92.i32[3];
-  v164 = v94;
+  v161 = v94;
   v96 = *CI::getDC(v95);
-  v97 = vmul_laneq_f32(v96, v166, 3);
-  v98 = vadd_f32(vadd_f32(*v166.f32, 0xBF000000BF000000), vrndm_f32(vadd_f32(v97, 0x3F0000003F000000)));
-  *&v99.f64[0] = vrndm_f32(vmul_f32(v98, v28));
-  v100 = vmla_f32(v98, v153, *&v99.f64[0]);
+  v97.n128_u64[1] = v163.u64[1];
+  v98 = vmul_laneq_f32(v96, v163, 3);
+  v99 = vadd_f32(vadd_f32(*v163.f32, 0xBF000000BF000000), vrndm_f32(vadd_f32(v98, 0x3F0000003F000000)));
+  *&v100.f64[0] = vrndm_f32(vmul_f32(v99, v29));
+  v97.n128_u64[0] = vmla_f32(v99, v150, *&v100.f64[0]);
   LODWORD(v101) = *(v11 + 24);
   v102.i32[0] = *(v11 + 36);
-  *v103.i32 = vmuls_lane_f32(*(v11 + 32), v100, 1);
-  *&v104 = *v103.i32 + (v100.f32[0] * *(v11 + 28));
-  v100.f32[0] = *&v101 + (vmuls_lane_f32(*(v11 + 20), v100, 1) + (v100.f32[0] * *(v11 + 16)));
-  *v99.f64 = *v102.i32 + *&v104;
-  v100.f32[1] = *v102.i32 + *&v104;
-  *v107.i64 = CI::BitmapSampler::read(*(v11 + 8), *&v100, v99, v101, v104, v103, v102, v105, v106);
-  v154 = v107;
-  *&v110.f64[0] = vadd_f32(vadd_f32(vmul_laneq_f32(vadd_f32(vrndm_f32(vadd_f32(v97, 0xBF000000BF000000)), 0x3F0000003F000000), v166, 2), 0x3F0000003F000000), vmul_f32(vmul_laneq_f32(vadd_f32(*v107.f32, 0xBF000000BF000000), v166, 2), v152));
+  *v103.i32 = vmuls_lane_f32(*(v11 + 32), v97.n128_u64[0], 1);
+  *&v104 = *v103.i32 + (v97.n128_f32[0] * *(v11 + 28));
+  v97.n128_f32[0] = *&v101 + (vmuls_lane_f32(*(v11 + 20), v97.n128_u64[0], 1) + (v97.n128_f32[0] * *(v11 + 16)));
+  *v100.f64 = *v102.i32 + *&v104;
+  v97.n128_f32[1] = *v102.i32 + *&v104;
+  *v107.i64 = CI::BitmapSampler::read(*(v11 + 8), v97, v100, v101, v104, v103, v102, v105, v106);
+  v151 = v107;
+  *&v110.f64[0] = vadd_f32(vadd_f32(vmul_laneq_f32(vadd_f32(vrndm_f32(vadd_f32(v98, 0xBF000000BF000000)), 0x3F0000003F000000), v163, 2), 0x3F0000003F000000), vmul_f32(vmul_laneq_f32(vadd_f32(*v107.f32, 0xBF000000BF000000), v163, 2), v149));
   *v107.f32 = vsub_f32(*&v110.f64[0], v96);
   *v107.f32 = vmul_f32(*v107.f32, *v107.f32);
   *v111.f32 = vzip1_s32(*v107.f32, v89);
-  v111.i64[1] = __PAIR64__(v159, v155.u32[0]);
-  v112.i64[1] = *(&v159 + 1);
+  v111.i64[1] = __PAIR64__(v156.n128_u32[0], v152.u32[0]);
+  v112.i64[1] = v156.n128_i64[1];
   *v107.f32 = vzip2_s32(*v107.f32, v89);
-  v107.i64[1] = __PAIR64__(DWORD1(v159), vdup_lane_s32(v155, 1).u32[0]);
-  v113 = vdivq_f32(vmulq_laneq_f32(vsqrtq_f32(vaddq_f32(v111, v107)), v166, 3), vdupq_n_s32(0xBF35C28F));
+  v107.i64[1] = __PAIR64__(v156.n128_u32[1], vdup_lane_s32(v152, 1).u32[0]);
+  v113 = vdivq_f32(vmulq_laneq_f32(vsqrtq_f32(vaddq_f32(v111, v107)), v163, 3), vdupq_n_s32(0xBF35C28F));
   v114 = vcvt_hight_f64_f32(v113);
   __asm { FMOV            V3.2D, #1.0 }
 
@@ -7659,8 +8416,9 @@ double CI::sw_pointillize(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   __asm { FMOV            V3.2D, #3.0 }
 
   v123 = vmulq_f64(v121, _Q3);
-  v124 = vcvt_f32_f64(vmulq_f64(v120, _Q3));
-  v125 = vcvt_hight_f32_f64(v124, v123);
+  v124 = vmulq_f64(v120, _Q3);
+  v124.n128_u64[0] = vcvt_f32_f64(v124);
+  v125 = vcvt_hight_f32_f64(v124.n128_u64[0], v123);
   v126 = vcvt_f32_f64(v123);
   v127 = v126.f32[1];
   if (v126.f32[1] > 1.0)
@@ -7681,7 +8439,7 @@ double CI::sw_pointillize(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v130 = (v129 * -2.0 + 3.0) * v129;
   v131 = v130 * v129;
   *&v130 = 1.0 - v131;
-  v132 = vmlaq_n_f32(vmulq_laneq_f32(vdupq_lane_s32(*&v130, 0), v162, 3), v161, v131);
+  v132 = vmlaq_n_f32(vmulq_laneq_f32(vdupq_lane_s32(*&v130, 0), v159, 3), v158, v131);
   if (v126.f32[0] > 1.0)
   {
     v126.f32[0] = 1.0;
@@ -7694,9 +8452,9 @@ double CI::sw_pointillize(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   v134 = (v133 * -2.0 + 3.0) * v133 * v133;
-  v135 = vmlaq_n_f32(vmulq_n_f32(v132, 1.0 - v134), v158, v134);
-  v136 = *&v124.i32[1];
-  if (*&v124.i32[1] > 1.0)
+  v135 = vmlaq_n_f32(vmulq_n_f32(v132, 1.0 - v134), v155, v134);
+  v136 = v124.n128_f32[1];
+  if (v124.n128_f32[1] > 1.0)
   {
     v136 = 1.0;
   }
@@ -7709,41 +8467,48 @@ double CI::sw_pointillize(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   v138 = (v137 * -2.0 + 3.0) * v137 * v137;
   v139 = vmulq_n_f32(v135, 1.0 - v138);
-  v140 = v164;
-  v141 = vmlaq_n_f32(v139, v164, v138);
-  if (*v124.i32 > 1.0)
+  v140 = v161;
+  v141 = vmlaq_n_f32(v139, v161, v138);
+  if (v124.n128_f32[0] > 1.0)
   {
-    *v124.i32 = 1.0;
+    v124.n128_f32[0] = 1.0;
   }
 
-  v142 = *v124.i32;
+  v124.n128_f64[0] = v124.n128_f32[0];
   if (LOBYTE(v128))
   {
-    v142 = 0.0;
+    v124.n128_f64[0] = 0.0;
   }
 
-  v143 = (v142 * -2.0 + 3.0) * v142;
-  v144 = v143 * v142;
-  v165 = v144;
-  v167 = v141;
+  v142 = (v124.n128_f64[0] * -2.0 + 3.0) * v124.n128_f64[0];
+  v124.n128_f32[0] = v142 * v124.n128_f64[0];
+  v162 = v124.n128_f32[0];
+  v164 = v141;
   LODWORD(v128) = *(v12 + 28);
-  *&v145 = *(v12 + 24) + (vmuls_lane_f32(*(v12 + 20), *&v110.f64[0], 1) + (*v110.f64 * *(v12 + 16)));
+  v124.n128_f32[0] = *(v12 + 24) + (vmuls_lane_f32(*(v12 + 20), *&v110.f64[0], 1) + (*v110.f64 * *(v12 + 16)));
   v140.i32[0] = *(v12 + 36);
-  *&v143 = vmuls_lane_f32(*(v12 + 32), *&v110.f64[0], 1);
-  *v110.f64 = *v140.i32 + (*&v143 + (*v110.f64 * *&v128));
-  HIDWORD(v145) = LODWORD(v110.f64[0]);
-  *v146.i64 = CI::BitmapSampler::read(*(v12 + 8), v145, v110, v143, v128, v140, v112, v108, v109);
-  v147.i32[1] = v154.i32[1];
-  *v147.i32 = (v154.f32[2] + -0.5) * 0.1;
-  v148 = vaddq_f32(v146, vmulq_laneq_f32(vdupq_lane_s32(v147, 0), v146, 3));
-  v148.i32[3] = v146.i32[3];
-  *&result = vmlaq_n_f32(vmulq_n_f32(v167, 1.0 - v165), v148, v165).u64[0];
+  *&v142 = vmuls_lane_f32(*(v12 + 32), *&v110.f64[0], 1);
+  *v110.f64 = *v140.i32 + (*&v142 + (*v110.f64 * *&v128));
+  v124.n128_u32[1] = LODWORD(v110.f64[0]);
+  *v143.i64 = CI::BitmapSampler::read(*(v12 + 8), v124, v110, v142, v128, v140, v112, v108, v109);
+  v144.i32[1] = v151.i32[1];
+  *v144.i32 = (v151.f32[2] + -0.5) * 0.1;
+  v145 = vaddq_f32(v143, vmulq_laneq_f32(vdupq_lane_s32(v144, 0), v143, 3));
+  v145.i32[3] = v143.i32[3];
+  *&result = vmlaq_n_f32(vmulq_n_f32(v164, 1.0 - v162), v145, v162).u64[0];
   return result;
 }
 
-void sub_19CD97EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_19CD97EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19CD9913C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7751,33 +8516,33 @@ void sub_19CD97EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 __n64 CI::sw_xSmooth(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = a4 + 80 * *(*(a1 + 5) + 8);
-  v11 = *CI::getDC(a1);
-  v12 = -4;
-  v13 = 0.0;
-  LODWORD(v14.f64[0]) = 1120403456;
+  v12 = *CI::getDC(a1);
+  v13 = -4;
+  v14 = 0.0;
+  LODWORD(v15.f64[0]) = 1120403456;
   do
   {
-    v18 = v14;
-    HIDWORD(v14.f64[0]) = 0;
-    v15 = vadd_f32(v11, COERCE_UNSIGNED_INT(v12));
-    LODWORD(v5) = *(v4 + 24);
-    v8.i32[0] = *(v4 + 36);
-    *v7.i32 = vmuls_lane_f32(*(v4 + 32), v15, 1);
-    *&v6 = *v7.i32 + (v15.f32[0] * *(v4 + 28));
-    v15.f32[0] = *&v5 + (vmuls_lane_f32(*(v4 + 20), v15, 1) + (v15.f32[0] * *(v4 + 16)));
-    *v14.f64 = *v8.i32 + *&v6;
-    v15.f32[1] = *v8.i32 + *&v6;
-    *v16.i64 = CI::BitmapSampler::read(*(v4 + 8), *&v15, v14, v5, v6, v7, v8, v9, v10);
-    v5 = v13;
-    v13 = v13 + vmulq_f32(v16, v16).f32[0] * 0.111111111;
-    v14 = v18;
-    *v14.f64 = fminf(*v18.f64, v16.f32[0]);
-    ++v12;
+    v17 = v15;
+    HIDWORD(v15.f64[0]) = 0;
+    v5.n128_u64[0] = vadd_f32(v12, COERCE_UNSIGNED_INT(v13));
+    LODWORD(v6) = *(v4 + 24);
+    v9.i32[0] = *(v4 + 36);
+    *v8.i32 = vmuls_lane_f32(*(v4 + 32), v5.n128_u64[0], 1);
+    *&v7 = *v8.i32 + (v5.n128_f32[0] * *(v4 + 28));
+    v5.n128_f32[0] = *&v6 + (vmuls_lane_f32(*(v4 + 20), v5.n128_u64[0], 1) + (v5.n128_f32[0] * *(v4 + 16)));
+    *v15.f64 = *v9.i32 + *&v7;
+    v5.n128_f32[1] = *v9.i32 + *&v7;
+    v5.n128_f64[0] = CI::BitmapSampler::read(*(v4 + 8), v5, v15, v6, v7, v8, v9, v10, v11);
+    v6 = v14;
+    v14 = v14 + vmulq_f32(v5, v5).f32[0] * 0.111111111;
+    v15 = v17;
+    *v15.f64 = fminf(*v17.f64, v5.n128_f32[0]);
+    ++v13;
   }
 
-  while (v12 != 5);
-  result.n64_f32[0] = sqrtf(v13);
-  result.n64_u32[1] = LODWORD(v14.f64[0]);
+  while (v13 != 5);
+  result.n64_f32[0] = sqrtf(v14);
+  result.n64_u32[1] = LODWORD(v15.f64[0]);
   return result;
 }
 
@@ -7796,58 +8561,58 @@ float CI::sw_ySmooth(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   v12 = a4 + 80 * v6;
-  v50 = *v11;
+  v48 = *v11;
   v20 = *CI::getDC(a1);
   v21 = -4;
   v22 = 0.0;
-  LODWORD(v23.f64[0]) = 1120403456;
-  v51 = v23;
+  v23.n128_u32[0] = 1120403456;
+  v49 = v23;
   do
   {
     LODWORD(v13.f64[0]) = 0;
     *(v13.f64 + 1) = v21;
-    v24 = vadd_f32(v20, *&v13.f64[0]);
+    v23.n128_u64[0] = vadd_f32(v20, *&v13.f64[0]);
     LODWORD(v14) = *(v12 + 24);
     v17.i32[0] = *(v12 + 36);
-    *v16.i32 = vmuls_lane_f32(*(v12 + 32), v24, 1);
-    *&v15 = *v16.i32 + (v24.f32[0] * *(v12 + 28));
-    v24.f32[0] = *&v14 + (vmuls_lane_f32(*(v12 + 20), v24, 1) + (v24.f32[0] * *(v12 + 16)));
+    *v16.i32 = vmuls_lane_f32(*(v12 + 32), v23.n128_u64[0], 1);
+    *&v15 = *v16.i32 + (v23.n128_f32[0] * *(v12 + 28));
+    v23.n128_f32[0] = *&v14 + (vmuls_lane_f32(*(v12 + 20), v23.n128_u64[0], 1) + (v23.n128_f32[0] * *(v12 + 16)));
     *v13.f64 = *v17.i32 + *&v15;
-    v24.f32[1] = *v17.i32 + *&v15;
-    *v26.i64 = CI::BitmapSampler::read(*(v12 + 8), *&v24, v13, v14, v15, v16, v17, v18, v19);
+    v23.n128_f32[1] = *v17.i32 + *&v15;
+    v23.n128_f64[0] = CI::BitmapSampler::read(*(v12 + 8), v23, v13, v14, v15, v16, v17, v18, v19);
     v14 = v22;
-    v22 = v22 + vmulq_f32(v26, v26).f32[0] * 0.111111111;
-    v13 = v51;
-    *v13.f64 = fminf(*v51.f64, v26.f32[1]);
-    v51 = v13;
+    v22 = v22 + vmulq_f32(v23, v23).f32[0] * 0.111111111;
+    v13 = v49;
+    *v13.f64 = fminf(*v49.f64, v23.n128_f32[1]);
+    v49 = v13;
     ++v21;
   }
 
   while (v21 != 5);
-  v27 = a4 + 80 * v7;
-  DC = CI::getDC(v25);
-  LODWORD(v29) = *(v27 + 24);
-  v30.i32[0] = *(v27 + 36);
-  *v31.i32 = vmuls_lane_f32(*(v27 + 32), *DC, 1);
-  *&v32 = *v31.i32 + (COERCE_FLOAT(*DC) * *(v27 + 28));
-  *&v33 = *&v29 + (vmuls_lane_f32(*(v27 + 20), *DC, 1) + (COERCE_FLOAT(*DC) * *(v27 + 16)));
-  *v34.f64 = *v30.i32 + *&v32;
-  *(&v33 + 1) = *v30.i32 + *&v32;
-  v37 = CI::BitmapSampler::read(*(v27 + 8), v33, v34, v29, v32, v31, v30, v35, v36);
-  v38 = vdup_lane_s32(*&v37, 0);
-  _Q4 = v50;
-  v38.i32[0] = LODWORD(v51.f64[0]);
-  v40 = vextq_s8(_Q4, _Q4, 8uLL).u64[0];
-  _Q4.i32[0] = HIDWORD(v40);
-  v41 = vdiv_f32(vsub_f32(v38, __PAIR64__(v50.u32[0], v40)), vsub_f32(*_Q4.i8, __PAIR64__(v50.u32[0], v40)));
+  v25 = a4 + 80 * v7;
+  DC = CI::getDC(v24);
+  LODWORD(v27) = *(v25 + 24);
+  v28.i32[0] = *(v25 + 36);
+  *v29.i32 = vmuls_lane_f32(*(v25 + 32), *DC, 1);
+  *&v30 = *v29.i32 + (COERCE_FLOAT(*DC) * *(v25 + 28));
+  v31.n128_f32[0] = *&v27 + (vmuls_lane_f32(*(v25 + 20), *DC, 1) + (COERCE_FLOAT(*DC) * *(v25 + 16)));
+  *v32.f64 = *v28.i32 + *&v30;
+  v31.n128_f32[1] = *v28.i32 + *&v30;
+  v35 = CI::BitmapSampler::read(*(v25 + 8), v31, v32, v27, v30, v29, v28, v33, v34);
+  v36 = vdup_lane_s32(*&v35, 0);
+  _Q4 = v48;
+  v36.i32[0] = LODWORD(v49.f64[0]);
+  v38 = vextq_s8(_Q4, _Q4, 8uLL).u64[0];
+  _Q4.i32[0] = HIDWORD(v38);
+  v39 = vdiv_f32(vsub_f32(v36, __PAIR64__(v48.u32[0], v38)), vsub_f32(*_Q4.i8, __PAIR64__(v48.u32[0], v38)));
   __asm { FMOV            V3.2S, #1.0 }
 
-  v47 = vbic_s8(vbsl_s8(vcgt_f32(v41, _D3), _D3, v41), vcltz_f32(v41));
+  v45 = vbic_s8(vbsl_s8(vcgt_f32(v39, _D3), _D3, v39), vcltz_f32(v39));
   __asm { FMOV            V4.2S, #3.0 }
 
-  v48 = vmul_f32(vmul_f32(v47, v47), vmla_f32(*_Q4.i8, 0xC0000000C0000000, v47));
-  v48.f32[0] = vmul_lane_f32(v48, v48, 1).f32[0];
-  return (sqrtf(v22) * v48.f32[0]) + (*&v37 * (1.0 - v48.f32[0]));
+  v46 = vmul_f32(vmul_f32(v45, v45), vmla_f32(*_Q4.i8, 0xC0000000C0000000, v45));
+  v46.f32[0] = vmul_lane_f32(v46, v46, 1).f32[0];
+  return (sqrtf(v22) * v46.f32[0]) + (*&v35 * (1.0 - v46.f32[0]));
 }
 
 double CI::sw_CIPortraitBlurDir(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7861,73 +8626,78 @@ double CI::sw_CIPortraitBlurDir(CI *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   __asm { FMOV            V0.2S, #3.0 }
 
   v13 = vmul_f32(v6, _D0);
-  v14 = vsub_f32(*&v7.f64[0], v13);
+  v14.n128_u64[0] = vsub_f32(*&v7.f64[0], v13);
   LODWORD(v15) = *(v5 + 24);
   v16.i32[0] = *(v5 + 36);
-  *v17.i32 = vmuls_lane_f32(*(v5 + 32), v14, 1);
-  *&v18 = *v17.i32 + (v14.f32[0] * *(v5 + 28));
-  v14.f32[0] = *&v15 + (vmuls_lane_f32(*(v5 + 20), v14, 1) + (v14.f32[0] * *(v5 + 16)));
+  *v17.i32 = vmuls_lane_f32(*(v5 + 32), v14.n128_u64[0], 1);
+  *&v18 = *v17.i32 + (v14.n128_f32[0] * *(v5 + 28));
+  v14.n128_f32[0] = *&v15 + (vmuls_lane_f32(*(v5 + 20), v14.n128_u64[0], 1) + (v14.n128_f32[0] * *(v5 + 16)));
   *v7.f64 = *v16.i32 + *&v18;
-  v14.f32[1] = *v16.i32 + *&v18;
-  *v21.i64 = CI::BitmapSampler::read(*(v5 + 8), *&v14, v7, v15, v18, v17, v16, v19, v20);
+  v14.n128_f32[1] = *v16.i32 + *&v18;
+  v21.n128_f64[0] = CI::BitmapSampler::read(*(v5 + 8), v14, v7, v15, v18, v17, v16, v19, v20);
   v96 = v21;
   v22 = vadd_f32(v6, v6);
-  *v21.f32 = vsub_f32(*v97.i8, v22);
+  v21.n128_u64[1] = v97.u64[1];
+  v21.n128_u64[0] = vsub_f32(*v97.i8, v22);
   LODWORD(v23) = *(v5 + 24);
   v24.i32[0] = *(v5 + 36);
-  *v25.i32 = vmuls_lane_f32(*(v5 + 32), *v21.f32, 1);
-  *&v26 = *v25.i32 + (v21.f32[0] * *(v5 + 28));
-  v21.f32[0] = *&v23 + (vmuls_lane_f32(*(v5 + 20), *v21.f32, 1) + (v21.f32[0] * *(v5 + 16)));
+  *v25.i32 = vmuls_lane_f32(*(v5 + 32), v21.n128_u64[0], 1);
+  *&v26 = *v25.i32 + (v21.n128_f32[0] * *(v5 + 28));
+  v21.n128_f32[0] = *&v23 + (vmuls_lane_f32(*(v5 + 20), v21.n128_u64[0], 1) + (v21.n128_f32[0] * *(v5 + 16)));
   *v27.f64 = *v24.i32 + *&v26;
-  v21.f32[1] = *v24.i32 + *&v26;
-  *v30.i64 = CI::BitmapSampler::read(*(v5 + 8), *v21.i64, v27, v23, v26, v25, v24, v28, v29);
+  v21.n128_f32[1] = *v24.i32 + *&v26;
+  v30.n128_f64[0] = CI::BitmapSampler::read(*(v5 + 8), v21, v27, v23, v26, v25, v24, v28, v29);
   v95 = v30;
-  *v30.f32 = vsub_f32(*v97.i8, v6);
+  v30.n128_u64[1] = v97.u64[1];
+  v30.n128_u64[0] = vsub_f32(*v97.i8, v6);
   LODWORD(v31) = *(v5 + 24);
   v32.i32[0] = *(v5 + 36);
-  *v33.i32 = vmuls_lane_f32(*(v5 + 32), *v30.f32, 1);
-  *&v34 = *v33.i32 + (v30.f32[0] * *(v5 + 28));
-  v30.f32[0] = *&v31 + (vmuls_lane_f32(*(v5 + 20), *v30.f32, 1) + (v30.f32[0] * *(v5 + 16)));
+  *v33.i32 = vmuls_lane_f32(*(v5 + 32), v30.n128_u64[0], 1);
+  *&v34 = *v33.i32 + (v30.n128_f32[0] * *(v5 + 28));
+  v30.n128_f32[0] = *&v31 + (vmuls_lane_f32(*(v5 + 20), v30.n128_u64[0], 1) + (v30.n128_f32[0] * *(v5 + 16)));
   *v35.f64 = *v32.i32 + *&v34;
-  v30.f32[1] = *v32.i32 + *&v34;
-  *v38.i64 = CI::BitmapSampler::read(*(v5 + 8), *v30.i64, v35, v31, v34, v33, v32, v36, v37);
+  v30.n128_f32[1] = *v32.i32 + *&v34;
+  v38.n128_f64[0] = CI::BitmapSampler::read(*(v5 + 8), v30, v35, v31, v34, v33, v32, v36, v37);
   v94 = v38;
   LODWORD(v39) = *(v5 + 28);
-  v38.f32[0] = *(v5 + 24) + (vmuls_lane_f32(*(v5 + 20), *v97.i8, 1) + (*v97.i32 * *(v5 + 16)));
+  v38.n128_f32[0] = *(v5 + 24) + (vmuls_lane_f32(*(v5 + 20), *v97.i8, 1) + (*v97.i32 * *(v5 + 16)));
   LODWORD(v40) = *(v5 + 36);
   *v41.f64 = *&v40 + (vmuls_lane_f32(*(v5 + 32), *v97.i8, 1) + (*v97.i32 * *&v39));
-  v38.i32[1] = LODWORD(v41.f64[0]);
-  *v45.i64 = CI::BitmapSampler::read(*(v5 + 8), *v38.i64, v41, v39, v40, v97, v42, v43, v44);
+  v38.n128_u32[1] = LODWORD(v41.f64[0]);
+  v45.n128_f64[0] = CI::BitmapSampler::read(*(v5 + 8), v38, v41, v39, v40, v97, v42, v43, v44);
   v93 = v45;
-  *v45.f32 = vadd_f32(v6, *v97.i8);
+  v45.n128_u64[1] = v97.u64[1];
+  v45.n128_u64[0] = vadd_f32(v6, *v97.i8);
   LODWORD(v46) = *(v5 + 24);
   v47.i32[0] = *(v5 + 36);
-  *v48.i32 = vmuls_lane_f32(*(v5 + 32), *v45.f32, 1);
-  *&v49 = *v48.i32 + (v45.f32[0] * *(v5 + 28));
-  v45.f32[0] = *&v46 + (vmuls_lane_f32(*(v5 + 20), *v45.f32, 1) + (v45.f32[0] * *(v5 + 16)));
+  *v48.i32 = vmuls_lane_f32(*(v5 + 32), v45.n128_u64[0], 1);
+  *&v49 = *v48.i32 + (v45.n128_f32[0] * *(v5 + 28));
+  v45.n128_f32[0] = *&v46 + (vmuls_lane_f32(*(v5 + 20), v45.n128_u64[0], 1) + (v45.n128_f32[0] * *(v5 + 16)));
   *v50.f64 = *v47.i32 + *&v49;
-  v45.f32[1] = *v47.i32 + *&v49;
-  *v53.i64 = CI::BitmapSampler::read(*(v5 + 8), *v45.i64, v50, v46, v49, v48, v47, v51, v52);
+  v45.n128_f32[1] = *v47.i32 + *&v49;
+  v53.n128_f64[0] = CI::BitmapSampler::read(*(v5 + 8), v45, v50, v46, v49, v48, v47, v51, v52);
   v92 = v53;
-  *v53.f32 = vadd_f32(v22, *v97.i8);
+  v53.n128_u64[1] = v97.u64[1];
+  v53.n128_u64[0] = vadd_f32(v22, *v97.i8);
   LODWORD(v54) = *(v5 + 24);
   v55.i32[0] = *(v5 + 36);
-  *v56.i32 = vmuls_lane_f32(*(v5 + 32), *v53.f32, 1);
-  *&v57 = *v56.i32 + (v53.f32[0] * *(v5 + 28));
-  v53.f32[0] = *&v54 + (vmuls_lane_f32(*(v5 + 20), *v53.f32, 1) + (v53.f32[0] * *(v5 + 16)));
+  *v56.i32 = vmuls_lane_f32(*(v5 + 32), v53.n128_u64[0], 1);
+  *&v57 = *v56.i32 + (v53.n128_f32[0] * *(v5 + 28));
+  v53.n128_f32[0] = *&v54 + (vmuls_lane_f32(*(v5 + 20), v53.n128_u64[0], 1) + (v53.n128_f32[0] * *(v5 + 16)));
   *v58.f64 = *v55.i32 + *&v57;
-  v53.f32[1] = *v55.i32 + *&v57;
-  *v61.i64 = CI::BitmapSampler::read(*(v5 + 8), *v53.i64, v58, v54, v57, v56, v55, v59, v60);
+  v53.n128_f32[1] = *v55.i32 + *&v57;
+  v61.n128_f64[0] = CI::BitmapSampler::read(*(v5 + 8), v53, v58, v54, v57, v56, v55, v59, v60);
   v91 = v61;
-  *v61.f32 = vadd_f32(v13, *v97.i8);
+  v61.n128_u64[1] = v97.u64[1];
+  v61.n128_u64[0] = vadd_f32(v13, *v97.i8);
   LODWORD(v62) = *(v5 + 24);
   v63.i32[0] = *(v5 + 36);
-  *v64.i32 = vmuls_lane_f32(*(v5 + 32), *v61.f32, 1);
-  *&v65 = *v64.i32 + (v61.f32[0] * *(v5 + 28));
-  v61.f32[0] = *&v62 + (vmuls_lane_f32(*(v5 + 20), *v61.f32, 1) + (v61.f32[0] * *(v5 + 16)));
+  *v64.i32 = vmuls_lane_f32(*(v5 + 32), v61.n128_u64[0], 1);
+  *&v65 = *v64.i32 + (v61.n128_f32[0] * *(v5 + 28));
+  v61.n128_f32[0] = *&v62 + (vmuls_lane_f32(*(v5 + 20), v61.n128_u64[0], 1) + (v61.n128_f32[0] * *(v5 + 16)));
   *v66.f64 = *v63.i32 + *&v65;
-  v61.f32[1] = *v63.i32 + *&v65;
-  *v69.i64 = CI::BitmapSampler::read(*(v5 + 8), *v61.i64, v66, v62, v65, v64, v63, v67, v68);
+  v61.n128_f32[1] = *v63.i32 + *&v65;
+  *v69.i64 = CI::BitmapSampler::read(*(v5 + 8), v61, v66, v62, v65, v64, v63, v67, v68);
   v98 = v69;
   v87 = vmulq_f32(v96, v96);
   v86 = vmulq_f32(v94, v94);
@@ -8042,9 +8812,16 @@ uint64_t CI::sw_CIBlurPreProcess(uint64_t a1, uint64_t a2, uint64_t a3)
   return *v7;
 }
 
-void sub_19CD9C510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_19CD9BF04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  va_start(va, a13);
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_19CD9C510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8286,7 +9063,7 @@ unint64_t CI::sw_CIPortraitBlurBlendWithMaskMatteFromAlpha(uint64_t a1, uint64_t
   return vmlaq_n_f32(vmulq_n_f32(*v7, 1.0 - v20.f32[3]), v20, v20.f32[3]).u64[0];
 }
 
-unint64_t CI::sw_CIPortraitBlurBlendWithMaskMatteFromAlphaYCC(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t CI::sw_CIPortraitBlurBlendWithMaskMatteFromAlphaYCC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a1 + 40);
   v4 = *(v3 + 8);
@@ -9157,860 +9934,5 @@ double CI::sw_boostRGBLNoGamma(uint64_t a1, uint64_t a2, uint64_t a3, double a4,
   v66 = vmulq_n_f32(v31, *&a6);
   *&a6 = 1.0 - *&a6;
   *&result = vbslq_s8(vcgtq_f32(vdupq_lane_s32(*v14, 0), v31), vaddq_f32(v59, v60), vbslq_s8(vcgtq_f32(vdupq_lane_s32(*v14, 1), v31), vaddq_f32(v57, v62), vbslq_s8(vcgtq_f32(vdupq_laneq_s32(*v14->i8, 2), v31), vaddq_f32(v61, v39), vbslq_s8(vcgtq_f32(vdupq_laneq_s32(*v14->i8, 3), v31), v65, vaddq_f32(vdupq_lane_s32(*&a6, 0), v66))))).u64[0];
-  return result;
-}
-
-unint64_t CI::sw_boostHybrid(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 40);
-  v4 = *(v3 + 8);
-  v5 = (a3 + 16 * v4);
-  v6 = (a2 + (v4 << 6));
-  if (*(v3 + 16) == 5)
-  {
-    v7 = v5;
-  }
-
-  else
-  {
-    v7 = v6;
-  }
-
-  v8 = *(v3 + 32);
-  v9 = (a3 + 16 * v8);
-  v10 = (a2 + (v8 << 6));
-  if (*(v3 + 40) == 5)
-  {
-    v11 = v9;
-  }
-
-  else
-  {
-    v11 = v10;
-  }
-
-  v13 = vmulq_f32(*v7, xmmword_19CF23D60);
-  v14 = v13.f32[2] + vaddv_f32(*v13.f32);
-  v15 = *v7;
-  v15.f32[3] = v14;
-  v16 = vmaxnmq_f32(vbicq_s8(*v11, vcltzq_f32(v15)), 0);
-  v17 = vmulq_n_f32(*v7, v16.f32[3] / fmaxf(v14, 0.000001));
-  v17.i32[3] = 0;
-  v18 = vmaxnmq_f32(v17, 0);
-  v19 = (v14 - (*(a2 + (*(v3 + 56) << 6)) + *(a2 + (*(v3 + 80) << 6)) * -0.5)) / *(a2 + (*(v3 + 80) << 6));
-  if (v19 <= 1.0)
-  {
-    v20 = (v14 - (*(a2 + (*(v3 + 56) << 6)) + *(a2 + (*(v3 + 80) << 6)) * -0.5)) / *(a2 + (*(v3 + 80) << 6));
-  }
-
-  else
-  {
-    v20 = 1.0;
-  }
-
-  v21 = v19 < 0.0;
-  v22 = 0.0;
-  if (!v21)
-  {
-    v22 = v20;
-  }
-
-  v23 = -((v22 * -2.0 + 3.0) * v22) * v22 + 1.0;
-  v12 = *(a2 + (*(v3 + 104) << 6));
-  return vmlaq_n_f32(vmulq_n_f32(v16, 1.0 - (v12 * v23)), v18, v12 * v23).u64[0];
-}
-
-float32x2_t CI::sw_paddedTile(CI *a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 5);
-  v4 = *(v3 + 16);
-  v5 = *(v3 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (v4 == 5)
-  {
-    v7 = v6;
-  }
-
-  v15 = *v7;
-  v8 = vmul_f32(*&vextq_s8(v15, v15, 8uLL), *CI::getDC(a1));
-  __asm { FMOV            V1.2S, #1.0 }
-
-  return vadd_f32(vmul_f32(*v15.i8, vminnm_f32(vsub_f32(v8, vrndm_f32(v8)), vdup_n_s32(0x3F7FFFFFu))), _D1);
-}
-
-Class ___ZL33getVNDetectRectanglesRequestClassv_block_invoke(uint64_t a1)
-{
-  VisionLibrary();
-  result = objc_getClass("VNDetectRectanglesRequest");
-  *(*(*(a1 + 32) + 8) + 40) = result;
-  if (!*(*(*(a1 + 32) + 8) + 40))
-  {
-    ___ZL33getVNDetectRectanglesRequestClassv_block_invoke_cold_1();
-  }
-
-  getVNDetectRectanglesRequestClass(void)::softClass = *(*(*(a1 + 32) + 8) + 40);
-  return result;
-}
-
-uint64_t ___ZL17VisionLibraryCorePPc_block_invoke_0()
-{
-  result = _sl_dlopen();
-  VisionLibraryCore(char **)::frameworkLibrary = result;
-  return result;
-}
-
-void *___ZL34getVNImageOptionCIContextSymbolLocv_block_invoke_0(uint64_t a1)
-{
-  v2 = VisionLibrary();
-  result = dlsym(v2, "VNImageOptionCIContext");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getVNImageOptionCIContextSymbolLoc(void)::ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class ___ZL29getVNImageRequestHandlerClassv_block_invoke_0(uint64_t a1)
-{
-  VisionLibrary();
-  result = objc_getClass("VNImageRequestHandler");
-  *(*(*(a1 + 32) + 8) + 40) = result;
-  if (!*(*(*(a1 + 32) + 8) + 40))
-  {
-    ___ZL29getVNImageRequestHandlerClassv_block_invoke_cold_1_0();
-  }
-
-  getVNImageRequestHandlerClass(void)::softClass = *(*(*(a1 + 32) + 8) + 40);
-  return result;
-}
-
-double CI::sw_rectangle(CI *a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 5);
-  v4 = *(v3 + 8);
-  v5 = (a3 + 16 * v4);
-  v6 = (a2 + (v4 << 6));
-  if (*(v3 + 16) == 5)
-  {
-    v7 = v5;
-  }
-
-  else
-  {
-    v7 = v6;
-  }
-
-  v8 = *(v3 + 32);
-  v9 = (a3 + 16 * v8);
-  v10 = (a2 + (v8 << 6));
-  if (*(v3 + 40) == 5)
-  {
-    v11 = v9;
-  }
-
-  else
-  {
-    v11 = v10;
-  }
-
-  v25 = *v11;
-  v26 = *v7;
-  v27 = *(a2 + (*(v3 + 56) << 6));
-  v28 = *CI::getDC(a1);
-  v12.i64[0] = v28;
-  *v13.i64 = vec2::get_xxy(&v28, v12);
-  v14 = vaddq_f32(v25, vmulq_f32(v26, v13));
-  __asm { FMOV            V2.4S, #1.0 }
-
-  v20 = vminnmq_f32(vmaxnmq_f32(vminnmq_f32(vmaxnmq_f32(vmaxnmq_f32(v14, vrev64q_s32(v14)), 0), _Q2), 0), _Q2);
-  v21.i64[0] = 0xC0000000C0000000;
-  v21.i64[1] = 0xC0000000C0000000;
-  __asm { FMOV            V4.4S, #3.0 }
-
-  v23 = vsubq_f32(_Q2, vmulq_f32(vmulq_f32(v20, v20), vmlaq_f32(_Q4, v21, v20)));
-  *&result = vmulq_n_f32(v27, vmuls_lane_f32(v23.f32[0], v23, 2)).u64[0];
-  return result;
-}
-
-double CI::sw_roundedrect(CI *a1, uint64_t a2, uint64_t a3, int32x2_t a4)
-{
-  v4 = *(a1 + 5);
-  v5 = *(v4 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (*(v4 + 16) == 5)
-  {
-    v8 = v6;
-  }
-
-  else
-  {
-    v8 = v7;
-  }
-
-  v9 = *(v4 + 56);
-  v10 = (a3 + 16 * v9);
-  v11 = (a2 + (v9 << 6));
-  if (*(v4 + 64) == 5)
-  {
-    v12 = v10;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  a4.i32[0] = *(a2 + (*(v4 + 32) << 6));
-  v33 = *v8;
-  v34 = a4;
-  v13 = *v12;
-  v35 = *(a2 + (*(v4 + 80) << 6));
-  DC = CI::getDC(a1);
-  v15 = vdup_lane_s32(v34, 0);
-  v16 = vadd_f32(*v33.i8, v15);
-  v17 = vmul_n_f32(v13, *v34.i32);
-  v18 = vadd_f32(v17, v16);
-  v19 = vsub_f32(*&vextq_s8(v33, v33, 8uLL), v15);
-  v20 = vsub_f32(v19, v17);
-  v21 = vmaxnm_f32(vmul_n_f32(v13, *v34.i32 * 4.0), vdup_n_s32(0x358637BDu));
-  v22 = vmul_f32(v21, 0x3F0000003F000000);
-  v23 = vsub_f32(v18, v22);
-  v24 = vadd_f32(v20, v22);
-  v25 = vsub_f32(*DC, v18);
-  v26 = vsub_f32(*DC, v20);
-  v27 = vbsl_s8(vcgt_f32(v23, *DC), vsub_f32(*DC, v16), vbsl_s8(vcltz_f32(v25), vdiv_f32(vmul_f32(v25, vneg_f32(v25)), v21), vbic_s8(vbsl_s8(vcgt_f32(v24, *DC), vdiv_f32(vmul_f32(v26, v26), v21), vsub_f32(*DC, v19)), vcltz_f32(v26))));
-  v28 = (*v34.i32 - sqrtf(vaddv_f32(vmul_f32(v27, v27)))) + 0.5;
-  v29 = 1.0;
-  if (v28 <= 1.0)
-  {
-    v29 = v28;
-  }
-
-  v30 = v28 < 0.0;
-  v31 = 0.0;
-  if (!v30)
-  {
-    v31 = v29;
-  }
-
-  *&result = vmulq_n_f32(v35, v31).u64[0];
-  return result;
-}
-
-double CI::sw_blurredrect(CI *a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 5);
-  v4 = *(v3 + 8);
-  v5 = (a3 + 16 * v4);
-  v6 = (a2 + (v4 << 6));
-  if (*(v3 + 16) == 5)
-  {
-    v7 = v5;
-  }
-
-  else
-  {
-    v7 = v6;
-  }
-
-  v8 = *(a2 + (*(v3 + 32) << 6));
-  v26 = *v7;
-  v27 = *(a2 + (*(v3 + 56) << 6));
-  DC = CI::getDC(a1);
-  v10 = v8 * 2.4;
-  *&v10 = v10;
-  v11 = vdup_lane_s32(*&v10, 0);
-  *&v10 = *&v10 + *&v10;
-  v12 = vdup_lane_s32(*&v10, 0);
-  __asm { FMOV            V6.2S, #1.0 }
-
-  v18 = vminnm_f32(vmaxnm_f32(vdiv_f32(vsub_f32(*DC, vsub_f32(*v26.i8, v11)), v12), 0), _D6);
-  __asm
-  {
-    FMOV            V16.2S, #6.0
-    FMOV            V18.2S, #-15.0
-    FMOV            V17.2S, #10.0
-  }
-
-  v22 = vmul_f32(vmul_f32(v18, vmul_f32(v18, v18)), vadd_f32(vmul_f32(v18, vadd_f32(vmul_f32(v18, _D16), _D18)), _D17));
-  v23 = vminnm_f32(vmaxnm_f32(vdiv_f32(vsub_f32(vadd_f32(*&vextq_s8(v26, v26, 8uLL), v11), *DC), v12), 0), _D6);
-  v24 = vmul_f32(vmul_f32(v23, vmul_f32(v23, v23)), vadd_f32(vmul_f32(v23, vadd_f32(vmul_f32(v23, _D16), _D18)), _D17));
-  *&result = vmulq_n_f32(v27, vmul_lane_f32(vmul_f32(vmul_lane_f32(v22, v22, 1), v24), v24, 1).f32[0]).u64[0];
-  return result;
-}
-
-double CI::sw_roundedstroke(CI *a1, uint64_t a2, uint64_t a3, int32x2_t a4)
-{
-  v4 = *(a1 + 5);
-  v5 = *(v4 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (*(v4 + 16) == 5)
-  {
-    v8 = v6;
-  }
-
-  else
-  {
-    v8 = v7;
-  }
-
-  v9 = *(v4 + 56);
-  v10 = (a3 + 16 * v9);
-  v11 = (a2 + (v9 << 6));
-  if (*(v4 + 64) == 5)
-  {
-    v12 = v10;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  a4.i32[0] = *(a2 + (*(v4 + 32) << 6));
-  v57 = a4;
-  v56 = *v8;
-  v58 = *v12;
-  v13 = *v12;
-  v13.i32[0] = *(a2 + (*(v4 + 80) << 6));
-  v59 = *v13.i8;
-  v60 = *(a2 + (*(v4 + 104) << 6));
-  v14 = *CI::getDC(a1);
-  v15 = vextq_s8(v56, v56, 8uLL).u64[0];
-  v16 = vdup_lane_s32(v57, 0);
-  v17 = vadd_f32(*v56.i8, v16);
-  v18 = vmul_n_f32(*v58.i8, *v57.i32);
-  v19 = vadd_f32(v17, v18);
-  v20 = vsub_f32(v15, v16);
-  v21 = vsub_f32(v20, v18);
-  v22 = vmaxnm_f32(vmul_n_f32(*v58.i8, *v57.i32 * 4.0), vdup_n_s32(0x358637BDu));
-  v23 = vmul_f32(v22, 0x3F0000003F000000);
-  v24 = vsub_f32(v19, v23);
-  v25 = vadd_f32(v21, v23);
-  v26 = vsub_f32(v14, v19);
-  v27 = vsub_f32(v14, v21);
-  v28 = vbsl_s8(vcgt_f32(v24, v14), vsub_f32(v14, v17), vbsl_s8(vcltz_f32(v26), vdiv_f32(vmul_f32(v26, vneg_f32(v26)), v22), vbic_s8(vbsl_s8(vcgt_f32(v25, v14), vdiv_f32(vmul_f32(v27, v27), v22), vsub_f32(v14, v20)), vcltz_f32(v27))));
-  v29 = (*v57.i32 - sqrtf(vaddv_f32(vmul_f32(v28, v28)))) + 0.5;
-  if (v29 <= 1.0)
-  {
-    v30 = v29;
-  }
-
-  else
-  {
-    v30 = 1.0;
-  }
-
-  v31 = v29 < 0.0;
-  v32 = 0.0;
-  if (!v31)
-  {
-    v32 = v30;
-  }
-
-  v33 = vdup_lane_s32(v59, 0);
-  v34 = vadd_f32(*v56.i8, v33);
-  v35 = vsub_f32(v15, v33);
-  *v33.i32 = fmaxf(*v57.i32 - *v59.i32, 0.5);
-  v36 = vextq_s8(v58, v58, 8uLL).u64[0];
-  v37 = vdup_lane_s32(v33, 0);
-  v38 = vadd_f32(v34, v37);
-  v39 = vmul_n_f32(v36, *v33.i32);
-  v40 = vadd_f32(v39, v38);
-  v41 = vsub_f32(v35, v37);
-  v42 = vsub_f32(v41, v39);
-  v43 = vmul_n_f32(v36, *v33.i32 * 4.0);
-  v44 = vmul_f32(v43, 0x3F0000003F000000);
-  v45 = vsub_f32(v40, v44);
-  v46 = vadd_f32(v42, v44);
-  v47 = vsub_f32(v14, v40);
-  v48 = vsub_f32(v14, v42);
-  v49 = vbsl_s8(vcgt_f32(v45, v14), vsub_f32(v14, v38), vbsl_s8(vcltz_f32(v47), vdiv_f32(vmul_f32(v47, vneg_f32(v47)), v43), vbic_s8(vbsl_s8(vcgt_f32(v46, v14), vdiv_f32(vmul_f32(v48, v48), v43), vsub_f32(v14, v41)), vcltz_f32(v48))));
-  v50 = (*v33.i32 - sqrtf(vaddv_f32(vmul_f32(v49, v49)))) + 0.5;
-  if (v50 <= 1.0)
-  {
-    v51 = v50;
-  }
-
-  else
-  {
-    v51 = 1.0;
-  }
-
-  v52 = 1.0 - v51;
-  v53 = vmulq_n_f32(v60, v32);
-  if (v50 >= 0.0)
-  {
-    v54 = v52;
-  }
-
-  else
-  {
-    v54 = 1.0;
-  }
-
-  *&result = vmulq_n_f32(v53, v54).u64[0];
-  return result;
-}
-
-double CI::sw_rectstroke(CI *a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 5);
-  v4 = *(v3 + 8);
-  v5 = (a3 + 16 * v4);
-  v6 = (a2 + (v4 << 6));
-  if (*(v3 + 16) == 5)
-  {
-    v7 = v5;
-  }
-
-  else
-  {
-    v7 = v6;
-  }
-
-  v8 = (a2 + (*(v3 + 32) << 6));
-  v23 = *v7;
-  v24 = *(a2 + (*(v3 + 56) << 6));
-  v9 = vld1_dup_f32(v8);
-  DC = CI::getDC(a1);
-  v11 = vadd_f32(*v23.i8, 0xBF000000BF000000);
-  v12 = vadd_f32(*&vextq_s8(v23, v23, 8uLL), 0x3F0000003F000000);
-  v13 = vminnm_f32(vsub_f32(*DC, v11), vsub_f32(v12, *DC));
-  __asm { FMOV            V5.2S, #1.0 }
-
-  v19 = vbic_s8(vbsl_s8(vcgt_f32(v13, _D5), _D5, v13), vcltz_f32(v13));
-  v20 = vminnm_f32(vsub_f32(*DC, vadd_f32(v11, v9)), vsub_f32(vsub_f32(v12, v9), *DC));
-  v21 = vbic_s8(vbsl_s8(vcgt_f32(v20, _D5), _D5, v20), vcltz_f32(v20));
-  *&result = vmulq_n_f32(vmulq_n_f32(v24, vmul_lane_f32(v19, v19, 1).f32[0]), 1.0 - vmul_lane_f32(v21, v21, 1).f32[0]).u64[0];
-  return result;
-}
-
-double CI::sw_blurredroundedrect(CI *a1, uint64_t a2, uint64_t a3, int32x2_t a4)
-{
-  v4 = *(a1 + 5);
-  v5 = *(v4 + 8);
-  v6 = (a3 + 16 * v5);
-  v7 = (a2 + (v5 << 6));
-  if (*(v4 + 16) == 5)
-  {
-    v8 = v6;
-  }
-
-  else
-  {
-    v8 = v7;
-  }
-
-  v9 = *(v4 + 56);
-  v10 = (a3 + 16 * v9);
-  v11 = (a2 + (v9 << 6));
-  if (*(v4 + 64) == 5)
-  {
-    v12 = v10;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  v39 = *v8;
-  v13 = *v12;
-  v41 = *(a2 + (*(v4 + 104) << 6));
-  v40 = vextq_s8(*v8, *v8, 8uLL).u64[0];
-  v14 = *(a2 + (*(v4 + 80) << 6)) * 2.4;
-  *a4.i32 = fmaxf(*(a2 + (*(v4 + 32) << 6)), v14 * 0.5);
-  v38 = a4;
-  DC = CI::getDC(a1);
-  v16 = vdup_lane_s32(v38, 0);
-  v17 = vadd_f32(*v39.i8, v16);
-  v18 = vmul_n_f32(v13, *v38.i32);
-  v19 = vadd_f32(v18, v17);
-  v20 = vsub_f32(v40, v16);
-  v21 = vsub_f32(v20, v18);
-  v22 = vmaxnm_f32(vmul_n_f32(v13, *v38.i32 * 4.0), vdup_n_s32(0x358637BDu));
-  v23 = vmul_f32(v22, 0x3F0000003F000000);
-  v24 = vsub_f32(v19, v23);
-  v25 = vadd_f32(v23, v21);
-  v26 = vsub_f32(*DC, v19);
-  v27 = vsub_f32(*DC, v21);
-  v28 = vsub_f32(*DC, v20);
-  v29 = vbsl_s8(vcgt_f32(v24, *DC), vsub_f32(*DC, v17), vbsl_s8(vcltz_f32(v26), vdiv_f32(vmul_f32(v26, vneg_f32(v26)), v22), vbic_s8(vbsl_s8(vcgt_f32(v25, *DC), vdiv_f32(vmul_f32(v27, v27), v22), v28), vcltz_f32(v27))));
-  v30 = sqrtf(vaddv_f32(vmul_f32(v29, v29))) - *v38.i32;
-  if (*v38.i32 * -0.99 > v30)
-  {
-    v31 = vsub_f32(v17, *DC);
-    v30 = fmaxf(fmaxf(v31.f32[0], v31.f32[1]), fmaxf(*v28.i32, *&v28.i32[1])) - *v38.i32;
-  }
-
-  v32 = (v30 + v14) / (v14 + v14);
-  if (v32 <= 1.0)
-  {
-    v33 = (v30 + v14) / (v14 + v14);
-  }
-
-  else
-  {
-    v33 = 1.0;
-  }
-
-  v34 = v32 < 0.0;
-  v35 = 0.0;
-  if (!v34)
-  {
-    v35 = v33;
-  }
-
-  v36 = ((v35 * 6.0 + -15.0) * v35 + 10.0) * (v35 * (v35 * v35));
-  *&result = vmulq_n_f32(v41, 1.0 - v36).u64[0];
-  return result;
-}
-
-void _ZZZ33__CIRedEyeCorrection_outputImage_EUb_EN13SignpostTimerD1Ev(TimerBase *a1)
-{
-  v2 = ci_signpost_log_render();
-  v3 = *(a1 + 1);
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-  {
-    v4 = v2;
-    if (os_signpost_enabled(v2))
-    {
-      *v5 = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "CIRedEyeCorrection_processor", &unk_19CFBCBAE, v5, 2u);
-    }
-  }
-
-  TimerBase::~TimerBase(a1);
-}
-
-void clearOutput(void *a1)
-{
-  v2 = CI::format_bytes_per_pixel([a1 format]);
-  [a1 region];
-  v4 = [a1 bytesPerRow] * (v3 - 1);
-  [a1 region];
-  v6 = v4 + v5 * v2;
-  v7 = [a1 baseAddress];
-
-  bzero(v7, v6);
-}
-
-uint64_t CIRedEyeUtilsSizeFromScale(float a1)
-{
-  v1 = 90;
-  if (a1 < 90.0)
-  {
-    v1 = 35;
-  }
-
-  if (a1 >= 35.0)
-  {
-    return v1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-float stretch(float a1, float a2, float a3, float a4, float a5)
-{
-  result = a4 + (((a1 - a2) / (a3 - a2)) * (a5 - a4));
-  if (result >= a5)
-  {
-    result = a5;
-  }
-
-  if (result <= a4)
-  {
-    return a4;
-  }
-
-  return result;
-}
-
-float interpolate(float result, float a2, float a3)
-{
-  v3 = result + (a3 * (a2 - result));
-  if (a2 >= result)
-  {
-    v4 = a2;
-  }
-
-  else
-  {
-    v4 = result;
-  }
-
-  if (a2 < result)
-  {
-    result = a2;
-  }
-
-  if (v3 > result)
-  {
-    result = v3;
-  }
-
-  if (result >= v4)
-  {
-    return v4;
-  }
-
-  return result;
-}
-
-__CFString *tagForEye(uint64_t a1)
-{
-  v1 = @"L";
-  if (a1 == 35)
-  {
-    v1 = @"M";
-  }
-
-  if (a1)
-  {
-    return v1;
-  }
-
-  else
-  {
-    return @"S";
-  }
-}
-
-CIImage *refilter(CIImage *a1, CIImage *a2, float a3, float a4)
-{
-  v10[3] = *MEMORY[0x1E69E9840];
-  if (a3 > 0.0 && a4 > 0.0)
-  {
-    v10[0] = a2;
-    v9[0] = @"inputSource";
-    v9[1] = @"inputSigmaSpace";
-    v10[1] = [MEMORY[0x1E696AD98] numberWithFloat:?];
-    v9[2] = @"inputSigmaRange";
-    *&v6 = a4;
-    v10[2] = [MEMORY[0x1E696AD98] numberWithFloat:v6];
-    v7 = -[CIImage imageByApplyingFilter:withInputParameters:](a1, "imageByApplyingFilter:withInputParameters:", @"CICheapBilateral", [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3]);
-    [(CIImage *)a1 extent];
-    return [(CIImage *)v7 imageByCroppingToRect:?];
-  }
-
-  return a1;
-}
-
-unint64_t radialFillRGBA8(void *a1, void *a2, int a3, unsigned int a4, unint64_t a5, double a6, double a7)
-{
-  [a1 region];
-  v14 = v13;
-  [a2 region];
-  if (v14 >= v15)
-  {
-    v16 = a2;
-  }
-
-  else
-  {
-    v16 = a1;
-  }
-
-  [v16 region];
-  v71 = v17;
-  [a1 region];
-  v19 = v18;
-  [a2 region];
-  if (v19 >= v20)
-  {
-    v21 = a2;
-  }
-
-  else
-  {
-    v21 = a1;
-  }
-
-  [v21 region];
-  v70 = v22;
-  v23 = [a1 bytesPerRow];
-  v24 = [a2 bytesPerRow];
-  v25 = [a1 baseAddress];
-  v26 = [a2 baseAddress];
-  v27 = a6;
-  v28 = a7;
-  v29 = sqrtf(a5);
-  v30 = (v29 + v29);
-  if (a6 >= a7)
-  {
-    v31 = a7;
-  }
-
-  else
-  {
-    v31 = a6;
-  }
-
-  if (v31 < v30)
-  {
-    v30 = v31;
-  }
-
-  v32 = v71 + ~v27;
-  if (v32 >= v70 + ~v28)
-  {
-    v32 = v70 + ~v28;
-  }
-
-  if (v32 < v30)
-  {
-    v30 = v32;
-  }
-
-  v72 = v30;
-  [a1 region];
-  v34 = v33;
-  [a2 region];
-  v36 = v35;
-  [a1 region];
-  v38 = v37;
-  [a2 region];
-  if (v72 < 1)
-  {
-    return 0;
-  }
-
-  result = 0;
-  v41 = 0;
-  v42 = a3 + (v28 + (v38 - v39)) * v24 + 4 * (v27 + (v34 - v36));
-  v43 = a3 + v28 * v23 + 4 * v27;
-  v44 = 1;
-  v45 = v43;
-  v46 = v42;
-  v47 = v43;
-  v48 = v42;
-  do
-  {
-    v49 = v44;
-    v50 = v47;
-    v51 = v48;
-    do
-    {
-      v52 = result;
-      v53 = *(v25 + v50) > a4;
-      if (*(v25 + v50) > a4)
-      {
-        ++result;
-      }
-
-      if (v52 >= a5)
-      {
-        v53 = 0;
-      }
-
-      *(v26 + v51) = v53 << 31 >> 31;
-      v51 += v24;
-      v50 += v23;
-      --v49;
-    }
-
-    while (v49);
-    v54 = v44;
-    v55 = v45;
-    v56 = v46;
-    if (result > a5)
-    {
-      break;
-    }
-
-    do
-    {
-      v57 = result;
-      v58 = *(v25 + v55) > a4;
-      if (*(v25 + v55) > a4)
-      {
-        ++result;
-      }
-
-      if (v57 >= a5)
-      {
-        v58 = 0;
-      }
-
-      *(v26 + v56) = v58 << 31 >> 31;
-      v56 += v24;
-      v55 += v23;
-      --v54;
-    }
-
-    while (v54);
-    if (result > a5)
-    {
-      break;
-    }
-
-    v59 = 0;
-    v60 = v44;
-    do
-    {
-      v61 = result;
-      v62 = *(v25 + v47 + v59) > a4;
-      if (*(v25 + v47 + v59) > a4)
-      {
-        ++result;
-      }
-
-      if (v61 >= a5)
-      {
-        v62 = 0;
-      }
-
-      *(v26 + v48 + v59) = v62 << 31 >> 31;
-      v59 += 4;
-      --v60;
-    }
-
-    while (v60);
-    v63 = v44;
-    v64 = v42;
-    v65 = v43;
-    if (result > a5)
-    {
-      break;
-    }
-
-    do
-    {
-      v66 = result;
-      v67 = *(v25 + v65) > a4;
-      if (*(v25 + v65) > a4)
-      {
-        ++result;
-      }
-
-      if (v66 >= a5)
-      {
-        v67 = 0;
-      }
-
-      *(v26 + v64) = v67 << 31 >> 31;
-      v65 += 4;
-      v64 += 4;
-      --v63;
-    }
-
-    while (v63);
-    ++v41;
-    v48 += -4 - v24;
-    v47 += -4 - v23;
-    v44 += 2;
-    v46 += 4 - v24;
-    v45 += 4 - v23;
-    v43 += v23 - 4;
-    v42 += v24 - 4;
-  }
-
-  while (result <= a5 && v41 != v72);
   return result;
 }

@@ -35,15 +35,15 @@
   v7 = *&height;
   v8 = *&width;
   contextCopy = context;
-  v20.receiver = self;
-  v20.super_class = PTLKTFlow;
-  v11 = [(PTLKTFlow *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = PTLKTFlow;
+  v11 = [(PTLKTFlow *)&v21 init];
   v12 = v11;
   if (!v11)
   {
 LABEL_7:
     v12 = v12;
-    v17 = v12;
+    v18 = v12;
     goto LABEL_11;
   }
 
@@ -53,11 +53,11 @@ LABEL_7:
     v13 = [(PTLKTFlow *)v12 _initMemory:v8 height:v7 nscales:v6];
     v14 = [(PTLKTFlow *)v12 _setupPipelines:contextCopy]| v13;
     v15 = v14 | [(PTLKTFlow *)v12 _setupBuffer:contextCopy];
-    [(PTLKTFlow *)v12 reset];
+    reset = [(PTLKTFlow *)v12 reset];
     if (v15)
     {
-      v16 = _PTLogSystem();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = _PTLogSystem(reset);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [PTLKTFlow initWithMetalContext:width:height:nscales:];
       }
@@ -68,40 +68,41 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v18 = _PTLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v19 = _PTLogSystem(v11);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     [PTLKTFlow initWithMetalContext:width:height:nscales:];
   }
 
-  v17 = 0;
+  v18 = 0;
 LABEL_11:
 
-  return v17;
+  return v18;
 }
 
 - (id)newBufferWithPixelFormat:(unint64_t)format width:(int)width data:(const void *)data metalContext:(id)context
 {
   contextCopy = context;
-  v10 = format - 62;
+  v10 = contextCopy;
+  v11 = format - 62;
   if (format - 62 <= 0x3F)
   {
-    if (((1 << v10) & 0xF00C1F0FLL) != 0)
+    if (((1 << v11) & 0xF00C1F0FLL) != 0)
     {
 LABEL_13:
-      v11 = 4;
+      v12 = 4;
       goto LABEL_14;
     }
 
-    if (((1 << v10) & 0x3D0E0000000000) != 0)
+    if (((1 << v11) & 0x3D0E0000000000) != 0)
     {
-      v11 = 8;
+      v12 = 8;
       goto LABEL_14;
     }
 
-    if (((1 << v10) & 0xE000000000000000) != 0)
+    if (((1 << v11) & 0xE000000000000000) != 0)
     {
-      v11 = 16;
+      v12 = 16;
       goto LABEL_14;
     }
   }
@@ -110,13 +111,13 @@ LABEL_13:
   {
     if (((1 << format) & 0x80743D00000) != 0)
     {
-      v11 = 2;
+      v12 = 2;
       goto LABEL_14;
     }
 
     if (((1 << format) & 0x7402) != 0)
     {
-      v11 = 1;
+      v12 = 1;
       goto LABEL_14;
     }
 
@@ -126,30 +127,30 @@ LABEL_13:
     }
   }
 
-  v18 = _PTLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v19 = _PTLogSystem(contextCopy);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     [PTLKTFlow newBufferWithPixelFormat:width:data:metalContext:];
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_14:
-  v12 = v11 * width;
-  device = [contextCopy device];
-  v14 = device;
+  v13 = v12 * width;
+  v14 = objc_msgSend_device(v10);
+  v15 = v14;
   if (data)
   {
-    v15 = [device newBufferWithBytes:data length:v12 options:0];
+    v16 = [v14 newBufferWithBytes:data length:v13 options:0];
   }
 
   else
   {
-    v15 = [device newBufferWithLength:v12 options:0];
+    v16 = [v14 newBufferWithLength:v13 options:0];
   }
 
-  v16 = v15;
+  v17 = v16;
 
-  return v16;
+  return v17;
 }
 
 - (void)setPreset:(int64_t)preset
@@ -183,7 +184,7 @@ LABEL_14:
     if (preset != 1)
     {
 LABEL_15:
-      v5 = _PTLogSystem();
+      v5 = _PTLogSystem(self);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [PTLKTFlow setPreset:];
@@ -445,8 +446,8 @@ LABEL_11:
     return 0;
   }
 
-  v20 = _PTLogSystem();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  v21 = _PTLogSystem(v18);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     [PTLKTFlow _initMemory:height:nscales:];
   }
@@ -487,7 +488,7 @@ LABEL_11:
     }
   }
 
-  v13 = _PTLogSystem();
+  v13 = _PTLogSystem(0);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     [(PTLKTFlow *)v13 _setupPipelines:v14, v15, v16, v17, v18, v19, v20];
@@ -501,7 +502,7 @@ LABEL_10:
 
 - (int)_setupBuffer:(id)buffer
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v135 = *MEMORY[0x277D85DE8];
   p_ref_size = &self->_ref_size;
   bufferCopy = buffer;
   v6 = 0;
@@ -513,8 +514,8 @@ LABEL_10:
   while (1)
   {
     v11 = v10;
-    device = [bufferCopy device];
-    v13 = [device newBufferWithLength:8 * v7 options:0];
+    v12 = objc_msgSend_device(bufferCopy);
+    v13 = [v12 newBufferWithLength:8 * v7 options:0];
     v14 = Adiagb_buf[v6];
     Adiagb_buf[v6] = v13;
 
@@ -523,20 +524,20 @@ LABEL_10:
       break;
     }
 
-    device2 = [bufferCopy device];
-    v16 = [device2 newBufferWithLength:2 * v7 options:0];
-    v17 = Ixy_buf[v6];
-    Ixy_buf[v6] = v16;
+    v16 = objc_msgSend_device(bufferCopy);
+    v17 = [v16 newBufferWithLength:2 * v7 options:0];
+    v18 = Ixy_buf[v6];
+    Ixy_buf[v6] = v17;
 
     if (!Ixy_buf[v6])
     {
-      kpt_buf = _PTLogSystem();
+      kpt_buf = _PTLogSystem(v19);
       if (os_log_type_enabled(kpt_buf, OS_LOG_TYPE_ERROR))
       {
         [PTLKTFlow _setupBuffer:];
       }
 
-      v23 = -2;
+      v26 = -2;
       goto LABEL_80;
     }
 
@@ -544,392 +545,392 @@ LABEL_10:
     v6 = 1;
     if ((v11 & 1) == 0)
     {
-      device3 = [bufferCopy device];
-      v19 = [device3 newBufferWithLength:4 * v7 options:0];
-      v20 = selfCopy;
+      v20 = objc_msgSend_device(bufferCopy);
+      v21 = [v20 newBufferWithLength:4 * v7 options:0];
+      v22 = selfCopy;
       idt_buf = selfCopy->_idt_buf;
-      selfCopy->_idt_buf = v19;
+      selfCopy->_idt_buf = v21;
 
       if (selfCopy->_idt_buf)
       {
         if (selfCopy->_nscales < 1)
         {
-          v23 = 0;
+          v26 = 0;
         }
 
         else
         {
-          v22 = 0;
-          v23 = 0;
+          v25 = 0;
+          v26 = 0;
           G1_tex = selfCopy->_G1_tex;
           G0_tex = selfCopy->_G0_tex;
           C1_tex = selfCopy->_C1_tex;
           C0_tex = selfCopy->_C0_tex;
-          v24 = vmovn_s64(vcvtq_s64_f64(p_ref_size[1]));
+          v27 = vmovn_s64(vcvtq_s64_f64(p_ref_size[1]));
           w_tex = selfCopy->_w_tex;
-          v25 = vcvtq_s64_f64(*p_ref_size);
-          v26 = vmovn_s64(v25);
+          v28 = vcvtq_s64_f64(*p_ref_size);
+          v29 = vmovn_s64(v28);
           I_u32_alias_tex = selfCopy->_I_u32_alias_tex;
           I_tex = selfCopy->_I_tex;
-          v104 = selfCopy->_I_u32_alias_tex[1];
-          v105 = selfCopy->_I_tex[1];
-          v27 = 0x277CD7000uLL;
-          v25.i64[0] = 67109120;
-          v103 = v25;
+          v114 = selfCopy->_I_u32_alias_tex[1];
+          v115 = selfCopy->_I_tex[1];
+          v30 = 0x277CD7000uLL;
+          v28.i64[0] = 67109120;
+          v113 = v28;
           do
           {
-            v118 = v24;
-            v28.i64[0] = v26.i32[0];
-            v28.i64[1] = v26.i32[1];
-            selfCopy->_ref_pyr_size[v22] = vcvtq_f64_s64(v28);
-            v28.i64[0] = v24.i32[0];
-            v28.i64[1] = v24.i32[1];
-            selfCopy->_aux_pyr_size[v22] = vcvtq_f64_s64(v28);
-            v29 = v26.u32[1];
-            v116 = v26.u32[0];
-            v30 = [*(v27 + 88) texture2DDescriptorWithPixelFormat:65 width:*&v103 height:? mipmapped:?];
+            v128 = v27;
+            v31.i64[0] = v29.i32[0];
+            v31.i64[1] = v29.i32[1];
+            selfCopy->_ref_pyr_size[v25] = vcvtq_f64_s64(v31);
+            v31.i64[0] = v27.i32[0];
+            v31.i64[1] = v27.i32[1];
+            selfCopy->_aux_pyr_size[v25] = vcvtq_f64_s64(v31);
+            v32 = v29.u32[1];
+            v126 = v29.u32[0];
+            v33 = [*(v30 + 88) texture2DDescriptorWithPixelFormat:65 width:*&v113 height:? mipmapped:?];
             if ([bufferCopy supportsFamily:1007])
             {
-              v31 = 0;
+              v34 = 0;
             }
 
             else
             {
-              v31 = 32;
+              v34 = 32;
             }
 
-            [v30 setResourceOptions:v31];
-            [v30 setUsage:3];
-            device4 = [bufferCopy device];
-            v33 = [device4 newTextureWithDescriptor:v30];
-            v34 = G0_tex[v22];
-            G0_tex[v22] = v33;
+            [v33 setResourceOptions:v34];
+            [v33 setUsage:3];
+            v35 = objc_msgSend_device(bufferCopy);
+            v36 = [v35 newTextureWithDescriptor:v33];
+            v37 = G0_tex[v25];
+            G0_tex[v25] = v36;
 
-            if (!G0_tex[v22])
+            if (!G0_tex[v25])
             {
-              v35 = _PTLogSystem();
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+              v39 = _PTLogSystem(v38);
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
               {
-                *buf = v103.i32[0];
-                v122 = v22;
-                _os_log_error_impl(&dword_2243FB000, v35, OS_LOG_TYPE_ERROR, "_G0_tex[%i] is nil", buf, 8u);
+                *buf = v113.i32[0];
+                v132 = v25;
+                _os_log_error_impl(&dword_2243FB000, v39, OS_LOG_TYPE_ERROR, "_G0_tex[%i] is nil", buf, 8u);
               }
 
-              v23 = -1;
+              v26 = -1;
             }
 
-            v36 = v118.u32[0];
-            [v30 setWidth:v118.u32[0]];
-            v119 = v118.u32[1];
-            [v30 setHeight:?];
-            device5 = [bufferCopy device];
-            v38 = [device5 newTextureWithDescriptor:v30];
-            v39 = G1_tex[v22];
-            G1_tex[v22] = v38;
+            v40 = v128.u32[0];
+            [v33 setWidth:v128.u32[0]];
+            v129 = v128.u32[1];
+            [v33 setHeight:?];
+            v41 = objc_msgSend_device(bufferCopy);
+            v42 = [v41 newTextureWithDescriptor:v33];
+            v43 = G1_tex[v25];
+            G1_tex[v25] = v42;
 
-            if (!G1_tex[v22])
+            if (!G1_tex[v25])
             {
-              v40 = _PTLogSystem();
-              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+              v45 = _PTLogSystem(v44);
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
               {
-                *buf = v103.i32[0];
-                v122 = v22;
-                _os_log_error_impl(&dword_2243FB000, v40, OS_LOG_TYPE_ERROR, "_G1_tex[%i] is nil", buf, 8u);
+                *buf = v113.i32[0];
+                v132 = v25;
+                _os_log_error_impl(&dword_2243FB000, v45, OS_LOG_TYPE_ERROR, "_G1_tex[%i] is nil", buf, 8u);
               }
 
-              v23 = -1;
+              v26 = -1;
             }
 
-            [v30 setPixelFormat:115];
-            [v30 setWidth:v116];
-            [v30 setHeight:v29];
-            device6 = [bufferCopy device];
-            v42 = [device6 newTextureWithDescriptor:v30];
-            v43 = C0_tex[v22];
-            C0_tex[v22] = v42;
+            [v33 setPixelFormat:115];
+            [v33 setWidth:v126];
+            [v33 setHeight:v32];
+            v46 = objc_msgSend_device(bufferCopy);
+            v47 = [v46 newTextureWithDescriptor:v33];
+            v48 = C0_tex[v25];
+            C0_tex[v25] = v47;
 
-            if (!C0_tex[v22])
+            if (!C0_tex[v25])
             {
-              v44 = _PTLogSystem();
-              if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+              v50 = _PTLogSystem(v49);
+              if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
               {
-                *buf = v103.i32[0];
-                v122 = v22;
-                _os_log_error_impl(&dword_2243FB000, v44, OS_LOG_TYPE_ERROR, "_C0_tex[%i] is nil", buf, 8u);
+                *buf = v113.i32[0];
+                v132 = v25;
+                _os_log_error_impl(&dword_2243FB000, v50, OS_LOG_TYPE_ERROR, "_C0_tex[%i] is nil", buf, 8u);
               }
 
-              v23 = -1;
+              v26 = -1;
             }
 
-            [v30 setWidth:v36];
-            [v30 setHeight:v119];
-            device7 = [bufferCopy device];
-            v46 = [device7 newTextureWithDescriptor:v30];
-            v47 = C1_tex[v22];
-            C1_tex[v22] = v46;
+            [v33 setWidth:v40];
+            [v33 setHeight:v129];
+            v51 = objc_msgSend_device(bufferCopy);
+            v52 = [v51 newTextureWithDescriptor:v33];
+            v53 = C1_tex[v25];
+            C1_tex[v25] = v52;
 
-            if (!C1_tex[v22])
+            if (!C1_tex[v25])
             {
-              v48 = _PTLogSystem();
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+              v55 = _PTLogSystem(v54);
+              if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
               {
-                *buf = v103.i32[0];
-                v122 = v22;
-                _os_log_error_impl(&dword_2243FB000, v48, OS_LOG_TYPE_ERROR, "_C1_tex[%i] is nil", buf, 8u);
+                *buf = v113.i32[0];
+                v132 = v25;
+                _os_log_error_impl(&dword_2243FB000, v55, OS_LOG_TYPE_ERROR, "_C1_tex[%i] is nil", buf, 8u);
               }
 
-              v23 = -1;
+              v26 = -1;
             }
 
-            [v30 setWidth:v116];
-            [v30 setHeight:v29];
-            [v30 setPixelFormat:25];
-            device8 = [bufferCopy device];
-            v50 = [device8 newTextureWithDescriptor:v30];
-            v51 = w_tex[v22];
-            w_tex[v22] = v50;
+            [v33 setWidth:v126];
+            [v33 setHeight:v32];
+            [v33 setPixelFormat:25];
+            v56 = objc_msgSend_device(bufferCopy);
+            v57 = [v56 newTextureWithDescriptor:v33];
+            v58 = w_tex[v25];
+            w_tex[v25] = v57;
 
-            if (!w_tex[v22])
+            if (!w_tex[v25])
             {
-              v52 = _PTLogSystem();
-              if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+              v60 = _PTLogSystem(v59);
+              if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
               {
-                *buf = v103.i32[0];
-                v122 = v22;
-                _os_log_error_impl(&dword_2243FB000, v52, OS_LOG_TYPE_ERROR, "_w_tex[%i] is nil", buf, 8u);
+                *buf = v113.i32[0];
+                v132 = v25;
+                _os_log_error_impl(&dword_2243FB000, v60, OS_LOG_TYPE_ERROR, "_w_tex[%i] is nil", buf, 8u);
               }
 
-              v23 = -1;
+              v26 = -1;
             }
 
-            v114 = v36;
-            [v30 setPixelFormat:65];
-            [v30 setWidth:v116];
-            v115 = v29;
-            [v30 setHeight:v29];
-            [v30 setUsage:19];
-            v53 = 0;
-            v54 = 1;
+            v124 = v40;
+            [v33 setPixelFormat:65];
+            [v33 setWidth:v126];
+            v125 = v32;
+            [v33 setHeight:v32];
+            [v33 setUsage:19];
+            v61 = 0;
+            v62 = 1;
             do
             {
-              v55 = v54;
-              device9 = [bufferCopy device];
-              v57 = [device9 newTextureWithDescriptor:v30];
-              v58 = selfCopy->_uv_fwd_tex[v53];
-              v59 = *(v58 + 8 * v22);
-              *(v58 + 8 * v22) = v57;
+              v63 = v62;
+              v64 = objc_msgSend_device(bufferCopy);
+              v65 = [v64 newTextureWithDescriptor:v33];
+              v66 = selfCopy->_uv_fwd_tex[v61];
+              v67 = *(v66 + 8 * v25);
+              *(v66 + 8 * v25) = v65;
 
-              if (!*(v58 + 8 * v22))
+              if (!*(v66 + 8 * v25))
               {
-                v60 = _PTLogSystem();
-                if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+                v69 = _PTLogSystem(v68);
+                if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 67109376;
-                  v122 = v53;
-                  v123 = 1024;
-                  v124 = v22;
-                  _os_log_error_impl(&dword_2243FB000, v60, OS_LOG_TYPE_ERROR, "_uv_fwd_tex[%i][%i] is nil", buf, 0xEu);
+                  v132 = v61;
+                  v133 = 1024;
+                  v134 = v25;
+                  _os_log_error_impl(&dword_2243FB000, v69, OS_LOG_TYPE_ERROR, "_uv_fwd_tex[%i][%i] is nil", buf, 0xEu);
                 }
 
-                v23 = -1;
+                v26 = -1;
               }
 
-              device10 = [bufferCopy device];
-              v62 = [device10 newTextureWithDescriptor:v30];
-              v63 = selfCopy->_uv_bwd_tex[v53];
-              v64 = *(v63 + 8 * v22);
-              *(v63 + 8 * v22) = v62;
+              v70 = objc_msgSend_device(bufferCopy);
+              v71 = [v70 newTextureWithDescriptor:v33];
+              v72 = selfCopy->_uv_bwd_tex[v61];
+              v73 = *(v72 + 8 * v25);
+              *(v72 + 8 * v25) = v71;
 
-              if (!*(v63 + 8 * v22))
+              if (!*(v72 + 8 * v25))
               {
-                v65 = _PTLogSystem();
-                if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+                v75 = _PTLogSystem(v74);
+                if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 67109376;
-                  v122 = v53;
-                  v123 = 1024;
-                  v124 = v22;
-                  _os_log_error_impl(&dword_2243FB000, v65, OS_LOG_TYPE_ERROR, "_uv_bwd_tex[%i][%i] is nil", buf, 0xEu);
+                  v132 = v61;
+                  v133 = 1024;
+                  v134 = v25;
+                  _os_log_error_impl(&dword_2243FB000, v75, OS_LOG_TYPE_ERROR, "_uv_bwd_tex[%i][%i] is nil", buf, 0xEu);
                 }
 
-                v23 = -1;
+                v26 = -1;
               }
 
-              v66 = [*(v58 + 8 * v22) newTextureViewWithPixelFormat:53];
-              v67 = selfCopy->_uv_fwd_u32_alias_tex[v53];
-              v68 = *(v67 + 8 * v22);
-              *(v67 + 8 * v22) = v66;
+              v76 = [*(v66 + 8 * v25) newTextureViewWithPixelFormat:53];
+              v77 = selfCopy->_uv_fwd_u32_alias_tex[v61];
+              v78 = *(v77 + 8 * v25);
+              *(v77 + 8 * v25) = v76;
 
-              v69 = [*(v63 + 8 * v22) newTextureViewWithPixelFormat:53];
-              v70 = selfCopy->_uv_bwd_u32_alias_tex[v53];
-              v71 = *(v70 + 8 * v22);
-              *(v70 + 8 * v22) = v69;
+              v79 = [*(v72 + 8 * v25) newTextureViewWithPixelFormat:53];
+              v80 = selfCopy->_uv_bwd_u32_alias_tex[v61];
+              v81 = *(v80 + 8 * v25);
+              *(v80 + 8 * v25) = v79;
 
-              v54 = 0;
-              v53 = 1;
+              v62 = 0;
+              v61 = 1;
             }
 
-            while ((v55 & 1) != 0);
-            v72 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:70 width:v116 height:v115 mipmapped:0];
-            [v72 setUsage:19];
+            while ((v63 & 1) != 0);
+            v82 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:70 width:v126 height:v125 mipmapped:0];
+            [v82 setUsage:19];
             if ([bufferCopy supportsFamily:1007])
             {
-              v73 = 0;
+              v83 = 0;
             }
 
             else
             {
-              v73 = 32;
+              v83 = 32;
             }
 
-            [v72 setResourceOptions:v73];
-            device11 = [bufferCopy device];
-            v75 = [device11 newTextureWithDescriptor:v72];
-            v76 = (*I_tex)[v22];
-            (*I_tex)[v22] = v75;
+            [v82 setResourceOptions:v83];
+            v84 = objc_msgSend_device(bufferCopy);
+            v85 = [v84 newTextureWithDescriptor:v82];
+            v86 = (*I_tex)[v25];
+            (*I_tex)[v25] = v85;
 
-            v77 = [(MTLTexture *)(*I_tex)[v22] newTextureViewWithPixelFormat:53];
-            v78 = (*I_u32_alias_tex)[v22];
-            (*I_u32_alias_tex)[v22] = v77;
+            v87 = [(MTLTexture *)(*I_tex)[v25] newTextureViewWithPixelFormat:53];
+            v88 = (*I_u32_alias_tex)[v25];
+            (*I_u32_alias_tex)[v25] = v87;
 
-            v79 = v116 & 1;
-            if (v116 < 0)
+            v89 = v126 & 1;
+            if (v126 < 0)
             {
-              v79 = -v79;
+              v89 = -v89;
             }
 
-            v80 = v115 & 1;
-            if (v115 < 0)
+            v90 = v125 & 1;
+            if (v125 < 0)
             {
-              v80 = -v80;
+              v90 = -v90;
             }
 
-            v81 = v79 + v116;
-            if (v81 / 2 >= 0)
+            v91 = v89 + v126;
+            if (v91 / 2 >= 0)
             {
-              v82 = (v81 / 2) & 1;
+              v92 = (v91 / 2) & 1;
             }
 
             else
             {
-              v82 = -((v81 / 2) & 1);
+              v92 = -((v91 / 2) & 1);
             }
 
-            v83 = v80 + v115;
-            if (v83 / 2 >= 0)
+            v93 = v90 + v125;
+            if (v93 / 2 >= 0)
             {
-              v84 = (v83 / 2) & 1;
+              v94 = (v93 / 2) & 1;
             }
 
             else
             {
-              v84 = -((v83 / 2) & 1);
+              v94 = -((v93 / 2) & 1);
             }
 
-            v85.i32[0] = (v81 + 2 * v82 + 1) / 2;
-            v85.i32[1] = (v83 + 2 * v84 + 1) / 2;
-            v117 = v85;
+            v95.i32[0] = (v91 + 2 * v92 + 1) / 2;
+            v95.i32[1] = (v93 + 2 * v94 + 1) / 2;
+            v127 = v95;
 
-            v86 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:70 width:v114 height:v119 mipmapped:0];
-            [v86 setUsage:19];
+            v96 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:70 width:v124 height:v129 mipmapped:0];
+            [v96 setUsage:19];
             if ([bufferCopy supportsFamily:1007])
             {
-              v87 = 0;
+              v97 = 0;
             }
 
             else
             {
-              v87 = 32;
+              v97 = 32;
             }
 
-            [v86 setResourceOptions:v87];
-            device12 = [bufferCopy device];
-            v89 = [device12 newTextureWithDescriptor:v86];
-            v90 = v105[v22];
-            v105[v22] = v89;
+            [v96 setResourceOptions:v97];
+            v98 = objc_msgSend_device(bufferCopy);
+            v99 = [v98 newTextureWithDescriptor:v96];
+            v100 = v115[v25];
+            v115[v25] = v99;
 
-            v91 = [(MTLTexture *)v105[v22] newTextureViewWithPixelFormat:53];
-            v92 = v104[v22];
-            v104[v22] = v91;
+            v101 = [(MTLTexture *)v115[v25] newTextureViewWithPixelFormat:53];
+            v102 = v114[v25];
+            v114[v25] = v101;
 
-            v93 = v114 & 1;
-            if (v114 < 0)
+            v103 = v124 & 1;
+            if (v124 < 0)
             {
-              v93 = -v93;
+              v103 = -v103;
             }
 
-            v94 = v119 & 1;
-            if (v119 < 0)
+            v104 = v129 & 1;
+            if (v129 < 0)
             {
-              v94 = -v94;
+              v104 = -v104;
             }
 
-            v95 = v93 + v114;
-            if (v95 / 2 >= 0)
+            v105 = v103 + v124;
+            if (v105 / 2 >= 0)
             {
-              v96 = (v95 / 2) & 1;
+              v106 = (v105 / 2) & 1;
             }
 
             else
             {
-              v96 = -((v95 / 2) & 1);
+              v106 = -((v105 / 2) & 1);
             }
 
-            v97 = v94 + v119;
-            if (v97 / 2 >= 0)
+            v107 = v104 + v129;
+            if (v107 / 2 >= 0)
             {
-              v98 = (v97 / 2) & 1;
+              v108 = (v107 / 2) & 1;
             }
 
             else
             {
-              v98 = -((v97 / 2) & 1);
+              v108 = -((v107 / 2) & 1);
             }
 
-            v99.i32[0] = (v95 + 2 * v96 + 1) / 2;
-            v99.i32[1] = (v97 + 2 * v98 + 1) / 2;
-            v120 = v99;
+            v109.i32[0] = (v105 + 2 * v106 + 1) / 2;
+            v109.i32[1] = (v107 + 2 * v108 + 1) / 2;
+            v130 = v109;
 
-            v26 = v117;
-            v24 = v120;
-            v27 = 0x277CD7000;
-            ++v22;
-            v20 = selfCopy;
+            v29 = v127;
+            v27 = v130;
+            v30 = 0x277CD7000;
+            ++v25;
+            v22 = selfCopy;
           }
 
-          while (v22 < selfCopy->_nscales);
+          while (v25 < selfCopy->_nscales);
         }
 
-        v101 = [(PTLKTFlow *)v20 newBufferWithPixelFormat:115 width:0x8000 data:0 metalContext:bufferCopy];
-        kpt_buf = v20->_kpt_buf;
-        v20->_kpt_buf = v101;
+        v111 = [(PTLKTFlow *)v22 newBufferWithPixelFormat:115 width:0x8000 data:0 metalContext:bufferCopy];
+        kpt_buf = v22->_kpt_buf;
+        v22->_kpt_buf = v111;
       }
 
       else
       {
-        kpt_buf = _PTLogSystem();
+        kpt_buf = _PTLogSystem(v24);
         if (os_log_type_enabled(kpt_buf, OS_LOG_TYPE_ERROR))
         {
           [PTLKTFlow _setupBuffer:];
         }
 
-        v23 = -3;
+        v26 = -3;
       }
 
       goto LABEL_80;
     }
   }
 
-  kpt_buf = _PTLogSystem();
+  kpt_buf = _PTLogSystem(v15);
   if (os_log_type_enabled(kpt_buf, OS_LOG_TYPE_ERROR))
   {
     [PTLKTFlow _setupBuffer:];
   }
 
-  v23 = -1;
+  v26 = -1;
 LABEL_80:
 
-  return v23;
+  return v26;
 }
 
 - (int)_computeOpticalFlow:(id)flow computeFeatureI0:(BOOL)i0 computeFeatureI1:(BOOL)i1
@@ -1034,130 +1035,131 @@ LABEL_80:
   v5 = self->_uv_fwd_tex[0][v4];
   uv_bwd_tex = self->_uv_bwd_tex;
   v6 = self->_uv_bwd_tex[0][v4];
+  v7 = v6;
   selfCopy = self;
   if (!self->_uv_bwd_tex_user_ref)
   {
-    v8 = _PTLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _PTLogSystem(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(PTLKTFlow *)v8 _computeOpticalFlowBidirectional:v9, v10, v11, v12, v13, v14, v15];
+      [(PTLKTFlow *)v9 _computeOpticalFlowBidirectional:v10, v11, v12, v13, v14, v15, v16];
     }
   }
 
   nscales = selfCopy->_nscales;
   if (nscales >= 1)
   {
-    v17 = 0;
+    v18 = 0;
     I_tex = selfCopy->_I_tex;
     G1_tex = selfCopy->_G1_tex;
     G0_tex = selfCopy->_G0_tex;
     C1_tex = selfCopy->_C1_tex;
     C0_tex = selfCopy->_C0_tex;
+    v44 = v4;
     v43 = v4;
-    v42 = v4;
     do
     {
-      v39 = nscales--;
-      v18 = I_tex[selfCopy->_current_frame_index][nscales];
-      v19 = I_tex[selfCopy->_current_frame_index ^ 1][nscales];
-      v38 = v18;
-      [(PTLKTFlow *)selfCopy _computeFeatures:bidirectionalCopy in_tex:v18 out_tex:G0_tex[nscales]];
-      v37 = v19;
-      [(PTLKTFlow *)selfCopy _computeFeatures:bidirectionalCopy in_tex:v19 out_tex:G1_tex[nscales]];
+      v40 = nscales--;
+      v19 = I_tex[selfCopy->_current_frame_index][nscales];
+      v20 = I_tex[selfCopy->_current_frame_index ^ 1][nscales];
+      v39 = v19;
+      [(PTLKTFlow *)selfCopy _computeFeatures:bidirectionalCopy in_tex:v19 out_tex:G0_tex[nscales]];
+      v38 = v20;
+      [(PTLKTFlow *)selfCopy _computeFeatures:bidirectionalCopy in_tex:v20 out_tex:G1_tex[nscales]];
       [(PTLKTFlow *)selfCopy _computeFeaturesDerivatives:bidirectionalCopy in_tex:G0_tex[nscales] out_tex:C0_tex[nscales]];
       [(PTLKTFlow *)selfCopy _computeFeaturesDerivatives:bidirectionalCopy in_tex:G1_tex[nscales] out_tex:C1_tex[nscales]];
       if (selfCopy->_nwarpings >= 1)
       {
-        v20 = 0;
+        v21 = 0;
         do
         {
-          if ((v20 + 1))
+          if ((v21 + 1))
           {
-            v54 = G0_tex[nscales];
-            v53 = G1_tex[nscales];
-            v51 = C0_tex[nscales];
-            v49 = C1_tex[nscales];
-            v30 = uv_fwd_tex[v17];
-            v21 = v30[v43];
-            v55 = v17 ^ 1;
-            v22 = uv_fwd_tex[v17 ^ 1][nscales];
+            v55 = G0_tex[nscales];
+            v54 = G1_tex[nscales];
+            v52 = C0_tex[nscales];
+            v50 = C1_tex[nscales];
+            v31 = uv_fwd_tex[v18];
+            v22 = v31[v44];
+            v56 = v18 ^ 1;
+            v23 = uv_fwd_tex[v18 ^ 1][nscales];
             if (nscales)
             {
-              v31 = 1;
+              v32 = 1;
             }
 
             else
             {
-              v31 = v20 + 3 <= selfCopy->_nwarpings;
+              v32 = v21 + 3 <= selfCopy->_nwarpings;
             }
 
-            p_uv_fwd_tex_user_ref = &v30[nscales];
-            if (!v31)
+            p_uv_fwd_tex_user_ref = &v31[nscales];
+            if (!v32)
             {
               p_uv_fwd_tex_user_ref = &selfCopy->_uv_fwd_tex_user_ref;
             }
 
-            v33 = *p_uv_fwd_tex_user_ref;
-            v34 = v6;
-            v28 = nscales;
-            v29 = v34;
-            v27 = v33;
+            v34 = *p_uv_fwd_tex_user_ref;
+            v35 = v7;
+            v29 = nscales;
+            v30 = v35;
+            v28 = v34;
 
-            v50 = v27;
-            v43 = nscales;
-            v52 = v29;
+            v51 = v28;
+            v44 = nscales;
+            v53 = v30;
           }
 
           else
           {
-            v54 = G1_tex[nscales];
-            v53 = G0_tex[nscales];
-            v51 = C1_tex[nscales];
-            v49 = C0_tex[nscales];
-            v21 = (*uv_bwd_tex)[v42];
-            v22 = selfCopy->_uv_bwd_tex[1][nscales];
+            v55 = G1_tex[nscales];
+            v54 = G0_tex[nscales];
+            v52 = C1_tex[nscales];
+            v50 = C0_tex[nscales];
+            v22 = (*uv_bwd_tex)[v43];
+            v23 = selfCopy->_uv_bwd_tex[1][nscales];
             if (nscales)
             {
-              v23 = 1;
+              v24 = 1;
             }
 
             else
             {
-              v23 = v20 + 3 <= selfCopy->_nwarpings;
+              v24 = v21 + 3 <= selfCopy->_nwarpings;
             }
 
             p_uv_bwd_tex_user_ref = &selfCopy->_uv_bwd_tex_user_ref;
-            if (v23)
+            if (v24)
             {
               p_uv_bwd_tex_user_ref = &(*uv_bwd_tex)[nscales];
             }
 
-            v25 = *p_uv_bwd_tex_user_ref;
-            v26 = v5;
-            v27 = v25;
+            v26 = *p_uv_bwd_tex_user_ref;
+            v27 = v5;
+            v28 = v26;
 
-            v28 = nscales;
-            v55 = v17 ^ 1;
-            v52 = v27;
-            v42 = nscales;
-            v50 = v26;
-            v29 = v26;
+            v29 = nscales;
+            v56 = v18 ^ 1;
+            v53 = v28;
+            v43 = nscales;
+            v51 = v27;
+            v30 = v27;
           }
 
-          [(PTLKTFlow *)selfCopy _enqueueFlowConsistency:bidirectionalCopy in_uv0_tex:v29 in_uv1_tex:v21 out_uv_tex:v22];
-          [(PTLKTFlow *)selfCopy _doSolver:bidirectionalCopy scale:v28 in_uv_tex:v22 in_G0_tex:v54 in_G1_tex:v53 in_C0_tex:v51 in_C1_tex:v49 out_uv_tex:v27 out_w_tex:0];
+          [(PTLKTFlow *)selfCopy _enqueueFlowConsistency:bidirectionalCopy in_uv0_tex:v30 in_uv1_tex:v22 out_uv_tex:v23];
+          [(PTLKTFlow *)selfCopy _doSolver:bidirectionalCopy scale:v29 in_uv_tex:v23 in_G0_tex:v55 in_G1_tex:v54 in_C0_tex:v52 in_C1_tex:v50 out_uv_tex:v28 out_w_tex:0];
 
-          ++v20;
-          v5 = v50;
-          v6 = v52;
-          v17 = v55;
+          ++v21;
+          v5 = v51;
+          v7 = v53;
+          v18 = v56;
         }
 
-        while (v20 < selfCopy->_nwarpings);
+        while (v21 < selfCopy->_nwarpings);
       }
     }
 
-    while (v39 > 1);
+    while (v40 > 1);
   }
 
   return 0;
@@ -1430,17 +1432,19 @@ LABEL_80:
   in_uv_bwd_texCopy = in_uv_bwd_tex;
   flowCopy = flow;
   v20 = [in_uv_fwd_texCopy width] / block_size;
-  v21 = [in_uv_fwd_texCopy height] / block_size;
+  height = [in_uv_fwd_texCopy height];
+  v22 = height / block_size;
   block_sizeCopy = block_size;
-  v36 = v21;
-  v35 = v20;
-  v37 = LODWORD(bidirectional_error);
-  if (v21 * v20 > 0x8000)
+  v38 = height / block_size;
+  v23 = height / block_size * v20;
+  v37 = v20;
+  v39 = LODWORD(bidirectional_error);
+  if (v23 > 0x8000)
   {
-    v22 = _PTLogSystem();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = _PTLogSystem(height);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [(PTLKTFlow *)v22 _enqueueKeypointsFromFlow:v23 in_uv_fwd_tex:v24 in_uv_bwd_tex:v25 out_kpt_buf:v26 block_size:v27 bidirectional_error:v28 out_num_keypoints:v29];
+      [(PTLKTFlow *)v24 _enqueueKeypointsFromFlow:v25 in_uv_fwd_tex:v26 in_uv_bwd_tex:v27 out_kpt_buf:v28 block_size:v29 bidirectional_error:v30 out_num_keypoints:v31];
     }
   }
 
@@ -1450,14 +1454,14 @@ LABEL_80:
 
   [flowCopy setBuffer:out_kpt_bufCopy offset:0 atIndex:0];
   [flowCopy setBytes:&block_sizeCopy length:16 atIndex:1];
-  v33[0] = v20;
-  v33[1] = v21;
-  v33[2] = 1;
-  v31 = xmmword_2244A5230;
-  v32 = 1;
-  [flowCopy dispatchThreads:v33 threadsPerThreadgroup:&v31];
+  v35[0] = v20;
+  v35[1] = v22;
+  v35[2] = 1;
+  v33 = xmmword_2244A5230;
+  v34 = 1;
+  [flowCopy dispatchThreads:v35 threadsPerThreadgroup:&v33];
 
-  *out_num_keypoints = v21 * v20;
+  *out_num_keypoints = v23;
   return 0;
 }
 
@@ -1551,6 +1555,27 @@ LABEL_80:
   result.height = height;
   result.width = width;
   return result;
+}
+
+- (void)_setupPipelines:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "computePipeline";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_computeOpticalFlowBidirectional:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_uv_bwd_tex_user_ref != nil";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_enqueueKeypointsFromFlow:(uint64_t)a3 in_uv_fwd_tex:(uint64_t)a4 in_uv_bwd_tex:(uint64_t)a5 out_kpt_buf:(uint64_t)a6 block_size:(uint64_t)a7 bidirectional_error:(uint64_t)a8 out_num_keypoints:.cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "num_keypoints <= MAX_KEYPOINTS";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -117,7 +117,7 @@ id __33__SBDisplayPowerLogReporter_init__block_invoke(uint64_t a1)
 LABEL_15:
 }
 
-uint64_t __49__SBDisplayPowerLogReporter_reportPowerLogEntry___block_invoke()
+uint64_t __49__SBDisplayPowerLogReporter_reportPowerLogEntry___block_invoke(uint64_t a1)
 {
   result = PLShouldLogRegisteredEvent();
   if (result)

@@ -1,249 +1,3 @@
-void boost::signals2::detail::connection_body_base::~connection_body_base(boost::signals2::detail::connection_body_base *this)
-{
-  *this = &unk_2A1E41C60;
-  v1 = *(this + 2);
-  if (v1)
-  {
-    if (atomic_fetch_add(v1 + 3, 0xFFFFFFFF) == 1)
-    {
-      (*(*v1 + 24))(v1);
-    }
-  }
-}
-
-void boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>::~connection_body(void *a1)
-{
-  v1 = boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>::~connection_body(a1);
-
-  operator delete(v1);
-}
-
-uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>::connected(uint64_t a1)
-{
-  v20[3] = *MEMORY[0x29EDCA608];
-  *&v2 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v15[8] = v2;
-  v15[9] = v2;
-  v15[6] = v2;
-  v15[7] = v2;
-  v15[4] = v2;
-  v15[5] = v2;
-  v15[2] = v2;
-  v15[3] = v2;
-  v15[0] = v2;
-  v15[1] = v2;
-  v3 = *(a1 + 48);
-  v16 = 10;
-  v17 = v15;
-  v18 = 0;
-  v19 = v3;
-  pthread_mutex_lock(v3);
-  v4 = *(a1 + 32);
-  if (v4)
-  {
-    v5 = *v4;
-    if (*v4 != v4[1])
-    {
-      while (1)
-      {
-        memset(v20, 170, 24);
-        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v20);
-        if ((*v5 ^ (*v5 >> 31)) == 2)
-        {
-          if (!(*(**(v5 + 8) + 24))(*(v5 + 8)))
-          {
-            goto LABEL_6;
-          }
-        }
-
-        else
-        {
-          v6 = *(v5 + 16);
-          if (v6 && atomic_load_explicit((v6 + 8), memory_order_acquire))
-          {
-LABEL_6:
-            v7 = 0;
-            if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
-            {
-              goto LABEL_13;
-            }
-
-            goto LABEL_7;
-          }
-        }
-
-        if (*(a1 + 24) == 1)
-        {
-          *(a1 + 24) = 0;
-          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v15);
-        }
-
-        v7 = 1;
-        if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
-        {
-LABEL_13:
-          v8 = v20[2];
-          if (v20[2])
-          {
-            if (atomic_fetch_add((v20[2] + 8), 0xFFFFFFFF) == 1)
-            {
-              (*(*v8 + 16))(v8);
-              if (atomic_fetch_add(v8 + 3, 0xFFFFFFFF) == 1)
-              {
-                (*(*v8 + 24))(v8);
-              }
-            }
-          }
-
-          goto LABEL_17;
-        }
-
-LABEL_7:
-        if (v20[1])
-        {
-          (*(*v20[1] + 8))(v20[1]);
-        }
-
-LABEL_17:
-        if ((v7 & 1) == 0)
-        {
-          v5 += 24;
-          if (v5 != *(*(a1 + 32) + 8))
-          {
-            continue;
-          }
-        }
-
-        break;
-      }
-    }
-  }
-
-  v9 = *(a1 + 24);
-  pthread_mutex_unlock(v19);
-  v10 = v17;
-  if (v17)
-  {
-    if (v18 > 0)
-    {
-      v13 = &v17[16 * v18];
-      do
-      {
-        v14 = *(v13 - 1);
-        if (v14)
-        {
-          if (atomic_fetch_add(v14 + 2, 0xFFFFFFFF) == 1)
-          {
-            (*(*v14 + 16))(v14);
-            if (atomic_fetch_add(v14 + 3, 0xFFFFFFFF) == 1)
-            {
-              (*(*v14 + 24))(v14);
-            }
-          }
-        }
-
-        v13 -= 16;
-      }
-
-      while (v13 > v10);
-    }
-
-    if (v16 >= 0xB)
-    {
-      operator delete(v17);
-    }
-  }
-
-  v11 = *MEMORY[0x29EDCA608];
-  return v9;
-}
-
-void sub_2974ADA10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
-{
-  if (a2)
-  {
-    __clang_call_terminate(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>::release_slot@<X0>(uint64_t result@<X0>, void *a2@<X8>)
-{
-  v3 = *(result + 40);
-  v2 = (result + 32);
-  *a2 = *(result + 32);
-  a2[1] = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1u, memory_order_relaxed);
-    v4 = *(result + 40);
-    *v2 = 0;
-    *(result + 40) = 0;
-    if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
-    {
-      result = (*(*v4 + 16))(v4);
-      if (atomic_fetch_add(v4 + 3, 0xFFFFFFFF) == 1)
-      {
-        return (*(*v4 + 24))(v4);
-      }
-    }
-  }
-
-  else
-  {
-    *v2 = 0;
-    *(result + 40) = 0;
-  }
-
-  return result;
-}
-
-void boost::checked_delete<boost::signals2::slot<void ()(void),boost::function<void ()(void)>>>(void **__p)
-{
-  if (__p)
-  {
-    v2 = __p[3];
-    if (v2)
-    {
-      if ((v2 & 1) == 0)
-      {
-        v3 = *v2;
-        if (v3)
-        {
-          v3(__p + 4, __p + 4, 2);
-        }
-      }
-
-      __p[3] = 0;
-    }
-
-    v4 = *__p;
-    if (*__p)
-    {
-      v5 = __p[1];
-      v6 = *__p;
-      if (v5 != v4)
-      {
-        do
-        {
-          v5 -= 24;
-          boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::destroy_content(v5);
-        }
-
-        while (v5 != v4);
-        v6 = *__p;
-      }
-
-      __p[1] = v4;
-      operator delete(v6);
-    }
-
-    operator delete(__p);
-  }
-}
-
 void boost::detail::sp_counted_impl_p<boost::signals2::slot<void ()(void),boost::function<void ()(void)>>>::dispose(uint64_t a1)
 {
   v1 = *(a1 + 16);
@@ -563,13 +317,13 @@ LABEL_21:
   }
 }
 
-void sub_2974AE408(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974AE408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::function<void ()(void)>::~function(va);
-  if ((v3 & 1) == 0)
+  if ((v4 & 1) == 0)
   {
-    _Block_release(v2);
+    _Block_release(v3);
   }
 
   _Unwind_Resume(a1);
@@ -884,7 +638,7 @@ void *boost::signals2::detail::foreign_shared_ptr_impl<std::shared_ptr<coex::Mod
   return result;
 }
 
-void **boost::signals2::slot<void ()(void),boost::function<void ()(void)>>::~slot(void **a1)
+char **boost::signals2::slot<void ()(void),boost::function<void ()(void)>>::~slot(char **a1)
 {
   v2 = a1[3];
   if (v2)
@@ -959,9 +713,9 @@ LABEL_6:
   }
 }
 
-void sub_2974AEC68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974AEC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -1222,24 +976,24 @@ void boost::signals2::detail::connection_body<std::pair<boost::signals2::detail:
 
 uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId)>>,boost::signals2::mutex>::connected(uint64_t a1)
 {
-  v20[3] = *MEMORY[0x29EDCA608];
+  v19[3] = *MEMORY[0x29EDCA608];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v15[8] = v2;
-  v15[9] = v2;
-  v15[6] = v2;
-  v15[7] = v2;
-  v15[4] = v2;
-  v15[5] = v2;
-  v15[2] = v2;
-  v15[3] = v2;
-  v15[0] = v2;
-  v15[1] = v2;
+  v14[8] = v2;
+  v14[9] = v2;
+  v14[6] = v2;
+  v14[7] = v2;
+  v14[4] = v2;
+  v14[5] = v2;
+  v14[2] = v2;
+  v14[3] = v2;
+  v14[0] = v2;
+  v14[1] = v2;
   v3 = *(a1 + 48);
-  v16 = 10;
-  v17 = v15;
-  v18 = 0;
-  v19 = v3;
+  v15 = 10;
+  v16 = v14;
+  v17 = 0;
+  v18 = v3;
   pthread_mutex_lock(v3);
   v4 = *(a1 + 32);
   if (v4)
@@ -1249,8 +1003,8 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
     {
       while (1)
       {
-        memset(v20, 170, 24);
-        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v20);
+        memset(v19, 170, 24);
+        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v19);
         if ((*v5 ^ (*v5 >> 31)) == 2)
         {
           if (!(*(**(v5 + 8) + 24))(*(v5 + 8)))
@@ -1266,7 +1020,7 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
           {
 LABEL_6:
             v7 = 0;
-            if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
+            if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
             {
               goto LABEL_13;
             }
@@ -1278,17 +1032,17 @@ LABEL_6:
         if (*(a1 + 24) == 1)
         {
           *(a1 + 24) = 0;
-          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v15);
+          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v14);
         }
 
         v7 = 1;
-        if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
+        if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
         {
 LABEL_13:
-          v8 = v20[2];
-          if (v20[2])
+          v8 = v19[2];
+          if (v19[2])
           {
-            if (atomic_fetch_add((v20[2] + 8), 0xFFFFFFFF) == 1)
+            if (atomic_fetch_add((v19[2] + 8), 0xFFFFFFFF) == 1)
             {
               (*(*v8 + 16))(v8);
               if (atomic_fetch_add(v8 + 3, 0xFFFFFFFF) == 1)
@@ -1302,9 +1056,9 @@ LABEL_13:
         }
 
 LABEL_7:
-        if (v20[1])
+        if (v19[1])
         {
-          (*(*v20[1] + 8))(v20[1]);
+          (*(*v19[1] + 8))(v19[1]);
         }
 
 LABEL_17:
@@ -1323,41 +1077,40 @@ LABEL_17:
   }
 
   v9 = *(a1 + 24);
-  pthread_mutex_unlock(v19);
-  v10 = v17;
-  if (v17)
+  pthread_mutex_unlock(v18);
+  v10 = v16;
+  if (v16)
   {
-    if (v18 > 0)
+    if (v17 > 0)
     {
-      v13 = &v17[16 * v18];
+      v12 = &v16[16 * v17];
       do
       {
-        v14 = *(v13 - 1);
-        if (v14)
+        v13 = *(v12 - 1);
+        if (v13)
         {
-          if (atomic_fetch_add(v14 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v13 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v14 + 16))(v14);
-            if (atomic_fetch_add(v14 + 3, 0xFFFFFFFF) == 1)
+            (*(*v13 + 16))(v13);
+            if (atomic_fetch_add(v13 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v14 + 24))(v14);
+              (*(*v13 + 24))(v13);
             }
           }
         }
 
-        v13 -= 16;
+        v12 -= 16;
       }
 
-      while (v13 > v10);
+      while (v12 > v10);
     }
 
-    if (v16 >= 0xB)
+    if (v15 >= 0xB)
     {
-      operator delete(v17);
+      operator delete(v16);
     }
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
@@ -1402,7 +1155,7 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
   return result;
 }
 
-void boost::checked_delete<boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId)>>>(void **__p)
+void boost::checked_delete<boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId)>>>(char **__p)
 {
   if (__p)
   {
@@ -1893,18 +1646,18 @@ void sub_2974B021C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2974B0238(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B0238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2974B0254(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B0254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va1);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va);
   _Unwind_Resume(a1);
@@ -1983,9 +1736,9 @@ void boost::detail::function::void_function_obj_invoker2<dispatch::block<void({b
   }
 }
 
-void sub_2974B03C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B03C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -2069,7 +1822,7 @@ void (***boost::function2<void,ctu::cf::CFSharedRef<__CFDictionary const>,coex::
   return result;
 }
 
-void **boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId)>>::~slot(void **a1)
+char **boost::signals2::slot<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId),boost::function<void ()(ctu::cf::CFSharedRef<__CFDictionary const>,coex::SubId)>>::~slot(char **a1)
 {
   v2 = a1[3];
   if (v2)
@@ -2382,24 +2135,24 @@ void boost::signals2::detail::connection_body<std::pair<boost::signals2::detail:
 
 uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>,boost::signals2::mutex>::connected(uint64_t a1)
 {
-  v20[3] = *MEMORY[0x29EDCA608];
+  v19[3] = *MEMORY[0x29EDCA608];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v15[8] = v2;
-  v15[9] = v2;
-  v15[6] = v2;
-  v15[7] = v2;
-  v15[4] = v2;
-  v15[5] = v2;
-  v15[2] = v2;
-  v15[3] = v2;
-  v15[0] = v2;
-  v15[1] = v2;
+  v14[8] = v2;
+  v14[9] = v2;
+  v14[6] = v2;
+  v14[7] = v2;
+  v14[4] = v2;
+  v14[5] = v2;
+  v14[2] = v2;
+  v14[3] = v2;
+  v14[0] = v2;
+  v14[1] = v2;
   v3 = *(a1 + 48);
-  v16 = 10;
-  v17 = v15;
-  v18 = 0;
-  v19 = v3;
+  v15 = 10;
+  v16 = v14;
+  v17 = 0;
+  v18 = v3;
   pthread_mutex_lock(v3);
   v4 = *(a1 + 32);
   if (v4)
@@ -2409,8 +2162,8 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
     {
       while (1)
       {
-        memset(v20, 170, 24);
-        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v20);
+        memset(v19, 170, 24);
+        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v19);
         if ((*v5 ^ (*v5 >> 31)) == 2)
         {
           if (!(*(**(v5 + 8) + 24))(*(v5 + 8)))
@@ -2426,7 +2179,7 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
           {
 LABEL_6:
             v7 = 0;
-            if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
+            if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
             {
               goto LABEL_13;
             }
@@ -2438,17 +2191,17 @@ LABEL_6:
         if (*(a1 + 24) == 1)
         {
           *(a1 + 24) = 0;
-          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v15);
+          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v14);
         }
 
         v7 = 1;
-        if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
+        if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
         {
 LABEL_13:
-          v8 = v20[2];
-          if (v20[2])
+          v8 = v19[2];
+          if (v19[2])
           {
-            if (atomic_fetch_add((v20[2] + 8), 0xFFFFFFFF) == 1)
+            if (atomic_fetch_add((v19[2] + 8), 0xFFFFFFFF) == 1)
             {
               (*(*v8 + 16))(v8);
               if (atomic_fetch_add(v8 + 3, 0xFFFFFFFF) == 1)
@@ -2462,9 +2215,9 @@ LABEL_13:
         }
 
 LABEL_7:
-        if (v20[1])
+        if (v19[1])
         {
-          (*(*v20[1] + 8))(v20[1]);
+          (*(*v19[1] + 8))(v19[1]);
         }
 
 LABEL_17:
@@ -2483,41 +2236,40 @@ LABEL_17:
   }
 
   v9 = *(a1 + 24);
-  pthread_mutex_unlock(v19);
-  v10 = v17;
-  if (v17)
+  pthread_mutex_unlock(v18);
+  v10 = v16;
+  if (v16)
   {
-    if (v18 > 0)
+    if (v17 > 0)
     {
-      v13 = &v17[16 * v18];
+      v12 = &v16[16 * v17];
       do
       {
-        v14 = *(v13 - 1);
-        if (v14)
+        v13 = *(v12 - 1);
+        if (v13)
         {
-          if (atomic_fetch_add(v14 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v13 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v14 + 16))(v14);
-            if (atomic_fetch_add(v14 + 3, 0xFFFFFFFF) == 1)
+            (*(*v13 + 16))(v13);
+            if (atomic_fetch_add(v13 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v14 + 24))(v14);
+              (*(*v13 + 24))(v13);
             }
           }
         }
 
-        v13 -= 16;
+        v12 -= 16;
       }
 
-      while (v13 > v10);
+      while (v12 > v10);
     }
 
-    if (v16 >= 0xB)
+    if (v15 >= 0xB)
     {
-      operator delete(v17);
+      operator delete(v16);
     }
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
@@ -2562,7 +2314,7 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
   return result;
 }
 
-void boost::checked_delete<boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>>(void **__p)
+void boost::checked_delete<boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>>(char **__p)
 {
   if (__p)
   {
@@ -3121,7 +2873,7 @@ void (***boost::function1<void,coex::SubId>::~function1(void (***result)(void, v
   return result;
 }
 
-void **boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>::~slot(void **a1)
+char **boost::signals2::slot<void ()(coex::SubId),boost::function<void ()(coex::SubId)>>::~slot(char **a1)
 {
   v2 = a1[3];
   if (v2)
@@ -3220,7 +2972,7 @@ uint64_t *std::__tree<std::__value_type<char const*,std::list<std::pair<unsigned
 {
   v5 = a2;
   v6 = result;
-  v7 = (result + 1);
+  v7 = result + 1;
   if (result + 1 == a2 || (v8 = a2[4], v8 > a3))
   {
     v9 = *a2;
@@ -3240,7 +2992,7 @@ LABEL_16:
 
       if (v9)
       {
-        v13 = (v11 + 1);
+        v13 = v11 + 1;
       }
 
       else
@@ -3288,8 +3040,8 @@ LABEL_16:
     }
 
     v18 = *v7;
-    v13 = (result + 1);
-    v5 = (result + 1);
+    v13 = result + 1;
+    v5 = result + 1;
     if (!*v7)
     {
 LABEL_36:
@@ -3377,7 +3129,7 @@ LABEL_36:
       return result;
     }
 
-    v13 = (a2 + 1);
+    v13 = a2 + 1;
     v12 = a2[1];
     if (v12)
     {
@@ -3415,8 +3167,8 @@ LABEL_36:
     }
 
     v21 = *v7;
-    v13 = (result + 1);
-    v5 = (result + 1);
+    v13 = result + 1;
+    v5 = result + 1;
     if (!*v7)
     {
       goto LABEL_36;
@@ -3459,10 +3211,10 @@ LABEL_30:
   return result;
 }
 
-void sub_2974B2094(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B2094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__list_imp<std::pair<unsigned long long,unsigned int>>::clear(v2);
+  va_start(va, a3);
+  std::__list_imp<std::pair<unsigned long long,unsigned int>>::clear(v3);
   std::unique_ptr<std::__tree_node<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3792,24 +3544,24 @@ void boost::signals2::detail::connection_body<std::pair<boost::signals2::detail:
 
 uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>,boost::signals2::mutex>::connected(uint64_t a1)
 {
-  v20[3] = *MEMORY[0x29EDCA608];
+  v19[3] = *MEMORY[0x29EDCA608];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v15[8] = v2;
-  v15[9] = v2;
-  v15[6] = v2;
-  v15[7] = v2;
-  v15[4] = v2;
-  v15[5] = v2;
-  v15[2] = v2;
-  v15[3] = v2;
-  v15[0] = v2;
-  v15[1] = v2;
+  v14[8] = v2;
+  v14[9] = v2;
+  v14[6] = v2;
+  v14[7] = v2;
+  v14[4] = v2;
+  v14[5] = v2;
+  v14[2] = v2;
+  v14[3] = v2;
+  v14[0] = v2;
+  v14[1] = v2;
   v3 = *(a1 + 48);
-  v16 = 10;
-  v17 = v15;
-  v18 = 0;
-  v19 = v3;
+  v15 = 10;
+  v16 = v14;
+  v17 = 0;
+  v18 = v3;
   pthread_mutex_lock(v3);
   v4 = *(a1 + 32);
   if (v4)
@@ -3819,8 +3571,8 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
     {
       while (1)
       {
-        memset(v20, 170, 24);
-        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v20);
+        memset(v19, 170, 24);
+        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v19);
         if ((*v5 ^ (*v5 >> 31)) == 2)
         {
           if (!(*(**(v5 + 8) + 24))(*(v5 + 8)))
@@ -3836,7 +3588,7 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
           {
 LABEL_6:
             v7 = 0;
-            if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
+            if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
             {
               goto LABEL_13;
             }
@@ -3848,17 +3600,17 @@ LABEL_6:
         if (*(a1 + 24) == 1)
         {
           *(a1 + 24) = 0;
-          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v15);
+          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v14);
         }
 
         v7 = 1;
-        if (LODWORD(v20[0]) == SLODWORD(v20[0]) >> 31)
+        if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
         {
 LABEL_13:
-          v8 = v20[2];
-          if (v20[2])
+          v8 = v19[2];
+          if (v19[2])
           {
-            if (atomic_fetch_add((v20[2] + 8), 0xFFFFFFFF) == 1)
+            if (atomic_fetch_add((v19[2] + 8), 0xFFFFFFFF) == 1)
             {
               (*(*v8 + 16))(v8);
               if (atomic_fetch_add(v8 + 3, 0xFFFFFFFF) == 1)
@@ -3872,9 +3624,9 @@ LABEL_13:
         }
 
 LABEL_7:
-        if (v20[1])
+        if (v19[1])
         {
-          (*(*v20[1] + 8))(v20[1]);
+          (*(*v19[1] + 8))(v19[1]);
         }
 
 LABEL_17:
@@ -3893,41 +3645,40 @@ LABEL_17:
   }
 
   v9 = *(a1 + 24);
-  pthread_mutex_unlock(v19);
-  v10 = v17;
-  if (v17)
+  pthread_mutex_unlock(v18);
+  v10 = v16;
+  if (v16)
   {
-    if (v18 > 0)
+    if (v17 > 0)
     {
-      v13 = &v17[16 * v18];
+      v12 = &v16[16 * v17];
       do
       {
-        v14 = *(v13 - 1);
-        if (v14)
+        v13 = *(v12 - 1);
+        if (v13)
         {
-          if (atomic_fetch_add(v14 + 2, 0xFFFFFFFF) == 1)
+          if (atomic_fetch_add(v13 + 2, 0xFFFFFFFF) == 1)
           {
-            (*(*v14 + 16))(v14);
-            if (atomic_fetch_add(v14 + 3, 0xFFFFFFFF) == 1)
+            (*(*v13 + 16))(v13);
+            if (atomic_fetch_add(v13 + 3, 0xFFFFFFFF) == 1)
             {
-              (*(*v14 + 24))(v14);
+              (*(*v13 + 24))(v13);
             }
           }
         }
 
-        v13 -= 16;
+        v12 -= 16;
       }
 
-      while (v13 > v10);
+      while (v12 > v10);
     }
 
-    if (v16 >= 0xB)
+    if (v15 >= 0xB)
     {
-      operator delete(v17);
+      operator delete(v16);
     }
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
@@ -3972,7 +3723,7 @@ uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::det
   return result;
 }
 
-void boost::checked_delete<boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>>(void **__p)
+void boost::checked_delete<boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>>(char **__p)
 {
   if (__p)
   {
@@ -4754,7 +4505,7 @@ void (***boost::function2<void,std::map<char const*,std::list<std::pair<unsigned
   return result;
 }
 
-void **boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>::~slot(void **a1)
+char **boost::signals2::slot<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId),boost::function<void ()(std::map<char const*,std::list<std::pair<unsigned long long,unsigned int>>>,coex::SubId)>>::~slot(char **a1)
 {
   v2 = a1[3];
   if (v2)
@@ -4821,10 +4572,10 @@ void __destroy_helper_block_e8_40c47_ZTSNSt3__110shared_ptrIKN4coex6Module5State
 
 void dispatch::async<void ctu::SharedSynchronizable<coex::Module::State>::execute_wrapped<coex::Module::State::registerEventHandlers(coex::Module*)::$_0>(coex::Module::State::registerEventHandlers(coex::Module*)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<coex::Module::State::registerEventHandlers(coex::Module*)::$_0,dispatch_queue_s *::default_delete<coex::Module::State::registerEventHandlers(coex::Module*)::$_0>>)::{lambda(void *)#1}::__invoke(Service ***a1)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v1 = *a1;
   v2 = **a1;
-  v3 = *(v2 + 1);
+  v3 = v2[1];
   if (!v3 || (v4 = *v2, (v5 = std::__shared_weak_count::lock(v3)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
@@ -4861,12 +4612,12 @@ void dispatch::async<void ctu::SharedSynchronizable<coex::Module::State>::execut
 
     p_dst = operator new(v12);
     *(&__dst + 1) = v10;
-    v28 = v12 | 0x8000000000000000;
+    v27 = v12 | 0x8000000000000000;
     *&__dst = p_dst;
     goto LABEL_13;
   }
 
-  HIBYTE(v28) = v9;
+  HIBYTE(v27) = v9;
   p_dst = &__dst;
   if (v9)
   {
@@ -4876,18 +4627,18 @@ LABEL_13:
 
   *(p_dst + v10) = 0;
   atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v31 = 0;
+  v30 = 0;
   v13 = operator new(0x20uLL);
   *v13 = &unk_2A1E434E8;
   v13[1] = v2;
   v13[2] = v4;
   v13[3] = v6;
-  v31 = v13;
-  Service::registerEventHandler(v7, &__dst, v30);
-  if (v31 == v30)
+  v30 = v13;
+  Service::registerEventHandler(v7, &__dst, v29);
+  if (v30 == v29)
   {
-    (*(*v31 + 32))(v31);
-    if ((SHIBYTE(v28) & 0x80000000) == 0)
+    (*(*v30 + 32))(v30);
+    if ((SHIBYTE(v27) & 0x80000000) == 0)
     {
       goto LABEL_18;
     }
@@ -4895,12 +4646,12 @@ LABEL_13:
     goto LABEL_38;
   }
 
-  if (v31)
+  if (v30)
   {
-    (*(*v31 + 40))();
+    (*(*v30 + 40))();
   }
 
-  if (SHIBYTE(v28) < 0)
+  if (SHIBYTE(v27) < 0)
   {
 LABEL_38:
     operator delete(__dst);
@@ -4930,12 +4681,12 @@ LABEL_18:
 
     p_p = operator new(v19);
     *(&__p + 1) = v17;
-    v26 = v19 | 0x8000000000000000;
+    v25 = v19 | 0x8000000000000000;
     *&__p = p_p;
     goto LABEL_26;
   }
 
-  HIBYTE(v26) = v16;
+  HIBYTE(v25) = v16;
   p_p = &__p;
   if (v16)
   {
@@ -4945,18 +4696,18 @@ LABEL_26:
 
   *(p_p + v17) = 0;
   atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v29 = 0;
+  v28 = 0;
   v20 = operator new(0x20uLL);
   *v20 = &unk_2A1E43578;
   *(v20 + 1) = v2;
   *(v20 + 2) = v4;
   *(v20 + 3) = v6;
-  v29 = v20;
+  v28 = v20;
   Service::registerEventHandler(v14, &__p, &__dst);
-  if (v29 == &__dst)
+  if (v28 == &__dst)
   {
-    (*(*v29 + 32))(v29);
-    if ((SHIBYTE(v26) & 0x80000000) == 0)
+    (*(*v28 + 32))(v28);
+    if ((SHIBYTE(v25) & 0x80000000) == 0)
     {
       goto LABEL_31;
     }
@@ -4964,12 +4715,12 @@ LABEL_26:
     goto LABEL_40;
   }
 
-  if (v29)
+  if (v28)
   {
-    (*(*v29 + 40))();
+    (*(*v28 + 40))();
   }
 
-  if (SHIBYTE(v26) < 0)
+  if (SHIBYTE(v25) < 0)
   {
 LABEL_40:
     operator delete(__p);
@@ -4983,17 +4734,18 @@ LABEL_31:
   if (a1)
   {
     v22 = a1[2];
-    if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v22)
     {
-      (v22->__on_zero_shared)(v22);
-      std::__shared_weak_count::__release_weak(v22);
-      v21 = a1;
+      if (!atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v22->__on_zero_shared)(v22);
+        std::__shared_weak_count::__release_weak(v22);
+        v21 = a1;
+      }
     }
 
     operator delete(v21);
   }
-
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974B40FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, char a24)
@@ -5758,9 +5510,9 @@ void sub_2974B5118(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2974B513C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B513C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -5796,9 +5548,9 @@ void sub_2974B51D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2974B51F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B51F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -5831,19 +5583,19 @@ LABEL_8:
   }
 }
 
-void sub_2974B52A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B52A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2974B52C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2974B52C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -5876,19 +5628,19 @@ LABEL_8:
   }
 }
 
-void sub_2974B5378(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B5378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2974B539C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2974B539C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -5936,9 +5688,9 @@ void sub_2974B5448(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2974B546C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B546C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -5971,19 +5723,19 @@ LABEL_8:
   }
 }
 
-void sub_2974B5520(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B5520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2974B5544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2974B5544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -6016,19 +5768,19 @@ LABEL_8:
   }
 }
 
-void sub_2974B55FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B55FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2974B5620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2974B5620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -6103,9 +5855,9 @@ void sub_2974B5774(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2974B5798(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B5798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -6141,9 +5893,9 @@ void sub_2974B582C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2974B5850(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B5850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -6179,9 +5931,9 @@ void sub_2974B58E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2974B5908(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B5908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -6214,19 +5966,19 @@ LABEL_8:
   }
 }
 
-void sub_2974B59B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B59B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2974B59DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2974B59DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -6298,19 +6050,19 @@ LABEL_8:
   }
 }
 
-void sub_2974B5B50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B5B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2974B5B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2974B5B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -6343,19 +6095,19 @@ LABEL_8:
   }
 }
 
-void sub_2974B5C28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B5C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2974B5C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2974B5C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -6388,19 +6140,19 @@ LABEL_8:
   }
 }
 
-void sub_2974B5D00(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B5D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_2974B5D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2974B5D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -6436,9 +6188,9 @@ void sub_2974B5DB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2974B5DDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B5DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -6454,10 +6206,10 @@ uint64_t __cxx_global_var_init_330()
 
 void IOKitEventNotifier::start(IOKitEventNotifier *this)
 {
-  v45 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   if (!*(this + 1))
   {
-    goto LABEL_59;
+    return;
   }
 
   v2 = *(this + 3);
@@ -6509,176 +6261,170 @@ LABEL_12:
 
   if (*(this + 6))
   {
-    v8 = *(this + 1);
-    v9 = _Block_copy(v7);
-    v10 = *(this + 6);
-    v39 = v9;
-    v40 = v10;
-    if (v10)
+    v8 = _Block_copy(v7);
+    v9 = *(this + 6);
+    v33 = v8;
+    v34 = v9;
+    if (v9)
     {
-      dispatch_retain(v10);
+      dispatch_retain(v9);
     }
 
-    v11 = ctu::iokit::Controller::setDisplayCallback();
-    if (v40)
+    v10 = ctu::iokit::Controller::setDisplayCallback();
+    if (v34)
     {
-      dispatch_release(v40);
+      dispatch_release(v34);
     }
 
-    if (v39)
+    if (v33)
     {
-      _Block_release(v39);
+      _Block_release(v33);
     }
 
-    if ((v11 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
-      v12 = *this;
+      v11 = *this;
       if (os_log_type_enabled(*this, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_297476000, v12, OS_LOG_TYPE_ERROR, "Failed to setup display callback", buf, 2u);
+        _os_log_error_impl(&dword_297476000, v11, OS_LOG_TYPE_ERROR, "Failed to setup display callback", buf, 2u);
       }
     }
   }
 
 LABEL_23:
-  v13 = *(this + 7);
-  if (!v13 || !*(this + 8))
+  v12 = *(this + 7);
+  if (!v12 || !*(this + 8))
   {
-    goto LABEL_67;
+    goto LABEL_33;
   }
 
-  v14 = *(this + 1);
-  v15 = _Block_copy(v13);
-  v16 = *(this + 8);
-  v37 = v15;
-  v38 = v16;
-  if (v16)
+  v13 = _Block_copy(v12);
+  v14 = *(this + 8);
+  v31 = v13;
+  v32 = v14;
+  if (v14)
   {
-    dispatch_retain(v16);
+    dispatch_retain(v14);
   }
 
-  v17 = ctu::iokit::Controller::setPowerSourceCallback();
-  if (v38)
+  v15 = ctu::iokit::Controller::setPowerSourceCallback();
+  if (v32)
   {
-    dispatch_release(v38);
+    dispatch_release(v32);
   }
 
-  if (v37)
+  if (v31)
   {
-    _Block_release(v37);
+    _Block_release(v31);
   }
 
-  if ((v17 & 1) == 0 && (v18 = *this, os_log_type_enabled(*this, OS_LOG_TYPE_ERROR)))
+  if ((v15 & 1) == 0 && (v16 = *this, os_log_type_enabled(*this, OS_LOG_TYPE_ERROR)))
   {
     *buf = 0;
-    _os_log_error_impl(&dword_297476000, v18, OS_LOG_TYPE_ERROR, "Failed to setup power source", buf, 2u);
-    if (*(this + 9))
+    _os_log_error_impl(&dword_297476000, v16, OS_LOG_TYPE_ERROR, "Failed to setup power source", buf, 2u);
+    if (!*(this + 9))
     {
-LABEL_34:
-      if (*(this + 10))
+      goto LABEL_35;
+    }
+  }
+
+  else
+  {
+LABEL_33:
+    if (!*(this + 9))
+    {
+LABEL_35:
+      if (!*(this + 11) || !*(this + 12))
       {
-        goto LABEL_37;
+        return;
+      }
+
+      goto LABEL_37;
+    }
+  }
+
+  if (!*(this + 10))
+  {
+    goto LABEL_35;
+  }
+
+LABEL_37:
+  v17 = ctu::iokit::Controller::setupCameraService(*(this + 1));
+  v18 = *this;
+  if (os_log_type_enabled(*this, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = "failed";
+    if (v17)
+    {
+      v19 = "succeeded";
+    }
+
+    *buf = 136315138;
+    v38 = v19;
+    _os_log_impl(&dword_297476000, v18, OS_LOG_TYPE_DEFAULT, "#I Setup camera service is %s", buf, 0xCu);
+  }
+
+  if (v17)
+  {
+    v20 = *(this + 9);
+    if (v20 && *(this + 10))
+    {
+      v21 = _Block_copy(v20);
+      v22 = *(this + 10);
+      v29 = v21;
+      v30 = v22;
+      if (v22)
+      {
+        dispatch_retain(v22);
+      }
+
+      ctu::iokit::Controller::setFaceIDCallback();
+      if (v30)
+      {
+        dispatch_release(v30);
+      }
+
+      if (v29)
+      {
+        _Block_release(v29);
+      }
+    }
+
+    v23 = *(this + 11);
+    if (v23 && *(this + 12))
+    {
+      v24 = _Block_copy(v23);
+      v25 = *(this + 12);
+      v27 = v24;
+      v28 = v25;
+      if (v25)
+      {
+        dispatch_retain(v25);
+      }
+
+      ctu::iokit::Controller::setFrontCameraCallback();
+      if (v28)
+      {
+        dispatch_release(v28);
+      }
+
+      if (v27)
+      {
+        _Block_release(v27);
       }
     }
   }
 
   else
   {
-LABEL_67:
-    if (*(this + 9))
+    v26 = *this;
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_34;
+      *buf = 0;
+      _os_log_error_impl(&dword_297476000, v26, OS_LOG_TYPE_ERROR, "Failed to setup camera service callback", buf, 2u);
     }
   }
-
-  if (!*(this + 11) || !*(this + 12))
-  {
-    goto LABEL_59;
-  }
-
-LABEL_37:
-  v19 = ctu::iokit::Controller::setupCameraService(*(this + 1));
-  v20 = *this;
-  if (os_log_type_enabled(*this, OS_LOG_TYPE_DEFAULT))
-  {
-    v21 = "failed";
-    if (v19)
-    {
-      v21 = "succeeded";
-    }
-
-    *buf = 136315138;
-    v44 = v21;
-    _os_log_impl(&dword_297476000, v20, OS_LOG_TYPE_DEFAULT, "#I Setup camera service is %s", buf, 0xCu);
-  }
-
-  if (v19)
-  {
-    v22 = *(this + 9);
-    if (v22 && *(this + 10))
-    {
-      v23 = *(this + 1);
-      v24 = _Block_copy(v22);
-      v25 = *(this + 10);
-      v35 = v24;
-      v36 = v25;
-      if (v25)
-      {
-        dispatch_retain(v25);
-      }
-
-      ctu::iokit::Controller::setFaceIDCallback();
-      if (v36)
-      {
-        dispatch_release(v36);
-      }
-
-      if (v35)
-      {
-        _Block_release(v35);
-      }
-    }
-
-    v26 = *(this + 11);
-    if (v26 && *(this + 12))
-    {
-      v27 = *(this + 1);
-      v28 = _Block_copy(v26);
-      v29 = *(this + 12);
-      v33 = v28;
-      v34 = v29;
-      if (v29)
-      {
-        dispatch_retain(v29);
-      }
-
-      ctu::iokit::Controller::setFrontCameraCallback();
-      if (v34)
-      {
-        dispatch_release(v34);
-      }
-
-      if (v33)
-      {
-        _Block_release(v33);
-      }
-    }
-
-    goto LABEL_59;
-  }
-
-  v30 = *this;
-  if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
-  {
-LABEL_59:
-    v31 = *MEMORY[0x29EDCA608];
-    return;
-  }
-
-  *buf = 0;
-  _os_log_error_impl(&dword_297476000, v30, OS_LOG_TYPE_ERROR, "Failed to setup camera service callback", buf, 2u);
-  v32 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974B61FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, char a15, uint64_t a16, char a17)
@@ -7078,21 +6824,21 @@ double IOKitEventNotifier::create@<D0>(IOKitEventNotifier *this@<X0>, void *a2@<
 {
   *a2 = 0xAAAAAAAAAAAAAAAALL;
   a2[1] = 0xAAAAAAAAAAAAAAAALL;
-  v5 = operator new(0x88uLL);
-  v5[1] = 0;
-  v5[2] = 0;
-  *v5 = &unk_2A1E43628;
-  ctu::OsLogLogger::OsLogLogger((v5 + 3), "com.apple.telephony", "iokit.event");
-  ctu::iokit::Controller::create(this, v6);
+  v4 = operator new(0x88uLL);
+  v4[1] = 0;
+  v4[2] = 0;
+  *v4 = &unk_2A1E43628;
+  ctu::OsLogLogger::OsLogLogger((v4 + 3), "com.apple.telephony", "iokit.event");
+  ctu::iokit::Controller::create(this, v5);
   result = 0.0;
-  *(v5 + 6) = 0u;
-  *(v5 + 7) = 0u;
-  *(v5 + 4) = 0u;
-  *(v5 + 5) = 0u;
-  *(v5 + 3) = 0u;
-  v5[16] = this;
-  *a2 = v5 + 3;
-  a2[1] = v5;
+  *(v4 + 6) = 0u;
+  *(v4 + 7) = 0u;
+  *(v4 + 4) = 0u;
+  *(v4 + 5) = 0u;
+  *(v4 + 3) = 0u;
+  v4[16] = this;
+  *a2 = v4 + 3;
+  a2[1] = v4;
   return result;
 }
 
@@ -7186,53 +6932,53 @@ void std::__shared_ptr_emplace<IOKitEventNotifier>::~__shared_ptr_emplace(std::_
 
 void sys::getCurrentBootSessionUUID(_BYTE *a1@<X8>)
 {
-  v17 = *MEMORY[0x29EDCA608];
-  *&v16[13] = 0xAAAAAAAAAAAAAAAALL;
-  *&v3 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *__s = v3;
-  *v16 = v3;
-  v12 = 37;
-  if (!sysctlbyname("kern.bootsessionuuid", __s, &v12, 0, 0) && v12 == 37)
+  v15 = *MEMORY[0x29EDCA608];
+  *&v14[13] = 0xAAAAAAAAAAAAAAAALL;
+  *&v2 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *__s = v2;
+  *v14 = v2;
+  v10 = 37;
+  if (!sysctlbyname("kern.bootsessionuuid", __s, &v10, 0, 0) && v10 == 37)
   {
-    v4 = strlen(__s);
-    if (v4 >= 0x7FFFFFFFFFFFFFF8)
+    v3 = strlen(__s);
+    if (v3 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v5 = v4;
-    if (v4 >= 0x17)
+    v4 = v3;
+    if (v3 >= 0x17)
     {
-      if ((v4 | 7) == 0x17)
+      if ((v3 | 7) == 0x17)
       {
-        v7 = 25;
+        v6 = 25;
       }
 
       else
       {
-        v7 = (v4 | 7) + 1;
+        v6 = (v3 | 7) + 1;
       }
 
-      v8 = operator new(v7);
-      *(a1 + 1) = v5;
-      *(a1 + 2) = v7 | 0x8000000000000000;
-      *a1 = v8;
-      a1 = v8;
+      v7 = operator new(v6);
+      *(a1 + 1) = v4;
+      *(a1 + 2) = v6 | 0x8000000000000000;
+      *a1 = v7;
+      a1 = v7;
     }
 
     else
     {
-      a1[23] = v4;
-      if (!v4)
+      a1[23] = v3;
+      if (!v3)
       {
         goto LABEL_16;
       }
     }
 
-    memcpy(a1, __s, v5);
+    memcpy(a1, __s, v4);
 LABEL_16:
-    a1 += v5;
+    a1 += v4;
     goto LABEL_17;
   }
 
@@ -7244,22 +6990,22 @@ LABEL_16:
   if (GetOsLogContext(void)::onceToken != -1)
   {
     dispatch_once(&GetOsLogContext(void)::onceToken, &__block_literal_global_12);
-    v6 = qword_2A18CB080;
+    v5 = qword_2A18CB080;
     if (!os_log_type_enabled(qword_2A18CB080, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_10;
     }
 
 LABEL_19:
-    v10 = __error();
-    v11 = strerror(*v10);
+    v8 = __error();
+    v9 = strerror(*v8);
     *buf = 136315138;
-    v14 = v11;
-    _os_log_error_impl(&dword_297476000, v6, OS_LOG_TYPE_ERROR, "Failed to get boot session uuid, error: %s", buf, 0xCu);
+    v12 = v9;
+    _os_log_error_impl(&dword_297476000, v5, OS_LOG_TYPE_ERROR, "Failed to get boot session uuid, error: %s", buf, 0xCu);
     goto LABEL_10;
   }
 
-  v6 = qword_2A18CB080;
+  v5 = qword_2A18CB080;
   if (os_log_type_enabled(qword_2A18CB080, OS_LOG_TYPE_ERROR))
   {
     goto LABEL_19;
@@ -7269,7 +7015,6 @@ LABEL_10:
   a1[23] = 0;
 LABEL_17:
   *a1 = 0;
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sys::updateBootSessionUUID(sys *this)
@@ -7393,7 +7138,7 @@ LABEL_22:
     v10 = __dst[0];
   }
 
-  v11 = ctu::cf::plist_adapter::set<std::string>(v1, &v21, v10);
+  v11 = ctu::cf::plist_adapter::set<std::string>(v1, &v21, v10, 1);
   if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v21.__r_.__value_.__l.__data_);
@@ -7672,7 +7417,7 @@ void sub_2974B7554(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 BOOL sys::isHardwareModelChanged(sys *this)
 {
-  v35 = 0;
+  v34 = 0;
   pthread_mutex_lock(&ctu::Singleton<SharedData,SharedData,ctu::PthreadMutexGuardPolicy<SharedData>>::sInstance);
   v1 = off_2A18CAFB8;
   if (!off_2A18CAFB8)
@@ -7699,7 +7444,7 @@ BOOL sys::isHardwareModelChanged(sys *this)
   }
 
   __p = v1;
-  v30 = *(&off_2A18CAFB8 + 1);
+  v29 = *(&off_2A18CAFB8 + 1);
   if (*(&off_2A18CAFB8 + 1))
   {
     atomic_fetch_add_explicit((*(&off_2A18CAFB8 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -7743,19 +7488,19 @@ LABEL_19:
 
   *(v8 + v7) = 0;
   os_unfair_lock_lock(v1 + 10);
-  Preferences::getPreference<__CFDictionary const*>(v1, __dst, &v35);
+  Preferences::getPreference<__CFDictionary const*>(v1, __dst, &v34);
   os_unfair_lock_unlock(v1 + 10);
   if (SBYTE7(__dst[1]) < 0)
   {
     operator delete(*&__dst[0]);
   }
 
-  if (v30 && !atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v29 && !atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v30->__on_zero_shared)(v30);
-    std::__shared_weak_count::__release_weak(v30);
-    v10 = v35;
-    if (!v35)
+    (v29->__on_zero_shared)(v29);
+    std::__shared_weak_count::__release_weak(v29);
+    v10 = v34;
+    if (!v34)
     {
       return 0;
     }
@@ -7763,8 +7508,8 @@ LABEL_19:
 
   else
   {
-    v10 = v35;
-    if (!v35)
+    v10 = v34;
+    if (!v34)
     {
       return 0;
     }
@@ -7776,16 +7521,16 @@ LABEL_19:
     return 0;
   }
 
-  v12 = v35;
-  cf = v35;
-  if (v35)
+  v12 = v34;
+  cf = v34;
+  if (v34)
   {
-    CFRetain(v35);
+    CFRetain(v34);
   }
 
-  v32[0] = 0xAAAAAAAAAAAAAAAALL;
-  v32[1] = 0xAAAAAAAAAAAAAAAALL;
-  ctu::cf::dict_adapter::dict_adapter(v32, v12);
+  v31[0] = 0xAAAAAAAAAAAAAAAALL;
+  v31[1] = 0xAAAAAAAAAAAAAAAALL;
+  ctu::cf::dict_adapter::dict_adapter(v31, v12);
   memset(__dst, 170, 24);
   v13 = *MEMORY[0x29EDBF8A8];
   v14 = strlen(*MEMORY[0x29EDBF8A8]);
@@ -7808,13 +7553,13 @@ LABEL_19:
     }
 
     p_p = operator new(v18);
-    v30 = v15;
-    v31 = v18 | 0x8000000000000000;
+    v29 = v15;
+    v30 = v18 | 0x8000000000000000;
     __p = p_p;
     goto LABEL_38;
   }
 
-  HIBYTE(v31) = v14;
+  HIBYTE(v30) = v14;
   p_p = &__p;
   if (v14)
   {
@@ -7824,57 +7569,57 @@ LABEL_38:
 
   v19 = *MEMORY[0x29EDBE988];
   *(&v15->__vftable + p_p) = 0;
-  ctu::cf::MakeCFString::MakeCFString(&v36, v19);
+  ctu::cf::MakeCFString::MakeCFString(&v35, v19);
   ctu::cf::map_adapter::getString();
-  v20 = MEMORY[0x29C270E70](&v36);
-  if (SHIBYTE(v31) < 0)
+  MEMORY[0x29C270E70](&v35);
+  if (SHIBYTE(v30) < 0)
   {
     operator delete(__p);
   }
 
-  config::hw::product(v20);
-  v21 = BYTE7(__dst[1]);
+  config::hw::product();
+  v20 = BYTE7(__dst[1]);
   if ((SBYTE7(__dst[1]) & 0x80u) == 0)
   {
-    v22 = BYTE7(__dst[1]);
+    v21 = BYTE7(__dst[1]);
   }
 
   else
   {
-    v22 = *(&__dst[0] + 1);
+    v21 = *(&__dst[0] + 1);
   }
 
-  v23 = HIBYTE(v31);
-  v24 = SHIBYTE(v31);
-  if (v31 < 0)
+  v22 = HIBYTE(v30);
+  v23 = SHIBYTE(v30);
+  if (v30 < 0)
   {
-    v23 = v30;
+    v22 = v29;
   }
 
-  if (v22 == v23)
+  if (v21 == v22)
   {
     if ((SBYTE7(__dst[1]) & 0x80u) == 0)
     {
-      v25 = __dst;
+      v24 = __dst;
     }
 
     else
     {
-      v25 = *&__dst[0];
+      v24 = *&__dst[0];
     }
 
-    if (v31 >= 0)
+    if (v30 >= 0)
     {
-      v26 = &__p;
+      v25 = &__p;
     }
 
     else
     {
-      v26 = __p;
+      v25 = __p;
     }
 
-    v17 = memcmp(v25, v26, v22) != 0;
-    if ((v24 & 0x80000000) == 0)
+    v17 = memcmp(v24, v25, v21) != 0;
+    if ((v23 & 0x80000000) == 0)
     {
       goto LABEL_57;
     }
@@ -7883,18 +7628,18 @@ LABEL_38:
   }
 
   v17 = 1;
-  if (SHIBYTE(v31) < 0)
+  if (SHIBYTE(v30) < 0)
   {
 LABEL_56:
     operator delete(__p);
-    v21 = BYTE7(__dst[1]);
+    v20 = BYTE7(__dst[1]);
   }
 
 LABEL_57:
-  if ((v21 & 0x80) == 0)
+  if ((v20 & 0x80) == 0)
   {
-    MEMORY[0x29C270ED0](v32);
-    v27 = cf;
+    MEMORY[0x29C270ED0](v31);
+    v26 = cf;
     if (!cf)
     {
       return v17;
@@ -7904,18 +7649,18 @@ LABEL_57:
   }
 
   operator delete(*&__dst[0]);
-  MEMORY[0x29C270ED0](v32);
-  v27 = cf;
+  MEMORY[0x29C270ED0](v31);
+  v26 = cf;
   if (cf)
   {
 LABEL_61:
-    CFRelease(v27);
+    CFRelease(v26);
   }
 
   return v17;
 }
 
-void sub_2974B79B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, const void *a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_2974B79B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, const void *a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a23 < 0)
   {
@@ -7925,7 +7670,7 @@ void sub_2974B79B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     _Unwind_Resume(a1);
   }
 
-  MEMORY[0x29C270ED0](&a15);
+  MEMORY[0x29C270ED0](&a15, a2, a3, a4, a5, a6, a7, a8);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(&a17);
   _Unwind_Resume(a1);
 }
@@ -8161,7 +7906,7 @@ LABEL_57:
 
 BOOL sys::isOSVersionChanged(sys *this)
 {
-  v35 = 0;
+  v34 = 0;
   pthread_mutex_lock(&ctu::Singleton<SharedData,SharedData,ctu::PthreadMutexGuardPolicy<SharedData>>::sInstance);
   v1 = off_2A18CAFB8;
   if (!off_2A18CAFB8)
@@ -8188,7 +7933,7 @@ BOOL sys::isOSVersionChanged(sys *this)
   }
 
   __p = v1;
-  v30 = *(&off_2A18CAFB8 + 1);
+  v29 = *(&off_2A18CAFB8 + 1);
   if (*(&off_2A18CAFB8 + 1))
   {
     atomic_fetch_add_explicit((*(&off_2A18CAFB8 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -8232,19 +7977,19 @@ LABEL_19:
 
   *(v8 + v7) = 0;
   os_unfair_lock_lock(v1 + 10);
-  Preferences::getPreference<__CFDictionary const*>(v1, __dst, &v35);
+  Preferences::getPreference<__CFDictionary const*>(v1, __dst, &v34);
   os_unfair_lock_unlock(v1 + 10);
   if (SBYTE7(__dst[1]) < 0)
   {
     operator delete(*&__dst[0]);
   }
 
-  if (v30 && !atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v29 && !atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v30->__on_zero_shared)(v30);
-    std::__shared_weak_count::__release_weak(v30);
-    v10 = v35;
-    if (!v35)
+    (v29->__on_zero_shared)(v29);
+    std::__shared_weak_count::__release_weak(v29);
+    v10 = v34;
+    if (!v34)
     {
       return 0;
     }
@@ -8252,8 +7997,8 @@ LABEL_19:
 
   else
   {
-    v10 = v35;
-    if (!v35)
+    v10 = v34;
+    if (!v34)
     {
       return 0;
     }
@@ -8265,16 +8010,16 @@ LABEL_19:
     return 0;
   }
 
-  v12 = v35;
-  cf = v35;
-  if (v35)
+  v12 = v34;
+  cf = v34;
+  if (v34)
   {
-    CFRetain(v35);
+    CFRetain(v34);
   }
 
-  v32[0] = 0xAAAAAAAAAAAAAAAALL;
-  v32[1] = 0xAAAAAAAAAAAAAAAALL;
-  ctu::cf::dict_adapter::dict_adapter(v32, v12);
+  v31[0] = 0xAAAAAAAAAAAAAAAALL;
+  v31[1] = 0xAAAAAAAAAAAAAAAALL;
+  ctu::cf::dict_adapter::dict_adapter(v31, v12);
   memset(__dst, 170, 24);
   v13 = *MEMORY[0x29EDBF8A8];
   v14 = strlen(*MEMORY[0x29EDBF8A8]);
@@ -8297,13 +8042,13 @@ LABEL_19:
     }
 
     p_p = operator new(v18);
-    v30 = v15;
-    v31 = v18 | 0x8000000000000000;
+    v29 = v15;
+    v30 = v18 | 0x8000000000000000;
     __p = p_p;
     goto LABEL_38;
   }
 
-  HIBYTE(v31) = v14;
+  HIBYTE(v30) = v14;
   p_p = &__p;
   if (v14)
   {
@@ -8313,57 +8058,57 @@ LABEL_38:
 
   v19 = *MEMORY[0x29EDBEC08];
   *(&v15->__vftable + p_p) = 0;
-  ctu::cf::MakeCFString::MakeCFString(&v36, v19);
+  ctu::cf::MakeCFString::MakeCFString(&v35, v19);
   ctu::cf::map_adapter::getString();
-  v20 = MEMORY[0x29C270E70](&v36);
-  if (SHIBYTE(v31) < 0)
+  MEMORY[0x29C270E70](&v35);
+  if (SHIBYTE(v30) < 0)
   {
     operator delete(__p);
   }
 
-  config::build::version(v20);
-  v21 = BYTE7(__dst[1]);
+  config::build::version();
+  v20 = BYTE7(__dst[1]);
   if ((SBYTE7(__dst[1]) & 0x80u) == 0)
   {
-    v22 = BYTE7(__dst[1]);
+    v21 = BYTE7(__dst[1]);
   }
 
   else
   {
-    v22 = *(&__dst[0] + 1);
+    v21 = *(&__dst[0] + 1);
   }
 
-  v23 = HIBYTE(v31);
-  v24 = SHIBYTE(v31);
-  if (v31 < 0)
+  v22 = HIBYTE(v30);
+  v23 = SHIBYTE(v30);
+  if (v30 < 0)
   {
-    v23 = v30;
+    v22 = v29;
   }
 
-  if (v22 == v23)
+  if (v21 == v22)
   {
     if ((SBYTE7(__dst[1]) & 0x80u) == 0)
     {
-      v25 = __dst;
+      v24 = __dst;
     }
 
     else
     {
-      v25 = *&__dst[0];
+      v24 = *&__dst[0];
     }
 
-    if (v31 >= 0)
+    if (v30 >= 0)
     {
-      v26 = &__p;
+      v25 = &__p;
     }
 
     else
     {
-      v26 = __p;
+      v25 = __p;
     }
 
-    v17 = memcmp(v25, v26, v22) != 0;
-    if ((v24 & 0x80000000) == 0)
+    v17 = memcmp(v24, v25, v21) != 0;
+    if ((v23 & 0x80000000) == 0)
     {
       goto LABEL_57;
     }
@@ -8372,18 +8117,18 @@ LABEL_38:
   }
 
   v17 = 1;
-  if (SHIBYTE(v31) < 0)
+  if (SHIBYTE(v30) < 0)
   {
 LABEL_56:
     operator delete(__p);
-    v21 = BYTE7(__dst[1]);
+    v20 = BYTE7(__dst[1]);
   }
 
 LABEL_57:
-  if ((v21 & 0x80) == 0)
+  if ((v20 & 0x80) == 0)
   {
-    MEMORY[0x29C270ED0](v32);
-    v27 = cf;
+    MEMORY[0x29C270ED0](v31);
+    v26 = cf;
     if (!cf)
     {
       return v17;
@@ -8393,18 +8138,18 @@ LABEL_57:
   }
 
   operator delete(*&__dst[0]);
-  MEMORY[0x29C270ED0](v32);
-  v27 = cf;
+  MEMORY[0x29C270ED0](v31);
+  v26 = cf;
   if (cf)
   {
 LABEL_61:
-    CFRelease(v27);
+    CFRelease(v26);
   }
 
   return v17;
 }
 
-void sub_2974B82D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, const void *a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_2974B82D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, const void *a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a23 < 0)
   {
@@ -8414,52 +8159,49 @@ void sub_2974B82D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     _Unwind_Resume(a1);
   }
 
-  MEMORY[0x29C270ED0](&a15);
+  MEMORY[0x29C270ED0](&a15, a2, a3, a4, a5, a6, a7, a8);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(&a17);
   _Unwind_Resume(a1);
 }
 
 uint64_t sys::getDeviceBootTime(sys *this)
 {
-  v6 = *MEMORY[0x29EDCA608];
-  v4[0] = 0xAAAAAAAAAAAAAAAALL;
-  v4[1] = 0xAAAAAAAAAAAAAAAALL;
-  v3 = 16;
-  *v5 = 0x1500000001;
-  if (sysctl(v5, 2u, v4, &v3, 0, 0) >= 0)
+  v5 = *MEMORY[0x29EDCA608];
+  v3[0] = 0xAAAAAAAAAAAAAAAALL;
+  v3[1] = 0xAAAAAAAAAAAAAAAALL;
+  v2 = 16;
+  *v4 = 0x1500000001;
+  if (sysctl(v4, 2u, v3, &v2, 0, 0) >= 0)
   {
-    result = v4[0];
+    return v3[0];
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v2 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-void SharedData::create_default_global(atomic_ullong *a1@<X8>)
+void SharedData::create_default_global(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = operator new(0x60uLL);
-  __p = v3;
-  strcpy(v3, "/private/var/wireless/Library/Preferences/com.apple.AppleBasebandManager.Statistics.plist");
-  v4.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-  v4.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v10.st_blksize = v4;
-  *v10.st_qspare = v4;
-  v10.st_birthtimespec = v4;
-  *&v10.st_size = v4;
-  v10.st_mtimespec = v4;
-  v10.st_ctimespec = v4;
-  *&v10.st_uid = v4;
-  v10.st_atimespec = v4;
-  v9 = xmmword_29769C4D0;
-  *&v10.st_dev = v4;
-  if (!stat(v3, &v10) && remove(v3, v5))
+  v2 = operator new(0x60uLL);
+  __p = v2;
+  strcpy(v2, "/private/var/wireless/Library/Preferences/com.apple.AppleBasebandManager.Statistics.plist");
+  v3.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+  v3.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+  *&v9.st_blksize = v3;
+  *v9.st_qspare = v3;
+  v9.st_birthtimespec = v3;
+  *&v9.st_size = v3;
+  v9.st_mtimespec = v3;
+  v9.st_ctimespec = v3;
+  *&v9.st_uid = v3;
+  v9.st_atimespec = v3;
+  v8 = xmmword_29769C4D0;
+  *&v9.st_dev = v3;
+  if (!stat(v2, &v9) && remove(v2, v4))
   {
-    if (v9 >= 0)
+    if (v8 >= 0)
     {
       p_p = &__p;
     }
@@ -8472,13 +8214,13 @@ void SharedData::create_default_global(atomic_ullong *a1@<X8>)
     unlink(p_p);
   }
 
-  v7 = operator new(0x30uLL);
-  MEMORY[0x29C270EE0](v7, @"com.apple.AppleBasebandManager.data", *MEMORY[0x29EDB8FB0]);
-  v7[3] = 0;
-  v7[4] = 0;
-  *(v7 + 10) = 0;
-  std::shared_ptr<SharedData>::shared_ptr[abi:ne200100]<SharedData,0>(a1, v7);
-  if (SHIBYTE(v9) < 0)
+  v6 = operator new(0x30uLL);
+  MEMORY[0x29C270EE0](v6, @"com.apple.AppleBasebandManager.data", *MEMORY[0x29EDB8FB0]);
+  v6[3] = 0;
+  v6[4] = 0;
+  *(v6 + 10) = 0;
+  std::shared_ptr<SharedData>::shared_ptr[abi:ne200100]<SharedData,0>(a1, v6);
+  if (SHIBYTE(v8) < 0)
   {
     operator delete(__p);
   }
@@ -8545,9 +8287,9 @@ LABEL_7:
   return a1;
 }
 
-void sub_2974B86A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974B86A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<SharedData>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8643,34 +8385,28 @@ uint64_t ctu::PthreadMutexGuardPolicy<SharedData>::~PthreadMutexGuardPolicy(uint
   return a1;
 }
 
-uint64_t ctu::cf::plist_adapter::set<std::string>(int a1, uint64_t a2, char *a3)
+uint64_t ctu::cf::plist_adapter::set<std::string>(uint64_t a1, uint64_t a2, char *a3, uint64_t a4)
 {
+  v4 = a4;
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v7, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v10, *a2, *(a2 + 8));
   }
 
   else
   {
-    v7 = *a2;
+    v10 = *a2;
   }
 
-  ctu::cf::MakeCFString::MakeCFString(&v6, a3);
-  v4 = ctu::cf::plist_adapter::set<std::string>();
-  MEMORY[0x29C270E70](&v6);
-  if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
+  ctu::cf::MakeCFString::MakeCFString(&v9, a3);
+  v7 = ctu::cf::plist_adapter::set<std::string>(a1, &v10, v9, v4);
+  MEMORY[0x29C270E70](&v9);
+  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v7.__r_.__value_.__l.__data_);
+    operator delete(v10.__r_.__value_.__l.__data_);
   }
 
-  return v4;
-}
-
-uint64_t ctu::cf::plist_adapter::set<std::string>()
-{
-  v0 = *MEMORY[0x29EDB8ED8];
-  ctu::cf::convert_copy();
-  return 0;
+  return v7;
 }
 
 BOOL Preferences::getPreference<__CFDictionary const*>(uint64_t (***a1)(void, uint64_t), const char *a2, void *a3)
@@ -8730,7 +8466,7 @@ void AppleBasebandManagerInitServer(const char *a1, uint64_t *a2)
   v29 = v6;
   if (v6)
   {
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
   v7 = a2[5];
@@ -8738,7 +8474,7 @@ void AppleBasebandManagerInitServer(const char *a1, uint64_t *a2)
   v27 = v7;
   if (v7)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
   }
 
   if (v4)
@@ -8930,13 +8666,14 @@ LABEL_37:
   }
 }
 
-void sub_2974B9028(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, char a17, uint64_t a18, char a19, uint64_t a20, char a21)
+void sub_2974B9028(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  operator delete(v21);
+  va_start(va, a20);
+  operator delete(v20);
   std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](&a15);
   std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](&a19);
-  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](&a21);
-  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](v22 - 96);
+  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va);
+  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](v21 - 96);
   _Unwind_Resume(a1);
 }
 
@@ -9124,23 +8861,23 @@ void ResetDetection::create(NSObject **this@<X0>, queue a2@<0:X1>, void *a3@<X8>
 {
   *a3 = 0xAAAAAAAAAAAAAAAALL;
   a3[1] = 0xAAAAAAAAAAAAAAAALL;
-  v7 = operator new(0x78uLL);
-  v8 = *this;
-  v10 = v8;
-  if (v8)
+  v6 = operator new(0x78uLL);
+  v7 = *this;
+  v9 = v7;
+  if (v7)
   {
-    dispatch_retain(v8);
+    dispatch_retain(v7);
   }
 
-  v9.fObj.fObj = &v10;
-  ResetDetection::ResetDetection(v7, v9, a2.fObj.fObj);
+  v8.fObj.fObj = &v9;
+  ResetDetection::ResetDetection(v6, v8, a2.fObj.fObj);
   *a3 = 0xAAAAAAAAAAAAAAAALL;
   a3[1] = 0xAAAAAAAAAAAAAAAALL;
-  std::shared_ptr<ResetDetection>::shared_ptr[abi:ne200100]<ResetDetection,std::shared_ptr<ResetDetection> ctu::SharedSynchronizable<ResetDetection>::make_shared_ptr<ResetDetection>(ResetDetection*)::{lambda(ResetDetection*)#1},0>(a3, v7);
-  if (v8)
+  std::shared_ptr<ResetDetection>::shared_ptr[abi:ne200100]<ResetDetection,std::shared_ptr<ResetDetection> ctu::SharedSynchronizable<ResetDetection>::make_shared_ptr<ResetDetection>(ResetDetection*)::{lambda(ResetDetection*)#1},0>(a3, v6);
+  if (v7)
   {
 
-    dispatch_release(v8);
+    dispatch_release(v7);
   }
 }
 
@@ -9167,7 +8904,7 @@ LABEL_3:
 
 void ResetDetection::ResetDetection(ResetDetection *this, queue a2, __CFRunLoop *a3)
 {
-  ctu::OsLogContext::OsLogContext(v8, "com.apple.telephony.abm", "reset.detect");
+  ctu::OsLogContext::OsLogContext(v7, "com.apple.telephony.abm", "reset.detect");
   *this = 0;
   *(this + 1) = 0;
   v6 = *a2.fObj.fObj;
@@ -9179,12 +8916,11 @@ void ResetDetection::ResetDetection(ResetDetection *this, queue a2, __CFRunLoop 
 
   *(this + 3) = 0;
   ctu::OsLogLogger::OsLogLogger();
-  MEMORY[0x29C270D50](this + 32, v9);
-  MEMORY[0x29C270D60](v9);
-  ctu::OsLogContext::~OsLogContext(v8);
+  MEMORY[0x29C270D50](this + 32, v8);
+  MEMORY[0x29C270D60](v8);
+  ctu::OsLogContext::~OsLogContext(v7);
   *(this + 5) = a3;
   *(this + 6) = 0;
-  v7 = *MEMORY[0x29EDB8ED8];
   *(this + 7) = TelephonyBasebandCreateController();
   *(this + 16) = 2;
   *(this + 10) = 0;
@@ -9291,9 +9027,6 @@ void ___ZN14ResetDetection5startEv_block_invoke(uint64_t a1)
   v1[6] = v3;
   if (atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    v8 = v1[6];
-    v7 = v1[7];
-    v9 = v1[5];
     if (TelephonyBasebandRegisterForReset())
     {
       goto LABEL_10;
@@ -9302,23 +9035,20 @@ void ___ZN14ResetDetection5startEv_block_invoke(uint64_t a1)
 
   else
   {
-    v10 = v6;
+    v7 = v6;
     (v6->__on_zero_shared)();
-    std::__shared_weak_count::__release_weak(v10);
-    v12 = v1[6];
-    v11 = v1[7];
-    v13 = v1[5];
+    std::__shared_weak_count::__release_weak(v7);
     if (TelephonyBasebandRegisterForReset())
     {
       goto LABEL_10;
     }
   }
 
-  v14 = v1[4];
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v8 = v1[4];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    *v16 = 0;
-    _os_log_error_impl(&dword_297476000, v14, OS_LOG_TYPE_ERROR, "failed registering for reset detect", v16, 2u);
+    *v10 = 0;
+    _os_log_error_impl(&dword_297476000, v8, OS_LOG_TYPE_ERROR, "failed registering for reset detect", v10, 2u);
     if (!v1[7])
     {
       return;
@@ -9334,19 +9064,19 @@ LABEL_10:
   }
 
 LABEL_11:
-  v19 = 1;
+  v13 = 1;
   if (TelephonyBasebandGetReset())
   {
-    *(v1 + 16) = v19;
+    *(v1 + 16) = v13;
   }
 
   else
   {
-    v15 = v1[4];
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v9 = v1[4];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      *v18 = 0;
-      _os_log_error_impl(&dword_297476000, v15, OS_LOG_TYPE_ERROR, "failed to poll for reset detect", v18, 2u);
+      *v12 = 0;
+      _os_log_error_impl(&dword_297476000, v9, OS_LOG_TYPE_ERROR, "failed to poll for reset detect", v12, 2u);
     }
   }
 }
@@ -9463,7 +9193,7 @@ LABEL_6:
 
 void ___ZN14ResetDetection3addENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEbN8dispatch5blockIU13block_pointerFviEEEy_block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 32);
   v3 = *(v2 + 32);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -9476,9 +9206,9 @@ void ___ZN14ResetDetection3addENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9
 
     v5 = *(a1 + 80);
     *buf = 136315394;
-    v24 = v4;
-    v25 = 1024;
-    v26 = v5;
+    v23 = v4;
+    v24 = 1024;
+    v25 = v5;
     _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#I Added detection with key '%s', reset=%d", buf, 0x12u);
   }
 
@@ -9542,7 +9272,7 @@ void ___ZN14ResetDetection3addENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9
   if ((v10 & 1) == 0 && (v11 & 1) == 0)
   {
     (*(*(a1 + 64) + 16))();
-    goto LABEL_47;
+    return;
   }
 
 LABEL_25:
@@ -9551,12 +9281,12 @@ LABEL_25:
   {
     if (v12 < 0)
     {
-      std::string::__init_copy_ctor_external(&v22, *(a1 + 40), *(a1 + 48));
+      std::string::__init_copy_ctor_external(&v21, *(a1 + 40), *(a1 + 48));
     }
 
     else
     {
-      v22 = *(a1 + 40);
+      v21 = *(a1 + 40);
     }
 
     v13 = *(a1 + 64);
@@ -9570,16 +9300,16 @@ LABEL_25:
       v14 = 0;
     }
 
-    v21 = v14;
-    ResetDetection::addToBlocks_sync(v2, &v22, &v21, (v2 + 72), *(a1 + 72));
+    v20 = v14;
+    ResetDetection::addToBlocks_sync(v2, &v21, &v20, (v2 + 72), *(a1 + 72));
     if (v14)
     {
       _Block_release(v14);
     }
 
-    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
     {
-      v17 = v22.__r_.__value_.__r.__words[0];
+      v17 = v21.__r_.__value_.__r.__words[0];
 LABEL_46:
       operator delete(v17);
     }
@@ -9589,12 +9319,12 @@ LABEL_46:
   {
     if (v12 < 0)
     {
-      std::string::__init_copy_ctor_external(&v20, *(a1 + 40), *(a1 + 48));
+      std::string::__init_copy_ctor_external(&v19, *(a1 + 40), *(a1 + 48));
     }
 
     else
     {
-      v20 = *(a1 + 40);
+      v19 = *(a1 + 40);
     }
 
     v15 = *(a1 + 64);
@@ -9608,22 +9338,19 @@ LABEL_46:
       v16 = 0;
     }
 
-    v19 = v16;
-    ResetDetection::addToBlocks_sync(v2, &v20, &v19, (v2 + 96), *(a1 + 72));
+    v18 = v16;
+    ResetDetection::addToBlocks_sync(v2, &v19, &v18, (v2 + 96), *(a1 + 72));
     if (v16)
     {
       _Block_release(v16);
     }
 
-    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
     {
-      v17 = v20.__r_.__value_.__r.__words[0];
+      v17 = v19.__r_.__value_.__r.__words[0];
       goto LABEL_46;
     }
   }
-
-LABEL_47:
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974BA1A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -9634,4 +9361,285 @@ void sub_2974BA1A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void ResetDetection::addToBlocks_sync(uint64_t *a1, uint64_t a2, void **a3, uint64_t ***a4, dispatch_time_t a5)
+{
+  v10 = dispatch_source_create(MEMORY[0x29EDCA5D0], 1uLL, 0, a1[2]);
+  dispatch_source_set_timer(v10, a5, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
+  v11 = a1[1];
+  if (!v11 || (v12 = *a1, (v13 = std::__shared_weak_count::lock(v11)) == 0))
+  {
+    std::__throw_bad_weak_ptr[abi:ne200100]();
+  }
+
+  v14 = v13;
+  p_shared_weak_owners = &v13->__shared_weak_owners_;
+  atomic_fetch_add_explicit(&v13->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  if (!atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v13->__on_zero_shared)(v13);
+    std::__shared_weak_count::__release_weak(v14);
+  }
+
+  handler[0] = MEMORY[0x29EDCA5F8];
+  handler[1] = 1174405120;
+  handler[2] = ___ZN14ResetDetection16addToBlocks_syncENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN8dispatch5blockIU13block_pointerFviEEERNS0_3mapIS6_NS0_4pairIP17dispatch_source_sSB_EENS0_4lessIS6_EENS4_INSD_IKS6_SG_EEEEEEy_block_invoke;
+  handler[3] = &__block_descriptor_tmp_5_5;
+  handler[4] = a1;
+  handler[5] = v12;
+  v38 = v14;
+  atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
+  v39 = a4;
+  if (*(a2 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
+  }
+
+  else
+  {
+    __p = *a2;
+  }
+
+  dispatch_source_set_event_handler(v10, handler);
+  dispatch_activate(v10);
+  v16 = *a3;
+  if (*a3)
+  {
+    v16 = _Block_copy(v16);
+  }
+
+  v36 = v16;
+  v18 = (a4 + 1);
+  v17 = a4[1];
+  if (v17)
+  {
+    v19 = *(a2 + 23);
+    if (v19 >= 0)
+    {
+      v20 = a2;
+    }
+
+    else
+    {
+      v20 = *a2;
+    }
+
+    if (v19 >= 0)
+    {
+      v21 = *(a2 + 23);
+    }
+
+    else
+    {
+      v21 = *(a2 + 8);
+    }
+
+    while (1)
+    {
+      v22 = v17;
+      v25 = v17[4];
+      v23 = v17 + 4;
+      v24 = v25;
+      v26 = *(v23 + 23);
+      if (v26 >= 0)
+      {
+        v27 = v23;
+      }
+
+      else
+      {
+        v27 = v24;
+      }
+
+      if (v26 >= 0)
+      {
+        v28 = *(v23 + 23);
+      }
+
+      else
+      {
+        v28 = v23[1];
+      }
+
+      if (v28 >= v21)
+      {
+        v29 = v21;
+      }
+
+      else
+      {
+        v29 = v28;
+      }
+
+      v30 = memcmp(v20, v27, v29);
+      if (v30)
+      {
+        if (v30 < 0)
+        {
+          goto LABEL_17;
+        }
+
+LABEL_31:
+        v31 = memcmp(v27, v20, v29);
+        if (v31)
+        {
+          if ((v31 & 0x80000000) == 0)
+          {
+            goto LABEL_45;
+          }
+        }
+
+        else if (v28 >= v21)
+        {
+LABEL_45:
+          v35 = v22[8];
+          v22[7] = v10;
+          v22[8] = v36;
+          if (v35)
+          {
+            goto LABEL_46;
+          }
+
+          goto LABEL_47;
+        }
+
+        v17 = v22[1];
+        if (!v17)
+        {
+          v18 = v22 + 1;
+          goto LABEL_38;
+        }
+      }
+
+      else
+      {
+        if (v21 >= v28)
+        {
+          goto LABEL_31;
+        }
+
+LABEL_17:
+        v17 = *v22;
+        v18 = v22;
+        if (!*v22)
+        {
+          goto LABEL_38;
+        }
+      }
+    }
+  }
+
+  v22 = (a4 + 1);
+LABEL_38:
+  v32 = operator new(0x48uLL);
+  v33 = v32;
+  v41 = v32;
+  v42 = a4;
+  v43 = 0;
+  if (*(a2 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external((v32 + 32), *a2, *(a2 + 8));
+  }
+
+  else
+  {
+    *(v32 + 2) = *a2;
+    *(v32 + 6) = *(a2 + 16);
+  }
+
+  v33[7] = 0;
+  v33[8] = 0;
+  *v33 = 0;
+  v33[1] = 0;
+  v33[2] = v22;
+  *v18 = v33;
+  v34 = **a4;
+  if (v34)
+  {
+    *a4 = v34;
+  }
+
+  std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(a4[1], v33);
+  a4[2] = (a4[2] + 1);
+  v35 = v33[8];
+  v33[7] = v10;
+  v33[8] = v36;
+  if (v35)
+  {
+LABEL_46:
+    _Block_release(v35);
+  }
+
+LABEL_47:
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if (v38)
+  {
+    std::__shared_weak_count::__release_weak(v38);
+  }
+
+  std::__shared_weak_count::__release_weak(v14);
+}
+
+void sub_2974BA544(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, std::__shared_weak_count *a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+{
+  std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::pair<dispatch_source_s *,dispatch::block<void({block_pointer})(int)>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::pair<dispatch_source_s *,dispatch::block<void({block_pointer})(int)>>>,void *>>>>::~unique_ptr[abi:ne200100]((v27 - 104));
+  std::pair<dispatch_source_s *,dispatch::block<void({block_pointer})(int)>>::~pair(&a11);
+  if (a26 < 0)
+  {
+    operator delete(__p);
+    v29 = a19;
+    if (!a19)
+    {
+LABEL_3:
+      std::__shared_weak_count::__release_weak(v26);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else
+  {
+    v29 = a19;
+    if (!a19)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  std::__shared_weak_count::__release_weak(v29);
+  std::__shared_weak_count::__release_weak(v26);
+  _Unwind_Resume(a1);
+}
+
+void *__copy_helper_block_e8_40c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE64c43_ZTSN8dispatch5blockIU13block_pointerFviEEE(uint64_t a1, uint64_t a2)
+{
+  if ((*(a2 + 63) & 0x80000000) == 0)
+  {
+    v4 = *(a2 + 40);
+    *(a1 + 56) = *(a2 + 56);
+    *(a1 + 40) = v4;
+    result = *(a2 + 64);
+    if (!result)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_5;
+  }
+
+  std::string::__init_copy_ctor_external((a1 + 40), *(a2 + 40), *(a2 + 48));
+  result = *(a2 + 64);
+  if (result)
+  {
+LABEL_5:
+    result = _Block_copy(result);
+  }
+
+LABEL_6:
+  *(a1 + 64) = result;
+  return result;
 }

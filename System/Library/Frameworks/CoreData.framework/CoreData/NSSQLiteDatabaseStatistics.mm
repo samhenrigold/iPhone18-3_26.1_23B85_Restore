@@ -50,10 +50,12 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@: %p> cacheHitPages=%lld, cacheMissPages=%lld, cacheSpillPages=%lld, pageSize=%lld", objc_opt_class(), self, self->_cacheHitPages, self->_cacheMissPages, self->_cacheSpillPages, self->_pageSize];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = objc_opt_class();
+  v6 = objc_msgSend_stringWithFormat_(v4, v5, self, self->_cacheHitPages, self->_cacheMissPages, self->_cacheSpillPages, self->_pageSize);
   objc_autoreleasePoolPop(v3);
 
-  return v4;
+  return v6;
 }
 
 @end

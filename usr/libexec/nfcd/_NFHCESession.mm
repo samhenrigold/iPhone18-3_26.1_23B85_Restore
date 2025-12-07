@@ -4,6 +4,7 @@
 - (BOOL)suspendWithInfo:(id)info;
 - (BOOL)willStartSession;
 - (NSData)effectiveECPFrame;
+- (_NFHCESession)initWithRemoteObject:(id)object workQueue:(id)queue allowsBackgroundMode:(BOOL)mode;
 - (id)_routingConfigWithECPBroadcastInHCE;
 - (id)initialECPConfig;
 - (id)initialRoutingConfig;
@@ -30,9 +31,26 @@
 - (void)startEmulationWithCompletion:(id)completion;
 - (void)stopEmulationAndConfigWithRouting:(id)routing completion:(id)completion;
 - (void)stopEmulationWithCompletion:(id)completion;
+- (void)suspensionStateUpdate:(BOOL)update triggeredByField:(id)field;
 @end
 
 @implementation _NFHCESession
+
+- (_NFHCESession)initWithRemoteObject:(id)object workQueue:(id)queue allowsBackgroundMode:(BOOL)mode
+{
+  v9.receiver = self;
+  v9.super_class = _NFHCESession;
+  v5 = [(_NFXPCSession *)&v9 initWithRemoteObject:object workQueue:queue allowsBackgroundMode:mode];
+  v6 = v5;
+  if (v5)
+  {
+    v5->_lock._os_unfair_lock_opaque = 0;
+    v5->_connected = 0;
+    v7 = v5;
+  }
+
+  return v6;
+}
 
 - (NSData)effectiveECPFrame
 {
@@ -307,7 +325,7 @@ LABEL_27:
     }
 
     v16 = +[_NFHardwareManager sharedHardwareManager];
-    v17 = sub_10004C144();
+    v17 = sub_10004C144(NFRoutingConfig);
     v18 = [v16 setRoutingConfig:v17];
   }
 
@@ -318,7 +336,7 @@ LABEL_27:
   emuAssertionTimer = self->_emuAssertionTimer;
   self->_emuAssertionTimer = 0;
 
-  v21 = sub_1001AE20C();
+  v21 = sub_1001AE20C(NFSystemPowerConsumptionMonitor);
   sub_1001AEDB0(v21, v22);
   v25.receiver = self;
   v25.super_class = _NFHCESession;
@@ -426,7 +444,7 @@ LABEL_27:
     sub_100081090(v9);
     os_unfair_lock_unlock(&self->_lock);
     sub_10000AA98(self->_hceCALogger);
-    v6 = sub_1001AE20C();
+    v6 = sub_1001AE20C(NFSystemPowerConsumptionMonitor);
     sub_1001AEDB0(v6, v7);
   }
 
@@ -879,7 +897,7 @@ LABEL_50:
 
 - (BOOL)willStartSession
 {
-  sub_10026449C();
+  sub_10026449C(NFSecureElementWrapper);
   v4.receiver = self;
   v4.super_class = _NFHCESession;
   return [(_NFSession *)&v4 willStartSession];
@@ -1001,6 +1019,27 @@ LABEL_50:
   [(_NFSession *)&v21 didEndSession:sessionCopy];
 }
 
+- (void)suspensionStateUpdate:(BOOL)update triggeredByField:(id)field
+{
+  updateCopy = update;
+  fieldCopy = field;
+  if (!updateCopy && [(_NFHCESession *)self disableAutoStartOnField])
+  {
+    [(_NFHCESession *)self setSessionResumeField:fieldCopy];
+  }
+
+  v7 = NFSharedSignpostLog();
+  if (os_signpost_enabled(v7))
+  {
+    v9[0] = 67240192;
+    v9[1] = updateCopy;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SESSION_SUSPEND_STATE_UPDATE", "started=%{public,signpost.description:attribute}d", v9, 8u);
+  }
+
+  remoteObject = [(_NFXPCSession *)self remoteObject];
+  [remoteObject suspensionStateUpdate:updateCopy triggeredByField:fieldCopy];
+}
+
 - (void)stopEmulationAndConfigWithRouting:(id)routing completion:(id)completion
 {
   routingCopy = routing;
@@ -1050,7 +1089,7 @@ LABEL_50:
   remoteObject = [(_NFXPCSession *)self remoteObject];
   [remoteObject didConnectToReader];
 
-  v10 = sub_1001AE20C();
+  v10 = sub_1001AE20C(NFSystemPowerConsumptionMonitor);
   sub_1001AF828(v10, v11);
   sub_10000A684(self->_hceCALogger);
   if ([(_NFHCESession *)self readOnConnected])
@@ -1142,7 +1181,7 @@ LABEL_50:
     }
   }
 
-  v9 = sub_1001AE20C();
+  v9 = sub_1001AE20C(NFSystemPowerConsumptionMonitor);
   sub_1001AEDB0(v9, v10);
   if ([(_NFHCESession *)self suspendOnDisconnect]&& !assertion && ![(_NFSession *)self isSuspended])
   {
@@ -1330,7 +1369,7 @@ LABEL_50:
     }
 
     v40 = +[_NFHardwareManager sharedHardwareManager];
-    v41 = sub_10004BD70();
+    v41 = sub_10004BD70(NFRoutingConfig);
     v42 = [v40 setRoutingConfig:v41];
 
     if (completionCopy)
@@ -1481,7 +1520,7 @@ LABEL_15:
 - (void)stopEmulationWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_10004C144();
+  v5 = sub_10004C144(NFRoutingConfig);
   [(_NFHCESession *)self stopEmulationAndConfigWithRouting:v5 completion:completionCopy];
 }
 

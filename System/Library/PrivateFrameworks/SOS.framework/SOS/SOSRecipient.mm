@@ -39,15 +39,13 @@
     while (v7);
   }
 
-  v11 = sos_default_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sos_default_log(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v19 = v4;
-    _os_log_impl(&dword_264323000, v11, OS_LOG_TYPE_DEFAULT, "sosRecipient handles: %@", buf, 0xCu);
+    _os_log_impl(&dword_264323000, v12, OS_LOG_TYPE_DEFAULT, "sosRecipient handles: %@", buf, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -88,15 +86,13 @@
     while (v7);
   }
 
-  v13 = sos_default_log();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sos_default_log(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v21 = v4;
-    _os_log_impl(&dword_264323000, v13, OS_LOG_TYPE_DEFAULT, "sosRecipient reasonsDict: %@", buf, 0xCu);
+    _os_log_impl(&dword_264323000, v14, OS_LOG_TYPE_DEFAULT, "sosRecipient reasonsDict: %@", buf, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

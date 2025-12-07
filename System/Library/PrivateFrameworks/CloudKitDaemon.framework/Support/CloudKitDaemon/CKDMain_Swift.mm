@@ -22,7 +22,7 @@
 - (void)startCloudAssetsService
 {
   selfCopy = self;
-  sub_100005BB4();
+  sub_100005BB4(selfCopy, v2, v3, v4);
 }
 
 - (void)setupCloudTelemetryXpcServiceActivities

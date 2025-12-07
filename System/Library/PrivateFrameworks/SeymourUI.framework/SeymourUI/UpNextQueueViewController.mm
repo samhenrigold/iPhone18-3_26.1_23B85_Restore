@@ -67,11 +67,11 @@
   [(UpNextQueueViewController *)&v15 viewDidAppear:appearCopy];
   v14[1] = selfCopy;
   (*(v7 + 16))(v9, *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI25UpNextQueueViewController_dataProvider) + OBJC_IVAR____TtC9SeymourUI30UpNextQueueGalleryDataProvider_metricPage, v6);
-  sub_20BC3AAFC(&qword_27C76C4C8, v11, type metadata accessor for UpNextQueueViewController);
+  sub_20BC3AAFC(&qword_27C76C4C8, v11, type metadata accessor for UpNextQueueViewController, &protocol conformance descriptor for UpNextQueueViewController);
   sub_20C138C54();
   (*(v7 + 8))(v9, v6);
-  sub_20BC3AAFC(&qword_27C76C4D0, v12, type metadata accessor for UpNextQueueViewController);
-  sub_20BC3AAFC(&qword_27C76C4D8, v13, type metadata accessor for UpNextQueueViewController);
+  sub_20BC3AAFC(&qword_27C76C4D0, v12, type metadata accessor for UpNextQueueViewController, &protocol conformance descriptor for UpNextQueueViewController);
+  sub_20BC3AAFC(&qword_27C76C4D8, v13, type metadata accessor for UpNextQueueViewController, &protocol conformance descriptor for UpNextQueueViewController);
   sub_20C139364();
 }
 
@@ -95,7 +95,7 @@
   [(UpNextQueueViewController *)&v13 viewWillDisappear:disappearCopy];
   v12[1] = selfCopy;
   sub_20C132E84();
-  sub_20BC3AAFC(&qword_27C76C4D0, v11, type metadata accessor for UpNextQueueViewController);
+  sub_20BC3AAFC(&qword_27C76C4D0, v11, type metadata accessor for UpNextQueueViewController, &protocol conformance descriptor for UpNextQueueViewController);
   sub_20C139274();
   (*(v7 + 8))(v9, v6);
 }
@@ -107,8 +107,8 @@
   v7.super_class = swift_getObjectType();
   v4 = v7.receiver;
   [(UpNextQueueViewController *)&v7 viewDidDisappear:disappearCopy];
-  sub_20BC3AAFC(&qword_27C76C4D0, v5, type metadata accessor for UpNextQueueViewController);
-  sub_20BC3AAFC(&qword_27C76C4D8, v6, type metadata accessor for UpNextQueueViewController);
+  sub_20BC3AAFC(&qword_27C76C4D0, v5, type metadata accessor for UpNextQueueViewController, &protocol conformance descriptor for UpNextQueueViewController);
+  sub_20BC3AAFC(&qword_27C76C4D8, v6, type metadata accessor for UpNextQueueViewController, &protocol conformance descriptor for UpNextQueueViewController);
   sub_20C139374();
 }
 

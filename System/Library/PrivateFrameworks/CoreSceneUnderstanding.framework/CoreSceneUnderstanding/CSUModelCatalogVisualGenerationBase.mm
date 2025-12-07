@@ -21,17 +21,16 @@
 {
   v6 = sub_1AC123E9C();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   lockCopy = lock;
   selfCopy = self;
-  sub_1AC0D6C88(lockCopy, v10);
+  sub_1AC0D6C88(lockCopy, v9);
 
-  v13 = sub_1AC123E8C();
-  (*(v7 + 8))(v10, v6);
+  v12 = sub_1AC123E8C();
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (id)getAssetVersion

@@ -12,9 +12,9 @@
 {
   v3 = *&mask;
   v4 = [self alloc];
-  v8 = objc_msgSend_initWithStrokeVisibilityMask_(v4, v5, v3, v6, v7);
+  v7 = objc_msgSend_initWithStrokeVisibilityMask_(v4, v5, v3, v6);
 
-  return v8;
+  return v7;
 }
 
 - (TSTStrokeSelection)initWithStrokeVisibilityMask:(unsigned int)mask
@@ -55,17 +55,17 @@
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
 {
-  v6 = objc_msgSend_mask(self, a2, archive, archiver, v4);
+  v5 = objc_msgSend_mask(self, a2, archive, archiver);
   *(archive + 4) |= 1u;
-  *(archive + 6) = v6;
+  *(archive + 6) = v5;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v6 = objc_msgSend_allocWithZone_(TSTStrokeSelection, a2, zone, v3, v4);
-  v12 = objc_msgSend_mask(self, v7, v8, v9, v10);
+  v5 = objc_msgSend_allocWithZone_(TSTStrokeSelection, a2, zone, v3);
+  v10 = objc_msgSend_mask(self, v6, v7, v8);
 
-  return objc_msgSend_initWithStrokeVisibilityMask_(v6, v11, v12, v13, v14);
+  return objc_msgSend_initWithStrokeVisibilityMask_(v5, v9, v10, v11);
 }
 
 @end

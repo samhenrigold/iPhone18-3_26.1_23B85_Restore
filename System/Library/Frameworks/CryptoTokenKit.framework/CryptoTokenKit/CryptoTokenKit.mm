@@ -11,36 +11,36 @@ void sub_100001678(uint64_t a1)
       break;
     }
 
-    [NSThread sleepForTimeInterval:0.02];
+    v5 = [NSThread sleepForTimeInterval:0.02];
     if (!--v2)
     {
-      v5 = sub_1000017C0();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = sub_1000017C0(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        sub_10001D788(v5);
+        sub_10001D788(v6);
       }
 
       return;
     }
   }
 
-  v9 = [*(a1 + 32) registry];
-  v6 = [v9 delegate];
-  v7 = [*(a1 + 32) registry];
-  v8 = [*(a1 + 32) tokenID];
-  [v6 hostTokenRegistry:v7 addedToken:v8 persistent:{objc_msgSend(*(a1 + 32), "persistent")}];
+  v10 = [*(a1 + 32) registry];
+  v7 = [v10 delegate];
+  v8 = [*(a1 + 32) registry];
+  v9 = [*(a1 + 32) tokenID];
+  [v7 hostTokenRegistry:v8 addedToken:v9 persistent:{objc_msgSend(*(a1 + 32), "persistent")}];
 }
 
-id sub_1000017C0()
+id sub_1000017C0(uint64_t a1)
 {
   if (qword_100043310 != -1)
   {
     sub_10001D7CC();
   }
 
-  v1 = qword_100043318;
+  v2 = qword_100043318;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_100001AA4(uint64_t result, uint64_t a2)
@@ -131,9 +131,9 @@ id sub_100002130(uint64_t a1)
 void sub_100002394(uint64_t a1, void *a2)
 {
   v3 = a2;
-  (*(*(a1 + 48) + 16))();
-  v4 = sub_1000017C0();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = (*(*(a1 + 48) + 16))();
+  v5 = sub_1000017C0(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_10001D7E0(a1);
   }
@@ -173,21 +173,19 @@ id sub_10000273C(uint64_t a1)
 {
   if (*(a1 + 32) || !*(a1 + 40))
   {
-    v2 = *(a1 + 64);
-    v3 = *(a1 + 48);
-    v4 = *(a1 + 56);
+    v2 = *(a1 + 48);
 
-    return [v3 handleAcquisitionError:? canRequireCardInsertion:? completion:?];
+    return [v2 handleAcquisitionError:? canRequireCardInsertion:? completion:?];
   }
 
   else
   {
     [*(a1 + 48) setEndpoint:*(a1 + 40)];
     [[TKHostTokenConnection alloc] initWithToken:*(a1 + 48)];
-    v5 = *(a1 + 56);
-    if (v5)
+    v3 = *(a1 + 56);
+    if (v3)
     {
-      (*(v5 + 16))();
+      (*(v3 + 16))();
     }
 
     return _objc_release_x1();
@@ -232,7 +230,7 @@ LABEL_14:
   {
     if (v5)
     {
-      v12 = sub_1000017C0();
+      v12 = sub_1000017C0(v5);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_10001D91C(a1);
@@ -277,10 +275,11 @@ void sub_100003350(id a1)
   _objc_release_x1();
 }
 
-void sub_1000033AC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000033AC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id sub_10000381C(uint64_t a1)
@@ -299,70 +298,69 @@ void sub_100003EA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id sub_100003EC4()
+id sub_100003EC4(uint64_t a1)
 {
   if (qword_100043320 != -1)
   {
     sub_10001DB34();
   }
 
-  v1 = qword_100043328;
+  v2 = qword_100043328;
 
-  return v1;
+  return v2;
 }
 
 void sub_100003F08(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = sub_100003EC4();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v2 = sub_100003EC4(objc_autoreleasePoolPush());
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    *v20 = 0;
-    _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "Got SIGTERM, shutting down", v20, 2u);
+    *v19 = 0;
+    _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "Got SIGTERM, shutting down", v19, 2u);
   }
 
-  v4 = [*(a1 + 32) tokenServer];
+  v3 = [*(a1 + 32) tokenServer];
+  [v3 stop];
+
+  v4 = [*(a1 + 32) slotWatcher];
   [v4 stop];
 
-  v5 = [*(a1 + 32) slotWatcher];
+  v5 = [*(a1 + 32) slotServer];
   [v5 stop];
 
-  v6 = [*(a1 + 32) slotServer];
-  [v6 stop];
+  v6 = *(a1 + 32);
+  v7 = *(v6 + 32);
+  *(v6 + 32) = 0;
 
-  v7 = *(a1 + 32);
-  v8 = *(v7 + 32);
-  *(v7 + 32) = 0;
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 48);
+  *(v8 + 48) = 0;
 
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 48);
-  *(v9 + 48) = 0;
+  v10 = *(a1 + 32);
+  v11 = *(v10 + 40);
+  *(v10 + 40) = 0;
 
-  v11 = *(a1 + 32);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = 0;
+  v12 = *(a1 + 32);
+  v13 = *(v12 + 16);
+  *(v12 + 16) = 0;
 
-  v13 = *(a1 + 32);
-  v14 = *(v13 + 16);
-  *(v13 + 16) = 0;
+  v14 = [*(a1 + 32) smartCardRegistrationServer];
+  [v14 stop];
 
-  v15 = [*(a1 + 32) smartCardRegistrationServer];
-  [v15 stop];
+  v15 = *(a1 + 32);
+  v16 = *(v15 + 56);
+  *(v15 + 56) = 0;
 
-  v16 = *(a1 + 32);
-  v17 = *(v16 + 56);
-  *(v16 + 56) = 0;
-
-  v18 = *(a1 + 32);
-  v19 = *(v18 + 24);
-  *(v18 + 24) = 0;
+  v17 = *(a1 + 32);
+  v18 = *(v17 + 24);
+  *(v17 + 24) = 0;
 
   exit(0);
 }
 
 void sub_100004030(uint64_t a1)
 {
-  v2 = sub_100003EC4();
+  v2 = sub_100003EC4(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_10001DB48(v2);
@@ -384,7 +382,7 @@ void sub_100004090(uint64_t a1)
 
 void sub_100004118(uint64_t a1)
 {
-  v2 = sub_100003EC4();
+  v2 = sub_100003EC4(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_10001DB8C(v2);
@@ -409,16 +407,16 @@ void sub_100004274(id a1)
   _objc_release_x1();
 }
 
-id sub_1000049CC()
+id sub_1000049CC(uint64_t a1)
 {
   if (qword_100043330 != -1)
   {
     sub_10001E064();
   }
 
-  v1 = qword_100043338;
+  v2 = qword_100043338;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000064A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id location)
@@ -431,7 +429,7 @@ void sub_1000064A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_1000064D0(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = sub_1000049CC();
+  v3 = sub_1000049CC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10001E3C8();
@@ -551,6 +549,13 @@ void sub_1000064D0(uint64_t a1, void *a2)
   }
 }
 
+void sub_100006F48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_100006FA4(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -570,14 +575,14 @@ void sub_100007038(uint64_t a1, void *a2, void *a3)
 
   if ((v9 & 1) == 0)
   {
-    v10 = sub_1000049CC();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = sub_1000049CC(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_10001E44C();
     }
 
-    v11 = [*(a1 + 48) objectForKeyedSubscript:v5];
-    [*(a1 + 40) setObject:v11 forKeyedSubscript:v5];
+    v12 = [*(a1 + 48) objectForKeyedSubscript:v5];
+    [*(a1 + 40) setObject:v12 forKeyedSubscript:v5];
 
     *(*(*(a1 + 56) + 8) + 24) = 1;
   }
@@ -616,9 +621,9 @@ id sub_100009E14()
   return v2;
 }
 
-void sub_100009F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100009F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -649,34 +654,35 @@ id sub_100009FD8()
   return v2;
 }
 
-void sub_10000A0C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000A0C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10000A1FC(id a1)
 {
-  if ((os_variant_is_darwinos() & 1) == 0)
+  is_darwinos = os_variant_is_darwinos();
+  if ((is_darwinos & 1) == 0)
   {
-    v3 = sub_10000A2D4();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_10000A2D4(is_darwinos);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      sub_10001E7F8(v3);
+      sub_10001E7F8(v4);
     }
 
     goto LABEL_10;
   }
 
-  v1 = sub_10000AC7C();
-  v2 = sub_10000A2D4();
-  v3 = v2;
-  if (!v1)
+  v2 = sub_10000AC7C(0);
+  v3 = sub_10000A2D4(v2);
+  v4 = v3;
+  if (!v2)
   {
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      sub_10001E83C(v3);
+      sub_10001E83C(v4);
     }
 
 LABEL_10:
@@ -684,25 +690,25 @@ LABEL_10:
     return;
   }
 
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "using TKVirtualTokenExtension", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "using TKVirtualTokenExtension", v5, 2u);
   }
 
   byte_100043340 = 1;
 }
 
-id sub_10000A2D4()
+id sub_10000A2D4(uint64_t a1)
 {
   if (qword_100043368 != -1)
   {
     sub_10001E880();
   }
 
-  v1 = qword_100043370;
+  v2 = qword_100043370;
 
-  return v1;
+  return v2;
 }
 
 id sub_10000A480()
@@ -731,9 +737,9 @@ id sub_10000A480()
   return v2;
 }
 
-void sub_10000A56C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000A56C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -765,17 +771,23 @@ void *sub_10000ABD8(uint64_t a1)
 
 uint64_t sub_10000AC28()
 {
-  v1 = 0;
-  result = sub_10000AC7C();
-  if (!result)
+  v3 = 0;
+  v0 = sub_10000AC7C(&v3);
+  if (!v0)
   {
-    sub_10001E90C(&v1);
+    sub_10001E90C(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
-uint64_t sub_10000AC7C()
+uint64_t sub_10000AC7C(uint64_t a1)
 {
   if (!qword_100043358)
   {
@@ -787,7 +799,6 @@ uint64_t sub_10000AC7C()
 
 uint64_t sub_10000AD4C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100043358 = result;
   return result;
@@ -818,16 +829,23 @@ void *sub_10000AE54(uint64_t a1)
   return result;
 }
 
-id sub_10000B0B8()
+id sub_10000B0B8(uint64_t a1)
 {
   if (qword_100043380 != -1)
   {
     sub_10001EA04();
   }
 
-  v1 = qword_100043388;
+  v2 = qword_100043388;
 
-  return v1;
+  return v2;
+}
+
+void sub_10000BAA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_10000BAD8(uint64_t result, uint64_t a2)
@@ -857,7 +875,7 @@ void sub_10000C7CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_10000C7F8(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_10000B0B8();
+  v3 = sub_10000B0B8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10001EB90(v2, v3);
@@ -870,11 +888,11 @@ void sub_10000C850(uint64_t a1)
   v2 = objc_loadWeakRetained(WeakRetained + 1);
   [v2 invalidate];
 
-  objc_storeWeak(WeakRetained + 1, 0);
-  v3 = sub_10000B0B8();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v3 = objc_storeWeak(WeakRetained + 1, 0);
+  v4 = sub_10000B0B8(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001EC08(v3);
+    sub_10001EC08(v4);
   }
 }
 
@@ -891,16 +909,16 @@ void sub_10000CE18(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t 
   _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, a5, 0xCu);
 }
 
-id sub_10000D174()
+id sub_10000D174(uint64_t a1)
 {
   if (qword_100043390 != -1)
   {
     sub_10001ED1C();
   }
 
-  v1 = qword_100043398;
+  v2 = qword_100043398;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000D910(id a1)
@@ -910,17 +928,11 @@ void sub_10000D910(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_10000D96C@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void sub_10000D984(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *(result + 40);
-  return result;
-}
+  va_start(va, a8);
 
-void sub_10000D984(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_10000D9A0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -930,61 +942,60 @@ void sub_10000D9A0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-id sub_10000DFD0()
+id sub_10000DFD0(uint64_t a1)
 {
   if (qword_1000433B0 != -1)
   {
     sub_10001F440();
   }
 
-  v1 = qword_1000433B8;
+  v2 = qword_1000433B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000E368(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   if ([objc_opt_class() isUnlocked])
   {
-    v3 = *(a1 + 40);
+    v2 = *(a1 + 40);
     v15 = [*(a1 + 32) operations];
-    (*(v3 + 16))(v3, v15);
+    (*(v2 + 16))(v2, v15);
   }
 
   else
   {
-    v4 = *(*(a1 + 32) + 24);
-    if (!v4)
+    v3 = *(*(a1 + 32) + 24);
+    if (!v3)
     {
-      v5 = [&__NSArray0__struct mutableCopy];
-      v6 = *(a1 + 32);
-      v7 = *(v6 + 24);
-      *(v6 + 24) = v5;
+      v4 = [&__NSArray0__struct mutableCopy];
+      v5 = *(a1 + 32);
+      v6 = *(v5 + 24);
+      *(v5 + 24) = v4;
 
-      v8 = os_transaction_create();
-      v9 = *(a1 + 32);
-      v10 = *(v9 + 32);
-      *(v9 + 32) = v8;
+      v7 = os_transaction_create();
+      v8 = *(a1 + 32);
+      v9 = *(v8 + 32);
+      *(v8 + 32) = v7;
 
       objc_initWeak(&location, *(a1 + 32));
-      v11 = *(a1 + 32);
-      v12 = *(v11 + 8);
+      v10 = *(a1 + 32);
+      v11 = *(v10 + 8);
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = sub_10000E52C;
       handler[3] = &unk_100038C10;
       objc_copyWeak(&v17, &location);
-      notify_register_dispatch("com.apple.mobile.keybagd.lock_status", (v11 + 16), v12, handler);
+      notify_register_dispatch("com.apple.mobile.keybagd.lock_status", (v10 + 16), v11, handler);
       objc_destroyWeak(&v17);
       objc_destroyWeak(&location);
-      v4 = *(*(a1 + 32) + 24);
+      v3 = *(*(a1 + 32) + 24);
     }
 
-    v13 = objc_retainBlock(*(a1 + 40));
-    [v4 addObject:v13];
+    v12 = objc_retainBlock(*(a1 + 40));
+    [v3 addObject:v12];
 
-    v14 = sub_10000DFD0();
+    v14 = sub_10000DFD0(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       sub_10001F454(v14);
@@ -1063,16 +1074,16 @@ void sub_10000E7A4(id a1)
   _objc_release_x1();
 }
 
-id sub_10000EE10()
+id sub_10000EE10(uint64_t a1)
 {
   if (qword_1000433C0 != -1)
   {
     sub_10001F5E0();
   }
 
-  v1 = qword_1000433C8;
+  v2 = qword_1000433C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000F0C4(uint64_t a1)
@@ -1091,8 +1102,7 @@ void sub_10000FC2C(id a1)
   v3 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___TKClientTokenServerProtocol];
   [v2 setRemoteObjectInterface:v3];
 
-  [v2 resume];
-  v4 = sub_10000EE10();
+  v4 = sub_10000EE10([v2 resume]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_10001F64C(v2);
@@ -1117,7 +1127,7 @@ void sub_10000FC2C(id a1)
 void sub_10000FDA8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_10000EE10();
+  v4 = sub_10000EE10(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10001F6D4(a1);
@@ -1126,7 +1136,7 @@ void sub_10000FDA8(uint64_t a1, void *a2)
 
 id sub_10000FE0C(uint64_t a1)
 {
-  v2 = sub_10000EE10();
+  v2 = sub_10000EE10(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_10001F760(a1);
@@ -1138,8 +1148,8 @@ id sub_10000FE0C(uint64_t a1)
 void sub_100010378(uint64_t a1)
 {
   dispatch_group_leave(*(a1 + 32));
-  v1 = sub_10000EE10();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+  v2 = sub_10000EE10(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_10001F858();
   }
@@ -1167,13 +1177,13 @@ void sub_100010950(uint64_t a1, uint64_t a2, void *a3)
       v6[3] = 0;
 
       objc_sync_exit(v7);
-      v9 = sub_10000EE10();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = sub_10000EE10(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        sub_10001FA38(a1);
+        sub_10001FA38();
       }
 
-      v10 = *(*(a1 + 48) + 16);
+      v11 = *(*(a1 + 48) + 16);
     }
 
     else
@@ -1181,20 +1191,20 @@ void sub_100010950(uint64_t a1, uint64_t a2, void *a3)
       objc_storeStrong(v6 + 3, *(a1 + 40));
       objc_sync_exit(v7);
 
-      v10 = *(*(a1 + 48) + 16);
+      v11 = *(*(a1 + 48) + 16);
     }
 
-    v10();
+    v11();
   }
 
   else
   {
-    v11 = *(a1 + 48);
-    v14 = NSLocalizedDescriptionKey;
-    v15 = @"Object deallocated";
-    v12 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-    v13 = [NSError errorWithDomain:TKErrorDomain code:-6 userInfo:v12];
-    (*(v11 + 16))(v11, 0, 0, v13);
+    v12 = *(a1 + 48);
+    v15 = NSLocalizedDescriptionKey;
+    v16 = @"Object deallocated";
+    v13 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v14 = [NSError errorWithDomain:TKErrorDomain code:-6 userInfo:v13];
+    (*(v12 + 16))(v12, 0, 0, v14);
   }
 }
 
@@ -1209,35 +1219,36 @@ void sub_100010C08(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     if (v3)
     {
-      v5 = sub_10000EE10();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = sub_10000EE10(WeakRetained);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        sub_10001FAA0(a1);
+        sub_10001FAA0();
       }
     }
 
-    v6 = sub_10000EE10();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = sub_10000EE10(WeakRetained);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      sub_10001FB08(a1);
+      sub_10001FB08();
     }
 
-    v7 = WeakRetained[4];
-    objc_sync_enter(v7);
-    v8 = WeakRetained[3];
-    WeakRetained[3] = 0;
+    v8 = v5[4];
+    objc_sync_enter(v8);
+    v9 = v5[3];
+    v5[3] = 0;
 
-    objc_sync_exit(v7);
+    objc_sync_exit(v8);
   }
 
   else
   {
-    v7 = sub_10000EE10();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = sub_10000EE10(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sub_10001FB7C();
     }
@@ -1260,10 +1271,10 @@ void sub_100010E1C(uint64_t a1, uint64_t a2, void *a3)
   {
     if (v4)
     {
-      v7 = sub_10000EE10();
+      v7 = sub_10000EE10(WeakRetained);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_10001FA38(a1);
+        sub_10001FA38();
       }
 
       v8 = v6[4];
@@ -1278,7 +1289,7 @@ void sub_100010E1C(uint64_t a1, uint64_t a2, void *a3)
     else
     {
       v14 = *(a1 + 40);
-      v15 = [WeakRetained[3] creatorPID] == *(a1 + 56);
+      [WeakRetained[3] creatorPID];
       v10 = *(v14 + 16);
     }
 
@@ -1288,9 +1299,9 @@ void sub_100010E1C(uint64_t a1, uint64_t a2, void *a3)
   else
   {
     v11 = *(a1 + 40);
-    v16 = NSLocalizedDescriptionKey;
-    v17 = @"Object deallocated";
-    v12 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v15 = NSLocalizedDescriptionKey;
+    v16 = @"Object deallocated";
+    v12 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
     v13 = [NSError errorWithDomain:TKErrorDomain code:-6 userInfo:v12];
     (*(v11 + 16))(v11, 0, 0, v13);
   }
@@ -1324,47 +1335,40 @@ void sub_100011568(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_1000115C4@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
-}
-
 void sub_100011998(uint64_t a1)
 {
-  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
   v2 = [*(*(a1 + 32) + 8) allStoredBundleIDs];
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v27 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v18 objects:v28 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v18;
+    v6 = *v19;
     *&v4 = 138412802;
-    v16 = v4;
+    v17 = v4;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v18 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v18 + 1) + 8 * i);
         if ([v8 length])
         {
           v9 = [LSBundleRecord bundleRecordWithBundleIdentifier:v8 allowPlaceholder:0 error:0];
           if (!v9)
           {
-            v10 = sub_100011C80();
+            v10 = sub_100011C80(0);
             if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v22 = v8;
+              v23 = v8;
               _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Found app (%@) that was uninstalled, removing access.", buf, 0xCu);
             }
 
@@ -1376,32 +1380,36 @@ void sub_100011998(uint64_t a1)
           {
             v12 = [*(*(a1 + 32) + 8) fetchStoredInstallationIDForBundleID:v8];
             v13 = v12;
-            if (v12 && ([v12 isEqualToString:v11] & 1) == 0)
+            if (v12)
             {
-              v14 = sub_100011C80();
-              if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+              v14 = [v12 isEqualToString:v11];
+              if ((v14 & 1) == 0)
               {
-                *buf = v16;
-                v22 = v8;
-                v23 = 2112;
-                v24 = v13;
-                v25 = 2112;
-                v26 = v11;
-                _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "Found app (%@) with different installation ID, removing access. Old: %@, New: %@", buf, 0x20u);
-              }
+                v15 = sub_100011C80(v14);
+                if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+                {
+                  *buf = v17;
+                  v23 = v8;
+                  v24 = 2112;
+                  v25 = v13;
+                  v26 = 2112;
+                  v27 = v11;
+                  _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "Found app (%@) with different installation ID, removing access. Old: %@, New: %@", buf, 0x20u);
+                }
 
-              [*(*(a1 + 32) + 8) removeAccessForBundleID:v8 matchPartial:1];
+                [*(*(a1 + 32) + 8) removeAccessForBundleID:v8 matchPartial:1];
+              }
             }
           }
 
           else
           {
-            v15 = sub_100011C80();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+            v16 = sub_100011C80(0);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v22 = v8;
-              _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "Found app (%@) that was uninstalled, removing access", buf, 0xCu);
+              v23 = v8;
+              _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "Found app (%@) that was uninstalled, removing access", buf, 0xCu);
             }
 
             [*(*(a1 + 32) + 8) removeAccessForBundleID:v8 matchPartial:1];
@@ -1409,23 +1417,23 @@ void sub_100011998(uint64_t a1)
         }
       }
 
-      v5 = [v2 countByEnumeratingWithState:&v17 objects:v27 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v18 objects:v28 count:16];
     }
 
     while (v5);
   }
 }
 
-id sub_100011C80()
+id sub_100011C80(uint64_t a1)
 {
   if (qword_1000433D0 != -1)
   {
     sub_10001FBBC();
   }
 
-  v1 = qword_1000433D8;
+  v2 = qword_1000433D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100011D5C(uint64_t a1)
@@ -1451,7 +1459,7 @@ void sub_100011D5C(uint64_t a1)
         }
 
         v7 = *(*(&v10 + 1) + 8 * v6);
-        v8 = sub_100011C80();
+        v8 = sub_100011C80(v3);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
@@ -1466,10 +1474,11 @@ void sub_100011D5C(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v16 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v10 objects:v16 count:16];
+      v4 = v3;
     }
 
-    while (v4);
+    while (v3);
   }
 }
 
@@ -1496,7 +1505,7 @@ void sub_100011F80(uint64_t a1)
         }
 
         v7 = *(*(&v11 + 1) + 8 * v6);
-        v8 = sub_100011C80();
+        v8 = sub_100011C80(v3);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           v10 = *(a1 + 32);
@@ -1514,10 +1523,11 @@ void sub_100011F80(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v19 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v11 objects:v19 count:16];
+      v4 = v3;
     }
 
-    while (v4);
+    while (v3);
   }
 }
 
@@ -1528,16 +1538,16 @@ void sub_10001216C(id a1)
   _objc_release_x1();
 }
 
-id sub_100012AB8()
+id sub_100012AB8(uint64_t a1)
 {
   if (qword_1000433E0 != -1)
   {
     sub_10001FBD0();
   }
 
-  v1 = qword_1000433E8;
+  v2 = qword_1000433E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100012D84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -1557,7 +1567,7 @@ void sub_100012DB0(uint64_t a1, void *a2, void *a3)
   {
     if (v7)
     {
-      v10 = sub_100012AB8();
+      v10 = sub_100012AB8(WeakRetained);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_10001FCE0();
@@ -1595,32 +1605,33 @@ void sub_100012DB0(uint64_t a1, void *a2, void *a3)
         {
           v19 = [NFCTKPollConfig pollConfigWithAppletIdentifiers:v9[5]];
           v20 = v9[2];
-          v30 = 0;
-          v21 = [v20 startPollingWithConfig:v19 error:&v30];
-          v22 = v30;
+          v31 = 0;
+          v21 = [v20 startPollingWithConfig:v19 error:&v31];
+          v22 = v31;
+          v23 = v22;
           if (v21)
           {
-            v23 = v9[7];
-            objc_sync_enter(v23);
+            v24 = v9[7];
+            objc_sync_enter(v24);
             *(v9 + 48) = 0;
-            objc_sync_exit(v23);
+            objc_sync_exit(v24);
 
             (*(*(a1 + 32) + 16))();
           }
 
           else
           {
-            v28 = sub_100012AB8();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v29 = sub_100012AB8(v22);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
               sub_10001FD54();
             }
 
             [v6 endSession];
-            v29 = v9[7];
-            objc_sync_enter(v29);
+            v30 = v9[7];
+            objc_sync_enter(v30);
             *(v9 + 48) = 0;
-            objc_sync_exit(v29);
+            objc_sync_exit(v30);
 
             (*(*(a1 + 32) + 16))();
           }
@@ -1628,17 +1639,17 @@ void sub_100012DB0(uint64_t a1, void *a2, void *a3)
 
         else
         {
-          v31[0] = NSLocalizedDescriptionKey;
-          v31[1] = NSLocalizedRecoverySuggestionErrorKey;
-          v32[0] = @"No valid AIDs were provided";
-          v32[1] = @"Valid AIDs must be provided in Info.plist";
-          v24 = [NSDictionary dictionaryWithObjects:v32 forKeys:v31 count:2];
-          v22 = [NSError errorWithDomain:TKErrorDomain code:-6 userInfo:v24];
+          v32[0] = NSLocalizedDescriptionKey;
+          v32[1] = NSLocalizedRecoverySuggestionErrorKey;
+          v33[0] = @"No valid AIDs were provided";
+          v33[1] = @"Valid AIDs must be provided in Info.plist";
+          v25 = [NSDictionary dictionaryWithObjects:v33 forKeys:v32 count:2];
+          v23 = [NSError errorWithDomain:TKErrorDomain code:-6 userInfo:v25];
 
-          v25 = v9[7];
-          objc_sync_enter(v25);
+          v26 = v9[7];
+          objc_sync_enter(v26);
           *(v9 + 48) = 0;
-          objc_sync_exit(v25);
+          objc_sync_exit(v26);
 
           (*(*(a1 + 32) + 16))();
         }
@@ -1646,15 +1657,15 @@ void sub_100012DB0(uint64_t a1, void *a2, void *a3)
 
       else
       {
-        v33 = NSLocalizedDescriptionKey;
-        v34 = @"Missing NFC support";
-        v26 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-        v22 = [NSError errorWithDomain:TKErrorDomain code:-1 userInfo:v26];
+        v34 = NSLocalizedDescriptionKey;
+        v35 = @"Missing NFC support";
+        v27 = [NSDictionary dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+        v23 = [NSError errorWithDomain:TKErrorDomain code:-1 userInfo:v27];
 
-        v27 = v9[7];
-        objc_sync_enter(v27);
+        v28 = v9[7];
+        objc_sync_enter(v28);
         *(v9 + 48) = 0;
-        objc_sync_exit(v27);
+        objc_sync_exit(v28);
 
         (*(*(a1 + 32) + 16))();
       }
@@ -1664,9 +1675,9 @@ void sub_100012DB0(uint64_t a1, void *a2, void *a3)
   else
   {
     v13 = *(a1 + 32);
-    v35 = NSLocalizedDescriptionKey;
-    v36 = @"Object deallocated";
-    v14 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v36 = NSLocalizedDescriptionKey;
+    v37 = @"Object deallocated";
+    v14 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
     v15 = [NSError errorWithDomain:TKErrorDomain code:-6 userInfo:v14];
     (*(v13 + 16))(v13, 0, v15);
   }
@@ -1701,10 +1712,11 @@ void sub_100013FD0(id a1)
   _objc_release_x1();
 }
 
-void sub_10001402C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001402C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_1000142A8(_Unwind_Exception *a1)
@@ -1717,40 +1729,41 @@ void sub_1000142A8(_Unwind_Exception *a1)
 void sub_1000142C4(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = sub_100014350();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = sub_100014350(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      sub_10001FFB0(WeakRetained);
+      sub_10001FFB0();
     }
 
-    v3 = WeakRetained[4];
-    objc_sync_enter(v3);
-    v4 = WeakRetained[4];
-    WeakRetained[4] = 0;
+    v4 = v2[4];
+    objc_sync_enter(v4);
+    v5 = v2[4];
+    v2[4] = 0;
 
-    objc_sync_exit(v3);
-    [WeakRetained endNFCSlotIfActive];
+    objc_sync_exit(v4);
+    [v2 endNFCSlotIfActive];
   }
 }
 
-id sub_100014350()
+id sub_100014350(uint64_t a1)
 {
   if (qword_1000433F0 != -1)
   {
     sub_10002001C();
   }
 
-  v1 = qword_1000433F8;
+  v2 = qword_1000433F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100014760(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_100014350();
+  v3 = sub_100014350(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10002020C();
@@ -1760,10 +1773,11 @@ void sub_100014760(id a1, NSError *a2)
 void sub_1000147B4(id a1, BOOL a2, NSError *a3)
 {
   v3 = a3;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_100014350();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100014350(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100020274();
     }
@@ -1833,15 +1847,16 @@ void sub_100014CA8(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = sub_100014350();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100014350(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1000202DC();
     }
 
-    [WeakRetained _handleConnectionCloseWithInvalidate:1];
+    [v5 _handleConnectionCloseWithInvalidate:1];
     (*(*(a1 + 32) + 16))();
   }
 }
@@ -1870,11 +1885,10 @@ void sub_100014F5C(uint64_t a1)
   v4 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained endNFCSlotIfActive];
-    v5 = sub_100014350();
+    v5 = sub_100014350([WeakRetained endNFCSlotIfActive]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      sub_100020344(a1);
+      sub_100020344();
     }
 
     v6 = v4[8];
@@ -1889,16 +1903,16 @@ void sub_100014F5C(uint64_t a1)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_1000151A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000151A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1930,55 +1944,55 @@ void sub_10001539C(uint64_t a1, void *a2)
 
     if (v5)
     {
-      v6 = (a1 + 32);
+      v6 = a1 + 32;
       v7 = [*(a1 + 32) stringRepresentation];
       v8 = [v3 isEqual:v7];
 
       if (v8)
       {
-        v9 = objc_loadWeakRetained((a1 + 64));
-        v10 = [v9 tokenInfoForTokenID:v3];
+        v10 = objc_loadWeakRetained((a1 + 64));
+        v11 = [v10 tokenInfoForTokenID:v3];
 
-        if (v10 && (-[NSObject slotName](v10, "slotName"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 isEqualToString:*(a1 + 40)], v11, v12))
+        if (v11 && (-[NSObject slotName](v11, "slotName"), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v13 isEqualToString:*(a1 + 40)], v13, v14))
         {
-          v13 = sub_100014350();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v15 = sub_100014350(v12);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            sub_100020428((a1 + 32));
+            sub_100020428();
           }
 
-          v14 = *(a1 + 48);
-          if (v14)
+          v16 = *(a1 + 48);
+          if (v16)
           {
-            (*(v14 + 16))();
+            (*(v16 + 16))();
           }
         }
 
         else
         {
-          v15 = sub_100014350();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+          v17 = sub_100014350(v12);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
-            sub_100020490(v6, v10);
+            sub_100020490(v6, v11);
           }
         }
       }
 
       else
       {
-        v10 = sub_100014350();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v11 = sub_100014350(v9);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          sub_1000203B0(v3, (a1 + 32));
+          sub_1000203B0();
         }
       }
     }
   }
 }
 
-void sub_100015E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100015E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1997,23 +2011,18 @@ void sub_1000160E0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_100016100(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100016100(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_10001611C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001611C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
-}
-
-uint64_t *sub_10001613C@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void sub_100016240(uint64_t a1)
@@ -2023,23 +2032,24 @@ void sub_100016240(uint64_t a1)
   *(v1 + 16) = 0;
 }
 
-id sub_1000164FC()
+id sub_1000164FC(uint64_t a1)
 {
   if (qword_100043400 != -1)
   {
     sub_10002090C();
   }
 
-  v1 = qword_100043408;
+  v2 = qword_100043408;
 
-  return v1;
+  return v2;
 }
 
-void sub_100016994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_100016994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  _Block_object_dispose(&a30, 8);
-  _Block_object_dispose((v30 - 168), 8);
-  _Block_object_dispose((v30 - 136), 8);
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v29 - 168), 8);
+  _Block_object_dispose((v29 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2141,7 +2151,7 @@ void sub_100016C3C(uint64_t a1)
 
 void sub_100018094(id a1)
 {
-  v1 = sub_1000164FC();
+  v1 = sub_1000164FC(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     sub_100020A98(v1, v2, v3, v4, v5, v6, v7, v8);
@@ -2150,7 +2160,7 @@ void sub_100018094(id a1)
 
 void sub_1000182D0(id a1)
 {
-  v1 = sub_1000164FC();
+  v1 = sub_1000164FC(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     sub_100020AD0(v1, v2, v3, v4, v5, v6, v7, v8);
@@ -2164,10 +2174,11 @@ void sub_100018954(id a1)
   _objc_release_x1();
 }
 
-void sub_100018998(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100018998(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_1000189F8(id a1)
@@ -2183,7 +2194,7 @@ void sub_1000189F8(id a1)
 void sub_100018C88(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100018CF8();
+  v4 = sub_100018CF8(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_100020CCC(a1);
@@ -2192,25 +2203,25 @@ void sub_100018C88(uint64_t a1, void *a2)
   [*(a1 + 32) setError:v3];
 }
 
-id sub_100018CF8()
+id sub_100018CF8(uint64_t a1)
 {
   if (qword_100043420 != -1)
   {
     sub_100020D94();
   }
 
-  v1 = qword_100043428;
+  v2 = qword_100043428;
 
-  return v1;
+  return v2;
 }
 
 void sub_100019BD8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100018CF8();
+  v4 = sub_100018CF8(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    sub_100021070(a1);
+    sub_100021070();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -2225,10 +2236,10 @@ void sub_100019BD8(uint64_t a1, void *a2)
 void sub_100019C6C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100018CF8();
+  v4 = sub_100018CF8(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000210DC(a1);
+    sub_1000210DC();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -2240,9 +2251,9 @@ void sub_100019C6C(uint64_t a1, void *a2)
   }
 }
 
-void sub_10001A110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10001A110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2262,16 +2273,16 @@ void sub_10001A14C(uint64_t a1, void *a2, void *a3)
   [*(a1 + 32) setError:v7];
 }
 
-void sub_10001A52C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10001A52C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2295,9 +2306,9 @@ void sub_10001A55C(uint64_t a1, void *a2, void *a3, void *a4)
   [*(a1 + 32) setError:v15];
 }
 
-void sub_10001A768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001A768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2313,7 +2324,7 @@ void sub_10001AF04(uint64_t a1, void *a2, void *a3)
 {
   v6 = a2;
   v7 = a3;
-  v26 = v7;
+  v28 = v7;
   if (v6 || !v7)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -2323,84 +2334,86 @@ void sub_10001AF04(uint64_t a1, void *a2, void *a3)
       obj = a2;
       v8 = WeakRetained;
       objc_sync_enter(v8);
+      v35 = 0u;
+      v36 = 0u;
       v33 = 0u;
       v34 = 0u;
-      v31 = 0u;
-      v32 = 0u;
       v10 = v8[4].isa;
-      v11 = [(objc_class *)v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v11 = [(objc_class *)v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
       if (v11)
       {
-        v12 = *v32;
+        v12 = *v34;
         v13 = TKTokenClassDriverClassIDKey;
         do
         {
           for (i = 0; i != v11; i = i + 1)
           {
-            if (*v32 != v12)
+            if (*v34 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v31 + 1) + 8 * i);
-            if (([v6 containsObject:{v15, obj}] & 1) == 0)
+            v15 = *(*(&v33 + 1) + 8 * i);
+            v16 = [v6 containsObject:{v15, obj}];
+            if ((v16 & 1) == 0)
             {
-              v16 = sub_100018CF8();
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+              v17 = sub_100018CF8(v16);
+              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
               {
                 [v15 identifier];
                 objc_claimAutoreleasedReturnValue();
                 sub_100021670();
               }
 
-              v17 = [v15 attributes];
-              v18 = [v17 objectForKeyedSubscript:v13];
+              v18 = [v15 attributes];
+              v19 = [v18 objectForKeyedSubscript:v13];
 
-              [v8 removeDriverWithClassID:v18];
+              [v8 removeDriverWithClassID:v19];
             }
           }
 
-          v11 = [(objc_class *)v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
+          v11 = [(objc_class *)v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
         }
 
         while (v11);
       }
 
+      v31 = 0u;
+      v32 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      v19 = v6;
-      v20 = [v19 countByEnumeratingWithState:&v27 objects:v35 count:16];
-      if (v20)
+      v20 = v6;
+      v21 = [v20 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      if (v21)
       {
-        v21 = *v28;
+        v22 = *v30;
         do
         {
-          for (j = 0; j != v20; j = j + 1)
+          for (j = 0; j != v21; j = j + 1)
           {
-            if (*v28 != v21)
+            if (*v30 != v22)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v20);
             }
 
-            v23 = *(*(&v27 + 1) + 8 * j);
-            if (([(objc_class *)v8[4].isa containsObject:v23, obj]& 1) == 0)
+            v24 = *(*(&v29 + 1) + 8 * j);
+            v25 = [(objc_class *)v8[4].isa containsObject:v24, obj];
+            if ((v25 & 1) == 0)
             {
-              v24 = sub_100018CF8();
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+              v26 = sub_100018CF8(v25);
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
               {
-                [v23 identifier];
+                [v24 identifier];
                 objc_claimAutoreleasedReturnValue();
                 sub_1000216BC();
               }
             }
           }
 
-          v20 = [v19 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v21 = [v20 countByEnumeratingWithState:&v29 objects:v37 count:16];
         }
 
-        while (v20);
+        while (v21);
       }
 
       objc_storeStrong(&v8[4].isa, obj);
@@ -2410,7 +2423,7 @@ void sub_10001AF04(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v8 = sub_100018CF8();
+    v8 = sub_100018CF8(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1000215FC();
@@ -2425,16 +2438,16 @@ void sub_10001BDA0(id a1)
   _objc_release_x1();
 }
 
-id sub_10001C2A4()
+id sub_10001C2A4(uint64_t a1)
 {
   if (qword_100043430 != -1)
   {
     sub_1000219B8();
   }
 
-  v1 = qword_100043438;
+  v2 = qword_100043438;
 
-  return v1;
+  return v2;
 }
 
 void sub_10001C654(id a1)
@@ -2527,7 +2540,7 @@ void sub_10001D7E0(uint64_t a1)
   v1 = [*(a1 + 32) tokenID];
   v2 = [v1 stringRepresentation];
   sub_100003394();
-  sub_1000033AC(&_mh_execute_header, v3, v4, "Failed to test connection to endpoint for registered token: %@, error: %@", v5, v6, v7, v8, v9);
+  sub_1000033AC(&_mh_execute_header, v3, v4, "Failed to test connection to endpoint for registered token: %@, error: %@", v5, v6, v7, v8);
 }
 
 void sub_10001D884(void *a1, NSObject *a2)
@@ -2543,7 +2556,7 @@ void sub_10001D91C(uint64_t a1)
   v1 = [*(a1 + 32) tokenID];
   v2 = [v1 stringRepresentation];
   sub_100003394();
-  sub_1000033AC(&_mh_execute_header, v3, v4, "Failed to receive endpoint for registered token: %@, error: %@", v5, v6, v7, v8, v9);
+  sub_1000033AC(&_mh_execute_header, v3, v4, "Failed to receive endpoint for registered token: %@, error: %@", v5, v6, v7, v8);
 }
 
 void sub_10001D9D4(void *a1, NSObject *a2)
@@ -2888,34 +2901,34 @@ void sub_10001EC4C(void *a1, uint8_t *buf, uint64_t a3, os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "removing slot name=%{public}@: - remaining %lu slots", buf, 0x16u);
 }
 
-void sub_10001ECB4(uint64_t a1)
+void sub_10001ECB4()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D978();
-  sub_10000D984(&_mh_execute_header, v1, v2, "Slot %@: starting polling", v3, v4, v5, v6, v7);
+  sub_10000D984(&_mh_execute_header, v0, v1, "Slot %@: starting polling", v2, v3, v4, v5);
 }
 
-void sub_10001ED30(uint64_t a1)
+void sub_10001ED30()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D978();
-  sub_10000D984(&_mh_execute_header, v1, v2, "Slot %@: stopping polling", v3, v4, v5, v6, v7);
+  sub_10000D984(&_mh_execute_header, v0, v1, "Slot %@: stopping polling", v2, v3, v4, v5);
 }
 
-void sub_10001ED98(uint64_t a1)
+void sub_10001ED98()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D978();
-  sub_10000D984(&_mh_execute_header, v1, v2, "Slot %@: ending session", v3, v4, v5, v6, v7);
+  sub_10000D984(&_mh_execute_header, v0, v1, "Slot %@: ending session", v2, v3, v4, v5);
 }
 
-void sub_10001EE00(uint64_t a1)
+void sub_10001EE00()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D978();
-  v4 = 1024;
-  v5 = v1;
-  _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "Slot %@: setCardConnected=%d", v3, 0x12u);
+  v3 = 1024;
+  v4 = v0;
+  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "Slot %@: setCardConnected=%d", v2, 0x12u);
 }
 
 void sub_10001EE88(void *a1, NSObject *a2)
@@ -2928,81 +2941,81 @@ void sub_10001EE88(void *a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "Slot %@: card status changed: present=%d", &v4, 0x12u);
 }
 
-void sub_10001EF24(uint64_t a1)
+void sub_10001EF24()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D954();
-  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "Slot %@: transmitting data, %@", v2, 0x16u);
+  _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "Slot %@: transmitting data, %@", v1, 0x16u);
 }
 
-void sub_10001EF9C(uint64_t a1)
+void sub_10001EF9C()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D978();
-  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Slot %{public}@: failed attempt to transmit: tag is not connected", v2, 0xCu);
+  _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "Slot %{public}@: failed attempt to transmit: tag is not connected", v1, 0xCu);
 }
 
-void sub_10001F010(uint64_t a1)
+void sub_10001F010()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D954();
-  sub_10000D9A0(&_mh_execute_header, v1, v2, "Slot %{public}@: failed attempt to transmit, error: %@");
+  sub_10000D9A0(&_mh_execute_header, v0, v1, "Slot %{public}@: failed attempt to transmit, error: %@");
 }
 
-void sub_10001F078(uint64_t a1)
+void sub_10001F078()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D978();
-  sub_10000D984(&_mh_execute_header, v1, v2, "Slot %@: engineResetCard", v3, v4, v5, v6, v7);
+  sub_10000D984(&_mh_execute_header, v0, v1, "Slot %@: engineResetCard", v2, v3, v4, v5);
 }
 
-void sub_10001F0E0(uint64_t a1)
+void sub_10001F0E0()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D978();
-  sub_10000D984(&_mh_execute_header, v1, v2, "Slot %@: The slot has no tag. Skipping card reset", v3, v4, v5, v6, v7);
+  sub_10000D984(&_mh_execute_header, v0, v1, "Slot %@: The slot has no tag. Skipping card reset", v2, v3, v4, v5);
 }
 
-void sub_10001F148(uint64_t a1)
+void sub_10001F148()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D978();
-  sub_10000D984(&_mh_execute_header, v1, v2, "Slot %@: didDetectTag", v3, v4, v5, v6, v7);
+  sub_10000D984(&_mh_execute_header, v0, v1, "Slot %@: didDetectTag", v2, v3, v4, v5);
 }
 
-void sub_10001F1B0(uint64_t a1)
+void sub_10001F1B0()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D954();
-  sub_10000D9A0(&_mh_execute_header, v1, v2, "Slot %@: Failed to connect to NFTag: %@");
+  sub_10000D9A0(&_mh_execute_header, v0, v1, "Slot %@: Failed to connect to NFTag: %@");
 }
 
-void sub_10001F218(uint64_t a1)
+void sub_10001F218()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D978();
-  sub_10000D984(&_mh_execute_header, v1, v2, "Slot %@: Connected to NFTag", v3, v4, v5, v6, v7);
+  sub_10000D984(&_mh_execute_header, v0, v1, "Slot %@: Connected to NFTag", v2, v3, v4, v5);
 }
 
-void sub_10001F280(uint64_t a1)
+void sub_10001F280()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D978();
-  sub_10000D984(&_mh_execute_header, v1, v2, "Slot %@: readerManagerDidEndSession", v3, v4, v5, v6, v7);
+  sub_10000D984(&_mh_execute_header, v0, v1, "Slot %@: readerManagerDidEndSession", v2, v3, v4, v5);
 }
 
-void sub_10001F2E8(uint64_t a1)
+void sub_10001F2E8()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D954();
-  sub_10000D9A0(&_mh_execute_header, v1, v2, "Slot %@: readerManagerDidEncounterError: %@");
+  sub_10000D9A0(&_mh_execute_header, v0, v1, "Slot %@: readerManagerDidEncounterError: %@");
 }
 
-void sub_10001F350(uint64_t a1)
+void sub_10001F350()
 {
-  sub_10000D96C(a1, __stack_chk_guard);
+  sub_10000D96C(__stack_chk_guard);
   sub_10000D978();
-  sub_10000D984(&_mh_execute_header, v1, v2, "Slot %@: readerManagerDidDisconnectTag", v3, v4, v5, v6, v7);
+  sub_10000D984(&_mh_execute_header, v0, v1, "Slot %@: readerManagerDidDisconnectTag", v2, v3, v4, v5);
 }
 
 void sub_10001F3B8(uint64_t a1, int a2, os_log_t log)
@@ -3014,12 +3027,12 @@ void sub_10001F3B8(uint64_t a1, int a2, os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "keychain query failed: %d (%@)", v3, 0x12u);
 }
 
-void sub_10001F4AC(uint64_t a1)
+void sub_10001F4AC()
 {
-  sub_1000115C4(a1, __stack_chk_guard);
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "ignoring multiple registration attempt for slot type '%@'", &v3, 0xCu);
+  sub_1000115C4(__stack_chk_guard);
+  v2 = 138412290;
+  v3 = v0;
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "ignoring multiple registration attempt for slot type '%@'", &v2, 0xCu);
 }
 
 void sub_10001F524(id *a1)
@@ -3056,9 +3069,8 @@ void sub_10001F6D4(uint64_t a1)
 void sub_10001F760(uint64_t a1)
 {
   [*(a1 + 32) processIdentifier];
-  v6 = *(a1 + 32);
   sub_1000115D0();
-  _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x12u);
+  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x12u);
 }
 
 void sub_10001F800(void *a1, uint8_t *buf, os_log_t log)
@@ -3077,25 +3089,25 @@ void sub_10001F94C(uint64_t a1, uint64_t a2, NSObject *a3)
   sub_10000D9A0(&_mh_execute_header, a2, a3, "Slot %@: Creation of NFC slot failed, error: %@", *v3, *&v3[8], *&v3[16]);
 }
 
-void sub_10001FA38(uint64_t a1)
+void sub_10001FA38()
 {
-  sub_1000115C4(a1, __stack_chk_guard);
+  sub_1000115C4(__stack_chk_guard);
   sub_10000D954();
-  sub_10000D9A0(&_mh_execute_header, v1, v2, "Slot %@: There was an error with start of NFC polling: %@");
+  sub_10000D9A0(&_mh_execute_header, v0, v1, "Slot %@: There was an error with start of NFC polling: %@");
 }
 
-void sub_10001FAA0(uint64_t a1)
+void sub_10001FAA0()
 {
-  sub_1000115C4(a1, __stack_chk_guard);
+  sub_1000115C4(__stack_chk_guard);
   sub_10000D954();
-  sub_10000D9A0(&_mh_execute_header, v1, v2, "Slot %@: Reader disconnection failed, error: %@");
+  sub_10000D9A0(&_mh_execute_header, v0, v1, "Slot %@: Reader disconnection failed, error: %@");
 }
 
-void sub_10001FB08(uint64_t a1)
+void sub_10001FB08()
 {
-  sub_1000115C4(a1, __stack_chk_guard);
+  sub_1000115C4(__stack_chk_guard);
   sub_100008EEC();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_10001FEBC(uint64_t a1, uint64_t a2, os_log_t log)
@@ -3107,68 +3119,46 @@ void sub_10001FEBC(uint64_t a1, uint64_t a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%@: tag disconnected, restarting polling failed: %@", &v3, 0x16u);
 }
 
-void sub_10001FFB0(uint64_t a1)
+void sub_10001FF44(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(a1 + 32);
-  sub_10000D978();
-  sub_10000D984(&_mh_execute_header, v2, v3, "NFC operation timeout reached, terminating NFC slot for token: %@", v4, v5, v6, v7, v8);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000D984(&_mh_execute_header, a2, a3, "%@: tag disconnected, restarting polling", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100020030(uint64_t a1, void *a2)
 {
   v2 = [a2 creatorBundleID];
   sub_1000160C8();
-  sub_10001611C(&_mh_execute_header, v3, v4, "Starting NFC slot for tokenID: %@, registrator: %@", v5, v6, v7, v8, v9);
+  sub_10001611C(&_mh_execute_header, v3, v4, "Starting NFC slot for tokenID: %@, registrator: %@", v5, v6, v7, v8);
 }
 
-void sub_1000200C8(uint64_t *a1)
+void sub_1000200C8()
 {
-  sub_10001613C(a1, __stack_chk_guard);
+  sub_10001613C(__stack_chk_guard);
   sub_10000D978();
-  sub_10000D984(&_mh_execute_header, v1, v2, "Cannot postpone: NFC slot not in active state (current: %ld)", v3, v4, v5, v6, v7);
+  sub_10000D984(&_mh_execute_header, v0, v1, "Cannot postpone: NFC slot not in active state (current: %ld)", v2, v3, v4, v5);
 }
 
-void sub_100020198(uint64_t *a1)
+void sub_100020198()
 {
-  sub_10001613C(a1, __stack_chk_guard);
+  sub_10001613C(__stack_chk_guard);
   sub_10000D978();
-  sub_1000160E0(&_mh_execute_header, v1, v2, "Cannot postpone: token ID mismatch (active: %@, requested: %@)");
+  sub_1000160E0(&_mh_execute_header, v0, v1, "Cannot postpone: token ID mismatch (active: %@, requested: %@)");
 }
 
-void sub_100020344(uint64_t a1)
+void sub_100020428()
 {
-  v1 = *(a1 + 32);
+  sub_10001613C(__stack_chk_guard);
   sub_10000D978();
-  sub_10000D984(&_mh_execute_header, v2, v3, "NFC slot timed out before receiving registered token: %@", v4, v5, v6, v7, v8);
+  sub_10000D984(&_mh_execute_header, v0, v1, "Inserted expected registered token: %@", v2, v3, v4, v5);
 }
 
-void sub_1000203B0(uint64_t a1, uint64_t *a2)
+void sub_100020490(uint64_t a1, void *a2)
 {
-  v2 = *a2;
-  sub_100008EF8();
-  sub_1000160E0(&_mh_execute_header, v3, v4, "Inserted token '%@' does not match expected: %@");
-}
-
-void sub_100020428(uint64_t *a1)
-{
-  sub_10001613C(a1, __stack_chk_guard);
-  sub_10000D978();
-  sub_10000D984(&_mh_execute_header, v1, v2, "Inserted expected registered token: %@", v3, v4, v5, v6, v7);
-}
-
-void sub_100020490(uint64_t *a1, void *a2)
-{
-  v2 = *a1;
-  v3 = [a2 slotName];
+  v2 = [a2 slotName];
   sub_1000160C8();
-  sub_10001611C(&_mh_execute_header, v4, v5, "Expected registered token '%@' inserted in an incorrect slot: %@", v6, v7, v8, v9, v10);
-}
-
-void sub_100020524(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  sub_100008EF8();
-  sub_1000160E0(&_mh_execute_header, v3, v4, "Starting NFC operation for token %@ while operation for token %@ is still active");
+  sub_10001611C(&_mh_execute_header, v3, v4, "Expected registered token '%@' inserted in an incorrect slot: %@", v5, v6, v7, v8);
 }
 
 void sub_10002059C(uint64_t a1, uint8_t *buf, os_log_t log, double a4)
@@ -3187,19 +3177,18 @@ void sub_100020658(uint8_t *buf, NSObject *a2, double a3)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "Refreshing active NFC operation and terminating after %f seconds", buf, 0xCu);
 }
 
-void sub_10002069C(uint64_t *a1)
+void sub_10002069C()
 {
-  sub_10001613C(a1, __stack_chk_guard);
-  v2 = *(v1 + 56);
+  sub_10001613C(__stack_chk_guard);
   sub_10000D978();
-  sub_1000160E0(&_mh_execute_header, v3, v4, "Postponing NFC slot termination for token %@ by %f seconds");
+  sub_1000160E0(&_mh_execute_header, v0, v1, "Postponing NFC slot termination for token %@ by %f seconds");
 }
 
 void sub_100020804()
 {
   v0 = +[NSThread currentThread];
   sub_1000160C8();
-  sub_10001611C(&_mh_execute_header, v1, v2, "XPC connection to '%@' endpoint was closed %@", v3, v4, v5, v6, v7);
+  sub_10001611C(&_mh_execute_header, v1, v2, "XPC connection to '%@' endpoint was closed %@", v3, v4, v5, v6);
 }
 
 void sub_100020A08()
@@ -3246,34 +3235,24 @@ void sub_100020CCC(uint64_t a1)
   v2 = [v1 extension];
   v3 = [v2 identifier];
   sub_100008EF8();
-  sub_1000033AC(&_mh_execute_header, v4, v5, "Failed to communicate with driver %{public}@, error: %{public}@", v6, v7, v8, v9, v10);
+  sub_1000033AC(&_mh_execute_header, v4, v5, "Failed to communicate with driver %{public}@, error: %{public}@", v6, v7, v8, v9);
 }
 
 void sub_100020DA8(uint64_t a1, void *a2)
 {
-  v2 = [a2 extension];
-  v9 = [v2 identifier];
-  sub_1000033AC(&_mh_execute_header, v3, v4, "Invalid or missing attribute '%{public}@' of extension %{public}@", v5, v6, v7, v8, 2u);
+  v3 = [a2 extension];
+  v4 = [v3 identifier];
+  *v11 = 138543618;
+  *&v11[4] = a1;
+  *&v11[12] = 2114;
+  *&v11[14] = v4;
+  sub_1000033AC(&_mh_execute_header, v5, v6, "Invalid or missing attribute '%{public}@' of extension %{public}@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
 void sub_100020E5C(uint64_t a1, uint64_t a2)
 {
   v4 = +[NSAssertionHandler currentHandler];
   [v4 handleFailureInMethod:a1 object:a2 file:@"TKHostTokenDriver.m" lineNumber:142 description:@"Attempted to create keepalive xaction when it already exists"];
-}
-
-void sub_100021070(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_10001BDF4();
-  sub_1000160E0(&_mh_execute_header, v2, v3, "%{public}@ extension request %{public}@ invalidated, removing driver from cache");
-}
-
-void sub_1000210DC(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_10001BDF4();
-  sub_1000160E0(&_mh_execute_header, v2, v3, "%{public}@ extension request %{public}@ cancelled, removing driver from cache");
 }
 
 void sub_100021148(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3288,6 +3267,13 @@ void sub_10002129C(void *a1, NSObject *a2)
   v4 = [v3 identifier];
   sub_100008EF8();
   sub_10000CE18(&_mh_execute_header, a2, v5, "acquiring token on driver %{public}@ through slot", v6);
+}
+
+void sub_100021344(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  sub_10000D984(&_mh_execute_header, a2, a3, "%{public}@: acquired by slot", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000213B4(void *a1, NSObject *a2)

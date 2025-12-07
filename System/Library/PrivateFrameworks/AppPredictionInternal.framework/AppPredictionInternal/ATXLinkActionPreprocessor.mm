@@ -8,29 +8,29 @@
 
 - (id)preprocessedSuggestionsUpdatingLinkActions:(id)actions
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
   v5 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = actionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         executableSpecification = [v11 executableSpecification];
         executableType = [executableSpecification executableType];
 
@@ -49,13 +49,11 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -74,39 +72,39 @@
     executableObject2 = [executableSpecification2 executableObject];
 
     bundleId = [executableObject2 bundleId];
-    v16 = 0;
-    v11 = [ATXLinkTranscriptUtil linkTranscriptPublisherForBundleId:bundleId fromDate:0 toDate:0 maxEvents:0 reversed:1 error:&v16];
-    v12 = v16;
+    v18 = 0;
+    v12 = [ATXLinkTranscriptUtil linkTranscriptPublisherForBundleId:bundleId fromDate:0 toDate:0 maxEvents:0 reversed:1 error:&v18];
+    v13 = v18;
 
-    if (v12)
+    if (v13)
     {
-      v13 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = __atxlog_handle_blending(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [ATXLinkActionPreprocessor updatedLinkActionSuggestion:executableObject2];
       }
 
-      v14 = 0;
+      v16 = 0;
     }
 
     else
     {
-      v14 = [(ATXLinkActionPreprocessor *)self updatedLinkActionSuggestion:suggestionCopy actionContainer:executableObject2 basedOnReversedPublisher:v11];
+      v16 = [(ATXLinkActionPreprocessor *)self updatedLinkActionSuggestion:suggestionCopy actionContainer:executableObject2 basedOnReversedPublisher:v12];
     }
   }
 
   else
   {
-    executableObject2 = __atxlog_handle_blending();
+    executableObject2 = __atxlog_handle_blending(v8);
     if (os_log_type_enabled(executableObject2, OS_LOG_TYPE_ERROR))
     {
       [ATXLinkActionPreprocessor updatedLinkActionSuggestion:suggestionCopy];
     }
 
-    v14 = 0;
+    v16 = 0;
   }
 
-  return v14;
+  return v16;
 }
 
 - (id)updatedLinkActionSuggestion:(id)suggestion actionContainer:(id)container basedOnReversedPublisher:(id)publisher
@@ -180,7 +178,7 @@
 
   else
   {
-    v30 = __atxlog_handle_blending();
+    v30 = __atxlog_handle_blending(v12);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       [ATXLinkActionPreprocessor updatedLinkActionSuggestion:v11 actionContainer:v30 basedOnReversedPublisher:?];
@@ -197,22 +195,22 @@
 
 void __98__ATXLinkActionPreprocessor_updatedLinkActionSuggestion_actionContainer_basedOnReversedPublisher___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = [v3 error];
+  v2 = a2;
+  v3 = [v2 error];
 
-  if (v4)
+  if (v3)
   {
-    v5 = __atxlog_handle_blending();
+    v5 = __atxlog_handle_blending(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __98__ATXLinkActionPreprocessor_updatedLinkActionSuggestion_actionContainer_basedOnReversedPublisher___block_invoke_cold_1(v3, a1);
+      __98__ATXLinkActionPreprocessor_updatedLinkActionSuggestion_actionContainer_basedOnReversedPublisher___block_invoke_cold_1(v2);
     }
   }
 }
 
 BOOL __98__ATXLinkActionPreprocessor_updatedLinkActionSuggestion_actionContainer_basedOnReversedPublisher___block_invoke_16(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [a2 eventBody];
   v4 = objc_alloc(MEMORY[0x277CEB608]);
   v5 = [v3 bundleIdentifier];
@@ -241,13 +239,13 @@ BOOL __98__ATXLinkActionPreprocessor_updatedLinkActionSuggestion_actionContainer
 
     else
     {
-      v17 = __atxlog_handle_blending();
+      v17 = __atxlog_handle_blending(0);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         v18 = *(a1 + 40);
-        v21 = 138412290;
-        v22 = v18;
-        _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "Blending: Skipping matching Link action event that's not predictable in transcript of %@", &v21, 0xCu);
+        v20 = 138412290;
+        v21 = v18;
+        _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "Blending: Skipping matching Link action event that's not predictable in transcript of %@", &v20, 0xCu);
       }
     }
   }
@@ -257,49 +255,37 @@ BOOL __98__ATXLinkActionPreprocessor_updatedLinkActionSuggestion_actionContainer
     v12 = 1;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)updatedLinkActionSuggestion:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 executableSpecification];
-  v8 = [v1 executableClassString];
+  v7 = [v1 executableClassString];
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatedLinkActionSuggestion:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 bundleId];
+  v6 = [a1 bundleId];
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatedLinkActionSuggestion:(uint64_t)a1 actionContainer:(NSObject *)a2 basedOnReversedPublisher:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Blending: Unable to find predictable Link suggestion in transcript: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Blending: Unable to find predictable Link suggestion in transcript: %@", &v2, 0xCu);
 }
 
-void __98__ATXLinkActionPreprocessor_updatedLinkActionSuggestion_actionContainer_basedOnReversedPublisher___block_invoke_cold_1(void *a1, uint64_t a2)
+void __98__ATXLinkActionPreprocessor_updatedLinkActionSuggestion_actionContainer_basedOnReversedPublisher___block_invoke_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v9 = [a1 error];
-  v10 = *(a2 + 32);
+  v6 = [a1 error];
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 @end

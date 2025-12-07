@@ -78,24 +78,20 @@ LABEL_8:
 
 - (void)initWithCoder:(void *)a1 .cold.1(void *a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v1 = [a1 error];
-  v3[0] = 138412546;
+  v2[0] = 138412546;
   OUTLINED_FUNCTION_0_6();
-  _os_log_error_impl(&dword_1DEFC4000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "ATXInfoTimelineEntryRelevance: error decoding %@ - %@", v3, 0x16u);
-
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DEFC4000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "ATXInfoTimelineEntryRelevance: error decoding %@ - %@", v2, 0x16u);
 }
 
 - (void)initWithCoder:(void *)a1 .cold.2(void *a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v1 = [a1 error];
-  v3[0] = 138412546;
+  v2[0] = 138412546;
   OUTLINED_FUNCTION_0_6();
-  _os_log_error_impl(&dword_1DEFC4000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "ATXInfoTimelineEntryRelevance: error decoding %@ - %@", v3, 0x16u);
-
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DEFC4000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "ATXInfoTimelineEntryRelevance: error decoding %@ - %@", v2, 0x16u);
 }
 
 @end

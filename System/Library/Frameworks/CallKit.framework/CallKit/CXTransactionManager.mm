@@ -49,7 +49,7 @@
 
 - (void)addOutstandingTransactionGroup:(id)group
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   groupCopy = group;
   queue = [(CXTransactionManager *)self queue];
   dispatch_assert_queue_barrier(queue);
@@ -58,136 +58,134 @@
   [outstandingTransactionGroups addObject:groupCopy];
 
   date = [MEMORY[0x1E695DF00] date];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v20 = groupCopy;
+  v19 = groupCopy;
   obj = [groupCopy callSources];
-  v21 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v21)
+  v20 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v20)
   {
-    v19 = *v27;
+    v18 = *v26;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v27 != v19)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
-        v10 = [v20 transactionForCallSource:v9];
+        v9 = *(*(&v25 + 1) + 8 * i);
+        v10 = [v19 transactionForCallSource:v9];
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         actions = [v10 actions];
-        v12 = [actions countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v12 = [actions countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v23;
+          v14 = *v22;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v23 != v14)
+              if (*v22 != v14)
               {
                 objc_enumerationMutation(actions);
               }
 
-              v16 = *(*(&v22 + 1) + 8 * j);
+              v16 = *(*(&v21 + 1) + 8 * j);
               [v16 setCommitDate:date];
               [(CXTransactionManager *)self _setUpTimeoutForActionIfNecessary:v16 callSource:v9];
             }
 
-            v13 = [actions countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v13 = [actions countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
           while (v13);
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v20 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithCompletedAction:(id)action
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   queue = [(CXTransactionManager *)self queue];
   dispatch_assert_queue_barrier(queue);
 
-  v6 = CXDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = CXDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v39 = actionCopy;
-    _os_log_impl(&dword_1B47F3000, v6, OS_LOG_TYPE_DEFAULT, "completedAction: %@", buf, 0xCu);
+    v40 = actionCopy;
+    _os_log_impl(&dword_1B47F3000, v7, OS_LOG_TYPE_DEFAULT, "completedAction: %@", buf, 0xCu);
   }
 
-  v34 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
+  v34 = 0u;
   selfCopy = self;
   obj = [(CXTransactionManager *)self outstandingTransactionGroups];
-  v26 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
-  if (v26)
+  v27 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  if (v27)
   {
-    v25 = *v33;
+    v26 = *v34;
     while (2)
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v27; ++i)
       {
-        if (*v33 != v25)
+        if (*v34 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v32 + 1) + 8 * i);
-        v28 = 0u;
+        v9 = *(*(&v33 + 1) + 8 * i);
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v27 = v8;
-        allActions = [v8 allActions];
-        v10 = [allActions countByEnumeratingWithState:&v28 objects:v36 count:16];
-        if (v10)
+        v32 = 0u;
+        v28 = v9;
+        allActions = [v9 allActions];
+        v11 = [allActions countByEnumeratingWithState:&v29 objects:v37 count:16];
+        if (v11)
         {
-          v11 = v10;
-          v12 = *v29;
+          v12 = v11;
+          v13 = *v30;
 LABEL_10:
-          v13 = 0;
+          v14 = 0;
           while (1)
           {
-            if (*v29 != v12)
+            if (*v30 != v13)
             {
               objc_enumerationMutation(allActions);
             }
 
-            v14 = *(*(&v28 + 1) + 8 * v13);
-            uUID = [v14 UUID];
+            v15 = *(*(&v29 + 1) + 8 * v14);
+            uUID = [v15 UUID];
             uUID2 = [actionCopy UUID];
-            v17 = [uUID isEqual:uUID2];
+            v18 = [uUID isEqual:uUID2];
 
-            if (v17)
+            if (v18)
             {
               break;
             }
 
-            if (v11 == ++v13)
+            if (v12 == ++v14)
             {
-              v11 = [allActions countByEnumeratingWithState:&v28 objects:v36 count:16];
-              if (v11)
+              v12 = [allActions countByEnumeratingWithState:&v29 objects:v37 count:16];
+              if (v12)
               {
                 goto LABEL_10;
               }
@@ -196,21 +194,21 @@ LABEL_10:
             }
           }
 
-          [actionCopy updateCopy:v14 withZone:0];
-          v18 = v27;
+          [actionCopy updateCopy:v15 withZone:0];
+          v19 = v28;
 
-          if (!v18)
+          if (!v19)
           {
             continue;
           }
 
-          if ([v18 isComplete])
+          if ([v19 isComplete])
           {
             outstandingTransactionGroups = [(CXTransactionManager *)selfCopy outstandingTransactionGroups];
-            [outstandingTransactionGroups removeObject:v18];
+            [outstandingTransactionGroups removeObject:v19];
 
             delegate = [(CXTransactionManager *)selfCopy delegate];
-            [delegate transactionManager:selfCopy transactionGroupCompleted:v18];
+            [delegate transactionManager:selfCopy transactionGroupCompleted:v19];
             goto LABEL_25;
           }
 
@@ -220,8 +218,8 @@ LABEL_10:
 LABEL_16:
       }
 
-      v26 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
-      if (v26)
+      v27 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      if (v27)
       {
         continue;
       }
@@ -230,20 +228,19 @@ LABEL_16:
     }
   }
 
-  delegate = CXDefaultLog();
+  delegate = CXDefaultLog(v20);
   if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT))
   {
     outstandingTransactionGroups2 = [(CXTransactionManager *)selfCopy outstandingTransactionGroups];
     *buf = 138412290;
-    v39 = outstandingTransactionGroups2;
+    v40 = outstandingTransactionGroups2;
     _os_log_impl(&dword_1B47F3000, delegate, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find transaction group with completed action. All transactions groups: %@", buf, 0xCu);
   }
 
-  v18 = 0;
+  v19 = 0;
 LABEL_25:
 
 LABEL_26:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)failOutstandingActionsForCallWithUUID:(id)d
@@ -306,12 +303,12 @@ LABEL_26:
 
                 if (v18)
                 {
-                  v19 = CXDefaultLog();
-                  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+                  v20 = CXDefaultLog(v19);
+                  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
                     v34 = v16;
-                    _os_log_impl(&dword_1B47F3000, v19, OS_LOG_TYPE_DEFAULT, "Failing action by system request: %@", buf, 0xCu);
+                    _os_log_impl(&dword_1B47F3000, v20, OS_LOG_TYPE_DEFAULT, "Failing action by system request: %@", buf, 0xCu);
                   }
 
                   [v16 updateAsFailedWithReason:3];
@@ -335,8 +332,6 @@ LABEL_26:
 
     while (v23);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)failOutstandingActionsForChannelWithUUID:(id)d
@@ -399,12 +394,12 @@ LABEL_26:
 
                 if (v18)
                 {
-                  v19 = CXDefaultLog();
-                  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+                  v20 = CXDefaultLog(v19);
+                  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
                     v34 = v16;
-                    _os_log_impl(&dword_1B47F3000, v19, OS_LOG_TYPE_DEFAULT, "Failing action by system request: %@", buf, 0xCu);
+                    _os_log_impl(&dword_1B47F3000, v20, OS_LOG_TYPE_DEFAULT, "Failing action by system request: %@", buf, 0xCu);
                   }
 
                   [v16 updateAsFailedWithReason:3];
@@ -428,8 +423,6 @@ LABEL_26:
 
     while (v23);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setUpTimeoutForActionIfNecessary:(id)necessary callSource:(id)source
@@ -458,16 +451,17 @@ LABEL_26:
   v15 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   sourceCopy = source;
-  if (([actionCopy isComplete] & 1) == 0)
+  isComplete = [actionCopy isComplete];
+  if ((isComplete & 1) == 0)
   {
-    v8 = CXDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = CXDefaultLog(isComplete);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412546;
       v12 = actionCopy;
       v13 = 2112;
       v14 = sourceCopy;
-      _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Timeout reached for incomplete action %@ and call source %@", &v11, 0x16u);
+      _os_log_impl(&dword_1B47F3000, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Timeout reached for incomplete action %@ and call source %@", &v11, 0x16u);
     }
 
     [actionCopy updateAsFailedWithReason:2];
@@ -476,8 +470,6 @@ LABEL_26:
 
     [(CXTransactionManager *)self updateWithCompletedAction:actionCopy];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

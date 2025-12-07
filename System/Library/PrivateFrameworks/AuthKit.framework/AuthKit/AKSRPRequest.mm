@@ -90,22 +90,21 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, handler);
-  v4 = selfCopy;
+  v3 = selfCopy;
   additionalHeaders = [(AKSRPRequest *)selfCopy additionalHeaders];
-  contextHelper = selfCopy->_contextHelper;
-  [AKSRPRequest _attachAdditionalHeaders:v4 toContextHelper:"_attachAdditionalHeaders:toContextHelper:"];
+  [AKSRPRequest _attachAdditionalHeaders:v3 toContextHelper:"_attachAdditionalHeaders:toContextHelper:"];
   _objc_release(additionalHeaders);
-  v6 = selfCopy->_contextHelper;
-  v7 = _NSConcreteStackBlock;
-  v8 = -1073741824;
-  v9 = 0;
-  v10 = sub_100188DC8;
-  v11 = &unk_100320A58;
-  v12 = _objc_retain(selfCopy);
-  v13 = _objc_retain(location[0]);
-  [(AKSRPContextHelper *)v6 authenticationParametersWithCompletion:?];
-  objc_storeStrong(&v13, 0);
+  contextHelper = selfCopy->_contextHelper;
+  v6 = _NSConcreteStackBlock;
+  v7 = -1073741824;
+  v8 = 0;
+  v9 = sub_100188DC8;
+  v10 = &unk_100320A58;
+  v11 = _objc_retain(selfCopy);
+  v12 = _objc_retain(location[0]);
+  [(AKSRPContextHelper *)contextHelper authenticationParametersWithCompletion:?];
   objc_storeStrong(&v12, 0);
+  objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
 }
 

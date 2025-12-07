@@ -35,13 +35,13 @@
 
 - (BindingEvaluator)baseBindingEvaluatorWithBindingStyle:(SEL)style auditToken:(unsigned __int8)token
 {
-  v6 = _LSDefaultLog();
+  v6 = _LSDefaultLog(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [_LSCompatibilityNothingBindable baseBindingEvaluatorWithBindingStyle:v6 auditToken:?];
   }
 
-  LaunchServices::BindingEvaluator::CreateWithUTI(0, 0, retstr);
+  LaunchServices::BindingEvaluator::CreateWithUTI(retstr, 0, 0);
   return result;
 }
 

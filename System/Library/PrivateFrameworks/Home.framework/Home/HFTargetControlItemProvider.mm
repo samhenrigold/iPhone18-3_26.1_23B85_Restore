@@ -39,16 +39,16 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFTargetControlItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
 
 - (id)reloadItems
 {
-  home = [(HFTargetControlItemProvider *)self home];
-  hf_allTargetControlAccessories = [home hf_allTargetControlAccessories];
+  v3 = objc_msgSend_home(self, a2);
+  hf_allTargetControlAccessories = [v3 hf_allTargetControlAccessories];
 
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
@@ -76,7 +76,7 @@ HFTargetControlAccessoryItem *__42__HFTargetControlItemProvider_reloadItems__blo
 {
   v3 = a2;
   v4 = [HFTargetControlAccessoryItem alloc];
-  v5 = [*(a1 + 32) home];
+  v5 = objc_msgSend_home(*(a1 + 32));
   v6 = [v5 hf_characteristicValueManager];
   v7 = [(HFTargetControlAccessoryItem *)v4 initWithAccessory:v3 valueSource:v6];
 

@@ -222,32 +222,29 @@ LABEL_11:
 
 - (void)initWithCoder:.cold.1()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  v3 = 5;
-  _os_log_error_impl(&dword_1C871B000, v0, OS_LOG_TYPE_ERROR, "Mismatch between encoded HyperLogLog register width %u and current width %u", v2, 0xEu);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = 5;
+  _os_log_error_impl(&dword_1C871B000, v0, OS_LOG_TYPE_ERROR, "Mismatch between encoded HyperLogLog register width %u and current width %u", v1, 0xEu);
 }
 
 - (void)initWithCoder:.cold.2()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  v3 = 32;
-  _os_log_error_impl(&dword_1C871B000, v0, OS_LOG_TYPE_ERROR, "Mismatch between encoded HyperLogLog register count %u and current count %u", v2, 0xEu);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = 32;
+  _os_log_error_impl(&dword_1C871B000, v0, OS_LOG_TYPE_ERROR, "Mismatch between encoded HyperLogLog register count %u and current count %u", v1, 0xEu);
 }
 
 - (void)initWithCoder:(uint64_t *)a1 .cold.3(uint64_t *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 134218240;
-  v5 = v2;
-  v6 = 2048;
-  v7 = 32;
-  _os_log_error_impl(&dword_1C871B000, a2, OS_LOG_TYPE_ERROR, "Mismatch between encoded HyperLogLog data size %zu and current expected size %lu", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 134218240;
+  v4 = v2;
+  v5 = 2048;
+  v6 = 32;
+  _os_log_error_impl(&dword_1C871B000, a2, OS_LOG_TYPE_ERROR, "Mismatch between encoded HyperLogLog data size %zu and current expected size %lu", &v3, 0x16u);
 }
 
 @end

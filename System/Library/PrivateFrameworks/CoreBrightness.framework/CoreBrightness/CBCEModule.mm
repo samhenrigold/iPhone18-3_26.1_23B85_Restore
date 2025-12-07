@@ -77,7 +77,6 @@
     selfCopy->_currentInput = v12;
   }
 
-  *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -183,7 +182,6 @@
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -472,7 +470,6 @@
     self->_overriddenInput = overriddenInput;
   }
 
-  *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -494,7 +491,7 @@
   memset(__b, 0, sizeof(__b));
   if (eventCopy)
   {
-    [eventCopy vendorData];
+    objc_msgSend_vendorData(eventCopy);
   }
 
   else
@@ -528,7 +525,7 @@
 
   if (eventCopy)
   {
-    [eventCopy colorSample];
+    objc_msgSend_colorSample(eventCopy);
   }
 
   else
@@ -539,7 +536,7 @@
   v11 = v29[15];
   if (eventCopy)
   {
-    [eventCopy colorSample];
+    objc_msgSend_colorSample(eventCopy);
   }
 
   else
@@ -550,7 +547,7 @@
   v30 = (v11 / v29[1]);
   if (eventCopy)
   {
-    [eventCopy colorSample];
+    objc_msgSend_colorSample(eventCopy);
   }
 
   else
@@ -561,7 +558,7 @@
   v10 = v27[16];
   if (eventCopy)
   {
-    [eventCopy colorSample];
+    objc_msgSend_colorSample(eventCopy);
   }
 
   else
@@ -572,7 +569,7 @@
   v28 = (v10 / v27[1]);
   if (eventCopy)
   {
-    [eventCopy colorSample];
+    objc_msgSend_colorSample(eventCopy);
   }
 
   else
@@ -583,7 +580,7 @@
   v9 = *(&v25[9] + 1);
   if (eventCopy)
   {
-    [eventCopy colorSample];
+    objc_msgSend_colorSample(eventCopy);
   }
 
   else
@@ -595,7 +592,7 @@
   v25[0] = 0;
   if (eventCopy)
   {
-    [eventCopy colorSample];
+    objc_msgSend_colorSample(eventCopy);
   }
 
   else
@@ -615,7 +612,7 @@
   v16 = 0.0;
   if (eventCopy)
   {
-    [eventCopy colorSample];
+    objc_msgSend_colorSample(eventCopy);
   }
 
   else
@@ -770,7 +767,6 @@
   inputCopy = [inputCopy initWithInput:v39];
   v21 = v39;
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
   return inputCopy;
 }
 
@@ -900,7 +896,6 @@
   }
 
   [(NSMutableDictionary *)selfCopy->_currentOutputDict setDictionary:v26];
-  *MEMORY[0x1E69E9840];
   return v26;
 }
 

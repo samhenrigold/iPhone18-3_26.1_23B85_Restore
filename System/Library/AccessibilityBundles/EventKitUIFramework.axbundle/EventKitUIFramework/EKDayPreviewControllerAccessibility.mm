@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axAnnotateDayView;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation EKDayPreviewControllerAccessibility
@@ -38,6 +39,14 @@
   v3.receiver = self;
   v3.super_class = EKDayPreviewControllerAccessibility;
   [(EKDayPreviewControllerAccessibility *)&v3 _accessibilityLoadAccessibilityInformation];
+  [(EKDayPreviewControllerAccessibility *)self _axAnnotateDayView];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = EKDayPreviewControllerAccessibility;
+  [(EKDayPreviewControllerAccessibility *)&v4 viewWillAppear:appear];
   [(EKDayPreviewControllerAccessibility *)self _axAnnotateDayView];
 }
 

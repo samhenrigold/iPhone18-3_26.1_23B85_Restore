@@ -23,30 +23,30 @@
 
 uint64_t __35__CSUAFAssetManager_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedManager_6814 = [(CSUAFAssetManagerBase *)[CSUAFAssetManager alloc] initWithForceSetIsExclave:+[CSUtils exclaveManagerProxy:"isExclaveHardware"], 0];
+  v0 = [(CSUAFAssetManagerBase *)[CSUAFAssetManager alloc] initWithForceSetIsExclave:+[CSUtils exclaveManagerProxy:"isExclaveHardware"], 0];
+  v1 = sharedInstance_sharedManager_6814;
+  sharedInstance_sharedManager_6814 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)retryMappingAssetToExclaveKit:(id)kit completion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   kitCopy = kit;
   completionCopy = completion;
   v8 = self->_assetSet;
   v9 = CSLogCategoryAsset;
   if (os_log_type_enabled(CSLogCategoryAsset, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315394;
-    v12 = "[CSUAFAssetManager retryMappingAssetToExclaveKit:completion:]";
-    v13 = 2112;
-    v14 = @"com.apple.siri.sp.invocation";
-    _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Retrying to mapping asset %@ to ExclaveKit", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[CSUAFAssetManager retryMappingAssetToExclaveKit:completion:]";
+    v12 = 2112;
+    v13 = @"com.apple.siri.sp.invocation";
+    _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Retrying to mapping asset %@ to ExclaveKit", &v10, 0x16u);
   }
 
   [(CSUAFAssetManagerBase *)self retryMappingAssetToExclaveKit:kitCopy assetName:@"com.apple.siri.sp.invocation" assetSet:v8 completion:completionCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mapAssetToExclaveKit:(id)kit completion:(id)completion
@@ -68,17 +68,17 @@ uint64_t __35__CSUAFAssetManager_sharedInstance__block_invoke()
 
 void __53__CSUAFAssetManager_mapAssetToExclaveKit_completion___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = @"com.apple.siri.sp.invocation";
   v3 = *(*(a1 + 32) + 64);
   v4 = CSLogCategoryAsset;
   if (os_log_type_enabled(CSLogCategoryAsset, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 136315394;
-    v19 = "[CSUAFAssetManager mapAssetToExclaveKit:completion:]_block_invoke";
-    v20 = 2112;
-    v21 = @"com.apple.siri.sp.invocation";
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Mapping asset %@ to ExclaveKit", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[CSUAFAssetManager mapAssetToExclaveKit:completion:]_block_invoke";
+    v19 = 2112;
+    v20 = @"com.apple.siri.sp.invocation";
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Mapping asset %@ to ExclaveKit", &v17, 0x16u);
   }
 
   if (!*(a1 + 40))
@@ -86,9 +86,9 @@ void __53__CSUAFAssetManager_mapAssetToExclaveKit_completion___block_invoke(uint
     v10 = CSLogCategoryAsset;
     if (os_log_type_enabled(CSLogCategoryAsset, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 136315138;
-      v19 = "[CSUAFAssetManager mapAssetToExclaveKit:completion:]_block_invoke";
-      _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s Asset is nil. Not starting Secure Mobile Asset Loader Service", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "[CSUAFAssetManager mapAssetToExclaveKit:completion:]_block_invoke";
+      _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s Asset is nil. Not starting Secure Mobile Asset Loader Service", &v17, 0xCu);
     }
 
     v7 = MEMORY[0x1E696ABC0];
@@ -106,9 +106,9 @@ void __53__CSUAFAssetManager_mapAssetToExclaveKit_completion___block_invoke(uint
         v6 = CSLogCategoryAsset;
         if (os_log_type_enabled(CSLogCategoryAsset, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = 136315138;
-          v19 = "[CSUAFAssetManager mapAssetToExclaveKit:completion:]_block_invoke";
-          _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Asset is nil. Not starting Adblocker Secure Mobile Asset Loader Service", &v18, 0xCu);
+          v17 = 136315138;
+          v18 = "[CSUAFAssetManager mapAssetToExclaveKit:completion:]_block_invoke";
+          _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Asset is nil. Not starting Adblocker Secure Mobile Asset Loader Service", &v17, 0xCu);
         }
 
         v7 = MEMORY[0x1E696ABC0];
@@ -134,9 +134,9 @@ void __53__CSUAFAssetManager_mapAssetToExclaveKit_completion___block_invoke(uint
     v14 = CSLogCategoryAsset;
     if (os_log_type_enabled(CSLogCategoryAsset, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 136315138;
-      v19 = "[CSUAFAssetManager mapAssetToExclaveKit:completion:]_block_invoke";
-      _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s Asset is nil. Not starting Secure Mobile Asset Loader Service", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "[CSUAFAssetManager mapAssetToExclaveKit:completion:]_block_invoke";
+      _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s Asset is nil. Not starting Secure Mobile Asset Loader Service", &v17, 0xCu);
     }
 
     v7 = MEMORY[0x1E696ABC0];
@@ -149,9 +149,9 @@ LABEL_22:
   v11 = CSLogCategoryAsset;
   if (os_log_type_enabled(CSLogCategoryAsset, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 136315138;
-    v19 = "[CSUAFAssetManager mapAssetToExclaveKit:completion:]_block_invoke";
-    _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s The hardware does not support secure exclave. Not starting Secure Mobile Asset Loader Service", &v18, 0xCu);
+    v17 = 136315138;
+    v18 = "[CSUAFAssetManager mapAssetToExclaveKit:completion:]_block_invoke";
+    _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s The hardware does not support secure exclave. Not starting Secure Mobile Asset Loader Service", &v17, 0xCu);
   }
 
   v7 = MEMORY[0x1E696ABC0];
@@ -174,29 +174,27 @@ LABEL_26:
   }
 
 LABEL_27:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_getInstalledAssetofType:(unint64_t)type forLocale:(id)locale completion:(id)completion
 {
-  v78[1] = *MEMORY[0x1E69E9840];
+  v77[1] = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   completionCopy = completion;
-  v57[0] = MEMORY[0x1E69E9820];
-  v57[1] = 3221225472;
-  v57[2] = __67__CSUAFAssetManager__getInstalledAssetofType_forLocale_completion___block_invoke;
-  v57[3] = &unk_1E865AEC8;
+  v56[0] = MEMORY[0x1E69E9820];
+  v56[1] = 3221225472;
+  v56[2] = __67__CSUAFAssetManager__getInstalledAssetofType_forLocale_completion___block_invoke;
+  v56[3] = &unk_1E865AEC8;
   v10 = completionCopy;
-  v58 = v10;
-  v11 = MEMORY[0x1E12BA300](v57);
+  v57 = v10;
+  v11 = MEMORY[0x1E12BA300](v56);
   if (type > 6 || ((1 << type) & 0x51) == 0)
   {
     type = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported assetType: %lu", type];
     v19 = MEMORY[0x1E696ABC0];
-    v77 = @"reason";
-    v78[0] = type;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v78 forKeys:&v77 count:1];
+    v76 = @"reason";
+    v77[0] = type;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v77 forKeys:&v76 count:1];
     v17 = v19;
     v18 = 2152;
     goto LABEL_8;
@@ -209,9 +207,9 @@ LABEL_27:
   {
     type = [MEMORY[0x1E696AEC0] stringWithFormat:@"UAF honoring Trial asset bypass is set"];
     v15 = MEMORY[0x1E696ABC0];
-    v75 = @"reason";
-    v76 = type;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+    v74 = @"reason";
+    v75 = type;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
     v17 = v15;
     v18 = 1601;
 LABEL_8:
@@ -232,10 +230,10 @@ LABEL_8:
   }
 
   mEMORY[0x1E69DEEE8] = [MEMORY[0x1E69DEEE8] sharedManager];
-  v73 = @"attention.language";
-  v74 = type;
+  v72 = @"attention.language";
+  v73 = type;
   v22 = 0x1E695D000uLL;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
   v20 = [mEMORY[0x1E69DEEE8] retrieveAssetSet:@"com.apple.siri.understanding" usages:v23];
 
   if (type == 4)
@@ -254,30 +252,14 @@ LABEL_8:
     }
   }
 
-  v56 = localeCopy;
+  v55 = localeCopy;
   v25 = *v24;
   v26 = [v20 assetNamed:v25];
   v27 = v26;
-  if (!v26)
+  if (v26 && ([v26 metadata], (v28 = objc_claimAutoreleasedReturnValue()) != 0) && (v29 = v28, objc_msgSend(v27, "metadata"), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "objectForKeyedSubscript:", @"locale"), v31 = objc_claimAutoreleasedReturnValue(), v31, v30, v22 = 0x1E695D000, v29, v31))
   {
-    goto LABEL_23;
-  }
-
-  metadata = [v26 metadata];
-  if (!metadata)
-  {
-    goto LABEL_23;
-  }
-
-  v29 = metadata;
-  metadata2 = [v27 metadata];
-  v31 = [metadata2 objectForKeyedSubscript:@"locale"];
-
-  v22 = 0x1E695D000;
-  if (v31)
-  {
-    metadata3 = [v27 metadata];
-    v33 = [metadata3 objectForKeyedSubscript:@"locale"];
+    metadata = [v27 metadata];
+    v33 = [metadata objectForKeyedSubscript:@"locale"];
     v34 = [v33 stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
 
     if (([(__CFString *)type isEqualToString:v34]& 1) != 0)
@@ -285,32 +267,32 @@ LABEL_8:
       location = [v27 location];
       path = [location path];
 
-      metadata4 = [v27 metadata];
-      v53 = [metadata4 objectForKeyedSubscript:*MEMORY[0x1E69DEF50]];
+      metadata2 = [v27 metadata];
+      v52 = [metadata2 objectForKeyedSubscript:*MEMORY[0x1E69DEF50]];
 
-      metadata5 = [v27 metadata];
-      v52 = [metadata5 objectForKeyedSubscript:*MEMORY[0x1E69DEF30]];
+      metadata3 = [v27 metadata];
+      v51 = [metadata3 objectForKeyedSubscript:*MEMORY[0x1E69DEF30]];
 
-      if (path && v53)
+      if (path && v52)
       {
         log = CSLogCategoryAsset;
-        localeCopy = v56;
+        localeCopy = v55;
         if (os_log_type_enabled(CSLogCategoryAsset, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v60 = "[CSUAFAssetManager _getInstalledAssetofType:forLocale:completion:]";
-          v61 = 2048;
+          v59 = "[CSUAFAssetManager _getInstalledAssetofType:forLocale:completion:]";
+          v60 = 2048;
           typeCopy = type;
-          v63 = 2112;
-          v64 = v56;
-          v65 = 2112;
-          v66 = v53;
+          v62 = 2112;
+          v63 = v55;
+          v64 = 2112;
+          v65 = v52;
           _os_log_impl(&dword_1DDA4B000, log, OS_LOG_TYPE_DEFAULT, "%s Got UAF Asset for assetType: %lu for locale: %@ version: %@", buf, 0x2Au);
         }
 
         typeCopy2 = type;
-        v40 = v53;
-        loga = [CSAsset assetForAssetType:typeCopy2 resourcePath:path configVersion:v53 assetProvider:2 assetVariant:0 identity:0 assistantLanguageCode:0 uafAssetVersion:v52];
+        v40 = v52;
+        loga = [CSAsset assetForAssetType:typeCopy2 resourcePath:path configVersion:v52 assetProvider:2 assetVariant:0 identity:0 assistantLanguageCode:0 uafAssetVersion:v51];
         (v11[2])(v11);
       }
 
@@ -318,56 +300,54 @@ LABEL_8:
       {
         v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"UAF asset path || version missing: %@", v25];
         v46 = MEMORY[0x1E696ABC0];
-        v67 = @"reason";
-        v68 = v45;
+        v66 = @"reason";
+        v67 = v45;
         loga = v45;
-        v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+        v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
         v48 = [v46 errorWithDomain:@"com.apple.corespeech" code:2151 userInfo:v47];
 
         (v11)[2](v11, 0, v48);
-        localeCopy = v56;
-        v40 = v53;
+        localeCopy = v55;
+        v40 = v52;
       }
     }
 
     else
     {
-      localeCopy = v56;
-      path = [MEMORY[0x1E696AEC0] stringWithFormat:@"Mismatch between Current locale: %@ & UAFAsset locale: %@", v56, v34];
-      v54 = MEMORY[0x1E696ABC0];
-      v69 = @"reason";
-      v70 = path;
-      v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-      [v54 errorWithDomain:@"com.apple.corespeech" code:1601 userInfo:v43];
-      v44 = v55 = v25;
+      localeCopy = v55;
+      path = [MEMORY[0x1E696AEC0] stringWithFormat:@"Mismatch between Current locale: %@ & UAFAsset locale: %@", v55, v34];
+      v53 = MEMORY[0x1E696ABC0];
+      v68 = @"reason";
+      v69 = path;
+      v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+      [v53 errorWithDomain:@"com.apple.corespeech" code:1601 userInfo:v43];
+      v44 = v54 = v25;
 
       v40 = v44;
-      v25 = v55;
+      v25 = v54;
       (v11)[2](v11, 0, v40);
     }
   }
 
   else
   {
-LABEL_23:
     v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to get UAF asset: %@", v25];
     v41 = MEMORY[0x1E696ABC0];
-    v71 = @"reason";
-    v72 = v34;
-    v42 = [*(v22 + 3872) dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+    v70 = @"reason";
+    v71 = v34;
+    v42 = [*(v22 + 3872) dictionaryWithObjects:&v71 forKeys:&v70 count:1];
     path = [v41 errorWithDomain:@"com.apple.corespeech" code:2151 userInfo:v42];
 
     (v11)[2](v11, 0, path);
-    localeCopy = v56;
+    localeCopy = v55;
   }
 
 LABEL_29:
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 void __67__CSUAFAssetManager__getInstalledAssetofType_forLocale_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -375,16 +355,16 @@ void __67__CSUAFAssetManager__getInstalledAssetofType_forLocale_completion___blo
     v7 = CSLogCategoryAsset;
     if (os_log_type_enabled(CSLogCategoryAsset, OS_LOG_TYPE_ERROR))
     {
-      v10 = v7;
-      v11 = [v6 localizedDescription];
-      v12 = [v6 userInfo];
-      v13 = 136315650;
-      v14 = "[CSUAFAssetManager _getInstalledAssetofType:forLocale:completion:]_block_invoke";
-      v15 = 2112;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v12;
-      _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s %@ - %@", &v13, 0x20u);
+      v9 = v7;
+      v10 = [v6 localizedDescription];
+      v11 = [v6 userInfo];
+      v12 = 136315650;
+      v13 = "[CSUAFAssetManager _getInstalledAssetofType:forLocale:completion:]_block_invoke";
+      v14 = 2112;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v11;
+      _os_log_error_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_ERROR, "%s %@ - %@", &v12, 0x20u);
     }
   }
 
@@ -393,8 +373,6 @@ void __67__CSUAFAssetManager__getInstalledAssetofType_forLocale_completion___blo
   {
     (*(v8 + 16))(v8, v5, v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getInstalledAssetofType:(unint64_t)type forLocale:(id)locale completion:(id)completion
@@ -417,19 +395,18 @@ void __67__CSUAFAssetManager__getInstalledAssetofType_forLocale_completion___blo
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = CSLogCategoryAsset;
   if (os_log_type_enabled(CSLogCategoryAsset, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[CSUAFAssetManager dealloc]";
+    v6 = "[CSUAFAssetManager dealloc]";
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = CSUAFAssetManager;
-  [(CSUAFAssetManager *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = CSUAFAssetManager;
+  [(CSUAFAssetManager *)&v4 dealloc];
 }
 
 @end

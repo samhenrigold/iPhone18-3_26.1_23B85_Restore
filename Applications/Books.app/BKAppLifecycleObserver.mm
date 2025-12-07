@@ -30,10 +30,11 @@
   v6 = (self + OBJC_IVAR___BKAppLifecycleObserver_onWillEnterForeground);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_100007020(v7);
+  sub_100007020(v7, v8);
 }
 
 - (void)setOnDidEnterBackground:(id)background
@@ -54,10 +55,11 @@
   v6 = (self + OBJC_IVAR___BKAppLifecycleObserver_onDidEnterBackground);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_100007020(v7);
+  sub_100007020(v7, v8);
 }
 
 - (void)setOnWillResignActive:(id)active
@@ -78,10 +80,11 @@
   v6 = (self + OBJC_IVAR___BKAppLifecycleObserver_onWillResignActive);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_100007020(v7);
+  sub_100007020(v7, v8);
 }
 
 - (void)setOnDidBecomeActive:(id)active
@@ -102,10 +105,11 @@
   v6 = (self + OBJC_IVAR___BKAppLifecycleObserver_onDidBecomeActive);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_100007020(v7);
+  sub_100007020(v7, v8);
 }
 
 - (void)setOnWillResignFrontmost:(id)frontmost
@@ -126,10 +130,11 @@
   v6 = (self + OBJC_IVAR___BKAppLifecycleObserver_onWillResignFrontmost);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_100007020(v7);
+  sub_100007020(v7, v8);
 }
 
 - (void)setOnDidBecomeFrontmost:(id)frontmost
@@ -150,10 +155,11 @@
   v6 = (self + OBJC_IVAR___BKAppLifecycleObserver_onDidBecomeFrontmost);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_100007020(v7);
+  sub_100007020(v7, v8);
 }
 
 - (BKAppLifecycleObserver)initWithCoordinator:(id)coordinator uiApplication:(id)application appKitBundle:(Class)bundle

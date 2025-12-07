@@ -28,11 +28,11 @@ uint64_t ___ef_log_ECCMSEncoder_block_invoke()
 
 + (id)_signedDataFromNetworkContentData:(unsigned int)data detached:(uint64_t)detached forSender:(uint64_t)sender identity:(uint64_t)identity encryptionCertificate:(void *)certificate capabilities:(void *)capabilities outError:
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v32 = a2;
+  v39 = *MEMORY[0x277D85DE8];
+  v31 = a2;
   certificateCopy = certificate;
   objc_opt_self();
-  v34 = [MEMORY[0x277D28640] OIDWithString:*MEMORY[0x277D285D8] error:capabilities];
+  v33 = [MEMORY[0x277D28640] OIDWithString:*MEMORY[0x277D285D8] error:capabilities];
   if (capabilities && *capabilities)
   {
     v13 = 0;
@@ -41,7 +41,7 @@ uint64_t ___ef_log_ECCMSEncoder_block_invoke()
   else
   {
     dataCopy = data;
-    v14 = [objc_alloc(MEMORY[0x277D28628]) initWithIdentity:sender signatureAlgorithm:v34 error:capabilities];
+    v14 = [objc_alloc(MEMORY[0x277D28628]) initWithIdentity:sender signatureAlgorithm:v33 error:capabilities];
     if (capabilities && *capabilities)
     {
       v13 = 0;
@@ -52,32 +52,32 @@ uint64_t ___ef_log_ECCMSEncoder_block_invoke()
       if ([certificateCopy count])
       {
         v15 = objc_alloc_init(MEMORY[0x277CBEB58]);
-        v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
         v36 = 0u;
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
         v16 = certificateCopy;
-        v17 = [v16 countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v34 objects:v38 count:16];
         if (v17)
         {
-          v18 = *v36;
+          v18 = *v35;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v36 != v18)
+              if (*v35 != v18)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v20 = [objc_alloc(MEMORY[0x277D28640]) initWithString:*(*(&v35 + 1) + 8 * i) error:capabilities];
+              v20 = [objc_alloc(MEMORY[0x277D28640]) initWithString:*(*(&v34 + 1) + 8 * i) error:capabilities];
               if (v20)
               {
                 [v15 addObject:v20];
               }
             }
 
-            v17 = [v16 countByEnumeratingWithState:&v35 objects:v39 count:16];
+            v17 = [v16 countByEnumeratingWithState:&v34 objects:v38 count:16];
           }
 
           while (v17);
@@ -100,7 +100,7 @@ uint64_t ___ef_log_ECCMSEncoder_block_invoke()
         [v14 addSMIMEEncryptionKeyPreferenceAttribute:v26];
       }
 
-      v27 = [objc_alloc(MEMORY[0x277D28620]) initWithDataContent:v32 isDetached:dataCopy signer:v14 error:capabilities];
+      v27 = [objc_alloc(MEMORY[0x277D28620]) initWithDataContent:v31 isDetached:dataCopy signer:v14 error:capabilities];
       if (!v27 || capabilities && *capabilities)
       {
         v13 = 0;
@@ -114,8 +114,6 @@ uint64_t ___ef_log_ECCMSEncoder_block_invoke()
     }
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
@@ -128,88 +126,89 @@ uint64_t ___ef_log_ECCMSEncoder_block_invoke()
 
 + (id)encryptedDataFromContentData:(id)data senderCertificate:(__SecCertificate *)certificate senderCapabilities:(id)capabilities recipients:(id)recipients outIsAuthenticated:(BOOL *)authenticated outError:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   capabilitiesCopy = capabilities;
   recipientsCopy = recipients;
-  v40 = [(ECCMSEncoder *)self _recipientInfoForCertificate:certificate andCapabilities:capabilitiesCopy];
-  v48 = 0;
-  v36 = [(ECCMSEncoder *)self _recipientInfosForRecipients:recipientsCopy outError:&v48];
-  v41 = v48;
-  if (v41)
+  v41 = [(ECCMSEncoder *)self _recipientInfoForCertificate:certificate andCapabilities:capabilitiesCopy];
+  v49 = 0;
+  v37 = [(ECCMSEncoder *)self _recipientInfosForRecipients:recipientsCopy outError:&v49];
+  v14 = v49;
+  v42 = v14;
+  if (v14)
   {
-    v14 = _ef_log_ECCMSEncoder();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _ef_log_ECCMSEncoder(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      ef_publicDescription = [v41 ef_publicDescription];
-      [ECCMSEncoder encryptedDataFromContentData:ef_publicDescription senderCertificate:v50 senderCapabilities:v14 recipients:? outIsAuthenticated:? outError:?];
+      ef_publicDescription = [v42 ef_publicDescription];
+      [ECCMSEncoder encryptedDataFromContentData:ef_publicDescription senderCertificate:v51 senderCapabilities:v15 recipients:? outIsAuthenticated:? outError:?];
     }
   }
 
-  v16 = [(ECCMSEncoder *)self _capabilitiesContainCapabilityRequiringAuthEnvelopedData:capabilitiesCopy];
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __121__ECCMSEncoder_encryptedDataFromContentData_senderCertificate_senderCapabilities_recipients_outIsAuthenticated_outError___block_invoke;
-  v47[3] = &__block_descriptor_40_e24_B16__0__ECCMSRecipient_8l;
-  v47[4] = self;
-  v34 = v16 & [recipientsCopy ef_all:v47];
-  v17 = 0x277D285F0;
-  if (!v34)
+  v17 = [(ECCMSEncoder *)self _capabilitiesContainCapabilityRequiringAuthEnvelopedData:capabilitiesCopy];
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __121__ECCMSEncoder_encryptedDataFromContentData_senderCertificate_senderCapabilities_recipients_outIsAuthenticated_outError___block_invoke;
+  v48[3] = &__block_descriptor_40_e24_B16__0__ECCMSRecipient_8l;
+  v48[4] = self;
+  v35 = v17 & [recipientsCopy ef_all:v48];
+  v18 = 0x277D285F0;
+  if (!v35)
   {
-    v17 = 0x277D28608;
+    v18 = 0x277D28608;
   }
 
-  v18 = [objc_alloc(*v17) initWithDataContent:dataCopy recipient:v40];
+  v19 = [objc_alloc(*v18) initWithDataContent:dataCopy recipient:v41];
   errorCopy = error;
-  v45 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v19 = v36;
-  v20 = [v19 countByEnumeratingWithState:&v43 objects:v49 count:16];
-  if (v20)
+  v45 = 0u;
+  v20 = v37;
+  v21 = [v20 countByEnumeratingWithState:&v44 objects:v50 count:16];
+  if (v21)
   {
-    v21 = *v44;
+    v22 = *v45;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v44 != v21)
+        if (*v45 != v22)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v20);
         }
 
-        v23 = *(*(&v43 + 1) + 8 * i);
+        v24 = *(*(&v44 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v18 addRecipient:v23];
+          [v19 addRecipient:v24];
         }
 
         else if (objc_opt_respondsToSelector())
         {
-          [v18 addRecipientWithRecipient:v23];
+          [v19 addRecipientWithRecipient:v24];
         }
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v44 objects:v50 count:16];
     }
 
-    while (v20);
+    while (v21);
   }
 
-  v24 = [objc_alloc(MEMORY[0x277D285F8]) initWithEmbeddedContent:v18];
-  v25 = v24;
-  if (v24)
+  v25 = [objc_alloc(MEMORY[0x277D285F8]) initWithEmbeddedContent:v19];
+  v26 = v25;
+  if (v25)
   {
-    v42 = v41;
-    v26 = [v24 encodeMessageSecurityObject:&v42];
-    v27 = v42;
+    v43 = v42;
+    v27 = [v25 encodeMessageSecurityObject:&v43];
+    v28 = v43;
 
-    if (v26)
+    if (v27)
     {
       if (authenticated)
       {
-        *authenticated = v34;
+        *authenticated = v35;
       }
 
       if (errorCopy)
@@ -217,45 +216,43 @@ uint64_t ___ef_log_ECCMSEncoder_block_invoke()
         *errorCopy = 0;
       }
 
-      v28 = v26;
+      v30 = v27;
     }
 
     else
     {
-      v30 = _ef_log_ECCMSEncoder();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v32 = _ef_log_ECCMSEncoder(v29);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        [ECCMSEncoder encryptedDataFromContentData:v30 senderCertificate:? senderCapabilities:? recipients:? outIsAuthenticated:? outError:?];
+        [ECCMSEncoder encryptedDataFromContentData:v32 senderCertificate:? senderCapabilities:? recipients:? outIsAuthenticated:? outError:?];
       }
 
       if (errorCopy)
       {
-        v31 = objc_alloc(MEMORY[0x277CCA9B8]);
-        *errorCopy = [v31 ef_initWithDomain:@"ECCMSErrorDomain" code:6 underlyingError:v27];
+        v33 = objc_alloc(MEMORY[0x277CCA9B8]);
+        *errorCopy = [v33 ef_initWithDomain:@"ECCMSErrorDomain" code:6 underlyingError:v28];
       }
     }
 
-    v41 = v27;
+    v42 = v28;
   }
 
   else
   {
-    v29 = _ef_log_ECCMSEncoder();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v31 = _ef_log_ECCMSEncoder(0);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      [ECCMSEncoder encryptedDataFromContentData:v29 senderCertificate:? senderCapabilities:? recipients:? outIsAuthenticated:? outError:?];
+      [ECCMSEncoder encryptedDataFromContentData:v31 senderCertificate:? senderCapabilities:? recipients:? outIsAuthenticated:? outError:?];
     }
 
-    v26 = 0;
+    v27 = 0;
     if (error)
     {
       *error = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ECCMSErrorDomain" code:5 userInfo:0];
     }
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v27;
 }
 
 + (id)_recipientInfoForCertificate:(void *)certificate andCapabilities:
@@ -289,6 +286,7 @@ uint64_t ___ef_log_ECCMSEncoder_block_invoke()
           v23 = 0;
           v9 = [MEMORY[0x277D28640] OIDWithString:v8 error:{&v23, v19}];
           v10 = v23;
+          v11 = v10;
           if (v9)
           {
             [v4 addObject:v9];
@@ -296,15 +294,15 @@ uint64_t ___ef_log_ECCMSEncoder_block_invoke()
 
           else
           {
-            v11 = _ef_log_ECCMSEncoder();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+            v12 = _ef_log_ECCMSEncoder(v10);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
-              ef_publicDescription = [v10 ef_publicDescription];
+              ef_publicDescription = [v11 ef_publicDescription];
               *buf = 138543618;
               v30 = v8;
               v31 = 2114;
               v32 = ef_publicDescription;
-              _os_log_error_impl(&dword_22D092000, v11, OS_LOG_TYPE_ERROR, "Error for recipient OID %{public}@: %{public}@", buf, 0x16u);
+              _os_log_error_impl(&dword_22D092000, v12, OS_LOG_TYPE_ERROR, "Error for recipient OID %{public}@: %{public}@", buf, 0x16u);
             }
           }
         }
@@ -315,30 +313,28 @@ uint64_t ___ef_log_ECCMSEncoder_block_invoke()
       while (v5);
     }
 
-    v13 = v4;
+    v14 = v4;
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  if ([v13 count])
+  if ([v14 count])
   {
-    v14 = objc_alloc(MEMORY[0x277D28610]);
-    v28 = v13;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
-    v16 = [v14 initWithCertificate:v20 algorithmCapabilities:v15];
+    v15 = objc_alloc(MEMORY[0x277D28610]);
+    v28 = v14;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+    v17 = [v15 initWithCertificate:v20 algorithmCapabilities:v16];
   }
 
   else
   {
-    v16 = [objc_alloc(MEMORY[0x277D28610]) initWithCertificate:v20];
+    v17 = [objc_alloc(MEMORY[0x277D28610]) initWithCertificate:v20];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v17;
 }
 
 + (id)_recipientInfosForRecipients:(void *)recipients outError:
@@ -355,25 +351,24 @@ uint64_t ___ef_log_ECCMSEncoder_block_invoke()
   v7 = v6;
   v18 = v7;
   v8 = [v4 ef_compactMap:&v14];
-  if ([v7 count])
+  v9 = [v7 count];
+  if (v9)
   {
-    v9 = _ef_log_ECCMSEncoder();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _ef_log_ECCMSEncoder(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      +[ECCMSEncoder _recipientInfosForRecipients:outError:].cold.1(v22, [v7 count], v9);
+      +[ECCMSEncoder _recipientInfosForRecipients:outError:].cold.1(v22, [v7 count], v10);
     }
 
     if (recipients)
     {
-      v10 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v11 = objc_alloc(MEMORY[0x277CCA9B8]);
       v20 = @"ECCMS_Recipient";
       v21 = v7;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-      *recipients = [v10 initWithDomain:@"ECCMSErrorDomain" code:3 userInfo:v11];
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      *recipients = [v11 initWithDomain:@"ECCMSErrorDomain" code:3 userInfo:v12];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -414,19 +409,17 @@ id __54__ECCMSEncoder__recipientInfosForRecipients_outError___block_invoke(uint6
   if (!v7)
   {
     commonName = 0;
-    SecCertificateCopyCommonName(v4, &commonName);
-    v8 = commonName;
-    v9 = _ef_log_ECCMSEncoder();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = SecCertificateCopyCommonName(v4, &commonName);
+    v9 = commonName;
+    v10 = _ef_log_ECCMSEncoder(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v10 = [(__CFString *)v8 emailAddressValue];
-      __54__ECCMSEncoder__recipientInfosForRecipients_outError___block_invoke_cold_1(v10, v14, v9);
+      v11 = [(__CFString *)v9 emailAddressValue];
+      __54__ECCMSEncoder__recipientInfosForRecipients_outError___block_invoke_cold_1(v11, v14, v10);
     }
 
     [*(a1 + 32) addObject:v4];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -446,7 +439,6 @@ id __54__ECCMSEncoder__recipientInfosForRecipients_outError___block_invoke(uint6
 uint64_t __52__ECCMSEncoder_oidStringsForAuthenticatedEncryption__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEB70]);
-  v1 = *MEMORY[0x277D285C0];
   oidStringsForAuthenticatedEncryption_authenticatedEncryptionOIDStrings = [v0 initWithObjects:{*MEMORY[0x277D285D0], *MEMORY[0x277D285C0], *MEMORY[0x277D285B0], *MEMORY[0x277D285C8], *MEMORY[0x277D285B8], *MEMORY[0x277D285A8], 0}];
 
   return MEMORY[0x2821F96F8]();
@@ -455,34 +447,34 @@ uint64_t __52__ECCMSEncoder_oidStringsForAuthenticatedEncryption__block_invoke()
 + (id)oidsForEncryptWithGCM:(BOOL)m encryptSubject:(BOOL)subject
 {
   subjectCopy = subject;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (m)
   {
     oidStringForEncryptedSubject2 = objc_alloc_init(MEMORY[0x277D28618]);
     v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     capabilities = [oidStringForEncryptedSubject2 capabilities];
-    v9 = [capabilities countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v9 = [capabilities countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v9)
     {
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(capabilities);
           }
 
-          oIDString = [*(*(&v16 + 1) + 8 * i) OIDString];
+          oIDString = [*(*(&v15 + 1) + 8 * i) OIDString];
           [v7 addObject:oIDString];
         }
 
-        v9 = [capabilities countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v9 = [capabilities countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
       while (v9);
@@ -500,8 +492,8 @@ uint64_t __52__ECCMSEncoder_oidStringsForAuthenticatedEncryption__block_invoke()
   if (subject)
   {
     oidStringForEncryptedSubject2 = [self oidStringForEncryptedSubject];
-    v20 = oidStringForEncryptedSubject2;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+    v19 = oidStringForEncryptedSubject2;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
 LABEL_13:
 
     goto LABEL_15;
@@ -509,7 +501,6 @@ LABEL_13:
 
   v7 = MEMORY[0x277CBEBF8];
 LABEL_15:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

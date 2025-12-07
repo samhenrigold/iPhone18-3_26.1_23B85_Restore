@@ -80,13 +80,13 @@
 
 - (void)handleSignificantTimeChange
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v14 = objc_opt_class();
-    v4 = v14;
+    v13 = objc_opt_class();
+    v4 = v13;
     _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] handleSignificantTimeChange", buf, 0xCu);
   }
 
@@ -99,20 +99,19 @@
     v8 = v6;
     systemTimeZone = [v7 systemTimeZone];
     *buf = 138543618;
-    v14 = v6;
-    v15 = 2114;
-    v16 = systemTimeZone;
+    v13 = v6;
+    v14 = 2114;
+    v15 = systemTimeZone;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] timeZone: %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __53__HDSPTimeChangeListener_handleSignificantTimeChange__block_invoke;
-  v12[3] = &unk_279C7C988;
-  v12[4] = self;
-  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v12];
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __53__HDSPTimeChangeListener_handleSignificantTimeChange__block_invoke;
+  v11[3] = &unk_279C7C988;
+  v11[4] = self;
+  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v11];
 }
 
 void __53__HDSPTimeChangeListener_handleSignificantTimeChange__block_invoke(uint64_t a1, void *a2)
@@ -126,13 +125,13 @@ void __53__HDSPTimeChangeListener_handleSignificantTimeChange__block_invoke(uint
 
 - (void)handleTimeZoneChange
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v14 = objc_opt_class();
-    v4 = v14;
+    v13 = objc_opt_class();
+    v4 = v13;
     _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] handleTimeZoneChange", buf, 0xCu);
   }
 
@@ -145,20 +144,19 @@ void __53__HDSPTimeChangeListener_handleSignificantTimeChange__block_invoke(uint
     v8 = v6;
     systemTimeZone = [v7 systemTimeZone];
     *buf = 138543618;
-    v14 = v6;
-    v15 = 2114;
-    v16 = systemTimeZone;
+    v13 = v6;
+    v14 = 2114;
+    v15 = systemTimeZone;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] timeZone: %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __46__HDSPTimeChangeListener_handleTimeZoneChange__block_invoke;
-  v12[3] = &unk_279C7C988;
-  v12[4] = self;
-  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v12];
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __46__HDSPTimeChangeListener_handleTimeZoneChange__block_invoke;
+  v11[3] = &unk_279C7C988;
+  v11[4] = self;
+  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v11];
 }
 
 void __46__HDSPTimeChangeListener_handleTimeZoneChange__block_invoke(uint64_t a1, void *a2)

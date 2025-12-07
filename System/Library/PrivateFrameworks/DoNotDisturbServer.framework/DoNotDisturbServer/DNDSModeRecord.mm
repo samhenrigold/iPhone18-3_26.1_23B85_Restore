@@ -949,12 +949,13 @@ LABEL_124:
 
   else
   {
-    *&v90[4] = 0uLL;
+    *&v90[4] = 0;
     v94 = 0uLL;
     memset(v87, 0, sizeof(v87));
     v86 = 0uLL;
     *&v88[8] = placeholderExcludedPlatforms4;
     v89 = 0;
+    *&v90[12] = 0;
     v92 = 0;
     *v93 = symbolImageName != symbolImageName2;
     v14 = 0;

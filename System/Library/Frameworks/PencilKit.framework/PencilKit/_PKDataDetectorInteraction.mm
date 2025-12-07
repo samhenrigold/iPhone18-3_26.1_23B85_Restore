@@ -176,7 +176,7 @@ LABEL_12:
     if (v7 > 0.0)
     {
       memset(&v13, 0, sizeof(v13));
-      [(_PKDataDetectorInteraction *)self drawingTransform];
+      objc_msgSend_drawingTransform(self);
       CGAffineTransformInvert(&v13, &v12);
       v8 = [(_PKDataDetectorController *)self->_dataDetectorController hitTest:vaddq_f64(*&v13.tx, vmlaq_n_f64(vmulq_n_f64(*&v13.c, y), *&v13.a, x))];
       objc_opt_class();
@@ -269,8 +269,8 @@ LABEL_12:
     CGAffineTransformMakeTranslation(&v21, v9, v10);
     menuInteraction = [(_PKDataDetectorInteraction *)self menuInteraction];
     view = [(_PKDataDetectorInteraction *)self view];
-    [(_PKDataDetectorInteraction *)self drawingTransform];
-    [(_PKDataDetectorInteraction *)self highlightTransform];
+    objc_msgSend_drawingTransform(self);
+    objc_msgSend_highlightTransform(self);
     [(_PKDataDetectorInteraction *)self sourceRect];
     v18 = v21;
     [v7 handleTapForMenuForInteraction:menuInteraction location:view view:&v18 viewTransform:v20 drawingTransform:v19 highlightTransform:x sourceRect:{y, v13, v14, v15, v16}];
@@ -303,7 +303,7 @@ LABEL_12:
   v14 = v13;
   v16 = v15;
   v18 = v17;
-  [(_PKDataDetectorInteraction *)self highlightPreviewTransform];
+  objc_msgSend_highlightPreviewTransform(self);
   v28.origin.x = v12;
   v28.origin.y = v14;
   v28.size.width = v16;

@@ -1,5 +1,6 @@
 @interface ESDClientSettingsDelegate
 - (BOOL)isOofSupported;
+- (ESDClientSettingsDelegate)initWithAccountID:(id)d requestDictionary:(id)dictionary forUpdate:(BOOL)update client:(id)client;
 - (void)beginSettingsRequest;
 - (void)dealloc;
 - (void)disable;
@@ -8,6 +9,37 @@
 @end
 
 @implementation ESDClientSettingsDelegate
+
+- (ESDClientSettingsDelegate)initWithAccountID:(id)d requestDictionary:(id)dictionary forUpdate:(BOOL)update client:(id)client
+{
+  updateCopy = update;
+  dictionaryCopy = dictionary;
+  clientCopy = client;
+  dCopy = d;
+  v13 = DALoggingwithCategory();
+  v14 = *(MEMORY[0x277D03988] + 6);
+  if (os_log_type_enabled(v13, v14))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_24A184000, v13, v14, "ESDClientSettingsDelegate initialized.", buf, 2u);
+  }
+
+  v18.receiver = self;
+  v18.super_class = ESDClientSettingsDelegate;
+  v15 = [(ESDClientDelegate *)&v18 initWithAccountID:dCopy client:clientCopy];
+
+  if (v15)
+  {
+    [(ESDClientSettingsDelegate *)v15 setIsUpdate:updateCopy];
+    if (dictionaryCopy)
+    {
+      v16 = [objc_alloc(MEMORY[0x277D03968]) initWithDictionary:dictionaryCopy];
+      [(ESDClientSettingsDelegate *)v15 setRequestParams:v16];
+    }
+  }
+
+  return v15;
+}
 
 - (void)dealloc
 {
@@ -27,7 +59,7 @@
 
 - (void)beginSettingsRequest
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = +[ESDAgentManager sharedManager];
   accountID = [(ESDClientDelegate *)self accountID];
   v5 = [v3 accountWithAccountID:accountID];
@@ -51,9 +83,9 @@
     if (os_log_type_enabled(v7, v8))
     {
       accountID2 = [(ESDClientDelegate *)self accountID];
-      v11 = 138412290;
-      v12 = accountID2;
-      _os_log_impl(&dword_24A184000, v7, v8, "Could not get an account with the ID %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = accountID2;
+      _os_log_impl(&dword_24A184000, v7, v8, "Could not get an account with the ID %@", &v10, 0xCu);
     }
 
     requestParams = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D038E0] code:55 userInfo:0];
@@ -61,12 +93,11 @@
   }
 
 LABEL_9:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isOofSupported
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = +[ESDAgentManager sharedManager];
   accountID = [(ESDClientDelegate *)self accountID];
   v5 = [v3 accountWithAccountID:accountID];
@@ -80,9 +111,9 @@ LABEL_9:
       v8 = *(MEMORY[0x277D03988] + 7);
       if (os_log_type_enabled(v7, v8))
       {
-        v17 = 138412290;
-        v18 = v6;
-        _os_log_impl(&dword_24A184000, v7, v8, "Account %@ is a hotmail account", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = v6;
+        _os_log_impl(&dword_24A184000, v7, v8, "Account %@ is a hotmail account", &v16, 0xCu);
       }
 
       LOBYTE(supportsSettingsCommand) = 0;
@@ -103,11 +134,11 @@ LABEL_9:
           v13 = @"YES";
         }
 
-        v17 = 138412546;
-        v18 = v6;
-        v19 = 2112;
-        v20 = v13;
-        _os_log_impl(&dword_24A184000, v7, v12, "Account %@ supports oof %@", &v17, 0x16u);
+        v16 = 138412546;
+        v17 = v6;
+        v18 = 2112;
+        v19 = v13;
+        _os_log_impl(&dword_24A184000, v7, v12, "Account %@ supports oof %@", &v16, 0x16u);
       }
     }
   }
@@ -118,9 +149,9 @@ LABEL_9:
     v10 = *(MEMORY[0x277D03988] + 7);
     if (os_log_type_enabled(v6, v10))
     {
-      v17 = 138412290;
-      v18 = v5;
-      _os_log_impl(&dword_24A184000, v6, v10, "Account %@ is not ASAccount class", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v5;
+      _os_log_impl(&dword_24A184000, v6, v10, "Account %@ is not ASAccount class", &v16, 0xCu);
     }
 
     LOBYTE(supportsSettingsCommand) = 0;
@@ -129,7 +160,6 @@ LABEL_9:
   client = [(ESDClientDelegate *)self client];
   [client noteBlockedClientCallChange:1];
 
-  v15 = *MEMORY[0x277D85DE8];
   return supportsSettingsCommand;
 }
 
@@ -171,7 +201,7 @@ LABEL_9:
 
 - (void)finishWithError:(id)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (![(ESDClientDelegate *)self finished])
   {
@@ -191,10 +221,10 @@ LABEL_9:
     if (rawConnection)
     {
       v9 = *MEMORY[0x277D03C88];
-      v30[0] = *MEMORY[0x277D03CD8];
+      v29[0] = *MEMORY[0x277D03CD8];
       v10 = *MEMORY[0x277D03E38];
-      v26 = v9;
-      v27 = v10;
+      v25 = v9;
+      v26 = v10;
       v11 = MEMORY[0x277CCABB0];
       if (errorCopy)
       {
@@ -206,15 +236,15 @@ LABEL_9:
         code2 = 2;
       }
 
-      v13 = [v11 numberWithInteger:{code2, v26, v27}];
-      v30[1] = v13;
-      v28 = *MEMORY[0x277D03CC8];
+      v13 = [v11 numberWithInteger:{code2, v25, v26}];
+      v29[1] = v13;
+      v27 = *MEMORY[0x277D03CC8];
       delegateID = [(ESDClientDelegate *)self delegateID];
-      v30[2] = delegateID;
-      v29 = *MEMORY[0x277D03CC0];
+      v29[2] = delegateID;
+      v28 = *MEMORY[0x277D03CC0];
       v15 = [MEMORY[0x277CCABB0] numberWithBool:{-[ESDClientSettingsDelegate isUpdate](self, "isUpdate")}];
-      v30[3] = v15;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v26 count:4];
+      v29[3] = v15;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v25 count:4];
       v17 = [v16 mutableCopy];
 
       responseParams = [(ESDClientSettingsDelegate *)self responseParams];
@@ -237,8 +267,6 @@ LABEL_9:
     delegateID2 = [(ESDClientDelegate *)self delegateID];
     [client3 delegateWithIDIsGoingAway:delegateID2];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

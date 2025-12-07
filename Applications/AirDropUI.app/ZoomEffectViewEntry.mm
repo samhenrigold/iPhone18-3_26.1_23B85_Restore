@@ -8,18 +8,21 @@
 
 - (BOOL)shouldAnimateProperty:(id)property
 {
-  if (static String._unconditionallyBridgeFromObjectiveC(_:)() == 1836019578 && v3 == 0xE400000000000000)
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = v3;
+  if (v4 == 1836019578 && v3 == 0xE400000000000000)
   {
-
-    v4 = 1;
+    0xE400000000000000, 0xE400000000000000, 0x6D6F6F7A, v5, v6, v7, v8, v9;
+    v11 = 1;
   }
 
   else
   {
-    v4 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v11 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v10, v12, v13, v14, v15, v16, v17, v18;
   }
 
-  return v4 & 1;
+  return v11 & 1;
 }
 
 - (void)applyRequestedEffectToView:(id)view

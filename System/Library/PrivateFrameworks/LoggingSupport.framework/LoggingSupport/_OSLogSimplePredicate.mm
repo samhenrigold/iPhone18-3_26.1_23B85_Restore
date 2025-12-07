@@ -37,7 +37,7 @@
 
 - (void)processCompoundPredicate:(id)predicate
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   subpredicates = [predicateCopy subpredicates];
   v6 = [subpredicates count];
@@ -47,38 +47,38 @@
   v9 = [(NSMutableArray *)self->_stack subarrayWithRange:v7 - v6, v6];
   [(NSMutableArray *)self->_stack removeObjectsInRange:v8, v6];
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v11 = v9;
-  v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       v15 = 0;
       do
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * v15);
+        v16 = *(*(&v24 + 1) + 8 * v15);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v10 addObject:{v16, v25}];
+          [v10 addObject:{v16, v24}];
         }
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v13);
@@ -135,13 +135,11 @@ LABEL_21:
   }
 
   [(NSMutableArray *)self->_stack addObject:null];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processComparisonPredicate:(id)predicate
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   null = [MEMORY[0x277CBEB68] null];
   operators = self->_operators;
@@ -158,8 +156,8 @@ LABEL_21:
       {
         v10 = [objc_alloc(MEMORY[0x277CCA918]) initWithLeftExpression:leftExpression rightExpression:rightExpression modifier:objc_msgSend(predicateCopy type:"comparisonPredicateModifier") options:{4, objc_msgSend(predicateCopy, "options")}];
         v11 = objc_alloc(MEMORY[0x277CCA920]);
-        v16[0] = v10;
-        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+        v15[0] = v10;
+        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
         v13 = [v11 initWithType:0 subpredicates:v12];
 
         null = v13;
@@ -175,8 +173,6 @@ LABEL_21:
   }
 
   [(NSMutableArray *)self->_stack addObject:null];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isSupportedCompoundType:(unint64_t)type

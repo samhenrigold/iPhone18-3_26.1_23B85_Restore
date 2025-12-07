@@ -26,7 +26,7 @@
     dispatchQueue = v3->_dispatchQueue;
     v3->_dispatchQueue = v8;
 
-    v10 = sub_1003BBF50();
+    v10 = sub_1003BBF50(Device);
     isHRNMode = [v10 isHRNMode];
 
     if ((isHRNMode & 1) == 0)

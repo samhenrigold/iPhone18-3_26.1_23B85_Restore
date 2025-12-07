@@ -136,7 +136,7 @@
   recordCopy = record;
   if (![recordCopy safari_isCloudExtensionStateRecord])
   {
-    v6 = 0;
+    v8 = 0;
     goto LABEL_11;
   }
 
@@ -144,30 +144,31 @@
   if ([recordType isEqualToString:@"CloudExtensionStateV2"])
   {
     v5 = [recordCopy objectForKeyedSubscript:@"MinimumSyncAPIVersion"];
-    if ([v5 unsignedIntValue] >= 2)
+    unsignedIntValue = [v5 unsignedIntValue];
+    if (unsignedIntValue >= 2)
     {
-      v7 = sub_1000D23FC();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v9 = sub_1000D23FC(unsignedIntValue, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v8 = v7;
-        v10 = 134218240;
-        unsignedIntValue = [v5 unsignedIntValue];
-        v12 = 2048;
-        v13 = 1;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Unable to create CloudExtensionState from CKRecord - record's minimum API sync version (%ld) is greater than expected (%ld)", &v10, 0x16u);
+        v10 = v9;
+        v12 = 134218240;
+        unsignedIntValue2 = [v5 unsignedIntValue];
+        v14 = 2048;
+        v15 = 1;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Unable to create CloudExtensionState from CKRecord - record's minimum API sync version (%ld) is greater than expected (%ld)", &v12, 0x16u);
       }
 
-      v6 = 0;
+      v8 = 0;
       goto LABEL_10;
     }
   }
 
-  v6 = [[CloudExtensionState alloc] _initWithCKRecord:recordCopy];
+  v8 = [[CloudExtensionState alloc] _initWithCKRecord:recordCopy];
 LABEL_10:
 
 LABEL_11:
 
-  return v6;
+  return v8;
 }
 
 + (id)cloudExtensionStateWithComposedIdentifier:(id)identifier owningDeviceUUIDString:(id)string lastModifiedDate:(id)date containingAppAdamID:(id)d displayName:(id)name isEnabled:(BOOL)enabled wasEnabledByUserGesture:(BOOL)gesture iosAppBundleIdentifier:(id)self0 iosExtensionBundleIdentifier:(id)self1 macAppBundleIdentifier:(id)self2 macExtensionBundleIdentifier:(id)self3 encodedSystemFieldsData:(id)self4 cloudExtensionsRecordZoneID:(id)self5

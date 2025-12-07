@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eventAsString:(int)string;
+- (id)frAsString:(int)string;
 - (int)StringAsEvent:(id)event;
 - (int)StringAsFr:(id)fr;
 - (int)event;
@@ -48,6 +50,29 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)eventAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ENDC_ON";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"ENDC_OFF";
+  }
+
+  return v4;
+}
+
 - (int)StringAsEvent:(id)event
 {
   eventCopy = event;
@@ -90,6 +115,49 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)frAsString:(int)string
+{
+  if (string > 2)
+  {
+    if (string == 3)
+    {
+      v4 = @"POWERLOG_SUB6_MMWAVE";
+    }
+
+    else
+    {
+      if (string != 255)
+      {
+LABEL_12:
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"POWERLOG_INVALID";
+    }
+  }
+
+  else
+  {
+    if (string != 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"POWERLOG_MMWAVE";
+
+        return v4;
+      }
+
+      goto LABEL_12;
+    }
+
+    v4 = @"POWERLOG_SUB6";
+  }
+
+  return v4;
 }
 
 - (int)StringAsFr:(id)fr
@@ -324,7 +392,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -344,7 +411,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  event = self->_event;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -359,7 +425,6 @@ LABEL_4:
   }
 
 LABEL_16:
-  fr = self->_fr;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -374,12 +439,10 @@ LABEL_5:
   }
 
 LABEL_17:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_6:
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -391,7 +454,6 @@ LABEL_7:
 
   if ((*&self->_has & 0x20) != 0)
   {
-    isDataPreferred = self->_isDataPreferred;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -565,7 +627,6 @@ LABEL_7:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 48);
   if (has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -642,7 +703,7 @@ LABEL_7:
     has = self->_has;
   }
 
-  v8 = (*(equalCopy + 48) & 0x20) == 0;
+  v7 = (*(equalCopy + 48) & 0x20) == 0;
   if ((has & 0x20) != 0)
   {
     if ((*(equalCopy + 48) & 0x20) != 0)
@@ -660,17 +721,17 @@ LABEL_7:
         goto LABEL_32;
       }
 
-      v8 = 1;
+      v7 = 1;
       goto LABEL_33;
     }
 
 LABEL_32:
-    v8 = 0;
+    v7 = 0;
   }
 
 LABEL_33:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

@@ -74,7 +74,7 @@
   policy = [wakeCopy policy];
   wakeEnabled = [policy wakeEnabled];
 
-  if (wakeEnabled && ([wakeCopy policy], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "wakingBacklightStates"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(wakeCopy, "backlightState")), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "containsObject:", v9), v9, v8, v7, v10) && (objc_msgSend(wakeCopy, "gesture") == 1 || objc_msgSend(wakeCopy, "gesture") == 4) && !-[SBCaptureButtonWakeBehavior _withinDirectLaunchGracePeriod:](self, "_withinDirectLaunchGracePeriod:", wakeCopy))
+  if (wakeEnabled && ([wakeCopy policy], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "wakingBacklightStates"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCABB0], "numberWithInteger:", objc_msgSend(wakeCopy, "backlightState")), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend_containsObject_(v8), v9, v8, v7, v10) && (objc_msgSend(wakeCopy, "gesture") == 1 || objc_msgSend(wakeCopy, "gesture") == 4) && !-[SBCaptureButtonWakeBehavior _withinDirectLaunchGracePeriod:](self, "_withinDirectLaunchGracePeriod:", wakeCopy))
   {
     v11 = [wakeCopy isVoiceOverScreenCurtainActive] ^ 1;
   }

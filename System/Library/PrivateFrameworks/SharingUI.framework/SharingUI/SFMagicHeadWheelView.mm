@@ -269,7 +269,7 @@
   objc_destroyWeak(&location);
 }
 
-id __37__SFMagicHeadWheelView_createSprings__block_invoke()
+SFFloatSpringProperty *__37__SFMagicHeadWheelView_createSprings__block_invoke()
 {
   v0 = objc_opt_new();
   [v0 setDampingRatio:1.0 response:0.55];
@@ -1835,7 +1835,7 @@ void __63__SFMagicHeadWheelView_selectAnimationForHead_withDismissHead___block_i
   }
 }
 
-uint64_t __63__SFMagicHeadWheelView_selectAnimationForHead_withDismissHead___block_invoke_7(uint64_t a1)
+void *__63__SFMagicHeadWheelView_selectAnimationForHead_withDismissHead___block_invoke_7(uint64_t a1)
 {
   result = [*(a1 + 32) setAlpha:0.0];
   if (!*(a1 + 40))

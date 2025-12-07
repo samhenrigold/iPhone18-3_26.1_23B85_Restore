@@ -206,10 +206,7 @@ uint64_t __34__HAP2AsynchronousOperation_start__block_invoke(void *a1)
     v4 = *MEMORY[0x277CBE660];
     v5 = @"Operation is already executing.";
 LABEL_10:
-    v8 = [v3 exceptionWithName:v4 reason:v5 userInfo:0];
-    v9 = *(a1[5] + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    *(*(a1[5] + 8) + 40) = [v3 exceptionWithName:v4 reason:v5 userInfo:0];
 
     return MEMORY[0x2821F96F8]();
   }

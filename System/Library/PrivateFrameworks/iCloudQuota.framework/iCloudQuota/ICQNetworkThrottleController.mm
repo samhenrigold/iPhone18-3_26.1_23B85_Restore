@@ -23,7 +23,7 @@
 
 - (BOOL)requestShouldThrottle:(id)throttle
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = [throttle URL];
   absoluteString = [v4 absoluteString];
 
@@ -32,7 +32,7 @@
     defaults = [(ICQNetworkThrottleController *)self defaults];
     v7 = [defaults dictionaryForKey:@"ICQThrottleURLTable"];
 
-    v8 = [v7 objectForKeyedSubscript:absoluteString];
+    v8 = objc_msgSend_objectForKeyedSubscript_(v7);
     [v8 timeIntervalSinceNow];
     v10 = v9;
     v11 = _ICQGetLogSystem();
@@ -42,8 +42,8 @@
     {
       if (v12)
       {
-        v20 = 138412290;
-        v21 = absoluteString;
+        v19 = 138412290;
+        v20 = absoluteString;
         v15 = "Not throttling request for URL: %@";
         v16 = v11;
         v17 = 12;
@@ -54,15 +54,15 @@
     else if (v12)
     {
       [v8 timeIntervalSinceNow];
-      v20 = 138412546;
-      v21 = absoluteString;
-      v22 = 2048;
-      v23 = v14;
+      v19 = 138412546;
+      v20 = absoluteString;
+      v21 = 2048;
+      v22 = v14;
       v15 = "Throttling request for URL: %@, throttle seconds remaining:%.0f";
       v16 = v11;
       v17 = 22;
 LABEL_10:
-      _os_log_impl(&dword_275572000, v16, OS_LOG_TYPE_DEFAULT, v15, &v20, v17);
+      _os_log_impl(&dword_275572000, v16, OS_LOG_TYPE_DEFAULT, v15, &v19, v17);
     }
 
     goto LABEL_12;
@@ -77,13 +77,12 @@ LABEL_10:
   v13 = 0;
 LABEL_12:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)request:(id)request didCompleteWithError:(id)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   errorCopy = error;
   domain = [errorCopy domain];
@@ -100,14 +99,14 @@ LABEL_3:
   if (code == 16)
   {
     userInfo = [errorCopy userInfo];
-    v12 = [userInfo objectForKeyedSubscript:@"retryAfterDelay"];
+    v12 = objc_msgSend_objectForKeyedSubscript_(userInfo);
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if (isKindOfClass)
     {
       userInfo2 = [errorCopy userInfo];
-      v15 = [userInfo2 objectForKeyedSubscript:@"retryAfterDelay"];
+      v15 = objc_msgSend_objectForKeyedSubscript_(userInfo2);
       integerValue = [v15 integerValue];
 
       v9 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:integerValue];
@@ -119,14 +118,14 @@ LABEL_3:
     }
 
     userInfo3 = [errorCopy userInfo];
-    v18 = [userInfo3 objectForKeyedSubscript:@"retryAfterDate"];
+    v18 = objc_msgSend_objectForKeyedSubscript_(userInfo3);
     objc_opt_class();
     v19 = objc_opt_isKindOfClass();
 
     if (v19)
     {
       domain = [errorCopy userInfo];
-      v20 = [(__CFString *)domain objectForKeyedSubscript:@"retryAfterDate"];
+      v20 = objc_msgSend_objectForKeyedSubscript_(domain);
 
       v9 = v20;
       goto LABEL_3;
@@ -144,11 +143,11 @@ LABEL_11:
   {
     v22 = [requestCopy URL];
     absoluteString = [v22 absoluteString];
-    v32 = 138412546;
-    v33 = absoluteString;
-    v34 = 2112;
-    v35 = v9;
-    _os_log_impl(&dword_275572000, v21, OS_LOG_TYPE_DEFAULT, "Updating throttle for %@, retry after: %@", &v32, 0x16u);
+    v31 = 138412546;
+    v32 = absoluteString;
+    v33 = 2112;
+    v34 = v9;
+    _os_log_impl(&dword_275572000, v21, OS_LOG_TYPE_DEFAULT, "Updating throttle for %@, retry after: %@", &v31, 0x16u);
   }
 
   v24 = objc_opt_class();
@@ -170,7 +169,6 @@ LABEL_11:
   [defaults2 setObject:v27 forKey:@"ICQThrottleURLTable"];
 
   objc_sync_exit(v24);
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 @end

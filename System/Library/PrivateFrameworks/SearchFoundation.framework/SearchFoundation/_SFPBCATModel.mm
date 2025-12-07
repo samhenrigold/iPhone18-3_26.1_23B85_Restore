@@ -283,27 +283,21 @@ LABEL_18:
 
 - (void)setParams:(id)params
 {
-  v4 = [params copy];
-  params = self->_params;
-  self->_params = v4;
+  self->_params = [params copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  bundleIdentifier = self->_bundleIdentifier;
-  self->_bundleIdentifier = v4;
+  self->_bundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCatIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  catIdentifier = self->_catIdentifier;
-  self->_catIdentifier = v4;
+  self->_catIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

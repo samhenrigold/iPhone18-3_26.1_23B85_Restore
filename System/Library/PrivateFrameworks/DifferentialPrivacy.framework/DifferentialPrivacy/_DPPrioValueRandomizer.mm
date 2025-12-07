@@ -258,19 +258,8 @@
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"Expecting v2 metadata but got nil"];
   }
 
-  if (_DPMetadataIsV2(metadataCopy))
+  if (_DPMetadataIsV2(metadataCopy) || ([metadataCopy objectForKeyedSubscript:@"AlgorithmParameters"], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "objectForKeyedSubscript:", @"Dimensionality"), v6 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v7 = objc_opt_isKindOfClass(), v6, v5, (v7 & 1) != 0))
   {
-    goto LABEL_5;
-  }
-
-  v5 = [metadataCopy objectForKeyedSubscript:@"AlgorithmParameters"];
-  v6 = [v5 objectForKeyedSubscript:@"Dimensionality"];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if (isKindOfClass)
-  {
-LABEL_5:
     v8 = metadataCopy;
   }
 
@@ -279,9 +268,9 @@ LABEL_5:
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     v10 = [metadataCopy objectForKeyedSubscript:@"AlgorithmParameters"];
     objc_opt_class();
-    v11 = objc_opt_isKindOfClass();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-    if (v11)
+    if (isKindOfClass)
     {
       v12 = [metadataCopy objectForKeyedSubscript:@"AlgorithmParameters"];
       [dictionary addEntriesFromDictionary:v12];
@@ -305,7 +294,7 @@ LABEL_5:
 
 - (id)randomizeBitValues:(id)values metadata:(id)metadata forKey:(id)key
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   metadataCopy = metadata;
   keyCopy = key;
@@ -324,7 +313,7 @@ LABEL_5:
 
       delegateRandomizer = [(_DPPrioValueRandomizer *)self delegateRandomizer];
       v14 = [(_DPPrioValueRandomizer *)selfCopy delegateMetadataFromMetadata:metadataCopy];
-      v38 = [delegateRandomizer randomizeBitValues:valuesCopy metadata:v14 forKey:keyCopy];
+      v37 = [delegateRandomizer randomizeBitValues:valuesCopy metadata:v14 forKey:keyCopy];
     }
 
     else
@@ -334,51 +323,51 @@ LABEL_5:
       v17 = v16;
 
       plistParameters = [(_DPPrioValueRandomizer *)self plistParameters];
-      v49 = 0;
-      v14 = [_DPBudgetAuditor budgetAuditorFromMetadata:metadataCopy plistParameters:plistParameters error:&v49];
-      delegateRandomizer = v49;
+      v48 = 0;
+      v14 = [_DPBudgetAuditor budgetAuditorFromMetadata:metadataCopy plistParameters:plistParameters error:&v48];
+      delegateRandomizer = v48;
 
       if (v14)
       {
-        v48 = delegateRandomizer;
-        v19 = [v14 getSymmetricRAPPORLocalEpsilonWithError:&v48];
-        v20 = v48;
+        v47 = delegateRandomizer;
+        v19 = [v14 getSymmetricRAPPORLocalEpsilonWithError:&v47];
+        v20 = v47;
 
-        v41 = v19;
+        v40 = v19;
         if (v19)
         {
-          v47 = v20;
-          v21 = [v14 auditedMetadataWithError:&v47];
-          delegateRandomizer = v47;
+          v46 = v20;
+          v21 = [v14 auditedMetadataWithError:&v46];
+          delegateRandomizer = v46;
 
           if (v21)
           {
-            v37 = delegateRandomizer;
-            v38 = [MEMORY[0x277CBEBF8] mutableCopy];
+            v36 = delegateRandomizer;
+            v37 = [MEMORY[0x277CBEBF8] mutableCopy];
+            v42 = 0u;
             v43 = 0u;
             v44 = 0u;
             v45 = 0u;
-            v46 = 0u;
             obj = valuesCopy;
-            v22 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
+            v22 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
             if (v22)
             {
               v23 = v22;
-              v34 = v14;
-              v35 = v11;
-              v36 = valuesCopy;
-              v24 = *v44;
+              v33 = v14;
+              v34 = v11;
+              v35 = valuesCopy;
+              v24 = *v43;
               do
               {
                 for (i = 0; i != v23; ++i)
                 {
-                  if (*v44 != v24)
+                  if (*v43 != v24)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v26 = *(*(&v43 + 1) + 8 * i);
-                  [v41 doubleValue];
+                  v26 = *(*(&v42 + 1) + 8 * i);
+                  [v40 doubleValue];
                   v27 = [(_DPPrioValueRandomizer *)selfCopy randomize:v26 withLocalEpsilon:v21 metadata:?];
                   if ([v27 count])
                   {
@@ -388,21 +377,21 @@ LABEL_5:
                     v31 = -[_DPPrioRecord initWithKey:share1:share2:dimension:metadata:creationDate:submitted:objectId:]([_DPPrioRecord alloc], "initWithKey:share1:share2:dimension:metadata:creationDate:submitted:objectId:", keyCopy, v28, v29, [v30 longLongValue], v21, 0, v17, 0);
                     if (v31)
                     {
-                      [v38 addObject:v31];
+                      [v37 addObject:v31];
                     }
                   }
                 }
 
-                v23 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
+                v23 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
               }
 
               while (v23);
-              valuesCopy = v36;
-              v14 = v34;
-              v11 = v35;
+              valuesCopy = v35;
+              v14 = v33;
+              v11 = v34;
             }
 
-            delegateRandomizer = v37;
+            delegateRandomizer = v36;
           }
 
           else
@@ -413,43 +402,41 @@ LABEL_5:
               [_DPPrioValueRandomizer randomizeBitValues:metadata:forKey:];
             }
 
-            v38 = 0;
+            v37 = 0;
           }
         }
 
         else
         {
-          v38 = 0;
+          v37 = 0;
           delegateRandomizer = v20;
         }
       }
 
       else
       {
-        v41 = +[_DPLog framework];
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+        v40 = +[_DPLog framework];
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
           [_DPPrioValueRandomizer randomizeBitValues:metadata:forKey:];
         }
 
-        v38 = 0;
+        v37 = 0;
       }
     }
   }
 
   else
   {
-    v38 = 0;
+    v37 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v38;
+  return v37;
 }
 
 - (id)randomizeBitVectors:(id)vectors metadata:(id)metadata forKey:(id)key
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   vectorsCopy = vectors;
   metadataCopy = metadata;
   keyCopy = key;
@@ -457,7 +444,7 @@ LABEL_5:
   v12 = v11;
   if (!v11)
   {
-    v44 = 0;
+    v43 = 0;
     goto LABEL_34;
   }
 
@@ -470,70 +457,70 @@ LABEL_5:
     }
 
     delegateRandomizer = [(_DPPrioValueRandomizer *)self delegateRandomizer];
-    v44 = [delegateRandomizer randomizeBitVectors:vectorsCopy metadata:metadataCopy forKey:keyCopy];
+    v43 = [delegateRandomizer randomizeBitVectors:vectorsCopy metadata:metadataCopy forKey:keyCopy];
     goto LABEL_33;
   }
 
-  v42 = v12;
+  v41 = v12;
   v15 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:0.0];
   [v15 timeIntervalSinceReferenceDate];
   v17 = v16;
 
   plistParameters = [(_DPPrioValueRandomizer *)self plistParameters];
-  v54 = 0;
-  v19 = [_DPBudgetAuditor budgetAuditorFromMetadata:metadataCopy plistParameters:plistParameters error:&v54];
-  delegateRandomizer = v54;
+  v53 = 0;
+  v19 = [_DPBudgetAuditor budgetAuditorFromMetadata:metadataCopy plistParameters:plistParameters error:&v53];
+  delegateRandomizer = v53;
 
-  v41 = v19;
+  v40 = v19;
   if (!v19)
   {
-    v43 = +[_DPLog framework];
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v42 = +[_DPLog framework];
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       [_DPPrioValueRandomizer randomizeBitValues:metadata:forKey:];
     }
 
-    v44 = 0;
+    v43 = 0;
     goto LABEL_32;
   }
 
   v20 = v19;
-  v53 = delegateRandomizer;
-  v21 = [v19 getSymmetricRAPPORLocalEpsilonWithError:&v53];
-  v22 = v53;
+  v52 = delegateRandomizer;
+  v21 = [v19 getSymmetricRAPPORLocalEpsilonWithError:&v52];
+  v22 = v52;
 
-  v43 = v21;
+  v42 = v21;
   if (v21)
   {
-    v52 = v22;
-    v23 = [v20 auditedMetadataWithError:&v52];
-    v40 = v52;
+    v51 = v22;
+    v23 = [v20 auditedMetadataWithError:&v51];
+    v39 = v51;
 
     if (v23)
     {
-      v38 = metadataCopy;
-      v44 = [MEMORY[0x277CBEBF8] mutableCopy];
+      v37 = metadataCopy;
+      v43 = [MEMORY[0x277CBEBF8] mutableCopy];
+      v47 = 0u;
       v48 = 0u;
       v49 = 0u;
       v50 = 0u;
-      v51 = 0u;
-      v39 = vectorsCopy;
+      v38 = vectorsCopy;
       obj = vectorsCopy;
       v24 = v21;
-      v47 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
-      if (v47)
+      v46 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
+      if (v46)
       {
-        v46 = *v49;
+        v45 = *v48;
         do
         {
-          for (i = 0; i != v47; ++i)
+          for (i = 0; i != v46; ++i)
           {
-            if (*v49 != v46)
+            if (*v48 != v45)
             {
               objc_enumerationMutation(obj);
             }
 
-            v26 = *(*(&v48 + 1) + 8 * i);
+            v26 = *(*(&v47 + 1) + 8 * i);
             [v24 doubleValue];
             v27 = [(_DPPrioValueRandomizer *)self randomizeVector:v26 withLocalEpsilon:v23 metadata:?];
             if ([v27 count])
@@ -552,25 +539,25 @@ LABEL_5:
                 v23 = v34;
                 keyCopy = v33;
                 self = selfCopy;
-                v24 = v43;
+                v24 = v42;
               }
 
               v35 = -[_DPPrioRecord initWithKey:share1:share2:dimension:metadata:creationDate:submitted:objectId:]([_DPPrioRecord alloc], "initWithKey:share1:share2:dimension:metadata:creationDate:submitted:objectId:", keyCopy, v28, v29, [v30 longLongValue], v23, 0, v17, 0);
               if (v35)
               {
-                [v44 addObject:v35];
+                [v43 addObject:v35];
               }
             }
           }
 
-          v47 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
+          v46 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
         }
 
-        while (v47);
+        while (v46);
       }
 
-      metadataCopy = v38;
-      vectorsCopy = v39;
+      metadataCopy = v37;
+      vectorsCopy = v38;
     }
 
     else
@@ -578,32 +565,30 @@ LABEL_5:
       v23 = +[_DPLog framework];
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        delegateRandomizer = v40;
+        delegateRandomizer = v39;
         [_DPPrioValueRandomizer randomizeBitValues:metadata:forKey:];
-        v44 = 0;
+        v43 = 0;
         goto LABEL_31;
       }
 
-      v44 = 0;
+      v43 = 0;
     }
 
-    delegateRandomizer = v40;
+    delegateRandomizer = v39;
 LABEL_31:
 
     goto LABEL_32;
   }
 
-  v44 = 0;
+  v43 = 0;
   delegateRandomizer = v22;
 LABEL_32:
-  v12 = v42;
+  v12 = v41;
 
 LABEL_33:
 LABEL_34:
 
-  v36 = *MEMORY[0x277D85DE8];
-
-  return v44;
+  return v43;
 }
 
 - (void)initWithEpsilon:parameters:.cold.1()
@@ -629,56 +614,45 @@ LABEL_34:
 
 - (void)randomize:withLocalEpsilon:metadata:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)shouldForwardToDelegateWithMetadata:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)delegateRandomizer
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)delegateMetadataFromMetadata:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [a1 p];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_22622D000, a2, OS_LOG_TYPE_DEBUG, "Using default dimensionality %lu while forwarding to v2 route", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_22622D000, a2, OS_LOG_TYPE_DEBUG, "Using default dimensionality %lu while forwarding to v2 route", v3, 0xCu);
 }
 
 - (void)randomizeBitValues:metadata:forKey:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)randomizeBitValues:metadata:forKey:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

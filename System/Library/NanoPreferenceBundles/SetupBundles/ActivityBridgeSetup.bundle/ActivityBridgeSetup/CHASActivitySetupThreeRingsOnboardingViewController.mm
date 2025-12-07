@@ -5,6 +5,7 @@
 - (void)didTapAcceptButton;
 - (void)didTapSkipButton;
 - (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -18,8 +19,19 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_17530(appear);
+  sub_17530(appearCopy);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for ActivitySetupThreeRingsOnboardingViewController();
+  v4 = v5.receiver;
+  [(CHASActivitySetupThreeRingsOnboardingViewController *)&v5 viewDidDisappear:disappearCopy];
+  sub_18038();
 }
 
 - (void)didTapAcceptButton

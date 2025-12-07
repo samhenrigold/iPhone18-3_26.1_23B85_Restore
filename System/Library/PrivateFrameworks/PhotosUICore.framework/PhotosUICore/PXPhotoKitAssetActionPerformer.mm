@@ -534,7 +534,7 @@ LABEL_9:
     PXAssertGetLog();
   }
 
-  v13 = [self _canPerformWithSelectionSnapshot:snapshotCopy person:personCopy socialGroup:groupCopy error:{error, v15}];
+  v13 = [self _canPerformWithSelectionSnapshot:snapshotCopy person:personCopy socialGroup:groupCopy error:{error, v15, v16}];
 
   return v13;
 }
@@ -549,7 +549,7 @@ LABEL_9:
     PXAssertGetLog();
   }
 
-  v11 = [self _canPerformWithSelectionSnapshot:snapshotCopy person:personCopy socialGroup:groupCopy error:{0, v13}];
+  v11 = [self _canPerformWithSelectionSnapshot:snapshotCopy person:personCopy socialGroup:groupCopy error:{0, v13, v14}];
 
   return v11;
 }
@@ -592,7 +592,7 @@ LABEL_9:
     PXAssertGetLog();
   }
 
-  v7 = [self _canPerformWithActionManager:managerCopy error:{error, v9}];
+  v7 = [self _canPerformWithActionManager:managerCopy error:{error, v9, v10}];
 
   return v7;
 }
@@ -605,7 +605,7 @@ LABEL_9:
     PXAssertGetLog();
   }
 
-  v5 = [self _canPerformWithActionManager:managerCopy error:{0, v7}];
+  v5 = [self _canPerformWithActionManager:managerCopy error:{0, v7, v8}];
 
   return v5;
 }

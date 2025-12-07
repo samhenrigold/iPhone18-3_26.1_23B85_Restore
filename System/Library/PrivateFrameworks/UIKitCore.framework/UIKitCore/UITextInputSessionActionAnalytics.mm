@@ -3204,9 +3204,9 @@ void __63__UITextInputSessionActionAnalytics_q_copyAccumulatorWithName___block_i
 {
   v8 = a2;
   v6 = [v8 name];
-  v7 = [v6 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
     *a3 = 1;
@@ -3462,7 +3462,7 @@ LABEL_10:
     _os_log_fault_impl(&dword_188A29000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "UITextInputSessionActionAnalytics is nil", &v9, 2u);
   }
 
-  if (([(NSUUID *)self->_sessionIdentifier isEqual:identifierCopy]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_sessionIdentifier) & 1) == 0)
   {
     v5 = UITextInputSessionLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -4930,9 +4930,9 @@ uint64_t __70__UITextInputSessionActionAnalytics_didDeleteKeyPressWithInputSourc
   if (pressCopy)
   {
     name = [pressCopy name];
-    v9 = [name isEqual:@"Delete-Key"];
+    isEqual = objc_msgSend_isEqual_(name);
 
-    if (v9)
+    if (isEqual)
     {
       [(UITextInputSessionActionAnalytics *)self didDeleteKeyPressWithInputSource:source];
     }

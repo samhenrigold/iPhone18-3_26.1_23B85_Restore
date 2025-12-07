@@ -386,8 +386,8 @@ LABEL_31:
     v11 = 0;
   }
 
-  name3 = [(CTSActivity *)self name];
-  sub_4A54(name3, v12);
+  v35 = [(CTSActivity *)self name:*v36];
+  sub_4A54(v35, v12);
 
 LABEL_49:
   [(CTSActivity *)self setBaseTime:v12];

@@ -45,7 +45,7 @@
 
 - (void)viewDidLoad
 {
-  v3 = sub_100006D40(&unk_1000B2960);
+  v3 = sub_100006D40(&unk_1000B2960, &qword_10008D8D0);
   __chkstk_darwin(v3 - 8);
   v5 = &v12 - v4;
   v6 = type metadata accessor for StickerLivePhotoConfirmationController(0);

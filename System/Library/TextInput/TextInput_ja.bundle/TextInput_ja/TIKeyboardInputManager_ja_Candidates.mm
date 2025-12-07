@@ -2,6 +2,7 @@
 + (id)sortTitleFromSort:(unint64_t)sort;
 + (unint64_t)sortFromSortTitle:(id)title;
 - (BOOL)_adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity;
+- (BOOL)makeCandidatesWithInputString:(id)string autoCommitString:(id)commitString contextString:(id)contextString predictionEnabled:(BOOL)enabled reanalysisMode:(BOOL)mode singlePhrase:(BOOL)phrase geometoryModelData:(id)data;
 - (TIKeyboardInputManager_ja_Candidates)initWithConfig:(id)config keyboardState:(id)state wordSearch:(id)search;
 - (id)candidateResultSetFromCandidates:(id)candidates proactiveTriggers:(id)triggers;
 - (id)groupedCandidatesFromCandidates:(id)candidates usingSortingMethod:(id)method;
@@ -59,6 +60,55 @@
         [(TIKeyboardInputManagerMecabra *)self completeComposition];
       }
     }
+  }
+
+  return 0;
+}
+
+- (BOOL)makeCandidatesWithInputString:(id)string autoCommitString:(id)commitString contextString:(id)contextString predictionEnabled:(BOOL)enabled reanalysisMode:(BOOL)mode singlePhrase:(BOOL)phrase geometoryModelData:(id)data
+{
+  phraseCopy = phrase;
+  enabledCopy = enabled;
+  stringCopy = string;
+  commitStringCopy = commitString;
+  objc_storeStrong(&self->_inputString, string);
+  dataCopy = data;
+  contextStringCopy = contextString;
+  if (commitStringCopy)
+  {
+    v19 = commitStringCopy;
+  }
+
+  else
+  {
+    v19 = &stru_2A2525CC0;
+  }
+
+  objc_storeStrong(&self->_autoCommitString, v19);
+  v20 = [TIWordSearchJapaneseOperationGetCandidates alloc];
+  wordSearch = [(TIKeyboardInputManager_ja_Candidates *)self wordSearch];
+  v22 = [contextStringCopy stringByAppendingString:v19];
+
+  BYTE2(v29) = [(TIKeyboardInputManager_ja_Candidates *)self hardwareKeyboardMode];
+  LOWORD(v29) = 0;
+  LOBYTE(v28) = 0;
+  v23 = [TIWordSearchJapaneseOperationGetCandidates initWithWordSearch:v20 inputString:"initWithWordSearch:inputString:keyboardInput:contextString:segmentBreakIndex:predictionEnabled:reanalysisMode:autocapitalizationType:target:action:geometryModelData:flickUsed:phraseBoundarySet:hardwareKeyboardMode:logger:" keyboardInput:wordSearch contextString:stringCopy segmentBreakIndex:0 predictionEnabled:v22 reanalysisMode:0x7FFFFFFFFFFFFFFFLL autocapitalizationType:enabledCopy target:v28 action:0 geometryModelData:self flickUsed:sel__notifyUpdateCandidates_forOperation_ phraseBoundarySet:dataCopy hardwareKeyboardMode:v29 logger:0];
+
+  [(TIWordSearchJapaneseOperationGetCandidates *)v23 setSinglePhrase:phraseCopy];
+  results = [(TIWordSearchJapaneseOperationGetCandidates *)v23 results];
+
+  if (results)
+  {
+    results2 = [(TIWordSearchJapaneseOperationGetCandidates *)v23 results];
+    [(TIKeyboardInputManagerMecabra *)self setWordSearchCandidateResultSet:results2];
+
+    wordSearchCandidateResultSet = [(TIKeyboardInputManagerMecabra *)self wordSearchCandidateResultSet];
+    [(TIKeyboardInputManager_ja_Candidates *)self _notifyUpdateCandidates:wordSearchCandidateResultSet forOperation:v23];
+  }
+
+  else
+  {
+    [(TIWordSearch *)self->_wordSearch performOperationAsync:v23];
   }
 
   return 0;
@@ -122,35 +172,35 @@
 
 - (id)candidateResultSetFromCandidates:(id)candidates proactiveTriggers:(id)triggers
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   candidatesCopy = candidates;
   triggersCopy = triggers;
   v7 = MEMORY[0x29EDB8DE8];
   transliterationCandidates = [(TIKeyboardInputManager_ja_Candidates *)self transliterationCandidates];
   v9 = [v7 arrayWithArray:transliterationCandidates];
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = candidatesCopy;
-  v10 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v10 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v30;
+    v12 = *v29;
     do
     {
       v13 = 0;
-      v26 = v11;
+      v25 = v11;
       do
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * v13);
+        v14 = *(*(&v28 + 1) + 8 * v13);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -170,7 +220,7 @@
 
           [v9 addObject:v21];
 
-          v11 = v26;
+          v11 = v25;
         }
 
         else
@@ -182,18 +232,16 @@
       }
 
       while (v11 != v13);
-      v11 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v11 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v11);
   }
 
-  v28.receiver = self;
-  v28.super_class = TIKeyboardInputManager_ja_Candidates;
-  v22 = [(TIKeyboardInputManager_ja_Candidates *)&v28 candidateResultSetFromCandidates:v9 proactiveTriggers:triggersCopy];
+  v27.receiver = self;
+  v27.super_class = TIKeyboardInputManager_ja_Candidates;
+  v22 = [(TIKeyboardInputManager_ja_Candidates *)&v27 candidateResultSetFromCandidates:v9 proactiveTriggers:triggersCopy];
   [TIKeyboardInputManager_ja addFullwidthAnnotationToResultSet:v22];
-
-  v23 = *MEMORY[0x29EDCA608];
 
   return v22;
 }
@@ -343,20 +391,19 @@
 - (BOOL)_adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity
 {
   directionCopy = direction;
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315650;
-    v10 = "[TIKeyboardInputManager_ja_Candidates _adjustPhraseBoundaryInForwardDirection:granularity:]";
-    v11 = 1024;
-    v12 = directionCopy;
-    v13 = 1024;
+    v8 = 136315650;
+    v9 = "[TIKeyboardInputManager_ja_Candidates _adjustPhraseBoundaryInForwardDirection:granularity:]";
+    v10 = 1024;
+    v11 = directionCopy;
+    v12 = 1024;
     granularityCopy = granularity;
-    _os_log_impl(&dword_29EA26000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s  adjust phrase: %d %d", &v9, 0x18u);
+    _os_log_impl(&dword_29EA26000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s  adjust phrase: %d %d", &v8, 0x18u);
   }
 
   [(TIKeyboardInputManagerMecabra *)self cancelComposition];
-  v7 = *MEMORY[0x29EDCA608];
   return 0;
 }
 

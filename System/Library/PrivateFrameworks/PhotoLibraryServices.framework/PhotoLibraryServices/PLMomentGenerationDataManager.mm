@@ -521,7 +521,7 @@ void __97__PLMomentGenerationDataManager_runPeriodicMaintenanceTasks_withTransac
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v18 = [locationsOfInterest count];
+      v18 = objc_msgSend_count(locationsOfInterest);
       _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "Routine is available with %lu LOIs:", buf, 0xCu);
     }
 
@@ -628,12 +628,12 @@ void __79__PLMomentGenerationDataManager_verifyAndRepairOrphanedAssets_completio
   v12 = a1[5];
   [v2 performBlock:v13 synchronously:1 completionHandler:v11];
   v3 = v15[5];
-  if (v3 && [v3 count])
+  if (v3 && objc_msgSend_count(v3))
   {
     v4 = PLMomentsGetLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [v15[5] count];
+      v5 = objc_msgSend_count(v15[5]);
       *buf = 134217984;
       v21 = v5;
       _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "MOMENTS: found %lu orphaned assets. Marking for moment generation", buf, 0xCu);
@@ -1227,48 +1227,47 @@ LABEL_11:
 
 - (id)_currentHomeAddressDictionary
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   _contactStore = [(PLMomentGenerationDataManager *)self _contactStore];
-  v23[0] = *MEMORY[0x1E695C360];
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
-  v21 = 0;
-  v4 = [_contactStore _crossPlatformUnifiedMeContactWithKeysToFetch:v3 error:&v21];
-  v5 = v21;
+  v22[0] = *MEMORY[0x1E695C360];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+  v20 = 0;
+  v4 = [_contactStore _crossPlatformUnifiedMeContactWithKeysToFetch:v3 error:&v20];
+  v5 = v20;
 
   if (v4)
   {
     [v4 postalAddresses];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v6 = v20 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v6 = v19 = 0u;
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
-      v10 = *MEMORY[0x1E695CB60];
+      v9 = *v17;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
-          label = [v12 label];
-          if ([label isEqualToString:v10])
+          v11 = *(*(&v16 + 1) + 8 * i);
+          label = [v11 label];
+          if (objc_msgSend_isEqualToString_(label))
           {
-            value = [v12 value];
+            value = [v11 value];
             dictionaryRepresentation = [value dictionaryRepresentation];
 
             goto LABEL_12;
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v21 count:16];
         if (v8)
         {
           continue;
@@ -1403,7 +1402,7 @@ void __63__PLMomentGenerationDataManager__networkReachabilityDidChange___block_i
 {
   v48 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
-  if (![itemsCopy count])
+  if (!objc_msgSend_count(itemsCopy))
   {
     v21 = MEMORY[0x1E695E0F0];
     goto LABEL_30;
@@ -1579,7 +1578,7 @@ LABEL_30:
 - (id)momentsForAssetsWithUniqueIDs:(id)ds error:(id *)error
 {
   dsCopy = ds;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v7 = MEMORY[0x1E695D5E0];
     v8 = +[PLMoment entityName];
@@ -1587,7 +1586,7 @@ LABEL_30:
 
     dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"ANY assets IN %@", dsCopy];
     [v9 setPredicate:dsCopy];
-    if ([dsCopy count] >= 0x65)
+    if (objc_msgSend_count(dsCopy) >= 0x65)
     {
       [v9 setFetchBatchSize:100];
     }
@@ -1608,7 +1607,7 @@ LABEL_30:
 - (id)momentsWithUniqueIDs:(id)ds error:(id *)error
 {
   dsCopy = ds;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v7 = MEMORY[0x1E695D5E0];
     v8 = +[PLMoment entityName];
@@ -1616,7 +1615,7 @@ LABEL_30:
 
     dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", dsCopy];
     [v9 setPredicate:dsCopy];
-    if ([dsCopy count] >= 0x65)
+    if (objc_msgSend_count(dsCopy) >= 0x65)
     {
       [v9 setFetchBatchSize:100];
     }
@@ -1661,7 +1660,7 @@ LABEL_30:
 
   dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"self in %@", dsCopy];
   [v9 setPredicate:dsCopy];
-  v11 = [dsCopy count];
+  v11 = objc_msgSend_count(dsCopy);
 
   if (v11 >= 0x65)
   {
@@ -1697,7 +1696,7 @@ LABEL_30:
 
   dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"self in %@", dsCopy];
   [v9 setPredicate:dsCopy];
-  v11 = [dsCopy count];
+  v11 = objc_msgSend_count(dsCopy);
 
   if (v11 >= 0x65)
   {
@@ -1907,7 +1906,7 @@ void __56__PLMomentGenerationDataManager_momentGenerationLibrary__block_invoke(u
 {
   v18[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E695D560]);
-  v4 = +[PLPhotosHighlight entity];
+  v4 = objc_msgSend_entity(PLPhotosHighlight);
   v5 = [v3 initWithEntity:v4];
 
   v17 = @"subtitle";

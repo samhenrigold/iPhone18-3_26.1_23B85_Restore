@@ -14,24 +14,23 @@ uint64_t sub_2278(void *a1)
 {
   v2 = sub_2A50(&qword_330B8, &qword_21328);
   v3 = *(v2 - 8);
-  v4 = (*(v3 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v6 = &v10 - v5;
+  v5 = &v9 - v4;
   *(swift_allocObject() + 16) = a1;
   sub_191DC();
   sub_2AD8();
-  v7 = a1;
+  v6 = a1;
   sub_1925C();
-  *(swift_allocObject() + 16) = v7;
+  *(swift_allocObject() + 16) = v6;
   sub_2CD4();
-  v8 = v7;
+  v7 = v6;
   sub_1921C();
-  return (*(v3 + 8))(v6, v2);
+  return (*(v3 + 8))(v5, v2);
 }
 
 uint64_t sub_2404(uint64_t a1)
 {
-  v2 = *(*(sub_191FC() - 8) + 64);
+  sub_191FC();
   __chkstk_darwin();
   sub_192AC();
   sub_1929C();
@@ -42,9 +41,9 @@ uint64_t sub_2404(uint64_t a1)
   }
 
   sub_2EF8();
-  v3 = [objc_allocWithZone(PSSpecifier) init];
-  v4 = sub_1927C();
-  sub_2E10(a1, v4, v5, v3);
+  v2 = [objc_allocWithZone(PSSpecifier) init];
+  v3 = sub_1927C();
+  sub_2E10(a1, v3, v4, v2);
   sub_191EC();
   sub_191CC();
 }
@@ -56,124 +55,102 @@ uint64_t sub_2550(uint64_t a1, uint64_t a2, uint64_t a3)
   v3[2] = a1;
   v4 = sub_1920C();
   v3[5] = v4;
-  v5 = *(v4 - 8);
-  v3[6] = v5;
-  v6 = *(v5 + 64) + 15;
+  v3[6] = *(v4 - 8);
   v3[7] = swift_task_alloc();
   v3[8] = swift_task_alloc();
-  v7 = *(*(sub_2A50(&qword_330D0, &qword_21340) - 8) + 64) + 15;
+  sub_2A50(&qword_330D0, &qword_21340);
   v3[9] = swift_task_alloc();
-  v8 = sub_1919C();
-  v3[10] = v8;
-  v9 = *(v8 - 8);
-  v3[11] = v9;
-  v10 = *(v9 + 64) + 15;
+  v5 = sub_1919C();
+  v3[10] = v5;
+  v3[11] = *(v5 - 8);
   v3[12] = swift_task_alloc();
-  v11 = sub_191BC();
-  v3[13] = v11;
-  v12 = *(v11 - 8);
-  v3[14] = v12;
-  v13 = *(v12 + 64) + 15;
+  v6 = sub_191BC();
+  v3[13] = v6;
+  v3[14] = *(v6 - 8);
   v3[15] = swift_task_alloc();
   sub_192AC();
   v3[16] = sub_1929C();
-  v15 = sub_1928C();
+  v8 = sub_1928C();
 
-  return _swift_task_switch(sub_2744, v15, v14);
+  return _swift_task_switch(sub_2744, v8, v7);
 }
 
 uint64_t sub_2744()
 {
   v2 = v0 + 10;
   v1 = v0[10];
-  v4 = v0[15];
-  v3 = v0[16];
-  v5 = v0[9];
-  v6 = v0[3];
+  v3 = v0[9];
 
   sub_1923C();
   sub_1917C();
-  if (sub_2D80(v5, 1, v1) == 1)
+  if (sub_2D80(v3, 1, v1) == 1)
   {
-    v7 = v0[8];
-    v8 = v0 + 8;
-    v10 = v0[2];
-    v9 = v0[3];
+    v4 = v0 + 8;
     sub_2DA8(v0[9]);
     sub_1922C();
     sub_1924C();
-    v11 = v0 + 6;
+    v5 = v0 + 6;
     v2 = v0 + 5;
     goto LABEL_17;
   }
 
-  v8 = v0 + 12;
-  v12 = v0[15];
-  v11 = v0 + 11;
-  v13 = v0[7];
-  v14 = v0[3];
+  v4 = v0 + 12;
+  v5 = v0 + 11;
   (*(v0[11] + 32))(v0[12], v0[9], v0[10]);
   sub_1922C();
-  v15 = sub_191AC();
-  v17 = v16;
-  v18 = sub_1918C();
-  if (v19)
+  v6 = sub_191AC();
+  v8 = v7;
+  v9 = sub_1918C();
+  if (v10)
   {
-    v20 = v18;
-    v21 = v19;
-    v22 = v0[4];
+    v11 = v9;
+    v12 = v10;
+    v13 = v0[4];
 
-    v23 = &selRef_setSpecifierIdentifierToScrollAndHighlight_;
-    v24 = v20;
-    v25 = v21;
-    v26 = v22;
+    v14 = &selRef_setSpecifierIdentifierToScrollAndHighlight_;
+    v15 = v11;
+    v16 = v12;
+    v17 = v13;
   }
 
   else
   {
-    v27 = HIBYTE(v17) & 0xF;
-    if ((v17 & 0x2000000000000000) == 0)
+    v18 = HIBYTE(v8) & 0xF;
+    if ((v8 & 0x2000000000000000) == 0)
     {
-      v27 = v15 & 0xFFFFFFFFFFFFLL;
+      v18 = v6 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (!v27 || (v15 == 0xD000000000000019 ? (v28 = 0x800000000001E6F0 == v17) : (v28 = 0), v28 || (sub_192CC() & 1) != 0 || (, v29._rawValue = &off_2CB28, v48._countAndFlagsBits = v15, v48._object = v17, v30 = sub_192BC(v29, v48), , v30)))
+    if (!v18 || (v6 == 0xD000000000000019 ? (v19 = 0x800000000001E6F0 == v8) : (v19 = 0), v19 || (sub_192CC() & 1) != 0 || (, v20._rawValue = &off_2CB28, v32._countAndFlagsBits = v6, v32._object = v8, v21 = sub_192BC(v20, v32), , v21)))
     {
 
       goto LABEL_16;
     }
 
-    v26 = v0[4];
-    v23 = &selRef_setSpecifierIdentifierToScrollAndSelect_;
-    v24 = v15;
-    v25 = v17;
+    v17 = v0[4];
+    v14 = &selRef_setSpecifierIdentifierToScrollAndSelect_;
+    v15 = v6;
+    v16 = v8;
   }
 
-  sub_2E8C(v24, v25, v26, v23);
+  sub_2E8C(v15, v16, v17, v14);
 LABEL_16:
-  v32 = v0[6];
-  v31 = v0[7];
-  v33 = v0[5];
-  v34 = v0[2];
+  v23 = v0[6];
+  v22 = v0[7];
+  v24 = v0[5];
   sub_1924C();
-  (*(v32 + 8))(v31, v33);
+  (*(v23 + 8))(v22, v24);
 LABEL_17:
-  v35 = *v8;
-  v36 = *v2;
-  v37 = *v11;
-  v39 = v0[14];
-  v38 = v0[15];
-  v41 = v0[12];
-  v40 = v0[13];
-  v43 = v0[8];
-  v42 = v0[9];
-  v44 = v0[7];
-  (*(v37 + 8))(v35, v36);
-  (*(v39 + 8))(v38, v40);
+  v25 = *v5;
+  v27 = v0[14];
+  v26 = v0[15];
+  v28 = v0[13];
+  (*(v25 + 8))(*v4, *v2);
+  (*(v27 + 8))(v26, v28);
 
-  v45 = v0[1];
+  v29 = v0[1];
 
-  return v45();
+  return v29();
 }
 
 id sub_29E8()
@@ -195,7 +172,6 @@ uint64_t sub_2A50(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -235,12 +211,11 @@ uint64_t sub_2B30(uint64_t a1, uint64_t a2)
 
 uint64_t sub_2BE0()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 unint64_t sub_2CD4()
@@ -261,7 +236,6 @@ uint64_t sub_2D38(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -445,12 +419,11 @@ uint64_t sub_3EF0(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) actionTitle];
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Settings: User confirmed action with title: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Settings: User confirmed action with title: %{public}@", &v5, 0xCu);
   }
 
-  v4 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -773,27 +746,25 @@ void sub_5FF0(uint64_t a1, int a2, void *a3)
     v6 = PLUIGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_class();
-      v9 = *(a1 + 32);
+      v7 = objc_opt_class();
+      v8 = *(a1 + 32);
       *buf = 138412802;
-      v13 = v8;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v5;
-      v10 = v8;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v5;
+      v9 = v7;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "<%@: %p> Failed to disable iCPL: %@", buf, 0x20u);
     }
   }
 }
 
-id sub_614C(uint64_t a1)
+id sub_614C(uint64_t a1, uint64_t a2)
 {
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
     v4 = objc_opt_class();
     v5 = *(a1 + 32);
     v9 = 138412546;
@@ -801,7 +772,7 @@ id sub_614C(uint64_t a1)
     v11 = 2048;
     v12 = v5;
     v6 = v4;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "<%@: %p> Did disable iCPL", &v9, 0x16u);
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "<%@: %p> Did disable iCPL", &v9, 0x16u);
   }
 
   *(*(a1 + 32) + 192) = 0;
@@ -811,25 +782,25 @@ id sub_614C(uint64_t a1)
   return [*(a1 + 32) _updateSpecifiersForCPLEnablementChange];
 }
 
-uint64_t sub_6684(uint64_t a1)
+uint64_t sub_6684(uint64_t a1, uint64_t a2)
 {
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Enable iCPL ignoring Exit Mode Warning", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Enable iCPL ignoring Exit Mode Warning", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t sub_6704(uint64_t a1)
+uint64_t sub_6704(uint64_t a1, uint64_t a2)
 {
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Cancel enable iCPL due to Exit Mode Warning", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Cancel enable iCPL due to Exit Mode Warning", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
@@ -857,53 +828,51 @@ void sub_6A1C(uint64_t a1, char a2, void *a3)
     v6 = PLUIGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_class();
-      v9 = *(a1 + 32);
-      v10 = *(a1 + 48);
+      v7 = objc_opt_class();
+      v8 = *(a1 + 32);
+      v9 = *(a1 + 48);
       *buf = 138413058;
-      v22 = v8;
-      v23 = 2048;
-      v24 = v9;
-      v25 = 1024;
-      v26 = 1;
-      v27 = 1024;
-      v28 = v10;
-      v11 = v8;
+      v21 = v7;
+      v22 = 2048;
+      v23 = v8;
+      v24 = 1024;
+      v25 = 1;
+      v26 = 1024;
+      v27 = v9;
+      v10 = v7;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "<%@: %p> Insufficient storage: %d (Ignoring storage: %d)", buf, 0x22u);
     }
 
-    v12 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_6BD8;
-  v15[3] = &unk_2CF68;
-  v18 = a2;
-  v19 = v12;
-  v20 = *(a1 + 48);
-  v13 = *(a1 + 40);
-  v15[4] = *(a1 + 32);
-  v16 = v13;
-  v17 = v5;
-  v14 = v5;
-  dispatch_async(&_dispatch_main_q, v15);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_6BD8;
+  v14[3] = &unk_2CF68;
+  v17 = a2;
+  v18 = v11;
+  v19 = *(a1 + 48);
+  v12 = *(a1 + 40);
+  v14[4] = *(a1 + 32);
+  v15 = v12;
+  v16 = v5;
+  v13 = v5;
+  dispatch_async(&_dispatch_main_q, v14);
 }
 
-void sub_6BD8(uint64_t a1)
+void sub_6BD8(uint64_t a1, uint64_t a2)
 {
   if ((*(a1 + 56) & 1) != 0 || *(a1 + 57) == 1 && *(a1 + 58) == 1)
   {
-    v2 = PLUIGetLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = PLUIGetLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
       v4 = objc_opt_class();
       v5 = *(a1 + 32);
       *buf = 138412546;
@@ -911,7 +880,7 @@ void sub_6BD8(uint64_t a1)
       v27 = 2048;
       v28 = v5;
       v6 = v4;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "<%@: %p> Will enable iCPL", buf, 0x16u);
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "<%@: %p> Will enable iCPL", buf, 0x16u);
     }
 
     v23[0] = _NSConcreteStackBlock;
@@ -981,34 +950,32 @@ char *sub_6F64(uint64_t a1)
   result = [*(a1 + 32) code];
   if (result == &dword_4 + 3)
   {
-    v3 = *(a1 + 32);
     *(*(a1 + 40) + 216) = PLCPLShouldRequireStorageUpgradeForError();
-    v4 = *(a1 + 40);
+    v3 = *(a1 + 40);
 
-    return [v4 _showStorageOptions];
+    return [v3 _showStorageOptions];
   }
 
   return result;
 }
 
-void sub_6FCC(uint64_t a1)
+void sub_6FCC(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 56);
-  v3 = PLUIGetLog();
-  v4 = v3;
-  if (v2)
+  v3 = *(a1 + 56);
+  v4 = PLUIGetLog();
+  v5 = v4;
+  if (v3)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
       v6 = objc_opt_class();
       v7 = *(a1 + 32);
-      *v37 = 138412546;
-      *&v37[4] = v6;
-      *&v37[12] = 2048;
-      *&v37[14] = v7;
+      *v32 = 138412546;
+      *&v32[4] = v6;
+      *&v32[12] = 2048;
+      *&v32[14] = v7;
       v8 = v6;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "<%@: %p> Did enable iCPL", v37, 0x16u);
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "<%@: %p> Did enable iCPL", v32, 0x16u);
     }
 
     *(*(a1 + 32) + 192) = 1;
@@ -1020,65 +987,60 @@ void sub_6FCC(uint64_t a1)
       v11 = PLUIGetLog();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v12 = *(a1 + 32);
-        v13 = objc_opt_class();
-        v14 = *(a1 + 32);
-        *v37 = 138412546;
-        *&v37[4] = v13;
-        *&v37[12] = 2048;
-        *&v37[14] = v14;
-        v15 = v13;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "<%@: %p> Library is not ready for iCPL, showing prompt", v37, 0x16u);
+        v12 = objc_opt_class();
+        v13 = *(a1 + 32);
+        *v32 = 138412546;
+        *&v32[4] = v12;
+        *&v32[12] = 2048;
+        *&v32[14] = v13;
+        v14 = v12;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "<%@: %p> Library is not ready for iCPL, showing prompt", v32, 0x16u);
       }
 
-      v16 = *(a1 + 32);
+      v15 = [NSBundle bundleForClass:objc_opt_class()];
+      v16 = [v15 localizedStringForKey:@"iCLOUDPHOTOS_RESTORE_PAUSE_TITLE" value:&stru_2D398 table:@"Photos"];
       v17 = [NSBundle bundleForClass:objc_opt_class()];
-      v18 = [v17 localizedStringForKey:@"iCLOUDPHOTOS_RESTORE_PAUSE_TITLE" value:&stru_2D398 table:@"Photos"];
-      v19 = *(a1 + 32);
+      v18 = [v17 localizedStringForKey:@"iCLOUDPHOTOS_RESTORE_PAUSE_MESSAGE" value:&stru_2D398 table:@"Photos"];
+      v19 = [UIAlertController alertControllerWithTitle:v16 message:v18 preferredStyle:1];
+
       v20 = [NSBundle bundleForClass:objc_opt_class()];
-      v21 = [v20 localizedStringForKey:@"iCLOUDPHOTOS_RESTORE_PAUSE_MESSAGE" value:&stru_2D398 table:@"Photos"];
-      v22 = [UIAlertController alertControllerWithTitle:v18 message:v21 preferredStyle:1];
+      v21 = [v20 localizedStringForKey:@"ICLOUDPHOTOS_OK" value:&stru_2D398 table:@"Photos"];
+      v22 = [UIAlertAction actionWithTitle:v21 style:1 handler:0];
+      [v19 addAction:v22];
 
-      v23 = *(a1 + 32);
-      v24 = [NSBundle bundleForClass:objc_opt_class()];
-      v25 = [v24 localizedStringForKey:@"ICLOUDPHOTOS_OK" value:&stru_2D398 table:@"Photos"];
-      v26 = [UIAlertAction actionWithTitle:v25 style:1 handler:0];
-      [v22 addAction:v26];
-
-      [*(a1 + 32) presentViewController:v22 animated:1 completion:0];
+      [*(a1 + 32) presentViewController:v19 animated:1 completion:0];
     }
 
     [*(a1 + 32) _updateSpecifiersForCPLEnablementChange];
-    v4 = [*(a1 + 32) parentController];
-    [v4 reloadSpecifier:*(*(a1 + 32) + OBJC_IVAR___PSViewController__specifier)];
+    v5 = [*(a1 + 32) parentController];
+    [v5 reloadSpecifier:*(*(a1 + 32) + OBJC_IVAR___PSViewController__specifier)];
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v27 = *(a1 + 32);
-    v28 = objc_opt_class();
-    v29 = *(a1 + 32);
-    v30 = v28;
-    v31 = +[PLAccountStore pl_sharedAccountStore];
-    v32 = [v31 cachedPrimaryAppleAccount];
-    v33 = [v32 identifier];
-    v34 = *(a1 + 40);
-    *v37 = 138413058;
-    *&v37[4] = v28;
-    *&v37[12] = 2048;
-    *&v37[14] = v29;
-    *&v37[22] = 2112;
-    v38 = v33;
-    v39 = 2112;
-    v40 = v34;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "<%@: %p> Failed to enable iCPL on account: %@. Error: %@", v37, 0x2Au);
+    v23 = objc_opt_class();
+    v24 = *(a1 + 32);
+    v25 = v23;
+    v26 = +[PLAccountStore pl_sharedAccountStore];
+    v27 = [v26 cachedPrimaryAppleAccount];
+    v28 = [v27 identifier];
+    v29 = *(a1 + 40);
+    *v32 = 138413058;
+    *&v32[4] = v23;
+    *&v32[12] = 2048;
+    *&v32[14] = v24;
+    *&v32[22] = 2112;
+    v33 = v28;
+    v34 = 2112;
+    v35 = v29;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "<%@: %p> Failed to enable iCPL on account: %@. Error: %@", v32, 0x2Au);
   }
 
   [*(a1 + 48) hide];
   [*(a1 + 32) _setDisplayedSpinner:0];
-  v35 = [*(a1 + 32) view];
-  v36 = [v35 window];
-  [v36 setUserInteractionEnabled:1];
+  v30 = [*(a1 + 32) view];
+  v31 = [v30 window];
+  [v31 setUserInteractionEnabled:1];
 }
 
 id sub_7480(uint64_t a1, int a2)
@@ -1225,16 +1187,16 @@ void sub_9D38(uint64_t a1)
   v6 = [v3 fetchOptions];
   v7 = [v6 photoLibrary];
 
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_9F68;
-  v16[3] = &unk_2D338;
-  v17 = v3;
-  v18 = v4;
-  v19 = v5;
-  v15 = 0;
-  v8 = [v7 performChangesAndWait:v16 error:&v15];
-  v9 = v15;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_9F68;
+  v15[3] = &unk_2D338;
+  v16 = v3;
+  v17 = v4;
+  v18 = v5;
+  v14 = 0;
+  v8 = [v7 performChangesAndWait:v15 error:&v14];
+  v9 = v14;
 
   if (v8)
   {
@@ -1246,16 +1208,15 @@ LABEL_5:
   v10 = PLUIGetLog();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v11 = *(a1 + 32);
-    v12 = objc_opt_class();
-    v13 = *(a1 + 32);
+    v11 = objc_opt_class();
+    v12 = *(a1 + 32);
     *buf = 138412802;
-    v21 = v12;
-    v22 = 2048;
-    v23 = v13;
-    v24 = 2112;
-    v25 = v9;
-    v14 = v12;
+    v20 = v11;
+    v21 = 2048;
+    v22 = v12;
+    v23 = 2112;
+    v24 = v9;
+    v13 = v11;
     _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "<%@: %p> Resetting Blacklisted Memories failed with error: %@", buf, 0x20u);
   }
 
@@ -1351,14 +1312,14 @@ void sub_A1AC(uint64_t a1)
   [WeakRetained dismissViewControllerAnimated:1 completion:0];
 }
 
-void sub_AF44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_AF44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1371,19 +1332,11 @@ uint64_t sub_AF88(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_AFA0(uint64_t a1)
+void sub_B01C(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 48);
-  return px_dispatch_on_main_queue();
-}
-
-void sub_B01C(uint64_t a1)
-{
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
     v4 = objc_opt_class();
     v5 = *(a1 + 32);
     v6 = *(a1 + 56);
@@ -1404,7 +1357,7 @@ void sub_B01C(uint64_t a1)
     v16 = 2112;
     v17 = v7;
     v8 = v4;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "<%@: %p> Did check if iCPL has exited: %@", buf, 0x20u);
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "<%@: %p> Did check if iCPL has exited: %@", buf, 0x20u);
   }
 
   v9 = *(a1 + 32);
@@ -1431,21 +1384,20 @@ void sub_B924(uint64_t a1, char a2, void *a3)
     v6 = PLUIGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_class();
-      v9 = *(a1 + 32);
-      v10 = v8;
-      v11 = +[PLAccountStore pl_sharedAccountStore];
-      v12 = [v11 cachedPrimaryAppleAccount];
-      v13 = [v12 identifier];
+      v7 = objc_opt_class();
+      v8 = *(a1 + 32);
+      v9 = v7;
+      v10 = +[PLAccountStore pl_sharedAccountStore];
+      v11 = [v10 cachedPrimaryAppleAccount];
+      v12 = [v11 identifier];
       *buf = 138413058;
-      v16 = v8;
-      v17 = 2048;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v13;
-      v21 = 2112;
-      v22 = v5;
+      v15 = v7;
+      v16 = 2048;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v12;
+      v20 = 2112;
+      v21 = v5;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "<%@: %p> Could not enable photo/shared streams on account %@. Error: %@", buf, 0x2Au);
     }
   }
@@ -1515,10 +1467,9 @@ void sub_C6C8(uint64_t a1, int a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
@@ -1576,31 +1527,29 @@ void sub_CEF0(uint64_t a1)
 
 void sub_D024(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3)
+  v2 = a2;
+  if (v2)
   {
-    v4 = PLUIGetLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = PLUIGetLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 32);
-      v7 = 138412802;
-      v8 = objc_opt_class();
-      v9 = 2114;
-      v10 = @"com.apple.Photos.Rebuild.iOS";
-      v11 = 2112;
-      v12 = v3;
-      v6 = v8;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "<%@: error removing profile %{public}@: %@", &v7, 0x20u);
+      v5 = 138412802;
+      v6 = objc_opt_class();
+      v7 = 2114;
+      v8 = @"com.apple.Photos.Rebuild.iOS";
+      v9 = 2112;
+      v10 = v2;
+      v4 = v6;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, "<%@: error removing profile %{public}@: %@", &v5, 0x20u);
     }
   }
 }
 
-void sub_D114(uint64_t a1)
+void sub_D114(uint64_t a1, uint64_t a2)
 {
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
     v4 = objc_opt_class();
     v5 = *(a1 + 32);
     v10 = 138412546;
@@ -1608,7 +1557,7 @@ void sub_D114(uint64_t a1)
     v12 = 2048;
     v13 = v5;
     v6 = v4;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "<%@: %p> Photos Rebuild started", &v10, 0x16u);
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "<%@: %p> Photos Rebuild started", &v10, 0x16u);
   }
 
   v7 = [PLPhotoLibraryPathManager alloc];
@@ -1620,23 +1569,21 @@ void sub_D114(uint64_t a1)
 
 void sub_D4D8(uint64_t a1)
 {
-  v8 = [*(a1 + 32) specifierForID:@"photosDiagnose"];
-  if (v8)
+  v6 = [*(a1 + 32) specifierForID:@"photosDiagnose"];
+  if (v6)
   {
     v2 = [NSNumber numberWithBool:*(a1 + 48)];
-    [v8 setProperty:v2 forKey:PSEnabledKey];
+    [v6 setProperty:v2 forKey:PSEnabledKey];
 
     if (*(a1 + 40))
     {
-      v3 = *(a1 + 32);
-      v4 = [NSBundle bundleForClass:objc_opt_class()];
-      v5 = *(a1 + 40);
-      v6 = SFLocalizableWAPIStringKeyForKey();
-      v7 = [v4 localizedStringForKey:v6 value:&stru_2D398 table:@"Photos"];
-      [v8 setName:v7];
+      v3 = [NSBundle bundleForClass:objc_opt_class()];
+      v4 = SFLocalizableWAPIStringKeyForKey();
+      v5 = [v3 localizedStringForKey:v4 value:&stru_2D398 table:@"Photos"];
+      [v6 setName:v5];
     }
 
-    [*(a1 + 32) reloadSpecifier:v8];
+    [*(a1 + 32) reloadSpecifier:v6];
   }
 }
 
@@ -1646,17 +1593,16 @@ void sub_D7A0(uint64_t a1, void *a2)
   v4 = PLUIGetLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = *(a1 + 32);
-    v9 = 138412802;
-    v10 = v6;
-    v11 = 2048;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v3;
-    v8 = v6;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "<%@: %p> Error running diagnose: %@", &v9, 0x20u);
+    v5 = objc_opt_class();
+    v6 = *(a1 + 32);
+    v8 = 138412802;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v3;
+    v7 = v5;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "<%@: %p> Error running diagnose: %@", &v8, 0x20u);
   }
 
   [*(a1 + 32) diagnosticServiceStateDidChange:0xFFFFFFFFLL outputURL:0 error:v3];
@@ -1671,39 +1617,37 @@ void sub_D89C(uint64_t a1, int a2, uint64_t a3, void *a4)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = *(a1 + 32);
-      v20 = 138412546;
+      v9 = objc_opt_class();
+      v10 = *(a1 + 32);
+      v18 = 138412546;
+      v19 = v9;
+      v20 = 2048;
       v21 = v10;
-      v22 = 2048;
-      v23 = v11;
-      v12 = v10;
-      v13 = "<%@: %p> Diagnose started";
-      v14 = v8;
-      v15 = OS_LOG_TYPE_DEFAULT;
-      v16 = 22;
+      v11 = v9;
+      v12 = "<%@: %p> Diagnose started";
+      v13 = v8;
+      v14 = OS_LOG_TYPE_DEFAULT;
+      v15 = 22;
 LABEL_6:
-      _os_log_impl(&dword_0, v14, v15, v13, &v20, v16);
+      _os_log_impl(&dword_0, v13, v14, v12, &v18, v15);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
+    v16 = objc_opt_class();
     v17 = *(a1 + 32);
-    v18 = objc_opt_class();
-    v19 = *(a1 + 32);
-    v20 = 138412802;
-    v21 = v18;
-    v22 = 2048;
-    v23 = v19;
-    v24 = 2112;
-    v25 = v6;
-    v12 = v18;
-    v13 = "<%@: %p> Error starting diagnose: %@";
-    v14 = v8;
-    v15 = OS_LOG_TYPE_ERROR;
-    v16 = 32;
+    v18 = 138412802;
+    v19 = v16;
+    v20 = 2048;
+    v21 = v17;
+    v22 = 2112;
+    v23 = v6;
+    v11 = v16;
+    v12 = "<%@: %p> Error starting diagnose: %@";
+    v13 = v8;
+    v14 = OS_LOG_TYPE_ERROR;
+    v15 = 32;
     goto LABEL_6;
   }
 }
@@ -1778,11 +1722,11 @@ void sub_E564(uint64_t a1)
   *(v2 + 240) = 0;
 }
 
-void sub_EF64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_EF64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1845,15 +1789,14 @@ void sub_F948(uint64_t a1)
       v5 = PLUIGetLog();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(a1 + 32);
-        v7 = objc_opt_class();
-        v8 = *(a1 + 32);
-        v10 = 138412546;
-        v11 = v7;
-        v12 = 2048;
-        v13 = v8;
-        v9 = v7;
-        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "<%@: %p> Internal Photos diagnostics disabled", &v10, 0x16u);
+        v6 = objc_opt_class();
+        v7 = *(a1 + 32);
+        v9 = 138412546;
+        v10 = v6;
+        v11 = 2048;
+        v12 = v7;
+        v8 = v6;
+        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "<%@: %p> Internal Photos diagnostics disabled", &v9, 0x16u);
       }
     }
   }
@@ -1934,9 +1877,7 @@ void sub_12564(uint64_t a1, int a2, void *a3)
 
 void sub_12694(uint64_t a1)
 {
-  v2 = [*(a1 + 32) statusProvider];
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 32);
+  v1 = [*(a1 + 32) statusProvider];
   PXSharedLibrarySetupSharedLibraryOrPreview();
 }
 
@@ -2010,13 +1951,12 @@ void sub_1383C(uint64_t a1, int a2)
 {
   if (a2)
   {
-    v3 = PLSharedLibraryGetLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v2 = PLSharedLibraryGetLog();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v5 = 138543362;
-      v6 = objc_opt_class();
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Did pop to base controller", &v5, 0xCu);
+      v3 = 138543362;
+      v4 = objc_opt_class();
+      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Did pop to base controller", &v3, 0xCu);
     }
   }
 }

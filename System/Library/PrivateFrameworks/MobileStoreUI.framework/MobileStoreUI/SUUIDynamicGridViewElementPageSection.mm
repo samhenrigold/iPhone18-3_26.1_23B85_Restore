@@ -799,9 +799,9 @@ LABEL_12:
   pageComponent = [(SUUIStorePageSection *)self pageComponent];
   viewElement = [pageComponent viewElement];
   indexBarEntryID = [viewElement indexBarEntryID];
-  v10 = [dCopy isEqualToString:indexBarEntryID];
+  isEqualToString = objc_msgSend_isEqualToString_(dCopy);
 
-  if (v10)
+  if (isEqualToString)
   {
     if (self->_showsSectionHeaders)
     {

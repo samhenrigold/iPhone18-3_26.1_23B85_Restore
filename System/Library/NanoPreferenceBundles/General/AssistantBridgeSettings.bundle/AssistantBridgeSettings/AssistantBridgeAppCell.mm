@@ -63,18 +63,18 @@
   }
 
   v24 = 0;
-  v25[0] = &v24;
-  v25[1] = 0x3032000000;
-  v25[2] = sub_8A08;
-  v25[3] = sub_8A18;
-  v26 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_8A08;
+  v28 = sub_8A18;
+  v29 = 0;
   getLazyIconID = [(AssistantBridgeAppCell *)self getLazyIconID];
   v4 = +[AssistantBridgeAppCell _iconCache];
   v5 = [v4 objectForKey:getLazyIconID];
-  v6 = *(v25[0] + 40);
-  *(v25[0] + 40) = v5;
+  v6 = v25[5];
+  v25[5] = v5;
 
-  if (!*(v25[0] + 40))
+  if (!v25[5])
   {
     v7 = +[UIScreen mainScreen];
     traitCollection = [v7 traitCollection];
@@ -103,19 +103,19 @@
     [v12 getIconForBundleID:getLazyIconID iconVariant:v13 block:&v18 timeout:60.0];
 
     dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
-    if (*(v25[0] + 40))
+    if (v25[5])
     {
       v15 = [AssistantBridgeAppCell _iconCache:v18];
-      [v15 setObject:*(v25[0] + 40) forKey:getLazyIconID];
+      [v15 setObject:v25[5] forKey:getLazyIconID];
     }
   }
 
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
-    sub_934C(v25);
+    sub_934C();
   }
 
-  v16 = *(v25[0] + 40);
+  v16 = v25[5];
 
   _Block_object_dispose(&v24, 8);
 

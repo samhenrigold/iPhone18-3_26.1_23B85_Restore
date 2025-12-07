@@ -40,7 +40,7 @@
 
 - (ADAppAdvertisement)initWithAdamID:(id)d cppIDs:(id)ds serverCppID:(id)iD adData:(id)data instanceID:(id)instanceID
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dsCopy = ds;
   iDCopy = iD;
@@ -52,22 +52,22 @@
     v18 = objc_opt_class();
     v19 = @"nil";
     *buf = 138412802;
-    v40 = v18;
+    v39 = v18;
     if (iDCopy)
     {
       v19 = iDCopy;
     }
 
-    v41 = 2112;
-    v42 = dCopy;
-    v43 = 2112;
-    v44 = v19;
+    v40 = 2112;
+    v41 = dCopy;
+    v42 = 2112;
+    v43 = v19;
     _os_log_impl(&dword_264E42000, v17, OS_LOG_TYPE_INFO, "[%@] For adamID: %@ this is the serverCppID: %@.", buf, 0x20u);
   }
 
   if (dsCopy)
   {
-    v37 = dCopy;
+    v36 = dCopy;
     v23 = iDCopy;
     dataCopy2 = data;
     instanceIDCopy2 = instanceID;
@@ -80,9 +80,9 @@
     {
       v31 = objc_opt_class();
       *buf = 138412546;
-      v40 = v31;
-      v41 = 2112;
-      v42 = v29;
+      v39 = v31;
+      v40 = 2112;
+      v41 = v29;
       _os_log_impl(&dword_264E42000, v30, OS_LOG_TYPE_INFO, "[%@] cppIDs provided from the server are: %@", buf, 0x16u);
     }
 
@@ -92,7 +92,7 @@
     instanceID = instanceIDCopy2;
     data = dataCopy2;
     iDCopy = v23;
-    dCopy = v37;
+    dCopy = v36;
   }
 
   else
@@ -102,14 +102,14 @@
     {
       v32 = objc_opt_class();
       *buf = 138412290;
-      v40 = v32;
+      v39 = v32;
       _os_log_impl(&dword_264E42000, v29, OS_LOG_TYPE_INFO, "[%@] cppIDs are not provided from server", buf, 0xCu);
     }
   }
 
-  v38.receiver = self;
-  v38.super_class = ADAppAdvertisement;
-  v33 = [(ADAppRepresentation *)&v38 initWithAdamID:dCopy];
+  v37.receiver = self;
+  v37.super_class = ADAppAdvertisement;
+  v33 = [(ADAppRepresentation *)&v37 initWithAdamID:dCopy];
   v34 = v33;
   if (v33)
   {
@@ -118,7 +118,6 @@
     objc_storeStrong(&v34->_selectedCppID, iD);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v34;
 }
 

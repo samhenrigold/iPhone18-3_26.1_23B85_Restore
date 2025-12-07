@@ -15,17 +15,17 @@
 
 - (IDSAccountNotificationDelegate)init
 {
-  v12 = *MEMORY[0x29EDCA608];
-  v9.receiver = self;
-  v9.super_class = IDSAccountNotificationDelegate;
-  v2 = [(IDSAccountNotificationDelegate *)&v9 init];
+  v11 = *MEMORY[0x29EDCA608];
+  v8.receiver = self;
+  v8.super_class = IDSAccountNotificationDelegate;
+  v2 = [(IDSAccountNotificationDelegate *)&v8 init];
   if (v2)
   {
     registration = [MEMORY[0x29EDC5540] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v11 = v2;
+      v10 = v2;
       _os_log_impl(&dword_29C8D2000, registration, OS_LOG_TYPE_DEFAULT, "IDSAccountNotificationDelegate loaded { self: %p }", buf, 0xCu);
     }
 
@@ -37,13 +37,12 @@
     v2->_setupRequestPending = 0;
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
 - (id)_findExistingIdentityServicesACAccountWithUserName:(id)name inStore:(id)store
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   nameCopy = name;
   storeCopy = store;
   v7 = *MEMORY[0x29EDB8268];
@@ -60,11 +59,11 @@
   }
 
   warning = [storeCopy accountsWithAccountType:v8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v10 = [warning countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v10 = [warning countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (!v10)
   {
 LABEL_18:
@@ -73,21 +72,21 @@ LABEL_18:
   }
 
   v11 = v10;
-  v21 = storeCopy;
+  v20 = storeCopy;
   v12 = 0;
-  v13 = *v23;
+  v13 = *v22;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v23 != v13)
+      if (*v22 != v13)
       {
         objc_enumerationMutation(warning);
       }
 
       if (!v12)
       {
-        v15 = *(*(&v22 + 1) + 8 * i);
+        v15 = *(*(&v21 + 1) + 8 * i);
         username = [v15 username];
         v17 = [username isEqualToIgnoringCase:nameCopy];
 
@@ -98,7 +97,7 @@ LABEL_18:
           if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v27 = v12;
+            v26 = v12;
             _os_log_impl(&dword_29C8D2000, registration, OS_LOG_TYPE_DEFAULT, "Found matching IDS ACAccount { account: %@ }", buf, 0xCu);
           }
         }
@@ -110,21 +109,19 @@ LABEL_18:
       }
     }
 
-    v11 = [warning countByEnumeratingWithState:&v22 objects:v28 count:16];
+    v11 = [warning countByEnumeratingWithState:&v21 objects:v27 count:16];
   }
 
   while (v11);
-  storeCopy = v21;
+  storeCopy = v20;
 LABEL_19:
-
-  v19 = *MEMORY[0x29EDCA608];
 
   return v12;
 }
 
 - (void)_iCloudSignInBasedOnAccount:(id)account inStore:(id)store
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   v7 = MEMORY[0x29EDC5540];
   storeCopy = store;
@@ -132,7 +129,7 @@ LABEL_19:
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v34 = accountCopy;
+    v33 = accountCopy;
     _os_log_impl(&dword_29C8D2000, registration, OS_LOG_TYPE_DEFAULT, "Signing in iCloud-based IDS services { account: %@ }", buf, 0xCu);
   }
 
@@ -156,19 +153,19 @@ LABEL_19:
     v20 = [v19 copy];
 
     queue = self->_queue;
-    v28[0] = MEMORY[0x29EDCA5F8];
-    v28[1] = 3221225472;
-    v28[2] = sub_29C8D3448;
-    v28[3] = &unk_29F330138;
-    v29 = v13;
-    v30 = v16;
-    v31 = v18;
-    v32 = v20;
+    v27[0] = MEMORY[0x29EDCA5F8];
+    v27[1] = 3221225472;
+    v27[2] = sub_29C8D3448;
+    v27[3] = &unk_29F330138;
+    v28 = v13;
+    v29 = v16;
+    v30 = v18;
+    v31 = v20;
     v22 = v20;
     v23 = v18;
     v24 = v16;
     registration2 = v13;
-    dispatch_async(queue, v28);
+    dispatch_async(queue, v27);
     self->_setupRequestPending = 0;
   }
 
@@ -180,12 +177,10 @@ LABEL_19:
     {
       username3 = [accountCopy username];
       *buf = 138412290;
-      v34 = username3;
+      v33 = username3;
       _os_log_impl(&dword_29C8D2000, registration2, OS_LOG_TYPE_DEFAULT, "No existing ACAccount for this username, waiting... { username: %@ }", buf, 0xCu);
     }
   }
-
-  v27 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_iCloudModifyBasedOnUsername:(id)username
@@ -211,13 +206,13 @@ LABEL_19:
 
 - (void)_iTunesSignInBasedOnAccount:(id)account
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   registration = [MEMORY[0x29EDC5540] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = accountCopy;
+    v17 = accountCopy;
     _os_log_impl(&dword_29C8D2000, registration, OS_LOG_TYPE_DEFAULT, "Signing in iTunes-based IDS services { account: %@ }", buf, 0xCu);
   }
 
@@ -228,28 +223,26 @@ LABEL_19:
   v9 = [v8 copy];
 
   queue = self->_queue;
-  v14[0] = MEMORY[0x29EDCA5F8];
-  v14[1] = 3221225472;
-  v14[2] = sub_29C8D36E8;
-  v14[3] = &unk_29F3301A8;
-  v15 = v7;
-  v16 = v9;
+  v13[0] = MEMORY[0x29EDCA5F8];
+  v13[1] = 3221225472;
+  v13[2] = sub_29C8D36E8;
+  v13[3] = &unk_29F3301A8;
+  v14 = v7;
+  v15 = v9;
   v11 = v9;
   v12 = v7;
-  dispatch_async(queue, v14);
-
-  v13 = *MEMORY[0x29EDCA608];
+  dispatch_async(queue, v13);
 }
 
 - (void)_gameCenterSignInBasedOnAccount:(id)account inStore:(id)store
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   registration = [MEMORY[0x29EDC5540] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = accountCopy;
+    v18 = accountCopy;
     _os_log_impl(&dword_29C8D2000, registration, OS_LOG_TYPE_DEFAULT, "Signing in GameCenter-based IDS services { account: %@ }", buf, 0xCu);
   }
 
@@ -260,17 +253,15 @@ LABEL_19:
   v10 = [v9 copy];
 
   queue = self->_queue;
-  v15[0] = MEMORY[0x29EDCA5F8];
-  v15[1] = 3221225472;
-  v15[2] = sub_29C8D389C;
-  v15[3] = &unk_29F3301A8;
-  v16 = v8;
-  v17 = v10;
+  v14[0] = MEMORY[0x29EDCA5F8];
+  v14[1] = 3221225472;
+  v14[2] = sub_29C8D389C;
+  v14[3] = &unk_29F3301A8;
+  v15 = v8;
+  v16 = v10;
   v12 = v10;
   v13 = v8;
-  dispatch_async(queue, v15);
-
-  v14 = *MEMORY[0x29EDCA608];
+  dispatch_async(queue, v14);
 }
 
 - (void)_gameCenterModifyBasedOnUsername:(id)username
@@ -288,7 +279,7 @@ LABEL_19:
 
 - (void)account:(id)account didChangeWithType:(int)type inStore:(id)store oldAccount:(id)oldAccount
 {
-  v92 = *MEMORY[0x29EDCA608];
+  v91 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   storeCopy = store;
   oldAccountCopy = oldAccount;
@@ -296,8 +287,8 @@ LABEL_19:
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v79 = "[IDSAccountNotificationDelegate account:didChangeWithType:inStore:oldAccount:]";
-    v80 = 2048;
+    v78 = "[IDSAccountNotificationDelegate account:didChangeWithType:inStore:oldAccount:]";
+    v79 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_29C8D2000, registration, OS_LOG_TYPE_DEFAULT, "%s invoked { self: %p }", buf, 0x16u);
   }
@@ -312,7 +303,7 @@ LABEL_19:
     {
       selfCopy3 = self;
       v18 = identifier;
-      v77 = storeCopy;
+      v76 = storeCopy;
       v19 = oldAccountCopy;
       v20 = [(IDSAccountNotificationDelegate *)oldAccountCopy accountPropertyForKey:@"primaryAccount"];
       bOOLValue = [v20 BOOLValue];
@@ -331,7 +322,7 @@ LABEL_19:
       selfCopy3 = self;
       v18 = identifier;
       v19 = oldAccountCopy;
-      v77 = storeCopy;
+      v76 = storeCopy;
       if (type == 2)
       {
         v20 = [(IDSAccountNotificationDelegate *)accountCopy accountPropertyForKey:@"primaryAccount"];
@@ -374,7 +365,7 @@ LABEL_12:
 
         v29 = @"NO";
         *buf = 138413570;
-        v79 = oldAccountCopy;
+        v78 = oldAccountCopy;
         if (bOOLValue3)
         {
           v30 = @"YES";
@@ -400,16 +391,16 @@ LABEL_12:
           v29 = @"YES";
         }
 
-        v80 = 2112;
+        v79 = 2112;
         selfCopy = accountCopy;
-        v82 = 2112;
-        v83 = v26;
-        v84 = 2112;
-        v85 = v30;
-        v86 = 2112;
-        v87 = v31;
-        v88 = 2112;
-        v89 = v29;
+        v81 = 2112;
+        v82 = v26;
+        v83 = 2112;
+        v84 = v30;
+        v85 = 2112;
+        v86 = v31;
+        v87 = 2112;
+        v88 = v29;
         _os_log_impl(&dword_29C8D2000, registration2, OS_LOG_TYPE_DEFAULT, "iCloud account changed { oldAccount: %@, newAccount: %@, changeType: %@, didSignIn: %@, didSignOut: %@, wasModified: %@ }", buf, 0x3Eu);
       }
 
@@ -417,13 +408,13 @@ LABEL_12:
       {
         selfCopy4 = selfCopy3;
         v33 = accountCopy;
-        storeCopy = v77;
+        storeCopy = v76;
 LABEL_37:
         [(IDSAccountNotificationDelegate *)selfCopy4 _iCloudSignInBasedOnAccount:v33 inStore:storeCopy];
         goto LABEL_141;
       }
 
-      storeCopy = v77;
+      storeCopy = v76;
       if (bOOLValue)
       {
         [(IDSAccountNotificationDelegate *)selfCopy3 _iCloudSignOut];
@@ -445,7 +436,7 @@ LABEL_51:
 
   if ([identifier isEqualToString:*MEMORY[0x29EDB82D8]])
   {
-    v74 = type - 1;
+    v73 = type - 1;
     if (type == 1)
     {
       v41 = storeCopy;
@@ -522,20 +513,20 @@ LABEL_69:
     registration3 = [MEMORY[0x29EDC5540] registration];
     if (os_log_type_enabled(registration3, OS_LOG_TYPE_DEFAULT))
     {
-      if (v74 > 3)
+      if (v73 > 3)
       {
         v53 = @"Unknown";
       }
 
       else
       {
-        v53 = off_29F3301C8[v74];
+        v53 = off_29F3301C8[v73];
       }
 
       *buf = 138413826;
       v54 = @"YES";
-      v79 = oldAccountCopy;
-      v80 = 2112;
+      v78 = oldAccountCopy;
+      v79 = 2112;
       if (isActive)
       {
         v55 = @"YES";
@@ -557,21 +548,21 @@ LABEL_69:
         v56 = @"NO";
       }
 
-      v82 = 2112;
+      v81 = 2112;
       if ((v51 & 1) == 0)
       {
         v54 = @"NO";
       }
 
-      v83 = v53;
-      v84 = 2112;
-      v85 = @"NO";
-      v86 = 2112;
-      v87 = v55;
-      v88 = 2112;
-      v89 = v56;
-      v90 = 2112;
-      v91 = v54;
+      v82 = v53;
+      v83 = 2112;
+      v84 = @"NO";
+      v85 = 2112;
+      v86 = v55;
+      v87 = 2112;
+      v88 = v56;
+      v89 = 2112;
+      v90 = v54;
       _os_log_impl(&dword_29C8D2000, registration3, OS_LOG_TYPE_DEFAULT, "iTunes account changed { oldAccount: %@, newAccount: %@, changeType: %@, addedMediaTypes: %@, didSignIn: %@, isInGoodStateForRepair: %@, didSignOut: %@ }", buf, 0x48u);
     }
 
@@ -590,12 +581,12 @@ LABEL_69:
 
   if ([identifier isEqualToString:*MEMORY[0x29EDB8230]])
   {
-    v73 = type - 1;
+    v72 = type - 1;
     if (type == 1)
     {
       v57 = storeCopy;
-      LODWORD(v75) = 0;
-      HIDWORD(v75) = [(IDSAccountNotificationDelegate *)accountCopy isActive];
+      LODWORD(v74) = 0;
+      HIDWORD(v74) = [(IDSAccountNotificationDelegate *)accountCopy isActive];
     }
 
     else
@@ -612,17 +603,17 @@ LABEL_69:
           isActive4 = [(IDSAccountNotificationDelegate *)accountCopy isActive];
         }
 
-        HIDWORD(v75) = isActive4;
+        HIDWORD(v74) = isActive4;
         v57 = storeCopy;
         if ([(IDSAccountNotificationDelegate *)accountCopy isActive])
         {
           isAuthenticated2 = [(IDSAccountNotificationDelegate *)accountCopy isAuthenticated];
-          LODWORD(v75) = 1;
+          LODWORD(v74) = 1;
         }
 
         else
         {
-          LODWORD(v75) = 0;
+          LODWORD(v74) = 0;
           isAuthenticated2 = 0;
         }
 
@@ -631,7 +622,7 @@ LABEL_69:
       }
 
       v57 = storeCopy;
-      v75 = 0;
+      v74 = 0;
     }
 
     v58 = 0;
@@ -675,21 +666,21 @@ LABEL_103:
     registration4 = [MEMORY[0x29EDC5540] registration];
     if (os_log_type_enabled(registration4, OS_LOG_TYPE_DEFAULT))
     {
-      if (v73 > 3)
+      if (v72 > 3)
       {
         v67 = @"Unknown";
       }
 
       else
       {
-        v67 = off_29F3301C8[v73];
+        v67 = off_29F3301C8[v72];
       }
 
       v68 = @"NO";
       *buf = 138413826;
-      v79 = oldAccountCopy;
-      v80 = 2112;
-      if (HIDWORD(v75))
+      v78 = oldAccountCopy;
+      v79 = 2112;
+      if (HIDWORD(v74))
       {
         v69 = @"YES";
       }
@@ -710,8 +701,8 @@ LABEL_103:
         v70 = @"NO";
       }
 
-      v83 = v67;
-      if (v75)
+      v82 = v67;
+      if (v74)
       {
         v71 = @"YES";
       }
@@ -721,24 +712,24 @@ LABEL_103:
         v71 = @"NO";
       }
 
-      v82 = 2112;
+      v81 = 2112;
       if (v65)
       {
         v68 = @"YES";
       }
 
-      v84 = 2112;
-      v85 = v69;
-      v86 = 2112;
-      v87 = v70;
-      v88 = 2112;
-      v89 = v71;
-      v90 = 2112;
-      v91 = v68;
+      v83 = 2112;
+      v84 = v69;
+      v85 = 2112;
+      v86 = v70;
+      v87 = 2112;
+      v88 = v71;
+      v89 = 2112;
+      v90 = v68;
       _os_log_impl(&dword_29C8D2000, registration4, OS_LOG_TYPE_DEFAULT, "GameCenter account changed { oldAccount: %@, newAccount: %@, changeType: %@, didSignIn: %@, isInGoodStateForRepair: %@, wasModified: %@, didSignOut: %@ }", buf, 0x48u);
     }
 
-    if ((HIDWORD(v75) | v62))
+    if ((HIDWORD(v74) | v62))
     {
       [(IDSAccountNotificationDelegate *)self _gameCenterSignInBasedOnAccount:accountCopy inStore:v57];
       goto LABEL_141;
@@ -750,7 +741,7 @@ LABEL_103:
       goto LABEL_141;
     }
 
-    if (!v75)
+    if (!v74)
     {
       goto LABEL_141;
     }
@@ -781,8 +772,8 @@ LABEL_103:
         if (os_log_type_enabled(registration5, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v79 = oldAccountCopy;
-          v80 = 2112;
+          v78 = oldAccountCopy;
+          v79 = 2112;
           selfCopy = accountCopy;
           _os_log_impl(&dword_29C8D2000, registration5, OS_LOG_TYPE_DEFAULT, "IDMS account username changed { oldAccount: %@, newAccount: %@ }", buf, 0x16u);
         }
@@ -822,13 +813,13 @@ LABEL_103:
       }
 
       *buf = 138413058;
-      v79 = v45;
-      v80 = 2112;
+      v78 = v45;
+      v79 = 2112;
       selfCopy = oldAccountCopy;
-      v82 = 2112;
-      v83 = accountCopy;
-      v84 = 2112;
-      v85 = v46;
+      v81 = 2112;
+      v82 = accountCopy;
+      v83 = 2112;
+      v84 = v46;
       _os_log_impl(&dword_29C8D2000, registration6, OS_LOG_TYPE_DEFAULT, "IDS account changed { requestPending: %@, oldAccount: %@, newAccount: %@, changeType: %@ }", buf, 0x2Au);
     }
 
@@ -841,13 +832,11 @@ LABEL_103:
   }
 
 LABEL_141:
-
-  v72 = *MEMORY[0x29EDCA608];
 }
 
 - (BOOL)canSaveAccount:(id)account inStore:(id)store
 {
-  v52[1] = *MEMORY[0x29EDCA608];
+  v51[1] = *MEMORY[0x29EDCA608];
   accountCopy = account;
   storeCopy = store;
   accountType = [accountCopy accountType];
@@ -861,25 +850,25 @@ LABEL_141:
     goto LABEL_41;
   }
 
-  v52[0] = v9;
-  v12 = [MEMORY[0x29EDB8D80] arrayWithObjects:v52 count:1];
-  v50 = 0;
-  v13 = [storeCopy accountsWithAccountTypeIdentifiers:v12 error:&v50];
-  v14 = v50;
+  v51[0] = v9;
+  v12 = [MEMORY[0x29EDB8D80] arrayWithObjects:v51 count:1];
+  v49 = 0;
+  v13 = [storeCopy accountsWithAccountTypeIdentifiers:v12 error:&v49];
+  v14 = v49;
 
   if (v13)
   {
-    v42 = storeCopy;
+    v41 = storeCopy;
     accountProperties = [accountCopy accountProperties];
     v16 = [accountProperties objectForKeyedSubscript:@"profile-id"];
 
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
-    v40 = v13;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    v39 = v13;
     v13 = v13;
-    v17 = [v13 countByEnumeratingWithState:&v46 objects:v51 count:16];
+    v17 = [v13 countByEnumeratingWithState:&v45 objects:v50 count:16];
     registration = v16;
     if (!v17)
     {
@@ -887,20 +876,20 @@ LABEL_141:
     }
 
     v18 = v17;
-    v44 = v13;
-    v45 = *v47;
-    v41 = v14;
+    v43 = v13;
+    v44 = *v46;
+    v40 = v14;
     while (1)
     {
       v19 = 0;
       do
       {
-        if (*v47 != v45)
+        if (*v46 != v44)
         {
           objc_enumerationMutation(v13);
         }
 
-        v20 = *(*(&v46 + 1) + 8 * v19);
+        v20 = *(*(&v45 + 1) + 8 * v19);
         identifier2 = [accountCopy identifier];
         if (![identifier2 length])
         {
@@ -919,14 +908,14 @@ LABEL_14:
         identifier5 = [v20 identifier];
         v25 = [identifier4 isEqualToString:identifier5];
 
-        v13 = v44;
+        v13 = v43;
         if (v25)
         {
           v11 = 1;
 LABEL_39:
 
-          v14 = v41;
-          storeCopy = v42;
+          v14 = v40;
+          storeCopy = v41;
           goto LABEL_40;
         }
 
@@ -975,7 +964,7 @@ LABEL_15:
             v35 = 0;
           }
 
-          v13 = v44;
+          v13 = v43;
 
           v36 = v32 | v35;
           v16 = registration;
@@ -995,16 +984,16 @@ LABEL_38:
       }
 
       while (v18 != v19);
-      v37 = [v13 countByEnumeratingWithState:&v46 objects:v51 count:16];
+      v37 = [v13 countByEnumeratingWithState:&v45 objects:v50 count:16];
       v18 = v37;
-      v14 = v41;
+      v14 = v40;
       if (!v37)
       {
 LABEL_34:
 
         v11 = 1;
-        v13 = v40;
-        storeCopy = v42;
+        v13 = v39;
+        storeCopy = v41;
         goto LABEL_40;
       }
     }
@@ -1020,7 +1009,6 @@ LABEL_34:
 LABEL_40:
 
 LABEL_41:
-  v38 = *MEMORY[0x29EDCA608];
   return v11;
 }
 

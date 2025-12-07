@@ -190,24 +190,24 @@
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v32[5] = *MEMORY[0x1E69E9840];
+  v31[5] = *MEMORY[0x1E69E9840];
   localizerCopy = localizer;
-  v30.receiver = self;
-  v30.super_class = INCodableBooleanAttributeMetadata;
-  v25 = [(INCodableAttributeMetadata *)&v30 dictionaryRepresentationWithLocalizer:localizerCopy];
+  v29.receiver = self;
+  v29.super_class = INCodableBooleanAttributeMetadata;
+  v24 = [(INCodableAttributeMetadata *)&v29 dictionaryRepresentationWithLocalizer:localizerCopy];
   __INCodableDescriptionDefaultValueKey = [(INCodableBooleanAttributeMetadata *)self __INCodableDescriptionDefaultValueKey];
-  v31[0] = __INCodableDescriptionDefaultValueKey;
+  v30[0] = __INCodableDescriptionDefaultValueKey;
   defaultValue = [(INCodableBooleanAttributeMetadata *)self defaultValue];
-  v27 = defaultValue;
+  v26 = defaultValue;
   if (!defaultValue)
   {
     defaultValue = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = defaultValue;
-  v32[0] = defaultValue;
+  v21 = defaultValue;
+  v31[0] = defaultValue;
   __INCodableDescriptionTrueDisplayNameKey = [(INCodableBooleanAttributeMetadata *)self __INCodableDescriptionTrueDisplayNameKey];
-  v31[1] = __INCodableDescriptionTrueDisplayNameKey;
+  v30[1] = __INCodableDescriptionTrueDisplayNameKey;
   null = [(INCodableBooleanAttributeMetadata *)self localizedTrueDisplayNameWithLocalizer:localizerCopy];
   v7 = null;
   if (!null)
@@ -215,10 +215,10 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v32[1] = null;
+  v20 = null;
+  v31[1] = null;
   __INCodableDescriptionTrueDisplayNameIDKey = [(INCodableBooleanAttributeMetadata *)self __INCodableDescriptionTrueDisplayNameIDKey];
-  v31[2] = __INCodableDescriptionTrueDisplayNameIDKey;
+  v30[2] = __INCodableDescriptionTrueDisplayNameIDKey;
   trueDisplayNameID = [(INCodableBooleanAttributeMetadata *)self trueDisplayNameID];
   v9 = trueDisplayNameID;
   if (!trueDisplayNameID)
@@ -226,10 +226,10 @@
     trueDisplayNameID = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32[2] = trueDisplayNameID;
+  v31[2] = trueDisplayNameID;
   __INCodableDescriptionFalseDisplayNameKey = [(INCodableBooleanAttributeMetadata *)self __INCodableDescriptionFalseDisplayNameKey];
-  v31[3] = __INCodableDescriptionFalseDisplayNameKey;
-  v29 = localizerCopy;
+  v30[3] = __INCodableDescriptionFalseDisplayNameKey;
+  v28 = localizerCopy;
   v10 = [(INCodableBooleanAttributeMetadata *)self localizedFalseDisplayNameWithLocalizer:localizerCopy];
   null2 = v10;
   if (!v10)
@@ -237,9 +237,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32[3] = null2;
+  v31[3] = null2;
   __INCodableDescriptionFalseDisplayNameIDKey = [(INCodableBooleanAttributeMetadata *)self __INCodableDescriptionFalseDisplayNameIDKey];
-  v31[4] = __INCodableDescriptionFalseDisplayNameIDKey;
+  v30[4] = __INCodableDescriptionFalseDisplayNameIDKey;
   falseDisplayNameID = [(INCodableBooleanAttributeMetadata *)self falseDisplayNameID];
   null3 = falseDisplayNameID;
   if (!falseDisplayNameID)
@@ -247,9 +247,9 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32[4] = null3;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:5];
-  v16 = [v25 if_dictionaryByAddingEntriesFromDictionary:v15];
+  v31[4] = null3;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:5];
+  v16 = [v24 if_dictionaryByAddingEntriesFromDictionary:v15];
 
   if (!falseDisplayNameID)
   {
@@ -267,13 +267,11 @@
   {
   }
 
-  if (!v27)
+  if (!v26)
   {
   }
 
   if_dictionaryWithNonEmptyValues = [v16 if_dictionaryWithNonEmptyValues];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }

@@ -102,186 +102,8 @@ LABEL_10:
 {
   sessionCopy = session;
   v5 = sessionCopy;
-  if (!sessionCopy)
+  if (!sessionCopy || (v6 = self->_title == 0, [sessionCopy title], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (title = self->_title) != 0 && (objc_msgSend(v5, "title"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](title, "isEqual:", v10), v10, !v11) || (v12 = self->_album == 0, objc_msgSend(v5, "album"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (album = self->_album) != 0 && (objc_msgSend(v5, "album"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](album, "isEqual:", v16), v16, !v17) || (v18 = self->_bundleId == 0, objc_msgSend(v5, "bundleId"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20) || (bundleId = self->_bundleId) != 0 && (objc_msgSend(v5, "bundleId"), v22 = objc_claimAutoreleasedReturnValue(), v23 = -[NSString isEqual:](bundleId, "isEqual:", v22), v22, !v23) || (v24 = self->_productId == 0, objc_msgSend(v5, "productId"), v25 = objc_claimAutoreleasedReturnValue(), v26 = v25 != 0, v25, v24 == v26) || (productId = self->_productId) != 0 && (objc_msgSend(v5, "productId"), v28 = objc_claimAutoreleasedReturnValue(), v29 = -[NSString isEqual:](productId, "isEqual:", v28), v28, !v29) || (v30 = self->_genre == 0, objc_msgSend(v5, "genre"), v31 = objc_claimAutoreleasedReturnValue(), v32 = v31 != 0, v31, v30 == v32) || (genre = self->_genre) != 0 && (objc_msgSend(v5, "genre"), v34 = objc_claimAutoreleasedReturnValue(), v35 = -[NSString isEqual:](genre, "isEqual:", v34), v34, !v35) || (v36 = self->_mediaType == 0, objc_msgSend(v5, "mediaType"), v37 = objc_claimAutoreleasedReturnValue(), v38 = v37 != 0, v37, v36 == v38) || (mediaType = self->_mediaType) != 0 && (objc_msgSend(v5, "mediaType"), v40 = objc_claimAutoreleasedReturnValue(), v41 = -[NSString isEqual:](mediaType, "isEqual:", v40), v40, !v41) || (v42 = self->_artist == 0, objc_msgSend(v5, "artist"), v43 = objc_claimAutoreleasedReturnValue(), v44 = v43 != 0, v43, v42 == v44) || (artist = self->_artist) != 0 && (objc_msgSend(v5, "artist"), v46 = objc_claimAutoreleasedReturnValue(), v47 = -[NSString isEqual:](artist, "isEqual:", v46), v46, !v47) || (v48 = self->_startDate == 0, objc_msgSend(v5, "startDate"), v49 = objc_claimAutoreleasedReturnValue(), v50 = v49 != 0, v49, v48 == v50) || (startDate = self->_startDate) != 0 && (objc_msgSend(v5, "startDate"), v52 = objc_claimAutoreleasedReturnValue(), v53 = -[NSDate isEqual:](startDate, "isEqual:", v52), v52, !v53) || (v54 = self->_endDate == 0, objc_msgSend(v5, "endDate"), v55 = objc_claimAutoreleasedReturnValue(), v56 = v55 != 0, v55, v54 == v56))
   {
-    goto LABEL_29;
-  }
-
-  v6 = self->_title == 0;
-  title = [sessionCopy title];
-  v8 = title != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_29;
-  }
-
-  title = self->_title;
-  if (title)
-  {
-    title2 = [v5 title];
-    v11 = [(NSString *)title isEqual:title2];
-
-    if (!v11)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v12 = self->_album == 0;
-  album = [v5 album];
-  v14 = album != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_29;
-  }
-
-  album = self->_album;
-  if (album)
-  {
-    album2 = [v5 album];
-    v17 = [(NSString *)album isEqual:album2];
-
-    if (!v17)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v18 = self->_bundleId == 0;
-  bundleId = [v5 bundleId];
-  v20 = bundleId != 0;
-
-  if (v18 == v20)
-  {
-    goto LABEL_29;
-  }
-
-  bundleId = self->_bundleId;
-  if (bundleId)
-  {
-    bundleId2 = [v5 bundleId];
-    v23 = [(NSString *)bundleId isEqual:bundleId2];
-
-    if (!v23)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v24 = self->_productId == 0;
-  productId = [v5 productId];
-  v26 = productId != 0;
-
-  if (v24 == v26)
-  {
-    goto LABEL_29;
-  }
-
-  productId = self->_productId;
-  if (productId)
-  {
-    productId2 = [v5 productId];
-    v29 = [(NSString *)productId isEqual:productId2];
-
-    if (!v29)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v30 = self->_genre == 0;
-  genre = [v5 genre];
-  v32 = genre != 0;
-
-  if (v30 == v32)
-  {
-    goto LABEL_29;
-  }
-
-  genre = self->_genre;
-  if (genre)
-  {
-    genre2 = [v5 genre];
-    v35 = [(NSString *)genre isEqual:genre2];
-
-    if (!v35)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v36 = self->_mediaType == 0;
-  mediaType = [v5 mediaType];
-  v38 = mediaType != 0;
-
-  if (v36 == v38)
-  {
-    goto LABEL_29;
-  }
-
-  mediaType = self->_mediaType;
-  if (mediaType)
-  {
-    mediaType2 = [v5 mediaType];
-    v41 = [(NSString *)mediaType isEqual:mediaType2];
-
-    if (!v41)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v42 = self->_artist == 0;
-  artist = [v5 artist];
-  v44 = artist != 0;
-
-  if (v42 == v44)
-  {
-    goto LABEL_29;
-  }
-
-  artist = self->_artist;
-  if (artist)
-  {
-    artist2 = [v5 artist];
-    v47 = [(NSString *)artist isEqual:artist2];
-
-    if (!v47)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v48 = self->_startDate == 0;
-  startDate = [v5 startDate];
-  v50 = startDate != 0;
-
-  if (v48 == v50)
-  {
-    goto LABEL_29;
-  }
-
-  startDate = self->_startDate;
-  if (startDate)
-  {
-    startDate2 = [v5 startDate];
-    v53 = [(NSDate *)startDate isEqual:startDate2];
-
-    if (!v53)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v54 = self->_endDate == 0;
-  endDate = [v5 endDate];
-  v56 = endDate != 0;
-
-  if (v54 == v56)
-  {
-LABEL_29:
     v59 = 0;
   }
 
@@ -290,8 +112,8 @@ LABEL_29:
     endDate = self->_endDate;
     if (endDate)
     {
-      endDate2 = [v5 endDate];
-      v59 = [(NSDate *)endDate isEqual:endDate2];
+      endDate = [v5 endDate];
+      v59 = [(NSDate *)endDate isEqual:endDate];
     }
 
     else
@@ -1007,10 +829,9 @@ LABEL_4:
   v7 = [NSString alloc];
   redactedTitle = [(MOMediaPlaySession *)self redactedTitle];
   redactedAlbum = [(MOMediaPlaySession *)self redactedAlbum];
-  mediaType = self->_mediaType;
-  v11 = [v7 initWithFormat:@"<MOMediaPlaySession | title:%@ album:%@ mediaType:%@ bundleId:%@ startDate:%@ endDate:%@ isRemote:%d deviceSource:%@>", redactedTitle, redactedAlbum, mediaType, self->_bundleId, v5, v6, self->_isRemote, self->_deviceSource];
+  v10 = [v7 initWithFormat:@"<MOMediaPlaySession | title:%@ album:%@ mediaType:%@ bundleId:%@ startDate:%@ endDate:%@ isRemote:%d deviceSource:%@>", redactedTitle, redactedAlbum, self->_mediaType, self->_bundleId, v5, v6, self->_isRemote, self->_deviceSource];
 
-  return v11;
+  return v10;
 }
 
 + (id)getMOPlaySessionMediaType:(id)type bundleId:(id)id

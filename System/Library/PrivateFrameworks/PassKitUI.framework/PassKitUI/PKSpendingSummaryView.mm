@@ -152,75 +152,104 @@
   remainder.size.height = v7;
   [(UILabel *)self->_spendingLabel sizeThatFits:width + -24.0, v7];
   v10 = v9;
-  v32.origin.x = v5;
-  v32.origin.y = v6;
-  v32.size.width = width + -24.0;
-  v32.size.height = v7;
-  CGRectDivide(v32, &slice, &remainder, v10, CGRectMinYEdge);
+  v12 = v11;
+  v73.origin.x = v5;
+  v73.origin.y = v6;
+  v73.size.width = width + -24.0;
+  v73.size.height = v7;
+  CGRectDivide(v73, &slice, &remainder, v12, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     spendingLabel = self->_spendingLabel;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v14 = PKContentAlignmentMake();
+    v15.n128_u64[0] = *&slice.origin.x;
+    v16.n128_u64[0] = *&slice.origin.y;
+    v17.n128_u64[0] = *&slice.size.width;
+    v18.n128_u64[0] = *&slice.size.height;
+    v19.n128_u64[0] = v10;
+    v20.n128_f64[0] = v12;
+    PKSizeAlignedInRect(v14, v19, v20, v15, v16, v17, v18, v21);
     [(UILabel *)spendingLabel setFrame:?];
   }
 
   CGRectDivide(remainder, &slice, &remainder, 0.0, CGRectMinYEdge);
-  v12 = v10 + 0.0;
+  v22 = v12 + 0.0;
   [(UILabel *)self->_totalAmount sizeThatFits:remainder.size.width, remainder.size.height];
-  v14 = v13;
-  v16 = v15;
-  CGRectDivide(remainder, &slice, &remainder, v15, CGRectMinYEdge);
+  v24 = v23;
+  v26 = v25;
+  CGRectDivide(remainder, &slice, &remainder, v25, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     totalAmount = self->_totalAmount;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v28 = PKContentAlignmentMake();
+    v29.n128_u64[0] = *&slice.origin.x;
+    v30.n128_u64[0] = *&slice.origin.y;
+    v31.n128_u64[0] = *&slice.size.width;
+    v32.n128_u64[0] = *&slice.size.height;
+    v33.n128_f64[0] = v24;
+    v34.n128_f64[0] = v26;
+    PKSizeAlignedInRect(v28, v33, v34, v29, v30, v31, v32, v35);
     [(UILabel *)totalAmount setFrame:?];
     if (([(UIImageView *)self->_arrowImageView isHidden]& 1) == 0)
     {
-      memset(&v28, 0, sizeof(v28));
-      memset(&v27, 0, sizeof(v27));
-      CGRectDivide(slice, &v28, &v27, v14 + 8.0, v8);
+      memset(&v69, 0, sizeof(v69));
+      memset(&v68, 0, sizeof(v68));
+      CGRectDivide(slice, &v69, &v68, v24 + 8.0, v8);
       arrowImageView = self->_arrowImageView;
       [(UIImageView *)arrowImageView intrinsicContentSize];
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v38 = v37;
+      v40 = v39;
+      v41 = PKContentAlignmentMake();
+      v43.n128_u64[0] = *&v68.origin.y;
+      v42.n128_u64[0] = *&v68.origin.x;
+      v45.n128_u64[0] = *&v68.size.height;
+      v44.n128_u64[0] = *&v68.size.width;
+      v46.n128_u64[0] = v38;
+      v47.n128_u64[0] = v40;
+      PKSizeAlignedInRect(v41, v46, v47, v42, v43, v44, v45, v48);
       [(UIImageView *)arrowImageView setFrame:?];
     }
   }
 
-  v19 = v12 + 13.0;
+  v49 = v22 + 13.0;
   if (([(UILabel *)self->_trendDescriptionLabel isHidden]& 1) == 0)
   {
     CGRectDivide(remainder, &slice, &remainder, 8.0, CGRectMinYEdge);
+    v50 = v49 + v26 + 8.0;
     [(UILabel *)self->_trendDescriptionLabel sizeThatFits:remainder.size.width, 3.40282347e38];
-    v21 = v20;
-    CGRectDivide(remainder, &slice, &remainder, v20, CGRectMinYEdge);
-    v19 = v19 + v16 + 8.0 + v21;
+    v52 = v51;
+    v54 = v53;
+    CGRectDivide(remainder, &slice, &remainder, v53, CGRectMinYEdge);
+    v49 = v50 + v54;
     if (!self->_isTemplateLayout)
     {
       trendDescriptionLabel = self->_trendDescriptionLabel;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v56 = PKContentAlignmentMake();
+      v57.n128_u64[0] = *&slice.origin.x;
+      v58.n128_u64[0] = *&slice.origin.y;
+      v59.n128_u64[0] = *&slice.size.width;
+      v60.n128_u64[0] = *&slice.size.height;
+      v61.n128_u64[0] = v52;
+      v62.n128_f64[0] = v54;
+      PKSizeAlignedInRect(v56, v61, v62, v57, v58, v59, v60, v63);
       [(UILabel *)trendDescriptionLabel setFrame:?];
     }
   }
 
   CGRectDivide(remainder, &slice, &remainder, 8.0, CGRectMinYEdge);
   [(PKSpendingSummaryChartView *)self->_chartView sizeThatFits:remainder.size.width, 3.40282347e38];
-  v24 = v23;
-  CGRectDivide(remainder, &slice, &remainder, v23, CGRectMinYEdge);
+  v65 = v64;
+  CGRectDivide(remainder, &slice, &remainder, v64, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     [(PKSpendingSummaryChartView *)self->_chartView setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
     [(PKSpendingSummaryChartView *)self->_chartViewToFadeOut setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
   }
 
-  v25 = v19 + 8.0 + v24 + 7.0;
-  v26 = width;
-  result.height = v25;
-  result.width = v26;
+  v66 = v49 + 8.0 + v65 + 7.0;
+  v67 = width;
+  result.height = v66;
+  result.width = v67;
   return result;
 }
 

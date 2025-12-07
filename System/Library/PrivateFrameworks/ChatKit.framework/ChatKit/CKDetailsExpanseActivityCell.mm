@@ -29,7 +29,7 @@
 
 - (void)setupView
 {
-  v72[1] = *MEMORY[0x1E69E9840];
+  v74[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E696ECA0]);
   v4 = MEMORY[0x1E69A5B78];
   conversation = [(CKDetailsExpanseActivityCell *)self conversation];
@@ -68,13 +68,13 @@
 
   if (![(CKDetailsExpanseActivityCell *)self isScreenShare])
   {
-    v38 = objc_alloc_init(MEMORY[0x1E696ED08]);
-    [v3 setSourceApplication:v38];
+    v40 = objc_alloc_init(MEMORY[0x1E696ED08]);
+    [v3 setSourceApplication:v40];
 
     conversation7 = [(CKDetailsExpanseActivityCell *)self conversation];
-    v40 = [CKTUConversationViewUtilities activityAppNameForTUConversation:conversation7];
+    v42 = [CKTUConversationViewUtilities activityAppNameForTUConversation:conversation7];
     sourceApplication = [v3 sourceApplication];
-    [sourceApplication setName:v40];
+    [sourceApplication setName:v42];
 
     title = [v3 title];
 
@@ -86,18 +86,18 @@
     }
 
     conversation8 = [(CKDetailsExpanseActivityCell *)self conversation];
-    v46 = [CKTUConversationViewUtilities activityBundleIdentifierForTUConversation:conversation8];
+    v48 = [CKTUConversationViewUtilities activityBundleIdentifierForTUConversation:conversation8];
     sourceApplication3 = [v3 sourceApplication];
-    [sourceApplication3 setBundleIdentifier:v46];
+    [sourceApplication3 setBundleIdentifier:v48];
 
-    v48 = objc_alloc(MEMORY[0x1E696EC68]);
+    v50 = objc_alloc(MEMORY[0x1E696EC68]);
     conversation9 = [(CKDetailsExpanseActivityCell *)self conversation];
     v29 = +[CKUIBehavior sharedBehaviors];
     [v29 tuConversationBalloonIconDimensions];
-    v36 = [CKTUConversationViewUtilities activityIconForTUConversation:conversation9 iconSize:?];
-    v37 = [v48 initWithPlatformImage:v36];
+    v38 = [CKTUConversationViewUtilities activityIconForTUConversation:conversation9 iconSize:?];
+    v39 = [v50 initWithPlatformImage:v38];
     sourceApplication4 = [v3 sourceApplication];
-    [sourceApplication4 setIcon:v37];
+    [sourceApplication4 setIcon:v39];
 
     goto LABEL_13;
   }
@@ -123,23 +123,23 @@
 
   if (!title2)
   {
-    v33 = CKFrameworkBundle();
-    v34 = [v33 localizedStringForKey:@"EXPANSE_SCREENSHARE_DEFAULT" value:&stru_1F04268F8 table:@"ChatKit"];
-    [v3 setTitle:v34];
+    v34 = CKFrameworkBundle(v33);
+    v35 = [v34 localizedStringForKey:@"EXPANSE_SCREENSHARE_DEFAULT" value:&stru_1F04268F8 table:@"ChatKit"];
+    [v3 setTitle:v35];
   }
 
   summary = [v3 summary];
 
   if (!summary)
   {
-    v36 = CKFrameworkBundle();
-    v37 = [v36 localizedStringForKey:@"EXPANSE_SCREENSHARE_SCREEN" value:&stru_1F04268F8 table:@"ChatKit"];
-    [v3 setSummary:v37];
+    v38 = CKFrameworkBundle(v37);
+    v39 = [v38 localizedStringForKey:@"EXPANSE_SCREENSHARE_SCREEN" value:&stru_1F04268F8 table:@"ChatKit"];
+    [v3 setSummary:v39];
 LABEL_13:
   }
 
-  v50 = [objc_alloc(MEMORY[0x1E696ECC8]) initWithMetadata:v3];
-  [(CKDetailsExpanseActivityCell *)self setLpLinkView:v50];
+  v52 = [objc_alloc(MEMORY[0x1E696ECC8]) initWithMetadata:v3];
+  [(CKDetailsExpanseActivityCell *)self setLpLinkView:v52];
 
   lpLinkView = [(CKDetailsExpanseActivityCell *)self lpLinkView];
   [lpLinkView _setApplyCornerRadius:0];
@@ -163,15 +163,15 @@ LABEL_13:
     image2 = [v3 image];
     if (image2)
     {
-      v57 = 10;
+      v59 = 10;
     }
 
     else
     {
-      v57 = 11;
+      v59 = 11;
     }
 
-    [lpLinkView4 _setPreferredSizeClass:v57];
+    [lpLinkView4 _setPreferredSizeClass:v59];
   }
 
   lpLinkView5 = [(CKDetailsExpanseActivityCell *)self lpLinkView];
@@ -183,21 +183,21 @@ LABEL_13:
   {
     lpLinkView6 = [(CKDetailsExpanseActivityCell *)self lpLinkView];
     contactSharingScreen2 = [(CKDetailsExpanseActivityCell *)self contactSharingScreen];
-    v72[0] = contactSharingScreen2;
-    v62 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:1];
-    [lpLinkView6 _setContactsForAttribution:v62];
+    v74[0] = contactSharingScreen2;
+    v64 = [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:1];
+    [lpLinkView6 _setContactsForAttribution:v64];
   }
 
   lpLinkView7 = [(CKDetailsExpanseActivityCell *)self lpLinkView];
-  v70[0] = MEMORY[0x1E69E9820];
-  v70[1] = 3221225472;
-  v70[2] = __41__CKDetailsExpanseActivityCell_setupView__block_invoke;
-  v70[3] = &unk_1E72EBA18;
-  v71 = v6;
-  v64 = v6;
-  v65 = CKFrameworkBundle();
-  v66 = [v65 localizedStringForKey:@"VIEW_BUTTON_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
-  [lpLinkView7 _setAction:v70 withText:v66 buttonType:1];
+  v72[0] = MEMORY[0x1E69E9820];
+  v72[1] = 3221225472;
+  v72[2] = __41__CKDetailsExpanseActivityCell_setupView__block_invoke;
+  v72[3] = &unk_1E72EBA18;
+  v73 = v6;
+  v66 = v6;
+  v67 = CKFrameworkBundle(v66);
+  v68 = [v67 localizedStringForKey:@"VIEW_BUTTON_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
+  [lpLinkView7 _setAction:v72 withText:v68 buttonType:1];
 
   contentView = [(CKDetailsExpanseActivityCell *)self contentView];
   lpLinkView8 = [(CKDetailsExpanseActivityCell *)self lpLinkView];

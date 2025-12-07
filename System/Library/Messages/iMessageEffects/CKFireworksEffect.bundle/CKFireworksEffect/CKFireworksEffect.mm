@@ -2,7 +2,6 @@ id sub_2FB8(float32x2_t *a1)
 {
   [*&a1[4] convertPointFromView:{vmulq_f64(vcvtq_f64_f32(a1[5]), xmmword_8140)}];
   v2 = a1[4];
-  v3 = a1[6].f32[0] * a1[6].f32[1];
 
   return [v2 launchFireworkAt:1 type:0 scale:? color:?];
 }
@@ -11,7 +10,6 @@ id sub_301C(float32x2_t *a1)
 {
   [*&a1[4] convertPointFromView:{vmulq_f64(vcvtq_f64_f32(a1[5]), xmmword_8150)}];
   v2 = a1[4];
-  v3 = a1[6].f32[0] * a1[6].f32[1];
 
   return [v2 launchFireworkAt:2 type:1 scale:? color:?];
 }
@@ -20,7 +18,6 @@ id sub_3080(float32x2_t *a1)
 {
   [*&a1[4] convertPointFromView:{vmulq_f64(vcvtq_f64_f32(a1[5]), xmmword_8160)}];
   v2 = a1[4];
-  v3 = a1[6].f32[0] * a1[6].f32[1];
 
   return [v2 launchFireworkAt:2 type:3 scale:? color:?];
 }
@@ -29,7 +26,6 @@ id sub_30E4(float32x2_t *a1)
 {
   [*&a1[4] convertPointFromView:{vmulq_f64(vcvtq_f64_f32(a1[5]), xmmword_8170)}];
   v2 = a1[4];
-  v3 = (a1[6].f32[0] * a1[6].f32[1]) * 0.9;
 
   return [v2 launchFireworkAt:2 type:2 scale:? color:?];
 }
@@ -38,7 +34,6 @@ id sub_315C(float32x2_t *a1)
 {
   [*&a1[4] convertPointFromView:{vmulq_f64(vcvtq_f64_f32(a1[5]), xmmword_8180)}];
   v2 = a1[4];
-  v3 = a1[6].f32[0] * a1[6].f32[1];
 
   return [v2 launchFireworkAt:2 type:1 scale:? color:?];
 }
@@ -47,7 +42,6 @@ id sub_31C0(float32x2_t *a1)
 {
   [*&a1[4] convertPointFromView:{vmulq_f64(vcvtq_f64_f32(a1[5]), xmmword_8190)}];
   v2 = a1[4];
-  v3 = a1[6].f32[0] * a1[6].f32[1];
 
   return [v2 launchFireworkAt:1 type:0 scale:? color:?];
 }
@@ -155,10 +149,11 @@ id sub_4858(uint64_t a1)
   return [v2 setParticleBirthRate:0.0];
 }
 
-void sub_54A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
+void sub_54A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
-  _Block_object_dispose(&a48, 8);
-  _Block_object_dispose((v48 - 248), 8);
+  va_start(va, a47);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v47 - 248), 8);
   _Unwind_Resume(a1);
 }
 
@@ -215,11 +210,10 @@ void sub_5544(uint64_t a1, void *a2, double a3)
 
 void sub_6050(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v4 = [NSBundle bundleForClass:objc_opt_class()];
-  v2 = [v4 URLForResource:@"FireworksSoundEffect" withExtension:@"m4r"];
-  v3 = qword_111D8;
-  qword_111D8 = v2;
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v1 = [v3 URLForResource:@"FireworksSoundEffect" withExtension:@"m4r"];
+  v2 = qword_111D8;
+  qword_111D8 = v1;
 }
 
 __float2 __sincosf_stret(float a1)

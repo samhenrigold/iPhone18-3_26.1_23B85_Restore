@@ -13,71 +13,69 @@
 
 - (id)distinctMeaningNodesSubset
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D22BD0]);
-  v19[0] = @"Performance";
+  v18[0] = @"Performance";
   v4 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{@"Concert", 0}];
-  v20[0] = v4;
-  v19[1] = @"SportEvent";
+  v19[0] = v4;
+  v18[1] = @"SportEvent";
   v5 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{@"Concert", 0}];
-  v20[1] = v5;
-  v19[2] = @"Festival";
+  v19[1] = v5;
+  v18[2] = @"Festival";
   v6 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{@"Concert", 0}];
-  v20[2] = v6;
-  v19[3] = @"NightOut";
+  v19[2] = v6;
+  v18[3] = @"NightOut";
   v7 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{@"Concert", @"Festival", @"Theater", @"Dance", 0}];
-  v20[3] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
+  v19[3] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __58__PGGraphMeaningNodeCollection_distinctMeaningNodesSubset__block_invoke;
-  v16[3] = &unk_278882C48;
-  v16[4] = self;
-  v17 = v8;
-  v18 = v3;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __58__PGGraphMeaningNodeCollection_distinctMeaningNodesSubset__block_invoke;
+  v15[3] = &unk_278882C48;
+  v15[4] = self;
+  v16 = v8;
+  v17 = v3;
   v9 = v3;
   v10 = v8;
-  [(MAElementCollection *)self enumerateIdentifiersAsCollectionsWithBlock:v16];
+  [(MAElementCollection *)self enumerateIdentifiersAsCollectionsWithBlock:v15];
   v11 = [PGGraphMeaningNodeCollection alloc];
   graph = [(MAElementCollection *)self graph];
   v13 = [(MAElementCollection *)v11 initWithGraph:graph elementIdentifiers:v9];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 void __58__PGGraphMeaningNodeCollection_distinctMeaningNodesSubset__block_invoke(id *a1, uint64_t a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [v5 childMeaningNodes];
   v7 = [v6 intersectsCollection:a1[4]];
 
   if ((v7 & 1) == 0)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v8 = [a1[5] allKeys];
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       while (2)
       {
         v12 = 0;
         do
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * v12);
+          v13 = *(*(&v19 + 1) + 8 * v12);
           v14 = [v5 meaningLabels];
           v15 = [v14 containsObject:v13];
 
@@ -98,7 +96,7 @@ void __58__PGGraphMeaningNodeCollection_distinctMeaningNodesSubset__block_invoke
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v10)
         {
           continue;
@@ -112,8 +110,6 @@ void __58__PGGraphMeaningNodeCollection_distinctMeaningNodesSubset__block_invoke
   }
 
 LABEL_13:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)localizedNames

@@ -36,27 +36,25 @@
 
 - (void)enumerateMomentNodesAndFeatureNodesInGraph:(id)graph usingBlock:(id)block
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v6 = [(PGGraphNodeCollection *)PGGraphMonthDayNodeCollection nodesInGraph:graph];
   v7 = MEMORY[0x277D22C90];
   v8 = +[PGGraphMonthDayNodeCollection dateOfMonthDay];
-  v17[0] = v8;
+  v16[0] = v8;
   v9 = +[PGGraphDateNode momentOfDate];
-  v17[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   v11 = [v7 chain:v10];
 
   v12 = [MEMORY[0x277D22BF8] adjacencyWithSources:v6 relation:v11 targetsClass:objc_opt_class()];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __98__PGDayInHistoryAggregationMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke;
-  v15[3] = &unk_278884BB0;
-  v16 = blockCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __98__PGDayInHistoryAggregationMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke;
+  v14[3] = &unk_278884BB0;
+  v15 = blockCopy;
   v13 = blockCopy;
-  [v12 enumerateTargetsBySourceWithBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [v12 enumerateTargetsBySourceWithBlock:v14];
 }
 
 void __98__PGDayInHistoryAggregationMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -69,32 +67,26 @@ void __98__PGDayInHistoryAggregationMemoryGenerator_enumerateMomentNodesAndFeatu
 
 - (unint64_t)memoryCategorySubcategoryForOverTimeType:(unint64_t)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (type == 3)
   {
-    result = 1002;
+    return 1002;
   }
 
-  else
+  typeCopy = type;
+  loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
+  if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
-    typeCopy = type;
-    loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
-    if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
-    {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v9 = 138412546;
-      v10 = v8;
-      v11 = 1024;
-      v12 = typeCopy;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v9, 0x12u);
-    }
-
-    result = 0;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 1024;
+    v11 = typeCopy;
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v8, 0x12u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (PGDayInHistoryAggregationMemoryGenerator)initWithMemoryGenerationContext:(id)context

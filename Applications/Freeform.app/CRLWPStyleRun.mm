@@ -35,7 +35,7 @@
   attributes = [(CRLWPStyleRun *)self attributes];
   [v4 setAttributes:attributes];
 
-  [(CRLWPStyleRun *)self fontHeightInfo];
+  objc_msgSend_fontHeightInfo(self);
   v8[2] = v8[8];
   v8[3] = v8[9];
   v8[4] = v8[10];

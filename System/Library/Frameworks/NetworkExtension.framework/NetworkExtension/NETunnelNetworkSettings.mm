@@ -3,6 +3,7 @@
 - (NETunnelNetworkSettings)initWithCoder:(id)coder;
 - (NETunnelNetworkSettings)initWithTunnelRemoteAddress:(NSString *)address;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -94,6 +95,22 @@ LABEL_16:
   }
 
   return v11;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  tunnelRemoteAddress = [(NETunnelNetworkSettings *)self tunnelRemoteAddress];
+  [v7 appendPrettyObject:tunnelRemoteAddress withName:@"tunnelRemoteAddress" andIndent:v5 options:options | 1];
+
+  dNSSettings = [(NETunnelNetworkSettings *)self DNSSettings];
+  [v7 appendPrettyObject:dNSSettings withName:@"DNSSettings" andIndent:v5 options:options];
+
+  proxySettings = [(NETunnelNetworkSettings *)self proxySettings];
+  [v7 appendPrettyObject:proxySettings withName:@"proxySettings" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors

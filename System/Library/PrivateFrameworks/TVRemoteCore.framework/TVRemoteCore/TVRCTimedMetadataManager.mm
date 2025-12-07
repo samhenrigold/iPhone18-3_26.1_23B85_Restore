@@ -43,28 +43,29 @@
   return connection;
 }
 
-void __38__TVRCTimedMetadataManager_connection__block_invoke()
+void __38__TVRCTimedMetadataManager_connection__block_invoke(uint64_t a1)
 {
-  v0 = _TVRCXPCLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _TVRCXPCLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __38__TVRCTimedMetadataManager_connection__block_invoke_cold_1(v0);
+    __38__TVRCTimedMetadataManager_connection__block_invoke_cold_1(v1);
   }
 }
 
 void __38__TVRCTimedMetadataManager_connection__block_invoke_46(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = _TVRCXPCLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = _TVRCXPCLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __38__TVRCTimedMetadataManager_connection__block_invoke_46_cold_1(v2);
+      __38__TVRCTimedMetadataManager_connection__block_invoke_46_cold_1(v3);
     }
 
-    v3 = WeakRetained[1];
-    WeakRetained[1] = 0;
+    v4 = v2[1];
+    v2[1] = 0;
   }
 }
 
@@ -79,7 +80,7 @@ void __38__TVRCTimedMetadataManager_connection__block_invoke_46(uint64_t a1)
 void __33__TVRCTimedMetadataManager_proxy__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _TVRCXPCLog();
+  v3 = _TVRCXPCLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __33__TVRCTimedMetadataManager_proxy__block_invoke_cold_1(v2, v3);
@@ -88,11 +89,10 @@ void __33__TVRCTimedMetadataManager_proxy__block_invoke(uint64_t a1, void *a2)
 
 void __33__TVRCTimedMetadataManager_proxy__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_26CF7F000, a2, OS_LOG_TYPE_ERROR, "Proxy creation error (TVRCTimedMetadataUpdating): %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_26CF7F000, a2, OS_LOG_TYPE_ERROR, "Proxy creation error (TVRCTimedMetadataUpdating): %{public}@", &v2, 0xCu);
 }
 
 @end

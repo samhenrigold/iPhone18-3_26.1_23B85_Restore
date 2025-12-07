@@ -9,6 +9,7 @@
 - (id)syncViewOperation:(id)operation;
 - (void)addOperations:(id)operations completionOp:(id)op allOps:(id)ops context:(id)context;
 - (void)createIdentity:(id)identity complete:(id)complete;
+- (void)createNewIdentities:(id)identities roll:(BOOL)roll sync:(BOOL)sync forceSync:(BOOL)forceSync complete:(id)complete;
 - (void)dealloc;
 - (void)submitRequest:(id)request complete:(id)complete;
 @end
@@ -18,30 +19,30 @@
 + (BOOL)fetchWithTimeout:(unint64_t)timeout error:(id *)error
 {
   errorCopy = error;
-  v34[1] = *MEMORY[0x1E69E9840];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__6;
-  v27 = __Block_byref_object_dispose__6;
+  v33[1] = *MEMORY[0x1E69E9840];
   v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__6;
+  v26 = __Block_byref_object_dispose__6;
+  v27 = 0;
   v6 = [MEMORY[0x1E697AA20] controlObject:error];
   if (v6)
   {
     v7 = dispatch_semaphore_create(0);
-    v16 = MEMORY[0x1E69E9820];
-    v17 = 3221225472;
-    v18 = __34__PCSCKKS_fetchWithTimeout_error___block_invoke;
-    v19 = &unk_1E7B19358;
-    v21 = &v29;
-    v22 = &v23;
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __34__PCSCKKS_fetchWithTimeout_error___block_invoke;
+    v18 = &unk_1E7B19358;
+    v20 = &v28;
+    v21 = &v22;
     v8 = v7;
-    v20 = v8;
-    [v6 rpcFetchAndProcessChangesIfNoRecentFetch:@"ProtectedCloudStorage" reply:&v16];
+    v19 = v8;
+    [v6 rpcFetchAndProcessChangesIfNoRecentFetch:@"ProtectedCloudStorage" reply:&v15];
     v9 = dispatch_time(0, 1000000000 * timeout);
     if (dispatch_semaphore_wait(v8, v9))
     {
@@ -49,9 +50,9 @@
       {
         v10 = MEMORY[0x1E696ABC0];
         v11 = kPCSErrorDomain;
-        v33 = *MEMORY[0x1E696A578];
-        v34[0] = @"rpcFetchAndProcessChangesIfNoRecentFetch timed out";
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:{1, v16, v17, v18, v19}];
+        v32 = *MEMORY[0x1E696A578];
+        v33[0] = @"rpcFetchAndProcessChangesIfNoRecentFetch timed out";
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:{1, v15, v16, v17, v18}];
         *errorCopy = [v10 errorWithDomain:v11 code:99 userInfo:v12];
 
         LOBYTE(errorCopy) = 0;
@@ -62,14 +63,14 @@
     {
       if (errorCopy)
       {
-        v13 = v24[5];
+        v13 = v23[5];
         if (v13)
         {
           *errorCopy = v13;
         }
       }
 
-      LOBYTE(errorCopy) = *(v30 + 24);
+      LOBYTE(errorCopy) = *(v29 + 24);
     }
   }
 
@@ -78,9 +79,8 @@
     LOBYTE(errorCopy) = 0;
   }
 
-  _Block_object_dispose(&v23, 8);
-  _Block_object_dispose(&v29, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v28, 8);
   return errorCopy & 1;
 }
 
@@ -308,48 +308,46 @@ void __53__PCSCKKS_addOperations_completionOp_allOps_context___block_invoke_2(ui
 
 uint64_t __53__PCSCKKS_addOperations_completionOp_allOps_context___block_invoke_3(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = [addOperations_completionOp_allOps_context__serviceOperationMap objectEnumerator];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         PCSMigrationLog([*(a1 + 32) log], @"bulk operation, existing operation %@", v7);
         [*(a1 + 40) addDependency:v7];
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
 
-  result = [addOperations_completionOp_allOps_context__serviceOperationMap setObject:*(a1 + 48) forKey:@"bulk-service-identity-creation-identifier"];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [addOperations_completionOp_allOps_context__serviceOperationMap setObject:*(a1 + 48) forKey:@"bulk-service-identity-creation-identifier"];
 }
 
 - (void)submitRequest:(id)request complete:(id)complete
 {
-  v26[5] = *MEMORY[0x1E69E9840];
+  v25[5] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completeCopy = complete;
   v8 = [(PCSCKKS *)self syncViewOperation:requestCopy];
@@ -364,14 +362,14 @@ uint64_t __53__PCSCKKS_addOperations_completionOp_allOps_context___block_invoke_
   if ([serviceContexts count] == 1)
   {
     [requestCopy serviceContexts];
-    v14 = v23 = v8;
+    v14 = v22 = v8;
     [v14 allKeys];
-    v15 = v22 = completeCopy;
+    v15 = v21 = completeCopy;
     v16 = [v15 objectAtIndexedSubscript:0];
     v17 = [v12 stringWithFormat:@"CreateIdentity: %@", v16];
 
-    completeCopy = v22;
-    v8 = v23;
+    completeCopy = v21;
+    v8 = v22;
   }
 
   else
@@ -379,24 +377,22 @@ uint64_t __53__PCSCKKS_addOperations_completionOp_allOps_context___block_invoke_
     v17 = [v12 stringWithFormat:@"CreateIdentity: %@", @"bulk-service-identity-creation-identifier"];
   }
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __34__PCSCKKS_submitRequest_complete___block_invoke;
-  v24[3] = &unk_1E7B1A0A0;
-  v24[4] = self;
-  v25 = completeCopy;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __34__PCSCKKS_submitRequest_complete___block_invoke;
+  v23[3] = &unk_1E7B1A0A0;
+  v23[4] = self;
+  v24 = completeCopy;
   v18 = completeCopy;
-  v19 = [PCSCKKSOperation operation:v17 block:v24];
+  v19 = [PCSCKKSOperation operation:v17 block:v23];
   [v19 addSuccessDependency:v11];
-  v26[0] = v19;
-  v26[1] = v8;
-  v26[2] = v9;
-  v26[3] = v10;
-  v26[4] = v11;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:5];
+  v25[0] = v19;
+  v25[1] = v8;
+  v25[2] = v9;
+  v25[3] = v10;
+  v25[4] = v11;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:5];
   [(PCSCKKS *)self addOperations:v8 completionOp:v19 allOps:v20 context:requestCopy];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __34__PCSCKKS_submitRequest_complete___block_invoke(uint64_t a1, uint64_t a2)
@@ -408,7 +404,7 @@ void __34__PCSCKKS_submitRequest_complete___block_invoke(uint64_t a1, uint64_t a
 
 - (BOOL)shouldRetryWithSync:(id)sync
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   syncCopy = sync;
   domain = [syncCopy domain];
   v5 = [domain isEqualToString:@"CKErrorDomain"];
@@ -456,26 +452,26 @@ LABEL_21:
 
   if ([v7 count])
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v26;
+      v11 = *v25;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v26 != v11)
+          if (*v25 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [v8 objectForKeyedSubscript:{*(*(&v25 + 1) + 8 * i), v25}];
+          v13 = [v8 objectForKeyedSubscript:{*(*(&v24 + 1) + 8 * i), v24}];
           domain4 = [v13 domain];
           v15 = [domain4 isEqualToString:@"CKErrorDomain"];
 
@@ -495,7 +491,7 @@ LABEL_28:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
         v17 = 1;
         if (v10)
         {
@@ -520,13 +516,122 @@ LABEL_29:
   }
 
 LABEL_31:
-  v23 = *MEMORY[0x1E69E9840];
   return v17;
+}
+
+- (void)createNewIdentities:(id)identities roll:(BOOL)roll sync:(BOOL)sync forceSync:(BOOL)forceSync complete:(id)complete
+{
+  forceSyncCopy = forceSync;
+  syncCopy = sync;
+  rollCopy = roll;
+  v50 = *MEMORY[0x1E69E9840];
+  identitiesCopy = identities;
+  completeCopy = complete;
+  if (identitiesCopy && rollCopy && [identitiesCopy count] != 1)
+  {
+    v35 = [MEMORY[0x1E696ABC0] errorWithDomain:kPCSErrorDomain code:98 userInfo:&unk_1F2998390];
+    (*(completeCopy + 2))(completeCopy, 0, 0, v35);
+  }
+
+  else
+  {
+    v36 = syncCopy;
+    v37 = forceSyncCopy;
+    selfCopy = self;
+    v14 = objc_alloc_init(PCSCKKSItemModifyContext);
+    v45 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v39 = identitiesCopy;
+    v15 = identitiesCopy;
+    v16 = [v15 countByEnumeratingWithState:&v45 objects:v49 count:16];
+    if (v16)
+    {
+      v17 = v16;
+      v18 = *v46;
+      do
+      {
+        for (i = 0; i != v17; ++i)
+        {
+          if (*v46 != v18)
+          {
+            objc_enumerationMutation(v15);
+          }
+
+          v20 = *(*(&v45 + 1) + 8 * i);
+          v21 = objc_alloc_init(PCSCKKSPerServiceContext);
+          [(PCSCKKSPerServiceContext *)v21 setService:v20];
+          [(PCSCKKSPerServiceContext *)v21 setRoll:rollCopy];
+          if (rollCopy && (PCSServiceItemTypeIsManatee(v20) & 1) != 0)
+          {
+            v22 = 5;
+          }
+
+          else
+          {
+            v22 = 1;
+          }
+
+          [(PCSCKKSPerServiceContext *)v21 setRetryLeftCount:v22];
+          serviceContexts = [(PCSCKKSItemModifyContext *)v14 serviceContexts];
+          [serviceContexts setObject:v21 forKeyedSubscript:v20];
+        }
+
+        v17 = [v15 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      }
+
+      while (v17);
+    }
+
+    [(PCSCKKSItemModifyContext *)v14 setSet:[(PCSCKKS *)selfCopy set]];
+    dsid = [(PCSCKKS *)selfCopy dsid];
+    [(PCSCKKSItemModifyContext *)v14 setDsid:dsid];
+
+    [(PCSCKKSItemModifyContext *)v14 setLog:PCSCreateLogContext(@"PCSCreateNewIdentity", 0)];
+    [(PCSCKKSItemModifyContext *)v14 setSync:v36];
+    [(PCSCKKSItemModifyContext *)v14 setForceSync:v37];
+    v25 = os_transaction_create();
+    [(PCSCKKSItemModifyContext *)v14 setTransaction:v25];
+
+    v26 = +[PCSLockManager manager];
+    v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"com.apple.protectedcloudstorage.identity-creation"];
+    v28 = [v26 lockAssertion:v27];
+    [(PCSCKKSItemModifyContext *)v14 setLockAssertion:v28];
+
+    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s-%@", "com.apple.protectedcloudstorage.identity-creation", v15];
+    processInfo = [MEMORY[0x1E696AE30] processInfo];
+    v31 = [processInfo beginActivityWithOptions:0x100000 reason:v29];
+    [(PCSCKKSItemModifyContext *)v14 setActivityAssertion:v31];
+
+    lockAssertion = [(PCSCKKSItemModifyContext *)v14 lockAssertion];
+    LOBYTE(v31) = [lockAssertion holdAssertion];
+
+    if ((v31 & 1) == 0)
+    {
+      PCSMigrationLog([(PCSCKKSItemModifyContext *)v14 log], @"Failed to get an lock assertion continue w/o one");
+      [(PCSCKKSItemModifyContext *)v14 setLockAssertion:0];
+    }
+
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __60__PCSCKKS_createNewIdentities_roll_sync_forceSync_complete___block_invoke;
+    v40[3] = &unk_1E7B1A0C8;
+    v41 = v14;
+    v44 = rollCopy;
+    v42 = v15;
+    v43 = completeCopy;
+    v33 = v14;
+    v34 = MEMORY[0x1B2745320](v40);
+    [(PCSCKKS *)selfCopy createIdentity:v33 complete:v34];
+
+    identitiesCopy = v39;
+  }
 }
 
 void __60__PCSCKKS_createNewIdentities_roll_sync_forceSync_complete___block_invoke(uint64_t a1, void *a2)
 {
-  v60[2] = *MEMORY[0x1E69E9840];
+  v59[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) mtt];
   [v4 stop];
@@ -555,51 +660,51 @@ void __60__PCSCKKS_createNewIdentities_roll_sync_forceSync_complete___block_invo
 
   if (*(a1 + 56) == 1)
   {
-    v60[0] = @"PCSEventKeyCreation";
-    v60[1] = @"PCSEventIndividualKeyRoll";
+    v59[0] = @"PCSEventKeyCreation";
+    v59[1] = @"PCSEventIndividualKeyRoll";
     v10 = MEMORY[0x1E695DEC8];
-    v11 = v60;
+    v11 = v59;
     v12 = 2;
   }
 
   else
   {
-    v59 = @"PCSEventKeyCreation";
+    v58 = @"PCSEventKeyCreation";
     v10 = MEMORY[0x1E695DEC8];
-    v11 = &v59;
+    v11 = &v58;
     v12 = 1;
   }
 
   v13 = [v10 arrayWithObjects:v11 count:v12];
   v14 = +[PCSAnalytics logger];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   v15 = [*(a1 + 32) serviceContexts];
   v16 = [v15 allValues];
 
-  v17 = [v16 countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v49 objects:v57 count:16];
   if (v17)
   {
     v18 = 0;
-    v19 = *v51;
+    v19 = *v50;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v51 != v19)
+        if (*v50 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        if ([*(*(&v50 + 1) + 8 * i) currentIdentity])
+        if ([*(*(&v49 + 1) + 8 * i) currentIdentity])
         {
           ++v18;
         }
       }
 
-      v17 = [v16 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v49 objects:v57 count:16];
     }
 
     while (v17);
@@ -608,29 +713,29 @@ void __60__PCSCKKS_createNewIdentities_roll_sync_forceSync_complete___block_invo
 
   if ([*(a1 + 40) count] == v17)
   {
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     v21 = v13;
-    v22 = [v21 countByEnumeratingWithState:&v46 objects:v57 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v45 objects:v56 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v47;
+      v24 = *v46;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v47 != v24)
+          if (*v46 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          [v14 logSuccessForEvent:*(*(&v46 + 1) + 8 * j)];
+          [v14 logSuccessForEvent:*(*(&v45 + 1) + 8 * j)];
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v46 objects:v57 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v45 objects:v56 count:16];
       }
 
       while (v23);
@@ -639,43 +744,43 @@ void __60__PCSCKKS_createNewIdentities_roll_sync_forceSync_complete___block_invo
 
   else
   {
-    v55[0] = @"roll";
+    v54[0] = @"roll";
     v26 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 56)];
-    v56[0] = v26;
-    v55[1] = @"sync";
+    v55[0] = v26;
+    v54[1] = @"sync";
     v27 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 32), "sync")}];
-    v56[1] = v27;
-    v55[2] = @"lockassertion";
+    v55[1] = v27;
+    v54[2] = @"lockassertion";
     v28 = [MEMORY[0x1E696AD98] numberWithBool:v5 != 0];
-    v55[3] = @"service";
+    v54[3] = @"service";
     v29 = *(a1 + 40);
-    v56[2] = v28;
-    v56[3] = v29;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:4];
+    v55[2] = v28;
+    v55[3] = v29;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:4];
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v30 = v13;
-    v31 = [v30 countByEnumeratingWithState:&v42 objects:v54 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v41 objects:v53 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v43;
+      v33 = *v42;
       do
       {
         for (k = 0; k != v32; ++k)
         {
-          if (*v43 != v33)
+          if (*v42 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          [v14 logUnrecoverableError:v3 forEvent:*(*(&v42 + 1) + 8 * k) withAttributes:v21];
+          [v14 logUnrecoverableError:v3 forEvent:*(*(&v41 + 1) + 8 * k) withAttributes:v21];
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v42 objects:v54 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v41 objects:v53 count:16];
       }
 
       while (v32);
@@ -694,8 +799,6 @@ void __60__PCSCKKS_createNewIdentities_roll_sync_forceSync_complete___block_invo
   v39 = [*(a1 + 32) serviceContexts];
   v40 = [*(a1 + 32) mtt];
   (*(v38 + 16))(v38, v39, v40, v3);
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createIdentity:(id)identity complete:(id)complete
@@ -764,17 +867,8 @@ void __35__PCSCKKS_createIdentity_complete___block_invoke(uint64_t a1, void *a2)
 - (id)stripOperationErrorIfPCSError:(id)error
 {
   errorCopy = error;
-  if ([errorCopy code] != 1)
+  if ([errorCopy code] != 1 || (objc_msgSend(errorCopy, "domain"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isEqualToString:", PCSCKKSOperationErrorDomain), v4, !v5) || (objc_msgSend(errorCopy, "userInfo"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "objectForKeyedSubscript:", *MEMORY[0x1E696AA08]), v7 = objc_claimAutoreleasedReturnValue(), v6, !v7))
   {
-    goto LABEL_4;
-  }
-
-  domain = [errorCopy domain];
-  v5 = [domain isEqualToString:PCSCKKSOperationErrorDomain];
-
-  if (!v5 || ([errorCopy userInfo], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "objectForKeyedSubscript:", *MEMORY[0x1E696AA08]), v7 = objc_claimAutoreleasedReturnValue(), v6, !v7))
-  {
-LABEL_4:
     v7 = errorCopy;
   }
 

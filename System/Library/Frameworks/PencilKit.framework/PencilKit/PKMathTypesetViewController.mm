@@ -11,11 +11,11 @@
 + (double)fontSize
 {
   objc_opt_self();
-  v0 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
-  [v0 pointSize];
-  v2 = v1;
+  v1 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
+  [v1 pointSize];
+  v3 = v2;
 
-  return v2;
+  return v3;
 }
 
 - (void)loadView

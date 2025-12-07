@@ -6,6 +6,8 @@
 - (SubCalDaemonAccountDelegate)delegate;
 - (id)changeTrackingID;
 - (id)sourceExternalId;
+- (void)_refresh:(BOOL)_refresh;
+- (void)refreshAllCalendars:(BOOL)calendars;
 - (void)stopMonitoringFolders;
 - (void)subCalRefreshTask:(id)task didRedirectToURL:(id)l;
 - (void)subCalRefreshTask:(id)task finishedWithError:(id)error;
@@ -134,6 +136,214 @@ LABEL_12:
   else
   {
     return 0;
+  }
+}
+
+- (void)_refresh:(BOOL)_refresh
+{
+  if (([(SubCalDaemonAccount *)self isManagedCalendar]& 1) == 0)
+  {
+    taskManager = [(SubCalDaemonAccount *)self taskManager];
+    allTasks = [taskManager allTasks];
+    v6 = [allTasks count];
+
+    if (v6)
+    {
+      v7 = DALoggingwithCategory();
+      v8 = _CPLog_to_os_log_type[6];
+      if (os_log_type_enabled(v7, v8))
+      {
+        accountID = [(SubCalDaemonAccount *)self accountID];
+        *buf = 138543362;
+        v54 = accountID;
+        _os_log_impl(&dword_0, v7, v8, "Ignoring request, already refreshing account with ID %{public}@", buf, 0xCu);
+      }
+
+LABEL_33:
+
+      return;
+    }
+
+    taskManager2 = [(SubCalDaemonAccount *)self taskManager];
+    isShutdown = [taskManager2 isShutdown];
+
+    if (isShutdown)
+    {
+      return;
+    }
+
+    _calendarExistsOnParent = [(SubCalDaemonAccount *)self _calendarExistsOnParent];
+    v13 = DALoggingwithCategory();
+    v7 = v13;
+    if ((_calendarExistsOnParent & 1) == 0)
+    {
+      v26 = _CPLog_to_os_log_type[4];
+      if (os_log_type_enabled(v13, v26))
+      {
+        calDAVURLPath = [(SubCalDaemonAccount *)self calDAVURLPath];
+        accountID2 = [(SubCalDaemonAccount *)self accountID];
+        *buf = 138412546;
+        v54 = calDAVURLPath;
+        v55 = 2114;
+        v56 = accountID2;
+        _os_log_impl(&dword_0, v7, v26, "The parent account doesn't know about the subscribed calendar at %@ (account %{public}@). Skipping refresh.", buf, 0x16u);
+      }
+
+      goto LABEL_33;
+    }
+
+    v14 = _CPLog_to_os_log_type[5];
+    if (os_log_type_enabled(v13, v14))
+    {
+      accountID3 = [(SubCalDaemonAccount *)self accountID];
+      *buf = 138543362;
+      v54 = accountID3;
+      _os_log_impl(&dword_0, v7, v14, "Refreshing Subscribed Calendar account with ID %{public}@", buf, 0xCu);
+    }
+
+    changeTrackingID = [(SubCalDaemonAccount *)self changeTrackingID];
+    v7 = [SubCalLocalDBHelper eventStoreWithClientId:changeTrackingID];
+
+    calendarExternalId = [(SubCalDaemonAccount *)self calendarExternalId];
+    v18 = [v7 calendarWithExternalID:calendarExternalId];
+
+    if (!v18 || ![(SubCalDaemonAccount *)self shouldRefreshSubCalForCalendar:v18])
+    {
+LABEL_23:
+      subscriptionURL = [(SubCalDaemonAccount *)self subscriptionURL];
+      v31 = objc_opt_new();
+      statusReport = [(SubCalDaemonAccount *)self statusReport];
+      [v31 setStatusReport:statusReport];
+
+      [v31 setDelegate:self];
+      [v31 setSubscriptionURL:subscriptionURL];
+      sourceExternalId = [(SubCalDaemonAccount *)self sourceExternalId];
+      [v31 setSourceExternalId:sourceExternalId];
+
+      calendarExternalId2 = [(SubCalDaemonAccount *)self calendarExternalId];
+      [v31 setCalendarExternalId:calendarExternalId2];
+
+      changeTrackingID2 = [(SubCalDaemonAccount *)self changeTrackingID];
+      [v31 setChangeTrackingId:changeTrackingID2];
+
+      accountDescription = [(SubCalDaemonAccount *)self accountDescription];
+      [v31 setCalendarName:accountDescription];
+
+      username = [(SubCalDaemonAccount *)self username];
+      [v31 setUsername:username];
+
+      password = [(SubCalDaemonAccount *)self password];
+      [v31 setPassword:password];
+
+      [v31 setRemoveAlarms:{-[SubCalDaemonAccount shouldRemoveAlarms](self, "shouldRemoveAlarms")}];
+      [v31 setRemoveAttachments:{-[SubCalDaemonAccount shouldRemoveAttachments](self, "shouldRemoveAttachments")}];
+      accountID4 = [(SubCalDaemonAccount *)self accountID];
+      [v31 setAccountId:accountID4];
+
+      [v31 setIsSyncedHolidayCalendar:{-[SubCalDaemonAccount isSyncedHolidayCalendar](self, "isSyncedHolidayCalendar")}];
+      [v31 setIsHolidaySubscribedCalendar:{-[SubCalDaemonAccount isHolidaySubscribedCalendar](self, "isHolidaySubscribedCalendar")}];
+      [v31 setIsChinaHolidayCalendar:{-[SubCalDaemonAccount isChinaHolidayCalendar](self, "isChinaHolidayCalendar")}];
+      backingAccountInfo = [(SubCalDaemonAccount *)self backingAccountInfo];
+      parentAccount = [backingAccountInfo parentAccount];
+      [v31 setClearChanges:parentAccount == 0];
+
+      [v31 setAllowInsecureConnection:{-[SubCalDaemonAccount allowInsecureConnection](self, "allowInsecureConnection")}];
+      if (subscriptionURL)
+      {
+        if (([(SubCalDaemonAccount *)self allowInsecureConnection]& 1) == 0 && ([(SubCalDaemonAccount *)self useSSL]& 1) == 0)
+        {
+          calDAVURLPath2 = [(SubCalDaemonAccount *)self calDAVURLPath];
+          v43 = [calDAVURLPath2 length];
+
+          if (!v43)
+          {
+            v44 = [NSURLComponents componentsWithURL:subscriptionURL resolvingAgainstBaseURL:0];
+            [v44 setScheme:@"https"];
+            v45 = [v44 URL];
+            absoluteString = [v45 absoluteString];
+            [v31 setMigrateCalendarExternalID:absoluteString];
+          }
+        }
+      }
+
+      backingAccountInfo2 = [(SubCalDaemonAccount *)self backingAccountInfo];
+      parentAccount2 = [backingAccountInfo2 parentAccount];
+
+      if (parentAccount2)
+      {
+        [v31 setUpdateCalendarProperties:0];
+      }
+
+      tmpICSData = [(SubCalDaemonAccount *)self tmpICSData];
+      if (tmpICSData)
+      {
+        [v31 setTmpICSData:tmpICSData];
+        [(SubCalDaemonAccount *)self clearTmpICSData];
+      }
+
+      taskManager3 = [(SubCalDaemonAccount *)self taskManager];
+      [taskManager3 submitQueuedTask:v31];
+
+      goto LABEL_33;
+    }
+
+    v19 = DALoggingwithCategory();
+    if (os_log_type_enabled(v19, v14))
+    {
+      colorString = [v18 colorString];
+      *buf = 138412546;
+      v54 = v18;
+      v55 = 2114;
+      v56 = colorString;
+      _os_log_impl(&dword_0, v19, v14, "Should Refresh SubCal For Calendar: %@, color: %{public}@", buf, 0x16u);
+    }
+
+    v52 = 0;
+    [v18 removeServerRefreshRelatedPropertiesForSelfAndAllEventsSaveAndCommitWithError:&v52];
+    v21 = v52;
+    if (v21)
+    {
+      v22 = v21;
+      v23 = DALoggingwithCategory();
+      v24 = _CPLog_to_os_log_type[3];
+      if (!os_log_type_enabled(v23, v24))
+      {
+LABEL_22:
+
+        goto LABEL_23;
+      }
+
+      *buf = 138543362;
+      v54 = v22;
+      v25 = "Error: Could not save calendar when removing externalModificationTag and related properties. Error: %{public}@";
+    }
+
+    else
+    {
+      [v18 setMigrationVersion:2];
+      v51 = 0;
+      [v7 saveCalendar:v18 commit:1 error:&v51];
+      v29 = v51;
+      if (!v29)
+      {
+        goto LABEL_23;
+      }
+
+      v22 = v29;
+      v23 = DALoggingwithCategory();
+      v24 = _CPLog_to_os_log_type[3];
+      if (!os_log_type_enabled(v23, v24))
+      {
+        goto LABEL_22;
+      }
+
+      *buf = 138543362;
+      v54 = v22;
+      v25 = "Error: Could not save calendar when setting migrationVersion. Error: %{public}@";
+    }
+
+    _os_log_impl(&dword_0, v23, v24, v25, buf, 0xCu);
+    goto LABEL_22;
   }
 }
 
@@ -331,6 +541,20 @@ LABEL_31:
   [(SubCalDaemonAccount *)self setHost:absoluteString];
 
   [(SubCalDaemonAccount *)self saveAccountProperties];
+}
+
+- (void)refreshAllCalendars:(BOOL)calendars
+{
+  calendarsCopy = calendars;
+  v5 = DALoggingwithCategory();
+  v6 = _CPLog_to_os_log_type[5];
+  if (os_log_type_enabled(v5, v6))
+  {
+    *v7 = 0;
+    _os_log_impl(&dword_0, v5, v6, "Refreshing all calendars", v7, 2u);
+  }
+
+  [(SubCalDaemonAccount *)self _refresh:calendarsCopy];
 }
 
 - (BOOL)monitorFoldersWithIDs:(id)ds

@@ -23,7 +23,7 @@
 
 - (id)urlRequest
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   if (!self->_account)
@@ -31,23 +31,21 @@
     [(_AABasicGetRequest *)a2 urlRequest];
   }
 
-  v12.receiver = self;
-  v12.super_class = _AABasicGetRequest;
-  urlRequest = [(AARequest *)&v12 urlRequest];
+  v11.receiver = self;
+  v11.super_class = _AABasicGetRequest;
+  urlRequest = [(AARequest *)&v11 urlRequest];
   v7 = [urlRequest mutableCopy];
 
-  [v7 setHTTPMethod:@"GET"];
-  v8 = _AALogSystem();
+  v8 = _AALogSystem([v7 setHTTPMethod:@"GET"]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v7 URL];
     *buf = 138412290;
-    v14 = v9;
+    v13 = v9;
     _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Sending GET to %@", buf, 0xCu);
   }
 
   [v7 aa_addBasicAuthorizationHeaderWithAccount:self->_account preferUsingPassword:0];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

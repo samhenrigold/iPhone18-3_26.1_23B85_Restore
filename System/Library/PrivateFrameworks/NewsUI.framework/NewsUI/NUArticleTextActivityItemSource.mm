@@ -158,19 +158,17 @@ LABEL_6:
 
 - (void)activityViewController:dataTypeIdentifierForActivityType:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"case not implemented"];
-  v2 = 136315906;
-  v3 = "[NUArticleTextActivityItemSource activityViewController:dataTypeIdentifierForActivityType:]";
-  v4 = 2080;
-  v5 = "NUArticleTextActivityItemSource.m";
-  v6 = 1024;
-  v7 = 86;
-  v8 = 2114;
-  v9 = v0;
-  _os_log_error_impl(&dword_25C2D6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v2, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136315906;
+  v2 = "[NUArticleTextActivityItemSource activityViewController:dataTypeIdentifierForActivityType:]";
+  v3 = 2080;
+  v4 = "NUArticleTextActivityItemSource.m";
+  v5 = 1024;
+  v6 = 86;
+  v7 = 2114;
+  v8 = v0;
+  _os_log_error_impl(&dword_25C2D6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v1, 0x26u);
 }
 
 @end

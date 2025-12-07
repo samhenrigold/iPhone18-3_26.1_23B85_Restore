@@ -16,12 +16,12 @@
   v13 = v12;
   if (v12)
   {
-    v12->_usage = usage;
-    v12->_renderStages = stages;
-    v12->_entryUsage = a5;
-    v12->_binding = entryUsage;
+    *(v12 + 2) = usage;
+    *(v12 + 3) = stages;
+    *(v12 + 2) = a5;
+    *(v12 + 3) = entryUsage;
     v14 = *(m_ptr + 8);
-    if (v12->_resource.impl_.index_ == 255)
+    if (v12[40] == 255)
     {
       if (v14 == 255)
       {
@@ -31,14 +31,14 @@
 
     else if (v14 == 255)
     {
-      mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WTF::RefPtr<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>,WTF::RefPtr<WebGPU::TextureView const,WTF::RawPtrTraits<WebGPU::TextureView const>,WTF::DefaultRefDerefTraits<WebGPU::TextureView const>>,WTF::RefPtr<WebGPU::ExternalTexture const,WTF::RawPtrTraits<WebGPU::ExternalTexture const>,WTF::DefaultRefDerefTraits<WebGPU::ExternalTexture const>>>,(mpark::detail::Trait)1> &>(&v18, &v12->_resource);
+      mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WTF::RefPtr<WebGPU::Buffer,WTF::RawPtrTraits<WebGPU::Buffer>,WTF::DefaultRefDerefTraits<WebGPU::Buffer>>,WTF::RefPtr<WebGPU::TextureView const,WTF::RawPtrTraits<WebGPU::TextureView const>,WTF::DefaultRefDerefTraits<WebGPU::TextureView const>>,WTF::RefPtr<WebGPU::ExternalTexture const,WTF::RawPtrTraits<WebGPU::ExternalTexture const>,WTF::DefaultRefDerefTraits<WebGPU::ExternalTexture const>>>,(mpark::detail::Trait)1> &>(&v18, v12 + 4);
       v13->_resource.impl_.index_ = -1;
 LABEL_7:
       v15 = v13;
       goto LABEL_8;
     }
 
-    _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJN3WTF6RefPtrIN6WebGPU6BufferENS6_12RawPtrTraitsIS9_EENS6_21DefaultRefDerefTraitsIS9_EEEENS7_IKNS8_11TextureViewENSA_ISG_EENSC_ISG_EEEENS7_IKNS8_15ExternalTextureENSA_ISL_EENSC_ISL_EEEEEEEE14generic_assignIRKNS0_15copy_assignmentISP_LNS0_5TraitE1EEEEEvOT_EUlRSX_OT0_E_JRSQ_SW_EEEDcmSY_DpOT0_(*(m_ptr + 8), &v12->_resource, &v12->_resource, m_ptr);
+    _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJN3WTF6RefPtrIN6WebGPU6BufferENS6_12RawPtrTraitsIS9_EENS6_21DefaultRefDerefTraitsIS9_EEEENS7_IKNS8_11TextureViewENSA_ISG_EENSC_ISG_EEEENS7_IKNS8_15ExternalTextureENSA_ISL_EENSC_ISL_EEEEEEEE14generic_assignIRKNS0_15copy_assignmentISP_LNS0_5TraitE1EEEEEvOT_EUlRSX_OT0_E_JRSQ_SW_EEEDcmSY_DpOT0_(*(m_ptr + 8), v12 + 32, v12 + 4, m_ptr);
     goto LABEL_7;
   }
 

@@ -259,8 +259,7 @@ LABEL_6:
       [(BENavigationHandler *)self setMainFrameNavigationURL:0];
       [(BENavigationHandler *)webView setBe_hasPendingOperations:0];
       [(BENavigationHandler *)webView setBe_hasCompletedLoad:1];
-      [(BENavigationHandler *)webView setBe_requiresReload:0];
-      v10 = _BookEPUBLog();
+      v10 = _BookEPUBLog([(BENavigationHandler *)webView setBe_requiresReload:0]);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v11 = objc_opt_class();
@@ -309,7 +308,7 @@ LABEL_6:
 
     else
     {
-      v19 = _BookEPUBLog();
+      v19 = _BookEPUBLog(0);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v20 = objc_opt_class();
@@ -379,7 +378,7 @@ LABEL_6:
 
   else
   {
-    v11 = _BookEPUBLog();
+    v11 = _BookEPUBLog(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
@@ -406,13 +405,14 @@ LABEL_6:
 - (void)_cancelTimeout
 {
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:"_contentLoadTimeout" object:0];
-  if ([(BENavigationHandler *)self reloadTimeoutActive])
+  reloadTimeoutActive = [(BENavigationHandler *)self reloadTimeoutActive];
+  if (reloadTimeoutActive)
   {
-    v3 = _BookEPUBLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _BookEPUBLog(reloadTimeoutActive);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, "Reload timeout active when canceling our timeout.  Also canceling reload timeout.", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "Reload timeout active when canceling our timeout.  Also canceling reload timeout.", v5, 2u);
     }
 
     [(BENavigationHandler *)self _cancelReloadTimeout];
@@ -580,38 +580,38 @@ LABEL_6:
   _request = [navigationCopy _request];
   v12 = [_request URL];
 
-  v13 = _BookEPUBLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = _BookEPUBLog(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
     be_identifier = [viewCopy be_identifier];
     *buf = 138544386;
-    v25 = v15;
-    v26 = 2114;
-    v27 = be_identifier;
-    v28 = 2160;
-    v29 = 1752392040;
-    v30 = 2112;
-    v31 = v12;
-    v32 = 2114;
-    v33 = errorCopy;
-    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "<%{public}@ %{public}@> didFailNavigation url:%{mask.hash}@ error: %{public}@", buf, 0x34u);
+    v26 = v16;
+    v27 = 2114;
+    v28 = be_identifier;
+    v29 = 2160;
+    v30 = 1752392040;
+    v31 = 2112;
+    v32 = v12;
+    v33 = 2114;
+    v34 = errorCopy;
+    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "<%{public}@ %{public}@> didFailNavigation url:%{mask.hash}@ error: %{public}@", buf, 0x34u);
   }
 
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_1C780;
-  v19[3] = &unk_328A48;
-  objc_copyWeak(&v22, &location);
-  v19[4] = self;
-  v17 = v12;
-  v20 = v17;
-  v18 = errorCopy;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_1C780;
+  v20[3] = &unk_328A48;
+  objc_copyWeak(&v23, &location);
+  v20[4] = self;
+  v18 = v12;
   v21 = v18;
-  [(BENavigationHandler *)self _notifyLoadFailureError:v18 completion:v19];
+  v19 = errorCopy;
+  v22 = v19;
+  [(BENavigationHandler *)self _notifyLoadFailureError:v19 completion:v20];
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(&location);
 }
 
@@ -619,7 +619,7 @@ LABEL_6:
 {
   viewCopy = view;
   v7 = [viewCopy URL];
-  v8 = _BookEPUBLog();
+  v8 = _BookEPUBLog(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     be_identifier = [viewCopy be_identifier];
@@ -652,7 +652,7 @@ LABEL_6:
 {
   webView = [(BENavigationHandler *)self webView];
   v4 = [webView URL];
-  v5 = _BookEPUBLog();
+  v5 = _BookEPUBLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     be_identifier = [webView be_identifier];
@@ -679,14 +679,13 @@ LABEL_6:
 
     if (applicationState == &dword_0 + 2)
     {
-      [webView setBe_requiresReload:1];
-      v6 = _BookEPUBLog();
+      v6 = _BookEPUBLog([webView setBe_requiresReload:1]);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         be_identifier = [webView be_identifier];
-        v11 = 138543362;
-        v12 = be_identifier;
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "webView: %{public}@ Received reloadTimeout, but we are backgrounded.  Ignoring.", &v11, 0xCu);
+        v12 = 138543362;
+        v13 = be_identifier;
+        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "webView: %{public}@ Received reloadTimeout, but we are backgrounded.  Ignoring.", &v12, 0xCu);
 LABEL_13:
       }
     }
@@ -694,28 +693,28 @@ LABEL_13:
     else
     {
       v6 = [webView URL];
-      v8 = _BookEPUBLog();
+      v8 = _BookEPUBLog(v6);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         be_identifier2 = [webView be_identifier];
-        v11 = 138543874;
-        v12 = be_identifier2;
-        v13 = 2160;
-        v14 = 1752392040;
-        v15 = 2112;
-        v16 = v6;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "webView: %{public}@ url: %{mask.hash}@ - _reloadTimeout", &v11, 0x20u);
+        v12 = 138543874;
+        v13 = be_identifier2;
+        v14 = 2160;
+        v15 = 1752392040;
+        v16 = 2112;
+        v17 = v6;
+        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "webView: %{public}@ url: %{mask.hash}@ - _reloadTimeout", &v12, 0x20u);
       }
 
       if (!v6)
       {
-        be_identifier = _BookEPUBLog();
+        be_identifier = _BookEPUBLog(v10);
         if (os_log_type_enabled(be_identifier, OS_LOG_TYPE_ERROR))
         {
           be_identifier3 = [webView be_identifier];
-          v11 = 138543362;
-          v12 = be_identifier3;
-          _os_log_impl(&dword_0, be_identifier, OS_LOG_TYPE_ERROR, "webView: %{public}@ Received reloadTimeout, but our webView has no url.  Ignoring.", &v11, 0xCu);
+          v12 = 138543362;
+          v13 = be_identifier3;
+          _os_log_impl(&dword_0, be_identifier, OS_LOG_TYPE_ERROR, "webView: %{public}@ Received reloadTimeout, but our webView has no url.  Ignoring.", &v12, 0xCu);
         }
 
         goto LABEL_13;
@@ -727,11 +726,11 @@ LABEL_13:
 
   else
   {
-    v6 = _BookEPUBLog();
+    v6 = _BookEPUBLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "Received reloadTimeout, but our webView is gone.  Ignoring.", &v11, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "Received reloadTimeout, but our webView is gone.  Ignoring.", &v12, 2u);
     }
   }
 }
@@ -740,7 +739,7 @@ LABEL_13:
 {
   webView = [(BENavigationHandler *)self webView];
   v4 = [webView URL];
-  v5 = _BookEPUBLog();
+  v5 = _BookEPUBLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     be_identifier = [webView be_identifier];
@@ -761,27 +760,27 @@ LABEL_13:
   webView = [(BENavigationHandler *)self webView];
   if (webView)
   {
-    v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    v23 = 0u;
     v20 = 0u;
+    v21 = 0u;
     allObservers = [(BENavigationHandler *)self allObservers];
-    v5 = [allObservers countByEnumeratingWithState:&v19 objects:v31 count:16];
+    v5 = [allObservers countByEnumeratingWithState:&v20 objects:v32 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v20;
+      v7 = *v21;
       do
       {
         v8 = 0;
         do
         {
-          if (*v20 != v7)
+          if (*v21 != v7)
           {
             objc_enumerationMutation(allObservers);
           }
 
-          v9 = *(*(&v19 + 1) + 8 * v8);
+          v9 = *(*(&v20 + 1) + 8 * v8);
           if (objc_opt_respondsToSelector())
           {
             [v9 navigationHandlerWebContentProcessAttemptingReload:self];
@@ -791,7 +790,7 @@ LABEL_13:
         }
 
         while (v6 != v8);
-        v6 = [allObservers countByEnumeratingWithState:&v19 objects:v31 count:16];
+        v6 = [allObservers countByEnumeratingWithState:&v20 objects:v32 count:16];
       }
 
       while (v6);
@@ -799,58 +798,57 @@ LABEL_13:
 
     reloadFromOrigin = [webView reloadFromOrigin];
     v11 = [webView URL];
-    v12 = _BookEPUBLog();
+    v12 = _BookEPUBLog(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       be_identifier = [webView be_identifier];
       *buf = 138543874;
-      v24 = be_identifier;
-      v25 = 2160;
-      v26 = 1752392040;
-      v27 = 2112;
-      v28 = v11;
+      v25 = be_identifier;
+      v26 = 2160;
+      v27 = 1752392040;
+      v28 = 2112;
+      v29 = v11;
       _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "webView: %{public}@ Attempting reload of url: %{mask.hash}@", buf, 0x20u);
     }
 
     if (reloadFromOrigin | v11)
     {
-      [(BENavigationHandler *)self setRetryCount:[(BENavigationHandler *)self retryCount]+ 1];
-      v14 = _BookEPUBLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = _BookEPUBLog([(BENavigationHandler *)self setRetryCount:[(BENavigationHandler *)self retryCount]+ 1]);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         retryCount = [(BENavigationHandler *)self retryCount];
         maxReloadAttempts = [(BENavigationHandler *)self maxReloadAttempts];
         *buf = 141558786;
-        v24 = 1752392040;
-        v25 = 2112;
-        v26 = v11;
-        v27 = 2048;
-        v28 = retryCount;
-        v29 = 2048;
-        v30 = maxReloadAttempts;
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Attempting reload of url: %{mask.hash}@ - %ld/%ldattempts", buf, 0x2Au);
+        v25 = 1752392040;
+        v26 = 2112;
+        v27 = v11;
+        v28 = 2048;
+        v29 = retryCount;
+        v30 = 2048;
+        v31 = maxReloadAttempts;
+        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Attempting reload of url: %{mask.hash}@ - %ld/%ldattempts", buf, 0x2Au);
       }
 
       objc_opt_class();
-      v17 = BUDynamicCast();
-      v18 = [v17 be_updateAXValueForMessage:&__kCFBooleanTrue];
-      [v17 be_updateAXCurrentReadingStateWithMessage:@"BEWebProcessPluginNeedsReloadParameterKey" forValue:v18];
+      v18 = BUDynamicCast();
+      v19 = [v18 be_updateAXValueForMessage:&__kCFBooleanTrue];
+      [v18 be_updateAXCurrentReadingStateWithMessage:@"BEWebProcessPluginNeedsReloadParameterKey" forValue:v19];
 
-      [v17 be_enableAX];
-      [v17 setBe_requiresReload:0];
+      [v18 be_enableAX];
+      [v18 setBe_requiresReload:0];
       [(BENavigationHandler *)self _startReloadTimeout];
     }
 
     else
     {
-      v17 = _BookEPUBLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = _BookEPUBLog(v14);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v24 = @"navigation";
-        v25 = 2112;
-        v26 = @"url";
-        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "Attempting reload, but we don't have %@ %@", buf, 0x16u);
+        v25 = @"navigation";
+        v26 = 2112;
+        v27 = @"url";
+        _os_log_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "Attempting reload, but we don't have %@ %@", buf, 0x16u);
       }
     }
   }
@@ -907,21 +905,21 @@ LABEL_13:
         v8 = @"Exceeded Shared Process Crash Limit";
 LABEL_21:
         v9 = [v7 URL];
-        v10 = _BookEPUBLog();
+        v10 = _BookEPUBLog(v9);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
         {
           be_identifier = [v7 be_identifier];
           v12 = [NSNumber numberWithUnsignedInteger:reason];
           *buf = 138544386;
-          v49 = be_identifier;
-          v50 = 2160;
-          v51 = 1752392040;
-          v52 = 2112;
-          v53 = v9;
-          v54 = 2114;
-          v55 = v8;
+          v51 = be_identifier;
+          v52 = 2160;
+          v53 = 1752392040;
+          v54 = 2112;
+          v55 = v9;
           v56 = 2114;
-          v57 = v12;
+          v57 = v8;
+          v58 = 2114;
+          v59 = v12;
           _os_log_impl(&dword_0, v10, OS_LOG_TYPE_FAULT, "webView:%{public}@ url: %{mask.hash}@ - contentFailedToLoadWithReason: %{public}@(%{public}@)", buf, 0x34u);
         }
 
@@ -931,62 +929,62 @@ LABEL_21:
           if (retryCount >= [(BENavigationHandler *)self maxReloadAttempts])
           {
             [v7 setBe_requiresReload:1];
-            v45 = NSDebugDescriptionErrorKey;
-            v46 = v8;
-            v24 = [NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-            v25 = [NSError errorWithDomain:WKErrorDomain code:reason userInfo:v24];
+            v47 = NSDebugDescriptionErrorKey;
+            v48 = v8;
+            v25 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+            v26 = [NSError errorWithDomain:WKErrorDomain code:reason userInfo:v25];
 
-            v26 = _BookEPUBLog();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            v28 = _BookEPUBLog(v27);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
               be_identifier2 = [v7 be_identifier];
-              v28 = [NSNumber numberWithUnsignedInteger:reason];
+              v30 = [NSNumber numberWithUnsignedInteger:reason];
               *buf = 138544386;
-              v49 = be_identifier2;
-              v50 = 2160;
-              v51 = 1752392040;
-              v52 = 2112;
-              v53 = v9;
-              v54 = 2114;
-              v55 = v8;
+              v51 = be_identifier2;
+              v52 = 2160;
+              v53 = 1752392040;
+              v54 = 2112;
+              v55 = v9;
               v56 = 2114;
-              v57 = v28;
-              _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "webView:%{public}@ Max reload attempts reached for url: %{mask.hash}@ reason: %{public}@(%{public}@).", buf, 0x34u);
+              v57 = v8;
+              v58 = 2114;
+              v59 = v30;
+              _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "webView:%{public}@ Max reload attempts reached for url: %{mask.hash}@ reason: %{public}@(%{public}@).", buf, 0x34u);
             }
 
+            v40 = 0u;
+            v41 = 0u;
             v38 = 0u;
             v39 = 0u;
-            v36 = 0u;
-            v37 = 0u;
             allObservers = [(BENavigationHandler *)self allObservers];
-            v30 = [allObservers countByEnumeratingWithState:&v36 objects:v44 count:16];
-            if (v30)
+            v32 = [allObservers countByEnumeratingWithState:&v38 objects:v46 count:16];
+            if (v32)
             {
-              v31 = v30;
-              v32 = *v37;
+              v33 = v32;
+              v34 = *v39;
               do
               {
-                for (i = 0; i != v31; i = i + 1)
+                for (i = 0; i != v33; i = i + 1)
                 {
-                  if (*v37 != v32)
+                  if (*v39 != v34)
                   {
                     objc_enumerationMutation(allObservers);
                   }
 
-                  v34 = *(*(&v36 + 1) + 8 * i);
+                  v36 = *(*(&v38 + 1) + 8 * i);
                   if (objc_opt_respondsToSelector())
                   {
-                    [v34 navigationHandlerWebContentLoadFailed:self reason:v25];
+                    [v36 navigationHandlerWebContentLoadFailed:self reason:v26];
                   }
                 }
 
-                v31 = [allObservers countByEnumeratingWithState:&v36 objects:v44 count:16];
+                v33 = [allObservers countByEnumeratingWithState:&v38 objects:v46 count:16];
               }
 
-              while (v31);
+              while (v33);
             }
 
-            [(BENavigationHandler *)self _notifyLoadFailureError:v25 completion:&stru_328A68];
+            [(BENavigationHandler *)self _notifyLoadFailureError:v26 completion:&stru_328A68];
           }
 
           else
@@ -996,13 +994,13 @@ LABEL_21:
 
             if (applicationState == &dword_0 + 2)
             {
-              v16 = _BookEPUBLog();
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+              v17 = _BookEPUBLog(v16);
+              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
               {
                 be_identifier3 = [v7 be_identifier];
                 *buf = 138543362;
-                v49 = be_identifier3;
-                _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Application is in the background.  Marking reload required for webView:%{public}@", buf, 0xCu);
+                v51 = be_identifier3;
+                _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "Application is in the background.  Marking reload required for webView:%{public}@", buf, 0xCu);
               }
 
               [v7 setBe_requiresReload:1];
@@ -1017,36 +1015,36 @@ LABEL_21:
 
         else
         {
+          v44 = 0u;
+          v45 = 0u;
           v42 = 0u;
           v43 = 0u;
-          v40 = 0u;
-          v41 = 0u;
           allObservers2 = [(BENavigationHandler *)self allObservers];
-          v19 = [allObservers2 countByEnumeratingWithState:&v40 objects:v47 count:16];
-          if (v19)
+          v20 = [allObservers2 countByEnumeratingWithState:&v42 objects:v49 count:16];
+          if (v20)
           {
-            v20 = v19;
-            v21 = *v41;
+            v21 = v20;
+            v22 = *v43;
             do
             {
-              for (j = 0; j != v20; j = j + 1)
+              for (j = 0; j != v21; j = j + 1)
               {
-                if (*v41 != v21)
+                if (*v43 != v22)
                 {
                   objc_enumerationMutation(allObservers2);
                 }
 
-                v23 = *(*(&v40 + 1) + 8 * j);
+                v24 = *(*(&v42 + 1) + 8 * j);
                 if (objc_opt_respondsToSelector())
                 {
-                  [v23 navigationHandlerWebContentProcessFailedWithNoURL:v7];
+                  [v24 navigationHandlerWebContentProcessFailedWithNoURL:v7];
                 }
               }
 
-              v20 = [allObservers2 countByEnumeratingWithState:&v40 objects:v47 count:16];
+              v21 = [allObservers2 countByEnumeratingWithState:&v42 objects:v49 count:16];
             }
 
-            while (v20);
+            while (v21);
           }
         }
 
@@ -1061,7 +1059,7 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v9 = _BookEPUBLog();
+  v9 = _BookEPUBLog(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;

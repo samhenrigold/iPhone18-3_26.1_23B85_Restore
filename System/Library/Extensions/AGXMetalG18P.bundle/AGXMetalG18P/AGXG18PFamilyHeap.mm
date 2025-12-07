@@ -98,7 +98,7 @@
   device = [(IOGPUMetalHeap *)self device];
   if (device)
   {
-    [(MTLDevice *)device accelerationStructureSizesWithDescriptor:descriptor];
+    objc_msgSend_accelerationStructureSizesWithDescriptor_(device);
   }
 
   return [(AGXG18PFamilyHeap *)self newAccelerationStructureWithSize:0 offset:offset resourceIndex:0];
@@ -109,7 +109,7 @@
   device = [(IOGPUMetalHeap *)self device];
   if (device)
   {
-    [(MTLDevice *)device accelerationStructureSizesWithDescriptor:descriptor];
+    objc_msgSend_accelerationStructureSizesWithDescriptor_(device);
   }
 
   return [(AGXG18PFamilyHeap *)self newAccelerationStructureWithSize:0 resourceIndex:0];

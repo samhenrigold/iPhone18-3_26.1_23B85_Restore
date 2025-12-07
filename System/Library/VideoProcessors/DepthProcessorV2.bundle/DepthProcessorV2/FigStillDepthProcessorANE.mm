@@ -135,27 +135,28 @@ LABEL_9:
     if (v11)
     {
       v12 = objc_msgSend_scaleFromDepth_toDisparity_(self->_depthScaling, v8, v7, v11, v9, v10);
+      v13 = v12;
       if (v12)
       {
-        sub_29572E3A8();
+        sub_29572E3A8(v12);
       }
     }
 
     else
     {
-      sub_29572E428(&v14);
-      v12 = v14;
+      sub_29572E428(&v15);
+      v13 = v15;
     }
   }
 
   else
   {
-    sub_29572E4D8(&v15);
+    sub_29572E4D8(&v16);
     v11 = 0;
-    v12 = v15;
+    v13 = v16;
   }
 
-  return v12;
+  return v13;
 }
 
 - (int)convertDepth:(__CVBuffer *)depth toDisparity:(__CVBuffer *)disparity

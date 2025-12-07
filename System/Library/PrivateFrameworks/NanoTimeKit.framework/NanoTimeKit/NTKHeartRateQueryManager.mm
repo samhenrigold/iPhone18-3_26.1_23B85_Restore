@@ -665,7 +665,7 @@ uint64_t __45__NTKHeartRateQueryManager__alreadyObserving__block_invoke_2(uint64
       [(NTKHeartRateQueryManager *)self _notifyObserversOfLatestSummary];
     }
 
-    [(NTKHeartRateQueryManager *)self startObservingIfNeeded];
+    [(NTKHeartRateQueryManager *)self startObservingIfNeeded:*v7];
   }
 }
 

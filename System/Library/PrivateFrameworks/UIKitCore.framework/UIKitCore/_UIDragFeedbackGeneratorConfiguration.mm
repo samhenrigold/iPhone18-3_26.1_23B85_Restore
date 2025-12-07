@@ -74,9 +74,9 @@
 {
   feedbackCopy = feedback;
   targetUpdatedFeedback = [(_UIDragFeedbackGeneratorConfiguration *)self targetUpdatedFeedback];
-  v10 = [feedbackCopy isEqual:targetUpdatedFeedback];
+  isEqual = objc_msgSend_isEqual_(feedbackCopy);
 
-  if (v10)
+  if (isEqual)
   {
     hidTargetUpdatedFeedbackPatternName = [(_UIDragFeedbackGeneratorConfiguration *)self hidTargetUpdatedFeedbackPatternName];
     v12 = [_UIFeedbackBackBoardHIDPattern feedbackPatternWithName:hidTargetUpdatedFeedbackPatternName deviceType:device senderID:d];

@@ -10,6 +10,7 @@
 - (void)imagePlaygroundViewControllerDidCancel:(id)cancel;
 - (void)setRecipe:(id)recipe;
 - (void)setSourceImage:(id)image;
+- (void)setSourceImageIsSketch:(BOOL)sketch;
 @end
 
 @implementation GPImageEditionViewController
@@ -72,6 +73,13 @@
   return sourceImageIsSketch;
 }
 
+- (void)setSourceImageIsSketch:(BOOL)sketch
+{
+  sketchCopy = sketch;
+  generationViewController = [(GPImageEditionViewController *)self generationViewController];
+  [generationViewController setSourceImageIsSketch:sketchCopy];
+}
+
 - (NSString)localizedCreateButtonTitle
 {
   generationViewController = [(GPImageEditionViewController *)self generationViewController];
@@ -120,17 +128,15 @@
 
 - (void)imageEditionViewController:(id)controller didCreate:(id)create
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   createCopy = create;
   v5 = MEMORY[0x1E695DEC8];
   createCopy2 = create;
   v7 = [v5 arrayWithObjects:&createCopy count:1];
 
-  [(GPImageEditionViewController *)self setGeneratedAssets:v7, createCopy, v11];
+  [(GPImageEditionViewController *)self setGeneratedAssets:v7, createCopy, v10];
   delegate = [(GPImageEditionViewController *)self delegate];
   [delegate imageEditionViewControllerDidFinishEditing:self error:0];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (GPImageEditionViewControllerDelegate)delegate

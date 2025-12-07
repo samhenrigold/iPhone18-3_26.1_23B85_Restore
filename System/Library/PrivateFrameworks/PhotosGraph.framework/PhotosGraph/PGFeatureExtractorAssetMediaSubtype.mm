@@ -128,19 +128,18 @@ LABEL_21:
 
 - (id)featureNames
 {
-  v5[10] = *MEMORY[0x277D85DE8];
-  v5[0] = @"MediaSubtypeNone";
-  v5[1] = @"PhotoPanorama";
-  v5[2] = @"PhotoHDR";
-  v5[3] = @"PhotoScreenshot";
-  v5[4] = @"PhotoLive";
-  v5[5] = @"PhotoDepthEffect";
-  v5[6] = @"SpatialOverCapture";
-  v5[7] = @"VideoStreamed";
-  v5[8] = @"VideoHighFrameRate";
-  v5[9] = @"VideoTimelapse";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:10];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[10] = *MEMORY[0x277D85DE8];
+  v4[0] = @"MediaSubtypeNone";
+  v4[1] = @"PhotoPanorama";
+  v4[2] = @"PhotoHDR";
+  v4[3] = @"PhotoScreenshot";
+  v4[4] = @"PhotoLive";
+  v4[5] = @"PhotoDepthEffect";
+  v4[6] = @"SpatialOverCapture";
+  v4[7] = @"VideoStreamed";
+  v4[8] = @"VideoHighFrameRate";
+  v4[9] = @"VideoTimelapse";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:10];
 
   return v2;
 }

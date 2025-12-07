@@ -111,7 +111,7 @@
               v18 = *(*(&v30 + 1) + 8 * i);
               if (v18)
               {
-                [*(*(&v30 + 1) + 8 * i) lockupStyle];
+                objc_msgSend_lockupStyle(*(*(&v30 + 1) + 8 * i));
                 v19 = v29;
               }
 
@@ -564,7 +564,7 @@ void __60__SUUIGridPageSection_collectionViewDidTapVideoAtIndexPath___block_invo
     v20 = pageComponent2;
     if (pageComponent2)
     {
-      [pageComponent2 lockupStyle];
+      objc_msgSend_lockupStyle(pageComponent2);
       v21 = v30;
     }
 
@@ -1593,7 +1593,7 @@ LABEL_6:
 
     if (lockupCopy)
     {
-      [lockupCopy lockupStyle];
+      objc_msgSend_lockupStyle(lockupCopy);
     }
 
     IsHorizontal = SUUILockupLayoutStyleIsHorizontal(0);
@@ -1835,10 +1835,10 @@ void __55__SUUIGridPageSection__enumerateVisibleItemsWithBlock___block_invoke(ui
   v9 = v8 + 42.0;
   if (lockupCopy)
   {
-    [lockupCopy lockupStyle];
+    objc_msgSend_lockupStyle(lockupCopy);
     if (!SUUILockupLayoutStyleIsHorizontal(v12))
     {
-      [lockupCopy lockupStyle];
+      objc_msgSend_lockupStyle(lockupCopy);
       if ((v11 & 4) != 0)
       {
         v9 = v9 + 41.0;
@@ -2017,8 +2017,8 @@ LABEL_9:
   v12 = colorScheme;
   if (colorScheme)
   {
-    primaryTextColor = [colorScheme primaryTextColor];
-    [v10 setSeparatorColor:primaryTextColor];
+    v13 = objc_msgSend_primaryTextColor(colorScheme);
+    [v10 setSeparatorColor:v13];
   }
 
   layout = [v10 layout];
@@ -2334,7 +2334,7 @@ LABEL_13:
   {
     if (v13)
     {
-      [v13 lockupStyle];
+      objc_msgSend_lockupStyle(v13);
 
       if ((v38 & 2) != 0)
       {
@@ -2403,7 +2403,7 @@ LABEL_13:
   layout = [cellCopy layout];
   if (lockupCopy)
   {
-    [lockupCopy lockupStyle];
+    objc_msgSend_lockupStyle(lockupCopy);
   }
 
   [layout setLayoutStyle:0];
@@ -2473,7 +2473,7 @@ LABEL_13:
   [layout setImageBoundingSize:{self->_lockupImageBoundingSize.width, self->_lockupImageBoundingSize.height}];
   if (lockupCopy)
   {
-    [lockupCopy lockupStyle];
+    objc_msgSend_lockupStyle(lockupCopy);
   }
 
   [layout setLayoutStyle:0];

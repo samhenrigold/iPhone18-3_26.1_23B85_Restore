@@ -66,7 +66,7 @@
   }
 
   error = [(PHCompositeMediaResult *)self error];
-  IsMediaServerDisconnected = PHErrorIsMediaServerDisconnected();
+  IsMediaServerDisconnected = PHErrorIsMediaServerDisconnected(error);
 
   if (IsMediaServerDisconnected)
   {

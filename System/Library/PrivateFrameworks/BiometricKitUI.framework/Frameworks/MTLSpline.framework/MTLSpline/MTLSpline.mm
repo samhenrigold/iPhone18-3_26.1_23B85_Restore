@@ -48,24 +48,90 @@ void sub_241BA579C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, _WORD *a2)
+void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, unsigned __int16 *a2, __n128 a3)
 {
-  v5 = a1[1];
-  v4 = a1[2];
-  if (v5 >= v4)
+  v6 = a1[1];
+  v5 = a1[2];
+  if (v6 >= v5)
   {
-    v7 = *a1;
-    v8 = v5 - *a1;
-    v9 = v8 >> 1;
-    if (v8 >> 1 <= -2)
+    v8 = *a1;
+    v9 = v6 - *a1;
+    v10 = v9 >> 1;
+    if (v9 >> 1 <= -2)
     {
       _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
     }
 
-    v10 = v4 - v7;
-    if (v10 <= v9 + 1)
+    v11 = v5 - v8;
+    if (v11 <= v10 + 1)
     {
-      v11 = v9 + 1;
+      v12 = v10 + 1;
+    }
+
+    else
+    {
+      v12 = v11;
+    }
+
+    v13 = v11 >= 0x7FFFFFFFFFFFFFFELL;
+    v14 = 0x7FFFFFFFFFFFFFFFLL;
+    if (!v13)
+    {
+      v14 = v12;
+    }
+
+    if (v14)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(a1, v14);
+    }
+
+    v15 = (2 * v10);
+    v16 = *a2;
+    v17 = &v15[-(v9 >> 1)];
+    *v15 = v16;
+    v7 = v15 + 1;
+    memcpy(v17, v8, v9);
+    v18 = *a1;
+    *a1 = v17;
+    a1[1] = v7;
+    a1[2] = 0;
+    if (v18)
+    {
+      operator delete(v18);
+    }
+  }
+
+  else
+  {
+    *v6 = *a2;
+    v7 = v6 + 1;
+  }
+
+  a1[1] = v7;
+}
+
+void std::vector<PatchInfo>::push_back[abi:ne200100](uint64_t a1, void *a2, __n128 a3)
+{
+  v6 = *(a1 + 8);
+  v5 = *(a1 + 16);
+  if (v6 >= v5)
+  {
+    v8 = (v6 - *a1) >> 3;
+    if ((v8 + 1) >> 61)
+    {
+      _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
+    }
+
+    v9 = v5 - *a1;
+    v10 = v9 >> 2;
+    if (v9 >> 2 <= (v8 + 1))
+    {
+      v10 = v8 + 1;
+    }
+
+    if (v9 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v11 = 0x1FFFFFFFFFFFFFFFLL;
     }
 
     else
@@ -73,100 +139,34 @@ void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, _WORD
       v11 = v10;
     }
 
-    v12 = v10 >= 0x7FFFFFFFFFFFFFFELL;
-    v13 = 0x7FFFFFFFFFFFFFFFLL;
-    if (!v12)
+    if (v11)
     {
-      v13 = v11;
+      std::__allocate_at_least[abi:ne200100]<std::allocator<PatchInfo>>(a1, v11);
     }
 
-    if (v13)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(a1, v13);
-    }
-
-    v14 = (2 * v9);
-    v15 = *a2;
-    v16 = &v14[-(v8 >> 1)];
-    *v14 = v15;
-    v6 = v14 + 1;
-    memcpy(v16, v7, v8);
-    v17 = *a1;
-    *a1 = v16;
-    a1[1] = v6;
-    a1[2] = 0;
-    if (v17)
-    {
-      operator delete(v17);
-    }
-  }
-
-  else
-  {
-    *v5 = *a2;
-    v6 = v5 + 1;
-  }
-
-  a1[1] = v6;
-}
-
-void std::vector<PatchInfo>::push_back[abi:ne200100](uint64_t a1, void *a2)
-{
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (v5 >= v4)
-  {
-    v7 = (v5 - *a1) >> 3;
-    if ((v7 + 1) >> 61)
-    {
-      _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
-    }
-
-    v8 = v4 - *a1;
-    v9 = v8 >> 2;
-    if (v8 >> 2 <= (v7 + 1))
-    {
-      v9 = v7 + 1;
-    }
-
-    if (v8 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      v10 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v10 = v9;
-    }
-
-    if (v10)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<PatchInfo>>(a1, v10);
-    }
-
-    v11 = (8 * v7);
-    *v11 = *a2;
-    v6 = 8 * v7 + 8;
-    v12 = *(a1 + 8) - *a1;
-    v13 = v11 - v12;
-    memcpy(v11 - v12, *a1, v12);
-    v14 = *a1;
-    *a1 = v13;
-    *(a1 + 8) = v6;
+    v12 = (8 * v8);
+    *v12 = *a2;
+    v7 = 8 * v8 + 8;
+    v13 = *(a1 + 8) - *a1;
+    v14 = v12 - v13;
+    memcpy(v12 - v13, *a1, v13);
+    v15 = *a1;
+    *a1 = v14;
+    *(a1 + 8) = v7;
     *(a1 + 16) = 0;
-    if (v14)
+    if (v15)
     {
-      operator delete(v14);
+      operator delete(v15);
     }
   }
 
   else
   {
-    *v5 = *a2;
-    v6 = (v5 + 1);
+    *v6 = *a2;
+    v7 = (v6 + 1);
   }
 
-  *(a1 + 8) = v6;
+  *(a1 + 8) = v7;
 }
 
 void sub_241BA5F68(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -209,17 +209,17 @@ void sub_241BA6104(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *_ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEEC2B8ne200100EmRKS1_(void *result, unint64_t a2)
+uint64_t *_ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEEC2B8ne200100EmRKS1_(uint64_t *a1, unint64_t a2, __int128 *a3, __n128 a4)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(a1, a2, a4);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_241BA629C(_Unwind_Exception *exception_object)
@@ -234,7 +234,7 @@ void sub_241BA629C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t a1, unint64_t a2)
+void _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t *a1, unint64_t a2, __n128 a3)
 {
   if (!(a2 >> 60))
   {
@@ -295,7 +295,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<InstanceInfo>>(uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<ControlPoint>::__init_with_size[abi:ne200100]<ControlPoint const*,ControlPoint const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ControlPoint>::__init_with_size[abi:ne200100]<ControlPoint const*,ControlPoint const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -317,7 +317,7 @@ void sub_241BA652C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<ControlPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ControlPoint>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -327,7 +327,7 @@ void std::vector<ControlPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t
   _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
 }
 
-char *std::vector<ControlPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<ControlPoint*>,std::__wrap_iter<ControlPoint*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<ControlPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<ControlPoint*>,std::__wrap_iter<ControlPoint*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -336,8 +336,8 @@ char *std::vector<ControlPoint>::__insert_with_size[abi:ne200100]<std::__wrap_it
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if ((0xAAAAAAAAAAAAAAABLL * ((v9 - v10) >> 4)) < a5)
   {
     v11 = *a1;
@@ -375,27 +375,27 @@ char *std::vector<ControlPoint>::__insert_with_size[abi:ne200100]<std::__wrap_it
     do
     {
       v39 = *v7;
-      v40 = v7[2];
-      v38[1] = v7[1];
+      v40 = *(v7 + 2);
+      v38[1] = *(v7 + 1);
       v38[2] = v40;
       *v38 = v39;
       v38 += 3;
-      v7 += 3;
+      v7 += 48;
       v37 -= 48;
     }
 
     while (v37);
-    memcpy((v36 + 48 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v36 + 48 * a5), v5, a1[1] - v5);
     v41 = *a1;
-    v42 = v36 + 48 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v42 = v36 + 48 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v43 = v5 - v41;
     v44 = (v36 - (v5 - v41));
     memcpy(v44, v41, v43);
     v45 = *a1;
     *a1 = v44;
-    *(a1 + 8) = v42;
-    *(a1 + 16) = 0;
+    a1[1] = v42;
+    a1[2] = 0;
     if (v45)
     {
       operator delete(v45);
@@ -410,7 +410,7 @@ char *std::vector<ControlPoint>::__insert_with_size[abi:ne200100]<std::__wrap_it
     v30 = 3 * a5;
     v31 = &__dst[48 * a5];
     v32 = (v10 - 48 * a5);
-    v33 = *(a1 + 8);
+    v33 = a1[1];
     while (v32 < v10)
     {
       v34 = *v32;
@@ -422,7 +422,7 @@ char *std::vector<ControlPoint>::__insert_with_size[abi:ne200100]<std::__wrap_it
       v32 += 3;
     }
 
-    *(a1 + 8) = v33;
+    a1[1] = v33;
     if (v10 != v31)
     {
       memmove(&__dst[48 * a5], __dst, v10 - v31);
@@ -437,11 +437,11 @@ char *std::vector<ControlPoint>::__insert_with_size[abi:ne200100]<std::__wrap_it
   v18 = a4 - &__src[v16];
   if (a4 != &__src[v16])
   {
-    memmove(*(a1 + 8), &__src[v16], a4 - &__src[v16]);
+    memmove(a1[1], &__src[v16], a4 - &__src[v16]);
   }
 
   v19 = (v10 + v18);
-  *(a1 + 8) = v10 + v18;
+  a1[1] = v10 + v18;
   if (v16 >= 1)
   {
     v20 = &v5[48 * a5];
@@ -466,7 +466,7 @@ char *std::vector<ControlPoint>::__insert_with_size[abi:ne200100]<std::__wrap_it
       v21 = v22 - v7;
     }
 
-    *(a1 + 8) = v21;
+    a1[1] = v21;
     if (v19 != v20)
     {
       memmove(&v5[48 * a5], v5, v19 - v20);
@@ -482,7 +482,7 @@ LABEL_28:
   return v5;
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short const*,unsigned short const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short const*,unsigned short const*>(uint64_t *result, __int16 *a2, __int16 *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -504,7 +504,7 @@ void sub_241BA687C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -524,7 +524,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(uint
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned short *>,std::__wrap_iter<unsigned short *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned short *>,std::__wrap_iter<unsigned short *>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -533,8 +533,8 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 1)
   {
     v11 = *a1;
@@ -576,23 +576,24 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_
     v35 = (2 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 2;
       *v35++ = v36;
       v34 -= 2;
     }
 
     while (v34);
-    memcpy((v33 + 2 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 2 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 2 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 2 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -607,14 +608,14 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_
   {
     v29 = &__dst[2 * a5];
     v30 = (v10 - 2 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[2 * a5], __dst, v10 - v29);
@@ -629,11 +630,11 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[2 * a5];
@@ -653,7 +654,7 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[2 * a5], v5, v21 - v22);
@@ -672,7 +673,7 @@ LABEL_30:
   return v5;
 }
 
-uint64_t std::vector<PatchInfo>::__init_with_size[abi:ne200100]<PatchInfo const*,PatchInfo const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<PatchInfo>::__init_with_size[abi:ne200100]<PatchInfo const*,PatchInfo const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -694,7 +695,7 @@ void sub_241BA6B90(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<PatchInfo>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<PatchInfo>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -714,7 +715,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<PatchInfo>>(uint64_t 
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-char *std::vector<PatchInfo>::__insert_with_size[abi:ne200100]<std::__wrap_iter<PatchInfo*>,std::__wrap_iter<PatchInfo*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<PatchInfo>::__insert_with_size[abi:ne200100]<std::__wrap_iter<PatchInfo*>,std::__wrap_iter<PatchInfo*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -723,8 +724,8 @@ char *std::vector<PatchInfo>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 3)
   {
     v11 = *a1;
@@ -762,23 +763,24 @@ char *std::vector<PatchInfo>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
 
     while (v34);
-    memcpy((v33 + 8 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 8 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 8 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 8 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -793,14 +795,14 @@ char *std::vector<PatchInfo>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
   {
     v29 = &__dst[8 * a5];
     v30 = (v10 - 8 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[8 * a5], __dst, v10 - v29);
@@ -815,11 +817,11 @@ char *std::vector<PatchInfo>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[8 * a5];
@@ -839,7 +841,7 @@ char *std::vector<PatchInfo>::__insert_with_size[abi:ne200100]<std::__wrap_iter<
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[8 * a5], v5, v21 - v22);
@@ -858,7 +860,7 @@ LABEL_29:
   return v5;
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -890,7 +892,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<simd_float4x4>>(uint6
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<ControlPoint>::__init_with_size[abi:ne200100]<ControlPoint*,ControlPoint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ControlPoint>::__init_with_size[abi:ne200100]<ControlPoint*,ControlPoint*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -912,7 +914,7 @@ void sub_241BA6F80(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<PatchInfo>::__init_with_size[abi:ne200100]<PatchInfo*,PatchInfo*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<PatchInfo>::__init_with_size[abi:ne200100]<PatchInfo*,PatchInfo*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -934,7 +936,7 @@ void sub_241BA6FFC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<InstanceInfo>::__init_with_size[abi:ne200100]<InstanceInfo*,InstanceInfo*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<InstanceInfo>::__init_with_size[abi:ne200100]<InstanceInfo*,InstanceInfo*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -956,7 +958,7 @@ void sub_241BA7078(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<InstanceInfo>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<InstanceInfo>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x333333333333334)
   {
@@ -966,7 +968,7 @@ void std::vector<InstanceInfo>::__vallocate[abi:ne200100](uint64_t a1, unint64_t
   _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
 }
 
-char *std::vector<InstanceInfo>::__insert_with_size[abi:ne200100]<std::__wrap_iter<InstanceInfo*>,std::__wrap_iter<InstanceInfo*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<InstanceInfo>::__insert_with_size[abi:ne200100]<std::__wrap_iter<InstanceInfo*>,std::__wrap_iter<InstanceInfo*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -975,8 +977,8 @@ char *std::vector<InstanceInfo>::__insert_with_size[abi:ne200100]<std::__wrap_it
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if ((0xCCCCCCCCCCCCCCCDLL * ((v9 - v10) >> 4)) < a5)
   {
     v11 = *a1;
@@ -1014,30 +1016,30 @@ char *std::vector<InstanceInfo>::__insert_with_size[abi:ne200100]<std::__wrap_it
     do
     {
       *v40 = *v7;
-      v41 = v7[1];
-      v42 = v7[2];
-      v43 = v7[4];
-      v40[3] = v7[3];
+      v41 = *(v7 + 1);
+      v42 = *(v7 + 2);
+      v43 = *(v7 + 4);
+      v40[3] = *(v7 + 3);
       v40[4] = v43;
       v40[1] = v41;
       v40[2] = v42;
       v40 += 5;
-      v7 += 5;
+      v7 += 80;
       v39 -= 80;
     }
 
     while (v39);
-    memcpy((v38 + 80 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v38 + 80 * a5), v5, a1[1] - v5);
     v44 = *a1;
-    v45 = v38 + 80 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v45 = v38 + 80 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v46 = v5 - v44;
     v47 = (v38 - (v5 - v44));
     memcpy(v47, v44, v46);
     v48 = *a1;
     *a1 = v47;
-    *(a1 + 8) = v45;
-    *(a1 + 16) = 0;
+    a1[1] = v45;
+    a1[2] = 0;
     if (v48)
     {
       operator delete(v48);
@@ -1052,7 +1054,7 @@ char *std::vector<InstanceInfo>::__insert_with_size[abi:ne200100]<std::__wrap_it
     v31 = 5 * a5;
     v32 = &__dst[80 * a5];
     v33 = (v10 - 80 * a5);
-    v34 = *(a1 + 8);
+    v34 = a1[1];
     while (v33 < v10)
     {
       *v34 = *v33;
@@ -1067,7 +1069,7 @@ char *std::vector<InstanceInfo>::__insert_with_size[abi:ne200100]<std::__wrap_it
       v34 += 5;
     }
 
-    *(a1 + 8) = v34;
+    a1[1] = v34;
     if (v10 != v32)
     {
       memmove(&__dst[80 * a5], __dst, v10 - v32);
@@ -1082,11 +1084,11 @@ char *std::vector<InstanceInfo>::__insert_with_size[abi:ne200100]<std::__wrap_it
   v18 = a4 - &__src[v16];
   if (a4 != &__src[v16])
   {
-    memmove(*(a1 + 8), &__src[v16], a4 - &__src[v16]);
+    memmove(a1[1], &__src[v16], a4 - &__src[v16]);
   }
 
   v19 = (v10 + v18);
-  *(a1 + 8) = v10 + v18;
+  a1[1] = v10 + v18;
   if (v16 >= 1)
   {
     v20 = &v5[80 * a5];
@@ -1114,7 +1116,7 @@ char *std::vector<InstanceInfo>::__insert_with_size[abi:ne200100]<std::__wrap_it
       v21 = v22 - v7;
     }
 
-    *(a1 + 8) = v21;
+    a1[1] = v21;
     if (v19 != v20)
     {
       memmove(&v5[80 * a5], v5, v19 - v20);
@@ -1199,7 +1201,7 @@ void sub_241BA947C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<ControlPoint>::__assign_with_size[abi:ne200100]<ControlPoint*,ControlPoint*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<ControlPoint>::__assign_with_size[abi:ne200100]<ControlPoint*,ControlPoint*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1367,7 +1369,7 @@ double matrix4x4_translation(float a1, float a2, float a3)
   return *&_PromotedConst;
 }
 
-__n64 matrix_look_at(float32x4_t a1, float32_t a2, float32_t a3, float32x4_t a4, float32_t a5, float32_t a6, float32x4_t a7, float32_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, unsigned __int32 a17)
+__n64 matrix_look_at(float32x4_t a1, float32_t a2, float32_t a3, float32x4_t a4, float32_t a5, float32_t a6, float32x4_t a7, float32_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int32 a17)
 {
   a1.f32[1] = a2;
   a1.f32[2] = a3;

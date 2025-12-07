@@ -42,16 +42,16 @@
 
 - (BOOL)shouldHideSearchResult:(id)result
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   v5 = objc_opt_new();
   v6 = objc_opt_new();
-  v7 = __atxlog_handle_zkw_hide();
+  v7 = __atxlog_handle_zkw_hide(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     sectionBundleIdentifier = [resultCopy sectionBundleIdentifier];
     *buf = 138412290;
-    v56 = sectionBundleIdentifier;
+    v61 = sectionBundleIdentifier;
     _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "shouldHideSearchResult searchResult.sectionBundleIdentifier:%@", buf, 0xCu);
   }
 
@@ -60,16 +60,16 @@
 
   if (v10)
   {
-    v11 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_zkw_hide(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v56 = @"com.apple.spotlight.dec.zkw.recents";
-      v12 = "shouldHideSearchResult NO in %@";
-      v13 = v11;
-      v14 = 12;
+      v61 = @"com.apple.spotlight.dec.zkw.recents";
+      v13 = "shouldHideSearchResult NO in %@";
+      v14 = v12;
+      v15 = 12;
 LABEL_9:
-      _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, v12, buf, v14);
+      _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, v13, buf, v15);
       goto LABEL_10;
     }
 
@@ -77,77 +77,78 @@ LABEL_9:
   }
 
   sectionBundleIdentifier3 = [resultCopy sectionBundleIdentifier];
-  v16 = [sectionBundleIdentifier3 isEqualToString:@"com.apple.searchd.suggestions"];
+  v17 = [sectionBundleIdentifier3 isEqualToString:@"com.apple.searchd.suggestions"];
 
-  if (v16)
+  if (v17)
   {
-    v11 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_zkw_hide(v18);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v12 = "shouldHideSearchResult NO in com.apple.searchd.suggestions";
-      v13 = v11;
-      v14 = 2;
+      v13 = "shouldHideSearchResult NO in com.apple.searchd.suggestions";
+      v14 = v12;
+      v15 = 2;
       goto LABEL_9;
     }
 
 LABEL_10:
-    LOBYTE(v17) = 0;
+    LOBYTE(v19) = 0;
     goto LABEL_11;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && ([resultCopy proactiveSuggestion], (v19 = objc_claimAutoreleasedReturnValue()) != 0))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && ([resultCopy proactiveSuggestion], (v21 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v11 = v19;
-    v20 = [(ATXSpotlightHidingUIController *)self _identifierWithSuggestion:v19];
-    v21 = [v5 hasBeenHiddenEntityWithIdentifier:v20];
-    v22 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v12 = v21;
+    v22 = [(ATXSpotlightHidingUIController *)self _identifierWithSuggestion:v21];
+    v23 = [v5 hasBeenHiddenEntityWithIdentifier:v22];
+    v24 = v23;
+    v25 = __atxlog_handle_zkw_hide(v23);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      uiSpecification = [v11 uiSpecification];
+      uiSpecification = [v12 uiSpecification];
       [uiSpecification title];
-      v24 = v11;
-      v25 = v6;
-      v27 = v26 = v5;
+      v27 = v12;
+      v28 = v6;
+      v30 = v29 = v5;
       *buf = 138412802;
-      v56 = v20;
-      v57 = 2112;
-      v58 = v27;
-      v59 = 1024;
-      v60 = v21;
-      _os_log_impl(&dword_1BF549000, v22, OS_LOG_TYPE_DEFAULT, "hasBeenHiddenEntityWithIdentifier:%@ for suggestion:%@ hidden=%{BOOL}d", buf, 0x1Cu);
+      v61 = v22;
+      v62 = 2112;
+      v63 = v30;
+      v64 = 1024;
+      v65 = v24;
+      _os_log_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEFAULT, "hasBeenHiddenEntityWithIdentifier:%@ for suggestion:%@ hidden=%{BOOL}d", buf, 0x1Cu);
 
-      v5 = v26;
-      v6 = v25;
-      v11 = v24;
+      v5 = v29;
+      v6 = v28;
+      v12 = v27;
     }
 
-    if (v21)
+    if (v24)
     {
-      LOBYTE(v17) = 1;
+      LOBYTE(v19) = 1;
     }
 
     else
     {
-      v17 = [v5 contextHasBeenHiddenForSuggestion:v11];
-      v40 = __atxlog_handle_zkw_hide();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v19 = [v5 contextHasBeenHiddenForSuggestion:v12];
+      v45 = __atxlog_handle_zkw_hide(v19);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
-        uiSpecification2 = [v11 uiSpecification];
+        uiSpecification2 = [v12 uiSpecification];
         [uiSpecification2 title];
-        v42 = v11;
-        v43 = v6;
-        v45 = v44 = v5;
+        v47 = v12;
+        v48 = v6;
+        v50 = v49 = v5;
         *buf = 138412546;
-        v56 = v45;
-        v57 = 1024;
-        LODWORD(v58) = v17;
-        _os_log_impl(&dword_1BF549000, v40, OS_LOG_TYPE_DEFAULT, "contextHasBeenHiddenForSuggestion :%@ hidden=%{BOOL}d", buf, 0x12u);
+        v61 = v50;
+        v62 = 1024;
+        LODWORD(v63) = v19;
+        _os_log_impl(&dword_1BF549000, v45, OS_LOG_TYPE_DEFAULT, "contextHasBeenHiddenForSuggestion :%@ hidden=%{BOOL}d", buf, 0x12u);
 
-        v5 = v44;
-        v6 = v43;
-        v11 = v42;
+        v5 = v49;
+        v6 = v48;
+        v12 = v47;
       }
     }
   }
@@ -157,59 +158,60 @@ LABEL_10:
     getSPSearchSuggestionResultClass();
     if (objc_opt_isKindOfClass())
     {
-      v48 = v6;
-      v49 = resultCopy;
-      v47 = resultCopy;
-      [v47 searchEntities];
-      v50 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v28 = v53 = 0u;
-      v29 = [v28 countByEnumeratingWithState:&v50 objects:v54 count:16];
-      if (v29)
+      v53 = v6;
+      v54 = resultCopy;
+      v52 = resultCopy;
+      [v52 searchEntities];
+      v55 = 0u;
+      v56 = 0u;
+      v57 = 0u;
+      v31 = v58 = 0u;
+      v32 = [v31 countByEnumeratingWithState:&v55 objects:v59 count:16];
+      if (v32)
       {
-        v30 = v29;
-        v31 = *v51;
+        v33 = v32;
+        v34 = *v56;
         while (2)
         {
-          for (i = 0; i != v30; ++i)
+          for (i = 0; i != v33; ++i)
           {
-            if (*v51 != v31)
+            if (*v56 != v34)
             {
-              objc_enumerationMutation(v28);
+              objc_enumerationMutation(v31);
             }
 
-            v33 = *(*(&v50 + 1) + 8 * i);
-            v34 = [(ATXSpotlightHidingUIController *)self _identifierWithEntity:v33];
-            v35 = v5;
-            v36 = [v5 hasBeenHiddenEntityWithIdentifier:v34];
-            v37 = __atxlog_handle_zkw_hide();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+            v36 = *(*(&v55 + 1) + 8 * i);
+            v37 = [(ATXSpotlightHidingUIController *)self _identifierWithEntity:v36];
+            v38 = v5;
+            v39 = [v5 hasBeenHiddenEntityWithIdentifier:v37];
+            v40 = v39;
+            v41 = __atxlog_handle_zkw_hide(v39);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412802;
-              v56 = v34;
-              v57 = 2112;
-              v58 = v33;
-              v59 = 1024;
-              v60 = v36;
-              _os_log_impl(&dword_1BF549000, v37, OS_LOG_TYPE_DEFAULT, "hasBeenHiddenEntityWithIdentifier:%@ for entity:%@ hidden=%{BOOL}d", buf, 0x1Cu);
+              v61 = v37;
+              v62 = 2112;
+              v63 = v36;
+              v64 = 1024;
+              v65 = v40;
+              _os_log_impl(&dword_1BF549000, v41, OS_LOG_TYPE_DEFAULT, "hasBeenHiddenEntityWithIdentifier:%@ for entity:%@ hidden=%{BOOL}d", buf, 0x1Cu);
             }
 
-            if (v36)
+            if (v40)
             {
 
-              LOBYTE(v17) = 1;
-              v5 = v35;
-              v11 = v47;
-              v6 = v48;
+              LOBYTE(v19) = 1;
+              v5 = v38;
+              v12 = v52;
+              v6 = v53;
               goto LABEL_37;
             }
 
-            v5 = v35;
+            v5 = v38;
           }
 
-          v30 = [v28 countByEnumeratingWithState:&v50 objects:v54 count:16];
-          if (v30)
+          v33 = [v31 countByEnumeratingWithState:&v55 objects:v59 count:16];
+          if (v33)
           {
             continue;
           }
@@ -218,21 +220,21 @@ LABEL_10:
         }
       }
 
-      v11 = v47;
-      v6 = v48;
-      LOBYTE(v17) = [(ATXSpotlightHidingUIController *)self _contextHasBeenHiddenForSearchResult:v47 adapter:v48 feedbackManager:v5];
+      v12 = v52;
+      v6 = v53;
+      LOBYTE(v19) = [(ATXSpotlightHidingUIController *)self _contextHasBeenHiddenForSearchResult:v52 adapter:v53 feedbackManager:v5];
 LABEL_37:
 
-      resultCopy = v49;
+      resultCopy = v54;
     }
 
     else
     {
-      v11 = [(ATXSpotlightHidingUIController *)self _identifierWithSearchResult:resultCopy];
-      if (![v11 length])
+      v12 = [(ATXSpotlightHidingUIController *)self _identifierWithSearchResult:resultCopy];
+      if (![v12 length])
       {
-        v46 = __atxlog_handle_zkw_hide();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+        v51 = __atxlog_handle_zkw_hide(0);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
         {
           [ATXSpotlightHidingUIController shouldHideSearchResult:];
         }
@@ -240,24 +242,25 @@ LABEL_37:
         goto LABEL_10;
       }
 
-      v38 = [v5 hasBeenHiddenEntityWithIdentifier:v11];
-      v39 = __atxlog_handle_zkw_hide();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+      v42 = [v5 hasBeenHiddenEntityWithIdentifier:v12];
+      v43 = v42;
+      v44 = __atxlog_handle_zkw_hide(v42);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v56 = v11;
-        v57 = 1024;
-        LODWORD(v58) = v38;
-        _os_log_impl(&dword_1BF549000, v39, OS_LOG_TYPE_DEFAULT, "hasBeenHiddenEntityWithIdentifier resultIdentifier:%@ hidden=%{BOOL}d", buf, 0x12u);
+        v61 = v12;
+        v62 = 1024;
+        LODWORD(v63) = v43;
+        _os_log_impl(&dword_1BF549000, v44, OS_LOG_TYPE_DEFAULT, "hasBeenHiddenEntityWithIdentifier resultIdentifier:%@ hidden=%{BOOL}d", buf, 0x12u);
       }
 
-      LOBYTE(v17) = (v38 & 1) != 0 || [(ATXSpotlightHidingUIController *)self _contextHasBeenHiddenForSearchResult:resultCopy adapter:v6 feedbackManager:v5]|| [(ATXSpotlightHidingUIController *)self _autoShortcutHasBeenHiddenForSearchResult:resultCopy withFeedbackManager:v5];
+      LOBYTE(v19) = (v43 & 1) != 0 || [(ATXSpotlightHidingUIController *)self _contextHasBeenHiddenForSearchResult:resultCopy adapter:v6 feedbackManager:v5]|| [(ATXSpotlightHidingUIController *)self _autoShortcutHasBeenHiddenForSearchResult:resultCopy withFeedbackManager:v5];
     }
   }
 
 LABEL_11:
 
-  return v17;
+  return v19;
 }
 
 - (BOOL)_contextHasBeenHiddenForSearchResult:(id)result adapter:(id)adapter feedbackManager:(id)manager
@@ -271,7 +274,7 @@ LABEL_11:
   {
     v11 = [adapterCopy contextCodeIdentifierWithSectionBundleIdentifier:sectionBundleIdentifier];
     v12 = [managerCopy contextHasBeenHiddenForContextIdentifier:v11];
-    v13 = __atxlog_handle_zkw_hide();
+    v13 = __atxlog_handle_zkw_hide(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v15 = 138412546;
@@ -284,7 +287,7 @@ LABEL_11:
 
   else
   {
-    v11 = __atxlog_handle_zkw_hide();
+    v11 = __atxlog_handle_zkw_hide(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v15 = 138412290;
@@ -300,7 +303,7 @@ LABEL_11:
 
 - (BOOL)_autoShortcutHasBeenHiddenForSearchResult:(id)result withFeedbackManager:(id)manager
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   managerCopy = manager;
   getSPSearchSuggestionResultClass();
@@ -319,16 +322,16 @@ LABEL_11:
   v12 = [v10 stringByAppendingString:identifier];
   v13 = [managerCopy autoShortcutHasBeenHiddenForIdentifier:v12];
 
-  v14 = __atxlog_handle_zkw_hide();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = __atxlog_handle_zkw_hide(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     identifier2 = [resultCopy identifier];
-    v16 = [v10 stringByAppendingString:identifier2];
-    v18 = 138412546;
-    v19 = v16;
-    v20 = 1024;
-    v21 = v13;
-    _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "autoShortcutHasBeenHiddenForSearchResult :%@ hidden=%{BOOL}d", &v18, 0x12u);
+    v17 = [v10 stringByAppendingString:identifier2];
+    v19 = 138412546;
+    v20 = v17;
+    v21 = 1024;
+    v22 = v13;
+    _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "autoShortcutHasBeenHiddenForSearchResult :%@ hidden=%{BOOL}d", &v19, 0x12u);
   }
 
   return v13;
@@ -336,7 +339,7 @@ LABEL_11:
 
 - (id)_identifierWithSearchResult:(id)result
 {
-  *&v29[5] = *MEMORY[0x1E69E9840];
+  *&v33[5] = *MEMORY[0x1E69E9840];
   resultCopy = result;
   normalizedTopic = [resultCopy normalizedTopic];
   objc_opt_class();
@@ -349,13 +352,13 @@ LABEL_11:
     switch(queryType)
     {
       case 3:
-        v18 = __atxlog_handle_zkw_hide();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v21 = __atxlog_handle_zkw_hide(queryType);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           query = [normalizedTopic2 query];
-          v28 = 138412290;
-          *v29 = query;
-          _os_log_impl(&dword_1BF549000, v18, OS_LOG_TYPE_DEFAULT, "_identifierWithSearchResult kSFQueryTopicTypeSports identifier queryTopic.query=%@", &v28, 0xCu);
+          v32 = 138412290;
+          *v33 = query;
+          _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_DEFAULT, "_identifierWithSearchResult kSFQueryTopicTypeSports identifier queryTopic.query=%@", &v32, 0xCu);
         }
 
         query2 = [normalizedTopic2 query];
@@ -364,46 +367,46 @@ LABEL_11:
         query3 = [normalizedTopic2 query];
         identifier5 = [(ATXSpotlightHidingUIController *)self _nearbySuggestionIdentifierWithName:query3];
 
-        v17 = __atxlog_handle_zkw_hide();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v20 = __atxlog_handle_zkw_hide(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = 138412290;
-          *v29 = identifier5;
-          _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_DEFAULT, "_identifierWithSearchResult kSFQueryTopicTypeRelatePOI identifier =%@", &v28, 0xCu);
+          v32 = 138412290;
+          *v33 = identifier5;
+          _os_log_impl(&dword_1BF549000, v20, OS_LOG_TYPE_DEFAULT, "_identifierWithSearchResult kSFQueryTopicTypeRelatePOI identifier =%@", &v32, 0xCu);
         }
 
         goto LABEL_29;
       case 4:
-        v9 = __atxlog_handle_zkw_hide();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = __atxlog_handle_zkw_hide(queryType);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = 138412290;
-          *v29 = @"zkw.hiding.topic.weather";
-          _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "_identifierWithSearchResult kSFQueryTopicTypeWeather queryTopic weather identifier %@", &v28, 0xCu);
+          v32 = 138412290;
+          *v33 = @"zkw.hiding.topic.weather";
+          _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "_identifierWithSearchResult kSFQueryTopicTypeWeather queryTopic weather identifier %@", &v32, 0xCu);
         }
 
         identifier5 = @"zkw.hiding.topic.weather";
         goto LABEL_29;
       default:
-        v21 = __atxlog_handle_zkw_hide();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v24 = __atxlog_handle_zkw_hide(queryType);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           queryType2 = [normalizedTopic2 queryType];
           identifier = [resultCopy identifier];
-          v28 = 67109378;
-          v29[0] = queryType2;
-          LOWORD(v29[1]) = 2112;
-          *(&v29[1] + 2) = identifier;
-          _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_DEFAULT, "_identifierWithSearchResult queryTopic.queryType=%d default identifier %@", &v28, 0x12u);
+          v32 = 67109378;
+          v33[0] = queryType2;
+          LOWORD(v33[1]) = 2112;
+          *(&v33[1] + 2) = identifier;
+          _os_log_impl(&dword_1BF549000, v24, OS_LOG_TYPE_DEFAULT, "_identifierWithSearchResult queryTopic.queryType=%d default identifier %@", &v32, 0x12u);
         }
 
         identifier2 = [resultCopy identifier];
-        v25 = [identifier2 length];
+        v28 = [identifier2 length];
 
-        if (!v25)
+        if (!v28)
         {
-          v26 = __atxlog_handle_zkw_hide();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+          v30 = __atxlog_handle_zkw_hide(v29);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
           {
             [ATXSpotlightHidingUIController _identifierWithSearchResult:];
           }
@@ -419,22 +422,22 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  v11 = __atxlog_handle_zkw_hide();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = __atxlog_handle_zkw_hide(v7);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     identifier3 = [resultCopy identifier];
-    v28 = 138412290;
-    *v29 = identifier3;
-    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "_identifierWithSearchResult default identifier %@", &v28, 0xCu);
+    v32 = 138412290;
+    *v33 = identifier3;
+    _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "_identifierWithSearchResult default identifier %@", &v32, 0xCu);
   }
 
   identifier4 = [resultCopy identifier];
-  v14 = [identifier4 length];
+  v15 = [identifier4 length];
 
-  if (!v14)
+  if (!v15)
   {
-    v15 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v17 = __atxlog_handle_zkw_hide(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _identifierWithSearchResult:];
     }
@@ -448,7 +451,7 @@ LABEL_30:
 
 - (id)_identifierWithSuggestion:(id)suggestion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
   executableSpecification = [suggestionCopy executableSpecification];
   executableIdentifier = [executableSpecification executableIdentifier];
@@ -456,21 +459,21 @@ LABEL_30:
   v7 = [objc_opt_class() normalizedIdentifier:executableIdentifier];
 
   executableSpecification2 = [suggestionCopy executableSpecification];
-  v9 = __atxlog_handle_zkw_hide();
+  v9 = __atxlog_handle_zkw_hide(executableSpecification2);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138412290;
-    v28 = executableSpecification2;
-    _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: executableSpecification = %@", &v27, 0xCu);
+    v28 = 138412290;
+    v29 = executableSpecification2;
+    _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: executableSpecification = %@", &v28, 0xCu);
   }
 
   executableObject = [executableSpecification2 executableObject];
-  v11 = __atxlog_handle_zkw_hide();
+  v11 = __atxlog_handle_zkw_hide(executableObject);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138412290;
-    v28 = executableObject;
-    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: executableObject=%@", &v27, 0xCu);
+    v28 = 138412290;
+    v29 = executableObject;
+    _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: executableObject=%@", &v28, 0xCu);
   }
 
   if ([v7 hasPrefix:@"is.workflow.actions.openurl"])
@@ -481,12 +484,12 @@ LABEL_30:
       v12 = executableObject;
       contextualAction = [v12 contextualAction];
       associatedAppBundleIdentifier = [contextualAction associatedAppBundleIdentifier];
-      v15 = __atxlog_handle_zkw_hide();
+      v15 = __atxlog_handle_zkw_hide(associatedAppBundleIdentifier);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = 138412290;
-        v28 = associatedAppBundleIdentifier;
-        _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: bundleIdentifier = %@", &v27, 0xCu);
+        v28 = 138412290;
+        v29 = associatedAppBundleIdentifier;
+        _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: bundleIdentifier = %@", &v28, 0xCu);
       }
 
       objc_opt_class();
@@ -494,19 +497,19 @@ LABEL_30:
       {
         v16 = [contextualAction url];
         _lp_simplifiedDisplayString = [v16 _lp_simplifiedDisplayString];
-        v18 = __atxlog_handle_zkw_hide();
+        v18 = __atxlog_handle_zkw_hide(_lp_simplifiedDisplayString);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = 138412546;
-          v28 = v16;
-          v29 = 2112;
-          v30 = _lp_simplifiedDisplayString;
-          _os_log_impl(&dword_1BF549000, v18, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: url = %@ urlIdentifier=%@", &v27, 0x16u);
+          v28 = 138412546;
+          v29 = v16;
+          v30 = 2112;
+          v31 = _lp_simplifiedDisplayString;
+          _os_log_impl(&dword_1BF549000, v18, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: url = %@ urlIdentifier=%@", &v28, 0x16u);
         }
 
         if (![_lp_simplifiedDisplayString length])
         {
-          v19 = __atxlog_handle_zkw_hide();
+          v19 = __atxlog_handle_zkw_hide(0);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
           {
             [ATXSpotlightHidingUIController _identifierWithSuggestion:];
@@ -524,14 +527,15 @@ LABEL_29:
     }
   }
 
-  if ([(ATXSpotlightHidingUIController *)self _isExecutableIdentifierRecognized:v7])
+  v20 = [(ATXSpotlightHidingUIController *)self _isExecutableIdentifierRecognized:v7];
+  if (v20)
   {
-    v20 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = __atxlog_handle_zkw_hide(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = 138412290;
-      v28 = v7;
-      _os_log_impl(&dword_1BF549000, v20, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: executableIdentifier %@ is recognized. Using it", &v27, 0xCu);
+      v28 = 138412290;
+      v29 = v7;
+      _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: executableIdentifier %@ is recognized. Using it", &v28, 0xCu);
     }
 
     goto LABEL_21;
@@ -541,13 +545,13 @@ LABEL_29:
   if (objc_opt_isKindOfClass())
   {
     v12 = executableObject;
-    v21 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = __atxlog_handle_zkw_hide(v12);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       bundleId = [v12 bundleId];
-      v27 = 138412290;
-      v28 = bundleId;
-      _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: default ATXAction identifier=bundleId=%@", &v27, 0xCu);
+      v28 = 138412290;
+      v29 = bundleId;
+      _os_log_impl(&dword_1BF549000, v22, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: default ATXAction identifier=bundleId=%@", &v28, 0xCu);
     }
 
     _lp_simplifiedDisplayString = [v12 bundleId];
@@ -562,8 +566,8 @@ LABEL_29:
       goto LABEL_22;
     }
 
-    v20 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    v21 = __atxlog_handle_zkw_hide(0);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _identifierWithSuggestion:];
     }
@@ -579,12 +583,12 @@ LABEL_22:
   clipName = [clipMetadata clipName];
 
   _lp_simplifiedDisplayString = [(ATXSpotlightHidingUIController *)self _nearbySuggestionIdentifierWithName:clipName];
-  v26 = __atxlog_handle_zkw_hide();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v27 = __atxlog_handle_zkw_hide(_lp_simplifiedDisplayString);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138412290;
-    v28 = _lp_simplifiedDisplayString;
-    _os_log_impl(&dword_1BF549000, v26, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: ATXHeroData identifier with heroData.clipMetadata.clipName=%@", &v27, 0xCu);
+    v28 = 138412290;
+    v29 = _lp_simplifiedDisplayString;
+    _os_log_impl(&dword_1BF549000, v27, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: ATXHeroData identifier with heroData.clipMetadata.clipName=%@", &v28, 0xCu);
   }
 
 LABEL_30:
@@ -634,7 +638,7 @@ LABEL_10:
 LABEL_11:
   if (![personQueryIdentifier length])
   {
-    v9 = __atxlog_handle_zkw_hide();
+    v9 = __atxlog_handle_zkw_hide(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _identifierWithEntity:];
@@ -648,7 +652,7 @@ LABEL_11:
 {
   v43 = *MEMORY[0x1E69E9840];
   sectionsCopy = sections;
-  v5 = __atxlog_handle_zkw_hide();
+  v5 = __atxlog_handle_zkw_hide(sectionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -881,13 +885,13 @@ LABEL_18:
 
 - (void)_addHidingPreviewButtonItemsToSearchResult:(id)result
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   resultCopy = result;
-  v5 = __atxlog_handle_zkw_hide();
+  v5 = __atxlog_handle_zkw_hide(resultCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v53 = resultCopy;
+    v60 = resultCopy;
     _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: %@", buf, 0xCu);
   }
 
@@ -905,60 +909,61 @@ LABEL_18:
     if (predictionReasons)
     {
       executableSpecification = [normalizedTopic2 executableSpecification];
-      v14 = __atxlog_handle_zkw_hide();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = __atxlog_handle_zkw_hide(executableSpecification);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v53 = executableSpecification;
-        _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: executableSpecification = %@", buf, 0xCu);
+        v60 = executableSpecification;
+        _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: executableSpecification = %@", buf, 0xCu);
       }
 
       executableObject = [executableSpecification executableObject];
-      v16 = [(ATXSpotlightHidingUIController *)self _identifierWithSuggestion:normalizedTopic2];
-      v50 = executableSpecification;
+      v17 = [(ATXSpotlightHidingUIController *)self _identifierWithSuggestion:normalizedTopic2];
+      v57 = executableSpecification;
       executableIdentifier = [executableSpecification executableIdentifier];
       if ([executableIdentifier hasPrefix:@"is.workflow.actions.openurl"])
       {
         objc_opt_class();
-        v18 = executableObject;
+        v19 = executableObject;
         isKindOfClass = objc_opt_isKindOfClass();
 
         if (isKindOfClass)
         {
-          firstObject2 = v18;
-          v49 = v18;
-          contextualAction = [v49 contextualAction];
+          firstObject2 = v19;
+          v56 = v19;
+          contextualAction = [v56 contextualAction];
           associatedAppBundleIdentifier = [contextualAction associatedAppBundleIdentifier];
           objc_opt_class();
-          v47 = associatedAppBundleIdentifier;
-          v48 = contextualAction;
-          if ((objc_opt_isKindOfClass() & 1) != 0 && [associatedAppBundleIdentifier isEqualToString:@"com.apple.mobilesafari"])
+          v24 = objc_opt_isKindOfClass();
+          v54 = associatedAppBundleIdentifier;
+          v55 = contextualAction;
+          if ((v24 & 1) != 0 && (v24 = [associatedAppBundleIdentifier isEqualToString:@"com.apple.mobilesafari"], v24))
           {
-            v46 = [contextualAction url];
-            v23 = __atxlog_handle_zkw_hide();
-            searchEntities = v50;
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+            v53 = [contextualAction url];
+            v25 = __atxlog_handle_zkw_hide(v53);
+            searchEntities = v57;
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v53 = v46;
-              _os_log_impl(&dword_1BF549000, v23, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: url = %@", buf, 0xCu);
+              v60 = v53;
+              _os_log_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: url = %@", buf, 0xCu);
             }
 
-            v25 = [(ATXSpotlightHidingUIController *)self _hidingPreviewButtonItemsWithURL:v46 identifier:v16 context:predictionReasons];
+            v27 = [(ATXSpotlightHidingUIController *)self _hidingPreviewButtonItemsWithURL:v53 identifier:v17 context:predictionReasons];
           }
 
           else
           {
-            v35 = __atxlog_handle_zkw_hide();
-            searchEntities = v50;
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+            v40 = __atxlog_handle_zkw_hide(v24);
+            searchEntities = v57;
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v53 = v16;
-              _os_log_impl(&dword_1BF549000, v35, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: bundleIdentifier = %@", buf, 0xCu);
+              v60 = v17;
+              _os_log_impl(&dword_1BF549000, v40, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: bundleIdentifier = %@", buf, 0xCu);
             }
 
-            v25 = [(ATXSpotlightHidingUIController *)self _hidingPreviewButtonItemsWithBundleIdentifier:v16 context:predictionReasons];
+            v27 = [(ATXSpotlightHidingUIController *)self _hidingPreviewButtonItemsWithBundleIdentifier:v17 context:predictionReasons];
           }
 
 LABEL_44:
@@ -968,57 +973,58 @@ LABEL_44:
 
       else
       {
-        v18 = executableObject;
+        v19 = executableObject;
       }
 
-      if ([(ATXSpotlightHidingUIController *)self _isExecutableIdentifierRecognized:v16])
+      v37 = [(ATXSpotlightHidingUIController *)self _isExecutableIdentifierRecognized:v17];
+      if (v37)
       {
-        v33 = __atxlog_handle_zkw_hide();
-        firstObject2 = v18;
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v38 = __atxlog_handle_zkw_hide(v37);
+        firstObject2 = v19;
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v53 = v16;
-          _os_log_impl(&dword_1BF549000, v33, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: executableIdentifier %@ is recognized. Using it", buf, 0xCu);
+          v60 = v17;
+          _os_log_impl(&dword_1BF549000, v38, OS_LOG_TYPE_DEFAULT, "_identifierWithSuggestion: executableIdentifier %@ is recognized. Using it", buf, 0xCu);
         }
       }
 
       else
       {
         objc_opt_class();
-        firstObject2 = v18;
+        firstObject2 = v19;
         if (objc_opt_isKindOfClass())
         {
-          v49 = v18;
-          v34 = __atxlog_handle_zkw_hide();
-          searchEntities = v50;
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v56 = v19;
+          v39 = __atxlog_handle_zkw_hide(v56);
+          searchEntities = v57;
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v53 = v49;
-            _os_log_impl(&dword_1BF549000, v34, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: default action=%@", buf, 0xCu);
+            v60 = v56;
+            _os_log_impl(&dword_1BF549000, v39, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: default action=%@", buf, 0xCu);
           }
 
-          v25 = [(ATXSpotlightHidingUIController *)self _hidingPreviewButtonItemsWithBundleIdentifier:v16 context:predictionReasons];
+          v27 = [(ATXSpotlightHidingUIController *)self _hidingPreviewButtonItemsWithBundleIdentifier:v17 context:predictionReasons];
           goto LABEL_44;
         }
       }
 
-      v25 = [(ATXSpotlightHidingUIController *)self _hidingPreviewButtonItemsWithExecutableIdentifier:v16 context:predictionReasons];
-      searchEntities = v50;
+      v27 = [(ATXSpotlightHidingUIController *)self _hidingPreviewButtonItemsWithExecutableIdentifier:v17 context:predictionReasons];
+      searchEntities = v57;
 LABEL_45:
 
       goto LABEL_46;
     }
 
-    v30 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v34 = __atxlog_handle_zkw_hide(v13);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       uiSpecification2 = [normalizedTopic2 uiSpecification];
       title = [uiSpecification2 title];
       *buf = 138412290;
-      v53 = title;
-      _os_log_impl(&dword_1BF549000, v30, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: suggestion %@ has context ATXSuggestionPredictionReasonUnknown. Skipping", buf, 0xCu);
+      v60 = title;
+      _os_log_impl(&dword_1BF549000, v34, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: suggestion %@ has context ATXSuggestionPredictionReasonUnknown. Skipping", buf, 0xCu);
     }
   }
 
@@ -1029,28 +1035,29 @@ LABEL_45:
     {
       normalizedTopic2 = resultCopy;
       searchEntities = [normalizedTopic2 searchEntities];
-      if ([searchEntities count] != 1)
+      v28 = [searchEntities count];
+      if (v28 != 1)
       {
-        v29 = __atxlog_handle_zkw_hide();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v33 = __atxlog_handle_zkw_hide(v28);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          [(ATXSpotlightHidingUIController *)searchEntities _addHidingPreviewButtonItemsToSearchResult:v29];
+          [(ATXSpotlightHidingUIController *)searchEntities _addHidingPreviewButtonItemsToSearchResult:v33];
         }
 
-        v25 = [(ATXSpotlightHidingUIController *)self _hidingPreviewButtonItemsWithExecutableIdentifier:@"result class not handled" context:0];
+        v27 = [(ATXSpotlightHidingUIController *)self _hidingPreviewButtonItemsWithExecutableIdentifier:@"result class not handled" context:0];
         goto LABEL_47;
       }
 
       firstObject2 = [searchEntities firstObject];
-      v26 = __atxlog_handle_zkw_hide();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v29 = __atxlog_handle_zkw_hide(firstObject2);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v53 = firstObject2;
-        _os_log_impl(&dword_1BF549000, v26, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: SPSearchSuggestionResult entity=%@", buf, 0xCu);
+        v60 = firstObject2;
+        _os_log_impl(&dword_1BF549000, v29, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: SPSearchSuggestionResult entity=%@", buf, 0xCu);
       }
 
-      v25 = [(ATXSpotlightHidingUIController *)self _hidingPreviewButtonItemsWithSearchResult:normalizedTopic2 entity:firstObject2];
+      v27 = [(ATXSpotlightHidingUIController *)self _hidingPreviewButtonItemsWithSearchResult:normalizedTopic2 entity:firstObject2];
 LABEL_46:
 
 LABEL_47:
@@ -1059,63 +1066,63 @@ LABEL_47:
 
     normalizedTopic = [resultCopy normalizedTopic];
     objc_opt_class();
-    v28 = objc_opt_isKindOfClass();
+    v31 = objc_opt_isKindOfClass();
 
-    if (v28)
+    if (v31)
     {
       normalizedTopic2 = [resultCopy normalizedTopic];
-      v25 = [(ATXSpotlightHidingUIController *)self _hidingPreviewButtonItemsWithSearchResult:resultCopy queryTopic:normalizedTopic2];
+      v27 = [(ATXSpotlightHidingUIController *)self _hidingPreviewButtonItemsWithSearchResult:resultCopy queryTopic:normalizedTopic2];
 LABEL_48:
 
-      v36 = __atxlog_handle_zkw_hide();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v42 = __atxlog_handle_zkw_hide(v41);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v53 = v25;
-        _os_log_impl(&dword_1BF549000, v36, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: SPSearchSuggestionResult previewButtonItems=%@", buf, 0xCu);
+        v60 = v27;
+        _os_log_impl(&dword_1BF549000, v42, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: SPSearchSuggestionResult previewButtonItems=%@", buf, 0xCu);
       }
 
-      [(ATXSpotlightHidingUIController *)self _addSwipeButtonItemToCardSection:firstObject previewButtonItems:v25];
-      v37 = [(ATXSpotlightHidingUIController *)self _subMenuButtonItemWithItems:v25];
+      [(ATXSpotlightHidingUIController *)self _addSwipeButtonItemToCardSection:firstObject previewButtonItems:v27];
+      v43 = [(ATXSpotlightHidingUIController *)self _subMenuButtonItemWithItems:v27];
       previewButtonItems = [firstObject previewButtonItems];
-      v39 = [previewButtonItems count];
+      v45 = [previewButtonItems count];
 
-      v40 = __atxlog_handle_zkw_hide();
-      v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
-      if (v39)
+      v47 = __atxlog_handle_zkw_hide(v46);
+      v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
+      if (v45)
       {
-        if (v41)
+        if (v48)
         {
           previewButtonItems2 = [firstObject previewButtonItems];
-          v43 = [previewButtonItems2 count];
+          v50 = [previewButtonItems2 count];
           *buf = 134217984;
-          v53 = v43;
-          _os_log_impl(&dword_1BF549000, v40, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: %lu previous buttons", buf, 0xCu);
+          v60 = v50;
+          _os_log_impl(&dword_1BF549000, v47, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: %lu previous buttons", buf, 0xCu);
         }
 
         previewButtonItems3 = [firstObject previewButtonItems];
-        v45 = [previewButtonItems3 arrayByAddingObject:v37];
-        [firstObject setPreviewButtonItems:v45];
+        v52 = [previewButtonItems3 arrayByAddingObject:v43];
+        [firstObject setPreviewButtonItems:v52];
       }
 
       else
       {
-        if (v41)
+        if (v48)
         {
           *buf = 0;
-          _os_log_impl(&dword_1BF549000, v40, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: no previous button", buf, 2u);
+          _os_log_impl(&dword_1BF549000, v47, OS_LOG_TYPE_DEFAULT, "_addHidingPreviewButtonItemsToSearchResult: no previous button", buf, 2u);
         }
 
-        v51 = v37;
-        previewButtonItems3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
+        v58 = v43;
+        previewButtonItems3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
         [firstObject setPreviewButtonItems:previewButtonItems3];
       }
 
-      normalizedTopic2 = v25;
+      normalizedTopic2 = v27;
       goto LABEL_58;
     }
 
-    normalizedTopic2 = __atxlog_handle_zkw_hide();
+    normalizedTopic2 = __atxlog_handle_zkw_hide(v32);
     if (os_log_type_enabled(normalizedTopic2, OS_LOG_TYPE_FAULT))
     {
       [(ATXSpotlightHidingUIController *)resultCopy _addHidingPreviewButtonItemsToSearchResult:normalizedTopic2];
@@ -1176,7 +1183,7 @@ LABEL_58:
 {
   v16 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v7 = __atxlog_handle_zkw_hide();
+  v7 = __atxlog_handle_zkw_hide(identifierCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138412290;
@@ -1193,7 +1200,7 @@ LABEL_58:
 
   else
   {
-    v10 = __atxlog_handle_zkw_hide();
+    v10 = __atxlog_handle_zkw_hide(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _hidingPreviewButtonItemsWithBundleIdentifier:context:];
@@ -1208,7 +1215,7 @@ LABEL_58:
 
   else
   {
-    v12 = __atxlog_handle_zkw_hide();
+    v12 = __atxlog_handle_zkw_hide(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138412290;
@@ -1224,7 +1231,7 @@ LABEL_58:
 {
   v17 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v7 = __atxlog_handle_zkw_hide();
+  v7 = __atxlog_handle_zkw_hide(identifierCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138412290;
@@ -1245,7 +1252,7 @@ LABEL_58:
 
     else
     {
-      v11 = __atxlog_handle_zkw_hide();
+      v11 = __atxlog_handle_zkw_hide(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         [ATXSpotlightHidingUIController _hidingPreviewButtonItemsWithExecutableIdentifier:context:];
@@ -1261,7 +1268,7 @@ LABEL_58:
 
   else
   {
-    v13 = __atxlog_handle_zkw_hide();
+    v13 = __atxlog_handle_zkw_hide(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _hidingPreviewButtonItemsWithExecutableIdentifier:context:];
@@ -1273,15 +1280,15 @@ LABEL_58:
 
 - (id)_hidingPreviewButtonItemsWithURL:(id)l identifier:(id)identifier context:(unint64_t)context
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   lCopy = l;
   identifierCopy = identifier;
-  v10 = __atxlog_handle_zkw_hide();
+  v10 = __atxlog_handle_zkw_hide(identifierCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = lCopy;
-    _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "_hidingPreviewButtonItemsWithURL:%@", &v17, 0xCu);
+    v18 = 138412290;
+    v19 = lCopy;
+    _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "_hidingPreviewButtonItemsWithURL:%@", &v18, 0xCu);
   }
 
   v11 = objc_opt_new();
@@ -1294,23 +1301,23 @@ LABEL_58:
 
   else
   {
-    v13 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = __atxlog_handle_zkw_hide(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _hidingPreviewButtonItemsWithURL:identifier:context:];
     }
   }
 
-  v14 = [(ATXSpotlightHidingUIController *)self _hideContextButtonItemWithReasons:context];
-  if (v14)
+  v15 = [(ATXSpotlightHidingUIController *)self _hideContextButtonItemWithReasons:context];
+  if (v15)
   {
-    [v11 addObject:v14];
+    [v11 addObject:v15];
   }
 
   else
   {
-    v15 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = __atxlog_handle_zkw_hide(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _hidingPreviewButtonItemsWithURL:identifier:context:];
     }
@@ -1373,7 +1380,7 @@ LABEL_7:
   v8 = objc_opt_new();
   v9 = [(ATXSpotlightHidingUIController *)self _identifierWithSearchResult:resultCopy];
   v10 = [v9 length];
-  v11 = __atxlog_handle_zkw_hide();
+  v11 = __atxlog_handle_zkw_hide(v10);
   v12 = v11;
   if (v10)
   {
@@ -1396,7 +1403,7 @@ LABEL_7:
 
     else
     {
-      v15 = __atxlog_handle_zkw_hide();
+      v15 = __atxlog_handle_zkw_hide(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
         [ATXSpotlightHidingUIController _hidingPreviewButtonItemsWithSearchResult:queryTopic:];
@@ -1419,7 +1426,7 @@ LABEL_7:
   v15 = *MEMORY[0x1E69E9840];
   entityCopy = entity;
   resultCopy = result;
-  v8 = __atxlog_handle_zkw_hide();
+  v8 = __atxlog_handle_zkw_hide(resultCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412290;
@@ -1436,7 +1443,7 @@ LABEL_7:
 
   else
   {
-    v11 = __atxlog_handle_zkw_hide();
+    v11 = __atxlog_handle_zkw_hide(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _hidingPreviewButtonItemsWithSearchResult:entity:];
@@ -1458,7 +1465,7 @@ LABEL_7:
   {
     v9 = objc_opt_new();
     v10 = [v9 contextCodeIdentifierWithSectionBundleIdentifier:sectionBundleIdentifier];
-    v11 = __atxlog_handle_zkw_hide();
+    v11 = __atxlog_handle_zkw_hide(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138412546;
@@ -1476,7 +1483,7 @@ LABEL_7:
 
     else
     {
-      v13 = __atxlog_handle_zkw_hide();
+      v13 = __atxlog_handle_zkw_hide(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         [ATXSpotlightHidingUIController _addHideContextButtonItemForSearchResult:toButtonItems:];
@@ -1486,7 +1493,7 @@ LABEL_7:
 
   else
   {
-    v9 = __atxlog_handle_zkw_hide();
+    v9 = __atxlog_handle_zkw_hide(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _addHideContextButtonItemForSearchResult:toButtonItems:];
@@ -1496,26 +1503,27 @@ LABEL_7:
 
 - (id)_entityButtonItemWithWithSearchEntity:(id)entity
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   entityCopy = entity;
   getSPSearchContactEntityClass();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v5 = entityCopy;
-    name = [v5 name];
+    v6 = entityCopy;
+    name = [v6 name];
     if ([name length])
     {
-      v7 = [(ATXSpotlightHidingUIController *)self _identifierWithEntity:v5];
-      if ([v7 length])
+      v8 = [(ATXSpotlightHidingUIController *)self _identifierWithEntity:v6];
+      if ([v8 length])
       {
-        v8 = [(ATXSpotlightHidingUIController *)self _hidingCommandButtonItemWithIdentifier:v7 title:name symbolName:@"person" isAction:0];
+        v9 = [(ATXSpotlightHidingUIController *)self _hidingCommandButtonItemWithIdentifier:v8 title:name symbolName:@"person" isAction:0];
 LABEL_14:
 
         goto LABEL_15;
       }
 
-      v9 = __atxlog_handle_zkw_hide();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v10 = __atxlog_handle_zkw_hide(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         [ATXSpotlightHidingUIController _entityButtonItemWithWithSearchEntity:];
       }
@@ -1523,29 +1531,29 @@ LABEL_14:
 
     else
     {
-      v7 = __atxlog_handle_zkw_hide();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v8 = __atxlog_handle_zkw_hide(0);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         [ATXSpotlightHidingUIController _entityButtonItemWithWithSearchEntity:];
       }
     }
 
-    v8 = 0;
+    v9 = 0;
     goto LABEL_14;
   }
 
-  v5 = __atxlog_handle_zkw_hide();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = __atxlog_handle_zkw_hide(isKindOfClass);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = entityCopy;
-    _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "_entityButtonItemWithWithSearchEntity:%@ not a SPSearchContactEntity", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = entityCopy;
+    _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "_entityButtonItemWithWithSearchEntity:%@ not a SPSearchContactEntity", &v12, 0xCu);
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_15:
 
-  return v8;
+  return v9;
 }
 
 - (id)_actionTypeButtonItemWithBundleIdentifier:(id)identifier
@@ -1569,7 +1577,7 @@ LABEL_15:
 
   else
   {
-    v8 = __atxlog_handle_zkw_hide();
+    v8 = __atxlog_handle_zkw_hide(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _actionTypeButtonItemWithExecutableIdentifier:];
@@ -1639,7 +1647,7 @@ LABEL_15:
 
   else
   {
-    v6 = __atxlog_handle_zkw_hide();
+    v6 = __atxlog_handle_zkw_hide(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _hideContextButtonItemWithReasons:];
@@ -1676,7 +1684,7 @@ LABEL_15:
 
   else
   {
-    v9 = __atxlog_handle_zkw_hide();
+    v9 = __atxlog_handle_zkw_hide(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _hideContextButtonItemWithContextIdentifier:];
@@ -1713,50 +1721,52 @@ LABEL_8:
   return firstObject;
 }
 
-void __74__ATXSpotlightHidingUIController__contextIdentifierWithPredictionReasons___block_invoke(uint64_t a1)
+void __74__ATXSpotlightHidingUIController__contextIdentifierWithPredictionReasons___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = stringForATXSuggestionPredictionReasonCode();
-  [*(*(*(a1 + 32) + 8) + 40) addObject:v2];
+  v3 = stringForATXSuggestionPredictionReasonCode();
+  [*(*(*(a1 + 32) + 8) + 40) addObject:v3];
 }
 
 - (BOOL)_shouldAddHidingButtonItemForExecutableIdentifier:(id)identifier
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   _excludedFronHindingExecutableidentifiers = [(ATXSpotlightHidingUIController *)self _excludedFronHindingExecutableidentifiers];
-  v6 = [_excludedFronHindingExecutableidentifiers containsObject:identifierCopy];
+  v6 = objc_msgSend_containsObject_(_excludedFronHindingExecutableidentifiers);
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_zkw_hide(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = identifierCopy;
-      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "_shouldAddHidingButtonItemForExecutableIdentifier: no hiding button item shown for executableIdentifier %@", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = identifierCopy;
+      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "_shouldAddHidingButtonItemForExecutableIdentifier: no hiding button item shown for executableIdentifier %@", &v10, 0xCu);
     }
   }
 
-  return v6 ^ 1;
+  return v7 ^ 1;
 }
 
 - (BOOL)_shouldAddHidingButtonItemForContextIdentifier:(id)identifier
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = [MEMORY[0x1E695DFD8] setWithObjects:{@"UpcomingMedia", 0}];
-  v5 = [v4 containsObject:identifierCopy];
+  v5 = objc_msgSend_containsObject_(v4);
+  v6 = v5;
   if (v5)
   {
-    v6 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = __atxlog_handle_zkw_hide(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v9 = identifierCopy;
-      _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "_shouldAddHidingButtonItemForExecutableIdentifier: no hiding button item shown for contextIdentifier %@", buf, 0xCu);
+      v10 = identifierCopy;
+      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "_shouldAddHidingButtonItemForExecutableIdentifier: no hiding button item shown for contextIdentifier %@", buf, 0xCu);
     }
   }
 
-  return v5 ^ 1;
+  return v6 ^ 1;
 }
 
 - (id)_nearbySuggestionIdentifierWithName:(id)name
@@ -1769,7 +1779,7 @@ void __74__ATXSpotlightHidingUIController__contextIdentifierWithPredictionReason
 
   else
   {
-    v5 = __atxlog_handle_zkw_hide();
+    v5 = __atxlog_handle_zkw_hide(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _nearbySuggestionIdentifierWithName:];
@@ -1783,60 +1793,61 @@ void __74__ATXSpotlightHidingUIController__contextIdentifierWithPredictionReason
 
 - (id)_nameWithNearbySuggestionIdentifier:(id)identifier
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  if ([identifierCopy hasPrefix:@"zkw.hiding.nearby:"])
+  v4 = [identifierCopy hasPrefix:@"zkw.hiding.nearby:"];
+  if (v4)
   {
-    v4 = [identifierCopy substringFromIndex:{objc_msgSend(@"zkw.hiding.nearby:", "length")}];
+    v5 = [identifierCopy substringFromIndex:{objc_msgSend(@"zkw.hiding.nearby:", "length")}];
   }
 
   else
   {
-    v5 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_zkw_hide(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412546;
-      v8 = identifierCopy;
-      v9 = 2112;
-      v10 = @"zkw.hiding.nearby:";
-      _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "_nameWithNearbySuggestionIdentifier %@ is not prefixed by %@", &v7, 0x16u);
+      v8 = 138412546;
+      v9 = identifierCopy;
+      v10 = 2112;
+      v11 = @"zkw.hiding.nearby:";
+      _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "_nameWithNearbySuggestionIdentifier %@ is not prefixed by %@", &v8, 0x16u);
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (BOOL)_isExecutableIdentifierRecognized:(id)recognized
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   recognizedCopy = recognized;
   _excludedFronHindingExecutableidentifiers = [(ATXSpotlightHidingUIController *)self _excludedFronHindingExecutableidentifiers];
-  v6 = [_excludedFronHindingExecutableidentifiers containsObject:recognizedCopy];
+  v6 = objc_msgSend_containsObject_(_excludedFronHindingExecutableidentifiers);
 
   if (v6)
   {
-    v7 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v8 = [(ATXSpotlightHidingUIController *)self _localizableKeyWithExecutableIdentifier:recognizedCopy];
-    v7 = v8 != 0;
+    v9 = [(ATXSpotlightHidingUIController *)self _localizableKeyWithExecutableIdentifier:recognizedCopy];
+    v8 = v9 != 0;
   }
 
-  v9 = __atxlog_handle_zkw_hide();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = __atxlog_handle_zkw_hide(v7);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = recognizedCopy;
-    v13 = 1024;
-    v14 = v7;
-    _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "isExecutableIdentifierRecognized: %@ = %{BOOL}i", &v11, 0x12u);
+    v12 = 138412546;
+    v13 = recognizedCopy;
+    v14 = 1024;
+    v15 = v8;
+    _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "isExecutableIdentifierRecognized: %@ = %{BOOL}i", &v12, 0x12u);
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)_hideActionTitleWithExecutableIdentifier:(id)identifier
@@ -1853,16 +1864,17 @@ void __74__ATXSpotlightHidingUIController__contextIdentifierWithPredictionReason
   {
     v8 = [(ATXSpotlightHidingUIController *)self _localizableKeyWithExecutableIdentifier:identifierCopy];
     v9 = [v5 localizedStringForKey:v8 value:&stru_1F3E050C8 table:0];
+    v10 = v9;
     if (!v8)
     {
-      v10 = __atxlog_handle_zkw_hide();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v11 = __atxlog_handle_zkw_hide(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         [ATXSpotlightHidingUIController _hideActionTitleWithExecutableIdentifier:];
       }
     }
 
-    v7 = v9;
+    v7 = v10;
   }
 
   return v7;
@@ -1880,7 +1892,7 @@ void __74__ATXSpotlightHidingUIController__contextIdentifierWithPredictionReason
 
   else
   {
-    v7 = __atxlog_handle_zkw_hide();
+    v7 = __atxlog_handle_zkw_hide(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _hideContextActionTitleWithContextIdentifier:];
@@ -1905,7 +1917,7 @@ void __74__ATXSpotlightHidingUIController__contextIdentifierWithPredictionReason
 
   else
   {
-    v6 = __atxlog_handle_zkw_hide();
+    v6 = __atxlog_handle_zkw_hide(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       [ATXSpotlightHidingUIController _hideContextSymbolImageWithContextIdentifier:];

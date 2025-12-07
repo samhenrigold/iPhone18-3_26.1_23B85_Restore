@@ -380,7 +380,7 @@ LABEL_9:
     *&retstr->var2 = 0u;
     if (dataSource)
     {
-      [dataSource itemIndexPathForItem:v13];
+      objc_msgSend_itemIndexPathForItem_(dataSource);
     }
 
     v6 = v13;
@@ -801,7 +801,7 @@ LABEL_11:
   v15 = importDataSource;
   if (importDataSource)
   {
-    [importDataSource itemIndexPathForItem:representedImportItem];
+    objc_msgSend_itemIndexPathForItem_(importDataSource);
   }
 
   else
@@ -1064,7 +1064,7 @@ void __75__PUImportViewController__navigateToPhotoAtIndexPath_animated_interacti
     v20 = 0uLL;
     if (dataSource)
     {
-      [dataSource firstItemIndexPath];
+      objc_msgSend_firstItemIndexPath(dataSource);
     }
   }
 
@@ -1534,7 +1534,7 @@ LABEL_11:
   v13 = 0;
   if (viewCopy)
   {
-    [viewCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(viewCopy, 0);
   }
 
   importDataSource = [(PUImportViewController *)self importDataSource];
@@ -1605,11 +1605,11 @@ LABEL_11:
     identifier = [importDataSource2 identifier];
     section = [pathCopy section];
 
-    v29[0] = identifier;
-    v29[1] = section;
-    v30 = xmmword_1B3D0CED0;
-    [v11 setSectionIndexPath:v29];
-    v28 = localizedTitle;
+    v34[0] = identifier;
+    v34[1] = section;
+    v35 = xmmword_1B3D0CED0;
+    [v11 setSectionIndexPath:v34];
+    v33 = localizedTitle;
     [v11 setPrimaryText:localizedTitle];
     importDataSourceManager = [(PUImportViewController *)self importDataSourceManager];
     unfilteredDataSource = [importDataSourceManager unfilteredDataSource];
@@ -1620,18 +1620,17 @@ LABEL_11:
     numberOfItems = [v21 numberOfItems];
     if (numberOfItems < 1)
     {
-      v25 = 0;
+      v31 = 0;
     }
 
     else
     {
       v23 = numberOfItems;
       v24 = PULocalizedString(@"IMPORT_ITEMS_COUNT");
-      v27 = v23;
-      v25 = PULocalizedStringWithValidatedFormat(v24, @"%d");
+      v31 = PULocalizedStringWithValidatedFormat(v24, @"%d", v25, v26, v27, v28, v29, v30, v23);
     }
 
-    [v11 setSecondaryText:{v25, v27}];
+    [v11 setSecondaryText:v31];
     [v11 setSecondarySymbolName:@"photo.on.rectangle"];
     if ([v13 alreadyImportedGroup])
     {
@@ -1652,9 +1651,9 @@ LABEL_11:
 
   else
   {
-    v31.receiver = self;
-    v31.super_class = PUImportViewController;
-    [(PUPhotosGridViewController *)&v31 configureSupplementaryView:viewCopy ofKind:kindCopy forIndexPath:pathCopy];
+    v36.receiver = self;
+    v36.super_class = PUImportViewController;
+    [(PUPhotosGridViewController *)&v36 configureSupplementaryView:viewCopy ofKind:kindCopy forIndexPath:pathCopy];
   }
 }
 
@@ -1722,7 +1721,7 @@ LABEL_6:
       productKind = [importSource2 name];
 
       v17 = PLLocalizedFrameworkString();
-      *title = PULocalizedStringWithValidatedFormat(v17, @"%@");
+      *title = PULocalizedStringWithValidatedFormat(v17, @"%@", v22, v23, v24, v25, v26, v27, productKind);
       *message = 0;
       *buttonTitle = 0;
       *action = 0;
@@ -1734,8 +1733,8 @@ LABEL_6:
   *title = productKind;
 LABEL_8:
 
-  v22 = PLLocalizedFrameworkString();
-  *message = v22;
+  v28 = PLLocalizedFrameworkString();
+  *message = v28;
   *buttonTitle = 0;
   *action = 0;
 }
@@ -1914,7 +1913,7 @@ LABEL_8:
 
 - (void)notifyUserOfImportCompletionIfNeededWithImportSession:(id)session results:(id)results
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   resultsCopy = results;
   importController = [(PUImportViewController *)self importController];
@@ -1972,12 +1971,12 @@ LABEL_8:
     }
 
     v20 = PLLocalizedFrameworkString();
-    v49 = PLLocalizedFrameworkString();
-    v48 = PLLocalizedFrameworkString();
+    v55 = PLLocalizedFrameworkString();
+    v54 = PLLocalizedFrameworkString();
     v21 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:@"KEEPORDELETE_"];
-    v45 = importRecords;
-    v46 = v20;
-    v47 = v21;
+    v51 = importRecords;
+    v52 = v20;
+    v53 = v21;
     if ([importRecords count] == 1)
     {
       v22 = [importRecords objectAtIndex:0];
@@ -2003,29 +2002,29 @@ LABEL_8:
 
     else
     {
-      v44 = sessionCopy;
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
-      v53 = 0u;
+      v50 = sessionCopy;
+      v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       v25 = importRecords;
-      v26 = [v25 countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v26 = [v25 countByEnumeratingWithState:&v58 objects:v62 count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v53;
+        v28 = *v59;
         v29 = 1;
         v30 = 1;
         while (2)
         {
           for (i = 0; i != v27; ++i)
           {
-            if (*v53 != v28)
+            if (*v59 != v28)
             {
               objc_enumerationMutation(v25);
             }
 
-            importAsset2 = [*(*(&v52 + 1) + 8 * i) importAsset];
+            importAsset2 = [*(*(&v58 + 1) + 8 * i) importAsset];
             if ([importAsset2 isImage])
             {
               v29 = 0;
@@ -2040,15 +2039,15 @@ LABEL_8:
             if ((v30 & 1) == 0 && !v29)
             {
 
-              v21 = v47;
-              [v47 appendString:@"MEDIA_"];
-              sessionCopy = v44;
-              v20 = v46;
+              v21 = v53;
+              [v53 appendString:@"MEDIA_"];
+              sessionCopy = v50;
+              v20 = v52;
               goto LABEL_41;
             }
           }
 
-          v27 = [v25 countByEnumeratingWithState:&v52 objects:v56 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v58 objects:v62 count:16];
           if (v27)
           {
             continue;
@@ -2057,14 +2056,14 @@ LABEL_8:
           break;
         }
 
-        v20 = v46;
+        v20 = v52;
         if ((v30 & 1) == 0)
         {
-          sessionCopy = v44;
-          v21 = v47;
+          sessionCopy = v50;
+          v21 = v53;
           if (v29)
           {
-            [v47 appendString:@"VIDEOS_"];
+            [v53 appendString:@"VIDEOS_"];
           }
 
           goto LABEL_41;
@@ -2075,9 +2074,9 @@ LABEL_8:
       {
       }
 
-      v21 = v47;
-      [v47 appendString:@"PHOTOS_"];
-      sessionCopy = v44;
+      v21 = v53;
+      [v53 appendString:@"PHOTOS_"];
+      sessionCopy = v50;
     }
 
 LABEL_41:
@@ -2086,40 +2085,40 @@ LABEL_41:
     if (([productKind isEqualToString:@"Camera"] & 1) != 0 || !objc_msgSend(name, "length"))
     {
       [v21 appendString:productKind];
-      v36 = PLLocalizedFrameworkString();
+      v42 = PLLocalizedFrameworkString();
     }
 
     else
     {
       [v21 appendString:@"FORMAT"];
       v35 = PLLocalizedFrameworkString();
-      v36 = PUStringWithValidatedFormat();
+      v42 = PUStringWithValidatedFormat(v35, @"%@", v36, v37, v38, v39, v40, v41, name);
     }
 
     *buf = 0;
-    v37 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [v37 setObject:v20 forKey:*MEMORY[0x1E695EE58]];
-    [v37 setObject:v36 forKey:*MEMORY[0x1E695EE60]];
-    [v37 setObject:v49 forKey:*MEMORY[0x1E695EE78]];
-    [v37 setObject:v48 forKey:*MEMORY[0x1E695EE70]];
-    v38 = CFUserNotificationCreate(*MEMORY[0x1E695E480], 0.0, 3uLL, buf, v37);
-    self->_importCompleteNotification = v38;
-    RunLoopSource = CFUserNotificationCreateRunLoopSource(0, v38, _ImportCompleteAlertNotificationResponseHandler, 0);
+    v43 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    [v43 setObject:v20 forKey:*MEMORY[0x1E695EE58]];
+    [v43 setObject:v42 forKey:*MEMORY[0x1E695EE60]];
+    [v43 setObject:v55 forKey:*MEMORY[0x1E695EE78]];
+    [v43 setObject:v54 forKey:*MEMORY[0x1E695EE70]];
+    v44 = CFUserNotificationCreate(*MEMORY[0x1E695E480], 0.0, 3uLL, buf, v43);
+    self->_importCompleteNotification = v44;
+    RunLoopSource = CFUserNotificationCreateRunLoopSource(0, v44, _ImportCompleteAlertNotificationResponseHandler, 0);
     if (RunLoopSource)
     {
-      v40 = RunLoopSource;
+      v46 = RunLoopSource;
       Current = CFRunLoopGetCurrent();
-      CFRunLoopAddSource(Current, v40, *MEMORY[0x1E695E8D0]);
-      importCompleteNotification = v40;
+      CFRunLoopAddSource(Current, v46, *MEMORY[0x1E695E8D0]);
+      importCompleteNotification = v46;
     }
 
     else
     {
-      v43 = PLCameraConnectionKitGetLog();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v49 = PLCameraConnectionKitGetLog();
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
-        *v50 = 0;
-        _os_log_impl(&dword_1B36F3000, v43, OS_LOG_TYPE_ERROR, "Couldn't create runloop source for notification", v50, 2u);
+        *v56 = 0;
+        _os_log_impl(&dword_1B36F3000, v49, OS_LOG_TYPE_ERROR, "Couldn't create runloop source for notification", v56, 2u);
       }
 
       importCompleteNotification = self->_importCompleteNotification;
@@ -2127,7 +2126,7 @@ LABEL_41:
 
     CFRelease(importCompleteNotification);
 
-    importRecords = v45;
+    importRecords = v51;
   }
 
 LABEL_51:
@@ -2242,7 +2241,7 @@ uint64_t __97__PUImportViewController_importController_didCompleteImportWithImpo
 
 - (void)importControllerProgressDidChange:(id)change
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   userInfo = [changeCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69C4068]];
@@ -2265,9 +2264,9 @@ uint64_t __97__PUImportViewController_importController_didCompleteImportWithImpo
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v25 = "[PUImportViewController importControllerProgressDidChange:]";
-    v26 = 2048;
-    v27 = v12;
+    v31 = "[PUImportViewController importControllerProgressDidChange:]";
+    v32 = 2048;
+    v33 = v12;
     _os_log_impl(&dword_1B36F3000, v13, OS_LOG_TYPE_INFO, "%s: setting progress to %f ", buf, 0x16u);
   }
 
@@ -2282,19 +2281,19 @@ uint64_t __97__PUImportViewController_importController_didCompleteImportWithImpo
 
   v16 = PLLocalizedFrameworkString();
   v17 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v8, "integerValue")}];
-  v23 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v10, "integerValue")}];
-  v18 = PUStringWithValidatedFormat();
+  v29 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v10, "integerValue")}];
+  v24 = PUStringWithValidatedFormat(v16, @"%@ %@", v18, v19, v20, v21, v22, v23, v17);
 
-  v19 = [(PUImportViewController *)self roundProgressView:v17];
-  [v19 setProgress:v12];
+  roundProgressView2 = [(PUImportViewController *)self roundProgressView];
+  [roundProgressView2 setProgress:v12];
 
   -[PUImportViewController setNumItemsCompleted:](self, "setNumItemsCompleted:", [v8 integerValue]);
   -[PUImportViewController setNumTotalItemsToComplete:](self, "setNumTotalItemsToComplete:", [v10 integerValue]);
-  [(UIBarButtonItem *)self->_progressButtonItem setAccessibilityLabel:v18];
+  [(UIBarButtonItem *)self->_progressButtonItem setAccessibilityLabel:v24];
   if (v12 >= 1.0)
   {
-    v20 = PLLocalizedFrameworkString();
-    [(UIBarButtonItem *)self->_progressButtonItem setAccessibilityLabel:v20];
+    v26 = PLLocalizedFrameworkString();
+    [(UIBarButtonItem *)self->_progressButtonItem setAccessibilityLabel:v26];
   }
 
   mEMORY[0x1E69C3620] = [MEMORY[0x1E69C3620] sharedInstance];
@@ -2516,45 +2515,45 @@ void __46__PUImportViewController_handleNewDataSource___block_invoke(uint64_t a1
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __46__PUImportViewController_handleNewDataSource___block_invoke_2(uint64_t a1)
+void __46__PUImportViewController_handleNewDataSource___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = _importGridLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v13 = *MEMORY[0x1E69E9840];
+  v3 = _importGridLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) importDataSource];
-    v10 = 134217984;
-    v11 = [v3 identifier];
-    _os_log_impl(&dword_1B36F3000, v2, OS_LOG_TYPE_DEFAULT, "Finished transitioning to: %lu", &v10, 0xCu);
+    v4 = [*(a1 + 32) importDataSource];
+    v11 = 134217984;
+    v12 = [v4 identifier];
+    _os_log_impl(&dword_1B36F3000, v3, OS_LOG_TYPE_DEFAULT, "Finished transitioning to: %lu", &v11, 0xCu);
   }
 
   [*(a1 + 32) setPerformingDataSourceChange:0];
-  v4 = [*(a1 + 32) pendingDataSource];
+  v5 = [*(a1 + 32) pendingDataSource];
 
-  v5 = *(a1 + 32);
-  if (v4)
+  v6 = *(a1 + 32);
+  if (v5)
   {
-    v6 = [v5 pendingDataSource];
+    v7 = [v6 pendingDataSource];
     [*(a1 + 32) setPendingDataSource:0];
-    v7 = _importGridLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _importGridLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [v6 identifier];
-      v10 = 134217984;
-      v11 = v8;
-      _os_log_impl(&dword_1B36F3000, v7, OS_LOG_TYPE_DEFAULT, "Applying pending data source: %lu", &v10, 0xCu);
+      v9 = [v7 identifier];
+      v11 = 134217984;
+      v12 = v9;
+      _os_log_impl(&dword_1B36F3000, v8, OS_LOG_TYPE_DEFAULT, "Applying pending data source: %lu", &v11, 0xCu);
     }
 
-    [*(a1 + 32) handleNewDataSource:v6];
+    [*(a1 + 32) handleNewDataSource:v7];
   }
 
-  else if ([v5 needsDataReloadAfterAnimatingDataSourceChange])
+  else if ([v6 needsDataReloadAfterAnimatingDataSourceChange])
   {
-    v9 = _importGridLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _importGridLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_1B36F3000, v9, OS_LOG_TYPE_DEFAULT, "Performing reload after animating source change, due to layoutSubview while animating", &v10, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_1B36F3000, v10, OS_LOG_TYPE_DEFAULT, "Performing reload after animating source change, due to layoutSubview while animating", &v11, 2u);
     }
 
     [*(a1 + 32) setNeedsDataReloadAfterAnimatingDataSourceChange:0];
@@ -3747,7 +3746,7 @@ LABEL_15:
   [coordinatorCopy animateAlongsideTransition:v28 completion:v25];
 }
 
-uint64_t __77__PUImportViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
+void *__77__PUImportViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) updateAlreadyImportedCollapseStatus];
   v2 = [*(a1 + 32) anyAlreadyImportedItemsAreSelected];
@@ -3996,8 +3995,8 @@ void __77__PUImportViewController_viewWillTransitionToSize_withTransitionCoordin
   mEMORY[0x1E69C3620] = [MEMORY[0x1E69C3620] sharedInstance];
   showProgressTitles = [mEMORY[0x1E69C3620] showProgressTitles];
 
-  [(PUImportViewController *)self numTotalItemsToComplete];
-  [(PUImportViewController *)self numItemsCompleted];
+  numTotalItemsToComplete = [(PUImportViewController *)self numTotalItemsToComplete];
+  numItemsCompleted = [(PUImportViewController *)self numItemsCompleted];
   importController3 = [(PUImportViewController *)self importController];
   selectionManager = [importController3 selectionManager];
   selectionSnapshot = [selectionManager selectionSnapshot];
@@ -4015,13 +4014,13 @@ void __77__PUImportViewController_viewWillTransitionToSize_withTransitionCoordin
 
     [importController4 allItemsUnsorted];
   }
-  v14 = ;
+  v16 = ;
 
-  v15 = [objc_opt_class() totalSizeStringForItems:v14];
+  v17 = [objc_opt_class() totalSizeStringForItems:v16];
   if ((isImportingAssets | isDeletingAssets) & showProgressTitles)
   {
-    v16 = PULocalizedString(@"IMPORT_ASSET_PROGRESS_REMAINING_MULTILINE_TOP");
-    v17 = PULocalizedStringWithValidatedFormat(v16, @"%d");
+    v18 = PULocalizedString(@"IMPORT_ASSET_PROGRESS_REMAINING_MULTILINE_TOP");
+    v25 = PULocalizedStringWithValidatedFormat(v18, @"%d", v19, v20, v21, v22, v23, v24, (numTotalItemsToComplete - numItemsCompleted) & ~((numTotalItemsToComplete - numItemsCompleted) >> 63));
 LABEL_13:
 
     goto LABEL_14;
@@ -4029,40 +4028,40 @@ LABEL_13:
 
   importController5 = [(PUImportViewController *)self importController];
   selectedItems = [importController5 selectedItems];
-  v20 = [selectedItems count];
+  v28 = [selectedItems count];
 
-  if (v20)
+  if (v28)
   {
-    v16 = PXLocalizedSelectionMessageForAssets();
-    if (![v15 length])
+    v18 = PXLocalizedSelectionMessageForAssets();
+    if (![v17 length])
     {
-      v17 = v16;
+      v25 = v18;
       goto LABEL_13;
     }
 
-    v21 = PULocalizedString(@"IMPORT_SUBTITLE_FORMAT");
-    v17 = PUStringWithValidatedFormat();
+    v29 = PULocalizedString(@"IMPORT_SUBTITLE_FORMAT");
+    v25 = PUStringWithValidatedFormat(v29, @"%@%@", v30, v31, v32, v33, v34, v35, v18);
 
     goto LABEL_11;
   }
 
-  if ([v14 count])
+  if ([v16 count])
   {
-    v22 = PULocalizedString(@"IMPORT_ITEMS_COUNT");
-    [v14 count];
-    v16 = PULocalizedStringWithValidatedFormat(v22, @"%d");
+    v36 = PULocalizedString(@"IMPORT_ITEMS_COUNT");
+    v37 = [v16 count];
+    v18 = PULocalizedStringWithValidatedFormat(v36, @"%d", v38, v39, v40, v41, v42, v43, v37);
 
-    v21 = PULocalizedString(@"IMPORT_SUBTITLE_FORMAT");
-    v17 = PUStringWithValidatedFormat();
+    v29 = PULocalizedString(@"IMPORT_SUBTITLE_FORMAT");
+    v25 = PUStringWithValidatedFormat(v29, @"%@%@", v44, v45, v46, v47, v48, v49, v18);
 LABEL_11:
 
     goto LABEL_13;
   }
 
-  v17 = &stru_1F2AC6818;
+  v25 = &stru_1F2AC6818;
 LABEL_14:
 
-  return v17;
+  return v25;
 }
 
 - (void)_updateToolbarAnimated:(BOOL)animated
@@ -4293,19 +4292,19 @@ LABEL_22:
   return defaultThumbnailImageFormat_imageFormat;
 }
 
-void __53__PUImportViewController_defaultThumbnailImageFormat__block_invoke()
+void __53__PUImportViewController_defaultThumbnailImageFormat__block_invoke(uint64_t a1)
 {
   if (!defaultThumbnailImageFormat_imageFormat)
   {
     IsIPad = PLPhysicalDeviceIsIPad();
-    v1 = off_1E7B6E428;
+    v2 = off_1E7B6E428;
     if (!IsIPad)
     {
-      v1 = off_1E7B6E448;
+      v2 = off_1E7B6E448;
     }
 
-    v2 = objc_alloc_init(*v1);
-    defaultThumbnailImageFormat_imageFormat = [v2 thumbnailImageFormat];
+    v3 = objc_alloc_init(*v2);
+    defaultThumbnailImageFormat_imageFormat = [v3 thumbnailImageFormat];
   }
 }
 

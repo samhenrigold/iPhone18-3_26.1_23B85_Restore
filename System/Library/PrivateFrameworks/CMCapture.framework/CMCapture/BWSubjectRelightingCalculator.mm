@@ -1,10 +1,10 @@
 @interface BWSubjectRelightingCalculator
+- (BWPixelBufferPool)_setupInferenceControllerWithInputVideoFormat:(BWPixelBufferPool *)result;
 - (BWSubjectRelightingCalculator)initWithInferenceScheduler:(id)scheduler;
 - (BWSubjectRelightingInferences)_runInferencesOnSampleBuffer:(uint64_t)buffer stillImageRequestSettings:(uint64_t)settings stillImageCaptureSettings:;
 - (double)_curveParameterForSampleBuffer:(uint64_t)buffer stillImageRequestSettings:(void *)settings stillImageCaptureSettings:;
 - (float)_runSubjectRelightingWithInferences:(void *)target sampleBuffer:(int)buffer stillImageCaptureType:(char)type stillImageCaptureFlags:;
 - (id)startCalculationWithJPEGSampleBuffer:(opaqueCMSampleBuffer *)buffer stillImageRequestSettings:(id)settings stillImageCaptureSettings:(id)captureSettings;
-- (uint64_t)_setupInferenceControllerWithInputVideoFormat:(uint64_t)result;
 - (uint64_t)_setupSubjectRelightingStage;
 - (void)dealloc;
 - (void)prepareForVideoFormatAsync:(id)async;
@@ -127,7 +127,7 @@ LABEL_12:
   CFRelease(v13);
   if (!sampleBufferOut)
   {
-    [BWSubjectRelightingCalculator startCalculationWithJPEGSampleBuffer:stillImageRequestSettings:stillImageCaptureSettings:];
+    v10 = [BWSubjectRelightingCalculator startCalculationWithJPEGSampleBuffer:stillImageRequestSettings:stillImageCaptureSettings:];
     goto LABEL_12;
   }
 
@@ -192,7 +192,7 @@ void __122__BWSubjectRelightingCalculator_startCalculationWithJPEGSampleBuffer_s
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_0();
-        return FigDebugAssert3();
+        return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
       }
     }
   }
@@ -200,9 +200,9 @@ void __122__BWSubjectRelightingCalculator_startCalculationWithJPEGSampleBuffer_s
   return result;
 }
 
-- (uint64_t)_setupInferenceControllerWithInputVideoFormat:(uint64_t)result
+- (BWPixelBufferPool)_setupInferenceControllerWithInputVideoFormat:(BWPixelBufferPool *)result
 {
-  if (result && !*(result + 48))
+  if (result && !*&result->_pixelBufferPoolConfigurationLock._os_unfair_lock_opaque)
   {
     v28 = result;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -269,14 +269,14 @@ void __122__BWSubjectRelightingCalculator_startCalculationWithJPEGSampleBuffer_s
       while (v30);
     }
 
-    if ([dictionary count] && (v11 = objc_alloc_init(BWInferenceEngineControllerConfiguration), -[BWStillImageProcessorControllerConfiguration setSensorConfigurationsByPortType:](v11, "setSensorConfigurationsByPortType:", dictionary), -[BWInferenceEngineControllerConfiguration setInputFormat:](v11, "setInputFormat:", a2), -[BWStillImageProcessorControllerConfiguration setFigThreadPriority:](v11, "setFigThreadPriority:", 14), v12 = v28, -[BWStillImageProcessorControllerConfiguration setInferenceScheduler:](v11, "setInferenceScheduler:", *(v28 + 40)), v13 = objc_msgSend(MEMORY[0x1E695DF70], "array"), objc_msgSend(v13, "addObject:", @"PersonSemanticsSkin"), objc_msgSend(v13, "addObject:", 0x1F219E750), BWInferenceLowResPersonInstanceMaskKeys(), objc_msgSend(OUTLINED_FUNCTION_17(), "addObjectsFromArray:"), -[BWInferenceEngineControllerConfiguration setEnabledInferenceMasks:](v11, "setEnabledInferenceMasks:", v13), -[BWInferenceEngineControllerConfiguration setEnabledVisionInferences:](v11, "setEnabledVisionInferences:", 16), -[BWInferenceEngineControllerConfiguration setPersonSemanticsVersion:](v11, "setPersonSemanticsVersion:", -[FigCaptureCameraParameters personSemanticsVersion](+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters, "sharedInstance"), "personSemanticsVersion")), v14 = -[BWInferenceEngineController initWithConfiguration:contextName:]([BWInferenceEngineController alloc], "initWithConfiguration:contextName:", v11, @"SubjectRelightingCalculator"), (*(v28 + 48) = v14) != 0))
+    if ([dictionary count] && (v11 = objc_alloc_init(BWInferenceEngineControllerConfiguration), -[BWStillImageProcessorControllerConfiguration setSensorConfigurationsByPortType:](v11, "setSensorConfigurationsByPortType:", dictionary), -[BWInferenceEngineControllerConfiguration setInputFormat:](v11, "setInputFormat:", a2), -[BWStillImageProcessorControllerConfiguration setFigThreadPriority:](v11, "setFigThreadPriority:", 14), v12 = v28, -[BWStillImageProcessorControllerConfiguration setInferenceScheduler:](v11, "setInferenceScheduler:", v28->_additionalPixelBufferAttributes), v13 = objc_msgSend(MEMORY[0x1E695DF70], "array"), objc_msgSend(v13, "addObject:", @"PersonSemanticsSkin"), objc_msgSend(v13, "addObject:", 0x1F219E750), BWInferenceLowResPersonInstanceMaskKeys(), objc_msgSend(OUTLINED_FUNCTION_17(), "addObjectsFromArray:"), -[BWInferenceEngineControllerConfiguration setEnabledInferenceMasks:](v11, "setEnabledInferenceMasks:", v13), -[BWInferenceEngineControllerConfiguration setEnabledVisionInferences:](v11, "setEnabledVisionInferences:", 16), -[BWInferenceEngineControllerConfiguration setPersonSemanticsVersion:](v11, "setPersonSemanticsVersion:", -[FigCaptureCameraParameters personSemanticsVersion](+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters, "sharedInstance"), "personSemanticsVersion")), v14 = -[BWInferenceEngineController initWithConfiguration:contextName:]([BWInferenceEngineController alloc], "initWithConfiguration:contextName:", v11, @"SubjectRelightingCalculator"), (*&v28->_pixelBufferPoolConfigurationLock._os_unfair_lock_opaque = v14) != 0))
     {
       dictionary2 = [MEMORY[0x1E695DF90] dictionary];
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      providedAttachedMediaKeys = [*(v28 + 48) providedAttachedMediaKeys];
+      providedAttachedMediaKeys = [*&v28->_pixelBufferPoolConfigurationLock._os_unfair_lock_opaque providedAttachedMediaKeys];
       v16 = [providedAttachedMediaKeys countByEnumeratingWithState:&v35 objects:v34 count:16];
       if (v16)
       {
@@ -292,7 +292,7 @@ LABEL_22:
           }
 
           v20 = *(*(&v35 + 1) + 8 * v19);
-          result = [*(v12 + 48) outputVideoFormatForAttachedMediaKey:v20];
+          result = [*&v12->_pixelBufferPoolConfigurationLock._os_unfair_lock_opaque outputVideoFormatForAttachedMediaKey:v20];
           if (!result)
           {
             break;
@@ -330,8 +330,8 @@ LABEL_22:
       {
 LABEL_29:
 
-        *(v12 + 56) = dictionary2;
-        return [*(v12 + 48) prepareWithPixelBufferPoolProvider:v12];
+        v12->_pixelBufferPool = dictionary2;
+        return [*&v12->_pixelBufferPoolConfigurationLock._os_unfair_lock_opaque prepareWithPixelBufferPoolProvider:v12];
       }
     }
 
@@ -339,7 +339,7 @@ LABEL_29:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
-      return FigDebugAssert3();
+      return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
   }
 
@@ -368,32 +368,34 @@ LABEL_29:
     return 0;
   }
 
-  v8 = objc_alloc_init(BWSubjectRelightingInferences);
-  v9 = *(self + 48);
-  v10 = [CMGetAttachment(a2 *off_1E798A3C8];
-  if (!a2 || (v11 = v10, !CMSampleBufferGetImageBuffer(a2)))
+  v9 = objc_alloc_init(BWSubjectRelightingInferences);
+  v10 = *(self + 48);
+  v11 = [CMGetAttachment(a2 *off_1E798A3C8];
+  if (!a2 || (v12 = v11, !CMSampleBufferGetImageBuffer(a2)))
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
-    v12 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18, v19, v20, v21, v22, v23, v24, v25);
+    v13 = 0;
 LABEL_7:
-    v8 = 0;
+    v9 = 0;
     goto LABEL_8;
   }
 
-  v12 = [[BWInferenceEngineControllerInput alloc] initWithSettings:[[BWStillImageSettings alloc] initWithRequestedSettings:buffer captureSettings:settings processingSettings:[[BWStillImageProcessingSettings alloc] initWithPhotoManifest:objc_alloc_init(BWPhotoManifest) processIntelligentDistortionCorrection:0]] portType:v11];
-  [(BWInferenceEngineControllerInput *)v12 addInferenceImage:a2];
+  v13 = [[BWInferenceEngineControllerInput alloc] initWithSettings:[[BWStillImageSettings alloc] initWithRequestedSettings:buffer captureSettings:settings processingSettings:[[BWStillImageProcessingSettings alloc] initWithPhotoManifest:objc_alloc_init(BWPhotoManifest) processIntelligentDistortionCorrection:0]] portType:v12];
+  [(BWInferenceEngineControllerInput *)v13 addInferenceImage:a2];
   array = [MEMORY[0x1E695DF70] array];
   [array addObject:@"PersonSemanticsSkin"];
   [array addObject:0x1F219E750];
   [array addObjectsFromArray:BWInferenceLowResPersonInstanceMaskKeys()];
-  [(BWInferenceEngineControllerInput *)v12 setEnabledInferenceMasks:array];
-  [(BWInferenceEngineControllerInput *)v12 setEnabledVisionInferences:16];
-  if ([v9 enqueueInputForProcessing:v12 delegate:self])
+  [(BWInferenceEngineControllerInput *)v13 setEnabledInferenceMasks:array];
+  [(BWInferenceEngineControllerInput *)v13 setEnabledVisionInferences:16];
+  v15 = [v10 enqueueInputForProcessing:v13 delegate:self];
+  if (v15)
   {
+    v17 = v15;
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17, v4, v20, v21, v22, v23, v24, v25);
     goto LABEL_7;
   }
 
@@ -411,7 +413,7 @@ LABEL_7:
   [OUTLINED_FUNCTION_17() setSkinToneClassificationsForFaces:?];
 LABEL_8:
 
-  return v8;
+  return v9;
 }
 
 - (float)_runSubjectRelightingWithInferences:(void *)target sampleBuffer:(int)buffer stillImageCaptureType:(char)type stillImageCaptureFlags:
@@ -421,133 +423,113 @@ LABEL_8:
     return 0.0;
   }
 
-  v11 = CMGetAttachment(target, *off_1E798A3C8, 0);
+  v10 = CMGetAttachment(target, *off_1E798A3C8, 0);
   ImageBuffer = CMSampleBufferGetImageBuffer(target);
   if (!ImageBuffer)
   {
     goto LABEL_29;
   }
 
-  v13 = ImageBuffer;
+  v12 = ImageBuffer;
   Width = CVPixelBufferGetWidth(ImageBuffer);
-  Height = CVPixelBufferGetHeight(v13);
+  Height = CVPixelBufferGetHeight(v12);
   FigCFDictionaryGetCGRectIfPresent();
-  [objc_msgSend(v11 objectForKeyedSubscript:{*off_1E798B298), "floatValue"}];
-  v15 = v14;
-  [objc_msgSend(v11 objectForKeyedSubscript:{*off_1E798B2B0), "floatValue"}];
-  v17 = v16;
-  v18 = CMGetAttachment(target, @"UprightExifOrientation", 0);
-  intValue = [v18 intValue];
-  v20 = v18 ? intValue : 1;
-  v21 = [objc_msgSend(objc_msgSend(-[FigCaptureCameraParameters sensorIDDictionaryForPortType:sensorIDString:](+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters "sharedInstance")];
+  [objc_msgSend(v10 objectForKeyedSubscript:{*off_1E798B298), "floatValue"}];
+  v14 = v13;
+  [objc_msgSend(v10 objectForKeyedSubscript:{*off_1E798B2B0), "floatValue"}];
+  v16 = v15;
+  v17 = CMGetAttachment(target, @"UprightExifOrientation", 0);
+  intValue = [v17 intValue];
+  v19 = v17 ? intValue : 1;
+  v20 = [objc_msgSend(objc_msgSend(-[FigCaptureCameraParameters sensorIDDictionaryForPortType:sensorIDString:](+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters "sharedInstance")];
   if (buffer == 10)
   {
-    v23 = [objc_msgSend(v11 objectForKeyedSubscript:{*off_1E798B588), "intValue"}] == 1 ? @"DefaultUBModeQuadraParameters" : @"DefaultUBModeParameters";
+    v22 = [objc_msgSend(v10 objectForKeyedSubscript:{*off_1E798B588), "intValue"}] == 1 ? @"DefaultUBModeQuadraParameters" : @"DefaultUBModeParameters";
   }
 
   else
   {
     if (buffer == 11)
     {
-      [objc_msgSend(v11 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
+      [objc_msgSend(v10 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       goto LABEL_9;
     }
 
     if ((buffer & 0xFFFFFFFE) == 0xC)
     {
-      [objc_msgSend(v11 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
-      v23 = @"DefaultUBModeParameters";
+      [objc_msgSend(v10 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
+      v22 = @"DefaultUBModeParameters";
     }
 
     else
     {
-      v24 = [objc_msgSend(v11 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
-      v25 = @"SingleImageParametersForLearnedNR";
+      v23 = [objc_msgSend(v10 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
+      v24 = @"SingleImageParametersForLearnedNR";
       if ((type & 0x80) == 0)
       {
-        v25 = @"SingleImageParameters";
+        v24 = @"SingleImageParameters";
       }
 
-      v26 = @"SingleImageQuadraParameters";
+      v25 = @"SingleImageQuadraParameters";
       if (type < 0)
       {
-        v26 = @"SingleImageParametersForQuadraLearnedNR";
+        v25 = @"SingleImageParametersForQuadraLearnedNR";
       }
 
-      v23 = v24 == 1 ? v26 : v25;
+      v22 = v23 == 1 ? v25 : v24;
     }
   }
 
-  v27 = [objc_msgSend(v21 objectForKeyedSubscript:{v23), "objectForKeyedSubscript:", @"SRLv2"}];
-  if (!v27)
+  v26 = [objc_msgSend(v20 objectForKeyedSubscript:{v22), "objectForKeyedSubscript:", @"SRLv2"}];
+  if (!v26)
   {
 LABEL_29:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     goto LABEL_9;
   }
 
-  v28 = v27;
-  v29 = *(self + 64);
+  v27 = v26;
+  v28 = *(self + 64);
   skinMask = [a2 skinMask];
   personMask = [a2 personMask];
   lowResPersonInstanceMasks = [a2 lowResPersonInstanceMasks];
   lowResPersonInstanceConfidences = [a2 lowResPersonInstanceConfidences];
   skinToneClassificationsForFaces = [a2 skinToneClassificationsForFaces];
-  LODWORD(v42) = v20;
-  LODWORD(v35) = v15;
-  LODWORD(v36) = v17;
-  v37 = [v29 runSRLForLivePhotosWithInputBuffer:v13 skinMask:skinMask personMask:personMask instanceMasks:lowResPersonInstanceMasks instanceMaskConfidences:lowResPersonInstanceConfidences skinToneClassification:skinToneClassificationsForFaces validROI:0.0 expBias:0.0 faceExpRatio:Width exifOrientation:Height srlV2Plist:{v35, v36, v42, v28}];
-  if (!v37)
+  LODWORD(v41) = v19;
+  LODWORD(v34) = v14;
+  LODWORD(v35) = v16;
+  v36 = [v28 runSRLForLivePhotosWithInputBuffer:v12 skinMask:skinMask personMask:personMask instanceMasks:lowResPersonInstanceMasks instanceMaskConfidences:lowResPersonInstanceConfidences skinToneClassification:skinToneClassificationsForFaces validROI:0.0 expBias:0.0 faceExpRatio:Width exifOrientation:Height srlV2Plist:{v34, v35, v41, v27}];
+  if (!v36)
   {
     mitigationNeeded = [*(self + 64) mitigationNeeded];
     [*(self + 64) curveParameter];
     if (mitigationNeeded)
     {
-      v22 = v39;
+      v21 = v38;
     }
 
     else
     {
-      v22 = -1.0;
+      v21 = -1.0;
     }
 
     goto LABEL_27;
   }
 
-  v41 = v37;
+  v40 = v36;
   fig_log_get_emitter();
-  v43 = v5;
-  LODWORD(v42) = v41;
+  LODWORD(v42) = v40;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v42);
 LABEL_9:
-  FigDebugAssert3();
-  v22 = -1.0;
+  v21 = -1.0;
 LABEL_27:
   [*(self + 64) reset];
-  return v22;
-}
-
-- (uint64_t)startCalculationWithJPEGSampleBuffer:stillImageRequestSettings:stillImageCaptureSettings:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)startCalculationWithJPEGSampleBuffer:stillImageRequestSettings:stillImageCaptureSettings:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)startCalculationWithJPEGSampleBuffer:stillImageRequestSettings:stillImageCaptureSettings:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
+  return v21;
 }
 
 @end

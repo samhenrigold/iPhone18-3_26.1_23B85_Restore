@@ -47,12 +47,12 @@
 
 + (void)applyConfigurationTo:(id)to rowModel:(id)model cardSections:(id)sections interactionDelegate:(id)delegate
 {
-  sub_1DA173718(0, &unk_1EDAE5400);
-  v8 = sub_1DA25F324();
+  sub_1DA173718(0, &unk_1EDAE5400, 0x1E69C9F08);
+  v9 = sub_1DA25F324();
   toCopy = to;
   modelCopy = model;
   swift_unknownObjectRetain();
-  sub_1DA232FF4(toCopy, modelCopy, v8);
+  sub_1DA232FF4(toCopy, modelCopy, v9, delegate);
 
   swift_unknownObjectRelease();
 }

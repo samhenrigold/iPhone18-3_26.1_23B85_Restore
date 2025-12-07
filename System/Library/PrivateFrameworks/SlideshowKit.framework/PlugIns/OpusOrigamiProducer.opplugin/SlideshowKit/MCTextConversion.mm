@@ -429,7 +429,7 @@
   v68 = 0u;
   v69 = 0u;
   v70 = 0u;
-  v4 = [attributes countByEnumeratingWithState:&v67 objects:v73 count:16];
+  v4 = [attributes countByEnumeratingWithState:&v67 objects:v72 count:16];
   if (v4)
   {
     v5 = v4;
@@ -457,9 +457,9 @@
             if (v12)
             {
               v13 = [MPUtilities CGColorFromString:v12];
-              v74.location = 0;
-              v74.length = v11;
-              CFAttributedStringSetAttribute(v10, v74, kCTForegroundColorAttributeName, v13);
+              v73.location = 0;
+              v73.length = v11;
+              CFAttributedStringSetAttribute(v10, v73, kCTForegroundColorAttributeName, v13);
             }
 
             v62 = v11;
@@ -468,9 +468,9 @@
             if (v14)
             {
               v15 = [MPUtilities CGColorFromString:v14];
-              v75.length = v11;
-              v75.location = 0;
-              CFAttributedStringSetAttribute(v10, v75, @"backgroundColor", v15);
+              v74.length = v11;
+              v74.location = 0;
+              CFAttributedStringSetAttribute(v10, v74, @"backgroundColor", v15);
             }
 
             v16 = [v7 objectForKey:@"fontName"];
@@ -486,9 +486,9 @@
 
               [v18 floatValue];
               v20 = CTFontCreateWithName(v17, v19, 0);
-              v76.length = v62;
-              v76.location = 0;
-              CFAttributedStringSetAttribute(v10, v76, kCTFontAttributeName, v20);
+              v75.length = v62;
+              v75.location = 0;
+              CFAttributedStringSetAttribute(v10, v75, kCTFontAttributeName, v20);
             }
 
             v66 = 0;
@@ -498,7 +498,7 @@
             if (v21)
             {
               v66 = [MCTextConversion textAlignmentFromString:v21];
-              v22 = v72;
+              v22 = &settings[1];
               v23 = 1;
               *&settings[0].spec = 0;
               settings[0].valueSize = 1;
@@ -539,9 +539,9 @@
             {
 LABEL_24:
               v29 = CTParagraphStyleCreate(settings, v23);
-              v77.length = v62;
-              v77.location = 0;
-              CFAttributedStringSetAttribute(v10, v77, kCTParagraphStyleAttributeName, v29);
+              v76.length = v62;
+              v76.location = 0;
+              CFAttributedStringSetAttribute(v10, v76, kCTParagraphStyleAttributeName, v29);
               CFRelease(v29);
             }
 
@@ -572,9 +572,9 @@ LABEL_24:
                 [v33 setObject:+[NSNumber numberWithFloat:](NSNumber forKey:{"numberWithFloat:"), @"blurRadius"}];
               }
 
-              v78.length = v62;
-              v78.location = 0;
-              CFAttributedStringSetAttribute(v63, v78, @"shadow", v33);
+              v77.length = v62;
+              v77.location = 0;
+              CFAttributedStringSetAttribute(v63, v77, @"shadow", v33);
             }
 
             v38 = [v7 objectForKey:@"underline"];
@@ -585,15 +585,15 @@ LABEL_24:
               if (v40)
               {
                 v41 = [MPUtilities CGColorFromString:v40];
-                v79.location = 0;
-                v79.length = v62;
-                CFAttributedStringSetAttribute(v63, v79, kCTForegroundColorAttributeName, v41);
+                v78.location = 0;
+                v78.length = v62;
+                CFAttributedStringSetAttribute(v63, v78, kCTForegroundColorAttributeName, v41);
               }
 
               v42 = [(CFStringRef *)v31[26] numberWithInt:[MCTextConversion underlineStyleFromTextFormat:v39]];
-              v80.location = 0;
-              v80.length = v62;
-              CFAttributedStringSetAttribute(v63, v80, kCTUnderlineStyleAttributeName, v42);
+              v79.location = 0;
+              v79.length = v62;
+              CFAttributedStringSetAttribute(v63, v79, kCTUnderlineStyleAttributeName, v42);
             }
 
             v43 = [v7 objectForKey:@"strikethrough"];
@@ -604,58 +604,58 @@ LABEL_24:
               if (v45)
               {
                 v46 = [MPUtilities CGColorFromString:v45];
-                v81.location = 0;
-                v81.length = v62;
-                CFAttributedStringSetAttribute(v63, v81, kCTForegroundColorAttributeName, v46);
+                v80.location = 0;
+                v80.length = v62;
+                CFAttributedStringSetAttribute(v63, v80, kCTForegroundColorAttributeName, v46);
               }
 
               v47 = [(CFStringRef *)v31[26] numberWithUnsignedInteger:[MCTextConversion underlineStyleFromTextFormat:v44]];
-              v82.location = 0;
-              v82.length = v62;
-              CFAttributedStringSetAttribute(v63, v82, @"strikethrough", v47);
+              v81.location = 0;
+              v81.length = v62;
+              CFAttributedStringSetAttribute(v63, v81, @"strikethrough", v47);
             }
 
             v48 = [v7 objectForKey:@"superscript"];
             if (v48)
             {
               v49 = -[CFStringRef numberWithInt:](v31[26], "numberWithInt:", [v48 intValue]);
-              v83.location = 0;
-              v83.length = v62;
-              CFAttributedStringSetAttribute(v63, v83, kCTSuperscriptAttributeName, v49);
+              v82.location = 0;
+              v82.length = v62;
+              CFAttributedStringSetAttribute(v63, v82, kCTSuperscriptAttributeName, v49);
             }
 
             v50 = [v7 objectForKey:@"ligature"];
             if (v50)
             {
               v51 = -[CFStringRef numberWithInt:](v31[26], "numberWithInt:", [v50 intValue]);
-              v84.location = 0;
-              v84.length = v62;
-              CFAttributedStringSetAttribute(v63, v84, kCTLigatureAttributeName, v51);
+              v83.location = 0;
+              v83.length = v62;
+              CFAttributedStringSetAttribute(v63, v83, kCTLigatureAttributeName, v51);
             }
 
             v52 = [v7 objectForKey:@"kern"];
             if (v52)
             {
               v53 = -[CFStringRef numberWithInt:](v31[26], "numberWithInt:", [v52 intValue]);
-              v85.location = 0;
-              v85.length = v62;
-              CFAttributedStringSetAttribute(v63, v85, kCTKernAttributeName, v53);
+              v84.location = 0;
+              v84.length = v62;
+              CFAttributedStringSetAttribute(v63, v84, kCTKernAttributeName, v53);
             }
 
             v54 = [v7 objectForKey:@"strokeWidth"];
             if (v54)
             {
               v55 = -[CFStringRef numberWithInt:](v31[26], "numberWithInt:", [v54 intValue]);
-              v86.location = 0;
-              v86.length = v62;
-              CFAttributedStringSetAttribute(v63, v86, kCTStrokeWidthAttributeName, v55);
+              v85.location = 0;
+              v85.length = v62;
+              CFAttributedStringSetAttribute(v63, v85, kCTStrokeWidthAttributeName, v55);
               v56 = [v7 objectForKey:@"strokeColor"];
               if (v56)
               {
                 v57 = [MPUtilities CGColorFromString:v56];
-                v87.location = 0;
-                v87.length = v62;
-                CFAttributedStringSetAttribute(v63, v87, v59, v57);
+                v86.location = 0;
+                v86.length = v62;
+                CFAttributedStringSetAttribute(v63, v86, v59, v57);
               }
             }
 
@@ -666,7 +666,7 @@ LABEL_24:
         }
       }
 
-      v5 = [attributes countByEnumeratingWithState:&v67 objects:v73 count:16];
+      v5 = [attributes countByEnumeratingWithState:&v67 objects:v72 count:16];
     }
 
     while (v5);

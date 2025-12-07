@@ -119,10 +119,10 @@
 
 - (WFRemoteFileStatusView)initWithFrame:(CGRect)frame
 {
-  v43[3] = *MEMORY[0x277D85DE8];
-  v42.receiver = self;
-  v42.super_class = WFRemoteFileStatusView;
-  v3 = [(WFRemoteFileStatusView *)&v42 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v42[3] = *MEMORY[0x277D85DE8];
+  v41.receiver = self;
+  v41.super_class = WFRemoteFileStatusView;
+  v3 = [(WFRemoteFileStatusView *)&v41 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
@@ -145,7 +145,7 @@
     [(UIView *)v7 addSubview:v8];
     statusLabel = v3->_statusLabel;
     v3->_statusLabel = v8;
-    v40 = v8;
+    v39 = v8;
 
     v11 = [objc_alloc(MEMORY[0x277D750E8]) initWithActivityIndicatorStyle:100];
     [(UIActivityIndicatorView *)v11 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -154,7 +154,7 @@
     [(UIActivityIndicatorView *)v11 startAnimating];
     indicatorView = v3->_indicatorView;
     v3->_indicatorView = v11;
-    v41 = v11;
+    v40 = v11;
 
     v13 = [MEMORY[0x277D75220] buttonWithType:1];
     [(UIButton *)v13 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -166,19 +166,19 @@
     [(UIView *)v7 addSubview:v13];
     recoveryButton = v3->_recoveryButton;
     v3->_recoveryButton = v13;
-    v39 = v13;
+    v38 = v13;
 
     v16 = MEMORY[0x277CCAAD0];
     v17 = [MEMORY[0x277CCAAD0] constraintWithItem:v7 attribute:9 relatedBy:0 toItem:v3 attribute:9 multiplier:1.0 constant:0.0];
-    v43[0] = v17;
+    v42[0] = v17;
     v18 = [MEMORY[0x277CCAAD0] constraintWithItem:v7 attribute:7 relatedBy:-1 toItem:v3 attribute:7 multiplier:1.0 constant:-40.0];
-    v43[1] = v18;
+    v42[1] = v18;
     v19 = [MEMORY[0x277CCAAD0] constraintWithItem:v7 attribute:10 relatedBy:0 toItem:v3 attribute:10 multiplier:1.0 constant:0.0];
-    v43[2] = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
+    v42[2] = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
     [v16 activateConstraints:v20];
 
-    v21 = _NSDictionaryOfVariableBindings(&cfstr_StatuslabelInd.isa, v40, v41, v39, 0);
+    v21 = _NSDictionaryOfVariableBindings(&cfstr_StatuslabelInd.isa, v39, v40, v38, 0);
     v22 = objc_opt_new();
     v23 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|[statusLabel]|" options:0 metrics:0 views:v21];
     [(NSArray *)v22 addObjectsFromArray:v23];
@@ -215,7 +215,6 @@
     v36 = v3;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

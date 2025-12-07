@@ -29,15 +29,14 @@
 
 - (NSSet)allExtensions
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___CHSWidgetExtensionContainer_storage);
 
-  sub_195EBA74C(v3, &qword_1EAEEC4B8, off_1E7452788, &qword_1EAEEC4A8, sub_195EBABF4);
+  sub_195EBA74C(v2, &qword_1EAEEC4B8, off_1E7452788, &qword_1EAEEC4A8, sub_195EBABF4);
 
   sub_195EB4B30(0, &qword_1EAEEC4B8, off_1E7452788);
   sub_195EBE1C8(&qword_1EAEEC4A8, &qword_1EAEEC4B8, off_1E7452788);
-  v4 = sub_195FA0BE8();
+  v3 = sub_195FA0BE8();
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -95,11 +94,10 @@
   result = swift_beginAccess();
   if (*(v5 + 1))
   {
-    v7 = *v5;
 
-    v8 = sub_195FA0888();
+    v7 = sub_195FA0888();
 
-    return v8;
+    return v7;
   }
 
   else

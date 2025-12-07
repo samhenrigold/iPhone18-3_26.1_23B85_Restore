@@ -625,7 +625,7 @@ LABEL_78:
     v12 = 1;
     if (imageView)
     {
-      [imageView transform];
+      objc_msgSend_transform(imageView);
     }
 
     else

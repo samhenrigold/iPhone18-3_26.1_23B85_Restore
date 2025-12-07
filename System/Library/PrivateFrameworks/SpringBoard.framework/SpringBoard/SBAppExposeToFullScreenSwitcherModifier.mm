@@ -221,12 +221,12 @@ LABEL_12:
   else
   {
     v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v7];
-    if (([v8 containsObject:self->_fullScreenAppLayout] & 1) == 0)
+    if ((objc_msgSend_containsObject_(v8) & 1) == 0)
     {
       [v8 addObject:self->_fullScreenAppLayout];
     }
 
-    if (self->_floatingAppLayout && ([v8 containsObject:?] & 1) == 0)
+    if (self->_floatingAppLayout && (objc_msgSend_containsObject_(v8) & 1) == 0)
     {
       [v8 insertObject:self->_floatingAppLayout atIndex:0];
     }
@@ -327,7 +327,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t __57__SBAppExposeToFullScreenSwitcherModifier_frameForIndex___block_invoke(void *a1)
+void *__57__SBAppExposeToFullScreenSwitcherModifier_frameForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 208) frameForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -421,7 +421,7 @@ LABEL_11:
   return v5;
 }
 
-uint64_t __57__SBAppExposeToFullScreenSwitcherModifier_scaleForIndex___block_invoke(void *a1)
+void *__57__SBAppExposeToFullScreenSwitcherModifier_scaleForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 208) scaleForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -572,7 +572,7 @@ id __84__SBAppExposeToFullScreenSwitcherModifier_opacityForLayoutRole_inAppLayou
   return self;
 }
 
-uint64_t __80__SBAppExposeToFullScreenSwitcherModifier_asyncRenderingAttributesForAppLayout___block_invoke(void *a1)
+void *__80__SBAppExposeToFullScreenSwitcherModifier_asyncRenderingAttributesForAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 200) asyncRenderingAttributesForAppLayout:a1[5]];
   *(*(a1[6] + 8) + 32) = result;

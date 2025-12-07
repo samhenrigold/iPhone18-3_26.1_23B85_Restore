@@ -42,41 +42,41 @@
 - (TSTCellUIDLookupListWrapper)initWithCellUIDList:(id)list
 {
   listCopy = list;
-  v20.receiver = self;
-  v20.super_class = TSTCellUIDLookupListWrapper;
-  v9 = [(TSTCellUIDLookupListWrapper *)&v20 init];
-  if (v9)
+  v18.receiver = self;
+  v18.super_class = TSTCellUIDLookupListWrapper;
+  v8 = [(TSTCellUIDLookupListWrapper *)&v18 init];
+  if (v8)
   {
-    v10 = objc_msgSend_iterator(listCopy, v5, v6, v7, v8);
+    v9 = objc_msgSend_iterator(listCopy, v5, v6, v7);
     __p = 0;
-    v18 = 0;
-    v19 = 0;
+    v16 = 0;
+    v17 = 0;
     sub_22127D034(&__p, 0x3E8uLL);
     while (1)
     {
-      CellUIDsBatch_batchSize = objc_msgSend_nextCellUIDsBatch_batchSize_(v10, v11, &__p, 1000, v12);
-      v14 = __p;
+      CellUIDsBatch_batchSize = objc_msgSend_nextCellUIDsBatch_batchSize_(v9, v10, &__p, 1000);
+      v12 = __p;
       if (!CellUIDsBatch_batchSize)
       {
         break;
       }
 
-      v15 = v18;
-      while (v14 != v15)
+      v13 = v16;
+      while (v12 != v13)
       {
-        sub_22137A908(&v9->_UIDLookupList, v14);
-        v14 += 2;
+        sub_22137A908(&v8->_UIDLookupList._columnUidLookupList._uids.__begin_, v12);
+        v12 += 2;
       }
     }
 
     if (__p)
     {
-      v18 = __p;
+      v16 = __p;
       operator delete(__p);
     }
   }
 
-  return v9;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

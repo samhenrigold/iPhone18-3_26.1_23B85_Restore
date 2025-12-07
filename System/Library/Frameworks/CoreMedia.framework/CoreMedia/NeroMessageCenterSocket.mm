@@ -111,6 +111,7 @@ LABEL_22:
   type = OS_LOG_TYPE_DEFAULT;
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v27, &type);
   v13 = v27;
+  v14 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v15 = v13;
@@ -125,7 +126,7 @@ LABEL_22:
   {
     v32 = 136315138;
     v33 = "[NeroMessageCenterSocket activateConnection]";
-    v16 = _os_log_send_and_compose_impl();
+    v16 = _os_log_send_and_compose_impl(v15, 0, v34, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v14, "<<< transportids >>> %s: Creating IDS socket", &v32);
     LOBYTE(v13) = v27;
   }
 
@@ -134,7 +135,7 @@ LABEL_22:
     v16 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v16, v16 != &v34, v13, 0, v14);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v16, v16 != v34, v13);
   v17 = [ids_IDSDeviceConnectionClass alloc];
   idsDevice = self->_idsDevice;
   options = self->_options;
@@ -176,13 +177,14 @@ LABEL_20:
 
 intptr_t __45__NeroMessageCenterSocket_activateConnection__block_invoke(uint64_t a1, int a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!a3)
   {
-    v12[0] = 0;
+    v12 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, v12, &type);
-    v6 = v12[0];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v12, &type);
+    v6 = v12;
+    v7 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v8 = v6;
@@ -195,12 +197,12 @@ intptr_t __45__NeroMessageCenterSocket_activateConnection__block_invoke(uint64_t
 
     if (v8)
     {
-      v12[1] = 136315394;
-      v13 = "[NeroMessageCenterSocket activateConnection]_block_invoke";
-      v14 = 1024;
-      v15 = a2;
-      v9 = _os_log_send_and_compose_impl();
-      LOBYTE(v6) = v12[0];
+      v13 = 136315394;
+      v14 = "[NeroMessageCenterSocket activateConnection]_block_invoke";
+      v15 = 1024;
+      v16 = a2;
+      v9 = _os_log_send_and_compose_impl(v8, 0, v17, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v7, "<<< transportids >>> %s: opened IDS socket on %d", &v13, 18);
+      LOBYTE(v6) = v12;
     }
 
     else
@@ -208,7 +210,7 @@ intptr_t __45__NeroMessageCenterSocket_activateConnection__block_invoke(uint64_t
       v9 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v9, v9 != &v16, v6, 0, v7);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v9, v9 != v17, v6);
     *(*(a1 + 32) + 48) = a2;
   }
 
@@ -446,95 +448,103 @@ LABEL_8:
 
 - (void)mainLoop
 {
-  v62 = *MEMORY[0x1E69E9840];
-  if (self->_isActive)
+  v67 = *MEMORY[0x1E69E9840];
+  if (!self->_isActive)
   {
-    while (1)
-    {
-      v4 = poll(&self->_pollfd, 1u, 15);
-      revents = self->_pollfd.revents;
-      if ((revents & 8) != 0)
-      {
-        v14 = OUTLINED_FUNCTION_1_29(v4, v5, v6, v7, v8, v9, v10, v11, v43, v47, block, v52, v53, v54, selfCopy, v56, v57, v58, v59);
-        v22 = OUTLINED_FUNCTION_5_14(v14, v15, v16, v17, v18, v19, v20, v21, v44, v48, block, v52, v53, v54, selfCopy, v56, v57, v58, v59);
-        if (OUTLINED_FUNCTION_6_2(v22))
-        {
-          goto LABEL_20;
-        }
-
-        goto LABEL_21;
-      }
-
-      if ((revents & 0x10) != 0)
-      {
-        v24 = OUTLINED_FUNCTION_1_29(v4, v5, v6, v7, v8, v9, v10, v11, v43, v47, block, v52, v53, v54, selfCopy, v56, v57, v58, v59);
-        v32 = OUTLINED_FUNCTION_5_14(v24, v25, v26, v27, v28, v29, v30, v31, v45, v49, block, v52, v53, v54, selfCopy, v56, v57, v58, v59);
-        if (OUTLINED_FUNCTION_6_2(v32))
-        {
-          goto LABEL_20;
-        }
-
-        goto LABEL_21;
-      }
-
-      if ((revents & 0x20) != 0)
-      {
-        break;
-      }
-
-      if ((v4 & 0x80000000) != 0)
-      {
-        usleep(0x3A98u);
-      }
-
-      else
-      {
-        if (revents)
-        {
-          [(NeroMessageCenterSocket *)self readPackage];
-          revents = self->_pollfd.revents;
-        }
-
-        if ((revents & 4) != 0)
-        {
-          [(NeroMessageCenterSocket *)self sendPackage];
-        }
-      }
-
-      if (!self->_isActive)
-      {
-        goto LABEL_12;
-      }
-    }
-
-    v33 = OUTLINED_FUNCTION_1_29(v4, v5, v6, v7, v8, v9, v10, v11, v43, v47, block, v52, v53, v54, selfCopy, v56, v57, v58, v59);
-    v41 = OUTLINED_FUNCTION_5_14(v33, v34, v35, v36, v37, v38, v39, v40, v46, v50, block, v52, v53, v54, selfCopy, v56, v57, v58, v59);
-    if (OUTLINED_FUNCTION_6_2(v41))
-    {
-LABEL_20:
-      v60 = 136315138;
-      OUTLINED_FUNCTION_0_44();
-      v42 = _os_log_send_and_compose_impl();
-      v2 = v59;
-      goto LABEL_22;
-    }
-
-LABEL_21:
-    v42 = 0;
-LABEL_22:
-    fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v42, v42 != &v61, v2, 0, v23);
+    goto LABEL_12;
   }
 
+  while (1)
+  {
+    v6 = poll(&self->_pollfd, 1u, 15);
+    revents = self->_pollfd.revents;
+    if ((revents & 8) != 0)
+    {
+      v16 = OUTLINED_FUNCTION_1_29(v6, v7, v8, v9, v10, v11, v12, v13, v48, v52, block, v57, v58, v59, selfCopy, v61, v62, v63, v64);
+      v24 = OUTLINED_FUNCTION_5_14(v16, v17, v18, v19, v20, v21, v22, v23, v49, v53, block, v57, v58, v59, selfCopy, v61, v62, v63, v64);
+      if (!OUTLINED_FUNCTION_6_2(v24))
+      {
+        goto LABEL_22;
+      }
+
+      v65 = 136315138;
+      OUTLINED_FUNCTION_0_44();
+      v26 = _os_log_send_and_compose_impl(v25, 0, v66, 128, &dword_196FA7000, v2, v3, "<<< transportids >>> %s: Fatal socket error");
+LABEL_21:
+      v47 = v26;
+      v4 = v64;
+      goto LABEL_23;
+    }
+
+    if ((revents & 0x10) != 0)
+    {
+      v27 = OUTLINED_FUNCTION_1_29(v6, v7, v8, v9, v10, v11, v12, v13, v48, v52, block, v57, v58, v59, selfCopy, v61, v62, v63, v64);
+      v35 = OUTLINED_FUNCTION_5_14(v27, v28, v29, v30, v31, v32, v33, v34, v50, v54, block, v57, v58, v59, selfCopy, v61, v62, v63, v64);
+      if (!OUTLINED_FUNCTION_6_2(v35))
+      {
+        goto LABEL_22;
+      }
+
+      v65 = 136315138;
+      OUTLINED_FUNCTION_0_44();
+      v26 = _os_log_send_and_compose_impl(v36, 0, v66, 128, &dword_196FA7000, v2, v3, "<<< transportids >>> %s: Peer disconnected");
+      goto LABEL_21;
+    }
+
+    if ((revents & 0x20) != 0)
+    {
+      break;
+    }
+
+    if ((v6 & 0x80000000) != 0)
+    {
+      usleep(0x3A98u);
+    }
+
+    else
+    {
+      if (revents)
+      {
+        [(NeroMessageCenterSocket *)self readPackage];
+        revents = self->_pollfd.revents;
+      }
+
+      if ((revents & 4) != 0)
+      {
+        [(NeroMessageCenterSocket *)self sendPackage];
+      }
+    }
+
+    if (!self->_isActive)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  v37 = OUTLINED_FUNCTION_1_29(v6, v7, v8, v9, v10, v11, v12, v13, v48, v52, block, v57, v58, v59, selfCopy, v61, v62, v63, v64);
+  v45 = OUTLINED_FUNCTION_5_14(v37, v38, v39, v40, v41, v42, v43, v44, v51, v55, block, v57, v58, v59, selfCopy, v61, v62, v63, v64);
+  if (OUTLINED_FUNCTION_6_2(v45))
+  {
+    v65 = 136315138;
+    OUTLINED_FUNCTION_0_44();
+    v26 = _os_log_send_and_compose_impl(v46, 0, v66, 128, &dword_196FA7000, v2, v3, "<<< transportids >>> %s: Descriptor closed");
+    goto LABEL_21;
+  }
+
+LABEL_22:
+  v47 = 0;
+LABEL_23:
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v47, v47 != v66, v4);
 LABEL_12:
   if (self->_isActive)
   {
     dispatch_get_global_queue(0, 0);
     OUTLINED_FUNCTION_0_40();
-    v52 = 3221225472;
-    v53 = __35__NeroMessageCenterSocket_mainLoop__block_invoke;
-    v54 = &unk_1E749CE18;
+    v57 = 3221225472;
+    v58 = __35__NeroMessageCenterSocket_mainLoop__block_invoke;
+    v59 = &unk_1E749CE18;
     selfCopy = self;
-    dispatch_async(v13, &block);
+    dispatch_async(v15, &block);
   }
 }
 

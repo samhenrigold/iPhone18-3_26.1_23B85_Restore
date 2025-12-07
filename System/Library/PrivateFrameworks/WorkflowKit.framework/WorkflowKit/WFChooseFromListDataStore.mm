@@ -170,9 +170,8 @@ void __67__WFChooseFromListDataStore_loadSubtitleWithIdentifier_completion___blo
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() localizedTypeDescription];
-    (*(v2 + 16))(v2, v6);
+    v5 = [objc_opt_class() localizedTypeDescription];
+    (*(v2 + 16))(v2, v5);
   }
 }
 

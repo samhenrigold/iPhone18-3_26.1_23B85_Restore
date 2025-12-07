@@ -21,7 +21,7 @@
 
 - (NSIndexPath)scrollToIndexPath
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F1E6C80);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F1E6C80, qword_24E3715F0);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = &v8 - v3;
   sub_24E2B5AA4(&v8 - v3);
@@ -38,7 +38,7 @@
 
 - (void)setScrollToIndexPath:(id)path
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F1E6C80);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F1E6C80, qword_24E3715F0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v11 - v6;
   if (path)

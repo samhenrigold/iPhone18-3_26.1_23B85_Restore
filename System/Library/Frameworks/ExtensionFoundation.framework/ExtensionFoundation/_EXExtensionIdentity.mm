@@ -152,16 +152,15 @@
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00]();
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   uniqueIdentifier = [(_EXExtensionIdentity *)selfCopy uniqueIdentifier];
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v10 = UUID.hashValue.getter();
-  (*(v4 + 8))(v7, v3);
-  return v10;
+  v9 = UUID.hashValue.getter();
+  (*(v4 + 8))(v6, v3);
+  return v9;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -176,14 +175,14 @@
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v9, 0, sizeof(v9));
     selfCopy2 = self;
   }
 
-  v6 = _EXExtensionIdentity.isEqual(_:)(v8);
+  v7 = _EXExtensionIdentity.isEqual(_:)(v9, v5);
 
-  outlined destroy of NSObject?(v8, &_sypSgMd, &_sypSgMR);
-  return v6 & 1;
+  outlined destroy of NSObject?(v9, &_sypSgMd, &_sypSgMR);
+  return v7 & 1;
 }
 
 - (BOOL)launchesViaExtensionKitService
@@ -550,25 +549,24 @@
 {
   v3 = type metadata accessor for URL();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = OBJC_IVAR____EXExtensionIdentity__inner;
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = OBJC_IVAR____EXExtensionIdentity__inner;
   swift_beginAccess();
-  result = outlined init with copy of UUID?(self + v8, &v16, &_s19ExtensionFoundation09_InnerAppA8Identity_pSgMd, &_s19ExtensionFoundation09_InnerAppA8Identity_pSgMR);
-  if (v17)
+  result = outlined init with copy of UUID?(self + v7, &v15, &_s19ExtensionFoundation09_InnerAppA8Identity_pSgMd, &_s19ExtensionFoundation09_InnerAppA8Identity_pSgMR);
+  if (v16)
   {
-    outlined init with take of _InnerAppExtensionIdentity(&v16, v18);
+    outlined init with take of _InnerAppExtensionIdentity(&v15, v17);
+    v9 = v18;
     v10 = v19;
-    v11 = v20;
-    __swift_project_boxed_opaque_existential_1(v18, v19);
-    (*(v11 + 272))(v10, v11);
-    __swift_destroy_boxed_opaque_existential_0Tm(v18);
-    URL._bridgeToObjectiveC()(v12);
-    v14 = v13;
-    (*(v4 + 8))(v7, v3);
+    __swift_project_boxed_opaque_existential_1(v17, v18);
+    (*(v10 + 272))(v9, v10);
+    __swift_destroy_boxed_opaque_existential_0Tm(v17);
+    URL._bridgeToObjectiveC()(v11);
+    v13 = v12;
+    (*(v4 + 8))(v6, v3);
 
-    return v14;
+    return v13;
   }
 
   else

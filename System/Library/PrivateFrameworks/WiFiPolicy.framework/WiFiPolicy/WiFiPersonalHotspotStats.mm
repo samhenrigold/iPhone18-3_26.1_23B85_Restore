@@ -86,7 +86,6 @@ uint64_t __42__WiFiPersonalHotspotStats_sharedInstance__block_invoke()
     self->_joinFailureCode = code;
     objc_storeStrong(&self->_failureReporter, reporter);
     self->_band = band;
-    personalHotspotDiscoveryEndedAt = self->_personalHotspotDiscoveryEndedAt;
     self->_latency = self->_joinEndedAt - self->_joinStartedAt;
     [WiFiPersonalHotspotStats __submitWiFiPersonalHotspotStats:"__submitWiFiPersonalHotspotStats:end:latencyType:" end:@"PH Enablement" latencyType:?];
     [(WiFiPersonalHotspotStats *)self __submitWiFiPersonalHotspotStats:@"WiFi" end:self->_personalHotspotDiscoveryEndedAt latencyType:self->_joinEndedAt];

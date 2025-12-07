@@ -12,13 +12,13 @@
 
 - (HKMCViewModelProviderDataSource)initWithHealthStore:(id)store calendarCache:(id)cache queue:(id)queue
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   cacheCopy = cache;
   queueCopy = queue;
-  v24.receiver = self;
-  v24.super_class = HKMCViewModelProviderDataSource;
-  v12 = [(HKMCViewModelProviderDataSource *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = HKMCViewModelProviderDataSource;
+  v12 = [(HKMCViewModelProviderDataSource *)&v23 init];
   v13 = v12;
   if (v12)
   {
@@ -43,14 +43,13 @@
     v19 = v18;
     v20 = objc_opt_class();
     *buf = 138543618;
-    v26 = v20;
-    v27 = 2048;
-    v28 = v13;
+    v25 = v20;
+    v26 = 2048;
+    v27 = v13;
     v21 = v20;
     _os_log_impl(&dword_2518FC000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Initializing", buf, 0x16u);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -58,7 +57,7 @@
 {
   var1 = range.var1;
   var0 = range.var0;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2E8];
@@ -69,23 +68,23 @@
     v9 = v8;
     v10 = NSStringFromHKDayIndexRange();
     *buf = 138543874;
-    v18 = v8;
-    v19 = 2048;
+    v17 = v8;
+    v18 = 2048;
     selfCopy = self;
-    v21 = 2114;
-    v22 = v10;
+    v20 = 2114;
+    v21 = v10;
     _os_log_impl(&dword_2518FC000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Fetching summaries in range %{public}@", buf, 0x20u);
   }
 
   v11 = [HKMCDaySummaryQuery alloc];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange___block_invoke;
-  v16[3] = &unk_2796D4C98;
-  v16[4] = self;
-  v16[5] = var0;
-  v16[6] = var1;
-  v12 = [(HKMCDaySummaryQuery *)v11 initWithDayIndexRange:var0 ascending:var1 limit:1 resultsHandler:0, v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange___block_invoke;
+  v15[3] = &unk_2796D4C98;
+  v15[4] = self;
+  v15[5] = var0;
+  v15[6] = var1;
+  v12 = [(HKMCDaySummaryQuery *)v11 initWithDayIndexRange:var0 ascending:var1 limit:1 resultsHandler:0, v15];
   v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"<%@:%p>", objc_opt_class(), self];
   [(HKQuery *)v12 setDebugIdentifier:v13];
 
@@ -98,8 +97,6 @@
   [(NSMutableIndexSet *)canceledDayIndexes removeIndexesInRange:var0, var1];
   [(NSMutableSet *)self->_summaryQueries addObject:v12];
   [(HKHealthStore *)self->_healthStore executeQuery:v12];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -127,7 +124,7 @@ void __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange___bl
   dispatch_async(v14, block);
 }
 
-uint64_t __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange___block_invoke_2(void *a1)
+uint64_t __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange___block_invoke_2(void *a1, uint64_t a2)
 {
   if (a1[4])
   {
@@ -138,10 +135,10 @@ uint64_t __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange_
   else
   {
     _HKInitializeLogging();
-    v3 = *MEMORY[0x277CCC2E8];
+    v4 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
     {
-      __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange___block_invoke_2_cold_1(a1, v3);
+      __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange___block_invoke_2_cold_1(a1, v4);
     }
   }
 
@@ -152,7 +149,7 @@ uint64_t __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange_
 {
   var1 = range.var1;
   var0 = range.var0;
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
   v6 = MEMORY[0x277CCC2E8];
@@ -164,11 +161,11 @@ uint64_t __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange_
     v10 = v9;
     v11 = NSStringFromHKDayIndexRange();
     *buf = 138543874;
-    v43 = v9;
-    v44 = 2048;
+    v42 = v9;
+    v43 = 2048;
     selfCopy3 = self;
-    v46 = 2114;
-    v47 = v11;
+    v45 = 2114;
+    v46 = v11;
     _os_log_impl(&dword_2518FC000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Cancelling fetch for summaries in range %{public}@", buf, 0x20u);
 
     v6 = MEMORY[0x277CCC2E8];
@@ -181,29 +178,29 @@ uint64_t __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange_
   }
 
   [(NSMutableIndexSet *)canceledDayIndexes addIndexesInRange:var0, var1];
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = self->_summaryQueries;
-  v13 = [(NSMutableSet *)obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v13 = [(NSMutableSet *)obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v13)
   {
     v15 = v13;
     v16 = 0;
-    v17 = *v38;
+    v17 = *v37;
     *&v14 = 138543874;
-    v35 = v14;
+    v34 = v14;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v38 != v17)
+        if (*v37 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v37 + 1) + 8 * i);
+        v19 = *(*(&v36 + 1) + 8 * i);
         dayIndexRange = [v19 dayIndexRange];
         v22 = v21;
         if (dayIndexRange < 0)
@@ -224,12 +221,12 @@ uint64_t __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange_
             v28 = v27;
             [v19 dayIndexRange];
             v29 = NSStringFromHKDayIndexRange();
-            *buf = v35;
-            v43 = v27;
-            v44 = 2048;
+            *buf = v34;
+            v42 = v27;
+            v43 = 2048;
             selfCopy3 = self;
-            v46 = 2114;
-            v47 = v29;
+            v45 = 2114;
+            v46 = v29;
             _os_log_impl(&dword_2518FC000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Cancelling query for summaries in range %{public}@", buf, 0x20u);
 
             v6 = MEMORY[0x277CCC2E8];
@@ -251,18 +248,18 @@ uint64_t __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange_
           v32 = v31;
           [v19 dayIndexRange];
           v33 = NSStringFromHKDayIndexRange();
-          *buf = v35;
-          v43 = v31;
+          *buf = v34;
+          v42 = v31;
           v6 = MEMORY[0x277CCC2E8];
-          v44 = 2048;
+          v43 = 2048;
           selfCopy3 = self;
-          v46 = 2114;
-          v47 = v33;
+          v45 = 2114;
+          v46 = v33;
           _os_log_debug_impl(&dword_2518FC000, v30, OS_LOG_TYPE_DEBUG, "[%{public}@:%p] Not cancelling query for summaries in range %{public}@", buf, 0x20u);
         }
       }
 
-      v15 = [(NSMutableSet *)obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v15 = [(NSMutableSet *)obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v15);
@@ -274,7 +271,6 @@ uint64_t __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange_
   }
 
   [(NSMutableSet *)self->_summaryQueries minusSet:v16];
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startObservingDaySummaryUpdates
@@ -338,55 +334,54 @@ void __76__HKMCViewModelProviderDataSource__handleDaySummaryObserverUpdateWithEr
 
 - (void)dealloc
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     *buf = 138543618;
-    v19 = objc_opt_class();
-    v20 = 2048;
+    v18 = objc_opt_class();
+    v19 = 2048;
     selfCopy = self;
-    v5 = v19;
+    v5 = v18;
     _os_log_impl(&dword_2518FC000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Dealloc", buf, 0x16u);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = self->_summaryQueries;
-  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(HKHealthStore *)self->_healthStore stopQuery:*(*(&v13 + 1) + 8 * v10++)];
+        [(HKHealthStore *)self->_healthStore stopQuery:*(*(&v12 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   [(HKHealthStore *)self->_healthStore stopQuery:self->_summaryObserverQuery];
-  v12.receiver = self;
-  v12.super_class = HKMCViewModelProviderDataSource;
-  [(HKMCViewModelProviderDataSource *)&v12 dealloc];
-  v11 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = HKMCViewModelProviderDataSource;
+  [(HKMCViewModelProviderDataSource *)&v11 dealloc];
 }
 
 - (HKMCViewModelProviderDataSourceDelegate)delegate
@@ -405,38 +400,31 @@ void __76__HKMCViewModelProviderDataSource__handleDaySummaryObserverUpdateWithEr
 
 void __68__HKMCViewModelProviderDataSource_fetchDaySummariesInDayIndexRange___block_invoke_2_cold_1(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v3 = a1[5];
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = a1[9];
-  v7 = a1[10];
-  v8 = v5;
-  v9 = NSStringFromHKDayIndexRange();
-  v10 = a1[7];
-  v12 = 138543874;
-  v13 = v5;
-  v14 = 2114;
-  v15 = v9;
-  v16 = 2114;
-  v17 = v10;
-  _os_log_error_impl(&dword_2518FC000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error querying for summaries in range %{public}@: %{public}@", &v12, 0x20u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = objc_opt_class();
+  v5 = v4;
+  v6 = NSStringFromHKDayIndexRange();
+  v7 = a1[7];
+  v8 = 138543874;
+  v9 = v4;
+  v10 = 2114;
+  v11 = v6;
+  v12 = 2114;
+  v13 = v7;
+  _os_log_error_impl(&dword_2518FC000, v3, OS_LOG_TYPE_ERROR, "[%{public}@] Error querying for summaries in range %{public}@: %{public}@", &v8, 0x20u);
 }
 
 - (void)_handleDaySummaryObserverUpdateWithError:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a1;
-  v7 = 138543618;
-  v8 = objc_opt_class();
-  v9 = 2114;
-  v10 = a3;
-  v5 = v8;
-  _os_log_error_impl(&dword_2518FC000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error in day summary observer query: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a3;
+  v5 = v7;
+  _os_log_error_impl(&dword_2518FC000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error in day summary observer query: %{public}@", &v6, 0x16u);
 }
 
 @end

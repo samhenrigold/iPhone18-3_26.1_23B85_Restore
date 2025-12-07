@@ -62,44 +62,49 @@ void __42__CKImpactEffectManager_effectIdentifiers__block_invoke()
 + (id)maskingStringForID:(id)d
 {
   dCopy = d;
-  if ([dCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.impact"])
+  v4 = [dCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.impact"];
+  if (v4)
   {
-    v4 = @"SUMMARY_IMPACT_MESSAGE";
+    v5 = @"SUMMARY_IMPACT_MESSAGE";
 LABEL_11:
-    v5 = CKFrameworkBundle();
-    v6 = [v5 localizedStringForKey:v4 value:&stru_1F04268F8 table:@"ChatKit"];
+    v6 = CKFrameworkBundle(v4);
+    v7 = [v6 localizedStringForKey:v5 value:&stru_1F04268F8 table:@"ChatKit"];
 
     goto LABEL_12;
   }
 
-  if ([dCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.loud"])
+  v4 = [dCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.loud"];
+  if (v4)
   {
-    v4 = @"SUMMARY_LOUD_MESSAGE";
+    v5 = @"SUMMARY_LOUD_MESSAGE";
     goto LABEL_11;
   }
 
-  if ([dCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.gentle"])
+  v4 = [dCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.gentle"];
+  if (v4)
   {
-    v4 = @"SUMMARY_GENTLE_MESSAGE";
+    v5 = @"SUMMARY_GENTLE_MESSAGE";
     goto LABEL_11;
   }
 
-  if ([dCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.invisibleink"])
+  v4 = [dCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.invisibleink"];
+  if (v4)
   {
-    v4 = @"SUMMARY_INVISIBLE_INK_MESSAGE";
+    v5 = @"SUMMARY_INVISIBLE_INK_MESSAGE";
     goto LABEL_11;
   }
 
-  if ([dCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.focus"])
+  v4 = [dCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.focus"];
+  if (v4)
   {
-    v4 = @"SUMMARY_FOCUS_MESSAGE";
+    v5 = @"SUMMARY_FOCUS_MESSAGE";
     goto LABEL_11;
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_12:
 
-  return v6;
+  return v7;
 }
 
 + (BOOL)identifierIsValidImpactEffect:(id)effect
@@ -159,28 +164,28 @@ LABEL_12:
   return v5;
 }
 
-void __68__CKImpactEffectManager_localizedEffectNameForEffectWithIdentifier___block_invoke()
+void __68__CKImpactEffectManager_localizedEffectNameForEffectWithIdentifier___block_invoke(uint64_t a1)
 {
-  v11[4] = *MEMORY[0x1E69E9840];
-  v10[0] = @"com.apple.MobileSMS.expressivesend.invisibleink";
-  v0 = CKFrameworkBundle();
-  v1 = [v0 localizedStringForKey:@"IMPACT_PICKER_INVISIBLE_INK_NAME_NORMAL_CASE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v11[0] = v1;
-  v10[1] = @"com.apple.MobileSMS.expressivesend.gentle";
-  v2 = CKFrameworkBundle();
-  v3 = [v2 localizedStringForKey:@"IMPACT_PICKER_GENTLE_NAME_NORMAL_CASE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v11[1] = v3;
-  v10[2] = @"com.apple.MobileSMS.expressivesend.loud";
-  v4 = CKFrameworkBundle();
-  v5 = [v4 localizedStringForKey:@"IMPACT_PICKER_LOUD_NAME_NORMAL_CASE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v11[2] = v5;
-  v10[3] = @"com.apple.MobileSMS.expressivesend.impact";
-  v6 = CKFrameworkBundle();
-  v7 = [v6 localizedStringForKey:@"IMPACT_PICKER_IMPACT_NAME_NORMAL_CASE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v11[3] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
-  v9 = localizedEffectNameForEffectWithIdentifier__effectNames;
-  localizedEffectNameForEffectWithIdentifier__effectNames = v8;
+  v12[4] = *MEMORY[0x1E69E9840];
+  v11[0] = @"com.apple.MobileSMS.expressivesend.invisibleink";
+  v1 = CKFrameworkBundle(a1);
+  v2 = [v1 localizedStringForKey:@"IMPACT_PICKER_INVISIBLE_INK_NAME_NORMAL_CASE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v12[0] = v2;
+  v11[1] = @"com.apple.MobileSMS.expressivesend.gentle";
+  v3 = CKFrameworkBundle(v2);
+  v4 = [v3 localizedStringForKey:@"IMPACT_PICKER_GENTLE_NAME_NORMAL_CASE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v12[1] = v4;
+  v11[2] = @"com.apple.MobileSMS.expressivesend.loud";
+  v5 = CKFrameworkBundle(v4);
+  v6 = [v5 localizedStringForKey:@"IMPACT_PICKER_LOUD_NAME_NORMAL_CASE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v12[2] = v6;
+  v11[3] = @"com.apple.MobileSMS.expressivesend.impact";
+  v7 = CKFrameworkBundle(v6);
+  v8 = [v7 localizedStringForKey:@"IMPACT_PICKER_IMPACT_NAME_NORMAL_CASE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v12[3] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:4];
+  v10 = localizedEffectNameForEffectWithIdentifier__effectNames;
+  localizedEffectNameForEffectWithIdentifier__effectNames = v9;
 }
 
 - (CKImpactEffectManager)init
@@ -207,49 +212,51 @@ void __68__CKImpactEffectManager_localizedEffectNameForEffectWithIdentifier___bl
 
 - (void)setupAudioPlayerWithURL:(id)l
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   v5 = [[CKImpactEffectMediaObject alloc] initWithImpactEffectAudioFileURL:lCopy];
 
   v6 = [CKAudioController alloc];
-  v12[0] = v5;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v14[0] = v5;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   v8 = [(CKAudioController *)v6 initWithMediaObjects:v7 conversation:0];
   audioController = self->_audioController;
   self->_audioController = v8;
 
-  [(CKAudioController *)self->_audioController setShouldUseAVPlayer:CKSupportsAdvancedHaptics()];
+  [(CKAudioController *)self->_audioController setShouldUseAVPlayer:CKSupportsAdvancedHaptics(v10, v11)];
   [(CKAudioController *)self->_audioController setDelegate:self];
   [(CKAudioController *)self->_audioController setShouldStopPlayingWhenSilent:1];
   [(CKAudioController *)self->_audioController setShouldDuckOthers:0];
   [(CKAudioController *)self->_audioController setShouldUseSpeaker:1];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  v11 = +[CKAudioSessionController shareInstance];
-  [defaultCenter addObserver:self selector:sel__audioSessionOptionsWillChange_ name:@"CKAudioSessionControllerSessionOptionsWillChangeNotification" object:v11];
+  v13 = +[CKAudioSessionController shareInstance];
+  [defaultCenter addObserver:self selector:sel__audioSessionOptionsWillChange_ name:@"CKAudioSessionControllerSessionOptionsWillChangeNotification" object:v13];
 }
 
 - (void)playSoundForEffectIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([identifierCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.pop"])
+  v4 = [identifierCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.pop"];
+  if (v4)
   {
-    v4 = @"Pop";
+    v5 = @"Pop";
   }
 
   else
   {
-    if (![identifierCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.impact"])
+    v4 = [identifierCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.impact"];
+    if (!v4)
     {
       goto LABEL_8;
     }
 
-    v4 = @"Slam";
+    v5 = @"Slam";
   }
 
-  v5 = CKFrameworkBundle();
-  v6 = [v5 URLForResource:v4 withExtension:@"m4r"];
+  v6 = CKFrameworkBundle(v4);
+  v7 = [v6 URLForResource:v5 withExtension:@"m4r"];
 
-  [(CKImpactEffectManager *)self setupAudioPlayerWithURL:v6];
+  [(CKImpactEffectManager *)self setupAudioPlayerWithURL:v7];
   [(CKAudioController *)self->_audioController prepareToPlay];
   if (([identifierCopy isEqualToString:@"com.apple.MobileSMS.expressivesend.pop"] & 1) == 0)
   {

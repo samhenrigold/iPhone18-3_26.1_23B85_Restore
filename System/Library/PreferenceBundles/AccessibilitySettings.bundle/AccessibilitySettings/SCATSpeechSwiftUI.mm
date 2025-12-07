@@ -9,7 +9,7 @@
 {
   sub_19B334();
   type metadata accessor for SCATSpeechView(0);
-  sub_16870C(&qword_2B8E30, type metadata accessor for SCATSpeechView);
+  sub_16870C(&qword_2B8E30, type metadata accessor for SCATSpeechView, &protocol conformance descriptor for SCATSpeechView);
   v2 = sub_19B344();
 
   return v2;

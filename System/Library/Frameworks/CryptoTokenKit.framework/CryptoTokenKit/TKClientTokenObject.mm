@@ -26,15 +26,14 @@
     if (accessControl)
     {
       v10 = 0;
-      v4 = *MEMORY[0x1E695E480];
       accessControl2 = [(TKClientTokenObject *)self accessControl];
-      v6 = SecAccessControlCreateFromData();
+      v5 = SecAccessControlCreateFromData();
       accessControlRef = self->_accessControlRef;
-      self->_accessControlRef = v6;
+      self->_accessControlRef = v5;
 
       if (!self->_accessControlRef)
       {
-        v8 = TK_LOG_client_1();
+        v8 = TK_LOG_client_1(v7);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           [(TKClientTokenObject *)&v10 accessControlRef];
@@ -169,15 +168,15 @@ LABEL_11:
 
 - (id)attestKey:(id)key nonce:(id)nonce error:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if (nonce)
   {
-    v16 = @"nonce";
-    v17[0] = nonce;
+    v15 = @"nonce";
+    v16[0] = nonce;
     v9 = MEMORY[0x1E695DF20];
     nonceCopy = nonce;
-    v11 = [v9 dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v11 = [v9 dictionaryWithObjects:v16 forKeys:&v15 count:1];
   }
 
   else
@@ -188,24 +187,22 @@ LABEL_11:
   v12 = [(TKClientTokenObject *)self operation:1000 data:keyCopy algorithms:MEMORY[0x1E695E0F0] parameters:v11 error:error];
   v13 = [(TKClientTokenObject *)self operationResult:v12 error:error];
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (id)attestKeyObject:(id)object nonce:(id)nonce error:(id *)error
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   nonceCopy = nonce;
-  v22 = @"attesteeSystemSession";
+  v21 = @"attesteeSystemSession";
   v10 = MEMORY[0x1E696AD98];
   session = [objectCopy session];
   parameters = [session parameters];
   v13 = [parameters objectForKeyedSubscript:@"forceSystemSession"];
   v14 = [v10 numberWithBool:{objc_msgSend(v13, "BOOLValue")}];
-  v23[0] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+  v22[0] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
   v16 = [v15 mutableCopy];
 
   if (nonceCopy)
@@ -216,8 +213,6 @@ LABEL_11:
   objectID = [objectCopy objectID];
   v18 = [(TKClientTokenObject *)self operation:1000 data:objectID algorithms:MEMORY[0x1E695E0F0] parameters:v16 error:error];
   v19 = [(TKClientTokenObject *)self operationResult:v18 error:error];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -254,16 +249,14 @@ LABEL_11:
 
 - (void)accessControlRef
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = *self;
   accessControl = [a2 accessControl];
-  v7 = 138543618;
-  v8 = v4;
-  v9 = 2114;
-  v10 = accessControl;
-  _os_log_error_impl(&dword_1DF413000, a3, OS_LOG_TYPE_ERROR, "Failed to create AC from data: %{public}@ (AC data: %{public}@)", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = v4;
+  v8 = 2114;
+  v9 = accessControl;
+  _os_log_error_impl(&dword_1DF413000, a3, OS_LOG_TYPE_ERROR, "Failed to create AC from data: %{public}@ (AC data: %{public}@)", &v6, 0x16u);
 }
 
 - (void)operationResult:(uint64_t)a3 error:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)

@@ -13,6 +13,7 @@
 - (id)accountControllerForService:(id)service;
 - (id)phoneNumberDisplayString;
 - (void)_cleanup;
+- (void)_notifySuccess:(BOOL)success error:(id)error;
 - (void)_updateCandidateAliases;
 - (void)_updateSelectionSummaryText;
 - (void)addSetupDictionary:(id)dictionary forService:(int64_t)service;
@@ -112,6 +113,24 @@ uint64_t __42__FTRegAppleIDSetupManager_sharedInstance__block_invoke()
   [(FTRegAppleIDSetupManager *)self setHandler:0];
 }
 
+- (void)_notifySuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  handler = [(FTRegAppleIDSetupManager *)self handler];
+
+  if (handler)
+  {
+    handler2 = [(FTRegAppleIDSetupManager *)self handler];
+    v8 = [handler2 copy];
+
+    [(FTRegAppleIDSetupManager *)self setHandler:0];
+    (v8)[2](v8, successCopy, errorCopy);
+  }
+
+  [(FTRegAppleIDSetupManager *)self _cleanup];
+}
+
 - (id)_appleID
 {
   v6 = 0;
@@ -169,51 +188,50 @@ void __36__FTRegAppleIDSetupManager__appleID__block_invoke(uint64_t a1, uint64_t
   return selfCopy;
 }
 
-void __61__FTRegAppleIDSetupManager__shouldAttemptAccountRegistration__block_invoke(uint64_t a1, void *a2)
+void __61__FTRegAppleIDSetupManager__shouldAttemptAccountRegistration__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = IDSParseAuthDictionary();
-  v5 = [v4 objectForKey:*MEMORY[0x277D187C0]];
-  v6 = [v3 intValue];
+  v21 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v5 = IDSParseAuthDictionary();
+  v6 = [v5 objectForKey:*MEMORY[0x277D187C0]];
+  v7 = [v4 intValue];
 
-  v7 = MEMORY[0x277D186B0];
-  if (v6 != 1)
+  v8 = MEMORY[0x277D186B0];
+  if (v7 != 1)
   {
-    v7 = MEMORY[0x277D18698];
+    v8 = MEMORY[0x277D18698];
   }
 
-  v8 = *v7;
-  v9 = [*(a1 + 32) accountControllerForService:v8];
-  v10 = [v9 serviceName];
-  v11 = [v9 accountWithLoginID:v5 service:v10];
+  v9 = *v8;
+  v10 = [*(a1 + 32) accountControllerForService:v9];
+  v11 = [v10 serviceName];
+  v12 = [v10 accountWithLoginID:v6 service:v11];
 
-  if (![v11 isActive] || objc_msgSend(v11, "registrationStatus") != 5)
+  v13 = [v12 isActive];
+  if (!v13 || (v13 = [v12 registrationStatus], v13 != 5))
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
 
-  v12 = csui_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = csui_log(v13, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     if (*(*(*(a1 + 40) + 8) + 24))
     {
-      v13 = @"YES";
+      v16 = @"YES";
     }
 
     else
     {
-      v13 = @"NO";
+      v16 = @"NO";
     }
 
-    v15 = 138412546;
-    v16 = v13;
-    v17 = 2112;
-    v18 = v11;
-    _os_log_impl(&dword_243BE5000, v12, OS_LOG_TYPE_DEFAULT, "Should attempt registration: %@ for account %@", &v15, 0x16u);
+    v17 = 138412546;
+    v18 = v16;
+    v19 = 2112;
+    v20 = v12;
+    _os_log_impl(&dword_243BE5000, v15, OS_LOG_TYPE_DEFAULT, "Should attempt registration: %@ for account %@", &v17, 0x16u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSetupDictionary:(id)dictionary forService:(int64_t)service
@@ -222,108 +240,105 @@ void __61__FTRegAppleIDSetupManager__shouldAttemptAccountRegistration__block_inv
   if (dictionary)
   {
     dictionaryCopy = dictionary;
-    v7 = csui_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = csui_log(dictionaryCopy, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 134217984;
       serviceCopy = service;
-      _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Adding setup dictionary for service type: %ld", &v11, 0xCu);
+      _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "Adding setup dictionary for service type: %ld", &v11, 0xCu);
     }
 
     [dictionaryCopy enumerateKeysAndObjectsUsingBlock:&__block_literal_global_57_0];
-    v8 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:service];
+    v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:service];
     setupOperations = [(FTRegAppleIDSetupManager *)self setupOperations];
-    [setupOperations setObject:dictionaryCopy forKey:v8];
+    [setupOperations setObject:dictionaryCopy forKey:v9];
 
     [(FTRegAppleIDSetupManager *)self _updateCandidateAliases];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __58__FTRegAppleIDSetupManager_addSetupDictionary_forService___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = [v4 isEqual:@"password"];
-  v7 = csui_log();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-  if (v6)
+  v7 = v6;
+  v9 = csui_log(v6, v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v7)
   {
-    if (v8)
+    if (v10)
     {
-      LOWORD(v13) = 0;
-      v9 = "  => password : REDACTED";
-      v10 = v7;
-      v11 = 2;
+      LOWORD(v14) = 0;
+      v11 = "  => password : REDACTED";
+      v12 = v9;
+      v13 = 2;
 LABEL_6:
-      _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_DEFAULT, v9, &v13, v11);
+      _os_log_impl(&dword_243BE5000, v12, OS_LOG_TYPE_DEFAULT, v11, &v14, v13);
     }
   }
 
-  else if (v8)
+  else if (v10)
   {
-    v13 = 138412546;
-    v14 = v4;
-    v15 = 2112;
-    v16 = v5;
-    v9 = "  => %@ : %@";
-    v10 = v7;
-    v11 = 22;
+    v14 = 138412546;
+    v15 = v4;
+    v16 = 2112;
+    v17 = v5;
+    v11 = "  => %@ : %@";
+    v12 = v9;
+    v13 = 22;
     goto LABEL_6;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldShowAliasSelectionUI
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if ([(FTRegAppleIDSetupManager *)self _shouldAttemptAccountRegistration])
+  v18 = *MEMORY[0x277D85DE8];
+  _shouldAttemptAccountRegistration = [(FTRegAppleIDSetupManager *)self _shouldAttemptAccountRegistration];
+  if (_shouldAttemptAccountRegistration)
   {
     candidateAliases = [(FTRegAppleIDSetupManager *)self candidateAliases];
-    v4 = _IDSCopyOrderedAliases();
-    v5 = [(__CFString *)v4 count];
-    v6 = csui_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v6 = _IDSCopyOrderedAliases();
+    v7 = [(__CFString *)v6 count];
+    v9 = csui_log(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v4;
-      _os_log_impl(&dword_243BE5000, v6, OS_LOG_TYPE_DEFAULT, "  => Squashed sorted candidates: %@", &v14, 0xCu);
+      v16 = 138412290;
+      v17 = v6;
+      _os_log_impl(&dword_243BE5000, v9, OS_LOG_TYPE_DEFAULT, "  => Squashed sorted candidates: %@", &v16, 0xCu);
     }
 
     showsPhoneNumberDisplayString = [(FTRegAppleIDSetupManager *)self showsPhoneNumberDisplayString];
-    v8 = 1;
+    v11 = 1;
     if (showsPhoneNumberDisplayString)
     {
-      v8 = 2;
+      v11 = 2;
     }
 
-    v9 = v5 > v8;
+    v12 = v7 > v11;
   }
 
   else
   {
-    v9 = 0;
+    v12 = 0;
   }
 
-  v10 = csui_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v13 = csui_log(_shouldAttemptAccountRegistration, v4);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = @"NO";
-    if (v9)
+    v14 = @"NO";
+    if (v12)
     {
-      v11 = @"YES";
+      v14 = @"YES";
     }
 
-    v14 = 138412290;
-    v15 = v11;
-    _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_DEFAULT, "shouldShowAliasSelectionUI: %@", &v14, 0xCu);
+    v16 = 138412290;
+    v17 = v14;
+    _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_DEFAULT, "shouldShowAliasSelectionUI: %@", &v16, 0xCu);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v12;
 }
 
 - (BOOL)shouldShowAliasSelectionUI
@@ -400,15 +415,15 @@ LABEL_6:
 
 - (void)_updateSelectionSummaryText
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   _appleID = [(FTRegAppleIDSetupManager *)self _appleID];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   selfCopy = self;
   selectedAliases = [(FTRegAppleIDSetupManager *)self selectedAliases];
-  v4 = [selectedAliases countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v4 = [selectedAliases countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (!v4)
   {
 
@@ -421,18 +436,18 @@ LABEL_27:
   v5 = v4;
   _appearsToBePhoneNumber = 0;
   v7 = 0;
-  v8 = *v42;
+  v8 = *v41;
   obj = selectedAliases;
   while (2)
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v42 != v8)
+      if (*v41 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v41 + 1) + 8 * i);
+      v10 = *(*(&v40 + 1) + 8 * i);
       v11 = CommunicationsSetupUIBundle();
       v12 = CNFRegStringTableName();
       v13 = [v11 localizedStringForKey:@"YOUR_NUMBER_STRING" value:&stru_2856D3978 table:v12];
@@ -486,7 +501,7 @@ LABEL_22:
     }
 
     v19 = obj;
-    v5 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+    v5 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
     if (v5)
     {
       continue;
@@ -559,14 +574,12 @@ LABEL_23:
   }
 
 LABEL_38:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCandidateAliases
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v3 = csui_log();
+  v43 = *MEMORY[0x277D85DE8];
+  v3 = csui_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -574,134 +587,133 @@ LABEL_38:
   }
 
   *buf = 0;
-  v28 = buf;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__2;
-  v31 = __Block_byref_object_dispose__2;
-  v32 = 0;
+  v35 = buf;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__2;
+  v38 = __Block_byref_object_dispose__2;
+  v39 = 0;
   v4 = objc_autoreleasePoolPush();
   setupOperations = [(FTRegAppleIDSetupManager *)self setupOperations];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __51__FTRegAppleIDSetupManager__updateCandidateAliases__block_invoke;
-  v26[3] = &unk_278DE8BB8;
-  v26[4] = buf;
-  [setupOperations enumerateKeysAndObjectsUsingBlock:v26];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __51__FTRegAppleIDSetupManager__updateCandidateAliases__block_invoke;
+  v33[3] = &unk_278DE8BB8;
+  v33[4] = buf;
+  [setupOperations enumerateKeysAndObjectsUsingBlock:v33];
 
   objc_autoreleasePoolPop(v4);
-  allObjects = [*(v28 + 5) allObjects];
+  allObjects = [*(v35 + 5) allObjects];
   v7 = _IDSCopyOrderedAliases();
 
-  v8 = csui_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-  {
-    v9 = *(v28 + 5);
-    *v34 = 138412290;
-    v35 = v9;
-    _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "Candidates: %@", v34, 0xCu);
-  }
-
-  v10 = csui_log();
+  v10 = csui_log(v8, v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    *v34 = 138412290;
-    v35 = v7;
-    _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_DEFAULT, "Sorted candidate aliases: %@", v34, 0xCu);
+    v11 = *(v35 + 5);
+    *v41 = 138412290;
+    v42 = v11;
+    _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_DEFAULT, "Candidates: %@", v41, 0xCu);
   }
 
-  v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = csui_log(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *v41 = 138412290;
+    v42 = v7;
+    _os_log_impl(&dword_243BE5000, v14, OS_LOG_TYPE_DEFAULT, "Sorted candidate aliases: %@", v41, 0xCu);
+  }
+
+  v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([(FTRegAppleIDSetupManager *)self showsPhoneNumberDisplayString])
   {
     phoneNumberDisplayString = [(FTRegAppleIDSetupManager *)self phoneNumberDisplayString];
-    [v11 addObject:phoneNumberDisplayString];
+    [v15 addObject:phoneNumberDisplayString];
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v13 = v7;
-  v14 = [v13 countByEnumeratingWithState:&v22 objects:v33 count:16];
-  if (v14)
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v17 = v7;
+  v18 = [v17 countByEnumeratingWithState:&v29 objects:v40 count:16];
+  if (v18)
   {
-    v15 = *v23;
+    v19 = *v30;
     do
     {
-      v16 = 0;
+      v20 = 0;
       do
       {
-        if (*v23 != v15)
+        if (*v30 != v19)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v17);
         }
 
-        _stripFZIDPrefix = [*(*(&v22 + 1) + 8 * v16) _stripFZIDPrefix];
+        _stripFZIDPrefix = [*(*(&v29 + 1) + 8 * v20) _stripFZIDPrefix];
         if ([_stripFZIDPrefix _appearsToBePhoneNumber])
         {
-          v18 = CNFRegFormattedPhoneNumberForString(_stripFZIDPrefix);
-          if ([v18 length] && (objc_msgSend(v11, "containsObject:", v18) & 1) == 0)
+          v22 = CNFRegFormattedPhoneNumberForString(_stripFZIDPrefix);
+          if ([v22 length] && (objc_msgSend(v15, "containsObject:", v22) & 1) == 0)
           {
-            [v11 addObject:v18];
+            [v15 addObject:v22];
           }
         }
 
-        else if (([v11 containsObject:_stripFZIDPrefix] & 1) == 0)
+        else if (([v15 containsObject:_stripFZIDPrefix] & 1) == 0)
         {
-          [v11 addObject:_stripFZIDPrefix];
+          [v15 addObject:_stripFZIDPrefix];
         }
 
-        ++v16;
+        ++v20;
       }
 
-      while (v14 != v16);
-      v14 = [v13 countByEnumeratingWithState:&v22 objects:v33 count:16];
+      while (v18 != v20);
+      v18 = [v17 countByEnumeratingWithState:&v29 objects:v40 count:16];
     }
 
-    while (v14);
+    while (v18);
   }
 
-  v19 = csui_log();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v25 = csui_log(v23, v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    *v34 = 138412290;
-    v35 = v11;
-    _os_log_impl(&dword_243BE5000, v19, OS_LOG_TYPE_DEFAULT, "Setting candidate aliases to: %@", v34, 0xCu);
+    *v41 = 138412290;
+    v42 = v15;
+    _os_log_impl(&dword_243BE5000, v25, OS_LOG_TYPE_DEFAULT, "Setting candidate aliases to: %@", v41, 0xCu);
   }
 
-  [(FTRegAppleIDSetupManager *)self setCandidateAliases:v11];
-  [(FTRegAppleIDSetupManager *)self setSelectedAliases:v11];
-  v20 = csui_log();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  [(FTRegAppleIDSetupManager *)self setCandidateAliases:v15];
+  v26 = [(FTRegAppleIDSetupManager *)self setSelectedAliases:v15];
+  v28 = csui_log(v26, v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    *v34 = 0;
-    _os_log_impl(&dword_243BE5000, v20, OS_LOG_TYPE_DEFAULT, "...Done", v34, 2u);
+    *v41 = 0;
+    _os_log_impl(&dword_243BE5000, v28, OS_LOG_TYPE_DEFAULT, "...Done", v41, 2u);
   }
 
   _Block_object_dispose(buf, 8);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-void __51__FTRegAppleIDSetupManager__updateCandidateAliases__block_invoke(uint64_t a1)
+void __51__FTRegAppleIDSetupManager__updateCandidateAliases__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = IDSParseAuthDictionary();
-  v2 = [v8 objectForKey:*MEMORY[0x277D187C8]];
-  v3 = [v2 __imArrayByApplyingBlock:&__block_literal_global_87_0];
+  v10 = IDSParseAuthDictionary();
+  v4 = [v10 objectForKey:*MEMORY[0x277D187C8]];
+  v5 = [v4 __imArrayByApplyingBlock:&__block_literal_global_87_0];
 
-  if (v3)
+  if (v5)
   {
-    v4 = *(*(*(a1 + 32) + 8) + 40);
-    if (v4)
+    v6 = *(*(*(a1 + 32) + 8) + 40);
+    if (v6)
     {
-      v5 = [MEMORY[0x277CBEB98] setWithArray:v3];
-      [v4 intersectSet:v5];
+      v7 = [MEMORY[0x277CBEB98] setWithArray:v5];
+      [v6 intersectSet:v7];
     }
 
     else
     {
-      v6 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:v3];
-      v7 = *(*(a1 + 32) + 8);
-      v5 = *(v7 + 40);
-      *(v7 + 40) = v6;
+      v8 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:v5];
+      v9 = *(*(a1 + 32) + 8);
+      v7 = *(v9 + 40);
+      *(v9 + 40) = v8;
     }
   }
 }
@@ -728,7 +740,7 @@ id __51__FTRegAppleIDSetupManager__updateCandidateAliases__block_invoke_2(uint64
 
 - (void)setSelectedAliases:(id)aliases
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   aliasesCopy = aliases;
   v5 = aliasesCopy;
   if (self->_selectedAliases != aliasesCopy)
@@ -737,65 +749,63 @@ id __51__FTRegAppleIDSetupManager__updateCandidateAliases__block_invoke_2(uint64
     selectedAliases = self->_selectedAliases;
     self->_selectedAliases = v6;
 
-    v8 = csui_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = csui_log(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "Set selected aliases: %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = v5;
+      _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_DEFAULT, "Set selected aliases: %@", &v11, 0xCu);
     }
 
     [(FTRegAppleIDSetupManager *)self _updateSelectionSummaryText];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)beginSetupWithCompletionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   [(FTRegAppleIDSetupManager *)self setHandler:handler];
   setupOperations = [(FTRegAppleIDSetupManager *)self setupOperations];
   v5 = [setupOperations count];
 
   if (v5)
   {
-    v6 = csui_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = csui_log(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       if ([(FTRegAppleIDSetupManager *)self _shouldShowAliasSelectionUI])
       {
-        v7 = @"YES";
+        v9 = @"YES";
       }
 
       else
       {
-        v7 = @"NO";
+        v9 = @"NO";
       }
 
       selectedAliases = [(FTRegAppleIDSetupManager *)self selectedAliases];
       *buf = 138412546;
-      v18 = v7;
-      v19 = 2112;
-      v20 = selectedAliases;
-      _os_log_impl(&dword_243BE5000, v6, OS_LOG_TYPE_DEFAULT, "Starting setup operation. Should show selection UI:%@  selectedAliases: %@", buf, 0x16u);
+      v19 = v9;
+      v20 = 2112;
+      v21 = selectedAliases;
+      _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "Starting setup operation. Should show selection UI:%@  selectedAliases: %@", buf, 0x16u);
     }
 
     setupOperations2 = [(FTRegAppleIDSetupManager *)self setupOperations];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __60__FTRegAppleIDSetupManager_beginSetupWithCompletionHandler___block_invoke_97;
+    v16[3] = &unk_278DE8C58;
+    v16[4] = self;
+    [setupOperations2 enumerateKeysAndObjectsUsingBlock:v16];
+
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
-    v15[2] = __60__FTRegAppleIDSetupManager_beginSetupWithCompletionHandler___block_invoke_97;
-    v15[3] = &unk_278DE8C58;
+    v15[2] = __60__FTRegAppleIDSetupManager_beginSetupWithCompletionHandler___block_invoke_104;
+    v15[3] = &unk_278DE7E08;
     v15[4] = self;
-    [setupOperations2 enumerateKeysAndObjectsUsingBlock:v15];
-
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __60__FTRegAppleIDSetupManager_beginSetupWithCompletionHandler___block_invoke_104;
-    v14[3] = &unk_278DE7E08;
-    v14[4] = self;
-    v10 = MEMORY[0x277D85CD0];
-    v11 = v14;
+    v12 = MEMORY[0x277D85CD0];
+    v13 = v15;
   }
 
   else
@@ -805,146 +815,144 @@ id __51__FTRegAppleIDSetupManager__updateCandidateAliases__block_invoke_2(uint64
     block[2] = __60__FTRegAppleIDSetupManager_beginSetupWithCompletionHandler___block_invoke;
     block[3] = &unk_278DE7E08;
     block[4] = self;
-    v10 = MEMORY[0x277D85CD0];
-    v11 = block;
+    v12 = MEMORY[0x277D85CD0];
+    v13 = block;
   }
 
-  dispatch_async(v10, v11);
-  v12 = *MEMORY[0x277D85DE8];
+  dispatch_async(v12, v13);
   return 1;
 }
 
-void __60__FTRegAppleIDSetupManager_beginSetupWithCompletionHandler___block_invoke_97(uint64_t a1, void *a2)
+void __60__FTRegAppleIDSetupManager_beginSetupWithCompletionHandler___block_invoke_97(uint64_t a1, void *a2, uint64_t a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = IDSParseAuthDictionary();
-  v5 = [v3 intValue];
+  v45 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v5 = IDSParseAuthDictionary();
+  v6 = [v4 intValue];
 
-  v6 = MEMORY[0x277D186B0];
-  if (v5 != 1)
+  v7 = MEMORY[0x277D186B0];
+  if (v6 != 1)
   {
-    v6 = MEMORY[0x277D18698];
+    v7 = MEMORY[0x277D18698];
   }
 
-  v7 = *v6;
-  v8 = [*(a1 + 32) accountControllerForService:v7];
-  v9 = [*(a1 + 32) selectedAliases];
+  v8 = *v7;
+  v9 = [*(a1 + 32) accountControllerForService:v8];
+  v10 = [*(a1 + 32) selectedAliases];
   if (![*(a1 + 32) showsPhoneNumberDisplayString])
   {
-    v10 = v9;
+    v11 = v10;
     goto LABEL_7;
   }
 
-  if ([v9 count] >= 2)
+  if ([v10 count] >= 2)
   {
-    v10 = [v9 subarrayWithRange:{1, objc_msgSend(v9, "count") - 1}];
+    v11 = [v10 subarrayWithRange:{1, objc_msgSend(v10, "count") - 1}];
 LABEL_7:
-    v11 = v10;
+    v12 = v11;
     goto LABEL_9;
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_9:
-  v12 = [v11 __imArrayByApplyingBlock:&__block_literal_global_99];
-  v13 = [MEMORY[0x277D07DB0] sharedInstance];
-  v14 = [v13 supportsSMSIdentification];
+  v13 = [v12 __imArrayByApplyingBlock:&__block_literal_global_99];
+  v14 = [MEMORY[0x277D07DB0] sharedInstance];
+  v15 = [v14 supportsSMSIdentification];
 
-  if (v14)
+  if (v15)
   {
-    if ([v12 count])
+    if ([v13 count])
     {
-      [v12 arrayByAddingObject:*MEMORY[0x277D18AB8]];
+      [v13 arrayByAddingObject:*MEMORY[0x277D18AB8]];
     }
 
     else
     {
-      v15 = *MEMORY[0x277D18AB8];
       IMSingleObjectArray();
     }
     v16 = ;
 
-    v12 = v16;
+    v13 = v16;
   }
 
-  v17 = [v4 objectForKey:*MEMORY[0x277D187C0]];
-  v18 = [v4 objectForKey:*MEMORY[0x277D187D0]];
-  v19 = csui_log();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v17 = [v5 objectForKey:*MEMORY[0x277D187C0]];
+  v18 = [v5 objectForKey:*MEMORY[0x277D187D0]];
+  v20 = csui_log(v18, v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v34 = v7;
-    v35 = 2112;
-    v36 = v17;
-    v37 = 2112;
-    v38 = v18;
+    v38 = v8;
     v39 = 2112;
-    v40 = v12;
-    _os_log_impl(&dword_243BE5000, v19, OS_LOG_TYPE_DEFAULT, " => Setting up service: %@   with apple id: %@  profile id: %@  aliases: %@", buf, 0x2Au);
+    v40 = v17;
+    v41 = 2112;
+    v42 = v18;
+    v43 = 2112;
+    v44 = v13;
+    _os_log_impl(&dword_243BE5000, v20, OS_LOG_TYPE_DEFAULT, " => Setting up service: %@   with apple id: %@  profile id: %@  aliases: %@", buf, 0x2Au);
   }
 
-  v20 = [v8 serviceName];
-  v21 = [v8 accountWithLoginID:v17 service:v20];
+  v21 = [v9 serviceName];
+  v22 = [v9 accountWithLoginID:v17 service:v21];
 
-  if ([v21 isActive] && objc_msgSend(v21, "registrationStatus") == 5)
+  v23 = [v22 isActive];
+  if (v23 && (v23 = [v22 registrationStatus], v23 == 5))
   {
-    v22 = csui_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v25 = csui_log(v23, v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v34 = v21;
-      v23 = " => Has existing registered account: %@";
-      v24 = v22;
-      v25 = 12;
+      v38 = v22;
+      v26 = " => Has existing registered account: %@";
+      v27 = v25;
+      v28 = 12;
 LABEL_25:
-      _os_log_impl(&dword_243BE5000, v24, OS_LOG_TYPE_DEFAULT, v23, buf, v25);
+      _os_log_impl(&dword_243BE5000, v27, OS_LOG_TYPE_DEFAULT, v26, buf, v28);
     }
   }
 
   else
   {
-    v26 = csui_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v29 = csui_log(v23, v24);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v34 = v21;
-      _os_log_impl(&dword_243BE5000, v26, OS_LOG_TYPE_DEFAULT, " => Existing account: %@", buf, 0xCu);
+      v38 = v22;
+      _os_log_impl(&dword_243BE5000, v29, OS_LOG_TYPE_DEFAULT, " => Existing account: %@", buf, 0xCu);
     }
 
-    if (![v21 isUserDisabled])
+    v30 = [v22 isUserDisabled];
+    if (!v30)
     {
-      v29 = v8;
-      v30 = v4;
-      v31 = v12;
-      v32 = v7;
-      v27 = dispatch_get_global_queue(21, 0);
+      v33 = v9;
+      v34 = v5;
+      v35 = v13;
+      v36 = v8;
+      v32 = dispatch_get_global_queue(21, 0);
       IDSRegistrationControlGetStateForRegistrationType();
 
-      v22 = v29;
+      v25 = v33;
       goto LABEL_27;
     }
 
-    v22 = csui_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v25 = csui_log(v30, v31);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v23 = " => Account was disabled by the user, not setting up...";
-      v24 = v22;
-      v25 = 2;
+      v26 = " => Account was disabled by the user, not setting up...";
+      v27 = v25;
+      v28 = 2;
       goto LABEL_25;
     }
   }
 
 LABEL_27:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __60__FTRegAppleIDSetupManager_beginSetupWithCompletionHandler___block_invoke_100(uint64_t a1, uint64_t a2)
 {
   if (a2 == 1)
   {
-    v2 = csui_log();
+    v2 = csui_log(a1, 1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *v7 = 0;
@@ -972,26 +980,24 @@ void __60__FTRegAppleIDSetupManager_beginSetupWithCompletionHandler___block_invo
 {
   v17 = *MEMORY[0x277D85DE8];
   v6 = a4;
-  v7 = csui_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = csui_log(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = @"NO";
+    v9 = *(a1 + 32);
+    v10 = @"NO";
     v11 = 138412802;
     if (a3)
     {
-      v9 = @"YES";
+      v10 = @"YES";
     }
 
-    v12 = v8;
+    v12 = v9;
     v13 = 2112;
-    v14 = v9;
+    v14 = v10;
     v15 = 2112;
     v16 = v6;
-    _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Got response from setup operation for service: %@. Success=%@, error=%@", &v11, 0x20u);
+    _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "Got response from setup operation for service: %@. Success=%@, error=%@", &v11, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

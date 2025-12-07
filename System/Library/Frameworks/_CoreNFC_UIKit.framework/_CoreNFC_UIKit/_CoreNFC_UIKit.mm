@@ -2,32 +2,26 @@ unint64_t NFCWindowSceneEvent.description.getter()
 {
   if (*v0)
   {
-    result = 0xD000000000000016;
+    return 0xD000000000000016;
   }
 
   else
   {
-    result = 0xD000000000000013;
+    return 0xD000000000000013;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t sub_23B6B6FB8()
 {
   if (*v0)
   {
-    result = 0x61746E6573657270;
+    return 0x61746E6573657270;
   }
 
   else
   {
-    result = 0x6544726564616572;
+    return 0x6544726564616572;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t sub_23B6B7008@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
@@ -78,10 +72,10 @@ uint64_t sub_23B6B7144(uint64_t a1)
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t sub_23B6B718C@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_23B6B718C@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
@@ -116,46 +110,42 @@ uint64_t sub_23B6B727C(uint64_t a1)
 uint64_t NFCWindowSceneEvent.encode(to:)(void *a1)
 {
   v3 = sub_23B6B7568(&qword_27E178BD0, &qword_23B6B8860);
-  v23 = *(v3 - 8);
-  v24 = v3;
-  v4 = (*(v23 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v19 = *(v3 - 8);
+  v20 = v3;
   MEMORY[0x28223BE20]();
-  v22 = &v20 - v5;
-  v6 = sub_23B6B7568(&qword_27E178BD8, &qword_23B6B8868);
-  v20 = *(v6 - 8);
-  v21 = v6;
-  v7 = (*(v20 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v18 = &v16 - v4;
+  v5 = sub_23B6B7568(&qword_27E178BD8, &qword_23B6B8868);
+  v16 = *(v5 - 8);
+  v17 = v5;
   MEMORY[0x28223BE20]();
-  v9 = &v20 - v8;
-  v10 = sub_23B6B7568(&qword_27E178BE0, &qword_23B6B8870);
-  v11 = *(v10 - 8);
-  v12 = (*(v11 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v7 = &v16 - v6;
+  v8 = sub_23B6B7568(&qword_27E178BE0, &qword_23B6B8870);
+  v9 = *(v8 - 8);
   MEMORY[0x28223BE20]();
-  v14 = &v20 - v13;
-  v15 = *v1;
-  v16 = a1[4];
+  v11 = &v16 - v10;
+  v12 = *v1;
   sub_23B6B75B0(a1, a1[3]);
   sub_23B6B75F4();
   sub_23B6B878C();
-  v17 = (v11 + 8);
-  if (v15)
+  v13 = (v9 + 8);
+  if (v12)
   {
-    v26 = 1;
+    v22 = 1;
     sub_23B6B7648();
-    v18 = v22;
+    v14 = v18;
     sub_23B6B872C();
-    (*(v23 + 8))(v18, v24);
+    (*(v19 + 8))(v14, v20);
   }
 
   else
   {
-    v25 = 0;
+    v21 = 0;
     sub_23B6B769C();
     sub_23B6B872C();
-    (*(v20 + 8))(v9, v21);
+    (*(v16 + 8))(v7, v17);
   }
 
-  return (*v17)(v14, v10);
+  return (*v13)(v11, v8);
 }
 
 uint64_t sub_23B6B7568(uint64_t *a1, uint64_t *a2)
@@ -163,7 +153,6 @@ uint64_t sub_23B6B7568(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -225,85 +214,80 @@ uint64_t NFCWindowSceneEvent.hashValue.getter()
   return sub_23B6B876C();
 }
 
-uint64_t NFCWindowSceneEvent.init(from:)@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t NFCWindowSceneEvent.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v36 = a2;
+  v30 = a2;
   v3 = sub_23B6B7568(&qword_27E178C00, &qword_23B6B8878);
   v4 = *(v3 - 8);
-  v33 = v3;
-  v34 = v4;
-  v5 = (*(v4 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v27 = v3;
+  v28 = v4;
   MEMORY[0x28223BE20]();
-  v7 = &v30 - v6;
-  v8 = sub_23B6B7568(&qword_27E178C08, &qword_23B6B8880);
-  v32 = *(v8 - 8);
-  v9 = (*(v32 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v6 = &v24 - v5;
+  v7 = sub_23B6B7568(&qword_27E178C08, &qword_23B6B8880);
+  v26 = *(v7 - 8);
   MEMORY[0x28223BE20]();
-  v11 = &v30 - v10;
-  v12 = sub_23B6B7568(&qword_27E178C10, &qword_23B6B8888);
-  v35 = *(v12 - 8);
-  v13 = (*(v35 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v9 = &v24 - v8;
+  v10 = sub_23B6B7568(&qword_27E178C10, &qword_23B6B8888);
+  v29 = *(v10 - 8);
   MEMORY[0x28223BE20]();
-  v15 = &v30 - v14;
-  v16 = a1[4];
+  v12 = &v24 - v11;
   sub_23B6B75B0(a1, a1[3]);
   sub_23B6B75F4();
-  v17 = v37;
+  v13 = v31;
   sub_23B6B877C();
-  if (v17)
+  if (v13)
   {
     goto LABEL_7;
   }
 
-  v31 = v8;
-  v37 = a1;
-  v19 = v35;
-  v18 = v36;
-  v20 = v15;
-  v21 = sub_23B6B871C();
-  if (*(v21 + 16) != 1)
+  v25 = v7;
+  v31 = a1;
+  v15 = v29;
+  v14 = v30;
+  v16 = v12;
+  v17 = sub_23B6B871C();
+  if (*(v17 + 16) != 1)
   {
-    v23 = sub_23B6B86EC();
+    v19 = sub_23B6B86EC();
     swift_allocError();
-    v25 = v24;
-    v26 = *(sub_23B6B7568(&qword_27E178C18, &qword_23B6B8890) + 48);
-    *v25 = &type metadata for NFCWindowSceneEvent;
+    v21 = v20;
+    sub_23B6B7568(&qword_27E178C18, &qword_23B6B8890);
+    *v21 = &type metadata for NFCWindowSceneEvent;
     sub_23B6B870C();
     sub_23B6B86DC();
-    (*(*(v23 - 8) + 104))(v25, *MEMORY[0x277D84160], v23);
+    (*(*(v19 - 8) + 104))(v21, *MEMORY[0x277D84160], v19);
     swift_willThrow();
-    (*(v19 + 8))(v20, v12);
+    (*(v15 + 8))(v16, v10);
     swift_unknownObjectRelease();
-    a1 = v37;
+    a1 = v31;
 LABEL_7:
-    v28 = a1;
-    return sub_23B6B7C44(v28);
+    v22 = a1;
+    return sub_23B6B7C44(v22);
   }
 
-  v30 = v21;
-  v22 = *(v21 + 32);
-  if (v22)
+  v24 = v17;
+  v18 = *(v17 + 32);
+  if (v18)
   {
-    v39 = 1;
+    v33 = 1;
     sub_23B6B7648();
     sub_23B6B86FC();
-    (*(v34 + 8))(v7, v33);
+    (*(v28 + 8))(v6, v27);
   }
 
   else
   {
-    v27 = *(v21 + 32);
-    v38 = 0;
+    v32 = 0;
     sub_23B6B769C();
     sub_23B6B86FC();
-    (*(v32 + 8))(v11, v31);
+    (*(v26 + 8))(v9, v25);
   }
 
-  (*(v19 + 8))(v20, v12);
+  (*(v15 + 8))(v16, v10);
   swift_unknownObjectRelease();
-  *v18 = v22;
-  v28 = v37;
-  return sub_23B6B7C44(v28);
+  *v14 = v18;
+  v22 = v31;
+  return sub_23B6B7C44(v22);
 }
 
 uint64_t sub_23B6B7BB8()
@@ -314,39 +298,38 @@ uint64_t sub_23B6B7BB8()
   return sub_23B6B876C();
 }
 
-uint64_t sub_23B6B7C00()
+uint64_t sub_23B6B7C00(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_23B6B874C();
-  MEMORY[0x23EEA2DD0](v1);
+  MEMORY[0x23EEA2DD0](v2);
   return sub_23B6B876C();
 }
 
-uint64_t sub_23B6B7C44(uint64_t *a1)
+uint64_t sub_23B6B7C44(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 unint64_t sub_23B6B7CC0()
 {
   if (*v0)
   {
-    result = 0xD000000000000016;
+    return 0xD000000000000016;
   }
 
   else
   {
-    result = 0xD000000000000013;
+    return 0xD000000000000013;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t UISceneConnectionOptions.nfcEvent.getter()
@@ -381,22 +364,15 @@ uint64_t sub_23B6B7DBC@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_23B6B7E4C(uint64_t *a1)
+uint64_t sub_23B6B7E4C(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *a1;
-  v1 = a1[1];
-  v3 = swift_allocObject();
-  *(v3 + 16) = v2;
-  *(v3 + 24) = v1;
+  v6 = *a1;
+  v5 = a1[1];
+  v7 = swift_allocObject();
+  *(v7 + 16) = v6;
+  *(v7 + 24) = v5;
 
   sub_23B6B86BC();
-}
-
-uint64_t NFCWindowSceneEvent.asBSAction()()
-{
-  v2 = *v0;
-  sub_23B6B7D4C();
-  return sub_23B6B868C();
 }
 
 unint64_t sub_23B6B7F58()
@@ -683,7 +659,6 @@ unint64_t sub_23B6B8444()
 
 uint64_t sub_23B6B8498()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -691,9 +666,8 @@ uint64_t sub_23B6B8498()
 uint64_t sub_23B6B84D0(uint64_t a1)
 {
   v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  v5 = a1;
-  return v2(&v5);
+  v4 = a1;
+  return v2(&v4);
 }
 
 uint64_t sub_23B6B8508(uint64_t a1, uint64_t a2)
@@ -730,11 +704,4 @@ uint64_t sub_23B6B85BC(uint64_t a1, char *a2)
   sub_23B6B75B0(v2 + 2, v5);
   v8 = v4;
   return (*(v6 + 8))(a1, &v8, v5, v6);
-}
-
-uint64_t sub_23B6B8634(void *a1)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  return v2(*a1);
 }

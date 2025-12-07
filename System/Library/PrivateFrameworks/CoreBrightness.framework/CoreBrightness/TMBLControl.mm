@@ -175,7 +175,7 @@ LABEL_23:
   return v4 & 1;
 }
 
-uint64_t __20__TMBLControl_start__block_invoke(uint64_t a1)
+void *__20__TMBLControl_start__block_invoke(uint64_t a1)
 {
   v11 = a1;
   v10 = a1;
@@ -352,66 +352,63 @@ uint64_t __19__TMBLControl_stop__block_invoke(uint64_t a1)
 
   v6 = v19[5];
   _Block_object_dispose(&v18, 8);
-  *MEMORY[0x1E69E9840];
   return v6;
 }
 
 void __42__TMBLControl_copyPropertyWithKey_client___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v18 = a1;
-  v17 = a1;
+  v18 = *MEMORY[0x1E69E9840];
+  v15 = a1;
+  v14 = a1;
   *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) copyPropertyInternalForKey:*(a1 + 40)];
   if (!*(*(*(a1 + 56) + 8) + 40))
   {
-    v11 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v16 = [objc_msgSend(*(a1 + 40) "getKeyDisplayIDRef")];
-      v15 = [*(*(a1 + 32) + 216) objectForKey:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", v16)}];
-      if (v15)
+      v13 = [objc_msgSend(*(a1 + 40) "getKeyDisplayIDRef")];
+      v12 = [*(*(a1 + 32) + 216) objectForKey:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", v13)}];
+      if (v12)
       {
-        *(*(*(a1 + 56) + 8) + 40) = [v15 copyPropertyForKey:{objc_msgSend(*(a1 + 40), "getKeyString")}];
+        *(*(*(a1 + 56) + 8) + 40) = [v12 copyPropertyForKey:{objc_msgSend(*(a1 + 40), "getKeyString")}];
       }
     }
 
     else
     {
-      v10 = *(a1 + 40);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         memset(__b, 0, sizeof(__b));
         obj = [*(*(a1 + 32) + 216) allValues];
-        v9 = [obj countByEnumeratingWithState:__b objects:v20 count:16];
-        if (v9)
+        v8 = [obj countByEnumeratingWithState:__b objects:v17 count:16];
+        if (v8)
         {
-          v5 = *__b[2];
-          v6 = 0;
-          v7 = v9;
+          v4 = *__b[2];
+          v5 = 0;
+          v6 = v8;
           while (1)
           {
-            v4 = v6;
-            if (*__b[2] != v5)
+            v3 = v5;
+            if (*__b[2] != v4)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = 0;
-            v14 = *(__b[1] + 8 * v6);
-            *(*(*(a1 + 56) + 8) + 40) = [v14 copyPropertyForKey:*(a1 + 40)];
+            v11 = 0;
+            v11 = *(__b[1] + 8 * v5);
+            *(*(*(a1 + 56) + 8) + 40) = [v11 copyPropertyForKey:*(a1 + 40)];
             if (*(*(*(a1 + 56) + 8) + 40))
             {
               break;
             }
 
-            ++v6;
-            if (v4 + 1 >= v7)
+            ++v5;
+            if (v3 + 1 >= v6)
             {
-              v6 = 0;
-              v7 = [obj countByEnumeratingWithState:__b objects:v20 count:16];
-              if (!v7)
+              v5 = 0;
+              v6 = [obj countByEnumeratingWithState:__b objects:v17 count:16];
+              if (!v6)
               {
                 break;
               }
@@ -424,7 +421,6 @@ void __42__TMBLControl_copyPropertyWithKey_client___block_invoke(uint64_t a1)
 
   if (!*(*(*(a1 + 56) + 8) + 40))
   {
-    v3 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -451,13 +447,11 @@ void __42__TMBLControl_copyPropertyWithKey_client___block_invoke(uint64_t a1)
 
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_64_8_64(v19, *(a1 + 40), *(*(*(a1 + 56) + 8) + 40));
-        _os_log_debug_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_DEBUG, "simple key=%@ result=%@", v19, 0x16u);
+        __os_log_helper_16_2_2_8_64_8_64(v16, *(a1 + 40), *(*(*(a1 + 56) + 8) + 40));
+        _os_log_debug_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_DEBUG, "simple key=%@ result=%@", v16, 0x16u);
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setInternalPropertyWithKey:(id)key property:(id)property
@@ -500,7 +494,7 @@ void __42__TMBLControl_copyPropertyWithKey_client___block_invoke(uint64_t a1)
   return v7 & 1;
 }
 
-uint64_t __50__TMBLControl_setPropertyWithKey_property_client___block_invoke(uint64_t a1)
+void *__50__TMBLControl_setPropertyWithKey_property_client___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _setPropertyWithKey:*(a1 + 40) property:*(a1 + 48) client:*(a1 + 56)];
   *(*(*(a1 + 64) + 8) + 24) = result;
@@ -593,7 +587,6 @@ uint64_t __50__TMBLControl_setPropertyWithKey_property_client___block_invoke(uin
     _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "key=%@ property=%@ result=%d", v25, 0x1Cu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -672,7 +665,7 @@ uint64_t __50__TMBLControl_setPropertyWithKey_property_client___block_invoke(uin
       }
     }
 
-    v27 = v24 & 1;
+    return v24 & 1;
   }
 
   else
@@ -707,11 +700,8 @@ uint64_t __50__TMBLControl_setPropertyWithKey_property_client___block_invoke(uin
       _os_log_error_impl(&dword_1DE8E5000, log, type, "CAWindowServer is not running", v20, 2u);
     }
 
-    v27 = v24 & 1;
+    return v24 & 1;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v27 & 1;
 }
 
 - (BOOL)useSyncBrightnessTransactionForDisplay:(id)display
@@ -750,7 +740,6 @@ uint64_t __50__TMBLControl_setPropertyWithKey_property_client___block_invoke(uin
     _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Display ID: %d, UseSyncBrightnessTransactionForDisplay: %d", v9, 0xEu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -852,7 +841,6 @@ uint64_t __50__TMBLControl_setPropertyWithKey_property_client___block_invoke(uin
   }
 
   MEMORY[0x1E69E5920](v22);
-  *MEMORY[0x1E69E9840];
   return v23 & 1;
 }
 
@@ -861,46 +849,41 @@ uint64_t __50__TMBLControl_setPropertyWithKey_property_client___block_invoke(uin
   v11 = *MEMORY[0x1E69E9840];
   v7 = 1;
   v6 = -[NSMutableDictionary objectForKey:](self->_displays, "objectForKey:", [MEMORY[0x1E696AD98] numberWithInt:d]);
-  if (v6)
+  if (!v6)
   {
-    if (self->_logHandle)
-    {
-      logHandle = self->_logHandle;
-    }
+    return 0;
+  }
 
-    else
-    {
-      if (_COREBRIGHTNESS_LOG_DEFAULT)
-      {
-        inited = _COREBRIGHTNESS_LOG_DEFAULT;
-      }
-
-      else
-      {
-        inited = init_default_corebrightness_log();
-      }
-
-      logHandle = inited;
-    }
-
-    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
-    {
-      __os_log_helper_16_2_2_8_64_4_0(v10, v6, d);
-      _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Removing container %@ for ID %d", v10, 0x12u);
-    }
-
-    [v6 stop];
-    [v6 unregisterNotificationBlock];
-    -[NSMutableDictionary removeObjectForKey:](self->_displays, "removeObjectForKey:", [MEMORY[0x1E696AD98] numberWithInt:d]);
+  if (self->_logHandle)
+  {
+    logHandle = self->_logHandle;
   }
 
   else
   {
-    v7 = 0;
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      inited = _COREBRIGHTNESS_LOG_DEFAULT;
+    }
+
+    else
+    {
+      inited = init_default_corebrightness_log();
+    }
+
+    logHandle = inited;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v7 & 1;
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    __os_log_helper_16_2_2_8_64_4_0(v10, v6, d);
+    _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Removing container %@ for ID %d", v10, 0x12u);
+  }
+
+  [v6 stop];
+  [v6 unregisterNotificationBlock];
+  -[NSMutableDictionary removeObjectForKey:](self->_displays, "removeObjectForKey:", [MEMORY[0x1E696AD98] numberWithInt:d]);
+  return v7;
 }
 
 - (void)clearDisplaySet
@@ -942,7 +925,6 @@ uint64_t __50__TMBLControl_setPropertyWithKey_property_client___block_invoke(uin
   }
 
   [(NSMutableDictionary *)selfCopy->_displays removeAllObjects];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)registerNotificationBlock:(id)block
@@ -1001,8 +983,6 @@ void __41__TMBLControl_registerNotificationBlock___block_invoke(uint64_t a1)
 
 double __43__TMBLControl_callBlockWithProperty_value___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
   _Block_release(*(a1 + 48));
   MEMORY[0x1E69E5920](*(a1 + 32));
@@ -1061,7 +1041,6 @@ double __43__TMBLControl_callBlockWithProperty_value___block_invoke(uint64_t a1)
   }
 
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -1082,12 +1061,12 @@ double __43__TMBLControl_callBlockWithProperty_value___block_invoke(uint64_t a1)
   dispatch_async(queue, &v5);
 }
 
-void __67__TMBLControl_scheduleDisplayModeCompletionTimerIn_forDisplayMode___block_invoke(uint64_t a1)
+double __67__TMBLControl_scheduleDisplayModeCompletionTimerIn_forDisplayMode___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 192))
   {
-    v2 = *(*(a1 + 32) + 192);
+    v3 = *(*(a1 + 32) + 192);
   }
 
   else
@@ -1102,19 +1081,19 @@ void __67__TMBLControl_scheduleDisplayModeCompletionTimerIn_forDisplayMode___blo
       inited = init_default_corebrightness_log();
     }
 
-    v2 = inited;
+    v3 = inited;
   }
 
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    __os_log_helper_16_2_1_8_66(v5, [CBDisplayStateUtilities stringForDisplayMode:*(a1 + 40)]);
-    _os_log_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_DEFAULT, "[Display Mode] didCompleteTransitionToDisplayMode %{public}@", v5, 0xCu);
+    __os_log_helper_16_2_1_8_66(v6, [CBDisplayStateUtilities stringForDisplayMode:*(a1 + 40)]);
+    _os_log_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_DEFAULT, "[Display Mode] didCompleteTransitionToDisplayMode %{public}@", v6, 0xCu);
   }
 
-  v4 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInteger:*(a1 + 40)];
-  [*(a1 + 32) sendSyncNotificationFor:@"DisplayModeChangeComplete" withValue:v4];
-  MEMORY[0x1E69E5920](v4);
-  *MEMORY[0x1E69E9840];
+  v5 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInteger:*(a1 + 40)];
+  [*(a1 + 32) sendSyncNotificationFor:@"DisplayModeChangeComplete" withValue:v5];
+  *&result = MEMORY[0x1E69E5920](v5).n128_u64[0];
+  return result;
 }
 
 - (void)sendSyncNotificationFor:(id)for withValue:(id)value
@@ -1152,8 +1131,6 @@ void __67__TMBLControl_scheduleDisplayModeCompletionTimerIn_forDisplayMode___blo
   {
     (*(self->_callback + 2))();
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)sendNotificationFor:(id)for withValue:(id)value

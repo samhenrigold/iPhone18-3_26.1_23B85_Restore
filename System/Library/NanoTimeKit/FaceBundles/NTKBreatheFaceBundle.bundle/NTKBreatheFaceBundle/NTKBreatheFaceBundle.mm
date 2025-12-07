@@ -73,28 +73,28 @@ void sub_F44(uint64_t a1)
   qword_CB68 = v6;
 }
 
-id sub_1170()
+id sub_1170(uint64_t a1)
 {
   if (qword_CB80 != -1)
   {
     sub_2D0C();
   }
 
-  v1 = qword_CB78;
+  v2 = qword_CB78;
 
-  return v1;
+  return v2;
 }
 
-id sub_151C()
+id sub_151C(uint64_t a1)
 {
   if (qword_CBC0 != -1)
   {
     sub_2D34();
   }
 
-  v1 = qword_CBB8;
+  v2 = qword_CBB8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A40(id a1)
@@ -157,7 +157,7 @@ void sub_1B40(uint64_t a1, void *a2)
 void sub_1C1C(id a1, UIGraphicsImageRendererContext *a2)
 {
   v2 = a2;
-  v3 = sub_151C();
+  v3 = sub_151C(v2);
   v4 = [v3 colorWithAlphaComponent:0.235294118];
   [v4 setFill];
 

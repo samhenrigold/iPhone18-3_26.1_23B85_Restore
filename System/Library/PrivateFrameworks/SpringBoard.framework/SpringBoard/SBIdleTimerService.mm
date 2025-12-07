@@ -537,10 +537,10 @@ LABEL_3:
   return v8;
 }
 
-void __44__SBIdleTimerService_handleIdleTimerDidWarn__block_invoke(uint64_t a1)
+void __44__SBIdleTimerService_handleIdleTimerDidWarn__block_invoke(void *a1)
 {
   v2 = [objc_opt_class() _sharedIdleTimerStateServiceIfExists];
-  *(*(*(a1 + 48) + 8) + 24) = [v2 clientConfiguration:*(a1 + 40) handleIdleEvent:1];
+  *(*(a1[6] + 8) + 24) = [v2 clientConfiguration:a1[5] handleIdleEvent:1];
 }
 
 - (BOOL)handleIdleTimerDidExpire
@@ -603,10 +603,10 @@ LABEL_3:
   return v8;
 }
 
-void __46__SBIdleTimerService_handleIdleTimerDidExpire__block_invoke(uint64_t a1)
+void __46__SBIdleTimerService_handleIdleTimerDidExpire__block_invoke(void *a1)
 {
   v2 = [objc_opt_class() _sharedIdleTimerStateServiceIfExists];
-  *(*(*(a1 + 48) + 8) + 24) = [v2 clientConfiguration:*(a1 + 40) handleIdleEvent:2];
+  *(*(a1[6] + 8) + 24) = [v2 clientConfiguration:a1[5] handleIdleEvent:2];
 }
 
 - (BOOL)handleIdleTimerUserAttentionDidReset
@@ -669,10 +669,10 @@ LABEL_3:
   return v8;
 }
 
-void __58__SBIdleTimerService_handleIdleTimerUserAttentionDidReset__block_invoke(uint64_t a1)
+void __58__SBIdleTimerService_handleIdleTimerUserAttentionDidReset__block_invoke(void *a1)
 {
   v2 = [objc_opt_class() _sharedIdleTimerStateServiceIfExists];
-  *(*(*(a1 + 48) + 8) + 24) = [v2 clientConfiguration:*(a1 + 40) handleIdleEvent:4];
+  *(*(a1[6] + 8) + 24) = [v2 clientConfiguration:a1[5] handleIdleEvent:4];
 }
 
 - (void)_addClientRequestConfiguration:(id)configuration forReason:(id)reason

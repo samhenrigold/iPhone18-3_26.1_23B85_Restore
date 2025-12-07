@@ -1,8 +1,10 @@
 @interface NPKProtoRemotePassActionEnvelope
 - (BOOL)isEqual:(id)equal;
+- (id)cardTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)messageTypeAsString:(int)string;
 - (int)StringAsCardType:(id)type;
 - (int)StringAsMessageType:(id)type;
 - (int)cardType;
@@ -13,6 +15,21 @@
 @end
 
 @implementation NPKProtoRemotePassActionEnvelope
+
+- (id)messageTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279949420[string];
+  }
+
+  return v4;
+}
 
 - (int)StringAsMessageType:(id)type
 {
@@ -51,6 +68,21 @@
   {
     return 0;
   }
+}
+
+- (id)cardTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279949438[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCardType:(id)type
@@ -165,9 +197,7 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  version = self->_version;
   PBDataWriterWriteUint32Field();
-  messageType = self->_messageType;
   PBDataWriterWriteInt32Field();
   if (!self->_messageProtoData)
   {
@@ -175,7 +205,6 @@
   }
 
   PBDataWriterWriteDataField();
-  isResponse = self->_isResponse;
   PBDataWriterWriteBOOLField();
   if (self->_caption)
   {
@@ -187,24 +216,23 @@
     PBDataWriterWriteStringField();
   }
 
-  v7 = toCopy;
+  v4 = toCopy;
   if (self->_summaryText)
   {
     PBDataWriterWriteStringField();
-    v7 = toCopy;
+    v4 = toCopy;
   }
 
   if (self->_passOrganizationName)
   {
     PBDataWriterWriteStringField();
-    v7 = toCopy;
+    v4 = toCopy;
   }
 
   if (*&self->_has)
   {
-    cardType = self->_cardType;
     PBDataWriterWriteInt32Field();
-    v7 = toCopy;
+    v4 = toCopy;
   }
 }
 
@@ -309,7 +337,6 @@
     }
   }
 
-  v6 = *(equalCopy + 68);
   if (self->_isResponse)
   {
     if ((*(equalCopy + 68) & 1) == 0)
@@ -321,7 +348,7 @@
   else if (*(equalCopy + 68))
   {
 LABEL_22:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_23;
   }
 
@@ -358,7 +385,7 @@ LABEL_22:
     }
   }
 
-  v11 = (*(equalCopy + 72) & 1) == 0;
+  v10 = (*(equalCopy + 72) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 72) & 1) == 0 || self->_cardType != *(equalCopy + 4))
@@ -366,12 +393,12 @@ LABEL_22:
       goto LABEL_22;
     }
 
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_23:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash

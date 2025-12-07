@@ -21,7 +21,7 @@
 
 + (id)localizedMenuString:(int)string
 {
-  v3 = KNBundle();
+  v3 = KNBundle(self);
   v4 = [v3 localizedStringForKey:@"Blur *BlurBuild*" value:@"Blur" table:@"Keynote"];
 
   return v4;
@@ -42,7 +42,7 @@
   {
     v8 = *&type;
     *name = @"apple:dissolve";
-    v13 = KNBundle();
+    v13 = KNBundle(self);
     v11 = [v13 localizedStringForKey:@"%@ builds were exported as Dissolve." value:&stru_471858 table:@"Keynote"];
     v12 = [self localizedMenuString:v8];
     *warning = [NSString stringWithFormat:v11, v12];
@@ -222,7 +222,7 @@
   self->_animationRect.origin = self->_drawableFrame.origin;
   self->_animationRect.size = size;
   p_projectionMatrix = &self->_projectionMatrix;
-  [(KNAnimationEffect *)self perspectiveMVPMatrixWithContext:contextCopy];
+  objc_msgSend_perspectiveMVPMatrixWithContext_(self);
   v11 = v61;
   *&self->_projectionMatrix.m31 = v60;
   *&self->_projectionMatrix.m33 = v11;

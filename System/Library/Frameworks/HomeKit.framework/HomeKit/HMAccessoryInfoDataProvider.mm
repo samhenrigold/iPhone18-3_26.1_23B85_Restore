@@ -36,7 +36,7 @@
 
 - (id)dataSourceHomeWithHomeIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dataSource = [(HMAccessoryInfoDataProvider *)self dataSource];
   v6 = dataSource;
@@ -53,23 +53,21 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to data source home UUID due to no data source", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to data source home UUID due to no data source", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (void)notifyDelegateDidReceiveAccountInfoUpdatesForAccessoryWithIdentifier:(id)identifier primaryUserInfo:(id)info
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   infoCopy = info;
   delegate = [(HMAccessoryInfoDataProvider *)self delegate];
@@ -79,15 +77,15 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v14 = 138544130;
-    v15 = v12;
-    v16 = 2112;
-    v17 = identifierCopy;
-    v18 = 2112;
-    v19 = infoCopy;
-    v20 = 2112;
-    v21 = delegate;
-    _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying client of did receive primaryUserInfo updates for accessory with identifier: %@ primaryUser: %@ delegate: %@", &v14, 0x2Au);
+    v13 = 138544130;
+    v14 = v12;
+    v15 = 2112;
+    v16 = identifierCopy;
+    v17 = 2112;
+    v18 = infoCopy;
+    v19 = 2112;
+    v20 = delegate;
+    _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying client of did receive primaryUserInfo updates for accessory with identifier: %@ primaryUser: %@ delegate: %@", &v13, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -95,13 +93,11 @@
   {
     [delegate accessoryInfoDataProvider:selfCopy didReceiveUpdatesForAccessoryWithIdentifier:identifierCopy primaryUserInfo:infoCopy];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyDelegateDidReceiveAccountInfoUpdatesForAccessoryWithIdentifier:(id)identifier accountInfo:(id)info
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   infoCopy = info;
   delegate = [(HMAccessoryInfoDataProvider *)self delegate];
@@ -111,15 +107,15 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v14 = 138544130;
-    v15 = v12;
-    v16 = 2112;
-    v17 = identifierCopy;
-    v18 = 2112;
-    v19 = infoCopy;
-    v20 = 2112;
-    v21 = delegate;
-    _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying client of did receive account info updates for accessory with identifier: %@ accountInfo: %@ delegate: %@", &v14, 0x2Au);
+    v13 = 138544130;
+    v14 = v12;
+    v15 = 2112;
+    v16 = identifierCopy;
+    v17 = 2112;
+    v18 = infoCopy;
+    v19 = 2112;
+    v20 = delegate;
+    _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying client of did receive account info updates for accessory with identifier: %@ accountInfo: %@ delegate: %@", &v13, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -127,13 +123,11 @@
   {
     [delegate accessoryInfoDataProvider:selfCopy didReceiveUpdatesForAccessoryWithIdentifier:identifierCopy accountInfo:infoCopy];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyDelegateDidReceiveWifiNetworkInfoUpdatesForAccessoryWithIdentifier:(id)identifier wifiNetworkInfo:(id)info
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   infoCopy = info;
   delegate = [(HMAccessoryInfoDataProvider *)self delegate];
@@ -144,17 +138,17 @@
   {
     v12 = HMFGetLogIdentifier();
     sSID = [infoCopy SSID];
-    v15 = 138544386;
-    v16 = v12;
-    v17 = 2112;
-    v18 = identifierCopy;
-    v19 = 2112;
-    v20 = infoCopy;
-    v21 = 2112;
-    v22 = sSID;
-    v23 = 2112;
-    v24 = delegate;
-    _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Notifying client of did receive wifi network info updates for accessory with identifier: %@ wifi: %@ WiFi SSID: %@ delegate: %@", &v15, 0x34u);
+    v14 = 138544386;
+    v15 = v12;
+    v16 = 2112;
+    v17 = identifierCopy;
+    v18 = 2112;
+    v19 = infoCopy;
+    v20 = 2112;
+    v21 = sSID;
+    v22 = 2112;
+    v23 = delegate;
+    _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Notifying client of did receive wifi network info updates for accessory with identifier: %@ wifi: %@ WiFi SSID: %@ delegate: %@", &v14, 0x34u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -162,13 +156,11 @@
   {
     [delegate accessoryInfoDataProvider:selfCopy didReceiveUpdatesForAccessoryWithIdentifier:identifierCopy wifiNetworkInfo:infoCopy];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didReceiveEvent:(id)event topic:(id)topic logMessage:(id)message
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   topicCopy = topic;
   messageCopy = message;
@@ -179,13 +171,13 @@
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v81 = v14;
-    v82 = 2112;
-    v83 = eventCopy;
-    v84 = 2112;
-    v85 = topicCopy;
-    v86 = 2112;
-    v87 = messageCopy;
+    v80 = v14;
+    v81 = 2112;
+    v82 = eventCopy;
+    v83 = 2112;
+    v84 = topicCopy;
+    v85 = 2112;
+    v86 = messageCopy;
     _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Received event: %@, topic: %@ %@", buf, 0x2Au);
   }
 
@@ -204,7 +196,7 @@
 
       if (v20)
       {
-        v72 = eventCopy;
+        v71 = eventCopy;
         hmfWifiNetworkInfo = [(HMAccessoryInfoWifiInfo *)v20 hmfWifiNetworkInfo];
         v22 = objc_autoreleasePoolPush();
         v23 = selfCopy;
@@ -212,38 +204,38 @@
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           HMFGetLogIdentifier();
-          v25 = v69 = dataSource;
+          v25 = v68 = dataSource;
           [(HMAccessoryInfoDataProvider *)v23 delegate];
           v27 = v26 = messageCopy;
           *buf = 138544130;
-          v81 = v25;
-          v82 = 2112;
-          v83 = hmfWifiNetworkInfo;
-          v84 = 2112;
-          v85 = 0;
-          v86 = 2112;
-          v87 = v27;
+          v80 = v25;
+          v81 = 2112;
+          v82 = hmfWifiNetworkInfo;
+          v83 = 2112;
+          v84 = 0;
+          v85 = 2112;
+          v86 = v27;
           _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Modified setting:%@, error:%@, delegate:%@", buf, 0x2Au);
 
           messageCopy = v26;
-          dataSource = v69;
+          dataSource = v68;
         }
 
         objc_autoreleasePoolPop(v22);
         if (hmfWifiNetworkInfo)
         {
-          v68 = topicCopy;
-          v70 = messageCopy;
+          v67 = topicCopy;
+          v69 = messageCopy;
           homeUUID = [asAccessoryTopic homeUUID];
           accessoryUUID = [asAccessoryTopic accessoryUUID];
           v30 = dataSource;
           v31 = accessoryUUID;
+          v77 = 0;
           v78 = 0;
-          v79 = 0;
           v32 = v30;
-          v33 = [v30 accessoryInfoDataProvider:v23 transformHomeUUID:homeUUID accessoryUUID:accessoryUUID toClientHomeIdentifier:&v79 clientAccessoryIdentifier:&v78];
-          v34 = v79;
-          v35 = v78;
+          v33 = [v30 accessoryInfoDataProvider:v23 transformHomeUUID:homeUUID accessoryUUID:accessoryUUID toClientHomeIdentifier:&v78 clientAccessoryIdentifier:&v77];
+          v34 = v78;
+          v35 = v77;
 
           if (v33)
           {
@@ -251,8 +243,8 @@
           }
 
           dataSource = v32;
-          topicCopy = v68;
-          messageCopy = v70;
+          topicCopy = v67;
+          messageCopy = v69;
         }
 
         else
@@ -261,7 +253,7 @@
           v35 = 0;
         }
 
-        eventCopy = v72;
+        eventCopy = v71;
         goto LABEL_41;
       }
 
@@ -272,7 +264,7 @@
       {
         v63 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v81 = v63;
+        v80 = v63;
         _os_log_impl(&dword_19BB39000, v46, OS_LOG_TYPE_ERROR, "%{public}@Received event cannot be decoded to wifi network info object", buf, 0xCu);
       }
 
@@ -281,9 +273,9 @@
 
     if ([asAccessoryTopic accessoryEventTopicSuffixID] == 510)
     {
-      v71 = messageCopy;
+      v70 = messageCopy;
       v40 = [HMAccessoryInfoAccount alloc];
-      v73 = eventCopy;
+      v72 = eventCopy;
       encodedData2 = [(HMAccessoryInfoAccount *)eventCopy encodedData];
       v42 = [(HMAccessoryInfoAccount *)v40 initWithProtoData:encodedData2];
 
@@ -297,21 +289,21 @@
         {
           v47 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v81 = v47;
-          v82 = 2112;
-          v83 = v42;
+          v80 = v47;
+          v81 = 2112;
+          v82 = v42;
           _os_log_impl(&dword_19BB39000, v46, OS_LOG_TYPE_INFO, "%{public}@Received event for account info: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v43);
         homeUUID2 = [asAccessoryTopic homeUUID];
         accessoryUUID2 = [asAccessoryTopic accessoryUUID];
+        v75 = 0;
         v76 = 0;
-        v77 = 0;
         v50 = dataSource;
-        v51 = [dataSource accessoryInfoDataProvider:v44 transformHomeUUID:homeUUID2 accessoryUUID:accessoryUUID2 toClientHomeIdentifier:&v77 clientAccessoryIdentifier:&v76];
-        v52 = v77;
-        v53 = v76;
+        v51 = [dataSource accessoryInfoDataProvider:v44 transformHomeUUID:homeUUID2 accessoryUUID:accessoryUUID2 toClientHomeIdentifier:&v76 clientAccessoryIdentifier:&v75];
+        v52 = v76;
+        v53 = v75;
 
         if (v51)
         {
@@ -320,8 +312,8 @@
 
 LABEL_27:
 
-        messageCopy = v71;
-        eventCopy = v73;
+        messageCopy = v70;
+        eventCopy = v72;
         dataSource = v50;
 LABEL_41:
 
@@ -335,7 +327,7 @@ LABEL_41:
 
       v65 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v81 = v65;
+      v80 = v65;
       v66 = "%{public}@Received event cannot be decoded to accountInfo object";
     }
 
@@ -350,18 +342,18 @@ LABEL_41:
         {
           v64 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v81 = v64;
-          v82 = 2112;
-          v83 = topicCopy;
+          v80 = v64;
+          v81 = 2112;
+          v82 = topicCopy;
           _os_log_impl(&dword_19BB39000, v46, OS_LOG_TYPE_ERROR, "%{public}@Received event with unknown topic: %@", buf, 0x16u);
         }
 
         goto LABEL_40;
       }
 
-      v71 = messageCopy;
+      v70 = messageCopy;
       v54 = [HMAccessoryInfoPrimaryUser alloc];
-      v73 = eventCopy;
+      v72 = eventCopy;
       encodedData3 = [(HMAccessoryInfoAccount *)eventCopy encodedData];
       v42 = [(HMAccessoryInfoPrimaryUser *)v54 initWithProtoData:encodedData3];
 
@@ -375,21 +367,21 @@ LABEL_41:
         {
           v58 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v81 = v58;
-          v82 = 2112;
-          v83 = v42;
+          v80 = v58;
+          v81 = 2112;
+          v82 = v42;
           _os_log_impl(&dword_19BB39000, v46, OS_LOG_TYPE_INFO, "%{public}@Received event for primaryUserInfo: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v43);
         homeUUID3 = [asAccessoryTopic homeUUID];
         accessoryUUID3 = [asAccessoryTopic accessoryUUID];
+        v73 = 0;
         v74 = 0;
-        v75 = 0;
         v50 = dataSource;
-        v61 = [dataSource accessoryInfoDataProvider:v56 transformHomeUUID:homeUUID3 accessoryUUID:accessoryUUID3 toClientHomeIdentifier:&v75 clientAccessoryIdentifier:&v74];
-        v52 = v75;
-        v53 = v74;
+        v61 = [dataSource accessoryInfoDataProvider:v56 transformHomeUUID:homeUUID3 accessoryUUID:accessoryUUID3 toClientHomeIdentifier:&v74 clientAccessoryIdentifier:&v73];
+        v52 = v74;
+        v53 = v73;
 
         if (v61)
         {
@@ -402,8 +394,8 @@ LABEL_41:
       if (!os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
       {
 LABEL_39:
-        messageCopy = v71;
-        eventCopy = v73;
+        messageCopy = v70;
+        eventCopy = v72;
 LABEL_40:
 
         objc_autoreleasePoolPop(v43);
@@ -412,7 +404,7 @@ LABEL_40:
 
       v65 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v81 = v65;
+      v80 = v65;
       v66 = "%{public}@Received event cannot be decoded to primaryUserInfo object";
     }
 
@@ -428,21 +420,19 @@ LABEL_40:
   {
     v39 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v81 = v39;
-    v82 = 2112;
-    v83 = topicCopy;
+    v80 = v39;
+    v81 = 2112;
+    v82 = topicCopy;
     _os_log_impl(&dword_19BB39000, v38, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse topic: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v36);
 LABEL_42:
-
-  v67 = *MEMORY[0x1E69E9840];
 }
 
 - (void)configureWithHomeIdentifier:(id)identifier accessoryIdentifier:(id)accessoryIdentifier accessoryInfoOptions:(unint64_t)options dataProviderDelegate:(id)delegate completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   accessoryIdentifierCopy = accessoryIdentifier;
   delegateCopy = delegate;
@@ -454,28 +444,26 @@ LABEL_42:
   {
     v19 = HMFGetLogIdentifier();
     v20 = HMAccessoryInfoOptionsAsString(options);
-    v22 = 138544130;
-    v23 = v19;
-    v24 = 2112;
-    v25 = identifierCopy;
-    v26 = 2112;
-    v27 = accessoryIdentifierCopy;
-    v28 = 2112;
-    v29 = v20;
-    _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_INFO, "%{public}@Configuring accessoryInfoDataProvider with home identifier: %@ accessory identifier: %@ options: %@", &v22, 0x2Au);
+    v21 = 138544130;
+    v22 = v19;
+    v23 = 2112;
+    v24 = identifierCopy;
+    v25 = 2112;
+    v26 = accessoryIdentifierCopy;
+    v27 = 2112;
+    v28 = v20;
+    _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_INFO, "%{public}@Configuring accessoryInfoDataProvider with home identifier: %@ accessory identifier: %@ options: %@", &v21, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v16);
   [(HMAccessoryInfoDataProvider *)selfCopy setDelegate:delegateCopy];
   [(HMAccessoryInfoDataProvider *)selfCopy subscribeToAccessoryInfoWithHomeIdentifier:identifierCopy accessoryIdentifier:accessoryIdentifierCopy accessoryInfoOptions:options completionHandler:handlerCopy];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unsubscribeToAccessoryInfoWithHomeIdentifier:(id)identifier accessoryIdentifier:(id)accessoryIdentifier accessoryInfoOptions:(unint64_t)options completionHandler:(id)handler
 {
   optionsCopy = options;
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   accessoryIdentifierCopy = accessoryIdentifier;
   handlerCopy = handler;
@@ -492,19 +480,19 @@ LABEL_42:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v19 = v34 = accessoryIdentifierCopy;
+        v19 = v33 = accessoryIdentifierCopy;
         v20 = HMAccessoryInfoOptionsAsString(optionsCopy);
         *buf = 138544130;
-        v38 = v19;
-        v39 = 2112;
-        v40 = v13;
-        v41 = 2112;
-        v42 = v14;
-        v43 = 2112;
-        v44 = v20;
+        v37 = v19;
+        v38 = 2112;
+        v39 = v13;
+        v40 = 2112;
+        v41 = v14;
+        v42 = 2112;
+        v43 = v20;
         _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_INFO, "%{public}@Unsubscribing to accessory info with home uuid: %@ accessory uuid: %@ options: %@", buf, 0x2Au);
 
-        accessoryIdentifierCopy = v34;
+        accessoryIdentifierCopy = v33;
       }
 
       objc_autoreleasePoolPop(v15);
@@ -518,7 +506,7 @@ LABEL_42:
         {
           v25 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v38 = v25;
+          v37 = v25;
           _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Topics array is empty", buf, 0xCu);
         }
 
@@ -530,13 +518,13 @@ LABEL_42:
       else
       {
         eventSubscriptionProvider = [(HMAccessoryInfoDataProvider *)selfCopy eventSubscriptionProvider];
-        v35[0] = MEMORY[0x1E69E9820];
-        v35[1] = 3221225472;
-        v35[2] = __135__HMAccessoryInfoDataProvider_unsubscribeToAccessoryInfoWithHomeIdentifier_accessoryIdentifier_accessoryInfoOptions_completionHandler___block_invoke;
-        v35[3] = &unk_1E754D870;
-        v35[4] = selfCopy;
-        v36 = handlerCopy;
-        [eventSubscriptionProvider unregisterConsumer:selfCopy topicFilters:v21 completion:v35];
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = __135__HMAccessoryInfoDataProvider_unsubscribeToAccessoryInfoWithHomeIdentifier_accessoryIdentifier_accessoryInfoOptions_completionHandler___block_invoke;
+        v34[3] = &unk_1E754D870;
+        v34[4] = selfCopy;
+        v35 = handlerCopy;
+        [eventSubscriptionProvider unregisterConsumer:selfCopy topicFilters:v21 completion:v34];
       }
     }
 
@@ -546,9 +534,9 @@ LABEL_42:
       {
         v31 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v38 = v31;
-        v39 = 2112;
-        v40 = accessoryIdentifierCopy;
+        v37 = v31;
+        v38 = 2112;
+        v39 = accessoryIdentifierCopy;
         _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Failed to unsubscribe to accessory info due to unknown accessory identifier: %@", buf, 0x16u);
       }
 
@@ -567,9 +555,9 @@ LABEL_42:
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v38 = v30;
-      v39 = 2112;
-      v40 = identifierCopy;
+      v37 = v30;
+      v38 = 2112;
+      v39 = identifierCopy;
       _os_log_impl(&dword_19BB39000, v29, OS_LOG_TYPE_DEBUG, "%{public}@Failed to unsubscribe to accessory info due to unknown home identifier: %@", buf, 0x16u);
     }
 
@@ -577,13 +565,11 @@ LABEL_42:
     v14 = [MEMORY[0x1E696ABC0] hmErrorWithCode:3];
     handlerCopy[2](handlerCopy, v14);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __135__HMAccessoryInfoDataProvider_unsubscribeToAccessoryInfoWithHomeIdentifier_accessoryIdentifier_accessoryInfoOptions_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -591,17 +577,15 @@ void __135__HMAccessoryInfoDataProvider_unsubscribeToAccessoryInfoWithHomeIdenti
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Unsubscribe topics with result: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Unsubscribe topics with result: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyOfEventStoreLastEventForTopic:(id)topic
@@ -653,7 +637,7 @@ void __135__HMAccessoryInfoDataProvider_unsubscribeToAccessoryInfoWithHomeIdenti
 - (void)subscribeToAccessoryInfoWithHomeIdentifier:(id)identifier accessoryIdentifier:(id)accessoryIdentifier accessoryInfoOptions:(unint64_t)options completionHandler:(id)handler
 {
   optionsCopy = options;
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   accessoryIdentifierCopy = accessoryIdentifier;
   handlerCopy = handler;
@@ -665,13 +649,13 @@ void __135__HMAccessoryInfoDataProvider_unsubscribeToAccessoryInfoWithHomeIdenti
     v16 = HMFGetLogIdentifier();
     v17 = HMAccessoryInfoOptionsAsString(optionsCopy);
     *buf = 138544130;
-    v49 = v16;
-    v50 = 2112;
-    v51 = identifierCopy;
-    v52 = 2112;
-    v53 = accessoryIdentifierCopy;
-    v54 = 2112;
-    v55 = v17;
+    v48 = v16;
+    v49 = 2112;
+    v50 = identifierCopy;
+    v51 = 2112;
+    v52 = accessoryIdentifierCopy;
+    v53 = 2112;
+    v54 = v17;
     _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@Subscribing to accessory info with home identifier: %@ accessory identifier: %@ options: %@", buf, 0x2Au);
   }
 
@@ -686,22 +670,22 @@ void __135__HMAccessoryInfoDataProvider_unsubscribeToAccessoryInfoWithHomeIdenti
     v23 = v22;
     if (v19)
     {
-      v42 = accessoryIdentifierCopy;
+      v41 = accessoryIdentifierCopy;
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         v24 = HMFGetLogIdentifier();
         v25 = HMAccessoryInfoOptionsAsString(optionsCopy);
         *buf = 138544130;
-        v49 = v24;
-        v50 = 2112;
-        v51 = v18;
-        v52 = 2112;
-        v53 = v19;
-        v54 = 2112;
-        v55 = v25;
+        v48 = v24;
+        v49 = 2112;
+        v50 = v18;
+        v51 = 2112;
+        v52 = v19;
+        v53 = 2112;
+        v54 = v25;
         _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_INFO, "%{public}@Subscribing to accessory info with home uuid: %@ accessory uuid: %@ options: %@", buf, 0x2Au);
 
-        accessoryIdentifierCopy = v42;
+        accessoryIdentifierCopy = v41;
       }
 
       objc_autoreleasePoolPop(v20);
@@ -715,7 +699,7 @@ void __135__HMAccessoryInfoDataProvider_unsubscribeToAccessoryInfoWithHomeIdenti
         {
           v30 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v49 = v30;
+          v48 = v30;
           _os_log_impl(&dword_19BB39000, v29, OS_LOG_TYPE_ERROR, "%{public}@Topics array is empty", buf, 0xCu);
         }
 
@@ -734,19 +718,19 @@ void __135__HMAccessoryInfoDataProvider_unsubscribeToAccessoryInfoWithHomeIdenti
         [(HMAccessoryInfoDataProvider *)v21 notifyOfEventStoreLastEventsForTopics:v26];
         [dataSource endBatchNotificationsForDataProvider:v21 reason:v31];
         eventSubscriptionProvider = [(HMAccessoryInfoDataProvider *)v21 eventSubscriptionProvider];
-        v43[0] = MEMORY[0x1E69E9820];
-        v43[1] = 3221225472;
-        v43[2] = __133__HMAccessoryInfoDataProvider_subscribeToAccessoryInfoWithHomeIdentifier_accessoryIdentifier_accessoryInfoOptions_completionHandler___block_invoke;
-        v43[3] = &unk_1E7548F88;
-        v43[4] = v21;
-        v44 = v26;
-        v45 = v19;
-        v46 = dataSource;
-        v47 = handlerCopy;
+        v42[0] = MEMORY[0x1E69E9820];
+        v42[1] = 3221225472;
+        v42[2] = __133__HMAccessoryInfoDataProvider_subscribeToAccessoryInfoWithHomeIdentifier_accessoryIdentifier_accessoryInfoOptions_completionHandler___block_invoke;
+        v42[3] = &unk_1E7548F88;
+        v42[4] = v21;
+        v43 = v26;
+        v44 = v19;
+        v45 = dataSource;
+        v46 = handlerCopy;
         v40 = dataSource;
-        [eventSubscriptionProvider registerConsumer:v21 topicFilters:v44 completion:v43];
+        [eventSubscriptionProvider registerConsumer:v21 topicFilters:v43 completion:v42];
 
-        accessoryIdentifierCopy = v42;
+        accessoryIdentifierCopy = v41;
       }
     }
 
@@ -756,9 +740,9 @@ void __135__HMAccessoryInfoDataProvider_unsubscribeToAccessoryInfoWithHomeIdenti
       {
         v36 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v49 = v36;
-        v50 = 2112;
-        v51 = accessoryIdentifierCopy;
+        v48 = v36;
+        v49 = 2112;
+        v50 = accessoryIdentifierCopy;
         _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to subscribe to accessory info due to unknown accessory identifier: %@", buf, 0x16u);
       }
 
@@ -777,9 +761,9 @@ void __135__HMAccessoryInfoDataProvider_unsubscribeToAccessoryInfoWithHomeIdenti
     {
       v35 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v49 = v35;
-      v50 = 2112;
-      v51 = identifierCopy;
+      v48 = v35;
+      v49 = 2112;
+      v50 = identifierCopy;
       _os_log_impl(&dword_19BB39000, v34, OS_LOG_TYPE_ERROR, "%{public}@Failed to subscribe to accessory info due to unknown home identifier: %@", buf, 0x16u);
     }
 
@@ -787,13 +771,11 @@ void __135__HMAccessoryInfoDataProvider_unsubscribeToAccessoryInfoWithHomeIdenti
     v19 = [MEMORY[0x1E696ABC0] hmErrorWithCode:3];
     handlerCopy[2](handlerCopy, v19);
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __133__HMAccessoryInfoDataProvider_subscribeToAccessoryInfoWithHomeIdentifier_accessoryIdentifier_accessoryInfoOptions_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -809,12 +791,12 @@ void __133__HMAccessoryInfoDataProvider_subscribeToAccessoryInfoWithHomeIdentifi
 
     v11 = HMFGetLogIdentifier();
     v12 = *(a1 + 40);
-    v23 = 138543874;
-    v24 = v11;
-    v25 = 2112;
-    v26 = v12;
-    v27 = 2112;
-    v28 = v6;
+    v22 = 138543874;
+    v23 = v11;
+    v24 = 2112;
+    v25 = v12;
+    v26 = 2112;
+    v27 = v6;
     v13 = "%{public}@Error subscribing topics %@ with error: %@";
     v14 = v10;
     v15 = OS_LOG_TYPE_ERROR;
@@ -830,17 +812,17 @@ void __133__HMAccessoryInfoDataProvider_subscribeToAccessoryInfoWithHomeIdentifi
 
     v11 = HMFGetLogIdentifier();
     v17 = *(a1 + 40);
-    v23 = 138543618;
-    v24 = v11;
-    v25 = 2112;
-    v26 = v17;
+    v22 = 138543618;
+    v23 = v11;
+    v24 = 2112;
+    v25 = v17;
     v13 = "%{public}@Successfully subscribed to topics: %@";
     v14 = v10;
     v15 = OS_LOG_TYPE_INFO;
     v16 = 22;
   }
 
-  _os_log_impl(&dword_19BB39000, v14, v15, v13, &v23, v16);
+  _os_log_impl(&dword_19BB39000, v14, v15, v13, &v22, v16);
 
 LABEL_7:
   objc_autoreleasePoolPop(v7);
@@ -855,8 +837,6 @@ LABEL_7:
   }
 
   (*(*(a1 + 64) + 16))(*(a1 + 64), v6, v18, v19);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)accessoryUUIDForIdentifier:(id)identifier homeIdentifier:(id)homeIdentifier
@@ -935,12 +915,11 @@ LABEL_7:
 
 uint64_t __42__HMAccessoryInfoDataProvider_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v27;
-  logCategory__hmf_once_v27 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v27;
+  logCategory__hmf_once_v27 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

@@ -6,32 +6,20 @@ uint64_t sub_25601590C()
 
 uint64_t sub_256015958()
 {
-  v1 = *(v0 + 32);
-
-  v2 = *(v0 + 48);
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
 
 uint64_t sub_256015998()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_256015A10()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
-}
-
-void sub_256015A88(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v3 = *a1;
-  LiveSpeechService.inputMode.getter(&v4);
-  *a2 = v4;
 }
 
 uint64_t sub_256015AC8()
@@ -64,7 +52,6 @@ unint64_t sub_256016118()
 uint64_t LiveCaptionsError.message.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -173,11 +160,11 @@ uint64_t sub_2560163DC()
   return sub_25601BD70();
 }
 
-uint64_t sub_256016454()
+uint64_t sub_256016454(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_25601BD50();
-  MEMORY[0x259C56970](v1 + 1);
+  MEMORY[0x259C56970](v2 + 1);
   return sub_25601BD70();
 }
 
@@ -200,20 +187,20 @@ id static LiveSpeechCaptionsClient.shared.getter()
   return v1;
 }
 
-id LiveSpeechCaptionsClient.__deallocating_deinit()
+id LiveSpeechCaptionsClient.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
   ObjectType = swift_getObjectType();
   sub_256016644();
-  v3.receiver = v0;
-  v3.super_class = ObjectType;
-  return objc_msgSendSuper2(&v3, sel_dealloc);
+  v5.receiver = v2;
+  v5.super_class = ObjectType;
+  return objc_msgSendSuper2(&v5, sel_dealloc);
 }
 
 void sub_256016644()
 {
-  v1 = *(sub_25601BB00() - 8);
-  v2 = *(v1 + 64);
-  v3 = MEMORY[0x28223BE20]();
+  v1 = sub_25601BB00();
+  v2 = *(v1 - 8);
+  v3 = MEMORY[0x28223BE20](v1);
   v5 = aBlock - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ((*(v0 + OBJC_IVAR___LiveSpeechCaptionsClient_isLiveSpeechRunning) & 1) == 0 && (*(v0 + OBJC_IVAR___LiveSpeechCaptionsClient_isLiveCaptionsRunning) & 1) == 0)
   {
@@ -230,7 +217,7 @@ void sub_256016644()
       MEMORY[0x259C56D60](v10, -1, -1);
     }
 
-    (*(v1 + 8))(v5, v6);
+    (*(v2 + 8))(v5, v6);
     v11 = swift_allocObject();
     v12 = OBJC_IVAR___LiveSpeechCaptionsClient__client;
     v13 = *(v7 + OBJC_IVAR___LiveSpeechCaptionsClient__client);
@@ -261,56 +248,55 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
 {
   v1 = sub_25601BB00();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  v4 = MEMORY[0x28223BE20](v1);
-  v6 = aBlock - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v4);
-  v8 = aBlock - v7;
+  v3 = MEMORY[0x28223BE20](v1);
+  v5 = aBlock - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v3);
+  v7 = aBlock - v6;
   if (*(v0 + OBJC_IVAR___LiveSpeechCaptionsClient_isLiveSpeechRunning) == 1)
   {
     sub_25601BAE0();
-    v9 = sub_25601BAF0();
-    v10 = sub_25601BC50();
-    if (os_log_type_enabled(v9, v10))
+    v8 = sub_25601BAF0();
+    v9 = sub_25601BC50();
+    if (os_log_type_enabled(v8, v9))
     {
-      v11 = swift_slowAlloc();
-      *v11 = 0;
-      _os_log_impl(&dword_256014000, v9, v10, "Already running LiveSpeech, skip", v11, 2u);
-      MEMORY[0x259C56D60](v11, -1, -1);
+      v10 = swift_slowAlloc();
+      *v10 = 0;
+      _os_log_impl(&dword_256014000, v8, v9, "Already running LiveSpeech, skip", v10, 2u);
+      MEMORY[0x259C56D60](v10, -1, -1);
     }
 
-    (*(v2 + 8))(v8, v1);
+    (*(v2 + 8))(v7, v1);
   }
 
   else
   {
     *(v0 + OBJC_IVAR___LiveSpeechCaptionsClient_isLiveSpeechRunning) = 1;
     sub_25601BAE0();
-    v12 = sub_25601BAF0();
-    v13 = sub_25601BC50();
-    if (os_log_type_enabled(v12, v13))
+    v11 = sub_25601BAF0();
+    v12 = sub_25601BC50();
+    if (os_log_type_enabled(v11, v12))
     {
-      v14 = swift_slowAlloc();
-      *v14 = 0;
-      _os_log_impl(&dword_256014000, v12, v13, "Client requesting LiveSpeech start", v14, 2u);
-      MEMORY[0x259C56D60](v14, -1, -1);
+      v13 = swift_slowAlloc();
+      *v13 = 0;
+      _os_log_impl(&dword_256014000, v11, v12, "Client requesting LiveSpeech start", v13, 2u);
+      MEMORY[0x259C56D60](v13, -1, -1);
     }
 
-    (*(v2 + 8))(v6, v1);
-    v15 = sub_256016BE0();
-    v16 = swift_allocObject();
-    *(v16 + 16) = sub_256016D88;
-    *(v16 + 24) = 0;
+    (*(v2 + 8))(v5, v1);
+    v14 = sub_256016BE0();
+    v15 = swift_allocObject();
+    *(v15 + 16) = sub_256016D88;
+    *(v15 + 24) = 0;
     aBlock[4] = sub_25601843C;
-    aBlock[5] = v16;
+    aBlock[5] = v15;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 1107296256;
     aBlock[2] = sub_256018444;
     aBlock[3] = &block_descriptor;
-    v17 = _Block_copy(aBlock);
+    v16 = _Block_copy(aBlock);
 
-    [v15 sendAsynchronousMessage:0 withIdentifier:1 targetAccessQueue:0 completion:v17];
-    _Block_release(v17);
+    [v14 sendAsynchronousMessage:0 withIdentifier:1 targetAccessQueue:0 completion:v16];
+    _Block_release(v16);
   }
 }
 
@@ -366,73 +352,13 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   v1 = v0;
   v2 = sub_25601BB00();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = MEMORY[0x28223BE20](v2);
-  v7 = aBlock - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v9 = aBlock - v8;
-  if (v1[OBJC_IVAR___LiveSpeechCaptionsClient_isLiveSpeechRunning])
-  {
-    v1[OBJC_IVAR___LiveSpeechCaptionsClient_isLiveSpeechRunning] = 0;
-    sub_25601BAE0();
-    v10 = sub_25601BAF0();
-    v11 = sub_25601BC50();
-    if (os_log_type_enabled(v10, v11))
-    {
-      v12 = swift_slowAlloc();
-      *v12 = 0;
-      _os_log_impl(&dword_256014000, v10, v11, "Client requesting LiveSpeech stop", v12, 2u);
-      MEMORY[0x259C56D60](v12, -1, -1);
-    }
-
-    (*(v3 + 8))(v7, v2);
-    v13 = sub_256016BE0();
-    v14 = swift_allocObject();
-    *(v14 + 16) = v1;
-    v15 = swift_allocObject();
-    *(v15 + 16) = sub_256018508;
-    *(v15 + 24) = v14;
-    aBlock[4] = sub_25601905C;
-    aBlock[5] = v15;
-    aBlock[0] = MEMORY[0x277D85DD0];
-    aBlock[1] = 1107296256;
-    aBlock[2] = sub_256018444;
-    aBlock[3] = &block_descriptor_10;
-    v16 = _Block_copy(aBlock);
-    v17 = v1;
-
-    [v13 sendAsynchronousMessage:0 withIdentifier:2 targetAccessQueue:0 completion:v16];
-    _Block_release(v16);
-  }
-
-  else
-  {
-    sub_25601BAE0();
-    v18 = sub_25601BAF0();
-    v19 = sub_25601BC50();
-    if (os_log_type_enabled(v18, v19))
-    {
-      v20 = swift_slowAlloc();
-      *v20 = 0;
-      _os_log_impl(&dword_256014000, v18, v19, "Can't stop LiveSpeech, not running", v20, 2u);
-      MEMORY[0x259C56D60](v20, -1, -1);
-    }
-
-    (*(v3 + 8))(v9, v2);
-  }
-}
-
-Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> LiveSpeechCaptionsClient.startLiveCaptions()()
-{
-  v1 = sub_25601BB00();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  v4 = MEMORY[0x28223BE20](v1);
+  v4 = MEMORY[0x28223BE20](v2);
   v6 = aBlock - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v4);
   v8 = aBlock - v7;
-  if (*(v0 + OBJC_IVAR___LiveSpeechCaptionsClient_isLiveCaptionsRunning) == 1)
+  if (v1[OBJC_IVAR___LiveSpeechCaptionsClient_isLiveSpeechRunning])
   {
+    v1[OBJC_IVAR___LiveSpeechCaptionsClient_isLiveSpeechRunning] = 0;
     sub_25601BAE0();
     v9 = sub_25601BAF0();
     v10 = sub_25601BC50();
@@ -440,54 +366,232 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
     {
       v11 = swift_slowAlloc();
       *v11 = 0;
-      _os_log_impl(&dword_256014000, v9, v10, "Already running LiveCaptions, skip", v11, 2u);
+      _os_log_impl(&dword_256014000, v9, v10, "Client requesting LiveSpeech stop", v11, 2u);
       MEMORY[0x259C56D60](v11, -1, -1);
     }
 
-    (*(v2 + 8))(v8, v1);
+    (*(v3 + 8))(v6, v2);
+    v12 = sub_256016BE0();
+    v13 = swift_allocObject();
+    *(v13 + 16) = v1;
+    v14 = swift_allocObject();
+    *(v14 + 16) = sub_256018508;
+    *(v14 + 24) = v13;
+    aBlock[4] = sub_25601905C;
+    aBlock[5] = v14;
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 1107296256;
+    aBlock[2] = sub_256018444;
+    aBlock[3] = &block_descriptor_10;
+    v15 = _Block_copy(aBlock);
+    v16 = v1;
+
+    [v12 sendAsynchronousMessage:0 withIdentifier:2 targetAccessQueue:0 completion:v15];
+    _Block_release(v15);
+  }
+
+  else
+  {
+    sub_25601BAE0();
+    v17 = sub_25601BAF0();
+    v18 = sub_25601BC50();
+    if (os_log_type_enabled(v17, v18))
+    {
+      v19 = swift_slowAlloc();
+      *v19 = 0;
+      _os_log_impl(&dword_256014000, v17, v18, "Can't stop LiveSpeech, not running", v19, 2u);
+      MEMORY[0x259C56D60](v19, -1, -1);
+    }
+
+    (*(v3 + 8))(v8, v2);
+  }
+}
+
+Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> LiveSpeechCaptionsClient.startLiveCaptions()()
+{
+  v1 = sub_25601BB00();
+  v2 = *(v1 - 8);
+  v3 = MEMORY[0x28223BE20](v1);
+  v5 = aBlock - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v3);
+  v7 = aBlock - v6;
+  if (*(v0 + OBJC_IVAR___LiveSpeechCaptionsClient_isLiveCaptionsRunning) == 1)
+  {
+    sub_25601BAE0();
+    v8 = sub_25601BAF0();
+    v9 = sub_25601BC50();
+    if (os_log_type_enabled(v8, v9))
+    {
+      v10 = swift_slowAlloc();
+      *v10 = 0;
+      _os_log_impl(&dword_256014000, v8, v9, "Already running LiveCaptions, skip", v10, 2u);
+      MEMORY[0x259C56D60](v10, -1, -1);
+    }
+
+    (*(v2 + 8))(v7, v1);
   }
 
   else
   {
     *(v0 + OBJC_IVAR___LiveSpeechCaptionsClient_isLiveCaptionsRunning) = 1;
     sub_25601BAE0();
-    v12 = sub_25601BAF0();
-    v13 = sub_25601BC50();
-    if (os_log_type_enabled(v12, v13))
+    v11 = sub_25601BAF0();
+    v12 = sub_25601BC50();
+    if (os_log_type_enabled(v11, v12))
     {
-      v14 = swift_slowAlloc();
-      *v14 = 0;
-      _os_log_impl(&dword_256014000, v12, v13, "Client requesting LiveCaptions start", v14, 2u);
-      MEMORY[0x259C56D60](v14, -1, -1);
+      v13 = swift_slowAlloc();
+      *v13 = 0;
+      _os_log_impl(&dword_256014000, v11, v12, "Client requesting LiveCaptions start", v13, 2u);
+      MEMORY[0x259C56D60](v13, -1, -1);
     }
 
-    (*(v2 + 8))(v6, v1);
-    v15 = sub_256016BE0();
-    v16 = swift_allocObject();
-    *(v16 + 16) = sub_25601741C;
-    *(v16 + 24) = 0;
+    (*(v2 + 8))(v5, v1);
+    v14 = sub_256016BE0();
+    v15 = swift_allocObject();
+    *(v15 + 16) = sub_25601741C;
+    *(v15 + 24) = 0;
     aBlock[4] = sub_25601905C;
-    aBlock[5] = v16;
+    aBlock[5] = v15;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 1107296256;
     aBlock[2] = sub_256018444;
     aBlock[3] = &block_descriptor_17;
-    v17 = _Block_copy(aBlock);
+    v16 = _Block_copy(aBlock);
 
-    [v15 sendAsynchronousMessage:0 withIdentifier:3 targetAccessQueue:0 completion:v17];
-    _Block_release(v17);
+    [v14 sendAsynchronousMessage:0 withIdentifier:3 targetAccessQueue:0 completion:v16];
+    _Block_release(v16);
   }
 }
 
-uint64_t sub_256017430(void *a1, char a2, const char *a3, const char *a4)
+uint64_t sub_256017430(void *a1, char a2, const char *a3, const char *a4, ...)
 {
   v8 = sub_25601BB00();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = (MEMORY[0x28223BE20])();
-  v13 = &v29 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = MEMORY[0x28223BE20](v8);
+  v12 = &v28 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v14 = &v28 - v13;
+  if (a2)
+  {
+    v15 = a1;
+    sub_25601BAE0();
+    v16 = a1;
+    v17 = sub_25601BAF0();
+    v18 = sub_25601BC40();
+    sub_256018EB0(a1, 1);
+    if (os_log_type_enabled(v17, v18))
+    {
+      v19 = swift_slowAlloc();
+      v20 = swift_slowAlloc();
+      *v19 = 138412290;
+      sub_256018EBC();
+      swift_allocError();
+      *v21 = a1;
+      v22 = a1;
+      v23 = _swift_stdlib_bridgeErrorToNSError();
+      *(v19 + 4) = v23;
+      *v20 = v23;
+      _os_log_impl(&dword_256014000, v17, v18, a3, v19, 0xCu);
+      sub_256018F10(v20);
+      MEMORY[0x259C56D60](v20, -1, -1);
+      MEMORY[0x259C56D60](v19, -1, -1);
+
+      sub_256018EB0(a1, 1);
+    }
+
+    else
+    {
+      sub_256018EB0(a1, 1);
+    }
+  }
+
+  else
+  {
+    sub_25601BAE0();
+    v24 = sub_25601BAF0();
+    v25 = sub_25601BC50();
+    if (os_log_type_enabled(v24, v25))
+    {
+      v26 = swift_slowAlloc();
+      *v26 = 0;
+      _os_log_impl(&dword_256014000, v24, v25, a4, v26, 2u);
+      MEMORY[0x259C56D60](v26, -1, -1);
+    }
+
+    v12 = v14;
+  }
+
+  return (*(v9 + 8))(v12, v8);
+}
+
+Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> LiveSpeechCaptionsClient.stopLiveCaptions()()
+{
+  v1 = v0;
+  v2 = sub_25601BB00();
+  v3 = *(v2 - 8);
+  v4 = MEMORY[0x28223BE20](v2);
+  v6 = aBlock - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v8 = aBlock - v7;
+  if (v1[OBJC_IVAR___LiveSpeechCaptionsClient_isLiveCaptionsRunning])
+  {
+    v1[OBJC_IVAR___LiveSpeechCaptionsClient_isLiveCaptionsRunning] = 0;
+    sub_25601BAE0();
+    v9 = sub_25601BAF0();
+    v10 = sub_25601BC50();
+    if (os_log_type_enabled(v9, v10))
+    {
+      v11 = swift_slowAlloc();
+      *v11 = 0;
+      _os_log_impl(&dword_256014000, v9, v10, "Client requesting LiveCaptions stop", v11, 2u);
+      MEMORY[0x259C56D60](v11, -1, -1);
+    }
+
+    (*(v3 + 8))(v6, v2);
+    v12 = sub_256016BE0();
+    v13 = swift_allocObject();
+    *(v13 + 16) = v1;
+    v14 = swift_allocObject();
+    *(v14 + 16) = sub_256018538;
+    *(v14 + 24) = v13;
+    aBlock[4] = sub_25601905C;
+    aBlock[5] = v14;
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 1107296256;
+    aBlock[2] = sub_256018444;
+    aBlock[3] = &block_descriptor_27;
+    v15 = _Block_copy(aBlock);
+    v16 = v1;
+
+    [v12 sendAsynchronousMessage:0 withIdentifier:4 targetAccessQueue:0 completion:v15];
+    _Block_release(v15);
+  }
+
+  else
+  {
+    sub_25601BAE0();
+    v17 = sub_25601BAF0();
+    v18 = sub_25601BC50();
+    if (os_log_type_enabled(v17, v18))
+    {
+      v19 = swift_slowAlloc();
+      *v19 = 0;
+      _os_log_impl(&dword_256014000, v17, v18, "Can't stop LiveCaptions, not running", v19, 2u);
+      MEMORY[0x259C56D60](v19, -1, -1);
+    }
+
+    (*(v3 + 8))(v8, v2);
+  }
+}
+
+void sub_256017A1C(void *a1, char a2, uint64_t a3, const char *a4, const char *a5)
+{
+  v9 = sub_25601BB00();
+  v10 = *(v9 - 8);
+  v11 = MEMORY[0x28223BE20](v9);
+  v13 = &v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v11);
-  v15 = &v29 - v14;
+  v15 = &v28 - v14;
   if (a2)
   {
     v16 = a1;
@@ -508,7 +612,7 @@ uint64_t sub_256017430(void *a1, char a2, const char *a3, const char *a4)
       v24 = _swift_stdlib_bridgeErrorToNSError();
       *(v20 + 4) = v24;
       *v21 = v24;
-      _os_log_impl(&dword_256014000, v18, v19, a3, v20, 0xCu);
+      _os_log_impl(&dword_256014000, v18, v19, a4, v20, 0xCu);
       sub_256018F10(v21);
       MEMORY[0x259C56D60](v21, -1, -1);
       MEMORY[0x259C56D60](v20, -1, -1);
@@ -520,6 +624,8 @@ uint64_t sub_256017430(void *a1, char a2, const char *a3, const char *a4)
     {
       sub_256018EB0(a1, 1);
     }
+
+    (*(v10 + 8))(v13, v9);
   }
 
   else
@@ -531,136 +637,11 @@ uint64_t sub_256017430(void *a1, char a2, const char *a3, const char *a4)
     {
       v27 = swift_slowAlloc();
       *v27 = 0;
-      _os_log_impl(&dword_256014000, v25, v26, a4, v27, 2u);
+      _os_log_impl(&dword_256014000, v25, v26, a5, v27, 2u);
       MEMORY[0x259C56D60](v27, -1, -1);
     }
 
-    v13 = v15;
-  }
-
-  return (*(v9 + 8))(v13, v8);
-}
-
-Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> LiveSpeechCaptionsClient.stopLiveCaptions()()
-{
-  v1 = v0;
-  v2 = sub_25601BB00();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = MEMORY[0x28223BE20](v2);
-  v7 = aBlock - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v9 = aBlock - v8;
-  if (v1[OBJC_IVAR___LiveSpeechCaptionsClient_isLiveCaptionsRunning])
-  {
-    v1[OBJC_IVAR___LiveSpeechCaptionsClient_isLiveCaptionsRunning] = 0;
-    sub_25601BAE0();
-    v10 = sub_25601BAF0();
-    v11 = sub_25601BC50();
-    if (os_log_type_enabled(v10, v11))
-    {
-      v12 = swift_slowAlloc();
-      *v12 = 0;
-      _os_log_impl(&dword_256014000, v10, v11, "Client requesting LiveCaptions stop", v12, 2u);
-      MEMORY[0x259C56D60](v12, -1, -1);
-    }
-
-    (*(v3 + 8))(v7, v2);
-    v13 = sub_256016BE0();
-    v14 = swift_allocObject();
-    *(v14 + 16) = v1;
-    v15 = swift_allocObject();
-    *(v15 + 16) = sub_256018538;
-    *(v15 + 24) = v14;
-    aBlock[4] = sub_25601905C;
-    aBlock[5] = v15;
-    aBlock[0] = MEMORY[0x277D85DD0];
-    aBlock[1] = 1107296256;
-    aBlock[2] = sub_256018444;
-    aBlock[3] = &block_descriptor_27;
-    v16 = _Block_copy(aBlock);
-    v17 = v1;
-
-    [v13 sendAsynchronousMessage:0 withIdentifier:4 targetAccessQueue:0 completion:v16];
-    _Block_release(v16);
-  }
-
-  else
-  {
-    sub_25601BAE0();
-    v18 = sub_25601BAF0();
-    v19 = sub_25601BC50();
-    if (os_log_type_enabled(v18, v19))
-    {
-      v20 = swift_slowAlloc();
-      *v20 = 0;
-      _os_log_impl(&dword_256014000, v18, v19, "Can't stop LiveCaptions, not running", v20, 2u);
-      MEMORY[0x259C56D60](v20, -1, -1);
-    }
-
-    (*(v3 + 8))(v9, v2);
-  }
-}
-
-void sub_256017A1C(void *a1, char a2, uint64_t a3, const char *a4, const char *a5)
-{
-  v9 = sub_25601BB00();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x28223BE20](v9);
-  v14 = &v29 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v29 - v15;
-  if (a2)
-  {
-    v17 = a1;
-    sub_25601BAE0();
-    v18 = a1;
-    v19 = sub_25601BAF0();
-    v20 = sub_25601BC40();
-    sub_256018EB0(a1, 1);
-    if (os_log_type_enabled(v19, v20))
-    {
-      v21 = swift_slowAlloc();
-      v22 = swift_slowAlloc();
-      *v21 = 138412290;
-      sub_256018EBC();
-      swift_allocError();
-      *v23 = a1;
-      v24 = a1;
-      v25 = _swift_stdlib_bridgeErrorToNSError();
-      *(v21 + 4) = v25;
-      *v22 = v25;
-      _os_log_impl(&dword_256014000, v19, v20, a4, v21, 0xCu);
-      sub_256018F10(v22);
-      MEMORY[0x259C56D60](v22, -1, -1);
-      MEMORY[0x259C56D60](v21, -1, -1);
-
-      sub_256018EB0(a1, 1);
-    }
-
-    else
-    {
-      sub_256018EB0(a1, 1);
-    }
-
-    (*(v10 + 8))(v14, v9);
-  }
-
-  else
-  {
-    sub_25601BAE0();
-    v26 = sub_25601BAF0();
-    v27 = sub_25601BC50();
-    if (os_log_type_enabled(v26, v27))
-    {
-      v28 = swift_slowAlloc();
-      *v28 = 0;
-      _os_log_impl(&dword_256014000, v26, v27, a5, v28, 2u);
-      MEMORY[0x259C56D60](v28, -1, -1);
-    }
-
-    (*(v10 + 8))(v16, v9);
+    (*(v10 + 8))(v15, v9);
     sub_256016644();
   }
 }
@@ -682,9 +663,8 @@ void sub_256017D70(uint64_t a1)
 uint64_t sub_256017DE4(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 id LiveSpeechCaptionsClient.userInterfaceClient(_:accessQueueForProcessingMessageWithIdentifier:)()
@@ -699,138 +679,136 @@ void LiveSpeechCaptionsClient.connectionWithServiceWasInterrupted(forUserInterfa
   v2 = v1;
   v4 = sub_25601BB00();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = &v33 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = MEMORY[0x28223BE20](v7);
-  v12 = &v33 - v11;
-  MEMORY[0x28223BE20](v10);
-  v14 = &v33 - v13;
-  v15 = *(v2 + OBJC_IVAR___LiveSpeechCaptionsClient__client);
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = &v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x28223BE20](v6);
+  v11 = &v32 - v10;
+  MEMORY[0x28223BE20](v9);
+  v13 = &v32 - v12;
+  v14 = *(v2 + OBJC_IVAR___LiveSpeechCaptionsClient__client);
   if (a1)
   {
-    if (v15)
+    if (v14)
     {
-      v16 = v15 == a1;
+      v15 = v14 == a1;
     }
 
     else
     {
-      v16 = 0;
+      v15 = 0;
     }
 
-    if (!v16)
+    if (!v15)
     {
       return;
     }
   }
 
-  else if (v15)
+  else if (v14)
   {
     return;
   }
 
   sub_25601BAE0();
-  v17 = sub_25601BAF0();
-  v18 = sub_25601BC40();
-  if (os_log_type_enabled(v17, v18))
+  v16 = sub_25601BAF0();
+  v17 = sub_25601BC40();
+  if (os_log_type_enabled(v16, v17))
   {
-    v19 = swift_slowAlloc();
-    *v19 = 0;
-    _os_log_impl(&dword_256014000, v17, v18, "Connection to LiveSpeech UI Service was interrupted", v19, 2u);
-    MEMORY[0x259C56D60](v19, -1, -1);
+    v18 = swift_slowAlloc();
+    *v18 = 0;
+    _os_log_impl(&dword_256014000, v16, v17, "Connection to LiveSpeech UI Service was interrupted", v18, 2u);
+    MEMORY[0x259C56D60](v18, -1, -1);
   }
 
-  v20 = *(v5 + 8);
-  v20(v14, v4);
+  v19 = *(v5 + 8);
+  v19(v13, v4);
   if (_AXSLiveSpeechEnabled())
   {
     sub_25601BAE0();
-    v21 = sub_25601BAF0();
-    v22 = sub_25601BC30();
-    if (os_log_type_enabled(v21, v22))
+    v20 = sub_25601BAF0();
+    v21 = sub_25601BC30();
+    if (os_log_type_enabled(v20, v21))
     {
-      v23 = swift_slowAlloc();
-      *v23 = 0;
-      _os_log_impl(&dword_256014000, v21, v22, "LiveSpeech still enabled. Will attempt to relaunch", v23, 2u);
-      MEMORY[0x259C56D60](v23, -1, -1);
+      v22 = swift_slowAlloc();
+      *v22 = 0;
+      _os_log_impl(&dword_256014000, v20, v21, "LiveSpeech still enabled. Will attempt to relaunch", v22, 2u);
+      MEMORY[0x259C56D60](v22, -1, -1);
     }
 
-    v20(v12, v4);
+    v19(v11, v4);
     LiveSpeechCaptionsClient.startLiveSpeech()();
-    if (v24)
+    if (v23)
     {
       sub_25601BAE0();
-      v25 = v24;
-      v26 = sub_25601BAF0();
-      v27 = sub_25601BC40();
+      v24 = v23;
+      v25 = sub_25601BAF0();
+      v26 = sub_25601BC40();
 
-      if (os_log_type_enabled(v26, v27))
+      if (os_log_type_enabled(v25, v26))
       {
-        v28 = swift_slowAlloc();
-        v34 = swift_slowAlloc();
-        v35 = v34;
-        *v28 = 136315138;
+        v27 = swift_slowAlloc();
+        v33 = swift_slowAlloc();
+        v34 = v33;
+        *v27 = 136315138;
         swift_getErrorValue();
-        v29 = sub_25601BD00();
-        v31 = sub_2560185A8(v29, v30, &v35);
+        v28 = sub_25601BD00();
+        v30 = sub_2560185A8(v28, v29, &v34);
 
-        *(v28 + 4) = v31;
-        _os_log_impl(&dword_256014000, v26, v27, "Error occurred relaunching LiveSpeech Service: %s", v28, 0xCu);
-        v32 = v34;
-        __swift_destroy_boxed_opaque_existential_0(v34);
-        MEMORY[0x259C56D60](v32, -1, -1);
-        MEMORY[0x259C56D60](v28, -1, -1);
+        *(v27 + 4) = v30;
+        _os_log_impl(&dword_256014000, v25, v26, "Error occurred relaunching LiveSpeech Service: %s", v27, 0xCu);
+        v31 = v33;
+        __swift_destroy_boxed_opaque_existential_0(v33);
+        MEMORY[0x259C56D60](v31, -1, -1);
+        MEMORY[0x259C56D60](v27, -1, -1);
       }
 
       else
       {
       }
 
-      v20(v9, v4);
+      v19(v8, v4);
     }
   }
 }
 
 uint64_t sub_256018294()
 {
-  v1 = *v0;
   MEMORY[0x259C567D0](0x6F72724520435049, 0xEB00000000203A72);
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F824900, &unk_25601C8D0);
   sub_25601BCB0();
   return 0;
 }
 
-uint64_t sub_256018330(uint64_t result, void *a2, void (*a3)(void *, uint64_t))
+uint64_t sub_256018330(uint64_t result, void *a2, void (*a3)(void *, uint64_t), uint64_t a4)
 {
   if (a3)
   {
     if (a2)
     {
-      sub_256018F78(a3);
-      v5 = a2;
+      sub_256018F78(a3, a4);
+      v7 = a2;
       a3(a2, 1);
 
-      return sub_256018F88(a3);
+      return sub_256018F88(a3, a4);
     }
 
     else
     {
-      v6 = result;
+      v8 = result;
       if (result)
       {
 
-        v7 = v6;
+        v9 = v8;
       }
 
       else
       {
-        sub_256018F78(a3);
-        v7 = sub_25601958C(MEMORY[0x277D84F90]);
+        sub_256018F78(a3, a4);
+        v9 = sub_25601958C(MEMORY[0x277D84F90]);
       }
 
-      a3(v7, 0);
-      sub_256018F88(a3);
+      a3(v9, 0);
+      sub_256018F88(a3, a4);
     }
   }
 
@@ -839,20 +817,19 @@ uint64_t sub_256018330(uint64_t result, void *a2, void (*a3)(void *, uint64_t))
 
 uint64_t sub_256018444(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v4 = *(a1 + 32);
   if (a2)
   {
-    v6 = sub_25601BB70();
+    v5 = sub_25601BB70();
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  v7 = a3;
-  v5(v6, a3);
+  v6 = a3;
+  v4(v5, a3);
 }
 
 uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
@@ -866,13 +843,12 @@ uint64_t objectdestroyTm()
 {
   if (*(v0 + 16))
   {
-    v1 = *(v0 + 24);
   }
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
-uint64_t sub_2560185A8(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_2560185A8(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_25601892C(v11, 0, 0, 1, a1, a2);
@@ -908,15 +884,17 @@ LABEL_4:
   return v7;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 unint64_t sub_2560186C4()
@@ -1182,16 +1160,14 @@ uint64_t sub_256018A38(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_256018A94(uint64_t a1, unint64_t a2)
+void *sub_256018A94(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_256018AE0(a1, a2);
+  v3 = sub_256018AE0(a1, a2);
   sub_256018C10(&unk_286815530);
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t sub_256018AE0(uint64_t a1, unint64_t a2)
+void *sub_256018AE0(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -1288,7 +1264,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1302,15 +1277,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_256018D70(result, v12, 1, v3);
+  result = sub_256018D70(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1325,15 +1300,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1342,12 +1317,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1460,7 +1435,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1498,7 +1472,7 @@ uint64_t sub_256018F10(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_256018F78(uint64_t result)
+uint64_t sub_256018F78(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -1507,7 +1481,7 @@ uint64_t sub_256018F78(uint64_t result)
   return result;
 }
 
-uint64_t sub_256018F88(uint64_t result)
+uint64_t sub_256018F88(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -1598,16 +1572,16 @@ void static LiveSpeechAnalytics.didSpeak(inputMode:mixToUplink:voiceName:languag
   _Block_release(v15);
 }
 
-unint64_t sub_2560191CC()
+unint64_t sub_2560191CC(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F824978, &qword_25601C908);
   inited = swift_initStackObject();
   *(inited + 32) = 0x7079547475706E69;
   *(inited + 16) = xmmword_25601C8E0;
   *(inited + 40) = 0xE900000000000065;
-  v1 = sub_25601BB80();
+  v7 = sub_25601BB80();
 
-  *(inited + 48) = v1;
+  *(inited + 48) = v7;
   *(inited + 56) = 0x6C70556F5478696DLL;
   *(inited + 64) = 0xEB000000006B6E69;
   *(inited + 72) = sub_25601BC20();
@@ -1617,50 +1591,31 @@ unint64_t sub_2560191CC()
   *(inited + 104) = 0x65676175676E616CLL;
   *(inited + 112) = 0xE800000000000000;
   *(inited + 120) = sub_25601BB80();
-  v2 = sub_2560196A8(inited);
+  v8 = sub_2560196A8(inited);
   swift_setDeallocating();
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F824980, &qword_25601C910);
   swift_arrayDestroy();
-  return v2;
-}
-
-unint64_t sub_256019380()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 17);
-  v3 = *(v0 + 24);
-  v4 = *(v0 + 32);
-  v5 = *(v0 + 40);
-  v6 = *(v0 + 48);
-  return sub_2560191CC();
-}
-
-uint64_t sub_256019394()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
+  return v8;
 }
 
 id sub_2560193BC(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v4 = v1(v3);
+  v3 = v1(v2);
 
-  if (v4)
+  if (v3)
   {
     sub_256019540();
-    v5 = sub_25601BB60();
+    v4 = sub_25601BB60();
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 uint64_t block_copy_helper_0(uint64_t a1, uint64_t a2)
@@ -1926,7 +1881,7 @@ void sub_25601982C()
   qword_27F8249A0 = v1;
 }
 
-uint64_t sub_2560198A0(uint64_t a1)
+uint64_t sub_2560198A0(uint64_t a1, uint64_t a2)
 {
   if (qword_27F824850 != -1)
   {
@@ -1935,11 +1890,11 @@ uint64_t sub_2560198A0(uint64_t a1)
 
   if (qword_27F8249A0)
   {
-    v2 = qword_27F8249A0;
-    v3 = sub_25601BB80();
+    v3 = qword_27F8249A0;
     v4 = sub_25601BB80();
     v5 = sub_25601BB80();
-    v6 = [v2 localizedStringForKey:v3 value:v4 table:v5];
+    v6 = sub_25601BB80();
+    v7 = [v3 localizedStringForKey:v4 value:v5 table:v6];
 
     a1 = sub_25601BB90();
   }
@@ -1955,16 +1910,13 @@ uint64_t LiveSpeechInputMode.rawValue.getter()
 {
   if (*v0)
   {
-    result = 0x657469726F766166;
+    return 0x657469726F766166;
   }
 
   else
   {
-    result = 0x6472616F6279656BLL;
+    return 0x6472616F6279656BLL;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t LiveSpeechInputMode.title.getter()
@@ -2011,16 +1963,13 @@ uint64_t LiveSpeechInputMode.systemImageName.getter()
 {
   if (*v0)
   {
-    result = 0x6B72616D6B6F6F62;
+    return 0x6B72616D6B6F6F62;
   }
 
   else
   {
-    result = 0x6472616F6279656BLL;
+    return 0x6472616F6279656BLL;
   }
-
-  *v0;
-  return result;
 }
 
 LiveSpeechServices::LiveSpeechInputMode_optional __swiftcall LiveSpeechInputMode.init(rawValue:)(Swift::String rawValue)
@@ -2049,107 +1998,101 @@ LiveSpeechServices::LiveSpeechInputMode_optional __swiftcall LiveSpeechInputMode
 
 uint64_t sub_256019C50(_BYTE *a1, _BYTE *a2)
 {
-  v2 = *a2;
-  v3 = *a1 == 0;
+  v2 = *a1 == 0;
   if (*a1)
   {
-    v4 = 0x657469726F766166;
+    v3 = 0x657469726F766166;
   }
 
   else
   {
-    v4 = 0x6472616F6279656BLL;
+    v3 = 0x6472616F6279656BLL;
   }
 
-  if (v3)
+  if (v2)
   {
-    v5 = 0xE800000000000000;
+    v4 = 0xE800000000000000;
   }
 
   else
   {
-    v5 = 0xEF73657361726850;
+    v4 = 0xEF73657361726850;
   }
 
   if (*a2)
   {
-    v6 = 0x657469726F766166;
+    v5 = 0x657469726F766166;
   }
 
   else
   {
-    v6 = 0x6472616F6279656BLL;
+    v5 = 0x6472616F6279656BLL;
   }
 
   if (*a2)
   {
-    v7 = 0xEF73657361726850;
+    v6 = 0xEF73657361726850;
   }
 
   else
   {
-    v7 = 0xE800000000000000;
+    v6 = 0xE800000000000000;
   }
 
-  if (v4 == v6 && v5 == v7)
+  if (v3 == v5 && v4 == v6)
   {
-    v9 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v9 = sub_25601BCF0();
+    v8 = sub_25601BCF0();
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 uint64_t sub_256019D04()
 {
-  v1 = *v0;
   sub_25601BD50();
   sub_25601BBB0();
 
   return sub_25601BD70();
 }
 
-uint64_t sub_256019D94()
+uint64_t sub_256019D94(uint64_t a1)
 {
-  *v0;
   sub_25601BBB0();
 }
 
-uint64_t sub_256019E10()
+uint64_t sub_256019E10(uint64_t a1)
 {
-  v1 = *v0;
   sub_25601BD50();
   sub_25601BBB0();
 
   return sub_25601BD70();
 }
 
-uint64_t sub_256019E9C@<X0>(uint64_t *a1@<X0>, char *a2@<X8>)
+uint64_t sub_256019E9C@<X0>(char *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = sub_25601BCD0();
+  v3 = sub_25601BCD0();
 
-  if (v5 == 1)
+  if (v3 == 1)
   {
-    v7 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v7 = 2;
+    v5 = 2;
   }
 
-  if (!v5)
+  if (!v3)
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  *a2 = v7;
+  *a2 = v5;
   return result;
 }
 
@@ -2190,11 +2133,11 @@ id static LiveSpeechService.shared.getter()
   return v1;
 }
 
-id LiveSpeechService.__deallocating_deinit()
+id LiveSpeechService.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = swift_getObjectType();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v4.receiver = v2;
+  v4.super_class = swift_getObjectType();
+  return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
 uint64_t sub_25601A240(uint64_t (*a1)(void))
@@ -2245,27 +2188,24 @@ void LiveSpeechService.inputMode.getter(BOOL *a1@<X8>)
   *a1 = v7;
 }
 
-void sub_25601A454(unsigned __int8 *a1, uint64_t *a2)
+void sub_25601A454(unsigned __int8 *a1)
 {
-  v2 = *a1;
-  v3 = *a2;
   sub_25601A618();
-  v5 = v4;
-  v6 = sub_25601BB80();
+  v2 = v1;
+  v3 = sub_25601BB80();
 
-  v7 = sub_25601BB80();
-  [v5 setObject:v6 forKey:v7];
+  v4 = sub_25601BB80();
+  [v2 setObject:v3 forKey:v4];
 }
 
 void LiveSpeechService.inputMode.setter(unsigned __int8 *a1)
 {
-  v1 = *a1;
   sub_25601A618();
-  v3 = v2;
-  v4 = sub_25601BB80();
+  v2 = v1;
+  v3 = sub_25601BB80();
 
-  v5 = sub_25601BB80();
-  [v3 setObject:v4 forKey:v5];
+  v4 = sub_25601BB80();
+  [v2 setObject:v3 forKey:v4];
 }
 
 void sub_25601A618()
@@ -2274,32 +2214,31 @@ void sub_25601A618()
   v2 = *(v0 + OBJC_IVAR___LiveSpeechServices____lazy_storage___liveSpeechDefaults);
   if (v2)
   {
-    v3 = *(v0 + OBJC_IVAR___LiveSpeechServices____lazy_storage___liveSpeechDefaults);
-LABEL_5:
-    v8 = v2;
-    return;
+    goto LABEL_4;
   }
 
   sub_25601BB20();
-  v4 = objc_allocWithZone(MEMORY[0x277CBEBD0]);
-  v5 = sub_25601BB80();
+  v3 = objc_allocWithZone(MEMORY[0x277CBEBD0]);
+  v4 = sub_25601BB80();
 
-  v6 = [v4 initWithSuiteName_];
+  v5 = [v3 initWithSuiteName_];
 
-  if (v6)
+  if (v5)
   {
-    v7 = *(v0 + v1);
-    *(v0 + v1) = v6;
-    v6;
+    v6 = *(v0 + v1);
+    *(v0 + v1) = v5;
+    v5;
 
     v2 = 0;
-    goto LABEL_5;
+LABEL_4:
+    v7 = v2;
+    return;
   }
 
   __break(1u);
 }
 
-void (*LiveSpeechService.inputMode.modify(uint64_t a1))(uint64_t *a1)
+void (*LiveSpeechService.inputMode.modify(uint64_t a1))(uint64_t a1)
 {
   *a1 = v1;
   sub_25601A618();
@@ -2334,21 +2273,19 @@ LABEL_6:
   return sub_25601A7DC;
 }
 
-void sub_25601A7DC(uint64_t *a1)
+void sub_25601A7DC(uint64_t a1)
 {
-  v1 = *a1;
-  v2 = *(a1 + 8);
   sub_25601A618();
-  v6 = v3;
-  v4 = sub_25601BB80();
+  v4 = v1;
+  v2 = sub_25601BB80();
 
-  v5 = sub_25601BB80();
-  [v6 setObject:v4 forKey:v5];
+  v3 = sub_25601BB80();
+  [v4 setObject:v2 forKey:v3];
 }
 
-id sub_25601AA78(uint64_t a1, uint64_t a2, void (*a3)(void))
+id sub_25601AA78(uint64_t a1, uint64_t a2, void (*a3)(uint64_t, uint64_t))
 {
-  a3();
+  a3(a1, a2);
   v3 = sub_25601BB80();
 
   return v3;
@@ -2525,18 +2462,18 @@ uint64_t sub_25601AFF8(unint64_t a1)
   return result;
 }
 
-uint64_t sub_25601B110(uint64_t a1, uint64_t a2)
+uint64_t sub_25601B110(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   sub_25601A618();
-  v5 = v4;
+  v8 = v7;
   swift_getKeyPath();
-  v6 = swift_allocObject();
-  *(v6 + 16) = a1;
-  *(v6 + 24) = a2;
+  v9 = swift_allocObject();
+  *(v9 + 16) = a1;
+  *(v9 + 24) = a2;
 
-  v7 = sub_25601BAD0();
+  v10 = sub_25601BAD0();
 
-  return v7;
+  return v10;
 }
 
 void sub_25601B1D4(id *a1@<X0>, SEL *a2@<X3>, uint64_t *a3@<X8>)
@@ -2550,18 +2487,10 @@ void sub_25601B1D4(id *a1@<X0>, SEL *a2@<X3>, uint64_t *a3@<X8>)
 
 void sub_25601B240(uint64_t *a1, void **a2, uint64_t a3, uint64_t a4, SEL *a5)
 {
-  v6 = *a1;
-  v7 = *a2;
+  v6 = *a2;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8249A8, &unk_25601C950);
-  v8 = sub_25601BC00();
-  [v7 *a5];
-}
-
-uint64_t sub_25601B3E4()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
+  v7 = sub_25601BC00();
+  [v6 *a5];
 }
 
 void *sub_25601B40C(void *result, int64_t a2, char a3, void *a4)
@@ -2644,21 +2573,18 @@ void *sub_25601B40C(void *result, int64_t a2, char a3, void *a4)
 
 unint64_t sub_25601B540(uint64_t a1)
 {
-  v2 = v1;
-  v4 = *(v2 + 40);
-  v5 = sub_25601BC60();
+  v2 = sub_25601BC60();
 
-  return sub_25601B844(a1, v5);
+  return sub_25601B844(a1, v2);
 }
 
 unint64_t sub_25601B584(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_25601BD50();
   sub_25601BBB0();
-  v6 = sub_25601BD70();
+  v4 = sub_25601BD70();
 
-  return sub_25601B90C(a1, a2, v6);
+  return sub_25601B90C(a1, a2, v4);
 }
 
 unint64_t sub_25601B60C()

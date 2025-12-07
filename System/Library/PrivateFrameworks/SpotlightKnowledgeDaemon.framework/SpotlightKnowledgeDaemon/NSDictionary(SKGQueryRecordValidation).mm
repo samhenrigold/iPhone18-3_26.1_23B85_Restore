@@ -10,34 +10,34 @@
 
 - (id)queryRecordEntriesWithKeys:()SKGQueryRecordValidation
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         selfCopy = self;
         v13 = v11;
         if (getValueForKey(selfCopy, v13))
         {
-          v14 = [selfCopy objectForKeyedSubscript:{v13, v17}];
+          v14 = [selfCopy objectForKeyedSubscript:{v13, v16}];
         }
 
         else
@@ -51,41 +51,39 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (uint64_t)queryRecordIncludesBundles:()SKGQueryRecordValidation
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = a3;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if (self && getValueForKey(self, *(*(&v12 + 1) + 8 * v8)))
+        if (self && getValueForKey(self, *(*(&v11 + 1) + 8 * v8)))
         {
           v9 = 1;
           goto LABEL_12;
@@ -95,7 +93,7 @@
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -108,34 +106,33 @@
   v9 = 0;
 LABEL_12:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (uint64_t)queryRecordIncludesAttributes:()SKGQueryRecordValidation
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = a3;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if (self && getValueForKey(self, *(*(&v12 + 1) + 8 * v8)))
+        if (self && getValueForKey(self, *(*(&v11 + 1) + 8 * v8)))
         {
           v9 = 1;
           goto LABEL_12;
@@ -145,7 +142,7 @@ LABEL_12:
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -158,7 +155,6 @@ LABEL_12:
   v9 = 0;
 LABEL_12:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -175,36 +171,36 @@ LABEL_12:
 
 - (uint64_t)recordIsCurrent:()SKGQueryRecordValidation toCalendarUnit:maxOffset:checkFuture:dateKeys:
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v11 = a3;
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   v12 = a7;
-  v13 = [v12 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (!v13)
   {
     goto LABEL_23;
   }
 
   v14 = v13;
-  v42 = a6;
-  v41 = a5;
-  v15 = *v44;
+  v41 = a6;
+  v40 = a5;
+  v15 = *v43;
   while (2)
   {
     for (i = 0; i != v14; ++i)
     {
-      if (*v44 != v15)
+      if (*v43 != v15)
       {
         objc_enumerationMutation(v12);
       }
 
-      v17 = *(*(&v43 + 1) + 8 * i);
+      v17 = *(*(&v42 + 1) + 8 * i);
       if (v11)
       {
-        ValueForKey = getValueForKey(v11, *(*(&v43 + 1) + 8 * i));
+        ValueForKey = getValueForKey(v11, *(*(&v42 + 1) + 8 * i));
         if (ValueForKey)
         {
           v19 = ValueForKey;
@@ -233,7 +229,7 @@ LABEL_12:
         v22 = 0;
       }
 
-      v23 = [&unk_2846E8190 containsObject:{v17, v41}];
+      v23 = [&unk_2846E8190 containsObject:{v17, v40}];
       if (v23)
       {
         v24 = 0;
@@ -261,7 +257,7 @@ LABEL_12:
         {
           v28 = MEMORY[0x238376E40](v25);
           Current = CFAbsoluteTimeGetCurrent();
-          v30 = v42 ^ 1;
+          v30 = v41 ^ 1;
           if (v28 < Current)
           {
             v26 = v30;
@@ -323,7 +319,7 @@ LABEL_12:
               break;
           }
 
-          v26 = year <= v41;
+          v26 = year <= v40;
           goto LABEL_44;
         }
 
@@ -333,7 +329,7 @@ LABEL_39:
       }
     }
 
-    v14 = [v12 countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v14 = [v12 countByEnumeratingWithState:&v42 objects:v46 count:16];
     if (v14)
     {
       continue;
@@ -350,7 +346,6 @@ LABEL_23:
 LABEL_44:
 
 LABEL_45:
-  v39 = *MEMORY[0x277D85DE8];
   return v26;
 }
 

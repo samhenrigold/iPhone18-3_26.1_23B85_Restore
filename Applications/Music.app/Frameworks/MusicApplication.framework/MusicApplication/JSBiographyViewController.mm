@@ -45,7 +45,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_312C24();
+  sub_312C24(selfCopy);
 }
 
 - (void)music_viewInheritedLayoutInsetsDidChange

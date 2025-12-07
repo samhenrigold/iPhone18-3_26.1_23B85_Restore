@@ -79,14 +79,14 @@
     }
 
     v16 = self->_modelEspresso;
-    if (v16 && ([(VCPCNNModelEspresso *)v16 inputBlob], (v17 = self->_modelEspresso) != 0))
+    if (v16 && (objc_msgSend_inputBlob(v16), (v17 = self->_modelEspresso) != 0))
     {
-      [(VCPCNNModelEspresso *)v17 inputBlob];
+      objc_msgSend_inputBlob(v17);
       v18 = self->_modelEspresso;
       v19 = v26 * v27;
       if (v18)
       {
-        [(VCPCNNModelEspresso *)v18 inputBlob];
+        objc_msgSend_inputBlob(v18);
         v20 = v25;
         goto LABEL_20;
       }
@@ -156,7 +156,7 @@ VCPCNNModelEspresso *__52__VCPImageSaliencyAnalyzerFullEspresso_sharedModel___bl
   modelEspresso = self->_modelEspresso;
   if (modelEspresso)
   {
-    [(VCPCNNModelEspresso *)modelEspresso inputBlob:*&buffer];
+    objc_msgSend_inputBlob(modelEspresso, a2, *&buffer, *&width);
     v10 = v15;
   }
 
@@ -169,7 +169,7 @@ VCPCNNModelEspresso *__52__VCPImageSaliencyAnalyzerFullEspresso_sharedModel___bl
   v11 = self->_modelEspresso;
   if (v11)
   {
-    [(VCPCNNModelEspresso *)v11 inputBlob];
+    objc_msgSend_inputBlob(v11);
     v12 = v14;
   }
 
@@ -188,12 +188,12 @@ VCPCNNModelEspresso *__52__VCPImageSaliencyAnalyzerFullEspresso_sharedModel___bl
   modelEspresso = self->_modelEspresso;
   if (modelEspresso)
   {
-    [(VCPCNNModelEspresso *)modelEspresso outputBlob];
+    objc_msgSend_outputBlob(modelEspresso);
     v6 = self->_modelEspresso;
     v7 = DWORD2(v18);
     if (v6)
     {
-      [(VCPCNNModelEspresso *)v6 outputBlob];
+      objc_msgSend_outputBlob(v6);
       v8 = v18;
       if (!regionsCopy)
       {
@@ -234,7 +234,7 @@ LABEL_10:
     v10 = self->_modelEspresso;
     if (v10)
     {
-      [(VCPCNNModelEspresso *)v10 outputBlob];
+      objc_msgSend_outputBlob(v10);
       v11 = v13;
     }
 

@@ -19,24 +19,19 @@
 
 - (NSString)id
 {
-  v2 = *(self + OBJC_IVAR____TtC5AskTo14ATAnswerChoice_id);
-  v3 = *(self + OBJC_IVAR____TtC5AskTo14ATAnswerChoice_id + 8);
 
-  v4 = sub_2410DF0A0();
+  v2 = sub_2410DF0A0();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)title
 {
-  v2 = (self + OBJC_IVAR____TtC5AskTo14ATAnswerChoice_title);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_2410DF0A0();
+  v2 = sub_2410DF0A0();
 
-  return v5;
+  return v2;
 }
 
 - (void)setTitle:(id)title
@@ -45,28 +40,26 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR____TtC5AskTo14ATAnswerChoice_title);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
 
 - (NSString)completedRequestTitle
 {
-  v2 = (self + OBJC_IVAR____TtC5AskTo14ATAnswerChoice_completedRequestTitle);
+  v2 = self + OBJC_IVAR____TtC5AskTo14ATAnswerChoice_completedRequestTitle;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = sub_2410DF0A0();
+    v3 = sub_2410DF0A0();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setCompletedRequestTitle:(id)title
@@ -85,7 +78,6 @@
 
   v7 = (self + OBJC_IVAR____TtC5AskTo14ATAnswerChoice_completedRequestTitle);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

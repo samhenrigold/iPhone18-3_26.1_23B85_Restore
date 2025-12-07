@@ -29,9 +29,16 @@
 - (void)setAttributedAuditToken:(id *)token;
 - (void)setClientConnectionAuditToken:(id *)token;
 - (void)setClientPID:(int)d;
+- (void)setCurrentActiveSessionMicrophoneEnabled:(BOOL)enabled;
 - (void)setupInAppBroadcastExtensionBundleID:(id)d broadcastConfigurationData:(id)data userInfo:(id)info handler:(id)handler;
 - (void)setupSystemBroadcastWithHostBundleID:(id)d broadcastExtensionBundleID:(id)iD broadcastConfigurationData:(id)data userInfo:(id)info handler:(id)handler;
 - (void)startHQLRWithSessionInfo:(id)info windowSize:(CGSize)size handler:(id)handler;
+- (void)startInAppBroadcastSessionWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled listenerEndpoint:(id)endpoint withHandler:(id)handler;
+- (void)startInAppCaptureSessionWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withHandler:(id)handler;
+- (void)startInAppClipSessionWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withHandler:(id)handler;
+- (void)startInAppRecordingSessionWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withHandler:(id)handler;
+- (void)startSystemBroadcastSessionWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled mixedRealityCameraEnabled:(BOOL)realityCameraEnabled listenerEndpoint:(id)endpoint withHandler:(id)handler;
+- (void)startSystemRecordingSessionWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled mixedRealityCameraEnabled:(BOOL)realityCameraEnabled withHandler:(id)handler;
 - (void)stopCurrentActiveSessionWithHandler:(id)handler;
 - (void)stopHQLRSessionWithHandler:(id)handler;
 - (void)stopInAppBroadcastSessionWithHandler:(id)handler;
@@ -42,6 +49,7 @@
 - (void)stopSystemRecordingSessionWithHandler:(id)handler;
 - (void)stopSystemRecordingSessionWithURLHandler:(id)handler;
 - (void)updateBroadcastURL:(id)l;
+- (void)updateProcessIDForAudioCaptureWithPID:(int)d;
 @end
 
 @implementation RPClient
@@ -72,7 +80,7 @@
     [v11 setClientPID:{objc_msgSend(connectionCopy, "processIdentifier")}];
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -107,11 +115,11 @@
     *(v11 + 16) = 0;
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
       v20 = *&buf[16];
       *(v11 + 120) = *buf;
       *(v11 + 136) = v20;
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -236,7 +244,7 @@
 LABEL_18:
     if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100063C98(&self->_currentActiveSession);
+      sub_100063C98();
     }
 
     return;
@@ -596,6 +604,94 @@ LABEL_27:
 LABEL_26:
 }
 
+- (void)setCurrentActiveSessionMicrophoneEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 136446466;
+    v8 = "[RPClient setCurrentActiveSessionMicrophoneEnabled:]";
+    v9 = 1024;
+    v10 = 442;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v7, 0x12u);
+  }
+
+  currentActiveSession = self->_currentActiveSession;
+  if (currentActiveSession == 5)
+  {
+    v6 = 40;
+  }
+
+  else
+  {
+    if (currentActiveSession != 6)
+    {
+      return;
+    }
+
+    v6 = 48;
+  }
+
+  [*(&self->super.isa + v6) setCaptureMicrophoneEnabled:enabledCopy];
+}
+
+- (void)startInAppRecordingSessionWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withHandler:(id)handler
+{
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  height = size.height;
+  width = size.width;
+  dCopy = d;
+  handlerCopy = handler;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v28 = "[RPClient startInAppRecordingSessionWithContextID:windowSize:microphoneEnabled:cameraEnabled:withHandler:]";
+    v29 = 1024;
+    v30 = 464;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Starting in-app recording", buf, 0x12u);
+  }
+
+  recordSession = self->_recordSession;
+  if (recordSession)
+  {
+    clientProxy = [(RPClient *)self clientProxy];
+    clientPID = self->_clientPID;
+    clientBundleID = [(RPClient *)self clientBundleID];
+    [(RPSession *)recordSession updateClientProxy:clientProxy callingPID:clientPID bundleID:clientBundleID];
+  }
+
+  else
+  {
+    if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136446466;
+      v28 = "[RPClient startInAppRecordingSessionWithContextID:windowSize:microphoneEnabled:cameraEnabled:withHandler:]";
+      v29 = 1024;
+      v30 = 467;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d we dont have a record session, creating a new one", buf, 0x12u);
+    }
+
+    v19 = [RPRecordSession alloc];
+    clientProxy = [(RPClient *)self clientProxy];
+    v20 = self->_clientPID;
+    clientBundleID = [(RPClient *)self clientBundleID];
+    v21 = [(RPSession *)v19 initWithClientProxy:clientProxy sessionType:2 callingPID:v20 bundleID:clientBundleID delegate:self];
+    v22 = self->_recordSession;
+    self->_recordSession = v21;
+  }
+
+  v23 = self->_recordSession;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_10003A43C;
+  v25[3] = &unk_1000A1840;
+  v25[4] = self;
+  v26 = handlerCopy;
+  v24 = handlerCopy;
+  [(RPRecordSession *)v23 startRecordingWithMicrophoneEnabled:enabledCopy cameraEnabled:cameraEnabledCopy contextID:dCopy windowSize:v25 handler:width, height];
+}
+
 - (void)stopInAppRecordingSessionWithHandler:(id)handler
 {
   handlerCopy = handler;
@@ -677,6 +773,63 @@ LABEL_26:
   v8 = handlerCopy;
   v6 = handlerCopy;
   [(RPRecordSession *)recordSession discardInAppRecordingWithHandler:v7];
+}
+
+- (void)startInAppCaptureSessionWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withHandler:(id)handler
+{
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  height = size.height;
+  width = size.width;
+  dCopy = d;
+  handlerCopy = handler;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v28 = "[RPClient startInAppCaptureSessionWithContextID:windowSize:microphoneEnabled:cameraEnabled:withHandler:]";
+    v29 = 1024;
+    v30 = 543;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Starting in-app capture", buf, 0x12u);
+  }
+
+  captureSession = self->_captureSession;
+  if (captureSession)
+  {
+    clientProxy = [(RPClient *)self clientProxy];
+    clientPID = self->_clientPID;
+    clientBundleID = [(RPClient *)self clientBundleID];
+    [(RPSession *)captureSession updateClientProxy:clientProxy callingPID:clientPID bundleID:clientBundleID];
+  }
+
+  else
+  {
+    if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136446466;
+      v28 = "[RPClient startInAppCaptureSessionWithContextID:windowSize:microphoneEnabled:cameraEnabled:withHandler:]";
+      v29 = 1024;
+      v30 = 546;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d we dont have a capture session, creating a new one", buf, 0x12u);
+    }
+
+    v19 = [RPCaptureSession alloc];
+    clientProxy = [(RPClient *)self clientProxy];
+    v20 = self->_clientPID;
+    clientBundleID = [(RPClient *)self clientBundleID];
+    v21 = [(RPSession *)v19 initWithClientProxy:clientProxy sessionType:1 callingPID:v20 bundleID:clientBundleID delegate:self];
+    v22 = self->_captureSession;
+    self->_captureSession = v21;
+  }
+
+  v23 = self->_captureSession;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_10003AFD0;
+  v25[3] = &unk_1000A1840;
+  v25[4] = self;
+  v26 = handlerCopy;
+  v24 = handlerCopy;
+  [(RPCaptureSession *)v23 startCaptureWithMicrophoneEnabled:enabledCopy cameraEnabled:cameraEnabledCopy contextID:dCopy windowSize:v25 handler:width, height];
 }
 
 - (void)stopInAppCaptureSessionWithHandler:(id)handler
@@ -798,6 +951,48 @@ LABEL_26:
   [(RPBroadcastSession *)v22 setupBroadcastWithHostBundleID:clientBundleID2 broadcastExtensionBundleID:dCopy broadcastConfigurationData:dataCopy userInfo:infoCopy handler:handlerCopy];
 }
 
+- (void)startInAppBroadcastSessionWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled listenerEndpoint:(id)endpoint withHandler:(id)handler
+{
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  height = size.height;
+  width = size.width;
+  dCopy = d;
+  endpointCopy = endpoint;
+  handlerCopy = handler;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v26 = "[RPClient startInAppBroadcastSessionWithContextID:windowSize:microphoneEnabled:cameraEnabled:listenerEndpoint:withHandler:]";
+    v27 = 1024;
+    v28 = 628;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Starting in-app broadcast", buf, 0x12u);
+  }
+
+  broadcastSession = self->_broadcastSession;
+  if (broadcastSession)
+  {
+    clientProxy = [(RPClient *)self clientProxy];
+    clientPID = self->_clientPID;
+    clientBundleID = [(RPClient *)self clientBundleID];
+    [(RPSession *)broadcastSession updateClientProxy:clientProxy callingPID:clientPID bundleID:clientBundleID];
+
+    v22 = self->_broadcastSession;
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_10003BB78;
+    v23[3] = &unk_1000A1840;
+    v23[4] = self;
+    v24 = handlerCopy;
+    [(RPBroadcastSession *)v22 startBroadcastWithMicrophoneEnabled:enabledCopy cameraEnabled:cameraEnabledCopy contextID:dCopy windowSize:endpointCopy listenerEndpoint:v23 handler:width, height];
+  }
+
+  else if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_100064058();
+  }
+}
+
 - (void)stopInAppBroadcastSessionWithHandler:(id)handler
 {
   handlerCopy = handler;
@@ -869,6 +1064,63 @@ LABEL_26:
   v11 = handlerCopy;
   v9 = handlerCopy;
   [(RPBroadcastSession *)broadcastSession resumeSessionWithWindowLayerContextID:dCopy completionHandler:v10];
+}
+
+- (void)startInAppClipSessionWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withHandler:(id)handler
+{
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  height = size.height;
+  width = size.width;
+  dCopy = d;
+  handlerCopy = handler;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v28 = "[RPClient startInAppClipSessionWithContextID:windowSize:microphoneEnabled:cameraEnabled:withHandler:]";
+    v29 = 1024;
+    v30 = 706;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Starting in-app clip buffering", buf, 0x12u);
+  }
+
+  clipSession = self->_clipSession;
+  if (clipSession)
+  {
+    clientProxy = [(RPClient *)self clientProxy];
+    clientPID = self->_clientPID;
+    clientBundleID = [(RPClient *)self clientBundleID];
+    [(RPSession *)clipSession updateClientProxy:clientProxy callingPID:clientPID bundleID:clientBundleID];
+  }
+
+  else
+  {
+    if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136446466;
+      v28 = "[RPClient startInAppClipSessionWithContextID:windowSize:microphoneEnabled:cameraEnabled:withHandler:]";
+      v29 = 1024;
+      v30 = 709;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d we dont have a clip session, creating a new one", buf, 0x12u);
+    }
+
+    v19 = [RPClipSession alloc];
+    clientProxy = [(RPClient *)self clientProxy];
+    v20 = self->_clientPID;
+    clientBundleID = [(RPClient *)self clientBundleID];
+    v21 = [(RPSession *)v19 initWithClientProxy:clientProxy sessionType:4 callingPID:v20 bundleID:clientBundleID delegate:self];
+    v22 = self->_clipSession;
+    self->_clipSession = v21;
+  }
+
+  v23 = self->_clipSession;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_10003C54C;
+  v25[3] = &unk_1000A1840;
+  v25[4] = self;
+  v26 = handlerCopy;
+  v24 = handlerCopy;
+  [(RPClipSession *)v23 startClipWithMicrophoneEnabled:enabledCopy cameraEnabled:cameraEnabledCopy contextID:dCopy windowSize:v25 handler:width, height];
 }
 
 - (void)stopInAppClipSessionWithHandler:(id)handler
@@ -953,6 +1205,64 @@ LABEL_26:
   v13 = handlerCopy;
   v11 = handlerCopy;
   [(RPClipSession *)clipSession exportClipToURL:lCopy duration:v12 completionHandler:duration];
+}
+
+- (void)startSystemRecordingSessionWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled mixedRealityCameraEnabled:(BOOL)realityCameraEnabled withHandler:(id)handler
+{
+  realityCameraEnabledCopy = realityCameraEnabled;
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  height = size.height;
+  width = size.width;
+  dCopy = d;
+  handlerCopy = handler;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v30 = "[RPClient startSystemRecordingSessionWithContextID:windowSize:microphoneEnabled:cameraEnabled:mixedRealityCameraEnabled:withHandler:]";
+    v31 = 1024;
+    v32 = 799;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Starting system recording", buf, 0x12u);
+  }
+
+  systemRecordSession = self->_systemRecordSession;
+  if (systemRecordSession)
+  {
+    clientProxy = [(RPClient *)self clientProxy];
+    clientPID = self->_clientPID;
+    clientBundleID = [(RPClient *)self clientBundleID];
+    [(RPSession *)systemRecordSession updateClientProxy:clientProxy callingPID:clientPID bundleID:clientBundleID];
+  }
+
+  else
+  {
+    if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136446466;
+      v30 = "[RPClient startSystemRecordingSessionWithContextID:windowSize:microphoneEnabled:cameraEnabled:mixedRealityCameraEnabled:withHandler:]";
+      v31 = 1024;
+      v32 = 802;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d we dont have a system record session, creating a new one", buf, 0x12u);
+    }
+
+    v21 = [RPSystemRecordSession alloc];
+    clientProxy = [(RPClient *)self clientProxy];
+    v22 = self->_clientPID;
+    clientBundleID = [(RPClient *)self clientBundleID];
+    v23 = [(RPSession *)v21 initWithClientProxy:clientProxy sessionType:5 callingPID:v22 bundleID:clientBundleID delegate:self];
+    v24 = self->_systemRecordSession;
+    self->_systemRecordSession = v23;
+  }
+
+  v25 = self->_systemRecordSession;
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_10003D1A0;
+  v27[3] = &unk_1000A1840;
+  v27[4] = self;
+  v28 = handlerCopy;
+  v26 = handlerCopy;
+  [(RPSystemRecordSession *)v25 startSystemRecordingWithMicrophoneEnabled:enabledCopy cameraEnabled:cameraEnabledCopy mixedRealityCameraEnabled:realityCameraEnabledCopy contextID:dCopy windowSize:v27 handler:width, height];
 }
 
 - (void)stopSystemRecordingSessionWithHandler:(id)handler
@@ -1081,6 +1391,50 @@ LABEL_26:
   v24 = self->_systemBroadcastSession;
   clientBundleID2 = [(RPClient *)self clientBundleID];
   [(RPSystemBroadcastSession *)v24 setupSystemBroadcastWithHostBundleID:clientBundleID2 broadcastExtensionBundleID:iDCopy broadcastConfigurationData:dataCopy userInfo:infoCopy handler:handlerCopy];
+}
+
+- (void)startSystemBroadcastSessionWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled mixedRealityCameraEnabled:(BOOL)realityCameraEnabled listenerEndpoint:(id)endpoint withHandler:(id)handler
+{
+  realityCameraEnabledCopy = realityCameraEnabled;
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  height = size.height;
+  width = size.width;
+  dCopy = d;
+  endpointCopy = endpoint;
+  handlerCopy = handler;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v32 = "[RPClient startSystemBroadcastSessionWithContextID:windowSize:microphoneEnabled:cameraEnabled:mixedRealityCameraEnabled:listenerEndpoint:withHandler:]";
+    v33 = 1024;
+    v34 = 895;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Starting system broadcast", buf, 0x12u);
+  }
+
+  systemBroadcastSession = self->_systemBroadcastSession;
+  if (systemBroadcastSession)
+  {
+    clientProxy = [(RPClient *)self clientProxy];
+    clientPID = self->_clientPID;
+    [(RPClient *)self clientBundleID];
+    v28 = endpointCopy;
+    v23 = dCopy;
+    v25 = v24 = realityCameraEnabledCopy;
+    [(RPSession *)systemBroadcastSession updateClientProxy:clientProxy callingPID:clientPID bundleID:v25];
+
+    v26 = self->_systemBroadcastSession;
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_10003DDA0;
+    v29[3] = &unk_1000A1840;
+    v29[4] = self;
+    v30 = handlerCopy;
+    v27 = v24;
+    dCopy = v23;
+    endpointCopy = v28;
+    [(RPSystemBroadcastSession *)v26 startSystemBroadcastWithMicrophoneEnabled:enabledCopy cameraEnabled:cameraEnabledCopy mixedRealityCameraEnabled:v27 contextID:dCopy windowSize:v28 listenerEndpoint:v29 withHandler:width, height];
+  }
 }
 
 - (void)stopSystemBroadcastSessionWithHandler:(id)handler
@@ -1396,6 +1750,58 @@ LABEL_22:
     v7 = 1024;
     v8 = 1073;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d We don't have a current active session.", &v5, 0x12u);
+  }
+}
+
+- (void)updateProcessIDForAudioCaptureWithPID:(int)d
+{
+  v3 = *&d;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 136446722;
+    v8 = "[RPClient updateProcessIDForAudioCaptureWithPID:]";
+    v9 = 1024;
+    v10 = 1078;
+    v11 = 1024;
+    v12 = v3;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d pid: %d", &v7, 0x18u);
+  }
+
+  currentActiveSession = self->_currentActiveSession;
+  if (currentActiveSession > 1)
+  {
+    if (currentActiveSession == 3)
+    {
+      broadcastSession = self->_broadcastSession;
+      goto LABEL_15;
+    }
+
+    if (currentActiveSession == 2)
+    {
+      broadcastSession = self->_recordSession;
+      goto LABEL_15;
+    }
+  }
+
+  else
+  {
+    if (!currentActiveSession)
+    {
+      return;
+    }
+
+    if (currentActiveSession == 1)
+    {
+      broadcastSession = self->_captureSession;
+LABEL_15:
+      [broadcastSession updateProcessIDForAudioCaptureWithPID:v3];
+      return;
+    }
+  }
+
+  if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_100064824();
   }
 }
 

@@ -18,9 +18,9 @@
 - (NTKPrideAnalogFaceViewComplicationFactory)initWithFaceView:(id)view device:(id)device
 {
   viewCopy = view;
-  v12.receiver = self;
-  v12.super_class = NTKPrideAnalogFaceViewComplicationFactory;
-  v7 = [(NTKFaceViewComplicationFactory *)&v12 initForDevice:device];
+  v13.receiver = self;
+  v13.super_class = NTKPrideAnalogFaceViewComplicationFactory;
+  v7 = [(NTKFaceViewComplicationFactory *)&v13 initForDevice:device];
   v8 = v7;
   if (v7)
   {
@@ -29,8 +29,8 @@
     whiteColor = [MEMORY[0x277D75348] whiteColor];
     [(NTKFaceViewComplicationFactory *)v8 setForegroundColor:whiteColor];
 
-    v10 = NTKActivityBackgroundPlatterColor();
-    [(NTKFaceViewComplicationFactory *)v8 setPlatterColor:v10];
+    v11 = NTKActivityBackgroundPlatterColor(v10);
+    [(NTKFaceViewComplicationFactory *)v8 setPlatterColor:v11];
   }
 
   return v8;
@@ -73,9 +73,9 @@ void __60__NTKPrideAnalogFaceViewComplicationFactory_loadLayoutRules__block_invo
   [*(a1 + 32) _edgeGapForState:a2];
   v7 = v5 + v6;
   v8 = [*(a1 + 32) device];
-  v9 = NTKCircularSmallComplicationDiameter();
+  v9 = NTKCircularSmallComplicationDiameter(v8);
   v10 = [*(a1 + 32) device];
-  v11 = NTKCircularSmallComplicationDiameter();
+  v11 = NTKCircularSmallComplicationDiameter(v10);
 
   v12 = *(a1 + 72) - v11 - v7;
   v13 = *(a1 + 64) - v9 - v7;
@@ -322,20 +322,21 @@ void __130__NTKPrideAnalogFaceViewComplicationFactory_createComplicationContentS
   [v12 addObject:{v13, v14, v15, v16, v17}];
 }
 
-void __130__NTKPrideAnalogFaceViewComplicationFactory_createComplicationContentSpecificAttributesAnimationWithAttributes_faceView_forSlots___block_invoke_2(uint64_t a1)
+void __130__NTKPrideAnalogFaceViewComplicationFactory_createComplicationContentSpecificAttributesAnimationWithAttributes_faceView_forSlots___block_invoke_2(uint64_t a1, float a2)
 {
+  v3 = a2;
   if (*(a1 + 72) == 1)
   {
-    v2 = *(a1 + 32);
-    v3 = NTKInterpolateBetweenColors();
-    [v2 setForegroundColor:v3];
+    v4 = *(a1 + 32);
+    v5 = NTKInterpolateBetweenColors(a2);
+    [v4 setForegroundColor:v5];
   }
 
   if (*(a1 + 73) == 1)
   {
-    v4 = *(a1 + 32);
-    v5 = NTKInterpolateBetweenColors();
-    [v4 setPlatterColor:v5];
+    v6 = *(a1 + 32);
+    v7 = NTKInterpolateBetweenColors(v3);
+    [v6 setPlatterColor:v7];
   }
 }
 

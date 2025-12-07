@@ -1,6 +1,7 @@
 @interface UNNotificationSound
 + (UNNotificationSound)criticalSoundNamed:(UNNotificationSoundName)name withAudioVolume:(float)volume;
 + (UNNotificationSound)defaultCriticalSoundWithAudioVolume:(float)volume;
++ (id)_soundWithAlertType:(int64_t)type audioVolume:(id)volume critical:(BOOL)critical toneFileName:(id)name;
 - (BOOL)isEqual:(id)equal;
 - (UNNotificationSound)init;
 - (UNNotificationSound)initWithCoder:(id)coder;
@@ -29,6 +30,17 @@
   v10 = [self _soundWithAlertType:17 audioVolume:v9 critical:1 toneFileName:v7];
 
   return v10;
+}
+
++ (id)_soundWithAlertType:(int64_t)type audioVolume:(id)volume critical:(BOOL)critical toneFileName:(id)name
+{
+  criticalCopy = critical;
+  nameCopy = name;
+  volumeCopy = volume;
+  LOWORD(v14) = 0;
+  v12 = [[self alloc] _initWithAlertType:type alertTopic:0 audioCategory:0 audioVolume:volumeCopy critical:criticalCopy maximumDuration:0 shouldIgnoreAccessibilityDisabledVibrationSetting:0.0 shouldIgnoreRingerSwitch:v14 shouldRepeat:nameCopy toneFileName:0 toneFileURL:0 toneIdentifier:0 toneMediaLibraryItemIdentifier:0 vibrationIdentifier:0 vibrationPatternFileURL:?];
+
+  return v12;
 }
 
 - (id)_initWithAlertType:(int64_t)type alertTopic:(id)topic audioCategory:(id)category audioVolume:(id)volume critical:(BOOL)critical maximumDuration:(double)duration shouldIgnoreAccessibilityDisabledVibrationSetting:(BOOL)setting shouldIgnoreRingerSwitch:(BOOL)self0 shouldRepeat:(BOOL)self1 toneFileName:(id)self2 toneFileURL:(id)self3 toneIdentifier:(id)self4 toneMediaLibraryItemIdentifier:(unint64_t)self5 vibrationIdentifier:(id)self6 vibrationPatternFileURL:(id)self7

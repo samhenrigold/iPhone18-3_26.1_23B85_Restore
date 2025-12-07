@@ -126,15 +126,15 @@ void __76__HDHeartRateWidgetDataManager_initWithProfile_latestWorkoutFetchOperat
 
 - (void)daemonReady:(id)ready
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
   v4 = HKLogHeartRateCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = objc_opt_class();
-    v5 = v12;
+    v11 = objc_opt_class();
+    v5 = v11;
     _os_log_impl(&dword_229486000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] daemonReady", buf, 0xCu);
   }
 
@@ -143,37 +143,34 @@ void __76__HDHeartRateWidgetDataManager_initWithProfile_latestWorkoutFetchOperat
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   database = [WeakRetained database];
   queue = self->_queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __44__HDHeartRateWidgetDataManager_daemonReady___block_invoke;
-  v10[3] = &unk_27865FD90;
-  v10[4] = self;
-  [database performWhenDataProtectedByFirstUnlockIsAvailableOnQueue:queue block:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __44__HDHeartRateWidgetDataManager_daemonReady___block_invoke;
+  v9[3] = &unk_27865FD90;
+  v9[4] = self;
+  [database performWhenDataProtectedByFirstUnlockIsAvailableOnQueue:queue block:v9];
 }
 
-void __44__HDHeartRateWidgetDataManager_daemonReady___block_invoke(uint64_t a1)
+void __44__HDHeartRateWidgetDataManager_daemonReady___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
-  v2 = HKLogHeartRateCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = HKLogHeartRateCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
     *buf = 138543362;
-    v14 = objc_opt_class();
-    v4 = v14;
-    _os_log_impl(&dword_229486000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] first unlock occurred", buf, 0xCu);
+    v13 = objc_opt_class();
+    v4 = v13;
+    _os_log_impl(&dword_229486000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] first unlock occurred", buf, 0xCu);
   }
 
   v6 = *(a1 + 32);
   v5 = (a1 + 32);
   [v6 _reloadWidgetsWithReason:0];
   v7 = *(*v5 + 40);
-  v12 = 0;
-  v8 = [v7 requestWorkWithPriority:2 error:&v12];
-  v9 = v12;
+  v11 = 0;
+  v8 = [v7 requestWorkWithPriority:2 error:&v11];
+  v9 = v11;
   if ((v8 & 1) == 0)
   {
     _HKInitializeLogging();
@@ -183,8 +180,6 @@ void __44__HDHeartRateWidgetDataManager_daemonReady___block_invoke(uint64_t a1)
       __44__HDHeartRateWidgetDataManager_daemonReady___block_invoke_cold_1(v5, v9, v10);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_latestWorkoutSample
@@ -258,7 +253,7 @@ void __44__HDHeartRateWidgetDataManager_daemonReady___block_invoke(uint64_t a1)
 
 - (void)_reloadWorkoutRelevanceAndWidgetWithReason:(int64_t)reason for:(id)for
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   forCopy = for;
   _HKInitializeLogging();
   v7 = HKLogHeartRateCategory();
@@ -268,11 +263,11 @@ void __44__HDHeartRateWidgetDataManager_daemonReady___block_invoke(uint64_t a1)
     v9 = v8;
     v10 = HDStringFromHeartRateWidgetDataManagerReloadReason(reason);
     *buf = 138543874;
-    v26 = v8;
-    v27 = 2112;
-    v28 = v10;
-    v29 = 2112;
-    v30 = *&forCopy;
+    v25 = v8;
+    v26 = 2112;
+    v27 = v10;
+    v28 = 2112;
+    v29 = *&forCopy;
     _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] _reloadWorkoutRelevanceAndWidgetWithReason reason %@ for %@", buf, 0x20u);
   }
 
@@ -299,65 +294,60 @@ void __44__HDHeartRateWidgetDataManager_daemonReady___block_invoke(uint64_t a1)
     v18 = v17;
     v19 = HDStringFromHeartRateWidgetDataManagerReloadReason(reason);
     *buf = 138543874;
-    v26 = v17;
-    v27 = 2112;
-    v28 = v19;
-    v29 = 2048;
-    v30 = v15;
+    v25 = v17;
+    v26 = 2112;
+    v27 = v19;
+    v28 = 2048;
+    v29 = v15;
     _os_log_impl(&dword_229486000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] _reloadWorkoutRelevanceAndWidgetWithReason reason %@ delayInSeconds %lf", buf, 0x20u);
   }
 
   v20 = dispatch_time(0, (v15 * 1000000000.0));
   queue = self->_queue;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __79__HDHeartRateWidgetDataManager__reloadWorkoutRelevanceAndWidgetWithReason_for___block_invoke;
-  v24[3] = &unk_278660A08;
-  v24[4] = self;
-  v24[5] = reason;
-  dispatch_after(v20, queue, v24);
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __79__HDHeartRateWidgetDataManager__reloadWorkoutRelevanceAndWidgetWithReason_for___block_invoke;
+  v23[3] = &unk_278660A08;
+  v23[4] = self;
+  v23[5] = reason;
+  dispatch_after(v20, queue, v23);
   didRequestWorkoutWidgetReloadHandler = self->_didRequestWorkoutWidgetReloadHandler;
   if (didRequestWorkoutWidgetReloadHandler)
   {
     didRequestWorkoutWidgetReloadHandler[2](didRequestWorkoutWidgetReloadHandler, reason, forCopy, v15);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __79__HDHeartRateWidgetDataManager__reloadWorkoutRelevanceAndWidgetWithReason_for___block_invoke(uint64_t a1)
+uint64_t __79__HDHeartRateWidgetDataManager__reloadWorkoutRelevanceAndWidgetWithReason_for___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 24) = *(a1 + 40);
   _HKInitializeLogging();
-  v2 = HKLogHeartRateCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = HKLogHeartRateCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_229486000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] _reloadWorkoutRelevanceAndWidgetWithReason", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v4 = v7;
+    _os_log_impl(&dword_229486000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] _reloadWorkoutRelevanceAndWidgetWithReason", &v6, 0xCu);
   }
 
   [*(a1 + 32) _queue_reloadRelevances];
-  result = [*(a1 + 32) _queue_reloadWorkoutHRWidgets];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _queue_reloadWorkoutHRWidgets];
 }
 
 - (void)samplesAdded:(id)added anchor:(id)anchor
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   _HKInitializeLogging();
   v6 = HKLogHeartRateCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = objc_opt_class();
-    v7 = v12;
-    _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] samplesAdded", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = objc_opt_class();
+    v7 = v11;
+    _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] samplesAdded", &v10, 0xCu);
   }
 
   v8 = [(HDHeartRateWidgetDataManager *)self _watchSamplesFrom:addedCopy];
@@ -374,24 +364,22 @@ uint64_t __79__HDHeartRateWidgetDataManager__reloadWorkoutRelevanceAndWidgetWith
       [(HDHeartRateWidgetDataManager *)self _reloadWorkoutRelevanceAndWidgetWithReason:2 for:v9];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)latestWorkoutFrom:(id)from
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   _HKInitializeLogging();
   v4 = HKLogHeartRateCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543618;
-    v14 = objc_opt_class();
-    v15 = 2112;
-    v16 = fromCopy;
-    v5 = v14;
-    _os_log_impl(&dword_229486000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] latestWorkoutFrom in samples %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = objc_opt_class();
+    v14 = 2112;
+    v15 = fromCopy;
+    v5 = v13;
+    _os_log_impl(&dword_229486000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] latestWorkoutFrom in samples %@", &v12, 0x16u);
   }
 
   v6 = [fromCopy sortedArrayUsingComparator:&__block_literal_global_10];
@@ -400,17 +388,15 @@ uint64_t __79__HDHeartRateWidgetDataManager__reloadWorkoutRelevanceAndWidgetWith
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = objc_opt_class();
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v6;
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v6;
     v9 = v8;
-    _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] latestWorkoutFrom sortedSamples %@", &v13, 0x16u);
+    _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] latestWorkoutFrom sortedSamples %@", &v12, 0x16u);
   }
 
   lastObject = [v6 lastObject];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return lastObject;
 }
@@ -427,42 +413,40 @@ uint64_t __50__HDHeartRateWidgetDataManager_latestWorkoutFrom___block_invoke(uin
 
 - (id)_watchSamplesFrom:(id)from
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = fromCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        if ([(HDHeartRateWidgetDataManager *)self _isSampleFromWatch:v11, v14])
+        v11 = *(*(&v13 + 1) + 8 * i);
+        if ([(HDHeartRateWidgetDataManager *)self _isSampleFromWatch:v11, v13])
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -495,29 +479,25 @@ uint64_t __50__HDHeartRateWidgetDataManager_latestWorkoutFrom___block_invoke(uin
   return v6;
 }
 
-void __44__HDHeartRateWidgetDataManager_daemonReady___block_invoke_cold_1(uint64_t *a1, void *a2, NSObject *a3)
+void __44__HDHeartRateWidgetDataManager_daemonReady___block_invoke_cold_1(void *a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v5 = *a1;
-  v6 = objc_opt_class();
-  v7 = v6;
-  v8 = [a2 description];
-  v10 = 138543618;
-  v11 = v6;
-  v12 = 2112;
-  v13 = v8;
-  _os_log_error_impl(&dword_229486000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] error requesting maintenance work for fetching latest workout on healthd ready: %@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = objc_opt_class();
+  v6 = v5;
+  v7 = [a2 description];
+  v8 = 138543618;
+  v9 = v5;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_error_impl(&dword_229486000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] error requesting maintenance work for fetching latest workout on healthd ready: %@", &v8, 0x16u);
 }
 
 - (void)_latestWorkoutSample
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_229486000, a2, OS_LOG_TYPE_ERROR, "Error retrieving most recent workout : %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_229486000, a2, OS_LOG_TYPE_ERROR, "Error retrieving most recent workout : %@", &v2, 0xCu);
 }
 
 @end

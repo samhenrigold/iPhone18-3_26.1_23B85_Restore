@@ -1316,7 +1316,7 @@ LABEL_13:
   block[6] = 3221225472;
   block[7] = sub_1000A3E3C;
   block[8] = &unk_10026A828;
-  objc_copyWeak(&v110, &location);
+  objc_copyWeak(&v111, &location);
   PSSetCustomWatchCapabilityCheck();
   v6 = +[COSGlobalAlertPresentationCoordinator sharedInstance];
   [v6 addAlertPresenterObserver:self];
@@ -1329,7 +1329,7 @@ LABEL_13:
       v8 = [NSBundle bundleWithIdentifier:@"com.apple.PBBridgeSupport"];
       v9 = [v8 objectForInfoDictionaryKey:@"PBBridgeVersion"];
       *buf = 138412290;
-      *v113 = v9;
+      *v114 = v9;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PBBridgeVersion: %@", buf, 0xCu);
     }
   }
@@ -1338,16 +1338,16 @@ LABEL_13:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v113 = optionsCopy;
+    *v114 = optionsCopy;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "application:didFinishLaunchingWithOptions: - %@", buf, 0xCu);
   }
 
   [(COSPreferencesAppController *)self _prepareAppearances];
   [PSSearchEntry setSchemeNameOverride:@"bridge"];
-  v118[0] = @"/System/Library/NanoPreferenceBundles/General/";
-  v118[1] = @"/System/Library/NanoPreferenceBundles/Applications/";
-  v118[2] = @"/System/Library/NanoPreferenceBundles/PrivacySettings/";
-  v11 = [NSArray arrayWithObjects:v118 count:3];
+  v119[0] = @"/System/Library/NanoPreferenceBundles/General/";
+  v119[1] = @"/System/Library/NanoPreferenceBundles/Applications/";
+  v119[2] = @"/System/Library/NanoPreferenceBundles/PrivacySettings/";
+  v11 = [NSArray arrayWithObjects:v119 count:3];
   [PSSearchIndexOperation setPossibleBundleRoots:v11];
 
   [PSSearchIndexOperation setTopLevelManifestBundlePath:@"/System/Library/PrivateFrameworks/PBBridgeSupport.framework"];
@@ -1476,20 +1476,20 @@ LABEL_13:
   oneTimeJumpURL = [(COSPreferencesAppController *)self oneTimeJumpURL];
   if ([(COSPreferencesAppController *)self shouldShowWatchPicker])
   {
-    v71 = objc_loadWeakRetained(&location);
-    v72 = [NSURL URLWithString:@"root=ActiveWatch"];
-    v73 = sub_10000DB38();
-    if (v73)
+    v72 = objc_loadWeakRetained(&location);
+    v73 = [NSURL URLWithString:@"root=ActiveWatch"];
+    v74 = sub_10000DB38();
+    if (v74)
     {
-      v74 = 0;
+      v75 = 0;
     }
 
     else
     {
-      v74 = sub_10000D61C();
+      v75 = sub_10000D61C();
     }
 
-    [v71 processURL:v72 animated:!v74 fromSearch:0];
+    [v72 processURL:v73 animated:!v75 fromSearch:0];
 
     goto LABEL_61;
   }
@@ -1503,26 +1503,26 @@ LABEL_13:
   {
     if (!CFPreferencesGetAppBooleanValue(@"kShouldJumpToFaceGalleryKey", @"com.apple.Bridge", 0))
     {
-      v71 = [v60 objectForKey:@"kPreferencePositionTimeStampKey"];
-      v101 = +[NSDate date];
-      v102 = +[NSDate dateWithTimeIntervalSince1970:](NSDate, "dateWithTimeIntervalSince1970:", [v71 intValue]);
-      [v101 timeIntervalSinceDate:v102];
-      v104 = v103;
+      v72 = [v60 objectForKey:@"kPreferencePositionTimeStampKey"];
+      v102 = +[NSDate date];
+      v103 = +[NSDate dateWithTimeIntervalSince1970:](NSDate, "dateWithTimeIntervalSince1970:", [v72 intValue]);
+      [v102 timeIntervalSinceDate:v103];
+      v105 = v104;
 
-      if (v71)
+      if (v72)
       {
-        v105 = v104;
-        if (v105 <= 0.0 || self->_timeoutLimit <= v105)
+        v106 = v105;
+        if (v106 <= 0.0 || self->_timeoutLimit <= v106)
         {
           goto LABEL_62;
         }
       }
 
-      v106 = [v60 objectForKey:@"kPreferencePositionKey"];
-      v72 = [NSURL URLWithString:v106];
+      v107 = [v60 objectForKey:@"kPreferencePositionKey"];
+      v73 = [NSURL URLWithString:v107];
 
       self->_processedPositionPath = 1;
-      [(COSPreferencesAppController *)self processURL:v72];
+      [(COSPreferencesAppController *)self processURL:v73];
 LABEL_61:
 
 LABEL_62:
@@ -1547,48 +1547,48 @@ LABEL_11:
   v68 = [v67 valueForProperty:NRDevicePropertyIsAltAccount];
   bOOLValue = [v68 BOOLValue];
 
-  if (v67 && (PBPairedSyncComplete() & 1) == 0)
+  if (v67 && (v70 = PBPairedSyncComplete(), (v70 & 1) == 0))
   {
-    v70 = (sub_10002EAFC() | bOOLValue) ^ 1;
+    v71 = (sub_10002EAFC(v70) | bOOLValue) ^ 1;
   }
 
   else
   {
-    v70 = 0;
+    v71 = 0;
   }
 
-  v75 = PBisInMigrationSync();
-  v76 = pbb_setupflow_log();
-  if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+  v76 = PBisInMigrationSync();
+  v77 = pbb_setupflow_log();
+  if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *v113 = v75;
-    _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "isInMigrationSync - %{BOOL}d", buf, 8u);
+    *v114 = v76;
+    _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "isInMigrationSync - %{BOOL}d", buf, 8u);
   }
 
-  if (status == 5 || ((self->_isUpdatingGizmoInSetupFlow | v70) & 1) == 0)
+  if (status == 5 || ((self->_isUpdatingGizmoInSetupFlow | v71) & 1) == 0)
   {
-    v77 = 0;
+    v78 = 0;
   }
 
   else
   {
-    v77 = (v66 | v75) ^ 1;
+    v78 = (v66 | v76) ^ 1;
   }
 
-  v78 = pbb_setupflow_log();
-  if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+  v79 = pbb_setupflow_log();
+  if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
   {
     isUpdatingGizmoInSetupFlow = self->_isUpdatingGizmoInSetupFlow;
     *buf = 67109888;
-    *v113 = v77 & 1;
-    *&v113[4] = 1024;
-    *&v113[6] = isUpdatingGizmoInSetupFlow;
-    v114 = 1024;
-    v115 = v70 & 1;
-    v116 = 1024;
-    v117 = status == 5;
-    _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "Showing Setup (%{BOOL}d}) -- _isUpdatingGizmoInSetupFlow %{BOOL}d / setupIsInSyncTrap %{BOOL}d isUnpairing: %{BOOL}d", buf, 0x1Au);
+    *v114 = v78 & 1;
+    *&v114[4] = 1024;
+    *&v114[6] = isUpdatingGizmoInSetupFlow;
+    v115 = 1024;
+    v116 = v71 & 1;
+    v117 = 1024;
+    v118 = status == 5;
+    _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_DEFAULT, "Showing Setup (%{BOOL}d}) -- _isUpdatingGizmoInSetupFlow %{BOOL}d / setupIsInSyncTrap %{BOOL}d isUnpairing: %{BOOL}d", buf, 0x1Au);
   }
 
   if (status == 5)
@@ -1596,11 +1596,11 @@ LABEL_11:
     [(COSPreferencesAppController *)self presentUnpairingViewControllerAnimated:1];
   }
 
-  else if (v77)
+  else if (v78)
   {
-    if (v70)
+    if (v71)
     {
-      v80 = 3;
+      v81 = 3;
     }
 
     else
@@ -1608,49 +1608,49 @@ LABEL_11:
       bridgeController = [UIApp bridgeController];
       [bridgeController beginSetupTransaction];
 
-      v80 = 1;
+      v81 = 1;
     }
 
-    [(COSPreferencesAppController *)self presentSetupFlowWithMode:v80 animated:0];
+    [(COSPreferencesAppController *)self presentSetupFlowWithMode:v81 animated:0];
   }
 
   else if (!self->_isUpdatingInRevLock)
   {
     if (v66)
     {
-      v81 = pbb_setupflow_log();
-      if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+      v82 = pbb_setupflow_log();
+      if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_DEFAULT, "SkipSetupFlow default is set, Skipping Setup flow!!!", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "SkipSetupFlow default is set, Skipping Setup flow!!!", buf, 2u);
       }
     }
 
     [(COSPreferencesAppController *)self pullPairedWatchAssets];
   }
 
-  v83 = [COSTinkerHealthSharingSetupDelegate tinkerDevice]_0();
-  if (v83)
+  v84 = [COSTinkerHealthSharingSetupDelegate tinkerDevice]_0();
+  if (v84)
   {
   }
 
   else
   {
-    v84 = sub_100009AB4();
-    v85 = [v84 count] == 0;
+    v85 = sub_100009AB4();
+    v86 = [v85 count] == 0;
 
-    if (!v85)
+    if (!v86)
     {
       [(COSPreferencesAppController *)self deviceBecameInactive:0];
     }
   }
 
-  if (!(v77 & 1 | (status == 5)) && ((self->_isUpdatingInRevLock | v70 | v75) & 1) == 0)
+  if (!(v78 & 1 | (status == 5)) && ((self->_isUpdatingInRevLock | v71 | v76) & 1) == 0)
   {
-    v86 = +[ACXDeviceConnection sharedDeviceConnection];
-    v87 = +[NRPairedDeviceRegistry sharedInstance];
-    getActivePairedDevice = [v87 getActivePairedDevice];
-    [v86 retryPendingAppInstallationsForPairedDevice:getActivePairedDevice];
+    v87 = +[ACXDeviceConnection sharedDeviceConnection];
+    v88 = +[NRPairedDeviceRegistry sharedInstance];
+    getActivePairedDevice = [v88 getActivePairedDevice];
+    [v87 retryPendingAppInstallationsForPairedDevice:getActivePairedDevice];
   }
 
   if (PBIsInternalInstall())
@@ -1658,20 +1658,20 @@ LABEL_11:
     [PBBridgeAssetsReachabilityMonitor checkServerReachabilityWithCompletion:&stru_10026A848];
   }
 
-  v89 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v90 = dispatch_queue_attr_make_with_qos_class(v89, QOS_CLASS_BACKGROUND, 0);
+  v90 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v91 = dispatch_queue_attr_make_with_qos_class(v90, QOS_CLASS_BACKGROUND, 0);
 
-  v91 = dispatch_queue_create("com.apple.BackupPrewarm", v90);
+  v92 = dispatch_queue_create("com.apple.BackupPrewarm", v91);
   queue = self->_queue;
-  self->_queue = v91;
+  self->_queue = v92;
 
-  v93 = self->_queue;
+  v94 = self->_queue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000A3F60;
   block[3] = &unk_1002682F0;
   block[4] = self;
-  dispatch_async(v93, block);
+  dispatch_async(v94, block);
   [(COSPreferencesAppController *)self createDisplayLayoutManager];
   [(COSPreferencesAppController *)self registerForUserNotifications];
   if (PBIsInternalInstall())
@@ -1690,12 +1690,12 @@ LABEL_11:
     }
   }
 
-  v97 = objc_alloc_init(COSSettingsIntentDonationHook);
+  v98 = objc_alloc_init(COSSettingsIntentDonationHook);
   intentDonationHook = self->_intentDonationHook;
-  self->_intentDonationHook = v97;
+  self->_intentDonationHook = v98;
 
   [(COSSettingsIntentDonationHook *)self->_intentDonationHook registerHandler];
-  objc_destroyWeak(&v110);
+  objc_destroyWeak(&v111);
   objc_destroyWeak(&location);
 
   return 1;

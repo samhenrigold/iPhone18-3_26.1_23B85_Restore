@@ -416,8 +416,8 @@ LABEL_17:
     v30 = v13;
     v17 = [[RouteCollection alloc] initWithRoutes:v13 currentRouteIndex:0];
     observedRoutePlanningSession = [(NavigationStateMonitoringTask *)self observedRoutePlanningSession];
-    configuration = [observedRoutePlanningSession configuration];
-    traits = [configuration traits];
+    v19 = objc_msgSend_configuration(observedRoutePlanningSession);
+    traits = [v19 traits];
     v21 = traits;
     if (traits)
     {
@@ -433,7 +433,7 @@ LABEL_17:
       route = v29;
     }
 
-    +[StartNavigationDetailsBuilder defaultNavigationDetailsOptions];
+    objc_msgSend_defaultNavigationDetailsOptions(StartNavigationDetailsBuilder);
     [(NavigationStateMonitoringTask *)self beginNavigationWithRouteCollection:v17 navigationDetailsOptions:buf mapServiceTraits:currentTraits sessionInitiator:3 isResumingMultipointRoute:0];
 
     goto LABEL_16;
@@ -1487,9 +1487,9 @@ LABEL_45:
 - (id)currentRoutePlanningSessionConfiguration
 {
   observedRoutePlanningSession = [(NavigationStateMonitoringTask *)self observedRoutePlanningSession];
-  configuration = [observedRoutePlanningSession configuration];
+  v3 = objc_msgSend_configuration(observedRoutePlanningSession);
 
-  return configuration;
+  return v3;
 }
 
 - (void)endNavigationWithCompletion:(id)completion
@@ -1708,8 +1708,8 @@ LABEL_26:
       if (initiator == 6)
       {
         observedRoutePlanningSession = [(NavigationStateMonitoringTask *)selfCopy observedRoutePlanningSession];
-        configuration = [observedRoutePlanningSession configuration];
-        lastObject = [configuration tracePlaybackPath];
+        v45 = objc_msgSend_configuration(observedRoutePlanningSession);
+        lastObject = [v45 tracePlaybackPath];
       }
 
       else

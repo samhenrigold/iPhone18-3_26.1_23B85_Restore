@@ -126,16 +126,14 @@
         LODWORD(v47[0]) = v19;
         WORD2(v47[0]) = 2112;
         *(v47 + 6) = bundleIdentifier;
-        LODWORD(v38) = 28;
-        v37 = &v44;
-        v22 = _os_log_send_and_compose_impl();
+        v22 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%@] Deciding to write receipt: %d bytes -- %@", &v44, 28);
 
         if (!v22)
         {
           goto LABEL_18;
         }
 
-        oSLogObject = [NSString stringWithCString:v22 encoding:4, &v44, v38];
+        oSLogObject = [NSString stringWithCString:v22 encoding:4];
         free(v22);
         v37 = oSLogObject;
         SSFileLog();
@@ -186,8 +184,7 @@ LABEL_18:
         v46 = 2048;
         v47[0] = v34;
         LODWORD(v38) = 22;
-        v37 = &v44;
-        v35 = _os_log_send_and_compose_impl();
+        v35 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Fetched %lu total payments", &v44, v38);
 
         v10 = v40;
         if (!v35)
@@ -200,7 +197,7 @@ LABEL_32:
           goto LABEL_33;
         }
 
-        oSLogObject2 = [NSString stringWithCString:v35 encoding:4, &v44, v38];
+        oSLogObject2 = [NSString stringWithCString:v35 encoding:4];
         free(v35);
         v37 = oSLogObject2;
         SSFileLog();

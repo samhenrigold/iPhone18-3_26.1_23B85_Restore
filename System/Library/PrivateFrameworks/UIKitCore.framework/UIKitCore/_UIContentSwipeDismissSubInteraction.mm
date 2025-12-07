@@ -104,7 +104,7 @@
 {
   beginCopy = begin;
   selfCopy = self;
-  sub_189006730();
+  sub_189006730(beginCopy);
   LOBYTE(self) = v6;
 
   return self & 1;

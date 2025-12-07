@@ -165,9 +165,9 @@
 
   if (completions && v8)
   {
-    v10 = [(NSString *)completions isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(completions);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_27;
     }

@@ -1,4 +1,5 @@
 @interface ASAuthorizationPublicKeyCredentialLargeBlobAssertionOutput
++ (id)_outputWithData:(id)data didWrite:(BOOL)write;
 - (ASAuthorizationPublicKeyCredentialLargeBlobAssertionOutput)initWithCoder:(id)coder;
 - (id)_initWithData:(id)data didWrite:(BOOL)write;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -6,6 +7,15 @@
 @end
 
 @implementation ASAuthorizationPublicKeyCredentialLargeBlobAssertionOutput
+
++ (id)_outputWithData:(id)data didWrite:(BOOL)write
+{
+  writeCopy = write;
+  dataCopy = data;
+  v7 = [[self alloc] _initWithData:dataCopy didWrite:writeCopy];
+
+  return v7;
+}
 
 - (id)_initWithData:(id)data didWrite:(BOOL)write
 {

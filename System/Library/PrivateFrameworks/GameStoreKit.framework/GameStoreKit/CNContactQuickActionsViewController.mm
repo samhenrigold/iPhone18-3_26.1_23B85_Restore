@@ -44,9 +44,10 @@
   v4 = sub_24F92B0D8();
   v6 = v5;
   selfCopy = self;
-  v8 = sub_24F43A49C(v4, v6);
+  sub_24F43A49C(v4, v6);
+  v9 = v8;
 
-  return v8;
+  return v9;
 }
 
 - (_TtC12GameStoreKit35CNContactQuickActionsViewController)initWithNibName:(id)name bundle:(id)bundle

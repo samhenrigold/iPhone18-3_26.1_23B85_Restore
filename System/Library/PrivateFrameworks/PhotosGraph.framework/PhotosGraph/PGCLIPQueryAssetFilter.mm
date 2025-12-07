@@ -59,7 +59,7 @@
 
 - (BOOL)passesWithAsset:(id)asset
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   curationModel = [assetCopy curationModel];
   cLIPprintModel = [curationModel CLIPprintModel];
@@ -78,26 +78,26 @@
       v13 = v12;
 
       clsSceneprint = [assetCopy clsSceneprint];
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
       v15 = self->_positiveQueryEmbeddings;
-      v16 = [(NSArray *)v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [(NSArray *)v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v25;
+        v18 = *v24;
         while (2)
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v25 != v18)
+            if (*v24 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            [(PGCLIPQueryAssetFilter *)self cosineSimilarityBetweenQueryEmbedding:*(*(&v24 + 1) + 8 * i) assetEmbedding:clsSceneprint, v24];
+            [(PGCLIPQueryAssetFilter *)self cosineSimilarityBetweenQueryEmbedding:*(*(&v23 + 1) + 8 * i) assetEmbedding:clsSceneprint, v23];
             if (v20 >= v13)
             {
               v21 = 1;
@@ -105,7 +105,7 @@
             }
           }
 
-          v17 = [(NSArray *)v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v17 = [(NSArray *)v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
           if (v17)
           {
             continue;
@@ -130,7 +130,6 @@ LABEL_15:
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

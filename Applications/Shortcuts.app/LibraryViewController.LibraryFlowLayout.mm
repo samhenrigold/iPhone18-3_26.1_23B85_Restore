@@ -16,7 +16,7 @@
 
   if (v8)
   {
-    sub_100002FC4(0, &qword_1001025C8);
+    sub_100002FC4(0, &qword_1001025C8, UICollectionViewLayoutAttributes_ptr);
     v9.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

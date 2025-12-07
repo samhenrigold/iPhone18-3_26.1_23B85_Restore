@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)recoverDurationEnumAsString:(int)string;
 - (int)StringAsRecoverDurationEnum:(id)enum;
 - (int)recoverDurationEnum;
 - (unint64_t)hash;
@@ -51,6 +52,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)recoverDurationEnumAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003181A8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsRecoverDurationEnum:(id)enum
@@ -178,41 +194,37 @@
 {
   toCopy = to;
   has = self->_has;
-  v11 = toCopy;
+  v7 = toCopy;
   if ((has & 2) != 0)
   {
-    recoverDurationEnum = self->_recoverDurationEnum;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v7;
     has = self->_has;
   }
 
   if (has)
   {
-    recoverCount = self->_recoverCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v11;
+    toCopy = v7;
   }
 
   if (self->_recoverCountStateBreaks.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_recoverCountStateBreaks.list[v8];
       PBDataWriterWriteUint32Field();
-      toCopy = v11;
-      ++v8;
+      toCopy = v7;
+      ++v6;
     }
 
-    while (v8 < self->_recoverCountStateBreaks.count);
+    while (v6 < self->_recoverCountStateBreaks.count);
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    recoverDurationEnum2 = self->_recoverDurationEnum2;
     PBDataWriterWriteUint32Field();
-    toCopy = v11;
+    toCopy = v7;
   }
 }
 
@@ -291,7 +303,6 @@
     goto LABEL_17;
   }
 
-  v5 = *(equalCopy + 44);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) == 0 || self->_recoverDurationEnum != *(equalCopy + 9))
@@ -321,11 +332,11 @@
   if (!PBRepeatedUInt32IsEqual())
   {
 LABEL_17:
-    v6 = 0;
+    v5 = 0;
     goto LABEL_18;
   }
 
-  v6 = (*(equalCopy + 44) & 4) == 0;
+  v5 = (*(equalCopy + 44) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 44) & 4) == 0 || self->_recoverDurationEnum2 != *(equalCopy + 10))
@@ -333,12 +344,12 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    v6 = 1;
+    v5 = 1;
   }
 
 LABEL_18:
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)hash

@@ -50,7 +50,7 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   v5 = equalCopy;
   if (equalCopy == self)
@@ -95,29 +95,29 @@
 
           if (v15 == v18)
           {
-            v34 = 0u;
-            v35 = 0u;
-            v32 = 0u;
             v33 = 0u;
+            v34 = 0u;
+            v31 = 0u;
+            v32 = 0u;
             v19 = v11;
-            v20 = [v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
+            v20 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
             if (v20)
             {
               v21 = v20;
-              v30 = v11;
-              v31 = v6;
-              v22 = *v33;
+              v29 = v11;
+              v30 = v6;
+              v22 = *v32;
               while (2)
               {
                 for (i = 0; i != v21; ++i)
                 {
-                  if (*v33 != v22)
+                  if (*v32 != v22)
                   {
                     objc_enumerationMutation(v19);
                   }
 
-                  v24 = *(*(&v32 + 1) + 8 * i);
-                  if (([v24 isEqual:{@"slc", v30, v31, v32}] & 1) == 0)
+                  v24 = *(*(&v31 + 1) + 8 * i);
+                  if (([v24 isEqual:{@"slc", v29, v30, v31}] & 1) == 0)
                   {
                     v25 = [v19 objectForKeyedSubscript:v24];
                     v26 = [v12 objectForKeyedSubscript:v24];
@@ -131,7 +131,7 @@
                   }
                 }
 
-                v21 = [v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
+                v21 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
                 if (v21)
                 {
                   continue;
@@ -142,8 +142,8 @@
 
               v10 = 1;
 LABEL_24:
-              v11 = v30;
-              v6 = v31;
+              v11 = v29;
+              v6 = v30;
             }
 
             else
@@ -173,7 +173,6 @@ LABEL_28:
 
 LABEL_29:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -560,21 +559,20 @@ id *__20__PPEvent_attendees__block_invoke(uint64_t a1, void *a2)
 
 - (PPEvent)initWithPlist:(id)plist calendar:(id)calendar
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   plistCopy = plist;
   v6 = MEMORY[0x1E695DEC8];
   calendarCopy = calendar;
   plistCopy2 = plist;
   v9 = [v6 arrayWithObjects:&plistCopy count:1];
 
-  v10 = [(PPEvent *)self initWithIndex:0 inBackingPlists:v9 calendar:calendarCopy, plistCopy, v14];
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = [(PPEvent *)self initWithIndex:0 inBackingPlists:v9 calendar:calendarCopy, plistCopy, v13];
   return v10;
 }
 
 - (PPEvent)initWithEventIdentifier:(id)identifier objectID:(id)d title:(id)title location:(id)location calendar:(id)calendar startDate:(id)date endDate:(id)endDate availability:(char)self0 externalURIString:(id)self1 attendees:(id)self2 organizerName:(id)self3 eventFlags:(unsigned __int8)self4 notes:(id)self5 urlString:(id)self6 structuredLocationTitle:(id)self7 structuredLocationAddress:(id)self8 structuredLocationCoordinates:(id)self9 suggestedEventCategory:(unsigned __int8)category
 {
-  v95[127] = *MEMORY[0x1E69E9840];
+  v93[127] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dCopy = d;
   obj = title;
@@ -593,7 +591,7 @@ id *__20__PPEvent_attendees__block_invoke(uint64_t a1, void *a2)
   locationTitleCopy = locationTitle;
   addressCopy = address;
   coordinatesCopy = coordinates;
-  v90 = dCopy;
+  v89 = dCopy;
   if (dCopy)
   {
     if (calendarCopy)
@@ -629,16 +627,16 @@ LABEL_3:
     [currentHandler4 handleFailureInMethod:a2 object:self file:@"PPEvent.m" lineNumber:559 description:{@"Invalid parameter not satisfying: %@", @"endDate"}];
   }
 
-  v26 = &v94;
-  bzero(&v94, 0x400uLL);
-  v27 = v92;
-  bzero(v92, 0x400uLL);
+  v26 = &v92;
+  bzero(&v92, 0x400uLL);
+  v27 = v91;
+  bzero(v91, 0x400uLL);
   if (identifierCopy)
   {
-    v27 = &v93;
-    v26 = v95;
-    v94 = @"eid";
-    v92[0] = identifierCopy;
+    v27 = &v91[1];
+    v26 = v93;
+    v92 = @"eid";
+    v91[0] = identifierCopy;
     v28 = 1;
   }
 
@@ -648,115 +646,115 @@ LABEL_3:
   }
 
   *v26 = @"oid";
-  dictionaryRepresentation = [v90 dictionaryRepresentation];
+  dictionaryRepresentation = [v89 dictionaryRepresentation];
   v30 = *v27;
   *v27 = dictionaryRepresentation;
 
   v31 = v28 + 1;
   if (titleCopy)
   {
-    v32 = v95[v31 - 1];
-    v95[v31 - 1] = @"ttl";
+    v32 = v93[v31 - 1];
+    v93[v31 - 1] = @"ttl";
 
-    objc_storeStrong(&v92[v31], obj);
+    objc_storeStrong(&v91[v31], obj);
     v31 = v28 | 2;
   }
 
   if (locationCopy2)
   {
-    v33 = v95[v31 - 1];
-    v95[v31 - 1] = @"loc";
+    v33 = v93[v31 - 1];
+    v93[v31 - 1] = @"loc";
 
-    objc_storeStrong(&v92[v31++], locationCopy);
+    objc_storeStrong(&v91[v31++], locationCopy);
   }
 
   v34 = v31;
-  v35 = v95[v31 - 1];
-  v95[v31 - 1] = @"sdt";
+  v35 = v93[v31 - 1];
+  v93[v31 - 1] = @"sdt";
 
-  objc_storeStrong(&v92[v31], dateCopy);
-  v36 = v95[v31];
-  v95[v34] = @"edt";
+  objc_storeStrong(&v91[v31], dateCopy);
+  v36 = v93[v31];
+  v93[v34] = @"edt";
 
-  objc_storeStrong(&v92[v31 + 1], endDate);
+  objc_storeStrong(&v91[v31 + 1], endDate);
   v37 = 8 * v31 + 16;
-  v38 = *(&v95[-1] + v37);
-  *(v95 + v34 * 8 + 8) = @"avl";
+  v38 = *(&v93[-1] + v37);
+  *(v93 + v34 * 8 + 8) = @"avl";
 
   v39 = [MEMORY[0x1E696AD98] numberWithChar:availability];
-  v40 = *(v92 + v37);
-  *(v92 + v37) = v39;
+  v40 = *(v91 + v37);
+  *(v91 + v37) = v39;
 
   v41 = v31 + 3;
   if (stringCopy)
   {
-    v42 = v95[v41 - 1];
-    v95[v41 - 1] = @"uri";
+    v42 = v93[v41 - 1];
+    v93[v41 - 1] = @"uri";
 
-    objc_storeStrong(&v92[v41], string);
+    objc_storeStrong(&v91[v41], string);
     v41 = v31 + 4;
   }
 
   if (attendeesCopy)
   {
-    v43 = v95[v41 - 1];
-    v95[v41 - 1] = @"atn";
+    v43 = v93[v41 - 1];
+    v93[v41 - 1] = @"atn";
 
     v44 = [attendeesCopy _pas_mappedArrayWithTransform:&__block_literal_global_171];
-    v45 = v92[v41];
-    v92[v41] = v44;
+    v45 = v91[v41];
+    v91[v41] = v44;
 
     ++v41;
   }
 
   if (nameCopy)
   {
-    v46 = v95[v41 - 1];
-    v95[v41 - 1] = @"onm";
+    v46 = v93[v41 - 1];
+    v93[v41 - 1] = @"onm";
 
-    objc_storeStrong(&v92[v41++], name);
+    objc_storeStrong(&v91[v41++], name);
   }
 
-  v47 = v95[v41 - 1];
-  v95[v41 - 1] = @"efl";
+  v47 = v93[v41 - 1];
+  v93[v41 - 1] = @"efl";
 
   v48 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:flags];
-  v49 = v92[v41];
-  v92[v41] = v48;
+  v49 = v91[v41];
+  v91[v41] = v48;
 
   v50 = v41 + 1;
   if (notesCopy)
   {
-    v51 = v95[v50 - 1];
-    v95[v50 - 1] = @"not";
+    v51 = v93[v50 - 1];
+    v93[v50 - 1] = @"not";
 
-    objc_storeStrong(&v92[v50], notes);
+    objc_storeStrong(&v91[v50], notes);
     v50 = v41 + 2;
   }
 
   v52 = coordinatesCopy;
   if (urlStringCopy)
   {
-    v53 = v95[v50 - 1];
-    v95[v50 - 1] = @"url";
+    v53 = v93[v50 - 1];
+    v93[v50 - 1] = @"url";
 
-    objc_storeStrong(&v92[v50++], urlString);
+    objc_storeStrong(&v91[v50++], urlString);
   }
 
   if (locationTitleCopy)
   {
-    v54 = v95[v50 - 1];
-    v95[v50 - 1] = @"slt";
+    v54 = v93[v50 - 1];
+    v93[v50 - 1] = @"slt";
 
-    objc_storeStrong(&v92[v50++], locationTitle);
+    objc_storeStrong(&v91[v50++], locationTitle);
   }
 
   if (addressCopy)
   {
-    v55 = v95[v50 - 1];
-    v95[v50 - 1] = @"sla";
+    v55 = v93[v50 - 1];
+    v93[v50 - 1] = @"sla";
 
-    objc_storeStrong(&v92[v50++], address);
+    objc_storeStrong(&v91[v50++], address);
   }
 
   if (coordinatesCopy)
@@ -766,10 +764,10 @@ LABEL_3:
     objc_autoreleasePoolPop(v56);
     if (v57)
     {
-      v58 = v95[v50 - 1];
-      v95[v50 - 1] = @"slc";
+      v58 = v93[v50 - 1];
+      v93[v50 - 1] = @"slc";
 
-      objc_storeStrong(&v92[v50++], v57);
+      objc_storeStrong(&v91[v50++], v57);
     }
 
     v52 = coordinatesCopy;
@@ -777,17 +775,17 @@ LABEL_3:
 
   if (category)
   {
-    v59 = v95[v50 - 1];
-    v95[v50 - 1] = @"sec";
+    v59 = v93[v50 - 1];
+    v93[v50 - 1] = @"sec";
 
     v60 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:category];
-    v61 = v92[v50];
-    v92[v50] = v60;
+    v61 = v91[v50];
+    v91[v50] = v60;
 
     ++v50;
   }
 
-  v62 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjects:v92 forKeys:&v94 count:v50];
+  v62 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjects:v91 forKeys:&v92 count:v50];
   v63 = [(PPEvent *)self initWithPlist:v62 calendar:calendarCopy];
 
   for (i = 127; i != -1; --i)
@@ -798,7 +796,6 @@ LABEL_3:
   {
   }
 
-  v66 = *MEMORY[0x1E69E9840];
   return v63;
 }
 
@@ -855,7 +852,7 @@ LABEL_3:
 
 + (unsigned)suggestedEventCategoryFromMetadata:(id)metadata
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   v4 = [metadataCopy objectForKeyedSubscript:@"SGEventMetadataTypeKey"];
   v5 = [v4 isEqualToString:@"StructuredEvent"];
@@ -880,9 +877,9 @@ LABEL_3:
         v14 = pp_default_log_handle();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
         {
-          v17 = 138543362;
-          v18 = lowercaseString;
-          _os_log_fault_impl(&dword_1A7FD3000, v14, OS_LOG_TYPE_FAULT, "PPEvent creation with unknown suggested category: StructuredEvent::%{public}@", &v17, 0xCu);
+          v16 = 138543362;
+          v17 = lowercaseString;
+          _os_log_fault_impl(&dword_1A7FD3000, v14, OS_LOG_TYPE_FAULT, "PPEvent creation with unknown suggested category: StructuredEvent::%{public}@", &v16, 0xCu);
         }
 
         unsignedCharValue = 0;
@@ -913,13 +910,12 @@ LABEL_3:
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return unsignedCharValue;
 }
 
 + (id)convertBatchOfEKEvents:(id)events calendarInternPool:(id)pool interningSet:(id)set
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   poolCopy = pool;
   setCopy = set;
@@ -929,7 +925,7 @@ LABEL_3:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v30 = [eventsCopy count];
+      v29 = [eventsCopy count];
       _os_log_impl(&dword_1A7FD3000, v11, OS_LOG_TYPE_DEFAULT, "PPEvent convertBatchOfEKEvents begin (count %tu)", buf, 0xCu);
     }
 
@@ -941,12 +937,12 @@ LABEL_3:
     }
 
     v13 = objc_autoreleasePoolPush();
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __66__PPEvent_convertBatchOfEKEvents_calendarInternPool_interningSet___block_invoke;
-    v28[3] = &__block_descriptor_40_e17__16__0__EKEvent_8l;
-    v28[4] = self;
-    v14 = [eventsCopy _pas_mappedArrayWithTransform:v28];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __66__PPEvent_convertBatchOfEKEvents_calendarInternPool_interningSet___block_invoke;
+    v27[3] = &__block_descriptor_40_e17__16__0__EKEvent_8l;
+    v27[4] = self;
+    v14 = [eventsCopy _pas_mappedArrayWithTransform:v27];
     objc_autoreleasePoolPop(v13);
     v15 = pp_default_log_handle();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
@@ -956,14 +952,14 @@ LABEL_3:
     }
 
     v16 = objc_autoreleasePoolPush();
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __66__PPEvent_convertBatchOfEKEvents_calendarInternPool_interningSet___block_invoke_155;
-    v25[3] = &unk_1E77F6620;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __66__PPEvent_convertBatchOfEKEvents_calendarInternPool_interningSet___block_invoke_155;
+    v24[3] = &unk_1E77F6620;
     v17 = setCopy;
-    v26 = v17;
-    v27 = poolCopy;
-    v18 = [v14 _pas_mappedArrayWithTransform:v25];
+    v25 = v17;
+    v26 = poolCopy;
+    v18 = [v14 _pas_mappedArrayWithTransform:v24];
 
     objc_autoreleasePoolPop(v16);
     v19 = pp_default_log_handle();
@@ -973,11 +969,11 @@ LABEL_3:
       v21 = [v18 count];
       v22 = [v17 count];
       *buf = 134218496;
-      v30 = v20;
-      v31 = 2048;
-      v32 = v21;
-      v33 = 2048;
-      v34 = v22;
+      v29 = v20;
+      v30 = 2048;
+      v31 = v21;
+      v32 = 2048;
+      v33 = v22;
       _os_log_impl(&dword_1A7FD3000, v19, OS_LOG_TYPE_DEFAULT, "PPEvent convertBatchOfEKEvents complete (ekEvent count %tu, ppEvent count %tu, interningSet count %tu)", buf, 0x20u);
     }
   }
@@ -986,8 +982,6 @@ LABEL_3:
   {
     v18 = MEMORY[0x1E695E0F0];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -1017,7 +1011,7 @@ LABEL_3:
 
 + (id)deferredAllocationEventFromEKEvent:(id)event
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v4 = objc_autoreleasePoolPush();
   startDate = [eventCopy startDate];
@@ -1034,7 +1028,7 @@ LABEL_3:
       v11 = isCurrentUser;
     }
 
-    v59 = v11;
+    v58 = v11;
     preferredLocationWithoutPrediction = [eventCopy preferredLocationWithoutPrediction];
     calendar = [eventCopy calendar];
     v13 = objc_autoreleasePoolPush();
@@ -1042,30 +1036,30 @@ LABEL_3:
     objc_autoreleasePoolPop(v13);
     if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v55 = [objc_opt_class() suggestedEventCategoryFromMetadata:v14];
+      v54 = [objc_opt_class() suggestedEventCategoryFromMetadata:v14];
     }
 
     else
     {
-      v55 = 0;
+      v54 = 0;
     }
 
     locationWithoutPrediction = [eventCopy locationWithoutPrediction];
     if ([locationWithoutPrediction length])
     {
-      v57 = locationWithoutPrediction;
+      v56 = locationWithoutPrediction;
     }
 
     else
     {
 
-      v57 = 0;
+      v56 = 0;
     }
 
     attendees = [eventCopy attendees];
-    v62 = [attendees _pas_mappedArrayWithTransform:&__block_literal_global_146];
+    v61 = [attendees _pas_mappedArrayWithTransform:&__block_literal_global_146];
 
-    v61 = v14;
+    v60 = v14;
     if ([eventCopy hasNotes])
     {
       notes = [eventCopy notes];
@@ -1084,7 +1078,7 @@ LABEL_3:
     availability = [eventCopy availability];
     externalURI = [eventCopy externalURI];
     [externalURI absoluteString];
-    v22 = v65 = preferredLocationWithoutPrediction;
+    v22 = v64 = preferredLocationWithoutPrediction;
 
     organizer2 = [eventCopy organizer];
     name = [organizer2 name];
@@ -1092,48 +1086,48 @@ LABEL_3:
     v25 = [eventCopy URL];
     absoluteString = [v25 absoluteString];
 
-    address = [v65 address];
-    geoLocation = [v65 geoLocation];
-    v66[0] = MEMORY[0x1E69E9820];
-    v66[1] = 3221225472;
-    v66[2] = __46__PPEvent_deferredAllocationEventFromEKEvent___block_invoke_4;
-    v66[3] = &unk_1E77F65D8;
-    v67 = calendar;
-    v68 = v62;
-    v69 = eventIdentifier;
-    v70 = objectID;
-    v71 = title2;
-    v72 = v57;
-    v73 = startDate2;
-    v74 = endDate;
-    v75 = v22;
-    v76 = name;
-    v83 = v59;
-    v77 = notes;
-    v78 = absoluteString;
-    v79 = title;
-    v80 = address;
-    v81 = geoLocation;
-    v82 = availability;
-    v84 = v55;
-    v60 = geoLocation;
-    v56 = address;
-    v54 = title;
-    v52 = absoluteString;
-    v50 = notes;
-    v48 = name;
-    v47 = v22;
-    v46 = endDate;
-    v45 = startDate2;
-    v58 = v57;
+    address = [v64 address];
+    geoLocation = [v64 geoLocation];
+    v65[0] = MEMORY[0x1E69E9820];
+    v65[1] = 3221225472;
+    v65[2] = __46__PPEvent_deferredAllocationEventFromEKEvent___block_invoke_4;
+    v65[3] = &unk_1E77F65D8;
+    v66 = calendar;
+    v67 = v61;
+    v68 = eventIdentifier;
+    v69 = objectID;
+    v70 = title2;
+    v71 = v56;
+    v72 = startDate2;
+    v73 = endDate;
+    v74 = v22;
+    v75 = name;
+    v82 = v58;
+    v76 = notes;
+    v77 = absoluteString;
+    v78 = title;
+    v79 = address;
+    v80 = geoLocation;
+    v81 = availability;
+    v83 = v54;
+    v59 = geoLocation;
+    v55 = address;
+    v53 = title;
+    v51 = absoluteString;
+    v49 = notes;
+    v47 = name;
+    v46 = v22;
+    v45 = endDate;
+    v44 = startDate2;
+    v57 = v56;
     v29 = title2;
     v30 = objectID;
     v31 = eventIdentifier;
-    v32 = v62;
+    v32 = v61;
     v33 = calendar;
-    v16 = [v66 copy];
+    v16 = [v65 copy];
 
-    v15 = v65;
+    v15 = v64;
   }
 
   else
@@ -1141,19 +1135,19 @@ LABEL_3:
     v15 = pp_default_log_handle();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v85[0] = @"nil start date";
-      v36 = MEMORY[0x1E696AD98];
+      v84[0] = @"nil start date";
+      v35 = MEMORY[0x1E696AD98];
       startDate3 = [eventCopy startDate];
-      v38 = [v36 numberWithInt:startDate3 == 0];
-      v85[1] = @"nil end date";
-      v86[0] = v38;
-      v39 = MEMORY[0x1E696AD98];
+      v37 = [v35 numberWithInt:startDate3 == 0];
+      v84[1] = @"nil end date";
+      v85[0] = v37;
+      v38 = MEMORY[0x1E696AD98];
       endDate2 = [eventCopy endDate];
-      v41 = [v39 numberWithInt:endDate2 == 0];
-      v86[1] = v41;
-      v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:v85 count:2];
+      v40 = [v38 numberWithInt:endDate2 == 0];
+      v85[1] = v40;
+      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v85 forKeys:v84 count:2];
       *buf = 138412290;
-      v88 = v42;
+      v87 = v41;
       _os_log_debug_impl(&dword_1A7FD3000, v15, OS_LOG_TYPE_DEBUG, "PPEvent initWithEKEvent returning nil due to: %@", buf, 0xCu);
     }
 
@@ -1161,7 +1155,6 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v4);
-  v34 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

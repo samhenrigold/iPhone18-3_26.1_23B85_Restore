@@ -67,29 +67,29 @@ void __38__SPKeyReconciler_initWithDictionary___block_invoke_2(uint64_t a1, void
 
 - (id)description
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   [v3 appendFormat:@"Backed by %lu keymaps\n", -[NSMutableArray count](self->_keyIndices, "count")];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   obj = self->_keyIndices;
-  v4 = [(NSMutableArray *)obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [(NSMutableArray *)obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         beaconIdentifier = [v8 beaconIdentifier];
         if ([v8 sequence] == 1)
         {
@@ -107,50 +107,48 @@ void __38__SPKeyReconciler_initWithDictionary___block_invoke_2(uint64_t a1, void
         [v3 appendFormat:@"\t%@\n", headerString];
       }
 
-      v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)reconcileKey:(id)key matchedIndex:(unsigned int *)index sequence:(unsigned __int8 *)sequence error:(unsigned __int8 *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([keyCopy length] >= 6 && objc_msgSend(keyCopy, "length") < 0x1D)
   {
     sequenceCopy = sequence;
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v13 = self->_keyIndices;
-    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v24;
+      v16 = *v23;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v23 + 1) + 8 * i);
-          v22 = 0;
-          if (sp_key_index_map_contains_key_prefix([v18 mapHandle], objc_msgSend(keyCopy, "bytes"), objc_msgSend(keyCopy, "length"), &v22))
+          v18 = *(*(&v22 + 1) + 8 * i);
+          v21 = 0;
+          if (sp_key_index_map_contains_key_prefix([v18 mapHandle], objc_msgSend(keyCopy, "bytes"), objc_msgSend(keyCopy, "length"), &v21))
           {
             if (index)
             {
-              *index = v22;
+              *index = v21;
             }
 
             if (sequenceCopy)
@@ -169,7 +167,7 @@ void __38__SPKeyReconciler_initWithDictionary___block_invoke_2(uint64_t a1, void
           }
         }
 
-        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v15)
         {
           continue;
@@ -198,8 +196,6 @@ LABEL_5:
 
   beaconIdentifier = 0;
 LABEL_24:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return beaconIdentifier;
 }

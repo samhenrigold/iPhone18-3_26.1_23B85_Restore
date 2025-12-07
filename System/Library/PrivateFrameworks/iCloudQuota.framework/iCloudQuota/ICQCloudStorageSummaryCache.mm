@@ -94,7 +94,7 @@ uint64_t __45__ICQCloudStorageSummaryCache_sharedInstance__block_invoke()
 {
   dCopy = d;
   os_unfair_lock_lock(&self->_cacheLock);
-  v5 = [(NSMutableDictionary *)self->_summaryCache objectForKeyedSubscript:dCopy];
+  v5 = objc_msgSend_objectForKeyedSubscript_(self->_summaryCache);
 
   os_unfair_lock_unlock(&self->_cacheLock);
 
@@ -136,36 +136,32 @@ uint64_t __45__ICQCloudStorageSummaryCache_sharedInstance__block_invoke()
 
 void __70__ICQCloudStorageSummaryCache__startObservingQuotaChangeNotifications__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = _ICQGetLogSystem();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = @"QuotaDidChange";
-    _os_log_impl(&dword_275572000, v2, OS_LOG_TYPE_DEFAULT, "Received notification: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = @"QuotaDidChange";
+    _os_log_impl(&dword_275572000, v2, OS_LOG_TYPE_DEFAULT, "Received notification: %@", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _cleanupCacheForPrimaryAccount];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __70__ICQCloudStorageSummaryCache__startObservingQuotaChangeNotifications__block_invoke_8(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = _ICQGetLogSystem();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = @"QuotaInformationChanged";
-    _os_log_impl(&dword_275572000, v2, OS_LOG_TYPE_DEFAULT, "Received notification: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = @"QuotaInformationChanged";
+    _os_log_impl(&dword_275572000, v2, OS_LOG_TYPE_DEFAULT, "Received notification: %@", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _cleanupCacheForPrimaryAccount];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startObservingCloudSubscriptionFeaturesNotifications
@@ -182,19 +178,17 @@ void __70__ICQCloudStorageSummaryCache__startObservingQuotaChangeNotifications__
 
 void __84__ICQCloudStorageSummaryCache__startObservingCloudSubscriptionFeaturesNotifications__block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v0 = _ICQGetLogSystem();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 138412290;
-    v4 = @"QuotaDidChange";
-    _os_log_impl(&dword_275572000, v0, OS_LOG_TYPE_DEFAULT, "Received CSF notification, posting QuotaDidChange notification named: %@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = @"QuotaDidChange";
+    _os_log_impl(&dword_275572000, v0, OS_LOG_TYPE_DEFAULT, "Received CSF notification, posting QuotaDidChange notification named: %@", &v2, 0xCu);
   }
 
   v1 = [MEMORY[0x277CCAB98] defaultCenter];
   [v1 postNotificationName:@"QuotaDidChange" object:0];
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopObservingQuotaChangeNotifications

@@ -4,6 +4,7 @@
 - (NESMFlowDivertSession)initWithConfiguration:(id)configuration andServer:(id)server andProtocol:(id)protocol andPluginType:(id)type;
 - (id)pluginDidRequestFlowDivertControlSocket:(id)socket;
 - (void)dealloc;
+- (void)handleGetInfoMessage:(id)message withType:(int)type;
 - (void)handleInstalledAppsChanged;
 - (void)handleUserLogin;
 - (void)install;
@@ -118,8 +119,7 @@
       appVPN4 = [configuration4 appVPN];
       appRules3 = [appVPN4 appRules];
       v24 = [(NESMSession *)self uid];
-      [v24 intValue];
-      sub_100040988(policySession, appRules3);
+      sub_100040988(policySession, appRules3, [v24 intValue]);
 
       policySession2 = [(NESMSession *)self policySession];
       configuration5 = [(NESMSession *)self configuration];
@@ -302,6 +302,91 @@ LABEL_33:
   handle = [initFlowDivertDataSocket handle];
 
   return handle;
+}
+
+- (void)handleGetInfoMessage:(id)message withType:(int)type
+{
+  v4 = *&type;
+  messageCopy = message;
+  v7 = messageCopy;
+  if (v4 == 4)
+  {
+    reply = xpc_dictionary_create_reply(messageCopy);
+    if (self)
+    {
+      Property = objc_getProperty(self, v8, 688, 1);
+    }
+
+    else
+    {
+      Property = 0;
+    }
+
+    keyMaterial = [Property keyMaterial];
+
+    if (keyMaterial)
+    {
+      if (self)
+      {
+        v13 = objc_getProperty(self, v12, 688, 1);
+      }
+
+      else
+      {
+        v13 = 0;
+      }
+
+      keyMaterial2 = [v13 keyMaterial];
+      bytes = [keyMaterial2 bytes];
+      if (self)
+      {
+        v17 = objc_getProperty(self, v15, 688, 1);
+      }
+
+      else
+      {
+        v17 = 0;
+      }
+
+      keyMaterial3 = [v17 keyMaterial];
+      v19 = xpc_data_create(bytes, [keyMaterial3 length]);
+
+      v20 = xpc_dictionary_get_value(v7, "SessionOptions");
+      v21 = v20;
+      if (v20 && xpc_get_type(v20) == &_xpc_type_dictionary)
+      {
+        v22 = xpc_dictionary_get_value(v21, "SessionFlowDivertTokenProperties");
+        v23 = v22;
+        if (v22 && xpc_get_type(v22) == &_xpc_type_dictionary)
+        {
+          xpc_dictionary_get_uint64(v21, "SessionFlowDivertTokenControlUnit");
+          xpc_dictionary_get_string(v21, "SessionFlowDivertTokenSigningIdentifier");
+          v24 = ne_session_policy_copy_flow_divert_token_with_key();
+          v25 = v24;
+          if (v24 && xpc_get_type(v24) == &_xpc_type_data)
+          {
+            v26 = xpc_dictionary_create(0, 0, 0);
+            v27 = v26;
+            if (v26 && xpc_get_type(v26) == &_xpc_type_dictionary)
+            {
+              xpc_dictionary_set_value(v27, "SessionFlowDivertTokenKey", v25);
+              xpc_dictionary_set_value(reply, "SessionInfo", v27);
+            }
+          }
+        }
+      }
+    }
+
+    v28 = xpc_dictionary_get_remote_connection(v7);
+    xpc_connection_send_message(v28, reply);
+  }
+
+  else
+  {
+    v29.receiver = self;
+    v29.super_class = NESMFlowDivertSession;
+    [(NESMVPNSession *)&v29 handleGetInfoMessage:messageCopy withType:v4];
+  }
 }
 
 - (void)uninstall

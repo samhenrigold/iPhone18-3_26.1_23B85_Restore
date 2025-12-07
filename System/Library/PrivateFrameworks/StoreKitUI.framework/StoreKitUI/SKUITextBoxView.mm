@@ -222,7 +222,7 @@
 {
   titleCopy = title;
   moreButtonTitle = [(SKUITextBoxView *)self moreButtonTitle];
-  if (moreButtonTitle != titleCopy && ([moreButtonTitle isEqualToString:titleCopy] & 1) == 0)
+  if (moreButtonTitle != titleCopy && (objc_msgSend_isEqualToString_(moreButtonTitle) & 1) == 0)
   {
     _moreButtonLabel = [(SKUITextBoxView *)self _moreButtonLabel];
     [_moreButtonLabel setText:titleCopy];
@@ -280,7 +280,7 @@
 {
   textCopy = text;
   text = [(UILabel *)self->_ratingLabel text];
-  if (text != textCopy && ([text isEqualToString:textCopy] & 1) == 0)
+  if (text != textCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     ratingLabel = self->_ratingLabel;
     if (textCopy)
@@ -300,10 +300,10 @@
         [(UILabel *)v10 setFont:v11];
 
         v12 = self->_ratingLabel;
-        primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-        if (primaryTextColor)
+        v13 = objc_msgSend_primaryTextColor(self->_colorScheme);
+        if (v13)
         {
-          [(UILabel *)v12 setTextColor:primaryTextColor];
+          [(UILabel *)v12 setTextColor:v13];
         }
 
         else
@@ -334,7 +334,7 @@
 {
   subtitleCopy = subtitle;
   text = [(UILabel *)self->_subtitleLabel text];
-  if (text != subtitleCopy && ([text isEqualToString:subtitleCopy] & 1) == 0)
+  if (text != subtitleCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     subtitleLabel = self->_subtitleLabel;
     if (subtitleCopy)
@@ -415,7 +415,7 @@
 {
   titleCopy = title;
   text = [(UILabel *)self->_titleLabel text];
-  if (text != titleCopy && ([text isEqualToString:titleCopy] & 1) == 0)
+  if (text != titleCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     v5 = titleCopy;
     if (titleCopy)
@@ -626,11 +626,11 @@
   *&v97.c = v38;
   *&v97.tx = v13[2];
   CGContextSetTextMatrix(v37, &v97);
-  primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-  v40 = primaryTextColor;
-  if (primaryTextColor)
+  v39 = objc_msgSend_primaryTextColor(self->_colorScheme);
+  v40 = v39;
+  if (v39)
   {
-    [primaryTextColor set];
+    [v39 set];
   }
 
   else
@@ -852,87 +852,87 @@ LABEL_64:
 - (void)layoutSubviews
 {
   [(SKUITextBoxView *)self bounds];
-  v54 = v4;
-  v55 = v3;
-  v6 = v5;
-  v53 = v7;
+  v58 = v5;
+  v59 = v4;
+  v7 = v6;
+  v57 = v8;
   subtitleLabel = self->_subtitleLabel;
   if (subtitleLabel)
   {
-    v9 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v9 = self->_titleLabel != 0;
+    v10 = self->_titleLabel != 0;
   }
 
   p_contentInsets = &self->_contentInsets;
   if (self->_ratingLabel)
   {
-    v11 = 1;
+    v12 = 1;
   }
 
   else
   {
-    v11 = self->_ratingImageView != 0;
+    v12 = self->_ratingImageView != 0;
   }
 
   top = p_contentInsets->top;
-  v13 = MEMORY[0x277CBF3A0];
-  v15 = *(MEMORY[0x277CBF3A0] + 16);
-  v14 = *(MEMORY[0x277CBF3A0] + 24);
-  v16 = v14;
-  v52 = v15;
+  v14 = MEMORY[0x277CBF3A0];
+  v16 = *(MEMORY[0x277CBF3A0] + 16);
+  v15 = *(MEMORY[0x277CBF3A0] + 24);
+  v17 = v15;
+  v56 = v16;
   if (subtitleLabel)
   {
     [(UILabel *)subtitleLabel frame];
-    v15 = v17;
-    v16 = 16.0;
+    v16 = v18;
+    v17 = 16.0;
   }
 
   titleLabel = self->_titleLabel;
-  v19 = v14;
+  v20 = v15;
   if (titleLabel)
   {
     [(UILabel *)titleLabel frame];
     currentDevice = [MEMORY[0x277D75418] currentDevice];
     [currentDevice userInterfaceIdiom];
 
-    v19 = 22.0;
+    v20 = 22.0;
   }
 
-  if (v16 >= v19)
+  if (v17 >= v20)
   {
-    v21 = v16;
+    v22 = v17;
   }
 
   else
   {
-    v21 = v19;
+    v22 = v20;
   }
 
-  v22 = v6 - self->_contentInsets.right - v15;
-  v23 = self->_subtitleLabel;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v22, self->_contentInsets.top + v21 - v16 + -1.0, v15, v16, *&v55, v54, v6, v53);
-  [(UILabel *)v23 setFrame:?];
+  v23 = v7 - self->_contentInsets.right - v16;
+  v24 = self->_subtitleLabel;
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v23, self->_contentInsets.top + v22 - v17 + -1.0, v16, v17, *&v59, v58, v7, v57, titleLabel, v3);
+  v25 = [(UILabel *)v24 setFrame:?];
   left = self->_contentInsets.left;
-  if (v15 <= 0.0)
+  if (v16 <= 0.0)
   {
-    v25 = v6 - left - self->_contentInsets.right;
+    v28 = v7 - left - self->_contentInsets.right;
   }
 
   else
   {
-    v25 = v22 + -5.0 - left;
+    v28 = v23 + -5.0 - left;
   }
 
-  v26 = self->_titleLabel;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(left, v21 + p_contentInsets->top - v19, v25, v19, *&v55, v54, v6, v53);
-  [(UILabel *)v26 setFrame:?];
-  if (v9)
+  v29 = self->_titleLabel;
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(left, v22 + p_contentInsets->top - v20, v28, v20, *&v59, v58, v7, v57, v25, v26);
+  [(UILabel *)v29 setFrame:?];
+  if (v10)
   {
-    if (v11)
+    if (v12)
     {
       currentDevice2 = [MEMORY[0x277D75418] currentDevice];
       [currentDevice2 userInterfaceIdiom];
@@ -945,101 +945,101 @@ LABEL_64:
       bottom = self->_titleInsets.bottom;
     }
 
-    v29 = top + v21 + bottom;
+    v33 = top + v22 + bottom;
   }
 
   else
   {
-    v29 = top;
+    v33 = top;
   }
 
-  v30 = v52;
+  v34 = v56;
   ratingLabel = self->_ratingLabel;
-  v32 = v14;
+  v36 = v15;
   if (ratingLabel)
   {
     [(UILabel *)ratingLabel frame];
-    v32 = 17.0;
+    v36 = 17.0;
   }
 
   ratingImageView = self->_ratingImageView;
   if (ratingImageView)
   {
-    [(UIImageView *)ratingImageView frame];
-    v30 = v36;
-    v14 = v37;
-    v38 = self->_ratingImageView;
-    if (v32 >= v37)
+    ratingImageView = [(UIImageView *)ratingImageView frame];
+    v34 = v40;
+    v15 = v41;
+    v42 = self->_ratingImageView;
+    if (v36 >= v41)
     {
-      v39 = v32;
+      v43 = v36;
     }
 
     else
     {
-      v39 = v37;
+      v43 = v41;
     }
 
-    if (v38)
+    if (v42)
     {
-      v40 = self->_contentInsets.left;
-      v41 = (v39 - v37) * 0.5;
-      v42 = v29 + floorf(v41) + 2.0;
-      SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v40, v42, v36, v37, *&v55, v54, v6, v53);
-      [(UIImageView *)v38 setFrame:?];
+      v44 = self->_contentInsets.left;
+      v45 = (v43 - v41) * 0.5;
+      v46 = v33 + floorf(v45) + 2.0;
+      SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v44, v46, v40, v41, *&v59, v58, v7, v57, ratingImageView, v30);
+      ratingImageView = [(UIImageView *)v42 setFrame:?];
     }
 
     else
     {
-      v40 = v34;
-      v42 = v35;
+      v44 = v38;
+      v46 = v39;
     }
   }
 
   else
   {
-    v40 = *v13;
-    v42 = v13[1];
-    if (v32 >= v14)
+    v44 = *v14;
+    v46 = v14[1];
+    if (v36 >= v15)
     {
-      v39 = v32;
+      v43 = v36;
     }
 
     else
     {
-      v39 = v14;
+      v43 = v15;
     }
   }
 
-  v43 = self->_ratingLabel;
-  if (v43)
+  v47 = self->_ratingLabel;
+  if (v47)
   {
     if (self->_ratingImageView)
     {
-      v58.origin.x = v40;
-      v58.origin.y = v42;
-      v58.size.width = v30;
-      v58.size.height = v14;
-      v44 = CGRectGetMaxX(v58) + 5.0;
-      v43 = self->_ratingLabel;
+      v62.origin.x = v44;
+      v62.origin.y = v46;
+      v62.size.width = v34;
+      v62.size.height = v15;
+      v48 = CGRectGetMaxX(v62) + 5.0;
+      v47 = self->_ratingLabel;
     }
 
     else
     {
-      v44 = self->_contentInsets.left;
+      v48 = self->_contentInsets.left;
     }
 
-    v45 = (v39 - v32) * 0.5;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v44, v29 + floorf(v45), v6 - v44 - self->_contentInsets.right, v32, *&v55, v54, v6, v53);
-    [(UILabel *)v43 setFrame:?];
+    v49 = (v43 - v36) * 0.5;
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v48, v33 + floorf(v49), v7 - v48 - self->_contentInsets.right, v36, *&v59, v58, v7, v57, ratingImageView, v30);
+    [(UILabel *)v47 setFrame:?];
   }
 
   _textFrame = [(SKUITextBoxView *)self _textFrame];
   if (!_textFrame || self->_truncationStyle == 1)
   {
     _moreButtonLabel = [(SKUITextBoxView *)self _moreButtonLabel];
-    v56 = _moreButtonLabel;
+    v60 = _moreButtonLabel;
 LABEL_43:
-    v48 = 1;
+    v52 = 1;
     goto LABEL_44;
   }
 
@@ -1047,15 +1047,15 @@ LABEL_43:
   Count = CFArrayGetCount(Lines);
   numberOfVisibleLines = self->_numberOfVisibleLines;
   _moreButtonLabel = [(SKUITextBoxView *)self _moreButtonLabel];
-  v56 = _moreButtonLabel;
+  v60 = _moreButtonLabel;
   if (!numberOfVisibleLines || Count <= numberOfVisibleLines)
   {
     goto LABEL_43;
   }
 
-  v48 = 0;
+  v52 = 0;
 LABEL_44:
-  [_moreButtonLabel setHidden:v48];
+  [_moreButtonLabel setHidden:v52];
 }
 
 - (void)setBackgroundColor:(id)color

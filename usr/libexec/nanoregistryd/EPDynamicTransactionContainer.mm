@@ -8,6 +8,9 @@
 - (id)description;
 - (id)transactionName;
 - (void)encodeWithCoder:(id)coder;
+- (void)setNotUnrollable:(BOOL)unrollable;
+- (void)setPersistWhilePending:(BOOL)pending;
+- (void)setResumeEnabled:(BOOL)enabled;
 @end
 
 @implementation EPDynamicTransactionContainer
@@ -137,13 +140,51 @@
   return v4;
 }
 
+- (void)setPersistWhilePending:(BOOL)pending
+{
+  if (self->_routingSlip)
+  {
+    [(EPRoutingSlip *)self->_routingSlip setPersistWhilePending:pending];
+  }
+
+  else
+  {
+    self->_persistWhilePending = pending;
+  }
+}
+
+- (void)setNotUnrollable:(BOOL)unrollable
+{
+  if (self->_routingSlip)
+  {
+    [(EPRoutingSlip *)self->_routingSlip setNotUnrollable:unrollable];
+  }
+
+  else
+  {
+    self->_notUnrollable = unrollable;
+  }
+}
+
+- (void)setResumeEnabled:(BOOL)enabled
+{
+  if (self->_routingSlip)
+  {
+    [(EPRoutingSlip *)self->_routingSlip setResumeEnabled:enabled];
+  }
+
+  else
+  {
+    self->_resumeEnabled = enabled;
+  }
+}
+
 - (id)description
 {
   transactionName = [(EPDynamicTransactionContainer *)self transactionName];
-  routingSlip = self->_routingSlip;
-  v5 = [NSString stringWithFormat:@"EPDynamicTransactionContainer %@: %@ [%@]", transactionName, routingSlip, self->_transactionStartTimestamp];
+  v4 = [NSString stringWithFormat:@"EPDynamicTransactionContainer %@: %@ [%@]", transactionName, self->_routingSlip, self->_transactionStartTimestamp];
 
-  return v5;
+  return v4;
 }
 
 - (NSObject)userInfo

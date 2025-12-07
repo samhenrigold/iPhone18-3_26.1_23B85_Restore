@@ -1,4 +1,5 @@
 @interface NSObject(MusicKit_SoftLinking_MPModelLibraryPlaylistEditChangeDetails)
+- (char)musicKit_changeDetails_type;
 - (id)_musicKit_self_changeDetails;
 - (id)musicKit_changeDetails_item;
 - (id)musicKit_changeDetails_itemIdentifier;
@@ -7,7 +8,6 @@
 - (id)musicKit_changeDetails_referenceItem;
 - (id)musicKit_changeDetails_referenceItemPositionIdentifier;
 - (uint64_t)musicKit_changeDetails_isLastItem;
-- (uint64_t)musicKit_changeDetails_type;
 @end
 
 @implementation NSObject(MusicKit_SoftLinking_MPModelLibraryPlaylistEditChangeDetails)
@@ -28,7 +28,7 @@
   return selfCopy;
 }
 
-- (uint64_t)musicKit_changeDetails_type
+- (char)musicKit_changeDetails_type
 {
   _musicKit_self_changeDetails = [self _musicKit_self_changeDetails];
   type = [_musicKit_self_changeDetails type];

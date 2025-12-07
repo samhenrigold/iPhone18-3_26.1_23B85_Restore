@@ -20,21 +20,21 @@
   v13 = v12;
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "exportFile(flowFile:exportFile:format:options:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "exportFile(flowFile:exportFile:format:options:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "exportFile(flowFile:exportFile:format:options:)");
-  siri::intelligence::Timer::Timer(&v16);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "exportFile(flowFile:exportFile:format:options:)");
+  siri::intelligence::Timer::Timer(&v16, &buf);
 }
 
-void __63__IEExporter_exportFile_withExportFile_withFormat_withOptions___block_invoke(siri::intelligence::Utils *a1)
+void __63__IEExporter_exportFile_withExportFile_withFormat_withOptions___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'exportFile(flowFile:exportFile:format:options:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'exportFile(flowFile:exportFile:format:options:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = _MergedGlobals_24;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;

@@ -75,9 +75,9 @@
   if (v11)
   {
     v12 = [PUTilingViewTransitionHelper alloc];
-    [(PUViewControllerTransition *)v11 duration];
+    objc_msgSend_duration(v11);
     v14 = v13;
-    [(PUViewControllerTransition *)v11 duration];
+    objc_msgSend_duration(v11);
     v16 = [(PUTilingViewTransitionHelper *)v12 initWithPresentationDuration:pointCopy dismissalDuration:v14 endPoint:v15];
     tilingViewTransitionHelper = v11->__tilingViewTransitionHelper;
     v11->__tilingViewTransitionHelper = v16;

@@ -3,6 +3,7 @@
 + (id)countryOfState;
 + (id)filter;
 + (id)momentOfState;
+- (PGGraphLocationStateNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
 - (PGGraphLocationStateNodeCollection)collection;
 @end
 
@@ -15,63 +16,64 @@
   return v2;
 }
 
+- (PGGraphLocationStateNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
+{
+  v6.receiver = self;
+  v6.super_class = PGGraphLocationStateNode;
+  return [(PGGraphNamedLocationNode *)&v6 initWithLabel:label domain:domain properties:properties];
+}
+
 + (id)countryOfState
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphLocationEdge filter];
   outRelation = [v3 outRelation];
   transitiveClosure = [outRelation transitiveClosure];
-  v12[0] = transitiveClosure;
+  v11[0] = transitiveClosure;
   v6 = +[PGGraphLocationCountryNode filter];
   relation = [v6 relation];
-  v12[1] = relation;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[1] = relation;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v9 = [v2 chain:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (id)momentOfState
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   filter = [self filter];
   relation = [filter relation];
   v5 = +[PGGraphLocationEdge filter];
   inRelation = [v5 inRelation];
   transitiveClosure = [inRelation transitiveClosure];
-  v14[1] = transitiveClosure;
+  v13[1] = transitiveClosure;
   v8 = +[PGGraphMomentNode filter];
   relation2 = [v8 relation];
-  v14[2] = relation2;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v13[2] = relation2;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
   v11 = [v2 chain:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (id)addressOfState
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   filter = [self filter];
   relation = [filter relation];
   v5 = +[PGGraphLocationEdge filter];
   inRelation = [v5 inRelation];
   transitiveClosure = [inRelation transitiveClosure];
-  v14[1] = transitiveClosure;
+  v13[1] = transitiveClosure;
   v8 = +[PGGraphAddressNode filter];
   relation2 = [v8 relation];
-  v14[2] = relation2;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v13[2] = relation2;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
   v11 = [v2 chain:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

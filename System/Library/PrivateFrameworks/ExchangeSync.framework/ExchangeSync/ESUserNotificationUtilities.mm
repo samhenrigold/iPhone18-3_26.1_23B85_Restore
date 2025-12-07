@@ -6,7 +6,7 @@
 
 + (void)showUserNotification:(__CFUserNotification *)notification groupIdentifier:(id)identifier withCompletionBlock:(id)block
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   blockCopy = block;
   v11 = blockCopy;
@@ -51,7 +51,7 @@ LABEL_3:
     [v17 setGroupIdentifier:identifierCopy];
     [v17 setHandler:v11];
     v18 = v17;
-    v19 = _NotificationHandlerMap();
+    v19 = _NotificationHandlerMap(v18);
     [v19 setObject:v18 forKey:notification];
 
     if (identifierCopy)
@@ -71,16 +71,14 @@ LABEL_3:
     v22 = *(MEMORY[0x277D03988] + 3);
     if (os_log_type_enabled(v21, v22))
     {
-      v24 = 138412290;
+      v23 = 138412290;
       notificationCopy = notification;
-      _os_log_impl(&dword_24A097000, v21, v22, "Couldn't schedule response for notification %@", &v24, 0xCu);
+      _os_log_impl(&dword_24A097000, v21, v22, "Couldn't schedule response for notification %@", &v23, 0xCu);
     }
 
     CFUserNotificationCancel(notification);
     (v11)[2](v11, notification, 3);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (void)showUserNotification:(uint64_t)a1 groupIdentifier:(uint64_t)a2 withCompletionBlock:.cold.1(uint64_t a1, uint64_t a2)

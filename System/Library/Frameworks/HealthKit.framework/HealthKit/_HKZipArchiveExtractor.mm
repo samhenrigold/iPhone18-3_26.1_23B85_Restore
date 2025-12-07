@@ -154,7 +154,7 @@ LABEL_6:
 
 - (BOOL)enumerateEntriesWithError:(id *)error block:(id)block
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (self->_isEnumeratingEntries)
   {
@@ -180,95 +180,85 @@ LABEL_6:
   self->_isEnumeratingEntries = 1;
   ++self->_enumerationCount;
   self->_archive = archive_read_new();
-  if (!archive_read_support_format_zip())
+  if (!archive_read_support_format_zip() && !archive_read_support_filter_all())
   {
-    archive = self->_archive;
-    if (!archive_read_support_filter_all())
+    archiveData = self->_archiveData;
+    if (archiveData)
     {
-      archiveData = self->_archiveData;
-      if (archiveData)
-      {
-        v13 = self->_archive;
-        [(NSData *)archiveData bytes];
-        [(NSData *)self->_archiveData length];
-        open_memory = archive_read_open_memory();
+      [(NSData *)archiveData bytes];
+      [(NSData *)self->_archiveData length];
+      open_memory = archive_read_open_memory();
 LABEL_15:
-        if (!open_memory)
+      if (!open_memory)
+      {
+        v24 = 0;
+        while (1)
         {
-          v32 = 0;
-          while (1)
+          next_header = archive_read_next_header();
+          if (next_header)
           {
-            v19 = self->_archive;
-            next_header = archive_read_next_header();
-            if (next_header)
+            break;
+          }
+
+          if (archive_entry_filetype() == 0x8000)
+          {
+            v23 = 0;
+            v16 = objc_autoreleasePoolPush();
+            v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:archive_entry_pathname()];
+            v18 = [_HKZipArchiveEntry alloc];
+            v19 = [(_HKZipArchiveEntry *)v18 initWithExtractor:self currentEntry:v24 pathname:v17];
+            blockCopy[2](blockCopy, v19, &v23);
+            didReadEntryData = [(_HKZipArchiveEntry *)v19 didReadEntryData];
+
+            objc_autoreleasePoolPop(v16);
+            if (v23)
             {
+              next_header = 0;
               break;
             }
 
-            if (archive_entry_filetype() == 0x8000)
+            if (!didReadEntryData)
             {
-              v31 = 0;
-              v21 = objc_autoreleasePoolPush();
-              v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:archive_entry_pathname()];
-              v23 = [_HKZipArchiveEntry alloc];
-              v24 = [(_HKZipArchiveEntry *)v23 initWithExtractor:self currentEntry:v32 pathname:v22];
-              blockCopy[2](blockCopy, v24, &v31);
-              didReadEntryData = [(_HKZipArchiveEntry *)v24 didReadEntryData];
-
-              objc_autoreleasePoolPop(v21);
-              if (v31)
+              next_header = archive_read_data_skip();
+              if (next_header)
               {
-                next_header = 0;
                 break;
-              }
-
-              if (!didReadEntryData)
-              {
-                v26 = self->_archive;
-                next_header = archive_read_data_skip();
-                if (next_header)
-                {
-                  break;
-                }
               }
             }
           }
-
-          if (next_header < 2)
-          {
-            v27 = 1;
-            goto LABEL_28;
-          }
         }
 
-        goto LABEL_26;
+        if (next_header < 2)
+        {
+          v21 = 1;
+          goto LABEL_28;
+        }
       }
 
-      fileHandle = self->_fileHandle;
-      if (fileHandle)
-      {
-        v16 = self->_archive;
-        [(NSFileHandle *)fileHandle fileDescriptor];
-        open_memory = archive_read_open_fd();
-        goto LABEL_15;
-      }
+      goto LABEL_26;
+    }
 
-      pathname = self->_pathname;
-      if (pathname)
-      {
-        v18 = self->_archive;
-        [(NSString *)pathname UTF8String];
-        open_memory = archive_read_open_filename();
-        goto LABEL_15;
-      }
+    fileHandle = self->_fileHandle;
+    if (fileHandle)
+    {
+      [(NSFileHandle *)fileHandle fileDescriptor];
+      open_memory = archive_read_open_fd();
+      goto LABEL_15;
+    }
+
+    pathname = self->_pathname;
+    if (pathname)
+    {
+      [(NSString *)pathname UTF8String];
+      open_memory = archive_read_open_filename();
+      goto LABEL_15;
     }
   }
 
 LABEL_26:
-  v28 = self->_archive;
   [MEMORY[0x1E696ABC0] hk_assignError:error code:920 format:{@"Unable to open/read data: %s", archive_error_string()}];
 LABEL_27:
-  v27 = 0;
+  v21 = 0;
 LABEL_28:
   if (self->_archive)
   {
@@ -281,8 +271,7 @@ LABEL_28:
     self->_isEnumeratingEntries = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-  return v27;
+  return v21;
 }
 
 - (id)numberOfEntriesWithError:(id *)error

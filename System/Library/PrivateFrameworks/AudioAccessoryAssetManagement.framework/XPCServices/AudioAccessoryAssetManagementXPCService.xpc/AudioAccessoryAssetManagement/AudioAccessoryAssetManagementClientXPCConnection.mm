@@ -11,6 +11,8 @@
 - (void)_showAssetManagementNotification;
 - (void)_showProgressBanner:(id)banner totalCount:(id)count;
 - (void)_submitBackgroundTask;
+- (void)_updateRequestedLocale:(id)locale withDownloadStatus:(BOOL)status;
+- (void)downloadTranslationAssets:(id)assets localeIdentifiers:(id)identifiers useCellular:(BOOL)cellular showDownloadCompleteNotification:(BOOL)notification bundleIdentifier:(id)identifier completion:(id)completion;
 - (void)getTranslationAssets:(id)assets;
 - (void)getTranslationAssetsDownloadSize:(id)size localeIdentifiers:(id)identifiers completion:(id)completion;
 - (void)xpcConnectionInvalidated;
@@ -65,7 +67,7 @@ LABEL_11:
       if (error)
       {
 LABEL_12:
-        v11 = NSErrorF();
+        v11 = NSErrorF(NSOSStatusErrorDomain, 4294896128, "Missing entitlement '%@' or '%@'", @"com.apple.AudioAccessoryAssetManagement", @"com.apple.developer.AudioAccessoryAssetManagement-access");
         v12 = v11;
         result = 0;
         *error = v11;
@@ -110,26 +112,27 @@ LABEL_12:
   self->_progress = 0;
 
   *&self->_registeredLaunchHandler = 0;
-  v15 = self->_audioAccessoryAssetManagementClient;
+  v16 = self->_audioAccessoryAssetManagementClient;
   audioAccessoryAssetManagementClient = self->_audioAccessoryAssetManagementClient;
   self->_audioAccessoryAssetManagementClient = 0;
 
-  v13 = v15;
-  if (v15)
+  v14 = v16;
+  if (v16)
   {
     if (dword_100010D38 <= 30)
     {
-      if (dword_100010D38 != -1 || (v14 = _LogCategory_Initialize(), v13 = v15, v14))
+      if (dword_100010D38 != -1 || (v15 = _LogCategory_Initialize(), v14 = v16, v15))
       {
-        sub_10000424C();
-        v13 = v15;
+        sub_10000424C(v14);
+        v14 = v16;
       }
     }
 
-    [(AudioAccessoryAssetManagementClient *)v13 invalidate];
+    invalidate = [(AudioAccessoryAssetManagementClient *)v14 invalidate];
+    v14 = v16;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(invalidate, v14);
 }
 
 - (id)_averageOfArray:(id)array
@@ -181,6 +184,120 @@ LABEL_12:
   return v5;
 }
 
+- (void)downloadTranslationAssets:(id)assets localeIdentifiers:(id)identifiers useCellular:(BOOL)cellular showDownloadCompleteNotification:(BOOL)notification bundleIdentifier:(id)identifier completion:(id)completion
+{
+  cellularCopy = cellular;
+  identifiersCopy = identifiers;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  if (identifiersCopy)
+  {
+    remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
+    [remoteObjectProxy pidOfDownloadTranslationAssetsXPCService:getpid()];
+
+    self->_showTranslationAssetsDownloadCompleteNotification = notification;
+    v17 = objc_alloc_init(NSMutableArray);
+    prevLocalesRequestedForDownload = self->_prevLocalesRequestedForDownload;
+    if (prevLocalesRequestedForDownload)
+    {
+      v19 = prevLocalesRequestedForDownload;
+
+      v17 = v19;
+    }
+
+    self->_maxCompleteDownloadUnits = 1;
+    self->_allRequestedAssetsAlreadyDownloading = 1;
+    objc_storeStrong(&self->_bundleIdentifier, identifier);
+    v43[0] = _NSConcreteStackBlock;
+    v43[1] = 3221225472;
+    v43[2] = sub_100001A94;
+    v43[3] = &unk_10000C308;
+    v43[4] = self;
+    v20 = v17;
+    v44 = v20;
+    [identifiersCopy enumerateObjectsUsingBlock:v43];
+    if (self->_allRequestedAssetsAlreadyDownloading && dword_100010D38 <= 40 && (dword_100010D38 != -1 || _LogCategory_Initialize()))
+    {
+      sub_10000428C();
+    }
+
+    objc_storeStrong(&self->_prevLocalesRequestedForDownload, v17);
+    self->_downloadRequestedLanguagesCount = [(NSMutableArray *)v20 count];
+    v21 = [NSListFormatter localizedStringByJoiningStrings:v20];
+    downloadRequestedLanguages = self->_downloadRequestedLanguages;
+    self->_downloadRequestedLanguages = v21;
+
+    if (!self->_registeredLaunchHandler)
+    {
+      v23 = +[NSUUID UUID];
+      [v23 UUIDString];
+      v24 = cellularCopy;
+      v26 = v25 = identifierCopy;
+      v27 = [NSString stringWithFormat:@"%@.%@", @"com.audioAccessoryAssetManagement.downloadAsset.progress", v26];
+      taskIdentifier = self->_taskIdentifier;
+      self->_taskIdentifier = v27;
+
+      identifierCopy = v25;
+      cellularCopy = v24;
+
+      [(AudioAccessoryAssetManagementClientXPCConnection *)self _registerLaunchHandlerWithCompletion:completionCopy];
+      self->_registeredLaunchHandler = 1;
+    }
+
+    if (dword_100010D38 <= 30 && (dword_100010D38 != -1 || _LogCategory_Initialize()))
+    {
+      sub_1000042C0(self, &self->_downloadRequestedLanguages, &self->_bundleIdentifier);
+    }
+
+    [_LTTranslator addLanguages:self->_localesRequestedForDownload useCellular:cellularCopy];
+    languageStatus = self->_languageStatus;
+    if (languageStatus)
+    {
+      self->_languageStatus = 0;
+    }
+
+    showTranslationAssetsDownloadCompleteNotification = self->_showTranslationAssetsDownloadCompleteNotification;
+    v31 = [_LTLanguageStatus alloc];
+    if (showTranslationAssetsDownloadCompleteNotification)
+    {
+      v41[0] = _NSConcreteStackBlock;
+      v41[1] = 3221225472;
+      v41[2] = sub_100001C10;
+      v41[3] = &unk_10000C330;
+      v41[4] = self;
+      v32 = &v42;
+      v42 = completionCopy;
+      v33 = v41;
+      v34 = v31;
+      v35 = 10;
+    }
+
+    else
+    {
+      v39[0] = _NSConcreteStackBlock;
+      v39[1] = 3221225472;
+      v39[2] = sub_100001C20;
+      v39[3] = &unk_10000C330;
+      v39[4] = self;
+      v32 = &v40;
+      v40 = completionCopy;
+      v33 = v39;
+      v34 = v31;
+      v35 = 1;
+    }
+
+    v37 = [v34 initWithTaskHint:v35 useDedicatedMachPort:0 observations:v33];
+    v38 = self->_languageStatus;
+    self->_languageStatus = v37;
+  }
+
+  else
+  {
+    v36 = NSErrorF(NSOSStatusErrorDomain, 4294960596, "downloadTranslationAssets failed no localeIdentifiers provided to download");
+    (*(completionCopy + 2))(completionCopy, v36);
+  }
+}
+
 - (void)getTranslationAssetsDownloadSize:(id)size localeIdentifiers:(id)identifiers completion:(id)completion
 {
   sizeCopy = size;
@@ -209,7 +326,7 @@ LABEL_12:
 
   else
   {
-    v14 = NSErrorF();
+    v14 = NSErrorF(NSOSStatusErrorDomain, 4294960591, "getTranslationAssetsDownloadSize failed no localeIdentifiers provided");
     (*(completionCopy + 2))(completionCopy, v14, v20[3]);
   }
 
@@ -219,9 +336,13 @@ LABEL_12:
 - (void)getTranslationAssets:(id)assets
 {
   assetsCopy = assets;
-  if (dword_100010D38 <= 30 && (dword_100010D38 != -1 || _LogCategory_Initialize()))
+  v7 = assetsCopy;
+  if (dword_100010D38 <= 30)
   {
-    sub_100004430();
+    if (dword_100010D38 != -1 || (assetsCopy = _LogCategory_Initialize(), assetsCopy))
+    {
+      sub_100004430(assetsCopy, v5, v6);
+    }
   }
 
   languageStatus = self->_languageStatus;
@@ -230,14 +351,14 @@ LABEL_12:
     self->_languageStatus = 0;
   }
 
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_100002068;
-  v8[3] = &unk_10000C3E8;
-  v8[4] = self;
-  v6 = [[_LTLanguageStatus alloc] initWithTaskHint:10 useDedicatedMachPort:0 observations:v8];
-  v7 = self->_languageStatus;
-  self->_languageStatus = v6;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100002068;
+  v11[3] = &unk_10000C3E8;
+  v11[4] = self;
+  v9 = [[_LTLanguageStatus alloc] initWithTaskHint:10 useDedicatedMachPort:0 observations:v11];
+  v10 = self->_languageStatus;
+  self->_languageStatus = v9;
 }
 
 - (BOOL)_isLanguageSuggested:(id)suggested
@@ -324,18 +445,18 @@ LABEL_11:
   completionCopy = completion;
   v5 = +[BGTaskScheduler sharedScheduler];
   taskIdentifier = self->_taskIdentifier;
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_100002BDC;
-  v9[3] = &unk_10000C4B0;
-  v9[4] = self;
+  v9 = _NSConcreteStackBlock;
+  v10 = 3221225472;
+  v11 = sub_100002BDC;
+  v12 = &unk_10000C4B0;
+  selfCopy = self;
   v7 = completionCopy;
-  v10 = v7;
-  LOBYTE(completionCopy) = [v5 registerForTaskWithIdentifier:taskIdentifier usingQueue:0 launchHandler:v9];
+  v14 = v7;
+  LOBYTE(completionCopy) = [v5 registerForTaskWithIdentifier:taskIdentifier usingQueue:0 launchHandler:&v9];
 
   if ((completionCopy & 1) == 0)
   {
-    v8 = NSErrorF();
+    v8 = NSErrorF(NSOSStatusErrorDomain, 4294960596, "Continuous background task registration failed", v9, v10, v11, v12, selfCopy);
     (*(v7 + 2))(v7, v8);
   }
 }
@@ -415,7 +536,7 @@ LABEL_11:
 {
   if (dword_100010D38 <= 30 && (dword_100010D38 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000047B8();
+    sub_1000047B8(update);
   }
 
   artificialUpdateTimer = self->_artificialUpdateTimer;
@@ -430,64 +551,35 @@ LABEL_11:
   maxCompleteDownloadUnits = self->_maxCompleteDownloadUnits;
   if (maxCompleteDownloadUnits >= update)
   {
-    v12 = maxCompleteDownloadUnits + 1;
-    self->_maxCompleteDownloadUnits = v12;
-    if (dword_100010D38 > 30)
+    self->_maxCompleteDownloadUnits = maxCompleteDownloadUnits + 1;
+    if (dword_100010D38 <= 30 && (dword_100010D38 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_17;
+      LogPrintF(&dword_100010D38, "[AudioAccessoryAssetManagementClientXPCConnection _postProgressUpdate:totalCount:]", 30, "completedDownloadUnits(%lu) is not greater maxCompleteDownloadUnits(%lu)");
     }
+  }
 
-    if (dword_100010D38 == -1)
+  else
+  {
+    self->_maxCompleteDownloadUnits = update;
+    if (dword_100010D38 <= 30 && (dword_100010D38 != -1 || _LogCategory_Initialize()))
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_17;
-      }
-
-      v12 = self->_maxCompleteDownloadUnits;
+      LogPrintF(&dword_100010D38, "[AudioAccessoryAssetManagementClientXPCConnection _postProgressUpdate:totalCount:]", 30, "completedDownloadUnits(%lu) > maxCompleteDownloadUnits(%lu)");
     }
-
-    updateCopy3 = update;
-    v19 = v12;
-    goto LABEL_13;
   }
 
-  self->_maxCompleteDownloadUnits = update;
-  if (dword_100010D38 > 30)
-  {
-    goto LABEL_17;
-  }
-
-  updateCopy2 = update;
-  if (dword_100010D38 != -1)
-  {
-    goto LABEL_9;
-  }
-
-  if (_LogCategory_Initialize())
-  {
-    updateCopy2 = self->_maxCompleteDownloadUnits;
-LABEL_9:
-    updateCopy3 = update;
-    v19 = updateCopy2;
-LABEL_13:
-    LogPrintF();
-  }
-
-LABEL_17:
-  [(NSProgress *)self->_progress setCompletedUnitCount:self->_maxCompleteDownloadUnits, updateCopy3, v19];
+  [(NSProgress *)self->_progress setCompletedUnitCount:self->_maxCompleteDownloadUnits];
   [(NSProgress *)self->_progress setUserInfoObject:0 forKey:@"HideProgressCircleInUI"];
   [(_BGContinuedProcessingTask *)self->_processingTask updateProgress:self->_progress];
   if (count != update)
   {
-    v13 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
-    v14 = self->_artificialUpdateTimer;
-    self->_artificialUpdateTimer = v13;
+    v11 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
+    v12 = self->_artificialUpdateTimer;
+    self->_artificialUpdateTimer = v11;
 
+    v13 = self->_artificialUpdateTimer;
+    v14 = dispatch_time(0, 25000000000);
+    dispatch_source_set_timer(v13, v14, 0xFFFFFFFFFFFFFFFFLL, 0);
     v15 = self->_artificialUpdateTimer;
-    v16 = dispatch_time(0, 25000000000);
-    dispatch_source_set_timer(v15, v16, 0xFFFFFFFFFFFFFFFFLL, 0);
-    v17 = self->_artificialUpdateTimer;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_1000038E4;
@@ -495,7 +587,7 @@ LABEL_17:
     handler[4] = self;
     handler[5] = update;
     handler[6] = count;
-    dispatch_source_set_event_handler(v17, handler);
+    dispatch_source_set_event_handler(v15, handler);
     dispatch_resume(self->_artificialUpdateTimer);
   }
 }
@@ -580,9 +672,7 @@ LABEL_17:
 
   if (dword_100010D38 <= 30 && (dword_100010D38 != -1 || _LogCategory_Initialize()))
   {
-    bundleIdentifier = self->_bundleIdentifier;
-    v14 = v5;
-    LogPrintF();
+    LogPrintF(&dword_100010D38, "[AudioAccessoryAssetManagementClientXPCConnection _submitBackgroundTask]", 30, "_submitBackgroundTask bundleIdentifier of main: %@ linkToBundleIdentifier %@", self->_bundleIdentifier, v5);
   }
 
   v6 = [[_BGContinuedProcessingTaskRequest alloc] initWithIdentifier:self->_taskIdentifier iconBundleIdentifier:@"com.apple.Translate" onBehalfOf:self->_bundleIdentifier linkToBundleIdentifier:v5];
@@ -598,12 +688,12 @@ LABEL_17:
     v9 = [NSString stringWithFormat:v8, self->_downloadRequestedLanguages];
   }
 
-  [v6 setTitle:{v9, bundleIdentifier, v14}];
+  [v6 setTitle:v9];
   [v6 setReason:&stru_10000C898];
   v10 = +[BGTaskScheduler sharedScheduler];
-  v15 = 0;
-  v11 = [v10 submitTaskRequest:v6 error:&v15];
-  v12 = v15;
+  v13 = 0;
+  v11 = [v10 submitTaskRequest:v6 error:&v13];
+  v12 = v13;
 
   if (v11)
   {
@@ -617,6 +707,24 @@ LABEL_17:
   {
     sub_1000048E4(v12);
   }
+}
+
+- (void)_updateRequestedLocale:(id)locale withDownloadStatus:(BOOL)status
+{
+  statusCopy = status;
+  localeCopy = locale;
+  localesDownloadStatus = self->_localesDownloadStatus;
+  if (!localesDownloadStatus)
+  {
+    v7 = objc_alloc_init(NSMutableDictionary);
+    v8 = self->_localesDownloadStatus;
+    self->_localesDownloadStatus = v7;
+
+    localesDownloadStatus = self->_localesDownloadStatus;
+  }
+
+  v9 = [NSNumber numberWithBool:statusCopy];
+  [(NSMutableDictionary *)localesDownloadStatus setObject:v9 forKey:localeCopy];
 }
 
 @end

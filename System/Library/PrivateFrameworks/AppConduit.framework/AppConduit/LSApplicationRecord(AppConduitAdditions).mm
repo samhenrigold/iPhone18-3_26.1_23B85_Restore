@@ -1,11 +1,11 @@
 @interface LSApplicationRecord(AppConduitAdditions)
+- (BOOL)ACX_shouldBeTrackedByAppConduit;
 - (__CFString)ACX_wkTeamID;
 - (id)ACX_externalVersionIdentifier;
 - (id)ACX_watchKitAppExtensionBundleID;
 - (id)ACX_watchKitExtension;
 - (uint64_t)ACX_isBuiltIn;
 - (uint64_t)ACX_isHidden;
-- (uint64_t)ACX_shouldBeTrackedByAppConduit;
 - (uint64_t)ACX_shouldBeTrackedByLaunchServicesWatcher;
 @end
 
@@ -19,7 +19,7 @@
   return v2 ^ 1u;
 }
 
-- (uint64_t)ACX_shouldBeTrackedByAppConduit
+- (BOOL)ACX_shouldBeTrackedByAppConduit
 {
   v2 = objc_alloc(MEMORY[0x277CC1E70]);
   bundleIdentifier = [self bundleIdentifier];
@@ -92,27 +92,27 @@
 
 - (id)ACX_watchKitExtension
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   applicationExtensionRecords = [self applicationExtensionRecords];
-  v2 = [applicationExtensionRecords countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v2 = [applicationExtensionRecords countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v14;
+    v4 = *v13;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v14 != v4)
+        if (*v13 != v4)
         {
           objc_enumerationMutation(applicationExtensionRecords);
         }
 
-        v6 = *(*(&v13 + 1) + 8 * i);
+        v6 = *(*(&v12 + 1) + 8 * i);
         extensionPointRecord = [v6 extensionPointRecord];
         name = [extensionPointRecord name];
         v9 = [name isEqualToString:@"com.apple.watchkit"];
@@ -124,7 +124,7 @@
         }
       }
 
-      v3 = [applicationExtensionRecords countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v3 = [applicationExtensionRecords countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v3)
       {
         continue;
@@ -136,8 +136,6 @@
 
   v10 = 0;
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

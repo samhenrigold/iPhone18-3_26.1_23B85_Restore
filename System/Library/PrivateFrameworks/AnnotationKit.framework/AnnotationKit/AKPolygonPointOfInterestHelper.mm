@@ -32,7 +32,7 @@
   [annotationCopy rotationAngle];
   v27 = v26;
 
-  [AKGeometryHelper rotationTransformForRect:v19 withAngle:v21, v23, v25, v27];
+  objc_msgSend_rotationTransformForRect_withAngle_(AKGeometryHelper, v19, v21, v23, v25, v27);
   geometryHelper = [alignmentCopy geometryHelper];
 
   [geometryHelper screenPixelAlignedPointForPoint:{vaddq_f64(0, vmlaq_n_f64(vmulq_n_f64(0, v37), 0, v38))}];
@@ -149,7 +149,7 @@ LABEL_15:
   v43 = v26;
   v45 = v25;
 
-  [AKGeometryHelper ellipseToCenteredCircleTransform:v18, v20, v22, v24];
+  objc_msgSend_ellipseToCenteredCircleTransform_(AKGeometryHelper, v18, v20, v22, v24);
   v27 = vaddq_f64(0, vmlaq_n_f64(vmulq_n_f64(0, v43), 0, v45));
   v28 = v27.f64[1];
   if (annotation)
@@ -242,7 +242,7 @@ LABEL_15:
     v42 = v29 * v32.__cosval;
   }
 
-  [AKGeometryHelper centeredCircleToEllipseTransform:v19, v21, v23, v25, *&v33, v31];
+  objc_msgSend_centeredCircleToEllipseTransform_(AKGeometryHelper, v19, v21, v23, v25, *&v33, v31);
   [AKGeometryHelper convertScreenToModelOrientationForPoint:controllerCopy relativeToRect:vaddq_f64(0 withPageController:vmlaq_n_f64(vmulq_n_f64(0, v41), 0, v42)), v19, v21, v23, v25];
   v36 = v35;
   v38 = v37;

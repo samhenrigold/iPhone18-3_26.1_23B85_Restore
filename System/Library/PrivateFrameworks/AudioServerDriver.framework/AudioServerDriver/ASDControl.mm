@@ -3,6 +3,7 @@
 - (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client;
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property;
 - (BOOL)isKindOfAudioClass:(unsigned int)class;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (unsigned)dataSizeForProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size andQualifierData:(const void *)data;
 @end
 
@@ -111,6 +112,107 @@ LABEL_10:
   }
 
   return result;
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v19.receiver = self;
+  v19.super_class = ASDControl;
+  indentCopy = indent;
+  v7 = [(ASDObject *)&v19 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  controlScope = [(ASDControl *)self controlScope];
+  LODWORD(v9) = controlScope >> 24;
+  if (((controlScope >> 24) - 32) >= 0x5F)
+  {
+    v9 = 32;
+  }
+
+  else
+  {
+    v9 = v9;
+  }
+
+  LODWORD(v10) = controlScope << 8 >> 24;
+  if ((v10 - 32) >= 0x5F)
+  {
+    v10 = 32;
+  }
+
+  else
+  {
+    v10 = v10;
+  }
+
+  LODWORD(v11) = controlScope >> 8;
+  if ((v11 - 32) >= 0x5F)
+  {
+    v11 = 32;
+  }
+
+  else
+  {
+    v11 = v11;
+  }
+
+  if ((controlScope - 32) >= 0x5F)
+  {
+    v12 = 32;
+  }
+
+  else
+  {
+    v12 = controlScope;
+  }
+
+  [v7 appendFormat:@"%@|    Control Scope: %c%c%c%c\n", indentCopy, v9, v10, v11, v12];
+  controlElement = [(ASDControl *)self controlElement];
+  LODWORD(v14) = controlElement >> 24;
+  if (((controlElement >> 24) - 32) >= 0x5F)
+  {
+    v14 = 32;
+  }
+
+  else
+  {
+    v14 = v14;
+  }
+
+  LODWORD(v15) = controlElement << 8 >> 24;
+  if ((v15 - 32) >= 0x5F)
+  {
+    v15 = 32;
+  }
+
+  else
+  {
+    v15 = v15;
+  }
+
+  LODWORD(v16) = controlElement >> 8;
+  if ((v16 - 32) >= 0x5F)
+  {
+    v16 = 32;
+  }
+
+  else
+  {
+    v16 = v16;
+  }
+
+  if ((controlElement - 32) >= 0x5F)
+  {
+    v17 = 32;
+  }
+
+  else
+  {
+    v17 = controlElement;
+  }
+
+  [v7 appendFormat:@"%@|    Control Element: %c%c%c%c\n", indentCopy, v14, v15, v16, v17];
+
+  return v7;
 }
 
 @end

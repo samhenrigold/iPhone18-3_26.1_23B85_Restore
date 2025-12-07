@@ -124,7 +124,7 @@
     if (v40 < v39)
     {
       selfCopy = self;
-      v17 = sub_10007FAA0();
+      v17 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v18 = sub_10007FAFC(selfCopy);
@@ -149,7 +149,7 @@
     if (v40 > v39)
     {
       selfCopy2 = self;
-      v22 = sub_10007FAA0();
+      v22 = sub_10007FAA0(selfCopy2);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         v23 = sub_10007FAFC(selfCopy2);
@@ -253,7 +253,7 @@ LABEL_7:
       if (v14 > v35)
       {
         selfCopy = self;
-        v20 = sub_10007FAA0();
+        v20 = sub_10007FAA0(selfCopy);
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           v21 = sub_10007FAFC(selfCopy);

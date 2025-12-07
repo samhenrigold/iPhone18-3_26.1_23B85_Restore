@@ -35,7 +35,7 @@ LABEL_3:
     v27 = *v7;
     v25 = vrndmq_f64(vdivq_f64(v27, v23));
     v26 = v25;
-    v9 = PKHashBytes(&v26, 16);
+    v9 = PKHashBytes(&v26, 0x10u);
     if (!*(&v28[0] + 1))
     {
       goto LABEL_42;
@@ -176,7 +176,7 @@ LABEL_43:
 
   else
   {
-    [self smoothedHullForPoints:points alpha:0.5 granularity:100.0 minAngleFactor:1.57079633 maxLengthThreshold:5.0 edgeRemovalConstant:0.3];
+    objc_msgSend_smoothedHullForPoints_alpha_granularity_minAngleFactor_maxLengthThreshold_edgeRemovalConstant_(self, 0.5, 100.0, 1.57079633, 5.0, 0.3);
     v7 = [self bezierPathFromPoints:__p];
     completionCopy[2](completionCopy, v7);
 
@@ -896,7 +896,7 @@ LABEL_22:
   v6 = edge.var0.y;
   v7 = edge.var0.x;
   edgeCopy = edge;
-  v9 = PKHashBytes(&edgeCopy, 32);
+  v9 = PKHashBytes(&edgeCopy, 0x20u);
   v10 = *(set + 8);
   if (v10)
   {

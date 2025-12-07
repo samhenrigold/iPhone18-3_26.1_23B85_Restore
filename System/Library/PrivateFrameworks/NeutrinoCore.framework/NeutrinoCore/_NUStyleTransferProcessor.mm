@@ -104,7 +104,7 @@
   }
 
   v16 = v15;
-  [v12 region];
+  objc_msgSend_region(v12);
   v18 = v17;
   v20 = v19;
   v22 = v21;
@@ -137,7 +137,7 @@
     goto LABEL_17;
   }
 
-  [v13 region];
+  objc_msgSend_region(v13);
   v30 = v29;
   v32 = v31;
   v34 = v33;
@@ -228,7 +228,7 @@ LABEL_14:
     _NUAssertFailHandler("+[_NUStyleTransferProcessor processWithInputs:arguments:output:error:]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Pipeline/NUStyleTransferNode.m", 2153, @"Missing image extent!", v107, v108, v109, v110, v111);
   }
 
-  [outputCopy region];
+  objc_msgSend_region(outputCopy);
   v142.origin.x = v43;
   v142.origin.y = v45;
   v142.size.width = v47;
@@ -626,12 +626,12 @@ LABEL_15:
     _NUAssertFailHandler("+[_NUStyleTransferProcessor applyStyleFromInputThumbnail:targetThumbnail:toImage:colorSpace:configuration:tuningParameters:error:]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Pipeline/NUStyleTransferNode.m", 2055, @"Invalid parameter not satisfying: %s", v139, v140, v141, v142, "tuningParams != nil");
   }
 
-  [thumbnailCopy extent];
+  objc_msgSend_extent(thumbnailCopy);
   v23 = v22;
   v25 = v24;
   v27 = v26;
   v29 = v28;
-  [targetThumbnailCopy extent];
+  objc_msgSend_extent(targetThumbnailCopy);
   v155.origin.x = v30;
   v155.origin.y = v31;
   v155.size.width = v32;
@@ -659,17 +659,17 @@ LABEL_15:
     v143 = configurationCopy;
     v145[2] = @"thumbExtent";
     v38 = MEMORY[0x1E695F688];
-    [thumbnailCopy extent];
+    objc_msgSend_extent(thumbnailCopy);
     v39 = [v38 vectorWithCGRect:?];
     v146[2] = v39;
     v145[3] = @"imageExtent";
     v40 = MEMORY[0x1E695F688];
-    [imageCopy extent];
+    objc_msgSend_extent(imageCopy);
     v41 = [v40 vectorWithCGRect:?];
     v146[3] = v41;
     v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v146 forKeys:v145 count:4];
 
-    [imageCopy extent];
+    objc_msgSend_extent(imageCopy);
     v144 = 0;
     v43 = [self applyWithExtent:v34 inputs:v42 arguments:&v144 error:?];
     v44 = v144;

@@ -89,29 +89,29 @@
 
 - (id)description
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
   [string appendFormat:@"%@: %lu task(s) in last run", self->_recordID, -[NSMutableDictionary count](self->_debugInfo, "count")];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   obj = self->_debugInfo;
-  v3 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v3 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v20;
+    v5 = *v19;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v5)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * i);
+        v7 = *(*(&v18 + 1) + 8 * i);
         v8 = [(NSMutableDictionary *)self->_debugInfo objectForKeyedSubscript:v7];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -131,34 +131,33 @@
         }
       }
 
-      v4 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v4 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v4);
   }
 
   v14 = [string copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (id)stringForResult:(id)result
 {
-  v12[5] = *MEMORY[0x277D85DE8];
-  v11[0] = &unk_285C15F18;
-  v11[1] = &unk_285C15F30;
-  v12[0] = @"success";
-  v12[1] = @"skipped";
-  v11[2] = &unk_285C15F48;
-  v11[3] = &unk_285C15F60;
-  v12[2] = @"deferred by OS";
-  v12[3] = @"deferred by plugin";
-  v11[4] = &unk_285C15F78;
-  v12[4] = @"fail to run";
+  v11[5] = *MEMORY[0x277D85DE8];
+  v10[0] = &unk_285C15F18;
+  v10[1] = &unk_285C15F30;
+  v11[0] = @"success";
+  v11[1] = @"skipped";
+  v10[2] = &unk_285C15F48;
+  v10[3] = &unk_285C15F60;
+  v11[2] = @"deferred by OS";
+  v11[3] = @"deferred by plugin";
+  v10[4] = &unk_285C15F78;
+  v11[4] = @"fail to run";
   v3 = MEMORY[0x277CBEAC0];
   resultCopy = result;
-  v5 = [v3 dictionaryWithObjects:v12 forKeys:v11 count:5];
+  v5 = [v3 dictionaryWithObjects:v11 forKeys:v10 count:5];
   v6 = [v5 objectForKeyedSubscript:resultCopy];
 
   if (v6)
@@ -173,7 +172,6 @@
 
   v8 = v7;
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -186,20 +184,20 @@
 
 - (void)addForTaskID:(id)d result:(int64_t)result description:(id)description
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   descriptionCopy = description;
   v10 = DESIsInternalInstall();
   if (dCopy && v10)
   {
     v11 = MEMORY[0x277CBEB38];
-    v18[0] = @"result";
+    v17[0] = @"result";
     v12 = [MEMORY[0x277CCABB0] numberWithInteger:result];
-    v18[1] = @"timestamp";
-    v19[0] = v12;
+    v17[1] = @"timestamp";
+    v18[0] = v12;
     date = [MEMORY[0x277CBEAA8] date];
-    v19[1] = date;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v18[1] = date;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
     v15 = [v11 dictionaryWithDictionary:v14];
 
     if (descriptionCopy)
@@ -210,8 +208,6 @@
     v16 = [v15 copy];
     [(NSMutableDictionary *)self->_debugInfo setObject:v16 forKeyedSubscript:dCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)commitWithError:(id *)error

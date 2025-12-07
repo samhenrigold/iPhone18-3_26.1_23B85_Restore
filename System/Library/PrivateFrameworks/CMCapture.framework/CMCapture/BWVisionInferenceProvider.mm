@@ -15,7 +15,7 @@
 - (int)prepareForExecution;
 - (int)prewarmUsingLimitedMemory:(BOOL)memory;
 - (int)reconcileWithPlaceholderProvider:(id)provider;
-- (void)_tapToRadarVisionTimeOutError:(uint64_t)error performingRequests:settingsID:;
+- (void)_tapToRadarVisionTimeOutError:(uint64_t)error performingRequests:(uint64_t)requests settingsID:;
 - (void)dealloc;
 - (void)propagateInferenceResultsToInferenceDictionary:(id)dictionary usingStorage:(id)storage inputSampleBuffer:(opaqueCMSampleBuffer *)buffer propagationSampleBuffer:(opaqueCMSampleBuffer *)sampleBuffer;
 - (void)setCustomInferenceIdentifier:(id)identifier;
@@ -274,35 +274,35 @@ LABEL_10:
 
       v13 = CMGetAttachment(buffer, @"BWStillImageCaptureSettings", 0);
       v14 = [v13 captureStreamSettingsForPortType:{objc_msgSend(v11, "objectForKeyedSubscript:", *off_1E798B540)}];
-      v75 = v13;
-      v73 = v11;
-      v84 = [v13 captureType] == 2 && (objc_msgSend(v14, "captureFlags", v11) & 0x10000) != 0 && self->_alwaysExecuteForRedEyeReduction;
-      v117[0] = 0;
+      v77 = v13;
+      v75 = v11;
+      v86 = [v13 captureType] == 2 && (objc_msgSend(v14, "captureFlags", v11) & 0x10000) != 0 && self->_alwaysExecuteForRedEyeReduction;
+      v119[0] = 0;
       sequenceRequestHandler = [(BWVisionInferenceContext *)self->_context sequenceRequestHandler];
       v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:self->_prototypeRequests copyItems:1];
-      v113 = 0u;
-      v114 = 0u;
       v115 = 0u;
       v116 = 0u;
+      v117 = 0u;
+      v118 = 0u;
       requestIndexByRequirement = self->_requestIndexByRequirement;
-      v17 = [(NSMutableDictionary *)requestIndexByRequirement countByEnumeratingWithState:&v113 objects:v112 count:16];
+      v17 = [(NSMutableDictionary *)requestIndexByRequirement countByEnumeratingWithState:&v115 objects:v114 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v114;
+        v19 = *v116;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v114 != v19)
+            if (*v116 != v19)
             {
               objc_enumerationMutation(requestIndexByRequirement);
             }
 
-            [storage setRequest:objc_msgSend(v15 forRequirement:{"objectAtIndexedSubscript:", objc_msgSend(-[NSMutableDictionary objectForKeyedSubscript:](self->_requestIndexByRequirement, "objectForKeyedSubscript:", *(*(&v113 + 1) + 8 * i)), "unsignedIntegerValue")), *(*(&v113 + 1) + 8 * i)}];
+            [storage setRequest:objc_msgSend(v15 forRequirement:{"objectAtIndexedSubscript:", objc_msgSend(-[NSMutableDictionary objectForKeyedSubscript:](self->_requestIndexByRequirement, "objectForKeyedSubscript:", *(*(&v115 + 1) + 8 * i)), "unsignedIntegerValue")), *(*(&v115 + 1) + 8 * i)}];
           }
 
-          v18 = [(NSMutableDictionary *)requestIndexByRequirement countByEnumeratingWithState:&v113 objects:v112 count:16];
+          v18 = [(NSMutableDictionary *)requestIndexByRequirement countByEnumeratingWithState:&v115 objects:v114 count:16];
         }
 
         while (v18);
@@ -313,42 +313,42 @@ LABEL_10:
         indexSet = [MEMORY[0x1E696AD50] indexSet];
         if (self->_indexOfRequestForMergedFaceDetection == 0x7FFFFFFFFFFFFFFFLL || self->_indexOfRequestForMergedFoodAndDrinkRecognition == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v78 = 0;
+          v80 = 0;
           v22 = 0;
         }
 
         else
         {
           v22 = [v15 objectAtIndexedSubscript:?];
-          v78 = 1;
+          v80 = 1;
         }
 
-        v41 = [v15 count];
-        if (v41)
+        v42 = [v15 count];
+        if (v42)
         {
-          v42 = v41;
-          v79 = 0;
-          v80 = v41;
-          v43 = 0;
+          v43 = v42;
+          v81 = 0;
+          v82 = v42;
           v44 = 0;
+          v45 = 0;
           bufferCopy = buffer;
-          v83 = indexSet;
+          v85 = indexSet;
           while (1)
           {
-            v45 = [v15 objectAtIndexedSubscript:v44];
-            if (([indexSet containsIndex:v44] & 1) == 0)
+            v46 = [v15 objectAtIndexedSubscript:v45];
+            if (([indexSet containsIndex:v45] & 1) == 0)
             {
-              v86 = v45;
-              results = [v43 results];
-              v47 = self->_considerISPRectsIfVisionFails && (getVNDetectFaceRectanglesRequestClass(), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [results count] == 0;
+              v88 = v46;
+              results = [v44 results];
+              v48 = self->_considerISPRectsIfVisionFails && (getVNDetectFaceRectanglesRequestClass(), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [results count] == 0;
               objc_opt_class();
-              v48 = (objc_opt_isKindOfClass() & 1) != 0 && (-[BWVisionInferenceConfiguration requestTypes](self->_configuration, "requestTypes") & 1) == 0 && [results count] == 0;
-              if ((v47 | v48))
+              v49 = (objc_opt_isKindOfClass() & 1) != 0 && (-[BWVisionInferenceConfiguration requestTypes](self->_configuration, "requestTypes") & 1) == 0 && [results count] == 0;
+              if ((v48 | v49))
               {
-                v70 = -[BWVisionInferenceProvider _validatedBoundingBoxInObservationsWithMetadata:exifOrientation:fromPreviousRequest:wasForwardedToCurrentRequest:didFallBackToISPFaces:forCaptureSettingsID:](self, v74, intValue, v43, v86, v47, [v75 settingsID]);
-                if ([v70 count] != 0 || v48)
+                v72 = -[BWVisionInferenceProvider _validatedBoundingBoxInObservationsWithMetadata:exifOrientation:fromPreviousRequest:wasForwardedToCurrentRequest:didFallBackToISPFaces:forCaptureSettingsID:](self, v76, intValue, v44, v88, v48, [v77 settingsID]);
+                if ([v72 count] != 0 || v49)
                 {
-                  results = v70;
+                  results = v72;
                 }
               }
 
@@ -360,26 +360,26 @@ LABEL_10:
                 {
                   if ([results count] > self->_maximumNumberOfFaces)
                   {
-                    v111 = 0u;
+                    v113 = 0u;
+                    v112 = 0u;
                     v110 = 0u;
-                    v108 = 0u;
-                    v109 = 0u;
-                    v49 = [results countByEnumeratingWithState:&v108 objects:v107 count:16];
-                    if (v49)
+                    v111 = 0u;
+                    v50 = [results countByEnumeratingWithState:&v110 objects:v109 count:16];
+                    if (v50)
                     {
-                      v50 = v49;
-                      v51 = *v109;
+                      v51 = v50;
+                      v52 = *v111;
                       while (1)
                       {
-                        if (*v109 != v51)
+                        if (*v111 != v52)
                         {
                           objc_enumerationMutation(results);
                         }
 
-                        if (!--v50)
+                        if (!--v51)
                         {
-                          v50 = [results countByEnumeratingWithState:&v108 objects:v107 count:16];
-                          if (!v50)
+                          v51 = [results countByEnumeratingWithState:&v110 objects:v109 count:16];
+                          if (!v51)
                           {
                             break;
                           }
@@ -387,28 +387,28 @@ LABEL_10:
                       }
                     }
 
-                    v52 = [results sortedArrayUsingComparator:&__block_literal_global_131];
-                    results = [objc_msgSend(v52 subarrayWithRange:{objc_msgSend(v52, "count") - self->_maximumNumberOfFaces), "copy"}];
-                    v103 = 0u;
-                    v104 = 0u;
+                    v53 = [results sortedArrayUsingComparator:&__block_literal_global_131];
+                    results = [objc_msgSend(v53 subarrayWithRange:{objc_msgSend(v53, "count") - self->_maximumNumberOfFaces), "copy"}];
                     v105 = 0u;
                     v106 = 0u;
-                    v53 = [results countByEnumeratingWithState:&v103 objects:v102 count:16];
-                    if (v53)
+                    v107 = 0u;
+                    v108 = 0u;
+                    v54 = [results countByEnumeratingWithState:&v105 objects:v104 count:16];
+                    if (v54)
                     {
-                      v54 = v53;
-                      v55 = *v104;
+                      v55 = v54;
+                      v56 = *v106;
                       while (1)
                       {
-                        if (*v104 != v55)
+                        if (*v106 != v56)
                         {
                           objc_enumerationMutation(results);
                         }
 
-                        if (!--v54)
+                        if (!--v55)
                         {
-                          v54 = [results countByEnumeratingWithState:&v103 objects:v102 count:16];
-                          if (!v54)
+                          v55 = [results countByEnumeratingWithState:&v105 objects:v104 count:16];
+                          if (!v55)
                           {
                             break;
                           }
@@ -419,88 +419,88 @@ LABEL_10:
                 }
               }
 
-              if (v43 && ![results count] || self->_maximumNumberOfFaces != 0 && !v84 && !self->_clampToLargestMaximumNumberOfFaces && objc_msgSend(objc_msgSend(objc_msgSend(v15, "objectAtIndexedSubscript:", self->_indexOfRequestForMaximumNumberOfFaces), "results"), "count") > self->_maximumNumberOfFaces)
+              if (v44 && ![results count] || self->_maximumNumberOfFaces != 0 && !v86 && !self->_clampToLargestMaximumNumberOfFaces && objc_msgSend(objc_msgSend(objc_msgSend(v15, "objectAtIndexedSubscript:", self->_indexOfRequestForMaximumNumberOfFaces), "results"), "count") > self->_maximumNumberOfFaces)
               {
                 goto LABEL_126;
               }
 
-              if (-[BWVisionInferenceConfiguration shouldPreventRequestForSampleBuffer](self->_configuration, "shouldPreventRequestForSampleBuffer") && (v56 = -[BWVisionInferenceConfiguration shouldPreventRequestForSampleBuffer](self->_configuration, "shouldPreventRequestForSampleBuffer"), v56[2](v56, [v86 copy], buffer)))
+              if (-[BWVisionInferenceConfiguration shouldPreventRequestForSampleBuffer](self->_configuration, "shouldPreventRequestForSampleBuffer") && (v57 = -[BWVisionInferenceConfiguration shouldPreventRequestForSampleBuffer](self->_configuration, "shouldPreventRequestForSampleBuffer"), v57[2](v57, [v88 copy], buffer)))
               {
-                [storage removeRequest:v86];
-                indexSet = v83;
-                v42 = v80;
+                [storage removeRequest:v88];
+                indexSet = v85;
+                v43 = v82;
               }
 
               else
               {
-                if ([v86 conformsToProtocol:&unk_1F22C4730])
+                if ([v88 conformsToProtocol:&unk_1F22C4730])
                 {
-                  [v86 setInputFaceObservations:results];
+                  [v88 setInputFaceObservations:results];
                 }
 
-                v85 = v22;
+                v87 = v22;
                 primaryInputVideoRequirement = [(BWVisionInferenceProvider *)self primaryInputVideoRequirement];
-                v98 = 0u;
-                v99 = 0u;
                 v100 = 0u;
                 v101 = 0u;
+                v102 = 0u;
+                v103 = 0u;
                 inputVideoRequirements = self->_inputVideoRequirements;
-                v59 = [(NSMutableArray *)inputVideoRequirements countByEnumeratingWithState:&v98 objects:v97 count:16];
-                if (v59)
+                v60 = [(NSMutableArray *)inputVideoRequirements countByEnumeratingWithState:&v100 objects:v99 count:16];
+                if (v60)
                 {
-                  v60 = v59;
-                  v61 = *v99;
+                  v61 = v60;
+                  v62 = *v101;
                   do
                   {
-                    for (j = 0; j != v60; ++j)
+                    for (j = 0; j != v61; ++j)
                     {
-                      if (*v99 != v61)
+                      if (*v101 != v62)
                       {
                         objc_enumerationMutation(inputVideoRequirements);
                       }
 
-                      v63 = *(*(&v98 + 1) + 8 * j);
-                      if (v44 == [-[NSMutableDictionary objectForKeyedSubscript:](self->_requestIndexByRequirement objectForKeyedSubscript:{v63), "intValue"}])
+                      v64 = *(*(&v100 + 1) + 8 * j);
+                      if (v45 == [-[NSMutableDictionary objectForKeyedSubscript:](self->_requestIndexByRequirement objectForKeyedSubscript:{v64), "intValue"}])
                       {
-                        primaryInputVideoRequirement = v63;
+                        primaryInputVideoRequirement = v64;
                       }
                     }
 
-                    v60 = [(NSMutableArray *)inputVideoRequirements countByEnumeratingWithState:&v98 objects:v97 count:16];
+                    v61 = [(NSMutableArray *)inputVideoRequirements countByEnumeratingWithState:&v100 objects:v99 count:16];
                   }
 
-                  while (v60);
+                  while (v61);
                 }
 
-                v64 = [storage pixelBufferForRequirement:primaryInputVideoRequirement];
-                if (!v64)
+                v65 = [storage pixelBufferForRequirement:primaryInputVideoRequirement];
+                if (!v65)
                 {
-                  v79 = -31712;
-                  v22 = v85;
+                  v81 = -31712;
+                  v22 = v87;
                   goto LABEL_126;
                 }
 
-                v65 = v64;
+                v66 = v65;
                 if ([(BWInferenceVideoFormat *)[(BWInferenceVideoRequirement *)primaryInputVideoRequirement videoFormat] deviceOriented])
                 {
-                  v66 = 1;
+                  v67 = 1;
                 }
 
                 else
                 {
-                  v66 = intValue;
+                  v67 = intValue;
                 }
 
-                v67 = [MEMORY[0x1E695DF70] arrayWithObject:v86];
-                v68 = v67;
-                v22 = v85;
-                if (v78 && v44 == self->_indexOfRequestForMergedFaceDetection)
+                v68 = [MEMORY[0x1E695DF70] arrayWithObject:v88];
+                v69 = v68;
+                v22 = v87;
+                if (v80 && v45 == self->_indexOfRequestForMergedFaceDetection)
                 {
                   buffer = bufferCopy;
-                  if (v85)
+                  if (v87)
                   {
-                    [v67 addObject:v85];
-                    [v83 addIndex:self->_indexOfRequestForMergedFoodAndDrinkRecognition];
+                    [v68 addObject:v87];
+                    [v85 addIndex:self->_indexOfRequestForMergedFoodAndDrinkRecognition];
 
                     v22 = 0;
                   }
@@ -511,33 +511,32 @@ LABEL_10:
                   buffer = bufferCopy;
                 }
 
-                v69 = [(VNSequenceRequestHandler *)sequenceRequestHandler performRequests:v68 onCVPixelBuffer:v65 orientation:v66 error:v117];
-                if (-[BWVisionInferenceConfiguration suppressTimeOutFailure](self->_configuration, "suppressTimeOutFailure") && [objc_msgSend(v117[0] "domain")] && objc_msgSend(v117[0], "code") == 20)
+                v70 = [(VNSequenceRequestHandler *)sequenceRequestHandler performRequests:v69 onCVPixelBuffer:v66 orientation:v67 error:v119];
+                if (-[BWVisionInferenceConfiguration suppressTimeOutFailure](self->_configuration, "suppressTimeOutFailure") && (v71 = [v119[0] domain], getVNErrorDomain(), objc_msgSend_isEqualToString_(v71)) && objc_msgSend(v119[0], "code") == 20)
                 {
-                  [v75 settingsID];
-                  [BWVisionInferenceProvider _tapToRadarVisionTimeOutError:? performingRequests:? settingsID:?];
-                  v42 = v80;
-                  v44 = v80;
-                  indexSet = v83;
+                  -[BWVisionInferenceProvider _tapToRadarVisionTimeOutError:performingRequests:settingsID:](self, v119[0], v69, [v77 settingsID]);
+                  v43 = v82;
+                  v45 = v82;
+                  indexSet = v85;
                 }
 
                 else
                 {
-                  indexSet = v83;
-                  if (!v69)
+                  indexSet = v85;
+                  if (!v70)
                   {
-                    v79 = -31710;
+                    v81 = -31710;
                     goto LABEL_126;
                   }
 
-                  v42 = v80;
+                  v43 = v82;
                 }
 
-                v43 = v86;
+                v44 = v88;
               }
             }
 
-            if (++v44 >= v42)
+            if (++v45 >= v43)
             {
               goto LABEL_126;
             }
@@ -545,32 +544,32 @@ LABEL_10:
         }
 
 LABEL_125:
-        v79 = 0;
+        v81 = 0;
         goto LABEL_126;
       }
 
       if ([(BWVisionInferenceConfiguration *)self->_configuration shouldPreventRequestForSampleBuffer])
       {
         v23 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v15, "count")}];
-        v93 = 0u;
-        v94 = 0u;
         v95 = 0u;
         v96 = 0u;
-        v24 = [v15 countByEnumeratingWithState:&v93 objects:v92 count:16];
+        v97 = 0u;
+        v98 = 0u;
+        v24 = [v15 countByEnumeratingWithState:&v95 objects:v94 count:16];
         if (v24)
         {
           v25 = v24;
-          v26 = *v94;
+          v26 = *v96;
           do
           {
             for (k = 0; k != v25; ++k)
             {
-              if (*v94 != v26)
+              if (*v96 != v26)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v28 = *(*(&v93 + 1) + 8 * k);
+              v28 = *(*(&v95 + 1) + 8 * k);
               shouldPreventRequestForSampleBuffer = [(BWVisionInferenceConfiguration *)self->_configuration shouldPreventRequestForSampleBuffer];
               if (shouldPreventRequestForSampleBuffer[2](shouldPreventRequestForSampleBuffer, [v28 copy], buffer))
               {
@@ -579,7 +578,7 @@ LABEL_125:
               }
             }
 
-            v25 = [v15 countByEnumeratingWithState:&v93 objects:v92 count:16];
+            v25 = [v15 countByEnumeratingWithState:&v95 objects:v94 count:16];
           }
 
           while (v25);
@@ -591,32 +590,32 @@ LABEL_125:
       if ([(BWVisionInferenceConfiguration *)self->_configuration reuseUpstreamFaceObservations])
       {
         AttachedInference = BWInferenceGetAttachedInference(buffer, 802, 0x1F219E5F0);
-        v88 = 0u;
-        v89 = 0u;
         v90 = 0u;
         v91 = 0u;
-        v31 = [v15 countByEnumeratingWithState:&v88 objects:v87 count:16];
+        v92 = 0u;
+        v93 = 0u;
+        v31 = [v15 countByEnumeratingWithState:&v90 objects:v89 count:16];
         if (v31)
         {
           v32 = v31;
-          v33 = *v89;
+          v33 = *v91;
           do
           {
             for (m = 0; m != v32; ++m)
             {
-              if (*v89 != v33)
+              if (*v91 != v33)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v35 = *(*(&v88 + 1) + 8 * m);
+              v35 = *(*(&v90 + 1) + 8 * m);
               if ([v35 conformsToProtocol:&unk_1F22C4730])
               {
                 [v35 setInputFaceObservations:AttachedInference];
               }
             }
 
-            v32 = [v15 countByEnumeratingWithState:&v88 objects:v87 count:16];
+            v32 = [v15 countByEnumeratingWithState:&v90 objects:v89 count:16];
           }
 
           while (v32);
@@ -638,12 +637,19 @@ LABEL_125:
           v39 = intValue;
         }
 
-        v40 = [(VNSequenceRequestHandler *)sequenceRequestHandler performRequests:v15 onCVPixelBuffer:v38 orientation:v39 error:v117];
-        if (-[BWVisionInferenceConfiguration suppressTimeOutFailure](self->_configuration, "suppressTimeOutFailure") && [objc_msgSend(v117[0] "domain")] && objc_msgSend(v117[0], "code") == 20)
+        v40 = [(VNSequenceRequestHandler *)sequenceRequestHandler performRequests:v15 onCVPixelBuffer:v38 orientation:v39 error:v119];
+        if ([(BWVisionInferenceConfiguration *)self->_configuration suppressTimeOutFailure])
         {
-          [v75 settingsID];
-          [BWVisionInferenceProvider _tapToRadarVisionTimeOutError:? performingRequests:? settingsID:?];
-          goto LABEL_52;
+          domain = [v119[0] domain];
+          getVNErrorDomain();
+          if (objc_msgSend_isEqualToString_(domain))
+          {
+            if ([v119[0] code] == 20)
+            {
+              -[BWVisionInferenceProvider _tapToRadarVisionTimeOutError:performingRequests:settingsID:](self, v119[0], v15, [v77 settingsID]);
+              goto LABEL_52;
+            }
+          }
         }
 
         if (v40)
@@ -655,13 +661,13 @@ LABEL_52:
 
         [BWVisionInferenceProvider executeOnSampleBuffer:usingStorage:withExecutionTime:completionHandler:];
         v22 = 0;
-        v72 = -31710;
+        v74 = -31710;
       }
 
       else
       {
         v22 = 0;
-        v72 = -31712;
+        v74 = -31712;
       }
     }
 
@@ -669,7 +675,7 @@ LABEL_52:
     {
       [BWVisionInferenceProvider executeOnSampleBuffer:usingStorage:withExecutionTime:completionHandler:];
       v22 = 0;
-      v72 = -31714;
+      v74 = -31714;
     }
   }
 
@@ -677,10 +683,10 @@ LABEL_52:
   {
     [BWVisionInferenceProvider executeOnSampleBuffer:usingStorage:withExecutionTime:completionHandler:];
     v22 = 0;
-    v72 = -31711;
+    v74 = -31711;
   }
 
-  v79 = v72;
+  v81 = v74;
 LABEL_126:
   if (*MEMORY[0x1E695FF58] == 1)
   {
@@ -692,7 +698,7 @@ LABEL_126:
     handlerCopy[2]();
   }
 
-  return v79;
+  return v81;
 }
 
 uint64_t __100__BWVisionInferenceProvider_executeOnSampleBuffer_usingStorage_withExecutionTime_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -724,7 +730,7 @@ uint64_t __100__BWVisionInferenceProvider_executeOnSampleBuffer_usingStorage_wit
 {
   v8 = [[BWInferenceLazyVideoRequirement alloc] initWithAttachedMediaKey:key preparedByAttachedMediaKey:key videoFormatProvider:provider];
   [(NSMutableArray *)self->_inputVideoRequirements addObject:v8];
-  if (![(BWVisionInferenceProvider *)self primaryInputVideoRequirement]&& [(NSString *)[(BWInferenceMediaRequirement *)v8 attachedMediaKey] isEqualToString:@"PrimaryFormat"])
+  if (![(BWVisionInferenceProvider *)self primaryInputVideoRequirement]&& objc_msgSend_isEqualToString_([(BWInferenceMediaRequirement *)v8 attachedMediaKey]))
   {
     [(BWVisionInferenceProvider *)self setPrimaryInputVideoRequirement:v8];
   }
@@ -749,7 +755,7 @@ uint64_t __100__BWVisionInferenceProvider_executeOnSampleBuffer_usingStorage_wit
   v12 = v8;
   v10 = -[BWInferenceVideoRequirement initWithAttachedMediaKey:videoFormat:]([BWInferenceVideoRequirement alloc], "initWithAttachedMediaKey:videoFormat:", key, +[BWInferenceVideoFormat formatByResolvingRequirements:](BWInferenceVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1]));
   [(NSMutableArray *)self->_inputVideoRequirements addObject:v10];
-  if (![(BWVisionInferenceProvider *)self primaryInputVideoRequirement]&& [(NSString *)[(BWInferenceMediaRequirement *)v10 attachedMediaKey] isEqualToString:@"PrimaryFormat"])
+  if (![(BWVisionInferenceProvider *)self primaryInputVideoRequirement]&& objc_msgSend_isEqualToString_([(BWInferenceMediaRequirement *)v10 attachedMediaKey]))
   {
     [(BWVisionInferenceProvider *)self setPrimaryInputVideoRequirement:v10];
   }
@@ -812,16 +818,16 @@ uint64_t __100__BWVisionInferenceProvider_executeOnSampleBuffer_usingStorage_wit
   return v6;
 }
 
-- (void)_tapToRadarVisionTimeOutError:(uint64_t)error performingRequests:settingsID:
+- (void)_tapToRadarVisionTimeOutError:(uint64_t)error performingRequests:(uint64_t)requests settingsID:
 {
-  if (error)
+  if (self)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v2 = _os_log_send_and_compose_impl();
-    FigCapturePleaseFileRadar(10, v2, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Inference/Vision/BWVisionInferenceProvider.m", 389, @"LastShownDate:BWVisionInferenceProvider.m:389", @"LastShownBuild:BWVisionInferenceProvider.m:389", 0);
-    free(v2);
+    v5 = _os_log_send_and_compose_impl();
+    FigCapturePleaseFileRadar(10, v5, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Inference/Vision/BWVisionInferenceProvider.m", 389, @"LastShownDate:BWVisionInferenceProvider.m:389", @"LastShownBuild:BWVisionInferenceProvider.m:389", 0);
+    free(v5);
   }
 }
 
@@ -844,43 +850,43 @@ uint64_t __100__BWVisionInferenceProvider_executeOnSampleBuffer_usingStorage_wit
     }
 
     array = [MEMORY[0x1E695DF70] array];
+    v137 = 0u;
     v138 = 0u;
     v139 = 0u;
     v140 = 0u;
-    v141 = 0u;
-    v25 = OUTLINED_FUNCTION_7_80(array, v18, v19, v20, v21, v22, v23, v24, v56, v58, v60, v62, v64, v66, v68, orientation, v72, faces, request, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, v120, v122, v124, v126, v128, v130, v132, v134, *&recta.origin.x, *&recta.origin.y, *&recta.size.width, *&recta.size.height, v137);
+    v25 = OUTLINED_FUNCTION_7_80(array, v18, v19, v20, v21, v22, v23, v24, v56, v58, v60, v62, v64, v66, v68, orientation, v72, faces, request, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, v120, v122, v124, v126, v128, v130, v132, v134, *&recta.origin.x, *&recta.origin.y, *&recta.size.width, *&recta.size.height);
     if (v25)
     {
       v26 = v25;
-      v27 = *v139;
+      v27 = *v138;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v139 != v27)
+          if (*v138 != v27)
           {
             objc_enumerationMutation(v8);
           }
 
-          v29 = *(*(&v138 + 1) + 8 * i);
+          v29 = *(*(&v137 + 1) + 8 * i);
           getVNDetectedObjectObservationClass();
           isKindOfClass = objc_opt_isKindOfClass();
           if (isKindOfClass)
           {
             [v29 boundingBox];
-            isKindOfClass = CGRectIsEmpty(v142);
+            isKindOfClass = CGRectIsEmpty(v141);
             if ((isKindOfClass & 1) == 0)
             {
               [v29 boundingBox];
-              v145.origin.x = v38;
-              v145.origin.y = v39;
-              v145.size.width = v40;
-              v145.size.height = v41;
-              v143.origin.x = v10;
-              v143.origin.y = v12;
-              v143.size.width = v14;
-              v143.size.height = v16;
-              isKindOfClass = CGRectIntersectsRect(v143, v145);
+              v144.origin.x = v38;
+              v144.origin.y = v39;
+              v144.size.width = v40;
+              v144.size.height = v41;
+              v142.origin.x = v10;
+              v142.origin.y = v12;
+              v142.size.width = v14;
+              v142.size.height = v16;
+              isKindOfClass = CGRectIntersectsRect(v142, v144);
               if (isKindOfClass)
               {
                 isKindOfClass = [array addObject:v29];
@@ -889,7 +895,7 @@ uint64_t __100__BWVisionInferenceProvider_executeOnSampleBuffer_usingStorage_wit
           }
         }
 
-        v26 = OUTLINED_FUNCTION_7_80(isKindOfClass, v31, v32, v33, v34, v35, v36, v37, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105, v107, v109, v111, v113, v115, v117, v119, v121, v123, v125, v127, v129, v131, v133, v135, *&recta.origin.x, *&recta.origin.y, *&recta.size.width, *&recta.size.height, v137);
+        v26 = OUTLINED_FUNCTION_7_80(isKindOfClass, v31, v32, v33, v34, v35, v36, v37, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105, v107, v109, v111, v113, v115, v117, v119, v121, v123, v125, v127, v129, v131, v133, v135, *&recta.origin.x, *&recta.origin.y, *&recta.size.width, *&recta.size.height);
       }
 
       while (v26);
@@ -909,7 +915,7 @@ uint64_t __100__BWVisionInferenceProvider_executeOnSampleBuffer_usingStorage_wit
         CGRectMakeWithDictionaryRepresentation([v47 objectForKeyedSubscript:v45], &recta);
         [v43 conformsToProtocol:&unk_1F22C4730];
         [v46 boundingBox];
-        if (CGRectIsEmpty(v144))
+        if (CGRectIsEmpty(v143))
         {
           OUTLINED_FUNCTION_4_96();
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -985,7 +991,8 @@ uint64_t __100__BWVisionInferenceProvider_executeOnSampleBuffer_usingStorage_wit
   }
 
   [provider customInferenceIdentifier];
-  if (![OUTLINED_FUNCTION_8() isEqualToString:?])
+  v6 = OUTLINED_FUNCTION_8();
+  if (!objc_msgSend_isEqualToString_(v6))
   {
     return -31783;
   }
@@ -1010,15 +1017,15 @@ uint64_t __100__BWVisionInferenceProvider_executeOnSampleBuffer_usingStorage_wit
   [(NSMutableDictionary *)self->_requestIndexByRequirement removeAllObjects];
   if (provider)
   {
-    v6 = *(provider + 13);
+    v7 = *(provider + 13);
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  [(NSMutableDictionary *)self->_requestIndexByRequirement addEntriesFromDictionary:v6];
+  [(NSMutableDictionary *)self->_requestIndexByRequirement addEntriesFromDictionary:v7];
   return 0;
 }
 
@@ -1114,7 +1121,7 @@ LABEL_10:
         v53 = 0u;
         v54 = 0u;
         prototypeRequests = self->_prototypeRequests;
-        v19 = OUTLINED_FUNCTION_17_0(array, v10, v11, v12, v13, v14, v15, v16, v34, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, 0);
+        v19 = OUTLINED_FUNCTION_17_0(array, v10, v11, v12, v13, v14, v15, v16, v34, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52);
         if (v19)
         {
           v20 = v19;
@@ -1138,7 +1145,7 @@ LABEL_10:
               }
             }
 
-            v20 = OUTLINED_FUNCTION_17_0(isKindOfClass, v25, v26, v27, v28, v29, v30, v31, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53);
+            v20 = OUTLINED_FUNCTION_17_0(isKindOfClass, v25, v26, v27, v28, v29, v30, v31, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52);
           }
 
           while (v20);

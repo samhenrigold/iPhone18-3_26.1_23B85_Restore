@@ -3,12 +3,19 @@
 - (QSSMutableTranslationResponse_TranslationToken)init;
 - (float)confidence;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setAdd_space_after:(BOOL)add_space_after;
 - (void)setConfidence:(float)confidence;
 - (void)setMt_alignment:(id)mt_alignment;
 - (void)setToken:(id)token;
 @end
 
 @implementation QSSMutableTranslationResponse_TranslationToken
+
+- (void)setAdd_space_after:(BOOL)add_space_after
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:add_space_after];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (BOOL)add_space_after
 {

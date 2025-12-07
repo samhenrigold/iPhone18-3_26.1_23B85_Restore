@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)resultAsString:(int)string;
 - (int)StringAsResult:(id)result;
 - (int)result;
 - (unint64_t)hash;
@@ -57,6 +58,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)resultAsString:(int)string
+{
+  if (!string)
+  {
+    return @"Success";
+  }
+
+  if (string == 1)
+  {
+    return @"Failure";
+  }
+
+  return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
 }
 
 - (int)StringAsResult:(id)result
@@ -167,7 +183,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -179,7 +194,6 @@ LABEL_3:
       }
 
 LABEL_8:
-      recordsPerSecond = self->_recordsPerSecond;
       PBDataWriterWriteUint64Field();
       if ((*&self->_has & 1) == 0)
       {
@@ -195,7 +209,6 @@ LABEL_8:
     goto LABEL_3;
   }
 
-  result = self->_result;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -210,7 +223,6 @@ LABEL_4:
   }
 
 LABEL_9:
-  approximateRecordCount = self->_approximateRecordCount;
 
   PBDataWriterWriteUint64Field();
 }

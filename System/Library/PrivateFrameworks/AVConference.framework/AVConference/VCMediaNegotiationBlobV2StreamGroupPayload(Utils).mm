@@ -24,7 +24,7 @@
       OUTLINED_FUNCTION_1_1();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_6_23();
-      OUTLINED_FUNCTION_1_17(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to encode the cipherSuite=%d", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_1_17(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to encode the cipherSuite=%d", v4, v5, v6, v7);
     }
   }
 }
@@ -39,7 +39,7 @@
       [a1 codecType];
       OUTLINED_FUNCTION_1_1();
       OUTLINED_FUNCTION_6();
-      OUTLINED_FUNCTION_1_17(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to encode the codec=%d", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_1_17(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to encode the codec=%d", v4, v5, v6, v7);
     }
   }
 }
@@ -54,7 +54,7 @@
       [a1 codecType];
       OUTLINED_FUNCTION_1_1();
       OUTLINED_FUNCTION_6();
-      OUTLINED_FUNCTION_1_17(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to encode the codec=%d", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_1_17(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to encode the codec=%d", v4, v5, v6, v7);
     }
   }
 }
@@ -70,7 +70,7 @@
       OUTLINED_FUNCTION_1_1();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_6_23();
-      OUTLINED_FUNCTION_1_17(&dword_1DB56E000, v2, v3, " [%s] %s:%d Unsupported cipher suite (%u)", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_1_17(&dword_1DB56E000, v2, v3, " [%s] %s:%d Unsupported cipher suite (%u)", v4, v5, v6, v7);
     }
   }
 }
@@ -86,7 +86,7 @@
       OUTLINED_FUNCTION_1_1();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_6_23();
-      OUTLINED_FUNCTION_1_17(&dword_1DB56E000, v2, v3, " [%s] %s:%d Unsupported H264LevelAsymmetryAllowed=%d", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_1_17(&dword_1DB56E000, v2, v3, " [%s] %s:%d Unsupported H264LevelAsymmetryAllowed=%d", v4, v5, v6, v7);
     }
   }
 }
@@ -102,7 +102,7 @@
       OUTLINED_FUNCTION_1_1();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_6_23();
-      OUTLINED_FUNCTION_1_17(&dword_1DB56E000, v2, v3, " [%s] %s:%d Unsupported H264PacketizationMode=%d", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_1_17(&dword_1DB56E000, v2, v3, " [%s] %s:%d Unsupported H264PacketizationMode=%d", v4, v5, v6, v7);
     }
   }
 }
@@ -162,7 +162,7 @@
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d mediaFlags=%u is too large for packed format", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d mediaFlags=%u is too large for packed format", v2, v3, v4, v5);
     }
   }
 
@@ -180,7 +180,7 @@
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d negotiationCipherSuite=%u is too large for packed format", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d negotiationCipherSuite=%u is too large for packed format", v2, v3, v4, v5);
     }
   }
 
@@ -198,7 +198,7 @@
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unknown rtpSampleRate=%u", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unknown rtpSampleRate=%u", v2, v3, v4, v5);
     }
   }
 
@@ -216,7 +216,7 @@
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d rtpSampleRate=%u is too large for packed format", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d rtpSampleRate=%u is too large for packed format", v2, v3, v4, v5);
     }
   }
 
@@ -234,7 +234,7 @@
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d rtcpFlags=%u is too large for packed format", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d rtcpFlags=%u is too large for packed format", v2, v3, v4, v5);
     }
   }
 
@@ -271,7 +271,7 @@
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d codecType=%u is too large for packed format", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_6_0(&dword_1DB56E000, v0, v1, " [%s] %s:%d codecType=%u is too large for packed format", v2, v3, v4, v5);
     }
   }
 

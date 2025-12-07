@@ -68,24 +68,25 @@ void sub_21AB77404(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21AB79CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21AB79CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AB79D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21AB79D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t OUTLINED_FUNCTION_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+uint64_t OUTLINED_FUNCTION_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
 
-  return [v29 countByEnumeratingWithState:&a17 objects:&a29 count:16];
+  return [v28 countByEnumeratingWithState:&a17 objects:va count:{16, a6, a7, a8}];
 }
 
 void OUTLINED_FUNCTION_5(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, _BYTE *a20)
@@ -94,23 +95,23 @@ void OUTLINED_FUNCTION_5(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   [(DDActionGroup *)a20 insertActions:a1 atIndex:0];
 }
 
-uint64_t OUTLINED_FUNCTION_6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+uint64_t OUTLINED_FUNCTION_6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va1, a8);
+  va_start(va, a8);
   v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
 
-  return [v4 countByEnumeratingWithState:va objects:va1 count:16];
+  return [v8 countByEnumeratingWithState:va objects:va1 count:16];
 }
 
-uint64_t _DDResultIsURL(uint64_t result)
+void *_DDResultIsURL(void *result)
 {
   if (result)
   {
@@ -132,31 +133,31 @@ uint64_t _DDResultIsURL(uint64_t result)
   return result;
 }
 
-id _DDURLFromResult(uint64_t a1)
+id _DDURLFromResult(uint64_t a1, unsigned int a2)
 {
   if (a1)
   {
-    v1 = DDResultCopyExtractedURLWithOptions();
-    if (v1)
+    v2 = DDResultCopyExtractedURLWithOptions();
+    if (v2)
     {
-      v2 = [MEMORY[0x277CBEBC0] URLWithString:v1];
+      v3 = [MEMORY[0x277CBEBC0] URLWithString:v2];
 
-      v3 = v2;
+      v4 = v3;
     }
 
     else
     {
 
-      v3 = 0;
+      v4 = 0;
     }
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t __analyticsQueue_block_invoke()
@@ -198,24 +199,26 @@ void sub_21AB8069C(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
   _Unwind_Resume(exc_buf);
 }
 
-void sub_21AB81334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_21AB81334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AB81FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_21AB81FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a21, 8);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AB84254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21AB84254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -335,23 +338,23 @@ void __dd_canReadDefaultBrowser_block_invoke()
   }
 }
 
-void sub_21AB8957C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21AB8957C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AB89594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21AB89594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AB895AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21AB895AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -412,12 +415,12 @@ LABEL_20:
 
     else
     {
-      v20 = [v11 objectForKeyedSubscript:@"event"];
-      v21 = [v12 objectForKeyedSubscript:@"icsEvent"];
-      v22 = v20;
-      if (v20 || (v22 = v21) != 0)
+      v19 = [v11 objectForKeyedSubscript:@"event"];
+      v20 = [v12 objectForKeyedSubscript:@"icsEvent"];
+      v21 = v19;
+      if (v19 || (v21 = v20) != 0)
       {
-        v18 = [v22 location];
+        v18 = [v21 location];
       }
 
       else
@@ -435,7 +438,7 @@ LABEL_20:
     goto LABEL_23;
   }
 
-  if (!a5 || (Type = DDResultGetType(), CFStringCompare(Type, *MEMORY[0x277D040E0], 0)) || (v19 = *MEMORY[0x277D04180], SubresultWithType = DDResultGetSubresultWithType(), DDResultGetMatchedString(), (v14 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (!a5 || (Type = DDResultGetType(), CFStringCompare(Type, *MEMORY[0x277D040E0], 0)) || (SubresultWithType = DDResultGetSubresultWithType(), DDResultGetMatchedString(), (v14 = objc_claimAutoreleasedReturnValue()) == 0))
   {
     v14 = DDMapAddressFromResult(SubresultWithType);
   }
@@ -445,10 +448,11 @@ LABEL_23:
   return v14;
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 id _ddui_parsec_xpcInterface(int a1)
@@ -467,34 +471,32 @@ id _ddui_parsec_xpcInterface(int a1)
     v9 = objc_opt_class();
     v10 = objc_opt_class();
     gotLoadHelper_x8__OBJC_CLASS___SFResultSection(v11);
-    v13 = *(v12 + 1416);
-    v14 = [v8 setWithObjects:{v9, v10, objc_opt_class(), 0}];
+    v12 = [v8 setWithObjects:{v9, v10, objc_opt_class(), 0}];
 
-    v15 = sel_showClientQueryResults_error_;
-    v16 = v1;
-    v17 = v14;
-    v18 = 0;
+    v13 = sel_showClientQueryResults_error_;
+    v14 = v1;
+    v15 = v12;
+    v16 = 0;
   }
 
   else
   {
     v1 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_282C4B330];
-    v19 = MEMORY[0x277CBEB98];
-    v20 = objc_opt_class();
-    v21 = objc_opt_class();
-    gotLoadHelper_x8__OBJC_CLASS___SFResultSection(v22);
-    v24 = *(v23 + 1416);
-    v25 = [v19 setWithObjects:{v20, v21, objc_opt_class(), 0}];
-    [v1 setClasses:v25 forSelector:sel_performClientTextQueryWithTerm_queryId_sessionId_userAgent_reply_ argumentIndex:0 ofReply:1];
-    v14 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
+    v17 = MEMORY[0x277CBEB98];
+    v18 = objc_opt_class();
+    v19 = objc_opt_class();
+    gotLoadHelper_x8__OBJC_CLASS___SFResultSection(v20);
+    v21 = [v17 setWithObjects:{v18, v19, objc_opt_class(), 0}];
+    [v1 setClasses:v21 forSelector:sel_performClientTextQueryWithTerm_queryId_sessionId_userAgent_reply_ argumentIndex:0 ofReply:1];
+    v12 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
 
-    v15 = sel_loadReportAnIssueImage_;
-    v16 = v1;
-    v17 = v14;
-    v18 = 1;
+    v13 = sel_loadReportAnIssueImage_;
+    v14 = v1;
+    v15 = v12;
+    v16 = 1;
   }
 
-  [v16 setClasses:v17 forSelector:v15 argumentIndex:0 ofReply:v18];
+  [v14 setClasses:v15 forSelector:v13 argumentIndex:0 ofReply:v16];
 
   return v1;
 }
@@ -586,16 +588,16 @@ LABEL_10:
 LABEL_19:
 }
 
-void sub_21AB8FD34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21AB8FD34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AB8FD4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21AB8FD4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -623,28 +625,28 @@ id _DDArrayWithList(void *a1)
 
 void _DDRemoveResultLinksFromArrayOfAnchors(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         v10 = [v9 parentNode];
         v11 = [v9 parentNode];
 
@@ -654,13 +656,11 @@ void _DDRemoveResultLinksFromArrayOfAnchors(void *a1, void *a2)
         }
       }
 
-      v6 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id DDLocalizedString(void *a1)
@@ -696,29 +696,29 @@ id DDLocalizedStringWithDefaultValue(void *a1, uint64_t a2, uint64_t a3, void *a
   return v9;
 }
 
-id beginDateAndTimezoneOfEventResultsRespectingSpecificEndDates(void *a1, uint64_t a2, void *a3, _BYTE *a4, BOOL *a5, void *a6, void *a7)
+id beginDateAndTimezoneOfEventResultsRespectingSpecificEndDates(void *a1, int a2, void *a3, _BYTE *a4, BOOL *a5, void *a6, void *a7)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v9 = a1;
   v10 = a3;
   v11 = [MEMORY[0x277CBEB18] array];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v12 = v9;
-  v13 = [v12 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v42;
+    v15 = *v41;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v42 == v15)
+        if (*v41 == v15)
         {
-          v17 = *(*(&v41 + 1) + 8 * i);
+          v17 = *(*(&v40 + 1) + 8 * i);
           if (DDResultGetCategory() != 4)
           {
             continue;
@@ -728,7 +728,7 @@ id beginDateAndTimezoneOfEventResultsRespectingSpecificEndDates(void *a1, uint64
         else
         {
           objc_enumerationMutation(v12);
-          v17 = *(*(&v41 + 1) + 8 * i);
+          v17 = *(*(&v40 + 1) + 8 * i);
           if (DDResultGetCategory() != 4)
           {
             continue;
@@ -738,7 +738,7 @@ id beginDateAndTimezoneOfEventResultsRespectingSpecificEndDates(void *a1, uint64
         [v11 addObject:v17];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v14);
@@ -754,7 +754,7 @@ id beginDateAndTimezoneOfEventResultsRespectingSpecificEndDates(void *a1, uint64
   v19 = v18;
   v20 = [v10 objectForKey:@"ReferenceDate"];
   v21 = v20;
-  v37 = a5;
+  v36 = a5;
   if (v20)
   {
     v22 = v20;
@@ -772,7 +772,7 @@ id beginDateAndTimezoneOfEventResultsRespectingSpecificEndDates(void *a1, uint64
   DDResultIsPartialDateRangeOrTimeRange();
   Type = DDResultGetType();
   v27 = *MEMORY[0x277D04198];
-  v36 = v10;
+  v35 = v10;
   if (CFStringCompare(Type, *MEMORY[0x277D04198], 0) == kCFCompareEqualTo || CFStringCompare(Type, *MEMORY[0x277D040A8], 0) == kCFCompareEqualTo || CFStringCompare(Type, *MEMORY[0x277D040B0], 0) == kCFCompareEqualTo)
   {
     if (!DDResultCopyExtractedDateFromReferenceDate())
@@ -781,15 +781,15 @@ LABEL_27:
       v31 = v24;
 LABEL_28:
       v29 = a4;
-      if (v37)
+      if (v36)
       {
-        *v37 = CFStringCompare(Type, v27, 0) == kCFCompareEqualTo;
+        *v36 = CFStringCompare(Type, v27, 0) == kCFCompareEqualTo;
       }
 
       v28 = a7;
       v30 = a6;
       v24 = v31;
-      v10 = v36;
+      v10 = v35;
       if (!a6)
       {
         goto LABEL_32;
@@ -815,9 +815,9 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  if (v37)
+  if (v36)
   {
-    *v37 = 0;
+    *v36 = 0;
     v29 = a4;
     v28 = a7;
     v30 = a6;
@@ -857,7 +857,6 @@ LABEL_32:
   v23 = v24;
 
 LABEL_37:
-  v34 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -1166,11 +1165,11 @@ id actionSheetTitleForResult(uint64_t a1)
     v8 = RangeForURLification - Range;
     if (v8 || v6 != v4)
     {
-      v39.length = [v1 length];
-      v38.location = v8;
-      v38.length = v7;
-      v39.location = 0;
-      v9 = NSIntersectionRange(v38, v39);
+      v36.length = [v1 length];
+      v35.location = v8;
+      v35.length = v7;
+      v36.location = 0;
+      v9 = NSIntersectionRange(v35, v36);
       if (v8 == v9.location && v7 == v9.length)
       {
         v10 = [v1 substringWithRange:{v8, v7}];
@@ -1184,21 +1183,21 @@ id actionSheetTitleForResult(uint64_t a1)
     {
       if (Category == 4)
       {
-        v17 = _DDSentenceCasedString(v1);
-        v36 = 0;
-        v21 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\\(|\\)|\\[|\\]" options:1 error:&v36];
-        v22 = v36;
-        v35 = v22;
-        v23 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"  +" options:1 error:&v35];
-        v24 = v35;
+        v16 = _DDSentenceCasedString(v1);
+        v33 = 0;
+        v20 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\\(|\\)|\\[|\\]" options:1 error:&v33];
+        v21 = v33;
+        v32 = v21;
+        v22 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"  +" options:1 error:&v32];
+        v23 = v32;
 
-        if (v24)
+        if (v23)
         {
-          actionSheetTitleForResult_cold_1(v24);
+          actionSheetTitleForResult_cold_1(v23);
         }
 
-        v25 = [v21 stringByReplacingMatchesInString:v17 options:0 range:0 withTemplate:{objc_msgSend(v17, "length"), @" "}];
-        v26 = [v23 stringByReplacingMatchesInString:v25 options:0 range:0 withTemplate:{objc_msgSend(v25, "length"), @" "}];
+        v24 = [v20 stringByReplacingMatchesInString:v16 options:0 range:0 withTemplate:{objc_msgSend(v16, "length"), @" "}];
+        v25 = [v22 stringByReplacingMatchesInString:v24 options:0 range:0 withTemplate:{objc_msgSend(v24, "length"), @" "}];
 
         goto LABEL_32;
       }
@@ -1211,20 +1210,18 @@ id actionSheetTitleForResult(uint64_t a1)
       Type = DDResultGetType();
       if (CFStringCompare(Type, *MEMORY[0x277D040D0], 0) == kCFCompareEqualTo)
       {
-        v27 = *MEMORY[0x277D04040];
         DDResultGetSubresultWithType();
-        v28 = *MEMORY[0x277D040D8];
         DDResultGetSubresultWithType();
-        v17 = DDResultGetValue();
-        v19 = DDResultGetMatchedString();
-        v29 = [v17 lowercaseString];
-        v30 = [v19 lowercaseString];
-        v31 = [v29 isEqualToString:v30];
+        v16 = DDResultGetValue();
+        v18 = DDResultGetMatchedString();
+        v26 = [v16 lowercaseString];
+        v27 = [v18 lowercaseString];
+        v28 = [v26 isEqualToString:v27];
 
-        if (v31)
+        if (v28)
         {
-          v32 = [v17 uppercaseString];
-          v26 = [v32 stringByAppendingString:DDResultGetValue()];
+          v29 = [v16 uppercaseString];
+          v25 = [v29 stringByAppendingString:DDResultGetValue()];
 
 LABEL_31:
 LABEL_32:
@@ -1232,37 +1229,36 @@ LABEL_32:
           goto LABEL_33;
         }
 
-        v20 = _DDSentenceCasedString(v1);
+        v19 = _DDSentenceCasedString(v1);
 LABEL_30:
-        v26 = v20;
+        v25 = v19;
         goto LABEL_31;
       }
 
-      v14 = *MEMORY[0x277D04158];
       if (DDResultHasType() && DDScannerShouldKeepParsecScoresBelowThreshold())
       {
         ParsecDomain = DDResultGetParsecDomain();
         if (ParsecDomain > 9)
         {
-          v16 = @"interesting to look up";
+          v15 = @"interesting to look up";
         }
 
         else
         {
-          v16 = off_278291250[ParsecDomain];
+          v15 = off_278291250[ParsecDomain];
         }
 
         if (DDShouldUseDebugHighlightForResult())
         {
-          v34 = @"Internal: red link? Lookup thinks this hint may be %@, is it?";
+          v31 = @"Internal: red link? Lookup thinks this hint may be %@, is it?";
         }
 
         else
         {
-          v34 = @"Internal: Lookup thinks this hint is %@, is it?";
+          v31 = @"Internal: Lookup thinks this hint is %@, is it?";
         }
 
-        v12 = [MEMORY[0x277CCACA8] stringWithFormat:v34, v16];
+        v12 = [MEMORY[0x277CCACA8] stringWithFormat:v31, v15];
         goto LABEL_26;
       }
     }
@@ -1273,7 +1269,7 @@ LABEL_30:
       {
         v12 = _DDSentenceCasedString(v1);
 LABEL_26:
-        v26 = v12;
+        v25 = v12;
 LABEL_33:
 
         goto LABEL_34;
@@ -1284,23 +1280,23 @@ LABEL_25:
       goto LABEL_26;
     }
 
-    v17 = DDResultCopyExtractedURL();
-    if (!v17 || ([MEMORY[0x277CBEBC0] URLWithString:v17], (v18 = objc_claimAutoreleasedReturnValue()) == 0))
+    v16 = DDResultCopyExtractedURL();
+    if (!v16 || ([MEMORY[0x277CBEBC0] URLWithString:v16], (v17 = objc_claimAutoreleasedReturnValue()) == 0))
     {
 
       goto LABEL_25;
     }
 
-    v19 = v18;
-    v20 = dd_urlUserVisibleString(v18);
+    v18 = v17;
+    v19 = dd_urlUserVisibleString(v17);
     goto LABEL_30;
   }
 
   actionSheetTitleForResult_cold_2();
-  v26 = 0;
+  v25 = 0;
 LABEL_34:
 
-  return v26;
+  return v25;
 }
 
 id _DDSentenceCasedString(void *a1)
@@ -1405,7 +1401,7 @@ LABEL_12:
   return v23;
 }
 
-id findNearbyResultsInTextStorage(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, void *a6)
+id findNearbyResultsInTextStorage(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, char *a5, void *a6)
 {
   v11 = a1;
   v12 = a6;
@@ -1439,7 +1435,7 @@ id findNearbyResultsInTextStorage(void *a1, unint64_t a2, uint64_t a3, uint64_t 
     v20 = a2 + a3;
     if ([v11 length] - (a2 + a3) < a5)
     {
-      a5 = [v11 length] - v20;
+      a5 = ([v11 length] - v20);
     }
 
     v21 = [MEMORY[0x277CBEB18] array];
@@ -1528,27 +1524,27 @@ LABEL_22:
   return v32;
 }
 
-uint64_t __findNearbyResultsInTextStorage_block_invoke(uint64_t result, uint64_t a2)
+id *__findNearbyResultsInTextStorage_block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
 }
 
-uint64_t __findNearbyResultsInTextStorage_block_invoke_2(uint64_t result, uint64_t a2)
+id *__findNearbyResultsInTextStorage_block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
 }
 
-uint64_t dd_hostApplicationCanListCallProviders()
+uint64_t dd_hostApplicationCanListCallProviders(uint64_t a1, uint64_t a2)
 {
   if (qword_280B12260 != -1)
   {
@@ -1587,7 +1583,7 @@ void __dd_hostApplicationCanListCallProviders_block_invoke()
   _MergedGlobals_3 = [(__SecTask *)v0 containsObject:@"access-call-providers"];
 }
 
-uint64_t dd_callsRequireExternalPrompt()
+uint64_t dd_callsRequireExternalPrompt(uint64_t a1, uint64_t a2)
 {
   if (qword_280B12268 != -1)
   {
@@ -1620,7 +1616,7 @@ void __dd_callsRequireExternalPrompt_block_invoke()
   byte_280B12251 = (byte_280B12255 & 1) == 0;
 }
 
-uint64_t dd_isLSTrusted()
+uint64_t dd_isLSTrusted(uint64_t a1, uint64_t a2)
 {
   if (qword_280B12270 != -1)
   {
@@ -1632,7 +1628,7 @@ uint64_t dd_isLSTrusted()
 
 void __dd_isLSTrusted_block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277CC1EE8] hasDatabaseAccess])
   {
     byte_280B12252 = 1;
@@ -1642,12 +1638,10 @@ void __dd_isLSTrusted_block_invoke()
   {
     v0 = [MEMORY[0x277CCA8D8] mainBundle];
     v1 = [v0 bundleIdentifier];
-    v3 = 138412290;
-    v4 = v1;
-    _os_log_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Host process %@ can't map the LS db. This will be logged once", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v1;
+    _os_log_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Host process %@ can't map the LS db. This will be logged once", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 id dd_applicationNameWithBundleIdentifier(void *a1)
@@ -1919,7 +1913,7 @@ uint64_t dd_handleIsChatBot(void *a1)
   return v5;
 }
 
-__CFString *dd_handleFromTelScheme(__CFString *a1, _BYTE *a2)
+__CFString *dd_handleFromTelScheme(__CFString *a1, unsigned __int8 *a2)
 {
   if (a1)
   {
@@ -1962,20 +1956,18 @@ uint64_t dd_isDeviceLocked()
 
 void __dd_isDeviceLocked_block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v0 = [MEMORY[0x277CCA8D8] mainBundle];
     v1 = [v0 bundleIdentifier];
-    v3 = 138412290;
-    v4 = v1;
-    _os_log_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Host process %@ can't read device lock status. This will be logged once", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v1;
+    _os_log_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Host process %@ can't read device lock status. This will be logged once", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t dd_isInternalInstall()
+uint64_t dd_isInternalInstall(uint64_t a1, uint64_t a2)
 {
   if (qword_280B12288 != -1)
   {
@@ -2079,10 +2071,11 @@ LABEL_4:
 LABEL_6:
 }
 
-uint64_t OUTLINED_FUNCTION_4_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+uint64_t OUTLINED_FUNCTION_4_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
 
-  return [v29 countByEnumeratingWithState:&a29 objects:v30 - 232 count:16];
+  return [v28 countByEnumeratingWithState:va objects:v29 - 232 count:{16, a6, a7, a8}];
 }
 
 void sub_21AB93490(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *context, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, __int128 buf)
@@ -2129,7 +2122,7 @@ void _removeDataDetectorLinkInNode(void *a1)
 
 id dd_EmailCoding(void *a1, int a2)
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = v3;
   if (!v3)
@@ -2176,7 +2169,7 @@ id dd_EmailCoding(void *a1, int a2)
         }
       }
 
-      v32[0] = v12;
+      v31[0] = v12;
       v14 = v7;
       if (v14)
       {
@@ -2195,7 +2188,7 @@ id dd_EmailCoding(void *a1, int a2)
             v16 = v14;
             if ([v14 getBytes:v18 maxLength:v17 usedLength:0 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(v14, "length"), 0}])
             {
-              v28 = 4 * v17;
+              v27 = 4 * v17;
               v20 = malloc_type_malloc(4 * v17, 0x2A63EA05uLL);
               v16 = v14;
               if (v20)
@@ -2205,12 +2198,12 @@ id dd_EmailCoding(void *a1, int a2)
                 v22 = v20;
                 if (a2)
                 {
-                  v23 = uidna_nameToUnicodeUTF8(idna, v19, v21, v20, v28, &pInfo, &pErrorCode);
+                  v23 = uidna_nameToUnicodeUTF8(idna, v19, v21, v20, v27, &pInfo, &pErrorCode);
                 }
 
                 else
                 {
-                  v23 = uidna_nameToASCII_UTF8(idna, v19, v21, v20, v28, &pInfo, &pErrorCode);
+                  v23 = uidna_nameToASCII_UTF8(idna, v19, v21, v20, v27, &pInfo, &pErrorCode);
                 }
 
                 v16 = v14;
@@ -2239,9 +2232,9 @@ id dd_EmailCoding(void *a1, int a2)
         v16 = 0;
       }
 
-      v32[1] = v16;
-      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
-      v24 = [v27 componentsJoinedByString:@"@"];
+      v31[1] = v16;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+      v24 = [v26 componentsJoinedByString:@"@"];
 
       if ((a2 & 1) == 0)
       {
@@ -2255,7 +2248,6 @@ id dd_EmailCoding(void *a1, int a2)
 LABEL_22:
 
 LABEL_23:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -2271,62 +2263,62 @@ id DDMakeContactStore()
 
 void DDUpdateContactWithContactResult(void *a1, void *a2)
 {
-  v39[5] = *MEMORY[0x277D85DE8];
+  v38[5] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [v3 givenName];
   v6 = [v3 familyName];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__2;
-  v36 = __Block_byref_object_dispose__2;
-  v37 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__2;
+  v35 = __Block_byref_object_dispose__2;
+  v36 = 0;
   if (![v5 length] && !objc_msgSend(v6, "length"))
   {
-    v12 = [v4 valueForKey:*MEMORY[0x277D04080]];
-    v13 = v12 == 0;
+    v11 = [v4 valueForKey:*MEMORY[0x277D04080]];
+    v12 = v11 == 0;
 
-    if (!v13)
+    if (!v12)
     {
       if (![MEMORY[0x277CBEBF8] count])
       {
-        v14 = *MEMORY[0x277CBD068];
-        v15 = *MEMORY[0x277D04060];
-        v38[0] = *MEMORY[0x277D04090];
+        v13 = *MEMORY[0x277CBD068];
+        v14 = *MEMORY[0x277D04060];
+        v37[0] = *MEMORY[0x277D04090];
+        v37[1] = v14;
+        v15 = *MEMORY[0x277CBD000];
+        v38[0] = v13;
         v38[1] = v15;
-        v16 = *MEMORY[0x277CBD000];
-        v39[0] = v14;
-        v39[1] = v16;
-        v17 = *MEMORY[0x277CBD058];
-        v18 = *MEMORY[0x277D04070];
-        v38[2] = *MEMORY[0x277D04078];
+        v16 = *MEMORY[0x277CBD058];
+        v17 = *MEMORY[0x277D04070];
+        v37[2] = *MEMORY[0x277D04078];
+        v37[3] = v17;
+        v18 = *MEMORY[0x277CBCFF8];
+        v38[2] = v16;
         v38[3] = v18;
-        v19 = *MEMORY[0x277CBCFF8];
-        v39[2] = v17;
-        v39[3] = v19;
-        v38[4] = *MEMORY[0x277D04088];
-        v39[4] = *MEMORY[0x277CBD070];
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:5];
-        v25 = MEMORY[0x277D85DD0];
-        v26 = 3221225472;
-        v27 = __DDUpdateContactWithContactResult_block_invoke;
-        v28 = &unk_2782913B0;
-        v31 = &v32;
-        v29 = v4;
-        v30 = v3;
-        [v20 enumerateKeysAndObjectsUsingBlock:&v25];
+        v37[4] = *MEMORY[0x277D04088];
+        v38[4] = *MEMORY[0x277CBD070];
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:5];
+        v24 = MEMORY[0x277D85DD0];
+        v25 = 3221225472;
+        v26 = __DDUpdateContactWithContactResult_block_invoke;
+        v27 = &unk_2782913B0;
+        v30 = &v31;
+        v28 = v4;
+        v29 = v3;
+        [v19 enumerateKeysAndObjectsUsingBlock:&v24];
       }
 
-      v21 = [v4 valueForKey:{*MEMORY[0x277D04118], v25, v26, v27, v28}];
-      v22 = v33[5];
-      v33[5] = v21;
+      v20 = [v4 valueForKey:{*MEMORY[0x277D04118], v24, v25, v26, v27}];
+      v21 = v32[5];
+      v32[5] = v20;
 
-      v23 = v33[5];
-      if (v23)
+      v22 = v32[5];
+      if (v22)
       {
-        v24 = [v23 matchedString];
-        [v3 setJobTitle:v24];
+        v23 = [v22 matchedString];
+        [v3 setJobTitle:v23];
       }
 
       else
@@ -2337,8 +2329,8 @@ void DDUpdateContactWithContactResult(void *a1, void *a2)
   }
 
   v7 = [v4 valueForKey:*MEMORY[0x277D04058]];
-  v8 = v33[5];
-  v33[5] = v7;
+  v8 = v32[5];
+  v32[5] = v7;
 
   v9 = [v3 organizationName];
   if ([v9 length])
@@ -2346,37 +2338,35 @@ void DDUpdateContactWithContactResult(void *a1, void *a2)
     goto LABEL_6;
   }
 
-  v10 = v33[5] == 0;
+  v10 = v32[5] == 0;
 
   if (!v10)
   {
-    v9 = [v33[5] matchedString];
+    v9 = [v32[5] matchedString];
     [v3 setOrganizationName:v9];
 LABEL_6:
   }
 
-  _Block_object_dispose(&v32, 8);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v31, 8);
 }
 
-void sub_21AB94788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_21AB94788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AB947A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_21AB947A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AB947B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_21AB947B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2451,176 +2441,176 @@ LABEL_9:
 
 void *DDHarvestDataFromResults(void *a1, void *a2)
 {
-  v207[2] = *MEMORY[0x277D85DE8];
+  v206[2] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = objc_alloc_init(MEMORY[0x277CBDB38]);
-  v102 = v3;
-  v131 = [v3 range];
+  v101 = v3;
+  v130 = [v3 range];
   v7 = v6;
-  v157 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v156 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v8 = objc_alloc_init(MEMORY[0x277CBDAC0]);
   [v8 setIncludeAcceptedIntroductions:1];
   v9 = [objc_alloc(MEMORY[0x277CBDAB8]) initWithConfiguration:v8];
 
   v10 = *MEMORY[0x277CBD038];
-  v207[0] = *MEMORY[0x277CBCFC0];
-  v207[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v207 count:2];
+  v206[0] = *MEMORY[0x277CBCFC0];
+  v206[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v206 count:2];
   v12 = [v9 _ios_meContactWithKeysToFetch:v11 error:0];
 
-  v130 = v5;
+  v129 = v5;
   if (v12)
   {
-    v201 = 0u;
     v200 = 0u;
     v199 = 0u;
     v198 = 0u;
+    v197 = 0u;
     v13 = [v12 emailAddresses];
-    v14 = [v13 countByEnumeratingWithState:&v198 objects:v206 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v197 objects:v205 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v199;
+      v16 = *v198;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v199 != v16)
+          if (*v198 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [*(*(&v198 + 1) + 8 * i) value];
-          [v157 addObject:v18];
+          v18 = [*(*(&v197 + 1) + 8 * i) value];
+          [v156 addObject:v18];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v198 objects:v206 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v197 objects:v205 count:16];
       }
 
       while (v15);
     }
 
-    v197 = 0u;
-    v195 = 0u;
     v196 = 0u;
     v194 = 0u;
+    v195 = 0u;
+    v193 = 0u;
     v19 = [v12 instantMessageAddresses];
-    v20 = [v19 countByEnumeratingWithState:&v194 objects:v205 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v193 objects:v204 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v195;
+      v22 = *v194;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v195 != v22)
+          if (*v194 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = [*(*(&v194 + 1) + 8 * j) value];
+          v24 = [*(*(&v193 + 1) + 8 * j) value];
           v25 = [v24 username];
-          [v157 addObject:v25];
+          [v156 addObject:v25];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v194 objects:v205 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v193 objects:v204 count:16];
       }
 
       while (v21);
     }
   }
 
-  v26 = [v102 type];
-  v140 = *MEMORY[0x277D04170];
-  v132 = [v26 isEqualToString:?];
+  v26 = [v101 type];
+  v139 = *MEMORY[0x277D04170];
+  v131 = [v26 isEqualToString:?];
 
-  v192 = 0u;
-  v193 = 0u;
-  v190 = 0u;
   v191 = 0u;
+  v192 = 0u;
+  v189 = 0u;
+  v190 = 0u;
   obj = v4;
-  v141 = [obj countByEnumeratingWithState:&v190 objects:v204 count:16];
-  if (v141)
+  v140 = [obj countByEnumeratingWithState:&v189 objects:v203 count:16];
+  if (v140)
   {
-    v125 = 0;
-    v128 = 0;
-    v171 = 0;
+    v124 = 0;
+    v127 = 0;
+    v170 = 0;
     v27 = 0;
-    v173 = 0;
-    v136 = 0;
-    v139 = *v191;
+    v172 = 0;
+    v135 = 0;
+    v138 = *v190;
     v28 = *MEMORY[0x277D040F0];
-    v29 = v131;
-    v30 = v131 + v7;
-    v166 = *MEMORY[0x277D040C8];
-    v164 = *MEMORY[0x277D04110];
-    v143 = *MEMORY[0x277D04038];
-    v135 = *MEMORY[0x277D04068];
-    v129 = *MEMORY[0x277D040E0];
-    v127 = *MEMORY[0x277D04100];
-    v124 = *MEMORY[0x277D040F8];
-    v104 = *MEMORY[0x277D041C8];
-    v103 = *MEMORY[0x277CBD938];
-    v138 = *MEMORY[0x277CBD1F8];
-    v123 = *MEMORY[0x277D04240];
-    v137 = *MEMORY[0x277CBD220];
-    v121 = *MEMORY[0x277CBD228];
-    v122 = *MEMORY[0x277D04268];
-    v119 = *MEMORY[0x277CBD218];
-    v120 = *MEMORY[0x277D04270];
-    v117 = *MEMORY[0x277CBD240];
-    v118 = *MEMORY[0x277D04260];
-    v115 = *MEMORY[0x277CBD238];
-    v116 = *MEMORY[0x277D04288];
-    v113 = *MEMORY[0x277CBD200];
-    v114 = *MEMORY[0x277D04280];
-    v111 = *MEMORY[0x277CBD210];
-    v112 = *MEMORY[0x277D04248];
-    v109 = *MEMORY[0x277CBD230];
-    v110 = *MEMORY[0x277D04258];
-    v107 = *MEMORY[0x277CBD208];
-    v108 = *MEMORY[0x277D04278];
-    v106 = *MEMORY[0x277D04250];
-    v167 = *MEMORY[0x277CBD8E0];
-    v126 = *MEMORY[0x277D04118];
-    v105 = *MEMORY[0x277D04058];
-    v161 = *MEMORY[0x277CBD940];
-    v160 = *MEMORY[0x277D042B8];
-    v159 = *MEMORY[0x277D04238];
-    v134 = *MEMORY[0x277CBD8E8];
-    v158 = *MEMORY[0x277D042A0];
-    v170 = *MEMORY[0x277CBD908];
-    v156 = *MEMORY[0x277CBD928];
-    v155 = *MEMORY[0x277D042C0];
-    v154 = *MEMORY[0x277D04298];
-    v153 = *MEMORY[0x277CBD900];
-    v152 = *MEMORY[0x277D04290];
-    v151 = *MEMORY[0x277CBD8F8];
-    v150 = *MEMORY[0x277D04230];
-    v149 = *MEMORY[0x277CBD920];
-    v148 = *MEMORY[0x277D042B0];
-    v147 = *MEMORY[0x277CBD918];
-    v146 = *MEMORY[0x277D042A8];
-    v144 = *MEMORY[0x277D040F0];
-    v168 = v131 + v7;
+    v29 = v130;
+    v30 = v130 + v7;
+    v165 = *MEMORY[0x277D040C8];
+    v163 = *MEMORY[0x277D04110];
+    v142 = *MEMORY[0x277D04038];
+    v134 = *MEMORY[0x277D04068];
+    v128 = *MEMORY[0x277D040E0];
+    v126 = *MEMORY[0x277D04100];
+    v123 = *MEMORY[0x277D040F8];
+    v103 = *MEMORY[0x277D041C8];
+    v102 = *MEMORY[0x277CBD938];
+    v137 = *MEMORY[0x277CBD1F8];
+    v122 = *MEMORY[0x277D04240];
+    v136 = *MEMORY[0x277CBD220];
+    v120 = *MEMORY[0x277CBD228];
+    v121 = *MEMORY[0x277D04268];
+    v118 = *MEMORY[0x277CBD218];
+    v119 = *MEMORY[0x277D04270];
+    v116 = *MEMORY[0x277CBD240];
+    v117 = *MEMORY[0x277D04260];
+    v114 = *MEMORY[0x277CBD238];
+    v115 = *MEMORY[0x277D04288];
+    v112 = *MEMORY[0x277CBD200];
+    v113 = *MEMORY[0x277D04280];
+    v110 = *MEMORY[0x277CBD210];
+    v111 = *MEMORY[0x277D04248];
+    v108 = *MEMORY[0x277CBD230];
+    v109 = *MEMORY[0x277D04258];
+    v106 = *MEMORY[0x277CBD208];
+    v107 = *MEMORY[0x277D04278];
+    v105 = *MEMORY[0x277D04250];
+    v166 = *MEMORY[0x277CBD8E0];
+    v125 = *MEMORY[0x277D04118];
+    v104 = *MEMORY[0x277D04058];
+    v160 = *MEMORY[0x277CBD940];
+    v159 = *MEMORY[0x277D042B8];
+    v158 = *MEMORY[0x277D04238];
+    v133 = *MEMORY[0x277CBD8E8];
+    v157 = *MEMORY[0x277D042A0];
+    v169 = *MEMORY[0x277CBD908];
+    v155 = *MEMORY[0x277CBD928];
+    v154 = *MEMORY[0x277D042C0];
+    v153 = *MEMORY[0x277D04298];
+    v152 = *MEMORY[0x277CBD900];
+    v151 = *MEMORY[0x277D04290];
+    v150 = *MEMORY[0x277CBD8F8];
+    v149 = *MEMORY[0x277D04230];
+    v148 = *MEMORY[0x277CBD920];
+    v147 = *MEMORY[0x277D042B0];
+    v146 = *MEMORY[0x277CBD918];
+    v145 = *MEMORY[0x277D042A8];
+    v143 = *MEMORY[0x277D040F0];
+    v167 = v130 + v7;
     while (1)
     {
       v31 = 0;
       do
       {
-        if (*v191 != v139)
+        if (*v190 != v138)
         {
           v32 = v31;
           objc_enumerationMutation(obj);
           v31 = v32;
         }
 
-        v145 = v31;
-        v33 = *(*(&v190 + 1) + 8 * v31);
+        v144 = v31;
+        v33 = *(*(&v189 + 1) + 8 * v31);
         v34 = [v33 type];
-        v35 = [v34 isEqualToString:v140];
+        v35 = [v34 isEqualToString:v139];
 
         v36 = MEMORY[0x277CBEA60];
         if (v35)
@@ -2634,29 +2624,29 @@ void *DDHarvestDataFromResults(void *a1, void *a2)
         else
         {
           v38 = [MEMORY[0x277CBEA60] arrayWithObject:v33];
-          v39 = v132;
+          v39 = v131;
         }
 
-        v163 = v39;
-        v188 = 0u;
-        v189 = 0u;
-        v186 = 0u;
+        v162 = v39;
         v187 = 0u;
-        v172 = v38;
-        v175 = [v172 countByEnumeratingWithState:&v186 objects:v203 count:16];
-        if (v175)
+        v188 = 0u;
+        v185 = 0u;
+        v186 = 0u;
+        v171 = v38;
+        v174 = [v171 countByEnumeratingWithState:&v185 objects:v202 count:16];
+        if (v174)
         {
-          v174 = *v187;
+          v173 = *v186;
 LABEL_29:
           v40 = 0;
           while (1)
           {
-            if (*v187 != v174)
+            if (*v186 != v173)
             {
-              objc_enumerationMutation(v172);
+              objc_enumerationMutation(v171);
             }
 
-            v41 = *(*(&v186 + 1) + 8 * v40);
+            v41 = *(*(&v185 + 1) + 8 * v40);
             v42 = [v41 range];
             v44 = v42 - v30;
             if (v42 <= v29)
@@ -2711,34 +2701,34 @@ LABEL_29:
                 v63 = dd_phoneNumberFromTelScheme(v62);
                 v58 = DDPhoneLabeledValue(0, v63);
 
-                if (v58 && ([v173 containsObject:v58] & 1) == 0)
+                if (v58 && ([v172 containsObject:v58] & 1) == 0)
                 {
-                  [v173 addObject:v58];
+                  [v172 addObject:v58];
                 }
 
                 v57 = v49;
-                v30 = v168;
+                v30 = v167;
               }
 
               v49 = v57;
               goto LABEL_129;
             }
 
-            if (([v45 isEqualToString:v166] & 1) != 0 || (objc_msgSend(v45, "isEqualToString:", v164) & 1) != 0 || objc_msgSend(v45, "isEqualToString:", v143))
+            if (([v45 isEqualToString:v165] & 1) != 0 || (objc_msgSend(v45, "isEqualToString:", v163) & 1) != 0 || objc_msgSend(v45, "isEqualToString:", v142))
             {
-              v169 = v45;
-              v59 = v167;
-              v183 = 0;
+              v168 = v45;
+              v59 = v166;
               v182 = 0;
-              v60 = [v41 getMailValue:&v183 label:&v182];
-              v61 = v183;
-              v49 = v182;
+              v181 = 0;
+              v60 = [v41 getMailValue:&v182 label:&v181];
+              v61 = v182;
+              v49 = v181;
               if (v60)
               {
-                v165 = v59;
+                v164 = v59;
                 v48 = dd_userFriendlyEmail(v61);
 
-                if ((v163 & 1) != 0 || ([v157 containsObject:v48] & 1) == 0)
+                if ((v162 & 1) != 0 || ([v156 containsObject:v48] & 1) == 0)
                 {
                   if (v27)
                   {
@@ -2756,78 +2746,78 @@ LABEL_29:
                   if (v49)
                   {
                     v70 = v27;
-                    v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v161, v160, v59, v159, v134, v158, 0}];
+                    v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v160, v159, v59, v158, v133, v157, 0}];
                     v72 = [v71 objectForKey:v49];
                     v73 = v72;
-                    v162 = v59;
+                    v161 = v59;
                     if (v72)
                     {
-                      v162 = v72;
+                      v161 = v72;
                     }
 
                     v27 = v70;
-                    v45 = v169;
+                    v45 = v168;
 LABEL_88:
                   }
 
                   else
                   {
-                    v162 = v59;
-                    v45 = v169;
-                    if (v136)
+                    v161 = v59;
+                    v45 = v168;
+                    if (v135)
                     {
-                      v162 = v161;
-                      v71 = v165;
+                      v161 = v160;
+                      v71 = v164;
                       goto LABEL_88;
                     }
                   }
 
                   if (v48)
                   {
-                    v74 = [MEMORY[0x277CBDB20] labeledValueWithLabel:v162 value:v48];
+                    v74 = [MEMORY[0x277CBDB20] labeledValueWithLabel:v161 value:v48];
                     if (v74 && ([v27 containsObject:v74] & 1) == 0)
                     {
                       [v27 addObject:v74];
                     }
                   }
 
-                  if (([v45 isEqualToString:v164] & 1) != 0 || objc_msgSend(v45, "isEqualToString:", v143))
+                  if (([v45 isEqualToString:v163] & 1) != 0 || objc_msgSend(v45, "isEqualToString:", v142))
                   {
-                    v142 = v27;
-                    v75 = [v45 isEqualToString:v164];
-                    v76 = v138;
+                    v141 = v27;
+                    v75 = [v45 isEqualToString:v163];
+                    v76 = v137;
                     if (v75)
                     {
-                      v76 = v137;
+                      v76 = v136;
                     }
 
                     v77 = v76;
-                    v78 = v171;
-                    if (!v171)
+                    v78 = v170;
+                    if (!v170)
                     {
                       v78 = [MEMORY[0x277CBEB18] array];
                     }
 
-                    v180 = 0u;
-                    v181 = 0u;
-                    v178 = 0u;
                     v179 = 0u;
-                    v171 = v78;
-                    v79 = [v171 countByEnumeratingWithState:&v178 objects:v202 count:16];
+                    v180 = 0u;
+                    v177 = 0u;
+                    v178 = 0u;
+                    v170 = v78;
+                    v79 = [v170 countByEnumeratingWithState:&v177 objects:v201 count:16];
                     if (v79)
                     {
                       v80 = v79;
-                      v81 = *v179;
+                      v81 = *v178;
                       while (2)
                       {
                         for (k = 0; k != v80; ++k)
                         {
-                          if (*v179 != v81)
+                          if (*v178 != v81)
                           {
-                            objc_enumerationMutation(v171);
+                            objc_enumerationMutation(v170);
                           }
 
-                          v83 = [*(*(&v178 + 1) + 8 * k) value];
+                          v83 = [*(*(&v177 + 1) + 8 * k) value];
                           v84 = [v83 service];
                           v85 = [v84 isEqualToString:v77];
 
@@ -2838,7 +2828,7 @@ LABEL_88:
                           }
                         }
 
-                        v80 = [v171 countByEnumeratingWithState:&v178 objects:v202 count:16];
+                        v80 = [v170 countByEnumeratingWithState:&v177 objects:v201 count:16];
                         if (v80)
                         {
                           continue;
@@ -2849,16 +2839,16 @@ LABEL_88:
 
                       v86 = 0;
 LABEL_110:
-                      v29 = v131;
-                      v28 = v144;
-                      v30 = v168;
+                      v29 = v130;
+                      v28 = v143;
+                      v30 = v167;
 
                       if (!v48)
                       {
 LABEL_127:
 
-                        v27 = v142;
-                        v45 = v169;
+                        v27 = v141;
+                        v45 = v168;
                         goto LABEL_128;
                       }
                     }
@@ -2886,13 +2876,13 @@ LABEL_127:
 
                     if ((v88 & 1) == 0)
                     {
-                      v89 = [MEMORY[0x277CBDB20] labeledValueWithLabel:v165 value:v87];
-                      if (v89 && ([v171 containsObject:v89] & 1) == 0)
+                      v89 = [MEMORY[0x277CBDB20] labeledValueWithLabel:v164 value:v87];
+                      if (v89 && ([v170 containsObject:v89] & 1) == 0)
                       {
-                        [v171 addObject:v89];
+                        [v170 addObject:v89];
                       }
 
-                      v30 = v168;
+                      v30 = v167;
                     }
 
                     goto LABEL_127;
@@ -2911,76 +2901,76 @@ LABEL_58:
               }
 
               v48 = v61;
-              v45 = v169;
+              v45 = v168;
               goto LABEL_129;
             }
 
-            if ([v45 isEqualToString:v135])
+            if ([v45 isEqualToString:v134])
             {
-              DDUpdateContactWithContactResult(v130, v41);
-              if (v163)
+              DDUpdateContactWithContactResult(v129, v41);
+              if (v162)
               {
-                if (!v136)
+                if (!v135)
                 {
-                  v48 = [v41 valueForKey:v126];
+                  v48 = [v41 valueForKey:v125];
                   if (!v48)
                   {
-                    v49 = [v41 valueForKey:v105];
-                    v136 = v49 != 0;
+                    v49 = [v41 valueForKey:v104];
+                    v135 = v49 != 0;
                     goto LABEL_129;
                   }
 
-                  v136 = 1;
+                  v135 = 1;
                   goto LABEL_130;
                 }
 
-                v136 = 1;
+                v135 = 1;
               }
             }
 
             else
             {
-              if (![v45 isEqualToString:v129])
+              if (![v45 isEqualToString:v128])
               {
-                if (![v45 isEqualToString:v127])
+                if (![v45 isEqualToString:v126])
                 {
-                  if (!v163 || ([v45 isEqualToString:v124] & 1) == 0 && !objc_msgSend(v45, "isEqualToString:", v104) || v125)
+                  if (!v162 || ([v45 isEqualToString:v123] & 1) == 0 && !objc_msgSend(v45, "isEqualToString:", v103) || v124)
                   {
                     goto LABEL_131;
                   }
 
                   v95 = MEMORY[0x277CBDB20];
                   v96 = [v41 matchedString];
-                  v48 = [v95 labeledValueWithLabel:v103 value:v96];
+                  v48 = [v95 labeledValueWithLabel:v102 value:v96];
 
                   if (v48)
                   {
                     [MEMORY[0x277CBEB18] arrayWithObject:v48];
-                    v125 = v49 = 0;
+                    v124 = v49 = 0;
                     goto LABEL_129;
                   }
 
-                  v125 = 0;
+                  v124 = 0;
                   goto LABEL_130;
                 }
 
-                v177 = 0;
                 v176 = 0;
-                v90 = [v41 getIMScreenNameValue:&v177 type:&v176];
-                v48 = v177;
-                v49 = v176;
+                v175 = 0;
+                v90 = [v41 getIMScreenNameValue:&v176 type:&v175];
+                v48 = v176;
+                v49 = v175;
                 if (!v90)
                 {
                   goto LABEL_129;
                 }
 
-                v91 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v138, v123, v137, v122, v121, v120, v119, v118, v117, v116, v115, v114, v113, v112, v111, v110, v109, v108, v107, v106, 0}];
+                v91 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v137, v122, v136, v121, v120, v119, v118, v117, v116, v115, v114, v113, v112, v111, v110, v109, v108, v107, v106, v105, 0}];
                 v92 = [v91 objectForKey:v49];
                 if (v92)
                 {
                   v93 = v27;
                   v94 = [objc_alloc(MEMORY[0x277CBDB18]) initWithUsername:v48 service:v92];
-                  if (v171)
+                  if (v170)
                   {
                     if (!v94)
                     {
@@ -2990,58 +2980,58 @@ LABEL_58:
 
                   else
                   {
-                    v171 = [MEMORY[0x277CBEB18] array];
+                    v170 = [MEMORY[0x277CBEB18] array];
                     if (!v94)
                     {
                       goto LABEL_155;
                     }
                   }
 
-                  v97 = [MEMORY[0x277CBDB20] labeledValueWithLabel:v167 value:v94];
-                  if (v97 && ([v171 containsObject:v97] & 1) == 0)
+                  v97 = [MEMORY[0x277CBDB20] labeledValueWithLabel:v166 value:v94];
+                  if (v97 && ([v170 containsObject:v97] & 1) == 0)
                   {
-                    [v171 addObject:v97];
+                    [v170 addObject:v97];
                   }
 
 LABEL_155:
                   v27 = v93;
-                  v28 = v144;
+                  v28 = v143;
                 }
 
-                v30 = v168;
+                v30 = v167;
                 goto LABEL_129;
               }
 
-              if (!v128)
+              if (!v127)
               {
-                v48 = DDMapsGetBestAddressForResults(v172, 0);
+                v48 = DDMapsGetBestAddressForResults(v171, 0);
                 if (v48)
                 {
-                  v49 = [MEMORY[0x277CBDB20] labeledValueWithLabel:v167 value:v48];
+                  v49 = [MEMORY[0x277CBDB20] labeledValueWithLabel:v166 value:v48];
                   if (v49)
                   {
-                    v128 = [MEMORY[0x277CBEB18] arrayWithObject:v49];
+                    v127 = [MEMORY[0x277CBEB18] arrayWithObject:v49];
                   }
 
                   else
                   {
-                    v128 = 0;
+                    v127 = 0;
                   }
 
                   goto LABEL_129;
                 }
 
-                v128 = 0;
+                v127 = 0;
                 goto LABEL_130;
               }
             }
 
 LABEL_131:
 
-            if (++v40 == v175)
+            if (++v40 == v174)
             {
-              v98 = [v172 countByEnumeratingWithState:&v186 objects:v203 count:16];
-              v175 = v98;
+              v98 = [v171 countByEnumeratingWithState:&v185 objects:v202 count:16];
+              v174 = v98;
               if (v98)
               {
                 goto LABEL_29;
@@ -3051,12 +3041,12 @@ LABEL_131:
             }
           }
 
-          v46 = v170;
-          v185 = 0;
+          v46 = v169;
           v184 = 0;
-          v47 = [v41 getPhoneValue:&v185 label:&v184];
-          v48 = v185;
-          v49 = v184;
+          v183 = 0;
+          v47 = [v41 getPhoneValue:&v184 label:&v183];
+          v48 = v184;
+          v49 = v183;
           if (!v47)
           {
 LABEL_44:
@@ -3081,12 +3071,12 @@ LABEL_44:
             v53 = v52;
 
             v48 = v53;
-            v30 = v168;
+            v30 = v167;
           }
 
-          if (v173)
+          if (v172)
           {
-            if ([v173 count] > 2)
+            if ([v172 count] > 2)
             {
               goto LABEL_44;
             }
@@ -3094,7 +3084,7 @@ LABEL_44:
             if (v49)
             {
 LABEL_69:
-              v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v161, v160, v167, v159, v46, v158, v156, v155, v46, v154, v153, v152, v151, v150, v149, v148, v147, v146, 0}];
+              v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v160, v159, v166, v158, v46, v157, v155, v154, v46, v153, v152, v151, v150, v149, v148, v147, v146, v145, 0}];
               v65 = [v64 objectForKey:v49];
               v66 = v65;
               if (v65)
@@ -3104,16 +3094,16 @@ LABEL_69:
 
                 v46 = v68;
                 v27 = v67;
-                v28 = v144;
+                v28 = v143;
               }
 
-              v30 = v168;
+              v30 = v167;
             }
           }
 
           else
           {
-            v173 = [MEMORY[0x277CBEB18] array];
+            v172 = [MEMORY[0x277CBEB18] array];
             if (v49)
             {
               goto LABEL_69;
@@ -3121,9 +3111,9 @@ LABEL_69:
           }
 
           v69 = DDPhoneLabeledValue(v46, v48);
-          if (v69 && ([v173 containsObject:v69] & 1) == 0)
+          if (v69 && ([v172 containsObject:v69] & 1) == 0)
           {
-            [v173 addObject:v69];
+            [v172 addObject:v69];
           }
 
           goto LABEL_129;
@@ -3131,69 +3121,68 @@ LABEL_69:
 
 LABEL_21:
 
-        v31 = v145 + 1;
+        v31 = v144 + 1;
       }
 
-      while (v145 + 1 != v141);
-      v141 = [obj countByEnumeratingWithState:&v190 objects:v204 count:16];
-      if (!v141)
+      while (v144 + 1 != v140);
+      v140 = [obj countByEnumeratingWithState:&v189 objects:v203 count:16];
+      if (!v140)
       {
         goto LABEL_161;
       }
     }
   }
 
-  v125 = 0;
-  v128 = 0;
-  v171 = 0;
+  v124 = 0;
+  v127 = 0;
+  v170 = 0;
   v27 = 0;
-  v173 = 0;
+  v172 = 0;
 LABEL_161:
 
-  [v130 setEmailAddresses:v27];
-  [v130 setUrlAddresses:v125];
-  [v130 setInstantMessageAddresses:v171];
-  [v130 setPhoneNumbers:v173];
-  [v130 setPostalAddresses:v128];
-  v99 = v130;
+  [v129 setEmailAddresses:v27];
+  [v129 setUrlAddresses:v124];
+  [v129 setInstantMessageAddresses:v170];
+  [v129 setPhoneNumbers:v172];
+  [v129 setPostalAddresses:v127];
+  v99 = v129;
 
-  v100 = *MEMORY[0x277D85DE8];
-  return v130;
+  return v129;
 }
 
 void DDMergeContactIntoContact(void *a1, void *a2, int a3)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = a2;
   v6 = *MEMORY[0x277CBD098];
   v7 = *MEMORY[0x277CBCFC0];
-  v65[0] = *MEMORY[0x277CBD098];
-  v65[1] = v7;
-  v49 = v7;
-  v42 = *MEMORY[0x277CBD168];
-  v43 = *MEMORY[0x277CBD038];
-  v65[2] = *MEMORY[0x277CBD038];
-  v65[3] = v42;
+  v63[0] = *MEMORY[0x277CBD098];
+  v63[1] = v7;
+  v48 = v7;
+  v41 = *MEMORY[0x277CBD168];
+  v42 = *MEMORY[0x277CBD038];
+  v63[2] = *MEMORY[0x277CBD038];
+  v63[3] = v41;
   v8 = *MEMORY[0x277CBD040];
-  v41 = *MEMORY[0x277CBD0C8];
-  v65[4] = *MEMORY[0x277CBD0C8];
-  v65[5] = v8;
-  v37 = *MEMORY[0x277CBD058];
-  v38 = *MEMORY[0x277CBD000];
-  v65[6] = *MEMORY[0x277CBD000];
-  v65[7] = v37;
-  v35 = *MEMORY[0x277CBD070];
-  v36 = *MEMORY[0x277CBCFF8];
-  v65[8] = *MEMORY[0x277CBCFF8];
-  v65[9] = v35;
-  v33 = v8;
-  v34 = *MEMORY[0x277CBD090];
-  v65[10] = *MEMORY[0x277CBD090];
-  v65[11] = v8;
-  v40 = *MEMORY[0x277CBD068];
-  v65[12] = *MEMORY[0x277CBD068];
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:13];
+  v40 = *MEMORY[0x277CBD0C8];
+  v63[4] = *MEMORY[0x277CBD0C8];
+  v63[5] = v8;
+  v36 = *MEMORY[0x277CBD058];
+  v37 = *MEMORY[0x277CBD000];
+  v63[6] = *MEMORY[0x277CBD000];
+  v63[7] = v36;
+  v34 = *MEMORY[0x277CBD070];
+  v35 = *MEMORY[0x277CBCFF8];
+  v63[8] = *MEMORY[0x277CBCFF8];
+  v63[9] = v34;
+  v32 = v8;
+  v33 = *MEMORY[0x277CBD090];
+  v63[10] = *MEMORY[0x277CBD090];
+  v63[11] = v8;
+  v39 = *MEMORY[0x277CBD068];
+  v63[12] = *MEMORY[0x277CBD068];
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:13];
   v10 = [v4 organizationName];
   if ([v10 length])
   {
@@ -3205,68 +3194,68 @@ void DDMergeContactIntoContact(void *a1, void *a2, int a3)
     v11 = [v4 contactType] == 1;
   }
 
-  v51 = v11;
+  v50 = v11;
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   obj = v9;
-  v12 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+  v12 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v55;
+    v14 = *v54;
     v15 = *MEMORY[0x277CBD8E8];
-    v53 = *MEMORY[0x277CBD940];
-    v46 = v5;
-    v47 = v4;
-    v44 = *v55;
-    v45 = v6;
+    v52 = *MEMORY[0x277CBD940];
+    v45 = v5;
+    v46 = v4;
+    v43 = *v54;
+    v44 = v6;
     do
     {
       v16 = 0;
-      v48 = v13;
+      v47 = v13;
       do
       {
-        if (*v55 != v14)
+        if (*v54 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v52 = v16;
-        v17 = *(*(&v54 + 1) + 8 * v16);
+        v51 = v16;
+        v17 = *(*(&v53 + 1) + 8 * v16);
         v18 = [v4 valueForKey:v17];
-        if (([v17 isEqualToString:v6] & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v49) & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v43) & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v42) & 1) != 0 || objc_msgSend(v17, "isEqualToString:", v41))
+        if (([v17 isEqualToString:v6] & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v48) & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v42) & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v41) & 1) != 0 || objc_msgSend(v17, "isEqualToString:", v40))
         {
           if ([v18 count])
           {
-            if (v51)
+            if (v50)
             {
               v19 = v18;
               v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v19, "count")}];
+              v57 = 0u;
               v58 = 0u;
               v59 = 0u;
               v60 = 0u;
-              v61 = 0u;
               v20 = v19;
-              v21 = [v20 countByEnumeratingWithState:&v58 objects:v66 count:16];
+              v21 = [v20 countByEnumeratingWithState:&v57 objects:v64 count:16];
               if (v21)
               {
                 v22 = v21;
-                v23 = *v59;
+                v23 = *v58;
                 do
                 {
                   for (i = 0; i != v22; ++i)
                   {
                     while (1)
                     {
-                      if (*v59 != v23)
+                      if (*v58 != v23)
                       {
                         objc_enumerationMutation(v20);
                       }
 
-                      v25 = *(*(&v58 + 1) + 8 * i);
+                      v25 = *(*(&v57 + 1) + 8 * i);
                       v26 = [v25 label];
                       v27 = [v26 isEqualToString:v15];
 
@@ -3284,7 +3273,7 @@ void DDMergeContactIntoContact(void *a1, void *a2, int a3)
 
                     v28 = MEMORY[0x277CBDB20];
                     v29 = [v25 value];
-                    v30 = [v28 labeledValueWithLabel:v53 value:v29];
+                    v30 = [v28 labeledValueWithLabel:v52 value:v29];
 
                     if (v30)
                     {
@@ -3293,24 +3282,24 @@ void DDMergeContactIntoContact(void *a1, void *a2, int a3)
                   }
 
 LABEL_22:
-                  v22 = [v20 countByEnumeratingWithState:&v58 objects:v66 count:16];
+                  v22 = [v20 countByEnumeratingWithState:&v57 objects:v64 count:16];
                 }
 
                 while (v22);
               }
 
-              v5 = v46;
-              v4 = v47;
-              v14 = v44;
-              v6 = v45;
-              v13 = v48;
+              v5 = v45;
+              v4 = v46;
+              v14 = v43;
+              v6 = v44;
+              v13 = v47;
             }
 
             [v5 setValue:v18 forKey:v17];
           }
         }
 
-        else if (([v17 isEqualToString:v40] & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v38) & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v37) & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v36) & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v35) & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v34) & 1) != 0 || objc_msgSend(v17, "isEqualToString:", v33))
+        else if (([v17 isEqualToString:v39] & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v37) & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v36) & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v35) & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v34) & 1) != 0 || (objc_msgSend(v17, "isEqualToString:", v33) & 1) != 0 || objc_msgSend(v17, "isEqualToString:", v32))
         {
           if (a3)
           {
@@ -3321,20 +3310,18 @@ LABEL_22:
 
         else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          DDMergeContactIntoContact_cold_1(buf, v17, &v63);
+          DDMergeContactIntoContact_cold_1(buf, v17, &buf[4]);
         }
 
-        v16 = v52 + 1;
+        v16 = v51 + 1;
       }
 
-      while (v52 + 1 != v13);
-      v13 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+      while (v51 + 1 != v13);
+      v13 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
     }
 
     while (v13);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 id DDDefaultAddressForContact(void *a1)
@@ -3384,7 +3371,7 @@ LABEL_7:
 
 void DDAugmentContactWithResultsFromAction(void *a1, void *a2)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [v4 result];
@@ -3394,9 +3381,9 @@ void DDAugmentContactWithResultsFromAction(void *a1, void *a2)
     if (v6)
     {
       v7 = [MEMORY[0x277D04218] resultFromCoreResult:v6];
-      v26[0] = v7;
+      v25[0] = v7;
       v8 = MEMORY[0x277CBEA60];
-      v9 = v26;
+      v9 = v25;
     }
 
     else
@@ -3414,9 +3401,9 @@ void DDAugmentContactWithResultsFromAction(void *a1, void *a2)
       }
 
       v7 = [MEMORY[0x277D04218] resultFromCoreResult:v5];
-      v25 = v7;
+      v24 = v7;
       v8 = MEMORY[0x277CBEA60];
-      v9 = &v25;
+      v9 = &v24;
     }
 
     v10 = [v8 arrayWithObjects:v9 count:1];
@@ -3449,35 +3436,33 @@ LABEL_5:
   }
 
 LABEL_9:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void _DDFillContactWithGroupResult(void *a1, void *a2)
 {
-  v91 = *MEMORY[0x277D85DE8];
-  v75 = a1;
+  v89 = *MEMORY[0x277D85DE8];
+  v73 = a1;
+  v82 = 0u;
+  v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
-  v87 = 0u;
   obj = a2;
-  v3 = [obj countByEnumeratingWithState:&v84 objects:v90 count:16];
+  v3 = [obj countByEnumeratingWithState:&v82 objects:v88 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v85;
+    v5 = *v83;
     v6 = *MEMORY[0x277D04068];
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v85 != v5)
+      if (*v83 != v5)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v84 + 1) + 8 * v7);
+      v8 = *(*(&v82 + 1) + 8 * v7);
       v9 = [v8 type];
       v10 = [v9 isEqualToString:v6];
 
@@ -3488,7 +3473,7 @@ LABEL_3:
 
       if (v4 == ++v7)
       {
-        v4 = [obj countByEnumeratingWithState:&v84 objects:v90 count:16];
+        v4 = [obj countByEnumeratingWithState:&v82 objects:v88 count:16];
         if (!v4)
         {
           goto LABEL_65;
@@ -3498,245 +3483,244 @@ LABEL_3:
       }
     }
 
-    v11 = [v75 givenName];
+    v11 = [v73 givenName];
     if ([v11 length])
     {
-      v72 = 0;
+      v70 = 0;
     }
 
     else
     {
-      v12 = [v75 familyName];
+      v12 = [v73 familyName];
       if ([v12 length])
       {
-        v72 = 0;
+        v70 = 0;
       }
 
       else
       {
-        v13 = [v75 nickname];
-        v72 = [v13 length] == 0;
+        v13 = [v73 nickname];
+        v70 = [v13 length] == 0;
       }
     }
 
-    v82 = 0u;
-    v83 = 0u;
     v80 = 0u;
     v81 = 0u;
-    v71 = [v8 subResults];
-    v14 = [v71 countByEnumeratingWithState:&v80 objects:v89 count:16];
-    v15 = v75;
+    v78 = 0u;
+    v79 = 0u;
+    v69 = [v8 subResults];
+    v14 = [v69 countByEnumeratingWithState:&v78 objects:v87 count:16];
+    v15 = v73;
     if (v14)
     {
       v16 = v14;
-      v17 = *v81;
-      v69 = *MEMORY[0x277D04118];
-      v70 = *MEMORY[0x277D04058];
-      v18 = *MEMORY[0x277D04080];
-      v67 = *MEMORY[0x277D04080];
-      v68 = *v81;
+      v17 = *v79;
+      v67 = *MEMORY[0x277D04118];
+      v68 = *MEMORY[0x277D04058];
+      v65 = *MEMORY[0x277D04080];
+      v66 = *v79;
       do
       {
-        v19 = 0;
-        v64 = v16;
+        v18 = 0;
+        v62 = v16;
         do
         {
-          if (*v81 != v17)
+          if (*v79 != v17)
           {
-            objc_enumerationMutation(v71);
+            objc_enumerationMutation(v69);
           }
 
-          v22 = *(*(&v80 + 1) + 8 * v19);
-          v23 = [v22 type];
-          v24 = [v15 organizationName];
-          if ([v24 length])
+          v21 = *(*(&v78 + 1) + 8 * v18);
+          v22 = [v21 type];
+          v23 = [v15 organizationName];
+          if ([v23 length])
           {
-            v25 = v23;
+            v24 = v22;
           }
 
           else
           {
-            v25 = v23;
-            v26 = [v23 isEqualToString:v70];
+            v24 = v22;
+            v25 = [v22 isEqualToString:v68];
 
-            if (v26)
+            if (v25)
             {
-              v20 = [v22 matchedString];
-              [v15 setOrganizationName:v20];
+              v19 = [v21 matchedString];
+              [v15 setOrganizationName:v19];
 LABEL_21:
-              v21 = v25;
+              v20 = v24;
               goto LABEL_22;
             }
           }
 
-          v27 = [v15 departmentName];
-          if ([v27 length])
+          v26 = [v15 departmentName];
+          if ([v26 length])
           {
           }
 
           else
           {
-            v28 = [v25 isEqualToString:@"DepartmentName"];
+            v27 = [v24 isEqualToString:@"DepartmentName"];
 
-            if (v28)
+            if (v27)
             {
-              v20 = [v22 matchedString];
-              [v15 setDepartmentName:v20];
+              v19 = [v21 matchedString];
+              [v15 setDepartmentName:v19];
               goto LABEL_21;
             }
           }
 
-          v29 = [v15 jobTitle];
-          if ([v29 length])
+          v28 = [v15 jobTitle];
+          if ([v28 length])
           {
           }
 
           else
           {
-            v30 = [v25 isEqualToString:v69];
+            v29 = [v24 isEqualToString:v67];
 
-            if (v30)
+            if (v29)
             {
-              v20 = [v22 matchedString];
-              [v15 setJobTitle:v20];
+              v19 = [v21 matchedString];
+              [v15 setJobTitle:v19];
               goto LABEL_21;
             }
           }
 
-          v21 = v25;
-          if (v72)
+          v20 = v24;
+          if (v70)
           {
-            if ([v25 isEqualToString:@"NLPContactName"])
+            if ([v24 isEqualToString:@"NLPContactName"])
             {
-              v20 = objc_alloc_init(MEMORY[0x277CCAC08]);
-              v31 = [v22 matchedString];
-              v32 = [v20 personNameComponentsFromString:v31];
+              v19 = objc_alloc_init(MEMORY[0x277CCAC08]);
+              v30 = [v21 matchedString];
+              v31 = [v19 personNameComponentsFromString:v30];
 
-              v33 = [v32 givenName];
+              v32 = [v31 givenName];
               [MEMORY[0x277CBEAF8] currentLocale];
-              v35 = v34 = v19;
-              v36 = [v33 capitalizedStringWithLocale:v35];
-              [v75 setGivenName:v36];
+              v34 = v33 = v18;
+              v35 = [v32 capitalizedStringWithLocale:v34];
+              [v73 setGivenName:v35];
 
-              v37 = [v32 middleName];
-              [v75 setMiddleName:v37];
+              v36 = [v31 middleName];
+              [v73 setMiddleName:v36];
 
-              v38 = [v32 familyName];
-              v15 = v75;
-              v39 = [MEMORY[0x277CBEAF8] currentLocale];
-              v40 = [v38 capitalizedStringWithLocale:v39];
-              [v75 setFamilyName:v40];
+              v37 = [v31 familyName];
+              v15 = v73;
+              v38 = [MEMORY[0x277CBEAF8] currentLocale];
+              v39 = [v37 capitalizedStringWithLocale:v38];
+              [v73 setFamilyName:v39];
 
-              v17 = v68;
-              v19 = v34;
+              v17 = v66;
+              v18 = v33;
 
-              v41 = [v32 namePrefix];
-              [v75 setNamePrefix:v41];
+              v40 = [v31 namePrefix];
+              [v73 setNamePrefix:v40];
 
-              v42 = [v32 nameSuffix];
-              [v75 setNameSuffix:v42];
+              v41 = [v31 nameSuffix];
+              [v73 setNameSuffix:v41];
 
               goto LABEL_22;
             }
 
-            if ([v25 isEqualToString:v67])
+            if ([v24 isEqualToString:v65])
             {
-              v66 = v19;
-              v78 = 0u;
-              v79 = 0u;
+              v64 = v18;
               v76 = 0u;
               v77 = 0u;
-              v20 = [v22 subResults];
-              v43 = [v20 countByEnumeratingWithState:&v76 objects:v88 count:16];
-              if (v43)
+              v74 = 0u;
+              v75 = 0u;
+              v19 = [v21 subResults];
+              v42 = [v19 countByEnumeratingWithState:&v74 objects:v86 count:16];
+              if (v42)
               {
-                v44 = v43;
-                v65 = v25;
-                v45 = *v77;
-                v46 = 0x277CBE000uLL;
+                v43 = v42;
+                v63 = v24;
+                v44 = *v75;
+                v45 = 0x277CBE000uLL;
                 while (1)
                 {
-                  for (i = 0; i != v44; ++i)
+                  for (i = 0; i != v43; ++i)
                   {
-                    if (*v77 != v45)
+                    if (*v75 != v44)
                     {
-                      objc_enumerationMutation(v20);
+                      objc_enumerationMutation(v19);
                     }
 
-                    v48 = *(*(&v76 + 1) + 8 * i);
-                    v49 = [v48 type];
-                    v50 = [v48 matchedString];
-                    if ([v49 isEqualToString:@"FirstName"])
+                    v47 = *(*(&v74 + 1) + 8 * i);
+                    v48 = [v47 type];
+                    v49 = [v47 matchedString];
+                    if ([v48 isEqualToString:@"FirstName"])
                     {
-                      v51 = [*(v46 + 2808) currentLocale];
-                      v52 = [v50 capitalizedStringWithLocale:v51];
-                      [v75 setGivenName:v52];
+                      v50 = [*(v45 + 2808) currentLocale];
+                      v51 = [v49 capitalizedStringWithLocale:v50];
+                      [v73 setGivenName:v51];
 LABEL_51:
 
                       goto LABEL_46;
                     }
 
-                    if ([v49 isEqualToString:@"MiddleName"])
+                    if ([v48 isEqualToString:@"MiddleName"])
                     {
-                      [v75 setMiddleName:v50];
+                      [v73 setMiddleName:v49];
                       goto LABEL_46;
                     }
 
-                    if ([v49 isEqualToString:@"LastName"])
+                    if ([v48 isEqualToString:@"LastName"])
                     {
-                      v51 = [*(v46 + 2808) currentLocale];
-                      v52 = [v50 capitalizedStringWithLocale:v51];
-                      [v75 setFamilyName:v52];
+                      v50 = [*(v45 + 2808) currentLocale];
+                      v51 = [v49 capitalizedStringWithLocale:v50];
+                      [v73 setFamilyName:v51];
                       goto LABEL_51;
                     }
 
-                    if ([v49 isEqualToString:@"Title"])
+                    if ([v48 isEqualToString:@"Title"])
                     {
-                      [v75 setNamePrefix:v50];
+                      [v73 setNamePrefix:v49];
                     }
 
-                    else if ([v49 isEqualToString:@"NameSuffix"])
+                    else if ([v48 isEqualToString:@"NameSuffix"])
                     {
-                      [v75 setNameSuffix:v50];
+                      [v73 setNameSuffix:v49];
                     }
 
-                    else if (([v49 isEqualToString:@"AddressBookContactName"] & 1) != 0 || objc_msgSend(v49, "isEqualToString:", @"NLPContactName"))
+                    else if (([v48 isEqualToString:@"AddressBookContactName"] & 1) != 0 || objc_msgSend(v48, "isEqualToString:", @"NLPContactName"))
                     {
-                      v73 = objc_alloc_init(MEMORY[0x277CCAC08]);
-                      v74 = [v73 personNameComponentsFromString:v50];
-                      v53 = [v74 givenName];
-                      v54 = [MEMORY[0x277CBEAF8] currentLocale];
-                      v55 = [v53 capitalizedStringWithLocale:v54];
-                      [v75 setGivenName:v55];
+                      v71 = objc_alloc_init(MEMORY[0x277CCAC08]);
+                      v72 = [v71 personNameComponentsFromString:v49];
+                      v52 = [v72 givenName];
+                      v53 = [MEMORY[0x277CBEAF8] currentLocale];
+                      v54 = [v52 capitalizedStringWithLocale:v53];
+                      [v73 setGivenName:v54];
 
-                      v56 = [v74 middleName];
-                      [v75 setMiddleName:v56];
+                      v55 = [v72 middleName];
+                      [v73 setMiddleName:v55];
 
-                      v57 = [v74 familyName];
-                      v58 = [MEMORY[0x277CBEAF8] currentLocale];
-                      v59 = [v57 capitalizedStringWithLocale:v58];
-                      [v75 setFamilyName:v59];
+                      v56 = [v72 familyName];
+                      v57 = [MEMORY[0x277CBEAF8] currentLocale];
+                      v58 = [v56 capitalizedStringWithLocale:v57];
+                      [v73 setFamilyName:v58];
 
-                      v60 = [v74 namePrefix];
-                      [v75 setNamePrefix:v60];
+                      v59 = [v72 namePrefix];
+                      [v73 setNamePrefix:v59];
 
-                      v61 = [v74 nameSuffix];
-                      [v75 setNameSuffix:v61];
+                      v60 = [v72 nameSuffix];
+                      [v73 setNameSuffix:v60];
 
-                      v46 = 0x277CBE000;
+                      v45 = 0x277CBE000;
                     }
 
 LABEL_46:
                   }
 
-                  v44 = [v20 countByEnumeratingWithState:&v76 objects:v88 count:16];
-                  if (!v44)
+                  v43 = [v19 countByEnumeratingWithState:&v74 objects:v86 count:16];
+                  if (!v43)
                   {
-                    v16 = v64;
-                    v21 = v65;
-                    v17 = v68;
-                    v19 = v66;
-                    v15 = v75;
+                    v16 = v62;
+                    v20 = v63;
+                    v17 = v66;
+                    v18 = v64;
+                    v15 = v73;
                     break;
                   }
                 }
@@ -3746,11 +3730,11 @@ LABEL_22:
             }
           }
 
-          ++v19;
+          ++v18;
         }
 
-        while (v19 != v16);
-        v16 = [v71 countByEnumeratingWithState:&v80 objects:v89 count:16];
+        while (v18 != v16);
+        v16 = [v69 countByEnumeratingWithState:&v78 objects:v87 count:16];
       }
 
       while (v16);
@@ -3758,25 +3742,23 @@ LABEL_22:
   }
 
 LABEL_65:
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 id DDContactFromResult(uint64_t a1, void *a2, void *a3, BOOL *a4)
 {
-  v56 = a4;
-  v110 = *MEMORY[0x277D85DE8];
-  v78 = a2;
-  v57 = a3;
-  v59 = [MEMORY[0x277CBEB18] array];
-  v69 = [MEMORY[0x277CBEB18] array];
-  v70 = [MEMORY[0x277CBEB18] array];
-  v67 = [MEMORY[0x277CBEB18] array];
-  v60 = [MEMORY[0x277CBEB18] array];
+  v54 = a4;
+  v102 = *MEMORY[0x277D85DE8];
+  v70 = a2;
+  v55 = a3;
+  v56 = [MEMORY[0x277CBEB18] array];
   v61 = [MEMORY[0x277CBEB18] array];
-  v68 = [MEMORY[0x277CBEB18] array];
-  v72 = [MEMORY[0x277CBEB98] setWithArray:&unk_282C2BF08];
-  if (a1 | v78)
+  v62 = [MEMORY[0x277CBEB18] array];
+  v59 = [MEMORY[0x277CBEB18] array];
+  v57 = [MEMORY[0x277CBEB18] array];
+  v58 = [MEMORY[0x277CBEB18] array];
+  v60 = [MEMORY[0x277CBEB18] array];
+  v64 = [MEMORY[0x277CBEB98] setWithArray:&unk_282C2BF08];
+  if (a1 | v70)
   {
     v6 = [MEMORY[0x277CBEB18] array];
     if (a1)
@@ -3785,7 +3767,7 @@ id DDContactFromResult(uint64_t a1, void *a2, void *a3, BOOL *a4)
       if (CFStringCompare(Type, *MEMORY[0x277D04170], 0) == kCFCompareEqualTo)
       {
         [v6 addObjectsFromArray:DDResultGetSubResults()];
-        if (!v78)
+        if (!v70)
         {
           goto LABEL_15;
         }
@@ -3794,30 +3776,30 @@ id DDContactFromResult(uint64_t a1, void *a2, void *a3, BOOL *a4)
       }
 
       [v6 addObject:a1];
-      if (v57)
+      if (v55)
       {
-        v103 = 0u;
-        v104 = 0u;
-        v101 = 0u;
-        v102 = 0u;
-        v8 = v57;
-        v9 = [v8 countByEnumeratingWithState:&v101 objects:v109 count:16];
+        v95 = 0u;
+        v96 = 0u;
+        v93 = 0u;
+        v94 = 0u;
+        v8 = v55;
+        v9 = [v8 countByEnumeratingWithState:&v93 objects:v101 count:16];
         if (v9)
         {
-          v10 = *v102;
+          v10 = *v94;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v102 != v10)
+              if (*v94 != v10)
               {
                 objc_enumerationMutation(v8);
               }
 
-              [v6 addObject:{objc_msgSend(*(*(&v101 + 1) + 8 * i), "coreResult", v56)}];
+              [v6 addObject:{objc_msgSend(*(*(&v93 + 1) + 8 * i), "coreResult", v54)}];
             }
 
-            v9 = [v8 countByEnumeratingWithState:&v101 objects:v109 count:16];
+            v9 = [v8 countByEnumeratingWithState:&v93 objects:v101 count:16];
           }
 
           while (v9);
@@ -3825,111 +3807,104 @@ id DDContactFromResult(uint64_t a1, void *a2, void *a3, BOOL *a4)
       }
     }
 
-    if (!v78)
+    if (!v70)
     {
 LABEL_15:
-      v99 = 0u;
-      v100 = 0u;
-      v97 = 0u;
-      v98 = 0u;
+      v91 = 0u;
+      v92 = 0u;
+      v89 = 0u;
+      v90 = 0u;
       obj = v6;
-      v76 = [obj countByEnumeratingWithState:&v97 objects:v108 count:16];
-      if (!v76)
+      v68 = [obj countByEnumeratingWithState:&v89 objects:v100 count:16];
+      if (!v68)
       {
         goto LABEL_50;
       }
 
-      v73 = *v98;
-      v66 = *MEMORY[0x277D04180];
-      v58 = *MEMORY[0x277D04150];
-      v64 = *MEMORY[0x277D04178];
-      v65 = *MEMORY[0x277D04050];
-      v63 = *MEMORY[0x277D041D0];
-      v62 = *MEMORY[0x277D04098];
+      v65 = *v90;
       while (1)
       {
-        for (j = 0; j != v76; ++j)
+        for (j = 0; j != v68; ++j)
         {
-          if (*v98 != v73)
+          if (*v90 != v65)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v97 + 1) + 8 * j);
-          if (v14 == v78)
+          v14 = *(*(&v89 + 1) + 8 * j);
+          if (v14 == v70)
           {
-            v20 = 1;
+            v19 = 1;
             goto LABEL_35;
           }
 
-          v15 = *(*(&v97 + 1) + 8 * j);
           Category = DDResultGetCategory();
           if ((Category - 1) < 2)
           {
             if (v14)
             {
-              v17 = DDResultCopyExtractedURLWithOptions();
-              if (v17)
+              v16 = DDResultCopyExtractedURLWithOptions();
+              if (v16)
               {
-                v18 = v17;
+                v17 = v16;
+                v18 = 0;
                 v19 = 0;
-                v20 = 0;
-                v13 = v18;
+                v13 = v17;
 LABEL_37:
                 cf = 0;
-                v24 = [MEMORY[0x277CBEBC0] URLWithString:{v13, v56}];
-                v25 = [(NSURL *)v24 dd_emailFromValidSchemes:v72];
-                v26 = dd_userFriendlyEmail(v25);
+                v23 = [MEMORY[0x277CBEBC0] URLWithString:{v13, v54}];
+                v24 = [(NSURL *)v23 dd_emailFromValidSchemes:v64];
+                v25 = dd_userFriendlyEmail(v24);
 
-                if (v26 && ([v70 containsObject:v26] & 1) == 0)
+                if (v25 && ([v62 containsObject:v25] & 1) == 0)
                 {
-                  [v70 addObject:v26];
-                  if ((v20 & 1) == 0)
+                  [v62 addObject:v25];
+                  if ((v19 & 1) == 0)
                   {
                     DDResultCopyMailValue();
                   }
 
-                  v27 = [objc_alloc(MEMORY[0x277CBDB20]) initWithLabel:cf value:v26];
-                  [v61 addObject:v27];
+                  v26 = [objc_alloc(MEMORY[0x277CBDB20]) initWithLabel:cf value:v25];
+                  [v58 addObject:v26];
                 }
 
-                v28 = [(NSURL *)v24 dd_phoneNumberFromValidSchemes:v72];
-                if (v28 && ([v69 containsObject:v28] & 1) == 0)
+                v27 = [(NSURL *)v23 dd_phoneNumberFromValidSchemes:v64];
+                if (v27 && ([v61 containsObject:v27] & 1) == 0)
                 {
-                  [v69 addObject:v28];
-                  v29 = [objc_alloc(MEMORY[0x277CBDB70]) initWithStringValue:v28];
-                  [v59 addObject:v29];
-                  if ((v20 & 1) == 0)
+                  [v61 addObject:v27];
+                  v28 = [objc_alloc(MEMORY[0x277CBDB70]) initWithStringValue:v27];
+                  [v56 addObject:v28];
+                  if ((v19 & 1) == 0)
                   {
                     DDResultCopyPhoneValue();
                   }
 
-                  v30 = [objc_alloc(MEMORY[0x277CBDB20]) initWithLabel:cf value:v29];
-                  [v60 addObject:v30];
+                  v29 = [objc_alloc(MEMORY[0x277CBDB20]) initWithLabel:cf value:v28];
+                  [v57 addObject:v29];
                 }
 
-                if ((v19 & 1) == 0)
+                if ((v18 & 1) == 0)
                 {
-                  CFRelease(v18);
+                  CFRelease(v17);
                 }
 
                 goto LABEL_19;
               }
 
-              v20 = 0;
+              v19 = 0;
             }
 
             else
             {
-              v20 = 1;
+              v19 = 1;
             }
 
 LABEL_35:
-            v13 = [v78 absoluteString];
-            v18 = 0;
+            v13 = [v70 absoluteString];
+            v17 = 0;
             if (v13)
             {
-              v19 = 1;
+              v18 = 1;
               goto LABEL_37;
             }
 
@@ -3944,10 +3919,10 @@ LABEL_19:
             v13 = objc_alloc_init(MEMORY[0x277CBDB60]);
             DDResultGetSubresultWithType();
             [v13 setStreet:DDResultGetMatchedString()];
-            v21 = [v13 street];
-            v22 = v21 == 0;
+            v20 = [v13 street];
+            v21 = v20 == 0;
 
-            if (v22)
+            if (v21)
             {
               DDResultGetSubresultWithType();
               [v13 setStreet:DDResultGetMatchedString()];
@@ -3962,16 +3937,16 @@ LABEL_19:
             DDResultGetSubresultWithType();
             [v13 setCountry:DDResultGetMatchedString()];
             [v13 setISOCountryCode:DDResultGetCountryCode()];
-            [v67 addObject:v13];
-            v23 = [objc_alloc(MEMORY[0x277CBDB20]) initWithLabel:0 value:v13];
-            [v68 addObject:v23];
+            [v59 addObject:v13];
+            v22 = [objc_alloc(MEMORY[0x277CBDB20]) initWithLabel:0 value:v13];
+            [v60 addObject:v22];
 
             goto LABEL_19;
           }
         }
 
-        v76 = [obj countByEnumeratingWithState:&v97 objects:v108 count:16];
-        if (!v76)
+        v68 = [obj countByEnumeratingWithState:&v89 objects:v100 count:16];
+        if (!v68)
         {
 LABEL_50:
 
@@ -3981,140 +3956,223 @@ LABEL_50:
     }
 
 LABEL_14:
-    [v6 addObject:{v78, v56}];
+    [v6 addObject:{v70, v54}];
     goto LABEL_15;
   }
 
 LABEL_51:
   cf = 0;
   p_cf = &cf;
-  v93 = 0x3032000000;
-  v94 = __Block_byref_object_copy__2;
-  v95 = __Block_byref_object_dispose__2;
-  v96 = 0;
+  v85 = 0x3032000000;
+  v86 = __Block_byref_object_copy__2;
+  v87 = __Block_byref_object_dispose__2;
+  v88 = 0;
   if ((dd_isDeviceLocked() & 1) == 0 && [MEMORY[0x277CBDAB8] authorizationStatusForEntityType:0] == 3)
   {
-    v31 = objc_alloc_init(MEMORY[0x277CBDAC0]);
-    [v31 setIncludeAcceptedIntroductions:1];
-    v77 = [objc_alloc(MEMORY[0x277CBDAB8]) initWithConfiguration:v31];
+    v30 = objc_alloc_init(MEMORY[0x277CBDAC0]);
+    [v30 setIncludeAcceptedIntroductions:1];
+    v69 = [objc_alloc(MEMORY[0x277CBDAB8]) initWithConfiguration:v30];
 
-    v32 = objc_alloc(MEMORY[0x277CBDA70]);
-    Helper_x8__OBJC_CLASS___CNContactContentViewController = gotLoadHelper_x8__OBJC_CLASS___CNContactContentViewController(v33);
-    v36 = [*(v35 + 3080) descriptorForRequiredKeys];
-    v107 = v36;
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v107 count:1];
-    v38 = [v32 initWithKeysToFetch:v37];
+    v31 = objc_alloc(MEMORY[0x277CBDA70]);
+    Helper_x8__OBJC_CLASS___CNContactContentViewController = gotLoadHelper_x8__OBJC_CLASS___CNContactContentViewController(v32);
+    v35 = [*(v34 + 3080) descriptorForRequiredKeys];
+    v99 = v35;
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v99 count:1];
+    v37 = [v31 initWithKeysToFetch:v36];
 
-    v89 = 0u;
-    v90 = 0u;
-    v87 = 0u;
-    v88 = 0u;
-    v74 = v59;
-    v39 = [v74 countByEnumeratingWithState:&v87 objects:v106 count:16];
-    if (v39)
+    v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v66 = v56;
+    v38 = [v66 countByEnumeratingWithState:&v79 objects:v98 count:16];
+    if (v38)
     {
-      v40 = *v88;
-      v41 = MEMORY[0x277D85DD0];
+      v39 = *v80;
+      v40 = MEMORY[0x277D85DD0];
       do
       {
-        for (k = 0; k != v39; ++k)
+        for (k = 0; k != v38; ++k)
         {
-          if (*v88 != v40)
+          if (*v80 != v39)
           {
-            objc_enumerationMutation(v74);
+            objc_enumerationMutation(v66);
           }
 
-          v43 = [MEMORY[0x277CBDA58] predicateForContactsMatchingPhoneNumber:{*(*(&v87 + 1) + 8 * k), v56}];
-          [v38 setPredicate:v43];
+          v42 = [MEMORY[0x277CBDA58] predicateForContactsMatchingPhoneNumber:{*(*(&v79 + 1) + 8 * k), v54}];
+          [v37 setPredicate:v42];
 
-          v85[4] = &cf;
-          v86 = 0;
-          v85[0] = v41;
-          v85[1] = 3221225472;
-          v85[2] = __DDContactFromResult_block_invoke;
-          v85[3] = &unk_2782913D8;
-          [v77 enumerateContactsWithFetchRequest:v38 error:&v86 usingBlock:v85];
+          v77[4] = &cf;
+          v78 = 0;
+          v77[0] = v40;
+          v77[1] = 3221225472;
+          v77[2] = __DDContactFromResult_block_invoke;
+          v77[3] = &unk_2782913D8;
+          [v69 enumerateContactsWithFetchRequest:v37 error:&v78 usingBlock:v77];
         }
 
-        v39 = [v74 countByEnumeratingWithState:&v87 objects:v106 count:16];
+        v38 = [v66 countByEnumeratingWithState:&v79 objects:v98 count:16];
       }
 
-      while (v39);
+      while (v38);
     }
 
     if (!p_cf[5])
     {
-      v83 = 0u;
-      v84 = 0u;
-      v81 = 0u;
-      v82 = 0u;
-      v75 = v70;
-      v44 = [v75 countByEnumeratingWithState:&v81 objects:v105 count:16];
-      if (v44)
+      v75 = 0u;
+      v76 = 0u;
+      v73 = 0u;
+      v74 = 0u;
+      v67 = v62;
+      v43 = [v67 countByEnumeratingWithState:&v73 objects:v97 count:16];
+      if (v43)
       {
-        v45 = *v82;
-        v46 = MEMORY[0x277D85DD0];
+        v44 = *v74;
+        v45 = MEMORY[0x277D85DD0];
         do
         {
-          for (m = 0; m != v44; ++m)
+          for (m = 0; m != v43; ++m)
           {
-            if (*v82 != v45)
+            if (*v74 != v44)
             {
-              objc_enumerationMutation(v75);
+              objc_enumerationMutation(v67);
             }
 
-            v48 = [MEMORY[0x277CBDA58] predicateForContactsMatchingEmailAddress:{*(*(&v81 + 1) + 8 * m), v56}];
-            [v38 setPredicate:v48];
+            v47 = [MEMORY[0x277CBDA58] predicateForContactsMatchingEmailAddress:{*(*(&v73 + 1) + 8 * m), v54}];
+            [v37 setPredicate:v47];
 
-            v79[4] = &cf;
-            v80 = 0;
-            v79[0] = v46;
-            v79[1] = 3221225472;
-            v79[2] = __DDContactFromResult_block_invoke_2;
-            v79[3] = &unk_2782913D8;
-            [v77 enumerateContactsWithFetchRequest:v38 error:&v80 usingBlock:v79];
+            v71[4] = &cf;
+            v72 = 0;
+            v71[0] = v45;
+            v71[1] = 3221225472;
+            v71[2] = __DDContactFromResult_block_invoke_2;
+            v71[3] = &unk_2782913D8;
+            [v69 enumerateContactsWithFetchRequest:v37 error:&v72 usingBlock:v71];
           }
 
-          v44 = [v75 countByEnumeratingWithState:&v81 objects:v105 count:16];
+          v43 = [v67 countByEnumeratingWithState:&v73 objects:v97 count:16];
         }
 
-        while (v44);
+        while (v43);
       }
     }
   }
 
-  v49 = p_cf;
-  if (v56)
+  v48 = p_cf;
+  if (v54)
   {
-    *v56 = p_cf[5] != 0;
+    *v54 = p_cf[5] != 0;
   }
 
-  v50 = v49[5];
-  if (!v50)
+  v49 = v48[5];
+  if (!v49)
   {
-    v51 = objc_alloc_init(MEMORY[0x277CBDB38]);
-    [v51 setPhoneNumbers:v60];
-    [v51 setEmailAddresses:v61];
-    [v51 setPostalAddresses:v68];
-    _DDFillContactWithGroupResult(v51, v57);
-    v52 = p_cf[5];
-    p_cf[5] = v51;
+    v50 = objc_alloc_init(MEMORY[0x277CBDB38]);
+    [v50 setPhoneNumbers:v57];
+    [v50 setEmailAddresses:v58];
+    [v50 setPostalAddresses:v60];
+    _DDFillContactWithGroupResult(v50, v55);
+    v51 = p_cf[5];
+    p_cf[5] = v50;
 
-    v50 = p_cf[5];
+    v49 = p_cf[5];
   }
 
-  v53 = v50;
+  v52 = v49;
   _Block_object_dispose(&cf, 8);
 
-  v54 = *MEMORY[0x277D85DE8];
-
-  return v53;
+  return v52;
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_21AB9777C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
 {
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+void sub_21AB97794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21AB977AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21AB977C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21AB977DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21AB977F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21AB9780C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21AB97824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21AB9783C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21AB97854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21AB9786C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21AB97884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
+{
+  va_start(va, a56);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 CFTypeRef specialCaseResultForResult(uint64_t a1)
@@ -4124,7 +4182,6 @@ CFTypeRef specialCaseResultForResult(uint64_t a1)
     return 0;
   }
 
-  v1 = *MEMORY[0x277D04140];
   if (!DDResultHasType())
   {
     return 0;
@@ -4135,10 +4192,10 @@ CFTypeRef specialCaseResultForResult(uint64_t a1)
     return 0;
   }
 
-  v2 = [DDResultGetMatchedString() lowercaseString];
-  v3 = [v2 hasPrefix:@"pounds"];
+  v1 = [DDResultGetMatchedString() lowercaseString];
+  v2 = [v1 hasPrefix:@"pounds"];
 
-  if (!v3)
+  if (!v2)
   {
     return 0;
   }
@@ -4149,33 +4206,32 @@ CFTypeRef specialCaseResultForResult(uint64_t a1)
     return 0;
   }
 
-  v5 = *MEMORY[0x277D04168];
-  v6 = Copy;
+  v4 = Copy;
   DDResultSetType();
   DDResultGetQueryRange();
   DDResultCreate();
   DDResultSetMatchedString();
   DDResultAddSubresult();
 
-  return CFAutorelease(v6);
+  return CFAutorelease(v4);
 }
 
 id DDMapsGetBestAddressForResults(void *a1, int a2)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v70 = objc_alloc_init(MEMORY[0x277CBDB60]);
+  v69 = objc_alloc_init(MEMORY[0x277CBDB60]);
+  v73 = 0u;
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v74 objects:v82 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v73 objects:v81 count:16];
   if (!v5)
   {
     v7 = 0;
 
-    v48 = [v70 ISOCountryCode];
+    v48 = [v69 ISOCountryCode];
     if (!v48)
     {
       goto LABEL_58;
@@ -4186,32 +4242,32 @@ id DDMapsGetBestAddressForResults(void *a1, int a2)
 
   v6 = v5;
   v7 = 0;
-  v8 = *v75;
+  v8 = *v74;
   v9 = *MEMORY[0x277D040E0];
-  v67 = *MEMORY[0x277D04050];
-  v64 = *MEMORY[0x277D041D0];
-  v60 = *MEMORY[0x277D04178];
-  v57 = *MEMORY[0x277D04098];
-  v66 = *MEMORY[0x277D04180];
-  v62 = *MEMORY[0x277D04150];
-  v54 = *v75;
-  v55 = v4;
-  v61 = a2;
-  v53 = *MEMORY[0x277D040E0];
+  v66 = *MEMORY[0x277D04050];
+  v63 = *MEMORY[0x277D041D0];
+  v59 = *MEMORY[0x277D04178];
+  v56 = *MEMORY[0x277D04098];
+  v65 = *MEMORY[0x277D04180];
+  v61 = *MEMORY[0x277D04150];
+  v53 = *v74;
+  v54 = v4;
+  v60 = a2;
+  v52 = *MEMORY[0x277D040E0];
   while (2)
   {
     v10 = 0;
-    v56 = v6;
+    v55 = v6;
     do
     {
-      v65 = v7;
-      if (*v75 != v8)
+      v64 = v7;
+      if (*v74 != v8)
       {
         objc_enumerationMutation(v4);
       }
 
-      v63 = v10;
-      v11 = *(*(&v74 + 1) + 8 * v10);
+      v62 = v10;
+      v11 = *(*(&v73 + 1) + 8 * v10);
       v12 = [v11 type];
       v13 = [v12 isEqualToString:v9];
 
@@ -4234,36 +4290,36 @@ id DDMapsGetBestAddressForResults(void *a1, int a2)
           v15 = v11;
         }
 
-        v59 = v15;
+        v58 = v15;
         v16 = v11;
-        v70 = v70;
-        v71 = objc_alloc_init(MEMORY[0x277CBDB60]);
+        v69 = v69;
+        v70 = objc_alloc_init(MEMORY[0x277CBDB60]);
+        v77 = 0u;
         v78 = 0u;
         v79 = 0u;
         v80 = 0u;
-        v81 = 0u;
-        v58 = v16;
+        v57 = v16;
         obj = [v16 subResults];
-        v17 = [obj countByEnumeratingWithState:&v78 objects:v83 count:16];
+        v17 = [obj countByEnumeratingWithState:&v77 objects:v82 count:16];
         if (v17)
         {
           v18 = v17;
-          v68 = 0;
-          v72 = 0;
-          v19 = *v79;
+          v67 = 0;
+          v71 = 0;
+          v19 = *v78;
           p_info = &OBJC_METACLASS___DDPreviewAction.info;
           v21 = (&OBJC_METACLASS___DDPreviewAction + 32);
           while (2)
           {
             v22 = 0;
-            v69 = v18;
+            v68 = v18;
 LABEL_20:
-            if (*v79 != v19)
+            if (*v78 != v19)
             {
               objc_enumerationMutation(obj);
             }
 
-            v23 = *(*(&v78 + 1) + 8 * v22);
+            v23 = *(*(&v77 + 1) + 8 * v22);
             [v23 coreResult];
             if (p_info[91] != -1)
             {
@@ -4277,20 +4333,20 @@ LABEL_20:
             {
               if ([v25 length])
               {
-                v27 = [v70 valueForKey:v26];
+                v27 = [v69 valueForKey:v26];
                 v28 = [v27 length];
 
                 if (v28)
                 {
 
                   v42 = 0;
-                  v43 = v71;
+                  v43 = v70;
                   goto LABEL_52;
                 }
 
-                if (!v72)
+                if (!v71)
                 {
-                  v72 = [v23 valueForKeyPath:@"Location.value"];
+                  v71 = [v23 valueForKeyPath:@"Location.value"];
                 }
 
                 v29 = [v23 type];
@@ -4298,27 +4354,27 @@ LABEL_20:
                 if ([v30 length])
                 {
                   v31 = v29;
-                  if ([v31 isEqualToString:v67])
+                  if ([v31 isEqualToString:v66])
                   {
                     v32 = 4;
 
-                    if (v68 >= 4)
+                    if (v67 >= 4)
                     {
                       goto LABEL_45;
                     }
 
 LABEL_44:
-                    [v71 setISOCountryCode:v30];
-                    v68 = v32;
+                    [v70 setISOCountryCode:v30];
+                    v67 = v32;
                   }
 
                   else
                   {
-                    if ([v31 isEqualToString:v64])
+                    if ([v31 isEqualToString:v63])
                     {
                       v32 = 6;
 
-                      if (v68 >= 6)
+                      if (v67 >= 6)
                       {
                         goto LABEL_45;
                       }
@@ -4326,11 +4382,11 @@ LABEL_44:
                       goto LABEL_44;
                     }
 
-                    if ([v31 isEqualToString:v60])
+                    if ([v31 isEqualToString:v59])
                     {
                       v32 = 8;
 
-                      if (v68 >= 8)
+                      if (v67 >= 8)
                       {
                         goto LABEL_45;
                       }
@@ -4338,7 +4394,7 @@ LABEL_44:
                       goto LABEL_44;
                     }
 
-                    if ([v31 isEqualToString:v57])
+                    if ([v31 isEqualToString:v56])
                     {
                       v32 = 10;
                     }
@@ -4348,7 +4404,7 @@ LABEL_44:
                       v32 = 2;
                     }
 
-                    if (v32 > v68)
+                    if (v32 > v67)
                     {
                       goto LABEL_44;
                     }
@@ -4357,9 +4413,9 @@ LABEL_44:
 
 LABEL_45:
                 v33 = [v23 matchedString];
-                if (a2 && [v29 isEqualToString:v66])
+                if (a2 && [v29 isEqualToString:v65])
                 {
-                  v34 = [v23 valueForKey:v62];
+                  v34 = [v23 valueForKey:v61];
                   if (v34)
                   {
                     v35 = [v23 range];
@@ -4372,26 +4428,26 @@ LABEL_45:
                     [v40 replaceCharactersInRange:v39 withString:{v41, &stru_282C1E0A8}];
 
                     v33 = v40;
-                    a2 = v61;
+                    a2 = v60;
                   }
                 }
 
-                [v71 setValue:v33 forKey:v26];
+                [v70 setValue:v33 forKey:v26];
 
                 v21 = &OBJC_METACLASS___DDPreviewAction.info;
-                v18 = v69;
+                v18 = v68;
               }
             }
 
             else
             {
-              v52 = Type;
+              v51 = Type;
               DDLog();
             }
 
             if (v18 == ++v22)
             {
-              v18 = [obj countByEnumeratingWithState:&v78 objects:v83 count:16];
+              v18 = [obj countByEnumeratingWithState:&v77 objects:v82 count:16];
               if (!v18)
               {
                 goto LABEL_51;
@@ -4404,21 +4460,21 @@ LABEL_45:
           }
         }
 
-        v72 = 0;
+        v71 = 0;
 LABEL_51:
 
-        v43 = v71;
-        v42 = v71;
+        v43 = v70;
+        v42 = v70;
 LABEL_52:
 
-        v8 = v54;
-        v4 = v55;
-        v7 = v59;
-        v9 = v53;
-        v6 = v56;
+        v8 = v53;
+        v4 = v54;
+        v7 = v58;
+        v9 = v52;
+        v6 = v55;
         if (v42)
         {
-          v44 = [v70 dictionaryRepresentation];
+          v44 = [v69 dictionaryRepresentation];
           v45 = [v44 mutableCopy];
 
           v46 = [v42 dictionaryRepresentation];
@@ -4426,21 +4482,21 @@ LABEL_52:
 
           v47 = [MEMORY[0x277CBDB60] postalAddressWithDictionaryRepresentation:v45];
 
-          v70 = v47;
+          v69 = v47;
         }
 
-        if (v65)
+        if (v64)
         {
           goto LABEL_55;
         }
       }
 
 LABEL_5:
-      v10 = v63 + 1;
+      v10 = v62 + 1;
     }
 
-    while (v63 + 1 != v6);
-    v6 = [v4 countByEnumeratingWithState:&v74 objects:v82 count:16];
+    while (v62 + 1 != v6);
+    v6 = [v4 countByEnumeratingWithState:&v73 objects:v81 count:16];
     if (v6)
     {
       continue;
@@ -4451,7 +4507,7 @@ LABEL_5:
 
 LABEL_55:
 
-  v48 = [v70 ISOCountryCode];
+  v48 = [v69 ISOCountryCode];
   if (!v48)
   {
 LABEL_58:
@@ -4463,15 +4519,14 @@ LABEL_58:
 
     if ((a2 & 1) == 0 && v48)
     {
-      [v70 setISOCountryCode:v48];
+      [v69 setISOCountryCode:v48];
     }
   }
 
 LABEL_63:
-  v49 = v70;
+  v49 = v69;
 
-  v50 = *MEMORY[0x277D85DE8];
-  return v70;
+  return v69;
 }
 
 id DDMapURLForResult(uint64_t a1)
@@ -5089,56 +5144,54 @@ id DDMapAddressFromResult(void *a1)
   return a1;
 }
 
-void *DDCreateUpdatedResultWithContext(void *Copy, void *a2)
+const void *DDCreateUpdatedResultWithContext(const void *Copy, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!Copy)
   {
     goto LABEL_25;
   }
 
-  v4 = *MEMORY[0x277D040E0];
   if (!DDResultHasType())
   {
     Copy = 0;
     goto LABEL_25;
   }
 
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v5 = copyAssociatedResultsFromResultWithContext(Copy, v3, 0);
-  v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
-  if (!v6)
+  v4 = copyAssociatedResultsFromResultWithContext(Copy, v3, 0);
+  v5 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (!v5)
   {
 LABEL_23:
     Copy = 0;
     goto LABEL_24;
   }
 
-  v7 = v6;
-  v8 = *v28;
+  v6 = v5;
+  v7 = *v25;
 LABEL_6:
-  v9 = 0;
+  v8 = 0;
   while (1)
   {
-    if (*v28 != v8)
+    if (*v25 != v7)
     {
-      objc_enumerationMutation(v5);
+      objc_enumerationMutation(v4);
     }
 
-    v10 = *(*(&v27 + 1) + 8 * v9);
     if (!DDResultHasType())
     {
       goto LABEL_7;
     }
 
     Range = DDResultGetRange();
-    v13 = v12;
-    v14 = DDResultGetRange();
-    if ((v14 - (Range + v13)) >= 0x32 && (Range - v14 + v15) > 0x31)
+    v11 = v10;
+    v12 = DDResultGetRange();
+    if ((v12 - (Range + v11)) >= 0x32 && (Range - v12 + v13) > 0x31)
     {
       goto LABEL_7;
     }
@@ -5162,10 +5215,10 @@ LABEL_6:
 
     CFRelease(Copy);
 LABEL_7:
-    if (v7 == ++v9)
+    if (v6 == ++v8)
     {
-      v7 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
-      if (!v7)
+      v6 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      if (!v6)
       {
         goto LABEL_23;
       }
@@ -5174,38 +5227,37 @@ LABEL_7:
     }
   }
 
-  v17 = SubResults;
+  v15 = SubResults;
   Count = CFArrayGetCount(SubResults);
   if (Count >= 1)
   {
-    v19 = Count;
-    for (i = 0; i != v19; ++i)
+    v17 = Count;
+    for (i = 0; i != v17; ++i)
     {
-      CFArrayGetValueAtIndex(v17, i);
+      CFArrayGetValueAtIndex(v15, i);
       DDResultAddSubresultSorted();
     }
   }
 
   MatchedString = DDResultGetMatchedString();
-  v22 = DDResultGetMatchedString();
-  v23 = CFStringCreateWithFormat(0, 0, @"%@, %@", MatchedString, v22, v27);
-  if (v23)
+  v20 = DDResultGetMatchedString();
+  v21 = CFStringCreateWithFormat(0, 0, @"%@, %@", MatchedString, v20, v24);
+  if (v21)
   {
-    v24 = v23;
+    v22 = v21;
     DDResultSetMatchedString();
-    CFRelease(v24);
+    CFRelease(v22);
   }
 
 LABEL_24:
 
 LABEL_25:
-  v25 = *MEMORY[0x277D85DE8];
   return Copy;
 }
 
-void *copyAssociatedResultsFromResultWithContext(void *a1, void *a2, void *a3)
+CFTypeRef copyAssociatedResultsFromResultWithContext(CFTypeRef a1, void *a2, void *a3)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (a1)
@@ -5229,8 +5281,8 @@ LABEL_6:
       else
       {
         v17 = [MEMORY[0x277D04218] resultFromCoreResult:a1];
-        v32[0] = v17;
-        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+        v31[0] = v17;
+        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
 
         if (!a3)
         {
@@ -5265,15 +5317,15 @@ LABEL_6:
         RangeForURLification = DDResultGetRangeForURLification();
         v24 = v23;
         v25 = [v6 objectForKeyedSubscript:@"ReferenceDate"];
-        v26 = findNearbyResultsInTextStorage(v12, RangeForURLification, v24, v21, 4 * v21, v25);
+        v26 = findNearbyResultsInTextStorage(v12, RangeForURLification, v24, v21, (4 * v21), v25);
         a1 = CFRetain(v26);
 
 LABEL_21:
         goto LABEL_22;
       }
 
-      v31 = a1;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+      v30 = a1;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
       if (!v11)
       {
         a1 = 0;
@@ -5318,11 +5370,10 @@ LABEL_12:
 
 LABEL_22:
 
-  v29 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
-uint64_t DDUIRecordOtherActionInSheetForResultIfNeeded(uint64_t result)
+void *DDUIRecordOtherActionInSheetForResultIfNeeded(void *result)
 {
   if (result)
   {
@@ -5359,34 +5410,34 @@ uint64_t DDUIRecordOtherActionInSheetForResultIfNeeded(uint64_t result)
 
 void *copyCoreResultsArray(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (v1)
   {
     v2 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v1, "count")}];
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [v2 addObject:{objc_msgSend(*(*(&v10 + 1) + 8 * i), "coreResult", v10)}];
+          [v2 addObject:{objc_msgSend(*(*(&v9 + 1) + 8 * i), "coreResult", v9)}];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v5);
@@ -5398,7 +5449,6 @@ void *copyCoreResultsArray(void *a1)
     v2 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -5486,11 +5536,11 @@ void sub_21ABA718C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_21ABA71F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_21ABA71F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   objc_destroyWeak(va);
-  objc_destroyWeak((v17 - 112));
+  objc_destroyWeak((v24 - 112));
   _Unwind_Resume(a1);
 }
 
@@ -5509,9 +5559,9 @@ id selectDefaultAction(void *a1, void *a2)
   return v8;
 }
 
-void sub_21ABA9638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ABA9638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5520,6 +5570,69 @@ void sub_21ABAA6F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 {
   objc_destroyWeak(&a54);
   objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABAB054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
+{
+  va_start(va, a41);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABAB06C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
+{
+  va_start(va, a41);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABAB084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
+{
+  va_start(va, a41);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABAB09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
+{
+  va_start(va, a41);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABAB0B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
+{
+  va_start(va, a41);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABAB0CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
+{
+  va_start(va, a41);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABAB0E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
+{
+  va_start(va, a41);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABAB0FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
+{
+  va_start(va, a41);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABAB118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
+{
+  va_start(va, a41);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5890,12 +6003,12 @@ LABEL_40:
 
 id DDUIEventForResults(void *a1, void *a2, void *a3)
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
-  v71 = [v7 objectForKeyedSubscript:@"ICS"];
-  if (v71)
+  v65 = [v7 objectForKeyedSubscript:@"ICS"];
+  if (v65)
   {
     v9 = [v7 objectForKeyedSubscript:@"NotificationStyle"];
     if ([v9 BOOLValue])
@@ -5911,7 +6024,7 @@ id DDUIEventForResults(void *a1, void *a2, void *a3)
     if (v12)
     {
 LABEL_5:
-      v13 = [v71 dataUsingEncoding:4];
+      v13 = [v65 dataUsingEncoding:4];
       v14 = [v5 importICSData:v13 intoCalendar:0 options:0];
       v15 = [v14 firstObject];
 
@@ -5927,9 +6040,9 @@ LABEL_5:
   if (v15 && [v6 count])
   {
     LOBYTE(cf) = 0;
-    v90 = 0;
-    v18 = dd_beginDateOfEventResultsRespectingSpecificEndDates(v6, 1, v7, &cf, &v90);
-    v19 = v90;
+    v83 = 0;
+    v18 = dd_beginDateOfEventResultsRespectingSpecificEndDates(v6, 1, v7, &cf, &v83);
+    v19 = v83;
     if (!v19)
     {
       v19 = [v18 dateByAddingTimeInterval:3600.0];
@@ -5968,13 +6081,13 @@ LABEL_11:
     v24 = 0;
   }
 
-  v69 = v6;
+  v63 = v6;
   v25 = [v15 URL];
 
-  v75 = v15;
-  v70 = v5;
-  v72 = v7;
-  v68 = v20;
+  v68 = v15;
+  v64 = v5;
+  v66 = v7;
+  v62 = v20;
   if (v25)
   {
     v26 = 0;
@@ -5984,49 +6097,45 @@ LABEL_11:
   v27 = [v7 objectForKey:@"SpecialURL"];
   if (!v27)
   {
-    v88 = 0u;
-    v89 = 0u;
-    v86 = 0u;
-    v87 = 0u;
-    v65 = v24;
+    v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v60 = v24;
     v30 = v24;
-    v31 = [v30 countByEnumeratingWithState:&v86 objects:v93 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v79 objects:v86 count:16];
     if (v31)
     {
       v32 = v31;
       v28 = 0;
-      v33 = *v87;
-      v34 = *MEMORY[0x277D041C8];
-      v73 = *MEMORY[0x277D040F8];
-      v67 = *MEMORY[0x277D040F0];
+      v33 = *v80;
       while (2)
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v87 != v33)
+          if (*v80 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          v37 = *(*(&v86 + 1) + 8 * i);
           if ((DDResultHasType() & 1) != 0 || (DDResultHasType() & 1) != 0 || DDResultHasType())
           {
-            v38 = DDResultCopyExtractedURLWithOptions();
-            if (v38)
+            v36 = DDResultCopyExtractedURLWithOptions();
+            if (v36)
             {
-              v36 = [MEMORY[0x277CBEBC0] URLWithString:v38];
+              v35 = [MEMORY[0x277CBEBC0] URLWithString:v36];
 
-              if (v36)
+              if (v35)
               {
-                v39 = [v36 scheme];
-                v40 = [v39 lowercaseString];
+                v37 = [v35 scheme];
+                v38 = [v37 lowercaseString];
 
-                if (dd_schemeIsHttp(v40) & 1) != 0 || (dd_isAnySimpleTelephonyScheme(v36) & 1) != 0 || ([v40 isEqualToString:@"sip"])
+                if (dd_schemeIsHttp(v38) & 1) != 0 || (dd_isAnySimpleTelephonyScheme(v35) & 1) != 0 || ([v38 isEqualToString:@"sip"])
                 {
-                  [v75 setURL:v36];
+                  [v68 setURL:v35];
 
-                  v15 = v75;
-                  v28 = v36;
+                  v15 = v68;
+                  v28 = v35;
                   goto LABEL_44;
                 }
               }
@@ -6034,15 +6143,15 @@ LABEL_11:
 
             else
             {
-              v36 = v28;
+              v35 = v28;
             }
 
-            v28 = v36;
-            v15 = v75;
+            v28 = v35;
+            v15 = v68;
           }
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v86 objects:v93 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v79 objects:v86 count:16];
         if (v32)
         {
           continue;
@@ -6059,56 +6168,55 @@ LABEL_11:
 
 LABEL_44:
 
-    v24 = v65;
-    v41 = [v15 URL];
+    v24 = v60;
+    v39 = [v15 URL];
 
-    if (v41)
+    if (v39)
     {
       goto LABEL_22;
     }
 
 LABEL_45:
-    v84 = 0u;
-    v85 = 0u;
-    v82 = 0u;
-    v83 = 0u;
-    v42 = v24;
-    v43 = [v42 countByEnumeratingWithState:&v82 objects:v92 count:16];
-    if (v43)
+    v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
+    v40 = v24;
+    v41 = [v40 countByEnumeratingWithState:&v75 objects:v85 count:16];
+    if (v41)
     {
-      v44 = v43;
-      v66 = v24;
-      v45 = *v83;
-      v46 = *MEMORY[0x277D04160];
+      v42 = v41;
+      v61 = v24;
+      v43 = *v76;
       while (2)
       {
-        for (j = 0; j != v44; ++j)
+        for (j = 0; j != v42; ++j)
         {
-          if (*v83 != v45)
+          if (*v76 != v43)
           {
-            objc_enumerationMutation(v42);
+            objc_enumerationMutation(v40);
           }
 
-          v26 = *(*(&v82 + 1) + 8 * j);
+          v26 = *(*(&v75 + 1) + 8 * j);
           if (DDResultHasType())
           {
-            v80 = 0;
+            v73 = 0;
             cf = 0;
             DDResultCopyPhoneValue();
             if (cf)
             {
               if (([cf containsString:{@", "}] & 1) != 0 || objc_msgSend(cf, "containsString:", @";"))
               {
-                v48 = DDResultCopyExtractedURLWithOptions();
-                if (v48)
+                v45 = DDResultCopyExtractedURLWithOptions();
+                if (v45)
                 {
-                  v49 = [MEMORY[0x277CBEBC0] URLWithString:v48];
+                  v46 = [MEMORY[0x277CBEBC0] URLWithString:v45];
 
-                  if (v49)
+                  if (v46)
                   {
-                    [v75 setURL:v49];
+                    [v68 setURL:v46];
 
-                    v28 = v49;
+                    v28 = v46;
                     goto LABEL_66;
                   }
 
@@ -6124,8 +6232,8 @@ LABEL_45:
           }
         }
 
-        v44 = [v42 countByEnumeratingWithState:&v82 objects:v92 count:16];
-        if (v44)
+        v42 = [v40 countByEnumeratingWithState:&v75 objects:v85 count:16];
+        if (v42)
         {
           continue;
         }
@@ -6135,7 +6243,7 @@ LABEL_45:
 
       v26 = 0;
 LABEL_66:
-      v24 = v66;
+      v24 = v61;
     }
 
     else
@@ -6143,7 +6251,7 @@ LABEL_66:
       v26 = 0;
     }
 
-    v15 = v75;
+    v15 = v68;
     goto LABEL_68;
   }
 
@@ -6161,89 +6269,87 @@ LABEL_22:
 LABEL_68:
 
 LABEL_69:
-  v74 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
-  v76 = 0u;
-  v77 = 0u;
-  v78 = 0u;
-  v79 = 0u;
-  v50 = v24;
-  v51 = [v50 countByEnumeratingWithState:&v76 objects:v91 count:16];
-  if (v51)
+  v67 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
+  v69 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  v47 = v24;
+  v48 = [v47 countByEnumeratingWithState:&v69 objects:v84 count:16];
+  if (v48)
   {
-    v52 = v51;
-    v53 = *v77;
-    v54 = *MEMORY[0x277D040E0];
-    v55 = *MEMORY[0x277D04160];
+    v49 = v48;
+    v50 = *v70;
+    v51 = *MEMORY[0x277D040E0];
     do
     {
-      for (k = 0; k != v52; ++k)
+      for (k = 0; k != v49; ++k)
       {
-        if (*v77 != v53)
+        if (*v70 != v50)
         {
-          objc_enumerationMutation(v50);
+          objc_enumerationMutation(v47);
         }
 
-        if (*(*(&v76 + 1) + 8 * k) != v26)
+        if (*(*(&v69 + 1) + 8 * k) != v26)
         {
-          v57 = [v15 location];
-          if ([v57 length])
+          v53 = [v15 location];
+          if ([v53 length])
           {
           }
 
           else
           {
             Type = DDResultGetType();
-            v59 = CFStringCompare(Type, v54, 0);
+            v55 = CFStringCompare(Type, v51, 0);
 
-            if (v59 == kCFCompareEqualTo)
+            if (v55 == kCFCompareEqualTo)
             {
-              v15 = v75;
-              [v75 setLocation:DDResultGetMatchedString()];
+              v15 = v68;
+              [v68 setLocation:DDResultGetMatchedString()];
               continue;
             }
           }
 
-          v15 = v75;
+          v15 = v68;
           if (DDResultHasType())
           {
             cf = 0;
             DDResultCopyPhoneValue();
             if (cf)
             {
-              [v74 addObject:?];
+              [v67 addObject:?];
               CFRelease(cf);
             }
           }
         }
       }
 
-      v52 = [v50 countByEnumeratingWithState:&v76 objects:v91 count:16];
+      v49 = [v47 countByEnumeratingWithState:&v69 objects:v84 count:16];
     }
 
-    while (v52);
+    while (v49);
   }
 
-  v60 = [v72 objectForKey:@"SelectedText"];
-  if (v60)
+  v56 = [v66 objectForKey:@"SelectedText"];
+  if (v56)
   {
-    [v74 addObject:v60];
+    [v67 addObject:v56];
   }
 
-  v61 = [v15 notes];
-  if (!v61)
+  v57 = [v15 notes];
+  if (!v57)
   {
-    if (![v74 count])
+    if (![v67 count])
     {
       goto LABEL_90;
     }
 
-    v62 = [v74 componentsJoinedByString:@"\n"];
-    [v15 setNotes:v62];
-    v61 = v62;
+    v58 = [v67 componentsJoinedByString:@"\n"];
+    [v15 setNotes:v58];
+    v57 = v58;
   }
 
 LABEL_90:
-  v63 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -6280,119 +6386,163 @@ id DDOnDeviceSupportActionWithBrand(void *a1, uint64_t a2, void *a3)
   return v8;
 }
 
-void OUTLINED_FUNCTION_0_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
-}
-
-void OUTLINED_FUNCTION_1_4(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
-{
-
-  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, &buf, 0x16u);
-}
-
-void sub_21ABB0DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_21ABB0DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_21ABB0DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_21ABB0DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_21ABB0E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_21ABB10B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void OUTLINED_FUNCTION_0_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
   va_start(va, a8);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
+}
+
+void OUTLINED_FUNCTION_1_4(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
+{
+  va_start(va, a10);
+
+  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, va, 0x16u);
+}
+
+void sub_21ABAFF98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ABB10C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_21ABAFFB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  va_start(va, a8);
+  va_start(va, a36);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ABB10E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_21ABAFFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  va_start(va, a8);
+  va_start(va, a36);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ABB14E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21ABAFFE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  va_start(va, a13);
+  va_start(va, a36);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ABB1500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21ABAFFFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  va_start(va, a13);
+  va_start(va, a36);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ABB1518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21ABB0014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  va_start(va, a13);
+  va_start(va, a36);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ABB1530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21ABB0DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ABB1548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21ABB0DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ABB1560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21ABB0DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ABB1578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21ABB0DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABB0E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABB10B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABB10C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABB10E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABB14E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABB1500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABB1518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABB1530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABB1548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABB1560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21ABB1578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6404,22 +6554,23 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_1_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_21ABB73C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21ABB73C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ABB73DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21ABB73DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6431,27 +6582,27 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_21ABB7FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_21ABB7FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ABB82E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_21ABB82E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6462,16 +6613,16 @@ void sub_21ABB9948(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_21ABBA49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ABBA49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ABBA4B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ABBA4B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6521,14 +6672,14 @@ BOOL stringContainsEmoji(void *a1)
   return v8;
 }
 
-void sub_21ABBB600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ABBB600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_21ABBBEBC(uint64_t a1)
+uint64_t sub_21ABBBEBC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   sub_21ABC66B4();
   sub_21ABC66A4();
@@ -6538,33 +6689,32 @@ uint64_t sub_21ABBBEBC(uint64_t a1)
     swift_task_reportUnexpectedExecutor();
   }
 
-  v2 = *(a1 + 16);
-  if (v2)
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v3 = *(a1 + 24);
+    v7 = *(a1 + 24);
 
-    v4 = sub_21ABBC674(v2);
-    v2(v4);
-    sub_21ABBC684(v2);
-    v5 = *(a1 + 16);
+    v8 = sub_21ABBC674(v6, v7);
+    v6(v8);
+    sub_21ABBC684(v6, v7);
+    v9 = *(a1 + 16);
   }
 
   else
   {
 
-    v5 = 0;
+    v9 = 0;
   }
 
-  v6 = *(a1 + 24);
+  v10 = *(a1 + 24);
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
-  sub_21ABBC684(v5);
+  sub_21ABBC684(v9, v10);
 }
 
 uint64_t sub_21ABBC0C0()
 {
-  v1 = *(v0 + 24);
-  sub_21ABBC684(*(v0 + 16));
+  sub_21ABBC684(*(v0 + 16), *(v0 + 24));
 
   return MEMORY[0x2821FE8D8](v0, 32, 7);
 }
@@ -6601,29 +6751,29 @@ id DDSupportFlowViewControllerContainer.__deallocating_deinit()
 id sub_21ABBC4A0(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v6 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD32800, &qword_21ABCD788) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD32800, &qword_21ABCD788);
   MEMORY[0x28223BE20]();
-  v8 = &v14 - v7;
+  v7 = &v13 - v6;
   type metadata accessor for DDSupportFlowViewControllerDelegate();
-  v9 = swift_allocObject();
-  *(v9 + 16) = a1;
-  *(v9 + 24) = a2;
-  v10 = sub_21ABC6684();
-  (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+  v8 = swift_allocObject();
+  *(v8 + 16) = a1;
+  *(v8 + 24) = a2;
+  v9 = sub_21ABC6684();
+  (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   objc_allocWithZone(sub_21ABC6674());
 
-  v11 = sub_21ABC6654();
+  v10 = sub_21ABC6654();
 
   sub_21ABC6664();
-  *&v3[OBJC_IVAR____TtC15DataDetectorsUI36DDSupportFlowViewControllerContainer_controller] = v11;
-  *&v3[OBJC_IVAR____TtC15DataDetectorsUI36DDSupportFlowViewControllerContainer_delegate] = v9;
-  v12 = type metadata accessor for DDSupportFlowViewControllerContainer();
-  v14.receiver = v3;
-  v14.super_class = v12;
-  return objc_msgSendSuper2(&v14, sel_init);
+  *&v3[OBJC_IVAR____TtC15DataDetectorsUI36DDSupportFlowViewControllerContainer_controller] = v10;
+  *&v3[OBJC_IVAR____TtC15DataDetectorsUI36DDSupportFlowViewControllerContainer_delegate] = v8;
+  v11 = type metadata accessor for DDSupportFlowViewControllerContainer();
+  v13.receiver = v3;
+  v13.super_class = v11;
+  return objc_msgSendSuper2(&v13, sel_init);
 }
 
-uint64_t sub_21ABBC674(uint64_t result)
+uint64_t sub_21ABBC674(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -6632,7 +6782,7 @@ uint64_t sub_21ABBC674(uint64_t result)
   return result;
 }
 
-uint64_t sub_21ABBC684(uint64_t result)
+uint64_t sub_21ABBC684(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -6646,7 +6796,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -6678,24 +6827,22 @@ void actionSheetTitleForURL_cold_1()
 
 void applicationWithBundleIdentifierIsRestricted_cold_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 138412802;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  v8 = 2112;
-  v9 = a3;
-  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Application proxy for bundle identifier %@ is nil (errors %@ -- %@).", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 138412802;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  v7 = 2112;
+  v8 = a3;
+  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Application proxy for bundle identifier %@ is nil (errors %@ -- %@).", &v3, 0x20u);
 }
 
 void DDUILogAssertionFailure_cold_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%@", &v1, 0xCu);
 }
 
 void DDMergeContactIntoContact_cold_1(uint8_t *buf, uint64_t a2, void *a3)
@@ -7145,154 +7292,154 @@ double gotLoadHelper_x8__kPARLookupClient(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_BusinessChat(double a1)
+double dlopenHelper_BusinessChat(double a1)
 {
   dlopen("/System/Library/Frameworks/BusinessChat.framework/BusinessChat", 0);
   atomic_store(1u, &dlopenHelperFlag_BusinessChat);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_ContactsUI(double a1)
+double dlopenHelper_ContactsUI(double a1)
 {
   dlopen("/System/Library/Frameworks/ContactsUI.framework/ContactsUI", 0);
   atomic_store(1u, &dlopenHelperFlag_ContactsUI);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_CoreSpotlight(double a1)
+double dlopenHelper_CoreSpotlight(double a1)
 {
   dlopen("/System/Library/Frameworks/CoreSpotlight.framework/CoreSpotlight", 0);
   atomic_store(1u, &dlopenHelperFlag_CoreSpotlight);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_EventKit(double a1)
+double dlopenHelper_EventKit(double a1)
 {
   dlopen("/System/Library/Frameworks/EventKit.framework/EventKit", 0);
   atomic_store(1u, &dlopenHelperFlag_EventKit);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_LinkPresentation(double a1)
+double dlopenHelper_LinkPresentation(double a1)
 {
   dlopen("/System/Library/Frameworks/LinkPresentation.framework/LinkPresentation", 0);
   atomic_store(1u, &dlopenHelperFlag_LinkPresentation);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_MessageUI(double a1)
+double dlopenHelper_MessageUI(double a1)
 {
   dlopen("/System/Library/Frameworks/MessageUI.framework/MessageUI", 0);
   atomic_store(1u, &dlopenHelperFlag_MessageUI);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_AppProtection(double a1)
+double dlopenHelper_AppProtection(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/AppProtection.framework/AppProtection", 0);
   atomic_store(1u, &dlopenHelperFlag_AppProtection);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_AppProtectionUI(double a1)
+double dlopenHelper_AppProtectionUI(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/AppProtectionUI.framework/AppProtectionUI", 0);
   atomic_store(1u, &dlopenHelperFlag_AppProtectionUI);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_BusinessChatService(double a1)
+double dlopenHelper_BusinessChatService(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/BusinessChatService.framework/BusinessChatService", 0);
   atomic_store(1u, &dlopenHelperFlag_BusinessChatService);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_BusinessServices(double a1)
+double dlopenHelper_BusinessServices(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/BusinessServices.framework/BusinessServices", 0);
   atomic_store(1u, &dlopenHelperFlag_BusinessServices);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_CalendarUIKit(double a1)
+double dlopenHelper_CalendarUIKit(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/CalendarUIKit.framework/CalendarUIKit", 0);
   atomic_store(1u, &dlopenHelperFlag_CalendarUIKit);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_CoreParsec(double a1)
+double dlopenHelper_CoreParsec(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/CoreParsec.framework/CoreParsec", 0);
   atomic_store(1u, &dlopenHelperFlag_CoreParsec);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_CoreSuggestions(double a1)
+double dlopenHelper_CoreSuggestions(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/CoreSuggestions.framework/CoreSuggestions", 0);
   atomic_store(1u, &dlopenHelperFlag_CoreSuggestions);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_DataDetectorsNaturalLanguage(double a1)
+double dlopenHelper_DataDetectorsNaturalLanguage(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/DataDetectorsNaturalLanguage.framework/DataDetectorsNaturalLanguage", 0);
   atomic_store(1u, &dlopenHelperFlag_DataDetectorsNaturalLanguage);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_FlightUtilities(double a1)
+double dlopenHelper_FlightUtilities(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/FlightUtilities.framework/FlightUtilities", 0);
   atomic_store(1u, &dlopenHelperFlag_FlightUtilities);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_GeoServices(double a1)
+double dlopenHelper_GeoServices(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/GeoServices.framework/GeoServices", 0);
   atomic_store(1u, &dlopenHelperFlag_GeoServices);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_IDS(double a1)
+double dlopenHelper_IDS(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/IDS.framework/IDS", 0);
   atomic_store(1u, &dlopenHelperFlag_IDS);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_IconServices(double a1)
+double dlopenHelper_IconServices(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/IconServices.framework/IconServices", 0);
   atomic_store(1u, &dlopenHelperFlag_IconServices);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_NewsServices(double a1)
+double dlopenHelper_NewsServices(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/NewsServices.framework/NewsServices", 0);
   atomic_store(1u, &dlopenHelperFlag_NewsServices);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_SearchFoundation(double a1)
+double dlopenHelper_SearchFoundation(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/SearchFoundation.framework/SearchFoundation", 0);
   atomic_store(1u, &dlopenHelperFlag_SearchFoundation);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_SpringBoardServices(double a1)
+double dlopenHelper_SpringBoardServices(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/SpringBoardServices.framework/SpringBoardServices", 0);
   atomic_store(1u, &dlopenHelperFlag_SpringBoardServices);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_iCalendar(double a1)
+double dlopenHelper_iCalendar(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/iCalendar.framework/iCalendar", 0);
   atomic_store(1u, &dlopenHelperFlag_iCalendar);

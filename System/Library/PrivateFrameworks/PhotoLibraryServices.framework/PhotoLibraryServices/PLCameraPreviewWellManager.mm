@@ -300,7 +300,7 @@ LABEL_19:
     v7 = [userInfo objectForKey:*MEMORY[0x1E696AA08]];
 
     domain = [v7 domain];
-    if ([domain isEqualToString:*MEMORY[0x1E696A798]])
+    if (objc_msgSend_isEqualToString_(domain))
     {
       code = [v7 code];
 

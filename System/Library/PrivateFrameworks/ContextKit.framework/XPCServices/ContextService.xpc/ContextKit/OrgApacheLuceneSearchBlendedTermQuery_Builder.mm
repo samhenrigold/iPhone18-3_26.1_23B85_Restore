@@ -11,8 +11,8 @@
   numTerms = self->numTerms_;
   if (numTerms >= OrgApacheLuceneSearchBooleanQuery_getMaxClauseCount())
   {
-    v41 = new_OrgApacheLuceneSearchBooleanQuery_TooManyClauses_init();
-    objc_exception_throw(v41);
+    v43 = new_OrgApacheLuceneSearchBooleanQuery_TooManyClauses_init();
+    objc_exception_throw(v43);
   }
 
   v16 = OrgApacheLuceneUtilArrayUtil_growWithNSObjectArray_withInt_(self->terms_, self->numTerms_ + 1, v10, v11, v12, v13, v14, v15);
@@ -35,23 +35,24 @@
 
   v33 = self->numTerms_;
   field = [term field];
-  v35 = OrgApacheLuceneUtilBytesRef_deepCopyOfWithOrgApacheLuceneUtilBytesRef_([term bytes]);
-  v36 = new_OrgApacheLuceneIndexTerm_initWithNSString_withOrgApacheLuceneUtilBytesRef_(field, v35);
-  IOSObjectArray_SetAndConsume(terms, v33, v36);
+  bytes = [term bytes];
+  v37 = OrgApacheLuceneUtilBytesRef_deepCopyOfWithOrgApacheLuceneUtilBytesRef_(bytes, v36);
+  v38 = new_OrgApacheLuceneIndexTerm_initWithNSString_withOrgApacheLuceneUtilBytesRef_(field, v37);
+  IOSObjectArray_SetAndConsume(terms, v33, v38);
   boosts = self->boosts_;
   if (!boosts)
   {
     goto LABEL_9;
   }
 
-  v38 = self->numTerms_;
+  v40 = self->numTerms_;
   size = boosts->super.size_;
-  if (v38 < 0 || v38 >= size)
+  if (v40 < 0 || v40 >= size)
   {
-    IOSArray_throwOutOfBoundsWithMsg(size, v38);
+    IOSArray_throwOutOfBoundsWithMsg(size, v40);
   }
 
-  *(&boosts->super.size_ + v38 + 1) = float;
+  *(&boosts->super.size_ + v40 + 1) = float;
   if (!*p_contexts)
   {
 LABEL_9:

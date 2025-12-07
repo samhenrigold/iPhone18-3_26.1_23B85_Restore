@@ -49,7 +49,7 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_100051B04();
+  sub_100051B04(selfCopy);
 }
 
 - (void)viewDidLoad
@@ -65,7 +65,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_100051F94();
+  sub_100051F94(selfCopy);
 }
 
 - (int64_t)preferredStatusBarStyle

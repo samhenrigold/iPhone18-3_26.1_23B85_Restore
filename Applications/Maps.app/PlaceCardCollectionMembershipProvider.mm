@@ -31,7 +31,7 @@
   sharedManager = [objc_opt_self() sharedManager];
   currentCollections = [sharedManager currentCollections];
 
-  sub_100014C84(0, &qword_101922CC0);
+  sub_100014C84(0, &qword_101922CC0, off_1015F61A0);
   v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   sub_100361BA0(v11);
@@ -48,7 +48,7 @@
 - (NSArray)containingCollections
 {
   swift_beginAccess();
-  sub_100014C84(0, &qword_101922CC0);
+  sub_100014C84(0, &qword_101922CC0, off_1015F61A0);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -57,7 +57,7 @@
 
 - (void)setContainingCollections:(id)collections
 {
-  sub_100014C84(0, &qword_101922CC0);
+  sub_100014C84(0, &qword_101922CC0, off_1015F61A0);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC4Maps37PlaceCardCollectionMembershipProvider_containingCollections;
   swift_beginAccess();
@@ -95,7 +95,7 @@
 
 - (void)collectionManager:(id)manager contentDidChange:(id)change
 {
-  sub_100014C84(0, &qword_101922CC0);
+  sub_100014C84(0, &qword_101922CC0, off_1015F61A0);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_100361BA0(v5);

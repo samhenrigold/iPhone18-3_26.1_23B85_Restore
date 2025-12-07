@@ -53,20 +53,21 @@ LABEL_5:
   v12 = [(LTMStats *)self startCalculateHITHStatistics:statistics ltmGeometry:geometry inputDriverMetadata:metadata optimized:optimized enableAntiAliasing:aliasing calcGlobalHistOnROI:i outputProcHITHStat:stat];
   if (v12)
   {
-    v13 = v12;
+    v14 = v12;
     [LTMStats calculateHITHStatistics:ltmGeometry:optimized:enableAntiAliasing:calcGlobalHistOnROI:toDriverInputMetadata:andProcHITHStat:enableFATE:];
   }
 
   else
   {
     v13 = [(LTMStats *)self finishCalculateHITHStatistics:stat optimized:optimizedCopy];
+    v14 = v13;
     if (v13)
     {
-      [LTMStats calculateHITHStatistics:ltmGeometry:optimized:enableAntiAliasing:calcGlobalHistOnROI:toDriverInputMetadata:andProcHITHStat:enableFATE:];
+      [LTMStats calculateHITHStatistics:v13 ltmGeometry:? optimized:? enableAntiAliasing:? calcGlobalHistOnROI:? toDriverInputMetadata:? andProcHITHStat:? enableFATE:?];
     }
   }
 
-  return v13;
+  return v14;
 }
 
 - (int)startCalculateHITHStatistics:(id)statistics ltmGeometry:(id)geometry inputDriverMetadata:(sRefDriverInputs_SOFTISP *)metadata optimized:(BOOL)optimized enableAntiAliasing:(BOOL)aliasing calcGlobalHistOnROI:(BOOL)i enhancedLocalHistogram:(BOOL)histogram enableDualLTC:(BOOL)self0 enableFATE:(BOOL)self1 outputProcHITHStat:(sCLRProcHITHStat_SOFTISP *)self2
@@ -173,7 +174,7 @@ LABEL_25:
   v38 = v37;
   if (v37)
   {
-    [LTMStats startCalculateHITHStatistics:ltmGeometry:inputDriverMetadata:optimized:enableAntiAliasing:calcGlobalHistOnROI:enhancedLocalHistogram:enableDualLTC:enableFATE:outputProcHITHStat:];
+    [LTMStats startCalculateHITHStatistics:v37 ltmGeometry:? inputDriverMetadata:? optimized:? enableAntiAliasing:? calcGlobalHistOnROI:? enhancedLocalHistogram:? enableDualLTC:? enableFATE:? outputProcHITHStat:?];
   }
 
 LABEL_17:
@@ -283,145 +284,208 @@ LABEL_17:
 - (void)initWithMetalContext:.cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStats initWithMetalContext:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: _computeLTMStats is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)initWithMetalContext:.cold.2()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStats initWithMetalContext:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: _metalContext is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)initWithMetalContext:.cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStats initWithMetalContext:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: LTMStats init failed", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)startCalculateHITHStatistics:ltmGeometry:inputDriverMetadata:optimized:enableAntiAliasing:calcGlobalHistOnROI:enhancedLocalHistogram:enableDualLTC:enableFATE:outputProcHITHStat:.cold.3()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStats startCalculateHITHStatistics:ltmGeometry:inputDriverMetadata:optimized:enableAntiAliasing:calcGlobalHistOnROI:enhancedLocalHistogram:enableDualLTC:enableFATE:outputProcHITHStat:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: thumbnailBuffer is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)startCalculateHITHStatistics:ltmGeometry:inputDriverMetadata:optimized:enableAntiAliasing:calcGlobalHistOnROI:enhancedLocalHistogram:enableDualLTC:enableFATE:outputProcHITHStat:.cold.4()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStats startCalculateHITHStatistics:ltmGeometry:inputDriverMetadata:optimized:enableAntiAliasing:calcGlobalHistOnROI:enhancedLocalHistogram:enableDualLTC:enableFATE:outputProcHITHStat:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: globalFaceHistBuffer is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)startCalculateHITHStatistics:ltmGeometry:inputDriverMetadata:optimized:enableAntiAliasing:calcGlobalHistOnROI:enhancedLocalHistogram:enableDualLTC:enableFATE:outputProcHITHStat:.cold.5()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStats startCalculateHITHStatistics:ltmGeometry:inputDriverMetadata:optimized:enableAntiAliasing:calcGlobalHistOnROI:enhancedLocalHistogram:enableDualLTC:enableFATE:outputProcHITHStat:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: globalHistBuffer is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)startCalculateHITHStatistics:ltmGeometry:inputDriverMetadata:optimized:enableAntiAliasing:calcGlobalHistOnROI:enhancedLocalHistogram:enableDualLTC:enableFATE:outputProcHITHStat:.cold.6()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStats startCalculateHITHStatistics:ltmGeometry:inputDriverMetadata:optimized:enableAntiAliasing:calcGlobalHistOnROI:enhancedLocalHistogram:enableDualLTC:enableFATE:outputProcHITHStat:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: localHistBuffer is nil", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)startCalculateHITHStatistics:ltmGeometry:inputDriverMetadata:optimized:enableAntiAliasing:calcGlobalHistOnROI:enhancedLocalHistogram:enableDualLTC:enableFATE:outputProcHITHStat:.cold.7()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStats startCalculateHITHStatistics:ltmGeometry:inputDriverMetadata:optimized:enableAntiAliasing:calcGlobalHistOnROI:enhancedLocalHistogram:enableDualLTC:enableFATE:outputProcHITHStat:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: _metalContext.commandQueue is nil.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 - (void)startCalculateHITHStatistics:ltmGeometry:inputDriverMetadata:optimized:enableAntiAliasing:calcGlobalHistOnROI:enhancedLocalHistogram:enableDualLTC:enableFATE:outputProcHITHStat:.cold.8()
 {
   OUTLINED_FUNCTION_4_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v27, v30, v33, v39, v41, v42, v43);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v25, v28, v31, v34, v36, v37, v38);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMStats startCalculateHITHStatistics:ltmGeometry:inputDriverMetadata:optimized:enableAntiAliasing:calcGlobalHistOnROI:enhancedLocalHistogram:enableDualLTC:enableFATE:outputProcHITHStat:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: rgbImageUInt16 is nil or not valid.", v26, v29, v32, v35);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v26, v29, v32, v35, SHIDWORD(v35), v40);
 }
 
 @end

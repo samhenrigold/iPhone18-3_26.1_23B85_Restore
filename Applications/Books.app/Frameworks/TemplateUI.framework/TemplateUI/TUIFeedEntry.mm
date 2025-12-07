@@ -102,108 +102,108 @@
 
       if (!self->_templateURL)
       {
-        v14 = TUIDefaultLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = TUIDefaultLog(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          sub_199CAC(v7, v14);
+          sub_199CAC(v7, v15);
         }
       }
     }
 
-    v15 = objc_opt_class();
-    v16 = [(NSDictionary *)dictionaryCopy objectForKeyedSubscript:@"load-delay"];
-    v17 = TUIDynamicCast(v15, v16);
-    [v17 floatValue];
-    self->_loadDelay = v18;
+    v16 = objc_opt_class();
+    v17 = [(NSDictionary *)dictionaryCopy objectForKeyedSubscript:@"load-delay"];
+    v18 = TUIDynamicCast(v16, v17);
+    [v18 floatValue];
+    self->_loadDelay = v19;
 
-    v19 = [(NSDictionary *)dictionaryCopy objectForKeyedSubscript:@"data"];
+    v20 = [(NSDictionary *)dictionaryCopy objectForKeyedSubscript:@"data"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v20 = [TUIFeedData feedDataWithDictionary:v19];
+      v21 = [TUIFeedData feedDataWithDictionary:v20];
       data = self->_data;
-      self->_data = v20;
+      self->_data = v21;
     }
 
-    v22 = [(NSDictionary *)dictionaryCopy objectForKeyedSubscript:@"behaviors"];
+    v23 = [(NSDictionary *)dictionaryCopy objectForKeyedSubscript:@"behaviors"];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v23 = [TUIFeedBehaviors feedBehaviorsWithDictionary:v22];
+      v24 = [TUIFeedBehaviors feedBehaviorsWithDictionary:v23];
       behaviors = self->_behaviors;
-      self->_behaviors = v23;
+      self->_behaviors = v24;
     }
 
-    v25 = objc_opt_class();
-    v26 = [(NSDictionary *)dictionaryCopy objectForKeyedSubscript:@"stackNames"];
-    v27 = TUIDynamicCast(v25, v26);
+    v26 = objc_opt_class();
+    v27 = [(NSDictionary *)dictionaryCopy objectForKeyedSubscript:@"stackNames"];
+    v28 = TUIDynamicCast(v26, v27);
 
-    if ([v27 count])
+    if ([v28 count])
     {
-      v41 = v22;
-      v42 = v7;
-      v28 = objc_alloc_init(NSMutableSet);
-      v43 = 0u;
+      v42 = v23;
+      v43 = v7;
+      v29 = objc_alloc_init(NSMutableSet);
       v44 = 0u;
       v45 = 0u;
       v46 = 0u;
-      v40 = v27;
-      v29 = v27;
-      v30 = [v29 countByEnumeratingWithState:&v43 objects:v47 count:16];
-      if (v30)
+      v47 = 0u;
+      v41 = v28;
+      v30 = v28;
+      v31 = [v30 countByEnumeratingWithState:&v44 objects:v48 count:16];
+      if (v31)
       {
-        v31 = v30;
-        v32 = *v44;
+        v32 = v31;
+        v33 = *v45;
         do
         {
-          v33 = 0;
+          v34 = 0;
           do
           {
-            if (*v44 != v32)
+            if (*v45 != v33)
             {
-              objc_enumerationMutation(v29);
+              objc_enumerationMutation(v30);
             }
 
-            v34 = *(*(&v43 + 1) + 8 * v33);
-            v35 = objc_opt_class();
-            v36 = TUIDynamicCast(v35, v34);
+            v35 = *(*(&v44 + 1) + 8 * v34);
+            v36 = objc_opt_class();
+            v37 = TUIDynamicCast(v36, v35);
 
-            if (v36)
+            if (v37)
             {
-              [v28 addObject:v34];
+              [v29 addObject:v35];
             }
 
-            v33 = v33 + 1;
+            v34 = v34 + 1;
           }
 
-          while (v31 != v33);
-          v31 = [v29 countByEnumeratingWithState:&v43 objects:v47 count:16];
+          while (v32 != v34);
+          v32 = [v30 countByEnumeratingWithState:&v44 objects:v48 count:16];
         }
 
-        while (v31);
+        while (v32);
       }
 
-      if ([v28 count])
+      if ([v29 count])
       {
-        [(TUIFeedEntry *)self setStackNames:v28];
+        [(TUIFeedEntry *)self setStackNames:v29];
       }
 
-      v22 = v41;
-      v7 = v42;
-      v27 = v40;
+      v23 = v42;
+      v7 = v43;
+      v28 = v41;
     }
 
     else
     {
-      v37 = objc_opt_class();
-      v38 = [(NSDictionary *)dictionaryCopy objectForKeyedSubscript:@"stackName"];
-      v28 = TUIDynamicCast(v37, v38);
+      v38 = objc_opt_class();
+      v39 = [(NSDictionary *)dictionaryCopy objectForKeyedSubscript:@"stackName"];
+      v29 = TUIDynamicCast(v38, v39);
 
-      if ([v28 length])
+      if ([v29 length])
       {
-        v39 = [NSSet setWithObject:v28];
-        [(TUIFeedEntry *)self setStackNames:v39];
+        v40 = [NSSet setWithObject:v29];
+        [(TUIFeedEntry *)self setStackNames:v40];
       }
     }
   }
@@ -270,26 +270,26 @@ LABEL_6:
   v8 = [(TUIFeedBehaviors *)self->_behaviors behaviorWithName:nameCopy];
   if (v8 && ([(TUIFeedEntry *)self delegate], (v9 = objc_claimAutoreleasedReturnValue()) != 0) && (v10 = v9, [(TUIFeedEntry *)self delegate], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_opt_respondsToSelector(), v11, v10, (v12 & 1) != 0))
   {
-    v13 = TUIDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = TUIDefaultLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v17 = 138412546;
-      v18 = nameCopy;
-      v19 = 2112;
-      v20 = argumentsCopy;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "Feed handling behavior '%@' : %@", &v17, 0x16u);
+      v18 = 138412546;
+      v19 = nameCopy;
+      v20 = 2112;
+      v21 = argumentsCopy;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "Feed handling behavior '%@' : %@", &v18, 0x16u);
     }
 
     delegate = [(TUIFeedEntry *)self delegate];
-    v15 = [delegate feedEntry:self handleBehavior:v8 name:nameCopy arguments:argumentsCopy];
+    v16 = [delegate feedEntry:self handleBehavior:v8 name:nameCopy arguments:argumentsCopy];
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  return v15;
+  return v16;
 }
 
 - (id)dragItemForFeedEntry:(id)entry name:(id)name arguments:(id)arguments imageResourceBlock:(id)block
@@ -301,26 +301,26 @@ LABEL_6:
   delegate = [(TUIFeedEntry *)self delegate];
   if (delegate && (v15 = delegate, [(TUIFeedEntry *)self delegate], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_opt_respondsToSelector(), v16, v15, (v17 & 1) != 0))
   {
-    v18 = TUIDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v19 = TUIDefaultLog(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v22 = 138412546;
-      v23 = nameCopy;
-      v24 = 2112;
-      v25 = argumentsCopy;
-      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "Feed handling drag behavior '%@' : %@", &v22, 0x16u);
+      v23 = 138412546;
+      v24 = nameCopy;
+      v25 = 2112;
+      v26 = argumentsCopy;
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "Feed handling drag behavior '%@' : %@", &v23, 0x16u);
     }
 
     delegate2 = [(TUIFeedEntry *)self delegate];
-    v20 = [delegate2 dragItemForFeedEntry:entryCopy name:nameCopy arguments:argumentsCopy imageResourceBlock:blockCopy];
+    v21 = [delegate2 dragItemForFeedEntry:entryCopy name:nameCopy arguments:argumentsCopy imageResourceBlock:blockCopy];
   }
 
   else
   {
-    v20 = 0;
+    v21 = 0;
   }
 
-  return v20;
+  return v21;
 }
 
 - (void)performDropWithSession:(id)session behavior:(id)behavior
@@ -336,12 +336,12 @@ LABEL_6:
 
     if (v11)
     {
-      v12 = TUIDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = TUIDefaultLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v14 = 138412290;
-        v15 = behaviorCopy;
-        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "Feed handling drop behavior '%@", &v14, 0xCu);
+        v15 = 138412290;
+        v16 = behaviorCopy;
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "Feed handling drop behavior '%@", &v15, 0xCu);
       }
 
       delegate3 = [(TUIFeedEntry *)self delegate];

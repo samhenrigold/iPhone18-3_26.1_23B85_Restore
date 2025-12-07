@@ -240,7 +240,7 @@
 
 - (id)firstOfTheDayClipForDate:(id)date
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   firstOfTheDayClips = [(HFCameraPlaybackEngineEventCache *)self firstOfTheDayClips];
   hf_startOfDay = [dateCopy hf_startOfDay];
@@ -252,15 +252,13 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       hf_prettyDescription = [v7 hf_prettyDescription];
-      v12 = 138412546;
-      v13 = dateCopy;
-      v14 = 2112;
-      v15 = hf_prettyDescription;
-      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Found first of the day clip for date: %@; clip: %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = dateCopy;
+      v13 = 2112;
+      v14 = hf_prettyDescription;
+      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Found first of the day clip for date: %@; clip: %@", &v11, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -332,7 +330,7 @@ void __53__HFCameraPlaybackEngineEventCache_updateWithEvents___block_invoke(uint
 
 - (void)_updateWithEvents:(id)events completion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   eventsCopy = events;
   if (!+[HFUtilities isInternalTest])
@@ -345,20 +343,18 @@ void __53__HFCameraPlaybackEngineEventCache_updateWithEvents___block_invoke(uint
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "[HFCameraPlaybackEngineEventCache _updateWithEvents:completion:]";
+    v14 = "[HFCameraPlaybackEngineEventCache _updateWithEvents:completion:]";
     _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __65__HFCameraPlaybackEngineEventCache__updateWithEvents_completion___block_invoke;
-  v12[3] = &unk_277DF2900;
-  v12[4] = self;
-  v13 = completionCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __65__HFCameraPlaybackEngineEventCache__updateWithEvents_completion___block_invoke;
+  v11[3] = &unk_277DF2900;
+  v11[4] = self;
+  v12 = completionCopy;
   v10 = completionCopy;
-  [(HFCameraPlaybackEngineEventCache *)self _validateAndInsertRawEvents:eventsCopy completion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(HFCameraPlaybackEngineEventCache *)self _validateAndInsertRawEvents:eventsCopy completion:v11];
 }
 
 - (id)removeEventUUIDs:(id)ds
@@ -494,9 +490,9 @@ void __65__HFCameraPlaybackEngineEventCache__removeEventUUIDs_completion___block
   {
     if ([v3 containerType] == 1)
     {
-      [v4 duration];
+      objc_msgSend_duration(v4);
       v6 = v5;
-      [*(*(*(a1 + 64) + 8) + 40) duration];
+      objc_msgSend_duration(*(*(*(a1 + 64) + 8) + 40));
       if (vabdd_f64(v6, v7) < 2.22044605e-16)
       {
         v8 = *(*(a1 + 64) + 8);
@@ -557,9 +553,9 @@ void __65__HFCameraPlaybackEngineEventCache__removeEventUUIDs_completion___block
   v6 = 0;
 LABEL_9:
 
-  [v6 duration];
+  objc_msgSend_duration(v6);
   v10 = v9;
-  [*(*(*(a1 + 32) + 8) + 40) duration];
+  objc_msgSend_duration(*(*(*(a1 + 32) + 8) + 40));
   v12 = v10 <= v11;
   v13 = vabdd_f64(v10, v11);
   if (!v12 && v13 >= 2.22044605e-16)
@@ -745,7 +741,7 @@ void __67__HFCameraPlaybackEngineEventCache__removeAllEventsWithCompletion___blo
 
 - (void)_validateAndInsertRawEvents:(id)events completion:(id)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   completionCopy = completion;
   if (!+[HFUtilities isInternalTest])
@@ -775,25 +771,25 @@ void __67__HFCameraPlaybackEngineEventCache__removeAllEventsWithCompletion___blo
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v36 = __Block_byref_object_copy_;
-  v37 = __Block_byref_object_dispose_;
+  v35 = __Block_byref_object_copy_;
+  v36 = __Block_byref_object_dispose_;
   clipWithLongestDuration = [(HFCameraPlaybackEngineEventCache *)self clipWithLongestDuration];
-  v25 = MEMORY[0x277D85DD0];
-  v26 = 3221225472;
-  v27 = __75__HFCameraPlaybackEngineEventCache__validateAndInsertRawEvents_completion___block_invoke;
-  v28 = &unk_277DF2A40;
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 3221225472;
+  v26 = __75__HFCameraPlaybackEngineEventCache__validateAndInsertRawEvents_completion___block_invoke;
+  v27 = &unk_277DF2A40;
   selfCopy = self;
-  v34 = buf;
+  v33 = buf;
   v16 = v11;
-  v30 = v16;
+  v29 = v16;
   v17 = v13;
-  v31 = v17;
+  v30 = v17;
   v18 = v15;
-  v32 = v18;
+  v31 = v18;
   v19 = v14;
-  v33 = v19;
-  [eventsCopy na_each:&v25];
-  [(HFCameraPlaybackEngineEventCache *)self setRawEvents:v17, v25, v26, v27, v28, selfCopy];
+  v32 = v19;
+  [eventsCopy na_each:&v24];
+  [(HFCameraPlaybackEngineEventCache *)self setRawEvents:v17, v24, v25, v26, v27, selfCopy];
   [(HFCameraPlaybackEngineEventCache *)self setRawEventsByUniqueIdentifier:v16];
   [(HFCameraPlaybackEngineEventCache *)self setClipWithLongestDuration:*(*&buf[8] + 40)];
   debugLogger = [(HFCameraPlaybackEngineEventCache *)self debugLogger];
@@ -805,15 +801,12 @@ void __67__HFCameraPlaybackEngineEventCache__removeAllEventsWithCompletion___blo
 
   completionCopy[2](completionCopy, v23);
   _Block_object_dispose(buf, 8);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HFCameraPlaybackEngineEventCache__validateAndInsertRawEvents_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = *(a1 + 32);
   if ([objc_opt_class() isValidEvent:v3])
   {
     if ([v3 containerType] != 1)
@@ -821,192 +814,190 @@ void __75__HFCameraPlaybackEngineEventCache__validateAndInsertRawEvents_completi
       goto LABEL_16;
     }
 
-    v5 = objc_opt_class();
-    v6 = v3;
-    if (v6)
+    v4 = objc_opt_class();
+    v5 = v3;
+    if (v5)
     {
       if (objc_opt_isKindOfClass())
       {
-        v7 = v6;
+        v6 = v5;
       }
 
       else
       {
-        v7 = 0;
+        v6 = 0;
       }
 
-      v8 = v6;
-      if (v7)
+      v7 = v5;
+      if (v6)
       {
         goto LABEL_10;
       }
 
-      v9 = [MEMORY[0x277CCA890] currentHandler];
-      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"id  _Nullable NAAssertCast(Class  _Nonnull __unsafe_unretained, id  _Nonnull __strong)"}];
-      [v9 handleFailureInFunction:v10 file:@"NSObject+NAAdditions.h" lineNumber:54 description:{@"Expected class of %@ but was %@", v5, objc_opt_class()}];
+      v8 = [MEMORY[0x277CCA890] currentHandler];
+      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"id  _Nullable NAAssertCast(Class  _Nonnull __unsafe_unretained, id  _Nonnull __strong)"}];
+      [v8 handleFailureInFunction:v9 file:@"NSObject+NAAdditions.h" lineNumber:54 description:{@"Expected class of %@ but was %@", v4, objc_opt_class()}];
     }
 
-    v8 = 0;
+    v7 = 0;
 LABEL_10:
 
-    [v8 hf_sortSignificantEvents];
-    [v8 duration];
-    v12 = v11;
-    [*(*(*(a1 + 72) + 8) + 40) duration];
-    v14 = v12 <= v13;
-    v15 = vabdd_f64(v12, v13);
-    if (!v14 && v15 >= 2.22044605e-16)
+    [v7 hf_sortSignificantEvents];
+    objc_msgSend_duration(v7);
+    v11 = v10;
+    objc_msgSend_duration(*(*(*(a1 + 72) + 8) + 40));
+    v13 = v11 <= v12;
+    v14 = vabdd_f64(v11, v12);
+    if (!v13 && v14 >= 2.22044605e-16)
     {
-      objc_storeStrong((*(*(a1 + 72) + 8) + 40), v8);
+      objc_storeStrong((*(*(a1 + 72) + 8) + 40), v7);
     }
 
 LABEL_16:
-    v17 = *(a1 + 40);
-    v18 = [v3 uniqueIdentifier];
-    v19 = [v17 objectForKeyedSubscript:v18];
+    v16 = *(a1 + 40);
+    v17 = [v3 uniqueIdentifier];
+    v18 = [v16 objectForKeyedSubscript:v17];
 
-    if (v19)
+    if (v18)
     {
-      v20 = [v3 dateOfOccurrence];
-      v21 = [v19 dateOfOccurrence];
-      v22 = [v20 isEqualToDate:v21];
+      v19 = [v3 dateOfOccurrence];
+      v20 = [v18 dateOfOccurrence];
+      v21 = [v19 isEqualToDate:v20];
 
-      v23 = *(a1 + 48);
-      if (!v22)
+      v22 = *(a1 + 48);
+      if (!v21)
       {
-        v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 3221225472;
-        v52[2] = __75__HFCameraPlaybackEngineEventCache__validateAndInsertRawEvents_completion___block_invoke_34;
-        v52[3] = &unk_277DF2A18;
-        v33 = v3;
-        v53 = v33;
-        v34 = [v23 indexOfObjectPassingTest:v52];
-        if (v34 == 0x7FFFFFFFFFFFFFFFLL)
+        v50[0] = MEMORY[0x277D85DD0];
+        v50[1] = 3221225472;
+        v50[2] = __75__HFCameraPlaybackEngineEventCache__validateAndInsertRawEvents_completion___block_invoke_34;
+        v50[3] = &unk_277DF2A18;
+        v32 = v3;
+        v51 = v32;
+        v33 = [v22 indexOfObjectPassingTest:v50];
+        if (v33 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v35 = HFLogForCategory(0x17uLL);
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v34 = HFLogForCategory(0x17uLL);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v55 = v33;
-            _os_log_error_impl(&dword_20D9BF000, v35, OS_LOG_TYPE_ERROR, "Could not locate existing event using indexOfObjectPassingTest: %@", buf, 0xCu);
+            v53 = v32;
+            _os_log_error_impl(&dword_20D9BF000, v34, OS_LOG_TYPE_ERROR, "Could not locate existing event using indexOfObjectPassingTest: %@", buf, 0xCu);
           }
         }
 
         else
         {
-          [*(a1 + 48) removeObjectAtIndex:v34];
-          v43 = *(a1 + 40);
-          v35 = [v33 uniqueIdentifier];
-          [v43 setObject:0 forKeyedSubscript:v35];
+          [*(a1 + 48) removeObjectAtIndex:v33];
+          v42 = *(a1 + 40);
+          v34 = [v32 uniqueIdentifier];
+          [v42 setObject:0 forKeyedSubscript:v34];
         }
 
-        v44 = *(a1 + 48);
-        v45 = +[HFCameraUtilities cameraRecordingEventDateOfOccurenceComparator];
-        v46 = [v44 hf_insertObject:v33 intoSortedArrayWithOptions:1024 comparator:v45];
+        v43 = *(a1 + 48);
+        v44 = +[HFCameraUtilities cameraRecordingEventDateOfOccurenceComparator];
+        v45 = [v43 hf_insertObject:v32 intoSortedArrayWithOptions:1024 comparator:v44];
 
-        if (v46 == 0x7FFFFFFFFFFFFFFFLL)
+        if (v45 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v47 = HFLogForCategory(0x17uLL);
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v46 = HFLogForCategory(0x17uLL);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v55 = v33;
-            _os_log_error_impl(&dword_20D9BF000, v47, OS_LOG_TYPE_ERROR, "Invalid insertion index after removing existing event: %@", buf, 0xCu);
+            v53 = v32;
+            _os_log_error_impl(&dword_20D9BF000, v46, OS_LOG_TYPE_ERROR, "Invalid insertion index after removing existing event: %@", buf, 0xCu);
           }
         }
 
         else
         {
-          v48 = *(a1 + 40);
-          v49 = [v33 uniqueIdentifier];
-          [v48 setObject:v33 forKeyedSubscript:v49];
+          v47 = *(a1 + 40);
+          v48 = [v32 uniqueIdentifier];
+          [v47 setObject:v32 forKeyedSubscript:v48];
 
-          v50 = *(a1 + 56);
-          v47 = [v33 uniqueIdentifier];
-          [v50 addObject:v47];
+          v49 = *(a1 + 56);
+          v46 = [v32 uniqueIdentifier];
+          [v49 addObject:v46];
         }
 
         goto LABEL_42;
       }
 
-      v24 = [*(a1 + 48) count];
-      v25 = +[HFCameraUtilities cameraRecordingEventDateOfOccurenceComparator];
-      v26 = [v23 indexOfObject:v19 inSortedRange:0 options:v24 usingComparator:{256, v25}];
+      v23 = [*(a1 + 48) count];
+      v24 = +[HFCameraUtilities cameraRecordingEventDateOfOccurenceComparator];
+      v25 = [v22 indexOfObject:v18 inSortedRange:0 options:v23 usingComparator:{256, v24}];
 
-      v27 = HFLogForCategory(0x17uLL);
-      v28 = v27;
-      if (v26 == 0x7FFFFFFFFFFFFFFFLL)
+      v26 = HFLogForCategory(0x17uLL);
+      v27 = v26;
+      if (v25 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v55 = v3;
-          _os_log_error_impl(&dword_20D9BF000, v28, OS_LOG_TYPE_ERROR, "Could not locate existing event using indexOfObject: %@", buf, 0xCu);
+          v53 = v3;
+          _os_log_error_impl(&dword_20D9BF000, v27, OS_LOG_TYPE_ERROR, "Could not locate existing event using indexOfObject: %@", buf, 0xCu);
         }
       }
 
       else
       {
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          v37 = [v19 hf_prettyDescription];
-          v38 = [v3 hf_prettyDescription];
+          v36 = [v18 hf_prettyDescription];
+          v37 = [v3 hf_prettyDescription];
           *buf = 138412546;
+          v53 = v36;
+          v54 = 2112;
           v55 = v37;
-          v56 = 2112;
-          v57 = v38;
-          _os_log_impl(&dword_20D9BF000, v28, OS_LOG_TYPE_DEFAULT, "Updating event: old: %@; new: %@", buf, 0x16u);
+          _os_log_impl(&dword_20D9BF000, v27, OS_LOG_TYPE_DEFAULT, "Updating event: old: %@; new: %@", buf, 0x16u);
         }
 
-        [*(a1 + 48) replaceObjectAtIndex:v26 withObject:v3];
-        v39 = *(a1 + 40);
-        v40 = [v3 uniqueIdentifier];
-        [v39 setObject:v3 forKeyedSubscript:v40];
+        [*(a1 + 48) replaceObjectAtIndex:v25 withObject:v3];
+        v38 = *(a1 + 40);
+        v39 = [v3 uniqueIdentifier];
+        [v38 setObject:v3 forKeyedSubscript:v39];
 
-        v41 = [v19 containerType];
-        if (v41 == [v3 containerType])
+        v40 = [v18 containerType];
+        if (v40 == [v3 containerType])
         {
-          v42 = *(a1 + 64);
+          v41 = *(a1 + 64);
         }
 
         else
         {
-          v42 = *(a1 + 56);
+          v41 = *(a1 + 56);
         }
 
-        v28 = [v3 uniqueIdentifier];
-        [v42 addObject:v28];
+        v27 = [v3 uniqueIdentifier];
+        [v41 addObject:v27];
       }
     }
 
     else
     {
-      v29 = *(a1 + 48);
-      v30 = +[HFCameraUtilities cameraRecordingEventDateOfOccurenceComparator];
-      v31 = [v29 hf_insertObject:v3 intoSortedArrayWithOptions:1024 comparator:v30];
+      v28 = *(a1 + 48);
+      v29 = +[HFCameraUtilities cameraRecordingEventDateOfOccurenceComparator];
+      v30 = [v28 hf_insertObject:v3 intoSortedArrayWithOptions:1024 comparator:v29];
 
-      if (v31 == 0x7FFFFFFFFFFFFFFFLL)
+      if (v30 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v32 = HFLogForCategory(0x17uLL);
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v31 = HFLogForCategory(0x17uLL);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v55 = v3;
-          _os_log_error_impl(&dword_20D9BF000, v32, OS_LOG_TYPE_ERROR, "Invalid insertion index: %@", buf, 0xCu);
+          v53 = v3;
+          _os_log_error_impl(&dword_20D9BF000, v31, OS_LOG_TYPE_ERROR, "Invalid insertion index: %@", buf, 0xCu);
         }
 
         goto LABEL_42;
       }
 
-      v36 = *(a1 + 40);
-      v28 = [v3 uniqueIdentifier];
-      [v36 setObject:v3 forKeyedSubscript:v28];
+      v35 = *(a1 + 40);
+      v27 = [v3 uniqueIdentifier];
+      [v35 setObject:v3 forKeyedSubscript:v27];
     }
 
 LABEL_42:
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __75__HFCameraPlaybackEngineEventCache__validateAndInsertRawEvents_completion___block_invoke_34(uint64_t a1, void *a2)
@@ -1020,7 +1011,7 @@ uint64_t __75__HFCameraPlaybackEngineEventCache__validateAndInsertRawEvents_comp
 
 - (void)_generateViewModelWithRawEventUpdates:(id)updates completion:(id)completion
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   updatesCopy = updates;
   completionCopy = completion;
   if (!+[HFUtilities isInternalTest])
@@ -1041,35 +1032,35 @@ uint64_t __75__HFCameraPlaybackEngineEventCache__validateAndInsertRawEvents_comp
   aBlock[2] = __85__HFCameraPlaybackEngineEventCache__generateViewModelWithRawEventUpdates_completion___block_invoke;
   aBlock[3] = &unk_277DF2A88;
   v14 = array;
-  v55 = v14;
-  v36 = updatesCopy;
+  v54 = v14;
+  v35 = updatesCopy;
+  v55 = v35;
+  v36 = v10;
   v56 = v36;
-  v37 = v10;
-  v57 = v37;
   v15 = v11;
-  v58 = v15;
-  v39 = strongToWeakObjectsMapTable;
-  v59 = v39;
+  v57 = v15;
+  v38 = strongToWeakObjectsMapTable;
+  v58 = v38;
   v16 = strongToWeakObjectsMapTable2;
-  v60 = v16;
+  v59 = v16;
   v17 = _Block_copy(aBlock);
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy_;
-  v52 = __Block_byref_object_dispose_;
-  v53 = 0;
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __85__HFCameraPlaybackEngineEventCache__generateViewModelWithRawEventUpdates_completion___block_invoke_39;
-  v44[3] = &unk_277DF2AB0;
-  v47 = &v48;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy_;
+  v51 = __Block_byref_object_dispose_;
+  v52 = 0;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __85__HFCameraPlaybackEngineEventCache__generateViewModelWithRawEventUpdates_completion___block_invoke_39;
+  v43[3] = &unk_277DF2AB0;
+  v46 = &v47;
   v18 = v17;
-  v46 = v18;
+  v45 = v18;
   v19 = array2;
-  v45 = v19;
-  [rawEvents na_each:v44];
-  if (v49[5])
+  v44 = v19;
+  [rawEvents na_each:v43];
+  if (v48[5])
   {
     lastObject = [rawEvents lastObject];
     objc_opt_class();
@@ -1098,7 +1089,7 @@ uint64_t __75__HFCameraPlaybackEngineEventCache__validateAndInsertRawEvents_comp
 
     v25 = v24;
     v26 = [HFCameraScrubberReachabilityEventContainer alloc];
-    v27 = [(HFCameraScrubberReachabilityEventContainer *)v26 initWithStartEvent:v49[5] endEvent:v25];
+    v27 = [(HFCameraScrubberReachabilityEventContainer *)v26 initWithStartEvent:v48[5] endEvent:v25];
     (*(v18 + 2))(v18, v27);
   }
 
@@ -1107,22 +1098,22 @@ uint64_t __75__HFCameraPlaybackEngineEventCache__validateAndInsertRawEvents_comp
   {
     v29 = [v14 count];
     *buf = 136315394;
-    v62 = "[HFCameraPlaybackEngineEventCache _generateViewModelWithRawEventUpdates:completion:]";
-    v63 = 2048;
-    v64 = v29;
+    v61 = "[HFCameraPlaybackEngineEventCache _generateViewModelWithRawEventUpdates:completion:]";
+    v62 = 2048;
+    v63 = v29;
     _os_log_impl(&dword_20D9BF000, v28, OS_LOG_TYPE_DEFAULT, "%s: adding %lu events to cache", buf, 0x16u);
   }
 
   [(HFCameraPlaybackEngineEventCache *)self setEvents:v14];
   [(HFCameraPlaybackEngineEventCache *)self setClips:v19];
-  [(HFCameraPlaybackEngineEventCache *)self setFirstOfTheDayClips:v39];
+  [(HFCameraPlaybackEngineEventCache *)self setFirstOfTheDayClips:v38];
   [(HFCameraPlaybackEngineEventCache *)self setFirstOfTheDayEvents:v16];
   debugLogger = [(HFCameraPlaybackEngineEventCache *)self debugLogger];
   [debugLogger logEvents:v14 toJSONWithDebugLogType:1 completionHandler:&__block_literal_global_44];
 
   v31 = [HFCameraPlaybackEngineEventCacheUpdateResult alloc];
   v32 = [MEMORY[0x277CBEB98] set];
-  v33 = [(HFCameraPlaybackEngineEventCacheUpdateResult *)v31 initWithUpdatedIdentifiers:v37 replacedIdentifiers:v15 removedIdentifiers:v32];
+  v33 = [(HFCameraPlaybackEngineEventCacheUpdateResult *)v31 initWithUpdatedIdentifiers:v36 replacedIdentifiers:v15 removedIdentifiers:v32];
 
   if (+[HFUtilities isInternalTest])
   {
@@ -1136,18 +1127,17 @@ uint64_t __75__HFCameraPlaybackEngineEventCache__validateAndInsertRawEvents_comp
     block[1] = 3221225472;
     block[2] = __85__HFCameraPlaybackEngineEventCache__generateViewModelWithRawEventUpdates_completion___block_invoke_2;
     block[3] = &unk_277DF2AD8;
-    v43 = completionCopy;
-    v42 = v33;
+    v42 = completionCopy;
+    v41 = v33;
     dispatch_async(workQueue2, block);
   }
 
-  _Block_object_dispose(&v48, 8);
-  v35 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v47, 8);
 }
 
 void __85__HFCameraPlaybackEngineEventCache__generateViewModelWithRawEventUpdates_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) addObject:v3];
   if ([v3 containerType] != 2)
@@ -1215,9 +1205,9 @@ LABEL_8:
       v16 = [v7 eventUniqueIdentifiers];
       v17 = [v15 na_setByIntersectingWithSet:v16];
       *buf = 138412546;
-      v58 = v14;
-      v59 = 2112;
-      v60 = v17;
+      v57 = v14;
+      v58 = 2112;
+      v59 = v17;
       _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "Reachability event container contains updated events: %@; identifiers: %@", buf, 0x16u);
     }
 
@@ -1231,7 +1221,7 @@ LABEL_14:
     {
       v24 = [v3 hf_prettyDescription];
       *buf = 138412290;
-      v58 = v24;
+      v57 = v24;
       v25 = "Added event to updatedIdentifiers: %@";
 LABEL_21:
       _os_log_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_DEFAULT, v25, buf, 0xCu);
@@ -1258,7 +1248,7 @@ LABEL_19:
     {
       v24 = [v3 hf_prettyDescription];
       *buf = 138412290;
-      v58 = v24;
+      v57 = v24;
       v25 = "Added event to replacedIdentifiers: %@";
       goto LABEL_21;
     }
@@ -1328,8 +1318,6 @@ LABEL_34:
   {
     [v36 setObject:v37 forKey:v39];
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 void __85__HFCameraPlaybackEngineEventCache__generateViewModelWithRawEventUpdates_completion___block_invoke_39(uint64_t a1, void *a2)
@@ -1449,7 +1437,7 @@ LABEL_27:
 
 + (BOOL)isValidEvent:(id)event
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   objc_opt_class();
   v4 = eventCopy;
@@ -1470,9 +1458,9 @@ LABEL_27:
     v7 = HFLogForCategory(0x17uLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = v6;
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "[INVALID]: timeline ineligible: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v6;
+      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "[INVALID]: timeline ineligible: %@", &v16, 0xCu);
     }
 
 LABEL_9:
@@ -1483,15 +1471,15 @@ LABEL_9:
   v9 = v4;
   if ([v9 isComplete])
   {
-    [v9 duration];
+    objc_msgSend_duration(v9);
     if (fabs(v10) < 2.22044605e-16)
     {
       v6 = HFLogForCategory(0x17uLL);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138412290;
-        v18 = v9;
-        _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "[INVALID]: not displayable: %@", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = v9;
+        _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "[INVALID]: not displayable: %@", &v16, 0xCu);
       }
 
       goto LABEL_9;
@@ -1509,33 +1497,31 @@ LABEL_9:
     v14 = HFLogForCategory(0x17uLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = v11;
-      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "[INVALID]: expired: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v11;
+      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "[INVALID]: expired: %@", &v16, 0xCu);
     }
   }
 
 LABEL_18:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0x17uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[HFCameraPlaybackEngineEventCache dealloc]";
+    v6 = "[HFCameraPlaybackEngineEventCache dealloc]";
     _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = HFCameraPlaybackEngineEventCache;
-  [(HFCameraPlaybackEngineEventCache *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = HFCameraPlaybackEngineEventCache;
+  [(HFCameraPlaybackEngineEventCache *)&v4 dealloc];
 }
 
 - (void)_setupDebugHandler

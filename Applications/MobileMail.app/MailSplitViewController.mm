@@ -91,8 +91,8 @@
   v2 = qword_1006DD180;
   if (!qword_1006DD180)
   {
-    v3 = sub_100025E9C();
-    v4 = sub_100024318();
+    v3 = sub_100025E9C(MailSplitViewController);
+    v4 = sub_100024318(MailSplitViewController);
     v5 = [v3 arrayByAddingObjectsFromArray:v4];
     v6 = qword_1006DD180;
     qword_1006DD180 = v5;
@@ -109,9 +109,9 @@
   navigationControllerCopy = navigationController;
   detailNavigationControllerCopy = detailNavigationController;
   sceneCopy = scene;
-  v26.receiver = self;
-  v26.super_class = MailSplitViewController;
-  v15 = [(MailSplitViewController *)&v26 initWithStyle:2];
+  v27.receiver = self;
+  v27.super_class = MailSplitViewController;
+  v15 = [(MailSplitViewController *)&v27 initWithStyle:2];
   v16 = v15;
   if (v15)
   {
@@ -144,7 +144,7 @@
     previouslyFocusedColumn = v16->_previouslyFocusedColumn;
     v16->_previouslyFocusedColumn = &off_1006741E0;
 
-    sub_10048972C(v16);
+    sub_10048972C(v16, v25);
   }
 
   return v16;

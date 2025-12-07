@@ -14,6 +14,7 @@
 - (void)setAllowFingerToSwipeFromCorner:(id)corner specifier:(id)specifier;
 - (void)setBottomLeftCornerGestureFeature:(id)feature specifier:(id)specifier;
 - (void)setBottomRightCornerGestureFeature:(id)feature specifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation ICSettingsGesturesViewController
@@ -46,6 +47,14 @@
   v3.receiver = self;
   v3.super_class = ICSettingsGesturesViewController;
   [(ICSettingsGesturesViewController *)&v3 dealloc];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ICSettingsGesturesViewController;
+  [(ICSettingsGesturesViewController *)&v4 viewDidAppear:appear];
+  [(ICSettingsGesturesViewController *)self ic_submitNavigationEventForIdentifier:ICCornerGesturesPrefIdentifier titleStringKey:@"CORNER_GESTURES" navigationComponents:&off_1EEA8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

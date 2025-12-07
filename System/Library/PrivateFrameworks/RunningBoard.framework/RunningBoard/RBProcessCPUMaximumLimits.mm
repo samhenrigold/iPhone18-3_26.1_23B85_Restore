@@ -27,48 +27,29 @@
 {
   limitCopy = limit;
   v5 = limitCopy;
-  if (!limitCopy)
+  if (limitCopy && limitCopy != self && ((percentage = self->_percentage, duration = self->_duration, v8 = [(RBProcessCPUMaximumLimits *)limitCopy duration], v9 = [(RBProcessCPUMaximumLimits *)v5 percentage], v10 = v9 * v8, v11 = percentage * duration, violationPolicy = self->_violationPolicy, v13 = [(RBProcessCPUMaximumLimits *)v5 violationPolicy], v13 > violationPolicy) || v10 < v11))
   {
-    goto LABEL_5;
-  }
-
-  if (limitCopy == self)
-  {
-    goto LABEL_5;
-  }
-
-  percentage = self->_percentage;
-  duration = self->_duration;
-  duration = [(RBProcessCPUMaximumLimits *)limitCopy duration];
-  percentage = [(RBProcessCPUMaximumLimits *)v5 percentage];
-  v10 = percentage * duration;
-  v11 = percentage * duration;
-  violationPolicy = self->_violationPolicy;
-  violationPolicy = [(RBProcessCPUMaximumLimits *)v5 violationPolicy];
-  if (violationPolicy > violationPolicy || v10 < v11)
-  {
-    if (violationPolicy <= violationPolicy)
+    if (v13 <= violationPolicy)
     {
       v15 = violationPolicy;
     }
 
     else
     {
-      v15 = violationPolicy;
+      v15 = v13;
     }
 
     if (v10 >= v11)
     {
-      percentage = percentage;
-      duration = duration;
+      v9 = percentage;
+      v8 = duration;
     }
 
-    selfCopy = [[RBProcessCPUMaximumLimits alloc] initWithPercentage:percentage duration:duration violationPolicy:v15];
+    selfCopy = [[RBProcessCPUMaximumLimits alloc] initWithPercentage:v9 duration:v8 violationPolicy:v15];
   }
 
   else
   {
-LABEL_5:
     selfCopy = self;
   }
 
@@ -108,11 +89,10 @@ LABEL_5:
   v4 = [objc_opt_class() description];
   percentage = self->_percentage;
   duration = self->_duration;
-  violationPolicy = self->_violationPolicy;
-  v8 = NSStringFromRBSCPUMaximumUsageViolationPolicy();
-  v9 = [v3 initWithFormat:@"<%@| percentage:%lu duration:%lu violationPolicy:%@>", v4, percentage, duration, v8];
+  v7 = NSStringFromRBSCPUMaximumUsageViolationPolicy();
+  v8 = [v3 initWithFormat:@"<%@| percentage:%lu duration:%lu violationPolicy:%@>", v4, percentage, duration, v7];
 
-  return v9;
+  return v8;
 }
 
 @end

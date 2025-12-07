@@ -5,6 +5,7 @@
 - (id)dequeueAllMessageIds;
 - (id)dequeueMessageId;
 - (void)addResult:(id)result isProtectedMessage:(BOOL)message;
+- (void)addResults:(id)results isProtectedMessage:(BOOL)message;
 - (void)cancelRequestForMessageId:(id)id;
 - (void)cancelRequestForMessageIds:(id)ids;
 @end
@@ -152,6 +153,40 @@
     }
 
     while (v5);
+  }
+}
+
+- (void)addResults:(id)results isProtectedMessage:(BOOL)message
+{
+  messageCopy = message;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  resultsCopy = results;
+  v7 = [resultsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v7)
+  {
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(resultsCopy);
+        }
+
+        [(MFNanoServerFullMessageLoaderBatchRequest *)self addResult:*(*(&v10 + 1) + 8 * v9) isProtectedMessage:messageCopy, v10];
+        v9 = v9 + 1;
+      }
+
+      while (v7 != v9);
+      v7 = [resultsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v7);
   }
 }
 

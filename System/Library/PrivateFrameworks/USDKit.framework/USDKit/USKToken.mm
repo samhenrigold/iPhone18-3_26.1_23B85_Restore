@@ -133,7 +133,7 @@
 
 + (id)nodeTypeWithTfToken:(TfToken)token
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v8[60] = *MEMORY[0x277D85DE8];
   sub_27035CAC4();
   if ((atomic_load_explicit(&qword_2807CE4E0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2807CE4E0))
   {
@@ -147,18 +147,18 @@
 
   else
   {
-    v4 = (sub_2703391C4(qword_2807CE4D8, token._rep._ptrAndBits) + 40);
+    v8[0] = token._rep._ptrAndBits;
+    v4 = (sub_2703391C4(qword_2807CE4D8, token._rep._ptrAndBits, &unk_270370EE0, v8, &v7) + 5);
   }
 
   v5 = *v4;
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (id)schemaTypeWithTfToken:(TfToken)token
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v8[26] = *MEMORY[0x277D85DE8];
   sub_27035CAC4();
   if ((atomic_load_explicit(&qword_2807CE4F0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2807CE4F0))
   {
@@ -172,18 +172,18 @@
 
   else
   {
-    v4 = (sub_2703391C4(qword_2807CE4E8, token._rep._ptrAndBits) + 40);
+    v8[0] = token._rep._ptrAndBits;
+    v4 = (sub_2703391C4(qword_2807CE4E8, token._rep._ptrAndBits, &unk_270370EE0, v8, &v7) + 5);
   }
 
   v5 = *v4;
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (id)roleTypeWithTfToken:(TfToken)token
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v8[10] = *MEMORY[0x277D85DE8];
   sub_27035CAC4();
   if ((atomic_load_explicit(&qword_2807CE500, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2807CE500))
   {
@@ -197,18 +197,18 @@
 
   else
   {
-    v4 = (sub_2703391C4(qword_2807CE4F8, token._rep._ptrAndBits) + 40);
+    v8[0] = token._rep._ptrAndBits;
+    v4 = (sub_2703391C4(qword_2807CE4F8, token._rep._ptrAndBits, &unk_270370EE0, v8, &v7) + 5);
   }
 
   v5 = *v4;
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (id)dataTypeWithTfToken:(TfToken)token
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v8[88] = *MEMORY[0x277D85DE8];
   sub_27035CAC4();
   if ((atomic_load_explicit(&qword_2807CE510, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2807CE510))
   {
@@ -222,11 +222,11 @@
 
   else
   {
-    v4 = (sub_2703391C4(qword_2807CE508, token._rep._ptrAndBits) + 40);
+    v8[0] = token._rep._ptrAndBits;
+    v4 = (sub_2703391C4(qword_2807CE508, token._rep._ptrAndBits, &unk_270370EE0, v8, &v7) + 5);
   }
 
   v5 = *v4;
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

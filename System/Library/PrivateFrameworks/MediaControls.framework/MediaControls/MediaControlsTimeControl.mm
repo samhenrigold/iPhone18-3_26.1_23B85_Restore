@@ -381,7 +381,7 @@
   [layer4 setCornerRadius:v20];
 
   [(MediaControlsTimeControl *)self updateSliderConstraint];
-  [(MediaControlsTimeControl *)self durationSnapshot];
+  objc_msgSend_durationSnapshot(self);
   if (v23 == 1)
   {
     [(MediaControlsTimeControl *)self updateBackgroundMask];
@@ -599,10 +599,10 @@ uint64_t __61__MediaControlsTimeControl_beginTrackingWithTouch_withEvent___block
     v11 = 0;
   }
 
-  [(MediaControlsTimeControl *)self durationSnapshot];
+  objc_msgSend_durationSnapshot(self);
   [(MediaControlsTimeControl *)self sliderValue];
   v13 = fmax(v24 * v12, 0.0);
-  [(MediaControlsTimeControl *)self durationSnapshot];
+  objc_msgSend_durationSnapshot(self);
   if (v13 >= v23)
   {
     v13 = v23;
@@ -616,7 +616,7 @@ uint64_t __61__MediaControlsTimeControl_beginTrackingWithTouch_withEvent___block
   v20 = 0u;
   v21 = 0u;
   v19 = 0u;
-  [(MediaControlsTimeControl *)self durationSnapshot];
+  objc_msgSend_durationSnapshot(self);
   *&v21 = v13;
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
   *&v19 = v16;
@@ -665,11 +665,11 @@ uint64_t __52__MediaControlsTimeControl_cancelTrackingWithEvent___block_invoke(u
   v6 = v5;
   [(MediaControlsTimeControl *)self bounds];
   [(MediaControlsTimeControl *)self setSliderValue:v6 / v7];
-  [(MediaControlsTimeControl *)self durationSnapshot];
+  objc_msgSend_durationSnapshot(self);
   [(MediaControlsTimeControl *)self sliderValue];
   v9 = v12 * v8;
   self->_currentTimeInTrack = v12 * v8;
-  [(MediaControlsTimeControl *)self durationSnapshot];
+  objc_msgSend_durationSnapshot(self);
   [(MediaControlsTimeControl *)self _updateLabels:v9 withRemainingDuration:v11 - self->_currentTimeInTrack];
   [(MediaControlsTimeControl *)self updateLabelAvoidance];
   return 1;
@@ -680,11 +680,11 @@ uint64_t __52__MediaControlsTimeControl_cancelTrackingWithEvent___block_invoke(u
   v3 = 0.0;
   if (self->_currentTimeInTrack > 0.0)
   {
-    [(MediaControlsTimeControl *)self durationSnapshot];
+    objc_msgSend_durationSnapshot(self, a2);
     if (v6 > 0.0)
     {
       currentTimeInTrack = self->_currentTimeInTrack;
-      [(MediaControlsTimeControl *)self durationSnapshot];
+      objc_msgSend_durationSnapshot(self);
       v3 = currentTimeInTrack / v5;
     }
   }
@@ -739,7 +739,7 @@ uint64_t __52__MediaControlsTimeControl_cancelTrackingWithEvent___block_invoke(u
       labelsCopy = 0.0;
     }
 
-    [(MediaControlsTimeControl *)self durationSnapshot];
+    objc_msgSend_durationSnapshot(self, a2);
     v9 = v18;
     if (labelsCopy < v18)
     {
@@ -751,7 +751,7 @@ uint64_t __52__MediaControlsTimeControl_cancelTrackingWithEvent___block_invoke(u
     [elapsedTimeLabel setText:v10];
 
     remainingTimeFormatter = self->_remainingTimeFormatter;
-    [(MediaControlsTimeControl *)self durationSnapshot];
+    objc_msgSend_durationSnapshot(self);
     durationCopy = v17;
     if (v17 > duration)
     {
@@ -947,7 +947,7 @@ void __48__MediaControlsTimeControl_updateLabelAvoidance__block_invoke(uint64_t 
 
 - (void)_updateStyle
 {
-  [(MediaControlsTimeControl *)self durationSnapshot];
+  objc_msgSend_durationSnapshot(self, a2);
   if (v21)
   {
     [(MediaControlsTimeControl *)self updateBackgroundMask];
@@ -1078,7 +1078,7 @@ void __48__MediaControlsTimeControl_updateLabelAvoidance__block_invoke(uint64_t 
   objc_storeStrong(&self->_responseItem, item);
   if (itemCopy)
   {
-    [itemCopy duration];
+    objc_msgSend_duration(itemCopy);
   }
 
   else
@@ -1119,7 +1119,7 @@ void __48__MediaControlsTimeControl_updateLabelAvoidance__block_invoke(uint64_t 
 
 - (void)_updateTimeControl
 {
-  [(MediaControlsTimeControl *)self durationSnapshot];
+  objc_msgSend_durationSnapshot(self, a2);
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
   v4 = v14 + (v3 - v12) * v15;
   if (v4 >= v13)
@@ -1140,7 +1140,7 @@ void __48__MediaControlsTimeControl_updateLabelAvoidance__block_invoke(uint64_t 
     v6 = -v5;
   }
 
-  [(MediaControlsTimeControl *)self durationSnapshot];
+  objc_msgSend_durationSnapshot(self);
   v7 = v11;
   if (v11 < 0.0)
   {
@@ -1156,7 +1156,7 @@ void __48__MediaControlsTimeControl_updateLabelAvoidance__block_invoke(uint64_t 
   if (v6 >= 1.0 / v8)
   {
     currentTimeInTrack = self->_currentTimeInTrack;
-    [(MediaControlsTimeControl *)self durationSnapshot];
+    objc_msgSend_durationSnapshot(self);
     [(MediaControlsTimeControl *)self _updateLabels:currentTimeInTrack withRemainingDuration:v10 - self->_currentTimeInTrack];
     self->_lastRecordedTime = self->_currentTimeInTrack;
   }
@@ -1165,7 +1165,7 @@ void __48__MediaControlsTimeControl_updateLabelAvoidance__block_invoke(uint64_t 
 - (void)_updateDisplayLinkPause
 {
   v21 = *MEMORY[0x1E69E9840];
-  isEmpty = [(MediaControlsTimeControl *)self isCurrentlyTracking]|| ([(MediaControlsTimeControl *)self durationSnapshot], *&v3 = v12, v12 == 0.0) || ([(MediaControlsTimeControl *)self durationSnapshot], (v11 & 1) != 0) || [(MediaControlsTimeControl *)self isEmpty];
+  isEmpty = [(MediaControlsTimeControl *)self isCurrentlyTracking]|| (objc_msgSend_durationSnapshot(self), *&v3 = v12, v12 == 0.0) || (objc_msgSend_durationSnapshot(self, v3), (v11 & 1) != 0) || [(MediaControlsTimeControl *)self isEmpty];
   if ([(MediaControlsTimeControl *)self style]== 3 && self->_debugPreviousDisplayLinkPaused != isEmpty)
   {
     v5 = _MRLogForCategory();
@@ -1180,8 +1180,8 @@ void __48__MediaControlsTimeControl_updateLabelAvoidance__block_invoke(uint64_t 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       isCurrentlyTracking = [(MediaControlsTimeControl *)self isCurrentlyTracking];
-      [(MediaControlsTimeControl *)self durationSnapshot];
-      [(MediaControlsTimeControl *)self durationSnapshot];
+      objc_msgSend_durationSnapshot(self);
+      objc_msgSend_durationSnapshot(self);
       isEmpty2 = [(MediaControlsTimeControl *)self isEmpty];
       *buf = 67109888;
       v14 = isCurrentlyTracking;

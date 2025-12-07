@@ -28,7 +28,7 @@
   return [PAEChannelMixer properties]::sPropertiesDict;
 }
 
-uint64_t __29__PAEChannelMixer_properties__block_invoke()
+void *__29__PAEChannelMixer_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:1];
@@ -480,7 +480,7 @@ LABEL_7:
       {
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input);
         }
 
         v10 = HGObject::operator new(0x1A0uLL);

@@ -10,7 +10,7 @@
   v6 = _Block_copy(completion);
   MEMORY[0x277D82BE0](self);
   *(swift_allocObject() + 16) = v6;
-  sub_268DD9EC4();
+  sub_268DD9EC4(setting);
 
   MEMORY[0x277D82BD8](self);
   MEMORY[0x277D82BD8](setting);

@@ -3,7 +3,7 @@
 + (double)meanFundamentalEpipolarErrorForCalModel:(const CalModel *)model xyPointsTele:(const double *)tele xyPointsWide:(const double *)wide numPoints:(int)points;
 + (float64x2_t)convertExtrinsics:(int8x16_t)extrinsics toInternalFormat:(int8x16_t)format;
 + (int64_t)approximateCorrectionWithPointsTele:(const double *)tele xyPointsWide:(const double *)wide numPoints:(int)points calModel:(id)model;
-+ (int64_t)computeVerticalBaselineTransform:(uint64_t)transform extrinsicRefToAuxPrime:(uint64_t)prime rotationRefToRefPrime:(uint64_t)refPrime rotationAuxToAuxPrime:(void *)auxPrime;
++ (int64_t)computeVerticalBaselineTransform:(uint64_t)transform extrinsicRefToAuxPrime:(uint64_t)prime rotationRefToRefPrime:(uint64_t)refPrime rotationAuxToAuxPrime:;
 + (int64_t)rotateCalModel:(int8x16_t)model extrinsicRefToAuxRotated:(int8x16_t)rotated rotationRef:(float32x2_t)ref rotationAux:(float32x2_t)aux calRotated:(float32x2_t)calRotated;
 + (int64_t)rotateDistortionModel:(uint64_t)model rotation:(uint64_t)rotation distRotated:(uint64_t)rotated;
 + (int64_t)transformPointsWithMatrix:(uint64_t)matrix numPoints:(uint64_t)points transformMatrix:(uint64_t)transformMatrix xyPointsTransformed:(int)transformed;
@@ -38,7 +38,7 @@
   v23 = 0u;
   v24 = 0u;
   v22 = 0u;
-  [ADAdaptiveCorrectionPipeline convertToInternalCalModel:modelCopy];
+  objc_msgSend_convertToInternalCalModel_(ADAdaptiveCorrectionPipeline);
   v61 = 0u;
   v62 = 0u;
   v59 = 0u;
@@ -71,7 +71,7 @@
   v34 = 0u;
   v31 = 0u;
   v32 = 0u;
-  [(ADAdaptiveCorrectionPipeline *)self getStatus];
+  objc_msgSend_getStatus(self);
   AdaptiveCorrection_fullCorrection(tele, wide, v6, &v22, v11);
   v28 = v19;
   v29 = v20;
@@ -173,7 +173,7 @@
     else
     {
       objc_storeStrong(&v8->_pipelineParameters, parameters);
-      [(ADAdaptiveCorrectionPipeline *)v9 getConfigFromPipelineParams];
+      objc_msgSend_getConfigFromPipelineParams(v9);
       v10 = v20[0];
       v11 = v20[1];
       v12 = v20[2];
@@ -292,7 +292,7 @@ LABEL_8:
     v8 = 0;
   }
 
-  result = [ADUtils ADReturnFromOSStatus:v8];
+  result = [ADUtils ADReturnFromOSStatus:v8, *&transformed, a7, *&self, *&a2];
   if (result)
   {
     v14 = result;
@@ -334,10 +334,11 @@ LABEL_8:
     a6[7] = v13;
     *&v12 = *(rotated + 16);
     *&v13 = *(rotated + 24);
-    a6[1] = vcvtq_f64_f32(vmla_n_f32(vmul_n_f32(self, *&v12), a2, *&v13));
+    *self.f32 = vcvtq_f64_f32(vmla_n_f32(vmul_n_f32(self, *&v12), a2, *&v13));
+    a6[1] = *self.f32;
   }
 
-  result = [ADUtils ADReturnFromOSStatus:v7];
+  result = [ADUtils ADReturnFromOSStatus:v7, a6, *&self, *&a2];
   if (result)
   {
     v16 = result;
@@ -381,36 +382,43 @@ LABEL_8:
     v22 = *(a11 + 24);
     *&v17 = *(a11 + 40);
     v23 = vmla_n_f32(vmul_n_f32(calRotated, v22), a8, *&v17);
-    a12[1] = vcvtq_f64_f32(vzip1_s32(v21, v23));
+    *calRotated.f32 = vcvtq_f64_f32(vzip1_s32(v21, v23));
+    a12[1] = *calRotated.f32;
     a12[2] = vcvtq_f64_f32(vzip2_s32(v21, v23));
     a12[3] = vcvtq_f64_f32(vzip1_s32(*self.i8, *a2.i8));
     a12[4] = vcvtq_f64_f32(vzip1_s32(*model.i8, *rotated.i8));
-    a12[5] = vcvtq_f64_f32(vzip2_s32(*self.i8, *a2.i8));
-    a12[6] = vcvtq_f64_f32(vzip2_s32(*model.i8, *rotated.i8));
-    a12[7] = vcvtq_f64_f32(vzip1_s32(*&vextq_s8(self, self, 8uLL), *&vextq_s8(a2, a2, 8uLL)));
-    a12[8] = vcvtq_f64_f32(vzip1_s32(*&vextq_s8(model, model, 8uLL), *&vextq_s8(rotated, rotated, 8uLL)));
+    *ref.f32 = vcvtq_f64_f32(vzip2_s32(*self.i8, *a2.i8));
+    *aux.f32 = vcvtq_f64_f32(vzip2_s32(*model.i8, *rotated.i8));
+    a12[5] = *ref.f32;
+    a12[6] = *aux.f32;
+    self = vcvtq_f64_f32(vzip1_s32(*&vextq_s8(self, self, 8uLL), *&vextq_s8(a2, a2, 8uLL)));
+    v24 = vextq_s8(model, model, 8uLL).u64[0];
+    model.i64[0] = vextq_s8(rotated, rotated, 8uLL).u64[0];
+    a2 = vcvtq_f64_f32(vzip1_s32(v24, *model.i8));
+    a12[7] = self;
+    a12[8] = a2;
   }
 
-  result = [ADUtils ADReturnFromOSStatus:v13];
+  result = [ADUtils ADReturnFromOSStatus:v13, a12, *self.i64, *a2.i64, *model.i64, *rotated.i64, *&ref, *&aux, *&calRotated, *&a8];
   if (result)
   {
-    v25 = result;
-    v26 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    result = v25;
-    if (v26)
+    v26 = result;
+    v27 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    result = v26;
+    if (v27)
     {
-      *v27 = 0;
-      _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed rotate calmodel.", v27, 2u);
-      return v25;
+      *v28 = 0;
+      _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed rotate calmodel.", v28, 2u);
+      return v26;
     }
   }
 
   return result;
 }
 
-+ (int64_t)computeVerticalBaselineTransform:(uint64_t)transform extrinsicRefToAuxPrime:(uint64_t)prime rotationRefToRefPrime:(uint64_t)refPrime rotationAuxToAuxPrime:(void *)auxPrime
++ (int64_t)computeVerticalBaselineTransform:(uint64_t)transform extrinsicRefToAuxPrime:(uint64_t)prime rotationRefToRefPrime:(uint64_t)refPrime rotationAuxToAuxPrime:
 {
-  result = [ADUtils ADReturnFromOSStatus:AdaptiveCorrection_computeVerticalBaselineTransform(refPrime, auxPrime, a7, self, a2)];
+  result = [ADUtils ADReturnFromOSStatus:AdaptiveCorrection_computeVerticalBaselineTransform(transform, prime, refPrime, v5, v6)];
   if (result)
   {
     v8 = result;
@@ -439,7 +447,7 @@ LABEL_8:
   v14 = 0u;
   v15 = 0u;
   v13 = 0u;
-  [self convertToInternalCalModel:modelCopy];
+  objc_msgSend_convertToInternalCalModel_(self);
   AdaptiveCorrection_approximateCorrection(tele, wide, points, &v13, v12);
   v19 = v12[6];
   v20 = v12[7];

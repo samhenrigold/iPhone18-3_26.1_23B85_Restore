@@ -27,9 +27,9 @@
 
 - (MPSNNGridSample)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v15.receiver = self;
-  v15.super_class = MPSNNGridSample;
-  v5 = [(MPSCNNBinaryKernel *)&v15 initWithCoder:aDecoder device:device];
+  v19.receiver = self;
+  v19.super_class = MPSNNGridSample;
+  v5 = [(MPSCNNBinaryKernel *)&v19 initWithCoder:aDecoder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -50,7 +50,7 @@
   {
     v14 = objc_opt_class();
     NSStringFromClass(v14);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSGridSample.mm", 0x15B, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v15, v16, v17, v18);
   }
 
   return 0;

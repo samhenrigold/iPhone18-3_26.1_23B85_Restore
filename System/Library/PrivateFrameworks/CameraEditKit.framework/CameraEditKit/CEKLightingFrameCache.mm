@@ -472,7 +472,7 @@ void __72__CEKLightingFrameCache__renderForegroundFramesForAbsoluteAngles_scale_
   return v14;
 }
 
-void __85__CEKLightingFrameCache__renderBackgroundFramesForAbsoluteAngles_lightingType_scale___block_invoke(uint64_t a1, unint64_t a2)
+void __85__CEKLightingFrameCache__renderBackgroundFramesForAbsoluteAngles_lightingType_scale___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = a2 / 90.0;
   v5 = [CEKLightingCubeAppearance appearanceFrom:*(a1 + 32) to:*(a1 + 40) progress:v4];

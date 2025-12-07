@@ -8,16 +8,16 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-id CRLAppBundleIdentifier()
+id CRLAppBundleIdentifier(uint64_t a1)
 {
   if (CRLAppBundleIdentifier_onceToken != -1)
   {
     CRLAppBundleIdentifier_cold_1();
   }
 
-  v1 = CRLAppBundleIdentifier_identifier;
+  v2 = CRLAppBundleIdentifier_identifier;
 
-  return v1;
+  return v2;
 }
 
 void __CRLAppBundleIdentifier_block_invoke_cold_1()

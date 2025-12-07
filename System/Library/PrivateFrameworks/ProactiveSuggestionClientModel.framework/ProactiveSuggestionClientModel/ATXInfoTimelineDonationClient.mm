@@ -37,7 +37,7 @@ void __47__ATXInfoTimelineDonationClient_sharedInstance__block_invoke()
   {
     v3 = objc_alloc(MEMORY[0x1E69C5DA0]);
     v4 = ATXInfoSuggestionXPCInterface();
-    v5 = __atxlog_handle_timeline();
+    v5 = __atxlog_handle_timeline(v4);
     v6 = [v3 initWithServiceName:@"com.apple.proactive.infoSuggestion.xpc" allowlistedServerInterface:v4 allowlistedClientInterface:0 serverInitiatedRequestHandler:0 interruptionHandler:&__block_literal_global_13_1 invalidationHandler:&__block_literal_global_16 logHandle:v5];
     xpcClientHelper = v2->_xpcClientHelper;
     v2->_xpcClientHelper = v6;
@@ -46,23 +46,23 @@ void __47__ATXInfoTimelineDonationClient_sharedInstance__block_invoke()
   return v2;
 }
 
-void __38__ATXInfoTimelineDonationClient__init__block_invoke()
+void __38__ATXInfoTimelineDonationClient__init__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_timeline();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = __atxlog_handle_timeline(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_DEFAULT, "ATXInfoTimelineDonationClient: xpc connection interrupted.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1DEFC4000, v1, OS_LOG_TYPE_DEFAULT, "ATXInfoTimelineDonationClient: xpc connection interrupted.", v2, 2u);
   }
 }
 
-void __38__ATXInfoTimelineDonationClient__init__block_invoke_14()
+void __38__ATXInfoTimelineDonationClient__init__block_invoke_14(uint64_t a1)
 {
-  v0 = __atxlog_handle_timeline();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = __atxlog_handle_timeline(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1DEFC4000, v0, OS_LOG_TYPE_DEFAULT, "ATXInfoTimelineDonationClient: xpc connection invalidated.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1DEFC4000, v1, OS_LOG_TYPE_DEFAULT, "ATXInfoTimelineDonationClient: xpc connection invalidated.", v2, 2u);
   }
 }
 
@@ -100,7 +100,7 @@ void __38__ATXInfoTimelineDonationClient__init__block_invoke_14()
 void __93__ATXInfoTimelineDonationClient_timelineDidReloadForWidget_parentApp_withEntries_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __93__ATXInfoTimelineDonationClient_timelineDidReloadForWidget_parentApp_withEntries_completion___block_invoke_cold_1(a1, v3, v4);
@@ -111,14 +111,13 @@ void __93__ATXInfoTimelineDonationClient_timelineDidReloadForWidget_parentApp_wi
 
 void __93__ATXInfoTimelineDonationClient_timelineDidReloadForWidget_parentApp_withEntries_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_ERROR, "ATXInfoTimelineDonationClient: Error reloading timeline for widget %@ - %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_ERROR, "ATXInfoTimelineDonationClient: Error reloading timeline for widget %@ - %@", &v4, 0x16u);
 }
 
 @end

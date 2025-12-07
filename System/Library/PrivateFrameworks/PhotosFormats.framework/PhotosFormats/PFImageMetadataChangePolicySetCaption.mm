@@ -29,7 +29,7 @@
 
   v7 = *MEMORY[0x1E696DD90];
   v8 = [v6 objectForKeyedSubscript:*MEMORY[0x1E696DD90]];
-  dictionary2 = [v8 mutableCopy];
+  dictionary2 = objc_msgSend_mutableCopy(v8);
 
   caption = [(PFImageMetadataChangePolicySetCaption *)self caption];
 

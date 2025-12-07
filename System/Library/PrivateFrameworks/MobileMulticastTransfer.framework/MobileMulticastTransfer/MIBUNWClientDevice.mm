@@ -59,7 +59,7 @@ void __34__MIBUNWClientDevice__checkOutAck__block_invoke(uint64_t a1)
 
 - (void)unicastConnectionDidOpen:(id)open
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   openCopy = open;
   if (MIBUOnceToken != -1)
   {
@@ -69,9 +69,9 @@ void __34__MIBUNWClientDevice__checkOutAck__block_invoke(uint64_t a1)
   v5 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
+    v8 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Unicast connection opened.", &v9, 0xCu);
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Unicast connection opened.", &v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -81,8 +81,6 @@ void __34__MIBUNWClientDevice__checkOutAck__block_invoke(uint64_t a1)
     v7 = objc_loadWeakRetained(&self->_delegate);
     [v7 clientDeviceDidConnect:self];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __47__MIBUNWClientDevice_unicastConnectionDidOpen___block_invoke()
@@ -103,7 +101,7 @@ void __47__MIBUNWClientDevice_unicastConnectionDidOpen___block_invoke()
 
 - (void)unicastConnectionDidClose:(id)close withError:(id)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   closeCopy = close;
   errorCopy = error;
   if (MIBUOnceToken != -1)
@@ -114,9 +112,9 @@ void __47__MIBUNWClientDevice_unicastConnectionDidOpen___block_invoke()
   v8 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543362;
+    v12 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Unicast connection closed.", &v13, 0xCu);
+    _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Unicast connection closed.", &v12, 0xCu);
   }
 
   connection = self->super._connection;
@@ -128,8 +126,6 @@ void __47__MIBUNWClientDevice_unicastConnectionDidOpen___block_invoke()
     v11 = objc_loadWeakRetained(&self->_delegate);
     [v11 clientDeviceDidDisconnect:self];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __58__MIBUNWClientDevice_unicastConnectionDidClose_withError___block_invoke()
@@ -150,7 +146,7 @@ void __58__MIBUNWClientDevice_unicastConnectionDidClose_withError___block_invoke
 
 - (void)unicastConnection:(id)connection didReceiveMessage:(id)message
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   messageCopy = message;
   if (MIBUOnceToken != -1)
@@ -164,8 +160,8 @@ void __58__MIBUNWClientDevice_unicastConnectionDidClose_withError___block_invoke
     v9 = v8;
     *buf = 138543618;
     selfCopy4 = self;
-    v45 = 1024;
-    LODWORD(v46) = [messageCopy type];
+    v44 = 1024;
+    LODWORD(v45) = [messageCopy type];
     _os_log_impl(&dword_259B04000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Received client message of type: %u", buf, 0x12u);
   }
 
@@ -180,7 +176,7 @@ void __58__MIBUNWClientDevice_unicastConnectionDidClose_withError___block_invoke
   switch(type)
   {
     case 3:
-      v41 = connectionCopy;
+      v40 = connectionCopy;
       [(MIBUNWClientDevice *)self _checkOutAck];
       payload = [messageCopy payload];
       v23 = [payload objectForKey:@"ErrorDomain"];
@@ -212,16 +208,16 @@ void __58__MIBUNWClientDevice_unicastConnectionDidClose_withError___block_invoke
 
       if (v33)
       {
-        v42 = 0;
-        v34 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v33 options:0 error:&v42];
-        v35 = v42;
+        v41 = 0;
+        v34 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v33 options:0 error:&v41];
+        v35 = v41;
         if (v34)
         {
 LABEL_32:
           v39 = objc_loadWeakRetained(&self->_delegate);
           [v39 clientDevice:self didCheckOutWithError:v26 withSummary:v34];
 
-          connectionCopy = v41;
+          connectionCopy = v40;
           goto LABEL_33;
         }
 
@@ -237,8 +233,8 @@ LABEL_32:
           localizedDescription = [v26 localizedDescription];
           *buf = 138543618;
           selfCopy4 = self;
-          v45 = 2112;
-          v46 = localizedDescription;
+          v44 = 2112;
+          v45 = localizedDescription;
           _os_log_impl(&dword_259B04000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@: failed to deserialize summary: %@", buf, 0x16u);
         }
       }
@@ -279,8 +275,8 @@ LABEL_13:
       payload6 = [messageCopy payload];
       *buf = 138543618;
       selfCopy4 = self;
-      v45 = 2114;
-      v46 = payload6;
+      v44 = 2114;
+      v45 = payload6;
       _os_log_impl(&dword_259B04000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: Got new progress: %{public}@", buf, 0x16u);
 
       goto LABEL_13;
@@ -321,15 +317,13 @@ LABEL_20:
     type2 = [messageCopy type];
     *buf = 138543618;
     selfCopy4 = self;
-    v45 = 1024;
-    LODWORD(v46) = type2;
+    v44 = 1024;
+    LODWORD(v45) = type2;
     _os_log_impl(&dword_259B04000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignore unknown client message :%hu.", buf, 0x12u);
     goto LABEL_21;
   }
 
 LABEL_33:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __58__MIBUNWClientDevice_unicastConnection_didReceiveMessage___block_invoke()

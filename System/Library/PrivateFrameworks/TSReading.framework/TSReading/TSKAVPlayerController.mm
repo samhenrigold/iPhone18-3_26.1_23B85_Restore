@@ -135,7 +135,7 @@
   }
 
   memset(&v8[1], 0, sizeof(CMTime));
-  [(AVPlayerItem *)currentItem duration];
+  objc_msgSend_duration(currentItem);
   if (0 >> 96 != 1)
   {
     return NAN;
@@ -157,7 +157,7 @@
   }
 
   memset(&v4[1], 0, sizeof(CMTime));
-  [(AVPlayerItem *)currentItem duration];
+  objc_msgSend_duration(currentItem);
   if (0 >> 96 != 1)
   {
     return NAN;
@@ -176,7 +176,7 @@
   }
 
   memset(&v4[1], 0, sizeof(CMTime));
-  [(AVPlayerItem *)currentItem reversePlaybackEndTime];
+  objc_msgSend_reversePlaybackEndTime(currentItem);
   result = 0.0;
   if (0 >> 96 == 1)
   {
@@ -196,7 +196,7 @@
     memset(&v10, 0, sizeof(v10));
     CMTimeMakeWithSeconds(&v10, time, 90000);
     memset(&v9, 0, sizeof(v9));
-    [(AVPlayerItem *)v5 currentTime];
+    objc_msgSend_currentTime(v5);
     time1 = v9;
     time2 = v10;
     if (CMTimeCompare(&time1, &time2) < 0)
@@ -222,7 +222,7 @@
 
   v3 = currentItem;
   memset(&v6[1], 0, sizeof(CMTime));
-  [(AVPlayerItem *)currentItem forwardPlaybackEndTime];
+  objc_msgSend_forwardPlaybackEndTime(currentItem);
   if (0 >> 96 == 1)
   {
     v6[0] = v6[1];
@@ -233,7 +233,7 @@
     asset = [(AVPlayerItem *)v3 asset];
     if (asset)
     {
-      [(AVAsset *)asset duration];
+      objc_msgSend_duration(asset);
     }
 
     else
@@ -254,7 +254,7 @@
     memset(&v10, 0, sizeof(v10));
     CMTimeMakeWithSeconds(&v10, time, 90000);
     memset(&v9, 0, sizeof(v9));
-    [(AVPlayerItem *)v5 currentTime];
+    objc_msgSend_currentTime(v5);
     time1 = v9;
     time2 = v10;
     if (CMTimeCompare(&time1, &time2) >= 1)
@@ -375,7 +375,7 @@
     v4 = currentItem;
     if ([(AVPlayerItem *)currentItem status]== AVPlayerItemStatusReadyToPlay)
     {
-      [(AVPlayerItem *)v4 currentTime];
+      objc_msgSend_currentTime(v4);
       self->_absoluteCurrentTime = fmax(CMTimeGetSeconds(&time), 0.0);
     }
   }
@@ -392,7 +392,7 @@
     v5 = currentItem;
     if ([(AVPlayerItem *)currentItem status]== AVPlayerItemStatusReadyToPlay)
     {
-      [(AVPlayerItem *)v5 currentTime];
+      objc_msgSend_currentTime(v5);
       CMTimeGetSeconds(&time);
       [(TSKAVPlayerController *)self startTime];
       [(TSKAVPlayerController *)self endTime];
@@ -415,7 +415,7 @@
     {
       [(TSKAVPlayerController *)self endTime];
       v7 = v6;
-      [(AVPlayerItem *)v5 currentTime];
+      objc_msgSend_currentTime(v5);
       return fmax(v7 - fmax(CMTimeGetSeconds(&time), 0.0), 0.0);
     }
   }
@@ -485,13 +485,13 @@ LABEL_20:
 
       v10 = currentItem;
       memset(&v19, 0, sizeof(v19));
-      [(AVPlayerItem *)currentItem forwardPlaybackEndTime];
+      objc_msgSend_forwardPlaybackEndTime(currentItem);
       if (0 >> 96 == 1)
       {
         player2 = [(TSKAVPlayerController *)self player];
         if (player2)
         {
-          [(AVPlayer *)player2 currentTime];
+          objc_msgSend_currentTime(player2);
         }
 
         else
@@ -509,13 +509,13 @@ LABEL_20:
       }
 
       memset(&time1, 0, sizeof(time1));
-      [(AVPlayerItem *)v10 reversePlaybackEndTime];
+      objc_msgSend_reversePlaybackEndTime(v10);
       if ((time1.flags & 0x1D) == 1)
       {
         player3 = [(TSKAVPlayerController *)self player];
         if (player3)
         {
-          [(AVPlayer *)player3 currentTime];
+          objc_msgSend_currentTime(player3);
         }
 
         else
@@ -549,12 +549,12 @@ LABEL_20:
 {
   currentItem = [[(TSKAVPlayerController *)self player] currentItem];
   v4 = currentItem;
-  if (currentItem && (memset(&v9, 0, sizeof(v9)), [(AVPlayerItem *)currentItem forwardPlaybackEndTime], 0 >> 96 == 1))
+  if (currentItem && (memset(&v9, 0, sizeof(v9)), objc_msgSend_forwardPlaybackEndTime(currentItem), 0 >> 96 == 1))
   {
     player = [(TSKAVPlayerController *)self player];
     if (player)
     {
-      [(AVPlayer *)player currentTime];
+      objc_msgSend_currentTime(player);
     }
 
     else
@@ -584,12 +584,12 @@ LABEL_20:
 {
   currentItem = [[(TSKAVPlayerController *)self player] currentItem];
   v4 = currentItem;
-  if (currentItem && (memset(&v9, 0, sizeof(v9)), [(AVPlayerItem *)currentItem reversePlaybackEndTime], 0 >> 96 == 1))
+  if (currentItem && (memset(&v9, 0, sizeof(v9)), objc_msgSend_reversePlaybackEndTime(currentItem), 0 >> 96 == 1))
   {
     player = [(TSKAVPlayerController *)self player];
     if (player)
     {
-      [(AVPlayer *)player currentTime];
+      objc_msgSend_currentTime(player);
     }
 
     else
@@ -621,7 +621,7 @@ LABEL_20:
   currentItem = [(AVPlayer *)player currentItem];
   if (currentItem)
   {
-    [(AVPlayerItem *)currentItem reversePlaybackEndTime];
+    objc_msgSend_reversePlaybackEndTime(currentItem);
   }
 
   else
@@ -638,7 +638,7 @@ LABEL_20:
   currentItem = [(AVPlayer *)player currentItem];
   if (currentItem)
   {
-    [(AVPlayerItem *)currentItem forwardPlaybackEndTime];
+    objc_msgSend_forwardPlaybackEndTime(currentItem);
   }
 
   else
@@ -669,7 +669,7 @@ LABEL_20:
         memset(&v18[1], 0, sizeof(CMTime));
         if (currentItem)
         {
-          [(AVPlayerItem *)currentItem currentTime];
+          objc_msgSend_currentTime(currentItem);
         }
 
         memset(v18, 0, 24);
@@ -717,7 +717,7 @@ LABEL_20:
       memset(&v12, 0, sizeof(v12));
       if (currentItem)
       {
-        [(AVPlayerItem *)currentItem currentTime];
+        objc_msgSend_currentTime(currentItem);
       }
 
       memset(&v11, 0, sizeof(v11));
@@ -790,7 +790,7 @@ LABEL_20:
       memset(&v12, 0, sizeof(v12));
       if (currentItem)
       {
-        [(AVPlayerItem *)currentItem currentTime];
+        objc_msgSend_currentTime(currentItem);
       }
 
       memset(&v11, 0, sizeof(v11));
@@ -1134,7 +1134,7 @@ void __72__TSKAVPlayerController_observeValueForKeyPath_ofObject_change_context_
   CFRunLoopWakeUp(Main);
 }
 
-uint64_t __72__TSKAVPlayerController_observeValueForKeyPath_ofObject_change_context___block_invoke_2(uint64_t a1)
+void *__72__TSKAVPlayerController_observeValueForKeyPath_ofObject_change_context___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
   result = [objc_msgSend(objc_msgSend(*(a1 + 40) "player")];

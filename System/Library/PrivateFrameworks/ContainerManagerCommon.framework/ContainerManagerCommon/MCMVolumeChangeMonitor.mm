@@ -1,12 +1,7 @@
 @interface MCMVolumeChangeMonitor
-- (BOOL)started;
 - (MCMVolumeChangeMonitor)initWithWorkloop:(id)workloop mountPointURL:(id)l;
-- (NSHashTable)observers;
-- (NSURL)mountPointURL;
-- (OS_dispatch_queue)notificationQueue;
 - (id)_volumesToMonitor;
 - (unint64_t)_changeEventStart:(unint64_t)start end:(unint64_t)end targetActiveState:(unint64_t)state fromOldState:(unint64_t)oldState newState:(unint64_t)newState;
-- (unint64_t)state;
 - (void)_callbackWithVolume:(unsigned int)volume notificationType:(unsigned int)type margs:(void *)margs;
 - (void)_notifyObserver:(id)observer events:(unint64_t)events newVolumeState:(unint64_t)state;
 - (void)_notifyObserversIfNeededWithOldState:(unint64_t)state newState:(unint64_t)newState;
@@ -14,70 +9,14 @@
 - (void)addVolumeChangeObserver:(id)observer;
 - (void)dealloc;
 - (void)removeVolumeChangeObserver:(id)observer;
-- (void)setStarted:(BOOL)started;
-- (void)setState:(unint64_t)state;
 - (void)start;
 @end
 
 @implementation MCMVolumeChangeMonitor
 
-- (void)setState:(unint64_t)state
-{
-  v4 = *MEMORY[0x1E69E9840];
-  self->_state = state;
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (unint64_t)state
-{
-  result = self->_state;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSHashTable)observers
-{
-  result = self->_observers;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (void)setStarted:(BOOL)started
-{
-  v4 = *MEMORY[0x1E69E9840];
-  self->_started = started;
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (BOOL)started
-{
-  result = self->_started;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (OS_dispatch_queue)notificationQueue
-{
-  result = self->_notificationQueue;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSURL)mountPointURL
-{
-  result = self->_mountPointURL;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (id)_volumesToMonitor
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DFA8] set];
   BootDevice = APFSContainerGetBootDevice();
   if (BootDevice)
@@ -87,7 +26,7 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v25 = mach_error_string(v4);
+      v24 = mach_error_string(v4);
       _os_log_error_impl(&dword_1DF2C3000, v5, OS_LOG_TYPE_ERROR, "APFSContainerGetBootDevice failed; error = %s", buf, 0xCu);
     }
   }
@@ -95,7 +34,7 @@
   else
   {
     v5 = 0;
-    v18 = 0;
+    v17 = 0;
     [0 UTF8String];
     v6 = APFSVolumeRoleFind();
     if (v6)
@@ -105,37 +44,37 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v25 = mach_error_string(v7);
+        v24 = mach_error_string(v7);
         _os_log_error_impl(&dword_1DF2C3000, v8, OS_LOG_TYPE_ERROR, "APFSVolumeRoleFind failed; error = %s", buf, 0xCu);
       }
     }
 
     else
     {
+      v19 = 0u;
       v20 = 0u;
       v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
       v8 = 0;
-      v9 = [v8 countByEnumeratingWithState:&v20 objects:v19 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v19 objects:v18 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v21;
+        v11 = *v20;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v21 != v11)
+            if (*v20 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = [*(*(&v20 + 1) + 8 * i) substringFromIndex:{5, v18}];
+            v13 = [*(*(&v19 + 1) + 8 * i) substringFromIndex:{5, v17}];
             [v2 addObject:v13];
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v20 objects:v19 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v19 objects:v18 count:16];
         }
 
         while (v10);
@@ -155,8 +94,6 @@
 
   v15 = [v2 copy];
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
@@ -169,40 +106,33 @@
 
   if (((newState ^ oldState) & state) != 0)
   {
-    result = end;
+    return end;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)_notifyObserver:(id)observer events:(unint64_t)events newVolumeState:(unint64_t)state
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   volumeChangedDispatchQueue = [observerCopy volumeChangedDispatchQueue];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __64__MCMVolumeChangeMonitor__notifyObserver_events_newVolumeState___block_invoke;
-  v11[3] = &unk_1E86B0510;
-  v12 = observerCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __64__MCMVolumeChangeMonitor__notifyObserver_events_newVolumeState___block_invoke;
+  v10[3] = &unk_1E86B0510;
+  v11 = observerCopy;
   eventsCopy = events;
   stateCopy = state;
   v9 = observerCopy;
-  dispatch_async(volumeChangedDispatchQueue, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  dispatch_async(volumeChangedDispatchQueue, v10);
 }
 
 uint64_t __64__MCMVolumeChangeMonitor__notifyObserver_events_newVolumeState___block_invoke(void *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   v3 = a1[5];
   v4 = a1[6];
@@ -212,67 +142,56 @@ uint64_t __64__MCMVolumeChangeMonitor__notifyObserver_events_newVolumeState___bl
 
 - (void)_notifyObserversOfEvents:(unint64_t)events newVolumeState:(unint64_t)state
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   observers = [(MCMVolumeChangeMonitor *)self observers];
   objc_sync_enter(observers);
   observers2 = [(MCMVolumeChangeMonitor *)self observers];
   v9 = [observers2 copy];
 
   objc_sync_exit(observers);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v15 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v14 count:16];
   if (v11)
   {
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(MCMVolumeChangeMonitor *)self _notifyObserver:*(*(&v16 + 1) + 8 * v13++) events:events newVolumeState:state];
+        [(MCMVolumeChangeMonitor *)self _notifyObserver:*(*(&v15 + 1) + 8 * v13++) events:events newVolumeState:state];
       }
 
       while (v11 != v13);
-      v11 = [v10 countByEnumeratingWithState:&v16 objects:v15 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v15 objects:v14 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyObserversIfNeededWithOldState:(unint64_t)state newState:(unint64_t)newState
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (state == newState)
+  if (state != newState)
   {
-    v4 = *MEMORY[0x1E69E9840];
-    v5 = *MEMORY[0x1E69E9840];
-  }
+    v7 = [(MCMVolumeChangeMonitor *)self _changeEventStart:1 end:2 targetActiveState:1 fromOldState:state newState:newState];
+    v8 = [(MCMVolumeChangeMonitor *)self _changeEventStart:4 end:8 targetActiveState:2 fromOldState:state newState:newState]| v7;
 
-  else
-  {
-    v9 = [(MCMVolumeChangeMonitor *)self _changeEventStart:1 end:2 targetActiveState:1 fromOldState:state newState:newState];
-    v10 = [(MCMVolumeChangeMonitor *)self _changeEventStart:4 end:8 targetActiveState:2 fromOldState:state newState:newState];
-    v11 = *MEMORY[0x1E69E9840];
-
-    [(MCMVolumeChangeMonitor *)self _notifyObserversOfEvents:v10 | v9 newVolumeState:newState];
+    [(MCMVolumeChangeMonitor *)self _notifyObserversOfEvents:v8 newVolumeState:newState];
   }
 }
 
 - (void)_callbackWithVolume:(unsigned int)volume notificationType:(unsigned int)type margs:(void *)margs
 {
-  v15 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   state = [(MCMVolumeChangeMonitor *)selfCopy state];
@@ -322,29 +241,26 @@ uint64_t __64__MCMVolumeChangeMonitor__notifyObserver_events_newVolumeState___bl
   [(MCMVolumeChangeMonitor *)selfCopy setState:v13];
   objc_sync_exit(selfCopy);
 
-  v14 = *MEMORY[0x1E69E9840];
-
   [(MCMVolumeChangeMonitor *)selfCopy _notifyObserversIfNeededWithOldState:v8 newState:v13];
 }
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   notifier = self->_notifier;
   if (notifier)
   {
     IOObjectRelease(notifier);
   }
 
-  v5.receiver = self;
-  v5.super_class = MCMVolumeChangeMonitor;
-  [(MCMVolumeChangeMonitor *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = MCMVolumeChangeMonitor;
+  [(MCMVolumeChangeMonitor *)&v4 dealloc];
 }
 
 - (void)start
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (![(MCMVolumeChangeMonitor *)self started])
   {
     [(MCMVolumeChangeMonitor *)self setStarted:1];
@@ -353,14 +269,25 @@ uint64_t __64__MCMVolumeChangeMonitor__notifyObserver_events_newVolumeState___bl
     v5 = IONotificationPortCreate(*MEMORY[0x1E696CD60]);
     if (!v5)
     {
-      v34 = 0u;
+      v26 = 0;
+      v36 = 0u;
+      v37 = 0u;
       v35 = 0u;
-      v33 = 0u;
       memset(buf, 0, sizeof(buf));
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v30 = 134217984;
-      v31 = 0;
-      _os_log_send_and_compose_impl();
+      v23 = MEMORY[0x1E69E9C10];
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        v24 = 3;
+      }
+
+      else
+      {
+        v24 = 2;
+      }
+
+      v32 = 134217984;
+      v33 = 0;
+      _os_log_send_and_compose_impl(v24, &v26, buf, 80, &dword_1DF2C3000, v23, 16, "assertion failure: notificationPort != ((void*)0) -> %llu", &v32);
       _os_crash_msg();
       __break(1u);
     }
@@ -377,26 +304,26 @@ uint64_t __64__MCMVolumeChangeMonitor__notifyObserver_events_newVolumeState___bl
       _os_log_debug_impl(&dword_1DF2C3000, v8, OS_LOG_TYPE_DEBUG, "Monitoring [%@]", buf, 0xCu);
     }
 
+    v30 = 0u;
+    v31 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
     obj = _volumesToMonitor;
-    v9 = [obj countByEnumeratingWithState:&v26 objects:v25 count:16];
+    v9 = [obj countByEnumeratingWithState:&v28 objects:v27 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v27;
+      v11 = *v29;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v27 != v11)
+          if (*v29 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v26 + 1) + 8 * i);
+          v13 = *(*(&v28 + 1) + 8 * i);
           v14 = IOBSDNameMatching(v4, 0, [v13 UTF8String]);
           MatchingService = IOServiceGetMatchingService(v4, v14);
           if (MatchingService)
@@ -457,19 +384,16 @@ uint64_t __64__MCMVolumeChangeMonitor__notifyObserver_events_newVolumeState___bl
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v26 objects:v25 count:16];
+        v10 = [obj countByEnumeratingWithState:&v28 objects:v27 count:16];
       }
 
       while (v10);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeVolumeChangeObserver:(id)observer
 {
-  v8 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   observers = [(MCMVolumeChangeMonitor *)self observers];
   objc_sync_enter(observers);
@@ -477,12 +401,10 @@ uint64_t __64__MCMVolumeChangeMonitor__notifyObserver_events_newVolumeState___bl
   [observers2 removeObject:observerCopy];
 
   objc_sync_exit(observers);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addVolumeChangeObserver:(id)observer
 {
-  v8 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   observers = [(MCMVolumeChangeMonitor *)self observers];
   objc_sync_enter(observers);
@@ -490,17 +412,16 @@ uint64_t __64__MCMVolumeChangeMonitor__notifyObserver_events_newVolumeState___bl
   [observers2 addObject:observerCopy];
 
   objc_sync_exit(observers);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (MCMVolumeChangeMonitor)initWithWorkloop:(id)workloop mountPointURL:(id)l
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   workloopCopy = workloop;
   lCopy = l;
-  v17.receiver = self;
-  v17.super_class = MCMVolumeChangeMonitor;
-  v8 = [(MCMVolumeChangeMonitor *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = MCMVolumeChangeMonitor;
+  v8 = [(MCMVolumeChangeMonitor *)&v16 init];
   if (v8)
   {
     v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -519,7 +440,6 @@ uint64_t __64__MCMVolumeChangeMonitor__notifyObserver_events_newVolumeState___bl
     v8->_notifier = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

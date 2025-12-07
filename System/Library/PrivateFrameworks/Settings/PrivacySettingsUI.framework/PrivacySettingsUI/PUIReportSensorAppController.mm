@@ -21,12 +21,12 @@
 
 - (id)specifiers
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v49 = *MEMORY[0x277D3FC48];
-    v58 = objc_opt_new();
+    v48 = *MEMORY[0x277D3FC48];
+    v57 = objc_opt_new();
     v4 = objc_opt_new();
     bundleID = [(PUIReportSensorAppController *)self bundleID];
 
@@ -47,52 +47,52 @@
     PUIAnalyticsLogView(v11, bundleID2, 0);
 
     manager = [(PUIReportSensorAppController *)self manager];
-    v65[0] = MEMORY[0x277D85DD0];
-    v65[1] = 3221225472;
-    v65[2] = __42__PUIReportSensorAppController_specifiers__block_invoke;
-    v65[3] = &unk_279BA21E0;
-    v65[4] = self;
-    v14 = [manager eventsFiltered:v65];
+    v64[0] = MEMORY[0x277D85DD0];
+    v64[1] = 3221225472;
+    v64[2] = __42__PUIReportSensorAppController_specifiers__block_invoke;
+    v64[3] = &unk_279BA21E0;
+    v64[4] = self;
+    v14 = [manager eventsFiltered:v64];
 
     manager2 = [(PUIReportSensorAppController *)self manager];
-    v47 = v14;
+    v46 = v14;
     v16 = [manager2 categoriesAndLatestDatesFromEvents:v14];
 
     v17 = MEMORY[0x277D3FAD8];
     v18 = PUI_LocalizedStringForAppReport(@"PAST_7_DAYS");
     v19 = [v17 groupSpecifierWithID:@"CATEGORIES" name:v18];
 
-    v48 = v4;
-    v46 = v19;
+    v47 = v4;
+    v45 = v19;
     [v4 addObject:v19];
-    v56 = objc_opt_new();
-    v57 = v16;
+    v55 = objc_opt_new();
+    v56 = v16;
+    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
     obj = [v16 allKeys];
-    v20 = [obj countByEnumeratingWithState:&v61 objects:v66 count:16];
+    v20 = [obj countByEnumeratingWithState:&v60 objects:v65 count:16];
     if (v20)
     {
       v21 = v20;
-      v55 = *v62;
-      v53 = *MEMORY[0x277D3FFD8];
-      v54 = *MEMORY[0x277D40020];
-      v51 = *MEMORY[0x277D40008];
-      v50 = *MEMORY[0x277D3FFC0];
+      v54 = *v61;
+      v52 = *MEMORY[0x277D3FFD8];
+      v53 = *MEMORY[0x277D40020];
+      v50 = *MEMORY[0x277D40008];
+      v49 = *MEMORY[0x277D3FFC0];
       v22 = *MEMORY[0x277D401A8];
       do
       {
         v23 = 0;
         do
         {
-          if (*v62 != v55)
+          if (*v61 != v54)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v61 + 1) + 8 * v23);
+          v24 = *(*(&v60 + 1) + 8 * v23);
           v25 = MEMORY[0x277D3FAD8];
           v26 = [PUIReportSensorManager localizedStringForCategory:v24];
           v27 = [v25 preferenceSpecifierNamed:v26 target:self set:0 get:sel_valueForSpecifier_ detail:objc_opt_class() cell:2 edit:0];
@@ -111,11 +111,11 @@
             v31 = [PUIReportSensorManager iconTypeIdentifierForCategory:v24];
             v32 = v27;
             v33 = v31;
-            v34 = v53;
+            v34 = v52;
 LABEL_13:
             [v32 setObject:v33 forKeyedSubscript:v34];
 
-            [v27 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v54];
+            [v27 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v53];
             goto LABEL_14;
           }
 
@@ -126,47 +126,45 @@ LABEL_13:
             v31 = [PUIReportSensorManager applicationBundleIdentifierForCategory:v24];
             v32 = v27;
             v33 = v31;
-            v34 = v51;
+            v34 = v50;
             goto LABEL_13;
           }
 
           v39 = [PUIReportSensorManager iconForCategory:v24];
-          [v27 setObject:v39 forKeyedSubscript:v50];
+          [v27 setObject:v39 forKeyedSubscript:v49];
 
 LABEL_14:
-          v36 = [v57 objectForKeyedSubscript:v24];
+          v36 = [v56 objectForKeyedSubscript:v24];
           v37 = [MEMORY[0x277CBEAA8] now];
-          v38 = [v58 localizedStringForDate:v36 relativeToDate:v37];
+          v38 = [v57 localizedStringForDate:v36 relativeToDate:v37];
           [v27 setObject:v38 forKeyedSubscript:v22];
 
-          [v56 addObject:v27];
+          [v55 addObject:v27];
           ++v23;
         }
 
         while (v21 != v23);
-        v40 = [obj countByEnumeratingWithState:&v61 objects:v66 count:16];
+        v40 = [obj countByEnumeratingWithState:&v60 objects:v65 count:16];
         v21 = v40;
       }
 
       while (v40);
     }
 
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __42__PUIReportSensorAppController_specifiers__block_invoke_2;
-    v59[3] = &unk_279BA2208;
-    v60 = v57;
-    v41 = v57;
-    [v56 sortUsingComparator:v59];
-    [v48 addObjectsFromArray:v56];
-    v42 = *(&self->super.super.super.super.super.isa + v49);
-    *(&self->super.super.super.super.super.isa + v49) = v48;
-    v43 = v48;
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __42__PUIReportSensorAppController_specifiers__block_invoke_2;
+    v58[3] = &unk_279BA2208;
+    v59 = v56;
+    v41 = v56;
+    [v55 sortUsingComparator:v58];
+    [v47 addObjectsFromArray:v55];
+    v42 = *(&self->super.super.super.super.super.isa + v48);
+    *(&self->super.super.super.super.super.isa + v48) = v47;
+    v43 = v47;
 
-    v3 = *(&self->super.super.super.super.super.isa + v49);
+    v3 = *(&self->super.super.super.super.super.isa + v48);
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

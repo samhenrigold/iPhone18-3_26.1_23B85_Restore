@@ -87,7 +87,7 @@
   [(VUILibraryEpisodeShelfViewController *)self setEpisodeDetailViewController:0];
 }
 
-uint64_t __55__VUILibraryEpisodeShelfViewController_viewWillAppear___block_invoke_2(uint64_t a1, void *a2)
+void *__55__VUILibraryEpisodeShelfViewController_viewWillAppear___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)

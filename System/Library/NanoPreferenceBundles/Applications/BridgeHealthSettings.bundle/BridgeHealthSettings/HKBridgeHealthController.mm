@@ -31,6 +31,7 @@
 - (void)showMedicalIDController:(id)controller;
 - (void)stopReceivingSharedHealthDataButton:(id)button;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HKBridgeHealthController
@@ -200,6 +201,14 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = HKBridgeHealthController;
+  [(HKBridgeHealthController *)&v3 viewWillAppear:appear];
+  +[HKBridgeHealthUserVisitDonation donateUserVisitForHealthSection];
 }
 
 - (id)_healthDataGroupSpecifier

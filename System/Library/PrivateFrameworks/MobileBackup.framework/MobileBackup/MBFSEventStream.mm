@@ -106,7 +106,7 @@
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "stat failed for %@ %{errno}d", &buf, 0x12u);
 
       volumeMountPoint3 = [(MBFSEventStream *)self volumeMountPoint];
-      _MBLog();
+      _MBLog(@"E ", "stat failed for %@ %{errno}d", volumeMountPoint3, v8);
     }
 
     volumeMountPoint4 = [(MBFSEventStream *)self volumeMountPoint];
@@ -116,18 +116,18 @@
   }
 
   st_dev = v29.st_dev;
-  v13 = objc_opt_class();
+  v14 = objc_opt_class();
   databaseUUID = [(MBFSEventStream *)self databaseUUID];
-  LOBYTE(v13) = [v13 _verifyFSEventDatabase:databaseUUID device:st_dev error:error];
+  LOBYTE(v14) = [v14 _verifyFSEventDatabase:databaseUUID device:st_dev error:error];
 
-  if ((v13 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    v24 = MBGetDefaultLog();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = MBGetDefaultLog();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf.version) = 0;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Failed to verify FSEvents database", &buf, 2u);
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Failed to verify FSEvents database", &buf, 2u);
+      _MBLog(@"E ", "Failed to verify FSEvents database");
     }
 
     return 0;
@@ -138,46 +138,46 @@
   buf.info = self;
   rootPathToMonitor = [(MBFSEventStream *)self rootPathToMonitor];
   v36 = rootPathToMonitor;
-  v16 = FSEventStreamCreateRelativeToDevice(0, sub_10026726C, &buf, st_dev, [NSArray arrayWithObjects:&v36 count:1], [(MBFSEventStream *)self eventID], 0.0, 1u);
+  v17 = FSEventStreamCreateRelativeToDevice(0, sub_10026726C, &buf, st_dev, [NSArray arrayWithObjects:&v36 count:1], [(MBFSEventStream *)self eventID], 0.0, 1u);
 
-  if (!v16)
+  if (!v17)
   {
-    v26 = MBGetDefaultLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v27 = MBGetDefaultLog();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *v30 = 0;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Could not create FSEvent stream", v30, 2u);
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Could not create FSEvent stream", v30, 2u);
+      _MBLog(@"E ", "Could not create FSEvent stream");
     }
 
-    v27 = @"Failed to create FSEvent stream";
+    v28 = @"Failed to create FSEvent stream";
     goto LABEL_23;
   }
 
   eventQueue2 = [(MBFSEventStream *)self eventQueue];
-  FSEventStreamSetDispatchQueue(v16, eventQueue2);
+  FSEventStreamSetDispatchQueue(v17, eventQueue2);
 
-  v18 = FSEventStreamStart(v16);
-  v19 = MBGetDefaultLog();
-  v20 = v19;
-  if (!v18)
+  v19 = FSEventStreamStart(v17);
+  v20 = MBGetDefaultLog();
+  v21 = v20;
+  if (!v19)
   {
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *v30 = 0;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to start FSEvent stream", v30, 2u);
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to start FSEvent stream", v30, 2u);
+      _MBLog(@"E ", "Failed to start FSEvent stream");
     }
 
-    FSEventStreamRelease(v16);
-    v27 = @"Failed to start FSEvent stream";
+    FSEventStreamRelease(v17);
+    v28 = @"Failed to start FSEvent stream";
 LABEL_23:
-    [MBError errorWithCode:1 format:v27];
-    *error = v16 = 0;
-    return v16;
+    [MBError errorWithCode:1 format:v28];
+    *error = v17 = 0;
+    return v17;
   }
 
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     volumeMountPoint5 = [(MBFSEventStream *)self volumeMountPoint];
     eventID = [(MBFSEventStream *)self eventID];
@@ -186,15 +186,14 @@ LABEL_23:
     v32 = 2048;
     v33 = eventID;
     v34 = 2048;
-    v35 = v16;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Started collecting FSEvents for %{public}@ from FSEventId:%llu streamRef:%p", v30, 0x20u);
+    v35 = v17;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Started collecting FSEvents for %{public}@ from FSEventId:%llu streamRef:%p", v30, 0x20u);
 
     volumeMountPoint6 = [(MBFSEventStream *)self volumeMountPoint];
-    [(MBFSEventStream *)self eventID];
-    _MBLog();
+    _MBLog(@"Df", "Started collecting FSEvents for %{public}@ from FSEventId:%llu streamRef:%p", volumeMountPoint6, [(MBFSEventStream *)self eventID], v17);
   }
 
-  return v16;
+  return v17;
 }
 
 + (BOOL)_verifyFSEventDatabase:(id)database device:(int)device error:(id *)error
@@ -223,7 +222,7 @@ LABEL_23:
         v18 = 2112;
         v19 = v11;
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "FSEvents database has changed %@ != %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "FSEvents database has changed %@ != %@", v8, v11);
       }
 
       *error = [MBError errorWithCode:4 format:@"Invalid FSEvents database"];
@@ -238,7 +237,7 @@ LABEL_23:
       *buf = 67109120;
       LODWORD(v17) = device;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "FSEventsCopyUUIDForDevice returned nil for device:%d", buf, 8u);
-      _MBLog();
+      _MBLog(@"E ", "FSEventsCopyUUIDForDevice returned nil for device:%d", device);
     }
 
     [MBError errorWithCode:4 format:@"FSEventsCopyUUIDFotDevice returned nil"];
@@ -262,7 +261,7 @@ LABEL_23:
       v8 = 2112;
       selfCopy = self;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Invalidating the FSEvent stream %p %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"I ", "Invalidating the FSEvent stream %p %@", v4, self);
     }
 
     FSEventStreamStop(v4);

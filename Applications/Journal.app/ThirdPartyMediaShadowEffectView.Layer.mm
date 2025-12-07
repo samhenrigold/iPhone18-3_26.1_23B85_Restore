@@ -23,7 +23,7 @@
 - (void)setCornerRadius:(double)radius
 {
   selfCopy = self;
-  sub_100786B7C(radius);
+  sub_100786B7C(radius, selfCopy, v4);
 }
 
 - (NSString)cornerCurve
@@ -39,7 +39,7 @@
 {
   curveCopy = curve;
   selfCopy = self;
-  sub_100786D2C(curveCopy);
+  sub_100786D2C(curveCopy, selfCopy);
 }
 
 - (CACornerRadii)cornerRadii
@@ -66,7 +66,7 @@
   v6[2] = radii->var2;
   v6[3] = var3;
   selfCopy = self;
-  sub_100786EFC(v6);
+  sub_100786EFC(v6, selfCopy);
 }
 
 - (_TtCC7Journal31ThirdPartyMediaShadowEffectViewP33_12A01373AF1737769C2E66ABF7AEC5025Layer)init

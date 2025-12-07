@@ -14,7 +14,7 @@
 
 - (id)modelForChangeType:(unint64_t)type uuid:(id)uuid parentUUID:(id)d
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   uuidCopy = uuid;
   dCopy = d;
   variant = [(HMDUnassociatedAppleMediaAccessory *)self variant];
@@ -37,8 +37,8 @@
       }
 
       v15 = HMFGetLogIdentifier();
-      *v22 = 138543362;
-      *&v22[4] = v15;
+      *v21 = 138543362;
+      *&v21[4] = v15;
       v16 = "%{public}@Unexpectedly creating an original HomePod model from a original HomePod";
       goto LABEL_14;
     }
@@ -49,8 +49,8 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       v15 = HMFGetLogIdentifier();
-      *v22 = 138543362;
-      *&v22[4] = v15;
+      *v21 = 138543362;
+      *&v21[4] = v15;
       v16 = "%{public}@Unexpectedly creating a model of an unknown HomePod";
       goto LABEL_14;
     }
@@ -76,11 +76,11 @@ LABEL_15:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       v15 = HMFGetLogIdentifier();
-      *v22 = 138543362;
-      *&v22[4] = v15;
+      *v21 = 138543362;
+      *&v21[4] = v15;
       v16 = "%{public}@Unexpectedly creating a model from a demo HomePod";
 LABEL_14:
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_FAULT, v16, v22, 0xCu);
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_FAULT, v16, v21, 0xCu);
 
       goto LABEL_15;
     }
@@ -89,9 +89,7 @@ LABEL_14:
   }
 
 LABEL_16:
-  v19 = [(__objc2_class *)*v11 homePodAccessoryModelWithChangeType:type uuid:uuidCopy parentUUID:dCopy, *v22];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [(__objc2_class *)*v11 homePodAccessoryModelWithChangeType:type uuid:uuidCopy parentUUID:dCopy, *v21, *&v21[8]];
 
   return v19;
 }

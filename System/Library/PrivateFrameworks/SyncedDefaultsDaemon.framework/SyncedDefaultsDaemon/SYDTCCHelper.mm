@@ -82,11 +82,11 @@ uint64_t __28__SYDTCCHelper_sharedHelper__block_invoke()
 
 void __53__SYDTCCHelper_isUbiquityDisabledForStoreIdentifier___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = SYDGetTCCLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __53__SYDTCCHelper_isUbiquityDisabledForStoreIdentifier___block_invoke_cold_1(a1);
+    __53__SYDTCCHelper_isUbiquityDisabledForStoreIdentifier___block_invoke_cold_1();
   }
 
   v3 = [*(a1 + 40) cachedDisabledStoreIdentifiers];
@@ -100,9 +100,9 @@ void __53__SYDTCCHelper_isUbiquityDisabledForStoreIdentifier___block_invoke(uint
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = [*(a1 + 40) cachedDisabledStoreIdentifiers];
-      v11 = 138412290;
-      v12 = v6;
-      _os_log_impl(&dword_26C384000, v5, OS_LOG_TYPE_INFO, "Caching disabled store identifiers: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v6;
+      _os_log_impl(&dword_26C384000, v5, OS_LOG_TYPE_INFO, "Caching disabled store identifiers: %@", &v10, 0xCu);
     }
   }
 
@@ -114,18 +114,16 @@ void __53__SYDTCCHelper_isUbiquityDisabledForStoreIdentifier___block_invoke(uint
     v9 = SYDGetTCCLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      __53__SYDTCCHelper_isUbiquityDisabledForStoreIdentifier___block_invoke_cold_2((a1 + 32));
+      __53__SYDTCCHelper_isUbiquityDisabledForStoreIdentifier___block_invoke_cold_2();
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)findDisabledStoreIdentifiers
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = SYDGetTCCLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -133,149 +131,146 @@ void __53__SYDTCCHelper_isUbiquityDisabledForStoreIdentifier___block_invoke(uint
     _os_log_impl(&dword_26C384000, v2, OS_LOG_TYPE_INFO, "Finding list of disabled store identifiers", buf, 2u);
   }
 
-  v24 = [MEMORY[0x277CBEB58] set];
-  v3 = *MEMORY[0x277D6C230];
+  v22 = [MEMORY[0x277CBEB58] set];
+  v25 = 0u;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v4 = TCCAccessCopyBundleIdentifiersDisabledForService();
-  v5 = [v4 countByEnumeratingWithState:&v27 objects:v35 count:16];
-  if (v5)
+  v3 = TCCAccessCopyBundleIdentifiersDisabledForService();
+  v4 = [v3 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  if (v4)
   {
-    v7 = v5;
-    v8 = *v28;
-    v9 = 0x277CC1000uLL;
-    *&v6 = 138412546;
-    v23 = v6;
-    v25 = *v28;
+    v6 = v4;
+    v7 = *v26;
+    v8 = 0x277CC1000uLL;
+    *&v5 = 138412546;
+    v21 = v5;
+    v23 = *v26;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v28 != v8)
+        if (*v26 != v7)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v3);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
-        v12 = *(v9 + 3728);
-        v26 = 0;
-        v13 = [v12 bundleRecordWithBundleIdentifier:v11 allowPlaceholder:0 error:{&v26, v23}];
-        v14 = v26;
-        if (v14)
+        v10 = *(*(&v25 + 1) + 8 * i);
+        v11 = *(v8 + 3728);
+        v24 = 0;
+        v12 = [v11 bundleRecordWithBundleIdentifier:v10 allowPlaceholder:0 error:{&v24, v21}];
+        v13 = v24;
+        if (v13)
         {
-          v15 = SYDGetTCCLog();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v14 = SYDGetTCCLog();
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v32 = v14;
-            _os_log_error_impl(&dword_26C384000, v15, OS_LOG_TYPE_ERROR, "Error getting bundle record: %@", buf, 0xCu);
+            v30 = v13;
+            _os_log_error_impl(&dword_26C384000, v14, OS_LOG_TYPE_ERROR, "Error getting bundle record: %@", buf, 0xCu);
           }
         }
 
-        else if (v13)
+        else if (v12)
         {
-          v16 = v4;
-          v15 = [objc_alloc(MEMORY[0x277D6B878]) initWithBundleRecord:v13];
-          storeIdentifiers = [v15 storeIdentifiers];
-          v18 = [storeIdentifiers count];
-          v19 = SYDGetTCCLog();
-          v20 = v19;
-          if (v18)
+          v15 = v3;
+          v14 = [objc_alloc(MEMORY[0x277D6B878]) initWithBundleRecord:v12];
+          storeIdentifiers = [v14 storeIdentifiers];
+          v17 = [storeIdentifiers count];
+          v18 = SYDGetTCCLog();
+          v19 = v18;
+          if (v17)
           {
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
             {
-              *buf = v23;
-              v32 = v11;
-              v33 = 2112;
-              v34 = storeIdentifiers;
-              _os_log_impl(&dword_26C384000, v20, OS_LOG_TYPE_INFO, "Bundle %@ has Ubiquity disabled and is entitled to store identifiers: %@", buf, 0x16u);
+              *buf = v21;
+              v30 = v10;
+              v31 = 2112;
+              v32 = storeIdentifiers;
+              _os_log_impl(&dword_26C384000, v19, OS_LOG_TYPE_INFO, "Bundle %@ has Ubiquity disabled and is entitled to store identifiers: %@", buf, 0x16u);
             }
 
-            [v24 addObjectsFromArray:storeIdentifiers];
+            [v22 addObjectsFromArray:storeIdentifiers];
           }
 
           else
           {
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v32 = v11;
-              _os_log_debug_impl(&dword_26C384000, v20, OS_LOG_TYPE_DEBUG, "Bundle %@ has Ubiquity disabled, but is not entitled to any KVS stores", buf, 0xCu);
+              v30 = v10;
+              _os_log_debug_impl(&dword_26C384000, v19, OS_LOG_TYPE_DEBUG, "Bundle %@ has Ubiquity disabled, but is not entitled to any KVS stores", buf, 0xCu);
             }
           }
 
-          v4 = v16;
+          v3 = v15;
 
-          v8 = v25;
-          v9 = 0x277CC1000;
+          v7 = v23;
+          v8 = 0x277CC1000;
         }
 
         else
         {
-          v15 = SYDGetTCCLog();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+          v14 = SYDGetTCCLog();
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v32 = v11;
-            _os_log_impl(&dword_26C384000, v15, OS_LOG_TYPE_INFO, "Couldn't find bundle record for disabled bundle %@", buf, 0xCu);
+            v30 = v10;
+            _os_log_impl(&dword_26C384000, v14, OS_LOG_TYPE_INFO, "Couldn't find bundle record for disabled bundle %@", buf, 0xCu);
           }
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v22;
 }
 
 - (void)enableUbiquityIfNecessaryForAuditToken:(id *)token
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = SYDGetTCCLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [SYDTCCHelper enableUbiquityIfNecessaryForAuditToken:];
   }
 
-  v30 = 0;
+  v28 = 0;
   v5 = *&token->var0[4];
   *buf = *token->var0;
-  v33 = v5;
-  v6 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:buf error:&v30];
-  v7 = v30;
+  v31 = v5;
+  v6 = [MEMORY[0x277CC1E90] bundleRecordForAuditToken:buf error:&v28];
+  v7 = v28;
   bundleIdentifier = [v6 bundleIdentifier];
   if (bundleIdentifier)
   {
-    v25 = v7;
+    v23 = v7;
+    v24 = 0u;
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
     v9 = TCCAccessCopyInformationForBundleId();
-    v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
     v11 = MEMORY[0x277D6C230];
     if (v10)
     {
       v12 = v10;
-      v13 = *v27;
+      v13 = *v25;
       v14 = MEMORY[0x277D6C0E8];
 LABEL_6:
       v15 = 0;
       while (1)
       {
-        if (*v27 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v16 = *(*(&v26 + 1) + 8 * v15);
+        v16 = *(*(&v24 + 1) + 8 * v15);
         v17 = [v16 objectForKeyedSubscript:*v14];
         if ([v17 isEqualToString:*v11])
         {
@@ -284,7 +279,7 @@ LABEL_6:
 
         if (v12 == ++v15)
         {
-          v12 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+          v12 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
           if (v12)
           {
             goto LABEL_6;
@@ -331,11 +326,10 @@ LABEL_17:
         _os_log_impl(&dword_26C384000, v22, OS_LOG_TYPE_INFO, "Enabling TCC for %@", buf, 0xCu);
       }
 
-      v23 = *v11;
       TCCAccessSetForBundleId();
     }
 
-    v7 = v25;
+    v7 = v23;
   }
 
   else
@@ -346,8 +340,6 @@ LABEL_17:
       [SYDTCCHelper enableUbiquityIfNecessaryForAuditToken:];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startListeningToTCCAccessChangedNotifications
@@ -379,45 +371,11 @@ void __61__SYDTCCHelper_startListeningToTCCAccessChangedNotifications__block_inv
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __53__SYDTCCHelper_isUbiquityDisabledForStoreIdentifier___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __53__SYDTCCHelper_isUbiquityDisabledForStoreIdentifier___block_invoke_cold_2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)enableUbiquityIfNecessaryForAuditToken:.cold.1()
 {
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)enableUbiquityIfNecessaryForAuditToken:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)enableUbiquityIfNecessaryForAuditToken:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableUbiquityIfNecessaryForAuditToken:.cold.4()

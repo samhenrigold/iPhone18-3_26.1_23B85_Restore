@@ -48,58 +48,58 @@
 
 + (id)modelArrayForArrayProvider:(id)provider
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
-  v27 = objc_opt_new();
-  v23 = providerCopy;
+  v26 = objc_opt_new();
+  v22 = providerCopy;
   array = [providerCopy array];
   v5 = [array objectAtIndexedSubscript:0];
   featureNames = [v5 featureNames];
   allObjects = [featureNames allObjects];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = array;
-  v28 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  if (v27)
   {
-    v25 = *v35;
+    v24 = *v34;
     do
     {
       v7 = 0;
       do
       {
-        if (*v35 != v25)
+        if (*v34 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = v7;
-        v8 = *(*(&v34 + 1) + 8 * v7);
+        v28 = v7;
+        v8 = *(*(&v33 + 1) + 8 * v7);
         v9 = objc_opt_new();
+        v29 = 0u;
         v30 = 0u;
         v31 = 0u;
         v32 = 0u;
-        v33 = 0u;
         v10 = allObjects;
-        v11 = [v10 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v29 objects:v37 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v31;
+          v13 = *v30;
           do
           {
             v14 = 0;
             do
             {
-              if (*v31 != v13)
+              if (*v30 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v30 + 1) + 8 * v14);
+              v15 = *(*(&v29 + 1) + 8 * v14);
               v16 = [v8 featureValueForName:v15];
               if ([v16 type] == 1)
               {
@@ -132,27 +132,25 @@ LABEL_18:
             }
 
             while (v12 != v14);
-            v20 = [v10 countByEnumeratingWithState:&v30 objects:v38 count:16];
+            v20 = [v10 countByEnumeratingWithState:&v29 objects:v37 count:16];
             v12 = v20;
           }
 
           while (v20);
         }
 
-        [v27 addObject:v9];
-        v7 = v29 + 1;
+        [v26 addObject:v9];
+        v7 = v28 + 1;
       }
 
-      while (v29 + 1 != v28);
-      v28 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+      while (v28 + 1 != v27);
+      v27 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v26;
 }
 
 + (id)dataMetricsForFeatureProvider:(id)provider
@@ -174,9 +172,9 @@ LABEL_18:
 
 + (id)dictionariesFromBatchProvider:(id)provider
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
-  v16 = objc_opt_new();
+  v15 = objc_opt_new();
   if ([providerCopy count])
   {
     v4 = 0;
@@ -185,36 +183,36 @@ LABEL_18:
       dictionary = [MEMORY[0x277CBEB38] dictionary];
       v6 = [providerCopy featuresAtIndex:v4];
       featureNames = [v6 featureNames];
+      v16 = 0u;
       v17 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
-      v8 = [featureNames countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [featureNames countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v18;
+        v10 = *v17;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v18 != v10)
+            if (*v17 != v10)
             {
               objc_enumerationMutation(featureNames);
             }
 
-            v12 = *(*(&v17 + 1) + 8 * i);
+            v12 = *(*(&v16 + 1) + 8 * i);
             v13 = [v6 featureValueForName:v12];
             [dictionary setObject:v13 forKeyedSubscript:v12];
           }
 
-          v9 = [featureNames countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v9 = [featureNames countByEnumeratingWithState:&v16 objects:v20 count:16];
         }
 
         while (v9);
       }
 
-      [v16 addObject:dictionary];
+      [v15 addObject:dictionary];
 
       ++v4;
     }
@@ -222,9 +220,7 @@ LABEL_18:
     while (v4 < [providerCopy count]);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v15;
 }
 
 + (id)modelContentForBatchProvider:(id)provider

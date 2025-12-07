@@ -544,7 +544,8 @@ LABEL_8:
         v10 = [self indexAtPosition:v9];
       }
 
-      *&v8[8 * v9++] = v10;
+      *&v8[8 * v9] = v10;
+      v9 = v9 + 1;
     }
 
     while (v7 != v9);

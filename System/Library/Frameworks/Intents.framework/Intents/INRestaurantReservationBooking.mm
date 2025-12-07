@@ -13,28 +13,28 @@
 
 - (id)_dictionaryRepresentation
 {
-  v27[11] = *MEMORY[0x1E69E9840];
+  v26[11] = *MEMORY[0x1E69E9840];
   restaurant = self->_restaurant;
-  v25 = restaurant;
-  v26[0] = @"restaurant";
+  v24 = restaurant;
+  v25[0] = @"restaurant";
   if (!restaurant)
   {
     restaurant = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = restaurant;
-  v27[0] = restaurant;
-  v26[1] = @"bookingDescription";
+  v21 = restaurant;
+  v26[0] = restaurant;
+  v25[1] = @"bookingDescription";
   bookingDescription = self->_bookingDescription;
-  v24 = bookingDescription;
+  v23 = bookingDescription;
   if (!bookingDescription)
   {
     bookingDescription = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = bookingDescription;
-  v27[1] = bookingDescription;
-  v26[2] = @"bookingDate";
+  v20 = bookingDescription;
+  v26[1] = bookingDescription;
+  v25[2] = @"bookingDate";
   bookingDate = self->_bookingDate;
   null = bookingDate;
   if (!bookingDate)
@@ -42,12 +42,12 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null;
-  v27[2] = null;
-  v26[3] = @"partySize";
-  v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_partySize];
-  v27[3] = v23;
-  v26[4] = @"bookingIdentifier";
+  v19 = null;
+  v26[2] = null;
+  v25[3] = @"partySize";
+  v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_partySize];
+  v26[3] = v22;
+  v25[4] = @"bookingIdentifier";
   bookingIdentifier = self->_bookingIdentifier;
   null2 = bookingIdentifier;
   if (!bookingIdentifier)
@@ -55,12 +55,12 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = null2;
-  v27[4] = null2;
-  v26[5] = @"isBookingAvailable";
+  v18 = null2;
+  v26[4] = null2;
+  v25[5] = @"isBookingAvailable";
   v9 = [MEMORY[0x1E696AD98] numberWithBool:{-[INRestaurantReservationBooking isBookingAvailable](self, "isBookingAvailable")}];
-  v27[5] = v9;
-  v26[6] = @"offers";
+  v26[5] = v9;
+  v25[6] = @"offers";
   offers = self->_offers;
   null3 = offers;
   if (!offers)
@@ -68,20 +68,20 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[6] = null3;
-  v26[7] = @"requiresManualRequest";
+  v26[6] = null3;
+  v25[7] = @"requiresManualRequest";
   v12 = [MEMORY[0x1E696AD98] numberWithBool:self->_requiresManualRequest];
-  v27[7] = v12;
-  v26[8] = @"requiresEmailAddress";
+  v26[7] = v12;
+  v25[8] = @"requiresEmailAddress";
   v13 = [MEMORY[0x1E696AD98] numberWithBool:self->_requiresEmailAddress];
-  v27[8] = v13;
-  v26[9] = @"requiresName";
+  v26[8] = v13;
+  v25[9] = @"requiresName";
   v14 = [MEMORY[0x1E696AD98] numberWithBool:self->_requiresName];
-  v27[9] = v14;
-  v26[10] = @"requiresPhoneNumber";
+  v26[9] = v14;
+  v25[10] = @"requiresPhoneNumber";
   v15 = [MEMORY[0x1E696AD98] numberWithBool:self->_requiresPhoneNumber];
-  v27[10] = v15;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:11];
+  v26[10] = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:11];
 
   if (!offers)
   {
@@ -95,15 +95,13 @@
   {
   }
 
+  if (!v23)
+  {
+  }
+
   if (!v24)
   {
   }
-
-  if (!v25)
-  {
-  }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -319,7 +317,7 @@ LABEL_39:
 
 - (INRestaurantReservationBooking)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(INRestaurantReservationBooking *)self init];
   if (!v5)
@@ -337,9 +335,9 @@ LABEL_39:
     }
 
     *buf = 136315394;
-    v24 = "[INRestaurantReservationBooking initWithCoder:]";
-    v25 = 2080;
-    v26 = "_restaurant";
+    v23 = "[INRestaurantReservationBooking initWithCoder:]";
+    v24 = 2080;
+    v25 = "_restaurant";
 LABEL_13:
     _os_log_error_impl(&dword_18E991000, v20, OS_LOG_TYPE_ERROR, "%s Null value for %s", buf, 0x16u);
     goto LABEL_14;
@@ -358,9 +356,9 @@ LABEL_13:
     }
 
     *buf = 136315394;
-    v24 = "[INRestaurantReservationBooking initWithCoder:]";
-    v25 = 2080;
-    v26 = "_bookingDate";
+    v23 = "[INRestaurantReservationBooking initWithCoder:]";
+    v24 = 2080;
+    v25 = "_bookingDate";
     goto LABEL_13;
   }
 
@@ -374,9 +372,9 @@ LABEL_13:
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "[INRestaurantReservationBooking initWithCoder:]";
-      v25 = 2080;
-      v26 = "_bookingIdentifier";
+      v23 = "[INRestaurantReservationBooking initWithCoder:]";
+      v24 = 2080;
+      v25 = "_bookingIdentifier";
       goto LABEL_13;
     }
 
@@ -409,7 +407,6 @@ LABEL_6:
   v19 = v5;
 LABEL_15:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

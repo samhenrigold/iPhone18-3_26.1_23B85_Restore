@@ -59,9 +59,11 @@
 - (void)_create_badgeView
 {
   v3 = [STUIStatusBarBadgeView alloc];
-  self->_badgeView = [(STUIStatusBarBadgeView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v4 = [(STUIStatusBarBadgeView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  badgeView = self->_badgeView;
+  self->_badgeView = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, badgeView);
 }
 
 - (id)viewForIdentifier:(id)identifier

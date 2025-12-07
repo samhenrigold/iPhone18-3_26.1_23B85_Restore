@@ -6,6 +6,7 @@
 - (id)_eventPayloadFromPreferencesIfComplete;
 - (void)_analyticsManagerDidProduceLazyEvents;
 - (void)didChooseAppearanceModeName:(id)name forDisposition:(unint64_t)disposition;
+- (void)didChooseToSetUpForChild:(BOOL)child;
 - (void)setChildAge:(id)age;
 @end
 
@@ -46,6 +47,31 @@
   }
 
   return v9;
+}
+
+- (void)didChooseToSetUpForChild:(BOOL)child
+{
+  childCopy = child;
+  _eventPayloadFromPreferences = [(BYAnalyticsEventAppearance *)self _eventPayloadFromPreferences];
+  v6 = [_eventPayloadFromPreferences mutableCopy];
+
+  if (v6)
+  {
+    v8 = [MEMORY[0x1E696AD98] numberWithBool:childCopy];
+    [v6 setObject:v8 forKeyedSubscript:@"child_setup"];
+
+    buddyPreferencesExcludedFromBackup = [(BYAnalyticsEventAppearance *)self buddyPreferencesExcludedFromBackup];
+    [buddyPreferencesExcludedFromBackup setObject:v6 forKey:@"AppearanceAnalyticsEventPayload" persistImmediately:1];
+  }
+
+  else
+  {
+    buddyPreferencesExcludedFromBackup = _BYLoggingFacility(v7);
+    if (os_log_type_enabled(buddyPreferencesExcludedFromBackup, OS_LOG_TYPE_ERROR))
+    {
+      [BYAnalyticsEventAppearance didChooseToSetUpForChild:buddyPreferencesExcludedFromBackup];
+    }
+  }
 }
 
 - (void)didChooseAppearanceModeName:(id)name forDisposition:(unint64_t)disposition
@@ -90,7 +116,7 @@
 
   else
   {
-    buddyPreferencesExcludedFromBackup = _BYLoggingFacility();
+    buddyPreferencesExcludedFromBackup = _BYLoggingFacility(v7);
     if (os_log_type_enabled(buddyPreferencesExcludedFromBackup, OS_LOG_TYPE_ERROR))
     {
       [BYAnalyticsEventAppearance didChooseToSetUpForChild:buddyPreferencesExcludedFromBackup];
@@ -126,10 +152,10 @@
 
       if (!v4)
       {
-        v5 = _BYLoggingFacility();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+        v6 = _BYLoggingFacility(v5);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
-          [(BYAnalyticsEventAppearance *)v5 _eventPayloadFromPreferencesIfComplete];
+          [(BYAnalyticsEventAppearance *)v6 _eventPayloadFromPreferencesIfComplete];
         }
 
         _eventPayloadFromPreferences = 0;

@@ -46,32 +46,32 @@ double _SFPBPointSizeHandwrittenTranslator(void *a1)
 
 id _SFPBStringDictionaryHandwrittenTranslator(void *a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
   if (v1 && [v1 keyValuesCount])
   {
     v3 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v2, "keyValuesCount")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v4 = [v2 keyValues];
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v17 + 1) + 8 * i);
+          v9 = *(*(&v16 + 1) + 8 * i);
           v10 = [v9 key];
           if (v10)
           {
@@ -87,7 +87,7 @@ id _SFPBStringDictionaryHandwrittenTranslator(void *a1)
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v6);
@@ -98,8 +98,6 @@ id _SFPBStringDictionaryHandwrittenTranslator(void *a1)
   {
     v3 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -160,9 +158,9 @@ LABEL_10:
   return v10;
 }
 
-void sub_1B1201048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1201048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -334,29 +332,29 @@ void SFFeedbackListenerUnregister(uint64_t a1)
 
 void __SFFeedbackListenerUnregister_block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = getWeakListeners();
   v3 = [MEMORY[0x1E695DF70] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         v10 = [v9 strongListener];
         v11 = v10;
         if (v10)
@@ -375,7 +373,7 @@ void __SFFeedbackListenerUnregister_block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -384,7 +382,6 @@ void __SFFeedbackListenerUnregister_block_invoke(uint64_t a1)
 LABEL_12:
 
   [v4 removeObjectsInArray:v3];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void SFFeedbackNotify(void *a1, uint64_t a2)
@@ -405,28 +402,28 @@ void SFFeedbackNotify(void *a1, uint64_t a2)
 
 void __SFFeedbackNotify_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = getWeakListeners();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       v6 = 0;
       do
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(&v15 + 1) + 8 * v6) strongListener];
+        v7 = [*(*(&v14 + 1) + 8 * v6) strongListener];
         v8 = v7;
         if (v7)
         {
@@ -668,14 +665,12 @@ void __SFFeedbackNotify_block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v13 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v13 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       v4 = v13;
     }
 
     while (v13);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __PARLogHandleForCategory_block_invoke_70634()
@@ -774,7 +769,7 @@ void __getDispatchQueue_block_invoke_2()
 
   if (checkValidParsecHost_isValidHost)
   {
-    if (CoreParsecLibraryCore())
+    if (CoreParsecLibraryCore(0))
     {
       v7 = 0;
       v8 = &v7;
@@ -821,34 +816,43 @@ void __getDispatchQueue_block_invoke_2()
   _SFResourceLoaderRegisterInternal(initLoaders_imageFileLoader);
 }
 
-void sub_1B1327918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1327918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t CoreParsecLibraryCore()
+uint64_t CoreParsecLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!CoreParsecLibraryCore_frameworkLibrary)
   {
     CoreParsecLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = CoreParsecLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return CoreParsecLibraryCore_frameworkLibrary;
 }
 
 Class __getPARSessionClass_block_invoke(uint64_t a1)
 {
-  if (!CoreParsecLibraryCore())
+  v6 = 0;
+  v2 = CoreParsecLibraryCore(&v6);
+  v3 = v6;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v6)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v6);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("PARSession");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (*(*(*(a1 + 32) + 8) + 24))
@@ -858,8 +862,8 @@ Class __getPARSessionClass_block_invoke(uint64_t a1)
 
   else
   {
-    v4 = abort_report_np();
-    return __CoreParsecLibraryCore_block_invoke(v4);
+    v5 = abort_report_np("Unable to find class %s", "PARSession");
+    return __CoreParsecLibraryCore_block_invoke(v5);
   }
 
   return result;
@@ -867,11 +871,8 @@ Class __getPARSessionClass_block_invoke(uint64_t a1)
 
 uint64_t __CoreParsecLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreParsecLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -888,29 +889,29 @@ void SFResourceLoaderUnregister(uint64_t a1)
 
 void __SFResourceLoaderUnregister_block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = getWeakLoaders();
   v3 = [MEMORY[0x1E695DF70] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         v10 = [v9 strongloader];
         v11 = v10;
         if (v10)
@@ -929,7 +930,7 @@ void __SFResourceLoaderUnregister_block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -938,7 +939,6 @@ void __SFResourceLoaderUnregister_block_invoke(uint64_t a1)
 LABEL_12:
 
   [v4 removeObjectsInArray:v3];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void SFResourceLoaderLoadImageWithContext(void *a1, void *a2, void *a3)
@@ -962,72 +962,62 @@ void SFResourceLoaderLoadImageWithContext(void *a1, void *a2, void *a3)
 
 void __SFResourceLoaderLoadImageWithContext_block_invoke(void *a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   getWeakLoaders();
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v2 = v25 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v2 = v19 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v26 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v23;
-    v6 = &selRef_hasMonogram;
-    v7 = &selRef_hasMonogram;
+    v5 = *v17;
     while (2)
     {
-      v8 = 0;
-      v9 = v6[356];
-      v10 = v7[355];
-      do
+      for (i = 0; i != v4; ++i)
       {
-        if (*v23 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v11 = [*(*(&v22 + 1) + 8 * v8) strongloader];
-        if ([v11 conformsToProtocol:&unk_1F2875FF8])
+        v7 = [*(*(&v16 + 1) + 8 * i) strongloader];
+        if ([v7 conformsToProtocol:&unk_1F2875FF8])
         {
-          v12 = [v11 imageLoader];
-          if ([v12 canLoadImage:a1[4] context:a1[5]])
+          v8 = [v7 imageLoader];
+          if ([v8 canLoadImage:a1[4] context:a1[5]])
           {
-            [v12 loadImage:a1[4] context:a1[5] completionHandler:a1[6]];
+            [v8 loadImage:a1[4] context:a1[5] completionHandler:a1[6]];
             if (PARLogHandleForCategory_onceToken_70631 != -1)
             {
               dispatch_once(&PARLogHandleForCategory_onceToken_70631, &__block_literal_global_114);
             }
 
-            v19 = PARLogHandleForCategory_logHandles_1_70632;
+            v14 = PARLogHandleForCategory_logHandles_1_70632;
             if (os_log_type_enabled(PARLogHandleForCategory_logHandles_1_70632, OS_LOG_TYPE_DEBUG))
             {
-              v21 = a1[4];
+              v15 = a1[4];
               *buf = 138412546;
-              v29 = v21;
-              v30 = 2112;
-              v31 = v12;
-              _os_log_debug_impl(&dword_1B116E000, v19, OS_LOG_TYPE_DEBUG, "image %@ loaded by %@", buf, 0x16u);
+              v23 = v15;
+              v24 = 2112;
+              v25 = v8;
+              _os_log_debug_impl(&dword_1B116E000, v14, OS_LOG_TYPE_DEBUG, "image %@ loaded by %@", buf, 0x16u);
             }
 
 LABEL_25:
-            v16 = v2;
+            v12 = v2;
             goto LABEL_26;
           }
         }
 
-        else if (objc_opt_respondsToSelector() & 1) != 0 && ([v11 loadImage:a1[4] withContext:a1[5] completionHandler:a1[6]] & 1) != 0 || (objc_opt_respondsToSelector() & 1) != 0 && (objc_msgSend(v11, "loadImage:withCompletionHandler:", a1[4], a1[6]))
+        else if (objc_opt_respondsToSelector() & 1) != 0 && ([v7 loadImage:a1[4] withContext:a1[5] completionHandler:a1[6]] & 1) != 0 || (objc_opt_respondsToSelector() & 1) != 0 && (objc_msgSend(v7, "loadImage:withCompletionHandler:", a1[4], a1[6]))
         {
           goto LABEL_25;
         }
-
-        ++v8;
       }
 
-      while (v4 != v8);
-      v4 = [v2 countByEnumeratingWithState:&v22 objects:v32 count:16];
-      v6 = &selRef_hasMonogram;
-      v7 = &selRef_hasMonogram;
+      v4 = [v2 countByEnumeratingWithState:&v16 objects:v26 count:16];
       if (v4)
       {
         continue;
@@ -1037,33 +1027,30 @@ LABEL_25:
     }
   }
 
-  v13 = MEMORY[0x1E696ABC0];
-  v26[0] = *MEMORY[0x1E696A278];
-  v26[1] = @"SFResourceLoaderFailedResourceKey";
-  v14 = a1[4];
-  v27[0] = @"SFResourceLoaders are not available.";
-  v27[1] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
-  v16 = [v13 errorWithDomain:@"SFResourceLoaderErrorDomain" code:1000 userInfo:v15];
+  v9 = MEMORY[0x1E696ABC0];
+  v20[0] = *MEMORY[0x1E696A278];
+  v20[1] = @"SFResourceLoaderFailedResourceKey";
+  v10 = a1[4];
+  v21[0] = @"SFResourceLoaders are not available.";
+  v21[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v12 = [v9 errorWithDomain:@"SFResourceLoaderErrorDomain" code:1000 userInfo:v11];
 
   if (PARLogHandleForCategory_onceToken_70631 != -1)
   {
     dispatch_once(&PARLogHandleForCategory_onceToken_70631, &__block_literal_global_114);
   }
 
-  v17 = PARLogHandleForCategory_logHandles_1_70632;
+  v13 = PARLogHandleForCategory_logHandles_1_70632;
   if (os_log_type_enabled(PARLogHandleForCategory_logHandles_1_70632, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v29 = v16;
-    _os_log_error_impl(&dword_1B116E000, v17, OS_LOG_TYPE_ERROR, "SFResourceLoaderLoadImage error: %@", buf, 0xCu);
+    v23 = v12;
+    _os_log_error_impl(&dword_1B116E000, v13, OS_LOG_TYPE_ERROR, "SFResourceLoaderLoadImage error: %@", buf, 0xCu);
   }
 
-  v18 = a1[4];
   (*(a1[6] + 16))();
 LABEL_26:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void SFResourceLoaderLoadCard(void *a1, void *a2)
@@ -1091,27 +1078,27 @@ void SFResourceLoaderLoadCard(void *a1, void *a2)
 
 void __SFResourceLoaderLoadCard_block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   getWeakLoaders();
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v2 = v21 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v28 count:16];
+  v2 = v19 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v26 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v17;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v19 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(&v18 + 1) + 8 * i) strongloader];
+        v7 = [*(*(&v16 + 1) + 8 * i) strongloader];
         if ([v7 conformsToProtocol:&unk_1F2875FF8])
         {
           v8 = [v7 cardLoader];
@@ -1123,15 +1110,15 @@ void __SFResourceLoaderLoadCard_block_invoke(uint64_t a1)
               dispatch_once(&PARLogHandleForCategory_onceToken_70631, &__block_literal_global_114);
             }
 
-            v15 = PARLogHandleForCategory_logHandles_1_70632;
+            v14 = PARLogHandleForCategory_logHandles_1_70632;
             if (os_log_type_enabled(PARLogHandleForCategory_logHandles_1_70632, OS_LOG_TYPE_DEBUG))
             {
-              v17 = *(a1 + 32);
+              v15 = *(a1 + 32);
               *buf = 138412546;
-              v25 = v17;
-              v26 = 2112;
-              v27 = v8;
-              _os_log_debug_impl(&dword_1B116E000, v15, OS_LOG_TYPE_DEBUG, "card %@ loaded by %@", buf, 0x16u);
+              v23 = v15;
+              v24 = 2112;
+              v25 = v8;
+              _os_log_debug_impl(&dword_1B116E000, v14, OS_LOG_TYPE_DEBUG, "card %@ loaded by %@", buf, 0x16u);
             }
 
 LABEL_23:
@@ -1146,7 +1133,7 @@ LABEL_23:
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v18 objects:v28 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v16 objects:v26 count:16];
       if (v4)
       {
         continue;
@@ -1157,12 +1144,12 @@ LABEL_23:
   }
 
   v9 = MEMORY[0x1E696ABC0];
-  v22[0] = *MEMORY[0x1E696A278];
-  v22[1] = @"SFResourceLoaderFailedResourceKey";
+  v20[0] = *MEMORY[0x1E696A278];
+  v20[1] = @"SFResourceLoaderFailedResourceKey";
   v10 = *(a1 + 32);
-  v23[0] = @"SFResourceLoaders are not available.";
-  v23[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v21[0] = @"SFResourceLoaders are not available.";
+  v21[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
   v12 = [v9 errorWithDomain:@"SFResourceLoaderErrorDomain" code:1000 userInfo:v11];
 
   if (PARLogHandleForCategory_onceToken_70631 != -1)
@@ -1174,15 +1161,12 @@ LABEL_23:
   if (os_log_type_enabled(PARLogHandleForCategory_logHandles_1_70632, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v25 = v12;
+    v23 = v12;
     _os_log_error_impl(&dword_1B116E000, v13, OS_LOG_TYPE_ERROR, "SFResourceLoaderLoadCard error: %@", buf, 0xCu);
   }
 
-  v14 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 LABEL_24:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void SFResourceLoaderLoadMoreResults(void *a1, void *a2)
@@ -1203,27 +1187,27 @@ void SFResourceLoaderLoadMoreResults(void *a1, void *a2)
 
 void __SFResourceLoaderLoadMoreResults_block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   getWeakLoaders();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v2 = v20 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v27 count:16];
+  v2 = v19 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v26 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v17;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(&v17 + 1) + 8 * i) strongloader];
+        v7 = [*(*(&v16 + 1) + 8 * i) strongloader];
         if ([v7 conformsToProtocol:&unk_1F2875FF8])
         {
           v8 = [v7 moreResultsLoader];
@@ -1238,11 +1222,11 @@ void __SFResourceLoaderLoadMoreResults_block_invoke(uint64_t a1)
             v14 = PARLogHandleForCategory_logHandles_1_70632;
             if (os_log_type_enabled(PARLogHandleForCategory_logHandles_1_70632, OS_LOG_TYPE_DEBUG))
             {
-              v16 = *(a1 + 32);
+              v15 = *(a1 + 32);
               *buf = 138412546;
-              v24 = v16;
-              v25 = 2112;
-              v26 = v8;
+              v23 = v15;
+              v24 = 2112;
+              v25 = v8;
               _os_log_debug_impl(&dword_1B116E000, v14, OS_LOG_TYPE_DEBUG, "more results %@ loaded by %@", buf, 0x16u);
             }
 
@@ -1258,7 +1242,7 @@ LABEL_23:
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v17 objects:v27 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v16 objects:v26 count:16];
       if (v4)
       {
         continue;
@@ -1269,12 +1253,12 @@ LABEL_23:
   }
 
   v9 = MEMORY[0x1E696ABC0];
-  v21[0] = *MEMORY[0x1E696A278];
-  v21[1] = @"SFResourceLoaderFailedResourceKey";
+  v20[0] = *MEMORY[0x1E696A278];
+  v20[1] = @"SFResourceLoaderFailedResourceKey";
   v10 = *(a1 + 32);
-  v22[0] = @"SFResourceLoaders are not available.";
-  v22[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v21[0] = @"SFResourceLoaders are not available.";
+  v21[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
   v12 = [v9 errorWithDomain:@"SFResourceLoaderErrorDomain" code:1000 userInfo:v11];
 
   if (PARLogHandleForCategory_onceToken_70631 != -1)
@@ -1286,14 +1270,12 @@ LABEL_23:
   if (os_log_type_enabled(PARLogHandleForCategory_logHandles_1_70632, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v24 = v12;
+    v23 = v12;
     _os_log_error_impl(&dword_1B116E000, v13, OS_LOG_TYPE_ERROR, "SFResourceLoaderLoadMoreResults error: %@", buf, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
 LABEL_24:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _SFPBReferentialCommandReadFrom(void *a1, void *a2)

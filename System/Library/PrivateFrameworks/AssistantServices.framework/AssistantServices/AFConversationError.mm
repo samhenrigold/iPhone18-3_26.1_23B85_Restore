@@ -24,15 +24,14 @@
 
 - (AFConversationError)initWithCode:(int64_t)code localizedFailureReason:(id)reason
 {
-  v13[1] = *MEMORY[0x1E69E9840];
-  v12 = *MEMORY[0x1E696A588];
-  v13[0] = reason;
+  v12[1] = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E696A588];
+  v12[0] = reason;
   v6 = MEMORY[0x1E695DF20];
   reasonCopy = reason;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   v9 = [(AFConversationError *)self initWithCode:code userInfo:v8];
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

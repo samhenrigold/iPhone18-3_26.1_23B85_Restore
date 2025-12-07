@@ -129,7 +129,7 @@ uint64_t __31__HMFPreferences_defaultValues__block_invoke()
   v2 = [(HMFPreferences *)&v46 init];
   if (!v2)
   {
-    goto LABEL_34;
+    return v2;
   }
 
   v3 = objc_alloc_init(HMFClassRegistry);
@@ -234,13 +234,13 @@ uint64_t __31__HMFPreferences_defaultValues__block_invoke()
               v29 = v22;
               v30 = @"Developer";
 LABEL_24:
-              v34 = [v29 objectForKeyedSubscript:v30];
+              v35 = [v29 objectForKeyedSubscript:v30];
 
-              if (v34)
+              if (v35)
               {
-                v35 = [v22 objectForKeyedSubscript:v30];
+                v36 = [v22 objectForKeyedSubscript:v30];
 
-                v24 = v35;
+                v24 = v36;
               }
             }
 
@@ -253,11 +253,11 @@ LABEL_24:
           }
         }
 
-        v36 = [objc_alloc(-[HMFPreferences preferenceClassForPreferenceKey:](v21 preferenceClassForPreferenceKey:{v23)), "initWithKey:options:defaultValue:", v23, 0, v24}];
+        v37 = [objc_alloc(-[HMFPreferences preferenceClassForPreferenceKey:](v21 preferenceClassForPreferenceKey:{v23)), "initWithKey:options:defaultValue:", v23, 0, v24}];
 
-        if (v36)
+        if (v37)
         {
-          [(NSMutableDictionary *)dictionary setObject:v36 forKeyedSubscript:v23];
+          [(NSMutableDictionary *)dictionary setObject:v37 forKeyedSubscript:v23];
         }
 
         v13 = v19;
@@ -266,15 +266,15 @@ LABEL_24:
       }
 
       v31 = objc_autoreleasePoolPush();
-      v32 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v33 = HMFGetOSLogHandle(0, v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
-        v33 = HMFGetLogIdentifier(0);
+        v34 = HMFGetLogIdentifier(0);
         *buf = 138543618;
-        v52 = v33;
+        v52 = v34;
         v53 = 2112;
         v54 = v18;
-        _os_log_impl(&dword_22ADEC000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid preference key representation: %@", buf, 0x16u);
+        _os_log_impl(&dword_22ADEC000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid preference key representation: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v31);
@@ -299,8 +299,6 @@ LABEL_33:
   preferences = v9->_preferences;
   v9->_preferences = dictionary;
 
-LABEL_34:
-  v38 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -365,23 +363,21 @@ LABEL_34:
     [(NSMutableDictionary *)self->_preferences setObject:v5 forKeyedSubscript:keyCopy];
     v8 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = HMFGetOSLogHandle(selfCopy, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = HMFGetLogIdentifier(selfCopy);
+      v12 = HMFGetLogIdentifier(selfCopy);
       v14 = 138543618;
-      v15 = v11;
+      v15 = v12;
       v16 = 2112;
       v17 = v5;
-      _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding new preference: %@", &v14, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@Adding new preference: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
 
   os_unfair_recursive_lock_unlock();
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

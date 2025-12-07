@@ -114,9 +114,11 @@ uint64_t __151__CFXEffectMessagesStickerUtilities_cacheAnimatedStickerPreviewsFo
   v3 = cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock__s_animatedPreviewWritingQueue;
   cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock__s_animatedPreviewWritingQueue = v2;
 
-  cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock__s_animatedPreviewProcessingGroup = dispatch_group_create();
+  v4 = dispatch_group_create();
+  v5 = cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock__s_animatedPreviewProcessingGroup;
+  cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock__s_animatedPreviewProcessingGroup = v4;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v4, v5);
 }
 
 void __151__CFXEffectMessagesStickerUtilities_cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock___block_invoke_17(uint64_t a1)
@@ -202,35 +204,35 @@ void __151__CFXEffectMessagesStickerUtilities_cacheAnimatedStickerPreviewsForOve
   }
 }
 
-void __151__CFXEffectMessagesStickerUtilities_cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock___block_invoke_2(uint64_t a1, int a2)
+void __151__CFXEffectMessagesStickerUtilities_cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
     ++*(*(*(a1 + 48) + 8) + 24);
     if (*(a1 + 40))
     {
-      v6[0] = MEMORY[0x277D85DD0];
-      v6[1] = 3221225472;
-      v6[2] = __151__CFXEffectMessagesStickerUtilities_cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock___block_invoke_3;
-      v6[3] = &unk_278D7B6D0;
-      v3 = *(a1 + 40);
-      v4 = *(a1 + 56);
-      v7 = v3;
-      v8 = v4;
-      dispatch_async(MEMORY[0x277D85CD0], v6);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __151__CFXEffectMessagesStickerUtilities_cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock___block_invoke_3;
+      v8[3] = &unk_278D7B6D0;
+      v5 = *(a1 + 40);
+      v6 = *(a1 + 56);
+      v9 = v5;
+      v10 = v6;
+      dispatch_async(MEMORY[0x277D85CD0], v8);
     }
 
-    v5 = JFXLog_pickerUI();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = JFXLog_pickerUI();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __151__CFXEffectMessagesStickerUtilities_cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock___block_invoke_2_cold_2(a1, v5);
+      __151__CFXEffectMessagesStickerUtilities_cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock___block_invoke_2_cold_2(a1, v7);
     }
   }
 
   else
   {
-    v5 = JFXLog_pickerUI();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = JFXLog_pickerUI();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __151__CFXEffectMessagesStickerUtilities_cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock___block_invoke_2_cold_1();
     }
@@ -240,10 +242,10 @@ void __151__CFXEffectMessagesStickerUtilities_cacheAnimatedStickerPreviewsForOve
   dispatch_group_leave(cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock__s_animatedPreviewProcessingGroup);
 }
 
-void __151__CFXEffectMessagesStickerUtilities_cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock___block_invoke_20(uint64_t a1)
+void __151__CFXEffectMessagesStickerUtilities_cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock___block_invoke_20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = JFXLog_pickerUI();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v5 = JFXLog_pickerUI();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __151__CFXEffectMessagesStickerUtilities_cacheAnimatedStickerPreviewsForOverlayTypeId_atStickerSize_previewDuration_previewFrameRate_previewCompletedBlock___block_invoke_20_cold_1();
   }

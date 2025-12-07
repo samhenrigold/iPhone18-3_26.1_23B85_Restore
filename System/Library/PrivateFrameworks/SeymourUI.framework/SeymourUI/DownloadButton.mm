@@ -29,13 +29,13 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_20C0DA850();
+  sub_20C0DA850(selfCopy);
 }
 
 - (void)tintColorDidChange
 {
   selfCopy = self;
-  sub_20C0DAA9C();
+  sub_20C0DAA9C(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

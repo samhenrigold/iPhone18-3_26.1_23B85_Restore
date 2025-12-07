@@ -185,11 +185,35 @@
   [(SKUICollectionViewCell *)&v6 setBackgroundColor:colorCopy];
 }
 
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIActivityIndicatorCollectionViewCell initWithFrame:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIActivityIndicatorCollectionViewCell prefetchResourcesForViewElement:reason:context:]";
+}
+
 + (void)preferredSizeForViewElement:context:.cold.1()
 {
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "+[SKUIActivityIndicatorCollectionViewCell preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIActivityIndicatorCollectionViewCell requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIActivityIndicatorCollectionViewCell sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

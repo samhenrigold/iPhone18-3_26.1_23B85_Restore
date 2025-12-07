@@ -5,6 +5,7 @@
 - (CGImage)_createImageWithName:(const char *)name scale:(int)scale displayHeight:(int)height;
 - (CGRect)appleLogoFrameWithinAsset;
 - (PUIProgressWindow)initWithOptions:(unint64_t)options contextLevel:(float)level appearance:(int64_t)appearance;
+- (PUIProgressWindow)initWithProgressBarVisibility:(BOOL)visibility createContext:(BOOL)context contextLevel:(float)level appearance:(int64_t)appearance;
 - (const)_productSuffix;
 - (id)_initWithOptions:(unint64_t)options contextLevel:(float)level appearance:(int64_t)appearance environment:(id)environment;
 - (void)_appendErrorDescriptionWithString:(id)string;
@@ -53,6 +54,21 @@
 
   _DMLogFunc();
   return v3 != -1;
+}
+
+- (PUIProgressWindow)initWithProgressBarVisibility:(BOOL)visibility createContext:(BOOL)context contextLevel:(float)level appearance:(int64_t)appearance
+{
+  if (context)
+  {
+    *&visibility = visibility | 4;
+  }
+
+  else
+  {
+    *&visibility = visibility;
+  }
+
+  return [(PUIProgressWindow *)self initWithOptions:visibility contextLevel:appearance appearance:?];
 }
 
 - (PUIProgressWindow)initWithOptions:(unint64_t)options contextLevel:(float)level appearance:(int64_t)appearance
@@ -583,7 +599,7 @@ LABEL_8:
     appleLogoAssetLayer = self->_appleLogoAssetLayer;
     if (appleLogoAssetLayer)
     {
-      [(CALayer *)appleLogoAssetLayer affineTransform];
+      objc_msgSend_affineTransform(appleLogoAssetLayer);
       v37 = *&v134;
     }
 
@@ -600,7 +616,7 @@ LABEL_8:
     v40 = self->_appleLogoAssetLayer;
     if (v40)
     {
-      [(CALayer *)v40 affineTransform];
+      objc_msgSend_affineTransform(v40);
       v41 = *(&v131 + 1);
     }
 
@@ -617,7 +633,7 @@ LABEL_8:
     v44 = self->_appleLogoAssetLayer;
     if (v44)
     {
-      [(CALayer *)v44 affineTransform];
+      objc_msgSend_affineTransform(v44);
       v45 = *&v126;
     }
 
@@ -634,7 +650,7 @@ LABEL_8:
     v48 = self->_appleLogoAssetLayer;
     if (v48)
     {
-      [(CALayer *)v48 affineTransform];
+      objc_msgSend_affineTransform(v48);
       v49 = *(&v123 + 1);
     }
 
@@ -651,7 +667,7 @@ LABEL_8:
     v52 = self->_appleLogoAssetLayer;
     if (v52)
     {
-      [(CALayer *)v52 affineTransform];
+      objc_msgSend_affineTransform(v52);
       v53 = *&v121;
     }
 
@@ -668,7 +684,7 @@ LABEL_8:
     v56 = self->_appleLogoAssetLayer;
     if (v56)
     {
-      [(CALayer *)v56 affineTransform];
+      objc_msgSend_affineTransform(v56);
       v57 = *(&v118 + 1);
     }
 
@@ -693,7 +709,7 @@ LABEL_8:
     v58 = self->_appleLogoAssetLayer;
     if (v58)
     {
-      [(CALayer *)v58 affineTransform:v38];
+      objc_msgSend_affineTransform(v58, v38, v42, v46, v50, v54, v95);
       v59 = self->_appleLogoAssetLayer;
     }
 
@@ -711,7 +727,7 @@ LABEL_8:
     v61 = self->_appleLogoAssetLayer;
     if (v61)
     {
-      [(CALayer *)v61 affineTransform];
+      objc_msgSend_affineTransform(v61);
       v62 = *&v113;
     }
 
@@ -728,7 +744,7 @@ LABEL_8:
     v65 = self->_appleLogoAssetLayer;
     if (v65)
     {
-      [(CALayer *)v65 affineTransform];
+      objc_msgSend_affineTransform(v65);
       v66 = *(&v110 + 1);
     }
 
@@ -745,7 +761,7 @@ LABEL_8:
     v69 = self->_appleLogoAssetLayer;
     if (v69)
     {
-      [(CALayer *)v69 affineTransform];
+      objc_msgSend_affineTransform(v69);
       v70 = *&v105;
     }
 
@@ -762,7 +778,7 @@ LABEL_8:
     v73 = self->_appleLogoAssetLayer;
     if (v73)
     {
-      [(CALayer *)v73 affineTransform];
+      objc_msgSend_affineTransform(v73);
       v74 = *(&v102 + 1);
     }
 
@@ -779,7 +795,7 @@ LABEL_8:
     v77 = self->_appleLogoAssetLayer;
     if (v77)
     {
-      [(CALayer *)v77 affineTransform];
+      objc_msgSend_affineTransform(v77);
       v78 = *&v100;
     }
 
@@ -796,7 +812,7 @@ LABEL_8:
     v81 = self->_appleLogoAssetLayer;
     if (v81)
     {
-      [(CALayer *)v81 affineTransform];
+      objc_msgSend_affineTransform(v81);
       v82 = *(&v97 + 1);
     }
 
@@ -1483,7 +1499,7 @@ LABEL_96:
 
 - (void)_drawProgressLayerInContext:(CGContext *)context
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (self->_screenClass == 6)
   {
     v5 = self->_displaySize.height * 0.5;
@@ -1499,9 +1515,9 @@ LABEL_96:
     v11 = v5 - v7 * *&self->_sideways;
     CGContextSaveGState(context);
     *components = xmmword_260E8DEA8;
-    v34 = unk_260E8DEB8;
-    v32[0] = xmmword_260E8DEC8;
-    v32[1] = unk_260E8DED8;
+    v32 = unk_260E8DEB8;
+    v30[0] = xmmword_260E8DEC8;
+    v30[1] = unk_260E8DED8;
     CGContextSetLineWidth(context, *&self->_sideways);
     [(CATextLayer *)self->_statusTextLayer bounds:xmmword_260E8DEC8];
     v13 = v12 * 0.5;
@@ -1516,7 +1532,7 @@ LABEL_96:
     {
       if (v16 > v15 && (v17 & 1) == 0)
       {
-        CGContextSetStrokeColor(context, v32);
+        CGContextSetStrokeColor(context, v30);
         v17 = 1;
       }
 
@@ -1529,80 +1545,78 @@ LABEL_96:
 
     while (v16 != 100);
     CGContextRestoreGState(context);
-    v18 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     progressHeight = self->_progressHeight;
-    v19 = *&self->_forceInverted;
-    v37.origin.x = 0.0;
-    v37.origin.y = 0.0;
-    v37.size.width = progressHeight;
-    v37.size.height = v19;
-    v21 = CGPathCreateWithRoundedRect(v37, v19 * 0.5, v19 * 0.5, 0);
-    v22 = floor(self->_progressHeight * *&self->_appleLogo);
+    v18 = *&self->_forceInverted;
+    v35.origin.x = 0.0;
+    v35.origin.y = 0.0;
+    v35.size.width = progressHeight;
+    v35.size.height = v18;
+    v20 = CGPathCreateWithRoundedRect(v35, v18 * 0.5, v18 * 0.5, 0);
+    v21 = floor(self->_progressHeight * *&self->_appleLogo);
     if (*&self->_sideways == 1.0)
     {
-      v23 = v22;
+      v22 = v21;
     }
 
     else
     {
-      v23 = self->_progressHeight * *&self->_appleLogo;
+      v22 = self->_progressHeight * *&self->_appleLogo;
     }
 
     CGContextSaveGState(context);
-    v38.origin.x = 0.0;
-    v38.origin.y = 0.0;
-    v38.size.width = v23;
-    v38.size.height = v19;
-    CGContextClipToRect(context, v38);
-    CGContextAddPath(context, v21);
+    v36.origin.x = 0.0;
+    v36.origin.y = 0.0;
+    v36.size.width = v22;
+    v36.size.height = v18;
+    CGContextClipToRect(context, v36);
+    CGContextAddPath(context, v20);
     if (BYTE1(self->_progressLayer) == 1)
     {
+      v23 = 0.0;
       v24 = 0.0;
       v25 = 0.0;
-      v26 = 0.0;
     }
 
     else
     {
+      v23 = 1.0;
       v24 = 1.0;
       v25 = 1.0;
-      v26 = 1.0;
     }
 
-    CGContextSetRGBFillColor(context, v24, v25, v26, 1.0);
+    CGContextSetRGBFillColor(context, v23, v24, v25, 1.0);
     CGContextFillPath(context);
     CGContextRestoreGState(context);
-    v39.size.width = progressHeight - v23;
-    v39.origin.y = 0.0;
-    v39.origin.x = v23;
-    v39.size.height = v19;
-    CGContextClipToRect(context, v39);
-    CGContextAddPath(context, v21);
+    v37.size.width = progressHeight - v22;
+    v37.origin.y = 0.0;
+    v37.origin.x = v22;
+    v37.size.height = v18;
+    CGContextClipToRect(context, v37);
+    CGContextAddPath(context, v20);
     if (BYTE1(self->_progressLayer) == 1)
     {
-      v27 = 0.2;
+      v26 = 0.2;
+      v27 = 0.0;
       v28 = 0.0;
       v29 = 0.0;
-      v30 = 0.0;
     }
 
     else
     {
-      v27 = 0.3;
+      v26 = 0.3;
+      v27 = 1.0;
       v28 = 1.0;
       v29 = 1.0;
-      v30 = 1.0;
     }
 
-    CGContextSetRGBFillColor(context, v28, v29, v30, v27);
+    CGContextSetRGBFillColor(context, v27, v28, v29, v26);
     CGContextFillPath(context);
-    v31 = *MEMORY[0x277D85DE8];
 
-    CGPathRelease(v21);
+    CGPathRelease(v20);
   }
 }
 
@@ -1616,7 +1630,7 @@ LABEL_96:
 
 - (CGImage)_createImageWithName:(const char *)name scale:(int)scale displayHeight:(int)height
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   _productSuffix = [(PUIProgressWindow *)self _productSuffix];
   if (_productSuffix)
   {
@@ -1689,9 +1703,9 @@ LABEL_21:
   }
 
   v15 = v14;
-  v21 = *MEMORY[0x277CD3618];
-  v22 = *MEMORY[0x277CBED28];
-  v16 = CGImageSourceCreateWithURL(v14, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:{1, __str}]);
+  v20 = *MEMORY[0x277CD3618];
+  v21 = *MEMORY[0x277CBED28];
+  v16 = CGImageSourceCreateWithURL(v14, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:{1, __str}]);
   if (v16)
   {
     v17 = v16;
@@ -1713,7 +1727,6 @@ LABEL_21:
   CFRelease(v15);
 LABEL_24:
 
-  v19 = *MEMORY[0x277D85DE8];
   return ImageAtIndex;
 }
 

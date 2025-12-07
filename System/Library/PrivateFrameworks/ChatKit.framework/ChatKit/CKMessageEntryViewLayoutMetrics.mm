@@ -262,7 +262,7 @@ LABEL_21:
   v6 = fmin(v4, v5);
 
   v7 = +[CKUIBehavior sharedBehaviors];
-  v8 = CKFrameworkBundle();
+  v8 = CKFrameworkBundle(v7);
   v9 = [v8 localizedStringForKey:@"MADRID" value:&stru_1F04268F8 table:@"ChatKit"];
 
   v46 = *MEMORY[0x1E69DB648];

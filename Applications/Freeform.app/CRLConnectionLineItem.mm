@@ -45,14 +45,14 @@
 
 - (Class)repClass
 {
-  sub_100006370(0, &unk_101A10780);
+  sub_100006370(0, &unk_101A10780, off_10182F7F0);
 
   return swift_getObjCClassFromMetadata();
 }
 
 - (Class)editorClass
 {
-  sub_100006370(0, &qword_101A1CE20);
+  sub_100006370(0, &qword_101A1CE20, off_10182F7C8);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -102,14 +102,14 @@
 
 - (BOOL)isConnectedWithBoardItem:(id)item boardItemOwner:(id)owner
 {
-  swift_getObjectType();
+  ObjectType = swift_getObjectType();
   itemCopy = item;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v9 = sub_100AF2878(itemCopy, owner, selfCopy);
+  LOBYTE(ObjectType) = sub_100AF2878(itemCopy, owner, selfCopy, ObjectType);
 
   swift_unknownObjectRelease();
-  return v9 & 1;
+  return ObjectType & 1;
 }
 
 - (id)commandToConnectWithBoardItems:(id)items

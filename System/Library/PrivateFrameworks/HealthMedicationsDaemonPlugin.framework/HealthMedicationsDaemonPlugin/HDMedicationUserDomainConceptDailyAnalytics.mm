@@ -170,46 +170,45 @@ uint64_t __92__HDMedicationUserDomainConceptDailyAnalytics_makeIHAGatedEventPayl
 
 - (id)_weeksSinceFirstAddedMedPayloadWithTransaction:(id)transaction
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   medicationUserDomainConceptTypeIdentifier = [MEMORY[0x277CCDB50] medicationUserDomainConceptTypeIdentifier];
   v7 = HDUserDomainConceptEntityPredicateForConceptsWithTypeIdentifier();
   v8 = [MEMORY[0x277D10B68] orderingTermWithProperty:*MEMORY[0x277D10500] entityClass:objc_opt_class() ascending:1];
-  v33[0] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v31[0] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
 
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__10;
-  v29 = __Block_byref_object_dispose__10;
-  v30 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__10;
+  v27 = __Block_byref_object_dispose__10;
+  v28 = 0;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   userDomainConceptManager = [WeakRetained userDomainConceptManager];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __94__HDMedicationUserDomainConceptDailyAnalytics__weeksSinceFirstAddedMedPayloadWithTransaction___block_invoke;
-  v23[3] = &unk_2796CE488;
-  v23[4] = &v25;
-  v24 = 0;
-  v12 = [userDomainConceptManager enumerateUserDomainConceptsWithPredicate:v7 limit:1 orderingTerms:v9 error:&v24 enumerationHandler:v23];
-  v13 = v24;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __94__HDMedicationUserDomainConceptDailyAnalytics__weeksSinceFirstAddedMedPayloadWithTransaction___block_invoke;
+  v21[3] = &unk_2796CE488;
+  v21[4] = &v23;
+  v22 = 0;
+  v12 = [userDomainConceptManager enumerateUserDomainConceptsWithPredicate:v7 limit:1 orderingTerms:v9 error:&v22 enumerationHandler:v21];
+  v13 = v22;
 
   if (v12)
   {
-    if (v26[5])
+    if (v24[5])
     {
       v14 = [(NSCalendar *)self->_calendar startOfDayForDate:self->_currentDate];
       calendar = self->_calendar;
-      creationDate = [v26[5] creationDate];
+      creationDate = [v24[5] creationDate];
       v17 = [(NSCalendar *)calendar startOfDayForDate:creationDate];
 
-      v18 = self->_calendar;
-      v19 = HKMedicationAnalyticsWeeksBetweenDates();
-      [v5 setObject:v19 forKeyedSubscript:@"weeksSinceFirstAddedMed"];
+      v18 = HKMedicationAnalyticsWeeksBetweenDates();
+      [v5 setObject:v18 forKeyedSubscript:@"weeksSinceFirstAddedMed"];
 
-      v20 = v5;
+      v19 = v5;
       goto LABEL_9;
     }
 
@@ -233,13 +232,12 @@ uint64_t __92__HDMedicationUserDomainConceptDailyAnalytics_makeIHAGatedEventPayl
     }
   }
 
-  v20 = 0;
+  v19 = 0;
 LABEL_9:
 
-  _Block_object_dispose(&v25, 8);
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 
-  return v20;
+  return v19;
 }
 
 - (id)_hasAnyLifestyleFactorEnabledPayload
@@ -269,38 +267,38 @@ LABEL_9:
 
 - (id)_medsInteractionsPayloadWithTransaction:(id)transaction
 {
-  v74[3] = *MEMORY[0x277D85DE8];
+  v73[3] = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
-  v50 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v49 = objc_alloc_init(MEMORY[0x277CBEB38]);
   medicationUserDomainConceptTypeIdentifier = [MEMORY[0x277CCDB50] medicationUserDomainConceptTypeIdentifier];
-  v48 = HDUserDomainConceptEntityPredicateForConceptsWithTypeIdentifier();
+  v47 = HDUserDomainConceptEntityPredicateForConceptsWithTypeIdentifier();
   appleOntologySystem = [MEMORY[0x277CCD5D0] appleOntologySystem];
-  v47 = HDUserDomainConceptEntityPredicateForMedicalCodingSystem();
+  v46 = HDUserDomainConceptEntityPredicateForMedicalCodingSystem();
 
-  v46 = [MEMORY[0x277D10938] predicateForElementsOfListType:2];
+  v45 = [MEMORY[0x277D10938] predicateForElementsOfListType:2];
   v5 = MEMORY[0x277D10B20];
-  v74[0] = v48;
-  v74[1] = v46;
-  v74[2] = v47;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:3];
-  v45 = [v5 predicateMatchingAllPredicates:v6];
+  v73[0] = v47;
+  v73[1] = v45;
+  v73[2] = v46;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:3];
+  v44 = [v5 predicateMatchingAllPredicates:v6];
 
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x3032000000;
-  v69 = __Block_byref_object_copy__10;
-  v70 = __Block_byref_object_dispose__10;
-  v71 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v65 = 0;
+  v66 = &v65;
+  v67 = 0x3032000000;
+  v68 = __Block_byref_object_copy__10;
+  v69 = __Block_byref_object_dispose__10;
+  v70 = objc_alloc_init(MEMORY[0x277CBEB58]);
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   userDomainConceptManager = [WeakRetained userDomainConceptManager];
-  v64[0] = MEMORY[0x277D85DD0];
-  v64[1] = 3221225472;
-  v64[2] = __87__HDMedicationUserDomainConceptDailyAnalytics__medsInteractionsPayloadWithTransaction___block_invoke;
-  v64[3] = &unk_2796CE4B0;
-  v64[4] = &v66;
-  v65 = 0;
-  v9 = [userDomainConceptManager enumerateUserDomainConceptsWithPredicate:v45 error:&v65 enumerationHandler:v64];
-  v51 = v65;
+  v63[0] = MEMORY[0x277D85DD0];
+  v63[1] = 3221225472;
+  v63[2] = __87__HDMedicationUserDomainConceptDailyAnalytics__medsInteractionsPayloadWithTransaction___block_invoke;
+  v63[3] = &unk_2796CE4B0;
+  v63[4] = &v65;
+  v64 = 0;
+  v9 = [userDomainConceptManager enumerateUserDomainConceptsWithPredicate:v44 error:&v64 enumerationHandler:v63];
+  v50 = v64;
 
   if (v9)
   {
@@ -320,58 +318,58 @@ LABEL_9:
       [v10 addObject:&unk_2863C2AC8];
     }
 
-    v43 = v10;
+    v42 = v10;
 
-    v11 = v67[5];
+    v11 = v66[5];
     v12 = objc_loadWeakRetained(&self->_profile);
-    v63 = 0;
-    v42 = [HDDrugInteractionEngine interactionResultsForMedications:v11 lifestyleFactors:v43 profile:v12 error:&v63];
-    v51 = v63;
+    v62 = 0;
+    v41 = [HDDrugInteractionEngine interactionResultsForMedications:v11 lifestyleFactors:v42 profile:v12 error:&v62];
+    v50 = v62;
 
-    if (v42)
+    if (v41)
     {
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
       v60 = 0u;
-      obj = v42;
-      v13 = [obj countByEnumeratingWithState:&v59 objects:v73 count:16];
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
+      obj = v41;
+      v13 = [obj countByEnumeratingWithState:&v58 objects:v72 count:16];
       v14 = 0;
       v15 = 0;
       v16 = 0;
       if (v13)
       {
-        v53 = *v60;
+        v52 = *v59;
         do
         {
-          v54 = v13;
-          for (i = 0; i != v54; ++i)
+          v53 = v13;
+          for (i = 0; i != v53; ++i)
           {
-            if (*v60 != v53)
+            if (*v59 != v52)
             {
               objc_enumerationMutation(obj);
             }
 
-            v18 = *(*(&v59 + 1) + 8 * i);
+            v18 = *(*(&v58 + 1) + 8 * i);
+            v54 = 0u;
             v55 = 0u;
             v56 = 0u;
             v57 = 0u;
-            v58 = 0u;
             interactions = [v18 interactions];
-            v20 = [interactions countByEnumeratingWithState:&v55 objects:v72 count:16];
+            v20 = [interactions countByEnumeratingWithState:&v54 objects:v71 count:16];
             if (v20)
             {
-              v21 = *v56;
+              v21 = *v55;
               do
               {
                 for (j = 0; j != v20; ++j)
                 {
-                  if (*v56 != v21)
+                  if (*v55 != v21)
                   {
                     objc_enumerationMutation(interactions);
                   }
 
-                  severity = [*(*(&v55 + 1) + 8 * j) severity];
+                  severity = [*(*(&v54 + 1) + 8 * j) severity];
                   severityLevel = [severity severityLevel];
 
                   switch(severityLevel)
@@ -388,14 +386,14 @@ LABEL_9:
                   }
                 }
 
-                v20 = [interactions countByEnumeratingWithState:&v55 objects:v72 count:16];
+                v20 = [interactions countByEnumeratingWithState:&v54 objects:v71 count:16];
               }
 
               while (v20);
             }
           }
 
-          v13 = [obj countByEnumeratingWithState:&v59 objects:v73 count:16];
+          v13 = [obj countByEnumeratingWithState:&v58 objects:v72 count:16];
         }
 
         while (v13);
@@ -403,29 +401,29 @@ LABEL_9:
 
       v25 = [MEMORY[0x277CCABB0] numberWithInteger:v15 + v14 + v16];
       v26 = HDMedicationDailyAnalyticsBucketForCount(v25);
-      [v50 setObject:v26 forKeyedSubscript:@"numberOfMedsInteractions"];
+      [v49 setObject:v26 forKeyedSubscript:@"numberOfMedsInteractions"];
 
       v27 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
       v28 = HDMedicationDailyAnalyticsBucketForCount(v27);
-      [v50 setObject:v28 forKeyedSubscript:@"numberOfSevereMedsInteractions"];
+      [v49 setObject:v28 forKeyedSubscript:@"numberOfSevereMedsInteractions"];
 
       v29 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
       v30 = HDMedicationDailyAnalyticsBucketForCount(v29);
-      [v50 setObject:v30 forKeyedSubscript:@"numberOfCriticalMedsInteractions"];
+      [v49 setObject:v30 forKeyedSubscript:@"numberOfCriticalMedsInteractions"];
 
       v31 = [MEMORY[0x277CCABB0] numberWithInteger:v15];
       v32 = HDMedicationDailyAnalyticsBucketForCount(v31);
-      [v50 setObject:v32 forKeyedSubscript:@"numberOfMajorMedsInteractions"];
+      [v49 setObject:v32 forKeyedSubscript:@"numberOfMajorMedsInteractions"];
 
       v33 = [MEMORY[0x277CCABB0] numberWithInteger:v15];
       v34 = HDMedicationDailyAnalyticsBucketForCount(v33);
-      [v50 setObject:v34 forKeyedSubscript:@"numberOfSeriousMedsInteractions"];
+      [v49 setObject:v34 forKeyedSubscript:@"numberOfSeriousMedsInteractions"];
 
       v35 = [MEMORY[0x277CCABB0] numberWithInteger:v16];
       v36 = HDMedicationDailyAnalyticsBucketForCount(v35);
-      [v50 setObject:v36 forKeyedSubscript:@"numberOfModerateMedsInteractions"];
+      [v49 setObject:v36 forKeyedSubscript:@"numberOfModerateMedsInteractions"];
 
-      v37 = v50;
+      v37 = v49;
     }
 
     else
@@ -440,7 +438,7 @@ LABEL_9:
       v37 = 0;
     }
 
-    v38 = v43;
+    v38 = v42;
   }
 
   else
@@ -455,8 +453,7 @@ LABEL_9:
     v37 = 0;
   }
 
-  _Block_object_dispose(&v66, 8);
-  v40 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v65, 8);
 
   return v37;
 }
@@ -687,14 +684,14 @@ LABEL_13:
 
 + (id)_medicationsAddedCountSinceDate:(id)date transaction:(id)transaction
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   transactionCopy = transaction;
   v8 = [objc_opt_class() _predicateForMedicationsSinceDate:dateCopy];
-  v15 = 0;
-  v9 = [objc_opt_class() _countOfUserDomainConceptsWithPredicate:v8 transaction:transactionCopy error:&v15];
+  v14 = 0;
+  v9 = [objc_opt_class() _countOfUserDomainConceptsWithPredicate:v8 transaction:transactionCopy error:&v14];
 
-  v10 = v15;
+  v10 = v14;
   if (v9)
   {
     v11 = v9;
@@ -708,15 +705,13 @@ LABEL_13:
     {
       *buf = 138543874;
       selfCopy = self;
-      v18 = 2114;
-      v19 = dateCopy;
-      v20 = 2114;
-      v21 = v10;
+      v17 = 2114;
+      v18 = dateCopy;
+      v19 = 2114;
+      v20 = v10;
       _os_log_error_impl(&dword_25181C000, v12, OS_LOG_TYPE_ERROR, "[%{public}@] Error when determining if user added medications since date: %{public}@, continuing daily analytics submission: %{public}@", buf, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -736,7 +731,7 @@ LABEL_13:
 
 + (id)_predicateForMedicationsSinceDate:(id)date
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCDB50];
   dateCopy = date;
   medicationUserDomainConceptTypeIdentifier = [v3 medicationUserDomainConceptTypeIdentifier];
@@ -744,62 +739,12 @@ LABEL_13:
   v7 = [MEMORY[0x277D10B18] predicateWithProperty:*MEMORY[0x277D10500] greaterThanValue:dateCopy];
 
   v8 = MEMORY[0x277D10B20];
-  v13[0] = v6;
-  v13[1] = v7;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[0] = v6;
+  v12[1] = v7;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v10 = [v8 predicateMatchingAllPredicates:v9];
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
-}
-
-- (void)_weeksSinceFirstAddedMedPayloadWithTransaction:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Error fetching oldest medication while determening weeks since first med added, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_medsInteractionsPayloadWithTransaction:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Error fetching medications while determining interactions, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_medsInteractionsPayloadWithTransaction:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Error fetching interaction results, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_medsCountPayloadWithTransaction:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Error when determining if user has active medications in the database, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_archivedMedsCountPayloadWithTransaction:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Failed to get active medications with error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_archivedMedsCountPayloadWithTransaction:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v0, v1, "[%{public}@] Failed to get all medications with error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

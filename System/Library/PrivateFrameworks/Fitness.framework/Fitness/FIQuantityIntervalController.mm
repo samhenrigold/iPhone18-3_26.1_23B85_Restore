@@ -54,7 +54,7 @@
 
 - (BOOL)_updateTriggerWithSample:(id)sample
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   quantityType = [sampleCopy quantityType];
   quantityType2 = [(FIIntervalQuantityTrigger *)self->_quantityTrigger quantityType];
@@ -63,9 +63,9 @@
   if (v7)
   {
     quantityTrigger = self->_quantityTrigger;
-    v17 = 0;
-    v9 = [(FIIntervalQuantityTrigger *)quantityTrigger addingSample:sampleCopy error:&v17];
-    v10 = v17;
+    v16 = 0;
+    v9 = [(FIIntervalQuantityTrigger *)quantityTrigger addingSample:sampleCopy error:&v16];
+    v10 = v16;
     v11 = self->_quantityTrigger;
     self->_quantityTrigger = v9;
 
@@ -79,13 +79,13 @@
     v12 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v16 = self->_quantityTrigger;
+      v15 = self->_quantityTrigger;
       *buf = 138412802;
-      v19 = sampleCopy;
-      v20 = 2112;
-      v21 = v16;
-      v22 = 2112;
-      v23 = v10;
+      v18 = sampleCopy;
+      v19 = 2112;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v10;
       _os_log_error_impl(&dword_24B35E000, v12, OS_LOG_TYPE_ERROR, "Adding sample %@ to quantity trigger %@ caused error: %@", buf, 0x20u);
     }
   }
@@ -93,7 +93,6 @@
   v13 = 0;
 LABEL_7:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

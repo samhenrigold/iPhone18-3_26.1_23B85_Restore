@@ -25,18 +25,20 @@
   if (name)
   {
     v13 = sub_303948();
+    v15 = v14;
   }
 
   else
   {
     v13 = 0;
+    v15 = 0;
   }
 
   configurationCopy = configuration;
   setCopy = set;
-  v16 = sub_252E54(configurationCopy, setCopy, count, requestedCount, pallasCount, v13);
+  v18 = sub_252E54(configurationCopy, setCopy, count, requestedCount, pallasCount, v13, v15);
 
-  return v16;
+  return v18;
 }
 
 + (id)typeAssetJob:(id)job assetSelector:(id)selector downloadResult:(id)result
@@ -72,9 +74,9 @@
 {
   instanceCopy = instance;
   atomicInstanceCopy = atomicInstance;
-  v8 = sub_253A44(instanceCopy, atomicInstanceCopy);
+  v9 = sub_253A44(instanceCopy, atomicInstanceCopy, count);
 
-  return v8;
+  return v9;
 }
 
 - (MAAIRBAppleIntelligenceAssetDeliveryEventType)init

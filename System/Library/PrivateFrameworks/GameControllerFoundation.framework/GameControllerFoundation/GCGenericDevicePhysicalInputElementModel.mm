@@ -197,24 +197,24 @@ LABEL_27:
 
 + (id)modelWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   representationCopy = representation;
-  v23[0] = 0;
-  v7 = [representationCopy gc_requiredObjectForKey:@"Type" ofClass:objc_opt_class() error:v23];
-  v8 = v23[0];
+  v22[0] = 0;
+  v7 = [representationCopy gc_requiredObjectForKey:@"Type" ofClass:objc_opt_class() error:v22];
+  v8 = v22[0];
   if (!v7)
   {
     if (error)
     {
-      v19 = MEMORY[0x1E696ABC0];
-      v26[0] = *MEMORY[0x1E696A578];
-      v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
-      v27[0] = v20;
-      v26[1] = *MEMORY[0x1E696A588];
+      v18 = MEMORY[0x1E696ABC0];
+      v25[0] = *MEMORY[0x1E696A578];
+      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
+      v26[0] = v19;
+      v25[1] = *MEMORY[0x1E696A588];
       localizedFailureReason = [v8 localizedFailureReason];
-      v27[1] = localizedFailureReason;
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
-      *error = [(NSError *)v19 gc_modelError:v22 userInfo:?];
+      v26[1] = localizedFailureReason;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
+      *error = [(NSError *)v18 gc_modelError:v21 userInfo:?];
     }
 
     goto LABEL_15;
@@ -226,15 +226,15 @@ LABEL_27:
   {
     if (error)
     {
-      v15 = MEMORY[0x1E696ABC0];
-      v24[0] = *MEMORY[0x1E696A578];
-      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
-      v25[0] = v16;
-      v24[1] = *MEMORY[0x1E696A588];
-      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"'%@' is not a valid element type.", v7];
-      v25[1] = v17;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
-      *error = [(NSError *)v15 gc_modelError:v18 userInfo:?];
+      v14 = MEMORY[0x1E696ABC0];
+      v23[0] = *MEMORY[0x1E696A578];
+      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
+      v24[0] = v15;
+      v23[1] = *MEMORY[0x1E696A588];
+      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"'%@' is not a valid element type.", v7];
+      v24[1] = v16;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+      *error = [(NSError *)v14 gc_modelError:v17 userInfo:?];
     }
 
 LABEL_15:
@@ -255,8 +255,6 @@ LABEL_7:
 
   build = 0;
 LABEL_9:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return build;
 }

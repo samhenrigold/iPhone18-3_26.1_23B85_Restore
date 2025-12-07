@@ -21,35 +21,33 @@
   return v3;
 }
 
-void __42__GKMatchResponse_secureCodedPropertyKeys__block_invoke()
+void __42__GKMatchResponse_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7[9] = *MEMORY[0x277D85DE8];
-  v6[0] = @"rid";
-  v7[0] = objc_opt_class();
-  v6[1] = @"matchID";
-  v7[1] = objc_opt_class();
-  v6[2] = @"matches";
-  v0 = +[GKServiceInterface plistClasses];
-  v7[2] = v0;
-  v6[3] = @"sessionToken";
-  v7[3] = objc_opt_class();
-  v6[4] = @"relayPushes";
-  v1 = +[GKServiceInterface plistClasses];
-  v7[4] = v1;
-  v6[5] = @"cdxTicket";
-  v7[5] = objc_opt_class();
-  v6[6] = @"selfPseudonym";
-  v7[6] = objc_opt_class();
-  v6[7] = @"serverRequest";
+  v8[9] = *MEMORY[0x277D85DE8];
+  v7[0] = @"rid";
+  v8[0] = objc_opt_class();
+  v7[1] = @"matchID";
+  v8[1] = objc_opt_class();
+  v7[2] = @"matches";
   v2 = +[GKServiceInterface plistClasses];
-  v7[7] = v2;
-  v6[8] = @"transportVersionToUse";
-  v7[8] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:9];
-  v4 = secureCodedPropertyKeys_sSecureCodedKeys_432;
-  secureCodedPropertyKeys_sSecureCodedKeys_432 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
+  v8[2] = v2;
+  v7[3] = @"sessionToken";
+  v8[3] = objc_opt_class();
+  v7[4] = @"relayPushes";
+  v3 = +[GKServiceInterface plistClasses];
+  v8[4] = v3;
+  v7[5] = @"cdxTicket";
+  v8[5] = objc_opt_class();
+  v7[6] = @"selfPseudonym";
+  v8[6] = objc_opt_class();
+  v7[7] = @"serverRequest";
+  v4 = +[GKServiceInterface plistClasses];
+  v8[7] = v4;
+  v7[8] = @"transportVersionToUse";
+  v8[8] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:9];
+  v6 = secureCodedPropertyKeys_sSecureCodedKeys_432;
+  secureCodedPropertyKeys_sSecureCodedKeys_432 = v5;
 }
 
 - (BOOL)isFinished

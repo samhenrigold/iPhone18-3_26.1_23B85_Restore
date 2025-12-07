@@ -63,37 +63,39 @@
 {
   eventCopy = event;
   v4 = objc_opt_new();
-  if ([eventCopy type] != 11)
+  type = [eventCopy type];
+  if (type != 11)
   {
-    v6 = MTLoggingPlugin();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v12 = MTLoggingPlugin(type, v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v56 = "[Error] ";
-      v57 = 2080;
-      v58 = "";
-      v59 = 2080;
-      v60 = "[MacOSTrackpadHIDEventProcessor handleHIDEvent:]";
-      v61 = 1024;
-      type = [eventCopy type];
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected event type: %u Eating it.", buf, 0x26u);
+      v64 = "[Error] ";
+      v65 = 2080;
+      v66 = "";
+      v67 = 2080;
+      v68 = "[MacOSTrackpadHIDEventProcessor handleHIDEvent:]";
+      v69 = 1024;
+      type2 = [eventCopy type];
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected event type: %u Eating it.", buf, 0x26u);
     }
 
     goto LABEL_12;
   }
 
-  if ([eventCopy integerValueForField:720918] != &dword_0 + 1)
+  v7 = [eventCopy integerValueForField:720918];
+  if (v7 != &dword_0 + 1)
   {
-    v6 = MTLoggingPlugin();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v12 = MTLoggingPlugin(v7, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v56 = "[Error] ";
-      v57 = 2080;
-      v58 = "";
-      v59 = 2080;
-      v60 = "[MacOSTrackpadHIDEventProcessor handleHIDEvent:]";
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected non-collection digitizer event. Eating it.", buf, 0x20u);
+      v64 = "[Error] ";
+      v65 = 2080;
+      v66 = "";
+      v67 = 2080;
+      v68 = "[MacOSTrackpadHIDEventProcessor handleHIDEvent:]";
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected non-collection digitizer event. Eating it.", buf, 0x20u);
     }
 
     goto LABEL_12;
@@ -103,95 +105,96 @@
 
   if (parent)
   {
-    v6 = MTLoggingPlugin();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v12 = MTLoggingPlugin(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v56 = "[Error] ";
-      v57 = 2080;
-      v58 = "";
-      v59 = 2080;
-      v60 = "[MacOSTrackpadHIDEventProcessor handleHIDEvent:]";
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected child digitizer event. Eating it.", buf, 0x20u);
+      v64 = "[Error] ";
+      v65 = 2080;
+      v66 = "";
+      v67 = 2080;
+      v68 = "[MacOSTrackpadHIDEventProcessor handleHIDEvent:]";
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected child digitizer event. Eating it.", buf, 0x20u);
     }
 
 LABEL_12:
 
-    v7 = v4;
+    v13 = v4;
     goto LABEL_13;
   }
 
-  v49 = v4;
-  v9 = eventCopy;
-  v46 = [v9 conformsToEventType:2];
-  v10 = [v9 conformsToEventType:3];
-  v11 = [(MacOSTrackpadHIDEventProcessor *)self checkForMomentumCancellation:v9];
-  children = [v9 children];
-  v13 = [children copy];
+  v57 = v4;
+  v15 = eventCopy;
+  v54 = [v15 conformsToEventType:2];
+  v16 = [v15 conformsToEventType:3];
+  v17 = [(MacOSTrackpadHIDEventProcessor *)self checkForMomentumCancellation:v15];
+  children = [v15 children];
+  v19 = [children copy];
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v50 objects:v54 count:16];
-  if (!v15)
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v20 = v19;
+  v21 = [v20 countByEnumeratingWithState:&v58 objects:v62 count:16];
+  if (!v21)
   {
     goto LABEL_57;
   }
 
-  v17 = 0;
-  v18 = *v51;
-  v48 = v11 | (v46 | v10) ^ 1;
-  *&v16 = 136315906;
-  v45 = v16;
+  v23 = 0;
+  v24 = *v59;
+  v56 = v17 | (v54 | v16) ^ 1;
+  *&v22 = 136315906;
+  v53 = v22;
   do
   {
-    for (i = 0; i != v15; i = i + 1)
+    for (i = 0; i != v21; i = i + 1)
     {
-      if (*v51 != v18)
+      if (*v59 != v24)
       {
-        objc_enumerationMutation(v14);
+        objc_enumerationMutation(v20);
       }
 
-      v20 = *(*(&v50 + 1) + 8 * i);
-      if ([v20 type] == 17)
+      v26 = *(*(&v58 + 1) + 8 * i);
+      if ([v26 type] == 17)
       {
-        [v20 doubleValueForField:1114112];
-        v22 = v21;
-        [v20 doubleValueForField:1114113];
-        v24 = v23;
-        if (![(MacOSTrackpadHIDEventProcessor *)self checkForMomentumInitiation:v9 triggerEvent:v20]&& ![(TrackpadHIDEventProcessor *)self noPointing])
+        [v26 doubleValueForField:1114112];
+        v28 = v27;
+        [v26 doubleValueForField:1114113];
+        v30 = v29;
+        if (![(MacOSTrackpadHIDEventProcessor *)self checkForMomentumInitiation:v15 triggerEvent:v26]&& ![(TrackpadHIDEventProcessor *)self noPointing])
         {
           previousButtonState = [(TrackpadHIDEventProcessor *)self previousButtonState];
           if ([(TrackpadHIDEventProcessor *)self hostClickControl])
           {
-            previousButtonState = [v20 integerValueForField:1114115];
+            previousButtonState = [v26 integerValueForField:1114115];
           }
 
-          if ([(TrackpadHIDEventProcessor *)self previousButtonState]!= previousButtonState)
+          previousButtonState2 = [(TrackpadHIDEventProcessor *)self previousButtonState];
+          if (previousButtonState2 != previousButtonState)
           {
-            v26 = MTLoggingPlugin();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+            v34 = MTLoggingPlugin(previousButtonState2, v33);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
-              *buf = v45;
-              v56 = "[Error] ";
-              v57 = 2080;
-              v58 = "";
-              v59 = 2080;
-              v60 = "[MacOSTrackpadHIDEventProcessor handleHIDEvent:]";
-              v61 = 1024;
-              type = v46;
-              _os_log_impl(&dword_0, v26, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Pointer event processed with different button mask before button event(isPresent? %d)", buf, 0x26u);
+              *buf = v53;
+              v64 = "[Error] ";
+              v65 = 2080;
+              v66 = "";
+              v67 = 2080;
+              v68 = "[MacOSTrackpadHIDEventProcessor handleHIDEvent:]";
+              v69 = 1024;
+              type2 = v54;
+              _os_log_impl(&dword_0, v34, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Pointer event processed with different button mask before button event(isPresent? %d)", buf, 0x26u);
             }
           }
 
-          v27 = mach_absolute_time();
-          options = [v20 options];
-          v29 = v22;
-          v30 = v24;
-          v31 = [(TrackpadHIDEventProcessor *)self createPointingEventWithDeltaX:previousButtonState deltaY:v27 buttonMask:@"HostAlgs-Pointer" timestamp:options source:v29 options:v30];
-          if (v31)
+          v35 = mach_absolute_time();
+          options = [v26 options];
+          v37 = v28;
+          v38 = v30;
+          v39 = [(TrackpadHIDEventProcessor *)self createPointingEventWithDeltaX:previousButtonState deltaY:v35 buttonMask:@"HostAlgs-Pointer" timestamp:options source:v37 options:v38];
+          if (v39)
           {
             goto LABEL_31;
           }
@@ -202,67 +205,67 @@ LABEL_12:
 
       else
       {
-        if ([v20 type] == 6)
+        if ([v26 type] == 6)
         {
-          [v20 doubleValueForField:393216];
-          v33 = v32;
-          [v20 doubleValueForField:393217];
-          v35 = v34;
-          [v20 doubleValueForField:393218];
-          v37 = v36;
+          [v26 doubleValueForField:393216];
+          v41 = v40;
+          [v26 doubleValueForField:393217];
+          v43 = v42;
+          [v26 doubleValueForField:393218];
+          v45 = v44;
           IOHIDEventGetPhase();
-          if (v17)
+          if (v23)
           {
-            v17 = 1;
+            v23 = 1;
             continue;
           }
 
-          v39 = v33;
-          v40 = v35;
-          v41 = v37;
-          v31 = [(TrackpadHIDEventProcessor *)self createScrollEventWithDeltaX:0 deltaY:v39 deltaZ:v40 options:v41];
-          if (v31)
+          v47 = v41;
+          v48 = v43;
+          v49 = v45;
+          v39 = [(TrackpadHIDEventProcessor *)self createScrollEventWithDeltaX:0 deltaY:v47 deltaZ:v48 options:v49];
+          if (v39)
           {
-            [v49 addObject:v31];
+            [v57 addObject:v39];
           }
 
-          v42 = [(MacOSTrackpadHIDEventProcessor *)self checkForMomentumInitiation:v9 triggerEvent:v20];
-          if (v42)
+          v50 = [(MacOSTrackpadHIDEventProcessor *)self checkForMomentumInitiation:v15 triggerEvent:v26];
+          if (v50)
           {
-            v43 = [(TrackpadHIDEventProcessor *)self createScrollEventWithDeltaX:0 deltaY:0.0 deltaZ:0.0 options:0.0];
-            if (v43)
+            v51 = [(TrackpadHIDEventProcessor *)self createScrollEventWithDeltaX:0 deltaY:0.0 deltaZ:0.0 options:0.0];
+            if (v51)
             {
               if ([(TrackpadHIDEventProcessor *)self scrollMomentumEnabled]&& !self->_momentumActive)
               {
                 IOHIDEventSetScrollMomentum();
               }
 
-              [v49 addObject:v43];
+              [v57 addObject:v51];
             }
           }
 
-          if (v42 & 1 | ![(TrackpadHIDEventProcessor *)self gestureScrollsEnabled])
+          if (v50 & 1 | ![(TrackpadHIDEventProcessor *)self gestureScrollsEnabled])
           {
-            [v9 removeEvent:v20];
+            [v15 removeEvent:v26];
           }
 
-          v17 = 1;
+          v23 = 1;
           goto LABEL_54;
         }
 
-        if ([v20 type] == 2)
+        if ([v26 type] == 2)
         {
-          v38 = [v20 integerValueForField:0x20000];
-          if (v48)
+          v46 = [v26 integerValueForField:0x20000];
+          if (v56)
           {
             continue;
           }
 
-          v31 = [(TrackpadHIDEventProcessor *)self createPointingEventWithDeltaX:v38 deltaY:mach_absolute_time() buttonMask:@"HostAlgs-Button" timestamp:0.0 source:0.0];
-          if (v31)
+          v39 = [(TrackpadHIDEventProcessor *)self createPointingEventWithDeltaX:v46 deltaY:mach_absolute_time() buttonMask:@"HostAlgs-Button" timestamp:0.0 source:0.0];
+          if (v39)
           {
 LABEL_31:
-            [v49 addObject:v31];
+            [v57 addObject:v39];
           }
 
 LABEL_54:
@@ -270,28 +273,28 @@ LABEL_54:
           continue;
         }
 
-        if ([v20 type] == 11 && -[TrackpadHIDEventProcessor deviceType](self, "deviceType") == 2)
+        if ([v26 type] == 11 && -[TrackpadHIDEventProcessor deviceType](self, "deviceType") == 2)
         {
-          [v9 removeEvent:v20];
+          [v15 removeEvent:v26];
         }
       }
     }
 
-    v15 = [v14 countByEnumeratingWithState:&v50 objects:v54 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v58 objects:v62 count:16];
   }
 
-  while (v15);
+  while (v21);
 LABEL_57:
 
-  if ([(MacOSTrackpadHIDEventProcessor *)self shouldDispatchEvent:v9])
+  if ([(MacOSTrackpadHIDEventProcessor *)self shouldDispatchEvent:v15])
   {
-    [(MacOSTrackpadHIDEventProcessor *)self appendDeviceInfoTo:v9];
-    [v49 addObject:v9];
+    [(MacOSTrackpadHIDEventProcessor *)self appendDeviceInfoTo:v15];
+    [v57 addObject:v15];
   }
 
-  v44 = v49;
+  v52 = v57;
 
-  v4 = v49;
+  v4 = v57;
 LABEL_13:
 
   return v4;
@@ -495,8 +498,8 @@ LABEL_9:
     if (v5 && (v7 = [v5 dataValueForField:65540], objc_msgSend(v6, "integerValueForField:", 65539) >= 3) && *v7 == 1 && !v7[2])
     {
       v8 = 0;
-      v21 = v7[1];
-      if (v21 <= 4 && ((1 << v21) & 0x16) != 0)
+      v22 = v7[1];
+      if (v22 <= 4 && ((1 << v22) & 0x16) != 0)
       {
         [(MacOSTrackpadHIDEventProcessor *)self cancelMomentum];
         v8 = 1;
@@ -527,21 +530,21 @@ LABEL_9:
           *(v16 + 8) = 1;
           *(v16 + 16) = v17;
           *(v16 + 20) = v18;
-          v19 = MTLoggingPlugin();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v20 = MTLoggingPlugin(v16, v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v24 = "";
-            v25 = 2080;
-            v26 = "";
-            v27 = 2080;
-            v28 = "[MacOSTrackpadHIDEventProcessor checkForMomentumCancellation:]";
-            _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Requesting to decay point / drag momentum", buf, 0x20u);
+            v25 = "";
+            v26 = 2080;
+            v27 = "";
+            v28 = 2080;
+            v29 = "[MacOSTrackpadHIDEventProcessor checkForMomentumCancellation:]";
+            _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Requesting to decay point / drag momentum", buf, 0x20u);
           }
 
-          v22.receiver = self;
-          v22.super_class = MacOSTrackpadHIDEventProcessor;
-          [(TrackpadHIDEventProcessor *)&v22 handleConsume:v16];
+          v23.receiver = self;
+          v23.super_class = MacOSTrackpadHIDEventProcessor;
+          [(TrackpadHIDEventProcessor *)&v23 handleConsume:v16];
         }
       }
 
@@ -611,21 +614,21 @@ LABEL_9:
     self->_momentumSubtype = subtype;
     v14 = objc_opt_new();
     objc_storeStrong(v14 + 2, v12);
-    v15 = MTLoggingPlugin();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = MTLoggingPlugin(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v18 = "";
-      v19 = 2080;
       v20 = "";
       v21 = 2080;
-      v22 = "[MacOSTrackpadHIDEventProcessor startMomentumWithSubtype:event:]";
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Requesting to start momentum", buf, 0x20u);
+      v22 = "";
+      v23 = 2080;
+      v24 = "[MacOSTrackpadHIDEventProcessor startMomentumWithSubtype:event:]";
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Requesting to start momentum", buf, 0x20u);
     }
 
-    v16.receiver = self;
-    v16.super_class = MacOSTrackpadHIDEventProcessor;
-    [(TrackpadHIDEventProcessor *)&v16 handleConsume:v14];
+    v18.receiver = self;
+    v18.super_class = MacOSTrackpadHIDEventProcessor;
+    [(TrackpadHIDEventProcessor *)&v18 handleConsume:v14];
   }
 }
 
@@ -635,21 +638,21 @@ LABEL_9:
   {
     v3 = objc_opt_new();
     v3[2] = 2;
-    v4 = MTLoggingPlugin();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = MTLoggingPlugin(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v7 = "";
-      v8 = 2080;
-      v9 = "";
-      v10 = 2080;
-      v11 = "[MacOSTrackpadHIDEventProcessor cancelMomentum]";
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Requesting to interrupt momentum", buf, 0x20u);
+      v8 = "";
+      v9 = 2080;
+      v10 = "";
+      v11 = 2080;
+      v12 = "[MacOSTrackpadHIDEventProcessor cancelMomentum]";
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Requesting to interrupt momentum", buf, 0x20u);
     }
 
-    v5.receiver = self;
-    v5.super_class = MacOSTrackpadHIDEventProcessor;
-    [(TrackpadHIDEventProcessor *)&v5 handleConsume:v3];
+    v6.receiver = self;
+    v6.super_class = MacOSTrackpadHIDEventProcessor;
+    [(TrackpadHIDEventProcessor *)&v6 handleConsume:v3];
   }
 }
 

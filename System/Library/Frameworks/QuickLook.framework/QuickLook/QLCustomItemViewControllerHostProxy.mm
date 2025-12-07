@@ -3,6 +3,7 @@
 - (void)dismissQuickLook;
 - (void)forwardMessageToHostOfCustomViewController:(id)controller completionHandler:(id)handler;
 - (void)presentShareSheetWithPopoverTracker:(id)tracker customSharedURL:(id)l dismissCompletion:(id)completion;
+- (void)setFullScreen:(BOOL)screen;
 @end
 
 @implementation QLCustomItemViewControllerHostProxy
@@ -14,6 +15,13 @@
   trackerCopy = tracker;
   delegate = [(QLCustomItemViewControllerHostProxy *)self delegate];
   [delegate presentShareSheetWithPopoverTracker:trackerCopy customSharedURL:lCopy dismissCompletion:completionCopy];
+}
+
+- (void)setFullScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  delegate = [(QLCustomItemViewControllerHostProxy *)self delegate];
+  [delegate setFullScreen:screenCopy];
 }
 
 - (void)dismissQuickLook

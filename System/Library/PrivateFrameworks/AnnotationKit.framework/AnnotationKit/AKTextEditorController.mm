@@ -896,7 +896,7 @@ LABEL_40:
   *&t1.c = v84;
   *&t1.tx = v83;
   CGAffineTransformConcat(&v92, &t1, &t2);
-  [AKGeometryHelper affineTransformForExifOrientation:v14 aboutCenter:*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)];
+  objc_msgSend_affineTransformForExifOrientation_aboutCenter_(AKGeometryHelper, *MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8));
   v89 = v92;
   CGAffineTransformConcat(&t2, &v89, &t1);
   v92 = t2;

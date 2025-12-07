@@ -16,6 +16,7 @@
 - (void)devicePairedHandler:(id)handler;
 - (void)didDismissWithResult:(int64_t)result deviceAddress:(id)address;
 - (void)discoveredDevice:(id)device deviceAddress:(id)address;
+- (void)dismissAnimated:(BOOL)animated;
 - (void)dismissPairingAlert:(id)alert;
 - (void)displayDevice:(id)device deviceAddress:(id)address;
 - (void)loadView;
@@ -172,6 +173,23 @@
       [(BTDevicePickerServiceViewController *)self performSelector:"checkAttachTimeout" withObject:0 afterDelay:3.0];
     }
   }
+}
+
+- (void)dismissAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 removeObserver:self];
+
+  [(BluetoothManager *)self->_btManager setDevicePairingEnabled:0];
+  [(BluetoothManager *)self->_btManager setDeviceScanningEnabled:0];
+  [(BTDevicePickerServiceViewController *)self cleanupPairing];
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_100001540;
+  v6[3] = &unk_1000081B0;
+  v6[4] = self;
+  [(BTDevicePickerServiceViewController *)self dismissViewControllerAnimated:animatedCopy completion:v6];
 }
 
 - (void)displayDevice:(id)device deviceAddress:(id)address

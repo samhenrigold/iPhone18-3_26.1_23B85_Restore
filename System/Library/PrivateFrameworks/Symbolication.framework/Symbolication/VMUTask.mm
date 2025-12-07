@@ -3,14 +3,15 @@
 - (BOOL)isTranslated;
 - (VMUTask)initWithCorePath:(id)path originalBinaryPaths:(id)paths error:(id *)error;
 - (VMUTask)initWithTask:(unsigned int)task;
+- (_CSTypeRef)createSymbolicatorWithFlags:(unsigned int)flags andNotification:(id)notification;
 - (_VMURange)taskDyldSharedCacheRange;
 - (id)ioSurfaceDescriptions;
 - (id)processDescription;
 - (int)pid;
 - (uint64_t)ptrauthStripDataPointer:(uint64_t)result;
 - (uint64_t)ptrauthStripFunctionPointer:(uint64_t)result;
-- (uint64_t)stripExtraPointerBits:(uint64_t)result;
 - (uint64_t)useExtraPointerStripping;
+- (unint64_t)stripExtraPointerBits:(unint64_t)result;
 - (unsigned)taskPort;
 - (void)dealloc;
 @end
@@ -32,14 +33,13 @@
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = *self;
-  v4[0] = 67109378;
-  v4[1] = v2;
-  v5 = 2080;
-  v6 = mach_error_string(error_value);
-  _os_log_error_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Unable to deallocate target task port: %d (%s)\n", v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109378;
+  v3[1] = v2;
+  v4 = 2080;
+  v5 = mach_error_string(error_value);
+  _os_log_error_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Unable to deallocate target task port: %d (%s)\n", v3, 0x12u);
 }
 
 - (id)processDescription
@@ -84,9 +84,9 @@
 
 - (VMUTask)initWithTask:(unsigned int)task
 {
-  v14.receiver = self;
-  v14.super_class = VMUTask;
-  v4 = [(VMUTask *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = VMUTask;
+  v4 = [(VMUTask *)&v13 init];
   v5 = v4;
   if (!v4)
   {
@@ -108,15 +108,14 @@
     taskMemory = v5->_taskMemory;
     v5->_taskMemory = v7;
 
-    liveTask = v5->_liveTask;
-    v15 = 0;
+    v14 = 0;
     base_address = dyld_process_create_for_task();
     if (base_address)
     {
-      v15 = 0;
-      v11 = dyld_process_snapshot_create_for_process();
+      v14 = 0;
+      v10 = dyld_process_snapshot_create_for_process();
       dyld_process_dispose();
-      if (v11)
+      if (v10)
       {
         shared_cache = dyld_process_snapshot_get_shared_cache();
         if (shared_cache)
@@ -166,18 +165,18 @@ LABEL_18:
 
 - (VMUTask)initWithCorePath:(id)path originalBinaryPaths:(id)paths error:(id *)error
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   pathsCopy = paths;
-  v31.receiver = self;
-  v31.super_class = VMUTask;
-  v10 = [(VMUTask *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = VMUTask;
+  v10 = [(VMUTask *)&v30 init];
   if (v10)
   {
-    v30 = 0;
+    v29 = 0;
     if (!error)
     {
-      error = &v30;
+      error = &v29;
     }
 
     v11 = [pathCopy copy];
@@ -226,17 +225,17 @@ LABEL_18:
       CSRelease();
       if (Range)
       {
-        v32 = 0;
-        if (![v18 peekAtAddress:Range size:8 returnsBuf:&v32])
+        v31 = 0;
+        if (![v18 peekAtAddress:Range size:8 returnsBuf:&v31])
         {
-          if (v32)
+          if (v31)
           {
-            v28 = 64 - *v32;
-            *(&v29 + 1) = -((*v32 > 0x40uLL) + 64) & 1;
-            *&v29 = v28;
-            if (!(v29 >> 32))
+            v27 = 64 - *v31;
+            *(&v28 + 1) = -((*v31 > 0x40uLL) + 64) & 1;
+            *&v28 = v27;
+            if (!(v28 >> 32))
             {
-              v22 = ~(-1 << v28);
+              v22 = ~(-1 << v27);
 
               goto LABEL_18;
             }
@@ -269,10 +268,10 @@ LABEL_18:
     }
 
     v23 = MEMORY[0x1E696ABC0];
-    v33 = *MEMORY[0x1E696A578];
+    v32 = *MEMORY[0x1E696A578];
     v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to get addressing mask for %@ core file.", v21];
-    v34[0] = v24;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v33[0] = v24;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     *error = [v23 errorWithDomain:@"VMUTask initialization" code:0 userInfo:v25];
 
 LABEL_23:
@@ -281,7 +280,6 @@ LABEL_23:
 
 LABEL_24:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -310,6 +308,14 @@ LABEL_24:
   return result;
 }
 
+- (_CSTypeRef)createSymbolicatorWithFlags:(unsigned int)flags andNotification:(id)notification
+{
+  v4 = [(VMUTaskMemoryCache *)self->_taskMemory createSymbolicatorWithFlags:notification andNotification:?];
+  result._opaque_2 = v5;
+  result._opaque_1 = v4;
+  return result;
+}
+
 - (BOOL)hasStartedWithErrorString:(id *)string
 {
   if (self->_taskType)
@@ -317,15 +323,14 @@ LABEL_24:
     return 1;
   }
 
-  liveTask = self->_liveTask;
-  v6 = CSTaskHasNotStarted();
+  v5 = CSTaskHasNotStarted();
   if (string)
   {
-    v6 = v6;
-    *string = v6;
+    v5 = v5;
+    *string = v5;
   }
 
-  v3 = v6 == 0;
+  v3 = v5 == 0;
 
   return v3;
 }
@@ -355,31 +360,31 @@ LABEL_24:
 
 void __32__VMUTask_ioSurfaceDescriptions__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v19 = a2;
+  v30 = *MEMORY[0x1E69E9840];
+  v18 = a2;
   v4 = a3;
-  v22 = objc_opt_new();
+  v21 = objc_opt_new();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = v4;
-  v23 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
-  if (v23)
+  v22 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v22)
   {
-    v21 = *v27;
+    v20 = *v26;
     do
     {
-      for (i = 0; i != v23; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v27 != v21)
+        if (*v26 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v26 + 1) + 8 * i);
-        v25 = [v6 width];
-        v24 = [v6 height];
+        v6 = *(*(&v25 + 1) + 8 * i);
+        v24 = [v6 width];
+        v23 = [v6 height];
         v7 = [VMUIOSurfaceDebugDescription alloc];
         v8 = [v6 virtualAddress];
         v9 = [v6 allocationSize];
@@ -389,19 +394,18 @@ void __32__VMUTask_ioSurfaceDescriptions__block_invoke(uint64_t a1, void *a2, vo
         v13 = [v6 dirtySize];
         v14 = [v6 residentSize];
         v15 = [v6 name];
-        v16 = [(VMUIOSurfaceDebugDescription *)v7 initWithVirtualAddress:v8 allocationSize:v9 surfaceID:v10 pixelFormat:v11 pixelFormatString:v12 width:v25 height:v24 dirtySize:v13 residentSize:v14 name:v15];
+        v16 = [(VMUIOSurfaceDebugDescription *)v7 initWithVirtualAddress:v8 allocationSize:v9 surfaceID:v10 pixelFormat:v11 pixelFormatString:v12 width:v24 height:v23 dirtySize:v13 residentSize:v14 name:v15];
 
-        [v22 addObject:v16];
+        [v21 addObject:v16];
       }
 
-      v23 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v22 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
-    while (v23);
+    while (v22);
   }
 
-  [*(a1 + 32) setObject:v22 forKey:v19];
-  v17 = *MEMORY[0x1E69E9840];
+  [*(a1 + 32) setObject:v21 forKey:v18];
 }
 
 - (uint64_t)ptrauthStripDataPointer:(uint64_t)result
@@ -427,7 +431,7 @@ void __32__VMUTask_ioSurfaceDescriptions__block_invoke(uint64_t a1, void *a2, vo
   return result;
 }
 
-- (uint64_t)stripExtraPointerBits:(uint64_t)result
+- (unint64_t)stripExtraPointerBits:(unint64_t)result
 {
   if (result)
   {

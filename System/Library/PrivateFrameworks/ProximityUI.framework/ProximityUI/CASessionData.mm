@@ -22,20 +22,20 @@
 
 - (void)error:(id)error
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = MEMORY[0x277CCABB0];
   numberOfErrorEvents = [(CASessionData *)self numberOfErrorEvents];
   v7 = [v5 numberWithInt:{objc_msgSend(numberOfErrorEvents, "intValue") + 1}];
   [(CASessionData *)self setNumberOfErrorEvents:v7];
 
-  v20[0] = @"status";
+  v19[0] = @"status";
   v8 = [errorCopy objectForKeyedSubscript:?];
-  v20[1] = @"errorDescription";
-  v21[0] = v8;
+  v19[1] = @"errorDescription";
+  v20[0] = v8;
   v9 = [errorCopy objectForKeyedSubscript:?];
-  v21[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v20[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   v11 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v10];
   productUUID = [(CASessionData *)self productUUID];
@@ -57,15 +57,13 @@
     [v11 setObject:isOwner2 forKeyedSubscript:@"IsOwner"];
   }
 
-  v19 = v11;
+  v18 = v11;
   AnalyticsSendEventLazy();
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logData
 {
-  v33[3] = *MEMORY[0x277D85DE8];
+  v32[3] = *MEMORY[0x277D85DE8];
   configureEvent = [(CASessionData *)self configureEvent];
 
   if (configureEvent)
@@ -112,16 +110,16 @@
   }
 
   v18 = MEMORY[0x277CBEB38];
-  v32[0] = @"TimeToConfigure";
+  v31[0] = @"TimeToConfigure";
   v19 = [MEMORY[0x277CCABB0] numberWithDouble:v12];
-  v33[0] = v19;
-  v32[1] = @"SessionDuration";
+  v32[0] = v19;
+  v31[1] = @"SessionDuration";
   v20 = [MEMORY[0x277CCABB0] numberWithDouble:v17];
-  v33[1] = v20;
-  v32[2] = @"NumberOfErrorEvents";
+  v32[1] = v20;
+  v31[2] = @"NumberOfErrorEvents";
   numberOfErrorEvents = [(CASessionData *)self numberOfErrorEvents];
-  v33[2] = numberOfErrorEvents;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
+  v32[2] = numberOfErrorEvents;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
   v23 = [v18 dictionaryWithDictionary:v22];
 
   productUUID = [(CASessionData *)self productUUID];
@@ -143,10 +141,8 @@
     [v23 setObject:isOwner2 forKeyedSubscript:@"IsOwner"];
   }
 
-  v31 = v23;
+  v30 = v23;
   AnalyticsSendEventLazy();
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

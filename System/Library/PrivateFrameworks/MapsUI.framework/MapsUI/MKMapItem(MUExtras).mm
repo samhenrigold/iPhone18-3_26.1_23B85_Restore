@@ -21,33 +21,33 @@
 
 - (MUTrailSelectionInfo)_mapsui_trailSelectionInfoForMap
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   _placeCategoryType = [self _placeCategoryType];
   if (_placeCategoryType == 2)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     _geoMapItem = [self _geoMapItem];
     _trailHead = [_geoMapItem _trailHead];
     trails = [_trailHead trails];
 
-    v11 = [trails countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v11 = [trails countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v24;
+      v13 = *v23;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(trails);
           }
 
-          v15 = *(*(&v23 + 1) + 8 * i);
+          v15 = *(*(&v22 + 1) + 8 * i);
           if ([v15 shouldHighlight])
           {
             if ([v15 trailId])
@@ -68,7 +68,7 @@
           }
         }
 
-        v12 = [trails countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v12 = [trails countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v12)
         {
           continue;
@@ -95,7 +95,6 @@ LABEL_16:
 LABEL_18:
 
 LABEL_19:
-  v21 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

@@ -2,6 +2,7 @@
 - (WFIsolatedShortcutRunner)init;
 - (void)extractVariableContentFromEncodedReference:(id)reference withResolutionRequest:(id)request completionHandler:(id)handler;
 - (void)fetchDisplayValueForRequest:(id)request completionHandler:(id)handler;
+- (void)fetchToolInvocationSummaryForInvocation:(id)invocation fetchingDefaultValues:(BOOL)values completionHandler:(id)handler;
 - (void)injectContentAsVariable:(id)variable completionHandler:(id)handler;
 - (void)injectResolvedContent:(id)content asVariableWithName:(id)name completionHandler:(id)handler;
 - (void)performQuery:(id)query inValueSet:(id)set toolInvocation:(id)invocation options:(id)options completionHandler:(id)handler;
@@ -110,6 +111,17 @@
   }
 
   [WFToolKitHelper transformActionWithAction:actionCopy queue:executionQueue completionBlock:handlerCopy];
+}
+
+- (void)fetchToolInvocationSummaryForInvocation:(id)invocation fetchingDefaultValues:(BOOL)values completionHandler:(id)handler
+{
+  valuesCopy = values;
+  handlerCopy = handler;
+  invocationCopy = invocation;
+  workflowController = [(WFIsolatedShortcutRunner *)self workflowController];
+  currentRunRequest = [(WFIsolatedShortcutRunner *)self currentRunRequest];
+  runSource = [currentRunRequest runSource];
+  [WFToolKitHelper fetchToolInvocationSummaryForInvocation:invocationCopy fetchingDefaultValues:valuesCopy variableSource:workflowController runSource:runSource completionBlock:handlerCopy];
 }
 
 - (void)resolveDeferredValueFromEncodedStorage:(id)storage withResolutionRequest:(id)request completionHandler:(id)handler

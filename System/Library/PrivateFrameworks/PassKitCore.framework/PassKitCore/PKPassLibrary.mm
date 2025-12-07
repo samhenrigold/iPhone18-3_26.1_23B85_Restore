@@ -1776,9 +1776,9 @@ void __49__PKPassLibrary_manifestHashForPassWithUniqueID___block_invoke(uint64_t
 
               v12 = *(*(&v27 + 1) + 8 * i);
               primaryAccountIdentifier = [v12 primaryAccountIdentifier];
-              v14 = [primaryAccountIdentifier isEqualToString:v4];
+              isEqualToString = objc_msgSend_isEqualToString_(primaryAccountIdentifier);
 
-              if (v14 && [v12 activationState] <= 3)
+              if (isEqualToString && [v12 activationState] <= 3)
               {
 
                 goto LABEL_16;
@@ -1825,7 +1825,7 @@ LABEL_16:
 
               v19 = *(*(&v23 + 1) + 8 * j);
               primaryAccountIdentifier2 = [v19 primaryAccountIdentifier];
-              v21 = [primaryAccountIdentifier2 isEqualToString:v4];
+              v21 = objc_msgSend_isEqualToString_(primaryAccountIdentifier2);
 
               if (v21 && [v19 activationState] < 4)
               {
@@ -2096,9 +2096,9 @@ uint64_t __48__PKPassLibrary__filterPeerPaymentPass_request___block_invoke(uint6
   else if (*(a1 + 41) == 1)
   {
     v7 = [v4 uniqueID];
-    v8 = [v7 isEqualToString:*(a1 + 32)];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    v9 = v8 ^ 1;
+    v9 = isEqualToString ^ 1;
   }
 
   else
@@ -2780,11 +2780,11 @@ uint64_t __83__PKPassLibrary_containsPassWithPassTypeIdentifier_serialNumber_com
   return v8;
 }
 
-uint64_t __63__PKPassLibrary_dataForBundleResources_objectUniqueIdentifier___block_invoke_2(uint64_t result, uint64_t a2)
+id *__63__PKPassLibrary_dataForBundleResources_objectUniqueIdentifier___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) setObject:a2 forKeyedSubscript:*(result + 40)];
+    return [result[4] setObject:a2 forKeyedSubscript:result[5]];
   }
 
   return result;
@@ -4525,9 +4525,9 @@ LABEL_10:
     v32 = a2;
     machServiceName = [(PKXPCService *)selfCopy->_remoteService machServiceName];
     passLibraryMachServiceName2 = [passCopy passLibraryMachServiceName];
-    v24 = [machServiceName isEqualToString:passLibraryMachServiceName2];
+    isEqualToString = objc_msgSend_isEqualToString_(machServiceName);
 
-    if ((v24 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v25 = [PKPassLibrary alloc];
       passLibraryMachServiceName3 = [passCopy passLibraryMachServiceName];
@@ -6759,18 +6759,18 @@ uint64_t __79__PKPassLibrary__sortedPaymentPassesForPaymentRequest_additionalPay
     if (v7)
     {
       v8 = [v5 uniqueID];
-      v9 = [v7 isEqualToString:v8];
+      isEqualToString = objc_msgSend_isEqualToString_(v7);
 
       v10 = *(a1 + 32);
       v11 = [v6 uniqueID];
-      v12 = [v10 isEqualToString:v11];
+      v12 = objc_msgSend_isEqualToString_(v10);
 
-      if (v9 && !v12)
+      if (isEqualToString && !v12)
       {
         goto LABEL_12;
       }
 
-      if (!(v9 & 1 | ((v12 & 1) == 0)))
+      if (!(isEqualToString & 1 | ((v12 & 1) == 0)))
       {
         goto LABEL_15;
       }
@@ -6797,11 +6797,11 @@ LABEL_15:
 
   v17 = *(a1 + 40);
   v18 = [v5 uniqueID];
-  v19 = [v17 isEqualToString:v18];
+  v19 = objc_msgSend_isEqualToString_(v17);
 
   v20 = *(a1 + 40);
   v21 = [v6 uniqueID];
-  v22 = [v20 isEqualToString:v21];
+  v22 = objc_msgSend_isEqualToString_(v20);
 
   if (!v19 || v22)
   {

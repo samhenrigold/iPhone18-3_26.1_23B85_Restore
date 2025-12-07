@@ -151,7 +151,7 @@
 
   if (equalCopy == self)
   {
-    v11 = 1;
+    isEqual = 1;
     goto LABEL_12;
   }
 
@@ -165,15 +165,15 @@
     v10 = v9;
     if (v8 == v9)
     {
-      v11 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v11 = 0;
+      isEqual = 0;
       if (v8 && v9)
       {
-        v11 = [(_UIMutableTextAttributeDictionary *)v8 isEqual:v9];
+        isEqual = objc_msgSend_isEqual_(v8);
       }
     }
   }
@@ -181,12 +181,12 @@
   else
   {
 LABEL_8:
-    v11 = 0;
+    isEqual = 0;
   }
 
 LABEL_12:
 
-  return v11;
+  return isEqual;
 }
 
 + (void)_getFontSizesForUserInterfaceIdiom:(int64_t)idiom labelFontSize:(double *)size buttonFontSize:(double *)fontSize systemFontSize:(double *)systemFontSize smallSystemFontSize:(double *)smallSystemFontSize

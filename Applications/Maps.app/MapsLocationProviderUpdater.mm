@@ -126,8 +126,8 @@
     }
 
     observedRoutePlanningSession2 = [(MapsLocationProviderUpdater *)self observedRoutePlanningSession];
-    configuration = [observedRoutePlanningSession2 configuration];
-    isNavigationTracePlayback = [configuration isNavigationTracePlayback];
+    v10 = objc_msgSend_configuration(observedRoutePlanningSession2);
+    isNavigationTracePlayback = [v10 isNavigationTracePlayback];
 
     if (!isNavigationTracePlayback)
     {

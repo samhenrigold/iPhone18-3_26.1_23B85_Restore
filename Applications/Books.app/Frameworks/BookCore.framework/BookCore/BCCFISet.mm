@@ -319,7 +319,7 @@ LABEL_16:
 
         else
         {
-          v12 = BCReadingStatisticsLog();
+          v12 = BCReadingStatisticsLog(0);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             v13 = [v10 description];

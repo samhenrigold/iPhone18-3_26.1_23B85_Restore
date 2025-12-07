@@ -5,7 +5,7 @@
 
 void __65___SWCollaborationBarButtonItem_initWithCollaborationButtonView___block_invoke(uint64_t a1, void *a2)
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MEMORY[0x1E69DCAB8];
   v5 = [MEMORY[0x1E69DCAD8] configurationWithScale:3];
@@ -14,20 +14,19 @@ void __65___SWCollaborationBarButtonItem_initWithCollaborationButtonView___block
   v7 = MEMORY[0x1E69DC628];
   v8 = SWFrameworkBundle();
   v9 = [v8 localizedStringForKey:@"COLLABORATION" value:&stru_1F3ABB850 table:@"SharedWithYou"];
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __65___SWCollaborationBarButtonItem_initWithCollaborationButtonView___block_invoke_2;
-  v16 = &unk_1E7FDDDB8;
-  v17 = *(a1 + 32);
-  objc_copyWeak(&v18, (a1 + 40));
-  v10 = [v7 actionWithTitle:v9 image:v6 identifier:0 handler:&v13];
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __65___SWCollaborationBarButtonItem_initWithCollaborationButtonView___block_invoke_2;
+  v15 = &unk_1E7FDDDB8;
+  v16 = *(a1 + 32);
+  objc_copyWeak(&v17, (a1 + 40));
+  v10 = [v7 actionWithTitle:v9 image:v6 identifier:0 handler:&v12];
 
-  v19[0] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:{1, v13, v14, v15, v16}];
+  v18[0] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:{1, v12, v13, v14, v15}];
   v3[2](v3, v11);
 
-  objc_destroyWeak(&v18);
-  v12 = *MEMORY[0x1E69E9840];
+  objc_destroyWeak(&v17);
 }
 
 void __65___SWCollaborationBarButtonItem_initWithCollaborationButtonView___block_invoke_2(uint64_t a1, void *a2)

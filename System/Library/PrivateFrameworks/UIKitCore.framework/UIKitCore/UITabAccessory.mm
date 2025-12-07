@@ -1,6 +1,6 @@
 @interface UITabAccessory
 - (UITabAccessory)initWithContentView:(id)view;
-- (void)_setEnvironment:(void *)environment;
+- (void)_setEnvironment:(void *)result;
 - (void)_setTabBarController:(id *)controller;
 - (void)_updateContentViewTraits;
 @end
@@ -44,18 +44,18 @@
   return v7;
 }
 
-- (void)_setEnvironment:(void *)environment
+- (void)_setEnvironment:(void *)result
 {
-  if (environment)
+  if (result)
   {
-    if (*(environment + 1) != a2)
+    if (result[1] != a2)
     {
-      *(environment + 1) = a2;
-      return [environment _updateContentViewTraits];
+      result[1] = a2;
+      return [result _updateContentViewTraits];
     }
   }
 
-  return environment;
+  return result;
 }
 
 - (void)_setTabBarController:(id *)controller

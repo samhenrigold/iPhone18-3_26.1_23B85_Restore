@@ -52,7 +52,7 @@
 {
   v11 = *MEMORY[0x1E69E9840];
   addressCopy = address;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(addressCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -311,24 +311,25 @@ void __70__AAUIChooseContactController_searchController_tintColorForRecipient___
   recipients = [(CNAutocompleteSearchController *)self->_autocompleteSearchController recipients];
   firstObject = [recipients firstObject];
 
-  if ([firstObject kind] > 1)
+  kind = [firstObject kind];
+  if (kind > 1)
   {
-    v10 = _AAUILogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _AAUILogSystem(kind);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(AAUIChooseContactController *)v10 _selectionCompleted];
+      [(AAUIChooseContactController *)v11 _selectionCompleted];
     }
   }
 
   else
   {
-    v5 = objc_alloc(MEMORY[0x1E698B8F0]);
+    v6 = objc_alloc(MEMORY[0x1E698B8F0]);
     address = [firstObject address];
     contact = [firstObject contact];
-    v8 = [v5 initWithHandle:address contact:contact];
+    v9 = [v6 initWithHandle:address contact:contact];
 
     delegate = [(AAUIChooseContactController *)self delegate];
-    [delegate chooseContactController:self didSelectContact:v8];
+    [delegate chooseContactController:self didSelectContact:v9];
   }
 }
 
@@ -339,23 +340,24 @@ void __70__AAUIChooseContactController_searchController_tintColorForRecipient___
   address = [reachableCopy address];
   v7 = [v5 objectForKeyedSubscript:address];
 
-  if (!v7 || [v7 integerValue] == -1)
+  if (!v7 || (bOOLValue = [v7 integerValue], bOOLValue == -1))
   {
-    bOOLValue = 0;
+    v9 = 0;
   }
 
   else
   {
     bOOLValue = [v7 BOOLValue];
+    v9 = bOOLValue;
   }
 
-  v9 = _AAUILogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = _AAUILogSystem(bOOLValue);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    [(AAUIChooseContactController *)reachableCopy _isHandleReachable:bOOLValue, v9];
+    [(AAUIChooseContactController *)reachableCopy _isHandleReachable:v9, v10];
   }
 
-  return bOOLValue;
+  return v9;
 }
 
 - (id)_idsReachabilityDictionaryForRecipient:(id)recipient
@@ -376,22 +378,23 @@ void __70__AAUIChooseContactController_searchController_tintColorForRecipient___
 
 - (void)fetchIDSStatusForRecipient:(id)recipient
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   recipientCopy = recipient;
-  if (objc_opt_respondsToSelector())
+  v5 = objc_opt_respondsToSelector();
+  if (v5)
   {
-    v5 = [(AAUIChooseContactController *)self _idsReachabilityDictionaryForRecipient:recipientCopy];
+    v6 = [(AAUIChooseContactController *)self _idsReachabilityDictionaryForRecipient:recipientCopy];
     address = [recipientCopy address];
-    v7 = [v5 objectForKeyedSubscript:address];
+    v8 = [v6 objectForKeyedSubscript:address];
 
-    if (!v7)
+    if (!v8)
     {
       address2 = [recipientCopy address];
-      v9 = [v5 objectForKeyedSubscript:address2];
+      v10 = [v6 objectForKeyedSubscript:address2];
 
-      if (v9)
+      if (v10)
       {
-        if ([v9 integerValue] == -1)
+        if ([v10 integerValue] == -1)
         {
           goto LABEL_27;
         }
@@ -400,51 +403,51 @@ void __70__AAUIChooseContactController_searchController_tintColorForRecipient___
       else
       {
         address3 = [recipientCopy address];
-        [v5 setObject:&unk_1F44C05B8 forKeyedSubscript:address3];
+        [v6 setObject:&unk_1F44C05B8 forKeyedSubscript:address3];
       }
 
       children = [recipientCopy children];
-      v12 = [children count];
+      v13 = [children count];
 
-      if (v12)
+      if (v13)
       {
+        v33 = 0u;
+        v34 = 0u;
         v31 = 0u;
         v32 = 0u;
-        v29 = 0u;
-        v30 = 0u;
         children2 = [recipientCopy children];
-        v14 = [children2 countByEnumeratingWithState:&v29 objects:v33 count:16];
-        if (v14)
+        v15 = [children2 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        if (v15)
         {
-          v15 = *v30;
+          v16 = *v32;
           do
           {
-            v16 = 0;
+            v17 = 0;
             do
             {
-              if (*v30 != v15)
+              if (*v32 != v16)
               {
                 objc_enumerationMutation(children2);
               }
 
-              [(AAUIChooseContactController *)self fetchIDSStatusForRecipient:*(*(&v29 + 1) + 8 * v16++)];
+              [(AAUIChooseContactController *)self fetchIDSStatusForRecipient:*(*(&v31 + 1) + 8 * v17++)];
             }
 
-            while (v14 != v16);
-            v14 = [children2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+            while (v15 != v17);
+            v15 = [children2 countByEnumeratingWithState:&v31 objects:v35 count:16];
           }
 
-          while (v14);
+          while (v15);
         }
       }
 
       handleToRecipient = self->_handleToRecipient;
       address4 = [recipientCopy address];
-      v19 = [(NSMutableDictionary *)handleToRecipient objectForKeyedSubscript:address4];
+      v20 = [(NSMutableDictionary *)handleToRecipient objectForKeyedSubscript:address4];
 
-      if (!v19 || v19 == recipientCopy)
+      if (!v20 || v20 == recipientCopy)
       {
-        if (v19 && v19 == recipientCopy)
+        if (v20 && v20 == recipientCopy)
         {
           goto LABEL_26;
         }
@@ -452,30 +455,30 @@ void __70__AAUIChooseContactController_searchController_tintColorForRecipient___
 
       else
       {
-        v20 = _AAUILogSystem();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v22 = _AAUILogSystem(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          [(AAUIChooseContactController *)recipientCopy fetchIDSStatusForRecipient:v19, v20];
+          [(AAUIChooseContactController *)recipientCopy fetchIDSStatusForRecipient:v20, v22];
         }
       }
 
-      v21 = self->_handleToRecipient;
+      v23 = self->_handleToRecipient;
       address5 = [recipientCopy address];
-      [(NSMutableDictionary *)v21 setObject:recipientCopy forKeyedSubscript:address5];
+      [(NSMutableDictionary *)v23 setObject:recipientCopy forKeyedSubscript:address5];
 
       objc_initWeak(&location, self);
       contactsManager = self->_contactsManager;
       address6 = [recipientCopy address];
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __58__AAUIChooseContactController_fetchIDSStatusForRecipient___block_invoke;
-      v25[3] = &unk_1E820BF08;
-      v25[4] = self;
-      objc_copyWeak(&v27, &location);
-      v26 = recipientCopy;
-      [(AAContactsManager *)contactsManager idsStatusForHandle:address6 completion:v25];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __58__AAUIChooseContactController_fetchIDSStatusForRecipient___block_invoke;
+      v27[3] = &unk_1E820BF08;
+      v27[4] = self;
+      objc_copyWeak(&v29, &location);
+      v28 = recipientCopy;
+      [(AAContactsManager *)contactsManager idsStatusForHandle:address6 completion:v27];
 
-      objc_destroyWeak(&v27);
+      objc_destroyWeak(&v29);
       objc_destroyWeak(&location);
 LABEL_26:
 
@@ -485,10 +488,10 @@ LABEL_27:
 
   else
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [(AAUIChooseContactController *)recipientCopy fetchIDSStatusForRecipient:v5];
+      [(AAUIChooseContactController *)recipientCopy fetchIDSStatusForRecipient:v6];
     }
   }
 }

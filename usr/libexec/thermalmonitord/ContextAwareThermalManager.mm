@@ -5,6 +5,8 @@
 - (id)createNewSolarContext:(BOOL)context;
 - (int)getContextState:(int)state;
 - (void)iterateAndUpdateContexts;
+- (void)setInfoOnlySensorsActive:(BOOL)active;
+- (void)updateSystemPowerState:(BOOL)state;
 @end
 
 @implementation ContextAwareThermalManager
@@ -148,6 +150,36 @@ LABEL_5:
     }
 
     return [ValueAtIndex isContextTriggered];
+  }
+}
+
+- (void)updateSystemPowerState:(BOOL)state
+{
+  stateCopy = state;
+  if (CFArrayGetCount(self->ctxObjects) >= 1)
+  {
+    v5 = 0;
+    do
+    {
+      [CFArrayGetValueAtIndex(self->ctxObjects v5++)];
+    }
+
+    while (CFArrayGetCount(self->ctxObjects) > v5);
+  }
+}
+
+- (void)setInfoOnlySensorsActive:(BOOL)active
+{
+  activeCopy = active;
+  if (CFArrayGetCount(self->ctxObjects) >= 1)
+  {
+    v5 = 0;
+    do
+    {
+      [CFArrayGetValueAtIndex(self->ctxObjects v5++)];
+    }
+
+    while (CFArrayGetCount(self->ctxObjects) > v5);
   }
 }
 

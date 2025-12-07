@@ -51,9 +51,9 @@
 - (_DDUIRapportDevice)initWithIncomingMessageOptions:(id)options
 {
   optionsCopy = options;
-  v16.receiver = self;
-  v16.super_class = _DDUIRapportDevice;
-  v5 = [(_DDUIRapportDevice *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = _DDUIRapportDevice;
+  v5 = [(_DDUIRapportDevice *)&v15 init];
   if (v5)
   {
     v6 = [optionsCopy objectForKeyedSubscript:@"senderDeviceName"];
@@ -68,11 +68,10 @@
     model = v5->_model;
     v5->_model = v10;
 
-    v12 = *MEMORY[0x277D442E8];
     v5->_isMine = (CFDictionaryGetInt64() & 0x80000) != 0;
-    v13 = [optionsCopy objectForKeyedSubscript:@"senderAccountID"];
+    v12 = [optionsCopy objectForKeyedSubscript:@"senderAccountID"];
     accountIdentifier = v5->_accountIdentifier;
-    v5->_accountIdentifier = v13;
+    v5->_accountIdentifier = v12;
 
     v5->_deviceType = DDUIDeviceTypeForModelString(v5->_model);
   }

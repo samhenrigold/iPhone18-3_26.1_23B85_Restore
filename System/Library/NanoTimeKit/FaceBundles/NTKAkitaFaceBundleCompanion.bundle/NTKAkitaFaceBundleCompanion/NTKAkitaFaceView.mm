@@ -6,6 +6,7 @@
 - (void)_loadMorphConfig;
 - (void)_loadSnapshotContentViews;
 - (void)_pauseContentViewIfNecessary;
+- (void)_prepareForStatusChange:(BOOL)change;
 - (void)_unloadActiveViews;
 - (void)dealloc;
 - (void)setOverrideDate:(id)date duration:(double)duration;
@@ -65,6 +66,15 @@
     [(NTKAkitaContentView *)self->_contentActiveView updateDate];
     dateCopy = v7;
   }
+}
+
+- (void)_prepareForStatusChange:(BOOL)change
+{
+  changeCopy = change;
+  contentActiveView = self->_contentActiveView;
+  v5 = [(NTKAkitaFaceView *)self dataMode]== &dword_0 + 1;
+
+  [(NTKAkitaContentView *)contentActiveView setAdjustsForStatusBarIcon:changeCopy animated:v5];
 }
 
 - (void)_pauseContentViewIfNecessary

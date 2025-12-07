@@ -52,7 +52,7 @@
 
 void __137__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithCurrentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -62,46 +62,43 @@ void __137__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWi
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = v6;
+      v21 = v6;
       _os_log_impl(&dword_2277F7000, v7, OS_LOG_TYPE_DEFAULT, "Error getting monthly challenge %@", buf, 0xCu);
     }
   }
 
   v8 = [*(a1 + 32) dataSource];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __137__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithCurrentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_292;
-  v14[3] = &unk_2785DA1A0;
-  v18 = *(a1 + 56);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __137__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithCurrentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_292;
+  v13[3] = &unk_2785DA1A0;
+  v17 = *(a1 + 56);
   v9 = *(a1 + 40);
-  v14[4] = *(a1 + 32);
-  v15 = v5;
-  v16 = v9;
+  v13[4] = *(a1 + 32);
+  v14 = v5;
+  v15 = v9;
   v10 = *(a1 + 48);
   v11 = *(a1 + 64);
-  v17 = v10;
-  v19 = v11;
-  v20 = *(a1 + 72);
+  v16 = v10;
+  v18 = v11;
+  v19 = *(a1 + 72);
   v12 = v5;
-  [v8 progressAchievementsWithNames:&unk_283AF44C0 completion:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [v8 progressAchievementsWithNames:&unk_283AF44C0 completion:v13];
 }
 
 void __137__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithCurrentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_292(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a3)
   {
-    v4 = *(a1 + 64);
-    v5 = *(*(a1 + 64) + 16);
+    v4 = *(*(a1 + 64) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = [a2 hk_mapToDictionary:&__block_literal_global_0];
-    [*(a1 + 32) progressAchievementAndMilestoneWithMonthlyChallengeAchievement:*(a1 + 40) achievementsMap:v6 currentDate:*(a1 + 48) calendar:*(a1 + 56) experienceType:*(a1 + 72) isStandaloneMode:*(a1 + 80) completion:*(a1 + 64)];
+    v5 = [a2 hk_mapToDictionary:&__block_literal_global_0];
+    [*(a1 + 32) progressAchievementAndMilestoneWithMonthlyChallengeAchievement:*(a1 + 40) achievementsMap:v5 currentDate:*(a1 + 48) calendar:*(a1 + 56) experienceType:*(a1 + 72) isStandaloneMode:*(a1 + 80) completion:*(a1 + 64)];
   }
 }
 
@@ -117,51 +114,51 @@ void __137__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWi
 - (void)progressAchievementAndMilestoneWithMonthlyChallengeAchievement:(id)achievement achievementsMap:(id)map currentDate:(id)date calendar:(id)calendar experienceType:(unint64_t)type isStandaloneMode:(BOOL)mode completion:(id)completion
 {
   modeCopy = mode;
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   achievementCopy = achievement;
   mapCopy = map;
   dateCopy = date;
   calendarCopy = calendar;
   completionCopy = completion;
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x3032000000;
-  v82 = __Block_byref_object_copy_;
-  v83 = __Block_byref_object_dispose_;
-  v84 = 0;
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x3032000000;
-  v76 = __Block_byref_object_copy_;
-  v77 = __Block_byref_object_dispose_;
   v78 = 0;
-  v58 = dateCopy;
-  v59 = calendarCopy;
-  v55 = FCSFirstGlanceDaysRemainingInFitnessWeek(dateCopy, calendarCopy);
+  v79 = &v78;
+  v80 = 0x3032000000;
+  v81 = __Block_byref_object_copy_;
+  v82 = __Block_byref_object_dispose_;
+  v83 = 0;
+  v72 = 0;
+  v73 = &v72;
+  v74 = 0x3032000000;
+  v75 = __Block_byref_object_copy_;
+  v76 = __Block_byref_object_dispose_;
+  v77 = 0;
+  v57 = dateCopy;
+  v58 = calendarCopy;
+  v54 = FCSFirstGlanceDaysRemainingInFitnessWeek(dateCopy, calendarCopy);
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke;
   aBlock[3] = &unk_2785DA1F0;
-  aBlock[4] = &v79;
-  aBlock[5] = &v73;
-  v60 = _Block_copy(aBlock);
+  aBlock[4] = &v78;
+  aBlock[5] = &v72;
+  v59 = _Block_copy(aBlock);
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v18 = [standardUserDefaults persistentDomainForName:*MEMORY[0x277CCE4C8]];
 
   v19 = [v18 objectForKey:@"progressAchievementMilestoneOverride"];
-  v20 = v74[5];
-  v74[5] = v19;
+  v20 = v73[5];
+  v73[5] = v19;
 
   v21 = MEMORY[0x277CCC290];
-  if (v74[5])
+  if (v73[5])
   {
     _HKInitializeLogging();
     v22 = *v21;
     if (os_log_type_enabled(*v21, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = v74[5];
+      v23 = v73[5];
       *buf = 138412290;
-      v90 = v23;
+      v89 = v23;
       _os_log_impl(&dword_2277F7000, v22, OS_LOG_TYPE_DEFAULT, "Overriding First Glance progress achievement milestone to '%@'", buf, 0xCu);
     }
   }
@@ -175,15 +172,15 @@ void __137__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWi
     if (os_log_type_enabled(*v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v90 = v24;
+      v89 = v24;
       _os_log_impl(&dword_2277F7000, v25, OS_LOG_TYPE_DEFAULT, "Overriding First Glance progress achievement identifier to '%@'", buf, 0xCu);
     }
 
     v26 = [mapCopy objectForKeyedSubscript:v24];
-    v27 = v80[5];
-    v80[5] = v26;
+    v27 = v79[5];
+    v79[5] = v26;
 
-    if (!v80[5])
+    if (!v79[5])
     {
       template = [achievementCopy template];
       uniqueName = [template uniqueName];
@@ -196,108 +193,108 @@ void __137__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWi
         if (os_log_type_enabled(*v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v90 = v24;
+          v89 = v24;
           _os_log_impl(&dword_2277F7000, v31, OS_LOG_TYPE_DEFAULT, "Overriding First Glance progress monthly achievement identifier to '%@'", buf, 0xCu);
         }
 
-        objc_storeStrong(v80 + 5, achievement);
+        objc_storeStrong(v79 + 5, achievement);
       }
     }
   }
 
-  v32 = v80[5];
+  v32 = v79[5];
   if (achievementCopy && !v32)
   {
-    v68[0] = MEMORY[0x277D85DD0];
-    v68[1] = 3221225472;
-    v68[2] = __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_298;
-    v68[3] = &unk_2785DA218;
-    v69 = v59;
-    v70 = dateCopy;
+    v67[0] = MEMORY[0x277D85DD0];
+    v67[1] = 3221225472;
+    v67[2] = __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_298;
+    v67[3] = &unk_2785DA218;
+    v68 = v58;
+    v69 = dateCopy;
     typeCopy = type;
-    v33 = _Block_copy(v68);
-    v88 = achievementCopy;
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v88 count:1];
-    [(FCSFirstGlanceAchievementEvaluator *)self _firstAchievementFromAchievements:v34 passingMilestoneTest:v33 completion:v60];
+    v33 = _Block_copy(v67);
+    v87 = achievementCopy;
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
+    [(FCSFirstGlanceAchievementEvaluator *)self _firstAchievementFromAchievements:v34 passingMilestoneTest:v33 completion:v59];
 
-    v32 = v80[5];
+    v32 = v79[5];
   }
 
   if (!v32)
   {
-    [(FCSFirstGlanceAchievementEvaluator *)self _firstAchievementMatchingLifetimeGoalsWithNames:&unk_283AF4460 amongstAchievements:mapCopy experienceType:type reachedMilestoneCompletion:v60];
-    if (!v80[5])
+    [(FCSFirstGlanceAchievementEvaluator *)self _firstAchievementMatchingLifetimeGoalsWithNames:&unk_283AF4460 amongstAchievements:mapCopy experienceType:type reachedMilestoneCompletion:v59];
+    if (!v79[5])
     {
-      [(FCSFirstGlanceAchievementEvaluator *)self _firstAchievementMatchingLifetimeGoalsWithNames:&unk_283AF4478 amongstAchievements:mapCopy experienceType:type reachedMilestoneCompletion:v60];
-      v35 = v80[5];
+      [(FCSFirstGlanceAchievementEvaluator *)self _firstAchievementMatchingLifetimeGoalsWithNames:&unk_283AF4478 amongstAchievements:mapCopy experienceType:type reachedMilestoneCompletion:v59];
+      v35 = v79[5];
       if (type != 3 && !v35)
       {
-        v67[0] = MEMORY[0x277D85DD0];
-        v67[1] = 3221225472;
-        v67[2] = __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_400;
-        v67[3] = &__block_descriptor_40_e40___NSString_32__0__ACHAchievement_8d16d24l;
-        v67[4] = type;
-        v36 = _Block_copy(v67);
+        v66[0] = MEMORY[0x277D85DD0];
+        v66[1] = 3221225472;
+        v66[2] = __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_400;
+        v66[3] = &__block_descriptor_40_e40___NSString_32__0__ACHAchievement_8d16d24l;
+        v66[4] = type;
+        v36 = _Block_copy(v66);
         v37 = [mapCopy objectForKeyedSubscript:@"LongestMoveStreak"];
         v38 = v37;
         if (v37)
         {
-          v87 = v37;
-          v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
-          [(FCSFirstGlanceAchievementEvaluator *)self _firstAchievementFromAchievements:v39 passingMilestoneTest:v36 completion:v60];
+          v86 = v37;
+          v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
+          [(FCSFirstGlanceAchievementEvaluator *)self _firstAchievementFromAchievements:v39 passingMilestoneTest:v36 completion:v59];
         }
 
-        v35 = v80[5];
+        v35 = v79[5];
       }
 
       if (!v35 && !modeCopy)
       {
-        v66[0] = MEMORY[0x277D85DD0];
-        v66[1] = 3221225472;
-        v66[2] = __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_2;
-        v66[3] = &__block_descriptor_48_e40___NSString_32__0__ACHAchievement_8d16d24l;
-        v66[4] = v55;
-        v66[5] = type;
-        v40 = _Block_copy(v66);
+        v65[0] = MEMORY[0x277D85DD0];
+        v65[1] = 3221225472;
+        v65[2] = __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_2;
+        v65[3] = &__block_descriptor_48_e40___NSString_32__0__ACHAchievement_8d16d24l;
+        v65[4] = v54;
+        v65[5] = type;
+        v40 = _Block_copy(v65);
         v41 = [mapCopy objectForKeyedSubscript:@"PerfectWeekAll"];
         v42 = v41;
         if (v41)
         {
-          v86 = v41;
-          v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
-          [(FCSFirstGlanceAchievementEvaluator *)self _firstAchievementFromAchievements:v43 passingMilestoneTest:v40 completion:v60];
+          v85 = v41;
+          v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v85 count:1];
+          [(FCSFirstGlanceAchievementEvaluator *)self _firstAchievementFromAchievements:v43 passingMilestoneTest:v40 completion:v59];
         }
 
-        v35 = v80[5];
+        v35 = v79[5];
       }
 
       if (!v35)
       {
-        v65[0] = MEMORY[0x277D85DD0];
-        v65[1] = 3221225472;
-        v65[2] = __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_3;
-        v65[3] = &__block_descriptor_48_e40___NSString_32__0__ACHAchievement_8d16d24l;
-        v65[4] = v55;
-        v65[5] = type;
-        v44 = _Block_copy(v65);
+        v64[0] = MEMORY[0x277D85DD0];
+        v64[1] = 3221225472;
+        v64[2] = __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_3;
+        v64[3] = &__block_descriptor_48_e40___NSString_32__0__ACHAchievement_8d16d24l;
+        v64[4] = v54;
+        v64[5] = type;
+        v44 = _Block_copy(v64);
         v45 = [mapCopy objectForKeyedSubscript:@"7WorkoutWeek"];
         v46 = v45;
         if (v45)
         {
-          v85 = v45;
-          v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v85 count:1];
-          [(FCSFirstGlanceAchievementEvaluator *)self _firstAchievementFromAchievements:v47 passingMilestoneTest:v44 completion:v60];
+          v84 = v45;
+          v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v84 count:1];
+          [(FCSFirstGlanceAchievementEvaluator *)self _firstAchievementFromAchievements:v47 passingMilestoneTest:v44 completion:v59];
         }
 
-        if (!v80[5])
+        if (!v79[5])
         {
-          v64[0] = MEMORY[0x277D85DD0];
-          v64[1] = 3221225472;
-          v64[2] = __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_4;
-          v64[3] = &__block_descriptor_48_e40___NSString_32__0__ACHAchievement_8d16d24l;
-          v64[4] = v55;
-          v64[5] = type;
-          v48 = _Block_copy(v64);
+          v63[0] = MEMORY[0x277D85DD0];
+          v63[1] = 3221225472;
+          v63[2] = __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_4;
+          v63[3] = &__block_descriptor_48_e40___NSString_32__0__ACHAchievement_8d16d24l;
+          v63[4] = v54;
+          v63[5] = type;
+          v48 = _Block_copy(v63);
           v49 = &unk_283AF44A8;
           if (modeCopy)
           {
@@ -305,15 +302,15 @@ void __137__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWi
           }
 
           v50 = v49;
-          v62[0] = MEMORY[0x277D85DD0];
-          v62[1] = 3221225472;
-          v62[2] = __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_5;
-          v62[3] = &unk_2785DA280;
-          v63 = mapCopy;
-          v51 = [v50 hk_map:v62];
-          [(FCSFirstGlanceAchievementEvaluator *)self _firstAchievementFromAchievements:v51 passingMilestoneTest:v48 completion:v60];
+          v61[0] = MEMORY[0x277D85DD0];
+          v61[1] = 3221225472;
+          v61[2] = __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_5;
+          v61[3] = &unk_2785DA280;
+          v62 = mapCopy;
+          v51 = [v50 hk_map:v61];
+          [(FCSFirstGlanceAchievementEvaluator *)self _firstAchievementFromAchievements:v51 passingMilestoneTest:v48 completion:v59];
 
-          if (!v80[5])
+          if (!v79[5])
           {
             goto LABEL_36;
           }
@@ -322,7 +319,7 @@ void __137__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWi
     }
   }
 
-  if (v74[5])
+  if (v73[5])
   {
     completionCopy[2](completionCopy);
   }
@@ -334,10 +331,8 @@ LABEL_36:
     (completionCopy[2])(completionCopy, 0, 0, v52);
   }
 
-  _Block_object_dispose(&v73, 8);
-  _Block_object_dispose(&v79, 8);
-
-  v53 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v72, 8);
+  _Block_object_dispose(&v78, 8);
 }
 
 void __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -356,7 +351,7 @@ void __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWi
 
 id __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWithMonthlyChallengeAchievement_achievementsMap_currentDate_calendar_experienceType_isStandaloneMode_completion___block_invoke_298(uint64_t a1, void *a2, double a3, double a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = [*(a1 + 32) component:16 fromDate:*(a1 + 40)];
   [*(a1 + 32) rangeOfUnit:16 inUnit:8 forDate:*(a1 + 40)];
@@ -383,11 +378,11 @@ LABEL_9:
           v13 = *MEMORY[0x277CCC290];
           if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
           {
-            v19 = 134218240;
-            v20 = a4 - a3;
-            v21 = 2048;
-            v22 = *&v12;
-            _os_log_impl(&dword_2277F7000, v13, OS_LOG_TYPE_DEFAULT, "Not coaching to Monthly Challenge - days needed (%ld) exceed days remaining in month (%ld)", &v19, 0x16u);
+            v18 = 134218240;
+            v19 = a4 - a3;
+            v20 = 2048;
+            v21 = *&v12;
+            _os_log_impl(&dword_2277F7000, v13, OS_LOG_TYPE_DEFAULT, "Not coaching to Monthly Challenge - days needed (%ld) exceed days remaining in month (%ld)", &v18, 0x16u);
           }
 
           v11 = 0;
@@ -401,11 +396,11 @@ LABEL_9:
     v16 = *MEMORY[0x277CCC290];
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 134218240;
-      v20 = *&a3;
-      v21 = 2048;
-      v22 = a4;
-      _os_log_impl(&dword_2277F7000, v16, OS_LOG_TYPE_DEFAULT, "Not coaching to Monthly Challenge - progress (%ff) already matches or exceeds goal (%f).", &v19, 0x16u);
+      v18 = 134218240;
+      v19 = *&a3;
+      v20 = 2048;
+      v21 = a4;
+      _os_log_impl(&dword_2277F7000, v16, OS_LOG_TYPE_DEFAULT, "Not coaching to Monthly Challenge - progress (%ff) already matches or exceeds goal (%f).", &v18, 0x16u);
     }
   }
 
@@ -415,15 +410,13 @@ LABEL_9:
     v15 = *MEMORY[0x277CCC290];
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_2277F7000, v15, OS_LOG_TYPE_DEFAULT, "Not coaching for Monthly Challenge progress", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_2277F7000, v15, OS_LOG_TYPE_DEFAULT, "Not coaching for Monthly Challenge progress", &v18, 2u);
     }
   }
 
   v14 = 0;
 LABEL_16:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -568,9 +561,9 @@ id __181__FCSFirstGlanceAchievementEvaluator_progressAchievementAndMilestoneWith
   }
 }
 
-void __103__FCSFirstGlanceAchievementEvaluator_yesterdayLocalizationKeyForAchievement_experienceType_completion___block_invoke(uint64_t a1, int a2)
+void __103__FCSFirstGlanceAchievementEvaluator_yesterdayLocalizationKeyForAchievement_experienceType_completion___block_invoke(void *a1, int a2)
 {
-  v14 = @"ACHIEVEMENT_YESTERDAY_DESC";
+  v12 = @"ACHIEVEMENT_YESTERDAY_DESC";
   if (_os_feature_enabled_impl())
   {
     v4 = a2 == 0;
@@ -585,11 +578,11 @@ void __103__FCSFirstGlanceAchievementEvaluator_yesterdayLocalizationKeyForAchiev
   {
     v5 = @"ACHIEVEMENT_EARNED_YESTERDAY_SUGGEST_ADJUST_DESC";
 
-    v14 = v5;
+    v12 = v5;
   }
 
-  IsLongestMoveStreakAchievement = FCSFirstGlanceAchievementIsLongestMoveStreakAchievement(*(a1 + 32));
-  IsMultipleOfTargetValue = FCSFirstGlanceAchievementValueIsMultipleOfTargetValue(*(a1 + 32), 50);
+  IsLongestMoveStreakAchievement = FCSFirstGlanceAchievementIsLongestMoveStreakAchievement(a1[4]);
+  IsMultipleOfTargetValue = FCSFirstGlanceAchievementValueIsMultipleOfTargetValue(a1[4], 50);
   if (IsLongestMoveStreakAchievement)
   {
     v8 = IsMultipleOfTargetValue == 0;
@@ -602,16 +595,14 @@ void __103__FCSFirstGlanceAchievementEvaluator_yesterdayLocalizationKeyForAchiev
 
   if (!v8)
   {
-    v9 = [(__CFString *)v14 stringByAppendingString:@"_MILESTONE"];
+    v9 = [(__CFString *)v12 stringByAppendingString:@"_MILESTONE"];
 
-    v14 = v9;
+    v12 = v9;
   }
 
-  v10 = *(a1 + 56);
-  v11 = FILocalizationTableForExperienceType();
-  v12 = *(a1 + 40);
-  v13 = FIRandomKeyForPrefixWithTableName();
-  (*(*(a1 + 48) + 16))();
+  v10 = FILocalizationTableForExperienceType();
+  v11 = FIRandomKeyForPrefixWithTableName();
+  (*(a1[6] + 16))();
 }
 
 - (id)evaluateYesterdayAchievements:(id)achievements isStandaloneMode:(BOOL)mode
@@ -728,31 +719,31 @@ id __148__FCSFirstGlanceAchievementEvaluator__firstAchievementMatchingLifetimeGo
 
 - (void)_firstAchievementFromAchievements:(id)achievements passingMilestoneTest:(id)test completion:(id)completion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   achievementsCopy = achievements;
   testCopy = test;
   completionCopy = completion;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v9 = achievementsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v31;
+    v12 = *v30;
     v13 = MEMORY[0x277CCC290];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * i);
+        v15 = *(*(&v29 + 1) + 8 * i);
         template = [v15 template];
         canonicalUnit = [template canonicalUnit];
 
@@ -786,12 +777,12 @@ id __148__FCSFirstGlanceAchievementEvaluator__firstAchievementMatchingLifetimeGo
           v25 = *v13;
           if (os_log_type_enabled(*v13, OS_LOG_TYPE_ERROR))
           {
-            [(FCSFirstGlanceAchievementEvaluator *)v34 _firstAchievementFromAchievements:v25 passingMilestoneTest:v15 completion:&v35];
+            [(FCSFirstGlanceAchievementEvaluator *)v33 _firstAchievementFromAchievements:v25 passingMilestoneTest:v15 completion:&v34];
           }
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v11);
@@ -800,8 +791,6 @@ id __148__FCSFirstGlanceAchievementEvaluator__firstAchievementMatchingLifetimeGo
   v27 = completionCopy;
   (*(completionCopy + 2))(completionCopy, 0, 0);
 LABEL_15:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLocalizationKeyOverride:(id)override

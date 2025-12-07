@@ -58,8 +58,8 @@
 
 + (id)getFamilyChecklistHeaderView
 {
-  type metadata accessor for FamilyNetworkMonitor();
-  sub_21BDF471C(&qword_27CDBC320, type metadata accessor for FamilyNetworkMonitor);
+  type metadata accessor for FamilyNetworkMonitor(0);
+  sub_21BDF471C(&qword_27CDBC320, type metadata accessor for FamilyNetworkMonitor, protocol conformance descriptor for FamilyNetworkMonitor);
   sub_21BE2727C();
   v2 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CDBDBB0, &qword_21BE4F618));
   v3 = sub_21BE2774C();
@@ -71,7 +71,7 @@
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CDBC370, &qword_21BE4A2F0);
   v3 = sub_21BE28C3C();
-  v4 = objc_allocWithZone(type metadata accessor for CheckListHostController());
+  v4 = objc_allocWithZone(type metadata accessor for CheckListHostController(0));
   v5 = sub_21BD92B14(v3);
 
   return v5;

@@ -44,7 +44,7 @@
 
 - (__CVBuffer)convertPixelBuffer:(__CVBuffer *)buffer toFormat:(unsigned int)format
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if (buffer)
   {
     Width = CVPixelBufferGetWidth(buffer);
@@ -57,32 +57,33 @@
     Height = *(MEMORY[0x1E695F060] + 8);
   }
 
-  if (ARRecreatePixelBufferPoolOnConfigurationChanges(&self->_pixelBufferPool, format, Width, Height))
+  v9 = ARRecreatePixelBufferPoolOnConfigurationChanges(&self->_pixelBufferPool, format, Width, Height);
+  if (v9)
   {
     if (ARShouldUseLogTypeError_onceToken_47 != -1)
     {
       [PixelBufferConverter convertPixelBuffer:toFormat:];
     }
 
-    v9 = ARShouldUseLogTypeError_internalOSVersion_47;
-    v10 = _ARLogGeneral_42();
-    v11 = v10;
-    if (v9 == 1)
+    v10 = ARShouldUseLogTypeError_internalOSVersion_47;
+    v11 = _ARLogGeneral_42(v9);
+    v12 = v11;
+    if (v10 == 1)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
         *buf = 138543618;
-        v34 = v13;
-        v35 = 2048;
+        v37 = v14;
+        v38 = 2048;
         selfCopy6 = self;
-        v14 = "%{public}@ <%p>: Could not create pixel buffer pool.";
+        v15 = "%{public}@ <%p>: Could not create pixel buffer pool.";
 LABEL_16:
-        v18 = v11;
-        v19 = OS_LOG_TYPE_ERROR;
+        v20 = v12;
+        v21 = OS_LOG_TYPE_ERROR;
 LABEL_28:
-        _os_log_impl(&dword_1C241C000, v18, v19, v14, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v20, v21, v15, buf, 0x16u);
 
         goto LABEL_29;
       }
@@ -90,43 +91,44 @@ LABEL_28:
       goto LABEL_29;
     }
 
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       goto LABEL_29;
     }
 
-    v20 = objc_opt_class();
-    v13 = NSStringFromClass(v20);
+    v22 = objc_opt_class();
+    v14 = NSStringFromClass(v22);
     *buf = 138543618;
-    v34 = v13;
-    v35 = 2048;
+    v37 = v14;
+    v38 = 2048;
     selfCopy6 = self;
-    v14 = "Error: %{public}@ <%p>: Could not create pixel buffer pool.";
+    v15 = "Error: %{public}@ <%p>: Could not create pixel buffer pool.";
     goto LABEL_27;
   }
 
   pixelBufferOut = 0;
-  if (CVPixelBufferPoolCreatePixelBuffer(*MEMORY[0x1E695E480], self->_pixelBufferPool, &pixelBufferOut))
+  v16 = CVPixelBufferPoolCreatePixelBuffer(*MEMORY[0x1E695E480], self->_pixelBufferPool, &pixelBufferOut);
+  if (v16)
   {
     if (ARShouldUseLogTypeError_onceToken_47 != -1)
     {
       [PixelBufferConverter convertPixelBuffer:toFormat:];
     }
 
-    v15 = ARShouldUseLogTypeError_internalOSVersion_47;
-    v16 = _ARLogGeneral_42();
-    v11 = v16;
-    if (v15 == 1)
+    v17 = ARShouldUseLogTypeError_internalOSVersion_47;
+    v18 = _ARLogGeneral_42(v16);
+    v12 = v18;
+    if (v17 == 1)
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v17 = objc_opt_class();
-        v13 = NSStringFromClass(v17);
+        v19 = objc_opt_class();
+        v14 = NSStringFromClass(v19);
         *buf = 138543618;
-        v34 = v13;
-        v35 = 2048;
+        v37 = v14;
+        v38 = 2048;
         selfCopy6 = self;
-        v14 = "%{public}@ <%p>: Could not create pixel buffer from pool.";
+        v15 = "%{public}@ <%p>: Could not create pixel buffer from pool.";
         goto LABEL_16;
       }
 
@@ -135,63 +137,64 @@ LABEL_29:
       return 0;
     }
 
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       goto LABEL_29;
     }
 
-    v29 = objc_opt_class();
-    v13 = NSStringFromClass(v29);
+    v32 = objc_opt_class();
+    v14 = NSStringFromClass(v32);
     *buf = 138543618;
-    v34 = v13;
-    v35 = 2048;
+    v37 = v14;
+    v38 = 2048;
     selfCopy6 = self;
-    v14 = "Error: %{public}@ <%p>: Could not create pixel buffer from pool.";
+    v15 = "Error: %{public}@ <%p>: Could not create pixel buffer from pool.";
 LABEL_27:
-    v18 = v11;
-    v19 = OS_LOG_TYPE_INFO;
+    v20 = v12;
+    v21 = OS_LOG_TYPE_INFO;
     goto LABEL_28;
   }
 
-  if (VTPixelTransferSessionTransferImage(self->_pixelTransferSession, buffer, pixelBufferOut))
+  v23 = VTPixelTransferSessionTransferImage(self->_pixelTransferSession, buffer, pixelBufferOut);
+  if (v23)
   {
     if (ARShouldUseLogTypeError_onceToken_47 != -1)
     {
       [PixelBufferConverter convertPixelBuffer:toFormat:];
     }
 
-    v21 = ARShouldUseLogTypeError_internalOSVersion_47;
-    v22 = _ARLogGeneral_42();
-    v23 = v22;
-    if (v21 == 1)
+    v24 = ARShouldUseLogTypeError_internalOSVersion_47;
+    v25 = _ARLogGeneral_42(v23);
+    v26 = v25;
+    if (v24 == 1)
     {
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        v24 = objc_opt_class();
-        v25 = NSStringFromClass(v24);
+        v27 = objc_opt_class();
+        v28 = NSStringFromClass(v27);
         *buf = 138543618;
-        v34 = v25;
-        v35 = 2048;
+        v37 = v28;
+        v38 = 2048;
         selfCopy6 = self;
-        v26 = "%{public}@ <%p>: Could not convert pixel buffer";
-        v27 = v23;
-        v28 = OS_LOG_TYPE_ERROR;
+        v29 = "%{public}@ <%p>: Could not convert pixel buffer";
+        v30 = v26;
+        v31 = OS_LOG_TYPE_ERROR;
 LABEL_34:
-        _os_log_impl(&dword_1C241C000, v27, v28, v26, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v30, v31, v29, buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v31 = objc_opt_class();
-      v25 = NSStringFromClass(v31);
+      v34 = objc_opt_class();
+      v28 = NSStringFromClass(v34);
       *buf = 138543618;
-      v34 = v25;
-      v35 = 2048;
+      v37 = v28;
+      v38 = 2048;
       selfCopy6 = self;
-      v26 = "Error: %{public}@ <%p>: Could not convert pixel buffer";
-      v27 = v23;
-      v28 = OS_LOG_TYPE_INFO;
+      v29 = "Error: %{public}@ <%p>: Could not convert pixel buffer";
+      v30 = v26;
+      v31 = OS_LOG_TYPE_INFO;
       goto LABEL_34;
     }
 

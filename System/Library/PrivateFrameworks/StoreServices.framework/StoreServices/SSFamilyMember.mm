@@ -178,7 +178,7 @@
       v10 = v9;
       if (v9)
       {
-        v6->_askToBuy = [v9 BOOLValue];
+        v6->_askToBuy = [(__CFDate *)v9 BOOLValue];
       }
 
       v11 = objc_opt_class();
@@ -209,11 +209,11 @@
       v26 = objc_opt_class();
       v27 = SSXPCDictionaryCopyObjectWithClass(v5, "6", v26);
 
-      v6->_me = [v27 BOOLValue];
+      v6->_me = [(__CFDate *)v27 BOOLValue];
       v28 = objc_opt_class();
       v29 = SSXPCDictionaryCopyObjectWithClass(v5, "7", v28);
 
-      v6->_sharingPurchases = [v29 BOOLValue];
+      v6->_sharingPurchases = [(__CFDate *)v29 BOOLValue];
     }
   }
 

@@ -137,94 +137,116 @@
 
   if (image)
   {
-    PKContentAlignmentMake();
-    v13 = [(UILabel *)self->_primaryLabel font:0];
-    [v13 lineHeight];
-    v15 = v14;
+    v13 = PKContentAlignmentMake();
+    memset(&v62, 0, sizeof(v62));
+    font = [(UILabel *)self->_primaryLabel font];
+    [font lineHeight];
+    v16 = v15;
 
-    v37.origin.x = v9;
-    v37.origin.y = v10;
-    v37.size.width = width + -32.0;
-    v37.size.height = v11;
-    CGRectDivide(v37, &v33, &remainder, v15, v8);
+    v66.origin.x = v9;
+    v66.origin.y = v10;
+    v66.size.width = width + -32.0;
+    v66.size.height = v11;
+    CGRectDivide(v66, &v62, &remainder, v16, v8);
     CGRectDivide(remainder, &slice, &remainder, 4.0, v8);
     iconImageView = self->_iconImageView;
-    PKSizeAlignedInRect();
+    v19.n128_u64[0] = *&v62.origin.y;
+    v18.n128_u64[0] = *&v62.origin.x;
+    v21.n128_u64[0] = *&v62.size.height;
+    v20.n128_u64[0] = *&v62.size.width;
+    v22.n128_f64[0] = v16;
+    v23.n128_f64[0] = v16;
+    PKSizeAlignedInRect(v13, v22, v23, v18, v19, v20, v21, v24);
     [(UIImageView *)iconImageView setFrame:?];
   }
 
   else
   {
-    v15 = 0.0;
+    v16 = 0.0;
   }
 
   text = [(UILabel *)self->_primaryLabel text];
-  v18 = [text length];
+  v26 = [text length];
 
-  if (v18)
+  if (v26)
   {
-    memset(&v33, 0, sizeof(v33));
-    [(UILabel *)self->_primaryLabel sizeThatFits:remainder.size.width, remainder.size.height, 0, 0, 0, 0];
-    v20 = v19;
-    CGRectDivide(remainder, &v33, &remainder, v19, CGRectMinYEdge);
+    memset(&v62, 0, sizeof(v62));
+    [(UILabel *)self->_primaryLabel sizeThatFits:remainder.size.width, remainder.size.height];
+    v28 = v27;
+    v30 = v29;
+    CGRectDivide(remainder, &v62, &remainder, v29, CGRectMinYEdge);
     primaryLabel = self->_primaryLabel;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v32 = PKContentAlignmentMake();
+    v34.n128_u64[0] = *&v62.origin.y;
+    v33.n128_u64[0] = *&v62.origin.x;
+    v36.n128_u64[0] = *&v62.size.height;
+    v35.n128_u64[0] = *&v62.size.width;
+    v37.n128_u64[0] = v28;
+    v38.n128_f64[0] = v30;
+    PKSizeAlignedInRect(v32, v37, v38, v33, v34, v35, v36, v39);
     [(UILabel *)primaryLabel setFrame:?];
-    v15 = fmax(v20, v15);
+    v16 = fmax(v30, v16);
   }
 
   text2 = [(UILabel *)self->_secondaryLabel text];
-  v23 = [text2 length];
+  v41 = [text2 length];
 
-  if (v23)
+  if (v41)
   {
-    if (v15 > 0.0)
+    if (v16 > 0.0)
     {
       remainder.origin.x = v9;
       remainder.origin.y = v10;
       remainder.size.width = width + -32.0;
       remainder.size.height = v11;
-      v38.origin.x = v9;
-      v38.origin.y = v10;
-      v38.size.width = width + -32.0;
-      v38.size.height = v11;
-      CGRectDivide(v38, &slice, &remainder, v15, CGRectMinYEdge);
+      v67.origin.x = v9;
+      v67.origin.y = v10;
+      v67.size.width = width + -32.0;
+      v67.size.height = v11;
+      CGRectDivide(v67, &slice, &remainder, v16, CGRectMinYEdge);
       CGRectDivide(remainder, &slice, &remainder, 14.0, CGRectMinYEdge);
     }
 
-    memset(&v33, 0, sizeof(v33));
+    memset(&v62, 0, sizeof(v62));
     [(UILabel *)self->_secondaryLabel sizeThatFits:remainder.size.width, remainder.size.height, 0, 0, 0, 0];
-    CGRectDivide(remainder, &v33, &remainder, v24, CGRectMinYEdge);
+    v43 = v42;
+    v45 = *&v44;
+    CGRectDivide(remainder, &v62, &remainder, v44, CGRectMinYEdge);
     secondaryLabel = self->_secondaryLabel;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v47 = PKContentAlignmentMake();
+    v49.n128_u64[0] = *&v62.origin.y;
+    v48.n128_u64[0] = *&v62.origin.x;
+    v51.n128_u64[0] = *&v62.size.height;
+    v50.n128_u64[0] = *&v62.size.width;
+    v52.n128_u64[0] = v43;
+    v53.n128_u64[0] = v45;
+    PKSizeAlignedInRect(v47, v52, v53, v48, v49, v50, v51, v54);
     [(UILabel *)secondaryLabel setFrame:?];
   }
 
-  v26 = 20.0;
-  if (v15 > 0.0)
+  v55 = 20.0;
+  if (v16 > 0.0)
   {
-    v27 = v15 + 20.0;
+    v56 = v16 + 20.0;
     text3 = [(UILabel *)self->_secondaryLabel text];
-    v29 = [text3 length];
+    v58 = [text3 length];
 
-    if (v29)
+    if (v58)
     {
-      v26 = v27 + 14.0;
+      v55 = v56 + 14.0;
     }
 
     else
     {
-      v26 = v27;
+      v55 = v56;
     }
   }
 
   [(UILabel *)self->_secondaryLabel frame];
-  v31 = v26 + v30 + 20.0;
-  v32 = width;
-  result.height = v31;
-  result.width = v32;
+  v60 = v55 + v59 + 20.0;
+  v61 = width;
+  result.height = v60;
+  result.width = v61;
   return result;
 }
 

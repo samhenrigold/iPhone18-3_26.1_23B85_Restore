@@ -2,6 +2,7 @@
 + (float)generateZdepthForLayer:(int)layer numLayers:(int)layers;
 - (BOOL)initDigitStructs;
 - (NTKPlumeriaQuad)initWithDevice:(id)device;
+- (id)_createQuadVertexBuffer:(float)buffer y:(float)y w:(float)w h:(float)h z:(float)z;
 - (id)_loadMetalBinaryArchives;
 - (id)_loadTextureResource:(id)resource;
 - (void)initBloomPipeline:(id)pipeline;
@@ -22,9 +23,9 @@
 - (NTKPlumeriaQuad)initWithDevice:(id)device
 {
   deviceCopy = device;
-  v18.receiver = self;
-  v18.super_class = NTKPlumeriaQuad;
-  v6 = [(NTKPlumeriaQuad *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = NTKPlumeriaQuad;
+  v6 = [(NTKPlumeriaQuad *)&v19 init];
   v7 = v6;
   if (v6)
   {
@@ -36,19 +37,19 @@
     v7->_mtlDevice = v9;
 
     v11 = v7->_mtlDevice;
-    v12 = sub_42B0();
-    v13 = [(MTLDevice *)v11 newDefaultLibraryWithBundle:v12 error:0];
+    v13 = sub_42B0(v12);
+    v14 = [(MTLDevice *)v11 newDefaultLibraryWithBundle:v13 error:0];
     library = v7->_library;
-    v7->_library = v13;
+    v7->_library = v14;
 
     [deviceCopy screenScale];
-    v7->_screenScale = v15;
+    v7->_screenScale = v16;
     v7->_tritiumProgress = 0.0;
     *v7->_anon_1270 = xmmword_9180;
     *v7->_deviceAccel = 0u;
     NTKPlumeriaSettingsResetToDefaults(&v7->_settings);
-    v16 = [NSBundle bundleForClass:objc_opt_class()];
-    NTKPlumeriaSettingsLoadFromPlistResource(v16, @"PlumeriaSettings", &v7->_settings);
+    v17 = [NSBundle bundleForClass:objc_opt_class()];
+    NTKPlumeriaSettingsLoadFromPlistResource(v17, @"PlumeriaSettings", &v7->_settings);
     v7->_currentSettings = &v7->_settings.normal[0].overallScale;
     v7->_currentTritiumSettings = &v7->_anon_15a0[1840];
     v7->_firstSettings = &v7->_settings.normal[0].overallScale;
@@ -60,8 +61,6 @@
 - (void)setOverrideDate:(id)date duration:(double)duration
 {
   dateCopy = date;
-  overrideDate = self->_overrideDate;
-  v10 = dateCopy;
   if ((NTKEqualObjects() & 1) == 0)
   {
     if (duration > 0.0)
@@ -70,9 +69,9 @@
     }
 
     objc_storeStrong(&self->_overrideDate, date);
-    v9 = CACurrentMediaTime();
-    self->_startOverrideTime = v9;
-    self->_endOverrideTime = v9 + duration;
+    v7 = CACurrentMediaTime();
+    self->_startOverrideTime = v7;
+    self->_endOverrideTime = v7 + duration;
   }
 }
 
@@ -310,7 +309,7 @@
   v28 = v102;
   do
   {
-    [NTKPlumeriaFontHelper generateTransformFromRect:v28 toRect:v28 + 16 transformX:*&digitStructs[2 * v104[v26] + 1].digit transformY:v101[2 * v26]];
+    [NTKPlumeriaFontHelper generateTransformFromRect:v28 toRect:v28 + 16 transformX:*&digitStructs[2 * v104[v26] + 1].digit transformY:*&v101[v26]];
     ++v26;
     v28 += 32;
   }
@@ -422,40 +421,41 @@
 
 - (id)_loadMetalBinaryArchives
 {
-  if (_os_feature_enabled_impl())
+  v3 = _os_feature_enabled_impl();
+  if (v3)
   {
-    v3 = sub_42B0();
-    v4 = [v3 URLForResource:@"plumeria" withExtension:@"metallib"];
-    v5 = objc_opt_new();
-    [v5 setUrl:v4];
+    v4 = sub_42B0(v3);
+    v5 = [v4 URLForResource:@"plumeria" withExtension:@"metallib"];
+    v6 = objc_opt_new();
+    [v6 setUrl:v5];
     mtlDevice = self->_mtlDevice;
-    v12 = 0;
-    v7 = [(MTLDevice *)mtlDevice newBinaryArchiveWithDescriptor:v5 error:&v12];
-    v8 = v12;
-    if (v7)
+    v13 = 0;
+    v8 = [(MTLDevice *)mtlDevice newBinaryArchiveWithDescriptor:v6 error:&v13];
+    v9 = v13;
+    if (v8)
     {
-      v13 = v7;
-      v9 = [NSArray arrayWithObjects:&v13 count:1];
+      v14 = v8;
+      v10 = [NSArray arrayWithObjects:&v14 count:1];
     }
 
     else
     {
-      v10 = _NTKLoggingObjectForDomain();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v11 = _NTKLoggingObjectForDomain();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         sub_6EE0();
       }
 
-      v9 = &__NSArray0__struct;
+      v10 = &__NSArray0__struct;
     }
   }
 
   else
   {
-    v9 = &__NSArray0__struct;
+    v10 = &__NSArray0__struct;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)initPlumeriaPipeline:(id)pipeline
@@ -545,6 +545,38 @@
 LABEL_22:
 }
 
+- (id)_createQuadVertexBuffer:(float)buffer y:(float)y w:(float)w h:(float)h z:(float)z
+{
+  *&v7 = buffer + w;
+  v8 = y + h;
+  v9 = *&buffer;
+  *(&v9 + 1) = y;
+  *(&v9 + 2) = z;
+  v19[0] = v9;
+  v19[1] = xmmword_91A0;
+  v20 = 0x3F80000000000000;
+  v10 = v8;
+  v21 = *&buffer;
+  v22 = xmmword_91A0;
+  _Q0 = v7;
+  *(&_Q0 + 1) = y;
+  *(&_Q0 + 2) = z;
+  v23 = 0;
+  v24 = _Q0;
+  v25 = xmmword_91A0;
+  __asm { FMOV            V0.2S, #1.0 }
+
+  *(&v7 + 1) = v8;
+  v26 = _Q0;
+  *(&v7 + 2) = z;
+  v27 = v7;
+  v28 = xmmword_91A0;
+  v29 = 1065353216;
+  v17 = [(MTLDevice *)self->_mtlDevice newBufferWithBytes:v19 length:192 options:1];
+
+  return v17;
+}
+
 - (id)_loadTextureResource:(id)resource
 {
   v11[0] = MTKTextureLoaderOptionTextureUsage;
@@ -554,7 +586,7 @@ LABEL_22:
   resourceCopy = resource;
   v5 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:2];
   v6 = [[MTKTextureLoader alloc] initWithDevice:self->_mtlDevice];
-  v7 = sub_42B0();
+  v7 = sub_42B0(v6);
   v10 = 0;
   v8 = [v6 newTextureWithName:resourceCopy scaleFactor:v7 bundle:v5 options:&v10 error:1.0];
 

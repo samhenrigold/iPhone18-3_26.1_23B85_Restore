@@ -318,7 +318,7 @@
 
 CGImageRef __91__OITSUImage_stretchedImageOfSize_leftCapWidth_rightCapWidth_topCapHeight_bottomCapHeight___block_invoke(uint64_t a1, CGImageRef image, double a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   Width = CGImageGetWidth(image);
   Height = CGImageGetHeight(image);
   v8 = fabs(*(a1 + 40));
@@ -369,71 +369,71 @@ CGImageRef __91__OITSUImage_stretchedImageOfSize_leftCapWidth_rightCapWidth_topC
     v19 = v17 * a3;
   }
 
-  TSUSplitRectIntoSlices(v37, 0.0, 0.0, Width, Height, v18, v19, v15, v16);
-  TSUSplitRectIntoSlices(v36, 0.0, 0.0, v10, v13, v18, v19, v15, v16);
-  v20 = TSUCreateRGBABitmapContext(1, v10, v13, 1.0);
+  TSUSplitRectIntoSlices(v38, 0.0, 0.0, Width, Height, v18, v19, v15, v16);
+  TSUSplitRectIntoSlices(v37, 0.0, 0.0, v10, v13, v18, v19, v15, v16);
+  v21 = TSUCreateRGBABitmapContext(1, v20, v10, v13, 1.0);
   for (i = 0; i != 288; i += 32)
   {
-    v22 = *&v37[i];
-    v23 = *&v37[i + 8];
-    v24 = *&v37[i + 16];
-    v25 = *&v37[i + 24];
-    v26 = *&v36[i];
-    v27 = *&v36[i + 8];
-    v28 = *&v36[i + 16];
-    v29 = *&v36[i + 24];
-    v39.origin.x = v22;
-    v39.origin.y = v23;
-    v39.size.width = v24;
-    v39.size.height = v25;
-    if (!CGRectIsEmpty(v39))
+    v23 = *&v38[i];
+    v24 = *&v38[i + 8];
+    v25 = *&v38[i + 16];
+    v26 = *&v38[i + 24];
+    v27 = *&v37[i];
+    v28 = *&v37[i + 8];
+    v29 = *&v37[i + 16];
+    v30 = *&v37[i + 24];
+    v40.origin.x = v23;
+    v40.origin.y = v24;
+    v40.size.width = v25;
+    v40.size.height = v26;
+    if (!CGRectIsEmpty(v40))
     {
-      v40.origin.x = v22;
-      v40.origin.y = v23;
-      v40.size.width = v24;
-      v40.size.height = v25;
-      if (!CGRectIsNull(v40))
+      v41.origin.x = v23;
+      v41.origin.y = v24;
+      v41.size.width = v25;
+      v41.size.height = v26;
+      if (!CGRectIsNull(v41))
       {
-        v41.origin.x = v26;
-        v41.origin.y = v27;
-        v41.size.width = v28;
-        v41.size.height = v29;
-        if (!CGRectIsEmpty(v41))
+        v42.origin.x = v27;
+        v42.origin.y = v28;
+        v42.size.width = v29;
+        v42.size.height = v30;
+        if (!CGRectIsEmpty(v42))
         {
-          v42.origin.x = v26;
-          v42.origin.y = v27;
-          v42.size.width = v28;
-          v42.size.height = v29;
-          if (!CGRectIsNull(v42))
+          v43.origin.x = v27;
+          v43.origin.y = v28;
+          v43.size.width = v29;
+          v43.size.height = v30;
+          if (!CGRectIsNull(v43))
           {
-            v43.origin.x = v22;
-            v43.origin.y = v23;
-            v43.size.width = v24;
-            v43.size.height = v25;
-            v30 = CGImageCreateWithImageInRect(image, v43);
-            if (v30)
+            v44.origin.x = v23;
+            v44.origin.y = v24;
+            v44.size.width = v25;
+            v44.size.height = v26;
+            v31 = CGImageCreateWithImageInRect(image, v44);
+            if (v31)
             {
-              v31 = v30;
-              CGContextSaveGState(v20);
-              v44.origin.x = v26;
-              v44.origin.y = v27;
-              v44.size.width = v28;
-              v44.size.height = v29;
-              MaxY = CGRectGetMaxY(v44);
-              v45.origin.x = v26;
-              v45.origin.y = v27;
-              v45.size.width = v28;
-              v45.size.height = v29;
-              MinY = CGRectGetMinY(v45);
-              CGContextTranslateCTM(v20, 0.0, MaxY + MinY);
-              CGContextScaleCTM(v20, 1.0, -1.0);
-              v46.origin.x = v26;
-              v46.origin.y = v27;
-              v46.size.width = v28;
-              v46.size.height = v29;
-              CGContextDrawImage(v20, v46, v31);
-              CGImageRelease(v31);
-              CGContextRestoreGState(v20);
+              v32 = v31;
+              CGContextSaveGState(v21);
+              v45.origin.x = v27;
+              v45.origin.y = v28;
+              v45.size.width = v29;
+              v45.size.height = v30;
+              MaxY = CGRectGetMaxY(v45);
+              v46.origin.x = v27;
+              v46.origin.y = v28;
+              v46.size.width = v29;
+              v46.size.height = v30;
+              MinY = CGRectGetMinY(v46);
+              CGContextTranslateCTM(v21, 0.0, MaxY + MinY);
+              CGContextScaleCTM(v21, 1.0, -1.0);
+              v47.origin.x = v27;
+              v47.origin.y = v28;
+              v47.size.width = v29;
+              v47.size.height = v30;
+              CGContextDrawImage(v21, v47, v32);
+              CGImageRelease(v32);
+              CGContextRestoreGState(v21);
             }
           }
         }
@@ -441,9 +441,9 @@ CGImageRef __91__OITSUImage_stretchedImageOfSize_leftCapWidth_rightCapWidth_topC
     }
   }
 
-  v34 = CGBitmapContextCreateImage(v20);
-  CGContextRelease(v20);
-  return v34;
+  v35 = CGBitmapContextCreateImage(v21);
+  CGContextRelease(v21);
+  return v35;
 }
 
 - (void)drawInRect:(CGRect)rect context:(CGContext *)context stretchingCenterWidthBy:(double)by
@@ -563,7 +563,7 @@ CFMutableDictionaryRef __57__OITSUImage_drawInRect_context_stretchingCenterWidth
   return self->mCachedSystemImage;
 }
 
-uint64_t __37__OITSUImage_UIKitAdditions__UIImage__block_invoke(uint64_t a1)
+void *__37__OITSUImage_UIKitAdditions__UIImage__block_invoke(uint64_t a1)
 {
   v2 = objc_alloc(MEMORY[0x277D755B8]);
   v3 = [*(a1 + 32) CGImage];

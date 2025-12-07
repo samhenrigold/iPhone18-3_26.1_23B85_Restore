@@ -1,6 +1,6 @@
 void IOAccMgrNotifyEvent(uint64_t a1, uint64_t a2, int a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = +[ACCTransportIOAccessorySharedManager sharedManager];
   v6 = [v5 basePortForService:a2];
   v7 = v6;
@@ -34,8 +34,8 @@ void IOAccMgrNotifyEvent(uint64_t a1, uint64_t a2, int a3)
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v35) = 0;
-      _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "IOAccMgrNotifyEvent: ACCTransportIOAccessoryConfigStream service has been removed", &v35, 2u);
+      LOWORD(v34) = 0;
+      _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "IOAccMgrNotifyEvent: ACCTransportIOAccessoryConfigStream service has been removed", &v34, 2u);
     }
 
     goto LABEL_37;
@@ -67,11 +67,11 @@ void IOAccMgrNotifyEvent(uint64_t a1, uint64_t a2, int a3)
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v13 = [v7 endpointUUID];
-      v35 = 138412546;
-      v36 = v7;
-      v37 = 2112;
-      v38 = v13;
-      _os_log_impl(&dword_233656000, v8, OS_LOG_TYPE_INFO, "kIOAccessoryConfigStreamMessageInfoChanged! (configStream: %@, configStream.endpointUUID: %@)", &v35, 0x16u);
+      v34 = 138412546;
+      v35 = v7;
+      v36 = 2112;
+      v37 = v13;
+      _os_log_impl(&dword_233656000, v8, OS_LOG_TYPE_INFO, "kIOAccessoryConfigStreamMessageInfoChanged! (configStream: %@, configStream.endpointUUID: %@)", &v34, 0x16u);
     }
 
     v14 = *MEMORY[0x277CBECE8];
@@ -135,22 +135,22 @@ LABEL_28:
             v29 = [v7 endpointUUID];
             v30 = [v7 deviceHardwareVersion];
             v31 = [v7 devicePPID];
-            v35 = 138413058;
-            v36 = v7;
-            v37 = 2112;
-            v38 = v29;
-            v39 = 2112;
-            v40 = v30;
-            v41 = 2112;
-            v42 = v31;
-            _os_log_impl(&dword_233656000, v27, OS_LOG_TYPE_INFO, "kIOAccessoryConfigStreamMessageInfoChanged! (configStream: %@, configStream.endpointUUID: %@), hwVer = '%@', ppid = '%@', set CategoriesAvailable", &v35, 0x2Au);
+            v34 = 138413058;
+            v35 = v7;
+            v36 = 2112;
+            v37 = v29;
+            v38 = 2112;
+            v39 = v30;
+            v40 = 2112;
+            v41 = v31;
+            _os_log_impl(&dword_233656000, v27, OS_LOG_TYPE_INFO, "kIOAccessoryConfigStreamMessageInfoChanged! (configStream: %@, configStream.endpointUUID: %@), hwVer = '%@', ppid = '%@', set CategoriesAvailable", &v34, 0x2Au);
           }
 
           [v7 setCategoriesAvailable:1];
-          v35 = -65536;
-          v36 = 0;
+          v34 = -65536;
+          v35 = 0;
           v11 = objc_alloc_init(MEMORY[0x277CBEB28]);
-          [v11 appendBytes:&v35 length:12];
+          [v11 appendBytes:&v34 length:12];
           v32 = [v7 delegate];
           v33 = [v7 endpointUUID];
           [v32 IOAccessoryConfigStreamMessageArrived:v11 endpointUUID:v33];
@@ -160,13 +160,11 @@ LABEL_37:
       }
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void IOAccMgrNotifyEvent_0(void *a1, uint64_t a2, int a3)
 {
-  v181 = *MEMORY[0x277D85DE8];
+  v180 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = v5;
   if (a3 == -469794716 || (a3 & 0xFFFFFFF0) == -469794816)
@@ -200,9 +198,9 @@ void IOAccMgrNotifyEvent_0(void *a1, uint64_t a2, int a3)
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v176 = a3 + 469794816;
-      *&v176[4] = 1024;
-      *&v176[6] = a2;
+      *v175 = a3 + 469794816;
+      *&v175[4] = 1024;
+      *&v175[6] = a2;
       _os_log_impl(&dword_233656000, v14, OS_LOG_TYPE_DEFAULT, "MgrNotifyEvent from IOAccessoryManager: msgType resistorID value %d (svc:%d)", buf, 0xEu);
     }
 
@@ -213,9 +211,9 @@ void IOAccMgrNotifyEvent_0(void *a1, uint64_t a2, int a3)
 
   v10 = [v5 bAccConnected];
   v11 = [v6 bAccConnected];
-  v163 = v11;
+  v162 = v11;
   v12 = 0;
-  v166 = v6;
+  v165 = v6;
   if (a3 <= -469794794)
   {
     if (a3 > -469794799)
@@ -225,7 +223,7 @@ void IOAccMgrNotifyEvent_0(void *a1, uint64_t a2, int a3)
         if (a3 == -469794795)
         {
           isLightning = platform_systemInfo_isLightning();
-          v42 = logObjectForModule(3);
+          v42 = logObjectForModule(3u);
           v22 = v42;
           if (isLightning)
           {
@@ -250,7 +248,7 @@ void IOAccMgrNotifyEvent_0(void *a1, uint64_t a2, int a3)
         else
         {
           v20 = platform_systemInfo_isLightning();
-          v21 = logObjectForModule(3);
+          v21 = logObjectForModule(3u);
           v22 = v21;
           if (v20)
           {
@@ -325,51 +323,51 @@ LABEL_266:
           v48 = MEMORY[0x277D86220];
         }
 
-        v158 = v10;
+        v157 = v10;
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           IOAccMgrNotifyEvent_cold_14();
         }
 
-        v160 = a2;
+        v159 = a2;
 
         v49 = +[ACCTransportIOAccessorySharedManager sharedManager];
         [v49 lockAccessoryPorts];
 
-        v170 = 0u;
-        v171 = 0u;
-        v168 = 0u;
         v169 = 0u;
+        v170 = 0u;
+        v167 = 0u;
+        v168 = 0u;
         v50 = [v6 ioAccessoryChildPorts];
-        v51 = [v50 countByEnumeratingWithState:&v168 objects:v174 count:16];
+        v51 = [v50 countByEnumeratingWithState:&v167 objects:v173 count:16];
         if (v51)
         {
           v52 = v51;
-          v53 = *v169;
-          v165 = *MEMORY[0x277CFD1D0];
-          v164 = *MEMORY[0x277CFD1D8];
+          v53 = *v168;
+          v164 = *MEMORY[0x277CFD1D0];
+          v163 = *MEMORY[0x277CFD1D8];
           v54 = *MEMORY[0x277CFD1E0];
           do
           {
             v55 = 0;
             do
             {
-              if (*v169 != v53)
+              if (*v168 != v53)
               {
                 objc_enumerationMutation(v50);
               }
 
-              v56 = *(*(&v168 + 1) + 8 * v55);
+              v56 = *(*(&v167 + 1) + 8 * v55);
               if ([v56 ioServiceClassType] == 1)
               {
                 v57 = v56;
                 v58 = [v6 getUSBMode];
-                v172[0] = v165;
-                v59 = [v57 ioAccPortEndpointUUID];
+                v171[0] = v164;
+                v59 = objc_msgSend_ioAccPortEndpointUUID(v57);
                 if (v59)
                 {
-                  v167 = [v57 ioAccPortEndpointUUID];
-                  v60 = v167;
+                  v166 = objc_msgSend_ioAccPortEndpointUUID(v57);
+                  v60 = v166;
                 }
 
                 else
@@ -377,11 +375,11 @@ LABEL_266:
                   v60 = &stru_2848F31C8;
                 }
 
-                v173[0] = v60;
-                v172[1] = v164;
+                v172[0] = v60;
+                v171[1] = v163;
                 v61 = [MEMORY[0x277CCABB0] numberWithInt:v58];
-                v173[1] = v61;
-                v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v173 forKeys:v172 count:2];
+                v172[1] = v61;
+                v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v172 forKeys:v171 count:2];
 
                 if (v59)
                 {
@@ -404,9 +402,9 @@ LABEL_266:
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                   {
                     *buf = 134218240;
-                    *v176 = v63;
-                    *&v176[8] = 1024;
-                    *&v176[10] = v64;
+                    *v175 = v63;
+                    *&v175[8] = 1024;
+                    *&v175[10] = v64;
                     _os_log_error_impl(&dword_233656000, v70, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
                   }
 
@@ -420,16 +418,16 @@ LABEL_266:
 
                 if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
                 {
-                  v73 = [v57 ioAccPortEndpointUUID];
+                  v73 = objc_msgSend_ioAccPortEndpointUUID(v57);
                   v74 = &stru_2848F31C8;
                   if (v73)
                   {
-                    v162 = [v57 ioAccPortEndpointUUID];
-                    v74 = v162;
+                    v161 = objc_msgSend_ioAccPortEndpointUUID(v57);
+                    v74 = v161;
                   }
 
                   *buf = 138412290;
-                  *v176 = v74;
+                  *v175 = v74;
                   _os_log_debug_impl(&dword_233656000, v65, OS_LOG_TYPE_DEBUG, "Sending ACCPlatformUSBModePlugin_USBModeDidChangeNotification for endpointUUID %@", buf, 0xCu);
                   if (v73)
                   {
@@ -439,14 +437,14 @@ LABEL_266:
                 v72 = [MEMORY[0x277CCAB98] defaultCenter];
                 [v72 postNotificationName:v54 object:0 userInfo:v62];
 
-                v6 = v166;
+                v6 = v165;
               }
 
               ++v55;
             }
 
             while (v52 != v55);
-            v75 = [v50 countByEnumeratingWithState:&v168 objects:v174 count:16];
+            v75 = [v50 countByEnumeratingWithState:&v167 objects:v173 count:16];
             v52 = v75;
           }
 
@@ -457,8 +455,8 @@ LABEL_266:
         [v76 unlockAccessoryPorts];
 
         v12 = 0;
-        a2 = v160;
-        v10 = v158;
+        a2 = v159;
+        v10 = v157;
       }
 
       goto LABEL_267;
@@ -492,14 +490,14 @@ LABEL_266:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          *v176 = a2;
+          *v175 = a2;
           _os_log_impl(&dword_233656000, v13, OS_LOG_TYPE_DEFAULT, "Got kIOMessageServicePropertyChange (svc:%d) for manager, checking resistorID", buf, 8u);
         }
 
         AccessoryID = IOAccessoryManagerGetAccessoryID();
         if (AccessoryID > 0xF)
         {
-          v84 = logObjectForModule(3);
+          v84 = logObjectForModule(3u);
           if (os_log_type_enabled(v84, OS_LOG_TYPE_DEBUG))
           {
             IOAccMgrNotifyEvent_cold_16();
@@ -531,7 +529,7 @@ LABEL_266:
         {
           if ([v6 isAuthTimedOut])
           {
-            v22 = logObjectForModule(6);
+            v22 = logObjectForModule(6u);
             v10 = v87;
             if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
             {
@@ -544,28 +542,28 @@ LABEL_266:
           goto LABEL_319;
         }
 
-        v142 = logObjectForModule(3);
-        if (os_log_type_enabled(v142, OS_LOG_TYPE_DEFAULT))
+        v141 = logObjectForModule(3u);
+        if (os_log_type_enabled(v141, OS_LOG_TYPE_DEFAULT))
         {
-          v143 = [v6 isAuthTimedOut];
-          v144 = [v6 bIsInductive];
+          v142 = [v6 isAuthTimedOut];
+          v143 = [v6 bIsInductive];
           *buf = 67110146;
-          *v176 = a2;
-          *&v176[4] = 2112;
-          *&v176[6] = v86;
-          *&v176[14] = 1024;
-          *&v176[16] = v143;
-          v177 = 1024;
-          v178 = v89;
-          v179 = 1024;
-          v180 = v144;
-          _os_log_impl(&dword_233656000, v142, OS_LOG_TYPE_DEFAULT, "(svc:%d) kIOAccessoryManagerInductiveAuthTimedOutKey = %@, authTimedOut %d -> %d, bIsInductive=%d", buf, 0x24u);
+          *v175 = a2;
+          *&v175[4] = 2112;
+          *&v175[6] = v86;
+          *&v175[14] = 1024;
+          *&v175[16] = v142;
+          v176 = 1024;
+          v177 = v89;
+          v178 = 1024;
+          v179 = v143;
+          _os_log_impl(&dword_233656000, v141, OS_LOG_TYPE_DEFAULT, "(svc:%d) kIOAccessoryManagerInductiveAuthTimedOutKey = %@, authTimedOut %d -> %d, bIsInductive=%d", buf, 0x24u);
         }
 
         [v6 setIsAuthTimedOut:1];
         if (!acc_userDefaults_BOOLForKey(@"EnableAuthTimeoutTTR"))
         {
-          v22 = logObjectForModule(6);
+          v22 = logObjectForModule(6u);
           v10 = v87;
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
@@ -575,34 +573,34 @@ LABEL_266:
           goto LABEL_257;
         }
 
-        v145 = [v6 bIsInductive];
-        v146 = [v6 bIsInductivePowerToAccessory];
-        v147 = acc_userDefaults_BOOLForKey(@"AuthTTRForAllTransports");
-        v148 = MGGetSInt32Answer();
-        v149 = v148;
-        if (!v145 || (v146 & 1) != 0)
+        v144 = [v6 bIsInductive];
+        v145 = [v6 bIsInductivePowerToAccessory];
+        v146 = acc_userDefaults_BOOLForKey(@"AuthTTRForAllTransports");
+        v147 = MGGetSInt32Answer();
+        v148 = v147;
+        if (!v144 || (v145 & 1) != 0)
         {
-          if (v148 == 6)
+          if (v147 == 6)
           {
-            v151 = 1;
+            v150 = 1;
           }
 
           else
           {
-            v151 = v147;
+            v150 = v146;
           }
 
-          if (v151 != 1)
+          if (v150 != 1)
           {
             goto LABEL_319;
           }
 
-          v150 = 0;
+          v149 = 0;
         }
 
         else
         {
-          v150 = acc_userDefaults_BOOLForKey(@"DisableInductiveAuthTTR");
+          v149 = acc_userDefaults_BOOLForKey(@"DisableInductiveAuthTTR");
         }
 
         if (!CFBooleanGetValue(v86))
@@ -614,40 +612,40 @@ LABEL_320:
           goto LABEL_267;
         }
 
-        if (v149 == 6)
+        if (v148 == 6)
         {
-          v152 = acc_userNotifications_chargingNotSupported();
-          v153 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", objc_msgSend(v6, "ioService")];
-          v154 = acc_userNotifications_generateIdentifier(@"io-service", v153);
-          [v152 setGroupIdentifier:v154];
+          v151 = acc_userNotifications_chargingNotSupported();
+          v152 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", objc_msgSend(v6, "ioService")];
+          v153 = acc_userNotifications_generateIdentifier(@"io-service", v152);
+          [v151 setGroupIdentifier:v153];
 
-          v155 = +[ACCUserNotificationManager sharedManager];
-          [v155 presentNotification:v152 completionHandler:0];
+          v154 = +[ACCUserNotificationManager sharedManager];
+          [v154 presentNotification:v151 completionHandler:0];
 
 LABEL_318:
           goto LABEL_319;
         }
 
-        v156 = logObjectForModule(3);
-        v152 = v156;
-        if (v150)
+        v155 = logObjectForModule(3u);
+        v151 = v155;
+        if (v149)
         {
-          if (os_log_type_enabled(v156, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v155, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            *v176 = "IOAccMgrNotifyEvent";
-            _os_log_impl(&dword_233656000, v152, OS_LOG_TYPE_DEFAULT, "IOAccessoryManager:%s Skipped timeout TTR!!!", buf, 0xCu);
+            *v175 = "IOAccMgrNotifyEvent";
+            _os_log_impl(&dword_233656000, v151, OS_LOG_TYPE_DEFAULT, "IOAccessoryManager:%s Skipped timeout TTR!!!", buf, 0xCu);
           }
 
           goto LABEL_318;
         }
 
-        if (os_log_type_enabled(v156, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v155, OS_LOG_TYPE_DEBUG))
         {
           IOAccMgrNotifyEvent_cold_18();
         }
 
-        v157 = acc_userDefaultsIapd_copyIntegerForKey(@"PretendBatteryLevel");
+        v156 = acc_userDefaultsIapd_copyIntegerForKey(@"PretendBatteryLevel");
         v12 = 0;
         if ([v6 batteryChargeLevelPercent] > 0x4F)
         {
@@ -655,7 +653,7 @@ LABEL_318:
         }
 
         v10 = v87;
-        if (v157 <= 79)
+        if (v156 <= 79)
         {
           if (acc_userDefaults_BOOLForKey(@"SysdiagnoseInsteadOfAuthTTR"))
           {
@@ -671,8 +669,8 @@ LABEL_318:
         }
 
 LABEL_267:
-        v93 = v163;
-        if (v10 == v163)
+        v93 = v162;
+        if (v10 == v162)
         {
           goto LABEL_296;
         }
@@ -700,7 +698,7 @@ LABEL_267:
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        *v176 = a2;
+        *v175 = a2;
         _os_log_impl(&dword_233656000, v35, OS_LOG_TYPE_DEFAULT, "Got kIOMessageServiceIsTerminated (svc:%d) for manager, informing ACCTransportIOAccessorySharedManager", buf, 8u);
       }
 
@@ -758,9 +756,9 @@ LABEL_57:
         }
 
         *buf = 136315394;
-        *v176 = v26;
-        *&v176[8] = 1024;
-        *&v176[10] = a2;
+        *v175 = v26;
+        *&v175[8] = 1024;
+        *&v175[10] = a2;
         _os_log_impl(&dword_233656000, v23, OS_LOG_TYPE_DEFAULT, "Got %s (svc:%d) for manager, bAccConnectedNew = no", buf, 0x12u);
       }
 
@@ -780,7 +778,7 @@ LABEL_57:
 
       else if ([v6 connectionType] == 4)
       {
-        v28 = logObjectForModule(3);
+        v28 = logObjectForModule(3u);
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -806,7 +804,7 @@ LABEL_57:
 
       else if ([v6 connectionType] == 3)
       {
-        v81 = logObjectForModule(3);
+        v81 = logObjectForModule(3u);
         if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -854,7 +852,7 @@ LABEL_57:
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          *v176 = a2;
+          *v175 = a2;
           _os_log_impl(&dword_233656000, v36, OS_LOG_TYPE_DEFAULT, "MgrNotifyEvent from IOAccessoryManager service %d: msgType kIOAccessoryManagerMessageConfigChange, checking resistorID", buf, 8u);
         }
 
@@ -877,14 +875,14 @@ LABEL_57:
         if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          *v176 = a2;
+          *v175 = a2;
           _os_log_impl(&dword_233656000, v95, OS_LOG_TYPE_DEFAULT, "Not setting bAccConnectedNew for kIOAccessoryManagerMessageConfigChange service %d", buf, 8u);
         }
 
         v124 = IOAccessoryManagerGetAccessoryID();
         if (v124 > 0xF)
         {
-          v128 = logObjectForModule(3);
+          v128 = logObjectForModule(3u);
           if (os_log_type_enabled(v128, OS_LOG_TYPE_DEBUG))
           {
             IOAccMgrNotifyEvent_cold_24();
@@ -925,9 +923,9 @@ LABEL_57:
       {
         v47 = [v6 connectionUUID];
         *buf = 138412546;
-        *v176 = v6;
-        *&v176[8] = 2112;
-        *&v176[10] = v47;
+        *v175 = v6;
+        *&v175[8] = 2112;
+        *&v175[10] = v47;
         _os_log_impl(&dword_233656000, v15, OS_LOG_TYPE_INFO, "kIOAccessoryManagerMessageSupervisedTransportsRestrictedChange! (accTransportIOAccMgr: %@, accTransportIOAccMgr.connectionUUID: %@)", buf, 0x16u);
       }
 
@@ -958,14 +956,14 @@ LABEL_57:
         v99 = MEMORY[0x277D86220];
       }
 
-      v159 = v10;
+      v158 = v10;
       if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
       {
         v100 = [v6 connectionUUID];
         *buf = 138412546;
-        *v176 = v6;
-        *&v176[8] = 2112;
-        *&v176[10] = v100;
+        *v175 = v6;
+        *&v175[8] = 2112;
+        *&v175[10] = v100;
         _os_log_impl(&dword_233656000, v40, OS_LOG_TYPE_INFO, "kIOAccessoryConfigStreamMessageInfoChanged! (accTransportIOAccMgr: %@, accTransportIOAccMgr.connectionUUID: %@)", buf, 0x16u);
       }
 
@@ -979,45 +977,45 @@ LABEL_57:
       v108 = IORegistryEntryCreateCFProperty(v105, @"IOAccessoryAccessoryFirmwareVersion", v102, 0);
       v109 = IORegistryEntryCreateCFProperty(v105, @"IOAccessoryAccessoryHardwareVersion", v102, 0);
       v110 = IORegistryEntryCreateCFProperty(v105, @"IOAccessoryAccessoryPPID", v102, 0);
-      v161 = v105;
+      v160 = v105;
       v111 = IORegistryEntryCreateCFProperty(v105, @"IOAccessoryManagerInductiveRegionCodeData", v102, 0);
-      v112 = [v166 accessoryInfoLock];
+      v112 = [v165 accessoryInfoLock];
       [v112 lock];
 
-      [v166 setDeviceName:v103];
-      [v166 setDeviceVendorName:v106];
+      [v165 setDeviceName:v103];
+      [v165 setDeviceVendorName:v106];
 
-      [v166 setDeviceModelNumber:v107];
-      v6 = v166;
-      [v166 setDeviceSerialNumber:v104];
+      [v165 setDeviceModelNumber:v107];
+      v6 = v165;
+      [v165 setDeviceSerialNumber:v104];
 
-      [v166 setDeviceHardwareRevision:v109];
-      [v166 setDeviceFirmwareRevision:v108];
+      [v165 setDeviceHardwareRevision:v109];
+      [v165 setDeviceFirmwareRevision:v108];
 
-      [v166 setPpid:v110];
-      [v166 setRegionCode:v111];
+      [v165 setPpid:v110];
+      [v165 setRegionCode:v111];
 
-      v113 = [v166 deviceModelNumber];
+      v113 = [v165 deviceModelNumber];
       v114 = [v113 copy];
 
-      v115 = [v166 accessoryInfoLock];
+      v115 = [v165 accessoryInfoLock];
       [v115 unlock];
 
       if (v101 && (objc_opt_respondsToSelector() & 1) != 0)
       {
-        [v101 IOAccessoryManagerServiceInfoSet:v161];
+        [v101 IOAccessoryManagerServiceInfoSet:v160];
       }
 
-      v116 = [v166 deviceModelNumber];
+      v116 = [v165 deviceModelNumber];
 
-      v10 = v159;
+      v10 = v158;
       if (v116)
       {
-        [v166 _registerForUarpActivityForModel:v114];
+        [v165 _registerForUarpActivityForModel:v114];
       }
 
       v12 = 0;
-      a2 = v161;
+      a2 = v160;
       goto LABEL_267;
     }
 
@@ -1052,9 +1050,9 @@ LABEL_47:
       }
 
       *buf = 136315394;
-      *v176 = v32;
-      *&v176[8] = 1024;
-      *&v176[10] = a2;
+      *v175 = v32;
+      *&v175[8] = 1024;
+      *&v175[10] = a2;
       _os_log_impl(&dword_233656000, v19, OS_LOG_TYPE_DEFAULT, "Got %s (svc:%d) for manager, bAccConnectedNew = yes", buf, 0x12u);
     }
 
@@ -1097,7 +1095,7 @@ LABEL_47:
 
       else if ([v6 connectionType] == 4)
       {
-        v91 = logObjectForModule(3);
+        v91 = logObjectForModule(3u);
         if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
         {
           IOAccMgrNotifyEvent_cold_28();
@@ -1123,7 +1121,7 @@ LABEL_47:
       if (gLogObjects && gNumLogObjects >= 4)
       {
         v38 = *(gLogObjects + 24);
-        v39 = v163;
+        v39 = v162;
       }
 
       else
@@ -1168,7 +1166,7 @@ LABEL_47:
         v77 = MEMORY[0x277D86220];
       }
 
-      v39 = v163;
+      v39 = v162;
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         IOAccMgrNotifyEvent_cold_4();
@@ -1189,7 +1187,7 @@ LABEL_47:
 LABEL_259:
     v12 = v98;
 LABEL_260:
-    v163 = v39;
+    v162 = v39;
     if (v12)
     {
       v125 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", a2];
@@ -1293,11 +1291,11 @@ LABEL_275:
           if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218496;
-            *v176 = 30;
-            *&v176[8] = 1024;
-            *&v176[10] = a2;
-            *&v176[14] = 1024;
-            *&v176[16] = v130;
+            *v175 = 30;
+            *&v175[8] = 1024;
+            *&v175[10] = a2;
+            *&v175[14] = 1024;
+            *&v175[16] = v130;
             _os_log_impl(&dword_233656000, v131, OS_LOG_TYPE_DEFAULT, "Starting AppleIDBus auth timer timeout secs:[%02lld] for IOAccMgr service:%d, connectionType:%{coreacc:ACCConnection_Type_t}d", buf, 0x18u);
           }
 
@@ -1352,11 +1350,9 @@ LABEL_275:
   }
 
 LABEL_296:
-
-  v141 = *MEMORY[0x277D85DE8];
 }
 
-id logObjectForModule(int a1)
+id logObjectForModule(unsigned int a1)
 {
   if (gLogObjects)
   {
@@ -1387,7 +1383,7 @@ id logObjectForModule(int a1)
   return v3;
 }
 
-id logObjectForModule_0(int a1)
+id logObjectForModule_0(unsigned int a1)
 {
   if (gLogObjects)
   {
@@ -1419,9 +1415,9 @@ id logObjectForModule_0(int a1)
   return v11;
 }
 
-id logObjectForModule_1(int a1)
+id logObjectForModule_1(unsigned int a1)
 {
-  if (a1 < 0 || (gLogObjects ? (v1 = gNumLogObjects <= a1) : (v1 = 1), v1))
+  if ((a1 & 0x80000000) != 0 || (gLogObjects ? (v1 = gNumLogObjects <= a1) : (v1 = 1), v1))
   {
     if (a1 != -1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
@@ -1501,7 +1497,7 @@ void notifyUserHSAIDDisabled(int a1, int a2)
 
 uint64_t acc_policies_shouldHideAccessoryWithModelNumber(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = +[ACCUserDefaults sharedDefaults];
   v3 = [v2 BOOLForKey:@"ShowHiddenAccessories"];
 
@@ -1538,14 +1534,13 @@ uint64_t acc_policies_shouldHideAccessoryWithModelNumber(uint64_t a1)
       v5 = "YES";
     }
 
-    v9 = 136315394;
-    v10 = v6;
-    v11 = 2080;
-    v12 = v5;
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "shouldHideAccessory: %s, showHiddenAccessories: %s", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = v6;
+    v10 = 2080;
+    v11 = v5;
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "shouldHideAccessory: %s, showHiddenAccessories: %s", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1557,7 +1552,7 @@ void __acc_policies_shouldHideAccessoryWithModelNumber_block_invoke()
 
 uint64_t acc_policies_shouldOverrideNameOnAccessoryWithModelNumber(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (acc_policies_shouldOverrideNameOnAccessoryWithModelNumber_onceToken != -1)
   {
     acc_policies_shouldOverrideNameOnAccessoryWithModelNumber_cold_1();
@@ -1572,12 +1567,11 @@ uint64_t acc_policies_shouldOverrideNameOnAccessoryWithModelNumber(uint64_t a1)
       v3 = "YES";
     }
 
-    v6 = 136315138;
-    v7 = v3;
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "shouldOverrideName: %s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = v3;
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "shouldOverrideName: %s", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -1602,56 +1596,56 @@ uint64_t acc_policies_shouldResetLightningBusWhenTransportIsNoLongerRestricted(u
 
 BOOL acc_policies_endpointRequiresChargingCurrentLimit(uint64_t a1, int a2, int a3, unsigned int a4, unsigned int a5, _WORD *a6)
 {
-  v90[6] = *MEMORY[0x277D85DE8];
-  v88[0] = @"nameMatch";
-  v88[1] = @"modelContain";
-  v89[0] = @"IntelliLink";
-  v89[1] = @"1.0";
-  v88[2] = @"overrideCurrentLimit";
-  v89[2] = &unk_2848FBC90;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:3];
-  v90[0] = v6;
-  v86[0] = @"nameMatch";
-  v86[1] = @"modelContain";
-  v87[0] = @"MyLink";
-  v87[1] = @"1.0";
-  v86[2] = @"overrideCurrentLimit";
-  v87[2] = &unk_2848FBC90;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:3];
-  v90[1] = v7;
-  v84[0] = @"nameMatch";
-  v84[1] = @"manufacturerMatch";
-  v85[0] = @"iPL24Z";
-  v85[1] = @"SDI Technologies";
-  v84[2] = @"overrideCurrentLimit";
-  v85[2] = &unk_2848FBC90;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:v84 count:3];
-  v90[2] = v8;
-  v82[0] = @"modelMatch";
-  v82[1] = @"manufacturerMatch";
-  v83[0] = @"MIB2";
-  v83[1] = @"HARMAN";
-  v82[2] = @"overrideCurrentLimit";
-  v83[2] = &unk_2848FBCA8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:3];
-  v90[3] = v9;
-  v80[0] = @"modelMatch";
-  v80[1] = @"manufacturerMatch";
-  v81[0] = @"Range Rover Velar";
-  v81[1] = @"Land Rover";
-  v80[2] = @"overrideCurrentLimit";
-  v81[2] = &unk_2848FBC90;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:3];
-  v90[4] = v10;
-  v78[0] = @"modelMatch";
-  v78[1] = @"manufacturerMatch";
-  v79[0] = @"Jaguar I-PACE";
-  v79[1] = @"Jaguar";
-  v78[2] = @"overrideCurrentLimit";
-  v79[2] = &unk_2848FBC90;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v78 count:3];
-  v90[5] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:6];
+  v89[6] = *MEMORY[0x277D85DE8];
+  v87[0] = @"nameMatch";
+  v87[1] = @"modelContain";
+  v88[0] = @"IntelliLink";
+  v88[1] = @"1.0";
+  v87[2] = @"overrideCurrentLimit";
+  v88[2] = &unk_2848FBC90;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:3];
+  v89[0] = v6;
+  v85[0] = @"nameMatch";
+  v85[1] = @"modelContain";
+  v86[0] = @"MyLink";
+  v86[1] = @"1.0";
+  v85[2] = @"overrideCurrentLimit";
+  v86[2] = &unk_2848FBC90;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v86 forKeys:v85 count:3];
+  v89[1] = v7;
+  v83[0] = @"nameMatch";
+  v83[1] = @"manufacturerMatch";
+  v84[0] = @"iPL24Z";
+  v84[1] = @"SDI Technologies";
+  v83[2] = @"overrideCurrentLimit";
+  v84[2] = &unk_2848FBC90;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:3];
+  v89[2] = v8;
+  v81[0] = @"modelMatch";
+  v81[1] = @"manufacturerMatch";
+  v82[0] = @"MIB2";
+  v82[1] = @"HARMAN";
+  v81[2] = @"overrideCurrentLimit";
+  v82[2] = &unk_2848FBCA8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:3];
+  v89[3] = v9;
+  v79[0] = @"modelMatch";
+  v79[1] = @"manufacturerMatch";
+  v80[0] = @"Range Rover Velar";
+  v80[1] = @"Land Rover";
+  v79[2] = @"overrideCurrentLimit";
+  v80[2] = &unk_2848FBC90;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:3];
+  v89[4] = v10;
+  v77[0] = @"modelMatch";
+  v77[1] = @"manufacturerMatch";
+  v78[0] = @"Jaguar I-PACE";
+  v78[1] = @"Jaguar";
+  v77[2] = @"overrideCurrentLimit";
+  v78[2] = &unk_2848FBC90;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:3];
+  v89[5] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:6];
 
   v13 = acc_userDefaultsIapd_copyIntegerForKey(@"ChargingPowerOverride");
   v14 = acc_userDefaultsIapd_copyIntegerForKey(@"ChargingPowerBehavior");
@@ -1687,19 +1681,19 @@ LABEL_8:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67110656;
-    v65 = a2;
-    v66 = 1024;
-    v67 = a3;
-    v68 = 1024;
-    v69 = v19;
-    v70 = 1024;
-    v71 = v13;
-    v72 = 1024;
-    v73 = v18;
-    v74 = 1024;
-    v75 = v14;
-    v76 = 1024;
-    v77 = v17;
+    v64 = a2;
+    v65 = 1024;
+    v66 = a3;
+    v67 = 1024;
+    v68 = v19;
+    v69 = 1024;
+    v70 = v13;
+    v71 = 1024;
+    v72 = v18;
+    v73 = 1024;
+    v74 = v14;
+    v75 = 1024;
+    v76 = v17;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "RequiresChargingCurrentLimit: isApple=%d deviceType=%d checkChargingCurrentLimit=%d chargingCurrentLimit=%d inLimit=%d behavior=%d batteryThreshold=%d", buf, 0x2Cu);
   }
 
@@ -1708,7 +1702,7 @@ LABEL_8:
     goto LABEL_65;
   }
 
-  v58 = 0;
+  v57 = 0;
   v20 = v13;
   v21 = v13 < v18 && v13 != 0;
   if (a1 && !v21)
@@ -1718,18 +1712,7 @@ LABEL_8:
     {
       if (*v22)
       {
-        v58 = CFRetain(*v22);
-      }
-
-      else
-      {
-        v58 = 0;
-      }
-
-      v23 = *(*(a1 + 64) + 16);
-      if (v23)
-      {
-        v57 = CFRetain(v23);
+        v57 = CFRetain(*v22);
       }
 
       else
@@ -1737,10 +1720,10 @@ LABEL_8:
         v57 = 0;
       }
 
-      v24 = *(*(a1 + 64) + 8);
-      if (v24)
+      v23 = *(*(a1 + 64) + 16);
+      if (v23)
       {
-        v56 = CFRetain(v24);
+        v56 = CFRetain(v23);
       }
 
       else
@@ -1748,43 +1731,54 @@ LABEL_8:
         v56 = 0;
       }
 
-      if (v58 && v57)
+      v24 = *(*(a1 + 64) + 8);
+      if (v24)
       {
-        v61 = 0u;
-        v62 = 0u;
-        v59 = 0u;
+        v55 = CFRetain(v24);
+      }
+
+      else
+      {
+        v55 = 0;
+      }
+
+      if (v57 && v56)
+      {
         v60 = 0u;
+        v61 = 0u;
+        v58 = 0u;
+        v59 = 0u;
         obj = v12;
-        v25 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
+        v25 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
         if (v25)
         {
           v26 = v25;
-          v45 = v13;
-          v46 = v17;
-          v47 = v16;
-          v48 = v12;
-          v27 = *v60;
+          v44 = v13;
+          v45 = v17;
+          v46 = v16;
+          v47 = v12;
+          v27 = *v59;
           while (2)
           {
             for (i = 0; i != v26; ++i)
             {
-              if (*v60 != v27)
+              if (*v59 != v27)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v29 = *(*(&v59 + 1) + 8 * i);
+              v29 = *(*(&v58 + 1) + 8 * i);
               v30 = [v29 objectForKey:@"nameMatch"];
               v31 = [v29 objectForKey:@"nameContain"];
-              v32 = _matchOrContainString(v58, v30, v31);
+              v32 = _matchOrContainString(v57, v30, v31);
 
               v33 = [v29 objectForKey:@"modelMatch"];
               v34 = [v29 objectForKey:@"modelContain"];
-              v35 = _matchOrContainString(v57, v33, v34);
+              v35 = _matchOrContainString(v56, v33, v34);
 
               v36 = [v29 objectForKey:@"manufacturerMatch"];
               v37 = [v29 objectForKey:@"manufacturerContain"];
-              v38 = _matchOrContainString(v56, v36, v37);
+              v38 = _matchOrContainString(v55, v36, v37);
 
               if (v32 && v35 && v38)
               {
@@ -1792,14 +1786,14 @@ LABEL_8:
                 v20 = [v39 intValue];
 
                 v18 = a4;
-                v12 = v48;
-                v17 = v46;
-                v16 = v47;
+                v12 = v47;
+                v17 = v45;
+                v16 = v46;
                 goto LABEL_40;
               }
             }
 
-            v26 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
+            v26 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
             if (v26)
             {
               continue;
@@ -1809,10 +1803,10 @@ LABEL_8:
           }
 
           v18 = a4;
-          v12 = v48;
-          v17 = v46;
-          v16 = v47;
-          v20 = v45;
+          v12 = v47;
+          v17 = v45;
+          v16 = v46;
+          v20 = v44;
         }
 
 LABEL_40:
@@ -1820,17 +1814,17 @@ LABEL_40:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
           *buf = 67110400;
-          v65 = a2;
-          v66 = 1024;
-          v67 = a3;
-          v68 = 1024;
-          v69 = v20;
-          v70 = 1024;
-          v71 = v18;
-          v72 = 1024;
-          v73 = v16;
-          v74 = 1024;
-          v75 = v17;
+          v64 = a2;
+          v65 = 1024;
+          v66 = a3;
+          v67 = 1024;
+          v68 = v20;
+          v69 = 1024;
+          v70 = v18;
+          v71 = 1024;
+          v72 = v16;
+          v73 = 1024;
+          v74 = v17;
           _os_log_debug_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "RequiresChargingCurrentLimit: isApple=%d deviceType=%d chargingCurrentLimit=%d inLimit=%d battery=%d threshold=%d", buf, 0x26u);
         }
 
@@ -1860,14 +1854,14 @@ LABEL_66:
     }
 
 LABEL_65:
-    v57 = 0;
-    v58 = 0;
     v56 = 0;
+    v57 = 0;
+    v55 = 0;
     goto LABEL_66;
   }
 
+  v55 = 0;
   v56 = 0;
-  v57 = 0;
 LABEL_55:
   v41 = a6 != 0;
   if (a6 && v21)
@@ -1891,23 +1885,22 @@ LABEL_58:
     }
 
     *buf = 67110656;
-    v65 = a2;
-    v66 = 1024;
-    v67 = a3;
-    v68 = 1024;
-    v69 = a5;
-    v70 = 1024;
-    v71 = v16;
-    v72 = 1024;
-    v73 = v18;
-    v74 = 1024;
-    v75 = v42;
-    v76 = 1024;
-    v77 = v21;
+    v64 = a2;
+    v65 = 1024;
+    v66 = a3;
+    v67 = 1024;
+    v68 = a5;
+    v69 = 1024;
+    v70 = v16;
+    v71 = 1024;
+    v72 = v18;
+    v73 = 1024;
+    v74 = v42;
+    v75 = 1024;
+    v76 = v21;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "RequiresChargingCurrentLimit: isApple=%d, deviceType=%d, batt=%d(%d), %d->%d, return %d", buf, 0x2Cu);
   }
 
-  v43 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -2412,7 +2405,7 @@ CFNumberRef acc_analytics_createBucketizedBatteryChargeLevel(unsigned int a1)
   return CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberCharType, &valuePtr);
 }
 
-CFNumberRef acc_analytics_createBucketizedBatteryChargeDelta(int a1)
+CFNumberRef acc_analytics_createBucketizedBatteryChargeDelta(unsigned int a1)
 {
   if (a1 > -90)
   {
@@ -2758,7 +2751,7 @@ void __notifyUserHSAIDDisabled_block_invoke(uint64_t a1)
 
 void __OOBPairingReceiveCallback(void *a1, uint64_t a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a1;
   if (a2)
   {
@@ -2827,13 +2820,13 @@ LABEL_31:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     v18 = [v5 endpointUUID];
-    v27[0] = 67109634;
-    v27[1] = a3;
-    v28 = 2112;
-    v29 = v18;
-    v30 = 1024;
-    v31 = [v5 ioService];
-    _os_log_impl(&dword_233656000, v17, OS_LOG_TYPE_INFO, "Incoming OOB Pairing info/data: type=%d, endpointUUID %@, ioService %d", v27, 0x18u);
+    v26[0] = 67109634;
+    v26[1] = a3;
+    v27 = 2112;
+    v28 = v18;
+    v29 = 1024;
+    v30 = [v5 ioService];
+    _os_log_impl(&dword_233656000, v17, OS_LOG_TYPE_INFO, "Incoming OOB Pairing info/data: type=%d, endpointUUID %@, ioService %d", v26, 0x18u);
   }
 
   if (([v5 _handleIncomingOOBPairingInfoData:a3] & 1) == 0)
@@ -2863,55 +2856,51 @@ LABEL_31:
   }
 
 LABEL_32:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-void OUTLINED_FUNCTION_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 void acc_restrictedMode_accessoryAttached()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 1;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 1;
   v0 = ACMKernelControl(34);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v2[0] = 67109120;
-    v2[1] = v0;
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "acmStatus (accessoryAttached): %d", v2, 8u);
+    v1[0] = 67109120;
+    v1[1] = v0;
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "acmStatus (accessoryAttached): %d", v1, 8u);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void acc_restrictedMode_accessoryDetached()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 1;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 1;
   v0 = ACMKernelControl(37);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v2[0] = 67109120;
-    v2[1] = v0;
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "acmStatus (accessoryDetached): %d", v2, 8u);
+    v1[0] = 67109120;
+    v1[1] = v0;
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "acmStatus (accessoryDetached): %d", v1, 8u);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
-void sub_233666780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_233666780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2923,39 +2912,39 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2336673A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2336673A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
-  objc_destroyWeak((v11 + 64));
+  va_start(va1, a18);
+  va_start(va, a18);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
+  objc_destroyWeak((v18 + 64));
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  objc_destroyWeak((v12 - 112));
+  objc_destroyWeak((v19 - 112));
   _Unwind_Resume(a1);
 }
 
-void sub_23366794C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23366794C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233667D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_233667D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3066,18 +3055,18 @@ uint64_t platform_systemInfo_deviceType()
 
 void acc_sysdiagnose_InitiateAuthFailureSysdiagnose()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315906;
-    v3 = "acc_sysdiagnose_InitiateAuthFailureSysdiagnose";
-    v4 = 1024;
-    v5 = 50;
-    v6 = 1024;
-    v7 = MFAAIsInternalBuild();
-    v8 = 1024;
+    v1 = 136315906;
+    v2 = "acc_sysdiagnose_InitiateAuthFailureSysdiagnose";
+    v3 = 1024;
+    v4 = 50;
+    v5 = 1024;
+    v6 = MFAAIsInternalBuild();
+    v7 = 1024;
     isWatch = platform_systemInfo_isWatch();
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d MFAAIsInternalBuild %d, isWatch %d", &v2, 0x1Eu);
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d MFAAIsInternalBuild %d, isWatch %d", &v1, 0x1Eu);
   }
 
   if (MFAAIsInternalBuild())
@@ -3086,11 +3075,11 @@ void acc_sysdiagnose_InitiateAuthFailureSysdiagnose()
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v2 = 136315394;
-        v3 = "acc_sysdiagnose_InitiateAuthFailureSysdiagnose";
-        v4 = 1024;
-        v5 = 64;
-        _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d sysdiagnose already in flight! skipped!", &v2, 0x12u);
+        v1 = 136315394;
+        v2 = "acc_sysdiagnose_InitiateAuthFailureSysdiagnose";
+        v3 = 1024;
+        v4 = 64;
+        _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d sysdiagnose already in flight! skipped!", &v1, 0x12u);
       }
     }
 
@@ -3101,28 +3090,26 @@ void acc_sysdiagnose_InitiateAuthFailureSysdiagnose()
       dispatch_async(v0, &__block_literal_global_3);
     }
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void _acc_sysdiagnose_authFailure(int a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v8 = "_acc_sysdiagnose_authFailure";
-    v9 = 1024;
-    v10 = 28;
-    v11 = 1024;
-    v12 = a1;
+    v7 = "_acc_sysdiagnose_authFailure";
+    v8 = 1024;
+    v9 = 28;
+    v10 = 1024;
+    v11 = a1;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d timeout %d", buf, 0x18u);
   }
 
   v2 = [MEMORY[0x277CBEB38] dictionary];
-  v6 = 0;
-  v3 = [MEMORY[0x277D82CB0] sysdiagnoseWithMetadata:v2 withError:&v6];
-  v4 = v6;
+  v5 = 0;
+  v3 = [MEMORY[0x277D82CB0] sysdiagnoseWithMetadata:v2 withError:&v5];
+  v4 = v5;
   if (!v3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     _acc_sysdiagnose_authFailure_cold_1(v4);
@@ -3131,27 +3118,25 @@ void _acc_sysdiagnose_authFailure(int a1)
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = v3;
+    v7 = v3;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Sysdiagnose path: %@\n", buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void acc_sysdiagnose_InitiateAuthTimeoutSysdiagnose()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315906;
-    v3 = "acc_sysdiagnose_InitiateAuthTimeoutSysdiagnose";
-    v4 = 1024;
-    v5 = 72;
-    v6 = 1024;
-    v7 = MFAAIsInternalBuild();
-    v8 = 1024;
+    v1 = 136315906;
+    v2 = "acc_sysdiagnose_InitiateAuthTimeoutSysdiagnose";
+    v3 = 1024;
+    v4 = 72;
+    v5 = 1024;
+    v6 = MFAAIsInternalBuild();
+    v7 = 1024;
     isWatch = platform_systemInfo_isWatch();
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d MFAAIsInternalBuild %d, isWatch %d", &v2, 0x1Eu);
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d MFAAIsInternalBuild %d, isWatch %d", &v1, 0x1Eu);
   }
 
   if (MFAAIsInternalBuild())
@@ -3160,11 +3145,11 @@ void acc_sysdiagnose_InitiateAuthTimeoutSysdiagnose()
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v2 = 136315394;
-        v3 = "acc_sysdiagnose_InitiateAuthTimeoutSysdiagnose";
-        v4 = 1024;
-        v5 = 86;
-        _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d sysdiagnose already in flight! skipped!", &v2, 0x12u);
+        v1 = 136315394;
+        v2 = "acc_sysdiagnose_InitiateAuthTimeoutSysdiagnose";
+        v3 = 1024;
+        v4 = 86;
+        _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:%d sysdiagnose already in flight! skipped!", &v1, 0x12u);
       }
     }
 
@@ -3175,8 +3160,6 @@ void acc_sysdiagnose_InitiateAuthTimeoutSysdiagnose()
       dispatch_async(v0, &__block_literal_global_2);
     }
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __convertPortStreamType(int a1, int a2)
@@ -3204,7 +3187,7 @@ uint64_t __convertPortStreamType(int a1, int a2)
 
 void PortNotifyEvent(uint64_t a1, uint64_t a2, int a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = +[ACCTransportIOAccessorySharedManager sharedManager];
   v6 = [v5 basePortForService:a2];
   if (v6)
@@ -3230,9 +3213,9 @@ void PortNotifyEvent(uint64_t a1, uint64_t a2, int a3)
       v13 = (a3 + 469794816);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 67109120;
-        *v24 = v13;
-        _os_log_impl(&dword_233656000, v10, OS_LOG_TYPE_DEFAULT, "PortNotifyEvent from IOAccessoryPort: msgType resistorID value %d", &v23, 8u);
+        v22 = 67109120;
+        *v23 = v13;
+        _os_log_impl(&dword_233656000, v10, OS_LOG_TYPE_DEFAULT, "PortNotifyEvent from IOAccessoryPort: msgType resistorID value %d", &v22, 8u);
       }
 
       [v6 _handleResistorIDChange:v13];
@@ -3264,11 +3247,11 @@ void PortNotifyEvent(uint64_t a1, uint64_t a2, int a3)
 
             if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
             {
-              v23 = 67109378;
-              *v24 = a2;
-              *&v24[4] = 2112;
-              *&v24[6] = v6;
-              _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "PortNotifyEvent from IOAccessoryPort: kIOMessageServicePropertyChange for service %d, accTransportIOAccPort %@", &v23, 0x12u);
+              v22 = 67109378;
+              *v23 = a2;
+              *&v23[4] = 2112;
+              *&v23[6] = v6;
+              _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "PortNotifyEvent from IOAccessoryPort: kIOMessageServicePropertyChange for service %d, accTransportIOAccPort %@", &v22, 0x12u);
             }
 
             [v6 _handlePropertyChange];
@@ -3295,8 +3278,8 @@ void PortNotifyEvent(uint64_t a1, uint64_t a2, int a3)
 
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = 67109120;
-          *v24 = a2;
+          v22 = 67109120;
+          *v23 = a2;
           v18 = "PortNotifyEvent from IOAccessoryPort: kIOMessageServiceIsTerminated(%d)";
           goto LABEL_57;
         }
@@ -3329,11 +3312,11 @@ void PortNotifyEvent(uint64_t a1, uint64_t a2, int a3)
 
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = 67109120;
-          *v24 = a2;
+          v22 = 67109120;
+          *v23 = a2;
           v18 = "PortNotifyEvent from IOAccessoryPort: kIOAccessoryPortMessageUSBRoleSwitch for service %d";
 LABEL_57:
-          _os_log_impl(&dword_233656000, v14, OS_LOG_TYPE_DEFAULT, v18, &v23, 8u);
+          _os_log_impl(&dword_233656000, v14, OS_LOG_TYPE_DEFAULT, v18, &v22, 8u);
         }
 
 LABEL_58:
@@ -3359,12 +3342,12 @@ LABEL_58:
 
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = [v6 ioAccPortEndpointUUID];
-        v23 = 138412546;
-        *v24 = v6;
-        *&v24[8] = 2112;
-        *&v24[10] = v21;
-        _os_log_impl(&dword_233656000, v15, OS_LOG_TYPE_DEFAULT, "PortNotifyEvent from IOAccessoryPort: kIOAccessoryPortMessageDetach for port %@, endpointUUID %@", &v23, 0x16u);
+        v21 = objc_msgSend_ioAccPortEndpointUUID(v6);
+        v22 = 138412546;
+        *v23 = v6;
+        *&v23[8] = 2112;
+        *&v23[10] = v21;
+        _os_log_impl(&dword_233656000, v15, OS_LOG_TYPE_DEFAULT, "PortNotifyEvent from IOAccessoryPort: kIOAccessoryPortMessageDetach for port %@, endpointUUID %@", &v22, 0x16u);
       }
 
       [v6 _handleAccessoryPortDetach];
@@ -3401,14 +3384,12 @@ LABEL_58:
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v23) = 0;
-      _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "PortNotifyEvent: ACCTransportIOAccessoryPort service has been removed", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "PortNotifyEvent: ACCTransportIOAccessoryPort service has been removed", &v22, 2u);
     }
   }
 
 LABEL_65:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void PortReceiveBuffer(unsigned __int16 *a1, void *a2)
@@ -3638,11 +3619,12 @@ void init_logging()
   init_logging_signposts();
 }
 
-uint64_t logModuleForTransport(unsigned int a1)
+uint64_t logModuleForTransport(uint64_t a1)
 {
+  v1 = a1;
   if (a1 < 8)
   {
-    return a1 + 3;
+    return (a1 + 3);
   }
 
   v3 = gLogObjects;
@@ -3674,7 +3656,7 @@ uint64_t logModuleForTransport(unsigned int a1)
   result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
   if (result)
   {
-    logModuleForTransport_cold_2(a1, v6);
+    logModuleForTransport_cold_2(v1, v6);
     return 0;
   }
 
@@ -3772,7 +3754,7 @@ const __CFString *__getStateForUarpNotificationName(const __CFString *result)
 
 void __IOAMBatteryMatch(void *a1, io_iterator_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = v3;
   if (v3)
@@ -3811,9 +3793,9 @@ void __IOAMBatteryMatch(void *a1, io_iterator_t a2)
               if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
               {
                 *buf = 134218240;
-                v19 = v11;
-                v20 = 1024;
-                v21 = v12;
+                v18 = v11;
+                v19 = 1024;
+                v20 = v12;
                 _os_log_error_impl(&dword_233656000, v8, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
               }
 
@@ -3829,9 +3811,9 @@ void __IOAMBatteryMatch(void *a1, io_iterator_t a2)
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v19 = "void __IOAMBatteryMatch(void *, io_iterator_t)";
-              v20 = 1024;
-              v21 = v10;
+              v18 = "void __IOAMBatteryMatch(void *, io_iterator_t)";
+              v19 = 1024;
+              v20 = v10;
               _os_log_error_impl(&dword_233656000, v15, OS_LOG_TYPE_ERROR, "%s IOServiceAddInterestNotification failed: %08x", buf, 0x12u);
             }
           }
@@ -3844,14 +3826,13 @@ void __IOAMBatteryMatch(void *a1, io_iterator_t a2)
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-void __IOAccessoryIDBusHIDDeviceMatch(void *a1, io_iterator_t iterator)
+void __IOAccessoryIDBusHIDDeviceMatch(void *a1, uint64_t iterator)
 {
   if (a1)
   {
+    v2 = iterator;
     if (iterator)
     {
       v4 = IOIteratorNext(iterator);
@@ -3871,7 +3852,7 @@ void __IOAccessoryIDBusHIDDeviceMatch(void *a1, io_iterator_t iterator)
             break;
           }
 
-          v5 = IOIteratorNext(iterator);
+          v5 = IOIteratorNext(v2);
           if (!v5)
           {
             return;
@@ -3915,7 +3896,7 @@ void __IOAccessoryIDBusHIDDeviceMatch(void *a1, io_iterator_t iterator)
 
 void __handleNotificationUarpStartUpdate(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v5 = gNumLogObjects < 4;
@@ -3944,11 +3925,11 @@ void __handleNotificationUarpStartUpdate(uint64_t a1, void *a2, void *a3)
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315394;
-    v12 = "__handleNotificationUarpStartUpdate";
-    v13 = 2112;
-    v14 = a3;
-    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "__handleNotificationUarpStartUpdate";
+    v12 = 2112;
+    v13 = a3;
+    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: %@", &v10, 0x16u);
   }
 
   if (a2)
@@ -3957,13 +3938,11 @@ void __handleNotificationUarpStartUpdate(uint64_t a1, void *a2, void *a3)
     v9 = __copyModelFromUarpNotificationName(a3);
     [v8 _handleNotificationUarpStartUpdateForModel:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __handleNotificationUarpEndUpdate(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v5 = gNumLogObjects < 4;
@@ -3992,11 +3971,11 @@ void __handleNotificationUarpEndUpdate(uint64_t a1, void *a2, void *a3)
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315394;
-    v12 = "__handleNotificationUarpEndUpdate";
-    v13 = 2112;
-    v14 = a3;
-    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "__handleNotificationUarpEndUpdate";
+    v12 = 2112;
+    v13 = a3;
+    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_DEFAULT, "%s: %@", &v10, 0x16u);
   }
 
   if (a2)
@@ -4005,8 +3984,6 @@ void __handleNotificationUarpEndUpdate(uint64_t a1, void *a2, void *a3)
     v9 = __copyModelFromUarpNotificationName(a3);
     [v8 _handleNotificationUarpEndUpdateForModel:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __handleNotificationUarpStagingStatus(uint64_t a1, void *a2, __CFString *a3)
@@ -4138,9 +4115,8 @@ void __IOAMBatteryInterest(void *a1, io_registry_entry_t entry, int a3)
   }
 }
 
-uint64_t OUTLINED_FUNCTION_13(unsigned int *a1, void *a2)
+uint64_t OUTLINED_FUNCTION_13(uint64_t a1, void *a2)
 {
-  v3 = *a1;
 
   return [a2 ioService];
 }
@@ -4159,9 +4135,11 @@ uint64_t __isForcePassthroughIOAccessoryManagerPort()
   return result;
 }
 
-uint64_t EnableAccessoryPowerForPortService(io_service_t a1, int a2)
+uint64_t EnableAccessoryPowerForPortService(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = a1;
+  v20 = *MEMORY[0x277D85DE8];
   connect = 0;
   v4 = IOServiceOpen(a1, *MEMORY[0x277D85F48], 0, &connect);
   if (v4)
@@ -4201,7 +4179,7 @@ uint64_t EnableAccessoryPowerForPortService(io_service_t a1, int a2)
 
   else
   {
-    if (a1)
+    if (v3)
     {
         ;
       }
@@ -4215,7 +4193,7 @@ uint64_t EnableAccessoryPowerForPortService(io_service_t a1, int a2)
     }
 
     v5 = 0;
-    if (a2 == 1 && !v8)
+    if (v2 == 1 && !v8)
     {
       if (gLogObjects && gNumLogObjects >= 2)
       {
@@ -4236,9 +4214,9 @@ uint64_t EnableAccessoryPowerForPortService(io_service_t a1, int a2)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        v18 = 1;
-        v19 = 1024;
-        v20 = 1;
+        v17 = 1;
+        v18 = 1024;
+        v19 = 1;
         _os_log_impl(&dword_233656000, v10, OS_LOG_TYPE_DEFAULT, "turning acc power to %d on first run, off = %d", buf, 0xEu);
       }
 
@@ -4271,13 +4249,12 @@ uint64_t EnableAccessoryPowerForPortService(io_service_t a1, int a2)
     IOServiceClose(connect);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-void sub_23367E704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_23367E704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4289,58 +4266,67 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23367EC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_23367EC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233680314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_233680314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233680DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_233680DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233681ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_233681218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a17);
+  va_start(va, a28);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233681FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_233681ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a15);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233687218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_233681FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a9);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_9_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_233687218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_10_0(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint8_t buf)
+void OUTLINED_FUNCTION_9_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &buf, 0x12u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
+}
+
+void OUTLINED_FUNCTION_10_0(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 void OUTLINED_FUNCTION_12_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -4385,7 +4371,7 @@ unint64_t systemInfo_getCurrentUnixTimeMS()
   }
 }
 
-uint64_t systemInfo_isInternalBuild()
+uint64_t systemInfo_isInternalBuild(uint64_t a1, uint64_t a2)
 {
   if (systemInfo_isInternalBuild_onceToken != -1)
   {
@@ -4402,7 +4388,7 @@ uint64_t __systemInfo_isInternalBuild_block_invoke()
   return result;
 }
 
-uint64_t systemInfo_isDeveloperBuild()
+uint64_t systemInfo_isDeveloperBuild(uint64_t a1, uint64_t a2)
 {
   if (systemInfo_isDeveloperBuild_onceToken != -1)
   {
@@ -4429,7 +4415,7 @@ void __systemInfo_isDeveloperBuild_block_invoke()
   }
 }
 
-uint64_t systemInfo_systemSupportsPearl()
+uint64_t systemInfo_systemSupportsPearl(uint64_t a1, uint64_t a2)
 {
   if (systemInfo_systemSupportsPearl_onceToken != -1)
   {
@@ -4446,7 +4432,7 @@ uint64_t __systemInfo_systemSupportsPearl_block_invoke()
   return result;
 }
 
-uint64_t systemInfo_systemSupportsWAPI()
+uint64_t systemInfo_systemSupportsWAPI(uint64_t a1, uint64_t a2)
 {
   if (systemInfo_systemSupportsWAPI_onceToken != -1)
   {
@@ -4501,7 +4487,7 @@ uint64_t __systemInfo_copyRegionCode_block_invoke()
 
 void __IOAccessoryManagerAdded(void *a1, io_iterator_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = IOIteratorNext(a2);
   if (v4)
@@ -4528,9 +4514,9 @@ void __IOAccessoryManagerAdded(void *a1, io_iterator_t a2)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          *v15 = v8;
-          *&v15[8] = 1024;
-          v16 = v9;
+          *v14 = v8;
+          *&v14[8] = 1024;
+          v15 = v9;
           _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -4546,9 +4532,9 @@ void __IOAccessoryManagerAdded(void *a1, io_iterator_t a2)
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        *v15 = PrimaryPort;
-        *&v15[4] = 1024;
-        *&v15[6] = v5;
+        *v14 = PrimaryPort;
+        *&v14[4] = 1024;
+        *&v14[6] = v5;
         _os_log_impl(&dword_233656000, v12, OS_LOG_TYPE_DEFAULT, "Connected manager with primary port type %d and service %d", buf, 0xEu);
       }
 
@@ -4559,13 +4545,11 @@ void __IOAccessoryManagerAdded(void *a1, io_iterator_t a2)
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __IOAccessoryManagerTerminated(void *a1, io_iterator_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = IOIteratorNext(a2);
   if (v4)
@@ -4591,9 +4575,9 @@ void __IOAccessoryManagerTerminated(void *a1, io_iterator_t a2)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v14 = v7;
-          v15 = 1024;
-          v16 = v8;
+          v13 = v7;
+          v14 = 1024;
+          v15 = v8;
           _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -4609,7 +4593,7 @@ void __IOAccessoryManagerTerminated(void *a1, io_iterator_t a2)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v14) = v5;
+        LODWORD(v13) = v5;
         _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "Terminated manager with service %d", buf, 8u);
       }
 
@@ -4620,13 +4604,11 @@ void __IOAccessoryManagerTerminated(void *a1, io_iterator_t a2)
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __IOAccessoryPortAdded(void *a1, io_iterator_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = IOIteratorNext(a2);
   if (v4)
@@ -4654,9 +4636,9 @@ void __IOAccessoryPortAdded(void *a1, io_iterator_t a2)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          *v16 = v9;
-          *&v16[8] = 1024;
-          v17[0] = v10;
+          *v15 = v9;
+          *&v15[8] = 1024;
+          v16[0] = v10;
           _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -4672,11 +4654,11 @@ void __IOAccessoryPortAdded(void *a1, io_iterator_t a2)
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109632;
-        *v16 = Port;
-        *&v16[4] = 1024;
-        *&v16[6] = TransportType;
-        LOWORD(v17[0]) = 1024;
-        *(v17 + 2) = v5;
+        *v15 = Port;
+        *&v15[4] = 1024;
+        *&v15[6] = TransportType;
+        LOWORD(v16[0]) = 1024;
+        *(v16 + 2) = v5;
         _os_log_impl(&dword_233656000, v13, OS_LOG_TYPE_DEFAULT, "Connected port with port number %d, type %d and service %d", buf, 0x14u);
       }
 
@@ -4687,13 +4669,11 @@ void __IOAccessoryPortAdded(void *a1, io_iterator_t a2)
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __IOAccessoryPortTerminated(void *a1, io_iterator_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = IOIteratorNext(a2);
   if (v4)
@@ -4719,9 +4699,9 @@ void __IOAccessoryPortTerminated(void *a1, io_iterator_t a2)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v14 = v7;
-          v15 = 1024;
-          v16 = v8;
+          v13 = v7;
+          v14 = 1024;
+          v15 = v8;
           _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -4737,7 +4717,7 @@ void __IOAccessoryPortTerminated(void *a1, io_iterator_t a2)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v14) = v5;
+        LODWORD(v13) = v5;
         _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "Terminated port with service %d", buf, 8u);
       }
 
@@ -4748,13 +4728,11 @@ void __IOAccessoryPortTerminated(void *a1, io_iterator_t a2)
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __IOAccessoryAuthCPAdded(void *a1, io_iterator_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = IOIteratorNext(a2);
   if (v4)
@@ -4780,9 +4758,9 @@ void __IOAccessoryAuthCPAdded(void *a1, io_iterator_t a2)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v14 = v7;
-          v15 = 1024;
-          v16 = v8;
+          v13 = v7;
+          v14 = 1024;
+          v15 = v8;
           _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -4798,7 +4776,7 @@ void __IOAccessoryAuthCPAdded(void *a1, io_iterator_t a2)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v14) = v5;
+        LODWORD(v13) = v5;
         _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "Connected auth CP with service %d", buf, 8u);
       }
 
@@ -4809,13 +4787,11 @@ void __IOAccessoryAuthCPAdded(void *a1, io_iterator_t a2)
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __IOAccessoryAuthCPTerminated(void *a1, io_iterator_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = IOIteratorNext(a2);
   if (v4)
@@ -4841,9 +4817,9 @@ void __IOAccessoryAuthCPTerminated(void *a1, io_iterator_t a2)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v14 = v7;
-          v15 = 1024;
-          v16 = v8;
+          v13 = v7;
+          v14 = 1024;
+          v15 = v8;
           _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -4859,7 +4835,7 @@ void __IOAccessoryAuthCPTerminated(void *a1, io_iterator_t a2)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v14) = v5;
+        LODWORD(v13) = v5;
         _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "Terminated auth CP with service %d", buf, 8u);
       }
 
@@ -4870,13 +4846,11 @@ void __IOAccessoryAuthCPTerminated(void *a1, io_iterator_t a2)
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __IOAccessoryEAAdded(void *a1, io_iterator_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = IOIteratorNext(a2);
   if (v4)
@@ -4902,9 +4876,9 @@ void __IOAccessoryEAAdded(void *a1, io_iterator_t a2)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v14 = v7;
-          v15 = 1024;
-          v16 = v8;
+          v13 = v7;
+          v14 = 1024;
+          v15 = v8;
           _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -4920,7 +4894,7 @@ void __IOAccessoryEAAdded(void *a1, io_iterator_t a2)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v14) = v5;
+        LODWORD(v13) = v5;
         _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "Connected EA service with service %d", buf, 8u);
       }
 
@@ -4931,13 +4905,11 @@ void __IOAccessoryEAAdded(void *a1, io_iterator_t a2)
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __IOAccessoryEATerminated(void *a1, io_iterator_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = IOIteratorNext(a2);
   if (v4)
@@ -4963,9 +4935,9 @@ void __IOAccessoryEATerminated(void *a1, io_iterator_t a2)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v14 = v7;
-          v15 = 1024;
-          v16 = v8;
+          v13 = v7;
+          v14 = 1024;
+          v15 = v8;
           _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -4981,7 +4953,7 @@ void __IOAccessoryEATerminated(void *a1, io_iterator_t a2)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v14) = v5;
+        LODWORD(v13) = v5;
         _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "Terminated EA service with service %d", buf, 8u);
       }
 
@@ -4992,13 +4964,11 @@ void __IOAccessoryEATerminated(void *a1, io_iterator_t a2)
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __IOAccessoryOOBPairingAdded(void *a1, io_iterator_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = IOIteratorNext(a2);
   if (v4)
@@ -5024,9 +4994,9 @@ void __IOAccessoryOOBPairingAdded(void *a1, io_iterator_t a2)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v14 = v7;
-          v15 = 1024;
-          v16 = v8;
+          v13 = v7;
+          v14 = 1024;
+          v15 = v8;
           _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -5042,7 +5012,7 @@ void __IOAccessoryOOBPairingAdded(void *a1, io_iterator_t a2)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v14) = v5;
+        LODWORD(v13) = v5;
         _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "Connected OOBPairing service with service %d", buf, 8u);
       }
 
@@ -5053,13 +5023,11 @@ void __IOAccessoryOOBPairingAdded(void *a1, io_iterator_t a2)
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __IOAccessoryOOBPairingTerminated(void *a1, io_iterator_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = IOIteratorNext(a2);
   if (v4)
@@ -5085,9 +5053,9 @@ void __IOAccessoryOOBPairingTerminated(void *a1, io_iterator_t a2)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v14 = v7;
-          v15 = 1024;
-          v16 = v8;
+          v13 = v7;
+          v14 = 1024;
+          v15 = v8;
           _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -5103,7 +5071,7 @@ void __IOAccessoryOOBPairingTerminated(void *a1, io_iterator_t a2)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v14) = v5;
+        LODWORD(v13) = v5;
         _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "Terminated OOBPairing service with service %d", buf, 8u);
       }
 
@@ -5114,13 +5082,11 @@ void __IOAccessoryOOBPairingTerminated(void *a1, io_iterator_t a2)
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __IOAccessoryConfigStreamAdded(void *a1, io_iterator_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = IOIteratorNext(a2);
   if (v4)
@@ -5146,9 +5112,9 @@ void __IOAccessoryConfigStreamAdded(void *a1, io_iterator_t a2)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v14 = v7;
-          v15 = 1024;
-          v16 = v8;
+          v13 = v7;
+          v14 = 1024;
+          v15 = v8;
           _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -5164,7 +5130,7 @@ void __IOAccessoryConfigStreamAdded(void *a1, io_iterator_t a2)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v14) = v5;
+        LODWORD(v13) = v5;
         _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "Connected ConfigStream service with service %d", buf, 8u);
       }
 
@@ -5175,13 +5141,11 @@ void __IOAccessoryConfigStreamAdded(void *a1, io_iterator_t a2)
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __IOAccessoryConfigStreamTerminated(void *a1, io_iterator_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = IOIteratorNext(a2);
   if (v4)
@@ -5207,9 +5171,9 @@ void __IOAccessoryConfigStreamTerminated(void *a1, io_iterator_t a2)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v14 = v7;
-          v15 = 1024;
-          v16 = v8;
+          v13 = v7;
+          v14 = 1024;
+          v15 = v8;
           _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -5225,7 +5189,7 @@ void __IOAccessoryConfigStreamTerminated(void *a1, io_iterator_t a2)
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v14) = v5;
+        LODWORD(v13) = v5;
         _os_log_impl(&dword_233656000, v11, OS_LOG_TYPE_DEFAULT, "Terminated ConfigStream service with service %d", buf, 8u);
       }
 
@@ -5236,8 +5200,6 @@ void __IOAccessoryConfigStreamTerminated(void *a1, io_iterator_t a2)
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void loadFrontBoard()
@@ -5272,9 +5234,10 @@ void acc_tapToRadar_InitiateAuthTimeoutTTR()
   }
 }
 
-void __EASessionReceiveCallback(void *a1, int a2)
+void __EASessionReceiveCallback(void *a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a1;
   if (gLogObjects)
   {
@@ -5287,7 +5250,7 @@ void __EASessionReceiveCallback(void *a1, int a2)
   }
 
   v5 = !v4;
-  if (a2)
+  if (v2)
   {
     if (v5)
     {
@@ -5307,7 +5270,7 @@ void __EASessionReceiveCallback(void *a1, int a2)
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __EASessionReceiveCallback_cold_2(a2, v6);
+      __EASessionReceiveCallback_cold_2(v2, v6);
     }
 
 LABEL_31:
@@ -5334,9 +5297,9 @@ LABEL_31:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v10 = [v3 eaProtocol];
-    v13 = 138412290;
-    v14 = v10;
-    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_INFO, "Incoming EA session data for protocol %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v10;
+    _os_log_impl(&dword_233656000, v7, OS_LOG_TYPE_INFO, "Incoming EA session data for protocol %@", &v12, 0xCu);
   }
 
   if (([v3 _handleIncomingEAData] & 1) == 0)
@@ -5366,8 +5329,6 @@ LABEL_31:
   }
 
 LABEL_32:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void init_logging_signpost_modules(uint64_t a1, char a2, uint64_t a3)
@@ -5387,7 +5348,7 @@ void init_logging_signpost_modules(uint64_t a1, char a2, uint64_t a3)
 
 void __init_logging_signpost_modules_block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = &OBJC_INSTANCE_METHODS_ACCTransportPluginProtocol;
   if (*(a1 + 48))
   {
@@ -5405,7 +5366,7 @@ void __init_logging_signpost_modules_block_invoke(uint64_t a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(v14) = v4;
+          LODWORD(v13) = v4;
           _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Subsystem missing for logging module %d!\n(Check LoggingSignpostModuleEntry_t table)", buf, 8u);
           v7 = *(a1 + 32);
           v8 = "<Undefined>";
@@ -5418,7 +5379,7 @@ void __init_logging_signpost_modules_block_invoke(uint64_t a1)
         v9 = "<Undefined>";
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
-          __init_logging_signpost_modules_block_invoke_cold_1(v17, v4, &v18);
+          __init_logging_signpost_modules_block_invoke_cold_1(v16, v4, &v16[4]);
           v9 = "<Undefined>";
         }
       }
@@ -5431,9 +5392,9 @@ void __init_logging_signpost_modules_block_invoke(uint64_t a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v14 = v8;
-          v15 = 2080;
-          v16 = v9;
+          v13 = v8;
+          v14 = 2080;
+          v15 = v9;
           _os_log_debug_impl(&dword_233656000, v6, OS_LOG_TYPE_DEBUG, "Created log object %s: %s", buf, 0x16u);
         }
       }
@@ -5441,9 +5402,9 @@ void __init_logging_signpost_modules_block_invoke(uint64_t a1)
       else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v14 = v8;
-        v15 = 2080;
-        v16 = v9;
+        v13 = v8;
+        v14 = 2080;
+        v15 = v9;
         _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Failed to create os_log_t object %s: %s!", buf, 0x16u);
       }
 
@@ -5465,14 +5426,13 @@ void __init_logging_signpost_modules_block_invoke(uint64_t a1)
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = v2[56];
-    LODWORD(v14) = v5;
+    LODWORD(v13) = v5;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Created %d log object(s)!", buf, 8u);
     LODWORD(v11) = *(a1 + 48);
   }
 
   gLogSignpostObjects = *(a1 + 40);
   gNumLogSignpostObjects = v11;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 _OWORD *getDEVNTempCertCapsForCable()
@@ -5544,7 +5504,7 @@ BOOL enhanced_apfs_enabled()
 
 void AuthCPNotifyEvent(void *a1, uint64_t a2, int a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (a3 == -469794816)
   {
     v3 = a1;
@@ -5577,15 +5537,13 @@ void AuthCPNotifyEvent(void *a1, uint64_t a2, int a3)
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 67109120;
-      v8[1] = [v3 forcedReAuthCount];
-      _os_log_impl(&dword_233656000, v6, OS_LOG_TYPE_DEFAULT, "kAppleAuthCPMessageNewAuthRequested received.  Re-Starting authentication process.  ForcedReAuthCount: %d", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = [v3 forcedReAuthCount];
+      _os_log_impl(&dword_233656000, v6, OS_LOG_TYPE_DEFAULT, "kAppleAuthCPMessageNewAuthRequested received.  Re-Starting authentication process.  ForcedReAuthCount: %d", v7, 8u);
     }
 
     [v3 startAuthenticationProcess];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 const char *_getAuthErrorString(unsigned int a1)
@@ -5725,12 +5683,13 @@ uint64_t __powerBatteryMatch(IONotificationPort **a1, io_iterator_t iterator)
   return result;
 }
 
-void sub_23369B0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_23369B0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a21, 8);
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a35, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5741,9 +5700,9 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23369BC90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23369BC90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5787,10 +5746,11 @@ void ____powerUpdateBatteryState_block_invoke(uint64_t a1)
   CFRelease(v4);
 }
 
-void OUTLINED_FUNCTION_11_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_11_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_12_1(uint64_t a1, const void *a2)
@@ -5817,10 +5777,11 @@ BOOL OUTLINED_FUNCTION_15_0(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-void OUTLINED_FUNCTION_17_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_17_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
 void init_logging_modules(uint64_t a1, char a2, uint64_t a3)
@@ -5840,7 +5801,7 @@ void init_logging_modules(uint64_t a1, char a2, uint64_t a3)
 
 void __init_logging_modules_block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = &OBJC_INSTANCE_METHODS_ACCTransportPluginProtocol;
   if (*(a1 + 48))
   {
@@ -5858,7 +5819,7 @@ void __init_logging_modules_block_invoke(uint64_t a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(v14) = v4;
+          LODWORD(v13) = v4;
           _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Subsystem missing for logging module %d!\n(Check LoggingModuleEntry_t table)", buf, 8u);
           v7 = *(a1 + 32);
           v8 = "<Undefined>";
@@ -5871,7 +5832,7 @@ void __init_logging_modules_block_invoke(uint64_t a1)
         v9 = "<Undefined>";
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
-          __init_logging_modules_block_invoke_cold_1(v17, v4, &v18);
+          __init_logging_modules_block_invoke_cold_1(v16, v4, &v16[4]);
           v9 = "<Undefined>";
         }
       }
@@ -5884,9 +5845,9 @@ void __init_logging_modules_block_invoke(uint64_t a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v14 = v8;
-          v15 = 2080;
-          v16 = v9;
+          v13 = v8;
+          v14 = 2080;
+          v15 = v9;
           _os_log_debug_impl(&dword_233656000, v6, OS_LOG_TYPE_DEBUG, "Created log object %s: %s", buf, 0x16u);
         }
       }
@@ -5894,9 +5855,9 @@ void __init_logging_modules_block_invoke(uint64_t a1)
       else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v14 = v8;
-        v15 = 2080;
-        v16 = v9;
+        v13 = v8;
+        v14 = 2080;
+        v15 = v9;
         _os_log_error_impl(&dword_233656000, v6, OS_LOG_TYPE_ERROR, "Failed to create os_log_t object %s: %s!", buf, 0x16u);
       }
 
@@ -5918,14 +5879,13 @@ void __init_logging_modules_block_invoke(uint64_t a1)
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = v2[56];
-    LODWORD(v14) = v5;
+    LODWORD(v13) = v5;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Created %d log object(s)!", buf, 8u);
     LODWORD(v11) = *(a1 + 48);
   }
 
   gLogObjects = *(a1 + 40);
   gNumLogObjects = v11;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 const char *acm_mem_alloc_info(const char *result, const void *a2, uint64_t a3, const char *a4, int a5, const char *a6)
@@ -6358,12 +6318,12 @@ uint64_t OUTLINED_FUNCTION_3_2(uint64_t a1, void *a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_4_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+uint64_t OUTLINED_FUNCTION_4_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  a9 = *v22 - v25;
-  v29 = *(v27 + 8 * v26);
+  a9 = *v9 - v12;
+  v16 = *(v14 + 8 * v13);
 
-  SerializeRequirement(v24, v29, v23 + v25, &a9, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22);
+  return SerializeRequirement(v11, v16, v10 + v12, &a9);
 }
 
 uint64_t OUTLINED_FUNCTION_5_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11)
@@ -6798,12 +6758,12 @@ void crypto_encryptText_version1()
 {
   OUTLINED_FUNCTION_14_3();
   OUTLINED_FUNCTION_9_2();
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   ccaes_gcm_encrypt_mode();
   ccgcm_context_size();
   OUTLINED_FUNCTION_6_2();
   v6 = MEMORY[0x28223BE20](v5);
-  OUTLINED_FUNCTION_3_3(v6, v7, v8, v9, v10, v11, v12, v13, v21);
+  OUTLINED_FUNCTION_3_3(v6, v7, v8, v9, v10, v11, v12, v13, v20);
   if (v4)
   {
     if (v2)
@@ -6817,32 +6777,9 @@ void crypto_encryptText_version1()
             v14 = v1 + 32;
             if (v1 != -32)
             {
-              if (v14 > *v0)
+              if (v14 > *v0 || (OUTLINED_FUNCTION_2_4(), v15 = ccgcm_init(), !checkCCError(v15, "ccgcm_init")) && !generateRandom(v3, 16) && (OUTLINED_FUNCTION_0_4(), v16 = ccgcm_set_iv(), !checkCCError(v16, "ccgcm_set_iv")) && (OUTLINED_FUNCTION_2_4(), v17 = ccgcm_update(), !checkCCError(v17, "ccgcm_update")) && (OUTLINED_FUNCTION_0_4(), v18 = ccgcm_finalize(), !checkCCError(v18, "ccgcm_finalize")))
               {
-                goto LABEL_13;
-              }
-
-              OUTLINED_FUNCTION_2_4();
-              v15 = ccgcm_init();
-              if (!checkCCError(v15, "ccgcm_init") && !generateRandom(v3, 16))
-              {
-                OUTLINED_FUNCTION_0_4();
-                v16 = ccgcm_set_iv();
-                if (!checkCCError(v16, "ccgcm_set_iv"))
-                {
-                  OUTLINED_FUNCTION_2_4();
-                  v17 = ccgcm_update();
-                  if (!checkCCError(v17, "ccgcm_update"))
-                  {
-                    OUTLINED_FUNCTION_0_4();
-                    v18 = ccgcm_finalize();
-                    if (!checkCCError(v18, "ccgcm_finalize"))
-                    {
-LABEL_13:
-                      *v0 = v14;
-                    }
-                  }
-                }
+                *v0 = v14;
               }
             }
           }
@@ -6857,10 +6794,9 @@ LABEL_13:
   if (v19)
   {
     OUTLINED_FUNCTION_12_3();
-    printf("%s: %s: returning, err = %ld.\n", v22, v23, v24);
+    printf("%s: %s: returning, err = %ld.\n", v21, v22, v23);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15_2();
 }
 
@@ -6868,12 +6804,12 @@ void crypto_encryptText_version2()
 {
   OUTLINED_FUNCTION_14_3();
   OUTLINED_FUNCTION_9_2();
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   ccaes_gcm_encrypt_mode();
   ccgcm_context_size();
   OUTLINED_FUNCTION_6_2();
   v6 = MEMORY[0x28223BE20](v5);
-  OUTLINED_FUNCTION_3_3(v6, v7, v8, v9, v10, v11, v12, v13, v25);
+  OUTLINED_FUNCTION_3_3(v6, v7, v8, v9, v10, v11, v12, v13, v24);
   if (v4)
   {
     if (v2)
@@ -6887,43 +6823,9 @@ void crypto_encryptText_version2()
             v14 = v1 + 33;
             if (v1 != -33)
             {
-              if (v14 > *v0)
+              if (v14 > *v0 || (OUTLINED_FUNCTION_2_4(), v15 = ccgcm_init(), !checkCCError(v15, "ccgcm_init")) && (*v3 = 2, v16 = (v3 + 1), OUTLINED_FUNCTION_13_2(), !v17) && !generateRandom(v16, 16) && (OUTLINED_FUNCTION_0_4(), v18 = ccgcm_set_iv(), !checkCCError(v18, "ccgcm_set_iv")) && (v19 = v16 + 16, OUTLINED_FUNCTION_13_2(), !v20) && (OUTLINED_FUNCTION_2_4(), v21 = ccgcm_update(), !checkCCError(v21, "ccgcm_update")) && !__CFADD__(v19, v1) && (OUTLINED_FUNCTION_0_4(), v22 = ccgcm_finalize(), !checkCCError(v22, "ccgcm_finalize")))
               {
-                goto LABEL_16;
-              }
-
-              OUTLINED_FUNCTION_2_4();
-              v15 = ccgcm_init();
-              if (!checkCCError(v15, "ccgcm_init"))
-              {
-                *v3 = 2;
-                v16 = (v3 + 1);
-                OUTLINED_FUNCTION_13_2();
-                if (!v17 && !generateRandom(v16, 16))
-                {
-                  OUTLINED_FUNCTION_0_4();
-                  v18 = ccgcm_set_iv();
-                  if (!checkCCError(v18, "ccgcm_set_iv"))
-                  {
-                    v19 = v16 + 16;
-                    OUTLINED_FUNCTION_13_2();
-                    if (!v20)
-                    {
-                      OUTLINED_FUNCTION_2_4();
-                      v21 = ccgcm_update();
-                      if (!checkCCError(v21, "ccgcm_update") && !__CFADD__(v19, v1))
-                      {
-                        OUTLINED_FUNCTION_0_4();
-                        v22 = ccgcm_finalize();
-                        if (!checkCCError(v22, "ccgcm_finalize"))
-                        {
-LABEL_16:
-                          *v0 = v14;
-                        }
-                      }
-                    }
-                  }
-                }
+                *v0 = v14;
               }
             }
           }
@@ -6938,10 +6840,9 @@ LABEL_16:
   if (v23)
   {
     OUTLINED_FUNCTION_12_3();
-    printf("%s: %s: returning, err = %ld.\n", v26, v27, v28);
+    printf("%s: %s: returning, err = %ld.\n", v25, v26, v27);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15_2();
 }
 
@@ -6953,12 +6854,11 @@ void crypto_decryptText_version1()
   v5 = v4;
   v7 = v6;
   v9 = v8;
-  v28 = *MEMORY[0x277D85DE8];
   ccaes_gcm_decrypt_mode();
   ccgcm_context_size();
   OUTLINED_FUNCTION_6_2();
   v11 = MEMORY[0x28223BE20](v10);
-  OUTLINED_FUNCTION_3_3(v11, v12, v13, v14, v15, v16, v17, v18, v26);
+  OUTLINED_FUNCTION_3_3(v11, v12, v13, v14, v15, v16, v17, v18, v25);
   if (v9)
   {
     if (v7)
@@ -6973,33 +6873,9 @@ void crypto_decryptText_version1()
             v20 = v5 - 32;
             if (v19)
             {
-              if (*v1 < v20)
+              if (*v1 < v20 || (OUTLINED_FUNCTION_2_4(), v21 = ccgcm_init(), !checkCCError(v21, "ccgcm_init")) && (OUTLINED_FUNCTION_0_4(), v22 = ccgcm_set_iv(), !checkCCError(v22, "ccgcm_set_iv")) && (OUTLINED_FUNCTION_2_4(), v23 = ccgcm_update(), !checkCCError(v23, "ccgcm_update")) && (OUTLINED_FUNCTION_0_4(), ccgcm_finalize(), v24 = cc_cmp_safe(), !checkCCError(v24, "cc_cmp_safe")))
               {
-                goto LABEL_13;
-              }
-
-              OUTLINED_FUNCTION_2_4();
-              v21 = ccgcm_init();
-              if (!checkCCError(v21, "ccgcm_init"))
-              {
-                OUTLINED_FUNCTION_0_4();
-                v22 = ccgcm_set_iv();
-                if (!checkCCError(v22, "ccgcm_set_iv"))
-                {
-                  OUTLINED_FUNCTION_2_4();
-                  v23 = ccgcm_update();
-                  if (!checkCCError(v23, "ccgcm_update"))
-                  {
-                    OUTLINED_FUNCTION_0_4();
-                    ccgcm_finalize();
-                    v24 = cc_cmp_safe();
-                    if (!checkCCError(v24, "cc_cmp_safe"))
-                    {
-LABEL_13:
-                      *v1 = v20;
-                    }
-                  }
-                }
+                *v1 = v20;
               }
             }
           }
@@ -7014,10 +6890,9 @@ LABEL_13:
   if (v19)
   {
     OUTLINED_FUNCTION_12_3();
-    printf("%s: %s: returning, err = %ld.\n", v27, 0, 0);
+    printf("%s: %s: returning, err = %ld.\n", v26, 0, 0);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15_2();
 }
 
@@ -7029,12 +6904,11 @@ void crypto_decryptText_version2()
   v5 = v4;
   v7 = v6;
   v9 = v8;
-  v30 = *MEMORY[0x277D85DE8];
   ccaes_gcm_decrypt_mode();
   ccgcm_context_size();
   OUTLINED_FUNCTION_6_2();
   v11 = MEMORY[0x28223BE20](v10);
-  OUTLINED_FUNCTION_3_3(v11, v12, v13, v14, v15, v16, v17, v18, v28);
+  OUTLINED_FUNCTION_3_3(v11, v12, v13, v14, v15, v16, v17, v18, v27);
   if (v9)
   {
     if (v7)
@@ -7048,41 +6922,9 @@ void crypto_decryptText_version2()
             if (v5 >= 0x22)
             {
               v19 = v5 - 33;
-              if (*v1 < v19)
+              if (*v1 < v19 || (OUTLINED_FUNCTION_13_2(), !v20) && *v7 == 2 && (OUTLINED_FUNCTION_2_4(), v21 = ccgcm_init(), !checkCCError(v21, "ccgcm_init")) && (OUTLINED_FUNCTION_0_4(), v22 = ccgcm_set_iv(), !checkCCError(v22, "ccgcm_set_iv")) && (OUTLINED_FUNCTION_13_2(), !v23) && (OUTLINED_FUNCTION_2_4(), v24 = ccgcm_update(), !checkCCError(v24, "ccgcm_update")) && !__CFADD__(v7 + 17, v19) && (OUTLINED_FUNCTION_0_4(), ccgcm_finalize(), v25 = cc_cmp_safe(), !checkCCError(v25, "cc_cmp_safe")))
               {
-                goto LABEL_16;
-              }
-
-              OUTLINED_FUNCTION_13_2();
-              if (!v20 && *v7 == 2)
-              {
-                OUTLINED_FUNCTION_2_4();
-                v21 = ccgcm_init();
-                if (!checkCCError(v21, "ccgcm_init"))
-                {
-                  OUTLINED_FUNCTION_0_4();
-                  v22 = ccgcm_set_iv();
-                  if (!checkCCError(v22, "ccgcm_set_iv"))
-                  {
-                    OUTLINED_FUNCTION_13_2();
-                    if (!v23)
-                    {
-                      OUTLINED_FUNCTION_2_4();
-                      v24 = ccgcm_update();
-                      if (!checkCCError(v24, "ccgcm_update") && !__CFADD__(v7 + 17, v19))
-                      {
-                        OUTLINED_FUNCTION_0_4();
-                        ccgcm_finalize();
-                        v25 = cc_cmp_safe();
-                        if (!checkCCError(v25, "cc_cmp_safe"))
-                        {
-LABEL_16:
-                          *v1 = v19;
-                        }
-                      }
-                    }
-                  }
-                }
+                *v1 = v19;
               }
             }
           }
@@ -7097,10 +6939,9 @@ LABEL_16:
   if (v26)
   {
     OUTLINED_FUNCTION_12_3();
-    printf("%s: %s: returning, err = %ld.\n", v29, 0, 0);
+    printf("%s: %s: returning, err = %ld.\n", v28, 0, 0);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15_2();
 }
 
@@ -7113,20 +6954,20 @@ uint64_t LibCall_ACMKernelControl_Block(uint64_t a1)
   v9 = v8;
   v11 = v10;
   v12 = v1;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMKernelControl_Block");
   }
 
-  bzero(v19, 0x2000uLL);
-  v18 = 0x2000;
-  v13 = LibCall_ACMKernelControl(v12, v11, v9, v7, v5, v19, &v18);
+  bzero(v18, 0x2000uLL);
+  v17 = 0x2000;
+  v13 = LibCall_ACMKernelControl(v12, v11, v9, v7, v5, v18, &v17);
   if (v3)
   {
-    if (v18)
+    if (v17)
     {
-      v14 = v19;
+      v14 = v18;
     }
 
     else
@@ -7152,26 +6993,25 @@ uint64_t LibCall_ACMKernelControl_Block(uint64_t a1)
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMKernelControl_Block", v13);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 uint64_t LibCall_ACMSEPControl_Block(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v25[128] = *MEMORY[0x277D85DE8];
+  v24[128] = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "LibCall_ACMSEPControl_Block");
   }
 
-  bzero(v25, 0x400uLL);
-  LibCall_ACMSEPControl(a1, a2, a3, a4, a5, a6, a7, v25, &v24, v22, v23, 1024, v25[0], v25[1], v25[2], v25[3], v25[4], v25[5], v25[6], v25[7], v25[8]);
+  bzero(v24, 0x400uLL);
+  LibCall_ACMSEPControl(a1, a2, a3, a4, a5, a6, a7, v24, &v23, v21, v22, 1024, v24[0], v24[1], v24[2], v24[3], v24[4], v24[5], v24[6], v24[7], v24[8]);
   v17 = v16;
   if (a8)
   {
-    if (v24)
+    if (v23)
     {
-      v18 = v25;
+      v18 = v24;
     }
 
     else
@@ -7197,7 +7037,6 @@ uint64_t LibCall_ACMSEPControl_Block(uint64_t a1, uint64_t a2, uint64_t a3, uint
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMSEPControl_Block", v17);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -7239,22 +7078,22 @@ uint64_t LibCall_ACMGlobalContextVerifyPolicy_Block(uint64_t (*a1)(void), uint64
 uint64_t LibCall_ACMGetAclAuthMethod_Block(uint64_t result, uint64_t a2, __n128 *a3, uint64_t a4)
 {
   v7 = result;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     result = printf("%s: %s: called.\n", "ACM", "LibCall_ACMGetAclAuthMethod_Block");
   }
 
-  memset(v14, 0, sizeof(v14));
-  v12 = 256;
+  memset(v13, 0, sizeof(v13));
+  v11 = 256;
   if (v7 && a3 && a4)
   {
-    v13 = 0uLL;
-    v11 = 16;
-    AclAuthMethod_Serialize = LibSer_GetAclAuthMethod_Serialize(a3, &v13, &v11);
-    if (!v9 && v11 == 16)
+    v12 = 0uLL;
+    v10 = 16;
+    AclAuthMethod_Serialize = LibSer_GetAclAuthMethod_Serialize(a3, &v12, &v10);
+    if (!v9 && v10 == 16)
     {
-      v7(a2, 31, 0, &v13, 16, v14, &v12, AclAuthMethod_Serialize);
+      v7(a2, 31, 0, &v12, 16, v13, &v11, AclAuthMethod_Serialize);
     }
 
     goto LABEL_9;
@@ -7268,14 +7107,13 @@ LABEL_9:
 
   if (gACMLoggingLevel <= 0xAu)
   {
-    result = printf("%s: %s: returning.\n", "ACM", "LibCall_ACMGetAclAuthMethod_Block");
+    return printf("%s: %s: returning.\n", "ACM", "LibCall_ACMGetAclAuthMethod_Block");
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-rsize_t verifyAclConstraintForOperationCommandInternal(rsize_t result, int a2, unsigned __int8 a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, char a9, uint64_t a10, int a11, unsigned int a12, uint64_t a13)
+uint64_t verifyAclConstraintForOperationCommandInternal(uint64_t result, int a2, unsigned __int8 a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, char a9, uint64_t a10, int a11, int a12, uint64_t a13)
 {
   v20 = result;
   if (gACMLoggingLevel <= 0xAu)
@@ -7412,14 +7250,14 @@ unint64_t Util_KeybagLockStateToEnvVar(unsigned int a1)
   return v1 & 3;
 }
 
-void Util_SafeDeallocParameters(unsigned int *a1, unsigned int a2)
+void Util_SafeDeallocParameters(unsigned int *result, unsigned int a2)
 {
-  if (a1)
+  if (result)
   {
     v3 = a2;
     if (a2)
     {
-      v4 = a1 + 4;
+      v4 = result + 4;
       v5 = a2;
       do
       {
@@ -7438,26 +7276,26 @@ void Util_SafeDeallocParameters(unsigned int *a1, unsigned int a2)
       while (v5);
     }
 
-    acm_mem_free_info("array of ACMParameter", a1, 24 * v3, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/common/CommonUtil.c", 121, "Util_SafeDeallocParameters");
+    acm_mem_free_info("array of ACMParameter", result, 24 * v3, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/common/CommonUtil.c", 121, "Util_SafeDeallocParameters");
 
-    acm_mem_free(a1, 24 * v3);
+    acm_mem_free(result, 24 * v3);
   }
 }
 
 uint64_t ACMContextCreateWithFlags(uint64_t *a1, uint64_t a2)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v11 = "ACMLib";
-    v12 = 2080;
-    v13 = "ACMContextCreateWithFlags";
+    v10 = "ACMLib";
+    v11 = 2080;
+    v12 = "ACMContextCreateWithFlags";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v9 = 0;
-  v4 = LibCall_ACMContextCreate(ioKitTransport, &v9, a1, a2, &_logLevel, 1);
+  v8 = 0;
+  v4 = LibCall_ACMContextCreate(ioKitTransport, &v8, a1, a2, &_logLevel, 1);
   if (v4)
   {
     updateLogLevelFromKext();
@@ -7478,13 +7316,13 @@ uint64_t ACMContextCreateWithFlags(uint64_t *a1, uint64_t a2)
         }
 
         *buf = 136315906;
-        v11 = "ACMLib";
-        v12 = 2080;
-        v13 = "ACMContextCreateWithFlags";
-        v14 = 1024;
-        LODWORD(v15[0]) = v6;
-        WORD2(v15[0]) = 1024;
-        *(v15 + 6) = a2;
+        v10 = "ACMLib";
+        v11 = 2080;
+        v12 = "ACMContextCreateWithFlags";
+        v13 = 1024;
+        LODWORD(v14[0]) = v6;
+        WORD2(v14[0]) = 1024;
+        *(v14 + 6) = a2;
         _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: CS[%u] created (flags=0x%x).\n", buf, 0x22u);
       }
 
@@ -7495,43 +7333,42 @@ uint64_t ACMContextCreateWithFlags(uint64_t *a1, uint64_t a2)
   if (v5 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v11 = "ACMLib";
-    v12 = 2080;
-    v13 = "ACMContextCreateWithFlags";
-    v14 = 2048;
-    v15[0] = v4;
+    v10 = "ACMLib";
+    v11 = 2080;
+    v12 = "ACMContextCreateWithFlags";
+    v13 = 2048;
+    v14[0] = v4;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t ACMContextCreateWithExternalForm(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v11 = "ACMLib";
-    v12 = 2080;
-    v13 = "ACMContextCreateWithExternalForm";
+    v10 = "ACMLib";
+    v11 = 2080;
+    v12 = "ACMContextCreateWithExternalForm";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v9 = 0;
-  v4 = LibCall_ACMContextCreateWithExternalForm(ioKitTransport, &v9, a1, a2, &_logLevel, 1);
+  v8 = 0;
+  v4 = LibCall_ACMContextCreateWithExternalForm(ioKitTransport, &v8, a1, a2, &_logLevel, 1);
   if (v4)
   {
     if (_logLevel <= 0x28u && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       v5 = *(v4 + 16);
       *buf = 136315650;
-      v11 = "ACMLib";
-      v12 = 2080;
-      v13 = "ACMContextCreateWithExternalForm";
-      v14 = 1024;
-      LODWORD(v15) = v5;
+      v10 = "ACMLib";
+      v11 = 2080;
+      v12 = "ACMContextCreateWithExternalForm";
+      v13 = 1024;
+      LODWORD(v14) = v5;
       _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: CS[%u] acquired.\n", buf, 0x1Cu);
     }
 
@@ -7547,28 +7384,28 @@ uint64_t ACMContextCreateWithExternalForm(uint64_t a1, uint64_t a2)
   if (v6 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v11 = "ACMLib";
-    v12 = 2080;
-    v13 = "ACMContextCreateWithExternalForm";
-    v14 = 2048;
-    v15 = v4;
+    v10 = "ACMLib";
+    v11 = 2080;
+    v12 = "ACMContextCreateWithExternalForm";
+    v13 = 2048;
+    v14 = v4;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, -> ctx = %p.\n", buf, 0x20u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-uint64_t ACMContextDelete(_DWORD *a1, int a2)
+uint64_t ACMContextDelete(_DWORD *a1, uint64_t a2)
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v16[2] = *MEMORY[0x277D85DE8];
   v4 = _logLevel;
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v13 = "ACMLib";
-    v14 = 2080;
-    v15 = "ACMContextDelete";
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMContextDelete";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
     v4 = _logLevel;
   }
@@ -7578,23 +7415,23 @@ uint64_t ACMContextDelete(_DWORD *a1, int a2)
     v5 = a1[4];
     v6 = "NO";
     *buf = 136315906;
-    v13 = "ACMLib";
-    v15 = "ACMContextDelete";
-    v14 = 2080;
-    if (a2)
+    v12 = "ACMLib";
+    v14 = "ACMContextDelete";
+    v13 = 2080;
+    if (v2)
     {
       v6 = "YES";
     }
 
-    v16 = 1024;
-    LODWORD(v17[0]) = v5;
-    WORD2(v17[0]) = 2080;
-    *(v17 + 6) = v6;
+    v15 = 1024;
+    LODWORD(v16[0]) = v5;
+    WORD2(v16[0]) = 2080;
+    *(v16 + 6) = v6;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: CS[%u] deleted (contextDestroyed=%s).\n", buf, 0x26u);
   }
 
-  v11 = a1;
-  v7 = LibCall_ACMContextDelete(ioKitTransport, &v11, a1, a2);
+  v10 = a1;
+  v7 = LibCall_ACMContextDelete(ioKitTransport, &v10, a1, v2);
   if (v7)
   {
     v8 = 70;
@@ -7608,109 +7445,100 @@ uint64_t ACMContextDelete(_DWORD *a1, int a2)
   if (v8 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v13 = "ACMLib";
-    v14 = 2080;
-    v15 = "ACMContextDelete";
-    v16 = 2048;
-    v17[0] = v7;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMContextDelete";
+    v15 = 2048;
+    v16[0] = v7;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void ACMContextGetExternalForm(const void *a1, uint64_t a2)
 {
+  v8 = *MEMORY[0x277D85DE8];
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  {
+    v4 = 136315394;
+    v5 = "ACMLib";
+    v6 = 2080;
+    v7 = "ACMContextGetExternalForm";
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v4, 0x16u);
+  }
+
+  if (a1 && a2)
+  {
+    if (!init() && !performCommand(a1, 19, 0, a1, 0x10uLL, 0, 0))
+    {
+      (*(a2 + 16))(a2, a1, 16);
+      goto LABEL_9;
+    }
+  }
+
+  else if (!a2)
+  {
+    goto LABEL_9;
+  }
+
+  ACMContextGetExternalForm_cold_1(a2);
+LABEL_9:
+  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  {
+    v4 = 136315394;
+    v5 = "ACMLib";
+    v6 = 2080;
+    v7 = "ACMContextGetExternalForm";
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", &v4, 0x16u);
+  }
+}
+
+uint64_t ACMContextRemoveCredentialsByType(_OWORD *a1, uint64_t a2)
+{
+  v2 = a2;
   v9 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v5 = 136315394;
     v6 = "ACMLib";
     v7 = 2080;
-    v8 = "ACMContextGetExternalForm";
+    v8 = "ACMContextRemoveCredentialsByType";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v5, 0x16u);
   }
 
-  if (!a1 || !a2)
-  {
-    if (!a2)
-    {
-      goto LABEL_9;
-    }
+  return ACMContextRemoveCredentialsByTypeAndScope(a1, v2, 1);
+}
 
-LABEL_14:
-    ACMContextGetExternalForm_cold_1(a2);
-    goto LABEL_9;
-  }
-
-  if (init() || performCommand(a1, 19, 0, a1, 0x10uLL, 0, 0))
-  {
-    goto LABEL_14;
-  }
-
-  (*(a2 + 16))(a2, a1, 16);
-LABEL_9:
+uint64_t ACMContextContainsCredentialType(uint64_t a1, int a2)
+{
+  v9 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v5 = 136315394;
     v6 = "ACMLib";
     v7 = 2080;
-    v8 = "ACMContextGetExternalForm";
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", &v5, 0x16u);
+    v8 = "ACMContextContainsCredentialType";
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v5, 0x16u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t ACMContextRemoveCredentialsByType(_OWORD *a1, int a2)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
-  {
-    v6 = 136315394;
-    v7 = "ACMLib";
-    v8 = 2080;
-    v9 = "ACMContextRemoveCredentialsByType";
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v6, 0x16u);
-  }
-
-  result = ACMContextRemoveCredentialsByTypeAndScope(a1, a2, 1);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t ACMContextContainsCredentialType(uint64_t a1, int a2)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
-  {
-    v6 = 136315394;
-    v7 = "ACMLib";
-    v8 = 2080;
-    v9 = "ACMContextContainsCredentialType";
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v6, 0x16u);
-  }
-
-  result = ACMContextContainsCredentialTypeEx(a1, a2, 0);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return ACMContextContainsCredentialTypeEx(a1, a2, 0);
 }
 
 uint64_t ACMContextVerifyPolicy(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "ACMLib";
-    v13 = 2080;
-    v14 = "ACMContextVerifyPolicy";
+    v11 = "ACMLib";
+    v12 = 2080;
+    v13 = "ACMContextVerifyPolicy";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v10 = a1;
-  v6 = LibCall_ACMContextVerifyPolicy_Block(ioKitTransport, &v10, a1, a2, a3);
+  v9 = a1;
+  v6 = LibCall_ACMContextVerifyPolicy_Block(ioKitTransport, &v9, a1, a2, a3);
   if (v6)
   {
     v7 = 70;
@@ -7724,32 +7552,31 @@ uint64_t ACMContextVerifyPolicy(uint64_t a1, uint64_t a2, uint64_t a3)
   if (v7 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v12 = "ACMLib";
-    v13 = 2080;
-    v14 = "ACMContextVerifyPolicy";
-    v15 = 2048;
-    v16 = v6;
+    v11 = "ACMLib";
+    v12 = 2080;
+    v13 = "ACMContextVerifyPolicy";
+    v14 = 2048;
+    v15 = v6;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t ACMContextVerifyPolicyWithPreflight(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v14 = "ACMLib";
-    v15 = 2080;
-    v16 = "ACMContextVerifyPolicyWithPreflight";
+    v13 = "ACMLib";
+    v14 = 2080;
+    v15 = "ACMContextVerifyPolicyWithPreflight";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v12 = a1;
-  v8 = LibCall_ACMContextVerifyPolicyWithPreflight_Block(ioKitTransport, &v12, a1, a2, a3, a4);
+  v11 = a1;
+  v8 = LibCall_ACMContextVerifyPolicyWithPreflight_Block(ioKitTransport, &v11, a1, a2, a3, a4);
   if (v8)
   {
     v9 = 70;
@@ -7763,58 +7590,55 @@ uint64_t ACMContextVerifyPolicyWithPreflight(uint64_t a1, uint64_t a2, uint64_t 
   if (v9 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v14 = "ACMLib";
-    v15 = 2080;
-    v16 = "ACMContextVerifyPolicyWithPreflight";
-    v17 = 2048;
-    v18 = v8;
+    v13 = "ACMLib";
+    v14 = 2080;
+    v15 = "ACMContextVerifyPolicyWithPreflight";
+    v16 = 2048;
+    v17 = v8;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 void ACMContextVerifyPolicyEx(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v17 = "ACMLib";
-    v18 = 2080;
-    v19 = "ACMContextVerifyPolicyEx";
+    v16 = "ACMLib";
+    v17 = 2080;
+    v18 = "ACMContextVerifyPolicyEx";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v15 = a1;
-  LibCall_ACMContextVerifyPolicyEx_Block(ioKitTransport, &v15, a1, a2, a3, a4, a5, a6, a7);
+  v14 = a1;
+  LibCall_ACMContextVerifyPolicyEx_Block(ioKitTransport, &v14, a1, a2, a3, a4, a5, a6, a7);
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v17 = "ACMLib";
-    v18 = 2080;
-    v19 = "ACMContextVerifyPolicyEx";
+    v16 = "ACMLib";
+    v17 = 2080;
+    v18 = "ACMContextVerifyPolicyEx";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", buf, 0x16u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void ACMGlobalContextVerifyPolicy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v14 = "ACMLib";
-    v15 = 2080;
-    v16 = "ACMGlobalContextVerifyPolicy";
+    v13 = "ACMLib";
+    v14 = 2080;
+    v15 = "ACMGlobalContextVerifyPolicy";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v12 = 0;
-  v10 = ACMContextCreateWithFlags(&v12, 0);
+  v11 = 0;
+  v10 = ACMContextCreateWithFlags(&v11, 0);
   if (v10)
   {
     if (a5)
@@ -7825,24 +7649,22 @@ void ACMGlobalContextVerifyPolicy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
 
   else
   {
-    ACMContextVerifyPolicyEx(v12, a1, a2, a3, a4, 0xFFFFFFFFLL, a5);
+    ACMContextVerifyPolicyEx(v11, a1, a2, a3, a4, 0xFFFFFFFFLL, a5);
   }
 
-  if (v12)
+  if (v11)
   {
-    ACMContextDelete(v12, 1);
+    ACMContextDelete(v11, 1);
   }
 
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v14 = "ACMLib";
-    v15 = 2080;
-    v16 = "ACMGlobalContextVerifyPolicy";
+    v13 = "ACMLib";
+    v14 = 2080;
+    v15 = "ACMGlobalContextVerifyPolicy";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", buf, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ACMContextGetTrackingNumber(uint64_t result)
@@ -7857,15 +7679,15 @@ uint64_t ACMContextGetTrackingNumber(uint64_t result)
 
 uint64_t ACMParseAclAndCopyConstraintCharacteristics(const void *a1, uint64_t a2, uint64_t a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   __n = 4096;
   size = 0;
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v23 = "ACMLib";
-    v24 = 2080;
-    v25 = "ACMParseAclAndCopyConstraintCharacteristics";
+    v22 = "ACMLib";
+    v23 = 2080;
+    v24 = "ACMParseAclAndCopyConstraintCharacteristics";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
@@ -7966,140 +7788,137 @@ LABEL_19:
   if (v17 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v23 = "ACMLib";
-    v24 = 2080;
-    v25 = "ACMParseAclAndCopyConstraintCharacteristics";
-    v26 = 2048;
-    v27 = v6;
+    v22 = "ACMLib";
+    v23 = 2080;
+    v24 = "ACMParseAclAndCopyConstraintCharacteristics";
+    v25 = 2048;
+    v26 = v6;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 void ACMGetAclAuthMethod(__n128 *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v7 = "ACMLib";
-    v8 = 2080;
-    v9 = "ACMGetAclAuthMethod";
+    v6 = "ACMLib";
+    v7 = 2080;
+    v8 = "ACMGetAclAuthMethod";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v5 = a1;
-  LibCall_ACMGetAclAuthMethod_Block(ioKitTransport, &v5, a1, a2);
+  v4 = a1;
+  LibCall_ACMGetAclAuthMethod_Block(ioKitTransport, &v4, a1, a2);
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v7 = "ACMLib";
-    v8 = 2080;
-    v9 = "ACMGetAclAuthMethod";
+    v6 = "ACMLib";
+    v7 = 2080;
+    v8 = "ACMGetAclAuthMethod";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", buf, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t ACMSetEnvironmentVariable(int a1)
+uint64_t ACMSetEnvironmentVariable(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v16 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v8 = "ACMLib";
-    v9 = 2080;
-    v10 = "ACMSetEnvironmentVariable";
+    v9 = "ACMLib";
+    v10 = 2080;
+    v11 = "ACMSetEnvironmentVariable";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
   LibCall_ACMSetEnvironmentVariable();
-  v3 = v2;
-  if (v2)
+  v5 = v4;
+  if (v4)
   {
-    v4 = 70;
+    v6 = 70;
   }
 
   else
   {
-    v4 = 10;
+    v6 = 10;
   }
 
-  if (v4 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  if (v6 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v8 = "ACMLib";
-    v9 = 2080;
-    v10 = "ACMSetEnvironmentVariable";
-    v11 = 2048;
-    v12 = v3;
-    v13 = 1024;
-    v14 = a1;
+    v9 = "ACMLib";
+    v10 = 2080;
+    v11 = "ACMSetEnvironmentVariable";
+    v12 = 2048;
+    v13 = v5;
+    v14 = 1024;
+    v15 = v3;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld, var=%u.\n", buf, 0x26u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return v3;
+  return v5;
 }
 
-uint64_t ACMSetEnvironmentVariableWithAccessPolicy(int a1)
+uint64_t ACMSetEnvironmentVariableWithAccessPolicy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v6 = a1;
+  v19 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v8 = "ACMLib";
-    v9 = 2080;
-    v10 = "ACMSetEnvironmentVariableWithAccessPolicy";
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMSetEnvironmentVariableWithAccessPolicy";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
   LibCall_ACMSetEnvironmentVariable();
-  v3 = v2;
-  if (v2)
+  v8 = v7;
+  if (v7)
   {
-    v4 = 70;
+    v9 = 70;
   }
 
   else
   {
-    v4 = 10;
+    v9 = 10;
   }
 
-  if (v4 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  if (v9 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v8 = "ACMLib";
-    v9 = 2080;
-    v10 = "ACMSetEnvironmentVariableWithAccessPolicy";
-    v11 = 2048;
-    v12 = v3;
-    v13 = 1024;
-    v14 = a1;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMSetEnvironmentVariableWithAccessPolicy";
+    v15 = 2048;
+    v16 = v8;
+    v17 = 1024;
+    v18 = v6;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld, var=%u.\n", buf, 0x26u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return v3;
+  return v8;
 }
 
 uint64_t ACMGetEnvironmentVariable(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v10 = "ACMLib";
-    v11 = 2080;
-    v12 = "ACMGetEnvironmentVariable";
+    v9 = "ACMLib";
+    v10 = 2080;
+    v11 = "ACMGetEnvironmentVariable";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v8 = 0;
-  v4 = LibCall_ACMGetEnvironmentVariable_Block(ioKitTransport, &v8, a1, a2);
+  v7 = 0;
+  v4 = LibCall_ACMGetEnvironmentVariable_Block(ioKitTransport, &v7, a1, a2);
   if (v4)
   {
     v5 = 70;
@@ -8113,29 +7932,28 @@ uint64_t ACMGetEnvironmentVariable(uint64_t a1, uint64_t a2)
   if (v5 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v10 = "ACMLib";
-    v11 = 2080;
-    v12 = "ACMGetEnvironmentVariable";
-    v13 = 2048;
-    v14 = v4;
-    v15 = 1024;
-    v16 = a1;
+    v9 = "ACMLib";
+    v10 = 2080;
+    v11 = "ACMGetEnvironmentVariable";
+    v12 = 2048;
+    v13 = v4;
+    v14 = 1024;
+    v15 = a1;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld, var=%u.\n", buf, 0x26u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t ACMKernelControl(int a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v7 = "ACMLib";
-    v8 = 2080;
-    v9 = "ACMKernelControl";
+    v6 = "ACMLib";
+    v7 = 2080;
+    v8 = "ACMKernelControl";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
@@ -8153,49 +7971,50 @@ uint64_t ACMKernelControl(int a1)
   if (v3 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v7 = "ACMLib";
-    v8 = 2080;
-    v9 = "ACMKernelControl";
-    v10 = 2048;
-    v11 = v2;
-    v12 = 1024;
-    v13 = a1;
+    v6 = "ACMLib";
+    v7 = 2080;
+    v8 = "ACMKernelControl";
+    v9 = 2048;
+    v10 = v2;
+    v11 = 1024;
+    v12 = a1;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld, code=%u.\n", buf, 0x26u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-void ACMGlobalContextCredentialGetProperty(int a1, int a2, uint64_t a3)
+void ACMGlobalContextCredentialGetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v5 = a1;
+  v11 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v9 = "ACMLib";
-    v10 = 2080;
-    v11 = "ACMGlobalContextCredentialGetProperty";
+    v8 = "ACMLib";
+    v9 = 2080;
+    v10 = "ACMGlobalContextCredentialGetProperty";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v7 = 0;
-  LibCall_ACMGlobalContextCredentialGetProperty_Block(ioKitTransport, &v7, a1, a2, a3);
+  v6 = 0;
+  LibCall_ACMGlobalContextCredentialGetProperty_Block(ioKitTransport, &v6, v5, v4, a3);
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v9 = "ACMLib";
-    v10 = 2080;
-    v11 = "ACMGlobalContextCredentialGetProperty";
+    v8 = "ACMLib";
+    v9 = 2080;
+    v10 = "ACMGlobalContextCredentialGetProperty";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", buf, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void ACMContextCredentialGetProperty(__n128 *a1, unsigned __int32 a2, unsigned __int32 a3, uint64_t a4)
+void ACMContextCredentialGetProperty(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v5 = a3;
+  v6 = a2;
+  v30 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -8205,51 +8024,49 @@ void ACMContextCredentialGetProperty(__n128 *a1, unsigned __int32 a2, unsigned _
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   memset(buf, 0, sizeof(buf));
-  v11 = 256;
+  v10 = 256;
   if (a4)
   {
-    v10 = a1;
-    v8 = LibCall_ACMContextCredentialGetProperty(ioKitTransport, &v10, a1, a2, a3, buf, &v11);
-    (*(a4 + 16))(a4, v8, buf, v11);
+    v9 = a1;
+    v8 = LibCall_ACMContextCredentialGetProperty(ioKitTransport, &v9, a1, v6, v5, buf, &v10);
+    (*(a4 + 16))(a4, v8, buf, v10);
   }
 
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    *v12 = 136315394;
-    v13 = "ACMLib";
-    v14 = 2080;
-    v15 = "ACMContextCredentialGetProperty";
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", v12, 0x16u);
+    *v11 = 136315394;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMContextCredentialGetProperty";
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", v11, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ACMContextSetData(uint64_t a1, int a2, int a3, int a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v12 = 136315394;
-    v13 = "ACMLib";
-    v14 = 2080;
-    v15 = "ACMContextSetData";
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMContextSetData";
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v11, 0x16u);
   }
 
   v8 = ACMContextSetDataEx(a1, a2, 0, 0, a3, a4);
@@ -8265,22 +8082,21 @@ uint64_t ACMContextSetData(uint64_t a1, int a2, int a3, int a4)
 
   if (v9 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v12 = 136315650;
-    v13 = "ACMLib";
-    v14 = 2080;
-    v15 = "ACMContextSetData";
-    v16 = 2048;
-    v17 = v8;
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMContextSetData";
+    v15 = 2048;
+    v16 = v8;
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", &v11, 0x20u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t ACMContextSetDataEx(uint64_t a1, int a2, int a3, int a4, int a5, int a6)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -8290,7 +8106,7 @@ uint64_t ACMContextSetDataEx(uint64_t a1, int a2, int a3, int a4, int a5, int a6
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v12 = LibCall_ACMContextSetData(ioKitTransport, &v17, a1, a2, a3, a4, a5, a6, v16, a1, *buf, *&buf[8], *&buf[16], v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29);
+  v12 = LibCall_ACMContextSetData(ioKitTransport, &v16, a1, a2, a3, a4, a5, a6, v15, a1, *buf, *&buf[8], *&buf[16], v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28);
   if (v12)
   {
     v13 = 70;
@@ -8308,24 +8124,23 @@ uint64_t ACMContextSetDataEx(uint64_t a1, int a2, int a3, int a4, int a5, int a6
     *&buf[12] = 2080;
     *&buf[14] = "ACMContextSetDataEx";
     *&buf[22] = 2048;
-    v19 = v12;
+    v18 = v12;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 uint64_t ACMContextGetData(uint64_t a1, int a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315394;
-    v11 = "ACMLib";
-    v12 = 2080;
-    v13 = "ACMContextGetData";
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "ACMLib";
+    v11 = 2080;
+    v12 = "ACMContextGetData";
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v9, 0x16u);
   }
 
   Data = ACMContextGetDataEx(a1, a2, 0, 0, a3);
@@ -8341,29 +8156,28 @@ uint64_t ACMContextGetData(uint64_t a1, int a2, uint64_t a3)
 
   if (v7 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315650;
-    v11 = "ACMLib";
-    v12 = 2080;
-    v13 = "ACMContextGetData";
-    v14 = 2048;
-    v15 = Data;
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "ACMLib";
+    v11 = 2080;
+    v12 = "ACMContextGetData";
+    v13 = 2048;
+    v14 = Data;
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", &v9, 0x20u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return Data;
 }
 
 uint64_t ACMContextGetDataProperty(uint64_t a1, unsigned __int16 a2, unsigned __int16 a3, uint64_t a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v12 = 136315394;
-    v13 = "ACMLib";
-    v14 = 2080;
-    v15 = "ACMContextGetDataProperty";
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMContextGetDataProperty";
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v11, 0x16u);
   }
 
   Data = ACMContextGetData(a1, a2 | (a3 << 16), a4);
@@ -8379,72 +8193,71 @@ uint64_t ACMContextGetDataProperty(uint64_t a1, unsigned __int16 a2, unsigned __
 
   if (v9 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v12 = 136315650;
-    v13 = "ACMLib";
-    v14 = 2080;
-    v15 = "ACMContextGetDataProperty";
-    v16 = 2048;
-    v17 = Data;
-    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMContextGetDataProperty";
+    v15 = 2048;
+    v16 = Data;
+    _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", &v11, 0x20u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return Data;
 }
 
-uint64_t ACMContextCopyData(__int128 *a1, uint64_t a2, __int128 *a3, uint64_t a4)
+uint64_t ACMContextCopyData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v14 = "ACMLib";
-    v15 = 2080;
-    v16 = "ACMContextCopyData";
+    v15 = "ACMLib";
+    v16 = 2080;
+    v17 = "ACMContextCopyData";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v12 = 0;
-  v8 = LibCall_ACMContextCopyData(ioKitTransport, &v12, a1, a2, a3, a4);
-  if (v8)
+  v13 = 0;
+  v10 = LibCall_ACMContextCopyData(ioKitTransport, &v13, a1, a2, a3, a4);
+  if (v10)
   {
-    v9 = 70;
+    v11 = 70;
   }
 
   else
   {
-    v9 = 10;
+    v11 = 10;
   }
 
-  if (v9 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  if (v11 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v14 = "ACMLib";
-    v15 = 2080;
-    v16 = "ACMContextCopyData";
-    v17 = 2048;
-    v18 = v8;
+    v15 = "ACMLib";
+    v16 = 2080;
+    v17 = "ACMContextCopyData";
+    v18 = 2048;
+    v19 = v10;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v10;
 }
 
-uint64_t ACMContextGetInfo(__int128 *a1, int a2, void *a3)
+uint64_t ACMContextGetInfo(__int128 *a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v16 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "ACMLib";
-    v13 = 2080;
-    v14 = "ACMContextGetInfo";
+    v11 = "ACMLib";
+    v12 = 2080;
+    v13 = "ACMContextGetInfo";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v10 = a1;
-  v6 = LibCall_ACMContextGetInfo(ioKitTransport, &v10, a1, a2, a3);
+  v9 = a1;
+  v6 = LibCall_ACMContextGetInfo(ioKitTransport, &v9, a1, v4, a3);
   if (v6)
   {
     v7 = 70;
@@ -8458,27 +8271,26 @@ uint64_t ACMContextGetInfo(__int128 *a1, int a2, void *a3)
   if (v7 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v12 = "ACMLib";
-    v13 = 2080;
-    v14 = "ACMContextGetInfo";
-    v15 = 2048;
-    v16 = v6;
+    v11 = "ACMLib";
+    v12 = 2080;
+    v13 = "ACMContextGetInfo";
+    v14 = 2048;
+    v15 = v6;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 void updateLogLevelFromKext()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v5 = "ACMLib";
-    v6 = 2080;
-    v7 = "updateLogLevelFromKext";
+    v4 = "ACMLib";
+    v5 = 2080;
+    v6 = "updateLogLevelFromKext";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
@@ -8501,31 +8313,21 @@ LABEL_12:
   if (v0 <= 0xA && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v5 = "ACMLib";
-    v6 = 2080;
-    v7 = "updateLogLevelFromKext";
+    v4 = "ACMLib";
+    v5 = 2080;
+    v6 = "updateLogLevelFromKext";
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: %s: returning.\n", buf, 0x16u);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t OUTLINED_FUNCTION_17_2(uint64_t a1, char a2, uint64_t a3, uint64_t a4, size_t a5)
+uint64_t OUTLINED_FUNCTION_17_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, size_t a5)
 {
 
   return performCommand(a1, a2, 0, v5, a5, 0, 0);
 }
 
-uint64_t OUTLINED_FUNCTION_20()
+uint64_t ioKitTransport(uint64_t *a1, uint64_t a2, uint64_t a3, const void *a4, size_t a5, void *a6, size_t *a7)
 {
-  v3 = *(v2 + 8 * v1);
-  v4 = *(v0 + 16);
-  return v0;
-}
-
-uint64_t ioKitTransport(uint64_t *a1, char a2, char a3, const void *a4, size_t a5, void *a6, size_t *a7)
-{
-  v29 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_16_1();
@@ -8572,13 +8374,11 @@ uint64_t ioKitTransport(uint64_t *a1, char a2, char a3, const void *a4, size_t a
     _os_log_impl(v22, v23, v24, v25, v26, 0x20u);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 uint64_t init()
 {
-  v18 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_5_4();
@@ -8626,62 +8426,57 @@ LABEL_10:
     _os_log_impl(v11, v12, v13, v14, v15, 0x20u);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-uint64_t performCommand(uint64_t a1, char a2, char a3, const void *a4, size_t a5, void *a6, size_t *a7)
+uint64_t performCommand(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, size_t a5, void *a6, size_t *a7)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v11 = a3;
+  v12 = a2;
+  v50 = *MEMORY[0x277D85DE8];
   if (_logLevel <= 0xAu && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_6_3();
     OUTLINED_FUNCTION_4_5();
-    _os_log_impl(v14, v15, v16, v17, v18, 0x16u);
+    _os_log_impl(v13, v14, v15, v16, v17, 0x16u);
   }
 
   inputStructCnt = 0;
-  v19 = LibCall_BuildCommand(a2, 0, a3, a4, a5, &inputStructCnt);
-  if (v19)
+  v18 = LibCall_BuildCommand(v12, 0, v11, a4, a5, &inputStructCnt);
+  if (v18)
   {
-    v20 = v19;
+    v19 = v18;
     if (!a6 && a7)
     {
-      v23 = 4294967293;
+      v21 = 4294967293;
     }
 
     else
     {
       if (a7)
       {
-        v21 = *a7;
+        v20 = *a7;
       }
 
       else
       {
-        v21 = 0;
+        v20 = 0;
       }
 
-      v45 = v21;
-      v22 = IOConnectCallStructMethod(dword_2812FEE0C, 0, v19, inputStructCnt, a6, &v45);
-      v23 = v22;
-      if (a1)
-      {
-        v24 = *(a1 + 16);
-      }
-
-      if (v22)
+      v41 = v20;
+      v21 = IOConnectCallStructMethod(dword_2812FEE0C, 0, v18, inputStructCnt, a6, &v41);
+      if (v21)
       {
         if (_logLevel <= 0x46u && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           OUTLINED_FUNCTION_6_3();
           OUTLINED_FUNCTION_27();
-          v50 = v25;
-          v51 = v23;
-          v52 = v25;
-          v53 = v23;
+          v46 = v22;
+          v47 = v21;
+          v48 = v22;
+          v49 = v21;
           OUTLINED_FUNCTION_4_5();
-          _os_log_impl(v26, v27, v28, v29, v30, 0x2Eu);
+          _os_log_impl(v23, v24, v25, v26, v27, 0x2Eu);
         }
       }
 
@@ -8692,62 +8487,59 @@ uint64_t performCommand(uint64_t a1, char a2, char a3, const void *a4, size_t a5
           OUTLINED_FUNCTION_6_3();
           OUTLINED_FUNCTION_27();
           OUTLINED_FUNCTION_4_5();
-          _os_log_impl(v31, v32, v33, v34, v35, 0x22u);
+          _os_log_impl(v28, v29, v30, v31, v32, 0x22u);
         }
 
-        v23 = 0;
+        v21 = 0;
         if (a7)
         {
-          *a7 = v45;
+          *a7 = v41;
         }
       }
     }
 
-    v36 = inputStructCnt;
-    acm_mem_free_info("<data>", v20, inputStructCnt, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 134, "performCommand");
-    acm_mem_free_data(v20, v36);
-    if (v23)
+    v33 = inputStructCnt;
+    acm_mem_free_info("<data>", v19, inputStructCnt, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 134, "performCommand");
+    acm_mem_free_data(v19, v33);
+    if (v21)
     {
-      v37 = 70;
+      v34 = 70;
     }
 
     else
     {
-      v37 = 10;
+      v34 = 10;
     }
   }
 
   else
   {
-    v37 = 70;
-    v23 = 4294967291;
+    v34 = 70;
+    v21 = 4294967291;
   }
 
-  if (v37 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  if (v34 >= _logLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v47 = 136315650;
-    v48 = "ACMLib";
+    v43 = 136315650;
+    v44 = "ACMLib";
     OUTLINED_FUNCTION_13_3();
-    v49 = "performCommand";
+    v45 = "performCommand";
     OUTLINED_FUNCTION_1_5();
     OUTLINED_FUNCTION_4_5();
-    _os_log_impl(v38, v39, v40, v41, v42, 0x20u);
+    _os_log_impl(v35, v36, v37, v38, v39, 0x20u);
   }
 
-  v43 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v21;
 }
 
 void updateLogLevelFromKext_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_19_1();
   OUTLINED_FUNCTION_8_1();
   _os_log_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t LibCall_ACMContextDelete(void (*a1)(uint64_t, uint64_t, void, void *, uint64_t, void, void), uint64_t a2, void *a3, int a4)
+uint64_t LibCall_ACMContextDelete(void (*a1)(uint64_t, uint64_t, void, const void *, uint64_t, void, void), uint64_t a2, void *a3, int a4)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -8788,7 +8580,7 @@ LABEL_8:
 uint64_t LibCall_ACMKernelControl(uint64_t (*a1)(uint64_t, uint64_t, void, char *, size_t, uint64_t, uint64_t), uint64_t a2, int a3, const void *a4, size_t a5, uint64_t a6, uint64_t a7)
 {
   v13 = a1;
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   if (gACMLoggingLevel <= 0xAu)
   {
     a1 = printf("%s: %s: called.\n", "ACM", "LibCall_ACMKernelControl");
@@ -8814,9 +8606,9 @@ LABEL_16:
 
   else
   {
-    v21[0] = v21;
+    v20[0] = v20;
     MEMORY[0x28223BE20](a1);
-    v15 = (v21 - ((a5 + 19) & 0xFFFFFFFFFFFFFFF0));
+    v15 = (v20 - ((a5 + 19) & 0xFFFFFFFFFFFFFFF0));
     bzero(v15, a5 + 4);
     *v15 = a3;
     v16 = v15 + 1;
@@ -8831,7 +8623,7 @@ LABEL_16:
       LibCall_ACMKernelControl_cold_1();
     }
 
-    v17 = v13(a2, 26, 0, v21 - ((a5 + 19) & 0xFFFFFFFFFFFFFFF0), a5 + 4, a6, a7);
+    v17 = v13(a2, 26, 0, v20 - ((a5 + 19) & 0xFFFFFFFFFFFFFFF0), a5 + 4, a6, a7);
     if (v17)
     {
       v18 = 70;
@@ -8848,7 +8640,6 @@ LABEL_16:
     printf("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMKernelControl", v17);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -8858,20 +8649,13 @@ void *OUTLINED_FUNCTION_9_4()
   return acm_mem_alloc_typed(0x14uLL, 0x1000040A86A77D5uLL);
 }
 
-uint64_t OUTLINED_FUNCTION_29_0(uint64_t a1, uint64_t a2, unsigned int *a3)
-{
-  result = 0;
-  v4 = *a3;
-  return result;
-}
-
-void OUTLINED_FUNCTION_37()
+void OUTLINED_FUNCTION_37(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
 
   LibCall_ACMSetEnvironmentVariable();
 }
 
-uint64_t processAclCommandInternal(uint64_t (*a1)(uint64_t, void, void, void *, size_t, _DWORD *, unint64_t *), uint64_t a2, int a3, _OWORD *a4, unsigned __int8 *a5, uint64_t a6, unsigned __int8 *a7, uint64_t a8, const void *a9, unsigned int a10, unsigned int a11, _DWORD *a12, BOOL *a13, void *a14, unint64_t *a15)
+uint64_t processAclCommandInternal(uint64_t (*a1)(uint64_t, void, void, const void *, size_t, _DWORD *, unint64_t *), uint64_t a2, int a3, _OWORD *a4, unsigned __int8 *a5, uint64_t a6, unsigned __int8 *a7, uint64_t a8, const void *a9, unsigned int a10, unsigned int a11, _DWORD *a12, BOOL *a13, void *a14, unint64_t *a15)
 {
   v19 = gACMLoggingLevel;
   v20 = "processAclCommandInternal";
@@ -9197,30 +8981,30 @@ void aclRequiresPasscodeInternal()
   v5 = v4;
   v7 = v6;
   v9 = v8;
-  v19 = *MEMORY[0x277D85DE8];
-  v18 = 0;
-  v17 = 4;
+  v18 = *MEMORY[0x277D85DE8];
+  v17 = 0;
+  v16 = 4;
   v10 = v2;
   MEMORY[0x28223BE20](v8);
-  v11 = (&v16 - ((v10 + 19) & 0x1FFFFFFF0));
+  v11 = (&v15 - ((v10 + 19) & 0x1FFFFFFF0));
   if (gACMLoggingLevel <= 0xAu)
   {
     printf("%s: %s: called.\n", "ACM", "aclRequiresPasscodeInternal");
   }
 
-  bzero(&v16 - ((v10 + 19) & 0x1FFFFFFF0), v10 + 4);
+  bzero(&v15 - ((v10 + 19) & 0x1FFFFFFF0), v10 + 4);
   v12 = -3;
   if (v5 && v1)
   {
     *v11 = v3;
     memcpy(v11 + 1, v5, v10);
-    v13 = v9(v7, 17, 0, &v16 - ((v10 + 19) & 0x1FFFFFFF0), v10 + 4, &v18, &v17);
+    v13 = v9(v7, 17, 0, &v15 - ((v10 + 19) & 0x1FFFFFFF0), v10 + 4, &v17, &v16);
     if (v13)
     {
       v12 = v13;
     }
 
-    else if (v17 == 4)
+    else if (v16 == 4)
     {
       v12 = 0;
       *v1 = 1;
@@ -9238,7 +9022,6 @@ void aclRequiresPasscodeInternal()
     printf("%s: %s: returning, err = %ld.\n", "ACM", "aclRequiresPasscodeInternal", v12);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_15_2();
 }
 
@@ -9338,22 +9121,21 @@ uint64_t cpGetDeviceInfo(io_registry_entry_t entry, void *a2, void *a3, void *a4
 
 uint64_t cpGetChallengeSignatureLengths(mach_port_t a1, uint64_t *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   output = 0;
-  v11 = 0;
+  v10 = 0;
   outputCnt = 2;
   puts("cpGetChallengeSignatureLengths");
   result = IOConnectCallScalarMethod(a1, 0x14u, 0, 0, &output, &outputCnt);
-  v7 = v11;
+  v7 = v10;
   *a2 = output;
   *a3 = v7;
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t cpCreateFormattedChallengeFromServerRequest(mach_port_t a1, const __CFData *a2, CFDataRef *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   puts("cpCreateFormattedChallengeFromServerRequest");
   memset(outputStruct, 0, sizeof(outputStruct));
   outputStructCnt = 128;
@@ -9365,23 +9147,22 @@ uint64_t cpCreateFormattedChallengeFromServerRequest(mach_port_t a1, const __CFD
     *a3 = CFDataCreate(*MEMORY[0x277CBECE8], outputStruct, outputStructCnt);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t cpCreateFormattedResponseForServerResponse(mach_port_t a1, const __CFData *a2, CFDataRef *a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   input = a4;
   puts("cpCreateFormattedResponseForServerResponse");
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  *bytes = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  *bytes = 0u;
+  v14 = 0u;
   length = 128;
   BytePtr = CFDataGetBytePtr(a2);
   v8 = CFDataGetLength(a2);
@@ -9391,13 +9172,12 @@ uint64_t cpCreateFormattedResponseForServerResponse(mach_port_t a1, const __CFDa
     *a3 = CFDataCreate(*MEMORY[0x277CBECE8], bytes, length);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t cpCreateSignature(mach_port_t a1, CFDataRef theData, CFDataRef *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   length = 128;
   BytePtr = CFDataGetBytePtr(theData);
   v7 = CFDataGetLength(theData);
@@ -9407,13 +9187,12 @@ uint64_t cpCreateSignature(mach_port_t a1, CFDataRef theData, CFDataRef *a3)
     *a3 = CFDataCreate(*MEMORY[0x277CBECE8], outputStruct, length);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t cpCreateSignatureWithIndexAndToken(mach_port_t a1, const __CFData *a2, CFDataRef *a3, uint64_t *a4, int a5)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   puts("cpCreateSignatureWithIndexAndToken");
   if (a2)
   {
@@ -9429,14 +9208,14 @@ uint64_t cpCreateSignatureWithIndexAndToken(mach_port_t a1, const __CFData *a2, 
     v10 = 0;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  *bytes = 0u;
+  v23 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  *bytes = 0u;
+  v19 = 0u;
   input[0] = a5;
   input[1] = v10;
   input[2] = 128;
@@ -9450,7 +9229,6 @@ uint64_t cpCreateSignatureWithIndexAndToken(mach_port_t a1, const __CFData *a2, 
     *a3 = CFDataCreate(*MEMORY[0x277CBECE8], bytes, length);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -9487,7 +9265,7 @@ uint64_t cpSetAuthError(mach_port_t a1, unsigned int a2)
 
 uint64_t cpCopyDownstreamCertificateSerialNumber(mach_port_t a1, CFStringRef *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   outputStructCnt = 33;
   v3 = IOConnectCallStructMethod(a1, 1u, 0, 0, outputStruct, &outputStructCnt);
   v4 = 0;
@@ -9497,7 +9275,6 @@ uint64_t cpCopyDownstreamCertificateSerialNumber(mach_port_t a1, CFStringRef *a2
   }
 
   *a2 = v4;
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -9577,4 +9354,199 @@ uint64_t cpGetTransportEntryId(mach_port_t a1, uint64_t *a2)
   }
 
   return v4;
+}
+
+uint64_t cpGetUpstreamAccessoryManager(io_registry_entry_t a1)
+{
+  parent = 0;
+  if (IORegistryEntryGetParentEntry(a1, "IOAccessory", &parent))
+  {
+    return 0;
+  }
+
+  else
+  {
+    return parent;
+  }
+}
+
+uint64_t AuthCPI2CRead(mach_port_t a1, char a2, unsigned int a3, void *outputStruct)
+{
+  LOBYTE(input) = a2;
+  outputStructCnt = a3;
+  return IOConnectCallMethod(a1, 0xEu, &input, 1u, 0, 0, 0, 0, outputStruct, &outputStructCnt);
+}
+
+CFTypeRef OUTLINED_FUNCTION_0_9(io_registry_entry_t a1)
+{
+
+  return IORegistryEntryCreateCFProperty(a1, v1, v2, 0);
+}
+
+BOOL acc_policies_shouldFailAuthOnOOBPairingFailure(_BOOL8 result)
+{
+  if (result)
+  {
+    return *(result + 24) == 9;
+  }
+
+  return result;
+}
+
+uint64_t acc_policies_productTypeNeedsPreArmDeviceIdentity(const void *a1)
+{
+  if (a1)
+  {
+    v1 = CFGetTypeID(a1);
+    TypeID = CFStringGetTypeID();
+    if (v1 == TypeID)
+    {
+      v3 = OUTLINED_FUNCTION_0(TypeID, @"iPhone13,1");
+      v6 = v3 == kCFCompareEqualTo || (v4 = OUTLINED_FUNCTION_0(v3, @"iPhone13,2")) == kCFCompareEqualTo || (v5 = OUTLINED_FUNCTION_0(v4, @"iPhone13,3")) == kCFCompareEqualTo || OUTLINED_FUNCTION_0(v5, @"iPhone13,4") == kCFCompareEqualTo;
+      acc_policies_productTypeNeedsPreArmDeviceIdentity_modelNeedsPreArm = v6;
+    }
+  }
+
+  return acc_policies_productTypeNeedsPreArmDeviceIdentity_modelNeedsPreArm;
+}
+
+uint64_t acc_policies_deviceNeedsPreArmDeviceIdentity()
+{
+  v24 = *MEMORY[0x277D85DE8];
+  if (_MergedGlobals)
+  {
+    v17 = 0;
+    v19 = 0;
+  }
+
+  else
+  {
+    v0 = +[ACCUserDefaults sharedDefaults];
+    v1 = [v0 stringForKey:@"DeviceIdentityPreArmDateOverride"];
+
+    if (v1)
+    {
+      v2 = v1;
+      v3 = [MEMORY[0x277CBEA80] currentCalendar];
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v22) = 0;
+        _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "acc_policies_deviceNeedsPreArmDeviceIdentity: _parseDate", &v22, 2u);
+      }
+
+      v4 = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
+      v5 = [v2 stringByTrimmingCharactersInSet:v4];
+
+      v6 = [MEMORY[0x277CCA900] punctuationCharacterSet];
+      v7 = [v5 componentsSeparatedByCharactersInSet:v6];
+
+      v8 = [v7 count];
+      v9 = v8 > 2;
+      if (v8 < 3)
+      {
+        v14 = 0;
+      }
+
+      else
+      {
+        v10 = objc_alloc_init(MEMORY[0x277CBEAB8]);
+        v11 = [v7 objectAtIndexedSubscript:2];
+        [v10 setDay:{objc_msgSend(v11, "integerValue")}];
+
+        v12 = [v7 objectAtIndexedSubscript:1];
+        [v10 setMonth:{objc_msgSend(v12, "integerValue")}];
+
+        v13 = [v7 objectAtIndexedSubscript:0];
+        [v10 setYear:{objc_msgSend(v13, "integerValue")}];
+
+        v14 = [v3 dateFromComponents:v10];
+        v15 = v14;
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+        {
+          v22 = 138412290;
+          v23 = v14;
+          _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "acc_policies_deviceNeedsPreArmDeviceIdentity: _parseDate: %@", &v22, 0xCu);
+        }
+      }
+    }
+
+    else
+    {
+      v14 = 0;
+      v9 = 0;
+    }
+
+    v16 = v14;
+    v17 = v16;
+    if (v9 && v16)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v22) = 0;
+        _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "acc_policies_deviceNeedsPreArmDeviceIdentity: override", &v22, 2u);
+      }
+
+      objc_storeStrong(&qword_2812FEDF8, v14);
+      v18 = +[ACCUserDefaults sharedDefaults];
+      [v18 setObject:qword_2812FEDF8 forKey:@"PreArmDeviceIdentityDate"];
+    }
+
+    v19 = qword_2812FEDF8;
+    if (qword_2812FEDF8)
+    {
+      goto LABEL_19;
+    }
+
+    if (qword_2812FEE00 != -1)
+    {
+      dispatch_once(&qword_2812FEE00, &__block_literal_global_156);
+    }
+
+    v19 = qword_2812FEDF8;
+    if (qword_2812FEDF8)
+    {
+LABEL_19:
+      v20 = [MEMORY[0x277CBEAA8] date];
+      v19 = [v19 compare:v20] == -1;
+    }
+  }
+
+  return v19;
+}
+
+void __acc_policies_deviceNeedsPreArmDeviceIdentity_block_invoke()
+{
+  v0 = +[ACCUserDefaults sharedDefaults];
+  _MergedGlobals = [v0 BOOLForKey:@"DidPreArmDeviceIdentity"];
+
+  if ((_MergedGlobals & 1) == 0)
+  {
+    v1 = +[ACCUserDefaults sharedDefaults];
+    v2 = [v1 objectForKey:@"PreArmDeviceIdentityDate"];
+    v3 = qword_2812FEDF8;
+    qword_2812FEDF8 = v2;
+
+    if (!qword_2812FEDF8)
+    {
+      v13 = [MEMORY[0x277CBEA80] currentCalendar];
+      v4 = objc_alloc_init(MEMORY[0x277CBEAB8]);
+      [v4 setDay:1];
+      [v4 setMonth:3];
+      [v4 setYear:2021];
+      v5 = [v13 dateFromComponents:v4];
+      v6 = objc_alloc_init(MEMORY[0x277CBEAB8]);
+      [v6 setDay:1];
+      [v6 setMonth:9];
+      [v6 setYear:2021];
+      v7 = [v13 dateFromComponents:v6];
+      v8 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v5 endDate:v7];
+      [v8 duration];
+      v10 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:v5 sinceDate:(arc4random() % v9)];
+      v11 = qword_2812FEDF8;
+      qword_2812FEDF8 = v10;
+
+      v12 = +[ACCUserDefaults sharedDefaults];
+      [v12 setObject:qword_2812FEDF8 forKey:@"PreArmDeviceIdentityDate"];
+    }
+  }
 }

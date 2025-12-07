@@ -49,7 +49,7 @@
 
   else
   {
-    sub_23BF7477C(byte_284EBE850[result + 32]);
+    sub_23BF7477C();
     v3 = sub_23BFFA2C0();
 
     return v3;
@@ -70,26 +70,26 @@
 
 + (id)configurationForName:(id)name
 {
-  sub_23BFFA300();
-  v3 = sub_23BF74730();
-  if (v3 == 12)
+  v3 = sub_23BFFA300();
+  v5 = sub_23BF74730(v3, v4);
+  if (v5 == 12)
   {
-    v4 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v4 = v3;
+    v6 = v5;
   }
 
-  v5 = type metadata accessor for ParmesanGalleryPlaceholderConfiguration();
-  v6 = objc_allocWithZone(v5);
-  v6[OBJC_IVAR___NTKParmesanGalleryPlaceholderConfiguration_placeholderStyle] = v4;
-  v9.receiver = v6;
-  v9.super_class = v5;
-  v7 = objc_msgSendSuper2(&v9, sel_init);
+  v7 = type metadata accessor for ParmesanGalleryPlaceholderConfiguration();
+  v8 = objc_allocWithZone(v7);
+  v8[OBJC_IVAR___NTKParmesanGalleryPlaceholderConfiguration_placeholderStyle] = v6;
+  v11.receiver = v8;
+  v11.super_class = v7;
+  v9 = objc_msgSendSuper2(&v11, sel_init);
 
-  return v7;
+  return v9;
 }
 
 @end

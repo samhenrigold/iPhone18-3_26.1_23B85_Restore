@@ -26,28 +26,26 @@ uint64_t br_NSNumberComparatorBlock_block_invoke(uint64_t a1, void *a2, void *a3
 
 void br_NSNumberComparatorBlock_block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = brc_bread_crumbs("br_NSNumberComparatorBlock_block_invoke", 14);
   v1 = brc_default_log(0, 0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: [obj1 isKindOfClass:NSNumber.class]%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: [obj1 isKindOfClass:NSNumber.class]%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void br_NSNumberComparatorBlock_block_invoke_cold_2()
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = brc_bread_crumbs("br_NSNumberComparatorBlock_block_invoke", 15);
   v1 = brc_default_log(0, 0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: [obj2 isKindOfClass:NSNumber.class]%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: [obj2 isKindOfClass:NSNumber.class]%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

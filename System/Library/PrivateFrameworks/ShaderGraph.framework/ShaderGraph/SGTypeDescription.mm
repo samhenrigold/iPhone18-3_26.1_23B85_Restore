@@ -11,12 +11,11 @@
 
 - (NSArray)properties
 {
-  v2 = *(self + OBJC_IVAR___SGTypeDescription_properties);
   type metadata accessor for SGPropertyDescription();
 
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (unsigned)offset
@@ -42,8 +41,6 @@
 
 - (NSString)description
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *MEMORY[0x277D85DE8];
 
   return @objc SGTypeDescription.description.getter(self, a2, closure #1 in SGTypeDescription.description.getter);
 }

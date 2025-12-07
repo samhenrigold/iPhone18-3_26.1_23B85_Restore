@@ -80,295 +80,295 @@
 - (TSTPivotTranslator)initWithTableInfo:(id)info
 {
   infoCopy = info;
-  v25.receiver = self;
-  v25.super_class = TSTPivotTranslator;
-  v9 = [(TSTCategoryTranslator *)&v25 initWithTableInfo:infoCopy];
-  if (v9)
+  v22.receiver = self;
+  v22.super_class = TSTPivotTranslator;
+  v8 = [(TSTCategoryTranslator *)&v22 initWithTableInfo:infoCopy];
+  if (v8)
   {
-    v10 = objc_msgSend_strongToStrongObjectsMapTable(MEMORY[0x277CCAB00], v5, v6, v7, v8);
-    cachedSummaryColumnIndexesAtLevels = v9->_cachedSummaryColumnIndexesAtLevels;
-    v9->_cachedSummaryColumnIndexesAtLevels = v10;
+    v9 = objc_msgSend_strongToStrongObjectsMapTable(MEMORY[0x277CCAB00], v5, v6, v7);
+    cachedSummaryColumnIndexesAtLevels = v8->_cachedSummaryColumnIndexesAtLevels;
+    v8->_cachedSummaryColumnIndexesAtLevels = v9;
 
-    v16 = objc_msgSend_strongToStrongObjectsMapTable(MEMORY[0x277CCAB00], v12, v13, v14, v15);
-    cachedLeadingColumnIndexesAtLevels = v9->_cachedLeadingColumnIndexesAtLevels;
-    v9->_cachedLeadingColumnIndexesAtLevels = v16;
+    v14 = objc_msgSend_strongToStrongObjectsMapTable(MEMORY[0x277CCAB00], v11, v12, v13);
+    cachedLeadingColumnIndexesAtLevels = v8->_cachedLeadingColumnIndexesAtLevels;
+    v8->_cachedLeadingColumnIndexesAtLevels = v14;
 
-    v22 = objc_msgSend_strongToStrongObjectsMapTable(MEMORY[0x277CCAB00], v18, v19, v20, v21);
-    cachedLeadingSummaryColumnIndexesAtLevels = v9->_cachedLeadingSummaryColumnIndexesAtLevels;
-    v9->_cachedLeadingSummaryColumnIndexesAtLevels = v22;
+    v19 = objc_msgSend_strongToStrongObjectsMapTable(MEMORY[0x277CCAB00], v16, v17, v18);
+    cachedLeadingSummaryColumnIndexesAtLevels = v8->_cachedLeadingSummaryColumnIndexesAtLevels;
+    v8->_cachedLeadingSummaryColumnIndexesAtLevels = v19;
 
-    v9->_cachedPivotIndexSetsAreValid = 0;
-    v9->_pivotCachedIndexesUnfairLock._os_unfair_lock_opaque = 0;
+    v8->_cachedPivotIndexSetsAreValid = 0;
+    v8->_pivotCachedIndexesUnfairLock._os_unfair_lock_opaque = 0;
     __dmb(0xBu);
   }
 
-  return v9;
+  return v8;
 }
 
 - (TSTPivotOwner)pivotOwner
 {
-  v5 = objc_msgSend_baseTableModel(self, a2, v2, v3, v4);
-  v10 = objc_msgSend_pivotOwner(v5, v6, v7, v8, v9);
+  v4 = objc_msgSend_baseTableModel(self, a2, v2, v3);
+  v8 = objc_msgSend_pivotOwner(v4, v5, v6, v7);
 
-  return v10;
+  return v8;
 }
 
 - (id)groupBySet
 {
-  v5 = objc_msgSend_pivotOwner(self->super.super._tableInfo, a2, v2, v3, v4);
-  v10 = objc_msgSend_groupBySet(v5, v6, v7, v8, v9);
+  v4 = objc_msgSend_pivotOwner(self->super.super._tableInfo, a2, v2, v3);
+  v8 = objc_msgSend_groupBySet(v4, v5, v6, v7);
 
-  return v10;
+  return v8;
 }
 
 - (id)groupByForRows
 {
-  v5 = objc_msgSend_pivotOwner(self->super.super._tableInfo, a2, v2, v3, v4);
-  v10 = objc_msgSend_groupBySet(v5, v6, v7, v8, v9);
-  v15 = objc_msgSend_groupByForRowGroups(v10, v11, v12, v13, v14);
+  v4 = objc_msgSend_pivotOwner(self->super.super._tableInfo, a2, v2, v3);
+  v8 = objc_msgSend_groupBySet(v4, v5, v6, v7);
+  v12 = objc_msgSend_groupByForRowGroups(v8, v9, v10, v11);
 
-  return v15;
+  return v12;
 }
 
 - (id)groupByForColumns
 {
-  v5 = objc_msgSend_pivotOwner(self->super.super._tableInfo, a2, v2, v3, v4);
-  v10 = objc_msgSend_groupBySet(v5, v6, v7, v8, v9);
-  v15 = objc_msgSend_groupByForColumnGroups(v10, v11, v12, v13, v14);
+  v4 = objc_msgSend_pivotOwner(self->super.super._tableInfo, a2, v2, v3);
+  v8 = objc_msgSend_groupBySet(v4, v5, v6, v7);
+  v12 = objc_msgSend_groupByForColumnGroups(v8, v9, v10, v11);
 
-  return v15;
+  return v12;
 }
 
 - (unint64_t)numberOfRowLevels
 {
-  v5 = objc_msgSend_pivotOwner(self->super.super._tableInfo, a2, v2, v3, v4);
-  v10 = objc_msgSend_groupBySet(v5, v6, v7, v8, v9);
-  v15 = objc_msgSend_rowGroupings(v10, v11, v12, v13, v14);
-  v20 = objc_msgSend_count(v15, v16, v17, v18, v19);
+  v4 = objc_msgSend_pivotOwner(self->super.super._tableInfo, a2, v2, v3);
+  v8 = objc_msgSend_groupBySet(v4, v5, v6, v7);
+  v12 = objc_msgSend_rowGroupings(v8, v9, v10, v11);
+  v16 = objc_msgSend_count(v12, v13, v14, v15);
 
-  return v20;
+  return v16;
 }
 
 - (unint64_t)numberOfColumnLevels
 {
-  v5 = objc_msgSend_pivotOwner(self->super.super._tableInfo, a2, v2, v3, v4);
-  v10 = objc_msgSend_groupBySet(v5, v6, v7, v8, v9);
-  v15 = objc_msgSend_columnGroupings(v10, v11, v12, v13, v14);
-  v20 = objc_msgSend_count(v15, v16, v17, v18, v19);
+  v4 = objc_msgSend_pivotOwner(self->super.super._tableInfo, a2, v2, v3);
+  v8 = objc_msgSend_groupBySet(v4, v5, v6, v7);
+  v12 = objc_msgSend_columnGroupings(v8, v9, v10, v11);
+  v16 = objc_msgSend_count(v12, v13, v14, v15);
 
-  return v20;
+  return v16;
 }
 
 - (unsigned)maxRowLevel
 {
-  v5 = objc_msgSend_numberOfRowLevels(self, a2, v2, v3, v4);
-  v6 = v5 - 1;
-  if (!v5)
+  v4 = objc_msgSend_numberOfRowLevels(self, a2, v2, v3);
+  v5 = v4 - 1;
+  if (!v4)
   {
     return 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (unsigned)maxColumnLevel
 {
-  v5 = objc_msgSend_numberOfColumnLevels(self, a2, v2, v3, v4);
-  v6 = v5 - 1;
-  if (!v5)
+  v4 = objc_msgSend_numberOfColumnLevels(self, a2, v2, v3);
+  v5 = v4 - 1;
+  if (!v4)
   {
     return 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (unsigned)maxVisibleRowLevel
 {
-  v6 = objc_msgSend_numberOfRowLevels(self, a2, v2, v3, v4);
-  v11 = objc_msgSend_hiddenStates(self->super.super._tableInfo, v7, v8, v9, v10);
-  hasHiddenColumnsOrRows = objc_msgSend_hasHiddenColumnsOrRows(v11, v12, v13, v14, v15);
+  v5 = objc_msgSend_numberOfRowLevels(self, a2, v2, v3);
+  v9 = objc_msgSend_hiddenStates(self->super.super._tableInfo, v6, v7, v8);
+  hasHiddenColumnsOrRows = objc_msgSend_hasHiddenColumnsOrRows(v9, v10, v11, v12);
 
   if (hasHiddenColumnsOrRows)
   {
-    v66.origin = objc_msgSend_bodyRange(self, v17, v18, v19, v20);
-    v66.size = v21;
-    v22 = MEMORY[0x277CCAB58];
-    v23 = TSUCellRect::rows(&v66);
-    v26 = objc_msgSend_indexSetWithIndexesInRange_(v22, v24, v23, v24, v25);
-    v31 = objc_msgSend_indexesForSummaryRows(self->super.super._tableInfo, v27, v28, v29, v30);
-    objc_msgSend_removeIndexes_(v26, v32, v31, v33, v34);
+    v52.origin = objc_msgSend_bodyRange(self, v14, v15, v16);
+    v52.size = v17;
+    v18 = MEMORY[0x277CCAB58];
+    v19 = TSUCellRect::rows(&v52);
+    v21 = objc_msgSend_indexSetWithIndexesInRange_(v18, v20, v19, v20);
+    v25 = objc_msgSend_indexesForSummaryRows(self->super.super._tableInfo, v22, v23, v24);
+    objc_msgSend_removeIndexes_(v21, v26, v25, v27);
 
-    v39 = objc_msgSend_hiddenStates(self->super.super._tableInfo, v35, v36, v37, v38);
-    v44 = objc_msgSend_hiddenRowIndexes(v39, v40, v41, v42, v43);
+    v31 = objc_msgSend_hiddenStates(self->super.super._tableInfo, v28, v29, v30);
+    v35 = objc_msgSend_hiddenRowIndexes(v31, v32, v33, v34);
 
-    objc_msgSend_removeIndexes_(v26, v45, v44, v46, v47);
-    if (!objc_msgSend_count(v26, v48, v49, v50, v51))
+    objc_msgSend_removeIndexes_(v21, v36, v35, v37);
+    if (!objc_msgSend_count(v21, v38, v39, v40))
     {
       do
       {
-        v55 = objc_msgSend_indexesForSummaryRowsAtGroupLevel_(self, v52, --v6, v53, v54);
-        v59 = objc_msgSend_tsu_indexSetByExcludingIndexes_(v55, v56, v44, v57, v58);
+        v43 = objc_msgSend_indexesForSummaryRowsAtGroupLevel_(self, v41, --v5, v42);
+        v46 = objc_msgSend_tsu_indexSetByExcludingIndexes_(v43, v44, v35, v45);
 
-        v64 = objc_msgSend_count(v59, v60, v61, v62, v63);
+        v50 = objc_msgSend_count(v46, v47, v48, v49);
       }
 
-      while (!v64);
+      while (!v50);
     }
   }
 
-  return v6;
+  return v5;
 }
 
 - (unsigned)maxVisibleColumnLevel
 {
-  v6 = objc_msgSend_numberOfColumnLevels(self, a2, v2, v3, v4);
-  v11 = objc_msgSend_hiddenStates(self->super.super._tableInfo, v7, v8, v9, v10);
-  hasHiddenColumnsOrRows = objc_msgSend_hasHiddenColumnsOrRows(v11, v12, v13, v14, v15);
+  v5 = objc_msgSend_numberOfColumnLevels(self, a2, v2, v3);
+  v9 = objc_msgSend_hiddenStates(self->super.super._tableInfo, v6, v7, v8);
+  hasHiddenColumnsOrRows = objc_msgSend_hasHiddenColumnsOrRows(v9, v10, v11, v12);
 
   if (hasHiddenColumnsOrRows)
   {
-    v66.origin = objc_msgSend_bodyRange(self, v17, v18, v19, v20);
-    v66.size = v21;
-    v22 = MEMORY[0x277CCAB58];
-    v23 = TSUCellRect::columns(&v66);
-    v26 = objc_msgSend_indexSetWithIndexesInRange_(v22, v24, v23, v24, v25);
-    v31 = objc_msgSend_indexesForSummaryColumns(self->super.super._tableInfo, v27, v28, v29, v30);
-    objc_msgSend_removeIndexes_(v26, v32, v31, v33, v34);
+    v52.origin = objc_msgSend_bodyRange(self, v14, v15, v16);
+    v52.size = v17;
+    v18 = MEMORY[0x277CCAB58];
+    v19 = TSUCellRect::columns(&v52);
+    v21 = objc_msgSend_indexSetWithIndexesInRange_(v18, v20, v19, v20);
+    v25 = objc_msgSend_indexesForSummaryColumns(self->super.super._tableInfo, v22, v23, v24);
+    objc_msgSend_removeIndexes_(v21, v26, v25, v27);
 
-    v39 = objc_msgSend_hiddenStates(self->super.super._tableInfo, v35, v36, v37, v38);
-    v44 = objc_msgSend_hiddenColumnIndexes(v39, v40, v41, v42, v43);
+    v31 = objc_msgSend_hiddenStates(self->super.super._tableInfo, v28, v29, v30);
+    v35 = objc_msgSend_hiddenColumnIndexes(v31, v32, v33, v34);
 
-    objc_msgSend_removeIndexes_(v26, v45, v44, v46, v47);
-    if (!objc_msgSend_count(v26, v48, v49, v50, v51))
+    objc_msgSend_removeIndexes_(v21, v36, v35, v37);
+    if (!objc_msgSend_count(v21, v38, v39, v40))
     {
       do
       {
-        v55 = objc_msgSend_indexesForSummaryColumnsAtGroupLevel_(self, v52, --v6, v53, v54);
-        v59 = objc_msgSend_tsu_indexSetByExcludingIndexes_(v55, v56, v44, v57, v58);
+        v43 = objc_msgSend_indexesForSummaryColumnsAtGroupLevel_(self, v41, --v5, v42);
+        v46 = objc_msgSend_tsu_indexSetByExcludingIndexes_(v43, v44, v35, v45);
 
-        v64 = objc_msgSend_count(v59, v60, v61, v62, v63);
+        v50 = objc_msgSend_count(v46, v47, v48, v49);
       }
 
-      while (!v64);
+      while (!v50);
     }
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)summaryCellVendor
 {
-  v5 = objc_msgSend_summaryModel(self->super.super._tableInfo, a2, v2, v3, v4);
-  v10 = objc_msgSend_summaryCellVendor(v5, v6, v7, v8, v9);
+  v4 = objc_msgSend_summaryModel(self->super.super._tableInfo, a2, v2, v3);
+  v8 = objc_msgSend_summaryCellVendor(v4, v5, v6, v7);
 
-  return v10;
+  return v8;
 }
 
 - (id)aggregateFormulaOwner
 {
-  v5 = objc_msgSend_summaryModel(self->super.super._tableInfo, a2, v2, v3, v4);
-  v10 = objc_msgSend_aggregateFormulaOwner(v5, v6, v7, v8, v9);
+  v4 = objc_msgSend_summaryModel(self->super.super._tableInfo, a2, v2, v3);
+  v8 = objc_msgSend_aggregateFormulaOwner(v4, v5, v6, v7);
 
-  return v10;
+  return v8;
 }
 
 - (void)resetViewMapAndNotify
 {
-  objc_msgSend_resetViewMap(self, a2, v2, v3, v4);
-  v22 = objc_msgSend_threadCollector(MEMORY[0x277D80630], v6, v7, v8, v9);
-  v14 = objc_msgSend_range(self->super.super._tableInfo, v10, v11, v12, v13);
-  v16 = v15;
-  v17 = objc_msgSend_changeDescriptorWithType_cellRange_strokeRange_(TSTChangeDescriptor, v15, 29, v14, v15, v14, v15);
-  objc_msgSend_registerChange_details_forChangeSource_(v22, v18, 1, v17, self->super.super._tableInfo);
-  v20 = objc_msgSend_changeDescriptorWithType_cellRange_strokeRange_(TSTChangeDescriptor, v19, 7, v14, v16, v14, v16);
-  objc_msgSend_registerChange_details_forChangeSource_(v22, v21, 1, v20, self->super.super._tableInfo);
+  objc_msgSend_resetViewMap(self, a2, v2, v3);
+  v19 = objc_msgSend_threadCollector(MEMORY[0x277D80630], v5, v6, v7);
+  v11 = objc_msgSend_range(self->super.super._tableInfo, v8, v9, v10);
+  v13 = v12;
+  v14 = objc_msgSend_changeDescriptorWithType_cellRange_strokeRange_(TSTChangeDescriptor, v12, 29, v11, v12, v11, v12);
+  objc_msgSend_registerChange_details_forChangeSource_(v19, v15, 1, v14, self->super.super._tableInfo);
+  v17 = objc_msgSend_changeDescriptorWithType_cellRange_strokeRange_(TSTChangeDescriptor, v16, 7, v11, v13, v11, v13);
+  objc_msgSend_registerChange_details_forChangeSource_(v19, v18, 1, v17, self->super.super._tableInfo);
 }
 
 - (void)resetViewMap
 {
-  v6 = objc_msgSend_viewMap(self, a2, v2, v3, v4);
-  v11 = objc_msgSend_baseMap(self, v7, v8, v9, v10);
+  v5 = objc_msgSend_viewMap(self, a2, v2, v3);
+  v9 = objc_msgSend_baseMap(self, v6, v7, v8);
 
-  if (v6 == v11)
+  if (v5 == v9)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSTPivotTranslator resetViewMap]", v13, v14);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPivotTranslator.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 234, 0, "view and base cannot be the same for a pivot table");
+    v12 = MEMORY[0x277D81150];
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSTPivotTranslator resetViewMap]", v11);
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPivotTranslator.mm", v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v17, v13, v16, 234, 0, "view and base cannot be the same for a pivot table");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19, v20);
   }
 
-  v26 = self->super.super._tableInfo;
-  v31 = objc_msgSend_baseTableModel(v26, v27, v28, v29, v30);
-  if (objc_msgSend_isEmptyPivot(v26, v32, v33, v34, v35))
+  v21 = self->super.super._tableInfo;
+  v25 = objc_msgSend_baseTableModel(v21, v22, v23, v24);
+  if (objc_msgSend_isEmptyPivot(v21, v26, v27, v28))
   {
-    v40 = objc_msgSend_viewMap(self, v36, v37, v38, v39);
-    v45 = objc_msgSend_baseMap(self, v41, v42, v43, v44);
-    v50 = objc_msgSend_rowUIDs(v45, v46, v47, v48, v49);
-    objc_msgSend_replaceRowsWithUids_(v40, v51, v50, v52, v53);
+    v32 = objc_msgSend_viewMap(self, v29, v30, v31);
+    v36 = objc_msgSend_baseMap(self, v33, v34, v35);
+    v40 = objc_msgSend_rowUIDs(v36, v37, v38, v39);
+    objc_msgSend_replaceRowsWithUids_(v32, v41, v40, v42);
 
-    v58 = objc_msgSend_viewMap(self, v54, v55, v56, v57);
-    v63 = objc_msgSend_baseMap(self, v59, v60, v61, v62);
-    v68 = objc_msgSend_columnUIDs(v63, v64, v65, v66, v67);
-    objc_msgSend_replaceColumnsWithUids_(v58, v69, v68, v70, v71);
+    v46 = objc_msgSend_viewMap(self, v43, v44, v45);
+    v50 = objc_msgSend_baseMap(self, v47, v48, v49);
+    v54 = objc_msgSend_columnUIDs(v50, v51, v52, v53);
+    objc_msgSend_replaceColumnsWithUids_(v46, v55, v54, v56);
   }
 
   else
   {
-    v72 = objc_msgSend_pivotOwner(v31, v36, v37, v38, v39);
-    v58 = objc_msgSend_groupBySet(v72, v73, v74, v75, v76);
+    v57 = objc_msgSend_pivotOwner(v25, v29, v30, v31);
+    v46 = objc_msgSend_groupBySet(v57, v58, v59, v60);
 
-    v81 = objc_msgSend_pivotOrder(v26, v77, v78, v79, v80);
-    v63 = v81;
-    if (v81)
+    v64 = objc_msgSend_pivotOrder(v21, v61, v62, v63);
+    v50 = v64;
+    if (v64)
     {
-      objc_msgSend_orderedUidsForDimension_(v81, v82, 0, v84, v85);
-      objc_msgSend_orderedUidsForDimension_(v63, v86, 1, v87, v88);
+      objc_msgSend_orderedUidsForDimension_(v64, v65, 0, v67);
+      objc_msgSend_orderedUidsForDimension_(v50, v68, 1, v69);
     }
 
     else
     {
-      v155 = 0;
-      v156 = 0;
-      v157 = 0;
-      v152 = 0;
-      v153 = 0;
-      v154 = 0;
+      v124 = 0;
+      v125 = 0;
+      v126 = 0;
+      v121 = 0;
+      v122 = 0;
+      v123 = 0;
     }
 
-    if (objc_msgSend_activeFlatteningDimension(v58, v82, v83, v84, v85))
+    if (objc_msgSend_activeFlatteningDimension(v46, v65, v66, v67))
     {
-      v93 = objc_msgSend_viewMap(self, v89, v90, v91, v92);
-      objc_msgSend_replaceRowsWithUids_(v93, v94, &v155, v95, v96);
+      v73 = objc_msgSend_viewMap(self, v70, v71, v72);
+      objc_msgSend_replaceRowsWithUids_(v73, v74, &v124, v75);
     }
 
     else
     {
-      v101 = objc_msgSend_numberOfHeaderRows(v31, v89, v90, v91, v92);
+      v79 = objc_msgSend_numberOfHeaderRows(v25, v70, v71, v72);
       __dst = 0;
-      v151 = 0;
+      v120 = 0;
       __p = 0;
-      sub_221086EBC(&__p, v155, v155 + 16 * v101, v101);
-      v106 = (v156 - v155) >> 4;
-      v107 = v106 - v101;
-      if (v106 > v101)
+      sub_221086EBC(&__p, v124, v124 + 16 * v79, v79);
+      v83 = (v125 - v124) >> 4;
+      v84 = v83 - v79;
+      if (v83 > v79)
       {
-        v108 = 16 * v101;
+        v85 = 16 * v79;
         do
         {
-          v109 = objc_msgSend_rowUidsForRowGroupUid_(v58, v102, v155 + v108, v104, v105);
-          sub_2210F0C88(&__p, __dst, *v109, v109[1], (v109[1] - *v109) >> 4);
-          v108 += 16;
-          --v107;
+          v86 = objc_msgSend_rowUidsForRowGroupUid_(v46, v80, v124 + v85, v82);
+          sub_2210F0C88(&__p, __dst, *v86, v86[1], (v86[1] - *v86) >> 4);
+          v85 += 16;
+          --v84;
         }
 
-        while (v107);
+        while (v84);
       }
 
-      v110 = objc_msgSend_viewMap(self, v102, v103, v104, v105);
-      objc_msgSend_replaceRowsWithUids_(v110, v111, &__p, v112, v113);
+      v87 = objc_msgSend_viewMap(self, v80, v81, v82);
+      objc_msgSend_replaceRowsWithUids_(v87, v88, &__p, v89);
 
       if (__p)
       {
@@ -377,31 +377,31 @@
       }
     }
 
-    if (objc_msgSend_activeFlatteningDimension(v58, v97, v98, v99, v100) == 1)
+    if (objc_msgSend_activeFlatteningDimension(v46, v76, v77, v78) == 1)
     {
-      v118 = objc_msgSend_numberOfHeaderColumns(v31, v114, v115, v116, v117);
+      v93 = objc_msgSend_numberOfHeaderColumns(v25, v90, v91, v92);
       __dst = 0;
-      v151 = 0;
+      v120 = 0;
       __p = 0;
-      sub_221086EBC(&__p, v152, v152 + 16 * v118, v118);
-      v123 = (v153 - v152) >> 4;
-      v124 = v123 - v118;
-      if (v123 > v118)
+      sub_221086EBC(&__p, v121, v121 + 16 * v93, v93);
+      v97 = (v122 - v121) >> 4;
+      v98 = v97 - v93;
+      if (v97 > v93)
       {
-        v125 = 16 * v118;
+        v99 = 16 * v93;
         do
         {
-          v126 = objc_msgSend_columnUidsForColumnGroupUid_(v58, v119, v152 + v125, v121, v122);
-          sub_2210F0C88(&__p, __dst, *v126, v126[1], (v126[1] - *v126) >> 4);
-          v125 += 16;
-          --v124;
+          v100 = objc_msgSend_columnUidsForColumnGroupUid_(v46, v94, v121 + v99, v96);
+          sub_2210F0C88(&__p, __dst, *v100, v100[1], (v100[1] - *v100) >> 4);
+          v99 += 16;
+          --v98;
         }
 
-        while (v124);
+        while (v98);
       }
 
-      v127 = objc_msgSend_viewMap(self, v119, v120, v121, v122);
-      objc_msgSend_replaceColumnsWithUids_(v127, v128, &__p, v129, v130);
+      v101 = objc_msgSend_viewMap(self, v94, v95, v96);
+      objc_msgSend_replaceColumnsWithUids_(v101, v102, &__p, v103);
 
       if (__p)
       {
@@ -412,27 +412,27 @@
 
     else
     {
-      v131 = objc_msgSend_viewMap(self, v114, v115, v116, v117);
-      objc_msgSend_replaceColumnsWithUids_(v131, v132, &v152, v133, v134);
+      v104 = objc_msgSend_viewMap(self, v90, v91, v92);
+      objc_msgSend_replaceColumnsWithUids_(v104, v105, &v121, v106);
     }
 
-    if (v152)
+    if (v121)
     {
-      v153 = v152;
-      operator delete(v152);
+      v122 = v121;
+      operator delete(v121);
     }
 
-    if (v155)
+    if (v124)
     {
-      v156 = v155;
-      operator delete(v155);
+      v125 = v124;
+      operator delete(v124);
     }
   }
 
-  v139 = objc_msgSend_hiddenStates(self->super.super._tableInfo, v135, v136, v137, v138);
-  objc_msgSend_invalidateViewGeometry(v139, v140, v141, v142, v143);
+  v110 = objc_msgSend_hiddenStates(self->super.super._tableInfo, v107, v108, v109);
+  objc_msgSend_invalidateViewGeometry(v110, v111, v112, v113);
 
-  objc_msgSend_flushCachedIndexSets(self, v144, v145, v146, v147);
+  objc_msgSend_flushCachedIndexSets(self, v114, v115, v116);
   coordMapper = self->super.super._coordMapper;
   self->super.super._coordMapper = 0;
 }
@@ -447,90 +447,90 @@
     if (!self->super.super._coordMapper)
     {
       v5 = [TSCECoordMapper alloc];
-      v10 = objc_msgSend_tableUID(selfCopy->super.super._tableInfo, v6, v7, v8, v9);
-      v15 = objc_msgSend_indexesForSummaryColumns(selfCopy, v11, v12, v13, v14, v10, v11);
-      v20 = objc_msgSend_indexesForSummaryRows(selfCopy, v16, v17, v18, v19);
-      v22 = objc_msgSend_initWithTableUID_summaryColumns_summaryRows_labelRows_(v5, v21, &v95, v15, v20, 0);
+      v9 = objc_msgSend_tableUID(selfCopy->super.super._tableInfo, v6, v7, v8);
+      v13 = objc_msgSend_indexesForSummaryColumns(selfCopy, v10, v11, v12, v9, v10);
+      v17 = objc_msgSend_indexesForSummaryRows(selfCopy, v14, v15, v16);
+      v19 = objc_msgSend_initWithTableUID_summaryColumns_summaryRows_labelRows_(v5, v18, &v78, v13, v17, 0);
 
-      objc_msgSend_setChromeCoordsAreViewCoords_(v22, v23, 1, v24, v25);
-      v30 = objc_msgSend_viewMap(selfCopy, v26, v27, v28, v29);
-      v35 = objc_msgSend_baseMap(selfCopy, v31, v32, v33, v34);
-      v40 = objc_msgSend_rowUIDs(v35, v36, v37, v38, v39);
+      objc_msgSend_setChromeCoordsAreViewCoords_(v19, v20, 1, v21);
+      v25 = objc_msgSend_viewMap(selfCopy, v22, v23, v24);
+      v29 = objc_msgSend_baseMap(selfCopy, v26, v27, v28);
+      v33 = objc_msgSend_rowUIDs(v29, v30, v31, v32);
 
-      v46 = *v40;
-      v45 = *(v40 + 8);
-      if (v46 != v45)
+      v38 = *v33;
+      v37 = *(v33 + 8);
+      if (v38 != v37)
       {
-        v47 = 0;
+        v39 = 0;
         do
         {
-          v48 = objc_msgSend_rowIndexForRowUID_(v30, v41, *v46, v46[1], v44);
-          objc_msgSend_mapBaseRow_toViewRow_(v22, v49, v47, v48, v50);
-          v47 = (v47 + 1);
-          v46 += 2;
+          v40 = objc_msgSend_rowIndexForRowUID_(v25, v34, *v38, v38[1]);
+          objc_msgSend_mapBaseRow_toViewRow_(v19, v41, v39, v40);
+          v39 = (v39 + 1);
+          v38 += 2;
         }
 
-        while (v46 != v45);
+        while (v38 != v37);
       }
 
-      v51 = objc_msgSend_baseMap(selfCopy, v41, v42, v43, v44);
-      v56 = objc_msgSend_columnUIDs(v51, v52, v53, v54, v55);
+      v42 = objc_msgSend_baseMap(selfCopy, v34, v35, v36);
+      v46 = objc_msgSend_columnUIDs(v42, v43, v44, v45);
 
-      v61 = *v56;
-      v62 = *(v56 + 8);
-      if (v61 != v62)
+      v50 = *v46;
+      v51 = *(v46 + 8);
+      if (v50 != v51)
       {
-        v63 = 0;
+        v52 = 0;
         do
         {
-          v64 = objc_msgSend_columnIndexForColumnUID_(v30, v57, *v61, v61[1], v60);
-          objc_msgSend_mapBaseColumn_toViewColumn_(v22, v65, v63++, v64, v66);
-          v61 += 2;
+          v53 = objc_msgSend_columnIndexForColumnUID_(v25, v47, *v50, v50[1]);
+          objc_msgSend_mapBaseColumn_toViewColumn_(v19, v54, v52++, v53);
+          v50 += 2;
         }
 
-        while (v61 != v62);
+        while (v50 != v51);
       }
 
-      v67 = objc_msgSend_summaryMap(selfCopy, v57, v58, v59, v60);
-      v72 = v67;
-      if (v67)
+      v55 = objc_msgSend_summaryMap(selfCopy, v47, v48, v49);
+      v59 = v55;
+      if (v55)
       {
-        v73 = objc_msgSend_rowUIDs(v67, v68, v69, v70, v71);
-        v78 = *v73;
-        v79 = *(v73 + 8);
-        if (*v73 != v79)
+        v60 = objc_msgSend_rowUIDs(v55, v56, v57, v58);
+        v64 = *v60;
+        v65 = *(v60 + 8);
+        if (*v60 != v65)
         {
-          v80 = 0;
+          v66 = 0;
           do
           {
-            v81 = objc_msgSend_rowIndexForRowUID_(v30, v74, *v78, v78[1], v77);
-            objc_msgSend_mapSummaryRow_toViewRow_(v22, v82, v80, v81, v83);
-            v80 = (v80 + 1);
-            v78 += 2;
+            v67 = objc_msgSend_rowIndexForRowUID_(v25, v61, *v64, v64[1]);
+            objc_msgSend_mapSummaryRow_toViewRow_(v19, v68, v66, v67);
+            v66 = (v66 + 1);
+            v64 += 2;
           }
 
-          while (v78 != v79);
+          while (v64 != v65);
         }
 
-        v84 = objc_msgSend_columnUIDs(v72, v74, v75, v76, v77);
-        v87 = *v84;
-        v88 = *(v84 + 8);
-        if (*v84 != v88)
+        v69 = objc_msgSend_columnUIDs(v59, v61, v62, v63);
+        v71 = *v69;
+        v72 = *(v69 + 8);
+        if (*v69 != v72)
         {
-          v89 = 0;
+          v73 = 0;
           do
           {
-            v90 = objc_msgSend_columnIndexForColumnUID_(v30, v85, *v87, v87[1], v86);
-            objc_msgSend_mapSummaryColumn_toViewColumn_(v22, v91, v89++, v90, v92);
-            v87 += 2;
+            v74 = objc_msgSend_columnIndexForColumnUID_(v25, v70, *v71, v71[1]);
+            objc_msgSend_mapSummaryColumn_toViewColumn_(v19, v75, v73++, v74);
+            v71 += 2;
           }
 
-          while (v87 != v88);
+          while (v71 != v72);
         }
       }
 
-      v93 = self->super.super._coordMapper;
-      self->super.super._coordMapper = v22;
+      v76 = self->super.super._coordMapper;
+      self->super.super._coordMapper = v19;
     }
 
     objc_sync_exit(selfCopy);
@@ -544,143 +544,143 @@
 - (unint64_t)tableStyleAreaForCellUID:(TSKUIDStructCoord *)d
 {
   row = d->_row;
-  v13[0] = d->_column;
-  v13[1] = row;
-  v8 = objc_msgSend_viewCellCoordForCellUID_(self, a2, v13, v3, v4);
-  if (v8 == 0x7FFFFFFF || (v8 & 0xFFFF00000000) == 0x7FFF00000000)
+  v11[0] = d->_column;
+  v11[1] = row;
+  v7 = objc_msgSend_viewCellCoordForCellUID_(self, a2, v11, v3);
+  if (v7 == 0x7FFFFFFF || (v7 & 0xFFFF00000000) == 0x7FFF00000000)
   {
     return 1;
   }
 
   else
   {
-    return objc_msgSend_tableStyleAreaForCellID_(self, v7, v8, v9, v10);
+    return objc_msgSend_tableStyleAreaForCellID_(self, v6, v7, v8);
   }
 }
 
 - (unint64_t)tableStyleAreaForCellID:(TSUViewCellCoord)d
 {
-  if (objc_msgSend_isEmptyPivot(self->super.super._tableInfo, a2, *&d, v3, v4))
+  if (objc_msgSend_isEmptyPivot(self->super.super._tableInfo, a2, *&d, v3))
   {
     baseTableModel = self->super.super._baseTableModel;
-    v12 = objc_msgSend_baseCellCoordForViewCellCoord_(self, v7, *&d, v8, v9);
+    v10 = objc_msgSend_baseCellCoordForViewCellCoord_(self, v6, *&d, v7);
 
-    return objc_msgSend_tableStyleAreaForBaseCellCoord_(baseTableModel, v11, v12, v13, v14);
+    return objc_msgSend_tableStyleAreaForBaseCellCoord_(baseTableModel, v9, v10, v11);
   }
 
   else
   {
-    v16 = objc_msgSend_p_columnRowTypeForColumnIndex_(self, v7, d._coord.column, v8, v9);
-    v20 = objc_msgSend_p_columnRowTypeForRowIndex_(self, v17, d._coord.row, v18, v19);
+    v13 = objc_msgSend_p_columnRowTypeForColumnIndex_(self, v6, d._coord.column, v7);
+    v16 = objc_msgSend_p_columnRowTypeForRowIndex_(self, v14, d._coord.row, v15);
 
-    return MEMORY[0x2821F9670](TSTTableStyleNetwork, sel_styleAreaForColumnType_rowType_forAPivotTable_, v16, v20, 1);
+    return MEMORY[0x2821F9670](TSTTableStyleNetwork, sel_styleAreaForColumnType_rowType_forAPivotTable_, v13, v16);
   }
 }
 
 - (unsigned)p_columnRowTypeForColumnIndex:(TSUViewColumnIndex)index
 {
-  v7 = objc_msgSend_numberOfHeaderColumns(self, a2, *&index.var0, v3, v4);
+  v6 = objc_msgSend_numberOfHeaderColumns(self, a2, *&index.var0, v3);
   var0 = index.var0;
-  if (v7 <= index.var0)
+  if (v6 <= index.var0)
   {
-    v13 = objc_msgSend_columnGroupLevelAtColumn_outAggregateIndex_(self, index.var0, index.var0, 0, v10);
-    if (v13)
+    v11 = objc_msgSend_columnGroupLevelAtColumn_outAggregateIndex_(self, index.var0, index.var0, 0);
+    if (v11)
     {
-      v15 = v13;
-      v16 = v13;
-      v17 = objc_msgSend_numberOfColumnLevels(self, v14, v8, v9, v10);
-      if (v17 <= v15)
+      v13 = v11;
+      v14 = v11;
+      v15 = objc_msgSend_numberOfColumnLevels(self, v12, v7, v8);
+      if (v15 <= v13)
       {
         var0 = 0;
       }
 
       else
       {
-        var0 = v16;
+        var0 = v14;
       }
 
-      if (v17 <= v15)
+      if (v15 <= v13)
       {
-        v12 = 0;
+        v10 = 0;
       }
 
       else
       {
-        v12 = 3;
+        v10 = 3;
       }
     }
 
     else
     {
       var0 = 0;
-      v12 = 6;
+      v10 = 6;
     }
   }
 
   else
   {
-    v12 = 1;
+    v10 = 1;
   }
 
-  return sub_221132E08(v12, var0, v8, v9, v10);
+  return sub_221132E08(v10, var0, v7, v8);
 }
 
 - (unsigned)p_columnRowTypeForRowIndex:(TSUViewRowIndex)index
 {
-  v7 = objc_msgSend_numberOfHeaderRows(self, a2, *&index.var0, v3, v4);
+  v6 = objc_msgSend_numberOfHeaderRows(self, a2, *&index.var0, v3);
   var0 = index.var0;
-  if (v7 <= index.var0)
+  if (v6 <= index.var0)
   {
-    v13 = objc_msgSend_rowGroupLevelAtRow_outAggregateIndex_(self, index.var0, index.var0, 0, v10);
-    if (v13)
+    v11 = objc_msgSend_rowGroupLevelAtRow_outAggregateIndex_(self, index.var0, index.var0, 0);
+    if (v11)
     {
-      v15 = v13;
-      v16 = v13;
-      v17 = objc_msgSend_numberOfRowLevels(self, v14, v8, v9, v10);
-      if (v17 <= v15)
+      v13 = v11;
+      v14 = v11;
+      v15 = objc_msgSend_numberOfRowLevels(self, v12, v7, v8);
+      if (v15 <= v13)
       {
         var0 = 0;
       }
 
       else
       {
-        var0 = v16;
+        var0 = v14;
       }
 
-      if (v17 <= v15)
+      if (v15 <= v13)
       {
-        v12 = 0;
+        v10 = 0;
       }
 
       else
       {
-        v12 = 3;
+        v10 = 3;
       }
     }
 
     else
     {
       var0 = 0;
-      v12 = 6;
+      v10 = 6;
     }
   }
 
   else
   {
-    v12 = 1;
+    v10 = 1;
   }
 
-  return sub_221132E08(v12, var0, v8, v9, v10);
+  return sub_221132E08(v10, var0, v7, v8);
 }
 
 - (unint64_t)tableStyleAreaForRow:(TSUViewRowIndex)row
 {
-  v5 = MEMORY[0x277D81150];
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTPivotTranslator tableStyleAreaForRow:]", v3, v4);
-  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPivotTranslator.mm", v8, v9);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v11, v6, v10, 411, 0, "Unimplemented for pivot tables, because it doesn't make sense.");
+  v4 = MEMORY[0x277D81150];
+  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTPivotTranslator tableStyleAreaForRow:]", v3);
+  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPivotTranslator.mm", v7);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v9, v5, v8, 411, 0, "Unimplemented for pivot tables, because it doesn't make sense.");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14, v15);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11, v12);
   return 1;
 }
 
@@ -692,13 +692,13 @@
     {
       if (area == 16)
       {
-        v6 = objc_msgSend_indexesForSummaryColumnsFromGroupLevel_toGroupLevel_(self->super.super._tableInfo, a2, 1, 5, v4);
-        v138.origin = objc_msgSend_bodyRange(self, v120, v121, v122, v123);
-        v138.size = v124;
-        v125 = TSUCellRect::rows(&v138);
-        v14 = objc_msgSend_regionFromColumnIndices_rowRange_(TSTCellRegion, v126, v6, v125, v126);
-        v18 = objc_msgSend_indexesForSummaryRows(self, v127, v128, v129, v130);
-        v22 = objc_msgSend_regionBySubtractingRowIndexes_(v14, v131, v18, v132, v133);
+        v5 = objc_msgSend_indexesForSummaryColumnsFromGroupLevel_toGroupLevel_(self->super.super._tableInfo, a2, 1, 5);
+        v108.origin = objc_msgSend_bodyRange(self, v94, v95, v96);
+        v108.size = v97;
+        v98 = TSUCellRect::rows(&v108);
+        v12 = objc_msgSend_regionFromColumnIndices_rowRange_(TSTCellRegion, v99, v5, v98, v99);
+        v15 = objc_msgSend_indexesForSummaryRows(self, v100, v101, v102);
+        v18 = objc_msgSend_regionBySubtractingRowIndexes_(v12, v103, v15, v104);
         goto LABEL_17;
       }
 
@@ -707,19 +707,19 @@
         goto LABEL_14;
       }
 
-      v64 = MEMORY[0x277CCAA78];
-      v138.origin = objc_msgSend_headerColumnRange(self, a2, 17, v3, v4);
-      v138.size = v65;
-      v66 = TSUCellRect::columns(&v138);
-      v69 = objc_msgSend_indexSetWithIndexesInRange_(v64, v67, v66, v67, v68);
-      v73 = objc_msgSend_indexesForSummaryColumnsAtGroupLevel_(self->super.super._tableInfo, v70, 0, v71, v72);
-      v6 = objc_msgSend_tsu_indexSetByAddingIndexes_(v69, v74, v73, v75, v76);
+      v51 = MEMORY[0x277CCAA78];
+      v108.origin = objc_msgSend_headerColumnRange(self, a2, 17, v3);
+      v108.size = v52;
+      v53 = TSUCellRect::columns(&v108);
+      v55 = objc_msgSend_indexSetWithIndexesInRange_(v51, v54, v53, v54);
+      v58 = objc_msgSend_indexesForSummaryColumnsAtGroupLevel_(self->super.super._tableInfo, v56, 0, v57);
+      v5 = objc_msgSend_tsu_indexSetByAddingIndexes_(v55, v59, v58, v60);
 
-      v79 = objc_msgSend_indexesForSummaryRowsFromGroupLevel_toGroupLevel_(self->super.super._tableInfo, v77, 1, 5, v78);
-      v82 = objc_msgSend_regionFromColumnIndexes_rowIndexes_(TSTCellRegion, v80, v6, v79, v81);
-      v85 = objc_msgSend_indexesForSummaryRowsFromGroupLevel_toGroupLevel_(self->super.super._tableInfo, v83, 2, 5, v84);
-      v87 = objc_msgSend_regionFromRowIndices_columnRange_(TSTCellRegion, v86, v85, 0, 1);
-      v63 = objc_msgSend_regionBySubtractingRegion_(v82, v88, v87, v89, v90);
+      v62 = objc_msgSend_indexesForSummaryRowsFromGroupLevel_toGroupLevel_(self->super.super._tableInfo, v61, 1, 5);
+      v64 = objc_msgSend_regionFromColumnIndexes_rowIndexes_(TSTCellRegion, v63, v5, v62);
+      v66 = objc_msgSend_indexesForSummaryRowsFromGroupLevel_toGroupLevel_(self->super.super._tableInfo, v65, 2, 5);
+      v68 = objc_msgSend_regionFromRowIndices_columnRange_(TSTCellRegion, v67, v66, 0, 1);
+      v50 = objc_msgSend_regionBySubtractingRegion_(v64, v69, v68, v70);
     }
 
     else
@@ -728,15 +728,15 @@
       {
         if (area == 15)
         {
-          v6 = objc_msgSend_indexesForSummaryRowsFromGroupLevel_toGroupLevel_(self->super.super._tableInfo, a2, 1, 5, v4);
-          v138.origin = objc_msgSend_bodyRange(self, v7, v8, v9, v10);
-          v138.size = v11;
-          v12 = TSUCellRect::columns(&v138);
-          v14 = objc_msgSend_regionFromRowIndices_columnRange_(TSTCellRegion, v13, v6, v12, v13);
-          v18 = objc_msgSend_indexesForSummaryColumnsAtGroupLevel_(self->super.super._tableInfo, v15, 0, v16, v17);
-          v22 = objc_msgSend_regionBySubtractingColumnIndexes_(v14, v19, v18, v20, v21);
+          v5 = objc_msgSend_indexesForSummaryRowsFromGroupLevel_toGroupLevel_(self->super.super._tableInfo, a2, 1, 5);
+          v108.origin = objc_msgSend_bodyRange(self, v6, v7, v8);
+          v108.size = v9;
+          v10 = TSUCellRect::columns(&v108);
+          v12 = objc_msgSend_regionFromRowIndices_columnRange_(TSTCellRegion, v11, v5, v10, v11);
+          v15 = objc_msgSend_indexesForSummaryColumnsAtGroupLevel_(self->super.super._tableInfo, v13, 0, v14);
+          v18 = objc_msgSend_regionBySubtractingColumnIndexes_(v12, v16, v15, v17);
 LABEL_17:
-          v63 = v22;
+          v50 = v18;
 
           goto LABEL_18;
         }
@@ -744,11 +744,11 @@ LABEL_17:
         goto LABEL_14;
       }
 
-      v6 = objc_msgSend_indexesForSummaryRowsAtGroupLevel_(self->super.super._tableInfo, a2, 0, v3, v4);
-      v138.origin = objc_msgSend_range(self, v113, v114, v115, v116);
-      v138.size = v117;
-      v118 = TSUCellRect::columns(&v138);
-      v63 = objc_msgSend_regionFromRowIndices_columnRange_(TSTCellRegion, v119, v6, v118, v119);
+      v5 = objc_msgSend_indexesForSummaryRowsAtGroupLevel_(self->super.super._tableInfo, a2, 0, v3);
+      v108.origin = objc_msgSend_range(self, v88, v89, v90);
+      v108.size = v91;
+      v92 = TSUCellRect::columns(&v108);
+      v50 = objc_msgSend_regionFromRowIndices_columnRange_(TSTCellRegion, v93, v5, v92, v93);
     }
 
 LABEL_19:
@@ -759,67 +759,67 @@ LABEL_19:
   switch(area)
   {
     case 1uLL:
-      v91 = objc_msgSend_bodyRange(self, a2, 1, v3, v4);
-      v94 = objc_msgSend_regionFromRange_(TSTCellRegion, v92, v91, v92, v93);
-      v99 = objc_msgSend_indexesForSummaryColumns(self, v95, v96, v97, v98);
-      v103 = objc_msgSend_regionBySubtractingColumnIndexes_(v94, v100, v99, v101, v102);
+      v71 = objc_msgSend_bodyRange(self, a2, 1, v3);
+      v73 = objc_msgSend_regionFromRange_(TSTCellRegion, v72, v71, v72);
+      v77 = objc_msgSend_indexesForSummaryColumns(self, v74, v75, v76);
+      v80 = objc_msgSend_regionBySubtractingColumnIndexes_(v73, v78, v77, v79);
 
-      v108 = objc_msgSend_indexesForSummaryRows(self, v104, v105, v106, v107);
-      v63 = objc_msgSend_regionBySubtractingRowIndexes_(v103, v109, v108, v110, v111);
+      v84 = objc_msgSend_indexesForSummaryRows(self, v81, v82, v83);
+      v50 = objc_msgSend_regionBySubtractingRowIndexes_(v80, v85, v84, v86);
 
       goto LABEL_22;
     case 2uLL:
-      v134 = objc_msgSend_headerRowRange(self, a2, 2, v3, v4);
-      v112 = objc_msgSend_regionFromRange_(TSTCellRegion, v135, v134, v135, v136);
+      v105 = objc_msgSend_headerRowRange(self, a2, 2, v3);
+      v87 = objc_msgSend_regionFromRange_(TSTCellRegion, v106, v105, v106);
       goto LABEL_21;
     case 3uLL:
-      v23 = MEMORY[0x277CCAA78];
-      v138.origin = objc_msgSend_headerColumnRange(self, a2, 3, v3, v4);
-      v138.size = v24;
-      v25 = TSUCellRect::columns(&v138);
-      v28 = objc_msgSend_indexSetWithIndexesInRange_(v23, v26, v25, v26, v27);
-      v32 = objc_msgSend_indexesForSummaryColumnsAtGroupLevel_(self->super.super._tableInfo, v29, 0, v30, v31);
-      v6 = objc_msgSend_tsu_indexSetByAddingIndexes_(v28, v33, v32, v34, v35);
+      v19 = MEMORY[0x277CCAA78];
+      v108.origin = objc_msgSend_headerColumnRange(self, a2, 3, v3);
+      v108.size = v20;
+      v21 = TSUCellRect::columns(&v108);
+      v23 = objc_msgSend_indexSetWithIndexesInRange_(v19, v22, v21, v22);
+      v26 = objc_msgSend_indexesForSummaryColumnsAtGroupLevel_(self->super.super._tableInfo, v24, 0, v25);
+      v5 = objc_msgSend_tsu_indexSetByAddingIndexes_(v23, v27, v26, v28);
 
-      v138.origin = objc_msgSend_bodyRange(self, v36, v37, v38, v39);
-      v138.size = v40;
-      v41 = TSUCellRect::rows(&v138);
-      v43 = objc_msgSend_regionFromColumnIndices_rowRange_(TSTCellRegion, v42, v6, v41, v42);
-      v46 = objc_msgSend_indexesForSummaryRowsFromGroupLevel_toGroupLevel_(self->super.super._tableInfo, v44, 2, 5, v45);
-      v51 = objc_msgSend_numberOfColumns(self, v47, v48, v49, v50);
-      v53 = objc_msgSend_regionFromRowIndices_columnRange_(TSTCellRegion, v52, v46, 1, v51);
-      v57 = objc_msgSend_regionBySubtractingRegion_(v43, v54, v53, v55, v56);
+      v108.origin = objc_msgSend_bodyRange(self, v29, v30, v31);
+      v108.size = v32;
+      v33 = TSUCellRect::rows(&v108);
+      v35 = objc_msgSend_regionFromColumnIndices_rowRange_(TSTCellRegion, v34, v5, v33, v34);
+      v37 = objc_msgSend_indexesForSummaryRowsFromGroupLevel_toGroupLevel_(self->super.super._tableInfo, v36, 2, 5);
+      v41 = objc_msgSend_numberOfColumns(self, v38, v39, v40);
+      v43 = objc_msgSend_regionFromRowIndices_columnRange_(TSTCellRegion, v42, v37, 1, v41);
+      v46 = objc_msgSend_regionBySubtractingRegion_(v35, v44, v43, v45);
 
-      v18 = objc_msgSend_indexesForSummaryRowsFromGroupLevel_toGroupLevel_(self->super.super._tableInfo, v58, 0, 1, v59);
-      v63 = objc_msgSend_regionBySubtractingRowIndexes_(v57, v60, v18, v61, v62);
+      v15 = objc_msgSend_indexesForSummaryRowsFromGroupLevel_toGroupLevel_(self->super.super._tableInfo, v47, 0, 1);
+      v50 = objc_msgSend_regionBySubtractingRowIndexes_(v46, v48, v15, v49);
 
 LABEL_18:
       goto LABEL_19;
   }
 
 LABEL_14:
-  v112 = objc_msgSend_invalidRegion(TSTCellRegion, a2, area, v3, v4);
+  v87 = objc_msgSend_invalidRegion(TSTCellRegion, a2, area, v3);
 LABEL_21:
-  v63 = v112;
+  v50 = v87;
 LABEL_22:
 
-  return v63;
+  return v50;
 }
 
 - (TSUViewColumnIndex)numberOfGrandTotalColumns
 {
-  v5 = objc_msgSend_indexesForGrandTotalColumns(self, a2, v2, v3, v4);
-  v10.var0 = objc_msgSend_count(v5, v6, v7, v8, v9);
+  v4 = objc_msgSend_indexesForGrandTotalColumns(self, a2, v2, v3);
+  v8.var0 = objc_msgSend_count(v4, v5, v6, v7);
 
-  return v10;
+  return v8;
 }
 
 - (TSUViewRowIndex)numberOfFooterOrGrandTotalRows
 {
-  v5 = objc_msgSend_indexesForGrandTotalRows(self, a2, v2, v3, v4);
-  v10.var0 = objc_msgSend_count(v5, v6, v7, v8, v9);
+  v4 = objc_msgSend_indexesForGrandTotalRows(self, a2, v2, v3);
+  v8.var0 = objc_msgSend_count(v4, v5, v6, v7);
 
-  return v10;
+  return v8;
 }
 
 - (unsigned)cellValueTypeAtCellID:(TSUViewCellCoord)d
@@ -852,34 +852,34 @@ LABEL_22:
   blockCopy = block;
   usingBlockCopy = usingBlock;
   boundsUsingBlockCopy = boundsUsingBlock;
-  v17 = objc_msgSend_viewMap(self, v13, v14, v15, v16);
-  v21 = objc_msgSend_rowUIDForRowIndex_(v17, v18, v8, v19, v20);
-  v23 = v22;
-  v46[0] = v21;
-  v46[1] = v22;
+  v16 = objc_msgSend_viewMap(self, v13, v14, v15);
+  v19 = objc_msgSend_rowUIDForRowIndex_(v16, v17, v8, v18);
+  v21 = v20;
+  v39[0] = v19;
+  v39[1] = v20;
 
-  if (!(v21 | v23))
+  if (!(v19 | v21))
   {
     goto LABEL_5;
   }
 
-  v28 = objc_msgSend_baseMap(self, v24, v25, v26, v27);
-  v45 = objc_msgSend_rowIndexForRowUID_(v28, v29, v21, v23, v30);
+  v25 = objc_msgSend_baseMap(self, v22, v23, v24);
+  v38 = objc_msgSend_rowIndexForRowUID_(v25, v26, v19, v21);
 
-  if (v45 != 0x7FFFFFFF)
+  if (v38 != 0x7FFFFFFF)
   {
-    usingBlockCopy[2](usingBlockCopy, &v45, v46);
+    usingBlockCopy[2](usingBlockCopy, &v38, v39);
     goto LABEL_7;
   }
 
-  v35 = objc_msgSend_groupByForRows(self, v31, v32, v33, v34);
-  v36 = sub_2211A8DC8(v21, v23);
-  v39 = objc_msgSend_groupNodeForGroupUid_(v35, v37, v36, v37, v38);
+  v30 = objc_msgSend_groupByForRows(self, v27, v28, v29);
+  v31 = sub_2211A8DC8(v19, v21);
+  v33 = objc_msgSend_groupNodeForGroupUid_(v30, v32, v31, v32);
 
-  if (v39)
+  if (v33)
   {
-    v44 = objc_msgSend_groupLevel(v39, v40, v41, v42, v43);
-    blockCopy[2](blockCopy, v44);
+    v37 = objc_msgSend_groupLevel(v33, v34, v35, v36);
+    blockCopy[2](blockCopy, v37);
   }
 
   else
@@ -966,35 +966,35 @@ LABEL_7:
   blockCopy = block;
   usingBlockCopy = usingBlock;
   boundsUsingBlockCopy = boundsUsingBlock;
-  v17 = objc_msgSend_viewMap(self, v13, v14, v15, v16);
-  v21 = objc_msgSend_columnUIDForColumnIndex_(v17, v18, index.var0, v19, v20);
-  v23 = v22;
-  v47[0] = v21;
-  v47[1] = v22;
+  v16 = objc_msgSend_viewMap(self, v13, v14, v15);
+  v19 = objc_msgSend_columnUIDForColumnIndex_(v16, v17, index.var0, v18);
+  v21 = v20;
+  v40[0] = v19;
+  v40[1] = v20;
 
-  if (!(v21 | v23))
+  if (!(v19 | v21))
   {
     goto LABEL_5;
   }
 
-  v28 = objc_msgSend_baseMap(self, v24, v25, v26, v27);
-  v31 = objc_msgSend_columnIndexForColumnUID_(v28, v29, v21, v23, v30);
-  v46 = v31;
+  v25 = objc_msgSend_baseMap(self, v22, v23, v24);
+  v27 = objc_msgSend_columnIndexForColumnUID_(v25, v26, v19, v21);
+  v39 = v27;
 
-  if (v31 != 0x7FFF)
+  if (v27 != 0x7FFF)
   {
-    usingBlockCopy[2](usingBlockCopy, &v46, v47);
+    usingBlockCopy[2](usingBlockCopy, &v39, v40);
     goto LABEL_7;
   }
 
-  v36 = objc_msgSend_groupByForColumns(self, v32, v33, v34, v35);
-  v37 = sub_2211A8DC8(v21, v23);
-  v40 = objc_msgSend_groupNodeForGroupUid_(v36, v38, v37, v38, v39);
+  v31 = objc_msgSend_groupByForColumns(self, v28, v29, v30);
+  v32 = sub_2211A8DC8(v19, v21);
+  v34 = objc_msgSend_groupNodeForGroupUid_(v31, v33, v32, v33);
 
-  if (v40)
+  if (v34)
   {
-    v45 = objc_msgSend_groupLevel(v40, v41, v42, v43, v44);
-    blockCopy[2](blockCopy, v45);
+    v38 = objc_msgSend_groupLevel(v34, v35, v36, v37);
+    blockCopy[2](blockCopy, v38);
   }
 
   else
@@ -1080,186 +1080,186 @@ LABEL_7:
 {
   blockCopy = block;
   usingBlockCopy = usingBlock;
-  v13 = objc_msgSend_viewMap(self, v9, v10, v11, v12);
-  v84.origin = objc_msgSend_range(v13, v14, v15, v16, v17);
-  v84.size = v18;
-  v19 = *&coord & 0xFFFF000000000000 | (coord._coord.column << 32);
+  v12 = objc_msgSend_viewMap(self, v9, v10, v11);
+  v70.origin = objc_msgSend_range(v12, v13, v14, v15);
+  v70.size = v16;
+  v17 = *&coord & 0xFFFF000000000000 | (coord._coord.column << 32);
   row = coord._coord.row;
-  v21 = (v19 | coord._coord.row);
-  LOBYTE(coord._coord.row) = TSUCellRect::contains(&v84, v21);
+  v19 = (v17 | coord._coord.row);
+  LOBYTE(coord._coord.row) = TSUCellRect::contains(&v70, v19);
 
   if ((coord._coord.row & 1) == 0)
   {
     goto LABEL_24;
   }
 
-  v26 = objc_msgSend_groupLevelAtSummaryRow_(self, v23, row, v24, v25);
-  v30 = objc_msgSend_groupLevelAtSummaryColumn_(self, v27, coord._coord.column, v28, v29);
-  v35 = v30;
-  if (v26 != 255 || v30 != 255)
+  v23 = objc_msgSend_groupLevelAtSummaryRow_(self, v21, row, v22);
+  v26 = objc_msgSend_groupLevelAtSummaryColumn_(self, v24, coord._coord.column, v25);
+  v30 = v26;
+  if (v23 != 255 || v26 != 255)
   {
-    v84 = 0;
-    v85 = 0u;
-    v41 = objc_msgSend_viewMap(self, v31, v32, v33, v34);
-    v45 = v41;
-    if (v41)
+    v70 = 0;
+    v71 = 0u;
+    v35 = objc_msgSend_viewMap(self, v27, v28, v29);
+    v38 = v35;
+    if (v35)
     {
-      objc_msgSend_cellUIDForCellID_(v41, v42, v19 | row, v43, v44);
+      objc_msgSend_cellUIDForCellID_(v35, v36, v17 | row, v37);
     }
 
     else
     {
-      v84 = 0;
-      v85 = 0u;
+      v70 = 0;
+      v71 = 0u;
     }
 
-    if (v84 != 0uLL && v85 != 0)
+    if (v70 != 0uLL && v71 != 0)
     {
-      v50 = objc_msgSend_summaryMap(self, v46, v47, v48, v49);
-      v81 = v84;
-      v82 = v85;
-      v54 = objc_msgSend_cellIDForCellUID_(v50, v51, &v81, v52, v53);
-      v83 = v54;
+      v42 = objc_msgSend_summaryMap(self, v39, v40, v41);
+      v67 = v70;
+      v68 = v71;
+      v45 = objc_msgSend_cellIDForCellUID_(v42, v43, &v67, v44);
+      v69 = v45;
 
-      if (v54 == 0x7FFFFFFF || (v54 & 0xFFFF00000000) == 0x7FFF00000000)
+      if (v45 == 0x7FFFFFFF || (v45 & 0xFFFF00000000) == 0x7FFF00000000)
       {
-        v69 = MEMORY[0x277D81150];
-        v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, "[TSTPivotTranslator p_applyViewCellCoord:toSummaryUsingBlock:toBaseUsingBlock:]", v56, v57);
-        v74 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v71, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPivotTranslator.mm", v72, v73);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v69, v75, v70, v74, 650, 0, "cell in summary row is in viewMap, but not in summaryMap");
+        v57 = MEMORY[0x277D81150];
+        v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v46, "[TSTPivotTranslator p_applyViewCellCoord:toSummaryUsingBlock:toBaseUsingBlock:]", v47);
+        v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPivotTranslator.mm", v60);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v57, v62, v58, v61, 650, 0, "cell in summary row is in viewMap, but not in summaryMap");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v76, v77, v78, v79);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v63, v64, v65);
       }
 
       else if (blockCopy)
       {
-        v58 = blockCopy[2](blockCopy, &v83, &v84, v26, v35);
+        v48 = blockCopy[2](blockCopy, &v69, &v70, v23, v30);
 LABEL_22:
-        v68 = v58;
+        v56 = v48;
         goto LABEL_25;
       }
     }
 
 LABEL_24:
-    v68 = 1;
+    v56 = 1;
     goto LABEL_25;
   }
 
-  v84 = 0;
-  v85 = 0u;
-  v36 = objc_msgSend_viewMap(self, v31, v32, v33, v34);
-  v40 = v36;
-  if (v36)
+  v70 = 0;
+  v71 = 0u;
+  v31 = objc_msgSend_viewMap(self, v27, v28, v29);
+  v34 = v31;
+  if (v31)
   {
-    objc_msgSend_cellUIDForCellID_(v36, v37, v19 | row, v38, v39);
+    objc_msgSend_cellUIDForCellID_(v31, v32, v17 | row, v33);
   }
 
   else
   {
-    v84 = 0;
-    v85 = 0u;
+    v70 = 0;
+    v71 = 0u;
   }
 
-  if (v84 == 0uLL || v85 == 0)
+  if (v70 == 0uLL || v71 == 0)
   {
     goto LABEL_24;
   }
 
-  v63 = objc_msgSend_baseMap(self, v59, v60, v61, v62);
-  v81 = v84;
-  v82 = v85;
-  v67 = objc_msgSend_cellIDForCellUID_(v63, v64, &v81, v65, v66);
-  v83 = v67;
+  v52 = objc_msgSend_baseMap(self, v49, v50, v51);
+  v67 = v70;
+  v68 = v71;
+  v55 = objc_msgSend_cellIDForCellUID_(v52, v53, &v67, v54);
+  v69 = v55;
 
-  v68 = 1;
-  if (usingBlockCopy && v67 != 0x7FFFFFFFLL && (v67 & 0xFFFF00000000) != 0x7FFF00000000)
+  v56 = 1;
+  if (usingBlockCopy && v55 != 0x7FFFFFFFLL && (v55 & 0xFFFF00000000) != 0x7FFF00000000)
   {
-    v58 = usingBlockCopy[2](usingBlockCopy, &v83, &v84);
+    v48 = usingBlockCopy[2](usingBlockCopy, &v69, &v70);
     goto LABEL_22;
   }
 
 LABEL_25:
 
-  return v68;
+  return v56;
 }
 
 - (id)defaultCellStyleForCellID:(TSUViewCellCoord)d useSoftDefault:(BOOL)default outSource:(unint64_t *)source
 {
   defaultCopy = default;
   baseTableModel = self->super.super._baseTableModel;
-  v10 = objc_msgSend_tableStyleAreaForCellID_(self, a2, *&d, default, source);
-  v17 = objc_msgSend_defaultCellStyleForTableStyleArea_(baseTableModel, v11, v10, v12, v13);
-  v24 = 3;
+  v10 = objc_msgSend_tableStyleAreaForCellID_(self, a2, *&d, default);
+  v15 = objc_msgSend_defaultCellStyleForTableStyleArea_(baseTableModel, v11, v10, v12);
+  v22 = 3;
   if (defaultCopy)
   {
-    v19 = objc_msgSend_baseCellCoordForViewCellCoord_(self, v14, *&d, v15, v16);
-    if (v19 != 0x7FFFFFFF && (v19 & 0xFFFF00000000) != 0x7FFF00000000)
+    v17 = objc_msgSend_baseCellCoordForViewCellCoord_(self, v13, *&d, v14);
+    if (v17 != 0x7FFFFFFF && (v17 & 0xFFFF00000000) != 0x7FFF00000000)
     {
-      v20 = objc_msgSend_defaultCellStyleForBaseCellCoord_useSoftDefault_outSource_(self->super.super._baseTableModel, v18, v19, 1, &v24);
-      v21 = v20;
-      if (v24 != 3)
+      v18 = objc_msgSend_defaultCellStyleForBaseCellCoord_useSoftDefault_outSource_(self->super.super._baseTableModel, v16, v17, 1, &v22);
+      v19 = v18;
+      if (v22 != 3)
       {
-        v22 = v20;
+        v20 = v18;
 
-        v17 = v22;
+        v15 = v20;
       }
     }
   }
 
   if (source)
   {
-    *source = v24;
+    *source = v22;
   }
 
-  return v17;
+  return v15;
 }
 
 - (id)defaultTextStyleForCellID:(TSUViewCellCoord)d useSoftDefault:(BOOL)default outSource:(unint64_t *)source
 {
   defaultCopy = default;
   baseTableModel = self->super.super._baseTableModel;
-  v10 = objc_msgSend_tableStyleAreaForCellID_(self, a2, *&d, default, source);
-  v17 = objc_msgSend_defaultTextStyleForTableStyleArea_(baseTableModel, v11, v10, v12, v13);
-  v24 = 3;
+  v10 = objc_msgSend_tableStyleAreaForCellID_(self, a2, *&d, default);
+  v15 = objc_msgSend_defaultTextStyleForTableStyleArea_(baseTableModel, v11, v10, v12);
+  v22 = 3;
   if (defaultCopy)
   {
-    v19 = objc_msgSend_baseCellCoordForViewCellCoord_(self, v14, *&d, v15, v16);
-    if (v19 != 0x7FFFFFFF && (v19 & 0xFFFF00000000) != 0x7FFF00000000)
+    v17 = objc_msgSend_baseCellCoordForViewCellCoord_(self, v13, *&d, v14);
+    if (v17 != 0x7FFFFFFF && (v17 & 0xFFFF00000000) != 0x7FFF00000000)
     {
-      v20 = objc_msgSend_defaultTextStyleForBaseCellCoord_useSoftDefault_outSource_(self->super.super._baseTableModel, v18, v19, 1, &v24);
-      v21 = v20;
-      if (v24 != 3)
+      v18 = objc_msgSend_defaultTextStyleForBaseCellCoord_useSoftDefault_outSource_(self->super.super._baseTableModel, v16, v17, 1, &v22);
+      v19 = v18;
+      if (v22 != 3)
       {
-        v22 = v20;
+        v20 = v18;
 
-        v17 = v22;
+        v15 = v20;
       }
     }
   }
 
   if (source)
   {
-    *source = v24;
+    *source = v22;
   }
 
-  return v17;
+  return v15;
 }
 
 - (void)defaultStyleHandlesForCellID:(TSUViewCellCoord)d useSoftDefault:(BOOL)default styleDefaultsCache:(id)cache outCellStyleHandle:(id *)handle outTextStyleHandle:(id *)styleHandle
 {
   defaultCopy = default;
-  v14 = objc_msgSend_baseCellCoordForViewCellCoord_(self, a2, *&d, default, cache);
+  v14 = objc_msgSend_baseCellCoordForViewCellCoord_(self, a2, *&d, default);
   if (v14 == 0x7FFFFFFF || (v14 & 0xFFFF00000000) == 0x7FFF00000000)
   {
-    v21 = objc_msgSend_tableStyleAreaForCellID_(self, v13, *&d, v15, v16);
+    v19 = objc_msgSend_tableStyleAreaForCellID_(self, v13, *&d, v15);
     if (handle)
     {
-      *handle = objc_msgSend_cellStyleHandleForKey_(cache, v18, v21, v19, v20);
+      *handle = objc_msgSend_cellStyleHandleForKey_(cache, v17, v19, v18);
     }
 
     if (styleHandle)
     {
-      *styleHandle = objc_msgSend_textStyleHandleForKey_(cache, v18, v21, v19, v20);
+      *styleHandle = objc_msgSend_textStyleHandleForKey_(cache, v17, v19, v18);
     }
   }
 
@@ -1353,90 +1353,90 @@ LABEL_25:
 
 - (id)metadataForColumnIndex:(TSUViewColumnIndex)index
 {
-  v7 = objc_msgSend_hiddenStates(self->super.super._tableInfo, a2, *&index.var0, v3, v4);
-  v11 = objc_msgSend_hidingActionForColumnAtIndex_(v7, v8, index.var0, v9, v10);
+  v6 = objc_msgSend_hiddenStates(self->super.super._tableInfo, a2, *&index.var0, v3);
+  v9 = objc_msgSend_hidingActionForColumnAtIndex_(v6, v7, index.var0, v8);
 
-  v15 = objc_msgSend_baseColumnIndexForViewColumnIndex_(self, v12, index.var0, v13, v14);
-  if (v15 == 0x7FFF)
+  v12 = objc_msgSend_baseColumnIndexForViewColumnIndex_(self, v10, index.var0, v11);
+  if (v12 == 0x7FFF)
   {
-    v19 = objc_msgSend_summaryColumnIndexForViewColumnIndex_(self, v16, index.var0, v17, v18);
-    if (v19 == 0x7FFF)
+    v15 = objc_msgSend_summaryColumnIndexForViewColumnIndex_(self, v13, index.var0, v14);
+    if (v15 == 0x7FFF)
     {
-      v24 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v25 = v19;
-      v26 = objc_msgSend_summaryModel(self->super.super._tableInfo, v20, v21, v22, v23);
-      v24 = objc_msgSend_metadataForColumnIndex_hidingAction_(v26, v27, v25, v11, v28);
+      v20 = v15;
+      v21 = objc_msgSend_summaryModel(self->super.super._tableInfo, v16, v17, v18);
+      v19 = objc_msgSend_metadataForColumnIndex_hidingAction_(v21, v22, v20, v9);
     }
   }
 
   else
   {
-    v24 = objc_msgSend_metadataForColumnIndex_hidingAction_(self->super.super._baseTableModel, v16, v15, v11, v18);
+    v19 = objc_msgSend_metadataForColumnIndex_hidingAction_(self->super.super._baseTableModel, v13, v12, v9);
   }
 
-  return v24;
+  return v19;
 }
 
 - (int)getCell:(id)cell atCellID:(TSUViewCellCoord)d suppressCellBorder:(BOOL)border
 {
   cellCopy = cell;
-  v12 = objc_msgSend_tableInfo(self, v8, v9, v10, v11);
-  if ((objc_msgSend_isSummaryRow_(self, v13, *&d, v14, v15) & 1) != 0 || (objc_msgSend_indexesForSummaryColumns(self, v16, v17, v18, v19), v20 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend_containsIndex_(v20, v21, d._coord.column, v22, v23), v20, v24))
+  v11 = objc_msgSend_tableInfo(self, v8, v9, v10);
+  if ((objc_msgSend_isSummaryRow_(self, v12, *&d, v13) & 1) != 0 || (objc_msgSend_indexesForSummaryColumns(self, v14, v15, v16), v17 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend_containsIndex_(v17, v18, d._coord.column, v19), v17, v20))
   {
-    v25 = objc_msgSend_coordinateMapper(self, v16, v17, v18, v19);
-    v29 = objc_msgSend_summaryCellCoordForViewCellCoord_(v25, v26, *&d, v27, v28);
+    v21 = objc_msgSend_coordinateMapper(self, v14, v15, v16);
+    v24 = objc_msgSend_summaryCellCoordForViewCellCoord_(v21, v22, *&d, v23);
 
-    v34 = objc_msgSend_summaryModel(v12, v30, v31, v32, v33);
-    Cell_atCellCoord = objc_msgSend_getCell_atCellCoord_(v34, v35, cellCopy, v29, v36);
+    v28 = objc_msgSend_summaryModel(v11, v25, v26, v27);
+    Cell_atCellCoord = objc_msgSend_getCell_atCellCoord_(v28, v29, cellCopy, v24);
   }
 
   else
   {
-    if (v12)
+    if (v11)
     {
-      objc_msgSend_cellUIDForCellID_(v12, v16, *&d, v18, v19);
+      objc_msgSend_cellUIDForCellID_(v11, v14, *&d, v16);
     }
 
     else
     {
-      memset(v47, 0, sizeof(v47));
+      memset(v38, 0, sizeof(v38));
     }
 
-    v38 = objc_msgSend_baseCellCoordForCellUID_(self, v16, v47, v18, v19);
-    v34 = objc_msgSend_baseTableModel(v12, v39, v40, v41, v42);
-    Cell_atCellCoord = objc_msgSend_getCell_atBaseCellCoord_(v34, v43, cellCopy, v38, v44);
+    v31 = objc_msgSend_baseCellCoordForCellUID_(self, v14, v38, v16);
+    v28 = objc_msgSend_baseTableModel(v11, v32, v33, v34);
+    Cell_atCellCoord = objc_msgSend_getCell_atBaseCellCoord_(v28, v35, cellCopy, v31);
   }
 
-  v45 = Cell_atCellCoord;
+  v36 = Cell_atCellCoord;
 
-  return v45;
+  return v36;
 }
 
 - (int)getValue:(id *)value atCellID:(TSUViewCellCoord)d fetchRichTextAttributesIfPlainText:(BOOL)text
 {
   textCopy = text;
-  if ((objc_msgSend_isSummaryRow_(self, a2, *&d, *&d, text) & 1) != 0 || (objc_msgSend_indexesForSummaryColumns(self, v9, v10, v11, v12), v13 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend_containsIndex_(v13, v14, d._coord.column, v15, v16), v13, v17))
+  if ((objc_msgSend_isSummaryRow_(self, a2, *&d, *&d) & 1) != 0 || (objc_msgSend_indexesForSummaryColumns(self, v9, v10, v11), v12 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend_containsIndex_(v12, v13, d._coord.column, v14), v12, v15))
   {
-    v18 = objc_msgSend_coordinateMapper(self, v9, v10, v11, v12);
-    v22 = objc_msgSend_summaryCellCoordForViewCellCoord_(v18, v19, *&d, v20, v21);
+    v16 = objc_msgSend_coordinateMapper(self, v9, v10, v11);
+    v19 = objc_msgSend_summaryCellCoordForViewCellCoord_(v16, v17, *&d, v18);
 
-    v27 = objc_msgSend_tableInfo(self, v23, v24, v25, v26);
-    v32 = objc_msgSend_summaryModel(v27, v28, v29, v30, v31);
-    RichTextAttributesIfPlainText = objc_msgSend_getValue_atCellID_fetchRichTextAttributesIfPlainText_(v32, v33, value, v22, textCopy);
+    v23 = objc_msgSend_tableInfo(self, v20, v21, v22);
+    v27 = objc_msgSend_summaryModel(v23, v24, v25, v26);
+    RichTextAttributesIfPlainText = objc_msgSend_getValue_atCellID_fetchRichTextAttributesIfPlainText_(v27, v28, value, v19, textCopy);
 
     return RichTextAttributesIfPlainText;
   }
 
   else
   {
-    v37 = objc_msgSend_baseCellCoordForViewCellCoord_(self, v9, *&d, v11, v12);
+    v32 = objc_msgSend_baseCellCoordForViewCellCoord_(self, v9, *&d, v11);
     baseTableModel = self->super.super._baseTableModel;
 
-    return objc_msgSend_getValue_atBaseCellCoord_fetchRichTextAttributesIfPlainText_(baseTableModel, v36, value, v37, textCopy);
+    return objc_msgSend_getValue_atBaseCellCoord_fetchRichTextAttributesIfPlainText_(baseTableModel, v31, value, v32, textCopy);
   }
 }
 
@@ -1444,32 +1444,32 @@ LABEL_25:
 {
   cellCopy = cell;
   row = d->_row;
-  v15[0] = d->_column;
-  v15[1] = row;
-  v11 = objc_msgSend_tableStyleAreaForCellUID_(self, v8, v15, v9, v10);
-  LODWORD(self) = objc_msgSend_getDefaultCell_forTableStyleArea_(self, v12, cellCopy, v11, v13);
+  v13[0] = d->_column;
+  v13[1] = row;
+  v10 = objc_msgSend_tableStyleAreaForCellUID_(self, v8, v13, v9);
+  LODWORD(self) = objc_msgSend_getDefaultCell_forTableStyleArea_(self, v11, cellCopy, v10);
 
   return self;
 }
 
 - (double)heightOfRowAtIndex:(TSUViewRowIndex)index isDefault:(BOOL *)default
 {
-  if (objc_msgSend_isSummaryRow_(self, a2, *&index.var0, default, v4))
+  if (objc_msgSend_isSummaryRow_(self, a2, *&index.var0, default))
   {
-    v11 = objc_msgSend_summaryRowIndexForViewRowIndex_(self, v8, index.var0, v9, v10);
-    v16 = objc_msgSend_summaryModel(self->super.super._tableInfo, v12, v13, v14, v15);
-    objc_msgSend_heightOfRowAtIndex_isDefault_(v16, v17, v11, default, v18);
-    v20 = v19;
+    v9 = objc_msgSend_summaryRowIndexForViewRowIndex_(self, v7, index.var0, v8);
+    v13 = objc_msgSend_summaryModel(self->super.super._tableInfo, v10, v11, v12);
+    objc_msgSend_heightOfRowAtIndex_isDefault_(v13, v14, v9, default);
+    v16 = v15;
 
-    return v20;
+    return v16;
   }
 
   else
   {
-    v23 = objc_msgSend_baseRowIndexForViewRowIndex_(self, v8, index.var0, v9, v10);
+    v19 = objc_msgSend_baseRowIndexForViewRowIndex_(self, v7, index.var0, v8);
     baseTableModel = self->super.super._baseTableModel;
 
-    objc_msgSend_heightOfRowAtIndex_isDefault_(baseTableModel, v22, v23, default, v24);
+    objc_msgSend_heightOfRowAtIndex_isDefault_(baseTableModel, v18, v19, default);
   }
 
   return result;
@@ -1477,25 +1477,25 @@ LABEL_25:
 
 - (double)widthOfColumnAtIndex:(TSUViewColumnIndex)index isDefault:(BOOL *)default
 {
-  v8 = objc_msgSend_indexesForSummaryColumns(self, a2, *&index.var0, default, v4);
-  v12 = objc_msgSend_containsIndex_(v8, v9, index.var0, v10, v11);
+  v7 = objc_msgSend_indexesForSummaryColumns(self, a2, *&index.var0, default);
+  v10 = objc_msgSend_containsIndex_(v7, v8, index.var0, v9);
 
-  if (v12)
+  if (v10)
   {
-    v16 = objc_msgSend_summaryColumnIndexForViewColumnIndex_(self, v13, index.var0, v14, v15);
-    v21 = objc_msgSend_summaryModel(self->super.super._tableInfo, v17, v18, v19, v20);
-    objc_msgSend_widthOfColumnAtIndex_isDefault_(v21, v22, v16, default, v23);
-    v25 = v24;
+    v13 = objc_msgSend_summaryColumnIndexForViewColumnIndex_(self, v11, index.var0, v12);
+    v17 = objc_msgSend_summaryModel(self->super.super._tableInfo, v14, v15, v16);
+    objc_msgSend_widthOfColumnAtIndex_isDefault_(v17, v18, v13, default);
+    v20 = v19;
 
-    return v25;
+    return v20;
   }
 
   else
   {
-    v28 = objc_msgSend_baseColumnIndexForViewColumnIndex_(self, v13, index.var0, v14, v15);
+    v23 = objc_msgSend_baseColumnIndexForViewColumnIndex_(self, v11, index.var0, v12);
     baseTableModel = self->super.super._baseTableModel;
 
-    objc_msgSend_widthOfColumnAtIndex_isDefault_(baseTableModel, v27, v28, default, v29);
+    objc_msgSend_widthOfColumnAtIndex_isDefault_(baseTableModel, v22, v23, default);
   }
 
   return result;
@@ -1503,42 +1503,42 @@ LABEL_25:
 
 - (void)setHeight:(double)height ofRowAtIndex:(TSUViewRowIndex)index
 {
-  if (objc_msgSend_isSummaryRow_(self, a2, *&index.var0, v4, v5))
+  if (objc_msgSend_isSummaryRow_(self, a2, *&index.var0, v4))
   {
-    v12 = objc_msgSend_summaryRowIndexForViewRowIndex_(self, v9, index.var0, v10, v11);
-    v30 = objc_msgSend_tableInfo(self, v13, v14, v15, v16);
-    v21 = objc_msgSend_summaryModel(v30, v17, v18, v19, v20);
-    objc_msgSend_setHeight_ofRowAtIndex_(v21, v22, v12, v23, v24, height);
+    v10 = objc_msgSend_summaryRowIndexForViewRowIndex_(self, v8, index.var0, v9);
+    v24 = objc_msgSend_tableInfo(self, v11, v12, v13);
+    v17 = objc_msgSend_summaryModel(v24, v14, v15, v16);
+    objc_msgSend_setHeight_ofRowAtIndex_(v17, v18, v10, v19, height);
   }
 
   else
   {
-    v26 = objc_msgSend_baseRowIndexForViewRowIndex_(self, v9, index.var0, v10, v11);
+    v21 = objc_msgSend_baseRowIndexForViewRowIndex_(self, v8, index.var0, v9);
     baseTableModel = self->super.super._baseTableModel;
 
-    objc_msgSend_setHeight_ofRowAtIndex_(baseTableModel, v25, v26, v27, v28, height);
+    objc_msgSend_setHeight_ofRowAtIndex_(baseTableModel, v20, v21, v22, height);
   }
 }
 
 - (void)setWidth:(double)width ofColumnAtIndex:(TSUViewColumnIndex)index
 {
-  v34 = objc_msgSend_indexesForSummaryColumns(self, a2, *&index.var0, v4, v5);
-  v12 = objc_msgSend_containsIndex_(v34, v9, index.var0, v10, v11);
+  v27 = objc_msgSend_indexesForSummaryColumns(self, a2, *&index.var0, v4);
+  v10 = objc_msgSend_containsIndex_(v27, v8, index.var0, v9);
 
-  if (v12)
+  if (v10)
   {
-    v16 = objc_msgSend_summaryColumnIndexForViewColumnIndex_(self, v13, index.var0, v14, v15);
-    v35 = objc_msgSend_tableInfo(self, v17, v18, v19, v20);
-    v25 = objc_msgSend_summaryModel(v35, v21, v22, v23, v24);
-    objc_msgSend_setWidth_ofColumnAtIndex_(v25, v26, v16, v27, v28, width);
+    v13 = objc_msgSend_summaryColumnIndexForViewColumnIndex_(self, v11, index.var0, v12);
+    v28 = objc_msgSend_tableInfo(self, v14, v15, v16);
+    v20 = objc_msgSend_summaryModel(v28, v17, v18, v19);
+    objc_msgSend_setWidth_ofColumnAtIndex_(v20, v21, v13, v22, width);
   }
 
   else
   {
-    v30 = objc_msgSend_baseColumnIndexForViewColumnIndex_(self, v13, index.var0, v14, v15);
+    v24 = objc_msgSend_baseColumnIndexForViewColumnIndex_(self, v11, index.var0, v12);
     baseTableModel = self->super.super._baseTableModel;
 
-    objc_msgSend_setWidth_ofColumnAtIndex_(baseTableModel, v29, v30, v31, v32, width);
+    objc_msgSend_setWidth_ofColumnAtIndex_(baseTableModel, v23, v24, v25, width);
   }
 }
 
@@ -1568,182 +1568,182 @@ LABEL_25:
 
 - (id)peerCellRegionForCellRegion:(id)region
 {
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x5812000000;
+  v34 = sub_221135F98;
+  v35 = sub_221135FA4;
+  v36 = &unk_22188E88F;
+  v40[0] = 0;
+  v40[1] = 0;
+  v37 = 0;
   v38 = 0;
-  v39 = &v38;
-  v40 = 0x5812000000;
-  v41 = sub_221135F98;
-  v42 = sub_221135FA4;
-  v43 = &unk_22188E88F;
-  v47[0] = 0;
-  v47[1] = 0;
-  v44 = 0;
-  v45 = 0;
-  v46 = v47;
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = sub_221135FB0;
-  v37[3] = &unk_27845FA20;
-  v37[4] = self;
-  v37[5] = &v38;
-  objc_msgSend_enumerateCellIDsUsingBlock_(region, a2, v37, v3, v4);
-  v10 = objc_msgSend_hiddenStates(self->super.super._tableInfo, v6, v7, v8, v9);
-  v15 = objc_msgSend_hiddenColumnIndexes(v10, v11, v12, v13, v14);
-  if (objc_msgSend_count(v15, v16, v17, v18, v19))
+  v39 = v40;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = sub_221135FB0;
+  v30[3] = &unk_27845FA20;
+  v30[4] = self;
+  v30[5] = &v31;
+  objc_msgSend_enumerateCellIDsUsingBlock_(region, a2, v30, v3);
+  v8 = objc_msgSend_hiddenStates(self->super.super._tableInfo, v5, v6, v7);
+  v12 = objc_msgSend_hiddenColumnIndexes(v8, v9, v10, v11);
+  if (objc_msgSend_count(v12, v13, v14, v15))
   {
-    v24 = v39;
-    MEMORY[0x223D9F7A0](&v36, v15);
-    TSCECellCoordSet::removeCoordsForColumns((v24 + 6), &v36);
-    TSUIndexSet::~TSUIndexSet(&v36);
+    v19 = v32;
+    MEMORY[0x223D9F7A0](&v29, v12);
+    TSCECellCoordSet::removeCoordsForColumns((v19 + 6), &v29);
+    TSUIndexSet::~TSUIndexSet(&v29);
   }
 
-  v25 = objc_msgSend_hiddenRowIndexes(v10, v20, v21, v22, v23);
-  if (objc_msgSend_count(v25, v26, v27, v28, v29))
+  v20 = objc_msgSend_hiddenRowIndexes(v8, v16, v17, v18);
+  if (objc_msgSend_count(v20, v21, v22, v23))
   {
-    v33 = v39;
-    MEMORY[0x223D9F7A0](&v36, v25);
-    TSCECellCoordSet::removeCoordsForRows((v33 + 6), &v36);
-    TSUIndexSet::~TSUIndexSet(&v36);
+    v26 = v32;
+    MEMORY[0x223D9F7A0](&v29, v20);
+    TSCECellCoordSet::removeCoordsForRows((v26 + 6), &v29);
+    TSUIndexSet::~TSUIndexSet(&v29);
   }
 
-  v34 = objc_msgSend_regionFromCellCoordSet_(TSTCellRegion, v30, (v39 + 6), v31, v32);
+  v27 = objc_msgSend_regionFromCellCoordSet_(TSTCellRegion, v24, (v32 + 6), v25);
 
-  _Block_object_dispose(&v38, 8);
-  sub_22107C860(&v46, v47[0]);
+  _Block_object_dispose(&v31, 8);
+  sub_22107C860(&v39, v40[0]);
 
-  return v34;
+  return v27;
 }
 
 - (unsigned)groupLevelAtSummaryRow:(TSUViewRowIndex)row
 {
-  if (!objc_msgSend_isSummaryRow_(self, a2, *&row.var0, v3, v4))
+  if (!objc_msgSend_isSummaryRow_(self, a2, *&row.var0, v3))
   {
     return -1;
   }
 
-  return objc_msgSend_rowGroupLevelAtRow_outAggregateIndex_(self, v7, row.var0, 0, v8);
+  return objc_msgSend_rowGroupLevelAtRow_outAggregateIndex_(self, v6, row.var0, 0);
 }
 
 - (unsigned)groupLevelAtSummaryColumn:(TSUViewColumnIndex)column
 {
-  v7 = objc_msgSend_indexesForSummaryColumns(self, a2, *&column.var0, v3, v4);
-  v11 = objc_msgSend_containsIndex_(v7, v8, column.var0, v9, v10);
+  v6 = objc_msgSend_indexesForSummaryColumns(self, a2, *&column.var0, v3);
+  v9 = objc_msgSend_containsIndex_(v6, v7, column.var0, v8);
 
-  if (!v11)
+  if (!v9)
   {
     return -1;
   }
 
-  return objc_msgSend_columnGroupLevelAtColumn_outAggregateIndex_(self, v12, column.var0, 0, v13);
+  return objc_msgSend_columnGroupLevelAtColumn_outAggregateIndex_(self, v10, column.var0, 0);
 }
 
 - (id)allRowGroupUIDs
 {
   v3 = objc_alloc_init(TSCEMutableUIDSet);
-  v8 = objc_msgSend_groupByForRows(self, v4, v5, v6, v7);
-  v13 = objc_msgSend_maxRowLevel(self, v9, v10, v11, v12);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = sub_2211364A4;
-  v17[3] = &unk_27845FA48;
-  v14 = v3;
-  v18 = v14;
-  objc_msgSend_enumerateGroupsBetweenLevel_andLevel_withBlock_(v8, v15, 1, v13, v17);
+  v7 = objc_msgSend_groupByForRows(self, v4, v5, v6);
+  v11 = objc_msgSend_maxRowLevel(self, v8, v9, v10);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_2211364A4;
+  v15[3] = &unk_27845FA48;
+  v12 = v3;
+  v16 = v12;
+  objc_msgSend_enumerateGroupsBetweenLevel_andLevel_withBlock_(v7, v13, 1, v11, v15);
 
-  return v14;
+  return v12;
 }
 
 - (id)allColumnGroupUIDs
 {
   v3 = objc_alloc_init(TSCEMutableUIDSet);
-  v8 = objc_msgSend_groupByForColumns(self, v4, v5, v6, v7);
-  v13 = objc_msgSend_maxColumnLevel(self, v9, v10, v11, v12);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = sub_22113662C;
-  v17[3] = &unk_27845FA48;
-  v14 = v3;
-  v18 = v14;
-  objc_msgSend_enumerateGroupsBetweenLevel_andLevel_withBlock_(v8, v15, 1, v13, v17);
+  v7 = objc_msgSend_groupByForColumns(self, v4, v5, v6);
+  v11 = objc_msgSend_maxColumnLevel(self, v8, v9, v10);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_22113662C;
+  v15[3] = &unk_27845FA48;
+  v12 = v3;
+  v16 = v12;
+  objc_msgSend_enumerateGroupsBetweenLevel_andLevel_withBlock_(v7, v13, 1, v11, v15);
 
-  return v14;
+  return v12;
 }
 
 - (id)indexesForRowsContainedByGroupUIDs:(id)ds
 {
   dsCopy = ds;
-  v9 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v5, v6, v7, v8);
-  v14 = objc_msgSend_groupByForRows(self, v10, v11, v12, v13);
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = 5;
-  v30 = MEMORY[0x277D85DD0];
-  v31 = 3221225472;
-  v32 = sub_221136854;
-  v33 = &unk_27845FA70;
-  v15 = v14;
-  v34 = v15;
+  v8 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v5, v6, v7);
+  v12 = objc_msgSend_groupByForRows(self, v9, v10, v11);
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 5;
+  v25 = MEMORY[0x277D85DD0];
+  v26 = 3221225472;
+  v27 = sub_221136854;
+  v28 = &unk_27845FA70;
+  v13 = v12;
+  v29 = v13;
   selfCopy = self;
-  v37 = &v38;
-  v16 = v9;
-  v36 = v16;
-  objc_msgSend_foreachUuid_(dsCopy, v17, &v30, v18, v19);
-  v23 = objc_msgSend_indexesForSummaryRowsAtGroupLevel_(self, v20, *(v39 + 24), v21, v22, v30, v31, v32, v33);
-  objc_msgSend_removeIndexes_(v16, v24, v23, v25, v26);
+  v32 = &v33;
+  v14 = v8;
+  v31 = v14;
+  objc_msgSend_foreachUuid_(dsCopy, v15, &v25, v16);
+  v19 = objc_msgSend_indexesForSummaryRowsAtGroupLevel_(self, v17, *(v34 + 24), v18, v25, v26, v27, v28);
+  objc_msgSend_removeIndexes_(v14, v20, v19, v21);
 
-  v27 = v36;
-  v28 = v16;
+  v22 = v31;
+  v23 = v14;
 
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v33, 8);
 
-  return v28;
+  return v23;
 }
 
 - (id)indexesForColumnsContainedByGroupUIDs:(id)ds
 {
   dsCopy = ds;
-  v9 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v5, v6, v7, v8);
-  v14 = objc_msgSend_groupByForColumns(self, v10, v11, v12, v13);
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = 5;
-  v30 = MEMORY[0x277D85DD0];
-  v31 = 3221225472;
-  v32 = sub_221136BEC;
-  v33 = &unk_27845FA70;
-  v15 = v14;
-  v34 = v15;
+  v8 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v5, v6, v7);
+  v12 = objc_msgSend_groupByForColumns(self, v9, v10, v11);
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 5;
+  v25 = MEMORY[0x277D85DD0];
+  v26 = 3221225472;
+  v27 = sub_221136BEC;
+  v28 = &unk_27845FA70;
+  v13 = v12;
+  v29 = v13;
   selfCopy = self;
-  v37 = &v38;
-  v16 = v9;
-  v36 = v16;
-  objc_msgSend_foreachUuid_(dsCopy, v17, &v30, v18, v19);
-  v23 = objc_msgSend_indexesForSummaryColumnsAtGroupLevel_(self, v20, *(v39 + 24), v21, v22, v30, v31, v32, v33);
-  objc_msgSend_removeIndexes_(v16, v24, v23, v25, v26);
+  v32 = &v33;
+  v14 = v8;
+  v31 = v14;
+  objc_msgSend_foreachUuid_(dsCopy, v15, &v25, v16);
+  v19 = objc_msgSend_indexesForSummaryColumnsAtGroupLevel_(self, v17, *(v34 + 24), v18, v25, v26, v27, v28);
+  objc_msgSend_removeIndexes_(v14, v20, v19, v21);
 
-  v27 = v36;
-  v28 = v16;
+  v22 = v31;
+  v23 = v14;
 
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v33, 8);
 
-  return v28;
+  return v23;
 }
 
 - (unsigned)rowGroupLevelAtRow:(TSUViewRowIndex)row outAggregateIndex:(unint64_t *)index
 {
-  v6 = *&row.var0;
+  v5 = *&row.var0;
   selfCopy = self;
-  v8 = objc_msgSend_viewMap(self, a2, *&row.var0, index, v4);
-  v31 = objc_msgSend_rowUIDForRowIndex_(v8, v9, v6, v10, v11);
-  v32 = v12;
+  v7 = objc_msgSend_viewMap(self, a2, *&row.var0, index);
+  v25 = objc_msgSend_rowUIDForRowIndex_(v7, v8, v5, v9);
+  v26 = v10;
 
-  v17 = objc_msgSend_groupBySet(selfCopy, v13, v14, v15, v16, v31, v32);
-  v20 = objc_msgSend_rowGroupUidForRowUid_outAggregateIndex_(v17, v18, &v31, index, v19);
-  v22 = v21;
+  v14 = objc_msgSend_groupBySet(selfCopy, v11, v12, v13, v25, v26);
+  v16 = objc_msgSend_rowGroupUidForRowUid_outAggregateIndex_(v14, v15, &v25, index);
+  v18 = v17;
 
-  v27 = objc_msgSend_groupByForRows(selfCopy, v23, v24, v25, v26);
-  LOBYTE(selfCopy) = objc_msgSend_groupLevelForGroupUid_(v27, v28, v20, v22, v29);
+  v22 = objc_msgSend_groupByForRows(selfCopy, v19, v20, v21);
+  LOBYTE(selfCopy) = objc_msgSend_groupLevelForGroupUid_(v22, v23, v16, v18);
 
   return selfCopy;
 }
@@ -1751,54 +1751,54 @@ LABEL_25:
 - (unsigned)columnGroupLevelAtColumn:(TSUViewColumnIndex)column outAggregateIndex:(unint64_t *)index
 {
   selfCopy = self;
-  v8 = objc_msgSend_viewMap(self, a2, *&column.var0, index, v4);
-  v31 = objc_msgSend_columnUIDForColumnIndex_(v8, v9, column.var0, v10, v11);
-  v32 = v12;
+  v7 = objc_msgSend_viewMap(self, a2, *&column.var0, index);
+  v25 = objc_msgSend_columnUIDForColumnIndex_(v7, v8, column.var0, v9);
+  v26 = v10;
 
-  v17 = objc_msgSend_groupBySet(selfCopy, v13, v14, v15, v16, v31, v32);
-  v20 = objc_msgSend_columnGroupUidForColumnUid_outAggregateIndex_(v17, v18, &v31, index, v19);
-  v22 = v21;
+  v14 = objc_msgSend_groupBySet(selfCopy, v11, v12, v13, v25, v26);
+  v16 = objc_msgSend_columnGroupUidForColumnUid_outAggregateIndex_(v14, v15, &v25, index);
+  v18 = v17;
 
-  v27 = objc_msgSend_groupByForColumns(selfCopy, v23, v24, v25, v26);
-  LOBYTE(selfCopy) = objc_msgSend_groupLevelForGroupUid_(v27, v28, v20, v22, v29);
+  v22 = objc_msgSend_groupByForColumns(selfCopy, v19, v20, v21);
+  LOBYTE(selfCopy) = objc_msgSend_groupLevelForGroupUid_(v22, v23, v16, v18);
 
   return selfCopy;
 }
 
 - (unint64_t)aggregateIndexForColumnIndex:(TSUViewColumnIndex)index
 {
-  v7 = objc_msgSend_groupBySet(self, a2, *&index.var0, v3, v4);
-  active = objc_msgSend_activeFlatteningDimension(v7, v8, v9, v10, v11);
+  v6 = objc_msgSend_groupBySet(self, a2, *&index.var0, v3);
+  active = objc_msgSend_activeFlatteningDimension(v6, v7, v8, v9);
 
-  if (active != 1 || objc_msgSend_numberOfHeaderColumns(self, v13, v14, v15, v16) > index.var0)
+  if (active != 1 || objc_msgSend_numberOfHeaderColumns(self, v11, v12, v13) > index.var0)
   {
     return 0;
   }
 
-  v22 = objc_msgSend_numberOfHeaderColumns(self, v17, v18, v19, v20);
-  v27 = objc_msgSend_groupBySet(self, v23, v24, v25, v26);
-  v32 = objc_msgSend_aggregates(v27, v28, v29, v30, v31);
-  v21 = (index.var0 - v22) % objc_msgSend_count(v32, v33, v34, v35, v36);
+  v18 = objc_msgSend_numberOfHeaderColumns(self, v14, v15, v16);
+  v22 = objc_msgSend_groupBySet(self, v19, v20, v21);
+  v26 = objc_msgSend_aggregates(v22, v23, v24, v25);
+  v17 = (index.var0 - v18) % objc_msgSend_count(v26, v27, v28, v29);
 
-  return v21;
+  return v17;
 }
 
 - (unint64_t)aggregateIndexForRowIndex:(TSUViewRowIndex)index
 {
-  v7 = objc_msgSend_groupBySet(self, a2, *&index.var0, v3, v4);
-  active = objc_msgSend_activeFlatteningDimension(v7, v8, v9, v10, v11);
+  v6 = objc_msgSend_groupBySet(self, a2, *&index.var0, v3);
+  active = objc_msgSend_activeFlatteningDimension(v6, v7, v8, v9);
 
-  if (active || objc_msgSend_numberOfHeaderRows(self, v13, v14, v15, v16) > index.var0)
+  if (active || objc_msgSend_numberOfHeaderRows(self, v11, v12, v13) > index.var0)
   {
     return 0;
   }
 
-  v23 = objc_msgSend_numberOfHeaderRows(self, v17, v18, v19, v20);
-  v28 = objc_msgSend_groupBySet(self, v24, v25, v26, v27);
-  v33 = objc_msgSend_aggregates(v28, v29, v30, v31, v32);
-  v21 = (index.var0 - v23) % objc_msgSend_count(v33, v34, v35, v36, v37);
+  v19 = objc_msgSend_numberOfHeaderRows(self, v14, v15, v16);
+  v23 = objc_msgSend_groupBySet(self, v20, v21, v22);
+  v27 = objc_msgSend_aggregates(v23, v24, v25, v26);
+  v17 = (index.var0 - v19) % objc_msgSend_count(v27, v28, v29, v30);
 
-  return v21;
+  return v17;
 }
 
 - (void)flushCachedIndexSets
@@ -1808,21 +1808,21 @@ LABEL_25:
   cachedIndexesForSummaryColumns = self->_cachedIndexesForSummaryColumns;
   self->_cachedIndexesForSummaryColumns = 0;
 
-  objc_msgSend_removeAllObjects(self->_cachedSummaryColumnIndexesAtLevels, v4, v5, v6, v7);
+  objc_msgSend_removeAllObjects(self->_cachedSummaryColumnIndexesAtLevels, v4, v5, v6);
   cachedIndexesForLeadingColumns = self->_cachedIndexesForLeadingColumns;
   self->_cachedIndexesForLeadingColumns = 0;
 
-  objc_msgSend_removeAllObjects(self->_cachedLeadingColumnIndexesAtLevels, v9, v10, v11, v12);
-  objc_msgSend_removeAllObjects(self->_cachedLeadingSummaryColumnIndexesAtLevels, v13, v14, v15, v16);
+  objc_msgSend_removeAllObjects(self->_cachedLeadingColumnIndexesAtLevels, v8, v9, v10);
+  objc_msgSend_removeAllObjects(self->_cachedLeadingSummaryColumnIndexesAtLevels, v11, v12, v13);
   os_unfair_lock_unlock(&self->_pivotCachedIndexesUnfairLock);
-  v17.receiver = self;
-  v17.super_class = TSTPivotTranslator;
-  [(TSTCategoryTranslator *)&v17 flushCachedIndexSets];
+  v14.receiver = self;
+  v14.super_class = TSTPivotTranslator;
+  [(TSTCategoryTranslator *)&v14 flushCachedIndexSets];
 }
 
 - (id)indexesForSummaryColumns
 {
-  objc_msgSend_i_populatePivotCachedIndexSetsIfNeeded(self, a2, v2, v3, v4);
+  objc_msgSend_i_populatePivotCachedIndexSetsIfNeeded(self, a2, v2, v3);
   cachedIndexesForSummaryColumns = self->_cachedIndexesForSummaryColumns;
 
   return cachedIndexesForSummaryColumns;
@@ -1831,92 +1831,92 @@ LABEL_25:
 - (BOOL)isSummaryColumn:(unsigned __int16)column
 {
   columnCopy = column;
-  objc_msgSend_i_populatePivotCachedIndexSetsIfNeeded(self, a2, column, v3, v4);
+  objc_msgSend_i_populatePivotCachedIndexSetsIfNeeded(self, a2, column, v3);
   cachedIndexesForSummaryColumns = self->_cachedIndexesForSummaryColumns;
 
-  return objc_msgSend_containsIndex_(cachedIndexesForSummaryColumns, v7, columnCopy, v8, v9);
+  return objc_msgSend_containsIndex_(cachedIndexesForSummaryColumns, v6, columnCopy, v7);
 }
 
 - (id)indexesForSummaryColumnsAtGroupLevel:(unsigned __int8)level
 {
   levelCopy = level;
-  objc_msgSend_i_populatePivotCachedIndexSetsIfNeeded(self, a2, level, v3, v4);
+  objc_msgSend_i_populatePivotCachedIndexSetsIfNeeded(self, a2, level, v3);
   cachedSummaryColumnIndexesAtLevels = self->_cachedSummaryColumnIndexesAtLevels;
-  v11 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v8, levelCopy, v9, v10);
-  v15 = objc_msgSend_objectForKey_(cachedSummaryColumnIndexesAtLevels, v12, v11, v13, v14);
+  v9 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v7, levelCopy, v8);
+  v12 = objc_msgSend_objectForKey_(cachedSummaryColumnIndexesAtLevels, v10, v9, v11);
 
-  return v15;
+  return v12;
 }
 
 - (void)i_populateIndexesForSummaryColumns
 {
   os_unfair_lock_assert_owner(&self->_pivotCachedIndexesUnfairLock);
+  v5 = 0;
   v6 = 0;
-  v7 = 0;
   do
   {
-    v8 = objc_msgSend_i_indexesForSummaryColumnsAtGroupLevel_(self, v3, v7, v4, v5);
+    v7 = objc_msgSend_i_indexesForSummaryColumnsAtGroupLevel_(self, v3, v6, v4);
     cachedSummaryColumnIndexesAtLevels = self->_cachedSummaryColumnIndexesAtLevels;
-    v13 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v10, v7, v11, v12);
-    objc_msgSend_setObject_forKey_(cachedSummaryColumnIndexesAtLevels, v14, v8, v13, v15);
+    v11 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v9, v6, v10);
+    objc_msgSend_setObject_forKey_(cachedSummaryColumnIndexesAtLevels, v12, v7, v11);
 
-    if (v6)
+    if (v5)
     {
-      v19 = objc_msgSend_tsu_indexSetByAddingIndexes_(v6, v16, v8, v17, v18);
+      v15 = objc_msgSend_tsu_indexSetByAddingIndexes_(v5, v13, v7, v14);
 
-      v6 = v19;
+      v5 = v15;
     }
 
     else
     {
-      v6 = v8;
+      v5 = v7;
     }
 
-    v20 = v7++;
+    v16 = v6++;
   }
 
-  while (v20 < 5);
+  while (v16 < 5);
   cachedIndexesForSummaryColumns = self->_cachedIndexesForSummaryColumns;
-  self->_cachedIndexesForSummaryColumns = v6;
+  self->_cachedIndexesForSummaryColumns = v5;
 }
 
 - (id)i_indexesForSummaryColumnsAtGroupLevel:(unsigned __int8)level
 {
   levelCopy = level;
   os_unfair_lock_assert_owner(&self->_pivotCachedIndexesUnfairLock);
-  if (objc_msgSend_numberOfColumnLevels(self, v5, v6, v7, v8) <= levelCopy)
+  if (objc_msgSend_numberOfColumnLevels(self, v5, v6, v7) <= levelCopy)
   {
-    v36 = objc_msgSend_indexSet(MEMORY[0x277CCAA78], v9, v10, v11, v12);
+    v29 = objc_msgSend_indexSet(MEMORY[0x277CCAA78], v8, v9, v10);
   }
 
   else
   {
-    v13 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v9, v10, v11, v12);
-    if (objc_msgSend_numberOfColumnLevels(self, v14, v15, v16, v17) > levelCopy)
+    v11 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v8, v9, v10);
+    if (objc_msgSend_numberOfColumnLevels(self, v12, v13, v14) > levelCopy)
     {
-      v22 = objc_msgSend_viewMap(self, v18, v19, v20, v21);
-      v27 = objc_msgSend_columnAggregateGroupSize(self, v23, v24, v25, v26);
-      v32 = objc_msgSend_groupByForColumns(self->super.super._tableInfo, v28, v29, v30, v31);
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = sub_2211375AC;
-      v38[3] = &unk_27845FA98;
-      v33 = v22;
-      v39 = v33;
-      v40 = v13;
-      v41 = v27;
-      objc_msgSend_enumerateGroupsAtLevel_withBlock_(v32, v34, levelCopy, v38, v35);
+      v18 = objc_msgSend_viewMap(self, v15, v16, v17);
+      v22 = objc_msgSend_columnAggregateGroupSize(self, v19, v20, v21);
+      v26 = objc_msgSend_groupByForColumns(self->super.super._tableInfo, v23, v24, v25);
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = sub_2211375AC;
+      v31[3] = &unk_27845FA98;
+      v27 = v18;
+      v32 = v27;
+      v33 = v11;
+      v34 = v22;
+      objc_msgSend_enumerateGroupsAtLevel_withBlock_(v26, v28, levelCopy, v31);
     }
 
-    v36 = objc_msgSend_copy(v13, v18, v19, v20, v21);
+    v29 = objc_msgSend_copy(v11, v15, v16, v17);
   }
 
-  return v36;
+  return v29;
 }
 
 - (id)indexesForLeadingColumns
 {
-  objc_msgSend_i_populatePivotCachedIndexSetsIfNeeded(self, a2, v2, v3, v4);
+  objc_msgSend_i_populatePivotCachedIndexSetsIfNeeded(self, a2, v2, v3);
   cachedIndexesForLeadingColumns = self->_cachedIndexesForLeadingColumns;
 
   return cachedIndexesForLeadingColumns;
@@ -1925,34 +1925,34 @@ LABEL_25:
 - (id)indexesForLeadingColumnsAtGroupLevel:(unsigned __int8)level
 {
   levelCopy = level;
-  objc_msgSend_i_populatePivotCachedIndexSetsIfNeeded(self, a2, level, v3, v4);
+  objc_msgSend_i_populatePivotCachedIndexSetsIfNeeded(self, a2, level, v3);
   cachedLeadingColumnIndexesAtLevels = self->_cachedLeadingColumnIndexesAtLevels;
-  v11 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v8, levelCopy, v9, v10);
-  v15 = objc_msgSend_objectForKey_(cachedLeadingColumnIndexesAtLevels, v12, v11, v13, v14);
+  v9 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v7, levelCopy, v8);
+  v12 = objc_msgSend_objectForKey_(cachedLeadingColumnIndexesAtLevels, v10, v9, v11);
 
-  return v15;
+  return v12;
 }
 
 - (void)i_populateIndexesForLeadingColumns
 {
   os_unfair_lock_assert_owner(&self->_pivotCachedIndexesUnfairLock);
-  v31 = objc_opt_new();
-  for (i = 0; objc_msgSend_maxColumnLevel(self, v3, v4, v5, v6) >= i; ++i)
+  v24 = objc_opt_new();
+  for (i = 0; objc_msgSend_maxColumnLevel(self, v3, v4, v5) >= i; ++i)
   {
-    v12 = objc_msgSend_i_indexesForLeadingColumnsAtGroupLevel_(self, v8, i, v10, v11);
+    v10 = objc_msgSend_i_indexesForLeadingColumnsAtGroupLevel_(self, v7, i, v9);
     cachedLeadingColumnIndexesAtLevels = self->_cachedLeadingColumnIndexesAtLevels;
-    v17 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v14, i, v15, v16);
-    objc_msgSend_setObject_forKey_(cachedLeadingColumnIndexesAtLevels, v18, v12, v17, v19);
+    v14 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v12, i, v13);
+    objc_msgSend_setObject_forKey_(cachedLeadingColumnIndexesAtLevels, v15, v10, v14);
 
-    objc_msgSend_addIndexes_(v31, v20, v12, v21, v22);
+    objc_msgSend_addIndexes_(v24, v16, v10, v17);
   }
 
-  v23 = objc_msgSend_copy(v31, v8, v9, v10, v11);
+  v18 = objc_msgSend_copy(v24, v7, v8, v9);
   cachedIndexesForLeadingColumns = self->_cachedIndexesForLeadingColumns;
-  self->_cachedIndexesForLeadingColumns = v23;
+  self->_cachedIndexesForLeadingColumns = v18;
 
-  v28 = objc_msgSend_i_indexesForLeadingColumnsAtGroupLevel_(self, v25, 255, v26, v27);
-  objc_msgSend_setObject_forKey_(self->_cachedLeadingColumnIndexesAtLevels, v29, v28, &unk_28350EB78, v30);
+  v22 = objc_msgSend_i_indexesForLeadingColumnsAtGroupLevel_(self, v20, 255, v21);
+  objc_msgSend_setObject_forKey_(self->_cachedLeadingColumnIndexesAtLevels, v23, v22, &unk_28350EB78);
 }
 
 - (id)i_indexesForLeadingColumnsAtGroupLevel:(unsigned __int8)level
@@ -1961,161 +1961,161 @@ LABEL_25:
   os_unfair_lock_assert_owner(&self->_pivotCachedIndexesUnfairLock);
   if (levelCopy == 255)
   {
-    v24 = MEMORY[0x277CCAB58];
-    v39.origin = objc_msgSend_bodyColumnRange(self->super.super._tableInfo, v5, v6, v7, v8);
-    v39.size = v25;
-    v26 = TSUCellRect::columns(&v39);
-    v14 = objc_msgSend_indexSetWithIndexesInRange_(v24, v27, v26, v27, v28);
-    v29 = MEMORY[0x277CCAA78];
-    Index = objc_msgSend_firstIndex(v14, v30, v31, v32, v33);
-    v23 = objc_msgSend_indexSetWithIndex_(v29, v35, Index, v36, v37);
+    v20 = MEMORY[0x277CCAB58];
+    v32.origin = objc_msgSend_bodyColumnRange(self->super.super._tableInfo, v5, v6, v7);
+    v32.size = v21;
+    v22 = TSUCellRect::columns(&v32);
+    v12 = objc_msgSend_indexSetWithIndexesInRange_(v20, v23, v22, v23);
+    v24 = MEMORY[0x277CCAA78];
+    Index = objc_msgSend_firstIndex(v12, v25, v26, v27);
+    v19 = objc_msgSend_indexSetWithIndex_(v24, v29, Index, v30);
   }
 
   else
   {
-    v9 = objc_msgSend_tableInfo(self, v5, v6, v7, v8);
-    v14 = objc_msgSend_pivotOwner(v9, v10, v11, v12, v13);
+    v8 = objc_msgSend_tableInfo(self, v5, v6, v7);
+    v12 = objc_msgSend_pivotOwner(v8, v9, v10, v11);
 
-    v18 = objc_msgSend_indexesForLeadingColumnsAtGroupLevel_(v14, v15, levelCopy, v16, v17);
-    v23 = objc_msgSend_copy(v18, v19, v20, v21, v22);
+    v15 = objc_msgSend_indexesForLeadingColumnsAtGroupLevel_(v12, v13, levelCopy, v14);
+    v19 = objc_msgSend_copy(v15, v16, v17, v18);
   }
 
-  return v23;
+  return v19;
 }
 
 - (id)indexesForLeadingSummaryColumnsAtGroupLevel:(unsigned __int8)level
 {
   levelCopy = level;
-  objc_msgSend_i_populatePivotCachedIndexSetsIfNeeded(self, a2, level, v3, v4);
+  objc_msgSend_i_populatePivotCachedIndexSetsIfNeeded(self, a2, level, v3);
   cachedLeadingSummaryColumnIndexesAtLevels = self->_cachedLeadingSummaryColumnIndexesAtLevels;
-  v11 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v8, levelCopy, v9, v10);
-  v15 = objc_msgSend_objectForKey_(cachedLeadingSummaryColumnIndexesAtLevels, v12, v11, v13, v14);
+  v9 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v7, levelCopy, v8);
+  v12 = objc_msgSend_objectForKey_(cachedLeadingSummaryColumnIndexesAtLevels, v10, v9, v11);
 
-  return v15;
+  return v12;
 }
 
 - (void)i_populateIndexesForLeadingSummaryColumns
 {
   os_unfair_lock_assert_owner(&self->_pivotCachedIndexesUnfairLock);
-  objc_msgSend_maxColumnLevel(self, v3, v4, v5, v6);
-  v10 = 0;
+  objc_msgSend_maxColumnLevel(self, v3, v4, v5);
+  v8 = 0;
   do
   {
-    v11 = objc_msgSend_i_indexesForLeadingSummaryColumnsAtGroupLevel_(self, v7, v10, v8, v9);
+    v9 = objc_msgSend_i_indexesForLeadingSummaryColumnsAtGroupLevel_(self, v6, v8, v7);
     cachedLeadingSummaryColumnIndexesAtLevels = self->_cachedLeadingSummaryColumnIndexesAtLevels;
-    v16 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v13, v10, v14, v15);
-    objc_msgSend_setObject_forKey_(cachedLeadingSummaryColumnIndexesAtLevels, v17, v11, v16, v18);
+    v13 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v11, v8, v12);
+    objc_msgSend_setObject_forKey_(cachedLeadingSummaryColumnIndexesAtLevels, v14, v9, v13);
 
-    ++v10;
+    ++v8;
   }
 
-  while (objc_msgSend_maxColumnLevel(self, v19, v20, v21, v22) >= v10);
+  while (objc_msgSend_maxColumnLevel(self, v15, v16, v17) >= v8);
 }
 
 - (id)i_indexesForLeadingSummaryColumnsAtGroupLevel:(unsigned __int8)level
 {
   levelCopy = level;
   os_unfair_lock_assert_owner(&self->_pivotCachedIndexesUnfairLock);
-  v9 = objc_msgSend_tableInfo(self, v5, v6, v7, v8);
-  v14 = objc_msgSend_pivotOwner(v9, v10, v11, v12, v13);
+  v8 = objc_msgSend_tableInfo(self, v5, v6, v7);
+  v12 = objc_msgSend_pivotOwner(v8, v9, v10, v11);
 
   if (levelCopy == 255)
   {
+    v23 = MEMORY[0x277CCAA78];
+    v72.origin = objc_msgSend_bodyColumnRange(self->super.super._tableInfo, v13, v14, v15);
+    v72.size = v24;
+    v25 = TSUCellRect::columns(&v72);
+    v27 = objc_msgSend_indexSetWithIndexesInRange_(v23, v26, v25, v26);
     v28 = MEMORY[0x277CCAA78];
-    v89.origin = objc_msgSend_bodyColumnRange(self->super.super._tableInfo, v15, v16, v17, v18);
-    v89.size = v29;
-    v30 = TSUCellRect::columns(&v89);
-    v33 = objc_msgSend_indexSetWithIndexesInRange_(v28, v31, v30, v31, v32);
-    v34 = MEMORY[0x277CCAA78];
-    Index = objc_msgSend_firstIndex(v33, v35, v36, v37, v38);
-    v43 = objc_msgSend_indexSetWithIndex_(v34, v40, Index, v41, v42);
+    Index = objc_msgSend_firstIndex(v27, v29, v30, v31);
+    v35 = objc_msgSend_indexSetWithIndex_(v28, v33, Index, v34);
   }
 
   else
   {
-    if (objc_msgSend_maxColumnLevel(self, v15, v16, v17, v18) < levelCopy)
+    if (objc_msgSend_maxColumnLevel(self, v13, v14, v15) < levelCopy)
     {
-      v23 = objc_msgSend_indexSet(MEMORY[0x277CCAA78], v19, v20, v21, v22);
+      v19 = objc_msgSend_indexSet(MEMORY[0x277CCAA78], v16, v17, v18);
 LABEL_7:
-      v43 = v23;
-      v49 = objc_msgSend_copy(v23, v24, v25, v26, v27);
+      v35 = v19;
+      v40 = objc_msgSend_copy(v19, v20, v21, v22);
       goto LABEL_12;
     }
 
-    v44 = objc_msgSend_tableModel(v14, v19, v20, v21, v22);
+    v36 = objc_msgSend_tableModel(v12, v16, v17, v18);
 
-    if (v44)
+    if (v36)
     {
-      v23 = objc_msgSend_indexesForLeadingSummaryColumnsAtGroupLevel_(v14, v45, levelCopy, v47, v48);
+      v19 = objc_msgSend_indexesForLeadingSummaryColumnsAtGroupLevel_(v12, v37, levelCopy, v39);
       goto LABEL_7;
     }
 
-    v50 = MEMORY[0x277CCAB58];
-    v89.origin = objc_msgSend_bodyColumnRange(self->super.super._tableInfo, v45, v46, v47, v48);
-    v89.size = v51;
-    v52 = TSUCellRect::columns(&v89);
-    v33 = objc_msgSend_indexSetWithIndexesInRange_(v50, v53, v52, v53, v54);
-    v62 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v55, v56, v57, v58);
-    LOBYTE(v63) = 0;
+    v41 = MEMORY[0x277CCAB58];
+    v72.origin = objc_msgSend_bodyColumnRange(self->super.super._tableInfo, v37, v38, v39);
+    v72.size = v42;
+    v43 = TSUCellRect::columns(&v72);
+    v27 = objc_msgSend_indexSetWithIndexesInRange_(v41, v44, v43, v44);
+    v50 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v45, v46, v47);
+    LOBYTE(v51) = 0;
     do
     {
       cachedSummaryColumnIndexesAtLevels = self->_cachedSummaryColumnIndexesAtLevels;
-      v65 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v59, levelCopy, v60, v61);
-      v69 = objc_msgSend_objectForKey_(cachedSummaryColumnIndexesAtLevels, v66, v65, v67, v68);
-      objc_msgSend_removeIndexes_(v33, v70, v69, v71, v72);
+      v53 = objc_msgSend_numberWithUnsignedChar_(MEMORY[0x277CCABB0], v48, levelCopy, v49);
+      v56 = objc_msgSend_objectForKey_(cachedSummaryColumnIndexesAtLevels, v54, v53, v55);
+      objc_msgSend_removeIndexes_(v27, v57, v56, v58);
 
-      v63 = (v63 + 1);
+      v51 = (v51 + 1);
     }
 
-    while (v63 <= levelCopy);
-    v87[0] = MEMORY[0x277D85DD0];
-    v87[1] = 3221225472;
-    v87[2] = sub_221137E18;
-    v87[3] = &unk_27845E1D0;
-    v73 = v62;
-    v88 = v73;
-    objc_msgSend_enumerateRangesUsingBlock_(v33, v74, v87, v75, v76);
-    v43 = objc_msgSend_copy(v73, v77, v78, v79, v80);
+    while (v51 <= levelCopy);
+    v70[0] = MEMORY[0x277D85DD0];
+    v70[1] = 3221225472;
+    v70[2] = sub_221137E18;
+    v70[3] = &unk_27845E1D0;
+    v59 = v50;
+    v71 = v59;
+    objc_msgSend_enumerateRangesUsingBlock_(v27, v60, v70, v61);
+    v35 = objc_msgSend_copy(v59, v62, v63, v64);
   }
 
-  v49 = objc_msgSend_copy(v43, v81, v82, v83, v84);
+  v40 = objc_msgSend_copy(v35, v65, v66, v67);
 LABEL_12:
-  v85 = v49;
+  v68 = v40;
 
-  return v85;
+  return v68;
 }
 
 - (id)i_indexesForSummaryRowsAtGroupLevel:(unsigned __int8)level
 {
   levelCopy = level;
-  if (objc_msgSend_numberOfRowLevels(self, a2, level, v3, v4) <= level)
+  if (objc_msgSend_numberOfRowLevels(self, a2, level, v3) <= level)
   {
-    v34 = objc_msgSend_indexSet(MEMORY[0x277CCAA78], v7, v8, v9, v10);
+    v27 = objc_msgSend_indexSet(MEMORY[0x277CCAA78], v6, v7, v8);
   }
 
   else
   {
-    v11 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v7, v8, v9, v10);
-    if (objc_msgSend_numberOfRowLevels(self, v12, v13, v14, v15) > levelCopy)
+    v9 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v6, v7, v8);
+    if (objc_msgSend_numberOfRowLevels(self, v10, v11, v12) > levelCopy)
     {
-      v20 = objc_msgSend_viewMap(self, v16, v17, v18, v19);
-      v25 = objc_msgSend_rowAggregateGroupSize(self, v21, v22, v23, v24);
-      v30 = objc_msgSend_groupByForRows(self->super.super._tableInfo, v26, v27, v28, v29);
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = sub_221137FC8;
-      v36[3] = &unk_27845FA98;
-      v31 = v20;
-      v37 = v31;
-      v38 = v11;
-      v39 = v25;
-      objc_msgSend_enumerateGroupsAtLevel_withBlock_(v30, v32, levelCopy, v36, v33);
+      v16 = objc_msgSend_viewMap(self, v13, v14, v15);
+      v20 = objc_msgSend_rowAggregateGroupSize(self, v17, v18, v19);
+      v24 = objc_msgSend_groupByForRows(self->super.super._tableInfo, v21, v22, v23);
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = sub_221137FC8;
+      v29[3] = &unk_27845FA98;
+      v25 = v16;
+      v30 = v25;
+      v31 = v9;
+      v32 = v20;
+      objc_msgSend_enumerateGroupsAtLevel_withBlock_(v24, v26, levelCopy, v29);
     }
 
-    v34 = objc_msgSend_copy(v11, v16, v17, v18, v19);
+    v27 = objc_msgSend_copy(v9, v13, v14, v15);
   }
 
-  return v34;
+  return v27;
 }
 
 - (void)i_populatePivotCachedIndexSetsIfNeeded
@@ -2125,9 +2125,9 @@ LABEL_12:
     os_unfair_lock_lock(&self->_pivotCachedIndexesUnfairLock);
     if (!self->_cachedPivotIndexSetsAreValid)
     {
-      objc_msgSend_i_populateIndexesForSummaryColumns(self, v3, v4, v5, v6);
-      objc_msgSend_i_populateIndexesForLeadingColumns(self, v7, v8, v9, v10);
-      objc_msgSend_i_populateIndexesForLeadingSummaryColumns(self, v11, v12, v13, v14);
+      objc_msgSend_i_populateIndexesForSummaryColumns(self, v3, v4, v5);
+      objc_msgSend_i_populateIndexesForLeadingColumns(self, v6, v7, v8);
+      objc_msgSend_i_populateIndexesForLeadingSummaryColumns(self, v9, v10, v11);
       self->_cachedPivotIndexSetsAreValid = 1;
     }
 
@@ -2137,36 +2137,36 @@ LABEL_12:
 
 - (unsigned)rowAggregateGroupSize
 {
-  v5 = objc_msgSend_groupBySet(self, a2, v2, v3, v4);
-  if (objc_msgSend_activeFlatteningDimension(v5, v6, v7, v8, v9))
+  v4 = objc_msgSend_groupBySet(self, a2, v2, v3);
+  if (objc_msgSend_activeFlatteningDimension(v4, v5, v6, v7))
   {
-    v14 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v15 = objc_msgSend_aggregates(v5, v10, v11, v12, v13);
-    v14 = objc_msgSend_count(v15, v16, v17, v18, v19);
+    v12 = objc_msgSend_aggregates(v4, v8, v9, v10);
+    v11 = objc_msgSend_count(v12, v13, v14, v15);
   }
 
-  return v14;
+  return v11;
 }
 
 - (unsigned)columnAggregateGroupSize
 {
-  v5 = objc_msgSend_groupBySet(self, a2, v2, v3, v4);
-  if (objc_msgSend_activeFlatteningDimension(v5, v6, v7, v8, v9) == 1)
+  v4 = objc_msgSend_groupBySet(self, a2, v2, v3);
+  if (objc_msgSend_activeFlatteningDimension(v4, v5, v6, v7) == 1)
   {
-    v14 = objc_msgSend_aggregates(v5, v10, v11, v12, v13);
-    v19 = objc_msgSend_count(v14, v15, v16, v17, v18);
+    v11 = objc_msgSend_aggregates(v4, v8, v9, v10);
+    v15 = objc_msgSend_count(v11, v12, v13, v14);
   }
 
   else
   {
-    v19 = 1;
+    v15 = 1;
   }
 
-  return v19;
+  return v15;
 }
 
 @end

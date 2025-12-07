@@ -206,7 +206,7 @@ LABEL_30:
 
 - (WFLinkContextualAction)initWithAction:(id)action appBundleIdentifier:(id)identifier extensionBundleIdentifier:(id)bundleIdentifier contextualParameters:(id)parameters authenticationPolicy:(int64_t)policy icon:(id)icon
 {
-  v38[2] = *MEMORY[0x1E69E9840];
+  v37[2] = *MEMORY[0x1E69E9840];
   actionCopy = action;
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
@@ -235,10 +235,10 @@ LABEL_30:
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"WFLinkContextualAction.m" lineNumber:30 description:{@"Invalid parameter not satisfying: %@", @"appBundleIdentifier"}];
 
 LABEL_3:
-  v38[0] = identifierCopy;
+  v37[0] = identifierCopy;
   identifier = [actionCopy identifier];
-  v38[1] = identifier;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
+  v37[1] = identifier;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
   v22 = [v21 componentsJoinedByString:@"."];
 
   v23 = [parametersCopy copy];
@@ -267,7 +267,6 @@ LABEL_3:
     v32 = v27;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v27;
 }
 

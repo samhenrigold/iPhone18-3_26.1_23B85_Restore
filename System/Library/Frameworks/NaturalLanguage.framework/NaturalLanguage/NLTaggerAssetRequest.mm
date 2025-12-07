@@ -32,7 +32,7 @@
 
 + (void)checkAssetRequests
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   if (_assetRequestQueue)
   {
     v2 = _assetRequests == 0;
@@ -45,46 +45,46 @@
 
   if (!v2)
   {
-    v51 = 0;
-    v52 = &v51;
-    v53 = 0x3032000000;
-    v54 = __Block_byref_object_copy__1;
-    v55 = __Block_byref_object_dispose__1;
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x3032000000;
+    v53 = __Block_byref_object_copy__1;
+    v54 = __Block_byref_object_dispose__1;
     array = [MEMORY[0x1E695DF70] array];
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x3032000000;
-    v48 = __Block_byref_object_copy__1;
-    v49 = __Block_byref_object_dispose__1;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x3032000000;
+    v47 = __Block_byref_object_copy__1;
+    v48 = __Block_byref_object_dispose__1;
     array2 = [MEMORY[0x1E695DF70] array];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __42__NLTaggerAssetRequest_checkAssetRequests__block_invoke;
     block[3] = &unk_1E7629468;
-    block[4] = &v51;
-    block[5] = &v45;
+    block[4] = &v50;
+    block[5] = &v44;
     block[6] = self;
     dispatch_sync(_assetRequestQueue, block);
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
-    obj = v52[5];
-    v4 = [obj countByEnumeratingWithState:&v40 objects:v64 count:16];
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    obj = v51[5];
+    v4 = [obj countByEnumeratingWithState:&v39 objects:v63 count:16];
     if (v4)
     {
-      v5 = *v41;
+      v5 = *v40;
       do
       {
-        v34 = v4;
-        for (i = 0; i != v34; ++i)
+        v33 = v4;
+        for (i = 0; i != v33; ++i)
         {
-          if (*v41 != v5)
+          if (*v40 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v40 + 1) + 8 * i);
+          v7 = *(*(&v39 + 1) + 8 * i);
           v8 = objc_autoreleasePoolPush();
           v9 = NLGetLogCategory(self);
           internal = [v9 internal];
@@ -97,9 +97,9 @@
             language = [v7 language];
             v15 = [v12 stringWithFormat:@"'%@' - '%@' asset download complete", tagScheme, language];
             *buf = 138543618;
-            v61 = v11;
-            v62 = 2114;
-            v63 = v15;
+            v60 = v11;
+            v61 = 2114;
+            v62 = v15;
             _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
           }
 
@@ -107,32 +107,32 @@
           [v7 completeWithResult:0 error:0];
         }
 
-        v4 = [obj countByEnumeratingWithState:&v40 objects:v64 count:16];
+        v4 = [obj countByEnumeratingWithState:&v39 objects:v63 count:16];
       }
 
       while (v4);
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v31 = v46[5];
-    v16 = [v31 countByEnumeratingWithState:&v36 objects:v59 count:16];
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v30 = v45[5];
+    v16 = [v30 countByEnumeratingWithState:&v35 objects:v58 count:16];
     if (v16)
     {
-      v35 = *v37;
+      v34 = *v36;
       obja = *MEMORY[0x1E696A578];
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v37 != v35)
+          if (*v36 != v34)
           {
-            objc_enumerationMutation(v31);
+            objc_enumerationMutation(v30);
           }
 
-          v18 = *(*(&v36 + 1) + 8 * j);
+          v18 = *(*(&v35 + 1) + 8 * j);
           v19 = objc_autoreleasePoolPush();
           v20 = NLGetLogCategory(self);
           internal2 = [v20 internal];
@@ -145,61 +145,59 @@
             language2 = [v18 language];
             v26 = [v23 stringWithFormat:@"'%@' - '%@' asset download request timed out", tagScheme2, language2];
             *buf = 138543618;
-            v61 = v22;
-            v62 = 2114;
-            v63 = v26;
+            v60 = v22;
+            v61 = 2114;
+            v62 = v26;
             _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v19);
           v27 = MEMORY[0x1E696ABC0];
-          v57 = obja;
-          v58 = @"Asset download request timed out";
-          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+          v56 = obja;
+          v57 = @"Asset download request timed out";
+          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
           v29 = [v27 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:7 userInfo:v28];
           [v18 completeWithResult:2 error:v29];
         }
 
-        v16 = [v31 countByEnumeratingWithState:&v36 objects:v59 count:16];
+        v16 = [v30 countByEnumeratingWithState:&v35 objects:v58 count:16];
       }
 
       while (v16);
     }
 
-    _Block_object_dispose(&v45, 8);
-    _Block_object_dispose(&v51, 8);
+    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v50, 8);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __42__NLTaggerAssetRequest_checkAssetRequests__block_invoke(uint64_t a1)
+uint64_t __42__NLTaggerAssetRequest_checkAssetRequests__block_invoke(void *a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v2 = _assetRequests;
-  v3 = [v2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v21;
-    v19 = v2;
+    v5 = *v20;
+    v18 = v2;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v21 != v5)
+        if (*v20 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v20 + 1) + 8 * i);
+        v7 = *(*(&v19 + 1) + 8 * i);
         if ([v7 isFulfilled])
         {
-          v8 = *(a1 + 32);
+          v8 = a1[4];
 LABEL_10:
           [*(*(v8 + 8) + 40) addObject:v7];
           continue;
@@ -207,43 +205,41 @@ LABEL_10:
 
         if ([v7 hasExpired])
         {
-          v8 = *(a1 + 40);
+          v8 = a1[5];
           goto LABEL_10;
         }
 
         v9 = objc_autoreleasePoolPush();
-        v10 = NLGetLogCategory(*(a1 + 48));
+        v10 = NLGetLogCategory(a1[6]);
         v11 = [v10 internal];
 
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = NLGetLogIdentifier(*(a1 + 48));
+          v12 = NLGetLogIdentifier(a1[6]);
           v13 = MEMORY[0x1E696AEC0];
           v14 = [v7 tagScheme];
           v15 = [v7 language];
           v16 = [v13 stringWithFormat:@"'%@' - '%@' asset is still waiting for download", v14, v15];
           *buf = 138543618;
-          v25 = v12;
-          v26 = 2114;
-          v27 = v16;
+          v24 = v12;
+          v25 = 2114;
+          v26 = v16;
           _os_log_impl(&dword_19D48F000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
 
-          v2 = v19;
+          v2 = v18;
         }
 
         objc_autoreleasePoolPop(v9);
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v4);
   }
 
-  [_assetRequests removeObjectsInArray:*(*(*(a1 + 32) + 8) + 40)];
-  result = [_assetRequests removeObjectsInArray:*(*(*(a1 + 40) + 8) + 40)];
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  [_assetRequests removeObjectsInArray:*(*(a1[4] + 8) + 40)];
+  return [_assetRequests removeObjectsInArray:*(*(a1[5] + 8) + 40)];
 }
 
 + (void)startTimer
@@ -258,7 +254,7 @@ LABEL_10:
 
 id __34__NLTaggerAssetRequest_startTimer__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = NLGetLogCategory(*(a1 + 32));
   v4 = [v3 internal];
@@ -270,23 +266,21 @@ id __34__NLTaggerAssetRequest_startTimer__block_invoke(uint64_t a1)
     +[NLTagger assetRequestTimeoutInterval];
     v8 = [v6 stringWithFormat:@"Started timer for %f seconds", v7];
     *buf = 138543618;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v8;
+    v12 = v5;
+    v13 = 2114;
+    v14 = v8;
     _os_log_impl(&dword_19D48F000, v4, OS_LOG_TYPE_DEBUG, "%{public}@%{public}@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   v9 = MEMORY[0x1E695DFF0];
   +[NLTagger assetRequestTimeoutInterval];
-  result = [v9 scheduledTimerWithTimeInterval:*(a1 + 32) target:sel_checkAssetRequestsTimerFired_ selector:0 userInfo:0 repeats:?];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v9 scheduledTimerWithTimeInterval:*(a1 + 32) target:sel_checkAssetRequestsTimerFired_ selector:0 userInfo:0 repeats:?];
 }
 
 + (void)checkAssetRequestsTimerFired:(id)fired
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   firedCopy = fired;
   v5 = objc_autoreleasePoolPush();
   v6 = NLGetLogCategory(self);
@@ -296,22 +290,20 @@ id __34__NLTaggerAssetRequest_startTimer__block_invoke(uint64_t a1)
   {
     v8 = NLGetLogIdentifier(self);
     v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Timer fired"];
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2114;
-    v14 = v9;
-    _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_DEBUG, "%{public}@%{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2114;
+    v13 = v9;
+    _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_DEBUG, "%{public}@%{public}@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [self checkAssetRequests];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (NLTaggerAssetRequest)initWithLanguage:(id)language assetIdentifier:(id)identifier tagScheme:(id)scheme completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   identifierCopy = identifier;
   schemeCopy = scheme;
@@ -334,9 +326,9 @@ id __34__NLTaggerAssetRequest_startTimer__block_invoke(uint64_t a1)
 
       v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to init NLTaggerAssetRequest, language: %@, tagScheme: %@, completion: %s", languageCopy, schemeCopy, v23];
       *buf = 138543618;
-      v35 = v20;
-      v36 = 2114;
-      v37 = v21;
+      v34 = v20;
+      v35 = 2114;
+      v36 = v21;
       goto LABEL_12;
     }
 
@@ -359,9 +351,9 @@ LABEL_13:
       v20 = NLGetLogIdentifier(0);
       v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to init NLTaggerAssetRequest: missing contextual embedding model identifier"];
       *buf = 138543618;
-      v35 = v20;
-      v36 = 2114;
-      v37 = v21;
+      v34 = v20;
+      v35 = 2114;
+      v36 = v21;
 LABEL_12:
       _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", buf, 0x16u);
 
@@ -371,9 +363,9 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v33.receiver = self;
-  v33.super_class = NLTaggerAssetRequest;
-  v25 = [(NLTaggerAssetRequest *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = NLTaggerAssetRequest;
+  v25 = [(NLTaggerAssetRequest *)&v32 init];
   v26 = v25;
   if (v25)
   {
@@ -393,13 +385,12 @@ LABEL_12:
   selfCopy = self;
 LABEL_17:
 
-  v31 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (BOOL)hasExpired
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   date = [MEMORY[0x1E695DF00] date];
   [date timeIntervalSinceDate:self->_creationTime];
   v5 = v4;
@@ -420,23 +411,21 @@ LABEL_17:
       language = [(NLTaggerAssetRequest *)self language];
       v15 = [v12 stringWithFormat:@"Asset '%@' -'%@' expired after %f seconds", tagScheme, language, *&v5];
       *buf = 138543618;
-      v19 = v11;
-      v20 = 2114;
-      v21 = v15;
+      v18 = v11;
+      v19 = 2114;
+      v20 = v15;
       _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_DEBUG, "%{public}@%{public}@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
 
-  result = v5 >= v7;
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return v5 >= v7;
 }
 
 - (void)completeWithResult:(int64_t)result error:(id)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (result)
   {
@@ -476,32 +465,31 @@ LABEL_8:
     assetIdentifier3 = [(NLTaggerAssetRequest *)self assetIdentifier];
     v20 = [v17 stringWithFormat:@"Requested compilation for embedding model '%@' - '%@'", language, assetIdentifier3];
     *buf = 138543618;
-    v30 = v16;
-    v31 = 2114;
-    v32 = v20;
+    v29 = v16;
+    v30 = 2114;
+    v31 = v20;
     _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v13);
   assetIdentifier4 = [(NLTaggerAssetRequest *)self assetIdentifier];
   v22 = MEMORY[0x19EAFC6F0](self->_completionHandler);
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __49__NLTaggerAssetRequest_completeWithResult_error___block_invoke;
-  v26[3] = &unk_1E7629490;
-  v27 = assetIdentifier4;
-  v28 = v22;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __49__NLTaggerAssetRequest_completeWithResult_error___block_invoke;
+  v25[3] = &unk_1E7629490;
+  v26 = assetIdentifier4;
+  v27 = v22;
   v23 = v22;
   v24 = assetIdentifier4;
-  [v12 requestModelCompilationWithCompletionHandler:v26];
+  [v12 requestModelCompilationWithCompletionHandler:v25];
 
 LABEL_9:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __49__NLTaggerAssetRequest_completeWithResult_error___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   v7 = NLGetLogCategory(0);
@@ -518,9 +506,9 @@ void __49__NLTaggerAssetRequest_completeWithResult_error___block_invoke(uint64_t
       v13 = [v12 bundleIdentifier];
       v14 = [v10 stringWithFormat:@"Compilation of '%@' model succeeded. Caller bundle id: '%@'", v11, v13];
       *buf = 138543618;
-      v23 = v9;
-      v24 = 2114;
-      v25 = v14;
+      v22 = v9;
+      v23 = 2114;
+      v24 = v14;
       _os_log_impl(&dword_19D48F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
     }
   }
@@ -534,16 +522,14 @@ void __49__NLTaggerAssetRequest_completeWithResult_error___block_invoke(uint64_t
     v19 = [v18 bundleIdentifier];
     v20 = [v16 stringWithFormat:@"Compilation of '%@' model failed:%@\nCaller bundle id: '%@'", v17, v5, v19];
     *buf = 138543618;
-    v23 = v15;
-    v24 = 2114;
-    v25 = v20;
+    v22 = v15;
+    v23 = 2114;
+    v24 = v20;
     _os_log_impl(&dword_19D48F000, v8, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   (*(*(a1 + 40) + 16))();
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)waitForFulfillment
@@ -574,7 +560,7 @@ uint64_t __42__NLTaggerAssetRequest_waitForFulfillment__block_invoke()
 
 uint64_t __42__NLTaggerAssetRequest_waitForFulfillment__block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = NLGetLogCategory(*(a1 + 32));
   v4 = [v3 internal];
@@ -587,16 +573,14 @@ uint64_t __42__NLTaggerAssetRequest_waitForFulfillment__block_invoke_2(uint64_t 
     v8 = [*(a1 + 32) language];
     v9 = [v6 stringWithFormat:@"Adding '%@' - '%@' to fulfillment queue", v7, v8];
     *buf = 138543618;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v9;
+    v12 = v5;
+    v13 = 2114;
+    v14 = v9;
     _os_log_impl(&dword_19D48F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [_assetRequests addObject:*(a1 + 32)];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [_assetRequests addObject:*(a1 + 32)];
 }
 
 @end

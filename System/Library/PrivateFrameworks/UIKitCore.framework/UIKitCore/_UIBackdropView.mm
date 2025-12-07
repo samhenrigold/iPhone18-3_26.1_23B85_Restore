@@ -1124,7 +1124,7 @@
       grayscaleTintMaskViewContainer = [(UIView *)v14 initWithFrame:?];
       if (![(_UIBackdropView *)self maskMode])
       {
-        v15 = +[UIColor blackColor];
+        v15 = objc_msgSend_blackColor(UIColor);
         [(UIView *)grayscaleTintMaskViewContainer setBackgroundColor:v15];
       }
 
@@ -1348,7 +1348,7 @@ LABEL_66:
 
       else
       {
-        v7 = +[UIColor blackColor];
+        v7 = objc_msgSend_blackColor(UIColor);
         v6 = *MEMORY[0x1E6979D58];
       }
 
@@ -1644,7 +1644,7 @@ LABEL_19:
           self->__blurRadius = radius;
         }
 
-        if (([(__CFString *)qualityCopy isEqualToString:self->__blurQuality]& 1) == 0)
+        if ((objc_msgSend_isEqualToString_(qualityCopy) & 1) == 0)
         {
           backdropEffectView4 = [(_UIBackdropView *)self backdropEffectView];
           layer3 = [backdropEffectView4 layer];
@@ -1825,7 +1825,7 @@ LABEL_23:
       goto LABEL_16;
     }
 
-    if (![(UIColor *)self->_colorMatrixColorTint isEqual:*(v5 + 16)])
+    if ((objc_msgSend_isEqual_(self->_colorMatrixColorTint) & 1) == 0)
     {
       v11 = *(v5 + 11);
 LABEL_16:
@@ -2358,7 +2358,7 @@ LABEL_16:
       v8 = *(settingsCopy + 40);
       if (v8)
       {
-        [v8 CAColorMatrixValue];
+        objc_msgSend_CAColorMatrixValue(v8);
         v28 = v30;
         v27 = v31;
         v9 = v32;

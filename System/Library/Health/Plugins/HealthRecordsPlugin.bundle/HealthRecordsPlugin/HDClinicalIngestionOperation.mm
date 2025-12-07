@@ -36,9 +36,7 @@
 
 - (void)setOperationError:(id)error
 {
-  v4 = [error copy];
-  operationError = self->_operationError;
-  self->_operationError = v4;
+  self->_operationError = [error copy];
 
   _objc_release_x1();
 }

@@ -352,8 +352,6 @@ LABEL_19:
 
   self->_velocity.x = x / v8;
   self->_velocity.y = y / v8;
-  v9 = self->_lastVelocity.x;
-  v10 = self->_lastVelocity.y;
 
   [(CSLUIInertialUpdater *)self _updateDelegateWithDelta:x, y];
 }

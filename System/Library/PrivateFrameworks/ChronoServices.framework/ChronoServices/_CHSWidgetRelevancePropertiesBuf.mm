@@ -383,18 +383,18 @@ LABEL_29:
   v4 = relevances;
   if (relevances)
   {
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
-    v18 = 1;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __52___CHSWidgetRelevancePropertiesBuf_verifyUTF8Fields__block_invoke;
-    v14[3] = &unk_1E7454048;
-    v14[4] = &v15;
-    [relevances enumerateObjectsUsingBlock:v14];
-    v5 = *(v16 + 24);
-    _Block_object_dispose(&v15, 8);
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x2020000000;
+    v15 = 1;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __52___CHSWidgetRelevancePropertiesBuf_verifyUTF8Fields__block_invoke;
+    v11[3] = &unk_1E7454048;
+    v11[4] = &v12;
+    [relevances enumerateObjectsUsingBlock:v11];
+    v5 = *(v13 + 24);
+    _Block_object_dispose(&v12, 8);
     if ((v5 & 1) == 0)
     {
 
@@ -414,21 +414,16 @@ LABEL_29:
     }
   }
 
-  ptr = self->_ptr;
-  v10 = &ptr[-*ptr->var0];
-  if (*v10->var0 < 7u)
+  v9 = &self->_ptr[-*self->_ptr];
+  if (*v9->var0 >= 7u && *v9[6].var0)
+  {
+    return AFBIsValidUTF8();
+  }
+
+  else
   {
     return 1;
   }
-
-  v11 = *v10[6].var0;
-  if (!v11)
-  {
-    return 1;
-  }
-
-  v12 = *ptr[v11].var0;
-  return AFBIsValidUTF8();
 }
 
 - (unint64_t)hash
@@ -464,30 +459,7 @@ LABEL_29:
       v7 = objc_autoreleasePoolPush();
       extensionIdentity = [(_CHSWidgetRelevancePropertiesBuf *)self extensionIdentity];
       extensionIdentity2 = [v6 extensionIdentity];
-      if (extensionIdentity | extensionIdentity2)
-      {
-        v10 = [extensionIdentity isEqual:extensionIdentity2];
-
-        if (!v10)
-        {
-          goto LABEL_14;
-        }
-      }
-
-      kind = [(_CHSWidgetRelevancePropertiesBuf *)self kind];
-      kind2 = [v6 kind];
-      if (kind | kind2)
-      {
-        v13 = [kind isEqual:kind2];
-
-        if (!v13)
-        {
-          goto LABEL_14;
-        }
-      }
-
-      supportsBackgroundRefresh = [(_CHSWidgetRelevancePropertiesBuf *)self supportsBackgroundRefresh];
-      if (supportsBackgroundRefresh == [v6 supportsBackgroundRefresh] && (v15 = -[_CHSWidgetRelevancePropertiesBuf isDeletion](self, "isDeletion"), v15 == objc_msgSend(v6, "isDeletion")) && (-[_CHSWidgetRelevancePropertiesBuf lastRelevanceUpdate](self, "lastRelevanceUpdate"), v17 = v16, objc_msgSend(v6, "lastRelevanceUpdate"), v17 == v18))
+      if ((!(extensionIdentity | extensionIdentity2) || (v10 = [extensionIdentity isEqual:extensionIdentity2], extensionIdentity2, extensionIdentity, v10)) && ((-[_CHSWidgetRelevancePropertiesBuf kind](self, "kind"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "kind"), v12 = objc_claimAutoreleasedReturnValue(), !(v11 | v12)) || (v13 = objc_msgSend(v11, "isEqual:", v12), v12, v11, v13)) && (v14 = -[_CHSWidgetRelevancePropertiesBuf supportsBackgroundRefresh](self, "supportsBackgroundRefresh"), v14 == objc_msgSend(v6, "supportsBackgroundRefresh")) && (v15 = -[_CHSWidgetRelevancePropertiesBuf isDeletion](self, "isDeletion"), v15 == objc_msgSend(v6, "isDeletion")) && (-[_CHSWidgetRelevancePropertiesBuf lastRelevanceUpdate](self, "lastRelevanceUpdate"), v17 = v16, objc_msgSend(v6, "lastRelevanceUpdate"), v17 == v18))
       {
         relevances = [(_CHSWidgetRelevancePropertiesBuf *)self relevances];
         relevances2 = [v6 relevances];
@@ -504,7 +476,6 @@ LABEL_29:
 
       else
       {
-LABEL_14:
         v21 = 0;
       }
 

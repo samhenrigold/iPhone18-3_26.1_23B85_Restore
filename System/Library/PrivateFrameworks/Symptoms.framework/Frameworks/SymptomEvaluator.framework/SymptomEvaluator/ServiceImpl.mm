@@ -25,6 +25,7 @@
 - (void)inquireNOIFor:(id)for orPredicate:(id)predicate requestedKeys:(id)keys options:(id)options reply:(id)reply;
 - (void)listNDFDeviceObjectsWithIdentifier:(id)identifier reply:(id)reply;
 - (void)ndfClientCheckInWithReply:(id)reply;
+- (void)ndfClientSubscriptionIsActive:(BOOL)active reply:(id)reply;
 - (void)networkRestrictsMulticastTrafficWithReply:(id)reply;
 - (void)performActionWithOptions:(id)options inScopes:(id)scopes reply:(id)reply;
 - (void)performAppEndpointTrackingPeriodicTasksWithReply:(id)reply;
@@ -103,7 +104,7 @@ uint64_t __30__ServiceImpl__isServiceReady__block_invoke(uint64_t result)
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   if (listener_shouldAcceptNewConnection__onceToken != -1)
@@ -116,9 +117,9 @@ uint64_t __30__ServiceImpl__isServiceReady__block_invoke(uint64_t result)
   {
     v9 = v8;
     v10 = qos_class_self();
-    v16 = 136315138;
-    v17 = qos_string(v10);
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "ServiceImpl listener:shouldAcceptNewConnection: QoS %s", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = qos_string(v10);
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "ServiceImpl listener:shouldAcceptNewConnection: QoS %s", &v15, 0xCu);
   }
 
   [(ServiceImpl *)self _cacheEntitlementValuesForConnection:connectionCopy];
@@ -144,7 +145,6 @@ LABEL_12:
   v13 = 0;
 LABEL_9:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -171,14 +171,14 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
 
 - (void)_cacheEntitlementValuesForConnection:(id)connection
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v4 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v83 = 138477827;
-    v84 = connectionCopy;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: Preparing to cache entitlements for: %{private}@", &v83, 0xCu);
+    v82 = 138477827;
+    v83 = connectionCopy;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: Preparing to cache entitlements for: %{private}@", &v82, 0xCu);
   }
 
   v5 = objc_alloc_init(SFEntitlements);
@@ -192,13 +192,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v8 = v7;
       symptomAnalyticsTrain = [(SFEntitlements *)v5 symptomAnalyticsTrain];
-      v83 = 138478339;
-      v84 = @"com.apple.symptom_analytics.train";
-      v85 = 1024;
-      v86 = symptomAnalyticsTrain;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptom_analytics.train";
+      v84 = 1024;
+      v85 = symptomAnalyticsTrain;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -213,13 +213,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v12 = v11;
       symptomAnalyticsSweep = [(SFEntitlements *)v5 symptomAnalyticsSweep];
-      v83 = 138478339;
-      v84 = @"com.apple.symptom_analytics.sweep";
-      v85 = 1024;
-      v86 = symptomAnalyticsSweep;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptom_analytics.sweep";
+      v84 = 1024;
+      v85 = symptomAnalyticsSweep;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -234,13 +234,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v16 = v15;
       symptomAnalyticsRefresh = [(SFEntitlements *)v5 symptomAnalyticsRefresh];
-      v83 = 138478339;
-      v84 = @"com.apple.symptom_analytics.refresh";
-      v85 = 1024;
-      v86 = symptomAnalyticsRefresh;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptom_analytics.refresh";
+      v84 = 1024;
+      v85 = symptomAnalyticsRefresh;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -255,13 +255,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v20 = v19;
       symptomAnalyticsSetWatchpoint = [(SFEntitlements *)v5 symptomAnalyticsSetWatchpoint];
-      v83 = 138478339;
-      v84 = @"com.apple.symptom_analytics.setwatchpoint";
-      v85 = 1024;
-      v86 = symptomAnalyticsSetWatchpoint;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptom_analytics.setwatchpoint";
+      v84 = 1024;
+      v85 = symptomAnalyticsSetWatchpoint;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -276,13 +276,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v24 = v23;
       symptomAnalyticsNetworkBitmap = [(SFEntitlements *)v5 symptomAnalyticsNetworkBitmap];
-      v83 = 138478339;
-      v84 = @"com.apple.symptom_analytics.network_bitmap";
-      v85 = 1024;
-      v86 = symptomAnalyticsNetworkBitmap;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptom_analytics.network_bitmap";
+      v84 = 1024;
+      v85 = symptomAnalyticsNetworkBitmap;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -297,13 +297,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v28 = v27;
       symptomAnalyticsQuery = [(SFEntitlements *)v5 symptomAnalyticsQuery];
-      v83 = 138478339;
-      v84 = @"com.apple.symptom_analytics.query";
-      v85 = 1024;
-      v86 = symptomAnalyticsQuery;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptom_analytics.query";
+      v84 = 1024;
+      v85 = symptomAnalyticsQuery;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -318,13 +318,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v32 = v31;
       symptomsLinkAdvisory = [(SFEntitlements *)v5 symptomsLinkAdvisory];
-      v83 = 138478339;
-      v84 = @"com.apple.symptoms.linkAdvisory";
-      v85 = 1024;
-      v86 = symptomsLinkAdvisory;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptoms.linkAdvisory";
+      v84 = 1024;
+      v85 = symptomsLinkAdvisory;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -339,13 +339,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v36 = v35;
       symptomAnalyticsReset = [(SFEntitlements *)v5 symptomAnalyticsReset];
-      v83 = 138478339;
-      v84 = @"com.apple.symptom_analytics.reset";
-      v85 = 1024;
-      v86 = symptomAnalyticsReset;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptom_analytics.reset";
+      v84 = 1024;
+      v85 = symptomAnalyticsReset;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -360,13 +360,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v40 = v39;
       symptomAnalyticsConfigure = [(SFEntitlements *)v5 symptomAnalyticsConfigure];
-      v83 = 138478339;
-      v84 = @"com.apple.symptom_analytics.configure";
-      v85 = 1024;
-      v86 = symptomAnalyticsConfigure;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptom_analytics.configure";
+      v84 = 1024;
+      v85 = symptomAnalyticsConfigure;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -381,13 +381,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v44 = v43;
       symptomAnalyticsSetSnapshot = [(SFEntitlements *)v5 symptomAnalyticsSetSnapshot];
-      v83 = 138478339;
-      v84 = @"com.apple.symptom_analytics.setsnapshot";
-      v85 = 1024;
-      v86 = symptomAnalyticsSetSnapshot;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptom_analytics.setsnapshot";
+      v84 = 1024;
+      v85 = symptomAnalyticsSetSnapshot;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -402,13 +402,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v48 = v47;
       symptomAnalyticsHealthCheck = [(SFEntitlements *)v5 symptomAnalyticsHealthCheck];
-      v83 = 138478339;
-      v84 = @"com.apple.symptom_analytics.healthcheck";
-      v85 = 1024;
-      v86 = symptomAnalyticsHealthCheck;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v48, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptom_analytics.healthcheck";
+      v84 = 1024;
+      v85 = symptomAnalyticsHealthCheck;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v48, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -423,13 +423,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v52 = v51;
       symptomsNetworkOfInterest = [(SFEntitlements *)v5 symptomsNetworkOfInterest];
-      v83 = 138478339;
-      v84 = @"com.apple.symptoms.NetworkOfInterest";
-      v85 = 1024;
-      v86 = symptomsNetworkOfInterest;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptoms.NetworkOfInterest";
+      v84 = 1024;
+      v85 = symptomsNetworkOfInterest;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -444,13 +444,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v56 = v55;
       symptomsNetDomainsAdmin = [(SFEntitlements *)v5 symptomsNetDomainsAdmin];
-      v83 = 138478339;
-      v84 = @"com.apple.symptoms.NetDomains.admin";
-      v85 = 1024;
-      v86 = symptomsNetDomainsAdmin;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v56, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptoms.NetDomains.admin";
+      v84 = 1024;
+      v85 = symptomsNetDomainsAdmin;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v56, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -465,13 +465,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v60 = v59;
       symptomsRNFTest = [(SFEntitlements *)v5 symptomsRNFTest];
-      v83 = 138478339;
-      v84 = @"com.apple.symptoms.rnftest";
-      v85 = 1024;
-      v86 = symptomsRNFTest;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptoms.rnftest";
+      v84 = 1024;
+      v85 = symptomsRNFTest;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -486,13 +486,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v64 = v63;
       symptomsSymptomsToolTest = [(SFEntitlements *)v5 symptomsSymptomsToolTest];
-      v83 = 138478339;
-      v84 = @"com.apple.symptoms.symptomstooltest";
-      v85 = 1024;
-      v86 = symptomsSymptomsToolTest;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v64, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptoms.symptomstooltest";
+      v84 = 1024;
+      v85 = symptomsSymptomsToolTest;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v64, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -507,13 +507,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v68 = v67;
       symptomsNDF = [(SFEntitlements *)v5 symptomsNDF];
-      v83 = 138478339;
-      v84 = @"com.apple.symptoms_ndf";
-      v85 = 1024;
-      v86 = symptomsNDF;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v68, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptoms_ndf";
+      v84 = 1024;
+      v85 = symptomsNDF;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v68, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -528,13 +528,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v72 = v71;
       symptomsCOSMAdmin = [(SFEntitlements *)v5 symptomsCOSMAdmin];
-      v83 = 138478339;
-      v84 = @"com.apple.symptoms.cosm.admin";
-      v85 = 1024;
-      v86 = symptomsCOSMAdmin;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v72, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptoms.cosm.admin";
+      v84 = 1024;
+      v85 = symptomsCOSMAdmin;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v72, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -549,13 +549,13 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v76 = v75;
       symptomsNWActivityDatabase = [(SFEntitlements *)v5 symptomsNWActivityDatabase];
-      v83 = 138478339;
-      v84 = @"com.apple.symptoms.nw_activity.database";
-      v85 = 1024;
-      v86 = symptomsNWActivityDatabase;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v76, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptoms.nw_activity.database";
+      v84 = 1024;
+      v85 = symptomsNWActivityDatabase;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v76, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
@@ -570,19 +570,17 @@ void __50__ServiceImpl_listener_shouldAcceptNewConnection___block_invoke()
     {
       v80 = v79;
       symptomsNetworkDiagnostics = [(SFEntitlements *)v5 symptomsNetworkDiagnostics];
-      v83 = 138478339;
-      v84 = @"com.apple.symptoms.NetworkDiagnostics";
-      v85 = 1024;
-      v86 = symptomsNetworkDiagnostics;
-      v87 = 2048;
-      v88 = connectionCopy;
-      _os_log_impl(&dword_23255B000, v80, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v83, 0x1Cu);
+      v82 = 138478339;
+      v83 = @"com.apple.symptoms.NetworkDiagnostics";
+      v84 = 1024;
+      v85 = symptomsNetworkDiagnostics;
+      v86 = 2048;
+      v87 = connectionCopy;
+      _os_log_impl(&dword_23255B000, v80, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: caching entitlement %{private}@ = %d for %p", &v82, 0x1Cu);
     }
   }
 
   [(__CFString *)connectionCopy setUserInfo:v5];
-
-  v82 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNOIClientForConnection:(void *)connection
@@ -639,21 +637,19 @@ void __45__ServiceImpl__handleNOIClientForConnection___block_invoke_2(uint64_t a
 
 void __42__ServiceImpl_resumePendingXPCConnections__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_INFO, "ServiceImpl: Resuming pending XPC connection %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_INFO, "ServiceImpl: Resuming pending XPC connection %@", &v5, 0xCu);
   }
 
   [(ServiceImpl *)*(a1 + 32) _handleNOIClientForConnection:v3];
   [v3 activate];
   [*(a1 + 40) addObject:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_checkRateLimitForConnection:(os_unfair_lock_s *)connection
@@ -697,16 +693,16 @@ void __42__ServiceImpl_resumePendingXPCConnections__block_invoke(uint64_t a1, vo
 
 void __44__ServiceImpl__checkRateLimitForConnection___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEAA8] date];
   if ([*(*(a1 + 32) + 48) count] >= 0xB)
   {
     v3 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v14 = 67109120;
-      v15 = 10;
-      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "Request Time cache (size %d) exceeded maximum size. Clearing now", &v14, 8u);
+      v13 = 67109120;
+      v14 = 10;
+      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "Request Time cache (size %d) exceeded maximum size. Clearing now", &v13, 8u);
     }
 
     v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -737,23 +733,21 @@ void __44__ServiceImpl__checkRateLimitForConnection___block_invoke(uint64_t a1)
       v12 = "false";
     }
 
-    v14 = 67109890;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v2;
-    v20 = 2080;
-    v21 = v12;
-    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "pid: %d, last allowed request: %@, now: %@, allowed: %s", &v14, 0x26u);
+    v13 = 67109890;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v2;
+    v19 = 2080;
+    v20 = v12;
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "pid: %d, last allowed request: %@, now: %@, allowed: %s", &v13, 0x26u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)assertEntitlement:(id)entitlement entitlement:(unint64_t)a4 orWaiveOnIntent:(id)intent
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   entitlementCopy = entitlement;
   intentCopy = intent;
   if (assertEntitlement_entitlement_orWaiveOnIntent__onceToken != -1)
@@ -775,11 +769,11 @@ void __44__ServiceImpl__checkRateLimitForConnection___block_invoke(uint64_t a1)
     {
       v12 = v11;
       v13 = [SFEntitlements stringForEntitlement:a4];
-      v24 = 138478083;
-      v25 = v13;
-      v26 = 1024;
+      v23 = 138478083;
+      v24 = v13;
+      v25 = 1024;
       processIdentifier = [entitlementCopy processIdentifier];
-      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: entitlement %{private}@ is missing from %d", &v24, 0x12u);
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: entitlement %{private}@ is missing from %d", &v23, 0x12u);
     }
 
     if (intentCopy)
@@ -804,9 +798,9 @@ void __44__ServiceImpl__checkRateLimitForConnection___block_invoke(uint64_t a1)
             v21 = "";
           }
 
-          v24 = 136315138;
-          v25 = v21;
-          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: intent fallback did %ssucceed", &v24, 0xCu);
+          v23 = 136315138;
+          v24 = v21;
+          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: intent fallback did %ssucceed", &v23, 0xCu);
         }
       }
 
@@ -822,31 +816,28 @@ void __44__ServiceImpl__checkRateLimitForConnection___block_invoke(uint64_t a1)
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 void __61__ServiceImpl_assertEntitlement_entitlement_orWaiveOnIntent___block_invoke()
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc(MEMORY[0x277CBEB98]);
-  v10[0] = @"instant";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = @"instant";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v2 = [v0 initWithArray:v1];
   v3 = assertEntitlement_entitlement_orWaiveOnIntent__waiverIntentMustHave;
   assertEntitlement_entitlement_orWaiveOnIntent__waiverIntentMustHave = v2;
 
   v4 = objc_alloc(MEMORY[0x277CBEB98]);
-  v9[0] = @"historicalFlow";
-  v9[1] = @"instantFlow";
-  v9[2] = @"historical";
-  v9[3] = @"sweepUsage";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
+  v8[0] = @"historicalFlow";
+  v8[1] = @"instantFlow";
+  v8[2] = @"historical";
+  v8[3] = @"sweepUsage";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
   v6 = [v4 initWithArray:v5];
   v7 = assertEntitlement_entitlement_orWaiveOnIntent__waiverIntentMustNotHave;
   assertEntitlement_entitlement_orWaiveOnIntent__waiverIntentMustNotHave = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -861,12 +852,12 @@ void __61__ServiceImpl_assertEntitlement_entitlement_orWaiveOnIntent___block_inv
 
 - (ServiceImpl)initWithQueue:(id)queue noiEngine:(id)engine isHelper:(BOOL)helper
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   engineCopy = engine;
-  v32.receiver = self;
-  v32.super_class = ServiceImpl;
-  v11 = [(ServiceImpl *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = ServiceImpl;
+  v11 = [(ServiceImpl *)&v31 init];
   v12 = v11;
   if (v11)
   {
@@ -890,7 +881,7 @@ void __61__ServiceImpl_assertEntitlement_entitlement_orWaiveOnIntent___block_inv
     block[2] = __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke;
     block[3] = &unk_27898A0C8;
     v19 = v12;
-    v31 = v19;
+    v30 = v19;
     if (initWithQueue_noiEngine_isHelper__onceToken != -1)
     {
       dispatch_once(&initWithQueue_noiEngine_isHelper__onceToken, block);
@@ -902,23 +893,22 @@ void __61__ServiceImpl_assertEntitlement_entitlement_orWaiveOnIntent___block_inv
     {
       v21 = v19[3];
       *buf = 134217984;
-      v34 = v21;
+      v33 = v21;
       _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: noi engine set as: %p", buf, 0xCu);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_178;
-    v28[3] = &unk_27898A690;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_178;
+    v27[3] = &unk_27898A690;
     v23 = v19;
-    v29 = v23;
-    v24 = [defaultCenter addObserverForName:@"kNotificationOfPartialInitialization" object:0 queue:0 usingBlock:v28];
+    v28 = v23;
+    v24 = [defaultCenter addObserverForName:@"kNotificationOfPartialInitialization" object:0 queue:0 usingBlock:v27];
     v25 = v23[7];
     v23[7] = v24;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -931,7 +921,7 @@ uint64_t __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke(uint6
 
 void __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_178(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = [a2 userInfo];
   v4 = v3;
   if (v3)
@@ -947,31 +937,31 @@ void __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_178(uint6
         {
           v7 = *(*(a1 + 32) + 8);
           *buf = 134218240;
-          v36 = v5;
-          v37 = 2048;
-          v38 = v7;
+          v35 = v5;
+          v36 = 2048;
+          v37 = v7;
           _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: notification sets flow engine: %p, was: %p", buf, 0x16u);
         }
 
         v8 = *(a1 + 32);
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_180;
-        v32[3] = &unk_27898A7D0;
-        v33 = v8;
-        v34 = v5;
-        sf_synchronize(v8 + 18, v32);
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_180;
+        v31[3] = &unk_27898A7D0;
+        v32 = v8;
+        v33 = v5;
+        sf_synchronize(v8 + 18, v31);
         v9 = *(a1 + 32);
         v10 = v9[5];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_2;
         block[3] = &unk_27898A0C8;
-        v31 = v9;
+        v30 = v9;
         v11 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
         dispatch_async(v10, v11);
 
-        v12 = v33;
+        v12 = v32;
 LABEL_15:
 
         goto LABEL_19;
@@ -986,31 +976,31 @@ LABEL_15:
         {
           v19 = *(*(a1 + 32) + 16);
           *buf = 134218240;
-          v36 = v5;
-          v37 = 2048;
-          v38 = v19;
+          v35 = v5;
+          v36 = 2048;
+          v37 = v19;
           _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: notification sets network engine: %p, was: %p", buf, 0x16u);
         }
 
         v20 = *(a1 + 32);
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_182;
-        v27[3] = &unk_27898A7D0;
-        v28 = v20;
-        v29 = v5;
-        sf_synchronize(v20 + 18, v27);
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_182;
+        v26[3] = &unk_27898A7D0;
+        v27 = v20;
+        v28 = v5;
+        sf_synchronize(v20 + 18, v26);
         v21 = *(a1 + 32);
         v22 = v21[5];
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_2_183;
-        v25[3] = &unk_27898A0C8;
-        v26 = v21;
-        v23 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v25);
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_2_183;
+        v24[3] = &unk_27898A0C8;
+        v25 = v21;
+        v23 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v24);
         dispatch_async(v22, v23);
 
-        v12 = v28;
+        v12 = v27;
         goto LABEL_15;
       }
 
@@ -1020,7 +1010,7 @@ LABEL_15:
       }
 
       *buf = 134217984;
-      v36 = v5;
+      v35 = v5;
       v15 = "SymptomAnalytics ServiceImpl: notification has unknown engine: %p";
       v16 = v18;
     }
@@ -1036,7 +1026,7 @@ LABEL_19:
       }
 
       *buf = 138412290;
-      v36 = v4;
+      v35 = v4;
       v15 = "SymptomAnalytics ServiceImpl: notification lacks engine info: %@";
       v16 = v14;
     }
@@ -1053,13 +1043,11 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getNetworkBitmapsWithNames:(id)names startTime:(unint64_t)time endTime:(unint64_t)endTime options:(id)options reply:(id)reply
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   optionsCopy = options;
   replyCopy = reply;
@@ -1069,13 +1057,13 @@ LABEL_20:
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v30 = namesCopy;
-    v31 = 2048;
+    v29 = namesCopy;
+    v30 = 2048;
     timeCopy = time;
-    v33 = 2048;
+    v32 = 2048;
     endTimeCopy = endTime;
-    v35 = 2112;
-    v36 = optionsCopy;
+    v34 = 2112;
+    v35 = optionsCopy;
     _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "[Bitmap] SymptomAnalytics ServiceImpl: received network bitmap request: names: %@ interval: [%llu, %llu] options: %@", buf, 0x2Au);
   }
 
@@ -1085,13 +1073,13 @@ LABEL_20:
     if ([(ServiceImpl *)self assertEntitlement:currentConnection entitlement:4 orWaiveOnIntent:0])
     {
       f_engine = self->f_engine;
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __74__ServiceImpl_getNetworkBitmapsWithNames_startTime_endTime_options_reply___block_invoke;
-      v25[3] = &unk_27898BC58;
-      v26 = replyCopy;
-      [(FlowAnalyticsEngine *)f_engine getNetworkBitmapsWithNames:namesCopy startTime:time endTime:endTime options:optionsCopy reply:v25];
-      v19 = v26;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __74__ServiceImpl_getNetworkBitmapsWithNames_startTime_endTime_options_reply___block_invoke;
+      v24[3] = &unk_27898BC58;
+      v25 = replyCopy;
+      [(FlowAnalyticsEngine *)f_engine getNetworkBitmapsWithNames:namesCopy startTime:time endTime:endTime options:optionsCopy reply:v24];
+      v19 = v25;
     }
 
     else
@@ -1105,22 +1093,20 @@ LABEL_20:
 
       v21 = MEMORY[0x277CCA9B8];
       v22 = *MEMORY[0x277CCA050];
-      v27 = *MEMORY[0x277CCA450];
-      v28 = @"A proper entitlement is needed for retrieving the network bitmap.";
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+      v26 = *MEMORY[0x277CCA450];
+      v27 = @"A proper entitlement is needed for retrieving the network bitmap.";
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
       v23 = [v21 errorWithDomain:v22 code:13 userInfo:v19];
       (*(replyCopy + 2))(replyCopy, 0, v23);
     }
   }
 
   objc_autoreleasePoolPop(v15);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performQueryOnEntity:(id)entity fetchRequestProperties:(id)properties pred:(id)pred sort:(id)sort actions:(id)actions reply:(id)reply
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   propertiesCopy = properties;
   predCopy = pred;
@@ -1142,13 +1128,13 @@ LABEL_20:
     v25 = replyCopy;
     v27 = v26 = predCopy;
     *buf = 138413058;
-    v86 = entityCopy;
-    v87 = 2112;
-    v88 = v21;
-    v89 = 2112;
-    v90 = v22;
-    v91 = 2112;
-    v92 = v27;
+    v85 = entityCopy;
+    v86 = 2112;
+    v87 = v21;
+    v88 = 2112;
+    v89 = v22;
+    v90 = 2112;
+    v91 = v27;
     _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: received query for: %@ pred %@ sort %@ actions %@", buf, 0x2Au);
 
     predCopy = v26;
@@ -1177,7 +1163,7 @@ LABEL_20:
         }
 
         *buf = 138412290;
-        v86 = v41;
+        v85 = v41;
         _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_ERROR, "SymptomAnalytics ServiceImpl: query from %@ didn't pass entitlement check", buf, 0xCu);
 
         predCopy = v37;
@@ -1198,13 +1184,13 @@ LABEL_25:
         v49 = qos_class_self();
         v50 = qos_string(v49);
         *buf = 136315394;
-        v86 = v50;
-        v87 = 2048;
-        v88 = v18;
+        v85 = v50;
+        v86 = 2048;
+        v87 = v18;
         _os_log_impl(&dword_23255B000, v48, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: (performQueryOnEntity:) QoS %s (%lu)", buf, 0x16u);
       }
 
-      predCopy = v63;
+      predCopy = v62;
       if ([(FlowAnalyticsEngine *)self->f_engine handlesEntity:entityCopy])
       {
         queue = [(AnalyticsEngineCore *)self->f_engine queue];
@@ -1212,21 +1198,21 @@ LABEL_25:
         block[1] = 3221225472;
         block[2] = __83__ServiceImpl_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_reply___block_invoke;
         block[3] = &unk_27898E6F0;
-        v84 = v18;
+        v83 = v18;
         block[4] = self;
-        v77 = entityCopy;
+        v76 = entityCopy;
         v35 = propertiesCopy;
-        v78 = propertiesCopy;
-        v79 = v63;
-        v80 = sortCopy;
-        v81 = actionsCopy;
-        v82 = currentConnection;
-        v83 = replyCopy;
+        v77 = propertiesCopy;
+        v78 = v62;
+        v79 = sortCopy;
+        v80 = actionsCopy;
+        v81 = currentConnection;
+        v82 = replyCopy;
         v52 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
         dispatch_async(queue, v52);
 
-        predCopy = v63;
-        v53 = v77;
+        predCopy = v62;
+        v53 = v76;
 LABEL_31:
 
 LABEL_35:
@@ -1236,25 +1222,25 @@ LABEL_35:
       if ([(NetworkAnalyticsEngine *)self->n_engine handlesEntity:entityCopy])
       {
         queue2 = [(AnalyticsEngineCore *)self->n_engine queue];
-        v67[0] = MEMORY[0x277D85DD0];
-        v67[1] = 3221225472;
-        v67[2] = __83__ServiceImpl_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_reply___block_invoke_194;
-        v67[3] = &unk_27898E6F0;
-        v75 = v18;
-        v67[4] = self;
-        v68 = entityCopy;
+        v66[0] = MEMORY[0x277D85DD0];
+        v66[1] = 3221225472;
+        v66[2] = __83__ServiceImpl_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_reply___block_invoke_194;
+        v66[3] = &unk_27898E6F0;
+        v74 = v18;
+        v66[4] = self;
+        v67 = entityCopy;
         v35 = propertiesCopy;
-        v69 = propertiesCopy;
-        v70 = v63;
-        v71 = sortCopy;
-        v72 = actionsCopy;
-        v73 = currentConnection;
-        v74 = replyCopy;
-        v55 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v67);
+        v68 = propertiesCopy;
+        v69 = v62;
+        v70 = sortCopy;
+        v71 = actionsCopy;
+        v72 = currentConnection;
+        v73 = replyCopy;
+        v55 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v66);
         dispatch_async(queue2, v55);
 
-        predCopy = v63;
-        v53 = v68;
+        predCopy = v62;
+        v53 = v67;
         goto LABEL_31;
       }
 
@@ -1280,7 +1266,7 @@ LABEL_34:
         v32 = v31;
         integerValue = [v30 integerValue];
         *buf = 134217984;
-        v86 = integerValue;
+        v85 = integerValue;
         _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: found non-zero (%ld) fetch-offset (part of batched queries), rate-limit check waived", buf, 0xCu);
       }
 
@@ -1310,24 +1296,24 @@ LABEL_24:
       {
         if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
         {
-          v58 = v46;
-          v59 = pid_to_process_name([currentConnection processIdentifier]);
-          v60 = v59;
-          v61 = @"<unknown>";
-          if (v59)
+          v57 = v46;
+          v58 = pid_to_process_name([currentConnection processIdentifier]);
+          v59 = v58;
+          v60 = @"<unknown>";
+          if (v58)
           {
-            v61 = v59;
+            v60 = v58;
           }
 
           *buf = 138412290;
-          v86 = v61;
-          _os_log_impl(&dword_23255B000, v58, OS_LOG_TYPE_ERROR, "SymptomAnalytics ServiceImpl: query from %@ didn't pass rate-limit check", buf, 0xCu);
+          v85 = v60;
+          _os_log_impl(&dword_23255B000, v57, OS_LOG_TYPE_ERROR, "SymptomAnalytics ServiceImpl: query from %@ didn't pass rate-limit check", buf, 0xCu);
         }
 
         (*(replyCopy + 2))(replyCopy, 0);
 
         v35 = propertiesCopy;
-        predCopy = v63;
+        predCopy = v62;
         goto LABEL_35;
       }
 
@@ -1356,13 +1342,11 @@ LABEL_24:
   v35 = propertiesCopy;
 LABEL_36:
   objc_autoreleasePoolPop(context);
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __83__ServiceImpl_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_reply___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -1371,20 +1355,18 @@ uint64_t __83__ServiceImpl_performQueryOnEntity_fetchRequestProperties_pred_sort
     v5 = qos_string(v4);
     v6 = a1[12];
     *buf = 136315394;
-    v10 = v5;
-    v11 = 2048;
-    v12 = v6;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
     _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: performQueryOnEntity: [FAE] QoS %s (%lu)", buf, 0x16u);
   }
 
-  result = [*(a1[4] + 8) performQueryOnEntity:a1[5] fetchRequestProperties:a1[6] pred:a1[7] sort:a1[8] actions:a1[9] service:a1[10] connection:a1[11] reply:?];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1[4] + 8) performQueryOnEntity:a1[5] fetchRequestProperties:a1[6] pred:a1[7] sort:a1[8] actions:a1[9] service:a1[10] connection:a1[11] reply:?];
 }
 
 uint64_t __83__ServiceImpl_performQueryOnEntity_fetchRequestProperties_pred_sort_actions_reply___block_invoke_194(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -1393,20 +1375,18 @@ uint64_t __83__ServiceImpl_performQueryOnEntity_fetchRequestProperties_pred_sort
     v5 = qos_string(v4);
     v6 = a1[12];
     *buf = 136315394;
-    v10 = v5;
-    v11 = 2048;
-    v12 = v6;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
     _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: performQueryOnEntity: [NAE] QoS %s (%lu)", buf, 0x16u);
   }
 
-  result = [*(a1[4] + 16) performQueryOnEntity:a1[5] fetchRequestProperties:a1[6] pred:a1[7] sort:a1[8] actions:a1[9] service:a1[10] connection:a1[11] reply:?];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1[4] + 16) performQueryOnEntity:a1[5] fetchRequestProperties:a1[6] pred:a1[7] sort:a1[8] actions:a1[9] service:a1[10] connection:a1[11] reply:?];
 }
 
 - (void)createSnapshotFor:(id)for pred:(id)pred actions:(id)actions reply:(id)reply
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   forCopy = for;
   predCopy = pred;
   actionsCopy = actions;
@@ -1417,13 +1397,13 @@ uint64_t __83__ServiceImpl_performQueryOnEntity_fetchRequestProperties_pred_sort
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v46 = forCopy;
+    v45 = forCopy;
     _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: received snapshot request on entity: %@", buf, 0xCu);
   }
 
   if (forCopy)
   {
-    v32 = v15;
+    v31 = v15;
     currentConnection = [MEMORY[0x277CCAE80] currentConnection];
     if ([(ServiceImpl *)self assertEntitlement:currentConnection entitlement:9 orWaiveOnIntent:0])
     {
@@ -1434,9 +1414,9 @@ uint64_t __83__ServiceImpl_performQueryOnEntity_fetchRequestProperties_pred_sort
         v20 = qos_class_self();
         v21 = qos_string(v20);
         *buf = 136315394;
-        v46 = v21;
-        v47 = 2048;
-        v48 = v14;
+        v45 = v21;
+        v46 = 2048;
+        v47 = v14;
         _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: (createSnapshotFor:) QoS %s (%lu)", buf, 0x16u);
       }
 
@@ -1447,16 +1427,16 @@ uint64_t __83__ServiceImpl_performQueryOnEntity_fetchRequestProperties_pred_sort
         block[1] = 3221225472;
         block[2] = __52__ServiceImpl_createSnapshotFor_pred_actions_reply___block_invoke;
         block[3] = &unk_27898E718;
-        v44 = v14;
+        v43 = v14;
         block[4] = self;
-        v40 = forCopy;
-        v41 = predCopy;
-        v42 = actionsCopy;
-        v43 = replyCopy;
+        v39 = forCopy;
+        v40 = predCopy;
+        v41 = actionsCopy;
+        v42 = replyCopy;
         v23 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
         dispatch_async(queue, v23);
 
-        v24 = v40;
+        v24 = v39;
 LABEL_18:
 
         goto LABEL_19;
@@ -1465,20 +1445,20 @@ LABEL_18:
       if ([(NetworkAnalyticsEngine *)self->n_engine handlesEntity:forCopy])
       {
         queue2 = [(AnalyticsEngineCore *)self->n_engine queue];
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __52__ServiceImpl_createSnapshotFor_pred_actions_reply___block_invoke_195;
-        v33[3] = &unk_27898E718;
-        v38 = v14;
-        v33[4] = self;
-        v34 = forCopy;
-        v35 = predCopy;
-        v36 = actionsCopy;
-        v37 = replyCopy;
-        v30 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v33);
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __52__ServiceImpl_createSnapshotFor_pred_actions_reply___block_invoke_195;
+        v32[3] = &unk_27898E718;
+        v37 = v14;
+        v32[4] = self;
+        v33 = forCopy;
+        v34 = predCopy;
+        v35 = actionsCopy;
+        v36 = replyCopy;
+        v30 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v32);
         dispatch_async(queue2, v30);
 
-        v24 = v34;
+        v24 = v33;
         goto LABEL_18;
       }
 
@@ -1508,7 +1488,7 @@ LABEL_14:
     (*(replyCopy + 2))(replyCopy, 0, v26);
 
 LABEL_19:
-    v15 = v32;
+    v15 = v31;
     goto LABEL_20;
   }
 
@@ -1524,12 +1504,11 @@ LABEL_19:
 LABEL_20:
 
   objc_autoreleasePoolPop(v15);
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __52__ServiceImpl_createSnapshotFor_pred_actions_reply___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -1537,21 +1516,19 @@ uint64_t __52__ServiceImpl_createSnapshotFor_pred_actions_reply___block_invoke(v
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = a1[9];
-    v9 = 136315394;
-    v10 = v5;
-    v11 = 2048;
-    v12 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: createSnapshotFor: [FAE] QoS %s (%lu)", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: createSnapshotFor: [FAE] QoS %s (%lu)", &v8, 0x16u);
   }
 
-  result = [*(a1[4] + 8) createSnapshotFor:a1[5] pred:a1[6] actions:a1[7] reply:a1[8]];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1[4] + 8) createSnapshotFor:a1[5] pred:a1[6] actions:a1[7] reply:a1[8]];
 }
 
 uint64_t __52__ServiceImpl_createSnapshotFor_pred_actions_reply___block_invoke_195(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -1559,32 +1536,30 @@ uint64_t __52__ServiceImpl_createSnapshotFor_pred_actions_reply___block_invoke_1
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = a1[9];
-    v9 = 136315394;
-    v10 = v5;
-    v11 = 2048;
-    v12 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: createSnapshotFor: [NAE] QoS %s (%lu)", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: createSnapshotFor: [NAE] QoS %s (%lu)", &v8, 0x16u);
   }
 
-  result = [*(a1[4] + 16) createSnapshotFor:a1[5] pred:a1[6] actions:a1[7] reply:a1[8]];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1[4] + 16) createSnapshotFor:a1[5] pred:a1[6] actions:a1[7] reply:a1[8]];
 }
 
 - (void)setOption:(id)option inScopes:(id)scopes reply:(id)reply
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   optionCopy = option;
   scopesCopy = scopes;
   replyCopy = reply;
   v11 = ++_query_id;
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__13;
-  v47 = __Block_byref_object_dispose__13;
-  v48 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__13;
+  v46 = __Block_byref_object_dispose__13;
+  v47 = 0;
   v13 = [(ServiceImpl *)self assertEntitlement:currentConnection entitlement:8 orWaiveOnIntent:0];
   v14 = analyticsLogHandle;
   if (v13)
@@ -1595,9 +1570,9 @@ uint64_t __52__ServiceImpl_createSnapshotFor_pred_actions_reply___block_invoke_1
       v16 = qos_class_self();
       v17 = qos_string(v16);
       *buf = 136315394;
-      v50 = v17;
-      v51 = 2048;
-      v52 = v11;
+      v49 = v17;
+      v50 = 2048;
+      v51 = v11;
       _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: configure (setOption:inScopes:) authorized QoS %s (%lu)", buf, 0x16u);
     }
 
@@ -1611,7 +1586,7 @@ uint64_t __52__ServiceImpl_createSnapshotFor_pred_actions_reply___block_invoke_1
       block[1] = 3221225472;
       block[2] = __40__ServiceImpl_setOption_inScopes_reply___block_invoke;
       block[3] = &unk_27898E740;
-      block[7] = &v43;
+      block[7] = &v42;
       block[8] = v11;
       block[4] = self;
       block[5] = optionCopy;
@@ -1632,56 +1607,56 @@ LABEL_13:
     if (v24)
     {
       queue = [(AnalyticsEngineCore *)self->n_engine queue];
-      v20 = v41;
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __40__ServiceImpl_setOption_inScopes_reply___block_invoke_196;
-      v41[3] = &unk_27898E740;
-      v41[7] = &v43;
-      v41[8] = v11;
-      v41[4] = self;
-      v41[5] = optionCopy;
-      v41[6] = replyCopy;
-      v25 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v41);
+      v20 = v40;
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __40__ServiceImpl_setOption_inScopes_reply___block_invoke_196;
+      v40[3] = &unk_27898E740;
+      v40[7] = &v42;
+      v40[8] = v11;
+      v40[4] = self;
+      v40[5] = optionCopy;
+      v40[6] = replyCopy;
+      v25 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v40);
       dispatch_async(queue, v25);
 
       goto LABEL_12;
     }
 
-    v29 = [scopesCopy objectForKey:@"networkDomainTracking"];
+    v28 = [scopesCopy objectForKey:@"networkDomainTracking"];
 
-    if (v29)
+    if (v28)
     {
-      v30 = +[NetDomainsHandler sharedInstance];
+      v29 = +[NetDomainsHandler sharedInstance];
       netDomainsHandler = self->netDomainsHandler;
-      self->netDomainsHandler = v30;
+      self->netDomainsHandler = v29;
 
       queue2 = [(NetDomainsHandler *)self->netDomainsHandler queue];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __40__ServiceImpl_setOption_inScopes_reply___block_invoke_198;
-      v35[3] = &unk_27898E768;
-      v39 = &v43;
-      v40 = v11;
-      v35[4] = self;
-      v36 = optionCopy;
-      v37 = currentConnection;
-      v38 = replyCopy;
-      v33 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v35);
-      dispatch_async(queue2, v33);
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __40__ServiceImpl_setOption_inScopes_reply___block_invoke_198;
+      v34[3] = &unk_27898E768;
+      v38 = &v42;
+      v39 = v11;
+      v34[4] = self;
+      v35 = optionCopy;
+      v36 = currentConnection;
+      v37 = replyCopy;
+      v32 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v34);
+      dispatch_async(queue2, v32);
 
-      v26 = &v36;
-      v27 = &v37;
-      queue = v38;
+      v26 = &v35;
+      v27 = &v36;
+      queue = v37;
       goto LABEL_13;
     }
 
-    v34 = analyticsLogHandle;
+    v33 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
       v22 = "SymptomAnalytics ServiceImpl: no engine suitable to reply to setOption";
-      v23 = v34;
+      v23 = v33;
       goto LABEL_8;
     }
   }
@@ -1695,16 +1670,14 @@ LABEL_8:
     _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEBUG, v22, buf, 2u);
   }
 
-  (*(replyCopy + 2))(replyCopy, v44[5]);
+  (*(replyCopy + 2))(replyCopy, v43[5]);
 LABEL_14:
-  _Block_object_dispose(&v43, 8);
-
-  v28 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v42, 8);
 }
 
 uint64_t __40__ServiceImpl_setOption_inScopes_reply___block_invoke(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -1712,11 +1685,11 @@ uint64_t __40__ServiceImpl_setOption_inScopes_reply___block_invoke(void *a1)
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = a1[8];
-    v13 = 136315394;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: [FAE] setOption:inScopes: QoS %s (%lu)", &v13, 0x16u);
+    v11 = 136315394;
+    v12 = v5;
+    v13 = 2048;
+    v14 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: [FAE] setOption:inScopes: QoS %s (%lu)", &v11, 0x16u);
   }
 
   v7 = [*(a1[4] + 8) setOption:a1[5]];
@@ -1724,15 +1697,12 @@ uint64_t __40__ServiceImpl_setOption_inScopes_reply___block_invoke(void *a1)
   v9 = *(v8 + 40);
   *(v8 + 40) = v7;
 
-  v10 = *(*(a1[7] + 8) + 40);
-  result = (*(a1[6] + 16))();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 uint64_t __40__ServiceImpl_setOption_inScopes_reply___block_invoke_196(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -1740,11 +1710,11 @@ uint64_t __40__ServiceImpl_setOption_inScopes_reply___block_invoke_196(void *a1)
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = a1[8];
-    v13 = 136315394;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: [NAE] setOption:inScopes: QoS %s (%lu)", &v13, 0x16u);
+    v11 = 136315394;
+    v12 = v5;
+    v13 = 2048;
+    v14 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: [NAE] setOption:inScopes: QoS %s (%lu)", &v11, 0x16u);
   }
 
   v7 = [*(a1[4] + 16) setOption:a1[5]];
@@ -1752,15 +1722,12 @@ uint64_t __40__ServiceImpl_setOption_inScopes_reply___block_invoke_196(void *a1)
   v9 = *(v8 + 40);
   *(v8 + 40) = v7;
 
-  v10 = *(*(a1[7] + 8) + 40);
-  result = (*(a1[6] + 16))();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 uint64_t __40__ServiceImpl_setOption_inScopes_reply___block_invoke_198(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -1768,11 +1735,11 @@ uint64_t __40__ServiceImpl_setOption_inScopes_reply___block_invoke_198(void *a1)
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = a1[9];
-    v13 = 136315394;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: [NetDomain] setOption:inScopes: QoS %s (%lu)", &v13, 0x16u);
+    v11 = 136315394;
+    v12 = v5;
+    v13 = 2048;
+    v14 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: [NetDomain] setOption:inScopes: QoS %s (%lu)", &v11, 0x16u);
   }
 
   v7 = [*(a1[4] + 32) setNetworkDomainsOptions:a1[5] service:a1[4] connection:a1[6]];
@@ -1780,26 +1747,23 @@ uint64_t __40__ServiceImpl_setOption_inScopes_reply___block_invoke_198(void *a1)
   v9 = *(v8 + 40);
   *(v8 + 40) = v7;
 
-  v10 = *(*(a1[8] + 8) + 40);
-  result = (*(a1[7] + 16))();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[7] + 16))();
 }
 
 - (void)getOption:(id)option inScopes:(id)scopes reply:(id)reply
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   optionCopy = option;
   scopesCopy = scopes;
   replyCopy = reply;
   v11 = ++_query_id;
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__13;
-  v50 = __Block_byref_object_dispose__13;
-  v51 = 0;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__13;
+  v49 = __Block_byref_object_dispose__13;
+  v50 = 0;
   v13 = [(ServiceImpl *)self assertEntitlement:currentConnection entitlement:8 orWaiveOnIntent:0];
   v14 = analyticsLogHandle;
   if (v13)
@@ -1810,9 +1774,9 @@ uint64_t __40__ServiceImpl_setOption_inScopes_reply___block_invoke_198(void *a1)
       v16 = qos_class_self();
       v17 = qos_string(v16);
       *buf = 136315394;
-      v53 = v17;
-      v54 = 2048;
-      v55 = v11;
+      v52 = v17;
+      v53 = 2048;
+      v54 = v11;
       _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: configure (getOption:inScopes:) authorized QoS %s (%lu)", buf, 0x16u);
     }
 
@@ -1825,15 +1789,15 @@ uint64_t __40__ServiceImpl_setOption_inScopes_reply___block_invoke_198(void *a1)
       block[1] = 3221225472;
       block[2] = __40__ServiceImpl_getOption_inScopes_reply___block_invoke;
       block[3] = &unk_27898E790;
-      v45[1] = &v46;
+      v44[1] = &v45;
       block[4] = self;
-      v44 = optionCopy;
-      v45[0] = replyCopy;
+      v43 = optionCopy;
+      v44[0] = replyCopy;
       v20 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
       dispatch_async(queue, v20);
 
-      v21 = &v44;
-      v22 = v45;
+      v21 = &v43;
+      v22 = v44;
 LABEL_14:
 
       goto LABEL_15;
@@ -1844,20 +1808,20 @@ LABEL_14:
     if (v25)
     {
       queue = [(AnalyticsEngineCore *)self->n_engine queue];
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __40__ServiceImpl_getOption_inScopes_reply___block_invoke_199;
-      v40[3] = &unk_27898E740;
-      v42[1] = &v46;
-      v42[2] = v11;
-      v40[4] = self;
-      v41 = optionCopy;
-      v42[0] = replyCopy;
-      v26 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v40);
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __40__ServiceImpl_getOption_inScopes_reply___block_invoke_199;
+      v39[3] = &unk_27898E740;
+      v41[1] = &v45;
+      v41[2] = v11;
+      v39[4] = self;
+      v40 = optionCopy;
+      v41[0] = replyCopy;
+      v26 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v39);
       dispatch_async(queue, v26);
 
-      v21 = &v41;
-      v22 = v42;
+      v21 = &v40;
+      v22 = v41;
       goto LABEL_14;
     }
 
@@ -1870,31 +1834,31 @@ LABEL_14:
       self->netDomainsHandler = v28;
 
       queue2 = [(NetDomainsHandler *)self->netDomainsHandler queue];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __40__ServiceImpl_getOption_inScopes_reply___block_invoke_200;
-      v34[3] = &unk_27898E768;
-      v38 = &v46;
-      v39 = v11;
-      v34[4] = self;
-      v35 = optionCopy;
-      v36 = currentConnection;
-      v37 = replyCopy;
-      v31 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v34);
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __40__ServiceImpl_getOption_inScopes_reply___block_invoke_200;
+      v33[3] = &unk_27898E768;
+      v37 = &v45;
+      v38 = v11;
+      v33[4] = self;
+      v34 = optionCopy;
+      v35 = currentConnection;
+      v36 = replyCopy;
+      v31 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v33);
       dispatch_async(queue2, v31);
 
-      v21 = &v35;
-      v22 = &v36;
-      queue = v37;
+      v21 = &v34;
+      v22 = &v35;
+      queue = v36;
       goto LABEL_14;
     }
 
-    v33 = analyticsLogHandle;
+    v32 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
       v23 = "SymptomAnalytics ServiceImpl: no engine suitable to reply to getOption";
-      v24 = v33;
+      v24 = v32;
       goto LABEL_8;
     }
   }
@@ -1908,24 +1872,22 @@ LABEL_8:
     _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, v23, buf, 2u);
   }
 
-  (*(replyCopy + 2))(replyCopy, v47[5]);
+  (*(replyCopy + 2))(replyCopy, v46[5]);
 LABEL_15:
-  _Block_object_dispose(&v46, 8);
-
-  v32 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v45, 8);
 }
 
 uint64_t __40__ServiceImpl_getOption_inScopes_reply___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v3 = v2;
     v4 = qos_class_self();
-    v11 = 136315138;
-    v12 = qos_string(v4);
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: getOption:inScopes: [FAE] QoS %s", &v11, 0xCu);
+    v9 = 136315138;
+    v10 = qos_string(v4);
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: getOption:inScopes: [FAE] QoS %s", &v9, 0xCu);
   }
 
   v5 = [*(a1[4] + 8) getOption:a1[5]];
@@ -1933,15 +1895,12 @@ uint64_t __40__ServiceImpl_getOption_inScopes_reply___block_invoke(void *a1)
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  v8 = *(*(a1[7] + 8) + 40);
-  result = (*(a1[6] + 16))();
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 uint64_t __40__ServiceImpl_getOption_inScopes_reply___block_invoke_199(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -1949,11 +1908,11 @@ uint64_t __40__ServiceImpl_getOption_inScopes_reply___block_invoke_199(void *a1)
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = a1[8];
-    v13 = 136315394;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: getOption:inScopes: [NAE] QoS %s (%lu)", &v13, 0x16u);
+    v11 = 136315394;
+    v12 = v5;
+    v13 = 2048;
+    v14 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: getOption:inScopes: [NAE] QoS %s (%lu)", &v11, 0x16u);
   }
 
   v7 = [*(a1[4] + 16) getOption:a1[5]];
@@ -1961,15 +1920,12 @@ uint64_t __40__ServiceImpl_getOption_inScopes_reply___block_invoke_199(void *a1)
   v9 = *(v8 + 40);
   *(v8 + 40) = v7;
 
-  v10 = *(*(a1[7] + 8) + 40);
-  result = (*(a1[6] + 16))();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 uint64_t __40__ServiceImpl_getOption_inScopes_reply___block_invoke_200(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -1977,11 +1933,11 @@ uint64_t __40__ServiceImpl_getOption_inScopes_reply___block_invoke_200(void *a1)
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = a1[9];
-    v13 = 136315394;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: getOption:inScopes: [NetDomain] QoS %s (%lu)", &v13, 0x16u);
+    v11 = 136315394;
+    v12 = v5;
+    v13 = 2048;
+    v14 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: getOption:inScopes: [NetDomain] QoS %s (%lu)", &v11, 0x16u);
   }
 
   v7 = [*(a1[4] + 32) getNetworkDomainsOptions:a1[5] service:a1[4] connection:a1[6]];
@@ -1989,15 +1945,12 @@ uint64_t __40__ServiceImpl_getOption_inScopes_reply___block_invoke_200(void *a1)
   v9 = *(v8 + 40);
   *(v8 + 40) = v7;
 
-  v10 = *(*(a1[8] + 8) + 40);
-  result = (*(a1[7] + 16))();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[7] + 16))();
 }
 
 - (void)performActionWithOptions:(id)options inScopes:(id)scopes reply:(id)reply
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   scopesCopy = scopes;
   replyCopy = reply;
@@ -2017,9 +1970,9 @@ uint64_t __40__ServiceImpl_getOption_inScopes_reply___block_invoke_200(void *a1)
 
     v23 = MEMORY[0x277CCA9B8];
     v24 = *MEMORY[0x277CCA050];
-    v31 = *MEMORY[0x277CCA450];
-    v32 = @"A proper entitlement is needed to execute perform action";
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v30 = *MEMORY[0x277CCA450];
+    v31 = @"A proper entitlement is needed to execute perform action";
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
     v22 = [v23 errorWithDomain:v24 code:13 userInfo:v25];
 
     replyCopy[2](replyCopy, 0, v22);
@@ -2031,9 +1984,9 @@ uint64_t __40__ServiceImpl_getOption_inScopes_reply___block_invoke_200(void *a1)
     v17 = v15;
     v18 = qos_class_self();
     *buf = 136315394;
-    v34 = qos_string(v18);
-    v35 = 2048;
-    v36 = v11;
+    v33 = qos_string(v18);
+    v34 = 2048;
+    v35 = v11;
     _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: configure (performActionWithOptions:inScopes:) authorized QoS %s (%lu)", buf, 0x16u);
   }
 
@@ -2047,22 +2000,21 @@ uint64_t __40__ServiceImpl_getOption_inScopes_reply___block_invoke_200(void *a1)
     block[1] = 3221225472;
     block[2] = __55__ServiceImpl_performActionWithOptions_inScopes_reply___block_invoke;
     block[3] = &unk_27898C7D0;
-    v28 = optionsCopy;
-    v30 = effectiveUserIdentifier;
-    v29 = replyCopy;
+    v27 = optionsCopy;
+    v29 = effectiveUserIdentifier;
+    v28 = replyCopy;
     dispatch_sync(queue, block);
 
-    v22 = v28;
+    v22 = v27;
 LABEL_9:
   }
 
   objc_autoreleasePoolPop(v12);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetDataFor:(id)for nameKind:(id)kind inScopes:(id)scopes reply:(id)reply
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   forCopy = for;
   kindCopy = kind;
   scopesCopy = scopes;
@@ -2085,7 +2037,7 @@ LABEL_9:
       }
 
       *buf = 138412290;
-      v44 = v29;
+      v43 = v29;
       _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "SymptomAnalytics ServiceImpl: reset query from %@ denied due to rate limit control", buf, 0xCu);
     }
 
@@ -2102,9 +2054,9 @@ LABEL_9:
       v20 = v18;
       v21 = qos_class_self();
       *buf = 136315394;
-      v44 = qos_string(v21);
-      v45 = 2048;
-      v46 = v13;
+      v43 = qos_string(v21);
+      v44 = 2048;
+      v45 = v13;
       _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: reset authorized QoS %s (%lu)", buf, 0x16u);
     }
 
@@ -2118,11 +2070,11 @@ LABEL_9:
       block[2] = __52__ServiceImpl_resetDataFor_nameKind_inScopes_reply___block_invoke;
       block[3] = &unk_27898A328;
       block[4] = self;
-      v41 = forCopy;
-      v42 = kindCopy;
+      v40 = forCopy;
+      v41 = kindCopy;
       dispatch_sync(queue, block);
 
-      v24 = v41;
+      v24 = v40;
 LABEL_17:
 
       v32 = 1;
@@ -2134,25 +2086,25 @@ LABEL_17:
     if (v33)
     {
       queue2 = [(AnalyticsEngineCore *)self->n_engine queue];
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __52__ServiceImpl_resetDataFor_nameKind_inScopes_reply___block_invoke_2;
-      v37[3] = &unk_27898A328;
-      v37[4] = self;
-      v38 = forCopy;
-      v39 = kindCopy;
-      dispatch_sync(queue2, v37);
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __52__ServiceImpl_resetDataFor_nameKind_inScopes_reply___block_invoke_2;
+      v36[3] = &unk_27898A328;
+      v36[4] = self;
+      v37 = forCopy;
+      v38 = kindCopy;
+      dispatch_sync(queue2, v36);
 
-      v24 = v38;
+      v24 = v37;
       goto LABEL_17;
     }
 
-    v36 = analyticsLogHandle;
+    v35 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
       v30 = "SymptomAnalytics ServiceImpl: no engine suitable to reply to reset";
-      v31 = v36;
+      v31 = v35;
       goto LABEL_13;
     }
   }
@@ -2170,13 +2122,11 @@ LABEL_14:
   v32 = 0;
 LABEL_18:
   replyCopy[2](replyCopy, v32);
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)subscribeToNOIsFor:(id)for orPredicate:(id)predicate options:(id)options
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   forCopy = for;
   predicateCopy = predicate;
   optionsCopy = options;
@@ -2192,23 +2142,23 @@ LABEL_18:
       v16 = qos_class_self();
       *buf = 136315394;
       selfCopy = qos_string(v16);
-      v30 = 2048;
-      v31 = v11;
+      v29 = 2048;
+      v30 = v11;
       _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: (subscribeToNOIsFor:orPredicate:) authorized QoS %s (%lu)", buf, 0x16u);
     }
 
     queue = [(AnalyticsEngineCore *)self->noi_engine queue];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __54__ServiceImpl_subscribeToNOIsFor_orPredicate_options___block_invoke;
-    v22[3] = &unk_27898E7B8;
-    v27 = v11;
-    v22[4] = self;
-    v23 = forCopy;
-    v24 = predicateCopy;
-    v25 = optionsCopy;
-    v26 = currentConnection;
-    v18 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v22);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __54__ServiceImpl_subscribeToNOIsFor_orPredicate_options___block_invoke;
+    v21[3] = &unk_27898E7B8;
+    v26 = v11;
+    v21[4] = self;
+    v22 = forCopy;
+    v23 = predicateCopy;
+    v24 = optionsCopy;
+    v25 = currentConnection;
+    v18 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v21);
     dispatch_async(queue, v18);
   }
 
@@ -2220,23 +2170,22 @@ LABEL_18:
       v20 = v19;
       *buf = 134218754;
       selfCopy = self;
-      v30 = 2048;
-      v31 = currentConnection;
-      v32 = 1024;
+      v29 = 2048;
+      v30 = currentConnection;
+      v31 = 1024;
       processIdentifier = [currentConnection processIdentifier];
-      v34 = 2112;
-      v35 = forCopy;
+      v33 = 2112;
+      v34 = forCopy;
       _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "%p for conn: %p pid: %d, client subscribe event failure for noi: %@", buf, 0x26u);
     }
   }
 
   objc_autoreleasePoolPop(v12);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__ServiceImpl_subscribeToNOIsFor_orPredicate_options___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -2244,21 +2193,19 @@ uint64_t __54__ServiceImpl_subscribeToNOIsFor_orPredicate_options___block_invoke
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = a1[9];
-    v9 = 136315394;
-    v10 = v5;
-    v11 = 2048;
-    v12 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: subscribeToNOIsFor:orPredicate: [NOI] QoS %s (%lu)", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: subscribeToNOIsFor:orPredicate: [NOI] QoS %s (%lu)", &v8, 0x16u);
   }
 
-  result = [*(a1[4] + 24) subscribeToNOIsFor:a1[5] orPredicate:a1[6] options:a1[7] connection:a1[8]];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1[4] + 24) subscribeToNOIsFor:a1[5] orPredicate:a1[6] options:a1[7] connection:a1[8]];
 }
 
 - (void)inquireNOIFor:(id)for orPredicate:(id)predicate requestedKeys:(id)keys options:(id)options reply:(id)reply
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   forCopy = for;
   predicateCopy = predicate;
   keysCopy = keys;
@@ -2275,26 +2222,26 @@ uint64_t __54__ServiceImpl_subscribeToNOIsFor_orPredicate_options___block_invoke
       v21 = v20;
       v22 = qos_class_self();
       *buf = 136315394;
-      v36 = qos_string(v22);
-      v37 = 2048;
-      v38 = v17;
+      v35 = qos_string(v22);
+      v36 = 2048;
+      v37 = v17;
       _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: (inquireNOIFor:orPredicate:requestedKeys:options:reply:) authorized QoS %s (%lu)", buf, 0x16u);
     }
 
     queue = [(AnalyticsEngineCore *)self->noi_engine queue];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __69__ServiceImpl_inquireNOIFor_orPredicate_requestedKeys_options_reply___block_invoke;
-    v27[3] = &unk_27898E7E0;
-    v34 = v17;
-    v27[4] = self;
-    v28 = forCopy;
-    v29 = predicateCopy;
-    v30 = keysCopy;
-    v31 = optionsCopy;
-    v32 = currentConnection;
-    v33 = replyCopy;
-    v24 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v27);
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __69__ServiceImpl_inquireNOIFor_orPredicate_requestedKeys_options_reply___block_invoke;
+    v26[3] = &unk_27898E7E0;
+    v33 = v17;
+    v26[4] = self;
+    v27 = forCopy;
+    v28 = predicateCopy;
+    v29 = keysCopy;
+    v30 = optionsCopy;
+    v31 = currentConnection;
+    v32 = replyCopy;
+    v24 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v26);
     dispatch_async(queue, v24);
   }
 
@@ -2305,12 +2252,11 @@ uint64_t __54__ServiceImpl_subscribeToNOIsFor_orPredicate_options___block_invoke
   }
 
   objc_autoreleasePoolPop(v18);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __69__ServiceImpl_inquireNOIFor_orPredicate_requestedKeys_options_reply___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -2318,21 +2264,19 @@ uint64_t __69__ServiceImpl_inquireNOIFor_orPredicate_requestedKeys_options_reply
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = a1[11];
-    v9 = 136315394;
-    v10 = v5;
-    v11 = 2048;
-    v12 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: inquireNOIFor:orPredicate:requestedKeys:options:reply: [NOI] QoS %s (%lu)", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: inquireNOIFor:orPredicate:requestedKeys:options:reply: [NOI] QoS %s (%lu)", &v8, 0x16u);
   }
 
-  result = [*(a1[4] + 24) inquireNOIFor:a1[5] orPredicate:a1[6] requestedKeys:a1[7] options:a1[8] connection:a1[9] reply:a1[10]];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1[4] + 24) inquireNOIFor:a1[5] orPredicate:a1[6] requestedKeys:a1[7] options:a1[8] connection:a1[9] reply:a1[10]];
 }
 
 - (void)unsubscribeToNOIs:(id)is
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   isCopy = is;
   v5 = ++_query_id;
   v6 = objc_autoreleasePoolPush();
@@ -2346,21 +2290,21 @@ uint64_t __69__ServiceImpl_inquireNOIFor_orPredicate_requestedKeys_options_reply
       v10 = qos_class_self();
       *buf = 136315394;
       selfCopy = qos_string(v10);
-      v22 = 2048;
-      v23 = v5;
+      v21 = 2048;
+      v22 = v5;
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: (unsubscribeToNOIs:) authorized QoS %s (%lu)", buf, 0x16u);
     }
 
     queue = [(AnalyticsEngineCore *)self->noi_engine queue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __33__ServiceImpl_unsubscribeToNOIs___block_invoke;
-    v16[3] = &unk_27898E4B0;
-    v19 = v5;
-    v16[4] = self;
-    v17 = isCopy;
-    v18 = currentConnection;
-    v12 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __33__ServiceImpl_unsubscribeToNOIs___block_invoke;
+    v15[3] = &unk_27898E4B0;
+    v18 = v5;
+    v15[4] = self;
+    v16 = isCopy;
+    v17 = currentConnection;
+    v12 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v15);
     dispatch_async(queue, v12);
   }
 
@@ -2372,23 +2316,22 @@ uint64_t __69__ServiceImpl_inquireNOIFor_orPredicate_requestedKeys_options_reply
       v14 = v13;
       *buf = 134218754;
       selfCopy = self;
-      v22 = 2048;
-      v23 = currentConnection;
-      v24 = 1024;
+      v21 = 2048;
+      v22 = currentConnection;
+      v23 = 1024;
       processIdentifier = [currentConnection processIdentifier];
-      v26 = 2112;
-      v27 = isCopy;
+      v25 = 2112;
+      v26 = isCopy;
       _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "%p for conn: %p pid: %d, client unsubscribe event failure for nois: %@", buf, 0x26u);
     }
   }
 
   objc_autoreleasePoolPop(v6);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __33__ServiceImpl_unsubscribeToNOIs___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -2396,21 +2339,19 @@ uint64_t __33__ServiceImpl_unsubscribeToNOIs___block_invoke(void *a1)
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = a1[7];
-    v9 = 136315394;
-    v10 = v5;
-    v11 = 2048;
-    v12 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: unsubscribeToNOIs: [NOI] QoS %s (%lu)", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: unsubscribeToNOIs: [NOI] QoS %s (%lu)", &v8, 0x16u);
   }
 
-  result = [*(a1[4] + 24) unsubscribeToNOIs:a1[5] connection:a1[6]];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1[4] + 24) unsubscribeToNOIs:a1[5] connection:a1[6]];
 }
 
 - (void)identifierForUUID:(id)d reply:(id)reply
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   replyCopy = reply;
   v8 = ++_query_id;
@@ -2421,11 +2362,11 @@ uint64_t __33__ServiceImpl_unsubscribeToNOIs___block_invoke(void *a1)
     uUIDString = [dCopy UUIDString];
     v12 = qos_class_self();
     *buf = 138412802;
-    v24 = uUIDString;
-    v25 = 2080;
-    v26 = qos_string(v12);
-    v27 = 2048;
-    v28 = v8;
+    v23 = uUIDString;
+    v24 = 2080;
+    v25 = qos_string(v12);
+    v26 = 2048;
+    v27 = v8;
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: received identifier request for UUID: %@ QoS %s (%lu)", buf, 0x20u);
   }
 
@@ -2433,15 +2374,15 @@ uint64_t __33__ServiceImpl_unsubscribeToNOIs___block_invoke(void *a1)
   if (dCopy)
   {
     queue = [(AnalyticsEngineCore *)self->f_engine queue];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __39__ServiceImpl_identifierForUUID_reply___block_invoke;
-    v19[3] = &unk_27898E808;
-    v22 = v8;
-    v19[4] = self;
-    v20 = dCopy;
-    v21 = replyCopy;
-    v15 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v19);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __39__ServiceImpl_identifierForUUID_reply___block_invoke;
+    v18[3] = &unk_27898E808;
+    v21 = v8;
+    v18[4] = self;
+    v19 = dCopy;
+    v20 = replyCopy;
+    v15 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v18);
     dispatch_async(queue, v15);
   }
 
@@ -2459,13 +2400,11 @@ uint64_t __33__ServiceImpl_unsubscribeToNOIs___block_invoke(void *a1)
   }
 
   objc_autoreleasePoolPop(v13);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __39__ServiceImpl_identifierForUUID_reply___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -2473,16 +2412,14 @@ uint64_t __39__ServiceImpl_identifierForUUID_reply___block_invoke(void *a1)
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = a1[7];
-    v9 = 136315394;
-    v10 = v5;
-    v11 = 2048;
-    v12 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: identifierForUUID:reply: [FAE] QoS %s (%lu)", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: identifierForUUID:reply: [FAE] QoS %s (%lu)", &v8, 0x16u);
   }
 
-  result = [*(a1[4] + 8) identifierForUUID:a1[5] reply:a1[6]];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1[4] + 8) identifierForUUID:a1[5] reply:a1[6]];
 }
 
 - (void)getExpertSystemsStatus:(id)status
@@ -2541,7 +2478,7 @@ void __38__ServiceImpl_getExpertSystemsStatus___block_invoke()
 
 - (void)trainModelAndScore:(BOOL)score lastScoreDate:(id)date reply:(id)reply
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   replyCopy = reply;
   v10 = ++_query_id;
@@ -2557,22 +2494,22 @@ void __38__ServiceImpl_getExpertSystemsStatus___block_invoke()
       v15 = v14;
       v16 = qos_class_self();
       *buf = 136315394;
-      v27 = qos_string(v16);
-      v28 = 2048;
-      v29 = v10;
+      v26 = qos_string(v16);
+      v27 = 2048;
+      v28 = v10;
       _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: (trainModelAndScore:lastScoreDate:reply:) authorized QoS %s (%lu)", buf, 0x16u);
     }
 
     queue = [(AnalyticsEngineCore *)self->n_engine queue];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __54__ServiceImpl_trainModelAndScore_lastScoreDate_reply___block_invoke;
-    v21[3] = &unk_27898E830;
-    v24 = v10;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __54__ServiceImpl_trainModelAndScore_lastScoreDate_reply___block_invoke;
+    v20[3] = &unk_27898E830;
+    v23 = v10;
     scoreCopy = score;
-    v22 = dateCopy;
-    v23 = replyCopy;
-    v18 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v21);
+    v21 = dateCopy;
+    v22 = replyCopy;
+    v18 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v20);
     dispatch_async(queue, v18);
   }
 
@@ -2585,13 +2522,11 @@ void __38__ServiceImpl_getExpertSystemsStatus___block_invoke()
   }
 
   objc_autoreleasePoolPop(v11);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __54__ServiceImpl_trainModelAndScore_lastScoreDate_reply___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -2600,17 +2535,17 @@ void __54__ServiceImpl_trainModelAndScore_lastScoreDate_reply___block_invoke(uin
     v5 = qos_string(v4);
     v6 = *(a1 + 48);
     *buf = 136315394;
-    v18 = v5;
-    v19 = 2048;
-    v20 = v6;
+    v17 = v5;
+    v18 = 2048;
+    v19 = v6;
     _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: trainModelAndScore:lastScoreDate:reply: [NAE] QoS %s (%lu)", buf, 0x16u);
   }
 
   v7 = *(a1 + 56);
   v8 = *(a1 + 32);
-  v16 = 0;
-  v9 = [NetworkAnalyticsEngine trainModelAndScore:v7 lastScoreDate:v8 output:&v16];
-  v10 = v16;
+  v15 = 0;
+  v9 = [NetworkAnalyticsEngine trainModelAndScore:v7 lastScoreDate:v8 output:&v15];
+  v10 = v15;
   v11 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -2621,7 +2556,7 @@ void __54__ServiceImpl_trainModelAndScore_lastScoreDate_reply___block_invoke(uin
     }
 
     *buf = 136315138;
-    v18 = v12;
+    v17 = v12;
     _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "Train and score complete. Success:%s", buf, 0xCu);
   }
 
@@ -2641,13 +2576,11 @@ void __54__ServiceImpl_trainModelAndScore_lastScoreDate_reply___block_invoke(uin
   }
 
   xpc_transaction_exit_clean();
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startRNFTestWithOptions:(id)options scenarioName:(id)name reply:(id)reply
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   nameCopy = name;
   replyCopy = reply;
@@ -2662,9 +2595,9 @@ void __54__ServiceImpl_trainModelAndScore_lastScoreDate_reply___block_invoke(uin
       v15 = v14;
       v16 = qos_class_self();
       *buf = 136315394;
-      v30 = qos_string(v16);
-      v31 = 2048;
-      v32 = v11;
+      v29 = qos_string(v16);
+      v30 = 2048;
+      v31 = v11;
       _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: (startRNFTestWithOptions:scenarioName:reply:) authorized QoS %s (%lu)", buf, 0x16u);
     }
 
@@ -2673,17 +2606,17 @@ void __54__ServiceImpl_trainModelAndScore_lastScoreDate_reply___block_invoke(uin
 
     [currentConnection setInvalidationHandler:&__block_literal_global_213];
     queue = [(AnalyticsEngineCore *)self->n_engine queue];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __58__ServiceImpl_startRNFTestWithOptions_scenarioName_reply___block_invoke_214;
-    v23[3] = &unk_27898E718;
-    v28 = v11;
-    v23[4] = self;
-    v24 = currentConnection;
-    v25 = optionsCopy;
-    v26 = nameCopy;
-    v27 = replyCopy;
-    v19 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v23);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __58__ServiceImpl_startRNFTestWithOptions_scenarioName_reply___block_invoke_214;
+    v22[3] = &unk_27898E718;
+    v27 = v11;
+    v22[4] = self;
+    v23 = currentConnection;
+    v24 = optionsCopy;
+    v25 = nameCopy;
+    v26 = replyCopy;
+    v19 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v22);
     dispatch_async(queue, v19);
   }
 
@@ -2704,7 +2637,6 @@ void __54__ServiceImpl_trainModelAndScore_lastScoreDate_reply___block_invoke(uin
   }
 
   objc_autoreleasePoolPop(v12);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __58__ServiceImpl_startRNFTestWithOptions_scenarioName_reply___block_invoke()
@@ -2719,7 +2651,7 @@ void __58__ServiceImpl_startRNFTestWithOptions_scenarioName_reply___block_invoke
 
 uint64_t __58__ServiceImpl_startRNFTestWithOptions_scenarioName_reply___block_invoke_214(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -2727,21 +2659,19 @@ uint64_t __58__ServiceImpl_startRNFTestWithOptions_scenarioName_reply___block_in
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = a1[9];
-    v9 = 136315394;
-    v10 = v5;
-    v11 = 2048;
-    v12 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: startRNFTestWithOptions:scenarioName:reply: [NAE] QoS %s (%lu)", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: startRNFTestWithOptions:scenarioName:reply: [NAE] QoS %s (%lu)", &v8, 0x16u);
   }
 
-  result = [*(a1[4] + 16) startRNFTestWithConnection:a1[5] options:a1[6] scenarioName:a1[7] reply:a1[8]];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1[4] + 16) startRNFTestWithConnection:a1[5] options:a1[6] scenarioName:a1[7] reply:a1[8]];
 }
 
 - (void)abortRNFTestWithReply:(id)reply
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v5 = ++_query_id;
   v6 = objc_autoreleasePoolPush();
@@ -2754,9 +2684,9 @@ uint64_t __58__ServiceImpl_startRNFTestWithOptions_scenarioName_reply___block_in
       v9 = v8;
       v10 = qos_class_self();
       *buf = 136315394;
-      v21 = qos_string(v10);
-      v22 = 2048;
-      v23 = v5;
+      v20 = qos_string(v10);
+      v21 = 2048;
+      v22 = v5;
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: (abortRNFTestWithReply:) QoS %s (%lu)", buf, 0x16u);
     }
 
@@ -2769,9 +2699,9 @@ uint64_t __58__ServiceImpl_startRNFTestWithOptions_scenarioName_reply___block_in
     block[1] = 3221225472;
     block[2] = __37__ServiceImpl_abortRNFTestWithReply___block_invoke_217;
     block[3] = &unk_27898E858;
-    v19 = v5;
+    v18 = v5;
     block[4] = self;
-    v18 = replyCopy;
+    v17 = replyCopy;
     v13 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
     dispatch_async(queue, v13);
   }
@@ -2793,7 +2723,6 @@ uint64_t __58__ServiceImpl_startRNFTestWithOptions_scenarioName_reply___block_in
   }
 
   objc_autoreleasePoolPop(v6);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __37__ServiceImpl_abortRNFTestWithReply___block_invoke()
@@ -2808,7 +2737,7 @@ void __37__ServiceImpl_abortRNFTestWithReply___block_invoke()
 
 uint64_t __37__ServiceImpl_abortRNFTestWithReply___block_invoke_217(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -2816,21 +2745,19 @@ uint64_t __37__ServiceImpl_abortRNFTestWithReply___block_invoke_217(void *a1)
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = a1[6];
-    v9 = 136315394;
-    v10 = v5;
-    v11 = 2048;
-    v12 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: abortRNFTestWithReply: [NAE] QoS %s (%lu)", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: abortRNFTestWithReply: [NAE] QoS %s (%lu)", &v8, 0x16u);
   }
 
-  result = [*(a1[4] + 16) abortRNFTestWithReply:a1[5]];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1[4] + 16) abortRNFTestWithReply:a1[5]];
 }
 
 - (void)performPersistentStoreHealthCheckWithReply:(id)reply
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v5 = ++_query_id;
   v6 = objc_autoreleasePoolPush();
@@ -2845,20 +2772,20 @@ uint64_t __37__ServiceImpl_abortRNFTestWithReply___block_invoke_217(void *a1)
       v10 = v9;
       v11 = qos_class_self();
       *buf = 136315394;
-      v20 = qos_string(v11);
-      v21 = 2048;
-      v22 = v5;
+      v19 = qos_string(v11);
+      v20 = 2048;
+      v21 = v5;
       _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: (performPersistentStoreHealthCheckWithReply:) QoS %s (%lu)", buf, 0x16u);
     }
 
     queue = [(AnalyticsEngineCore *)self->n_engine queue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __58__ServiceImpl_performPersistentStoreHealthCheckWithReply___block_invoke;
-    v16[3] = &unk_27898C440;
-    v18 = v5;
-    v17 = replyCopy;
-    v13 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __58__ServiceImpl_performPersistentStoreHealthCheckWithReply___block_invoke;
+    v15[3] = &unk_27898C440;
+    v17 = v5;
+    v16 = replyCopy;
+    v13 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v15);
     dispatch_async(queue, v13);
   }
 
@@ -2871,13 +2798,11 @@ uint64_t __37__ServiceImpl_abortRNFTestWithReply___block_invoke_217(void *a1)
   }
 
   objc_autoreleasePoolPop(v6);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__ServiceImpl_performPersistentStoreHealthCheckWithReply___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -2885,11 +2810,11 @@ uint64_t __58__ServiceImpl_performPersistentStoreHealthCheckWithReply___block_in
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = *(a1 + 40);
-    v13 = 136315394;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: performPersistentStoreHealthCheckWithReply: [NAE] QoS %s (%lu)", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = v5;
+    v14 = 2048;
+    v15 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: performPersistentStoreHealthCheckWithReply: [NAE] QoS %s (%lu)", &v12, 0x16u);
   }
 
   [NetworkAnalyticsEngine performPersistentStoreHealthCheckWithReply:*(a1 + 32)];
@@ -2899,19 +2824,17 @@ uint64_t __58__ServiceImpl_performPersistentStoreHealthCheckWithReply___block_in
     v8 = *(a1 + 32);
     v9 = v7;
     v10 = _Block_copy(v8);
-    v13 = 138412290;
-    v14 = v10;
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "performPersistentStoreHealthCheckWithReply complete: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v10;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "performPersistentStoreHealthCheckWithReply complete: %@", &v12, 0xCu);
   }
 
-  result = xpc_transaction_exit_clean();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return xpc_transaction_exit_clean();
 }
 
 - (void)performAppPeriodicTasksWithReply:(id)reply
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v5 = ++_query_id;
   v6 = objc_autoreleasePoolPush();
@@ -2926,20 +2849,20 @@ uint64_t __58__ServiceImpl_performPersistentStoreHealthCheckWithReply___block_in
       v10 = v9;
       v11 = qos_class_self();
       *buf = 136315394;
-      v20 = qos_string(v11);
-      v21 = 2048;
-      v22 = v5;
+      v19 = qos_string(v11);
+      v20 = 2048;
+      v21 = v5;
       _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: (performAppPeriodicTasksWithReply:) QoS %s (%lu)", buf, 0x16u);
     }
 
     queue = [(AnalyticsEngineCore *)self->f_engine queue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __48__ServiceImpl_performAppPeriodicTasksWithReply___block_invoke;
-    v16[3] = &unk_27898C440;
-    v18 = v5;
-    v17 = replyCopy;
-    v13 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __48__ServiceImpl_performAppPeriodicTasksWithReply___block_invoke;
+    v15[3] = &unk_27898C440;
+    v17 = v5;
+    v16 = replyCopy;
+    v13 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v15);
     dispatch_async(queue, v13);
   }
 
@@ -2952,13 +2875,11 @@ uint64_t __58__ServiceImpl_performPersistentStoreHealthCheckWithReply___block_in
   }
 
   objc_autoreleasePoolPop(v6);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__ServiceImpl_performAppPeriodicTasksWithReply___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -2966,29 +2887,27 @@ uint64_t __48__ServiceImpl_performAppPeriodicTasksWithReply___block_invoke(uint6
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = *(a1 + 40);
-    v10 = 136315394;
-    v11 = v5;
-    v12 = 2048;
-    v13 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: performAppPeriodicTasksWithReply: [FAE] QoS %s (%lu)", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = v5;
+    v11 = 2048;
+    v12 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: performAppPeriodicTasksWithReply: [FAE] QoS %s (%lu)", &v9, 0x16u);
   }
 
   [FlowAnalyticsEngine performAppPeriodicActivityWithReply:*(a1 + 32)];
   v7 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "performAppPeriodicActivityWithReply complete", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "performAppPeriodicActivityWithReply complete", &v9, 2u);
   }
 
-  result = xpc_transaction_exit_clean();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return xpc_transaction_exit_clean();
 }
 
 - (void)performAppTrackingPeriodicTasksWithReply:(id)reply
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v5 = ++_query_id;
   v6 = objc_autoreleasePoolPush();
@@ -3003,20 +2922,20 @@ uint64_t __48__ServiceImpl_performAppPeriodicTasksWithReply___block_invoke(uint6
       v10 = v9;
       v11 = qos_class_self();
       *buf = 136315394;
-      v20 = qos_string(v11);
-      v21 = 2048;
-      v22 = v5;
+      v19 = qos_string(v11);
+      v20 = 2048;
+      v21 = v5;
       _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: (performAppTrackingPeriodicTasksWithReply:) QoS %s (%lu)", buf, 0x16u);
     }
 
     queue = [(AnalyticsEngineCore *)self->f_engine queue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __56__ServiceImpl_performAppTrackingPeriodicTasksWithReply___block_invoke;
-    v16[3] = &unk_27898C440;
-    v18 = v5;
-    v17 = replyCopy;
-    v13 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __56__ServiceImpl_performAppTrackingPeriodicTasksWithReply___block_invoke;
+    v15[3] = &unk_27898C440;
+    v17 = v5;
+    v16 = replyCopy;
+    v13 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v15);
     dispatch_async(queue, v13);
   }
 
@@ -3029,13 +2948,11 @@ uint64_t __48__ServiceImpl_performAppPeriodicTasksWithReply___block_invoke(uint6
   }
 
   objc_autoreleasePoolPop(v6);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__ServiceImpl_performAppTrackingPeriodicTasksWithReply___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -3043,29 +2960,27 @@ uint64_t __56__ServiceImpl_performAppTrackingPeriodicTasksWithReply___block_invo
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = *(a1 + 40);
-    v10 = 136315394;
-    v11 = v5;
-    v12 = 2048;
-    v13 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: performAppTrackingPeriodicTasksWithReply: [FAE] QoS %s (%lu)", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = v5;
+    v11 = 2048;
+    v12 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: performAppTrackingPeriodicTasksWithReply: [FAE] QoS %s (%lu)", &v9, 0x16u);
   }
 
   [FlowAnalyticsEngine performAppTrackingPeriodicActivityWithReply:*(a1 + 32)];
   v7 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "performAppTrackingPeriodicTasksWithReply complete:", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "performAppTrackingPeriodicTasksWithReply complete:", &v9, 2u);
   }
 
-  result = xpc_transaction_exit_clean();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return xpc_transaction_exit_clean();
 }
 
 - (void)performAppExperiencePeriodicTasksWithReply:(id)reply
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v5 = ++_query_id;
   v6 = objc_autoreleasePoolPush();
@@ -3080,20 +2995,20 @@ uint64_t __56__ServiceImpl_performAppTrackingPeriodicTasksWithReply___block_invo
       v10 = v9;
       v11 = qos_class_self();
       *buf = 136315394;
-      v20 = qos_string(v11);
-      v21 = 2048;
-      v22 = v5;
+      v19 = qos_string(v11);
+      v20 = 2048;
+      v21 = v5;
       _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: (performAppExperiencePeriodicTasksWithReply:) QoS %s (%lu)", buf, 0x16u);
     }
 
     queue = [(AnalyticsEngineCore *)self->f_engine queue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __58__ServiceImpl_performAppExperiencePeriodicTasksWithReply___block_invoke;
-    v16[3] = &unk_27898C440;
-    v18 = v5;
-    v17 = replyCopy;
-    v13 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __58__ServiceImpl_performAppExperiencePeriodicTasksWithReply___block_invoke;
+    v15[3] = &unk_27898C440;
+    v17 = v5;
+    v16 = replyCopy;
+    v13 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v15);
     dispatch_async(queue, v13);
   }
 
@@ -3106,13 +3021,11 @@ uint64_t __56__ServiceImpl_performAppTrackingPeriodicTasksWithReply___block_invo
   }
 
   objc_autoreleasePoolPop(v6);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__ServiceImpl_performAppExperiencePeriodicTasksWithReply___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -3120,29 +3033,27 @@ uint64_t __58__ServiceImpl_performAppExperiencePeriodicTasksWithReply___block_in
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = *(a1 + 40);
-    v10 = 136315394;
-    v11 = v5;
-    v12 = 2048;
-    v13 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: performAppExperiencePeriodicTasksWithReply: [FAE] QoS %s (%lu)", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = v5;
+    v11 = 2048;
+    v12 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: performAppExperiencePeriodicTasksWithReply: [FAE] QoS %s (%lu)", &v9, 0x16u);
   }
 
   [FlowAnalyticsEngine performAppExperiencePeriodicActivityWithReply:*(a1 + 32)];
   v7 = appExperienceLogHandle;
   if (os_log_type_enabled(appExperienceLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "performAppExperiencePeriodicTasksWithReply complete:", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "performAppExperiencePeriodicTasksWithReply complete:", &v9, 2u);
   }
 
-  result = xpc_transaction_exit_clean();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return xpc_transaction_exit_clean();
 }
 
 - (void)performAppEndpointTrackingPeriodicTasksWithReply:(id)reply
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v5 = ++_query_id;
   v6 = objc_autoreleasePoolPush();
@@ -3157,20 +3068,20 @@ uint64_t __58__ServiceImpl_performAppExperiencePeriodicTasksWithReply___block_in
       v10 = v9;
       v11 = qos_class_self();
       *buf = 136315394;
-      v20 = qos_string(v11);
-      v21 = 2048;
-      v22 = v5;
+      v19 = qos_string(v11);
+      v20 = 2048;
+      v21 = v5;
       _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: (performAppEndpointTrackingPeriodicTasksWithReply:) QoS %s (%lu)", buf, 0x16u);
     }
 
     queue = [(AnalyticsEngineCore *)self->f_engine queue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __64__ServiceImpl_performAppEndpointTrackingPeriodicTasksWithReply___block_invoke;
-    v16[3] = &unk_27898C440;
-    v18 = v5;
-    v17 = replyCopy;
-    v13 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __64__ServiceImpl_performAppEndpointTrackingPeriodicTasksWithReply___block_invoke;
+    v15[3] = &unk_27898C440;
+    v17 = v5;
+    v16 = replyCopy;
+    v13 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v15);
     dispatch_async(queue, v13);
   }
 
@@ -3183,13 +3094,11 @@ uint64_t __58__ServiceImpl_performAppExperiencePeriodicTasksWithReply___block_in
   }
 
   objc_autoreleasePoolPop(v6);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64__ServiceImpl_performAppEndpointTrackingPeriodicTasksWithReply___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -3197,24 +3106,22 @@ uint64_t __64__ServiceImpl_performAppEndpointTrackingPeriodicTasksWithReply___bl
     v4 = qos_class_self();
     v5 = qos_string(v4);
     v6 = *(a1 + 40);
-    v10 = 136315394;
-    v11 = v5;
-    v12 = 2048;
-    v13 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: performAppEndpointTrackingPeriodicTasksWithReply: [FAE] QoS %s (%lu)", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = v5;
+    v11 = 2048;
+    v12 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: performAppEndpointTrackingPeriodicTasksWithReply: [FAE] QoS %s (%lu)", &v9, 0x16u);
   }
 
   [FlowAnalyticsEngine performAppEndpointTrackingPeriodicActivityWithReply:*(a1 + 32)];
   v7 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "performAppEndpointTrackingPeriodicTasksWithReply complete:", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "performAppEndpointTrackingPeriodicTasksWithReply complete:", &v9, 2u);
   }
 
-  result = xpc_transaction_exit_clean();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return xpc_transaction_exit_clean();
 }
 
 - (void)donateBiomeEventForEdgeSelectionWithPrefix:(id)prefix interfaceType:(id)type radioType:(id)radioType radioBand:(id)band latitude:(double)latitude longitude:(double)longitude reply:(id)reply
@@ -3355,7 +3262,7 @@ LABEL_6:
 
 - (void)waitForOSLogErrorSymptomWithReply:(id)reply
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v5 = ++_query_id;
   v6 = objc_autoreleasePoolPush();
@@ -3369,9 +3276,9 @@ LABEL_6:
       v10 = v9;
       v11 = qos_class_self();
       *buf = 136315394;
-      v19 = qos_string(v11);
-      v20 = 2048;
-      v21 = v5;
+      v18 = qos_string(v11);
+      v19 = 2048;
+      v20 = v5;
       _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "SymptomAnalytics ServiceImpl: (waitForOSLogErrorSymptomWithReply:) Authorized QoS %s (%lu)", buf, 0x16u);
     }
 
@@ -3380,9 +3287,9 @@ LABEL_6:
     block[1] = 3221225472;
     block[2] = __49__ServiceImpl_waitForOSLogErrorSymptomWithReply___block_invoke;
     block[3] = &unk_27898E858;
-    v17 = v5;
+    v16 = v5;
     block[4] = self;
-    v16 = replyCopy;
+    v15 = replyCopy;
     v13 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
     dispatch_async(queue, v13);
   }
@@ -3394,12 +3301,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v6);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __49__ServiceImpl_waitForOSLogErrorSymptomWithReply___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -3417,20 +3323,20 @@ void __49__ServiceImpl_waitForOSLogErrorSymptomWithReply___block_invoke(uint64_t
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v22 = __Block_byref_object_copy__13;
-  v23 = __Block_byref_object_dispose__13;
-  v24 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(*(a1 + 32) + 40));
+  v21 = __Block_byref_object_copy__13;
+  v22 = __Block_byref_object_dispose__13;
+  v23 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, *(*(a1 + 32) + 40));
   v7 = [MEMORY[0x277CCAB98] defaultCenter];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __49__ServiceImpl_waitForOSLogErrorSymptomWithReply___block_invoke_221;
-  v18[3] = &unk_27898E880;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __49__ServiceImpl_waitForOSLogErrorSymptomWithReply___block_invoke_221;
+  v17[3] = &unk_27898E880;
   v8 = *(a1 + 32);
   v9 = *(a1 + 40);
-  v20 = buf;
-  v18[4] = v8;
-  v19 = v9;
-  v10 = [v7 addObserverForName:@"com.apple.symptoms.oslogfromsymptomstool" object:0 queue:0 usingBlock:v18];
+  v19 = buf;
+  v17[4] = v8;
+  v18 = v9;
+  v10 = [v7 addObserverForName:@"com.apple.symptoms.oslogfromsymptomstool" object:0 queue:0 usingBlock:v17];
 
   v11 = *(*&buf[8] + 40);
   v12 = dispatch_time(0, 5000000000);
@@ -3440,13 +3346,12 @@ void __49__ServiceImpl_waitForOSLogErrorSymptomWithReply___block_invoke(uint64_t
   handler[1] = 3221225472;
   handler[2] = __49__ServiceImpl_waitForOSLogErrorSymptomWithReply___block_invoke_2;
   handler[3] = &unk_27898E8A8;
-  v16 = *(a1 + 40);
-  v17 = buf;
+  v15 = *(a1 + 40);
+  v16 = buf;
   dispatch_source_set_event_handler(v13, handler);
   dispatch_resume(*(*&buf[8] + 40));
 
   _Block_object_dispose(buf, 8);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __49__ServiceImpl_waitForOSLogErrorSymptomWithReply___block_invoke_221(void *a1, void *a2)
@@ -3499,7 +3404,7 @@ void __49__ServiceImpl_waitForOSLogErrorSymptomWithReply___block_invoke_2(uint64
 - (void)assertFactString:(id)string module:(id)module asSymptom:(BOOL)symptom reply:(id)reply
 {
   symptomCopy = symptom;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   moduleCopy = module;
   replyCopy = reply;
@@ -3508,7 +3413,7 @@ void __49__ServiceImpl_waitForOSLogErrorSymptomWithReply___block_invoke_2(uint64
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v35 = stringCopy;
+    v34 = stringCopy;
     _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "SFServiceInterface: Request to assert fact string %@", buf, 0xCu);
   }
 
@@ -3525,9 +3430,9 @@ void __49__ServiceImpl_waitForOSLogErrorSymptomWithReply___block_invoke_2(uint64
       v21 = qos_class_self();
       v22 = qos_string(v21);
       *buf = 136315394;
-      v35 = v22;
-      v36 = 2048;
-      v37 = v13;
+      v34 = v22;
+      v35 = 2048;
+      v36 = v13;
       _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "SFServiceInterface: CLIPS fact assertion authorized QoS %s (%lu)", buf, 0x16u);
     }
 
@@ -3535,16 +3440,16 @@ void __49__ServiceImpl_waitForOSLogErrorSymptomWithReply___block_invoke_2(uint64
     v24 = v23;
     if (!symptomCopy)
     {
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __55__ServiceImpl_assertFactString_module_asSymptom_reply___block_invoke_2;
-      v28[3] = &unk_27898E8D0;
-      v30 = replyCopy;
-      v28[4] = self;
-      v29 = dictionary;
-      [v24 assertFactAndRun:stringCopy module:moduleCopy reply:v28];
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __55__ServiceImpl_assertFactString_module_asSymptom_reply___block_invoke_2;
+      v27[3] = &unk_27898E8D0;
+      v29 = replyCopy;
+      v27[4] = self;
+      v28 = dictionary;
+      [v24 assertFactAndRun:stringCopy module:moduleCopy reply:v27];
 
-      v26 = v30;
+      v26 = v29;
       goto LABEL_14;
     }
 
@@ -3557,11 +3462,11 @@ void __49__ServiceImpl_waitForOSLogErrorSymptomWithReply___block_invoke_2(uint64
       block[1] = 3221225472;
       block[2] = __55__ServiceImpl_assertFactString_module_asSymptom_reply___block_invoke;
       block[3] = &unk_27898C648;
-      v32 = dictionary;
-      v33 = replyCopy;
+      v31 = dictionary;
+      v32 = replyCopy;
       dispatch_async(queue, block);
 
-      v26 = v32;
+      v26 = v31;
 LABEL_14:
     }
   }
@@ -3580,17 +3485,14 @@ LABEL_14:
       (*(replyCopy + 2))(replyCopy, dictionary);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__ServiceImpl_assertFactString_module_asSymptom_reply___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"SymptomAnalyticsServiceSuccess"];
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v2();
 }
 
 void __55__ServiceImpl_assertFactString_module_asSymptom_reply___block_invoke_2(uint64_t a1, char a2)
@@ -3614,15 +3516,14 @@ uint64_t __55__ServiceImpl_assertFactString_module_asSymptom_reply___block_invok
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 48)];
   [*(a1 + 32) setObject:v2 forKeyedSubscript:@"SymptomAnalyticsServiceSuccess"];
 
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
 }
 
 - (void)postCoreAnalyticsEvent:(id)event forEventName:(id)name reply:(id)reply
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   nameCopy = name;
   replyCopy = reply;
@@ -3631,7 +3532,7 @@ uint64_t __55__ServiceImpl_assertFactString_module_asSymptom_reply___block_invok
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = eventCopy;
+    v29 = eventCopy;
     _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "SFServiceInterface: request to post AWD Event %@", buf, 0xCu);
   }
 
@@ -3648,9 +3549,9 @@ uint64_t __55__ServiceImpl_assertFactString_module_asSymptom_reply___block_invok
       v19 = qos_class_self();
       v20 = qos_string(v19);
       *buf = 136315394;
-      v30 = v20;
-      v31 = 2048;
-      v32 = v11;
+      v29 = v20;
+      v30 = 2048;
+      v31 = v11;
       _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "SFServiceInterface: post AWD Event authorized QoS %s (%lu)", buf, 0x16u);
     }
 
@@ -3664,9 +3565,9 @@ uint64_t __55__ServiceImpl_assertFactString_module_asSymptom_reply___block_invok
       block[1] = 3221225472;
       block[2] = __57__ServiceImpl_postCoreAnalyticsEvent_forEventName_reply___block_invoke;
       block[3] = &unk_27898DD18;
-      v26 = dictionary;
-      v28 = v22;
-      v27 = replyCopy;
+      v25 = dictionary;
+      v27 = v22;
+      v26 = replyCopy;
       dispatch_async(queue, block);
     }
   }
@@ -3685,8 +3586,6 @@ uint64_t __55__ServiceImpl_assertFactString_module_asSymptom_reply___block_invok
       (*(replyCopy + 2))(replyCopy, dictionary);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__ServiceImpl_postCoreAnalyticsEvent_forEventName_reply___block_invoke(uint64_t a1)
@@ -3694,15 +3593,14 @@ uint64_t __57__ServiceImpl_postCoreAnalyticsEvent_forEventName_reply___block_inv
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 48)];
   [*(a1 + 32) setObject:v2 forKeyedSubscript:@"SymptomAnalyticsServiceSuccess"];
 
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
 }
 
 - (void)getPreferCellOverWiFiWithOptions:(id)options reply:(id)reply
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   replyCopy = reply;
   v8 = ++_query_id;
@@ -3710,7 +3608,7 @@ uint64_t __57__ServiceImpl_postCoreAnalyticsEvent_forEventName_reply___block_inv
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    *v29 = optionsCopy;
+    *v28 = optionsCopy;
     _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "getPreferCellOverWiFiWithOptions entered with %@", buf, 0xCu);
   }
 
@@ -3725,11 +3623,11 @@ uint64_t __57__ServiceImpl_postCoreAnalyticsEvent_forEventName_reply___block_inv
     v15 = qos_class_self();
     v16 = qos_string(v15);
     *buf = 67109634;
-    *v29 = v12;
-    *&v29[4] = 2080;
-    *&v29[6] = v16;
-    v30 = 2048;
-    v31 = v8;
+    *v28 = v12;
+    *&v28[4] = 2080;
+    *&v28[6] = v16;
+    v29 = 2048;
+    v30 = v8;
     _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "getPreferCellOverWiFiWithOptions trainEntitl %d QoS %s (%lu)", buf, 0x1Cu);
   }
 
@@ -3743,11 +3641,11 @@ uint64_t __57__ServiceImpl_postCoreAnalyticsEvent_forEventName_reply___block_inv
       block[1] = 3221225472;
       block[2] = __54__ServiceImpl_getPreferCellOverWiFiWithOptions_reply___block_invoke;
       block[3] = &unk_27898E8F8;
-      v23 = optionsCopy;
-      v24 = v17;
+      v22 = optionsCopy;
+      v23 = v17;
       selfCopy = self;
-      v27 = v8;
-      v26 = replyCopy;
+      v26 = v8;
+      v25 = replyCopy;
       v19 = v17;
       v20 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
       dispatch_async(queue, v20);
@@ -3764,20 +3662,18 @@ LABEL_10:
   }
 
   objc_autoreleasePoolPop(v10);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __54__ServiceImpl_getPreferCellOverWiFiWithOptions_reply___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v3 = v2;
     v4 = qos_class_self();
     *buf = 136315138;
-    v21 = qos_string(v4);
+    v20 = qos_string(v4);
     _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "getPreferCellOverWiFiWithOptions [CellOutrankForceSPIHandler] QoS %s", buf, 0xCu);
   }
 
@@ -3806,48 +3702,43 @@ void __54__ServiceImpl_getPreferCellOverWiFiWithOptions_reply___block_invoke(uin
   block[2] = __54__ServiceImpl_getPreferCellOverWiFiWithOptions_reply___block_invoke_225;
   block[3] = &unk_27898DCF0;
   v12 = *(a1 + 56);
-  v19 = *(a1 + 64);
-  v17 = v5;
-  v18 = v12;
+  v18 = *(a1 + 64);
+  v16 = v5;
+  v17 = v12;
   v13 = v5;
   v14 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
   dispatch_async(v11, v14);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-void __54__ServiceImpl_getPreferCellOverWiFiWithOptions_reply___block_invoke_225(void *a1)
+void __54__ServiceImpl_getPreferCellOverWiFiWithOptions_reply___block_invoke_225(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v3 = v2;
     v4 = qos_class_self();
     v5 = qos_string(v4);
-    v6 = a1[6];
-    v10 = 136315394;
-    v11 = v5;
-    v12 = 2048;
-    v13 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "getPreferCellOverWiFiWithOptions reply QoS %s (%lu)", &v10, 0x16u);
+    v6 = *(a1 + 48);
+    v8 = 136315394;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "getPreferCellOverWiFiWithOptions reply QoS %s (%lu)", &v8, 0x16u);
   }
 
-  v7 = a1[4];
-  (*(a1[5] + 16))();
-  v8 = analyticsLogHandle;
+  (*(*(a1 + 40) + 16))();
+  v7 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "getPreferCellOverWiFiWithOptions complete:", &v10, 2u);
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "getPreferCellOverWiFiWithOptions complete:", &v8, 2u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPreferCellOverWiFiWithOptions:(id)options reply:(id)reply
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   replyCopy = reply;
   v8 = ++_query_id;
@@ -3861,13 +3752,13 @@ void __54__ServiceImpl_getPreferCellOverWiFiWithOptions_reply___block_invoke_225
     v13 = v12;
     v14 = qos_class_self();
     *buf = 67109890;
-    v27 = v11;
-    v28 = 2112;
-    v29 = optionsCopy;
-    v30 = 2080;
-    v31 = qos_string(v14);
-    v32 = 2048;
-    v33 = v8;
+    v26 = v11;
+    v27 = 2112;
+    v28 = optionsCopy;
+    v29 = 2080;
+    v30 = qos_string(v14);
+    v31 = 2048;
+    v32 = v8;
     _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "setPreferCellOverWiFiWithOptions trainEntitl %d for entry %@ QoS %s (%lu)", buf, 0x26u);
   }
 
@@ -3881,11 +3772,11 @@ void __54__ServiceImpl_getPreferCellOverWiFiWithOptions_reply___block_invoke_225
       block[1] = 3221225472;
       block[2] = __54__ServiceImpl_setPreferCellOverWiFiWithOptions_reply___block_invoke;
       block[3] = &unk_27898E920;
-      v25 = v8;
-      v21 = optionsCopy;
-      v22 = v15;
+      v24 = v8;
+      v20 = optionsCopy;
+      v21 = v15;
       selfCopy = self;
-      v24 = replyCopy;
+      v23 = replyCopy;
       v17 = v15;
       v18 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
       dispatch_async(queue, v18);
@@ -3902,13 +3793,11 @@ LABEL_8:
   }
 
   objc_autoreleasePoolPop(v9);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __54__ServiceImpl_setPreferCellOverWiFiWithOptions_reply___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -3917,9 +3806,9 @@ void __54__ServiceImpl_setPreferCellOverWiFiWithOptions_reply___block_invoke(uin
     v5 = qos_string(v4);
     v6 = *(a1 + 64);
     *buf = 136315394;
-    v25 = v5;
-    v26 = 2048;
-    v27 = v6;
+    v24 = v5;
+    v25 = 2048;
+    v26 = v6;
     _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "setPreferCellOverWiFiWithOptions [CellOutrankForceSPIHandler] QoS %s (%lu)", buf, 0x16u);
   }
 
@@ -3964,48 +3853,43 @@ void __54__ServiceImpl_setPreferCellOverWiFiWithOptions_reply___block_invoke(uin
     block[1] = 3221225472;
     block[2] = __54__ServiceImpl_setPreferCellOverWiFiWithOptions_reply___block_invoke_226;
     block[3] = &unk_27898DCF0;
-    v23 = *(a1 + 64);
-    v22 = v16;
-    v21 = v7;
+    v22 = *(a1 + 64);
+    v21 = v16;
+    v20 = v7;
     v18 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
     dispatch_async(v17, v18);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-void __54__ServiceImpl_setPreferCellOverWiFiWithOptions_reply___block_invoke_226(void *a1)
+void __54__ServiceImpl_setPreferCellOverWiFiWithOptions_reply___block_invoke_226(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v3 = v2;
     v4 = qos_class_self();
     v5 = qos_string(v4);
-    v6 = a1[6];
-    v10 = 136315394;
-    v11 = v5;
-    v12 = 2048;
-    v13 = v6;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "setPreferCellOverWiFiWithOptions reply QoS %s (%lu)", &v10, 0x16u);
+    v6 = *(a1 + 48);
+    v8 = 136315394;
+    v9 = v5;
+    v10 = 2048;
+    v11 = v6;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "setPreferCellOverWiFiWithOptions reply QoS %s (%lu)", &v8, 0x16u);
   }
 
-  v7 = a1[4];
-  (*(a1[5] + 16))();
-  v8 = analyticsLogHandle;
+  (*(*(a1 + 40) + 16))();
+  v7 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "setPreferCellOverWiFiWithOptions complete:", &v10, 2u);
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "setPreferCellOverWiFiWithOptions complete:", &v8, 2u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrieveActivityMetrics:(id)metrics reply:(id)reply
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   replyCopy = reply;
   v8 = objc_autoreleasePoolPush();
@@ -4019,11 +3903,11 @@ void __54__ServiceImpl_setPreferCellOverWiFiWithOptions_reply___block_invoke_226
       {
         if (!metricsCopy)
         {
-          v28 = analyticsLogHandle;
+          v27 = analyticsLogHandle;
           if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_ERROR, "retrieveActivityMetrics: Activity is required", buf, 2u);
+            _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_ERROR, "retrieveActivityMetrics: Activity is required", buf, 2u);
           }
 
           v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:72 userInfo:0];
@@ -4035,12 +3919,12 @@ void __54__ServiceImpl_setPreferCellOverWiFiWithOptions_reply___block_invoke_226
         if (v10)
         {
           v11 = [[NWActivityHelper alloc] initWithQueue:v10];
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __45__ServiceImpl_retrieveActivityMetrics_reply___block_invoke;
-          v30[3] = &unk_27898E948;
-          v31 = replyCopy;
-          [(NWActivityHelper *)v11 retrieveNWActivityMetricsForActivity:metricsCopy completion:v30];
+          v29[0] = MEMORY[0x277D85DD0];
+          v29[1] = 3221225472;
+          v29[2] = __45__ServiceImpl_retrieveActivityMetrics_reply___block_invoke;
+          v29[3] = &unk_27898E948;
+          v30 = replyCopy;
+          [(NWActivityHelper *)v11 retrieveNWActivityMetricsForActivity:metricsCopy completion:v29];
 
 LABEL_19:
 LABEL_20:
@@ -4048,11 +3932,11 @@ LABEL_20:
           goto LABEL_21;
         }
 
-        v29 = analyticsLogHandle;
+        v28 = analyticsLogHandle;
         if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_ERROR, "retrieveActivityMetrics: Queue not available", buf, 2u);
+          _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_ERROR, "retrieveActivityMetrics: Queue not available", buf, 2u);
         }
 
         v16 = MEMORY[0x277CCA9B8];
@@ -4078,15 +3962,15 @@ LABEL_18:
         }
 
         *buf = 138412290;
-        v35 = v23;
+        v34 = v23;
         _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_ERROR, "retrieveActivityMetrics from %@ denied due to rate limit control", buf, 0xCu);
       }
 
       v24 = MEMORY[0x277CCA9B8];
       v25 = *MEMORY[0x277CCA5B8];
-      v32 = *MEMORY[0x277CCA450];
-      v33 = @"Rate limit exceeded.";
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+      v31 = *MEMORY[0x277CCA450];
+      v32 = @"Rate limit exceeded.";
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
       v16 = v24;
       v17 = v25;
       v18 = 16;
@@ -4103,9 +3987,9 @@ LABEL_18:
 
       v14 = MEMORY[0x277CCA9B8];
       v15 = *MEMORY[0x277CCA5B8];
-      v36 = *MEMORY[0x277CCA450];
-      v37[0] = @"An entitlement is required for retrieving nw_activity information.";
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+      v35 = *MEMORY[0x277CCA450];
+      v36[0] = @"An entitlement is required for retrieving nw_activity information.";
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
       v16 = v14;
       v17 = v15;
       v18 = 13;
@@ -4124,13 +4008,11 @@ LABEL_18:
 
 LABEL_21:
   objc_autoreleasePoolPop(v8);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatedNDFDeviceRecords:(id)records reply:(id)reply
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   replyCopy = reply;
   ++_query_id;
@@ -4152,11 +4034,11 @@ LABEL_21:
         v13 = v12;
         processIdentifier = [currentConnection processIdentifier];
         v15 = [SFEntitlements stringForEntitlement:18];
-        v17[0] = 67109378;
-        v17[1] = processIdentifier;
-        v18 = 2112;
-        v19 = v15;
-        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", v17, 0x12u);
+        v16[0] = 67109378;
+        v16[1] = processIdentifier;
+        v17 = 2112;
+        v18 = v15;
+        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", v16, 0x12u);
       }
 
       v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:13 userInfo:0];
@@ -4171,17 +4053,15 @@ LABEL_21:
     v11 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v17[0]) = 0;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "NDF: reply block is required", v17, 2u);
+      LOWORD(v16[0]) = 0;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "NDF: reply block is required", v16, 2u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ndfClientCheckInWithReply:(id)reply
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   ++_query_id;
   if (replyCopy)
@@ -4195,9 +4075,9 @@ LABEL_21:
       if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         v9 = v8;
-        v17 = 67109120;
+        v16 = 67109120;
         processIdentifier = [currentConnection processIdentifier];
-        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "NDF: Received check-in from client with pid %d", &v17, 8u);
+        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "NDF: Received check-in from client with pid %d", &v16, 8u);
       }
 
       v10 = +[NDFCoreShim sharedInstance];
@@ -4213,11 +4093,11 @@ LABEL_21:
         v12 = v8;
         processIdentifier2 = [currentConnection processIdentifier];
         v14 = [SFEntitlements stringForEntitlement:18];
-        v17 = 67109378;
+        v16 = 67109378;
         processIdentifier = processIdentifier2;
-        v19 = 2112;
-        v20 = v14;
-        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", &v17, 0x12u);
+        v18 = 2112;
+        v19 = v14;
+        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", &v16, 0x12u);
       }
 
       v15 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:13 userInfo:0];
@@ -4232,17 +4112,15 @@ LABEL_21:
     v11 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "NDF: reply block is required", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "NDF: reply block is required", &v16, 2u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)nwEndpointArrayFromXPCObject:(id)object
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v4 = objectCopy;
   if (objectCopy && MEMORY[0x238389170](objectCopy) == MEMORY[0x277D86440])
@@ -4253,7 +4131,7 @@ LABEL_21:
     applier[2] = __44__ServiceImpl_nwEndpointArrayFromXPCObject___block_invoke;
     applier[3] = &unk_27898E970;
     v6 = v7;
-    v14 = v6;
+    v13 = v6;
     xpc_array_apply(v4, applier);
     v8 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
@@ -4261,9 +4139,9 @@ LABEL_21:
       v9 = v8;
       v10 = [v6 count];
       *buf = 134218242;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v6;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v6;
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "NDF: Recovered %lu endpoints, all endpoints = %@", buf, 0x16u);
     }
   }
@@ -4274,29 +4152,87 @@ LABEL_21:
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v16 = v4;
+      v15 = v4;
       _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "NDF: Invalid XPC object %p", buf, 0xCu);
     }
 
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
-uint64_t __44__ServiceImpl_nwEndpointArrayFromXPCObject___block_invoke(uint64_t a1)
+uint64_t __44__ServiceImpl_nwEndpointArrayFromXPCObject___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = nw_endpoint_create_from_dictionary();
-  [*(a1 + 32) addObject:v2];
+  v4 = nw_endpoint_create_from_dictionary();
+  [*(a1 + 32) addObject:v4];
 
   return 1;
 }
 
+- (void)ndfClientSubscriptionIsActive:(BOOL)active reply:(id)reply
+{
+  activeCopy = active;
+  v22 = *MEMORY[0x277D85DE8];
+  replyCopy = reply;
+  ++_query_id;
+  if (replyCopy)
+  {
+    v7 = objc_autoreleasePoolPush();
+    currentConnection = [MEMORY[0x277CCAE80] currentConnection];
+    v9 = [(ServiceImpl *)self assertEntitlement:currentConnection entitlement:18 orWaiveOnIntent:0];
+    v10 = otherLogHandle;
+    if (v9)
+    {
+      if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = v10;
+        v18 = 67109120;
+        processIdentifier = [currentConnection processIdentifier];
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "NDF: Received subscription status change from client with pid %d", &v18, 8u);
+      }
+
+      v12 = +[NDFCoreShim sharedInstance];
+      [v12 clientHasActiveSubscription:activeCopy forConnection:currentConnection];
+
+      replyCopy[2](replyCopy, 0);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
+      {
+        v14 = v10;
+        processIdentifier2 = [currentConnection processIdentifier];
+        v16 = [SFEntitlements stringForEntitlement:18];
+        v18 = 67109378;
+        processIdentifier = processIdentifier2;
+        v20 = 2112;
+        v21 = v16;
+        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", &v18, 0x12u);
+      }
+
+      v17 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:13 userInfo:0];
+      (replyCopy)[2](replyCopy, v17);
+    }
+
+    objc_autoreleasePoolPop(v7);
+  }
+
+  else
+  {
+    v13 = otherLogHandle;
+    if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "NDF: reply block is required", &v18, 2u);
+    }
+  }
+}
+
 - (void)pingEndpoints:(id)endpoints reply:(id)reply
 {
-  *&v22[5] = *MEMORY[0x277D85DE8];
+  *&v21[5] = *MEMORY[0x277D85DE8];
   endpointsCopy = endpoints;
   replyCopy = reply;
   ++_query_id;
@@ -4312,11 +4248,11 @@ uint64_t __44__ServiceImpl_nwEndpointArrayFromXPCObject___block_invoke(uint64_t 
         v15 = v14;
         processIdentifier = [currentConnection processIdentifier];
         v17 = [SFEntitlements stringForEntitlement:18];
-        v21 = 67109378;
-        v22[0] = processIdentifier;
-        LOWORD(v22[1]) = 2112;
-        *(&v22[1] + 2) = v17;
-        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", &v21, 0x12u);
+        v20 = 67109378;
+        v21[0] = processIdentifier;
+        LOWORD(v21[1]) = 2112;
+        *(&v21[1] + 2) = v17;
+        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", &v20, 0x12u);
       }
 
       v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:13 userInfo:0];
@@ -4330,11 +4266,11 @@ uint64_t __44__ServiceImpl_nwEndpointArrayFromXPCObject___block_invoke(uint64_t 
     {
       if (![v10 count])
       {
-        v20 = otherLogHandle;
+        v19 = otherLogHandle;
         if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v21) = 0;
-          _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "NDF: Got no nw_endpoint_t instances, returning empty response", &v21, 2u);
+          LOWORD(v20) = 0;
+          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "NDF: Got no nw_endpoint_t instances, returning empty response", &v20, 2u);
         }
 
         (replyCopy)[2](replyCopy, &stru_2847966D8, 0);
@@ -4350,9 +4286,9 @@ uint64_t __44__ServiceImpl_nwEndpointArrayFromXPCObject___block_invoke(uint64_t 
       v18 = otherLogHandle;
       if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v21 = 138412290;
-        *v22 = endpointsCopy;
-        _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "NDF: Error converting %@ to array of nw_endpoint_t instances", &v21, 0xCu);
+        v20 = 138412290;
+        *v21 = endpointsCopy;
+        _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "NDF: Error converting %@ to array of nw_endpoint_t instances", &v20, 0xCu);
       }
 
       v12 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:&unk_2847EF570];
@@ -4367,18 +4303,16 @@ LABEL_16:
   v13 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v21) = 0;
-    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "NDF: reply block is required", &v21, 2u);
+    LOWORD(v20) = 0;
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "NDF: reply block is required", &v20, 2u);
   }
 
 LABEL_17:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMessage:(id)message toEndpoints:(id)endpoints reply:(id)reply
 {
-  *&v25[5] = *MEMORY[0x277D85DE8];
+  *&v24[5] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   endpointsCopy = endpoints;
   replyCopy = reply;
@@ -4395,11 +4329,11 @@ LABEL_17:
         v18 = v17;
         processIdentifier = [currentConnection processIdentifier];
         v20 = [SFEntitlements stringForEntitlement:18];
-        v24 = 67109378;
-        v25[0] = processIdentifier;
-        LOWORD(v25[1]) = 2112;
-        *(&v25[1] + 2) = v20;
-        _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", &v24, 0x12u);
+        v23 = 67109378;
+        v24[0] = processIdentifier;
+        LOWORD(v24[1]) = 2112;
+        *(&v24[1] + 2) = v20;
+        _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", &v23, 0x12u);
       }
 
       v14 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:13 userInfo:0];
@@ -4413,11 +4347,11 @@ LABEL_17:
     {
       if (![v13 count])
       {
-        v23 = otherLogHandle;
+        v22 = otherLogHandle;
         if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v24) = 0;
-          _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "NDF: Got no nw_endpoint_t instances, returning empty response", &v24, 2u);
+          LOWORD(v23) = 0;
+          _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "NDF: Got no nw_endpoint_t instances, returning empty response", &v23, 2u);
         }
 
         (replyCopy)[2](replyCopy, &stru_2847966D8, 0);
@@ -4433,9 +4367,9 @@ LABEL_17:
       v21 = otherLogHandle;
       if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v24 = 138412290;
-        *v25 = endpointsCopy;
-        _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "NDF: Error converting %@ to array of nw_endpoint_t instances", &v24, 0xCu);
+        v23 = 138412290;
+        *v24 = endpointsCopy;
+        _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "NDF: Error converting %@ to array of nw_endpoint_t instances", &v23, 0xCu);
       }
 
       v15 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:&unk_2847EF598];
@@ -4450,18 +4384,16 @@ LABEL_16:
   v16 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v24) = 0;
-    _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "NDF: reply block is required", &v24, 2u);
+    LOWORD(v23) = 0;
+    _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "NDF: reply block is required", &v23, 2u);
   }
 
 LABEL_17:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendPayloadToDaemonWithReply:(id)reply
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   ++_query_id;
   if (replyCopy)
@@ -4482,11 +4414,11 @@ LABEL_17:
         v10 = v9;
         processIdentifier = [currentConnection processIdentifier];
         v12 = [SFEntitlements stringForEntitlement:18];
-        v14[0] = 67109378;
-        v14[1] = processIdentifier;
-        v15 = 2112;
-        v16 = v12;
-        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", v14, 0x12u);
+        v13[0] = 67109378;
+        v13[1] = processIdentifier;
+        v14 = 2112;
+        v15 = v12;
+        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", v13, 0x12u);
       }
 
       replyCopy[2](replyCopy, 0);
@@ -4500,17 +4432,15 @@ LABEL_17:
     v8 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v14[0]) = 0;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "NDF: reply block is required", v14, 2u);
+      LOWORD(v13[0]) = 0;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "NDF: reply block is required", v13, 2u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)triggerSendPayloadToDaemonWithInterval:(int64_t)interval leeway:(int64_t)leeway reply:(id)reply
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   ++_query_id;
   if (replyCopy)
@@ -4531,11 +4461,11 @@ LABEL_17:
         v14 = v13;
         processIdentifier = [currentConnection processIdentifier];
         v16 = [SFEntitlements stringForEntitlement:18];
-        v18[0] = 67109378;
-        v18[1] = processIdentifier;
-        v19 = 2112;
-        v20 = v16;
-        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", v18, 0x12u);
+        v17[0] = 67109378;
+        v17[1] = processIdentifier;
+        v18 = 2112;
+        v19 = v16;
+        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", v17, 0x12u);
       }
 
       replyCopy[2](replyCopy, 0);
@@ -4549,17 +4479,15 @@ LABEL_17:
     v12 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v18[0]) = 0;
-      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "NDF: reply block is required", v18, 2u);
+      LOWORD(v17[0]) = 0;
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "NDF: reply block is required", v17, 2u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listNDFDeviceObjectsWithIdentifier:(id)identifier reply:(id)reply
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   replyCopy = reply;
   ++_query_id;
@@ -4581,11 +4509,11 @@ LABEL_17:
         v13 = v12;
         processIdentifier = [currentConnection processIdentifier];
         v15 = [SFEntitlements stringForEntitlement:18];
-        v17[0] = 67109378;
-        v17[1] = processIdentifier;
-        v18 = 2112;
-        v19 = v15;
-        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", v17, 0x12u);
+        v16[0] = 67109378;
+        v16[1] = processIdentifier;
+        v17 = 2112;
+        v18 = v15;
+        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", v16, 0x12u);
       }
 
       replyCopy[2](replyCopy, 0);
@@ -4599,17 +4527,15 @@ LABEL_17:
     v11 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v17[0]) = 0;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "NDF: reply block is required", v17, 2u);
+      LOWORD(v16[0]) = 0;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "NDF: reply block is required", v16, 2u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchNDFDeviceRecordsWithReply:(id)reply
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   ++_query_id;
   if (replyCopy)
@@ -4630,11 +4556,11 @@ LABEL_17:
         v10 = v9;
         processIdentifier = [currentConnection processIdentifier];
         v12 = [SFEntitlements stringForEntitlement:18];
-        v14[0] = 67109378;
-        v14[1] = processIdentifier;
-        v15 = 2112;
-        v16 = v12;
-        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", v14, 0x12u);
+        v13[0] = 67109378;
+        v13[1] = processIdentifier;
+        v14 = 2112;
+        v15 = v12;
+        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", v13, 0x12u);
       }
 
       replyCopy[2](replyCopy, 0);
@@ -4648,17 +4574,15 @@ LABEL_17:
     v8 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v14[0]) = 0;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "NDF: reply block is required", v14, 2u);
+      LOWORD(v13[0]) = 0;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "NDF: reply block is required", v13, 2u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupNDFDeviceRecordsWithReply:(id)reply
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   ++_query_id;
   if (replyCopy)
@@ -4679,11 +4603,11 @@ LABEL_17:
         v10 = v9;
         processIdentifier = [currentConnection processIdentifier];
         v12 = [SFEntitlements stringForEntitlement:18];
-        v14[0] = 67109378;
-        v14[1] = processIdentifier;
-        v15 = 2112;
-        v16 = v12;
-        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", v14, 0x12u);
+        v13[0] = 67109378;
+        v13[1] = processIdentifier;
+        v14 = 2112;
+        v15 = v12;
+        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", v13, 0x12u);
       }
 
       replyCopy[2](replyCopy, 0);
@@ -4697,17 +4621,15 @@ LABEL_17:
     v8 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v14[0]) = 0;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "NDF: reply block is required", v14, 2u);
+      LOWORD(v13[0]) = 0;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "NDF: reply block is required", v13, 2u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkRestrictsMulticastTrafficWithReply:(id)reply
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   ++_query_id;
   if (replyCopy)
@@ -4728,11 +4650,11 @@ LABEL_17:
         v10 = v9;
         processIdentifier = [currentConnection processIdentifier];
         v12 = [SFEntitlements stringForEntitlement:18];
-        v14[0] = 67109378;
-        v14[1] = processIdentifier;
-        v15 = 2112;
-        v16 = v12;
-        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", v14, 0x12u);
+        v13[0] = 67109378;
+        v13[1] = processIdentifier;
+        v14 = 2112;
+        v15 = v12;
+        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Unauthorized request: client with pid %d is missing entitlement %@", v13, 0x12u);
       }
 
       v7 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:13 userInfo:0];
@@ -4747,17 +4669,15 @@ LABEL_17:
     v8 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v14[0]) = 0;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "NDF: reply block is required", v14, 2u);
+      LOWORD(v13[0]) = 0;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "NDF: reply block is required", v13, 2u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remotePingToAddress:(id)address interface:(unint64_t)interface interval:(double)interval count:(int64_t)count timeout:(double)timeout reply:(id)reply
 {
-  v57[1] = *MEMORY[0x277D85DE8];
+  v56[1] = *MEMORY[0x277D85DE8];
   addressCopy = address;
   replyCopy = reply;
   v16 = objc_autoreleasePoolPush();
@@ -4781,45 +4701,45 @@ LABEL_17:
       {
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v50 = 0x3032000000;
-        v51 = __Block_byref_object_copy__13;
-        v52 = __Block_byref_object_dispose__13;
-        v53 = objc_alloc_init(ICMPPingHandler);
-        v35 = 0;
-        v36 = &v35;
-        v37 = 0x3032000000;
-        v38 = __Block_byref_object_copy__13;
-        v39 = __Block_byref_object_dispose__13;
+        v49 = 0x3032000000;
+        v50 = __Block_byref_object_copy__13;
+        v51 = __Block_byref_object_dispose__13;
+        v52 = objc_alloc_init(ICMPPingHandler);
+        v34 = 0;
+        v35 = &v34;
+        v36 = 0x3032000000;
+        v37 = __Block_byref_object_copy__13;
+        v38 = __Block_byref_object_dispose__13;
         v27 = [ICMPPingProbe alloc];
         _queue = [currentConnection _queue];
-        v40 = [(ICMPPingProbe *)v27 initWithQueue:_queue];
+        v39 = [(ICMPPingProbe *)v27 initWithQueue:_queue];
 
-        [v36[5] setDelegate:*(*(&buf + 1) + 40)];
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __93__ServiceImpl_TestingExtensions__remotePingToAddress_interface_interval_count_timeout_reply___block_invoke;
-        v31[3] = &unk_27898E998;
-        v32 = replyCopy;
-        v33 = &v35;
+        [v35[5] setDelegate:*(*(&buf + 1) + 40)];
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __93__ServiceImpl_TestingExtensions__remotePingToAddress_interface_interval_count_timeout_reply___block_invoke;
+        v30[3] = &unk_27898E998;
+        v31 = replyCopy;
+        v32 = &v34;
         p_buf = &buf;
-        [*(*(&buf + 1) + 40) setReplyBlock:v31];
+        [*(*(&buf + 1) + 40) setReplyBlock:v30];
         v29 = analyticsLogHandle;
         if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
         {
-          *v41 = 138413058;
-          v42 = addressCopy;
-          v43 = 2048;
+          *v40 = 138413058;
+          v41 = addressCopy;
+          v42 = 2048;
           countCopy = count;
-          v45 = 2048;
+          v44 = 2048;
           intervalCopy = interval;
-          v47 = 2048;
+          v46 = 2048;
           interfaceCopy = interface;
-          _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_DEBUG, "Ready to start ping to %@ (%ld every %.1lf seconds over ifidx %ld)", v41, 0x2Au);
+          _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_DEBUG, "Ready to start ping to %@ (%ld every %.1lf seconds over ifidx %ld)", v40, 0x2Au);
         }
 
-        [v36[5] startICMPPingTestTo:addressCopy hostName:0 interface:interface pingCount:count interPingInterval:1 burstCount:0 interBurstInterval:interval timeout:0.0 stopTestOnFirstSuccess:timeout];
+        [v35[5] startICMPPingTestTo:addressCopy hostName:0 interface:interface pingCount:count interPingInterval:1 burstCount:0 interBurstInterval:interval timeout:0.0 stopTestOnFirstSuccess:timeout];
 
-        _Block_object_dispose(&v35, 8);
+        _Block_object_dispose(&v34, 8);
         _Block_object_dispose(&buf, 8);
       }
 
@@ -4834,9 +4754,9 @@ LABEL_17:
         }
 
         v19 = MEMORY[0x277CCA9B8];
-        v54 = *MEMORY[0x277CCA450];
-        v55 = @"Invalid destination address.";
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+        v53 = *MEMORY[0x277CCA450];
+        v54 = @"Invalid destination address.";
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
         v21 = [v19 errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:v20];
         (*(replyCopy + 2))(replyCopy, 0, 0, v21);
       }
@@ -4852,9 +4772,9 @@ LABEL_17:
       }
 
       v24 = MEMORY[0x277CCA9B8];
-      v56 = *MEMORY[0x277CCA450];
-      v57[0] = @"An entitlement is required for accessing testing specific endpoints.";
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+      v55 = *MEMORY[0x277CCA450];
+      v56[0] = @"An entitlement is required for accessing testing specific endpoints.";
+      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:&v55 count:1];
       v26 = [v24 errorWithDomain:*MEMORY[0x277CCA5B8] code:13 userInfo:v25];
       (*(replyCopy + 2))(replyCopy, 0, 0, v26);
     }
@@ -4871,8 +4791,6 @@ LABEL_17:
   }
 
   objc_autoreleasePoolPop(v16);
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __93__ServiceImpl_TestingExtensions__remotePingToAddress_interface_interval_count_timeout_reply___block_invoke(void *a1)
@@ -4896,7 +4814,7 @@ void __93__ServiceImpl_TestingExtensions__remotePingToAddress_interface_interval
 
 - (void)handlePendingXPCConnection:(uint64_t)connection
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!connection)
   {
@@ -4928,8 +4846,8 @@ void __93__ServiceImpl_TestingExtensions__remotePingToAddress_interface_interval
     }
 
     v9 = *(connection + 8);
-    *v18 = 134217984;
-    *&v18[4] = v9;
+    *v14 = 134217984;
+    *&v14[4] = v9;
     v10 = "ServiceImpl:[helper] waiting for FAE (%p)";
     v11 = v7;
     v12 = 12;
@@ -4942,34 +4860,29 @@ void __93__ServiceImpl_TestingExtensions__remotePingToAddress_interface_interval
       goto LABEL_12;
     }
 
-    v13 = *(connection + 8);
-    v14 = *(connection + 16);
-    v15 = *(connection + 24);
     OUTLINED_FUNCTION_1_2();
     v10 = "ServiceImpl: waiting for FAE (%p), NAE (%p), NOI (%p)";
     v11 = v7;
     v12 = 32;
   }
 
-  _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, v10, v18, v12);
+  _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, v10, v14, v12);
 LABEL_12:
-  [*(connection + 80) addObject:{v3, *v18}];
-  v16 = analyticsLogHandle;
+  [*(connection + 80) addObject:{v3, *v14, *&v14[8]}];
+  v13 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    *v18 = 138412290;
-    *&v18[4] = v3;
-    _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "ServiceImpl: Added pending XPC connection to queue (%@)", v18, 0xCu);
+    *v14 = 138412290;
+    *&v14[4] = v3;
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "ServiceImpl: Added pending XPC connection to queue (%@)", v14, 0xCu);
   }
 
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_serviceReadyCheckPointRelease
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = otherLogHandle;
@@ -4977,8 +4890,8 @@ LABEL_14:
     {
       v3 = v2;
       v4 = qos_class_self();
-      *v44 = 136315138;
-      *&v44[4] = qos_string(v4);
+      *v42 = 136315138;
+      *&v42[4] = qos_string(v4);
       OUTLINED_FUNCTION_0_3();
       _os_log_impl(v5, v6, v7, v8, v9, v10);
     }
@@ -4990,95 +4903,92 @@ LABEL_14:
         v11 = analyticsLogHandle;
         if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          *v44 = 0;
-          _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "ServiceImpl: XPC service has already released checkpoint", v44, 2u);
+          *v42 = 0;
+          _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "ServiceImpl: XPC service has already released checkpoint", v42, 2u);
         }
 
-        goto LABEL_8;
+        return;
       }
 
-      v13 = *(self + 64);
-      v14 = analyticsLogHandle;
-      v15 = OUTLINED_FUNCTION_3();
-      if (v13 == 1)
+      v12 = *(self + 64);
+      v13 = analyticsLogHandle;
+      v14 = OUTLINED_FUNCTION_3();
+      if (v12 == 1)
       {
-        if (!v15)
+        if (!v14)
         {
           goto LABEL_15;
         }
 
-        v16 = *(self + 8);
-        *v44 = 134217984;
-        *&v44[4] = v16;
+        v15 = *(self + 8);
+        *v42 = 134217984;
+        *&v42[4] = v15;
         OUTLINED_FUNCTION_0_3();
       }
 
       else
       {
-        if (!v15)
+        if (!v14)
         {
           goto LABEL_15;
         }
 
-        v23 = *(self + 8);
-        v24 = *(self + 16);
-        v25 = *(self + 24);
         OUTLINED_FUNCTION_1_2();
-        v17 = &dword_23255B000;
-        v20 = "SymptomAnalytics ServiceImpl: engines up, FAE (%p), NAE (%p), NOI (%p)";
-        v21 = v44;
-        v18 = v14;
-        v19 = OS_LOG_TYPE_DEBUG;
-        v22 = 32;
+        v16 = &dword_23255B000;
+        v19 = "SymptomAnalytics ServiceImpl: engines up, FAE (%p), NAE (%p), NOI (%p)";
+        v20 = v42;
+        v17 = v13;
+        v18 = OS_LOG_TYPE_DEBUG;
+        v21 = 32;
       }
 
-      _os_log_impl(v17, v18, v19, v20, v21, v22);
+      _os_log_impl(v16, v17, v18, v19, v20, v21);
 LABEL_15:
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
       [defaultCenter removeObserver:*(self + 56)];
 
-      v27 = *(self + 56);
+      v23 = *(self + 56);
       *(self + 56) = 0;
 
       if (*(self + 64) == 1)
       {
-        v28 = measureLaunchXPCHandle();
-        if (os_signpost_enabled(v28))
+        v25 = measureLaunchXPCHandle(v24);
+        if (os_signpost_enabled(v25))
         {
-          *v44 = 0;
+          *v42 = 0;
 LABEL_23:
           OUTLINED_FUNCTION_2_0();
-          _os_signpost_emit_with_name_impl(v31, v32, OS_SIGNPOST_INTERVAL_END, v33, v34, v35, v36, 2u);
+          _os_signpost_emit_with_name_impl(v28, v29, OS_SIGNPOST_INTERVAL_END, v30, v31, v32, v33, 2u);
         }
       }
 
       else
       {
         Measurement = getMeasurement(2, 0xFFu);
-        v28 = measureLaunchXPCHandle();
-        v30 = os_signpost_enabled(v28);
+        v25 = measureLaunchXPCHandle(Measurement);
+        v27 = os_signpost_enabled(v25);
         if (Measurement)
         {
-          if (v30)
+          if (v27)
           {
-            *v44 = 0;
+            *v42 = 0;
             goto LABEL_23;
           }
         }
 
-        else if (v30)
+        else if (v27)
         {
-          *v44 = 0;
+          *v42 = 0;
           goto LABEL_23;
         }
       }
 
-      v37 = measureLaunchXPCHandle();
-      if (os_signpost_enabled(v37))
+      v35 = measureLaunchXPCHandle(v34);
+      if (os_signpost_enabled(v35))
       {
-        *v44 = 0;
+        *v42 = 0;
         OUTLINED_FUNCTION_2_0();
-        _os_signpost_emit_with_name_impl(v38, v39, OS_SIGNPOST_EVENT, v40, v41, v42, v43, 2u);
+        _os_signpost_emit_with_name_impl(v36, v37, OS_SIGNPOST_EVENT, v38, v39, v40, v41, 2u);
       }
 
       markMeasurement(2, 14);
@@ -5087,14 +4997,11 @@ LABEL_23:
       *(self + 76) = 1;
     }
   }
-
-LABEL_8:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumePendingXPCConnections
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = analyticsLogHandle;
@@ -5103,21 +5010,21 @@ LABEL_8:
       v3 = *(self + 80);
       v4 = v2;
       *buf = 134217984;
-      v21 = [v3 count];
+      v20 = [v3 count];
       _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "ServiceImpl: Resuming all (%ld) pending XPC connections", buf, 0xCu);
     }
 
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v6 = *(self + 80);
-    v14 = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __42__ServiceImpl_resumePendingXPCConnections__block_invoke;
-    v17 = &unk_27898E6C8;
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = __42__ServiceImpl_resumePendingXPCConnections__block_invoke;
+    v16 = &unk_27898E6C8;
     selfCopy = self;
     v7 = v5;
-    v19 = v7;
-    [v6 enumerateObjectsUsingBlock:&v14];
-    [*(self + 80) removeObjectsInArray:{v7, v14, v15, v16, v17, selfCopy}];
+    v18 = v7;
+    [v6 enumerateObjectsUsingBlock:&v13];
+    [*(self + 80) removeObjectsInArray:{v7, v13, v14, v15, v16, selfCopy}];
     v8 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_INFO))
     {
@@ -5125,9 +5032,9 @@ LABEL_8:
       v10 = [v7 count];
       v11 = [*(self + 80) count];
       *buf = 134218240;
-      v21 = v10;
-      v22 = 2048;
-      v23 = v11;
+      v20 = v10;
+      v21 = 2048;
+      v22 = v11;
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "ServiceImpl: Removed %ld connections - remaining pending connections: %ld", buf, 0x16u);
     }
 
@@ -5137,13 +5044,10 @@ LABEL_8:
       *(self + 80) = 0;
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = otherLogHandle;
   if (OUTLINED_FUNCTION_3())
   {
@@ -5155,12 +5059,10 @@ void __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_2(uint64_
   }
 
   [(ServiceImpl *)*(a1 + 32) _serviceReadyCheckPointRelease];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_2_183(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = otherLogHandle;
   if (OUTLINED_FUNCTION_3())
   {
@@ -5172,22 +5074,20 @@ void __48__ServiceImpl_initWithQueue_noiEngine_isHelper___block_invoke_2_183(uin
   }
 
   [(ServiceImpl *)*(a1 + 32) _serviceReadyCheckPointRelease];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkRateLimitForConnection:(int)a1 .cold.1(int a1, _BYTE *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v4 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v6[0] = 67109120;
-    v6[1] = a1;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "Can't find UUID for pid %d. Allowing for now", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = a1;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "Can't find UUID for pid %d. Allowing for now", v5, 8u);
   }
 
   *a2 = 1;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -6,7 +6,6 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)initForDevice:(id)device withTheme:(unint64_t)theme videoIndex:(int64_t)index photoAnalysis:(id)analysis;
 - (void)_setHasAssets;
-- (void)discardAssets;
 @end
 
 @implementation NTKTimelapseListing
@@ -151,13 +150,6 @@
   }
 
   return v8;
-}
-
-- (void)discardAssets
-{
-  video = self->_video;
-  self->_video = 0;
-  _objc_release_x1();
 }
 
 @end

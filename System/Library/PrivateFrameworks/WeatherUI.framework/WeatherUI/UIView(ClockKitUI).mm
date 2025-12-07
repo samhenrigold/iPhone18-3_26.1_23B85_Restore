@@ -9,7 +9,7 @@
 {
   v31 = a4;
   v53 = *MEMORY[0x1E69E9840];
-  v6 = filterNamesToIndicesMap();
+  v6 = filterNamesToIndicesMap(self);
   v50 = 0;
   v51 = 0;
   v52 = 0;

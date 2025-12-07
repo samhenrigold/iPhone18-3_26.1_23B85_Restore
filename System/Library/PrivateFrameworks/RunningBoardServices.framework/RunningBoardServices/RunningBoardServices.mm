@@ -108,52 +108,52 @@ uint64_t getprewarm_for_launchSymbolLoc()
   return v0;
 }
 
-void sub_18E8AEA20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E8AEA20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id rbs_general_log()
+id rbs_general_log(uint64_t a1)
 {
   if (rbs_general_log_onceToken != -1)
   {
     rbs_general_log_cold_1();
   }
 
-  v1 = rbs_general_log___logger;
+  v2 = rbs_general_log___logger;
 
-  return v1;
+  return v2;
 }
 
 void _RBSXPCEncodeObjectForKey(void *a1, void *a2, void *a3)
 {
-  v64 = *MEMORY[0x1E69E9840];
-  v48 = a1;
+  v63 = *MEMORY[0x1E69E9840];
+  v47 = a1;
   v5 = a2;
-  v49 = a3;
+  v48 = a3;
   context = objc_autoreleasePoolPush();
   aClass = objc_opt_class();
   if ([v5 RBSIsXPCObject])
   {
-    v6 = v48[3];
-    if (v49)
+    v6 = v47[3];
+    if (v48)
     {
       if (!v6)
       {
-        v6 = v48[1];
+        v6 = v47[1];
       }
 
       v7 = v6;
-      xpc_dictionary_set_value(v7, [v49 UTF8String], v5);
+      xpc_dictionary_set_value(v7, [v48 UTF8String], v5);
     }
 
     else
     {
       if (!v6)
       {
-        v6 = v48[1];
+        v6 = v47[1];
       }
 
       v16 = v6;
@@ -165,8 +165,8 @@ void _RBSXPCEncodeObjectForKey(void *a1, void *a2, void *a3)
 
   if ((_NSIsNSArray() & 1) != 0 || (_NSIsNSSet() & 1) != 0 || _NSIsNSOrderedSet())
   {
-    v8 = v48;
-    v9 = v49;
+    v8 = v47;
+    v9 = v48;
     v10 = v5;
     v11 = v8[3];
     if (!v11)
@@ -204,33 +204,33 @@ void _RBSXPCEncodeObjectForKey(void *a1, void *a2, void *a3)
 LABEL_22:
     if (!v10)
     {
-      v42 = [MEMORY[0x1E696AAA8] currentHandler];
-      v43 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _BSXPCEncodeCollectionWithKey(RBSXPCCoder *__strong, NSString *__strong, __strong id<NSFastEnumeration>)"}];
-      [v42 handleFailureInFunction:v43 file:@"RBSXPCCoder.m" lineNumber:270 description:&stru_1F01CD8F0];
+      v41 = [MEMORY[0x1E696AAA8] currentHandler];
+      v42 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _BSXPCEncodeCollectionWithKey(RBSXPCCoder *__strong, NSString *__strong, __strong id<NSFastEnumeration>)"}];
+      [v41 handleFailureInFunction:v42 file:@"RBSXPCCoder.m" lineNumber:270 description:&stru_1F01CD8F0];
     }
 
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     v17 = v10;
-    v18 = [v17 countByEnumeratingWithState:&v59 objects:v63 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v58 objects:v62 count:16];
     if (v18)
     {
-      v19 = *v60;
+      v19 = *v59;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v60 != v19)
+          if (*v59 != v19)
           {
             objc_enumerationMutation(v17);
           }
 
-          _RBSXPCEncodeObjectForKey(v8, *(*(&v59 + 1) + 8 * i), 0);
+          _RBSXPCEncodeObjectForKey(v8, *(*(&v58 + 1) + 8 * i), 0);
         }
 
-        v18 = [v17 countByEnumeratingWithState:&v59 objects:v63 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v58 objects:v62 count:16];
       }
 
       while (v18);
@@ -258,9 +258,9 @@ LABEL_22:
 
         else
         {
-          v44 = [MEMORY[0x1E696AAA8] currentHandler];
-          v45 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void RBSXPCDictionarySetValue(xpc_object_t  _Nullable __strong, const char * _Nonnull, xpc_object_t  _Nullable __strong, xpc_type_t _Nullable)"}];
-          [v44 handleFailureInFunction:v45 file:@"RBSXPCUtilities_Project.h" lineNumber:123 description:@"key must not be nil"];
+          v43 = [MEMORY[0x1E696AAA8] currentHandler];
+          v44 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void RBSXPCDictionarySetValue(xpc_object_t  _Nullable __strong, const char * _Nonnull, xpc_object_t  _Nullable __strong, xpc_type_t _Nullable)"}];
+          [v43 handleFailureInFunction:v44 file:@"RBSXPCUtilities_Project.h" lineNumber:123 description:@"key must not be nil"];
         }
       }
 
@@ -286,89 +286,87 @@ LABEL_22:
 
   if (_NSIsNSDictionary())
   {
-    v56[0] = MEMORY[0x1E69E9820];
-    v56[1] = 3221225472;
-    v56[2] = ___RBSXPCEncodeObjectForKey_block_invoke;
-    v56[3] = &unk_1E7276298;
-    v57 = v5;
-    v58 = v48;
-    _BSXPCEncodeDictionaryWithKey(v58, v49, v56);
+    v55[0] = MEMORY[0x1E69E9820];
+    v55[1] = 3221225472;
+    v55[2] = ___RBSXPCEncodeObjectForKey_block_invoke;
+    v55[3] = &unk_1E7276298;
+    v56 = v5;
+    v57 = v47;
+    _BSXPCEncodeDictionaryWithKey(v57, v48, v55);
   }
 
   else if ([v5 supportsRBSXPCSecureCoding])
   {
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = ___RBSXPCEncodeObjectForKey_block_invoke_2;
-    v53[3] = &unk_1E7276298;
-    v54 = v5;
-    v55 = v48;
-    _BSXPCEncodeDictionaryWithKey(v55, v49, v53);
+    v52[0] = MEMORY[0x1E69E9820];
+    v52[1] = 3221225472;
+    v52[2] = ___RBSXPCEncodeObjectForKey_block_invoke_2;
+    v52[3] = &unk_1E7276298;
+    v53 = v5;
+    v54 = v47;
+    _BSXPCEncodeDictionaryWithKey(v54, v48, v52);
   }
 
   else if ([(objc_class *)aClass supportsSecureCoding])
   {
-    v31 = _CFXPCCreateXPCObjectFromCFObject();
-    if (v31)
+    v30 = _CFXPCCreateXPCObjectFromCFObject();
+    if (v30)
     {
-      v32 = v48[3];
-      if (v49)
+      v31 = v47[3];
+      if (v48)
       {
-        if (!v32)
+        if (!v31)
         {
-          v32 = v48[1];
+          v31 = v47[1];
         }
 
-        v33 = v32;
-        xpc_dictionary_set_value(v33, [v49 UTF8String], v31);
+        v32 = v31;
+        xpc_dictionary_set_value(v32, [v48 UTF8String], v30);
       }
 
       else
       {
-        if (!v32)
+        if (!v31)
         {
-          v32 = v48[1];
+          v31 = v47[1];
         }
 
-        v41 = v32;
-        xpc_array_append_value(v41, v31);
+        v40 = v31;
+        xpc_array_append_value(v40, v30);
       }
     }
 
     else
     {
-      v38 = v48;
-      if (!v48[4])
+      v37 = v47;
+      if (!v47[4])
       {
-        v39 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
-        v38 = v48;
-        v40 = v48[4];
-        v48[4] = v39;
+        v38 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
+        v37 = v47;
+        v39 = v47[4];
+        v47[4] = v38;
       }
 
-      v50[0] = MEMORY[0x1E69E9820];
-      v50[1] = 3221225472;
-      v50[2] = ___RBSXPCEncodeObjectForKey_block_invoke_3;
-      v50[3] = &unk_1E7276298;
-      v51 = v38;
-      v52 = v5;
-      _BSXPCEncodeDictionaryWithKey(v51, v49, v50);
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 3221225472;
+      v49[2] = ___RBSXPCEncodeObjectForKey_block_invoke_3;
+      v49[3] = &unk_1E7276298;
+      v50 = v37;
+      v51 = v5;
+      _BSXPCEncodeDictionaryWithKey(v50, v48, v49);
     }
   }
 
   else
   {
-    v34 = MEMORY[0x1E695DF30];
-    v35 = objc_opt_class();
-    v36 = NSStringFromClass(v35);
-    v37 = NSStringFromClass(aClass);
-    [v34 raise:*MEMORY[0x1E695D940] format:{@"%@ could not encode object %@ because it supports neither RBSXPC[Secure]Coding nor NSSecureCoding.", v36, v37}];
+    v33 = MEMORY[0x1E695DF30];
+    v34 = objc_opt_class();
+    v35 = NSStringFromClass(v34);
+    v36 = NSStringFromClass(aClass);
+    [v33 raise:*MEMORY[0x1E695D940] format:{@"%@ could not encode object %@ because it supports neither RBSXPC[Secure]Coding nor NSSecureCoding.", v35, v36}];
   }
 
 LABEL_42:
   objc_autoreleasePoolPop(context);
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void sub_18E8AF4CC(uint64_t a1, int a2)
@@ -382,17 +380,14 @@ void sub_18E8AF4CC(uint64_t a1, int a2)
   JUMPOUT(0x18E8AF4E4);
 }
 
-uint64_t shared_cache_page_prewarmingLibraryCore()
+uint64_t shared_cache_page_prewarmingLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!shared_cache_page_prewarmingLibraryCore_frameworkLibrary)
   {
     shared_cache_page_prewarmingLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = shared_cache_page_prewarmingLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return shared_cache_page_prewarmingLibraryCore_frameworkLibrary;
 }
 
 void RBSSerializeStringToXPCDictionaryWithKey(void *a1, void *a2, const char *a3)
@@ -494,19 +489,19 @@ void *_BSXPCPopEncodingContext(void *a1, void *a2)
   return v5;
 }
 
-BOOL RBSAtomicGetFlag(atomic_uint *a1)
+BOOL RBSAtomicGetFlag(atomic_uint *a1, uint64_t a2)
 {
   if (!a1)
   {
     RBSAtomicGetFlag_cold_1();
   }
 
-  v1 = 1;
-  atomic_compare_exchange_strong_explicit(a1, &v1, v1, memory_order_relaxed, memory_order_relaxed);
-  return v1 == 1;
+  v2 = 1;
+  atomic_compare_exchange_strong_explicit(a1, &v2, v2, memory_order_relaxed, memory_order_relaxed);
+  return v2 == 1;
 }
 
-BOOL RBSAtomicSetFlag(unsigned int a1, atomic_uint *a2)
+BOOL RBSAtomicSetFlag(uint64_t a1, atomic_uint *a2)
 {
   if (!a2)
   {
@@ -520,10 +515,10 @@ BOOL RBSAtomicSetFlag(unsigned int a1, atomic_uint *a2)
 
 id _BSXPCDecodeObjectFromContext(void *a1, void *a2, void *a3, objc_class *a4, uint64_t a5)
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   v9 = a1;
-  v78 = a2;
-  v75 = a3;
+  v85 = a2;
+  v82 = a3;
   if (!a4)
   {
     _BSXPCDecodeObjectFromContext_cold_1();
@@ -536,11 +531,11 @@ id _BSXPCDecodeObjectFromContext(void *a1, void *a2, void *a3, objc_class *a4, u
     v11 = v9[1];
   }
 
-  v77 = v11;
+  v84 = v11;
   v12 = MEMORY[0x1E69E9E38];
-  if (v78)
+  if (v85)
   {
-    v13 = v78;
+    v13 = v85;
   }
 
   else
@@ -554,9 +549,9 @@ id _BSXPCDecodeObjectFromContext(void *a1, void *a2, void *a3, objc_class *a4, u
   aClass = a4;
   if (!a4)
   {
-    v69 = [MEMORY[0x1E696AAA8] currentHandler];
-    v70 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSObject *_BSXPCDecodeObject(RBSXPCCoder *__strong, __unsafe_unretained Class, __unsafe_unretained Class)"}];
-    [v69 handleFailureInFunction:v70 file:@"RBSXPCCoder.m" lineNumber:437 description:{@"Invalid parameter not satisfying: %@", @"expectedClass != nil"}];
+    v76 = [MEMORY[0x1E696AAA8] currentHandler];
+    v77 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSObject *_BSXPCDecodeObject(RBSXPCCoder *__strong, __unsafe_unretained Class, __unsafe_unretained Class)"}];
+    [v76 handleFailureInFunction:v77 file:@"RBSXPCCoder.m" lineNumber:437 description:{@"Invalid parameter not satisfying: %@", @"expectedClass != nil"}];
   }
 
   v15 = *v10;
@@ -581,130 +576,134 @@ id _BSXPCDecodeObjectFromContext(void *a1, void *a2, void *a3, objc_class *a4, u
     goto LABEL_15;
   }
 
-  if (([(objc_class *)a4 isSubclassOfClass:objc_opt_class()]& 1) != 0 || ([(objc_class *)a4 isSubclassOfClass:objc_opt_class()]& 1) != 0 || ([(objc_class *)a4 isSubclassOfClass:objc_opt_class()]& 1) != 0)
+  v23 = [(objc_class *)a4 isSubclassOfClass:objc_opt_class()];
+  if (v23 & 1) != 0 || (v23 = [(objc_class *)a4 isSubclassOfClass:objc_opt_class()], (v23) || (v23 = [(objc_class *)a4 isSubclassOfClass:objc_opt_class()], (v23))
   {
     if (a5)
     {
       if (v18 != MEMORY[0x1E69E9E50])
       {
-        v22 = rbs_coder_log();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v24 = rbs_coder_log(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           _BSXPCDecodeObjectFromContext_cold_9();
         }
 
-        v23 = @"Invalid decoding context for collection";
+        v25 = @"Invalid decoding context for collection";
 LABEL_26:
 
 LABEL_27:
-        [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:v23];
+        [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:v25];
 LABEL_35:
         v21 = 0;
         goto LABEL_36;
       }
 
-      v38 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v89 = 0;
-      v90 = &v89;
-      v91 = 0x3032000000;
-      v92 = __Block_byref_object_copy_;
-      v93 = __Block_byref_object_dispose_;
-      v94 = &stru_1F01CD8F0;
+      v39 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v96 = 0;
+      v97 = &v96;
+      v98 = 0x3032000000;
+      v99 = __Block_byref_object_copy_;
+      v100 = __Block_byref_object_dispose_;
+      v101 = &stru_1F01CD8F0;
       applier = MEMORY[0x1E69E9820];
-      v82 = 3221225472;
-      v83 = ___BSXPCDecodeObject_block_invoke;
-      v84 = &unk_1E72762C0;
-      v85 = v14;
-      v88 = a5;
-      v39 = v38;
-      v86 = v39;
-      v87 = &v89;
-      if (xpc_array_apply(v17, &applier))
+      v89 = 3221225472;
+      v90 = ___BSXPCDecodeObject_block_invoke;
+      v91 = &unk_1E72762C0;
+      v92 = v14;
+      v95 = a5;
+      v40 = v39;
+      v93 = v40;
+      v94 = &v96;
+      v41 = xpc_array_apply(v17, &applier);
+      if (v41)
       {
-        v21 = [[aClass alloc] initWithArray:v39];
+        v21 = [[aClass alloc] initWithArray:v40];
       }
 
       else
       {
-        v40 = rbs_coder_log();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v43 = rbs_coder_log(v41);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
           _BSXPCDecodeObjectFromContext_cold_10();
         }
 
-        [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"Unable to decode array: an object within the array failed to decode. %@", v90[5]}];
+        [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"Unable to decode array: an object within the array failed to decode. %@", v97[5]}];
         v21 = 0;
       }
 
-      _Block_object_dispose(&v89, 8);
+      _Block_object_dispose(&v96, 8);
       goto LABEL_15;
     }
 
-    v31 = rbs_coder_log();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v33 = rbs_coder_log(v23);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      v32 = NSStringFromClass(aClass);
-      _BSXPCDecodeObjectFromContext_cold_11(v32, &applier, v31);
+      v34 = NSStringFromClass(aClass);
+      _BSXPCDecodeObjectFromContext_cold_11(v34, &applier, v33);
     }
 
-    v33 = MEMORY[0x1E695DF30];
-    v34 = NSStringFromClass(aClass);
-    [v33 raise:*MEMORY[0x1E695D940] format:{@"Attempted to decode a collection (%@) without specifying the class it contains", v34}];
+    v35 = MEMORY[0x1E695DF30];
+    v36 = NSStringFromClass(aClass);
+    [v35 raise:*MEMORY[0x1E695D940] format:{@"Attempted to decode a collection (%@) without specifying the class it contains", v36}];
 LABEL_34:
 
     goto LABEL_35;
   }
 
-  if ([(objc_class *)a4 isSubclassOfClass:objc_opt_class()])
+  v42 = [(objc_class *)a4 isSubclassOfClass:objc_opt_class()];
+  if (v42)
   {
     if (a5)
     {
       if (v18 != MEMORY[0x1E69E9E80])
       {
-        v22 = rbs_coder_log();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v24 = rbs_coder_log(v42);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           _BSXPCDecodeObjectFromContext_cold_5();
         }
 
-        v23 = @"Invalid decoding context for dictionary";
+        v25 = @"Invalid decoding context for dictionary";
         goto LABEL_26;
       }
 
-      v89 = 0;
-      v90 = &v89;
-      v91 = 0x3032000000;
-      v92 = __Block_byref_object_copy_;
-      v93 = __Block_byref_object_dispose_;
-      v94 = 0;
-      v53 = [MEMORY[0x1E695DF90] dictionary];
+      v96 = 0;
+      v97 = &v96;
+      v98 = 0x3032000000;
+      v99 = __Block_byref_object_copy_;
+      v100 = __Block_byref_object_dispose_;
+      v101 = 0;
+      v57 = [MEMORY[0x1E695DF90] dictionary];
       applier = MEMORY[0x1E69E9820];
-      v82 = 3221225472;
-      v83 = ___BSXPCDecodeObject_block_invoke_205;
-      v84 = &unk_1E72762E8;
-      v85 = v14;
-      v88 = a5;
-      v54 = v53;
-      v86 = v54;
-      v87 = &v89;
-      if (xpc_dictionary_apply(v17, &applier))
+      v89 = 3221225472;
+      v90 = ___BSXPCDecodeObject_block_invoke_205;
+      v91 = &unk_1E72762E8;
+      v92 = v14;
+      v95 = a5;
+      v58 = v57;
+      v93 = v58;
+      v94 = &v96;
+      v59 = xpc_dictionary_apply(v17, &applier);
+      if (v59)
       {
-        v21 = [[aClass alloc] initWithDictionary:v54];
+        v21 = [[aClass alloc] initWithDictionary:v58];
       }
 
       else
       {
-        v55 = rbs_coder_log();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+        v61 = rbs_coder_log(v59);
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
-          _BSXPCDecodeObjectFromContext_cold_6(&v90);
+          _BSXPCDecodeObjectFromContext_cold_6();
         }
 
-        [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"Unable to decode dictionary key %@", v90[5]}];
+        [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"Unable to decode dictionary key %@", v97[5]}];
         v21 = 0;
       }
 
-      _Block_object_dispose(&v89, 8);
+      _Block_object_dispose(&v96, 8);
 LABEL_15:
       if (!v21)
       {
@@ -718,9 +717,9 @@ LABEL_15:
     {
       if (v18 != MEMORY[0x1E69E9E80])
       {
-        v71 = [MEMORY[0x1E696AAA8] currentHandler];
-        v72 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSObject *_BSXPCDecodeObject(RBSXPCCoder *__strong, __unsafe_unretained Class, __unsafe_unretained Class)"}];
-        [v71 handleFailureInFunction:v72 file:@"RBSXPCCoder.m" lineNumber:598 description:@"RBSXPCEncodingNSSecure expects a dictionary decodingContext"];
+        v78 = [MEMORY[0x1E696AAA8] currentHandler];
+        v79 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSObject *_BSXPCDecodeObject(RBSXPCCoder *__strong, __unsafe_unretained Class, __unsafe_unretained Class)"}];
+        [v78 handleFailureInFunction:v79 file:@"RBSXPCCoder.m" lineNumber:598 description:@"RBSXPCEncodingNSSecure expects a dictionary decodingContext"];
       }
 
       goto LABEL_62;
@@ -736,85 +735,87 @@ LABEL_15:
 
   if (([(objc_class *)a4 supportsRBSXPCSecureCoding]& 1) != 0)
   {
-    v51 = RBSCreateDeserializedStringFromXPCDictionaryWithKey(v17, "bsx_class");
-    if (!v51)
+    v55 = RBSCreateDeserializedStringFromXPCDictionaryWithKey(v17, "bsx_class");
+    if (!v55)
     {
-      v73 = [MEMORY[0x1E696AAA8] currentHandler];
-      v74 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSObject *_BSXPCDecodeObject(RBSXPCCoder *__strong, __unsafe_unretained Class, __unsafe_unretained Class)"}];
-      [v73 handleFailureInFunction:v74 file:@"RBSXPCCoder.m" lineNumber:576 description:@"we already verified that this must be true"];
+      v80 = [MEMORY[0x1E696AAA8] currentHandler];
+      v81 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSObject *_BSXPCDecodeObject(RBSXPCCoder *__strong, __unsafe_unretained Class, __unsafe_unretained Class)"}];
+      [v80 handleFailureInFunction:v81 file:@"RBSXPCCoder.m" lineNumber:576 description:@"we already verified that this must be true"];
     }
 
-    v52 = NSClassFromString(v51);
-    if (v52)
+    v56 = NSClassFromString(v55);
+    if (v56)
     {
-      if (aClass == v52)
+      if (aClass == v56)
       {
-        v52 = aClass;
+        v56 = aClass;
         goto LABEL_105;
       }
 
-      if (([(objc_class *)aClass isSubclassOfClass:v52]& 1) != 0)
+      if (([(objc_class *)aClass isSubclassOfClass:v56]& 1) != 0)
       {
-        v52 = aClass;
+        v56 = aClass;
 LABEL_105:
-        v21 = [[v52 alloc] initWithRBSXPCCoder:v14];
+        v21 = [[v56 alloc] initWithRBSXPCCoder:v14];
 
         goto LABEL_15;
       }
 
-      if (([(objc_class *)v52 isSubclassOfClass:aClass]& 1) != 0)
+      v73 = [(objc_class *)v56 isSubclassOfClass:aClass];
+      if (v73)
       {
         goto LABEL_105;
       }
 
-      v67 = rbs_coder_log();
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+      v74 = rbs_coder_log(v73);
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
       {
         NSStringFromClass(aClass);
         objc_claimAutoreleasedReturnValue();
         _BSXPCDecodeObjectFromContext_cold_3();
       }
 
-      v68 = MEMORY[0x1E695DF30];
-      v63 = NSStringFromClass(aClass);
-      [v68 raise:*MEMORY[0x1E695D940] format:{@"Decoded class %@ is not compatible with expected class %@", v51, v63, v75, context, v77}];
+      v75 = MEMORY[0x1E695DF30];
+      v69 = NSStringFromClass(aClass);
+      [v75 raise:*MEMORY[0x1E695D940] format:{@"Decoded class %@ is not compatible with expected class %@", v55, v69, v82, context, v84}];
     }
 
     else
     {
-      v61 = rbs_coder_log();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      v67 = rbs_coder_log(0);
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
       {
         NSStringFromClass(aClass);
         objc_claimAutoreleasedReturnValue();
         _BSXPCDecodeObjectFromContext_cold_4();
       }
 
-      v62 = MEMORY[0x1E695DF30];
-      v63 = NSStringFromClass(aClass);
-      [v62 raise:*MEMORY[0x1E695D940] format:{@"Unable to reify class %@ for expected class %@", v51, v63, v75, context, v77}];
+      v68 = MEMORY[0x1E695DF30];
+      v69 = NSStringFromClass(aClass);
+      [v68 raise:*MEMORY[0x1E695D940] format:{@"Unable to reify class %@ for expected class %@", v55, v69, v82, context, v84}];
     }
 
-    v52 = 0;
+    v56 = 0;
     goto LABEL_105;
   }
 
-  if (![(objc_class *)a4 supportsSecureCoding])
+  v60 = [(objc_class *)a4 supportsSecureCoding];
+  if (!v60)
   {
-    v56 = rbs_coder_log();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+    v62 = rbs_coder_log(v60);
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
     {
-      v57 = NSStringFromClass(a4);
-      _BSXPCDecodeObjectFromContext_cold_2(v57, &applier, v56);
+      v63 = NSStringFromClass(a4);
+      _BSXPCDecodeObjectFromContext_cold_2(v63, &applier, v62);
     }
 
-    v58 = MEMORY[0x1E695DF30];
-    v59 = NSStringFromClass(aClass);
-    [v58 raise:*MEMORY[0x1E695D940] format:{@"No valid encoding type could be determined for expected class: %@", v59}];
+    v64 = MEMORY[0x1E695DF30];
+    v65 = NSStringFromClass(aClass);
+    [v64 raise:*MEMORY[0x1E695D940] format:{@"No valid encoding type could be determined for expected class: %@", v65}];
 
-    v34 = [MEMORY[0x1E696AAA8] currentHandler];
-    v60 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSObject *_BSXPCDecodeObject(RBSXPCCoder *__strong, __unsafe_unretained Class, __unsafe_unretained Class)"}];
-    [v34 handleFailureInFunction:v60 file:@"RBSXPCCoder.m" lineNumber:632 description:@"we should not have been able to vet the class without defining the encoding"];
+    v36 = [MEMORY[0x1E696AAA8] currentHandler];
+    v66 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSObject *_BSXPCDecodeObject(RBSXPCCoder *__strong, __unsafe_unretained Class, __unsafe_unretained Class)"}];
+    [v36 handleFailureInFunction:v66 file:@"RBSXPCCoder.m" lineNumber:632 description:@"we should not have been able to vet the class without defining the encoding"];
 
     goto LABEL_34;
   }
@@ -823,62 +824,62 @@ LABEL_105:
   {
     if (a5)
     {
-      v41 = [MEMORY[0x1E695DFD8] setWithObjects:{a4, a5, 0, v75, context, v77}];
+      v44 = [MEMORY[0x1E695DFD8] setWithObjects:{a4, a5, 0, v82, context, v84}];
       goto LABEL_63;
     }
 
 LABEL_62:
-    v41 = [MEMORY[0x1E695DFD8] setWithObjects:&aClass count:1];
+    v44 = [MEMORY[0x1E695DFD8] setWithObjects:&aClass count:1];
 LABEL_63:
-    v42 = v41;
+    v45 = v44;
     if (!v14[5])
     {
-      v43 = RBSDeserializeDataFromXPCDictionaryWithKey(v14[1], "bsx_archive");
-      if ([v43 length])
+      v46 = RBSDeserializeDataFromXPCDictionaryWithKey(v14[1], "bsx_archive");
+      if ([v46 length])
       {
-        v44 = v42;
-        v45 = objc_alloc(MEMORY[0x1E696ACD0]);
+        v47 = v45;
+        v48 = objc_alloc(MEMORY[0x1E696ACD0]);
         applier = 0;
-        v46 = [v45 initForReadingFromData:v43 error:&applier];
-        v47 = applier;
-        v48 = v14[5];
-        v14[5] = v46;
+        v49 = [v48 initForReadingFromData:v46 error:&applier];
+        v50 = applier;
+        v51 = v14[5];
+        v14[5] = v49;
 
-        [v14[5] setRequiresSecureCoding:1];
-        if (v47)
+        v52 = [v14[5] setRequiresSecureCoding:1];
+        if (v50)
         {
-          v49 = rbs_coder_log();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+          v53 = rbs_coder_log(v52);
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
           {
             _BSXPCDecodeObjectFromContext_cold_7();
           }
 
-          v50 = v14[5];
+          v54 = v14[5];
           v14[5] = 0;
         }
       }
 
       else
       {
-        v47 = rbs_coder_log();
-        v44 = v42;
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v50 = rbs_coder_log(0);
+        v47 = v45;
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
           _BSXPCDecodeObjectFromContext_cold_8();
         }
       }
 
-      v42 = v44;
+      v45 = v47;
     }
 
-    v64 = RBSDeserializeStringFromXPCDictionaryWithKey(v17, "bsx_index");
-    v65 = v14[5];
-    v79 = 0;
-    v21 = [v65 decodeTopLevelObjectOfClasses:v42 forKey:v64 error:&v79];
-    v66 = v79;
-    if (v66)
+    v70 = RBSDeserializeStringFromXPCDictionaryWithKey(v17, "bsx_index");
+    v71 = v14[5];
+    v86 = 0;
+    v21 = [v71 decodeTopLevelObjectOfClasses:v45 forKey:v70 error:&v86];
+    v72 = v86;
+    if (v72)
     {
-      [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"Error during decoding of %@: %@", v64, v66}];
+      [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"Error during decoding of %@: %@", v70, v72}];
     }
 
     goto LABEL_15;
@@ -893,42 +894,41 @@ LABEL_54:
 
   if (!v21)
   {
-    v23 = @"Invalid decoding context for <CFXPCBridge>";
+    v25 = @"Invalid decoding context for <CFXPCBridge>";
     goto LABEL_27;
   }
 
 LABEL_16:
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v24 = rbs_coder_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v26 = rbs_coder_log(isKindOfClass);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v25 = objc_opt_class();
-      v26 = NSStringFromClass(v25);
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
       NSStringFromClass(aClass);
       objc_claimAutoreleasedReturnValue();
       _BSXPCDecodeObjectFromContext_cold_13();
     }
 
-    v27 = MEMORY[0x1E695DF30];
-    v28 = objc_opt_class();
-    v29 = NSStringFromClass(v28);
-    v30 = NSStringFromClass(aClass);
-    [v27 raise:*MEMORY[0x1E695D940] format:{@"Decoded object class %@ does not match expected class %@", v29, v30}];
+    v29 = MEMORY[0x1E695DF30];
+    v30 = objc_opt_class();
+    v31 = NSStringFromClass(v30);
+    v32 = NSStringFromClass(aClass);
+    [v29 raise:*MEMORY[0x1E695D940] format:{@"Decoded object class %@ does not match expected class %@", v31, v32}];
   }
 
 LABEL_36:
 
   objc_storeStrong(v10, v11);
-  v35 = *v10;
+  v37 = *v10;
   if (*v10 == v14[1])
   {
     *v10 = 0;
   }
 
   objc_autoreleasePoolPop(context);
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -944,7 +944,7 @@ void sub_18E8B0BA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     }
 
     v21 = objc_begin_catch(exception_object);
-    v22 = rbs_coder_log();
+    v22 = rbs_coder_log(v21);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       NSStringFromClass(aClass);
@@ -1135,16 +1135,16 @@ __CFString *NSStringFromRBSTerminationResistance(int a1)
   }
 }
 
-id rbs_process_log()
+id rbs_process_log(uint64_t a1)
 {
   if (rbs_process_log_onceToken != -1)
   {
     rbs_process_log_cold_1();
   }
 
-  v1 = rbs_process_log___logger;
+  v2 = rbs_process_log___logger;
 
-  return v1;
+  return v2;
 }
 
 id RBSExtensionPointFromBundleDict(void *a1)
@@ -1162,53 +1162,53 @@ id RBSExtensionPointFromBundleDict(void *a1)
   return v3;
 }
 
-void *RBObjectOfClassForKey(void *a1, uint64_t a2)
+void *RBObjectOfClassForKey(void *a1, uint64_t a2, uint64_t a3)
 {
-  v2 = [a1 objectForKey:a2];
-  if (v2)
+  v3 = [a1 objectForKey:a2];
+  if (v3)
   {
     if (objc_opt_isKindOfClass())
     {
-      v3 = v2;
+      v4 = v3;
     }
 
     else
     {
-      v3 = 0;
+      v4 = 0;
     }
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = v3;
+  v5 = v4;
 
-  return v3;
+  return v4;
 }
 
 id RBSStringForKey(void *a1, void *a2)
 {
   v3 = a2;
   v4 = a1;
-  objc_opt_class();
-  v5 = RBObjectOfClassForKey(v4, v3);
+  v5 = objc_opt_class();
+  v6 = RBObjectOfClassForKey(v4, v3, v5);
 
-  return v5;
+  return v6;
 }
 
 id RBSExecutablePathForPID()
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v1 = v0;
-  v9 = *MEMORY[0x1E69E9840];
-  if (v0 >= 1 && (RBSandboxCanGetProcessInfo(v0) & 1) != 0)
+  ProcessInfo = MEMORY[0x1EEE9AC00]();
+  v1 = ProcessInfo;
+  v8 = *MEMORY[0x1E69E9840];
+  if (ProcessInfo >= 1 && (ProcessInfo = RBSandboxCanGetProcessInfo(ProcessInfo), (ProcessInfo & 1) != 0))
   {
     v2 = proc_pidpath(v1, buffer, 0x1000u);
     if (v2 < 1)
     {
-      v3 = rbs_general_log();
+      v3 = rbs_general_log(v2);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         RBSExecutablePathForPID_cold_1();
@@ -1226,7 +1226,7 @@ id RBSExecutablePathForPID()
 
   else
   {
-    v5 = rbs_general_log();
+    v5 = rbs_general_log(ProcessInfo);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       RBSExecutablePathForPID_cold_2(v1);
@@ -1234,8 +1234,6 @@ id RBSExecutablePathForPID()
 
     v4 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1289,16 +1287,16 @@ id RBSAppViewServiceMachServiceName(uint64_t a1)
   return v4;
 }
 
-id rbs_monitor_log()
+id rbs_monitor_log(uint64_t a1)
 {
   if (rbs_monitor_log_onceToken != -1)
   {
     rbs_monitor_log_cold_1();
   }
 
-  v1 = rbs_monitor_log___logger;
+  v2 = rbs_monitor_log___logger;
 
-  return v1;
+  return v2;
 }
 
 __CFString *NSStringFromRBSAcquisitionCompletionPolicy(uint64_t a1)
@@ -1320,10 +1318,11 @@ __CFString *NSStringFromRBSAcquisitionCompletionPolicy(uint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t OUTLINED_FUNCTION_0_5(uint64_t result, uint64_t a2, uint64_t a3, float a4)
@@ -1335,16 +1334,18 @@ uint64_t OUTLINED_FUNCTION_0_5(uint64_t result, uint64_t a2, uint64_t a3, float 
   return result;
 }
 
-void OUTLINED_FUNCTION_11(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_11(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 void OUTLINED_FUNCTION_2_1(uint64_t a1, const char *a2)
@@ -1353,10 +1354,11 @@ void OUTLINED_FUNCTION_2_1(uint64_t a1, const char *a2)
   xpc_dictionary_set_value(v2, a2, v3);
 }
 
-void OUTLINED_FUNCTION_2_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x18u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x18u);
 }
 
 id RBSXPCPackObject(void *a1)
@@ -1400,28 +1402,28 @@ LABEL_9:
   return v5;
 }
 
-id rbs_message_log()
+id rbs_message_log(uint64_t a1)
 {
   if (rbs_message_log_onceToken != -1)
   {
     rbs_message_log_cold_1();
   }
 
-  v1 = rbs_message_log___logger;
+  v2 = rbs_message_log___logger;
 
-  return v1;
+  return v2;
 }
 
-id rbs_assertion_log()
+id rbs_assertion_log(uint64_t a1)
 {
   if (rbs_assertion_log_onceToken != -1)
   {
     rbs_assertion_log_cold_1();
   }
 
-  v1 = rbs_assertion_log___logger;
+  v2 = rbs_assertion_log___logger;
 
-  return v1;
+  return v2;
 }
 
 id RBSDeserializeDataFromXPCDictionaryWithKey(void *a1, const char *a2)
@@ -1465,10 +1467,10 @@ id RBSDictionaryForKey(void *a1, void *a2)
 {
   v3 = a2;
   v4 = a1;
-  objc_opt_class();
-  v5 = RBObjectOfClassForKey(v4, v3);
+  v5 = objc_opt_class();
+  v6 = RBObjectOfClassForKey(v4, v3, v5);
 
-  return v5;
+  return v6;
 }
 
 id RBSBundleIDForPID(int a1)
@@ -1527,27 +1529,29 @@ LABEL_17:
   return v2;
 }
 
-uint64_t _RBShortBSDProcessInfoForPID(int a1, void *a2)
+uint64_t _RBShortBSDProcessInfoForPID(uint64_t a1, void *a2)
 {
+  v2 = a1;
   result = 0;
-  if (a1 >= 1)
+  if (v2 >= 1)
   {
     if (a2)
     {
-      result = RBSandboxCanGetProcessInfo(a1);
+      result = RBSandboxCanGetProcessInfo(v2);
       if (result)
       {
-        if (proc_pidinfo(a1, 13, 0, a2, 64) == 64)
+        if (proc_pidinfo(v2, 13, 0, a2, 64) == 64)
         {
           return 1;
         }
 
         else
         {
-          if (*__error() != 3)
+          v5 = __error();
+          if (*v5 != 3)
           {
-            v5 = rbs_general_log();
-            if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+            v6 = rbs_general_log(v5);
+            if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
             {
               _RBShortBSDProcessInfoForPID_cold_1();
             }
@@ -1562,27 +1566,21 @@ uint64_t _RBShortBSDProcessInfoForPID(int a1, void *a2)
   return result;
 }
 
-uint64_t RBSPIDExists(int a1)
+uint64_t RBSPIDExists(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (getpid() == a1)
   {
-    result = 1;
+    return 1;
   }
 
-  else if (a1 < 1)
+  if (a1 < 1)
   {
-    result = 0;
+    return 0;
   }
 
-  else
-  {
-    memset(v4, 0, sizeof(v4));
-    result = _RBShortBSDProcessInfoForPID(a1, v4);
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  memset(v3, 0, sizeof(v3));
+  return _RBShortBSDProcessInfoForPID(a1, v3);
 }
 
 void OUTLINED_FUNCTION_1_0(void *a1@<X0>, const char *a2@<X3>, uint8_t *a3@<X4>, NSObject *a4@<X8>)
@@ -1597,10 +1595,11 @@ uint64_t OUTLINED_FUNCTION_1_1(uint64_t a1)
   return MEMORY[0x1EEDC70C8](v2, v1, a1);
 }
 
-void OUTLINED_FUNCTION_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id RBSXPCUnpackObject(void *a1)
@@ -1679,16 +1678,16 @@ void OUTLINED_FUNCTION_23(void *a1, NSObject *a2, uint64_t a3, const char *a4, u
   _os_log_impl(a1, a2, OS_LOG_TYPE_INFO, a4, a5, 0xCu);
 }
 
-id rbs_connection_log()
+id rbs_connection_log(uint64_t a1)
 {
   if (rbs_connection_log_onceToken != -1)
   {
     rbs_connection_log_cold_1();
   }
 
-  v1 = rbs_connection_log___logger;
+  v2 = rbs_connection_log___logger;
 
-  return v1;
+  return v2;
 }
 
 __CFString *NSStringFromRBSDebugState(unsigned int a1)
@@ -1765,7 +1764,6 @@ uint64_t RBSSandboxCanAccessMachService()
 uint64_t __RBSSandboxCanAccessMachService_block_invoke()
 {
   getpid();
-  v0 = *MEMORY[0x1E69E9BD0];
   [@"com.apple.runningboard" UTF8String];
   result = sandbox_check();
   RBSSandboxCanAccessMachService_canAccess = result == 0;
@@ -1806,16 +1804,16 @@ BOOL OUTLINED_FUNCTION_22(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT);
 }
 
-id rbs_coder_log()
+id rbs_coder_log(uint64_t a1)
 {
   if (rbs_coder_log_onceToken != -1)
   {
     rbs_coder_log_cold_1();
   }
 
-  v1 = rbs_coder_log___logger;
+  v2 = rbs_coder_log___logger;
 
-  return v1;
+  return v2;
 }
 
 __CFString *NSStringFromRBSLegacyReason(uint64_t a1)
@@ -2018,14 +2016,20 @@ void RBSSerializeDoubleToXPCDictionaryWithKey(xpc_object_t xdict, const char *ke
 
 void *__getprewarm_for_launchSymbolLoc_block_invoke(uint64_t a1)
 {
-  v4 = 0;
-  v2 = shared_cache_page_prewarmingLibraryCore();
+  v5 = 0;
+  v2 = shared_cache_page_prewarmingLibraryCore(&v5);
   if (!v2)
   {
-    __getprewarm_for_launchSymbolLoc_block_invoke_cold_1(&v4);
+    __getprewarm_for_launchSymbolLoc_block_invoke_cold_1(&v5);
   }
 
-  result = dlsym(v2, "prewarm_for_launch");
+  v3 = v2;
+  if (v5)
+  {
+    free(v5);
+  }
+
+  result = dlsym(v3, "prewarm_for_launch");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getprewarm_for_launchSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -2046,7 +2050,7 @@ __CFString *NSStringFromRBSDurationEndPolicy(unint64_t a1)
 
 id RBSEndowmentEncode(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -2061,7 +2065,7 @@ id RBSEndowmentEncode(void *a1)
     if (objc_opt_isKindOfClass())
     {
       *uuid = 0;
-      v16 = 0;
+      v15 = 0;
       [v1 getUUIDBytes:uuid];
       v2 = xpc_uuid_create(uuid);
       v3 = 2;
@@ -2090,14 +2094,14 @@ id RBSEndowmentEncode(void *a1)
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v7 = xpc_array_create(0, 0);
-            v13[0] = MEMORY[0x1E69E9820];
-            v13[1] = 3221225472;
-            v13[2] = __RBSEndowmentEncode_block_invoke;
-            v13[3] = &unk_1E72767A0;
-            v2 = v7;
-            v14 = v2;
-            [v1 enumerateObjectsUsingBlock:v13];
+            v6 = xpc_array_create(0, 0);
+            v12[0] = MEMORY[0x1E69E9820];
+            v12[1] = 3221225472;
+            v12[2] = __RBSEndowmentEncode_block_invoke;
+            v12[3] = &unk_1E72767A0;
+            v2 = v6;
+            v13 = v2;
+            [v1 enumerateObjectsUsingBlock:v12];
             count = xpc_array_get_count(v2);
             if (count != [v1 count])
             {
@@ -2113,16 +2117,16 @@ id RBSEndowmentEncode(void *a1)
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v9 = xpc_dictionary_create(0, 0, 0);
-              v11[0] = MEMORY[0x1E69E9820];
-              v11[1] = 3221225472;
-              v11[2] = __RBSEndowmentEncode_block_invoke_2;
-              v11[3] = &unk_1E72767C8;
-              v2 = v9;
-              v12 = v2;
-              [v1 enumerateKeysAndObjectsUsingBlock:v11];
-              v10 = xpc_dictionary_get_count(v2);
-              if (v10 != [v1 count])
+              v8 = xpc_dictionary_create(0, 0, 0);
+              v10[0] = MEMORY[0x1E69E9820];
+              v10[1] = 3221225472;
+              v10[2] = __RBSEndowmentEncode_block_invoke_2;
+              v10[3] = &unk_1E72767C8;
+              v2 = v8;
+              v11 = v2;
+              [v1 enumerateKeysAndObjectsUsingBlock:v10];
+              v9 = xpc_dictionary_get_count(v2);
+              if (v9 != [v1 count])
               {
 
                 v2 = 0;
@@ -2143,8 +2147,6 @@ id RBSEndowmentEncode(void *a1)
   }
 
   v4 = _RBSEndowmentWrapType(v2, v3);
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -2188,8 +2190,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -2267,10 +2267,11 @@ __CFString *NSStringFromRBSDurationStartPolicy(uint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_7_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_7_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 __CFString *NSStringFromRBSGPURole(unsigned int a1)
@@ -2605,15 +2606,16 @@ uint64_t RBSCreateDeserializedNSSecureEncodableObjectOfClassFromXPCDictionaryWit
       v10 = MEMORY[0x1E695DEF0];
       bytes_ptr = xpc_data_get_bytes_ptr(v8);
       v12 = [v10 dataWithBytes:bytes_ptr length:xpc_data_get_length(v8)];
-      v16 = 0;
-      v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:a1 fromData:v12 error:&v16];
-      v13 = v16;
+      v17 = 0;
+      v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:a1 fromData:v12 error:&v17];
+      v13 = v17;
+      v14 = v13;
       if (v13)
       {
-        v14 = rbs_coder_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = rbs_coder_log(v13);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          RBSCreateDeserializedNSSecureEncodableObjectOfClassFromXPCDictionaryWithKey_cold_3(a1, v13, v14);
+          RBSCreateDeserializedNSSecureEncodableObjectOfClassFromXPCDictionaryWithKey_cold_3(a1, v14, v15);
         }
       }
 
@@ -2673,7 +2675,6 @@ __CFString *NSStringFromRBSCPUMaximumUsageViolationPolicy(unint64_t a1)
 uint64_t __RBSandboxCanGetProcessInfo_block_invoke()
 {
   getpid();
-  v0 = *MEMORY[0x1E69E9BD0];
   result = sandbox_check();
   RBSandboxCanGetProcessInfo_allowed = result == 0;
   return result;
@@ -2682,7 +2683,7 @@ uint64_t __RBSandboxCanGetProcessInfo_block_invoke()
 id RBSExecutablePathForBundlePath(void *a1)
 {
   v1 = a1;
-  v2 = RBSSystemRootDirectory();
+  v2 = RBSSystemRootDirectory(v1);
   v3 = [v2 stringByAppendingPathComponent:v1];
 
   v4 = [objc_alloc(MEMORY[0x1E696AAE8]) initWithPath:v3];
@@ -2691,23 +2692,23 @@ id RBSExecutablePathForBundlePath(void *a1)
   return v5;
 }
 
-id RBSSystemRootDirectory()
+id RBSSystemRootDirectory(uint64_t a1)
 {
   if (RBSSystemRootDirectory_onceToken != -1)
   {
     RBSSystemRootDirectory_cold_1();
   }
 
-  v1 = RBSSystemRootDirectory___SystemRootDirectory;
+  v2 = RBSSystemRootDirectory___SystemRootDirectory;
 
-  return v1;
+  return v2;
 }
 
 id _RBSearchPathForDirectoryInDomain(NSSearchPathDirectory a1, NSSearchPathDomainMask a2)
 {
   if ((a2 ^ (a2 - 1)) <= a2 - 1)
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   else
@@ -2720,45 +2721,45 @@ id _RBSearchPathForDirectoryInDomain(NSSearchPathDirectory a1, NSSearchPathDomai
     {
       if (v2)
       {
-        RBSCurrentUserDirectory();
+        RBSCurrentUserDirectory(v5);
       }
 
       else
       {
-        RBSSystemRootDirectory();
+        RBSSystemRootDirectory(v5);
       }
-      v6 = ;
-      if ([v4 hasPrefix:v6])
+      v7 = ;
+      if ([v4 hasPrefix:v7])
       {
-        v5 = v4;
+        v6 = v4;
       }
 
       else
       {
-        v7 = [v6 stringByAppendingPathComponent:v4];
-        v5 = [v7 stringByStandardizingPath];
+        v8 = [v7 stringByAppendingPathComponent:v4];
+        v6 = [v8 stringByStandardizingPath];
       }
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
   }
 
-  return v5;
+  return v6;
 }
 
-id RBSCurrentUserDirectory()
+id RBSCurrentUserDirectory(uint64_t a1)
 {
   if (RBSCurrentUserDirectory___once != -1)
   {
     RBSCurrentUserDirectory_cold_1();
   }
 
-  v1 = RBSCurrentUserDirectory___userDirectory;
+  v2 = RBSCurrentUserDirectory___userDirectory;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __RBSCurrentUserDirectory_block_invoke()
@@ -2781,30 +2782,30 @@ id RBSNumberForKey(void *a1, void *a2)
 {
   v3 = a2;
   v4 = a1;
-  objc_opt_class();
-  v5 = RBObjectOfClassForKey(v4, v3);
+  v5 = objc_opt_class();
+  v6 = RBObjectOfClassForKey(v4, v3, v5);
 
-  return v5;
+  return v6;
 }
 
 id RBSURLForKey(void *a1, void *a2)
 {
   v3 = a2;
   v4 = a1;
-  objc_opt_class();
-  v5 = RBObjectOfClassForKey(v4, v3);
+  v5 = objc_opt_class();
+  v6 = RBObjectOfClassForKey(v4, v3, v5);
 
-  return v5;
+  return v6;
 }
 
 id RBSArrayForKey(void *a1, void *a2)
 {
   v3 = a2;
   v4 = a1;
-  objc_opt_class();
-  v5 = RBObjectOfClassForKey(v4, v3);
+  v5 = objc_opt_class();
+  v6 = RBObjectOfClassForKey(v4, v3, v5);
 
-  return v5;
+  return v6;
 }
 
 uint64_t RBSBoolForKey(void *a1, uint64_t a2)
@@ -2839,25 +2840,19 @@ double RBSMachAbsoluteTime()
   return *&RBSMachAbsoluteTime___TimeScale * mach_absolute_time();
 }
 
-uint64_t RBSPIDIsBeingDebugged(int a1)
+uint64_t RBSPIDIsBeingDebugged(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (a1 < 1)
   {
-    result = 0;
+    return 0;
   }
 
-  else
-  {
-    v5 = 0u;
-    v6 = 0u;
-    memset(v4, 0, sizeof(v4));
-    v1 = _RBShortBSDProcessInfoForPID(a1, v4);
-    result = *&v1 & ((v5 & 2) >> 1);
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = 0u;
+  v5 = 0u;
+  memset(v3, 0, sizeof(v3));
+  v1 = _RBShortBSDProcessInfoForPID(a1, v3);
+  return *&v1 & ((v4 & 2) >> 1);
 }
 
 void RBSDispatchQueueAssert(void *a1)
@@ -2882,10 +2877,11 @@ void RBSDispatchQueueAssert(void *a1)
 BOOL RBSAuditTokenRepresentsPlatformBinary(_OWORD *a1)
 {
   v2 = a1[1];
-  *v7.val = *a1;
-  *&v7.val[4] = v2;
-  v3 = SecTaskCreateWithAuditToken(0, &v7);
+  *v8.val = *a1;
+  *&v8.val[4] = v2;
+  v3 = SecTaskCreateWithAuditToken(0, &v8);
   CodeSignStatus = SecTaskGetCodeSignStatus(v3);
+  v5 = CodeSignStatus;
   if (v3)
   {
     CFRelease(v3);
@@ -2893,28 +2889,30 @@ BOOL RBSAuditTokenRepresentsPlatformBinary(_OWORD *a1)
 
   else
   {
-    v5 = rbs_general_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = rbs_general_log(CodeSignStatus);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       RBSAuditTokenRepresentsPlatformBinary_cold_1(a1);
     }
   }
 
-  return (CodeSignStatus & 0xC000001) == 67108865;
+  return (v5 & 0xC000001) == 67108865;
 }
 
-BOOL RBSIsBinaryCatalystOriOS(int a1)
+BOOL RBSIsBinaryCatalystOriOS(uint64_t a1)
 {
+  v1 = a1;
   buffer = 0;
-  if (proc_pidinfo(a1, 30, 0, &buffer, 4) == 4)
+  v2 = proc_pidinfo(a1, 30, 0, &buffer, 4);
+  if (v2 == 4)
   {
     return (buffer & 0xFFFFFFFB) == 2;
   }
 
-  v3 = rbs_general_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = rbs_general_log(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    RBSIsBinaryCatalystOriOS_cold_1(a1, v3);
+    RBSIsBinaryCatalystOriOS_cold_1(v1, v4);
   }
 
   return 0;
@@ -2922,11 +2920,11 @@ BOOL RBSIsBinaryCatalystOriOS(int a1)
 
 id RBSContainedExtensionBundleIDs(void *a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [MEMORY[0x1E695DFA8] setWithObject:v1];
   v3 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v1 allowPlaceholder:0 error:0];
-  v4 = rbs_general_log();
+  v4 = rbs_general_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
@@ -2934,57 +2932,60 @@ id RBSContainedExtensionBundleIDs(void *a1)
     {
       v6 = [v3 applicationExtensionRecords];
       *buf = 134218242;
-      v22 = [v6 count];
-      v23 = 2112;
-      v24 = v1;
+      v21 = [v6 count];
+      v22 = 2112;
+      v23 = v1;
       _os_log_impl(&dword_18E8AD000, v4, OS_LOG_TYPE_DEFAULT, "Found %lu extensions contained in %@", buf, 0x16u);
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v4 = [v3 applicationExtensionRecords];
-    v7 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
-        for (i = 0; i != v8; ++i)
+        v10 = 0;
+        do
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v4);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
-          v12 = rbs_general_log();
+          v11 = *(*(&v15 + 1) + 8 * v10);
+          v12 = rbs_general_log(v7);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
-            RBSContainedExtensionBundleIDs_cold_1(buf, v11, &v22, v12);
+            RBSContainedExtensionBundleIDs_cold_1(buf, v11, &v21, v12);
           }
 
           v13 = [v11 bundleIdentifier];
           [v2 addObject:v13];
+
+          ++v10;
         }
 
-        v8 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        while (v8 != v10);
+        v7 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = v7;
       }
 
-      while (v8);
+      while (v7);
     }
   }
 
   else if (v5)
   {
     *buf = 138412290;
-    v22 = v1;
+    v21 = v1;
     _os_log_impl(&dword_18E8AD000, v4, OS_LOG_TYPE_DEFAULT, "failed to get LSApplicationRecord for %@ - probably OK", buf, 0xCu);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -2996,16 +2997,16 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-id rbs_best_effort_networking_log()
+id rbs_best_effort_networking_log(uint64_t a1)
 {
   if (rbs_best_effort_networking_log_onceToken != -1)
   {
     rbs_best_effort_networking_log_cold_1();
   }
 
-  v1 = rbs_best_effort_networking_log___logger;
+  v2 = rbs_best_effort_networking_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_best_effort_networking_log_block_invoke()
@@ -3015,16 +3016,16 @@ uint64_t __rbs_best_effort_networking_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_job_log()
+id rbs_job_log(uint64_t a1)
 {
   if (rbs_job_log_onceToken != -1)
   {
     rbs_job_log_cold_1();
   }
 
-  v1 = rbs_job_log___logger;
+  v2 = rbs_job_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_job_log_block_invoke()
@@ -3034,16 +3035,16 @@ uint64_t __rbs_job_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_job_oversize_log()
+id rbs_job_oversize_log(uint64_t a1)
 {
   if (rbs_job_oversize_log_onceToken != -1)
   {
     rbs_job_oversize_log_cold_1();
   }
 
-  v1 = rbs_job_oversize_log___logger;
+  v2 = rbs_job_oversize_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_job_oversize_log_block_invoke()
@@ -3053,16 +3054,16 @@ uint64_t __rbs_job_oversize_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_power_log()
+id rbs_power_log(uint64_t a1)
 {
   if (rbs_power_log_onceToken != -1)
   {
     rbs_power_log_cold_1();
   }
 
-  v1 = rbs_power_log___logger;
+  v2 = rbs_power_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_power_log_block_invoke()
@@ -3072,16 +3073,16 @@ uint64_t __rbs_power_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_resource_log()
+id rbs_resource_log(uint64_t a1)
 {
   if (rbs_resource_log_onceToken != -1)
   {
     rbs_resource_log_cold_1();
   }
 
-  v1 = rbs_resource_log___logger;
+  v2 = rbs_resource_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_resource_log_block_invoke()
@@ -3091,16 +3092,16 @@ uint64_t __rbs_resource_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_state_log()
+id rbs_state_log(uint64_t a1)
 {
   if (rbs_state_log_onceToken != -1)
   {
     rbs_state_log_cold_1();
   }
 
-  v1 = rbs_state_log___logger;
+  v2 = rbs_state_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_state_log_block_invoke()
@@ -3110,16 +3111,16 @@ uint64_t __rbs_state_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_system_log()
+id rbs_system_log(uint64_t a1)
 {
   if (rbs_system_log_onceToken != -1)
   {
     rbs_system_log_cold_1();
   }
 
-  v1 = rbs_system_log___logger;
+  v2 = rbs_system_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_system_log_block_invoke()
@@ -3129,16 +3130,16 @@ uint64_t __rbs_system_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_shim_log()
+id rbs_shim_log(uint64_t a1)
 {
   if (rbs_shim_log_onceToken != -1)
   {
     rbs_shim_log_cold_1();
   }
 
-  v1 = rbs_shim_log___logger;
+  v2 = rbs_shim_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_shim_log_block_invoke()
@@ -3148,16 +3149,16 @@ uint64_t __rbs_shim_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_test_log()
+id rbs_test_log(uint64_t a1)
 {
   if (rbs_test_log_onceToken != -1)
   {
     rbs_test_log_cold_1();
   }
 
-  v1 = rbs_test_log___logger;
+  v2 = rbs_test_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_test_log_block_invoke()
@@ -3174,16 +3175,16 @@ uint64_t __rbs_coder_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_adapter_log()
+id rbs_adapter_log(uint64_t a1)
 {
   if (rbs_adapter_log_onceToken != -1)
   {
     rbs_adapter_log_cold_1();
   }
 
-  v1 = rbs_adapter_log___logger;
+  v2 = rbs_adapter_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_adapter_log_block_invoke()
@@ -3193,16 +3194,16 @@ uint64_t __rbs_adapter_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_jetsam_log()
+id rbs_jetsam_log(uint64_t a1)
 {
   if (rbs_jetsam_log_onceToken != -1)
   {
     rbs_jetsam_log_cold_1();
   }
 
-  v1 = rbs_jetsam_log___logger;
+  v2 = rbs_jetsam_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_jetsam_log_block_invoke()
@@ -3212,16 +3213,16 @@ uint64_t __rbs_jetsam_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_ttl_log()
+id rbs_ttl_log(uint64_t a1)
 {
   if (rbs_ttl_log_onceToken != -1)
   {
     rbs_ttl_log_cold_1();
   }
 
-  v1 = rbs_ttl_log___logger;
+  v2 = rbs_ttl_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_ttl_log_block_invoke()
@@ -3231,16 +3232,16 @@ uint64_t __rbs_ttl_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_sp_telemetry_log()
+id rbs_sp_telemetry_log(uint64_t a1)
 {
   if (rbs_sp_telemetry_log_onceToken != -1)
   {
     rbs_sp_telemetry_log_cold_1();
   }
 
-  v1 = rbs_sp_telemetry_log___logger;
+  v2 = rbs_sp_telemetry_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_sp_telemetry_log_block_invoke()
@@ -3250,16 +3251,16 @@ uint64_t __rbs_sp_telemetry_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_sp_assertion_log()
+id rbs_sp_assertion_log(uint64_t a1)
 {
   if (rbs_sp_assertion_log_onceToken != -1)
   {
     rbs_sp_assertion_log_cold_1();
   }
 
-  v1 = rbs_sp_assertion_log___logger;
+  v2 = rbs_sp_assertion_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_sp_assertion_log_block_invoke()
@@ -3269,16 +3270,16 @@ uint64_t __rbs_sp_assertion_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_sp_state_log()
+id rbs_sp_state_log(uint64_t a1)
 {
   if (rbs_sp_state_log_onceToken != -1)
   {
     rbs_sp_state_log_cold_1();
   }
 
-  v1 = rbs_sp_state_log___logger;
+  v2 = rbs_sp_state_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_sp_state_log_block_invoke()
@@ -3288,16 +3289,16 @@ uint64_t __rbs_sp_state_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id rbs_sp_therm_log()
+id rbs_sp_therm_log(uint64_t a1)
 {
   if (rbs_sp_therm_log_onceToken != -1)
   {
     rbs_sp_therm_log_cold_1();
   }
 
-  v1 = rbs_sp_therm_log___logger;
+  v2 = rbs_sp_therm_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __rbs_sp_therm_log_block_invoke()
@@ -3307,9 +3308,9 @@ uint64_t __rbs_sp_therm_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void sub_18E8C924C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E8C924C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3321,9 +3322,9 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_18E8C961C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E8C961C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3355,11 +3356,8 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
 
 uint64_t __shared_cache_page_prewarmingLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   shared_cache_page_prewarmingLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3402,19 +3400,20 @@ BOOL RBSRealAuditTokenValid(_OWORD *a1)
 uint64_t RBSMachPortType(mach_port_name_t name)
 {
   ptype = 0;
-  if (mach_port_type(*MEMORY[0x1E69E9A60], name, &ptype))
+  v1 = mach_port_type(*MEMORY[0x1E69E9A60], name, &ptype);
+  if (v1)
   {
-    v1 = rbs_general_log();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = rbs_general_log(v1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      RBSMachPortType_cold_1(v1, v2, v3, v4, v5, v6, v7, v8);
+      RBSMachPortType_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
     }
   }
 
   return ptype;
 }
 
-uint64_t __RBSEndowmentEncode_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+uint64_t __RBSEndowmentEncode_block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v6 = RBSEndowmentEncode(a2);
   if (v6)
@@ -3460,7 +3459,7 @@ void ___personalPersonaString_block_invoke()
 
   if (_personalPersonaString_personalPersonaString)
   {
-    v3 = 0x7FFFFFFF;
+    v4 = 0x7FFFFFFF;
   }
 
   else
@@ -3485,35 +3484,36 @@ void ___personalPersonaString_block_invoke()
     *count = 2;
     if (kpersona_info())
     {
-      v3 = getuid();
+      v4 = getuid();
     }
 
     else
     {
-      v3 = HIDWORD(v30);
+      v4 = HIDWORD(v30);
     }
 
-    v4 = malloc_type_calloc(4uLL, 4uLL, 0x100004052888210uLL);
+    v5 = malloc_type_calloc(4uLL, 4uLL, 0x100004052888210uLL);
     *count = 4;
-    if ((kpersona_find_by_type() & 0x80000000) != 0)
+    v6 = kpersona_find_by_type();
+    if ((v6 & 0x80000000) != 0)
     {
-      v6 = rbs_general_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = rbs_general_log(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *__error();
+        v9 = *__error();
         *buf = 67109120;
-        v32 = v7;
-        _os_log_impl(&dword_18E8AD000, v6, OS_LOG_TYPE_DEFAULT, "RBSProcessIdentity: kpersona_find_by_type() failed: %d", buf, 8u);
+        v32 = v9;
+        _os_log_impl(&dword_18E8AD000, v8, OS_LOG_TYPE_DEFAULT, "RBSProcessIdentity: kpersona_find_by_type() failed: %d", buf, 8u);
       }
 
 LABEL_14:
-      v8 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v5 = *count;
-      v12 = 0;
+      v7 = *count;
+      v13 = 0;
       while (1)
       {
         v30 = 0;
@@ -3534,37 +3534,34 @@ LABEL_14:
         v15 = 0u;
         memset(&count[4], 0, 96);
         *count = 2;
-        v13 = v4[v12];
-        if (!__PAIR64__(v3, kpersona_info()))
+        if (!__PAIR64__(v4, kpersona_info()))
         {
           break;
         }
 
-        if (v5 == ++v12)
+        if (v7 == ++v13)
         {
           goto LABEL_14;
         }
       }
 
-      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{&count[88], *count, *&count[8], *&count[24], *&count[40], *&count[56], *&count[72]}];
+      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{&count[88], *count, *&count[8], *&count[24], *&count[40], *&count[56], *&count[72]}];
     }
 
-    free(v4);
-    v9 = _personalPersonaString_personalPersonaString;
-    _personalPersonaString_personalPersonaString = v8;
+    free(v5);
+    v11 = _personalPersonaString_personalPersonaString;
+    _personalPersonaString_personalPersonaString = v10;
   }
 
-  v10 = rbs_general_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = rbs_general_log(v3);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *count = 67109378;
-    *&count[4] = v3;
+    *&count[4] = v4;
     *&count[8] = 2114;
     *&count[10] = _personalPersonaString_personalPersonaString;
-    _os_log_impl(&dword_18E8AD000, v10, OS_LOG_TYPE_DEFAULT, "RBSProcessIdentity calculated session %u, persona %{public}@ for persona matching for this process", count, 0x12u);
+    _os_log_impl(&dword_18E8AD000, v12, OS_LOG_TYPE_DEFAULT, "RBSProcessIdentity calculated session %u, persona %{public}@ for persona matching for this process", count, 0x12u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 unint64_t RBSRoleFromDarwinRole(unsigned int a1)
@@ -3591,14 +3588,14 @@ __CFString *NSStringFromRBSPreventLaunchState(unsigned int a1)
   }
 }
 
-void RBSCaptureStateToFile(NSObject *a1)
+void RBSCaptureStateToFile(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v2 = rbs_general_log();
+  v43 = *MEMORY[0x1E69E9840];
+  v2 = rbs_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v40 = a1;
+    v42 = a1;
     _os_log_impl(&dword_18E8AD000, v2, OS_LOG_TYPE_DEFAULT, "RunningBoard capturing state to file %s", buf, 0xCu);
   }
 
@@ -3606,104 +3603,103 @@ void RBSCaptureStateToFile(NSObject *a1)
   v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a1];
   v5 = [v4 stringByDeletingLastPathComponent];
 
-  if ([v3 fileExistsAtPath:v5])
+  v6 = [v3 fileExistsAtPath:v5];
+  if (v6)
   {
-    v6 = 0;
     v7 = 0;
+    v8 = 0;
     do
     {
-      v8 = v6;
-      v9 = +[RBSConnection sharedInstance];
-      v38 = 0;
-      v10 = [v9 captureStateForSubsystem:0 error:&v38];
-      v6 = v38;
+      v9 = v7;
+      v10 = +[RBSConnection sharedInstance];
+      v40 = 0;
+      v11 = [v10 captureStateForSubsystem:0 error:&v40];
+      v7 = v40;
 
-      if (v10)
+      if (v11)
       {
-        v11 = 1;
+        v13 = 1;
       }
 
       else
       {
-        v11 = v7 >= 2;
+        v13 = v8 >= 2;
       }
 
-      ++v7;
+      ++v8;
     }
 
-    while (!v11);
-    if (v10)
+    while (!v13);
+    if (v11)
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a1];
-      v37 = v6;
-      [v10 writeToFile:v12 atomically:0 encoding:4 error:&v37];
-      v13 = v37;
+      v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a1];
+      v39 = v7;
+      [v11 writeToFile:v14 atomically:0 encoding:4 error:&v39];
+      v15 = v39;
 
-      if (v13)
+      if (v15)
       {
-        v14 = [v13 code];
-        v15 = rbs_general_log();
-        v16 = v15;
-        if (v14 == 28)
+        v17 = [v15 code];
+        v18 = rbs_general_log(v17);
+        v19 = v18;
+        if (v17 == 28)
         {
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v40 = v13;
-            _os_log_impl(&dword_18E8AD000, v16, OS_LOG_TYPE_DEFAULT, "RBSCaptureStateToFile writeToFile failed with expected error %{public}@", buf, 0xCu);
+            v42 = v15;
+            _os_log_impl(&dword_18E8AD000, v19, OS_LOG_TYPE_DEFAULT, "RBSCaptureStateToFile writeToFile failed with expected error %{public}@", buf, 0xCu);
           }
         }
 
-        else if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+        else if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
         {
-          RBSCaptureStateToFile_cold_2(v13, v16, v30, v31, v32, v33, v34, v35);
+          RBSCaptureStateToFile_cold_2(v15, v19, v33, v34, v35, v36, v37, v38);
         }
 
-        v6 = v13;
+        v7 = v15;
       }
 
       else
       {
-        v6 = rbs_general_log();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v7 = rbs_general_log(v16);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v40 = a1;
-          _os_log_impl(&dword_18E8AD000, v6, OS_LOG_TYPE_DEFAULT, "RunningBoard successfully captured state to file %s", buf, 0xCu);
+          v42 = a1;
+          _os_log_impl(&dword_18E8AD000, v7, OS_LOG_TYPE_DEFAULT, "RunningBoard successfully captured state to file %s", buf, 0xCu);
         }
       }
     }
 
     else
     {
-      if (!v6)
+      if (!v7)
       {
         RBSCaptureStateToFile_cold_4();
       }
 
-      v23 = rbs_general_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+      v26 = rbs_general_log(v12);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
       {
-        RBSCaptureStateToFile_cold_3(v6, v23, v24, v25, v26, v27, v28, v29);
+        RBSCaptureStateToFile_cold_3(v7, v26, v27, v28, v29, v30, v31, v32);
       }
     }
   }
 
   else
   {
-    v10 = rbs_general_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = rbs_general_log(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      RBSCaptureStateToFile_cold_1(v5, v10, v17, v18, v19, v20, v21, v22);
+      RBSCaptureStateToFile_cold_1(v5, v11, v20, v21, v22, v23, v24, v25);
     }
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
-void sub_18E8E2040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18E8E2040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3856,7 +3852,7 @@ id arrayFromXPCArray(void *a1)
   return v3;
 }
 
-uint64_t __dictFromXPCDict_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __dictFromXPCDict_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = nsObjFromXPCObj(a3);
   v6 = *(a1 + 32);
@@ -3866,7 +3862,7 @@ uint64_t __dictFromXPCDict_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
   return 1;
 }
 
-uint64_t __arrayFromXPCArray_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __arrayFromXPCArray_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = nsObjFromXPCObj(a3);
   [*(a1 + 32) setObject:v5 atIndexedSubscript:a2];
@@ -3874,16 +3870,16 @@ uint64_t __arrayFromXPCArray_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
   return 1;
 }
 
-id _service()
+id _service(uint64_t a1)
 {
   if (_service_onceToken != -1)
   {
     _service_cold_1();
   }
 
-  v1 = __service;
+  v2 = __service;
 
-  return v1;
+  return v2;
 }
 
 void ___service_block_invoke()
@@ -3908,16 +3904,16 @@ uint64_t rbs_set_assertion_adapter_service(void *a1)
   return v2;
 }
 
-id _assertionMap()
+id _assertionMap(uint64_t a1)
 {
   if (_assertionMap_onceToken != -1)
   {
     _assertionMap_cold_1();
   }
 
-  v1 = _assertionMap_map;
+  v2 = _assertionMap_map;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___assertionMap_block_invoke()
@@ -3930,22 +3926,22 @@ uint64_t ___assertionMap_block_invoke()
 id rbs_assertion_adapter_assertion_for_id(uint64_t a1)
 {
   os_unfair_lock_lock(&_lock);
-  v2 = _assertionMap();
-  v3 = [objc_alloc(MEMORY[0x1E696AD98]) initWithLongLong:a1];
-  v4 = [v2 objectForKey:v3];
+  v3 = _assertionMap(v2);
+  v4 = [objc_alloc(MEMORY[0x1E696AD98]) initWithLongLong:a1];
+  v5 = [v3 objectForKey:v4];
   os_unfair_lock_unlock(&_lock);
 
-  return v4;
+  return v5;
 }
 
 uint64_t rbs_assertion_adapter_assertion_count()
 {
   os_unfair_lock_lock(&_lock);
-  v0 = _assertionMap();
-  v1 = [v0 count];
+  v1 = _assertionMap(v0);
+  v2 = [v1 count];
   os_unfair_lock_unlock(&_lock);
 
-  return v1;
+  return v2;
 }
 
 id _lock_nextID()
@@ -3957,23 +3953,21 @@ id _lock_nextID()
   return v1;
 }
 
-uint64_t rbs_acquire_domain_assertion(uint64_t a1, uint64_t a2, int a3)
+uint64_t rbs_acquire_domain_assertion(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = a2;
-  result = rbs_acquire_domain_assertion_list(a1, v5, 1, a3);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = a2;
+  return rbs_acquire_domain_assertion_list(a1, v4, 1u, a3);
 }
 
-uint64_t rbs_acquire_domain_assertion_list(uint64_t a1, uint64_t a2, int a3, int a4)
+uint64_t rbs_acquire_domain_assertion_list(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4)
 {
   if (a4 < 1)
   {
     return 0;
   }
 
-  v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a1];
+  v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a1];
   v7 = [MEMORY[0x1E695DF70] array];
   v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%s:", a1];
   v9 = [RBSAcquisitionCompletionAttribute attributeWithCompletionPolicy:1];
@@ -3992,7 +3986,7 @@ uint64_t rbs_acquire_domain_assertion_list(uint64_t a1, uint64_t a2, int a3, int
     do
     {
       v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(a2 + v11)];
-      v14 = [RBSDomainAttribute attributeWithDomain:v30 name:v13];
+      v14 = [RBSDomainAttribute attributeWithDomain:v32 name:v13];
       [v7 addObject:v14];
 
       if (v11)
@@ -4019,57 +4013,58 @@ uint64_t rbs_acquire_domain_assertion_list(uint64_t a1, uint64_t a2, int a3, int
   v19 = [RBSTarget targetWithPid:a4];
   v20 = [RBSAssertion alloc];
   v21 = [RBSAssertionDescriptor descriptorWithIdentifier:0 target:v19 explanation:v18 attributes:v7];
-  v22 = _service();
+  v22 = _service(v21);
   v23 = [(RBSAssertion *)v20 _initWithDescriptor:v21 service:v22];
 
-  v31 = 0;
-  LOBYTE(v22) = [v23 acquireWithError:&v31];
-  v24 = v31;
+  v33 = 0;
+  LOBYTE(v22) = [v23 acquireWithError:&v33];
+  v24 = v33;
+  v25 = v24;
   if (v22)
   {
     os_unfair_lock_lock(&_lock);
-    v25 = _assertionMap();
-    v26 = _lock_nextID();
-    [v25 setObject:v23 forKey:v26];
+    v27 = _assertionMap(v26);
+    v28 = _lock_nextID();
+    [v27 setObject:v23 forKey:v28];
     os_unfair_lock_unlock(&_lock);
-    v27 = v30;
+    v29 = v32;
   }
 
   else
   {
-    v25 = rbs_assertion_log();
-    v27 = v30;
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = rbs_assertion_log(v24);
+    v29 = v32;
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      rbs_acquire_domain_assertion_list_cold_1(v18, v24, v25);
+      rbs_acquire_domain_assertion_list_cold_1(v18, v25, v27);
     }
 
-    v26 = &unk_1F01DDD08;
+    v28 = &unk_1F01DDD08;
   }
 
-  v17 = [v26 longLongValue];
+  v17 = [v28 longLongValue];
   return v17;
 }
 
 void rbs_invalidate_domain_assertion(uint64_t a1)
 {
   os_unfair_lock_lock(&_lock);
-  v2 = _assertionMap();
-  v3 = [objc_alloc(MEMORY[0x1E696AD98]) initWithLongLong:a1];
-  v4 = [v2 objectForKey:v3];
-  if (v4)
+  v3 = _assertionMap(v2);
+  v4 = [objc_alloc(MEMORY[0x1E696AD98]) initWithLongLong:a1];
+  v5 = [v3 objectForKey:v4];
+  if (v5)
   {
-    [v2 removeObjectForKey:v3];
+    [v3 removeObjectForKey:v4];
     os_unfair_lock_unlock(&_lock);
-    [v4 invalidate];
+    [v5 invalidate];
   }
 
   else
   {
-    v5 = rbs_assertion_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = rbs_assertion_log(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      rbs_invalidate_domain_assertion_cold_1(a1, v5);
+      rbs_invalidate_domain_assertion_cold_1(a1, v6);
     }
 
     os_unfair_lock_unlock(&_lock);
@@ -4113,68 +4108,58 @@ void RBSCreateDeserializedNSSecureEncodableObjectOfClassFromXPCDictionaryWithKey
 
 void RBSCreateDeserializedNSSecureEncodableObjectOfClassFromXPCDictionaryWithKey_cold_3(objc_class *a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = NSStringFromClass(a1);
-  v7 = 136315650;
-  v8 = "RBSCreateDeserializedNSSecureEncodableObjectOfClassFromXPCDictionaryWithKey";
-  v9 = 2114;
-  v10 = v5;
-  v11 = 2114;
-  v12 = a2;
-  _os_log_error_impl(&dword_18E8AD000, a3, OS_LOG_TYPE_ERROR, "%s the encoded object for class %{public}@ failed to decode with error %{public}@", &v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 136315650;
+  v7 = "RBSCreateDeserializedNSSecureEncodableObjectOfClassFromXPCDictionaryWithKey";
+  v8 = 2114;
+  v9 = v5;
+  v10 = 2114;
+  v11 = a2;
+  _os_log_error_impl(&dword_18E8AD000, a3, OS_LOG_TYPE_ERROR, "%s the encoded object for class %{public}@ failed to decode with error %{public}@", &v6, 0x20u);
 }
 
 void _RBShortBSDProcessInfoForPID_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void RBSExecutablePathForPID_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void RBSExecutablePathForPID_cold_2(int a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   RBSandboxCanGetProcessInfo(a1);
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void RBSAuditTokenRepresentsPlatformBinary_cold_1(_OWORD *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v1 = a1[1];
-  *v9.val = *a1;
-  *&v9.val[4] = v1;
-  v2 = audit_token_to_pid(&v9);
-  v9.val[0] = 67109120;
-  v9.val[1] = v2;
+  *v8.val = *a1;
+  *&v8.val[4] = v1;
+  v2 = audit_token_to_pid(&v8);
+  v8.val[0] = 67109120;
+  v8.val[1] = v2;
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void RBSIsBinaryCatalystOriOS_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_ERROR, "Error getting platform info for pid %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_ERROR, "Error getting platform info for pid %d", v2, 8u);
 }
 
 void RBSContainedExtensionBundleIDs_cold_1(uint8_t *a1, void *a2, void *a3, NSObject *a4)
@@ -4237,23 +4222,6 @@ void _BSXPCDecodeObjectFromContext_cold_5()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void _BSXPCDecodeObjectFromContext_cold_6(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(*a1 + 40);
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void _BSXPCDecodeObjectFromContext_cold_7()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void _BSXPCDecodeObjectFromContext_cold_8()
 {
   OUTLINED_FUNCTION_6();
@@ -4309,41 +4277,39 @@ void __getprewarm_for_launchSymbolLoc_block_invoke_cold_1(void *a1)
 
 void RBSCaptureStateToFile_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_11(&dword_18E8AD000, a2, a3, "RBSCaptureStateToFile given non-existant directory %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_11(&dword_18E8AD000, a2, a3, "RBSCaptureStateToFile given non-existant directory %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void RBSCaptureStateToFile_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_11(&dword_18E8AD000, a2, a3, "RBSCaptureStateToFile writeToFile failed with error %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_11(&dword_18E8AD000, a2, a3, "RBSCaptureStateToFile writeToFile failed with error %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void RBSCaptureStateToFile_cold_3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_11(&dword_18E8AD000, a2, a3, "RBSCaptureStateToFile captureState failed with error %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_11(&dword_18E8AD000, a2, a3, "RBSCaptureStateToFile captureState failed with error %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void rbs_acquire_domain_assertion_list_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_18E8AD000, log, OS_LOG_TYPE_ERROR, "Failed to acquire domain assertion %{public}@ with error %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_18E8AD000, log, OS_LOG_TYPE_ERROR, "Failed to acquire domain assertion %{public}@ with error %{public}@", &v3, 0x16u);
 }
 
 void rbs_invalidate_domain_assertion_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_FAULT, "Unknown rbs_domain_assertion_id_t %llu, can not invalidate", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_FAULT, "Unknown rbs_domain_assertion_id_t %llu, can not invalidate", &v2, 0xCu);
 }

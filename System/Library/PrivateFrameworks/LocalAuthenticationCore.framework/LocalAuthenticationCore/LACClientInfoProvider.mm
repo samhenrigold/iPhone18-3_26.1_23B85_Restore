@@ -7,6 +7,8 @@
 - (id)_infoForClientWithAuditToken:(id *)token;
 - (id)_infoForClientWithAuditTokenData:(id)data;
 - (id)_infoForClientWithBundleRecord:(id)record;
+- (id)applicationIdentityDataForProcessId:(int)id;
+- (id)auditTokenDataForProcessId:(int)id;
 - (id)infoForXPCClient:(id)client evaluationOptions:(id)options;
 - (int)processIdForAuditToken:(id *)token;
 @end
@@ -27,9 +29,11 @@
 
 uint64_t __39__LACClientInfoProvider_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_7 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_sharedInstance_7;
+  sharedInstance_sharedInstance_7 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)infoForXPCClient:(id)client evaluationOptions:(id)options
@@ -37,26 +41,27 @@ uint64_t __39__LACClientInfoProvider_sharedInstance__block_invoke()
   v28 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   optionsCopy = options;
-  if ([(LACClientInfoProvider *)self canCallToDependencies])
+  canCallToDependencies = [(LACClientInfoProvider *)self canCallToDependencies];
+  if (canCallToDependencies)
   {
-    v8 = [MEMORY[0x1E696AD98] numberWithInteger:1038];
-    v9 = [optionsCopy objectForKeyedSubscript:v8];
+    v9 = [MEMORY[0x1E696AD98] numberWithInteger:1038];
+    v10 = [optionsCopy objectForKeyedSubscript:v9];
 
-    v10 = [MEMORY[0x1E696AD98] numberWithInteger:1080];
-    v11 = [optionsCopy objectForKeyedSubscript:v10];
-    integerValue = [v11 integerValue];
+    v11 = [MEMORY[0x1E696AD98] numberWithInteger:1080];
+    v12 = [optionsCopy objectForKeyedSubscript:v11];
+    integerValue = [v12 integerValue];
 
-    v13 = [MEMORY[0x1E696AD98] numberWithInteger:1021];
-    v14 = [optionsCopy objectForKeyedSubscript:v13];
-    if (v14)
+    v14 = [MEMORY[0x1E696AD98] numberWithInteger:1021];
+    v15 = [optionsCopy objectForKeyedSubscript:v14];
+    if (v15)
     {
-      v15 = v14;
-      v16 = [clientCopy checkEntitlement:@"com.apple.private.LocalAuthentication.CallerName"];
+      v16 = v15;
+      v17 = [clientCopy checkEntitlement:@"com.apple.private.LocalAuthentication.CallerName"];
 
-      if (!v16)
+      if (!v17)
       {
-        v17 = 0;
-        if (v9)
+        v18 = 0;
+        if (v10)
         {
           goto LABEL_10;
         }
@@ -64,37 +69,37 @@ uint64_t __39__LACClientInfoProvider_sharedInstance__block_invoke()
         goto LABEL_14;
       }
 
-      v13 = [MEMORY[0x1E696AD98] numberWithInteger:1021];
-      v17 = [optionsCopy objectForKeyedSubscript:v13];
+      v14 = [MEMORY[0x1E696AD98] numberWithInteger:1021];
+      v18 = [optionsCopy objectForKeyedSubscript:v14];
     }
 
     else
     {
-      v17 = 0;
+      v18 = 0;
     }
 
-    if (v9)
+    if (v10)
     {
 LABEL_10:
       if ((integerValue & 4) != 0)
       {
-        [(LACClientInfoProvider *)self _infoForClientWithApplicationIdentityData:v9];
+        [(LACClientInfoProvider *)self _infoForClientWithApplicationIdentityData:v10];
       }
 
       else
       {
-        [(LACClientInfoProvider *)self _infoForClientWithAuditTokenData:v9];
+        [(LACClientInfoProvider *)self _infoForClientWithAuditTokenData:v10];
       }
-      v20 = ;
+      v21 = ;
 LABEL_19:
-      v19 = v20;
-      if ([v17 length])
+      v20 = v21;
+      if ([v18 length])
       {
-        v21 = [LACClientInfo alloc];
-        bundleId = [v19 bundleId];
-        v23 = [(LACClientInfo *)v21 initWithBundleId:bundleId displayName:v17];
+        v22 = [LACClientInfo alloc];
+        bundleId = [v20 bundleId];
+        v24 = [(LACClientInfo *)v22 initWithBundleId:bundleId displayName:v18];
 
-        v19 = v23;
+        v20 = v24;
       }
 
       goto LABEL_22;
@@ -103,7 +108,7 @@ LABEL_19:
 LABEL_14:
     if (clientCopy)
     {
-      [clientCopy auditToken];
+      objc_msgSend_auditToken(clientCopy);
     }
 
     else
@@ -112,24 +117,138 @@ LABEL_14:
       v27 = 0u;
     }
 
-    v20 = [(LACClientInfoProvider *)self _infoForClientWithAuditToken:&v26];
+    v21 = [(LACClientInfoProvider *)self _infoForClientWithAuditToken:&v26];
     goto LABEL_19;
   }
 
-  v18 = LACLogDefault();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = LACLogDefault(canCallToDependencies);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(v26) = 67109120;
     DWORD1(v26) = [clientCopy processId];
-    _os_log_impl(&dword_1B0233000, v18, OS_LOG_TYPE_DEFAULT, "Skipping resolution of bundle ID for pid %d - migration in progress", &v26, 8u);
+    _os_log_impl(&dword_1B0233000, v19, OS_LOG_TYPE_DEFAULT, "Skipping resolution of bundle ID for pid %d - migration in progress", &v26, 8u);
   }
 
-  v19 = +[LACClientInfo emptyClientInfo];
+  v20 = +[LACClientInfo emptyClientInfo];
 LABEL_22:
 
-  v24 = *MEMORY[0x1E69E9840];
+  return v20;
+}
 
-  return v19;
+- (id)auditTokenDataForProcessId:(int)id
+{
+  v10 = *MEMORY[0x1E69E9840];
+  memset(v9, 0, sizeof(v9));
+  if ([(LACClientInfoProvider *)self processId:*&id toAuditToken:v9])
+  {
+    v3 = [MEMORY[0x1E696B098] value:v9 withObjCType:"{?=[8I]}"];
+    sizep = 0;
+    NSGetSizeAndAlignment([v3 objCType], &sizep, 0);
+    v4 = &v7 - ((sizep + 15) & 0xFFFFFFFFFFFFFFF0);
+    [v3 getValue:v4];
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:v4 length:sizep];
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5;
+}
+
+- (id)applicationIdentityDataForProcessId:(int)id
+{
+  v3 = *&id;
+  v25 = *MEMORY[0x1E69E9840];
+  canCallToDependencies = [(LACClientInfoProvider *)self canCallToDependencies];
+  if ((canCallToDependencies & 1) == 0)
+  {
+    v17 = LACLogDefault(canCallToDependencies);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      *&buf[4] = v3;
+      _os_log_impl(&dword_1B0233000, v17, OS_LOG_TYPE_DEFAULT, "Skipping resolution of bundle ID for pid %d - migration in progress", buf, 8u);
+    }
+
+    goto LABEL_10;
+  }
+
+  *buf = 0u;
+  v24 = 0u;
+  if (![(LACClientInfoProvider *)self processId:v3 toAuditToken:buf])
+  {
+LABEL_10:
+    v16 = 0;
+    goto LABEL_22;
+  }
+
+  v22 = 0;
+  v21[0] = *buf;
+  v21[1] = v24;
+  v6 = [MEMORY[0x1E6963620] bundleRecordForAuditToken:v21 error:&v22];
+  v7 = v22;
+  v8 = v7;
+  if (v6)
+  {
+    v9 = objc_alloc(MEMORY[0x1E69635D8]);
+    bundleIdentifier = [v6 bundleIdentifier];
+    v11 = [v9 initWithBundleIdentifier:bundleIdentifier URL:0 personaUniqueString:0 personaType:4];
+
+    if (v11)
+    {
+      v20 = v8;
+      v13 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v11 requiringSecureCoding:1 error:&v20];
+      v14 = v20;
+
+      if (v13)
+      {
+        v13 = v13;
+        v16 = v13;
+      }
+
+      else
+      {
+        v18 = LACLogDefault(v15);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        {
+          [LACClientInfoProvider applicationIdentityDataForProcessId:];
+        }
+
+        v16 = 0;
+      }
+    }
+
+    else
+    {
+      v13 = LACLogDefault(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        [LACClientInfoProvider applicationIdentityDataForProcessId:];
+      }
+
+      v16 = 0;
+      v14 = v8;
+    }
+
+    v8 = v14;
+  }
+
+  else
+  {
+    v11 = LACLogDefault(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      [LACClientInfoProvider applicationIdentityDataForProcessId:];
+    }
+
+    v16 = 0;
+  }
+
+LABEL_22:
+
+  return v16;
 }
 
 - (int)processIdForAuditToken:(id *)token
@@ -143,10 +262,11 @@ LABEL_22:
 - (BOOL)processId:(int)id toAuditToken:(id *)token
 {
   tn = 0;
-  if (task_name_for_pid(*MEMORY[0x1E69E9A60], id, &tn))
+  v6 = task_name_for_pid(*MEMORY[0x1E69E9A60], id, &tn);
+  if (v6)
   {
-    v6 = LACLogDefault();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LACLogDefault(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [LACClientInfoProvider processId:toAuditToken:];
     }
@@ -157,25 +277,26 @@ LABEL_22:
   else
   {
     task_info_outCnt = 8;
-    v8 = task_info(tn, 0xFu, token, &task_info_outCnt);
-    v7 = v8 == 0;
-    v9 = LACLogDefault();
+    v9 = task_info(tn, 0xFu, token, &task_info_outCnt);
     v10 = v9;
-    if (v8)
+    v8 = v9 == 0;
+    v11 = LACLogDefault(v9);
+    v12 = v11;
+    if (v10)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [LACClientInfoProvider processId:toAuditToken:];
       }
     }
 
-    else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [LACClientInfoProvider processId:id toAuditToken:v10];
+      [LACClientInfoProvider processId:id toAuditToken:v12];
     }
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)_infoForClientWithAuditTokenData:(id)data
@@ -196,7 +317,7 @@ LABEL_22:
 
     else
     {
-      v8 = LACLogDefault();
+      v8 = LACLogDefault(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [LACClientInfoProvider _infoForClientWithAuditTokenData:];
@@ -221,84 +342,85 @@ LABEL_22:
   dataCopy = data;
   if (dataCopy)
   {
-    v16 = 0;
-    v5 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v16];
-    v6 = v16;
+    v17 = 0;
+    v5 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v17];
+    v6 = v17;
     v7 = v6;
     if (v5)
     {
-      v15 = v6;
-      v8 = [v5 findApplicationRecordWithError:&v15];
-      v9 = v15;
+      v16 = v6;
+      v8 = [v5 findApplicationRecordWithError:&v16];
+      v9 = v16;
 
       if (v8)
       {
-        v10 = [(LACClientInfoProvider *)self _infoForClientWithBundleRecord:v8];
+        v11 = [(LACClientInfoProvider *)self _infoForClientWithBundleRecord:v8];
       }
 
       else
       {
-        v13 = LACLogDefault();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = LACLogDefault(v10);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           [LACClientInfoProvider _infoForClientWithApplicationIdentityData:];
         }
 
-        v10 = +[LACClientInfo emptyClientInfo];
+        v11 = +[LACClientInfo emptyClientInfo];
       }
 
-      v11 = v10;
+      v12 = v11;
 
       v7 = v9;
     }
 
     else
     {
-      v12 = LACLogDefault();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = LACLogDefault(v6);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [LACClientInfoProvider _infoForClientWithApplicationIdentityData:];
       }
 
-      v11 = +[LACClientInfo emptyClientInfo];
+      v12 = +[LACClientInfo emptyClientInfo];
     }
   }
 
   else
   {
-    v11 = +[LACClientInfo emptyClientInfo];
+    v12 = +[LACClientInfo emptyClientInfo];
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)_infoForClientWithAuditToken:(id *)token
 {
-  v12 = 0;
+  v13 = 0;
   v4 = *&token->var0[4];
-  v11[0] = *token->var0;
-  v11[1] = v4;
-  v5 = [MEMORY[0x1E6963620] bundleRecordForAuditToken:v11 error:&v12];
-  v6 = v12;
+  v12[0] = *token->var0;
+  v12[1] = v4;
+  v5 = [MEMORY[0x1E6963620] bundleRecordForAuditToken:v12 error:&v13];
+  v6 = v13;
+  v7 = v6;
   if (v5)
   {
-    v7 = [(LACClientInfoProvider *)self _infoForClientWithBundleRecord:v5];
+    v8 = [(LACClientInfoProvider *)self _infoForClientWithBundleRecord:v5];
   }
 
   else
   {
-    v8 = LACLogDefault();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = LACLogDefault(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [LACClientInfoProvider _infoForClientWithAuditToken:];
     }
 
-    v7 = +[LACClientInfo emptyClientInfo];
+    v8 = +[LACClientInfo emptyClientInfo];
   }
 
-  v9 = v7;
+  v10 = v8;
 
-  return v9;
+  return v10;
 }
 
 - (id)_infoForClientWithBundleRecord:(id)record
@@ -402,81 +524,40 @@ LABEL_22:
   return hasCompletedSetup;
 }
 
-- (void)applicationIdentityDataForProcessId:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1B0233000, v0, v1, "Failed to encode %@: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)applicationIdentityDataForProcessId:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applicationIdentityDataForProcessId:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)processId:toAuditToken:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)processId:toAuditToken:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processId:(int)a1 toAuditToken:(NSObject *)a2 .cold.3(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "Successfully acquired audit token for PID %u", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_infoForClientWithApplicationIdentityData:.cold.1()
-{
   v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1B0233000, v0, v1, "Unable to find application record for identity: %@ error: %@");
-  v2 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "Successfully acquired audit token for PID %u", v2, 8u);
 }
 
 - (void)_infoForClientWithApplicationIdentityData:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_infoForClientWithAuditToken:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -64,63 +64,60 @@
 
 - (AKBundleInformation)initWithCoder:(id)coder
 {
-  v33 = &selfCopy;
+  v30 = &selfCopy;
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, coder);
   v3 = selfCopy;
   selfCopy = 0;
-  v34 = [(AKBundleInformation *)v3 init];
-  selfCopy = v34;
-  objc_storeStrong(&selfCopy, v34);
-  if (v34)
+  v31 = [(AKBundleInformation *)v3 init];
+  selfCopy = v31;
+  objc_storeStrong(&selfCopy, v31);
+  if (v31)
   {
-    v22 = location[0];
-    v27 = AKBiometricRatchetController_ptr;
+    v19 = location[0];
+    v24 = AKBiometricRatchetController_ptr;
     v4 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_bundleName"];
     bundleName = selfCopy->_bundleName;
     selfCopy->_bundleName = v4;
     _objc_release(bundleName);
-    v23 = location[0];
-    v6 = v27[100];
-    v7 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_bundleIdentifier"];
+    v20 = location[0];
+    v6 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_bundleIdentifier"];
     bundleIdentifier = selfCopy->_bundleIdentifier;
-    selfCopy->_bundleIdentifier = v7;
+    selfCopy->_bundleIdentifier = v6;
     _objc_release(bundleIdentifier);
-    v24 = location[0];
-    v9 = v27[100];
-    v10 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_bundleDescription"];
+    v21 = location[0];
+    v8 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_bundleDescription"];
     bundleDescription = selfCopy->_bundleDescription;
-    selfCopy->_bundleDescription = v10;
+    selfCopy->_bundleDescription = v8;
     _objc_release(bundleDescription);
-    v25 = location[0];
-    v26 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_bundleType"];
-    integerValue = [v26 integerValue];
-    v13 = v26;
+    v22 = location[0];
+    v23 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_bundleType"];
+    integerValue = [v23 integerValue];
+    v11 = v23;
     selfCopy->_bundleType = integerValue;
-    _objc_release(v13);
-    v30 = NSSet;
-    v29 = objc_opt_class();
-    v14 = v27[100];
-    v28 = objc_opt_class();
-    v32 = 0;
-    v15 = [NSSet setWithObjects:v29, v28, objc_opt_class(), 0];
-    v31 = &v35;
-    v35 = v15;
-    v16 = [location[0] decodeObjectOfClasses:v15 forKey:@"_otherInfo"];
+    _objc_release(v11);
+    v27 = NSSet;
+    v26 = objc_opt_class();
+    v25 = objc_opt_class();
+    v29 = 0;
+    v12 = [NSSet setWithObjects:v26, v25, objc_opt_class(), 0];
+    v28 = &v32;
+    v32 = v12;
+    v13 = [location[0] decodeObjectOfClasses:v12 forKey:@"_otherInfo"];
     otherInfo = selfCopy->_otherInfo;
-    selfCopy->_otherInfo = v16;
+    selfCopy->_otherInfo = v13;
     _objc_release(otherInfo);
-    objc_storeStrong(v31, v32);
+    objc_storeStrong(v28, v29);
   }
 
-  v19 = &selfCopy;
-  v21 = _objc_retain(selfCopy);
+  v16 = &selfCopy;
+  v18 = _objc_retain(selfCopy);
   obj = 0;
   objc_storeStrong(location, 0);
-  objc_storeStrong(v19, obj);
-  return v21;
+  objc_storeStrong(v16, obj);
+  return v18;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

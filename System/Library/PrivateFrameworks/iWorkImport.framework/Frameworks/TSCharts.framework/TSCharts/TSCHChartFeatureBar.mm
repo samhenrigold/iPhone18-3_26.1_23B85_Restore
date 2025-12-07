@@ -111,38 +111,38 @@
 
 - (id)initialSceneWithChartInfo:(id)info layoutSettings:(id *)settings
 {
-  v34 = *settings;
-  v33.receiver = self;
-  v33.super_class = TSCHChartFeatureBar;
-  v4 = [(TSCHChartFeature *)&v33 initialSceneWithChartInfo:info layoutSettings:&v34];
+  v32 = *settings;
+  v31.receiver = self;
+  v31.super_class = TSCHChartFeatureBar;
+  v4 = [(TSCHChartFeature *)&v31 initialSceneWithChartInfo:info layoutSettings:&v32];
   v9 = objc_msgSend_nonNilAccessorWithScene_(TSCH3DChartScenePropertyAccessor, v5, v6, v7, v8, v4);
   v14 = v9;
   if (v9)
   {
-    objc_msgSend_stageScale(v9, v10, v11, v12, v13);
-    objc_msgSend_stageScale(v14, v15, v16, v17, v18);
-    objc_msgSend_stageScale(v14, v19, v20, v21, v22);
-    LODWORD(v23) = HIDWORD(v31);
-    LODWORD(v24) = v29;
-    LODWORD(v25) = v28;
+    objc_msgSend_stageScale(v9, v11, v12, v13);
+    objc_msgSend_stageScale(v14, v15, v16, v17);
+    objc_msgSend_stageScale(v14, v18, v19, v20);
+    LODWORD(v21) = HIDWORD(v29);
+    LODWORD(v22) = v27;
+    LODWORD(v23) = v26;
   }
 
   else
   {
-    v32 = 0;
-    v31 = 0;
     v30 = 0;
     v29 = 0;
-    v25 = 0.0;
     v28 = 0;
-    v24 = 0.0;
-    v23 = 0.0;
     v27 = 0;
+    v23 = 0.0;
+    v26 = 0;
+    v22 = 0.0;
+    v21 = 0.0;
+    v25 = 0;
   }
 
-  *&v34.var0 = __PAIR64__(LODWORD(v24), LODWORD(v23));
-  LODWORD(v34.var8) = LODWORD(v25);
-  objc_msgSend_setStageScale_(v14, v10, v25, v24, v23, &v34, v27, v28, v29, v30, v31, v32);
+  *&v32.var0 = __PAIR64__(LODWORD(v22), LODWORD(v21));
+  LODWORD(v32.var8) = LODWORD(v23);
+  objc_msgSend_setStageScale_(v14, v10, v23, v22, v21, &v32, v25, v26, v27, v28, v29, v30);
 
   return v4;
 }

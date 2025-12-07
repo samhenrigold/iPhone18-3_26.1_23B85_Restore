@@ -9,12 +9,10 @@
 
 - (NSString)name
 {
-  v2 = *(self + OBJC_IVAR____TtC12PreviewShell10SimDisplay_name);
-  v3 = *(self + OBJC_IVAR____TtC12PreviewShell10SimDisplay_name + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 - (FBSDisplayConfiguration)displayConfiguration
@@ -30,14 +28,20 @@
   v11 = v10;
   if (path)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    path = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v13 = v12;
+  }
+
+  else
+  {
+    v13 = 0;
   }
 
   configurationCopy = configuration;
-  sub_10000FC78(v9, v11, d, configurationCopy);
-  v14 = v13;
+  sub_10000FC78(v9, v11, d, configurationCopy, path, v13);
+  v16 = v15;
 
-  return v14;
+  return v16;
 }
 
 - (_TtC12PreviewShell10SimDisplay)init

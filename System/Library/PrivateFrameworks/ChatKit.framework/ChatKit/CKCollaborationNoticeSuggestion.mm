@@ -64,7 +64,7 @@
 
 - (id)suggestionListTitle
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"UPDATES" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;
@@ -84,53 +84,53 @@
 
   if (type < 8)
   {
-    v7 = CKFrameworkBundle();
-    v8 = [v7 localizedStringForKey:@"SHOW" value:&stru_1F04268F8 table:@"ChatKit"];
+    v8 = CKFrameworkBundle(v7);
+    v9 = [v8 localizedStringForKey:@"SHOW" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v9 = v18;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v10 = __58__CKCollaborationNoticeSuggestion_suggestionPrimaryAction__block_invoke_3;
+    v10 = v19;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v11 = __58__CKCollaborationNoticeSuggestion_suggestionPrimaryAction__block_invoke_3;
 LABEL_3:
-    v9[2] = v10;
-    v9[3] = &unk_1E72F7928;
-    v9[4] = self;
-    v9[5] = v3;
-    v11 = _Block_copy(v9);
+    v10[2] = v11;
+    v10[3] = &unk_1E72F7928;
+    v10[4] = self;
+    v10[5] = v3;
+    v12 = _Block_copy(v10);
 
     goto LABEL_4;
   }
 
   if (type == 8)
   {
-    v15 = CKFrameworkBundle();
-    v8 = [v15 localizedStringForKey:@"ADD_TO_DOCUMENT_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
+    v16 = CKFrameworkBundle(v7);
+    v9 = [v16 localizedStringForKey:@"ADD_TO_DOCUMENT_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v9 = v17;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v10 = __58__CKCollaborationNoticeSuggestion_suggestionPrimaryAction__block_invoke_4;
+    v10 = v18;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v11 = __58__CKCollaborationNoticeSuggestion_suggestionPrimaryAction__block_invoke_4;
     goto LABEL_3;
   }
 
   if (type == 9)
   {
-    v14 = CKFrameworkBundle();
-    v8 = [v14 localizedStringForKey:@"REMOVE_FROM_DOCUMENT_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
+    v15 = CKFrameworkBundle(v7);
+    v9 = [v15 localizedStringForKey:@"REMOVE_FROM_DOCUMENT_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v9 = v16;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v10 = __58__CKCollaborationNoticeSuggestion_suggestionPrimaryAction__block_invoke_5;
+    v10 = v17;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v11 = __58__CKCollaborationNoticeSuggestion_suggestionPrimaryAction__block_invoke_5;
     goto LABEL_3;
   }
 
-  v11 = 0;
-  v8 = 0;
+  v12 = 0;
+  v9 = 0;
 LABEL_4:
-  v12 = [MEMORY[0x1E6999348] actionWithTitle:v8 handler:v11];
+  v13 = [MEMORY[0x1E6999348] actionWithTitle:v9 handler:v12];
 
-  return v12;
+  return v13;
 }
 
 void __58__CKCollaborationNoticeSuggestion_suggestionPrimaryAction__block_invoke(uint64_t a1)
@@ -196,23 +196,23 @@ uint64_t __58__CKCollaborationNoticeSuggestion_suggestionPrimaryAction__block_in
 
   if (v4)
   {
-    v5 = MEMORY[0x1E6999348];
-    v6 = CKFrameworkBundle();
-    v7 = [v6 localizedStringForKey:@"IGNORE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __58__CKCollaborationNoticeSuggestion_suggestionDismissAction__block_invoke;
-    v10[3] = &unk_1E72F4D88;
-    v10[4] = self;
-    v8 = [v5 actionWithTitle:v7 handler:v10];
+    v6 = MEMORY[0x1E6999348];
+    v7 = CKFrameworkBundle(v5);
+    v8 = [v7 localizedStringForKey:@"IGNORE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __58__CKCollaborationNoticeSuggestion_suggestionDismissAction__block_invoke;
+    v11[3] = &unk_1E72F4D88;
+    v11[4] = self;
+    v9 = [v6 actionWithTitle:v8 handler:v11];
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 void __58__CKCollaborationNoticeSuggestion_suggestionDismissAction__block_invoke(uint64_t a1)
@@ -275,7 +275,7 @@ void __58__CKCollaborationNoticeSuggestion_suggestionDismissAction__block_invoke
 
   if (type > 9)
   {
-    v11 = 0;
+    v12 = 0;
   }
 
   else
@@ -284,30 +284,30 @@ void __58__CKCollaborationNoticeSuggestion_suggestionDismissAction__block_invoke
     date = [notice2 date];
 
     date2 = [MEMORY[0x1E695DF00] date];
-    [date2 timeIntervalSinceDate:date];
-    if (v9 <= -3.0)
+    v9 = [date2 timeIntervalSinceDate:date];
+    if (v10 <= -3.0)
     {
-      v11 = 0;
+      v12 = 0;
     }
 
     else
     {
-      if (v9 / 60 % 60 <= 0)
+      if (v10 / 60 % 60 <= 0)
       {
-        v10 = CKFrameworkBundle();
-        [v10 localizedStringForKey:@"TIME_STATUS_JUST_NOW" value:&stru_1F04268F8 table:@"ChatKit"];
+        v11 = CKFrameworkBundle(v9);
+        [v11 localizedStringForKey:@"TIME_STATUS_JUST_NOW" value:&stru_1F04268F8 table:@"ChatKit"];
       }
 
       else
       {
-        v10 = objc_alloc_init(MEMORY[0x1E696AE78]);
-        [v10 localizedStringForDate:date relativeToDate:date2];
+        v11 = objc_alloc_init(MEMORY[0x1E696AE78]);
+        [v11 localizedStringForDate:date relativeToDate:date2];
       }
-      v11 = ;
+      v12 = ;
     }
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)suggestionImageSGView
@@ -399,7 +399,7 @@ void __58__CKCollaborationNoticeSuggestion_suggestionDismissAction__block_invoke
 {
   v3 = MEMORY[0x1E696AEC0];
   itemsCopy = items;
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(itemsCopy);
   v6 = [v5 localizedStringForKey:@"N_COLLABORATIONS" value:&stru_1F04268F8 table:@"ChatKit"];
   v7 = [itemsCopy count];
 
@@ -425,7 +425,7 @@ void __58__CKCollaborationNoticeSuggestion_suggestionDismissAction__block_invoke
 
 - (id)suggestionCategoryTitle
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"COLLABORATIONS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;
@@ -777,7 +777,7 @@ LABEL_16:
         if (type == 8)
         {
           v10 = MEMORY[0x1E696AEC0];
-          v11 = CKFrameworkBundle();
+          v11 = CKFrameworkBundle(titleCopy);
           v12 = v11;
           v13 = @"ADD_USER_TO_DOCUMENT_BANNER_TITLE";
           goto LABEL_28;
@@ -786,7 +786,7 @@ LABEL_16:
         if (type == 9)
         {
           v10 = MEMORY[0x1E696AEC0];
-          v11 = CKFrameworkBundle();
+          v11 = CKFrameworkBundle(titleCopy);
           v12 = v11;
           v13 = @"REMOVE_USER_FROM_DOCUMENT_BANNER_TITLE";
 LABEL_28:
@@ -800,7 +800,7 @@ LABEL_28:
 
       v19 = [titleCopy length];
       v10 = MEMORY[0x1E696AEC0];
-      v12 = CKFrameworkBundle();
+      v12 = CKFrameworkBundle(v19);
       if (v19)
       {
         v13 = @"%@_MOVED_%@";
@@ -817,7 +817,7 @@ LABEL_35:
     {
       v20 = [titleCopy length];
       v10 = MEMORY[0x1E696AEC0];
-      v12 = CKFrameworkBundle();
+      v12 = CKFrameworkBundle(v20);
       if (v20)
       {
         v13 = @"%@_DELETED_%@";
@@ -830,7 +830,7 @@ LABEL_35:
 
     v17 = [titleCopy length];
     v10 = MEMORY[0x1E696AEC0];
-    v12 = CKFrameworkBundle();
+    v12 = CKFrameworkBundle(v17);
     if (!v17)
     {
       v15 = @"%@_RENAMED_A_FILE";
@@ -849,7 +849,7 @@ LABEL_27:
     {
       v16 = [titleCopy length];
       v10 = MEMORY[0x1E696AEC0];
-      v12 = CKFrameworkBundle();
+      v12 = CKFrameworkBundle(v16);
       if (!v16)
       {
         v15 = @"%@_CREATED_A_FILE";
@@ -861,7 +861,7 @@ LABEL_27:
     }
 
     v10 = MEMORY[0x1E696AEC0];
-    v14 = CKFrameworkBundle();
+    v14 = CKFrameworkBundle(titleCopy);
     v12 = v14;
     v15 = @"%@_MENTIONED_YOU";
   }
@@ -872,7 +872,7 @@ LABEL_27:
     {
       v18 = [titleCopy length];
       v10 = MEMORY[0x1E696AEC0];
-      v12 = CKFrameworkBundle();
+      v12 = CKFrameworkBundle(v18);
       if (!v18)
       {
         v15 = @"%@_MADE_EDITS_TO_FILE";
@@ -888,7 +888,7 @@ LABEL_27:
 LABEL_25:
       v21 = [titleCopy length];
       v10 = MEMORY[0x1E696AEC0];
-      v12 = CKFrameworkBundle();
+      v12 = CKFrameworkBundle(v21);
       if (v21)
       {
         v13 = @"%@_COLLABORATION_UPDATES_TO_%@";
@@ -900,7 +900,7 @@ LABEL_25:
     }
 
     v10 = MEMORY[0x1E696AEC0];
-    v14 = CKFrameworkBundle();
+    v14 = CKFrameworkBundle(titleCopy);
     v12 = v14;
     v15 = @"%@_LEFT_COMMENTS";
   }
@@ -933,7 +933,7 @@ LABEL_36:
   nameCopy = name;
   v13 = [(CKCollaborationNoticeSuggestion *)self collaborationTitleForUTType:type numberOfFiles:files];
   v14 = MEMORY[0x1E696AEC0];
-  v15 = CKFrameworkBundle();
+  v15 = CKFrameworkBundle(v13);
   v16 = v15;
   if (noticeType <= 4)
   {
@@ -1032,7 +1032,7 @@ LABEL_23:
   if (*MEMORY[0x1E6982FE8] == typeCopy)
   {
     v8 = MEMORY[0x1E696AEC0];
-    v9 = CKFrameworkBundle();
+    v9 = CKFrameworkBundle(typeCopy);
     v10 = v9;
     v11 = @"SPREADSHEETS";
   }
@@ -1040,7 +1040,7 @@ LABEL_23:
   else if (*MEMORY[0x1E6982F60] == typeCopy)
   {
     v8 = MEMORY[0x1E696AEC0];
-    v9 = CKFrameworkBundle();
+    v9 = CKFrameworkBundle(typeCopy);
     v10 = v9;
     v11 = @"PRESENTATIONS";
   }
@@ -1048,7 +1048,7 @@ LABEL_23:
   else if (*MEMORY[0x1E6983020] == typeCopy)
   {
     v8 = MEMORY[0x1E696AEC0];
-    v9 = CKFrameworkBundle();
+    v9 = CKFrameworkBundle(typeCopy);
     v10 = v9;
     v11 = @"DOCUMENTS";
   }
@@ -1056,7 +1056,7 @@ LABEL_23:
   else if (*MEMORY[0x1E6983030] == typeCopy)
   {
     v8 = MEMORY[0x1E696AEC0];
-    v9 = CKFrameworkBundle();
+    v9 = CKFrameworkBundle(typeCopy);
     v10 = v9;
     v11 = @"COLLABORATIONS";
   }
@@ -1065,7 +1065,7 @@ LABEL_23:
   {
     v7 = *MEMORY[0x1E6982DC8];
     v8 = MEMORY[0x1E696AEC0];
-    v9 = CKFrameworkBundle();
+    v9 = CKFrameworkBundle(typeCopy);
     v10 = v9;
     if (v7 == v6)
     {

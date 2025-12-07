@@ -1,132 +1,3 @@
-BOOL siri::speech::schema_fb::PostItnHammerResponse::Verify(siri::speech::schema_fb::PostItnHammerResponse *this, apple::aiml::flatbuffers2::Verifier *a2)
-{
-  result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this);
-  if (result)
-  {
-    result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 4u);
-    if (result)
-    {
-      v5 = (this - *this);
-      if (*v5 >= 5u && (v6 = v5[2]) != 0)
-      {
-        v7 = this + v6 + *(this + v6);
-      }
-
-      else
-      {
-        v7 = 0;
-      }
-
-      result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v7);
-      if (result)
-      {
-        result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 6u);
-        if (result)
-        {
-          v8 = (this - *this);
-          if (*v8 >= 7u && (v9 = v8[3]) != 0)
-          {
-            v10 = this + v9 + *(this + v9);
-          }
-
-          else
-          {
-            v10 = 0;
-          }
-
-          result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v10);
-          if (result)
-          {
-            result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 8u);
-            if (result)
-            {
-              v11 = (this - *this);
-              if (*v11 >= 9u && (v12 = v11[4]) != 0)
-              {
-                v13 = this + v12 + *(this + v12);
-              }
-
-              else
-              {
-                v13 = 0;
-              }
-
-              result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v13);
-              if (result)
-              {
-                v14 = (this - *this);
-                if (*v14 < 0xBu || (v15 = v14[5]) == 0 || (result = 0, v16 = *(a2 + 1), v16 >= 5) && v16 - 4 >= this + v15 - *a2)
-                {
-                  result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0xCu);
-                  if (result)
-                  {
-                    v17 = (this - *this);
-                    if (*v17 >= 0xDu && (v18 = v17[6]) != 0)
-                    {
-                      v19 = this + v18 + *(this + v18);
-                    }
-
-                    else
-                    {
-                      v19 = 0;
-                    }
-
-                    result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v19);
-                    if (result)
-                    {
-                      result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0xEu);
-                      if (result)
-                      {
-                        v20 = *this;
-                        v21 = -v20;
-                        v22 = (this - v20);
-                        if (*v22 >= 0xFu)
-                        {
-                          v23 = v22[7];
-                          if (v23)
-                          {
-                            result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this + v23 + *(this + v23), 4uLL, 0);
-                            if (!result)
-                            {
-                              return result;
-                            }
-
-                            v21 = -*this;
-                          }
-                        }
-
-                        v24 = (this + v21);
-                        if (*v24 >= 0xFu && (v25 = v24[7]) != 0)
-                        {
-                          v26 = (this + v25 + *(this + v25));
-                        }
-
-                        else
-                        {
-                          v26 = 0;
-                        }
-
-                        result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::RecognitionToken>(a2, v26);
-                        if (result)
-                        {
-                          --*(a2 + 4);
-                          return 1;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
 BOOL siri::speech::qss_fb::AsrKeywordFinderMessage::Verify(siri::speech::qss_fb::AsrKeywordFinderMessage *this, apple::aiml::flatbuffers2::Verifier *a2)
 {
   result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this);
@@ -3636,27 +3507,10 @@ BOOL siri::speech::schema_fb::TTSRequestFeatureFlags::Verify(siri::speech::schem
   {
     v5 = (this - *this);
     v6 = *v5;
-    if (v6 < 5)
+    if (v6 < 5 || (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 2) && v7 - 1 >= this + v5[2] - *a2) && (v6 < 7 || (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 2) && v8 - 1 >= this + v5[3] - *a2) && (v6 < 9 || (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 2) && v9 - 1 >= this + v5[4] - *a2) && (v6 < 0xB || (!v5[5] || (result = 0, v10 = *(a2 + 1), v10 >= 2) && v10 - 1 >= this + v5[5] - *a2) && (v6 < 0xD || (v11 = v5[6]) == 0 || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this + v11 - *a2)))))
     {
-      goto LABEL_22;
-    }
-
-    if (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 2) && v7 - 1 >= this + v5[2] - *a2)
-    {
-      if (v6 < 7)
-      {
-        goto LABEL_22;
-      }
-
-      if (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 2) && v8 - 1 >= this + v5[3] - *a2)
-      {
-        if (v6 < 9 || (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 2) && v9 - 1 >= this + v5[4] - *a2) && (v6 < 0xB || (!v5[5] || (result = 0, v10 = *(a2 + 1), v10 >= 2) && v10 - 1 >= this + v5[5] - *a2) && (v6 < 0xD || (v11 = v5[6]) == 0 || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this + v11 - *a2)))
-        {
-LABEL_22:
-          --*(a2 + 4);
-          return 1;
-        }
-      }
+      --*(a2 + 4);
+      return 1;
     }
   }
 
@@ -3895,35 +3749,10 @@ BOOL siri::speech::schema_fb::TextToSpeechUserVoiceProfile::Verify(siri::speech:
   {
     v5 = (this - *this);
     v6 = *v5;
-    if (v6 < 5)
+    if (v6 < 5 || (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 5) && v7 - 4 >= this + v5[2] - *a2) && (v6 < 7 || (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 5) && v8 - 4 >= this + v5[3] - *a2) && (v6 < 9 || (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 5) && v9 - 4 >= this + v5[4] - *a2) && (v6 < 0xB || (!v5[5] || (result = 0, v10 = *(a2 + 1), v10 >= 5) && v10 - 4 >= this + v5[5] - *a2) && (v6 < 0xD || (!v5[6] || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v5[6] - *a2) && (v6 < 0xF || (v12 = v5[7]) == 0 || (result = 0, v13 = *(a2 + 1), v13 >= 5) && v13 - 4 >= this + v12 - *a2))))))
     {
-      goto LABEL_26;
-    }
-
-    if (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 5) && v7 - 4 >= this + v5[2] - *a2)
-    {
-      if (v6 < 7)
-      {
-        goto LABEL_26;
-      }
-
-      if (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 5) && v8 - 4 >= this + v5[3] - *a2)
-      {
-        if (v6 < 9)
-        {
-          goto LABEL_26;
-        }
-
-        if (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 5) && v9 - 4 >= this + v5[4] - *a2)
-        {
-          if (v6 < 0xB || (!v5[5] || (result = 0, v10 = *(a2 + 1), v10 >= 5) && v10 - 4 >= this + v5[5] - *a2) && (v6 < 0xD || (!v5[6] || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v5[6] - *a2) && (v6 < 0xF || (v12 = v5[7]) == 0 || (result = 0, v13 = *(a2 + 1), v13 >= 5) && v13 - 4 >= this + v12 - *a2)))
-          {
-LABEL_26:
-            --*(a2 + 4);
-            return 1;
-          }
-        }
-      }
+      --*(a2 + 4);
+      return 1;
     }
   }
 
@@ -3937,51 +3766,10 @@ BOOL siri::speech::schema_fb::TextToSpeechRequestProsodyControlConfig::Verify(si
   {
     v5 = (this - *this);
     v6 = *v5;
-    if (v6 < 5)
+    if (v6 < 5 || (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 5) && v7 - 4 >= this + v5[2] - *a2) && (v6 < 7 || (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 5) && v8 - 4 >= this + v5[3] - *a2) && (v6 < 9 || (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 5) && v9 - 4 >= this + v5[4] - *a2) && (v6 < 0xB || (!v5[5] || (result = 0, v10 = *(a2 + 1), v10 >= 5) && v10 - 4 >= this + v5[5] - *a2) && (v6 < 0xD || (!v5[6] || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v5[6] - *a2) && (v6 < 0xF || (!v5[7] || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this + v5[7] - *a2) && (v6 < 0x11 || (!v5[8] || (result = 0, v13 = *(a2 + 1), v13 >= 5) && v13 - 4 >= this + v5[8] - *a2) && (v6 < 0x13 || (v14 = v5[9]) == 0 || (result = 0, v15 = *(a2 + 1), v15 >= 5) && v15 - 4 >= this + v14 - *a2))))))))
     {
-      goto LABEL_34;
-    }
-
-    if (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 5) && v7 - 4 >= this + v5[2] - *a2)
-    {
-      if (v6 < 7)
-      {
-        goto LABEL_34;
-      }
-
-      if (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 5) && v8 - 4 >= this + v5[3] - *a2)
-      {
-        if (v6 < 9)
-        {
-          goto LABEL_34;
-        }
-
-        if (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 5) && v9 - 4 >= this + v5[4] - *a2)
-        {
-          if (v6 < 0xB)
-          {
-            goto LABEL_34;
-          }
-
-          if (!v5[5] || (result = 0, v10 = *(a2 + 1), v10 >= 5) && v10 - 4 >= this + v5[5] - *a2)
-          {
-            if (v6 < 0xD)
-            {
-              goto LABEL_34;
-            }
-
-            if (!v5[6] || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v5[6] - *a2)
-            {
-              if (v6 < 0xF || (!v5[7] || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this + v5[7] - *a2) && (v6 < 0x11 || (!v5[8] || (result = 0, v13 = *(a2 + 1), v13 >= 5) && v13 - 4 >= this + v5[8] - *a2) && (v6 < 0x13 || (v14 = v5[9]) == 0 || (result = 0, v15 = *(a2 + 1), v15 >= 5) && v15 - 4 >= this + v14 - *a2)))
-              {
-LABEL_34:
-                --*(a2 + 4);
-                return 1;
-              }
-            }
-          }
-        }
-      }
+      --*(a2 + 4);
+      return 1;
     }
   }
 
@@ -5419,59 +5207,10 @@ BOOL siri::speech::schema_fb::AudioDescription::Verify(siri::speech::schema_fb::
   {
     v5 = (this - *this);
     v6 = *v5;
-    if (v6 < 5)
+    if (v6 < 5 || (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 9) && v7 - 8 >= this + v5[2] - *a2) && (v6 < 7 || (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 5) && v8 - 4 >= this + v5[3] - *a2) && (v6 < 9 || (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 5) && v9 - 4 >= this + v5[4] - *a2) && (v6 < 0xB || (!v5[5] || (result = 0, v10 = *(a2 + 1), v10 >= 5) && v10 - 4 >= this + v5[5] - *a2) && (v6 < 0xD || (!v5[6] || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v5[6] - *a2) && (v6 < 0xF || (!v5[7] || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this + v5[7] - *a2) && (v6 < 0x11 || (!v5[8] || (result = 0, v13 = *(a2 + 1), v13 >= 5) && v13 - 4 >= this + v5[8] - *a2) && (v6 < 0x13 || (!v5[9] || (result = 0, v14 = *(a2 + 1), v14 >= 5) && v14 - 4 >= this + v5[9] - *a2) && (v6 < 0x15 || (v15 = v5[10]) == 0 || (result = 0, v16 = *(a2 + 1), v16 >= 5) && v16 - 4 >= this + v15 - *a2)))))))))
     {
-      goto LABEL_38;
-    }
-
-    if (!v5[2] || (result = 0, v7 = *(a2 + 1), v7 >= 9) && v7 - 8 >= this + v5[2] - *a2)
-    {
-      if (v6 < 7)
-      {
-        goto LABEL_38;
-      }
-
-      if (!v5[3] || (result = 0, v8 = *(a2 + 1), v8 >= 5) && v8 - 4 >= this + v5[3] - *a2)
-      {
-        if (v6 < 9)
-        {
-          goto LABEL_38;
-        }
-
-        if (!v5[4] || (result = 0, v9 = *(a2 + 1), v9 >= 5) && v9 - 4 >= this + v5[4] - *a2)
-        {
-          if (v6 < 0xB)
-          {
-            goto LABEL_38;
-          }
-
-          if (!v5[5] || (result = 0, v10 = *(a2 + 1), v10 >= 5) && v10 - 4 >= this + v5[5] - *a2)
-          {
-            if (v6 < 0xD)
-            {
-              goto LABEL_38;
-            }
-
-            if (!v5[6] || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v5[6] - *a2)
-            {
-              if (v6 < 0xF)
-              {
-                goto LABEL_38;
-              }
-
-              if (!v5[7] || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this + v5[7] - *a2)
-              {
-                if (v6 < 0x11 || (!v5[8] || (result = 0, v13 = *(a2 + 1), v13 >= 5) && v13 - 4 >= this + v5[8] - *a2) && (v6 < 0x13 || (!v5[9] || (result = 0, v14 = *(a2 + 1), v14 >= 5) && v14 - 4 >= this + v5[9] - *a2) && (v6 < 0x15 || (v15 = v5[10]) == 0 || (result = 0, v16 = *(a2 + 1), v16 >= 5) && v16 - 4 >= this + v15 - *a2)))
-                {
-LABEL_38:
-                  --*(a2 + 4);
-                  return 1;
-                }
-              }
-            }
-          }
-        }
-      }
+      --*(a2 + 4);
+      return 1;
     }
   }
 
@@ -5502,19 +5241,10 @@ BOOL siri::speech::schema_fb::WordTimingInfo::Verify(siri::speech::schema_fb::Wo
       {
         v8 = (this - *this);
         v9 = *v8;
-        if (v9 < 7)
+        if (v9 < 7 || (!v8[3] || (result = 0, v10 = *(a2 + 1), v10 >= 5) && v10 - 4 >= this + v8[3] - *a2) && (v9 < 9 || (!v8[4] || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v8[4] - *a2) && (v9 < 0xB || (!v8[5] || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this + v8[5] - *a2) && (v9 < 0xD || (v13 = v8[6]) == 0 || (result = 0, v14 = *(a2 + 1), v14 >= 5) && v14 - 4 >= this + v13 - *a2))))
         {
-          goto LABEL_24;
-        }
-
-        if (!v8[3] || (result = 0, v10 = *(a2 + 1), v10 >= 5) && v10 - 4 >= this + v8[3] - *a2)
-        {
-          if (v9 < 9 || (!v8[4] || (result = 0, v11 = *(a2 + 1), v11 >= 5) && v11 - 4 >= this + v8[4] - *a2) && (v9 < 0xB || (!v8[5] || (result = 0, v12 = *(a2 + 1), v12 >= 5) && v12 - 4 >= this + v8[5] - *a2) && (v9 < 0xD || (v13 = v8[6]) == 0 || (result = 0, v14 = *(a2 + 1), v14 >= 5) && v14 - 4 >= this + v13 - *a2)))
-          {
-LABEL_24:
-            --*(a2 + 4);
-            return 1;
-          }
+          --*(a2 + 4);
+          return 1;
         }
       }
     }
@@ -9266,5 +8996,275 @@ BOOL apple::aiml::flatbuffers2::Verifier::VerifyVectorOfTables<siri::speech::sch
   }
 
   while (v4 < *a2);
+  return result;
+}
+
+BOOL siri::speech::schema_fb::UserDataEntity::Verify(siri::speech::schema_fb::UserDataEntity *this, apple::aiml::flatbuffers2::Verifier *a2)
+{
+  result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this);
+  if (result)
+  {
+    result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 4u);
+    if (result)
+    {
+      v5 = *this;
+      v6 = -v5;
+      v7 = (this - v5);
+      if (*v7 >= 5u)
+      {
+        v8 = v7[2];
+        if (v8)
+        {
+          result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this + v8 + *(this + v8), 4uLL, 0);
+          if (!result)
+          {
+            return result;
+          }
+
+          v6 = -*this;
+        }
+      }
+
+      v9 = (this + v6);
+      if (*v9 >= 5u && (v10 = v9[2]) != 0)
+      {
+        v11 = (this + v10 + *(this + v10));
+      }
+
+      else
+      {
+        v11 = 0;
+      }
+
+      result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::Word>(a2, v11);
+      if (result)
+      {
+        --*(a2 + 4);
+        return 1;
+      }
+    }
+  }
+
+  return result;
+}
+
+BOOL apple::aiml::flatbuffers2::Verifier::VerifyVectorOfTables<siri::speech::schema_fb::Word>(apple::aiml::flatbuffers2::Verifier *a1, _DWORD *a2)
+{
+  if (!a2)
+  {
+    return 1;
+  }
+
+  if (!*a2)
+  {
+    return 1;
+  }
+
+  v4 = 0;
+  v5 = a2 + 1;
+  do
+  {
+    result = siri::speech::schema_fb::Word::Verify((v5 + *v5), a1);
+    if (!result)
+    {
+      break;
+    }
+
+    ++v4;
+    ++v5;
+  }
+
+  while (v4 < *a2);
+  return result;
+}
+
+BOOL siri::speech::schema_fb::Word::Verify(siri::speech::schema_fb::Word *this, apple::aiml::flatbuffers2::Verifier *a2)
+{
+  result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this);
+  if (result)
+  {
+    result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 4u);
+    if (result)
+    {
+      v5 = (this - *this);
+      if (*v5 >= 5u && (v6 = v5[2]) != 0)
+      {
+        v7 = this + v6 + *(this + v6);
+      }
+
+      else
+      {
+        v7 = 0;
+      }
+
+      result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v7);
+      if (result)
+      {
+        result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 6u);
+        if (result)
+        {
+          v8 = *this;
+          v9 = -v8;
+          v10 = (this - v8);
+          if (*v10 >= 7u)
+          {
+            v11 = v10[3];
+            if (v11)
+            {
+              result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOrString(a2, this + v11 + *(this + v11), 4uLL, 0);
+              if (!result)
+              {
+                return result;
+              }
+
+              v9 = -*this;
+            }
+          }
+
+          v12 = (this + v9);
+          if (*v12 >= 7u && (v13 = v12[3]) != 0)
+          {
+            v14 = (this + v13 + *(this + v13));
+          }
+
+          else
+          {
+            v14 = 0;
+          }
+
+          result = apple::aiml::flatbuffers2::Verifier::VerifyVectorOfStrings(a2, v14);
+          if (result)
+          {
+            v15 = (this - *this);
+            if (*v15 < 9u || (v16 = v15[4]) == 0 || (result = 0, v17 = *(a2 + 1), v17 >= 5) && v17 - 4 >= this + v16 - *a2)
+            {
+              result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0xAu);
+              if (result)
+              {
+                v18 = (this - *this);
+                if (*v18 >= 0xBu && (v19 = v18[5]) != 0)
+                {
+                  v20 = this + v19 + *(this + v19);
+                }
+
+                else
+                {
+                  v20 = 0;
+                }
+
+                result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v20);
+                if (result)
+                {
+                  --*(a2 + 4);
+                  return 1;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+BOOL siri::speech::schema_fb::CreateLanguageProfileResponse::Verify(siri::speech::schema_fb::CreateLanguageProfileResponse *this, apple::aiml::flatbuffers2::Verifier *a2)
+{
+  result = apple::aiml::flatbuffers2::Verifier::VerifyTableStart(a2, this);
+  if (result)
+  {
+    result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 4u);
+    if (result)
+    {
+      v5 = (this - *this);
+      if (*v5 >= 5u && (v6 = v5[2]) != 0)
+      {
+        v7 = this + v6 + *(this + v6);
+      }
+
+      else
+      {
+        v7 = 0;
+      }
+
+      result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v7);
+      if (result)
+      {
+        result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 6u);
+        if (result)
+        {
+          v8 = (this - *this);
+          if (*v8 >= 7u && (v9 = v8[3]) != 0)
+          {
+            v10 = this + v9 + *(this + v9);
+          }
+
+          else
+          {
+            v10 = 0;
+          }
+
+          result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v10);
+          if (result)
+          {
+            v11 = (this - *this);
+            if (*v11 < 9u || (v12 = v11[4]) == 0 || (result = 0, v13 = *(a2 + 1), v13 >= 5) && v13 - 4 >= this + v12 - *a2)
+            {
+              result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0xAu);
+              if (result)
+              {
+                v14 = (this - *this);
+                if (*v14 >= 0xBu && (v15 = v14[5]) != 0)
+                {
+                  v16 = this + v15 + *(this + v15);
+                }
+
+                else
+                {
+                  v16 = 0;
+                }
+
+                result = apple::aiml::flatbuffers2::Verifier::VerifyString(a2, v16);
+                if (result)
+                {
+                  result = apple::aiml::flatbuffers2::Table::VerifyOffset(this, a2, 0xCu);
+                  if (result)
+                  {
+                    v17 = *this;
+                    v18 = -v17;
+                    v19 = (this - v17);
+                    if (*v19 >= 0xDu)
+                    {
+                      v20 = v19[6];
+                      if (v20)
+                      {
+                        result = siri::speech::schema_fb::UserLanguageProfile::Verify((this + v20 + *(this + v20)), a2);
+                        if (!result)
+                        {
+                          return result;
+                        }
+
+                        v18 = -*this;
+                      }
+                    }
+
+                    v21 = (this + v18);
+                    v22 = *v21;
+                    if (v22 < 0xF || (!v21[7] || (result = 0, v23 = *(a2 + 1), v23 >= 2) && v23 - 1 >= this + v21[7] - *a2) && (v22 < 0x11 || (v24 = v21[8]) == 0 || (result = 0, v25 = *(a2 + 1), v25 >= 2) && v25 - 1 >= this + v24 - *a2))
+                    {
+                      --*(a2 + 4);
+                      return 1;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   return result;
 }

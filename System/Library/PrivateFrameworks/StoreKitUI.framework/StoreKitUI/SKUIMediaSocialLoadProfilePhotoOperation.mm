@@ -73,27 +73,28 @@
 {
   name = [(SKUIMediaSocialProfile *)self->_profile name];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v3 = SKUIContactsUIFramework();
-    _silhouette2 = [objc_alloc(SKUIWeakLinkedClassForString(&cfstr_Cnmonogrammer.isa v3))];
-    v5 = [name componentsSeparatedByString:@" "];
-    v6 = [v5 count];
-    if (!v6)
+    v5 = SKUIContactsUIFramework(isKindOfClass, v4);
+    _silhouette2 = [objc_alloc(SKUIWeakLinkedClassForString(&cfstr_Cnmonogrammer.isa v5))];
+    v7 = [name componentsSeparatedByString:@" "];
+    v8 = [v7 count];
+    if (!v8)
     {
       goto LABEL_8;
     }
 
-    if (v6 == 1)
+    if (v8 == 1)
     {
-      firstObject = [v5 firstObject];
+      firstObject = [v7 firstObject];
       _silhouette = [_silhouette2 monogramForPersonWithFirstName:firstObject lastName:0];
     }
 
     else
     {
-      firstObject = [v5 firstObject];
-      lastObject = [v5 lastObject];
+      firstObject = [v7 firstObject];
+      lastObject = [v7 lastObject];
       _silhouette = [_silhouette2 monogramForPersonWithFirstName:firstObject lastName:lastObject];
     }
 
@@ -229,7 +230,7 @@ void __57__SKUIMediaSocialLoadProfilePhotoOperation__fetchProfile__block_invoke(
 
 - (id)_silhouette
 {
-  v2 = SKUIContactsUIFramework();
+  v2 = SKUIContactsUIFramework(self, a2);
   v3 = [objc_alloc(SKUIWeakLinkedClassForString(&cfstr_Cnmonogrammer.isa v2))];
   silhouetteMonogram = [v3 silhouetteMonogram];
 

@@ -70,14 +70,14 @@ __CFString *__61__BRCPipelineJob_initWithQualityOfService_completionHandler___bl
 
 - (unint64_t)advanceJobToInitialStage
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   jobPlan = self->_jobPlan;
   p_jobPlan = &self->_jobPlan;
   v4 = jobPlan;
   if (!jobPlan)
   {
     [(BRCPipelineJob(InternalPipeline) *)p_jobPlan advanceJobToInitialStage];
-    v4 = *v12;
+    v4 = *v10;
   }
 
   self->_currentStageID = [(NSIndexSet *)v4 firstIndex];
@@ -85,25 +85,22 @@ __CFString *__61__BRCPipelineJob_initWithQualityOfService_completionHandler___bl
   v7 = brc_default_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    currentStageID = self->_currentStageID;
-    v11 = (*(self->_stageStringifier + 2))();
-    *v12 = 138412802;
-    *&v12[4] = self;
+    v9 = (*(self->_stageStringifier + 2))();
+    *v10 = 138412802;
+    *&v10[4] = self;
+    v11 = 2112;
+    v12 = v9;
     v13 = 2112;
-    v14 = v11;
-    v15 = 2112;
-    v16 = v6;
-    _os_log_debug_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] Starting job %@ with %@%@", v12, 0x20u);
+    v14 = v6;
+    _os_log_debug_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] Starting job %@ with %@%@", v10, 0x20u);
   }
 
-  result = self->_currentStageID;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return self->_currentStageID;
 }
 
 - (unint64_t)advanceJobToNextStage
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!self->_jobPlan)
   {
     [BRCPipelineJob(InternalPipeline) advanceJobToNextStage];
@@ -126,26 +123,23 @@ __CFString *__61__BRCPipelineJob_initWithQualityOfService_completionHandler___bl
     v4 = brc_default_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      currentStageID = self->_currentStageID;
-      v9 = (*(self->_stageStringifier + 2))();
-      v10 = 138412802;
+      v7 = (*(self->_stageStringifier + 2))();
+      v8 = 138412802;
       selfCopy = self;
+      v10 = 2112;
+      v11 = v7;
       v12 = 2112;
-      v13 = v9;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_debug_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] Advancing job %@ to %@%@", &v10, 0x20u);
+      v13 = v3;
+      _os_log_debug_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] Advancing job %@ to %@%@", &v8, 0x20u);
     }
   }
 
-  result = self->_currentStageID;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return self->_currentStageID;
 }
 
 - (void)completeWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   self->_currentStageID = 0x7FFFFFFFFFFFFFFFLL;
   if (self->_completionHandler)
@@ -154,13 +148,13 @@ __CFString *__61__BRCPipelineJob_initWithQualityOfService_completionHandler___bl
     v6 = brc_default_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 138412802;
+      v9 = 138412802;
       selfCopy = self;
-      v12 = 2112;
-      v13 = errorCopy;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] Completing Job %@ with error %@%@", &v10, 0x20u);
+      v11 = 2112;
+      v12 = errorCopy;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] Completing Job %@ with error %@%@", &v9, 0x20u);
     }
 
     (*(self->_completionHandler + 2))();
@@ -177,8 +171,6 @@ __CFString *__61__BRCPipelineJob_initWithQualityOfService_completionHandler___bl
       [(BRCPipelineJob(InternalPipeline) *)self completeWithError:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)advanceToRecoveryStage:(unint64_t)stage
@@ -209,9 +201,7 @@ __CFString *__61__BRCPipelineJob_initWithQualityOfService_completionHandler___bl
 
 - (void)setStageStringifier:(id)stringifier
 {
-  v4 = MEMORY[0x22AA4A310](stringifier, a2);
-  stageStringifier = self->_stageStringifier;
-  self->_stageStringifier = v4;
+  self->_stageStringifier = MEMORY[0x22AA4A310](stringifier, a2);
 
   MEMORY[0x2821F96F8]();
 }
@@ -239,68 +229,67 @@ __CFString *__61__BRCPipelineJob_initWithQualityOfService_completionHandler___bl
 - (id)descriptionWithContext:(id)context
 {
   contextCopy = context;
-  v26 = BRCPrettyPrintEnumWithContext(self->_qualityOfService, &brc_qos_entries, 0);
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __59__BRCPipelineJob_InternalPipeline__descriptionWithContext___block_invoke;
-  v33[3] = &unk_2784FF6A0;
-  v33[4] = self;
-  v5 = contextCopy;
-  v34 = v5;
-  v6 = MEMORY[0x22AA4A310](v33);
+  v25 = BRCPrettyPrintEnumWithContext(self->_qualityOfService, &brc_qos_entries, 0);
   v32[0] = MEMORY[0x277D85DD0];
   v32[1] = 3221225472;
-  v32[2] = __59__BRCPipelineJob_InternalPipeline__descriptionWithContext___block_invoke_2;
-  v32[3] = &unk_2784FF6C8;
+  v32[2] = __59__BRCPipelineJob_InternalPipeline__descriptionWithContext___block_invoke;
+  v32[3] = &unk_2784FF6A0;
   v32[4] = self;
-  v7 = MEMORY[0x22AA4A310](v32);
+  v5 = contextCopy;
+  v33 = v5;
+  v6 = MEMORY[0x22AA4A310](v32);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __59__BRCPipelineJob_InternalPipeline__descriptionWithContext___block_invoke_2;
+  v31[3] = &unk_2784FF6C8;
+  v31[4] = self;
+  v7 = MEMORY[0x22AA4A310](v31);
   v8 = objc_opt_new();
   v9 = objc_opt_new();
   jobPlan = self->_jobPlan;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __59__BRCPipelineJob_InternalPipeline__descriptionWithContext___block_invoke_3;
-  v27[3] = &unk_2784FF6F0;
-  v27[4] = self;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __59__BRCPipelineJob_InternalPipeline__descriptionWithContext___block_invoke_3;
+  v26[3] = &unk_2784FF6F0;
+  v26[4] = self;
   v11 = v8;
-  v28 = v11;
+  v27 = v11;
   v12 = v6;
-  v30 = v12;
+  v29 = v12;
   v13 = v7;
-  v31 = v13;
+  v30 = v13;
   v14 = v9;
-  v29 = v14;
-  [(NSIndexSet *)jobPlan enumerateIndexesUsingBlock:v27];
-  currentStageID = self->_currentStageID;
-  v16 = (*(self->_stageStringifier + 2))();
-  v17 = (*(v12 + 2))(v12, self->_currentStageID);
-  v18 = (*(v13 + 2))(v13, self->_currentStageID);
-  v19 = [v16 stringByAppendingFormat:@"%@%@", v17, v18];
+  v28 = v14;
+  [(NSIndexSet *)jobPlan enumerateIndexesUsingBlock:v26];
+  v15 = (*(self->_stageStringifier + 2))();
+  v16 = (*(v12 + 2))(v12, self->_currentStageID);
+  v17 = (*(v13 + 2))(v13, self->_currentStageID);
+  v18 = [v15 stringByAppendingFormat:@"%@%@", v16, v17];
 
   if (v5)
   {
-    v20 = [v5 highlightedString:v11 type:2];
-    v21 = [v5 highlightedString:v19 type:7];
+    v19 = [v5 highlightedString:v11 type:2];
+    v20 = [v5 highlightedString:v18 type:7];
 
-    v19 = v21;
+    v18 = v20;
   }
 
   else
   {
-    v20 = v11;
+    v19 = v11;
   }
 
   subclassDescription = [(BRCPipelineJob *)self subclassDescription];
   if ([subclassDescription length])
   {
-    v23 = [@" " stringByAppendingString:subclassDescription];
+    v22 = [@" " stringByAppendingString:subclassDescription];
 
-    subclassDescription = v23;
+    subclassDescription = v22;
   }
 
-  v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"<%@:%p %@ 🏃‍♂️:%@ ☑️:[%@] ✅:[%@]%@>", objc_opt_class(), self, v26, v19, v14, v20, subclassDescription];
+  v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"<%@:%p %@ 🏃‍♂️:%@ ☑️:[%@] ✅:[%@]%@>", objc_opt_class(), self, v25, v18, v14, v19, subclassDescription];
 
-  return v24;
+  return v23;
 }
 
 __CFString *__59__BRCPipelineJob_InternalPipeline__descriptionWithContext___block_invoke(uint64_t a1, uint64_t a2)
@@ -334,42 +323,40 @@ __CFString *__59__BRCPipelineJob_InternalPipeline__descriptionWithContext___bloc
 
 id __59__BRCPipelineJob_InternalPipeline__descriptionWithContext___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = *(*(a1 + 32) + 16);
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
   v5 = [v3 objectForKeyedSubscript:v4];
 
   v6 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = (*(*(*(a1 + 32) + 56) + 16))(*(*(a1 + 32) + 56), [*(*(&v15 + 1) + 8 * i) unsignedIntegerValue]);
+        v12 = (*(*(*(a1 + 32) + 56) + 16))(*(*(a1 + 32) + 56), [*(*(&v14 + 1) + 8 * i) unsignedIntegerValue]);
         [v6 appendFormat:@">[%@]", v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

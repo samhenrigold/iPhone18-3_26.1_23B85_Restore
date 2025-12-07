@@ -14,8 +14,7 @@
   }
 
   v6 = contextCopy;
-  [v6 setup];
-  v7 = TK_LOG_token();
+  v7 = TK_LOG_token([v6 setup]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [TKTokenDriverRequest beginRequestWithExtensionContext:v6];
@@ -30,14 +29,11 @@
 
 - (void)beginRequestWithExtensionContext:(void *)a1 .cold.2(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 driver];
   v2 = [v1 classID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

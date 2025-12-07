@@ -112,14 +112,13 @@ void __50__CCSetChangeRemoteXPCNotifier_notifyChangeToSet___block_invoke_2(uint6
 
 void __50__CCSetChangeRemoteXPCNotifier_notifyChangeToSet___block_invoke_2_cold_1(uint64_t a1, unsigned __int16 a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 1024;
-  v8 = a2;
-  _os_log_debug_impl(&dword_1B6DB2000, log, OS_LOG_TYPE_DEBUG, "CCSetChangeRelayClient notifying change to Set: %@ with result: %hu", &v5, 0x12u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 1024;
+  v7 = a2;
+  _os_log_debug_impl(&dword_1B6DB2000, log, OS_LOG_TYPE_DEBUG, "CCSetChangeRelayClient notifying change to Set: %@ with result: %hu", &v4, 0x12u);
 }
 
 @end

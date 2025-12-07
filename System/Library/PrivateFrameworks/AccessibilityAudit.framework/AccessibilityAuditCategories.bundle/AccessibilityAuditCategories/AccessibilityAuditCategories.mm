@@ -435,16 +435,16 @@ id fontSizeSymbolMapping()
   return v1;
 }
 
-id fontSizesToIgnore()
+id fontSizesToIgnore(uint64_t a1)
 {
   if (qword_14DE8 != -1)
   {
     sub_8270();
   }
 
-  v1 = qword_14DF0;
+  v2 = qword_14DF0;
 
-  return v1;
+  return v2;
 }
 
 void sub_451C(id a1)

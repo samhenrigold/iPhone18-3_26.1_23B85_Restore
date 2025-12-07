@@ -7,31 +7,32 @@
 
 - (SUUISearchBar)init
 {
-  v8.receiver = self;
-  v8.super_class = SUUISearchBar;
-  v2 = [(SUUISearchBar *)&v8 init];
+  v10.receiver = self;
+  v10.super_class = SUUISearchBar;
+  v2 = [(SUUISearchBar *)&v10 init];
+  v4 = v2;
   if (v2)
   {
-    v3 = storeSemanticContentAttribute();
+    v5 = storeSemanticContentAttribute(v2, v3);
     if (storeShouldReverseLayoutDirection())
     {
-      v4 = 2;
+      v6 = 2;
     }
 
     else
     {
-      v4 = 0;
+      v6 = 0;
     }
 
-    [(SUUISearchBar *)v2 setSemanticContentAttribute:v3];
-    searchField = [(SUUISearchBar *)v2 searchField];
-    [searchField setSemanticContentAttribute:v3];
+    [(SUUISearchBar *)v4 setSemanticContentAttribute:v5];
+    searchField = [(SUUISearchBar *)v4 searchField];
+    [searchField setSemanticContentAttribute:v5];
 
-    searchField2 = [(SUUISearchBar *)v2 searchField];
-    [searchField2 setTextAlignment:v4];
+    searchField2 = [(SUUISearchBar *)v4 searchField];
+    [searchField2 setTextAlignment:v6];
   }
 
-  return v2;
+  return v4;
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

@@ -5,7 +5,7 @@
 
 void __37___DKForegroundServicesMonitor_start__block_invoke(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D46FB0];
   v4 = a2;
   v5 = [v3 descriptor];
@@ -14,14 +14,12 @@ void __37___DKForegroundServicesMonitor_start__block_invoke(uint64_t a1, void *a
   v6 = MEMORY[0x277D46FA0];
   v7 = [*(a1 + 32) servicesOfInterestForWatchCommunication];
   v8 = [v6 predicateMatchingBundleIdentifiers:v7];
-  v12[0] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   [v4 setPredicates:v9];
 
   v10 = [*(a1 + 32) processUpdateHandler];
   [v4 setUpdateHandler:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __52___DKForegroundServicesMonitor_processUpdateHandler__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -47,13 +45,11 @@ void __52___DKForegroundServicesMonitor_processUpdateHandler__block_invoke(uint6
   }
 }
 
-uint64_t __52___DKForegroundServicesMonitor_processUpdateHandler__block_invoke_2(uint64_t result)
+id *__52___DKForegroundServicesMonitor_processUpdateHandler__block_invoke_2(id *result)
 {
-  if (*(*(result + 32) + 152) == *(result + 40))
+  if (*(result[4] + 19) == result[5])
   {
-    v1 = *(result + 48);
-    v2 = *(result + 56);
-    return [*(result + 32) processMonitor:? didUpdateState:? forProcess:?];
+    return [result[4] processMonitor:? didUpdateState:? forProcess:?];
   }
 
   return result;

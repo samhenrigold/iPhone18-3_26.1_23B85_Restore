@@ -74,7 +74,7 @@
 
   else
   {
-    v21 = ci_logger_api();
+    v21 = ci_logger_api(self, a2);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [(CIImageProcessorInOut *)v21 initWithSurface:v22 texture:v23 digest:v24 allowSRGB:v25 bounds:v26 onlyMetal:v27 context:v28];
@@ -127,26 +127,31 @@
 
   else
   {
-    if ((*(*context + 2))(context) == 84)
+    v6 = (*(*context + 2))(context);
+    v7 = self->_context;
+    if (v6 == 84)
     {
-      v6 = (*(*self->_context + 120))(self->_context);
-      v7 = CI::MetalContext::device(v6);
-      if (v6)
+      v8 = (*(*v7 + 120))(v7);
+      v9 = CI::MetalContext::device(v8);
+      if (v8)
       {
-        CI::Object::unref(v6);
+        CI::Object::unref(v8);
       }
     }
 
     else
     {
       {
-        singletonMTLDevice(CI::Context const*)::device = CIMetalCopyDefaultDevice();
+        v10 = v7;
+        {
+          singletonMTLDevice(CI::Context const*)::device = CIMetalCopyDefaultDevice(v10[42], 0);
+        }
       }
 
       return singletonMTLDevice(CI::Context const*)::device;
     }
 
-    return v7;
+    return v9;
   }
 }
 
@@ -383,6 +388,13 @@ uint64_t __41__CIImageProcessorInOut_debugDescription__block_invoke(uint64_t a1,
   result.origin.y = y;
   result.origin.x = x;
   return result;
+}
+
+- (void)initWithSurface:(uint64_t)a3 texture:(uint64_t)a4 digest:(uint64_t)a5 allowSRGB:(uint64_t)a6 bounds:(uint64_t)a7 onlyMetal:(uint64_t)a8 context:.cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[CIImageProcessorInOut initWithSurface:texture:digest:allowSRGB:bounds:onlyMetal:context:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s context is nil.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

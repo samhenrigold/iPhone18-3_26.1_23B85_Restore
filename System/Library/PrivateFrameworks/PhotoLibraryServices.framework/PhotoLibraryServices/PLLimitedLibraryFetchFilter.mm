@@ -79,9 +79,9 @@ id __46__PLLimitedLibraryFetchFilter__loadAssetUUIDs__block_invoke(uint64_t a1, 
   v27 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v5 = +[PLManagedAsset entityName];
-  v6 = [nameCopy isEqualToString:v5];
+  isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-  if (v6)
+  if (isEqualToString)
   {
     assetUUIDs = [(PLLimitedLibraryFetchFilter *)self assetUUIDs];
     if (assetUUIDs)
@@ -100,9 +100,9 @@ LABEL_11:
   }
 
   v10 = +[PLInternalResource entityName];
-  v11 = [nameCopy isEqualToString:v10];
+  v11 = objc_msgSend_isEqualToString_(nameCopy);
 
-  if (v11 || (+[PLAdditionalAssetAttributes entityName](PLAdditionalAssetAttributes, "entityName"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [nameCopy isEqualToString:v12], v12, v13))
+  if (v11 || (+[PLAdditionalAssetAttributes entityName], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend_isEqualToString_(nameCopy), v12, v13))
   {
     assetUUIDs = [(PLLimitedLibraryFetchFilter *)self assetUUIDs];
     if (assetUUIDs)
@@ -118,7 +118,7 @@ LABEL_10:
   }
 
   v16 = +[PLGenericAlbum entityName];
-  v17 = [nameCopy isEqualToString:v16];
+  v17 = objc_msgSend_isEqualToString_(nameCopy);
 
   if (v17)
   {
@@ -130,14 +130,14 @@ LABEL_19:
   }
 
   v18 = +[PLFetchingAlbum entityName];
-  if ([nameCopy isEqualToString:v18])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
 
     goto LABEL_19;
   }
 
   v19 = +[PLManagedAlbum entityName];
-  v20 = [nameCopy isEqualToString:v19];
+  v20 = objc_msgSend_isEqualToString_(nameCopy);
 
   if (v20)
   {
@@ -164,7 +164,7 @@ LABEL_12:
 {
   v31[1] = *MEMORY[0x1E69E9840];
   [(PLLimitedLibraryFetchFilter *)self _loadAssetUUIDs];
-  v3 = [(NSMutableOrderedSet *)self->_assetUUIDs count];
+  v3 = objc_msgSend_count(self->_assetUUIDs);
   if (!v3)
   {
     v14 = MEMORY[0x1E695E0F0];
@@ -295,7 +295,7 @@ LABEL_22:
 - (void)addAssetsWithUUIDs:(id)ds
 {
   dsCopy = ds;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     [(PLLimitedLibraryFetchFilter *)self _loadAssetUUIDs];
     v16 = 0;
@@ -312,7 +312,7 @@ LABEL_22:
     [v14 enumerateObjectsUsingBlock:v13];
     if ((v17[3] & 1) == 0)
     {
-      v5 = [MEMORY[0x1E695DF88] dataWithCapacity:{(16 * -[NSMutableOrderedSet count](self->_assetUUIDs, "count")) | 8}];
+      v5 = [MEMORY[0x1E695DF88] dataWithCapacity:(16 * objc_msgSend_count(self->_assetUUIDs)) | 8];
       [v5 appendBytes:"PLUUIDS0" length:8];
       assetUUIDs = self->_assetUUIDs;
       v8 = MEMORY[0x1E69E9820];
@@ -515,7 +515,7 @@ void __105__PLLimitedLibraryFetchFilter_debugDescriptionOfCurrentLimitedLibraryF
   v24 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = [self _fetchFiltersMatchingPredicate:0 sortDescriptors:0 limit:0 inManagedObjectContext:contextCopy];
-  v6 = [v5 count];
+  v6 = objc_msgSend_count(v5);
   v7 = PLBackendGetLog();
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
@@ -523,7 +523,7 @@ void __105__PLLimitedLibraryFetchFilter_debugDescriptionOfCurrentLimitedLibraryF
     if (v8)
     {
       *buf = 134217984;
-      v23 = [v5 count];
+      v23 = objc_msgSend_count(v5);
       _os_log_impl(&dword_19BF1F000, v7, OS_LOG_TYPE_DEFAULT, "LimitedLibrary: batch deleting %lu LimitedLibraryFetchFilters", buf, 0xCu);
     }
 
@@ -742,7 +742,7 @@ LABEL_11:
   {
     v11 = [self _assetUUIDStringsFromFetchFilterData:dataCopy];
     v12 = v11;
-    if (v11 && [v11 count])
+    if (v11 && objc_msgSend_count(v11))
     {
       v13 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K in %@", @"uuid", v12];
       v14 = +[PLManagedAsset entityName];

@@ -43,22 +43,21 @@
 
 - (id)eventPayload
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   durationData = [(HMCoreAnalyticsTimedMetricEvent *)self durationData];
-  v12.receiver = self;
-  v12.super_class = HMCoreAnalyticsTimedMetricEvent;
-  eventPayload = [(HMCoreAnalyticsMetricEvent *)&v12 eventPayload];
+  v11.receiver = self;
+  v11.super_class = HMCoreAnalyticsTimedMetricEvent;
+  eventPayload = [(HMCoreAnalyticsMetricEvent *)&v11 eventPayload];
   v5 = [eventPayload mutableCopy];
 
   name = [durationData name];
-  v13 = name;
+  v12 = name;
   value = [durationData value];
-  v14[0] = value;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = value;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   [v5 addEntriesFromDictionary:v8];
 
   v9 = [v5 copy];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

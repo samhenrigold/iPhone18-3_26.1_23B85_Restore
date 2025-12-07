@@ -14,14 +14,14 @@
 + (id)truncatedAnnotationSelectedText:(id)text
 {
   annotationSelectedText = [text annotationSelectedText];
-  v9 = 0;
-  [annotationSelectedText tokenCountWithEnumerationOptions:3 maxTokenCount:200 outLimitLength:&v9];
-  v4 = v9;
-  v5 = IMCommonCoreBundle();
-  v6 = [v5 localizedStringForKey:@"[\\U2026]" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-  v7 = [annotationSelectedText stringByTruncatingToLength:v4 options:3 truncationString:v6];
+  v10 = 0;
+  v4 = [annotationSelectedText tokenCountWithEnumerationOptions:3 maxTokenCount:200 outLimitLength:&v10];
+  v5 = v10;
+  v6 = IMCommonCoreBundle(v4);
+  v7 = [v6 localizedStringForKey:@"[\\U2026]" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v8 = [annotationSelectedText stringByTruncatingToLength:v5 options:3 truncationString:v7];
 
-  return v7;
+  return v8;
 }
 
 - (AEAnnotationDragHTMLGenerator)initWithAnnotation:(id)annotation propertyProvider:(id)provider
@@ -147,40 +147,45 @@
     chapterTitle = 0;
   }
 
-  if ([chapterTitle length] && objc_msgSend(v9, "length"))
+  if ([chapterTitle length])
   {
-    v13 = IMCommonCoreBundle();
-    v14 = [v13 localizedStringForKey:@"%@ value:p. %@" table:{&stru_2D2930, @"BCCommonCoreLocalizable"}];
-    [NSString stringWithFormat:v14, chapterTitle, v9];
-    v15 = LABEL_9:;
+    v13 = [v9 length];
+    if (v13)
+    {
+      v14 = IMCommonCoreBundle(v13);
+      v15 = [v14 localizedStringForKey:@"%@ value:p. %@" table:{&stru_2D2930, @"BCCommonCoreLocalizable"}];
+      [NSString stringWithFormat:v15, chapterTitle, v9];
+      v17 = LABEL_9:;
 
-    goto LABEL_10;
+      goto LABEL_10;
+    }
   }
 
-  if ([v9 length])
+  v16 = [v9 length];
+  if (v16)
   {
-    v13 = IMCommonCoreBundle();
-    v14 = [v13 localizedStringForKey:@"p. %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-    [NSString stringWithFormat:v14, v9, v18];
+    v14 = IMCommonCoreBundle(v16);
+    v15 = [v14 localizedStringForKey:@"p. %@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    [NSString stringWithFormat:v15, v9, v20];
     goto LABEL_9;
   }
 
   if ([chapterTitle length])
   {
-    v15 = chapterTitle;
+    v17 = chapterTitle;
   }
 
   else
   {
-    v15 = 0;
+    v17 = 0;
   }
 
 LABEL_10:
-  if ([v15 length])
+  if ([v17 length])
   {
-    v16 = [v6 stringByAppendingFormat:@"\n%@", v15];
+    v18 = [v6 stringByAppendingFormat:@"\n%@", v17];
 
-    v6 = v16;
+    v6 = v18;
   }
 
   return v6;
@@ -214,7 +219,7 @@ LABEL_10:
 {
   stringCopy = string;
   propertyProvider = [(AEAnnotationDragHTMLGenerator *)self propertyProvider];
-  v5 = IMCommonCoreBundle();
+  v5 = IMCommonCoreBundle(propertyProvider);
   v6 = [v5 localizedStringForKey:@"Excerpt from:" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
   bookTitle = [propertyProvider bookTitle];
@@ -253,7 +258,7 @@ LABEL_10:
     v6 = v16;
   }
 
-  v17 = IMCommonCoreBundle();
+  v17 = IMCommonCoreBundle(storeURL);
   v18 = [v17 localizedStringForKey:@"This material may be protected by copyright." value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   v19 = [v6 stringByAppendingFormat:@"\n%@", v18];
 

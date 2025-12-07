@@ -106,7 +106,7 @@
 
   if (isUpdating)
   {
-    sub_295773098();
+    sub_295773098(isUpdating);
 LABEL_13:
     v82 = 0;
     goto LABEL_14;
@@ -117,7 +117,7 @@ LABEL_13:
 
   if (v36)
   {
-    sub_295773110();
+    sub_295773110(v36);
     goto LABEL_13;
   }
 
@@ -126,7 +126,7 @@ LABEL_13:
 
   if (v51)
   {
-    sub_295773188();
+    sub_295773188(v51);
     goto LABEL_13;
   }
 
@@ -159,7 +159,7 @@ LABEL_14:
 
   if (isUpdating)
   {
-    sub_295773278();
+    sub_295773278(isUpdating);
   }
 
   else
@@ -169,7 +169,7 @@ LABEL_14:
 
     if (isUpdating)
     {
-      sub_2957732F0();
+      sub_2957732F0(isUpdating);
     }
 
     else
@@ -179,7 +179,7 @@ LABEL_14:
 
       if (isUpdating)
       {
-        sub_295773368();
+        sub_295773368(isUpdating);
       }
 
       else
@@ -192,10 +192,11 @@ LABEL_14:
           objc_msgSend_readLKTConfig_isUpdating_(self, v64, v63, 1, v65, v66, v67, v68, v69);
         }
 
-        isUpdating = objc_msgSend_readMaxAnalogGain_isUpdating_(self, v56, withCopy, 1, v58, v59, v60, v61, v62);
-        if (isUpdating)
+        v70 = objc_msgSend_readMaxAnalogGain_isUpdating_(self, v56, withCopy, 1, v58, v59, v60, v61, v62);
+        LODWORD(isUpdating) = v70;
+        if (v70)
         {
-          sub_2957733E0();
+          sub_2957733E0(v70);
         }
       }
     }
@@ -828,7 +829,7 @@ LABEL_13:
 
   fig_log_get_emitter();
   sub_295763DEC();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 LABEL_23:
   v16 = -12780;
 LABEL_4:
@@ -990,7 +991,7 @@ LABEL_21:
 
   fig_log_get_emitter();
   sub_295763DEC();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 LABEL_43:
   v16 = -12780;
 LABEL_4:

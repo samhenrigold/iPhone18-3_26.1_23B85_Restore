@@ -1,332 +1,3 @@
-uint64_t deserializeQualifiedDeclarationFields(uint64_t a1, uint64_t a2)
-{
-  deserializeASTFields(a1, a2);
-  result = deserialize_GLPString(a1);
-  *(a2 + 64) = result;
-  *(a2 + 72) = v5;
-  return result;
-}
-
-void deserializeQualifiedDeclarationGroupFields(uint64_t a1, uint64_t a2)
-{
-  deserializeASTFields(a1, a2);
-  v4 = *(a1 + 260);
-  v5 = *(a1 + 256);
-  if (v4 >= v5)
-  {
-    goto LABEL_34;
-  }
-
-  v6 = *(a1 + 248);
-  v7 = *(v6 + v4);
-  v8 = *(v6 + v4);
-  v9 = v4 + 1;
-  *(a1 + 260) = v4 + 1;
-  if ((v7 & 0x80000000) == 0)
-  {
-    goto LABEL_33;
-  }
-
-  v10 = (v8 >> 1) & 7;
-  if (v10 <= 3)
-  {
-    if (v10 > 1)
-    {
-      if (v10 == 2)
-      {
-        v11 = v4 + 4;
-        if (v11 <= v5)
-        {
-          LODWORD(v6) = *(v6 + v9) | (*(v6 + v9 + 2) << 16);
-          goto LABEL_29;
-        }
-      }
-
-      else if (v4 + 5 <= v5)
-      {
-        LODWORD(v6) = *(v6 + v9);
-        v11 = v4 + 5;
-        goto LABEL_29;
-      }
-    }
-
-    else if (v10)
-    {
-      if (v4 + 3 <= v5)
-      {
-        LODWORD(v6) = *(v6 + v9);
-        v11 = v4 + 3;
-        goto LABEL_29;
-      }
-    }
-
-    else if (v9 < v5)
-    {
-      LODWORD(v6) = *(v6 + v9);
-      v11 = v4 + 2;
-      goto LABEL_29;
-    }
-
-LABEL_34:
-    glpDeserialError(a1, 1u);
-  }
-
-  if (v10 <= 5)
-  {
-    v12 = v4 + 5;
-    if (v10 == 4)
-    {
-      if (v12 <= v5)
-      {
-        LODWORD(v6) = *(v6 + v9);
-        *(a1 + 260) = v4 + 5;
-        if (v4 + 5 < v5)
-        {
-          v11 = v4 + 6;
-          goto LABEL_29;
-        }
-      }
-    }
-
-    else if (v12 <= v5)
-    {
-      LODWORD(v6) = *(v6 + v9);
-      v13 = (v4 + 5);
-      *(a1 + 260) = v13;
-      if (v13 + 2 <= v5)
-      {
-        v11 = v4 + 7;
-        goto LABEL_29;
-      }
-    }
-
-    goto LABEL_34;
-  }
-
-  if (v10 != 6)
-  {
-    if (v4 + 9 <= v5)
-    {
-      v6 = *(v6 + v9);
-      v11 = v4 + 9;
-      goto LABEL_29;
-    }
-
-    goto LABEL_34;
-  }
-
-  if (v4 + 5 > v5)
-  {
-    goto LABEL_34;
-  }
-
-  LODWORD(v6) = *(v6 + v9);
-  *(a1 + 260) = v4 + 5;
-  v11 = v4 + 8;
-  if (v11 > v5)
-  {
-    goto LABEL_34;
-  }
-
-LABEL_29:
-  *(a1 + 260) = v11;
-  v14 = -256 << (8 * v10);
-  if (v7)
-  {
-    v15 = v14;
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  LODWORD(v8) = v6 | v15;
-LABEL_33:
-  *(a2 + 64) = v8;
-}
-
-void deserializePrimitiveTypeFields(uint64_t a1, uint64_t a2)
-{
-  deserializeASTFields(a1, a2);
-  v4 = *(a1 + 260);
-  v5 = *(a1 + 256);
-  if (v4 >= v5)
-  {
-    goto LABEL_34;
-  }
-
-  v6 = *(a1 + 248);
-  v7 = *(v6 + v4);
-  v8 = *(v6 + v4);
-  v9 = v4 + 1;
-  *(a1 + 260) = v4 + 1;
-  if ((v7 & 0x80000000) == 0)
-  {
-    goto LABEL_33;
-  }
-
-  v10 = (v8 >> 1) & 7;
-  if (v10 <= 3)
-  {
-    if (v10 > 1)
-    {
-      if (v10 == 2)
-      {
-        v11 = v4 + 4;
-        if (v11 <= v5)
-        {
-          LODWORD(v6) = *(v6 + v9) | (*(v6 + v9 + 2) << 16);
-          goto LABEL_29;
-        }
-      }
-
-      else if (v4 + 5 <= v5)
-      {
-        LODWORD(v6) = *(v6 + v9);
-        v11 = v4 + 5;
-        goto LABEL_29;
-      }
-    }
-
-    else if (v10)
-    {
-      if (v4 + 3 <= v5)
-      {
-        LODWORD(v6) = *(v6 + v9);
-        v11 = v4 + 3;
-        goto LABEL_29;
-      }
-    }
-
-    else if (v9 < v5)
-    {
-      LODWORD(v6) = *(v6 + v9);
-      v11 = v4 + 2;
-      goto LABEL_29;
-    }
-
-LABEL_34:
-    glpDeserialError(a1, 1u);
-  }
-
-  if (v10 <= 5)
-  {
-    v12 = v4 + 5;
-    if (v10 == 4)
-    {
-      if (v12 <= v5)
-      {
-        LODWORD(v6) = *(v6 + v9);
-        *(a1 + 260) = v4 + 5;
-        if (v4 + 5 < v5)
-        {
-          v11 = v4 + 6;
-          goto LABEL_29;
-        }
-      }
-    }
-
-    else if (v12 <= v5)
-    {
-      LODWORD(v6) = *(v6 + v9);
-      v13 = (v4 + 5);
-      *(a1 + 260) = v13;
-      if (v13 + 2 <= v5)
-      {
-        v11 = v4 + 7;
-        goto LABEL_29;
-      }
-    }
-
-    goto LABEL_34;
-  }
-
-  if (v10 != 6)
-  {
-    if (v4 + 9 <= v5)
-    {
-      v6 = *(v6 + v9);
-      v11 = v4 + 9;
-      goto LABEL_29;
-    }
-
-    goto LABEL_34;
-  }
-
-  if (v4 + 5 > v5)
-  {
-    goto LABEL_34;
-  }
-
-  LODWORD(v6) = *(v6 + v9);
-  *(a1 + 260) = v4 + 5;
-  v11 = v4 + 8;
-  if (v11 > v5)
-  {
-    goto LABEL_34;
-  }
-
-LABEL_29:
-  *(a1 + 260) = v11;
-  v14 = -256 << (8 * v10);
-  if (v7)
-  {
-    v15 = v14;
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  LODWORD(v8) = v6 | v15;
-LABEL_33:
-  *(a2 + 64) = v8;
-}
-
-uint64_t deserializeFieldDeclarationFields(uint64_t a1, uint64_t a2)
-{
-  deserializeASTFields(a1, a2);
-  result = deserialize_GLPString(a1);
-  *(a2 + 64) = result;
-  *(a2 + 72) = v5;
-  return result;
-}
-
-uint64_t deserializeStructTypeFields(uint64_t a1, uint64_t a2)
-{
-  deserializeStructureFields(a1, a2);
-  result = deserialize_GLPString(a1);
-  *(a2 + 72) = result;
-  *(a2 + 80) = v5;
-  return result;
-}
-
-void *deserializeInterfaceBlockFields(uint64_t a1, uint64_t a2)
-{
-  deserializeStructureFields(a1, a2);
-  *(a2 + 72) = deserialize_GLPString(a1);
-  *(a2 + 80) = v4;
-  *(a2 + 88) = deserialize_GLPString(a1);
-  *(a2 + 96) = v5;
-  v6 = *(a1 + 260);
-  if (v6 >= *(a1 + 256) || (v7 = *(*(a1 + 248) + v6), *(a1 + 260) = v6 + 1, *(a2 + 104) = v7, v8 = *(a1 + 260), v8 >= *(a1 + 256)))
-  {
-    glpDeserialError(a1, 1u);
-  }
-
-  v9 = *(*(a1 + 248) + v8);
-  *(a1 + 260) = v8 + 1;
-  *(a2 + 105) = v9;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 0x40000000;
-  v11[2] = __deserialize_GLPInterfaceBlockObject_block_invoke;
-  v11[3] = &__block_descriptor_tmp_9;
-  v11[4] = a1;
-  return deserialize_pointer(a1, v11, (a2 + 112));
-}
-
 void deserializeLayoutTypeFields(uint64_t a1, uint64_t a2)
 {
   deserializeASTFields(a1, a2);
@@ -3583,7 +3254,7 @@ LABEL_33:
   *(a2 + 64) = v8;
 }
 
-uint64_t serialize_GLPType(void *a1, unint64_t a2)
+uint64_t serialize_GLPType(void *a1, unsigned int *a2)
 {
   ReturnType = a2;
   result = serialize_pointer(a1, a2);
@@ -7304,28 +6975,28 @@ LABEL_275:
 uint64_t real_serialize_GLPValue(void *a1, unint64_t a2, unsigned int *a3)
 {
   v4 = a2;
-  v130 = *MEMORY[0x277D85DE8];
+  v128 = *MEMORY[0x277D85DE8];
   result = serialize_pointer(a1, a2);
   if (result)
   {
-    v7 = glpABIGetTypeSize(0, a3, 0);
-    Size = glpTypeSizeGetSize(v7);
-    v9 = Size;
-    v127 = &v127;
-    MEMORY[0x28223BE20](Size);
-    v11 = (&v127 - v10);
-    bzero(&v127 - v10, v12);
-    v129 = v11;
-    result = glpTypeGetAppleVec4Types(a3, v11, 1, 0, 0, 0, 0, 0, 0);
-    if (v9)
+    glpABIGetTypeSize(0, a3, 0);
+    glpTypeSizeGetSize();
+    v8 = v7;
+    v125 = &v125;
+    MEMORY[0x28223BE20](v7);
+    v10 = (&v125 - v9);
+    bzero(&v125 - v9, v11);
+    v127 = v10;
+    result = glpTypeGetAppleVec4Types(a3, v10, 1, 0, 0, 0, 0, 0, 0);
+    if (v8)
     {
-      v13 = 0;
-      v128 = v9;
+      v12 = 0;
+      v126 = v8;
       do
       {
-        v14 = v129;
-        ScalarType = glpPrimitiveTypeGetScalarType(v129[v13]);
-        result = glpPrimitiveTypeGetScalarCount(v14[v13]);
+        v13 = v127;
+        ScalarType = glpPrimitiveTypeGetScalarType(v127[v12]);
+        result = glpPrimitiveTypeGetScalarCount(v13[v12]);
         if (ScalarType <= 8)
         {
           if (ScalarType != 1)
@@ -7341,199 +7012,199 @@ LABEL_157:
               goto LABEL_155;
             }
 
-            v26 = 0;
-            v27 = 4 * result;
+            v25 = 0;
+            v26 = 4 * result;
             while (2)
             {
-              v28 = *(v4 + v26);
-              v29 = glp_serialized_integer32_control(v28);
-              v30 = *(a1 + 8);
-              v31 = *(a1 + 9);
-              v32 = v31 + 1;
-              if (v31 + 1 <= v30)
+              v27 = *(v4 + v25);
+              v28 = glp_serialized_integer32_control(v27);
+              v29 = *(a1 + 8);
+              v30 = *(a1 + 9);
+              v31 = v30 + 1;
+              if (v30 + 1 <= v29)
               {
-                v35 = a1[5];
-                v36 = *(a1 + 9);
+                v34 = a1[5];
+                v35 = *(a1 + 9);
               }
 
               else
               {
-                if (v30 <= 1)
+                if (v29 <= 1)
                 {
-                  v30 = 1;
+                  v29 = 1;
                 }
 
-                v33 = 2 * v30;
-                if (v33 <= v32)
+                v32 = 2 * v29;
+                if (v32 <= v31)
                 {
-                  v34 = v32;
+                  v33 = v31;
                 }
 
                 else
                 {
-                  v34 = v33;
+                  v33 = v32;
                 }
 
-                v35 = (a1[1])(*a1, v34, "Vector Storage (uint8_t, growth)");
-                memcpy(v35, a1[5], *(a1 + 9));
+                v34 = (a1[1])(*a1, v33, "Vector Storage (uint8_t, growth)");
+                memcpy(v34, a1[5], *(a1 + 9));
                 (a1[3])(*a1, a1[5]);
-                *(a1 + 8) = v34;
-                a1[5] = v35;
-                v36 = *(a1 + 9);
+                *(a1 + 8) = v33;
+                a1[5] = v34;
+                v35 = *(a1 + 9);
               }
 
-              result = memmove(&v35[v31 + 1], &v35[v31], (v36 - v31));
-              *(a1[5] + v31) = v29;
-              v37 = *(a1 + 9);
-              v38 = v37 + 1;
-              *(a1 + 9) = v37 + 1;
-              if ((v29 & 0x80000000) == 0)
+              result = memmove(&v34[v30 + 1], &v34[v30], (v35 - v30));
+              *(a1[5] + v30) = v28;
+              v36 = *(a1 + 9);
+              v37 = v36 + 1;
+              *(a1 + 9) = v36 + 1;
+              if ((v28 & 0x80000000) == 0)
               {
                 goto LABEL_75;
               }
 
-              v39 = (v29 >> 1) & 7;
-              if (v39 > 1)
+              v38 = (v28 >> 1) & 7;
+              if (v38 > 1)
               {
-                if (v39 == 2)
+                if (v38 == 2)
                 {
-                  v58 = v37 + 4;
-                  v59 = *(a1 + 8);
-                  if (v58 <= v59)
+                  v57 = v36 + 4;
+                  v58 = *(a1 + 8);
+                  if (v57 <= v58)
                   {
-                    v62 = a1[5];
-                    v63 = v38;
+                    v61 = a1[5];
+                    v62 = v37;
                   }
 
                   else
                   {
-                    if (v59 <= 1)
+                    if (v58 <= 1)
                     {
-                      v59 = 1;
+                      v58 = 1;
                     }
 
-                    v60 = 2 * v59;
-                    if (v60 <= v58)
+                    v59 = 2 * v58;
+                    if (v59 <= v57)
                     {
-                      v61 = v58;
+                      v60 = v57;
                     }
 
                     else
                     {
-                      v61 = v60;
+                      v60 = v59;
                     }
 
-                    v62 = (a1[1])(*a1, v61, "Vector Storage (uint8_t, growth)");
-                    memcpy(v62, a1[5], *(a1 + 9));
+                    v61 = (a1[1])(*a1, v60, "Vector Storage (uint8_t, growth)");
+                    memcpy(v61, a1[5], *(a1 + 9));
                     (a1[3])(*a1, a1[5]);
-                    *(a1 + 8) = v61;
-                    a1[5] = v62;
-                    v63 = *(a1 + 9);
+                    *(a1 + 8) = v60;
+                    a1[5] = v61;
+                    v62 = *(a1 + 9);
                   }
 
-                  result = memmove(&v62[v38 + 1], &v62[v38], v63 - v38);
-                  v65 = a1[5] + v38;
-                  *(v65 + 2) = BYTE2(v28);
-                  *v65 = v28;
-                  v64 = 3;
+                  result = memmove(&v61[v37 + 1], &v61[v37], v62 - v37);
+                  v64 = a1[5] + v37;
+                  *(v64 + 2) = BYTE2(v27);
+                  *v64 = v27;
+                  v63 = 3;
                 }
 
                 else
                 {
-                  if (v39 != 3)
+                  if (v38 != 3)
                   {
                     goto LABEL_75;
                   }
 
-                  v46 = v37 + 5;
-                  v47 = *(a1 + 8);
-                  if (v46 <= v47)
+                  v45 = v36 + 5;
+                  v46 = *(a1 + 8);
+                  if (v45 <= v46)
                   {
-                    v50 = a1[5];
-                    v51 = v38;
+                    v49 = a1[5];
+                    v50 = v37;
                   }
 
                   else
                   {
-                    if (v47 <= 1)
+                    if (v46 <= 1)
                     {
-                      v47 = 1;
+                      v46 = 1;
                     }
 
-                    v48 = 2 * v47;
-                    if (v48 <= v46)
+                    v47 = 2 * v46;
+                    if (v47 <= v45)
                     {
-                      v49 = v46;
+                      v48 = v45;
                     }
 
                     else
                     {
-                      v49 = v48;
+                      v48 = v47;
                     }
 
-                    v50 = (a1[1])(*a1, v49, "Vector Storage (uint8_t, growth)");
-                    memcpy(v50, a1[5], *(a1 + 9));
+                    v49 = (a1[1])(*a1, v48, "Vector Storage (uint8_t, growth)");
+                    memcpy(v49, a1[5], *(a1 + 9));
                     (a1[3])(*a1, a1[5]);
-                    *(a1 + 8) = v49;
-                    a1[5] = v50;
-                    v51 = *(a1 + 9);
+                    *(a1 + 8) = v48;
+                    a1[5] = v49;
+                    v50 = *(a1 + 9);
                   }
 
-                  result = memmove(&v50[v38 + 1], &v50[v38], v51 - v38);
-                  *(a1[5] + v38) = v28;
-                  v64 = 4;
+                  result = memmove(&v49[v37 + 1], &v49[v37], v50 - v37);
+                  *(a1[5] + v37) = v27;
+                  v63 = 4;
                 }
               }
 
               else
               {
-                if (v39)
+                if (v38)
                 {
-                  if (v39 == 1)
+                  if (v38 == 1)
                   {
-                    v40 = v37 + 3;
-                    v41 = *(a1 + 8);
-                    if (v40 <= v41)
+                    v39 = v36 + 3;
+                    v40 = *(a1 + 8);
+                    if (v39 <= v40)
                     {
-                      v44 = a1[5];
-                      v45 = v38;
+                      v43 = a1[5];
+                      v44 = v37;
                     }
 
                     else
                     {
-                      if (v41 <= 1)
+                      if (v40 <= 1)
                       {
-                        v41 = 1;
+                        v40 = 1;
                       }
 
-                      v42 = 2 * v41;
-                      if (v42 <= v40)
+                      v41 = 2 * v40;
+                      if (v41 <= v39)
                       {
-                        v43 = v40;
+                        v42 = v39;
                       }
 
                       else
                       {
-                        v43 = v42;
+                        v42 = v41;
                       }
 
-                      v44 = (a1[1])(*a1, v43, "Vector Storage (uint8_t, growth)");
-                      memcpy(v44, a1[5], *(a1 + 9));
+                      v43 = (a1[1])(*a1, v42, "Vector Storage (uint8_t, growth)");
+                      memcpy(v43, a1[5], *(a1 + 9));
                       (a1[3])(*a1, a1[5]);
-                      *(a1 + 8) = v43;
-                      a1[5] = v44;
-                      v45 = *(a1 + 9);
+                      *(a1 + 8) = v42;
+                      a1[5] = v43;
+                      v44 = *(a1 + 9);
                     }
 
-                    result = memmove(&v44[v38 + 1], &v44[v38], v45 - v38);
-                    *(a1[5] + v38) = v28;
-                    v64 = 2;
+                    result = memmove(&v43[v37 + 1], &v43[v37], v44 - v37);
+                    *(a1[5] + v37) = v27;
+                    v63 = 2;
                     break;
                   }
 
 LABEL_75:
-                  v26 += 4;
-                  if (v27 == v26)
+                  v25 += 4;
+                  if (v26 == v25)
                   {
                     goto LABEL_155;
                   }
@@ -7541,102 +7212,102 @@ LABEL_75:
                   continue;
                 }
 
-                v52 = v37 + 2;
-                v53 = *(a1 + 8);
-                if (v52 <= v53)
+                v51 = v36 + 2;
+                v52 = *(a1 + 8);
+                if (v51 <= v52)
                 {
-                  v56 = a1[5];
-                  v57 = v38;
+                  v55 = a1[5];
+                  v56 = v37;
                 }
 
                 else
                 {
-                  if (v53 <= 1)
+                  if (v52 <= 1)
                   {
-                    v53 = 1;
+                    v52 = 1;
                   }
 
-                  v54 = 2 * v53;
-                  if (v54 <= v52)
+                  v53 = 2 * v52;
+                  if (v53 <= v51)
                   {
-                    v55 = v52;
+                    v54 = v51;
                   }
 
                   else
                   {
-                    v55 = v54;
+                    v54 = v53;
                   }
 
-                  v56 = (a1[1])(*a1, v55, "Vector Storage (uint8_t, growth)");
-                  memcpy(v56, a1[5], *(a1 + 9));
+                  v55 = (a1[1])(*a1, v54, "Vector Storage (uint8_t, growth)");
+                  memcpy(v55, a1[5], *(a1 + 9));
                   (a1[3])(*a1, a1[5]);
-                  *(a1 + 8) = v55;
-                  a1[5] = v56;
-                  v57 = *(a1 + 9);
+                  *(a1 + 8) = v54;
+                  a1[5] = v55;
+                  v56 = *(a1 + 9);
                 }
 
-                result = memmove(&v56[v38 + 1], &v56[v38], v57 - v38);
-                *(a1[5] + v38) = v28;
-                v64 = 1;
+                result = memmove(&v55[v37 + 1], &v55[v37], v56 - v37);
+                *(a1[5] + v37) = v27;
+                v63 = 1;
               }
 
               break;
             }
 
-            *(a1 + 9) += v64;
+            *(a1 + 9) += v63;
             goto LABEL_75;
           }
 
           if (result)
           {
-            v116 = 0;
-            v117 = *(a1 + 9);
-            v118 = 4 * result;
+            v115 = 0;
+            v116 = *(a1 + 9);
+            v117 = 4 * result;
             do
             {
-              v119 = *(v4 + v116);
-              v120 = v117 + 4;
-              v121 = *(a1 + 8);
-              if (v117 + 4 <= v121)
+              v118 = *(v4 + v115);
+              v119 = v116 + 4;
+              v120 = *(a1 + 8);
+              if (v116 + 4 <= v120)
               {
-                v124 = a1[5];
-                v125 = v117;
+                v123 = a1[5];
+                v124 = v116;
               }
 
               else
               {
-                if (v121 <= 1)
+                if (v120 <= 1)
                 {
-                  v121 = 1;
+                  v120 = 1;
                 }
 
-                v122 = 2 * v121;
-                if (v122 <= v120)
+                v121 = 2 * v120;
+                if (v121 <= v119)
                 {
-                  v123 = v120;
+                  v122 = v119;
                 }
 
                 else
                 {
-                  v123 = v122;
+                  v122 = v121;
                 }
 
-                v124 = (a1[1])(*a1, v123, "Vector Storage (uint8_t, growth)");
-                memcpy(v124, a1[5], *(a1 + 9));
+                v123 = (a1[1])(*a1, v122, "Vector Storage (uint8_t, growth)");
+                memcpy(v123, a1[5], *(a1 + 9));
                 (a1[3])(*a1, a1[5]);
-                *(a1 + 8) = v123;
-                a1[5] = v124;
-                v125 = *(a1 + 9);
+                *(a1 + 8) = v122;
+                a1[5] = v123;
+                v124 = *(a1 + 9);
               }
 
-              v116 += 4;
-              result = memmove(&v124[v117 + 1], &v124[v117], v125 - v117);
-              *(a1[5] + v117) = v119;
-              v117 = *(a1 + 9) + 4;
-              *(a1 + 9) = v117;
+              v115 += 4;
+              result = memmove(&v123[v116 + 1], &v123[v116], v124 - v116);
+              *(a1[5] + v116) = v118;
+              v116 = *(a1 + 9) + 4;
+              *(a1 + 9) = v116;
             }
 
-            while (v118 != v116);
+            while (v117 != v115);
           }
         }
 
@@ -7647,348 +7318,348 @@ LABEL_75:
             case 62:
               if (result)
               {
-                v66 = 0;
-                v67 = *(a1 + 9);
-                v68 = 8 * result;
+                v65 = 0;
+                v66 = *(a1 + 9);
+                v67 = 8 * result;
                 do
                 {
-                  v69 = *(v4 + v66);
-                  v70 = v67 + 8;
-                  v71 = *(a1 + 8);
-                  if (v67 + 8 <= v71)
+                  v68 = *(v4 + v65);
+                  v69 = v66 + 8;
+                  v70 = *(a1 + 8);
+                  if (v66 + 8 <= v70)
                   {
-                    v74 = a1[5];
-                    v75 = v67;
+                    v73 = a1[5];
+                    v74 = v66;
                   }
 
                   else
                   {
-                    if (v71 <= 1)
+                    if (v70 <= 1)
                     {
-                      v71 = 1;
+                      v70 = 1;
                     }
 
-                    v72 = 2 * v71;
-                    if (v72 <= v70)
+                    v71 = 2 * v70;
+                    if (v71 <= v69)
                     {
-                      v73 = v70;
+                      v72 = v69;
                     }
 
                     else
                     {
-                      v73 = v72;
+                      v72 = v71;
                     }
 
-                    v74 = (a1[1])(*a1, v73, "Vector Storage (uint8_t, growth)");
-                    memcpy(v74, a1[5], *(a1 + 9));
+                    v73 = (a1[1])(*a1, v72, "Vector Storage (uint8_t, growth)");
+                    memcpy(v73, a1[5], *(a1 + 9));
                     (a1[3])(*a1, a1[5]);
-                    *(a1 + 8) = v73;
-                    a1[5] = v74;
-                    v75 = *(a1 + 9);
+                    *(a1 + 8) = v72;
+                    a1[5] = v73;
+                    v74 = *(a1 + 9);
                   }
 
-                  v66 += 8;
-                  result = memmove(&v74[v67 + 1], &v74[v67], v75 - v67);
-                  *(a1[5] + v67) = v69;
-                  v67 = *(a1 + 9) + 8;
-                  *(a1 + 9) = v67;
+                  v65 += 8;
+                  result = memmove(&v73[v66 + 1], &v73[v66], v74 - v66);
+                  *(a1[5] + v66) = v68;
+                  v66 = *(a1 + 9) + 8;
+                  *(a1 + 9) = v66;
                 }
 
-                while (v68 != v66);
+                while (v67 != v65);
               }
 
               break;
             case 36:
               if (result)
               {
-                v76 = 0;
-                v77 = 4 * result;
+                v75 = 0;
+                v76 = 4 * result;
                 do
                 {
-                  v78 = *(v4 + v76);
-                  v79 = glp_serialized_integer32_control(v78);
-                  v80 = *(a1 + 8);
-                  v81 = *(a1 + 9);
-                  v82 = v81 + 1;
-                  if (v81 + 1 <= v80)
+                  v77 = *(v4 + v75);
+                  v78 = glp_serialized_integer32_control(v77);
+                  v79 = *(a1 + 8);
+                  v80 = *(a1 + 9);
+                  v81 = v80 + 1;
+                  if (v80 + 1 <= v79)
                   {
-                    v85 = a1[5];
-                    v86 = *(a1 + 9);
+                    v84 = a1[5];
+                    v85 = *(a1 + 9);
                   }
 
                   else
                   {
-                    if (v80 <= 1)
+                    if (v79 <= 1)
                     {
-                      v80 = 1;
+                      v79 = 1;
                     }
 
-                    v83 = 2 * v80;
-                    if (v83 <= v82)
+                    v82 = 2 * v79;
+                    if (v82 <= v81)
                     {
-                      v84 = v82;
+                      v83 = v81;
                     }
 
                     else
                     {
-                      v84 = v83;
+                      v83 = v82;
                     }
 
-                    v85 = (a1[1])(*a1, v84, "Vector Storage (uint8_t, growth)");
-                    memcpy(v85, a1[5], *(a1 + 9));
+                    v84 = (a1[1])(*a1, v83, "Vector Storage (uint8_t, growth)");
+                    memcpy(v84, a1[5], *(a1 + 9));
                     (a1[3])(*a1, a1[5]);
-                    *(a1 + 8) = v84;
-                    a1[5] = v85;
-                    v86 = *(a1 + 9);
+                    *(a1 + 8) = v83;
+                    a1[5] = v84;
+                    v85 = *(a1 + 9);
                   }
 
-                  result = memmove(&v85[v81 + 1], &v85[v81], (v86 - v81));
-                  *(a1[5] + v81) = v79;
-                  v87 = *(a1 + 9);
-                  v88 = v87 + 1;
-                  *(a1 + 9) = v87 + 1;
-                  if ((v79 & 0x80000000) == 0)
+                  result = memmove(&v84[v80 + 1], &v84[v80], (v85 - v80));
+                  *(a1[5] + v80) = v78;
+                  v86 = *(a1 + 9);
+                  v87 = v86 + 1;
+                  *(a1 + 9) = v86 + 1;
+                  if ((v78 & 0x80000000) == 0)
                   {
                     goto LABEL_142;
                   }
 
-                  v89 = (v79 >> 1) & 7;
-                  if (v89 > 1)
+                  v88 = (v78 >> 1) & 7;
+                  if (v88 > 1)
                   {
-                    if (v89 == 2)
+                    if (v88 == 2)
                     {
-                      v108 = v87 + 4;
-                      v109 = *(a1 + 8);
-                      if (v108 <= v109)
+                      v107 = v86 + 4;
+                      v108 = *(a1 + 8);
+                      if (v107 <= v108)
                       {
-                        v112 = a1[5];
-                        v113 = v88;
+                        v111 = a1[5];
+                        v112 = v87;
                       }
 
                       else
                       {
-                        if (v109 <= 1)
+                        if (v108 <= 1)
                         {
-                          v109 = 1;
+                          v108 = 1;
                         }
 
-                        v110 = 2 * v109;
-                        if (v110 <= v108)
+                        v109 = 2 * v108;
+                        if (v109 <= v107)
                         {
-                          v111 = v108;
+                          v110 = v107;
                         }
 
                         else
                         {
-                          v111 = v110;
+                          v110 = v109;
                         }
 
-                        v112 = (a1[1])(*a1, v111, "Vector Storage (uint8_t, growth)");
-                        memcpy(v112, a1[5], *(a1 + 9));
+                        v111 = (a1[1])(*a1, v110, "Vector Storage (uint8_t, growth)");
+                        memcpy(v111, a1[5], *(a1 + 9));
                         (a1[3])(*a1, a1[5]);
-                        *(a1 + 8) = v111;
-                        a1[5] = v112;
-                        v113 = *(a1 + 9);
+                        *(a1 + 8) = v110;
+                        a1[5] = v111;
+                        v112 = *(a1 + 9);
                       }
 
-                      result = memmove(&v112[v88 + 1], &v112[v88], v113 - v88);
-                      v115 = a1[5] + v88;
-                      *(v115 + 2) = BYTE2(v78);
-                      *v115 = v78;
-                      v114 = 3;
+                      result = memmove(&v111[v87 + 1], &v111[v87], v112 - v87);
+                      v114 = a1[5] + v87;
+                      *(v114 + 2) = BYTE2(v77);
+                      *v114 = v77;
+                      v113 = 3;
                       goto LABEL_141;
                     }
 
-                    if (v89 == 3)
+                    if (v88 == 3)
                     {
-                      v96 = v87 + 5;
-                      v97 = *(a1 + 8);
-                      if (v96 <= v97)
+                      v95 = v86 + 5;
+                      v96 = *(a1 + 8);
+                      if (v95 <= v96)
                       {
-                        v100 = a1[5];
-                        v101 = v88;
+                        v99 = a1[5];
+                        v100 = v87;
                       }
 
                       else
                       {
-                        if (v97 <= 1)
+                        if (v96 <= 1)
                         {
-                          v97 = 1;
+                          v96 = 1;
                         }
 
-                        v98 = 2 * v97;
-                        if (v98 <= v96)
+                        v97 = 2 * v96;
+                        if (v97 <= v95)
                         {
-                          v99 = v96;
+                          v98 = v95;
                         }
 
                         else
                         {
-                          v99 = v98;
+                          v98 = v97;
                         }
 
-                        v100 = (a1[1])(*a1, v99, "Vector Storage (uint8_t, growth)");
-                        memcpy(v100, a1[5], *(a1 + 9));
+                        v99 = (a1[1])(*a1, v98, "Vector Storage (uint8_t, growth)");
+                        memcpy(v99, a1[5], *(a1 + 9));
                         (a1[3])(*a1, a1[5]);
-                        *(a1 + 8) = v99;
-                        a1[5] = v100;
-                        v101 = *(a1 + 9);
+                        *(a1 + 8) = v98;
+                        a1[5] = v99;
+                        v100 = *(a1 + 9);
                       }
 
-                      result = memmove(&v100[v88 + 1], &v100[v88], v101 - v88);
-                      *(a1[5] + v88) = v78;
-                      v114 = 4;
+                      result = memmove(&v99[v87 + 1], &v99[v87], v100 - v87);
+                      *(a1[5] + v87) = v77;
+                      v113 = 4;
                       goto LABEL_141;
                     }
                   }
 
                   else
                   {
-                    if (!v89)
+                    if (!v88)
                     {
-                      v102 = v87 + 2;
-                      v103 = *(a1 + 8);
-                      if (v102 <= v103)
+                      v101 = v86 + 2;
+                      v102 = *(a1 + 8);
+                      if (v101 <= v102)
                       {
-                        v106 = a1[5];
-                        v107 = v88;
+                        v105 = a1[5];
+                        v106 = v87;
                       }
 
                       else
                       {
-                        if (v103 <= 1)
+                        if (v102 <= 1)
                         {
-                          v103 = 1;
+                          v102 = 1;
                         }
 
-                        v104 = 2 * v103;
-                        if (v104 <= v102)
+                        v103 = 2 * v102;
+                        if (v103 <= v101)
                         {
-                          v105 = v102;
+                          v104 = v101;
                         }
 
                         else
                         {
-                          v105 = v104;
+                          v104 = v103;
                         }
 
-                        v106 = (a1[1])(*a1, v105, "Vector Storage (uint8_t, growth)");
-                        memcpy(v106, a1[5], *(a1 + 9));
+                        v105 = (a1[1])(*a1, v104, "Vector Storage (uint8_t, growth)");
+                        memcpy(v105, a1[5], *(a1 + 9));
                         (a1[3])(*a1, a1[5]);
-                        *(a1 + 8) = v105;
-                        a1[5] = v106;
-                        v107 = *(a1 + 9);
+                        *(a1 + 8) = v104;
+                        a1[5] = v105;
+                        v106 = *(a1 + 9);
                       }
 
-                      result = memmove(&v106[v88 + 1], &v106[v88], v107 - v88);
-                      *(a1[5] + v88) = v78;
-                      v114 = 1;
+                      result = memmove(&v105[v87 + 1], &v105[v87], v106 - v87);
+                      *(a1[5] + v87) = v77;
+                      v113 = 1;
                       goto LABEL_141;
                     }
 
-                    if (v89 == 1)
+                    if (v88 == 1)
                     {
-                      v90 = v87 + 3;
-                      v91 = *(a1 + 8);
-                      if (v90 <= v91)
+                      v89 = v86 + 3;
+                      v90 = *(a1 + 8);
+                      if (v89 <= v90)
                       {
-                        v94 = a1[5];
-                        v95 = v88;
+                        v93 = a1[5];
+                        v94 = v87;
                       }
 
                       else
                       {
-                        if (v91 <= 1)
+                        if (v90 <= 1)
                         {
-                          v91 = 1;
+                          v90 = 1;
                         }
 
-                        v92 = 2 * v91;
-                        if (v92 <= v90)
+                        v91 = 2 * v90;
+                        if (v91 <= v89)
                         {
-                          v93 = v90;
+                          v92 = v89;
                         }
 
                         else
                         {
-                          v93 = v92;
+                          v92 = v91;
                         }
 
-                        v94 = (a1[1])(*a1, v93, "Vector Storage (uint8_t, growth)");
-                        memcpy(v94, a1[5], *(a1 + 9));
+                        v93 = (a1[1])(*a1, v92, "Vector Storage (uint8_t, growth)");
+                        memcpy(v93, a1[5], *(a1 + 9));
                         (a1[3])(*a1, a1[5]);
-                        *(a1 + 8) = v93;
-                        a1[5] = v94;
-                        v95 = *(a1 + 9);
+                        *(a1 + 8) = v92;
+                        a1[5] = v93;
+                        v94 = *(a1 + 9);
                       }
 
-                      result = memmove(&v94[v88 + 1], &v94[v88], v95 - v88);
-                      *(a1[5] + v88) = v78;
-                      v114 = 2;
+                      result = memmove(&v93[v87 + 1], &v93[v87], v94 - v87);
+                      *(a1[5] + v87) = v77;
+                      v113 = 2;
 LABEL_141:
-                      *(a1 + 9) += v114;
+                      *(a1 + 9) += v113;
                     }
                   }
 
 LABEL_142:
-                  v76 += 4;
+                  v75 += 4;
                 }
 
-                while (v77 != v76);
+                while (v76 != v75);
               }
 
               break;
             case 9:
               if (result)
               {
-                v16 = 0;
-                v17 = *(a1 + 9);
-                v18 = 4 * result;
+                v15 = 0;
+                v16 = *(a1 + 9);
+                v17 = 4 * result;
                 do
                 {
-                  v19 = *(v4 + v16) != 0;
-                  v20 = v17 + 1;
-                  v21 = *(a1 + 8);
-                  if (v17 + 1 <= v21)
+                  v18 = *(v4 + v15) != 0;
+                  v19 = v16 + 1;
+                  v20 = *(a1 + 8);
+                  if (v16 + 1 <= v20)
                   {
-                    v24 = a1[5];
-                    v25 = v17;
+                    v23 = a1[5];
+                    v24 = v16;
                   }
 
                   else
                   {
-                    if (v21 <= 1)
+                    if (v20 <= 1)
                     {
-                      v21 = 1;
+                      v20 = 1;
                     }
 
-                    v22 = 2 * v21;
-                    if (v22 <= v20)
+                    v21 = 2 * v20;
+                    if (v21 <= v19)
                     {
-                      v23 = v20;
+                      v22 = v19;
                     }
 
                     else
                     {
-                      v23 = v22;
+                      v22 = v21;
                     }
 
-                    v24 = (a1[1])(*a1, v23, "Vector Storage (uint8_t, growth)");
-                    memcpy(v24, a1[5], *(a1 + 9));
+                    v23 = (a1[1])(*a1, v22, "Vector Storage (uint8_t, growth)");
+                    memcpy(v23, a1[5], *(a1 + 9));
                     (a1[3])(*a1, a1[5]);
-                    *(a1 + 8) = v23;
-                    a1[5] = v24;
-                    v25 = *(a1 + 9);
+                    *(a1 + 8) = v22;
+                    a1[5] = v23;
+                    v24 = *(a1 + 9);
                   }
 
-                  v16 += 4;
-                  result = memmove(&v24[v17 + 1], &v24[v17], v25 - v17);
-                  *(a1[5] + v17) = v19;
-                  v17 = *(a1 + 9) + 1;
-                  *(a1 + 9) = v17;
+                  v15 += 4;
+                  result = memmove(&v23[v16 + 1], &v23[v16], v24 - v16);
+                  *(a1[5] + v16) = v18;
+                  v16 = *(a1 + 9) + 1;
+                  *(a1 + 9) = v16;
                 }
 
-                while (v18 != v16);
+                while (v17 != v15);
               }
 
               break;
@@ -7998,15 +7669,14 @@ LABEL_142:
         }
 
 LABEL_155:
-        ++v13;
+        ++v12;
         v4 += 16;
       }
 
-      while (v13 != v128);
+      while (v12 != v126);
     }
   }
 
-  v126 = *MEMORY[0x277D85DE8];
   return result;
 }
 

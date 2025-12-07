@@ -32,18 +32,16 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   identifier = [(HMDDeviceController *)self identifier];
   v5 = [v3 initWithName:@"Identifier" value:identifier];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   device = [(HMDDeviceController *)self device];
   v8 = [v6 initWithName:@"Device" value:device options:1 formatter:0];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -69,7 +67,7 @@
   if (v9)
   {
     v9->_lock._os_unfair_lock_opaque = 0;
-    v11 = [identifierCopy copy];
+    v11 = objc_msgSend_copy(identifierCopy);
     identifier = v10->_identifier;
     v10->_identifier = v11;
 
@@ -108,12 +106,11 @@
 
 uint64_t __34__HMDDeviceController_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_98349;
-  logCategory__hmf_once_v5_98349 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_98349;
+  logCategory__hmf_once_v5_98349 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)deviceControllerForDevice:(id)device accountRegistry:(id)registry

@@ -108,7 +108,12 @@
 - (void)setInteractionMechanisms:(id)mechanisms;
 - (void)setInteractionScoredContact:(id)contact;
 - (void)setInteractions:(id)interactions;
+- (void)setIsFitnessPlusSession:(BOOL)session;
+- (void)setIsGComplete:(BOOL)complete;
+- (void)setIsHighConfidence:(BOOL)confidence;
+- (void)setIsInvalid:(BOOL)invalid;
 - (void)setItemAttributionsCount:(id)count;
+- (void)setItemIsPinned:(BOOL)pinned;
 - (void)setItemRecipients:(id)recipients;
 - (void)setItemSenders:(id)senders;
 - (void)setItemShareDirection:(unint64_t)direction;
@@ -276,9 +281,7 @@ LABEL_17:
     v7 = 128;
   }
 
-  v8 = objc_alloc_init(*v6);
-  v9 = *(&self->super.isa + v7);
-  *(&self->super.isa + v7) = v8;
+  *(&self->super.isa + v7) = objc_alloc_init(*v6);
 
   _objc_release_x1();
 }
@@ -1318,6 +1321,38 @@ LABEL_17:
   [(MOEventAnalytics *)analyticsEvent setTimeAtHomeSubType:type];
 }
 
+- (void)setIsHighConfidence:(BOOL)confidence
+{
+  confidenceCopy = confidence;
+  routineEvent = self->_routineEvent;
+  if (!routineEvent)
+  {
+    v6 = objc_alloc_init(MOEventRoutine);
+    v7 = self->_routineEvent;
+    self->_routineEvent = v6;
+
+    routineEvent = self->_routineEvent;
+  }
+
+  [(MOEventRoutine *)routineEvent setIsHighConfidence:confidenceCopy];
+}
+
+- (void)setIsInvalid:(BOOL)invalid
+{
+  invalidCopy = invalid;
+  routineEvent = self->_routineEvent;
+  if (!routineEvent)
+  {
+    v6 = objc_alloc_init(MOEventRoutine);
+    v7 = self->_routineEvent;
+    self->_routineEvent = v6;
+
+    routineEvent = self->_routineEvent;
+  }
+
+  [(MOEventRoutine *)routineEvent setIsInvalid:invalidCopy];
+}
+
 - (void)setPlaceType:(unint64_t)type
 {
   routineEvent = self->_routineEvent;
@@ -1729,6 +1764,22 @@ LABEL_17:
   }
 
   _objc_release_x1();
+}
+
+- (void)setIsFitnessPlusSession:(BOOL)session
+{
+  sessionCopy = session;
+  workoutEvent = self->_workoutEvent;
+  if (!workoutEvent)
+  {
+    v6 = objc_alloc_init(MOEventWorkout);
+    v7 = self->_workoutEvent;
+    self->_workoutEvent = v6;
+
+    workoutEvent = self->_workoutEvent;
+  }
+
+  [(MOEventWorkout *)workoutEvent setIsFitnessPlusSession:sessionCopy];
 }
 
 - (void)setSuggestedEventTitle:(id)title
@@ -2179,6 +2230,22 @@ LABEL_17:
   [(MOEventSharedWithYou *)sharedWithYouEvent setItemShareDirection:direction];
 }
 
+- (void)setItemIsPinned:(BOOL)pinned
+{
+  pinnedCopy = pinned;
+  sharedWithYouEvent = self->_sharedWithYouEvent;
+  if (!sharedWithYouEvent)
+  {
+    v6 = objc_alloc_init(MOEventSharedWithYou);
+    v7 = self->_sharedWithYouEvent;
+    self->_sharedWithYouEvent = v6;
+
+    sharedWithYouEvent = self->_sharedWithYouEvent;
+  }
+
+  [(MOEventSharedWithYou *)sharedWithYouEvent setItemIsPinned:pinnedCopy];
+}
+
 - (void)setItemSyndicationStatus:(unint64_t)status
 {
   sharedWithYouEvent = self->_sharedWithYouEvent;
@@ -2368,6 +2435,22 @@ LABEL_17:
   }
 
   _objc_release_x1();
+}
+
+- (void)setIsGComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  peopleDiscoveryEvent = self->_peopleDiscoveryEvent;
+  if (!peopleDiscoveryEvent)
+  {
+    v6 = objc_alloc_init(MOEventPeopleDiscovery);
+    v7 = self->_peopleDiscoveryEvent;
+    self->_peopleDiscoveryEvent = v6;
+
+    peopleDiscoveryEvent = self->_peopleDiscoveryEvent;
+  }
+
+  [(MOEventPeopleDiscovery *)peopleDiscoveryEvent setIsGComplete:completeCopy];
 }
 
 - (void)setGaPR:(int64_t)r

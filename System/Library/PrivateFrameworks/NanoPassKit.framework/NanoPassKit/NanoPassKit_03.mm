@@ -80,9 +80,9 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_25B3FAE8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B3FAE8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1761,9 +1761,9 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_25B40FE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B40FE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2730,59 +2730,66 @@ LABEL_53:
   return [a2 hasError] ^ 1;
 }
 
-void sub_25B4144C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B4144C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B414640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B414640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B416198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_25B416198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B426A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B421650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  va_start(va, a9);
+  va_start(va, a38);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B428A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B426A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B42BDC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B428A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_25B42DB58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B42DE1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B42BDC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a9);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v13 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25B42DB58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25B42DE1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4931,9 +4938,9 @@ __CFString *NSStringFromNPKApplicationState(uint64_t a1)
   }
 }
 
-void sub_25B43A094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25B43A094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4972,7 +4979,7 @@ NPKTestAddPaymentPassRequestContext *NPKTestAddPaymentPassRequestDefaultContext(
 
 id NPKTestAddPaymentPassRequestConfiguration(void *a1)
 {
-  v54[2] = *MEMORY[0x277D85DE8];
+  v53[2] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc(MEMORY[0x277D37D10]);
   v3 = [v2 initWithEncryptionScheme:*MEMORY[0x277D38620]];
@@ -5034,74 +5041,74 @@ LABEL_8:
     goto LABEL_7;
   }
 
-  v35 = [v1 cardPNO];
-  v36 = [v35 lowercaseString];
-  v37 = [v36 isEqualToString:@"pioneer"];
+  v34 = [v1 cardPNO];
+  v35 = [v34 lowercaseString];
+  v36 = [v35 isEqualToString:@"pioneer"];
 
-  if (v37)
+  if (v36)
   {
     [v3 setLocalizedDescription:@"Pioneer card"];
     v25 = @"BMAC";
     goto LABEL_8;
   }
 
-  v38 = [v1 cardPNO];
-  v39 = [v38 lowercaseString];
-  v40 = [v39 isEqualToString:@"orbit"];
+  v37 = [v1 cardPNO];
+  v38 = [v37 lowercaseString];
+  v39 = [v38 isEqualToString:@"orbit"];
 
-  if (v40)
+  if (v39)
   {
     [v3 setLocalizedDescription:@"Orbit card"];
     v25 = @"SPTCC";
     goto LABEL_8;
   }
 
-  v41 = MEMORY[0x277CCACA8];
-  v42 = [v1 cardFlow];
-  v43 = [v1 cardPNO];
-  v44 = [v41 stringWithFormat:@"%@-flow %@ Card", v42, v43];
-  [v3 setLocalizedDescription:v44];
+  v40 = MEMORY[0x277CCACA8];
+  v41 = [v1 cardFlow];
+  v42 = [v1 cardPNO];
+  v43 = [v40 stringWithFormat:@"%@-flow %@ Card", v41, v42];
+  [v3 setLocalizedDescription:v43];
 
-  v45 = [v1 cardPNO];
-  LODWORD(v42) = [v45 isEqualToString:@"Neon"];
+  v44 = [v1 cardPNO];
+  LODWORD(v41) = [v44 isEqualToString:@"Neon"];
 
-  if (v42)
+  if (v41)
   {
     v19 = MEMORY[0x277D38878];
     goto LABEL_7;
   }
 
-  v46 = [v1 cardPNO];
-  v47 = [v46 isEqualToString:@"Argon"];
+  v45 = [v1 cardPNO];
+  v46 = [v45 isEqualToString:@"Argon"];
 
-  if (v47)
+  if (v46)
   {
     v19 = MEMORY[0x277D38898];
     goto LABEL_7;
   }
 
-  v48 = [v1 cardPNO];
-  v49 = [v48 isEqualToString:@"Helium"];
+  v47 = [v1 cardPNO];
+  v48 = [v47 isEqualToString:@"Helium"];
 
-  if (v49)
+  if (v48)
   {
     v19 = MEMORY[0x277D388B0];
     goto LABEL_7;
   }
 
-  v50 = [v1 cardPNO];
-  v51 = [v50 isEqualToString:@"Xenon"];
+  v49 = [v1 cardPNO];
+  v50 = [v49 isEqualToString:@"Xenon"];
 
-  if (v51)
+  if (v50)
   {
     v19 = MEMORY[0x277D38888];
     goto LABEL_7;
   }
 
-  v52 = [v1 cardPNO];
-  v53 = [v52 isEqualToString:@"PL"];
+  v51 = [v1 cardPNO];
+  v52 = [v51 isEqualToString:@"PL"];
 
-  if (v53)
+  if (v52)
   {
     v19 = MEMORY[0x277D388A0];
     goto LABEL_7;
@@ -5116,52 +5123,50 @@ LABEL_9:
   v30 = [v1 cardFlow];
   v31 = [v29 initWithLabel:@"Flow" value:v30];
 
-  v54[0] = v28;
-  v54[1] = v31;
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
+  v53[0] = v28;
+  v53[1] = v31;
+  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
   [v3 setCardDetails:v32];
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 void NPKTestAddPaymentPassRequest(void *a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   v9 = a1;
   v10 = a2;
   v11 = a3;
   v12 = a4;
-  v60 = a5;
+  v59 = a5;
   NSLog(&cfstr_ReceivedCertif.isa);
-  v64 = [v11 hexEncoding];
+  v63 = [v11 hexEncoding];
   v13 = [v12 hexEncoding];
   v14 = [MEMORY[0x277CBEB18] array];
+  v67 = 0u;
   v68 = 0u;
   v69 = 0u;
   v70 = 0u;
-  v71 = 0u;
   v15 = v10;
-  v16 = [v15 countByEnumeratingWithState:&v68 objects:v72 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v67 objects:v71 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v69;
+    v18 = *v68;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v69 != v18)
+        if (*v68 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = [*(*(&v68 + 1) + 8 * i) base64EncodedStringWithOptions:0];
+        v20 = [*(*(&v67 + 1) + 8 * i) base64EncodedStringWithOptions:0];
         [v14 addObject:v20];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v68 objects:v72 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v67 objects:v71 count:16];
     }
 
     while (v17);
@@ -5170,9 +5175,9 @@ void NPKTestAddPaymentPassRequest(void *a1, void *a2, void *a3, void *a4, void *
   v21 = [v14 componentsJoinedByString:{@", "}];
   v22 = [v9 cardID];
 
-  v61 = v12;
-  v62 = v11;
-  v63 = v21;
+  v60 = v12;
+  v61 = v11;
+  v62 = v21;
   if (!v22)
   {
     v26 = [v9 cardPNO];
@@ -5180,15 +5185,15 @@ void NPKTestAddPaymentPassRequest(void *a1, void *a2, void *a3, void *a4, void *
 
     if (v27)
     {
-      v59 = MEMORY[0x277CCACA8];
+      v58 = MEMORY[0x277CCACA8];
       v24 = [v9 cardFlow];
       v28 = [v9 cardPNO];
       v29 = [v9 cardType];
       v30 = [v9 cardProduct];
       v31 = [v9 cardIssuer];
-      v58 = v21;
+      v57 = v21;
       v32 = v28;
-      v25 = [v59 stringWithFormat:@"flow=%@&pnoName=%@&type=%@&productName=%@&issuer=%@&nonce=%@&nonceSignature=%@&leaf=%@", v24, v28, v29, v30, v31, v64, v13, v58];
+      v25 = [v58 stringWithFormat:@"flow=%@&pnoName=%@&type=%@&productName=%@&issuer=%@&nonce=%@&nonceSignature=%@&leaf=%@", v24, v28, v29, v30, v31, v63, v13, v57];
 
       goto LABEL_18;
     }
@@ -5205,33 +5210,33 @@ void NPKTestAddPaymentPassRequest(void *a1, void *a2, void *a3, void *a4, void *
 
       if (!v35)
       {
-        v52 = [v9 cardPNO];
-        v53 = [v52 isEqualToString:@"acadia"];
+        v51 = [v9 cardPNO];
+        v52 = [v51 isEqualToString:@"acadia"];
 
-        if (v53)
+        if (v52)
         {
-          v54 = MEMORY[0x277CCACA8];
+          v53 = MEMORY[0x277CCACA8];
           v24 = [v9 cardFlow];
           v37 = [v9 cardPNO];
-          [v54 stringWithFormat:@"flow=%@&pnoName=%@&nonce=%@&nonceSignature=%@&leaf=%@&issuer=Acadia", v24, v37, v64, v13, v63];
+          [v53 stringWithFormat:@"flow=%@&pnoName=%@&nonce=%@&nonceSignature=%@&leaf=%@&issuer=Acadia", v24, v37, v63, v13, v62];
         }
 
         else
         {
-          v55 = [v9 cardType];
+          v54 = [v9 cardType];
 
-          v56 = MEMORY[0x277CCACA8];
+          v55 = MEMORY[0x277CCACA8];
           v24 = [v9 cardFlow];
-          v57 = [v9 cardPNO];
-          v37 = v57;
-          if (v55)
+          v56 = [v9 cardPNO];
+          v37 = v56;
+          if (v54)
           {
             v38 = [v9 cardType];
-            v25 = [v56 stringWithFormat:@"flow=%@&pnoName=%@&type=%@&nonce=%@&nonceSignature=%@&leaf=%@", v24, v37, v38, v64, v13, v63];
+            v25 = [v55 stringWithFormat:@"flow=%@&pnoName=%@&type=%@&nonce=%@&nonceSignature=%@&leaf=%@", v24, v37, v38, v63, v13, v62];
             goto LABEL_16;
           }
 
-          [v56 stringWithFormat:@"flow=%@&pnoName=%@&nonce=%@&nonceSignature=%@&leaf=%@", v24, v57, v64, v13, v63];
+          [v55 stringWithFormat:@"flow=%@&pnoName=%@&nonce=%@&nonceSignature=%@&leaf=%@", v24, v56, v63, v13, v62];
         }
         v25 = ;
         goto LABEL_17;
@@ -5244,7 +5249,7 @@ void NPKTestAddPaymentPassRequest(void *a1, void *a2, void *a3, void *a4, void *
     v38 = [v9 cardPNO];
     v39 = [v9 cardPNO];
     v40 = [v39 capitalizedString];
-    v25 = [v36 stringWithFormat:@"flow=%@&pnoName=%@&issuer=%@&cardType=transit&nonce=%@&nonceSignature=%@&leaf=%@", v37, v38, v40, v64, v13, v63];
+    v25 = [v36 stringWithFormat:@"flow=%@&pnoName=%@&issuer=%@&cardType=transit&nonce=%@&nonceSignature=%@&leaf=%@", v37, v38, v40, v63, v13, v62];
 
 LABEL_16:
 LABEL_17:
@@ -5254,7 +5259,7 @@ LABEL_17:
 
   v23 = MEMORY[0x277CCACA8];
   v24 = [v9 cardID];
-  v25 = [v23 stringWithFormat:@"cardID=%@&nonce=%@&nonceSignature=%@&leaf=%@", v24, v64, v13, v21];
+  v25 = [v23 stringWithFormat:@"cardID=%@&nonce=%@&nonceSignature=%@&leaf=%@", v24, v63, v13, v21];
 LABEL_18:
 
   v41 = [v25 stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
@@ -5271,18 +5276,16 @@ LABEL_18:
   [v44 setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-type"];
   v46 = [MEMORY[0x277CCAD38] defaultSessionConfiguration];
   v47 = [MEMORY[0x277CCAD30] sessionWithConfiguration:v46 delegate:0 delegateQueue:0];
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __NPKTestAddPaymentPassRequest_block_invoke;
-  v65[3] = &unk_279948678;
-  v66 = v9;
-  v67 = v60;
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = __NPKTestAddPaymentPassRequest_block_invoke;
+  v64[3] = &unk_279948678;
+  v65 = v9;
+  v66 = v59;
   v48 = v9;
-  v49 = v60;
-  v50 = [v47 dataTaskWithRequest:v44 completionHandler:v65];
+  v49 = v59;
+  v50 = [v47 dataTaskWithRequest:v44 completionHandler:v64];
   [v50 resume];
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 void __NPKTestAddPaymentPassRequest_block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -5995,17 +5998,17 @@ void sub_25B43FA48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   if (a2 == 1)
   {
     v15 = objc_begin_catch(a1);
-    v16 = pk_General_log();
+    v16 = pk_General_log(v15);
     v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
 
     if (v17)
     {
-      v18 = pk_General_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = pk_General_log(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf) = 138412290;
         *(&buf + 4) = v15;
-        _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_ERROR, "Error: Unable to decode billing address: %@", &buf, 0xCu);
+        _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_ERROR, "Error: Unable to decode billing address: %@", &buf, 0xCu);
       }
     }
 
@@ -6830,30 +6833,37 @@ __CFString *NSStringFromNPKExpressPassControllerStatus(unint64_t a1)
   return v2;
 }
 
-void sub_25B446F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B446F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B44A190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B449930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a7);
+  va_start(va, a28);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B44AD10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B44A190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B44B080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B44AD10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25B44B080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9341,17 +9351,19 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_25B46074C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_25B46074C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B460A60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_25B460A60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 

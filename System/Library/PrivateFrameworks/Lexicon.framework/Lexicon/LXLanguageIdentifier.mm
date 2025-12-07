@@ -15,16 +15,16 @@
   v11 = MEMORY[0x1E695E0F0];
   if (v10)
   {
-    v24 = 0;
+    v23 = 0;
     v21 = sub_1B5D22A0C(constraintsCopy);
-    sub_1B5D90848(&v22, self->_impl.__ptr_, stringCopy, v21, &v24);
+    sub_1B5D90848(&v22, self->_impl.__ptr_, stringCopy, v21, &v23);
     v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v13 = v22;
-    for (i = v23; v13 != i; v13 += 32)
+    v14 = *(&v22 + 1);
+    for (i = v22; i != v14; i += 32)
     {
       v15 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v16 = (v13 + 8);
-      if (*(v13 + 31) < 0)
+      v16 = (i + 8);
+      if (*(i + 31) < 0)
       {
         v16 = *v16;
       }
@@ -36,7 +36,7 @@
 
     if (error)
     {
-      *error = v24;
+      *error = v23;
     }
 
     if (v12)
@@ -51,8 +51,8 @@
 
     v11 = v19;
 
-    v25 = &v22;
-    sub_1B5D8EF64(&v25);
+    v24 = &v22;
+    sub_1B5D8EF64(&v24);
   }
 
   return v11;
@@ -87,29 +87,29 @@
   v11 = MEMORY[0x1E695E0F0];
   if (v10)
   {
-    v25 = 0;
+    v24 = 0;
     v22 = sub_1B5D22A0C(constraintsCopy);
-    sub_1B5D90848(&v23, self->_impl.__ptr_, stringCopy, v22, &v25);
+    sub_1B5D90848(&v23, self->_impl.__ptr_, stringCopy, v22, &v24);
     v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v14 = v23;
-    for (i = v24; v14 != i; v14 += 32)
+    v13 = *(&v23 + 1);
+    for (i = v23; i != v13; i += 32)
     {
       v15 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v16 = (v14 + 8);
-      if (*(v14 + 31) < 0)
+      v16 = (i + 8);
+      if (*(i + 31) < 0)
       {
         v16 = *v16;
       }
 
       v17 = [v15 initWithUTF8String:v16];
       v18 = [objc_alloc(MEMORY[0x1E695DF58]) initWithLocaleIdentifier:v17];
-      v19 = [[LXLanguageIdentifierResult alloc] initWithLocale:v18 probability:*v14];
+      v19 = [[LXLanguageIdentifierResult alloc] initWithLocale:v18 probability:*i];
       [v12 addObject:v19];
     }
 
     if (error)
     {
-      *error = v25;
+      *error = v24;
     }
 
     if (v12)
@@ -124,8 +124,8 @@
 
     v11 = v20;
 
-    v26 = &v23;
-    sub_1B5D8EF64(&v26);
+    v25 = &v23;
+    sub_1B5D8EF64(&v25);
   }
 
   return v11;

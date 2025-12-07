@@ -32,10 +32,10 @@
   v7.receiver = self;
   v7.super_class = BKSMousePointerDevicePreferences;
   v4 = [(BKSMousePointerDevicePreferences *)&v7 description];
-  v5 = [v3 initWithString:v4];
+  v5 = [v3 initWithString:?];
 
-  [v5 appendFormat:@" ptrAccel:%g scrollAceel:%g enableTapToClick:%d enableTwoFingerSecondaryClick:%d doubleTapDragMode:%d enableNaturalScrolling:%d virtualButtonConfig:%d, hardwareButtonConfig:%d", self->_pointerAccelerationFactor, self->_scrollAccelerationFactor, self->_enableTapToClick, self->_enableTwoFingerSecondaryClick, self->_doubleTapDragMode, self->_enableNaturalScrolling, self->_buttonConfigurationForVirtualButtonMice, self->_buttonConfigurationForHardwareButtonMice];
-  [v5 appendFormat:@" clickHapticStrength:%d", self->_clickHapticStrength];
+  [v5 appendFormat:self->_pointerAccelerationFactor, self->_scrollAccelerationFactor, self->_enableTapToClick, self->_enableTwoFingerSecondaryClick, self->_doubleTapDragMode, self->_enableNaturalScrolling, self->_buttonConfigurationForVirtualButtonMice, self->_buttonConfigurationForHardwareButtonMice];
+  [v5 appendFormat:self->_clickHapticStrength];
 
   return v5;
 }
@@ -59,11 +59,10 @@
 
 - (unint64_t)hash
 {
-  *&v2 = self->_pointerAccelerationFactor;
-  v3 = [MEMORY[0x1E696AD98] numberWithFloat:v2];
-  v4 = [v3 hash];
+  v2 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v3 = [v2 hash];
 
-  return v4;
+  return v3;
 }
 
 - (id)didFinishProtobufDecodingWithError:(id *)error
@@ -83,23 +82,23 @@
   v5 = [(BKSMousePointerDevicePreferences *)self init];
   if (v5)
   {
-    [coderCopy decodeFloatForKey:@"t:1"];
+    [coderCopy decodeFloatForKey:?];
     v5->_pointerAccelerationFactor = v6;
-    [coderCopy decodeFloatForKey:@"t:2"];
+    [coderCopy decodeFloatForKey:?];
     v5->_scrollAccelerationFactor = v7;
-    v5->_enableTapToClick = [coderCopy decodeBoolForKey:@"t:3"];
-    v5->_enableTwoFingerSecondaryClick = [coderCopy decodeBoolForKey:@"t:4"];
-    v5->_doubleTapDragMode = [coderCopy decodeIntegerForKey:@"t:8"];
-    v5->_buttonConfigurationForVirtualButtonMice = [coderCopy decodeIntegerForKey:@"t:6"];
-    v5->_buttonConfigurationForHardwareButtonMice = [coderCopy decodeIntegerForKey:@"t:7"];
-    if ([coderCopy containsValueForKey:@"t:5"])
+    v5->_enableTapToClick = [coderCopy decodeBoolForKey:?];
+    v5->_enableTwoFingerSecondaryClick = [coderCopy decodeBoolForKey:?];
+    v5->_doubleTapDragMode = [coderCopy decodeIntegerForKey:?];
+    v5->_buttonConfigurationForVirtualButtonMice = [coderCopy decodeIntegerForKey:?];
+    v5->_buttonConfigurationForHardwareButtonMice = [coderCopy decodeIntegerForKey:?];
+    if ([coderCopy containsValueForKey:?])
     {
-      v5->_enableNaturalScrolling = [coderCopy decodeBoolForKey:@"t:5"];
+      v5->_enableNaturalScrolling = [coderCopy decodeBoolForKey:?];
     }
 
-    if ([coderCopy containsValueForKey:@"t:9"])
+    if ([coderCopy containsValueForKey:?])
     {
-      v5->_clickHapticStrength = [coderCopy decodeIntegerForKey:@"t:9"];
+      v5->_clickHapticStrength = [coderCopy decodeIntegerForKey:?];
     }
   }
 
@@ -108,19 +107,16 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  pointerAccelerationFactor = self->_pointerAccelerationFactor;
   coderCopy = coder;
-  *&v6 = pointerAccelerationFactor;
-  [coderCopy encodeFloat:@"t:1" forKey:v6];
-  *&v7 = self->_scrollAccelerationFactor;
-  [coderCopy encodeFloat:@"t:2" forKey:v7];
-  [coderCopy encodeBool:self->_enableTapToClick forKey:@"t:3"];
-  [coderCopy encodeBool:self->_enableTwoFingerSecondaryClick forKey:@"t:4"];
-  [coderCopy encodeInteger:self->_doubleTapDragMode forKey:@"t:8"];
-  [coderCopy encodeBool:self->_enableNaturalScrolling forKey:@"t:5"];
-  [coderCopy encodeInteger:self->_buttonConfigurationForVirtualButtonMice forKey:@"t:6"];
-  [coderCopy encodeInteger:self->_buttonConfigurationForHardwareButtonMice forKey:@"t:7"];
-  [coderCopy encodeInteger:self->_clickHapticStrength forKey:@"t:9"];
+  [coderCopy encodeFloat:? forKey:?];
+  [coderCopy encodeFloat:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
 
   [(BKSMousePointerDevicePreferences *)self _fixMissingButtonConfigurations];
 }
@@ -161,41 +157,41 @@
 
 uint64_t __50__BKSMousePointerDevicePreferences_protobufSchema__block_invoke(uint64_t a1)
 {
-  protobufSchema_schema_8388 = [MEMORY[0x1E698E750] buildSchemaForClass:*(a1 + 32) builder:&__block_literal_global_8390];
+  v1 = [MEMORY[0x1E698E750] buildSchemaForClass:? builder:?];
+  v2 = protobufSchema_schema_8388;
+  protobufSchema_schema_8388 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 void __50__BKSMousePointerDevicePreferences_protobufSchema__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_pointerAccelerationFactor" forTag:1];
-  [v2 addField:"_scrollAccelerationFactor" forTag:2];
-  [v2 addField:"_enableTapToClick" forTag:3];
-  [v2 addField:"_enableTwoFingerSecondaryClick" forTag:4];
-  [v2 addField:"_enableNaturalScrolling" forTag:5];
-  [v2 addField:"_buttonConfigurationForVirtualButtonMice" forTag:6];
-  [v2 addField:"_buttonConfigurationForHardwareButtonMice" forTag:7];
-  [v2 addField:"_doubleTapDragMode" forTag:8];
-  [v2 addField:"_clickHapticStrength" forTag:9];
+  [v2 addField:? forTag:?];
+  [v2 addField:? forTag:?];
+  [v2 addField:? forTag:?];
+  [v2 addField:? forTag:?];
+  [v2 addField:? forTag:?];
+  [v2 addField:? forTag:?];
+  [v2 addField:? forTag:?];
+  [v2 addField:? forTag:?];
+  [v2 addField:? forTag:?];
 }
 
 + (id)defaultPreferencesForHardwareType:(int64_t)type
 {
-  v4 = objc_alloc_init(BKSMousePointerDevicePreferences);
-  [(BKSMousePointerDevicePreferences *)v4 setButtonConfigurationForVirtualButtonMice:1];
-  [(BKSMousePointerDevicePreferences *)v4 setButtonConfigurationForHardwareButtonMice:2];
-  [(BKSMousePointerDevicePreferences *)v4 setClickHapticStrength:0];
-  LODWORD(v5) = 1.0;
-  [(BKSMousePointerDevicePreferences *)v4 setPointerAccelerationFactor:v5];
-  LODWORD(v6) = 0.3125;
-  [(BKSMousePointerDevicePreferences *)v4 setScrollAccelerationFactor:v6];
-  [(BKSMousePointerDevicePreferences *)v4 setEnableTapToClick:0];
-  [(BKSMousePointerDevicePreferences *)v4 setEnableTwoFingerSecondaryClick:type == 9];
-  [(BKSMousePointerDevicePreferences *)v4 setDoubleTapDragMode:0];
-  [(BKSMousePointerDevicePreferences *)v4 setEnableNaturalScrolling:1];
+  v3 = objc_alloc_init(BKSMousePointerDevicePreferences);
+  [(BKSMousePointerDevicePreferences *)v3 setButtonConfigurationForVirtualButtonMice:?];
+  [(BKSMousePointerDevicePreferences *)v3 setButtonConfigurationForHardwareButtonMice:?];
+  [(BKSMousePointerDevicePreferences *)v3 setClickHapticStrength:?];
+  [(BKSMousePointerDevicePreferences *)v3 setPointerAccelerationFactor:?];
+  [(BKSMousePointerDevicePreferences *)v3 setScrollAccelerationFactor:?];
+  [(BKSMousePointerDevicePreferences *)v3 setEnableTapToClick:?];
+  [(BKSMousePointerDevicePreferences *)v3 setEnableTwoFingerSecondaryClick:?];
+  [(BKSMousePointerDevicePreferences *)v3 setDoubleTapDragMode:?];
+  [(BKSMousePointerDevicePreferences *)v3 setEnableNaturalScrolling:?];
 
-  return v4;
+  return v3;
 }
 
 @end

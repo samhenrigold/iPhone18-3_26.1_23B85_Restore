@@ -30,9 +30,9 @@ id sub_100001148(void *a1)
   return v3;
 }
 
-id sub_1000011D4()
+id sub_1000011D4(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for UserNotificationViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for UserNotificationViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }

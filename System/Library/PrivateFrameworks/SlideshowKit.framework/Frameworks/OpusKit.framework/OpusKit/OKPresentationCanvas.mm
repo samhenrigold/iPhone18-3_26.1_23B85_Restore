@@ -360,7 +360,7 @@ LABEL_6:
   [(NSMutableDictionary *)properties enumerateKeysAndObjectsUsingBlock:v7];
 }
 
-uint64_t __51__OKPresentationCanvas_parentApplyValueForKeyPath___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__51__OKPresentationCanvas_parentApplyValueForKeyPath___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 rangeOfString:*(a1 + 32)];
   if (!result)

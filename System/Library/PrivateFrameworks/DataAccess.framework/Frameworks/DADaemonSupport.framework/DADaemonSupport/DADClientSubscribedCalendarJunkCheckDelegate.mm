@@ -11,20 +11,20 @@
 
 - (void)checkSubscribedCalendarJunkStatus:(id)status
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   v5 = [(DADClientSubscribedCalendarJunkCheckDelegate *)self _createURLRequestForSubscriptionCalendarURL:statusCopy];
   if (v5)
   {
     mEMORY[0x277CCAD30] = [MEMORY[0x277CCAD30] sharedSession];
     hTTPBody = [v5 HTTPBody];
-    v11 = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __82__DADClientSubscribedCalendarJunkCheckDelegate_checkSubscribedCalendarJunkStatus___block_invoke;
-    v14 = &unk_278F1D4C8;
-    v15 = statusCopy;
+    v10 = MEMORY[0x277D85DD0];
+    v11 = 3221225472;
+    v12 = __82__DADClientSubscribedCalendarJunkCheckDelegate_checkSubscribedCalendarJunkStatus___block_invoke;
+    v13 = &unk_278F1D4C8;
+    v14 = statusCopy;
     selfCopy = self;
-    v8 = [mEMORY[0x277CCAD30] uploadTaskWithRequest:v5 fromData:hTTPBody completionHandler:&v11];
+    v8 = [mEMORY[0x277CCAD30] uploadTaskWithRequest:v5 fromData:hTTPBody completionHandler:&v10];
 
     [v8 resume];
   }
@@ -36,17 +36,15 @@
     if (os_log_type_enabled(mEMORY[0x277CCAD30], v9))
     {
       *buf = 138412290;
-      v18 = statusCopy;
+      v17 = statusCopy;
       _os_log_impl(&dword_248524000, mEMORY[0x277CCAD30], v9, "Checking whether subscribed calendar is junk failed. Unable to create a URL request. Calendar URL = %@", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __82__DADClientSubscribedCalendarJunkCheckDelegate_checkSubscribedCalendarJunkStatus___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   objc_opt_class();
@@ -67,11 +65,11 @@ void __82__DADClientSubscribedCalendarJunkCheckDelegate_checkSubscribedCalendarJ
       if (v12)
       {
         v13 = *(a1 + 32);
-        v23 = 138412546;
-        v24 = v9;
-        v25 = 2112;
-        v26 = v13;
-        _os_log_impl(&dword_248524000, v10, v11, "Checking whether subscribed calendar is junk successful. Received result %@ for URL: %@", &v23, 0x16u);
+        v22 = 138412546;
+        v23 = v9;
+        v24 = 2112;
+        v25 = v13;
+        _os_log_impl(&dword_248524000, v10, v11, "Checking whether subscribed calendar is junk successful. Received result %@ for URL: %@", &v22, 0x16u);
       }
 
       goto LABEL_18;
@@ -80,9 +78,9 @@ void __82__DADClientSubscribedCalendarJunkCheckDelegate_checkSubscribedCalendarJ
     if (v12)
     {
       v14 = *(a1 + 32);
-      v23 = 138412290;
-      v24 = v14;
-      _os_log_impl(&dword_248524000, v10, v11, "Checking whether subscribed calendar returned success, but did not give us a junk score: %@", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = v14;
+      _os_log_impl(&dword_248524000, v10, v11, "Checking whether subscribed calendar returned success, but did not give us a junk score: %@", &v22, 0xCu);
     }
   }
 
@@ -94,13 +92,13 @@ void __82__DADClientSubscribedCalendarJunkCheckDelegate_checkSubscribedCalendarJ
     {
       v17 = [v8 statusCode];
       v18 = *(a1 + 32);
-      v23 = 138412802;
-      v24 = v7;
-      v25 = 2048;
-      v26 = v17;
-      v27 = 2112;
-      v28 = v18;
-      _os_log_impl(&dword_248524000, v15, v16, "Checking whether subscribed calendar is junk failed. Error = %@  Response status code = %ld  Calendar URL = %@", &v23, 0x20u);
+      v22 = 138412802;
+      v23 = v7;
+      v24 = 2048;
+      v25 = v17;
+      v26 = 2112;
+      v27 = v18;
+      _os_log_impl(&dword_248524000, v15, v16, "Checking whether subscribed calendar is junk failed. Error = %@  Response status code = %ld  Calendar URL = %@", &v22, 0x20u);
     }
   }
 
@@ -112,11 +110,11 @@ LABEL_13:
     if (os_log_type_enabled(v15, v19))
     {
       v20 = *(a1 + 32);
-      v23 = 138412546;
-      v24 = v7;
-      v25 = 2112;
-      v26 = v20;
-      _os_log_impl(&dword_248524000, v15, v19, "Checking whether subscribed calendar is junk failed. Error = %@  Calendar URL = %@", &v23, 0x16u);
+      v22 = 138412546;
+      v23 = v7;
+      v24 = 2112;
+      v25 = v20;
+      _os_log_impl(&dword_248524000, v15, v19, "Checking whether subscribed calendar is junk failed. Error = %@  Calendar URL = %@", &v22, 0x16u);
     }
 
     v8 = 0;
@@ -134,25 +132,22 @@ LABEL_18:
   v21 = v7;
 LABEL_20:
   [*(a1 + 40) _finishWithJunkStatusString:v9 error:v21];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithError:(id)error
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 4);
   if (os_log_type_enabled(v5, v6))
   {
-    v8 = 138412290;
-    v9 = errorCopy;
-    _os_log_impl(&dword_248524000, v5, v6, "Checking whether subscribed calendar is junk -finishWithError: called with error %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = errorCopy;
+    _os_log_impl(&dword_248524000, v5, v6, "Checking whether subscribed calendar is junk -finishWithError: called with error %@", &v7, 0xCu);
   }
 
   [(DADClientSubscribedCalendarJunkCheckDelegate *)self _finishWithJunkStatusString:0 error:errorCopy];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createURLRequestForSubscriptionCalendarURL:(id)l

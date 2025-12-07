@@ -67,10 +67,9 @@
 
 - (id)preferedResourceName
 {
-  type = self->_type;
-  v3 = _UTTypeCopyIconName();
+  v2 = _UTTypeCopyIconName();
 
-  return v3;
+  return v2;
 }
 
 @end

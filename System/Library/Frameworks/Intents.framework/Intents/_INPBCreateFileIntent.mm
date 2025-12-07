@@ -2,7 +2,9 @@
 - (BOOL)isEqual:(id)equal;
 - (_INPBCreateFileIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)destinationTypeAsString:(int)string;
 - (id)dictionaryRepresentation;
+- (id)entityTypeAsString:(int)string;
 - (int)StringAsDestinationType:(id)type;
 - (int)StringAsEntityType:(id)type;
 - (unint64_t)hash;
@@ -284,7 +286,6 @@ LABEL_26:
 
   if ([(_INPBCreateFileIntent *)self hasDestinationType])
   {
-    destinationType = self->_destinationType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -298,19 +299,18 @@ LABEL_26:
 
   if ([(_INPBCreateFileIntent *)self hasEntityType])
   {
-    entityType = self->_entityType;
     PBDataWriterWriteInt32Field();
   }
 
   intentMetadata = [(_INPBCreateFileIntent *)self intentMetadata];
 
-  v11 = toCopy;
+  v9 = toCopy;
   if (intentMetadata)
   {
     intentMetadata2 = [(_INPBCreateFileIntent *)self intentMetadata];
     PBDataWriterWriteSubmessage();
 
-    v11 = toCopy;
+    v9 = toCopy;
   }
 }
 
@@ -340,6 +340,21 @@ LABEL_26:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)entityTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7280AA8 + string);
   }
 
   return v4;
@@ -401,6 +416,21 @@ LABEL_26:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)destinationTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7280AA8 + string);
   }
 
   return v4;

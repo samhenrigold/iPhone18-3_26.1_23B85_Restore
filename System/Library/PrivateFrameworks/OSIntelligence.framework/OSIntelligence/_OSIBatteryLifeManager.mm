@@ -60,18 +60,16 @@
 
 - (id)mitigationWithError:(id *)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = +[_OSBatteryPredictor predictor];
   v6 = [v5 batteryLifeMitigationWithError:error];
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Current OSIBLMitigation %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Current OSIBLMitigation %@", &v9, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

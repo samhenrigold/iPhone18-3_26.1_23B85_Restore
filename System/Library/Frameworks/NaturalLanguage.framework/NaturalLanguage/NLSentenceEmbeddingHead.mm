@@ -35,121 +35,117 @@
 
 - (BOOL)load
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   if ([(NLSentenceEmbeddingHead *)self isLoaded])
   {
-    v3 = 1;
+    return 1;
   }
 
-  else
+  modelURL = self->_modelURL;
+  configuration = self->_configuration;
+  v43 = 0;
+  v6 = [MEMORY[0x1E695FE90] modelWithContentsOfURL:modelURL configuration:configuration error:&v43];
+  v7 = v43;
+  model = self->_model;
+  self->_model = v6;
+
+  if (self->_model)
   {
-    modelURL = self->_modelURL;
-    configuration = self->_configuration;
-    v44 = 0;
-    v6 = [MEMORY[0x1E695FE90] modelWithContentsOfURL:modelURL configuration:configuration error:&v44];
-    v7 = v44;
-    model = self->_model;
-    self->_model = v6;
+    model = [(NLSentenceEmbeddingHead *)self model];
+    modelDescription = [model modelDescription];
+    inputDescriptionsByName = [modelDescription inputDescriptionsByName];
+    v12 = [inputDescriptionsByName objectForKeyedSubscript:@"input"];
+    multiArrayConstraint = [v12 multiArrayConstraint];
+    shape = [multiArrayConstraint shape];
 
-    if (self->_model)
+    if ([shape count] == 3 && (objc_msgSend(shape, "objectAtIndexedSubscript:", 2), v15 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v16 = objc_opt_isKindOfClass(), v15, (v16 & 1) != 0))
     {
-      model = [(NLSentenceEmbeddingHead *)self model];
-      modelDescription = [model modelDescription];
-      inputDescriptionsByName = [modelDescription inputDescriptionsByName];
-      v12 = [inputDescriptionsByName objectForKeyedSubscript:@"input"];
-      multiArrayConstraint = [v12 multiArrayConstraint];
-      shape = [multiArrayConstraint shape];
+      v17 = [shape objectAtIndexedSubscript:2];
+      self->_inputDimension = [v17 unsignedIntValue];
 
-      if ([shape count] == 3 && (objc_msgSend(shape, "objectAtIndexedSubscript:", 2), v15 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v16 = objc_opt_isKindOfClass(), v15, (v16 & 1) != 0))
+      model2 = [(NLSentenceEmbeddingHead *)self model];
+      modelDescription2 = [model2 modelDescription];
+      outputDescriptionsByName = [modelDescription2 outputDescriptionsByName];
+      v21 = [outputDescriptionsByName objectForKeyedSubscript:@"output"];
+      multiArrayConstraint2 = [v21 multiArrayConstraint];
+      shape2 = [multiArrayConstraint2 shape];
+
+      if ([shape2 count] == 3 && (objc_msgSend(shape2, "objectAtIndexedSubscript:", 2), v24 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v24, (isKindOfClass & 1) != 0))
       {
-        v17 = [shape objectAtIndexedSubscript:2];
-        self->_inputDimension = [v17 unsignedIntValue];
-
-        model2 = [(NLSentenceEmbeddingHead *)self model];
-        modelDescription2 = [model2 modelDescription];
-        outputDescriptionsByName = [modelDescription2 outputDescriptionsByName];
-        v21 = [outputDescriptionsByName objectForKeyedSubscript:@"output"];
-        multiArrayConstraint2 = [v21 multiArrayConstraint];
-        shape2 = [multiArrayConstraint2 shape];
-
-        if ([shape2 count] == 3 && (objc_msgSend(shape2, "objectAtIndexedSubscript:", 2), v24 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v24, (isKindOfClass & 1) != 0))
-        {
-          v26 = [shape2 objectAtIndexedSubscript:2];
-          self->_outputDimension = [v26 unsignedIntValue];
-          v3 = 1;
-        }
-
-        else
-        {
-          v37 = objc_autoreleasePoolPush();
-          v38 = NLGetLogCategory(self);
-          internal = [v38 internal];
-
-          if (os_log_type_enabled(internal, OS_LOG_TYPE_ERROR))
-          {
-            v40 = NLGetLogIdentifier(self);
-            v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Model load failed: unexpected output shape"];
-            *buf = 138543618;
-            v46 = v40;
-            v47 = 2114;
-            v48 = v41;
-            _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", buf, 0x16u);
-          }
-
-          objc_autoreleasePoolPop(v37);
-          v3 = 0;
-          v26 = self->_model;
-          self->_model = 0;
-        }
+        v26 = [shape2 objectAtIndexedSubscript:2];
+        self->_outputDimension = [v26 unsignedIntValue];
+        v3 = 1;
       }
 
       else
       {
-        v27 = objc_autoreleasePoolPush();
-        v28 = NLGetLogCategory(self);
-        internal2 = [v28 internal];
+        v37 = objc_autoreleasePoolPush();
+        v38 = NLGetLogCategory(self);
+        internal = [v38 internal];
 
-        if (os_log_type_enabled(internal2, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(internal, OS_LOG_TYPE_ERROR))
         {
-          v30 = NLGetLogIdentifier(self);
-          v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Model load failed: unexpected input shape"];
+          v40 = NLGetLogIdentifier(self);
+          v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Model load failed: unexpected output shape"];
           *buf = 138543618;
-          v46 = v30;
-          v47 = 2114;
-          v48 = v31;
-          _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", buf, 0x16u);
+          v45 = v40;
+          v46 = 2114;
+          v47 = v41;
+          _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v27);
+        objc_autoreleasePoolPop(v37);
         v3 = 0;
-        shape2 = self->_model;
+        v26 = self->_model;
         self->_model = 0;
       }
     }
 
     else
     {
-      v32 = objc_autoreleasePoolPush();
-      v33 = NLGetLogCategory(self);
-      internal3 = [v33 internal];
+      v27 = objc_autoreleasePoolPush();
+      v28 = NLGetLogCategory(self);
+      internal2 = [v28 internal];
 
-      if (os_log_type_enabled(internal3, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(internal2, OS_LOG_TYPE_ERROR))
       {
-        v35 = NLGetLogIdentifier(self);
-        v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Model load failed: %@", v7];
+        v30 = NLGetLogIdentifier(self);
+        v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Model load failed: unexpected input shape"];
         *buf = 138543618;
-        v46 = v35;
-        v47 = 2114;
-        v48 = v36;
-        _os_log_impl(&dword_19D48F000, internal3, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", buf, 0x16u);
+        v45 = v30;
+        v46 = 2114;
+        v47 = v31;
+        _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v32);
+      objc_autoreleasePoolPop(v27);
       v3 = 0;
+      shape2 = self->_model;
+      self->_model = 0;
     }
   }
 
-  v42 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v32 = objc_autoreleasePoolPush();
+    v33 = NLGetLogCategory(self);
+    internal3 = [v33 internal];
+
+    if (os_log_type_enabled(internal3, OS_LOG_TYPE_ERROR))
+    {
+      v35 = NLGetLogIdentifier(self);
+      v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Model load failed: %@", v7];
+      *buf = 138543618;
+      v45 = v35;
+      v46 = 2114;
+      v47 = v36;
+      _os_log_impl(&dword_19D48F000, internal3, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v32);
+    v3 = 0;
+  }
+
   return v3;
 }
 
@@ -163,16 +159,16 @@
 
 - (id)getSentenceEmbeddingFromPooledTokenEmbeddings:(id)embeddings error:(id *)error
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   embeddingsCopy = embeddings;
   v7 = objc_alloc(MEMORY[0x1E695FE48]);
-  v36 = @"input";
+  v35 = @"input";
   v8 = [MEMORY[0x1E695FE60] featureValueWithMultiArray:embeddingsCopy];
-  v37[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
-  v31 = 0;
-  v10 = [v7 initWithDictionary:v9 error:&v31];
-  v11 = v31;
+  v36[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+  v30 = 0;
+  v10 = [v7 initWithDictionary:v9 error:&v30];
+  v11 = v30;
 
   if (v11 || !v10)
   {
@@ -185,9 +181,9 @@
       v24 = NLGetLogIdentifier(self);
       v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create modelInput: %@", v11];
       *buf = 138543618;
-      v33 = v24;
-      v34 = 2114;
-      v35 = v25;
+      v32 = v24;
+      v33 = 2114;
+      v34 = v25;
       _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", buf, 0x16u);
     }
 
@@ -208,9 +204,9 @@
   else
   {
     model = self->_model;
-    v30 = 0;
-    v13 = [(MLModel *)model predictionFromFeatures:v10 error:&v30];
-    v11 = v30;
+    v29 = 0;
+    v13 = [(MLModel *)model predictionFromFeatures:v10 error:&v29];
+    v11 = v29;
     if (v11)
     {
       v14 = objc_autoreleasePoolPush();
@@ -222,9 +218,9 @@
         v17 = NLGetLogIdentifier(self);
         v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Model prediction failed: %@", v11];
         *buf = 138543618;
-        v33 = v17;
-        v34 = 2114;
-        v35 = v18;
+        v32 = v17;
+        v33 = 2114;
+        v34 = v18;
         _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", buf, 0x16u);
       }
 
@@ -248,8 +244,6 @@
       multiArrayValue = [v27 multiArrayValue];
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return multiArrayValue;
 }

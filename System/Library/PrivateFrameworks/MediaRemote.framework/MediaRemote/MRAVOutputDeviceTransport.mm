@@ -166,7 +166,7 @@
 + (id)_createConnectionWith:(id)with groupID:(id)d connectionType:(int64_t)type shouldUseSystemAuthenticationPrompt:(BOOL)prompt userInfo:(id)info
 {
   promptCopy = prompt;
-  v87[5] = *MEMORY[0x1E69E9840];
+  v86[5] = *MEMORY[0x1E69E9840];
   withCopy = with;
   dCopy = d;
   infoCopy = info;
@@ -194,71 +194,71 @@
   }
 
   v20 = dispatch_group_create();
-  v80 = 0;
-  v81 = &v80;
-  v82 = 0x3032000000;
-  v83 = __Block_byref_object_copy__2;
-  v84 = __Block_byref_object_dispose__2;
-  v85 = 0;
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x3032000000;
-  v77 = __Block_byref_object_copy__2;
-  v78 = __Block_byref_object_dispose__2;
   v79 = 0;
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x3032000000;
-  v71 = __Block_byref_object_copy__2;
-  v72 = __Block_byref_object_dispose__2;
+  v80 = &v79;
+  v81 = 0x3032000000;
+  v82 = __Block_byref_object_copy__2;
+  v83 = __Block_byref_object_dispose__2;
+  v84 = 0;
   v73 = 0;
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x3032000000;
-  v65 = __Block_byref_object_copy__2;
-  v21 = MEMORY[0x1E6958760];
-  v66 = __Block_byref_object_dispose__2;
+  v74 = &v73;
+  v75 = 0x3032000000;
+  v76 = __Block_byref_object_copy__2;
+  v77 = __Block_byref_object_dispose__2;
+  v78 = 0;
   v67 = 0;
+  v68 = &v67;
+  v69 = 0x3032000000;
+  v70 = __Block_byref_object_copy__2;
+  v71 = __Block_byref_object_dispose__2;
+  v72 = 0;
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x3032000000;
+  v64 = __Block_byref_object_copy__2;
+  v21 = MEMORY[0x1E6958760];
+  v65 = __Block_byref_object_dispose__2;
+  v66 = 0;
   if (type != 3)
   {
     v21 = MEMORY[0x1E6958758];
   }
 
   v22 = *v21;
-  v86[0] = *MEMORY[0x1E6958778];
+  v85[0] = *MEMORY[0x1E6958778];
   v23 = [MEMORY[0x1E696AD98] numberWithInt:!promptCopy];
   v24 = *MEMORY[0x1E6958780];
-  v87[0] = v23;
-  v87[1] = v22;
+  v86[0] = v23;
+  v86[1] = v22;
   v25 = *MEMORY[0x1E6958788];
-  v86[1] = v24;
-  v86[2] = v25;
+  v85[1] = v24;
+  v85[2] = v25;
   v26 = *MEMORY[0x1E6958790];
-  v87[2] = uUIDString;
-  v87[3] = v15;
+  v86[2] = uUIDString;
+  v86[3] = v15;
   v27 = *MEMORY[0x1E6958798];
-  v86[3] = v26;
-  v86[4] = v27;
-  v87[4] = MEMORY[0x1E695E118];
-  v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v87 forKeys:v86 count:5];
+  v85[3] = v26;
+  v85[4] = v27;
+  v86[4] = MEMORY[0x1E695E118];
+  v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:v85 count:5];
 
   dispatch_group_enter(v20);
   v29 = [[MRAVDiscoverySessionHelper alloc] initWithFeatures:8];
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __119__MRAVOutputDeviceTransport__createConnectionWith_groupID_connectionType_shouldUseSystemAuthenticationPrompt_userInfo___block_invoke;
-  v54[3] = &unk_1E769A5A8;
-  v58 = &v68;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __119__MRAVOutputDeviceTransport__createConnectionWith_groupID_connectionType_shouldUseSystemAuthenticationPrompt_userInfo___block_invoke;
+  v53[3] = &unk_1E769A5A8;
+  v57 = &v67;
   v30 = v20;
-  v55 = v30;
-  v59 = &v80;
+  v54 = v30;
+  v58 = &v79;
   v31 = v28;
-  v56 = v31;
+  v55 = v31;
   v32 = uUIDString;
-  v57 = v32;
-  v60 = &v74;
-  v61 = &v62;
-  [(MRAVDiscoverySessionHelper *)v29 searchAVOutputDeviceForUID:withCopy timeout:v32 identifier:v15 reason:v54 completion:5.0];
+  v56 = v32;
+  v59 = &v73;
+  v60 = &v61;
+  [(MRAVDiscoverySessionHelper *)v29 searchAVOutputDeviceForUID:withCopy timeout:v32 identifier:v15 reason:v53 completion:5.0];
   if (promptCopy)
   {
     v33 = 60.0;
@@ -271,8 +271,8 @@
 
   v34 = dispatch_time(0, (v33 * 1000000000.0));
   v35 = dispatch_group_wait(v30, v34);
-  v36 = v69[5];
-  if (v36 || !v75[5])
+  v36 = v68[5];
+  if (v36 || !v74[5])
   {
     if (v35)
     {
@@ -283,7 +283,7 @@ LABEL_24:
       goto LABEL_25;
     }
 
-    if (v63[5] == *MEMORY[0x1E6958770])
+    if (v62[5] == *MEMORY[0x1E6958770])
     {
       v45 = objc_alloc(MEMORY[0x1E696ABC0]);
       v46 = @"Skipped creating remote control communication channel. CancelIfAuthRequired was used";
@@ -308,20 +308,20 @@ LABEL_24:
   }
 
   v38 = [MRAirPlayTransportConnection alloc];
-  v39 = [(MRAirPlayTransportConnection *)v38 initWithOutputDeviceCommunicationChannel:v75[5]];
+  v39 = [(MRAirPlayTransportConnection *)v38 initWithOutputDeviceCommunicationChannel:v74[5]];
   v40 = v39;
   v41 = 0;
   if (dCopy && v39)
   {
-    v51 = [[MRConfigureConnectionMessage alloc] initWithGroupID:dCopy];
-    protobufData = [(MRProtocolMessage *)v51 protobufData];
+    v50 = [[MRConfigureConnectionMessage alloc] initWithGroupID:dCopy];
+    protobufData = [(MRProtocolMessage *)v50 protobufData];
     [v40 sendTransportData:protobufData options:0];
 
     v43 = objc_alloc_init(MRDeviceInfo);
     [(MRDeviceInfo *)v43 setDeviceUID:withCopy];
-    [(MRDeviceInfo *)v43 setName:v81[5]];
+    [(MRDeviceInfo *)v43 setName:v80[5]];
     v44 = +[MRProtocolMessageLogger sharedLogger];
-    [v44 logMessage:@"Message Sent:" label:@"RemoteControl" deviceInfo:v43 protocolMessage:v51];
+    [v44 logMessage:@"Message Sent:" label:@"RemoteControl" deviceInfo:v43 protocolMessage:v50];
 
     v41 = 0;
   }
@@ -329,13 +329,11 @@ LABEL_24:
 LABEL_25:
   v48 = [objc_alloc(MEMORY[0x1E69B1470]) initWithFirst:v40 second:v41];
 
-  _Block_object_dispose(&v62, 8);
-  _Block_object_dispose(&v68, 8);
+  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(&v67, 8);
 
-  _Block_object_dispose(&v74, 8);
-  _Block_object_dispose(&v80, 8);
-
-  v49 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v73, 8);
+  _Block_object_dispose(&v79, 8);
 
   return v48;
 }
@@ -390,37 +388,37 @@ void __119__MRAVOutputDeviceTransport__createConnectionWith_groupID_connectionTy
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v10 = v9;
   if (v8)
   {
-    v10 = MRLogCategoryConnections();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = MRLogCategoryConnections(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
+      v12 = *(a1 + 32);
       v22 = 138412546;
-      v23 = v11;
+      v23 = v12;
       v24 = 2112;
       v25 = v8;
-      _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_ERROR, "AVOutputDevice.openCommunicationChannelWithOptions<%@> -> %@", &v22, 0x16u);
+      _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_ERROR, "AVOutputDevice.openCommunicationChannelWithOptions<%@> -> %@", &v22, 0x16u);
     }
   }
 
-  v12 = *(*(a1 + 48) + 8);
-  v13 = *(v12 + 40);
-  *(v12 + 40) = v8;
-  v14 = v8;
+  v13 = *(*(a1 + 48) + 8);
+  v14 = *(v13 + 40);
+  *(v13 + 40) = v8;
+  v15 = v8;
 
-  v15 = *(*(a1 + 56) + 8);
-  v16 = *(v15 + 40);
-  *(v15 + 40) = v7;
-  v17 = v7;
+  v16 = *(*(a1 + 56) + 8);
+  v17 = *(v16 + 40);
+  *(v16 + 40) = v7;
+  v18 = v7;
 
-  v18 = *(*(a1 + 64) + 8);
-  v19 = *(v18 + 40);
-  *(v18 + 40) = v9;
-  v20 = v9;
+  v19 = *(*(a1 + 64) + 8);
+  v20 = *(v19 + 40);
+  *(v19 + 40) = v10;
+  v21 = v10;
 
   dispatch_group_leave(*(a1 + 40));
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetWithError:(id)error

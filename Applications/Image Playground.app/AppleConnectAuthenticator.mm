@@ -6,8 +6,8 @@
 
 - (void)authenticateIfNeededWithCompletion:(id)completion
 {
-  v5 = (*(*(sub_1000026DC(&qword_100018B58, &qword_100010DF8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_1000026DC(&qword_100018B58, &qword_100010DF8);
+  __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(completion);
   v9 = swift_allocObject();

@@ -113,9 +113,12 @@
 
 uint64_t __40__AXAirPodSettingsManager_pairedAirPods__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _pairedAirPods];
+  v2 = [*(a1 + 32) _pairedAirPods];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)_pairedAirPods
@@ -280,24 +283,28 @@ LABEL_13:
 
 uint64_t __47__AXAirPodSettingsManager__pairedProductsFlags__block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  if ([v5 productId] == 8206 || objc_msgSend(v5, "productId") == 8202 || objc_msgSend(v5, "productId") == 8211 || objc_msgSend(v5, "productId") == 8212 || objc_msgSend(v5, "productId") == 8228 || objc_msgSend(v5, "productId") == 8217 || objc_msgSend(v5, "productId") == 8219 || objc_msgSend(v5, "productId") == 8222 || objc_msgSend(v5, "productId") == 8231 || objc_msgSend(v5, "productId") == 8223)
+  v7 = a2;
+  v3 = [v7 productId];
+  if (v3 == 8206 || (v3 = [v7 productId], v3 == 8202) || (v3 = objc_msgSend(v7, "productId"), v3 == 8211) || (v3 = objc_msgSend(v7, "productId"), v3 == 8212) || (v3 = objc_msgSend(v7, "productId"), v3 == 8228) || (v3 = objc_msgSend(v7, "productId"), v3 == 8217) || (v3 = objc_msgSend(v7, "productId"), v3 == 8219) || (v3 = objc_msgSend(v7, "productId"), v3 == 8222) || (v3 = objc_msgSend(v7, "productId"), v3 == 8231) || (v3 = objc_msgSend(v7, "productId"), v3 == 8223))
   {
-    v3 = 1;
+    v4 = 1;
+    v5 = v7;
 LABEL_12:
-    *(*(*(a1 + 32) + 8) + 24) |= v3;
+    *(*(*(a1 + 32) + 8) + 24) |= v4;
     goto LABEL_13;
   }
 
-  if (AXIsBeatsProductId(v5))
+  v3 = AXIsBeatsProductId(v7);
+  v5 = v7;
+  if (v3)
   {
-    v3 = 2;
+    v4 = 2;
     goto LABEL_12;
   }
 
 LABEL_13:
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v5);
 }
 
 - (id)titleForSettings
@@ -405,24 +412,28 @@ LABEL_13:
 
 uint64_t __47__AXAirPodSettingsManager_disambiguationString__block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  if ([v5 productId] == 8206 || objc_msgSend(v5, "productId") == 8202 || objc_msgSend(v5, "productId") == 8211 || objc_msgSend(v5, "productId") == 8212 || objc_msgSend(v5, "productId") == 8228 || objc_msgSend(v5, "productId") == 8217 || objc_msgSend(v5, "productId") == 8219 || objc_msgSend(v5, "productId") == 8222 || objc_msgSend(v5, "productId") == 8231 || objc_msgSend(v5, "productId") == 8223)
+  v7 = a2;
+  v3 = [v7 productId];
+  if (v3 == 8206 || (v3 = [v7 productId], v3 == 8202) || (v3 = objc_msgSend(v7, "productId"), v3 == 8211) || (v3 = objc_msgSend(v7, "productId"), v3 == 8212) || (v3 = objc_msgSend(v7, "productId"), v3 == 8228) || (v3 = objc_msgSend(v7, "productId"), v3 == 8217) || (v3 = objc_msgSend(v7, "productId"), v3 == 8219) || (v3 = objc_msgSend(v7, "productId"), v3 == 8222) || (v3 = objc_msgSend(v7, "productId"), v3 == 8231) || (v3 = objc_msgSend(v7, "productId"), v3 == 8223))
   {
-    v3 = 32;
+    v4 = 32;
+    v5 = v7;
 LABEL_12:
-    *(*(*(a1 + v3) + 8) + 24) = 1;
+    *(*(*(a1 + v4) + 8) + 24) = 1;
     goto LABEL_13;
   }
 
-  if (AXIsBeatsProductId(v5))
+  v3 = AXIsBeatsProductId(v7);
+  v5 = v7;
+  if (v3)
   {
-    v3 = 40;
+    v4 = 40;
     goto LABEL_12;
   }
 
 LABEL_13:
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v5);
 }
 
 - (BOOL)isAirPodProduct:(id)product
@@ -1271,13 +1282,13 @@ LABEL_10:
   AXPerformBlockOnMainThreadAfterDelay();
 }
 
-uint64_t __41__AXAirPodSettingsManager__didDisconnect__block_invoke(uint64_t a1)
+uint64_t __41__AXAirPodSettingsManager__didDisconnect__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = AXLogAirPodSettings();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = AXLogAirPodSettings();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_18B15E000, v2, OS_LOG_TYPE_DEFAULT, "BT disconnected, restarting session", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_18B15E000, v3, OS_LOG_TYPE_DEFAULT, "BT disconnected, restarting session", v5, 2u);
   }
 
   return [*(a1 + 32) start];
@@ -1478,7 +1489,7 @@ uint64_t __41__AXAirPodSettingsManager__didDisconnect__block_invoke(uint64_t a1)
       v10 = AXLogAirPodSettings();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [AXAirPodSettingsManager _retrieveSettingsForAddress:];
+        [AXAirPodSettingsManager _retrieveSettingsForAddress:addressCopy];
       }
     }
 
@@ -2180,9 +2191,11 @@ LABEL_85:
 
 uint64_t __41__AXAirPodSettingsManager_sharedInstance__block_invoke()
 {
-  sharedInstance_shared = [[AXAirPodSettingsManager alloc] initSharedInstance];
+  v0 = [[AXAirPodSettingsManager alloc] initSharedInstance];
+  v1 = sharedInstance_shared;
+  sharedInstance_shared = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __72__AXAirPodSettingsManager__accessoryEventForManager_event_device_state___block_invoke_cold_1(uint64_t a1, NSObject *a2)
@@ -2194,24 +2207,28 @@ void __72__AXAirPodSettingsManager__accessoryEventForManager_event_device_state_
   _os_log_debug_impl(&dword_18B15E000, a2, OS_LOG_TYPE_DEBUG, "Will retrieve Settings from devices: %@", &v3, 0xCu);
 }
 
-- (void)_retrieveSettingsForAddress:.cold.3()
+- (void)_retrieveSettingsForAddress:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v0 = [MEMORY[0x1E696AD98] numberWithInt:0];
-  OUTLINED_FUNCTION_2(&dword_18B15E000, v1, v2, "default tone volume is not valid [%@] for air pods: %@", v3, v4, v5, v6, 2u);
+  v2 = [MEMORY[0x1E696AD98] numberWithInt:0];
+  *v9 = 138412546;
+  *&v9[4] = v2;
+  *&v9[12] = 2112;
+  *&v9[14] = a1;
+  OUTLINED_FUNCTION_2(&dword_18B15E000, v3, v4, "default tone volume is not valid [%@] for air pods: %@", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 - (void)_applySettingsForAddress:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
 {
   v2 = [MEMORY[0x1E696AD98] numberWithInt:a2];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_18B15E000, v3, v4, "could not set tone volume for air pods: %@ -> [%@]", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2(&dword_18B15E000, v3, v4, "could not set tone volume for air pods: %@ -> [%@]", v5, v6, v7, v8);
 }
 
 - (void)_applySettingsForAddress:(uint64_t)a1 .cold.6(uint64_t a1, uint64_t a2)
 {
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a2];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_2(&dword_18B15E000, v3, v4, "could not set case tones volume for headset: %@ -> [%@]", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2(&dword_18B15E000, v3, v4, "could not set case tones volume for headset: %@ -> [%@]", v5, v6, v7, v8);
 }
 
 @end

@@ -34,7 +34,7 @@
 
 - (id)outputImage
 {
-  v50[4] = *MEMORY[0x1E69E9840];
+  v52[4] = *MEMORY[0x1E69E9840];
   if (!self->inputImage || (inputPaletteImage = self->inputPaletteImage) == 0)
   {
 
@@ -42,10 +42,11 @@
   }
 
   [(CIImage *)inputPaletteImage extent];
-  if (CGRectIsInfinite(v52) || ([(CIImage *)self->inputPaletteImage extent], v4 > 1.0))
+  IsInfinite = CGRectIsInfinite(v54);
+  if ((IsInfinite & 1) != 0 || (IsInfinite = [(CIImage *)self->inputPaletteImage extent], v6 > 1.0))
   {
-    v5 = ci_logger_api();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = ci_logger_api(IsInfinite, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(CIPaletteCentroid *)&self->inputPaletteImage outputImage];
     }
@@ -54,7 +55,7 @@
   }
 
   [(CIImage *)self->inputPaletteImage extent];
-  v8 = v7;
+  v10 = v9;
   inputImage = self->inputImage;
   inputPerceptual = self->inputPerceptual;
   if (inputPerceptual)
@@ -68,64 +69,64 @@
   }
 
   [(CIImage *)self->inputImage extent];
-  v13 = v12;
   v15 = v14;
   v17 = v16;
   v19 = v18;
+  v21 = v20;
   _kernelClusterMask = [(CIPaletteCentroid *)self _kernelClusterMask];
-  v21 = self->inputPaletteImage;
-  [(CIImage *)v21 extent];
-  v23 = -v22;
+  v23 = self->inputPaletteImage;
+  [(CIImage *)v23 extent];
+  v25 = -v24;
   [(CIImage *)self->inputPaletteImage extent];
-  CGAffineTransformMakeTranslation(&v47, v23, -v24);
-  v25 = [(CIImage *)v21 imageByApplyingTransform:&v47];
+  CGAffineTransformMakeTranslation(&v49, v25, -v26);
+  v27 = [(CIImage *)v23 imageByApplyingTransform:&v49];
   if (bOOLValue)
   {
     inputImage = [(CIImage *)inputImage imageByApplyingFilter:@"CILinearToSRGBToneCurve"];
-    v25 = [(CIImage *)v25 imageByApplyingFilter:@"CILinearToSRGBToneCurve"];
+    v27 = [(CIImage *)v27 imageByApplyingFilter:@"CILinearToSRGBToneCurve"];
   }
 
   imageByUnpremultiplyingAlpha = [(CIImage *)inputImage imageByUnpremultiplyingAlpha];
-  v27 = +[CIImage emptyImage];
-  if (v8)
+  v29 = +[CIImage emptyImage];
+  if (v10)
   {
-    v28 = 0;
-    v45 = MEMORY[0x1E69E9820];
-    v44 = __32__CIPaletteCentroid_outputImage__block_invoke;
-    v29 = MEMORY[0x1E695F040];
-    v43 = 3221225472;
+    v30 = 0;
+    v47 = MEMORY[0x1E69E9820];
+    v46 = __32__CIPaletteCentroid_outputImage__block_invoke;
+    v31 = MEMORY[0x1E695F040];
+    v45 = 3221225472;
     do
     {
-      v30 = v17;
-      v31 = v15;
-      v32 = v13;
-      v33 = *v29;
-      v34 = v29[1];
-      v35 = v29[2];
-      v36 = v29[3];
-      v50[0] = imageByUnpremultiplyingAlpha;
-      v50[1] = v25;
-      v50[2] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:{v8, v43, v44, v45, v45, v43, v44, &__block_descriptor_40_e73__CGRect__CGPoint_dd__CGSize_dd__44__0i8_CGRect__CGPoint_dd__CGSize_dd__12l, v8}];
-      v50[3] = [MEMORY[0x1E696AD98] numberWithInt:v28];
-      v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:4];
-      v38 = v34;
-      v13 = v32;
-      v15 = v31;
-      v17 = v30;
-      v39 = _kernelClusterMask;
-      v40 = [_kernelClusterMask applyWithExtent:&v46 roiCallback:v37 arguments:{v33, v38, v35, v36}];
-      v48 = @"inputExtent";
-      v49 = [CIVector vectorWithCGRect:v13, v15, v30, v19];
-      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-      v42 = v40;
-      _kernelClusterMask = v39;
-      v27 = [objc_msgSend(objc_msgSend(objc_msgSend(v42 imageByApplyingFilter:@"CIAreaRedCentroid" withInputParameters:{v41), "imageByClampingToExtent"), "imageByCroppingToRect:", v28++, 0.0, 1.0, 1.0), "imageByCompositingOverImage:", v27}];
+      v32 = v19;
+      v33 = v17;
+      v34 = v15;
+      v35 = *v31;
+      v36 = v31[1];
+      v37 = v31[2];
+      v38 = v31[3];
+      v52[0] = imageByUnpremultiplyingAlpha;
+      v52[1] = v27;
+      v52[2] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:{v10, v45, v46, v47, v47, v45, v46, &__block_descriptor_40_e73__CGRect__CGPoint_dd__CGSize_dd__44__0i8_CGRect__CGPoint_dd__CGSize_dd__12l, v10}];
+      v52[3] = [MEMORY[0x1E696AD98] numberWithInt:v30];
+      v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:4];
+      v40 = v36;
+      v15 = v34;
+      v17 = v33;
+      v19 = v32;
+      v41 = _kernelClusterMask;
+      v42 = [_kernelClusterMask applyWithExtent:&v48 roiCallback:v39 arguments:{v35, v40, v37, v38}];
+      v50 = @"inputExtent";
+      v51 = [CIVector vectorWithCGRect:v15, v17, v32, v21];
+      v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+      v44 = v42;
+      _kernelClusterMask = v41;
+      v29 = [objc_msgSend(objc_msgSend(objc_msgSend(v44 imageByApplyingFilter:@"CIAreaRedCentroid" withInputParameters:{v43), "imageByClampingToExtent"), "imageByCroppingToRect:", v30++, 0.0, 1.0, 1.0), "imageByCompositingOverImage:", v29}];
     }
 
-    while (v8 != v28);
+    while (v10 != v30);
   }
 
-  return [(CIImage *)v27 imageBySettingProperties:MEMORY[0x1E695E0F8]];
+  return [(CIImage *)v29 imageBySettingProperties:MEMORY[0x1E695E0F8]];
 }
 
 double __32__CIPaletteCentroid_outputImage__block_invoke(uint64_t a1, int a2)

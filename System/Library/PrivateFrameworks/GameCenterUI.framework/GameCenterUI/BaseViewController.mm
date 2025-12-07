@@ -30,7 +30,7 @@
 {
   scrollCopy = scroll;
   selfCopy = self;
-  sub_24E16F8A4();
+  sub_24E16F8A4(scrollCopy);
 }
 
 - (_TtC12GameCenterUI18BaseViewController)initWithNibName:(id)name bundle:(id)bundle

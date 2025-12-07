@@ -12,7 +12,7 @@
   *(&self->super.super.super.isa + OBJC_IVAR____TtC14WritingToolsUI27WTAlertHeaderViewController_imageView) = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC14WritingToolsUI27WTAlertHeaderViewController_image) = image;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for WTAlertHeaderViewController();
+  v6.super_class = type metadata accessor for WTAlertHeaderViewController(self, a2);
   imageCopy = image;
   return [(WTAlertHeaderViewController *)&v6 initWithNibName:0 bundle:0];
 }
@@ -28,7 +28,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1D454ABA8();
+  sub_1D454ABA8(selfCopy, v2);
 }
 
 - (_TtC14WritingToolsUI27WTAlertHeaderViewController)initWithNibName:(id)name bundle:(id)bundle

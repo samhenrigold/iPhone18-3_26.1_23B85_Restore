@@ -18,23 +18,21 @@
 
 - (id)requestPayload
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   deviceName = [(SASProximityMigrationTransferPreparationAction *)self deviceName];
 
   if (deviceName)
   {
-    v8 = @"deviceName";
+    v7 = @"deviceName";
     deviceName2 = [(SASProximityMigrationTransferPreparationAction *)self deviceName];
-    v9[0] = deviceName2;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v8[0] = deviceName2;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

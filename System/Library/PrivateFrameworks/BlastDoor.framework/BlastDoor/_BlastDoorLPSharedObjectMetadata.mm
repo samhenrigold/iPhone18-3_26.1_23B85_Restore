@@ -9,11 +9,11 @@
 
 - (_BlastDoorLPSharedObjectMetadata)initWithCoder:(id)coder
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = _BlastDoorLPSharedObjectMetadata;
-  v5 = [(_BlastDoorLPSharedObjectMetadata *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = _BlastDoorLPSharedObjectMetadata;
+  v5 = [(_BlastDoorLPSharedObjectMetadata *)&v21 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"title");
@@ -36,9 +36,9 @@
     if ([coderCopy containsValueForKey:@"specialization"])
     {
       v14 = allKnownSpecializationClasses();
-      v21 = 0;
-      v15 = [coderCopy _bd_lp_strictlyDecodeTopLevelObjectOfClasses:v14 forKey:@"specialization" error:&v21];
-      v16 = v21;
+      v20 = 0;
+      v15 = [coderCopy _bd_lp_strictlyDecodeTopLevelObjectOfClasses:v14 forKey:@"specialization" error:&v20];
+      v16 = v20;
       icon = v5->_icon;
       v5->_icon = v15;
     }
@@ -46,7 +46,6 @@
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -91,11 +90,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v27.receiver = self;
-  v27.super_class = _BlastDoorLPSharedObjectMetadata;
-  if ([(_BlastDoorLPSharedObjectMetadata *)&v27 isEqual:equalCopy])
+  v26.receiver = self;
+  v26.super_class = _BlastDoorLPSharedObjectMetadata;
+  if ([(_BlastDoorLPSharedObjectMetadata *)&v26 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -108,44 +107,7 @@
       v6 = equalCopy;
       v7 = *&self->_isCollaboration;
       title = [v6 title];
-      if (v7 | title)
-      {
-        v9 = title;
-        v10 = [v7 isEqual:title];
-
-        if (!v10)
-        {
-          goto LABEL_16;
-        }
-      }
-
-      title = self->_title;
-      subtitle = [v6 subtitle];
-      if (title | subtitle)
-      {
-        v13 = subtitle;
-        v14 = [(NSString *)title isEqual:subtitle];
-
-        if (!v14)
-        {
-          goto LABEL_16;
-        }
-      }
-
-      subtitle = self->_subtitle;
-      information = [v6 information];
-      if (subtitle | information)
-      {
-        v17 = information;
-        v18 = [(NSString *)subtitle isEqual:information];
-
-        if (!v18)
-        {
-          goto LABEL_16;
-        }
-      }
-
-      if (v6[9] == *(&self->super.__dummyPropertyForObservation + 1) && ((information = self->_information, [v6 icon], v20 = objc_claimAutoreleasedReturnValue(), !(information | v20)) || (v21 = v20, v22 = -[NSString isEqual:](information, "isEqual:", v20), v21, v22)))
+      if ((!(v7 | title) || (v9 = title, v10 = [v7 isEqual:title], v9, v10)) && ((title = self->_title, objc_msgSend(v6, "subtitle"), v12 = objc_claimAutoreleasedReturnValue(), !(title | v12)) || (v13 = v12, v14 = -[NSString isEqual:](title, "isEqual:", v12), v13, v14)) && ((subtitle = self->_subtitle, objc_msgSend(v6, "information"), v16 = objc_claimAutoreleasedReturnValue(), !(subtitle | v16)) || (v17 = v16, v18 = -[NSString isEqual:](subtitle, "isEqual:", v16), v17, v18)) && v6[9] == *(&self->super.__dummyPropertyForObservation + 1) && ((information = self->_information, objc_msgSend(v6, "icon"), v20 = objc_claimAutoreleasedReturnValue(), !(information | v20)) || (v21 = v20, v22 = -[NSString isEqual:](information, "isEqual:", v20), v21, v22)))
       {
         icon = self->_icon;
         specialization = [v6 specialization];
@@ -162,7 +124,6 @@
 
       else
       {
-LABEL_16:
         v5 = 0;
       }
     }
@@ -173,7 +134,6 @@ LABEL_16:
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

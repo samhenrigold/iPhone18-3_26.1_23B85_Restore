@@ -9,7 +9,7 @@
   if (a4)
   {
 
-    [self setHidden:1];
+    [self setHidden:{1, a2}];
   }
 
   else

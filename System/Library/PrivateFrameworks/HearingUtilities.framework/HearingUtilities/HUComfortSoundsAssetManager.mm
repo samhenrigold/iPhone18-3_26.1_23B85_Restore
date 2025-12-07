@@ -97,60 +97,54 @@ uint64_t __43__HUComfortSoundsAssetManager_assetWithId___block_invoke(uint64_t a
 
 - (void)downloadAssetWithId:(id)id
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v4 = [(HUComfortSoundsAssetManager *)self assetWithId:id];
   v5 = v4;
   if (v4)
   {
     assetController = self->_assetController;
-    v11[0] = v4;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __51__HUComfortSoundsAssetManager_downloadAssetWithId___block_invoke;
-    v9[3] = &unk_1E85CA050;
-    v10 = v5;
-    [(AXAssetController *)assetController downloadAssets:v7 successStartBlock:v9];
+    v10[0] = v4;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __51__HUComfortSoundsAssetManager_downloadAssetWithId___block_invoke;
+    v8[3] = &unk_1E85CA050;
+    v9 = v5;
+    [(AXAssetController *)assetController downloadAssets:v7 successStartBlock:v8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-void __51__HUComfortSoundsAssetManager_downloadAssetWithId___block_invoke(uint64_t a1)
+void __51__HUComfortSoundsAssetManager_downloadAssetWithId___block_invoke(uint64_t a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v2 = HCLogComfortSounds();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = HCLogComfortSounds();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1DA5E2000, v2, OS_LOG_TYPE_DEFAULT, "Started downloading %@", &v5, 0xCu);
+    v6 = v4;
+    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "Started downloading %@", &v5, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAssetWithId:(id)id
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v4 = [(HUComfortSoundsAssetManager *)self assetWithId:id];
   v5 = v4;
   if (v4)
   {
     assetController = self->_assetController;
-    v9[0] = v4;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = v4;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
     [(AXAssetController *)assetController purgeAssets:v7 completion:0];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)assetController:(id)controller didFinishRefreshingAssets:(id)assets wasSuccessful:(BOOL)successful error:(id)error
 {
   successfulCopy = successful;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
   errorCopy = error;
   v11 = HCLogComfortSounds();
@@ -167,9 +161,9 @@ void __51__HUComfortSoundsAssetManager_downloadAssetWithId___block_invoke(uint64
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = assetsCopy;
-      _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "Found Assets %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = assetsCopy;
+      _os_log_impl(&dword_1DA5E2000, v12, OS_LOG_TYPE_DEFAULT, "Found Assets %@", &v16, 0xCu);
     }
 
     v12 = [assetsCopy indexesOfObjectsPassingTest:&__block_literal_global_0];
@@ -180,13 +174,11 @@ void __51__HUComfortSoundsAssetManager_downloadAssetWithId___block_invoke(uint64
     delegate = [(HUComfortSoundsAssetManager *)self delegate];
     [delegate availableAssetsDidUpdate];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __93__HUComfortSoundsAssetManager_assetController_didFinishRefreshingAssets_wasSuccessful_error___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = HCLogComfortSounds();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -194,18 +186,17 @@ BOOL __93__HUComfortSoundsAssetManager_assetController_didFinishRefreshingAssets
     v4 = [v2 properties];
     v5 = [v4 valueForKey:@"SoundName"];
     v6 = [v2 properties];
-    v12 = 138412546;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "The asset %@ property is %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "The asset %@ property is %@", &v11, 0x16u);
   }
 
   v7 = [v2 properties];
   v8 = [v7 valueForKey:@"AssetType"];
   v9 = v8 != 0;
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -242,7 +233,7 @@ uint64_t __93__HUComfortSoundsAssetManager_assetController_didFinishRefreshingAs
 - (void)assetController:(id)controller didFinishDownloadingAsset:(id)asset wasSuccessful:(BOOL)successful error:(id)error hasRemainingDownloads:(BOOL)downloads
 {
   successfulCopy = successful;
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   assetCopy = asset;
   errorCopy = error;
@@ -269,7 +260,7 @@ uint64_t __93__HUComfortSoundsAssetManager_assetController_didFinishRefreshingAs
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v34 = v14;
+          v33 = v14;
           _os_log_impl(&dword_1DA5E2000, v23, OS_LOG_TYPE_DEFAULT, "Resetting selected bg sound %@", buf, 0xCu);
         }
       }
@@ -300,31 +291,27 @@ uint64_t __93__HUComfortSoundsAssetManager_assetController_didFinishRefreshingAs
   {
     v30 = [HUComfortSound comfortSoundWithAsset:assetCopy];
     *buf = 138412546;
-    v34 = assetCopy;
-    v35 = 2112;
-    v36 = v30;
+    v33 = assetCopy;
+    v34 = 2112;
+    v35 = v30;
     _os_log_impl(&dword_1DA5E2000, v29, OS_LOG_TYPE_DEFAULT, "Finished downloading asset %@ - %@", buf, 0x16u);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)assetController:(id)controller didFinishPurgingAssets:(id)assets wasSuccessful:(BOOL)successful error:(id)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
   v8 = HCLogComfortSounds();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = assetsCopy;
-    _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "Finished purging assets %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = assetsCopy;
+    _os_log_impl(&dword_1DA5E2000, v8, OS_LOG_TYPE_DEFAULT, "Finished purging assets %@", &v10, 0xCu);
   }
 
   delegate = [(HUComfortSoundsAssetManager *)self delegate];
   [delegate availableAssetsDidUpdate];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (HUComfortSoundsAssetManagerDelegate)delegate
@@ -336,13 +323,12 @@ uint64_t __93__HUComfortSoundsAssetManager_assetController_didFinishRefreshingAs
 
 - (void)assetController:(os_log_t)log didFinishRefreshingAssets:wasSuccessful:error:.cold.1(char a1, uint64_t a2, os_log_t log)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 67109378;
-  v4[1] = a1 & 1;
-  v5 = 2112;
-  v6 = a2;
-  _os_log_error_impl(&dword_1DA5E2000, log, OS_LOG_TYPE_ERROR, "Error loading assets %d = %@", v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109378;
+  v3[1] = a1 & 1;
+  v4 = 2112;
+  v5 = a2;
+  _os_log_error_impl(&dword_1DA5E2000, log, OS_LOG_TYPE_ERROR, "Error loading assets %d = %@", v3, 0x12u);
 }
 
 @end

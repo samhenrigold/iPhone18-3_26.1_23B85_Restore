@@ -28,9 +28,10 @@
 
 uint64_t __37__ICUIApplicationShim_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(ICUIApplicationShim);
+  v0 = objc_alloc_init(ICUIApplicationShim);
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (BOOL)isSecureScreenShowing

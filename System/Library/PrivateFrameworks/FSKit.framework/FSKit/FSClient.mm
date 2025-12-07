@@ -41,6 +41,7 @@
 - (void)probeResource:(id)resource usingBundle:(id)bundle auditToken:(id *)token replyHandler:(id)handler;
 - (void)probeResource:(id)resource usingBundle:(id)bundle replyHandler:(id)handler;
 - (void)probeResourceSync:(id)sync usingBundle:(id)bundle replyHandler:(id)handler;
+- (void)setEnabledStateForIdentifier:(id)identifier newState:(BOOL)state replyHandler:(id)handler;
 - (void)setTaskUpdateHandler:(id)handler replyHandler:(id)replyHandler;
 - (void)setupConnection;
 - (void)setupHandlers;
@@ -55,10 +56,9 @@
 
 - (void)setupConnection
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)remoteObjectProxyWithErrorHandler:(id)handler
@@ -163,7 +163,7 @@ void __25__FSClient_setupHandlers__block_invoke_3(uint64_t a1)
 
 - (void)handleInvalidated
 {
-  v3 = fskit_std_log();
+  v3 = fskit_std_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v9 = 0;
@@ -220,19 +220,19 @@ void __25__FSClient_setupHandlers__block_invoke_3(uint64_t a1)
 + (FSClient)sharedInstance
 {
   v8 = *MEMORY[0x277D85DE8];
-  if (MKBGetDeviceLockState() == 3 || MKBDeviceUnlockedSinceBoot())
+  if (MKBGetDeviceLockState() == 3 || (v2 = MKBDeviceUnlockedSinceBoot(), v2))
   {
     if (sharedInstance_onceToken != -1)
     {
       +[FSClient sharedInstance];
     }
 
-    v2 = sharedInstance_sharedInstance;
+    v3 = sharedInstance_sharedInstance;
   }
 
   else
   {
-    v5 = fskit_std_log();
+    v5 = fskit_std_log(v2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = 136315138;
@@ -240,12 +240,10 @@ void __25__FSClient_setupHandlers__block_invoke_3(uint64_t a1)
       _os_log_impl(&dword_24A929000, v5, OS_LOG_TYPE_INFO, "%s: Device was never unlocked", &v6, 0xCu);
     }
 
-    v2 = 0;
+    v3 = 0;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
-
-  return v2;
+  return v3;
 }
 
 uint64_t __26__FSClient_sharedInstance__block_invoke()
@@ -760,13 +758,13 @@ uint64_t __55__FSClient_Private__setTaskUpdateHandler_replyHandler___block_invok
 
 - (void)validateVolumeName:(id)name usingBundle:(id)bundle volumeID:(id)d replyHandler:(id)handler
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   bundleCopy = bundle;
   dCopy = d;
   handlerCopy = handler;
   uTF8String = [nameCopy UTF8String];
-  v15 = fskit_std_log();
+  v15 = fskit_std_log(uTF8String);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
@@ -774,9 +772,9 @@ uint64_t __55__FSClient_Private__setTaskUpdateHandler_replyHandler___block_invok
     *&buf[12] = 2080;
     *&buf[14] = uTF8String;
     *&buf[22] = 2112;
-    v38 = bundleCopy;
-    v39 = 2112;
-    v40 = dCopy;
+    v39 = bundleCopy;
+    v40 = 2112;
+    v41 = dCopy;
     _os_log_debug_impl(&dword_24A929000, v15, OS_LOG_TYPE_DEBUG, "%s:start:%s:%@:%@", buf, 0x2Au);
   }
 
@@ -793,7 +791,7 @@ LABEL_5:
     }
 
     v18 = 0;
-    v20 = "*/:<>?\\|";
+    v21 = "*/:<>?\\|";
     goto LABEL_17;
   }
 
@@ -806,7 +804,7 @@ LABEL_5:
     }
 
     v18 = 0;
-    v20 = "*+,./:;<=>?[\\]|";
+    v21 = "*+,./:;<=>?[\\]|";
     goto LABEL_17;
   }
 
@@ -817,13 +815,13 @@ LABEL_5:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      LOBYTE(v38) = 0;
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __74__FSClient_Private__validateVolumeName_usingBundle_volumeID_replyHandler___block_invoke;
-      v34[3] = &unk_278FED578;
-      v34[4] = buf;
-      [(FSClient *)self installedExtensionWithBundleID:bundleCopy synchronous:1 replyHandler:v34];
+      LOBYTE(v39) = 0;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __74__FSClient_Private__validateVolumeName_usingBundle_volumeID_replyHandler___block_invoke;
+      v35[3] = &unk_278FED578;
+      v35[4] = buf;
+      v32 = [(FSClient *)self installedExtensionWithBundleID:bundleCopy synchronous:1 replyHandler:v35];
       if (*(*&buf[8] + 24))
       {
         v18 = 0;
@@ -831,14 +829,14 @@ LABEL_5:
 
       else
       {
-        v31 = fskit_std_log();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v33 = fskit_std_log(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           [FSClient(Private) validateVolumeName:usingBundle:volumeID:replyHandler:];
         }
 
-        v32 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v18 = _FSKitLocalizedStringWithFormat(@"UnknownBundle", @"FSClientLocalizable", v32);
+        v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v18 = _FSKitLocalizedStringWithFormat(@"UnknownBundle", @"FSClientLocalizable", v34);
       }
 
       _Block_object_dispose(buf, 8);
@@ -848,45 +846,47 @@ LABEL_5:
       }
 
 LABEL_43:
-      v30 = 0;
+      v31 = 0;
       goto LABEL_44;
     }
 
     if ([nameCopy length] < 0x100)
     {
       v18 = 0;
-      v20 = "/:";
+      v21 = "/:";
 LABEL_18:
-      if ([nameCopy length])
+      v19 = [nameCopy length];
+      if (v19)
       {
-        v21 = 0;
+        v22 = 0;
         while (1)
         {
-          v22 = *(uTF8String + v21);
-          if (v22 == 32 && v21 == 0)
+          v23 = *(uTF8String + v22);
+          if (v23 == 32 && v22 == 0)
           {
             break;
           }
 
-          if (v22 < 0x20 || strchr(v20, v22))
+          if (v23 < 0x20 || strchr(v21, v23))
           {
-            v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-            v25 = _FSKitLocalizedStringWithFormat(@"VolNameContainsInvalidChars", @"FSClientLocalizable", v24);
+            v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+            v26 = _FSKitLocalizedStringWithFormat(@"VolNameContainsInvalidChars", @"FSClientLocalizable", v25);
 
             goto LABEL_30;
           }
 
-          if ([nameCopy length] <= ++v21)
+          v19 = [nameCopy length];
+          if (v19 <= ++v22)
           {
             goto LABEL_31;
           }
         }
 
-        v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v25 = _FSKitLocalizedStringWithFormat(@"VolNameStartsWithSpace", @"FSClientLocalizable", v26);
+        v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v26 = _FSKitLocalizedStringWithFormat(@"VolNameStartsWithSpace", @"FSClientLocalizable", v27);
 
 LABEL_30:
-        v18 = v25;
+        v18 = v26;
       }
 
       goto LABEL_31;
@@ -894,7 +894,7 @@ LABEL_30:
 
     precomposedStringWithCanonicalMapping = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v18 = _FSKitLocalizedStringWithFormat(@"VolNameTooLongHFS", @"FSClientLocalizable", precomposedStringWithCanonicalMapping);
-    v20 = "/:";
+    v21 = "/:";
 LABEL_17:
 
     goto LABEL_18;
@@ -906,8 +906,8 @@ LABEL_17:
     goto LABEL_43;
   }
 
-  v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v18 = _FSKitLocalizedStringWithFormat(@"VolNameTooLongAPFS", @"FSClientLocalizable", v19);
+  v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v18 = _FSKitLocalizedStringWithFormat(@"VolNameTooLongAPFS", @"FSClientLocalizable", v20);
 
 LABEL_31:
   if (!v18)
@@ -916,32 +916,31 @@ LABEL_31:
   }
 
 LABEL_32:
-  v27 = fskit_std_log();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v28 = fskit_std_log(v19);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     [FSClient(Private) validateVolumeName:usingBundle:volumeID:replyHandler:];
   }
 
-  v28 = MEMORY[0x277CCA9B8];
-  v35 = *MEMORY[0x277CCA470];
-  v36 = v18;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-  v30 = [v28 errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:v29];
+  v29 = MEMORY[0x277CCA9B8];
+  v36 = *MEMORY[0x277CCA470];
+  v37 = v18;
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+  v31 = [v29 errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:v30];
 
 LABEL_44:
-  handlerCopy[2](handlerCopy, v30);
-
-  v33 = *MEMORY[0x277D85DE8];
+  handlerCopy[2](handlerCopy, v31);
 }
 
 void __74__FSClient_Private__validateVolumeName_usingBundle_volumeID_replyHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = fskit_std_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = fskit_std_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __74__FSClient_Private__validateVolumeName_usingBundle_volumeID_replyHandler___block_invoke_cold_1();
     }
@@ -1018,7 +1017,7 @@ void __74__FSClient_Private__validateVolumeName_usingBundle_volumeID_replyHandle
   _Block_object_dispose(&v22, 8);
 }
 
-uint64_t __69__FSClient_Private__deactivateVolume_shortName_options_replyHandler___block_invoke(uint64_t a1, void *a2)
+void *__69__FSClient_Private__deactivateVolume_shortName_options_replyHandler___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isEqual:*(a1 + 32)];
   if (result)
@@ -1152,52 +1151,68 @@ uint64_t __69__FSClient_Private__deactivateVolume_shortName_options_replyHandler
   [v17 unloadResource:resourceCopy shortName:nameCopy options:optionsCopy auditToken:v19 replyHandler:v13];
 }
 
+- (void)setEnabledStateForIdentifier:(id)identifier newState:(BOOL)state replyHandler:(id)handler
+{
+  stateCopy = state;
+  handlerCopy = handler;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __72__FSClient_Private__setEnabledStateForIdentifier_newState_replyHandler___block_invoke;
+  v12[3] = &unk_278FECE20;
+  v13 = handlerCopy;
+  v9 = handlerCopy;
+  identifierCopy = identifier;
+  v11 = [(FSClient *)self remoteObjectProxyWithErrorHandler:v12];
+  [v11 setEnabledStateForIdentifier:identifierCopy newState:stateCopy replyHandler:v9];
+}
+
 - (id)startFSCKWithDevice:(id)device volumes:(id)volumes error:(id *)error
 {
   deviceCopy = device;
   volumesCopy = volumes;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__2;
+  v27 = __Block_byref_object_dispose__2;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__2;
+  v21 = __Block_byref_object_dispose__2;
   v22 = 0;
-  v23[0] = &v22;
-  v23[1] = 0x3032000000;
-  v23[2] = __Block_byref_object_copy__2;
-  v23[3] = __Block_byref_object_dispose__2;
-  v24 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__2;
-  v20 = __Block_byref_object_dispose__2;
-  v21 = 0;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __55__FSClient_Private__startFSCKWithDevice_volumes_error___block_invoke;
+  v16[3] = &unk_278FECF30;
+  v16[4] = &v17;
+  v10 = [(FSClient *)self synchronousRemoteObjectProxyWithErrorHandler:v16];
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
-  v15[2] = __55__FSClient_Private__startFSCKWithDevice_volumes_error___block_invoke;
-  v15[3] = &unk_278FECF30;
-  v15[4] = &v16;
-  v10 = [(FSClient *)self synchronousRemoteObjectProxyWithErrorHandler:v15];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __55__FSClient_Private__startFSCKWithDevice_volumes_error___block_invoke_2;
-  v14[3] = &unk_278FED5C8;
-  v14[4] = &v22;
-  v14[5] = &v16;
-  [v10 startFSCKWithDevice:deviceCopy volumes:volumesCopy replyHandler:v14];
+  v15[2] = __55__FSClient_Private__startFSCKWithDevice_volumes_error___block_invoke_2;
+  v15[3] = &unk_278FED5C8;
+  v15[4] = &v23;
+  v15[5] = &v17;
+  v11 = [v10 startFSCKWithDevice:deviceCopy volumes:volumesCopy replyHandler:v15];
   if (error)
   {
-    *error = v17[5];
+    v11 = v18[5];
+    *error = v11;
   }
 
-  v11 = fskit_std_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = fskit_std_log(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    [FSClient(Private) startFSCKWithDevice:v23 volumes:? error:?];
+    [FSClient(Private) startFSCKWithDevice:volumes:error:];
   }
 
-  v12 = *(v23[0] + 40);
-  _Block_object_dispose(&v16, 8);
+  v13 = v24[5];
+  _Block_object_dispose(&v17, 8);
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
 
-  return v12;
+  return v13;
 }
 
 void __55__FSClient_Private__startFSCKWithDevice_volumes_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1218,11 +1233,11 @@ void __55__FSClient_Private__startFSCKWithDevice_volumes_error___block_invoke_2(
 {
   taskCopy = task;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = __Block_byref_object_copy__2;
-  v12[3] = __Block_byref_object_dispose__2;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__2;
+  v15 = __Block_byref_object_dispose__2;
+  v16 = 0;
   v10[0] = MEMORY[0x277D85DD0];
   v10[1] = 3221225472;
   v10[2] = __38__FSClient_Private__doneFSCKWithTask___block_invoke;
@@ -1234,14 +1249,13 @@ void __55__FSClient_Private__startFSCKWithDevice_volumes_error___block_invoke_2(
   v9[2] = __38__FSClient_Private__doneFSCKWithTask___block_invoke_2;
   v9[3] = &unk_278FECF30;
   v9[4] = &v11;
-  [v5 doneFSCKWithTask:taskCopy replyHandler:v9];
-  v6 = fskit_std_log();
+  v6 = fskit_std_log([v5 doneFSCKWithTask:taskCopy replyHandler:v9]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [FSClient(Private) doneFSCKWithTask:v12];
+    [FSClient(Private) doneFSCKWithTask:];
   }
 
-  v7 = *(v12[0] + 40);
+  v7 = v12[5];
   _Block_object_dispose(&v11, 8);
 
   return v7;
@@ -1249,26 +1263,24 @@ void __55__FSClient_Private__startFSCKWithDevice_volumes_error___block_invoke_2(
 
 + (id)new
 {
-  v10 = *MEMORY[0x277D85DE8];
-  if (MKBGetDeviceLockState() == 3 || MKBDeviceUnlockedSinceBoot())
+  v9 = *MEMORY[0x277D85DE8];
+  if (MKBGetDeviceLockState() == 3 || (v3 = MKBDeviceUnlockedSinceBoot(), v3))
   {
-    v3 = [self alloc];
-    v4 = *MEMORY[0x277D85DE8];
+    v4 = [self alloc];
 
-    return [v3 initClient];
+    return [v4 initClient];
   }
 
   else
   {
-    v6 = fskit_std_log();
+    v6 = fskit_std_log(v3);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v8 = 136315138;
-      v9 = "+[FSClient(Private) new]";
-      _os_log_impl(&dword_24A929000, v6, OS_LOG_TYPE_INFO, "%s: Device was never unlocked", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "+[FSClient(Private) new]";
+      _os_log_impl(&dword_24A929000, v6, OS_LOG_TYPE_INFO, "%s: Device was never unlocked", &v7, 0xCu);
     }
 
-    v7 = *MEMORY[0x277D85DE8];
     return 0;
   }
 }
@@ -1409,11 +1421,9 @@ void __55__FSClient_Private__startFSCKWithDevice_volumes_error___block_invoke_2(
 
 void __74__FSClient_Private__validateVolumeName_usingBundle_volumeID_replyHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

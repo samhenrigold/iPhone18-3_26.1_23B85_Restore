@@ -51,61 +51,60 @@
 
 uint64_t __59__ATXAnchorModelInferenceTracker_inferenceEventsToTryAgain__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 retryCount];
   v5 = [v4 unsignedIntValue];
 
   if (v5 >= 4)
   {
-    v6 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = __atxlog_handle_anchor(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 134217984;
-      v16 = 3;
-      v7 = "Found an incomplete inference event, but it has already been retried %ld times. Tracking it as a failed inference event.";
+      v16 = 134217984;
+      v17 = 3;
+      v8 = "Found an incomplete inference event, but it has already been retried %ld times. Tracking it as a failed inference event.";
 LABEL_7:
-      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, v7, &v15, 0xCu);
+      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, v8, &v16, 0xCu);
       goto LABEL_8;
     }
 
     goto LABEL_8;
   }
 
-  v8 = [v3 dateFirstAdded];
-  [v8 timeIntervalSinceNow];
-  v10 = v9;
+  v9 = [v3 dateFirstAdded];
+  [v9 timeIntervalSinceNow];
+  v11 = v10;
 
-  v6 = __atxlog_handle_anchor();
-  v11 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v10 < -1200.0)
+  v7 = __atxlog_handle_anchor(v12);
+  v13 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v11 < -1200.0)
   {
-    if (v11)
+    if (v13)
     {
-      v15 = 134217984;
-      v16 = 0x4034000000000000;
-      v7 = "Found an incomplete inference event, but it originally happened more than %.2f minutes ago. Tracking it as a failed inference event.";
+      v16 = 134217984;
+      v17 = 0x4034000000000000;
+      v8 = "Found an incomplete inference event, but it originally happened more than %.2f minutes ago. Tracking it as a failed inference event.";
       goto LABEL_7;
     }
 
 LABEL_8:
 
     [*(a1 + 32) trackInferenceFailedForInferenceEvent:v3];
-    v12 = 0;
+    v14 = 0;
     goto LABEL_12;
   }
 
-  if (v11)
+  if (v13)
   {
-    LOWORD(v15) = 0;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Found an incomplete inference event. Going to retry it.", &v15, 2u);
+    LOWORD(v16) = 0;
+    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "Found an incomplete inference event. Going to retry it.", &v16, 2u);
   }
 
-  v12 = 1;
+  v14 = 1;
 LABEL_12:
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v14;
 }
 
 - (void)persistInferenceEvent:(id)event
@@ -131,7 +130,7 @@ LABEL_12:
 
   else
   {
-    v8 = __atxlog_handle_anchor();
+    v8 = __atxlog_handle_anchor(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(ATXAnchorModelInferenceTracker *)v6 persistInferenceEvent:v8];
@@ -154,65 +153,61 @@ LABEL_12:
     objc_autoreleasePoolPop(v3);
     if (v4)
     {
-      v6 = v5 == 0;
+      v7 = v5 == 0;
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
 
-    if (v6)
+    if (v7)
     {
       v12[0] = v4;
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     }
 
     else
     {
-      v7 = __atxlog_handle_anchor();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = __atxlog_handle_anchor(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [(ATXAnchorModelInferenceTracker *)v5 fetchPersistedInferenceEvents];
       }
 
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"Unable to unarchive ATXAnchorModelIncompleteInferenceEvent with error: %@", v5}];
-      v8 = MEMORY[0x277CBEBF8];
+      v9 = MEMORY[0x277CBEBF8];
     }
   }
 
   else
   {
-    v5 = __atxlog_handle_anchor();
+    v5 = __atxlog_handle_anchor(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [(ATXAnchorModelInferenceTracker *)v5 fetchPersistedInferenceEvents];
     }
 
-    v8 = MEMORY[0x277CBEBF8];
+    v9 = MEMORY[0x277CBEBF8];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v9;
 }
 
 - (void)persistInferenceEvent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Unable to archive ATXAnchorModelIncompleteInferenceEvent with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Unable to archive ATXAnchorModelIncompleteInferenceEvent with error: %@", &v2, 0xCu);
 }
 
 - (void)fetchPersistedInferenceEvents
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Unable to unarchive ATXAnchorModelIncompleteInferenceEvent with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Unable to unarchive ATXAnchorModelIncompleteInferenceEvent with error: %@", &v2, 0xCu);
 }
 
 @end

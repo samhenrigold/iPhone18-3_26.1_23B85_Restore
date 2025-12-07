@@ -75,9 +75,11 @@
 
 - (void)setParameters:(id)parameters
 {
-  self->_parameters = [parameters copy];
+  v4 = [parameters copy];
+  parameters = self->_parameters;
+  self->_parameters = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, parameters);
 }
 
 - (id)newRenderJob

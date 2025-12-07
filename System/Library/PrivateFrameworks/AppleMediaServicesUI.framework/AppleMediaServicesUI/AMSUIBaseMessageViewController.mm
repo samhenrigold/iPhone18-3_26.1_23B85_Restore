@@ -25,6 +25,7 @@
 - (void)enqueueImpressionMetrics;
 - (void)loadView;
 - (void)micaPlayerDidChangePlaybackTime:(id)time isPlaybackAtEnd:(BOOL)end;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -88,10 +89,10 @@
 
 - (void)viewDidLoad
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = AMSUIBaseMessageViewController;
-  [(AMSUIBaseMessageViewController *)&v11 viewDidLoad];
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = AMSUIBaseMessageViewController;
+  [(AMSUIBaseMessageViewController *)&v10 viewDidLoad];
   dialogRequest = [(AMSUIBaseMessageViewController *)self dialogRequest];
   [(AMSUIBaseMessageViewController *)self _setDialogRequest:dialogRequest];
 
@@ -108,19 +109,18 @@
   }
 
   objc_initWeak(&location, self);
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __45__AMSUIBaseMessageViewController_viewDidLoad__block_invoke;
-  v8[3] = &unk_1E7F24690;
-  objc_copyWeak(&v9, &location);
-  v6 = [(AMSUIBaseMessageViewController *)self registerForTraitChanges:v5 withHandler:v8];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __45__AMSUIBaseMessageViewController_viewDidLoad__block_invoke;
+  v7[3] = &unk_1E7F24690;
+  objc_copyWeak(&v8, &location);
+  v6 = [(AMSUIBaseMessageViewController *)self registerForTraitChanges:v5 withHandler:v7];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(&location);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __45__AMSUIBaseMessageViewController_viewDidLoad__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -154,6 +154,41 @@ void __45__AMSUIBaseMessageViewController_viewDidLoad__block_invoke(uint64_t a1,
 LABEL_5:
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = AMSUIBaseMessageViewController;
+  [(AMSUIBaseMessageViewController *)&v12 viewDidAppear:appear];
+  mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
+  if (!mEMORY[0x1E698C968])
+  {
+    mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
+  }
+
+  oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = objc_opt_class();
+    *buf = 138543362;
+    v14 = v6;
+    v7 = v6;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEBUG, "%{public}@: Did appear", buf, 0xCu);
+  }
+
+  [(AMSUIBaseMessageViewController *)self _resetAndPlayMICAPlayer];
+  _messageView = [(AMSUIBaseMessageViewController *)self _messageView];
+  v9 = MEMORY[0x1E696AEC0];
+  v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[AMSUIBaseMessageViewController _messageStyle](self, "_messageStyle")}];
+  v11 = [v9 stringWithFormat:@"%@ viewDidAppear", v10];
+  [_messageView _recordNewsDebugEventWithCategory:v11];
+
+  if ([(AMSUIBaseMessageViewController *)self shouldAutomaticallyReportMetrics])
+  {
+    [(AMSUIBaseMessageViewController *)self enqueueImpressionMetrics];
+  }
+}
+
 - (AMSUIMessageView)_messageView
 {
   v4.receiver = self;
@@ -165,7 +200,7 @@ LABEL_5:
 
 - (void)enqueueImpressionMetrics
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   impressionsReportingFrequency = [(AMSUIBaseMessageViewController *)self impressionsReportingFrequency];
   if (impressionsReportingFrequency == 2)
   {
@@ -202,8 +237,8 @@ LABEL_5:
       v8 = objc_opt_class();
       v9 = v8;
       *buf = 138543618;
-      v21 = v8;
-      v22 = 2048;
+      v20 = v8;
+      v21 = 2048;
       engagementImpressionsReportingFrequency2 = [(AMSUIBaseMessageViewController *)self engagementImpressionsReportingFrequency];
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEBUG, "%{public}@: Will not enqueue engagementimpression metrics (engagementImpressionsReportingFrequency: %lu)", buf, 0x16u);
     }
@@ -240,8 +275,8 @@ LABEL_16:
     v13 = v12;
     impressionsReportingFrequency2 = [(AMSUIBaseMessageViewController *)self impressionsReportingFrequency];
     *buf = 138543618;
-    v21 = v12;
-    v22 = 2048;
+    v20 = v12;
+    v21 = 2048;
     engagementImpressionsReportingFrequency2 = impressionsReportingFrequency2;
     _os_log_impl(&dword_1BB036000, clickstreamMetricsEvent, OS_LOG_TYPE_DEBUG, "%{public}@: Will not enqueue clickstream impression metrics (impressionsReportingFrequency: %lu)", buf, 0x16u);
   }
@@ -255,13 +290,11 @@ LABEL_22:
   v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[AMSUIBaseMessageViewController _messageStyle](self, "_messageStyle")}];
   v18 = [v16 stringWithFormat:@"%@ _notifyMetricsFields/impression", v17];
   [_messageView _recordNewsDebugEventWithCategory:v18];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enqueueImpressionEngagementMetrics
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   _messageView = [(AMSUIBaseMessageViewController *)self _messageView];
   v4 = MEMORY[0x1E696AEC0];
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[AMSUIBaseMessageViewController _messageStyle](self, "_messageStyle")}];
@@ -297,21 +330,21 @@ LABEL_22:
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: Enqueueing Engagement Impression MetricsEvent", &buf, 0xCu);
     }
 
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __68__AMSUIBaseMessageViewController_enqueueImpressionEngagementMetrics__block_invoke;
-    v23[3] = &unk_1E7F243C0;
-    v23[4] = self;
-    v24 = metricsEvent;
-    v15 = v23;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __68__AMSUIBaseMessageViewController_enqueueImpressionEngagementMetrics__block_invoke;
+    v22[3] = &unk_1E7F243C0;
+    v22[4] = self;
+    v23 = metricsEvent;
+    v15 = v22;
     v16 = AMSLogKey();
     v17 = dispatch_get_global_queue(0, 0);
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v26 = __AMSDispatchAsyncGlobal_block_invoke;
-    v27 = &unk_1E7F245E0;
-    v28 = v16;
-    v29 = v15;
+    v25 = __AMSDispatchAsyncGlobal_block_invoke;
+    v26 = &unk_1E7F245E0;
+    v27 = v16;
+    v28 = v15;
     v18 = v16;
     dispatch_async(v17, &buf);
   }
@@ -333,8 +366,6 @@ LABEL_22:
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_INFO, "%{public}@: No Engagement MetricsEvent to enqueue", &buf, 0xCu);
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __68__AMSUIBaseMessageViewController_enqueueImpressionEngagementMetrics__block_invoke(uint64_t a1)
@@ -347,7 +378,7 @@ void __68__AMSUIBaseMessageViewController_enqueueImpressionEngagementMetrics__bl
 
 - (void)_commitAppearance
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -357,13 +388,11 @@ void __68__AMSUIBaseMessageViewController_enqueueImpressionEngagementMetrics__bl
   oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
   if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: (_commitAppearance)", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: (_commitAppearance)", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupDebugMenu
@@ -402,7 +431,7 @@ void __68__AMSUIBaseMessageViewController_enqueueImpressionEngagementMetrics__bl
 
 - (void)_handleDialogResult:(id)result completionHandler:(id)handler
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = MEMORY[0x1E698C968];
   resultCopy = result;
@@ -416,8 +445,8 @@ void __68__AMSUIBaseMessageViewController_enqueueImpressionEngagementMetrics__bl
   if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v62 = objc_opt_class();
-    v11 = v62;
+    v61 = objc_opt_class();
+    v11 = v61;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEBUG, "%{public}@: Attempting to handle dialog request", buf, 0xCu);
   }
 
@@ -464,21 +493,21 @@ LABEL_28:
             v44 = v43;
             identifier = [v17 identifier];
             *buf = 138543618;
-            v62 = v43;
-            v63 = 2114;
-            v64 = identifier;
+            v61 = v43;
+            v62 = 2114;
+            v63 = identifier;
             _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@: Calling delegate to handle delegate action (identifier: %{public}@)", buf, 0x16u);
           }
 
           delegate2 = [(AMSUIBaseMessageViewController *)self delegate];
-          v58[0] = MEMORY[0x1E69E9820];
-          v58[1] = 3221225472;
-          v58[2] = __72__AMSUIBaseMessageViewController__handleDialogResult_completionHandler___block_invoke;
-          v58[3] = &unk_1E7F246B8;
-          v58[4] = self;
-          v59 = v17;
-          v60 = handlerCopy;
-          v47 = [delegate2 messageViewController:self handleDelegateAction:v59 completionHandler:v58];
+          v57[0] = MEMORY[0x1E69E9820];
+          v57[1] = 3221225472;
+          v57[2] = __72__AMSUIBaseMessageViewController__handleDialogResult_completionHandler___block_invoke;
+          v57[3] = &unk_1E7F246B8;
+          v57[4] = self;
+          v58 = v17;
+          v59 = handlerCopy;
+          v47 = [delegate2 messageViewController:self handleDelegateAction:v58 completionHandler:v57];
 
           if (v47)
           {
@@ -500,9 +529,9 @@ LABEL_28:
             v50 = v49;
             identifier2 = [v17 identifier];
             *buf = 138543618;
-            v62 = v49;
-            v63 = 2114;
-            v64 = identifier2;
+            v61 = v49;
+            v62 = 2114;
+            v63 = identifier2;
             _os_log_impl(&dword_1BB036000, oSLogObject4, OS_LOG_TYPE_DEBUG, "%{public}@: Delegate does not implement handleDelegateAction (identifier: %{public}@)", buf, 0x16u);
           }
 
@@ -522,9 +551,9 @@ LABEL_28:
           v55 = v54;
           identifier3 = [v17 identifier];
           *buf = 138543618;
-          v62 = v54;
-          v63 = 2114;
-          v64 = identifier3;
+          v61 = v54;
+          v62 = 2114;
+          v63 = identifier3;
           _os_log_impl(&dword_1BB036000, oSLogObject5, OS_LOG_TYPE_DEFAULT, "%{public}@: Delegate action not handled (identifier: %{public}@)", buf, 0x16u);
         }
 
@@ -536,7 +565,7 @@ LABEL_45:
 
       v20 = objc_opt_class();
       *buf = 138543362;
-      v62 = v20;
+      v61 = v20;
       mEMORY[0x1E698C968]6 = v20;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_INFO, "%{public}@: Delegate is required to process action", buf, 0xCu);
     }
@@ -564,7 +593,7 @@ LABEL_45:
         {
           v32 = objc_opt_class();
           *buf = 138543362;
-          v62 = v32;
+          v61 = v32;
           v33 = v32;
           _os_log_impl(&dword_1BB036000, oSLogObject6, OS_LOG_TYPE_DEFAULT, "%{public}@: AMS ActionRunner can handle action", buf, 0xCu);
         }
@@ -585,7 +614,7 @@ LABEL_45:
       {
         v36 = objc_opt_class();
         *buf = 138543362;
-        v62 = v36;
+        v61 = v36;
         v37 = v36;
         _os_log_impl(&dword_1BB036000, oSLogObject7, OS_LOG_TYPE_INFO, "%{public}@: AMS ActionRunner cannot handle action", buf, 0xCu);
       }
@@ -605,84 +634,80 @@ LABEL_45:
   {
     v24 = objc_opt_class();
     *buf = 138543362;
-    v62 = v24;
+    v61 = v24;
     v25 = v24;
     _os_log_impl(&dword_1BB036000, oSLogObject8, OS_LOG_TYPE_INFO, "%{public}@: No action kind", buf, 0xCu);
   }
 
   (*(handlerCopy + 2))(handlerCopy, MEMORY[0x1E695E110], 0);
 LABEL_46:
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 void __72__AMSUIBaseMessageViewController__handleDialogResult_completionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v6)
   {
     if (!v5)
     {
-      v14 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
-      if (!v14)
+      v13 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
+      if (!v13)
       {
-        v14 = [MEMORY[0x1E698C968] sharedConfig];
+        v13 = [MEMORY[0x1E698C968] sharedConfig];
       }
 
-      v15 = [v14 OSLogObject];
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = [v13 OSLogObject];
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_14;
       }
 
-      v26 = a1[4];
-      v27 = objc_opt_class();
-      v28 = a1[5];
-      v19 = v27;
-      v20 = [v28 identifier];
-      v29 = 138543618;
-      v30 = v27;
-      v31 = 2114;
-      v32 = v20;
-      v21 = "%{public}@: Delegate responded with neither an error or response (identifier: %{public}@)";
-      v22 = v15;
-      v23 = OS_LOG_TYPE_ERROR;
-      v24 = 22;
+      v23 = objc_opt_class();
+      v24 = a1[5];
+      v17 = v23;
+      v18 = [v24 identifier];
+      v25 = 138543618;
+      v26 = v23;
+      v27 = 2114;
+      v28 = v18;
+      v19 = "%{public}@: Delegate responded with neither an error or response (identifier: %{public}@)";
+      v20 = v14;
+      v21 = OS_LOG_TYPE_ERROR;
+      v22 = 22;
       goto LABEL_13;
     }
 
 LABEL_9:
-    v14 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
-    if (!v14)
+    v13 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
+    if (!v13)
     {
-      v14 = [MEMORY[0x1E698C968] sharedConfig];
+      v13 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v15 = [v14 OSLogObject];
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = [v13 OSLogObject];
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
-    v16 = a1[4];
-    v17 = objc_opt_class();
-    v18 = a1[5];
-    v19 = v17;
-    v20 = [v18 identifier];
-    v29 = 138543874;
-    v30 = v17;
-    v31 = 2114;
-    v32 = v20;
-    v33 = 2114;
-    v34 = v5;
-    v21 = "%{public}@: Delegate responded with a response (identifier: %{public}@, response: %{public}@)";
-    v22 = v15;
-    v23 = OS_LOG_TYPE_DEFAULT;
-    v24 = 32;
+    v15 = objc_opt_class();
+    v16 = a1[5];
+    v17 = v15;
+    v18 = [v16 identifier];
+    v25 = 138543874;
+    v26 = v15;
+    v27 = 2114;
+    v28 = v18;
+    v29 = 2114;
+    v30 = v5;
+    v19 = "%{public}@: Delegate responded with a response (identifier: %{public}@, response: %{public}@)";
+    v20 = v14;
+    v21 = OS_LOG_TYPE_DEFAULT;
+    v22 = 32;
 LABEL_13:
-    _os_log_impl(&dword_1BB036000, v22, v23, v21, &v29, v24);
+    _os_log_impl(&dword_1BB036000, v20, v21, v19, &v25, v22);
 
 LABEL_14:
     goto LABEL_15;
@@ -697,18 +722,17 @@ LABEL_14:
   v8 = [v7 OSLogObject];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v9 = a1[4];
-    v10 = objc_opt_class();
-    v11 = a1[5];
-    v12 = v10;
-    v13 = [v11 identifier];
-    v29 = 138543874;
-    v30 = v10;
-    v31 = 2114;
-    v32 = v6;
-    v33 = 2114;
-    v34 = v13;
-    _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Delegate responded with error (identifier: %{public}@, error: %{public}@)", &v29, 0x20u);
+    v9 = objc_opt_class();
+    v10 = a1[5];
+    v11 = v9;
+    v12 = [v10 identifier];
+    v25 = 138543874;
+    v26 = v9;
+    v27 = 2114;
+    v28 = v6;
+    v29 = 2114;
+    v30 = v12;
+    _os_log_impl(&dword_1BB036000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Delegate responded with error (identifier: %{public}@, error: %{public}@)", &v25, 0x20u);
   }
 
   if (v5)
@@ -718,13 +742,11 @@ LABEL_14:
 
 LABEL_15:
   (*(a1[6] + 16))();
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyMetricsFields:(id)fields isImpression:(BOOL)impression
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   fieldsCopy = fields;
   if (fieldsCopy)
   {
@@ -749,10 +771,10 @@ LABEL_15:
         oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
         if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
         {
-          v22 = 138543362;
-          v23 = objc_opt_class();
-          v21 = v23;
-          _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_INFO, "%{public}@: Delegate does observe for metrics. Dropping metrics event.", &v22, 0xCu);
+          v21 = 138543362;
+          v22 = objc_opt_class();
+          v20 = v22;
+          _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_INFO, "%{public}@: Delegate does observe for metrics. Dropping metrics event.", &v21, 0xCu);
         }
 
         goto LABEL_16;
@@ -777,10 +799,10 @@ LABEL_15:
     oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138543362;
-      v23 = objc_opt_class();
-      v15 = v23;
-      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: Enqueueing metrics fields", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = objc_opt_class();
+      v15 = v22;
+      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: Enqueueing metrics fields", &v21, 0xCu);
     }
 
     mEMORY[0x1E698C968] = [MEMORY[0x1E695DF90] dictionaryWithDictionary:fieldsCopy];
@@ -811,8 +833,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_preloadImageIfNeeded
@@ -856,7 +876,7 @@ LABEL_17:
 
 void __55__AMSUIBaseMessageViewController__preloadImageIfNeeded__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4)
   {
@@ -869,20 +889,17 @@ void __55__AMSUIBaseMessageViewController__preloadImageIfNeeded__block_invoke(ui
     v6 = [v5 OSLogObject];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v11 = 138543618;
-      v12 = objc_opt_class();
-      v13 = 2114;
-      v14 = v4;
-      v8 = v12;
-      _os_log_impl(&dword_1BB036000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Icon loading failed with error %{public}@", &v11, 0x16u);
+      v9 = 138543618;
+      v10 = objc_opt_class();
+      v11 = 2114;
+      v12 = v4;
+      v7 = v10;
+      _os_log_impl(&dword_1BB036000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Icon loading failed with error %{public}@", &v9, 0x16u);
     }
 
-    v9 = [*(a1 + 32) loadPromise];
-    [v9 finishWithSuccess];
+    v8 = [*(a1 + 32) loadPromise];
+    [v8 finishWithSuccess];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setDialogRequest:(id)request
@@ -966,7 +983,7 @@ LABEL_8:
 
 void __56__AMSUIBaseMessageViewController__loadIconAssetWithURL___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
   if (!v5)
@@ -977,32 +994,29 @@ void __56__AMSUIBaseMessageViewController__loadIconAssetWithURL___block_invoke(u
   v6 = [v5 OSLogObject];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v7 = *(a1 + 32);
     LODWORD(buf) = 138543362;
     *(&buf + 4) = objc_opt_class();
-    v8 = *(&buf + 4);
+    v7 = *(&buf + 4);
     _os_log_impl(&dword_1BB036000, v6, OS_LOG_TYPE_INFO, "%{public}@: Finished icon loading", &buf, 0xCu);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __56__AMSUIBaseMessageViewController__loadIconAssetWithURL___block_invoke_54;
-  v14[3] = &unk_1E7F243C0;
-  v14[4] = *(a1 + 32);
-  v15 = v4;
-  v9 = v14;
-  v10 = v4;
-  v11 = AMSLogKey();
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __56__AMSUIBaseMessageViewController__loadIconAssetWithURL___block_invoke_54;
+  v12[3] = &unk_1E7F243C0;
+  v12[4] = *(a1 + 32);
+  v13 = v4;
+  v8 = v12;
+  v9 = v4;
+  v10 = AMSLogKey();
   *&buf = MEMORY[0x1E69E9820];
   *(&buf + 1) = 3221225472;
-  v17 = __AMSDispatchAsync_block_invoke_1;
-  v18 = &unk_1E7F245E0;
-  v19 = v11;
-  v20 = v9;
-  v12 = v11;
+  v15 = __AMSDispatchAsync_block_invoke_1;
+  v16 = &unk_1E7F245E0;
+  v17 = v10;
+  v18 = v8;
+  v11 = v10;
   dispatch_async(MEMORY[0x1E69E96A0], &buf);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __56__AMSUIBaseMessageViewController__loadIconAssetWithURL___block_invoke_54(uint64_t a1)
@@ -1029,7 +1043,7 @@ void __56__AMSUIBaseMessageViewController__loadIconAssetWithURL___block_invoke_5
 
 - (id)_setMICAIconAssetWithURL:(id)l
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   lCopy = l;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
   if (!mEMORY[0x1E698C968])
@@ -1041,38 +1055,36 @@ void __56__AMSUIBaseMessageViewController__loadIconAssetWithURL___block_invoke_5
   if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v18 = objc_opt_class();
-    v7 = v18;
+    v17 = objc_opt_class();
+    v7 = v17;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_INFO, "%{public}@: Loading MICA asset", buf, 0xCu);
   }
 
   v8 = +[AMSUIAssetLoader sharedLoader];
   v9 = [v8 fetchWithAssetURL:lCopy];
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invoke;
-  v15[3] = &unk_1E7F24708;
-  v15[4] = self;
-  v16 = lCopy;
-  v10 = lCopy;
-  [v9 addSuccessBlock:v15];
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invoke_2;
-  v14[3] = &unk_1E7F24410;
+  v14[2] = __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invoke;
+  v14[3] = &unk_1E7F24708;
   v14[4] = self;
-  [v9 addErrorBlock:v14];
+  v15 = lCopy;
+  v10 = lCopy;
+  [v9 addSuccessBlock:v14];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invoke_2;
+  v13[3] = &unk_1E7F24410;
+  v13[4] = self;
+  [v9 addErrorBlock:v13];
   binaryPromiseAdapter = [v9 binaryPromiseAdapter];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return binaryPromiseAdapter;
 }
 
 void __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
   if (!v4)
@@ -1083,34 +1095,31 @@ void __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invok
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
     LODWORD(buf) = 138543362;
     *(&buf + 4) = objc_opt_class();
-    v7 = *(&buf + 4);
+    v6 = *(&buf + 4);
     _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_DEBUG, "%{public}@: Successfully loaded MICA asset", &buf, 0xCu);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invoke_56;
-  v14[3] = &unk_1E7F24590;
-  v8 = *(a1 + 40);
-  v14[4] = *(a1 + 32);
-  v15 = v3;
-  v16 = v8;
-  v9 = v14;
-  v10 = v3;
-  v11 = AMSLogKey();
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invoke_56;
+  v12[3] = &unk_1E7F24590;
+  v7 = *(a1 + 40);
+  v12[4] = *(a1 + 32);
+  v13 = v3;
+  v14 = v7;
+  v8 = v12;
+  v9 = v3;
+  v10 = AMSLogKey();
   *&buf = MEMORY[0x1E69E9820];
   *(&buf + 1) = 3221225472;
-  v18 = __AMSDispatchAsync_block_invoke_1;
-  v19 = &unk_1E7F245E0;
-  v20 = v11;
-  v21 = v9;
-  v12 = v11;
+  v16 = __AMSDispatchAsync_block_invoke_1;
+  v17 = &unk_1E7F245E0;
+  v18 = v10;
+  v19 = v8;
+  v11 = v10;
   dispatch_async(MEMORY[0x1E69E96A0], &buf);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invoke_56(uint64_t a1)
@@ -1131,7 +1140,7 @@ void __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invok
 
 void __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
   if (!v4)
@@ -1142,25 +1151,22 @@ void __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invok
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
     *buf = 138543618;
-    v13 = objc_opt_class();
-    v14 = 2114;
-    v15 = v3;
-    v7 = v13;
+    v11 = objc_opt_class();
+    v12 = 2114;
+    v13 = v3;
+    v6 = v11;
     _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Failed to load MICA asset with error %{public}@", buf, 0x16u);
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invoke_58;
-  v10[3] = &unk_1E7F243C0;
-  v10[4] = *(a1 + 32);
-  v11 = v3;
-  v8 = v3;
-  dispatch_async(MEMORY[0x1E69E96A0], v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invoke_58;
+  v8[3] = &unk_1E7F243C0;
+  v8[4] = *(a1 + 32);
+  v9 = v3;
+  v7 = v3;
+  dispatch_async(MEMORY[0x1E69E96A0], v8);
 }
 
 void __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invoke_58(uint64_t a1)
@@ -1174,7 +1180,7 @@ void __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invok
 
 - (id)_setImageWithURL:(id)l
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   lCopy = l;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
   if (!mEMORY[0x1E698C968])
@@ -1186,8 +1192,8 @@ void __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invok
   if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v21 = objc_opt_class();
-    v7 = v21;
+    v20 = objc_opt_class();
+    v7 = v20;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_INFO, "%{public}@: Loading image asset", buf, 0xCu);
   }
 
@@ -1206,7 +1212,7 @@ void __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invok
     {
       v12 = objc_opt_class();
       *buf = 138543362;
-      v21 = v12;
+      v20 = v12;
       v13 = v12;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEBUG, "%{public}@: Setting MessageView isImageSymbolImage true", buf, 0xCu);
     }
@@ -1215,31 +1221,29 @@ void __59__AMSUIBaseMessageViewController__setMICAIconAssetWithURL___block_invok
   }
 
   objc_initWeak(buf, self);
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke;
-  v18[3] = &unk_1E7F24758;
-  v18[4] = self;
-  objc_copyWeak(&v19, buf);
-  [v9 addSuccessBlock:v18];
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
-  v17[2] = __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke_2;
-  v17[3] = &unk_1E7F24410;
+  v17[2] = __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke;
+  v17[3] = &unk_1E7F24758;
   v17[4] = self;
-  [v9 addErrorBlock:v17];
+  objc_copyWeak(&v18, buf);
+  [v9 addSuccessBlock:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke_2;
+  v16[3] = &unk_1E7F24410;
+  v16[4] = self;
+  [v9 addErrorBlock:v16];
   binaryPromiseAdapter = [v9 binaryPromiseAdapter];
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(buf);
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return binaryPromiseAdapter;
 }
 
 void __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
   if (!v4)
@@ -1250,24 +1254,22 @@ void __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke(uint64
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
     *buf = 138543362;
-    v14 = objc_opt_class();
-    v7 = v14;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_DEBUG, "%{public}@: Successfully loaded image asset", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke_61;
-  v10[3] = &unk_1E7F24730;
-  objc_copyWeak(&v12, (a1 + 40));
-  v11 = v3;
-  v8 = v3;
-  dispatch_async(MEMORY[0x1E69E96A0], v10);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke_61;
+  v8[3] = &unk_1E7F24730;
+  objc_copyWeak(&v10, (a1 + 40));
+  v9 = v3;
+  v7 = v3;
+  dispatch_async(MEMORY[0x1E69E96A0], v8);
 
-  objc_destroyWeak(&v12);
-  v9 = *MEMORY[0x1E69E9840];
+  objc_destroyWeak(&v10);
 }
 
 void __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke_61(uint64_t a1)
@@ -1303,7 +1305,7 @@ void __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke_61(uin
 
 void __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
   if (!v4)
@@ -1314,25 +1316,22 @@ void __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke_2(uint
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
     *buf = 138543618;
-    v13 = objc_opt_class();
-    v14 = 2114;
-    v15 = v3;
-    v7 = v13;
+    v11 = objc_opt_class();
+    v12 = 2114;
+    v13 = v3;
+    v6 = v11;
     _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Failed to load image %{public}@", buf, 0x16u);
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke_63;
-  v10[3] = &unk_1E7F243C0;
-  v10[4] = *(a1 + 32);
-  v11 = v3;
-  v8 = v3;
-  dispatch_async(MEMORY[0x1E69E96A0], v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke_63;
+  v8[3] = &unk_1E7F243C0;
+  v8[4] = *(a1 + 32);
+  v9 = v3;
+  v7 = v3;
+  dispatch_async(MEMORY[0x1E69E96A0], v8);
 }
 
 void __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke_63(uint64_t a1)
@@ -1346,7 +1345,7 @@ void __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke_63(uin
 
 - (void)_startObservingMICAPlayer
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   _messageView = [(AMSUIBaseMessageViewController *)self _messageView];
   micaPlayer = [_messageView micaPlayer];
 
@@ -1366,14 +1365,12 @@ void __51__AMSUIBaseMessageViewController__setImageWithURL___block_invoke_63(uin
     oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 138543362;
-      v12 = objc_opt_class();
-      v9 = v12;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEBUG, "%{public}@: Began observing MICA Player", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v9 = v11;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEBUG, "%{public}@: Began observing MICA Player", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_preferredContentSizeCategoryDidChange:(id)change
@@ -1615,7 +1612,7 @@ LABEL_31:
 
 - (void)_didTapActionButton:(id)button
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   buttonCopy = button;
   _messageView = [(AMSUIBaseMessageViewController *)self _messageView];
   objc_opt_class();
@@ -1648,10 +1645,10 @@ LABEL_13:
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v59 = objc_opt_class();
-      v60 = 2114;
-      v61 = identifier;
-      v16 = v59;
+      v58 = objc_opt_class();
+      v59 = 2114;
+      v60 = identifier;
+      v16 = v58;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: Action invoked (identifier: %{public}@)", buf, 0x16u);
     }
 
@@ -1690,9 +1687,9 @@ LABEL_13:
       }
 
       *buf = 138543618;
-      v59 = v27;
-      v60 = 2114;
-      v61 = v28;
+      v58 = v27;
+      v59 = 2114;
+      v60 = v28;
       v29 = _messageView;
       v30 = v27;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_INFO, "%{public}@: shouldAutoEnqueue %{public}@", buf, 0x16u);
@@ -1713,7 +1710,7 @@ LABEL_13:
       {
         v33 = objc_opt_class();
         *buf = 138543362;
-        v59 = v33;
+        v58 = v33;
         v34 = v33;
         _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@: Enqueueing engagement metrics", buf, 0xCu);
       }
@@ -1739,20 +1736,20 @@ LABEL_13:
       if (!v41)
       {
 LABEL_44:
-        v55[0] = MEMORY[0x1E69E9820];
-        v55[1] = 3221225472;
-        v55[2] = __54__AMSUIBaseMessageViewController__didTapActionButton___block_invoke;
-        v55[3] = &unk_1E7F24780;
-        v55[4] = self;
-        v56 = v19;
-        v57 = _messageView;
+        v54[0] = MEMORY[0x1E69E9820];
+        v54[1] = 3221225472;
+        v54[2] = __54__AMSUIBaseMessageViewController__didTapActionButton___block_invoke;
+        v54[3] = &unk_1E7F24780;
+        v54[4] = self;
+        v55 = v19;
+        v56 = _messageView;
         v52 = v19;
-        [(AMSUIBaseMessageViewController *)self _handleDialogResult:v52 completionHandler:v55];
+        [(AMSUIBaseMessageViewController *)self _handleDialogResult:v52 completionHandler:v54];
 
         goto LABEL_45;
       }
 
-      v54 = _messageView;
+      v53 = _messageView;
       mEMORY[0x1E698C968]4 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
       if (!mEMORY[0x1E698C968]4)
       {
@@ -1764,9 +1761,9 @@ LABEL_44:
       {
         v44 = objc_opt_class();
         *buf = 138543618;
-        v59 = v44;
-        v60 = 2114;
-        v61 = deepLink;
+        v58 = v44;
+        v59 = 2114;
+        v60 = deepLink;
         v45 = v44;
         _os_log_impl(&dword_1BB036000, oSLogObject4, OS_LOG_TYPE_INFO, "%{public}@: AMS can respond to action with deeplink %{public}@", buf, 0x16u);
       }
@@ -1784,7 +1781,7 @@ LABEL_44:
         [AMSUIMessagingActionRunner performWithDeeplink:deepLink context:v40 parameters:v50];
       }
 
-      _messageView = v54;
+      _messageView = v53;
     }
 
     goto LABEL_44;
@@ -1813,14 +1810,12 @@ LABEL_44:
   if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v59 = objc_opt_class();
-    v12 = v59;
+    v58 = objc_opt_class();
+    v12 = v58;
     _os_log_impl(&dword_1BB036000, oSLogObject5, OS_LOG_TYPE_DEFAULT, "%{public}@: Action invoked but failed dialog action found", buf, 0xCu);
   }
 
 LABEL_45:
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 void __54__AMSUIBaseMessageViewController__didTapActionButton___block_invoke(uint64_t a1)
@@ -1858,7 +1853,7 @@ uint64_t __54__AMSUIBaseMessageViewController__didTapActionButton___block_invoke
 - (void)micaPlayerDidChangePlaybackTime:(id)time isPlaybackAtEnd:(BOOL)end
 {
   endCopy = end;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   timeCopy = time;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
   if (!mEMORY[0x1E698C968])
@@ -1871,11 +1866,11 @@ uint64_t __54__AMSUIBaseMessageViewController__didTapActionButton___block_invoke
   {
     v9 = objc_opt_class();
     v10 = v9;
-    v24 = 138543618;
-    v25 = v9;
-    v26 = 2050;
+    v23 = 138543618;
+    v24 = v9;
+    v25 = 2050;
     currentIconPlayCount = [(AMSUIBaseMessageViewController *)self currentIconPlayCount];
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEBUG, "%{public}@: micaPlayerDidChangePlaybackTime (currentIconPlayCount: %{public}ld)", &v24, 0x16u);
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEBUG, "%{public}@: micaPlayerDidChangePlaybackTime (currentIconPlayCount: %{public}ld)", &v23, 0x16u);
   }
 
   _iconAnimationPlayCount = [(AMSUIBaseMessageViewController *)self _iconAnimationPlayCount];
@@ -1897,11 +1892,11 @@ uint64_t __54__AMSUIBaseMessageViewController__didTapActionButton___block_invoke
         v15 = objc_opt_class();
         v16 = v15;
         currentIconPlayCount2 = [(AMSUIBaseMessageViewController *)self currentIconPlayCount];
-        v24 = 138543618;
-        v25 = v15;
-        v26 = 2050;
+        v23 = 138543618;
+        v24 = v15;
+        v25 = 2050;
         currentIconPlayCount = currentIconPlayCount2;
-        _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEBUG, "%{public}@: MICA playback at end (currentIconPlayCount: %{public}ld)", &v24, 0x16u);
+        _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEBUG, "%{public}@: MICA playback at end (currentIconPlayCount: %{public}ld)", &v23, 0x16u);
       }
     }
 
@@ -1920,18 +1915,16 @@ uint64_t __54__AMSUIBaseMessageViewController__didTapActionButton___block_invoke
         v20 = objc_opt_class();
         v21 = v20;
         currentIconPlayCount3 = [(AMSUIBaseMessageViewController *)self currentIconPlayCount];
-        v24 = 138543874;
-        v25 = v20;
-        v26 = 2050;
+        v23 = 138543874;
+        v24 = v20;
+        v25 = 2050;
         currentIconPlayCount = currentIconPlayCount3;
-        v28 = 2050;
-        v29 = v12;
-        _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEBUG, "%{public}@: Paused MICA playback (currentIconPlayCount: %{public}ld, maxPlayCount: %{public}ld)", &v24, 0x20u);
+        v27 = 2050;
+        v28 = v12;
+        _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEBUG, "%{public}@: Paused MICA playback (currentIconPlayCount: %{public}ld, maxPlayCount: %{public}ld)", &v23, 0x20u);
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (AMSUIMessageViewControllerDelegate)delegate

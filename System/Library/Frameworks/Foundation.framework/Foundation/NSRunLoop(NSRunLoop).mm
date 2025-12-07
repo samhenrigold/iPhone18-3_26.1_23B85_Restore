@@ -3,34 +3,34 @@
 + (uint64_t)currentRunLoop;
 + (uint64_t)mainRunLoop;
 - (CFArrayRef)allModes;
+- (__CFRunLoop)containsTimer:()NSRunLoop forMode:;
 - (__CFRunLoop)currentMode;
 - (__CFString)description;
 - (id)dealloc;
 - (uint64_t)_containsPort:()NSRunLoop forMode:;
-- (uint64_t)_enumerateInfoPairsWithBlock:()NSRunLoop;
 - (uint64_t)_portInvalidated:()NSRunLoop;
 - (uint64_t)_removePort:()NSRunLoop forMode:;
-- (uint64_t)acceptInputForMode:()NSRunLoop beforeDate:;
-- (uint64_t)addPort:()NSRunLoop forMode:;
 - (uint64_t)containsPort:()NSRunLoop forMode:;
-- (uint64_t)containsTimer:()NSRunLoop forMode:;
 - (uint64_t)limitDateForMode:()NSRunLoop;
 - (uint64_t)performBlock:()NSRunLoop;
-- (uint64_t)removePort:()NSRunLoop forMode:;
-- (uint64_t)run;
 - (uint64_t)runMode:()NSRunLoop beforeDate:;
 - (uint64_t)runMode:()NSRunLoop untilDate:;
 - (void)_addPort:()NSRunLoop forMode:;
+- (void)_enumerateInfoPairsWithBlock:()NSRunLoop;
 - (void)_wakeup;
+- (void)acceptInputForMode:()NSRunLoop beforeDate:;
+- (void)addPort:()NSRunLoop forMode:;
 - (void)addTimer:()NSRunLoop forMode:;
 - (void)performInModes:()NSRunLoop block:;
+- (void)removePort:()NSRunLoop forMode:;
 - (void)removeTimer:()NSRunLoop forMode:;
+- (void)run;
 - (void)runUntilDate:()NSRunLoop;
 @end
 
 @implementation NSRunLoop(NSRunLoop)
 
-- (uint64_t)run
+- (void)run
 {
   v2 = *MEMORY[0x1E695E8E0];
   do
@@ -55,9 +55,9 @@
 {
   _CFAutoreleasePoolPush();
   CFRunLoopGetMain();
-  v0 = _CFRunLoopGet2();
+  v2 = _CFRunLoopGet2();
   _CFAutoreleasePoolPop();
-  return v0;
+  return v2;
 }
 
 - (__CFRunLoop)currentMode
@@ -83,7 +83,7 @@
   return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
-- (uint64_t)_enumerateInfoPairsWithBlock:()NSRunLoop
+- (void)_enumerateInfoPairsWithBlock:()NSRunLoop
 {
   v17 = *MEMORY[0x1E69E9840];
   v11 = 0;
@@ -124,7 +124,7 @@
         }
 
         ++v7;
-        ++v10;
+        v10 = v10 + 1;
       }
 
       while (v6 != v10);
@@ -327,7 +327,7 @@
   }
 }
 
-- (uint64_t)addPort:()NSRunLoop forMode:
+- (void)addPort:()NSRunLoop forMode:
 {
   v4 = a4;
   if ((!a3 || !a4) && _CFExecutableLinkedOnOrAfter())
@@ -362,7 +362,7 @@
   return result;
 }
 
-- (uint64_t)removePort:()NSRunLoop forMode:
+- (void)removePort:()NSRunLoop forMode:
 {
   v4 = a4;
   if (!a4 && _CFExecutableLinkedOnOrAfter())
@@ -472,7 +472,7 @@
   }
 }
 
-- (uint64_t)containsTimer:()NSRunLoop forMode:
+- (__CFRunLoop)containsTimer:()NSRunLoop forMode:
 {
   v4 = a4;
   if (!a4 && _CFExecutableLinkedOnOrAfter())
@@ -495,7 +495,7 @@
       v4 = *MEMORY[0x1E695E8D0];
     }
 
-    return CFRunLoopContainsTimer(v9, a3, v4) != 0;
+    return (CFRunLoopContainsTimer(v9, a3, v4) != 0);
   }
 
   return result;
@@ -578,7 +578,7 @@
   }
 }
 
-- (uint64_t)acceptInputForMode:()NSRunLoop beforeDate:
+- (void)acceptInputForMode:()NSRunLoop beforeDate:
 {
   v5 = a3;
   if (!a3 && _CFExecutableLinkedOnOrAfter())

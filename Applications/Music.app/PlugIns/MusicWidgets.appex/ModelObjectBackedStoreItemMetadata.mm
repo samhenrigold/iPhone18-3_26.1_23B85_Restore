@@ -55,49 +55,49 @@
 
 - (_TtC9MusicCore34ModelObjectBackedStoreItemMetadata)initWithStorePlatformDictionary:(id)dictionary expirationDate:(id)date
 {
-  v5 = sub_100009DCC(&qword_1006E8040);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v12 - v6;
-  v8 = sub_1005726A8();
+  sub_100009DCC(&qword_1006E8040, &qword_10058A600);
+  __chkstk_darwin();
+  v6 = &v11 - v5;
+  v7 = sub_1005726A8();
   if (date)
   {
     sub_10056CA58();
-    v9 = sub_10056CAA8();
-    (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+    v8 = sub_10056CAA8();
+    (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_10056CAA8();
-    (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+    v9 = sub_10056CAA8();
+    (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
   }
 
-  return ModelObjectBackedStoreItemMetadata.init(storePlatformDictionary:expirationDate:)(v8, v7);
+  return ModelObjectBackedStoreItemMetadata.init(storePlatformDictionary:expirationDate:)(v7, v6);
 }
 
 - (_TtC9MusicCore34ModelObjectBackedStoreItemMetadata)initWithStorePlatformDictionary:(id)dictionary parentStoreItemMetadata:(id)metadata expirationDate:(id)date
 {
-  v7 = sub_100009DCC(&qword_1006E8040);
-  __chkstk_darwin(v7 - 8);
-  v9 = &v16 - v8;
-  v10 = sub_1005726A8();
+  sub_100009DCC(&qword_1006E8040, &qword_10058A600);
+  __chkstk_darwin();
+  v8 = &v15 - v7;
+  v9 = sub_1005726A8();
   if (date)
   {
     sub_10056CA58();
-    v11 = sub_10056CAA8();
-    (*(*(v11 - 8) + 56))(v9, 0, 1, v11);
+    v10 = sub_10056CAA8();
+    (*(*(v10 - 8) + 56))(v8, 0, 1, v10);
   }
 
   else
   {
-    v12 = sub_10056CAA8();
-    (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+    v11 = sub_10056CAA8();
+    (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
   }
 
   metadataCopy = metadata;
-  v14 = sub_10026A8C0(v10, metadataCopy, v9);
+  v13 = sub_10026A8C0(v9, metadataCopy, v8);
 
-  return v14;
+  return v13;
 }
 
 - (_TtC9MusicCore34ModelObjectBackedStoreItemMetadata)initWithCoder:(id)coder

@@ -129,7 +129,7 @@
 
 + (id)vcardDataFromCLLocation:(id)location
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   [location coordinate];
   v3 = [MEMORY[0x1E696AEC0] __ck_appleMapsURLStringForCoordinate:0 coordinateName:?];
   v4 = objc_alloc_init(MEMORY[0x1E695CD58]);
@@ -148,39 +148,39 @@
     v12 = [locationRelativeDateFormatter stringFromDate:date];
 
     v13 = MEMORY[0x1E696AEC0];
-    v14 = CKFrameworkBundle();
-    v15 = [v14 localizedStringForKey:@"LOCATION_FOOTER_DETAILS_VIEW" value:&stru_1F04268F8 table:@"ChatKit"];
-    v16 = [v13 stringWithFormat:v15, v12];
+    v15 = CKFrameworkBundle(v14);
+    v16 = [v15 localizedStringForKey:@"LOCATION_FOOTER_DETAILS_VIEW" value:&stru_1F04268F8 table:@"ChatKit"];
+    v17 = [v13 stringWithFormat:v16, v12];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v19 = @"\u200F";
+      v20 = @"\u200F";
     }
 
     else
     {
-      v19 = @"\u200E";
+      v20 = @"\u200E";
     }
 
-    v20 = [(__CFString *)v19 stringByAppendingString:v16];
+    v21 = [(__CFString *)v20 stringByAppendingString:v17];
 
-    [v5 setGivenName:v20];
+    [v5 setGivenName:v21];
     [v5 setUrlAddresses:v8];
-    v21 = [v5 copy];
+    v22 = [v5 copy];
 
-    v4 = v21;
+    v4 = v22;
   }
 
-  v22 = MEMORY[0x1E695CE30];
-  v27[0] = v4;
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
-  v26 = 0;
-  v24 = [v22 dataWithContacts:v23 error:&v26];
+  v23 = MEMORY[0x1E695CE30];
+  v28[0] = v4;
+  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+  v27 = 0;
+  v25 = [v23 dataWithContacts:v24 error:&v27];
 
-  return v24;
+  return v25;
 }
 
 + (id)placeholderPreviewForWidth:(double)width orientation:(char)orientation
@@ -216,15 +216,16 @@
 
 - (CKLocationMediaObject)initWithTransfer:(id)transfer context:(id)context forceInlinePreview:(BOOL)preview
 {
-  v7.receiver = self;
-  v7.super_class = CKLocationMediaObject;
-  v5 = [(CKMediaObject *)&v7 initWithTransfer:transfer context:context forceInlinePreview:preview];
+  v9.receiver = self;
+  v9.super_class = CKLocationMediaObject;
+  v5 = [(CKMediaObject *)&v9 initWithTransfer:transfer context:context forceInlinePreview:preview];
+  v7 = v5;
   if (v5)
   {
-    [(CKLocationMediaObject *)v5 setCoordinate:__kCLLocationCoordinate2DInvalid()];
+    [(CKLocationMediaObject *)v5 setCoordinate:__kCLLocationCoordinate2DInvalid(v5, v6)];
   }
 
-  return v5;
+  return v7;
 }
 
 - (NSString)title
@@ -245,29 +246,35 @@ LABEL_12:
           goto LABEL_28;
         }
 
-        v12 = +[CKUIBehavior sharedBehaviors];
-        locationRelativeDateFormatter = [v12 locationRelativeDateFormatter];
+        v13 = +[CKUIBehavior sharedBehaviors];
+        locationRelativeDateFormatter = [v13 locationRelativeDateFormatter];
 
         time = [(CKMediaObject *)self time];
         goto LABEL_22;
       }
     }
 
-    v33.receiver = self;
-    v33.super_class = CKLocationMediaObject;
-    title = [(CKContactMediaObject *)&v33 title];
+    v36.receiver = self;
+    v36.super_class = CKLocationMediaObject;
+    title = [(CKContactMediaObject *)&v36 title];
     organizationName = title;
-    if (v4 || ![title isEqualToString:@"Current Location"])
+    if (v4)
+    {
+      goto LABEL_12;
+    }
+
+    v12 = [title isEqualToString:@"Current Location"];
+    if (!v12)
     {
       goto LABEL_12;
     }
 
 LABEL_17:
-    locationRelativeDateFormatter = CKFrameworkBundle();
-    v16 = [locationRelativeDateFormatter localizedStringForKey:@"LOCATING" value:&stru_1F04268F8 table:@"ChatKit"];
+    locationRelativeDateFormatter = CKFrameworkBundle(v12);
+    v17 = [locationRelativeDateFormatter localizedStringForKey:@"LOCATING" value:&stru_1F04268F8 table:@"ChatKit"];
 LABEL_27:
 
-    organizationName = v16;
+    organizationName = v17;
     goto LABEL_28;
   }
 
@@ -294,55 +301,60 @@ LABEL_27:
     }
   }
 
-  v32.receiver = self;
-  v32.super_class = CKLocationMediaObject;
-  title2 = [(CKContactMediaObject *)&v32 title];
+  v35.receiver = self;
+  v35.super_class = CKLocationMediaObject;
+  title2 = [(CKContactMediaObject *)&v35 title];
   organizationName = title2;
-  if (!v4 && [title2 isEqualToString:@"Current Location"])
+  if (!v4)
   {
-    goto LABEL_17;
+    v12 = [title2 isEqualToString:@"Current Location"];
+    if (v12)
+    {
+      goto LABEL_17;
+    }
   }
 
 LABEL_18:
-  if (([organizationName isEqualToString:@"Current Location"] & 1) != 0 || (CKFrameworkBundle(), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "localizedStringForKey:value:table:", @"Current Location", &stru_1F04268F8, @"ChatKit"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(organizationName, "isEqualToString:", v18), v18, v17, v19))
+  v18 = [organizationName isEqualToString:@"Current Location"];
+  if ((v18 & 1) != 0 || (CKFrameworkBundle(v18), v19 = objc_claimAutoreleasedReturnValue(), [v19 localizedStringForKey:@"Current Location" value:&stru_1F04268F8 table:@"ChatKit"], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(organizationName, "isEqualToString:", v20), v20, v19, v21))
   {
-    v20 = +[CKUIBehavior sharedBehaviors];
-    locationRelativeDateFormatter = [v20 locationRelativeDateFormatter];
+    v22 = +[CKUIBehavior sharedBehaviors];
+    locationRelativeDateFormatter = [v22 locationRelativeDateFormatter];
 
     time2 = [(CKMediaObject *)self time];
-    v22 = [locationRelativeDateFormatter stringFromDate:time2];
+    v24 = [locationRelativeDateFormatter stringFromDate:time2];
 
-    if (v22)
+    if (v24)
     {
 LABEL_23:
-      v24 = MEMORY[0x1E696AEC0];
-      v25 = CKFrameworkBundle();
-      v26 = [v25 localizedStringForKey:@"LOCATION_FOOTER_DETAILS_VIEW" value:&stru_1F04268F8 table:@"ChatKit"];
-      v27 = [v24 stringWithFormat:v26, v22];
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = CKFrameworkBundle(v25);
+      v29 = [v28 localizedStringForKey:@"LOCATION_FOOTER_DETAILS_VIEW" value:&stru_1F04268F8 table:@"ChatKit"];
+      v30 = [v27 stringWithFormat:v29, v24];
 
       mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
       userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
       if (userInterfaceLayoutDirection == 1)
       {
-        v30 = @"\u200F";
+        v33 = @"\u200F";
       }
 
       else
       {
-        v30 = @"\u200E";
+        v33 = @"\u200E";
       }
 
-      v16 = [(__CFString *)v30 stringByAppendingString:v27];
+      v17 = [(__CFString *)v33 stringByAppendingString:v30];
 
-      organizationName = v22;
+      organizationName = v24;
       goto LABEL_27;
     }
 
     time = [MEMORY[0x1E695DF00] now];
 LABEL_22:
-    v23 = time;
-    v22 = [locationRelativeDateFormatter stringFromDate:time];
+    v26 = time;
+    v24 = [locationRelativeDateFormatter stringFromDate:time];
 
     goto LABEL_23;
   }
@@ -379,7 +391,7 @@ LABEL_28:
 - (id)previewForWidth:(double)width orientation:(char)orientation
 {
   orientationCopy = orientation;
-  v36 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if ([(CKMediaObject *)self transcoderPreviewGenerationFailed])
   {
     v7 = 0;
@@ -407,9 +419,9 @@ LABEL_28:
     if (!v13)
     {
       v14 = [(CKLocationMediaObject *)self generatePlaceholderThumbnailForWidth:orientationCopy orientation:width];
-      v34.receiver = self;
-      v34.super_class = CKLocationMediaObject;
-      v13 = [(CKMediaObject *)&v34 generatePreviewFromThumbnail:v14 width:orientationCopy orientation:width];
+      v39.receiver = self;
+      v39.super_class = CKLocationMediaObject;
+      v13 = [(CKMediaObject *)&v39 generatePreviewFromThumbnail:v14 width:orientationCopy orientation:width];
 
       if (v13)
       {
@@ -426,9 +438,9 @@ LABEL_28:
     goto LABEL_16;
   }
 
-  v33.receiver = self;
-  v33.super_class = CKLocationMediaObject;
-  v7 = [(CKMediaObject *)&v33 previewForWidth:orientationCopy orientation:width];
+  v38.receiver = self;
+  v38.super_class = CKLocationMediaObject;
+  v7 = [(CKMediaObject *)&v38 previewForWidth:orientationCopy orientation:width];
   if (!v7)
   {
     if ([(CKContactMediaObject *)self generatePreviewOutOfProcess])
@@ -455,29 +467,28 @@ LABEL_28:
 
         if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
         {
-          selfCopy = self;
-          _CKLog();
+          _CKLog(2u, @"%@ is already generating preview. Abort.", v19, v20, v21, v22, v23, v24, self);
         }
       }
 
       else
       {
+        v36[0] = MEMORY[0x1E69E9820];
+        v36[1] = 3221225472;
+        v36[2] = __53__CKLocationMediaObject_previewForWidth_orientation___block_invoke_257;
+        v36[3] = &unk_1E72F00B0;
+        v36[4] = self;
+        *&v36[5] = width;
+        v37 = orientationCopy;
         v31[0] = MEMORY[0x1E69E9820];
         v31[1] = 3221225472;
-        v31[2] = __53__CKLocationMediaObject_previewForWidth_orientation___block_invoke_257;
-        v31[3] = &unk_1E72F00B0;
-        v31[4] = self;
-        *&v31[5] = width;
-        v32 = orientationCopy;
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __53__CKLocationMediaObject_previewForWidth_orientation___block_invoke_271;
-        v26[3] = &unk_1E72F2680;
-        v27 = previewDispatchCache;
-        v28 = v8;
-        selfCopy2 = self;
-        v30 = orientationCopy;
-        [v27 enqueueGenerationBlock:v31 completion:v26 withPriority:-1 forKey:v28];
+        v31[2] = __53__CKLocationMediaObject_previewForWidth_orientation___block_invoke_271;
+        v31[3] = &unk_1E72F2680;
+        v32 = previewDispatchCache;
+        v33 = v8;
+        selfCopy = self;
+        v35 = orientationCopy;
+        [v32 enqueueGenerationBlock:v36 completion:v31 withPriority:-1 forKey:v33];
       }
 
       *&buf = orientationCopy;
@@ -485,21 +496,21 @@ LABEL_28:
       transcriptTraitCollection2 = [(CKLocationMediaObject *)self transcriptTraitCollection];
       *(&buf + 1) = [transcriptTraitCollection2 userInterfaceStyle];
 
-      v20 = [MEMORY[0x1E696B098] value:&buf withObjCType:"{?=cBq}"];
-      v21 = +[CKLocationMediaObject placeholderPreviewCache];
-      v7 = [v21 objectForKey:v20];
+      v26 = [MEMORY[0x1E696B098] value:&buf withObjCType:"{?=cBq}"];
+      v27 = +[CKLocationMediaObject placeholderPreviewCache];
+      v7 = [v27 objectForKey:v26];
 
       if (!v7)
       {
-        v22 = [(CKLocationMediaObject *)self generatePlaceholderThumbnailForWidth:orientationCopy orientation:width];
-        v25.receiver = self;
-        v25.super_class = CKLocationMediaObject;
-        v7 = [(CKMediaObject *)&v25 generatePreviewFromThumbnail:v22 width:orientationCopy orientation:width];
+        v28 = [(CKLocationMediaObject *)self generatePlaceholderThumbnailForWidth:orientationCopy orientation:width];
+        v30.receiver = self;
+        v30.super_class = CKLocationMediaObject;
+        v7 = [(CKMediaObject *)&v30 generatePreviewFromThumbnail:v28 width:orientationCopy orientation:width];
 
         if (v7)
         {
-          v23 = +[CKLocationMediaObject placeholderPreviewCache];
-          [v23 setObject:v7 forKey:v20];
+          v29 = +[CKLocationMediaObject placeholderPreviewCache];
+          [v29 setObject:v7 forKey:v26];
         }
       }
 
@@ -525,7 +536,7 @@ void *__53__CKLocationMediaObject_previewForWidth_orientation___block_invoke()
 
 id __53__CKLocationMediaObject_previewForWidth_orientation___block_invoke_257(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (IMOSLoggingEnabled())
   {
@@ -535,60 +546,58 @@ id __53__CKLocationMediaObject_previewForWidth_orientation___block_invoke_257(ui
     {
       v5 = *(a1 + 32);
       *buf = 138412290;
-      v31 = v5;
+      v41 = v5;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_DEBUG, "%@ generate preview.", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v27 = *(a1 + 32);
-    _CKLog();
+    _CKLog(2u, @"%@ generate preview.", v6, v7, v8, v9, v10, v11, *(a1 + 32));
   }
 
-  v6 = +[CKUIBehavior sharedBehaviors];
-  [v6 mapThumbnailFillSizeForWidth:*(a1 + 40)];
-  v8 = v7;
-  v10 = v9;
+  v12 = +[CKUIBehavior sharedBehaviors];
+  [v12 mapThumbnailFillSizeForWidth:*(a1 + 40)];
+  v14 = v13;
+  v16 = v15;
 
-  v11 = +[CKUIBehavior sharedBehaviors];
-  [v11 thumbnailContentAlignmentInsetsForOrientation:*(a1 + 48)];
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
+  v17 = +[CKUIBehavior sharedBehaviors];
+  [v17 thumbnailContentAlignmentInsetsForOrientation:*(a1 + 48)];
   v19 = v18;
+  v21 = v20;
+  v23 = v22;
+  v25 = v24;
 
-  v20 = [*(a1 + 32) generateThumbnailFillToSize:v8 contentAlignmentInsets:{v10, v13, v15, v17, v19}];
-  v21 = objc_alloc_init(MEMORY[0x1E69A6170]);
-  [v21 startTimingForKey:@"CKLocationMediaObject_PreviewGenerationTime"];
-  v22 = [*(a1 + 32) generatePreviewFromThumbnail:v20 width:*(a1 + 48) orientation:*(a1 + 40)];
-  [v21 stopTimingForKey:@"CKLocationMediaObject_PreviewGenerationTime"];
+  v26 = [*(a1 + 32) generateThumbnailFillToSize:v14 contentAlignmentInsets:{v16, v19, v21, v23, v25}];
+  v27 = objc_alloc_init(MEMORY[0x1E69A6170]);
+  [v27 startTimingForKey:@"CKLocationMediaObject_PreviewGenerationTime"];
+  v28 = [*(a1 + 32) generatePreviewFromThumbnail:v26 width:*(a1 + 48) orientation:*(a1 + 40)];
+  [v27 stopTimingForKey:@"CKLocationMediaObject_PreviewGenerationTime"];
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(2);
-    v23 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v29 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
-      v24 = [*(a1 + 32) UTIType];
+      v30 = [*(a1 + 32) UTIType];
       *buf = 138412546;
-      v31 = v24;
-      v32 = 2112;
-      v33 = v21;
-      _os_log_impl(&dword_19020E000, v23, OS_LOG_TYPE_DEBUG, "Cache miss on UTI type %@ generated with timing: %@", buf, 0x16u);
+      v41 = v30;
+      v42 = 2112;
+      v43 = v27;
+      _os_log_impl(&dword_19020E000, v29, OS_LOG_TYPE_DEBUG, "Cache miss on UTI type %@ generated with timing: %@", buf, 0x16u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v28 = [*(a1 + 32) UTIType];
-    v29 = v21;
-    _CKLog();
+    v31 = [*(a1 + 32) UTIType];
+    _CKLog(2u, @"Cache miss on UTI type %@ generated with timing: %@", v32, v33, v34, v35, v36, v37, v31);
   }
 
-  v25 = [MEMORY[0x1E69A8168] sharedInstance];
-  [v25 trackEvent:*MEMORY[0x1E69A7580]];
+  v38 = [MEMORY[0x1E69A8168] sharedInstance];
+  [v38 trackEvent:*MEMORY[0x1E69A7580]];
 
-  return v22;
+  return v28;
 }
 
 void __53__CKLocationMediaObject_previewForWidth_orientation___block_invoke_271(uint64_t a1)
@@ -672,18 +681,18 @@ void __53__CKLocationMediaObject_previewForWidth_orientation___block_invoke_3(ui
 {
   height = size.height;
   width = size.width;
-  v45 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   if (generateThumbnailFillToSize_contentAlignmentInsets___pred_CLLocationCoordinate2DIsValidCoreLocation != -1)
   {
     [CKLocationMediaObject generateThumbnailFillToSize:contentAlignmentInsets:];
   }
 
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__38;
-  v39 = __Block_byref_object_dispose__38;
-  v40 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__38;
+  v51 = __Block_byref_object_dispose__38;
+  v52 = 0;
   coordinate = [(CKLocationMediaObject *)self coordinate];
   v9 = v8;
   v11 = v10;
@@ -692,18 +701,18 @@ void __53__CKLocationMediaObject_previewForWidth_orientation___block_invoke_3(ui
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(2);
-      v26 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v32 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&dword_19020E000, v26, OS_LOG_TYPE_INFO, "%@ has invalid coordinate. Abort preview generation.", buf, 0xCu);
+        _os_log_impl(&dword_19020E000, v32, OS_LOG_TYPE_INFO, "%@ has invalid coordinate. Abort preview generation.", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      _CKLogExternal();
+      _CKLogExternal(2u, @"%@ has invalid coordinate. Abort preview generation.", v33, v34, v35, v36, v37, v38, self);
     }
 
     goto LABEL_30;
@@ -728,11 +737,11 @@ void __53__CKLocationMediaObject_previewForWidth_orientation___block_invoke_3(ui
     {
       if (IMOSLoggingEnabled())
       {
-        v28 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+        v40 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_19020E000, v28, OS_LOG_TYPE_INFO, "CKLocationMediaObject - Map region is invalid, bailing!", buf, 2u);
+          _os_log_impl(&dword_19020E000, v40, OS_LOG_TYPE_INFO, "CKLocationMediaObject - Map region is invalid, bailing!", buf, 2u);
         }
       }
     }
@@ -748,14 +757,14 @@ void __53__CKLocationMediaObject_previewForWidth_orientation___block_invoke_3(ui
         v21 = dispatch_group_create();
         dispatch_group_enter(v21);
         v22 = +[CKPreviewDispatchCache mapThumbnailQueue];
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __76__CKLocationMediaObject_generateThumbnailFillToSize_contentAlignmentInsets___block_invoke_296;
-        v32[3] = &unk_1E72EBCB0;
-        v34 = &v35;
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __76__CKLocationMediaObject_generateThumbnailFillToSize_contentAlignmentInsets___block_invoke_296;
+        v44[3] = &unk_1E72EBCB0;
+        v46 = &v47;
         v23 = v21;
-        v33 = v23;
-        [v20 startWithQueue:v22 completionHandler:v32];
+        v45 = v23;
+        [v20 startWithQueue:v22 completionHandler:v44];
 
         v24 = dispatch_time(0, 20000000000);
         if (dispatch_group_wait(v23, v24))
@@ -774,25 +783,25 @@ void __53__CKLocationMediaObject_previewForWidth_orientation___block_invoke_3(ui
 
           if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
           {
-            _CKLogExternal();
+            _CKLogExternal(2u, @"%@ thumbnail generation timed out.", v26, v27, v28, v29, v30, v31, self);
           }
         }
 
 LABEL_30:
-        v27 = v36[5];
+        v39 = v48[5];
         goto LABEL_46;
       }
 
       if (IMOSLoggingEnabled())
       {
-        v30 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        v42 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
           selfCopy2 = @"MKMapSnapshotter";
-          v43 = 2112;
-          v44 = @"MapKit";
-          _os_log_impl(&dword_19020E000, v30, OS_LOG_TYPE_INFO, "Failed weak linking %@ from %@.", buf, 0x16u);
+          v55 = 2112;
+          v56 = @"MapKit";
+          _os_log_impl(&dword_19020E000, v42, OS_LOG_TYPE_INFO, "Failed weak linking %@ from %@.", buf, 0x16u);
         }
       }
     }
@@ -800,32 +809,32 @@ LABEL_30:
 
   else if (IMOSLoggingEnabled())
   {
-    v29 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v41 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
       selfCopy2 = @"MKMapSnapshotOptions";
-      v43 = 2112;
-      v44 = @"MapKit";
-      _os_log_impl(&dword_19020E000, v29, OS_LOG_TYPE_INFO, "Failed weak linking %@ from %@.", buf, 0x16u);
+      v55 = 2112;
+      v56 = @"MapKit";
+      _os_log_impl(&dword_19020E000, v41, OS_LOG_TYPE_INFO, "Failed weak linking %@ from %@.", buf, 0x16u);
     }
   }
 
-  v27 = 0;
+  v39 = 0;
 LABEL_46:
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v47, 8);
 
-  return v27;
+  return v39;
 }
 
-void *__76__CKLocationMediaObject_generateThumbnailFillToSize_contentAlignmentInsets___block_invoke()
+uint64_t (*__76__CKLocationMediaObject_generateThumbnailFillToSize_contentAlignmentInsets___block_invoke())(void)
 {
   result = MEMORY[0x193AF5ED0]("CLLocationCoordinate2DIsValid", @"CoreLocation");
   generateThumbnailFillToSize_contentAlignmentInsets___CLLocationCoordinate2DIsValid = result;
   return result;
 }
 
-void *__76__CKLocationMediaObject_generateThumbnailFillToSize_contentAlignmentInsets___block_invoke_288()
+uint64_t (*__76__CKLocationMediaObject_generateThumbnailFillToSize_contentAlignmentInsets___block_invoke_288())(double, double, double, double)
 {
   result = MEMORY[0x193AF5ED0]("MKCoordinateRegionMakeWithDistance", @"MapKit");
   generateThumbnailFillToSize_contentAlignmentInsets___MKCoordinateRegionMakeWithDistance = result;
@@ -909,7 +918,7 @@ void __76__CKLocationMediaObject_generateThumbnailFillToSize_contentAlignmentIns
 
 - (id)previewItemTitle
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"PREVIEW_TITLE_LOCATION" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;
@@ -917,7 +926,7 @@ void __76__CKLocationMediaObject_generateThumbnailFillToSize_contentAlignmentIns
 
 - (CLLocationCoordinate2D)coordinate
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (coordinate__pred_CLLocationCoordinate2DIsValidCoreLocation_0 != -1)
   {
     [CKLocationMediaObject coordinate];
@@ -928,71 +937,72 @@ void __76__CKLocationMediaObject_generateThumbnailFillToSize_contentAlignmentIns
     [CKLocationMediaObject coordinate];
   }
 
-  v27[0] = 0;
+  v29[0] = 0;
   if (!TelephonyUtilitiesLibraryCore_frameworkLibrary)
   {
-    v27[1] = MEMORY[0x1E69E9820];
-    v27[2] = 3221225472;
-    v27[3] = __TelephonyUtilitiesLibraryCore_block_invoke;
-    v27[4] = &__block_descriptor_40_e5_v8__0l;
-    v27[5] = v27;
-    v29 = xmmword_1E72F3C58;
-    v30 = 0;
+    v29[1] = MEMORY[0x1E69E9820];
+    v29[2] = 3221225472;
+    v29[3] = __TelephonyUtilitiesLibraryCore_block_invoke;
+    v29[4] = &__block_descriptor_40_e5_v8__0l;
+    v29[5] = v29;
+    v31 = xmmword_1E72F3C58;
+    v32 = 0;
     TelephonyUtilitiesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!TelephonyUtilitiesLibraryCore_frameworkLibrary)
   {
-    [(CKLocationMediaObject *)v27 coordinate];
+    [(CKLocationMediaObject *)v29 coordinate];
   }
 
-  if (v27[0])
+  if (v29[0])
   {
-    free(v27[0]);
+    free(v29[0]);
   }
 
   p_coordinate = &self->_coordinate;
-  if (!coordinate__CLLocationCoordinate2DIsValid_0(self->_coordinate.latitude, self->_coordinate.longitude) || (latitude = p_coordinate->latitude, p_coordinate->latitude == 0.0) || (longitude = self->_coordinate.longitude, longitude == 0.0))
+  valid = coordinate__CLLocationCoordinate2DIsValid_0(self->_coordinate.latitude, self->_coordinate.longitude);
+  if (!valid || (latitude = p_coordinate->latitude, p_coordinate->latitude == 0.0) || (longitude = self->_coordinate.longitude, longitude == 0.0))
   {
-    v6 = __kCLLocationCoordinate2DInvalid();
-    v8 = v7;
+    v8 = __kCLLocationCoordinate2DInvalid(valid, v5);
+    v10 = v9;
     [(CKLocationMediaObject *)self vCardURLProperties];
-    v23 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v9 = v26 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
-    if (v10)
+    v26 = 0u;
+    v27 = 0u;
+    v11 = v28 = 0u;
+    v12 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    if (v12)
     {
-      v11 = v10;
-      v12 = *v24;
+      v13 = v12;
+      v14 = *v26;
       while (2)
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v24 != v12)
+          if (*v26 != v14)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v11);
           }
 
-          v14 = [MEMORY[0x1E69A80F8] coordinatesFromString:{*(*(&v23 + 1) + 8 * i), v23}];
-          if ([v14 count] == 2)
+          v16 = [MEMORY[0x1E69A80F8] coordinatesFromString:{*(*(&v25 + 1) + 8 * i), v25}];
+          if ([v16 count] == 2)
           {
-            v15 = coordinate__CLLocationCoordinate2DMake_0;
-            v16 = [v14 objectAtIndex:0];
-            [v16 doubleValue];
-            v18 = v17;
-            v19 = [v14 objectAtIndex:1];
-            doubleValue = [v19 doubleValue];
-            v6 = v15(doubleValue, v18, v21);
-            v8 = v22;
+            v17 = coordinate__CLLocationCoordinate2DMake_0;
+            v18 = [v16 objectAtIndex:0];
+            [v18 doubleValue];
+            v20 = v19;
+            v21 = [v16 objectAtIndex:1];
+            doubleValue = [v21 doubleValue];
+            v8 = v17(doubleValue, v20, v23);
+            v10 = v24;
 
             goto LABEL_23;
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
-        if (v11)
+        v13 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        if (v13)
         {
           continue;
         }
@@ -1003,8 +1013,8 @@ void __76__CKLocationMediaObject_generateThumbnailFillToSize_contentAlignmentIns
 
 LABEL_23:
 
-    p_coordinate->latitude = v6;
-    p_coordinate->longitude = v8;
+    p_coordinate->latitude = v8;
+    p_coordinate->longitude = v10;
 
     latitude = p_coordinate->latitude;
     longitude = p_coordinate->longitude;
@@ -1015,7 +1025,7 @@ LABEL_23:
   return result;
 }
 
-void *__35__CKLocationMediaObject_coordinate__block_invoke()
+uint64_t (*__35__CKLocationMediaObject_coordinate__block_invoke())(double, double)
 {
   result = MEMORY[0x193AF5ED0]("CLLocationCoordinate2DIsValid", @"CoreLocation");
   coordinate__CLLocationCoordinate2DIsValid_0 = result;
@@ -1147,21 +1157,21 @@ void __48__CKLocationMediaObject_placeholderPreviewCache__block_invoke()
 {
   height = size.height;
   width = size.width;
-  v42 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v7 = [(CKLocationMediaObject *)self transcriptTraitCollection:size.width];
   v8 = CKLocationSharePreviewPlaceHolderCacheFileURL(v7, width, @"jpeg");
 
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__38;
-  v36 = __Block_byref_object_dispose__38;
-  v37 = 0;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__38;
+  v49 = __Block_byref_object_dispose__38;
+  v50 = 0;
   v9 = [(CKMediaObject *)self savedPreviewFromURL:v8 forOrientation:0];
-  v10 = v33[5];
-  v33[5] = v9;
+  v10 = v46[5];
+  v46[5] = v9;
 
-  if (v33[5])
+  if (v46[5])
   {
     if (IMOSLoggingEnabled())
     {
@@ -1176,95 +1186,95 @@ void __48__CKLocationMediaObject_placeholderPreviewCache__block_invoke()
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      _CKLogExternal();
+      _CKLogExternal(2u, @"Found cached thumnail on disk.", v12, v13, v14, v15, v16, v17, v41);
     }
 
-    v12 = v33[5];
+    v18 = v46[5];
   }
 
   else
   {
-    v13 = MEMORY[0x193AF5EC0](@"MKMapSnapshotOptions", @"MapKit");
-    if (v13)
+    v19 = MEMORY[0x193AF5EC0](@"MKMapSnapshotOptions", @"MapKit");
+    if (v19)
     {
-      v14 = objc_alloc_init(v13);
-      [v14 setMapType:105];
+      v20 = objc_alloc_init(v19);
+      [v20 setMapType:105];
       transcriptTraitCollection = [(CKLocationMediaObject *)self transcriptTraitCollection];
-      [v14 setTraitCollection:transcriptTraitCollection];
+      [v20 setTraitCollection:transcriptTraitCollection];
 
-      [v14 setSize:{width, height}];
+      [v20 setSize:{width, height}];
       mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
       [mainScreen scale];
-      [v14 setScale:?];
+      [v20 setScale:?];
 
-      v17 = MEMORY[0x193AF5EC0](@"MKMapSnapshotter", @"MapKit");
-      if (v17)
+      v23 = MEMORY[0x193AF5EC0](@"MKMapSnapshotter", @"MapKit");
+      if (v23)
       {
-        v18 = [[v17 alloc] initWithOptions:v14];
-        v19 = dispatch_group_create();
-        dispatch_group_enter(v19);
-        v20 = dispatch_get_global_queue(0, 0);
-        v29[0] = MEMORY[0x1E69E9820];
-        v29[1] = 3221225472;
-        v29[2] = __87__CKLocationMediaObject_generatePlaceholderThumbnailFillToSize_contentAlignmentInsets___block_invoke;
-        v29[3] = &unk_1E72EBCB0;
-        v31 = &v32;
-        v21 = v19;
-        v30 = v21;
-        [v18 startWithQueue:v20 completionHandler:v29];
+        v24 = [[v23 alloc] initWithOptions:v20];
+        v25 = dispatch_group_create();
+        dispatch_group_enter(v25);
+        v26 = dispatch_get_global_queue(0, 0);
+        v42[0] = MEMORY[0x1E69E9820];
+        v42[1] = 3221225472;
+        v42[2] = __87__CKLocationMediaObject_generatePlaceholderThumbnailFillToSize_contentAlignmentInsets___block_invoke;
+        v42[3] = &unk_1E72EBCB0;
+        v44 = &v45;
+        v27 = v25;
+        v43 = v27;
+        [v24 startWithQueue:v26 completionHandler:v42];
 
-        v22 = dispatch_time(0, 5000000000);
-        if (dispatch_group_wait(v21, v22))
+        v28 = dispatch_time(0, 5000000000);
+        if (dispatch_group_wait(v27, v28))
         {
           if (IMOSLoggingEnabled())
           {
             CKLogCStringForType(2);
-            v23 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+            v29 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
               selfCopy = self;
-              _os_log_impl(&dword_19020E000, v23, OS_LOG_TYPE_INFO, "%@ thumbnail generation timed out.", buf, 0xCu);
+              _os_log_impl(&dword_19020E000, v29, OS_LOG_TYPE_INFO, "%@ thumbnail generation timed out.", buf, 0xCu);
             }
           }
 
           if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
           {
-            _CKLogExternal();
+            _CKLogExternal(2u, @"%@ thumbnail generation timed out.", v30, v31, v32, v33, v34, v35, self);
           }
         }
 
-        v24 = v33[5];
-        if (v24)
+        v36 = v46[5];
+        if (v36)
         {
-          [(CKMediaObject *)self savePreview:v24 toURL:v8 forOrientation:0];
-          v25 = v33[5];
+          [(CKMediaObject *)self savePreview:v36 toURL:v8 forOrientation:0];
+          v37 = v46[5];
         }
 
         else
         {
-          v25 = 0;
+          v37 = 0;
         }
 
-        v12 = v25;
+        v18 = v37;
       }
 
       else
       {
         if (IMOSLoggingEnabled())
         {
-          v27 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+          v39 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
             selfCopy = @"MKMapSnapshotter";
-            v40 = 2112;
-            v41 = @"MapKit";
-            _os_log_impl(&dword_19020E000, v27, OS_LOG_TYPE_INFO, "Failed weak linking %@ from %@.", buf, 0x16u);
+            v53 = 2112;
+            v54 = @"MapKit";
+            _os_log_impl(&dword_19020E000, v39, OS_LOG_TYPE_INFO, "Failed weak linking %@ from %@.", buf, 0x16u);
           }
         }
 
-        v12 = 0;
+        v18 = 0;
       }
     }
 
@@ -1272,24 +1282,24 @@ void __48__CKLocationMediaObject_placeholderPreviewCache__block_invoke()
     {
       if (IMOSLoggingEnabled())
       {
-        v26 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        v38 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
           selfCopy = @"MKMapSnapshotOptions";
-          v40 = 2112;
-          v41 = @"MapKit";
-          _os_log_impl(&dword_19020E000, v26, OS_LOG_TYPE_INFO, "Failed weak linking %@ from %@.", buf, 0x16u);
+          v53 = 2112;
+          v54 = @"MapKit";
+          _os_log_impl(&dword_19020E000, v38, OS_LOG_TYPE_INFO, "Failed weak linking %@ from %@.", buf, 0x16u);
         }
       }
 
-      v12 = 0;
+      v18 = 0;
     }
   }
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v45, 8);
 
-  return v12;
+  return v18;
 }
 
 void __87__CKLocationMediaObject_generatePlaceholderThumbnailFillToSize_contentAlignmentInsets___block_invoke(uint64_t a1, void *a2, void *a3)

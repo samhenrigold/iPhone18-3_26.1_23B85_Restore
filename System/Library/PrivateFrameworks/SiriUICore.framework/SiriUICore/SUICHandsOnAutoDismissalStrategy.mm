@@ -57,9 +57,11 @@
 
 - (void)_setMapsNavigationStatusIsActiveBlock:(id)block
 {
-  self->_mapsNavigationStatusIsActiveBlock = MEMORY[0x1C6937B00](block, a2);
+  v4 = MEMORY[0x1C6937B00](block, a2);
+  mapsNavigationStatusIsActiveBlock = self->_mapsNavigationStatusIsActiveBlock;
+  self->_mapsNavigationStatusIsActiveBlock = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, mapsNavigationStatusIsActiveBlock);
 }
 
 @end

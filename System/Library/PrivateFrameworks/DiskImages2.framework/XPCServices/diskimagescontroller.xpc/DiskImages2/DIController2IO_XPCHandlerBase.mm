@@ -49,33 +49,45 @@
 - (void)setConnectionMode
 {
   v3 = *__error();
-  if (sub_1000E044C())
+  v4 = sub_1000E044C();
+  if (v4)
   {
-    v4 = sub_1000E03D8();
-    os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v15 = 0;
+    v6 = sub_1000E03D8(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
     *buf = 68157954;
     *&buf[4] = 51;
-    LOWORD(v12[0]) = 2080;
-    *(v12 + 2) = "[DIController2IO_XPCHandlerBase setConnectionMode]";
-    v5 = _os_log_send_and_compose_impl();
+    LOWORD(v17[0]) = 2080;
+    *(v17 + 2) = "[DIController2IO_XPCHandlerBase setConnectionMode]";
+    LODWORD(v14) = 18;
+    v8 = _os_log_send_and_compose_impl(v7, &v15, 0, 0, &_mh_execute_header, v6, 0, "%.*s: Setting oneshot XPC instance", buf, v14);
 
-    if (v5)
+    if (v8)
     {
-      fprintf(__stderrp, "%s\n", v5);
-      free(v5);
+      fprintf(__stderrp, "%s\n", v8);
+      free(v8);
     }
   }
 
   else
   {
-    v6 = sub_1000E03D8();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000E03D8(v4, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
       *&buf[4] = 51;
-      LOWORD(v12[0]) = 2080;
-      *(v12 + 2) = "[DIController2IO_XPCHandlerBase setConnectionMode]";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%.*s: Setting oneshot XPC instance", buf, 0x12u);
+      LOWORD(v17[0]) = 2080;
+      *(v17 + 2) = "[DIController2IO_XPCHandlerBase setConnectionMode]";
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%.*s: Setting oneshot XPC instance", buf, 0x12u);
     }
   }
 
@@ -84,7 +96,7 @@
   _xpcConnection = [connection _xpcConnection];
 
   *buf = 0;
-  v12[0] = 0;
+  v17[0] = 0;
   params = [(DIController2IO_XPCHandlerBase *)self params];
   instanceID = [params instanceID];
   [instanceID getUUIDBytes:buf];

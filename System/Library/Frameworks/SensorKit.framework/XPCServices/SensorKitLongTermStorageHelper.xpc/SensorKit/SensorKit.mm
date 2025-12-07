@@ -1,4 +1,4 @@
-id sub_100000FE4(void *a1, void *a2)
+id *sub_100000FE4(void *a1, void *a2)
 {
   if (!a1)
   {
@@ -11,7 +11,7 @@ id sub_100000FE4(void *a1, void *a2)
   if (v3)
   {
     v4 = @"SegmentSizeBytes";
-    *(v3 + 3) = a2;
+    v3[3] = a2;
     v70[0] = @"Enabled";
     v70[1] = @"SegmentSizeBytes";
     v71[0] = &off_100011D50;
@@ -387,7 +387,7 @@ id sub_100000FE4(void *a1, void *a2)
 
     v70[72] = v62;
     v71[72] = &off_100011FA8;
-    [*(v3 + 3) registerDefaults:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", v71, v70, 73)}];
+    [v3[3] registerDefaults:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", v71, v70, 73)}];
   }
 
   return v3;
@@ -423,7 +423,7 @@ id sub_100001E5C(uint64_t a1, void *a2, void *a3)
   return a2;
 }
 
-uint64_t sub_100001F4C(uint64_t result)
+unint64_t sub_100001F4C(unint64_t result)
 {
   if (result)
   {
@@ -601,7 +601,7 @@ void *sub_10000261C(void *a1, void *a2, void *a3)
   return v5;
 }
 
-uint64_t sub_100003460(uint64_t result, void *a2, id *a3, void *a4, void *a5)
+BOOL sub_100003460(_BOOL8 result, void *a2, id *a3, void *a4, void *a5)
 {
   if (result)
   {
@@ -816,7 +816,7 @@ uint64_t sub_100003A50(void *a1, void *a2, uint64_t a3, uint64_t a4)
   return [a1 _sr_hasEntitlement:v10 sensor:a3 valueProvider:a4];
 }
 
-const __CFString *sub_100003E9C(uint64_t a1)
+const __CFString *sub_100003E9C(uint64_t a1, uint64_t a2)
 {
   if (a1 < 4096)
   {
@@ -829,14 +829,14 @@ const __CFString *sub_100003E9C(uint64_t a1)
           return 0;
         }
 
-        v3 = [NSBundle bundleForClass:objc_opt_class()];
-        v4 = @"SRErrorNoAuthorization";
+        v4 = [NSBundle bundleForClass:objc_opt_class()];
+        v5 = @"SRErrorNoAuthorization";
       }
 
       else
       {
-        v3 = [NSBundle bundleForClass:objc_opt_class()];
-        v4 = @"SRErrorInvalidEntitlement";
+        v4 = [NSBundle bundleForClass:objc_opt_class()];
+        v5 = @"SRErrorInvalidEntitlement";
       }
     }
 
@@ -845,23 +845,23 @@ const __CFString *sub_100003E9C(uint64_t a1)
       switch(a1)
       {
         case 2:
-          v3 = [NSBundle bundleForClass:objc_opt_class()];
-          v4 = @"SRErrorDataInaccessible";
+          v4 = [NSBundle bundleForClass:objc_opt_class()];
+          v5 = @"SRErrorDataInaccessible";
           break;
         case 3:
-          v3 = [NSBundle bundleForClass:objc_opt_class()];
-          v4 = @"SRErrorFetchRequestInvalid";
+          v4 = [NSBundle bundleForClass:objc_opt_class()];
+          v5 = @"SRErrorFetchRequestInvalid";
           break;
         case 4:
-          v3 = [NSBundle bundleForClass:objc_opt_class()];
-          v4 = @"SRErrorPromptDeclined";
+          v4 = [NSBundle bundleForClass:objc_opt_class()];
+          v5 = @"SRErrorPromptDeclined";
           break;
         default:
           return 0;
       }
     }
 
-    return [(NSBundle *)v3 localizedStringForKey:v4 value:&stru_100011248 table:0];
+    return [(NSBundle *)v4 localizedStringForKey:v5 value:&stru_100011248 table:0];
   }
 
   else
@@ -1019,11 +1019,11 @@ const __CFString *sub_100003E9C(uint64_t a1)
   }
 }
 
-NSString *sub_100004280(uint64_t a1)
+NSString *sub_100004280(uint64_t a1, uint64_t a2)
 {
   if (a1 == 1)
   {
-    v1 = @"SRErrorNoAuthorizationRecovery";
+    v2 = @"SRErrorNoAuthorizationRecovery";
   }
 
   else
@@ -1033,12 +1033,12 @@ NSString *sub_100004280(uint64_t a1)
       return 0;
     }
 
-    v1 = @"SRErrorDataInaccessibleRecovery";
+    v2 = @"SRErrorDataInaccessibleRecovery";
   }
 
-  v2 = [NSBundle bundleForClass:objc_opt_class()];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
 
-  return [(NSBundle *)v2 localizedStringForKey:v1 value:&stru_100011248 table:0];
+  return [(NSBundle *)v3 localizedStringForKey:v2 value:&stru_100011248 table:0];
 }
 
 SRAbsoluteTime SRAbsoluteTimeFromContinuousTime(uint64_t cont)
@@ -1507,28 +1507,28 @@ uint64_t sub_100007D38(uint64_t a1, uint64_t a2)
   return (*(*(a1 + 32) + 16))(*(a1 + 32), &__NSArray0__struct, [SRError errorWithCode:8193]);
 }
 
-NSURL *sub_1000086C4(NSURL *result)
+NSURL *sub_1000086C4(NSURL *result, const char *a2)
 {
   if (result)
   {
-    v4 = 0u;
     v5 = 0u;
-    [(NSURL *)result auditToken];
-    *buf = v4;
-    v7 = v5;
+    v6 = 0u;
+    objc_msgSend_auditToken(result, a2);
+    *buf = v5;
+    v8 = v6;
     result = [sub_1000023B4(NSBundle bundleIdentifier];
     if (!result)
     {
-      *buf = v4;
-      v7 = v5;
+      *buf = v5;
+      v8 = v6;
       result = sub_100004A48(NSURL, buf);
       if (result)
       {
-        v1 = result;
-        v2 = CFBundleCopyInfoDictionaryForURL(result);
-        if (v2)
+        v2 = result;
+        v3 = CFBundleCopyInfoDictionaryForURL(result);
+        if (v3)
         {
-          return [(__CFDictionary *)v2 objectForKeyedSubscript:@"CFBundleIdentifier"];
+          return [(__CFDictionary *)v3 objectForKeyedSubscript:@"CFBundleIdentifier"];
         }
 
         else
@@ -1538,12 +1538,12 @@ NSURL *sub_1000086C4(NSURL *result)
             dispatch_once(&qword_1000169E0, &stru_100010648);
           }
 
-          v3 = qword_1000169D8;
+          v4 = qword_1000169D8;
           if (os_log_type_enabled(qword_1000169D8, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            *&buf[4] = v1;
-            _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Could not get embedded info plist for executable %{public}@", buf, 0xCu);
+            *&buf[4] = v2;
+            _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Could not get embedded info plist for executable %{public}@", buf, 0xCu);
           }
 
           return 0;

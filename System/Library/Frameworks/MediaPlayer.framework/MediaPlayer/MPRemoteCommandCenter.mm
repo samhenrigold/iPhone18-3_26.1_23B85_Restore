@@ -2162,13 +2162,13 @@ LABEL_10:
   return v7;
 }
 
-void __44__MPRemoteCommandCenter_initWithPlayerPath___block_invoke()
+void __44__MPRemoteCommandCenter_initWithPlayerPath___block_invoke(uint64_t a1, uint64_t a2)
 {
   obj = objc_opt_class();
   objc_sync_enter(obj);
-  v0 = [MEMORY[0x1E696AD18] strongToWeakObjectsMapTable];
-  v1 = __commandCenterMap;
-  __commandCenterMap = v0;
+  v2 = [MEMORY[0x1E696AD18] strongToWeakObjectsMapTable];
+  v3 = __commandCenterMap;
+  __commandCenterMap = v2;
 
   objc_sync_exit(obj);
 }

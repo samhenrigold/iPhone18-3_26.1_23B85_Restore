@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)sleepModeChangeReasonAsString:(int)string;
+- (id)sleepModeStateAsString:(int)string;
 - (int)StringAsSleepModeChangeReason:(id)reason;
 - (int)StringAsSleepModeState:(id)state;
 - (int)sleepModeChangeReason;
@@ -43,6 +45,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)sleepModeStateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E6E53670 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsSleepModeState:(id)state
@@ -97,6 +114,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)sleepModeChangeReasonAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E6E53688 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsSleepModeChangeReason:(id)reason
@@ -240,12 +272,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    sleepModeState = self->_sleepModeState;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -264,15 +295,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sleepModeChangeReason = self->_sleepModeChangeReason;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    expectedEndDate = self->_expectedEndDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

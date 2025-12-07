@@ -14,10 +14,16 @@
 {
   if (name)
   {
-    sub_23C90();
+    v4 = sub_23C90();
   }
 
-  return sub_1EF7C();
+  else
+  {
+    v4 = 0;
+    v5 = 0;
+  }
+
+  return sub_1EF7C(v4, v5);
 }
 
 - (_TtC17RemindersSettings32TTRIGroceryAddLanguageController)initWithCoder:(id)coder

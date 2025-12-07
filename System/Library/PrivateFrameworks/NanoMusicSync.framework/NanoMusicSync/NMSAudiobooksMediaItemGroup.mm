@@ -1,7 +1,6 @@
 @interface NMSAudiobooksMediaItemGroup
 - (id)identifiersForContainerType:(unint64_t)type;
 - (id)itemList;
-- (void)itemList;
 @end
 
 @implementation NMSAudiobooksMediaItemGroup
@@ -38,7 +37,7 @@ void __59__NMSAudiobooksMediaItemGroup_identifiersForContainerType___block_invok
 
 - (id)itemList
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   referenceObj = [(NMSMediaItemGroup *)self referenceObj];
   audiobookMediaItem = [referenceObj audiobookMediaItem];
   if (!audiobookMediaItem)
@@ -122,46 +121,37 @@ LABEL_8:
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138414594;
-    v30 = audiobookMediaItem;
-    v31 = 2048;
-    v32 = v9;
-    v33 = 2048;
-    v34 = v12;
-    v35 = 2112;
-    v36 = v14;
-    v37 = 2048;
-    v38 = unsignedIntegerValue;
-    v39 = 2048;
-    v40 = v17;
-    v41 = 2048;
-    v42 = v19;
-    v43 = 2048;
-    v44 = v19;
-    v45 = 2048;
-    v46 = (v19 - v17) * unsignedIntegerValue * 0.125;
-    v47 = 2048;
-    v48 = v46;
+    v29 = audiobookMediaItem;
+    v30 = 2048;
+    v31 = v9;
+    v32 = 2048;
+    v33 = v12;
+    v34 = 2112;
+    v35 = v14;
+    v36 = 2048;
+    v37 = unsignedIntegerValue;
+    v38 = 2048;
+    v39 = v17;
+    v40 = 2048;
+    v41 = v19;
+    v42 = 2048;
+    v43 = v19;
+    v44 = 2048;
+    v45 = (v19 - v17) * unsignedIntegerValue * 0.125;
+    v46 = 2048;
+    v47 = v45;
     _os_log_debug_impl(&dword_25B27B000, v22, OS_LOG_TYPE_DEBUG, "[Audiobook Quota Evaluation] Item: %@, Bookmark Time: %f, Book Duration: %f, MediaLibrary BitRate: %@, Final BitRate: %lu, Start Time: %f, Minimum End Time: %f, Expected End Time: %f, Minimum Size: %f, Expected Size: %f", buf, 0x66u);
   }
 
   v23 = [NMSPartialDownloadableItem alloc];
   v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(audiobookMediaItem, "persistentID")}];
   v25 = [(NMSPartialDownloadableItem *)v23 initWithMediaLibraryIdentifier:v24 externalLibraryIdentifier:0 size:v21 itemType:2 manuallyAdded:[(NMSMediaItemGroup *)self manuallyAdded] minimumSize:v21 offset:v17];
-  v28 = v25;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+  v27 = v25;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
 
 LABEL_22:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v6;
-}
-
-- (void)itemList
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

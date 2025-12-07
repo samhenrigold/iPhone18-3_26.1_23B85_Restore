@@ -1,9 +1,12 @@
 @interface SKUISwooshCollectionViewLayout
 + (Class)layoutAttributesClass;
 + (float)snapToBoundariesDecelerationRate;
++ (void)layoutAttributesClass;
++ (void)snapToBoundariesDecelerationRate;
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)offset withScrollingVelocity:(CGPoint)velocity;
 - (SKUISwooshCollectionViewLayout)init;
 - (id)layoutAttributesForElementsInRect:(CGRect)rect;
+- (void)init;
 @end
 
 @implementation SKUISwooshCollectionViewLayout
@@ -194,6 +197,24 @@ LABEL_19:
   result.y = v30;
   result.x = v29;
   return result;
+}
+
+- (void)init
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISwooshCollectionViewLayout init]";
+}
+
++ (void)snapToBoundariesDecelerationRate
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISwooshCollectionViewLayout snapToBoundariesDecelerationRate]";
+}
+
++ (void)layoutAttributesClass
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISwooshCollectionViewLayout layoutAttributesClass]";
 }
 
 @end

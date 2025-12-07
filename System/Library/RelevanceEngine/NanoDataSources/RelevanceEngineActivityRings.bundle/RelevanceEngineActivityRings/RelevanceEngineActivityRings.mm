@@ -30,16 +30,16 @@ void sub_FFC(uint64_t a1)
   (*(v14 + 16))(v14, v15);
 }
 
-id _FormattingManager()
+id _FormattingManager(uint64_t a1)
 {
   if (qword_C760 != -1)
   {
     sub_3164();
   }
 
-  v1 = qword_C758;
+  v2 = qword_C758;
 
-  return v1;
+  return v2;
 }
 
 void sub_126C(id a1)
@@ -56,240 +56,241 @@ id RingsElementWithActivitySummary(void *a1, void *a2)
   v3 = a1;
   v4 = a2;
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  v113 = v3;
+  v119 = v3;
   if (FIActivitySummaryHasNonZeroMoveGoal())
   {
-    v112 = objc_alloc_init(REContent);
-    [v112 setStyle:3];
-    v110 = v4;
-    if ([v3 activityMoveMode] == &dword_0 + 2)
+    v118 = objc_alloc_init(REContent);
+    [v118 setStyle:3];
+    v5 = [v3 activityMoveMode];
+    v116 = v4;
+    if (v5 == &dword_0 + 2)
     {
-      v5 = +[HKUnit minuteUnit];
+      v6 = +[HKUnit minuteUnit];
     }
 
     else
     {
-      v8 = _FormattingManager();
-      v9 = [v8 unitManager];
-      v5 = [v9 userActiveEnergyBurnedUnit];
+      v9 = _FormattingManager(v5);
+      v10 = [v9 unitManager];
+      v6 = [v10 userActiveEnergyBurnedUnit];
     }
 
-    v10 = FIMoveQuantityForActivitySummary();
-    v11 = FIMoveGoalQuantityForActivitySummary();
-    v108 = v10;
-    [v10 doubleValueForUnit:v5];
-    v13 = v12;
-    v107 = v11;
-    [v11 doubleValueForUnit:v5];
-    v104 = v14;
-    v15 = [NSNumber numberWithDouble:v13];
-    v16 = +[HKUnit minuteUnit];
-    LODWORD(v11) = [v5 isEqual:v16];
+    v11 = FIMoveQuantityForActivitySummary();
+    v12 = FIMoveGoalQuantityForActivitySummary();
+    v114 = v11;
+    [v11 doubleValueForUnit:v6];
+    v14 = v13;
+    v113 = v12;
+    [v12 doubleValueForUnit:v6];
+    v110 = v15;
+    v16 = [NSNumber numberWithDouble:v14];
+    v17 = +[HKUnit minuteUnit];
+    LODWORD(v12) = [v6 isEqual:v17];
 
-    v109 = v5;
-    if (v11)
+    v115 = v6;
+    if (v12)
     {
-      v17 = FIUIBundle();
-      v18 = @"Localizable-tinker";
-      v19 = [v17 localizedStringForKey:@"ACTIVITY_MOVE_VALUE_MIN_UNIT_FORMAT" value:&stru_84F0 table:@"Localizable-tinker"];
+      v18 = FIUIBundle();
+      v19 = @"Localizable-tinker";
+      v20 = [v18 localizedStringForKey:@"ACTIVITY_MOVE_VALUE_MIN_UNIT_FORMAT" value:&stru_84F0 table:@"Localizable-tinker"];
 
-      v20 = FIUIBundle();
-      v21 = v20;
-      v22 = @"ACTIVITY_MOVE_VALUE_MIN_UNIT";
+      v21 = FIUIBundle();
+      v22 = v21;
+      v23 = @"ACTIVITY_MOVE_VALUE_MIN_UNIT";
     }
 
     else
     {
-      v23 = [HKUnit jouleUnitWithMetricPrefix:9];
-      v24 = [v5 isEqual:v23];
+      v24 = [HKUnit jouleUnitWithMetricPrefix:9];
+      v25 = [v6 isEqual:v24];
 
-      if (!v24)
+      if (!v25)
       {
-        v28 = +[HKUnit largeCalorieUnit];
-        v29 = [v5 isEqual:v28];
+        v29 = +[HKUnit largeCalorieUnit];
+        v30 = [v6 isEqual:v29];
 
-        v30 = FIUIBundle();
-        v27 = [v30 localizedStringForKey:@"ACTIVITY_MOVE_VALUE_KCAL_UNIT_FORMAT" value:&stru_84F0 table:@"Localizable"];
+        v31 = FIUIBundle();
+        v28 = [v31 localizedStringForKey:@"ACTIVITY_MOVE_VALUE_KCAL_UNIT_FORMAT" value:&stru_84F0 table:@"Localizable"];
 
-        v20 = FIUIBundle();
-        v21 = v20;
-        if (v29)
+        v21 = FIUIBundle();
+        v22 = v21;
+        if (v30)
         {
-          v22 = @"ACTIVITY_MOVE_VALUE_CAL_UNIT";
+          v23 = @"ACTIVITY_MOVE_VALUE_CAL_UNIT";
         }
 
         else
         {
-          v22 = @"ACTIVITY_MOVE_VALUE_KCAL_UNIT";
+          v23 = @"ACTIVITY_MOVE_VALUE_KCAL_UNIT";
         }
 
-        v26 = @"Localizable";
+        v27 = @"Localizable";
         goto LABEL_17;
       }
 
-      v25 = FIUIBundle();
-      v18 = @"Localizable";
-      v19 = [v25 localizedStringForKey:@"ACTIVITY_MOVE_VALUE_KJ_UNIT_FORMAT" value:&stru_84F0 table:@"Localizable"];
+      v26 = FIUIBundle();
+      v19 = @"Localizable";
+      v20 = [v26 localizedStringForKey:@"ACTIVITY_MOVE_VALUE_KJ_UNIT_FORMAT" value:&stru_84F0 table:@"Localizable"];
 
-      v20 = FIUIBundle();
-      v21 = v20;
-      v22 = @"ACTIVITY_MOVE_VALUE_KJ_UNIT";
+      v21 = FIUIBundle();
+      v22 = v21;
+      v23 = @"ACTIVITY_MOVE_VALUE_KJ_UNIT";
     }
 
-    v26 = v18;
     v27 = v19;
+    v28 = v20;
 LABEL_17:
-    v31 = [v20 localizedStringForKey:v22 value:&stru_84F0 table:v26];
-    v32 = +[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", v31, [v15 integerValue]);
+    v32 = [v21 localizedStringForKey:v23 value:&stru_84F0 table:v27];
+    v33 = +[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", v32, [v16 integerValue]);
 
-    v33 = [FIUIFormattingManager stringWithNumber:v15 decimalPrecision:1];
-    v34 = [v32 localizedLowercaseString];
+    v34 = [FIUIFormattingManager stringWithNumber:v16 decimalPrecision:1];
+    v35 = [v33 localizedLowercaseString];
 
-    v35 = [v27 rangeOfString:@"<value>"];
-    v105 = v27;
-    v106 = v15;
-    v102 = v34;
-    v103 = v33;
-    if (v35 <= [v27 rangeOfString:@"<unit>"])
+    v36 = [v28 rangeOfString:@"<value>"];
+    v111 = v28;
+    v112 = v16;
+    v108 = v35;
+    v109 = v34;
+    if (v36 <= [v28 rangeOfString:@"<unit>"])
     {
-      [NSString stringWithFormat:@"%@ %@", v33, v34];
+      [NSString stringWithFormat:@"%@ %@", v34, v35];
     }
 
     else
     {
-      [NSString stringWithFormat:@"%@ %@", v34, v33];
+      [NSString stringWithFormat:@"%@ %@", v35, v34];
+    }
+    v107 = ;
+    v37 = [CLKSimpleTextProvider textProviderWithText:v107];
+    [v37 setUseLowercaseSmallCaps:1];
+    v106 = v37;
+    [v118 setHeaderTextProvider:v37];
+    [v118 setHeaderFontStyle:0];
+    v38 = [v3 appleExerciseTime];
+    v39 = +[HKUnit minuteUnit];
+    [v38 doubleValueForUnit:v39];
+    v41 = v40;
+
+    v42 = [v3 appleExerciseTimeGoal];
+    v43 = +[HKUnit minuteUnit];
+    [v42 doubleValueForUnit:v43];
+    v45 = v44;
+
+    v46 = [NSNumber numberWithDouble:v41];
+    v47 = FIUIBundle();
+    v48 = [v47 localizedStringForKey:@"ACTIVITY_EXERCISE_VALUE_UNIT_FORMAT" value:&stru_84F0 table:@"Localizable"];
+
+    v49 = [FIUIFormattingManager stringWithNumber:v46 decimalPrecision:1];
+    v50 = FIUIBundle();
+    v51 = [v50 localizedStringForKey:@"ACTIVITY_EXERCISE_VALUE_UNIT" value:&stru_84F0 table:@"Localizable"];
+    v105 = v46;
+    v52 = +[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", v51, [v46 integerValue]);
+
+    v53 = [v52 localizedLowercaseString];
+
+    v54 = [v48 rangeOfString:@"<value>"];
+    v104 = v48;
+    v102 = v53;
+    if (v54 <= [v48 rangeOfString:@"<unit>"])
+    {
+      [NSString stringWithFormat:@"%@ %@", v49, v53];
+    }
+
+    else
+    {
+      [NSString stringWithFormat:@"%@ %@", v53, v49];
     }
     v101 = ;
-    v36 = [CLKSimpleTextProvider textProviderWithText:v101];
-    [v36 setUseLowercaseSmallCaps:1];
-    v100 = v36;
-    [v112 setHeaderTextProvider:v36];
-    [v112 setHeaderFontStyle:0];
-    v37 = [v3 appleExerciseTime];
-    v38 = +[HKUnit minuteUnit];
-    [v37 doubleValueForUnit:v38];
-    v40 = v39;
+    v55 = [CLKSimpleTextProvider textProviderWithText:v101];
+    [v55 setUseLowercaseSmallCaps:1];
+    v100 = v55;
+    [v118 setDescription1TextProvider:v55];
+    [v118 setDescription1FontStyle:0];
+    v56 = [v3 appleStandHours];
+    v57 = +[HKUnit countUnit];
+    [v56 doubleValueForUnit:v57];
+    v59 = v58;
 
-    v41 = [v3 appleExerciseTimeGoal];
-    v42 = +[HKUnit minuteUnit];
-    [v41 doubleValueForUnit:v42];
-    v44 = v43;
+    v60 = [v3 appleStandHoursGoal];
+    v61 = +[HKUnit countUnit];
+    [v60 doubleValueForUnit:v61];
+    v63 = v62;
 
-    v45 = [NSNumber numberWithDouble:v40];
-    v46 = FIUIBundle();
-    v47 = [v46 localizedStringForKey:@"ACTIVITY_EXERCISE_VALUE_UNIT_FORMAT" value:&stru_84F0 table:@"Localizable"];
+    v64 = [NSNumber numberWithDouble:v59];
+    v65 = FIUIBundle();
+    v66 = [v65 localizedStringForKey:@"ACTIVITY_STAND_VALUE_UNIT_FORMAT" value:&stru_84F0 table:@"Localizable"];
 
-    v48 = [FIUIFormattingManager stringWithNumber:v45 decimalPrecision:1];
-    v49 = FIUIBundle();
-    v50 = [v49 localizedStringForKey:@"ACTIVITY_EXERCISE_VALUE_UNIT" value:&stru_84F0 table:@"Localizable"];
-    v99 = v45;
-    v51 = +[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", v50, [v45 integerValue]);
+    v117 = [FIUIFormattingManager stringWithNumber:v64 decimalPrecision:1];
+    v67 = FIUIBundle();
+    v68 = [v67 localizedStringForKey:@"ACTIVITY_STAND_VALUE_UNIT" value:&stru_84F0 table:@"Localizable"];
+    v99 = v64;
+    v69 = +[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", v68, [v64 integerValue]);
 
-    v52 = [v51 localizedLowercaseString];
+    v70 = [v69 localizedLowercaseString];
 
-    v53 = [v47 rangeOfString:@"<value>"];
-    v98 = v47;
-    v96 = v52;
-    if (v53 <= [v47 rangeOfString:@"<unit>"])
+    v71 = [v66 rangeOfString:@"<value>"];
+    v98 = v66;
+    v103 = v49;
+    v97 = v70;
+    if (v71 <= [v66 rangeOfString:@"<unit>"])
     {
-      [NSString stringWithFormat:@"%@ %@", v48, v52];
+      [NSString stringWithFormat:@"%@ %@", v117, v70];
     }
 
     else
     {
-      [NSString stringWithFormat:@"%@ %@", v52, v48];
+      [NSString stringWithFormat:@"%@ %@", v70, v117];
     }
-    v95 = ;
-    v54 = [CLKSimpleTextProvider textProviderWithText:v95];
-    [v54 setUseLowercaseSmallCaps:1];
-    v94 = v54;
-    [v112 setDescription1TextProvider:v54];
-    [v112 setDescription1FontStyle:0];
-    v55 = [v3 appleStandHours];
-    v56 = +[HKUnit countUnit];
-    [v55 doubleValueForUnit:v56];
-    v58 = v57;
+    v96 = ;
+    v72 = [CLKSimpleTextProvider textProviderWithText:v96];
+    [v72 setUseLowercaseSmallCaps:1];
+    [v118 setDescription2TextProvider:v72];
+    [v118 setDescription2FontStyle:0];
+    v94 = [ARUIRingGroupController ringGroupControllerConfiguredForWatchWithRingType:3 withIcon:0];
+    v95 = +[CLKUIMetalResourceManager sharedCommandQueue];
+    v93 = [[ARUIRingsViewRenderer alloc] initWithMaximumRingCount:3 commandQueue:v95];
+    v73 = [[ARUIRingsView alloc] initWithRingGroupController:v94 renderer:v93];
+    v75 = sub_1E28(v73, v74);
+    sub_1E28(v76, v77);
+    v79 = v78;
+    sub_1E28(v80, v81);
+    v83 = v82;
+    v84 = [UIColor colorWithWhite:0.45 alpha:0.15];
+    v85 = [ARUIRingsImageFactory renderRingsWithBackgroundColor:v84 usingRingsView:v73 forMovePercentage:v14 / v110 exercisePercentage:v41 / v45 standPercentage:v59 / v63 withDiameter:v75 thickness:v79 interspacing:v83];
 
-    v59 = [v3 appleStandHoursGoal];
-    v60 = +[HKUnit countUnit];
-    [v59 doubleValueForUnit:v60];
-    v62 = v61;
+    [v118 setOverrideBodyImage:v85];
+    v86 = objc_alloc_init(CLKImageProvider);
+    [v86 setForegroundAccentImage:v85];
+    [v86 setForegroundAccentImageTinted:1];
+    [v118 setBodyImageProvider:v86];
+    v87 = [REElementOpenAction alloc];
+    v88 = [NSURL URLWithString:@"ActivityMonitorApp://"];
+    v89 = [v87 initWithURL:v88 applicationID:@"com.apple.ActivityMonitorApp"];
 
-    v63 = [NSNumber numberWithDouble:v58];
-    v64 = FIUIBundle();
-    v65 = [v64 localizedStringForKey:@"ACTIVITY_STAND_VALUE_UNIT_FORMAT" value:&stru_84F0 table:@"Localizable"];
-
-    v111 = [FIUIFormattingManager stringWithNumber:v63 decimalPrecision:1];
-    v66 = FIUIBundle();
-    v67 = [v66 localizedStringForKey:@"ACTIVITY_STAND_VALUE_UNIT" value:&stru_84F0 table:@"Localizable"];
-    v93 = v63;
-    v68 = +[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", v67, [v63 integerValue]);
-
-    v69 = [v68 localizedLowercaseString];
-
-    v70 = [v65 rangeOfString:@"<value>"];
-    v92 = v65;
-    v97 = v48;
-    v91 = v69;
-    if (v70 <= [v65 rangeOfString:@"<unit>"])
-    {
-      [NSString stringWithFormat:@"%@ %@", v111, v69];
-    }
-
-    else
-    {
-      [NSString stringWithFormat:@"%@ %@", v69, v111];
-    }
-    v90 = ;
-    v71 = [CLKSimpleTextProvider textProviderWithText:v90];
-    [v71 setUseLowercaseSmallCaps:1];
-    [v112 setDescription2TextProvider:v71];
-    [v112 setDescription2FontStyle:0];
-    v88 = [ARUIRingGroupController ringGroupControllerConfiguredForWatchWithRingType:3 withIcon:0];
-    v89 = +[CLKUIMetalResourceManager sharedCommandQueue];
-    v87 = [[ARUIRingsViewRenderer alloc] initWithMaximumRingCount:3 commandQueue:v89];
-    v72 = [[ARUIRingsView alloc] initWithRingGroupController:v88 renderer:v87];
-    v73 = sub_1E28();
-    sub_1E28();
-    v75 = v74;
-    sub_1E28();
-    v77 = v76;
-    v78 = [UIColor colorWithWhite:0.45 alpha:0.15];
-    v79 = [ARUIRingsImageFactory renderRingsWithBackgroundColor:v78 usingRingsView:v72 forMovePercentage:v13 / v104 exercisePercentage:v40 / v44 standPercentage:v58 / v62 withDiameter:v73 thickness:v75 interspacing:v77];
-
-    [v112 setOverrideBodyImage:v79];
-    v80 = objc_alloc_init(CLKImageProvider);
-    [v80 setForegroundAccentImage:v79];
-    [v80 setForegroundAccentImageTinted:1];
-    [v112 setBodyImageProvider:v80];
-    v81 = [REElementOpenAction alloc];
-    v82 = [NSURL URLWithString:@"ActivityMonitorApp://"];
-    v83 = [v81 initWithURL:v82 applicationID:@"com.apple.ActivityMonitorApp"];
-
-    v84 = [REElement alloc];
-    v4 = v110;
-    v115 = v110;
-    v85 = [NSArray arrayWithObjects:&v115 count:1];
-    v7 = [v84 initWithIdentifier:@"com.apple.Activity.Rings" content:v112 action:v83 relevanceProviders:v85 privacyBehavior:1];
+    v90 = [REElement alloc];
+    v4 = v116;
+    v121 = v116;
+    v91 = [NSArray arrayWithObjects:&v121 count:1];
+    v8 = [v90 initWithIdentifier:@"com.apple.Activity.Rings" content:v118 action:v89 relevanceProviders:v91 privacyBehavior:1];
 
     goto LABEL_27;
   }
 
   _HKInitializeLogging();
-  v6 = HKLogCoaching;
+  v7 = HKLogCoaching;
   if (os_log_type_enabled(HKLogCoaching, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "[Supergreen-Rings] Activity is not configured by user--returning nil element", buf, 2u);
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "[Supergreen-Rings] Activity is not configured by user--returning nil element", buf, 2u);
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_27:
 
-  return v7;
+  return v8;
 }
 
-double sub_1E28()
+double sub_1E28(uint64_t a1, uint64_t a2)
 {
   if (qword_C780 != -1)
   {
@@ -459,22 +460,8 @@ void sub_2B28(uint64_t a1, void *a2, void *a3, void *a4)
 void sub_2C80(uint64_t a1)
 {
   v2 = [*(a1 + 32) currentSummary];
-  if (!v2)
+  if (!v2 || (v3 = v2, [*(a1 + 32) currentSummary], v4 = objc_claimAutoreleasedReturnValue(), v5 = *(a1 + 40), _FormattingManager(v4), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "unitManager"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "userActiveEnergyBurnedUnit"), v8 = objc_claimAutoreleasedReturnValue(), LODWORD(v5) = objc_msgSend(v4, "isNoticeablyDifferentFromActivitySummary:comparingGoalTypes:userActiveEnergyBurnedUnit:", v5, 0, v8), v8, v7, v6, v4, v3, v5))
   {
-    goto LABEL_3;
-  }
-
-  v3 = v2;
-  v4 = [*(a1 + 32) currentSummary];
-  v5 = *(a1 + 40);
-  v6 = _FormattingManager();
-  v7 = [v6 unitManager];
-  v8 = [v7 userActiveEnergyBurnedUnit];
-  LODWORD(v5) = [v4 isNoticeablyDifferentFromActivitySummary:v5 comparingGoalTypes:0 userActiveEnergyBurnedUnit:v8];
-
-  if (v5)
-  {
-LABEL_3:
     [*(a1 + 32) setCurrentSummary:*(a1 + 40)];
     v9 = *(a1 + 32);
 

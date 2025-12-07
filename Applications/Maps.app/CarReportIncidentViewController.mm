@@ -21,21 +21,21 @@
 - (_TtC4Maps31CarReportIncidentViewController)initWithDelegate:(id)delegate
 {
   swift_unknownObjectRetain();
-  v3 = sub_10030FA90();
+  v4 = sub_10030FA90(delegate);
   swift_unknownObjectRelease();
-  return v3;
+  return v4;
 }
 
 - (_TtC4Maps31CarReportIncidentViewController)initWithCoder:(id)coder
 {
-  v4 = sub_1000CE6B8(&qword_101919440);
+  v4 = sub_1000CE6B8(&qword_101919440, &qword_1011FEFF0);
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = v10 - v6;
   swift_unknownObjectWeakInit();
   v8 = OBJC_IVAR____TtC4Maps31CarReportIncidentViewController__incidentLayoutItems;
   v10[1] = _swiftEmptyArrayStorage;
-  sub_1000CE6B8(&qword_101919438);
+  sub_1000CE6B8(&qword_101919438, &unk_1011FEEC0);
   Published.init(initialValue:)();
   (*(v5 + 32))(self + v8, v7, v4);
   result = _assertionFailure(_:_:file:line:flags:)();
@@ -53,7 +53,7 @@
   sharedInstance = [objc_opt_self() sharedInstance];
   currentIncidentsLayout = [sharedInstance currentIncidentsLayout];
 
-  sub_100014C84(0, &qword_101919470);
+  sub_100014C84(0, &qword_101919470, off_1015F6648);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   swift_getKeyPath();
@@ -68,7 +68,7 @@
   selfCopy = self;
   static Published.subscript.getter();
 
-  sub_100014C84(0, &qword_101919470);
+  sub_100014C84(0, &qword_101919470, off_1015F6648);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;
@@ -76,7 +76,7 @@
 
 - (void)setIncidentLayoutItems:(id)items
 {
-  sub_100014C84(0, &qword_101919470);
+  sub_100014C84(0, &qword_101919470, off_1015F6648);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getKeyPath();
   swift_getKeyPath();

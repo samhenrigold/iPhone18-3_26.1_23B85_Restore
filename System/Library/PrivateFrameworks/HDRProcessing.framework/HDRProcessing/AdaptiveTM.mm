@@ -19,22 +19,7 @@
   v14.super_class = AdaptiveTM;
   v6 = [(AdaptiveTM *)&v14 init];
   v7 = v6;
-  if (!v6)
-  {
-    goto LABEL_7;
-  }
-
-  objc_storeStrong(&v6->_histTM, init);
-  v8 = malloc_type_calloc(0x80uLL, 4uLL, 0x100004052888210uLL);
-  v7->_normHistHeightInLinear = v8;
-  if (!v8)
-  {
-    goto LABEL_7;
-  }
-
-  v9 = malloc_type_calloc(0x80uLL, 4uLL, 0x100004052888210uLL);
-  v7->_atmHistBinCentroidInLinear = v9;
-  if (v9 && (v10 = malloc_type_calloc(0x80uLL, 4uLL, 0x100004052888210uLL), (v7->_idxLinear = v10) != 0) && (v11 = malloc_type_calloc(0x80uLL, 4uLL, 0x100004052888210uLL), (v7->_histBinMapped = v11) != 0))
+  if (v6 && (objc_storeStrong(&v6->_histTM, init), v8 = malloc_type_calloc(0x80uLL, 4uLL, 0x100004052888210uLL), (v7->_normHistHeightInLinear = v8) != 0) && (v9 = malloc_type_calloc(0x80uLL, 4uLL, 0x100004052888210uLL), (v7->_atmHistBinCentroidInLinear = v9) != 0) && (v10 = malloc_type_calloc(0x80uLL, 4uLL, 0x100004052888210uLL), (v7->_idxLinear = v10) != 0) && (v11 = malloc_type_calloc(0x80uLL, 4uLL, 0x100004052888210uLL), (v7->_histBinMapped = v11) != 0))
   {
     v7->_apceFactor = 1.0;
     *&v7->_maxAvgPixelLevelRatioTm = 0x3F80000000000000;
@@ -43,7 +28,6 @@
 
   else
   {
-LABEL_7:
     v12 = 0;
   }
 

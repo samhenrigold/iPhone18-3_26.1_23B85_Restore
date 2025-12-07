@@ -817,11 +817,11 @@ LABEL_6:
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Updating URL pattern cache", buf, 2u);
   }
 
-  v24[1] = @"gk-launch-gamecenter-path-patterns";
-  v25[0] = v8;
-  v24[0] = @"gk-launch-gamecenter-host-patterns";
-  v25[1] = [v10 arrayByAddingObject:@"^/(me|players|friends|games|requests|challenges|htmlResources)($|/.*)"];
-  v16 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v25 = @"gk-launch-gamecenter-path-patterns";
+  v26 = v8;
+  v24 = @"gk-launch-gamecenter-host-patterns";
+  v27 = [v10 arrayByAddingObject:@"^/(me|players|friends|games|requests|challenges|htmlResources)($|/.*)"];
+  v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v17 = [CPSharedResourcesDirectory() stringByAppendingPathComponent:@"Library/Caches/com.apple.gamed/url-resolution.plist"];
   v21 = 0;
   if (!-[NSFileManager createDirectoryAtPath:withIntermediateDirectories:attributes:error:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", [v17 stringByDeletingLastPathComponent], 1, 0, &v21))

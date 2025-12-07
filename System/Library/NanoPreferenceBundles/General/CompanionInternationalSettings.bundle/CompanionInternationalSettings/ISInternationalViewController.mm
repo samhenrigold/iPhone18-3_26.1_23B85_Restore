@@ -19,6 +19,7 @@
 - (void)cancelEdits;
 - (void)initializeUpdatedAppleLanguagesIfNeeded;
 - (void)moveSpecifierAtIndexPath:(id)path toIndexPath:(id)indexPath moveRow:(BOOL)row;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)setNumberingSystem:(id)system specifier:(id)specifier;
 - (void)showLanguageSheet:(id)sheet;
 - (void)showLocaleSheet:(id)sheet;
@@ -857,6 +858,202 @@ LABEL_8:
 LABEL_26:
   [(ISInternationalViewController *)self beginUpdates];
   [(ISInternationalViewController *)self endUpdates];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  editingCopy = editing;
+  v60.receiver = self;
+  v60.super_class = ISInternationalViewController;
+  [(ISInternationalViewController *)&v60 setEditing:editing animated:1];
+  if (editingCopy)
+  {
+    v6 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:1 target:self action:"cancelEdits"];
+    navigationItem = [(ISInternationalViewController *)self navigationItem];
+    [navigationItem setLeftBarButtonItem:v6];
+
+    v8 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0 target:self action:"toggleEdit"];
+    navigationItem2 = [(ISInternationalViewController *)self navigationItem];
+    [navigationItem2 setRightBarButtonItem:v8];
+
+    v51 = 0;
+    [(ISInternationalViewController *)self getGroup:&v51 row:0 ofSpecifierID:@"PREFERRED_LANGUAGE_GROUP"];
+    v10 = +[NSMutableArray array];
+    [(ISInternationalViewController *)self setRemovedGroupsAbovePreferredLanguagesInEditing:v10];
+
+    v11 = +[NSMutableArray array];
+    [(ISInternationalViewController *)self setRemovedGroupsBelowPreferredLanguagesInEditing:v11];
+
+    if ([(ISInternationalViewController *)self numberOfGroups]>= 1)
+    {
+      v12 = 0;
+      do
+      {
+        if (v12 != v51)
+        {
+          v13 = [(ISInternationalViewController *)self specifiersInGroup:v12];
+          if (v12 >= v51)
+          {
+            [(ISInternationalViewController *)self removedGroupsBelowPreferredLanguagesInEditing];
+          }
+
+          else
+          {
+            [(ISInternationalViewController *)self removedGroupsAbovePreferredLanguagesInEditing];
+          }
+          v14 = ;
+          [v14 addObject:v13];
+        }
+
+        ++v12;
+      }
+
+      while (v12 < [(ISInternationalViewController *)self numberOfGroups]);
+    }
+
+    v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    removedGroupsAbovePreferredLanguagesInEditing = [(ISInternationalViewController *)self removedGroupsAbovePreferredLanguagesInEditing];
+    v16 = [removedGroupsAbovePreferredLanguagesInEditing countByEnumeratingWithState:&v47 objects:v62 count:16];
+    if (v16)
+    {
+      v17 = v16;
+      v18 = *v48;
+      do
+      {
+        for (i = 0; i != v17; i = i + 1)
+        {
+          if (*v48 != v18)
+          {
+            objc_enumerationMutation(removedGroupsAbovePreferredLanguagesInEditing);
+          }
+
+          [(ISInternationalViewController *)self removeContiguousSpecifiers:*(*(&v47 + 1) + 8 * i) animated:1];
+        }
+
+        v17 = [removedGroupsAbovePreferredLanguagesInEditing countByEnumeratingWithState:&v47 objects:v62 count:16];
+      }
+
+      while (v17);
+    }
+
+    v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    removedGroupsBelowPreferredLanguagesInEditing = [(ISInternationalViewController *)self removedGroupsBelowPreferredLanguagesInEditing];
+    v21 = [removedGroupsBelowPreferredLanguagesInEditing countByEnumeratingWithState:&v43 objects:v61 count:16];
+    if (v21)
+    {
+      v22 = v21;
+      v23 = *v44;
+      do
+      {
+        for (j = 0; j != v22; j = j + 1)
+        {
+          if (*v44 != v23)
+          {
+            objc_enumerationMutation(removedGroupsBelowPreferredLanguagesInEditing);
+          }
+
+          [(ISInternationalViewController *)self removeContiguousSpecifiers:*(*(&v43 + 1) + 8 * j) animated:1];
+        }
+
+        v22 = [removedGroupsBelowPreferredLanguagesInEditing countByEnumeratingWithState:&v43 objects:v61 count:16];
+      }
+
+      while (v22);
+    }
+
+    v25 = [(ISInternationalViewController *)self specifierForID:@"ADD_PREFERRED_LANGUAGE"];
+    [(ISInternationalViewController *)self setAddLanguageSpecifier:v25];
+
+    addLanguageSpecifier = [(ISInternationalViewController *)self addLanguageSpecifier];
+    [(ISInternationalViewController *)self removeSpecifier:addLanguageSpecifier animated:1];
+  }
+
+  else
+  {
+    navigationItem3 = [(ISInternationalViewController *)self navigationItem];
+    [navigationItem3 setLeftBarButtonItem:0];
+
+    v28 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:2 target:self action:"toggleEdit"];
+    navigationItem4 = [(ISInternationalViewController *)self navigationItem];
+    [navigationItem4 setRightBarButtonItem:v28];
+
+    v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    removedGroupsAbovePreferredLanguagesInEditing2 = [(ISInternationalViewController *)self removedGroupsAbovePreferredLanguagesInEditing];
+    v31 = [removedGroupsAbovePreferredLanguagesInEditing2 countByEnumeratingWithState:&v56 objects:v64 count:16];
+    if (v31)
+    {
+      v32 = v31;
+      v33 = *v57;
+      do
+      {
+        for (k = 0; k != v32; k = k + 1)
+        {
+          if (*v57 != v33)
+          {
+            objc_enumerationMutation(removedGroupsAbovePreferredLanguagesInEditing2);
+          }
+
+          [(ISInternationalViewController *)self insertContiguousSpecifiers:*(*(&v56 + 1) + 8 * k) atIndex:[(ISInternationalViewController *)self indexOfSpecifierID:@"PREFERRED_LANGUAGE_GROUP"] animated:1];
+        }
+
+        v32 = [removedGroupsAbovePreferredLanguagesInEditing2 countByEnumeratingWithState:&v56 objects:v64 count:16];
+      }
+
+      while (v32);
+    }
+
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    removedGroupsBelowPreferredLanguagesInEditing2 = [(ISInternationalViewController *)self removedGroupsBelowPreferredLanguagesInEditing];
+    v36 = [removedGroupsBelowPreferredLanguagesInEditing2 countByEnumeratingWithState:&v52 objects:v63 count:16];
+    if (v36)
+    {
+      v37 = v36;
+      v38 = *v53;
+      do
+      {
+        for (m = 0; m != v37; m = m + 1)
+        {
+          if (*v53 != v38)
+          {
+            objc_enumerationMutation(removedGroupsBelowPreferredLanguagesInEditing2);
+          }
+
+          [(ISInternationalViewController *)self insertContiguousSpecifiers:*(*(&v52 + 1) + 8 * m) atEndOfGroup:[(ISInternationalViewController *)self numberOfGroups]- 1 animated:1];
+        }
+
+        v37 = [removedGroupsBelowPreferredLanguagesInEditing2 countByEnumeratingWithState:&v52 objects:v63 count:16];
+      }
+
+      while (v37);
+    }
+
+    [(ISInternationalViewController *)self setRemovedGroupsAbovePreferredLanguagesInEditing:0];
+    [(ISInternationalViewController *)self setRemovedGroupsBelowPreferredLanguagesInEditing:0];
+    v51 = 0;
+    [(ISInternationalViewController *)self getGroup:&v51 row:0 ofSpecifierID:@"PREFERRED_LANGUAGE_GROUP"];
+    addLanguageSpecifier2 = [(ISInternationalViewController *)self addLanguageSpecifier];
+    [(ISInternationalViewController *)self insertSpecifier:addLanguageSpecifier2 atEndOfGroup:v51 animated:1];
+
+    [(ISInternationalViewController *)self setAddLanguageSpecifier:0];
+  }
+
+  navigationItem5 = [(ISInternationalViewController *)self navigationItem];
+  [navigationItem5 setHidesBackButton:editingCopy animated:1];
+
+  table = [(ISInternationalViewController *)self table];
+  [table setEditing:editingCopy animated:1];
 }
 
 - (void)updateSpecifiersForLocaleRegionChange:(id)change

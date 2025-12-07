@@ -77,7 +77,7 @@
 
 - (BOOL)isHidden
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   extensions = [(PHCallBlockingAndIdentificationSettingsBundleController *)self extensions];
   v4 = [extensions count];
 
@@ -95,25 +95,23 @@
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
-  v15 = TPSLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = TPSLog(v15, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 134219008;
-    v19 = v4;
-    v20 = 2048;
-    v21 = v7;
-    v22 = 2048;
-    v23 = v10;
-    v24 = 2048;
-    v25 = v12;
-    v26 = 1024;
-    v27 = userInterfaceIdiom == 1;
-    _os_log_impl(&dword_21B8E9000, v15, OS_LOG_TYPE_DEFAULT, "shouldShow extensions=%ld service providers=%ld business calling specifiers=%ld liveLookupExtensionsCount=%ld deviceIsPad==%d", &v18, 0x30u);
+    v19 = 134219008;
+    v20 = v4;
+    v21 = 2048;
+    v22 = v7;
+    v23 = 2048;
+    v24 = v10;
+    v25 = 2048;
+    v26 = v12;
+    v27 = 1024;
+    v28 = userInterfaceIdiom == 1;
+    _os_log_impl(&dword_21B8E9000, v17, OS_LOG_TYPE_DEFAULT, "shouldShow extensions=%ld service providers=%ld business calling specifiers=%ld liveLookupExtensionsCount=%ld deviceIsPad==%d", &v19, 0x30u);
   }
 
-  result = userInterfaceIdiom == 1 || (v4 | v7 | v10 | v12) == 0;
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return userInterfaceIdiom == 1 || (v4 | v7 | v10 | v12) == 0;
 }
 
 - (void)_updateExtensions
@@ -144,77 +142,75 @@ void __76__PHCallBlockingAndIdentificationSettingsBundleController__updateExtens
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __76__PHCallBlockingAndIdentificationSettingsBundleController__updateExtensions__block_invoke_2(uint64_t a1)
+uint64_t __76__PHCallBlockingAndIdentificationSettingsBundleController__updateExtensions__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v28 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = TPSLog();
-  v4 = v3;
-  if (v2)
+  v3 = *(a1 + 32);
+  v4 = TPSLog(a1, a2);
+  v5 = v4;
+  if (v3)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
+      v6 = *(a1 + 32);
       *buf = 138412290;
-      v27 = v5;
-      _os_log_impl(&dword_21B8E9000, v4, OS_LOG_TYPE_DEFAULT, "Received call directory extensions %@", buf, 0xCu);
+      v27 = v6;
+      _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "Received call directory extensions %@", buf, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __76__PHCallBlockingAndIdentificationSettingsBundleController__updateExtensions__block_invoke_2_cold_1(a1, v4);
+    __76__PHCallBlockingAndIdentificationSettingsBundleController__updateExtensions__block_invoke_2_cold_1(a1, v5);
   }
 
-  v6 = *(a1 + 32);
-  if (!v6 || ([*(a1 + 48) extensions], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "isEqualToArray:", v7), v7, (v8 & 1) == 0))
+  v7 = *(a1 + 32);
+  if (!v7 || ([*(a1 + 48) extensions], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqualToArray:", v8), v8, (v9 & 1) == 0))
   {
-    v9 = [MEMORY[0x277CBEB18] array];
-    [*(a1 + 48) setExtensions:v9];
-
     v10 = [MEMORY[0x277CBEB18] array];
-    [*(a1 + 48) setLlextensions:v10];
+    [*(a1 + 48) setExtensions:v10];
+
+    v11 = [MEMORY[0x277CBEB18] array];
+    [*(a1 + 48) setLlextensions:v11];
 
     v23 = 0u;
     v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v11 = *(a1 + 32);
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v12)
+    v12 = *(a1 + 32);
+    v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v22;
+      v14 = v13;
+      v15 = *v22;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v22 != v14)
+          if (*v22 != v15)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v21 + 1) + 8 * i);
-          if (([v16 state] - 1) <= 3)
+          v17 = *(*(&v21 + 1) + 8 * i);
+          if (([v17 state] - 1) <= 3)
           {
-            v17 = [*(a1 + 48) extensions];
-            [v17 addObject:v16];
+            v18 = [*(a1 + 48) extensions];
+            [v18 addObject:v17];
 
-            v18 = [*(a1 + 48) llextensions];
-            [v18 addObject:v16];
+            v19 = [*(a1 + 48) llextensions];
+            [v19 addObject:v17];
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
   }
 
-  result = [*(a1 + 48) updateParentListController];
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 48) updateParentListController];
 }
 
 - (PSListController)parentListController
@@ -226,7 +222,7 @@ uint64_t __76__PHCallBlockingAndIdentificationSettingsBundleController__updateEx
 
 - (void)extensionsChangedForCallDirectoryExtensionManager:(id)manager
 {
-  v4 = TPSLog();
+  v4 = TPSLog(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -238,7 +234,7 @@ uint64_t __76__PHCallBlockingAndIdentificationSettingsBundleController__updateEx
 
 - (void)didChangeServiceProvidersForCallBlockingServiceProviderController:(id)controller
 {
-  v4 = TPSLog();
+  v4 = TPSLog(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -297,12 +293,11 @@ LABEL_7:
 
 void __76__PHCallBlockingAndIdentificationSettingsBundleController__updateExtensions__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "Error retrieving extensions: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "Error retrieving extensions: %@", &v3, 0xCu);
 }
 
 @end

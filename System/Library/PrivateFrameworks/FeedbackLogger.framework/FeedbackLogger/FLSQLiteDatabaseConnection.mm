@@ -9,7 +9,7 @@
 
 - (void)close
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   db = self->_db;
   if (db)
   {
@@ -20,20 +20,19 @@
       v6 = [(FLSQLiteDatabaseConnection *)self log];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v8[0] = 67109120;
-        v8[1] = v5;
-        _os_log_error_impl(&dword_24AB3F000, v6, OS_LOG_TYPE_ERROR, "SQLite close connection failed: %d", v8, 8u);
+        v7[0] = 67109120;
+        v7[1] = v5;
+        _os_log_error_impl(&dword_24AB3F000, v6, OS_LOG_TYPE_ERROR, "SQLite close connection failed: %d", v7, 8u);
       }
     }
   }
 
   self->_db = 0;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)open
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   p_db = &self->_db;
   if (self->_db)
   {
@@ -41,9 +40,9 @@
     if (os_log_type_enabled(storePath2, OS_LOG_TYPE_DEFAULT))
     {
       storePath = [(FLSQLiteDatabaseConnection *)self storePath];
-      v15 = 138412290;
-      v16 = storePath;
-      _os_log_impl(&dword_24AB3F000, storePath2, OS_LOG_TYPE_DEFAULT, "Re-using already opened SQLite store %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = storePath;
+      _os_log_impl(&dword_24AB3F000, storePath2, OS_LOG_TYPE_DEFAULT, "Re-using already opened SQLite store %@", &v14, 0xCu);
     }
 
     v6 = 1;
@@ -61,9 +60,9 @@
       v9 = [(FLSQLiteDatabaseConnection *)self log];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v15 = 67109120;
-        LODWORD(v16) = v8;
-        _os_log_error_impl(&dword_24AB3F000, v9, OS_LOG_TYPE_ERROR, "SQLite open failed: %d", &v15, 8u);
+        v14 = 67109120;
+        LODWORD(v15) = v8;
+        _os_log_error_impl(&dword_24AB3F000, v9, OS_LOG_TYPE_ERROR, "SQLite open failed: %d", &v14, 8u);
       }
     }
 
@@ -76,23 +75,22 @@
         v12 = [(FLSQLiteDatabaseConnection *)self log];
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          v15 = 67109120;
-          LODWORD(v16) = v11;
-          _os_log_error_impl(&dword_24AB3F000, v12, OS_LOG_TYPE_ERROR, "SQLite set busy timeout failed: %d", &v15, 8u);
+          v14 = 67109120;
+          LODWORD(v15) = v11;
+          _os_log_error_impl(&dword_24AB3F000, v12, OS_LOG_TYPE_ERROR, "SQLite set busy timeout failed: %d", &v14, 8u);
         }
       }
 
       v9 = [(FLSQLiteDatabaseConnection *)self log];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412290;
-        v16 = storePath2;
-        _os_log_impl(&dword_24AB3F000, v9, OS_LOG_TYPE_DEFAULT, "Opened SQLite store %@", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = storePath2;
+        _os_log_impl(&dword_24AB3F000, v9, OS_LOG_TYPE_DEFAULT, "Opened SQLite store %@", &v14, 0xCu);
       }
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

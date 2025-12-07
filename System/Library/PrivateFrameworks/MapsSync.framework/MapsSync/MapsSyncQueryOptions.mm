@@ -73,7 +73,6 @@
 
   v5 = OBJC_IVAR____TtC8MapsSync20MapsSyncQueryOptions_sortDescriptors;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = descriptorsCopy;
 }
 

@@ -19,11 +19,10 @@
     *(inited + 32) = v6;
     sub_100000CA8(inited);
     swift_setDeallocating();
-    v8 = *(inited + 16);
     swift_arrayDestroy();
-    v9.super.isa = sub_100001208().super.isa;
+    v8.super.isa = sub_100001208().super.isa;
 
-    return v9.super.isa;
+    return v8.super.isa;
   }
 
   else

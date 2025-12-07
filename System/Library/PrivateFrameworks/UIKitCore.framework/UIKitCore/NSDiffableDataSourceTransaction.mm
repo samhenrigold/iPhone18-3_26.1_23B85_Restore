@@ -173,7 +173,7 @@
     {
       v6 = equalCopy;
       source = self->_source;
-      if (source == [(NSDiffableDataSourceTransaction *)v6 source]&& (difference = self->_difference, [(NSDiffableDataSourceTransaction *)v6 difference], v9 = objc_claimAutoreleasedReturnValue(), LODWORD(difference) = [(NSOrderedCollectionDifference *)difference isEqual:v9], v9, difference) && (initialSnapshot = self->_initialSnapshot, [(NSDiffableDataSourceTransaction *)v6 initialSnapshot], v11 = objc_claimAutoreleasedReturnValue(), LODWORD(initialSnapshot) = [(NSDiffableDataSourceSnapshot *)initialSnapshot isEqual:v11], v11, initialSnapshot) && (finalSnapshot = self->_finalSnapshot, [(NSDiffableDataSourceTransaction *)v6 finalSnapshot], v13 = objc_claimAutoreleasedReturnValue(), LODWORD(finalSnapshot) = [(NSDiffableDataSourceSnapshot *)finalSnapshot isEqual:v13], v13, finalSnapshot))
+      if (source == [(NSDiffableDataSourceTransaction *)v6 source]&& (difference = self->_difference, [(NSDiffableDataSourceTransaction *)v6 difference], v9 = objc_claimAutoreleasedReturnValue(), LODWORD(difference) = objc_msgSend_isEqual_(difference), v9, difference) && (initialSnapshot = self->_initialSnapshot, [(NSDiffableDataSourceTransaction *)v6 initialSnapshot], v11 = objc_claimAutoreleasedReturnValue(), LODWORD(initialSnapshot) = objc_msgSend_isEqual_(initialSnapshot), v11, initialSnapshot) && (finalSnapshot = self->_finalSnapshot, [(NSDiffableDataSourceTransaction *)v6 finalSnapshot], v13 = objc_claimAutoreleasedReturnValue(), LODWORD(finalSnapshot) = objc_msgSend_isEqual_(finalSnapshot), v13, finalSnapshot))
       {
         sectionTransactions = self->_sectionTransactions;
         sectionTransactions = [(NSDiffableDataSourceTransaction *)v6 sectionTransactions];
@@ -310,7 +310,7 @@ LABEL_13:
 
 + (id)_computeReorderingTransactionWithInitialSnapshot:(id)snapshot reorderingUpdate:(id)update sectionSnapshotProvider:(id)provider
 {
-  v81[1] = *MEMORY[0x1E69E9840];
+  v80[1] = *MEMORY[0x1E69E9840];
   snapshotCopy = snapshot;
   updateCopy = update;
   providerCopy = provider;
@@ -354,7 +354,7 @@ LABEL_43:
 LABEL_4:
   indexPathBeforeUpdate = [updateCopy indexPathBeforeUpdate];
   indexPathAfterUpdate = [updateCopy indexPathAfterUpdate];
-  if ([indexPathBeforeUpdate isEqual:indexPathAfterUpdate])
+  if (objc_msgSend_isEqual_(indexPathBeforeUpdate))
   {
     v14 = objc_alloc(MEMORY[0x1E696ADD8]);
     v15 = MEMORY[0x1E695E0F0];
@@ -364,8 +364,8 @@ LABEL_4:
     goto LABEL_38;
   }
 
-  v75 = [snapshotCopy copy];
-  v72 = updateCopy;
+  v74 = [snapshotCopy copy];
+  v71 = updateCopy;
   if (indexPathAfterUpdate)
   {
     v18 = [snapshotCopy identifierForIndexPath:indexPathAfterUpdate];
@@ -376,40 +376,40 @@ LABEL_4:
     v18 = 0;
   }
 
-  v71 = indexPathBeforeUpdate;
+  v70 = indexPathBeforeUpdate;
   v19 = [snapshotCopy identifierForIndexPath:indexPathBeforeUpdate];
   v20 = [snapshotCopy sectionIdentifierForSectionContainingItemIdentifier:v19];
-  v73 = v20;
-  v74 = providerCopy;
-  v70 = v18;
+  v72 = v20;
+  v73 = providerCopy;
+  v69 = v18;
   if (v18)
   {
     v21 = v20;
-    v22 = [v75 indexOfItemIdentifier:v19];
+    v22 = [v74 indexOfItemIdentifier:v19];
     if (v22 != 0x7FFFFFFFFFFFFFFFLL)
     {
       v23 = v22;
-      v24 = [v75 indexOfItemIdentifier:v18];
-      v25 = [v75 sectionIdentifierForSectionContainingItemIdentifier:v18];
+      v24 = [v74 indexOfItemIdentifier:v18];
+      v25 = [v74 sectionIdentifierForSectionContainingItemIdentifier:v18];
       if (v24 <= v23)
       {
-        v81[0] = v19;
-        v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:1];
-        [v75 deleteItemsWithIdentifiers:v36];
+        v80[0] = v19;
+        v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:1];
+        [v74 deleteItemsWithIdentifiers:v36];
       }
 
       else
       {
-        v26 = [v21 isEqual:v25];
-        v81[0] = v19;
-        v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:1];
-        [v75 deleteItemsWithIdentifiers:v27];
+        isEqual = objc_msgSend_isEqual_(v21);
+        v80[0] = v19;
+        v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:1];
+        [v74 deleteItemsWithIdentifiers:v27];
 
-        if (v26)
+        if (isEqual)
         {
-          v80 = v19;
-          v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v80 count:1];
-          [v75 insertItemsWithIdentifiers:v28 afterItemWithIdentifier:v18];
+          v79 = v19;
+          v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v79 count:1];
+          [v74 insertItemsWithIdentifiers:v28 afterItemWithIdentifier:v18];
 LABEL_22:
           v35 = v25;
 
@@ -417,9 +417,9 @@ LABEL_22:
         }
       }
 
-      v79 = v19;
-      v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v79 count:1];
-      [v75 insertItemsWithIdentifiers:v28 beforeItemWithIdentifier:v18];
+      v78 = v19;
+      v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v78 count:1];
+      [v74 insertItemsWithIdentifiers:v28 beforeItemWithIdentifier:v18];
       goto LABEL_22;
     }
   }
@@ -435,7 +435,7 @@ LABEL_22:
       if (section < v31)
       {
         item = [indexPathAfterUpdate item];
-        sectionIdentifiers2 = [v75 sectionIdentifiers];
+        sectionIdentifiers2 = [v74 sectionIdentifiers];
         v25 = [sectionIdentifiers2 objectAtIndexedSubscript:{objc_msgSend(indexPathAfterUpdate, "section")}];
 
         if (item > [snapshotCopy numberOfItemsInSection:v25])
@@ -444,13 +444,13 @@ LABEL_22:
           [currentHandler4 handleFailureInMethod:a2 object:self file:@"NSDiffableDataSourceTransaction.m" lineNumber:259 description:{@"Invalid parameter not satisfying: %@", @"destinationIndex <= [initialSnapshot numberOfItemsInSection:destinationSectionIdentifier]"}];
         }
 
-        v78 = v19;
-        v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v78 count:1];
-        [v75 deleteItemsWithIdentifiers:v34];
-
         v77 = v19;
-        v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v77 count:1];
-        [v75 appendItemsWithIdentifiers:v28 intoSectionWithIdentifier:v25];
+        v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v77 count:1];
+        [v74 deleteItemsWithIdentifiers:v34];
+
+        v76 = v19;
+        v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:1];
+        [v74 appendItemsWithIdentifiers:v28 intoSectionWithIdentifier:v25];
         goto LABEL_22;
       }
     }
@@ -459,31 +459,30 @@ LABEL_22:
   v35 = 0;
 LABEL_23:
   v37 = [snapshotCopy indexOfItemIdentifier:v19];
-  v38 = [v75 indexOfItemIdentifier:v19];
+  v38 = [v74 indexOfItemIdentifier:v19];
   v39 = [MEMORY[0x1E696ADD0] changeWithObject:v19 type:1 index:v37 associatedIndex:v38];
   v40 = [MEMORY[0x1E696ADD0] changeWithObject:v19 type:0 index:v38 associatedIndex:v37];
   v41 = objc_alloc(MEMORY[0x1E696ADD8]);
-  v76[0] = v39;
-  v76[1] = v40;
-  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v76 count:2];
-  v69 = [v41 initWithChanges:v42];
+  v75[0] = v39;
+  v75[1] = v40;
+  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v75 count:2];
+  v68 = [v41 initWithChanges:v42];
 
   strongToStrongObjectsMapTable = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
   v44 = v35;
-  if (v73 && v35)
+  if (v72 && v35)
   {
-    v45 = [v73 isEqual:v35];
-    v46 = v74;
-    if (v45)
+    v45 = v73;
+    if (objc_msgSend_isEqual_(v72))
     {
-      v47 = v74[2](v74, v73);
-      if (v47)
+      v46 = v73[2](v73, v72);
+      if (v46)
       {
-        v48 = strongToStrongObjectsMapTable;
-        v49 = v47;
-        v50 = v73;
+        v47 = strongToStrongObjectsMapTable;
+        v48 = v46;
+        v49 = v72;
 LABEL_35:
-        [v48 setObject:v49 forKey:v50];
+        [v47 setObject:v48 forKey:v49];
         goto LABEL_36;
       }
 
@@ -493,53 +492,53 @@ LABEL_35:
 
   else
   {
-    v46 = v74;
-    if (!v73)
+    v45 = v73;
+    if (!v72)
     {
       goto LABEL_32;
     }
   }
 
-  v51 = v46[2](v46, v73);
-  if (v51)
+  v50 = v45[2](v45, v72);
+  if (v50)
   {
-    [strongToStrongObjectsMapTable setObject:v51 forKey:v73];
+    [strongToStrongObjectsMapTable setObject:v50 forKey:v72];
   }
 
 LABEL_32:
   if (v44)
   {
-    v47 = v46[2](v46, v44);
-    if (v47)
+    v46 = v45[2](v45, v44);
+    if (v46)
     {
-      v48 = strongToStrongObjectsMapTable;
-      v49 = v47;
-      v50 = v44;
+      v47 = strongToStrongObjectsMapTable;
+      v48 = v46;
+      v49 = v44;
       goto LABEL_35;
     }
 
 LABEL_36:
   }
 
-  v52 = [_UIIdentifierDiffer alloc];
+  v51 = [_UIIdentifierDiffer alloc];
   [snapshotCopy state];
-  v68 = v19;
-  v54 = v53 = v44;
-  identifiers = [v54 identifiers];
-  state = [v75 state];
+  v67 = v19;
+  v53 = v52 = v44;
+  identifiers = [v53 identifiers];
+  state = [v74 state];
   identifiers2 = [state identifiers];
-  v58 = [(_UIIdentifierDiffer *)&v52->super.isa initWithBeforeIdentifiers:identifiers afterIdentifiers:identifiers2 collectionDifference:v69];
+  v57 = [(_UIIdentifierDiffer *)&v51->super.isa initWithBeforeIdentifiers:identifiers afterIdentifiers:identifiers2 collectionDifference:v68];
 
   state2 = [snapshotCopy state];
-  state3 = [v75 state];
-  v61 = [_UIDiffableDataSourceDiffer differWithBeforeDataSourceState:state2 afterDataSourceState:state3 itemIdentifierDiffer:v58];
+  state3 = [v74 state];
+  v60 = [_UIDiffableDataSourceDiffer differWithBeforeDataSourceState:state2 afterDataSourceState:state3 itemIdentifierDiffer:v57];
 
-  v62 = [[_UIDiffableDataSourceSectionSnapshotRebaser alloc] initWithInitialSnapshot:snapshotCopy finalSnapshot:v75 initialSectionSnapshots:strongToStrongObjectsMapTable dataSourceDiffer:v61 shouldPerformChildSnapshotMoves:1];
-  computeReorderingTransaction = [(_UIDiffableDataSourceSectionSnapshotRebaser *)v62 computeReorderingTransaction];
+  v61 = [[_UIDiffableDataSourceSectionSnapshotRebaser alloc] initWithInitialSnapshot:snapshotCopy finalSnapshot:v74 initialSectionSnapshots:strongToStrongObjectsMapTable dataSourceDiffer:v60 shouldPerformChildSnapshotMoves:1];
+  computeReorderingTransaction = [(_UIDiffableDataSourceSectionSnapshotRebaser *)v61 computeReorderingTransaction];
 
-  providerCopy = v74;
-  indexPathBeforeUpdate = v71;
-  updateCopy = v72;
+  providerCopy = v73;
+  indexPathBeforeUpdate = v70;
+  updateCopy = v71;
 LABEL_38:
 
   return computeReorderingTransaction;

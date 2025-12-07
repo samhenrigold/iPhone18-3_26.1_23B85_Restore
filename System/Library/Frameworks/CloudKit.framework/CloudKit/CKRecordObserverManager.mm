@@ -41,7 +41,7 @@
 
 - (void)addRecordObserver:(id)observer block:(id)block
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   blockCopy = block;
   if (ck_log_initialization_predicate != -1)
@@ -52,9 +52,9 @@
   v8 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = observerCopy;
-    _os_log_impl(&dword_1883EA000, v8, OS_LOG_TYPE_DEFAULT, "Adding record observer: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = observerCopy;
+    _os_log_impl(&dword_1883EA000, v8, OS_LOG_TYPE_DEFAULT, "Adding record observer: %@", &v14, 0xCu);
   }
 
   selfCopy = self;
@@ -74,12 +74,11 @@
   objc_msgSend_setObject_forKey_(v11, v13, v12, observerCopy);
 
   objc_sync_exit(selfCopy);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeRecordObserver:(id)observer
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   if (ck_log_initialization_predicate != -1)
   {
@@ -89,9 +88,9 @@
   v5 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = observerCopy;
-    _os_log_impl(&dword_1883EA000, v5, OS_LOG_TYPE_DEFAULT, "Removing record observer: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = observerCopy;
+    _os_log_impl(&dword_1883EA000, v5, OS_LOG_TYPE_DEFAULT, "Removing record observer: %@", &v10, 0xCu);
   }
 
   selfCopy = self;
@@ -110,12 +109,11 @@
   objc_msgSend_removeObjectForKey_(v8, v9, observerCopy);
 
   objc_sync_exit(selfCopy);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleRecordChange:(id)change container:(id)container completionHandler:(id)handler
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   containerCopy = container;
   handlerCopy = handler;
@@ -134,37 +132,37 @@
     }
 
     v11 = recordObservers;
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = sub_188644268;
-    v40[3] = &unk_1E70BFCD8;
-    v41 = containerCopy;
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = sub_188644268;
+    v39[3] = &unk_1E70BFCD8;
+    v40 = containerCopy;
     v12 = changeCopy;
-    v42 = v12;
-    v14 = objc_msgSend_CKFlatMap_(v11, v13, v40);
+    v41 = v12;
+    v14 = objc_msgSend_CKFlatMap_(v11, v13, v39);
 
     objc_sync_exit(selfCopy);
     v15 = dispatch_group_create();
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     obj = v14;
-    v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v36, v44, 16);
+    v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v35, v43, 16);
     if (v17)
     {
-      v18 = *v37;
+      v18 = *v36;
       do
       {
         v19 = 0;
         do
         {
-          if (*v37 != v18)
+          if (*v36 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v36 + 1) + 8 * v19);
+          v20 = *(*(&v35 + 1) + 8 * v19);
           dispatch_group_enter(v15);
           if (selfCopy)
           {
@@ -180,16 +178,16 @@
           block[1] = 3221225472;
           block[2] = sub_1886444CC;
           block[3] = &unk_1E70BC338;
-          v33 = v12;
-          v35 = v20;
-          v34 = v15;
+          v32 = v12;
+          v34 = v20;
+          v33 = v15;
           dispatch_async(queue, block);
 
           ++v19;
         }
 
         while (v17 != v19);
-        v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v22, &v36, v44, 16);
+        v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v22, &v35, v43, 16);
         v17 = v23;
       }
 
@@ -203,12 +201,12 @@
         selfCopy = selfCopy->_queue;
       }
 
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = sub_1886445C0;
-      v30[3] = &unk_1E70BC2C0;
-      v31 = handlerCopy;
-      dispatch_group_notify(v15, &selfCopy->super, v30);
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = sub_1886445C0;
+      v29[3] = &unk_1E70BC2C0;
+      v30 = handlerCopy;
+      dispatch_group_notify(v15, &selfCopy->super, v29);
     }
   }
 
@@ -231,8 +229,6 @@
       (*(handlerCopy + 2))(handlerCopy, v25);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 @end

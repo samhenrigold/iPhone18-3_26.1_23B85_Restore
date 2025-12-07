@@ -1,9 +1,12 @@
 @interface ACRemoteDeviceProxy
 - (ACRemoteDeviceProxy)init;
 - (BOOL)_isValidCommandForOutgoingMessage:(id)message;
+- (BOOL)_sendMessageData:(id)data toDestination:(id)destination withPriority:(int64_t)priority bypassDuet:(BOOL)duet transportID:(id *)d error:(id *)error;
 - (int64_t)_priorityForMessageCarryingCommand:(id)command;
 - (void)_dequeueCompletionHandlersForMessageWithInternalID:(id)d success:(BOOL)success result:(id)result error:(id)error;
+- (void)_dequeueCompletionHandlersForMessageWithTransportID:(id)d success:(BOOL)success result:(id)result error:(id)error;
 - (void)_enqueueCompletionHandler:(id)handler forMessageWithInternalID:(id)d transportID:(id)iD;
+- (void)_sendReplyForMessage:(id)message toDestination:(id)destination withSuccess:(BOOL)success result:(id)result error:(id)error;
 - (void)sendCommand:(id)command withAccount:(id)account options:(id)options completion:(id)completion;
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context;
@@ -62,7 +65,7 @@
 
 - (void)sendCommand:(id)command withAccount:(id)account options:(id)options completion:(id)completion
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   accountCopy = account;
   optionsCopy = options;
@@ -73,50 +76,50 @@
     [ACRemoteDeviceProxy sendCommand:withAccount:options:completion:];
   }
 
-  v15 = _ACDNotificationSignpostSystem();
-  v16 = _ACSignpostCreate();
-  v18 = v17;
+  v16 = _ACDNotificationSignpostSystem(v15);
+  v17 = _ACSignpostCreate();
+  v19 = v18;
 
-  v19 = _ACDNotificationSignpostSystem();
-  v20 = v19;
-  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+  v21 = _ACDNotificationSignpostSystem(v20);
+  v22 = v21;
+  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
     *buf = 138412546;
-    v47 = accountCopy;
-    v48 = 2112;
-    v49 = optionsCopy;
-    _os_signpost_emit_with_name_impl(&dword_221D2F000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v16, "SendRemoteCommand", "%@: %@", buf, 0x16u);
-  }
-
-  v21 = _ACDNotificationSignpostSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 134218498;
-    v47 = v16;
-    v48 = 2112;
     v49 = accountCopy;
     v50 = 2112;
     v51 = optionsCopy;
-    _os_log_debug_impl(&dword_221D2F000, v21, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: SendRemoteCommand %@: %@", buf, 0x20u);
+    _os_signpost_emit_with_name_impl(&dword_221D2F000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v17, "SendRemoteCommand", "%@: %@", buf, 0x16u);
+  }
+
+  v24 = _ACDNotificationSignpostSystem(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134218498;
+    v49 = v17;
+    v50 = 2112;
+    v51 = accountCopy;
+    v52 = 2112;
+    v53 = optionsCopy;
+    _os_log_debug_impl(&dword_221D2F000, v24, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: SendRemoteCommand %@: %@", buf, 0x20u);
   }
 
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __66__ACRemoteDeviceProxy_sendCommand_withAccount_options_completion___block_invoke;
   aBlock[3] = &unk_27848CAA8;
-  v44 = v16;
-  v45 = v18;
-  v22 = completionCopy;
-  v43 = v22;
-  v23 = _Block_copy(aBlock);
+  v46 = v17;
+  v47 = v19;
+  v25 = completionCopy;
+  v45 = v25;
+  v26 = _Block_copy(aBlock);
   if ([(ACRemoteDeviceProxy *)self _isValidCommandForOutgoingMessage:commandCopy])
   {
-    v24 = [ACRemoteDeviceMessage actionMessageWithCommand:commandCopy account:accountCopy options:optionsCopy];
-    v25 = [optionsCopy objectForKeyedSubscript:*MEMORY[0x277CB8EE8]];
+    v27 = [ACRemoteDeviceMessage actionMessageWithCommand:commandCopy account:accountCopy options:optionsCopy];
+    v28 = [optionsCopy objectForKeyedSubscript:*MEMORY[0x277CB8EE8]];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      bOOLValue = [v25 BOOLValue];
+      bOOLValue = [v28 BOOLValue];
 
       if (bOOLValue)
       {
@@ -130,15 +133,15 @@
 
     if (([commandCopy isEqual:*MEMORY[0x277CB8EA0]] & 1) == 0 && (objc_msgSend(commandCopy, "isEqual:", *MEMORY[0x277CB8EC8]) & 1) == 0 && (objc_msgSend(commandCopy, "isEqual:", *MEMORY[0x277CB8ED0]) & 1) == 0 && (objc_msgSend(commandCopy, "isEqual:", *MEMORY[0x277CB8ED8]) & 1) == 0 && !objc_msgSend(commandCopy, "isEqual:", *MEMORY[0x277CB8EB8]))
     {
-      v28 = 0;
+      v31 = 0;
       goto LABEL_22;
     }
 
 LABEL_21:
-    v28 = 1;
-    [v24 setNeedsReply:1];
+    v31 = 1;
+    [v27 setNeedsReply:1];
 LABEL_22:
-    data = [v24 data];
+    data = [v27 data];
     if (data)
     {
       messageSendingQueue = self->_messageSendingQueue;
@@ -146,105 +149,99 @@ LABEL_22:
       block[1] = 3221225472;
       block[2] = __66__ACRemoteDeviceProxy_sendCommand_withAccount_options_completion___block_invoke_18;
       block[3] = &unk_27848CAD0;
-      v34 = optionsCopy;
+      v36 = optionsCopy;
       selfCopy = self;
-      v39 = v23;
-      v36 = commandCopy;
-      v37 = v24;
-      v38 = data;
-      v41 = v28;
-      v40 = v22;
+      v41 = v26;
+      v38 = commandCopy;
+      v39 = v27;
+      v40 = data;
+      v43 = v31;
+      v42 = v25;
       dispatch_async(messageSendingQueue, block);
 
-      v31 = v34;
+      v34 = v36;
     }
 
     else
     {
-      v31 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:19 userInfo:0];
-      (*(v23 + 2))(v23, 0, 0, v31);
+      v34 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:19 userInfo:0];
+      (*(v26 + 2))(v26, 0, 0, v34);
     }
 
     goto LABEL_26;
   }
 
-  v27 = _ACLogSystem();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v30 = _ACLogSystem();
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v47 = commandCopy;
-    _os_log_impl(&dword_221D2F000, v27, OS_LOG_TYPE_DEFAULT, "Command %@ cannot be sent from this platform.", buf, 0xCu);
+    v49 = commandCopy;
+    _os_log_impl(&dword_221D2F000, v30, OS_LOG_TYPE_DEFAULT, "Command %@ cannot be sent from this platform.", buf, 0xCu);
   }
 
-  v24 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:20 userInfo:0];
-  (*(v23 + 2))(v23, 0, 0, v24);
+  v27 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:20 userInfo:0];
+  (*(v26 + 2))(v26, 0, 0, v27);
 LABEL_26:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __66__ACRemoteDeviceProxy_sendCommand_withAccount_options_completion___block_invoke(void *a1, uint64_t a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
-  v9 = a1[5];
-  v10 = a1[6];
   Nanoseconds = _ACSignpostGetNanoseconds();
-  v12 = _ACDNotificationSignpostSystem();
-  v13 = v12;
-  v14 = a1[5];
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v10 = _ACDNotificationSignpostSystem(Nanoseconds);
+  v11 = v10;
+  v12 = a1[5];
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    v15 = @"NO";
+    v13 = @"NO";
     if (a2)
     {
-      v15 = @"YES";
+      v13 = @"YES";
     }
 
-    v20 = 138543618;
-    v21 = v15;
-    v22 = 2112;
-    v23 = *&v8;
-    _os_signpost_emit_with_name_impl(&dword_221D2F000, v13, OS_SIGNPOST_INTERVAL_END, v14, "SendRemoteCommand", "%{public}@ (%@)", &v20, 0x16u);
+    v18 = 138543618;
+    v19 = v13;
+    v20 = 2112;
+    v21 = *&v8;
+    _os_signpost_emit_with_name_impl(&dword_221D2F000, v11, OS_SIGNPOST_INTERVAL_END, v12, "SendRemoteCommand", "%{public}@ (%@)", &v18, 0x16u);
   }
 
-  v16 = _ACDNotificationSignpostSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v15 = _ACDNotificationSignpostSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v20 = 134218754;
-    v21 = a1[5];
-    v22 = 2048;
-    v23 = Nanoseconds / 1000000000.0;
+    v18 = 134218754;
+    v19 = a1[5];
+    v20 = 2048;
+    v21 = Nanoseconds / 1000000000.0;
     if (a2)
     {
-      v19 = @"YES";
+      v17 = @"YES";
     }
 
     else
     {
-      v19 = @"NO";
+      v17 = @"NO";
     }
 
-    v24 = 2114;
-    v25 = v19;
-    v26 = 2112;
-    v27 = v8;
-    _os_log_debug_impl(&dword_221D2F000, v16, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SendRemoteCommand %{public}@ (%@)", &v20, 0x2Au);
+    v22 = 2114;
+    v23 = v17;
+    v24 = 2112;
+    v25 = v8;
+    _os_log_debug_impl(&dword_221D2F000, v15, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SendRemoteCommand %{public}@ (%@)", &v18, 0x2Au);
   }
 
-  v17 = a1[4];
-  if (v17)
+  v16 = a1[4];
+  if (v16)
   {
-    (*(v17 + 16))(v17, a2, v7, v8);
+    (*(v16 + 16))(v16, a2, v7, v8);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __66__ACRemoteDeviceProxy_sendCommand_withAccount_options_completion___block_invoke_18(uint64_t a1)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x277CB8EF8]];
   if (v2)
   {
@@ -255,13 +252,13 @@ void __66__ACRemoteDeviceProxy_sendCommand_withAccount_options_completion___bloc
       v14 = _ACLogSystem();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v41 = *(a1 + 32);
+        v40 = *(a1 + 32);
         *buf = 138412802;
-        v58 = v4;
-        v59 = 2112;
-        v60 = v3;
-        v61 = 2112;
-        v62 = v41;
+        v57 = v4;
+        v58 = 2112;
+        v59 = v3;
+        v60 = 2112;
+        v61 = v40;
         _os_log_error_impl(&dword_221D2F000, v14, OS_LOG_TYPE_ERROR, "BTUUID matched 0 or multiple devices, which shouldn't be the case, matches: %@, BTUUID: %@, options: %@", buf, 0x20u);
       }
 
@@ -287,25 +284,25 @@ void __66__ACRemoteDeviceProxy_sendCommand_withAccount_options_completion___bloc
   }
 
   [*(*(a1 + 40) + 8) linkedDevicesWithRelationship:1];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
-  v8 = v54 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v51 objects:v56 count:16];
+  v8 = v53 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v50 objects:v55 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v52;
+    v11 = *v51;
 LABEL_8:
     v12 = 0;
     while (1)
     {
-      if (*v52 != v11)
+      if (*v51 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v51 + 1) + 8 * v12);
+      v13 = *(*(&v50 + 1) + 8 * v12);
       if ([v13 isActive])
       {
         if ([v13 isLocallyPaired])
@@ -316,7 +313,7 @@ LABEL_8:
 
       if (v10 == ++v12)
       {
-        v10 = [v8 countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v50 objects:v55 count:16];
         if (v10)
         {
           goto LABEL_8;
@@ -341,21 +338,21 @@ LABEL_20:
       v18 = [MEMORY[0x277CCABB0] numberWithInteger:v16];
       v19 = *(a1 + 56);
       *buf = 138412802;
-      v58 = v6;
-      v59 = 2112;
-      v60 = v18;
-      v61 = 2112;
-      v62 = v19;
+      v57 = v6;
+      v58 = 2112;
+      v59 = v18;
+      v60 = 2112;
+      v61 = v19;
       _os_log_impl(&dword_221D2F000, v17, OS_LOG_TYPE_DEFAULT, "Message is about to be sent to %@ with priority %@: %@", buf, 0x20u);
     }
 
     v20 = *(a1 + 40);
     v21 = *(a1 + 64);
+    v48 = 0;
     v49 = 0;
-    v50 = 0;
-    v22 = [v20 _sendMessageData:v21 toDestination:v6 withPriority:v16 bypassDuet:1 transportID:&v50 error:&v49];
-    v23 = v50;
-    v24 = v49;
+    v22 = [v20 _sendMessageData:v21 toDestination:v6 withPriority:v16 bypassDuet:1 transportID:&v49 error:&v48];
+    v23 = v49;
+    v24 = v48;
     if (v22)
     {
       if (!v23)
@@ -368,9 +365,9 @@ LABEL_20:
 
       if ([*(a1 + 48) isEqualToString:*MEMORY[0x277CB8EA8]])
       {
-        v42 = v24;
-        v43 = v23;
-        v44 = v2;
+        v41 = v24;
+        v42 = v23;
+        v43 = v2;
         v25 = _ACLogSystem();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
@@ -379,25 +376,25 @@ LABEL_20:
         }
 
         v26 = [*(*(a1 + 40) + 8) devices];
+        v44 = 0u;
         v45 = 0u;
         v46 = 0u;
         v47 = 0u;
-        v48 = 0u;
-        v27 = [v26 countByEnumeratingWithState:&v45 objects:v55 count:16];
+        v27 = [v26 countByEnumeratingWithState:&v44 objects:v54 count:16];
         if (v27)
         {
           v28 = v27;
-          v29 = *v46;
+          v29 = *v45;
           do
           {
             for (i = 0; i != v28; ++i)
             {
-              if (*v46 != v29)
+              if (*v45 != v29)
               {
                 objc_enumerationMutation(v26);
               }
 
-              v31 = *(*(&v45 + 1) + 8 * i);
+              v31 = *(*(&v44 + 1) + 8 * i);
               if (([v31 isActive] & 1) == 0)
               {
                 v32 = IDSCopyIDForDevice();
@@ -412,22 +409,22 @@ LABEL_20:
                   if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v58 = v31;
+                    v57 = v31;
                     _os_log_error_impl(&dword_221D2F000, v33, OS_LOG_TYPE_ERROR, "IDSCopyIDForDevice failed for inactive paired device: %@", buf, 0xCu);
                   }
                 }
               }
             }
 
-            v28 = [v26 countByEnumeratingWithState:&v45 objects:v55 count:16];
+            v28 = [v26 countByEnumeratingWithState:&v44 objects:v54 count:16];
           }
 
           while (v28);
         }
 
-        v23 = v43;
-        v2 = v44;
-        v24 = v42;
+        v23 = v42;
+        v2 = v43;
+        v24 = v41;
       }
 
       if (*(a1 + 88) == 1)
@@ -466,13 +463,140 @@ LABEL_44:
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:20 userInfo:0];
   (*(*(a1 + 72) + 16))();
 LABEL_52:
+}
 
+- (BOOL)_sendMessageData:(id)data toDestination:(id)destination withPriority:(int64_t)priority bypassDuet:(BOOL)duet transportID:(id *)d error:(id *)error
+{
+  duetCopy = duet;
   v40 = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  destinationCopy = destination;
+  v15 = _ACLogSystem();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
+    v17 = [MEMORY[0x277CCABB0] numberWithInteger:priority];
+    *buf = 138412802;
+    v35 = v16;
+    v36 = 2112;
+    v37 = destinationCopy;
+    v38 = 2112;
+    v39 = v17;
+    _os_log_impl(&dword_221D2F000, v15, OS_LOG_TYPE_DEFAULT, "IDSService send request: %@ bytes to destination %@ with priority %@.", buf, 0x20u);
+  }
+
+  messageSendingService = self->_messageSendingService;
+  v19 = [MEMORY[0x277CBEB98] setWithObject:destinationCopy];
+  v32[0] = *MEMORY[0x277D18580];
+  v20 = [MEMORY[0x277CCABB0] numberWithBool:duetCopy];
+  v32[1] = *MEMORY[0x277D185A0];
+  v33[0] = v20;
+  v33[1] = MEMORY[0x277CBEC28];
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
+  v30 = 0;
+  v31 = 0;
+  v22 = [(IDSService *)messageSendingService sendData:dataCopy toDestinations:v19 priority:priority options:v21 identifier:&v31 error:&v30];
+  v23 = v31;
+  v24 = v30;
+
+  v25 = _ACLogSystem();
+  v26 = v25;
+  if (v22)
+  {
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v35 = v23;
+      _os_log_impl(&dword_221D2F000, v26, OS_LOG_TYPE_DEFAULT, "IDSService send request succeeded. Transport ID for sent message: %@", buf, 0xCu);
+    }
+
+    v27 = v23;
+    error = d;
+    if (!d)
+    {
+      goto LABEL_12;
+    }
+
+LABEL_11:
+    *error = v27;
+    goto LABEL_12;
+  }
+
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  {
+    [ACRemoteDeviceProxy _sendMessageData:toDestination:withPriority:bypassDuet:transportID:error:];
+  }
+
+  v27 = v24;
+  if (error)
+  {
+    goto LABEL_11;
+  }
+
+LABEL_12:
+
+  return v22;
+}
+
+- (void)_sendReplyForMessage:(id)message toDestination:(id)destination withSuccess:(BOOL)success result:(id)result error:(id)error
+{
+  successCopy = success;
+  v34[2] = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  destinationCopy = destination;
+  v14 = [ACRemoteDeviceMessage replyForMessage:messageCopy withSuccess:successCopy result:result error:error];
+  data = [v14 data];
+  if (data)
+  {
+    messageSendingService = self->_messageSendingService;
+    v17 = [MEMORY[0x277CBEB98] setWithObject:destinationCopy];
+    v18 = *MEMORY[0x277D185A0];
+    v33[0] = *MEMORY[0x277D18580];
+    v33[1] = v18;
+    v34[0] = MEMORY[0x277CBEC38];
+    v34[1] = MEMORY[0x277CBEC28];
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
+    v25 = 0;
+    v26 = 0;
+    v20 = [(IDSService *)messageSendingService sendData:data toDestinations:v17 priority:200 options:v19 identifier:&v26 error:&v25];
+    v21 = v26;
+    v22 = v25;
+
+    v23 = _ACLogSystem();
+    v24 = v23;
+    if (v20)
+    {
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412802;
+        v28 = v14;
+        v29 = 2112;
+        v30 = messageCopy;
+        v31 = 2112;
+        v32 = v21;
+        _os_log_impl(&dword_221D2F000, v24, OS_LOG_TYPE_DEFAULT, "Reply %@ successfully sent in response to message %@. Transport ID: %@", buf, 0x20u);
+      }
+    }
+
+    else if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      [ACRemoteDeviceProxy _sendMessageData:toDestination:withPriority:bypassDuet:transportID:error:];
+    }
+  }
+
+  else
+  {
+    v21 = _ACLogSystem();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      [ACRemoteDeviceProxy _sendReplyForMessage:toDestination:withSuccess:result:error:];
+    }
+  }
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   identifierCopy = identifier;
@@ -493,9 +617,9 @@ LABEL_52:
   {
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = identifierCopy;
-      _os_log_impl(&dword_221D2F000, v17, OS_LOG_TYPE_DEFAULT, "Success for message with Transport ID %@!", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = identifierCopy;
+      _os_log_impl(&dword_221D2F000, v17, OS_LOG_TYPE_DEFAULT, "Success for message with Transport ID %@!", &v18, 0xCu);
     }
 
 LABEL_7:
@@ -510,13 +634,11 @@ LABEL_7:
 
   [(ACRemoteDeviceProxy *)self _dequeueCompletionHandlersForMessageWithTransportID:identifierCopy success:0 result:0 error:errorCopy];
 LABEL_11:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   dCopy = d;
   v11 = _ACLogSystem();
@@ -538,7 +660,7 @@ LABEL_11:
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v28 = v12;
+          v27 = v12;
           _os_log_impl(&dword_221D2F000, p_super, OS_LOG_TYPE_DEFAULT, "Reply message succesfully received. %@", buf, 0xCu);
         }
 
@@ -560,24 +682,24 @@ LABEL_11:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v28 = v12;
+        v27 = v12;
         _os_log_impl(&dword_221D2F000, v18, OS_LOG_TYPE_DEFAULT, "Action message received. Dispatching to handler. %@", buf, 0xCu);
       }
 
       v19 = os_transaction_create();
       commandProcessingQueue = self->_commandProcessingQueue;
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __67__ACRemoteDeviceProxy_service_account_incomingData_fromID_context___block_invoke;
-      v22[3] = &unk_27848CB20;
-      v23 = v12;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __67__ACRemoteDeviceProxy_service_account_incomingData_fromID_context___block_invoke;
+      v21[3] = &unk_27848CB20;
+      v22 = v12;
       selfCopy = self;
-      v25 = dCopy;
-      v26 = v19;
+      v24 = dCopy;
+      v25 = v19;
       sentMessageIdentifier = v19;
-      dispatch_async(commandProcessingQueue, v22);
+      dispatch_async(commandProcessingQueue, v21);
 
-      p_super = &v23->super;
+      p_super = &v22->super;
     }
   }
 
@@ -589,20 +711,18 @@ LABEL_11:
       [ACRemoteDeviceProxy service:? account:? incomingData:? fromID:? context:?];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __67__ACRemoteDeviceProxy_service_account_incomingData_fromID_context___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = dispatch_semaphore_create(0);
   v3 = _ACLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
     *buf = 138412290;
-    v21 = v4;
+    v20 = v4;
     _os_log_impl(&dword_221D2F000, v3, OS_LOG_TYPE_DEFAULT, "Processing: %@", buf, 0xCu);
   }
 
@@ -610,30 +730,29 @@ void __67__ACRemoteDeviceProxy_service_account_incomingData_fromID_context___blo
   v6 = [*(a1 + 32) command];
   v7 = [*(a1 + 32) account];
   v8 = [*(a1 + 32) options];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __67__ACRemoteDeviceProxy_service_account_incomingData_fromID_context___block_invoke_25;
-  v16[3] = &unk_27848CAF8;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __67__ACRemoteDeviceProxy_service_account_incomingData_fromID_context___block_invoke_25;
+  v15[3] = &unk_27848CAF8;
   *&v9 = *(a1 + 32);
   *(&v9 + 1) = *(a1 + 40);
-  v15 = v9;
+  v14 = v9;
   v10 = *(a1 + 48);
   v11 = *(a1 + 56);
   *&v12 = v10;
   *(&v12 + 1) = v11;
-  v17 = v15;
-  v18 = v12;
-  v19 = v2;
+  v16 = v14;
+  v17 = v12;
+  v18 = v2;
   v13 = v2;
-  [v5 handleCommand:v6 forAccount:v7 options:v8 completion:v16];
+  [v5 handleCommand:v6 forAccount:v7 options:v8 completion:v15];
 
   dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __67__ACRemoteDeviceProxy_service_account_incomingData_fromID_context___block_invoke_25(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = [*(a1 + 32) needsReply];
@@ -644,9 +763,9 @@ void __67__ACRemoteDeviceProxy_service_account_incomingData_fromID_context___blo
     if (v11)
     {
       v12 = *(a1 + 32);
-      v16 = 138412290;
-      v17 = v12;
-      _os_log_impl(&dword_221D2F000, v10, OS_LOG_TYPE_DEFAULT, "Processed message that requires a reply. %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v12;
+      _os_log_impl(&dword_221D2F000, v10, OS_LOG_TYPE_DEFAULT, "Processed message that requires a reply. %@", &v15, 0xCu);
     }
 
     [*(a1 + 40) _sendReplyForMessage:*(a1 + 32) toDestination:*(a1 + 48) withSuccess:a2 result:v7 error:v8];
@@ -658,19 +777,17 @@ void __67__ACRemoteDeviceProxy_service_account_incomingData_fromID_context___blo
     {
       v13 = *(a1 + 32);
       v14 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-      v16 = 138412802;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v8;
-      _os_log_impl(&dword_221D2F000, v10, OS_LOG_TYPE_DEFAULT, "Processed message that does not need a reply. %@. Success: %@. Error: %@", &v16, 0x20u);
+      v15 = 138412802;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v8;
+      _os_log_impl(&dword_221D2F000, v10, OS_LOG_TYPE_DEFAULT, "Processed message that does not need a reply. %@. Success: %@. Error: %@", &v15, 0x20u);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 64));
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enqueueCompletionHandler:(id)handler forMessageWithInternalID:(id)d transportID:(id)iD
@@ -702,7 +819,7 @@ void __67__ACRemoteDeviceProxy_service_account_incomingData_fromID_context___blo
 
 - (void)_dequeueCompletionHandlersForMessageWithInternalID:(id)d success:(BOOL)success result:(id)result error:(id)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   resultCopy = result;
   errorCopy = error;
@@ -715,44 +832,66 @@ void __67__ACRemoteDeviceProxy_service_account_incomingData_fromID_context___blo
   {
     v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v12, "count")}];
     *buf = 138412546;
-    v27 = v14;
-    v28 = 2112;
-    v29 = dCopy;
+    v26 = v14;
+    v27 = 2112;
+    v28 = dCopy;
     _os_log_impl(&dword_221D2F000, v13, OS_LOG_TYPE_DEFAULT, "Calling out to %@ pending completions about message with ID %@", buf, 0x16u);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v15 = v12;
-  v16 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v22;
+    v18 = *v21;
     do
     {
       v19 = 0;
       do
       {
-        if (*v22 != v18)
+        if (*v21 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        (*(*(*(&v21 + 1) + 8 * v19) + 16))(*(*(&v21 + 1) + 8 * v19));
+        (*(*(*(&v20 + 1) + 8 * v19) + 16))(*(*(&v20 + 1) + 8 * v19));
         ++v19;
       }
 
       while (v17 != v19);
-      v17 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v17);
   }
+}
 
-  v20 = *MEMORY[0x277D85DE8];
+- (void)_dequeueCompletionHandlersForMessageWithTransportID:(id)d success:(BOOL)success result:(id)result error:(id)error
+{
+  successCopy = success;
+  dCopy = d;
+  resultCopy = result;
+  errorCopy = error;
+  [(NSLock *)self->_completionHandlersLock lock];
+  v13 = [(NSMutableDictionary *)self->_internalMessageIDsByTransportID objectForKeyedSubscript:dCopy];
+  [(NSLock *)self->_completionHandlersLock unlock];
+  if (v13)
+  {
+    [(ACRemoteDeviceProxy *)self _dequeueCompletionHandlersForMessageWithInternalID:v13 success:successCopy result:resultCopy error:errorCopy];
+  }
+
+  else
+  {
+    v14 = _ACLogSystem();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      [ACRemoteDeviceProxy _dequeueCompletionHandlersForMessageWithTransportID:success:result:error:];
+    }
+  }
 }
 
 - (BOOL)_isValidCommandForOutgoingMessage:(id)message
@@ -796,84 +935,40 @@ void __67__ACRemoteDeviceProxy_service_account_incomingData_fromID_context___blo
 
 - (void)sendCommand:withAccount:options:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136381443;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136381443;
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
-  v5 = v0;
-  v6 = v1;
-  _os_log_debug_impl(&dword_221D2F000, v2, OS_LOG_TYPE_DEBUG, "%{private}s:%{public}d called (%@, %@)", v4, 0x26u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_debug_impl(&dword_221D2F000, v2, OS_LOG_TYPE_DEBUG, "%{private}s:%{public}d called (%@, %@)", v3, 0x26u);
 }
 
 void __66__ACRemoteDeviceProxy_sendCommand_withAccount_options_completion___block_invoke_18_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_221D2F000, v1, OS_LOG_TYPE_DEBUG, "Resolved target remote device to: %@ from btUUID: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_sendMessageData:toDestination:withPriority:bypassDuet:transportID:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15(&dword_221D2F000, v0, v1, "IDSService send request failed. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_sendReplyForMessage:toDestination:withSuccess:result:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15(&dword_221D2F000, v0, v1, "No data for reply to message %@!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:account:identifier:didSendWithSuccess:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15(&dword_221D2F000, v0, v1, "Message with Transport ID %@ could not be sent!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_221D2F000, v1, OS_LOG_TYPE_DEBUG, "Resolved target remote device to: %@ from btUUID: %@", v2, 0x16u);
 }
 
 - (void)service:account:incomingData:fromID:context:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136380931;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136380931;
   OUTLINED_FUNCTION_0_1();
-  *(&v2[3] + 2) = 265;
-  _os_log_debug_impl(&dword_221D2F000, v0, OS_LOG_TYPE_DEBUG, "%{private}s:%{public}d called", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)service:account:incomingData:fromID:context:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15(&dword_221D2F000, v0, v1, "Reply received without a sentMessageIdentifier! %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  *(&v1[3] + 2) = 265;
+  _os_log_debug_impl(&dword_221D2F000, v0, OS_LOG_TYPE_DEBUG, "%{private}s:%{public}d called", v1, 0x12u);
 }
 
 - (void)_enqueueCompletionHandler:forMessageWithInternalID:transportID:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136381187;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136381187;
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_221D2F000, v0, OS_LOG_TYPE_DEBUG, "%{private}s:%{public}d called (%@)", v2, 0x1Cu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_dequeueCompletionHandlersForMessageWithTransportID:success:result:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15(&dword_221D2F000, v0, v1, "No internal identifier was found for message with transport ID: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_221D2F000, v0, OS_LOG_TYPE_DEBUG, "%{private}s:%{public}d called (%@)", v1, 0x1Cu);
 }
 
 @end

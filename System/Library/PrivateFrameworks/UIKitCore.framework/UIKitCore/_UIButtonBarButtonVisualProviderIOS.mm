@@ -157,7 +157,7 @@
 - (void)updateMenu
 {
   WeakRetained = objc_loadWeakRetained(&self->super._barButtonItem);
-  menu = [WeakRetained menu];
+  v4 = objc_msgSend_menu(WeakRetained);
 
   if ([(_UIButtonBarButton *)self->super._button isBackButton])
   {
@@ -211,13 +211,13 @@
 
   else
   {
-    if (menu)
+    if (v4)
     {
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 3221225472;
       aBlock[2] = __49___UIButtonBarButtonVisualProviderIOS_updateMenu__block_invoke_3;
       aBlock[3] = &unk_1E70F6A70;
-      v27 = menu;
+      v27 = v4;
       v14 = _Block_copy(aBlock);
       v15 = self->_menuProvider;
       self->_menuProvider = v14;
@@ -703,9 +703,9 @@ LABEL_36:
   {
     if (v8 && v7)
     {
-      v9 = [v7 isEqual:v8];
+      isEqual = objc_msgSend_isEqual_(v7, v8, v8);
 
-      if (v9)
+      if (isEqual)
       {
         goto LABEL_15;
       }
@@ -1922,10 +1922,10 @@ LABEL_16:
     {
       firstObject = [(NSArray *)v33 firstObject];
       title = [firstObject title];
-      v36 = [title isEqualToString:resolvedTitle];
+      isEqualToString = objc_msgSend_isEqualToString_(title);
 
       [(_UIButtonBarButtonVisualProviderIOS *)self _setupAlternateTitles];
-      if (v36 && self->_titleContent)
+      if (isEqualToString && self->_titleContent)
       {
         v37 = [(UIButton *)self->_titleButton attributedTitleForState:0];
         string = [v37 string];
@@ -3556,7 +3556,7 @@ LABEL_13:
   v16 = [(UIButton *)self->_titleButton titleForState:0];
   if ([v16 length])
   {
-    v15 = v14 & ([v16 isEqualToString:title] ^ 1);
+    v15 = v14 & (objc_msgSend_isEqualToString_(v16) ^ 1);
   }
 
   else

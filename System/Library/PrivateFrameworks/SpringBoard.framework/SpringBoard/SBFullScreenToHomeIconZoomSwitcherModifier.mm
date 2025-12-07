@@ -299,7 +299,7 @@ LABEL_41:
     v85[3] = &unk_2783AD4A0;
     objc_copyWeak(&v86, &location);
     v73 = [(SBTimerEventSwitcherEventResponse *)v70 initWithDelay:v85 validator:@"kSBFullScreenToHomeCornerRadiusDelayReason" reason:v72];
-    v74 = SBAppendSwitcherModifierResponse(v73, transitionWillBegin);
+    v74 = SBAppendSwitcherModifierResponse();
 
     objc_destroyWeak(&v86);
     objc_destroyWeak(&location);
@@ -319,7 +319,7 @@ LABEL_41:
     v83[3] = &unk_2783AD4A0;
     objc_copyWeak(&v84, &location);
     v78 = [(SBTimerEventSwitcherEventResponse *)v75 initWithDelay:v83 validator:@"kSBFullScreenToHomeGlassHighlightDelayReason" reason:v77];
-    v79 = SBAppendSwitcherModifierResponse(v78, transitionWillBegin);
+    v79 = SBAppendSwitcherModifierResponse();
 
     objc_destroyWeak(&v84);
     objc_destroyWeak(&location);
@@ -749,7 +749,7 @@ BOOL __65__SBFullScreenToHomeIconZoomSwitcherModifier_transitionWillBegin__block
     self->_homeScreenIconFrame.size.width = v8;
     self->_homeScreenIconFrame.size.height = v9;
     v10 = [[SBMatchMoveToIconViewSwitcherEventResponse alloc] initWithActivatingAppLayout:self->_appLayout iconFrame:self->_homeScreenIconFrame.origin.x, self->_homeScreenIconFrame.origin.y, self->_homeScreenIconFrame.size.width, self->_homeScreenIconFrame.size.height];
-    v11 = SBAppendSwitcherModifierResponse(v10, transitionWillUpdate);
+    v11 = SBAppendSwitcherModifierResponse();
 
     transitionWillUpdate = v11;
   }
@@ -808,7 +808,7 @@ LABEL_3:
     floatingDockIconFadeSettings = [animationSettings floatingDockIconFadeSettings];
 
     v18 = [[SBIconViewVisibilitySwitcherEventResponse alloc] initWithAppLayout:self->_appLayout visible:1 animationSettings:floatingDockIconFadeSettings excludedIconLocations:0];
-    v19 = SBAppendSwitcherModifierResponse(v18, v5);
+    v19 = SBAppendSwitcherModifierResponse();
   }
 
   else
@@ -839,7 +839,7 @@ LABEL_3:
     }
 
     v26 = [(SBUpdateLayoutSwitcherEventResponse *)v22 initWithOptions:4 updateMode:v23];
-    v19 = SBAppendSwitcherModifierResponse(v26, v5);
+    v19 = SBAppendSwitcherModifierResponse();
   }
 
   v5 = v19;
@@ -1492,7 +1492,7 @@ LABEL_7:
 
   else
   {
-    if (!self->_genieEnabled || (-[SBFullScreenToHomeIconZoomSwitcherModifier windowManagementContext](self, "windowManagementContext"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 isFlexibleWindowingEnabled], v11, !v12) || (-[SBFullScreenToHomeIconZoomSwitcherModifier maximizedCenteredAndUnoccludedDisplayItemsInAppLayout:ignoreOcclusion:ignoreCentering:](self, "maximizedCenteredAndUnoccludedDisplayItemsInAppLayout:ignoreOcclusion:ignoreCentering:", self->_appLayout, 1, 0), v13 = objc_claimAutoreleasedReturnValue(), -[SBAppLayout itemForLayoutRole:](self->_appLayout, "itemForLayoutRole:", 1), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "containsObject:", v14), v14, v13, v15))
+    if (!self->_genieEnabled || (-[SBFullScreenToHomeIconZoomSwitcherModifier windowManagementContext](self, "windowManagementContext"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 isFlexibleWindowingEnabled], v11, !v12) || (-[SBFullScreenToHomeIconZoomSwitcherModifier maximizedCenteredAndUnoccludedDisplayItemsInAppLayout:ignoreOcclusion:ignoreCentering:](self, "maximizedCenteredAndUnoccludedDisplayItemsInAppLayout:ignoreOcclusion:ignoreCentering:", self->_appLayout, 1, 0), v13 = objc_claimAutoreleasedReturnValue(), -[SBAppLayout itemForLayoutRole:](self->_appLayout, "itemForLayoutRole:", 1), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend_containsObject_(v13), v14, v13, v15))
     {
       if (self->_genieEnabled)
       {
@@ -1776,7 +1776,7 @@ LABEL_6:
 
       else
       {
-        [(SBFullScreenToHomeIconZoomSwitcherModifier *)self homeScreenGlassHighlightForAppLayout:self->_appLayout];
+        objc_msgSend_homeScreenGlassHighlightForAppLayout_(self);
       }
     }
 
@@ -1879,7 +1879,7 @@ LABEL_6:
     if (self->_direction == 1)
     {
       desktopSpaceDisplayItems = [(SBFullScreenToHomeIconZoomSwitcherModifier *)self desktopSpaceDisplayItems];
-      if ([desktopSpaceDisplayItems containsObject:v9])
+      if (objc_msgSend_containsObject_(desktopSpaceDisplayItems))
       {
 LABEL_6:
 

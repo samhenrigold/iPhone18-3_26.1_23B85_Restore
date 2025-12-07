@@ -24,7 +24,7 @@
   }
 
   bundleCopy = bundle;
-  return sub_10006C600(v5, v7, bundle);
+  return sub_10006C600(v5, v7, bundle, v9);
 }
 
 - (JurassicShareRootController)initWithCoder:(id)coder
@@ -38,7 +38,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10006C7E4();
+  sub_10006C7E4(v2);
 }
 
 - (void)presentationControllerDidAttemptToDismiss:(id)dismiss

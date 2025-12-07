@@ -45,19 +45,19 @@ id __84__MFMailboxPersistence_iOS_mailboxDatabaseIDsForMailboxObjectIDs_createIf
 
 uint64_t __67__MFMailboxPersistence_iOS_mailboxDatabaseIDsForMailboxURLStrings___block_invoke(uint64_t a1, void *a2)
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (*(a1 + 32))
   {
     v5 = [v3 preparedStatementForQueryString:{@"SELECT rowid, url FROM mailboxes WHERE substr(url, 1, :length) IS :pattern "}];;
     v6 = *(a1 + 32);
-    v17[0] = @":pattern";
-    v17[1] = @":length";
-    v18[0] = v6;
+    v16[0] = @":pattern";
+    v16[1] = @":length";
+    v17[0] = v6;
     v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v6, "length")}];
-    v18[1] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v17[1] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
   }
 
   else
@@ -66,17 +66,16 @@ uint64_t __67__MFMailboxPersistence_iOS_mailboxDatabaseIDsForMailboxURLStrings__
     v8 = MEMORY[0x1E695E0F8];
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __67__MFMailboxPersistence_iOS_mailboxDatabaseIDsForMailboxURLStrings___block_invoke_2;
-  v14[3] = &unk_1E7AA4378;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __67__MFMailboxPersistence_iOS_mailboxDatabaseIDsForMailboxURLStrings___block_invoke_2;
+  v13[3] = &unk_1E7AA4378;
   v9 = *(a1 + 40);
   v10 = *(a1 + 48);
-  v15 = v9;
-  v16 = v10;
-  v11 = [v5 executeWithNamedBindings:v8 usingBlock:v14 error:0];
+  v14 = v9;
+  v15 = v10;
+  v11 = [v5 executeWithNamedBindings:v8 usingBlock:v13 error:0];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -100,14 +99,14 @@ void __67__MFMailboxPersistence_iOS_mailboxDatabaseIDsForMailboxURLStrings___blo
 
 uint64_t __59__MFMailboxPersistence_iOS_insertDatabaseRowForMailboxURL___block_invoke(uint64_t a1, void *a2)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) insertGeneration:{objc_msgSend(v3, "transactionGeneration")}];
   v4 = [v3 preparedStatementForQueryString:@"INSERT OR IGNORE INTO mailboxes (url) values (?)"];;
   [v3 clearLastInsertedDatabaseID];
   v5 = [*(a1 + 40) absoluteString];
-  v14[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   [v4 executeWithIndexedBindings:v6 usingBlock:&__block_literal_global_33 error:0];
 
   v7 = [v3 lastInsertedDatabaseID];
@@ -121,17 +120,16 @@ uint64_t __59__MFMailboxPersistence_iOS_insertDatabaseRowForMailboxURL___block_i
 
     v4 = [v3 preparedStatementForQueryString:@"SELECT rowid FROM mailboxes WHERE url = ?"];;
     v8 = [*(a1 + 40) absoluteString];
-    v13 = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __59__MFMailboxPersistence_iOS_insertDatabaseRowForMailboxURL___block_invoke_3;
-    v12[3] = &unk_1E7AA3810;
-    v12[4] = *(a1 + 48);
-    [v4 executeWithIndexedBindings:v9 usingBlock:v12 error:0];
+    v12 = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __59__MFMailboxPersistence_iOS_insertDatabaseRowForMailboxURL___block_invoke_3;
+    v11[3] = &unk_1E7AA3810;
+    v11[4] = *(a1 + 48);
+    [v4 executeWithIndexedBindings:v9 usingBlock:v11 error:0];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -144,20 +142,19 @@ void __59__MFMailboxPersistence_iOS_insertDatabaseRowForMailboxURL___block_invok
 
 uint64_t __59__MFMailboxPersistence_iOS_mailboxURLForMailboxDatabaseID___block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = [a2 preparedStatementForQueryString:@"SELECT url FROM mailboxes WHERE rowid IS :rowid "];;
-  v10 = @":rowid";
+  v9 = @":rowid";
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(a1 + 40)];
-  v11[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __59__MFMailboxPersistence_iOS_mailboxURLForMailboxDatabaseID___block_invoke_2;
-  v9[3] = &unk_1E7AA3810;
-  v9[4] = *(a1 + 32);
-  v6 = [v3 executeWithNamedBindings:v5 usingBlock:v9 error:0];
+  v10[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __59__MFMailboxPersistence_iOS_mailboxURLForMailboxDatabaseID___block_invoke_2;
+  v8[3] = &unk_1E7AA3810;
+  v8[4] = *(a1 + 32);
+  v6 = [v3 executeWithNamedBindings:v5 usingBlock:v8 error:0];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

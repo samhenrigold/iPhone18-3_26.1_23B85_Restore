@@ -107,7 +107,7 @@ void __38__MPModelLibrarySearchScope_coreScope__block_invoke(void *a1@<X1>, void
   {
     if (v5)
     {
-      [v5 representedSearchScopePredicate];
+      objc_msgSend_representedSearchScopePredicate(v5);
       if (!v7)
       {
         goto LABEL_7;
@@ -120,7 +120,7 @@ LABEL_7:
       operator new();
     }
 
-    [v7 MLCorePropertiesForPropertySet:v6];
+    objc_msgSend_MLCorePropertiesForPropertySet_(v7);
     goto LABEL_7;
   }
 

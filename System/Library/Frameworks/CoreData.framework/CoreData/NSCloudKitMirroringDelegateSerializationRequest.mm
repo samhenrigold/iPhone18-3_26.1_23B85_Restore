@@ -47,41 +47,35 @@
 
 + (__CFString)stringForResultType:(uint64_t)type
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   if (a2 == 1)
   {
-    result = @"Records";
+    return @"Records";
   }
 
-  else if (a2)
+  if (!a2)
   {
-    LogStream = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
-    {
-      v7 = 134217984;
-      v8 = a2;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Unknown result type: %lu\n", &v7, 0xCu);
-    }
-
-    v5 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-    {
-      v7 = 134217984;
-      v8 = a2;
-      _os_log_fault_impl(&dword_18565F000, v5, OS_LOG_TYPE_FAULT, "CoreData: Unknown result type: %lu", &v7, 0xCu);
-    }
-
-    result = 0;
+    return @"RecordIDs";
   }
 
-  else
+  LogStream = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
   {
-    result = @"RecordIDs";
+    v6 = 134217984;
+    v7 = a2;
+    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Unknown result type: %lu\n", &v6, 0xCu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  v5 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  {
+    v6 = 134217984;
+    v7 = a2;
+    _os_log_fault_impl(&dword_18565F000, v5, OS_LOG_TYPE_FAULT, "CoreData: Unknown result type: %lu", &v6, 0xCu);
+  }
+
+  return 0;
 }
 
 - (void)setObjectIDsToSerialize:(id)serialize

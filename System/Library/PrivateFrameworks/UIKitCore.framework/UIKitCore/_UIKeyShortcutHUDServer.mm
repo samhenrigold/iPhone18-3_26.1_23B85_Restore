@@ -201,16 +201,16 @@ LABEL_3:
   if (+[UIKeyShortcutHUDService _isOOPFeatureEnabled])
   {
     bundleIdentifier = [connectionCopy bundleIdentifier];
-    IsSpringBoard = [bundleIdentifier isEqualToString:@"com.apple.springboard"];
+    isEqualToString = objc_msgSend_isEqualToString_(bundleIdentifier);
   }
 
   else
   {
-    IsSpringBoard = _UIApplicationProcessIsSpringBoard();
+    isEqualToString = _UIApplicationProcessIsSpringBoard();
   }
 
   clientTraits = [configurationCopy clientTraits];
-  [clientTraits setSystemApp:IsSpringBoard];
+  [clientTraits setSystemApp:isEqualToString];
 
   if (connectionCopy)
   {

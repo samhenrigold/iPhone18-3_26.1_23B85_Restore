@@ -242,7 +242,7 @@ LABEL_7:
   }
 }
 
-void __58__PXStoryRelatedLayoutGenerator_isExpectedKeyItemAtIndex___block_invoke()
+void __58__PXStoryRelatedLayoutGenerator_isExpectedKeyItemAtIndex___block_invoke(uint64_t a1)
 {
   [MEMORY[0x1E69DC938] currentDevice];
   [objc_claimAutoreleasedReturnValue() userInterfaceIdiom];

@@ -82,11 +82,10 @@ LABEL_4:
 
 - (void)_axWaitForSpeakSelectionContentResults
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_29C1E5000, a2, OS_LOG_TYPE_ERROR, "WKContentView: Caught exception while waiting for results: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(&dword_29C1E5000, a2, OS_LOG_TYPE_ERROR, "WKContentView: Caught exception while waiting for results: %@", &v2, 0xCu);
 }
 
 - (BOOL)_accessibilityShouldShowSpeakBubble
@@ -187,39 +186,37 @@ LABEL_4:
 
 - (id)_webTextRectsFromWKTextRects:(id)rects
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   rectsCopy = rects;
   v4 = [MEMORY[0x29EDB8DE8] arrayWithCapacity:{objc_msgSend(rectsCopy, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = rectsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v13 + 1) + 8 * i) safeValueForKey:{@"rect", v13}];
+        v10 = [*(*(&v12 + 1) + 8 * i) safeValueForKey:{@"rect", v12}];
         [v4 axSafelyAddObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return v4;
 }
@@ -247,7 +244,6 @@ LABEL_4:
 
 - (void)_axWaitForSpeakSelectionRectResultsForGuanularity:(int64_t)guanularity atSelectionOffset:(int64_t)offset wordText:(id)text
 {
-  v13 = *MEMORY[0x29EDCA608];
   textCopy = text;
   [(WKContentView_QSExtras *)self _accessibilitySetBoolValue:1 forKey:@"AXRetrievingRects"];
   v7 = textCopy;
@@ -262,8 +258,6 @@ LABEL_4:
       break;
     }
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_accessibilityDidGetSelectionRects:(id)rects withGranularity:(int64_t)granularity atOffset:(int64_t)offset
@@ -304,20 +298,18 @@ LABEL_6:
 
 - (void)accessibilitySpeakSelectionSetContent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138477827;
-  v4 = a1;
-  _os_log_debug_impl(&dword_29C1E5000, a2, OS_LOG_TYPE_DEBUG, "WebKit content setting AXSpeakSelectionString '%{private}@'", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138477827;
+  v3 = a1;
+  _os_log_debug_impl(&dword_29C1E5000, a2, OS_LOG_TYPE_DEBUG, "WebKit content setting AXSpeakSelectionString '%{private}@'", &v2, 0xCu);
 }
 
 - (void)_accessibilityQuickSpeakContent
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138477827;
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138477827;
   selfCopy = self;
-  _os_log_debug_impl(&dword_29C1E5000, a2, OS_LOG_TYPE_DEBUG, "WebKit content requesting AXSpeakSelectionString: '%{private}@'", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(&dword_29C1E5000, a2, OS_LOG_TYPE_DEBUG, "WebKit content requesting AXSpeakSelectionString: '%{private}@'", &v2, 0xCu);
 }
 
 @end

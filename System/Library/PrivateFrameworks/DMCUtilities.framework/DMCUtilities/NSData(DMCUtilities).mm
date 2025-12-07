@@ -11,13 +11,13 @@
 
 - (id)DMCHexString
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = [self length];
   bytes = [self bytes];
-  v4 = v10 - ((2 * v2 + 16) & 0xFFFFFFFFFFFFFFF0);
+  v4 = v9 - ((2 * v2 + 16) & 0xFFFFFFFFFFFFFFF0);
   if (v2)
   {
-    v5 = v10 - ((2 * v2 + 16) & 0xFFFFFFFFFFFFFFF0);
+    v5 = v9 - ((2 * v2 + 16) & 0xFFFFFFFFFFFFFFF0);
     do
     {
       v6 = *bytes++;
@@ -33,149 +33,147 @@
 
   *v4 = 0;
   v7 = [MEMORY[0x1E696AEC0] stringWithCString:? encoding:?];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)DMCSHA256Hash
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   CC_SHA256([self bytes], objc_msgSend(self, "length"), md);
   v1 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:32];
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
 
 - (uint64_t)DMCAtomicWriteToPath:()DMCUtilities writeOptions:error:
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v8 = a3;
-  v42 = 0;
+  v49 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v10 = [defaultManager fileExistsAtPath:v8 isDirectory:&v42];
-  v11 = v42;
+  v10 = [defaultManager fileExistsAtPath:v8 isDirectory:&v49];
+  v11 = v49;
 
   if (!v10 || (v11 & 1) == 0)
   {
-    v38 = a5;
-    v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:v8 isDirectory:0];
-    uRLByDeletingLastPathComponent = [v14 URLByDeletingLastPathComponent];
-    v16 = MEMORY[0x1E696AEC0];
+    v45 = a5;
+    v16 = [MEMORY[0x1E695DFF8] fileURLWithPath:v8 isDirectory:0];
+    uRLByDeletingLastPathComponent = [v16 URLByDeletingLastPathComponent];
+    v18 = MEMORY[0x1E696AEC0];
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uUIDString = [uUID UUIDString];
-    v19 = [uUIDString substringToIndex:8];
-    lastPathComponent = [v14 lastPathComponent];
-    v21 = [v16 stringWithFormat:@".temp-%@-%@", v19, lastPathComponent];
+    v21 = [uUIDString substringToIndex:8];
+    lastPathComponent = [v16 lastPathComponent];
+    v23 = [v18 stringWithFormat:@".temp-%@-%@", v21, lastPathComponent];
 
-    v22 = uRLByDeletingLastPathComponent;
-    v23 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:v21];
-    v41 = 0;
-    LOBYTE(lastPathComponent) = [self writeToURL:v23 options:a4 error:&v41];
-    v24 = v41;
+    v24 = uRLByDeletingLastPathComponent;
+    v25 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:v23];
+    v48 = 0;
+    LOBYTE(lastPathComponent) = [self writeToURL:v25 options:a4 error:&v48];
+    v26 = v48;
+    v28 = v26;
     if (lastPathComponent)
     {
       defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-      v40 = v24;
-      v26 = [defaultManager2 replaceItemAtURL:v14 withItemAtURL:v23 backupItemName:0 options:1 resultingItemURL:0 error:&v40];
-      v27 = v40;
+      v47 = v28;
+      v30 = [defaultManager2 replaceItemAtURL:v16 withItemAtURL:v25 backupItemName:0 options:1 resultingItemURL:0 error:&v47];
+      v31 = v47;
 
-      v28 = *DMCLogObjects();
-      v29 = v14;
-      if (v26)
+      v34 = *DMCLogObjects(v32, v33);
+      v35 = v16;
+      if (v30)
       {
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v44 = v14;
-          _os_log_impl(&dword_1B1630000, v28, OS_LOG_TYPE_DEBUG, "Wrote file atomically in-place: %{public}@", buf, 0xCu);
+          v51 = v16;
+          _os_log_impl(&dword_1B1630000, v34, OS_LOG_TYPE_DEBUG, "Wrote file atomically in-place: %{public}@", buf, 0xCu);
         }
 
-        v13 = 1;
-        v24 = v27;
+        v15 = 1;
+        v28 = v31;
         goto LABEL_25;
       }
 
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v44 = v27;
-        _os_log_impl(&dword_1B1630000, v28, OS_LOG_TYPE_ERROR, "Failed to replace original file: %{public}@", buf, 0xCu);
+        v51 = v31;
+        _os_log_impl(&dword_1B1630000, v34, OS_LOG_TYPE_ERROR, "Failed to replace original file: %{public}@", buf, 0xCu);
       }
 
-      if (v38)
+      if (v45)
       {
-        v32 = v27;
-        *v38 = v27;
+        v38 = v31;
+        *v45 = v31;
       }
 
       defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-      v39 = v27;
-      v34 = [defaultManager3 removeItemAtURL:v23 error:&v39];
-      v24 = v39;
+      v46 = v31;
+      v40 = [defaultManager3 removeItemAtURL:v25 error:&v46];
+      v28 = v46;
 
-      if ((v34 & 1) == 0)
+      if ((v40 & 1) == 0)
       {
-        v35 = *DMCLogObjects();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v43 = *DMCLogObjects(v41, v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v44 = v24;
-          _os_log_impl(&dword_1B1630000, v35, OS_LOG_TYPE_ERROR, "Failed to remove temporary file: %{public}@", buf, 0xCu);
+          v51 = v28;
+          _os_log_impl(&dword_1B1630000, v43, OS_LOG_TYPE_ERROR, "Failed to remove temporary file: %{public}@", buf, 0xCu);
         }
       }
     }
 
     else
     {
-      v30 = *DMCLogObjects();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v36 = *DMCLogObjects(v26, v27);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v44 = v24;
-        _os_log_impl(&dword_1B1630000, v30, OS_LOG_TYPE_ERROR, "Failed to write temporary file: %{public}@", buf, 0xCu);
+        v51 = v28;
+        _os_log_impl(&dword_1B1630000, v36, OS_LOG_TYPE_ERROR, "Failed to write temporary file: %{public}@", buf, 0xCu);
       }
 
-      v29 = v14;
-      if (v38)
+      v35 = v16;
+      if (v45)
       {
-        v31 = v24;
-        v13 = 0;
-        *v38 = v24;
+        v37 = v28;
+        v15 = 0;
+        *v45 = v28;
 LABEL_25:
 
         goto LABEL_26;
       }
     }
 
-    v13 = 0;
+    v15 = 0;
     goto LABEL_25;
   }
 
-  v12 = *DMCLogObjects();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v14 = *DMCLogObjects(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v44 = v8;
-    _os_log_impl(&dword_1B1630000, v12, OS_LOG_TYPE_ERROR, "Failed to write temporary file since a directory is present: %{public}@", buf, 0xCu);
+    v51 = v8;
+    _os_log_impl(&dword_1B1630000, v14, OS_LOG_TYPE_ERROR, "Failed to write temporary file since a directory is present: %{public}@", buf, 0xCu);
   }
 
   if (a5)
   {
     [MEMORY[0x1E695DEF0] _DMCCreateFolderExistError];
-    *a5 = v13 = 0;
+    *a5 = v15 = 0;
   }
 
   else
   {
-    v13 = 0;
+    v15 = 0;
   }
 
 LABEL_26:
 
-  v36 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v15;
 }
 
 - (uint64_t)DMCAtomicWriteToURL:()DMCUtilities writeOptions:error:

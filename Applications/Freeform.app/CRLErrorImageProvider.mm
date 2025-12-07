@@ -49,9 +49,9 @@
         if (!CGRectIsInfinite(*(&width - 2)) && !CGRectIsNull(rectCopy))
         {
           CGContextSetShouldAntialias(context, 1);
-          v10 = sub_1000CCEA0(0.939999998, 0.939999998, 0.939999998, 1.0);
-          CGContextSetFillColorWithColor(context, v10);
-          CGColorRelease(v10);
+          v12 = sub_1000CCEA0(v10, v11, 0.939999998, 0.939999998, 0.939999998, 1.0);
+          CGContextSetFillColorWithColor(context, v12);
+          CGColorRelease(v12);
           CGContextFillRect(context, rectCopy);
           p_iconPDFDocument = [(CRLErrorImageProvider *)self p_iconPDFDocument];
           if (p_iconPDFDocument)
@@ -59,44 +59,44 @@
             Page = CGPDFDocumentGetPage(p_iconPDFDocument, 1uLL);
             if (Page)
             {
-              v13 = Page;
-              memset(&v42, 0, sizeof(v42));
-              v40 = 0.0;
-              v41 = 0.0;
-              v14 = sub_10050EBF0(Page, &v42, &v40);
-              v16 = v15;
+              v15 = Page;
+              memset(&v44, 0, sizeof(v44));
+              v42 = 0.0;
+              v43 = 0.0;
+              v16 = sub_10050EBF0(Page, &v44, &v42);
               v18 = v17;
               v20 = v19;
-              v21 = rectCopy.size.width;
-              v22 = rectCopy.size.height;
-              v23 = sub_10011F340(rectCopy.size.width, rectCopy.size.height, 0.35);
-              v24 = v40;
-              v25 = v41;
-              sub_100121E58(v40, v41, v23, v26);
-              v27 = sub_10011ECB4();
-              v31 = sub_1001206EC(v27, v28, v29, v30, rectCopy.origin.x, rectCopy.origin.y, v21, v22);
-              v38 = 0u;
+              v22 = v21;
+              v23 = rectCopy.size.width;
+              v24 = rectCopy.size.height;
+              v25 = sub_10011F340(rectCopy.size.width, rectCopy.size.height, 0.35);
+              v26 = v42;
+              v27 = v43;
+              sub_100121E58(v42, v43, v25, v28);
+              v29 = sub_10011ECB4();
+              v33 = sub_1001206EC(v29, v30, v31, v32, rectCopy.origin.x, rectCopy.origin.y, v23, v24);
+              v40 = 0u;
+              v41 = 0u;
               v39 = 0u;
-              v37 = 0u;
-              v36 = v42;
-              sub_10050EFD0(&v36, &v37, v24, v25, v31, v32, v33, v34);
-              *&v36.a = v37;
-              *&v36.c = v38;
-              *&v36.tx = v39;
-              CGContextConcatCTM(context, &v36);
-              v44.origin.x = v14;
-              v44.origin.y = v16;
-              v44.size.width = v18;
-              v44.size.height = v20;
-              CGContextClipToRect(context, v44);
-              v45.origin.x = v14;
-              v45.origin.y = v16;
-              v45.size.width = v18;
-              v45.size.height = v20;
-              MaxY = CGRectGetMaxY(v45);
+              v38 = v44;
+              sub_10050EFD0(&v38, &v39, v26, v27, v33, v34, v35, v36);
+              *&v38.a = v39;
+              *&v38.c = v40;
+              *&v38.tx = v41;
+              CGContextConcatCTM(context, &v38);
+              v46.origin.x = v16;
+              v46.origin.y = v18;
+              v46.size.width = v20;
+              v46.size.height = v22;
+              CGContextClipToRect(context, v46);
+              v47.origin.x = v16;
+              v47.origin.y = v18;
+              v47.size.width = v20;
+              v47.size.height = v22;
+              MaxY = CGRectGetMaxY(v47);
               CGContextTranslateCTM(context, 0.0, MaxY);
               CGContextScaleCTM(context, 1.0, -1.0);
-              CGContextDrawPDFPage(context, v13);
+              CGContextDrawPDFPage(context, v15);
             }
           }
         }

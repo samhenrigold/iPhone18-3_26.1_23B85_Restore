@@ -1633,7 +1633,7 @@ void __39__WFApertureIconView_setIcon_animated___block_invoke(uint64_t a1)
         v19 = MEMORY[0x1E696B098];
         if (v18)
         {
-          [*(*(&v107 + 1) + 8 * i) transform];
+          objc_msgSend_transform(*(*(&v107 + 1) + 8 * i));
         }
 
         else
@@ -1861,7 +1861,7 @@ LABEL_29:
         v100 = 0u;
         if (v82)
         {
-          [v82 CATransform3DValue];
+          objc_msgSend_CATransform3DValue(v82);
         }
 
         v94[4] = v103;

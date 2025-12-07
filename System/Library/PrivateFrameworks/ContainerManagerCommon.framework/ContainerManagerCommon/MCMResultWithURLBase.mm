@@ -1,50 +1,15 @@
 @interface MCMResultWithURLBase
 - (BOOL)encodeResultOntoReply:(id)reply;
-- (BOOL)existed;
 - (MCMResultWithURLBase)initWithPath:(id)path existed:(BOOL)existed sandboxToken:(const char *)token;
-- (NSString)path;
-- (NSURL)url;
-- (const)sandboxToken;
+- (MCMResultWithURLBase)initWithURL:(id)l existed:(BOOL)existed sandboxToken:(const char *)token;
 - (void)dealloc;
 @end
 
 @implementation MCMResultWithURLBase
 
-- (BOOL)existed
-{
-  result = self->_existed;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (const)sandboxToken
-{
-  result = self->_sandboxToken;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSString)path
-{
-  result = self->_path;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSURL)url
-{
-  result = self->_url;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (void)dealloc
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   sandboxToken = self->_sandboxToken;
   if (sandboxToken)
   {
@@ -52,19 +17,18 @@
     memset_s(&self->_sandboxToken, 8uLL, 0, 8uLL);
   }
 
-  v5.receiver = self;
-  v5.super_class = MCMResultWithURLBase;
-  [(MCMResultWithURLBase *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = MCMResultWithURLBase;
+  [(MCMResultWithURLBase *)&v4 dealloc];
 }
 
 - (MCMResultWithURLBase)initWithPath:(id)path existed:(BOOL)existed sandboxToken:(const char *)token
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v15.receiver = self;
-  v15.super_class = MCMResultWithURLBase;
-  v10 = [(MCMResultBase *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = MCMResultWithURLBase;
+  v10 = [(MCMResultBase *)&v14 init];
   v11 = v10;
   if (v10)
   {
@@ -83,17 +47,31 @@
     v11->_existed = existed;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
+  return v11;
+}
+
+- (MCMResultWithURLBase)initWithURL:(id)l existed:(BOOL)existed sandboxToken:(const char *)token
+{
+  existedCopy = existed;
+  lCopy = l;
+  path = [lCopy path];
+  v11 = [(MCMResultWithURLBase *)self initWithPath:path existed:existedCopy sandboxToken:token];
+
+  if (v11)
+  {
+    objc_storeStrong(&v11->_url, l);
+  }
+
   return v11;
 }
 
 - (BOOL)encodeResultOntoReply:(id)reply
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v12.receiver = self;
-  v12.super_class = MCMResultWithURLBase;
-  v5 = [(MCMResultBase *)&v12 encodeResultOntoReply:replyCopy];
+  v11.receiver = self;
+  v11.super_class = MCMResultWithURLBase;
+  v5 = [(MCMResultBase *)&v11 encodeResultOntoReply:replyCopy];
   if (v5)
   {
     error = [(MCMResultBase *)self error];
@@ -122,7 +100,6 @@
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

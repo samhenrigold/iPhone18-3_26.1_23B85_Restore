@@ -319,27 +319,27 @@ LABEL_18:
   return v6 & 1;
 }
 
-uint64_t __82__MPMediaLibraryDataProviderML3__removeEntitiesWithIdentifiers_count_entityClass___block_invoke(uint64_t a1)
+uint64_t __82__MPMediaLibraryDataProviderML3__removeEntitiesWithIdentifiers_count_entityClass___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 48);
-  if (v2 == objc_opt_class())
+  v3 = *(a1 + 48);
+  if (v3 == objc_opt_class())
   {
-    v3 = [MEMORY[0x1E695DF70] array];
+    v4 = [MEMORY[0x1E695DF70] array];
     if (*(a1 + 56))
     {
-      v4 = 0;
+      v5 = 0;
       do
       {
-        v5 = [MEMORY[0x1E696AD98] numberWithLongLong:*(*(a1 + 64) + 8 * v4)];
-        [v3 addObject:v5];
+        v6 = [MEMORY[0x1E696AD98] numberWithLongLong:*(*(a1 + 64) + 8 * v5)];
+        [v4 addObject:v6];
 
-        ++v4;
+        ++v5;
       }
 
-      while (*(a1 + 56) > v4);
+      while (*(a1 + 56) > v5);
     }
 
-    *(*(*(a1 + 40) + 8) + 24) = [MEMORY[0x1E69B3538] unlinkRedownloadableAssetsFromLibrary:*(*(a1 + 32) + 88) persistentIDs:v3];
+    *(*(*(a1 + 40) + 8) + 24) = [MEMORY[0x1E69B3538] unlinkRedownloadableAssetsFromLibrary:*(*(a1 + 32) + 88) persistentIDs:v4];
   }
 
   else
@@ -1848,7 +1848,7 @@ LABEL_26:
   [(ML3MusicLibrary *)library enumeratePersistentIDsAfterRevision:longLongValue revisionTrackingCode:0x7FFFFFFFFFFFFFFFLL maximumRevisionType:type forMediaTypes:0 inUsersLibrary:libraryCopy usingBlock:v18];
 }
 
-void __132__MPMediaLibraryDataProviderML3_enumerateEntityChangesAfterSyncAnchor_maximumRevisionType_inUsersLibrary_itemBlock_collectionBlock___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void __132__MPMediaLibraryDataProviderML3_enumerateEntityChangesAfterSyncAnchor_maximumRevisionType_inUsersLibrary_itemBlock_collectionBlock___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
   v9 = objc_autoreleasePoolPush();
   v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%lld", a3];
@@ -3788,15 +3788,15 @@ void __126__MPMediaLibraryDataProviderML3_setValuesForProperties_trackList_andEn
 
 - (void)setValue:(id)value forProperty:(id)property ofCollectionWithIdentifier:(int64_t)identifier groupingType:(int64_t)type completionBlock:(id)block
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   propertyCopy = property;
   blockCopy = block;
-  v15 = ML3CollectionEntityClassForGroupingType();
-  v16 = [v15 propertyForMPMediaEntityProperty:propertyCopy];
-  if (v16 || v15 == objc_opt_class() && (v15 = ML3CollectionEntityClassForMPMediaItemCollectionProperty(propertyCopy), [v15 propertyForMPMediaEntityProperty:propertyCopy], (v16 = objc_claimAutoreleasedReturnValue()) != 0))
+  v16 = ML3CollectionEntityClassForGroupingType(type, v15);
+  v17 = [v16 propertyForMPMediaEntityProperty:propertyCopy];
+  if (v17 || v16 == objc_opt_class() && (v16 = ML3CollectionEntityClassForMPMediaItemCollectionProperty(propertyCopy), [v16 propertyForMPMediaEntityProperty:propertyCopy], (v17 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v25 = valueCopy;
+    v26 = valueCopy;
     if (valueCopy)
     {
       null = valueCopy;
@@ -3807,68 +3807,68 @@ void __126__MPMediaLibraryDataProviderML3_setValuesForProperties_trackList_andEn
       null = [MEMORY[0x1E695DFB0] null];
     }
 
-    v19 = null;
-    v20 = [v15 newWithPersistentID:identifier inLibrary:self->_library];
-    v40[0] = 0;
-    v40[1] = v40;
-    v40[2] = 0x2020000000;
-    v40[3] = 0;
+    v20 = null;
+    v21 = [v16 newWithPersistentID:identifier inLibrary:self->_library];
+    v41[0] = 0;
+    v41[1] = v41;
+    v41[2] = 0x2020000000;
+    v41[3] = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v42 = __Block_byref_object_copy__9726;
-    v43 = __Block_byref_object_dispose__9727;
-    v44 = 0;
-    v38[0] = 0;
-    v38[1] = v38;
-    v38[2] = 0x2020000000;
-    v39 = 1;
+    v43 = __Block_byref_object_copy__9726;
+    v44 = __Block_byref_object_dispose__9727;
+    v45 = 0;
+    v39[0] = 0;
+    v39[1] = v39;
+    v39[2] = 0x2020000000;
+    v40 = 1;
     if (setValue_forProperty_ofCollectionWithIdentifier_groupingType_completionBlock__onceToken != -1)
     {
       dispatch_once(&setValue_forProperty_ofCollectionWithIdentifier_groupingType_completionBlock__onceToken, &__block_literal_global_9764);
     }
 
     setValuesWidthLimitedQueue = self->_setValuesWidthLimitedQueue;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __110__MPMediaLibraryDataProviderML3_setValue_forProperty_ofCollectionWithIdentifier_groupingType_completionBlock___block_invoke_2;
-    v26[3] = &unk_1E7677488;
-    v26[4] = self;
-    v22 = v19;
-    v27 = v22;
-    v23 = v16;
-    v35 = v15;
-    identifierCopy = identifier;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __110__MPMediaLibraryDataProviderML3_setValue_forProperty_ofCollectionWithIdentifier_groupingType_completionBlock___block_invoke_2;
+    v27[3] = &unk_1E7677488;
+    v27[4] = self;
+    v23 = v20;
     v28 = v23;
-    v32 = v38;
-    v24 = v20;
+    v24 = v17;
+    v36 = v16;
+    identifierCopy = identifier;
     v29 = v24;
-    v33 = v40;
-    v34 = buf;
-    v31 = blockCopy;
-    v30 = propertyCopy;
+    v33 = v39;
+    v25 = v21;
+    v30 = v25;
+    v34 = v41;
+    v35 = buf;
+    v32 = blockCopy;
+    v31 = propertyCopy;
     typeCopy = type;
-    [(NSOperationQueue *)setValuesWidthLimitedQueue addOperationWithBlock:v26];
+    [(NSOperationQueue *)setValuesWidthLimitedQueue addOperationWithBlock:v27];
 
-    valueCopy = v25;
-    _Block_object_dispose(v38, 8);
+    valueCopy = v26;
+    _Block_object_dispose(v39, 8);
     _Block_object_dispose(buf, 8);
 
-    _Block_object_dispose(v40, 8);
+    _Block_object_dispose(v41, 8);
   }
 
   else
   {
-    v18 = os_log_create("com.apple.amp.mediaplayer", "Library");
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = os_log_create("com.apple.amp.mediaplayer", "Library");
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      *&buf[4] = v15;
+      *&buf[4] = v16;
       *&buf[12] = 2048;
       *&buf[14] = type;
       *&buf[22] = 2112;
-      v42 = propertyCopy;
-      _os_log_impl(&dword_1A238D000, v18, OS_LOG_TYPE_ERROR, "entityClass %@ (groupingType = %ld) has no ML3Property for MPProperty %@", buf, 0x20u);
+      v43 = propertyCopy;
+      _os_log_impl(&dword_1A238D000, v19, OS_LOG_TYPE_ERROR, "entityClass %@ (groupingType = %ld) has no ML3Property for MPProperty %@", buf, 0x20u);
     }
 
     if (blockCopy)
@@ -5199,42 +5199,42 @@ void __65__MPMediaLibraryDataProviderML3_performReadTransactionWithBlock___block
 
 - (void)loadProperties:(id)properties ofCollectionWithIdentifier:(int64_t)identifier groupingType:(int64_t)type completionBlock:(id)block
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   blockCopy = block;
-  v11 = ML3CollectionEntityClassForGroupingType();
-  v12 = v11;
-  if (v11 == objc_opt_class())
+  v13 = ML3CollectionEntityClassForGroupingType(type, v12);
+  v14 = v13;
+  if (v13 == objc_opt_class())
   {
+    v22 = 0u;
+    v23 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v13 = propertiesCopy;
-    v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v14)
+    v15 = propertiesCopy;
+    v16 = [v15 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    if (v16)
     {
-      v15 = v14;
-      v16 = *v19;
+      v17 = v16;
+      v18 = *v21;
 LABEL_4:
-      v17 = 0;
+      v19 = 0;
       while (1)
       {
-        if (*v19 != v16)
+        if (*v21 != v18)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v15);
         }
 
-        v12 = ML3CollectionEntityClassForMPMediaItemCollectionProperty(*(*(&v18 + 1) + 8 * v17));
-        if (v12 != v11)
+        v14 = ML3CollectionEntityClassForMPMediaItemCollectionProperty(*(*(&v20 + 1) + 8 * v19));
+        if (v14 != v13)
         {
           break;
         }
 
-        if (v15 == ++v17)
+        if (v17 == ++v19)
         {
-          v15 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
-          if (v15)
+          v17 = [v15 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          if (v17)
           {
             goto LABEL_4;
           }
@@ -5245,7 +5245,7 @@ LABEL_4:
     }
   }
 
-  [(MPMediaLibraryDataProviderML3 *)self _loadProperties:propertiesCopy ofEntityWithIdentifier:identifier ML3EntityClass:v12 completionBlock:blockCopy, v18];
+  [(MPMediaLibraryDataProviderML3 *)self _loadProperties:propertiesCopy ofEntityWithIdentifier:identifier ML3EntityClass:v14 completionBlock:blockCopy, v20];
 }
 
 - (void)loadProperties:(id)properties ofItemWithIdentifier:(int64_t)identifier completionBlock:(id)block
@@ -6945,14 +6945,14 @@ uint64_t __54__MPMediaLibraryDataProviderML3_addTracksToMyLibrary___block_invoke
 - (BOOL)collectionExistsContainedWithinSyncIDs:(id)ds groupingType:(int64_t)type existentPID:(unint64_t *)d
 {
   dsCopy = ds;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
   if (type == 1)
   {
     v10 = MEMORY[0x1E69B2A08];
@@ -6969,28 +6969,28 @@ LABEL_5:
 
   if (dsCopy && [dsCopy count])
   {
-    v11 = MPML3CollectionClassFromGroupingType(type);
-    v12 = [MEMORY[0x1E69B34B8] predicateWithProperty:v9 values:dsCopy];
-    v13 = [v11 queryWithLibrary:self->_library predicate:v12];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __97__MPMediaLibraryDataProviderML3_collectionExistsContainedWithinSyncIDs_groupingType_existentPID___block_invoke;
-    v16[3] = &unk_1E7677140;
-    v16[4] = &v21;
-    v16[5] = &v17;
-    [v13 enumeratePersistentIDsUsingBlock:v16];
+    v12 = MPML3CollectionClassFromGroupingType(type, v11);
+    v13 = [MEMORY[0x1E69B34B8] predicateWithProperty:v9 values:dsCopy];
+    v14 = [v12 queryWithLibrary:self->_library predicate:v13];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __97__MPMediaLibraryDataProviderML3_collectionExistsContainedWithinSyncIDs_groupingType_existentPID___block_invoke;
+    v17[3] = &unk_1E7677140;
+    v17[4] = &v22;
+    v17[5] = &v18;
+    [v14 enumeratePersistentIDsUsingBlock:v17];
   }
 
-  v14 = *(v22 + 24);
-  if (d && *(v22 + 24))
+  v15 = *(v23 + 24);
+  if (d && *(v23 + 24))
   {
-    *d = v18[3];
+    *d = v19[3];
   }
 
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v22, 8);
 
-  return v14;
+  return v15;
 }
 
 uint64_t __97__MPMediaLibraryDataProviderML3_collectionExistsContainedWithinSyncIDs_groupingType_existentPID___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, _BYTE *a4)
@@ -7004,51 +7004,51 @@ uint64_t __97__MPMediaLibraryDataProviderML3_collectionExistsContainedWithinSync
 - (BOOL)collectionExistsWithCloudUniversalLibraryID:(id)d groupingType:(int64_t)type existentPID:(unint64_t *)iD
 {
   dCopy = d;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
   v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
   if (type > 6 || ((0x4Bu >> type) & 1) == 0)
   {
-    v9 = 0;
+    v10 = 0;
     goto LABEL_8;
   }
 
-  v9 = **(&unk_1E76778A0 + type);
-  if (!v9)
+  v10 = **(&unk_1E76778A0 + type);
+  if (!v10)
   {
 LABEL_8:
-    v13 = 0;
+    v14 = 0;
     goto LABEL_9;
   }
 
-  v10 = MPML3CollectionClassFromGroupingType(type);
-  v11 = [MEMORY[0x1E69B3488] predicateWithProperty:v9 value:dCopy comparison:1];
-  v12 = [v10 queryWithLibrary:self->_library predicate:v11];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __102__MPMediaLibraryDataProviderML3_collectionExistsWithCloudUniversalLibraryID_groupingType_existentPID___block_invoke;
-  v15[3] = &unk_1E7677140;
-  v15[4] = &v20;
-  v15[5] = &v16;
-  [v12 enumeratePersistentIDsUsingBlock:v15];
+  v11 = MPML3CollectionClassFromGroupingType(type, v9);
+  v12 = [MEMORY[0x1E69B3488] predicateWithProperty:v10 value:dCopy comparison:1];
+  v13 = [v11 queryWithLibrary:self->_library predicate:v12];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __102__MPMediaLibraryDataProviderML3_collectionExistsWithCloudUniversalLibraryID_groupingType_existentPID___block_invoke;
+  v16[3] = &unk_1E7677140;
+  v16[4] = &v21;
+  v16[5] = &v17;
+  [v13 enumeratePersistentIDsUsingBlock:v16];
 
-  v13 = *(v21 + 24);
-  if (iD && (v21[3] & 1) != 0)
+  v14 = *(v22 + 24);
+  if (iD && (v22[3] & 1) != 0)
   {
-    *iD = v17[3];
+    *iD = v18[3];
   }
 
 LABEL_9:
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
 
-  return v13 & 1;
+  return v14 & 1;
 }
 
 uint64_t __102__MPMediaLibraryDataProviderML3_collectionExistsWithCloudUniversalLibraryID_groupingType_existentPID___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, _BYTE *a4)
@@ -7062,14 +7062,14 @@ uint64_t __102__MPMediaLibraryDataProviderML3_collectionExistsWithCloudUniversal
 - (BOOL)collectionExistsWithCloudLibraryID:(id)d groupingType:(int64_t)type existentPID:(unint64_t *)iD
 {
   dCopy = d;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
   if (type == 1)
   {
     v9 = MEMORY[0x1E69B29C0];
@@ -7079,44 +7079,44 @@ uint64_t __102__MPMediaLibraryDataProviderML3_collectionExistsWithCloudUniversal
   {
     if (type != 3)
     {
-      v10 = 0;
+      v11 = 0;
       goto LABEL_10;
     }
 
     v9 = MEMORY[0x1E69B2970];
   }
 
-  v10 = *v9;
-  if (!v10)
+  v11 = *v9;
+  if (!v11)
   {
 LABEL_10:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_11;
   }
 
-  v11 = MPML3CollectionClassFromGroupingType(type);
-  v12 = [MEMORY[0x1E69B3488] predicateWithProperty:v10 value:dCopy comparison:1];
-  v13 = [v11 queryWithLibrary:self->_library predicate:v12];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __93__MPMediaLibraryDataProviderML3_collectionExistsWithCloudLibraryID_groupingType_existentPID___block_invoke;
-  v16[3] = &unk_1E7677140;
-  v16[4] = &v21;
-  v16[5] = &v17;
-  [v13 enumeratePersistentIDsUsingBlock:v16];
+  v12 = MPML3CollectionClassFromGroupingType(type, v10);
+  v13 = [MEMORY[0x1E69B3488] predicateWithProperty:v11 value:dCopy comparison:1];
+  v14 = [v12 queryWithLibrary:self->_library predicate:v13];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __93__MPMediaLibraryDataProviderML3_collectionExistsWithCloudLibraryID_groupingType_existentPID___block_invoke;
+  v17[3] = &unk_1E7677140;
+  v17[4] = &v22;
+  v17[5] = &v18;
+  [v14 enumeratePersistentIDsUsingBlock:v17];
 
-  v14 = *(v22 + 24);
-  if (iD && (v22[3] & 1) != 0)
+  v15 = *(v23 + 24);
+  if (iD && (v23[3] & 1) != 0)
   {
-    *iD = v18[3];
+    *iD = v19[3];
   }
 
 LABEL_11:
 
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v22, 8);
 
-  return v14 & 1;
+  return v15 & 1;
 }
 
 uint64_t __93__MPMediaLibraryDataProviderML3_collectionExistsWithCloudLibraryID_groupingType_existentPID___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, _BYTE *a4)
@@ -7129,19 +7129,19 @@ uint64_t __93__MPMediaLibraryDataProviderML3_collectionExistsWithCloudLibraryID_
 
 - (BOOL)collectionExistsWithSagaID:(int64_t)d groupingType:(int64_t)type existentPID:(unint64_t *)iD
 {
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
   if (type)
   {
     if (type != 6)
     {
-      v10 = 0;
+      v11 = 0;
       goto LABEL_10;
     }
 
@@ -7153,36 +7153,36 @@ uint64_t __93__MPMediaLibraryDataProviderML3_collectionExistsWithCloudLibraryID_
     v9 = MEMORY[0x1E69B3350];
   }
 
-  v10 = *v9;
-  if (!v10)
+  v11 = *v9;
+  if (!v11)
   {
 LABEL_10:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_11;
   }
 
-  v11 = MPML3CollectionClassFromGroupingType(type);
-  v12 = [MEMORY[0x1E69B3488] predicateWithProperty:v10 equalToInt64:d];
-  v13 = [v11 queryWithLibrary:self->_library predicate:v12];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __85__MPMediaLibraryDataProviderML3_collectionExistsWithSagaID_groupingType_existentPID___block_invoke;
-  v16[3] = &unk_1E7677140;
-  v16[4] = &v21;
-  v16[5] = &v17;
-  [v13 enumeratePersistentIDsUsingBlock:v16];
+  v12 = MPML3CollectionClassFromGroupingType(type, v10);
+  v13 = [MEMORY[0x1E69B3488] predicateWithProperty:v11 equalToInt64:d];
+  v14 = [v12 queryWithLibrary:self->_library predicate:v13];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __85__MPMediaLibraryDataProviderML3_collectionExistsWithSagaID_groupingType_existentPID___block_invoke;
+  v17[3] = &unk_1E7677140;
+  v17[4] = &v22;
+  v17[5] = &v18;
+  [v14 enumeratePersistentIDsUsingBlock:v17];
 
-  v14 = *(v22 + 24);
-  if (iD && (v22[3] & 1) != 0)
+  v15 = *(v23 + 24);
+  if (iD && (v23[3] & 1) != 0)
   {
-    *iD = v18[3];
+    *iD = v19[3];
   }
 
 LABEL_11:
 
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v21, 8);
-  return v14 & 1;
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v22, 8);
+  return v15 & 1;
 }
 
 uint64_t __85__MPMediaLibraryDataProviderML3_collectionExistsWithSagaID_groupingType_existentPID___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, _BYTE *a4)
@@ -7195,50 +7195,50 @@ uint64_t __85__MPMediaLibraryDataProviderML3_collectionExistsWithSagaID_grouping
 
 - (BOOL)collectionExistsWithStoreID:(int64_t)d groupingType:(int64_t)type existentPID:(unint64_t *)iD
 {
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
   v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
   if (type > 5)
   {
-    v9 = 0;
+    v10 = 0;
     goto LABEL_7;
   }
 
-  v9 = **(&unk_1E7677870 + type);
-  if (!v9)
+  v10 = **(&unk_1E7677870 + type);
+  if (!v10)
   {
 LABEL_7:
-    v13 = 0;
+    v14 = 0;
     goto LABEL_8;
   }
 
-  v10 = MPML3CollectionClassFromGroupingType(type);
-  v11 = [MEMORY[0x1E69B3488] predicateWithProperty:v9 equalToInt64:d];
-  v12 = [v10 queryWithLibrary:self->_library predicate:v11];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __86__MPMediaLibraryDataProviderML3_collectionExistsWithStoreID_groupingType_existentPID___block_invoke;
-  v15[3] = &unk_1E7677140;
-  v15[4] = &v20;
-  v15[5] = &v16;
-  [v12 enumeratePersistentIDsUsingBlock:v15];
+  v11 = MPML3CollectionClassFromGroupingType(type, v9);
+  v12 = [MEMORY[0x1E69B3488] predicateWithProperty:v10 equalToInt64:d];
+  v13 = [v11 queryWithLibrary:self->_library predicate:v12];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __86__MPMediaLibraryDataProviderML3_collectionExistsWithStoreID_groupingType_existentPID___block_invoke;
+  v16[3] = &unk_1E7677140;
+  v16[4] = &v21;
+  v16[5] = &v17;
+  [v13 enumeratePersistentIDsUsingBlock:v16];
 
-  v13 = *(v21 + 24);
-  if (iD && (v21[3] & 1) != 0)
+  v14 = *(v22 + 24);
+  if (iD && (v22[3] & 1) != 0)
   {
-    *iD = v17[3];
+    *iD = v18[3];
   }
 
 LABEL_8:
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v20, 8);
-  return v13 & 1;
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
+  return v14 & 1;
 }
 
 uint64_t __86__MPMediaLibraryDataProviderML3_collectionExistsWithStoreID_groupingType_existentPID___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, _BYTE *a4)
@@ -7252,54 +7252,54 @@ uint64_t __86__MPMediaLibraryDataProviderML3_collectionExistsWithStoreID_groupin
 - (BOOL)collectionExistsWithName:(id)name groupingType:(int64_t)type existentPID:(unint64_t *)d
 {
   nameCopy = name;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
   v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
   if (nameCopy)
   {
-    v9 = MPML3CollectionClassFromGroupingType(type);
+    v10 = MPML3CollectionClassFromGroupingType(type, v8);
     if (type > 7)
     {
-      v10 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v10 = **(&unk_1E7677830 + type);
+      v11 = **(&unk_1E7677830 + type);
     }
 
-    v12 = [MEMORY[0x1E69B3488] predicateWithProperty:v10 value:nameCopy comparison:1];
-    v13 = [v9 queryWithLibrary:self->_library predicate:v12];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __83__MPMediaLibraryDataProviderML3_collectionExistsWithName_groupingType_existentPID___block_invoke;
-    v15[3] = &unk_1E7677140;
-    v15[4] = &v20;
-    v15[5] = &v16;
-    [v13 enumeratePersistentIDsUsingBlock:v15];
+    v13 = [MEMORY[0x1E69B3488] predicateWithProperty:v11 value:nameCopy comparison:1];
+    v14 = [v10 queryWithLibrary:self->_library predicate:v13];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __83__MPMediaLibraryDataProviderML3_collectionExistsWithName_groupingType_existentPID___block_invoke;
+    v16[3] = &unk_1E7677140;
+    v16[4] = &v21;
+    v16[5] = &v17;
+    [v14 enumeratePersistentIDsUsingBlock:v16];
 
-    v11 = *(v21 + 24);
-    if (d && (v21[3] & 1) != 0)
+    v12 = *(v22 + 24);
+    if (d && (v22[3] & 1) != 0)
     {
-      *d = v17[3];
-      v11 = 1;
+      *d = v18[3];
+      v12 = 1;
     }
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
 
-  return v11 & 1;
+  return v12 & 1;
 }
 
 uint64_t __83__MPMediaLibraryDataProviderML3_collectionExistsWithName_groupingType_existentPID___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, _BYTE *a4)
@@ -7322,7 +7322,7 @@ uint64_t __83__MPMediaLibraryDataProviderML3_collectionExistsWithName_groupingTy
   v19 = 0;
   if (ds)
   {
-    v10 = MPML3CollectionClassFromGroupingType(type);
+    v10 = MPML3CollectionClassFromGroupingType(type, a2);
     v11 = [MEMORY[0x1E69B3500] predicateWithPersistentIDs:ds count:count shouldContain:1];
     v12 = [v10 queryWithLibrary:self->_library predicate:v11];
     v15[0] = MEMORY[0x1E69E9820];
@@ -7366,7 +7366,7 @@ uint64_t __109__MPMediaLibraryDataProviderML3_collectionExistsContainedWithinPer
     return 0;
   }
 
-  v6 = MPML3CollectionClassFromGroupingType(type);
+  v6 = MPML3CollectionClassFromGroupingType(type, a2);
   if (!v6)
   {
     return 0;
@@ -7389,7 +7389,7 @@ uint64_t __109__MPMediaLibraryDataProviderML3_collectionExistsContainedWithinPer
 
 - (BOOL)collectionExistsWithPersistentID:(unint64_t)d groupingType:(int64_t)type
 {
-  v6 = MPML3CollectionClassFromGroupingType(type);
+  v6 = MPML3CollectionClassFromGroupingType(type, a2);
   if (v6)
   {
     v7 = [v6 newWithPersistentID:d inLibrary:self->_library];

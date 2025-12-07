@@ -3,7 +3,7 @@
 
 @implementation CFPrefsWritingToExternalAppCloudPreferencesEnabled
 
-uint64_t ___CFPrefsWritingToExternalAppCloudPreferencesEnabled_block_invoke()
+__CFString *___CFPrefsWritingToExternalAppCloudPreferencesEnabled_block_invoke()
 {
   v0 = _CFProcessPath();
   result = strcmp(v0, "/usr/bin/defaults");

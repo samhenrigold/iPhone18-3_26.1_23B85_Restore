@@ -49,7 +49,7 @@
     }
   }
 
-  v23 = sub_100208FBC();
+  v23 = sub_100208FBC(ODRDatabaseStore);
   v28[0] = _NSConcreteStackBlock;
   v28[1] = 3221225472;
   v28[2] = sub_100281CFC;

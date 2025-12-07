@@ -167,7 +167,7 @@
   v55 = objc_msgSend_finalResource(v45, v50, v51, v52, v53);
   if (v45)
   {
-    objc_msgSend_size(v45, v54, v56, v57, v58);
+    objc_msgSend_size(v45, v56, v57, v58);
   }
 
   else
@@ -233,7 +233,7 @@
       v335 = v144;
       if (v45)
       {
-        objc_msgSend_size(v45, v145, v146, v147, v148);
+        objc_msgSend_size(v45, v146, v147, v148);
         v149 = v343;
       }
 
@@ -316,7 +316,7 @@
       v258 = v253;
       if (v253)
       {
-        objc_msgSend_size(v253, v254, v255, v256, v257);
+        objc_msgSend_size(v253, v255, v256, v257);
       }
 
       else
@@ -460,7 +460,7 @@ LABEL_51:
   v35 = 1;
   if (finalShadowResource)
   {
-    objc_msgSend_size(finalShadowResource, v4, v6, v7, v8);
+    objc_msgSend_size(finalShadowResource, v6, v7, v8);
     objc_msgSend_framebufferWithSize_attributes_textureAttributes_resource_(contextCopy, v25, v26, v27, v28, &v31, &v32, &v32, self->_finalShadowResource);
   }
 

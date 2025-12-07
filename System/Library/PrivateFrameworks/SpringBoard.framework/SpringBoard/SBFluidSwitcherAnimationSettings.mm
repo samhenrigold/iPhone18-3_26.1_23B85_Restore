@@ -545,8 +545,7 @@
   [(SBFluidSwitcherAnimationSettings *)self setWallpaperScaleInSwitcher:dbl_21F8A5750[(userInterfaceIdiom4 & 0xFFFFFFFFFFFFFFFBLL) == 1]];
   [(SBFluidSwitcherAnimationSettings *)self setWallpaperScaleInApplication:1.0];
   [(SBFluidSwitcherAnimationSettings *)self setDimmingAlphaInSwitcher:0.25];
-  [(SBFluidSwitcherAnimationSettings *)self setDimmingAlphaInApplication:0.67];
-  if (SBIsHomeGestureEnabledByDefault())
+  if (SBIsHomeGestureEnabledByDefault([(SBFluidSwitcherAnimationSettings *)self setDimmingAlphaInApplication:0.67]))
   {
     layoutSettings3 = [(SBFluidSwitcherAnimationSettings *)self layoutSettings];
     [layoutSettings3 setTrackingDampingRatio:0.577];

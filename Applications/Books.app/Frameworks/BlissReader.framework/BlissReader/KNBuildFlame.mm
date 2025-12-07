@@ -81,7 +81,7 @@
   }
 
   [(KNAnimationContext *)self->super.mAnimationContext slideRect];
-  [buildCopy duration];
+  objc_msgSend_duration(buildCopy);
   v18 = v17;
   [rCopy size];
   v20 = v19;
@@ -177,7 +177,7 @@
   }
 
   lastObject = [textures lastObject];
-  v12 = KNBundle();
+  v12 = KNBundle(lastObject);
   v69 = [v12 pathForResource:@"KNBuildFlame" ofType:@"png"];
 
   v13 = [(KNBuildFlame *)self p_texturedRectFromImagePath:v69 metalContext:metalContext];
@@ -186,7 +186,7 @@
 
   [(KNBuildFlame *)self frameOfEffectWithContext:contextCopy];
   v68 = textures;
-  [(KNAnimationEffect *)self mvpMatrixWithContext:contextCopy];
+  objc_msgSend_mvpMatrixWithContext_(self);
   v15 = *&v74.m33;
   *&self->_baseTransform.m31 = *&v74.m31;
   *&self->_baseTransform.m33 = v15;
@@ -283,7 +283,7 @@
   [(KNBuildFlameSystem *)self->_flameSystem rotationMax];
   *&v55 = v55;
   *&self->_anon_34[44] = LODWORD(v55);
-  [(KNBuildFlameSystem *)self->_flameSystem duration];
+  objc_msgSend_duration(self->_flameSystem);
   *&v56 = v56;
   *&self->_anon_34[60] = LODWORD(v56);
   v57 = [[TSDMetalShader alloc] initDefaultTextureShaderWithDevice:device colorAttachment:v29];
@@ -386,7 +386,7 @@
     v17 = 0.5;
   }
 
-  [animatedBuild duration];
+  objc_msgSend_duration(animatedBuild);
   v19 = 1.0 / v18;
   if (v17 >= v19)
   {

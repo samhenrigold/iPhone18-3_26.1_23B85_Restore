@@ -1,6 +1,7 @@
 @interface SPServicesXPCConnection
 - (BOOL)_entitledAndReturnError:(id *)error;
 - (void)contextMonitorActivate:(id)activate completion:(id)completion;
+- (void)contextMonitorReportContextSignalUpdated:(id)updated contextFusedState:(unsigned int)state;
 - (void)contextMonitorReportLocationChanged:(id)changed;
 - (void)contextMonitorUpdate:(id)update;
 @end
@@ -37,7 +38,7 @@
   else if (error)
   {
 LABEL_9:
-    v9 = NSErrorF();
+    v9 = NSErrorF(NSOSStatusErrorDomain, 4294896128, "Missing entitlement '%@'", @"com.apple.SensingPredict");
     v10 = v9;
     result = 0;
     *error = v9;
@@ -137,6 +138,46 @@ LABEL_9:
   (v5[2])(v5);
 
   _Block_object_dispose(&v15, 8);
+}
+
+- (void)contextMonitorReportContextSignalUpdated:(id)updated contextFusedState:(unsigned int)state
+{
+  v4 = *&state;
+  updatedCopy = updated;
+  v6 = self->_contextMonitor;
+  if (v6)
+  {
+    if (dword_100015F40 <= 30 && (dword_100015F40 != -1 || _LogCategory_Initialize()))
+    {
+      locationCategory = [updatedCopy locationCategory];
+      if (locationCategory > 9)
+      {
+        v8 = @"?";
+      }
+
+      else
+      {
+        v8 = off_1000108E0[locationCategory];
+      }
+
+      if (v4 > 2)
+      {
+        v9 = "?";
+      }
+
+      else
+      {
+        v9 = off_1000108C8[v4];
+      }
+
+      v11 = v8;
+      v12 = v9;
+      LogPrintF();
+    }
+
+    v10 = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy:v11];
+    [v10 contextSignalUpdated:updatedCopy fusedState:v4];
+  }
 }
 
 - (void)contextMonitorReportLocationChanged:(id)changed

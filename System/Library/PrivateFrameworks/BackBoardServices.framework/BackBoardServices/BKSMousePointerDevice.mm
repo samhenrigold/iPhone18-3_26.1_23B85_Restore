@@ -19,10 +19,10 @@
   v7.receiver = self;
   v7.super_class = BKSMousePointerDevice;
   v4 = [(BKSMousePointerDevice *)&v7 description];
-  v5 = [v3 initWithString:v4];
+  v5 = [v3 initWithString:?];
 
-  [v5 appendFormat:@" %@ -- product:%@ manufacturer:%@ pref:%@ virtalButtons:%d supportsDragLock:%d", self->_senderDescriptor, self->_productName, self->_manufacturerName, self->_preferenceKey, self->_hasVirtualMouseButtons, self->_supportsDragLock];
-  [v5 appendFormat:@" supportsLightClick:%d supportsSystemHaptics:%d", self->_supportsLightClick, self->_supportsSystemHaptics];
+  [v5 appendFormat:self->_senderDescriptor, self->_productName, self->_manufacturerName, self->_preferenceKey, self->_hasVirtualMouseButtons, self->_supportsDragLock];
+  [v5 appendFormat:self->_supportsLightClick, self->_supportsSystemHaptics];
 
   return v5;
 }
@@ -38,7 +38,7 @@
   else
   {
     v5 = objc_opt_class();
-    v6 = v5 == objc_opt_class() && [(BKSHIDEventSenderDescriptor *)self->_senderDescriptor isEqual:equalCopy->_senderDescriptor]&& [(NSString *)self->_preferenceKey isEqual:equalCopy->_preferenceKey]&& [(NSString *)self->_productName isEqual:equalCopy->_productName]&& [(NSString *)self->_manufacturerName isEqual:equalCopy->_manufacturerName]&& self->_hasVirtualMouseButtons == equalCopy->_hasVirtualMouseButtons && self->_supportsDragLock == equalCopy->_supportsDragLock && self->_supportsLightClick == equalCopy->_supportsLightClick && self->_supportsSystemHaptics == equalCopy->_supportsSystemHaptics;
+    v6 = v5 == objc_opt_class() && [(BKSHIDEventSenderDescriptor *)self->_senderDescriptor isEqual:?]&& [(NSString *)self->_preferenceKey isEqual:?]&& [(NSString *)self->_productName isEqual:?]&& [(NSString *)self->_manufacturerName isEqual:?]&& self->_hasVirtualMouseButtons == equalCopy->_hasVirtualMouseButtons && self->_supportsDragLock == equalCopy->_supportsDragLock && self->_supportsLightClick == equalCopy->_supportsLightClick && self->_supportsSystemHaptics == equalCopy->_supportsSystemHaptics;
   }
 
   return v6;
@@ -54,23 +54,27 @@
 - (BKSMousePointerDevice)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"t:1"];
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"t:2"];
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"t:3"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
   productName = self->_productName;
   self->_productName = v7;
 
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"t:4"];
+  objc_opt_class();
+  v9 = [coderCopy decodeObjectOfClass:? forKey:?];
   manufacturerName = self->_manufacturerName;
   self->_manufacturerName = v9;
 
-  self->_hasVirtualMouseButtons = [coderCopy decodeBoolForKey:@"t:5"];
-  self->_supportsDragLock = [coderCopy decodeBoolForKey:@"t:6"];
-  self->_supportsLightClick = [coderCopy decodeBoolForKey:@"t:7"];
-  v11 = [coderCopy decodeBoolForKey:@"t:8"];
+  self->_hasVirtualMouseButtons = [coderCopy decodeBoolForKey:?];
+  self->_supportsDragLock = [coderCopy decodeBoolForKey:?];
+  self->_supportsLightClick = [coderCopy decodeBoolForKey:?];
+  v11 = [coderCopy decodeBoolForKey:?];
 
   self->_supportsSystemHaptics = v11;
-  v12 = [(BKSMousePointerDevice *)self initWithSenderDescriptor:v5];
+  v12 = [(BKSMousePointerDevice *)self initWithSenderDescriptor:?];
   v13 = v12;
   if (v12)
   {
@@ -82,60 +86,60 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  senderDescriptor = self->_senderDescriptor;
   coderCopy = coder;
-  [coderCopy encodeObject:senderDescriptor forKey:@"t:1"];
-  [coderCopy encodeObject:self->_preferenceKey forKey:@"t:2"];
-  [coderCopy encodeObject:self->_productName forKey:@"t:3"];
-  [coderCopy encodeObject:self->_manufacturerName forKey:@"t:4"];
-  [coderCopy encodeBool:self->_hasVirtualMouseButtons forKey:@"t:5"];
-  [coderCopy encodeBool:self->_supportsDragLock forKey:@"t:6"];
-  [coderCopy encodeBool:self->_supportsLightClick forKey:@"t:7"];
-  [coderCopy encodeBool:self->_supportsSystemHaptics forKey:@"t:8"];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
 }
 
 - (void)setPreferences:(id)preferences
 {
   preferencesCopy = preferences;
-  v5 = +[BKSMousePointerService sharedInstance];
-  [v5 setPreferences:preferencesCopy forDevice:self];
+  v4 = +[BKSMousePointerService sharedInstance];
+  [v4 setPreferences:? forDevice:?];
 }
 
 - (id)preferences
 {
-  v3 = +[BKSMousePointerService sharedInstance];
-  v4 = [v3 preferencesForDevice:self];
+  v2 = +[BKSMousePointerService sharedInstance];
+  v3 = [v2 preferencesForDevice:?];
 
-  return v4;
+  return v3;
 }
 
 - (BKSMousePointerDevice)initWithSenderDescriptor:(id)descriptor
 {
   descriptorCopy = descriptor;
-  v6 = objc_opt_class();
-  if (([v6 isEqual:objc_opt_class()] & 1) == 0)
+  v5 = objc_opt_class();
+  objc_opt_class();
+  if (([v5 isEqual:?] & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"BKSMousePointerDevice.m" lineNumber:27 description:@"subclassing BKSMousePointerDevice is not supported"];
+    [currentHandler handleFailureInMethod:? object:? file:? lineNumber:? description:?];
   }
 
-  v12.receiver = self;
-  v12.super_class = BKSMousePointerDevice;
-  v7 = [(BKSMousePointerDevice *)&v12 init];
-  if (v7)
+  v11.receiver = self;
+  v11.super_class = BKSMousePointerDevice;
+  v6 = [(BKSMousePointerDevice *)&v11 init];
+  if (v6)
   {
-    v8 = [descriptorCopy copy];
-    senderDescriptor = v7->_senderDescriptor;
-    v7->_senderDescriptor = v8;
+    v7 = [descriptorCopy copy];
+    senderDescriptor = v6->_senderDescriptor;
+    v6->_senderDescriptor = v7;
   }
 
-  return v7;
+  return v6;
 }
 
 - (BKSMousePointerDevice)init
 {
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-  [currentHandler handleFailureInMethod:a2 object:self file:@"BKSMousePointerDevice.m" lineNumber:22 description:{@"-init is not allowed on %@", objc_opt_class()}];
+  [currentHandler handleFailureInMethod:objc_opt_class() object:? file:? lineNumber:? description:?];
 
   return 0;
 }
@@ -159,22 +163,24 @@
 
 uint64_t __39__BKSMousePointerDevice_protobufSchema__block_invoke(uint64_t a1)
 {
-  protobufSchema_schema_4076 = [MEMORY[0x1E698E750] buildSchemaForClass:*(a1 + 32) builder:&__block_literal_global_4078];
+  v1 = [MEMORY[0x1E698E750] buildSchemaForClass:? builder:?];
+  v2 = protobufSchema_schema_4076;
+  protobufSchema_schema_4076 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 void __39__BKSMousePointerDevice_protobufSchema__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_senderDescriptor"];
-  [v2 addField:"_preferenceKey"];
-  [v2 addField:"_productName"];
-  [v2 addField:"_manufacturerName"];
-  [v2 addField:"_hasVirtualMouseButtons"];
-  [v2 addField:"_supportsDragLock"];
-  [v2 addField:"_supportsLightClick"];
-  [v2 addField:"_supportsSystemHaptics"];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
 }
 
 @end

@@ -17,7 +17,7 @@
 
 + (id)assetsDistancesSummary:(id)summary inAssets:(id)assets withinThresholdType:(int64_t)type
 {
-  sub_1C6F65BE8(0, &qword_1EDD0FA70);
+  sub_1C6F65BE8(0, &qword_1EDD0FA70, 0x1E6978630);
   v7 = sub_1C7550B5C();
   summaryCopy = summary;
   static VisualOutliers.assetsDistancesSummary(for:in:with:)(summaryCopy, v7, type);
@@ -29,7 +29,7 @@
 
 + (BOOL)isAsset:(id)asset similarToAnyAssets:(id)assets withinThresholdType:(int64_t)type
 {
-  sub_1C6F65BE8(0, &qword_1EDD0FA70);
+  sub_1C6F65BE8(0, &qword_1EDD0FA70, 0x1E6978630);
   v7 = sub_1C7550B5C();
   assetCopy = asset;
   static VisualOutliers.isSimilarToAnyAssetInAssets(for:in:with:)(assetCopy, v7, type);
@@ -40,11 +40,11 @@
 
 + (id)outlierScoresForAssets:(id)assets
 {
-  sub_1C6F65BE8(0, &qword_1EDD0FA70);
+  sub_1C6F65BE8(0, &qword_1EDD0FA70, 0x1E6978630);
   v3 = sub_1C7550B5C();
   static VisualOutliers.outlierScoresForAssets(assets:)(v3);
 
-  sub_1C6F65BE8(0, &qword_1EDD108E0);
+  sub_1C6F65BE8(0, &qword_1EDD108E0, 0x1E696AD98);
   v4 = sub_1C755048C();
 
   return v4;

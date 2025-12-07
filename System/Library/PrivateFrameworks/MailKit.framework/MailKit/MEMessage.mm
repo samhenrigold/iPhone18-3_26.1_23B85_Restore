@@ -210,35 +210,35 @@
 
 - (id)_sanitaizedHeadersForHeaders:(id)headers
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   headersCopy = headers;
-  v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
+  v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v3 = headersCopy;
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v21 count:{16, headersCopy}];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v20 count:{16, headersCopy}];
   if (v4)
   {
-    v5 = *v17;
+    v5 = *v16;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * i);
+        v7 = *(*(&v15 + 1) + 8 * i);
         v8 = objc_alloc_init(MEMORY[0x277CBEA60]);
         v9 = [v3 objectForKeyedSubscript:v7];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v20 = v9;
-          v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+          v19 = v9;
+          v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
         }
 
         else
@@ -258,19 +258,17 @@
 LABEL_11:
         if ([v8 count])
         {
-          [v15 setObject:v8 forKeyedSubscript:v7];
+          [v14 setObject:v8 forKeyedSubscript:v7];
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v4);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v14;
 }
 
 uint64_t __42__MEMessage__sanitaizedHeadersForHeaders___block_invoke(uint64_t a1, void *a2)
@@ -347,71 +345,69 @@ id __33__MEMessage_ef_publicDescription__block_invoke(uint64_t a1, void *a2)
 
 void __30__MEMessage__protectedHeaders__block_invoke()
 {
-  v24[38] = *MEMORY[0x277D85DE8];
+  v23[38] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277D07038];
-  v24[0] = *MEMORY[0x277D06FA0];
-  v24[1] = v1;
+  v23[0] = *MEMORY[0x277D06FA0];
+  v23[1] = v1;
   v2 = *MEMORY[0x277D07000];
-  v24[2] = *MEMORY[0x277D06F50];
-  v24[3] = v2;
+  v23[2] = *MEMORY[0x277D06F50];
+  v23[3] = v2;
   v3 = *MEMORY[0x277D07018];
-  v24[4] = *MEMORY[0x277D06F48];
-  v24[5] = v3;
+  v23[4] = *MEMORY[0x277D06F48];
+  v23[5] = v3;
   v4 = *MEMORY[0x277D07008];
-  v24[6] = *MEMORY[0x277D07028];
-  v24[7] = v4;
+  v23[6] = *MEMORY[0x277D07028];
+  v23[7] = v4;
   v5 = *MEMORY[0x277D07030];
-  v24[8] = *MEMORY[0x277D06FF0];
-  v24[9] = v5;
+  v23[8] = *MEMORY[0x277D06FF0];
+  v23[9] = v5;
   v6 = *MEMORY[0x277D06FB8];
-  v24[10] = *MEMORY[0x277D06F98];
-  v24[11] = v6;
+  v23[10] = *MEMORY[0x277D06F98];
+  v23[11] = v6;
   v7 = *MEMORY[0x277D06FC0];
-  v24[12] = *MEMORY[0x277D06FE0];
-  v24[13] = v7;
+  v23[12] = *MEMORY[0x277D06FE0];
+  v23[13] = v7;
   v8 = *MEMORY[0x277D06FD0];
-  v24[14] = *MEMORY[0x277D06FC8];
-  v24[15] = v8;
+  v23[14] = *MEMORY[0x277D06FC8];
+  v23[15] = v8;
   v9 = *MEMORY[0x277D07020];
-  v24[16] = *MEMORY[0x277D07010];
-  v24[17] = v9;
+  v23[16] = *MEMORY[0x277D07010];
+  v23[17] = v9;
   v10 = *MEMORY[0x277D06FD8];
-  v24[18] = *MEMORY[0x277D06FE8];
-  v24[19] = v10;
+  v23[18] = *MEMORY[0x277D06FE8];
+  v23[19] = v10;
   v11 = *MEMORY[0x277D06F80];
-  v24[20] = *MEMORY[0x277D06F88];
-  v24[21] = v11;
+  v23[20] = *MEMORY[0x277D06F88];
+  v23[21] = v11;
   v12 = *MEMORY[0x277D06F60];
-  v24[22] = *MEMORY[0x277D06F58];
-  v24[23] = v12;
+  v23[22] = *MEMORY[0x277D06F58];
+  v23[23] = v12;
   v13 = *MEMORY[0x277D06F70];
-  v24[24] = *MEMORY[0x277D06F68];
-  v24[25] = v13;
+  v23[24] = *MEMORY[0x277D06F68];
+  v23[25] = v13;
   v14 = *MEMORY[0x277D07060];
-  v24[26] = *MEMORY[0x277D06F78];
-  v24[27] = v14;
+  v23[26] = *MEMORY[0x277D06F78];
+  v23[27] = v14;
   v15 = *MEMORY[0x277D07040];
-  v24[28] = *MEMORY[0x277D07050];
-  v24[29] = v15;
+  v23[28] = *MEMORY[0x277D07050];
+  v23[29] = v15;
   v16 = *MEMORY[0x277D07058];
-  v24[30] = *MEMORY[0x277D07068];
-  v24[31] = v16;
+  v23[30] = *MEMORY[0x277D07068];
+  v23[31] = v16;
   v17 = *MEMORY[0x277D07048];
-  v24[32] = *MEMORY[0x277D06F40];
-  v24[33] = v17;
+  v23[32] = *MEMORY[0x277D06F40];
+  v23[33] = v17;
   v18 = *MEMORY[0x277D06FB0];
-  v24[34] = *MEMORY[0x277D06FF8];
-  v24[35] = v18;
+  v23[34] = *MEMORY[0x277D06FF8];
+  v23[35] = v18;
   v19 = *MEMORY[0x277D06F90];
-  v24[36] = *MEMORY[0x277D06F38];
-  v24[37] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:38];
+  v23[36] = *MEMORY[0x277D06F38];
+  v23[37] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:38];
   v21 = [v0 setWithArray:v20];
   v22 = _protectedHeaders_protectedHeaders;
   _protectedHeaders_protectedHeaders = v21;
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)extensionCanSetHeaderKey:(id)key

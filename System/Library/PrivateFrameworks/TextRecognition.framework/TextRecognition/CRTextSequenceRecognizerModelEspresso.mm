@@ -24,27 +24,27 @@
 
 - (void)preheatWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884C70);
-  MEMORY[0x1EEE9AC00](v5 - 8, v6);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1B429FEE8();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884C70, &qword_1B42ACAB0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1B429FEE8();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1B42AD678;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1B42AD678;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1B42AD688;
-  v13[5] = v12;
+  v12[4] = &unk_1B42AD688;
+  v12[5] = v11;
   selfCopy = self;
-  sub_1B4105608(0, 0, v8, &unk_1B42AD698, v13);
+  sub_1B4105608(0, 0, v7, &unk_1B42AD698, v12);
 }
 
 - (id)modelFilePath
@@ -140,7 +140,7 @@ LABEL_11:
 
 void __65__CRTextSequenceRecognizerModelEspresso_predictFromInputs_error___block_invoke(uint64_t a1)
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) firstObject];
   LODWORD(v2) = [v2 _shouldReconfigurePlanForInput:v3];
@@ -152,9 +152,9 @@ void __65__CRTextSequenceRecognizerModelEspresso_predictFromInputs_error___block
 
   v4 = *(a1 + 32);
   v5 = [*(a1 + 40) firstObject];
-  v76 = 0;
-  v6 = [v4 _configurePlanForInput:v5 error:&v76];
-  v7 = v76;
+  v75 = 0;
+  v6 = [v4 _configurePlanForInput:v5 error:&v75];
+  v7 = v75;
 
   if (v7 && *(a1 + 56))
   {
@@ -171,11 +171,11 @@ LABEL_6:
 
     v44 = dispatch_queue_create("com.apple.CoreRecognition.recognizerOutputQueue", attr);
     v11 = [*(a1 + 40) count];
-    v74 = 0;
     v73 = 0;
-    v75 = 0;
-    v63 = &v73;
-    v64 = 0;
+    v72 = 0;
+    v74 = 0;
+    v62 = &v72;
+    v63 = 0;
     if (v11)
     {
       if (!(v11 >> 61))
@@ -189,47 +189,47 @@ LABEL_6:
     for (i = 0; i < [*(a1 + 40) count]; ++i)
     {
       v13 = dispatch_block_create(DISPATCH_BLOCK_ASSIGN_CURRENT, &__block_literal_global_2);
-      v14 = *(v73 + 8 * i);
-      *(v73 + 8 * i) = v13;
+      v14 = v72[i];
+      v72[i] = v13;
     }
 
-    v71 = 0u;
-    v72 = 0u;
-    v69 = 0u;
     v70 = 0u;
+    v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
     obj = *(a1 + 40);
-    v15 = [obj countByEnumeratingWithState:&v69 objects:v77 count:16];
+    v15 = [obj countByEnumeratingWithState:&v68 objects:v76 count:16];
     if (v15)
     {
       v16 = 0;
       v17 = 0;
-      v46 = *v70;
+      v46 = *v69;
       do
       {
         v18 = 0;
         v47 = v15;
         do
         {
-          if (*v70 != v46)
+          if (*v69 != v46)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v69 + 1) + 8 * v18);
-          v65 = 0;
-          v66 = &v65;
-          v67 = 0x2020000000;
-          v68 = 0;
+          v19 = *(*(&v68 + 1) + 8 * v18);
+          v64 = 0;
+          v65 = &v64;
+          v66 = 0x2020000000;
+          v67 = 0;
           if (v16)
           {
-            if (v17 >= (v74 - v73) >> 3)
+            if (v17 >= v73 - v72)
             {
               std::vector<std::vector<BreakPoint>>::__throw_out_of_range[abi:ne200100]();
             }
 
-            (*(*(v73 + 8 * v17) + 16))();
+            (*(v72[v17] + 2))();
             v16 = 1;
-            *(v66 + 24) = 1;
+            *(v65 + 24) = 1;
           }
 
           else
@@ -239,12 +239,12 @@ LABEL_6:
             v20 = espresso_network_bind_buffer();
             v21 = [*(a1 + 32) outputNames];
             v22 = [v21 count];
+            v59 = 0;
             v60 = 0;
             v61 = 0;
-            v62 = 0;
             if (v22)
             {
-              std::vector<espresso_buffer_t>::__vallocate[abi:ne200100](&v60, v22);
+              std::vector<espresso_buffer_t>::__vallocate[abi:ne200100](&v59, v22);
             }
 
             if (v20)
@@ -254,23 +254,23 @@ LABEL_6:
 
             if (v19)
             {
-              [v19 img_input];
-              v23 = *(&v59 + 1);
-              [v19 img_input];
-              v24 = v57;
-              v25 = v63;
-              [v19 img_input];
+              objc_msgSend_img_input(v19);
+              v23 = *(&v58 + 1);
+              objc_msgSend_img_input(v19);
+              v24 = v56;
+              v25 = v62;
+              objc_msgSend_img_input(v19);
               v26 = v24 * v23;
-              v27 = v58;
+              v27 = v57;
             }
 
             else
             {
               v27 = 0;
               v26 = 0;
-              v25 = v63;
+              v25 = v62;
+              v57 = 0u;
               v58 = 0u;
-              v59 = 0u;
             }
 
             memcpy(v25, v27, v26);
@@ -310,15 +310,15 @@ LABEL_6:
               v50 = 0;
               v51 = 0;
               __p = 0;
-              std::vector<espresso_buffer_t>::__init_with_size[abi:ne200100]<espresso_buffer_t*,espresso_buffer_t*>(&__p, v60, v61, 0xCF3CF3CF3CF3CF3DLL * ((v61 - v60) >> 3));
+              std::vector<espresso_buffer_t>::__init_with_size[abi:ne200100]<espresso_buffer_t*,espresso_buffer_t*>(&__p, v59, v60, 0xCF3CF3CF3CF3CF3DLL * ((v60 - v59) >> 3));
               v48 = *(a1 + 48);
-              memset(v52, 0, sizeof(v52));
-              std::vector<void({block_pointer} {__strong})(void),std::allocator<void({block_pointer} {__strong})(void)>>::__init_with_size[abi:ne200100]<void({block_pointer} {__strong}*)(void),void({block_pointer} {__strong}*)(void)>(v52, v73, v74, (v74 - v73) >> 3);
-              v53 = v17;
+              memset(v52, 0, 24);
+              std::vector<void({block_pointer} {__strong})(void),std::allocator<void({block_pointer} {__strong})(void)>>::__init_with_size[abi:ne200100]<void({block_pointer} {__strong}*)(void),void({block_pointer} {__strong}*)(void)>(v52, v72, v73, v73 - v72);
+              v52[3] = v17;
               v38 = espresso_plan_submit();
               os_unfair_lock_unlock((*(a1 + 32) + 72));
-              *&v58 = v52;
-              std::vector<void({block_pointer} {__strong})(void),std::allocator<void({block_pointer} {__strong})(void)>>::__destroy_vector::operator()[abi:ne200100](&v58);
+              *&v57 = v52;
+              std::vector<void({block_pointer} {__strong})(void),std::allocator<void({block_pointer} {__strong})(void)>>::__destroy_vector::operator()[abi:ne200100](&v57);
 
               if (__p)
               {
@@ -332,29 +332,29 @@ LABEL_6:
               [(os_unfair_lock_s *)v37 plan];
               v38 = espresso_plan_execute_sync();
               v39 = *(a1 + 32);
-              v55 = 0;
-              v56 = 0;
               v54 = 0;
-              std::vector<espresso_buffer_t>::__init_with_size[abi:ne200100]<espresso_buffer_t*,espresso_buffer_t*>(&v54, v60, v61, 0xCF3CF3CF3CF3CF3DLL * ((v61 - v60) >> 3));
+              v55 = 0;
+              v53 = 0;
+              std::vector<espresso_buffer_t>::__init_with_size[abi:ne200100]<espresso_buffer_t*,espresso_buffer_t*>(&v53, v59, v60, 0xCF3CF3CF3CF3CF3DLL * ((v60 - v59) >> 3));
               v40 = [v19 textFeatureInfo];
-              v41 = [v39 outputFromOutputBuffers:&v54 featureInfo:v40];
+              v41 = [v39 outputFromOutputBuffers:&v53 featureInfo:v40];
 
-              if (v54)
+              if (v53)
               {
-                v55 = v54;
-                operator delete(v54);
+                v54 = v53;
+                operator delete(v53);
               }
 
               [*(a1 + 48) addObject:v41];
-              if (!v38 && (v66[3] & 1) == 0)
+              if (!v38 && (v65[3] & 1) == 0)
               {
-                if (v17 >= (v74 - v73) >> 3)
+                if (v17 >= v73 - v72)
                 {
                   std::vector<std::vector<BreakPoint>>::__throw_out_of_range[abi:ne200100]();
                 }
 
-                (*(*(v73 + 8 * v17) + 16))();
-                *(v66 + 24) = 1;
+                (*(v72[v17] + 2))();
+                *(v65 + 24) = 1;
               }
             }
 
@@ -366,21 +366,21 @@ LABEL_64:
                 **(a1 + 56) = [CRImageReader errorWithErrorCode:-8];
               }
 
-              if (v66[3])
+              if (v65[3])
               {
                 v16 = 1;
               }
 
               else
               {
-                if (v17 >= (v74 - v73) >> 3)
+                if (v17 >= v73 - v72)
                 {
                   std::vector<std::vector<BreakPoint>>::__throw_out_of_range[abi:ne200100]();
                 }
 
-                (*(*(v73 + 8 * v17) + 16))();
+                (*(v72[v17] + 2))();
                 v16 = 1;
-                *(v66 + 24) = 1;
+                *(v65 + 24) = 1;
               }
             }
 
@@ -389,20 +389,20 @@ LABEL_64:
               v16 = 0;
             }
 
-            if (v60)
+            if (v59)
             {
-              v61 = v60;
-              operator delete(v60);
+              v60 = v59;
+              operator delete(v59);
             }
           }
 
           ++v17;
-          _Block_object_dispose(&v65, 8);
+          _Block_object_dispose(&v64, 8);
           ++v18;
         }
 
         while (v18 != v47);
-        v15 = [obj countByEnumeratingWithState:&v69 objects:v77 count:16];
+        v15 = [obj countByEnumeratingWithState:&v68 objects:v76 count:16];
       }
 
       while (v15);
@@ -410,11 +410,11 @@ LABEL_64:
 
     for (k = 0; k < [*(a1 + 40) count]; ++k)
     {
-      dispatch_block_wait(*(v73 + 8 * k), 0xFFFFFFFFFFFFFFFFLL);
+      dispatch_block_wait(v72[k], 0xFFFFFFFFFFFFFFFFLL);
     }
 
-    v63 = &v73;
-    std::vector<void({block_pointer} {__strong})(void),std::allocator<void({block_pointer} {__strong})(void)>>::__destroy_vector::operator()[abi:ne200100](&v63);
+    v62 = &v72;
+    std::vector<void({block_pointer} {__strong})(void),std::allocator<void({block_pointer} {__strong})(void)>>::__destroy_vector::operator()[abi:ne200100](&v62);
   }
 }
 
@@ -565,7 +565,7 @@ void __65__CRTextSequenceRecognizerModelEspresso_predictFromInputs_error___block
   v7 = inputCopy;
   if (inputCopy)
   {
-    [inputCopy img_input];
+    objc_msgSend_img_input(inputCopy);
     v8 = MEMORY[0x1E696AEC0];
     recognizerConfiguration = [(CRTextSequenceRecognizerModelEspresso *)self recognizerConfiguration];
     [recognizerConfiguration inputHeight];
@@ -767,7 +767,7 @@ LABEL_28:
     recognizerConfiguration = [(CRTextSequenceRecognizerModelEspresso *)self recognizerConfiguration];
     [recognizerConfiguration inputHeight];
 
-    [inputCopy img_input];
+    objc_msgSend_img_input(inputCopy);
     v17 = [(CRTextSequenceRecognizerModelEspresso *)self _modelConfigurationNameForInput:inputCopy];
     v15 = [(CRTextSequenceRecognizerModelEspresso *)self _configurationHashForInput:inputCopy];
     if (espresso_plan_get_phase() == 1)

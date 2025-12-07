@@ -15,11 +15,10 @@
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"container_id";
-  v5[1] = @"database_scope";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"container_id";
+  v4[1] = @"database_scope";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -76,23 +75,19 @@ LABEL_8:
 
 id __123__HDCachedCKDatabaseEntity_insertWithContainerIdentifier_databaseScope_userRecordName_serverChangeToken_transaction_error___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_self();
-  v3 = MEMORY[0x277CCACA8];
-  v4 = [v2 disambiguatedDatabaseTable];
-  v5 = [v3 stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?)", v4, @"container_id", @"database_scope", @"server_change_token", @"account_user_record_name", @"epoch"];
+  v1 = objc_opt_self();
+  v2 = MEMORY[0x277CCACA8];
+  v3 = [v1 disambiguatedDatabaseTable];
+  v4 = [v2 stringWithFormat:@"INSERT INTO %@ (%@, %@, %@, %@, %@) VALUES (?, ?, ?, ?, ?)", v3, @"container_id", @"database_scope", @"server_change_token", @"account_user_record_name", @"epoch"];
 
-  return v5;
+  return v4;
 }
 
 uint64_t __123__HDCachedCKDatabaseEntity_insertWithContainerIdentifier_databaseScope_userRecordName_serverChangeToken_transaction_error___block_invoke_2(void *a1, sqlite3_stmt *a2)
 {
-  v4 = a1[4];
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 2, a1[7]);
-  v5 = a1[5];
   HDSQLiteBindFoundationValueToStatement();
-  v6 = a1[6];
   HDSQLiteBindFoundationValueToStatement();
 
   return sqlite3_bind_int64(a2, 5, 0);
@@ -100,7 +95,7 @@ uint64_t __123__HDCachedCKDatabaseEntity_insertWithContainerIdentifier_databaseS
 
 + (BOOL)updateServerChangeToken:(id)token containerIdentifier:(id)identifier databaseScope:(int64_t)scope transaction:(id)transaction error:(id *)error
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   identifierCopy = identifier;
   transactionCopy = transaction;
@@ -116,15 +111,15 @@ uint64_t __123__HDCachedCKDatabaseEntity_insertWithContainerIdentifier_databaseS
 LABEL_5:
     v17 = [transactionCopy databaseForEntityClass:self];
     v18 = HDPredicateForContainerIdentifierAndDatabaseScope(identifierCopy, scope);
-    v25[0] = @"server_change_token";
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __104__HDCachedCKDatabaseEntity_updateServerChangeToken_containerIdentifier_databaseScope_transaction_error___block_invoke;
-    v23[3] = &unk_278614508;
-    v24 = v15;
+    v24[0] = @"server_change_token";
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __104__HDCachedCKDatabaseEntity_updateServerChangeToken_containerIdentifier_databaseScope_transaction_error___block_invoke;
+    v22[3] = &unk_278614508;
+    v23 = v15;
     v20 = v15;
-    v16 = [self updateProperties:v19 predicate:v18 database:v17 error:error bindingHandler:v23];
+    v16 = [self updateProperties:v19 predicate:v18 database:v17 error:error bindingHandler:v22];
 
     goto LABEL_6;
   }
@@ -132,7 +127,6 @@ LABEL_5:
   v16 = 0;
 LABEL_6:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -221,19 +215,18 @@ id __117__HDCachedCKDatabaseEntity_entityForContainerIdentifier_databaseScope_us
 
 uint64_t __117__HDCachedCKDatabaseEntity_entityForContainerIdentifier_databaseScope_userRecordName_transaction_shouldCreate_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  return sqlite3_bind_int64(a2, 2, v5);
+  return sqlite3_bind_int64(a2, 2, v4);
 }
 
-uint64_t __117__HDCachedCKDatabaseEntity_entityForContainerIdentifier_databaseScope_userRecordName_transaction_shouldCreate_error___block_invoke_3(uint64_t a1)
+uint64_t __117__HDCachedCKDatabaseEntity_entityForContainerIdentifier_databaseScope_userRecordName_transaction_shouldCreate_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = [(HDSQLiteEntity *)[HDCachedCKDatabaseEntity alloc] initWithPersistentID:HDSQLiteColumnAsInt64()];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v3 = [(HDSQLiteEntity *)[HDCachedCKDatabaseEntity alloc] initWithPersistentID:HDSQLiteColumnAsInt64()];
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
   return 0;
 }

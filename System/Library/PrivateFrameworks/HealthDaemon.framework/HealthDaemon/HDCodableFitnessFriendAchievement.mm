@@ -176,25 +176,24 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_sample)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_friendUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    completedDate = self->_completedDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -213,22 +212,20 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  doubleValue = self->_doubleValue;
   PBDataWriterWriteDoubleField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_8:
-    intValue = self->_intValue;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_9:
   if (self->_templateUniqueName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -368,7 +365,6 @@ LABEL_5:
     }
   }
 
-  v7 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_completedDate != *(equalCopy + 1))
@@ -380,7 +376,7 @@ LABEL_5:
   else if (*(equalCopy + 56))
   {
 LABEL_23:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_24;
   }
 
@@ -413,17 +409,17 @@ LABEL_23:
   templateUniqueName = self->_templateUniqueName;
   if (templateUniqueName | *(equalCopy + 6))
   {
-    v9 = [(NSString *)templateUniqueName isEqual:?];
+    v8 = [(NSString *)templateUniqueName isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_24:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

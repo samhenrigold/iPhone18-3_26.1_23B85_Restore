@@ -219,12 +219,12 @@ LABEL_12:
 
 + (id)bsActionForReducedLaunch:(BOOL)launch responder:(id)responder error:(id *)error
 {
-  launchCopy = launch;
   responderCopy = responder;
-  v7 = sub_188EBA4B0(launchCopy, 0, 0, &type metadata for _UIReducedLaunchSceneConnectionOptionDefinition, &qword_1EA93E2D0);
-  v8 = [objc_allocWithZone(MEMORY[0x1E698E5F0]) initWithInfo:v7 responder:responderCopy];
+  sub_188EBA4B0(launch, 0, 0, &type metadata for _UIReducedLaunchSceneConnectionOptionDefinition, &qword_1EA93E2D0, &unk_18A64FF40);
+  v8 = v7;
+  v9 = [objc_allocWithZone(MEMORY[0x1E698E5F0]) initWithInfo:v7 responder:responderCopy];
 
-  return v8;
+  return v9;
 }
 
 - (id)_initWithConnectionOptionsContext:(void *)context fbsScene:(void *)scene specification:

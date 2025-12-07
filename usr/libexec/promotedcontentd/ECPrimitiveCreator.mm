@@ -10,13 +10,13 @@
   propertiesCopy = properties;
   if (properties)
   {
-    sub_1001E27A8(&unk_1004D5850);
+    sub_1001E27A8(&unk_1004D5850, &qword_1003EAF30);
     propertiesCopy = sub_100398E68();
   }
 
   if (internalProperties)
   {
-    sub_1001E27A8(&unk_1004D4400);
+    sub_1001E27A8(&unk_1004D4400, &unk_1003C9630);
     internalProperties = sub_100398E68();
   }
 

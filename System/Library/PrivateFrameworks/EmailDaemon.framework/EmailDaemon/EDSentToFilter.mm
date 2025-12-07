@@ -18,29 +18,28 @@ id __31___EDSentToFilter_loadFromDisk__block_invoke(uint64_t a1, void *a2, void 
   v11 = v10;
   if (!v9)
   {
-    if (isNoSuchFileError(v10))
+    v12 = isNoSuchFileError(v10);
+    if (v12)
     {
-      v12 = EDSenderLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = EDSenderLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v18 = v5;
-        _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Sent to addresses filter %@ does not exist", buf, 0xCu);
+        _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Sent to addresses filter %@ does not exist", buf, 0xCu);
       }
     }
 
     else
     {
-      v12 = EDSenderLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = EDSenderLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v13 = [v11 ef_publicDescription];
-        __31___EDSentToFilter_loadFromDisk__block_invoke_cold_1(v5, v13, buf, v12);
+        v14 = [v11 ef_publicDescription];
+        __31___EDSentToFilter_loadFromDisk__block_invoke_cold_1(v5, v14, buf, v13);
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

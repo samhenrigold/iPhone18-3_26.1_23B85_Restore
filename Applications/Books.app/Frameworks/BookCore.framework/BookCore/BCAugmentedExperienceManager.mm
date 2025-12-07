@@ -202,7 +202,7 @@ LABEL_6:
 {
   emitterCopy = emitter;
   changedCopy = changed;
-  v8 = BCAugmentedExperienceLog();
+  v8 = BCAugmentedExperienceLog(changedCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1E49B4(changedCopy, v8);
@@ -224,7 +224,7 @@ LABEL_6:
 
 - (void)emitter:(id)emitter bookMilestoneReached:(int64_t)reached
 {
-  v6 = BCAugmentedExperienceLog();
+  v6 = BCAugmentedExperienceLog(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_1E4A98(reached, v6);
@@ -308,7 +308,7 @@ LABEL_23:
 {
   emitterCopy = emitter;
   changedCopy = changed;
-  v8 = BCAugmentedExperienceLog();
+  v8 = BCAugmentedExperienceLog(changedCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1E4B3C(changedCopy, v8);
@@ -438,7 +438,7 @@ LABEL_11:
 - (void)_processStateEvent:(int64_t)event forExperience:(id)experience
 {
   experienceCopy = experience;
-  v7 = BCAugmentedExperienceLog();
+  v7 = BCAugmentedExperienceLog(experienceCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [(BCAugmentedExperienceManager *)self _eventToString:event];
@@ -646,7 +646,7 @@ LABEL_53:
   if (state != state3)
   {
     v18 = state3;
-    v19 = BCAugmentedExperienceLog();
+    v19 = BCAugmentedExperienceLog(state3);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       v20 = [(BCAugmentedExperienceManager *)self _stateToString:state];
@@ -692,7 +692,7 @@ LABEL_53:
 - (void)_preloadExperience:(id)experience
 {
   experienceCopy = experience;
-  v5 = BCAugmentedExperienceLog();
+  v5 = BCAugmentedExperienceLog(experienceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -711,22 +711,22 @@ LABEL_53:
       presenter2 = [experience2 presenter];
       experience3 = [experienceCopy experience];
       pageProgressionIsRTL = [experience3 pageProgressionIsRTL];
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_15380;
-      v14[3] = &unk_2C8200;
-      v14[4] = self;
-      v15 = experienceCopy;
-      [presenter2 preloadPresentationInVC:presentationViewController pageProgressionIsRTL:pageProgressionIsRTL completion:v14];
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_15380;
+      v15[3] = &unk_2C8200;
+      v15[4] = self;
+      v16 = experienceCopy;
+      [presenter2 preloadPresentationInVC:presentationViewController pageProgressionIsRTL:pageProgressionIsRTL completion:v15];
     }
   }
 
   else
   {
-    v13 = BCAugmentedExperienceLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = BCAugmentedExperienceLog(v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_1E4C20(v13);
+      sub_1E4C20(v14);
     }
 
     [(BCAugmentedExperienceManager *)self _processStateEvent:4 forExperience:experienceCopy];
@@ -736,7 +736,7 @@ LABEL_53:
 - (void)_cancelPreloadExperience:(id)experience
 {
   experienceCopy = experience;
-  v4 = BCAugmentedExperienceLog();
+  v4 = BCAugmentedExperienceLog(experienceCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -752,7 +752,7 @@ LABEL_53:
 - (void)_startDelayForExperience:(id)experience
 {
   experienceCopy = experience;
-  v5 = BCAugmentedExperienceLog();
+  v5 = BCAugmentedExperienceLog(experienceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -789,7 +789,7 @@ LABEL_53:
 - (void)_delayCompletedForExperience:(id)experience
 {
   experienceCopy = experience;
-  v5 = BCAugmentedExperienceLog();
+  v5 = BCAugmentedExperienceLog(experienceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -810,7 +810,7 @@ LABEL_53:
 - (void)_cancelDelayForExperience:(id)experience
 {
   experienceCopy = experience;
-  v4 = BCAugmentedExperienceLog();
+  v4 = BCAugmentedExperienceLog(experienceCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -842,7 +842,7 @@ LABEL_53:
 - (void)_expandExperience:(id)experience
 {
   experienceCopy = experience;
-  v5 = BCAugmentedExperienceLog();
+  v5 = BCAugmentedExperienceLog(experienceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -861,7 +861,7 @@ LABEL_53:
 - (void)_showExperience:(id)experience
 {
   experienceCopy = experience;
-  v5 = BCAugmentedExperienceLog();
+  v5 = BCAugmentedExperienceLog(experienceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v13 = 0;
@@ -891,7 +891,7 @@ LABEL_53:
 - (void)_userClosedExperience:(id)experience
 {
   experienceCopy = experience;
-  v5 = BCAugmentedExperienceLog();
+  v5 = BCAugmentedExperienceLog(experienceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -905,7 +905,7 @@ LABEL_53:
 - (BOOL)_cancelShowExperience:(id)experience
 {
   experienceCopy = experience;
-  v4 = BCAugmentedExperienceLog();
+  v4 = BCAugmentedExperienceLog(experienceCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -928,7 +928,7 @@ LABEL_53:
 - (void)presenterWantsToDismiss:(id)dismiss
 {
   dismissCopy = dismiss;
-  v5 = BCAugmentedExperienceLog();
+  v5 = BCAugmentedExperienceLog(dismissCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -975,7 +975,7 @@ LABEL_53:
 {
   completionCopy = completion;
   assetCopy = asset;
-  v8 = BCAugmentedExperienceLog();
+  v8 = BCAugmentedExperienceLog(assetCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;

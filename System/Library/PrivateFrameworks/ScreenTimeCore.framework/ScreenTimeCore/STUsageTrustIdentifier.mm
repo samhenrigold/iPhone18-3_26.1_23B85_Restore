@@ -1,6 +1,7 @@
 @interface STUsageTrustIdentifier
 - (BOOL)isEqual:(id)equal;
 - (STUsageTrustIdentifier)initWithCoder:(id)coder;
+- (STUsageTrustIdentifier)initWithIdentifier:(id)identifier usageTrusted:(BOOL)trusted;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
 - (void)_stUsageTrustIdentifierCommonInitWithIdentifier:(id)identifier usageTrusted:(BOOL)trusted;
@@ -8,6 +9,18 @@
 @end
 
 @implementation STUsageTrustIdentifier
+
+- (STUsageTrustIdentifier)initWithIdentifier:(id)identifier usageTrusted:(BOOL)trusted
+{
+  trustedCopy = trusted;
+  v8.receiver = self;
+  v8.super_class = STUsageTrustIdentifier;
+  identifierCopy = identifier;
+  v6 = [(STUsageTrustIdentifier *)&v8 init];
+  [(STUsageTrustIdentifier *)v6 _stUsageTrustIdentifierCommonInitWithIdentifier:identifierCopy usageTrusted:trustedCopy, v8.receiver, v8.super_class];
+
+  return v6;
+}
 
 - (STUsageTrustIdentifier)initWithCoder:(id)coder
 {
@@ -113,13 +126,12 @@
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, char a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 138543618;
-  v4 = a1;
-  v5 = 1024;
-  v6 = a2 & 1;
-  _os_log_fault_impl(&dword_1B831F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to decode STUsageTrustIdentifier with identifier: %{public}@, hasUsageTrustedKey: %d", &v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 138543618;
+  v3 = a1;
+  v4 = 1024;
+  v5 = a2 & 1;
+  _os_log_fault_impl(&dword_1B831F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to decode STUsageTrustIdentifier with identifier: %{public}@, hasUsageTrustedKey: %d", &v2, 0x12u);
 }
 
 @end

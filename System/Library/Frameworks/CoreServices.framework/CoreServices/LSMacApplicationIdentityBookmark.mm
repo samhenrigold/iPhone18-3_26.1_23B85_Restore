@@ -20,7 +20,7 @@
 
   if (!(v6 | lCopy))
   {
-    v12 = _LSDefaultLog();
+    v12 = _LSDefaultLog(lCopy);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [(LSMacApplicationIdentityBookmark *)v12 initWithURL:v13 bundleIdentifier:v14, v15, v16, v17, v18, v19];

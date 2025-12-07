@@ -7,7 +7,7 @@
 
 - (id)_imDecompressData
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([self length] > 0xC800000)
   {
     selfCopy = 0;
@@ -71,7 +71,6 @@ LABEL_15:
 LABEL_16:
 
 LABEL_17:
-  v11 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }

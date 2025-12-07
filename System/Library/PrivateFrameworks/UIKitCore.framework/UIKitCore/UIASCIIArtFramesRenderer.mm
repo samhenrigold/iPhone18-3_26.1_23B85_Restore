@@ -81,7 +81,7 @@ void __42___UIASCIIArtFramesRenderer_renderedLines__block_invoke_2_25(uint64_t a
   }
 }
 
-uint64_t __46___UIASCIIArtFramesRenderer__normalizeFrames___block_invoke(uint64_t a1, void *a2)
+void *__46___UIASCIIArtFramesRenderer__normalizeFrames___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 CGRectValue];
   v6 = *(*(a1 + 32) + 8);

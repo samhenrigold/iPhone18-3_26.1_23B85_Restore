@@ -620,17 +620,16 @@ LABEL_92:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v23 = "[MesaPairer verifyMSRkWithError:]";
+    v21 = "[MesaPairer verifyMSRkWithError:]";
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v21 = 0;
   if (!AMFDRSealingMapCopyInstanceForClass())
   {
-    sub_10000BFF0(&v21);
+    sub_10000BFF0();
     createFDROptions = 0;
 LABEL_21:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_29;
   }
 
@@ -650,79 +649,77 @@ LABEL_21:
   if (!PermissionsString)
   {
     sub_10000BF3C(v8);
-    v12 = 0;
-    v18 = 0;
-    v17 = -84;
+    v11 = 0;
+    v17 = 0;
+    v16 = -84;
     goto LABEL_18;
   }
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = PermissionsString;
+    v21 = PermissionsString;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Request FDR permissionStr: %@", buf, 0xCu);
   }
 
   AMFDRSetOption();
-  v10 = v21;
   if (AMFDRPermissionsRequest())
   {
-    v11 = handleForCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = handleForCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Get remote data", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Get remote data", buf, 2u);
     }
 
-    v12 = AMFDRDataCopy();
-    v10 = v21;
-    if (v12)
+    v11 = AMFDRDataCopy();
+    if (v11)
     {
-      v13 = handleForCategory();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v12 = handleForCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Load remote data", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Load remote data", buf, 2u);
       }
 
-      v14 = [(MesaPairer *)self loadMSRkWithData:v12 error:error];
-      v15 = handleForCategory();
-      v16 = v15;
-      if (v14)
+      v13 = [(MesaPairer *)self loadMSRkWithData:v11 error:error];
+      v14 = handleForCategory();
+      v15 = v14;
+      if (v13)
       {
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Verify successfully", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Verify successfully", buf, 2u);
         }
 
+        v16 = 0;
         v17 = 0;
-        v18 = 0;
         goto LABEL_18;
       }
 
-      sub_10000BEE8(v15);
+      sub_10000BEE8(v14);
 LABEL_29:
-      v18 = 0;
-      v17 = -8;
+      v17 = 0;
+      v16 = -8;
       goto LABEL_18;
     }
 
-    v17 = -11;
-    v18 = sub_1000039B4(0xFFFFFFFFFFFFFFF5, @"Failed to get remote data class", v21);
+    v16 = -11;
+    v17 = sub_1000039B4(0xFFFFFFFFFFFFFFF5, @"Failed to get remote data class", 0);
   }
 
   else
   {
-    v17 = -83;
-    v18 = sub_1000039B4(0xFFFFFFFFFFFFFFADLL, @"Failed to request FDR Permissions", v21);
-    v12 = 0;
+    v16 = -83;
+    v17 = sub_1000039B4(0xFFFFFFFFFFFFFFADLL, @"Failed to request FDR Permissions", 0);
+    v11 = 0;
   }
 
-  if (error && v18)
+  if (error && v17)
   {
-    v20 = v18;
-    *error = v18;
+    v19 = v17;
+    *error = v17;
   }
 
 LABEL_18:
@@ -732,7 +729,7 @@ LABEL_18:
   AMSupportSafeRelease();
   AMSupportSafeRelease();
 
-  return v17;
+  return v16;
 }
 
 - (BOOL)loadMSRkWithData:(id)data error:(id *)error

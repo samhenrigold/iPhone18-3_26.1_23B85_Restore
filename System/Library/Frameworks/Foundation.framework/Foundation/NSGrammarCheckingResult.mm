@@ -88,10 +88,10 @@
                 }
 
                 v13 = *(*(&v30 + 1) + 8 * i);
-                v14 = [(__CFString *)v13 isEqualToString:@"NSGrammarRange"];
+                isEqualToString = objc_msgSend_isEqualToString_(v13);
                 v15 = [v7 objectForKey:v13];
                 v16 = v15;
-                if (v14)
+                if (isEqualToString)
                 {
                   rangeValue = [(NSValue *)v15 rangeValue];
                   v19 = v18;
@@ -203,7 +203,7 @@
                 }
 
                 v24 = *(*(&v41 + 1) + 8 * i);
-                if ([(__CFString *)v24 isEqualToString:@"NSGrammarRangeLocation"])
+                if (objc_msgSend_isEqualToString_(v24))
                 {
                   v25 = +[NSValue valueWithRange:](NSValue, "valueWithRange:", [objc_msgSend(v18 objectForKey:{@"NSGrammarRangeLocation", "unsignedIntegerValue"}], objc_msgSend(objc_msgSend(v18, "objectForKey:", @"NSGrammarRangeLength"), "unsignedIntegerValue"));
                   v26 = v19;
@@ -212,7 +212,7 @@
 
                 else
                 {
-                  if (([(__CFString *)v24 isEqualToString:@"NSGrammarRangeLength"]& 1) != 0)
+                  if (objc_msgSend_isEqualToString_(v24))
                   {
                     continue;
                   }

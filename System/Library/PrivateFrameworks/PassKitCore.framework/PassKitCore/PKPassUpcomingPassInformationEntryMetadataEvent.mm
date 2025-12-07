@@ -84,9 +84,9 @@
         goto LABEL_22;
       }
 
-      v13 = [(NSString *)v8 isEqualToString:v9];
+      isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-      if (!v13)
+      if (!isEqualToString)
       {
         goto LABEL_22;
       }

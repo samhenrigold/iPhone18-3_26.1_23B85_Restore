@@ -226,7 +226,7 @@ LABEL_13:
   {
     if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_1000658E4();
+      sub_1000658E4(activeInterfaceOrientation);
     }
 
     activeInterfaceOrientation = 1;
@@ -521,13 +521,13 @@ LABEL_65:
 
 - (void)applyTransformForExternalCamera
 {
-  memset(&v17, 0, sizeof(v17));
+  memset(&v16, 0, sizeof(v16));
   if ([(NSNumber *)self->_currentRotation isEqualToNumber:&off_1000A6D40])
   {
     v3 = *&CGAffineTransformIdentity.c;
-    *&v16.a = *&CGAffineTransformIdentity.a;
-    *&v16.c = v3;
-    *&v16.tx = *&CGAffineTransformIdentity.tx;
+    *&v15.a = *&CGAffineTransformIdentity.a;
+    *&v15.c = v3;
+    *&v15.tx = *&CGAffineTransformIdentity.tx;
     v4 = -1.57079633;
     goto LABEL_3;
   }
@@ -535,10 +535,10 @@ LABEL_65:
   if ([(NSNumber *)self->_currentRotation isEqualToNumber:&off_1000A6D70])
   {
     v6 = *&CGAffineTransformIdentity.c;
-    *&v16.a = *&CGAffineTransformIdentity.a;
-    *&v16.c = v6;
-    *&v16.tx = *&CGAffineTransformIdentity.tx;
-    CGAffineTransformRotate(&v17, &v16, 3.14159265);
+    *&v15.a = *&CGAffineTransformIdentity.a;
+    *&v15.c = v6;
+    *&v15.tx = *&CGAffineTransformIdentity.tx;
+    CGAffineTransformRotate(&v16, &v15, 3.14159265);
     mirrorType = self->_mirrorType;
     if (mirrorType)
     {
@@ -554,18 +554,17 @@ LABEL_65:
   }
 
   v9 = [(NSNumber *)self->_currentRotation isEqualToNumber:&off_1000A6D58];
-  v10 = *&CGAffineTransformIdentity.a;
-  v11 = *&CGAffineTransformIdentity.c;
+  v10 = *&CGAffineTransformIdentity.c;
   if (!v9)
   {
-    *&v16.a = *&CGAffineTransformIdentity.a;
-    *&v16.c = v11;
-    *&v16.tx = *&CGAffineTransformIdentity.tx;
-    CGAffineTransformRotate(&v17, &v16, 0.0);
-    v12 = self->_mirrorType;
-    if (v12)
+    *&v15.a = *&CGAffineTransformIdentity.a;
+    *&v15.c = v10;
+    *&v15.tx = *&CGAffineTransformIdentity.tx;
+    CGAffineTransformRotate(&v16, &v15, 0.0);
+    v11 = self->_mirrorType;
+    if (v11)
     {
-      if (v12 != 1)
+      if (v11 != 1)
       {
         return;
       }
@@ -574,17 +573,17 @@ LABEL_65:
     }
 
 LABEL_15:
-    v15 = v17;
+    v14 = v16;
     v8 = -1.0;
     goto LABEL_16;
   }
 
-  *&v16.a = *&CGAffineTransformIdentity.a;
-  *&v16.c = v11;
-  *&v16.tx = *&CGAffineTransformIdentity.tx;
+  *&v15.a = *&CGAffineTransformIdentity.a;
+  *&v15.c = v10;
+  *&v15.tx = *&CGAffineTransformIdentity.tx;
   v4 = 1.57079633;
 LABEL_3:
-  CGAffineTransformRotate(&v17, &v16, v4);
+  CGAffineTransformRotate(&v16, &v15, v4);
   v5 = self->_mirrorType;
   if (v5 != 2)
   {
@@ -594,23 +593,23 @@ LABEL_3:
     }
 
 LABEL_9:
-    v15 = v17;
+    v14 = v16;
     v8 = 1.0;
 LABEL_16:
-    v13 = 1.0;
+    v12 = 1.0;
     goto LABEL_17;
   }
 
 LABEL_14:
-  v15 = v17;
+  v14 = v16;
   v8 = -1.0;
-  v13 = -1.0;
+  v12 = -1.0;
 LABEL_17:
-  CGAffineTransformScale(&v16, &v15, v8, v13);
-  v14 = *&v16.c;
-  *&self->_cameraTransform.a = *&v16.a;
-  *&self->_cameraTransform.c = v14;
-  *&self->_cameraTransform.tx = *&v16.tx;
+  CGAffineTransformScale(&v15, &v14, v8, v12);
+  v13 = *&v15.c;
+  *&self->_cameraTransform.a = *&v15.a;
+  *&self->_cameraTransform.c = v13;
+  *&self->_cameraTransform.tx = *&v15.tx;
 }
 
 - (void)applyTransformWithOrientation

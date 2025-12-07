@@ -17,16 +17,14 @@
 
 void __51__SSRRPISampler__handleVoiceProfileRPICleanupEvent__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[SSRRPISampler _handleVoiceProfileRPICleanupEvent]_block_invoke";
-    _os_log_impl(&dword_225E12000, v0, OS_LOG_TYPE_DEFAULT, "%s ", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[SSRRPISampler _handleVoiceProfileRPICleanupEvent]_block_invoke";
+    _os_log_impl(&dword_225E12000, v0, OS_LOG_TYPE_DEFAULT, "%s ", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeMappingOnAndBefore:(id)before completion:(id)completion
@@ -292,20 +290,19 @@ void __67__SSRRPISampler_getEnrollmentSelectionStatusWithLocale_completion___blo
 
 + (void)deleteAllRPISampledData
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v6 = "+[SSRRPISampler deleteAllRPISampledData]";
+    v5 = "+[SSRRPISampler deleteAllRPISampledData]";
     _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v4 = 0;
-  [SSRRPISampledAudioUploader removeAllAudioDataWithError:&v4];
+  v3 = 0;
+  [SSRRPISampledAudioUploader removeAllAudioDataWithError:&v3];
   +[SSRRequestIdToAudioIdMappingHelper removeMapping];
   +[SSRRequestIdToAudioIdMappingHelper purgeAllEntriesInSpkeakerIdBiome];
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance

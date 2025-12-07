@@ -1,75 +1,4 @@
-void sub_25FFA5584(_Unwind_Exception *a1)
-{
-  *(v1 + 48) = &unk_28725E328;
-  PCSharedCount::~PCSharedCount((v1 + 72));
-  ProShade::Node::~Node(v1, (v4 + 8));
-  *(v1 + 112) = v2;
-  *(v1 + 128) = 0;
-  PCWeakCount::~PCWeakCount(v3);
-  _Unwind_Resume(a1);
-}
-
-uint64_t ProShade::BinaryOp<ProShade::Subtract>::BinaryOp(uint64_t a1)
-{
-  *(a1 + 112) = &unk_2872DEA38;
-  *(a1 + 120) = 0;
-  *(a1 + 128) = 1;
-  ProShade::Node::Node(a1, &off_287264928);
-  *a1 = &unk_287264850;
-  *(a1 + 112) = &unk_287264908;
-  *(a1 + 48) = &unk_28725E328;
-  *(a1 + 64) = 0;
-  PCSharedCount::PCSharedCount((a1 + 72));
-  *(a1 + 80) = &unk_28725E328;
-  *(a1 + 96) = 0;
-  PCSharedCount::PCSharedCount((a1 + 104));
-  return a1;
-}
-
-void sub_25FFA5718(_Unwind_Exception *a1)
-{
-  v7 = v4;
-  *v6 = v7;
-  PCSharedCount::~PCSharedCount((v1 + 72));
-  ProShade::Node::~Node(v1, (v5 + 8));
-  *(v1 + 112) = v2;
-  *(v1 + 128) = 0;
-  PCWeakCount::~PCWeakCount(v3);
-  _Unwind_Resume(a1);
-}
-
-double ProShade::BinaryOp<ProShade::Multiply>::computeBinary(unsigned int *a1, unsigned int *a2, uint64_t a3)
-{
-  if (*a1 > 1)
-  {
-    if (*a1 != 2)
-    {
-      return ProShade::computeBinaryType<ProShade::Multiply,double>(a1, a2, a3);
-    }
-
-    v3 = *a2;
-  }
-
-  else
-  {
-    v3 = *a2;
-    if (*a2 < 2)
-    {
-      ProShade::computeBinaryType<ProShade::Multiply,BOOL>(a1, a2, a3);
-      return result;
-    }
-  }
-
-  if (v3 <= 2)
-  {
-    ProShade::computeBinaryType<ProShade::Multiply,int>(a1, a2, a3);
-    return result;
-  }
-
-  return ProShade::computeBinaryType<ProShade::Multiply,double>(a1, a2, a3);
-}
-
-BOOL ProShade::Multiply::simplify(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL ProShade::Multiply::simplify(const PCSharedCount *a1, const PCSharedCount *a2, uint64_t a3)
 {
   v17[12] = *MEMORY[0x277D85DE8];
   if (ProShade::isZero(a1))
@@ -94,13 +23,13 @@ LABEL_6:
     return 1;
   }
 
-  v9 = *(a2 + 16);
-  if (!v9)
+  var0 = a2[2].var0;
+  if (!var0)
   {
     throw_PCNullPointerException(1);
   }
 
-  result = ProShade::shapeIsVector(*(v9 + 28));
+  result = ProShade::shapeIsVector(*(var0 + 7));
   if (result)
   {
     v11 = ProShade::VarT<ProShade::Node>::width(a1, v10);
@@ -112,7 +41,7 @@ LABEL_6:
 LABEL_18:
         if (ProShade::VarT<ProShade::Node>::width(a2, v15) == 2)
         {
-          ProShade::VarT<ProShade::Node>::VarT(v17);
+          ProShade::VarT<ProShade::Node>::VarT(v17, 0);
         }
 
         return 0;
@@ -123,12 +52,12 @@ LABEL_18:
         v16 = ProShade::VarT<ProShade::Node>::width(a2, v15);
         if (v16 == 3)
         {
-          ProShade::VarT<ProShade::Node>::VarT(v17);
+          ProShade::VarT<ProShade::Node>::VarT(v17, 1);
         }
 
         if (v16 == 2)
         {
-          ProShade::VarT<ProShade::Node>::VarT(v17);
+          ProShade::VarT<ProShade::Node>::VarT(v17, 0);
         }
 
         goto LABEL_18;
@@ -153,7 +82,7 @@ void sub_25FFA5BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t ProShade::BinaryOp<ProShade::Multiply>::BinaryOp(uint64_t a1, PCShared_base *a2, PCShared_base *a3)
+uint64_t ProShade::BinaryOp<ProShade::Multiply>::BinaryOp(uint64_t a1, PC_Sp_counted_base *a2, PC_Sp_counted_base *a3)
 {
   *(a1 + 112) = &unk_2872DEA38;
   *(a1 + 120) = 0;
@@ -189,62 +118,62 @@ void sub_25FFA5E98(_Unwind_Exception *a1)
 
 BOOL ProShade::computeBinaryType<ProShade::Multiply,BOOL>(unsigned int *a1, unsigned int *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   Size = ProShade::shapeGetSize(a1[1], a2);
   v8 = ProShade::shapeGetSize(a2[1], v7);
-  v9 = v8;
-  v10 = *a1;
-  if (v10 == 1)
+  v12 = v8;
+  v13 = *a1;
+  if (v13 == 1)
   {
-    v11 = (a1 + 4);
+    v14 = (a1 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v11 = &v24 - v12;
-    bzero(&v24 - v12, v13);
-    v8 = ProShade::copyData(v10, a1 + 2, 1, v11, Size);
+    MEMORY[0x28223BE20](v8, Size, v9, v10, v11);
+    v14 = &v27 - v15;
+    bzero(&v27 - v15, v16);
+    v8 = ProShade::copyData(v13, a1 + 2, 1, v14, Size);
   }
 
-  v14 = *a2;
-  if (v14 == 1)
+  v17 = *a2;
+  if (v17 == 1)
   {
-    v15 = (a2 + 4);
+    v18 = (a2 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v15 = &v24 - v16;
-    bzero(&v24 - v16, v17);
-    ProShade::copyData(v14, a2 + 2, 1, v15, v9);
+    MEMORY[0x28223BE20](v8, v12, v9, v10, v11);
+    v18 = &v27 - v19;
+    bzero(&v27 - v19, v20);
+    ProShade::copyData(v17, a2 + 2, 1, v18, v12);
   }
 
-  result = ProShade::Multiply::computeBinaryType<BOOL>(v11, v15, a1, a2, a3);
+  result = ProShade::Multiply::computeBinaryType<BOOL>(v14, v18, a1, a2, a3);
   if (!result)
   {
-    v20 = a1[1];
-    if (v20 != a2[1])
+    v23 = a1[1];
+    if (v23 != a2[1])
     {
-      ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v19);
+      ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v22);
     }
 
-    ProShade::Value::set(a3, 1, v20);
+    ProShade::Value::set(a3, 1, v23);
     result = ProShade::shapeIsVector(a1[1]);
-    v22 = a1[1] == 1 || result;
-    if (v22 != 1)
+    v25 = a1[1] == 1 || result;
+    if (v25 != 1)
     {
       exception = __cxa_allocate_exception(0x40uLL);
-      PCString::PCString(&v26, "not implemented yet");
-      PCString::PCString(&v25, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-      PCException::PCException(exception, &v26, &v25, 426);
+      PCString::PCString(&v29, "not implemented yet");
+      PCString::PCString(&v28, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+      PCException::PCException(exception, &v29, &v28, 426);
       *exception = &unk_2871F6178;
     }
 
     if (Size >= 1)
     {
-      ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("* operator doesn't apply to BOOL", v21);
+      ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("* operator doesn't apply to BOOL", v24);
     }
   }
 
@@ -263,77 +192,77 @@ void sub_25FFA6170(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-BOOL ProShade::computeBinaryType<ProShade::Multiply,int>(unsigned int *a1, unsigned int *a2, uint64_t a3)
+BOOL ProShade::computeBinaryType<ProShade::Multiply,int>(const PCString *a1, const PCString *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  Size = ProShade::shapeGetSize(a1[1], a2);
-  v8 = ProShade::shapeGetSize(a2[1], v7);
-  v9 = v8;
-  v10 = *a1;
-  if (v10 == 2)
+  v34 = *MEMORY[0x277D85DE8];
+  Size = ProShade::shapeGetSize(HIDWORD(a1->var0), a2);
+  v8 = ProShade::shapeGetSize(HIDWORD(a2->var0), v7);
+  v12 = v8;
+  var0_low = LODWORD(a1->var0);
+  if (var0_low == 2)
   {
-    v11 = (a1 + 4);
+    v14 = &a1[2];
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v11 = &v28 - v12;
-    bzero(&v28 - v12, v13);
-    v8 = ProShade::copyData(v10, a1 + 2, 2, v11, Size);
+    MEMORY[0x28223BE20](v8, 4 * Size, v9, v10, v11);
+    v14 = &v31 - v15;
+    bzero(&v31 - v15, v16);
+    v8 = ProShade::copyData(var0_low, a1 + 2, 2, v14, Size);
   }
 
-  v14 = *a2;
-  if (v14 == 2)
+  v17 = LODWORD(a2->var0);
+  if (v17 == 2)
   {
-    v15 = (a2 + 4);
+    v18 = &a2[2];
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v15 = &v28 - v16;
-    bzero(&v28 - v16, v17);
-    ProShade::copyData(v14, a2 + 2, 2, v15, v9);
+    MEMORY[0x28223BE20](v8, 4 * v12, v9, v10, v11);
+    v18 = &v31 - v19;
+    bzero(&v31 - v19, v20);
+    ProShade::copyData(v17, a2 + 2, 2, v18, v12);
   }
 
-  result = ProShade::Multiply::computeBinaryType<int>(v11, v15, a1, a2, a3);
+  result = ProShade::Multiply::computeBinaryType<int>(v14, v18, a1, a2, a3);
   if (!result)
   {
-    v20 = a1[1];
-    if (v20 != a2[1])
+    var0_high = HIDWORD(a1->var0);
+    if (var0_high != HIDWORD(a2->var0))
     {
-      ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v19);
+      ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v22);
     }
 
-    ProShade::Value::set(a3, 2, v20);
-    result = ProShade::shapeIsVector(a1[1]);
-    v21 = a1[1] == 1 || result;
-    if (v21 != 1)
+    ProShade::Value::set(a3, 2, var0_high);
+    result = ProShade::shapeIsVector(HIDWORD(a1->var0));
+    v24 = HIDWORD(a1->var0) == 1 || result;
+    if (v24 != 1)
     {
       exception = __cxa_allocate_exception(0x40uLL);
-      PCString::PCString(&v30, "not implemented yet");
-      PCString::PCString(&v29, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-      PCException::PCException(exception, &v30, &v29, 426);
+      PCString::PCString(&v33, "not implemented yet");
+      PCString::PCString(&v32, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+      PCException::PCException(exception, &v33, &v32, 426);
       *exception = &unk_2871F6178;
     }
 
     if (Size >= 1)
     {
-      v22 = (a3 + 16);
-      v23 = Size;
+      v25 = (a3 + 16);
+      v26 = Size;
       do
       {
-        v25 = *v11;
-        v11 += 4;
-        v24 = v25;
-        v26 = *v15;
-        v15 += 4;
-        *v22++ = v26 * v24;
-        --v23;
+        v28 = *v14;
+        v14 += 4;
+        v27 = v28;
+        v29 = *v18;
+        v18 += 4;
+        *v25++ = v29 * v27;
+        --v26;
       }
 
-      while (v23);
+      while (v26);
     }
   }
 
@@ -354,75 +283,75 @@ void sub_25FFA6418(_Unwind_Exception *a1)
 
 double ProShade::computeBinaryType<ProShade::Multiply,double>(unsigned int *a1, unsigned int *a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   Size = ProShade::shapeGetSize(a1[1], a2);
   v8 = ProShade::shapeGetSize(a2[1], v7);
-  v9 = v8;
-  v10 = *a1;
-  if (v10 == 3)
+  v12 = v8;
+  v13 = *a1;
+  if (v13 == 3)
   {
-    v11 = (a1 + 4);
+    v14 = (a1 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v11 = &v29 - v12;
-    bzero(&v29 - v12, v13);
-    v8 = ProShade::copyData(v10, a1 + 2, 3, v11, Size);
+    MEMORY[0x28223BE20](v8, 8 * Size, v9, v10, v11);
+    v14 = &v32 - v15;
+    bzero(&v32 - v15, v16);
+    v8 = ProShade::copyData(v13, a1 + 2, 3, v14, Size);
   }
 
-  v14 = *a2;
-  if (v14 == 3)
+  v17 = *a2;
+  if (v17 == 3)
   {
-    v15 = (a2 + 4);
+    v18 = (a2 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v15 = &v29 - v16;
-    bzero(&v29 - v16, v17);
-    ProShade::copyData(v14, a2 + 2, 3, v15, v9);
+    MEMORY[0x28223BE20](v8, 8 * v12, v9, v10, v11);
+    v18 = &v32 - v19;
+    bzero(&v32 - v19, v20);
+    ProShade::copyData(v17, a2 + 2, 3, v18, v12);
   }
 
-  if (!ProShade::Multiply::computeBinaryType<double>(v11, v15, a1, a2, a3))
+  if (!ProShade::Multiply::computeBinaryType<double>(v14, v18, a1, a2, a3))
   {
-    v20 = a1[1];
-    if (v20 != a2[1])
+    v23 = a1[1];
+    if (v23 != a2[1])
     {
-      ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v18);
+      ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v21);
     }
 
-    ProShade::Value::set(a3, 3, v20);
+    ProShade::Value::set(a3, 3, v23);
     IsVector = ProShade::shapeIsVector(a1[1]);
-    v22 = a1[1] == 1 || IsVector;
-    if (v22 != 1)
+    v25 = a1[1] == 1 || IsVector;
+    if (v25 != 1)
     {
       exception = __cxa_allocate_exception(0x40uLL);
-      PCString::PCString(&v31, "not implemented yet");
-      PCString::PCString(&v30, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-      PCException::PCException(exception, &v31, &v30, 426);
+      PCString::PCString(&v34, "not implemented yet");
+      PCString::PCString(&v33, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+      PCException::PCException(exception, &v34, &v33, 426);
       *exception = &unk_2871F6178;
     }
 
     if (Size >= 1)
     {
-      v23 = (a3 + 16);
-      v24 = Size;
+      v26 = (a3 + 16);
+      v27 = Size;
       do
       {
-        v25 = *v11;
-        v11 += 8;
-        v26 = v25;
-        v27 = *v15;
-        v15 += 8;
-        result = v26 * v27;
-        *v23++ = result;
-        --v24;
+        v28 = *v14;
+        v14 += 8;
+        v29 = v28;
+        v30 = *v18;
+        v18 += 8;
+        result = v29 * v30;
+        *v26++ = result;
+        --v27;
       }
 
-      while (v24);
+      while (v27);
     }
   }
 
@@ -443,7 +372,7 @@ void sub_25FFA66C0(_Unwind_Exception *a1)
 
 BOOL ProShade::Multiply::computeBinaryType<BOOL>(char *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   if (!ProShade::shapeIsMatrix(*(a3 + 4)) || !ProShade::shapeIsVector(*(a4 + 4)) || (v11 = ProShade::shapeGetWidth(*(a3 + 4), v10), v11 != ProShade::shapeGetWidth(*(a4 + 4), v12)))
   {
     IsVector = ProShade::shapeIsVector(*(a3 + 4));
@@ -453,22 +382,22 @@ BOOL ProShade::Multiply::computeBinaryType<BOOL>(char *a1, char *a2, uint64_t a3
       Width = ProShade::shapeGetWidth(*(a3 + 4), v25);
       if (Width > 4)
       {
-        PCGenVector<BOOL>::PCGenVector(&v120, a1, Width, 0);
+        PCGenVector<BOOL>::PCGenVector(&v124, a1, Width, 0);
         v55 = *a2;
-        v56 = v121;
-        PCGenBlockRef<BOOL>::PCGenBlockRef(&v115, v121);
-        v116 = v56;
-        v117 = 1;
-        v57 = v115;
-        v118 = v115;
-        v58 = v123;
-        v59 = v121;
-        v60 = v122;
-        if (v122 == 1)
+        v56 = v125;
+        PCGenBlockRef<BOOL>::PCGenBlockRef(&v119, v125);
+        v120 = v56;
+        v121 = 1;
+        v57 = v119;
+        v122 = v119;
+        v58 = v127;
+        v59 = v125;
+        v60 = v126;
+        if (v126 == 1)
         {
-          if (v121 >= 1)
+          if (v125 >= 1)
           {
-            v61 = v115;
+            v61 = v119;
             do
             {
               v62 = *v58++;
@@ -480,12 +409,12 @@ BOOL ProShade::Multiply::computeBinaryType<BOOL>(char *a1, char *a2, uint64_t a3
           }
         }
 
-        else if (v121 >= 1)
+        else if (v125 >= 1)
         {
-          v86 = v115;
+          v90 = v119;
           do
           {
-            *v86++ = *v58 & v55;
+            *v90++ = *v58 & v55;
             v58 += v60;
             --v59;
           }
@@ -495,19 +424,19 @@ BOOL ProShade::Multiply::computeBinaryType<BOOL>(char *a1, char *a2, uint64_t a3
 
         ProShade::Value::set(a5, 1, *(a3 + 4), v57);
 LABEL_72:
-        v95 = v115;
-        if (v115)
+        v99 = v119;
+        if (v119)
         {
-          v96 = *(v115 - 1) - 1;
-          *(v115 - 1) = v96;
-          if (!v96)
+          v100 = *(v119 - 1) - 1;
+          *(v119 - 1) = v100;
+          if (!v100)
           {
-            MEMORY[0x2666E9ED0](v95 - 8, 0x1000C8077774924);
+            MEMORY[0x2666E9ED0](v99 - 8, 0x1000C8077774924);
           }
         }
 
-        v97 = v120;
-        if (!v120)
+        v101 = v124;
+        if (!v124)
         {
           return 1;
         }
@@ -519,7 +448,7 @@ LABEL_72:
       {
         v38 = *a2;
         v39 = Width;
-        v40 = &v120;
+        v40 = &v124;
         do
         {
           v41 = *a1++;
@@ -544,7 +473,7 @@ LABEL_72:
           {
             v33 = *a1;
             v34 = v32;
-            v35 = &v120;
+            v35 = &v124;
             do
             {
               v36 = *a2++;
@@ -558,47 +487,47 @@ LABEL_72:
           goto LABEL_10;
         }
 
-        PCGenVector<BOOL>::PCGenVector(&v120, a2, v32, 0);
-        v78 = *a1;
-        v79 = v121;
-        PCGenBlockRef<BOOL>::PCGenBlockRef(&v115, v121);
-        v116 = v79;
-        v117 = 1;
-        v80 = v115;
-        v118 = v115;
-        v81 = v123;
-        v82 = v121;
-        v83 = v122;
-        if (v122 == 1)
+        PCGenVector<BOOL>::PCGenVector(&v124, a2, v32, 0);
+        v82 = *a1;
+        v83 = v125;
+        PCGenBlockRef<BOOL>::PCGenBlockRef(&v119, v125);
+        v120 = v83;
+        v121 = 1;
+        v84 = v119;
+        v122 = v119;
+        v85 = v127;
+        v86 = v125;
+        v87 = v126;
+        if (v126 == 1)
         {
-          if (v121 >= 1)
+          if (v125 >= 1)
           {
-            v84 = v115;
+            v88 = v119;
             do
             {
-              v85 = *v81++;
-              *v84++ = v85 & v78;
-              --v82;
+              v89 = *v85++;
+              *v88++ = v89 & v82;
+              --v86;
             }
 
-            while (v82);
+            while (v86);
           }
         }
 
-        else if (v121 >= 1)
+        else if (v125 >= 1)
         {
-          v88 = v115;
+          v92 = v119;
           do
           {
-            *v88++ = *v81 & v78;
-            v81 += v83;
-            --v82;
+            *v92++ = *v85 & v82;
+            v85 += v87;
+            --v86;
           }
 
-          while (v82);
+          while (v86);
         }
 
-        ProShade::Value::set(a5, 1, *(a4 + 4), v80);
+        ProShade::Value::set(a5, 1, *(a4 + 4), v84);
         goto LABEL_72;
       }
 
@@ -611,71 +540,71 @@ LABEL_72:
         }
 
         v65 = ProShade::shapeGetWidth(*(a3 + 4), v64);
-        v66 = v65;
+        v70 = v65;
         if (v65 <= 4)
         {
-          MEMORY[0x28223BE20](v65);
-          v68 = &v104 - ((v67 + 15) & 0xFFFFFFFFFFFFFFF0);
-          if (v66 >= 1)
+          MEMORY[0x28223BE20](v65, v66, v67, v68, v69);
+          v72 = &v108 - ((v71 + 15) & 0xFFFFFFFFFFFFFFF0);
+          if (v70 >= 1)
           {
-            v69 = 0;
+            v73 = 0;
             do
             {
-              v70 = 0;
-              v71 = a2;
+              v74 = 0;
+              v75 = a2;
               do
               {
-                v72 = 0;
-                v73 = v66;
-                v74 = v71;
-                v75 = a1;
+                v76 = 0;
+                v77 = v70;
+                v78 = v75;
+                v79 = a1;
                 do
                 {
-                  v76 = *v75++;
-                  v77 = (*v74 * v76) | v72;
-                  v72 = v77 != 0;
-                  v74 += v66;
-                  --v73;
+                  v80 = *v79++;
+                  v81 = (*v78 * v80) | v76;
+                  v76 = v81 != 0;
+                  v78 += v70;
+                  --v77;
                 }
 
-                while (v73);
-                v68[v69 * v66 + v70++] = v77;
-                ++v71;
+                while (v77);
+                v72[v73 * v70 + v74++] = v81;
+                ++v75;
               }
 
-              while (v70 != v66);
-              ++v69;
-              a1 += v66;
+              while (v74 != v70);
+              ++v73;
+              a1 += v70;
             }
 
-            while (v69 != v66);
+            while (v73 != v70);
           }
 
-          ProShade::Value::set(a5, 1, *(a3 + 4), v68);
+          ProShade::Value::set(a5, 1, *(a3 + 4), v72);
           return 1;
         }
 
-        PCGenMatrix<BOOL>::PCGenMatrix(&v120, a1, v65, v65, 1, 0);
-        PCGenMatrix<BOOL>::PCGenMatrix(&v115, a2, v66, v66, 1, 0);
-        PCGenMatrix<BOOL>::PCGenMatrix(&v111, a5 + 16, v66, v66, 1, 0);
-        v89 = v121;
-        v90 = v117;
-        PCGenBlockRef<BOOL>::PCGenBlockRef(&v105, v117 * v121);
-        v106 = v89;
-        v107 = v90;
-        v108 = 1;
-        v109 = v89;
-        v110 = v105;
-        MMultiplyMatrices<BOOL>(v121, v122, v117, v124, v123, SHIDWORD(v123), v119, v118, SHIDWORD(v118), v105, 1, v89);
-        PCGenMatrix<BOOL>::set<BOOL>(&v111, &v105);
-        v91 = v105;
-        if (v105)
+        PCGenMatrix<BOOL>::PCGenMatrix(&v124, a1, v65, v65, 1, 0);
+        PCGenMatrix<BOOL>::PCGenMatrix(&v119, a2, v70, v70, 1, 0);
+        PCGenMatrix<BOOL>::PCGenMatrix(&v115, a5 + 16, v70, v70, 1, 0);
+        v93 = v125;
+        v94 = v121;
+        PCGenBlockRef<BOOL>::PCGenBlockRef(&v109, v121 * v125);
+        v110 = v93;
+        v111 = v94;
+        v112 = 1;
+        v113 = v93;
+        v114 = v109;
+        MMultiplyMatrices<BOOL>(v125, v126, v121, v128, v127, SHIDWORD(v127), v123, v122, SHIDWORD(v122), v109, 1, v93);
+        PCGenMatrix<BOOL>::set<BOOL>(&v115, &v109);
+        v95 = v109;
+        if (v109)
         {
-          v92 = *(v105 - 4) - 1;
-          *(v105 - 4) = v92;
-          if (!v92)
+          v96 = *(v109 - 4) - 1;
+          *(v109 - 4) = v96;
+          if (!v96)
           {
-            MEMORY[0x2666E9ED0](v91 - 8, 0x1000C8077774924);
+            MEMORY[0x2666E9ED0](v95 - 8, 0x1000C8077774924);
           }
         }
 
@@ -686,49 +615,49 @@ LABEL_72:
       v47 = v46;
       if (v46 > 4)
       {
-        PCGenVector<BOOL>::PCGenVector(&v115, a1, v46, 0);
-        PCGenMatrix<BOOL>::PCGenMatrix(&v120, a2, v47, v47, 1, 0);
-        v99 = v122;
-        PCGenBlockRef<BOOL>::PCGenBlockRef(&v111, v122);
-        v112 = v99;
-        v113 = 1;
-        v114 = v111;
-        MMultiplyMatrices<BOOL>(1, v116, v122, v118, 1, v117, v124, v123, SHIDWORD(v123), v111, 1, 1);
-        ProShade::Value::set(a5, 1, *(a3 + 4), v114);
-        v100 = v111;
-        if (v111)
+        PCGenVector<BOOL>::PCGenVector(&v119, a1, v46, 0);
+        PCGenMatrix<BOOL>::PCGenMatrix(&v124, a2, v47, v47, 1, 0);
+        v103 = v126;
+        PCGenBlockRef<BOOL>::PCGenBlockRef(&v115, v126);
+        v116 = v103;
+        v117 = 1;
+        v118 = v115;
+        MMultiplyMatrices<BOOL>(1, v120, v126, v122, 1, v121, v128, v127, SHIDWORD(v127), v115, 1, 1);
+        ProShade::Value::set(a5, 1, *(a3 + 4), v118);
+        v104 = v115;
+        if (v115)
         {
-          v101 = *(v111 - 1) - 1;
-          *(v111 - 1) = v101;
-          if (!v101)
+          v105 = *(v115 - 1) - 1;
+          *(v115 - 1) = v105;
+          if (!v105)
           {
-            MEMORY[0x2666E9ED0](v100 - 8, 0x1000C8077774924);
+            MEMORY[0x2666E9ED0](v104 - 8, 0x1000C8077774924);
           }
         }
 
-        v102 = v120;
-        if (v120)
+        v106 = v124;
+        if (v124)
         {
-          v103 = *(v120 - 1) - 1;
-          *(v120 - 1) = v103;
-          if (!v103)
+          v107 = *(v124 - 1) - 1;
+          *(v124 - 1) = v107;
+          if (!v107)
           {
-            MEMORY[0x2666E9ED0](v102 - 8, 0x1000C8077774924);
+            MEMORY[0x2666E9ED0](v106 - 8, 0x1000C8077774924);
           }
         }
 
-        v97 = v115;
-        if (!v115)
+        v101 = v119;
+        if (!v119)
         {
           return 1;
         }
 
 LABEL_76:
-        v98 = *(v97 - 1) - 1;
-        *(v97 - 1) = v98;
-        if (!v98)
+        v102 = *(v101 - 1) - 1;
+        *(v101 - 1) = v102;
+        if (!v102)
         {
-          MEMORY[0x2666E9ED0](v97 - 8, 0x1000C8077774924);
+          MEMORY[0x2666E9ED0](v101 - 8, 0x1000C8077774924);
         }
 
         return 1;
@@ -753,7 +682,7 @@ LABEL_76:
           }
 
           while (v50);
-          *(&v120 + v48++) = v54;
+          *(&v124 + v48++) = v54;
           ++a2;
         }
 
@@ -761,7 +690,7 @@ LABEL_76:
       }
     }
 
-    ProShade::Value::set(a5, 1, *(a3 + 4), &v120);
+    ProShade::Value::set(a5, 1, *(a3 + 4), &v124);
     return 1;
   }
 
@@ -769,24 +698,24 @@ LABEL_76:
   v15 = v14;
   if (v14 > 4)
   {
-    PCGenMatrix<BOOL>::PCGenMatrix(&v120, a1, v14, v14, 1, 0);
-    PCGenVector<BOOL>::PCGenVector(&v115, a2, v15, 0);
-    v87 = v121;
-    PCGenBlockRef<BOOL>::PCGenBlockRef(&v111, v121);
-    v112 = v87;
-    v113 = 1;
-    v114 = v111;
-    MMultiplyMatrices<BOOL>(v121, v122, 1, v124, v123, SHIDWORD(v123), v118, v117, 1, v111, 1, 1);
-    ProShade::Value::set(a5, 1, *(a4 + 4), v114);
+    PCGenMatrix<BOOL>::PCGenMatrix(&v124, a1, v14, v14, 1, 0);
+    PCGenVector<BOOL>::PCGenVector(&v119, a2, v15, 0);
+    v91 = v125;
+    PCGenBlockRef<BOOL>::PCGenBlockRef(&v115, v125);
+    v116 = v91;
+    v117 = 1;
+    v118 = v115;
+    MMultiplyMatrices<BOOL>(v125, v126, 1u, v128, v127, SHIDWORD(v127), v122, v121, 1, v115, 1, 1);
+    ProShade::Value::set(a5, 1, *(a4 + 4), v118);
 LABEL_69:
-    v93 = v111;
-    if (v111)
+    v97 = v115;
+    if (v115)
     {
-      v94 = *(v111 - 1) - 1;
-      *(v111 - 1) = v94;
-      if (!v94)
+      v98 = *(v115 - 1) - 1;
+      *(v115 - 1) = v98;
+      if (!v98)
       {
-        MEMORY[0x2666E9ED0](v93 - 8, 0x1000C8077774924);
+        MEMORY[0x2666E9ED0](v97 - 8, 0x1000C8077774924);
       }
     }
 
@@ -813,7 +742,7 @@ LABEL_69:
       }
 
       while (v18);
-      *(&v120 + v16++) = v24;
+      *(&v124 + v16++) = v24;
       a1 += v14;
     }
 
@@ -821,7 +750,7 @@ LABEL_69:
   }
 
 LABEL_10:
-  ProShade::Value::set(a5, 1, *(a4 + 4), &v120);
+  ProShade::Value::set(a5, 1, *(a4 + 4), &v124);
   return 1;
 }
 
@@ -872,18 +801,18 @@ uint64_t PCGenMatrix<BOOL>::set<BOOL>(uint64_t result, uint64_t a2)
     if (v4 != *(a2 + 8))
     {
       exception = __cxa_allocate_exception(0x40uLL);
-      PCString::ssprintf("PCGenMatrix row mismatch %d != %d", &v31, *(v3 + 8), *(a2 + 8));
-      PCException::PCException(exception, &v31);
+      PCString::ssprintf(&v33, "PCGenMatrix row mismatch %d != %d", v30, *(v3 + 8), *(a2 + 8));
+      PCException::PCException(exception, &v33);
       *exception = &unk_2872074D0;
     }
 
     v5 = *(result + 12);
     if (v5 != *(a2 + 12))
     {
-      v30 = __cxa_allocate_exception(0x40uLL);
-      PCString::ssprintf("PCGenMatrix col mismatch %d != %d", &v31, *(v3 + 12), *(a2 + 12));
-      PCException::PCException(v30, &v31);
-      *v30 = &unk_2872074D0;
+      v31 = __cxa_allocate_exception(0x40uLL);
+      PCString::ssprintf(&v33, "PCGenMatrix col mismatch %d != %d", v32, *(v3 + 12), *(a2 + 12));
+      PCException::PCException(v31, &v33);
+      *v31 = &unk_2872074D0;
     }
 
     v6 = *result;
@@ -895,19 +824,19 @@ uint64_t PCGenMatrix<BOOL>::set<BOOL>(uint64_t result, uint64_t a2)
 
     if (*a2 == v6)
     {
-      v31.var0 = 0;
-      v32 = 0;
-      v33 = 0x100000001;
+      v33.var0 = 0;
       v34 = 0;
-      result = PCGenMatrix<BOOL>::set<BOOL>(&v31, a2);
+      v35 = 0x100000001;
+      v36 = 0;
+      result = PCGenMatrix<BOOL>::set<BOOL>(&v33, a2);
       v17 = *(v3 + 8);
       if (v17 >= 1)
       {
         v18 = 0;
         v19 = *(v3 + 12);
-        v20 = v34;
-        v22 = v33;
-        v21 = SHIDWORD(v33);
+        v20 = v36;
+        v22 = v35;
+        v21 = SHIDWORD(v35);
         do
         {
           if (v19 >= 1)
@@ -935,11 +864,11 @@ uint64_t PCGenMatrix<BOOL>::set<BOOL>(uint64_t result, uint64_t a2)
         while (v18 != v17);
       }
 
-      var0 = v31.var0;
-      if (v31.var0)
+      var0 = v33.var0;
+      if (v33.var0)
       {
-        v28 = HIDWORD(v31.var0[-1].length) - 1;
-        HIDWORD(v31.var0[-1].length) = v28;
+        v28 = HIDWORD(v33.var0[-1].length) - 1;
+        HIDWORD(v33.var0[-1].length) = v28;
         if (!v28)
         {
           return MEMORY[0x2666E9ED0](&var0[-1].length, 0x1000C8077774924);
@@ -1019,27 +948,27 @@ uint64_t PCGenMatrix<BOOL>::PCGenMatrix(uint64_t a1, uint64_t a2, uint64_t a3, u
   if ((a3 & 0x80000000) != 0)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::ssprintf("PCGenMatrix number of rows %d must be nonnegative", &v16, a3);
-    PCException::PCException(exception, &v16);
+    PCString::ssprintf(&v18, "PCGenMatrix number of rows %d must be nonnegative", v15, a3);
+    PCException::PCException(exception, &v18);
     *exception = &unk_2872074D0;
   }
 
   if ((a4 & 0x80000000) != 0)
   {
-    v15 = __cxa_allocate_exception(0x40uLL);
-    PCString::ssprintf("PCGenMatrix number of cols %d must be nonnegative", &v16, a4);
-    PCException::PCException(v15, &v16);
-    *v15 = &unk_2872074D0;
+    v16 = __cxa_allocate_exception(0x40uLL);
+    PCString::ssprintf(&v18, "PCGenMatrix number of cols %d must be nonnegative", v17, a4);
+    PCException::PCException(v16, &v18);
+    *v16 = &unk_2872074D0;
   }
 
   *(a1 + 24) = a2;
   if (a6)
   {
-    PCGenMatrix<BOOL>::copy(a1, 0, &v16);
-    var0 = v16.var0;
-    if (&v16 != a1)
+    PCGenMatrix<BOOL>::copy(a1, 0, &v18);
+    var0 = v18.var0;
+    if (&v18 != a1)
     {
-      *(a1 + 8) = v17;
+      *(a1 + 8) = v19;
       if (*a1 != var0)
       {
         PCGenBlockRef<double>::deref(a1);
@@ -1050,8 +979,8 @@ uint64_t PCGenMatrix<BOOL>::PCGenMatrix(uint64_t a1, uint64_t a2, uint64_t a3, u
         }
       }
 
-      var0 = v16.var0;
-      *(a1 + 24) = v18;
+      var0 = v18.var0;
+      *(a1 + 24) = v20;
     }
 
     if (var0)
@@ -1068,7 +997,7 @@ uint64_t PCGenMatrix<BOOL>::PCGenMatrix(uint64_t a1, uint64_t a2, uint64_t a3, u
   return a1;
 }
 
-void sub_25FFA753C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, PCString a11)
+void sub_25FFA753C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, PCString a11)
 {
   if (a11.var0)
   {
@@ -1076,7 +1005,7 @@ void sub_25FFA753C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     HIDWORD(a11.var0[-1].length) = v13;
     if (!v13)
     {
-      MEMORY[0x2666E9ED0](&a11.var0[-1].length, 0x1000C8077774924);
+      MEMORY[0x2666E9ED0](&a11.var0[-1].length, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -1117,15 +1046,15 @@ uint64_t PCGenMatrix<BOOL>::copy@<X0>(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3
   return PCGenMatrix<BOOL>::set<BOOL>(a3, a1);
 }
 
-void *PCGenBlockRef<BOOL>::PCGenBlockRef(void *result, int a2)
+void *PCGenBlockRef<BOOL>::PCGenBlockRef(void *a1, int a2)
 {
   if (a2)
   {
     operator new[]();
   }
 
-  *result = 0;
-  return result;
+  *a1 = 0;
+  return a1;
 }
 
 uint64_t PCGenVector<BOOL>::PCGenVector(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
@@ -1136,22 +1065,22 @@ uint64_t PCGenVector<BOOL>::PCGenVector(uint64_t a1, uint64_t a2, uint64_t a3, i
   if ((a3 & 0x80000000) != 0)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::ssprintf("PCGenVector length %d must be nonnegative", &v10, a3);
-    PCException::PCException(exception, &v10);
+    PCString::ssprintf(&v11, "PCGenVector length %d must be nonnegative", v10, a3);
+    PCException::PCException(exception, &v11);
     *exception = &unk_2872074D0;
   }
 
   *(a1 + 16) = a2;
   if (a4)
   {
-    PCGenBlockRef<BOOL>::PCGenBlockRef(&v10, a3);
-    v11 = a3 | 0x100000000;
-    var0 = v10.var0;
-    PCGenVector<BOOL>::set<BOOL>(&v10, a1);
-    v6 = v10.var0;
-    if (&v10 != a1)
+    PCGenBlockRef<BOOL>::PCGenBlockRef(&v11, a3);
+    v12 = a3 | 0x100000000;
+    var0 = v11.var0;
+    PCGenVector<BOOL>::set<BOOL>(&v11, a1);
+    v6 = v11.var0;
+    if (&v11 != a1)
     {
-      *(a1 + 8) = v11;
+      *(a1 + 8) = v12;
       if (*a1 != v6)
       {
         PCGenBlockRef<double>::deref(a1);
@@ -1162,7 +1091,7 @@ uint64_t PCGenVector<BOOL>::PCGenVector(uint64_t a1, uint64_t a2, uint64_t a3, i
         }
       }
 
-      v6 = v10.var0;
+      v6 = v11.var0;
       *(a1 + 16) = var0;
     }
 
@@ -1180,7 +1109,7 @@ uint64_t PCGenVector<BOOL>::PCGenVector(uint64_t a1, uint64_t a2, uint64_t a3, i
   return a1;
 }
 
-void sub_25FFA7824(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10)
+void sub_25FFA7824(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, PCString a10)
 {
   if (a10.var0)
   {
@@ -1188,7 +1117,7 @@ void sub_25FFA7824(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     HIDWORD(a10.var0[-1].length) = v12;
     if (!v12)
     {
-      MEMORY[0x2666E9ED0](&a10.var0[-1].length, 0x1000C8077774924);
+      MEMORY[0x2666E9ED0](&a10.var0[-1].length, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -1204,8 +1133,8 @@ uint64_t PCGenVector<BOOL>::set<BOOL>(uint64_t a1, uint64_t a2)
     if (v4 != *(a2 + 8))
     {
       exception = __cxa_allocate_exception(0x40uLL);
-      PCString::ssprintf("PCGenVector length mismatch %d != %d", &v19, *(a1 + 8), *(a2 + 8));
-      PCException::PCException(exception, &v19);
+      PCString::ssprintf(&v20, "PCGenVector length mismatch %d != %d", v19, *(a1 + 8), *(a2 + 8));
+      PCException::PCException(exception, &v20);
       *exception = &unk_2872074D0;
     }
 
@@ -1221,16 +1150,16 @@ uint64_t PCGenVector<BOOL>::set<BOOL>(uint64_t a1, uint64_t a2)
 
     if (v5)
     {
-      PCGenBlockRef<BOOL>::PCGenBlockRef(&v19, *(a1 + 8));
-      v20 = v4;
-      v21 = 1;
-      var0 = v19.var0;
-      PCGenVector<BOOL>::set<BOOL>(&v19, a2);
+      PCGenBlockRef<BOOL>::PCGenBlockRef(&v20, *(a1 + 8));
+      v21 = v4;
+      v22 = 1;
+      var0 = v20.var0;
+      PCGenVector<BOOL>::set<BOOL>(&v20, a2);
       v10 = *(a1 + 8);
       if (v10 >= 1)
       {
         v11 = var0;
-        v12 = v21;
+        v12 = v22;
         v13 = *(a1 + 16);
         v14 = *(a1 + 12);
         do
@@ -1244,11 +1173,11 @@ uint64_t PCGenVector<BOOL>::set<BOOL>(uint64_t a1, uint64_t a2)
         while (v10);
       }
 
-      v15 = v19.var0;
-      if (v19.var0)
+      v15 = v20.var0;
+      if (v20.var0)
       {
-        v16 = HIDWORD(v19.var0[-1].length) - 1;
-        HIDWORD(v19.var0[-1].length) = v16;
+        v16 = HIDWORD(v20.var0[-1].length) - 1;
+        HIDWORD(v20.var0[-1].length) = v16;
         if (!v16)
         {
           MEMORY[0x2666E9ED0](&v15[-1].length, 0x1000C8077774924);
@@ -1277,7 +1206,7 @@ uint64_t PCGenVector<BOOL>::set<BOOL>(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t MMultiplyMatrices<BOOL>(uint64_t result, int a2, int a3, _BYTE *a4, int a5, int a6, _BYTE *a7, int a8, int a9, uint64_t a10, int a11, int a12)
+uint64_t MMultiplyMatrices<BOOL>(uint64_t result, int a2, unsigned int a3, _BYTE *a4, int a5, int a6, _BYTE *a7, int a8, int a9, uint64_t a10, int a11, int a12)
 {
   if (result >= 1)
   {
@@ -1386,17 +1315,17 @@ LABEL_25:
   return result;
 }
 
-_DWORD *PCGenMatrix<BOOL>::resize(_DWORD *result, int a2, int a3, int a4)
+uint64_t *PCGenMatrix<BOOL>::resize(uint64_t *result, int a2, int a3, int a4)
 {
   v6 = result;
-  v8 = result[2];
-  v7 = result[3];
+  v8 = *(result + 2);
+  v7 = *(result + 3);
   v10 = v8 != a2 || v7 != a3;
   if (a4)
   {
     if (a4 == 1)
     {
-      if (result[5] == 1 && result[4] == v7 && !v10)
+      if (*(result + 5) == 1 && *(result + 4) == v7 && !v10)
       {
         return result;
       }
@@ -1412,7 +1341,7 @@ _DWORD *PCGenMatrix<BOOL>::resize(_DWORD *result, int a2, int a3, int a4)
 
   else
   {
-    if (result[4] == 1 && result[5] == v8 && !v10)
+    if (*(result + 4) == 1 && *(result + 5) == v8 && !v10)
     {
       return result;
     }
@@ -1443,10 +1372,10 @@ _DWORD *PCGenMatrix<BOOL>::resize(_DWORD *result, int a2, int a3, int a4)
   }
 
   *(&v33 + 1) = __PAIR64__(v13, v12);
-  v14 = *(v6 + 12);
-  if (a2 >= *(v6 + 8))
+  v14 = *(v6 + 3);
+  if (a2 >= *(v6 + 2))
   {
-    v15 = *(v6 + 8);
+    v15 = *(v6 + 2);
   }
 
   else
@@ -1508,7 +1437,7 @@ _DWORD *PCGenMatrix<BOOL>::resize(_DWORD *result, int a2, int a3, int a4)
 
   if (&v32 != v6)
   {
-    *(v6 + 8) = v33;
+    *(v6 + 1) = v33;
     if (*v6 != v16)
     {
       result = PCGenBlockRef<double>::deref(v6);
@@ -1520,7 +1449,7 @@ _DWORD *PCGenMatrix<BOOL>::resize(_DWORD *result, int a2, int a3, int a4)
     }
 
     v16 = v32;
-    *(v6 + 24) = v34;
+    v6[3] = v34;
   }
 
   if (v16)
@@ -1536,7 +1465,7 @@ _DWORD *PCGenMatrix<BOOL>::resize(_DWORD *result, int a2, int a3, int a4)
   return result;
 }
 
-void sub_25FFA7E80(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+void sub_25FFA7E80(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   v19 = *(v17 - 80);
   if (v19)
@@ -1545,14 +1474,14 @@ void sub_25FFA7E80(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     *(v19 - 4) = v20;
     if (!v20)
     {
-      MEMORY[0x2666E9ED0](v19 - 8, 0x1000C8077774924);
+      MEMORY[0x2666E9ED0](v19 - 8, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t PCGenMatrix<BOOL>::operator()@<X0>(uint64_t a1@<X0>, unsigned int *a2@<X1>, unsigned int *a3@<X2>, uint64_t a4@<X8>)
+uint64_t PCGenMatrix<BOOL>::operator()@<X0>(uint64_t *a1@<X0>, unsigned int *a2@<X1>, unsigned int *a3@<X2>, uint64_t a4@<X8>)
 {
   PCGenMatrix<BOOL>::checkRowIndex(a1, *a2);
   PCGenMatrix<BOOL>::checkRowIndex(a1, a2[1]);
@@ -1562,9 +1491,9 @@ uint64_t PCGenMatrix<BOOL>::operator()@<X0>(uint64_t a1@<X0>, unsigned int *a2@<
   v9 = a2[1];
   v12 = *a3;
   v11 = a3[1];
-  v13 = *(a1 + 16);
-  v14 = *(a1 + 20);
-  v15 = *(a1 + 24);
+  v13 = *(a1 + 4);
+  v14 = *(a1 + 5);
+  v15 = a1[3];
   v16 = *a1;
   *a4 = *a1;
   if (v16)
@@ -1586,8 +1515,8 @@ uint64_t PCGenMatrix<BOOL>::checkRowIndex(uint64_t result, uint64_t a2)
   {
     v3 = result;
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::ssprintf("PCGenMatrix row %d out of range 0..%d", &v5, a2, (*(v3 + 8) - 1));
-    PCException::PCException(exception, &v5);
+    PCString::ssprintf(&v6, "PCGenMatrix row %d out of range 0..%d", v5, a2, (*(v3 + 8) - 1));
+    PCException::PCException(exception, &v6);
     *exception = &unk_2872074D0;
   }
 
@@ -1600,8 +1529,8 @@ uint64_t PCGenMatrix<BOOL>::checkColIndex(uint64_t result, uint64_t a2)
   {
     v3 = result;
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::ssprintf("PCGenMatrix col %d out of range 0..%d", &v5, a2, (*(v3 + 12) - 1));
-    PCException::PCException(exception, &v5);
+    PCString::ssprintf(&v6, "PCGenMatrix col %d out of range 0..%d", v5, a2, (*(v3 + 12) - 1));
+    PCException::PCException(exception, &v6);
     *exception = &unk_2872074D0;
   }
 
@@ -1610,7 +1539,7 @@ uint64_t PCGenMatrix<BOOL>::checkColIndex(uint64_t result, uint64_t a2)
 
 BOOL ProShade::Multiply::computeBinaryType<int>(int *a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v123 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   if (!ProShade::shapeIsMatrix(*(a3 + 4)) || !ProShade::shapeIsVector(*(a4 + 4)) || (v11 = ProShade::shapeGetWidth(*(a3 + 4), v10), v11 != ProShade::shapeGetWidth(*(a4 + 4), v12)))
   {
     IsVector = ProShade::shapeIsVector(*(a3 + 4));
@@ -1620,21 +1549,21 @@ BOOL ProShade::Multiply::computeBinaryType<int>(int *a1, int *a2, uint64_t a3, u
       Width = ProShade::shapeGetWidth(*(a3 + 4), v24);
       if (Width > 4)
       {
-        PCGenVector<int>::PCGenVector(&v118, a1, Width, 0);
+        PCGenVector<int>::PCGenVector(&v122, a1, Width, 0);
         v53 = *a2;
-        v54 = v119;
-        PCGenBlockRef<int>::PCGenBlockRef(&v113, v119);
-        v114 = v54;
-        v115 = 1;
-        v55 = v113;
-        v116 = v113;
-        v56 = v121;
-        v57 = v119;
-        if (v120 == 1)
+        v54 = v123;
+        PCGenBlockRef<int>::PCGenBlockRef(&v117, v123);
+        v118 = v54;
+        v119 = 1;
+        v55 = v117;
+        v120 = v117;
+        v56 = v125;
+        v57 = v123;
+        if (v124 == 1)
         {
-          if (v119 >= 1)
+          if (v123 >= 1)
           {
-            v58 = v113;
+            v58 = v117;
             do
             {
               v59 = *v56++;
@@ -1646,14 +1575,14 @@ BOOL ProShade::Multiply::computeBinaryType<int>(int *a1, int *a2, uint64_t a3, u
           }
         }
 
-        else if (v119 >= 1)
+        else if (v123 >= 1)
         {
-          v82 = 4 * v120;
-          v83 = v113;
+          v86 = 4 * v124;
+          v87 = v117;
           do
           {
-            *v83++ = *v56 * v53;
-            v56 = (v56 + v82);
+            *v87++ = *v56 * v53;
+            v56 = (v56 + v86);
             --v57;
           }
 
@@ -1662,19 +1591,19 @@ BOOL ProShade::Multiply::computeBinaryType<int>(int *a1, int *a2, uint64_t a3, u
 
         ProShade::Value::set(a5, 2, *(a3 + 4), v55);
 LABEL_72:
-        v93 = v113;
-        if (v113)
+        v97 = v117;
+        if (v117)
         {
-          v94 = *(v113 - 1) - 1;
-          *(v113 - 1) = v94;
-          if (!v94)
+          v98 = *(v117 - 1) - 1;
+          *(v117 - 1) = v98;
+          if (!v98)
           {
-            MEMORY[0x2666E9ED0](v93 - 2, 0x1000C8077774924);
+            MEMORY[0x2666E9ED0](v97 - 2, 0x1000C8077774924);
           }
         }
 
-        v95 = v118;
-        if (!v118)
+        v99 = v122;
+        if (!v122)
         {
           return 1;
         }
@@ -1686,7 +1615,7 @@ LABEL_72:
       {
         v37 = *a2;
         v38 = Width;
-        v39 = &v118;
+        v39 = &v122;
         do
         {
           v40 = *a1++;
@@ -1711,7 +1640,7 @@ LABEL_72:
           {
             v32 = *a1;
             v33 = v31;
-            v34 = &v118;
+            v34 = &v122;
             do
             {
               v35 = *a2++;
@@ -1725,47 +1654,47 @@ LABEL_72:
           goto LABEL_10;
         }
 
-        PCGenVector<int>::PCGenVector(&v118, a2, v31, 0);
-        v75 = *a1;
-        v76 = v119;
-        PCGenBlockRef<int>::PCGenBlockRef(&v113, v119);
-        v114 = v76;
-        v115 = 1;
-        v77 = v113;
-        v116 = v113;
-        v78 = v121;
-        v79 = v119;
-        if (v120 == 1)
+        PCGenVector<int>::PCGenVector(&v122, a2, v31, 0);
+        v79 = *a1;
+        v80 = v123;
+        PCGenBlockRef<int>::PCGenBlockRef(&v117, v123);
+        v118 = v80;
+        v119 = 1;
+        v81 = v117;
+        v120 = v117;
+        v82 = v125;
+        v83 = v123;
+        if (v124 == 1)
         {
-          if (v119 >= 1)
+          if (v123 >= 1)
           {
-            v80 = v113;
+            v84 = v117;
             do
             {
-              v81 = *v78++;
-              *v80++ = v81 * v75;
-              --v79;
+              v85 = *v82++;
+              *v84++ = v85 * v79;
+              --v83;
             }
 
-            while (v79);
+            while (v83);
           }
         }
 
-        else if (v119 >= 1)
+        else if (v123 >= 1)
         {
-          v85 = 4 * v120;
-          v86 = v113;
+          v89 = 4 * v124;
+          v90 = v117;
           do
           {
-            *v86++ = *v78 * v75;
-            v78 = (v78 + v85);
-            --v79;
+            *v90++ = *v82 * v79;
+            v82 = (v82 + v89);
+            --v83;
           }
 
-          while (v79);
+          while (v83);
         }
 
-        ProShade::Value::set(a5, 2, *(a4 + 4), v77);
+        ProShade::Value::set(a5, 2, *(a4 + 4), v81);
         goto LABEL_72;
       }
 
@@ -1778,71 +1707,71 @@ LABEL_72:
         }
 
         v62 = ProShade::shapeGetWidth(*(a3 + 4), v61);
-        v63 = v62;
+        v67 = v62;
         if (v62 <= 4)
         {
-          MEMORY[0x28223BE20](v62);
-          v65 = &v102 - ((v64 + 15) & 0xFFFFFFFFFFFFFFF0);
-          if (v63 >= 1)
+          MEMORY[0x28223BE20](v62, v63, v64, v65, v66);
+          v69 = &v106 - ((v68 + 15) & 0xFFFFFFFFFFFFFFF0);
+          if (v67 >= 1)
           {
-            v66 = 0;
-            v67 = 4 * v63;
+            v70 = 0;
+            v71 = 4 * v67;
             do
             {
-              v68 = 0;
-              v69 = a2;
+              v72 = 0;
+              v73 = a2;
               do
               {
-                v70 = 0;
-                v71 = v63;
-                v72 = v69;
-                v73 = a1;
+                v74 = 0;
+                v75 = v67;
+                v76 = v73;
+                v77 = a1;
                 do
                 {
-                  v74 = *v73++;
-                  v70 += *v72 * v74;
-                  v72 = (v72 + v67);
-                  --v71;
+                  v78 = *v77++;
+                  v74 += *v76 * v78;
+                  v76 = (v76 + v71);
+                  --v75;
                 }
 
-                while (v71);
-                *&v65[4 * v66 * v63 + 4 * v68++] = v70;
-                ++v69;
+                while (v75);
+                *&v69[4 * v70 * v67 + 4 * v72++] = v74;
+                ++v73;
               }
 
-              while (v68 != v63);
-              ++v66;
-              a1 = (a1 + v67);
+              while (v72 != v67);
+              ++v70;
+              a1 = (a1 + v71);
             }
 
-            while (v66 != v63);
+            while (v70 != v67);
           }
 
-          ProShade::Value::set(a5, 2, *(a3 + 4), v65);
+          ProShade::Value::set(a5, 2, *(a3 + 4), v69);
           return 1;
         }
 
-        PCGenMatrix<int>::PCGenMatrix(&v118, a1, v62, v62, 1, 0);
-        PCGenMatrix<int>::PCGenMatrix(&v113, a2, v63, v63, 1, 0);
-        PCGenMatrix<int>::PCGenMatrix(&v109, a5 + 16, v63, v63, 1, 0);
-        v87 = v119;
-        v88 = v115;
-        PCGenBlockRef<int>::PCGenBlockRef(&v103, v115 * v119);
-        v104 = v87;
-        v105 = v88;
-        v106 = 1;
-        v107 = v87;
-        v108 = v103;
-        MMultiplyMatrices<int>(v119, v120, v115, v122, v121, SHIDWORD(v121), v117, v116, SHIDWORD(v116), v103, 1, v87);
-        PCGenMatrix<int>::set<int>(&v109, &v103);
-        v89 = v103;
-        if (v103)
+        PCGenMatrix<int>::PCGenMatrix(&v122, a1, v62, v62, 1, 0);
+        PCGenMatrix<int>::PCGenMatrix(&v117, a2, v67, v67, 1, 0);
+        PCGenMatrix<int>::PCGenMatrix(&v113, a5 + 16, v67, v67, 1, 0);
+        v91 = v123;
+        v92 = v119;
+        PCGenBlockRef<int>::PCGenBlockRef(&v107, v119 * v123);
+        v108 = v91;
+        v109 = v92;
+        v110 = 1;
+        v111 = v91;
+        v112 = v107;
+        MMultiplyMatrices<int>(v123, v124, v119, v126, v125, SHIDWORD(v125), v121, v120, SHIDWORD(v120), v107, 1, v91);
+        PCGenMatrix<int>::set<int>(&v113, &v107);
+        v93 = v107;
+        if (v107)
         {
-          v90 = *(v103 - 4) - 1;
-          *(v103 - 4) = v90;
-          if (!v90)
+          v94 = *(v107 - 4) - 1;
+          *(v107 - 4) = v94;
+          if (!v94)
           {
-            MEMORY[0x2666E9ED0](v89 - 8, 0x1000C8077774924);
+            MEMORY[0x2666E9ED0](v93 - 8, 0x1000C8077774924);
           }
         }
 
@@ -1853,49 +1782,49 @@ LABEL_72:
       v46 = v45;
       if (v45 > 4)
       {
-        PCGenVector<int>::PCGenVector(&v113, a1, v45, 0);
-        PCGenMatrix<int>::PCGenMatrix(&v118, a2, v46, v46, 1, 0);
-        v97 = v120;
-        PCGenBlockRef<int>::PCGenBlockRef(&v109, v120);
-        v110 = v97;
-        v111 = 1;
-        v112 = v109;
-        MMultiplyMatrices<int>(1, v114, v120, v116, 1, v115, v122, v121, SHIDWORD(v121), v109, 1, 1);
-        ProShade::Value::set(a5, 2, *(a3 + 4), v112);
-        v98 = v109;
-        if (v109)
+        PCGenVector<int>::PCGenVector(&v117, a1, v45, 0);
+        PCGenMatrix<int>::PCGenMatrix(&v122, a2, v46, v46, 1, 0);
+        v101 = v124;
+        PCGenBlockRef<int>::PCGenBlockRef(&v113, v124);
+        v114 = v101;
+        v115 = 1;
+        v116 = v113;
+        MMultiplyMatrices<int>(1, v118, v124, v120, 1, v119, v126, v125, SHIDWORD(v125), v113, 1, 1);
+        ProShade::Value::set(a5, 2, *(a3 + 4), v116);
+        v102 = v113;
+        if (v113)
         {
-          v99 = *(v109 - 1) - 1;
-          *(v109 - 1) = v99;
-          if (!v99)
+          v103 = *(v113 - 1) - 1;
+          *(v113 - 1) = v103;
+          if (!v103)
           {
-            MEMORY[0x2666E9ED0](v98 - 8, 0x1000C8077774924);
+            MEMORY[0x2666E9ED0](v102 - 8, 0x1000C8077774924);
           }
         }
 
-        v100 = v118;
-        if (v118)
+        v104 = v122;
+        if (v122)
         {
-          v101 = *(v118 - 1) - 1;
-          *(v118 - 1) = v101;
-          if (!v101)
+          v105 = *(v122 - 1) - 1;
+          *(v122 - 1) = v105;
+          if (!v105)
           {
-            MEMORY[0x2666E9ED0](v100 - 2, 0x1000C8077774924);
+            MEMORY[0x2666E9ED0](v104 - 2, 0x1000C8077774924);
           }
         }
 
-        v95 = v113;
-        if (!v113)
+        v99 = v117;
+        if (!v117)
         {
           return 1;
         }
 
 LABEL_76:
-        v96 = *(v95 - 1) - 1;
-        *(v95 - 1) = v96;
-        if (!v96)
+        v100 = *(v99 - 1) - 1;
+        *(v99 - 1) = v100;
+        if (!v100)
         {
-          MEMORY[0x2666E9ED0](v95 - 2, 0x1000C8077774924);
+          MEMORY[0x2666E9ED0](v99 - 2, 0x1000C8077774924);
         }
 
         return 1;
@@ -1919,7 +1848,7 @@ LABEL_76:
           }
 
           while (v49);
-          *(&v118 + v47++) = v48;
+          *(&v122 + v47++) = v48;
           ++a2;
         }
 
@@ -1927,7 +1856,7 @@ LABEL_76:
       }
     }
 
-    ProShade::Value::set(a5, 2, *(a3 + 4), &v118);
+    ProShade::Value::set(a5, 2, *(a3 + 4), &v122);
     return 1;
   }
 
@@ -1935,24 +1864,24 @@ LABEL_76:
   v15 = v14;
   if (v14 > 4)
   {
-    PCGenMatrix<int>::PCGenMatrix(&v118, a1, v14, v14, 1, 0);
-    PCGenVector<int>::PCGenVector(&v113, a2, v15, 0);
-    v84 = v119;
-    PCGenBlockRef<int>::PCGenBlockRef(&v109, v119);
-    v110 = v84;
-    v111 = 1;
-    v112 = v109;
-    MMultiplyMatrices<int>(v119, v120, 1, v122, v121, SHIDWORD(v121), v116, v115, 1, v109, 1, 1);
-    ProShade::Value::set(a5, 2, *(a4 + 4), v112);
+    PCGenMatrix<int>::PCGenMatrix(&v122, a1, v14, v14, 1, 0);
+    PCGenVector<int>::PCGenVector(&v117, a2, v15, 0);
+    v88 = v123;
+    PCGenBlockRef<int>::PCGenBlockRef(&v113, v123);
+    v114 = v88;
+    v115 = 1;
+    v116 = v113;
+    MMultiplyMatrices<int>(v123, v124, 1, v126, v125, SHIDWORD(v125), v120, v119, 1, v113, 1, 1);
+    ProShade::Value::set(a5, 2, *(a4 + 4), v116);
 LABEL_69:
-    v91 = v109;
-    if (v109)
+    v95 = v113;
+    if (v113)
     {
-      v92 = *(v109 - 1) - 1;
-      *(v109 - 1) = v92;
-      if (!v92)
+      v96 = *(v113 - 1) - 1;
+      *(v113 - 1) = v96;
+      if (!v96)
       {
-        MEMORY[0x2666E9ED0](v91 - 8, 0x1000C8077774924);
+        MEMORY[0x2666E9ED0](v95 - 8, 0x1000C8077774924);
       }
     }
 
@@ -1978,7 +1907,7 @@ LABEL_69:
       }
 
       while (v18);
-      *(&v118 + v16++) = v17;
+      *(&v122 + v16++) = v17;
       a1 += v14;
     }
 
@@ -1986,7 +1915,7 @@ LABEL_69:
   }
 
 LABEL_10:
-  ProShade::Value::set(a5, 2, *(a4 + 4), &v118);
+  ProShade::Value::set(a5, 2, *(a4 + 4), &v122);
   return 1;
 }
 
@@ -2028,64 +1957,64 @@ void sub_25FFA89B0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_DWORD *PCGenMatrix<int>::set<int>(_DWORD *result, uint64_t a2)
+uint64_t PCGenMatrix<int>::set<int>(uint64_t result, uint64_t a2)
 {
   if (a2 != result)
   {
     v3 = result;
-    v4 = result[2];
+    v4 = *(result + 8);
     if (v4 != *(a2 + 8))
     {
       exception = __cxa_allocate_exception(0x40uLL);
-      PCString::ssprintf("PCGenMatrix row mismatch %d != %d", &v23, v3[2], *(a2 + 8));
-      PCException::PCException(exception, &v23);
+      PCString::ssprintf(&v25, "PCGenMatrix row mismatch %d != %d", v22, *(v3 + 8), *(a2 + 8));
+      PCException::PCException(exception, &v25);
       *exception = &unk_2872074D0;
     }
 
-    v5 = result[3];
+    v5 = *(result + 12);
     if (v5 != *(a2 + 12))
     {
-      v22 = __cxa_allocate_exception(0x40uLL);
-      PCString::ssprintf("PCGenMatrix col mismatch %d != %d", &v23, v3[3], *(a2 + 12));
-      PCException::PCException(v22, &v23);
-      *v22 = &unk_2872074D0;
+      v23 = __cxa_allocate_exception(0x40uLL);
+      PCString::ssprintf(&v25, "PCGenMatrix col mismatch %d != %d", v24, *(v3 + 12), *(a2 + 12));
+      PCException::PCException(v23, &v25);
+      *v23 = &unk_2872074D0;
     }
 
     v6 = *result;
     if (!*result)
     {
-      result = PCGenMatrix<int>::resize(result, v4, v5, result[5] == 1);
+      result = PCGenMatrix<int>::resize(result, v4, v5, *(result + 20) == 1);
       v6 = *v3;
     }
 
     if (*a2 == v6)
     {
-      v23.var0 = 0;
-      v24 = 0;
-      v25 = 0x100000001;
+      v25.var0 = 0;
       v26 = 0;
-      result = PCGenMatrix<int>::set<int>(&v23, a2);
-      v13 = v3[2];
+      v27 = 0x100000001;
+      v28 = 0;
+      result = PCGenMatrix<int>::set<int>(&v25, a2);
+      v13 = *(v3 + 8);
       if (v13 >= 1)
       {
         v14 = 0;
-        v15 = v26;
-        v16 = v3[3];
+        v15 = v28;
+        v16 = *(v3 + 12);
         do
         {
           if (v16 >= 1)
           {
             v17 = 0;
-            v18 = *(v3 + 3);
+            v18 = *(v3 + 24);
             do
             {
-              *(v18 + 4 * (v3[5] * v17 + v3[4] * v14)) = *(v15 + 4 * (HIDWORD(v25) * v17 + v25 * v14));
+              *(v18 + 4 * (*(v3 + 20) * v17 + *(v3 + 16) * v14)) = *(v15 + 4 * (HIDWORD(v27) * v17 + v27 * v14));
               ++v17;
-              v16 = v3[3];
+              v16 = *(v3 + 12);
             }
 
             while (v17 < v16);
-            v13 = v3[2];
+            v13 = *(v3 + 8);
           }
 
           ++v14;
@@ -2094,11 +2023,11 @@ _DWORD *PCGenMatrix<int>::set<int>(_DWORD *result, uint64_t a2)
         while (v14 < v13);
       }
 
-      var0 = v23.var0;
-      if (v23.var0)
+      var0 = v25.var0;
+      if (v25.var0)
       {
-        v20 = HIDWORD(v23.var0[-1].length) - 1;
-        HIDWORD(v23.var0[-1].length) = v20;
+        v20 = HIDWORD(v25.var0[-1].length) - 1;
+        HIDWORD(v25.var0[-1].length) = v20;
         if (!v20)
         {
           return MEMORY[0x2666E9ED0](&var0[-1].length, 0x1000C8077774924);
@@ -2108,27 +2037,27 @@ _DWORD *PCGenMatrix<int>::set<int>(_DWORD *result, uint64_t a2)
 
     else
     {
-      v7 = v3[2];
+      v7 = *(v3 + 8);
       if (v7 >= 1)
       {
         v8 = 0;
         v9 = *(a2 + 24);
-        v10 = v3[3];
+        v10 = *(v3 + 12);
         do
         {
           if (v10 >= 1)
           {
             v11 = 0;
-            v12 = *(v3 + 3);
+            v12 = *(v3 + 24);
             do
             {
-              *(v12 + 4 * (v3[5] * v11 + v3[4] * v8)) = *(v9 + 4 * (*(a2 + 20) * v11 + *(a2 + 16) * v8));
+              *(v12 + 4 * (*(v3 + 20) * v11 + *(v3 + 16) * v8)) = *(v9 + 4 * (*(a2 + 20) * v11 + *(a2 + 16) * v8));
               ++v11;
-              v10 = v3[3];
+              v10 = *(v3 + 12);
             }
 
             while (v11 < v10);
-            v7 = v3[2];
+            v7 = *(v3 + 8);
           }
 
           ++v8;
@@ -2172,27 +2101,27 @@ uint64_t PCGenMatrix<int>::PCGenMatrix(uint64_t a1, uint64_t a2, uint64_t a3, ui
   if ((a3 & 0x80000000) != 0)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::ssprintf("PCGenMatrix number of rows %d must be nonnegative", &v16, a3);
-    PCException::PCException(exception, &v16);
+    PCString::ssprintf(&v18, "PCGenMatrix number of rows %d must be nonnegative", v15, a3);
+    PCException::PCException(exception, &v18);
     *exception = &unk_2872074D0;
   }
 
   if ((a4 & 0x80000000) != 0)
   {
-    v15 = __cxa_allocate_exception(0x40uLL);
-    PCString::ssprintf("PCGenMatrix number of cols %d must be nonnegative", &v16, a4);
-    PCException::PCException(v15, &v16);
-    *v15 = &unk_2872074D0;
+    v16 = __cxa_allocate_exception(0x40uLL);
+    PCString::ssprintf(&v18, "PCGenMatrix number of cols %d must be nonnegative", v17, a4);
+    PCException::PCException(v16, &v18);
+    *v16 = &unk_2872074D0;
   }
 
   *(a1 + 24) = a2;
   if (a6)
   {
-    PCGenMatrix<int>::copy(a1, 0, &v16);
-    var0 = v16.var0;
-    if (&v16 != a1)
+    PCGenMatrix<int>::copy(a1, 0, &v18);
+    var0 = v18.var0;
+    if (&v18 != a1)
     {
-      *(a1 + 8) = v17;
+      *(a1 + 8) = v19;
       if (*a1 != var0)
       {
         PCGenBlockRef<double>::deref(a1);
@@ -2203,8 +2132,8 @@ uint64_t PCGenMatrix<int>::PCGenMatrix(uint64_t a1, uint64_t a2, uint64_t a3, ui
         }
       }
 
-      var0 = v16.var0;
-      *(a1 + 24) = v18;
+      var0 = v18.var0;
+      *(a1 + 24) = v20;
     }
 
     if (var0)
@@ -2221,7 +2150,7 @@ uint64_t PCGenMatrix<int>::PCGenMatrix(uint64_t a1, uint64_t a2, uint64_t a3, ui
   return a1;
 }
 
-void sub_25FFA8FEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, PCString a11)
+void sub_25FFA8FEC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, PCString a11)
 {
   if (a11.var0)
   {
@@ -2229,7 +2158,7 @@ void sub_25FFA8FEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     HIDWORD(a11.var0[-1].length) = v13;
     if (!v13)
     {
-      MEMORY[0x2666E9ED0](&a11.var0[-1].length, 0x1000C8077774924);
+      MEMORY[0x2666E9ED0](&a11.var0[-1].length, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -2237,7 +2166,7 @@ void sub_25FFA8FEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_DWORD *PCGenMatrix<int>::copy@<X0>(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+uint64_t PCGenMatrix<int>::copy@<X0>(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
   v6 = *(a1 + 8);
   v7 = *(a1 + 12);
@@ -2270,15 +2199,15 @@ _DWORD *PCGenMatrix<int>::copy@<X0>(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<
   return PCGenMatrix<int>::set<int>(a3, a1);
 }
 
-void *PCGenBlockRef<int>::PCGenBlockRef(void *result, int a2)
+void *PCGenBlockRef<int>::PCGenBlockRef(void *a1, int a2)
 {
   if (a2)
   {
     operator new[]();
   }
 
-  *result = 0;
-  return result;
+  *a1 = 0;
+  return a1;
 }
 
 uint64_t PCGenVector<int>::PCGenVector(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
@@ -2289,22 +2218,22 @@ uint64_t PCGenVector<int>::PCGenVector(uint64_t a1, uint64_t a2, uint64_t a3, in
   if ((a3 & 0x80000000) != 0)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::ssprintf("PCGenVector length %d must be nonnegative", &v10, a3);
-    PCException::PCException(exception, &v10);
+    PCString::ssprintf(&v11, "PCGenVector length %d must be nonnegative", v10, a3);
+    PCException::PCException(exception, &v11);
     *exception = &unk_2872074D0;
   }
 
   *(a1 + 16) = a2;
   if (a4)
   {
-    PCGenBlockRef<int>::PCGenBlockRef(&v10, a3);
-    v11 = a3 | 0x100000000;
-    var0 = v10.var0;
-    PCGenVector<int>::set<int>(&v10, a1);
-    v6 = v10.var0;
-    if (&v10 != a1)
+    PCGenBlockRef<int>::PCGenBlockRef(&v11, a3);
+    v12 = a3 | 0x100000000;
+    var0 = v11.var0;
+    PCGenVector<int>::set<int>(&v11, a1);
+    v6 = v11.var0;
+    if (&v11 != a1)
     {
-      *(a1 + 8) = v11;
+      *(a1 + 8) = v12;
       if (*a1 != v6)
       {
         PCGenBlockRef<double>::deref(a1);
@@ -2315,7 +2244,7 @@ uint64_t PCGenVector<int>::PCGenVector(uint64_t a1, uint64_t a2, uint64_t a3, in
         }
       }
 
-      v6 = v10.var0;
+      v6 = v11.var0;
       *(a1 + 16) = var0;
     }
 
@@ -2333,7 +2262,7 @@ uint64_t PCGenVector<int>::PCGenVector(uint64_t a1, uint64_t a2, uint64_t a3, in
   return a1;
 }
 
-void sub_25FFA92D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10)
+void sub_25FFA92D0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, PCString a10)
 {
   if (a10.var0)
   {
@@ -2341,7 +2270,7 @@ void sub_25FFA92D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     HIDWORD(a10.var0[-1].length) = v12;
     if (!v12)
     {
-      MEMORY[0x2666E9ED0](&a10.var0[-1].length, 0x1000C8077774924);
+      MEMORY[0x2666E9ED0](&a10.var0[-1].length, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -2357,8 +2286,8 @@ uint64_t PCGenVector<int>::set<int>(uint64_t a1, uint64_t a2)
     if (v4 != *(a2 + 8))
     {
       exception = __cxa_allocate_exception(0x40uLL);
-      PCString::ssprintf("PCGenVector length mismatch %d != %d", &v16, *(a1 + 8), *(a2 + 8));
-      PCException::PCException(exception, &v16);
+      PCString::ssprintf(&v17, "PCGenVector length mismatch %d != %d", v16, *(a1 + 8), *(a2 + 8));
+      PCException::PCException(exception, &v17);
       *exception = &unk_2872074D0;
     }
 
@@ -2374,11 +2303,11 @@ uint64_t PCGenVector<int>::set<int>(uint64_t a1, uint64_t a2)
 
     if (v5)
     {
-      PCGenBlockRef<int>::PCGenBlockRef(&v16, *(a1 + 8));
-      v17 = v4;
-      v18 = 1;
-      var0 = v16.var0;
-      PCGenVector<int>::set<int>(&v16, a2);
+      PCGenBlockRef<int>::PCGenBlockRef(&v17, *(a1 + 8));
+      v18 = v4;
+      v19 = 1;
+      var0 = v17.var0;
+      PCGenVector<int>::set<int>(&v17, a2);
       if (*(a1 + 8) >= 1)
       {
         v9 = 0;
@@ -2386,18 +2315,18 @@ uint64_t PCGenVector<int>::set<int>(uint64_t a1, uint64_t a2)
         v11 = *(a1 + 16);
         do
         {
-          *(v11 + 4 * *(a1 + 12) * v9) = *(&v10->isa + v18 * v9);
+          *(v11 + 4 * *(a1 + 12) * v9) = *(&v10->isa + v19 * v9);
           ++v9;
         }
 
         while (v9 < *(a1 + 8));
       }
 
-      v12 = v16.var0;
-      if (v16.var0)
+      v12 = v17.var0;
+      if (v17.var0)
       {
-        v13 = HIDWORD(v16.var0[-1].length) - 1;
-        HIDWORD(v16.var0[-1].length) = v13;
+        v13 = HIDWORD(v17.var0[-1].length) - 1;
+        HIDWORD(v17.var0[-1].length) = v13;
         if (!v13)
         {
           MEMORY[0x2666E9ED0](&v12[-1].length, 0x1000C8077774924);
@@ -2535,17 +2464,17 @@ LABEL_25:
   return result;
 }
 
-_DWORD *PCGenMatrix<int>::resize(_DWORD *result, int a2, int a3, int a4)
+uint64_t *PCGenMatrix<int>::resize(uint64_t *result, int a2, int a3, int a4)
 {
   v6 = result;
-  v8 = result[2];
-  v7 = result[3];
+  v8 = *(result + 2);
+  v7 = *(result + 3);
   v10 = v8 != a2 || v7 != a3;
   if (a4)
   {
     if (a4 == 1)
     {
-      if (result[5] == 1 && result[4] == v7 && !v10)
+      if (*(result + 5) == 1 && *(result + 4) == v7 && !v10)
       {
         return result;
       }
@@ -2561,7 +2490,7 @@ _DWORD *PCGenMatrix<int>::resize(_DWORD *result, int a2, int a3, int a4)
 
   else
   {
-    if (result[4] == 1 && result[5] == v8 && !v10)
+    if (*(result + 4) == 1 && *(result + 5) == v8 && !v10)
     {
       return result;
     }
@@ -2592,10 +2521,10 @@ _DWORD *PCGenMatrix<int>::resize(_DWORD *result, int a2, int a3, int a4)
   }
 
   *(&v33 + 1) = __PAIR64__(v13, v12);
-  v14 = *(v6 + 12);
-  if (a2 >= *(v6 + 8))
+  v14 = *(v6 + 3);
+  if (a2 >= *(v6 + 2))
   {
-    v15 = *(v6 + 8);
+    v15 = *(v6 + 2);
   }
 
   else
@@ -2657,7 +2586,7 @@ _DWORD *PCGenMatrix<int>::resize(_DWORD *result, int a2, int a3, int a4)
 
   if (&v32 != v6)
   {
-    *(v6 + 8) = v33;
+    *(v6 + 1) = v33;
     if (*v6 != v16)
     {
       result = PCGenBlockRef<double>::deref(v6);
@@ -2669,7 +2598,7 @@ _DWORD *PCGenMatrix<int>::resize(_DWORD *result, int a2, int a3, int a4)
     }
 
     v16 = v32;
-    *(v6 + 24) = v34;
+    v6[3] = v34;
   }
 
   if (v16)
@@ -2685,7 +2614,7 @@ _DWORD *PCGenMatrix<int>::resize(_DWORD *result, int a2, int a3, int a4)
   return result;
 }
 
-void sub_25FFA9914(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+void sub_25FFA9914(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   v19 = *(v17 - 80);
   if (v19)
@@ -2694,14 +2623,14 @@ void sub_25FFA9914(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     *(v19 - 4) = v20;
     if (!v20)
     {
-      MEMORY[0x2666E9ED0](v19 - 8, 0x1000C8077774924);
+      MEMORY[0x2666E9ED0](v19 - 8, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t PCGenMatrix<int>::operator()@<X0>(uint64_t a1@<X0>, unsigned int *a2@<X1>, unsigned int *a3@<X2>, uint64_t a4@<X8>)
+uint64_t PCGenMatrix<int>::operator()@<X0>(uint64_t *a1@<X0>, unsigned int *a2@<X1>, unsigned int *a3@<X2>, uint64_t a4@<X8>)
 {
   PCGenMatrix<BOOL>::checkRowIndex(a1, *a2);
   PCGenMatrix<BOOL>::checkRowIndex(a1, a2[1]);
@@ -2711,9 +2640,9 @@ uint64_t PCGenMatrix<int>::operator()@<X0>(uint64_t a1@<X0>, unsigned int *a2@<X
   v9 = a2[1];
   v12 = *a3;
   v11 = a3[1];
-  v13 = *(a1 + 16);
-  v14 = *(a1 + 20);
-  v15 = *(a1 + 24);
+  v13 = *(a1 + 4);
+  v14 = *(a1 + 5);
+  v15 = a1[3];
   v16 = *a1;
   *a4 = *a1;
   if (v16)
@@ -2731,7 +2660,7 @@ uint64_t PCGenMatrix<int>::operator()@<X0>(uint64_t a1@<X0>, unsigned int *a2@<X
 
 BOOL ProShade::Multiply::computeBinaryType<double>(double *a1, double *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v123 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   if (!ProShade::shapeIsMatrix(*(a3 + 4)) || !ProShade::shapeIsVector(*(a4 + 4)) || (v11 = ProShade::shapeGetWidth(*(a3 + 4), v10), v11 != ProShade::shapeGetWidth(*(a4 + 4), v12)))
   {
     IsVector = ProShade::shapeIsVector(*(a3 + 4));
@@ -2741,21 +2670,21 @@ BOOL ProShade::Multiply::computeBinaryType<double>(double *a1, double *a2, uint6
       Width = ProShade::shapeGetWidth(*(a3 + 4), v24);
       if (Width > 4)
       {
-        PCGenVector<double>::PCGenVector(&v118, a1, Width, 0);
+        PCGenVector<double>::PCGenVector(&v122, a1, Width, 0);
         v53 = *a2;
-        v54 = v119;
-        PCGenBlockRef<double>::PCGenBlockRef(&v113, v119);
-        v114 = v54;
-        v115 = 1;
-        v55 = v113;
-        v116 = v113;
-        v56 = v121;
-        v57 = v119;
-        if (v120 == 1)
+        v54 = v123;
+        PCGenBlockRef<double>::PCGenBlockRef(&v117, v123);
+        v118 = v54;
+        v119 = 1;
+        v55 = v117;
+        v120 = v117;
+        v56 = v125;
+        v57 = v123;
+        if (v124 == 1)
         {
-          if (v119 >= 1)
+          if (v123 >= 1)
           {
-            v58 = v113;
+            v58 = v117;
             do
             {
               v59 = *v56++;
@@ -2767,14 +2696,14 @@ BOOL ProShade::Multiply::computeBinaryType<double>(double *a1, double *a2, uint6
           }
         }
 
-        else if (v119 >= 1)
+        else if (v123 >= 1)
         {
-          v82 = 8 * v120;
-          v83 = v113;
+          v86 = 8 * v124;
+          v87 = v117;
           do
           {
-            *v83++ = v53 * *v56;
-            v56 = (v56 + v82);
+            *v87++ = v53 * *v56;
+            v56 = (v56 + v86);
             --v57;
           }
 
@@ -2783,19 +2712,19 @@ BOOL ProShade::Multiply::computeBinaryType<double>(double *a1, double *a2, uint6
 
         ProShade::Value::set(a5, 3, *(a3 + 4), v55);
 LABEL_72:
-        v93 = v113;
-        if (v113)
+        v97 = v117;
+        if (v117)
         {
-          v94 = *(v113 - 1) - 1;
-          *(v113 - 1) = v94;
-          if (!v94)
+          v98 = *(v117 - 1) - 1;
+          *(v117 - 1) = v98;
+          if (!v98)
           {
-            MEMORY[0x2666E9ED0](v93 - 1, 0x1000C8077774924);
+            MEMORY[0x2666E9ED0](v97 - 1, 0x1000C8077774924);
           }
         }
 
-        v95 = v118;
-        if (!v118)
+        v99 = v122;
+        if (!v122)
         {
           return 1;
         }
@@ -2807,7 +2736,7 @@ LABEL_72:
       {
         v37 = *a2;
         v38 = Width;
-        v39 = &v118;
+        v39 = &v122;
         do
         {
           v40 = *a1++;
@@ -2832,7 +2761,7 @@ LABEL_72:
           {
             v32 = *a1;
             v33 = v31;
-            v34 = &v118;
+            v34 = &v122;
             do
             {
               v35 = *a2++;
@@ -2846,47 +2775,47 @@ LABEL_72:
           goto LABEL_10;
         }
 
-        PCGenVector<double>::PCGenVector(&v118, a2, v31, 0);
-        v75 = *a1;
-        v76 = v119;
-        PCGenBlockRef<double>::PCGenBlockRef(&v113, v119);
-        v114 = v76;
-        v115 = 1;
-        v77 = v113;
-        v116 = v113;
-        v78 = v121;
-        v79 = v119;
-        if (v120 == 1)
+        PCGenVector<double>::PCGenVector(&v122, a2, v31, 0);
+        v79 = *a1;
+        v80 = v123;
+        PCGenBlockRef<double>::PCGenBlockRef(&v117, v123);
+        v118 = v80;
+        v119 = 1;
+        v81 = v117;
+        v120 = v117;
+        v82 = v125;
+        v83 = v123;
+        if (v124 == 1)
         {
-          if (v119 >= 1)
+          if (v123 >= 1)
           {
-            v80 = v113;
+            v84 = v117;
             do
             {
-              v81 = *v78++;
-              *v80++ = v75 * v81;
-              --v79;
+              v85 = *v82++;
+              *v84++ = v79 * v85;
+              --v83;
             }
 
-            while (v79);
+            while (v83);
           }
         }
 
-        else if (v119 >= 1)
+        else if (v123 >= 1)
         {
-          v85 = 8 * v120;
-          v86 = v113;
+          v89 = 8 * v124;
+          v90 = v117;
           do
           {
-            *v86++ = v75 * *v78;
-            v78 = (v78 + v85);
-            --v79;
+            *v90++ = v79 * *v82;
+            v82 = (v82 + v89);
+            --v83;
           }
 
-          while (v79);
+          while (v83);
         }
 
-        ProShade::Value::set(a5, 3, *(a4 + 4), v77);
+        ProShade::Value::set(a5, 3, *(a4 + 4), v81);
         goto LABEL_72;
       }
 
@@ -2899,71 +2828,71 @@ LABEL_72:
         }
 
         v62 = ProShade::shapeGetWidth(*(a3 + 4), v61);
-        v63 = v62;
+        v67 = v62;
         if (v62 <= 4)
         {
-          MEMORY[0x28223BE20](v62);
-          v65 = &v102 - ((v64 + 15) & 0xFFFFFFFFFFFFFFF0);
-          if (v63 >= 1)
+          MEMORY[0x28223BE20](v62, v63, v64, v65, v66);
+          v69 = &v106 - ((v68 + 15) & 0xFFFFFFFFFFFFFFF0);
+          if (v67 >= 1)
           {
-            v66 = 0;
-            v67 = 8 * v63;
+            v70 = 0;
+            v71 = 8 * v67;
             do
             {
-              v68 = 0;
-              v69 = a2;
+              v72 = 0;
+              v73 = a2;
               do
               {
-                v70 = 0.0;
-                v71 = v63;
-                v72 = v69;
-                v73 = a1;
+                v74 = 0.0;
+                v75 = v67;
+                v76 = v73;
+                v77 = a1;
                 do
                 {
-                  v74 = *v73++;
-                  v70 = v70 + v74 * *v72;
-                  v72 = (v72 + v67);
-                  --v71;
+                  v78 = *v77++;
+                  v74 = v74 + v78 * *v76;
+                  v76 = (v76 + v71);
+                  --v75;
                 }
 
-                while (v71);
-                *&v65[8 * v66 * v63 + 8 * v68++] = v70;
-                ++v69;
+                while (v75);
+                *&v69[8 * v70 * v67 + 8 * v72++] = v74;
+                ++v73;
               }
 
-              while (v68 != v63);
-              ++v66;
-              a1 = (a1 + v67);
+              while (v72 != v67);
+              ++v70;
+              a1 = (a1 + v71);
             }
 
-            while (v66 != v63);
+            while (v70 != v67);
           }
 
-          ProShade::Value::set(a5, 3, *(a3 + 4), v65);
+          ProShade::Value::set(a5, 3, *(a3 + 4), v69);
           return 1;
         }
 
-        PCGenMatrix<double>::PCGenMatrix(&v118, a1, v62, v62, 1, 0);
-        PCGenMatrix<double>::PCGenMatrix(&v113, a2, v63, v63, 1, 0);
-        PCGenMatrix<double>::PCGenMatrix(&v109, a5 + 16, v63, v63, 1, 0);
-        v87 = v119;
-        v88 = v115;
-        PCGenBlockRef<double>::PCGenBlockRef(&v103, v115 * v119);
-        v104 = v87;
-        v105 = v88;
-        v106 = 1;
-        v107 = v87;
-        v108 = v103;
-        MMultiplyMatrices<double>(v119, v120, v115, v122, v121, SHIDWORD(v121), v117, v116, SHIDWORD(v116), v103, 1, v87);
-        PCGenMatrix<double>::set<double>(&v109, &v103);
-        v89 = v103;
-        if (v103)
+        PCGenMatrix<double>::PCGenMatrix(&v122, a1, v62, v62, 1, 0);
+        PCGenMatrix<double>::PCGenMatrix(&v117, a2, v67, v67, 1, 0);
+        PCGenMatrix<double>::PCGenMatrix(&v113, a5 + 16, v67, v67, 1, 0);
+        v91 = v123;
+        v92 = v119;
+        PCGenBlockRef<double>::PCGenBlockRef(&v107, v119 * v123);
+        v108 = v91;
+        v109 = v92;
+        v110 = 1;
+        v111 = v91;
+        v112 = v107;
+        MMultiplyMatrices<double>(v123, v124, v119, v126, v125, SHIDWORD(v125), v121, v120, SHIDWORD(v120), v107, 1, v91);
+        PCGenMatrix<double>::set<double>(&v113, &v107);
+        v93 = v107;
+        if (v107)
         {
-          v90 = *(v103 - 4) - 1;
-          *(v103 - 4) = v90;
-          if (!v90)
+          v94 = *(v107 - 4) - 1;
+          *(v107 - 4) = v94;
+          if (!v94)
           {
-            MEMORY[0x2666E9ED0](v89 - 8, 0x1000C8077774924);
+            MEMORY[0x2666E9ED0](v93 - 8, 0x1000C8077774924);
           }
         }
 
@@ -2974,49 +2903,49 @@ LABEL_72:
       v46 = v45;
       if (v45 > 4)
       {
-        PCGenVector<double>::PCGenVector(&v113, a1, v45, 0);
-        PCGenMatrix<double>::PCGenMatrix(&v118, a2, v46, v46, 1, 0);
-        v97 = v120;
-        PCGenBlockRef<double>::PCGenBlockRef(&v109, v120);
-        v110 = v97;
-        v111 = 1;
-        v112 = v109;
-        MMultiplyMatrices<double>(1, v114, v120, v116, 1, v115, v122, v121, SHIDWORD(v121), v109, 1, 1);
-        ProShade::Value::set(a5, 3, *(a3 + 4), v112);
-        v98 = v109;
-        if (v109)
+        PCGenVector<double>::PCGenVector(&v117, a1, v45, 0);
+        PCGenMatrix<double>::PCGenMatrix(&v122, a2, v46, v46, 1, 0);
+        v101 = v124;
+        PCGenBlockRef<double>::PCGenBlockRef(&v113, v124);
+        v114 = v101;
+        v115 = 1;
+        v116 = v113;
+        MMultiplyMatrices<double>(1, v118, v124, v120, 1, v119, v126, v125, SHIDWORD(v125), v113, 1, 1);
+        ProShade::Value::set(a5, 3, *(a3 + 4), v116);
+        v102 = v113;
+        if (v113)
         {
-          v99 = *(v109 - 1) - 1;
-          *(v109 - 1) = v99;
-          if (!v99)
+          v103 = *(v113 - 1) - 1;
+          *(v113 - 1) = v103;
+          if (!v103)
           {
-            MEMORY[0x2666E9ED0](v98 - 8, 0x1000C8077774924);
+            MEMORY[0x2666E9ED0](v102 - 8, 0x1000C8077774924);
           }
         }
 
-        v100 = v118;
-        if (v118)
+        v104 = v122;
+        if (v122)
         {
-          v101 = *(v118 - 1) - 1;
-          *(v118 - 1) = v101;
-          if (!v101)
+          v105 = *(v122 - 1) - 1;
+          *(v122 - 1) = v105;
+          if (!v105)
           {
-            MEMORY[0x2666E9ED0](v100 - 1, 0x1000C8077774924);
+            MEMORY[0x2666E9ED0](v104 - 1, 0x1000C8077774924);
           }
         }
 
-        v95 = v113;
-        if (!v113)
+        v99 = v117;
+        if (!v117)
         {
           return 1;
         }
 
 LABEL_76:
-        v96 = *(v95 - 1) - 1;
-        *(v95 - 1) = v96;
-        if (!v96)
+        v100 = *(v99 - 1) - 1;
+        *(v99 - 1) = v100;
+        if (!v100)
         {
-          MEMORY[0x2666E9ED0](v95 - 1, 0x1000C8077774924);
+          MEMORY[0x2666E9ED0](v99 - 1, 0x1000C8077774924);
         }
 
         return 1;
@@ -3040,7 +2969,7 @@ LABEL_76:
           }
 
           while (v49);
-          *&(&v118)[v47++] = v48;
+          *&(&v122)[v47++] = v48;
           ++a2;
         }
 
@@ -3048,7 +2977,7 @@ LABEL_76:
       }
     }
 
-    ProShade::Value::set(a5, 3, *(a3 + 4), &v118);
+    ProShade::Value::set(a5, 3, *(a3 + 4), &v122);
     return 1;
   }
 
@@ -3056,24 +2985,24 @@ LABEL_76:
   v15 = v14;
   if (v14 > 4)
   {
-    PCGenMatrix<double>::PCGenMatrix(&v118, a1, v14, v14, 1, 0);
-    PCGenVector<double>::PCGenVector(&v113, a2, v15, 0);
-    v84 = v119;
-    PCGenBlockRef<double>::PCGenBlockRef(&v109, v119);
-    v110 = v84;
-    v111 = 1;
-    v112 = v109;
-    MMultiplyMatrices<double>(v119, v120, 1, v122, v121, SHIDWORD(v121), v116, v115, 1, v109, 1, 1);
-    ProShade::Value::set(a5, 3, *(a4 + 4), v112);
+    PCGenMatrix<double>::PCGenMatrix(&v122, a1, v14, v14, 1, 0);
+    PCGenVector<double>::PCGenVector(&v117, a2, v15, 0);
+    v88 = v123;
+    PCGenBlockRef<double>::PCGenBlockRef(&v113, v123);
+    v114 = v88;
+    v115 = 1;
+    v116 = v113;
+    MMultiplyMatrices<double>(v123, v124, 1, v126, v125, SHIDWORD(v125), v120, v119, 1, v113, 1, 1);
+    ProShade::Value::set(a5, 3, *(a4 + 4), v116);
 LABEL_69:
-    v91 = v109;
-    if (v109)
+    v95 = v113;
+    if (v113)
     {
-      v92 = *(v109 - 1) - 1;
-      *(v109 - 1) = v92;
-      if (!v92)
+      v96 = *(v113 - 1) - 1;
+      *(v113 - 1) = v96;
+      if (!v96)
       {
-        MEMORY[0x2666E9ED0](v91 - 8, 0x1000C8077774924);
+        MEMORY[0x2666E9ED0](v95 - 8, 0x1000C8077774924);
       }
     }
 
@@ -3099,7 +3028,7 @@ LABEL_69:
       }
 
       while (v18);
-      *&(&v118)[v16++] = v17;
+      *&(&v122)[v16++] = v17;
       a1 += v14;
     }
 
@@ -3107,7 +3036,7 @@ LABEL_69:
   }
 
 LABEL_10:
-  ProShade::Value::set(a5, 3, *(a4 + 4), &v118);
+  ProShade::Value::set(a5, 3, *(a4 + 4), &v122);
   return 1;
 }
 
@@ -3179,27 +3108,27 @@ uint64_t PCGenMatrix<double>::PCGenMatrix(uint64_t a1, uint64_t a2, uint64_t a3,
   if ((a3 & 0x80000000) != 0)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::ssprintf("PCGenMatrix number of rows %d must be nonnegative", &v16, a3);
-    PCException::PCException(exception, &v16);
+    PCString::ssprintf(&v18, "PCGenMatrix number of rows %d must be nonnegative", v15, a3);
+    PCException::PCException(exception, &v18);
     *exception = &unk_2872074D0;
   }
 
   if ((a4 & 0x80000000) != 0)
   {
-    v15 = __cxa_allocate_exception(0x40uLL);
-    PCString::ssprintf("PCGenMatrix number of cols %d must be nonnegative", &v16, a4);
-    PCException::PCException(v15, &v16);
-    *v15 = &unk_2872074D0;
+    v16 = __cxa_allocate_exception(0x40uLL);
+    PCString::ssprintf(&v18, "PCGenMatrix number of cols %d must be nonnegative", v17, a4);
+    PCException::PCException(v16, &v18);
+    *v16 = &unk_2872074D0;
   }
 
   *(a1 + 24) = a2;
   if (a6)
   {
-    PCGenMatrix<double>::copy(a1, 0, &v16);
-    var0 = v16.var0;
-    if (&v16 != a1)
+    PCGenMatrix<double>::copy(a1, 0, &v18);
+    var0 = v18.var0;
+    if (&v18 != a1)
     {
-      *(a1 + 8) = v17;
+      *(a1 + 8) = v19;
       if (*a1 != var0)
       {
         PCGenBlockRef<double>::deref(a1);
@@ -3210,8 +3139,8 @@ uint64_t PCGenMatrix<double>::PCGenMatrix(uint64_t a1, uint64_t a2, uint64_t a3,
         }
       }
 
-      var0 = v16.var0;
-      *(a1 + 24) = v18;
+      var0 = v18.var0;
+      *(a1 + 24) = v20;
     }
 
     if (var0)
@@ -3228,7 +3157,7 @@ uint64_t PCGenMatrix<double>::PCGenMatrix(uint64_t a1, uint64_t a2, uint64_t a3,
   return a1;
 }
 
-void sub_25FFAA5D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, PCString a11)
+void sub_25FFAA5D8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, PCString a11)
 {
   if (a11.var0)
   {
@@ -3236,7 +3165,7 @@ void sub_25FFAA5D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     HIDWORD(a11.var0[-1].length) = v13;
     if (!v13)
     {
-      MEMORY[0x2666E9ED0](&a11.var0[-1].length, 0x1000C8077774924);
+      MEMORY[0x2666E9ED0](&a11.var0[-1].length, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -3252,22 +3181,22 @@ uint64_t PCGenVector<double>::PCGenVector(uint64_t a1, uint64_t a2, uint64_t a3,
   if ((a3 & 0x80000000) != 0)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::ssprintf("PCGenVector length %d must be nonnegative", &v10, a3);
-    PCException::PCException(exception, &v10);
+    PCString::ssprintf(&v11, "PCGenVector length %d must be nonnegative", v10, a3);
+    PCException::PCException(exception, &v11);
     *exception = &unk_2872074D0;
   }
 
   *(a1 + 16) = a2;
   if (a4)
   {
-    PCGenBlockRef<double>::PCGenBlockRef(&v10, a3);
-    v11 = a3 | 0x100000000;
-    var0 = v10.var0;
-    PCGenVector<double>::set<double>(&v10, a1);
-    v6 = v10.var0;
-    if (&v10 != a1)
+    PCGenBlockRef<double>::PCGenBlockRef(&v11, a3);
+    v12 = a3 | 0x100000000;
+    var0 = v11.var0;
+    PCGenVector<double>::set<double>(&v11, a1);
+    v6 = v11.var0;
+    if (&v11 != a1)
     {
-      *(a1 + 8) = v11;
+      *(a1 + 8) = v12;
       if (*a1 != v6)
       {
         PCGenBlockRef<double>::deref(a1);
@@ -3278,7 +3207,7 @@ uint64_t PCGenVector<double>::PCGenVector(uint64_t a1, uint64_t a2, uint64_t a3,
         }
       }
 
-      v6 = v10.var0;
+      v6 = v11.var0;
       *(a1 + 16) = var0;
     }
 
@@ -3296,7 +3225,7 @@ uint64_t PCGenVector<double>::PCGenVector(uint64_t a1, uint64_t a2, uint64_t a3,
   return a1;
 }
 
-void sub_25FFAA7C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10)
+void sub_25FFAA7C0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, PCString a10)
 {
   if (a10.var0)
   {
@@ -3304,7 +3233,7 @@ void sub_25FFAA7C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     HIDWORD(a10.var0[-1].length) = v12;
     if (!v12)
     {
-      MEMORY[0x2666E9ED0](&a10.var0[-1].length, 0x1000C8077774924);
+      MEMORY[0x2666E9ED0](&a10.var0[-1].length, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -3690,12 +3619,12 @@ int8x8_t *ProShade::BinaryOp<ProShade::Multiply>::computeHash(uint64_t a1, int8x
   return PCHashWriteStream::writeValue(this, &v5);
 }
 
-void ProShade::BinaryOp<ProShade::Multiply>::apply(PCShared_base *a1@<X0>, void (***a2)(void *__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
+void ProShade::BinaryOp<ProShade::Multiply>::apply(uint64_t a1@<X0>, void (***a2)(void **__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
 {
   v9[1] = *MEMORY[0x277D85DE8];
   (**a2)(v8, a2, a1 + 48);
   (**a2)(v6, a2, a1 + 80);
-  if (v8[2] != *(a1 + 8) || v6[2] != *(a1 + 12))
+  if (v8[2] != *(a1 + 64) || v6[2] != *(a1 + 96))
   {
     operator new();
   }
@@ -3707,17 +3636,17 @@ void ProShade::BinaryOp<ProShade::Multiply>::apply(PCShared_base *a1@<X0>, void 
   PCSharedCount::~PCSharedCount(v9);
 }
 
-void sub_25FFAB63C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FFAB63C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7.var0 = va_arg(va1, PC_Sp_counted_base *);
-  v9 = va_arg(va1, void *);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  MEMORY[0x2666E9F00](v5, 0x10B1C403815D87CLL);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11.var0 = va_arg(va1, PC_Sp_counted_base *);
+  v13 = va_arg(va1, void *);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  MEMORY[0x2666E9F00](v9, 0x10B1C403815D87CLL, a3, a4, a5);
   PCSharedCount::~PCSharedCount(va);
-  v9 = &unk_28725E328;
+  v13 = &unk_28725E328;
   PCSharedCount::~PCSharedCount(va1);
   _Unwind_Resume(a1);
 }
@@ -3777,7 +3706,7 @@ void virtual thunk toProShade::BinaryOp<ProShade::Multiply>::~BinaryOp(void *a1)
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t ProShade::BinaryOp<ProShade::Multiply>::BinaryOp(uint64_t a1, PCShared_base *a2, PCShared_base *a3, int a4)
+uint64_t ProShade::BinaryOp<ProShade::Multiply>::BinaryOp(uint64_t a1, PC_Sp_counted_base *a2, PC_Sp_counted_base *a3, int a4)
 {
   *(a1 + 112) = &unk_2872DEA38;
   *(a1 + 120) = 0;
@@ -3924,7 +3853,7 @@ void sub_25FFABE10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ProShade::BinaryOp<ProShade::Divide>::BinaryOp(uint64_t a1, PCShared_base *a2, PCShared_base *a3)
+uint64_t ProShade::BinaryOp<ProShade::Divide>::BinaryOp(uint64_t a1, PC_Sp_counted_base *a2, PC_Sp_counted_base *a3)
 {
   *(a1 + 112) = &unk_2872DEA38;
   *(a1 + 120) = 0;
@@ -3979,26 +3908,26 @@ void sub_25FFAC050(_Unwind_Exception *a1)
 
 BOOL ProShade::computeBinaryType<ProShade::Divide,BOOL>(const PCString *a1, const PCString *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   Size = ProShade::shapeGetSize(HIDWORD(a1->var0), a2);
   v8 = ProShade::shapeGetSize(HIDWORD(a2->var0), v7);
-  v10 = v8;
+  v13 = v8;
   var0_low = LODWORD(a1->var0);
   if (var0_low != 1)
   {
-    MEMORY[0x28223BE20](v8);
-    v13 = &v24 - v12;
-    bzero(&v24 - v12, v14);
-    v8 = ProShade::copyData(var0_low, a1 + 2, 1, v13, Size);
+    MEMORY[0x28223BE20](v8, Size, v10, v11, v12);
+    v16 = &v27 - v15;
+    bzero(&v27 - v15, v17);
+    v8 = ProShade::copyData(var0_low, a1 + 2, 1, v16, Size);
   }
 
-  v15 = LODWORD(a2->var0);
-  if (v15 != 1)
+  v18 = LODWORD(a2->var0);
+  if (v18 != 1)
   {
-    MEMORY[0x28223BE20](v8);
-    v17 = &v24 - v16;
-    bzero(&v24 - v16, v18);
-    ProShade::copyData(v15, a2 + 2, 1, v17, v10);
+    MEMORY[0x28223BE20](v8, v13, v10, v11, v12);
+    v20 = &v27 - v19;
+    bzero(&v27 - v19, v21);
+    ProShade::copyData(v18, a2 + 2, 1, v20, v13);
   }
 
   var0_high = HIDWORD(a1->var0);
@@ -4009,19 +3938,19 @@ BOOL ProShade::computeBinaryType<ProShade::Divide,BOOL>(const PCString *a1, cons
 
   ProShade::Value::set(a3, 1, var0_high);
   result = ProShade::shapeIsVector(HIDWORD(a1->var0));
-  v22 = HIDWORD(a1->var0) == 1 || result;
-  if (v22 != 1)
+  v25 = HIDWORD(a1->var0) == 1 || result;
+  if (v25 != 1)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(&v26, "not implemented yet");
-    PCString::PCString(&v25, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-    PCException::PCException(exception, &v26, &v25, 426);
+    PCString::PCString(&v29, "not implemented yet");
+    PCString::PCString(&v28, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+    PCException::PCException(exception, &v29, &v28, 426);
     *exception = &unk_2871F6178;
   }
 
   if (Size >= 1)
   {
-    ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("/ operator doesn't apply to BOOL", v21);
+    ProShade::Error<PCIllegalArgumentException>::raise<char [33]>("/ operator doesn't apply to BOOL", v24);
   }
 
   return result;
@@ -4039,74 +3968,74 @@ void sub_25FFAC2FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-BOOL ProShade::computeBinaryType<ProShade::Divide,int>(unsigned int *a1, unsigned int *a2, uint64_t a3)
+BOOL ProShade::computeBinaryType<ProShade::Divide,int>(const PCString *a1, const PCString *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  Size = ProShade::shapeGetSize(a1[1], a2);
-  v8 = ProShade::shapeGetSize(a2[1], v7);
-  v10 = v8;
-  v11 = *a1;
-  if (v11 == 2)
+  v34 = *MEMORY[0x277D85DE8];
+  Size = ProShade::shapeGetSize(HIDWORD(a1->var0), a2);
+  v8 = ProShade::shapeGetSize(HIDWORD(a2->var0), v7);
+  v13 = v8;
+  var0_low = LODWORD(a1->var0);
+  if (var0_low == 2)
   {
-    v12 = (a1 + 4);
+    v15 = &a1[2];
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v12 = &v28 - v13;
-    bzero(&v28 - v13, v14);
-    v8 = ProShade::copyData(v11, a1 + 2, 2, v12, Size);
+    MEMORY[0x28223BE20](v8, 4 * Size, v10, v11, v12);
+    v15 = &v31 - v16;
+    bzero(&v31 - v16, v17);
+    v8 = ProShade::copyData(var0_low, a1 + 2, 2, v15, Size);
   }
 
-  v15 = *a2;
-  if (v15 == 2)
+  v18 = LODWORD(a2->var0);
+  if (v18 == 2)
   {
-    v16 = (a2 + 4);
+    v19 = &a2[2];
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v16 = &v28 - v17;
-    bzero(&v28 - v17, v18);
-    ProShade::copyData(v15, a2 + 2, 2, v16, v10);
+    MEMORY[0x28223BE20](v8, 4 * v13, v10, v11, v12);
+    v19 = &v31 - v20;
+    bzero(&v31 - v20, v21);
+    ProShade::copyData(v18, a2 + 2, 2, v19, v13);
   }
 
-  v19 = a1[1];
-  if (v19 != a2[1])
+  var0_high = HIDWORD(a1->var0);
+  if (var0_high != HIDWORD(a2->var0))
   {
     ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v9);
   }
 
-  ProShade::Value::set(a3, 2, v19);
-  result = ProShade::shapeIsVector(a1[1]);
-  v21 = a1[1] == 1 || result;
-  if (v21 != 1)
+  ProShade::Value::set(a3, 2, var0_high);
+  result = ProShade::shapeIsVector(HIDWORD(a1->var0));
+  v24 = HIDWORD(a1->var0) == 1 || result;
+  if (v24 != 1)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(&v30, "not implemented yet");
-    PCString::PCString(&v29, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-    PCException::PCException(exception, &v30, &v29, 426);
+    PCString::PCString(&v33, "not implemented yet");
+    PCString::PCString(&v32, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+    PCException::PCException(exception, &v33, &v32, 426);
     *exception = &unk_2871F6178;
   }
 
   if (Size >= 1)
   {
-    v22 = (a3 + 16);
-    v23 = Size;
+    v25 = (a3 + 16);
+    v26 = Size;
     do
     {
-      v25 = *v12;
-      v12 += 4;
-      v24 = v25;
-      v26 = *v16;
-      v16 += 4;
-      *v22++ = v24 / v26;
-      --v23;
+      v28 = *v15;
+      v15 += 4;
+      v27 = v28;
+      v29 = *v19;
+      v19 += 4;
+      *v25++ = v27 / v29;
+      --v26;
     }
 
-    while (v23);
+    while (v26);
   }
 
   return result;
@@ -4126,73 +4055,73 @@ void sub_25FFAC588(_Unwind_Exception *a1)
 
 double ProShade::computeBinaryType<ProShade::Divide,double>(unsigned int *a1, unsigned int *a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   Size = ProShade::shapeGetSize(a1[1], a2);
   v8 = ProShade::shapeGetSize(a2[1], v7);
-  v10 = v8;
-  v11 = *a1;
-  if (v11 == 3)
+  v13 = v8;
+  v14 = *a1;
+  if (v14 == 3)
   {
-    v12 = (a1 + 4);
+    v15 = (a1 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v12 = &v29 - v13;
-    bzero(&v29 - v13, v14);
-    v8 = ProShade::copyData(v11, a1 + 2, 3, v12, Size);
+    MEMORY[0x28223BE20](v8, 8 * Size, v10, v11, v12);
+    v15 = &v32 - v16;
+    bzero(&v32 - v16, v17);
+    v8 = ProShade::copyData(v14, a1 + 2, 3, v15, Size);
   }
 
-  v15 = *a2;
-  if (v15 == 3)
+  v18 = *a2;
+  if (v18 == 3)
   {
-    v16 = (a2 + 4);
+    v19 = (a2 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v16 = &v29 - v17;
-    bzero(&v29 - v17, v18);
-    ProShade::copyData(v15, a2 + 2, 3, v16, v10);
+    MEMORY[0x28223BE20](v8, 8 * v13, v10, v11, v12);
+    v19 = &v32 - v20;
+    bzero(&v32 - v20, v21);
+    ProShade::copyData(v18, a2 + 2, 3, v19, v13);
   }
 
-  v19 = a1[1];
-  if (v19 != a2[1])
+  v22 = a1[1];
+  if (v22 != a2[1])
   {
     ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v9);
   }
 
-  ProShade::Value::set(a3, 3, v19);
+  ProShade::Value::set(a3, 3, v22);
   IsVector = ProShade::shapeIsVector(a1[1]);
-  v22 = a1[1] == 1 || IsVector;
-  if (v22 != 1)
+  v25 = a1[1] == 1 || IsVector;
+  if (v25 != 1)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(&v31, "not implemented yet");
-    PCString::PCString(&v30, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-    PCException::PCException(exception, &v31, &v30, 426);
+    PCString::PCString(&v34, "not implemented yet");
+    PCString::PCString(&v33, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+    PCException::PCException(exception, &v34, &v33, 426);
     *exception = &unk_2871F6178;
   }
 
   if (Size >= 1)
   {
-    v23 = (a3 + 16);
-    v24 = Size;
+    v26 = (a3 + 16);
+    v27 = Size;
     do
     {
-      v25 = *v12;
-      v12 += 8;
-      v26 = v25;
-      v27 = *v16;
-      v16 += 8;
-      result = v26 / v27;
-      *v23++ = result;
-      --v24;
+      v28 = *v15;
+      v15 += 8;
+      v29 = v28;
+      v30 = *v19;
+      v19 += 8;
+      result = v29 / v30;
+      *v26++ = result;
+      --v27;
     }
 
-    while (v24);
+    while (v27);
   }
 
   return result;
@@ -4503,12 +4432,12 @@ int8x8_t *ProShade::BinaryOp<ProShade::Divide>::computeHash(uint64_t a1, int8x8_
   return PCHashWriteStream::writeValue(this, &v5);
 }
 
-void ProShade::BinaryOp<ProShade::Divide>::apply(PCShared_base *a1@<X0>, void (***a2)(void *__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
+void ProShade::BinaryOp<ProShade::Divide>::apply(uint64_t a1@<X0>, void (***a2)(void **__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
 {
   v9[1] = *MEMORY[0x277D85DE8];
   (**a2)(v8, a2, a1 + 48);
   (**a2)(v6, a2, a1 + 80);
-  if (v8[2] != *(a1 + 8) || v6[2] != *(a1 + 12))
+  if (v8[2] != *(a1 + 64) || v6[2] != *(a1 + 96))
   {
     operator new();
   }
@@ -4520,17 +4449,17 @@ void ProShade::BinaryOp<ProShade::Divide>::apply(PCShared_base *a1@<X0>, void (*
   PCSharedCount::~PCSharedCount(v9);
 }
 
-void sub_25FFAD344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FFAD344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7.var0 = va_arg(va1, PC_Sp_counted_base *);
-  v9 = va_arg(va1, void *);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  MEMORY[0x2666E9F00](v5, 0x10B1C403815D87CLL);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11.var0 = va_arg(va1, PC_Sp_counted_base *);
+  v13 = va_arg(va1, void *);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  MEMORY[0x2666E9F00](v9, 0x10B1C403815D87CLL, a3, a4, a5);
   PCSharedCount::~PCSharedCount(va);
-  v9 = &unk_28725E328;
+  v13 = &unk_28725E328;
   PCSharedCount::~PCSharedCount(va1);
   _Unwind_Resume(a1);
 }
@@ -4590,7 +4519,7 @@ void virtual thunk toProShade::BinaryOp<ProShade::Divide>::~BinaryOp(void *a1)
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t ProShade::BinaryOp<ProShade::Divide>::BinaryOp(uint64_t a1, PCShared_base *a2, PCShared_base *a3, int a4)
+uint64_t ProShade::BinaryOp<ProShade::Divide>::BinaryOp(uint64_t a1, PC_Sp_counted_base *a2, PC_Sp_counted_base *a3, int a4)
 {
   *(a1 + 112) = &unk_2872DEA38;
   *(a1 + 120) = 0;
@@ -4947,12 +4876,12 @@ int8x8_t *ProShade::BinaryOp<ProShade::Equals>::computeHash(uint64_t a1, int8x8_
   return PCHashWriteStream::writeValue(this, &v5);
 }
 
-void ProShade::BinaryOp<ProShade::Equals>::apply(PCShared_base *a1@<X0>, void (***a2)(void *__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
+void ProShade::BinaryOp<ProShade::Equals>::apply(uint64_t a1@<X0>, void (***a2)(void **__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
 {
   v9[1] = *MEMORY[0x277D85DE8];
   (**a2)(v8, a2, a1 + 48);
   (**a2)(v6, a2, a1 + 80);
-  if (v8[2] != *(a1 + 8) || v6[2] != *(a1 + 12))
+  if (v8[2] != *(a1 + 64) || v6[2] != *(a1 + 96))
   {
     operator new();
   }
@@ -4964,17 +4893,17 @@ void ProShade::BinaryOp<ProShade::Equals>::apply(PCShared_base *a1@<X0>, void (*
   PCSharedCount::~PCSharedCount(v9);
 }
 
-void sub_25FFAE484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FFAE484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7.var0 = va_arg(va1, PC_Sp_counted_base *);
-  v9 = va_arg(va1, void *);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  MEMORY[0x2666E9F00](v5, 0x10B1C403815D87CLL);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11.var0 = va_arg(va1, PC_Sp_counted_base *);
+  v13 = va_arg(va1, void *);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  MEMORY[0x2666E9F00](v9, 0x10B1C403815D87CLL, a3, a4, a5);
   PCSharedCount::~PCSharedCount(va);
-  v9 = &unk_28725E328;
+  v13 = &unk_28725E328;
   PCSharedCount::~PCSharedCount(va1);
   _Unwind_Resume(a1);
 }
@@ -5034,7 +4963,7 @@ void virtual thunk toProShade::BinaryOp<ProShade::Equals>::~BinaryOp(void *a1)
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t ProShade::BinaryOp<ProShade::Equals>::BinaryOp(uint64_t a1, PCShared_base *a2, PCShared_base *a3, int a4)
+uint64_t ProShade::BinaryOp<ProShade::Equals>::BinaryOp(uint64_t a1, PC_Sp_counted_base *a2, PC_Sp_counted_base *a3, int a4)
 {
   *(a1 + 112) = &unk_2872DEA38;
   *(a1 + 120) = 0;
@@ -5113,70 +5042,70 @@ void sub_25FFAEB4C(_Unwind_Exception *a1)
 
 BOOL ProShade::computeBinaryType<ProShade::Equals,BOOL>(unsigned int *a1, unsigned int *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   Size = ProShade::shapeGetSize(a1[1], a2);
   v8 = ProShade::shapeGetSize(a2[1], v7);
-  v10 = v8;
-  v11 = *a1;
-  if (v11 == 1)
+  v13 = v8;
+  v14 = *a1;
+  if (v14 == 1)
   {
-    v12 = (a1 + 4);
+    v15 = (a1 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v12 = &v28 - v13;
-    bzero(&v28 - v13, v14);
-    v8 = ProShade::copyData(v11, a1 + 2, 1, v12, Size);
+    MEMORY[0x28223BE20](v8, Size, v10, v11, v12);
+    v15 = &v31 - v16;
+    bzero(&v31 - v16, v17);
+    v8 = ProShade::copyData(v14, a1 + 2, 1, v15, Size);
   }
 
-  v15 = *a2;
-  if (v15 == 1)
+  v18 = *a2;
+  if (v18 == 1)
   {
-    v16 = (a2 + 4);
+    v19 = (a2 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v16 = &v28 - v17;
-    bzero(&v28 - v17, v18);
-    ProShade::copyData(v15, a2 + 2, 1, v16, v10);
+    MEMORY[0x28223BE20](v8, v13, v10, v11, v12);
+    v19 = &v31 - v20;
+    bzero(&v31 - v20, v21);
+    ProShade::copyData(v18, a2 + 2, 1, v19, v13);
   }
 
-  v19 = a1[1];
-  if (v19 != a2[1])
+  v22 = a1[1];
+  if (v22 != a2[1])
   {
     ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v9);
   }
 
-  ProShade::Value::set(a3, 1, v19);
+  ProShade::Value::set(a3, 1, v22);
   result = ProShade::shapeIsVector(a1[1]);
-  v21 = a1[1] == 1 || result;
-  if (v21 != 1)
+  v24 = a1[1] == 1 || result;
+  if (v24 != 1)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(&v30, "not implemented yet");
-    PCString::PCString(&v29, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-    PCException::PCException(exception, &v30, &v29, 426);
+    PCString::PCString(&v33, "not implemented yet");
+    PCString::PCString(&v32, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+    PCException::PCException(exception, &v33, &v32, 426);
     *exception = &unk_2871F6178;
   }
 
   if (Size >= 1)
   {
-    v22 = (a3 + 16);
-    v23 = Size;
+    v25 = (a3 + 16);
+    v26 = Size;
     do
     {
-      v25 = *v12++;
-      v24 = v25;
-      v26 = *v16++;
-      *v22++ = v24 == v26;
-      --v23;
+      v28 = *v15++;
+      v27 = v28;
+      v29 = *v19++;
+      *v25++ = v27 == v29;
+      --v26;
     }
 
-    while (v23);
+    while (v26);
   }
 
   return result;
@@ -5468,12 +5397,12 @@ int8x8_t *ProShade::BinaryOp<ProShade::GreaterThan>::computeHash(uint64_t a1, in
   return PCHashWriteStream::writeValue(this, &v5);
 }
 
-void ProShade::BinaryOp<ProShade::GreaterThan>::apply(PCShared_base *a1@<X0>, void (***a2)(void *__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
+void ProShade::BinaryOp<ProShade::GreaterThan>::apply(uint64_t a1@<X0>, void (***a2)(void **__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
 {
   v9[1] = *MEMORY[0x277D85DE8];
   (**a2)(v8, a2, a1 + 48);
   (**a2)(v6, a2, a1 + 80);
-  if (v8[2] != *(a1 + 8) || v6[2] != *(a1 + 12))
+  if (v8[2] != *(a1 + 64) || v6[2] != *(a1 + 96))
   {
     operator new();
   }
@@ -5485,17 +5414,17 @@ void ProShade::BinaryOp<ProShade::GreaterThan>::apply(PCShared_base *a1@<X0>, vo
   PCSharedCount::~PCSharedCount(v9);
 }
 
-void sub_25FFAF848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FFAF848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7.var0 = va_arg(va1, PC_Sp_counted_base *);
-  v9 = va_arg(va1, void *);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  MEMORY[0x2666E9F00](v5, 0x10B1C403815D87CLL);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11.var0 = va_arg(va1, PC_Sp_counted_base *);
+  v13 = va_arg(va1, void *);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  MEMORY[0x2666E9F00](v9, 0x10B1C403815D87CLL, a3, a4, a5);
   PCSharedCount::~PCSharedCount(va);
-  v9 = &unk_28725E328;
+  v13 = &unk_28725E328;
   PCSharedCount::~PCSharedCount(va1);
   _Unwind_Resume(a1);
 }
@@ -5555,7 +5484,7 @@ void virtual thunk toProShade::BinaryOp<ProShade::GreaterThan>::~BinaryOp(void *
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t ProShade::BinaryOp<ProShade::GreaterThan>::BinaryOp(uint64_t a1, PCShared_base *a2, PCShared_base *a3, int a4)
+uint64_t ProShade::BinaryOp<ProShade::GreaterThan>::BinaryOp(uint64_t a1, PC_Sp_counted_base *a2, PC_Sp_counted_base *a3, int a4)
 {
   *(a1 + 112) = &unk_2872DEA38;
   *(a1 + 120) = 0;
@@ -5634,70 +5563,70 @@ void sub_25FFAFF10(_Unwind_Exception *a1)
 
 BOOL ProShade::computeBinaryType<ProShade::GreaterThan,BOOL>(unsigned int *a1, unsigned int *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   Size = ProShade::shapeGetSize(a1[1], a2);
   v8 = ProShade::shapeGetSize(a2[1], v7);
-  v10 = v8;
-  v11 = *a1;
-  if (v11 == 1)
+  v13 = v8;
+  v14 = *a1;
+  if (v14 == 1)
   {
-    v12 = (a1 + 4);
+    v15 = (a1 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v12 = &v28 - v13;
-    bzero(&v28 - v13, v14);
-    v8 = ProShade::copyData(v11, a1 + 2, 1, v12, Size);
+    MEMORY[0x28223BE20](v8, Size, v10, v11, v12);
+    v15 = &v31 - v16;
+    bzero(&v31 - v16, v17);
+    v8 = ProShade::copyData(v14, a1 + 2, 1, v15, Size);
   }
 
-  v15 = *a2;
-  if (v15 == 1)
+  v18 = *a2;
+  if (v18 == 1)
   {
-    v16 = (a2 + 4);
+    v19 = (a2 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v16 = &v28 - v17;
-    bzero(&v28 - v17, v18);
-    ProShade::copyData(v15, a2 + 2, 1, v16, v10);
+    MEMORY[0x28223BE20](v8, v13, v10, v11, v12);
+    v19 = &v31 - v20;
+    bzero(&v31 - v20, v21);
+    ProShade::copyData(v18, a2 + 2, 1, v19, v13);
   }
 
-  v19 = a1[1];
-  if (v19 != a2[1])
+  v22 = a1[1];
+  if (v22 != a2[1])
   {
     ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v9);
   }
 
-  ProShade::Value::set(a3, 1, v19);
+  ProShade::Value::set(a3, 1, v22);
   result = ProShade::shapeIsVector(a1[1]);
-  v21 = a1[1] == 1 || result;
-  if (v21 != 1)
+  v24 = a1[1] == 1 || result;
+  if (v24 != 1)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(&v30, "not implemented yet");
-    PCString::PCString(&v29, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-    PCException::PCException(exception, &v30, &v29, 426);
+    PCString::PCString(&v33, "not implemented yet");
+    PCString::PCString(&v32, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+    PCException::PCException(exception, &v33, &v32, 426);
     *exception = &unk_2871F6178;
   }
 
   if (Size >= 1)
   {
-    v22 = (a3 + 16);
-    v23 = Size;
+    v25 = (a3 + 16);
+    v26 = Size;
     do
     {
-      v25 = *v12++;
-      v24 = v25;
-      v26 = *v16++;
-      *v22++ = v24 & (v26 ^ 1);
-      --v23;
+      v28 = *v15++;
+      v27 = v28;
+      v29 = *v19++;
+      *v25++ = v27 & (v29 ^ 1);
+      --v26;
     }
 
-    while (v23);
+    while (v26);
   }
 
   return result;
@@ -5989,12 +5918,12 @@ int8x8_t *ProShade::BinaryOp<ProShade::LessThanEquals>::computeHash(uint64_t a1,
   return PCHashWriteStream::writeValue(this, &v5);
 }
 
-void ProShade::BinaryOp<ProShade::LessThanEquals>::apply(PCShared_base *a1@<X0>, void (***a2)(void *__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
+void ProShade::BinaryOp<ProShade::LessThanEquals>::apply(uint64_t a1@<X0>, void (***a2)(void **__return_ptr, void, uint64_t)@<X1>, PCSharedCount *a3@<X8>)
 {
   v9[1] = *MEMORY[0x277D85DE8];
   (**a2)(v8, a2, a1 + 48);
   (**a2)(v6, a2, a1 + 80);
-  if (v8[2] != *(a1 + 8) || v6[2] != *(a1 + 12))
+  if (v8[2] != *(a1 + 64) || v6[2] != *(a1 + 96))
   {
     operator new();
   }
@@ -6006,17 +5935,17 @@ void ProShade::BinaryOp<ProShade::LessThanEquals>::apply(PCShared_base *a1@<X0>,
   PCSharedCount::~PCSharedCount(v9);
 }
 
-void sub_25FFB0C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FFB0C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7.var0 = va_arg(va1, PC_Sp_counted_base *);
-  v9 = va_arg(va1, void *);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  MEMORY[0x2666E9F00](v5, 0x10B1C403815D87CLL);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11.var0 = va_arg(va1, PC_Sp_counted_base *);
+  v13 = va_arg(va1, void *);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  MEMORY[0x2666E9F00](v9, 0x10B1C403815D87CLL, a3, a4, a5);
   PCSharedCount::~PCSharedCount(va);
-  v9 = &unk_28725E328;
+  v13 = &unk_28725E328;
   PCSharedCount::~PCSharedCount(va1);
   _Unwind_Resume(a1);
 }
@@ -6076,7 +6005,7 @@ void virtual thunk toProShade::BinaryOp<ProShade::LessThanEquals>::~BinaryOp(voi
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t ProShade::BinaryOp<ProShade::LessThanEquals>::BinaryOp(uint64_t a1, PCShared_base *a2, PCShared_base *a3, int a4)
+uint64_t ProShade::BinaryOp<ProShade::LessThanEquals>::BinaryOp(uint64_t a1, PC_Sp_counted_base *a2, PC_Sp_counted_base *a3, int a4)
 {
   *(a1 + 112) = &unk_2872DEA38;
   *(a1 + 120) = 0;
@@ -6155,70 +6084,70 @@ void sub_25FFB12D4(_Unwind_Exception *a1)
 
 BOOL ProShade::computeBinaryType<ProShade::LessThanEquals,BOOL>(unsigned int *a1, unsigned int *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   Size = ProShade::shapeGetSize(a1[1], a2);
   v8 = ProShade::shapeGetSize(a2[1], v7);
-  v10 = v8;
-  v11 = *a1;
-  if (v11 == 1)
+  v13 = v8;
+  v14 = *a1;
+  if (v14 == 1)
   {
-    v12 = (a1 + 4);
+    v15 = (a1 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v12 = &v28 - v13;
-    bzero(&v28 - v13, v14);
-    v8 = ProShade::copyData(v11, a1 + 2, 1, v12, Size);
+    MEMORY[0x28223BE20](v8, Size, v10, v11, v12);
+    v15 = &v31 - v16;
+    bzero(&v31 - v16, v17);
+    v8 = ProShade::copyData(v14, a1 + 2, 1, v15, Size);
   }
 
-  v15 = *a2;
-  if (v15 == 1)
+  v18 = *a2;
+  if (v18 == 1)
   {
-    v16 = (a2 + 4);
+    v19 = (a2 + 4);
   }
 
   else
   {
-    MEMORY[0x28223BE20](v8);
-    v16 = &v28 - v17;
-    bzero(&v28 - v17, v18);
-    ProShade::copyData(v15, a2 + 2, 1, v16, v10);
+    MEMORY[0x28223BE20](v8, v13, v10, v11, v12);
+    v19 = &v31 - v20;
+    bzero(&v31 - v20, v21);
+    ProShade::copyData(v18, a2 + 2, 1, v19, v13);
   }
 
-  v19 = a1[1];
-  if (v19 != a2[1])
+  v22 = a1[1];
+  if (v22 != a2[1])
   {
     ProShade::Error<PCException>::raise<char [27]>("mismatched operator inputs", v9);
   }
 
-  ProShade::Value::set(a3, 1, v19);
+  ProShade::Value::set(a3, 1, v22);
   result = ProShade::shapeIsVector(a1[1]);
-  v21 = a1[1] == 1 || result;
-  if (v21 != 1)
+  v24 = a1[1] == 1 || result;
+  if (v24 != 1)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(&v30, "not implemented yet");
-    PCString::PCString(&v29, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
-    PCException::PCException(exception, &v30, &v29, 426);
+    PCString::PCString(&v33, "not implemented yet");
+    PCString::PCString(&v32, "/Library/Caches/com.apple.xbs/Sources/LithiumiOS/Shading/PSOp.cpp");
+    PCException::PCException(exception, &v33, &v32, 426);
     *exception = &unk_2871F6178;
   }
 
   if (Size >= 1)
   {
-    v22 = (a3 + 16);
-    v23 = Size;
+    v25 = (a3 + 16);
+    v26 = Size;
     do
     {
-      v25 = *v12++;
-      v24 = v25;
-      v26 = *v16++;
-      *v22++ = v24 ^ 1 | v26;
-      --v23;
+      v28 = *v15++;
+      v27 = v28;
+      v29 = *v19++;
+      *v25++ = v27 ^ 1 | v29;
+      --v26;
     }
 
-    while (v23);
+    while (v26);
   }
 
   return result;
@@ -6245,33 +6174,33 @@ void ProShade::Func<ProShade::ScalarFunctionTraits_2<ProShade::equal_traits>>::r
   }
 }
 
-LiPlaneTransform *LiPlaneTransform::LiPlaneTransform(LiPlaneTransform *this, LiPlaneTransform *a2, char a3)
+LiPlaneTransform *LiPlaneTransform::LiPlaneTransform(LiPlaneTransform *a1, LiPlaneTransform *a2, char a3)
 {
-  *(this + 10) = 0x3FF0000000000000;
-  *(this + 5) = 0x3FF0000000000000;
-  *this = 0x3FF0000000000000;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  *(this + 3) = 0u;
-  *(this + 4) = 0u;
-  *(this + 88) = 0u;
-  *(this + 104) = 0u;
-  *(this + 31) = 0x3FF0000000000000;
-  *(this + 26) = 0x3FF0000000000000;
-  *(this + 21) = 0x3FF0000000000000;
+  *(a1 + 10) = 0x3FF0000000000000;
+  *(a1 + 5) = 0x3FF0000000000000;
+  *a1 = 0x3FF0000000000000;
+  *(a1 + 8) = 0u;
+  *(a1 + 24) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 4) = 0u;
+  *(a1 + 88) = 0u;
+  *(a1 + 104) = 0u;
+  *(a1 + 31) = 0x3FF0000000000000;
+  *(a1 + 26) = 0x3FF0000000000000;
+  *(a1 + 21) = 0x3FF0000000000000;
   __asm { FMOV            V1.2D, #1.0 }
 
-  *(this + 120) = _Q1;
-  *(this + 136) = 0u;
-  *(this + 152) = 0u;
-  *(this + 11) = 0u;
-  *(this + 12) = 0u;
-  *(this + 232) = 0u;
-  *(this + 216) = 0u;
-  *(this + 264) = 0u;
-  *(this + 280) = 0u;
-  *(this + 297) = a3;
-  return LiPlaneTransform::operator=(this, a2);
+  *(a1 + 120) = _Q1;
+  *(a1 + 136) = 0u;
+  *(a1 + 152) = 0u;
+  *(a1 + 11) = 0u;
+  *(a1 + 12) = 0u;
+  *(a1 + 232) = 0u;
+  *(a1 + 216) = 0u;
+  *(a1 + 264) = 0u;
+  *(a1 + 280) = 0u;
+  *(a1 + 297) = a3;
+  return LiPlaneTransform::operator=(a1, a2);
 }
 
 LiPlaneTransform *LiPlaneTransform::operator=(LiPlaneTransform *this, LiPlaneTransform *a2)
@@ -6356,7 +6285,7 @@ BOOL PCMatrix44Tmpl<double>::invertTranspose(uint64_t a1)
   return v2;
 }
 
-uint64_t LiPlaneTransform::operator()(uint64_t a1, double *a2, uint64_t a3)
+uint64_t LiPlaneTransform::operator()(uint64_t a1, double *a2, double *a3)
 {
   if (*(a1 + 256) == 1)
   {
@@ -6368,7 +6297,7 @@ uint64_t LiPlaneTransform::operator()(uint64_t a1, double *a2, uint64_t a3)
   {
     v4 = *(a1 + 280);
     *a3 = *(a1 + 264);
-    *(a3 + 16) = v4;
+    *(a3 + 1) = v4;
     return 1;
   }
 
@@ -6434,7 +6363,7 @@ void sub_25FFB18C8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *LiPolygon::ArrayFacet::copyFrom(char **a1, __int128 ***a2)
+uint64_t *LiPolygon::ArrayFacet::copyFrom(uint64_t **a1, __int128 ***a2)
 {
   result = *a1;
   if (result != *a2)
@@ -6987,7 +6916,7 @@ LABEL_60:
       std::vector<PCPlane<double>>::insert(&__p, __p + 48 * v41, &v141);
       v88 = a1[11];
       v89 = v41 + 1;
-      v90 = *v88 + 32 * v89;
+      v90 = (*v88 + 32 * v89);
       *__x = 0u;
       v144 = 0u;
       std::vector<LiPolygon::PosEdge>::insert(v88, v90, __x);
@@ -7290,9 +7219,9 @@ int *PCMod::remove(int *this, int a2, int a3)
   return this;
 }
 
-void LiPolygon::projectToPlane(uint64_t a1, float64x2_t *a2, double *a3)
+void LiPolygon::projectToPlane(void *a1, float64x2_t *a2, double *a3)
 {
-  if (PCPlane<double>::setImplicit(a1 + 16, a2))
+  if (PCPlane<double>::setImplicit((a1 + 2), a2))
   {
     v16 = 0x3FF0000000000000;
     v13 = 0x3FF0000000000000;
@@ -7306,18 +7235,18 @@ void LiPolygon::projectToPlane(uint64_t a1, float64x2_t *a2, double *a3)
     v15 = 0u;
     if (PCMatrix44Tmpl<double>::flatten(&v7, a2->f64, a3))
     {
-      transform<LiPolygon::PosFacet,LiPolygon::PosFacet,double>(&v7, a1 + 88, (a1 + 88));
+      transform<LiPolygon::PosFacet,LiPolygon::PosFacet,double>(&v7, (a1 + 11), a1 + 11);
     }
 
     else
     {
-      *(a1 + 72) = *(a1 + 64);
+      a1[9] = a1[8];
     }
   }
 
   else
   {
-    v6 = *(a1 + 88);
+    v6 = a1[11];
 
     std::vector<LiPolygon::PosEdge>::resize(v6, 0);
   }
@@ -7926,13 +7855,13 @@ void sub_25FFB389C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-int32x2_t LiImagePolygon::getDOD@<D0>(LiImagePolygon *this@<X0>, double a2@<D0>, int32x2_t *a3@<X8>)
+int32x2_t LiImagePolygon::getDOD@<D0>(uint64_t *__return_ptr a1@<X8>, LiImagePolygon *this@<X0>, double a3@<D0>)
 {
   v16 = 0uLL;
   __asm { FMOV            V0.2D, #-1.0 }
 
   v17 = _Q0;
-  if (a2 <= 0.0)
+  if (a3 <= 0.0)
   {
     bounds<LiPolygon::PosFacet,double>(this + 88, &v16);
   }
@@ -7940,7 +7869,7 @@ int32x2_t LiImagePolygon::getDOD@<D0>(LiImagePolygon *this@<X0>, double a2@<D0>,
   else
   {
     LiImagePolygon::LiImagePolygon(v12, this);
-    LiImagePolygon::dilateType(v12, 0, a2);
+    LiImagePolygon::dilateType(v12, 0, a3);
     bounds<LiPolygon::PosFacet,double>(&v15, &v16);
     v12[0] = &unk_287265718;
     if (__p)
@@ -7952,8 +7881,8 @@ int32x2_t LiImagePolygon::getDOD@<D0>(LiImagePolygon *this@<X0>, double a2@<D0>,
 
   result = vmovn_s64(vcvtq_s64_f64(vrndmq_f64(vaddq_f64(v16, vdupq_n_s64(0x3E7AD7F29ABCAF48uLL)))));
   v11 = vsub_s32(vmovn_s64(vcvtq_s64_f64(vrndpq_f64(vaddq_f64(v16, v17)))), result);
-  *a3 = result;
-  a3[1] = v11;
+  *a1 = result;
+  a1[1] = v11;
   return result;
 }
 
@@ -8127,7 +8056,7 @@ uint64_t **LiImagePolygon::operator&=(uint64_t **a1, uint64_t a2)
   return a1;
 }
 
-uint64_t LiImagePolygon::clip(uint64_t **a1, double *a2, int a3)
+uint64_t LiImagePolygon::clip(uint64_t **a1, double *a2, uint64_t a3)
 {
   v3 = a2[4];
   v4 = a2[5];
@@ -8137,29 +8066,6 @@ uint64_t LiImagePolygon::clip(uint64_t **a1, double *a2, int a3)
   *&v7[2] = v4;
   *&v7[3] = v5;
   return LiImagePolygon::do_clip(a1, a2, v7, a3);
-}
-
-{
-  v6 = -*a2;
-  v15 = 0;
-  v14 = 0x3FF0000000000000uLL;
-  v16 = v6;
-  v7 = LiImagePolygon::clip(a1, &v14, a3);
-  v8 = *a2 + a2[2];
-  v15 = 0;
-  v14 = 0xBFF0000000000000;
-  v16 = v8;
-  v9 = v7 | LiImagePolygon::clip(a1, &v14, a3);
-  v10 = -a2[1];
-  v14 = xmmword_260342700;
-  v15 = 0;
-  v16 = v10;
-  v11 = LiImagePolygon::clip(a1, &v14, a3);
-  v12 = a2[1] + a2[3];
-  v14 = xmmword_26034D970;
-  v15 = 0;
-  v16 = v12;
-  return v9 | v11 | LiImagePolygon::clip(a1, &v14, a3);
 }
 
 uint64_t LiImagePolygon::clip(uint64_t **a1, uint64_t a2, double *a3)
@@ -8398,7 +8304,7 @@ uint64_t LiImagePolygon::do_clip(uint64_t **a1, double *a2, uint64_t a3, int a4)
       PCPlane<double>::intersect(v77, a2, &v73, (v48 + 32 * v56));
       *(*a1[13] + 32 * v56 + 24) = a4;
       v57 = a1[11];
-      v58 = *v57 + 32 * v26;
+      v58 = (*v57 + 32 * v26);
       memset(v78, 0, sizeof(v78));
       std::vector<LiPolygon::PosEdge>::insert(v57, v58, v78);
       PCPlane<double>::intersect(v77, a2, &v69, (*a1[11] + 32 * v26));
@@ -8533,7 +8439,31 @@ uint64_t LiImagePolygon::clip(uint64_t **this, const LiClipSet *a2)
   return v6 & 1;
 }
 
-char *std::vector<LiPolygon::PosEdge>::__assign_with_size[abi:ne200100]<LiPolygon::PosEdge*,LiPolygon::PosEdge*>(char **a1, __int128 *a2, __int128 *a3, unint64_t a4)
+uint64_t LiImagePolygon::clip(uint64_t **a1, double *a2, int a3)
+{
+  v6 = -*a2;
+  v15 = 0;
+  v14 = 0x3FF0000000000000uLL;
+  v16 = v6;
+  v7 = LiImagePolygon::clip(a1, &v14, a3);
+  v8 = *a2 + a2[2];
+  v15 = 0;
+  v14 = 0xBFF0000000000000;
+  v16 = v8;
+  v9 = v7 | LiImagePolygon::clip(a1, &v14, a3);
+  v10 = -a2[1];
+  v14 = xmmword_260342700;
+  v15 = 0;
+  v16 = v10;
+  v11 = LiImagePolygon::clip(a1, &v14, a3);
+  v12 = a2[1] + a2[3];
+  v14 = xmmword_26034D970;
+  v15 = 0;
+  v16 = v12;
+  return v9 | v11 | LiImagePolygon::clip(a1, &v14, a3);
+}
+
+char *std::vector<LiPolygon::PosEdge>::__assign_with_size[abi:ne200100]<LiPolygon::PosEdge*,LiPolygon::PosEdge*>(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -8592,7 +8522,7 @@ char *std::vector<LiPolygon::PosEdge>::__assign_with_size[abi:ne200100]<LiPolygo
 
   else
   {
-    v13 = a2 + v12;
+    v13 = (a2 + v12);
     if (v11 != result)
     {
       do
@@ -8619,7 +8549,7 @@ char *std::vector<LiPolygon::PosEdge>::__assign_with_size[abi:ne200100]<LiPolygo
         *v16 = *v13;
         *(v16 + 2) = *(v13 + 2);
         *(v16 + 6) = *(v13 + 6);
-        v13 += 32;
+        v13 += 2;
         v16 += 32;
         v15 += 32;
       }
@@ -8633,7 +8563,7 @@ char *std::vector<LiPolygon::PosEdge>::__assign_with_size[abi:ne200100]<LiPolygo
   return result;
 }
 
-void std::vector<LiPolygon::PosEdge>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<LiPolygon::PosEdge>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -8643,7 +8573,7 @@ void std::vector<LiPolygon::PosEdge>::__vallocate[abi:ne200100](uint64_t a1, uni
   std::vector<double>::__throw_length_error[abi:ne200100]();
 }
 
-_OWORD *std::vector<LiPolygon::PosEdge>::insert(uint64_t *a1, uint64_t a2, uint64_t a3)
+_OWORD *std::vector<LiPolygon::PosEdge>::insert(uint64_t *a1, _OWORD *a2, __int128 *a3)
 {
   v4 = a2;
   v6 = a1[1];
@@ -8702,14 +8632,14 @@ _OWORD *std::vector<LiPolygon::PosEdge>::insert(uint64_t *a1, uint64_t a2, uint6
   else if (a2 == v6)
   {
     *v6 = *a3;
-    *(v6 + 16) = *(a3 + 16);
-    *(v6 + 24) = *(a3 + 24);
+    *(v6 + 16) = *(a3 + 2);
+    *(v6 + 24) = *(a3 + 6);
     a1[1] = v6 + 32;
   }
 
   else
   {
-    std::vector<LiPolygon::PosEdge>::__move_range(a1, a2, v6, a2 + 32);
+    std::vector<LiPolygon::PosEdge>::__move_range(a1, a2, v6, (a2 + 2));
     v8 = *a3;
     *(v4 + 12) = *(a3 + 12);
     *v4 = v8;
@@ -8764,7 +8694,7 @@ __n128 std::vector<LiPolygon::PosEdge>::__move_range(uint64_t a1, uint64_t a2, u
   return result;
 }
 
-double std::__split_buffer<LiPolygon::PosEdge>::emplace_back<LiPolygon::PosEdge>(void *a1, uint64_t a2)
+double std::__split_buffer<LiPolygon::PosEdge>::emplace_back<LiPolygon::PosEdge>(unint64_t *a1, uint64_t a2)
 {
   v2 = a1[2];
   v3 = v2;
@@ -8781,7 +8711,7 @@ double std::__split_buffer<LiPolygon::PosEdge>::emplace_back<LiPolygon::PosEdge>
 
       else
       {
-        v8 = v2 - v5;
+        v8 = (v2 - v5) >> 4;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<LiPolygon::PosEdge>>(a1[4], v8);
@@ -8811,7 +8741,7 @@ double std::__split_buffer<LiPolygon::PosEdge>::emplace_back<LiPolygon::PosEdge>
   result = *(a2 + 16);
   *(v3 + 2) = result;
   *(v3 + 6) = *(a2 + 24);
-  a1[2] = v3 + 2;
+  a1[2] = (v3 + 2);
   return result;
 }
 
@@ -8870,19 +8800,17 @@ uint64_t std::vector<LiPolygon::PosEdge>::__swap_out_circular_buffer(uint64_t *a
   return result;
 }
 
-void *std::vector<PCPlane<double>>::reserve(void *result, unint64_t a2)
+void std::vector<PCPlane<double>>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 4) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) < a2)
   {
     if (a2 < 0x555555555555556)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<PCEdgeVertex>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<PCEdgeVertex>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_25FFB4CCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -8994,11 +8922,11 @@ void sub_25FFB4ED0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t std::vector<PCPlane<double>>::insert(uint64_t a1, uint64_t a2, _OWORD *a3)
+char *std::vector<PCPlane<double>>::insert(char **a1, char *a2, char *a3)
 {
   v4 = a2;
-  v6 = *(a1 + 8);
-  v7 = *(a1 + 16);
+  v6 = a1[1];
+  v7 = a1[2];
   if (v6 >= v7)
   {
     v13 = *a1;
@@ -9052,16 +8980,16 @@ unint64_t std::vector<PCPlane<double>>::insert(uint64_t a1, uint64_t a2, _OWORD 
   else if (a2 == v6)
   {
     *v6 = *a3;
-    v6[1] = a3[1];
-    v6[2] = a3[2];
-    *(a1 + 8) = v6 + 3;
+    *(v6 + 1) = *(a3 + 1);
+    *(v6 + 2) = *(a3 + 2);
+    a1[1] = v6 + 48;
   }
 
   else
   {
-    std::vector<PCPlane<double>>::__move_range(a1, a2, v6, a2 + 48);
-    v8 = *(a1 + 8) <= a3 || v4 > a3;
-    v9 = 3;
+    std::vector<PCPlane<double>>::__move_range(a1, a2, v6, (a2 + 48));
+    v8 = a1[1] <= a3 || v4 > a3;
+    v9 = 48;
     if (v8)
     {
       v9 = 0;
@@ -9069,10 +8997,10 @@ unint64_t std::vector<PCPlane<double>>::insert(uint64_t a1, uint64_t a2, _OWORD 
 
     v10 = &a3[v9];
     v11 = *v10;
-    *(v4 + 16) = *(v10 + 2);
+    *(v4 + 2) = *(v10 + 2);
     *v4 = v11;
     v12 = *(v10 + 24);
-    *(v4 + 40) = *(v10 + 5);
+    *(v4 + 5) = *(v10 + 5);
     *(v4 + 24) = v12;
   }
 
@@ -9130,7 +9058,7 @@ __n128 std::vector<PCPlane<double>>::__move_range(uint64_t a1, uint64_t a2, unin
   return result;
 }
 
-__n128 std::__split_buffer<PCPlane<double>>::emplace_back<PCPlane<double> const&>(uint64_t *a1, uint64_t a2)
+__n128 std::__split_buffer<PCPlane<double>>::emplace_back<PCPlane<double> const&>(unint64_t *a1, uint64_t a2)
 {
   v2 = a1[2];
   v3 = v2;
@@ -9147,40 +9075,40 @@ __n128 std::__split_buffer<PCPlane<double>>::emplace_back<PCPlane<double> const&
 
       else
       {
-        v9 = 0x5555555555555556 * (v2 - v5);
+        v9 = 0x5555555555555556 * ((v2 - v5) >> 4);
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<PCEdgeVertex>>(a1[4], v9);
     }
 
     v6 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 4) + 1;
-    v3 = &v4[-3 * (v6 / 2)];
+    v3 = v4 - 48 * (v6 / 2);
     if (v4 != v2)
     {
       do
       {
         v7 = *v4;
-        *(v3 + 2) = *(v4 + 2);
+        *(v3 + 16) = *(v4 + 16);
         *v3 = v7;
         v8 = *(v4 + 24);
-        *(v3 + 5) = *(v4 + 5);
+        *(v3 + 40) = *(v4 + 40);
         *(v3 + 24) = v8;
-        v4 += 3;
-        v3 += 3;
+        v4 += 48;
+        v3 += 48;
       }
 
       while (v4 != v2);
       v4 = a1[1];
     }
 
-    a1[1] = &v4[3 * (v6 / -2)];
+    a1[1] = v4 + 48 * (v6 / -2);
   }
 
   *v3 = *a2;
-  v3[1] = *(a2 + 16);
+  *(v3 + 16) = *(a2 + 16);
   result = *(a2 + 32);
-  v3[2] = result;
-  a1[2] = (v3 + 3);
+  *(v3 + 32) = result;
+  a1[2] = v3 + 48;
   return result;
 }
 
@@ -9356,27 +9284,26 @@ void sub_25FFB5580(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__split_buffer<int>::emplace_back<int const&>(void *result, _DWORD *a2)
+void std::__split_buffer<int>::emplace_back<int const&>(unint64_t *a1, _DWORD *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 1;
+        v11 = &v4[-*a1] >> 1;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 2) + 1) / -2;
@@ -9385,33 +9312,32 @@ void *std::__split_buffer<int>::emplace_back<int const&>(void *result, _DWORD *a
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-4 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-4 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[4 * v7];
+    a1[1] = &v5[4 * v7];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 4;
-  return result;
+  a1[2] = (v4 + 4);
 }
 
-void std::vector<PCVector4<double>>::resize(void *a1, unint64_t a2)
+void std::vector<PCVector4<double>>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 5;
+  v2 = (result[1] - *result) >> 5;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 32 * a2;
+      result[1] = *result + 32 * a2;
     }
   }
 
   else
   {
-    std::vector<PCVector4<double>>::__append(a1, a2 - v2);
+    std::vector<PCVector4<double>>::__append(result, a2 - v2);
   }
 }
 
@@ -9818,4 +9744,123 @@ void non-virtual thunk toLiPolygonInstance::~LiPolygonInstance(PCSharedCount *th
   LiPolygonInstance::~LiPolygonInstance(this - 14);
 
   JUMPOUT(0x2666E9F00);
+}
+
+double LiPolygonInstance::addReflectionFilter(LiPolygonInstance *this)
+{
+  result = (*(**(this + 179) + 184))(*(this + 179));
+  if (result > 0.0 && *(*(this + 27) + 79) == 1)
+  {
+    if (*(*(this + 181) + 96) < 1)
+    {
+      result = *(this + 190) * fmax(1.0 - (*(**(this + 179) + 184))(*(this + 179)), 0.0);
+      *(this + 190) = result;
+    }
+
+    else
+    {
+      LiPolygonInstance::makeReflectionFilter(&v3, this);
+      if (v3)
+      {
+        LiImageReflection::setBlendMode(v3, *(*(this + 179) + 680));
+        LiImageFilterChain::append((this + 1544), v3);
+      }
+
+      PCSharedCount::~PCSharedCount(&v4);
+    }
+  }
+
+  return result;
+}
+
+void sub_25FFB66C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  PCSharedCount::~PCSharedCount(va);
+  _Unwind_Resume(a1);
+}
+
+void LiPolygonInstance::makeReflectionFilter(PCSharedCount *__return_ptr a1@<X8>, LiPolygonInstance *this@<X0>)
+{
+  a1->var0 = 0;
+  PCSharedCount::PCSharedCount(a1 + 1);
+  v3 = *(this + 712);
+  v4 = *(this + 680);
+  v39 = *(this + 696);
+  v40 = v3;
+  v5 = *(this + 712);
+  v6 = *(this + 744);
+  v41 = *(this + 728);
+  v42 = v6;
+  v7 = *(this + 648);
+  v35 = *(this + 632);
+  v36 = v7;
+  v8 = *(this + 680);
+  v10 = *(this + 632);
+  v9 = *(this + 648);
+  v37 = *(this + 664);
+  v38 = v8;
+  v34[4] = v39;
+  v34[5] = v5;
+  v11 = *(this + 744);
+  v34[6] = v41;
+  v34[7] = v11;
+  v34[0] = v10;
+  v34[1] = v9;
+  v34[2] = v37;
+  v34[3] = v4;
+  if (PCMatrix44Tmpl<double>::invert(v34, v34, 0.0))
+  {
+    goto LABEL_7;
+  }
+
+  v12 = *&v37 * *(&v39 + 1) - *&v39 * *(&v37 + 1);
+  v13 = *&v39 * *(&v35 + 1) - *&v35 * *(&v39 + 1);
+  v14 = *&v35 * *(&v37 + 1) - *&v37 * *(&v35 + 1);
+  v15 = sqrt(v14 * v14 + v12 * v12 + v13 * v13);
+  if (fabs(v15) >= 0.000000100000001)
+  {
+    v12 = v12 / v15;
+    v13 = v13 / v15;
+    v14 = v14 / v15;
+  }
+
+  v16 = 0;
+  *&v36 = v12;
+  *&v38 = v13;
+  *&v40 = v14;
+  *&v42 = 0;
+  do
+  {
+    v17 = &v34[v16];
+    v18 = *(&v35 + v16 * 16 + 16);
+    *v17 = *(&v35 + v16 * 16);
+    v17[1] = v18;
+    v16 += 2;
+  }
+
+  while (v16 != 8);
+  if (PCMatrix44Tmpl<double>::invert(v34, v34, 0.0))
+  {
+LABEL_7:
+    v33 = 0x3FF0000000000000;
+    v30 = 0x3FF0000000000000;
+    v27 = 0x3FF0000000000000;
+    v24 = 0x3FF0000000000000;
+    v25 = 0u;
+    v26 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    (*(**(this + 179) + 144))(v19);
+    memset(v21, 0, sizeof(v21));
+    v22 = *&v19[0].var0;
+    v23 = v20;
+    transformPlane<double>(&v35, v21, v21);
+    PCMatrix44Tmpl<double>::setReflect(&v24, &v22, v21);
+    LiRenderInstance::getRootTransform(v21, *(this + 181));
+    PCMatrix44Tmpl<double>::rightMult(&v24, v21);
+    operator new();
+  }
 }

@@ -92,7 +92,7 @@
 
 - (void)layoutSubviews
 {
-  v214 = *MEMORY[0x1E69E9840];
+  v216 = *MEMORY[0x1E69E9840];
   if (![(AVMobileChromelessControlsView *)self layoutAllowed])
   {
     goto LABEL_140;
@@ -130,28 +130,28 @@
   v19 = self->_layoutConfiguration.pinnedAuxiliaryControls;
   contentTabPresented = self->_layoutConfiguration.contentTabPresented;
   contentTabTransitioning = self->_layoutConfiguration.contentTabTransitioning;
-  v200 = *(&self->_layoutConfiguration.contentTabTransitioning + 1);
-  *v201 = *(&self->_layoutConfiguration.timelineSliderInsets.left + 2);
+  v202 = *(&self->_layoutConfiguration.contentTabTransitioning + 1);
+  *v203 = *(&self->_layoutConfiguration.timelineSliderInsets.left + 2);
   contentTabsPresentationLayout = self->_layoutConfiguration.contentTabsPresentationLayout;
-  *&v201[14] = self->_layoutConfiguration.timelineSliderInsets.right;
+  *&v203[14] = self->_layoutConfiguration.timelineSliderInsets.right;
   contentTabPresentationHeight = self->_layoutConfiguration.contentTabPresentationHeight;
   v23 = v19;
-  v199 = 0;
+  v201 = 0;
   v24 = v15;
   if (contentTabPresented)
   {
     v24 = v15;
     if (contentTabsPresentationLayout == 1)
     {
-      v215.origin.x = rect.origin.x;
-      v215.origin.y = v11;
-      v215.size.width = v13;
-      v215.size.height = v15;
-      v24 = v15 - (contentTabPresentationHeight - CGRectGetMinY(v215));
+      v217.origin.x = rect.origin.x;
+      v217.origin.y = v11;
+      v217.size.width = v13;
+      v217.size.height = v15;
+      v24 = v15 - (contentTabPresentationHeight - CGRectGetMinY(v217));
     }
   }
 
-  v177 = v17;
+  v179 = v17;
   *&rect.origin.y = v23;
   v25 = self->_playbackControlsView;
   effectiveUserInterfaceLayoutDirection = [(AVMobileChromelessControlsView *)self effectiveUserInterfaceLayoutDirection];
@@ -165,45 +165,45 @@
     if (v29 < v30 || v31 < 0.00000011921)
     {
       v33 = v11 + (v24 - v28) * 0.5;
-      v179 = v13;
+      v181 = v13;
       [(UIView *)v25 avkit_setFrame:effectiveUserInterfaceLayoutDirection inLayoutDirection:rect.origin.x, v33, v13, v28];
-      BYTE4(v199) = 1;
+      BYTE4(v201) = 1;
 
-      v216.origin.x = rect.origin.x;
-      v216.origin.y = v11;
-      v216.size.width = v13;
-      v216.size.height = v15;
-      MinY = CGRectGetMinY(v216);
-      v217.origin.x = rect.origin.x;
-      v217.origin.y = v11;
-      v217.size.width = v13;
-      v217.size.height = v15;
-      MaxY = CGRectGetMaxY(v217);
       v218.origin.x = rect.origin.x;
-      v218.origin.y = v33;
+      v218.origin.y = v11;
       v218.size.width = v13;
-      v218.size.height = v28;
-      r1 = CGRectGetMinY(v218);
+      v218.size.height = v15;
+      MinY = CGRectGetMinY(v218);
       v219.origin.x = rect.origin.x;
-      v219.origin.y = v33;
+      v219.origin.y = v11;
       v219.size.width = v13;
-      v219.size.height = v28;
-      v36 = CGRectGetMaxY(v219);
-      v168 = contentTabTransitioning;
-      v220.origin.y = controlsPadding + v36;
-      v220.size.height = MaxY - v36 - controlsPadding;
+      v219.size.height = v15;
+      MaxY = CGRectGetMaxY(v219);
       v220.origin.x = rect.origin.x;
-      v173 = v220.origin.y;
-      v174 = v220.size.height;
+      v220.origin.y = v33;
       v220.size.width = v13;
-      v164 = CGRectGetMinY(v220);
-      v170 = *&rect.origin.y;
+      v220.size.height = v28;
+      r1 = CGRectGetMinY(v220);
+      v221.origin.x = rect.origin.x;
+      v221.origin.y = v33;
+      v221.size.width = v13;
+      v221.size.height = v28;
+      v36 = CGRectGetMaxY(v221);
+      v170 = contentTabTransitioning;
+      v222.origin.y = controlsPadding + v36;
+      v222.size.height = MaxY - v36 - controlsPadding;
+      v222.origin.x = rect.origin.x;
+      v175 = v222.origin.y;
+      v176 = v222.size.height;
+      v222.size.width = v13;
+      v166 = CGRectGetMinY(v222);
+      v172 = *&rect.origin.y;
       v37 = self->_displayModeControlsView;
       v38 = self->_volumeControlsView;
       effectiveUserInterfaceLayoutDirection2 = [(AVMobileChromelessControlsView *)self effectiveUserInterfaceLayoutDirection];
       [(AVMobileChromelessDisplayModeControlsView *)v37 intrinsicContentSize];
       v41 = v40;
-      v172 = MinY;
+      v174 = MinY;
       [(AVMobileChromelessVolumeControlsView *)v38 intrinsicContentSize];
       if (v41 >= v42)
       {
@@ -217,503 +217,503 @@
 
       [(AVMobileChromelessDisplayModeControlsView *)v37 sizeThatFits:v13 * 0.5, v43];
       v45 = v44;
-      v169 = auxiliaryControlsPlacement;
-      v171 = v13;
+      v171 = auxiliaryControlsPlacement;
+      v173 = v13;
       _controlsExpansionYOffset = [(AVMobileChromelessControlsView *)self _controlsExpansionYOffset];
-      v46 = *MEMORY[0x1E695F058];
-      v175 = *(MEMORY[0x1E695F058] + 8);
-      v48 = *(MEMORY[0x1E695F058] + 16);
-      v47 = *(MEMORY[0x1E695F058] + 24);
-      v49 = v43 <= r1 - v172 - controlsPadding;
-      v50 = v49 & (includedControls >> 2);
-      if (v50 == 1)
+      v47 = *MEMORY[0x1E695F058];
+      v177 = *(MEMORY[0x1E695F058] + 8);
+      v49 = *(MEMORY[0x1E695F058] + 16);
+      v48 = *(MEMORY[0x1E695F058] + 24);
+      v50 = v43 <= r1 - v174 - controlsPadding;
+      v51 = v50 & (includedControls >> 2);
+      if (v51 == 1)
       {
         r1a = *(MEMORY[0x1E695F058] + 24);
-        [(UIView *)v37 avkit_setFrame:effectiveUserInterfaceLayoutDirection2 inLayoutDirection:rect.origin.x, v172 - _controlsExpansionYOffset, v45, v43];
-        v221.origin.x = v46;
-        v221.origin.y = v175;
-        v221.size.width = v48;
-        v221.size.height = r1a;
-        v233.origin.x = rect.origin.x;
-        v233.origin.y = v172 - _controlsExpansionYOffset;
-        v233.size.width = v45;
-        v233.size.height = v43;
-        v222 = CGRectUnion(v221, v233);
-        v175 = v222.origin.y;
-        v46 = v222.origin.x;
-        v48 = v222.size.width;
-        v47 = v222.size.height;
+        [(UIView *)v37 avkit_setFrame:effectiveUserInterfaceLayoutDirection2 inLayoutDirection:rect.origin.x, v174 - _controlsExpansionYOffset, v45, v43];
+        v223.origin.x = v47;
+        v223.origin.y = v177;
+        v223.size.width = v49;
+        v223.size.height = r1a;
+        v235.origin.x = rect.origin.x;
+        v235.origin.y = v174 - _controlsExpansionYOffset;
+        v235.size.width = v45;
+        v235.size.height = v43;
+        v224 = CGRectUnion(v223, v235);
+        v177 = v224.origin.y;
+        v47 = v224.origin.x;
+        v49 = v224.size.width;
+        v48 = v224.size.height;
       }
 
-      v51 = v49 & (includedControls >> 1);
-      if (v51)
+      v52 = v50 & (includedControls >> 1);
+      if (v52)
       {
-        v52 = v46;
+        v53 = v47;
         [(AVMobileChromelessVolumeControlsView *)v38 intrinsicContentSize];
-        if (v53 >= v171 - v45)
+        if (v54 >= v173 - v45)
         {
-          v54 = v171 - v45;
+          v55 = v173 - v45;
         }
 
         else
         {
-          v54 = v53;
+          v55 = v54;
         }
 
-        [(UIView *)v38 avkit_setFrame:effectiveUserInterfaceLayoutDirection2 inLayoutDirection:rect.origin.x + v171 - v54, v172 - _controlsExpansionYOffset, v54, v43];
-        v223.origin.x = v52;
-        v223.origin.y = v175;
-        v223.size.width = v48;
-        v223.size.height = v47;
-        v234.origin.x = rect.origin.x + v171 - v54;
-        v234.origin.y = v172 - _controlsExpansionYOffset;
-        v234.size.width = v54;
-        v234.size.height = v43;
-        v224 = CGRectUnion(v223, v234);
-        v175 = v224.origin.y;
-        v46 = v224.origin.x;
-        v48 = v224.size.width;
-        v47 = v224.size.height;
+        [(UIView *)v38 avkit_setFrame:effectiveUserInterfaceLayoutDirection2 inLayoutDirection:rect.origin.x + v173 - v55, v174 - _controlsExpansionYOffset, v55, v43];
+        v225.origin.x = v53;
+        v225.origin.y = v177;
+        v225.size.width = v49;
+        v225.size.height = v48;
+        v236.origin.x = rect.origin.x + v173 - v55;
+        v236.origin.y = v174 - _controlsExpansionYOffset;
+        v236.size.width = v55;
+        v236.size.height = v43;
+        v226 = CGRectUnion(v225, v236);
+        v177 = v226.origin.y;
+        v47 = v226.origin.x;
+        v49 = v226.size.width;
+        v48 = v226.size.height;
       }
 
-      BYTE2(v199) = v50;
-      HIBYTE(v199) = v51;
+      BYTE2(v201) = v51;
+      HIBYTE(v201) = v52;
 
-      v55 = v170;
-      if ((contentTabPresented || v168) && self->_contentTabsView && (includedControls & 0x40) != 0)
+      v56 = v172;
+      if ((contentTabPresented || v170) && self->_contentTabsView && (includedControls & 0x40) != 0)
       {
-        v56 = v46;
-        v225.origin.x = v46;
-        v225.origin.y = v175;
-        v225.size.width = v48;
-        v225.size.height = v47;
-        v57 = controlsPadding + CGRectGetMaxY(v225);
-        v188 = includedControls;
-        v189 = v177;
-        v190 = controlsPadding;
-        v191 = v169;
-        v192 = v170;
-        v193 = contentTabPresented;
-        v194 = v168;
-        v195 = v200;
-        *v196 = *v201;
-        *&v196[14] = *&v201[14];
-        v197 = contentTabsPresentationLayout;
-        v198 = contentTabPresentationHeight;
-        v58 = [(AVMobileChromelessControlsView *)&self->super.super.super.super.isa _layoutContentTabsInFrame:&v199 withConfiguration:rect.origin.x canFitState:v57, v179, v15 - v47];
-        v60 = v59;
-        v62 = v61;
-        v64 = v63;
-        v65 = v56;
-        v226.origin.x = v56;
-        v226.origin.y = v175;
-        v226.size.width = v48;
-        v226.size.height = v47;
-        v66 = CGRectGetMaxY(v226);
-        v227.origin.x = v58;
-        v227.origin.y = v60;
-        v227.size.width = v62;
-        v227.size.height = v64;
-        v67 = CGRectGetMinY(v227);
-        v228.origin.x = v65;
-        v228.origin.y = v175;
-        v228.size.width = v48;
-        v228.size.height = v47;
-        v173 = controlsPadding + v66;
-        v174 = v67 - controlsPadding - CGRectGetMaxY(v228) - controlsPadding;
+        v57 = v47;
+        v227.origin.x = v47;
+        v227.origin.y = v177;
+        v227.size.width = v49;
+        v227.size.height = v48;
+        v58 = controlsPadding + CGRectGetMaxY(v227);
+        v190 = includedControls;
+        v191 = v179;
+        v192 = controlsPadding;
+        v193 = v171;
+        v194 = v172;
+        v195 = contentTabPresented;
+        v196 = v170;
+        v197 = v202;
+        *v198 = *v203;
+        *&v198[14] = *&v203[14];
+        v199 = contentTabsPresentationLayout;
+        v200 = contentTabPresentationHeight;
+        v59 = [(AVMobileChromelessControlsView *)&self->super.super.super.super.isa _layoutContentTabsInFrame:&v201 withConfiguration:rect.origin.x canFitState:v58, v181, v15 - v48];
+        v61 = v60;
+        v63 = v62;
+        v65 = v64;
+        v66 = v57;
+        v228.origin.x = v57;
+        v228.origin.y = v177;
+        v228.size.width = v49;
+        v228.size.height = v48;
+        v67 = CGRectGetMaxY(v228);
+        v229.origin.x = v59;
+        v229.origin.y = v61;
+        v229.size.width = v63;
+        v229.size.height = v65;
+        v68 = CGRectGetMinY(v229);
+        v230.origin.x = v66;
+        v230.origin.y = v177;
+        v230.size.width = v49;
+        v230.size.height = v48;
+        v175 = controlsPadding + v67;
+        v176 = v68 - controlsPadding - CGRectGetMaxY(v230) - controlsPadding;
       }
 
       else if ((includedControls & 0x40) != 0)
       {
-        v68 = self->_auxiliaryControlsView;
-        v69 = self->_timelineView;
-        v70 = self->_titlebarView;
-        v71 = self->_layoutConfiguration.includedControls;
-        v72 = self->_layoutConfiguration.controlsPadding;
-        v176 = self->_layoutConfiguration.auxiliaryControlsPlacement;
-        v73 = self->_layoutConfiguration.pinnedAuxiliaryControls;
-        [(AVMobileChromelessTimelineView *)v69 intrinsicContentSize];
-        v75 = v74;
-        [(AVMobileTitlebarView *)v70 intrinsicContentSize];
-        v77 = v76;
-        [(AVMobileAuxiliaryControlsView *)v68 sizeFittingControls:v73];
-        v79 = v78;
+        v69 = self->_auxiliaryControlsView;
+        v70 = self->_timelineView;
+        v71 = self->_titlebarView;
+        v72 = self->_layoutConfiguration.includedControls;
+        v73 = self->_layoutConfiguration.controlsPadding;
+        v178 = self->_layoutConfiguration.auxiliaryControlsPlacement;
+        v74 = self->_layoutConfiguration.pinnedAuxiliaryControls;
+        [(AVMobileChromelessTimelineView *)v70 intrinsicContentSize];
+        v76 = v75;
+        [(AVMobileTitlebarView *)v71 intrinsicContentSize];
+        v78 = v77;
+        [(AVMobileAuxiliaryControlsView *)v69 sizeFittingControls:v74];
+        v80 = v79;
 
-        v80 = (v71 & 0x10) == 0;
-        if (v71)
+        v81 = (v72 & 0x10) == 0;
+        if (v72)
         {
-          v81 = v75;
+          v82 = v76;
         }
 
         else
         {
-          v81 = 0.0;
+          v82 = 0.0;
         }
 
-        if (v81 >= v79)
+        if (v82 >= v80)
         {
-          v82 = v81;
-        }
-
-        else
-        {
-          v82 = v79;
-        }
-
-        v83 = v176 != 1 || (v71 & 0x10) == 0;
-        if (v176 == 1)
-        {
-          v80 = 1;
-        }
-
-        if (!v83)
-        {
-          v81 = v82;
-        }
-
-        if ((v71 & 0x20) != 0)
-        {
-          v84 = v77;
+          v83 = v82;
         }
 
         else
         {
-          v84 = 0.0;
+          v83 = v80;
         }
 
-        if (v84 >= v79)
+        v84 = v178 != 1 || (v72 & 0x10) == 0;
+        if (v178 == 1)
         {
-          v85 = v84;
+          v81 = 1;
         }
 
-        else
+        if (!v84)
         {
-          v85 = v79;
+          v82 = v83;
         }
 
-        if (!v80)
+        if ((v72 & 0x20) != 0)
         {
-          v84 = v85;
-        }
-
-        v86 = v84 == 0.0 || v81 == 0.0;
-        v87 = v81 + v84 + 0.0;
-        if (!v86)
-        {
-          v87 = v72 + v87;
-        }
-
-        if (v87 >= v174)
-        {
-          v55 = v170;
+          v85 = v78;
         }
 
         else
         {
-          v188 = includedControls;
-          v189 = v177;
-          v190 = controlsPadding;
-          v55 = v170;
-          v191 = v169;
-          v192 = v170;
-          v193 = contentTabPresented;
-          v194 = v168;
-          v195 = v200;
-          *v196 = *v201;
-          *&v196[14] = *&v201[14];
-          v197 = contentTabsPresentationLayout;
-          v198 = contentTabPresentationHeight;
-          v229.origin.x = [(AVMobileChromelessControlsView *)&self->super.super.super.super.isa _layoutContentTabsInFrame:&v199 withConfiguration:rect.origin.x canFitState:v173, v179, v174];
-          v88 = v229.origin.x;
-          v89 = v229.origin.y;
-          v90 = v229.size.width;
-          v91 = v229.size.height;
-          v92 = BYTE1(v199);
-          if (v92 == CGRectEqualToRect(v229, *MEMORY[0x1E695F050]))
+          v85 = 0.0;
+        }
+
+        if (v85 >= v80)
+        {
+          v86 = v85;
+        }
+
+        else
+        {
+          v86 = v80;
+        }
+
+        if (!v81)
+        {
+          v85 = v86;
+        }
+
+        v87 = v85 == 0.0 || v82 == 0.0;
+        v88 = v82 + v85 + 0.0;
+        if (!v87)
+        {
+          v88 = v73 + v88;
+        }
+
+        if (v88 >= v176)
+        {
+          v56 = v172;
+        }
+
+        else
+        {
+          v190 = includedControls;
+          v191 = v179;
+          v192 = controlsPadding;
+          v56 = v172;
+          v193 = v171;
+          v194 = v172;
+          v195 = contentTabPresented;
+          v196 = v170;
+          v197 = v202;
+          *v198 = *v203;
+          *&v198[14] = *&v203[14];
+          v199 = contentTabsPresentationLayout;
+          v200 = contentTabPresentationHeight;
+          v231.origin.x = [(AVMobileChromelessControlsView *)&self->super.super.super.super.isa _layoutContentTabsInFrame:&v201 withConfiguration:rect.origin.x canFitState:v175, v181, v176];
+          v89 = v231.origin.x;
+          v90 = v231.origin.y;
+          v91 = v231.size.width;
+          v92 = v231.size.height;
+          v93 = BYTE1(v201);
+          if (v93 == CGRectEqualToRect(v231, *MEMORY[0x1E695F050]))
           {
-            v93 = _AVLog();
-            if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
+            v94 = _AVLog();
+            if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
             {
-              v162 = BYTE1(v199);
-              v232.origin.x = v88;
-              v232.origin.y = v89;
-              v232.size.width = v90;
-              v232.size.height = v91;
-              v163 = NSStringFromCGRect(v232);
+              v164 = BYTE1(v201);
+              v234.origin.x = v89;
+              v234.origin.y = v90;
+              v234.size.width = v91;
+              v234.size.height = v92;
+              v165 = NSStringFromCGRect(v234);
               *buf = 67109378;
-              *&buf[4] = v162;
-              LOWORD(v208) = 2112;
-              *(&v208 + 2) = v163;
-              _os_log_error_impl(&dword_18B49C000, v93, OS_LOG_TYPE_ERROR, "Error: Internal inconsistency. Fitting state and layout rect for content tabs UI does not match. canFitContentTabs: %d  contentTabsLayoutFrame: %@", buf, 0x12u);
+              *&buf[4] = v164;
+              LOWORD(v210) = 2112;
+              *(&v210 + 2) = v165;
+              _os_log_error_impl(&dword_18B49C000, v94, OS_LOG_TYPE_ERROR, "Error: Internal inconsistency. Fitting state and layout rect for content tabs UI does not match. canFitContentTabs: %d  contentTabsLayoutFrame: %@", buf, 0x12u);
             }
           }
 
-          if (BYTE1(v199) == 1)
+          if (BYTE1(v201) == 1)
           {
-            v230.origin.x = v88;
-            v230.origin.y = v89;
-            v230.size.width = v90;
-            v230.size.height = v91;
-            v173 = v164;
-            v174 = CGRectGetMinY(v230) - v164 - controlsPadding;
+            v232.origin.x = v89;
+            v232.origin.y = v90;
+            v232.size.width = v91;
+            v232.size.height = v92;
+            v175 = v166;
+            v176 = CGRectGetMinY(v232) - v166 - controlsPadding;
           }
         }
       }
 
-      v94 = v55;
-      v95 = self->_auxiliaryControlsView;
-      v96 = self->_liveEdgeContentTagView;
-      v97 = self->_timelineView;
-      v98 = self->_titlebarView;
+      v95 = v56;
+      v96 = self->_auxiliaryControlsView;
+      v97 = self->_liveEdgeContentTagView;
+      v98 = self->_timelineView;
+      v99 = self->_titlebarView;
       effectiveUserInterfaceLayoutDirection3 = [(AVMobileChromelessControlsView *)self effectiveUserInterfaceLayoutDirection];
-      v100 = v94;
-      [(AVMobileChromelessTimelineView *)v97 intrinsicContentSize];
-      if (v174 >= v101)
+      v101 = v95;
+      [(AVMobileChromelessTimelineView *)v98 intrinsicContentSize];
+      if (v176 >= v102)
       {
-        v102 = v101;
+        v103 = v102;
       }
 
       else
       {
-        v102 = v174;
+        v103 = v176;
       }
 
-      [(AVMobileTitlebarView *)v98 intrinsicContentSize];
-      v104 = v103;
-      [(AVMobileContentTagView *)v96 intrinsicContentSize];
-      v106 = v105;
+      [(AVMobileTitlebarView *)v99 intrinsicContentSize];
+      v105 = v104;
+      [(AVMobileContentTagView *)v97 intrinsicContentSize];
+      v107 = v106;
       _controlsExpansionYOffset2 = [(AVMobileChromelessControlsView *)self _controlsExpansionYOffset];
-      v178 = v106;
-      [(AVMobileAuxiliaryControlsView *)v95 sizeFittingControls:v100];
-      v109 = v107;
-      v110 = v108;
-      v111 = includedControls & 1;
-      v112 = v173 + v174;
+      v180 = v107;
+      [(AVMobileAuxiliaryControlsView *)v96 sizeFittingControls:v101];
+      v111 = v109;
+      v112 = v110;
+      v113 = includedControls & 1;
+      v114 = v175 + v176;
       if (includedControls)
       {
-        v113 = v173 + v174 - v102;
+        v115 = v175 + v176 - v103;
       }
 
       else
       {
-        v113 = v173 + v174;
+        v115 = v175 + v176;
       }
 
       if (includedControls)
       {
-        v114 = v174 - (v102 - controlsPadding);
+        v116 = v176 - (v103 - controlsPadding);
       }
 
       else
       {
-        v114 = v174;
+        v116 = v176;
       }
 
-      v115 = 0.0;
+      v117 = 0.0;
       if ((includedControls & 0x10) == 0)
       {
 LABEL_76:
-        v116 = 0;
-        v117 = 1;
+        v118 = 0;
+        v119 = 1;
 LABEL_77:
-        v118 = v179;
+        v120 = v181;
 LABEL_104:
-        v138 = v117 & (includedControls >> 5);
-        if (v114 >= v104)
+        v140 = v119 & (includedControls >> 5);
+        if (v116 >= v105)
         {
-          v139 = v138;
+          v141 = v140;
         }
 
         else
         {
-          v139 = 0;
+          v141 = 0;
         }
 
-        if (v111)
+        if (v113)
         {
-          [(UIView *)v97 avkit_setFrame:effectiveUserInterfaceLayoutDirection3 inLayoutDirection:rect.origin.x, _controlsExpansionYOffset2 + v113, v118, v102];
+          [(UIView *)v98 avkit_setFrame:effectiveUserInterfaceLayoutDirection3 inLayoutDirection:rect.origin.x, _controlsExpansionYOffset2 + v115, v120, v103];
         }
 
-        if (v116)
+        if (v118)
         {
-          [(UIView *)v95 avkit_setFrame:effectiveUserInterfaceLayoutDirection3 inLayoutDirection:rect.origin.x + v171 - v109, _controlsExpansionYOffset2 + v115, v109, v110];
+          [(UIView *)v96 avkit_setFrame:effectiveUserInterfaceLayoutDirection3 inLayoutDirection:rect.origin.x + v173 - v111, _controlsExpansionYOffset2 + v117, v111, v112];
         }
 
-        if (v139)
+        if (v141)
         {
-          [(UIView *)v98 avkit_setFrame:effectiveUserInterfaceLayoutDirection3 inLayoutDirection:rect.origin.x, _controlsExpansionYOffset2 + v113 - controlsPadding - v104, v179, v104];
+          [(UIView *)v99 avkit_setFrame:effectiveUserInterfaceLayoutDirection3 inLayoutDirection:rect.origin.x, _controlsExpansionYOffset2 + v115 - controlsPadding - v105, v181, v105];
         }
 
-        LOBYTE(v199) = v116;
-        if (v114 >= v178)
+        LOBYTE(v201) = v118;
+        if (v116 >= v180)
         {
-          v140 = v111;
+          v142 = v113;
         }
 
         else
         {
-          v140 = 0;
+          v142 = 0;
         }
 
-        BYTE3(v199) = v140;
-        BYTE5(v199) = v111;
-        BYTE6(v199) = v139;
+        BYTE3(v201) = v142;
+        BYTE5(v201) = v113;
+        BYTE6(v201) = v141;
 
         goto LABEL_117;
       }
 
-      if (v169 == 1 || (v114 >= v108 ? (v119 = v179 < v107) : (v119 = 1), v119))
+      if (v171 == 1 || (v116 >= v110 ? (v121 = v181 < v109) : (v121 = 1), v121))
       {
-        if (v169 != 1)
+        if (v171 != 1)
         {
-          v116 = 0;
-          v117 = 0;
+          v118 = 0;
+          v119 = 0;
           goto LABEL_77;
         }
 
-        v127 = v171 + -150.0;
-        v128 = v107;
-        if ((v127 > v128 || vabds_f32(v127, v128) < 0.00000011921) && ((v129 = v174, v130 = v108, v129 > v130) || vabds_f32(v129, v130) < 0.00000011921))
+        v129 = v173 + -150.0;
+        v130 = v109;
+        if ((v129 > v130 || vabds_f32(v129, v130) < 0.00000011921) && ((v131 = v176, v132 = v110, v131 > v132) || vabds_f32(v131, v132) < 0.00000011921))
         {
-          v132 = v110;
-          v131 = v109;
+          v134 = v112;
+          v133 = v111;
         }
 
         else
         {
-          [(AVMobileAuxiliaryControlsView *)v95 sizeFittingControls:MEMORY[0x1E695E0F0]];
-          v133 = v131;
-          if (v127 <= v133 && vabds_f32(v127, v133) >= 0.00000011921 || ((v134 = v114, v135 = v132, v136 = vabds_f32(v134, v135), v134 <= v135) ? (v137 = v136 < 0.00000011921) : (v137 = 1), !v137))
+          [(AVMobileAuxiliaryControlsView *)v96 sizeFittingControls:MEMORY[0x1E695E0F0]];
+          v135 = v133;
+          if (v129 <= v135 && vabds_f32(v129, v135) >= 0.00000011921 || ((v136 = v116, v137 = v134, v138 = vabds_f32(v136, v137), v136 <= v137) ? (v139 = v138 < 0.00000011921) : (v139 = 1), !v139))
           {
-            v116 = 0;
-            v117 = 1;
-            v118 = v179;
-            v115 = 0.0;
+            v118 = 0;
+            v119 = 1;
+            v120 = v181;
+            v117 = 0.0;
             goto LABEL_104;
           }
 
-          v115 = 0.0;
-          if (v131 == *MEMORY[0x1E695F060] && v132 == *(MEMORY[0x1E695F060] + 8))
+          v117 = 0.0;
+          if (v133 == *MEMORY[0x1E695F060] && v134 == *(MEMORY[0x1E695F060] + 8))
           {
             goto LABEL_76;
           }
         }
 
-        if (v132 >= v102)
+        if (v134 >= v103)
         {
-          v161 = v132;
+          v163 = v134;
         }
 
         else
         {
-          v161 = v102;
+          v163 = v103;
         }
 
-        v114 = v174 - v161 - controlsPadding;
-        v118 = v171 - (controlsPadding + v131);
-        v115 = v112 - v161 + (v161 - v132) * 0.5;
-        v113 = v112 - v161 + (v161 - v102) * 0.5;
-        v116 = 1;
-        v109 = v131;
-        v110 = v132;
+        v116 = v176 - v163 - controlsPadding;
+        v120 = v173 - (controlsPadding + v133);
+        v117 = v114 - v163 + (v163 - v134) * 0.5;
+        v115 = v114 - v163 + (v163 - v103) * 0.5;
+        v118 = 1;
+        v111 = v133;
+        v112 = v134;
       }
 
       else
       {
-        v120 = [(AVMobileTitlebarView *)v98 title:v179];
+        v122 = [(AVMobileTitlebarView *)v99 title:v181];
 
-        if (v120)
+        if (v122)
         {
-          [(AVMobileTitlebarView *)v98 intrinsicContentSize];
-          v122 = v121;
-          [(AVMobileTitlebarView *)v98 titleLabelCenterYOffset];
+          [(AVMobileTitlebarView *)v99 intrinsicContentSize];
           v124 = v123;
-          v231.origin.x = 0.0;
-          v231.origin.y = 0.0;
-          v231.size.width = v109;
-          v231.size.height = v110;
-          MidY = CGRectGetMidY(v231);
-          v126 = controlsPadding;
-          v115 = v113 - controlsPadding - (v122 - v124) - MidY;
+          [(AVMobileTitlebarView *)v99 titleLabelCenterYOffset];
+          v126 = v125;
+          v233.origin.x = 0.0;
+          v233.origin.y = 0.0;
+          v233.size.width = v111;
+          v233.size.height = v112;
+          MidY = CGRectGetMidY(v233);
+          v128 = controlsPadding;
+          v117 = v115 - controlsPadding - (v124 - v126) - MidY;
         }
 
         else
         {
-          v126 = controlsPadding;
-          v115 = v113 - v110 - controlsPadding;
+          v128 = controlsPadding;
+          v117 = v115 - v112 - controlsPadding;
         }
 
-        v118 = v179;
-        v116 = 1;
-        v179 = v171 - (v109 + v126 * 1.5);
+        v120 = v181;
+        v118 = 1;
+        v181 = v173 - (v111 + v128 * 1.5);
       }
 
-      v117 = 1;
+      v119 = 1;
       goto LABEL_104;
     }
   }
 
-  BYTE4(v199) = 0;
+  BYTE4(v201) = 0;
 
 LABEL_117:
-  v141 = v199;
+  v143 = v201;
   *buf = self->_auxiliaryControlsView;
-  *&v208 = self->_contentTabsView;
-  *(&v208 + 1) = self->_displayModeControlsView;
-  v209 = self->_liveEdgeContentTagView;
-  v210 = self->_playbackControlsView;
-  v211 = self->_timelineView;
-  v212 = self->_titlebarView;
-  v213 = self->_volumeControlsView;
-  v202 = v141 & 1;
-  v142 = vdupq_n_s64(v141);
-  *v142.i8 = vand_s8(vmovn_s32(vuzp1q_s32(vshlq_u64(v142, xmmword_18B6EC430), vshlq_u64(v142, xmmword_18B6EC420))), 0x1000100010001);
-  v203 = vuzp1_s8(*v142.i8, *v142.i8).u32[0];
-  v204 = BYTE5(v141) & 1;
-  v205 = BYTE6(v141) & 1;
-  v206 = HIBYTE(v141) & 1;
+  *&v210 = self->_contentTabsView;
+  *(&v210 + 1) = self->_displayModeControlsView;
+  v211 = self->_liveEdgeContentTagView;
+  v212 = self->_playbackControlsView;
+  v213 = self->_timelineView;
+  v214 = self->_titlebarView;
+  v215 = self->_volumeControlsView;
+  v204 = v143 & 1;
+  v144 = vdupq_n_s64(v143);
+  *v144.i8 = vand_s8(vmovn_s32(vuzp1q_s32(vshlq_u64(v144, xmmword_18B6EC430), vshlq_u64(v144, xmmword_18B6EC420))), 0x1000100010001);
+  v205 = vuzp1_s8(*v144.i8, *v144.i8).u32[0];
+  v206 = BYTE5(v143) & 1;
+  v207 = BYTE6(v143) & 1;
+  v208 = HIBYTE(v143) & 1;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   for (i = 0; i != 8; ++i)
   {
-    v146 = *&buf[8 * i];
-    v147 = v146;
-    if (v146)
+    v148 = *&buf[8 * i];
+    v149 = v148;
+    if (v148)
     {
-      v148 = *(&v202 + i);
-      if ([v146 isHidden] == v148)
+      v150 = *(&v204 + i);
+      if ([v148 isHidden] == v150)
       {
-        [v147 setHidden:v148 ^ 1u];
-        if (v148)
+        [v149 setHidden:v150 ^ 1u];
+        if (v150)
         {
-          v149 = array2;
+          v151 = array2;
         }
 
         else
         {
-          v149 = array;
+          v151 = array;
         }
 
-        [v149 addObject:v147];
+        [v151 addObject:v149];
       }
     }
   }
 
   if ([array count])
   {
-    v150 = array;
-    v151 = v150;
-    if (v150)
+    v152 = array;
+    v153 = v152;
+    if (v152)
     {
-      if ([v150 count])
+      if ([v152 count])
       {
         delegate = [(AVMobileChromelessControlsView *)self delegate];
-        v153 = objc_opt_respondsToSelector();
+        v155 = objc_opt_respondsToSelector();
 
-        if (v153)
+        if (v155)
         {
           delegate2 = [(AVMobileChromelessControlsView *)self delegate];
-          [delegate2 chromelessControlsView:self didDetachControlsViews:v151];
+          [delegate2 chromelessControlsView:self didDetachControlsViews:v153];
         }
       }
     }
@@ -721,19 +721,19 @@ LABEL_117:
 
   if ([array2 count])
   {
-    v155 = array2;
-    v156 = v155;
-    if (v155)
+    v157 = array2;
+    v158 = v157;
+    if (v157)
     {
-      if ([v155 count])
+      if ([v157 count])
       {
         delegate3 = [(AVMobileChromelessControlsView *)self delegate];
-        v158 = objc_opt_respondsToSelector();
+        v160 = objc_opt_respondsToSelector();
 
-        if (v158)
+        if (v160)
         {
           delegate4 = [(AVMobileChromelessControlsView *)self delegate];
-          [delegate4 chromelessControlsView:self didAttachControlsViews:v156];
+          [delegate4 chromelessControlsView:self didAttachControlsViews:v158];
         }
       }
     }
@@ -755,53 +755,53 @@ LABEL_140:
   v14 = self[63];
   v15 = a2[2];
   [self layoutMargins];
-  v47 = v16;
+  v48 = v16;
   v18 = v17;
   v20 = v19;
   v22 = v21;
   effectiveUserInterfaceLayoutDirection = [self effectiveUserInterfaceLayoutDirection];
   _controlsExpansionYOffset = [(AVMobileChromelessControlsView *)self _controlsExpansionYOffset];
   configurationCopy = configuration;
-  v45 = v22;
-  v43 = a6;
-  v49.origin.y = a7;
+  v46 = v22;
+  v44 = a6;
+  v50.origin.y = a7;
   [v14 intrinsicContentSize];
-  v25 = v24;
-  v26 = *(MEMORY[0x1E695F050] + 8);
-  v48 = v15 + v24 + 50.0;
-  v49.origin.x = *MEMORY[0x1E695F050];
-  v27 = *(MEMORY[0x1E695F050] + 16);
-  v28 = *a2;
-  if (v49.origin.y < v48)
+  v26 = v25;
+  v27 = *(MEMORY[0x1E695F050] + 8);
+  v49 = v15 + v25 + 50.0;
+  v50.origin.x = *MEMORY[0x1E695F050];
+  v28 = *(MEMORY[0x1E695F050] + 16);
+  v29 = *a2;
+  if (v50.origin.y < v49)
   {
     goto LABEL_15;
   }
 
   r1 = *(MEMORY[0x1E695F050] + 24);
-  v29 = state + v49.origin.y;
-  v30 = state + v49.origin.y - v24;
-  if ((LOBYTE(v28) & 0x40) != 0)
+  v30 = state + v50.origin.y;
+  v31 = state + v50.origin.y - v25;
+  if ((v29 & 0x40) != 0)
   {
-    v29 = v29 - v24;
+    v30 = v30 - v25;
   }
 
-  v42 = v29;
-  if ((LOBYTE(v28) & 0x40) != 0 && v14)
+  v43 = v30;
+  if ((v29 & 0x40) != 0 && v14)
   {
-    v31 = a2[11] - v24 - v15 - v20;
-    if (v31 >= v49.origin.y - v24 - v15)
+    v32 = a2[11] - v25 - v15 - v20;
+    if (v32 >= v50.origin.y - v25 - v15)
     {
-      v31 = v49.origin.y - v24 - v15;
+      v32 = v50.origin.y - v25 - v15;
     }
 
-    if (v31 >= 50.0)
+    if (v32 >= 50.0)
     {
-      v32 = v31;
+      v33 = v32;
     }
 
     else
     {
-      v32 = 50.0;
+      v33 = 50.0;
     }
 
     [self layoutMargins];
@@ -809,10 +809,10 @@ LABEL_140:
     {
       if ((a2[5] & 1) == 0)
       {
-        v42 = v30 - (v15 - v47);
-        v32 = v15 - v20 + v32;
+        v43 = v31 - (v15 - v48);
+        v33 = v15 - v20 + v33;
 LABEL_18:
-        [v14 setFadeDistance:v33];
+        [v14 setFadeDistance:v34];
         goto LABEL_19;
       }
     }
@@ -822,43 +822,43 @@ LABEL_18:
       goto LABEL_18;
     }
 
-    v42 = v30 - (v15 + v32 - v47);
-    v32 = v15 + v20 + v25 + v32;
-    v33 = 0.0;
+    v43 = v31 - (v15 + v33 - v48);
+    v33 = v15 + v20 + v26 + v33;
+    v34 = 0.0;
     goto LABEL_18;
   }
 
-  v32 = v24;
-  if ((LOBYTE(v28) & 0x40) == 0)
+  v33 = v25;
+  if ((v29 & 0x40) == 0)
   {
 LABEL_15:
-    v34 = *MEMORY[0x1E695F050];
+    v35 = *MEMORY[0x1E695F050];
     goto LABEL_25;
   }
 
 LABEL_19:
-  [self[63] setLayoutMargins:{v47, v18, v20, v45, r1}];
-  [self[63] avkit_setFrame:effectiveUserInterfaceLayoutDirection inLayoutDirection:{configurationCopy - v18, _controlsExpansionYOffset + v42, v45 + v43 + v18, v32}];
-  v51.origin.x = v49.origin.x;
-  v51.origin.y = v26;
-  v51.size.width = v27;
-  v51.size.height = r1a;
-  v53.origin.x = configurationCopy - v18;
-  v53.origin.y = _controlsExpansionYOffset + v42;
-  v53.size.width = v45 + v43 + v18;
-  v53.size.height = v32;
-  *&v34 = CGRectUnion(v51, v53);
+  [self[63] setLayoutMargins:{v48, v18, v20, v46, r1}];
+  [self[63] avkit_setFrame:effectiveUserInterfaceLayoutDirection inLayoutDirection:{configurationCopy - v18, _controlsExpansionYOffset + v43, v46 + v44 + v18, v33}];
+  v52.origin.x = v50.origin.x;
+  v52.origin.y = v27;
+  v52.size.width = v28;
+  v52.size.height = r1a;
+  v54.origin.x = configurationCopy - v18;
+  v54.origin.y = _controlsExpansionYOffset + v43;
+  v54.size.width = v46 + v44 + v18;
+  v54.size.height = v33;
+  *&v35 = CGRectUnion(v52, v54);
   if (*(a2 + 40) == 1)
   {
     [self bounds];
-    MaxY = CGRectGetMaxY(v52);
-    if (*(a2 + 40) == 1 && MaxY - (_controlsExpansionYOffset + v42) != a2[11])
+    MaxY = CGRectGetMaxY(v53);
+    if (*(a2 + 40) == 1 && MaxY - (_controlsExpansionYOffset + v43) != a2[11])
     {
-      v36 = _AVLog();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v37 = _AVLog();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_18B49C000, v36, OS_LOG_TYPE_ERROR, "The content tabs layout frame height does not match the given contentTabsPresentationHeight.", buf, 2u);
+        _os_log_error_impl(&dword_18B49C000, v37, OS_LOG_TYPE_ERROR, "The content tabs layout frame height does not match the given contentTabsPresentationHeight.", buf, 2u);
       }
     }
   }
@@ -866,31 +866,31 @@ LABEL_19:
 LABEL_25:
   if (frame)
   {
-    v37 = (LODWORD(v28) >> 6) & 1;
-    if (v49.origin.y < v48)
+    v38 = (v29 >> 6) & 1;
+    if (v50.origin.y < v49)
     {
-      LOBYTE(v37) = 0;
+      LOBYTE(v38) = 0;
     }
 
-    *(frame + 1) = v37;
+    *(frame + 1) = v38;
   }
 
   else
   {
-    v38 = _AVLog();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v39 = _AVLog();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v49.size.width) = 0;
-      _os_log_error_impl(&dword_18B49C000, v38, OS_LOG_TYPE_ERROR, "Error: Internal inconsistency. AVMobileChromelessControlsViewCanFitState cannot be nil.", &v49.size, 2u);
+      LOWORD(v50.size.width) = 0;
+      _os_log_error_impl(&dword_18B49C000, v39, OS_LOG_TYPE_ERROR, "Error: Internal inconsistency. AVMobileChromelessControlsViewCanFitState cannot be nil.", &v50.size, 2u);
     }
   }
 
-  return v34;
+  return v35;
 }
 
 - (double)_controlsExpansionYOffset
 {
-  [self layoutConfiguration];
+  objc_msgSend_layoutConfiguration(self, a2, 0);
 
   return 0.0;
 }

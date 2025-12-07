@@ -63,7 +63,7 @@
   v36 = *(&v30 + 1);
   if (v23 == self->_previousState.senderID || !self->_activeComponent)
   {
-    v6 = _UIEventHIDUIWindowForHIDEvent();
+    v6 = _UIEventHIDUIWindowForHIDEvent(_hidEvent);
     _focusBehavior = [v6 _focusBehavior];
     supportsGameControllers = [_focusBehavior supportsGameControllers];
 
@@ -73,7 +73,7 @@
     }
 
     v9 = UIApp;
-    v10 = _UIEventHIDUIWindowForHIDEvent();
+    v10 = _UIEventHIDUIWindowForHIDEvent(_hidEvent);
     v11 = [v9 _pressesEventForWindow:v10];
 
     [v11 _setHIDEvent:_hidEvent];

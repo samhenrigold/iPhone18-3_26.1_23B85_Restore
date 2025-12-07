@@ -51,36 +51,36 @@
     v9 = self->_cell;
     self->_cell = &v8->super;
 
-    contentView = [(UITableViewCell *)self->_cell contentView];
-    [contentView addSubview:view];
+    v10 = objc_msgSend_contentView(self->_cell);
+    [v10 addSubview:view];
 
-    contentView2 = [(UITableViewCell *)self->_cell contentView];
+    v11 = objc_msgSend_contentView(self->_cell);
     v12 = MEMORY[0x1E696ACD8];
-    contentView3 = [(UITableViewCell *)self->_cell contentView];
-    v14 = [v12 constraintWithItem:contentView3 attribute:9 relatedBy:0 toItem:view attribute:9 multiplier:1.0 constant:0.0];
-    [contentView2 addConstraint:v14];
+    v13 = objc_msgSend_contentView(self->_cell);
+    v14 = [v12 constraintWithItem:v13 attribute:9 relatedBy:0 toItem:view attribute:9 multiplier:1.0 constant:0.0];
+    [v11 addConstraint:v14];
 
-    contentView4 = [(UITableViewCell *)self->_cell contentView];
+    v15 = objc_msgSend_contentView(self->_cell);
     v16 = MEMORY[0x1E696ACD8];
-    contentView5 = [(UITableViewCell *)self->_cell contentView];
-    v18 = [v16 constraintWithItem:view attribute:7 relatedBy:0 toItem:contentView5 attribute:7 multiplier:1.0 constant:1.0];
-    [contentView4 addConstraint:v18];
+    v17 = objc_msgSend_contentView(self->_cell);
+    v18 = [v16 constraintWithItem:view attribute:7 relatedBy:0 toItem:v17 attribute:7 multiplier:1.0 constant:1.0];
+    [v15 addConstraint:v18];
 
     v19 = MEMORY[0x1E696ACD8];
-    contentView6 = [(UITableViewCell *)self->_cell contentView];
-    v21 = [v19 constraintWithItem:contentView6 attribute:8 relatedBy:1 toItem:view attribute:8 multiplier:1.0 constant:0.0];
+    v20 = objc_msgSend_contentView(self->_cell);
+    v21 = [v19 constraintWithItem:v20 attribute:8 relatedBy:1 toItem:view attribute:8 multiplier:1.0 constant:0.0];
 
     LODWORD(v22) = 1148829696;
     [v21 setPriority:v22];
     v23 = MEMORY[0x1E696ACD8];
-    contentView7 = [(UITableViewCell *)self->_cell contentView];
-    v25 = [v23 constraintWithItem:contentView7 attribute:3 relatedBy:0 toItem:view attribute:3 multiplier:1.0 constant:0.0];
+    v24 = objc_msgSend_contentView(self->_cell);
+    v25 = [v23 constraintWithItem:v24 attribute:3 relatedBy:0 toItem:view attribute:3 multiplier:1.0 constant:0.0];
 
-    contentView8 = [(UITableViewCell *)self->_cell contentView];
+    v26 = objc_msgSend_contentView(self->_cell);
     v29[0] = v21;
     v29[1] = v25;
     v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
-    [contentView8 addConstraints:v27];
+    [v26 addConstraints:v27];
 
     cell = self->_cell;
   }

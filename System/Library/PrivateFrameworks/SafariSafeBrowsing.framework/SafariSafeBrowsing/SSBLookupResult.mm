@@ -29,17 +29,16 @@
 
 - (SSBLookupResult)initWithCoder:(id)coder
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = MEMORY[0x277CBEB98];
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v7 = [v5 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"result"];
 
   v9 = -[SSBLookupResult _initWithServiceLookUpResults:URLContainsUserInfo:](self, "_initWithServiceLookUpResults:URLContainsUserInfo:", v8, [coderCopy decodeBoolForKey:@"urlContainsUserInfo"]);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -52,33 +51,33 @@
 
 - (BOOL)isMalware
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_serviceLookupResults;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isMalware])
+        if ([*(*(&v7 + 1) + 8 * i) isMalware])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -90,39 +89,38 @@
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (BOOL)isPhishing
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_serviceLookupResults;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isPhishing])
+        if ([*(*(&v7 + 1) + 8 * i) isPhishing])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -134,39 +132,38 @@ LABEL_11:
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (BOOL)isUnwantedSoftware
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_serviceLookupResults;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isUnwantedSoftware])
+        if ([*(*(&v7 + 1) + 8 * i) isUnwantedSoftware])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -178,39 +175,38 @@ LABEL_11:
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (BOOL)isKnownToBeUnsafe
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_serviceLookupResults;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isKnownToBeUnsafe])
+        if ([*(*(&v7 + 1) + 8 * i) isKnownToBeUnsafe])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -222,7 +218,6 @@ LABEL_11:
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

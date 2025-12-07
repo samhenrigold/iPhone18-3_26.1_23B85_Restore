@@ -49,7 +49,7 @@
   v25 = v24;
   v27 = v26;
   v29 = v28;
-  affine::inverse(&v44, v43);
+  affine::inverse(v43, &v44);
   v30 = [CIVector vectorWithX:v43[0] Y:v43[2] Z:v43[1] W:v43[3]];
   v31 = [CIVector vectorWithX:v44 Y:v46 Z:v45 W:v47];
   _kernel = [(CITwelvefoldReflectedTile *)self _kernel];

@@ -44,152 +44,152 @@
 
 - (HGRef<HGNode>)hgNodeForTime:(id *)time trackInputs:(const void *)inputs renderer:(const void *)renderer igContext:(HGRef<PVInstructionGraphContext>)context
 {
-  v32 = v6;
-  HGTraceGuard::HGTraceGuard(v43, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphNode hgNodeForTime:...]");
-  v41 = *time;
-  [(PVInstructionGraphNode *)self contextHGNodeCacheKeyAtTime:&v41];
-  v14 = PVInstructionGraphContext::HGNodeCache(*context.m_Obj);
-  *v32 = 0;
-  v15 = atomic_load(HGLogger::_enabled);
-  if (v15)
+  v30 = v6;
+  HGTraceGuard::HGTraceGuard(v41, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphNode hgNodeForTime:...]");
+  v39 = *time;
+  objc_msgSend_contextHGNodeCacheKeyAtTime_(self);
+  v12 = PVInstructionGraphContext::HGNodeCache(*context.m_Obj);
+  *v30 = 0;
+  v13 = atomic_load(HGLogger::_enabled);
+  if (v13)
   {
-    HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Checking context node cache for (uuid: %llu) (time: %lld.%d)\n", v12, v13, v42.var0, v42.var1.var0, v42.var1.var1);
+    HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Checking context node cache for (uuid: %llu) (time: %lld.%d)\n", v10, v11, v40.var0, v40.var1.var0, v40.var1.var1);
   }
 
-  PerfTimer::PerfTimer(&v40);
-  PerfTimer::Start(&v40);
-  PVIGHGNodeCacheKey::PVIGHGNodeCacheKey(&v39, &v42);
-  v16 = std::__tree<std::__value_type<PVIGHGNodeCacheKey,HGRef<HGNode>>,std::__map_value_compare<PVIGHGNodeCacheKey,std::__value_type<PVIGHGNodeCacheKey,HGRef<HGNode>>,std::less<PVIGHGNodeCacheKey>,true>,std::allocator<std::__value_type<PVIGHGNodeCacheKey,HGRef<HGNode>>>>::find<PVIGHGNodeCacheKey>(v14, &v39);
-  v17 = v14 + 8;
+  PerfTimer::PerfTimer(&v38);
+  PerfTimer::Start(&v38);
+  PVIGHGNodeCacheKey::PVIGHGNodeCacheKey(&v37, &v40);
+  v14 = std::__tree<std::__value_type<PVIGHGNodeCacheKey,HGRef<HGNode>>,std::__map_value_compare<PVIGHGNodeCacheKey,std::__value_type<PVIGHGNodeCacheKey,HGRef<HGNode>>,std::less<PVIGHGNodeCacheKey>,true>,std::allocator<std::__value_type<PVIGHGNodeCacheKey,HGRef<HGNode>>>>::find<PVIGHGNodeCacheKey>(v12, &v37);
+  v15 = v12 + 8;
 
-  v20 = atomic_load(HGLogger::_enabled);
-  if (v14 + 8 == v16)
+  v18 = atomic_load(HGLogger::_enabled);
+  if (v12 + 8 == v14)
   {
-    if (v20)
+    if (v18)
     {
-      HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Cache Miss\n", v18, v19);
+      HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Cache Miss\n", v16, v17);
     }
 
-    v41 = *time;
-    v23 = *context.m_Obj;
-    v36 = v23;
-    if (v23)
+    v39 = *time;
+    v21 = *context.m_Obj;
+    v34 = v21;
+    if (v21)
     {
-      (*(*v23 + 16))(v23);
+      (*(*v21 + 16))(v21);
     }
 
-    [(PVInstructionGraphNode *)self internalHGNodeForTime:&v41 trackInputs:inputs renderer:renderer igContext:&v36];
-    v24 = *v32;
-    v25 = v37;
-    if (*v32 == v37)
+    objc_msgSend_internalHGNodeForTime_trackInputs_renderer_igContext_(self);
+    v22 = *v30;
+    v23 = v35;
+    if (*v30 == v35)
     {
-      if (v24)
+      if (v22)
       {
-        (*(*v37 + 24))();
+        (*(*v35 + 24))();
       }
     }
 
     else
     {
-      if (v24)
+      if (v22)
       {
-        (*(*v24 + 24))(*v32);
-        v25 = v37;
+        (*(*v22 + 24))(*v30);
+        v23 = v35;
       }
 
-      *v32 = v25;
-      v37 = 0;
-      v24 = v25;
+      *v30 = v23;
+      v35 = 0;
+      v22 = v23;
     }
 
-    if (v36)
-    {
-      (*(*v36 + 24))(v36);
-    }
-
-    PVIGHGNodeCacheKey::PVIGHGNodeCacheKey(&v35, &v42);
-    v34 = v24;
-    if (v24)
-    {
-      (*(*v24 + 16))(v24);
-    }
-
-    PVInputHGNodeMap<PVIGHGNodeCacheKey>::SetNode(v14, &v35, &v34);
     if (v34)
     {
       (*(*v34 + 24))(v34);
     }
 
-    var2 = v35.var2;
+    PVIGHGNodeCacheKey::PVIGHGNodeCacheKey(&v33, &v40);
+    v32 = v22;
+    if (v22)
+    {
+      (*(*v22 + 16))(v22);
+    }
+
+    PVInputHGNodeMap<PVIGHGNodeCacheKey>::SetNode(v12, &v33, &v32);
+    if (v32)
+    {
+      (*(*v32 + 24))(v32);
+    }
+
+    var2 = v33.var2;
   }
 
   else
   {
-    if (v20)
+    if (v18)
     {
-      HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Cache Hit!\n", v18, v19);
+      HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Cache Hit!\n", v16, v17);
     }
 
-    PVIGHGNodeCacheKey::PVIGHGNodeCacheKey(&v38, &v42);
-    PVInputHGNodeMap<PVIGHGNodeCacheKey>::GetNode(v14, &v38, &v41);
-    v21 = *v32;
-    var0 = v41.var0;
-    if (*v32 == v41.var0)
+    PVIGHGNodeCacheKey::PVIGHGNodeCacheKey(&v36, &v40);
+    PVInputHGNodeMap<PVIGHGNodeCacheKey>::GetNode(v12, &v36, &v39);
+    v19 = *v30;
+    var0 = v39.var0;
+    if (*v30 == v39.var0)
     {
-      if (v21)
+      if (v19)
       {
-        (*(*v41.var0 + 24))(v41.var0);
+        (*(*v39.var0 + 24))(v39.var0);
       }
     }
 
     else
     {
-      if (v21)
+      if (v19)
       {
-        (*(*v21 + 24))(v21);
-        var0 = v41.var0;
+        (*(*v19 + 24))(v19);
+        var0 = v39.var0;
       }
 
-      *v32 = var0;
-      v41.var0 = 0;
+      *v30 = var0;
+      v39.var0 = 0;
     }
 
-    var2 = v38.var2;
+    var2 = v36.var2;
   }
 
-  PerfTimer::End(&v40);
-  v27 = PVInstructionGraphContext::DotGraph(*context.m_Obj);
-  if (HGDotGraph::on(v27))
+  PerfTimer::End(&v38);
+  v25 = PVInstructionGraphContext::DotGraph(*context.m_Obj);
+  if (HGDotGraph::on(v25))
   {
-    v28 = *context.m_Obj;
-    v33 = v28;
-    if (v28)
+    v26 = *context.m_Obj;
+    v31 = v26;
+    if (v26)
     {
-      (*(*v28 + 16))(v28);
+      (*(*v26 + 16))(v26);
     }
 
-    v29 = [(PVInstructionGraphNode *)self dotTreeLabel:&v33];
-    if (v33)
+    v27 = [(PVInstructionGraphNode *)self dotTreeLabel:&v31];
+    if (v31)
     {
-      (*(*v33 + 24))(v33);
+      (*(*v31 + 24))(v31);
     }
 
     if (PVInstructionGraphContext::DotTreeLogLevel(*context.m_Obj) >= 2)
     {
-      v30 = [v29 stringByAppendingFormat:@"\nBuildTime: %.3f", (v40._end - v40._start) * 1000.0];
+      v28 = [v27 stringByAppendingFormat:@"\nBuildTime: %.3f", (v38._end - v38._start) * 1000.0];
 
-      v29 = v30;
+      v27 = v28;
     }
 
-    HGDotGraph::node(v27, self, [v29 UTF8String], 0);
-    if (v17 != v16)
+    HGDotGraph::node(v25, self, [v27 UTF8String], 0);
+    if (v15 != v14)
     {
-      HGDotGraph::filled(v27, self, "#90c070");
+      HGDotGraph::filled(v25, self, "#90c070");
     }
   }
 
-  HGTraceGuard::~HGTraceGuard(v43);
-  return v31;
+  HGTraceGuard::~HGTraceGuard(v41);
+  return v29;
 }
 
 - (HGRef<HGNode>)internalHGNodeForTime:(id *)time trackInputs:(const void *)inputs renderer:(const void *)renderer igContext:(HGRef<PVInstructionGraphContext>)context
@@ -202,7 +202,7 @@
   }
 
   v9 = HGObject::operator new(0x1A0uLL);
-  v10 = HGNode::HGNode(v9);
+  HGNode::HGNode(v9);
   *v7 = v9;
   return v10;
 }

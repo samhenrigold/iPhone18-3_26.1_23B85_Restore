@@ -19,7 +19,7 @@
     if (action == 1)
     {
       v8 = NTKCCustomizationLocalizedString(@"ACTION_REMOVE", @"Remove", v7);
-      v9 = NTKCRemoveColor();
+      v9 = NTKCRemoveColor(v8);
     }
 
     else
@@ -32,7 +32,7 @@
       }
 
       v8 = NTKCCustomizationLocalizedString(@"ACTION_SET_CURRENT", @"Select", v7);
-      v9 = NTKCActionColor();
+      v9 = NTKCActionColor(v8);
     }
 
     v10 = v9;

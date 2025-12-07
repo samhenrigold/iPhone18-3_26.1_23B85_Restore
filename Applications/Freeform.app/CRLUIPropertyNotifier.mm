@@ -11,7 +11,7 @@
   *(&self->super.isa + OBJC_IVAR____TtC8Freeform21CRLUIPropertyNotifier_propertyStateUpdateCount) = 0;
   swift_unknownObjectWeakInit();
   v5 = OBJC_IVAR____TtC8Freeform21CRLUIPropertyNotifier_subscribers;
-  *(&self->super.isa + v5) = sub_100BD954C(_swiftEmptyArrayStorage, &qword_101A0F178);
+  *(&self->super.isa + v5) = sub_100BD954C(_swiftEmptyArrayStorage, &qword_101A0F178, &unk_1014927C0);
   swift_unknownObjectWeakAssign();
   v7.receiver = self;
   v7.super_class = ObjectType;
@@ -23,7 +23,7 @@
   *(&self->super.isa + OBJC_IVAR____TtC8Freeform21CRLUIPropertyNotifier_propertyStateUpdateCount) = 0;
   swift_unknownObjectWeakInit();
   v3 = OBJC_IVAR____TtC8Freeform21CRLUIPropertyNotifier_subscribers;
-  *(&self->super.isa + v3) = sub_100BD954C(_swiftEmptyArrayStorage, &qword_101A0F178);
+  *(&self->super.isa + v3) = sub_100BD954C(_swiftEmptyArrayStorage, &qword_101A0F178, &unk_1014927C0);
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;

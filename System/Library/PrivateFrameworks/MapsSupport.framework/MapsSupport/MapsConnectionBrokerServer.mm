@@ -69,64 +69,64 @@
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = sub_1000124D8();
+  v8 = sub_1000124D8(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v37 = "[MapsConnectionBrokerServer listener:shouldAcceptNewConnection:]";
-    v38 = 2112;
-    v39 = listenerCopy;
-    v40 = 2112;
-    v41 = connectionCopy;
+    v38 = "[MapsConnectionBrokerServer listener:shouldAcceptNewConnection:]";
+    v39 = 2112;
+    v40 = listenerCopy;
+    v41 = 2112;
+    v42 = connectionCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "MapsConnectionBrokerServer %s %@ %@", buf, 0x20u);
   }
 
   if (self->_endpointSourceListener == listenerCopy)
   {
-    v10 = sub_1000124D8();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = sub_1000124D8(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v37 = connectionCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "MapsConnectionBrokerServer Received new endpoint source connection: %@", buf, 0xCu);
+      v38 = connectionCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "MapsConnectionBrokerServer Received new endpoint source connection: %@", buf, 0xCu);
     }
 
     [connectionCopy setExportedObject:self];
-    v11 = +[NSXPCInterface _maps_mapsConnectionBrokerEndpointRecorderInterface];
-    [connectionCopy setExportedInterface:v11];
+    v12 = +[NSXPCInterface _maps_mapsConnectionBrokerEndpointRecorderInterface];
+    [connectionCopy setExportedInterface:v12];
 
-    v12 = +[NSXPCInterface _maps_mapsConnectionBrokerEndpointSourceInterface];
-    [connectionCopy setRemoteObjectInterface:v12];
+    v13 = +[NSXPCInterface _maps_mapsConnectionBrokerEndpointSourceInterface];
+    [connectionCopy setRemoteObjectInterface:v13];
 
     objc_initWeak(buf, self);
     objc_initWeak(&location, connectionCopy);
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_10000AC1C;
-    v32[3] = &unk_10003CC90;
-    objc_copyWeak(&v33, &location);
-    objc_copyWeak(&v34, buf);
-    [connectionCopy setInvalidationHandler:v32];
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
-    v30[2] = sub_10000AD74;
-    v30[3] = &unk_10003CCB8;
-    objc_copyWeak(&v31, &location);
-    [connectionCopy setInterruptionHandler:v30];
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_10000AC1C;
+    v33[3] = &unk_10003CC90;
+    objc_copyWeak(&v34, &location);
+    objc_copyWeak(&v35, buf);
+    [connectionCopy setInvalidationHandler:v33];
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_10000AD74;
+    v31[3] = &unk_10003CCB8;
+    objc_copyWeak(&v32, &location);
+    [connectionCopy setInterruptionHandler:v31];
     connectionQueue = self->_connectionQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10000AE28;
     block[3] = &unk_10003C9D8;
     block[4] = self;
-    v14 = connectionCopy;
-    v29 = v14;
+    v15 = connectionCopy;
+    v30 = v15;
     dispatch_async(connectionQueue, block);
-    [v14 resume];
+    [v15 resume];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v35);
     objc_destroyWeak(&v34);
-    objc_destroyWeak(&v33);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
     goto LABEL_12;
@@ -134,61 +134,61 @@
 
   if (self->_endpointConsumerListener == listenerCopy)
   {
-    v15 = sub_1000124D8();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = sub_1000124D8(v9);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v37 = connectionCopy;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "MapsConnectionBrokerServer Received new endpoint consumer connection: %@", buf, 0xCu);
+      v38 = connectionCopy;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "MapsConnectionBrokerServer Received new endpoint consumer connection: %@", buf, 0xCu);
     }
 
     [connectionCopy setExportedObject:self];
-    v16 = +[NSXPCInterface _maps_mapsConnectionBrokerEndpointProviderInterface];
-    [connectionCopy setExportedInterface:v16];
+    v17 = +[NSXPCInterface _maps_mapsConnectionBrokerEndpointProviderInterface];
+    [connectionCopy setExportedInterface:v17];
 
-    v17 = +[NSXPCInterface _maps_mapsConnectionBrokerEndpointConsumerInterface];
-    [connectionCopy setRemoteObjectInterface:v17];
+    v18 = +[NSXPCInterface _maps_mapsConnectionBrokerEndpointConsumerInterface];
+    [connectionCopy setRemoteObjectInterface:v18];
 
     objc_initWeak(buf, self);
     objc_initWeak(&location, connectionCopy);
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_10000AE34;
-    v25[3] = &unk_10003CC90;
-    objc_copyWeak(&v26, &location);
-    objc_copyWeak(&v27, buf);
-    [connectionCopy setInvalidationHandler:v25];
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_10000AF8C;
-    v23[3] = &unk_10003CCB8;
-    objc_copyWeak(&v24, &location);
-    [connectionCopy setInterruptionHandler:v23];
-    v18 = self->_connectionQueue;
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_10000B040;
-    v21[3] = &unk_10003C9D8;
-    v21[4] = self;
-    v19 = connectionCopy;
-    v22 = v19;
-    dispatch_async(v18, v21);
-    [v19 resume];
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_10000AE34;
+    v26[3] = &unk_10003CC90;
+    objc_copyWeak(&v27, &location);
+    objc_copyWeak(&v28, buf);
+    [connectionCopy setInvalidationHandler:v26];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_10000AF8C;
+    v24[3] = &unk_10003CCB8;
+    objc_copyWeak(&v25, &location);
+    [connectionCopy setInterruptionHandler:v24];
+    v19 = self->_connectionQueue;
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_10000B040;
+    v22[3] = &unk_10003C9D8;
+    v22[4] = self;
+    v20 = connectionCopy;
+    v23 = v20;
+    dispatch_async(v19, v22);
+    [v20 resume];
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(&v27);
-    objc_destroyWeak(&v26);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
 LABEL_12:
-    v9 = 1;
+    v10 = 1;
     goto LABEL_13;
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_13:
 
-  return v9;
+  return v10;
 }
 
 - (void)listenerEndpointForIdentifer:(id)identifer reply:(id)reply
@@ -212,7 +212,7 @@ LABEL_13:
 {
   changeCopy = change;
   identifierCopy = identifier;
-  v8 = sub_1000124D8();
+  v8 = sub_1000124D8(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;

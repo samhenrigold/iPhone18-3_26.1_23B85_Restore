@@ -27,15 +27,13 @@
 - (float)maxAllowedViewportWidth;
 - (float)outputAspectRatioInDeviceOrientation;
 - (float32x2_t)_outputPlaneSizeForDisplayRect:(CGFloat)rect;
-- (float32x2_t)_searchEarliestValidPointOnIntervalWithStart:(float32x2_t)start andEnd:(CGFloat)end displayRect:(CGFloat)rect;
 - (id)_compileComputeShader:(id)shader pixelFormat:(unint64_t)format;
 - (int)_compileShaders;
 - (int)_createComputePipelinesForShaders:(id)shaders;
 - (int)_outputPlaneCcwRotations;
 - (int)processBuffer:(__CVBuffer *)buffer cropRect:(CGRect)rect outputPixelBuffer:(__CVBuffer *)pixelBuffer;
 - (int)registerCalibrationData:(id)data;
-- (uint64_t)_compileShaders;
-- (uint64_t)initializeMetal;
+- (int8x8_t)_searchEarliestValidPointOnIntervalWithStart:(int8x8_t)start andEnd:(CGFloat)end displayRect:(CGFloat)rect;
 - (void)_filterDetectionsInInputImageCoordinates:(id)coordinates trackType:(int64_t)type;
 - (void)_setShaderParametersForDisplayRect:(CGRect)rect outputROI:(CGRect)i calibrationParameters:(id *)parameters commandEncoder:(id)encoder;
 - (void)dealloc;
@@ -237,23 +235,24 @@
 
 - (int)processBuffer:(__CVBuffer *)buffer cropRect:(CGRect)rect outputPixelBuffer:(__CVBuffer *)pixelBuffer
 {
-  v77 = 0;
-  v78 = 0;
-  v74 = 0;
-  v75 = 0;
-  v8 = rotateRectCCW(4 - self->_numCCWRotationsFromInputToFramingSpace, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
+  v86 = 0;
+  v87 = 0;
+  v83 = 0;
+  v84 = 0;
+  v9 = rotateRectCCW(4 - self->_numCCWRotationsFromInputToFramingSpace, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
   PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
-  if ((PixelFormatIs420(PixelFormatType) & 1) == 0 || (v16 = CVPixelBufferGetPixelFormatType(pixelBuffer), (PixelFormatIs420(v16) & 1) == 0) || CVPixelBufferGetWidth(pixelBuffer) != self->_outputDimensions.width || CVPixelBufferGetHeight(pixelBuffer) != self->_outputDimensions.height)
+  if ((PixelFormatIs420(PixelFormatType) & 1) == 0 || (v17 = CVPixelBufferGetPixelFormatType(pixelBuffer), (PixelFormatIs420(v17) & 1) == 0) || CVPixelBufferGetWidth(pixelBuffer) != self->_outputDimensions.width || CVPixelBufferGetHeight(pixelBuffer) != self->_outputDimensions.height)
   {
     fig_log_get_emitter();
+    v60 = v5;
 LABEL_37:
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v60, v61, v62, v64, v66, v67, v68);
     computeCommandEncoder = 0;
-    v19 = 0;
-    v17 = -12780;
+    v20 = 0;
+    v18 = -12780;
     goto LABEL_29;
   }
 
@@ -262,43 +261,46 @@ LABEL_37:
     [(CinematicFramingRenderer *)self initializeMetal];
   }
 
-  v17 = cachedTexturesFromPixelBuffer(buffer, v76, self->_cvMetalTextureCacheRef);
-  if (v17)
+  v18 = cachedTexturesFromPixelBuffer(buffer, v85, self->_cvMetalTextureCacheRef);
+  if (v18)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18, v5, v61, v62, v64, v66, v67, v68);
 LABEL_35:
     computeCommandEncoder = 0;
-    v19 = 0;
+    v20 = 0;
     goto LABEL_29;
   }
 
-  v17 = cachedTexturesFromPixelBuffer(pixelBuffer, v73, self->_cvMetalTextureCacheRef);
-  if (v17)
+  v18 = cachedTexturesFromPixelBuffer(pixelBuffer, v82, self->_cvMetalTextureCacheRef);
+  if (v18)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18, v5, v61, v62, v64, v66, v67, v68);
     goto LABEL_35;
   }
 
-  if (v73[0] != 2)
+  if (v82[0] != 2)
   {
     fig_log_get_emitter();
+    v60 = v5;
     goto LABEL_37;
   }
 
   commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
-  v19 = commandBuffer;
+  v20 = commandBuffer;
   if (commandBuffer)
   {
     [commandBuffer setLabel:@"CinematicFramingRenderer.processBuffer"];
-    if (v73[0])
+    if (v82[0])
     {
-      v20 = 0;
-      v21 = 1;
+      v21 = 0;
+      v63 = &self->_pipelineComputeStates[1];
+      v65 = self + 112;
+      v22 = 1;
       while (1)
       {
-        pixelFormat = [*&v73[2 * v21] pixelFormat];
+        pixelFormat = [*&v82[2 * v22] pixelFormat];
         pipelineComputeStates = self->_pipelineComputeStates;
         if (pixelFormat != 10)
         {
@@ -310,127 +312,127 @@ LABEL_35:
           pipelineComputeStates = &self->_pipelineComputeStates[1];
         }
 
-        v24 = *pipelineComputeStates;
-        if (!v24)
+        v25 = *pipelineComputeStates;
+        if (!v25)
         {
 LABEL_27:
           fig_log_get_emitter();
-          FigDebugAssert3();
-          v25 = 0;
-          v17 = -12782;
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, v5, v63, v65, v66, v67, v68);
+          v26 = 0;
+          v18 = -12782;
           goto LABEL_28;
         }
 
-        v25 = v24;
-        computeCommandEncoder = [v19 computeCommandEncoder];
+        v26 = v25;
+        computeCommandEncoder = [v20 computeCommandEncoder];
 
         if (!computeCommandEncoder)
         {
           break;
         }
 
-        [computeCommandEncoder setComputePipelineState:v25];
-        [computeCommandEncoder setTexture:*&v76[8 * v21] atIndex:0];
-        [computeCommandEncoder setTexture:*&v73[2 * v21] atIndex:1];
+        [computeCommandEncoder setComputePipelineState:v26];
+        [computeCommandEncoder setTexture:*&v85[8 * v22] atIndex:0];
+        [computeCommandEncoder setTexture:*&v82[2 * v22] atIndex:1];
         [(CinematicFramingRenderer *)self outputROI];
         width = self->_outputDimensions.width;
-        v28 = width;
+        v29 = width;
         height = self->_outputDimensions.height;
-        v31 = v30 * width;
-        v33 = v32 * height;
-        v36 = v35 * height;
-        v37 = fmax(v31 + -10.0, 0.0);
-        v38 = fmax(v33 + -10.0, 0.0);
-        v39 = v31 + v34 * width + 10.0;
-        if (v39 >= width)
+        v32 = v31 * width;
+        v34 = v33 * height;
+        v37 = v36 * height;
+        v38 = fmax(v32 + -10.0, 0.0);
+        v39 = fmax(v34 + -10.0, 0.0);
+        v40 = v32 + v35 * width + 10.0;
+        if (v40 >= width)
         {
-          v39 = width;
+          v40 = width;
         }
 
-        v40 = v33 + v36 + 10.0;
-        if (v40 >= height)
+        v41 = v34 + v37 + 10.0;
+        if (v41 >= height)
         {
-          v40 = self->_outputDimensions.height;
+          v41 = self->_outputDimensions.height;
         }
 
-        v41 = v37 / v28;
-        v42 = (v39 - v37) / v28;
-        v43 = v40 - v38;
-        v44 = *&self->_anon_90[160];
-        v45 = *&self->_anon_90[176];
-        v46 = *&self->_anon_90[128];
-        v69 = *&self->_anon_90[144];
-        v70 = v44;
-        v47 = *&self->_anon_90[192];
-        v71 = v45;
-        v72 = v47;
-        v48 = *&self->_anon_90[96];
-        v67 = *&self->_anon_90[112];
-        v68 = v46;
-        v49 = *&self->_anon_90[48];
-        v62 = *&self->_anon_90[32];
-        v63 = v49;
-        v50 = *&self->_anon_90[64];
-        v65 = *&self->_anon_90[80];
-        v66 = v48;
-        v64 = v50;
-        v51 = *&self->_anon_90[16];
-        v60 = *self->_anon_90;
-        v61 = v51;
-        [(CinematicFramingRenderer *)self _setShaderParametersForDisplayRect:&v60 outputROI:computeCommandEncoder calibrationParameters:v8 commandEncoder:v10, v12, v14, v41, v38 / height, v42, v43 / height];
-        v52 = v19;
-        threadExecutionWidth = [(MTLComputePipelineState *)v25 threadExecutionWidth];
-        maxTotalThreadsPerThreadgroup = [(MTLComputePipelineState *)v25 maxTotalThreadsPerThreadgroup];
-        width = [*&v73[2 * v21] width];
-        height = [*&v73[2 * v21] height];
-        *&v60 = width;
-        *(&v60 + 1) = height;
-        *&v61 = 1;
-        v59[0] = threadExecutionWidth;
-        v59[1] = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
-        v59[2] = 1;
-        [computeCommandEncoder dispatchThreads:&v60 threadsPerThreadgroup:v59];
+        v42 = v38 / v29;
+        v43 = (v40 - v38) / v29;
+        v44 = v41 - v39;
+        v45 = *&self->_anon_90[160];
+        v46 = *&self->_anon_90[176];
+        v47 = *&self->_anon_90[128];
+        v78 = *&self->_anon_90[144];
+        v79 = v45;
+        v48 = *&self->_anon_90[192];
+        v80 = v46;
+        v81 = v48;
+        v49 = *&self->_anon_90[96];
+        v76 = *&self->_anon_90[112];
+        v77 = v47;
+        v50 = *&self->_anon_90[48];
+        v71 = *&self->_anon_90[32];
+        v72 = v50;
+        v51 = *&self->_anon_90[64];
+        v74 = *&self->_anon_90[80];
+        v75 = v49;
+        v73 = v51;
+        v52 = *&self->_anon_90[16];
+        v69 = *self->_anon_90;
+        v70 = v52;
+        [(CinematicFramingRenderer *)self _setShaderParametersForDisplayRect:&v69 outputROI:computeCommandEncoder calibrationParameters:v9 commandEncoder:v11, v13, v15, v42, v39 / height, v43, v44 / height];
+        v53 = v20;
+        threadExecutionWidth = [(MTLComputePipelineState *)v26 threadExecutionWidth];
+        maxTotalThreadsPerThreadgroup = [(MTLComputePipelineState *)v26 maxTotalThreadsPerThreadgroup];
+        width = [*&v82[2 * v22] width];
+        height = [*&v82[2 * v22] height];
+        *&v69 = width;
+        *(&v69 + 1) = height;
+        *&v70 = 1;
+        v66 = threadExecutionWidth;
+        v67 = (maxTotalThreadsPerThreadgroup / threadExecutionWidth);
+        v68 = 1;
+        [computeCommandEncoder dispatchThreads:&v69 threadsPerThreadgroup:&v66];
         [computeCommandEncoder endEncoding];
-        v19 = v52;
+        v20 = v53;
 
-        v20 = computeCommandEncoder;
-        if (v21++ >= v73[0])
+        v21 = computeCommandEncoder;
+        if (v22++ >= v82[0])
         {
           goto LABEL_26;
         }
       }
 
       fig_log_get_emitter();
-      FigDebugAssert3();
-      v20 = 0;
-      v17 = -12786;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, v5, v63, v65, v66, v67, v68);
+      v21 = 0;
+      v18 = -12786;
 LABEL_28:
 
-      computeCommandEncoder = v20;
+      computeCommandEncoder = v21;
     }
 
     else
     {
       computeCommandEncoder = 0;
 LABEL_26:
-      [v19 commit];
-      [v19 waitUntilCompleted];
-      v17 = 0;
+      [v20 commit];
+      [v20 waitUntilCompleted];
+      v18 = 0;
     }
   }
 
   else
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, v61, v62, v64, v66, v67, v68);
     computeCommandEncoder = 0;
-    v19 = 0;
-    v17 = -12786;
+    v20 = 0;
+    v18 = -12786;
   }
 
 LABEL_29:
 
-  return v17;
+  return v18;
 }
 
 - (void)finish
@@ -1271,7 +1273,7 @@ LABEL_29:
 
 - (CGRect)_framingSpaceBoundsLandscapeLeft
 {
-  [(CinematicFramingRenderer *)self calibrationParams];
+  objc_msgSend_calibrationParams(self, a2);
   v16 = atan2f(0.0, 0.0);
   *&v17 = COERCE_DOUBLE(__PAIR64__(COERCE_UNSIGNED_INT(atan2f(0.0 - 0.0, 0.0)), LODWORD(v16)));
   v15 = atan2f(0.0, 0.0);
@@ -1368,7 +1370,7 @@ LABEL_29:
     v10 = -1.0;
     do
     {
-      [(CinematicFramingRenderer *)self calibrationParams];
+      objc_msgSend_calibrationParams(self, a2);
       if (v18 == 1)
       {
         *&v11 = width * v7 * 0.5;
@@ -1586,7 +1588,7 @@ LABEL_29:
   return CGRectInset(*&v46, v51, v50);
 }
 
-- (float32x2_t)_searchEarliestValidPointOnIntervalWithStart:(float32x2_t)start andEnd:(CGFloat)end displayRect:(CGFloat)rect
+- (int8x8_t)_searchEarliestValidPointOnIntervalWithStart:(int8x8_t)start andEnd:(CGFloat)end displayRect:(CGFloat)rect
 {
   v21 = a2.n128_f32[1];
   v22 = a2.n128_f32[0];
@@ -1677,7 +1679,7 @@ LABEL_29:
   v34 = vaddq_f32(vzip1q_s32(v21, vdupq_lane_s32(*v13.i8, 1)), vmlaq_n_f32(vmulq_n_f32(vzip1q_s32(v20, v18), v33), v22, v31));
   memset(v35, 0, sizeof(v35));
   v36 = 0u;
-  [(CinematicFramingRenderer *)self calibrationParams];
+  objc_msgSend_calibrationParams(self);
   v23 = vtrn2q_s32(v36, v37);
   v23.i32[2] = v38.i32[1];
   v24 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(vzip1q_s32(vzip1q_s32(v36, v38), v37), v34.f32[0]), v23, *v34.f32, 1), vzip1q_s32(vzip2q_s32(v36, v38), vdupq_laneq_s32(v37, 2)), v34, 2);
@@ -1734,12 +1736,13 @@ LABEL_29:
 - (int)_compileShaders
 {
   v2 = [(CinematicFramingRenderer *)self _createComputePipelinesForShaders:&unk_28563D780];
+  v3 = v2;
   if (v2)
   {
-    [CinematicFramingRenderer _compileShaders];
+    [(CinematicFramingRenderer *)v2 _compileShaders];
   }
 
-  return v2;
+  return v3;
 }
 
 - (int)_createComputePipelinesForShaders:(id)shaders
@@ -1953,55 +1956,6 @@ LABEL_6:
   result.origin.y = y;
   result.origin.x = x;
   return result;
-}
-
-- (uint64_t)initializeMetal
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_compileShaders
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_createComputePipelinesForShaders:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_compileComputeShader:pixelFormat:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_compileComputeShader:pixelFormat:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_compileComputeShader:pixelFormat:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_compileComputeShader:pixelFormat:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_0();
-  return FigDebugAssert3();
 }
 
 @end

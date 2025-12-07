@@ -18,9 +18,11 @@
 
 uint64_t __40__WLKLaunchConfiguration_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_0 = objc_alloc_init(WLKLaunchConfiguration);
+  v0 = objc_alloc_init(WLKLaunchConfiguration);
+  v1 = sharedInstance_sharedInstance_0;
+  sharedInstance_sharedInstance_0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

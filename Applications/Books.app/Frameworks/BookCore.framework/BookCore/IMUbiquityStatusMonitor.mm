@@ -105,55 +105,57 @@
 - (BOOL)dq_isICloudDriveEnabled
 {
   v2 = +[BCSyncUserDefaults isICloudDriveSyncOptedIn];
+  v3 = v2;
   if (v2)
   {
-    v3 = +[BCSyncUserDefaults isGlobalICloudDriveSyncOptedIn];
-    if (v3)
+    v2 = +[BCSyncUserDefaults isGlobalICloudDriveSyncOptedIn];
+    v4 = v2;
+    if (v2)
     {
-      v4 = @"YES";
+      v5 = @"YES";
     }
 
     else
     {
-      v4 = @"NO";
+      v5 = @"NO";
     }
   }
 
   else
   {
-    v3 = 0;
-    v4 = @"NO";
+    v4 = 0;
+    v5 = @"NO";
   }
 
-  v5 = BCUbiquityEnabledLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = BCUbiquityEnabledLog(v2);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v7 = @"YES";
-    if (v2)
+    v8 = @"YES";
+    if (v3)
     {
-      v8 = @"YES";
+      v9 = @"YES";
     }
 
     else
     {
+      v9 = @"NO";
+    }
+
+    v10 = 138412802;
+    v11 = v9;
+    v12 = 2112;
+    if (!v4)
+    {
       v8 = @"NO";
     }
 
-    v9 = 138412802;
-    v10 = v8;
-    v11 = 2112;
-    if (!v3)
-    {
-      v7 = @"NO";
-    }
-
-    v12 = v4;
-    v13 = 2112;
-    v14 = v7;
-    _os_log_debug_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "BCUbiquityStatusMonitor: dq_isICloudDriveEnabled: isICloudDriveSyncOptedIn = %@, globalICloudDrive = %@, isICloudDriveEnabled = %@", &v9, 0x20u);
+    v13 = v5;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_debug_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "BCUbiquityStatusMonitor: dq_isICloudDriveEnabled: isICloudDriveSyncOptedIn = %@, globalICloudDrive = %@, isICloudDriveEnabled = %@", &v10, 0x20u);
   }
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)isICloudDriveEnabled
@@ -420,44 +422,44 @@
   lastArchivedUbiquityIdentityToken = self->_lastArchivedUbiquityIdentityToken;
   self->_lastArchivedUbiquityIdentityToken = v8;
 
-  v10 = BCUbiquityEnabledLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = BCUbiquityEnabledLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     containerIdentifier = [(IMUbiquityStatusMonitor *)self containerIdentifier];
-    v17 = self->_currentUbiquityIdentityToken;
-    v18 = self->_lastArchivedUbiquityIdentityToken;
+    v18 = self->_currentUbiquityIdentityToken;
+    v19 = self->_lastArchivedUbiquityIdentityToken;
     *buf = 138412802;
-    v22 = containerIdentifier;
-    v23 = 2112;
-    v24 = v17;
-    v25 = 2112;
-    v26 = v18;
-    _os_log_debug_impl(&dword_0, v10, OS_LOG_TYPE_DEBUG, "BCUbiquityStatusMonitor: dq_refreshUbiquityAvailabilityStatus container:%@ current::%@ oldToken:%@", buf, 0x20u);
+    v23 = containerIdentifier;
+    v24 = 2112;
+    v25 = v18;
+    v26 = 2112;
+    v27 = v19;
+    _os_log_debug_impl(&dword_0, v11, OS_LOG_TYPE_DEBUG, "BCUbiquityStatusMonitor: dq_refreshUbiquityAvailabilityStatus container:%@ current::%@ oldToken:%@", buf, 0x20u);
   }
 
-  v11 = self->_currentUbiquityIdentityToken;
+  v12 = self->_currentUbiquityIdentityToken;
   containerQueue = [(IMUbiquityStatusMonitor *)self containerQueue];
-  v13 = containerQueue;
-  if (v11)
+  v14 = containerQueue;
+  if (v12)
   {
-    v14 = v20;
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v15 = sub_4DA5C;
+    v15 = v21;
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v16 = sub_4DA5C;
   }
 
   else
   {
-    v14 = v19;
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v15 = sub_4E0DC;
+    v15 = v20;
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v16 = sub_4E0DC;
   }
 
-  v14[2] = v15;
-  v14[3] = &unk_2C7D40;
-  v14[4] = self;
-  dispatch_async(containerQueue, v14);
+  v15[2] = v16;
+  v15[3] = &unk_2C7D40;
+  v15[4] = self;
+  dispatch_async(containerQueue, v15);
 }
 
 - (NSURL)containerURL

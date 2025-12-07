@@ -253,48 +253,45 @@
 
 - (void)setLeadingNavigationBarButtons:(id)buttons
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   buttonsCopy = buttons;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __45__CPTemplate_setLeadingNavigationBarButtons___block_invoke;
-  v19[3] = &__block_descriptor_40_e28_v32__0__CPBarButton_8Q16_B24l;
-  v19[4] = a2;
-  [buttonsCopy enumerateObjectsUsingBlock:v19];
-  v6 = CarPlayFrameworkGeneralLogging();
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __45__CPTemplate_setLeadingNavigationBarButtons___block_invoke;
+  v18[3] = &__block_descriptor_40_e28_v32__0__CPBarButton_8Q16_B24l;
+  v18[4] = a2;
+  v6 = CarPlayFrameworkGeneralLogging([buttonsCopy enumerateObjectsUsingBlock:v18]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v22 = 2112;
-    v23 = buttonsCopy;
+    v21 = 2112;
+    v22 = buttonsCopy;
     _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "%@: New leading bar buttons: %@", buf, 0x16u);
   }
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   [(CPTemplate *)self setInternalLeadingBarButtons:0];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __45__CPTemplate_setLeadingNavigationBarButtons___block_invoke_38;
-  v17[3] = &unk_278A11E68;
-  v17[4] = self;
-  v18 = v7;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __45__CPTemplate_setLeadingNavigationBarButtons___block_invoke_38;
+  v16[3] = &unk_278A11E68;
+  v16[4] = self;
+  v17 = v7;
   v8 = v7;
-  [buttonsCopy enumerateObjectsUsingBlock:v17];
+  [buttonsCopy enumerateObjectsUsingBlock:v16];
   v9 = [v8 copy];
   [(CPTemplate *)self setInternalLeadingBarButtons:v9];
 
   internalLeadingBarButtons = [(CPTemplate *)self internalLeadingBarButtons];
   templateProviderFuture = [(CPTemplate *)self templateProviderFuture];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __45__CPTemplate_setLeadingNavigationBarButtons___block_invoke_2;
-  v15[3] = &unk_278A11E20;
-  v16 = internalLeadingBarButtons;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __45__CPTemplate_setLeadingNavigationBarButtons___block_invoke_2;
+  v14[3] = &unk_278A11E20;
+  v15 = internalLeadingBarButtons;
   v12 = internalLeadingBarButtons;
-  v13 = [templateProviderFuture addSuccessBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [templateProviderFuture addSuccessBlock:v14];
 }
 
 void __45__CPTemplate_setLeadingNavigationBarButtons___block_invoke(uint64_t a1, void *a2)
@@ -332,47 +329,44 @@ void __45__CPTemplate_setLeadingNavigationBarButtons___block_invoke_38(uint64_t 
 
 - (void)setTrailingNavigationBarButtons:(id)buttons
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   buttonsCopy = buttons;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __46__CPTemplate_setTrailingNavigationBarButtons___block_invoke;
-  v19[3] = &__block_descriptor_40_e28_v32__0__CPBarButton_8Q16_B24l;
-  v19[4] = a2;
-  [buttonsCopy enumerateObjectsUsingBlock:v19];
-  v6 = CarPlayFrameworkGeneralLogging();
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __46__CPTemplate_setTrailingNavigationBarButtons___block_invoke;
+  v18[3] = &__block_descriptor_40_e28_v32__0__CPBarButton_8Q16_B24l;
+  v18[4] = a2;
+  v6 = CarPlayFrameworkGeneralLogging([buttonsCopy enumerateObjectsUsingBlock:v18]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v22 = 2112;
-    v23 = buttonsCopy;
+    v21 = 2112;
+    v22 = buttonsCopy;
     _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "%@: New trailing bar buttons: %@", buf, 0x16u);
   }
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __46__CPTemplate_setTrailingNavigationBarButtons___block_invoke_39;
-  v17[3] = &unk_278A11E68;
-  v17[4] = self;
-  v18 = v7;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __46__CPTemplate_setTrailingNavigationBarButtons___block_invoke_39;
+  v16[3] = &unk_278A11E68;
+  v16[4] = self;
+  v17 = v7;
   v8 = v7;
-  [buttonsCopy enumerateObjectsUsingBlock:v17];
+  [buttonsCopy enumerateObjectsUsingBlock:v16];
   v9 = [v8 copy];
   [(CPTemplate *)self setInternalTrailingBarButtons:v9];
 
   internalTrailingBarButtons = [(CPTemplate *)self internalTrailingBarButtons];
   templateProviderFuture = [(CPTemplate *)self templateProviderFuture];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __46__CPTemplate_setTrailingNavigationBarButtons___block_invoke_2;
-  v15[3] = &unk_278A11E20;
-  v16 = internalTrailingBarButtons;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __46__CPTemplate_setTrailingNavigationBarButtons___block_invoke_2;
+  v14[3] = &unk_278A11E20;
+  v15 = internalTrailingBarButtons;
   v12 = internalTrailingBarButtons;
-  v13 = [templateProviderFuture addSuccessBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [templateProviderFuture addSuccessBlock:v14];
 }
 
 void __46__CPTemplate_setTrailingNavigationBarButtons___block_invoke(uint64_t a1, void *a2)
@@ -478,22 +472,22 @@ void __47__CPTemplate_handleActionForControlIdentifier___block_invoke(uint64_t a
   v18 = &unk_278A11E90;
   v19 = *(a1 + 40);
   v20 = &v21;
-  [v2 enumerateObjectsUsingBlock:&v15];
+  v7 = [v2 enumerateObjectsUsingBlock:&v15];
   if (v22[5])
   {
-    v7 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = CarPlayFrameworkGeneralLogging(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = v22[5];
-      v9 = *(a1 + 32);
-      v10 = *(a1 + 40);
+      v9 = v22[5];
+      v10 = *(a1 + 32);
+      v11 = *(a1 + 40);
       *buf = 138412802;
-      v28 = v9;
+      v28 = v10;
       v29 = 2112;
-      v30 = v8;
+      v30 = v9;
       v31 = 2112;
-      v32 = v10;
-      _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_INFO, "%@: Activated button: %@ for control identifier: %@", buf, 0x20u);
+      v32 = v11;
+      _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_INFO, "%@: Activated button: %@ for control identifier: %@", buf, 0x20u);
     }
 
     [v22[5] handlePrimaryAction];
@@ -501,21 +495,20 @@ void __47__CPTemplate_handleActionForControlIdentifier___block_invoke(uint64_t a
 
   else
   {
-    v11 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = CarPlayFrameworkGeneralLogging(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 40);
+      v13 = *(a1 + 32);
+      v14 = *(a1 + 40);
       *buf = 138412546;
-      v28 = v12;
+      v28 = v13;
       v29 = 2112;
-      v30 = v13;
-      _os_log_impl(&dword_236ED4000, v11, OS_LOG_TYPE_INFO, "%@: No button found for control identifier: %@", buf, 0x16u);
+      v30 = v14;
+      _os_log_impl(&dword_236ED4000, v12, OS_LOG_TYPE_INFO, "%@: No button found for control identifier: %@", buf, 0x16u);
     }
   }
 
   _Block_object_dispose(&v21, 8);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __47__CPTemplate_handleActionForControlIdentifier___block_invoke_42(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)

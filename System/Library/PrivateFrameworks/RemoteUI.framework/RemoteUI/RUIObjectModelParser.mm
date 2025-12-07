@@ -242,35 +242,38 @@
 
 - (void)_logDeprecation:(id)deprecation value:(id)value
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   deprecationCopy = deprecation;
   valueCopy = value;
+  v9 = valueCopy;
   if (valueCopy)
   {
     valueCopy = [MEMORY[0x277CCACA8] stringWithFormat:@" = %@", valueCopy];
+    v10 = valueCopy;
   }
 
   else
   {
-    valueCopy = &stru_282D68F58;
+    v10 = &stru_282D68F58;
   }
 
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(valueCopy, v8);
+  if (isInternalInstall)
   {
-    v9 = _RUILoggingFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v12 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       baseURL = [(RUIObjectModelParser *)self baseURL];
       lastObject = [(NSMutableArray *)self->_elementStack lastObject];
       *buf = 138413058;
-      v13 = baseURL;
-      v14 = 2112;
-      v15 = deprecationCopy;
-      v16 = 2112;
-      v17 = valueCopy;
-      v18 = 2112;
-      v19 = lastObject;
-      _os_log_impl(&dword_21B93D000, v9, OS_LOG_TYPE_DEFAULT, "Page with baseURL %@ is using deprecated feature %@%@ in %@ element", buf, 0x2Au);
+      v16 = baseURL;
+      v17 = 2112;
+      v18 = deprecationCopy;
+      v19 = 2112;
+      v20 = v10;
+      v21 = 2112;
+      v22 = lastObject;
+      _os_log_impl(&dword_21B93D000, v12, OS_LOG_TYPE_DEFAULT, "Page with baseURL %@ is using deprecated feature %@%@ in %@ element", buf, 0x2Au);
     }
   }
 }
@@ -306,21 +309,23 @@
   attributtes = [elementCopy attributtes];
   name = [elementCopy name];
   objc_storeStrong(&self->_currentElementAttributes, attributtes);
-  if ([name isEqualToString:@"buddyFlowComplete"])
+  v7 = [name isEqualToString:@"buddyFlowComplete"];
+  if (v7)
   {
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(v7, v8);
+    if (isInternalInstall)
     {
-      v7 = _RUILoggingFacility();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v10 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B93D000, v7, OS_LOG_TYPE_DEFAULT, "Buddy Flow Complete!", buf, 2u);
+        _os_log_impl(&dword_21B93D000, v10, OS_LOG_TYPE_DEFAULT, "Buddy Flow Complete!", buf, 2u);
       }
     }
 
-    v8 = [RUIActionSignal signalWithType:1];
+    v11 = [RUIActionSignal signalWithType:1];
     actionSignal = self->_actionSignal;
-    self->_actionSignal = v8;
+    self->_actionSignal = v11;
 
     *&self->_foundXMLUI = 257;
   }
@@ -329,18 +334,20 @@
   {
     if (![name isEqualToString:@"xmlui"])
     {
-      if ([name isEqualToString:@"actions"])
+      v20 = [name isEqualToString:@"actions"];
+      if (v20)
       {
-        if (!_isInternalInstall())
+        v22 = _isInternalInstall(v20, v21);
+        if (!v22)
         {
           goto LABEL_55;
         }
 
-        v17 = _RUILoggingFacility();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v23 = _RUILoggingFacility(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          *v51 = 0;
-          _os_log_impl(&dword_21B93D000, v17, OS_LOG_TYPE_DEFAULT, "Starting to parse actions", v51, 2u);
+          *v58 = 0;
+          _os_log_impl(&dword_21B93D000, v23, OS_LOG_TYPE_DEFAULT, "Starting to parse actions", v58, 2u);
         }
       }
 
@@ -348,10 +355,10 @@
       {
         if ([name isEqualToString:@"script"])
         {
-          v18 = MEMORY[0x277CBEBC0];
-          v19 = [attributtes objectForKey:@"src"];
-          v20 = [v18 URLWithString:v19];
-          [(RUIObjectModel *)self->_uiObjectModel setScriptURL:v20];
+          v24 = MEMORY[0x277CBEBC0];
+          v25 = [attributtes objectForKey:@"src"];
+          v26 = [v24 URLWithString:v25];
+          [(RUIObjectModel *)self->_uiObjectModel setScriptURL:v26];
 
           self->_parserState = 1;
           goto LABEL_55;
@@ -359,15 +366,15 @@
 
         if ([name isEqualToString:@"page"])
         {
-          v17 = [(RUIObjectModelParser *)self _createAndAddPageWithAttributes:attributtes];
-          v31 = [RUITopLevelElementParser alloc];
-          elementProvider = [v17 elementProvider];
-          v33 = [(RUITopLevelElementParser *)v31 initWithXMLElement:elementCopy elementProvider:elementProvider objectModel:self->_uiObjectModel delegate:self];
+          v23 = [(RUIObjectModelParser *)self _createAndAddPageWithAttributes:attributtes];
+          v38 = [RUITopLevelElementParser alloc];
+          elementProvider = [v23 elementProvider];
+          v40 = [(RUITopLevelElementParser *)v38 initWithXMLElement:elementCopy elementProvider:elementProvider objectModel:self->_uiObjectModel delegate:self];
 
-          pageElement = [v17 pageElement];
+          pageElement = [v23 pageElement];
           [pageElement setSourceXMLElement:elementCopy];
 
-          [(RUITopLevelElementParser *)v33 parse];
+          [(RUITopLevelElementParser *)v40 parse];
         }
 
         else
@@ -398,29 +405,29 @@
           }
 
           self->_parserState = 2;
-          v35 = [[RUIAlertView alloc] initWithAttributes:attributtes parent:0];
+          v42 = [[RUIAlertView alloc] initWithAttributes:attributtes parent:0];
           style = [(RUIObjectModel *)self->_uiObjectModel style];
-          [(RUIElement *)v35 setStyle:style];
+          [(RUIElement *)v42 setStyle:style];
 
-          v37 = [attributtes objectForKey:@"title"];
-          [(RUIAlertView *)v35 setTitle:v37];
+          v44 = [attributtes objectForKey:@"title"];
+          [(RUIAlertView *)v42 setTitle:v44];
 
-          v38 = [attributtes objectForKey:@"message"];
-          [(RUIAlertView *)v35 setMessage:v38];
+          v45 = [attributtes objectForKey:@"message"];
+          [(RUIAlertView *)v42 setMessage:v45];
 
-          v39 = [attributtes objectForKey:@"cancelButtonTitle"];
+          v46 = [attributtes objectForKey:@"cancelButtonTitle"];
 
-          if (v39)
+          if (v46)
           {
-            v40 = [attributtes objectForKeyedSubscript:@"cancelButtonTitle"];
-            [(RUIAlertView *)v35 addButtonWithTitle:v40 URL:0 style:1 attributes:0];
+            v47 = [attributtes objectForKeyedSubscript:@"cancelButtonTitle"];
+            [(RUIAlertView *)v42 addButtonWithTitle:v47 URL:0 style:1 attributes:0];
           }
 
           currentAlert = self->_currentAlert;
-          self->_currentAlert = v35;
-          v17 = v35;
+          self->_currentAlert = v42;
+          v23 = v42;
 
-          [v17 setSourceXMLElement:elementCopy];
+          [v23 setSourceXMLElement:elementCopy];
         }
       }
 
@@ -432,110 +439,114 @@
       *&self->_foundXMLUI = 257;
     }
 
-    v10 = [attributtes objectForKey:@"action"];
+    v13 = [attributtes objectForKey:@"action"];
     uiObjectModel = self->_uiObjectModel;
-    v12 = [attributtes objectForKey:@"id"];
-    [(RUIObjectModel *)uiObjectModel setIdentifier:v12];
+    v15 = [attributtes objectForKey:@"id"];
+    [(RUIObjectModel *)uiObjectModel setIdentifier:v15];
 
-    v13 = self->_uiObjectModel;
-    v14 = [attributtes objectForKey:@"idOfOldestObjectModelToRemoveAfterPush"];
-    [(RUIObjectModel *)v13 setIdentifierMarkingStackRemovalAfterPush:v14];
+    v16 = self->_uiObjectModel;
+    v17 = [attributtes objectForKey:@"idOfOldestObjectModelToRemoveAfterPush"];
+    [(RUIObjectModel *)v16 setIdentifierMarkingStackRemovalAfterPush:v17];
 
-    v15 = [attributtes objectForKeyedSubscript:@"idOfObjectModelToReplace"];
-    [(RUIObjectModel *)self->_uiObjectModel setIdOfObjectModelToReplace:v15];
+    v18 = [attributtes objectForKeyedSubscript:@"idOfObjectModelToReplace"];
+    [(RUIObjectModel *)self->_uiObjectModel setIdOfObjectModelToReplace:v18];
 
-    v16 = [RUIActionSignal signalWithString:v10];
-    if (v16)
+    v19 = [RUIActionSignal signalWithString:v13];
+    if (v19)
     {
-      objc_storeStrong(&self->_actionSignal, v16);
+      objc_storeStrong(&self->_actionSignal, v19);
     }
 
-    else if ([v10 length])
+    else
     {
-      v21 = _RUILoggingFacility();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v27 = [v13 length];
+      if (v27)
       {
-        [(RUIObjectModelParser *)v10 traversalDelegateDidStartElement:v21];
+        v28 = _RUILoggingFacility(v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        {
+          [(RUIObjectModelParser *)v13 traversalDelegateDidStartElement:v28];
+        }
       }
     }
 
-    v22 = [attributtes objectForKey:@"validationFunction"];
-    [(RUIObjectModel *)self->_uiObjectModel setValidationFunction:v22];
+    v29 = [attributtes objectForKey:@"validationFunction"];
+    [(RUIObjectModel *)self->_uiObjectModel setValidationFunction:v29];
 
-    v23 = [attributtes objectForKey:@"refresh"];
-    v24 = [v23 componentsSeparatedByString:@""];;
-    if ([v24 count] == 2)
+    v30 = [attributtes objectForKey:@"refresh"];
+    v31 = [v30 componentsSeparatedByString:@""];;
+    if ([v31 count] == 2)
     {
-      v25 = [v24 objectAtIndex:0];
-      -[RUIObjectModel setRefreshDelay:](self->_uiObjectModel, "setRefreshDelay:", [v25 intValue]);
+      v32 = [v31 objectAtIndex:0];
+      -[RUIObjectModel setRefreshDelay:](self->_uiObjectModel, "setRefreshDelay:", [v32 intValue]);
 
-      v26 = [v24 objectAtIndex:1];
-      [(RUIObjectModel *)self->_uiObjectModel setRefreshURL:v26];
+      v33 = [v31 objectAtIndex:1];
+      [(RUIObjectModel *)self->_uiObjectModel setRefreshURL:v33];
     }
 
     style2 = [(RUIObjectModel *)self->_uiObjectModel style];
 
     if (!style2)
     {
-      v28 = [attributtes objectForKey:@"style"];
-      v50 = v10;
-      if ([v28 isEqualToString:@"setupAssistant"])
+      v35 = [attributtes objectForKey:@"style"];
+      v57 = v13;
+      if ([v35 isEqualToString:@"setupAssistant"])
       {
-        v29 = self->_uiObjectModel;
+        v36 = self->_uiObjectModel;
         defaultStyle = +[RUIStyle setupAssistantStyle];
       }
 
-      else if ([v28 isEqualToString:@"setupAssistantModal"])
+      else if ([v35 isEqualToString:@"setupAssistantModal"])
       {
-        v29 = self->_uiObjectModel;
+        v36 = self->_uiObjectModel;
         defaultStyle = +[RUIStyle setupAssistantModalStyle];
       }
 
-      else if ([v28 isEqualToString:@"oslo"])
+      else if ([v35 isEqualToString:@"oslo"])
       {
-        v29 = self->_uiObjectModel;
+        v36 = self->_uiObjectModel;
         defaultStyle = +[RUIStyle osloStyle];
       }
 
-      else if ([v28 isEqualToString:@"atv"])
+      else if ([v35 isEqualToString:@"atv"])
       {
-        v29 = self->_uiObjectModel;
+        v36 = self->_uiObjectModel;
         defaultStyle = +[RUIStyle frontRowStyle];
       }
 
       else
       {
-        v42 = [v28 isEqualToString:@"defaultStyle"];
-        v29 = self->_uiObjectModel;
-        if (v42)
+        v49 = [v35 isEqualToString:@"defaultStyle"];
+        v36 = self->_uiObjectModel;
+        if (v49)
         {
-          v43 = RUIDefaultAppearanceStyle;
+          v50 = RUIDefaultAppearanceStyle;
         }
 
         else
         {
-          v43 = RUIStyle;
+          v50 = RUIStyle;
         }
 
-        defaultStyle = [(__objc2_class *)v43 defaultStyle];
+        defaultStyle = [(__objc2_class *)v50 defaultStyle];
       }
 
-      v44 = defaultStyle;
-      [(RUIObjectModel *)v29 setStyle:defaultStyle];
+      v51 = defaultStyle;
+      [(RUIObjectModel *)v36 setStyle:defaultStyle];
 
-      v10 = v50;
+      v13 = v57;
     }
 
-    v45 = [attributtes objectForKeyedSubscript:@"tintColor"];
+    v52 = [attributtes objectForKeyedSubscript:@"tintColor"];
 
-    if (v45)
+    if (v52)
     {
-      v46 = MEMORY[0x277D75348];
-      v47 = [attributtes objectForKeyedSubscript:@"tintColor"];
-      v48 = [v46 _remoteUI_colorWithString:v47 defaultColor:0];
+      v53 = MEMORY[0x277D75348];
+      v54 = [attributtes objectForKeyedSubscript:@"tintColor"];
+      v55 = [v53 _remoteUI_colorWithString:v54 defaultColor:0];
 
       style3 = [(RUIObjectModel *)self->_uiObjectModel style];
-      [style3 setTintColor:v48];
+      [style3 setTintColor:v55];
     }
   }
 
@@ -630,13 +641,14 @@ LABEL_8:
 
   if (!serverInfo && !self->_foundXMLUI)
   {
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(v5, v6);
+    if (isInternalInstall)
     {
-      v5 = _RUILoggingFacility();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v8 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B93D000, v5, OS_LOG_TYPE_DEFAULT, "No usable content in document!", buf, 2u);
+        _os_log_impl(&dword_21B93D000, v8, OS_LOG_TYPE_DEFAULT, "No usable content in document!", buf, 2u);
       }
     }
 
@@ -644,9 +656,9 @@ LABEL_8:
     self->_uiObjectModel = 0;
 
     self->_succeeded = 0;
-    v7 = [RUIHTTPRequest errorWithCode:4];
+    v10 = [RUIHTTPRequest errorWithCode:4];
     error = self->_error;
-    self->_error = v7;
+    self->_error = v10;
   }
 }
 

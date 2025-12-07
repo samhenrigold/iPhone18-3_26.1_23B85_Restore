@@ -708,7 +708,7 @@ void __41__SBRoutingSwitcherModifier_handleEvent___block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __71__SBRoutingSwitcherModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1, void *a2)
+void *__71__SBRoutingSwitcherModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 frameForLayoutRole:*(a1 + 48) inAppLayout:*(a1 + 32) withBounds:{*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
   v4 = *(*(a1 + 40) + 8);
@@ -741,7 +741,7 @@ uint64_t __71__SBRoutingSwitcherModifier_frameForLayoutRole_inAppLayout_withBoun
   return v8;
 }
 
-uint64_t __60__SBRoutingSwitcherModifier_scaleForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__60__SBRoutingSwitcherModifier_scaleForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 scaleForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = v4;
@@ -791,7 +791,7 @@ uint64_t __60__SBRoutingSwitcherModifier_scaleForLayoutRole_inAppLayout___block_
   return result;
 }
 
-uint64_t __82__SBRoutingSwitcherModifier_cornerRadiiForLayoutRole_inAppLayout_withCornerRadii___block_invoke(uint64_t a1, void *a2)
+void *__82__SBRoutingSwitcherModifier_cornerRadiiForLayoutRole_inAppLayout_withCornerRadii___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 cornerRadiiForLayoutRole:*(a1 + 48) inAppLayout:*(a1 + 32) withCornerRadii:{*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
   v4 = *(*(a1 + 40) + 8);
@@ -824,7 +824,7 @@ uint64_t __82__SBRoutingSwitcherModifier_cornerRadiiForLayoutRole_inAppLayout_wi
   return v8;
 }
 
-uint64_t __64__SBRoutingSwitcherModifier_tintStyleForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__64__SBRoutingSwitcherModifier_tintStyleForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 tintStyleForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -853,7 +853,7 @@ uint64_t __64__SBRoutingSwitcherModifier_tintStyleForLayoutRole_inAppLayout___bl
   return v8;
 }
 
-uint64_t __66__SBRoutingSwitcherModifier_shadowStyleForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__66__SBRoutingSwitcherModifier_shadowStyleForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 shadowStyleForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -914,7 +914,7 @@ void __60__SBRoutingSwitcherModifier_topMostLayoutRolesForAppLayout___block_invo
   return self;
 }
 
-uint64_t __71__SBRoutingSwitcherModifier_isLayoutRoleMatchMovedToScene_inAppLayout___block_invoke(void *a1, void *a2)
+void *__71__SBRoutingSwitcherModifier_isLayoutRoleMatchMovedToScene_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 isLayoutRoleMatchMovedToScene:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1081,7 +1081,7 @@ void __99__SBRoutingSwitcherModifier_switcherDropRegionContextForDraggingLayoutR
   return self;
 }
 
-uint64_t __63__SBRoutingSwitcherModifier_isLayoutRoleDraggable_inAppLayout___block_invoke(void *a1, void *a2)
+void *__63__SBRoutingSwitcherModifier_isLayoutRoleDraggable_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 isLayoutRoleDraggable:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1110,7 +1110,7 @@ uint64_t __63__SBRoutingSwitcherModifier_isLayoutRoleDraggable_inAppLayout___blo
   return self;
 }
 
-uint64_t __89__SBRoutingSwitcherModifier_isLayoutRoleEligibleForContentDragSpringLoading_inAppLayout___block_invoke(void *a1, void *a2)
+void *__89__SBRoutingSwitcherModifier_isLayoutRoleEligibleForContentDragSpringLoading_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 isLayoutRoleEligibleForContentDragSpringLoading:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1139,7 +1139,7 @@ uint64_t __89__SBRoutingSwitcherModifier_isLayoutRoleEligibleForContentDragSprin
   return self;
 }
 
-uint64_t __85__SBRoutingSwitcherModifier_canLayoutRoleParticipateInSwitcherDragAndDrop_appLayout___block_invoke(void *a1, void *a2)
+void *__85__SBRoutingSwitcherModifier_canLayoutRoleParticipateInSwitcherDragAndDrop_appLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 canLayoutRoleParticipateInSwitcherDragAndDrop:a1[6] appLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1167,7 +1167,7 @@ uint64_t __85__SBRoutingSwitcherModifier_canLayoutRoleParticipateInSwitcherDragA
   return v6;
 }
 
-uint64_t __70__SBRoutingSwitcherModifier_topAffordanceOptionsMaskForLeafAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__70__SBRoutingSwitcherModifier_topAffordanceOptionsMaskForLeafAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 topAffordanceOptionsMaskForLeafAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1195,7 +1195,7 @@ uint64_t __70__SBRoutingSwitcherModifier_topAffordanceOptionsMaskForLeafAppLayou
   return v6;
 }
 
-uint64_t __64__SBRoutingSwitcherModifier_selectedActionTypeForLeafAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__64__SBRoutingSwitcherModifier_selectedActionTypeForLeafAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 selectedActionTypeForLeafAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1229,7 +1229,7 @@ uint64_t __64__SBRoutingSwitcherModifier_selectedActionTypeForLeafAppLayout___bl
 
 double __66__SBRoutingSwitcherModifier_windowControlsLayoutForLeafAppLayout___block_invoke(uint64_t a1, void *a2)
 {
-  [a2 windowControlsLayoutForLeafAppLayout:*(a1 + 32)];
+  objc_msgSend_windowControlsLayoutForLeafAppLayout_(a2, a2, *(a1 + 32));
   v3 = *(*(a1 + 40) + 8);
   result = *&v5;
   *(v3 + 32) = v5;
@@ -1254,7 +1254,7 @@ double __66__SBRoutingSwitcherModifier_windowControlsLayoutForLeafAppLayout___bl
   return v3;
 }
 
-uint64_t __55__SBRoutingSwitcherModifier_backgroundOpacityForIndex___block_invoke(uint64_t a1, void *a2)
+void *__55__SBRoutingSwitcherModifier_backgroundOpacityForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 backgroundOpacityForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -1278,7 +1278,7 @@ uint64_t __55__SBRoutingSwitcherModifier_backgroundOpacityForIndex___block_invok
   return v3;
 }
 
-uint64_t __51__SBRoutingSwitcherModifier_maskedCornersForIndex___block_invoke(uint64_t a1, void *a2)
+void *__51__SBRoutingSwitcherModifier_maskedCornersForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 maskedCornersForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1308,7 +1308,7 @@ uint64_t __51__SBRoutingSwitcherModifier_maskedCornersForIndex___block_invoke(ui
   return v10;
 }
 
-uint64_t __86__SBRoutingSwitcherModifier_maskedCornersForLayoutRole_inAppLayout_withMaskedCorners___block_invoke(void *a1, void *a2)
+void *__86__SBRoutingSwitcherModifier_maskedCornersForLayoutRole_inAppLayout_withMaskedCorners___block_invoke(void *a1, void *a2)
 {
   result = [a2 maskedCornersForLayoutRole:a1[6] inAppLayout:a1[4] withMaskedCorners:a1[7]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1373,7 +1373,7 @@ void __98__SBRoutingSwitcherModifier_animationAttributesForLayoutRole_inAppLayou
   return self;
 }
 
-uint64_t __61__SBRoutingSwitcherModifier_isLayoutRoleBlurred_inAppLayout___block_invoke(void *a1, void *a2)
+void *__61__SBRoutingSwitcherModifier_isLayoutRoleBlurred_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 isLayoutRoleBlurred:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1402,7 +1402,7 @@ uint64_t __61__SBRoutingSwitcherModifier_isLayoutRoleBlurred_inAppLayout___block
   return v8;
 }
 
-uint64_t __75__SBRoutingSwitcherModifier_blurTargetPreferenceForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__75__SBRoutingSwitcherModifier_blurTargetPreferenceForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 blurTargetPreferenceForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1431,7 +1431,7 @@ uint64_t __75__SBRoutingSwitcherModifier_blurTargetPreferenceForLayoutRole_inApp
   return v8;
 }
 
-uint64_t __64__SBRoutingSwitcherModifier_blurDelayForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__64__SBRoutingSwitcherModifier_blurDelayForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 blurDelayForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = v4;
@@ -1460,7 +1460,7 @@ uint64_t __64__SBRoutingSwitcherModifier_blurDelayForLayoutRole_inAppLayout___bl
   return v10;
 }
 
-uint64_t __70__SBRoutingSwitcherModifier_opacityForLayoutRole_inAppLayout_atIndex___block_invoke(void *a1, void *a2, uint64_t a3)
+void *__70__SBRoutingSwitcherModifier_opacityForLayoutRole_inAppLayout_atIndex___block_invoke(void *a1, void *a2, uint64_t a3)
 {
   result = [a2 opacityForLayoutRole:a1[6] inAppLayout:a1[4] atIndex:a3];
   *(*(a1[5] + 8) + 24) = v5;
@@ -1485,7 +1485,7 @@ uint64_t __70__SBRoutingSwitcherModifier_opacityForLayoutRole_inAppLayout_atInde
   return v4;
 }
 
-uint64_t __64__SBRoutingSwitcherModifier_shadowOpacityForLayoutRole_atIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__64__SBRoutingSwitcherModifier_shadowOpacityForLayoutRole_atIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 shadowOpacityForLayoutRole:*(a1 + 40) atIndex:a3];
   *(*(*(a1 + 32) + 8) + 24) = v5;
@@ -1514,7 +1514,7 @@ uint64_t __64__SBRoutingSwitcherModifier_shadowOpacityForLayoutRole_atIndex___bl
   return self;
 }
 
-uint64_t __84__SBRoutingSwitcherModifier_shouldAllowContentViewTouchesForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__84__SBRoutingSwitcherModifier_shouldAllowContentViewTouchesForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 shouldAllowContentViewTouchesForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1543,7 +1543,7 @@ uint64_t __84__SBRoutingSwitcherModifier_shouldAllowContentViewTouchesForLayoutR
   return self;
 }
 
-uint64_t __64__SBRoutingSwitcherModifier_isLayoutRoleSelectable_inAppLayout___block_invoke(void *a1, void *a2)
+void *__64__SBRoutingSwitcherModifier_isLayoutRoleSelectable_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 isLayoutRoleSelectable:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1572,7 +1572,7 @@ uint64_t __64__SBRoutingSwitcherModifier_isLayoutRoleSelectable_inAppLayout___bl
   return self;
 }
 
-uint64_t __84__SBRoutingSwitcherModifier_shouldSuppressHighlightEffectForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__84__SBRoutingSwitcherModifier_shouldSuppressHighlightEffectForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 shouldSuppressHighlightEffectForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1601,7 +1601,7 @@ uint64_t __84__SBRoutingSwitcherModifier_shouldSuppressHighlightEffectForLayoutR
   return self;
 }
 
-uint64_t __89__SBRoutingSwitcherModifier_shouldUseNonuniformSnapshotScalingForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__89__SBRoutingSwitcherModifier_shouldUseNonuniformSnapshotScalingForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 shouldUseNonuniformSnapshotScalingForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1630,7 +1630,7 @@ uint64_t __89__SBRoutingSwitcherModifier_shouldUseNonuniformSnapshotScalingForLa
   return v8;
 }
 
-uint64_t __68__SBRoutingSwitcherModifier_touchBehaviorForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__68__SBRoutingSwitcherModifier_touchBehaviorForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 touchBehaviorForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -1654,7 +1654,7 @@ uint64_t __68__SBRoutingSwitcherModifier_touchBehaviorForLayoutRole_inAppLayout_
   return v3;
 }
 
-uint64_t __55__SBRoutingSwitcherModifier_blurViewIconScaleForIndex___block_invoke(uint64_t a1, void *a2)
+void *__55__SBRoutingSwitcherModifier_blurViewIconScaleForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 blurViewIconScaleForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -1683,7 +1683,7 @@ uint64_t __55__SBRoutingSwitcherModifier_blurViewIconScaleForIndex___block_invok
   return v8;
 }
 
-uint64_t __67__SBRoutingSwitcherModifier_dimmingAlphaForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__67__SBRoutingSwitcherModifier_dimmingAlphaForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 dimmingAlphaForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = v4;
@@ -1834,7 +1834,7 @@ void __53__SBRoutingSwitcherModifier_shelfBackgroundBlurFrame__block_invoke(uint
   return v3 & 1;
 }
 
-uint64_t __53__SBRoutingSwitcherModifier_switcherHitTestsAsOpaque__block_invoke(uint64_t a1)
+void *__53__SBRoutingSwitcherModifier_switcherHitTestsAsOpaque__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) switcherHitTestsAsOpaque];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1938,7 +1938,7 @@ void __86__SBRoutingSwitcherModifier_repositionProgressNotificationsForLayoutRol
   return result;
 }
 
-uint64_t __63__SBRoutingSwitcherModifier_fullyPresentedFrameForIndex_frame___block_invoke(uint64_t a1, void *a2)
+void *__63__SBRoutingSwitcherModifier_fullyPresentedFrameForIndex_frame___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 fullyPresentedFrameForIndex:*(a1 + 40) frame:{*(a1 + 48), *(a1 + 56), *(a1 + 64)}];
   v4 = *(*(a1 + 32) + 8);
@@ -2062,7 +2062,7 @@ LABEL_3:
       v15[4] = v11;
       v15[5] = &v16;
       _SBRoutingSwitcherModifierRouteToModifier(&self->super.super.super.super.isa, v11, v15);
-      v12 = [v17[5] containsObject:propertyCopy];
+      v12 = objc_msgSend_containsObject_(v17[5]);
       _Block_object_dispose(&v16, 8);
 
       if (v12)
@@ -2130,7 +2130,7 @@ LABEL_3:
       v12[4] = v8;
       v12[5] = &v13;
       _SBRoutingSwitcherModifierRouteToModifier(&self->super.super.super.super.isa, v8, v12);
-      v9 = [v14[5] containsObject:propertyCopy];
+      v9 = objc_msgSend_containsObject_(v14[5]);
       _Block_object_dispose(&v13, 8);
 
       if (v9)
@@ -2198,7 +2198,7 @@ LABEL_3:
       v13[4] = v8;
       v13[5] = &v14;
       _SBRoutingSwitcherModifierRouteToModifier(&self->super.super.super.super.isa, v8, v13);
-      v9 = [v15[5] containsObject:propertyCopy];
+      v9 = objc_msgSend_containsObject_(v15[5]);
       _Block_object_dispose(&v14, 8);
 
       if (v9)
@@ -2268,7 +2268,7 @@ LABEL_3:
       v12[4] = v8;
       v12[5] = &v13;
       _SBRoutingSwitcherModifierRouteToModifier(&self->super.super.super.super.isa, v8, v12);
-      v9 = [v14[5] containsObject:propertyCopy];
+      v9 = objc_msgSend_containsObject_(v14[5]);
       _Block_object_dispose(&v13, 8);
 
       if (v9)
@@ -2334,7 +2334,7 @@ void __60__SBRoutingSwitcherModifier_shouldUpdateAnimatableProperty___block_invo
   return result;
 }
 
-uint64_t __60__SBRoutingSwitcherModifier_frameForIconOverlayInAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__60__SBRoutingSwitcherModifier_frameForIconOverlayInAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 frameForIconOverlayInAppLayout:*(a1 + 32)];
   v4 = *(*(a1 + 40) + 8);
@@ -2366,7 +2366,7 @@ uint64_t __60__SBRoutingSwitcherModifier_frameForIconOverlayInAppLayout___block_
   return self;
 }
 
-uint64_t __72__SBRoutingSwitcherModifier_canFocusableAppLayoutBeEffectivelyObscured___block_invoke(uint64_t a1, void *a2)
+void *__72__SBRoutingSwitcherModifier_canFocusableAppLayoutBeEffectivelyObscured___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 canFocusableAppLayoutBeEffectivelyObscured:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2397,7 +2397,7 @@ uint64_t __72__SBRoutingSwitcherModifier_canFocusableAppLayoutBeEffectivelyObscu
   return result;
 }
 
-uint64_t __49__SBRoutingSwitcherModifier_anchorPointForIndex___block_invoke(uint64_t a1, void *a2)
+void *__49__SBRoutingSwitcherModifier_anchorPointForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 anchorPointForIndex:?];
   v4 = *(*(a1 + 32) + 8);
@@ -2423,7 +2423,7 @@ uint64_t __49__SBRoutingSwitcherModifier_anchorPointForIndex___block_invoke(uint
   return v3;
 }
 
-uint64_t __57__SBRoutingSwitcherModifier_shouldPinLayoutRolesToSpace___block_invoke(uint64_t a1, void *a2)
+void *__57__SBRoutingSwitcherModifier_shouldPinLayoutRolesToSpace___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 shouldPinLayoutRolesToSpace:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2447,7 +2447,7 @@ uint64_t __57__SBRoutingSwitcherModifier_shouldPinLayoutRolesToSpace___block_inv
   return v3;
 }
 
-uint64_t __73__SBRoutingSwitcherModifier_shouldUseAnchorPointToPinLayoutRolesToSpace___block_invoke(uint64_t a1, void *a2)
+void *__73__SBRoutingSwitcherModifier_shouldUseAnchorPointToPinLayoutRolesToSpace___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 shouldUseAnchorPointToPinLayoutRolesToSpace:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2523,7 +2523,7 @@ uint64_t __73__SBRoutingSwitcherModifier_shouldUseAnchorPointToPinLayoutRolesToS
   return v3 & 1;
 }
 
-uint64_t __57__SBRoutingSwitcherModifier_isHitTestBlockingViewVisible__block_invoke(uint64_t a1)
+void *__57__SBRoutingSwitcherModifier_isHitTestBlockingViewVisible__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isHitTestBlockingViewVisible];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2560,7 +2560,7 @@ uint64_t __57__SBRoutingSwitcherModifier_isHitTestBlockingViewVisible__block_inv
   return result;
 }
 
-uint64_t __43__SBRoutingSwitcherModifier_frameForIndex___block_invoke(uint64_t a1, void *a2)
+void *__43__SBRoutingSwitcherModifier_frameForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 frameForIndex:?];
   v4 = *(*(a1 + 32) + 8);
@@ -2588,7 +2588,7 @@ uint64_t __43__SBRoutingSwitcherModifier_frameForIndex___block_invoke(uint64_t a
   return v3;
 }
 
-uint64_t __43__SBRoutingSwitcherModifier_scaleForIndex___block_invoke(uint64_t a1, void *a2)
+void *__43__SBRoutingSwitcherModifier_scaleForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 scaleForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -2612,7 +2612,7 @@ uint64_t __43__SBRoutingSwitcherModifier_scaleForIndex___block_invoke(uint64_t a
   return v3;
 }
 
-uint64_t __51__SBRoutingSwitcherModifier_rotationAngleForIndex___block_invoke(uint64_t a1, void *a2)
+void *__51__SBRoutingSwitcherModifier_rotationAngleForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 rotationAngleForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -2695,7 +2695,7 @@ uint64_t __51__SBRoutingSwitcherModifier_rotationAngleForIndex___block_invoke(ui
   return v6;
 }
 
-uint64_t __69__SBRoutingSwitcherModifier_occlusionStateForLayoutRole_inAppLayout___block_invoke(uint64_t a1)
+void *__69__SBRoutingSwitcherModifier_occlusionStateForLayoutRole_inAppLayout___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) occlusionStateForLayoutRole:*(a1 + 56) inAppLayout:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -2734,7 +2734,7 @@ uint64_t __69__SBRoutingSwitcherModifier_occlusionStateForLayoutRole_inAppLayout
   return result;
 }
 
-uint64_t __62__SBRoutingSwitcherModifier_clippingFrameForIndex_withBounds___block_invoke(uint64_t a1, void *a2)
+void *__62__SBRoutingSwitcherModifier_clippingFrameForIndex_withBounds___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 clippingFrameForIndex:*(a1 + 40) withBounds:{*(a1 + 48), *(a1 + 56), *(a1 + 64)}];
   v4 = *(*(a1 + 32) + 8);
@@ -2789,7 +2789,7 @@ uint64_t __62__SBRoutingSwitcherModifier_clippingFrameForIndex_withBounds___bloc
   return result;
 }
 
-uint64_t __87__SBRoutingSwitcherModifier_clippingFrameForLayoutRole_inAppLayout_atIndex_withBounds___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__87__SBRoutingSwitcherModifier_clippingFrameForLayoutRole_inAppLayout_atIndex_withBounds___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 clippingFrameForLayoutRole:*(a1 + 48) inAppLayout:*(a1 + 32) atIndex:a3 withBounds:{*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
   v5 = *(*(a1 + 40) + 8);
@@ -2817,7 +2817,7 @@ uint64_t __87__SBRoutingSwitcherModifier_clippingFrameForLayoutRole_inAppLayout_
   return v3;
 }
 
-uint64_t __50__SBRoutingSwitcherModifier_clipsToBoundsAtIndex___block_invoke(uint64_t a1, void *a2)
+void *__50__SBRoutingSwitcherModifier_clipsToBoundsAtIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 clipsToBoundsAtIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2990,7 +2990,7 @@ void __57__SBRoutingSwitcherModifier_genieAttributesForAppLayout___block_invoke(
   return self;
 }
 
-uint64_t __68__SBRoutingSwitcherModifier_isDropletEffectRequiredBehindAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__68__SBRoutingSwitcherModifier_isDropletEffectRequiredBehindAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isDropletEffectRequiredBehindAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3071,7 +3071,7 @@ void __71__SBRoutingSwitcherModifier_resizeGrabberLayoutAttributesForAppLayout__
   return result;
 }
 
-uint64_t __74__SBRoutingSwitcherModifier_adjustedSpaceAccessoryViewFrame_forAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__74__SBRoutingSwitcherModifier_adjustedSpaceAccessoryViewFrame_forAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 adjustedSpaceAccessoryViewFrame:*(a1 + 32) forAppLayout:{*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72)}];
   v4 = *(*(a1 + 40) + 8);
@@ -3114,7 +3114,7 @@ uint64_t __74__SBRoutingSwitcherModifier_adjustedSpaceAccessoryViewFrame_forAppL
   return result;
 }
 
-uint64_t __80__SBRoutingSwitcherModifier_adjustedSpaceAccessoryViewAnchorPoint_forAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__80__SBRoutingSwitcherModifier_adjustedSpaceAccessoryViewAnchorPoint_forAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 adjustedSpaceAccessoryViewAnchorPoint:*(a1 + 32) forAppLayout:{*(a1 + 48), *(a1 + 56)}];
   v4 = *(*(a1 + 40) + 8);
@@ -3145,7 +3145,7 @@ uint64_t __80__SBRoutingSwitcherModifier_adjustedSpaceAccessoryViewAnchorPoint_f
   return v8;
 }
 
-uint64_t __74__SBRoutingSwitcherModifier_adjustedSpaceAccessoryViewScale_forAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__74__SBRoutingSwitcherModifier_adjustedSpaceAccessoryViewScale_forAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 adjustedSpaceAccessoryViewScale:*(a1 + 32) forAppLayout:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = v4;
@@ -3184,7 +3184,7 @@ uint64_t __74__SBRoutingSwitcherModifier_adjustedSpaceAccessoryViewScale_forAppL
   return result;
 }
 
-uint64_t __85__SBRoutingSwitcherModifier_adjustedSpaceAccessoryViewPerspectiveAngle_forAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__85__SBRoutingSwitcherModifier_adjustedSpaceAccessoryViewPerspectiveAngle_forAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 adjustedSpaceAccessoryViewPerspectiveAngle:*(a1 + 32) forAppLayout:{*(a1 + 48), *(a1 + 56)}];
   v4 = *(*(a1 + 40) + 8);
@@ -3291,7 +3291,7 @@ void __46__SBRoutingSwitcherModifier_visibleAppLayouts__block_invoke(uint64_t a1
   return self;
 }
 
-uint64_t __67__SBRoutingSwitcherModifier_isHomeAffordanceSupportedForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__67__SBRoutingSwitcherModifier_isHomeAffordanceSupportedForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isHomeAffordanceSupportedForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3396,7 +3396,7 @@ void __64__SBRoutingSwitcherModifier_visibleHomeAffordanceLayoutElements__block_
   return self;
 }
 
-uint64_t __64__SBRoutingSwitcherModifier_isResizeGrabberVisibleForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__64__SBRoutingSwitcherModifier_isResizeGrabberVisibleForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isResizeGrabberVisibleForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3425,7 +3425,7 @@ uint64_t __64__SBRoutingSwitcherModifier_isResizeGrabberVisibleForAppLayout___bl
   return v8;
 }
 
-uint64_t __82__SBRoutingSwitcherModifier_activeCornersForTouchResizeForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__82__SBRoutingSwitcherModifier_activeCornersForTouchResizeForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 activeCornersForTouchResizeForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -3454,7 +3454,7 @@ uint64_t __82__SBRoutingSwitcherModifier_activeCornersForTouchResizeForLayoutRol
   return v8;
 }
 
-uint64_t __83__SBRoutingSwitcherModifier_visibleCornersForTouchResizeForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__83__SBRoutingSwitcherModifier_visibleCornersForTouchResizeForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 visibleCornersForTouchResizeForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -3483,7 +3483,7 @@ uint64_t __83__SBRoutingSwitcherModifier_visibleCornersForTouchResizeForLayoutRo
   return self;
 }
 
-uint64_t __76__SBRoutingSwitcherModifier_isItemResizingAllowedForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__76__SBRoutingSwitcherModifier_isItemResizingAllowedForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 isItemResizingAllowedForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -3515,7 +3515,7 @@ uint64_t __76__SBRoutingSwitcherModifier_isItemResizingAllowedForLayoutRole_inAp
   return self;
 }
 
-uint64_t __85__SBRoutingSwitcherModifier_isHintingResizeGrabberForDisplayItem_corner_inAppLayout___block_invoke(void *a1, void *a2)
+void *__85__SBRoutingSwitcherModifier_isHintingResizeGrabberForDisplayItem_corner_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 isHintingResizeGrabberForDisplayItem:a1[4] corner:a1[7] inAppLayout:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -3679,11 +3679,11 @@ void __60__SBRoutingSwitcherModifier_presentationAttributesForShelf___block_invo
   v15 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
   v3 = [v2 bs_map:v14];
 
-  if ([v3 containsObject:*(a1 + 48)])
+  if (objc_msgSend_containsObject_(v3))
   {
     v4 = *(a1 + 32);
     v5 = [*(a1 + 40) _adjustedShelfForShelf:*(a1 + 48) forModifier:v4];
-    [v4 presentationAttributesForShelf:v5];
+    objc_msgSend_presentationAttributesForShelf_(v4);
     v6 = *(*(a1 + 56) + 8);
     v7 = v13;
     v8 = v12;
@@ -3773,7 +3773,7 @@ void __43__SBRoutingSwitcherModifier_frameForShelf___block_invoke(uint64_t a1)
   v12 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
   v3 = [v2 bs_map:v11];
 
-  if ([v3 containsObject:*(a1 + 48)])
+  if (objc_msgSend_containsObject_(v3))
   {
     v4 = *(a1 + 32);
     v5 = [*(a1 + 40) _adjustedShelfForShelf:*(a1 + 48) forModifier:v4];
@@ -3848,7 +3848,7 @@ void __54__SBRoutingSwitcherModifier_focusedAppLayoutForShelf___block_invoke(uin
   v10 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
   v3 = [v2 bs_map:v9];
 
-  if ([v3 containsObject:*(a1 + 48)])
+  if (objc_msgSend_containsObject_(v3))
   {
     v4 = *(a1 + 32);
     v5 = [*(a1 + 40) _adjustedShelfForShelf:*(a1 + 48) forModifier:v4];
@@ -3921,7 +3921,7 @@ void __57__SBRoutingSwitcherModifier_ignoredDisplayItemsForShelf___block_invoke(
   v10 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
   v3 = [v2 bs_map:v9];
 
-  if ([v3 containsObject:*(a1 + 48)])
+  if (objc_msgSend_containsObject_(v3))
   {
     v4 = *(a1 + 32);
     v5 = [*(a1 + 40) _adjustedShelfForShelf:*(a1 + 48) forModifier:v4];
@@ -3994,7 +3994,7 @@ void __60__SBRoutingSwitcherModifier_containerLeafAppLayoutForShelf___block_invo
   v10 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
   v3 = [v2 bs_map:v9];
 
-  if ([v3 containsObject:*(a1 + 48)])
+  if (objc_msgSend_containsObject_(v3))
   {
     v4 = *(a1 + 32);
     v5 = [*(a1 + 40) _adjustedShelfForShelf:*(a1 + 48) forModifier:v4];
@@ -4067,7 +4067,7 @@ void __53__SBRoutingSwitcherModifier_hiddenAppLayoutsInShelf___block_invoke(uint
   v10 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
   v3 = [v2 bs_map:v9];
 
-  if ([v3 containsObject:*(a1 + 48)])
+  if (objc_msgSend_containsObject_(v3))
   {
     v4 = *(a1 + 32);
     v5 = [*(a1 + 40) _adjustedShelfForShelf:*(a1 + 48) forModifier:v4];
@@ -4140,7 +4140,7 @@ void __74__SBRoutingSwitcherModifier_homeAffordanceLayoutElementToPortalIntoShel
   v10 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
   v3 = [v2 bs_map:v9];
 
-  if ([v3 containsObject:*(a1 + 48)])
+  if (objc_msgSend_containsObject_(v3))
   {
     v4 = *(a1 + 32);
     v5 = [*(a1 + 40) _adjustedShelfForShelf:*(a1 + 48) forModifier:v4];
@@ -4238,7 +4238,7 @@ LABEL_3:
 void __60__SBRoutingSwitcherModifier_frameForSplitViewHandleNubView___block_invoke(uint64_t a1)
 {
   v7 = [*(a1 + 32) visibleSplitViewHandleNubViews];
-  if ([v7 containsObject:*(a1 + 40)])
+  if (objc_msgSend_containsObject_(v7))
   {
     [*(a1 + 32) frameForSplitViewHandleNubView:*(a1 + 40)];
     v2 = *(*(a1 + 48) + 8);
@@ -4336,7 +4336,7 @@ LABEL_3:
 void __64__SBRoutingSwitcherModifier_frameForSplitViewHandleDimmingView___block_invoke(uint64_t a1)
 {
   v7 = [*(a1 + 32) visibleSplitViewHandleDimmingViews];
-  if ([v7 containsObject:*(a1 + 40)])
+  if (objc_msgSend_containsObject_(v7))
   {
     [*(a1 + 32) frameForSplitViewHandleDimmingView:*(a1 + 40)];
     v2 = *(*(a1 + 48) + 8);
@@ -4425,7 +4425,7 @@ uint64_t __58__SBRoutingSwitcherModifier_hiddenContainerStatusBarParts__block_in
   return v8;
 }
 
-uint64_t __82__SBRoutingSwitcherModifier_hiddenContentStatusBarPartsForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__82__SBRoutingSwitcherModifier_hiddenContentStatusBarPartsForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 hiddenContentStatusBarPartsForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -4454,7 +4454,7 @@ uint64_t __82__SBRoutingSwitcherModifier_hiddenContentStatusBarPartsForLayoutRol
   return self;
 }
 
-uint64_t __76__SBRoutingSwitcherModifier_isContainerStatusBarPart_hiddenByLeafAppLayout___block_invoke(void *a1, void *a2)
+void *__76__SBRoutingSwitcherModifier_isContainerStatusBarPart_hiddenByLeafAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 isContainerStatusBarPart:a1[6] hiddenByLeafAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -4494,7 +4494,7 @@ uint64_t __76__SBRoutingSwitcherModifier_isContainerStatusBarPart_hiddenByLeafAp
   return result;
 }
 
-uint64_t __92__SBRoutingSwitcherModifier_perspectiveAngleForLayoutRole_inAppLayout_withPerspectiveAngle___block_invoke(uint64_t a1, void *a2)
+void *__92__SBRoutingSwitcherModifier_perspectiveAngleForLayoutRole_inAppLayout_withPerspectiveAngle___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 perspectiveAngleForLayoutRole:*(a1 + 48) inAppLayout:*(a1 + 32) withPerspectiveAngle:{*(a1 + 56), *(a1 + 64)}];
   v4 = *(*(a1 + 40) + 8);
@@ -4579,7 +4579,7 @@ void __45__SBRoutingSwitcherModifier_contentViewScale__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __60__SBRoutingSwitcherModifier_clipsToUnobscuredMarginAtIndex___block_invoke(uint64_t a1, void *a2)
+void *__60__SBRoutingSwitcherModifier_clipsToUnobscuredMarginAtIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 clipsToUnobscuredMarginAtIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -4603,7 +4603,7 @@ uint64_t __60__SBRoutingSwitcherModifier_clipsToUnobscuredMarginAtIndex___block_
   return v3;
 }
 
-uint64_t __66__SBRoutingSwitcherModifier_visibleMarginForItemContainerAtIndex___block_invoke(uint64_t a1, void *a2)
+void *__66__SBRoutingSwitcherModifier_visibleMarginForItemContainerAtIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 visibleMarginForItemContainerAtIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -4627,7 +4627,7 @@ uint64_t __66__SBRoutingSwitcherModifier_visibleMarginForItemContainerAtIndex___
   return v3;
 }
 
-uint64_t __59__SBRoutingSwitcherModifier_wallpaperOverlayAlphaForIndex___block_invoke(uint64_t a1, void *a2)
+void *__59__SBRoutingSwitcherModifier_wallpaperOverlayAlphaForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 wallpaperOverlayAlphaForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -4651,7 +4651,7 @@ uint64_t __59__SBRoutingSwitcherModifier_wallpaperOverlayAlphaForIndex___block_i
   return v3;
 }
 
-uint64_t __53__SBRoutingSwitcherModifier_lighteningAlphaForIndex___block_invoke(uint64_t a1, void *a2)
+void *__53__SBRoutingSwitcherModifier_lighteningAlphaForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 lighteningAlphaForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -4675,7 +4675,7 @@ uint64_t __53__SBRoutingSwitcherModifier_lighteningAlphaForIndex___block_invoke(
   return v3;
 }
 
-uint64_t __49__SBRoutingSwitcherModifier_headerStyleForIndex___block_invoke(uint64_t a1, void *a2)
+void *__49__SBRoutingSwitcherModifier_headerStyleForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 headerStyleForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -4699,7 +4699,7 @@ uint64_t __49__SBRoutingSwitcherModifier_headerStyleForIndex___block_invoke(uint
   return v3;
 }
 
-uint64_t __49__SBRoutingSwitcherModifier_iconOpacityForIndex___block_invoke(uint64_t a1, void *a2)
+void *__49__SBRoutingSwitcherModifier_iconOpacityForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 iconOpacityForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -4723,7 +4723,7 @@ uint64_t __49__SBRoutingSwitcherModifier_iconOpacityForIndex___block_invoke(uint
   return v3;
 }
 
-uint64_t __50__SBRoutingSwitcherModifier_titleOpacityForIndex___block_invoke(uint64_t a1, void *a2)
+void *__50__SBRoutingSwitcherModifier_titleOpacityForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 titleOpacityForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -4747,7 +4747,7 @@ uint64_t __50__SBRoutingSwitcherModifier_titleOpacityForIndex___block_invoke(uin
   return v3;
 }
 
-uint64_t __57__SBRoutingSwitcherModifier_titleAndIconOpacityForIndex___block_invoke(uint64_t a1, void *a2)
+void *__57__SBRoutingSwitcherModifier_titleAndIconOpacityForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 titleAndIconOpacityForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -4771,7 +4771,7 @@ uint64_t __57__SBRoutingSwitcherModifier_titleAndIconOpacityForIndex___block_inv
   return v3;
 }
 
-uint64_t __50__SBRoutingSwitcherModifier_shadowOffsetForIndex___block_invoke(uint64_t a1, void *a2)
+void *__50__SBRoutingSwitcherModifier_shadowOffsetForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 shadowOffsetForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -4808,7 +4808,7 @@ uint64_t __50__SBRoutingSwitcherModifier_shadowOffsetForIndex___block_invoke(uin
   return result;
 }
 
-uint64_t __49__SBRoutingSwitcherModifier_cornerRadiiForIndex___block_invoke(uint64_t a1, void *a2)
+void *__49__SBRoutingSwitcherModifier_cornerRadiiForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 cornerRadiiForIndex:?];
   v4 = *(*(a1 + 32) + 8);
@@ -4836,7 +4836,7 @@ uint64_t __49__SBRoutingSwitcherModifier_cornerRadiiForIndex___block_invoke(uint
   return v3;
 }
 
-uint64_t __67__SBRoutingSwitcherModifier_shouldScaleOverlayToFillBoundsAtIndex___block_invoke(uint64_t a1, void *a2)
+void *__67__SBRoutingSwitcherModifier_shouldScaleOverlayToFillBoundsAtIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 shouldScaleOverlayToFillBoundsAtIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -4860,7 +4860,7 @@ uint64_t __67__SBRoutingSwitcherModifier_shouldScaleOverlayToFillBoundsAtIndex__
   return v3;
 }
 
-uint64_t __67__SBRoutingSwitcherModifier_shouldScaleContentToFillBoundsAtIndex___block_invoke(uint64_t a1, void *a2)
+void *__67__SBRoutingSwitcherModifier_shouldScaleContentToFillBoundsAtIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 shouldScaleContentToFillBoundsAtIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -4884,7 +4884,7 @@ uint64_t __67__SBRoutingSwitcherModifier_shouldScaleContentToFillBoundsAtIndex__
   return v3;
 }
 
-uint64_t __61__SBRoutingSwitcherModifier_shouldUseBrightMaterialForIndex___block_invoke(uint64_t a1, void *a2)
+void *__61__SBRoutingSwitcherModifier_shouldUseBrightMaterialForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 shouldUseBrightMaterialForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -4908,7 +4908,7 @@ uint64_t __61__SBRoutingSwitcherModifier_shouldUseBrightMaterialForIndex___block
   return v3;
 }
 
-uint64_t __75__SBRoutingSwitcherModifier_shouldUseBackgroundWallpaperTreatmentForIndex___block_invoke(uint64_t a1, void *a2)
+void *__75__SBRoutingSwitcherModifier_shouldUseBackgroundWallpaperTreatmentForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 shouldUseBackgroundWallpaperTreatmentForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -4932,7 +4932,7 @@ uint64_t __75__SBRoutingSwitcherModifier_shouldUseBackgroundWallpaperTreatmentFo
   return v3;
 }
 
-uint64_t __59__SBRoutingSwitcherModifier_shouldShowBackdropViewAtIndex___block_invoke(uint64_t a1, void *a2)
+void *__59__SBRoutingSwitcherModifier_shouldShowBackdropViewAtIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 shouldShowBackdropViewAtIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -4963,7 +4963,7 @@ uint64_t __59__SBRoutingSwitcherModifier_shouldShowBackdropViewAtIndex___block_i
   return result;
 }
 
-uint64_t __54__SBRoutingSwitcherModifier_perspectiveAngleForIndex___block_invoke(uint64_t a1, void *a2)
+void *__54__SBRoutingSwitcherModifier_perspectiveAngleForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 perspectiveAngleForIndex:?];
   v4 = *(*(a1 + 32) + 8);
@@ -5041,7 +5041,7 @@ uint64_t __54__SBRoutingSwitcherModifier_perspectiveAngleForIndex___block_invoke
   return v3 & 1;
 }
 
-uint64_t __64__SBRoutingSwitcherModifier_shouldUseWallpaperGradientTreatment__block_invoke(uint64_t a1)
+void *__64__SBRoutingSwitcherModifier_shouldUseWallpaperGradientTreatment__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shouldUseWallpaperGradientTreatment];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -5300,14 +5300,14 @@ LABEL_14:
   return v11 & 1;
 }
 
-uint64_t __53__SBRoutingSwitcherModifier_wantsSwitcherDimmingView__block_invoke(uint64_t a1)
+void *__53__SBRoutingSwitcherModifier_wantsSwitcherDimmingView__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsSwitcherDimmingView];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __53__SBRoutingSwitcherModifier_wantsSwitcherDimmingView__block_invoke_2(uint64_t a1)
+void *__53__SBRoutingSwitcherModifier_wantsSwitcherDimmingView__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) wantsSwitcherDimmingView];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -5400,7 +5400,7 @@ double __49__SBRoutingSwitcherModifier_switcherDimmingAlpha__block_invoke(uint64
   return result;
 }
 
-uint64_t __49__SBRoutingSwitcherModifier_switcherDimmingAlpha__block_invoke_2(uint64_t a1)
+void *__49__SBRoutingSwitcherModifier_switcherDimmingAlpha__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) switcherDimmingAlpha];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -5486,14 +5486,14 @@ LABEL_14:
   return v11 & 1;
 }
 
-uint64_t __61__SBRoutingSwitcherModifier_switcherDimmingViewBlocksTouches__block_invoke(uint64_t a1)
+void *__61__SBRoutingSwitcherModifier_switcherDimmingViewBlocksTouches__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsSwitcherDimmingView];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __61__SBRoutingSwitcherModifier_switcherDimmingViewBlocksTouches__block_invoke_2(uint64_t a1)
+void *__61__SBRoutingSwitcherModifier_switcherDimmingViewBlocksTouches__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) switcherDimmingViewBlocksTouches];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -5579,14 +5579,14 @@ LABEL_14:
   return v11 & 1;
 }
 
-uint64_t __54__SBRoutingSwitcherModifier_wantsSwitcherBackdropBlur__block_invoke(uint64_t a1)
+void *__54__SBRoutingSwitcherModifier_wantsSwitcherBackdropBlur__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsSwitcherBackdropBlur];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __54__SBRoutingSwitcherModifier_wantsSwitcherBackdropBlur__block_invoke_2(uint64_t a1)
+void *__54__SBRoutingSwitcherModifier_wantsSwitcherBackdropBlur__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) wantsSwitcherBackdropBlur];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -5672,14 +5672,14 @@ LABEL_14:
   return v11;
 }
 
-uint64_t __53__SBRoutingSwitcherModifier_switcherBackdropBlurType__block_invoke(uint64_t a1)
+void *__53__SBRoutingSwitcherModifier_switcherBackdropBlurType__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsSwitcherBackdropBlur];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __53__SBRoutingSwitcherModifier_switcherBackdropBlurType__block_invoke_2(uint64_t a1)
+void *__53__SBRoutingSwitcherModifier_switcherBackdropBlurType__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) switcherBackdropBlurType];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -5772,7 +5772,7 @@ double __57__SBRoutingSwitcherModifier_switcherBackdropBlurProgress__block_invok
   return result;
 }
 
-uint64_t __57__SBRoutingSwitcherModifier_switcherBackdropBlurProgress__block_invoke_2(uint64_t a1)
+void *__57__SBRoutingSwitcherModifier_switcherBackdropBlurProgress__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) switcherBackdropBlurProgress];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -5832,7 +5832,7 @@ void __77__SBRoutingSwitcherModifier_multipleWindowsIndicatorLayoutRolesForAppLa
   return self;
 }
 
-uint64_t __84__SBRoutingSwitcherModifier_wantsSpaceAccessoryViewPointerInteractionsForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__84__SBRoutingSwitcherModifier_wantsSpaceAccessoryViewPointerInteractionsForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 wantsSpaceAccessoryViewPointerInteractionsForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -5860,7 +5860,7 @@ uint64_t __84__SBRoutingSwitcherModifier_wantsSpaceAccessoryViewPointerInteracti
   return v6;
 }
 
-uint64_t __77__SBRoutingSwitcherModifier_spaceAccessoryViewIconHitTestOutsetForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__77__SBRoutingSwitcherModifier_spaceAccessoryViewIconHitTestOutsetForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 spaceAccessoryViewIconHitTestOutsetForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = v4;
@@ -5888,7 +5888,7 @@ uint64_t __77__SBRoutingSwitcherModifier_spaceAccessoryViewIconHitTestOutsetForA
   return self;
 }
 
-uint64_t __70__SBRoutingSwitcherModifier_wantsSpaceAccessoryViewGenieForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__70__SBRoutingSwitcherModifier_wantsSpaceAccessoryViewGenieForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 wantsSpaceAccessoryViewGenieForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -5916,7 +5916,7 @@ uint64_t __70__SBRoutingSwitcherModifier_wantsSpaceAccessoryViewGenieForAppLayou
   return self;
 }
 
-uint64_t __69__SBRoutingSwitcherModifier_useItemContainerFooterViewsForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__69__SBRoutingSwitcherModifier_useItemContainerFooterViewsForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 useItemContainerFooterViewsForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -5944,7 +5944,7 @@ uint64_t __69__SBRoutingSwitcherModifier_useItemContainerFooterViewsForAppLayout
   return self;
 }
 
-uint64_t __70__SBRoutingSwitcherModifier_canSelectLeafWithModifierKeysInAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__70__SBRoutingSwitcherModifier_canSelectLeafWithModifierKeysInAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 canSelectLeafWithModifierKeysInAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -5972,7 +5972,7 @@ uint64_t __70__SBRoutingSwitcherModifier_canSelectLeafWithModifierKeysInAppLayou
   return self;
 }
 
-uint64_t __65__SBRoutingSwitcherModifier_shouldAllowGroupOpacityForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__65__SBRoutingSwitcherModifier_shouldAllowGroupOpacityForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 shouldAllowGroupOpacityForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6000,7 +6000,7 @@ uint64_t __65__SBRoutingSwitcherModifier_shouldAllowGroupOpacityForAppLayout___b
   return v6;
 }
 
-uint64_t __65__SBRoutingSwitcherModifier_footerViewIconAlignmentForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__65__SBRoutingSwitcherModifier_footerViewIconAlignmentForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 footerViewIconAlignmentForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6134,7 +6134,7 @@ void __57__SBRoutingSwitcherModifier_shouldScrollViewBlockTouches__block_invoke(
   return v3 & 1;
 }
 
-uint64_t __70__SBRoutingSwitcherModifier_shouldRubberbandFullScreenHomeGrabberView__block_invoke(uint64_t a1)
+void *__70__SBRoutingSwitcherModifier_shouldRubberbandFullScreenHomeGrabberView__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shouldRubberbandFullScreenHomeGrabberView];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6220,14 +6220,14 @@ LABEL_14:
   return v11 & 1;
 }
 
-uint64_t __56__SBRoutingSwitcherModifier_isContainerStatusBarVisible__block_invoke(uint64_t a1)
+void *__56__SBRoutingSwitcherModifier_isContainerStatusBarVisible__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isContainerStatusBarVisible];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __56__SBRoutingSwitcherModifier_isContainerStatusBarVisible__block_invoke_2(uint64_t a1)
+void *__56__SBRoutingSwitcherModifier_isContainerStatusBarVisible__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isContainerStatusBarVisible];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6320,7 +6320,7 @@ double __64__SBRoutingSwitcherModifier_containerStatusBarAnimationDuration__bloc
   return result;
 }
 
-uint64_t __64__SBRoutingSwitcherModifier_containerStatusBarAnimationDuration__block_invoke_2(uint64_t a1)
+void *__64__SBRoutingSwitcherModifier_containerStatusBarAnimationDuration__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) containerStatusBarAnimationDuration];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -6344,7 +6344,7 @@ uint64_t __64__SBRoutingSwitcherModifier_containerStatusBarAnimationDuration__bl
   return v3;
 }
 
-uint64_t __63__SBRoutingSwitcherModifier_isContentStatusBarVisibleForIndex___block_invoke(uint64_t a1, void *a2)
+void *__63__SBRoutingSwitcherModifier_isContentStatusBarVisibleForIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isContentStatusBarVisibleForIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -6420,7 +6420,7 @@ uint64_t __63__SBRoutingSwitcherModifier_isContentStatusBarVisibleForIndex___blo
   return v3 & 1;
 }
 
-uint64_t __41__SBRoutingSwitcherModifier_wantsMenuBar__block_invoke(uint64_t a1)
+void *__41__SBRoutingSwitcherModifier_wantsMenuBar__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsMenuBar];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6496,7 +6496,7 @@ uint64_t __41__SBRoutingSwitcherModifier_wantsMenuBar__block_invoke(uint64_t a1)
   return v3 & 1;
 }
 
-uint64_t __64__SBRoutingSwitcherModifier_hasContentIntersectingMenuBarRegion__block_invoke(uint64_t a1)
+void *__64__SBRoutingSwitcherModifier_hasContentIntersectingMenuBarRegion__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) hasContentIntersectingMenuBarRegion];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6582,14 +6582,14 @@ LABEL_14:
   return v11 & 1;
 }
 
-uint64_t __59__SBRoutingSwitcherModifier_isWallpaperRequiredForSwitcher__block_invoke(uint64_t a1)
+void *__59__SBRoutingSwitcherModifier_isWallpaperRequiredForSwitcher__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isWallpaperRequiredForSwitcher];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __59__SBRoutingSwitcherModifier_isWallpaperRequiredForSwitcher__block_invoke_2(uint64_t a1)
+void *__59__SBRoutingSwitcherModifier_isWallpaperRequiredForSwitcher__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isWallpaperRequiredForSwitcher];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6675,14 +6675,14 @@ LABEL_14:
   return v11;
 }
 
-uint64_t __43__SBRoutingSwitcherModifier_wallpaperStyle__block_invoke(uint64_t a1)
+void *__43__SBRoutingSwitcherModifier_wallpaperStyle__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isWallpaperRequiredForSwitcher];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __43__SBRoutingSwitcherModifier_wallpaperStyle__block_invoke_2(uint64_t a1)
+void *__43__SBRoutingSwitcherModifier_wallpaperStyle__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) wallpaperStyle];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6758,7 +6758,7 @@ uint64_t __43__SBRoutingSwitcherModifier_wallpaperStyle__block_invoke_2(uint64_t
   return v3 & 1;
 }
 
-uint64_t __56__SBRoutingSwitcherModifier_isHomeScreenContentRequired__block_invoke(uint64_t a1)
+void *__56__SBRoutingSwitcherModifier_isHomeScreenContentRequired__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isHomeScreenContentRequired];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6834,7 +6834,7 @@ uint64_t __56__SBRoutingSwitcherModifier_isHomeScreenContentRequired__block_invo
   return v3 & 1;
 }
 
-uint64_t __63__SBRoutingSwitcherModifier_wantsHomeScreenPointerInteractions__block_invoke(uint64_t a1)
+void *__63__SBRoutingSwitcherModifier_wantsHomeScreenPointerInteractions__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsHomeScreenPointerInteractions];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -7087,7 +7087,7 @@ void __44__SBRoutingSwitcherModifier_plusButtonStyle__block_invoke(uint64_t a1)
   return v3 & 1;
 }
 
-uint64_t __52__SBRoutingSwitcherModifier_isSwitcherWindowVisible__block_invoke(uint64_t a1)
+void *__52__SBRoutingSwitcherModifier_isSwitcherWindowVisible__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isSwitcherWindowVisible];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -7163,7 +7163,7 @@ uint64_t __52__SBRoutingSwitcherModifier_isSwitcherWindowVisible__block_invoke(u
   return v3 & 1;
 }
 
-uint64_t __67__SBRoutingSwitcherModifier_isSwitcherWindowUserInteractionEnabled__block_invoke(uint64_t a1)
+void *__67__SBRoutingSwitcherModifier_isSwitcherWindowUserInteractionEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isSwitcherWindowUserInteractionEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -7239,7 +7239,7 @@ uint64_t __67__SBRoutingSwitcherModifier_isSwitcherWindowUserInteractionEnabled_
   return v3 & 1;
 }
 
-uint64_t __69__SBRoutingSwitcherModifier_isItemContainerPointerInteractionEnabled__block_invoke(uint64_t a1)
+void *__69__SBRoutingSwitcherModifier_isItemContainerPointerInteractionEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isItemContainerPointerInteractionEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -7421,7 +7421,7 @@ void __63__SBRoutingSwitcherModifier_appLayoutsToCacheFullsizeSnapshots__block_i
   return v6;
 }
 
-uint64_t __70__SBRoutingSwitcherModifier_preferredSnapshotOrientationForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__70__SBRoutingSwitcherModifier_preferredSnapshotOrientationForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 preferredSnapshotOrientationForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -7811,7 +7811,7 @@ void __57__SBRoutingSwitcherModifier_transactionCompletionOptions__block_invoke(
   return v3 & 1;
 }
 
-uint64_t __66__SBRoutingSwitcherModifier_shouldAcceleratedHomeButtonPressBegin__block_invoke(uint64_t a1)
+void *__66__SBRoutingSwitcherModifier_shouldAcceleratedHomeButtonPressBegin__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shouldAcceleratedHomeButtonPressBegin];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -7887,7 +7887,7 @@ uint64_t __66__SBRoutingSwitcherModifier_shouldAcceleratedHomeButtonPressBegin__
   return v3 & 1;
 }
 
-uint64_t __79__SBRoutingSwitcherModifier_shouldFireTransitionCompletionInDefaultRunLoopMode__block_invoke(uint64_t a1)
+void *__79__SBRoutingSwitcherModifier_shouldFireTransitionCompletionInDefaultRunLoopMode__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shouldFireTransitionCompletionInDefaultRunLoopMode];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -7963,7 +7963,7 @@ uint64_t __79__SBRoutingSwitcherModifier_shouldFireTransitionCompletionInDefault
   return v3 & 1;
 }
 
-uint64_t __79__SBRoutingSwitcherModifier_shouldPerformRotationAnimationForOrientationChange__block_invoke(uint64_t a1)
+void *__79__SBRoutingSwitcherModifier_shouldPerformRotationAnimationForOrientationChange__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shouldPerformRotationAnimationForOrientationChange];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -8039,7 +8039,7 @@ uint64_t __79__SBRoutingSwitcherModifier_shouldPerformRotationAnimationForOrient
   return v3 & 1;
 }
 
-uint64_t __66__SBRoutingSwitcherModifier_shouldPerformCrossfadeForReduceMotion__block_invoke(uint64_t a1)
+void *__66__SBRoutingSwitcherModifier_shouldPerformCrossfadeForReduceMotion__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shouldPerformCrossfadeForReduceMotion];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -8068,7 +8068,7 @@ uint64_t __66__SBRoutingSwitcherModifier_shouldPerformCrossfadeForReduceMotion__
   return index;
 }
 
-uint64_t __70__SBRoutingSwitcherModifier_isLayoutRoleKillable_inAppLayout_atIndex___block_invoke(void *a1, void *a2, uint64_t a3)
+void *__70__SBRoutingSwitcherModifier_isLayoutRoleKillable_inAppLayout_atIndex___block_invoke(void *a1, void *a2, uint64_t a3)
 {
   result = [a2 isLayoutRoleKillable:a1[6] inAppLayout:a1[4] atIndex:a3];
   *(*(a1[5] + 8) + 24) = result;
@@ -8092,7 +8092,7 @@ uint64_t __70__SBRoutingSwitcherModifier_isLayoutRoleKillable_inAppLayout_atInde
   return v3;
 }
 
-uint64_t __65__SBRoutingSwitcherModifier_isIndexRubberbandableForSwipeToKill___block_invoke(uint64_t a1, void *a2)
+void *__65__SBRoutingSwitcherModifier_isIndexRubberbandableForSwipeToKill___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isIndexRubberbandableForSwipeToKill:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -8149,7 +8149,7 @@ void __80__SBRoutingSwitcherModifier_shouldAnimateInsertionOrRemovalOfAppLayout_
   return v3;
 }
 
-uint64_t __63__SBRoutingSwitcherModifier_indexToScrollToAfterRemovingIndex___block_invoke(uint64_t a1, void *a2)
+void *__63__SBRoutingSwitcherModifier_indexToScrollToAfterRemovingIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 indexToScrollToAfterRemovingIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -8173,7 +8173,7 @@ uint64_t __63__SBRoutingSwitcherModifier_indexToScrollToAfterRemovingIndex___blo
   return v3;
 }
 
-uint64_t __66__SBRoutingSwitcherModifier_indexToScrollToAfterInsertingAtIndex___block_invoke(uint64_t a1, void *a2)
+void *__66__SBRoutingSwitcherModifier_indexToScrollToAfterInsertingAtIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 indexToScrollToAfterInsertingAtIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -8249,7 +8249,7 @@ uint64_t __66__SBRoutingSwitcherModifier_indexToScrollToAfterInsertingAtIndex___
   return v3 & 1;
 }
 
-uint64_t __75__SBRoutingSwitcherModifier_shouldBringCardToFrontDuringInsertionOrRemoval__block_invoke(uint64_t a1)
+void *__75__SBRoutingSwitcherModifier_shouldBringCardToFrontDuringInsertionOrRemoval__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shouldBringCardToFrontDuringInsertionOrRemoval];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -8325,7 +8325,7 @@ uint64_t __75__SBRoutingSwitcherModifier_shouldBringCardToFrontDuringInsertionOr
   return v3 & 1;
 }
 
-uint64_t __68__SBRoutingSwitcherModifier_shouldConfigureInAppDockHiddenAssertion__block_invoke(uint64_t a1)
+void *__68__SBRoutingSwitcherModifier_shouldConfigureInAppDockHiddenAssertion__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shouldConfigureInAppDockHiddenAssertion];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -8411,14 +8411,14 @@ LABEL_14:
   return v11 & 1;
 }
 
-uint64_t __55__SBRoutingSwitcherModifier_wantsDockBehaviorAssertion__block_invoke(uint64_t a1)
+void *__55__SBRoutingSwitcherModifier_wantsDockBehaviorAssertion__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsDockBehaviorAssertion];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __55__SBRoutingSwitcherModifier_wantsDockBehaviorAssertion__block_invoke_2(uint64_t a1)
+void *__55__SBRoutingSwitcherModifier_wantsDockBehaviorAssertion__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) wantsDockBehaviorAssertion];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -8511,7 +8511,7 @@ double __41__SBRoutingSwitcherModifier_dockProgress__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __41__SBRoutingSwitcherModifier_dockProgress__block_invoke_2(uint64_t a1)
+void *__41__SBRoutingSwitcherModifier_dockProgress__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) dockProgress];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -8597,14 +8597,14 @@ LABEL_14:
   return v11;
 }
 
-uint64_t __43__SBRoutingSwitcherModifier_dockUpdateMode__block_invoke(uint64_t a1)
+void *__43__SBRoutingSwitcherModifier_dockUpdateMode__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsDockBehaviorAssertion];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __43__SBRoutingSwitcherModifier_dockUpdateMode__block_invoke_2(uint64_t a1)
+void *__43__SBRoutingSwitcherModifier_dockUpdateMode__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) dockUpdateMode];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -8690,14 +8690,14 @@ LABEL_14:
   return v11 & 1;
 }
 
-uint64_t __58__SBRoutingSwitcherModifier_wantsDockWindowLevelAssertion__block_invoke(uint64_t a1)
+void *__58__SBRoutingSwitcherModifier_wantsDockWindowLevelAssertion__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsDockWindowLevelAssertion];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __58__SBRoutingSwitcherModifier_wantsDockWindowLevelAssertion__block_invoke_2(uint64_t a1)
+void *__58__SBRoutingSwitcherModifier_wantsDockWindowLevelAssertion__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) wantsDockWindowLevelAssertion];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -8783,14 +8783,14 @@ LABEL_14:
   return v11;
 }
 
-uint64_t __52__SBRoutingSwitcherModifier_dockWindowLevelPriority__block_invoke(uint64_t a1)
+void *__52__SBRoutingSwitcherModifier_dockWindowLevelPriority__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsDockWindowLevelAssertion];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __52__SBRoutingSwitcherModifier_dockWindowLevelPriority__block_invoke_2(uint64_t a1)
+void *__52__SBRoutingSwitcherModifier_dockWindowLevelPriority__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) dockWindowLevelPriority];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -8883,7 +8883,7 @@ double __44__SBRoutingSwitcherModifier_dockWindowLevel__block_invoke(uint64_t a1
   return result;
 }
 
-uint64_t __44__SBRoutingSwitcherModifier_dockWindowLevel__block_invoke_2(uint64_t a1)
+void *__44__SBRoutingSwitcherModifier_dockWindowLevel__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) dockWindowLevel];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -9066,7 +9066,7 @@ void __52__SBRoutingSwitcherModifier_keyboardSuppressionMode__block_invoke(uint6
   return self;
 }
 
-uint64_t __66__SBRoutingSwitcherModifier_asyncRenderingAttributesForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__66__SBRoutingSwitcherModifier_asyncRenderingAttributesForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 asyncRenderingAttributesForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 32) = result;
@@ -9142,7 +9142,7 @@ uint64_t __66__SBRoutingSwitcherModifier_asyncRenderingAttributesForAppLayout___
   return v3 & 1;
 }
 
-uint64_t __71__SBRoutingSwitcherModifier_wantsAsynchronousSurfaceRetentionAssertion__block_invoke(uint64_t a1)
+void *__71__SBRoutingSwitcherModifier_wantsAsynchronousSurfaceRetentionAssertion__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsAsynchronousSurfaceRetentionAssertion];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -9170,7 +9170,7 @@ uint64_t __71__SBRoutingSwitcherModifier_wantsAsynchronousSurfaceRetentionAssert
   return self;
 }
 
-uint64_t __72__SBRoutingSwitcherModifier_wantsSceneResizesHostedContextForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__72__SBRoutingSwitcherModifier_wantsSceneResizesHostedContextForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 wantsSceneResizesHostedContextForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -9322,7 +9322,7 @@ void __70__SBRoutingSwitcherModifier_appLayoutForReceivingHardwareButtonEvents__
   return v6;
 }
 
-uint64_t __82__SBRoutingSwitcherModifier_canPerformKeyboardShortcutAction_forBundleIdentifier___block_invoke(uint64_t a1)
+void *__82__SBRoutingSwitcherModifier_canPerformKeyboardShortcutAction_forBundleIdentifier___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) canPerformKeyboardShortcutAction:*(a1 + 56) forBundleIdentifier:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -9664,7 +9664,7 @@ void __102__SBRoutingSwitcherModifier_adjustedContinuousExposeIdentifiersInStrip
   return v8;
 }
 
-uint64_t __68__SBRoutingSwitcherModifier_snapshotScaleForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__68__SBRoutingSwitcherModifier_snapshotScaleForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 snapshotScaleForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = v4;
@@ -9693,7 +9693,7 @@ uint64_t __68__SBRoutingSwitcherModifier_snapshotScaleForLayoutRole_inAppLayout_
   return v8;
 }
 
-uint64_t __72__SBRoutingSwitcherModifier_contentPageViewScaleForAppLayout_withScale___block_invoke(uint64_t a1, void *a2)
+void *__72__SBRoutingSwitcherModifier_contentPageViewScaleForAppLayout_withScale___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 contentPageViewScaleForAppLayout:*(a1 + 32) withScale:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = v4;
@@ -9723,7 +9723,7 @@ uint64_t __72__SBRoutingSwitcherModifier_contentPageViewScaleForAppLayout_withSc
   return v10;
 }
 
-uint64_t __100__SBRoutingSwitcherModifier_contentPageViewScaleForLayoutRole_inAppLayout_withContentPageViewScale___block_invoke(uint64_t a1, void *a2)
+void *__100__SBRoutingSwitcherModifier_contentPageViewScaleForLayoutRole_inAppLayout_withContentPageViewScale___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 contentPageViewScaleForLayoutRole:*(a1 + 48) inAppLayout:*(a1 + 32) withContentPageViewScale:*(a1 + 56)];
   *(*(*(a1 + 40) + 8) + 24) = v4;
@@ -9781,7 +9781,7 @@ void __49__SBRoutingSwitcherModifier_scrollViewAttributes__block_invoke(uint64_t
   return v3;
 }
 
-uint64_t __59__SBRoutingSwitcherModifier_minimumTranslationToKillIndex___block_invoke(uint64_t a1, void *a2)
+void *__59__SBRoutingSwitcherModifier_minimumTranslationToKillIndex___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 minimumTranslationToKillIndex:?];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -9809,7 +9809,7 @@ uint64_t __59__SBRoutingSwitcherModifier_minimumTranslationToKillIndex___block_i
   return self;
 }
 
-uint64_t __56__SBRoutingSwitcherModifier_isFocusEnabledForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__56__SBRoutingSwitcherModifier_isFocusEnabledForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isFocusEnabledForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -9873,7 +9873,7 @@ void __70__SBRoutingSwitcherModifier_neighboringAppLayoutsForFocusedAppLayout___
   return result;
 }
 
-uint64_t __61__SBRoutingSwitcherModifier_contentOffsetForIndex_alignment___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__61__SBRoutingSwitcherModifier_contentOffsetForIndex_alignment___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 contentOffsetForIndex:a3 alignment:*(a1 + 40)];
   v5 = *(*(a1 + 32) + 8);
@@ -9920,7 +9920,7 @@ uint64_t __61__SBRoutingSwitcherModifier_contentOffsetForIndex_alignment___block
   return result;
 }
 
-uint64_t __67__SBRoutingSwitcherModifier_restingOffsetForScrollOffset_velocity___block_invoke(uint64_t a1)
+void *__67__SBRoutingSwitcherModifier_restingOffsetForScrollOffset_velocity___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) restingOffsetForScrollOffset:*(a1 + 48) velocity:{*(a1 + 56), *(a1 + 64), *(a1 + 72)}];
   v3 = *(*(a1 + 40) + 8);
@@ -9946,7 +9946,7 @@ uint64_t __67__SBRoutingSwitcherModifier_restingOffsetForScrollOffset_velocity__
   return v3;
 }
 
-uint64_t __117__SBRoutingSwitcherModifier_distanceToLeadingEdgeOfLeadingCardFromTrailingEdgeOfScreenWithVisibleIndexToStartSearch___block_invoke(uint64_t a1, void *a2)
+void *__117__SBRoutingSwitcherModifier_distanceToLeadingEdgeOfLeadingCardFromTrailingEdgeOfScreenWithVisibleIndexToStartSearch___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 distanceToLeadingEdgeOfLeadingCardFromTrailingEdgeOfScreenWithVisibleIndexToStartSearch:?];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -10001,7 +10001,7 @@ uint64_t __117__SBRoutingSwitcherModifier_distanceToLeadingEdgeOfLeadingCardFrom
   return result;
 }
 
-uint64_t __127__SBRoutingSwitcherModifier_adjustedOffsetForOffset_translation_startPoint_locationInView_horizontalVelocity_verticalVelocity___block_invoke(uint64_t a1)
+void *__127__SBRoutingSwitcherModifier_adjustedOffsetForOffset_translation_startPoint_locationInView_horizontalVelocity_verticalVelocity___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) adjustedOffsetForOffset:*(a1 + 112) translation:*(a1 + 120) startPoint:*(a1 + 48) locationInView:*(a1 + 56) horizontalVelocity:*(a1 + 64) verticalVelocity:{*(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96), *(a1 + 104)}];
   v3 = *(*(a1 + 40) + 8);
@@ -10158,14 +10158,14 @@ void __55__SBRoutingSwitcherModifier__forwardingTargetForUpdate__block_invoke(ui
   return v10 & 1;
 }
 
-uint64_t __49__SBRoutingSwitcherModifier_wantsSlideOverTongue__block_invoke(uint64_t a1)
+void *__49__SBRoutingSwitcherModifier_wantsSlideOverTongue__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsSlideOverTongue];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __49__SBRoutingSwitcherModifier_wantsSlideOverTongue__block_invoke_2(uint64_t a1)
+void *__49__SBRoutingSwitcherModifier_wantsSlideOverTongue__block_invoke_2(uint64_t a1)
 {
   v2 = *(*(*(a1 + 40) + 8) + 24);
   result = [*(a1 + 32) wantsSlideOverTongue];
@@ -10240,14 +10240,14 @@ uint64_t __49__SBRoutingSwitcherModifier_wantsSlideOverTongue__block_invoke_2(ui
   return v10;
 }
 
-uint64_t __49__SBRoutingSwitcherModifier_slideOverTongueState__block_invoke(uint64_t a1)
+void *__49__SBRoutingSwitcherModifier_slideOverTongueState__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) slideOverTongueState];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-unint64_t __49__SBRoutingSwitcherModifier_slideOverTongueState__block_invoke_2(uint64_t a1)
+void *__49__SBRoutingSwitcherModifier_slideOverTongueState__block_invoke_2(uint64_t a1)
 {
   v2 = *(*(*(a1 + 40) + 8) + 24);
   result = [*(a1 + 32) slideOverTongueState];
@@ -10332,14 +10332,14 @@ unint64_t __49__SBRoutingSwitcherModifier_slideOverTongueState__block_invoke_2(u
   return v10;
 }
 
-uint64_t __53__SBRoutingSwitcherModifier_slideOverTongueDirection__block_invoke(uint64_t a1)
+void *__53__SBRoutingSwitcherModifier_slideOverTongueDirection__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) slideOverTongueDirection];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-unint64_t __53__SBRoutingSwitcherModifier_slideOverTongueDirection__block_invoke_2(uint64_t a1)
+void *__53__SBRoutingSwitcherModifier_slideOverTongueDirection__block_invoke_2(uint64_t a1)
 {
   v2 = *(*(*(a1 + 40) + 8) + 24);
   result = [*(a1 + 32) slideOverTongueDirection];
@@ -10525,7 +10525,7 @@ void __61__SBRoutingSwitcherModifier_appLayoutToAttachSlideOverTongue__block_inv
   return result;
 }
 
-uint64_t __61__SBRoutingSwitcherModifier_frameForSlideOverTongueAppLayout__block_invoke(uint64_t a1)
+void *__61__SBRoutingSwitcherModifier_frameForSlideOverTongueAppLayout__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) frameForSlideOverTongueAppLayout];
   v3 = *(*(a1 + 40) + 8);
@@ -10619,14 +10619,14 @@ uint64_t __61__SBRoutingSwitcherModifier_frameForSlideOverTongueAppLayout__block
   return v10;
 }
 
-uint64_t __68__SBRoutingSwitcherModifier_cornerRadiusForSlideOverTongueAppLayout__block_invoke(uint64_t a1)
+void *__68__SBRoutingSwitcherModifier_cornerRadiusForSlideOverTongueAppLayout__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cornerRadiusForSlideOverTongueAppLayout];
   *(*(*(a1 + 40) + 8) + 24) = v3;
   return result;
 }
 
-uint64_t __68__SBRoutingSwitcherModifier_cornerRadiusForSlideOverTongueAppLayout__block_invoke_2(uint64_t a1)
+void *__68__SBRoutingSwitcherModifier_cornerRadiusForSlideOverTongueAppLayout__block_invoke_2(uint64_t a1)
 {
   v2 = *(*(*(a1 + 40) + 8) + 24);
   result = [*(a1 + 32) cornerRadiusForSlideOverTongueAppLayout];
@@ -10705,7 +10705,7 @@ LABEL_3:
   return result;
 }
 
-uint64_t __92__SBRoutingSwitcherModifier_frameForIndexOffsetToCounteractSwitcherWindowMatchMoveForIndex___block_invoke(uint64_t a1)
+void *__92__SBRoutingSwitcherModifier_frameForIndexOffsetToCounteractSwitcherWindowMatchMoveForIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) frameForIndexOffsetToCounteractSwitcherWindowMatchMoveForIndex:*(a1 + 48)];
   v3 = *(*(a1 + 40) + 8);
@@ -10736,7 +10736,7 @@ uint64_t __92__SBRoutingSwitcherModifier_frameForIndexOffsetToCounteractSwitcher
   return v8;
 }
 
-uint64_t __70__SBRoutingSwitcherModifier_slideOverMarginForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__70__SBRoutingSwitcherModifier_slideOverMarginForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 slideOverMarginForLayoutRole:a1[6] inAppLayout:a1[4]];
   *(*(a1[5] + 8) + 24) = v4;
@@ -10812,7 +10812,7 @@ uint64_t __70__SBRoutingSwitcherModifier_slideOverMarginForLayoutRole_inAppLayou
   return v3 & 1;
 }
 
-uint64_t __59__SBRoutingSwitcherModifier_wantsBezelEffectsLayoutElement__block_invoke(uint64_t a1)
+void *__59__SBRoutingSwitcherModifier_wantsBezelEffectsLayoutElement__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsBezelEffectsLayoutElement];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -10888,7 +10888,7 @@ uint64_t __59__SBRoutingSwitcherModifier_wantsBezelEffectsLayoutElement__block_i
   return v3 & 1;
 }
 
-uint64_t __61__SBRoutingSwitcherModifier_wantsDockPortalViewLayoutElement__block_invoke(uint64_t a1)
+void *__61__SBRoutingSwitcherModifier_wantsDockPortalViewLayoutElement__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsDockPortalViewLayoutElement];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -10964,7 +10964,7 @@ uint64_t __61__SBRoutingSwitcherModifier_wantsDockPortalViewLayoutElement__block
   return v3 & 1;
 }
 
-uint64_t __92__SBRoutingSwitcherModifier_shouldRemoveProlongedCursorGestureFloatingDockBehaviorAssertion__block_invoke(uint64_t a1)
+void *__92__SBRoutingSwitcherModifier_shouldRemoveProlongedCursorGestureFloatingDockBehaviorAssertion__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shouldRemoveProlongedCursorGestureFloatingDockBehaviorAssertion];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -11276,7 +11276,7 @@ void __63__SBRoutingSwitcherModifier_visibleSplitViewHandleDimmingViews__block_i
   return v7;
 }
 
-uint64_t __59__SBRoutingSwitcherModifier_fadeInDelayForSplitViewHandles__block_invoke(uint64_t a1)
+void *__59__SBRoutingSwitcherModifier_fadeInDelayForSplitViewHandles__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) fadeInDelayForSplitViewHandles];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -11304,7 +11304,7 @@ uint64_t __59__SBRoutingSwitcherModifier_fadeInDelayForSplitViewHandles__block_i
   return self;
 }
 
-uint64_t __52__SBRoutingSwitcherModifier_jetsamModeForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__52__SBRoutingSwitcherModifier_jetsamModeForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 jetsamModeForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -11332,7 +11332,7 @@ uint64_t __52__SBRoutingSwitcherModifier_jetsamModeForAppLayout___block_invoke(u
   return self;
 }
 
-uint64_t __54__SBRoutingSwitcherModifier_activityModeForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__54__SBRoutingSwitcherModifier_activityModeForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 activityModeForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -11389,7 +11389,7 @@ uint64_t __54__SBRoutingSwitcherModifier_activityModeForAppLayout___block_invoke
   return v10;
 }
 
-unint64_t __70__SBRoutingSwitcherModifier_bounceIconGenerationCountForCurrentCount___block_invoke(uint64_t a1)
+void *__70__SBRoutingSwitcherModifier_bounceIconGenerationCountForCurrentCount___block_invoke(uint64_t a1)
 {
   v2 = *(*(*(a1 + 40) + 8) + 24);
   result = [*(a1 + 32) bounceIconGenerationCountForCurrentCount:*(a1 + 48)];
@@ -11428,7 +11428,7 @@ unint64_t __70__SBRoutingSwitcherModifier_bounceIconGenerationCountForCurrentCou
   return v6;
 }
 
-uint64_t __68__SBRoutingSwitcherModifier_personalityDebugColorStyleForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__68__SBRoutingSwitcherModifier_personalityDebugColorStyleForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 personalityDebugColorStyleForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -11595,7 +11595,7 @@ LABEL_3:
   return result;
 }
 
-uint64_t __51__SBRoutingSwitcherModifier_bounceIconInitialFrame__block_invoke(uint64_t a1)
+void *__51__SBRoutingSwitcherModifier_bounceIconInitialFrame__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) bounceIconInitialFrame];
   v3 = *(*(a1 + 40) + 8);
@@ -11627,7 +11627,7 @@ uint64_t __51__SBRoutingSwitcherModifier_bounceIconInitialFrame__block_invoke(ui
   return self;
 }
 
-uint64_t __67__SBRoutingSwitcherModifier_shouldAccessoryDrawShadowForAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__67__SBRoutingSwitcherModifier_shouldAccessoryDrawShadowForAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 shouldAccessoryDrawShadowForAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -11655,7 +11655,7 @@ uint64_t __67__SBRoutingSwitcherModifier_shouldAccessoryDrawShadowForAppLayout__
   return self;
 }
 
-uint64_t __72__SBRoutingSwitcherModifier_shouldTetherItemsAndAccessoriesInAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__72__SBRoutingSwitcherModifier_shouldTetherItemsAndAccessoriesInAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 shouldTetherItemsAndAccessoriesInAppLayout:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -11690,7 +11690,7 @@ uint64_t __72__SBRoutingSwitcherModifier_shouldTetherItemsAndAccessoriesInAppLay
   return result;
 }
 
-uint64_t __72__SBRoutingSwitcherModifier_contentViewOffsetForAccessoriesOfAppLayout___block_invoke(uint64_t a1, void *a2)
+void *__72__SBRoutingSwitcherModifier_contentViewOffsetForAccessoriesOfAppLayout___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 contentViewOffsetForAccessoriesOfAppLayout:*(a1 + 32)];
   v4 = *(*(a1 + 40) + 8);
@@ -11728,7 +11728,7 @@ uint64_t __72__SBRoutingSwitcherModifier_contentViewOffsetForAccessoriesOfAppLay
   return result;
 }
 
-uint64_t __72__SBRoutingSwitcherModifier_contentViewOffsetForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__72__SBRoutingSwitcherModifier_contentViewOffsetForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 contentViewOffsetForLayoutRole:a1[6] inAppLayout:a1[4]];
   v4 = *(a1[5] + 8);
@@ -11766,7 +11766,7 @@ uint64_t __72__SBRoutingSwitcherModifier_contentViewOffsetForLayoutRole_inAppLay
   return result;
 }
 
-uint64_t __82__SBRoutingSwitcherModifier_wallpaperGradientAttributesForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
+void *__82__SBRoutingSwitcherModifier_wallpaperGradientAttributesForLayoutRole_inAppLayout___block_invoke(void *a1, void *a2)
 {
   result = [a2 wallpaperGradientAttributesForLayoutRole:a1[6] inAppLayout:a1[4]];
   v4 = *(a1[5] + 8);
@@ -11882,7 +11882,7 @@ void __66__SBRoutingSwitcherModifier_continuousExposeStripTongueAttributes__bloc
   return v3 & 1;
 }
 
-uint64_t __62__SBRoutingSwitcherModifier_wantsContinuousExposeHoverGesture__block_invoke(uint64_t a1)
+void *__62__SBRoutingSwitcherModifier_wantsContinuousExposeHoverGesture__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) wantsContinuousExposeHoverGesture];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -11958,7 +11958,7 @@ uint64_t __62__SBRoutingSwitcherModifier_wantsContinuousExposeHoverGesture__bloc
   return v3 & 1;
 }
 
-uint64_t __59__SBRoutingSwitcherModifier_isContinuousExposeStripVisible__block_invoke(uint64_t a1)
+void *__59__SBRoutingSwitcherModifier_isContinuousExposeStripVisible__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isContinuousExposeStripVisible];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -12116,7 +12116,7 @@ void __59__SBRoutingSwitcherModifier_proposedAppLayoutForWindowDrag__block_invok
   return v3 & 1;
 }
 
-uint64_t __68__SBRoutingSwitcherModifier_isPendingViewsForAcceleratedHomeGesture__block_invoke(uint64_t a1)
+void *__68__SBRoutingSwitcherModifier_isPendingViewsForAcceleratedHomeGesture__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isPendingViewsForAcceleratedHomeGesture];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -12192,7 +12192,7 @@ uint64_t __68__SBRoutingSwitcherModifier_isPendingViewsForAcceleratedHomeGesture
   return v3 & 1;
 }
 
-uint64_t __77__SBRoutingSwitcherModifier_isPendingInvalidatablesForAcceleratedHomeGesture__block_invoke(uint64_t a1)
+void *__77__SBRoutingSwitcherModifier_isPendingInvalidatablesForAcceleratedHomeGesture__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isPendingInvalidatablesForAcceleratedHomeGesture];
   *(*(*(a1 + 40) + 8) + 24) = result;

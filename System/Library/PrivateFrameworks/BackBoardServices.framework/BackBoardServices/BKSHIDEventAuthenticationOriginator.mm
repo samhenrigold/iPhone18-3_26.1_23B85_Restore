@@ -7,24 +7,24 @@
 
 - (int64_t)validateMessage:(id)message
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   if (!messageCopy)
   {
-    v18 = MEMORY[0x1E696AEC0];
-    v19 = objc_opt_class();
-    v20 = NSStringFromClass(v19);
-    v21 = [v18 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"message", v20];
+    v17 = MEMORY[0x1E696AEC0];
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    v20 = [v17 stringWithFormat:@"message", v19];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v22 = NSStringFromSelector(a2);
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
+      v21 = NSStringFromSelector(a2);
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
       __dst.ctx[0] = 138544642;
-      *&__dst.ctx[1] = v22;
+      *&__dst.ctx[1] = v21;
       LOWORD(__dst.ctx[3]) = 2114;
-      *(&__dst.ctx[3] + 2) = v24;
+      *(&__dst.ctx[3] + 2) = v23;
       HIWORD(__dst.ctx[5]) = 2048;
       *&__dst.ctx[6] = self;
       LOWORD(__dst.ctx[8]) = 2114;
@@ -32,11 +32,11 @@
       HIWORD(__dst.ctx[10]) = 1024;
       __dst.ctx[11] = 49;
       LOWORD(__dst.ctx[12]) = 2114;
-      *(&__dst.ctx[12] + 2) = v21;
+      *(&__dst.ctx[12] + 2) = v20;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &__dst, 0x3Au);
     }
 
-    [v21 UTF8String];
+    [v20 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863A1320);
@@ -46,27 +46,27 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v25 = MEMORY[0x1E696AEC0];
+    v24 = MEMORY[0x1E696AEC0];
     classForCoder = [v6 classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v27 = NSStringFromClass(classForCoder);
-    v28 = objc_opt_class();
-    v29 = NSStringFromClass(v28);
-    v30 = [v25 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"message", v27, v29];
+    v26 = NSStringFromClass(classForCoder);
+    v27 = objc_opt_class();
+    v28 = NSStringFromClass(v27);
+    v29 = [v24 stringWithFormat:@"message", v26, v28];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v31 = NSStringFromSelector(a2);
-      v32 = objc_opt_class();
-      v33 = NSStringFromClass(v32);
+      v30 = NSStringFromSelector(a2);
+      v31 = objc_opt_class();
+      v32 = NSStringFromClass(v31);
       __dst.ctx[0] = 138544642;
-      *&__dst.ctx[1] = v31;
+      *&__dst.ctx[1] = v30;
       LOWORD(__dst.ctx[3]) = 2114;
-      *(&__dst.ctx[3] + 2) = v33;
+      *(&__dst.ctx[3] + 2) = v32;
       HIWORD(__dst.ctx[5]) = 2048;
       *&__dst.ctx[6] = self;
       LOWORD(__dst.ctx[8]) = 2114;
@@ -74,11 +74,11 @@
       HIWORD(__dst.ctx[10]) = 1024;
       __dst.ctx[11] = 49;
       LOWORD(__dst.ctx[12]) = 2114;
-      *(&__dst.ctx[12] + 2) = v30;
+      *(&__dst.ctx[12] + 2) = v29;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &__dst, 0x3Au);
     }
 
-    [v30 UTF8String];
+    [v29 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863A145CLL);
@@ -107,27 +107,27 @@ LABEL_17:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v34 = MEMORY[0x1E696AEC0];
+    v33 = MEMORY[0x1E696AEC0];
     classForCoder2 = [(_BKSHIDEventAuthenticationKey *)v8 classForCoder];
     if (!classForCoder2)
     {
       classForCoder2 = objc_opt_class();
     }
 
-    v36 = NSStringFromClass(classForCoder2);
-    v37 = objc_opt_class();
-    v38 = NSStringFromClass(v37);
-    v39 = [v34 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"key", v36, v38];
+    v35 = NSStringFromClass(classForCoder2);
+    v36 = objc_opt_class();
+    v37 = NSStringFromClass(v36);
+    v38 = [v33 stringWithFormat:@"key", v35, v37];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v40 = NSStringFromSelector(sel__verifySignatureWithInternalKey_);
-      v41 = objc_opt_class();
-      v42 = NSStringFromClass(v41);
+      v39 = NSStringFromSelector(sel__verifySignatureWithInternalKey_);
+      v40 = objc_opt_class();
+      v41 = NSStringFromClass(v40);
       __dst.ctx[0] = 138544642;
-      *&__dst.ctx[1] = v40;
+      *&__dst.ctx[1] = v39;
       LOWORD(__dst.ctx[3]) = 2114;
-      *(&__dst.ctx[3] + 2) = v42;
+      *(&__dst.ctx[3] + 2) = v41;
       HIWORD(__dst.ctx[5]) = 2048;
       *&__dst.ctx[6] = v6;
       LOWORD(__dst.ctx[8]) = 2114;
@@ -135,11 +135,11 @@ LABEL_17:
       HIWORD(__dst.ctx[10]) = 1024;
       __dst.ctx[11] = 263;
       LOWORD(__dst.ctx[12]) = 2114;
-      *(&__dst.ctx[12] + 2) = v39;
+      *(&__dst.ctx[12] + 2) = v38;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &__dst, 0x3Au);
     }
 
-    [v39 UTF8String];
+    [v38 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863A159CLL);
@@ -183,106 +183,105 @@ LABEL_13:
 
 LABEL_15:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (id)buildMessage:(id)message
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   if (!messageCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"BKSHIDEventAuthenticationOriginator.m" lineNumber:31 description:{@"Invalid parameter not satisfying: %@", @"builder != nil"}];
+    [currentHandler handleFailureInMethod:@"builder != nil" object:? file:? lineNumber:? description:?];
   }
 
-  v6 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+  v5 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
   key = self->_key;
   if (!key)
   {
-    v8 = +[_BKSHIDEventAuthenticationKey eventAuthenticationKey];
-    v9 = self->_key;
-    self->_key = v8;
+    v7 = +[_BKSHIDEventAuthenticationKey eventAuthenticationKey];
+    v8 = self->_key;
+    self->_key = v7;
 
     key = self->_key;
   }
 
-  self->_keyLastAccessTime = v6 / 1000000000.0;
-  v10 = key;
-  v11 = messageCopy;
-  v12 = objc_opt_self();
-  v13 = v10;
-  if (!v13)
+  self->_keyLastAccessTime = v5 / 1000000000.0;
+  v9 = key;
+  v10 = messageCopy;
+  v11 = objc_opt_self();
+  v12 = v9;
+  if (!v12)
   {
-    v26 = MEMORY[0x1E696AEC0];
-    v27 = objc_opt_class();
-    v28 = NSStringFromClass(v27);
-    v29 = [v26 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"key", v28];
+    v24 = MEMORY[0x1E696AEC0];
+    v25 = objc_opt_class();
+    v26 = NSStringFromClass(v25);
+    v27 = [v24 stringWithFormat:@"key", v26];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v30 = NSStringFromSelector(sel__withInternalKey_buildMessage_);
-      v31 = objc_opt_class();
-      v32 = NSStringFromClass(v31);
+      v28 = NSStringFromSelector(sel__withInternalKey_buildMessage_);
+      v29 = objc_opt_class();
+      v30 = NSStringFromClass(v29);
       __dst.ctx[0] = 138544642;
-      *&__dst.ctx[1] = v30;
+      *&__dst.ctx[1] = v28;
       LOWORD(__dst.ctx[3]) = 2114;
-      *(&__dst.ctx[3] + 2) = v32;
+      *(&__dst.ctx[3] + 2) = v30;
       HIWORD(__dst.ctx[5]) = 2048;
-      *&__dst.ctx[6] = v12;
+      *&__dst.ctx[6] = v11;
       LOWORD(__dst.ctx[8]) = 2114;
       *(&__dst.ctx[8] + 2) = @"BKSHIDEventAuthenticationMessage.m";
       HIWORD(__dst.ctx[10]) = 1024;
       __dst.ctx[11] = 249;
       LOWORD(__dst.ctx[12]) = 2114;
-      *(&__dst.ctx[12] + 2) = v29;
+      *(&__dst.ctx[12] + 2) = v27;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &__dst, 0x3Au);
     }
 
-    [v29 UTF8String];
+    [v27 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863A18D0);
   }
 
-  v14 = v13;
+  v13 = v12;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v33 = MEMORY[0x1E696AEC0];
-    classForCoder = [(_BKSHIDEventAuthenticationKey *)v14 classForCoder];
+    v31 = MEMORY[0x1E696AEC0];
+    classForCoder = [(_BKSHIDEventAuthenticationKey *)v13 classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v35 = NSStringFromClass(classForCoder);
-    v36 = objc_opt_class();
-    v37 = NSStringFromClass(v36);
-    v38 = [v33 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"key", v35, v37];
+    v33 = NSStringFromClass(classForCoder);
+    v34 = objc_opt_class();
+    v35 = NSStringFromClass(v34);
+    v36 = [v31 stringWithFormat:@"key", v33, v35];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v39 = NSStringFromSelector(sel__withInternalKey_buildMessage_);
-      v40 = objc_opt_class();
-      v41 = NSStringFromClass(v40);
+      v37 = NSStringFromSelector(sel__withInternalKey_buildMessage_);
+      v38 = objc_opt_class();
+      v39 = NSStringFromClass(v38);
       __dst.ctx[0] = 138544642;
-      *&__dst.ctx[1] = v39;
+      *&__dst.ctx[1] = v37;
       LOWORD(__dst.ctx[3]) = 2114;
-      *(&__dst.ctx[3] + 2) = v41;
+      *(&__dst.ctx[3] + 2) = v39;
       HIWORD(__dst.ctx[5]) = 2048;
-      *&__dst.ctx[6] = v12;
+      *&__dst.ctx[6] = v11;
       LOWORD(__dst.ctx[8]) = 2114;
       *(&__dst.ctx[8] + 2) = @"BKSHIDEventAuthenticationMessage.m";
       HIWORD(__dst.ctx[10]) = 1024;
       __dst.ctx[11] = 249;
       LOWORD(__dst.ctx[12]) = 2114;
-      *(&__dst.ctx[12] + 2) = v38;
+      *(&__dst.ctx[12] + 2) = v36;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &__dst, 0x3Au);
     }
 
-    [v38 UTF8String];
+    [v36 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863A1A0CLL);
@@ -291,34 +290,32 @@ LABEL_15:
   if (!messageCopy)
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler2 handleFailureInMethod:sel__withInternalKey_buildMessage_ object:v12 file:@"BKSHIDEventAuthenticationMessage.m" lineNumber:250 description:{@"Invalid parameter not satisfying: %@", @"builder != nil"}];
+    [currentHandler2 handleFailureInMethod:@"builder != nil" object:? file:? lineNumber:? description:?];
   }
 
   _init = [(BKSHIDEventAuthenticationMessage *)[BKSMutableHIDEventAuthenticationMessage alloc] _init];
-  v11[2](v11, _init);
-  v16 = mach_continuous_time();
+  v10[2](v10, _init);
+  v15 = mach_continuous_time();
   if (_init)
   {
-    _init[6] = v16;
-    v17 = v14;
-    v18 = [_init copy];
-    _context = [(_BKSHIDEventAuthenticationKey *)v17 _context];
+    _init[6] = v15;
+    v16 = v13;
+    v17 = [_init copy];
+    _context = [(_BKSHIDEventAuthenticationKey *)v16 _context];
 
     memcpy(&__dst, _context, sizeof(__dst));
-    v20 = [(BKSHIDEventAuthenticationMessage *)v18 _calculateSignatureWithHMACContext:?];
-    v21 = [v20 copy];
-    v22 = v18[11];
-    v18[11] = v21;
+    v19 = [(BKSHIDEventAuthenticationMessage *)v17 _calculateSignatureWithHMACContext:?];
+    v20 = [v19 copy];
+    v21 = v17[11];
+    v17[11] = v20;
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v17;
 }
 
 @end

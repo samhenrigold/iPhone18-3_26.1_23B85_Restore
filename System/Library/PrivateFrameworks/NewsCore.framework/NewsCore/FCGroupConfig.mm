@@ -23,11 +23,11 @@
 
 - (FCGroupConfig)initWithDictionary:(id)dictionary
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v55.receiver = self;
-  v55.super_class = FCGroupConfig;
-  v5 = [(FCGroupConfig *)&v55 init];
+  v54.receiver = self;
+  v54.super_class = FCGroupConfig;
+  v5 = [(FCGroupConfig *)&v54 init];
   if (v5)
   {
     v6 = dictionaryCopy;
@@ -43,9 +43,9 @@
       v9 = 1;
     }
 
-    v48 = dictionaryCopy;
-    v44 = v8;
-    v45 = v7;
+    v47 = dictionaryCopy;
+    v43 = v8;
+    v44 = v7;
     if (!v9)
     {
       v10 = v8;
@@ -66,7 +66,7 @@
       }
     }
 
-    v46 = v6;
+    v45 = v6;
     v16 = [v6 copy];
     dictionary = v5->_dictionary;
     v5->_dictionary = v16;
@@ -92,31 +92,31 @@
     v5->_cutoffCount = [v29 unsignedIntegerValue];
 
     array = [MEMORY[0x1E695DF70] array];
-    v47 = v5;
+    v46 = v5;
     dictionary5 = [(FCGroupConfig *)v5 dictionary];
     v31 = [dictionary5 objectForKeyedSubscript:@"groupFonts"];
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     obj = v31;
-    v32 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+    v32 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v52;
+      v34 = *v51;
       do
       {
         v35 = 0;
         do
         {
-          if (*v52 != v34)
+          if (*v51 != v34)
           {
             objc_enumerationMutation(obj);
           }
 
-          v36 = *(*(&v51 + 1) + 8 * v35);
+          v36 = *(*(&v50 + 1) + 8 * v35);
           v37 = [FCGroupFont alloc];
           v38 = [v36 objectForKeyedSubscript:@"name"];
           v39 = [v36 objectForKeyedSubscript:@"url"];
@@ -131,20 +131,19 @@
         }
 
         while (v33 != v35);
-        v33 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v33 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
       }
 
       while (v33);
     }
 
-    v5 = v47;
-    groupFonts = v47->_groupFonts;
-    v47->_groupFonts = array;
+    v5 = v46;
+    groupFonts = v46->_groupFonts;
+    v46->_groupFonts = array;
 
-    dictionaryCopy = v48;
+    dictionaryCopy = v47;
   }
 
-  v42 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

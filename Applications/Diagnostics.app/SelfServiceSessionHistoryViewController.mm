@@ -11,12 +11,12 @@
 
 - (void)viewDidLoad
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for SelfServiceSessionHistoryViewController();
-  v2 = v4.receiver;
-  [(SelfServiceSessionHistoryViewController *)&v4 viewDidLoad];
+  v11.receiver = self;
+  v11.super_class = type metadata accessor for SelfServiceSessionHistoryViewController();
+  v2 = v11.receiver;
+  [(SelfServiceSessionHistoryViewController *)&v11 viewDidLoad];
   sub_10004D11C();
-  sub_10004D504(v3);
+  sub_10004D504(v3, v4, v5, v6, v7, v8, v9, v10);
   sub_10004D6C8();
 }
 
@@ -46,8 +46,8 @@
 
   if (!qword_1001FEED8)
   {
-    v7 = _swiftEmptyArrayStorage;
-    if (!(_swiftEmptyArrayStorage >> 62))
+    v7 = &_swiftEmptyArrayStorage;
+    if (!(&_swiftEmptyArrayStorage >> 62))
     {
       goto LABEL_5;
     }
@@ -58,10 +58,10 @@ LABEL_8:
   }
 
   __chkstk_darwin(selfCopy);
-  sub_10003C49C(&qword_1001FDEC0);
+  sub_10003C49C(&qword_1001FDEC0, &unk_10017FDF0);
   OS_dispatch_queue.sync<A>(execute:)();
-  v7 = v10;
-  if (v10 >> 62)
+  v7 = v17;
+  if (v17 >> 62)
   {
     goto LABEL_8;
   }
@@ -70,6 +70,7 @@ LABEL_5:
   v8 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
 LABEL_6:
 
+  v7, v9, v10, v11, v12, v13, v14, v15;
   return v8;
 }
 
@@ -94,7 +95,7 @@ LABEL_6:
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = (&v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;

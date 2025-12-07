@@ -8,7 +8,7 @@
 
 - (id)_lookupRegionWithLocation:(id)location countryCode:(id)code
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   codeCopy = code;
   v7 = +[GEOMetroRegionAssetProvider sharedProvider];
@@ -20,11 +20,11 @@
   {
     if (v10)
     {
-      v16 = 138412546;
-      v17 = codeCopy;
-      v18 = 2112;
-      v19 = v8;
-      _os_log_impl(&dword_1AB634000, &v9->super, OS_LOG_TYPE_INFO, "MA-URL for country code '%@' is '%@'", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = codeCopy;
+      v17 = 2112;
+      v18 = v8;
+      _os_log_impl(&dword_1AB634000, &v9->super, OS_LOG_TYPE_INFO, "MA-URL for country code '%@' is '%@'", &v15, 0x16u);
     }
 
     v9 = [[GEOMetroRegionData alloc] initWithFileURL:v8];
@@ -39,15 +39,13 @@
   {
     if (v10)
     {
-      v16 = 138412290;
-      v17 = codeCopy;
-      _os_log_impl(&dword_1AB634000, &v9->super, OS_LOG_TYPE_INFO, "MA-URL unavailable for country code '%@'", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = codeCopy;
+      _os_log_impl(&dword_1AB634000, &v9->super, OS_LOG_TYPE_INFO, "MA-URL unavailable for country code '%@'", &v15, 0xCu);
     }
 
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

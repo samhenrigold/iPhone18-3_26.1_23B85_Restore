@@ -70,7 +70,7 @@
     objc_setProperty_nonatomic_copy(v9, v17, v18, 56);
   }
 
-  v19 = sub_100284B90();
+  v19 = sub_100284B90(TaskQueue);
   v20 = v19;
   if (v19)
   {

@@ -11,7 +11,7 @@
 
 - (id)canStartSession
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   nfHardwareManager = [(STSSessionBase *)self nfHardwareManager];
   getHwSupport = [nfHardwareManager getHwSupport];
 
@@ -22,52 +22,50 @@
 
   else
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSigningSession canStartSession]", 25, self, @"Hardware not available", v6, v7, v17);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSigningSession canStartSession]", 25, self, @"Hardware not available", v6, v7, v16);
     v9 = MEMORY[0x277CCA9B8];
     v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v18[0] = *MEMORY[0x277CCA450];
+    v17[0] = *MEMORY[0x277CCA450];
     v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Hardware Not Available"];
-    v19[0] = v11;
-    v19[1] = &unk_2876ED758;
-    v18[1] = @"Line";
-    v18[2] = @"Method";
+    v18[0] = v11;
+    v18[1] = &unk_2876ED758;
+    v17[1] = @"Line";
+    v17[2] = @"Method";
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v19[2] = v12;
-    v18[3] = *MEMORY[0x277CCA068];
+    v18[2] = v12;
+    v17[3] = *MEMORY[0x277CCA068];
     v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 26];
-    v19[3] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
+    v18[3] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
     v8 = [v9 errorWithDomain:v10 code:12 userInfo:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)_createHandlerForMerchantPaymentSign
 {
-  v34[4] = *MEMORY[0x277D85DE8];
+  v33[4] = *MEMORY[0x277D85DE8];
   if ([(STSCredential *)self->_activeCredential type]!= 1)
   {
     type = [(STSCredential *)self->_activeCredential type];
     sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSigningSession _createHandlerForMerchantPaymentSign]", 42, self, @"Unsupported credential type %02x", v11, v12, type);
     v13 = MEMORY[0x277CCA9B8];
     v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v33[0] = *MEMORY[0x277CCA450];
+    v32[0] = *MEMORY[0x277CCA450];
     v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v34[0] = v15;
-    v34[1] = &unk_2876ED770;
-    v33[1] = @"Line";
-    v33[2] = @"Method";
+    v33[0] = v15;
+    v33[1] = &unk_2876ED770;
+    v32[1] = @"Line";
+    v32[2] = @"Method";
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v34[2] = v16;
-    v33[3] = *MEMORY[0x277CCA068];
+    v33[2] = v16;
+    v32[3] = *MEMORY[0x277CCA068];
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 43];
-    v34[3] = v17;
+    v33[3] = v17;
     v18 = MEMORY[0x277CBEAC0];
-    v19 = v34;
-    v20 = v33;
+    v19 = v33;
+    v20 = v32;
 LABEL_9:
     v25 = [v18 dictionaryWithObjects:v19 forKeys:v20 count:4];
     v9 = [v13 errorWithDomain:v14 code:9 userInfo:v25];
@@ -84,28 +82,28 @@ LABEL_9:
 
     if (v6)
     {
-      sub_265398094(OS_LOG_TYPE_INFO, 0, "[STSSigningSession _createHandlerForMerchantPaymentSign]", 52, self, @"Using existing handler.", v7, v8, v30);
+      sub_265398094(OS_LOG_TYPE_INFO, 0, "[STSSigningSession _createHandlerForMerchantPaymentSign]", 52, self, @"Using existing handler.", v7, v8, v29);
       v9 = 0;
       goto LABEL_10;
     }
 
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSigningSession _createHandlerForMerchantPaymentSign]", 48, self, @"Handler already exists but is of wrong class type", v7, v8, v30);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSigningSession _createHandlerForMerchantPaymentSign]", 48, self, @"Handler already exists but is of wrong class type", v7, v8, v29);
     v13 = MEMORY[0x277CCA9B8];
     v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v31[0] = *MEMORY[0x277CCA450];
+    v30[0] = *MEMORY[0x277CCA450];
     v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v32[0] = v15;
-    v32[1] = &unk_2876ED788;
-    v31[1] = @"Line";
-    v31[2] = @"Method";
+    v31[0] = v15;
+    v31[1] = &unk_2876ED788;
+    v30[1] = @"Line";
+    v30[2] = @"Method";
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v32[2] = v16;
-    v31[3] = *MEMORY[0x277CCA068];
+    v31[2] = v16;
+    v30[3] = *MEMORY[0x277CCA068];
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 49];
-    v32[3] = v17;
+    v31[3] = v17;
     v18 = MEMORY[0x277CBEAC0];
-    v19 = v32;
-    v20 = v31;
+    v19 = v31;
+    v20 = v30;
     goto LABEL_9;
   }
 
@@ -136,34 +134,33 @@ LABEL_9:
 
   [(STSSessionBase *)self setHandler:0];
 LABEL_10:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_createHandlerForPeerPaymentSign
 {
-  v34[4] = *MEMORY[0x277D85DE8];
+  v33[4] = *MEMORY[0x277D85DE8];
   if ([(STSCredential *)self->_activeCredential type]!= 1)
   {
     type = [(STSCredential *)self->_activeCredential type];
     sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSigningSession _createHandlerForPeerPaymentSign]", 77, self, @"Unsupported credential type %02x", v11, v12, type);
     v13 = MEMORY[0x277CCA9B8];
     v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v33[0] = *MEMORY[0x277CCA450];
+    v32[0] = *MEMORY[0x277CCA450];
     v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v34[0] = v15;
-    v34[1] = &unk_2876ED7A0;
-    v33[1] = @"Line";
-    v33[2] = @"Method";
+    v33[0] = v15;
+    v33[1] = &unk_2876ED7A0;
+    v32[1] = @"Line";
+    v32[2] = @"Method";
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v34[2] = v16;
-    v33[3] = *MEMORY[0x277CCA068];
+    v33[2] = v16;
+    v32[3] = *MEMORY[0x277CCA068];
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 78];
-    v34[3] = v17;
+    v33[3] = v17;
     v18 = MEMORY[0x277CBEAC0];
-    v19 = v34;
-    v20 = v33;
+    v19 = v33;
+    v20 = v32;
 LABEL_9:
     v25 = [v18 dictionaryWithObjects:v19 forKeys:v20 count:4];
     v9 = [v13 errorWithDomain:v14 code:9 userInfo:v25];
@@ -180,28 +177,28 @@ LABEL_9:
 
     if (v6)
     {
-      sub_265398094(OS_LOG_TYPE_INFO, 0, "[STSSigningSession _createHandlerForPeerPaymentSign]", 87, self, @"Using existing handler.", v7, v8, v30);
+      sub_265398094(OS_LOG_TYPE_INFO, 0, "[STSSigningSession _createHandlerForPeerPaymentSign]", 87, self, @"Using existing handler.", v7, v8, v29);
       v9 = 0;
       goto LABEL_10;
     }
 
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSigningSession _createHandlerForPeerPaymentSign]", 83, self, @"Handler already exists but is of wrong class type", v7, v8, v30);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSigningSession _createHandlerForPeerPaymentSign]", 83, self, @"Handler already exists but is of wrong class type", v7, v8, v29);
     v13 = MEMORY[0x277CCA9B8];
     v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v31[0] = *MEMORY[0x277CCA450];
+    v30[0] = *MEMORY[0x277CCA450];
     v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v32[0] = v15;
-    v32[1] = &unk_2876ED7B8;
-    v31[1] = @"Line";
-    v31[2] = @"Method";
+    v31[0] = v15;
+    v31[1] = &unk_2876ED7B8;
+    v30[1] = @"Line";
+    v30[2] = @"Method";
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v32[2] = v16;
-    v31[3] = *MEMORY[0x277CCA068];
+    v31[2] = v16;
+    v30[3] = *MEMORY[0x277CCA068];
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 84];
-    v32[3] = v17;
+    v31[3] = v17;
     v18 = MEMORY[0x277CBEAC0];
-    v19 = v32;
-    v20 = v31;
+    v19 = v31;
+    v20 = v30;
     goto LABEL_9;
   }
 
@@ -232,14 +229,13 @@ LABEL_9:
 
   [(STSSessionBase *)self setHandler:0];
 LABEL_10:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)signPeerPayment:(id)payment authorization:(id)authorization error:(id *)error
 {
-  v29[4] = *MEMORY[0x277D85DE8];
+  v28[4] = *MEMORY[0x277D85DE8];
   paymentCopy = payment;
   authorizationCopy = authorization;
   v11 = _os_activity_create(&dword_26536F000, "signPeerPayment:authorization:error:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
@@ -282,18 +278,18 @@ LABEL_7:
   {
     v19 = MEMORY[0x277CCA9B8];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v28[0] = *MEMORY[0x277CCA450];
+    v27[0] = *MEMORY[0x277CCA450];
     v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid Parameter"];
-    v29[0] = v20;
-    v29[1] = &unk_2876ED7D0;
-    v28[1] = @"Line";
-    v28[2] = @"Method";
+    v28[0] = v20;
+    v28[1] = &unk_2876ED7D0;
+    v27[1] = @"Line";
+    v27[2] = @"Method";
     v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v29[2] = v21;
-    v28[3] = *MEMORY[0x277CCA068];
+    v28[2] = v21;
+    v27[3] = *MEMORY[0x277CCA068];
     v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 117];
-    v29[3] = v22;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
+    v28[3] = v22;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
     *error = [v19 errorWithDomain:v13 code:8 userInfo:v23];
 
     goto LABEL_7;
@@ -302,14 +298,12 @@ LABEL_7:
   v15 = 0;
 LABEL_10:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)signInAppPayment:(id)payment authorization:(id)authorization error:(id *)error
 {
-  v29[4] = *MEMORY[0x277D85DE8];
+  v28[4] = *MEMORY[0x277D85DE8];
   paymentCopy = payment;
   authorizationCopy = authorization;
   v11 = _os_activity_create(&dword_26536F000, "signInAppPayment:authorization:error:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
@@ -352,18 +346,18 @@ LABEL_7:
   {
     v19 = MEMORY[0x277CCA9B8];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v28[0] = *MEMORY[0x277CCA450];
+    v27[0] = *MEMORY[0x277CCA450];
     v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid Parameter"];
-    v29[0] = v20;
-    v29[1] = &unk_2876ED7E8;
-    v28[1] = @"Line";
-    v28[2] = @"Method";
+    v28[0] = v20;
+    v28[1] = &unk_2876ED7E8;
+    v27[1] = @"Line";
+    v27[2] = @"Method";
     v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v29[2] = v21;
-    v28[3] = *MEMORY[0x277CCA068];
+    v28[2] = v21;
+    v27[3] = *MEMORY[0x277CCA068];
     v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 144];
-    v29[3] = v22;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
+    v28[3] = v22;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
     *error = [v19 errorWithDomain:v13 code:8 userInfo:v23];
 
     goto LABEL_7;
@@ -372,14 +366,12 @@ LABEL_7:
   v15 = 0;
 LABEL_10:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)setActiveCredential:(id)credential
 {
-  v52[4] = *MEMORY[0x277D85DE8];
+  v51[4] = *MEMORY[0x277D85DE8];
   credentialCopy = credential;
   v7 = _os_activity_create(&dword_26536F000, "setActiveCredential:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
@@ -392,12 +384,12 @@ LABEL_10:
 
   if (handler)
   {
-    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSigningSession setActiveCredential:]", 168, self, @"New handler will be required, Tearing down current handler.", v11, v12, v46);
+    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSigningSession setActiveCredential:]", 168, self, @"New handler will be required, Tearing down current handler.", v11, v12, v45);
     handler2 = [(STSSessionBase *)self handler];
     [handler2 tearDownWithCompletion:0];
 
     [(STSSessionBase *)self setHandler:0];
-    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSigningSession setActiveCredential:]", 172, self, @"Waiting for Control SE session ready", v14, v15, v47);
+    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSigningSession setActiveCredential:]", 172, self, @"Waiting for Control SE session ready", v14, v15, v46);
     v16 = [(STSSessionBase *)self waitForControlSessionToBeReady:1];
     if (v16)
     {
@@ -442,48 +434,47 @@ LABEL_10:
 
     v29 = MEMORY[0x277CCA9B8];
     v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v51[0] = *MEMORY[0x277CCA450];
+    v50[0] = *MEMORY[0x277CCA450];
     v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid Parameter"];
-    v52[0] = v31;
-    v52[1] = &unk_2876ED800;
-    v51[1] = @"Line";
-    v51[2] = @"Method";
+    v51[0] = v31;
+    v51[1] = &unk_2876ED800;
+    v50[1] = @"Line";
+    v50[2] = @"Method";
     v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v52[2] = v32;
-    v51[3] = *MEMORY[0x277CCA068];
+    v51[2] = v32;
+    v50[3] = *MEMORY[0x277CCA068];
     v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 190];
-    v52[3] = v33;
+    v51[3] = v33;
     v34 = MEMORY[0x277CBEAC0];
-    v35 = v52;
-    v36 = v51;
+    v35 = v51;
+    v36 = v50;
   }
 
   else
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSigningSession setActiveCredential:]", 196, self, @"Credential did not specify an AID", v22, v23, v46);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSigningSession setActiveCredential:]", 196, self, @"Credential did not specify an AID", v22, v23, v45);
     v29 = MEMORY[0x277CCA9B8];
     v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v49[0] = *MEMORY[0x277CCA450];
+    v48[0] = *MEMORY[0x277CCA450];
     v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid Parameter"];
-    v50[0] = v31;
-    v50[1] = &unk_2876ED818;
-    v49[1] = @"Line";
-    v49[2] = @"Method";
+    v49[0] = v31;
+    v49[1] = &unk_2876ED818;
+    v48[1] = @"Line";
+    v48[2] = @"Method";
     v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v50[2] = v32;
-    v49[3] = *MEMORY[0x277CCA068];
+    v49[2] = v32;
+    v48[3] = *MEMORY[0x277CCA068];
     v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 197];
-    v50[3] = v33;
+    v49[3] = v33;
     v34 = MEMORY[0x277CBEAC0];
-    v35 = v50;
-    v36 = v49;
+    v35 = v49;
+    v36 = v48;
   }
 
   v43 = [v34 dictionaryWithObjects:v35 forKeys:v36 count:4];
   v19 = [v29 errorWithDomain:v30 code:8 userInfo:v43];
 
 LABEL_13:
-  v44 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

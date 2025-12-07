@@ -13,18 +13,16 @@
 {
   if (*(self + OBJC_IVAR___DKAppleCareProvider_coverageLabel + 8))
   {
-    v2 = *(self + OBJC_IVAR___DKAppleCareProvider_coverageLabel);
-    v3 = *(self + OBJC_IVAR___DKAppleCareProvider_coverageLabel + 8);
 
-    v4 = sub_248D82F10();
+    v2 = sub_248D82F10();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setCoverageLabel:(id)label
@@ -41,7 +39,6 @@
   }
 
   v6 = (self + OBJC_IVAR___DKAppleCareProvider_coverageLabel);
-  v7 = *(self + OBJC_IVAR___DKAppleCareProvider_coverageLabel + 8);
   *v6 = v4;
   v6[1] = v5;
 }
@@ -66,7 +63,6 @@
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
   v6 = (self + OBJC_IVAR___DKAppleCareProvider__fetchCoverageDetails);
-  v7 = *(self + OBJC_IVAR___DKAppleCareProvider__fetchCoverageDetails + 8);
   *v6 = sub_248D820A8;
   v6[1] = v5;
 }

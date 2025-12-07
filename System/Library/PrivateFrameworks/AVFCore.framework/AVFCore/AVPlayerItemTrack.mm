@@ -49,9 +49,9 @@
   FigNote_AllowInternalDefaultLogs();
   fig_note_initialize_category_with_default_work();
   fig_note_initialize_category_with_default_work();
-  v17.receiver = self;
-  v17.super_class = AVPlayerItemTrack;
-  v12 = [(AVPlayerItemTrack *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = AVPlayerItemTrack;
+  v12 = [(AVPlayerItemTrack *)&v18 init];
   if (v12)
   {
     v13 = objc_alloc_init(AVPlayerItemTrackInternal);
@@ -77,7 +77,7 @@
     v12->_playerItemTrack->hapticVolumeWasSet = 0;
     v12->_playerItemTrack->mutesHaptics = 0;
     v12->_playerItemTrack->mutesHapticsWasSet = 0;
-    v12->_playerItemTrack->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayeritemtrack.ivars");
+    v12->_playerItemTrack->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayeritemtrack.ivars", v15);
     +[AVPlayer playbackObjectCreated];
     if (+[AVPlayer isObservationEnabled])
     {

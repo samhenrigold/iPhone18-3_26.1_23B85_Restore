@@ -98,7 +98,7 @@ LABEL_15:
       v13 = kaldi::MatrixBase<float>::NumRows(buf);
       v26 = 0;
       v27 = 0;
-      v25 = *buf + 4 * v29 * (v13 - 1);
+      v25 = (*buf + 4 * v29 * (v13 - 1));
       LODWORD(v26) = kaldi::MatrixBase<float>::NumCols(buf);
       v12 = [*(a1 + 32) earLIDScores:&v25];
     }

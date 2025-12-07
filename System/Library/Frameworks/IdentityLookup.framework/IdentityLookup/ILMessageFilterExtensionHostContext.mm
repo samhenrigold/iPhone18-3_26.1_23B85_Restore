@@ -33,7 +33,7 @@
 void __69__ILMessageFilterExtensionHostContext_handleQueryRequest_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__ILMessageFilterExtensionHostContext_handleQueryRequest_completion___block_invoke_cold_1();
@@ -44,18 +44,17 @@ void __69__ILMessageFilterExtensionHostContext_handleQueryRequest_completion___b
 
 void __69__ILMessageFilterExtensionHostContext_handleQueryRequest_completion___block_invoke_1(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_238A41000, v4, OS_LOG_TYPE_DEFAULT, "response: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_238A41000, v4, OS_LOG_TYPE_DEFAULT, "response: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleReportRequest:(id)request completion:(id)completion
@@ -81,7 +80,7 @@ void __69__ILMessageFilterExtensionHostContext_handleQueryRequest_completion___b
 void __70__ILMessageFilterExtensionHostContext_handleReportRequest_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__ILMessageFilterExtensionHostContext_handleQueryRequest_completion___block_invoke_cold_1();
@@ -92,7 +91,7 @@ void __70__ILMessageFilterExtensionHostContext_handleReportRequest_completion___
 
 uint64_t __70__ILMessageFilterExtensionHostContext_handleReportRequest_completion___block_invoke_3(uint64_t a1)
 {
-  v2 = ILDefaultLog();
+  v2 = ILDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -125,7 +124,7 @@ uint64_t __70__ILMessageFilterExtensionHostContext_handleReportRequest_completio
 void __81__ILMessageFilterExtensionHostContext_handleCapabilitiesQueryRequest_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__ILMessageFilterExtensionHostContext_handleQueryRequest_completion___block_invoke_cold_1();
@@ -136,18 +135,17 @@ void __81__ILMessageFilterExtensionHostContext_handleCapabilitiesQueryRequest_co
 
 void __81__ILMessageFilterExtensionHostContext_handleCapabilitiesQueryRequest_completion___block_invoke_5(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_238A41000, v4, OS_LOG_TYPE_DEFAULT, "response: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_238A41000, v4, OS_LOG_TYPE_DEFAULT, "response: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finish
@@ -159,7 +157,7 @@ void __81__ILMessageFilterExtensionHostContext_handleCapabilitiesQueryRequest_co
 void __45__ILMessageFilterExtensionHostContext_finish__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = ILDefaultLog();
+  v3 = ILDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __69__ILMessageFilterExtensionHostContext_handleQueryRequest_completion___block_invoke_cold_1();
@@ -179,14 +177,14 @@ void __45__ILMessageFilterExtensionHostContext_finish__block_invoke(uint64_t a1,
 
   else
   {
-    v6 = ILDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = ILDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ILMessageFilterExtensionHostContext deferQueryRequestToNetworkWithReply:];
     }
 
-    v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.IdentityLookup.error.messagefilter" code:1 userInfo:0];
-    (*(replyCopy + 2))(replyCopy, 0, v7);
+    v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.IdentityLookup.error.messagefilter" code:1 userInfo:0];
+    (*(replyCopy + 2))(replyCopy, 0, v8);
   }
 }
 
@@ -203,14 +201,14 @@ void __45__ILMessageFilterExtensionHostContext_finish__block_invoke(uint64_t a1,
 
   else
   {
-    v6 = ILDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = ILDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ILMessageFilterExtensionHostContext deferReportRequestToNetworkWithReply:];
     }
 
-    v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.IdentityLookup.error.messagefilter" code:1 userInfo:0];
-    (*(replyCopy + 2))(replyCopy, 0, v7);
+    v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.IdentityLookup.error.messagefilter" code:1 userInfo:0];
+    (*(replyCopy + 2))(replyCopy, 0, v8);
   }
 }
 
@@ -221,30 +219,6 @@ void __45__ILMessageFilterExtensionHostContext_finish__block_invoke(uint64_t a1,
   v6 = [_auxiliaryConnection remoteObjectProxyWithErrorHandler:handlerCopy];
 
   return v6;
-}
-
-void __69__ILMessageFilterExtensionHostContext_handleQueryRequest_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_238A41000, v0, v1, "error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)deferQueryRequestToNetworkWithReply:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_238A41000, v0, v1, "Extension requested to defer query request to network but no deferQueryRequestToNetwork block is set on %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)deferReportRequestToNetworkWithReply:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_238A41000, v0, v1, "Extension requested to defer report request to network but no deferReportRequestToNetwork block is set on %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

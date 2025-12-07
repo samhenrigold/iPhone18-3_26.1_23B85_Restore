@@ -302,11 +302,11 @@
 
 - (void)traitCollectionDidChange:(id)change
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = PBUIWallpaperRemoteViewController;
+  v19 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = PBUIWallpaperRemoteViewController;
   changeCopy = change;
-  [(PBUIWallpaperRemoteViewController *)&v15 traitCollectionDidChange:changeCopy];
+  [(PBUIWallpaperRemoteViewController *)&v16 traitCollectionDidChange:changeCopy];
   traitCollection = [(PBUIWallpaperRemoteViewController *)self traitCollection];
   v6 = [traitCollection hasDifferentColorAppearanceComparedToTraitCollection:changeCopy];
   _backlightLuminance = [changeCopy _backlightLuminance];
@@ -315,41 +315,41 @@
   if ((v6 & 1) != 0 || (_backlightLuminance == 1) != (_backlightLuminance2 == 1))
   {
     userInterfaceStyle = [traitCollection userInterfaceStyle];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __62__PBUIWallpaperRemoteViewController_traitCollectionDidChange___block_invoke;
-    v14[3] = &unk_278362880;
-    v14[4] = self;
-    v14[5] = userInterfaceStyle;
-    [(PBUIWallpaperRemoteViewController *)self _performWithLiveScene:v14];
-    v10 = userInterfaceStyle == 1;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __62__PBUIWallpaperRemoteViewController_traitCollectionDidChange___block_invoke;
+    v15[3] = &unk_278362880;
+    v15[4] = self;
+    v15[5] = userInterfaceStyle;
+    v10 = [(PBUIWallpaperRemoteViewController *)self _performWithLiveScene:v15];
+    v11 = userInterfaceStyle == 1;
     if (userInterfaceStyle == 2)
     {
-      v10 = 2;
+      v11 = 2;
     }
 
     if (_backlightLuminance2 == 1)
     {
-      v11 = 3;
+      v12 = 3;
     }
 
     else
     {
-      v11 = v10;
+      v12 = v11;
     }
 
-    v12 = PBUILogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = PBUILogCommon(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = PBUIStringForWallpaperMode(v11);
+      v14 = PBUIStringForWallpaperMode(v12);
       *buf = 138412290;
-      v17 = v13;
-      _os_log_impl(&dword_21E67D000, v12, OS_LOG_TYPE_DEFAULT, "Setting wallpaper mode to %@", buf, 0xCu);
+      v18 = v14;
+      _os_log_impl(&dword_21E67D000, v13, OS_LOG_TYPE_DEFAULT, "Setting wallpaper mode to %@", buf, 0xCu);
     }
 
-    if (v11)
+    if (v12)
     {
-      [(PBUIWallpaperConfigurationManager *)self->_wallpaperConfigurationManager setWallpaperMode:v11];
+      [(PBUIWallpaperConfigurationManager *)self->_wallpaperConfigurationManager setWallpaperMode:v12];
     }
   }
 }
@@ -386,7 +386,7 @@ uint64_t __62__PBUIWallpaperRemoteViewController_traitCollectionDidChange___bloc
 - (void)wallpaperConfigurationManager:(id)manager didChangeWallpaperConfigurationForVariants:(int64_t)variants
 {
   v11 = *MEMORY[0x277D85DE8];
-  v6 = PBUILogCommon();
+  v6 = PBUILogCommon(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = PBUIStringForWallpaperLocations(variants);
@@ -406,68 +406,66 @@ uint64_t __62__PBUIWallpaperRemoteViewController_traitCollectionDidChange___bloc
 
 void __110__PBUIWallpaperRemoteViewController_wallpaperConfigurationManager_didChangeWallpaperConfigurationForVariants___block_invoke(uint64_t a1)
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   v2 = dispatch_group_create();
   v3 = MEMORY[0x277CBEB98];
   v4 = [PBUIWallpaperUpdateLocationsAction alloc];
   v5 = *(a1 + 40);
   v6 = MEMORY[0x277CF0B60];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __110__PBUIWallpaperRemoteViewController_wallpaperConfigurationManager_didChangeWallpaperConfigurationForVariants___block_invoke_2;
-  v26[3] = &unk_2783628A8;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __110__PBUIWallpaperRemoteViewController_wallpaperConfigurationManager_didChangeWallpaperConfigurationForVariants___block_invoke_2;
+  v27[3] = &unk_2783628A8;
   v7 = v2;
-  v27 = v7;
-  v8 = [v6 responderWithHandler:v26];
+  v28 = v7;
+  v8 = [v6 responderWithHandler:v27];
   v9 = [(PBUIWallpaperUpdateLocationsAction *)v4 initWithLocations:v5 wallpaperMode:0 responder:v8];
-  v28[0] = v9;
+  v29[0] = v9;
   v10 = [PBUIWallpaperUpdateAndPrewarmAction alloc];
   v11 = MEMORY[0x277CF0B60];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __110__PBUIWallpaperRemoteViewController_wallpaperConfigurationManager_didChangeWallpaperConfigurationForVariants___block_invoke_3;
-  v24[3] = &unk_2783628A8;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __110__PBUIWallpaperRemoteViewController_wallpaperConfigurationManager_didChangeWallpaperConfigurationForVariants___block_invoke_3;
+  v25[3] = &unk_2783628A8;
   v12 = v7;
-  v25 = v12;
-  v13 = [v11 responderWithHandler:v24];
+  v26 = v12;
+  v13 = [v11 responderWithHandler:v25];
   v14 = [(PBUIWallpaperUpdateAndPrewarmAction *)v10 initWithResponder:v13];
-  v28[1] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+  v29[1] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
   v16 = [v3 setWithArray:v15];
 
-  if ([v16 count])
+  v17 = [v16 count];
+  if (v17)
   {
-    v17 = 0;
-    do
+    for (i = 0; i < v17; ++i)
     {
       dispatch_group_enter(v12);
-      ++v17;
+      v17 = [v16 count];
     }
-
-    while (v17 < [v16 count]);
   }
 
-  v18 = PBUILogCommon();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = PBUILogCommon(v17);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21E67D000, v18, OS_LOG_TYPE_DEFAULT, "Acquiring foreground support scene mode assertion for wallpaper change", buf, 2u);
+    _os_log_impl(&dword_21E67D000, v19, OS_LOG_TYPE_DEFAULT, "Acquiring foreground support scene mode assertion for wallpaper change", buf, 2u);
   }
 
-  v19 = [*(a1 + 32) _acquireSceneModeAssertionForReason:@"DidChangeWallpaperConfiguration" sceneMode:2];
+  v20 = [*(a1 + 32) _acquireSceneModeAssertionForReason:@"DidChangeWallpaperConfiguration" sceneMode:2];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __110__PBUIWallpaperRemoteViewController_wallpaperConfigurationManager_didChangeWallpaperConfigurationForVariants___block_invoke_36;
   block[3] = &unk_278361E18;
-  v22 = v19;
-  v20 = v19;
+  v23 = v20;
+  v21 = v20;
   dispatch_group_notify(v12, MEMORY[0x277D85CD0], block);
   [*(*(a1 + 32) + 992) sendActions:v16];
 }
 
 uint64_t __110__PBUIWallpaperRemoteViewController_wallpaperConfigurationManager_didChangeWallpaperConfigurationForVariants___block_invoke_36(uint64_t a1)
 {
-  v2 = PBUILogCommon();
+  v2 = PBUILogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -572,64 +570,65 @@ LABEL_6:
 
 - (id)imageForWallpaperStyle:(int64_t *)style variant:(int64_t)variant traitCollection:(id)collection
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
-  v34 = *style;
-  v9 = PBUILogCommon();
+  v36 = *style;
+  v9 = PBUILogCommon(collectionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = PBUIWallpaperStyleDescription(*style);
     v11 = PBUIStringForWallpaperVariant(variant);
     v12 = _UIUserInterfaceStyleDescription([collectionCopy userInterfaceStyle]);
     *buf = 138543874;
-    v48 = v10;
-    v49 = 2114;
-    v50 = v11;
+    v50 = v10;
     v51 = 2114;
-    v52 = v12;
+    v52 = v11;
+    v53 = 2114;
+    v54 = v12;
     _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_DEFAULT, "Fetching image for wallpaper style:%{public}@ variant:%{public}@ traitCollection.userInterfaceStyle:%{public}@", buf, 0x20u);
   }
 
-  v13 = [(PBUIWallpaperRemoteViewController *)self _cachedBlurAssetForVariant:variant requestedStyle:v34 traitCollection:collectionCopy];
+  v13 = [(PBUIWallpaperRemoteViewController *)self _cachedBlurAssetForVariant:variant requestedStyle:v36 traitCollection:collectionCopy];
   v14 = v13;
   if (v13)
   {
     *style = *(v13 + 8);
     v15 = *(v13 + 16);
     v16 = v14[3];
+    v17 = v16;
     if (v16)
     {
-      v17 = PBUILogCommon();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = PBUILogCommon(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v48 = v16;
-        _os_log_impl(&dword_21E67D000, v17, OS_LOG_TYPE_DEFAULT, "Satisfied image request from cache with image %{public}@", buf, 0xCu);
+        v50 = v17;
+        _os_log_impl(&dword_21E67D000, v18, OS_LOG_TYPE_DEFAULT, "Satisfied image request from cache with image %{public}@", buf, 0xCu);
       }
 
-      v18 = [[PBUIImageSlot alloc] initWithImage:v16 lifetimeToken:0];
+      v19 = [[PBUIImageSlot alloc] initWithImage:v17 lifetimeToken:0];
       goto LABEL_17;
     }
 
     if (v15)
     {
-      v19 = [PBUIImageSlot alloc];
-      v20 = [(PBUIWallpaperRemoteViewController *)self _blurImageFromURL:v15];
-      v18 = [(PBUIImageSlot *)v19 initWithImage:v20 lifetimeToken:0];
+      v20 = [PBUIImageSlot alloc];
+      v21 = [(PBUIWallpaperRemoteViewController *)self _blurImageFromURL:v15];
+      v19 = [(PBUIImageSlot *)v20 initWithImage:v21 lifetimeToken:0];
 
-      v21 = PBUILogCommon();
-      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-      if (v18)
+      v23 = PBUILogCommon(v22);
+      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+      if (v19)
       {
-        if (v22)
+        if (v24)
         {
           *buf = 138543362;
-          v48 = v15;
-          _os_log_impl(&dword_21E67D000, v21, OS_LOG_TYPE_DEFAULT, "Satisfied image request from cache with image URL %{public}@", buf, 0xCu);
+          v50 = v15;
+          _os_log_impl(&dword_21E67D000, v23, OS_LOG_TYPE_DEFAULT, "Satisfied image request from cache with image URL %{public}@", buf, 0xCu);
         }
 
 LABEL_17:
-        if (v18)
+        if (v19)
         {
           goto LABEL_20;
         }
@@ -637,15 +636,15 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      if (v22)
+      if (v24)
       {
         *buf = 138543362;
-        v48 = v15;
-        _os_log_impl(&dword_21E67D000, v21, OS_LOG_TYPE_DEFAULT, "Received cached image URL %{public}@ but could not load image.", buf, 0xCu);
+        v50 = v15;
+        _os_log_impl(&dword_21E67D000, v23, OS_LOG_TYPE_DEFAULT, "Received cached image URL %{public}@ but could not load image.", buf, 0xCu);
       }
     }
 
-    v18 = 0;
+    v19 = 0;
     goto LABEL_17;
   }
 
@@ -655,55 +654,55 @@ LABEL_18:
 
   [(NSMutableSet *)self->_pendingEffectViewImageSlots addObject:uUIDString];
   objc_initWeak(buf, self);
-  v25 = [PBUIWallpaperImageSlotRequestAction alloc];
-  v26 = MEMORY[0x277D85CD0];
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke;
-  v44[3] = &unk_2783628D0;
-  objc_copyWeak(&v46, buf);
-  v27 = uUIDString;
-  v45 = v27;
-  v28 = [(PBUIWallpaperImageSlotRequestAction *)v25 initWithVariant:variant desiredStyle:v35 traitCollection:collectionCopy slotIdentifier:v27 forResponseOnQueue:MEMORY[0x277D85CD0] withHandler:v44];
+  v27 = [PBUIWallpaperImageSlotRequestAction alloc];
+  v28 = MEMORY[0x277D85CD0];
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke;
+  v46[3] = &unk_2783628D0;
+  objc_copyWeak(&v48, buf);
+  v29 = uUIDString;
+  v47 = v29;
+  v30 = [(PBUIWallpaperImageSlotRequestAction *)v27 initWithVariant:variant desiredStyle:v37 traitCollection:collectionCopy slotIdentifier:v29 forResponseOnQueue:MEMORY[0x277D85CD0] withHandler:v46];
 
-  v29 = [[PBUIDeferredImageSlot alloc] initWithLifetimeToken:v28];
-  v30 = [(PBUIWallpaperRemoteViewController *)self averageColorForVariant:variant];
-  [(PBUIDeferredImageSlot *)v29 setFallbackColor:v30];
+  v31 = [[PBUIDeferredImageSlot alloc] initWithLifetimeToken:v30];
+  v32 = [(PBUIWallpaperRemoteViewController *)self averageColorForVariant:variant];
+  [(PBUIDeferredImageSlot *)v31 setFallbackColor:v32];
 
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_48;
-  v36[3] = &unk_278362948;
-  v31 = v27;
-  v37 = v31;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_48;
+  v38[3] = &unk_278362948;
+  v33 = v29;
+  v39 = v33;
   selfCopy = self;
-  v32 = v28;
-  v39 = v32;
-  v18 = v29;
-  v40 = v18;
+  v34 = v30;
+  v41 = v34;
+  v19 = v31;
+  v42 = v19;
   variantCopy = variant;
-  v43 = v35;
-  v41 = collectionCopy;
-  [(PBUIWallpaperRemoteViewController *)self _performWithLiveScene:v36];
+  v45 = v37;
+  v43 = collectionCopy;
+  [(PBUIWallpaperRemoteViewController *)self _performWithLiveScene:v38];
 
-  objc_destroyWeak(&v46);
+  objc_destroyWeak(&v48);
   objc_destroyWeak(buf);
 
-  if (!v18)
+  if (!v19)
   {
     self->_missingEffectViewImages = 1;
   }
 
 LABEL_20:
 
-  return v18;
+  return v19;
 }
 
 void __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = PBUILogCommon();
+  v3 = PBUILogCommon(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -724,23 +723,23 @@ void __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_trai
 
 void __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_48(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v2 = PBUILogCommon();
+  v29 = *MEMORY[0x277D85DE8];
+  v2 = PBUILogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v27 = v3;
+    v28 = v3;
     _os_log_impl(&dword_21E67D000, v2, OS_LOG_TYPE_DEFAULT, "Acquiring foreground scene mode assertion for image request %{public}@", buf, 0xCu);
   }
 
   v4 = [*(a1 + 40) _acquireSceneModeAssertionForReason:@"ImageForWallpaperStyle" sceneMode:3];
-  v5 = PBUILogCommon();
+  v5 = PBUILogCommon(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
     *buf = 138543362;
-    v27 = v6;
+    v28 = v6;
     _os_log_impl(&dword_21E67D000, v5, OS_LOG_TYPE_DEFAULT, "Sending image slot request action for image slot request %{public}@", buf, 0xCu);
   }
 
@@ -751,37 +750,37 @@ void __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_trai
   v9 = [PBUIWallpaperEffectImageRequestAction alloc];
   v10 = *(a1 + 32);
   v11 = dispatch_get_global_queue(25, 0);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_53;
-  v19[3] = &unk_278362920;
-  v20 = v10;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_53;
+  v20[3] = &unk_278362920;
+  v21 = v10;
   v12 = v4;
   v13 = *(a1 + 40);
-  v21 = v12;
-  v22 = v13;
-  v23 = *(a1 + 56);
-  v25 = *(a1 + 72);
-  v24 = *(a1 + 64);
-  v14 = [(PBUIWallpaperEffectImageRequestAction *)v9 initWithSlotIdentifier:v20 forResponseOnQueue:v11 withHandler:v19];
+  v22 = v12;
+  v23 = v13;
+  v24 = *(a1 + 56);
+  v26 = *(a1 + 72);
+  v25 = *(a1 + 64);
+  v14 = [(PBUIWallpaperEffectImageRequestAction *)v9 initWithSlotIdentifier:v21 forResponseOnQueue:v11 withHandler:v20];
 
-  v15 = PBUILogCommon();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = PBUILogCommon(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(a1 + 32);
+    v17 = *(a1 + 32);
     *buf = 138543362;
-    v27 = v16;
-    _os_log_impl(&dword_21E67D000, v15, OS_LOG_TYPE_DEFAULT, "Sending image request action for image slot request %{public}@", buf, 0xCu);
+    v28 = v17;
+    _os_log_impl(&dword_21E67D000, v16, OS_LOG_TYPE_DEFAULT, "Sending image request action for image slot request %{public}@", buf, 0xCu);
   }
 
-  v17 = *(*(a1 + 40) + 992);
-  v18 = [MEMORY[0x277CBEB98] setWithObject:v14];
-  [v17 sendActions:v18];
+  v18 = *(*(a1 + 40) + 992);
+  v19 = [MEMORY[0x277CBEB98] setWithObject:v14];
+  [v18 sendActions:v19];
 }
 
 void __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_53(uint64_t a1, void *a2)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_class();
   v5 = v3;
@@ -810,125 +809,126 @@ void __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_trai
   block[2] = __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_2;
   block[3] = &unk_2783622E0;
   v8 = (a1 + 32);
-  v38 = *(a1 + 32);
-  v39 = *(a1 + 40);
+  v41 = *(a1 + 32);
+  v42 = *(a1 + 40);
   dispatch_async(MEMORY[0x277D85CD0], block);
   if (v7)
   {
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_55;
-    v35[3] = &unk_2783622E0;
-    v35[4] = *(a1 + 48);
-    v36 = *(a1 + 32);
-    v9 = MEMORY[0x277D85CD0];
-    dispatch_async(MEMORY[0x277D85CD0], v35);
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_55;
+    v38[3] = &unk_2783622E0;
+    v38[4] = *(a1 + 48);
+    v39 = *(a1 + 32);
+    v10 = MEMORY[0x277D85CD0];
+    dispatch_async(MEMORY[0x277D85CD0], v38);
 
-    v10 = [v7 actualStyle];
+    v11 = [v7 actualStyle];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v11 = v7;
-      v12 = [v11 imageURL];
-      v13 = [*(a1 + 48) _blurImageFromURL:v12];
-      v14 = PBUILogCommon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v12 = v7;
+      v13 = [v12 imageURL];
+      v14 = [*(a1 + 48) _blurImageFromURL:v13];
+      v15 = PBUILogCommon(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *v8;
+        v16 = *v8;
         *buf = 138543874;
-        v41 = v12;
-        v42 = 2114;
-        v43 = v13;
-        v44 = 2114;
-        v45 = v15;
-        _os_log_impl(&dword_21E67D000, v14, OS_LOG_TYPE_DEFAULT, "Received image URL %{public}@ resulting in image %{public}@ for image request %{public}@", buf, 0x20u);
+        v44 = v13;
+        v45 = 2114;
+        v46 = v14;
+        v47 = 2114;
+        v48 = v16;
+        _os_log_impl(&dword_21E67D000, v15, OS_LOG_TYPE_DEFAULT, "Received image URL %{public}@ resulting in image %{public}@ for image request %{public}@", buf, 0x20u);
       }
 
-      if (v13)
+      if (v14)
       {
-        [*(a1 + 56) updateWithImage:v13];
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_57;
-        v29[3] = &unk_2783628F8;
-        v29[4] = *(a1 + 48);
-        v33 = *(a1 + 72);
-        v34 = v10;
-        v30 = *(a1 + 64);
-        v31 = v13;
-        v32 = v12;
-        v16 = MEMORY[0x277D85CD0];
-        dispatch_async(MEMORY[0x277D85CD0], v29);
+        [*(a1 + 56) updateWithImage:v14];
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_57;
+        v32[3] = &unk_2783628F8;
+        v32[4] = *(a1 + 48);
+        v36 = *(a1 + 72);
+        v37 = v11;
+        v33 = *(a1 + 64);
+        v34 = v14;
+        v35 = v13;
+        v17 = MEMORY[0x277D85CD0];
+        dispatch_async(MEMORY[0x277D85CD0], v32);
       }
     }
 
     else
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
-        v11 = PBUILogCommon();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = PBUILogCommon(isKindOfClass);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = *v8;
+          v30 = *v8;
           *buf = 138543618;
-          v41 = v7;
-          v42 = 2114;
-          v43 = v27;
-          _os_log_impl(&dword_21E67D000, v11, OS_LOG_TYPE_DEFAULT, "Unexpected response %{public}@ for image request %{public}@", buf, 0x16u);
+          v44 = v7;
+          v45 = 2114;
+          v46 = v30;
+          _os_log_impl(&dword_21E67D000, v12, OS_LOG_TYPE_DEFAULT, "Unexpected response %{public}@ for image request %{public}@", buf, 0x16u);
         }
 
         goto LABEL_14;
       }
 
-      v11 = v7;
-      v12 = [v11 ioSurface];
-      [v11 size];
-      v21 = v20;
-      v22 = PBUILogCommon();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v12 = v7;
+      v13 = [v12 ioSurface];
+      v22 = [v12 size];
+      v24 = v23;
+      v25 = PBUILogCommon(v22);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        [v11 size];
-        v23 = BSStringFromCGSize();
-        v24 = *v8;
+        [v12 size];
+        v26 = BSStringFromCGSize();
+        v27 = *v8;
         *buf = 138543874;
-        v41 = v12;
-        v42 = 2114;
-        v43 = v23;
-        v44 = 2114;
-        v45 = v24;
-        _os_log_impl(&dword_21E67D000, v22, OS_LOG_TYPE_DEFAULT, "Received IOSurface %{public}@ size %{public}@ for image request %{public}@", buf, 0x20u);
+        v44 = v13;
+        v45 = 2114;
+        v46 = v26;
+        v47 = 2114;
+        v48 = v27;
+        _os_log_impl(&dword_21E67D000, v25, OS_LOG_TYPE_DEFAULT, "Received IOSurface %{public}@ size %{public}@ for image request %{public}@", buf, 0x20u);
       }
 
       if ((BSFloatIsZero() & 1) == 0)
       {
-        v25 = [v12 width];
-        v26 = [MEMORY[0x277D755B8] pbui_imageWithIOSurface:v12 scale:0 orientation:v25 / v21];
-        if (v26)
+        v28 = [v13 width];
+        v29 = [MEMORY[0x277D755B8] pbui_imageWithIOSurface:v13 scale:0 orientation:v28 / v24];
+        if (v29)
         {
-          [*(a1 + 56) updateWithImage:v26];
+          [*(a1 + 56) updateWithImage:v29];
         }
       }
     }
 
 LABEL_14:
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_60;
-    v28[3] = &unk_278362880;
-    v17 = *(a1 + 72);
-    v28[4] = *(a1 + 48);
-    v28[5] = v17;
-    v18 = MEMORY[0x277D85CD0];
-    dispatch_async(MEMORY[0x277D85CD0], v28);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_60;
+    v31[3] = &unk_278362880;
+    v18 = *(a1 + 72);
+    v31[4] = *(a1 + 48);
+    v31[5] = v18;
+    v19 = MEMORY[0x277D85CD0];
+    dispatch_async(MEMORY[0x277D85CD0], v31);
 
     goto LABEL_18;
   }
 
-  v19 = PBUILogCommon();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v20 = PBUILogCommon(v9);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_53_cold_1(v8, v19);
+    __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_53_cold_1(v8, v20);
   }
 
 LABEL_18:
@@ -937,7 +937,7 @@ LABEL_18:
 uint64_t __84__PBUIWallpaperRemoteViewController_imageForWallpaperStyle_variant_traitCollection___block_invoke_2(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = PBUILogCommon();
+  v2 = PBUILogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1059,7 +1059,7 @@ LABEL_5:
 
 - (void)setActiveVariant:(int64_t)variant withOutAnimationFactory:(id)factory inAnimationFactory:(id)animationFactory completion:(id)completion
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   factoryCopy = factory;
   animationFactoryCopy = animationFactory;
   completionCopy = completion;
@@ -1107,25 +1107,25 @@ LABEL_5:
 
   activeVariant = self->_activeVariant;
   self->_activeVariant = variant;
-  v27 = PBUILogCommon();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v28 = PBUILogCommon(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     PBUIStringForWallpaperVariant(variant);
-    v33 = completionCopy;
+    v34 = completionCopy;
     variantCopy = variant;
-    v29 = animationFactoryCopy;
-    v31 = v30 = factoryCopy;
-    v32 = PBUIStringForWallpaperVariant(activeVariant);
+    v30 = animationFactoryCopy;
+    v32 = v31 = factoryCopy;
+    v33 = PBUIStringForWallpaperVariant(activeVariant);
     *buf = 138543618;
-    v35 = v31;
-    v36 = 2114;
-    v37 = v32;
-    _os_log_impl(&dword_21E67D000, v27, OS_LOG_TYPE_DEFAULT, "Setting wallpaper variant to %{public}@ from %{public}@", buf, 0x16u);
+    v36 = v32;
+    v37 = 2114;
+    v38 = v33;
+    _os_log_impl(&dword_21E67D000, v28, OS_LOG_TYPE_DEFAULT, "Setting wallpaper variant to %{public}@ from %{public}@", buf, 0x16u);
 
-    factoryCopy = v30;
-    animationFactoryCopy = v29;
+    factoryCopy = v31;
+    animationFactoryCopy = v30;
     variant = variantCopy;
-    completionCopy = v33;
+    completionCopy = v34;
   }
 
   [v25 setWallpaperVariant:variant];
@@ -1155,7 +1155,7 @@ LABEL_5:
 - (void)setAlpha:(double)alpha forWallpaperVariant:(int64_t)variant
 {
   v14 = *MEMORY[0x277D85DE8];
-  v7 = PBUILogCommon();
+  v7 = PBUILogCommon(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = PBUIStringForWallpaperVariant(variant);
@@ -1207,7 +1207,7 @@ LABEL_6:
   y = rect.origin.y;
   x = rect.origin.x;
   v13 = *MEMORY[0x277D85DE8];
-  v8 = PBUILogCommon();
+  v8 = PBUILogCommon(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = BSStringFromCGRect();
@@ -1230,7 +1230,7 @@ LABEL_6:
 - (void)setLockscreenOnlyWallpaperAlpha:(double)alpha
 {
   v9 = *MEMORY[0x277D85DE8];
-  v5 = PBUILogCommon();
+  v5 = PBUILogCommon(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -1284,28 +1284,28 @@ LABEL_6:
 
 - (id)_wallpaperScaleAssertionForVariant:(int64_t)variant scale:(double)scale
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   v7 = [PBUIWallpaperScaleAssertion alloc];
   v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Wallpaper scale %f", *&scale];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __78__PBUIWallpaperRemoteViewController__wallpaperScaleAssertionForVariant_scale___block_invoke;
-  v13[3] = &unk_2783629B0;
-  objc_copyWeak(&v14, &location);
-  v9 = [(PBUIWallpaperScaleAssertion *)v7 initWithVariant:variant scale:v8 forReason:v13 invalidationBlock:scale];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __78__PBUIWallpaperRemoteViewController__wallpaperScaleAssertionForVariant_scale___block_invoke;
+  v14[3] = &unk_2783629B0;
+  objc_copyWeak(&v15, &location);
+  v9 = [(PBUIWallpaperScaleAssertion *)v7 initWithVariant:variant scale:v8 forReason:v14 invalidationBlock:scale];
 
-  v10 = PBUILogCommon();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = PBUILogCommon(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [v9 description];
+    v12 = [v9 description];
     *buf = 138412290;
-    v17 = v11;
-    _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_DEFAULT, "Acquiring wallpaper scale assertion %@", buf, 0xCu);
+    v18 = v12;
+    _os_log_impl(&dword_21E67D000, v11, OS_LOG_TYPE_DEFAULT, "Acquiring wallpaper scale assertion %@", buf, 0xCu);
   }
 
   [(NSHashTable *)self->_wallpaperScaleAssertions addObject:v9];
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
 
   return v9;
@@ -1313,23 +1313,24 @@ LABEL_6:
 
 void __78__PBUIWallpaperRemoteViewController__wallpaperScaleAssertionForVariant_scale___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = PBUILogCommon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PBUILogCommon(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [v5 description];
-      v10 = 138412290;
-      v11 = v9;
-      _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_DEFAULT, "Removing wallpaper scale assertion %@", &v10, 0xCu);
+      v10 = [v5 description];
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_DEFAULT, "Removing wallpaper scale assertion %@", &v11, 0xCu);
     }
 
-    [WeakRetained[139] removeObject:v5];
-    [WeakRetained _updateWallpaperScaleWithAnimationFactory:v6];
+    [v8[139] removeObject:v5];
+    [v8 _updateWallpaperScaleWithAnimationFactory:v6];
   }
 }
 
@@ -1352,7 +1353,7 @@ void __78__PBUIWallpaperRemoteViewController__wallpaperScaleAssertionForVariant_
 
   v11 = [v9 count];
   v12 = v11 != 0;
-  v13 = PBUILogCommon();
+  v13 = PBUILogCommon(v11);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = PBUIStringForWallpaperVariant(variant);
@@ -1425,7 +1426,7 @@ LABEL_6:
 
   v11 = [v9 count];
   v12 = v11 != 0;
-  v13 = PBUILogCommon();
+  v13 = PBUILogCommon(v11);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = PBUIStringForWallpaperVariant(variant);
@@ -1494,7 +1495,7 @@ LABEL_6:
   v11 = v6;
   selfCopy = self;
   v7 = [(PBUIWallpaperRemoteViewController *)self _simpleAssertionWithReasonsSet:wallpaperAnimationSuspendedReasons identifier:@"WallpaperAnimationSuspended" reason:v6 updater:v10];
-  v8 = PBUILogCommon();
+  v8 = PBUILogCommon(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -1512,27 +1513,28 @@ LABEL_6:
 
 void __72__PBUIWallpaperRemoteViewController_suspendWallpaperAnimationForReason___block_invoke(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = PBUILogCommon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PBUILogCommon(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
+      v7 = *(a1 + 32);
       *buf = 138543618;
-      v10 = v6;
-      v11 = 1024;
-      v12 = a2 ^ 1;
-      _os_log_impl(&dword_21E67D000, v5, OS_LOG_TYPE_DEFAULT, "Animation suspension assertion for reason %{public}@ invalidated. Setting sampling suspended:%{BOOL}u", buf, 0x12u);
+      v11 = v7;
+      v12 = 1024;
+      v13 = a2 ^ 1;
+      _os_log_impl(&dword_21E67D000, v6, OS_LOG_TYPE_DEFAULT, "Animation suspension assertion for reason %{public}@ invalidated. Setting sampling suspended:%{BOOL}u", buf, 0x12u);
     }
 
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __72__PBUIWallpaperRemoteViewController_suspendWallpaperAnimationForReason___block_invoke_75;
-    v7[3] = &__block_descriptor_33_e49_v16__0__PBUIMutableWallpaperWindowSceneSettings_8l;
-    v8 = a2;
-    [WeakRetained _updateWallpaperSceneSettingsWithBlock:v7];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __72__PBUIWallpaperRemoteViewController_suspendWallpaperAnimationForReason___block_invoke_75;
+    v8[3] = &__block_descriptor_33_e49_v16__0__PBUIMutableWallpaperWindowSceneSettings_8l;
+    v9 = a2;
+    [v5 _updateWallpaperSceneSettingsWithBlock:v8];
     [*(a1 + 40) _reconfigureBlurViewsForVariant:1];
     [*(a1 + 40) _reconfigureBlurViewsForVariant:0];
   }
@@ -1540,7 +1542,7 @@ void __72__PBUIWallpaperRemoteViewController_suspendWallpaperAnimationForReason_
 
 - (void)updateIrisWallpaperForInteractiveMode
 {
-  v3 = PBUILogCommon();
+  v3 = PBUILogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1552,7 +1554,7 @@ void __72__PBUIWallpaperRemoteViewController_suspendWallpaperAnimationForReason_
 
 - (BOOL)updateIrisWallpaperForStaticMode
 {
-  v3 = PBUILogCommon();
+  v3 = PBUILogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -1641,7 +1643,7 @@ LABEL_7:
   v16 = [v15 isEqual:v14];
   v17 = v16;
   v26 = v16 ^ 1;
-  v18 = PBUILogCommon();
+  v18 = PBUILogCommon(v16);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = *&state->var0;
@@ -1752,7 +1754,7 @@ LABEL_7:
   v14 = [v13 isEqual:v12];
   v15 = v14;
   v16 = v14 ^ 1;
-  v17 = PBUILogCommon();
+  v17 = PBUILogCommon(v14);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     v18 = PBUIStringForWallpaperStylePriority(priority);
@@ -1839,7 +1841,7 @@ id __101__PBUIWallpaperRemoteViewController_removeWallpaperStyleForPriority_forV
   v6 = reasonCopy;
   v11 = v6;
   v7 = [(PBUIWallpaperRemoteViewController *)self _simpleAssertionWithReasonsSet:wallpaperRequiredReasons identifier:@"WallpaperRequired" reason:v6 updater:v10];
-  v8 = PBUILogCommon();
+  v8 = PBUILogCommon(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -1857,49 +1859,51 @@ id __101__PBUIWallpaperRemoteViewController_removeWallpaperStyleForPriority_forV
 
 void __64__PBUIWallpaperRemoteViewController_requireWallpaperWithReason___block_invoke(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = PBUILogCommon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PBUILogCommon(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
+      v7 = *(a1 + 32);
       *buf = 138543618;
-      v10 = v6;
-      v11 = 1024;
-      v12 = a2 ^ 1;
-      _os_log_impl(&dword_21E67D000, v5, OS_LOG_TYPE_DEFAULT, "Ending wallpaper requiring with reason %{public}@. Setting wallpaper required:%{BOOL}u", buf, 0x12u);
+      v11 = v7;
+      v12 = 1024;
+      v13 = a2 ^ 1;
+      _os_log_impl(&dword_21E67D000, v6, OS_LOG_TYPE_DEFAULT, "Ending wallpaper requiring with reason %{public}@. Setting wallpaper required:%{BOOL}u", buf, 0x12u);
     }
 
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __64__PBUIWallpaperRemoteViewController_requireWallpaperWithReason___block_invoke_86;
-    v7[3] = &__block_descriptor_33_e49_v16__0__PBUIMutableWallpaperWindowSceneSettings_8l;
-    v8 = a2;
-    [WeakRetained _updateWallpaperSceneSettingsWithBlock:v7];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __64__PBUIWallpaperRemoteViewController_requireWallpaperWithReason___block_invoke_86;
+    v8[3] = &__block_descriptor_33_e49_v16__0__PBUIMutableWallpaperWindowSceneSettings_8l;
+    v9 = a2;
+    [v5 _updateWallpaperSceneSettingsWithBlock:v8];
   }
 }
 
 - (void)preheatWallpaperForVariant:(int64_t)variant
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if ([(FBScene *)self->_scene isActive])
+  v14 = *MEMORY[0x277D85DE8];
+  isActive = [(FBScene *)self->_scene isActive];
+  if (isActive)
   {
-    v5 = PBUILogCommon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PBUILogCommon(isActive);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = PBUIStringForWallpaperVariant(variant);
-      v11 = 138543362;
-      v12 = v6;
-      _os_log_impl(&dword_21E67D000, v5, OS_LOG_TYPE_DEFAULT, "Sending wallpaper preheat action for variant %{public}@", &v11, 0xCu);
+      v7 = PBUIStringForWallpaperVariant(variant);
+      v12 = 138543362;
+      v13 = v7;
+      _os_log_impl(&dword_21E67D000, v6, OS_LOG_TYPE_DEFAULT, "Sending wallpaper preheat action for variant %{public}@", &v12, 0xCu);
     }
 
     scene = self->_scene;
-    v8 = MEMORY[0x277CBEB98];
-    v9 = [[PBUIWallpaperPreheatAction alloc] initWithVariant:variant];
-    v10 = [v8 setWithObject:v9];
-    [(FBScene *)scene sendActions:v10];
+    v9 = MEMORY[0x277CBEB98];
+    v10 = [[PBUIWallpaperPreheatAction alloc] initWithVariant:variant];
+    v11 = [v9 setWithObject:v10];
+    [(FBScene *)scene sendActions:v11];
   }
 }
 
@@ -1907,8 +1911,7 @@ void __64__PBUIWallpaperRemoteViewController_requireWallpaperWithReason___block_
 {
   v8 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  [(NSMutableSet *)self->_homescreenChangesDelayedReasons addObject:reasonCopy];
-  v5 = PBUILogCommon();
+  v5 = PBUILogCommon([(NSMutableSet *)self->_homescreenChangesDelayedReasons addObject:reasonCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138543362;
@@ -1924,8 +1927,7 @@ void __64__PBUIWallpaperRemoteViewController_requireWallpaperWithReason___block_
   v17 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   factoryCopy = factory;
-  [(NSMutableSet *)self->_homescreenChangesDelayedReasons removeObject:reasonCopy];
-  v8 = PBUILogCommon();
+  v8 = PBUILogCommon([(NSMutableSet *)self->_homescreenChangesDelayedReasons removeObject:reasonCopy]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [(NSMutableSet *)self->_homescreenChangesDelayedReasons count];
@@ -2009,7 +2011,7 @@ id __97__PBUIWallpaperRemoteViewController_endDelayingHomescreenStyleChangesForR
 void __94__PBUIWallpaperRemoteViewController_updateWallpaperForLocations_wallpaperMode_withCompletion___block_invoke(uint64_t a1)
 {
   v24 = *MEMORY[0x277D85DE8];
-  v2 = PBUILogCommon();
+  v2 = PBUILogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2028,8 +2030,7 @@ void __94__PBUIWallpaperRemoteViewController_updateWallpaperForLocations_wallpap
   v6 = v3;
   v7 = [v4 responderWithHandler:&v14];
   [v7 setQueue:{MEMORY[0x277D85CD0], v14, v15, v16, v17}];
-  [v7 setTimeout:15];
-  v8 = PBUILogCommon();
+  v8 = PBUILogCommon([v7 setTimeout:15]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = PBUIStringForWallpaperLocations(*(a1 + 48));
@@ -2053,10 +2054,10 @@ void __94__PBUIWallpaperRemoteViewController_updateWallpaperForLocations_wallpap
   v4 = *(a1 + 40);
   if (v4)
   {
-    (*(v4 + 16))();
+    v4 = (*(v4 + 16))();
   }
 
-  v5 = PBUILogCommon();
+  v5 = PBUILogCommon(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -2268,7 +2269,7 @@ LABEL_5:
 {
   changedCopy = changed;
   v11 = *MEMORY[0x277D85DE8];
-  v6 = PBUILogCommon();
+  v6 = PBUILogCommon(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -2286,69 +2287,71 @@ LABEL_5:
 
 - (void)scene:(id)scene didReceiveActions:(id)actions
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v34 = 0u;
+  v44 = *MEMORY[0x277D85DE8];
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
   obj = actions;
-  v24 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
-  if (v24)
+  isKindOfClass = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v25 = isKindOfClass;
+  if (isKindOfClass)
   {
-    v23 = *v35;
+    v24 = *v36;
     do
     {
-      for (i = 0; i != v24; ++i)
+      v5 = 0;
+      do
       {
-        if (*v35 != v23)
+        if (*v36 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v34 + 1) + 8 * i);
-        v6 = PBUILogCommon();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v6 = *(*(&v35 + 1) + 8 * v5);
+        v7 = PBUILogCommon(isKindOfClass);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v41 = v5;
-          _os_log_impl(&dword_21E67D000, v6, OS_LOG_TYPE_DEFAULT, "Received action %{public}@", buf, 0xCu);
+          v42 = v6;
+          _os_log_impl(&dword_21E67D000, v7, OS_LOG_TYPE_DEFAULT, "Received action %{public}@", buf, 0xCu);
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          WeakRetained = v5;
+          WeakRetained = v6;
           variant = [WeakRetained variant];
-          v30 = 0u;
           v31 = 0u;
           v32 = 0u;
           v33 = 0u;
-          v9 = [(PBUIWallpaperRemoteViewController *)self _observersForVariant:variant];
-          v10 = [v9 countByEnumeratingWithState:&v30 objects:v39 count:16];
-          if (v10)
+          v34 = 0u;
+          v10 = [(PBUIWallpaperRemoteViewController *)self _observersForVariant:variant];
+          v11 = [v10 countByEnumeratingWithState:&v31 objects:v40 count:16];
+          if (v11)
           {
-            v11 = v10;
-            v12 = *v31;
+            v12 = v11;
+            v13 = *v32;
             do
             {
-              for (j = 0; j != v11; ++j)
+              for (i = 0; i != v12; ++i)
               {
-                if (*v31 != v12)
+                if (*v32 != v13)
                 {
-                  objc_enumerationMutation(v9);
+                  objc_enumerationMutation(v10);
                 }
 
-                v14 = *(*(&v30 + 1) + 8 * j);
+                v15 = *(*(&v31 + 1) + 8 * i);
                 if (objc_opt_respondsToSelector())
                 {
-                  [v14 wallpaperWillChangeForVariant:variant];
+                  [v15 wallpaperWillChangeForVariant:variant];
                 }
               }
 
-              v11 = [v9 countByEnumeratingWithState:&v30 objects:v39 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v31 objects:v40 count:16];
             }
 
-            while (v11);
+            while (v12);
           }
         }
 
@@ -2357,38 +2360,38 @@ LABEL_5:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            WeakRetained = v5;
+            WeakRetained = v6;
             variant2 = [WeakRetained variant];
-            v26 = 0u;
             v27 = 0u;
             v28 = 0u;
             v29 = 0u;
-            v16 = [(PBUIWallpaperRemoteViewController *)self _observersForVariant:variant2];
-            v17 = [v16 countByEnumeratingWithState:&v26 objects:v38 count:16];
-            if (v17)
+            v30 = 0u;
+            v17 = [(PBUIWallpaperRemoteViewController *)self _observersForVariant:variant2];
+            v18 = [v17 countByEnumeratingWithState:&v27 objects:v39 count:16];
+            if (v18)
             {
-              v18 = v17;
-              v19 = *v27;
+              v19 = v18;
+              v20 = *v28;
               do
               {
-                for (k = 0; k != v18; ++k)
+                for (j = 0; j != v19; ++j)
                 {
-                  if (*v27 != v19)
+                  if (*v28 != v20)
                   {
-                    objc_enumerationMutation(v16);
+                    objc_enumerationMutation(v17);
                   }
 
-                  v21 = *(*(&v26 + 1) + 8 * k);
+                  v22 = *(*(&v27 + 1) + 8 * j);
                   if (objc_opt_respondsToSelector())
                   {
-                    [v21 wallpaperDidChangeForVariant:variant2];
+                    [v22 wallpaperDidChangeForVariant:variant2];
                   }
                 }
 
-                v18 = [v16 countByEnumeratingWithState:&v26 objects:v38 count:16];
+                v19 = [v17 countByEnumeratingWithState:&v27 objects:v39 count:16];
               }
 
-              while (v18);
+              while (v19);
             }
 
             [(PBUIWallpaperRemoteViewController *)self _reconfigureBlurViewsForVariant:variant2];
@@ -2398,74 +2401,92 @@ LABEL_5:
           else
           {
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            isKindOfClass = objc_opt_isKindOfClass();
+            if ((isKindOfClass & 1) == 0)
             {
-              continue;
+              goto LABEL_33;
             }
 
             WeakRetained = objc_loadWeakRetained(&self->_wallpaperPresentingDelegate);
             [WeakRetained wallpaperPresenterDidCompleteWallpaperChange:self];
           }
         }
+
+LABEL_33:
+        ++v5;
       }
 
-      v24 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+      while (v5 != v25);
+      isKindOfClass = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v25 = isKindOfClass;
     }
 
-    while (v24);
+    while (isKindOfClass);
   }
 }
 
 - (void)sceneDidDeactivate:(id)deactivate withError:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   errorCopy = error;
+  v7 = errorCopy;
   if (self->_scene == deactivate)
   {
-    v7 = PBUILogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PBUILogCommon(errorCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      *v17 = self;
-      *&v17[8] = 2112;
-      v18 = *&errorCopy;
-      _os_log_impl(&dword_21E67D000, v7, OS_LOG_TYPE_DEFAULT, "Remote wallpaper controller %p scene did deactivate with error: %@", buf, 0x16u);
+      *v20 = self;
+      *&v20[8] = 2112;
+      v21 = *&v7;
+      _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_DEFAULT, "Remote wallpaper controller %p scene did deactivate with error: %@", buf, 0x16u);
     }
 
     [(PBUISessionReconnectPolicy *)self->_reconnectPolicy sessionDidDisconnect];
     _effectiveSceneMode = [(PBUIWallpaperRemoteViewController *)self _effectiveSceneMode];
-    v9 = self->_missingEffectViewImages || [(NSMutableSet *)self->_pendingEffectViewImageSlots count]!= 0;
-    v10 = PBUILogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v10 = _effectiveSceneMode;
+    if (self->_missingEffectViewImages)
     {
-      *buf = 67109376;
-      *v17 = _effectiveSceneMode != 0;
-      *&v17[4] = 1024;
-      *&v17[6] = v9;
-      _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_DEFAULT, "shouldReactivateForSceneMode: %{BOOL}u\nshouldReactivateForEffectImages: %{BOOL}u\n", buf, 0xEu);
+      v11 = 1;
     }
 
-    if (_effectiveSceneMode != 0 || v9)
+    else
     {
-      [(PBUISessionReconnectPolicy *)self->_reconnectPolicy sessionReconnectDelay];
-      v12 = v11;
-      v13 = PBUILogCommon();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      _effectiveSceneMode = [(NSMutableSet *)self->_pendingEffectViewImageSlots count];
+      v11 = _effectiveSceneMode != 0;
+    }
+
+    v12 = PBUILogCommon(_effectiveSceneMode);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109376;
+      *v20 = v10 != 0;
+      *&v20[4] = 1024;
+      *&v20[6] = v11;
+      _os_log_impl(&dword_21E67D000, v12, OS_LOG_TYPE_DEFAULT, "shouldReactivateForSceneMode: %{BOOL}u\nshouldReactivateForEffectImages: %{BOOL}u\n", buf, 0xEu);
+    }
+
+    if (v10 != 0 || v11)
+    {
+      sessionReconnectDelay = [(PBUISessionReconnectPolicy *)self->_reconnectPolicy sessionReconnectDelay];
+      v15 = v14;
+      v16 = PBUILogCommon(sessionReconnectDelay);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
-        *v17 = self;
-        *&v17[8] = 2048;
-        v18 = v12;
-        _os_log_impl(&dword_21E67D000, v13, OS_LOG_TYPE_DEFAULT, "Attempting reactivation of remote wallpaper controller %p scene in %0.3f seconds.", buf, 0x16u);
+        *v20 = self;
+        *&v20[8] = 2048;
+        v21 = v15;
+        _os_log_impl(&dword_21E67D000, v16, OS_LOG_TYPE_DEFAULT, "Attempting reactivation of remote wallpaper controller %p scene in %0.3f seconds.", buf, 0x16u);
       }
 
-      v14 = dispatch_time(0, (v12 * 1000000000.0));
+      v17 = dispatch_time(0, (v15 * 1000000000.0));
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __66__PBUIWallpaperRemoteViewController_sceneDidDeactivate_withError___block_invoke;
       block[3] = &unk_278361E18;
       block[4] = self;
-      dispatch_after(v14, MEMORY[0x277D85CD0], block);
+      dispatch_after(v17, MEMORY[0x277D85CD0], block);
     }
   }
 }
@@ -2473,7 +2494,7 @@ LABEL_5:
 uint64_t __66__PBUIWallpaperRemoteViewController_sceneDidDeactivate_withError___block_invoke(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = PBUILogCommon();
+  v2 = PBUILogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -2639,27 +2660,27 @@ uint64_t __66__PBUIWallpaperRemoteViewController_sceneDidDeactivate_withError___
 
   if ((v73[3] & 1) != 0 || *(v69 + 24) == 1)
   {
-    [(PBUIWallpaperRemoteViewController *)self _legibilityUpdatedWithDictionary:v31 notifyObservers:1];
+    _sceneClientSettings = [(PBUIWallpaperRemoteViewController *)self _legibilityUpdatedWithDictionary:v31 notifyObservers:1];
   }
 
   if ((v65[3] & 1) != 0 || *(v61 + 24) == 1)
   {
-    [(PBUIWallpaperRemoteViewController *)self _updateFallbackView];
+    _sceneClientSettings = [(PBUIWallpaperRemoteViewController *)self _updateFallbackView];
   }
 
   if (*(v53 + 24) == 1)
   {
-    [(PBUIWallpaperRemoteViewController *)self _reconfigureBlurViewsForVariant:1];
+    _sceneClientSettings = [(PBUIWallpaperRemoteViewController *)self _reconfigureBlurViewsForVariant:1];
   }
 
   if (*(v48 + 24) == 1)
   {
-    [(PBUIWallpaperRemoteViewController *)self _reconfigureBlurViewsForVariant:0];
+    _sceneClientSettings = [(PBUIWallpaperRemoteViewController *)self _reconfigureBlurViewsForVariant:0];
   }
 
   if (*(v57 + 24) == 1)
   {
-    v25 = PBUILogCommon();
+    v25 = PBUILogCommon(_sceneClientSettings);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       v26 = PBUIIrisWallpaperPlaybackStateDescription([v17 liveWallpaperPlaybackState]);
@@ -3247,7 +3268,7 @@ void __63__PBUIWallpaperRemoteViewController__setupSceneWithCompletion___block_i
 {
   v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = PBUILogCommon();
+  v6 = PBUILogCommon(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9[0] = 67109378;
@@ -3294,27 +3315,27 @@ LABEL_10:
 
 void __63__PBUIWallpaperRemoteViewController__setupSceneWithCompletion___block_invoke_219(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 992))
   {
-    v2 = PBUILogCommon();
+    v2 = PBUILogCommon(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(*(a1 + 32) + 992);
       *buf = 138543362;
-      v31 = v3;
+      v32 = v3;
       _os_log_impl(&dword_21E67D000, v2, OS_LOG_TYPE_DEFAULT, "Activating existing wallpaper scene %{public}@", buf, 0xCu);
     }
 
     v5 = *(a1 + 32);
     v4 = *(a1 + 40);
     v6 = *(v5 + 992);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __63__PBUIWallpaperRemoteViewController__setupSceneWithCompletion___block_invoke_220;
-    v29[3] = &unk_278362C38;
-    v29[4] = v5;
-    [v6 performUpdate:v29 withCompletion:v4];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __63__PBUIWallpaperRemoteViewController__setupSceneWithCompletion___block_invoke_220;
+    v30[3] = &unk_278362C38;
+    v30[4] = v5;
+    [v6 performUpdate:v30 withCompletion:v4];
   }
 
   else
@@ -3330,56 +3351,55 @@ void __63__PBUIWallpaperRemoteViewController__setupSceneWithCompletion___block_i
     v10 = *(v9 + 992);
     *(v9 + 992) = v8;
 
-    v11 = PBUILogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = PBUILogCommon(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(*(a1 + 32) + 992);
+      v13 = *(*(a1 + 32) + 992);
       *buf = 138543362;
-      v31 = v12;
-      _os_log_impl(&dword_21E67D000, v11, OS_LOG_TYPE_DEFAULT, "Created new wallpaper scene %{public}@", buf, 0xCu);
+      v32 = v13;
+      _os_log_impl(&dword_21E67D000, v12, OS_LOG_TYPE_DEFAULT, "Created new wallpaper scene %{public}@", buf, 0xCu);
     }
 
     [*(*(a1 + 32) + 992) setDelegate:?];
-    v13 = [*(*(a1 + 32) + 992) layerManager];
-    [v13 addObserver:*(a1 + 32)];
+    v14 = [*(*(a1 + 32) + 992) layerManager];
+    [v14 addObserver:*(a1 + 32)];
 
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 992);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __63__PBUIWallpaperRemoteViewController__setupSceneWithCompletion___block_invoke_234;
-    v28[3] = &unk_278362CC8;
-    v28[4] = v14;
-    [v15 configureParameters:v28];
-    v16 = [*(*(a1 + 32) + 992) uiPresentationManager];
-    v17 = PBUIWallpaperWorkspaceIdentifier_block_invoke_sequenceNumber++;
-    v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"PBUIWallpaperRemoteViewController-%ld", v17];
-    v19 = [v16 createPresenterWithIdentifier:v18];
-    v20 = *(a1 + 32);
-    v21 = *(v20 + 1000);
-    *(v20 + 1000) = v19;
+    v15 = *(a1 + 32);
+    v16 = *(v15 + 992);
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __63__PBUIWallpaperRemoteViewController__setupSceneWithCompletion___block_invoke_234;
+    v29[3] = &unk_278362CC8;
+    v29[4] = v15;
+    [v16 configureParameters:v29];
+    v17 = [*(*(a1 + 32) + 992) uiPresentationManager];
+    v18 = PBUIWallpaperWorkspaceIdentifier_block_invoke_sequenceNumber++;
+    v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"PBUIWallpaperRemoteViewController-%ld", v18];
+    v20 = [v17 createPresenterWithIdentifier:v19];
+    v21 = *(a1 + 32);
+    v22 = *(v21 + 1000);
+    *(v21 + 1000) = v20;
 
     [*(*(a1 + 32) + 1000) modifyPresentationContext:&__block_literal_global_247];
-    [*(*(a1 + 32) + 1000) activate];
-    v22 = PBUILogCommon();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = PBUILogCommon([*(*(a1 + 32) + 1000) activate]);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21E67D000, v22, OS_LOG_TYPE_DEFAULT, "Installing live scene view on scene setup", buf, 2u);
+      _os_log_impl(&dword_21E67D000, v23, OS_LOG_TYPE_DEFAULT, "Installing live scene view on scene setup", buf, 2u);
     }
 
-    v23 = [*(*(a1 + 32) + 1000) presentationView];
-    v24 = [*(a1 + 32) view];
-    [v24 bounds];
-    [v23 setFrame:?];
-    [v23 setAutoresizingMask:18];
-    [v24 setClipsToBounds:1];
-    [v24 addSubview:v23];
-    [v24 sendSubviewToBack:v23];
-    v25 = *(a1 + 32);
-    v26 = *(v25 + 1152);
-    *(v25 + 1152) = v23;
-    v27 = v23;
+    v24 = [*(*(a1 + 32) + 1000) presentationView];
+    v25 = [*(a1 + 32) view];
+    [v25 bounds];
+    [v24 setFrame:?];
+    [v24 setAutoresizingMask:18];
+    [v25 setClipsToBounds:1];
+    [v25 addSubview:v24];
+    [v25 sendSubviewToBack:v24];
+    v26 = *(a1 + 32);
+    v27 = *(v26 + 1152);
+    *(v26 + 1152) = v24;
+    v28 = v24;
 
     [*(*(a1 + 32) + 992) performUpdate:&__block_literal_global_250 withCompletion:*(a1 + 40)];
   }
@@ -4026,7 +4046,7 @@ LABEL_5:
 
 - (void)_cacheBlurImageForVariant:(int64_t)variant requestedStyle:(int64_t)style actualStyle:(int64_t)actualStyle traitCollection:(id)collection image:(id)image imageURL:(id)l
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   lCopy = l;
   imageCopy = image;
   collectionCopy = collection;
@@ -4040,14 +4060,14 @@ LABEL_5:
     self->_fakeBlurCache = dictionary;
   }
 
-  v21 = PBUILogCommon();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = PBUILogCommon(v19);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138543618;
-    v23 = v18;
-    v24 = 2114;
-    v25 = v17;
-    _os_log_impl(&dword_21E67D000, v21, OS_LOG_TYPE_DEFAULT, "Caching asset %{public}@ for configuration %{public}@", &v22, 0x16u);
+    v23 = 138543618;
+    v24 = v18;
+    v25 = 2114;
+    v26 = v17;
+    _os_log_impl(&dword_21E67D000, v22, OS_LOG_TYPE_DEFAULT, "Caching asset %{public}@ for configuration %{public}@", &v23, 0x16u);
   }
 
   [(NSMutableDictionary *)self->_fakeBlurCache setObject:v18 forKeyedSubscript:v17];
@@ -4063,7 +4083,7 @@ LABEL_5:
   v9[3] = &__block_descriptor_40_e61_B32__0__PBUIFakeBlurConfiguration_8__PBUIFakeBlurAsset_16_B24l;
   v9[4] = variant;
   v5 = [(NSMutableDictionary *)fakeBlurCache keysOfEntriesPassingTest:v9];
-  v6 = PBUILogCommon();
+  v6 = PBUILogCommon(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -4106,7 +4126,7 @@ LABEL_5:
 
     else
     {
-      v8 = PBUILogCommon();
+      v8 = PBUILogCommon(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [(PBUIWallpaperRemoteViewController *)lCopy _blurImageFromURL:v8];
@@ -4182,7 +4202,7 @@ LABEL_5:
 {
   v10 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
-  v6 = PBUILogCommon();
+  v6 = PBUILogCommon(settingsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     if (mode > 3)
@@ -4232,7 +4252,7 @@ void __63__PBUIWallpaperRemoteViewController__scheduleSceneDeactivation__block_i
   {
     if (![WeakRetained _effectiveSceneMode])
     {
-      v3 = PBUILogCommon();
+      v3 = PBUILogCommon(0);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         v5[0] = 0;
@@ -4531,7 +4551,7 @@ __CFString *__61__PBUIWallpaperRemoteViewController__addStateCaptureHandlers__bl
   v9 = [[PBUIFakeBlurConfiguration alloc] initWithVariant:variant style:style traitCollection:collectionCopy];
 
   v10 = [(NSMutableDictionary *)self->_fakeBlurCache objectForKeyedSubscript:v9];
-  v11 = PBUILogCommon();
+  v11 = PBUILogCommon(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138543618;

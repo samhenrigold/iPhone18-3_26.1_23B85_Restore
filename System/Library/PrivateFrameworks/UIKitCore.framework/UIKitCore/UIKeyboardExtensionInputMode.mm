@@ -50,9 +50,9 @@ LABEL_4:
 
       v11 = *(*(&v29 + 1) + 8 * v10);
       identifier = [v11 identifier];
-      v13 = [identifier isEqualToString:identifierCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-      if (v13)
+      if (isEqualToString)
       {
         break;
       }
@@ -148,9 +148,9 @@ LABEL_21:
 {
   v4 = [UIKeyboardInputMode canonicalLanguageIdentifierFromIdentifier:language];
   primaryLanguage = [(UIKeyboardInputMode *)self primaryLanguage];
-  v6 = [primaryLanguage isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(primaryLanguage);
 
-  if ((v6 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(UIKeyboardInputMode *)self setHardwareLayout:0];
     v12.receiver = self;
@@ -185,7 +185,7 @@ LABEL_21:
   else
   {
     primaryLanguage = [(UIKeyboardInputMode *)self primaryLanguage];
-    v4 = [primaryLanguage isEqualToString:@"mul"] ^ 1;
+    v4 = objc_msgSend_isEqualToString_(primaryLanguage) ^ 1;
   }
 
   return v4;
@@ -232,9 +232,9 @@ LABEL_5:
         {
           primaryLanguage = [v12 primaryLanguage];
           primaryLanguage2 = [(UIKeyboardInputMode *)self primaryLanguage];
-          v15 = [primaryLanguage isEqualToString:primaryLanguage2];
+          isEqualToString = objc_msgSend_isEqualToString_(primaryLanguage);
 
-          if (v15)
+          if (isEqualToString)
           {
             break;
           }
@@ -299,7 +299,7 @@ LABEL_18:
           {
             identifier = [v27 identifier];
             v29 = TIInputModeGetBaseLanguage();
-            v30 = [v39 isEqualToString:v29];
+            v30 = objc_msgSend_isEqualToString_(v39);
 
             if (v30)
             {
@@ -339,7 +339,7 @@ LABEL_29:
         firstObject = [v32 firstObject];
 
         v34 = TIInputModeGetBaseLanguage();
-        v35 = [v39 isEqualToString:v34];
+        v35 = objc_msgSend_isEqualToString_(v39);
 
         if (v35)
         {

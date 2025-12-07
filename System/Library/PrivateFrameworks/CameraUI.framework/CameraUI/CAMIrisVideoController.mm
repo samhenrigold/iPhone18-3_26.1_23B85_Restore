@@ -166,10 +166,10 @@ uint64_t __68__CAMIrisVideoController_stillImageRequestDidCompleteCapture_error_
   v51 = 0;
   if (videoCaptureResult)
   {
-    [videoCaptureResult duration];
+    objc_msgSend_duration(videoCaptureResult);
     v48 = 0uLL;
     v49 = 0;
-    [videoCaptureResult stillDisplayTime];
+    objc_msgSend_stillDisplayTime(videoCaptureResult);
   }
 
   else

@@ -137,26 +137,26 @@
       objc_initWeak(location, self);
       objc_initWeak(&from, taskCopy);
       v15 = objc_alloc_init(MEMORY[0x1E699B7F8]);
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __71__MFCategorySubsystem_iOS__startCategoryMigrationWithBGTask_andReason___block_invoke;
-      v22[3] = &unk_1E7AA51D8;
-      v22[4] = self;
-      objc_copyWeak(&v23, location);
-      objc_copyWeak(&v24, &from);
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __71__MFCategorySubsystem_iOS__startCategoryMigrationWithBGTask_andReason___block_invoke_36;
-      v19[3] = &unk_1E7AA5200;
-      objc_copyWeak(&v20, &from);
-      v19[4] = self;
-      objc_copyWeak(&v21, location);
-      [v14 startMigrationWithProgressHandler:v22 cancelationToken:v15 completion:v19];
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __71__MFCategorySubsystem_iOS__startCategoryMigrationWithBGTask_andReason___block_invoke;
+      v21[3] = &unk_1E7AA51D8;
+      v21[4] = self;
+      objc_copyWeak(&v22, location);
+      objc_copyWeak(&v23, &from);
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __71__MFCategorySubsystem_iOS__startCategoryMigrationWithBGTask_andReason___block_invoke_36;
+      v18[3] = &unk_1E7AA5200;
+      objc_copyWeak(&v19, &from);
+      v18[4] = self;
+      objc_copyWeak(&v20, location);
+      [v14 startMigrationWithProgressHandler:v21 cancelationToken:v15 completion:v18];
       [(MFCategorySubsystem_iOS *)self _setMigrationTaskWithSystemTask:taskCopy migrator:v14 cancelable:v15];
-      objc_destroyWeak(&v21);
       objc_destroyWeak(&v20);
-      objc_destroyWeak(&v24);
+      objc_destroyWeak(&v19);
       objc_destroyWeak(&v23);
+      objc_destroyWeak(&v22);
 
       objc_destroyWeak(&from);
       objc_destroyWeak(location);
@@ -188,8 +188,6 @@
 
     [taskCopy setTaskCompleted];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerAuthStateMigrationTask
@@ -217,7 +215,7 @@
 
 - (void)_startNonInboxMessageAuthenticationnWithBGTask:(id)task
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   migrationTaskQueue = [(MFCategorySubsystem_iOS *)self migrationTaskQueue];
   dispatch_assert_queue_V2(migrationTaskQueue);
@@ -234,12 +232,12 @@
       v11 = [v7 initWithCategoryPersistence:categoryPersistence authenticator:messageAuthenticator messagePersistence:messagePersistence];
 
       queryForNonInboxMessagesToAuthenticate = [MEMORY[0x1E699B5A0] queryForNonInboxMessagesToAuthenticate];
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __74__MFCategorySubsystem_iOS__startNonInboxMessageAuthenticationnWithBGTask___block_invoke;
-      v16[3] = &unk_1E7AA5228;
-      v16[4] = self;
-      [v11 migrateMessageAuthenticationStateForQuery:queryForNonInboxMessagesToAuthenticate cancelationToken:v6 completion:v16];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __74__MFCategorySubsystem_iOS__startNonInboxMessageAuthenticationnWithBGTask___block_invoke;
+      v15[3] = &unk_1E7AA5228;
+      v15[4] = self;
+      [v11 migrateMessageAuthenticationStateForQuery:queryForNonInboxMessagesToAuthenticate cancelationToken:v6 completion:v15];
       [(MFCategorySubsystem_iOS *)self _setMigrationTaskWithSystemTask:taskCopy migrator:v11 cancelable:v6];
     }
 
@@ -249,7 +247,7 @@
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v18 = taskCopy;
+        v17 = taskCopy;
         _os_log_impl(&dword_1B0389000, v14, OS_LOG_TYPE_INFO, "Existing task has priority, expiring task: %{public}@", buf, 0xCu);
       }
 
@@ -263,14 +261,12 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = taskCopy;
+      v17 = taskCopy;
       _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "BlackPearl disabled - Task %{public}@ being marked as complete", buf, 0xCu);
     }
 
     [taskCopy setTaskCompleted];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerBusinessesGroupingTask
@@ -313,21 +309,21 @@
       v9 = [v7 initWithBusinessPersistence:businessPersistence];
 
       objc_initWeak(location, self);
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __66__MFCategorySubsystem_iOS_startBusinessConnectGroupingWithBGTask___block_invoke;
-      v16[3] = &unk_1E7AA5250;
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __66__MFCategorySubsystem_iOS_startBusinessConnectGroupingWithBGTask___block_invoke;
+      v15[3] = &unk_1E7AA5250;
       v10 = taskCopy;
-      v17 = v10;
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __66__MFCategorySubsystem_iOS_startBusinessConnectGroupingWithBGTask___block_invoke_51;
-      v14[3] = &unk_1E7AA5278;
-      v14[4] = self;
-      objc_copyWeak(&v15, location);
-      [v9 startBusinessConnectGroupingWithCancelationToken:v6 progressHandler:v16 completion:v14];
+      v16 = v10;
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __66__MFCategorySubsystem_iOS_startBusinessConnectGroupingWithBGTask___block_invoke_51;
+      v13[3] = &unk_1E7AA5278;
+      v13[4] = self;
+      objc_copyWeak(&v14, location);
+      [v9 startBusinessConnectGroupingWithCancelationToken:v6 progressHandler:v15 completion:v13];
       [(MFCategorySubsystem_iOS *)self _setMigrationTaskWithSystemTask:v10 migrator:v9 cancelable:v6];
-      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v14);
 
       objc_destroyWeak(location);
     }
@@ -358,13 +354,11 @@
 
     [taskCopy setTaskCompleted];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldStartNewTaskCancelingExistingTaskIfNeeded:(id)needed
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   migrationTaskQueue = [(MFCategorySubsystem_iOS *)self migrationTaskQueue];
   dispatch_assert_queue_V2(migrationTaskQueue);
@@ -399,15 +393,15 @@
     v13 = [MEMORY[0x1E699B528] log];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v17 = 134218754;
-      v18 = v9;
-      v19 = 2114;
-      v20 = neededCopy;
-      v21 = 2048;
-      v22 = v12;
-      v23 = 2114;
-      v24 = systemTask;
-      _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_INFO, "New task (priority %lu): %{public}@, Existing task (priority %lu): %{public}@", &v17, 0x2Au);
+      v16 = 134218754;
+      v17 = v9;
+      v18 = 2114;
+      v19 = neededCopy;
+      v20 = 2048;
+      v21 = v12;
+      v22 = 2114;
+      v23 = systemTask;
+      _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_INFO, "New task (priority %lu): %{public}@, Existing task (priority %lu): %{public}@", &v16, 0x2Au);
     }
 
     if (v9 <= v12)
@@ -424,22 +418,21 @@
     v10 = [MEMORY[0x1E699B528] log];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v17 = 138543362;
-      v18 = neededCopy;
-      _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_INFO, "No existing task, starting new task: %{public}@", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = neededCopy;
+      _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_INFO, "No existing task, starting new task: %{public}@", &v16, 0xCu);
     }
   }
 
   v14 = 1;
 LABEL_17:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (void)_setMigrationTaskWithSystemTask:(id)task migrator:(id)migrator cancelable:(id)cancelable
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   migratorCopy = migrator;
   cancelableCopy = cancelable;
@@ -451,26 +444,24 @@ LABEL_17:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v20 = v12;
+    v19 = v12;
     _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "Setting new migration task: %{public}@", buf, 0xCu);
   }
 
   [(MFCategorySubsystem_iOS *)self setMigrationTask:v12];
   objc_initWeak(buf, self);
   objc_initWeak(&location, v12);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __79__MFCategorySubsystem_iOS__setMigrationTaskWithSystemTask_migrator_cancelable___block_invoke;
-  v15[3] = &unk_1E7AA52C8;
-  objc_copyWeak(&v16, buf);
-  objc_copyWeak(&v17, &location);
-  [taskCopy setExpirationHandlerWithReason:v15];
-  objc_destroyWeak(&v17);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __79__MFCategorySubsystem_iOS__setMigrationTaskWithSystemTask_migrator_cancelable___block_invoke;
+  v14[3] = &unk_1E7AA52C8;
+  objc_copyWeak(&v15, buf);
+  objc_copyWeak(&v16, &location);
+  [taskCopy setExpirationHandlerWithReason:v14];
   objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
   objc_destroyWeak(buf);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

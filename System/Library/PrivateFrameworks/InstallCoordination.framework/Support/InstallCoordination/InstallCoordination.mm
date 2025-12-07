@@ -15,7 +15,6 @@ __CFString *IXStringForPlaceholderDisposition(unint64_t a1)
 
 uint64_t sub_100001FC8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100121C28 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
@@ -96,10 +95,11 @@ void sub_100002A70(uint64_t a1)
   }
 }
 
-void sub_100002F18(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002F18(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 void sub_1000030E4(uint64_t a1)
@@ -151,13 +151,13 @@ uint64_t start(uint64_t a1, uint64_t *a2)
   v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
   v5 = dispatch_queue_create("com.apple.InstallCoordination.StateDumpQueue", v4);
 
-  bzero(v86, 0x400uLL);
+  bzero(v87, 0x400uLL);
   if ((_set_user_dir_suffix() & 1) == 0)
   {
-    sub_1000975AC(v87, buf);
+    sub_1000975AC(v88, buf);
   }
 
-  if (!confstr(65537, v86, 0x400uLL))
+  if (!confstr(65537, v87, 0x400uLL))
   {
     v6 = *__error();
     v7 = sub_1000031B0(off_100121958);
@@ -175,7 +175,7 @@ uint64_t start(uint64_t a1, uint64_t *a2)
   }
 
   context = objc_autoreleasePoolPush();
-  v60 = os_transaction_create();
+  v61 = os_transaction_create();
   v9 = sub_1000031B0(off_100121958);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
@@ -186,8 +186,8 @@ uint64_t start(uint64_t a1, uint64_t *a2)
     *&buf[14] = v10;
     *&buf[22] = 2080;
     *&buf[24] = "Oct 10 2025";
-    LOWORD(v96[0]) = 2080;
-    *(v96 + 2) = "22:16:07";
+    LOWORD(v97[0]) = 2080;
+    *(v97 + 2) = "22:16:07";
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s: %s starting, built %s %s", buf, 0x2Au);
   }
 
@@ -196,96 +196,96 @@ uint64_t start(uint64_t a1, uint64_t *a2)
 
   v12 = +[IXSDataPromiseManager sharedInstance];
   +[IXSCoordinatorManager sharedInstance];
-  v73 = _NSConcreteStackBlock;
-  v74 = 3221225472;
-  v75 = sub_100003D8C;
-  v77 = v76 = &unk_100100E48;
+  v74 = _NSConcreteStackBlock;
+  v75 = 3221225472;
+  v76 = sub_100003D8C;
+  v78 = v77 = &unk_100100E48;
   os_state_add_handler();
-  v62 = v5;
+  v63 = v5;
   os_state_add_handler();
-  v70[0] = _NSConcreteStackBlock;
-  v70[1] = 3221225472;
-  v70[2] = sub_100004568;
-  v70[3] = &unk_100100ED8;
-  v59 = v12;
-  v71 = v59;
-  v13 = v77;
-  v72 = v13;
-  if (!sub_10003AD98(@"installcoordinationd.run", v70))
+  v71[0] = _NSConcreteStackBlock;
+  v71[1] = 3221225472;
+  v71[2] = sub_100004568;
+  v71[3] = &unk_100100ED8;
+  v60 = v12;
+  v72 = v60;
+  v13 = v78;
+  v73 = v13;
+  if (!sub_10003AD98(@"installcoordinationd.run", v71))
   {
     v14 = v13;
-    v16 = sub_1000405FC("_DumpCoordinatorsAndPurgeProcessScoped", 306, @"IXErrorDomain", 0x21uLL, 0, 0, @"Coordinator orphaned by installcoordinationd restart", v15, v58);
+    v16 = sub_1000405FC("_DumpCoordinatorsAndPurgeProcessScoped", 306, @"IXErrorDomain", 0x21uLL, 0, 0, @"Coordinator orphaned by installcoordinationd restart", v15, v59);
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_1000054C4;
     *&buf[24] = &unk_100101078;
-    v96[0] = v16;
+    v97[0] = v16;
     v17 = v16;
     [v14 enumerateCoordinators:buf];
   }
 
-  v67 = v13;
+  v68 = v13;
   v18 = [LSApplicationRecord enumeratorWithOptions:0];
-  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v19 = [v18 countByEnumeratingWithState:&v82 objects:buf count:16];
+  v86 = 0u;
+  v19 = [v18 countByEnumeratingWithState:&v83 objects:buf count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v83;
-    v64 = *v83;
-    v65 = v18;
+    v21 = *v84;
+    v65 = *v84;
+    v66 = v18;
     do
     {
       v22 = 0;
-      v66 = v20;
+      v67 = v20;
       do
       {
-        if (*v83 != v21)
+        if (*v84 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v82 + 1) + 8 * v22);
+        v23 = *(*(&v83 + 1) + 8 * v22);
         if ([v23 hasParallelPlaceholder])
         {
           v24 = [v23 bundleIdentifier];
           if (v24)
           {
-            v25 = [v67 coordinatorsForBundleIdentifier:v24];
+            v25 = [v68 coordinatorsForBundleIdentifier:v24];
             v26 = v25;
             if (!v25 || ![v25 count])
             {
-              v68 = v26;
-              v69 = v22;
+              v69 = v26;
+              v70 = v22;
               v27 = [v23 managedPersonas];
-              v78 = 0u;
               v79 = 0u;
               v80 = 0u;
               v81 = 0u;
-              v28 = [v27 countByEnumeratingWithState:&v78 objects:v87 count:16];
+              v82 = 0u;
+              v28 = [v27 countByEnumeratingWithState:&v79 objects:v88 count:16];
               if (v28)
               {
                 v29 = v28;
-                v30 = *v79;
+                v30 = *v80;
                 do
                 {
                   for (i = 0; i != v29; i = i + 1)
                   {
-                    if (*v79 != v30)
+                    if (*v80 != v30)
                     {
                       objc_enumerationMutation(v27);
                     }
 
-                    v32 = [[IXApplicationIdentity alloc] initWithBundleIdentifier:v24 personaUniqueString:*(*(&v78 + 1) + 8 * i)];
-                    v33 = [NSString stringWithFormat:@"Uninstalling orphaned parallel placeholder for %@", v32, v59, v60, context, v62];
+                    v32 = [[IXApplicationIdentity alloc] initWithBundleIdentifier:v24 personaUniqueString:*(*(&v79 + 1) + 8 * i)];
+                    v33 = [NSString stringWithFormat:@"Uninstalling orphaned parallel placeholder for %@", v32, v60, v61, context, v63];
                     v34 = +[IXSAppUninstaller sharedUninstaller];
                     [v34 uninstallParallelPlaceholderForIdentity:v32 reason:v33];
                   }
 
-                  v29 = [v27 countByEnumeratingWithState:&v78 objects:v87 count:16];
+                  v29 = [v27 countByEnumeratingWithState:&v79 objects:v88 count:16];
                 }
 
                 while (v29);
@@ -296,11 +296,11 @@ uint64_t start(uint64_t a1, uint64_t *a2)
               v37 = +[IXSAppUninstaller sharedUninstaller];
               [v37 uninstallParallelPlaceholderForIdentity:v35 reason:v36];
 
-              v21 = v64;
-              v18 = v65;
-              v20 = v66;
-              v26 = v68;
-              v22 = v69;
+              v21 = v65;
+              v18 = v66;
+              v20 = v67;
+              v26 = v69;
+              v22 = v70;
             }
           }
 
@@ -309,11 +309,11 @@ uint64_t start(uint64_t a1, uint64_t *a2)
             v26 = sub_1000031B0(off_100121958);
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
-              *v91 = 136315394;
-              v92 = "_RemoveOrphanedParallelPlaceholders";
-              v93 = 2112;
-              v94 = v23;
-              _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%s: Got LSApplicationRecord %@ without bundle ID", v91, 0x16u);
+              *v92 = 136315394;
+              v93 = "_RemoveOrphanedParallelPlaceholders";
+              v94 = 2112;
+              v95 = v23;
+              _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%s: Got LSApplicationRecord %@ without bundle ID", v92, 0x16u);
             }
           }
         }
@@ -323,11 +323,11 @@ uint64_t start(uint64_t a1, uint64_t *a2)
           v24 = sub_1000031B0(off_100121958);
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
-            *v91 = 136315394;
-            v92 = "_RemoveOrphanedParallelPlaceholders";
-            v93 = 2112;
-            v94 = v23;
-            _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "%s: Skipping because it doesn't have a parallel placeholder: %@", v91, 0x16u);
+            *v92 = 136315394;
+            v93 = "_RemoveOrphanedParallelPlaceholders";
+            v94 = 2112;
+            v95 = v23;
+            _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "%s: Skipping because it doesn't have a parallel placeholder: %@", v92, 0x16u);
           }
         }
 
@@ -335,16 +335,16 @@ uint64_t start(uint64_t a1, uint64_t *a2)
       }
 
       while (v22 != v20);
-      v20 = [v18 countByEnumeratingWithState:&v82 objects:buf count:16];
+      v20 = [v18 countByEnumeratingWithState:&v83 objects:buf count:16];
     }
 
     while (v20);
   }
 
-  v38 = v67;
-  *&v82 = 0;
+  v38 = v68;
+  *&v83 = 0;
   v39 = MobileInstallationGetAllStagedUpdateIdentifiers();
-  v40 = v82;
+  v40 = v83;
   if (v39)
   {
     if ([v39 count])
@@ -355,7 +355,7 @@ uint64_t start(uint64_t a1, uint64_t *a2)
       *&buf[16] = sub_10000562C;
       *&buf[24] = &unk_100101078;
       v42 = v41;
-      v96[0] = v42;
+      v97[0] = v42;
       [v38 enumerateCoordinators:buf];
       if ([v42 count])
       {
@@ -366,20 +366,20 @@ uint64_t start(uint64_t a1, uint64_t *a2)
         }
 
         v44 = [v42 copy];
-        *&v78 = v40;
+        *&v79 = v40;
         v45 = MobileInstallationCancelUpdateForStagedIdentifiersWithError();
-        v46 = v78;
+        v46 = v79;
 
         if ((v45 & 1) == 0)
         {
           v47 = sub_1000031B0(off_100121958);
           if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
-            *v87 = 136315394;
-            v88 = "_RemoveOrphanedStagedUpdates";
-            v89 = 2112;
-            v90 = v46;
-            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "%s: Failed to clean up abandoned staged updates %@", v87, 0x16u);
+            *v88 = 136315394;
+            v89 = "_RemoveOrphanedStagedUpdates";
+            v90 = 2112;
+            v91 = v46;
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "%s: Failed to clean up abandoned staged updates %@", v88, 0x16u);
           }
         }
       }
@@ -427,13 +427,13 @@ uint64_t start(uint64_t a1, uint64_t *a2)
   v52 = +[NSOperationQueue mainQueue];
   v53 = [v51 addObserverForName:NSCurrentLocaleDidChangeNotification object:0 queue:v52 usingBlock:&stru_100100FD8];
 
-  v54 = sub_10003FB30();
-  [v54 resume];
+  v55 = sub_10003FB30(v54);
+  [v55 resume];
 
   objc_autoreleasePoolPop(context);
-  v55 = +[IXSCacheDelete configureService];
-  v56 = +[NSRunLoop mainRunLoop];
-  [v56 run];
+  v56 = +[IXSCacheDelete configureService];
+  v57 = +[NSRunLoop mainRunLoop];
+  [v57 run];
 
   return 0;
 }
@@ -478,9 +478,9 @@ _DWORD *sub_100003D8C(uint64_t a1, uint64_t a2)
   return v7;
 }
 
-void sub_100003F38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100003F38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1110,10 +1110,11 @@ void sub_100005688(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
-void sub_1000056A8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000056A8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_100005E5C(uint64_t a1)
@@ -1208,16 +1209,15 @@ BOOL sub_100007900(void *a1, void *a2)
 
 uint64_t sub_100008620(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100121C40 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
 }
 
-uint64_t sub_100009648()
+uint64_t sub_100009648(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, const char *a8)
 {
 
-  return _os_log_send_and_compose_impl();
+  return _os_log_send_and_compose_impl(a1, v9, v8, 80, a5, v10, 16, a8);
 }
 
 double sub_10000966C(void *a1, _OWORD *a2)
@@ -1232,10 +1232,10 @@ double sub_10000966C(void *a1, _OWORD *a2)
   return result;
 }
 
-uint64_t sub_1000096AC()
+uint64_t sub_1000096AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, const char *a8)
 {
 
-  return _os_log_send_and_compose_impl();
+  return _os_log_send_and_compose_impl(v11, v9, v8, 80, a5, v10, 16, a8);
 }
 
 BOOL sub_1000096D4()
@@ -1244,16 +1244,15 @@ BOOL sub_1000096D4()
   return os_log_type_enabled(v0, OS_LOG_TYPE_ERROR);
 }
 
-uint64_t sub_1000096EC()
+uint64_t sub_1000096EC(uint64_t a1)
 {
-  v2 = *v0;
 
   return _os_crash_msg();
 }
 
-void sub_100009824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100009824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1277,11 +1276,12 @@ uint64_t sub_10000983C(uint64_t a1, void *a2)
   return 1;
 }
 
-void sub_100009CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_100009CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
   _Block_object_dispose(&a30, 8);
   _Block_object_dispose(&a35, 8);
-  _Block_object_dispose(&a39, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1304,9 +1304,9 @@ void sub_100009D18(uint64_t a1)
   os_unfair_lock_unlock(v3);
 }
 
-void sub_10000A0A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000A0A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1377,9 +1377,9 @@ LABEL_12:
   *(v11 + 40) = v10;
 }
 
-void sub_10000A428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000A428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1434,7 +1434,6 @@ uint64_t sub_10000A754(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_10000A90C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100121C50 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
@@ -1512,7 +1511,6 @@ LABEL_16:
 
 uint64_t sub_10000AC4C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100121C60 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
@@ -1525,9 +1523,9 @@ id sub_10000AF1C(uint64_t a1, uint64_t a2, _BYTE *a3)
   return result;
 }
 
-void sub_10000B404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000B404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1560,9 +1558,9 @@ void sub_10000B42C(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   *a4 = 0;
 }
 
-void sub_10000BA50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000BA50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1915,17 +1913,17 @@ id sub_10000D944(void *a1)
     v3 = 0;
   }
 
-  if (v3 && (objc_opt_class(), sub_10008EBE8(v3)))
+  if (v3 && (v4 = objc_opt_class(), sub_10008EBE8(v3, v4)))
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 __CFString *sub_10000DA00(uint64_t a1)
@@ -2041,7 +2039,6 @@ LABEL_10:
 
 uint64_t sub_10000DFCC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100121C88 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
@@ -2053,9 +2050,9 @@ void sub_10000E0C8(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = [v2 count];
 }
 
-void sub_10000F880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000F880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2101,9 +2098,9 @@ void sub_10000FAD0(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10000FC84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000FC84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2117,11 +2114,11 @@ void sub_10000FC9C(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100010044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100010044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2299,9 +2296,9 @@ id sub_1000107FC(uint64_t a1)
   return [v10 _onMapQueue_saveIdentityPriority];
 }
 
-void sub_100010B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100010B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2320,9 +2317,9 @@ id sub_100010BA8(uint64_t a1)
   return result;
 }
 
-void sub_100010DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100010DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2345,9 +2342,9 @@ void sub_100010DD4(uint64_t a1)
   }
 }
 
-void sub_1000110EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1000110EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2416,6 +2413,13 @@ void sub_1000115BC(uint64_t a1)
   v3 = *(*(a1 + 40) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
+}
+
+void sub_100011880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1000118B4(uint64_t a1)
@@ -2499,7 +2503,6 @@ const __CFString *IXStringForCoordinatorImportance(unint64_t a1)
 
 uint64_t sub_100012E4C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100121C98 = [objc_alloc(objc_opt_class()) initWithWidth:5];
 
   return _objc_release_x1();
@@ -2507,7 +2510,6 @@ uint64_t sub_100012E4C(uint64_t a1)
 
 uint64_t sub_100012F30(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100121CA8 = [objc_alloc(objc_opt_class()) initWithWidth:5];
 
   return _objc_release_x1();
@@ -2545,10 +2547,11 @@ id sub_100013784(uint64_t a1)
   return [*(a1 + 48) _onQueue_deQueueIfNeeded];
 }
 
-void sub_100013A14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100013A14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x20u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
 void sub_100013A40(void *a1, void *a2)
@@ -2666,72 +2669,72 @@ LABEL_15:
   return v12;
 }
 
-uint64_t sub_100013E64(void *a1, void *a2, void *a3)
+uint64_t sub_100013E64(void *a1, void *a2, void *a3, uint64_t a4)
 {
-  v5 = a1;
-  v6 = a2;
-  v7 = a3;
-  v35 = +[LSApplicationWorkspace defaultWorkspace];
-  v8 = [v6 objectForKeyedSubscript:kMIUninstallParallelPlaceholderKey];
-  if (v8)
+  v6 = a1;
+  v7 = a2;
+  v8 = a3;
+  v36 = +[LSApplicationWorkspace defaultWorkspace];
+  v9 = [v7 objectForKeyedSubscript:kMIUninstallParallelPlaceholderKey];
+  if (v9)
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v10 = [v6 objectForKeyedSubscript:@"UninstallPlaceholdersOnly"];
-    v9 = v10 == 0;
+    v11 = [v7 objectForKeyedSubscript:@"UninstallPlaceholdersOnly"];
+    v10 = v11 == 0;
   }
 
-  v11 = [v5 bundleID];
-  v34 = [NSNumber numberWithUnsignedInt:geteuid()];
-  if (v9)
+  v12 = [v6 bundleID];
+  v35 = [NSNumber numberWithUnsignedInt:geteuid()];
+  if (v10)
   {
-    v12 = objc_alloc_init(LSOperationRequestContext);
-    [v12 setTargetUserID:v34];
-    v37 = 0;
-    v13 = [v35 sendNotificationOfType:2 forApplicationWithBundleIdentifier:v11 requestContext:v12 error:&v37];
-    v14 = v37;
-    if ((v13 & 1) == 0)
+    v13 = objc_alloc_init(LSOperationRequestContext);
+    [v13 setTargetUserID:v35];
+    v38 = 0;
+    v14 = [v36 sendNotificationOfType:2 forApplicationWithBundleIdentifier:v12 requestContext:v13 error:&v38];
+    v15 = v38;
+    if ((v14 & 1) == 0)
     {
-      v15 = sub_1000031B0(off_100121958);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = sub_1000031B0(off_100121958);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_10009957C();
       }
     }
 
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
-    v16 = off_100121CB8;
-    v41 = off_100121CB8;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2020000000;
+    v17 = off_100121CB8;
+    v42 = off_100121CB8;
     if (!off_100121CB8)
     {
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_100014A30;
-      v44 = &unk_1001014E8;
-      v45 = &v38;
+      v45 = &unk_1001014E8;
+      v46 = &v39;
       sub_100014A30(buf);
-      v16 = v39[3];
+      v17 = v40[3];
     }
 
-    _Block_object_dispose(&v38, 8);
-    if (!v16)
+    _Block_object_dispose(&v39, 8);
+    if (!v17)
     {
       sub_1000996D8();
       __break(1u);
     }
 
-    v17 = v16();
-    v18 = [v17 writeUserConsentedRegulatoryDisclosureVersion:0 forBundleIdentifier:v11];
+    v18 = v17();
+    v19 = [v18 writeUserConsentedRegulatoryDisclosureVersion:0 forBundleIdentifier:v12];
 
-    if (v18)
+    if (v19)
     {
-      v19 = sub_1000031B0(off_100121958);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = sub_1000031B0(off_100121958);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_1000995F0();
       }
@@ -2740,83 +2743,83 @@ uint64_t sub_100013E64(void *a1, void *a2, void *a3)
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v20 = sub_1000031B0(off_100121958);
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = sub_1000031B0(off_100121958);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     *&buf[4] = "IXUninstallIdentityWithOptions";
     *&buf[12] = 2112;
-    *&buf[14] = v7;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%s: Uninstallation reason: %@", buf, 0x16u);
+    *&buf[14] = v8;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%s: Uninstallation reason: %@", buf, 0x16u);
   }
 
-  v21 = [NSMutableDictionary dictionaryWithDictionary:v6];
-  [v21 setObject:v7 forKeyedSubscript:@"UninstallReasonString"];
-  v22 = [v21 copy];
+  v22 = [NSMutableDictionary dictionaryWithDictionary:v7];
+  [v22 setObject:v8 forKeyedSubscript:@"UninstallReasonString"];
+  v23 = [v22 copy];
 
   if (!+[ICLFeatureFlags appReferencesEnabled])
   {
-    v42 = v11;
-    v30 = [NSArray arrayWithObjects:&v42 count:1];
-    v31 = MobileInstallationUninstallForInstallCoordinationWithError();
-    v32 = v31 == 0;
+    v43 = v12;
+    v31 = [NSArray arrayWithObjects:&v43 count:1];
+    v32 = MobileInstallationUninstallForInstallCoordinationWithError();
+    v33 = v32 == 0;
 
-    if (v32)
+    if (v33)
     {
       goto LABEL_22;
     }
 
 LABEL_29:
-    v25 = [[NSString alloc] initWithFormat:@"Uninstall of %@", v5];
-    sub_10001554C(v25);
-    v29 = 1;
+    v26 = [[NSString alloc] initWithFormat:@"Uninstall of %@", v6];
+    sub_10001554C(v26);
+    v30 = 1;
     goto LABEL_30;
   }
 
-  v23 = [v5 miAppIdentity];
-  v24 = MobileInstallationUninstallAppWithIdentity();
+  v24 = [v6 miAppIdentity];
+  v25 = MobileInstallationUninstallAppWithIdentity();
 
-  if (v24)
+  if (v25)
   {
     goto LABEL_29;
   }
 
 LABEL_22:
-  if (!v9)
+  if (!v10)
   {
-    v29 = 0;
+    v30 = 0;
     goto LABEL_32;
   }
 
-  v25 = objc_alloc_init(LSOperationRequestContext);
-  [v25 setTargetUserID:v34];
-  v36 = v14;
-  v26 = [v35 sendNotificationOfType:4 forApplicationWithBundleIdentifier:v11 requestContext:v25 error:&v36];
-  v27 = v36;
+  v26 = objc_alloc_init(LSOperationRequestContext);
+  [v26 setTargetUserID:v35];
+  v37 = v15;
+  v27 = [v36 sendNotificationOfType:4 forApplicationWithBundleIdentifier:v12 requestContext:v26 error:&v37];
+  v28 = v37;
 
-  if ((v26 & 1) == 0)
+  if ((v27 & 1) == 0)
   {
-    v28 = sub_1000031B0(off_100121958);
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v29 = sub_1000031B0(off_100121958);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       sub_100099664();
     }
   }
 
-  v29 = 0;
-  v14 = v27;
+  v30 = 0;
+  v15 = v28;
 LABEL_30:
 
 LABEL_32:
-  return v29;
+  return v30;
 }
 
-void sub_100014330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100014330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2985,7 +2988,7 @@ void *sub_100014A30(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -3002,7 +3005,6 @@ LABEL_5:
 
 uint64_t sub_100014B70(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100121CC0 = result;
   return result;
@@ -3306,16 +3308,16 @@ LABEL_15:
   return v20;
 }
 
-void sub_100015E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100015E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3397,7 +3399,6 @@ void sub_100016014(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
 
 uint64_t sub_100018820(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100121CC8 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
@@ -3410,25 +3411,24 @@ void sub_100018B60(uint64_t a1, unint64_t a2, void *a3)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = sub_10003E49C(a2);
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = *(a1 + 40);
-    v13 = 136315906;
-    v14 = "[IXSAppUninstaller _promptViewHealthKitDataWithIdentity:record:]_block_invoke";
-    v15 = 2112;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v10;
-    v19 = 2112;
-    v20 = v11;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from %@ for identity:%@", &v13, 0x2Au);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = *(a1 + 40);
+    v12 = 136315906;
+    v13 = "[IXSAppUninstaller _promptViewHealthKitDataWithIdentity:record:]_block_invoke";
+    v14 = 2112;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v10;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from %@ for identity:%@", &v12, 0x2Au);
   }
 
   if (a2 == 1)
   {
-    v12 = [*(a1 + 40) bundleID];
-    [IXSHealthKitDataUninstallAlert viewHealthKitDataForAppWithBundleID:v12];
+    v11 = [*(a1 + 40) bundleID];
+    [IXSHealthKitDataUninstallAlert viewHealthKitDataForAppWithBundleID:v11];
 LABEL_8:
 
     goto LABEL_9;
@@ -3436,14 +3436,14 @@ LABEL_8:
 
   if (!a2)
   {
-    v12 = sub_1000031B0(off_100121958);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_1000031B0(off_100121958);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315394;
-      v14 = "[IXSAppUninstaller _promptViewHealthKitDataWithIdentity:record:]_block_invoke";
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s: Prompting for HealthKit related data failed (non-fatal): %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[IXSAppUninstaller _promptViewHealthKitDataWithIdentity:record:]_block_invoke";
+      v14 = 2112;
+      v15 = v5;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s: Prompting for HealthKit related data failed (non-fatal): %@", &v12, 0x16u);
     }
 
     goto LABEL_8;
@@ -3467,17 +3467,16 @@ void sub_100019780(uint64_t a1)
   v3 = [*(a1 + 32) coordinatorForIdentity:*(a1 + 40)];
   if (v3)
   {
-    v49 = *(a1 + 56);
     v4 = sub_1000405FC("[IXSAppUninstaller _performUninstallOfAppWithIdentity:clientName:withFlags:record:completion:]_block_invoke", 343, @"IXErrorDomain", 0x18uLL, 0, 0, @"Client %@ requested uninstall for %@", v2, *(a1 + 48));
     [v3 cancelForReason:v4 client:15 error:0];
   }
 
   v5 = [NSString stringWithFormat:@"Uninstalling %@ for %@ (flags: 0x%lx)", *(a1 + 40), *(a1 + 48), *(a1 + 88)];
   v6 = (*(a1 + 88) >> 4) & 1;
-  v65 = @"WaitForStorageDeletion";
+  v64 = @"WaitForStorageDeletion";
   v7 = [NSNumber numberWithBool:v6];
-  v66 = v7;
-  v8 = [NSDictionary dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+  v65 = v7;
+  v8 = [NSDictionary dictionaryWithObjects:&v65 forKeys:&v64 count:1];
   v9 = [NSMutableDictionary dictionaryWithDictionary:v8];
 
   if ((*(a1 + 88) & 0x40) != 0)
@@ -3488,34 +3487,34 @@ void sub_100019780(uint64_t a1)
   if ([*(a1 + 64) isDeletableSystemApplication])
   {
     v10 = [*(a1 + 40) bundleID];
-    v54 = v9;
+    v53 = v9;
     if (qword_100121D00 != -1)
     {
       sub_100099CD8();
     }
 
     v11 = [v10 stringByAppendingString:@".appremoval"];
-    v53 = [v11 stringByAppendingString:@".xpc"];
+    v52 = [v11 stringByAppendingString:@".xpc"];
     v12 = [@"/System/Library/AppRemovalServices/" stringByAppendingPathComponent:?];
     v13 = [NSURL fileURLWithPath:v12 isDirectory:1];
-    v64 = 0;
-    v14 = +[IXFileManager defaultManager];
     v63 = 0;
-    v15 = [v14 itemExistsAtURL:v13 isDirectory:&v64 error:&v63];
-    v52 = v63;
+    v14 = +[IXFileManager defaultManager];
+    v62 = 0;
+    v15 = [v14 itemExistsAtURL:v13 isDirectory:&v63 error:&v62];
+    v51 = v62;
 
     if (v15)
     {
-      if ((v64 & 1) == 0)
+      if ((v63 & 1) == 0)
       {
         v18 = sub_1000031B0(off_100121958);
-        v27 = v52;
+        v27 = v51;
         if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
         {
           sub_100099D00();
         }
 
-        v9 = v54;
+        v9 = v53;
         goto LABEL_27;
       }
 
@@ -3537,7 +3536,7 @@ void sub_100019780(uint64_t a1)
         }
       }
 
-      v51 = v5;
+      v50 = v5;
       v18 = [[NSXPCConnection alloc] initWithServiceName:v11];
       v19 = _LSAppRemovalServiceXPCInterface();
       [v18 setRemoteObjectInterface:v19];
@@ -3547,19 +3546,19 @@ void sub_100019780(uint64_t a1)
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_10001CE48;
-      v68 = &unk_1001017E0;
-      v50 = v11;
-      *&v69 = v50;
+      v67 = &unk_1001017E0;
+      v49 = v11;
+      *&v68 = v49;
       v21 = v20;
-      *(&v69 + 1) = v21;
+      *(&v68 + 1) = v21;
       v22 = [v18 remoteObjectProxyWithErrorHandler:buf];
-      v61[0] = _NSConcreteStackBlock;
-      v61[1] = 3221225472;
-      v61[2] = sub_10001CEC0;
-      v61[3] = &unk_100101808;
+      v60[0] = _NSConcreteStackBlock;
+      v60[1] = 3221225472;
+      v60[2] = sub_10001CEC0;
+      v60[3] = &unk_100101808;
       v23 = v21;
-      v62 = v23;
-      [v22 removeAppWithReply:v61];
+      v61 = v23;
+      [v22 removeAppWithReply:v60];
 
       v24 = dispatch_time(0, 15000000000);
       if (dispatch_semaphore_wait(v23, v24))
@@ -3570,21 +3569,21 @@ void sub_100019780(uint64_t a1)
           sub_100099E74();
         }
 
-        sub_100014350(@"IXErrorDomain", @"UninstallError", @"UninstallErrorXPCRemovalTimeout", v50);
+        sub_100014350(@"IXErrorDomain", @"UninstallError", @"UninstallErrorXPCRemovalTimeout", v49);
       }
 
       v26 = [v18 _xpcConnection];
       xpc_connection_kill();
 
       [v18 invalidate];
-      v5 = v51;
-      v9 = v54;
+      v5 = v50;
+      v9 = v53;
     }
 
     else
     {
       v18 = sub_1000031B0(off_100121958);
-      v9 = v54;
+      v9 = v53;
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
@@ -3592,8 +3591,8 @@ void sub_100019780(uint64_t a1)
         *&buf[12] = 2112;
         *&buf[14] = v12;
         *&buf[22] = 2112;
-        v27 = v52;
-        v68 = v52;
+        v27 = v51;
+        v67 = v51;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%s: App deletion service does not exist at %@ : %@", buf, 0x20u);
 LABEL_27:
 
@@ -3601,39 +3600,39 @@ LABEL_27:
       }
     }
 
-    v27 = v52;
+    v27 = v51;
     goto LABEL_27;
   }
 
 LABEL_28:
   v28 = *(a1 + 72);
   v29 = *(a1 + 40);
-  v60 = 0;
-  v30 = [v28 _acquireTerminationAssertionForIdentity:v29 withError:&v60];
-  v31 = v60;
+  v59 = 0;
+  v30 = [v28 _acquireTerminationAssertionForIdentity:v29 withError:&v59];
+  v31 = v59;
   if (v30)
   {
     v32 = *(a1 + 40);
-    v59 = v31;
-    v33 = sub_100013E64(v32, v9, v5);
-    v34 = v31;
+    v58 = v31;
+    v33 = sub_100013E64(v32, v9, v5, &v58);
+    v34 = v58;
 
     [v30 invalidate];
     if (v33)
     {
       if ((*(a1 + 88) & 2) != 0)
       {
-        v55[0] = _NSConcreteStackBlock;
-        v55[1] = 3221225472;
-        v55[2] = sub_10001A08C;
-        v55[3] = &unk_1001015A0;
-        v55[4] = *(a1 + 72);
+        v54[0] = _NSConcreteStackBlock;
+        v54[1] = 3221225472;
+        v54[2] = sub_10001A08C;
+        v54[3] = &unk_1001015A0;
+        v54[4] = *(a1 + 72);
         v35 = *(a1 + 40);
         v36 = *(a1 + 88);
-        v56 = v35;
-        v58 = v36;
-        v57 = *(a1 + 64);
-        sub_100071134(&_dispatch_main_q, v55);
+        v55 = v35;
+        v57 = v36;
+        v56 = *(a1 + 64);
+        sub_100071134(&_dispatch_main_q, v54);
       }
 
       v37 = sub_1000031B0(off_100121958);
@@ -3646,7 +3645,7 @@ LABEL_28:
         *&buf[12] = 2112;
         *&buf[14] = v38;
         *&buf[22] = 2112;
-        v68 = v39;
+        v67 = v39;
         _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%s: Uninstall succeeded with disposition:%@ for bundleID:%@", buf, 0x20u);
       }
 
@@ -3666,7 +3665,7 @@ LABEL_28:
         v43 = sub_1000031B0(off_100121958);
         if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          sub_100099F14(a1);
+          sub_100099F14();
         }
 
         v34 = sub_1000405FC("[IXSAppUninstaller _performUninstallOfAppWithIdentity:clientName:withFlags:record:completion:]_block_invoke", 390, @"IXErrorDomain", 0xEuLL, 0, 0, @"[LSApplicationWorkspace uninstallApplication:] for %@ returned NO but did not set an error.", v44, *(a1 + 56));
@@ -3682,9 +3681,9 @@ LABEL_28:
         *&buf[12] = 2112;
         *&buf[14] = v46;
         *&buf[22] = 2112;
-        v68 = v47;
-        LOWORD(v69) = 2112;
-        *(&v69 + 2) = v34;
+        v67 = v47;
+        LOWORD(v68) = 2112;
+        *(&v68 + 2) = v34;
         _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "%s: Uninstall failed with disposition:%@ for bundleID:%@ with error:%@", buf, 0x2Au);
       }
 
@@ -3726,19 +3725,18 @@ void sub_10001A2CC(uint64_t a1, unint64_t a2, void *a3)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = sub_10003E49C(a2);
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = *(a1 + 40);
-      v12 = 136315906;
-      v13 = "[IXSAppUninstaller _promptForMoveOrDeleteAppRecord:identity:clientName:flags:completion:removability:]_block_invoke";
-      v14 = 2112;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from %@ for identity:%@", &v12, 0x2Au);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = *(a1 + 40);
+      v11 = 136315906;
+      v12 = "[IXSAppUninstaller _promptForMoveOrDeleteAppRecord:identity:clientName:flags:completion:removability:]_block_invoke";
+      v13 = 2112;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v10;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from %@ for identity:%@", &v11, 0x2Au);
     }
 
     (*(*(a1 + 72) + 16))();
@@ -3833,19 +3831,18 @@ void sub_10001AE98(void *a1, unint64_t a2, void *a3)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = sub_10003E49C(a2);
-      v9 = a1[4];
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = a1[5];
-      v13 = 136315906;
-      v14 = "[IXSAppUninstaller _finalDeletionPromptWithRecord:identity:clientName:flags:removability:completion:]_block_invoke";
-      v15 = 2112;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v12;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from %@ for %@", &v13, 0x2Au);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = a1[5];
+      v12 = 136315906;
+      v13 = "[IXSAppUninstaller _finalDeletionPromptWithRecord:identity:clientName:flags:removability:completion:]_block_invoke";
+      v14 = 2112;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from %@ for %@", &v12, 0x2Au);
     }
 
     (*(a1[6] + 16))();
@@ -3880,19 +3877,18 @@ void sub_10001AFE0(uint64_t a1, unint64_t a2, void *a3)
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = sub_10003E49C(a2);
-      v14 = *(a1 + 64);
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v17 = *(a1 + 48);
-      v18 = 136315906;
-      v19 = "[IXSAppUninstaller _finalDeletionPromptWithRecord:identity:clientName:flags:removability:completion:]_block_invoke";
-      v20 = 2112;
-      v21 = v13;
-      v22 = 2112;
-      v23 = v16;
-      v24 = 2112;
-      v25 = v17;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from %@ for %@", &v18, 0x2Au);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = *(a1 + 48);
+      v17 = 136315906;
+      v18 = "[IXSAppUninstaller _finalDeletionPromptWithRecord:identity:clientName:flags:removability:completion:]_block_invoke";
+      v19 = 2112;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v15;
+      v23 = 2112;
+      v24 = v16;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from %@ for %@", &v17, 0x2Au);
     }
 
     (*(*(a1 + 72) + 16))();
@@ -3913,19 +3909,18 @@ void sub_10001B55C(uint64_t a1, unint64_t a2, void *a3)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = sub_10003E49C(a2);
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = *(a1 + 48);
-      v12 = 136315906;
-      v13 = "[IXSAppUninstaller _promptForGatingDefaultAppDeletionWithRecord:identity:clientName:flags:removability:completion:]_block_invoke";
-      v14 = 2112;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from %@ for %@", &v12, 0x2Au);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = *(a1 + 48);
+      v11 = 136315906;
+      v12 = "[IXSAppUninstaller _promptForGatingDefaultAppDeletionWithRecord:identity:clientName:flags:removability:completion:]_block_invoke";
+      v13 = 2112;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v10;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from %@ for %@", &v11, 0x2Au);
     }
 
     (*(*(a1 + 56) + 16))();
@@ -3946,19 +3941,18 @@ void sub_10001B6B0(uint64_t a1, unint64_t a2, void *a3)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = sub_10003E49C(a2);
-      v8 = *(a1 + 64);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = *(a1 + 48);
-      v12 = 136315906;
-      v13 = "[IXSAppUninstaller _promptForGatingDefaultAppDeletionWithRecord:identity:clientName:flags:removability:completion:]_block_invoke";
-      v14 = 2112;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from %@ for %@", &v12, 0x2Au);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = *(a1 + 48);
+      v11 = 136315906;
+      v12 = "[IXSAppUninstaller _promptForGatingDefaultAppDeletionWithRecord:identity:clientName:flags:removability:completion:]_block_invoke";
+      v13 = 2112;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v10;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from %@ for %@", &v11, 0x2Au);
     }
 
     (*(*(a1 + 72) + 16))();
@@ -3971,9 +3965,9 @@ void sub_10001B810(void *a1, unint64_t a2, void *a3)
   if (a2 == 4)
   {
     v6 = a1[4];
-    v19 = 0;
-    v7 = [v6 openDefaultAppStoreWithError:&v19];
-    v8 = v19;
+    v18 = 0;
+    v7 = [v6 openDefaultAppStoreWithError:&v18];
+    v8 = v18;
     if ((v7 & 1) == 0)
     {
       v9 = sub_1000031B0(off_100121958);
@@ -3982,7 +3976,7 @@ void sub_10001B810(void *a1, unint64_t a2, void *a3)
         sub_10009A42C();
       }
 
-      v11 = sub_1000405FC("[IXSAppUninstaller _promptForGatingDefaultAppDeletionWithRecord:identity:clientName:flags:removability:completion:]_block_invoke", 690, @"IXErrorDomain", 1uLL, v8, 0, @"Failed to open default app marketplace", v10, v18);
+      v11 = sub_1000405FC("[IXSAppUninstaller _promptForGatingDefaultAppDeletionWithRecord:identity:clientName:flags:removability:completion:]_block_invoke", 690, @"IXErrorDomain", 1uLL, v8, 0, @"Failed to open default app marketplace", v10, v17);
 
       v5 = v11;
     }
@@ -3994,18 +3988,17 @@ void sub_10001B810(void *a1, unint64_t a2, void *a3)
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = sub_10003E49C(a2);
-      v14 = a1[4];
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v17 = a1[5];
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = a1[5];
       *buf = 136315906;
-      v21 = "[IXSAppUninstaller _promptForGatingDefaultAppDeletionWithRecord:identity:clientName:flags:removability:completion:]_block_invoke";
-      v22 = 2112;
-      v23 = v13;
-      v24 = 2112;
-      v25 = v16;
-      v26 = 2112;
-      v27 = v17;
+      v20 = "[IXSAppUninstaller _promptForGatingDefaultAppDeletionWithRecord:identity:clientName:flags:removability:completion:]_block_invoke";
+      v21 = 2112;
+      v22 = v13;
+      v23 = 2112;
+      v24 = v15;
+      v25 = 2112;
+      v26 = v16;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s: Received disposition %@ from %@ for %@", buf, 0x2Au);
     }
 
@@ -4044,31 +4037,30 @@ LABEL_10:
 void sub_10001BDD0(uint64_t a1)
 {
   error = 0;
-  v2 = sub_100032CFC();
-  v16[0] = kCFUserNotificationAlertHeaderKey;
+  v2 = sub_100032CFC(a1);
+  v15[0] = kCFUserNotificationAlertHeaderKey;
   v3 = [v2 localizedStringForKey:@"COULD_NOT_AUTHENTICATE" value:&stru_100105BA0 table:@"IXUninstallAlert"];
   v4 = [NSString localizedStringWithFormat:v3, *(a1 + 32)];
-  v17[0] = v4;
-  v16[1] = kCFUserNotificationAlertMessageKey;
+  v16[0] = v4;
+  v15[1] = kCFUserNotificationAlertMessageKey;
   v5 = [v2 localizedStringForKey:@"AUTHENTICATE_TO_DELETE_APP_MESSAGE" value:&stru_100105BA0 table:@"IXUninstallAlert"];
-  v17[1] = v5;
-  v17[2] = &__kCFBooleanTrue;
-  v16[2] = SBUserNotificationAllowMenuButtonDismissal;
-  v16[3] = SBUserNotificationDismissOnLock;
-  v17[3] = &__kCFBooleanTrue;
-  v6 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[1] = v5;
+  v16[2] = &__kCFBooleanTrue;
+  v15[2] = SBUserNotificationAllowMenuButtonDismissal;
+  v15[3] = SBUserNotificationDismissOnLock;
+  v16[3] = &__kCFBooleanTrue;
+  v6 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:4];
 
   CFUserNotificationCreate(kCFAllocatorDefault, 0.0, 3uLL, &error, v6);
   v7 = sub_1000031B0(off_100121958);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 40);
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     *buf = 136315394;
-    v13 = "[IXSAppUninstaller _displayAuthenticationErrorForApp:]_block_invoke";
-    v14 = 2112;
-    v15 = v10;
+    v12 = "[IXSAppUninstaller _displayAuthenticationErrorForApp:]_block_invoke";
+    v13 = 2112;
+    v14 = v9;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: Showing user alert of type:%@", buf, 0x16u);
   }
 }
@@ -4081,7 +4073,7 @@ void sub_10001C2A8(uint64_t a1, void *a2, void *a3)
     v6 = sub_1000031B0(off_100121958);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10009A65C(a1);
+      sub_10009A65C();
     }
 
     sub_1000405FC("[IXSAppUninstaller _promptToOverrideManagedSettingsOfAppWithRecord:identity:clientName:flags:completion:]_block_invoke", 789, @"IXErrorDomain", 1uLL, v5, 0, @"Request to override unremovability failed for app with bundle ID %@", v7, *(a1 + 32));
@@ -4095,7 +4087,7 @@ void sub_10001C2A8(uint64_t a1, void *a2, void *a3)
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10009A6DC(a1);
+      sub_10009A6DC();
     }
 
     v16 = *(a1 + 32);
@@ -4108,7 +4100,7 @@ void sub_10001C2A8(uint64_t a1, void *a2, void *a3)
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10009A75C(a1);
+      sub_10009A75C();
     }
 
     v16 = *(a1 + 32);
@@ -4138,7 +4130,7 @@ LABEL_18:
 
 uint64_t sub_10001CCF4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = a3;
+  v12 = a3;
   v5 = +[IXSRemoteDeletionPromptManager sharedInstance];
   v6 = [*(a1 + 32) bundleID];
   if (![v5 isValidBundleIDForRemoteAlert:v6 withAppType:0 numAppsInstalled:0] || *(a1 + 48) != 1)
@@ -4156,16 +4148,16 @@ uint64_t sub_10001CCF4(uint64_t a1, uint64_t a2, void *a3)
 LABEL_6:
   }
 
-  if (a2 == 3 && !v11)
+  if (a2 == 3 && !v12)
   {
-    v8 = sub_10003FB30();
-    [v8 identityWasUninstalled:*(a1 + 32)];
+    v9 = sub_10003FB30(v8);
+    [v9 identityWasUninstalled:*(a1 + 32)];
   }
 
-  v9 = *(a1 + 40);
-  if (v9)
+  v10 = *(a1 + 40);
+  if (v10)
   {
-    (*(v9 + 16))(v9, a2, v11);
+    (*(v10 + 16))(v10, a2, v12);
   }
 
   return _objc_release_x1();
@@ -4184,7 +4176,7 @@ void sub_10001CE48(uint64_t a1, void *a2)
   v4 = sub_1000031B0(off_100121958);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_10009A8DC(a1);
+    sub_10009A8DC();
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
@@ -4205,17 +4197,11 @@ void sub_10001CEC0(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_10001CF6C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001CF6C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0x16u);
-}
-
-uint64_t sub_10001CFA8@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
 uint64_t sub_10001F1AC(uint64_t result, uint64_t a2)
@@ -4528,44 +4514,40 @@ void sub_100020FE4(uint64_t a1)
       v12 = *(a1 + 40);
       v13 = *(a1 + 48);
       *buf = 136316162;
-      v16 = "[IXSPlaceholder setAppExtensionPlaceholders:]_block_invoke";
-      v17 = 2112;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v12;
-      v21 = 2112;
-      v22 = v13;
-      v23 = 2112;
-      v24 = 0;
+      v15 = "[IXSPlaceholder setAppExtensionPlaceholders:]_block_invoke";
+      v16 = 2112;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v12;
+      v20 = 2112;
+      v21 = v13;
+      v22 = 2112;
+      v23 = 0;
       _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%s: Attempted to set placeholder %@ which does not have the required bundle identifier prefix of %@ for parent %@ : %@", buf, 0x34u);
     }
 
-    v14 = *(a1 + 48);
     v10 = sub_1000405FC("[IXSPlaceholder setAppExtensionPlaceholders:]_block_invoke", 687, @"IXErrorDomain", 8uLL, 0, 0, @"Attempted to set placeholder %@ which does not have the required bundle identifier prefix of %@ for parent %@", v9, *(a1 + 32));
     [*(a1 + 32) cancelForReason:v10 client:15 error:0];
   }
 }
 
-void sub_100021720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100021720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_100021758(uint64_t a1)
 {
-  v2 = [*(a1 + 32) data];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) data];
 
   return _objc_release_x1();
 }
 
-void sub_100021A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100021A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4579,9 +4561,9 @@ void sub_100021A60(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100021CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100021CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4593,6 +4575,13 @@ void sub_100021D04(uint64_t a1)
   v3 = *(*(a1 + 40) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
+}
+
+void sub_1000222E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
+{
+  va_start(va, a52);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_100022314(uint64_t a1)
@@ -4709,6 +4698,13 @@ void sub_100022574(uint64_t a1)
   *(*(*(a1 + 48) + 8) + 24) = v3;
 }
 
+void sub_100022BDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
+{
+  va_start(va, a42);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 double sub_100022C1C(uint64_t a1)
 {
   [*(a1 + 32) percentComplete];
@@ -4766,9 +4762,9 @@ void sub_100023578(void *a1, uint64_t a2)
   }
 }
 
-void sub_100023774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100023774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4792,10 +4788,7 @@ void sub_10002529C(_Unwind_Exception *a1)
 
 uint64_t sub_10002530C(uint64_t a1)
 {
-  v2 = [*(a1 + 32) dictionary];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) dictionary];
 
   return _objc_release_x1();
 }
@@ -5664,36 +5657,30 @@ id sub_100027ECC(uint64_t a1)
   return result;
 }
 
-void sub_100028034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100028034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_10002804C(uint64_t a1)
 {
-  v2 = [*(a1 + 32) metadata];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) metadata];
 
   return _objc_release_x1();
 }
 
-void sub_1000283D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000283D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000283EC(uint64_t a1)
 {
-  v2 = [*(a1 + 32) sinfData];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) sinfData];
 
   return _objc_release_x1();
 }
@@ -5717,9 +5704,9 @@ void sub_10002850C(uint64_t a1)
   [*(a1 + 32) setAttributes:v4];
 }
 
-void sub_10002868C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002868C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5730,26 +5717,23 @@ void sub_1000286A4(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = [v2 launchProhibited];
 }
 
-void sub_10002891C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002891C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_100028934(uint64_t a1)
 {
-  v2 = [*(a1 + 32) attributes];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) attributes];
 
   return _objc_release_x1();
 }
 
-void sub_100028C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100028C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5760,9 +5744,9 @@ void sub_100028C94(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = v2 != 0;
 }
 
-void sub_100028E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100028E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5786,17 +5770,14 @@ void sub_100028E20(uint64_t a1)
 
 uint64_t sub_100028EE4(uint64_t a1)
 {
-  v2 = [*(a1 + 32) clientSeed];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) clientSeed];
 
   return _objc_release_x1();
 }
 
-void sub_10002936C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002936C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5807,11 +5788,11 @@ void sub_100029384(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = v2 != 0;
 }
 
-void sub_100029554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100029554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5851,10 +5832,7 @@ void sub_100029578(uint64_t a1)
 
 uint64_t sub_1000296DC(uint64_t a1)
 {
-  v2 = [*(a1 + 32) clientSeed];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) clientSeed];
 
   return _objc_release_x1();
 }
@@ -5868,26 +5846,23 @@ void sub_100029728(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100029AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100029AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_100029ACC(uint64_t a1)
 {
-  v2 = [*(a1 + 32) localizationDictionary];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) localizationDictionary];
 
   return _objc_release_x1();
 }
 
-void sub_100029E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100029E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5898,9 +5873,9 @@ void sub_100029E2C(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = v2 != 0;
 }
 
-void sub_100029FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100029FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5924,17 +5899,14 @@ void sub_100029FB8(uint64_t a1)
 
 uint64_t sub_10002A07C(uint64_t a1)
 {
-  v2 = [*(a1 + 32) clientSeed];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) clientSeed];
 
   return _objc_release_x1();
 }
 
-void sub_10002A3C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002A3C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5945,9 +5917,9 @@ void sub_10002A3DC(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = v2 != 0;
 }
 
-void sub_10002A550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002A550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5971,17 +5943,14 @@ void sub_10002A568(uint64_t a1)
 
 uint64_t sub_10002A62C(uint64_t a1)
 {
-  v2 = [*(a1 + 32) clientSeed];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) clientSeed];
 
   return _objc_release_x1();
 }
 
-void sub_10002B014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002B014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5992,9 +5961,9 @@ void sub_10002B02C(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = v2 != 0;
 }
 
-void sub_10002B1A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002B1A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6091,10 +6060,11 @@ uint64_t sub_10002B544(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void sub_10002B584(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10002B584(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 void sub_10002B5A0(void *a1@<X0>, const char *a2@<X3>, uint8_t *a3@<X4>, NSObject *a4@<X8>)
@@ -6137,7 +6107,6 @@ void sub_10002B930(uint64_t a1)
 
 uint64_t sub_10002BA9C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100121D08 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
@@ -6941,33 +6910,32 @@ void sub_10002E734(uint64_t a1)
 
 void sub_10002EA08(uint64_t a1)
 {
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = [*(a1 + 32) clientConnections];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v8 + 1) + 8 * v6);
         (*(*(a1 + 40) + 16))();
-        v6 = v6 + 1;
+        ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
@@ -7054,17 +7022,18 @@ void sub_10002FFD0(void *a1, void *a2)
   [v4 _client_coordinatorWithSeed:v5 didCancelWithReason:a1[5] client:a1[6]];
 }
 
-void sub_10003038C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10003038C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_100030B8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100030B8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7125,36 +7094,30 @@ void sub_100031C50(uint64_t a1)
   }
 }
 
-void sub_100031F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100031F68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_100031F80(uint64_t a1)
 {
-  v2 = [*(a1 + 32) stagedPath];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) stagedPath];
 
   return _objc_release_x1();
 }
 
-void sub_100032290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100032290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000322A8(uint64_t a1)
 {
-  v2 = [*(a1 + 32) targetLastPathComponent];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) targetLastPathComponent];
 
   return _objc_release_x1();
 }
@@ -7174,16 +7137,16 @@ id IXStringForClientID(unint64_t a1)
   return v2;
 }
 
-id sub_100032CFC()
+id sub_100032CFC(uint64_t a1)
 {
   if (qword_100121D20 != -1)
   {
     sub_10009D030();
   }
 
-  v1 = qword_100121D18;
+  v2 = qword_100121D18;
 
-  return v1;
+  return v2;
 }
 
 void sub_100032D40(id a1)
@@ -7246,7 +7209,7 @@ void IXPresentErrorHighlightingLocalizedAppName(void *a1, void *a2, void *a3, ui
 
 void sub_100032F58(uint64_t a1)
 {
-  v2 = sub_100032CFC();
+  v2 = sub_100032CFC(a1);
   v3 = +[NSMutableDictionary dictionary];
   [v3 setObject:&__kCFBooleanTrue forKeyedSubscript:@"DismissOnLock"];
   [v3 setObject:&__kCFBooleanTrue forKeyedSubscript:@"SBUserNotificationAllowMenuButtonDismissal"];
@@ -7396,7 +7359,7 @@ id sub_100033520(void *a1, unint64_t a2, uint64_t a3)
   }
 
   v9 = [v6 stringByAppendingString:v8];
-  v10 = sub_100032CFC();
+  v10 = sub_100032CFC(v9);
   v11 = [v10 localizedStringForKey:v9 value:&stru_100105BA0 table:@"IXUserPresentableErrors"];
 
   v12 = [NSString stringWithFormat:v11, v5];
@@ -7576,7 +7539,7 @@ id sub_100033D58(void *a1, void *a2, void *a3, unint64_t a4)
   }
 
   v11 = [v7 stringByAppendingString:v10];
-  v12 = sub_100032CFC();
+  v12 = sub_100032CFC(v11);
   v13 = [v12 localizedStringForKey:v11 value:&stru_100105BA0 table:@"IXUserPresentableErrors"];
 
   if (a4 > 1)
@@ -7794,9 +7757,9 @@ void sub_1000365E0(uint64_t a1)
   [v2 addObject:*(a1 + 40)];
 }
 
-void sub_1000368E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000368E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8092,23 +8055,23 @@ void sub_1000373CC(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   *a4 = 0;
 }
 
-id sub_1000374B8(void *a1)
+id sub_1000374B8(void *a1, uint64_t a2)
 {
-  v1 = a1;
+  v2 = a1;
   if (objc_opt_isKindOfClass())
   {
-    v2 = v1;
+    v3 = v2;
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
-NSObject *sub_100037514(NSObject **a1, BOOL *a2)
+NSDictionary *sub_100037514(NSObject **a1, BOOL *a2)
 {
   v4 = 3;
   v5 = sub_100037878(3);

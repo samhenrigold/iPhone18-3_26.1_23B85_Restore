@@ -14,8 +14,8 @@
 
 - (id)accessibilityCustomActions
 {
-  v14[1] = *MEMORY[0x29EDCA608];
-  v13 = 0;
+  v13[1] = *MEMORY[0x29EDCA608];
+  v12 = 0;
   objc_opt_class();
   v3 = [(MPLegacyRecentsTableViewCellAccessibility *)self safeUIViewForKey:@"callButton"];
   v4 = __UIAccessibilityCastAsClass();
@@ -24,16 +24,16 @@
   {
     v6 = objc_alloc(MEMORY[0x29EDC78E0]);
     v7 = accessibilityLocalizedString(@"call.text");
-    v11[0] = MEMORY[0x29EDCA5F8];
-    v11[1] = 3221225472;
-    v11[2] = __71__MPLegacyRecentsTableViewCellAccessibility_accessibilityCustomActions__block_invoke;
-    v11[3] = &unk_29F2BE450;
-    v11[4] = self;
-    v12 = v4;
-    v8 = [v6 initWithName:v7 actionHandler:v11];
+    v10[0] = MEMORY[0x29EDCA5F8];
+    v10[1] = 3221225472;
+    v10[2] = __71__MPLegacyRecentsTableViewCellAccessibility_accessibilityCustomActions__block_invoke;
+    v10[3] = &unk_29F2BE450;
+    v10[4] = self;
+    v11 = v4;
+    v8 = [v6 initWithName:v7 actionHandler:v10];
 
-    v14[0] = v8;
-    v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v14 count:1];
+    v13[0] = v8;
+    v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
   }
 
   else
@@ -41,15 +41,12 @@
     v5 = MEMORY[0x29EDB8E90];
   }
 
-  v9 = *MEMORY[0x29EDCA608];
-
   return v5;
 }
 
 uint64_t __71__MPLegacyRecentsTableViewCellAccessibility_accessibilityCustomActions__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
   AXPerformSafeBlock();
 
   return 1;

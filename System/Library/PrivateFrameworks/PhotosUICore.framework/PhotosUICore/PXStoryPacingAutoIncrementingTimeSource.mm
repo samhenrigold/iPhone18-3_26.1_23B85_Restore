@@ -63,7 +63,7 @@
     if (pacingClock2)
     {
       v8 = pacingClock2;
-      [pacingClock2 currentTime];
+      objc_msgSend_currentTime(pacingClock2);
       pacingClock2 = v8;
     }
 

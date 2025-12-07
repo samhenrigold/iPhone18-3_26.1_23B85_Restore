@@ -33,6 +33,7 @@
 - (void)freeze;
 - (void)removeOccurrence:(id)occurrence;
 - (void)saveOccurrence:(id)occurrence;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setFridayOccurrence:(id)occurrence;
 - (void)setLastModifiedDate:(id)date;
 - (void)setMondayOccurrence:(id)occurrence;
@@ -47,6 +48,27 @@
 @end
 
 @implementation HKSPMutableSleepSchedule
+
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  allProperties = [objc_opt_class() allProperties];
+  v6 = HKSPPropertiesByIdentifier(allProperties);
+  v14 = [v6 objectForKeyedSubscript:@"HKSPScheduleEnabled"];
+
+  v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v14];
+  bOOLValue = [v7 BOOLValue];
+
+  if (bOOLValue != enabledCopy || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPScheduleEnabled"])
+  {
+    changeSet = self->_changeSet;
+    v10 = [HKSPChange alloc];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v13 = [(HKSPChange *)v10 initWithProperty:v14 changedValue:v11 originalValue:v12];
+    [(HKSPChangeSet *)changeSet addChange:v13];
+  }
+}
 
 - (BOOL)isEnabled
 {
@@ -165,18 +187,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPScheduleLastModifiedDate"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:dateCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:dateCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 
@@ -210,18 +225,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPMondayOccurrence"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 
@@ -255,18 +263,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPTuesdayOccurrence"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 
@@ -300,18 +301,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPWednesdayOccurrence"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 
@@ -345,18 +339,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPThursdayOccurrence"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 
@@ -390,18 +377,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPFridayOccurrence"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 
@@ -435,18 +415,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPSaturdayOccurrence"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 
@@ -480,18 +453,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPSundayOccurrence"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 
@@ -525,18 +491,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPOverrideOccurrence"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:occurrenceCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 
@@ -674,7 +633,7 @@
 
 - (void)saveOccurrence:(id)occurrence
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   occurrenceCopy = occurrence;
   if ([occurrenceCopy isSingleDayOverride])
   {
@@ -690,38 +649,36 @@
       v6 = HKSPLogForCategory(5uLL);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 138543618;
-        *&v9[4] = objc_opt_class();
-        *&v9[12] = 2114;
-        *&v9[14] = overrideOccurrence;
-        v7 = *&v9[4];
-        _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing override occurrence %{public}@", v9, 0x16u);
+        *v8 = 138543618;
+        *&v8[4] = objc_opt_class();
+        *&v8[12] = 2114;
+        *&v8[14] = overrideOccurrence;
+        v7 = *&v8[4];
+        _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing override occurrence %{public}@", v8, 0x16u);
       }
 
       [(HKSPMutableSleepSchedule *)self removeOccurrence:overrideOccurrence];
     }
   }
 
-  [(HKSPMutableSleepSchedule *)self _freezeSavedOccurrence:occurrenceCopy, *v9, *&v9[16], v10];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(HKSPMutableSleepSchedule *)self _freezeSavedOccurrence:occurrenceCopy, *v8, *&v8[8], v9];
 }
 
 - (void)_updateOverrideOccurrenceForOccurrence:(id)occurrence
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   occurrenceCopy = occurrence;
   if ([(HKSPMutableSleepSchedule *)self _shouldRemoveOverrideOccurrence:occurrenceCopy])
   {
     v5 = HKSPLogForCategory(5uLL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543618;
-      v20 = objc_opt_class();
-      v21 = 2114;
-      v22 = occurrenceCopy;
-      v6 = v20;
-      _os_log_impl(&dword_269A84000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing override occurrence %{public}@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = objc_opt_class();
+      v20 = 2114;
+      v21 = occurrenceCopy;
+      v6 = v19;
+      _os_log_impl(&dword_269A84000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] removing override occurrence %{public}@", &v18, 0x16u);
     }
 
     [(HKSPMutableSleepSchedule *)self removeOccurrence:occurrenceCopy];
@@ -752,17 +709,15 @@
       v15 = objc_opt_class();
       v16 = v15;
       changeSet = [v8 changeSet];
-      v19 = 138543618;
-      v20 = v15;
-      v21 = 2114;
-      v22 = changeSet;
-      _os_log_impl(&dword_269A84000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] saved override occurrence changes %{public}@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v15;
+      v20 = 2114;
+      v21 = changeSet;
+      _os_log_impl(&dword_269A84000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] saved override occurrence changes %{public}@", &v18, 0x16u);
     }
 
     [(HKSPMutableSleepSchedule *)self setOverrideDayOccurrence:v8];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_freezeSavedOccurrence:(id)occurrence

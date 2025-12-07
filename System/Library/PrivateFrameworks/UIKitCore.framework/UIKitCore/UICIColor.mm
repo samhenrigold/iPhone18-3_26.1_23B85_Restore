@@ -148,15 +148,15 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = [(CIColor *)self->_ciColor isEqual:equalCopy];
+    isEqual = objc_msgSend_isEqual_(self->_ciColor);
   }
 
   else
   {
-    v5 = 0;
+    isEqual = 0;
   }
 
-  return v5;
+  return isEqual;
 }
 
 - (BOOL)getRed:(double *)red green:(double *)green blue:(double *)blue alpha:(double *)alpha

@@ -353,7 +353,7 @@
   legendCopy = legend;
   v13 = 0uLL;
   v14 = 0;
-  objc_msgSend_layoutSettings(self, a2, v3, v4, v5);
+  objc_msgSend_layoutSettings(self, v3, v4, v5, a2);
   if (legendCopy)
   {
     LOBYTE(v13) = legendCopy;
@@ -368,7 +368,7 @@
   placementCopy = placement;
   v13 = 0uLL;
   v14 = 0;
-  objc_msgSend_layoutSettings(self, a2, v3, v4, v5);
+  objc_msgSend_layoutSettings(self, v3, v4, v5, a2);
   if (placementCopy)
   {
     BYTE3(v13) = placementCopy;
@@ -383,7 +383,7 @@
   topCopy = top;
   v13 = 0uLL;
   v14 = 0;
-  objc_msgSend_layoutSettings(self, a2, v3, v4, v5);
+  objc_msgSend_layoutSettings(self, v3, v4, v5, a2);
   if (topCopy)
   {
     BYTE4(v13) = topCopy;
@@ -398,7 +398,7 @@
   bottomCopy = bottom;
   v13 = 0uLL;
   v14 = 0;
-  objc_msgSend_layoutSettings(self, a2, v3, v4, v5);
+  objc_msgSend_layoutSettings(self, v3, v4, v5, a2);
   if (bottomCopy)
   {
     BYTE5(v13) = bottomCopy;

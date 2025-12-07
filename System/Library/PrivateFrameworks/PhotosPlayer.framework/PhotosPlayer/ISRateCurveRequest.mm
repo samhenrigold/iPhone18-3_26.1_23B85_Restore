@@ -62,7 +62,7 @@
       v8 = v7;
       if (v7)
       {
-        [v7 currentTime];
+        objc_msgSend_currentTime(v7);
       }
 
       else
@@ -84,7 +84,7 @@
     v4 = WeakRetained;
     if (WeakRetained)
     {
-      [WeakRetained currentTime];
+      objc_msgSend_currentTime(WeakRetained);
     }
 
     else
@@ -151,7 +151,7 @@
     if (avPlayer)
     {
       memset(&v21, 0, sizeof(v21));
-      [avPlayer currentTime];
+      objc_msgSend_currentTime(avPlayer);
       lhs = self->_targetTime;
       memset(&v20, 0, sizeof(v20));
       rhs = v21;

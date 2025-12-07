@@ -32,18 +32,17 @@
       v5 = nCopy;
     }
 
-    v6 = v5;
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupMainController _pairSetupTryPIN:]", 30, "Try PIN %@\n", v5);
   }
 
-  [(SFDeviceSetupWHASession *)self->_setupSession pairSetupTryPIN:nCopy, v6];
+  [(SFDeviceSetupWHASession *)self->_setupSession pairSetupTryPIN:nCopy];
 }
 
 - (void)showProgressUI
 {
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupMainController showProgressUI]", 30, "Show progress UI\n");
   }
 
   vcProgress = self->_vcProgress;
@@ -67,7 +66,7 @@
   iCopy = i;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupMainController showRoomPickerUI:firstSuggestedIndex:]", 30, "Show RoomPicker UI\n");
   }
 
   vcRoomPicker = self->_vcRoomPicker;
@@ -91,7 +90,7 @@
   iCopy = i;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupMainController showHomePickerUI:defaultIndex:]", 30, "Show HomePicker UI\n");
   }
 
   vcHomePicker = self->_vcHomePicker;
@@ -116,12 +115,10 @@
   errorCopy = error;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    v11 = v4;
-    v12 = errorCopy;
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupMainController showDoneUI:error:]", 30, "Show done UI: %#m, %{error}\n", v4, errorCopy);
   }
 
-  [(SFDeviceSetupWHASession *)self->_setupSession invalidate:v11];
+  [(SFDeviceSetupWHASession *)self->_setupSession invalidate];
   setupSession = self->_setupSession;
   self->_setupSession = 0;
 
@@ -165,7 +162,7 @@
   {
     if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BF408, "[WHASetupMainController showAuthUIWithFlags:throttleSeconds:]", 30, "Show auth UI\n");
     }
 
     v6 = [(UIStoryboard *)self->_storyboard instantiateViewControllerWithIdentifier:@"AuthUI"];
@@ -185,7 +182,7 @@
   v4 = *&progress;
   infoCopy = info;
   v7 = infoCopy;
-  v14 = infoCopy;
+  v12 = infoCopy;
   if (dword_1001BF408 > 30)
   {
     goto LABEL_218;
@@ -194,7 +191,7 @@
   if (dword_1001BF408 == -1)
   {
     infoCopy = _LogCategory_Initialize();
-    v7 = v14;
+    v7 = v12;
     if (!infoCopy)
     {
       goto LABEL_218;
@@ -885,10 +882,8 @@ LABEL_215:
     v9 = v7;
   }
 
-  v12 = v8;
-  v13 = v9;
-  infoCopy = LogPrintF();
-  v7 = v14;
+  infoCopy = LogPrintF(&dword_1001BF408, "[WHASetupMainController _sessionHandleProgress:info:]", 30, "Progress: %s %@\n", v8, v9);
+  v7 = v12;
 LABEL_218:
   if (!self->_setupSession)
   {
@@ -902,10 +897,10 @@ LABEL_218:
       case 0x14:
         if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001BF408, "[WHASetupMainController _sessionHandleProgress:info:]", 30, "Setup completed\n");
         }
 
-        [(WHASetupMainController *)self showDoneUI:0, v12, v13];
+        [(WHASetupMainController *)self showDoneUI:0];
         _remoteViewControllerProxy = [(WHASetupMainController *)self _remoteViewControllerProxy];
         [_remoteViewControllerProxy setIdleTimerDisabled:0 forReason:@"com.apple.SharingViewService.WHASetup"];
 
@@ -915,7 +910,7 @@ LABEL_218:
         v10 = CFDictionaryGetTypedValue();
         if (dword_1001BF408 <= 60 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001BF408, "[WHASetupMainController _sessionHandleProgress:info:]", 60, "### Setup failed: %{error}\n", v10);
         }
 
         [(WHASetupMainController *)self showDoneUI:NSErrorToOSStatus() error:v10];
@@ -931,7 +926,7 @@ LABEL_218:
   {
     infoCopy = [(WHASetupProgressViewController *)self->_vcProgress handleProgressEvent:v4];
 LABEL_223:
-    v7 = v14;
+    v7 = v12;
   }
 
 LABEL_224:
@@ -989,13 +984,13 @@ LABEL_224:
 
     else if (dword_1001BF408 <= 90 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BF408, "[WHASetupMainController _sessionStart]", 90, "### Bad device identifier: '%@'\n", v3);
     }
   }
 
   else if (dword_1001BF408 <= 90 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupMainController _sessionStart]", 90, "### No device identifier\n");
   }
 }
 
@@ -1020,30 +1015,31 @@ LABEL_224:
     Int64Ranged = CFDictionaryGetInt64Ranged();
     mach_absolute_time();
     v8 = UpTicksToMilliseconds();
-    v14[0] = @"_cat";
-    v14[1] = @"_op";
-    v15[0] = @"WHASetup";
-    v15[1] = @"Done";
-    v15[2] = v6;
-    v14[2] = @"sid";
-    v14[3] = @"rssi";
+    v15[0] = @"_cat";
+    v15[1] = @"_op";
+    v16[0] = @"WHASetup";
+    v16[1] = @"Done";
+    v16[2] = v6;
+    v15[2] = @"sid";
+    v15[3] = @"rssi";
+    v14 = Int64Ranged;
     v9 = [NSNumber numberWithInt:Int64Ranged];
-    v15[3] = v9;
-    v14[4] = @"error";
+    v16[3] = v9;
+    v15[4] = @"error";
     v10 = [NSNumber numberWithInt:v3];
-    v15[4] = v10;
-    v14[5] = @"ms";
+    v16[4] = v10;
+    v15[5] = @"ms";
     v11 = [NSNumber numberWithUnsignedLongLong:v8];
-    v15[5] = v11;
-    v14[6] = @"badPIN";
+    v16[5] = v11;
+    v15[6] = @"badPIN";
     v12 = [NSNumber numberWithUnsignedInt:self->_badPINCount];
-    v15[6] = v12;
-    v13 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:7];
+    v16[6] = v12;
+    v13 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:7];
     SFDashboardLogJSON();
 
     if (dword_1001BF408 <= 50 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BF408, "[WHASetupMainController logUsageDone:]", 50, "WHASetup: Done, ID %@, RSSI %ld, error %d, totalMs %llu, badPIN %u", v6, v14, v3, v8, self->_badPINCount);
     }
   }
 }
@@ -1055,41 +1051,41 @@ LABEL_224:
     v3 = *&start;
     self->_loggedUsageStart = 1;
     CFStringGetTypeID();
-    v4 = CFDictionaryGetTypedValue();
-    if (v4)
+    v5 = CFDictionaryGetTypedValue();
+    if (v5)
     {
-      v5 = v4;
+      v6 = v5;
     }
 
     else
     {
-      v5 = &stru_100195CA8;
+      v6 = &stru_100195CA8;
     }
 
     Int64Ranged = CFDictionaryGetInt64Ranged();
     mach_absolute_time();
-    v7 = UpTicksToMilliseconds();
-    v12[0] = @"_cat";
-    v12[1] = @"_op";
-    v13[0] = @"WHASetup";
-    v13[1] = @"Start";
-    v13[2] = v5;
-    v12[2] = @"sid";
-    v12[3] = @"rssi";
-    v8 = [NSNumber numberWithInt:Int64Ranged];
-    v13[3] = v8;
-    v12[4] = @"action";
-    v9 = [NSNumber numberWithInt:v3];
-    v13[4] = v9;
-    v12[5] = @"ms";
-    v10 = [NSNumber numberWithUnsignedLongLong:v7];
-    v13[5] = v10;
-    v11 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:6];
+    v8 = UpTicksToMilliseconds();
+    v13[0] = @"_cat";
+    v13[1] = @"_op";
+    v14[0] = @"WHASetup";
+    v14[1] = @"Start";
+    v14[2] = v6;
+    v13[2] = @"sid";
+    v13[3] = @"rssi";
+    v9 = [NSNumber numberWithInt:Int64Ranged];
+    v14[3] = v9;
+    v13[4] = @"action";
+    v10 = [NSNumber numberWithInt:v3];
+    v14[4] = v10;
+    v13[5] = @"ms";
+    v11 = [NSNumber numberWithUnsignedLongLong:v8];
+    v14[5] = v11;
+    v12 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:6];
     SFDashboardLogJSON();
 
     if (dword_1001BF408 <= 50 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BF408, "[WHASetupMainController logUsageStart:]", 50, "WHASetup: Start, ID %@, RSSI %ld, action %d, userMs %llu, badPIN %u", v6, Int64Ranged, v3, v8, self->_badPINCount);
     }
   }
 }
@@ -1098,7 +1094,7 @@ LABEL_224:
 {
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupMainController _handleHomeButtonPressed]", 30, "Home button\n");
   }
 
   if (self->_homePressed || MKBGetDeviceLockState() - 1 > 1)
@@ -1111,7 +1107,7 @@ LABEL_224:
   {
     if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BF408, "[WHASetupMainController _handleHomeButtonPressed]", 30, "Ignoring first home button press to unlock\n");
     }
 
     self->_homePressed = 1;
@@ -1143,7 +1139,7 @@ LABEL_224:
         {
           if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001BF408, "[WHASetupMainController handleButtonActions:]", 30, "Home button\n");
           }
 
           [(WHASetupMainController *)self _handleHomeButtonPressed];
@@ -1191,7 +1187,7 @@ LABEL_224:
   disappearCopy = disappear;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupMainController viewDidDisappear:]", 30, "Main ViewDidDisappear\n");
   }
 
   _remoteViewControllerProxy = [(WHASetupMainController *)self _remoteViewControllerProxy];
@@ -1201,7 +1197,7 @@ LABEL_224:
   {
     if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BF408, "[WHASetupMainController viewDidDisappear:]", 30, "Main disappeared without dismiss (device locked?)...dismissing UI\n");
     }
 
     [(WHASetupMainController *)self dismiss:21];
@@ -1258,7 +1254,7 @@ LABEL_224:
   appearCopy = appear;
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupMainController viewDidAppear:]", 30, "Main ViewDidAppear\n");
   }
 
   v19 = 0;
@@ -1347,7 +1343,7 @@ LABEL_224:
 
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupMainController configureWithContext:completion:]", 30, "Main configuration: %@\n", self->super._userInfo);
   }
 
   CFStringGetTypeID();
@@ -1427,7 +1423,7 @@ LABEL_26:
 LABEL_27:
   if (v10)
   {
-    completionCopy[2](completionCopy);
+    completionCopy[2]();
   }
 }
 

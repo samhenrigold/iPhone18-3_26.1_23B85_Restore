@@ -90,24 +90,24 @@ LABEL_8:
 - (id)description:(BOOL)description
 {
   descriptionCopy = description;
-  string = [MEMORY[0x277CCAB68] string];
+  v5 = objc_msgSend_string(MEMORY[0x277CCAB68], a2);
   if ([(TISKPositionalMetricSample *)self size])
   {
     v6 = 0;
     do
     {
       v7 = [(NSMutableArray *)self->_positionalMetricSample objectAtIndexedSubscript:v6];
-      [string appendFormat:@"%lu:%lu ", v6, objc_msgSend(v7, "size")];
+      [v5 appendFormat:@"%lu:%lu ", v6, objc_msgSend(v7, "size")];
       if (descriptionCopy)
       {
-        [string appendString:@"<"];
+        [v5 appendString:@"<"];
         v8 = [v7 description];
-        [string appendString:v8];
+        [v5 appendString:v8];
 
-        [string appendString:@">"];
+        [v5 appendString:@">"];
       }
 
-      [string appendString:{@", "}];
+      [v5 appendString:{@", "}];
 
       ++v6;
     }
@@ -115,24 +115,24 @@ LABEL_8:
     while (v6 < [(TISKPositionalMetricSample *)self size]);
   }
 
-  return string;
+  return v5;
 }
 
 - (void)merge:(id)merge
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   mergeCopy = merge;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     v5 = IXADefaultLogFacility();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v11 = MEMORY[0x277CCACA8];
+      v10 = MEMORY[0x277CCACA8];
       positionalMetricSample = self->_positionalMetricSample;
       positionalMetricSample = [mergeCopy positionalMetricSample];
-      v14 = [v11 stringWithFormat:@"%s [SensorKit] positional metric merge: other doesn't respond to positionalMetricSample selector %@ : %@", "-[TISKPositionalMetricSample merge:]", positionalMetricSample, positionalMetricSample];
+      v13 = [v10 stringWithFormat:@"%s [SensorKit] positional metric merge: other doesn't respond to positionalMetricSample selector %@ : %@", "-[TISKPositionalMetricSample merge:]", positionalMetricSample, positionalMetricSample];
       *buf = 138412290;
-      v16 = v14;
+      v15 = v13;
       _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
   }
@@ -152,8 +152,6 @@ LABEL_8:
 
     while ([(TISKPositionalMetricSample *)self size]> v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEmpty

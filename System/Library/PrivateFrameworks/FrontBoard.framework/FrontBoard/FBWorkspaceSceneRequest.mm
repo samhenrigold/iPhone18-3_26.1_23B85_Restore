@@ -49,14 +49,14 @@
   v15 = identityCopy;
   if (!v15)
   {
-    [FBWorkspaceSceneRequest initWithClientIdentity:a2 targetIdentifier:? options:? completion:?];
+    [FBWorkspaceSceneRequest initWithClientIdentity:a2 targetIdentifier:self options:? completion:?];
   }
 
   v16 = v15;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [FBWorkspaceSceneRequest initWithClientIdentity:v16 targetIdentifier:a2 options:? completion:?];
+    [FBWorkspaceSceneRequest initWithClientIdentity:v16 targetIdentifier:a2 options:self completion:?];
   }
 
   v17 = identifierCopy;
@@ -65,7 +65,7 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [FBWorkspaceSceneRequest initWithClientIdentity:v17 targetIdentifier:a2 options:? completion:?];
+      [FBWorkspaceSceneRequest initWithClientIdentity:v17 targetIdentifier:a2 options:self completion:?];
     }
   }
 
@@ -75,7 +75,7 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [FBWorkspaceSceneRequest initWithClientIdentity:v18 targetIdentifier:a2 options:? completion:?];
+      [FBWorkspaceSceneRequest initWithClientIdentity:v18 targetIdentifier:a2 options:self completion:?];
     }
   }
 
@@ -270,7 +270,7 @@
 
 - (void)initWithTargetIdentifier:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -278,7 +278,7 @@
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -286,108 +286,108 @@
   __break(0);
 }
 
-- (void)initWithClientIdentity:(void *)a1 targetIdentifier:(const char *)a2 options:completion:.cold.1(void *a1, const char *a2)
+- (void)initWithClientIdentity:(uint64_t)a3 targetIdentifier:options:completion:.cold.1(void *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = [a1 classForCoder];
-  if (!v4)
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = [a1 classForCoder];
+  if (!v5)
   {
-    v4 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v5 = NSStringFromClass(v4);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"clientIdentity", v5, v7];
+  v6 = NSStringFromClass(v5);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"clientIdentity", v6, v8];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v10 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     OUTLINED_FUNCTION_1_0();
-    v15 = @"FBWorkspaceSceneRequest.m";
-    v16 = 1024;
-    v17 = 45;
-    v18 = v12;
-    v19 = v8;
-    OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v13, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v14);
+    v16 = @"FBWorkspaceSceneRequest.m";
+    v17 = 1024;
+    v18 = 45;
+    v19 = v13;
+    v20 = v9;
+    OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v14, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v15);
   }
 
-  [v8 UTF8String];
+  [v9 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithClientIdentity:(void *)a1 targetIdentifier:(const char *)a2 options:completion:.cold.2(void *a1, const char *a2)
+- (void)initWithClientIdentity:(uint64_t)a3 targetIdentifier:options:completion:.cold.2(void *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = [a1 classForCoder];
-  if (!v4)
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = [a1 classForCoder];
+  if (!v5)
   {
-    v4 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v5 = NSStringFromClass(v4);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"targetIdentifier", v5, v7];
+  v6 = NSStringFromClass(v5);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"targetIdentifier", v6, v8];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v10 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     OUTLINED_FUNCTION_1_0();
-    v15 = @"FBWorkspaceSceneRequest.m";
-    v16 = 1024;
-    v17 = 46;
-    v18 = v12;
-    v19 = v8;
-    OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v13, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v14);
+    v16 = @"FBWorkspaceSceneRequest.m";
+    v17 = 1024;
+    v18 = 46;
+    v19 = v13;
+    v20 = v9;
+    OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v14, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v15);
   }
 
-  [v8 UTF8String];
+  [v9 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithClientIdentity:(void *)a1 targetIdentifier:(const char *)a2 options:completion:.cold.3(void *a1, const char *a2)
+- (void)initWithClientIdentity:(uint64_t)a3 targetIdentifier:options:completion:.cold.3(void *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = [a1 classForCoder];
-  if (!v4)
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = [a1 classForCoder];
+  if (!v5)
   {
-    v4 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v5 = NSStringFromClass(v4);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"options", v5, v7];
+  v6 = NSStringFromClass(v5);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"options", v6, v8];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v10 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     OUTLINED_FUNCTION_1_0();
-    v15 = @"FBWorkspaceSceneRequest.m";
-    v16 = 1024;
-    v17 = 47;
-    v18 = v12;
-    v19 = v8;
-    OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v13, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v14);
+    v16 = @"FBWorkspaceSceneRequest.m";
+    v17 = 1024;
+    v18 = 47;
+    v19 = v13;
+    v20 = v9;
+    OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v14, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v15);
   }
 
-  [v8 UTF8String];
+  [v9 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)initWithClientIdentity:(char *)a1 targetIdentifier:options:completion:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"completion"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -395,7 +395,7 @@
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"completion", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -403,29 +403,29 @@
   __break(0);
 }
 
-- (void)initWithClientIdentity:(const char *)a1 targetIdentifier:options:completion:.cold.5(const char *a1)
+- (void)initWithClientIdentity:(const char *)a1 targetIdentifier:(uint64_t)a2 options:completion:.cold.5(const char *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E696AEC0];
-  v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"clientIdentity", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a1);
-    v6 = objc_opt_class();
-    v13 = NSStringFromClass(v6);
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"clientIdentity", v12, 2u);
+    v7 = NSStringFromSelector(a1);
+    v8 = objc_opt_class();
+    v16 = NSStringFromClass(v8);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v4 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)respondWithScene:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSceneClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -433,7 +433,7 @@
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSceneClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -443,7 +443,7 @@
 
 - (void)respondWithScene:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -451,7 +451,7 @@
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -461,7 +461,7 @@
 
 - (void)invalidateWithError:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSErrorClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -469,7 +469,7 @@
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSErrorClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -479,7 +479,7 @@
 
 - (void)invalidateWithError:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -487,7 +487,7 @@
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -497,35 +497,31 @@
 
 - (void)_respondWithScene:(NSObject *)a3 error:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = [a2 descriptionWithMultilinePrefix:0];
-  v7 = 138543618;
-  v8 = v4;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_1A89DD000, a3, OS_LOG_TYPE_ERROR, "Request for workspace %{public}@ failed: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = v4;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_1A89DD000, a3, OS_LOG_TYPE_ERROR, "Request for workspace %{public}@ failed: %{public}@", &v6, 0x16u);
 }
 
 - (void)_respondWithScene:(uint64_t)a3 error:.cold.2(const char *a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = NSStringFromSelector(a1);
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v10 = 138544642;
-  v11 = v4;
+  v9 = 138544642;
+  v10 = v4;
   OUTLINED_FUNCTION_0_0();
-  v12 = @"FBWorkspaceSceneRequest.m";
-  v13 = 1024;
-  v14 = 121;
-  v15 = v7;
-  v16 = a3;
-  OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11 = @"FBWorkspaceSceneRequest.m";
+  v12 = 1024;
+  v13 = 121;
+  v14 = v7;
+  v15 = a3;
+  OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9);
 }
 
 @end

@@ -324,10 +324,10 @@
 
         if (v132)
         {
-          [(__CFString *)v140 incomingTransition];
+          objc_msgSend_incomingTransition(v140);
           v160 = *buf;
           v161 = v159;
-          [(__CFString *)v140 motion];
+          objc_msgSend_motion(v140);
           v85 = *buf;
           v84 = *&buf[8];
           v86 = v159;
@@ -363,10 +363,10 @@
             v91 = v141;
             if (v141)
             {
-              [(__CFString *)v141 innerTransition];
+              objc_msgSend_innerTransition(v141);
               v160 = *buf;
               v161 = v159;
-              [(__CFString *)v141 motion];
+              objc_msgSend_motion(v141);
               v85 = *buf;
               v84 = *&buf[8];
               v86 = v159;
@@ -398,10 +398,10 @@
           {
             if (v132)
             {
-              [v132 incomingTransition];
+              objc_msgSend_incomingTransition(v132);
               v160 = *buf;
               v161 = v159;
-              [v132 motion];
+              objc_msgSend_motion(v132);
               v85 = *buf;
               v84 = *&buf[8];
               v86 = v159;
@@ -431,13 +431,13 @@
 
           if (v132)
           {
-            [v132 motion];
+            objc_msgSend_motion(v132);
             v85 = *buf;
             v84 = *&buf[8];
             v86 = v159;
             if (![v128 containsIndex:v149])
             {
-              [v132 innerTransition];
+              objc_msgSend_innerTransition(v132);
               goto LABEL_124;
             }
 
@@ -445,7 +445,7 @@ LABEL_122:
             *buf = v85;
             *&buf[8] = v84;
             *&v159 = v86;
-            [(PXStoryMomentRecipeProvider *)self _nextEmptySpaceBreakTransitionForMotion:buf];
+            objc_msgSend__nextEmptySpaceBreakTransitionForMotion_(self);
             v122 = v45;
             v123 = @"Transition to break up empty space, motion from base\n";
           }
@@ -510,10 +510,10 @@ LABEL_71:
 
         if (v140)
         {
-          [(__CFString *)v140 incomingTransition];
+          objc_msgSend_incomingTransition(v140);
           v160 = *buf;
           v161 = v159;
-          [(__CFString *)v140 motion];
+          objc_msgSend_motion(v140);
           v85 = *buf;
           v84 = *&buf[8];
           v86 = v159;
@@ -600,10 +600,10 @@ LABEL_110:
               goto LABEL_110;
             }
 
-            [v151 motionInfo];
+            objc_msgSend_motionInfo(v151);
             if (v155 == 1)
             {
-              [v151 motionInfo];
+              objc_msgSend_motionInfo(v151);
               v106 = v154;
               if (!v154)
               {
@@ -1028,16 +1028,16 @@ LABEL_19:
   return v23;
 }
 
-void *__66__PXStoryMomentRecipeProvider__recipeFromRecipeType_previousClip___block_invoke(uint64_t a1)
+void *__66__PXStoryMomentRecipeProvider__recipeFromRecipeType_previousClip___block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (!v2)
+  v3 = *(a1 + 32);
+  if (!v3)
   {
     return [*(*(a1 + 40) + 32) nextScaleDirection];
   }
 
-  [v2 motionInfo];
-  if (v5 != 2)
+  objc_msgSend_motionInfo(v3, a2);
+  if (v6 != 2)
   {
     return [*(*(a1 + 40) + 32) nextScaleDirection];
   }
@@ -1045,8 +1045,8 @@ void *__66__PXStoryMomentRecipeProvider__recipeFromRecipeType_previousClip___blo
   result = *(a1 + 32);
   if (result)
   {
-    [result motionInfo];
-    return v4;
+    objc_msgSend_motionInfo(result);
+    return v5;
   }
 
   return result;

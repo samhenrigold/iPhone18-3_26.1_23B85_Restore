@@ -13,7 +13,7 @@
 
 + (BOOL)areHumanHeaders:(id)headers
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   headersCopy = headers;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -27,25 +27,25 @@
   }
 
   v6 = areHumanHeaders___pasExprOnceResult;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = headersCopy;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v8)
   {
-    v9 = *v19;
+    v9 = *v18;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         v13 = [v11 key];
         lowercaseString = [v13 lowercaseString];
@@ -59,7 +59,7 @@
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
       if (v8)
       {
         continue;
@@ -71,7 +71,6 @@
 
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -315,7 +314,7 @@ LABEL_33:
   if (personCopy)
   {
     handles = [personCopy handles];
-    v7 = [handles count];
+    v7 = objc_msgSend_count(handles);
 
     if (v7)
     {
@@ -590,33 +589,13 @@ LABEL_48:
   }
 
   v34 = emailAddressDomain(v10);
-  if ([_isInhumanEmailAddressPatternMatch__inhumanEmailDomains containsObject:v34])
+  if ([_isInhumanEmailAddressPatternMatch__inhumanEmailDomains containsObject:v34] & 1) != 0 || (v35 = -[__CFString rangeOfString:options:](v10, "rangeOfString:options:", @"@", 2), v36) && (v37 = v35, v38 = objc_autoreleasePoolPush(), -[__CFString substringToIndex:](v10, "substringToIndex:", v37), v39 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v39, "stringByAppendingString:", @"."), v40 = objc_claimAutoreleasedReturnValue(), v39, LOBYTE(v39) = -[__CFString containsString:](v34, "containsString:", v40), v40, objc_autoreleasePoolPop(v38), (v39))
   {
-    goto LABEL_54;
-  }
-
-  v35 = [(__CFString *)v10 rangeOfString:@"@" options:2];
-  if (!v36)
-  {
-    goto LABEL_56;
-  }
-
-  v37 = v35;
-  v38 = objc_autoreleasePoolPush();
-  v39 = [(__CFString *)v10 substringToIndex:v37];
-  v40 = [v39 stringByAppendingString:@"."];
-
-  LOBYTE(v39) = [(__CFString *)v34 containsString:v40];
-  objc_autoreleasePoolPop(v38);
-  if (v39)
-  {
-LABEL_54:
     v9 = 1;
   }
 
   else
   {
-LABEL_56:
     *buffer = 0;
     *&buffer[4] = buffer;
     *&v51 = 0x2020000000;
@@ -756,7 +735,7 @@ LABEL_12:
         }
 
         [v9 addObject:nameCopy];
-        if ([v9 count] >= 0x19)
+        if (objc_msgSend_count(v9) >= 0x19)
         {
           [v9 removeObjectAtIndex:0];
         }
@@ -829,7 +808,7 @@ void __28__SGInhumans_isInhumanName___block_invoke(uint64_t a1)
   isInhumanName__noCache = v9;
 }
 
-uint64_t __28__SGInhumans_isInhumanName___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__28__SGInhumans_isInhumanName___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [isInhumanName__inhumanNameTokens containsObject:a2];
   if (result)

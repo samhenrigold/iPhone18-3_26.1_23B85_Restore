@@ -12,7 +12,7 @@
   if (objc_opt_isKindOfClass())
   {
     lightEstimate2 = [(ARLightEstimationData *)self lightEstimate];
-    [lightEstimate2 timestamp];
+    objc_msgSend_timestamp(lightEstimate2);
     v4 = v6;
   }
 

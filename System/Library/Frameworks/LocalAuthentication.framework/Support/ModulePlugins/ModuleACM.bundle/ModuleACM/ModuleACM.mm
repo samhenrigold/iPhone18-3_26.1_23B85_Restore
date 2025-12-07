@@ -1,4 +1,4 @@
-uint64_t LibCall_ACMContextCreate(uint64_t (*a1)(void), uint64_t a2, void *a3, uint64_t a4, _BYTE *a5, int a6)
+uint64_t LibCall_ACMContextCreate(uint64_t (*a1)(void), uint64_t a2, uint64_t *a3, char a4, _BYTE *a5, int a6)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -84,7 +84,7 @@ LABEL_20:
   return v6;
 }
 
-uint64_t ACMContextCreateWithFlags(uint64_t *a1, uint64_t a2)
+uint64_t ACMContextCreateWithFlags(uint64_t *a1, int a2)
 {
   if (byte_350A1 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
@@ -211,10 +211,11 @@ const char *acm_mem_alloc_info(const char *result, const void *a2, uint64_t a3, 
   return result;
 }
 
-void sub_17B0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_17B0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t sub_17D0(void *a1, rsize_t __n)
@@ -241,7 +242,7 @@ void *acm_mem_alloc_data(size_t size)
   return result;
 }
 
-uint64_t sub_1908(uint64_t *a1, char a2, char a3, const void *a4, size_t a5, void *a6, size_t *a7)
+uint64_t sub_1908(uint64_t *a1, uint64_t a2, uint64_t a3, const void *a4, size_t a5, void *a6, size_t *a7)
 {
   if (byte_350A1 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
@@ -292,57 +293,53 @@ uint64_t sub_1908(uint64_t *a1, char a2, char a3, const void *a4, size_t a5, voi
   return v21;
 }
 
-uint64_t sub_1ACC(uint64_t a1, char a2, char a3, const void *a4, size_t a5, void *a6, size_t *a7)
+uint64_t sub_1ACC(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, size_t a5, void *a6, size_t *a7)
 {
+  v11 = a3;
+  v12 = a2;
   if (byte_350A1 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     sub_20E4();
     sub_21F8();
-    _os_log_impl(v14, v15, v16, v17, v18, 0x16u);
+    _os_log_impl(v13, v14, v15, v16, v17, 0x16u);
   }
 
   inputStructCnt = 0;
-  v19 = LibCall_BuildCommand(a2, 0, a3, a4, a5, &inputStructCnt);
-  if (v19)
+  v18 = LibCall_BuildCommand(v12, 0, v11, a4, a5, &inputStructCnt);
+  if (v18)
   {
-    v20 = v19;
+    v19 = v18;
     if (!a6 && a7)
     {
-      v23 = 4294967293;
+      v21 = 4294967293;
     }
 
     else
     {
       if (a7)
       {
-        v21 = *a7;
+        v20 = *a7;
       }
 
       else
       {
-        v21 = 0;
+        v20 = 0;
       }
 
-      v44 = v21;
-      v22 = IOConnectCallStructMethod(dword_35134, 0, v19, inputStructCnt, a6, &v44);
-      v23 = v22;
-      if (a1)
-      {
-        v24 = *(a1 + 16);
-      }
-
-      if (v22)
+      v41 = v20;
+      v21 = IOConnectCallStructMethod(dword_35134, 0, v18, inputStructCnt, a6, &v41);
+      if (v21)
       {
         if (byte_350A1 <= 0x46u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
           sub_20E4();
           sub_210C();
-          v49 = v25;
-          v50 = v23;
-          v51 = v25;
-          v52 = v23;
+          v46 = v22;
+          v47 = v21;
+          v48 = v22;
+          v49 = v21;
           sub_21F8();
-          _os_log_impl(v26, v27, v28, v29, v30, 0x2Eu);
+          _os_log_impl(v23, v24, v25, v26, v27, 0x2Eu);
         }
       }
 
@@ -353,49 +350,49 @@ uint64_t sub_1ACC(uint64_t a1, char a2, char a3, const void *a4, size_t a5, void
           sub_20E4();
           sub_210C();
           sub_21F8();
-          _os_log_impl(v31, v32, v33, v34, v35, 0x22u);
+          _os_log_impl(v28, v29, v30, v31, v32, 0x22u);
         }
 
-        v23 = 0;
+        v21 = 0;
         if (a7)
         {
-          *a7 = v44;
+          *a7 = v41;
         }
       }
     }
 
-    v36 = inputStructCnt;
-    acm_mem_free_info("<data>", v20, inputStructCnt, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 134, "performCommand");
-    acm_mem_free_data(v20, v36);
-    if (v23)
+    v33 = inputStructCnt;
+    acm_mem_free_info("<data>", v19, inputStructCnt, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 134, "performCommand");
+    acm_mem_free_data(v19, v33);
+    if (v21)
     {
-      v37 = 70;
+      v34 = 70;
     }
 
     else
     {
-      v37 = 10;
+      v34 = 10;
     }
   }
 
   else
   {
-    v37 = 70;
-    v23 = 4294967291;
+    v34 = 70;
+    v21 = 4294967291;
   }
 
-  if (v37 >= byte_350A1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  if (v34 >= byte_350A1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
-    v46 = 136315650;
-    v47 = "ACMLib";
+    v43 = 136315650;
+    v44 = "ACMLib";
     sub_17F10();
-    v48 = "performCommand";
+    v45 = "performCommand";
     sub_17E80();
     sub_21F8();
-    _os_log_impl(v38, v39, v40, v41, v42, 0x20u);
+    _os_log_impl(v35, v36, v37, v38, v39, 0x20u);
   }
 
-  return v23;
+  return v21;
 }
 
 _BYTE *LibCall_BuildCommand(char a1, char a2, char a3, const void *a4, size_t a5, void *a6)
@@ -518,12 +515,12 @@ void acm_mem_free_data(void *a1, rsize_t a2)
   }
 }
 
-void sub_2180(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+uint64_t sub_2180(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  a9 = *v22 - v25;
-  v29 = *(v27 + 8 * v26);
+  a9 = *v9 - v12;
+  v16 = *(v14 + 8 * v13);
 
-  SerializeRequirement(v24, v29, v23 + v25, &a9, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22);
+  return SerializeRequirement(v11, v16, v10 + v12, &a9);
 }
 
 uint64_t sub_21AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, const char *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __int128 a13, __int128 a14)
@@ -579,13 +576,6 @@ const char *acm_mem_free_info(const char *result, const void *a2, unint64_t a3, 
   }
 
   return result;
-}
-
-uint64_t sub_22D4()
-{
-  v3 = *(v2 + 8 * v1);
-  v4 = *(v0 + 16);
-  return v0;
 }
 
 uint64_t ACMContextGetTrackingNumber(uint64_t result)
@@ -701,16 +691,16 @@ void ACMRequirementGetSubrequirements(int *a1, uint64_t a2)
   }
 }
 
-id sub_26D8()
+id sub_26D8(uint64_t a1)
 {
   if (qword_350A8 != -1)
   {
     sub_18DE4();
   }
 
-  v1 = qword_350B0;
+  v2 = qword_350B0;
 
-  return v1;
+  return v2;
 }
 
 unsigned int *LibCall_ACMRequirementGetType(unsigned int *result)
@@ -733,8 +723,9 @@ uint64_t LibCall_ACMRequirementGetState(uint64_t result)
   return result;
 }
 
-uint64_t ACMContextDelete(_DWORD *a1, int a2)
+uint64_t ACMContextDelete(_DWORD *a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = byte_350A1;
   if (byte_350A1 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
@@ -754,7 +745,7 @@ uint64_t ACMContextDelete(_DWORD *a1, int a2)
     v12 = "ACMLib";
     v14 = "ACMContextDelete";
     v13 = 2080;
-    if (a2)
+    if (v2)
     {
       v6 = "YES";
     }
@@ -767,7 +758,7 @@ uint64_t ACMContextDelete(_DWORD *a1, int a2)
   }
 
   v10 = a1;
-  v7 = LibCall_ACMContextDelete(sub_1908, &v10, a1, a2);
+  v7 = LibCall_ACMContextDelete(sub_1908, &v10, a1, v2);
   if (v7)
   {
     v8 = 70;
@@ -792,7 +783,7 @@ uint64_t ACMContextDelete(_DWORD *a1, int a2)
   return v7;
 }
 
-uint64_t LibCall_ACMContextDelete(void (*a1)(uint64_t, uint64_t, void, void *, uint64_t, void, void), uint64_t a2, void *a3, int a4)
+uint64_t LibCall_ACMContextDelete(void (*a1)(uint64_t, uint64_t, void, const void *, uint64_t, void, void), uint64_t a2, void *a3, int a4)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -921,7 +912,7 @@ id sub_3F48(uint64_t a1)
   v5 = *(a1 + 40);
   if (v5)
   {
-    [v5 auditToken];
+    objc_msgSend_auditToken(v5);
   }
 
   else
@@ -966,11 +957,11 @@ void sub_4054(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, void *a5)
       goto LABEL_14;
     }
 
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
-    v23 = a3;
-    if (a3 && (*(a1 + 80) != 1004 || (v19[0] = _NSConcreteStackBlock, v19[1] = 3221225472, v19[2] = sub_4310, v19[3] = &unk_30650, v19[4] = &v20, ACMRequirementGetSubrequirements(a4, v19), (v21[3] & 1) != 0)))
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2020000000;
+    v22 = a3;
+    if (a3 && (*(a1 + 80) != 1004 || (v18[0] = _NSConcreteStackBlock, v18[1] = 3221225472, v18[2] = sub_4310, v18[3] = &unk_30650, v18[4] = &v19, ACMRequirementGetSubrequirements(a4, v18), (v20[3] & 1) != 0)))
     {
       v14 = [*(a1 + 40) resultInfo];
       v15 = [v14 objectForKey:@"Result"];
@@ -989,12 +980,11 @@ void sub_4054(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, void *a5)
     else
     {
       v17 = [*(a1 + 40) createInternalInfoWithPolicy:*(a1 + 80) policyOptions:*(a1 + 56) request:*(a1 + 32) originator:*(a1 + 48)];
-      v18 = *(a1 + 32);
-      [*(a1 + 40) _handleAcmRequirement:a4 policy:*(a1 + 80) constraintData:0 operation:0 internalInfo:v17 uiDelegate:*(a1 + 64) originator:*(a1 + 48) request:v18 reply:*(a1 + 72)];
+      [*(a1 + 40) _handleAcmRequirement:a4 policy:*(a1 + 80) constraintData:0 operation:0 internalInfo:v17 uiDelegate:*(a1 + 64) originator:*(a1 + 48) request:*(a1 + 32) reply:*(a1 + 72)];
     }
 
 LABEL_13:
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v19, 8);
     goto LABEL_14;
   }
 
@@ -1002,9 +992,9 @@ LABEL_13:
 LABEL_14:
 }
 
-void sub_42F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_42F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1032,42 +1022,36 @@ void sub_4E90(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   if (v5)
   {
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 48);
-    v8 = a3;
+    v6 = a3;
     if (objc_opt_isKindOfClass())
     {
       [*(a1 + 32) setPIN:v5];
     }
 
-    else
+    else if (objc_opt_isKindOfClass())
     {
-      v12 = *(a1 + 56);
-      if (objc_opt_isKindOfClass())
-      {
-        [*(a1 + 32) setPassword:v5];
-      }
+      [*(a1 + 32) setPassword:v5];
     }
 
-    v17 = @"Result";
-    v15[0] = &off_326B0;
-    v15[1] = &off_326C8;
-    v13 = *(a1 + 32);
-    v16[0] = &__kCFBooleanTrue;
-    v16[1] = v13;
-    v14 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:2];
-    v18 = v14;
-    v11 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v14 = @"Result";
+    v12[0] = &off_326B0;
+    v12[1] = &off_326C8;
+    v10 = *(a1 + 32);
+    v13[0] = &__kCFBooleanTrue;
+    v13[1] = v10;
+    v11 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v15 = v11;
+    v9 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
 
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v9 = *(a1 + 40);
-    v10 = *(v9 + 16);
-    v11 = a3;
-    v10(v9, 0, v11);
+    v7 = *(a1 + 40);
+    v8 = *(v7 + 16);
+    v9 = a3;
+    v8(v7, 0, v9);
   }
 }
 
@@ -1077,7 +1061,7 @@ void sub_5010(uint64_t a1, void *a2)
   {
     v3 = [a2 objectForKeyedSubscript:@"PIN"];
     v4 = *(a1 + 32);
-    v8 = v3;
+    v7 = v3;
     if (v3)
     {
       (*(v4 + 16))(v4, v3, 0);
@@ -1085,17 +1069,16 @@ void sub_5010(uint64_t a1, void *a2)
 
     else
     {
-      v7 = [LAErrorHelper internalErrorWithMessage:@"Missing CTK PIN"];
-      (*(v4 + 16))(v4, 0, v7);
+      v6 = [LAErrorHelper internalErrorWithMessage:@"Missing CTK PIN"];
+      (*(v4 + 16))(v4, 0, v6);
     }
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 }
 
@@ -1217,9 +1200,9 @@ void sub_5A50(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_5D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_5D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1431,19 +1414,18 @@ LABEL_3:
 
     if (*(a1 + 56))
     {
-      v19 = [LACACMHelper requirement:a5 uint32Property:700];
-      if ([v19 unsignedIntValue] <= 1)
+      v18 = [LACACMHelper requirement:a5 uint32Property:700];
+      if ([v18 unsignedIntValue] <= 1)
       {
       }
 
       else
       {
-        v20 = [LACACMHelper requirement:a5 hasState:1 andType:8];
+        v19 = [LACACMHelper requirement:a5 hasState:1 andType:8];
 
-        if (v20)
+        if (v19)
         {
 LABEL_13:
-          v18 = *(a1 + 56);
           v12 = *(*(a1 + 96) + 16);
           goto LABEL_3;
         }
@@ -1452,47 +1434,46 @@ LABEL_13:
 
     if ([LACACMHelper requirement:a5 hasFlag:16 andType:3])
     {
-      v21 = *(a1 + 96);
-      v22 = [LAErrorHelper errorWithCode:-1022 message:@"Failed to match the bound identity."];
-      (*(v21 + 16))(v21, 0, v22);
+      v20 = *(a1 + 96);
+      v21 = [LAErrorHelper errorWithCode:-1022 message:@"Failed to match the bound identity."];
+      (*(v20 + 16))(v20, 0, v21);
 LABEL_23:
 
       goto LABEL_4;
     }
 
-    v23 = [*(a1 + 64) objectForKeyedSubscript:@"SecondAcmRound"];
-    v24 = [v23 BOOLValue];
+    v22 = [*(a1 + 64) objectForKeyedSubscript:@"SecondAcmRound"];
+    v23 = [v22 BOOLValue];
 
-    if (v24)
+    if (v23)
     {
-      v25 = *(a1 + 96);
-      v22 = [*(a1 + 32) _unsatisfiedListForRequirement:a5];
-      v26 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"ACM %s succeeded, but ACM is still requesting %@ on ACMContext %u after a retry.", a2, v22, [*(a1 + 32) instanceId]);
-      v27 = [LAErrorHelper internalErrorWithMessage:v26];
-      (*(v25 + 16))(v25, 0, v27);
+      v24 = *(a1 + 96);
+      v21 = [*(a1 + 32) _unsatisfiedListForRequirement:a5];
+      v25 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"ACM %s succeeded, but ACM is still requesting %@ on ACMContext %u after a retry.", a2, v21, [*(a1 + 32) instanceId]);
+      v26 = [LAErrorHelper internalErrorWithMessage:v25];
+      (*(v24 + 16))(v24, 0, v26);
 
       goto LABEL_23;
     }
 
-    v28 = [*(a1 + 48) log];
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v27 = [*(a1 + 48) log];
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v31 = [*(a1 + 32) instanceId];
-      v32 = [*(a1 + 32) _unsatisfiedListForRequirement:a5];
+      v29 = [*(a1 + 32) instanceId];
+      v30 = [*(a1 + 32) _unsatisfiedListForRequirement:a5];
       *buf = 136315650;
-      v34 = a2;
-      v35 = 1024;
-      v36 = v31;
-      v37 = 2114;
-      v38 = v32;
-      _os_log_error_impl(&def_1FF08, v28, OS_LOG_TYPE_ERROR, "ACM verification not satisfied after %s on ACMContext %u '%{public}@', retrying second round", buf, 0x1Cu);
+      v32 = a2;
+      v33 = 1024;
+      v34 = v29;
+      v35 = 2114;
+      v36 = v30;
+      _os_log_error_impl(&def_1FF08, v27, OS_LOG_TYPE_ERROR, "ACM verification not satisfied after %s on ACMContext %u '%{public}@', retrying second round", buf, 0x1Cu);
     }
 
     [*(a1 + 32) _removeRequestedCredentials:a5];
-    v29 = [NSMutableDictionary dictionaryWithDictionary:*(a1 + 64)];
-    [v29 setObject:&__kCFBooleanTrue forKey:@"SecondAcmRound"];
-    v30 = *(a1 + 48);
-    [*(a1 + 32) _handleAcmRequirement:a5 policy:*(a1 + 104) constraintData:*(a1 + 72) operation:*(a1 + 40) internalInfo:v29 uiDelegate:*(a1 + 80) originator:*(a1 + 88) request:v30 reply:*(a1 + 96)];
+    v28 = [NSMutableDictionary dictionaryWithDictionary:*(a1 + 64)];
+    [v28 setObject:&__kCFBooleanTrue forKey:@"SecondAcmRound"];
+    [*(a1 + 32) _handleAcmRequirement:a5 policy:*(a1 + 104) constraintData:*(a1 + 72) operation:*(a1 + 40) internalInfo:v28 uiDelegate:*(a1 + 80) originator:*(a1 + 88) request:*(a1 + 48) reply:*(a1 + 96)];
   }
 
 LABEL_4:
@@ -1543,23 +1524,23 @@ void sub_7A00(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  if (v5 && (v7 = *(a1 + 32), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ![*(a1 + 32) integerValue])
+  if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ![*(a1 + 32) integerValue])
   {
-    v14 = *(a1 + 48);
-    v15 = *(a1 + 40);
-    v8 = *(a1 + 56);
-    v9 = *(a1 + 64);
+    v13 = *(a1 + 48);
+    v14 = *(a1 + 40);
+    v7 = *(a1 + 56);
+    v8 = *(a1 + 64);
     WeakRetained = objc_loadWeakRetained((a1 + 104));
-    v12 = *(a1 + 72);
-    v11 = *(a1 + 80);
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_7B6C;
-    v16[3] = &unk_309A0;
-    v13 = *(a1 + 88);
-    v18 = *(a1 + 96);
-    v17 = v5;
-    [v15 evaluateACL:v14 operation:@"oe" options:v8 uiDelegate:v9 originator:WeakRetained request:v12 callerName:v11 callerBundleId:v13 reply:v16];
+    v11 = *(a1 + 72);
+    v10 = *(a1 + 80);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_7B6C;
+    v15[3] = &unk_309A0;
+    v12 = *(a1 + 88);
+    v17 = *(a1 + 96);
+    v16 = v5;
+    [v14 evaluateACL:v13 operation:@"oe" options:v7 uiDelegate:v8 originator:WeakRetained request:v11 callerName:v10 callerBundleId:v12 reply:v15];
   }
 
   else
@@ -1570,9 +1551,9 @@ void sub_7A00(uint64_t a1, void *a2, void *a3)
 
 void sub_7B6C(uint64_t a1, void *a2, void *a3)
 {
-  v11 = a2;
+  v10 = a2;
   v5 = a3;
-  if (!v11)
+  if (!v10)
   {
     v9 = *(*(a1 + 40) + 16);
 LABEL_7:
@@ -1580,9 +1561,8 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if (![v11 count])
+  if (![v10 count])
   {
-    v10 = *(a1 + 32);
     v9 = *(*(a1 + 40) + 16);
     goto LABEL_7;
   }
@@ -1591,16 +1571,23 @@ LABEL_7:
   v7 = *(a1 + 40);
   if (v6)
   {
-    v8 = [NSDictionary dictionaryByMerging:*(a1 + 32) with:v11];
+    v8 = [NSDictionary dictionaryByMerging:*(a1 + 32) with:v10];
     (*(v7 + 16))(v7, v8, 0);
   }
 
   else
   {
-    (*(v7 + 16))(*(a1 + 40), v11, 0);
+    (*(v7 + 16))(*(a1 + 40), v10, 0);
   }
 
 LABEL_8:
+}
+
+void sub_8090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_80B0(uint64_t a1)
@@ -1682,35 +1669,34 @@ void sub_8B08(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (!v5)
   {
-    v13 = *(*(a1 + 88) + 16);
+    v12 = *(*(a1 + 88) + 16);
 LABEL_8:
-    v13();
+    v12();
     goto LABEL_9;
   }
 
-  v7 = *(a1 + 32);
   if (!SecAccessControlGetRequirePassword())
   {
-    v13 = *(*(a1 + 88) + 16);
+    v12 = *(*(a1 + 88) + 16);
     goto LABEL_8;
   }
 
-  v8 = *(a1 + 40);
-  v14 = *(a1 + 56);
-  v15 = *(a1 + 48);
+  v7 = *(a1 + 40);
+  v13 = *(a1 + 56);
+  v14 = *(a1 + 48);
   WeakRetained = objc_loadWeakRetained((a1 + 96));
-  v10 = *(a1 + 64);
-  v11 = *(a1 + 72);
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_8C7C;
-  v16[3] = &unk_30A68;
-  v12 = *(a1 + 80);
-  v18 = *(a1 + 88);
-  v17 = v5;
-  LODWORD(v8) = [v8 _validatePassword:1 options:v15 uiDelegate:v14 originator:WeakRetained request:v10 callerName:v11 callerBundleId:v12 reply:v16];
+  v9 = *(a1 + 64);
+  v10 = *(a1 + 72);
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_8C7C;
+  v15[3] = &unk_30A68;
+  v11 = *(a1 + 80);
+  v17 = *(a1 + 88);
+  v16 = v5;
+  LODWORD(v7) = [v7 _validatePassword:1 options:v14 uiDelegate:v13 originator:WeakRetained request:v9 callerName:v10 callerBundleId:v11 reply:v15];
 
-  if (v8)
+  if (v7)
   {
     (*(*(a1 + 88) + 16))();
   }
@@ -1749,10 +1735,9 @@ void sub_9B3C(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
 {
   if (a5)
   {
-    v6 = *(a1 + 128);
-    v7 = *(*(a1 + 128) + 16);
+    v6 = *(*(a1 + 128) + 16);
 
-    v7();
+    v6();
     return;
   }
 
@@ -1761,9 +1746,9 @@ void sub_9B3C(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
   {
     if (a2 == -2)
     {
-      v32 = [LAErrorHelper errorWithCode:-10 message:@"ACM context not found."];
-      v13 = [*(a1 + 48) callback];
-      [v13 invalidatedWithError:v32];
+      v30 = [LAErrorHelper errorWithCode:-10 message:@"ACM context not found."];
+      v12 = [*(a1 + 48) callback];
+      [v12 invalidatedWithError:v30];
 
       (*(*(a1 + 128) + 16))();
       goto LABEL_16;
@@ -1771,21 +1756,21 @@ void sub_9B3C(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
 
     if (a2 == -3)
     {
-      v11 = *(a1 + 128);
-      v32 = [NSString stringWithFormat:@"Invalid constraint: %@", *(a1 + 40)];
-      v12 = [LAErrorHelper parameterErrorWithMessage:v32];
-      (*(v11 + 16))(v11, 0, v12);
+      v10 = *(a1 + 128);
+      v30 = [NSString stringWithFormat:@"Invalid constraint: %@", *(a1 + 40)];
+      v11 = [LAErrorHelper parameterErrorWithMessage:v30];
+      (*(v10 + 16))(v10, 0, v11);
 
 LABEL_16:
 
       return;
     }
 
-    v16 = *(a1 + 128);
-    v32 = [NSNumber numberWithInt:a2];
-    v17 = [NSString stringWithFormat:@"ACM constraint verification failed: %@", v32];
-    v18 = [LAErrorHelper internalErrorWithMessage:v17];
-    (*(v16 + 16))(v16, 0, v18);
+    v14 = *(a1 + 128);
+    v30 = [NSNumber numberWithInt:a2];
+    v15 = [NSString stringWithFormat:@"ACM constraint verification failed: %@", v30];
+    v16 = [LAErrorHelper internalErrorWithMessage:v15];
+    (*(v14 + 16))(v14, 0, v16);
 
 LABEL_15:
     goto LABEL_16;
@@ -1793,78 +1778,77 @@ LABEL_15:
 
   if (*(a1 + 140) == 1)
   {
-    v14 = *(a1 + 56);
-    v15 = *(*(a1 + 128) + 16);
+    v13 = *(*(a1 + 128) + 16);
 
-    v15();
+    v13();
   }
 
   else
   {
     if (a3)
     {
-      v19 = *(a1 + 128);
-      v32 = [*(a1 + 64) resultInfo];
-      v17 = [v32 objectForKeyedSubscript:@"Result"];
-      if (v17)
+      v17 = *(a1 + 128);
+      v30 = [*(a1 + 64) resultInfo];
+      v15 = [v30 objectForKeyedSubscript:@"Result"];
+      if (v15)
       {
-        v20 = [*(a1 + 64) resultInfo];
-        (*(v19 + 16))(v19, v20, 0);
+        v18 = [*(a1 + 64) resultInfo];
+        (*(v17 + 16))(v17, v18, 0);
       }
 
       else
       {
-        (*(v19 + 16))(v19, &off_32B68, 0);
+        (*(v17 + 16))(v17, &off_32B68, 0);
       }
 
       goto LABEL_15;
     }
 
-    v21 = [*(a1 + 64) createInternalInfo:*(a1 + 72) skipCallerIdentification:*(a1 + 80) != 0 callerBundleId:*(a1 + 88) request:*(a1 + 32) originator:*(a1 + 48)];
-    v22 = v21;
-    v23 = *(a1 + 80);
-    if (v23)
+    v19 = [*(a1 + 64) createInternalInfo:*(a1 + 72) skipCallerIdentification:*(a1 + 80) != 0 callerBundleId:*(a1 + 88) request:*(a1 + 32) originator:*(a1 + 48)];
+    v20 = v19;
+    v21 = *(a1 + 80);
+    if (v21)
     {
-      [v21 setObject:v23 forKey:@"CallerName"];
+      [v19 setObject:v21 forKey:@"CallerName"];
     }
 
-    v24 = *(a1 + 88);
-    if (v24)
+    v22 = *(a1 + 88);
+    if (v22)
     {
-      [v22 setObject:v24 forKey:@"CallerId"];
+      [v20 setObject:v22 forKey:@"CallerId"];
     }
 
     if (*(a1 + 136))
     {
-      v25 = [NSNumber numberWithUnsignedInt:?];
-      [v22 setObject:v25 forKey:@"GlobalCredential"];
+      v23 = [NSNumber numberWithUnsignedInt:?];
+      [v20 setObject:v23 forKey:@"GlobalCredential"];
     }
 
-    [v22 setObject:*(a1 + 40) forKey:@"Constraint"];
-    [v22 setObject:*(a1 + 96) forKey:@"ConstraintData"];
-    [v22 setObject:*(a1 + 104) forKey:@"ConstraintOp"];
-    v26 = *(a1 + 64);
-    v27 = *(a1 + 96);
-    v28 = *(a1 + 104);
-    v29 = *(a1 + 112);
-    v30 = *(a1 + 48);
-    v31 = *(a1 + 32);
-    v33[0] = _NSConcreteStackBlock;
-    v33[1] = 3221225472;
-    v33[2] = sub_A034;
-    v33[3] = &unk_30AD8;
-    v33[4] = v26;
-    v34 = *(a1 + 72);
-    v35 = *(a1 + 32);
-    v36 = *(a1 + 104);
-    v37 = *(a1 + 120);
-    v38 = *(a1 + 112);
-    v39 = *(a1 + 48);
-    v43 = *(a1 + 140);
-    v40 = *(a1 + 80);
-    v41 = *(a1 + 88);
-    v42 = *(a1 + 128);
-    [v26 _handleAcmRequirement:a4 policy:0 constraintData:v27 operation:v28 internalInfo:v22 uiDelegate:v29 originator:v30 request:v31 reply:v33];
+    [v20 setObject:*(a1 + 40) forKey:@"Constraint"];
+    [v20 setObject:*(a1 + 96) forKey:@"ConstraintData"];
+    [v20 setObject:*(a1 + 104) forKey:@"ConstraintOp"];
+    v24 = *(a1 + 64);
+    v25 = *(a1 + 96);
+    v26 = *(a1 + 104);
+    v27 = *(a1 + 112);
+    v28 = *(a1 + 48);
+    v29 = *(a1 + 32);
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_A034;
+    v31[3] = &unk_30AD8;
+    v31[4] = v24;
+    v32 = *(a1 + 72);
+    v33 = *(a1 + 32);
+    v34 = *(a1 + 104);
+    v35 = *(a1 + 120);
+    v36 = *(a1 + 112);
+    v37 = *(a1 + 48);
+    v41 = *(a1 + 140);
+    v38 = *(a1 + 80);
+    v39 = *(a1 + 88);
+    v40 = *(a1 + 128);
+    [v24 _handleAcmRequirement:a4 policy:0 constraintData:v25 operation:v26 internalInfo:v20 uiDelegate:v27 originator:v28 request:v29 reply:v31];
   }
 }
 
@@ -1898,35 +1882,34 @@ void sub_A45C(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (!v5)
   {
-    v13 = *(*(a1 + 80) + 16);
+    v12 = *(*(a1 + 80) + 16);
 LABEL_8:
-    v13();
+    v12();
     goto LABEL_9;
   }
 
-  v7 = *(a1 + 96);
   if (!SecAccessControlGetRequirePassword())
   {
-    v13 = *(*(a1 + 80) + 16);
+    v12 = *(*(a1 + 80) + 16);
     goto LABEL_8;
   }
 
-  v8 = *(a1 + 32);
-  v14 = *(a1 + 48);
-  v15 = *(a1 + 40);
+  v7 = *(a1 + 32);
+  v13 = *(a1 + 48);
+  v14 = *(a1 + 40);
   WeakRetained = objc_loadWeakRetained((a1 + 88));
-  v10 = *(a1 + 56);
-  v11 = *(a1 + 64);
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_A5D0;
-  v16[3] = &unk_30A68;
-  v12 = *(a1 + 72);
-  v18 = *(a1 + 80);
-  v17 = v5;
-  LODWORD(v8) = [v8 _validatePassword:0 options:v15 uiDelegate:v14 originator:WeakRetained request:v10 callerName:v11 callerBundleId:v12 reply:v16];
+  v9 = *(a1 + 56);
+  v10 = *(a1 + 64);
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_A5D0;
+  v15[3] = &unk_30A68;
+  v11 = *(a1 + 72);
+  v17 = *(a1 + 80);
+  v16 = v5;
+  LODWORD(v7) = [v7 _validatePassword:0 options:v14 uiDelegate:v13 originator:WeakRetained request:v9 callerName:v10 callerBundleId:v11 reply:v15];
 
-  if (v8)
+  if (v7)
   {
     (*(*(a1 + 80) + 16))();
   }
@@ -2041,7 +2024,7 @@ id sub_BB60(uint64_t a1)
   v6 = *(a1 + 48);
   if (v6)
   {
-    [v6 auditToken];
+    objc_msgSend_auditToken(v6);
   }
 
   else
@@ -2114,10 +2097,9 @@ void sub_C5FC(uint64_t a1, int a2)
 
   else
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 }
 
@@ -2190,24 +2172,18 @@ LABEL_13:
 
 void sub_CA74(uint64_t a1, char a2, void *a3)
 {
-  v5 = a3;
-  v8 = v5;
+  v6 = a3;
   if ((a2 & 1) != 0 || *(a1 + 48) == 1)
   {
-    v6 = *(*(a1 + 40) + 16);
+    v5 = *(*(a1 + 40) + 16);
   }
 
   else
   {
-    if (!v5)
-    {
-      v7 = *(a1 + 32);
-    }
-
-    v6 = *(*(a1 + 40) + 16);
+    v5 = *(*(a1 + 40) + 16);
   }
 
-  v6();
+  v5();
 }
 
 void sub_D23C(uint64_t a1, uint64_t a2)
@@ -2278,7 +2254,7 @@ uint64_t sub_D424()
   v1 = v3[0];
   if (!qword_350C0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -2293,7 +2269,6 @@ LABEL_7:
 
 uint64_t sub_D524(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_350C0 = result;
   return result;
@@ -2330,7 +2305,7 @@ Class sub_D5F0(uint64_t a1)
 
   else
   {
-    v3 = sub_18F6C();
+    sub_18F6C();
     return sub_D648(v3);
   }
 
@@ -2534,10 +2509,7 @@ uint64_t sub_106DC(uint64_t result, uint64_t a2)
 
 uint64_t sub_106F4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = [NSData dataWithBytes:a2 length:a3];
-  v5 = *(*(a1 + 32) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  *(*(*(a1 + 32) + 8) + 40) = [NSData dataWithBytes:a2 length:a3];
 
   return _objc_release_x1();
 }
@@ -2549,48 +2521,48 @@ void sub_110F4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_11124(uint64_t a1, uint64_t a2)
+void sub_11124(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [NSNumber numberWithUnsignedInt:ACMRequirementGetType(a2, a2)];
-  [v2 addObject:v3];
+  v1 = *(a1 + 32);
+  v2 = [NSNumber numberWithUnsignedInt:ACMRequirementGetType()];
+  [v1 addObject:v2];
 }
 
 void sub_11190(uint64_t a1, uint64_t a2)
 {
   ++*(*(*(a1 + 88) + 8) + 24);
-  v26 = 0;
+  v24 = 0;
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
   v6 = *(a1 + 48);
   v7 = *(a1 + 104);
   v8 = *(a1 + 56);
-  v25 = 0;
-  v9 = [v4 _nonUiMechanismForACMRequirement:a2 acmContextRecord:v5 policy:v7 internalInfo:v6 request:v8 state:&v26 error:&v25];
-  v10 = v25;
-  v12 = v10;
+  v23 = 0;
+  v9 = [v4 _nonUiMechanismForACMRequirement:a2 acmContextRecord:v5 policy:v7 internalInfo:v6 request:v8 state:&v24 error:&v23];
+  v10 = v23;
+  v11 = v10;
   if (!v9)
   {
-    v15 = v10;
+    v14 = v10;
     goto LABEL_20;
   }
 
-  v13 = *(a1 + 56);
-  v24 = v10;
-  v14 = [v9 bestEffortAvailableMechanismForRequest:v13 error:&v24];
-  v15 = v24;
+  v12 = *(a1 + 56);
+  v22 = v10;
+  v13 = [v9 bestEffortAvailableMechanismForRequest:v12 error:&v22];
+  v14 = v22;
 
-  if (v14)
+  if (v13)
   {
     goto LABEL_5;
   }
 
-  if (([v9 canRecoverFromAvailabilityError:v15 request:*(a1 + 56)] & 1) == 0)
+  if (([v9 canRecoverFromAvailabilityError:v14 request:*(a1 + 56)] & 1) == 0)
   {
 
 LABEL_20:
-    Type = ACMRequirementGetType(a2, v11);
-    if (ACMRequirementGetState(a2, v21) == 2 || Type == 8)
+    Type = ACMRequirementGetType();
+    if (ACMRequirementGetState() == 2 || Type == 8)
     {
       v9 = 0;
       goto LABEL_24;
@@ -2598,38 +2570,38 @@ LABEL_20:
 
     v9 = 0;
 LABEL_25:
-    v19 = v26;
+    v18 = v24;
     goto LABEL_26;
   }
 
-  v15 = 0;
+  v14 = 0;
 LABEL_5:
-  v16 = v26;
-  v17 = v26 == 1;
+  v15 = v24;
+  v16 = v24 == 1;
   if (*(a1 + 104) == 1004)
   {
-    v18 = [LACACMHelper requirement:a2 hasFlag:2 andType:3];
-    if (v16 == 1)
+    v17 = [LACACMHelper requirement:a2 hasFlag:2 andType:3];
+    if (v15 == 1)
     {
-      v17 = 1;
+      v16 = 1;
     }
 
     else
     {
-      v17 = v18;
+      v16 = v17;
     }
 
-    v16 = v26;
+    v15 = v24;
   }
 
-  if (v16 == 2)
+  if (v15 == 2)
   {
-    v17 |= [LACACMHelper requirement:a2 hasState:2 andType:11];
+    v16 |= [LACACMHelper requirement:a2 hasState:2 andType:11];
     if (*(a1 + 112) == 2)
     {
       if ([*(a1 + 64) containsObject:&off_32A10])
       {
-        if (!(v17 & 1 | (([*(a1 + 56) customUI] & 1) == 0)))
+        if (!(v16 & 1 | (([*(a1 + 56) customUI] & 1) == 0)))
         {
           goto LABEL_14;
         }
@@ -2639,7 +2611,7 @@ LABEL_5:
     }
   }
 
-  if (v17)
+  if (v16)
   {
 LABEL_17:
     [*(a1 + 72) addObject:v9];
@@ -2647,8 +2619,8 @@ LABEL_17:
   }
 
 LABEL_14:
-  v19 = v26;
-  if (v26 == 2)
+  v18 = v24;
+  if (v24 == 2)
   {
 LABEL_24:
     --**(a1 + 120);
@@ -2656,16 +2628,16 @@ LABEL_24:
   }
 
 LABEL_26:
-  if (v19 == 3)
+  if (v18 == 3)
   {
     *(*(*(a1 + 96) + 8) + 24) = 1;
   }
 
-  if (v15)
+  if (v14)
   {
-    v22 = *(a1 + 80);
-    v23 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v15 code]);
-    [v22 setObject:v15 forKey:v23];
+    v20 = *(a1 + 80);
+    v21 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v14 code]);
+    [v20 setObject:v14 forKey:v21];
   }
 }
 
@@ -2745,9 +2717,9 @@ BOOL sub_11BC0(uint64_t a1, void *a2, void *a3)
   return v11 == 0;
 }
 
-void sub_11D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_11D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2819,16 +2791,16 @@ void sub_11F4C(void *a1, uint64_t a2, uint64_t *a3)
 BOOL sub_12034(void *a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
 {
   v12 = objc_autoreleasePoolPush();
-  v13 = sub_1229C();
+  v13 = sub_1229C(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    *v25 = 138412802;
-    *&v25[4] = a1;
-    *&v25[12] = 2112;
-    *&v25[14] = a3;
-    v26 = 2112;
-    v27 = a4;
-    _os_log_impl(&def_1FF08, v13, OS_LOG_TYPE_DEFAULT, "LAEvaluateAndUpdateACL(%@, %@, %@)", v25, 0x20u);
+    *v26 = 138412802;
+    *&v26[4] = a1;
+    *&v26[12] = 2112;
+    *&v26[14] = a3;
+    v27 = 2112;
+    v28 = a4;
+    _os_log_impl(&def_1FF08, v13, OS_LOG_TYPE_DEFAULT, "LAEvaluateAndUpdateACL(%@, %@, %@)", v26, 0x20u);
   }
 
   v14 = sub_12658(a1, a6);
@@ -2857,9 +2829,9 @@ LABEL_13:
   v16 = SecAccessControlCreateFromData();
   if (v16)
   {
-    *v25 = 0;
-    v17 = [v14 evaluateAccessControl:v16 aksOperation:a3 options:a4 error:v25];
-    v18 = *v25;
+    *v26 = 0;
+    v17 = [v14 evaluateAccessControl:v16 aksOperation:a3 options:a4 error:v26];
+    v18 = *v26;
     v19 = v18;
     v20 = v17 != 0;
     if (v17)
@@ -2883,40 +2855,40 @@ LABEL_13:
   }
 
 LABEL_14:
-  v22 = sub_1229C();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = sub_1229C(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     if (a6)
     {
-      v23 = *a6;
+      v24 = *a6;
     }
 
     else
     {
-      v23 = 0;
+      v24 = 0;
     }
 
-    *v25 = 67109378;
-    *&v25[4] = v20;
-    *&v25[8] = 2112;
-    *&v25[10] = v23;
-    _os_log_impl(&def_1FF08, v22, OS_LOG_TYPE_DEFAULT, "LAEvaluateAndUpdateACL -> %d, %@", v25, 0x12u);
+    *v26 = 67109378;
+    *&v26[4] = v20;
+    *&v26[8] = 2112;
+    *&v26[10] = v24;
+    _os_log_impl(&def_1FF08, v23, OS_LOG_TYPE_DEFAULT, "LAEvaluateAndUpdateACL -> %d, %@", v26, 0x12u);
   }
 
   objc_autoreleasePoolPop(v12);
   return v20;
 }
 
-id sub_1229C()
+id sub_1229C(uint64_t a1)
 {
   if (qword_350F0 != -1)
   {
     sub_12E14();
   }
 
-  v1 = qword_350F8;
+  v2 = qword_350F8;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_122E0(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
@@ -2956,25 +2928,25 @@ void sub_123C0(uint64_t a1)
 uint64_t sub_12424(void *a1, int a2, uint64_t a3, uint64_t *a4)
 {
   v8 = objc_autoreleasePoolPush();
-  v9 = sub_1229C();
+  v9 = sub_1229C(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    *v18 = 138412802;
-    *&v18[4] = a1;
-    v19 = 1024;
-    LODWORD(v20[0]) = a2;
-    WORD2(v20[0]) = 2112;
-    *(v20 + 6) = a3;
-    _os_log_impl(&def_1FF08, v9, OS_LOG_TYPE_DEFAULT, "LACopyResultOfPolicyEvaluation(%@, %d, %@)", v18, 0x1Cu);
+    *v19 = 138412802;
+    *&v19[4] = a1;
+    v20 = 1024;
+    LODWORD(v21[0]) = a2;
+    WORD2(v21[0]) = 2112;
+    *(v21 + 6) = a3;
+    _os_log_impl(&def_1FF08, v9, OS_LOG_TYPE_DEFAULT, "LACopyResultOfPolicyEvaluation(%@, %d, %@)", v19, 0x1Cu);
   }
 
   v10 = sub_12658(a1, a4);
   v11 = v10;
   if (v10)
   {
-    *v18 = 0;
-    v12 = [v10 evaluatePolicy:a2 options:a3 error:v18];
-    v13 = *v18;
+    *v19 = 0;
+    v12 = [v10 evaluatePolicy:a2 options:a3 error:v19];
+    v13 = *v19;
     v14 = v13;
     if (a4 && !v12)
     {
@@ -2987,24 +2959,24 @@ uint64_t sub_12424(void *a1, int a2, uint64_t a3, uint64_t *a4)
     v12 = 0;
   }
 
-  v15 = sub_1229C();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_1229C(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     if (a4)
     {
-      v16 = *a4;
+      v17 = *a4;
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
-    *v18 = 138412546;
-    *&v18[4] = v12;
-    v19 = 2112;
-    v20[0] = v16;
-    _os_log_impl(&def_1FF08, v15, OS_LOG_TYPE_DEFAULT, "LACopyResultOfPolicyEvaluation -> %@, %@", v18, 0x16u);
+    *v19 = 138412546;
+    *&v19[4] = v12;
+    v20 = 2112;
+    v21[0] = v17;
+    _os_log_impl(&def_1FF08, v16, OS_LOG_TYPE_DEFAULT, "LACopyResultOfPolicyEvaluation -> %@, %@", v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -3052,33 +3024,33 @@ id sub_1273C(void *a1, uint64_t *a2)
 {
   v4 = objc_autoreleasePoolPush();
   v5 = a1;
-  if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  if (v5 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v9 = sub_1229C();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_1229C(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_12E28(v9);
+      sub_12E28(v10);
     }
 
     sub_11F4C(@"Invalid acmContext.", -1006, a2);
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v6 = [objc_alloc(sub_128A8()) initWithExternalizedContext:v5];
-    v7 = v6;
-    if (a2 && !v6)
+    v7 = [objc_alloc(sub_128A8()) initWithExternalizedContext:v5];
+    v8 = v7;
+    if (a2 && !v7)
     {
-      v11 = NSDebugDescriptionErrorKey;
-      v12 = @"Failed to create LAContext";
-      v8 = [NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-      *a2 = [NSError errorWithDomain:@"Error.LocalAuthentication.coreauthd_client" code:-1000 userInfo:v8];
+      v12 = NSDebugDescriptionErrorKey;
+      v13 = @"Failed to create LAContext";
+      v9 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+      *a2 = [NSError errorWithDomain:@"Error.LocalAuthentication.coreauthd_client" code:-1000 userInfo:v9];
     }
   }
 
   objc_autoreleasePoolPop(v4);
-  return v7;
+  return v8;
 }
 
 id sub_128A8()
@@ -3105,9 +3077,9 @@ id sub_128A8()
   return v1;
 }
 
-void sub_12970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_12970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3196,7 +3168,7 @@ Class sub_12C5C(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -3216,7 +3188,6 @@ LABEL_4:
 
 uint64_t sub_12DA0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_35108 = result;
   return result;
@@ -3985,32 +3956,9 @@ void sub_14000()
             v14 = v1 + 32;
             if (v1 != -32)
             {
-              if (v14 > *v0)
+              if (v14 > *v0 || (sub_13E08(), v15 = ccgcm_init(), !sub_13D60(v15, "ccgcm_init")) && !sub_13EB4(v3, 16) && (sub_1814(), v16 = ccgcm_set_iv(), !sub_13D60(v16, "ccgcm_set_iv")) && (sub_13E08(), v17 = ccgcm_update(), !sub_13D60(v17, "ccgcm_update")) && (sub_1814(), v18 = ccgcm_finalize(), !sub_13D60(v18, "ccgcm_finalize")))
               {
-                goto LABEL_13;
-              }
-
-              sub_13E08();
-              v15 = ccgcm_init();
-              if (!sub_13D60(v15, "ccgcm_init") && !sub_13EB4(v3, 16))
-              {
-                sub_1814();
-                v16 = ccgcm_set_iv();
-                if (!sub_13D60(v16, "ccgcm_set_iv"))
-                {
-                  sub_13E08();
-                  v17 = ccgcm_update();
-                  if (!sub_13D60(v17, "ccgcm_update"))
-                  {
-                    sub_1814();
-                    v18 = ccgcm_finalize();
-                    if (!sub_13D60(v18, "ccgcm_finalize"))
-                    {
-LABEL_13:
-                      *v0 = v14;
-                    }
-                  }
-                }
+                *v0 = v14;
               }
             }
           }
@@ -4053,43 +4001,9 @@ void sub_141C0()
             v14 = v1 + 33;
             if (v1 != -33)
             {
-              if (v14 > *v0)
+              if (v14 > *v0 || (sub_13E08(), v15 = ccgcm_init(), !sub_13D60(v15, "ccgcm_init")) && (*v3 = 2, v16 = (v3 + 1), sub_13E78(), !v17) && !sub_13EB4(v16, 16) && (sub_1814(), v18 = ccgcm_set_iv(), !sub_13D60(v18, "ccgcm_set_iv")) && (v19 = v16 + 16, sub_13E78(), !v20) && (sub_13E08(), v21 = ccgcm_update(), !sub_13D60(v21, "ccgcm_update")) && !__CFADD__(v19, v1) && (sub_1814(), v22 = ccgcm_finalize(), !sub_13D60(v22, "ccgcm_finalize")))
               {
-                goto LABEL_16;
-              }
-
-              sub_13E08();
-              v15 = ccgcm_init();
-              if (!sub_13D60(v15, "ccgcm_init"))
-              {
-                *v3 = 2;
-                v16 = (v3 + 1);
-                sub_13E78();
-                if (!v17 && !sub_13EB4(v16, 16))
-                {
-                  sub_1814();
-                  v18 = ccgcm_set_iv();
-                  if (!sub_13D60(v18, "ccgcm_set_iv"))
-                  {
-                    v19 = v16 + 16;
-                    sub_13E78();
-                    if (!v20)
-                    {
-                      sub_13E08();
-                      v21 = ccgcm_update();
-                      if (!sub_13D60(v21, "ccgcm_update") && !__CFADD__(v19, v1))
-                      {
-                        sub_1814();
-                        v22 = ccgcm_finalize();
-                        if (!sub_13D60(v22, "ccgcm_finalize"))
-                        {
-LABEL_16:
-                          *v0 = v14;
-                        }
-                      }
-                    }
-                  }
-                }
+                *v0 = v14;
               }
             }
           }
@@ -4137,33 +4051,9 @@ void sub_143B0()
             v20 = v5 - 32;
             if (v19)
             {
-              if (*v1 < v20)
+              if (*v1 < v20 || (sub_13E08(), v21 = ccgcm_init(), !sub_13D60(v21, "ccgcm_init")) && (sub_1814(), v22 = ccgcm_set_iv(), !sub_13D60(v22, "ccgcm_set_iv")) && (sub_13E08(), v23 = ccgcm_update(), !sub_13D60(v23, "ccgcm_update")) && (sub_1814(), ccgcm_finalize(), v24 = cc_cmp_safe(), !sub_13D60(v24, "cc_cmp_safe")))
               {
-                goto LABEL_13;
-              }
-
-              sub_13E08();
-              v21 = ccgcm_init();
-              if (!sub_13D60(v21, "ccgcm_init"))
-              {
-                sub_1814();
-                v22 = ccgcm_set_iv();
-                if (!sub_13D60(v22, "ccgcm_set_iv"))
-                {
-                  sub_13E08();
-                  v23 = ccgcm_update();
-                  if (!sub_13D60(v23, "ccgcm_update"))
-                  {
-                    sub_1814();
-                    ccgcm_finalize();
-                    v24 = cc_cmp_safe();
-                    if (!sub_13D60(v24, "cc_cmp_safe"))
-                    {
-LABEL_13:
-                      *v1 = v20;
-                    }
-                  }
-                }
+                *v1 = v20;
               }
             }
           }
@@ -4210,41 +4100,9 @@ void sub_1458C()
             if (v5 >= 0x22)
             {
               v19 = v5 - 33;
-              if (*v1 < v19)
+              if (*v1 < v19 || (sub_13E78(), !v20) && *v7 == 2 && (sub_13E08(), v21 = ccgcm_init(), !sub_13D60(v21, "ccgcm_init")) && (sub_1814(), v22 = ccgcm_set_iv(), !sub_13D60(v22, "ccgcm_set_iv")) && (sub_13E78(), !v23) && (sub_13E08(), v24 = ccgcm_update(), !sub_13D60(v24, "ccgcm_update")) && !__CFADD__(v7 + 17, v19) && (sub_1814(), ccgcm_finalize(), v25 = cc_cmp_safe(), !sub_13D60(v25, "cc_cmp_safe")))
               {
-                goto LABEL_16;
-              }
-
-              sub_13E78();
-              if (!v20 && *v7 == 2)
-              {
-                sub_13E08();
-                v21 = ccgcm_init();
-                if (!sub_13D60(v21, "ccgcm_init"))
-                {
-                  sub_1814();
-                  v22 = ccgcm_set_iv();
-                  if (!sub_13D60(v22, "ccgcm_set_iv"))
-                  {
-                    sub_13E78();
-                    if (!v23)
-                    {
-                      sub_13E08();
-                      v24 = ccgcm_update();
-                      if (!sub_13D60(v24, "ccgcm_update") && !__CFADD__(v7 + 17, v19))
-                      {
-                        sub_1814();
-                        ccgcm_finalize();
-                        v25 = cc_cmp_safe();
-                        if (!sub_13D60(v25, "cc_cmp_safe"))
-                        {
-LABEL_16:
-                          *v1 = v19;
-                        }
-                      }
-                    }
-                  }
-                }
+                *v1 = v19;
               }
             }
           }
@@ -4430,7 +4288,7 @@ LABEL_9:
   return result;
 }
 
-rsize_t sub_14DC0(rsize_t result, int a2, unsigned __int8 a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, char a9, uint64_t a10, int a11, unsigned int a12, uint64_t a13)
+uint64_t sub_14DC0(uint64_t result, int a2, unsigned __int8 a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, char a9, uint64_t a10, int a11, int a12, uint64_t a13)
 {
   v20 = result;
   if (gACMLoggingLevel <= 0xAu)
@@ -4649,8 +4507,9 @@ uint64_t ACMContextCreateWithExternalForm(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-uint64_t ACMContextRemoveCredentialsByType(_OWORD *a1, int a2)
+uint64_t ACMContextRemoveCredentialsByType(_OWORD *a1, uint64_t a2)
 {
+  v2 = a2;
   if (byte_350A1 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     v5 = 136315394;
@@ -4660,7 +4519,7 @@ uint64_t ACMContextRemoveCredentialsByType(_OWORD *a1, int a2)
     _os_log_impl(&def_1FF08, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: called.\n", &v5, 0x16u);
   }
 
-  return ACMContextRemoveCredentialsByTypeAndScope(a1, a2, 1);
+  return ACMContextRemoveCredentialsByTypeAndScope(a1, v2, 1);
 }
 
 uint64_t ACMContextContainsCredentialType(uint64_t a1, int a2)
@@ -4959,82 +4818,84 @@ void ACMGetAclAuthMethod(__n128 *a1, uint64_t a2)
   }
 }
 
-uint64_t ACMSetEnvironmentVariable(int a1)
+uint64_t ACMSetEnvironmentVariable(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a1;
   if (byte_350A1 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v7 = "ACMLib";
-    v8 = 2080;
-    v9 = "ACMSetEnvironmentVariable";
+    v9 = "ACMLib";
+    v10 = 2080;
+    v11 = "ACMSetEnvironmentVariable";
     _os_log_impl(&def_1FF08, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
   LibCall_ACMSetEnvironmentVariable();
-  v3 = v2;
-  if (v2)
+  v5 = v4;
+  if (v4)
   {
-    v4 = 70;
+    v6 = 70;
   }
 
   else
   {
-    v4 = 10;
+    v6 = 10;
   }
 
-  if (v4 >= byte_350A1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  if (v6 >= byte_350A1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v7 = "ACMLib";
-    v8 = 2080;
-    v9 = "ACMSetEnvironmentVariable";
-    v10 = 2048;
-    v11 = v3;
-    v12 = 1024;
-    v13 = a1;
+    v9 = "ACMLib";
+    v10 = 2080;
+    v11 = "ACMSetEnvironmentVariable";
+    v12 = 2048;
+    v13 = v5;
+    v14 = 1024;
+    v15 = v3;
     _os_log_impl(&def_1FF08, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld, var=%u.\n", buf, 0x26u);
   }
 
-  return v3;
+  return v5;
 }
 
-uint64_t ACMSetEnvironmentVariableWithAccessPolicy(int a1)
+uint64_t ACMSetEnvironmentVariableWithAccessPolicy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v6 = a1;
   if (byte_350A1 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v7 = "ACMLib";
-    v8 = 2080;
-    v9 = "ACMSetEnvironmentVariableWithAccessPolicy";
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMSetEnvironmentVariableWithAccessPolicy";
     _os_log_impl(&def_1FF08, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
   LibCall_ACMSetEnvironmentVariable();
-  v3 = v2;
-  if (v2)
+  v8 = v7;
+  if (v7)
   {
-    v4 = 70;
+    v9 = 70;
   }
 
   else
   {
-    v4 = 10;
+    v9 = 10;
   }
 
-  if (v4 >= byte_350A1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  if (v9 >= byte_350A1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v7 = "ACMLib";
-    v8 = 2080;
-    v9 = "ACMSetEnvironmentVariableWithAccessPolicy";
-    v10 = 2048;
-    v11 = v3;
-    v12 = 1024;
-    v13 = a1;
+    v12 = "ACMLib";
+    v13 = 2080;
+    v14 = "ACMSetEnvironmentVariableWithAccessPolicy";
+    v15 = 2048;
+    v16 = v8;
+    v17 = 1024;
+    v18 = v6;
     _os_log_impl(&def_1FF08, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld, var=%u.\n", buf, 0x26u);
   }
 
-  return v3;
+  return v8;
 }
 
 uint64_t ACMGetEnvironmentVariable(uint64_t a1, uint64_t a2)
@@ -5114,8 +4975,10 @@ uint64_t ACMKernelControl(int a1)
   return v2;
 }
 
-void ACMGlobalContextCredentialGetProperty(int a1, int a2, uint64_t a3)
+void ACMGlobalContextCredentialGetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
+  v5 = a1;
   if (byte_350A1 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -5126,7 +4989,7 @@ void ACMGlobalContextCredentialGetProperty(int a1, int a2, uint64_t a3)
   }
 
   v6 = 0;
-  LibCall_ACMGlobalContextCredentialGetProperty_Block(sub_1908, &v6, a1, a2, a3);
+  LibCall_ACMGlobalContextCredentialGetProperty_Block(sub_1908, &v6, v5, v4, a3);
   if (byte_350A1 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -5137,8 +5000,10 @@ void ACMGlobalContextCredentialGetProperty(int a1, int a2, uint64_t a3)
   }
 }
 
-void ACMContextCredentialGetProperty(__n128 *a1, unsigned __int32 a2, unsigned __int32 a3, uint64_t a4)
+void ACMContextCredentialGetProperty(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a3;
+  v6 = a2;
   if (byte_350A1 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -5167,7 +5032,7 @@ void ACMContextCredentialGetProperty(__n128 *a1, unsigned __int32 a2, unsigned _
   if (a4)
   {
     v9 = a1;
-    v8 = LibCall_ACMContextCredentialGetProperty(sub_1908, &v9, a1, a2, a3, buf, &v10);
+    v8 = LibCall_ACMContextCredentialGetProperty(sub_1908, &v9, a1, v6, v5, buf, &v10);
     (*(a4 + 16))(a4, v8, buf, v10);
   }
 
@@ -5325,45 +5190,46 @@ uint64_t ACMContextGetDataProperty(uint64_t a1, unsigned __int16 a2, unsigned __
   return Data;
 }
 
-uint64_t ACMContextCopyData(__int128 *a1, uint64_t a2, __int128 *a3, uint64_t a4)
+uint64_t ACMContextCopyData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (byte_350A1 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v13 = "ACMLib";
-    v14 = 2080;
-    v15 = "ACMContextCopyData";
+    v15 = "ACMLib";
+    v16 = 2080;
+    v17 = "ACMContextCopyData";
     _os_log_impl(&def_1FF08, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: called.\n", buf, 0x16u);
   }
 
-  v11 = 0;
-  v8 = LibCall_ACMContextCopyData(sub_1908, &v11, a1, a2, a3, a4);
-  if (v8)
+  v13 = 0;
+  v10 = LibCall_ACMContextCopyData(sub_1908, &v13, a1, a2, a3, a4);
+  if (v10)
   {
-    v9 = 70;
+    v11 = 70;
   }
 
   else
   {
-    v9 = 10;
+    v11 = 10;
   }
 
-  if (v9 >= byte_350A1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  if (v11 >= byte_350A1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v13 = "ACMLib";
-    v14 = 2080;
-    v15 = "ACMContextCopyData";
-    v16 = 2048;
-    v17 = v8;
+    v15 = "ACMLib";
+    v16 = 2080;
+    v17 = "ACMContextCopyData";
+    v18 = 2048;
+    v19 = v10;
     _os_log_impl(&def_1FF08, &_os_log_default, OS_LOG_TYPE_INFO, "%s: %s: returning, err = %ld.\n", buf, 0x20u);
   }
 
-  return v8;
+  return v10;
 }
 
-uint64_t ACMContextGetInfo(__int128 *a1, int a2, void *a3)
+uint64_t ACMContextGetInfo(__int128 *a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   if (byte_350A1 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -5374,7 +5240,7 @@ uint64_t ACMContextGetInfo(__int128 *a1, int a2, void *a3)
   }
 
   v9 = a1;
-  v6 = LibCall_ACMContextGetInfo(sub_1908, &v9, a1, a2, a3);
+  v6 = LibCall_ACMContextGetInfo(sub_1908, &v9, a1, v4, a3);
   if (v6)
   {
     v7 = 70;
@@ -5436,7 +5302,7 @@ LABEL_12:
   }
 }
 
-uint64_t sub_17F34(uint64_t a1, char a2, uint64_t a3, uint64_t a4, size_t a5)
+uint64_t sub_17F34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, size_t a5)
 {
 
   return sub_1ACC(a1, a2, 0, v5, a5, 0, 0);
@@ -5514,14 +5380,7 @@ LABEL_16:
   return v17;
 }
 
-uint64_t sub_18444(uint64_t a1, uint64_t a2, unsigned int *a3)
-{
-  result = 0;
-  v4 = *a3;
-  return result;
-}
-
-void sub_18498()
+void sub_18498(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
 
   LibCall_ACMSetEnvironmentVariable();
@@ -5923,21 +5782,25 @@ void sub_18E70(uint64_t a1, int a2, os_log_t log)
 
 uint64_t sub_18EF8()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   return sub_18F1C();
 }
 
 void sub_18F94(void *a1)
 {
   v1 = [a1 nonDisposablePool];
-  sub_17B0(&def_1FF08, v2, v3, "No free slots for a new LAContext in the non-disposable pool: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_17B0(&def_1FF08, v2, v3, "No free slots for a new LAContext in the non-disposable pool: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_1901C(void *a1)
 {
   v1 = [a1 disposablePool];
-  sub_17B0(&def_1FF08, v2, v3, "Disposable pool has no free slots: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_17B0(&def_1FF08, v2, v3, "Disposable pool has no free slots: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_190FC(uint64_t *a1, uint64_t a2, os_log_t log)
@@ -6113,7 +5976,7 @@ uint64_t GetSerializedVerifyAclConstraintSize(int a1, uint64_t a2, uint64_t a3, 
   return result;
 }
 
-uint64_t SerializeVerifyAclConstraint(int a1, _OWORD *a2, const void *a3, unsigned int a4, const void *a5, unsigned int a6, char a7, int a8, uint64_t a9, unsigned int a10, uint64_t a11, void *a12)
+uint64_t SerializeVerifyAclConstraint(int a1, _OWORD *a2, const void *a3, unsigned int a4, const void *a5, unsigned int a6, char a7, int a8, uint64_t a9, unsigned int a10, uint64_t a11, uint64_t *a12)
 {
   if (!a3)
   {
@@ -6296,13 +6159,13 @@ void GetSerializedRequirementSize(uint64_t a1, uint64_t a2, void *a3)
         *a3 = 20;
         while (*(a2 + 16))
         {
-          SerializedRequirementSize = GetSerializedRequirementSize(a1, *(a2 + 20), &v26);
-          if (SerializedRequirementSize)
+          GetSerializedRequirementSize(a1, *(a2 + 20), &v26);
+          if (v9)
           {
             break;
           }
 
-          sub_13684(SerializedRequirementSize, v10, v11, v12, v13, v14, v15, v16, v25, v26);
+          sub_13684(v9, v10, v11, v12, v13, v14, v15, v16, v25, v26);
         }
       }
 
@@ -6311,7 +6174,7 @@ void GetSerializedRequirementSize(uint64_t a1, uint64_t a2, void *a3)
         *a3 = 24;
         while (*(a2 + 20))
         {
-          v17 = GetSerializedRequirementSize(a1, *(a2 + 24), &v26);
+          GetSerializedRequirementSize(a1, *(a2 + 24), &v26);
           if (v17)
           {
             break;
@@ -6327,100 +6190,6 @@ void GetSerializedRequirementSize(uint64_t a1, uint64_t a2, void *a3)
       *a3 = sub_134FC(a1, a2) + 16;
     }
   }
-}
-
-void SerializeRequirement(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
-{
-  sub_1372C();
-  a21 = v22;
-  a22 = v27;
-  v28 = v23;
-  a12 = 0;
-  if (v24)
-  {
-    v29 = v25;
-    if (v25)
-    {
-      v30 = v26;
-      if (v26)
-      {
-        v31 = v24;
-        GetSerializedRequirementSize(v23, v24, &a12);
-        if (!v32 && a12 <= *v30)
-        {
-          v41 = *v31;
-          v42 = v31[2];
-          v33 = sub_134FC(v28, v31);
-          *v29 = v41;
-          *(v29 + 8) = v42;
-          *(v29 + 12) = v33;
-          if (*v31 <= 0x1Cu)
-          {
-            sub_20BC();
-            if (!v36)
-            {
-              v37 = sub_134FC(v28, v31);
-              memcpy((v29 + 16), v31 + 4, v37);
-              v38 = v37 + 16;
-LABEL_9:
-              *v30 = v38;
-              goto LABEL_10;
-            }
-
-            if ((v35 & 0x30) != 0)
-            {
-              *(v29 + 16) = v31[4];
-              if (!v31[4])
-              {
-                v38 = 20;
-                goto LABEL_9;
-              }
-
-              v39 = 0;
-              v38 = 20;
-              while (!sub_2180())
-              {
-                v38 += a9;
-                if (++v39 >= v31[4])
-                {
-                  goto LABEL_9;
-                }
-              }
-            }
-
-            else
-            {
-              if (v34 != 7)
-              {
-                goto LABEL_10;
-              }
-
-              *(v29 + 16) = *(v31 + 2);
-              if (!v31[5])
-              {
-                v38 = 24;
-                goto LABEL_9;
-              }
-
-              v40 = 0;
-              v38 = 24;
-              while (!sub_2180())
-              {
-                v38 += a9;
-                if (++v40 >= v31[5])
-                {
-                  goto LABEL_9;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-LABEL_10:
-  sub_13744();
 }
 
 uint64_t GetSerializedCredentialSize(_DWORD *a1, void *a2)
@@ -6609,7 +6378,7 @@ LABEL_15:
   sub_136B4();
 }
 
-uint64_t CopyCredential(uint64_t a1, void **a2)
+uint64_t CopyCredential(unsigned int *a1, void **a2)
 {
   __dst = 0;
   v2 = 4294967293;
@@ -6626,7 +6395,7 @@ uint64_t CopyCredential(uint64_t a1, void **a2)
 
     else if (__dst)
     {
-      memcpy(__dst, a1, *(a1 + 28) + 32);
+      memcpy(__dst, a1, a1[7] + 32);
       v2 = 0;
       *a2 = __dst;
     }
@@ -7072,7 +6841,7 @@ LABEL_12:
   return v4;
 }
 
-void DeallocCredentialList(_DWORD **a1, unsigned int a2)
+void DeallocCredentialList(void *a1, unsigned int a2)
 {
   if (a1)
   {
@@ -7698,7 +7467,7 @@ uint64_t LibSer_SEPControlResponse_Serialize(void *__src, size_t __n, _DWORD *a3
   return result;
 }
 
-uint64_t LibSer_SEPControlResponse_Deserialize(unsigned int *a1, unint64_t a2, void *a3, void *a4)
+uint64_t LibSer_SEPControlResponse_Deserialize(unsigned int *a1, unint64_t a2, unsigned int **a3, void *a4)
 {
   if (!a1)
   {
@@ -8481,7 +8250,7 @@ uint64_t LibCall_ACMContextUnloadToImage_Block(uint64_t a1)
   return v4;
 }
 
-uint64_t Util_WriteToBuffer(uint64_t a1, size_t a2, void *a3, void *__src, size_t __n)
+uint64_t Util_WriteToBuffer(uint64_t a1, size_t a2, size_t *a3, void *__src, size_t __n)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -8535,7 +8304,7 @@ LABEL_13:
   return v12;
 }
 
-uint64_t Util_ReadFromBuffer(uint64_t a1, size_t a2, void *a3, void *__dst, size_t __n)
+uint64_t Util_ReadFromBuffer(uint64_t a1, size_t a2, size_t *a3, void *__dst, size_t __n)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -9578,4 +9347,232 @@ uint64_t ACMContextRemoveCredentialsByTypeAndScope(_OWORD *a1, int a2, int a3)
   }
 
   return v3;
+}
+
+void ACMContextRemoveCredentialsByValueAndScope(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, size_t size, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
+{
+  sub_17FC8();
+  sub_17F7C();
+  sub_17F00();
+  if (v28 <= 0xA && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  {
+    sub_17E90();
+    sub_21F8();
+    _os_log_impl(v29, v30, v31, v32, v33, 0x16u);
+  }
+
+  sub_16E4();
+  sub_1894();
+  if (v27 && (v34 & 1) == 0)
+  {
+    if (sub_1F08() || (v35 = sub_17EA8(), GetSerializedRemoveCredentialSize(v35, v36, v37, v38)))
+    {
+      sub_17F8C();
+    }
+
+    else
+    {
+      v39 = acm_mem_alloc_data(size);
+      acm_mem_alloc_info("<data>", v39, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 465, "ACMContextRemoveCredentialsByValueAndScope");
+      if (v39)
+      {
+        v40 = sub_17EA8();
+        if (!SerializeRemoveCredential(v40, v41, v42, v39, v43))
+        {
+          sub_17F34(v26, 6, v44, v45, size);
+        }
+
+        acm_mem_free_info("<data>", v39, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 478, "ACMContextRemoveCredentialsByValueAndScope");
+        acm_mem_free_data(v39, size);
+      }
+
+      else
+      {
+        sub_17F98();
+      }
+    }
+  }
+
+  sub_17FA4();
+  if (v46 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  {
+    sub_1848();
+    sub_21F8();
+    _os_log_impl(v47, v48, v49, v50, v51, 0x20u);
+  }
+
+  sub_17FB0();
+}
+
+uint64_t ACMGlobalContextRemoveCredentialsByType(int a1)
+{
+  if (byte_350A1 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  {
+    v17 = 136315394;
+    v18 = "ACMLib";
+    sub_16B4();
+    v19 = "ACMGlobalContextRemoveCredentialsByType";
+    sub_21F8();
+    _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
+  }
+
+  v16 = 0;
+  v7 = ACMContextCreateWithFlags(&v16, 0);
+  if (!v7)
+  {
+    v7 = ACMContextRemoveCredentialsByTypeAndScope(v16, a1, 2);
+  }
+
+  v8 = v7;
+  if (v16)
+  {
+    ACMContextDelete(v16, 1);
+  }
+
+  if (v8)
+  {
+    v9 = 70;
+  }
+
+  else
+  {
+    v9 = 10;
+  }
+
+  if (v9 >= byte_350A1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  {
+    sub_17F1C();
+    v18 = "ACMLib";
+    sub_17F10();
+    v19 = "ACMGlobalContextRemoveCredentialsByType";
+    sub_17E80();
+    sub_21F8();
+    _os_log_impl(v10, v11, v12, v13, v14, 0x20u);
+  }
+
+  return v8;
+}
+
+uint64_t ACMContextRemovePassphraseCredentialsByPurposeAndScope(_OWORD *a1, int a2, int a3)
+{
+  if (byte_350A1 <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  {
+    sub_17F28();
+    sub_17ED0();
+    _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+  }
+
+  if (a1 || a3 == 2)
+  {
+    if (sub_1F08())
+    {
+      sub_17F8C();
+    }
+
+    else
+    {
+      v12 = acm_mem_alloc_data(0x18uLL);
+      sub_17F54();
+      acm_mem_alloc_info(v13, v14, v15, v16, 500, v17);
+      if (v12)
+      {
+        if (a1)
+        {
+          *v12 = *a1;
+        }
+
+        else
+        {
+          *v12 = 0;
+          v12[1] = 0;
+        }
+
+        *(v12 + 4) = a2;
+        *(v12 + 5) = a3;
+        sub_17F6C();
+        v3 = sub_1ACC(v18, v19, v20, v21, v22, 0, 0);
+        sub_17F54();
+        acm_mem_free_info(v23, v24, v25, v26, 521, v27);
+        acm_mem_free_data(v12, 0x18uLL);
+      }
+
+      else
+      {
+        sub_17F98();
+      }
+    }
+  }
+
+  else
+  {
+    sub_1894();
+  }
+
+  sub_17FA4();
+  if (v28 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  {
+    sub_17FE0();
+    sub_17F60();
+    sub_18A0();
+    sub_17ED0();
+    _os_log_impl(v29, v30, v31, v32, v33, 0x20u);
+  }
+
+  return v3;
+}
+
+void ACMContextReplacePassphraseCredentialsWithScope(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, size_t size, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
+{
+  sub_17FC8();
+  sub_17F7C();
+  sub_17F00();
+  if (v28 <= 0xA && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  {
+    sub_17E90();
+    sub_21F8();
+    _os_log_impl(v29, v30, v31, v32, v33, 0x16u);
+  }
+
+  sub_16E4();
+  sub_1894();
+  if (v27 && (v34 & 1) == 0)
+  {
+    if (sub_1F08() || (v35 = sub_17EA8(), GetSerializedReplacePassphraseCredentialSize(v35, v36, v37, v38)))
+    {
+      sub_17F8C();
+    }
+
+    else
+    {
+      v39 = acm_mem_alloc_data(size);
+      acm_mem_alloc_info("<data>", v39, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 546, "ACMContextReplacePassphraseCredentialsWithScope");
+      if (v39)
+      {
+        v40 = sub_17EA8();
+        if (!SerializeReplacePassphraseCredential(v40, v41, v42, v39, v43))
+        {
+          sub_17F34(v26, 15, v44, v45, size);
+        }
+
+        bzero(v39, size);
+        acm_mem_free_info("<data>", v39, size, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 560, "ACMContextReplacePassphraseCredentialsWithScope");
+        acm_mem_free_data(v39, size);
+      }
+
+      else
+      {
+        sub_17F98();
+      }
+    }
+  }
+
+  sub_17FA4();
+  if (v46 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  {
+    sub_1848();
+    sub_21F8();
+    _os_log_impl(v47, v48, v49, v50, v51, 0x20u);
+  }
+
+  sub_17FB0();
 }

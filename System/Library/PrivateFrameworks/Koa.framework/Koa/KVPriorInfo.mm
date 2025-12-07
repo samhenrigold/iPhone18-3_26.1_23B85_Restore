@@ -120,10 +120,10 @@
 
 - (KVPriorInfo)initWithOrdinality:(unsigned int)ordinality score:(float)score
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = KVPriorInfo;
-  v6 = [(KVPriorInfo *)&v12 init];
+  v16 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = KVPriorInfo;
+  v6 = [(KVPriorInfo *)&v11 init];
   v7 = v6;
   if (!v6)
   {
@@ -143,8 +143,8 @@ LABEL_5:
   if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v14 = "[KVPriorInfo initWithOrdinality:score:]";
-    v15 = 2048;
+    v13 = "[KVPriorInfo initWithOrdinality:score:]";
+    v14 = 2048;
     scoreCopy = score;
     _os_log_error_impl(&dword_2559A5000, v9, OS_LOG_TYPE_ERROR, "%s Invalid score: %f", buf, 0x16u);
   }
@@ -152,7 +152,6 @@ LABEL_5:
   v8 = 0;
 LABEL_9:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -10,7 +10,7 @@ id __67__FPSupport_PowerStateSingleton_sharedFPSupportPowerStateSingleton__block
   return result;
 }
 
-uint64_t __49__FPSupport_PowerStateSingleton_postNotification__block_invoke()
+uint64_t __49__FPSupport_PowerStateSingleton_postNotification__block_invoke(uint64_t a1)
 {
   CMNotificationCenterGetDefaultLocalCenter();
   +[FPSupport_PowerStateSingleton sharedFPSupportPowerStateSingleton];
@@ -25,7 +25,7 @@ id __57__FPSupport_VideoRangeSingleton_sharedFPSupportSingleton__block_invoke(ui
   return result;
 }
 
-uint64_t __49__FPSupport_VideoRangeSingleton_postNotification__block_invoke()
+uint64_t __49__FPSupport_VideoRangeSingleton_postNotification__block_invoke(uint64_t a1)
 {
   CMNotificationCenterGetDefaultLocalCenter();
   +[FPSupport_VideoRangeSingleton sharedFPSupportSingleton];
@@ -33,7 +33,7 @@ uint64_t __49__FPSupport_VideoRangeSingleton_postNotification__block_invoke()
   return CMNotificationCenterPostNotification();
 }
 
-uint64_t __80__FPSupport_VideoRangeSingleton_observeValueForKeyPath_ofObject_change_context___block_invoke()
+uint64_t __80__FPSupport_VideoRangeSingleton_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
   CMNotificationCenterGetDefaultLocalCenter();
   +[FPSupport_VideoRangeSingleton sharedFPSupportSingleton];
@@ -48,7 +48,7 @@ dispatch_queue_t __FPSupport_AudioSpatializationPreferencesChanged_block_invoke(
   return result;
 }
 
-uint64_t __FPSupport_AudioSpatializationPreferencesChanged_block_invoke_2()
+uint64_t __FPSupport_AudioSpatializationPreferencesChanged_block_invoke_2(uint64_t a1)
 {
   CMNotificationCenterGetDefaultLocalCenter();
   if (FPSupport_GetAudioSpatializationPreferencesMonitor_onceToken != -1)

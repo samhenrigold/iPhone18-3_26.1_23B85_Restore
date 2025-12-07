@@ -3,12 +3,28 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)tierAsString:(int)string;
 - (int)StringAsTier:(id)tier;
 - (void)mergeFrom:(id)from;
 - (void)writeTo:(id)to;
 @end
 
 @implementation NSPPrivacyProxyPolicyTierMap
+
+- (id)tierAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7A31088[string];
+  }
+
+  return v4;
+}
 
 - (int)StringAsTier:(id)tier
 {
@@ -77,8 +93,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  tier = self->_tier;
-  v6 = toCopy;
   PBDataWriterWriteInt32Field();
   if (!self->_policy)
   {

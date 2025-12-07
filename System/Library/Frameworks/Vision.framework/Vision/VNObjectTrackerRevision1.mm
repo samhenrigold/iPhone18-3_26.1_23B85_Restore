@@ -19,8 +19,7 @@
       v10[0] = &unk_1F1974B70;
       v10[1] = 0;
       v11 = 0;
-      [(VNTracker *)v7 _createTrackerWithLevel:v8 options:v10 error:error];
-      std::shared_ptr<vision::mod::ObjectTrackerAbstract>::reset[abi:ne200100]<vision::mod::ObjectTrackerAbstract,0>();
+      std::shared_ptr<vision::mod::ObjectTrackerAbstract>::reset[abi:ne200100]<vision::mod::ObjectTrackerAbstract,0>(&v7->super.super.mTrackerImpl, -[VNTracker _createTrackerWithLevel:options:error:](v7, "_createTrackerWithLevel:options:error:", v8, v10, error));
     }
   }
 

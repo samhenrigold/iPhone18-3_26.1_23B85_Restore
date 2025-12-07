@@ -126,39 +126,35 @@ uint64_t __35__CalSpotlightPendingSearch__queue__block_invoke()
 
 void __46__CalSpotlightPendingSearch_searchWithString___block_invoke(uint64_t a1)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) length])
   {
     v2 = EKWeakLinkStringConstant("MDSearchQueryOptionFetchAttributes", 0xBuLL);
-    v17 = v2;
+    v14 = v2;
     v3 = EKWeakLinkStringConstant("MDItemIdentifier", 0xBuLL);
-    v16[0] = v3;
+    v13[0] = v3;
     v4 = EKWeakLinkStringConstant("MDItemTitle", 0xBuLL);
-    v16[1] = v4;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
-    v18[0] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v13[1] = v4;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+    v15[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
 
     v7 = MEMORY[0x1E696AE18];
     v8 = [*MEMORY[0x1E6982D30] identifier];
     v9 = [v7 predicateWithFormat:@"kMDItemContentType == %@ && kMDItemTitle contains[cd] %@", v8, *(a1 + 32)];
 
-    v10 = *(a1 + 40);
-    v11 = [objc_opt_class() _createSearchQueryWithPredicate:v9 options:v6];
-    v12 = [*(a1 + 40) clientBundleID];
-    [v11 setClientBundleID:v12];
+    v10 = [objc_opt_class() _createSearchQueryWithPredicate:v9 options:v6];
+    v11 = [*(a1 + 40) clientBundleID];
+    [v10 setClientBundleID:v11];
 
-    [v11 setDelegate:*(a1 + 40)];
-    [*(a1 + 40) _startSearchWithQuery:v11];
-
-    v13 = *MEMORY[0x1E69E9840];
+    [v10 setDelegate:*(a1 + 40)];
+    [*(a1 + 40) _startSearchWithQuery:v10];
   }
 
   else
   {
-    v15 = [*(a1 + 40) completionHandler];
-    (*(v15 + 2))(v15, MEMORY[0x1E695E0F0], 0);
-    v14 = *MEMORY[0x1E69E9840];
+    v12 = [*(a1 + 40) completionHandler];
+    (*(v12 + 2))(v12, MEMORY[0x1E695E0F0], 0);
   }
 }
 
@@ -216,42 +212,40 @@ void __35__CalSpotlightPendingSearch_cancel__block_invoke(uint64_t a1)
 
 + (id)_resultsForSearchableItems:(id)items
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(itemsCopy, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = itemsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [self _resultForSearchableItem:{*(*(&v14 + 1) + 8 * i), v14}];
+        v11 = [self _resultForSearchableItem:{*(*(&v13 + 1) + 8 * i), v13}];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -275,7 +269,7 @@ void __35__CalSpotlightPendingSearch_cancel__block_invoke(uint64_t a1)
 
 void __56__CalSpotlightPendingSearch_searchQuery_didReturnItems___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) query];
 
   if (v2)
@@ -286,26 +280,26 @@ void __56__CalSpotlightPendingSearch_searchQuery_didReturnItems___block_invoke(u
       __56__CalSpotlightPendingSearch_searchQuery_didReturnItems___block_invoke_cold_1();
     }
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v4 = *(a1 + 48);
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v17 + 1) + 8 * i);
+          v9 = *(*(&v16 + 1) + 8 * i);
           v10 = [v9 attributeSet];
           v11 = [v10 identifier];
 
@@ -325,14 +319,12 @@ void __56__CalSpotlightPendingSearch_searchQuery_didReturnItems___block_invoke(u
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v6);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)searchQuery:(id)query statusChanged:(unint64_t)changed
@@ -365,14 +357,13 @@ void __55__CalSpotlightPendingSearch_searchQuery_statusChanged___block_invoke(ui
     if (*(a1 + 48) == 3)
     {
       [*(a1 + 32) _searchEnded];
-      v4 = *(a1 + 32);
-      v5 = objc_opt_class();
-      v6 = [*(a1 + 32) searchableItems];
-      v7 = [v6 array];
-      v8 = [v5 _resultsForSearchableItems:v7];
+      v4 = objc_opt_class();
+      v5 = [*(a1 + 32) searchableItems];
+      v6 = [v5 array];
+      v7 = [v4 _resultsForSearchableItems:v6];
 
-      v9 = [*(a1 + 32) completionHandler];
-      (v9)[2](v9, v8, 0);
+      v8 = [*(a1 + 32) completionHandler];
+      (v8)[2](v8, v7, 0);
     }
   }
 }
@@ -422,36 +413,30 @@ void __58__CalSpotlightPendingSearch_searchQuery_didFailWithError___block_invoke
 void __56__CalSpotlightPendingSearch_searchQuery_didReturnItems___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v1 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_1_4(v2) predicate];
-  v4 = *(v0 + 48);
+  v1 = [OUTLINED_FUNCTION_1_4(v0) predicate];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_3_1(&dword_1B990D000, v5, v6, "Spotlight query %@ with predicate %@ did return items: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_1(&dword_1B990D000, v2, v3, "Spotlight query %@ with predicate %@ did return items: %@", v4, v5, v6, v7);
 }
 
 void __55__CalSpotlightPendingSearch_searchQuery_statusChanged___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v1 = *MEMORY[0x1E69E9840];
   v3 = [OUTLINED_FUNCTION_1_4(v2) predicate];
-  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(v0 + 48)];
-  OUTLINED_FUNCTION_3_1(&dword_1B990D000, v4, v5, "Spotlight query %@ with predicate %@ did change status: [%@]", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(v0 + 48)];
+  *v11 = 138412802;
+  *&v11[4] = v1;
+  *&v11[12] = 2112;
+  *&v11[14] = v3;
+  *&v11[22] = 2112;
+  OUTLINED_FUNCTION_3_1(&dword_1B990D000, v5, v6, "Spotlight query %@ with predicate %@ did change status: [%@]", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16], v4);
 }
 
 void __58__CalSpotlightPendingSearch_searchQuery_didFailWithError___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v2 = *MEMORY[0x1E69E9840];
-  v4 = [OUTLINED_FUNCTION_1_4(v3) predicate];
-  v5 = *(v1 + 48);
+  v2 = [OUTLINED_FUNCTION_1_4(v1) predicate];
   OUTLINED_FUNCTION_0_7();
-  _os_log_error_impl(&dword_1B990D000, v0, OS_LOG_TYPE_ERROR, "Spotlight query %@ with predicate %@ failed with error: %@", v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B990D000, v0, OS_LOG_TYPE_ERROR, "Spotlight query %@ with predicate %@ failed with error: %@", v3, 0x20u);
 }
 
 @end

@@ -93,16 +93,16 @@ id +[WCRBrowserEngineClient _blockPageForURL:forUser:inLanguage:isAllowedWebsite
   return v18;
 }
 
-id __WCRDefaultLog()
+id __WCRDefaultLog(uint64_t a1)
 {
   if (__WCRDefaultLog_onceToken != -1)
   {
     __WCRDefaultLog_cold_1();
   }
 
-  v1 = __WCRDefaultLog_osLogHandle;
+  v2 = __WCRDefaultLog_osLogHandle;
 
-  return v1;
+  return v2;
 }
 
 double variable initialization expression of BloomFilterShim.filter@<D0>(uint64_t a1@<X8>)
@@ -116,56 +116,51 @@ double variable initialization expression of BloomFilterShim.filter@<D0>(uint64_
 
 id BloomFilterShim.init(path:)(uint64_t a1, uint64_t a2)
 {
-  v35 = a1;
-  v36 = a2;
+  v25 = a1;
+  v26 = a2;
   v3 = type metadata accessor for URL.DirectoryHint();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3, v6);
-  v8 = &v35 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v10 = (*(*(v9 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v9 - 8, v11);
-  v13 = &v35 - v12;
-  v14 = type metadata accessor for URL();
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  v18 = MEMORY[0x28223BE20](v14, v17);
-  v20 = &v35 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18, v21);
-  v23 = &v35 - v22;
-  v37 = v2;
-  v24 = v2 + OBJC_IVAR____TtC22WebContentRestrictions15BloomFilterShim_filter;
-  *v24 = 0u;
-  *(v24 + 16) = 0u;
-  *(v24 + 32) = 0;
-  (*(v15 + 56))(v13, 1, 1, v14);
-  (*(v4 + 104))(v8, *MEMORY[0x277CC91D8], v3);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v25 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = &v25 - v8;
+  v10 = type metadata accessor for URL();
+  v11 = *(v10 - 8);
+  v12 = MEMORY[0x28223BE20](v10);
+  v14 = &v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v12);
+  v16 = &v25 - v15;
+  v27 = v2;
+  v17 = v2 + OBJC_IVAR____TtC22WebContentRestrictions15BloomFilterShim_filter;
+  *v17 = 0u;
+  *(v17 + 16) = 0u;
+  *(v17 + 32) = 0;
+  (*(v11 + 56))(v9, 1, 1, v10);
+  (*(v4 + 104))(v6, *MEMORY[0x277CC91D8], v3);
   URL.init(filePath:directoryHint:relativeTo:)();
-  (*(v15 + 16))(v20, v23, v14);
-  v25 = objc_allocWithZone(MEMORY[0x277CBEA90]);
-  v26 = @nonobjc NSData.init(contentsOf:options:)(v20, 0);
-  v27 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSo6NSDataC_Tt0g5(v26);
-  v29 = v28;
-  v30 = type metadata accessor for PropertyListDecoder();
-  v31 = *(v30 + 48);
-  v32 = *(v30 + 52);
+  (*(v11 + 16))(v14, v16, v10);
+  v18 = objc_allocWithZone(MEMORY[0x277CBEA90]);
+  v19 = @nonobjc NSData.init(contentsOf:options:)(v14, 0);
+  v20 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSo6NSDataC_Tt0g5(v19);
+  v22 = v21;
+  type metadata accessor for PropertyListDecoder();
   swift_allocObject();
   PropertyListDecoder.init()();
-  v39[3] = type metadata accessor for BloomFilter();
-  v39[4] = lazy protocol witness table accessor for type BloomFilter and conformance BloomFilter(&lazy protocol witness table cache variable for type BloomFilter and conformance BloomFilter);
-  lazy protocol witness table accessor for type BloomFilter and conformance BloomFilter(&lazy protocol witness table cache variable for type BloomFilter and conformance BloomFilter);
+  v29[3] = type metadata accessor for BloomFilter();
+  v29[4] = lazy protocol witness table accessor for type BloomFilter and conformance BloomFilter(&lazy protocol witness table cache variable for type BloomFilter and conformance BloomFilter, &protocol conformance descriptor for BloomFilter);
+  lazy protocol witness table accessor for type BloomFilter and conformance BloomFilter(&lazy protocol witness table cache variable for type BloomFilter and conformance BloomFilter, &protocol conformance descriptor for BloomFilter);
   dispatch thunk of PropertyListDecoder.decode<A>(_:from:)();
-  (*(v15 + 8))(v23, v14);
+  (*(v11 + 8))(v16, v10);
 
-  outlined consume of Data._Representation(v27, v29);
+  outlined consume of Data._Representation(v20, v22);
   swift_beginAccess();
-  outlined assign with take of MembershipFilter?(v39, v24);
+  outlined assign with take of MembershipFilter?(v29, v17);
   swift_endAccess();
-  v33 = type metadata accessor for BloomFilterShim();
-  v38.receiver = v37;
-  v38.super_class = v33;
-  return objc_msgSendSuper2(&v38, sel_init, v35, v36);
+  v23 = type metadata accessor for BloomFilterShim();
+  v28.receiver = v27;
+  v28.super_class = v23;
+  return objc_msgSendSuper2(&v28, sel_init, v25, v26);
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
@@ -173,7 +168,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -183,24 +177,25 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
 
 uint64_t _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSo6NSDataC_Tt0g5(void *a1)
 {
-  v35[5] = *MEMORY[0x277D85DE8];
-  *&v32 = a1;
+  v36[5] = *MEMORY[0x277D85DE8];
+  v32 = a1;
+  *&v33 = a1;
   type metadata accessor for NSData();
   v2 = a1;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation15ContiguousBytes_pMd, &_s10Foundation15ContiguousBytes_pMR);
   if (swift_dynamicCast())
   {
-    outlined init with take of ContiguousBytes(v33, v35);
-    __swift_project_boxed_opaque_existential_1(v35, v35[3]);
+    outlined init with take of ContiguousBytes(v34, v36);
+    __swift_project_boxed_opaque_existential_1(v36, v36[3]);
     dispatch thunk of ContiguousBytes.withUnsafeBytes<A>(_:)();
-    v33[0] = v32;
-    __swift_destroy_boxed_opaque_existential_1(v35);
+    v34[0] = v33;
+    __swift_destroy_boxed_opaque_existential_1(v36);
     goto LABEL_40;
   }
 
-  v34 = 0;
-  memset(v33, 0, sizeof(v33));
-  outlined destroy of MembershipFilter?(v33, &_s10Foundation15ContiguousBytes_pSgMd, &_s10Foundation15ContiguousBytes_pSgMR);
+  v35 = 0;
+  memset(v34, 0, sizeof(v34));
+  outlined destroy of MembershipFilter?(v34, &_s10Foundation15ContiguousBytes_pSgMd, &_s10Foundation15ContiguousBytes_pSgMR);
   v3 = NSData.startIndex.getter();
   v4 = NSData.endIndex.getter();
   v5 = NSData.startIndex.getter();
@@ -226,19 +221,20 @@ LABEL_46:
     goto LABEL_47;
   }
 
-  *&v33[0] = specialized Data._Representation.init(count:)(v4 - v3);
-  *(&v33[0] + 1) = v9;
-  MEMORY[0x28223BE20]();
-  v12 = specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(partial apply for specialized closure #3 in Data.init<A>(_:));
+  *&v34[0] = specialized Data._Representation.init(count:)(v4 - v3);
+  *(&v34[0] + 1) = v9;
+  MEMORY[0x28223BE20](*&v34[0]);
+  v31[2] = &v32;
+  v12 = specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(partial apply for specialized closure #3 in Data.init<A>(_:), v31);
   v13 = v10;
-  v14 = *&v33[0];
-  v15 = *(&v33[0] + 1) >> 62;
-  if ((*(&v33[0] + 1) >> 62) > 1)
+  v14 = *&v34[0];
+  v15 = *(&v34[0] + 1) >> 62;
+  if ((*(&v34[0] + 1) >> 62) > 1)
   {
     if (v15 == 2)
     {
-      v17 = *(*&v33[0] + 16);
-      v16 = *(*&v33[0] + 24);
+      v17 = *(*&v34[0] + 16);
+      v16 = *(*&v34[0] + 24);
       v18 = __OFSUB__(v16, v17);
       v19 = v16 - v17;
       if (v18)
@@ -266,7 +262,7 @@ LABEL_48:
   {
     if (!v15)
     {
-      if (v11 != BYTE14(v33[0]))
+      if (v11 != BYTE14(v34[0]))
       {
         goto LABEL_18;
       }
@@ -274,24 +270,24 @@ LABEL_48:
       goto LABEL_23;
     }
 
-    if (__OFSUB__(DWORD1(v33[0]), v33[0]))
+    if (__OFSUB__(DWORD1(v34[0]), v34[0]))
     {
       goto LABEL_48;
     }
 
-    if (v11 != DWORD1(v33[0]) - LODWORD(v33[0]))
+    if (v11 != DWORD1(v34[0]) - LODWORD(v34[0]))
     {
 LABEL_18:
       if (v15 != 2)
       {
         if (v15 == 1)
         {
-          v20 = *&v33[0] >> 32;
+          v20 = *&v34[0] >> 32;
         }
 
         else
         {
-          v20 = BYTE14(v33[0]);
+          v20 = BYTE14(v34[0]);
         }
 
 LABEL_37:
@@ -311,7 +307,7 @@ LABEL_35:
   }
 
 LABEL_23:
-  memset(v35, 0, 15);
+  memset(v36, 0, 15);
   if (v10 == NSData.endIndex.getter())
   {
     goto LABEL_39;
@@ -331,7 +327,7 @@ LABEL_34:
   v25 = v13 + 1;
   while (1)
   {
-    *(v35 + v24) = v21;
+    *(v36 + v24) = v21;
     v24 = v24 + 1;
     if ((v24 >> 8))
     {
@@ -345,6 +341,8 @@ LABEL_44:
 
     if (v24 == 14)
     {
+      *&v33 = v36[0];
+      *(&v33 + 6) = *(v36 + 6);
       Data._Representation.append(contentsOf:)();
       if (v25 == NSData.endIndex.getter())
       {
@@ -376,38 +374,41 @@ LABEL_32:
     goto LABEL_34;
   }
 
+  *&v33 = v36[0];
+  *(&v33 + 6) = *(v36 + 6);
   Data._Representation.append(contentsOf:)();
 LABEL_39:
 
 LABEL_40:
-  v29 = v33[0];
-  outlined copy of Data._Representation(*&v33[0], *(&v33[0] + 1));
+  v29 = v34[0];
+  outlined copy of Data._Representation(*&v34[0], *(&v34[0] + 1));
 
   outlined consume of Data._Representation(v29, *(&v29 + 1));
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
 uint64_t _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSS8UTF8ViewV_Tt0g5(uint64_t a1, unint64_t a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  *&v41 = a1;
-  *(&v41 + 1) = a2;
+  v45 = *MEMORY[0x277D85DE8];
+  v39[0] = a1;
+  v39[1] = a2;
+  *&v42 = a1;
+  *(&v42 + 1) = a2;
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation15ContiguousBytes_pMd, &_s10Foundation15ContiguousBytes_pMR);
   if (swift_dynamicCast())
   {
-    outlined init with take of ContiguousBytes(v39, &v42);
-    __swift_project_boxed_opaque_existential_1(&v42, v43);
+    outlined init with take of ContiguousBytes(v40, &v43);
+    __swift_project_boxed_opaque_existential_1(&v43, v44);
     dispatch thunk of ContiguousBytes.withUnsafeBytes<A>(_:)();
-    v39[0] = v41;
-    __swift_destroy_boxed_opaque_existential_1(&v42);
+    v40[0] = v42;
+    __swift_destroy_boxed_opaque_existential_1(&v43);
     goto LABEL_63;
   }
 
-  v40 = 0;
-  memset(v39, 0, sizeof(v39));
-  outlined destroy of MembershipFilter?(v39, &_s10Foundation15ContiguousBytes_pSgMd, &_s10Foundation15ContiguousBytes_pSgMR);
+  v41 = 0;
+  memset(v40, 0, sizeof(v40));
+  outlined destroy of MembershipFilter?(v40, &_s10Foundation15ContiguousBytes_pSgMd, &_s10Foundation15ContiguousBytes_pSgMR);
   if ((a2 & 0x1000000000000000) != 0)
   {
     goto LABEL_67;
@@ -416,9 +417,9 @@ uint64_t _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSS8UTF8ViewV_Tt0g5(
   if ((a2 & 0x2000000000000000) != 0)
   {
     v5 = HIBYTE(a2) & 0xF;
-    *&v39[0] = a1;
-    *(&v39[0] + 1) = a2 & 0xFFFFFFFFFFFFFFLL;
-    v4 = v39;
+    *&v40[0] = a1;
+    *(&v40[0] + 1) = a2 & 0xFFFFFFFFFFFFFFLL;
+    v4 = v40;
   }
 
   else if ((a1 & 0x1000000000000000) != 0)
@@ -432,12 +433,12 @@ uint64_t _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSS8UTF8ViewV_Tt0g5(
     v4 = _StringObject.sharedUTF8.getter();
   }
 
-  closure #2 in Data.init<A>(_:)(v4, v5, &v42);
-  v6 = *(&v42 + 1);
-  v7 = v42;
-  if (*(&v42 + 1) >> 60 != 15)
+  closure #2 in Data.init<A>(_:)(v4, v5, &v43);
+  v6 = *(&v43 + 1);
+  v7 = v43;
+  if (*(&v43 + 1) >> 60 != 15)
   {
-    v39[0] = v42;
+    v40[0] = v43;
     goto LABEL_63;
   }
 
@@ -452,20 +453,21 @@ uint64_t _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSS8UTF8ViewV_Tt0g5(
   }
 
 LABEL_12:
-  *&v39[0] = specialized Data._Representation.init(count:)(v8);
-  *(&v39[0] + 1) = v9;
-  MEMORY[0x28223BE20](*&v39[0], v9);
-  v10 = specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(partial apply for specialized closure #3 in Data.init<A>(_:));
+  *&v40[0] = specialized Data._Representation.init(count:)(v8);
+  *(&v40[0] + 1) = v9;
+  MEMORY[0x28223BE20](*&v40[0]);
+  v34[2] = v39;
+  v10 = specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(partial apply for specialized closure #3 in Data.init<A>(_:), v34);
   v14 = v10;
   v15 = v11;
   v16 = v12;
-  v17 = *(&v39[0] + 1) >> 62;
-  if ((*(&v39[0] + 1) >> 62) > 1)
+  v17 = *(&v40[0] + 1) >> 62;
+  if ((*(&v40[0] + 1) >> 62) > 1)
   {
     if (v17 == 2)
     {
-      v19 = *(*&v39[0] + 16);
-      v18 = *(*&v39[0] + 24);
+      v19 = *(*&v40[0] + 16);
+      v18 = *(*&v40[0] + 24);
       v20 = __OFSUB__(v18, v19);
       v21 = v18 - v19;
       if (v20)
@@ -488,27 +490,27 @@ LABEL_12:
 
   else if (v17)
   {
-    if (__OFSUB__(DWORD1(v39[0]), v39[0]))
+    if (__OFSUB__(DWORD1(v40[0]), v40[0]))
     {
       goto LABEL_71;
     }
 
-    if (v13 != DWORD1(v39[0]) - LODWORD(v39[0]))
+    if (v13 != DWORD1(v40[0]) - LODWORD(v40[0]))
     {
 LABEL_23:
       if (v17 == 2)
       {
-        v22 = *(*&v39[0] + 24);
+        v22 = *(*&v40[0] + 24);
       }
 
       else if (v17 == 1)
       {
-        v22 = *&v39[0] >> 32;
+        v22 = *&v40[0] >> 32;
       }
 
       else
       {
-        v22 = BYTE14(v39[0]);
+        v22 = BYTE14(v40[0]);
       }
 
 LABEL_60:
@@ -528,7 +530,7 @@ LABEL_71:
     }
   }
 
-  else if (v13 != BYTE14(v39[0]))
+  else if (v13 != BYTE14(v40[0]))
   {
     goto LABEL_23;
   }
@@ -544,8 +546,8 @@ LABEL_71:
     v23 = v10 & 0xFFFFFFFFFFFFLL;
   }
 
-  *(&v41 + 7) = 0;
-  *&v41 = 0;
+  *(&v42 + 7) = 0;
+  *&v42 = 0;
   if (4 * v23 == v12 >> 14)
   {
     goto LABEL_57;
@@ -597,9 +599,9 @@ LABEL_67:
 
     else if ((v15 & 0x2000000000000000) != 0)
     {
-      *&v42 = v14;
-      *(&v42 + 1) = v38;
-      v31 = *(&v42 + v29);
+      *&v43 = v14;
+      *(&v43 + 1) = v38;
+      v31 = *(&v43 + v29);
       if (v27 != v26)
       {
         goto LABEL_46;
@@ -643,7 +645,7 @@ LABEL_50:
 
     v16 = String.UTF8View._foreignIndex(after:)();
 LABEL_52:
-    *(&v41 + v24) = v31;
+    *(&v42 + v24) = v31;
     v24 = v24 + 1;
     if ((v24 >> 8))
     {
@@ -652,8 +654,8 @@ LABEL_52:
 
     if (v24 == 14)
     {
-      *&v42 = v41;
-      *(&v42 + 6) = *(&v41 + 6);
+      *&v43 = v42;
+      *(&v43 + 6) = *(&v42 + 6);
       Data._Representation.append(contentsOf:)();
       LOBYTE(v24) = 0;
     }
@@ -663,10 +665,10 @@ LABEL_52:
   v6 = v35;
   if (v24)
   {
-    *&v42 = v41;
-    *(&v42 + 6) = *(&v41 + 6);
+    *&v43 = v42;
+    *(&v43 + 6) = *(&v42 + 6);
     Data._Representation.append(contentsOf:)();
-    outlined consume of Data._Representation?(v36, v35);
+    outlined consume of Data._Representation?(v36, v6);
     goto LABEL_62;
   }
 
@@ -674,11 +676,10 @@ LABEL_57:
 
   outlined consume of Data._Representation?(v36, v6);
 LABEL_63:
-  v32 = v39[0];
-  outlined copy of Data._Representation(*&v39[0], *(&v39[0] + 1));
+  v32 = v40[0];
+  outlined copy of Data._Representation(*&v40[0], *(&v40[0] + 1));
 
   outlined consume of Data._Representation(v32, *(&v32 + 1));
-  v33 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -717,23 +718,23 @@ id BloomFilterShim.__allocating_init()()
   return [v1 init];
 }
 
-id BloomFilterShim.__deallocating_deinit()
+id BloomFilterShim.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for BloomFilterShim();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for BloomFilterShim();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 id @nonobjc NSData.init(contentsOf:options:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v18 = *MEMORY[0x277D85DE8];
-  URL._bridgeToObjectiveC()(v18);
+  v17 = *MEMORY[0x277D85DE8];
+  URL._bridgeToObjectiveC()(v17);
   v7 = v6;
-  v17 = 0;
-  v8 = [v3 initWithContentsOfURL:v6 options:a2 error:&v17];
+  v16 = 0;
+  v8 = [v3 initWithContentsOfURL:v6 options:a2 error:&v16];
 
-  v9 = v17;
+  v9 = v16;
   if (v8)
   {
     v10 = type metadata accessor for URL();
@@ -744,7 +745,7 @@ id @nonobjc NSData.init(contentsOf:options:)(uint64_t a1, uint64_t a2)
 
   else
   {
-    v13 = v17;
+    v13 = v16;
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
@@ -752,11 +753,10 @@ id @nonobjc NSData.init(contentsOf:options:)(uint64_t a1, uint64_t a2)
     (*(*(v14 - 8) + 8))(a1, v14);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-uint64_t lazy protocol witness table accessor for type BloomFilter and conformance BloomFilter(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type BloomFilter and conformance BloomFilter(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -781,24 +781,21 @@ uint64_t lazy protocol witness table accessor for type BloomFilter and conforman
   return result;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t *__swift_deallocate_boxed_opaque_existential_1(uint64_t *result)
+uint64_t __swift_deallocate_boxed_opaque_existential_1(uint64_t result)
 {
-  v1 = *(result[3] - 8);
-  if ((*(v1 + 80) & 0x20000) != 0)
+  if ((*(*(*(result + 24) - 8) + 80) & 0x20000) != 0)
   {
-    v2 = *result;
-    v3 = *(v1 + 64) + ((*(v1 + 80) + 16) & ~*(v1 + 80));
     JUMPOUT(0x2743D8FE0);
   }
 
@@ -829,15 +826,17 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t outlined destroy of MembershipFilter?(uint64_t a1, uint64_t *a2, uint64_t *a3)
@@ -847,7 +846,7 @@ uint64_t outlined destroy of MembershipFilter?(uint64_t a1, uint64_t *a2, uint64
   return a1;
 }
 
-unint64_t closure #2 in Data.init<A>(_:)@<X0>(_BYTE *a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X8>)
+unint64_t closure #2 in Data.init<A>(_:)@<X0>(_BYTE *a1@<X0>, unint64_t a2@<X1>, unint64_t *a3@<X8>)
 {
   result = 0;
   v6 = 0xC000000000000000;
@@ -856,29 +855,27 @@ unint64_t closure #2 in Data.init<A>(_:)@<X0>(_BYTE *a1@<X0>, uint64_t a2@<X1>, 
     if (a2 <= 14)
     {
       result = specialized Data.InlineData.init(_:)(a1, &a1[a2]);
-      v6 = v12 & 0xFFFFFFFFFFFFFFLL;
+      v6 = v9 & 0xFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v8 = type metadata accessor for __DataStorage();
-      v9 = *(v8 + 48);
-      v10 = *(v8 + 52);
+      type metadata accessor for __DataStorage();
       swift_allocObject();
-      v11 = __DataStorage.init(bytes:length:)();
+      v8 = __DataStorage.init(bytes:length:)();
       if (a2 >= 0x7FFFFFFF)
       {
         type metadata accessor for Data.RangeReference();
         result = swift_allocObject();
         *(result + 16) = 0;
         *(result + 24) = a2;
-        v6 = v11 | 0x8000000000000000;
+        v6 = v8 | 0x8000000000000000;
       }
 
       else
       {
         result = a2 << 32;
-        v6 = v11 | 0x4000000000000000;
+        v6 = v8 | 0x4000000000000000;
       }
     }
   }
@@ -888,82 +885,79 @@ unint64_t closure #2 in Data.init<A>(_:)@<X0>(_BYTE *a1@<X0>, uint64_t a2@<X1>, 
   return result;
 }
 
-void *specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(void *(*a1)(uint64_t *__return_ptr, char *, char *))
+char *specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(void *(*a1)(uint64_t *__return_ptr, char *, char *), uint64_t a2)
 {
-  v3 = v1;
-  v22[2] = *MEMORY[0x277D85DE8];
-  v6 = *v1;
-  v5 = v1[1];
-  v7 = v5 >> 62;
-  if ((v5 >> 62) <= 1)
+  v4 = v2;
+  v19[2] = *MEMORY[0x277D85DE8];
+  v7 = *v2;
+  v6 = v2[1];
+  v8 = v6 >> 62;
+  if ((v6 >> 62) <= 1)
   {
-    if (!v7)
+    if (!v8)
     {
-      outlined consume of Data._Representation(v6, v5);
-      v22[0] = v6;
-      LOWORD(v22[1]) = v5;
-      BYTE2(v22[1]) = BYTE2(v5);
-      BYTE3(v22[1]) = BYTE3(v5);
-      BYTE4(v22[1]) = BYTE4(v5);
-      BYTE5(v22[1]) = BYTE5(v5);
-      BYTE6(v22[1]) = BYTE6(v5);
-      result = a1(&v20, v22, v22 + BYTE6(v5));
-      if (!v2)
+      outlined consume of Data._Representation(v7, v6);
+      v19[0] = v7;
+      LOWORD(v19[1]) = v6;
+      BYTE2(v19[1]) = BYTE2(v6);
+      BYTE3(v19[1]) = BYTE3(v6);
+      BYTE4(v19[1]) = BYTE4(v6);
+      BYTE5(v19[1]) = BYTE5(v6);
+      BYTE6(v19[1]) = BYTE6(v6);
+      result = a1(&v17, v19, v19 + BYTE6(v6));
+      if (!v3)
       {
-        result = v20;
+        result = v17;
       }
 
-      v9 = LODWORD(v22[1]) | ((WORD2(v22[1]) | (BYTE6(v22[1]) << 16)) << 32);
-      *v3 = v22[0];
-      v3[1] = v9;
-      goto LABEL_22;
+      v10 = LODWORD(v19[1]) | ((WORD2(v19[1]) | (BYTE6(v19[1]) << 16)) << 32);
+      *v4 = v19[0];
+      v4[1] = v10;
+      return result;
     }
 
-    v11 = v5 & 0x3FFFFFFFFFFFFFFFLL;
+    v12 = v6 & 0x3FFFFFFFFFFFFFFFLL;
 
-    outlined consume of Data._Representation(v6, v5);
-    *v3 = xmmword_272D9DE10;
+    outlined consume of Data._Representation(v7, v6);
+    *v4 = xmmword_272D9DE10;
     outlined consume of Data._Representation(0, 0xC000000000000000);
-    v12 = v6 >> 32;
+    v13 = v7 >> 32;
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      if (v12 < v6)
+      if (v13 < v7)
       {
 LABEL_25:
         __break(1u);
         goto LABEL_26;
       }
 
-      if (__DataStorage._bytes.getter() && __OFSUB__(v6, __DataStorage._offset.getter()))
+      if (__DataStorage._bytes.getter() && __OFSUB__(v7, __DataStorage._offset.getter()))
       {
 LABEL_26:
         __break(1u);
       }
 
-      v13 = type metadata accessor for __DataStorage();
-      v14 = *(v13 + 48);
-      v15 = *(v13 + 52);
+      type metadata accessor for __DataStorage();
       swift_allocObject();
-      v16 = __DataStorage.init(bytes:length:copy:deallocator:offset:)();
+      v14 = __DataStorage.init(bytes:length:copy:deallocator:offset:)();
 
-      v11 = v16;
+      v12 = v14;
     }
 
-    if (v12 >= v6)
+    if (v13 >= v7)
     {
 
-      v17 = specialized __DataStorage.withUnsafeMutableBytes<A>(in:apply:)(v6, v6 >> 32, a1);
+      v15 = specialized __DataStorage.withUnsafeMutableBytes<A>(in:apply:)(v7, v7 >> 32, a1);
 
-      v10 = v11 | 0x4000000000000000;
-      if (!v2)
+      v11 = v12 | 0x4000000000000000;
+      if (!v3)
       {
-        *v3 = v6;
-        v3[1] = v10;
-        result = v17;
-        goto LABEL_22;
+        *v4 = v7;
+        v4[1] = v11;
+        return v15;
       }
 
-      *v3 = v6;
+      *v4 = v7;
       goto LABEL_21;
     }
 
@@ -971,117 +965,112 @@ LABEL_26:
     goto LABEL_25;
   }
 
-  if (v7 == 2)
+  if (v8 == 2)
   {
 
-    outlined consume of Data._Representation(v6, v5);
-    v20 = v6;
-    v21 = v5 & 0x3FFFFFFFFFFFFFFFLL;
-    *v3 = xmmword_272D9DE10;
+    outlined consume of Data._Representation(v7, v6);
+    v17 = v7;
+    v18 = v6 & 0x3FFFFFFFFFFFFFFFLL;
+    *v4 = xmmword_272D9DE10;
     outlined consume of Data._Representation(0, 0xC000000000000000);
     Data.LargeSlice.ensureUniqueReference()();
-    result = specialized __DataStorage.withUnsafeMutableBytes<A>(in:apply:)(v20[2], v20[3], a1);
-    v10 = v21 | 0x8000000000000000;
-    if (!v2)
+    result = specialized __DataStorage.withUnsafeMutableBytes<A>(in:apply:)(*(v17 + 2), *(v17 + 3), a1);
+    v11 = v18 | 0x8000000000000000;
+    if (!v3)
     {
-      *v3 = v20;
-      v3[1] = v10;
-      goto LABEL_22;
+      *v4 = v17;
+      v4[1] = v11;
+      return result;
     }
 
-    *v3 = v20;
+    *v4 = v17;
 LABEL_21:
-    v3[1] = v10;
-    goto LABEL_22;
+    v4[1] = v11;
+    return result;
   }
 
-  memset(v22, 0, 15);
-  result = a1(&v20, v22, v22);
-  if (!v2)
+  memset(v19, 0, 15);
+  result = a1(&v17, v19, v19);
+  if (!v3)
   {
-    result = v20;
+    return v17;
   }
 
-LABEL_22:
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 {
-  v3 = v1;
-  v22[2] = *MEMORY[0x277D85DE8];
-  v6 = *v1;
-  v5 = v1[1];
-  v7 = v5 >> 62;
-  if ((v5 >> 62) <= 1)
+  v4 = v2;
+  v19[2] = *MEMORY[0x277D85DE8];
+  v7 = *v2;
+  v6 = v2[1];
+  v8 = v6 >> 62;
+  if ((v6 >> 62) <= 1)
   {
-    if (!v7)
+    if (!v8)
     {
-      outlined consume of Data._Representation(v6, v5);
-      v22[0] = v6;
-      LOWORD(v22[1]) = v5;
-      BYTE2(v22[1]) = BYTE2(v5);
-      BYTE3(v22[1]) = BYTE3(v5);
-      BYTE4(v22[1]) = BYTE4(v5);
-      BYTE5(v22[1]) = BYTE5(v5);
-      BYTE6(v22[1]) = BYTE6(v5);
-      result = a1(&v20, v22, v22 + BYTE6(v5));
-      if (!v2)
+      outlined consume of Data._Representation(v7, v6);
+      v19[0] = v7;
+      LOWORD(v19[1]) = v6;
+      BYTE2(v19[1]) = BYTE2(v6);
+      BYTE3(v19[1]) = BYTE3(v6);
+      BYTE4(v19[1]) = BYTE4(v6);
+      BYTE5(v19[1]) = BYTE5(v6);
+      BYTE6(v19[1]) = BYTE6(v6);
+      result = a1(&v17, v19, v19 + BYTE6(v6));
+      if (!v3)
       {
-        result = v20;
+        result = v17;
       }
 
-      v9 = LODWORD(v22[1]) | ((WORD2(v22[1]) | (BYTE6(v22[1]) << 16)) << 32);
-      *v3 = v22[0];
-      v3[1] = v9;
-      goto LABEL_22;
+      v10 = LODWORD(v19[1]) | ((WORD2(v19[1]) | (BYTE6(v19[1]) << 16)) << 32);
+      *v4 = v19[0];
+      v4[1] = v10;
+      return result;
     }
 
-    v11 = v5 & 0x3FFFFFFFFFFFFFFFLL;
+    v12 = v6 & 0x3FFFFFFFFFFFFFFFLL;
 
-    outlined consume of Data._Representation(v6, v5);
-    *v3 = xmmword_272D9DE10;
+    outlined consume of Data._Representation(v7, v6);
+    *v4 = xmmword_272D9DE10;
     outlined consume of Data._Representation(0, 0xC000000000000000);
-    v12 = v6 >> 32;
+    v13 = v7 >> 32;
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      if (v12 < v6)
+      if (v13 < v7)
       {
 LABEL_25:
         __break(1u);
         goto LABEL_26;
       }
 
-      if (__DataStorage._bytes.getter() && __OFSUB__(v6, __DataStorage._offset.getter()))
+      if (__DataStorage._bytes.getter() && __OFSUB__(v7, __DataStorage._offset.getter()))
       {
 LABEL_26:
         __break(1u);
       }
 
-      v13 = type metadata accessor for __DataStorage();
-      v14 = *(v13 + 48);
-      v15 = *(v13 + 52);
+      type metadata accessor for __DataStorage();
       swift_allocObject();
-      v16 = __DataStorage.init(bytes:length:copy:deallocator:offset:)();
+      v14 = __DataStorage.init(bytes:length:copy:deallocator:offset:)();
 
-      v11 = v16;
+      v12 = v14;
     }
 
-    if (v12 >= v6)
+    if (v13 >= v7)
     {
 
-      v17 = specialized __DataStorage.withUnsafeMutableBytes<A>(in:apply:)(v6, v6 >> 32, a1);
+      v15 = specialized __DataStorage.withUnsafeMutableBytes<A>(in:apply:)(v7, v7 >> 32, a1);
 
-      v10 = v11 | 0x4000000000000000;
-      if (!v2)
+      v11 = v12 | 0x4000000000000000;
+      if (!v3)
       {
-        *v3 = v6;
-        v3[1] = v10;
-        result = v17;
-        goto LABEL_22;
+        *v4 = v7;
+        v4[1] = v11;
+        return v15;
       }
 
-      *v3 = v6;
+      *v4 = v7;
       goto LABEL_21;
     }
 
@@ -1089,43 +1078,41 @@ LABEL_26:
     goto LABEL_25;
   }
 
-  if (v7 == 2)
+  if (v8 == 2)
   {
 
-    outlined consume of Data._Representation(v6, v5);
-    v20 = v6;
-    v21 = v5 & 0x3FFFFFFFFFFFFFFFLL;
-    *v3 = xmmword_272D9DE10;
+    outlined consume of Data._Representation(v7, v6);
+    v17 = v7;
+    v18 = v6 & 0x3FFFFFFFFFFFFFFFLL;
+    *v4 = xmmword_272D9DE10;
     outlined consume of Data._Representation(0, 0xC000000000000000);
     Data.LargeSlice.ensureUniqueReference()();
-    result = specialized __DataStorage.withUnsafeMutableBytes<A>(in:apply:)(v20[2], v20[3], a1);
-    v10 = v21 | 0x8000000000000000;
-    if (!v2)
+    result = specialized __DataStorage.withUnsafeMutableBytes<A>(in:apply:)(*(v17 + 2), *(v17 + 3), a1);
+    v11 = v18 | 0x8000000000000000;
+    if (!v3)
     {
-      *v3 = v20;
-      v3[1] = v10;
-      goto LABEL_22;
+      *v4 = v17;
+      v4[1] = v11;
+      return result;
     }
 
-    *v3 = v20;
+    *v4 = v17;
 LABEL_21:
-    v3[1] = v10;
-    goto LABEL_22;
+    v4[1] = v11;
+    return result;
   }
 
-  memset(v22, 0, 15);
-  result = a1(&v20, v22, v22);
-  if (!v2)
+  memset(v19, 0, 15);
+  result = a1(&v17, v19, v19);
+  if (!v3)
   {
-    result = v20;
+    return v17;
   }
 
-LABEL_22:
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-_BYTE *closure #1 in Data.init<A>(_:)@<X0>(_BYTE *result@<X0>, _BYTE *a2@<X1>, void *a3@<X8>)
+_BYTE *closure #1 in Data.init<A>(_:)@<X0>(_BYTE *result@<X0>, _BYTE *a2@<X1>, uint64_t *a3@<X8>)
 {
   if (!result)
   {
@@ -1184,7 +1171,7 @@ void *_sSw17withMemoryRebound2to_q0_xm_q0_SryxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_l
 
   else
   {
-    result = a1(&v6, 0, 0);
+    result = (a1)(&v6, 0, 0, 0, a4);
     if (!v4)
     {
       return v6;
@@ -1208,7 +1195,7 @@ void *_sSw17withMemoryRebound2to_q0_xm_q0_SryxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_l
 
   else
   {
-    result = a1(&v6, 0, 0);
+    result = (a1)(&v6, 0, 0, 0, a4);
     if (!v4)
     {
       return v6;
@@ -1328,7 +1315,7 @@ id specialized closure #1 in closure #3 in Data.init<A>(_:)@<X0>(uint64_t a1@<X0
   return result;
 }
 
-uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -1361,19 +1348,17 @@ uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, 
   }
 }
 
-uint64_t specialized closure #1 in closure #3 in Data.init<A>(_:)@<X0>(uint64_t result@<X0>, uint64_t *a2@<X2>, void *a3@<X8>)
+uint64_t specialized closure #1 in closure #3 in Data.init<A>(_:)@<X0>(uint64_t result@<X0>, void *a4@<X8>)
 {
   if (result)
   {
-    v4 = *a2;
-    v5 = a2[1];
     result = _StringGuts.copyUTF8(into:)();
-    if ((v7 & 1) == 0)
+    if ((v5 & 1) == 0)
     {
-      *a3 = 0;
-      a3[1] = 0xE000000000000000;
-      a3[2] = 15;
-      a3[3] = result;
+      *a4 = 0;
+      a4[1] = 0xE000000000000000;
+      a4[2] = 15;
+      a4[3] = result;
       return result;
     }
   }
@@ -1399,9 +1384,7 @@ uint64_t specialized Data._Representation.init(count:)(uint64_t result)
 
     else
     {
-      v2 = type metadata accessor for __DataStorage();
-      v3 = *(v2 + 48);
-      v4 = *(v2 + 52);
+      type metadata accessor for __DataStorage();
       swift_allocObject();
       __DataStorage.init(length:)();
       if (v1 >= 0x7FFFFFFF)
@@ -1448,25 +1431,25 @@ void *partial apply for specialized closure #3 in Data.init<A>(_:)@<X0>(uint64_t
   return result;
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t outlined consume of Data._Representation?(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation?(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined consume of Data._Representation(a1, a2);
+    return outlined consume of Data._Representation(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t outlined init with take of ContiguousBytes(__int128 *a1, uint64_t a2)
@@ -1481,7 +1464,7 @@ uint64_t outlined init with take of ContiguousBytes(__int128 *a1, uint64_t a2)
 
 unint64_t specialized Data.InlineData.init(_:)(_BYTE *a1, _BYTE *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a2 - a1;
   if (a1)
   {
@@ -1495,16 +1478,18 @@ unint64_t specialized Data.InlineData.init(_:)(_BYTE *a1, _BYTE *a2)
 
   result = specialized Data.InlineData.init(count:)(v5);
   __dst = result;
-  v12 = v7;
-  v14 = v8;
-  v13 = v9;
-  if (a1 && a2 != a1)
+  v11 = v7;
+  v13 = v8;
+  v12 = v9;
+  if (a1)
   {
-    memcpy(&__dst, a1, v4);
-    result = __dst;
+    if (a2 != a1)
+    {
+      memcpy(&__dst, a1, v4);
+      return __dst;
+    }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1520,9 +1505,7 @@ uint64_t specialized Data.LargeSlice.init(_:)(uint64_t a1, uint64_t a2)
     v2 = 0;
   }
 
-  v3 = type metadata accessor for __DataStorage();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
+  type metadata accessor for __DataStorage();
   swift_allocObject();
   result = __DataStorage.init(bytes:length:)();
   if (v2 < 0)
@@ -1553,9 +1536,7 @@ uint64_t specialized Data.InlineSlice.init(_:)(uint64_t a1, uint64_t a2)
     v2 = 0;
   }
 
-  v3 = type metadata accessor for __DataStorage();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
+  type metadata accessor for __DataStorage();
   swift_allocObject();
   result = __DataStorage.init(bytes:length:)();
   if (v2 < 0xFFFFFFFF80000000)
@@ -1653,12 +1634,12 @@ uint64_t type metadata completion function for CFMutableBitVectorRef(uint64_t a1
   return 0;
 }
 
-void type metadata accessor for CFMutableBitVectorRef(uint64_t a1, unint64_t *a2)
+void type metadata accessor for CFMutableBitVectorRef(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -1673,11 +1654,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance BloomFi
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance BloomFilterError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance BloomFilterError(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x2743D88E0](v1);
+  MEMORY[0x2743D88E0](v2);
   return Hasher._finalize()();
 }
 
@@ -1795,7 +1776,7 @@ LABEL_26:
   __break(1u);
 }
 
-double BloomFilter.falsePositiveProbability.getter()
+long double BloomFilter.falsePositiveProbability.getter()
 {
   v1 = v0[5];
   v2 = 1.0 - pow(2.71828183, -(v1 * v0[2]) / v0[4]);
@@ -1964,88 +1945,82 @@ uint64_t BloomFilter.indexes(for:)(uint64_t a1, unint64_t a2)
   v3 = v2;
   v6 = type metadata accessor for Data.Iterator();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6, v9);
-  v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (a2 >> 62 == 2)
-  {
-    v12 = *(a1 + 16);
-  }
-
-  v13 = -2128831035;
+  MEMORY[0x28223BE20](v6);
+  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = -2128831035;
   outlined copy of Data._Representation(a1, a2);
   Data.Iterator.init(_:at:)();
   for (i = Data.Iterator.next()(); (*&i & 0x100) == 0; i = Data.Iterator.next()())
   {
-    v13 = 16777619 * (v13 ^ i.value);
+    v10 = 16777619 * (v10 ^ i.value);
   }
 
-  (*(v7 + 8))(v11, v6);
+  (*(v7 + 8))(v9, v6);
   result = specialized static MurmurHash3.hash(_:seed:)(a1, a2, *(v3 + 48));
-  v16 = *(v3 + 32);
-  if ((v16 & 0x8000000000000000) != 0)
+  v13 = *(v3 + 32);
+  if ((v13 & 0x8000000000000000) != 0)
+  {
+LABEL_18:
+    __break(1u);
+    goto LABEL_19;
+  }
+
+  if (HIDWORD(v13))
+  {
+LABEL_19:
+    __break(1u);
+    goto LABEL_20;
+  }
+
+  v14 = *(v3 + 40);
+  if ((v14 & 0x8000000000000000) != 0)
   {
 LABEL_20:
     __break(1u);
     goto LABEL_21;
   }
 
-  if (HIDWORD(v16))
+  if (HIDWORD(v14))
   {
 LABEL_21:
     __break(1u);
     goto LABEL_22;
   }
 
-  v17 = *(v3 + 40);
-  if ((v17 & 0x8000000000000000) != 0)
+  if (v14)
   {
-LABEL_22:
-    __break(1u);
-    goto LABEL_23;
-  }
-
-  if (HIDWORD(v17))
-  {
-LABEL_23:
-    __break(1u);
-    goto LABEL_24;
-  }
-
-  if (v17)
-  {
-    if (!v16)
+    if (!v13)
     {
-LABEL_24:
+LABEL_22:
       __break(1u);
       return result;
     }
 
-    v18 = result;
+    v15 = result;
     result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x277D84F90]);
-    v19 = result;
-    while (v17)
+    v16 = result;
+    while (v14)
     {
-      v21 = *(v19 + 16);
-      v20 = *(v19 + 24);
-      if (v21 >= v20 >> 1)
+      v18 = *(v16 + 16);
+      v17 = *(v16 + 24);
+      if (v18 >= v17 >> 1)
       {
-        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v21 + 1, 1, v19);
-        v19 = result;
+        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v17 > 1), v18 + 1, 1, v16);
+        v16 = result;
       }
 
-      *(v19 + 16) = v21 + 1;
-      *(v19 + 8 * v21 + 32) = v13 % v16;
-      v13 += v18;
-      LODWORD(v17) = v17 - 1;
-      if (!v17)
+      *(v16 + 16) = v18 + 1;
+      *(v16 + 8 * v18 + 32) = v10 % v13;
+      v10 += v15;
+      LODWORD(v14) = v14 - 1;
+      if (!v14)
       {
-        return v19;
+        return v16;
       }
     }
 
     __break(1u);
-    goto LABEL_20;
+    goto LABEL_18;
   }
 
   return MEMORY[0x277D84F90];
@@ -2196,7 +2171,7 @@ LABEL_40:
   return v11 & 1;
 }
 
-Swift::Int specialized RawRepresentable<>.hashValue.getter()
+Swift::Int specialized RawRepresentable<>.hashValue.getter(unsigned __int8 a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -2204,14 +2179,12 @@ Swift::Int specialized RawRepresentable<>.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance BloomFilter.CodingKeys()
+uint64_t protocol witness for Hashable.hash(into:) in conformance BloomFilter.CodingKeys(uint64_t a1)
 {
-  *v0;
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)()
+Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)(uint64_t a1, unsigned __int8 a2)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -2334,23 +2307,21 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t BloomFilter.__allocating_init(from:)(uint64_t *a1)
+uint64_t BloomFilter.__allocating_init(from:)(void *a1)
 {
   v2 = swift_allocObject();
   BloomFilter.init(from:)(a1);
   return v2;
 }
 
-uint64_t BloomFilter.init(from:)(uint64_t *a1)
+void *BloomFilter.init(from:)(void *a1)
 {
   v3 = v1;
-  v52 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy22WebContentRestrictions11BloomFilterC10CodingKeysOGMd, &_ss22KeyedDecodingContainerVy22WebContentRestrictions11BloomFilterC10CodingKeysOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5, v8);
-  v10 = &v45 - v9;
-  v11 = a1[4];
+  MEMORY[0x28223BE20](v5);
+  v8 = &v41 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type BloomFilter.CodingKeys and conformance BloomFilter.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -2360,70 +2331,59 @@ uint64_t BloomFilter.init(from:)(uint64_t *a1)
   }
 
   LOBYTE(bytes) = 0;
-  v12 = KeyedDecodingContainer.decode(_:forKey:)();
-  if (v12 < 1)
+  v9 = KeyedDecodingContainer.decode(_:forKey:)();
+  if (v9 < 1 || ((*(v1 + 16) = v9, LOBYTE(bytes) = 1, KeyedDecodingContainer.decode(_:forKey:)(), v11 > 0.0) ? (v12 = v11 < 1.0) : (v12 = 0), !v12 || (*(v1 + 24) = v11, LOBYTE(bytes) = 2, v14 = KeyedDecodingContainer.decode(_:forKey:)(), v14 < 1) || (*(v1 + 32) = v14, LOBYTE(bytes) = 3, v15 = KeyedDecodingContainer.decode(_:forKey:)(), v15 < 1)))
   {
-    goto LABEL_11;
-  }
-
-  *(v1 + 16) = v12;
-  LOBYTE(bytes) = 1;
-  KeyedDecodingContainer.decode(_:forKey:)();
-  v16 = v15 > 0.0 && v15 < 1.0;
-  if (!v16 || (*(v1 + 24) = v15, LOBYTE(bytes) = 2, v18 = KeyedDecodingContainer.decode(_:forKey:)(), v18 < 1) || (*(v1 + 32) = v18, LOBYTE(bytes) = 3, v19 = KeyedDecodingContainer.decode(_:forKey:)(), v19 < 1))
-  {
-LABEL_11:
     lazy protocol witness table accessor for type BloomFilterError and conformance BloomFilterError();
     swift_allocError();
-    *v17 = 3;
+    *v13 = 3;
     swift_willThrow();
 LABEL_3:
-    (*(v6 + 8))(v10, v5);
+    (*(v6 + 8))(v8, v5);
 LABEL_4:
     type metadata accessor for BloomFilter();
     swift_deallocPartialClassInstance();
 LABEL_5:
     __swift_destroy_boxed_opaque_existential_1(a1);
-    v13 = *MEMORY[0x277D85DE8];
     return v3;
   }
 
-  *(v1 + 40) = v19;
+  *(v1 + 40) = v15;
   LOBYTE(bytes) = 4;
   *(v1 + 48) = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v49) = 5;
+  LOBYTE(v45) = 5;
   lazy protocol witness table accessor for type Data and conformance Data();
   result = KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v48 = bytes;
-  v20 = *(&bytes + 1) >> 62;
-  v47 = 0;
+  v44 = bytes;
+  v16 = *(&bytes + 1) >> 62;
+  v43 = 0;
   if ((*(&bytes + 1) >> 62) <= 1)
   {
-    if (!v20)
+    if (!v16)
     {
-      v21 = BYTE14(v48);
+      v17 = BYTE14(v44);
       goto LABEL_24;
     }
 
     goto LABEL_21;
   }
 
-  if (v20 != 2)
+  if (v16 != 2)
   {
-    v21 = 0;
+    v17 = 0;
     goto LABEL_24;
   }
 
-  v23 = *(v48 + 16);
-  v22 = *(v48 + 24);
-  v24 = __OFSUB__(v22, v23);
-  v21 = v22 - v23;
-  if (v24)
+  v19 = *(v44 + 16);
+  v18 = *(v44 + 24);
+  v20 = __OFSUB__(v18, v19);
+  v17 = v18 - v19;
+  if (v20)
   {
     __break(1u);
 LABEL_21:
-    LODWORD(v21) = DWORD1(v48) - v48;
-    if (__OFSUB__(DWORD1(v48), v48))
+    LODWORD(v17) = DWORD1(v44) - v44;
+    if (__OFSUB__(DWORD1(v44), v44))
     {
 LABEL_64:
       __break(1u);
@@ -2432,78 +2392,78 @@ LABEL_65:
       goto LABEL_66;
     }
 
-    v21 = v21;
+    v17 = v17;
   }
 
 LABEL_24:
-  v25 = *(v1 + 32);
-  v26 = v25 + 7;
-  if (__OFADD__(v25, 7))
+  v21 = *(v1 + 32);
+  v22 = v21 + 7;
+  if (__OFADD__(v21, 7))
   {
     __break(1u);
     goto LABEL_64;
   }
 
-  if (v26 < 0)
+  if (v22 < 0)
   {
-    v26 = v25 + 14;
+    v22 = v21 + 14;
   }
 
-  v27 = v26 >> 3;
-  if (v21 == v26 >> 3)
+  v23 = v22 >> 3;
+  if (v17 == v22 >> 3)
   {
-    v46 = *(v1 + 32);
-    if (v20 <= 1)
+    v42 = *(v1 + 32);
+    if (v16 <= 1)
     {
-      if (!v20)
+      if (!v16)
       {
-        *&bytes = v48;
-        DWORD2(bytes) = DWORD2(v48);
-        WORD6(bytes) = WORD6(v48);
+        *&bytes = v44;
+        DWORD2(bytes) = DWORD2(v44);
+        WORD6(bytes) = WORD6(v44);
 LABEL_54:
-        v43 = v47;
-        closure #1 in BloomFilter.init(from:)(&bytes, v46, &v49);
-        if (v43)
+        v39 = v43;
+        closure #1 in BloomFilter.init(from:)(&v45, &bytes, v42);
+        if (v39)
         {
           goto LABEL_55;
         }
 
-        v39 = v49;
-        v40 = v50;
+        v35 = v45;
+        v36 = v46;
         goto LABEL_57;
       }
 
-      v37 = v48;
-      if (v48 >> 32 >= v48)
+      v33 = v44;
+      if (v44 >> 32 >= v44)
       {
-        v34 = __DataStorage._bytes.getter();
-        if (!v34)
+        v30 = __DataStorage._bytes.getter();
+        if (!v30)
         {
 LABEL_47:
           MEMORY[0x2743D8560]();
-          v38 = v47;
-          closure #1 in BloomFilter.init(from:)(v34, v46, &bytes);
-          if (v38)
+          v34 = v43;
+          closure #1 in BloomFilter.init(from:)(&bytes, v30, v42);
+          if (v34)
           {
 LABEL_55:
-            outlined consume of Data._Representation(v48, *(&v48 + 1));
+            outlined consume of Data._Representation(v44, *(&v44 + 1));
             goto LABEL_3;
           }
 
-          v39 = bytes;
-          v40 = BYTE8(bytes);
+          v35 = bytes;
+          v36 = BYTE8(bytes);
 LABEL_57:
-          (*(v6 + 8))(v10, v5);
-          outlined consume of Data._Representation(v48, *(&v48 + 1));
-          *(v3 + 56) = v39;
-          *(v3 + 64) = v40;
+          (*(v6 + 8))(v8, v5);
+          outlined consume of Data._Representation(v44, *(&v44 + 1));
+          *(v3 + 56) = v35;
+          *(v3 + 64) = v36;
           goto LABEL_5;
         }
 
         result = __DataStorage._offset.getter();
-        if (!__OFSUB__(v37, result))
+        if (!__OFSUB__(v33, result))
         {
-          v34 += v37 - result;
+          v30 += v33 - result;
           goto LABEL_47;
         }
 
@@ -2513,17 +2473,17 @@ LABEL_57:
       goto LABEL_65;
     }
 
-    if (v20 == 2)
+    if (v16 == 2)
     {
-      v32 = *(v48 + 16);
-      v33 = *(v48 + 24);
-      v29 = (*(&v48 + 1) & 0x3FFFFFFFFFFFFFFFLL);
-      v34 = __DataStorage._bytes.getter();
-      if (v34)
+      v28 = *(v44 + 16);
+      v29 = *(v44 + 24);
+      v25 = (*(&v44 + 1) & 0x3FFFFFFFFFFFFFFFLL);
+      v30 = __DataStorage._bytes.getter();
+      if (v30)
       {
-        v29 = (*(&v48 + 1) & 0x3FFFFFFFFFFFFFFFLL);
+        v25 = (*(&v44 + 1) & 0x3FFFFFFFFFFFFFFFLL);
         result = __DataStorage._offset.getter();
-        if (__OFSUB__(v32, result))
+        if (__OFSUB__(v28, result))
         {
 LABEL_66:
           __break(1u);
@@ -2532,10 +2492,10 @@ LABEL_67:
           goto LABEL_68;
         }
 
-        v34 += v32 - result;
+        v30 += v28 - result;
       }
 
-      if (!__OFSUB__(v33, v32))
+      if (!__OFSUB__(v29, v28))
       {
         goto LABEL_47;
       }
@@ -2550,41 +2510,41 @@ LABEL_53:
     goto LABEL_54;
   }
 
-  v28 = static os_log_type_t.error.getter();
+  v24 = static os_log_type_t.error.getter();
   type metadata accessor for OS_os_log();
-  outlined copy of Data._Representation(v48, *(&v48 + 1));
-  v29 = static OS_os_log.default.getter();
-  LODWORD(v47) = v28;
-  if (!os_log_type_enabled(v29, v28))
+  outlined copy of Data._Representation(v44, *(&v44 + 1));
+  v25 = static OS_os_log.default.getter();
+  LODWORD(v43) = v24;
+  if (!os_log_type_enabled(v25, v24))
   {
 LABEL_42:
-    v35 = *(&v48 + 1);
-    v36 = v48;
-    outlined consume of Data._Representation(v48, *(&v48 + 1));
+    v31 = *(&v44 + 1);
+    v32 = v44;
+    outlined consume of Data._Representation(v44, *(&v44 + 1));
 LABEL_62:
 
     lazy protocol witness table accessor for type BloomFilterError and conformance BloomFilterError();
     swift_allocError();
-    *v44 = 3;
+    *v40 = 3;
     swift_willThrow();
-    outlined consume of Data._Representation(v36, v35);
+    outlined consume of Data._Representation(v32, v31);
     goto LABEL_3;
   }
 
   result = swift_slowAlloc();
-  v30 = result;
+  v26 = result;
   *result = 134218240;
-  *(result + 4) = v27;
-  *(result + 12) = 2048;
-  if (v20 > 1)
+  *(result + 4) = v23;
+  *(result + 6) = 2048;
+  if (v16 > 1)
   {
-    if (v20 == 2)
+    if (v16 == 2)
     {
-      v42 = *(v48 + 16);
-      v41 = *(v48 + 24);
-      v24 = __OFSUB__(v41, v42);
-      v31 = v41 - v42;
-      if (v24)
+      v38 = *(v44 + 16);
+      v37 = *(v44 + 24);
+      v20 = __OFSUB__(v37, v38);
+      v27 = v37 - v38;
+      if (v20)
       {
         __break(1u);
         goto LABEL_53;
@@ -2593,29 +2553,29 @@ LABEL_62:
 
     else
     {
-      v31 = 0;
+      v27 = 0;
     }
 
 LABEL_61:
-    *(result + 14) = v31;
-    v35 = *(&v48 + 1);
-    v36 = v48;
-    outlined consume of Data._Representation(v48, *(&v48 + 1));
-    _os_log_impl(&dword_272D8F000, v29, v47, "Invalid serialized bit vector:  expected %ld bytes, found %ld", v30, 0x16u);
-    MEMORY[0x2743D8FE0](v30, -1, -1);
+    *(result + 14) = v27;
+    v31 = *(&v44 + 1);
+    v32 = v44;
+    outlined consume of Data._Representation(v44, *(&v44 + 1));
+    _os_log_impl(&dword_272D8F000, v25, v43, "Invalid serialized bit vector:  expected %ld bytes, found %ld", v26, 0x16u);
+    MEMORY[0x2743D8FE0](v26, -1, -1);
     goto LABEL_62;
   }
 
-  if (!v20)
+  if (!v16)
   {
-    v31 = BYTE14(v48);
+    v27 = BYTE14(v44);
     goto LABEL_61;
   }
 
-  LODWORD(v31) = DWORD1(v48) - v48;
-  if (!__OFSUB__(DWORD1(v48), v48))
+  LODWORD(v27) = DWORD1(v44) - v44;
+  if (!__OFSUB__(DWORD1(v44), v44))
   {
-    v31 = v31;
+    v27 = v27;
     goto LABEL_61;
   }
 
@@ -2624,13 +2584,13 @@ LABEL_68:
   return result;
 }
 
-CFBitVectorRef closure #1 in BloomFilter.init(from:)@<X0>(UInt8 *bytes@<X0>, CFIndex a2@<X2>, uint64_t a3@<X8>)
+uint64_t *closure #1 in BloomFilter.init(from:)@<X0>(uint64_t *__return_ptr a1@<X8>, UInt8 *bytes@<X0>, CFIndex a3@<X2>)
 {
-  result = CFBitVectorCreate(*MEMORY[0x277CBECE8], bytes, a2);
+  result = CFBitVectorCreate(*MEMORY[0x277CBECE8], bytes, a3);
   if (result)
   {
-    *a3 = result;
-    *(a3 + 8) = 0;
+    *a1 = result;
+    *(a1 + 8) = 0;
   }
 
   else
@@ -2642,7 +2602,7 @@ CFBitVectorRef closure #1 in BloomFilter.init(from:)@<X0>(UInt8 *bytes@<X0>, CFI
     {
       v8 = swift_slowAlloc();
       *v8 = 134217984;
-      *(v8 + 4) = a2;
+      *(v8 + 4) = a3;
       _os_log_impl(&dword_272D8F000, v7, v6, "Invalid serialized bit vector:  too many bits? %ld", v8, 0xCu);
       MEMORY[0x2743D8FE0](v8, -1, -1);
     }
@@ -2661,65 +2621,59 @@ uint64_t BloomFilter.encode(to:)(void *a1)
   v3 = v1;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy22WebContentRestrictions11BloomFilterC10CodingKeysOGMd, &_ss22KeyedEncodingContainerVy22WebContentRestrictions11BloomFilterC10CodingKeysOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5, v8);
-  v10 = &v25[-v9];
-  v11 = a1[4];
+  MEMORY[0x28223BE20](v5);
+  v8 = &v18[-v7];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type BloomFilter.CodingKeys and conformance BloomFilter.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v12 = *(v3 + 16);
-  LOBYTE(v28) = 0;
+  LOBYTE(v21) = 0;
   KeyedEncodingContainer.encode(_:forKey:)();
   if (v2)
   {
-    return (*(v6 + 8))(v10, v5);
+    return (*(v6 + 8))(v8, v5);
   }
 
-  v13 = *(v3 + 24);
-  LOBYTE(v28) = 1;
+  LOBYTE(v21) = 1;
   KeyedEncodingContainer.encode(_:forKey:)();
-  v14 = *(v3 + 32);
-  LOBYTE(v28) = 2;
+  v9 = *(v3 + 32);
+  LOBYTE(v21) = 2;
   KeyedEncodingContainer.encode(_:forKey:)();
-  v15 = *(v3 + 40);
-  LOBYTE(v28) = 3;
+  LOBYTE(v21) = 3;
   KeyedEncodingContainer.encode(_:forKey:)();
-  v16 = *(v3 + 48);
-  LOBYTE(v28) = 4;
+  LOBYTE(v21) = 4;
   result = KeyedEncodingContainer.encode(_:forKey:)();
-  v18 = v14 + 7;
-  if (__OFADD__(v14, 7))
+  v11 = v9 + 7;
+  if (__OFADD__(v9, 7))
   {
     __break(1u);
   }
 
   else
   {
-    if (v18 < 0)
+    if (v11 < 0)
     {
-      v18 = v14 + 14;
+      v11 = v9 + 14;
     }
 
-    v19 = v18 >> 3;
-    v20 = *(v3 + 56);
-    v28 = specialized Data.init(count:)(v19);
-    v29 = v21;
-    v22 = v20;
+    v12 = v11 >> 3;
+    v13 = *(v3 + 56);
+    v21 = specialized Data.init(count:)(v12);
+    v22 = v14;
+    v15 = v13;
 
-    specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(&v28, v22, v3);
-    v23 = v28;
-    v24 = v29;
-    v26 = v28;
-    v27 = v29;
-    v25[15] = 5;
-    outlined copy of Data._Representation(v28, v29);
+    specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(&v21, v15, v3);
+    v16 = v21;
+    v17 = v22;
+    v19 = v21;
+    v20 = v22;
+    v18[15] = 5;
+    outlined copy of Data._Representation(v21, v22);
     lazy protocol witness table accessor for type Data and conformance Data();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
 
-    outlined consume of Data._Representation(v26, v27);
-    outlined consume of Data._Representation(v23, v24);
-    return (*(v6 + 8))(v10, v5);
+    outlined consume of Data._Representation(v19, v20);
+    outlined consume of Data._Representation(v16, v17);
+    return (*(v6 + 8))(v8, v5);
   }
 
   return result;
@@ -2756,7 +2710,7 @@ void protocol witness for MembershipFilter.init(expectedNumberOfItems:falsePosit
   }
 }
 
-uint64_t protocol witness for Decodable.init(from:) in conformance BloomFilter@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *protocol witness for Decodable.init(from:) in conformance BloomFilter@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   type metadata accessor for BloomFilter();
   v5 = swift_allocObject();
@@ -2954,7 +2908,7 @@ unint64_t type metadata accessor for OS_os_log()
 
 void specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(uint64_t *a1, CFBitVectorRef bv, uint64_t a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = *a1;
   v5 = a1[1];
   v7 = v5 >> 62;
@@ -2989,9 +2943,9 @@ void specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(uint64_t *a1
       BYTE12(bytes) = BYTE4(v5);
       BYTE13(bytes) = BYTE5(v5);
       BYTE14(bytes) = BYTE6(v5);
-      v26.length = *(a3 + 32);
-      v26.location = 0;
-      CFBitVectorGetBits(v8, v26, &bytes);
+      v25.length = *(a3 + 32);
+      v25.location = 0;
+      CFBitVectorGetBits(v8, v25, &bytes);
       v9 = bytes;
       v10 = DWORD2(bytes) | ((WORD6(bytes) | (BYTE14(bytes) << 16)) << 32);
 
@@ -3006,9 +2960,9 @@ void specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(uint64_t *a1
   {
     *(&bytes + 7) = 0;
     *&bytes = 0;
-    v28.length = *(a3 + 32);
-    v28.location = 0;
-    CFBitVectorGetBits(bv, v28, &bytes);
+    v27.length = *(a3 + 32);
+    v27.location = 0;
+    CFBitVectorGetBits(bv, v27, &bytes);
 
     goto LABEL_11;
   }
@@ -3038,15 +2992,14 @@ void specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(uint64_t *a1
     else if (!__OFSUB__(v14, v13))
     {
       MEMORY[0x2743D8560]();
-      v27.length = *(a3 + 32);
-      v27.location = 0;
-      CFBitVectorGetBits(v11, v27, (v16 + v18));
+      v26.length = *(a3 + 32);
+      v26.location = 0;
+      CFBitVectorGetBits(v11, v26, (v16 + v18));
 
       *a1 = bytes;
       a1[1] = v12 | 0x8000000000000000;
 LABEL_11:
 
-      v23 = *MEMORY[0x277D85DE8];
       return;
     }
 
@@ -3068,21 +3021,19 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v7 = *(a1 + 1);
-
-  v8 = __DataStorage._bytes.getter();
-  if (v8)
+  v7 = __DataStorage._bytes.getter();
+  if (v7)
   {
-    v9 = v8;
-    v10 = __DataStorage._offset.getter();
-    v11 = __OFSUB__(v6, v10);
-    v12 = v6 - v10;
-    if (!v11)
+    v8 = v7;
+    v9 = __DataStorage._offset.getter();
+    v10 = __OFSUB__(v6, v9);
+    v11 = v6 - v9;
+    if (!v10)
     {
       MEMORY[0x2743D8560]();
-      v13.length = *(a3 + 32);
-      v13.location = 0;
-      CFBitVectorGetBits(a2, v13, (v9 + v12));
+      v12.length = *(a3 + 32);
+      v12.location = 0;
+      CFBitVectorGetBits(a2, v12, (v8 + v11));
 
       return;
     }
@@ -3148,9 +3099,7 @@ uint64_t specialized Data.init(count:)(uint64_t result)
 
     else
     {
-      v2 = type metadata accessor for __DataStorage();
-      v3 = *(v2 + 48);
-      v4 = *(v2 + 52);
+      type metadata accessor for __DataStorage();
       swift_allocObject();
       __DataStorage.init(length:)();
       if (v1 >= 0x7FFFFFFF)
@@ -3173,9 +3122,9 @@ uint64_t specialized Data.init(count:)(uint64_t result)
 
 uint64_t instantiation function for generic protocol witness table for BloomFilter(void *a1)
 {
-  a1[1] = lazy protocol witness table accessor for type BloomFilter and conformance BloomFilter(&lazy protocol witness table cache variable for type BloomFilter and conformance BloomFilter);
-  a1[2] = lazy protocol witness table accessor for type BloomFilter and conformance BloomFilter(&lazy protocol witness table cache variable for type BloomFilter and conformance BloomFilter);
-  result = lazy protocol witness table accessor for type BloomFilter and conformance BloomFilter(&lazy protocol witness table cache variable for type BloomFilter and conformance BloomFilter);
+  a1[1] = lazy protocol witness table accessor for type BloomFilter and conformance BloomFilter(&lazy protocol witness table cache variable for type BloomFilter and conformance BloomFilter, &protocol conformance descriptor for BloomFilter);
+  a1[2] = lazy protocol witness table accessor for type BloomFilter and conformance BloomFilter(&lazy protocol witness table cache variable for type BloomFilter and conformance BloomFilter, &protocol conformance descriptor for BloomFilter);
+  result = lazy protocol witness table accessor for type BloomFilter and conformance BloomFilter(&lazy protocol witness table cache variable for type BloomFilter and conformance BloomFilter, &protocol conformance descriptor for BloomFilter);
   a1[3] = result;
   return result;
 }
@@ -3679,15 +3628,15 @@ LABEL_26:
 
 uint64_t specialized static MurmurHash3.hash(_:seed:)(uint64_t a1, unint64_t a2, int a3)
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   v3 = a2 >> 62;
   if ((a2 >> 62) > 1)
   {
     if (v3 != 2)
     {
-      memset(v20, 0, 14);
-      v4 = v20;
-      goto LABEL_25;
+      memset(v18, 0, 14);
+      v4 = v18;
+      return specialized static MurmurHash3.digest32BitX86(_:_:)(v18, v4, a3);
     }
 
     v5 = a3;
@@ -3720,17 +3669,14 @@ LABEL_27:
 
   else if (!v3)
   {
-    v20[0] = a1;
-    LOWORD(v20[1]) = a2;
-    BYTE2(v20[1]) = BYTE2(a2);
-    BYTE3(v20[1]) = BYTE3(a2);
-    BYTE4(v20[1]) = BYTE4(a2);
-    BYTE5(v20[1]) = BYTE5(a2);
-    v4 = v20 + BYTE6(a2);
-LABEL_25:
-    result = specialized static MurmurHash3.digest32BitX86(_:_:)(v20, v4, a3);
-    v19 = *MEMORY[0x277D85DE8];
-    return result;
+    v18[0] = a1;
+    LOWORD(v18[1]) = a2;
+    BYTE2(v18[1]) = BYTE2(a2);
+    BYTE3(v18[1]) = BYTE3(a2);
+    BYTE4(v18[1]) = BYTE4(a2);
+    BYTE5(v18[1]) = BYTE5(a2);
+    v4 = v18 + BYTE6(a2);
+    return specialized static MurmurHash3.digest32BitX86(_:_:)(v18, v4, a3);
   }
 
   v11 = a1;
@@ -3778,8 +3724,6 @@ LABEL_15:
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return specialized static MurmurHash3.digest32BitX86(_:_:)(v8, v16, v5);
 }

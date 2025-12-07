@@ -3,6 +3,7 @@
 - (NSString)urlRawString;
 - (NSURL)url;
 - (_TtC18PodcastsFoundation22DownloadableURLOptions)init;
+- (_TtC18PodcastsFoundation22DownloadableURLOptions)initWithUrl:(id)url nonAppInitiated:(BOOL)initiated;
 - (id)init:(id)init nonAppInitiated:(BOOL)initiated;
 - (void)setNonAppInitiated:(BOOL)initiated;
 @end
@@ -25,26 +26,23 @@
 - (NSURL)url
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECAB5910, &qword_1D9188C90);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v16 - v5;
-  v7 = *(self + OBJC_IVAR____TtC18PodcastsFoundation22DownloadableURLOptions_urlRawString);
-  v8 = *(self + OBJC_IVAR____TtC18PodcastsFoundation22DownloadableURLOptions_urlRawString + 8);
+  v5 = &v13 - v4;
   selfCopy = self;
   sub_1D9176BFC();
 
-  v10 = sub_1D9176C2C();
-  v11 = *(v10 - 8);
-  v12 = (*(v11 + 48))(v6, 1, v10);
-  v13 = 0;
-  if (v12 != 1)
+  v7 = sub_1D9176C2C();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v14 = sub_1D9176B1C();
-    (*(v11 + 8))(v6, v10);
-    v13 = v14;
+    v11 = sub_1D9176B1C();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v13;
+  return v10;
 }
 
 - (BOOL)nonAppInitiated
@@ -56,12 +54,10 @@
 
 - (NSString)urlRawString
 {
-  v2 = *(self + OBJC_IVAR____TtC18PodcastsFoundation22DownloadableURLOptions_urlRawString);
-  v3 = *(self + OBJC_IVAR____TtC18PodcastsFoundation22DownloadableURLOptions_urlRawString + 8);
 
-  v4 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+  v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
 
-  return v4;
+  return v2;
 }
 
 - (void)setNonAppInitiated:(BOOL)initiated
@@ -69,6 +65,23 @@
   v5 = OBJC_IVAR____TtC18PodcastsFoundation22DownloadableURLOptions_nonAppInitiated;
   swift_beginAccess();
   *(self + v5) = initiated;
+}
+
+- (_TtC18PodcastsFoundation22DownloadableURLOptions)initWithUrl:(id)url nonAppInitiated:(BOOL)initiated
+{
+  initiatedCopy = initiated;
+  v6 = sub_1D9176C2C();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1D9176B9C();
+  sub_1D9176ACC();
+  v10 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+
+  v11 = [(DownloadableURLOptions *)self init:v10 nonAppInitiated:initiatedCopy];
+
+  (*(v7 + 8))(v9, v6);
+  return v11;
 }
 
 - (_TtC18PodcastsFoundation22DownloadableURLOptions)init

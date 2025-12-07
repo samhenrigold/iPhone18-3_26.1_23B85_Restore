@@ -508,7 +508,7 @@
   _NUIBoxArrangement::positionCells(&self->_arrangement, &__block_literal_global_5, x, y, width, height);
 }
 
-- (uint64_t)needsBaselineDebugBoundingBoxesForArrangedSubview:(BOOL *)a3 .cold.1(uint64_t result, uint64_t a2, BOOL *a3)
+- (char)needsBaselineDebugBoundingBoxesForArrangedSubview:(BOOL *)a3 .cold.1(char *result, uint64_t a2, BOOL *a3)
 {
   if (result)
   {
@@ -516,7 +516,7 @@
     result = [result alignmentForView:a2 inAxis:1];
     if (result == -1)
     {
-      result = *(v4 + 657);
+      result = v4[657];
     }
   }
 

@@ -78,33 +78,32 @@
 
 void __68__CNAutocompleteSuggestionsSearch_executeRequest_completionHandler___block_invoke(id *a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = a1[4];
-  v5 = [objc_opt_class() charactersThreshold];
-  v6 = [a1[5] searchString];
-  v7 = [v6 length];
+  v4 = [objc_opt_class() charactersThreshold];
+  v5 = [a1[5] searchString];
+  v6 = [v5 length];
 
-  if (v7 >= v5)
+  if (v6 >= v4)
   {
     v10 = [a1[4] keysToFetchForRequest:a1[5]];
     v11 = a1[4];
     v12 = a1[5];
-    v22 = 0;
-    v13 = [v11 suggestedContactsWithRequest:v12 keysToFetch:v10 error:&v22];
-    v14 = v22;
+    v21 = 0;
+    v13 = [v11 suggestedContactsWithRequest:v12 keysToFetch:v10 error:&v21];
+    v14 = v21;
     if (v13)
     {
       v15 = [a1[4] convertContacts:v13 request:a1[5]];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __68__CNAutocompleteSuggestionsSearch_executeRequest_completionHandler___block_invoke_4;
-      v19[3] = &unk_2781C46A0;
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __68__CNAutocompleteSuggestionsSearch_executeRequest_completionHandler___block_invoke_4;
+      v18[3] = &unk_2781C46A0;
       v16 = a1[6];
-      v20 = v15;
-      v21 = v16;
+      v19 = v15;
+      v20 = v16;
       v17 = v15;
-      [v3 performBlock:v19];
+      [v3 performBlock:v18];
     }
 
     else
@@ -115,21 +114,19 @@ void __68__CNAutocompleteSuggestionsSearch_executeRequest_completionHandler___bl
 
   else
   {
-    v8 = CNALoggingContextDebug();
+    v8 = CNALoggingContextDebug(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = a1[5];
       *buf = 134218240;
-      v24 = v9;
-      v25 = 2048;
-      v26 = v5;
+      v23 = v9;
+      v24 = 2048;
+      v25 = v4;
       _os_log_impl(&dword_2155FE000, v8, OS_LOG_TYPE_DEFAULT, "Skipping request %p against suggestion because search string is smaller than %lu chars", buf, 0x16u);
     }
 
     (*(a1[6] + 2))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)keysToFetchForRequest:(id)request
@@ -151,133 +148,132 @@ void __68__CNAutocompleteSuggestionsSearch_executeRequest_completionHandler___bl
 
 - (id)suggestedContactsWithRequest:(id)request keysToFetch:(id)fetch error:(id *)error
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   fetchCopy = fetch;
-  v10 = CNALoggingContextTriage();
+  v10 = CNALoggingContextTriage(fetchCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     triageIdentifier = [requestCopy triageIdentifier];
-    v46 = 138543362;
-    v47 = triageIdentifier;
-    _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] CoreSuggestions: Will search", &v46, 0xCu);
+    v52 = 138543362;
+    v53 = triageIdentifier;
+    _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] CoreSuggestions: Will search", &v52, 0xCu);
   }
 
-  v12 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = CNALoggingContextDebug(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v46 = 134217984;
-    v47 = requestCopy;
-    _os_log_impl(&dword_2155FE000, v12, OS_LOG_TYPE_DEFAULT, "Executing request %p against suggested contacts", &v46, 0xCu);
+    v52 = 134217984;
+    v53 = requestCopy;
+    _os_log_impl(&dword_2155FE000, v13, OS_LOG_TYPE_DEFAULT, "Executing request %p against suggested contacts", &v52, 0xCu);
   }
 
   defaultProvider = [MEMORY[0x277CFBED0] defaultProvider];
   [defaultProvider timestamp];
-  v15 = v14;
+  v16 = v15;
 
-  v16 = CNALoggingContextTriage();
-  v17 = os_signpost_id_generate(v16);
+  v18 = CNALoggingContextTriage(v17);
+  v19 = os_signpost_id_generate(v18);
 
-  v18 = CNALoggingContextPerformance();
-  v19 = v18;
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  v21 = CNALoggingContextPerformance(v20);
+  v22 = v21;
+  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
-    LOWORD(v46) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "Searching CoreSuggestions", "", &v46, 2u);
+    LOWORD(v52) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v19, "Searching CoreSuggestions", "", &v52, 2u);
   }
 
-  v20 = MEMORY[0x277CBDA58];
+  v23 = MEMORY[0x277CBDA58];
   searchString = [requestCopy searchString];
-  v22 = [v20 predicateForContactsMatchingName:searchString];
+  v25 = [v23 predicateForContactsMatchingName:searchString];
 
   contactStore = [(CNAutocompleteSuggestionsSearch *)self contactStore];
-  v24 = [contactStore unifiedContactsMatchingPredicate:v22 keysToFetch:fetchCopy error:error];
+  v27 = [contactStore unifiedContactsMatchingPredicate:v25 keysToFetch:fetchCopy error:error];
 
-  v25 = CNALoggingContextPerformance();
-  v26 = v25;
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+  v29 = CNALoggingContextPerformance(v28);
+  v30 = v29;
+  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
   {
-    LOWORD(v46) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v26, OS_SIGNPOST_INTERVAL_END, v17, "Searching CoreSuggestions", "", &v46, 2u);
+    LOWORD(v52) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v30, OS_SIGNPOST_INTERVAL_END, v19, "Searching CoreSuggestions", "", &v52, 2u);
   }
 
   defaultProvider2 = [MEMORY[0x277CFBED0] defaultProvider];
   [defaultProvider2 timestamp];
-  v29 = v28;
+  v33 = v32;
 
-  v30 = [MEMORY[0x277CFBEC8] stringForTimeInterval:v29 - v15];
-  if (v24)
+  v34 = [MEMORY[0x277CFBEC8] stringForTimeInterval:v33 - v16];
+  v35 = v34;
+  if (v27)
   {
-    v31 = CNALoggingContextPerformance();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v36 = CNALoggingContextPerformance(v34);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
-      v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v24, "count")}];
-      v46 = 138412546;
-      v47 = v32;
-      v48 = 2112;
-      v49 = v30;
-      _os_log_impl(&dword_2155FE000, v31, OS_LOG_TYPE_INFO, "Time to fetch %@ suggested contacts: %@", &v46, 0x16u);
+      v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v27, "count")}];
+      v52 = 138412546;
+      v53 = v37;
+      v54 = 2112;
+      v55 = v35;
+      _os_log_impl(&dword_2155FE000, v36, OS_LOG_TYPE_INFO, "Time to fetch %@ suggested contacts: %@", &v52, 0x16u);
     }
 
-    v33 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v39 = CNALoggingContextDebug(v38);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v24, "count")}];
-      v35 = [v24 _cn_take:200];
-      v46 = 138412547;
-      v47 = v34;
-      v48 = 2113;
-      v49 = v35;
-      _os_log_impl(&dword_2155FE000, v33, OS_LOG_TYPE_DEFAULT, "Suggestions results (first 200 out of %@): %{private}@", &v46, 0x16u);
+      v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v27, "count")}];
+      v41 = [v27 _cn_take:200];
+      v52 = 138412547;
+      v53 = v40;
+      v54 = 2113;
+      v55 = v41;
+      _os_log_impl(&dword_2155FE000, v39, OS_LOG_TYPE_DEFAULT, "Suggestions results (first 200 out of %@): %{private}@", &v52, 0x16u);
     }
 
-    v36 = CNALoggingContextTriage();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v43 = CNALoggingContextTriage(v42);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       triageIdentifier2 = [requestCopy triageIdentifier];
-      v38 = [v24 count];
-      v46 = 138543874;
-      v47 = triageIdentifier2;
-      v48 = 2048;
-      v49 = v38;
-      v50 = 2114;
-      v51 = v30;
-      _os_log_impl(&dword_2155FE000, v36, OS_LOG_TYPE_DEFAULT, "[%{public}@] CoreSuggestions: Search complete (%ld result(s), %{public}@)", &v46, 0x20u);
+      v45 = [v27 count];
+      v52 = 138543874;
+      v53 = triageIdentifier2;
+      v54 = 2048;
+      v55 = v45;
+      v56 = 2114;
+      v57 = v35;
+      _os_log_impl(&dword_2155FE000, v43, OS_LOG_TYPE_DEFAULT, "[%{public}@] CoreSuggestions: Search complete (%ld result(s), %{public}@)", &v52, 0x20u);
     }
 
-    v39 = v24;
+    v46 = v27;
   }
 
   else
   {
     if (error)
     {
-      v40 = *error;
+      v47 = *error;
     }
 
     else
     {
-      v40 = 0;
+      v47 = 0;
     }
 
-    v41 = v40;
-    v42 = CNALoggingContextTriage();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v48 = v47;
+    v49 = CNALoggingContextTriage(v48);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
     {
       triageIdentifier3 = [requestCopy triageIdentifier];
-      v46 = 138543874;
-      v47 = triageIdentifier3;
-      v48 = 2114;
-      v49 = v30;
-      v50 = 2114;
-      v51 = v41;
-      _os_log_impl(&dword_2155FE000, v42, OS_LOG_TYPE_DEFAULT, "[%{public}@] CoreSuggestions: Search failed (%{public}@): %{public}@", &v46, 0x20u);
+      v52 = 138543874;
+      v53 = triageIdentifier3;
+      v54 = 2114;
+      v55 = v35;
+      v56 = 2114;
+      v57 = v48;
+      _os_log_impl(&dword_2155FE000, v49, OS_LOG_TYPE_DEFAULT, "[%{public}@] CoreSuggestions: Search failed (%{public}@): %{public}@", &v52, 0x20u);
     }
   }
 
-  v44 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v27;
 }
 
 - (id)convertContacts:(id)contacts request:(id)request
@@ -327,77 +323,75 @@ void __68__CNAutocompleteSuggestionsSearch_executeRequest_completionHandler___bl
 
 id __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v16 = a2;
+  v33 = *MEMORY[0x277D85DE8];
+  v15 = a2;
   (*(*(a1 + 56) + 16))();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  obj = v32 = 0u;
-  v3 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  obj = v31 = 0u;
+  v3 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v30;
+    v5 = *v29;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v30 != v5)
+        if (*v29 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v29 + 1) + 8 * i);
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___block_invoke_2;
-        v25[3] = &unk_2781C5180;
-        v8 = v16;
+        v7 = *(*(&v28 + 1) + 8 * i);
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___block_invoke_2;
+        v24[3] = &unk_2781C5180;
+        v8 = v15;
         v9 = *(a1 + 32);
         v10 = *(a1 + 40);
-        v26 = v8;
-        v27 = v9;
-        v28 = v10;
-        [v7 setContactProvider:v25];
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___block_invoke_17;
-        v23[3] = &unk_2781C49A0;
+        v25 = v8;
+        v26 = v9;
+        v27 = v10;
+        [v7 setContactProvider:v24];
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___block_invoke_17;
+        v22[3] = &unk_2781C49A0;
         v11 = v8;
-        v24 = v11;
-        [v7 addDiagnosticLog:v23];
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___block_invoke_2_21;
-        v20[3] = &unk_2781C51A8;
-        v21 = *(a1 + 48);
+        v23 = v11;
+        [v7 addDiagnosticLog:v22];
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___block_invoke_2_21;
+        v19[3] = &unk_2781C51A8;
+        v20 = *(a1 + 48);
         v12 = v11;
-        v22 = v12;
-        [v7 addDiagnosticLog:v20];
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___block_invoke_3_41;
-        v17[3] = &unk_2781C4718;
-        v18 = v12;
-        v19 = *(a1 + 48);
-        [v7 setIgnoreResultBlock:v17];
+        v21 = v12;
+        [v7 addDiagnosticLog:v19];
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___block_invoke_3_41;
+        v16[3] = &unk_2781C4718;
+        v17 = v12;
+        v18 = *(a1 + 48);
+        [v7 setIgnoreResultBlock:v16];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v4 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v4);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return obj;
 }
 
 id __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___block_invoke_2(id *a1, void *a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if ([a1[4] areKeysAvailable:v5])
   {
@@ -407,21 +401,21 @@ id __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___block_invo
   else
   {
     v7 = [a1[5] suggestedContactsWithRequest:a1[6] keysToFetch:v5 error:a3];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___block_invoke_3;
-    v14[3] = &unk_2781C5158;
-    v15 = a1[4];
-    v8 = [v7 _cn_firstObjectPassingTest:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___block_invoke_3;
+    v13[3] = &unk_2781C5158;
+    v14 = a1[4];
+    v8 = [v7 _cn_firstObjectPassingTest:v13];
     v9 = v8;
     if (!v8)
     {
-      v10 = CNALoggingContextTriage();
+      v10 = CNALoggingContextTriage(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v11 = [a1[6] triageIdentifier];
         *buf = 138543362;
-        v17 = v11;
+        v16 = v11;
         _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] CNAutocompleteSuggestionsSearch: Contact provider failed to refetch contact, returning internally fetched contact.", buf, 0xCu);
       }
 
@@ -430,8 +424,6 @@ id __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___block_invo
 
     v6 = v9;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -490,66 +482,64 @@ uint64_t __62__CNAutocompleteSuggestionsSearch_resultTransformWithRequest___bloc
   v13 = 0;
   v6 = [v5 executeSaveRequest:v4 error:&v13];
   v7 = v13;
+  v8 = v7;
   if ((v6 & 1) == 0)
   {
-    v8 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = CNALoggingContextDebug(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138412546;
-      v15 = v9;
+      v15 = v10;
       v16 = 2112;
-      v17 = v7;
-      _os_log_impl(&dword_2155FE000, v8, OS_LOG_TYPE_DEFAULT, "Can't ignore suggestion: %@, with error: %@", buf, 0x16u);
+      v17 = v8;
+      _os_log_impl(&dword_2155FE000, v9, OS_LOG_TYPE_DEFAULT, "Can't ignore suggestion: %@, with error: %@", buf, 0x16u);
     }
 
     if (a2)
     {
-      v10 = v7;
-      *a2 = v7;
+      v11 = v8;
+      *a2 = v8;
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)resultTransformWithFactory:(id)factory properties:(id)properties
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v6 = [CNAutocompleteLocalContactResultTransformBuilder suggestedContactBuilderWithResultFactory:factory];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = propertiesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [v6 addTransformForProperty:{*(*(&v15 + 1) + 8 * i), v15}];
+        [v6 addTransformForProperty:{*(*(&v14 + 1) + 8 * i), v14}];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
 
   build = [v6 build];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return build;
 }

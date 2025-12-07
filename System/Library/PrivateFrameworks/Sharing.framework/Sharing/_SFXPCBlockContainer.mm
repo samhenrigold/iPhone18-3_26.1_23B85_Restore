@@ -10,27 +10,26 @@
   syncCopy = sync;
   v13 = sub_1A99762C0();
   v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
   MEMORY[0x1EEE9AC00](v13);
-  v17 = &v24 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = _Block_copy(completion);
+  v16 = &v23 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = _Block_copy(completion);
   sub_1A9976290();
   dataCopy = data;
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v21 = sub_1A9976070();
-  v23 = v22;
+  v20 = sub_1A9976070();
+  v22 = v21;
 
-  _Block_copy(v18);
-  sub_1A97C0468(v17, v21, v23, container, blocksContainer, syncCopy, selfCopy, v18);
-  _Block_release(v18);
-  _Block_release(v18);
-  sub_1A97B43C4(v21, v23);
+  _Block_copy(v17);
+  sub_1A97C0468(v16, v20, v22, container, blocksContainer, syncCopy, selfCopy, v17);
+  _Block_release(v17);
+  _Block_release(v17);
+  sub_1A97B43C4(v20, v22);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 
-  (*(v14 + 8))(v17, v13);
+  (*(v14 + 8))(v16, v13);
 }
 
 - (_SFXPCBlockContainer)init

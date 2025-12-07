@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)firstCampedSysAsString:(int)string;
 - (int)StringAsFirstCampedSys:(id)sys;
 - (int)firstCampedSys;
 - (unint64_t)hash;
@@ -91,6 +92,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)firstCampedSysAsString:(int)string
+{
+  if (string < 0x10 && ((0x9FFFu >> string) & 1) != 0)
+  {
+    v4 = *(&off_100318DB0 + string);
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsFirstCampedSys:(id)sys
@@ -363,7 +379,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -383,7 +398,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  fastReturnState = self->_fastReturnState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -398,7 +412,6 @@ LABEL_4:
   }
 
 LABEL_18:
-  fastReturnResult = self->_fastReturnResult;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -413,7 +426,6 @@ LABEL_5:
   }
 
 LABEL_19:
-  returnDelay = self->_returnDelay;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -428,7 +440,6 @@ LABEL_6:
   }
 
 LABEL_20:
-  firstCampedSys = self->_firstCampedSys;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -443,12 +454,10 @@ LABEL_7:
   }
 
 LABEL_21:
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_8:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -460,7 +469,6 @@ LABEL_9:
 
   if ((*&self->_has & 0x80000000) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -694,7 +702,6 @@ LABEL_9:
   }
 
   has = self->_has;
-  v6 = equalCopy[52];
   if (has)
   {
     if ((equalCopy[52] & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -792,32 +799,32 @@ LABEL_9:
     if (![(NSData *)plmn isEqual:?])
     {
 LABEL_45:
-      v9 = 0;
+      v8 = 0;
       goto LABEL_46;
     }
 
     has = self->_has;
   }
 
-  v8 = equalCopy[52];
+  v7 = equalCopy[52];
   if (has < 0)
   {
-    if ((v8 & 0x80000000) == 0 || self->_subsId != *(equalCopy + 12))
+    if ((v7 & 0x80000000) == 0 || self->_subsId != *(equalCopy + 12))
     {
       goto LABEL_45;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v9 = v8 >= 0;
+    v8 = v7 >= 0;
   }
 
 LABEL_46:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

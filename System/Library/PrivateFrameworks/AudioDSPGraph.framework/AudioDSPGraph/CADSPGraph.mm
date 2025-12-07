@@ -1,14 +1,26 @@
 @interface CADSPGraph
+- (BOOL)_hasRemoteProcessingBlockParameter:(unsigned int)parameter scope:(unsigned int)scope element:(unsigned int)element error:(id *)error;
+- (BOOL)_hasRemoteProcessingBlockProperty:(unsigned int)property scope:(unsigned int)scope element:(unsigned int)element error:(id *)error;
 - (BOOL)getLatency:(double *)latency error:(id *)error;
 - (BOOL)getParameter:(float *)parameter forID:(unsigned int)d error:(id *)error;
 - (BOOL)getParameterDirection:(unsigned int *)direction forID:(unsigned int)d error:(id *)error;
 - (BOOL)getPropertyData:(void *)data size:(unsigned int *)size forID:(unsigned int)d error:(id *)error;
 - (BOOL)getPropertyDirection:(unsigned int *)direction forID:(unsigned int)d error:(id *)error;
 - (BOOL)getPropertyInfo:(CADSPPropertyInfo *)info forID:(unsigned int)d error:(id *)error;
+- (BOOL)getRemoteProcessingBlockParameter:(float *)parameter forID:(unsigned int)d scope:(unsigned int)scope element:(unsigned int)element object:(id)object withError:(id *)error;
+- (BOOL)getRemoteProcessingBlockParameterInfo:(id)info forScope:(unsigned int)scope object:(id)object withError:(id *)error;
+- (BOOL)getRemoteProcessingBlockProperty:(id *)property forID:(unsigned int)d scope:(unsigned int)scope element:(unsigned int)element object:(id)object withError:(id *)error;
+- (BOOL)getRemoteProcessingBlockPropertyInfo:(id *)info forID:(unsigned int)d scope:(unsigned int)scope element:(unsigned int)element object:(id)object withError:(id *)error;
+- (BOOL)getRemoteProcessingBlockPropertyInfo:(id)info forScope:(unsigned int)scope object:(id)object withError:(id *)error;
 - (BOOL)getTailTime:(double *)time error:(id *)error;
+- (BOOL)importRemoteProcessingBlockStrip:(id)strip type:(unsigned int)type settings:(id)settings object:(id)object error:(id *)error;
 - (BOOL)initialize:(id *)initialize;
 - (BOOL)loadStrip:(id)strip type:(unsigned int)type withResourcePath:(id)path error:(id *)error;
+- (BOOL)setModel:(id)model dryRun:(BOOL)run error:(id *)error;
 - (BOOL)setParameter:(float)parameter forID:(unsigned int)d error:(id *)error;
+- (BOOL)setPropertyData:(const void *)data size:(unsigned int)size forID:(unsigned int)d error:(id *)error;
+- (BOOL)setRemoteProcessingBlockParameter:(float)parameter forID:(unsigned int)d scope:(unsigned int)scope element:(unsigned int)element object:(id)object withError:(id *)error;
+- (BOOL)setRemoteProcessingBlockProperty:(id)property forID:(unsigned int)d scope:(unsigned int)scope element:(unsigned int)element object:(id)object withError:(id *)error;
 - (CADSPGraph)initWithModel:(id)model error:(id *)error;
 - (NSArray)boxes;
 - (NSArray)eventListeners;
@@ -16,6 +28,7 @@
 - (id).cxx_construct;
 - (id)boxForName:(id)name;
 - (id)createRemoteProcessingBlockHost:(id *)host;
+- (id)exportRemoteProcessingBlockStrip:(unsigned int)strip settings:(id)settings object:(id)object error:(id *)error;
 - (id)saveStrip:(unsigned int)strip error:(id *)error;
 - (id)subsetForName:(id)name;
 - (void)addEventListener:(id)listener;
@@ -34,27 +47,27 @@
 
 - (id)subsetForName:(id)name
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   nameCopy = name;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   subsets = [(CADSPGraph *)self subsets];
-  v6 = [subsets countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [subsets countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(subsets);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         model = [v9 model];
         name = [model name];
         v12 = [name isEqualToString:nameCopy];
@@ -66,7 +79,7 @@
         }
       }
 
-      v6 = [subsets countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [subsets countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -78,41 +91,39 @@
 
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (NSArray)subsets
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   subsets = selfCopy->_subsets;
   if (!subsets)
   {
-    v39 = [MEMORY[0x1E695DF70] arrayWithCapacity:(*(selfCopy->_graph.__ptr_ + 128) - *(selfCopy->_graph.__ptr_ + 127)) >> 3];
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
+    v38 = [MEMORY[0x1E695DF70] arrayWithCapacity:(*(selfCopy->_graph.__ptr_ + 128) - *(selfCopy->_graph.__ptr_ + 127)) >> 3];
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     obj = [(CADSPGraphModel *)selfCopy->_model subsets];
-    v4 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v4 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
     if (v4)
     {
-      v40 = *v47;
+      v39 = *v46;
       do
       {
         v5 = 0;
-        v41 = v4;
+        v40 = v4;
         do
         {
-          if (*v47 != v40)
+          if (*v46 != v39)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v46 + 1) + 8 * v5);
+          v6 = *(*(&v45 + 1) + 8 * v5);
           ptr = selfCopy->_graph.__ptr_;
           name = [v6 name];
           v9 = name;
@@ -127,9 +138,9 @@ LABEL_22:
 
           else
           {
-            if ((v45 & 0x80u) == 0)
+            if ((v44 & 0x80u) == 0)
             {
-              v12 = v45;
+              v12 = v44;
             }
 
             else
@@ -137,7 +148,7 @@ LABEL_22:
               v12 = __p[1];
             }
 
-            if ((v45 & 0x80u) == 0)
+            if ((v44 & 0x80u) == 0)
             {
               v13 = __p;
             }
@@ -180,7 +191,7 @@ LABEL_22:
             atomic_fetch_add_explicit(&cntrl->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          if (v45 < 0)
+          if (v44 < 0)
           {
             operator delete(__p[0]);
           }
@@ -225,19 +236,19 @@ LABEL_22:
             }
 
             v31 = [CADSPSubset alloc];
-            v42 = v14;
-            v43 = cntrl;
+            v41 = v14;
+            v42 = cntrl;
             if (cntrl)
             {
               atomic_fetch_add_explicit(&cntrl->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            v32 = [(CADSPSubset *)v31 initWithSubset:&v42 model:v6 boxes:v19];
-            [v39 addObject:v32];
+            v32 = [(CADSPSubset *)v31 initWithSubset:&v41 model:v6 boxes:v19];
+            [v38 addObject:v32];
 
-            if (v43)
+            if (v42)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v43);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v42);
             }
           }
 
@@ -249,14 +260,14 @@ LABEL_22:
           ++v5;
         }
 
-        while (v5 != v41);
-        v4 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+        while (v5 != v40);
+        v4 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
       }
 
       while (v4);
     }
 
-    v33 = [v39 copy];
+    v33 = [v38 copy];
     v34 = selfCopy->_subsets;
     selfCopy->_subsets = v33;
 
@@ -266,34 +277,32 @@ LABEL_22:
   v35 = subsets;
   objc_sync_exit(selfCopy);
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return v35;
 }
 
 - (id)boxForName:(id)name
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   nameCopy = name;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   boxes = [(CADSPGraph *)self boxes];
-  v6 = [boxes countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [boxes countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(boxes);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         model = [v9 model];
         name = [model name];
         v12 = [name isEqualToString:nameCopy];
@@ -305,7 +314,7 @@ LABEL_22:
         }
       }
 
-      v6 = [boxes countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [boxes countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -317,39 +326,37 @@ LABEL_22:
 
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (NSArray)boxes
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   boxes = selfCopy->_boxes;
   if (!boxes)
   {
     v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:*(selfCopy->_graph.__ptr_ + 5)];
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     boxes = [(CADSPGraphModel *)selfCopy->_model boxes];
-    v6 = [boxes countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v6 = [boxes countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v6)
     {
-      v7 = *v28;
+      v7 = *v27;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v28 != v7)
+          if (*v27 != v7)
           {
             objc_enumerationMutation(boxes);
           }
 
-          v9 = *(*(&v27 + 1) + 8 * i);
+          v9 = *(*(&v26 + 1) + 8 * i);
           ptr = selfCopy->_graph.__ptr_;
           name = [v9 name];
           v12 = name;
@@ -371,7 +378,7 @@ LABEL_11:
             atomic_fetch_add_explicit(&cntrl->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          if (v26 < 0)
+          if (v25 < 0)
           {
             operator delete(__p[0]);
           }
@@ -379,12 +386,12 @@ LABEL_11:
           if (v14)
           {
             v16 = [CADSPBox alloc];
-            v23 = v14;
-            v24 = cntrl;
-            v17 = [(CADSPBox *)v16 initWithBox:&v23 model:v9];
+            v22 = v14;
+            v23 = cntrl;
+            v17 = [(CADSPBox *)v16 initWithBox:&v22 model:v9];
             [v4 addObject:v17];
 
-            cntrl = v24;
+            cntrl = v23;
           }
 
           if (cntrl)
@@ -393,7 +400,7 @@ LABEL_11:
           }
         }
 
-        v6 = [boxes countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v6 = [boxes countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v6);
@@ -409,9 +416,17 @@ LABEL_11:
   v20 = boxes;
   objc_sync_exit(selfCopy);
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v20;
+}
+
+- (BOOL)setModel:(id)model dryRun:(BOOL)run error:(id *)error
+{
+  if (error)
+  {
+    *error = [CADSPError errorWithCode:1852403056, run];
+  }
+
+  return 0;
 }
 
 - (CADSPGraph)initWithModel:(id)model error:(id *)error
@@ -529,517 +544,515 @@ LABEL_7:
 
 - (id)createRemoteProcessingBlockHost:(id *)host
 {
-  v167[1] = *MEMORY[0x1E69E9840];
+  v168[1] = *MEMORY[0x1E69E9840];
   if (objc_opt_class())
   {
     v3 = ((*(self->_graph.__ptr_ + 48) - *(self->_graph.__ptr_ + 47)) >> 3);
-    v159 = [MEMORY[0x1E695DF70] arrayWithCapacity:v3];
+    v160 = [MEMORY[0x1E695DF70] arrayWithCapacity:v3];
     if (v3)
     {
       for (i = 0; i != v3; ++i)
       {
-        v5 = objc_alloc(MEMORY[0x1E69C6E08]);
-        v6 = *(self->_graph.__ptr_ + 47);
-        if (i >= (*(self->_graph.__ptr_ + 48) - v6) >> 3)
+        v6 = objc_alloc(MEMORY[0x1E69C6E08]);
+        v7 = *(self->_graph.__ptr_ + 47);
+        if (i >= (*(self->_graph.__ptr_ + 48) - v7) >> 3)
         {
-          v7 = 0;
+          v8 = 0;
         }
 
         else
         {
-          v7 = *(v6 + 8 * i);
+          v8 = *(v7 + 8 * i);
         }
 
-        StreamDescription = AudioDSPGraph::Boxes::GraphInput::getStreamDescription(v7);
-        v9 = *(StreamDescription + 32);
-        v10 = *(StreamDescription + 16);
+        StreamDescription = AudioDSPGraph::Boxes::GraphInput::getStreamDescription(v8, v5);
+        v10 = *(StreamDescription + 32);
+        v11 = *(StreamDescription + 16);
         outData = *StreamDescription;
-        v163 = v10;
-        v164 = v9;
-        v11 = [v5 initWithFormat:&outData];
-        [v159 addObject:v11];
+        v164 = v11;
+        v165 = v10;
+        v12 = [v6 initWithFormat:&outData];
+        [v160 addObject:v12];
       }
     }
 
-    v12 = ((*(self->_graph.__ptr_ + 51) - *(self->_graph.__ptr_ + 50)) >> 3);
-    v158 = [MEMORY[0x1E695DF70] arrayWithCapacity:v12];
-    if (v12)
+    v13 = ((*(self->_graph.__ptr_ + 51) - *(self->_graph.__ptr_ + 50)) >> 3);
+    v159 = [MEMORY[0x1E695DF70] arrayWithCapacity:v13];
+    if (v13)
     {
-      for (j = 0; j != v12; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        v14 = objc_alloc(MEMORY[0x1E69C6E08]);
-        v15 = *(self->_graph.__ptr_ + 50);
-        if (j >= (*(self->_graph.__ptr_ + 51) - v15) >> 3)
+        v16 = objc_alloc(MEMORY[0x1E69C6E08]);
+        v17 = *(self->_graph.__ptr_ + 50);
+        if (j >= (*(self->_graph.__ptr_ + 51) - v17) >> 3)
         {
-          v16 = 0;
+          v18 = 0;
         }
 
         else
         {
-          v16 = *(v15 + 8 * j);
+          v18 = *(v17 + 8 * j);
         }
 
-        v17 = AudioDSPGraph::Boxes::GraphOutput::getStreamDescription(v16);
-        v18 = *(v17 + 32);
-        v19 = *(v17 + 16);
-        outData = *v17;
-        v163 = v19;
-        v164 = v18;
-        v20 = [v14 initWithFormat:&outData];
-        [v158 addObject:v20];
+        v19 = AudioDSPGraph::Boxes::GraphOutput::getStreamDescription(v18, v15);
+        v20 = *(v19 + 32);
+        v21 = *(v19 + 16);
+        outData = *v19;
+        v164 = v21;
+        v165 = v20;
+        v22 = [v16 initWithFormat:&outData];
+        [v159 addObject:v22];
       }
     }
 
-    v21 = objc_alloc(MEMORY[0x1E69C6DE0]);
+    v23 = objc_alloc(MEMORY[0x1E69C6DE0]);
     model = [(CADSPGraph *)self model];
     name = [model name];
-    v24 = [v21 initWithName:name inputs:v159 outputs:v158];
+    v26 = [v23 initWithName:name inputs:v160 outputs:v159];
 
-    if (v24)
+    if (v26)
     {
       if (v3)
       {
-        v25 = 0;
-        v26 = MEMORY[0x1E695E0F0];
+        v27 = 0;
+        v28 = MEMORY[0x1E695E0F0];
         do
         {
-          v27 = objc_alloc(MEMORY[0x1E69C6DE8]);
-          v28 = *(self->_graph.__ptr_ + 47);
-          if (v25 >= (*(self->_graph.__ptr_ + 48) - v28) >> 3)
+          v29 = objc_alloc(MEMORY[0x1E69C6DE8]);
+          v30 = *(self->_graph.__ptr_ + 47);
+          if (v27 >= (*(self->_graph.__ptr_ + 48) - v30) >> 3)
           {
-            v29 = 0;
+            v31 = 0;
           }
 
           else
           {
-            v29 = *(v28 + 8 * v25);
+            v31 = *(v30 + 8 * v27);
           }
 
-          v30 = (v29 + 40);
-          if (*(v29 + 63) < 0)
+          v32 = (v31 + 40);
+          if (*(v31 + 63) < 0)
           {
-            v30 = *v30;
+            v32 = *v32;
           }
 
-          v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v30];
-          v32 = [v159 objectAtIndexedSubscript:v25];
-          v167[0] = v32;
-          v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v167 count:1];
-          v34 = [v27 initWithName:v31 inputs:v26 outputs:v33];
-          [v24 addItem:v34];
+          v33 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v32];
+          v34 = [v160 objectAtIndexedSubscript:v27];
+          v168[0] = v34;
+          v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v168 count:1];
+          v36 = [v29 initWithName:v33 inputs:v28 outputs:v35];
+          [v26 addItem:v36];
 
-          ++v25;
+          ++v27;
         }
 
-        while (v3 != v25);
+        while (v3 != v27);
       }
 
-      if (v12)
+      if (v13)
       {
-        v35 = 0;
-        v36 = MEMORY[0x1E695E0F0];
+        v37 = 0;
+        v38 = MEMORY[0x1E695E0F0];
         do
         {
-          v37 = objc_alloc(MEMORY[0x1E69C6DE8]);
-          v38 = *(self->_graph.__ptr_ + 50);
-          if (v35 >= (*(self->_graph.__ptr_ + 51) - v38) >> 3)
+          v39 = objc_alloc(MEMORY[0x1E69C6DE8]);
+          v40 = *(self->_graph.__ptr_ + 50);
+          if (v37 >= (*(self->_graph.__ptr_ + 51) - v40) >> 3)
           {
-            v39 = 0;
+            v41 = 0;
           }
 
           else
           {
-            v39 = *(v38 + 8 * v35);
+            v41 = *(v40 + 8 * v37);
           }
 
-          v40 = (v39 + 40);
-          if (*(v39 + 63) < 0)
+          v42 = (v41 + 40);
+          if (*(v41 + 63) < 0)
           {
-            v40 = *v40;
+            v42 = *v42;
           }
 
-          v41 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v40];
-          v42 = [v158 objectAtIndexedSubscript:v35];
-          v166 = v42;
-          v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v166 count:1];
-          v44 = [v37 initWithName:v41 inputs:v43 outputs:v36];
-          [v24 addItem:v44];
+          v43 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v42];
+          v44 = [v159 objectAtIndexedSubscript:v37];
+          v167 = v44;
+          v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v167 count:1];
+          v46 = [v39 initWithName:v43 inputs:v45 outputs:v38];
+          [v26 addItem:v46];
 
-          ++v35;
+          ++v37;
         }
 
-        while (v12 != v35);
+        while (v13 != v37);
       }
 
       ptr = self->_graph.__ptr_;
-      v46 = *(ptr + 4);
-      if (v46)
+      v48 = *(ptr + 4);
+      if (v48)
       {
         while (1)
         {
-          v47 = (*(*v46[2] + 224))(v46[2]);
-          if (v47)
+          v49 = (*(*v48[2] + 224))(v48[2]);
+          if (v49)
           {
             break;
           }
 
-          if (!(*(*v46[2] + 232))(v46[2]) && !(*(*v46[2] + 240))(v46[2]))
+          if (!(*(*v48[2] + 232))(v48[2]) && !(*(*v48[2] + 240))(v48[2]))
           {
-            v54 = ((v46[2][10] - v46[2][9]) >> 5);
-            v55 = [MEMORY[0x1E695DF70] arrayWithCapacity:v54];
-            if (v54)
+            v56 = ((v48[2][10] - v48[2][9]) >> 5);
+            v57 = [MEMORY[0x1E695DF70] arrayWithCapacity:v56];
+            if (v56)
             {
-              v56 = 0;
-              v57 = 16;
+              v58 = 0;
+              v59 = 16;
               do
               {
-                v58 = objc_alloc(MEMORY[0x1E69C6E08]);
-                v59 = v46[2];
-                v60 = v59[9];
-                v61 = (v59[10] - v60) >> 5;
-                if (v61 <= v56)
+                v60 = objc_alloc(MEMORY[0x1E69C6E08]);
+                v62 = v48[2];
+                v63 = v62[9];
+                v64 = (v62[10] - v63) >> 5;
+                if (v64 <= v58)
                 {
-                  v149 = v59 + 5;
-                  if (*(v59 + 63) < 0)
+                  v151 = v62 + 5;
+                  if (*(v62 + 63) < 0)
                   {
-                    v149 = *v149;
+                    v151 = *v151;
                   }
 
-                  caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", &outData, v149, v61, v56);
+                  caulk::make_string(&outData, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v61, v151, v64, v58);
                   AudioDSPGraph::ThrowException(1919837985, &outData, off_1E8337C60);
                 }
 
-                v62 = *(*(v60 + v57) + 120);
-                v63 = *(v62 + 4);
-                v64 = v62[1];
-                outData = *v62;
-                v163 = v64;
-                v164 = v63;
-                v65 = [v58 initWithFormat:&outData];
-                [v55 addObject:v65];
+                v65 = *(*(v63 + v59) + 120);
+                v66 = *(v65 + 4);
+                v67 = v65[1];
+                outData = *v65;
+                v164 = v67;
+                v165 = v66;
+                v68 = [v60 initWithFormat:&outData];
+                [v57 addObject:v68];
 
-                ++v56;
-                v57 += 32;
+                ++v58;
+                v59 += 32;
               }
 
-              while (v54 != v56);
+              while (v56 != v58);
             }
 
-            v66 = ((v46[2][13] - v46[2][12]) >> 5);
-            v67 = [MEMORY[0x1E695DF70] arrayWithCapacity:v66];
-            if (v66)
+            v69 = ((v48[2][13] - v48[2][12]) >> 5);
+            v70 = [MEMORY[0x1E695DF70] arrayWithCapacity:v69];
+            if (v69)
             {
-              v68 = 0;
-              v69 = 16;
+              v71 = 0;
+              v72 = 16;
               do
               {
-                v70 = objc_alloc(MEMORY[0x1E69C6E08]);
-                v71 = v46[2];
-                v72 = v71[12];
-                v73 = (v71[13] - v72) >> 5;
-                if (v73 <= v68)
+                v73 = objc_alloc(MEMORY[0x1E69C6E08]);
+                v75 = v48[2];
+                v76 = v75[12];
+                v77 = (v75[13] - v76) >> 5;
+                if (v77 <= v71)
                 {
-                  v150 = v71 + 5;
-                  if (*(v71 + 63) < 0)
+                  v152 = v75 + 5;
+                  if (*(v75 + 63) < 0)
                   {
-                    v150 = *v150;
+                    v152 = *v152;
                   }
 
-                  caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", &outData, v150, v73, v68);
+                  caulk::make_string(&outData, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v74, v152, v77, v71);
                   AudioDSPGraph::ThrowException(1919837985, &outData, off_1E8337C78);
                 }
 
-                v74 = *(*(v72 + v69) + 120);
-                v75 = *(v74 + 4);
-                v76 = v74[1];
-                outData = *v74;
-                v163 = v76;
-                v164 = v75;
-                v77 = [v70 initWithFormat:&outData];
-                [v67 addObject:v77];
+                v78 = *(*(v76 + v72) + 120);
+                v79 = *(v78 + 4);
+                v80 = v78[1];
+                outData = *v78;
+                v164 = v80;
+                v165 = v79;
+                v81 = [v73 initWithFormat:&outData];
+                [v70 addObject:v81];
 
-                ++v68;
-                v69 += 32;
+                ++v71;
+                v72 += 32;
               }
 
-              while (v66 != v68);
+              while (v69 != v71);
             }
 
-            v78 = v46[2];
-            v79 = objc_alloc(MEMORY[0x1E696AEC0]);
-            v82 = v78[5];
-            v81 = v78 + 5;
-            v80 = v82;
-            v83 = *(v81 + 23);
-            if (v83 >= 0)
+            v82 = v48[2];
+            v83 = objc_alloc(MEMORY[0x1E696AEC0]);
+            v86 = v82[5];
+            v85 = v82 + 5;
+            v84 = v86;
+            v87 = *(v85 + 23);
+            if (v87 >= 0)
             {
-              v84 = v81;
+              v88 = v85;
             }
 
             else
             {
-              v84 = v80;
+              v88 = v84;
             }
 
-            if (v83 >= 0)
+            if (v87 >= 0)
             {
-              v85 = *(v81 + 23);
+              v89 = *(v85 + 23);
             }
 
             else
             {
-              v85 = v81[1];
+              v89 = v85[1];
             }
 
-            v155 = [v79 initWithBytes:v84 length:v85 encoding:4];
-            v50 = [objc_alloc(MEMORY[0x1E69C6DE8]) initWithName:v155 inputs:v55 outputs:v67];
-            v86 = [(CADSPGraph *)self boxForName:v155];
-            [v50 setDelegate:v86];
+            v156 = [v83 initWithBytes:v88 length:v89 encoding:4];
+            v52 = [objc_alloc(MEMORY[0x1E69C6DE8]) initWithName:v156 inputs:v57 outputs:v70];
+            v90 = [(CADSPGraph *)self boxForName:v156];
+            [v52 setDelegate:v90];
 
-            v87 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-            executableURL = [v87 executableURL];
+            v91 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+            executableURL = [v91 executableURL];
             uRLByStandardizingPath = [executableURL URLByStandardizingPath];
 
-            v90 = objc_opt_class();
-            v91 = NSStringFromClass(v90);
-            v165 = uRLByStandardizingPath;
-            v92 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v165 count:1];
-            [v50 loadPropertyMarshallerWithClassName:v91 bundleLocationURLs:v92 error:0];
+            v94 = objc_opt_class();
+            v95 = NSStringFromClass(v94);
+            v166 = uRLByStandardizingPath;
+            v96 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v166 count:1];
+            [v52 loadPropertyMarshallerWithClassName:v95 bundleLocationURLs:v96 error:0];
 
             goto LABEL_61;
           }
 
-          v50 = 0;
+          v52 = 0;
 LABEL_62:
 
-          v46 = *v46;
-          if (!v46)
+          v48 = *v48;
+          if (!v48)
           {
             ptr = self->_graph.__ptr_;
             goto LABEL_64;
           }
         }
 
-        v48 = v47;
-        v49 = *(v47 + 840);
-        v50 = [objc_alloc(MEMORY[0x1E69C6DD0]) initWithAudioUnit:v49];
-        (*(*v48 + 216))(&outData, v48);
+        v50 = v49;
+        v51 = *(v49 + 840);
+        v52 = [objc_alloc(MEMORY[0x1E69C6DD0]) initWithAudioUnit:v51];
+        (*(*v50 + 216))(&outData, v50);
         if (DWORD1(outData) == 1685287015)
         {
           *&outData = 0;
           ioDataSize = 8;
-          if (!AudioUnitGetProperty(v49, 0x686F7062u, 0, 0, &outData, &ioDataSize) && outData != 0)
+          if (!AudioUnitGetProperty(v51, 0x686F7062u, 0, 0, &outData, &ioDataSize) && outData != 0)
           {
             mEMORY[0x1E69C6E00] = [MEMORY[0x1E69C6E00] sharedInstance];
-            v53 = outData;
-            [mEMORY[0x1E69C6E00] addHost:outData toItem:v50];
+            v55 = outData;
+            [mEMORY[0x1E69C6E00] addHost:outData toItem:v52];
           }
         }
 
 LABEL_61:
-        [v24 addItem:v50];
+        [v26 addItem:v52];
         goto LABEL_62;
       }
 
 LABEL_64:
-      v93 = *(ptr + 9);
-      if (v93)
+      v97 = *(ptr + 9);
+      if (v97)
       {
         do
         {
-          v94 = v93[2];
-          v95 = *(v94 + 8);
-          if (v95)
+          v98 = v97[2];
+          v99 = *(v98 + 8);
+          if (v99)
           {
-            for (k = *(v94 + 32); k; k = *k)
+            for (k = *(v98 + 32); k; k = *k)
             {
-              v97 = *(v95 + 8);
-              v98 = (v97 + 40);
-              if (*(v97 + 63) < 0)
+              v101 = *(v99 + 8);
+              v102 = (v101 + 40);
+              if (*(v101 + 63) < 0)
               {
-                v98 = *v98;
+                v102 = *v102;
               }
 
-              v99 = k[2];
-              v100 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v98];
-              v101 = [v24 itemForName:v100];
+              v103 = k[2];
+              v104 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v102];
+              v105 = [v26 itemForName:v104];
 
-              v102 = *(v99 + 8);
-              v103 = (v102 + 40);
-              if (*(v102 + 63) < 0)
+              v106 = *(v103 + 8);
+              v107 = (v106 + 40);
+              if (*(v106 + 63) < 0)
               {
-                v103 = *v103;
+                v107 = *v107;
               }
 
-              v104 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v103];
-              v105 = [v24 itemForName:v104];
+              v108 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v107];
+              v109 = [v26 itemForName:v108];
 
-              [v24 addWireFrom:v101 terminal:*(v95 + 24) to:v105 terminal:*(v99 + 24)];
+              [v26 addWireFrom:v105 terminal:*(v99 + 24) to:v109 terminal:*(v103 + 24)];
             }
           }
 
-          v93 = *v93;
+          v97 = *v97;
         }
 
-        while (v93);
+        while (v97);
         ptr = self->_graph.__ptr_;
       }
 
-      v106 = *(ptr + 75);
-      if (v106)
+      v110 = *(ptr + 75);
+      if (v110)
       {
         do
         {
-          v107 = v106[5];
-          v108 = v106[6];
-          while (v107 != v108)
+          v111 = v110[5];
+          v112 = v110[6];
+          while (v111 != v112)
           {
-            v109 = (*v107 + 40);
-            if (*(*v107 + 63) < 0)
+            v113 = (*v111 + 40);
+            if (*(*v111 + 63) < 0)
             {
-              v109 = *v109;
+              v113 = *v113;
             }
 
-            v110 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v109];
-            v111 = [v24 itemForName:v110];
+            v114 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v113];
+            v115 = [v26 itemForName:v114];
 
-            v112 = v107[2];
-            v113 = v107[3];
-            v114 = *(v106 + 4);
-            if (*(v106 + 36) == 1)
+            v116 = v111[2];
+            v117 = v111[3];
+            v118 = *(v110 + 4);
+            if (*(v110 + 36) == 1)
             {
-              LODWORD(v153) = 0;
-              [v24 addWireFrom:v111 parameter:v112 scope:v113 element:v107[4] toHostParameter:v114 scope:2 element:v153];
+              LODWORD(v154) = 0;
+              [v26 addWireFrom:v115 parameter:v116 scope:v117 element:v111[4] toHostParameter:v118 scope:2 element:v154];
             }
 
             else
             {
-              LODWORD(v153) = v107[4];
-              [v24 addWireFromHostParameter:v114 scope:1 element:0 to:v111 parameter:v112 scope:v113 element:v153];
+              LODWORD(v154) = v111[4];
+              [v26 addWireFromHostParameter:v118 scope:1 element:0 to:v115 parameter:v116 scope:v117 element:v154];
             }
 
-            v107 += 6;
+            v111 += 6;
           }
 
-          v106 = *v106;
+          v110 = *v110;
         }
 
-        while (v106);
+        while (v110);
         ptr = self->_graph.__ptr_;
       }
 
-      v115 = *(ptr + 67);
-      v156 = *(ptr + 68);
-      if (v115 != v156)
+      v119 = *(ptr + 67);
+      v157 = *(ptr + 68);
+      if (v119 != v157)
       {
         do
         {
-          v116 = (*v115 + 40);
-          if (*(*v115 + 63) < 0)
-          {
-            v116 = *v116;
-          }
-
-          v117 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v116];
-          v118 = [v24 itemForName:v117];
-          v119 = *(v115 + 24);
-          v120 = (v119 + 40);
-          if (*(v119 + 63) < 0)
+          v120 = (*v119 + 40);
+          if (*(*v119 + 63) < 0)
           {
             v120 = *v120;
           }
 
-          v121 = *(v115 + 8);
-          v122 = *(v115 + 12);
-          v123 = *(v115 + 16);
-          v124 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v120];
-          v125 = [v24 itemForName:v124];
-          v126 = *(v115 + 36);
-          [v24 addWireFrom:v118 parameter:v121 scope:v122 element:v123 to:v125 parameter:*(v115 + 32) scope:*(v115 + 36) element:?];
+          v121 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v120];
+          v122 = [v26 itemForName:v121];
+          v123 = *(v119 + 24);
+          v124 = (v123 + 40);
+          if (*(v123 + 63) < 0)
+          {
+            v124 = *v124;
+          }
 
-          v115 += 56;
+          v125 = *(v119 + 8);
+          v126 = *(v119 + 12);
+          v127 = *(v119 + 16);
+          v128 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v124];
+          v129 = [v26 itemForName:v128];
+          [v26 addWireFrom:v122 parameter:v125 scope:v126 element:v127 to:v129 parameter:*(v119 + 32) scope:*(v119 + 36) element:?];
+
+          v119 += 56;
         }
 
-        while (v115 != v156);
+        while (v119 != v157);
         ptr = self->_graph.__ptr_;
       }
 
-      v127 = *(ptr + 80);
-      if (v127)
+      v130 = *(ptr + 80);
+      if (v130)
       {
         do
         {
-          v128 = v127[9];
-          v129 = v127[10];
-          while (v128 != v129)
+          v131 = v130[9];
+          v132 = v130[10];
+          while (v131 != v132)
           {
-            v130 = (*v128 + 40);
-            if (*(*v128 + 63) < 0)
+            v133 = (*v131 + 40);
+            if (*(*v131 + 63) < 0)
             {
-              v130 = *v130;
+              v133 = *v133;
             }
 
-            v131 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v130];
-            v132 = [v24 itemForName:v131];
+            v134 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v133];
+            v135 = [v26 itemForName:v134];
 
-            v133 = v128[2];
-            v134 = v128[3];
-            v135 = *(v127 + 4);
-            if (*(v127 + 64) == 1)
+            v136 = v131[2];
+            v137 = v131[3];
+            v138 = *(v130 + 4);
+            if (*(v130 + 64) == 1)
             {
-              LODWORD(v153) = 0;
-              [v24 addWireFrom:v132 property:v133 scope:v134 element:v128[4] toHostProperty:v135 scope:2 element:v153];
+              LODWORD(v154) = 0;
+              [v26 addWireFrom:v135 property:v136 scope:v137 element:v131[4] toHostProperty:v138 scope:2 element:v154];
             }
 
             else
             {
-              LODWORD(v153) = v128[4];
-              [v24 addWireFromHostProperty:v135 scope:1 element:0 to:v132 property:v133 scope:v134 element:v153];
+              LODWORD(v154) = v131[4];
+              [v26 addWireFromHostProperty:v138 scope:1 element:0 to:v135 property:v136 scope:v137 element:v154];
             }
 
-            v128 += 6;
+            v131 += 6;
           }
 
-          v127 = *v127;
+          v130 = *v130;
         }
 
-        while (v127);
+        while (v130);
         ptr = self->_graph.__ptr_;
       }
 
-      v136 = *(ptr + 70);
-      v137 = *(ptr + 71);
-      v157 = v137;
-      while (v136 != v137)
+      v139 = *(ptr + 70);
+      v140 = *(ptr + 71);
+      v158 = v140;
+      while (v139 != v140)
       {
-        v138 = (*v136 + 40);
-        if (*(*v136 + 63) < 0)
+        v141 = (*v139 + 40);
+        if (*(*v139 + 63) < 0)
         {
-          v138 = *v138;
+          v141 = *v141;
         }
 
-        v139 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v138];
-        v140 = [v24 itemForName:v139];
-        v141 = *(v136 + 24);
-        v142 = (v141 + 40);
-        if (*(v141 + 63) < 0)
+        v142 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v141];
+        v143 = [v26 itemForName:v142];
+        v144 = *(v139 + 24);
+        v145 = (v144 + 40);
+        if (*(v144 + 63) < 0)
         {
-          v142 = *v142;
+          v145 = *v145;
         }
 
-        v143 = *(v136 + 8);
-        v144 = *(v136 + 12);
-        v145 = *(v136 + 16);
-        v146 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v142];
-        v147 = [v24 itemForName:v146];
-        v148 = *(v136 + 36);
-        [v24 addWireFrom:v140 property:v143 scope:v144 element:v145 to:v147 property:*(v136 + 32) scope:*(v136 + 36) element:?];
+        v146 = *(v139 + 8);
+        v147 = *(v139 + 12);
+        v148 = *(v139 + 16);
+        v149 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v145];
+        v150 = [v26 itemForName:v149];
+        [v26 addWireFrom:v143 property:v146 scope:v147 element:v148 to:v150 property:*(v139 + 32) scope:*(v139 + 36) element:?];
 
-        v136 += 56;
-        v137 = v157;
+        v139 += 56;
+        v140 = v158;
       }
 
-      [v24 setDelegate:self];
+      [v26 setDelegate:self];
     }
 
     else if (host)
@@ -1050,16 +1063,690 @@ LABEL_64:
 
   else
   {
-    v24 = 0;
+    v26 = 0;
     if (host)
     {
       *host = [[CADSPError alloc] initWithCode:1853060464];
     }
   }
 
-  v151 = *MEMORY[0x1E69E9840];
+  return v26;
+}
 
-  return v24;
+- (id)exportRemoteProcessingBlockStrip:(unsigned int)strip settings:(id)settings object:(id)object error:(id *)error
+{
+  v8 = *&strip;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if (v8 < 2)
+  {
+    v6 = [(CADSPGraph *)selfCopy saveStrip:v8 error:error];
+  }
+
+  objc_sync_exit(selfCopy);
+
+  return v6;
+}
+
+- (BOOL)importRemoteProcessingBlockStrip:(id)strip type:(unsigned int)type settings:(id)settings object:(id)object error:(id *)error
+{
+  v9 = *&type;
+  stripCopy = strip;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if (v9 < 2)
+  {
+    v7 = [(CADSPGraph *)selfCopy loadStrip:stripCopy type:v9 error:error];
+  }
+
+  objc_sync_exit(selfCopy);
+
+  return v7;
+}
+
+- (BOOL)setRemoteProcessingBlockProperty:(id)property forID:(unsigned int)d scope:(unsigned int)scope element:(unsigned int)element object:(id)object withError:(id *)error
+{
+  v10 = *&element;
+  v11 = *&scope;
+  v12 = *&d;
+  propertyCopy = property;
+  objectCopy = object;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v16 = objectCopy;
+    if (v12 == 1952673893 && !v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    {
+      v17 = propertyCopy;
+      threadCounterProfiler = [v16 threadCounterProfiler];
+
+      if (threadCounterProfiler)
+      {
+        if (([v17 BOOLValue] & 1) == 0)
+        {
+          [v16 setThreadCounterProfiler:0];
+        }
+      }
+
+      else if ([v17 BOOLValue])
+      {
+        v24 = [[CADSPThreadCounterProfiler alloc] initWithGraph:self];
+        [v16 setThreadCounterProfiler:v24];
+      }
+
+      v19 = 1;
+    }
+
+    else
+    {
+      if (![(CADSPGraph *)self _hasRemoteProcessingBlockProperty:v12 scope:v11 element:v10 error:error]|| (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      {
+        v19 = 0;
+LABEL_20:
+
+        goto LABEL_21;
+      }
+
+      v20 = propertyCopy;
+      bytes = [v20 bytes];
+      v22 = [v20 length];
+      if (HIDWORD(v22))
+      {
+        v23 = 0xFFFFFFFFLL;
+      }
+
+      else
+      {
+        v23 = v22;
+      }
+
+      v19 = [(CADSPGraph *)self setPropertyData:bytes size:v23 forID:v12 error:error];
+    }
+
+    goto LABEL_20;
+  }
+
+  v19 = 0;
+LABEL_21:
+
+  return v19;
+}
+
+- (BOOL)getRemoteProcessingBlockProperty:(id *)property forID:(unsigned int)d scope:(unsigned int)scope element:(unsigned int)element object:(id)object withError:(id *)error
+{
+  v9 = *&element;
+  v10 = *&scope;
+  v11 = *&d;
+  objectCopy = object;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    LOBYTE(error) = 0;
+    goto LABEL_16;
+  }
+
+  v15 = objectCopy;
+  v16 = v15;
+  if (!v10)
+  {
+    if (v11 == 1952673893)
+    {
+      v21 = MEMORY[0x1E696AD98];
+      error = [v15 threadCounterProfiler];
+      statistics = [v21 numberWithBool:error != 0];
+    }
+
+    else
+    {
+      if (v11 != 1952673907)
+      {
+        goto LABEL_3;
+      }
+
+      error = [v15 threadCounterProfiler];
+      statistics = [error statistics];
+    }
+
+    *property = statistics;
+
+    LOBYTE(error) = 1;
+    goto LABEL_16;
+  }
+
+LABEL_3:
+  if ([(CADSPGraph *)self _hasRemoteProcessingBlockProperty:v11 scope:v10 element:v9 error:error]&& [(CADSPGraph *)self getPropertyInfo:v23 forID:v11 error:error])
+  {
+    v17 = objc_alloc(MEMORY[0x1E695DF88]);
+    v18 = [v17 initWithLength:v24];
+    LODWORD(error) = -[CADSPGraph getPropertyData:size:forID:error:](self, "getPropertyData:size:forID:error:", [v18 mutableBytes], &v24, v11, error);
+    if (error)
+    {
+      v19 = v18;
+      *property = v18;
+    }
+  }
+
+  else
+  {
+    LOBYTE(error) = 0;
+  }
+
+LABEL_16:
+  return error;
+}
+
+- (BOOL)getRemoteProcessingBlockPropertyInfo:(id *)info forID:(unsigned int)d scope:(unsigned int)scope element:(unsigned int)element object:(id)object withError:(id *)error
+{
+  v9 = *&scope;
+  v10 = *&d;
+  v28 = *MEMORY[0x1E69E9840];
+  objectCopy = object;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    goto LABEL_11;
+  }
+
+  if ((v9 - 1) > 1)
+  {
+    if (error)
+    {
+      v16 = [CADSPError _errorForUnsupportedRemoteProcessingBlockScope:v9 connectionType:@"graph properties"];
+      LOBYTE(v9) = 0;
+      *error = v16;
+      goto LABEL_12;
+    }
+
+LABEL_11:
+    LOBYTE(v9) = 0;
+    goto LABEL_12;
+  }
+
+  LODWORD(v9) = [(CADSPGraph *)self getPropertyInfo:&v24 forID:v10 error:error];
+  if (v9)
+  {
+    v14 = [objc_alloc(MEMORY[0x1E69C6DF8]) initWithPropertyID:v10];
+    v15 = bswap32(v10);
+    v26 = v15;
+    if ((v15 - 32) > 0x5E || ((v15 >> 8) - 32) > 0x5E || ((v15 << 8 >> 24) - 32) > 0x5E || ((v15 >> 24) - 32) > 0x5E)
+    {
+      std::to_string(&__p, v10);
+    }
+
+    else
+    {
+      v27 = 39;
+      __s = 39;
+      std::string::basic_string[abi:ne200100]<0>(&__p, &__s);
+    }
+
+    v18 = objc_alloc(MEMORY[0x1E696AEC0]);
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      p_p = &__p;
+    }
+
+    else
+    {
+      p_p = __p.__r_.__value_.__r.__words[0];
+    }
+
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      size = __p.__r_.__value_.__l.__size_;
+    }
+
+    v21 = [v18 initWithBytes:p_p length:size encoding:4];
+    [v14 setName:v21];
+
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    [v14 setReadable:v24 & 1];
+    [v14 setWritable:(v24 >> 1) & 1];
+    v22 = v14;
+    *info = v14;
+  }
+
+LABEL_12:
+
+  return v9;
+}
+
+- (BOOL)getRemoteProcessingBlockPropertyInfo:(id)info forScope:(unsigned int)scope object:(id)object withError:(id *)error
+{
+  v8 = *&scope;
+  v35 = *MEMORY[0x1E69E9840];
+  infoCopy = info;
+  objectCopy = object;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    goto LABEL_44;
+  }
+
+  if (v8 == 2)
+  {
+    for (i = *(self->_graph.__ptr_ + 80); i; i = *i)
+    {
+      if (*(i + 64) == 1)
+      {
+        v21 = [objc_alloc(MEMORY[0x1E69C6DF8]) initWithPropertyID:*(i + 4)];
+        v22 = *(i + 4);
+        v23 = bswap32(v22);
+        v33 = v23;
+        if ((v23 - 32) > 0x5E || ((v23 >> 8) - 32) > 0x5E || ((v23 << 8 >> 24) - 32) > 0x5E || ((v23 >> 24) - 32) > 0x5E)
+        {
+          std::to_string(&v31, v22);
+        }
+
+        else
+        {
+          v34 = 39;
+          __s = 39;
+          std::string::basic_string[abi:ne200100]<0>(&v31, &__s);
+        }
+
+        v24 = objc_alloc(MEMORY[0x1E696AEC0]);
+        if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v25 = &v31;
+        }
+
+        else
+        {
+          v25 = v31.__r_.__value_.__r.__words[0];
+        }
+
+        if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          size = HIBYTE(v31.__r_.__value_.__r.__words[2]);
+        }
+
+        else
+        {
+          size = v31.__r_.__value_.__l.__size_;
+        }
+
+        v27 = [v24 initWithBytes:v25 length:size encoding:4];
+        [v21 setName:v27];
+
+        if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v31.__r_.__value_.__l.__data_);
+        }
+
+        [v21 setReadable:1];
+        [v21 setWritable:0];
+        [infoCopy addObject:v21];
+      }
+    }
+
+    goto LABEL_41;
+  }
+
+  if (v8 != 1)
+  {
+    if (error)
+    {
+      v29 = [CADSPError _errorForUnsupportedRemoteProcessingBlockScope:v8 connectionType:@"graph properties"];
+      v28 = 0;
+      *error = v29;
+      goto LABEL_45;
+    }
+
+LABEL_44:
+    v28 = 0;
+    goto LABEL_45;
+  }
+
+  for (j = *(self->_graph.__ptr_ + 80); j; j = *j)
+  {
+    if ((j[8] & 1) == 0)
+    {
+      v13 = [objc_alloc(MEMORY[0x1E69C6DF8]) initWithPropertyID:*(j + 4)];
+      v14 = *(j + 4);
+      v15 = bswap32(v14);
+      v33 = v15;
+      if ((v15 - 32) > 0x5E || ((v15 >> 8) - 32) > 0x5E || ((v15 << 8 >> 24) - 32) > 0x5E || ((v15 >> 24) - 32) > 0x5E)
+      {
+        std::to_string(&v31, v14);
+      }
+
+      else
+      {
+        v34 = 39;
+        __s = 39;
+        std::string::basic_string[abi:ne200100]<0>(&v31, &__s);
+      }
+
+      v16 = objc_alloc(MEMORY[0x1E696AEC0]);
+      if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v17 = &v31;
+      }
+
+      else
+      {
+        v17 = v31.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v18 = HIBYTE(v31.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v18 = v31.__r_.__value_.__l.__size_;
+      }
+
+      v19 = [v16 initWithBytes:v17 length:v18 encoding:4];
+      [v13 setName:v19];
+
+      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v31.__r_.__value_.__l.__data_);
+      }
+
+      [v13 setReadable:1];
+      [v13 setWritable:1];
+      [infoCopy addObject:v13];
+    }
+  }
+
+LABEL_41:
+  v28 = 1;
+LABEL_45:
+
+  return v28;
+}
+
+- (BOOL)setRemoteProcessingBlockParameter:(float)parameter forID:(unsigned int)d scope:(unsigned int)scope element:(unsigned int)element object:(id)object withError:(id *)error
+{
+  v9 = *&element;
+  v10 = *&scope;
+  v11 = *&d;
+  objectCopy = object;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) != 0 && [(CADSPGraph *)self _hasRemoteProcessingBlockParameter:v11 scope:v10 element:v9 error:error])
+  {
+    *&v15 = parameter;
+    v16 = [(CADSPGraph *)self setParameter:v11 forID:error error:v15];
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  return v16;
+}
+
+- (BOOL)getRemoteProcessingBlockParameter:(float *)parameter forID:(unsigned int)d scope:(unsigned int)scope element:(unsigned int)element object:(id)object withError:(id *)error
+{
+  v9 = *&element;
+  v10 = *&scope;
+  v11 = *&d;
+  objectCopy = object;
+  objc_opt_class();
+  v15 = (objc_opt_isKindOfClass() & 1) != 0 && [(CADSPGraph *)self _hasRemoteProcessingBlockParameter:v11 scope:v10 element:v9 error:error]&& [(CADSPGraph *)self getParameter:parameter forID:v11 error:error];
+
+  return v15;
+}
+
+- (BOOL)getRemoteProcessingBlockParameterInfo:(id)info forScope:(unsigned int)scope object:(id)object withError:(id *)error
+{
+  v8 = *&scope;
+  v35 = *MEMORY[0x1E69E9840];
+  infoCopy = info;
+  objectCopy = object;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    goto LABEL_44;
+  }
+
+  if (v8 == 2)
+  {
+    for (i = *(self->_graph.__ptr_ + 75); i; i = *i)
+    {
+      if (*(i + 36) == 1)
+      {
+        v21 = [objc_alloc(MEMORY[0x1E69C6DF0]) initWithParameterID:*(i + 4)];
+        v22 = *(i + 4);
+        v23 = bswap32(v22);
+        v33 = v23;
+        if ((v23 - 32) > 0x5E || ((v23 >> 8) - 32) > 0x5E || ((v23 << 8 >> 24) - 32) > 0x5E || ((v23 >> 24) - 32) > 0x5E)
+        {
+          std::to_string(&v31, v22);
+        }
+
+        else
+        {
+          v34 = 39;
+          __s = 39;
+          std::string::basic_string[abi:ne200100]<0>(&v31, &__s);
+        }
+
+        v24 = objc_alloc(MEMORY[0x1E696AEC0]);
+        if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v25 = &v31;
+        }
+
+        else
+        {
+          v25 = v31.__r_.__value_.__r.__words[0];
+        }
+
+        if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          size = HIBYTE(v31.__r_.__value_.__r.__words[2]);
+        }
+
+        else
+        {
+          size = v31.__r_.__value_.__l.__size_;
+        }
+
+        v27 = [v24 initWithBytes:v25 length:size encoding:4];
+        [v21 setName:v27];
+
+        if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v31.__r_.__value_.__l.__data_);
+        }
+
+        [v21 setReadable:1];
+        [v21 setWritable:0];
+        [infoCopy addObject:v21];
+      }
+    }
+
+    goto LABEL_41;
+  }
+
+  if (v8 != 1)
+  {
+    if (error)
+    {
+      v29 = [CADSPError _errorForUnsupportedRemoteProcessingBlockScope:v8 connectionType:@"graph parameters"];
+      v28 = 0;
+      *error = v29;
+      goto LABEL_45;
+    }
+
+LABEL_44:
+    v28 = 0;
+    goto LABEL_45;
+  }
+
+  for (j = *(self->_graph.__ptr_ + 75); j; j = *j)
+  {
+    if ((*(j + 36) & 1) == 0)
+    {
+      v13 = [objc_alloc(MEMORY[0x1E69C6DF0]) initWithParameterID:*(j + 4)];
+      v14 = *(j + 4);
+      v15 = bswap32(v14);
+      v33 = v15;
+      if ((v15 - 32) > 0x5E || ((v15 >> 8) - 32) > 0x5E || ((v15 << 8 >> 24) - 32) > 0x5E || ((v15 >> 24) - 32) > 0x5E)
+      {
+        std::to_string(&v31, v14);
+      }
+
+      else
+      {
+        v34 = 39;
+        __s = 39;
+        std::string::basic_string[abi:ne200100]<0>(&v31, &__s);
+      }
+
+      v16 = objc_alloc(MEMORY[0x1E696AEC0]);
+      if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v17 = &v31;
+      }
+
+      else
+      {
+        v17 = v31.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v18 = HIBYTE(v31.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v18 = v31.__r_.__value_.__l.__size_;
+      }
+
+      v19 = [v16 initWithBytes:v17 length:v18 encoding:4];
+      [v13 setName:v19];
+
+      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v31.__r_.__value_.__l.__data_);
+      }
+
+      [v13 setReadable:1];
+      [v13 setWritable:1];
+      [infoCopy addObject:v13];
+    }
+  }
+
+LABEL_41:
+  v28 = 1;
+LABEL_45:
+
+  return v28;
+}
+
+- (BOOL)_hasRemoteProcessingBlockProperty:(unsigned int)property scope:(unsigned int)scope element:(unsigned int)element error:(id *)error
+{
+  v7 = *&element;
+  v8 = *&scope;
+  v13 = 0;
+  LODWORD(v9) = [(CADSPGraph *)self getPropertyDirection:&v13 forID:*&property error:error];
+  if (v9)
+  {
+    if ((v8 != 1 || v13) && (v8 != 2 || v13 != 1))
+    {
+      if (error)
+      {
+        v10 = [CADSPError _errorForUnsupportedRemoteProcessingBlockScope:v8 connectionType:@"graph properties"];
+        goto LABEL_12;
+      }
+
+LABEL_13:
+      LOBYTE(v9) = 0;
+      return v9;
+    }
+
+    if (v7)
+    {
+      if (error)
+      {
+        v10 = [CADSPError _errorForUnsupportedRemoteProcessingBlockElement:v7 connectionType:@"graph properties"];
+LABEL_12:
+        v11 = v10;
+        v9 = v10;
+        LOBYTE(v9) = 0;
+        *error = v11;
+        return v9;
+      }
+
+      goto LABEL_13;
+    }
+
+    LOBYTE(v9) = 1;
+  }
+
+  return v9;
+}
+
+- (BOOL)_hasRemoteProcessingBlockParameter:(unsigned int)parameter scope:(unsigned int)scope element:(unsigned int)element error:(id *)error
+{
+  v7 = *&element;
+  v8 = *&scope;
+  v13 = 0;
+  LODWORD(v9) = [(CADSPGraph *)self getParameterDirection:&v13 forID:*&parameter error:error];
+  if (v9)
+  {
+    if ((v8 != 1 || v13) && (v8 != 2 || v13 != 1))
+    {
+      if (error)
+      {
+        v10 = [CADSPError _errorForUnsupportedRemoteProcessingBlockScope:v8 connectionType:@"graph parameters"];
+        goto LABEL_12;
+      }
+
+LABEL_13:
+      LOBYTE(v9) = 0;
+      return v9;
+    }
+
+    if (v7)
+    {
+      if (error)
+      {
+        v10 = [CADSPError _errorForUnsupportedRemoteProcessingBlockElement:v7 connectionType:@"graph parameters"];
+LABEL_12:
+        v11 = v10;
+        v9 = v10;
+        LOBYTE(v9) = 0;
+        *error = v11;
+        return v9;
+      }
+
+      goto LABEL_13;
+    }
+
+    LOBYTE(v9) = 1;
+  }
+
+  return v9;
+}
+
+- (BOOL)setPropertyData:(const void *)data size:(unsigned int)size forID:(unsigned int)d error:(id *)error
+{
+  v7 = CADSPGraphSetProperty(self, d, data, *&size);
+  v8 = v7;
+  if (error && !v7)
+  {
+    *error = [CADSPError createWithRealTimeError:0];
+  }
+
+  return v8 != 0;
 }
 
 - (BOOL)getPropertyData:(void *)data size:(unsigned int *)size forID:(unsigned int)d error:(id *)error
@@ -1101,7 +1788,7 @@ LABEL_64:
 - (BOOL)setParameter:(float)parameter forID:(unsigned int)d error:(id *)error
 {
   v9 = 0;
-  v6 = CADSPGraphSetParameter(self, d, &v9, parameter);
+  v6 = CADSPGraphSetParameter(self, parameter, *&d, &v9);
   v7 = v6;
   if (error && !v6)
   {
@@ -1151,7 +1838,7 @@ LABEL_64:
 
 - (BOOL)initialize:(id *)initialize
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   v3 = self->_graph.__ptr_;
   if ((*(v3 + 921) & 1) == 0)
   {
@@ -1161,7 +1848,7 @@ LABEL_64:
 
   if ((*(v3 + 922) & 1) == 0)
   {
-    AudioDSPGraph::Graph::setGraphPropertiesInitialValues(*(v3 + 80));
+    AudioDSPGraph::Graph::setGraphPropertiesInitialValues(*(v3 + 80), a2);
     AudioDSPGraph::Graph::setGraphParameterInitialValues(*(v3 + 75));
     *(v3 + 107) = 0;
     *(v3 + 55) = 0u;
@@ -1170,7 +1857,7 @@ LABEL_64:
     ptr = v3;
     if (v5 != v4)
     {
-      v69 = *(v3 + 45);
+      v68 = *(v3 + 45);
       do
       {
         v6 = *v5;
@@ -1255,7 +1942,7 @@ LABEL_64:
         ++v5;
       }
 
-      while (v5 != v69);
+      while (v5 != v68);
       v5 = *(ptr + 44);
       v4 = *(ptr + 45);
     }
@@ -1284,8 +1971,8 @@ LABEL_64:
       {
         do
         {
-          v72 = v24[2];
-          std::vector<AudioDSPGraph::Box *>::push_back[abi:ne200100](buf, &v72);
+          v71 = v24[2];
+          std::vector<AudioDSPGraph::Box *>::push_back[abi:ne200100](buf, &v71);
           v24 = *v24;
         }
 
@@ -1381,10 +2068,10 @@ LABEL_64:
 
     *buf = ptr;
     *&buf[8] = 0u;
-    v74 = 0u;
-    v75 = 1065353216;
-    memset(v76, 0, sizeof(v76));
-    v77 = 1065353216;
+    v73 = 0u;
+    v74 = 1065353216;
+    memset(v75, 0, sizeof(v75));
+    v76 = 1065353216;
     v34 = *(ptr + 44);
     v35 = *(ptr + 45);
     while (v34 != v35)
@@ -1412,7 +2099,7 @@ LABEL_64:
       v34 += 8;
     }
 
-    std::__hash_table<std::__hash_value_type<unsigned int,std::vector<AudioDSPGraph::Buffer *>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<AudioDSPGraph::Buffer *>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<AudioDSPGraph::Buffer *>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<AudioDSPGraph::Buffer *>>>>::~__hash_table(v76);
+    std::__hash_table<std::__hash_value_type<unsigned int,std::vector<AudioDSPGraph::Buffer *>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<AudioDSPGraph::Buffer *>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<AudioDSPGraph::Buffer *>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<AudioDSPGraph::Buffer *>>>>::~__hash_table(v75);
     std::__hash_table<std::__hash_value_type<unsigned int,std::vector<AudioDSPGraph::Buffer *>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::vector<AudioDSPGraph::Buffer *>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::vector<AudioDSPGraph::Buffer *>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::vector<AudioDSPGraph::Buffer *>>>>::~__hash_table(&buf[8]);
     for (i = *(ptr + 9); i; i = *i)
     {
@@ -1491,7 +2178,7 @@ LABEL_64:
 
     v53 = *(ptr + 132);
     v54 = *(ptr + 133);
-    v71 = v54;
+    v70 = v54;
     while (v53 != v54)
     {
       v55 = *(v53 + 32);
@@ -1533,42 +2220,40 @@ LABEL_64:
       }
 
       v53 += 56;
-      v54 = v71;
+      v54 = v70;
     }
 
     *(ptr + 922) = 1;
   }
 
-  result = 1;
-  v68 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 - (void)removeAllEventListeners
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = selfCopy->_eventListeners;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * v6);
+        v7 = *(*(&v12 + 1) + 8 * v6);
         ptr = selfCopy->_graph.__ptr_;
         v9 = v7[1];
         v10 = v7[2];
@@ -1577,9 +2262,9 @@ LABEL_64:
           atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v12[0] = v9;
-        v12[1] = v10;
-        AudioDSPGraph::Graph::removeEventHandler(ptr, v12);
+        v11[0] = v9;
+        v11[1] = v10;
+        AudioDSPGraph::Graph::removeEventHandler(ptr, v11);
         if (v10)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v10);
@@ -1589,7 +2274,7 @@ LABEL_64:
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -1597,8 +2282,6 @@ LABEL_64:
 
   [(NSMutableArray *)selfCopy->_eventListeners removeAllObjects];
   objc_sync_exit(selfCopy);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeEventListener:(id)listener

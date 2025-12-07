@@ -74,16 +74,18 @@ uint64_t __63__ICBaseLayoutManager_drawListStylesForCharacterRange_atPoint___blo
   if (v7)
   {
     v9 = v7;
-    if ([v7 isList])
+    v7 = [v7 isList];
+    if (v7)
     {
-      if ([v9 style] != 103)
+      v7 = [v9 style];
+      if (v7 != 103)
       {
-        [*(a1 + 32) drawBulletsForListRange:a3 paragraphStyle:a4 atPoint:{v9, *(a1 + 40), *(a1 + 48)}];
+        v7 = [*(a1 + 32) drawBulletsForListRange:a3 paragraphStyle:a4 atPoint:{v9, *(a1 + 40), *(a1 + 48)}];
       }
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v7);
 }
 
 - (void)drawBulletsForListRange:(_NSRange)range paragraphStyle:(id)style atPoint:(CGPoint)point
@@ -217,9 +219,10 @@ uint64_t __63__ICBaseLayoutManager_drawListStylesForCharacterRange_atPoint___blo
 
 uint64_t __70__ICBaseLayoutManager_drawBulletsForListRange_paragraphStyle_atPoint___block_invoke()
 {
-  drawBulletsForListRange_paragraphStyle_atPoint__bulletCTLineCache = objc_alloc_init(MEMORY[0x1E69B7A48]);
+  v0 = objc_alloc_init(MEMORY[0x1E69B7A48]);
+  drawBulletsForListRange_paragraphStyle_atPoint__bulletCTLineCache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (double)bulletYOffsetForCharacterAtIndex:(unint64_t)index

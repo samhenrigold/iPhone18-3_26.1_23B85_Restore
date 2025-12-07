@@ -553,7 +553,7 @@ LABEL_46:
 
         if (OcTextFromPtgStrBuffer)
         {
-          (*(*OcTextFromPtgStrBuffer + 8))(OcTextFromPtgStrBuffer);
+          (*(OcTextFromPtgStrBuffer->var0 + 1))(OcTextFromPtgStrBuffer);
         }
       }
 

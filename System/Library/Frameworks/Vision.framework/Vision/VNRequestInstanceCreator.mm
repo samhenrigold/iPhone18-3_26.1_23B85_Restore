@@ -88,35 +88,35 @@ LABEL_8:
 {
   handlerCopy = handler;
   v11 = objc_autoreleasePoolPush();
-  v34 = 0;
-  v12 = handlerCopy;
+  v36 = 0;
+  v13 = handlerCopy;
   if (self)
   {
-    if (![VNRequestInstanceCreator _isValidRequestClass:class])
+    if (![(VNRequestInstanceCreator *)class _isValidRequestClass:v12])
     {
-      [(VNRequestInstanceCreator *)self errorForFailedInstanceCreationOfRequestClass:class withCompletionHandler:v12];
-      v34 = v17 = 0;
+      [(VNRequestInstanceCreator *)self errorForFailedInstanceCreationOfRequestClass:class withCompletionHandler:v13];
+      v36 = v18 = 0;
       goto LABEL_22;
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v14 = WeakRetained;
+    v15 = WeakRetained;
     if (WeakRetained)
     {
-      v35 = 0;
-      v15 = [WeakRetained requestInstanceCreator:self newRequestInstance:&v35 ofClass:class withCompletionHandler:v12 revision:revision error:&v34];
-      v16 = v35;
-      v17 = v16;
-      if (v15)
+      v37 = 0;
+      v16 = [WeakRetained requestInstanceCreator:self newRequestInstance:&v37 ofClass:class withCompletionHandler:v13 revision:revision error:&v36];
+      v17 = v37;
+      v18 = v17;
+      if (v16)
       {
-        if (v16)
+        if (v17)
         {
-          v18 = v16;
+          v19 = v17;
         }
 
         else
         {
-          v34 = [(VNRequestInstanceCreator *)self errorForFailedInstanceCreationOfRequestClass:class withCompletionHandler:v12];
+          v36 = [(VNRequestInstanceCreator *)self errorForFailedInstanceCreationOfRequestClass:class withCompletionHandler:v13];
         }
 
         goto LABEL_21;
@@ -124,14 +124,14 @@ LABEL_8:
     }
 
     errorCopy = error;
-    v19 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v20 = NSStringFromClass(class);
-    v21 = [v19 initWithFormat:@"new%@InstanceWithCompletionHandler:revision:error:", v20];
+    v20 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v21 = NSStringFromClass(class);
+    v22 = [v20 initWithFormat:@"new%@InstanceWithCompletionHandler:revision:error:", v21];
 
-    v22 = NSSelectorFromString(v21);
+    v23 = NSSelectorFromString(v22);
     if (objc_opt_respondsToSelector())
     {
-      v23 = ([(VNRequestInstanceCreator *)self methodForSelector:v22])(self, v22, v12, revision, &v34);
+      v25 = ([(VNRequestInstanceCreator *)self methodForSelector:v23])(self, v23, v13, revision, &v36);
     }
 
     else
@@ -144,13 +144,13 @@ LABEL_8:
       classCopy = class;
       while (1)
       {
-        if ([VNRequestInstanceCreator _isValidRequestClass:class])
+        if ([(VNRequestInstanceCreator *)class _isValidRequestClass:v24])
         {
-          v25 = objc_alloc(MEMORY[0x1E696AEC0]);
-          v26 = NSStringFromClass(classCopy);
-          v27 = [v25 initWithFormat:@"_new%@InstanceOfClass:withCompletionHandler:revision:error:", v26];
+          v27 = objc_alloc(MEMORY[0x1E696AEC0]);
+          v28 = NSStringFromClass(classCopy);
+          v29 = [v27 initWithFormat:@"_new%@InstanceOfClass:withCompletionHandler:revision:error:", v28];
 
-          v28 = NSSelectorFromString(v27);
+          v30 = NSSelectorFromString(v29);
           if (objc_opt_respondsToSelector())
           {
             break;
@@ -164,18 +164,18 @@ LABEL_8:
         }
       }
 
-      if (!v28)
+      if (!v30)
       {
 LABEL_17:
-        [(VNRequestInstanceCreator *)self errorForFailedInstanceCreationOfRequestClass:class withCompletionHandler:v12];
-        v34 = v17 = 0;
+        [(VNRequestInstanceCreator *)self errorForFailedInstanceCreationOfRequestClass:class withCompletionHandler:v13];
+        v36 = v18 = 0;
         goto LABEL_18;
       }
 
-      v23 = ([(VNRequestInstanceCreator *)self methodForSelector:v28])(self, v28, class, v12, revision, &v34);
+      v25 = ([(VNRequestInstanceCreator *)self methodForSelector:v30])(self, v30, class, v13, revision, &v36);
     }
 
-    v17 = v23;
+    v18 = v25;
 LABEL_18:
     error = errorCopy;
 LABEL_21:
@@ -183,35 +183,35 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v17 = 0;
+  v18 = 0;
 LABEL_22:
 
-  v29 = v34;
+  v31 = v36;
   objc_autoreleasePoolPop(v11);
-  if (v17)
+  if (v18)
   {
-    v30 = v17;
+    v32 = v18;
   }
 
   else if (error)
   {
-    v31 = v29;
-    *error = v29;
+    v33 = v31;
+    *error = v31;
   }
 
-  return v17;
+  return v18;
 }
 
 - (BOOL)_isValidRequestClass:(void *)class
 {
-  v2 = objc_opt_class();
-  v3 = [class isSubclassOfClass:v2];
-  v4 = v2 == class || v3 == 0;
+  v3 = objc_opt_class();
+  v4 = [class isSubclassOfClass:v3];
+  v5 = v3 == class || v4 == 0;
   result = 0;
-  if (!v4)
+  if (!v5)
   {
-    v5 = NSClassFromString(&cfstr_Vncompoundrequ.isa);
-    if (!v5 || ([class isSubclassOfClass:v5] & 1) == 0)
+    v6 = NSClassFromString(&cfstr_Vncompoundrequ.isa);
+    if (!v6 || ([class isSubclassOfClass:v6] & 1) == 0)
     {
       return 1;
     }

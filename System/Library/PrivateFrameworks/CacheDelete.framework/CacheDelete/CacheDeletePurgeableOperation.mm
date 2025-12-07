@@ -938,39 +938,39 @@ void __49__CacheDeletePurgeableOperation__startOperation___block_invoke_31(uint6
     v22 = CDGetLogHandle();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
-      v29 = [*(v31 + 56) ID];
+      v30 = [*(v31 + 56) ID];
       *buf = 138543362;
-      v48 = v29;
+      v48 = v30;
       _os_log_fault_impl(&_mh_execute_header, v22, OS_LOG_TYPE_FAULT, "Purgeable callback firing more than once for service %{public}@", buf, 0xCu);
     }
 
-    v30 = [*(v31 + 56) ID];
-    _CacheDeleteAbortWithMessage();
+    v23 = [*(v31 + 56) ID];
+    _CacheDeleteAbortWithMessage("Purgeable callback firing more than once for service %{public}@", v23);
   }
 
   else
   {
     *(v21 + 24) = 1;
-    v23 = *(v31 + 64);
-    v24 = *(v31 + 72);
+    v24 = *(v31 + 64);
+    v25 = *(v31 + 72);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __49__CacheDeletePurgeableOperation__startOperation___block_invoke_33;
     block[3] = &unk_100061CC8;
     objc_copyWeak(&v40, (v31 + 120));
     v33 = *(v31 + 80);
-    v25 = v13;
-    v26 = *(v31 + 32);
-    v34 = v25;
-    v35 = v26;
-    v27 = *(v31 + 88);
-    v28 = *(v31 + 96);
+    v26 = v13;
+    v27 = *(v31 + 32);
+    v34 = v26;
+    v35 = v27;
+    v28 = *(v31 + 88);
+    v29 = *(v31 + 96);
     v36 = *(v31 + 48);
-    v37 = v27;
+    v37 = v28;
     v41 = *(v31 + 136);
-    v38 = v28;
+    v38 = v29;
     v39 = *(v31 + 104);
-    dispatch_group_async(v23, v24, block);
+    dispatch_group_async(v24, v25, block);
     dispatch_group_leave(*(v31 + 64));
 
     objc_destroyWeak(&v40);

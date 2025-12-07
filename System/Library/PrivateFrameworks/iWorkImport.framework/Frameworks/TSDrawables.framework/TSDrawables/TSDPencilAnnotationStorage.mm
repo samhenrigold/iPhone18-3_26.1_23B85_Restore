@@ -34,8 +34,8 @@
 - (id)copyWithContext:(id)context;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)initWithContext:(double)context drawing:(double)drawing markupOffset:(double)offset rasterizedImageTSPData:(double)data attachedLocation:(double)location attachedType:(double)type encodedDrawing:(double)encodedDrawing legacyEncodedDrawing:(uint64_t)self0 path:(void *)self1 unscaledBoundsOfStrokes:(void *)self2 originalAttachedSize:(void *)self3 percentOfPAContainedInParentRep:(uint64_t)self4 textBaselinesTouchedCount:(uint64_t)self5 visibleStrokesCount:(void *)self6 penColor:(void *)self7 toolType:(const CGPath *)path compoundAnnotationType:(uint64_t)self9 subStorages:(uint64_t)storages creationDate:(uint64_t)date pencilAnnotationDrawingScale:(void *)scale strokePointsFrame:(uint64_t)frame renderedFrame:(uint64_t)renderedFrame;
-- (uint64_t)initFromSOSWithContext:(double)context markupOffset:(double)offset rasterizedImageTSPData:(double)data attachedLocation:(double)location attachedType:(double)type encodedDrawing:(double)drawing legacyEncodedDrawing:(double)encodedDrawing path:(uint64_t)self0 unscaledBoundsOfStrokes:(void *)self1 originalAttachedSize:(void *)self2 percentOfPAContainedInParentRep:(uint64_t)self3 textBaselinesTouchedCount:(uint64_t)self4 visibleStrokesCount:(void *)self5 penColor:(void *)self6 toolType:(uint64_t)self7 compoundAnnotationType:(uint64_t)self8 subStorages:(uint64_t)self9 creationDate:(uint64_t)date pencilAnnotationDrawingScale:(void *)scale strokePointsFrame:(uint64_t)frame renderedFrame:(uint64_t)renderedFrame;
 - (void)dealloc;
+- (void)initFromSOSWithContext:(double)context markupOffset:(double)offset rasterizedImageTSPData:(double)data attachedLocation:(double)location attachedType:(double)type encodedDrawing:(double)drawing legacyEncodedDrawing:(double)encodedDrawing path:(uint64_t)self0 unscaledBoundsOfStrokes:(void *)self1 originalAttachedSize:(void *)self2 percentOfPAContainedInParentRep:(uint64_t)self3 textBaselinesTouchedCount:(uint64_t)self4 visibleStrokesCount:(void *)self5 penColor:(void *)self6 toolType:(uint64_t)self7 compoundAnnotationType:(uint64_t)self8 subStorages:(uint64_t)self9 creationDate:(uint64_t)date pencilAnnotationDrawingScale:(void *)scale strokePointsFrame:(uint64_t)frame renderedFrame:(uint64_t)renderedFrame;
 - (void)initializeTextRecognition;
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver;
 - (void)loadFromUnarchiver:(id)unarchiver;
@@ -75,9 +75,9 @@
   v34 = objc_msgSend_p_rasterizedTSPDataForPencilAnnotationImage_context_(TSDPencilAnnotationStorage, v33, imageCopy, contextCopy);
   if ((objc_msgSend_pencilKitAvailable(MEMORY[0x277D806B0], v35, v36) & 1) == 0)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Require pencil kit to save pencil annotations", "[TSDPencilAnnotationStorage initWithContext:drawing:markupOffset:rasterizedImage:attachedLocation:attachedType:path:unscaledBoundsOfStrokes:originalAttachedSize:percentOfPAContainedInParentRep:textBaselinesTouchedCount:visibleStrokesCount:penColor:toolType:compoundAnnotationType:subStorages:creationDate:pencilAnnotationDrawingScale:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/PencilAnnotations/TSDPencilAnnotationStorage.mm", 98);
     v71 = MEMORY[0x277D81150];
-    v73 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v72, "[TSDPencilAnnotationStorage initWithContext:drawing:markupOffset:rasterizedImage:attachedLocation:attachedType:path:unscaledBoundsOfStrokes:originalAttachedSize:percentOfPAContainedInParentRep:textBaselinesTouchedCount:visibleStrokesCount:penColor:toolType:compoundAnnotationType:subStorages:creationDate:pencilAnnotationDrawingScale:]", "[TSDPencilAnnotationStorage initWithContext:drawing:markupOffset:rasterizedImage:attachedLocation:attachedType:path:unscaledBoundsOfStrokes:originalAttachedSize:percentOfPAContainedInParentRep:textBaselinesTouchedCount:visibleStrokesCount:penColor:toolType:compoundAnnotationType:subStorages:creationDate:pencilAnnotationDrawingScale:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/PencilAnnotations/TSDPencilAnnotationStorage.mm", 98);
+    v73 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v72, "[TSDPencilAnnotationStorage initWithContext:drawing:markupOffset:rasterizedImage:attachedLocation:attachedType:path:unscaledBoundsOfStrokes:originalAttachedSize:percentOfPAContainedInParentRep:textBaselinesTouchedCount:visibleStrokesCount:penColor:toolType:compoundAnnotationType:subStorages:creationDate:pencilAnnotationDrawingScale:]");
     v75 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v74, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/PencilAnnotations/TSDPencilAnnotationStorage.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v71, v76, v73, v75, 98, 1, "Require pencil kit to save pencil annotations");
 
@@ -104,7 +104,7 @@
   return v69;
 }
 
-- (uint64_t)initFromSOSWithContext:(double)context markupOffset:(double)offset rasterizedImageTSPData:(double)data attachedLocation:(double)location attachedType:(double)type encodedDrawing:(double)drawing legacyEncodedDrawing:(double)encodedDrawing path:(uint64_t)self0 unscaledBoundsOfStrokes:(void *)self1 originalAttachedSize:(void *)self2 percentOfPAContainedInParentRep:(uint64_t)self3 textBaselinesTouchedCount:(uint64_t)self4 visibleStrokesCount:(void *)self5 penColor:(void *)self6 toolType:(uint64_t)self7 compoundAnnotationType:(uint64_t)self8 subStorages:(uint64_t)self9 creationDate:(uint64_t)date pencilAnnotationDrawingScale:(void *)scale strokePointsFrame:(uint64_t)frame renderedFrame:(uint64_t)renderedFrame
+- (void)initFromSOSWithContext:(double)context markupOffset:(double)offset rasterizedImageTSPData:(double)data attachedLocation:(double)location attachedType:(double)type encodedDrawing:(double)drawing legacyEncodedDrawing:(double)encodedDrawing path:(uint64_t)self0 unscaledBoundsOfStrokes:(void *)self1 originalAttachedSize:(void *)self2 percentOfPAContainedInParentRep:(uint64_t)self3 textBaselinesTouchedCount:(uint64_t)self4 visibleStrokesCount:(void *)self5 penColor:(void *)self6 toolType:(uint64_t)self7 compoundAnnotationType:(uint64_t)self8 subStorages:(uint64_t)self9 creationDate:(uint64_t)date pencilAnnotationDrawingScale:(void *)scale strokePointsFrame:(uint64_t)frame renderedFrame:(uint64_t)renderedFrame
 {
   strokesCopy = strokes;
   sizeCopy = size;
@@ -113,26 +113,27 @@
   scaleCopy = scale;
   v44 = a24;
   v45 = a25;
-  v49 = objc_msgSend_pencilKitAvailable(MEMORY[0x277D806B0], v46, v47) ^ 1;
+  v48 = objc_msgSend_pencilKitAvailable(MEMORY[0x277D806B0], v46, v47);
+  v50 = a28;
+  v51 = v48 ^ 1;
   if (!strokesCountCopy)
   {
-    v49 = 1;
+    v51 = 1;
   }
 
-  if (v49)
+  if (v51)
   {
-    v52 = 0;
-    v54 = objc_msgSend_initWithContext_drawing_markupOffset_rasterizedImageTSPData_attachedLocation_attachedType_encodedDrawing_legacyEncodedDrawing_path_unscaledBoundsOfStrokes_originalAttachedSize_percentOfPAContainedInParentRep_textBaselinesTouchedCount_visibleStrokesCount_penColor_toolType_compoundAnnotationType_subStorages_creationDate_pencilAnnotationDrawingScale_strokePointsFrame_renderedFrame_(self, v48, strokesCopy, 0, sizeCopy, rep, count, strokesCountCopy, a2, context, offset, data, location, type, drawing, encodedDrawing, colorCopy, toolType, annotationType, storages, date, scaleCopy, frame, renderedFrame, v44, v45, a26, *&a27, *&a28, *&a29, *&a30, *&a31, *&a32, *&a33, *&a34);
+    v54 = 0;
   }
 
   else
   {
-    v50 = objc_alloc(MEMORY[0x277D806A8]);
-    v52 = objc_msgSend_initWithData_cachedRenderedFrame_cachedStrokePointsFrame_pencilAnnotationDrawingScale_(v50, v51, strokesCountCopy, a31, a32, a33, a34, a27, a28, a29, a30, a26);
-    v54 = objc_msgSend_initWithContext_drawing_markupOffset_rasterizedImageTSPData_attachedLocation_attachedType_encodedDrawing_legacyEncodedDrawing_path_unscaledBoundsOfStrokes_originalAttachedSize_percentOfPAContainedInParentRep_textBaselinesTouchedCount_visibleStrokesCount_penColor_toolType_compoundAnnotationType_subStorages_creationDate_pencilAnnotationDrawingScale_strokePointsFrame_renderedFrame_(self, v53, strokesCopy, v52, sizeCopy, rep, count, strokesCountCopy, a2, context, offset, data, location, type, drawing, encodedDrawing, colorCopy, toolType, annotationType, storages, date, scaleCopy, frame, renderedFrame, v44, v45, a26, *&a27, *&a28, *&a29, *&a30, *&a31, *&a32, *&a33, *&a34);
+    v52 = objc_alloc(MEMORY[0x277D806A8]);
+    v54 = objc_msgSend_initWithData_cachedRenderedFrame_cachedStrokePointsFrame_pencilAnnotationDrawingScale_(v52, v53, strokesCountCopy, a31, a32, a33, a34, a27, a28, a29, a30, a26);
+    v50 = a28;
   }
 
-  v55 = v54;
+  v55 = objc_msgSend_initWithContext_drawing_markupOffset_rasterizedImageTSPData_attachedLocation_attachedType_encodedDrawing_legacyEncodedDrawing_path_unscaledBoundsOfStrokes_originalAttachedSize_percentOfPAContainedInParentRep_textBaselinesTouchedCount_visibleStrokesCount_penColor_toolType_compoundAnnotationType_subStorages_creationDate_pencilAnnotationDrawingScale_strokePointsFrame_renderedFrame_(self, v49, strokesCopy, v54, sizeCopy, rep, count, strokesCountCopy, a2, context, offset, data, location, type, drawing, encodedDrawing, colorCopy, toolType, annotationType, storages, date, scaleCopy, frame, renderedFrame, v44, v45, a26, *&a27, *&v50, *&a29, *&a30, *&a31, *&a32, *&a33, *&a34);
 
   return v55;
 }

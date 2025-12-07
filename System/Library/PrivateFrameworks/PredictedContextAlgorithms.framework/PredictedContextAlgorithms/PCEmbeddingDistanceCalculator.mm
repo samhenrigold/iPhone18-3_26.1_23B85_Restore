@@ -19,7 +19,7 @@
 
 + (double)calculateDistanceBetweenEmbedding:(id)embedding andEmbedding:(id)andEmbedding withWeights:(id)weights
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   embeddingCopy = embedding;
   andEmbeddingCopy = andEmbedding;
   weightsCopy = weights;
@@ -46,9 +46,9 @@
         v23 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
-          v26 = 134217984;
-          v27 = v15;
-          _os_log_impl(&dword_1CEE74000, v23, OS_LOG_TYPE_DEBUG, "Calculated base distance between embeddings: %.6f", &v26, 0xCu);
+          v25 = 134217984;
+          v26 = v15;
+          _os_log_impl(&dword_1CEE74000, v23, OS_LOG_TYPE_DEBUG, "Calculated base distance between embeddings: %.6f", &v25, 0xCu);
         }
 
         goto LABEL_15;
@@ -59,7 +59,7 @@
     v15 = 0.0;
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v26) = 0;
+      LOWORD(v25) = 0;
       v16 = "Distance is 0 since embeddings share bundleID or suggestionID";
       v17 = v14;
       v18 = OS_LOG_TYPE_DEBUG;
@@ -73,24 +73,23 @@
     v15 = 1.0;
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v26) = 0;
+      LOWORD(v25) = 0;
       v16 = "Invalid inputs to calculateDistanceBetweenEmbedding";
       v17 = v14;
       v18 = OS_LOG_TYPE_ERROR;
 LABEL_11:
-      _os_log_impl(&dword_1CEE74000, v17, v18, v16, &v26, 2u);
+      _os_log_impl(&dword_1CEE74000, v17, v18, v16, &v25, 2u);
     }
   }
 
 LABEL_15:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 + (double)calculateDistanceBetweenEmbedding:(id)embedding andEmbedding:(id)andEmbedding withCluster:(id)cluster withWeights:(id)weights
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   embeddingCopy = embedding;
   andEmbeddingCopy = andEmbedding;
   clusterCopy = cluster;
@@ -118,9 +117,9 @@ LABEL_15:
         v26 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
-          v29 = 134217984;
-          v30 = v18;
-          _os_log_impl(&dword_1CEE74000, v26, OS_LOG_TYPE_DEBUG, "Calculated enhanced distance between embeddings with cluster: %.6f", &v29, 0xCu);
+          v28 = 134217984;
+          v29 = v18;
+          _os_log_impl(&dword_1CEE74000, v26, OS_LOG_TYPE_DEBUG, "Calculated enhanced distance between embeddings with cluster: %.6f", &v28, 0xCu);
         }
 
         goto LABEL_15;
@@ -131,7 +130,7 @@ LABEL_15:
     v18 = 0.0;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v29) = 0;
+      LOWORD(v28) = 0;
       v19 = "Distance is 0 since embeddings share bundleID or suggestionID";
       v20 = v17;
       v21 = OS_LOG_TYPE_DEBUG;
@@ -145,18 +144,17 @@ LABEL_15:
     v18 = 1.0;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v29) = 0;
+      LOWORD(v28) = 0;
       v19 = "Invalid inputs to calculateDistanceBetweenEmbedding";
       v20 = v17;
       v21 = OS_LOG_TYPE_ERROR;
 LABEL_11:
-      _os_log_impl(&dword_1CEE74000, v20, v21, v19, &v29, 2u);
+      _os_log_impl(&dword_1CEE74000, v20, v21, v19, &v28, 2u);
     }
   }
 
 LABEL_15:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -190,7 +188,7 @@ LABEL_15:
 
 + (id)extractFeatureDistancesBetweenEmbedding:(id)embedding andEmbedding:(id)andEmbedding withCluster:(id)cluster
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   clusterCopy = cluster;
   v9 = [self extractFeatureDistancesBetweenEmbedding:embedding andEmbedding:andEmbedding];
   v10 = [v9 mutableCopy];
@@ -216,11 +214,11 @@ LABEL_3:
         [clusterCopy timeOfDayCircularStd];
         v17 = v16;
         [clusterCopy latLongCircularStd];
-        v23 = 134218240;
-        v24 = v17;
-        v25 = 2048;
-        v26 = v18;
-        _os_log_impl(&dword_1CEE74000, v15, OS_LOG_TYPE_DEBUG, "Added circular std features: timeOfDay=%.6f, latLong=%.6f", &v23, 0x16u);
+        v22 = 134218240;
+        v23 = v17;
+        v24 = 2048;
+        v25 = v18;
+        _os_log_impl(&dword_1CEE74000, v15, OS_LOG_TYPE_DEBUG, "Added circular std features: timeOfDay=%.6f, latLong=%.6f", &v22, 0x16u);
       }
 
       goto LABEL_12;
@@ -232,8 +230,8 @@ LABEL_3:
     v19 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v23) = 0;
-      _os_log_impl(&dword_1CEE74000, v19, OS_LOG_TYPE_ERROR, "Failed to extract base feature distances", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_1CEE74000, v19, OS_LOG_TYPE_ERROR, "Failed to extract base feature distances", &v22, 2u);
     }
 
     v10 = objc_opt_new();
@@ -246,15 +244,13 @@ LABEL_3:
   v20 = _plc_log_get_normal_handle(PCLogCategoryWorkoutPredictor);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v23) = 0;
-    _os_log_impl(&dword_1CEE74000, v20, OS_LOG_TYPE_DEBUG, "No cluster provided, using zero for circular std features", &v23, 2u);
+    LOWORD(v22) = 0;
+    _os_log_impl(&dword_1CEE74000, v20, OS_LOG_TYPE_DEBUG, "No cluster provided, using zero for circular std features", &v22, 2u);
   }
 
   [v10 setObject:&unk_1F4BDDF78 forKeyedSubscript:@"embeddingDistWeight_timeOfDayCircularStd"];
   [v10 setObject:&unk_1F4BDDF78 forKeyedSubscript:@"embeddingDistWeight_latLongCircularStd"];
 LABEL_12:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -584,7 +580,7 @@ LABEL_22:
 
 + (double)calculateDistanceFromFeatures:(id)features withWeights:(id)weights fromEmbedding:(id)embedding toEmbedding:(id)toEmbedding
 {
-  v144 = *MEMORY[0x1E69E9840];
+  v143 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   weightsCopy = weights;
   embeddingCopy = embedding;
@@ -607,16 +603,16 @@ LABEL_22:
       v18 = v17;
     }
 
-    v111 = v15;
-    v108 = v18;
-    v115 = v15 * v18;
+    v110 = v15;
+    v107 = v18;
+    v114 = v15 * v18;
     v19 = [featuresCopy objectForKeyedSubscript:@"embeddingDistWeight_normalizedDuration"];
     [v19 doubleValue];
-    v114 = v20;
+    v113 = v20;
 
     v21 = [featuresCopy objectForKeyedSubscript:@"embeddingDistWeight_timeOfDay"];
     [v21 doubleValue];
-    v113 = v22;
+    v112 = v22;
 
     v23 = [featuresCopy objectForKeyedSubscript:@"embeddingDistWeight_dayOfWeek"];
     [v23 doubleValue];
@@ -675,13 +671,13 @@ LABEL_22:
       v41 = v39;
     }
 
-    v104 = v34;
-    v105 = v31;
-    v109 = v28;
-    v110 = v25;
-    v102 = v41;
-    v103 = v37;
-    v42 = v113 * v34 + v31 * v114 + v37 * v25 + v41 * v28;
+    v103 = v34;
+    v104 = v31;
+    v108 = v28;
+    v109 = v25;
+    v101 = v41;
+    v102 = v37;
+    v42 = v112 * v34 + v31 * v113 + v37 * v25 + v41 * v28;
     v43 = [featuresCopy objectForKeyedSubscript:@"embeddingDistWeight_placeName"];
     [v43 doubleValue];
     v45 = v44;
@@ -725,11 +721,11 @@ LABEL_22:
       v40 = v59;
     }
 
-    v106 = v48;
-    v107 = v45;
-    v100 = v57;
-    v101 = v54;
-    v99 = v40;
+    v105 = v48;
+    v106 = v45;
+    v99 = v57;
+    v100 = v54;
+    v98 = v40;
     v60 = v48 * v57 + v54 * v45 + v40 * v51;
     v61 = [weightsCopy objectForKeyedSubscript:@"embeddingDistWeight_activityContext"];
     [v61 doubleValue];
@@ -767,10 +763,10 @@ LABEL_22:
       v69 = v68;
     }
 
-    v112 = v42;
+    v111 = v42;
     v70 = v42 * v66;
     v71 = v60;
-    v72 = v70 + v63 * v115 + v69 * v60;
+    v72 = v70 + v63 * v114 + v69 * v60;
     v73 = [featuresCopy objectForKeyedSubscript:@"embeddingDistWeight_timeOfDayCircularStd"];
     if (v73)
     {
@@ -791,9 +787,9 @@ LABEL_22:
         if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218240;
-          v117 = v78;
-          v118 = 2048;
-          v119 = v81;
+          v116 = v78;
+          v117 = 2048;
+          v118 = v81;
           _os_log_impl(&dword_1CEE74000, v82, OS_LOG_TYPE_DEBUG, "Added timeOfDayCircularStd=%.6f with weight=%.6f", buf, 0x16u);
         }
 
@@ -821,9 +817,9 @@ LABEL_22:
         if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218240;
-          v117 = v88;
-          v118 = 2048;
-          v119 = v91;
+          v116 = v88;
+          v117 = 2048;
+          v118 = v91;
           _os_log_impl(&dword_1CEE74000, v92, OS_LOG_TYPE_DEBUG, "Added latLongCircularStd=%.6f with weight=%.6f", buf, 0x16u);
         }
 
@@ -835,27 +831,27 @@ LABEL_22:
     if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134220544;
-      v117 = v108;
-      v118 = 2048;
-      v119 = v63;
-      v120 = 2048;
-      v121 = v66;
-      v122 = 2048;
-      v123 = v105;
-      v124 = 2048;
-      v125 = v104;
-      v126 = 2048;
-      v127 = v103;
-      v128 = 2048;
-      v129 = v102;
-      v130 = 2048;
-      v131 = v69;
-      v132 = 2048;
-      v133 = v101;
-      v134 = 2048;
-      v135 = v100;
-      v136 = 2048;
-      v137 = v99;
+      v116 = v107;
+      v117 = 2048;
+      v118 = v63;
+      v119 = 2048;
+      v120 = v66;
+      v121 = 2048;
+      v122 = v104;
+      v123 = 2048;
+      v124 = v103;
+      v125 = 2048;
+      v126 = v102;
+      v127 = 2048;
+      v128 = v101;
+      v129 = 2048;
+      v130 = v69;
+      v131 = 2048;
+      v132 = v100;
+      v133 = 2048;
+      v134 = v99;
+      v135 = 2048;
+      v136 = v98;
       _os_log_impl(&dword_1CEE74000, v93, OS_LOG_TYPE_DEBUG, "Clustering: Weights: ActivityType=%.2f,ActivityContext=%.2f,TimeContext=%.2f,DurationNorm=%.2f,TimeOfDay=%.2f,DayOfWeek=%.2f,IsWeekend=%.2f,LocationContext=%.2f,PlaceName=%.2f,CombinedPlaceType=%.2f,GeographicalProximity=%.2f", buf, 0x70u);
     }
 
@@ -867,33 +863,33 @@ LABEL_22:
       [toEmbeddingCopy bundleIdentifier];
       v96 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
       *buf = 138415618;
-      v117 = v95;
-      v118 = 2112;
-      v119 = v96;
-      v120 = 2048;
-      v121 = v72;
-      v122 = 2048;
-      v123 = v115;
-      v124 = 2048;
-      v125 = v111;
-      v126 = 2048;
-      v127 = v112;
-      v128 = 2048;
-      v129 = v114;
-      v130 = 2048;
-      v131 = v113;
-      v132 = 2048;
-      v133 = v110;
-      v134 = 2048;
-      v135 = v109;
-      v136 = 2048;
-      v137 = v71;
-      v138 = 2048;
-      v139 = v107;
-      v140 = 2048;
-      v141 = v106;
-      v142 = 2048;
-      v143 = v51;
+      v116 = v95;
+      v117 = 2112;
+      v118 = v96;
+      v119 = 2048;
+      v120 = v72;
+      v121 = 2048;
+      v122 = v114;
+      v123 = 2048;
+      v124 = v110;
+      v125 = 2048;
+      v126 = v111;
+      v127 = 2048;
+      v128 = v113;
+      v129 = 2048;
+      v130 = v112;
+      v131 = 2048;
+      v132 = v109;
+      v133 = 2048;
+      v134 = v108;
+      v135 = 2048;
+      v136 = v71;
+      v137 = 2048;
+      v138 = v106;
+      v139 = 2048;
+      v140 = v105;
+      v141 = 2048;
+      v142 = v51;
       _os_log_impl(&dword_1CEE74000, v94, OS_LOG_TYPE_DEFAULT, "Clustering: fromEmbedding,%@,toEmbedding,%@,totalDistance,%.3f,activityContext,%.3f,activity,%.3f,timeContext,%.3f,durationNorm,%.3f,timeOfDay,%.3f,dayOfWeek,%.3f,isWeekend,%.3f,locationContext,%.3f,placeName,%.3f,combinedPlaceType,%.3f,geoProx,%.3f", buf, 0x8Eu);
     }
   }
@@ -909,7 +905,6 @@ LABEL_22:
     }
   }
 
-  v97 = *MEMORY[0x1E69E9840];
   return v72;
 }
 
@@ -950,7 +945,7 @@ LABEL_22:
 
 + (void)calculateCircularStandardDeviationsForCluster:(id)cluster fromEmbeddings:(id)embeddings
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   clusterCopy = cluster;
   embeddingsCopy = embeddings;
   v8 = embeddingsCopy;
@@ -958,27 +953,27 @@ LABEL_22:
   {
     selfCopy = self;
     v9 = objc_opt_new();
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v67 = 0u;
-    v55 = v8;
+    v54 = v8;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v64 objects:v71 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v63 objects:v70 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v65;
+      v13 = *v64;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v65 != v13)
+          if (*v64 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v64 + 1) + 8 * i);
+          v15 = *(*(&v63 + 1) + 8 * i);
           bundleIdentifier = [v15 bundleIdentifier];
           if (bundleIdentifier)
           {
@@ -995,7 +990,7 @@ LABEL_22:
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v64 objects:v71 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v63 objects:v70 count:16];
       }
 
       while (v12);
@@ -1006,32 +1001,32 @@ LABEL_22:
 
     if (subSuggestionIDsBeforePruning && [subSuggestionIDsBeforePruning count])
     {
-      v53 = clusterCopy;
-      v59 = objc_opt_new();
-      v57 = objc_opt_new();
+      v52 = clusterCopy;
       v58 = objc_opt_new();
       v56 = objc_opt_new();
+      v57 = objc_opt_new();
+      v55 = objc_opt_new();
+      v59 = 0u;
       v60 = 0u;
       v61 = 0u;
       v62 = 0u;
-      v63 = 0u;
-      v51 = subSuggestionIDsBeforePruning;
+      v50 = subSuggestionIDsBeforePruning;
       v24 = subSuggestionIDsBeforePruning;
-      v25 = [v24 countByEnumeratingWithState:&v60 objects:v68 count:16];
+      v25 = [v24 countByEnumeratingWithState:&v59 objects:v67 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v61;
+        v27 = *v60;
         do
         {
           for (j = 0; j != v26; ++j)
           {
-            if (*v61 != v27)
+            if (*v60 != v27)
             {
               objc_enumerationMutation(v24);
             }
 
-            v29 = [v9 objectForKeyedSubscript:*(*(&v60 + 1) + 8 * j), v51];
+            v29 = [v9 objectForKeyedSubscript:*(*(&v59 + 1) + 8 * j), v50];
             v30 = v29;
             if (v29)
             {
@@ -1054,8 +1049,8 @@ LABEL_22:
 
                 if (!v36)
                 {
-                  [v59 addObject:v33];
-                  [v57 addObject:v35];
+                  [v58 addObject:v33];
+                  [v56 addObject:v35];
                 }
               }
 
@@ -1078,43 +1073,43 @@ LABEL_22:
 
                 if (!v42)
                 {
-                  [v58 addObject:v39];
-                  [v56 addObject:v41];
+                  [v57 addObject:v39];
+                  [v55 addObject:v41];
                 }
               }
             }
           }
 
-          v26 = [v24 countByEnumeratingWithState:&v60 objects:v68 count:16];
+          v26 = [v24 countByEnumeratingWithState:&v59 objects:v67 count:16];
         }
 
         while (v26);
       }
 
-      v43 = [v59 count];
+      v43 = [v58 count];
       v44 = 0.0;
       v45 = 0.0;
       if (v43 >= 2)
       {
-        v46 = [v57 count];
+        v46 = [v56 count];
         v45 = 0.0;
         if (v46 >= 2)
         {
-          [selfCopy calculateCircularStandardDeviation:v59 cosValues:{v57, 0.0}];
+          [selfCopy calculateCircularStandardDeviation:v58 cosValues:{v56, 0.0}];
         }
       }
 
-      clusterCopy = v53;
-      [v53 setTimeOfDayCircularStd:{v45, v51}];
-      v8 = v55;
-      subSuggestionIDsBeforePruning = v52;
-      if ([v58 count] >= 2 && objc_msgSend(v56, "count") >= 2)
+      clusterCopy = v52;
+      [v52 setTimeOfDayCircularStd:{v45, v50}];
+      v8 = v54;
+      subSuggestionIDsBeforePruning = v51;
+      if ([v57 count] >= 2 && objc_msgSend(v55, "count") >= 2)
       {
-        [selfCopy calculateGeographicalStandardDeviation:v58 longValues:v56];
+        [selfCopy calculateGeographicalStandardDeviation:v57 longValues:v55];
         v44 = v47;
       }
 
-      [v53 setLatLongCircularStd:v44];
+      [v52 setLatLongCircularStd:v44];
     }
 
     else
@@ -1124,13 +1119,13 @@ LABEL_22:
       {
         identifier = [clusterCopy identifier];
         *buf = 138412290;
-        v70 = identifier;
+        v69 = identifier;
         _os_log_impl(&dword_1CEE74000, v48, OS_LOG_TYPE_INFO, "No bundle IDs in cluster %@", buf, 0xCu);
       }
 
       [clusterCopy setTimeOfDayCircularStd:0.0];
       [clusterCopy setLatLongCircularStd:0.0];
-      v8 = v55;
+      v8 = v54;
     }
   }
 
@@ -1143,13 +1138,11 @@ LABEL_22:
       _os_log_impl(&dword_1CEE74000, v9, OS_LOG_TYPE_ERROR, "Invalid inputs to calculateCircularStandardDeviationsForCluster", buf, 2u);
     }
   }
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 + (void)calculateCircularStandardDeviationsForClusters:(id)clusters fromEmbeddings:(id)embeddings
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   clustersCopy = clusters;
   embeddingsCopy = embeddings;
   if (clustersCopy && (v8 = [clustersCopy count], embeddingsCopy) && v8 && objc_msgSend(embeddingsCopy, "count"))
@@ -1158,33 +1151,33 @@ LABEL_22:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v22 = [clustersCopy count];
+      v21 = [clustersCopy count];
       _os_log_impl(&dword_1CEE74000, v9, OS_LOG_TYPE_INFO, "Computing circular std for %lu clusters", buf, 0xCu);
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v10 = clustersCopy;
-    v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v17;
+      v13 = *v16;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v17 != v13)
+          if (*v16 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [self calculateCircularStandardDeviationsForCluster:*(*(&v16 + 1) + 8 * i) fromEmbeddings:{embeddingsCopy, v16}];
+          [self calculateCircularStandardDeviationsForCluster:*(*(&v15 + 1) + 8 * i) fromEmbeddings:{embeddingsCopy, v15}];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v12);
@@ -1200,8 +1193,6 @@ LABEL_22:
       _os_log_impl(&dword_1CEE74000, v10, OS_LOG_TYPE_ERROR, "Invalid inputs to calculateCircularStandardDeviationsForClusters", buf, 2u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (double)calculateCircularStandardDeviation:(id)deviation cosValues:(id)values
@@ -1345,35 +1336,35 @@ LABEL_22:
 
 + (double)calculateValidMean:(id)mean
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   meanCopy = mean;
   v4 = meanCopy;
   v5 = 0.0;
   if (meanCopy && [meanCopy count])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v7)
     {
       v8 = v7;
-      v18 = v4;
+      v17 = v4;
       v9 = 0;
-      v10 = *v20;
+      v10 = *v19;
       v11 = 0.0;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v19 + 1) + 8 * i) doubleValue];
+          [*(*(&v18 + 1) + 8 * i) doubleValue];
           v14 = v13;
           if ((*&v13 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
           {
@@ -1387,13 +1378,13 @@ LABEL_22:
             if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
             {
               *buf = 134217984;
-              v24 = v14;
+              v23 = v14;
               _os_log_impl(&dword_1CEE74000, v15, OS_LOG_TYPE_INFO, "#warning: found invalid value in array (%.3f)", buf, 0xCu);
             }
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
       while (v8);
@@ -1408,7 +1399,7 @@ LABEL_22:
         v5 = v11 / v9;
       }
 
-      v4 = v18;
+      v4 = v17;
     }
 
     else
@@ -1416,7 +1407,6 @@ LABEL_22:
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -212,7 +212,7 @@ LABEL_24:
 
 + (BOOL)_deserializeData:(void *)data record:(void *)record fields:(uint64_t)fields error:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v8 = a2;
   dataCopy = data;
   recordCopy = record;
@@ -220,28 +220,28 @@ LABEL_24:
   v11 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v8 error:fields];
   if (v11)
   {
-    v25 = recordCopy;
-    v26 = v8;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
+    v24 = recordCopy;
+    v25 = v8;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v12 = recordCopy;
-    v13 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v28;
+      v15 = *v27;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v28 != v15)
+          if (*v27 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v27 + 1) + 8 * i);
+          v17 = *(*(&v26 + 1) + 8 * i);
           classes = [v17 classes];
           v19 = [v17 key];
           v20 = [v11 decodeObjectOfClasses:classes forKey:v19];
@@ -260,25 +260,24 @@ LABEL_24:
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v14);
     }
 
     [v11 finishDecoding];
-    recordCopy = v25;
-    v8 = v26;
+    recordCopy = v24;
+    v8 = v25;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v11 != 0;
 }
 
 - (BOOL)validateWithError:(id *)error
 {
   record = [(HDCloudSyncRecord *)self record];
-  v6 = [record copy];
+  v6 = objc_msgSend_copy(record);
 
   v7 = [objc_opt_class() recordWithCKRecord:v6 error:error];
   if (!v7)
@@ -319,22 +318,22 @@ LABEL_6:
 
 - (int64_t)schemaVersion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   requiresEncryptedSchemaVersion = [objc_opt_class() requiresEncryptedSchemaVersion];
   record = self->_record;
   v5 = objc_opt_class();
   if (requiresEncryptedSchemaVersion)
   {
-    v19 = 0;
-    v6 = &v19;
-    v7 = [(CKRecord *)record hd_requiredEncryptedValueForKey:@"Version" type:v5 error:&v19];
+    v18 = 0;
+    v6 = &v18;
+    v7 = [(CKRecord *)record hd_requiredEncryptedValueForKey:@"Version" type:v5 error:&v18];
   }
 
   else
   {
-    v18 = 0;
-    v6 = &v18;
-    v7 = [(CKRecord *)record hd_requiredValueForKey:@"Version" type:v5 error:&v18];
+    v17 = 0;
+    v6 = &v17;
+    v7 = [(CKRecord *)record hd_requiredValueForKey:@"Version" type:v5 error:&v17];
   }
 
   v8 = v7;
@@ -361,33 +360,32 @@ LABEL_6:
     v13 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
     {
-      v17 = self->_record;
+      v16 = self->_record;
       *buf = 138543618;
-      v21 = v17;
-      v22 = 2114;
-      v23 = v10;
+      v20 = v16;
+      v21 = 2114;
+      v22 = v10;
       _os_log_fault_impl(&dword_228986000, v13, OS_LOG_TYPE_FAULT, "Failed to find schema version in record %{public}@: %{public}@", buf, 0x16u);
     }
 
     integerValue = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 
 - (NSData)underlyingMessage
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   encryptedValues = [(CKRecord *)self->_record encryptedValues];
   v4 = [encryptedValues objectForKeyedSubscript:@"UnderlyingMessage"];
 
   if (v4)
   {
     record = self->_record;
-    v14 = 0;
-    v6 = [(CKRecord *)record hd_requiredEncryptedValueForKey:@"UnderlyingMessage" type:objc_opt_class() error:&v14];
-    v7 = v14;
+    v13 = 0;
+    v6 = [(CKRecord *)record hd_requiredEncryptedValueForKey:@"UnderlyingMessage" type:objc_opt_class() error:&v13];
+    v7 = v13;
     v8 = v7;
     if (v6)
     {
@@ -405,11 +403,11 @@ LABEL_6:
       v10 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
       {
-        v13 = self->_record;
+        v12 = self->_record;
         *buf = 138543618;
-        v16 = v13;
-        v17 = 2114;
-        v18 = v8;
+        v15 = v12;
+        v16 = 2114;
+        v17 = v8;
         _os_log_fault_impl(&dword_228986000, v10, OS_LOG_TYPE_FAULT, "Failed to find underlying message in record %{public}@: %{public}@", buf, 0x16u);
       }
     }
@@ -419,8 +417,6 @@ LABEL_6:
   {
     v6 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -576,31 +572,31 @@ LABEL_15:
 
 + (id)_serializeRecord:(void *)record fields:
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = a2;
   recordCopy = record;
   objc_opt_self();
   v6 = [objc_alloc(MEMORY[0x277CCAAB0]) initRequiringSecureCoding:1];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = recordCopy;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         if ([v12 encrypted])
         {
           encryptedValues = [v4 encryptedValues];
@@ -618,7 +614,7 @@ LABEL_15:
         [v6 encodeObject:v15 forKey:v16];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
@@ -627,61 +623,55 @@ LABEL_15:
   [v6 finishEncoding];
   encodedData = [v6 encodedData];
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return encodedData;
 }
 
 + (id)fieldsForUnprotectedSerialization
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   shouldSerializeUnderlyingMessageAsProtected = [self shouldSerializeUnderlyingMessageAsProtected];
   v3 = objc_opt_class();
   if (shouldSerializeUnderlyingMessageAsProtected)
   {
-    v14 = v3;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+    v13 = v3;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
     v5 = +[HDCloudSyncSerializedField fieldForKey:classes:encrypted:](HDCloudSyncSerializedField, "fieldForKey:classes:encrypted:", @"Version", v4, [objc_opt_class() requiresEncryptedSchemaVersion]);
-    v15[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   }
 
   else
   {
-    v12 = v3;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+    v11 = v3;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
     v5 = +[HDCloudSyncSerializedField fieldForKey:classes:encrypted:](HDCloudSyncSerializedField, "fieldForKey:classes:encrypted:", @"Version", v4, [objc_opt_class() requiresEncryptedSchemaVersion]);
-    v13[0] = v5;
-    v11 = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+    v12[0] = v5;
+    v10 = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
     v8 = [HDCloudSyncSerializedField fieldForKey:@"UnderlyingMessage" classes:v7 encrypted:1];
-    v13[1] = v8;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[1] = v8;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)fieldsForProtectedSerialization
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if ([self shouldSerializeUnderlyingMessageAsProtected])
   {
-    v7 = objc_opt_class();
-    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
+    v6 = objc_opt_class();
+    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:1];
     v3 = [HDCloudSyncSerializedField fieldForKey:@"UnderlyingMessage" classes:v2 encrypted:1];
-    v8[0] = v3;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v3;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v4 = MEMORY[0x277CBEBF8];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

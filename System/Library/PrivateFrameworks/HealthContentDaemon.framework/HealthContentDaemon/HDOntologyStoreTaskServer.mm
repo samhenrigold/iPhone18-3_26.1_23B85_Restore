@@ -51,20 +51,18 @@
 
 - (void)connectionInvalidated
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_2514A1000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Connection Invalidated", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2514A1000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Connection Invalidated", &v2, 0xCu);
 }
 
 - (void)connectionInterrupted
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_2514A1000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Connection Interrupted", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2514A1000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Connection Interrupted", &v2, 0xCu);
 }
 
 - (void)remote_insertEntries:(id)entries completion:(id)completion
@@ -82,16 +80,16 @@
 
 - (void)ontologyShardDownloader:(id)downloader didStageEntry:(id)entry
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __67__HDOntologyStoreTaskServer_ontologyShardDownloader_didStageEntry___block_invoke;
-  v15 = &unk_2796BA208;
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __67__HDOntologyStoreTaskServer_ontologyShardDownloader_didStageEntry___block_invoke;
+  v14 = &unk_2796BA208;
   selfCopy = self;
   v6 = entryCopy;
-  v17 = v6;
-  v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:&v12];
+  v16 = v6;
+  v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:&v11];
   _HKInitializeLogging();
   v8 = HKLogHealthOntology();
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
@@ -103,40 +101,38 @@
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v20 = 2114;
-      v21 = v6;
+      v19 = 2114;
+      v20 = v6;
       _os_log_impl(&dword_2514A1000, v10, OS_LOG_TYPE_INFO, "%{public}@: Notify client for staged entry %{public}@", buf, 0x16u);
     }
   }
 
-  [v7 client_didStageEntry:{v6, v12, v13, v14, v15, selfCopy}];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [v7 client_didStageEntry:{v6, v11, v12, v13, v14, selfCopy}];
 }
 
 void __67__HDOntologyStoreTaskServer_ontologyShardDownloader_didStageEntry___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   _HKInitializeLogging();
-  v4 = HKLogHealthOntology();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v3 = HKLogHealthOntology();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __67__HDOntologyStoreTaskServer_ontologyShardDownloader_didStageEntry___block_invoke_cold_1(a1);
+    __67__HDOntologyStoreTaskServer_ontologyShardDownloader_didStageEntry___block_invoke_cold_1();
   }
 }
 
 - (void)ontologyShardImporter:(id)importer didImportEntry:(id)entry
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __66__HDOntologyStoreTaskServer_ontologyShardImporter_didImportEntry___block_invoke;
-  v15 = &unk_2796BA208;
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __66__HDOntologyStoreTaskServer_ontologyShardImporter_didImportEntry___block_invoke;
+  v14 = &unk_2796BA208;
   selfCopy = self;
   v6 = entryCopy;
-  v17 = v6;
-  v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:&v12];
+  v16 = v6;
+  v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:&v11];
   _HKInitializeLogging();
   v8 = HKLogHealthOntology();
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
@@ -148,25 +144,23 @@ void __67__HDOntologyStoreTaskServer_ontologyShardDownloader_didStageEntry___blo
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v20 = 2114;
-      v21 = v6;
+      v19 = 2114;
+      v20 = v6;
       _os_log_impl(&dword_2514A1000, v10, OS_LOG_TYPE_INFO, "%{public}@: Notify client for imported entry %{public}@", buf, 0x16u);
     }
   }
 
-  [v7 client_didImportEntry:{v6, v12, v13, v14, v15, selfCopy}];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [v7 client_didImportEntry:{v6, v11, v12, v13, v14, selfCopy}];
 }
 
 void __66__HDOntologyStoreTaskServer_ontologyShardImporter_didImportEntry___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   _HKInitializeLogging();
-  v4 = HKLogHealthOntology();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v3 = HKLogHealthOntology();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __66__HDOntologyStoreTaskServer_ontologyShardImporter_didImportEntry___block_invoke_cold_1(a1);
+    __66__HDOntologyStoreTaskServer_ontologyShardImporter_didImportEntry___block_invoke_cold_1();
   }
 }
 
@@ -364,26 +358,6 @@ void __66__HDOntologyStoreTaskServer_ontologyShardImporter_didImportEntry___bloc
   availableVersion = [entryCopy availableVersion];
 
   [updateCoordinator updateOntologyWithShardIdentifier:identifier schemaType:schemaType schemaVersion:schemaVersion shardURL:availableURL shardVersion:availableVersion shouldPruneOldShard:1 reason:5 completion:completionCopy];
-}
-
-void __67__HDOntologyStoreTaskServer_ontologyShardDownloader_didStageEntry___block_invoke_cold_1(uint64_t a1)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_4_2(&dword_2514A1000, v3, v4, "%{public}@: Unable to notify client for staged entry %{public}@: %{public}@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __66__HDOntologyStoreTaskServer_ontologyShardImporter_didImportEntry___block_invoke_cold_1(uint64_t a1)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_4_2(&dword_2514A1000, v3, v4, "%{public}@: Unable to notify client for imported entry %{public}@: %{public}@");
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

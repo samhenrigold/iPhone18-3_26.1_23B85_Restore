@@ -148,7 +148,6 @@
   objc_storeStrong(&v53, 0);
   objc_storeStrong(&v54, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKCustodianController_initiateCustodianSetupWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -190,7 +189,6 @@ void __70__AKCustodianController_initiateCustodianSetupWithContext_completion___
 
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKCustodianController_initiateCustodianSetupWithContext_completion___block_invoke_1(NSObject *a1, void *a2)
@@ -210,7 +208,6 @@ void __70__AKCustodianController_initiateCustodianSetupWithContext_completion___
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKCustodianController_initiateCustodianSetupWithContext_completion___block_invoke_3(void *a1, void *a2, void *a3)
@@ -240,7 +237,6 @@ void __70__AKCustodianController_initiateCustodianSetupWithContext_completion___
   (*(a1[4] + 16))();
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)finalizeCustodianSetupWithContext:(id)context completion:(id)completion
@@ -339,7 +335,6 @@ void __70__AKCustodianController_initiateCustodianSetupWithContext_completion___
   objc_storeStrong(&v53, 0);
   objc_storeStrong(&v54, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKCustodianController_finalizeCustodianSetupWithContext_completion___block_invoke(void *a1, void *a2)
@@ -378,7 +373,6 @@ void __70__AKCustodianController_finalizeCustodianSetupWithContext_completion___
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKCustodianController_finalizeCustodianSetupWithContext_completion___block_invoke_4(NSObject *a1, void *a2)
@@ -398,7 +392,6 @@ void __70__AKCustodianController_finalizeCustodianSetupWithContext_completion___
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKCustodianController_finalizeCustodianSetupWithContext_completion___block_invoke_5(void *a1, void *a2)
@@ -438,7 +431,6 @@ void __70__AKCustodianController_finalizeCustodianSetupWithContext_completion___
 
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)revokeCustodianWithContext:(id)context completion:(id)completion
@@ -507,7 +499,6 @@ void __70__AKCustodianController_finalizeCustodianSetupWithContext_completion___
   objc_storeStrong(&v38, 0);
   objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __63__AKCustodianController_revokeCustodianWithContext_completion___block_invoke(void *a1, void *a2)
@@ -541,7 +532,6 @@ void __63__AKCustodianController_revokeCustodianWithContext_completion___block_i
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __63__AKCustodianController_revokeCustodianWithContext_completion___block_invoke_6(void *a1, void *a2)
@@ -581,7 +571,6 @@ void __63__AKCustodianController_revokeCustodianWithContext_completion___block_i
 
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateCustodianRecoveryKeyWithContext:(id)context completion:(id)completion
@@ -650,7 +639,6 @@ void __63__AKCustodianController_revokeCustodianWithContext_completion___block_i
   objc_storeStrong(&v38, 0);
   objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __74__AKCustodianController_updateCustodianRecoveryKeyWithContext_completion___block_invoke(void *a1, void *a2)
@@ -684,7 +672,6 @@ void __74__AKCustodianController_updateCustodianRecoveryKeyWithContext_completio
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __74__AKCustodianController_updateCustodianRecoveryKeyWithContext_completion___block_invoke_7(void *a1, void *a2)
@@ -724,7 +711,6 @@ void __74__AKCustodianController_updateCustodianRecoveryKeyWithContext_completio
 
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)startCustodianRecoveryRequestWithContext:(id)context completion:(id)completion
@@ -804,7 +790,6 @@ void __74__AKCustodianController_updateCustodianRecoveryKeyWithContext_completio
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __77__AKCustodianController_startCustodianRecoveryRequestWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -868,7 +853,6 @@ void __77__AKCustodianController_startCustodianRecoveryRequestWithContext_comple
   (*(a1[4] + 16))();
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __77__AKCustodianController_startCustodianRecoveryRequestWithContext_completion___block_invoke_9(void *a1, void *a2)
@@ -964,7 +948,6 @@ void __79__AKCustodianController_fetchCustodianRecoveryCodeConfigurationWithComp
   (*(a1[4] + 16))();
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __79__AKCustodianController_fetchCustodianRecoveryCodeConfigurationWithCompletion___block_invoke_10(void *a1, void *a2)
@@ -1056,7 +1039,6 @@ void __79__AKCustodianController_fetchCustodianRecoveryCodeConfigurationWithComp
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __81__AKCustodianController_startCustodianRecoveryTransactionWithContext_completion___block_invoke(void *a1, char a2, id obj)
@@ -1120,7 +1102,6 @@ void __81__AKCustodianController_startCustodianRecoveryTransactionWithContext_co
   objc_storeStrong((*(a1[5] + 8) + 40), 0);
   (*(a1[4] + 16))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __81__AKCustodianController_startCustodianRecoveryTransactionWithContext_completion___block_invoke_12(NSObject *a1, void *a2)
@@ -1140,7 +1121,6 @@ void __81__AKCustodianController_startCustodianRecoveryTransactionWithContext_co
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchCustodianRecoveryTokenWithContext:(id)context completion:(id)completion
@@ -1223,7 +1203,6 @@ void __81__AKCustodianController_startCustodianRecoveryTransactionWithContext_co
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __75__AKCustodianController_fetchCustodianRecoveryTokenWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -1287,7 +1266,6 @@ void __75__AKCustodianController_fetchCustodianRecoveryTokenWithContext_completi
   (*(a1[4] + 16))();
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __75__AKCustodianController_fetchCustodianRecoveryTokenWithContext_completion___block_invoke_14(NSObject *a1, void *a2)
@@ -1307,7 +1285,6 @@ void __75__AKCustodianController_fetchCustodianRecoveryTokenWithContext_completi
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchCustodianDataRecoveryKeyWithContext:(id)context completion:(id)completion
@@ -1390,7 +1367,6 @@ void __75__AKCustodianController_fetchCustodianRecoveryTokenWithContext_completi
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __77__AKCustodianController_fetchCustodianDataRecoveryKeyWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -1454,7 +1430,6 @@ void __77__AKCustodianController_fetchCustodianDataRecoveryKeyWithContext_comple
   (*(a1[4] + 16))();
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __77__AKCustodianController_fetchCustodianDataRecoveryKeyWithContext_completion___block_invoke_15(NSObject *a1, void *a2)
@@ -1474,7 +1449,6 @@ void __77__AKCustodianController_fetchCustodianDataRecoveryKeyWithContext_comple
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)sendEmbargoEndNotificationFeedbackWithContext:(id)context urlKey:(id)key completion:(id)completion
@@ -1539,7 +1513,6 @@ void __77__AKCustodianController_fetchCustodianDataRecoveryKeyWithContext_comple
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __89__AKCustodianController_sendEmbargoEndNotificationFeedbackWithContext_urlKey_completion___block_invoke(uint64_t a1, void *a2)
@@ -1579,7 +1552,6 @@ void __89__AKCustodianController_sendEmbargoEndNotificationFeedbackWithContext_u
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), 0);
   (*(*(a1 + 40) + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __89__AKCustodianController_sendEmbargoEndNotificationFeedbackWithContext_urlKey_completion___block_invoke_16(NSObject *a1, void *a2)
@@ -1599,7 +1571,6 @@ void __89__AKCustodianController_sendEmbargoEndNotificationFeedbackWithContext_u
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -1624,7 +1595,6 @@ void __89__AKCustodianController_sendEmbargoEndNotificationFeedbackWithContext_u
   v2.receiver = selfCopy;
   v2.super_class = AKCustodianController;
   [(AKCustodianController *)&v2 dealloc];
-  *MEMORY[0x1E69E9840];
 }
 
 @end

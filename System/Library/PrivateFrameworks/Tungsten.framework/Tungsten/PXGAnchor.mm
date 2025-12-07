@@ -305,7 +305,7 @@ void __51__PXGAnchor__enumerateSpriteConstraintsUsingBlock___block_invoke(uint64
   [(PXGAnchor *)self enumerateAllSpriteReferencesUsingBlock:v10];
 }
 
-uint64_t __82__PXGAnchor_enumerateSpritesWithEnumerationOptions_referencingOptions_usingBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5, double a6, double a7)
+void *__82__PXGAnchor_enumerateSpritesWithEnumerationOptions_referencingOptions_usingBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5, double a6, double a7)
 {
   result = [*(a1 + 32) spriteIndexForSpriteReference:a2 options:a3];
   if (result != -1)
@@ -1176,9 +1176,8 @@ LABEL_23:
   *a3 = 1;
 }
 
-uint64_t __31__PXGAnchor_adjustVisibleRect___block_invoke_5(uint64_t result, uint64_t a2)
+void __31__PXGAnchor_adjustVisibleRect___block_invoke_5(uint64_t a1, uint64_t a2)
 {
-  v2 = result;
   switch(a2)
   {
     case 1:
@@ -1191,7 +1190,7 @@ LABEL_7:
       goto LABEL_8;
     case 0:
       v6 = [MEMORY[0x277CCA890] currentHandler];
-      [v6 handleFailureInMethod:*(v2 + 56) object:*(v2 + 32) file:@"PXGAnchor.m" lineNumber:339 description:@"Code which should be unreachable has been reached"];
+      [v6 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"PXGAnchor.m" lineNumber:339 description:@"Code which should be unreachable has been reached"];
 
       abort();
   }
@@ -1199,7 +1198,7 @@ LABEL_7:
   v3 = 0;
   v4 = 0;
 LABEL_8:
-  v5 = *(result + 64);
+  v5 = *(a1 + 64);
   if (((v4 | v3) & ~v5) != 0)
   {
     if ((v5 & v4) != 0)
@@ -1211,10 +1210,10 @@ LABEL_8:
     {
       if ((v5 & v3) == 0)
       {
-        return result;
+        return;
       }
 
-      [*(result + 40) contentSize];
+      [*(a1 + 40) contentSize];
       PXSizeValueForAxis();
       PXRectGetMaxForAxis();
     }
@@ -1222,23 +1221,23 @@ LABEL_8:
 
   else
   {
-    [*(result + 40) contentSize];
+    [*(a1 + 40) contentSize];
     PXSizeValueForAxis();
     PXRectGetMidForAxis();
   }
 
-  return PXPointSetValueForAxis();
+  PXPointSetValueForAxis();
 }
 
-uint64_t __31__PXGAnchor_adjustVisibleRect___block_invoke_4(uint64_t a1)
+double __31__PXGAnchor_adjustVisibleRect___block_invoke_4(uint64_t a1, uint64_t a2)
 {
   PXRectGetLengthForAxis();
-  v3 = v2;
-  result = PXRectGetLengthForAxis();
-  v6 = v3 / v5;
-  if ((*(a1 + 96) <= *(a1 + 128) || v6 <= 0.1) && v6 < *(a1 + 136))
+  v4 = v3;
+  PXRectGetLengthForAxis();
+  result = v4 / v5;
+  if ((*(a1 + 96) <= *(a1 + 128) || result <= 0.1) && result < *(a1 + 136))
   {
-    if (v6 < 0.01 && (*(a1 + 144) & 0x40) != 0)
+    if (result < 0.01 && (*(a1 + 144) & 0x40) != 0)
     {
       PXRectGetMidForAxis();
       PXRectGetMidForAxis();
@@ -1261,7 +1260,7 @@ uint64_t __31__PXGAnchor_adjustVisibleRect___block_invoke_4(uint64_t a1)
       PXRectGetMinForAxis();
     }
 
-    return PXPointSetValueForAxis();
+    PXPointSetValueForAxis();
   }
 
   return result;
@@ -1402,7 +1401,7 @@ LABEL_12:
   return v7 & 1;
 }
 
-uint64_t __24__PXGAnchor_canBeReused__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__24__PXGAnchor_canBeReused__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   *(*(*(a1 + 32) + 8) + 24) = 1;
   result = [a2 hasObjectReference];

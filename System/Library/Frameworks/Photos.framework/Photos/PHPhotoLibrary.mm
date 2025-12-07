@@ -404,9 +404,11 @@ LABEL_5:
 
 uint64_t __37__PHPhotoLibrary_uniqueObjectIDCache__block_invoke()
 {
-  uniqueObjectIDCache_pl_once_object_76 = objc_alloc_init(PHUniqueObjectIDCache);
+  v0 = objc_alloc_init(PHUniqueObjectIDCache);
+  v1 = uniqueObjectIDCache_pl_once_object_76;
+  uniqueObjectIDCache_pl_once_object_76 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (PLPhotoLibrary)photoLibrary
@@ -848,9 +850,11 @@ void __45__PHPhotoLibrary_PHObjectClassesByEntityName__block_invoke()
 
 uint64_t __37__PHPhotoLibrary__sharedPhotoLibrary__block_invoke()
 {
-  sharedPhotoLibrary = [[PHPhotoLibrary alloc] initSharedLibrary];
+  v0 = [[PHPhotoLibrary alloc] initSharedLibrary];
+  v1 = sharedPhotoLibrary;
+  sharedPhotoLibrary = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (PLPhotoLibrary)mainQueuePhotoLibrary
@@ -3468,25 +3472,28 @@ LABEL_32:
 
 uint64_t __76__PHPhotoLibrary_resetLimitedLibraryAccessForApplication_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  a3;
-  v5 = *(a1 + 32);
-  if (v5)
+  v5 = a3;
+  v6 = *(a1 + 32);
+  if (v6)
   {
+    v9 = v5;
     if (a2)
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"PHPhotosErrorDomain" code:-1 userInfo:0];
-      v5 = *(a1 + 32);
+      v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"PHPhotosErrorDomain" code:-1 userInfo:0];
+      v6 = *(a1 + 32);
     }
 
-    (*(v5 + 16))(v5, a2, v6);
+    (*(v6 + 16))(v6, a2, v7);
+
+    v5 = v9;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6, v5);
 }
 
 - (void)countOfReferencedMediaWithCompletionHandler:(id)handler
@@ -3897,7 +3904,7 @@ void __55__PHPhotoLibrary__processPendingChangesWithDebugEvent___block_invoke(vo
   *(v15 + 40) = v9;
 }
 
-uint64_t __55__PHPhotoLibrary__processPendingChangesWithDebugEvent___block_invoke_2(void *a1)
+void *__55__PHPhotoLibrary__processPendingChangesWithDebugEvent___block_invoke_2(void *a1)
 {
   v2 = [*(a1[4] + 360) copy];
   v3 = *(a1[5] + 8);
@@ -4523,9 +4530,11 @@ void __42__PHPhotoLibrary_handleMergeNotification___block_invoke_3(uint64_t a1)
 
 - (void)setCustomLibrarySpecificFetchOptions:(id)options
 {
-  self->_customLibrarySpecificFetchOptions = [options copy];
+  v4 = [options copy];
+  customLibrarySpecificFetchOptions = self->_customLibrarySpecificFetchOptions;
+  self->_customLibrarySpecificFetchOptions = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, customLibrarySpecificFetchOptions);
 }
 
 void __33__PHPhotoLibrary_allowedEntities__block_invoke_2()
@@ -9699,9 +9708,11 @@ LABEL_10:
 
 uint64_t __39__PHPhotoLibrary__effectiveRootEntity___block_invoke()
 {
-  _effectiveRootEntity__effectiveRootEntityNames = [MEMORY[0x1E695DFD8] setWithObject:@"Folder"];
+  v0 = [MEMORY[0x1E695DFD8] setWithObject:@"Folder"];
+  v1 = _effectiveRootEntity__effectiveRootEntityNames;
+  _effectiveRootEntity__effectiveRootEntityNames = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (Class)PHObjectClassForIdentifierCode:(id)code
@@ -10246,7 +10257,7 @@ id __46__PHPhotoLibrary_sharedLazyPhotoLibraryForCMM__block_invoke_2(uint64_t a1
   [mEMORY[0x1E69BF2B0] checkPhotosAccessAllowedWithScope:v10 handler:v13];
 }
 
-uint64_t __78__PHPhotoLibrary__requestAuthorizationForAccessLevel_supportsLimited_handler___block_invoke(uint64_t a1)
+uint64_t (**__78__PHPhotoLibrary__requestAuthorizationForAccessLevel_supportsLimited_handler___block_invoke(uint64_t a1))(void *, uint64_t)
 {
   v2 = [PHPhotoLibrary authorizationStatusForAccessLevel:*(a1 + 40)];
   result = *(a1 + 32);
@@ -10262,7 +10273,7 @@ uint64_t __78__PHPhotoLibrary__requestAuthorizationForAccessLevel_supportsLimite
       v4 = 3;
     }
 
-    result = (*(result + 16))(result, v4);
+    result = result[2](result, v4);
   }
 
   v5 = (v2 - 3) > 1 || *(a1 + 48) == v2;
@@ -10384,9 +10395,11 @@ uint64_t __78__PHPhotoLibrary__requestAuthorizationForAccessLevel_supportsLimite
 
 uint64_t __47__PHPhotoLibrary_sharedMomentSharePhotoLibrary__block_invoke()
 {
-  sharedMomentSharePhotoLibrary_sharedMomentSharePhotoLibrary = [[PHPhotoLibrary alloc] initMomentShareLibrary];
+  v0 = [[PHPhotoLibrary alloc] initMomentShareLibrary];
+  v1 = sharedMomentSharePhotoLibrary_sharedMomentSharePhotoLibrary;
+  sharedMomentSharePhotoLibrary_sharedMomentSharePhotoLibrary = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)setImagePickerPhotoLibrary:(id)library error:(id *)error
@@ -10993,9 +11006,11 @@ void __69__PHPhotoLibrary_Repair__setNeedsToRepairKeyCuratedAssetForMemories___b
 
 uint64_t __69__PHPhotoLibrary_Repair__setNeedsToRepairKeyCuratedAssetForMemories___block_invoke()
 {
-  setNeedsToRepairKeyCuratedAssetForMemories__repairQueue = dispatch_queue_create("com.apple.PHPhotoLibrary.memoryKeyCuratedAssetRepair", 0);
+  v0 = dispatch_queue_create("com.apple.PHPhotoLibrary.memoryKeyCuratedAssetRepair", 0);
+  v1 = setNeedsToRepairKeyCuratedAssetForMemories__repairQueue;
+  setNeedsToRepairKeyCuratedAssetForMemories__repairQueue = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (void)setSharedPhotoLibrary:(id)library

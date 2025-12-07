@@ -155,7 +155,7 @@
 
 - (id)fireEventWithName:(id)name withContext:(id)context
 {
-  v61[3] = *MEMORY[0x277D85DE8];
+  v60[3] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   contextCopy = context;
   [MEMORY[0x277CCACC8] isMainThread];
@@ -192,48 +192,48 @@
           [state2 willExit:v18 withOwner:v10];
           [destinationState willEnter:v18 withOwner:v10];
           [(NFStateMachine *)self setState:destinationState];
-          v52[0] = MEMORY[0x277D85DD0];
-          v52[1] = 3221225472;
-          v52[2] = __48__NFStateMachine_fireEventWithName_withContext___block_invoke_3;
-          v52[3] = &unk_27997DA40;
-          v53 = state2;
-          v41 = v18;
+          v51[0] = MEMORY[0x277D85DD0];
+          v51[1] = 3221225472;
+          v51[2] = __48__NFStateMachine_fireEventWithName_withContext___block_invoke_3;
+          v51[3] = &unk_27997DA40;
+          v52 = state2;
+          v40 = v18;
           v20 = v18;
-          v54 = v20;
-          v38 = v10;
-          v55 = v38;
-          v42 = [NFPromise firstly:v52];
-          v40 = zalgoIfMain();
-          v48[0] = MEMORY[0x277D85DD0];
-          v48[1] = 3221225472;
-          v48[2] = __48__NFStateMachine_fireEventWithName_withContext___block_invoke_4;
-          v48[3] = &unk_27997DA68;
-          v49 = destinationState;
-          v36 = v20;
-          v50 = v36;
-          v35 = v38;
-          v51 = v35;
-          v39 = [v42 thenOn:v40 then:v48];
-          v37 = zalgoIfMain();
-          v34 = [v39 errorOn:v37 error:&__block_literal_global_50];
-          v33 = zalgoIfMain();
+          v53 = v20;
+          v37 = v10;
+          v54 = v37;
+          v41 = [NFPromise firstly:v51];
+          v39 = zalgoIfMain(v41);
           v47[0] = MEMORY[0x277D85DD0];
           v47[1] = 3221225472;
-          v47[2] = __48__NFStateMachine_fireEventWithName_withContext___block_invoke_54;
-          v47[3] = &unk_27997DAB0;
-          v47[4] = self;
-          v21 = [v34 alwaysOn:v33 always:v47];
-          v22 = zalgoIfMain();
-          v43[0] = MEMORY[0x277D85DD0];
-          v43[1] = 3221225472;
-          v43[2] = __48__NFStateMachine_fireEventWithName_withContext___block_invoke_2_56;
-          v43[3] = &unk_27997DA68;
-          v44 = v12;
-          v45 = v36;
-          v46 = v35;
-          v23 = [v21 thenOn:v22 then:v43];
+          v47[2] = __48__NFStateMachine_fireEventWithName_withContext___block_invoke_4;
+          v47[3] = &unk_27997DA68;
+          v48 = destinationState;
+          v35 = v20;
+          v49 = v35;
+          v34 = v37;
+          v50 = v34;
+          v38 = [v41 thenOn:v39 then:v47];
+          v36 = zalgoIfMain(v38);
+          v33 = [v38 errorOn:v36 error:&__block_literal_global_50];
+          v32 = zalgoIfMain(v33);
+          v46[0] = MEMORY[0x277D85DD0];
+          v46[1] = 3221225472;
+          v46[2] = __48__NFStateMachine_fireEventWithName_withContext___block_invoke_54;
+          v46[3] = &unk_27997DAB0;
+          v46[4] = self;
+          v21 = [v33 alwaysOn:v32 always:v46];
+          v22 = zalgoIfMain(v21);
+          v42[0] = MEMORY[0x277D85DD0];
+          v42[1] = 3221225472;
+          v42[2] = __48__NFStateMachine_fireEventWithName_withContext___block_invoke_2_56;
+          v42[3] = &unk_27997DA68;
+          v43 = v12;
+          v44 = v35;
+          v45 = v34;
+          v23 = [v21 thenOn:v22 then:v42];
 
-          v18 = v41;
+          v18 = v40;
         }
 
         else
@@ -245,14 +245,14 @@
       }
 
       v29 = *MEMORY[0x277CCA450];
-      v57[0] = @"event does not allow transition from current state";
-      v56[0] = v29;
-      v56[1] = @"currentState";
+      v56[0] = @"event does not allow transition from current state";
+      v55[0] = v29;
+      v55[1] = @"currentState";
       state3 = [(NFStateMachine *)self state];
-      v56[2] = @"event";
-      v57[1] = state3;
-      v57[2] = v12;
-      state2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:3];
+      v55[2] = @"event";
+      v56[1] = state3;
+      v56[2] = v12;
+      state2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:3];
 
       v27 = MEMORY[0x277CCA9B8];
       v28 = -102;
@@ -260,11 +260,11 @@
 
     else
     {
-      v58[0] = *MEMORY[0x277CCA450];
-      v58[1] = nameCopy;
-      v59[0] = @"event for name not found in state machine";
-      v59[1] = @"eventName";
-      state2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:2];
+      v57[0] = *MEMORY[0x277CCA450];
+      v57[1] = nameCopy;
+      v58[0] = @"event for name not found in state machine";
+      v58[1] = @"eventName";
+      state2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:2];
       v27 = MEMORY[0x277CCA9B8];
       v28 = -101;
     }
@@ -277,22 +277,21 @@ LABEL_14:
   }
 
   v24 = *MEMORY[0x277CCA450];
-  v61[0] = @"cannot fire event when state machine is not active";
-  v60[0] = v24;
-  v60[1] = @"status";
+  v60[0] = @"cannot fire event when state machine is not active";
+  v59[0] = v24;
+  v59[1] = @"status";
   v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NFStateMachine status](self, "status")}];
-  v61[1] = v25;
-  v60[2] = @"statusToken";
+  v60[1] = v25;
+  v59[2] = @"statusToken";
   v26 = [MEMORY[0x277CCABB0] numberWithInteger:{-[NFStateMachine statusToken](self, "statusToken")}];
-  v61[2] = v26;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:3];
+  v60[2] = v26;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:3];
 
   state2 = [MEMORY[0x277CCA9B8] fc_createStateMachineErrorForCode:-100 userInfo:v12];
   v23 = [NFPromise asVoid:state2];
 LABEL_15:
 
 LABEL_16:
-  v31 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -329,38 +328,32 @@ void __48__NFStateMachine_fireEventWithName_withContext___block_invoke_54(uint64
 
 - (void)addState:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Attempting to register a state that already exists"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BED3000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BED3000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)addEvent:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Attempting to register an event that already exists"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BED3000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BED3000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 void __48__NFStateMachine_fireEventWithName_withContext___block_invoke_5_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"state machine did enter/exit is not allowed to throw errors as the state has already been alerted"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BED3000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BED3000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

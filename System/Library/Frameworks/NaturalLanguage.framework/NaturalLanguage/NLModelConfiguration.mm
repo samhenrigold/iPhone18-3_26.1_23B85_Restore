@@ -16,7 +16,7 @@
 
 - (NLModelConfiguration)initWithModelType:(int64_t)type options:(id)options error:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v9 = unsignedIntegerForKey(optionsCopy, @"Revision", 0);
   v10 = stringForKey(optionsCopy, @"Language", 0);
@@ -30,9 +30,9 @@
       if (error)
       {
         v13 = MEMORY[0x1E696ABC0];
-        v27 = *MEMORY[0x1E696A578];
-        v28[0] = @"The specified revision is not supported";
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+        v26 = *MEMORY[0x1E696A578];
+        v27[0] = @"The specified revision is not supported";
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
         *error = [v13 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:3 userInfo:v14];
       }
 
@@ -51,9 +51,9 @@
     optionsCopy = v16;
   }
 
-  v26.receiver = self;
-  v26.super_class = NLModelConfiguration;
-  v18 = [(NLModelConfiguration *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = NLModelConfiguration;
+  v18 = [(NLModelConfiguration *)&v25 init];
   v19 = v18;
   if (v18)
   {
@@ -72,7 +72,6 @@
   selfCopy = self;
 LABEL_10:
 
-  v24 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

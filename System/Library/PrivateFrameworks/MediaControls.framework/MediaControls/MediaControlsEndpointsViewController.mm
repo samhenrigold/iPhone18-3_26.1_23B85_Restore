@@ -604,39 +604,39 @@ void __61__MediaControlsEndpointsViewController__transitionToVisible___block_inv
         externalPlaybackMonitor = [(MediaControlsEndpointsViewController *)self externalPlaybackMonitor];
         isAirPlayVideoActive = [externalPlaybackMonitor isAirPlayVideoActive];
 
-        v11 = MCLogCategoryRouting();
-        v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+        v12 = MCLogCategoryRouting(v11);
+        v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
         if (isAirPlayVideoActive)
         {
-          if (v12)
+          if (v13)
           {
             *buf = 0;
-            _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "Present local transport control picker because AirPlay video is active", buf, 2u);
+            _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEFAULT, "Present local transport control picker because AirPlay video is active", buf, 2u);
           }
 
-          v13 = [(MPMediaControlsConfiguration *)self->_configuration copy];
-          [v13 setStyle:5];
-          [v13 setInitatorStyle:6];
-          [(MediaControlsEndpointsViewController *)self setConfiguration:v13];
-          v14 = [[MRPlatterViewController alloc] initWithNibName:0 bundle:0];
+          v14 = [(MPMediaControlsConfiguration *)self->_configuration copy];
+          [v14 setStyle:5];
+          [v14 setInitatorStyle:6];
+          [(MediaControlsEndpointsViewController *)self setConfiguration:v14];
+          v15 = [[MRPlatterViewController alloc] initWithNibName:0 bundle:0];
         }
 
         else
         {
-          if (v12)
+          if (v13)
           {
-            *v15 = 0;
-            _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "Present video picker because because AirPlay video is inactive", v15, 2u);
+            *v16 = 0;
+            _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEFAULT, "Present video picker because because AirPlay video is inactive", v16, 2u);
           }
 
-          v13 = [(MPMediaControlsConfiguration *)self->_configuration copy];
-          [v13 setStyle:4];
-          [v13 setInitatorStyle:6];
-          [(MediaControlsEndpointsViewController *)self setConfiguration:v13];
-          v14 = [[MRPlatterViewController alloc] initWithStyle:5];
+          v14 = [(MPMediaControlsConfiguration *)self->_configuration copy];
+          [v14 setStyle:4];
+          [v14 setInitatorStyle:6];
+          [(MediaControlsEndpointsViewController *)self setConfiguration:v14];
+          v15 = [[MRPlatterViewController alloc] initWithStyle:5];
         }
 
-        v5 = v14;
+        v5 = v15;
 
         break;
       case 5:
@@ -783,7 +783,7 @@ LABEL_6:
 
 - (void)mediaControlsCollectionViewController:(id)controller willSelectItemAtIndex:(int64_t)index withReason:(int64_t)reason
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   if (index != 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -791,15 +791,16 @@ LABEL_6:
     v10 = [routes objectAtIndex:index];
 
     v11 = [(MediaControlsEndpointsManager *)self->_endpointsManager endpointControllerForRoute:v10];
+    v12 = v11;
     if (!reason)
     {
-      v12 = MCLogCategoryRouting();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = MCLogCategoryRouting(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         routeName = [v10 routeName];
         *buf = 138543362;
-        v26 = routeName;
-        _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEFAULT, "User selected platter: %{public}@", buf, 0xCu);
+        v27 = routeName;
+        _os_log_impl(&dword_1A20FC000, v13, OS_LOG_TYPE_DEFAULT, "User selected platter: %{public}@", buf, 0xCu);
       }
 
       [MediaControlsAnalytics postAnalyticKind:6];
@@ -807,30 +808,30 @@ LABEL_6:
 
     [(MediaControlsEndpointsViewController *)self _setSelectedRoute:v10 isUserSelected:reason == 0 animated:reason == 0];
     objc_initWeak(buf, self);
-    v14 = dispatch_group_create();
-    dispatch_group_enter(v14);
+    v15 = dispatch_group_create();
+    dispatch_group_enter(v15);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __111__MediaControlsEndpointsViewController_mediaControlsCollectionViewController_willSelectItemAtIndex_withReason___block_invoke;
     block[3] = &unk_1E7663F88;
-    objc_copyWeak(v24, buf);
-    v15 = v10;
-    v23 = v15;
-    v24[1] = reason;
-    dispatch_group_notify(v14, MEMORY[0x1E69E96A0], block);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __111__MediaControlsEndpointsViewController_mediaControlsCollectionViewController_willSelectItemAtIndex_withReason___block_invoke_2;
-    v18[3] = &unk_1E7663D80;
-    objc_copyWeak(&v21, buf);
-    v16 = v15;
-    v19 = v16;
-    v17 = v14;
+    objc_copyWeak(v25, buf);
+    v16 = v10;
+    v24 = v16;
+    v25[1] = reason;
+    dispatch_group_notify(v15, MEMORY[0x1E69E96A0], block);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __111__MediaControlsEndpointsViewController_mediaControlsCollectionViewController_willSelectItemAtIndex_withReason___block_invoke_2;
+    v19[3] = &unk_1E7663D80;
+    objc_copyWeak(&v22, buf);
+    v17 = v16;
     v20 = v17;
-    [v11 connectAllowingAuthenticationWithCompletion:v18];
+    v18 = v15;
+    v21 = v18;
+    [v12 connectAllowingAuthenticationWithCompletion:v19];
 
-    objc_destroyWeak(&v21);
-    objc_destroyWeak(v24);
+    objc_destroyWeak(&v22);
+    objc_destroyWeak(v25);
 
     objc_destroyWeak(buf);
   }
@@ -850,36 +851,40 @@ void __111__MediaControlsEndpointsViewController_mediaControlsCollectionViewCont
 uint64_t __111__MediaControlsEndpointsViewController_mediaControlsCollectionViewController_willSelectItemAtIndex_withReason___block_invoke_2(uint64_t a1, char a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v16 = WeakRetained;
-    if ([*(a1 + 32) isEqual:WeakRetained[159]])
+    v17 = WeakRetained;
+    WeakRetained = [*(a1 + 32) isEqual:WeakRetained[159]];
+    v5 = v17;
+    if (WeakRetained)
     {
       if ((a2 & 1) == 0)
       {
-        v5 = [MEMORY[0x1E696AAE8] mediaControlsBundle];
-        v6 = [v5 mediaControls_localizedStringForKey:@"AIRPLAY_ERROR_TITLE" inTable:@"MediaControls" expectedFormat:0];
-        v7 = MEMORY[0x1E696AEC0];
-        v8 = [v5 mediaControls_localizedStringForKey:@"AIRPLAY_CONNECTION_ERROR_MESSAGE" inTable:@"MediaControls" expectedFormat:@"%@"];
-        v9 = [*(a1 + 32) routeName];
-        v10 = [v7 stringWithFormat:v8, v9];
+        v6 = [MEMORY[0x1E696AAE8] mediaControlsBundle];
+        v7 = [v6 mediaControls_localizedStringForKey:@"AIRPLAY_ERROR_TITLE" inTable:@"MediaControls" expectedFormat:0];
+        v8 = MEMORY[0x1E696AEC0];
+        v9 = [v6 mediaControls_localizedStringForKey:@"AIRPLAY_CONNECTION_ERROR_MESSAGE" inTable:@"MediaControls" expectedFormat:@"%@"];
+        v10 = [*(a1 + 32) routeName];
+        v11 = [v8 stringWithFormat:v9, v10];
 
-        v11 = [v5 mediaControls_localizedStringForKey:@"OK_BUTTON_TITLE" inTable:@"MediaControls" expectedFormat:0];
-        v12 = objc_alloc_init(MEMORY[0x1E69B14C8]);
-        v13 = [objc_alloc(MEMORY[0x1E69B14C0]) initWithOptions:v12];
-        [v12 setAlertHeader:v6];
-        [v12 setAlertMessage:v10];
-        [v12 setDefaultButtonTitle:v11];
-        [v13 presentWithCompletion:0];
-        v14 = [v16[157] activeSystemRoute];
-        [v16 _setSelectedRoute:v14 isUserSelected:1 animated:1];
+        v12 = [v6 mediaControls_localizedStringForKey:@"OK_BUTTON_TITLE" inTable:@"MediaControls" expectedFormat:0];
+        v13 = objc_alloc_init(MEMORY[0x1E69B14C8]);
+        v14 = [objc_alloc(MEMORY[0x1E69B14C0]) initWithOptions:v13];
+        [v13 setAlertHeader:v7];
+        [v13 setAlertMessage:v11];
+        [v13 setDefaultButtonTitle:v12];
+        [v14 presentWithCompletion:0];
+        v15 = [v17[157] activeSystemRoute];
+        [v17 _setSelectedRoute:v15 isUserSelected:1 animated:1];
       }
 
       dispatch_group_leave(*(a1 + 40));
+      v5 = v17;
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](WeakRetained, v5);
 }
 
 - (void)endpointsManager:(id)manager activeSystemRouteDidChange:(id)change
@@ -888,7 +893,7 @@ uint64_t __111__MediaControlsEndpointsViewController_mediaControlsCollectionView
   changeCopy = change;
   self->_didRetrieveActiveSystemRouteOnce = 1;
   self->_shouldReselectActiveSystemRoute = 1;
-  v6 = MCLogCategoryRouting();
+  v6 = MCLogCategoryRouting(changeCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     presentingAppBundleID = [(MPMediaControlsConfiguration *)self->_configuration presentingAppBundleID];

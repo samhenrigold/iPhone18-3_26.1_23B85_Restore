@@ -57,7 +57,7 @@
 - (void)setRecordSharedBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -88,7 +88,7 @@ LABEL_9:
 
 - (id)recordSharedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -125,7 +125,7 @@ LABEL_9:
 - (void)setRecordUnsharedBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -156,7 +156,7 @@ LABEL_9:
 
 - (id)recordUnsharedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -193,7 +193,7 @@ LABEL_9:
 - (void)setWebShareRecordsCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -224,7 +224,7 @@ LABEL_9:
 
 - (id)webShareRecordsCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -328,7 +328,7 @@ LABEL_9:
 - (BOOL)CKOperationShouldRun:(id *)run
 {
   runCopy = run;
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_recordIDsToShare(self, a2, run);
   if (objc_msgSend_count(v5, v6, v7))
   {
@@ -341,34 +341,33 @@ LABEL_9:
 
     if (!v15)
     {
-      v55 = 0;
-      goto LABEL_42;
+      return 0;
     }
   }
 
   v16 = objc_msgSend_set(MEMORY[0x1E695DFA8], v10, v11);
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
   v19 = objc_msgSend_recordIDsToShare(self, v17, v18);
-  v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v71, v76, 16);
+  v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v70, v75, 16);
   if (v21)
   {
     v22 = v21;
-    v23 = *v72;
+    v23 = *v71;
     obj = v19;
     do
     {
       v24 = runCopy;
       for (i = 0; i != v22; ++i)
       {
-        if (*v72 != v23)
+        if (*v71 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v71 + 1) + 8 * i);
+        v26 = *(*(&v70 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -409,7 +408,7 @@ LABEL_30:
         objc_msgSend_addObject_(v16, v33, v26);
       }
 
-      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v34, &v71, v76, 16);
+      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v34, &v70, v75, 16);
       runCopy = v24;
       v19 = obj;
     }
@@ -418,29 +417,29 @@ LABEL_30:
   }
 
   v37 = objc_msgSend_set(MEMORY[0x1E695DFA8], v35, v36);
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   obja = objc_msgSend_recordIDsToUnshare(self, v38, v39);
-  v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v40, &v67, v75, 16);
+  v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v40, &v66, v74, 16);
   if (!v41)
   {
     goto LABEL_25;
   }
 
   v42 = v41;
-  v43 = *v68;
+  v43 = *v67;
   while (2)
   {
     for (j = 0; j != v42; ++j)
     {
-      if (*v68 != v43)
+      if (*v67 != v43)
       {
         objc_enumerationMutation(obja);
       }
 
-      v45 = *(*(&v67 + 1) + 8 * j);
+      v45 = *(*(&v66 + 1) + 8 * j);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -490,7 +489,7 @@ LABEL_40:
       objc_msgSend_addObject_(v37, v53, v45);
     }
 
-    v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v54, &v67, v75, 16);
+    v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v54, &v66, v74, 16);
     if (v42)
     {
       continue;
@@ -501,19 +500,17 @@ LABEL_40:
 
 LABEL_25:
 
-  v66.receiver = self;
-  v66.super_class = CKModifyWebSharingOperation;
-  v55 = [(CKDatabaseOperation *)&v66 CKOperationShouldRun:runCopy];
+  v65.receiver = self;
+  v65.super_class = CKModifyWebSharingOperation;
+  v55 = [(CKDatabaseOperation *)&v65 CKOperationShouldRun:runCopy];
 LABEL_41:
 
-LABEL_42:
-  v62 = *MEMORY[0x1E69E9840];
   return v55;
 }
 
 - (void)handleWebSharingInitiationForRecordID:(id)d sharingKey:(id)key baseSharingToken:(id)token error:(id)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   dCopy = d;
   keyCopy = key;
   tokenCopy = token;
@@ -562,11 +559,11 @@ LABEL_42:
 
       if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
       {
-        v50 = 138412546;
-        v51 = dCopy;
-        v52 = 2112;
-        v53 = v15;
-        _os_signpost_emit_with_name_impl(&dword_1883EA000, v24, OS_SIGNPOST_EVENT, v29, "CKModifyWebSharingOperation", "Record %@ shared with error: %@", &v50, 0x16u);
+        v49 = 138412546;
+        v50 = dCopy;
+        v51 = 2112;
+        v52 = v15;
+        _os_signpost_emit_with_name_impl(&dword_1883EA000, v24, OS_SIGNPOST_EVENT, v29, "CKModifyWebSharingOperation", "Record %@ shared with error: %@", &v49, 0x16u);
       }
     }
 
@@ -606,9 +603,9 @@ LABEL_42:
 
       if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
       {
-        v50 = 138412290;
-        v51 = dCopy;
-        _os_signpost_emit_with_name_impl(&dword_1883EA000, v36, OS_SIGNPOST_EVENT, v41, "CKModifyWebSharingOperation", "Record %@ shared", &v50, 0xCu);
+        v49 = 138412290;
+        v50 = dCopy;
+        _os_signpost_emit_with_name_impl(&dword_1883EA000, v36, OS_SIGNPOST_EVENT, v41, "CKModifyWebSharingOperation", "Record %@ shared", &v49, 0xCu);
       }
     }
 
@@ -623,13 +620,11 @@ LABEL_42:
     v48 = objc_msgSend_recordSharedBlock(self, v46, v47);
     (v48)[2](v48, dCopy, keyCopy, tokenCopy, v15);
   }
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleWebSharingRevocationForRecordID:(id)d error:(id)error
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v9 = objc_msgSend_CKClientSuitableError(error, v7, v8);
   if (self)
@@ -676,11 +671,11 @@ LABEL_42:
 
       if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
       {
-        v44 = 138412546;
-        v45 = dCopy;
-        v46 = 2112;
-        v47 = v9;
-        _os_signpost_emit_with_name_impl(&dword_1883EA000, v18, OS_SIGNPOST_EVENT, v23, "CKModifyWebSharingOperation", "Record %@ unshared with error: %@", &v44, 0x16u);
+        v43 = 138412546;
+        v44 = dCopy;
+        v45 = 2112;
+        v46 = v9;
+        _os_signpost_emit_with_name_impl(&dword_1883EA000, v18, OS_SIGNPOST_EVENT, v23, "CKModifyWebSharingOperation", "Record %@ unshared with error: %@", &v43, 0x16u);
       }
     }
 
@@ -720,9 +715,9 @@ LABEL_42:
 
       if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
       {
-        v44 = 138412290;
-        v45 = dCopy;
-        _os_signpost_emit_with_name_impl(&dword_1883EA000, v30, OS_SIGNPOST_EVENT, v35, "CKModifyWebSharingOperation", "Record %@ unshared", &v44, 0xCu);
+        v43 = 138412290;
+        v44 = dCopy;
+        _os_signpost_emit_with_name_impl(&dword_1883EA000, v30, OS_SIGNPOST_EVENT, v35, "CKModifyWebSharingOperation", "Record %@ unshared", &v43, 0xCu);
       }
     }
 
@@ -737,13 +732,11 @@ LABEL_42:
     v42 = objc_msgSend_recordUnsharedBlock(self, v40, v41);
     (v42)[2](v42, dCopy, v9);
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v109 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -813,100 +806,100 @@ LABEL_42:
   }
 
   v31 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v101 = 0u;
   v102 = 0u;
   v103 = 0u;
   v104 = 0u;
-  v105 = 0u;
   v34 = objc_msgSend_sharedRecordIDs(self, v32, v33);
-  v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v35, &v102, v109, 16);
+  v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v35, &v101, v108, 16);
   if (v36)
   {
     v39 = v36;
-    v40 = *v103;
+    v40 = *v102;
     do
     {
       v41 = 0;
       do
       {
-        if (*v103 != v40)
+        if (*v102 != v40)
         {
           objc_enumerationMutation(v34);
         }
 
-        v42 = objc_msgSend_zoneID(*(*(&v102 + 1) + 8 * v41), v37, v38);
+        v42 = objc_msgSend_zoneID(*(*(&v101 + 1) + 8 * v41), v37, v38);
         objc_msgSend_addObject_(v31, v43, v42);
 
         ++v41;
       }
 
       while (v39 != v41);
-      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v37, &v102, v109, 16);
+      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v37, &v101, v108, 16);
     }
 
     while (v39);
   }
 
-  v100 = 0u;
-  v101 = 0u;
-  v98 = 0u;
   v99 = 0u;
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
   v46 = objc_msgSend_recordIDsToUnshare(self, v44, v45);
-  v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v46, v47, &v98, v108, 16);
+  v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v46, v47, &v97, v107, 16);
   if (v48)
   {
     v51 = v48;
-    v52 = *v99;
+    v52 = *v98;
     do
     {
       v53 = 0;
       do
       {
-        if (*v99 != v52)
+        if (*v98 != v52)
         {
           objc_enumerationMutation(v46);
         }
 
-        v54 = objc_msgSend_zoneID(*(*(&v98 + 1) + 8 * v53), v49, v50);
+        v54 = objc_msgSend_zoneID(*(*(&v97 + 1) + 8 * v53), v49, v50);
         objc_msgSend_addObject_(v31, v55, v54);
 
         ++v53;
       }
 
       while (v51 != v53);
-      v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v46, v49, &v98, v108, 16);
+      v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v46, v49, &v97, v107, 16);
     }
 
     while (v51);
   }
 
-  v96 = 0u;
-  v97 = 0u;
-  v94 = 0u;
   v95 = 0u;
+  v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
   v58 = objc_msgSend_recordIDsToShareReadWrite(self, v56, v57);
-  v60 = objc_msgSend_countByEnumeratingWithState_objects_count_(v58, v59, &v94, v107, 16);
+  v60 = objc_msgSend_countByEnumeratingWithState_objects_count_(v58, v59, &v93, v106, 16);
   if (v60)
   {
     v63 = v60;
-    v64 = *v95;
+    v64 = *v94;
     do
     {
       v65 = 0;
       do
       {
-        if (*v95 != v64)
+        if (*v94 != v64)
         {
           objc_enumerationMutation(v58);
         }
 
-        v66 = objc_msgSend_zoneID(*(*(&v94 + 1) + 8 * v65), v61, v62);
+        v66 = objc_msgSend_zoneID(*(*(&v93 + 1) + 8 * v65), v61, v62);
         objc_msgSend_addObject_(v31, v67, v66);
 
         ++v65;
       }
 
       while (v63 != v65);
-      v63 = objc_msgSend_countByEnumeratingWithState_objects_count_(v58, v61, &v94, v107, 16);
+      v63 = objc_msgSend_countByEnumeratingWithState_objects_count_(v58, v61, &v93, v106, 16);
     }
 
     while (v63);
@@ -934,16 +927,14 @@ LABEL_42:
 
   objc_msgSend_setRecordSharedBlock_(self, v78, 0);
   objc_msgSend_setRecordUnsharedBlock_(self, v91, 0);
-  v93.receiver = self;
-  v93.super_class = CKModifyWebSharingOperation;
-  [(CKOperation *)&v93 _finishOnCallbackQueueWithError:errorCopy];
-
-  v92 = *MEMORY[0x1E69E9840];
+  v92.receiver = self;
+  v92.super_class = CKModifyWebSharingOperation;
+  [(CKOperation *)&v92 _finishOnCallbackQueueWithError:errorCopy];
 }
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -996,28 +987,26 @@ LABEL_42:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKModifyWebSharingOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKModifyWebSharingOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -1061,13 +1050,11 @@ LABEL_42:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKModifyWebSharingOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKModifyWebSharingOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

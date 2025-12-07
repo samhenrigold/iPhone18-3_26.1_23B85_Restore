@@ -69,7 +69,7 @@
 
       [v4 setStyle:17];
 LABEL_31:
-      v6 = +[UIColor blackColor];
+      v6 = objc_msgSend_blackColor(UIColor);
       v8 = 1.4;
       v9 = 50.0;
       v7 = 0.32;
@@ -78,7 +78,7 @@ LABEL_31:
 
     [v4 setStyle:16];
 LABEL_26:
-    v6 = +[UIColor blackColor];
+    v6 = objc_msgSend_blackColor(UIColor);
     v8 = 1.3;
     v9 = 50.0;
     v7 = 0.08;
@@ -92,7 +92,7 @@ LABEL_26:
       if (style != 17)
       {
 LABEL_11:
-        v6 = +[UIColor blackColor];
+        v6 = objc_msgSend_blackColor(UIColor);
         v7 = 0.5;
         v8 = 1.6;
         v9 = 50.0;
@@ -132,7 +132,7 @@ LABEL_28:
     [v4 setPreBackdropTint:v14];
 
     [v4 setPreBackdropTintAlpha:0.08];
-    v6 = +[UIColor blackColor];
+    v6 = objc_msgSend_blackColor(UIColor);
     v8 = 1.0;
     v9 = 50.0;
 LABEL_29:

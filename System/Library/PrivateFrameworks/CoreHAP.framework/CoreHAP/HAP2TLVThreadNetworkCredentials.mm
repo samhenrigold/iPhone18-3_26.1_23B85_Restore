@@ -241,37 +241,37 @@ LABEL_39:
 
 - (id)serializeWithError:(id *)error
 {
-  v61 = *MEMORY[0x277D85DE8];
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
+  v60 = *MEMORY[0x277D85DE8];
   v58 = 0u;
-  v55 = 0u;
+  v59 = 0u;
   v56 = 0u;
-  v53 = 0u;
+  v57 = 0u;
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
+  v43 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v39 = 0u;
   TLV8BufferInit();
   networkName = [(HAP2TLVThreadNetworkCredentials *)self networkName];
 
   if (networkName)
   {
     networkName2 = [(HAP2TLVThreadNetworkCredentials *)self networkName];
-    v39 = 0;
-    v7 = [networkName2 serializeWithError:&v39];
-    v8 = v39;
+    v38 = 0;
+    v7 = [networkName2 serializeWithError:&v38];
+    v8 = v38;
 
     if (!v8)
     {
@@ -314,9 +314,9 @@ LABEL_10:
   if (channel)
   {
     channel2 = [(HAP2TLVThreadNetworkCredentials *)self channel];
-    v38 = 0;
-    v7 = [channel2 serializeWithError:&v38];
-    v8 = v38;
+    v37 = 0;
+    v7 = [channel2 serializeWithError:&v37];
+    v8 = v37;
 
     if (v8)
     {
@@ -337,9 +337,9 @@ LABEL_10:
   if (panID)
   {
     panID2 = [(HAP2TLVThreadNetworkCredentials *)self panID];
-    v37 = 0;
-    v7 = [panID2 serializeWithError:&v37];
-    v8 = v37;
+    v36 = 0;
+    v7 = [panID2 serializeWithError:&v36];
+    v8 = v36;
 
     if (v8)
     {
@@ -360,9 +360,9 @@ LABEL_10:
   if (extendedPanID)
   {
     extendedPanID2 = [(HAP2TLVThreadNetworkCredentials *)self extendedPanID];
-    v36 = 0;
-    v7 = [extendedPanID2 serializeWithError:&v36];
-    v8 = v36;
+    v35 = 0;
+    v7 = [extendedPanID2 serializeWithError:&v35];
+    v8 = v35;
 
     if (v8)
     {
@@ -394,9 +394,9 @@ LABEL_10:
   if (masterKey)
   {
     masterKey2 = [(HAP2TLVThreadNetworkCredentials *)self masterKey];
-    v35 = 0;
-    v7 = [masterKey2 serializeWithError:&v35];
-    v8 = v35;
+    v34 = 0;
+    v7 = [masterKey2 serializeWithError:&v34];
+    v8 = v34;
 
     if (v8)
     {
@@ -446,9 +446,9 @@ LABEL_40:
   if (reattachPeriod)
   {
     reattachPeriod2 = [(HAP2TLVThreadNetworkCredentials *)self reattachPeriod];
-    v34 = 0;
-    v7 = [reattachPeriod2 serializeWithError:&v34];
-    v8 = v34;
+    v33 = 0;
+    v7 = [reattachPeriod2 serializeWithError:&v33];
+    v8 = v33;
 
     if (v8)
     {
@@ -465,12 +465,10 @@ LABEL_40:
     }
   }
 
-  v18 = [MEMORY[0x277CBEA90] dataWithBytes:v40 length:?];
+  v18 = [MEMORY[0x277CBEA90] dataWithBytes:v39 length:?];
   v8 = 0;
 LABEL_45:
   TLV8BufferFree();
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

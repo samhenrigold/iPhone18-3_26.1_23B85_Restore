@@ -18,7 +18,7 @@
   dCopy = d;
   v10 = [HMIFaceprint alloc];
   data = [MEMORY[0x277CBEA90] data];
-  v12 = [(HMIFaceprint *)v10 initWithUUID:dCopy data:data modelUUID:iDCopy faceCropUUID:uIDCopy];
+  v12 = [HMIFaceprint initWithUUID:v10 data:"initWithUUID:data:modelUUID:faceCropUUID:" modelUUID:? faceCropUUID:?];
 
   return v12;
 }
@@ -84,33 +84,28 @@ LABEL_11:
 
 - (id)attributeDescriptions
 {
-  v17[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   uUID = [(HMIFaceprint *)self UUID];
-  v5 = [v3 initWithName:@"UUID" value:uUID];
-  v17[0] = v5;
-  v6 = objc_alloc(MEMORY[0x277D0F778]);
+  v13 = [v3 initWithName:? value:?];
+  v5 = objc_alloc(MEMORY[0x277D0F778]);
   data = [(HMIFaceprint *)self data];
-  v8 = [v6 initWithName:@"Data" value:data];
-  v17[1] = v8;
-  v9 = objc_alloc(MEMORY[0x277D0F778]);
+  v14 = [v5 initWithName:? value:?];
+  v7 = objc_alloc(MEMORY[0x277D0F778]);
   modelUUID = [(HMIFaceprint *)self modelUUID];
-  v11 = [v9 initWithName:@"Model UUID" value:modelUUID];
-  v17[2] = v11;
-  v12 = objc_alloc(MEMORY[0x277D0F778]);
+  v15 = [v7 initWithName:? value:?];
+  v9 = objc_alloc(MEMORY[0x277D0F778]);
   faceCropUUID = [(HMIFaceprint *)self faceCropUUID];
-  v14 = [v12 initWithName:@"Face Crop UUID" value:faceCropUUID];
-  v17[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
+  v16 = [v9 initWithName:? value:?];
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
-  return v15;
+  return v11;
 }
 
 - (BOOL)isSentinelFaceprint
 {
   data = [(HMIFaceprint *)self data];
   data2 = [MEMORY[0x277CBEA90] data];
-  v4 = [data isEqualToData:data2];
+  v4 = [data isEqualToData:?];
 
   return v4;
 }
@@ -134,19 +129,19 @@ LABEL_11:
   {
     uUID = [(HMIFaceprint *)self UUID];
     uUID2 = [v6 UUID];
-    if ([uUID isEqual:uUID2])
+    if ([uUID isEqual:?])
     {
       data = [(HMIFaceprint *)self data];
       data2 = [v6 data];
-      if ([data isEqualToData:data2])
+      if ([data isEqualToData:?])
       {
         modelUUID = [(HMIFaceprint *)self modelUUID];
         modelUUID2 = [v6 modelUUID];
-        if ([modelUUID isEqual:modelUUID2])
+        if ([modelUUID isEqual:?])
         {
           faceCropUUID = [(HMIFaceprint *)self faceCropUUID];
           faceCropUUID2 = [v6 faceCropUUID];
-          v14 = [faceCropUUID isEqual:faceCropUUID2];
+          v14 = [faceCropUUID isEqual:?];
         }
 
         else
@@ -187,26 +182,30 @@ LABEL_11:
 {
   coderCopy = coder;
   uUID = [(HMIFaceprint *)self UUID];
-  [coderCopy encodeObject:uUID forKey:@"HMIFP.ck.u"];
+  [coderCopy encodeObject:? forKey:?];
 
   data = [(HMIFaceprint *)self data];
-  [coderCopy encodeObject:data forKey:@"HMIFP.ck.d"];
+  [coderCopy encodeObject:? forKey:?];
 
   modelUUID = [(HMIFaceprint *)self modelUUID];
-  [coderCopy encodeObject:modelUUID forKey:@"HMIFP.ck.mu"];
+  [coderCopy encodeObject:? forKey:?];
 
   faceCropUUID = [(HMIFaceprint *)self faceCropUUID];
-  [coderCopy encodeObject:faceCropUUID forKey:@"HMIFP.ck.fcu"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (HMIFaceprint)initWithCoder:(id)coder
 {
   v29 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIFP.ck.u"];
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIFP.ck.d"];
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIFP.ck.mu"];
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIFP.ck.fcu"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v8 = [coderCopy decodeObjectOfClass:? forKey:?];
   v9 = v8;
   if (v5)
   {
@@ -245,7 +244,7 @@ LABEL_11:
 
   else
   {
-    selfCopy = [(HMIFaceprint *)self initWithUUID:v5 data:v6 modelUUID:v7 faceCropUUID:v8];
+    selfCopy = [HMIFaceprint initWithUUID:"initWithUUID:data:modelUUID:faceCropUUID:" data:? modelUUID:? faceCropUUID:?];
     v17 = selfCopy;
   }
 

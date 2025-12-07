@@ -66,33 +66,37 @@
 
 void __40__CRKTransportPreflightOperation_cancel__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) phase] != 3 && (objc_msgSend(*(a1 + 32), "cancellationRequested") & 1) == 0)
+  v17 = *MEMORY[0x277D85DE8];
+  if ([*(a1 + 32) phase] != 3)
   {
-    v2 = _CRKLogSession_0();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = [*(a1 + 32) cancellationRequested];
+    if ((v2 & 1) == 0)
     {
-      v3 = [*(a1 + 32) session];
-      v4 = [*(a1 + 32) session];
-      v5 = [v4 endpoint];
-      v6 = [v5 stringValue];
-      v7 = [*(a1 + 32) transport];
-      v10 = 138543874;
-      v11 = v3;
-      v12 = 2114;
-      v13 = v6;
-      v14 = 2114;
-      v15 = v7;
-      _os_log_impl(&dword_243550000, v2, OS_LOG_TYPE_DEFAULT, "SESSION:%{public}@. IP:%{public}@. Transport preflight cancellation requested for transport %{public}@", &v10, 0x20u);
-    }
+      v3 = _CRKLogSession_0(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      {
+        v4 = [*(a1 + 32) session];
+        v5 = [*(a1 + 32) session];
+        v6 = [v5 endpoint];
+        v7 = [v6 stringValue];
+        v8 = [*(a1 + 32) transport];
+        v11 = 138543874;
+        v12 = v4;
+        v13 = 2114;
+        v14 = v7;
+        v15 = 2114;
+        v16 = v8;
+        _os_log_impl(&dword_243550000, v3, OS_LOG_TYPE_DEFAULT, "SESSION:%{public}@. IP:%{public}@. Transport preflight cancellation requested for transport %{public}@", &v11, 0x20u);
+      }
 
-    [*(a1 + 32) setCancellationRequested:1];
-    v8 = [*(a1 + 32) transport];
-    v9 = [v8 delegate];
+      [*(a1 + 32) setCancellationRequested:1];
+      v9 = [*(a1 + 32) transport];
+      v10 = [v9 delegate];
 
-    if (v9)
-    {
-      [*(a1 + 32) invalidateTransport];
+      if (v10)
+      {
+        [*(a1 + 32) invalidateTransport];
+      }
     }
   }
 }
@@ -224,17 +228,18 @@ void __38__CRKTransportPreflightOperation_main__block_invoke(uint64_t a1)
   connectCopy = connect;
   if ([(CRKTransportPreflightOperation *)self isExecuting]&& ![(CRKTransportPreflightOperation *)self invalidationTriggered])
   {
-    if ([(CRKTransportPreflightOperation *)self isCommonNamePrefixValidForTransport:connectCopy])
+    v5 = [(CRKTransportPreflightOperation *)self isCommonNamePrefixValidForTransport:connectCopy];
+    if (v5)
     {
       [(CRKTransportPreflightOperation *)self finishWithTransport:connectCopy];
     }
 
     else
     {
-      v5 = _CRKLogSession_0();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = _CRKLogSession_0(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        [(CRKTransportPreflightOperation *)self transportDidConnect:connectCopy, v5];
+        [(CRKTransportPreflightOperation *)self transportDidConnect:connectCopy, v6];
       }
 
       [(CRKTransportPreflightOperation *)self invalidateTransport];
@@ -245,16 +250,20 @@ void __38__CRKTransportPreflightOperation_main__block_invoke(uint64_t a1)
 - (void)transport:(id)transport didInterruptWithError:(id)error
 {
   errorCopy = error;
-  if ([(CRKTransportPreflightOperation *)self isExecuting]&& ![(CRKTransportPreflightOperation *)self invalidationTriggered])
+  if ([(CRKTransportPreflightOperation *)self isExecuting])
   {
-    v6 = _CRKLogSession_0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    invalidationTriggered = [(CRKTransportPreflightOperation *)self invalidationTriggered];
+    if ((invalidationTriggered & 1) == 0)
     {
-      [(CRKTransportPreflightOperation *)self transport:errorCopy didInterruptWithError:v6];
-    }
+      v7 = _CRKLogSession_0(invalidationTriggered);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        [(CRKTransportPreflightOperation *)self transport:errorCopy didInterruptWithError:v7];
+      }
 
-    [(CRKTransportPreflightOperation *)self setConnectionInterruptedDueToDecisionHandler:[(CRKTransportPreflightOperation *)self errorIndicatesThatInterruptionWasCausedByDecisionHandler:errorCopy]];
-    [(CRKTransportPreflightOperation *)self invalidateTransport];
+      [(CRKTransportPreflightOperation *)self setConnectionInterruptedDueToDecisionHandler:[(CRKTransportPreflightOperation *)self errorIndicatesThatInterruptionWasCausedByDecisionHandler:errorCopy]];
+      [(CRKTransportPreflightOperation *)self invalidateTransport];
+    }
   }
 }
 
@@ -340,11 +349,12 @@ void __88__CRKTransportPreflightOperation_transport_encounteredTrustDecisionWhil
 - (void)handleContinuationDecision:(unint64_t)decision forTrustDecision:(id)trustDecision
 {
   trustDecisionCopy = trustDecision;
+  v7 = trustDecisionCopy;
   if (decision == 2)
   {
     selfCopy2 = self;
-    v9 = trustDecisionCopy;
-    v10 = 1;
+    v10 = v7;
+    v11 = 1;
   }
 
   else
@@ -356,26 +366,26 @@ void __88__CRKTransportPreflightOperation_transport_encounteredTrustDecisionWhil
 
     else if (decision)
     {
-      v7 = _CRKLogSession_0();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _CRKLogSession_0(trustDecisionCopy);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(CRKTransportPreflightOperation *)self handleContinuationDecision:decision forTrustDecision:v7];
+        [(CRKTransportPreflightOperation *)self handleContinuationDecision:decision forTrustDecision:v8];
       }
     }
 
     selfCopy2 = self;
-    v9 = trustDecisionCopy;
-    v10 = 0;
+    v10 = v7;
+    v11 = 0;
   }
 
-  [(CRKTransportPreflightOperation *)selfCopy2 respondToTrustDecision:v9 withAllowUntrustedConnections:v10];
+  [(CRKTransportPreflightOperation *)selfCopy2 respondToTrustDecision:v10 withAllowUntrustedConnections:v11];
 }
 
 - (void)respondToTrustDecision:(id)decision withAllowUntrustedConnections:(BOOL)connections
 {
   connectionsCopy = connections;
   decisionCopy = decision;
-  v7 = _CRKLogSession_0();
+  v7 = _CRKLogSession_0(decisionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [(CRKTransportPreflightOperation *)self respondToTrustDecision:connectionsCopy withAllowUntrustedConnections:v7];
@@ -385,10 +395,10 @@ void __88__CRKTransportPreflightOperation_transport_encounteredTrustDecisionWhil
   trust = [decisionCopy trust];
   v10 = [(CRKConcreteTrust *)v8 initWithTrust:trust];
 
-  v11 = _CRKLogSession_0();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = _CRKLogSession_0(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    [(CRKTransportPreflightOperation *)self respondToTrustDecision:v10 withAllowUntrustedConnections:v11];
+    [(CRKTransportPreflightOperation *)self respondToTrustDecision:v10 withAllowUntrustedConnections:v12];
   }
 
   [decisionCopy respondWithDecisionToAllowUntrustedConnection:connectionsCopy];
@@ -396,36 +406,37 @@ void __88__CRKTransportPreflightOperation_transport_encounteredTrustDecisionWhil
 
 - (BOOL)isCommonNamePrefixValidForTransport:(id)transport
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   transportCopy = transport;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v5 = [(CRKTransportPreflightOperation *)self isCommonNamePrefixValidForRemoteTransport:transportCopy];
+    v6 = [(CRKTransportPreflightOperation *)self isCommonNamePrefixValidForRemoteTransport:transportCopy];
   }
 
   else
   {
-    v6 = _CRKLogSession_0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _CRKLogSession_0(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       session = [(CRKTransportPreflightOperation *)self session];
       session2 = [(CRKTransportPreflightOperation *)self session];
       endpoint = [session2 endpoint];
       stringValue = [endpoint stringValue];
-      v12 = 138543874;
-      v13 = session;
-      v14 = 2114;
-      v15 = stringValue;
-      v16 = 2114;
-      v17 = transportCopy;
-      _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "SESSION:%{public}@. IP:%{public}@. Not validating common name prefix of certificate because transport %{public}@ is not remote", &v12, 0x20u);
+      v13 = 138543874;
+      v14 = session;
+      v15 = 2114;
+      v16 = stringValue;
+      v17 = 2114;
+      v18 = transportCopy;
+      _os_log_impl(&dword_243550000, v7, OS_LOG_TYPE_DEFAULT, "SESSION:%{public}@. IP:%{public}@. Not validating common name prefix of certificate because transport %{public}@ is not remote", &v13, 0x20u);
     }
 
-    v5 = 1;
+    v6 = 1;
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)isCommonNamePrefixValidForRemoteTransport:(id)transport
@@ -436,7 +447,7 @@ void __88__CRKTransportPreflightOperation_transport_encounteredTrustDecisionWhil
 
   v7 = [(CRKConcreteTrust *)v5 initWithTrust:peerTrust];
   leafCertificate = [(CRKConcreteTrust *)v7 leafCertificate];
-  v9 = _CRKLogSession_0();
+  v9 = _CRKLogSession_0(leafCertificate);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [(CRKTransportPreflightOperation *)self isCommonNamePrefixValidForRemoteTransport:leafCertificate, v9];

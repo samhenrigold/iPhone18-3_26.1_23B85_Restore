@@ -163,7 +163,7 @@ LABEL_15:
 {
   requestCopy = request;
   completionCopy = completion;
-  v8 = BCImageCacheLog();
+  v8 = BCImageCacheLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf) = 67109378;

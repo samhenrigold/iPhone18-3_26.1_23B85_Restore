@@ -49,7 +49,7 @@
 
 - (uint64_t)_storeUserDomainConcepts:(uint64_t)concepts method:(uint64_t)method error:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
   if (self)
   {
@@ -64,13 +64,13 @@
       {
         v11 = [v7 count];
         v12 = HKStringFromUserDomainConceptStoreMethod();
-        v16 = 138543874;
+        v15 = 138543874;
         selfCopy = self;
-        v18 = 2048;
-        v19 = v11;
-        v20 = 2112;
-        v21 = v12;
-        _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "%{public}@: Store %ld concepts with method '%@'", &v16, 0x20u);
+        v17 = 2048;
+        v18 = v11;
+        v19 = 2112;
+        v20 = v12;
+        _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "%{public}@: Store %ld concepts with method '%@'", &v15, 0x20u);
       }
     }
 
@@ -82,7 +82,6 @@
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -109,23 +108,23 @@
 
 - (void)remote_createAndStoreUserDomainConceptWithConceptIdentifier:(id)identifier additionalProperties:(id)properties userDomainConceptTypeIdentifier:(id)typeIdentifier completion:(id)completion
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   typeIdentifierCopy = typeIdentifier;
   propertiesCopy = properties;
   identifierCopy = identifier;
   profile = [(HDStandardTaskServer *)self profile];
-  v23 = 0;
-  v15 = [HDUserDomainConceptEntity createAndRefreshOntologyBackedUserDomainConceptWithConceptIdentifier:identifierCopy additionalProperties:propertiesCopy userDomainConceptTypeIdentifier:typeIdentifierCopy profile:profile error:&v23];
+  v22 = 0;
+  v15 = [HDUserDomainConceptEntity createAndRefreshOntologyBackedUserDomainConceptWithConceptIdentifier:identifierCopy additionalProperties:propertiesCopy userDomainConceptTypeIdentifier:typeIdentifierCopy profile:profile error:&v22];
 
-  v16 = v23;
+  v16 = v22;
   if (v15)
   {
-    v24[0] = v15;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
-    v22 = v16;
-    v18 = [(HDUserDomainConceptStoreTaskServer *)self _storeUserDomainConcepts:v17 method:1 error:&v22];
-    v19 = v22;
+    v23[0] = v15;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v21 = v16;
+    v18 = [(HDUserDomainConceptStoreTaskServer *)self _storeUserDomainConcepts:v17 method:1 error:&v21];
+    v19 = v21;
 
     if (v18)
     {
@@ -145,28 +144,26 @@
   {
     completionCopy[2](completionCopy, 0, v16);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyClientForChangesOfType:(void *)type userDomainConcepts:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   if (self)
   {
     os_unfair_lock_lock((self + 48));
     if (*(self + 52) == 1)
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __87__HDUserDomainConceptStoreTaskServer__notifyClientForChangesOfType_userDomainConcepts___block_invoke;
-      v14[3] = &unk_27861D390;
-      v14[4] = self;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __87__HDUserDomainConceptStoreTaskServer__notifyClientForChangesOfType_userDomainConcepts___block_invoke;
+      v13[3] = &unk_27861D390;
+      v13[4] = self;
       v6 = typeCopy;
-      v15 = v6;
-      v16 = a2;
-      v7 = [self remoteObjectProxyWithErrorHandler:v14];
+      v14 = v6;
+      v15 = a2;
+      v7 = [self remoteObjectProxyWithErrorHandler:v13];
       _HKInitializeLogging();
       v8 = HKLogHealthOntology();
       v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
@@ -180,10 +177,10 @@
           v12 = HKStringFromUserDomainConceptStoreChangeType();
           *buf = 138543874;
           selfCopy = self;
-          v19 = 2048;
-          v20 = v11;
-          v21 = 2112;
-          v22 = v12;
+          v18 = 2048;
+          v19 = v11;
+          v20 = 2112;
+          v21 = v12;
           _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "%{public}@: Notify client for %ld changes of type '%@'", buf, 0x20u);
         }
       }
@@ -193,34 +190,29 @@
 
     os_unfair_lock_unlock((self + 48));
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __87__HDUserDomainConceptStoreTaskServer__notifyClientForChangesOfType_userDomainConcepts___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = HKLogHealthOntology();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = [*(a1 + 40) count];
-    v8 = *(a1 + 48);
-    v9 = HKStringFromUserDomainConceptStoreChangeType();
-    v10 = 138544130;
+    v5 = *(a1 + 32);
+    v6 = [*(a1 + 40) count];
+    v7 = HKStringFromUserDomainConceptStoreChangeType();
+    v8 = 138544130;
+    v9 = v5;
+    v10 = 2048;
     v11 = v6;
-    v12 = 2048;
+    v12 = 2112;
     v13 = v7;
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2114;
-    v17 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Unable to notify client for %ld changes of type '%@': %{public}@", &v10, 0x2Au);
+    v14 = 2114;
+    v15 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Unable to notify client for %ld changes of type '%@': %{public}@", &v8, 0x2Au);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

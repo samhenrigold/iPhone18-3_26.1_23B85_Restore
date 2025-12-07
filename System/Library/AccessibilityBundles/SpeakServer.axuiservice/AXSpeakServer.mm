@@ -8,9 +8,11 @@
 - (id)_massageKeyboardLanguage:(id)language;
 - (id)_prepareSpeechAction;
 - (id)_processCharacterForPunctuation:(id)punctuation;
+- (id)processMessage:(id)message withIdentifier:(unint64_t)identifier fromClientWithIdentifier:(id)withIdentifier pid:(int)pid error:(id *)error;
 - (void)_observeNotifications:(BOOL)notifications;
 - (void)_observeSpeechAccessibilityPreferenceChanges;
 - (void)_processTypingFeedback:(id)feedback;
+- (void)_speakAction:(id)action isForResponderElement:(BOOL)element;
 - (void)_tryObservingNotifications;
 - (void)_updateSpokenLangugage:(id)langugage;
 - (void)dealloc;
@@ -515,7 +517,6 @@ LABEL_20:
     v8 = AXUnicodeCodePointForCharacterString();
     if (v8 >= 0x10000)
     {
-      currentLanguage = self->_currentLanguage;
       v7 = AXVOLocalizedStringForCharacter();
       v10 = v6;
     }
@@ -718,6 +719,343 @@ LABEL_34:
   }
 }
 
+- (id)processMessage:(id)message withIdentifier:(unint64_t)identifier fromClientWithIdentifier:(id)withIdentifier pid:(int)pid error:(id *)error
+{
+  v7 = *&pid;
+  messageCopy = message;
+  withIdentifierCopy = withIdentifier;
+  v13 = AXLogSpeakTyping();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  {
+    sub_43E8(messageCopy, v13);
+  }
+
+  v14 = [messageCopy objectForKey:@"AXSpeakTypingPayloadKeyLanguage"];
+  v15 = AXLanguageCanonicalFormToGeneralLanguage();
+
+  if (v15)
+  {
+    [(AXSpeakServer *)self _updateSpokenLangugage:v15];
+  }
+
+  _prepareSpeechAction = [(AXSpeakServer *)self _prepareSpeechAction];
+  v17 = 0;
+  if (identifier <= 8)
+  {
+    if (identifier <= 5)
+    {
+      switch(identifier)
+      {
+        case 3uLL:
+          if (![(AXSpeakServer *)self _isAllowedToSpeakForPid:v7])
+          {
+            speechManager2 = AXLogSpeakTyping();
+            if (os_log_type_enabled(speechManager2, OS_LOG_TYPE_ERROR))
+            {
+              sub_4460(v7, speechManager2);
+            }
+
+            goto LABEL_61;
+          }
+
+          buf[0] = 0;
+          objc_opt_class();
+          v27 = [messageCopy objectForKey:AXSpeakTypingPayloadKeyPrediction];
+          v28 = __UIAccessibilityCastAsClass();
+
+          [_prepareSpeechAction setString:v28];
+          [(AXSpeakServer *)self _speakAction:_prepareSpeechAction isForResponderElement:1];
+          break;
+        case 4uLL:
+          v41 = +[AXSpringBoardServer server];
+          isRingerMuted = [v41 isRingerMuted];
+
+          if (isRingerMuted && !UIAccessibilityIsVoiceOverRunning())
+          {
+            goto LABEL_68;
+          }
+
+          if ([(AXSpeakServer *)self _isAllowedToSpeakForPid:v7])
+          {
+            buf[0] = 0;
+            objc_opt_class();
+            v43 = [messageCopy objectForKey:AXSpeakTypingPayloadKeyWord];
+            v28 = __UIAccessibilityCastAsClass();
+
+            v44 = AXLogSpeakTyping();
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138477827;
+              v69 = v28;
+              _os_log_impl(&dword_0, v44, OS_LOG_TYPE_DEFAULT, "autocorrect: %{private}@", buf, 0xCu);
+            }
+
+            [(AXSpeakServer *)self processAutocorrectionOutput:v28];
+          }
+
+          else
+          {
+            v28 = AXLogSpeakTyping();
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            {
+              sub_44D8(self, v7, v28);
+            }
+          }
+
+          break;
+        case 5uLL:
+          v18 = +[AXSpringBoardServer server];
+          isRingerMuted2 = [v18 isRingerMuted];
+
+          v20 = [messageCopy objectForKey:@"fromAutocorrections"];
+          bOOLValue = [v20 BOOLValue];
+
+          if (bOOLValue && isRingerMuted2)
+          {
+            if (UIAccessibilityIsVoiceOverRunning())
+            {
+              goto LABEL_68;
+            }
+
+            goto LABEL_58;
+          }
+
+          if ((bOOLValue & 1) == 0)
+          {
+LABEL_58:
+            speechManager = [(AXSpeakServer *)self speechManager];
+            [speechManager stopSpeaking:0];
+
+            speechManager2 = [(AXSpeakServer *)self speechManager];
+            [speechManager2 clearSpeechQueue];
+            goto LABEL_61;
+          }
+
+LABEL_68:
+          v17 = 0;
+          goto LABEL_75;
+        default:
+          goto LABEL_75;
+      }
+
+LABEL_67:
+
+      goto LABEL_68;
+    }
+
+    if (identifier == 6)
+    {
+      speechManager3 = [(AXSpeakServer *)self speechManager];
+      [speechManager3 stopSpeaking:0];
+
+      v28 = [messageCopy objectForKey:AXSpeakTypingPayloadKeyWord];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        objc_opt_class();
+        v32 = __UIAccessibilityCastAsClass();
+        objc_opt_class();
+        v33 = [messageCopy objectForKey:@"AXSpeakTypingPayloadKeyRate"];
+        v34 = __UIAccessibilityCastAsClass();
+
+        [v34 doubleValue];
+        v36 = v35;
+
+        buf[0] = 0;
+        objc_opt_class();
+        v37 = [messageCopy objectForKey:@"AXSpeakTypingPayloadKeyVolume"];
+        v38 = __UIAccessibilityCastAsClass();
+
+        [v38 doubleValue];
+        v40 = v39;
+
+        [_prepareSpeechAction setString:v32];
+        if (v36 > 0.0)
+        {
+          [_prepareSpeechAction setSpeakingRate:v36];
+        }
+
+        if (v40 > 0.0)
+        {
+          [_prepareSpeechAction setVolume:v40];
+        }
+
+        [(AXSpeakServer *)self _speakAction:_prepareSpeechAction isForResponderElement:0];
+      }
+
+      else
+      {
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          goto LABEL_67;
+        }
+
+        v56 = objc_opt_class();
+        v32 = [NSSet setWithObjects:v56, objc_opt_class(), 0];
+        buf[0] = 0;
+        objc_opt_class();
+        v57 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v32 fromData:v28 error:0];
+        v58 = __UIAccessibilityCastAsClass();
+
+        v59 = [v58 length];
+        v62[0] = _NSConcreteStackBlock;
+        v62[1] = 3221225472;
+        v62[2] = sub_3B28;
+        v62[3] = &unk_8530;
+        v62[4] = self;
+        v63 = v58;
+        v60 = v58;
+        [v60 enumerateAttributesInRange:0 options:v59 usingBlock:{0, v62}];
+      }
+
+      goto LABEL_67;
+    }
+
+    if (identifier == 7)
+    {
+      v47 = AXLogSpeakTyping();
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      {
+        lastSpeechAction = [(AXSpeakServer *)self lastSpeechAction];
+        *buf = 138477827;
+        v69 = lastSpeechAction;
+        _os_log_impl(&dword_0, v47, OS_LOG_TYPE_DEFAULT, "Retrieve last action: %{private}@", buf, 0xCu);
+      }
+
+      lastSpeechAction2 = [(AXSpeakServer *)self lastSpeechAction];
+      attributedString = [lastSpeechAction2 attributedString];
+      lastSpeechAction3 = [(AXSpeakServer *)self lastSpeechAction];
+      v52 = lastSpeechAction3;
+      if (attributedString)
+      {
+        attributedString2 = [lastSpeechAction3 attributedString];
+        string = [attributedString2 string];
+      }
+
+      else
+      {
+        string = [lastSpeechAction3 string];
+      }
+
+      if (string)
+      {
+        v26 = string;
+      }
+
+      else
+      {
+        v26 = &stru_8658;
+      }
+
+      v64 = @"result";
+      v65 = v26;
+      v17 = [NSDictionary dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+LABEL_74:
+
+      goto LABEL_75;
+    }
+
+    voiceIdentifier = [(TTSSpeechAction *)self->_lastSpeechAction voiceIdentifier];
+    v24 = voiceIdentifier;
+    if (voiceIdentifier)
+    {
+      v25 = voiceIdentifier;
+    }
+
+    else
+    {
+      v25 = &stru_8658;
+    }
+
+    v66 = @"result";
+    v67 = v25;
+    v17 = [NSDictionary dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+
+LABEL_31:
+    if (!AXIsInternalInstall())
+    {
+      goto LABEL_75;
+    }
+
+    v26 = [messageCopy objectForKey:@"enabled"];
+    [(__CFString *)v26 BOOLValue];
+    _AXSSetPhoneticFeedbackEnabled();
+    goto LABEL_74;
+  }
+
+  if (identifier <= 11)
+  {
+    if (identifier == 9)
+    {
+      v29 = AXLogSpeakTyping();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      {
+        lastSpeechAction4 = [(AXSpeakServer *)self lastSpeechAction];
+        *buf = 138477827;
+        v69 = lastSpeechAction4;
+        _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "Clear last: %{private}@", buf, 0xCu);
+      }
+
+      [(AXSpeakServer *)self setLastSpeechAction:0];
+      goto LABEL_68;
+    }
+
+    if (identifier == 10)
+    {
+      +[UIKeyboard removeAllDynamicDictionaries];
+      speechManager2 = +[AXSettings sharedInstance];
+      v45 = [messageCopy objectForKey:@"voiceIdentifier"];
+      v46 = [messageCopy objectForKey:@"language"];
+      [speechManager2 setSpeechVoiceIdentifier:v45 forLanguage:v46 sourceKey:AXSpeechSourceKeySpeechFeatures];
+    }
+
+    else
+    {
+      if (!AXIsInternalInstall())
+      {
+        goto LABEL_68;
+      }
+
+      speechManager2 = [messageCopy objectForKey:@"enabled"];
+      [speechManager2 BOOLValue];
+      _AXSSetLetterFeedbackEnabled();
+    }
+
+LABEL_61:
+
+    goto LABEL_68;
+  }
+
+  switch(identifier)
+  {
+    case 0xCuLL:
+      if (!AXIsInternalInstall())
+      {
+        goto LABEL_68;
+      }
+
+      speechManager2 = [messageCopy objectForKey:@"enabled"];
+      [speechManager2 BOOLValue];
+      _AXSSetWordFeedbackEnabled();
+      goto LABEL_61;
+    case 0xDuLL:
+      goto LABEL_31;
+    case 0xFuLL:
+      if (AXIsInternalInstall())
+      {
+        _AXSSetInUnitTestMode();
+      }
+
+      v17 = &off_8928;
+      break;
+  }
+
+LABEL_75:
+
+  return v17;
+}
+
 - (BOOL)_isAllowedToSpeakForPid:(int)pid
 {
   responderElement = [(AXSpeakServer *)self responderElement];
@@ -771,6 +1109,41 @@ LABEL_34:
 LABEL_13:
 
   return v7;
+}
+
+- (void)_speakAction:(id)action isForResponderElement:(BOOL)element
+{
+  elementCopy = element;
+  actionCopy = action;
+  v7 = +[MCProfileConnection sharedConnection];
+  v8 = [v7 effectiveBoolValueForSetting:MCFeatureAccessibilityTypingFeedbackAllowed];
+
+  speechManager = AXLogSpeakTyping();
+  v10 = os_log_type_enabled(speechManager, OS_LOG_TYPE_INFO);
+  if (v8 == 2)
+  {
+    if (v10)
+    {
+      v11 = 138477827;
+      v12 = actionCopy;
+      _os_log_impl(&dword_0, speechManager, OS_LOG_TYPE_INFO, "Will NOT speak action due to ManagedConfiguration restrictions: %{private}@", &v11, 0xCu);
+    }
+  }
+
+  else
+  {
+    if (v10)
+    {
+      v11 = 138477827;
+      v12 = actionCopy;
+      _os_log_impl(&dword_0, speechManager, OS_LOG_TYPE_INFO, "Will speak action: %{private}@", &v11, 0xCu);
+    }
+
+    [(AXSpeakServer *)self setLastSpeechAction:actionCopy];
+    [(AXSpeakServer *)self setIsLastSpeechActionForResponderElement:elementCopy];
+    speechManager = [(AXSpeakServer *)self speechManager];
+    [speechManager dispatchSpeechAction:actionCopy];
+  }
 }
 
 @end

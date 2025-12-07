@@ -127,7 +127,7 @@ LABEL_3:
 
 - (BOOL)execute:(id *)execute error:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   if (execute)
   {
     predicate = self->_predicate;
@@ -135,8 +135,8 @@ LABEL_3:
     {
       context = self->_context;
       v9 = [RBSPreventLaunchLimitation limitationWithPredicate:predicate andException:self->_allow];
-      v16[0] = v9;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+      v15[0] = v9;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
       [(RBSTerminateContext *)context setAttributes:v10];
     }
   }
@@ -151,9 +151,7 @@ LABEL_3:
     service = self->_service;
   }
 
-  result = [(RBSServiceLocalProtocol *)service executeTerminateRequest:self assertion:execute error:error];
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(RBSServiceLocalProtocol *)service executeTerminateRequest:self assertion:execute error:error];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -291,27 +289,27 @@ LABEL_8:
 
     if (!explanation)
     {
-      v15 = rbs_assertion_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v16 = rbs_assertion_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        _os_log_fault_impl(&dword_18E8AD000, v15, OS_LOG_TYPE_FAULT, "Explanation must be set in the RBSTerminateContext before using it to initialize a RBSTerminateRequest", buf, 2u);
+        _os_log_fault_impl(&dword_18E8AD000, v16, OS_LOG_TYPE_FAULT, "Explanation must be set in the RBSTerminateContext before using it to initialize a RBSTerminateRequest", buf, 2u);
       }
 
       [predicateCopy setExplanation:@"<no explanation given>"];
     }
 
-    v20.receiver = self;
-    v20.super_class = RBSTerminateRequest;
-    v16 = objc_msgSendSuper2(&v20, sel__init);
-    self = v16;
-    if (v16)
+    v21.receiver = self;
+    v21.super_class = RBSTerminateRequest;
+    v17 = objc_msgSendSuper2(&v21, sel__init);
+    self = v17;
+    if (v17)
     {
-      objc_storeStrong(v16 + 3, a2);
+      objc_storeStrong(v17 + 3, a2);
       objc_storeStrong(self + 4, context);
-      v17 = [predicateCopy copy];
-      v18 = self[5];
-      self[5] = v17;
+      v18 = [predicateCopy copy];
+      v19 = self[5];
+      self[5] = v18;
 
       objc_storeStrong(self + 1, launch);
     }

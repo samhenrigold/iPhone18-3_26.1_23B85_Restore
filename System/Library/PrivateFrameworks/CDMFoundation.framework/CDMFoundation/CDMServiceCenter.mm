@@ -49,7 +49,7 @@
 
 - (void)smService:(id)service didPublishRequest:(id)request withResponseCallback:(id)callback
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   requestCopy = request;
   callbackCopy = callback;
@@ -58,22 +58,21 @@
   {
     commandName = [requestCopy commandName];
     serviceName = [serviceCopy serviceName];
-    v15 = 136315650;
-    v16 = "[CDMServiceCenter smService:didPublishRequest:withResponseCallback:]";
-    v17 = 2112;
-    v18 = commandName;
-    v19 = 2112;
-    v20 = serviceName;
-    _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s Command: %@ Service: %@", &v15, 0x20u);
+    v14 = 136315650;
+    v15 = "[CDMServiceCenter smService:didPublishRequest:withResponseCallback:]";
+    v16 = 2112;
+    v17 = commandName;
+    v18 = 2112;
+    v19 = serviceName;
+    _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s Command: %@ Service: %@", &v14, 0x20u);
   }
 
   [(CDMServiceCenter *)self handleCommand:requestCopy forCallback:callbackCopy];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)smService:(id)service didPublishCommand:(id)command
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   commandCopy = command;
   v8 = CDMOSLoggerForCategory(3);
@@ -81,37 +80,36 @@
   {
     commandName = [commandCopy commandName];
     serviceName = [serviceCopy serviceName];
-    v12 = 136315650;
-    v13 = "[CDMServiceCenter smService:didPublishCommand:]";
-    v14 = 2112;
-    v15 = commandName;
-    v16 = 2112;
-    v17 = serviceName;
-    _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s Command: %@ Service: %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[CDMServiceCenter smService:didPublishCommand:]";
+    v13 = 2112;
+    v14 = commandName;
+    v15 = 2112;
+    v16 = serviceName;
+    _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s Command: %@ Service: %@", &v11, 0x20u);
   }
 
   [(CDMServiceCenter *)self handleCommand:commandCopy forCallback:self->_defaultCallback];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupEmbeddingConfigsWithError:(id *)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = [CDMEmbeddingConfigs alloc];
   assetPaths = [(CDMDynamicConfig *)self->_currentConfig assetPaths];
   embeddingVersion = [(CDMDynamicConfig *)self->_currentConfig embeddingVersion];
   v8 = [(CDMEmbeddingConfigs *)v5 initWithAssetPaths:assetPaths embeddingVersion:embeddingVersion];
 
-  v13 = 0;
-  [(CDMEmbeddingConfigs *)v8 setupWithError:&v13];
-  v9 = v13;
+  v12 = 0;
+  [(CDMEmbeddingConfigs *)v8 setupWithError:&v12];
+  v9 = v12;
   if (v9)
   {
     v10 = CDMOSLoggerForCategory(3);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v15 = "[CDMServiceCenter setupEmbeddingConfigsWithError:]";
+      v14 = "[CDMServiceCenter setupEmbeddingConfigsWithError:]";
       _os_log_error_impl(&dword_1DC287000, v10, OS_LOG_TYPE_ERROR, "%s [ERR]: Error occurs while setup setup CDM embedding configs.", buf, 0xCu);
     }
 
@@ -123,13 +121,11 @@
   {
     [(CDMDynamicConfig *)self->_currentConfig setEmbeddingConfigs:v8];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupCDMAssetManagerWithError:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = os_signpost_id_generate(CDMLogContext);
   v6 = CDMLogContext;
   v7 = v6;
@@ -148,9 +144,9 @@
   v13 = MEMORY[0x1E695DF58];
   languageCode2 = [(CDMDynamicConfig *)self->_currentConfig languageCode];
   v15 = [v13 localeWithLocaleIdentifier:languageCode2];
-  v24 = 0;
-  [v12 setupForLocale:v15 cdmAssetsInfo:v11 error:&v24];
-  v16 = v24;
+  v23 = 0;
+  [v12 setupForLocale:v15 cdmAssetsInfo:v11 error:&v23];
+  v16 = v23;
 
   v17 = CDMLogContext;
   v18 = v17;
@@ -168,31 +164,29 @@
       languageCode3 = [(CDMDynamicConfig *)self->_currentConfig languageCode];
       assetDirPath = [(CDMDynamicConfig *)self->_currentConfig assetDirPath];
       *buf = 136315650;
-      v26 = "[CDMServiceCenter setupCDMAssetManagerWithError:]";
-      v27 = 2114;
-      v28 = languageCode3;
-      v29 = 2114;
-      v30 = assetDirPath;
+      v25 = "[CDMServiceCenter setupCDMAssetManagerWithError:]";
+      v26 = 2114;
+      v27 = languageCode3;
+      v28 = 2114;
+      v29 = assetDirPath;
       _os_log_error_impl(&dword_1DC287000, v19, OS_LOG_TYPE_ERROR, "%s [ERR]: Error occurs while setup CDMAssetsManager with locale: %{public}@, asset dir path: %{public}@. Return NO.", buf, 0x20u);
     }
 
     v20 = v16;
     *error = v16;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupAssetsForCDMAssetsInfo:(id)info withError:(id *)error andSelfMetadata:(id)metadata dataDispatcherContext:(id)context
 {
-  v65[1] = *MEMORY[0x1E69E9840];
+  v64[1] = *MEMORY[0x1E69E9840];
   infoCopy = info;
   metadataCopy = metadata;
   contextCopy = context;
   v11 = os_signpost_id_generate(CDMLogContext);
   v12 = CDMLogContext;
   v13 = v12;
-  v53 = v11 - 1;
+  v52 = v11 - 1;
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
@@ -214,27 +208,27 @@
   languageCode2 = [(CDMDynamicConfig *)selfCopy->_currentConfig languageCode];
   LODWORD(graphName) = [v15 shouldReSetupForLocale:languageCode2 cdmAssetsInfo:v20];
 
-  if (graphName && (v57 = 0, [(CDMServiceCenter *)selfCopy setupCDMAssetManagerWithError:&v57], (v22 = v57) != 0))
+  if (graphName && (v56 = 0, [(CDMServiceCenter *)selfCopy setupCDMAssetManagerWithError:&v56], (v22 = v56) != 0))
   {
     v23 = v22;
     v24 = MEMORY[0x1E696AEC0];
     languageCode3 = [(CDMDynamicConfig *)selfCopy->_currentConfig languageCode];
     assetDirPath = [(CDMDynamicConfig *)selfCopy->_currentConfig assetDirPath];
-    v51 = [v24 stringWithFormat:@"Error occurs while initializing CDMAssetsManager with locale: %@, asset dir path: %@.", languageCode3, assetDirPath];
+    v50 = [v24 stringWithFormat:@"Error occurs while initializing CDMAssetsManager with locale: %@, asset dir path: %@.", languageCode3, assetDirPath];
 
     v27 = MEMORY[0x1E696ABC0];
-    v64 = *MEMORY[0x1E696A578];
-    v65[0] = v51;
-    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:&v64 count:1];
+    v63 = *MEMORY[0x1E696A578];
+    v64[0] = v50;
+    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:&v63 count:1];
     *error = [v27 errorWithDomain:@"CDMServiceCenter" code:0 userInfo:v28];
 
     v29 = CDMOSLoggerForCategory(3);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v61 = "[CDMServiceCenter setupAssetsForCDMAssetsInfo:withError:andSelfMetadata:dataDispatcherContext:]";
-      v62 = 2114;
-      v63 = v51;
+      v60 = "[CDMServiceCenter setupAssetsForCDMAssetsInfo:withError:andSelfMetadata:dataDispatcherContext:]";
+      v61 = 2114;
+      v62 = v50;
       _os_log_error_impl(&dword_1DC287000, v29, OS_LOG_TYPE_ERROR, "%s [ERR]: %{public}@", buf, 0x16u);
     }
 
@@ -244,7 +238,7 @@
     +[CDMSELFLogUtil cdmAssetSetupFailed:contextId:errorDomain:errorCode:logMessage:dataDispatcherContext:](CDMSELFLogUtil, "cdmAssetSetupFailed:contextId:errorDomain:errorCode:logMessage:dataDispatcherContext:", metadataCopy, v14, [v31 intValue], objc_msgSend(v23, "code"), @"SELF asset setup failed (CDMAssetsManager initialization error) message emitted", contextCopy);
     v32 = CDMLogContext;
     v33 = v32;
-    if (v53 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+    if (v52 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
     {
       *buf = 0;
       _os_signpost_emit_with_name_impl(&dword_1DC287000, v33, OS_SIGNPOST_INTERVAL_END, spid, "CDMServiceCenterSetupAssetsForServices", " enableTelemetry=YES ", buf, 2u);
@@ -271,16 +265,16 @@
     [CDMSELFLogUtil cdmAssetsReported:assetPaths metadata:metadataCopy dataDispatcherContext:contextCopy];
 
     assetPaths2 = [*p_currentConfig assetPaths];
-    v56 = 0;
-    LOBYTE(assetDirPath2) = [v15 areAssetsAvailableForCDMAssetsInfo:infoCopy factorToAsset:assetPaths2 withError:&v56 withSelfMetadata:metadataCopy withSelfContextId:v14 withDataDispatcherContext:contextCopy];
-    selfCopy = v56;
+    v55 = 0;
+    LOBYTE(assetDirPath2) = [v15 areAssetsAvailableForCDMAssetsInfo:infoCopy factorToAsset:assetPaths2 withError:&v55 withSelfMetadata:metadataCopy withSelfContextId:v14 withDataDispatcherContext:contextCopy];
+    selfCopy = v55;
 
     if (assetDirPath2)
     {
       [CDMSELFLogUtil cdmAssetSetupEnded:metadataCopy contextId:v14 logMessage:@"SELF asset setup ended message emitted" dataDispatcherContext:contextCopy];
       v44 = CDMLogContext;
       v45 = v44;
-      if (v53 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v44))
+      if (v52 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v44))
       {
         *buf = 0;
         _os_signpost_emit_with_name_impl(&dword_1DC287000, v45, OS_SIGNPOST_INTERVAL_END, spid, "CDMServiceCenterSetupAssetsForServices", " enableTelemetry=YES ", buf, 2u);
@@ -290,25 +284,23 @@
     else
     {
       v46 = MEMORY[0x1E696ABC0];
-      v58[0] = *MEMORY[0x1E696A578];
+      v57[0] = *MEMORY[0x1E696A578];
       localizedDescription = [(CDMServiceCenter *)selfCopy localizedDescription];
-      v59[0] = localizedDescription;
-      v58[1] = *MEMORY[0x1E696A588];
+      v58[0] = localizedDescription;
+      v57[1] = *MEMORY[0x1E696A588];
       localizedFailureReason = [(CDMServiceCenter *)selfCopy localizedFailureReason];
-      v59[1] = localizedFailureReason;
-      v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:2];
+      v58[1] = localizedFailureReason;
+      v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:2];
       *error = [v46 errorWithDomain:@"CDMServiceCenter" code:0 userInfo:v49];
 
       [CDMSELFLogUtil cdmAssetSetupFailed:metadataCopy contextId:v14 errorDomain:2 errorCode:1 logMessage:@"SELF asset setup failed (not all assets available) message emitted" dataDispatcherContext:contextCopy];
     }
   }
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)handleXPCActivity:(id)activity fromIdentifier:(id)identifier withRegister:(id)register
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   identifierCopy = identifier;
   registerCopy = register;
@@ -322,15 +314,15 @@
   v13 = CDMOSLoggerForCategory(3);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v33 = [v8 idA];
+    v32 = [v8 idA];
     *buf = 136315394;
-    v39 = "[CDMServiceCenter handleXPCActivity:fromIdentifier:withRegister:]";
-    v40 = 2112;
-    v41 = v33;
+    v38 = "[CDMServiceCenter handleXPCActivity:fromIdentifier:withRegister:]";
+    v39 = 2112;
+    v40 = v32;
     _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s Generated request id with UUID: %@", buf, 0x16u);
   }
 
-  v34 = v8;
+  v33 = v8;
   v14 = [CDMSELFLogUtil createSELFMetadataWithRequestId:v8];
   v15 = objc_alloc_init(MEMORY[0x1E696AFB0]);
   v16 = objc_alloc_init(CDMDataDispatcherContext);
@@ -340,9 +332,9 @@
   defaultLocaleIdentifier = [(CDMConfig *)v17 defaultLocaleIdentifier];
   v20 = [v18 localeWithLocaleIdentifier:defaultLocaleIdentifier];
 
-  v37 = 0;
-  v21 = [CDMServiceCenter getDynamicConfigWithAssetCollectionForGraph:@"CDMNLUServiceGraph" withLocale:v20 withError:&v37 withSelfMetadata:0];
-  v22 = v37;
+  v36 = 0;
+  v21 = [CDMServiceCenter getDynamicConfigWithAssetCollectionForGraph:@"CDMNLUServiceGraph" withLocale:v20 withError:&v36 withSelfMetadata:0];
+  v22 = v36;
   if (v22)
   {
     identifierCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to set up assets. Aborting XPC activity handling for (identifier=%@).", identifierCopy];
@@ -350,9 +342,9 @@
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v39 = "[CDMServiceCenter handleXPCActivity:fromIdentifier:withRegister:]";
-      v40 = 2114;
-      v41 = identifierCopy;
+      v38 = "[CDMServiceCenter handleXPCActivity:fromIdentifier:withRegister:]";
+      v39 = 2114;
+      v40 = identifierCopy;
       _os_log_error_impl(&dword_1DC287000, v24, OS_LOG_TYPE_ERROR, "%s [ERR]: %{public}@", buf, 0x16u);
     }
 
@@ -375,9 +367,9 @@ LABEL_12:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v39 = "[CDMServiceCenter handleXPCActivity:fromIdentifier:withRegister:]";
-      v40 = 2114;
-      v41 = identifierCopy;
+      v38 = "[CDMServiceCenter handleXPCActivity:fromIdentifier:withRegister:]";
+      v39 = 2114;
+      v40 = identifierCopy;
       _os_log_error_impl(&dword_1DC287000, v30, OS_LOG_TYPE_ERROR, "%s [ERR]: %{public}@", buf, 0x16u);
     }
 
@@ -390,13 +382,12 @@ LABEL_12:
   v29 = 1;
 LABEL_13:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
 - (BOOL)handleXPCEvent:(id)event fromStream:(id)stream withRegister:(id)register
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   streamCopy = stream;
   registerCopy = register;
@@ -410,30 +401,30 @@ LABEL_13:
   v14 = CDMOSLoggerForCategory(3);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v35 = [v9 idA];
+    v34 = [v9 idA];
     *buf = 136315394;
-    v42 = "[CDMServiceCenter handleXPCEvent:fromStream:withRegister:]";
-    v43 = 2112;
-    v44 = v35;
+    v41 = "[CDMServiceCenter handleXPCEvent:fromStream:withRegister:]";
+    v42 = 2112;
+    v43 = v34;
     _os_log_debug_impl(&dword_1DC287000, v14, OS_LOG_TYPE_DEBUG, "%s Generated request id with UUID: %@", buf, 0x16u);
   }
 
-  v36 = v9;
+  v35 = v9;
   v15 = [CDMSELFLogUtil createSELFMetadataWithRequestId:v9];
   v16 = objc_alloc_init(MEMORY[0x1E696AFB0]);
   v17 = [XPCStreamEventUtils getXPCEventName:eventCopy];
   v18 = objc_alloc_init(CDMDataDispatcherContext);
-  v38 = v17;
+  v37 = v17;
   [CDMSELFLogUtil cdmXpcProcessingStarted:v16 xpcType:1 xpcSystemEventType:[CDMSELFLogUtil stringXPCSystemEventTypeToEnum:v17] serviceName:0 metadata:v15 logMessage:@"SELF CDM XPC Processing started log emitted" dataDispatcherContext:v18];
   v19 = objc_alloc_init(CDMConfig);
   v20 = MEMORY[0x1E695DF58];
   defaultLocaleIdentifier = [(CDMConfig *)v19 defaultLocaleIdentifier];
   v22 = [v20 localeWithLocaleIdentifier:defaultLocaleIdentifier];
 
-  v40 = 0;
-  v23 = [CDMServiceCenter getDynamicConfigWithAssetCollectionForGraph:@"CDMNLUServiceGraph" withLocale:v22 withError:&v40 withSelfMetadata:0];
-  v24 = v40;
-  v37 = eventCopy;
+  v39 = 0;
+  v23 = [CDMServiceCenter getDynamicConfigWithAssetCollectionForGraph:@"CDMNLUServiceGraph" withLocale:v22 withError:&v39 withSelfMetadata:0];
+  v24 = v39;
+  v36 = eventCopy;
   if (v24)
   {
     v25 = streamCopy;
@@ -442,9 +433,9 @@ LABEL_13:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v42 = "[CDMServiceCenter handleXPCEvent:fromStream:withRegister:]";
-      v43 = 2114;
-      v44 = streamCopy;
+      v41 = "[CDMServiceCenter handleXPCEvent:fromStream:withRegister:]";
+      v42 = 2114;
+      v43 = streamCopy;
       _os_log_error_impl(&dword_1DC287000, v27, OS_LOG_TYPE_ERROR, "%s [ERR]: %{public}@", buf, 0x16u);
     }
 
@@ -461,14 +452,14 @@ LABEL_12:
   v25 = streamCopy;
   if (([registerCopy handleXPCEvent:v30 fromStream:streamCopy currentConfig:v23 withSelfMetadata:v15] & 1) == 0)
   {
-    streamCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"[CDMServiceCenter -handleXPCEvent:fromStream:withRegister:] called with unhandled XPC event (streamName=%@, eventName=%@)", streamCopy, v38];
+    streamCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"[CDMServiceCenter -handleXPCEvent:fromStream:withRegister:] called with unhandled XPC event (streamName=%@, eventName=%@)", streamCopy, v37];
     v32 = CDMOSLoggerForCategory(3);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v42 = "[CDMServiceCenter handleXPCEvent:fromStream:withRegister:]";
-      v43 = 2114;
-      v44 = streamCopy;
+      v41 = "[CDMServiceCenter handleXPCEvent:fromStream:withRegister:]";
+      v42 = 2114;
+      v43 = streamCopy;
       _os_log_error_impl(&dword_1DC287000, v32, OS_LOG_TYPE_ERROR, "%s [ERR]: %{public}@", buf, 0x16u);
     }
 
@@ -481,16 +472,15 @@ LABEL_12:
   v31 = 1;
 LABEL_13:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
 - (BOOL)areAssetsAvailable:(id)available
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  [(CDMServiceCenter *)self setupCDMAssetManagerWithError:&v38];
-  v4 = v38;
+  v43 = *MEMORY[0x1E69E9840];
+  v37 = 0;
+  [(CDMServiceCenter *)self setupCDMAssetManagerWithError:&v37];
+  v4 = v37;
   if (!v4)
   {
     v5 = +[CDMAssetsManager getSingletonCDMAssetsManager];
@@ -504,9 +494,9 @@ LABEL_13:
       v11 = [(objc_class *)v9 getAssetsForSetup:languageCode];
 
       assetPaths = [(CDMDynamicConfig *)self->_currentConfig assetPaths];
-      v37 = 0;
-      v6 = [v5 areAssetsAvailableForCDMAssetsInfo:v11 factorToAsset:assetPaths withError:&v37];
-      v13 = v37;
+      v36 = 0;
+      v6 = [v5 areAssetsAvailableForCDMAssetsInfo:v11 factorToAsset:assetPaths withError:&v36];
+      v13 = v36;
 
       obj = v13;
       if (!v13)
@@ -520,21 +510,21 @@ LABEL_28:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v41 = "[CDMServiceCenter areAssetsAvailable:]";
-        v42 = 2114;
-        v43 = v13;
+        v40 = "[CDMServiceCenter areAssetsAvailable:]";
+        v41 = 2114;
+        v42 = v13;
         _os_log_error_impl(&dword_1DC287000, v14, OS_LOG_TYPE_ERROR, "%s [ERR]: Assets availability check failed with error: %{public}@.", buf, 0x16u);
       }
     }
 
     else
     {
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       obj = [CDMServiceCenterUtils getAvailableServiceGraphs:self->_config];
-      v15 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v15 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
       if (!v15)
       {
         v11 = 0;
@@ -545,28 +535,28 @@ LABEL_28:
       v16 = v15;
       v14 = 0;
       v11 = 0;
-      v31 = *v34;
+      v30 = *v33;
 LABEL_11:
       v17 = 0;
       v18 = v14;
       v19 = v11;
       while (1)
       {
-        if (*v34 != v31)
+        if (*v33 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v33 + 1) + 8 * v17);
+        v20 = *(*(&v32 + 1) + 8 * v17);
         v21 = NSClassFromString(v20);
         languageCode2 = [(CDMDynamicConfig *)self->_currentConfig languageCode];
         v11 = [(objc_class *)v21 getAssetsForSetup:languageCode2];
 
         assetPaths2 = [(CDMDynamicConfig *)self->_currentConfig assetPaths];
-        v32 = v18;
+        v31 = v18;
         v24 = v5;
-        v25 = [v5 areAssetsAvailableForCDMAssetsInfo:v11 factorToAsset:assetPaths2 withError:&v32];
-        v14 = v32;
+        v25 = [v5 areAssetsAvailableForCDMAssetsInfo:v11 factorToAsset:assetPaths2 withError:&v31];
+        v14 = v31;
 
         if ((v25 & 1) == 0)
         {
@@ -579,7 +569,7 @@ LABEL_11:
         v5 = v24;
         if (v16 == v17)
         {
-          v16 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+          v16 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
           v6 = 1;
           if (v16)
           {
@@ -595,9 +585,9 @@ LABEL_11:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v41 = "[CDMServiceCenter areAssetsAvailable:]";
-        v42 = 2112;
-        v43 = v20;
+        v40 = "[CDMServiceCenter areAssetsAvailable:]";
+        v41 = 2112;
+        v42 = v20;
         _os_log_debug_impl(&dword_1DC287000, v26, OS_LOG_TYPE_DEBUG, "%s Assets not available for graph: %@", buf, 0x16u);
       }
 
@@ -613,9 +603,9 @@ LABEL_11:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v41 = "[CDMServiceCenter areAssetsAvailable:]";
-        v42 = 2114;
-        v43 = v14;
+        v40 = "[CDMServiceCenter areAssetsAvailable:]";
+        v41 = 2114;
+        v42 = v14;
         _os_log_error_impl(&dword_1DC287000, v27, OS_LOG_TYPE_ERROR, "%s [ERR]: Assets availability check failed with error: %{public}@.", buf, 0x16u);
       }
 
@@ -632,14 +622,13 @@ LABEL_27:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v41 = "[CDMServiceCenter areAssetsAvailable:]";
+    v40 = "[CDMServiceCenter areAssetsAvailable:]";
     _os_log_error_impl(&dword_1DC287000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: Error occurs while initializing CDMAssetsManager. Return NO.", buf, 0xCu);
   }
 
   v6 = 0;
 LABEL_29:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -653,93 +642,88 @@ LABEL_29:
 
 - (id)getEnabledDAGServiceNamesForGraph:(id)graph
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   requiredDAGServices = [NSClassFromString(graph) requiredDAGServices];
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_enabledDAGServiceNames, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = self->_enabledDAGServiceNames;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        if ([requiredDAGServices containsObject:{v11, v14}])
+        v11 = *(*(&v13 + 1) + 8 * i);
+        if ([requiredDAGServices containsObject:{v11, v13}])
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)extractEnabledServiceNames:(id)names
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   namesCopy = names;
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(namesCopy, "count")}];
+  v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
   v5 = namesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
         if ([objc_opt_class() isEnabled])
         {
-          v11 = objc_opt_class();
-          v12 = NSStringFromClass(v11);
-          [v4 addObject:v12];
+          v10 = objc_opt_class();
+          v11 = NSStringFromClass(v10);
+          [v4 addObject:v11];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (void)handleSetup:(id)setup forCallback:(id)callback
 {
-  v209 = *MEMORY[0x1E69E9840];
+  v208 = *MEMORY[0x1E69E9840];
   setupCopy = setup;
   callbackCopy = callback;
   v6 = CDMOSLoggerForCategory(4);
@@ -750,7 +734,7 @@ LABEL_29:
 
   v9 = CDMOSLoggerForCategory(4);
   v10 = v9;
-  v114 = spid - 1;
+  v113 = spid - 1;
   if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     LOWORD(buf) = 0;
@@ -769,46 +753,46 @@ LABEL_29:
     _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s CDM setup started", &buf, 0xCu);
   }
 
-  v125 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_dagServices, "count") + 1}];
+  v124 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_dagServices, "count") + 1}];
   graphName = [(CDMDynamicConfig *)self->_currentConfig graphName];
-  v126 = [(CDMServiceCenter *)self getEnabledDAGServiceNamesForGraph:graphName];
+  v125 = [(CDMServiceCenter *)self getEnabledDAGServiceNamesForGraph:graphName];
 
   graphName2 = [(CDMDynamicConfig *)self->_currentConfig graphName];
   v15 = NSClassFromString(graphName2);
   languageCode = [(CDMDynamicConfig *)self->_currentConfig languageCode];
-  v115 = [(objc_class *)v15 getAssetsForSetup:languageCode];
+  v114 = [(objc_class *)v15 getAssetsForSetup:languageCode];
 
-  [v125 addObject:self->_composerService];
-  v177 = 0u;
-  v178 = 0u;
-  v175 = 0u;
+  [v124 addObject:self->_composerService];
   v176 = 0u;
+  v177 = 0u;
+  v174 = 0u;
+  v175 = 0u;
   v17 = self->_dagServices;
-  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v175 objects:v208 count:16];
+  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v174 objects:v207 count:16];
   if (v18)
   {
-    v19 = *v176;
+    v19 = *v175;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v176 != v19)
+        if (*v175 != v19)
         {
           objc_enumerationMutation(v17);
         }
 
-        v21 = *(*(&v175 + 1) + 8 * i);
+        v21 = *(*(&v174 + 1) + 8 * i);
         v22 = objc_opt_class();
         v23 = NSStringFromClass(v22);
-        v24 = [v126 containsObject:v23];
+        v24 = [v125 containsObject:v23];
 
         if (v24)
         {
-          [v125 addObject:v21];
+          [v124 addObject:v21];
         }
       }
 
-      v18 = [(NSArray *)v17 countByEnumeratingWithState:&v175 objects:v208 count:16];
+      v18 = [(NSArray *)v17 countByEnumeratingWithState:&v174 objects:v207 count:16];
     }
 
     while (v18);
@@ -816,15 +800,15 @@ LABEL_29:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v204 = 0x3032000000;
-  v205 = __Block_byref_object_copy_;
-  v206 = __Block_byref_object_dispose_;
+  v203 = 0x3032000000;
+  v204 = __Block_byref_object_copy_;
+  v205 = __Block_byref_object_dispose_;
   selfMetadata = [setupCopy selfMetadata];
-  v169 = 0;
-  v170 = &v169;
-  v171 = 0x3032000000;
-  v172 = __Block_byref_object_copy_;
-  v173 = __Block_byref_object_dispose_;
+  v168 = 0;
+  v169 = &v168;
+  v170 = 0x3032000000;
+  v171 = __Block_byref_object_copy_;
+  v172 = __Block_byref_object_dispose_;
   dataDispatcherContext = [setupCopy dataDispatcherContext];
   graphName3 = [(CDMDynamicConfig *)self->_currentConfig graphName];
   requiresAssets = [NSClassFromString(graphName3) requiresAssets];
@@ -834,9 +818,9 @@ LABEL_29:
     v32 = CDMOSLoggerForCategory(3);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      LODWORD(v198) = 136315138;
-      *(&v198 + 4) = "[CDMServiceCenter handleSetup:forCallback:]";
-      _os_log_debug_impl(&dword_1DC287000, v32, OS_LOG_TYPE_DEBUG, "%s Assets paths have been provided in CDMDynamicConfig. Skip calling setupAssets.", &v198, 0xCu);
+      LODWORD(v197) = 136315138;
+      *(&v197 + 4) = "[CDMServiceCenter handleSetup:forCallback:]";
+      _os_log_debug_impl(&dword_1DC287000, v32, OS_LOG_TYPE_DEBUG, "%s Assets paths have been provided in CDMDynamicConfig. Skip calling setupAssets.", &v197, 0xCu);
     }
 
     goto LABEL_25;
@@ -846,8 +830,8 @@ LABEL_29:
   v28 = v27;
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
   {
-    LOWORD(v198) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DC287000, v28, OS_SIGNPOST_INTERVAL_BEGIN, v8, "CDMServiceCenterAssetsSetup", "CDM Service Center Assets Setup enableTelemetry=YES", &v198, 2u);
+    LOWORD(v197) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DC287000, v28, OS_SIGNPOST_INTERVAL_BEGIN, v8, "CDMServiceCenterAssetsSetup", "CDM Service Center Assets Setup enableTelemetry=YES", &v197, 2u);
   }
 
   dynamicConfig2 = [setupCopy dynamicConfig];
@@ -859,9 +843,9 @@ LABEL_29:
     v32 = CDMOSLoggerForCategory(3);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      LODWORD(v198) = 136315138;
-      *(&v198 + 4) = "[CDMServiceCenter handleSetup:forCallback:]";
-      _os_log_debug_impl(&dword_1DC287000, v32, OS_LOG_TYPE_DEBUG, "%s Assets paths have been provided in CDMDynamicConfig. Skip calling setupAssets.", &v198, 0xCu);
+      LODWORD(v197) = 136315138;
+      *(&v197 + 4) = "[CDMServiceCenter handleSetup:forCallback:]";
+      _os_log_debug_impl(&dword_1DC287000, v32, OS_LOG_TYPE_DEBUG, "%s Assets paths have been provided in CDMDynamicConfig. Skip calling setupAssets.", &v197, 0xCu);
     }
 
 LABEL_25:
@@ -869,76 +853,76 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  *&v198 = 0;
-  *(&v198 + 1) = &v198;
-  v199 = 0x3032000000;
-  v200 = __Block_byref_object_copy_;
-  v201 = __Block_byref_object_dispose_;
-  v202 = 0;
+  *&v197 = 0;
+  *(&v197 + 1) = &v197;
+  v198 = 0x3032000000;
+  v199 = __Block_byref_object_copy_;
+  v200 = __Block_byref_object_dispose_;
+  v201 = 0;
   cdmServiceCenterQueue = self->_cdmServiceCenterQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __44__CDMServiceCenter_handleSetup_forCallback___block_invoke;
   block[3] = &unk_1E862E410;
   block[4] = self;
-  v165 = v115;
-  v166 = &v198;
+  v164 = v114;
+  v165 = &v197;
   p_buf = &buf;
-  v168 = &v169;
+  v167 = &v168;
   v47 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
   dispatch_sync(cdmServiceCenterQueue, v47);
 
-  if (!*(*(&v198 + 1) + 40))
+  if (!*(*(&v197 + 1) + 40))
   {
 
-    _Block_object_dispose(&v198, 8);
+    _Block_object_dispose(&v197, 8);
 LABEL_26:
     v33 = CDMOSLoggerForCategory(3);
     if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v198) = 136315138;
-      *(&v198 + 4) = "[CDMServiceCenter handleSetup:forCallback:]";
-      _os_log_impl(&dword_1DC287000, v33, OS_LOG_TYPE_INFO, "%s [insights-cdm-assets]:\nAssets setup successfully!", &v198, 0xCu);
+      LODWORD(v197) = 136315138;
+      *(&v197 + 4) = "[CDMServiceCenter handleSetup:forCallback:]";
+      _os_log_impl(&dword_1DC287000, v33, OS_LOG_TYPE_INFO, "%s [insights-cdm-assets]:\nAssets setup successfully!", &v197, 0xCu);
     }
 
     v34 = CDMOSLoggerForCategory(4);
     v35 = v34;
     if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
     {
-      LOWORD(v198) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1DC287000, v35, OS_SIGNPOST_INTERVAL_END, v8, "CDMServiceCenterAssetsSetup", " enableTelemetry=YES ", &v198, 2u);
+      LOWORD(v197) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1DC287000, v35, OS_SIGNPOST_INTERVAL_END, v8, "CDMServiceCenterAssetsSetup", " enableTelemetry=YES ", &v197, 2u);
     }
 
-    if ([CDMServiceCenterUtils needEmbeddingConfigsFor:v125])
+    if ([CDMServiceCenterUtils needEmbeddingConfigsFor:v124])
     {
-      v163 = 0;
-      [(CDMServiceCenter *)self setupEmbeddingConfigsWithError:&v163];
-      v36 = v163;
+      v162 = 0;
+      [(CDMServiceCenter *)self setupEmbeddingConfigsWithError:&v162];
+      v36 = v162;
       if (v36)
       {
         v37 = v36;
         v38 = CDMOSLoggerForCategory(3);
         if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
-          LODWORD(v198) = 136315138;
-          *(&v198 + 4) = "[CDMServiceCenter handleSetup:forCallback:]";
-          _os_log_error_impl(&dword_1DC287000, v38, OS_LOG_TYPE_ERROR, "%s [ERR]: [insights-cdm-assets]:\nFailed to setup CDM embedding configs!", &v198, 0xCu);
+          LODWORD(v197) = 136315138;
+          *(&v197 + 4) = "[CDMServiceCenter handleSetup:forCallback:]";
+          _os_log_error_impl(&dword_1DC287000, v38, OS_LOG_TYPE_ERROR, "%s [ERR]: [insights-cdm-assets]:\nFailed to setup CDM embedding configs!", &v197, 0xCu);
         }
 
         v39 = CDMOSLoggerForCategory(4);
         v40 = v39;
-        if (v114 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
+        if (v113 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
         {
-          LOWORD(v198) = 0;
-          _os_signpost_emit_with_name_impl(&dword_1DC287000, v40, OS_SIGNPOST_INTERVAL_END, spid, "CDMServicesSetup", " enableTelemetry=YES ", &v198, 2u);
+          LOWORD(v197) = 0;
+          _os_signpost_emit_with_name_impl(&dword_1DC287000, v40, OS_SIGNPOST_INTERVAL_END, spid, "CDMServicesSetup", " enableTelemetry=YES ", &v197, 2u);
         }
 
         if (callbackCopy)
         {
           v41 = MEMORY[0x1E696ABC0];
-          v194 = *MEMORY[0x1E696A578];
-          v195 = @"Failed to setup CDM embedding configs!";
-          v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v195 forKeys:&v194 count:1];
+          v193 = *MEMORY[0x1E696A578];
+          v194 = @"Failed to setup CDM embedding configs!";
+          v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v194 forKeys:&v193 count:1];
           v43 = [v41 errorWithDomain:@"CDMServiceCenter" code:2 userInfo:v42];
 
           callbackCopy[2](callbackCopy, 0, v43);
@@ -953,8 +937,8 @@ LABEL_26:
         goto LABEL_58;
       }
 
-      LODWORD(v198) = 136315138;
-      *(&v198 + 4) = "[CDMServiceCenter handleSetup:forCallback:]";
+      LODWORD(v197) = 136315138;
+      *(&v197 + 4) = "[CDMServiceCenter handleSetup:forCallback:]";
       v45 = "%s [insights-cdm-assets]:\nCDM embedding configs setup successfully!";
     }
 
@@ -966,72 +950,72 @@ LABEL_26:
         goto LABEL_58;
       }
 
-      LODWORD(v198) = 136315138;
-      *(&v198 + 4) = "[CDMServiceCenter handleSetup:forCallback:]";
+      LODWORD(v197) = 136315138;
+      *(&v197 + 4) = "[CDMServiceCenter handleSetup:forCallback:]";
       v45 = "%s Skipping embeddings config; no embedding service.";
     }
 
-    _os_log_impl(&dword_1DC287000, v44, OS_LOG_TYPE_INFO, v45, &v198, 0xCu);
+    _os_log_impl(&dword_1DC287000, v44, OS_LOG_TYPE_INFO, v45, &v197, 0xCu);
 LABEL_58:
 
     v60 = [CDMSetupRequestCommand alloc];
-    v123 = [(CDMSetupRequestCommand *)v60 initWithDynamicConfig:self->_currentConfig selfMetadata:*(*(&buf + 1) + 40) dataDispatcherContext:v170[5]];
-    if (v125 && [v125 count])
+    v122 = [(CDMSetupRequestCommand *)v60 initWithDynamicConfig:self->_currentConfig selfMetadata:*(*(&buf + 1) + 40) dataDispatcherContext:v169[5]];
+    if (v124 && [v124 count])
     {
-      *&v198 = 0;
-      *(&v198 + 1) = &v198;
-      v199 = 0x3032000000;
-      v200 = __Block_byref_object_copy_;
-      v201 = __Block_byref_object_dispose_;
-      v202 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v125, "count")}];
-      *v188 = 0;
-      *&v188[8] = v188;
-      *&v188[16] = 0x3032000000;
-      v189 = __Block_byref_object_copy_;
-      v190 = __Block_byref_object_dispose_;
-      v191 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v125, "count")}];
-      v161[0] = 0;
-      v161[1] = v161;
-      v161[2] = 0x3032000000;
-      v161[3] = __Block_byref_object_copy_;
-      v161[4] = __Block_byref_object_dispose_;
+      *&v197 = 0;
+      *(&v197 + 1) = &v197;
+      v198 = 0x3032000000;
+      v199 = __Block_byref_object_copy_;
+      v200 = __Block_byref_object_dispose_;
+      v201 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v124, "count")}];
+      *v187 = 0;
+      *&v187[8] = v187;
+      *&v187[16] = 0x3032000000;
+      v188 = __Block_byref_object_copy_;
+      v189 = __Block_byref_object_dispose_;
+      v190 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v124, "count")}];
+      v160[0] = 0;
+      v160[1] = v160;
+      v160[2] = 0x3032000000;
+      v160[3] = __Block_byref_object_copy_;
+      v160[4] = __Block_byref_object_dispose_;
       v61 = [CDMWarmupRequestCommand alloc];
-      v162 = [(CDMWarmupRequestCommand *)v61 initWithDynamicConfig:self->_currentConfig selfMetadata:*(*(&buf + 1) + 40)];
+      v161 = [(CDMWarmupRequestCommand *)v61 initWithDynamicConfig:self->_currentConfig selfMetadata:*(*(&buf + 1) + 40)];
       shouldPerformWarmup = [setupCopy shouldPerformWarmup];
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 3221225472;
       aBlock[2] = __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_536;
       aBlock[3] = &unk_1E862E458;
-      aBlock[4] = &v198;
-      aBlock[5] = v188;
-      v121 = _Block_copy(aBlock);
-      [CDMSELFLogUtil cdmAllServicesSetupStarted:*(*(&buf + 1) + 40) logMessage:@"SELF all services setup started message emitted" dataDispatcherContext:v170[5]];
-      v154 = 0;
-      v155 = &v154;
-      v156 = 0x3032000000;
-      v157 = __Block_byref_object_copy_;
-      v158 = __Block_byref_object_dispose_;
-      v159 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v125, "count")}];
+      aBlock[4] = &v197;
+      aBlock[5] = v187;
+      v120 = _Block_copy(aBlock);
+      [CDMSELFLogUtil cdmAllServicesSetupStarted:*(*(&buf + 1) + 40) logMessage:@"SELF all services setup started message emitted" dataDispatcherContext:v169[5]];
+      v153 = 0;
+      v154 = &v153;
+      v155 = 0x3032000000;
+      v156 = __Block_byref_object_copy_;
+      v157 = __Block_byref_object_dispose_;
+      v158 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v124, "count")}];
+      v149 = 0u;
       v150 = 0u;
       v151 = 0u;
       v152 = 0u;
-      v153 = 0u;
-      obj = v125;
-      v62 = [obj countByEnumeratingWithState:&v150 objects:v187 count:16];
+      obj = v124;
+      v62 = [obj countByEnumeratingWithState:&v149 objects:v186 count:16];
       if (v62)
       {
-        v63 = *v151;
+        v63 = *v150;
         do
         {
           for (j = 0; j != v62; ++j)
           {
-            if (*v151 != v63)
+            if (*v150 != v63)
             {
               objc_enumerationMutation(obj);
             }
 
-            v65 = *(*(&v150 + 1) + 8 * j);
-            v66 = *(*(&v198 + 1) + 40);
+            v65 = *(*(&v149 + 1) + 8 * j);
+            v66 = *(*(&v197 + 1) + 40);
             v67 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v65, "serviceState")}];
             serviceName = [v65 serviceName];
             [v66 setObject:v67 forKey:serviceName];
@@ -1046,95 +1030,95 @@ LABEL_58:
               if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
               {
                 serviceName3 = [v65 serviceName];
-                *v183 = 136315394;
-                v184 = "[CDMServiceCenter handleSetup:forCallback:]";
-                v185 = 2114;
-                v186 = serviceName3;
-                _os_log_impl(&dword_1DC287000, v71, OS_LOG_TYPE_INFO, "%s [WARN]: Unmapped CDM service type name for setup: %{public}@", v183, 0x16u);
+                *v182 = 136315394;
+                v183 = "[CDMServiceCenter handleSetup:forCallback:]";
+                v184 = 2114;
+                v185 = serviceName3;
+                _os_log_impl(&dword_1DC287000, v71, OS_LOG_TYPE_INFO, "%s [WARN]: Unmapped CDM service type name for setup: %{public}@", v182, 0x16u);
               }
             }
 
             [v69 setServiceType:k];
-            v73 = v155[5];
+            v73 = v154[5];
             serviceName4 = [v65 serviceName];
             [v73 setObject:v69 forKey:serviceName4];
           }
 
-          v62 = [obj countByEnumeratingWithState:&v150 objects:v187 count:16];
+          v62 = [obj countByEnumeratingWithState:&v149 objects:v186 count:16];
         }
 
         while (v62);
       }
 
       v75 = objc_alloc(MEMORY[0x1E695DF70]);
-      v119 = [v75 initWithCapacity:{objc_msgSend(*(*(&v198 + 1) + 40), "count")}];
-      [*(*&v188[8] + 40) removeAllObjects];
+      v118 = [v75 initWithCapacity:{objc_msgSend(*(*(&v197 + 1) + 40), "count")}];
+      [*(*&v187[8] + 40) removeAllObjects];
       group = dispatch_group_create();
+      v145 = 0u;
       v146 = 0u;
       v147 = 0u;
       v148 = 0u;
-      v149 = 0u;
       v76 = obj;
-      v77 = [v76 countByEnumeratingWithState:&v146 objects:v182 count:16];
+      v77 = [v76 countByEnumeratingWithState:&v145 objects:v181 count:16];
       if (v77)
       {
-        v78 = *v147;
+        v78 = *v146;
         do
         {
           for (k = 0; k != v77; ++k)
           {
-            if (*v147 != v78)
+            if (*v146 != v78)
             {
               objc_enumerationMutation(v76);
             }
 
-            v79 = *(*(&v146 + 1) + 8 * k);
+            v79 = *(*(&v145 + 1) + 8 * k);
             dispatch_group_enter(group);
-            v141[0] = MEMORY[0x1E69E9820];
-            v141[1] = 3221225472;
-            v141[2] = __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_543;
-            v141[3] = &unk_1E862E480;
-            v141[4] = v79;
-            v145 = &v154;
-            v142 = v123;
-            v144 = v121;
-            v143 = group;
-            v80 = dispatch_block_create(0, v141);
+            v140[0] = MEMORY[0x1E69E9820];
+            v140[1] = 3221225472;
+            v140[2] = __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_543;
+            v140[3] = &unk_1E862E480;
+            v140[4] = v79;
+            v144 = &v153;
+            v141 = v122;
+            v143 = v120;
+            v142 = group;
+            v80 = dispatch_block_create(0, v140);
             dispatch_async(self->_cdmServiceCenterQueue, v80);
           }
 
-          v77 = [v76 countByEnumeratingWithState:&v146 objects:v182 count:16];
+          v77 = [v76 countByEnumeratingWithState:&v145 objects:v181 count:16];
         }
 
         while (v77);
       }
 
       dispatch_group_wait(group, 0xFFFFFFFFFFFFFFFFLL);
-      v139 = 0u;
-      v140 = 0u;
-      v137 = 0u;
       v138 = 0u;
-      allKeys = [*(*(&v198 + 1) + 40) allKeys];
-      v82 = [allKeys countByEnumeratingWithState:&v137 objects:v181 count:16];
+      v139 = 0u;
+      v136 = 0u;
+      v137 = 0u;
+      allKeys = [*(*(&v197 + 1) + 40) allKeys];
+      v82 = [allKeys countByEnumeratingWithState:&v136 objects:v180 count:16];
       if (v82)
       {
-        v83 = *v138;
+        v83 = *v137;
         v84 = 1;
         do
         {
           for (m = 0; m != v82; ++m)
           {
-            if (*v138 != v83)
+            if (*v137 != v83)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v86 = *(*(&v137 + 1) + 8 * m);
-            if ([(CDMServiceCenter *)self isServiceNotReady:v86 withServiceStateMap:*(*(&v198 + 1) + 40)])
+            v86 = *(*(&v136 + 1) + 8 * m);
+            if ([(CDMServiceCenter *)self isServiceNotReady:v86 withServiceStateMap:*(*(&v197 + 1) + 40)])
             {
-              v87 = [*(*&v188[8] + 40) objectForKey:v86];
+              v87 = [*(*&v187[8] + 40) objectForKey:v86];
               v88 = MEMORY[0x1E696AEC0];
-              v89 = [*(*(&v198 + 1) + 40) objectForKeyedSubscript:v86];
+              v89 = [*(*(&v197 + 1) + 40) objectForKeyedSubscript:v86];
               if (v87)
               {
                 k = [v87 localizedDescription];
@@ -1147,42 +1131,42 @@ LABEL_58:
               }
 
               v91 = [v88 stringWithFormat:@"Service: %@, State: %@, Error: %@", v86, v89, v90];
-              [v119 addObject:v91];
+              [v118 addObject:v91];
 
               if (v87)
               {
 
                 v92 = +[CDMDataDispatcherCompletionQueue getDataDispatcherCompletionQueue];
-                v133[0] = MEMORY[0x1E69E9820];
-                v133[1] = 3221225472;
-                v133[2] = __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_553;
-                v133[3] = &unk_1E862E4D0;
-                v135 = &v154;
-                v133[4] = v86;
-                v134 = v87;
-                dispatch_async(v92, v133);
+                v132[0] = MEMORY[0x1E69E9820];
+                v132[1] = 3221225472;
+                v132[2] = __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_553;
+                v132[3] = &unk_1E862E4D0;
+                v134 = &v153;
+                v132[4] = v86;
+                v133 = v87;
+                dispatch_async(v92, v132);
 
-                v93 = v134;
+                v93 = v133;
               }
 
               else
               {
 
                 v93 = +[CDMDataDispatcherCompletionQueue getDataDispatcherCompletionQueue];
-                v136[0] = MEMORY[0x1E69E9820];
-                v136[1] = 3221225472;
-                v136[2] = __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_552;
-                v136[3] = &unk_1E862E4A8;
-                v136[4] = v86;
-                v136[5] = &v154;
-                dispatch_async(v93, v136);
+                v135[0] = MEMORY[0x1E69E9820];
+                v135[1] = 3221225472;
+                v135[2] = __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_552;
+                v135[3] = &unk_1E862E4A8;
+                v135[4] = v86;
+                v135[5] = &v153;
+                dispatch_async(v93, v135);
               }
 
               v84 = 0;
             }
           }
 
-          v82 = [allKeys countByEnumeratingWithState:&v137 objects:v181 count:16];
+          v82 = [allKeys countByEnumeratingWithState:&v136 objects:v180 count:16];
         }
 
         while (v82);
@@ -1193,13 +1177,13 @@ LABEL_58:
         v84 = 1;
       }
 
-      [CDMDataDispatcher dispatchServiceSetupMetrics:v155[5] selfMetadata:*(*(&buf + 1) + 40) dataDispatcherContext:v170[5]];
+      [CDMDataDispatcher dispatchServiceSetupMetrics:v154[5] selfMetadata:*(*(&buf + 1) + 40) dataDispatcherContext:v169[5]];
       v100 = CDMOSLoggerForCategory(4);
       v101 = v100;
-      if (v114 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v100))
+      if (v113 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v100))
       {
-        *v183 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1DC287000, v101, OS_SIGNPOST_INTERVAL_END, spid, "CDMServicesSetup", " enableTelemetry=YES ", v183, 2u);
+        *v182 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1DC287000, v101, OS_SIGNPOST_INTERVAL_END, spid, "CDMServicesSetup", " enableTelemetry=YES ", v182, 2u);
       }
 
       if (v84)
@@ -1208,9 +1192,9 @@ LABEL_58:
         v102 = CDMOSLoggerForCategory(3);
         if (os_log_type_enabled(v102, OS_LOG_TYPE_INFO))
         {
-          *v183 = 136315138;
-          v184 = "[CDMServiceCenter handleSetup:forCallback:]";
-          _os_log_impl(&dword_1DC287000, v102, OS_LOG_TYPE_INFO, "%s [insights-cdm-summary]:\nCDM setup successful", v183, 0xCu);
+          *v182 = 136315138;
+          v183 = "[CDMServiceCenter handleSetup:forCallback:]";
+          _os_log_impl(&dword_1DC287000, v102, OS_LOG_TYPE_INFO, "%s [insights-cdm-summary]:\nCDM setup successful", v182, 0xCu);
         }
 
         if (!+[CDMServiceCenterUtils isHostedInDaemon])
@@ -1221,24 +1205,24 @@ LABEL_58:
         }
 
         callbackCopy[2](callbackCopy, 0, 0);
-        [CDMSELFLogUtil cdmAllServicesSetupEnded:*(*(&buf + 1) + 40) logMessage:@"SELF all services setup ended message emitted" dataDispatcherContext:v170[5]];
+        [CDMSELFLogUtil cdmAllServicesSetupEnded:*(*(&buf + 1) + 40) logMessage:@"SELF all services setup ended message emitted" dataDispatcherContext:v169[5]];
         if (shouldPerformWarmup)
         {
-          objc_initWeak(v183, self);
-          v127[0] = MEMORY[0x1E69E9820];
-          v127[1] = 3221225472;
-          v127[2] = __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_559;
-          v127[3] = &unk_1E862E548;
-          objc_copyWeak(&v132, v183);
-          v130 = &v169;
-          v131 = v161;
-          v128 = &__block_literal_global;
-          v129 = &buf;
-          v105 = dispatch_block_create(0, v127);
+          objc_initWeak(v182, self);
+          v126[0] = MEMORY[0x1E69E9820];
+          v126[1] = 3221225472;
+          v126[2] = __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_559;
+          v126[3] = &unk_1E862E548;
+          objc_copyWeak(&v131, v182);
+          v129 = &v168;
+          v130 = v160;
+          v127 = &__block_literal_global;
+          v128 = &buf;
+          v105 = dispatch_block_create(0, v126);
           dispatch_async(self->_cdmServiceCenterQueue, v105);
 
-          objc_destroyWeak(&v132);
-          objc_destroyWeak(v183);
+          objc_destroyWeak(&v131);
+          objc_destroyWeak(v182);
         }
 
         else
@@ -1246,9 +1230,9 @@ LABEL_58:
           v111 = CDMOSLoggerForCategory(3);
           if (os_log_type_enabled(v111, OS_LOG_TYPE_DEBUG))
           {
-            *v183 = 136315138;
-            v184 = "[CDMServiceCenter handleSetup:forCallback:]";
-            _os_log_debug_impl(&dword_1DC287000, v111, OS_LOG_TYPE_DEBUG, "%s Not performing warmup as part of setup", v183, 0xCu);
+            *v182 = 136315138;
+            v183 = "[CDMServiceCenter handleSetup:forCallback:]";
+            _os_log_debug_impl(&dword_1DC287000, v111, OS_LOG_TYPE_DEBUG, "%s Not performing warmup as part of setup", v182, 0xCu);
           }
         }
       }
@@ -1258,21 +1242,21 @@ LABEL_58:
         [(CDMServiceCenter *)self setSystemState:4];
         if (callbackCopy)
         {
-          v119 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CDM failed to setup. The following services are not in ready or disabled state: %@", v119];
+          v118 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CDM failed to setup. The following services are not in ready or disabled state: %@", v118];
           v107 = CDMOSLoggerForCategory(3);
           if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
           {
-            *v183 = 136315394;
-            v184 = "[CDMServiceCenter handleSetup:forCallback:]";
-            v185 = 2114;
-            v186 = v119;
-            _os_log_error_impl(&dword_1DC287000, v107, OS_LOG_TYPE_ERROR, "%s [ERR]: [insights-cdm-summary]:\n%{public}@", v183, 0x16u);
+            *v182 = 136315394;
+            v183 = "[CDMServiceCenter handleSetup:forCallback:]";
+            v184 = 2114;
+            v185 = v118;
+            _os_log_error_impl(&dword_1DC287000, v107, OS_LOG_TYPE_ERROR, "%s [ERR]: [insights-cdm-summary]:\n%{public}@", v182, 0x16u);
           }
 
           v108 = MEMORY[0x1E696ABC0];
-          v179 = *MEMORY[0x1E696A578];
-          v180 = v119;
-          v109 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v180 forKeys:&v179 count:1];
+          v178 = *MEMORY[0x1E696A578];
+          v179 = v118;
+          v109 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v179 forKeys:&v178 count:1];
           v110 = [v108 errorWithDomain:@"CDMServiceCenter" code:4 userInfo:v109];
 
           callbackCopy[2](callbackCopy, 0, v110);
@@ -1280,17 +1264,17 @@ LABEL_58:
 
         if (shouldPerformWarmup)
         {
-          [CDMSELFLogUtil cdmAllServicesWarmupFailed:*(*(&buf + 1) + 40) logMessage:@"SELF all services warmup failed message emitted" dataDispatcherContext:v170[5]];
+          [CDMSELFLogUtil cdmAllServicesWarmupFailed:*(*(&buf + 1) + 40) logMessage:@"SELF all services warmup failed message emitted" dataDispatcherContext:v169[5]];
         }
 
-        [CDMSELFLogUtil cdmAllServicesSetupFailed:*(*(&buf + 1) + 40) logMessage:@"SELF all services setup failed message emitted" dataDispatcherContext:v170[5]];
+        [CDMSELFLogUtil cdmAllServicesSetupFailed:*(*(&buf + 1) + 40) logMessage:@"SELF all services setup failed message emitted" dataDispatcherContext:v169[5]];
       }
 
-      _Block_object_dispose(&v154, 8);
-      _Block_object_dispose(v161, 8);
+      _Block_object_dispose(&v153, 8);
+      _Block_object_dispose(v160, 8);
 
-      _Block_object_dispose(v188, 8);
-      _Block_object_dispose(&v198, 8);
+      _Block_object_dispose(v187, 8);
+      _Block_object_dispose(&v197, 8);
     }
 
     else
@@ -1298,25 +1282,25 @@ LABEL_58:
       v94 = CDMOSLoggerForCategory(3);
       if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v198) = 136315138;
-        *(&v198 + 4) = "[CDMServiceCenter handleSetup:forCallback:]";
-        _os_log_error_impl(&dword_1DC287000, v94, OS_LOG_TYPE_ERROR, "%s [ERR]: No services found to setup", &v198, 0xCu);
+        LODWORD(v197) = 136315138;
+        *(&v197 + 4) = "[CDMServiceCenter handleSetup:forCallback:]";
+        _os_log_error_impl(&dword_1DC287000, v94, OS_LOG_TYPE_ERROR, "%s [ERR]: No services found to setup", &v197, 0xCu);
       }
 
       if (callbackCopy)
       {
         v95 = CDMOSLoggerForCategory(4);
         v96 = v95;
-        if (v114 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v95))
+        if (v113 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v95))
         {
-          LOWORD(v198) = 0;
-          _os_signpost_emit_with_name_impl(&dword_1DC287000, v96, OS_SIGNPOST_INTERVAL_END, spid, "CDMServicesSetup", " enableTelemetry=YES ", &v198, 2u);
+          LOWORD(v197) = 0;
+          _os_signpost_emit_with_name_impl(&dword_1DC287000, v96, OS_SIGNPOST_INTERVAL_END, spid, "CDMServicesSetup", " enableTelemetry=YES ", &v197, 2u);
         }
 
         v97 = MEMORY[0x1E696ABC0];
-        v192 = *MEMORY[0x1E696A578];
-        v193 = @"No services found to setup";
-        v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v193 forKeys:&v192 count:1];
+        v191 = *MEMORY[0x1E696A578];
+        v192 = @"No services found to setup";
+        v98 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v192 forKeys:&v191 count:1];
         v99 = [v97 errorWithDomain:@"CDMServiceCenter" code:3 userInfo:v98];
 
         callbackCopy[2](callbackCopy, 0, v99);
@@ -1328,53 +1312,52 @@ LABEL_58:
 
   [(CDMServiceCenter *)self setSystemState:4];
   v48 = MEMORY[0x1E696AEC0];
-  localizedDescription = [*(*(&v198 + 1) + 40) localizedDescription];
-  localizedFailureReason = [*(*(&v198 + 1) + 40) localizedFailureReason];
+  localizedDescription = [*(*(&v197 + 1) + 40) localizedDescription];
+  localizedFailureReason = [*(*(&v197 + 1) + 40) localizedFailureReason];
   v51 = [v48 stringWithFormat:@"Failed to setup assets with error:\nDescription: %@\nReason: %@\nAbort setup.", localizedDescription, localizedFailureReason];
 
   v52 = CDMOSLoggerForCategory(3);
   if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
   {
-    *v188 = 136315394;
-    *&v188[4] = "[CDMServiceCenter handleSetup:forCallback:]";
-    *&v188[12] = 2114;
-    *&v188[14] = v51;
-    _os_log_error_impl(&dword_1DC287000, v52, OS_LOG_TYPE_ERROR, "%s [ERR]: [insights-cdm-assets]:\n%{public}@", v188, 0x16u);
+    *v187 = 136315394;
+    *&v187[4] = "[CDMServiceCenter handleSetup:forCallback:]";
+    *&v187[12] = 2114;
+    *&v187[14] = v51;
+    _os_log_error_impl(&dword_1DC287000, v52, OS_LOG_TYPE_ERROR, "%s [ERR]: [insights-cdm-assets]:\n%{public}@", v187, 0x16u);
   }
 
   v53 = CDMOSLoggerForCategory(4);
   v54 = v53;
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v53))
   {
-    *v188 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DC287000, v54, OS_SIGNPOST_INTERVAL_END, v8, "CDMServiceCenterAssetsSetup", " enableTelemetry=YES ", v188, 2u);
+    *v187 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DC287000, v54, OS_SIGNPOST_INTERVAL_END, v8, "CDMServiceCenterAssetsSetup", " enableTelemetry=YES ", v187, 2u);
   }
 
   v55 = CDMOSLoggerForCategory(4);
   v56 = v55;
-  if (v114 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
+  if (v113 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
   {
-    *v188 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DC287000, v56, OS_SIGNPOST_INTERVAL_END, spid, "CDMServicesSetup", " enableTelemetry=YES ", v188, 2u);
+    *v187 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DC287000, v56, OS_SIGNPOST_INTERVAL_END, spid, "CDMServicesSetup", " enableTelemetry=YES ", v187, 2u);
   }
 
   if (callbackCopy)
   {
     v57 = MEMORY[0x1E696ABC0];
-    v196 = *MEMORY[0x1E696A578];
-    v197 = v51;
-    v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v197 forKeys:&v196 count:1];
+    v195 = *MEMORY[0x1E696A578];
+    v196 = v51;
+    v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v196 forKeys:&v195 count:1];
     v59 = [v57 errorWithDomain:@"CDMServiceCenter" code:1 userInfo:v58];
 
     callbackCopy[2](callbackCopy, 0, v59);
   }
 
-  _Block_object_dispose(&v198, 8);
+  _Block_object_dispose(&v197, 8);
 LABEL_125:
-  _Block_object_dispose(&v169, 8);
+  _Block_object_dispose(&v168, 8);
 
   _Block_object_dispose(&buf, 8);
-  v112 = *MEMORY[0x1E69E9840];
 }
 
 void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke(void *a1)
@@ -1468,14 +1451,39 @@ void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_543(uint64_t 
 
 void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_552(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = [*(*(*(a1 + 40) + 8) + 40) objectForKey:*(a1 + 32)];
 
   if (v2)
   {
-    v6 = [*(*(*(a1 + 40) + 8) + 40) objectForKey:*(a1 + 32)];
-    [v6 setFailureReason:1];
-    v3 = *MEMORY[0x1E69E9840];
+    v4 = [*(*(*(a1 + 40) + 8) + 40) objectForKey:*(a1 + 32)];
+    [v4 setFailureReason:1];
+  }
+
+  else
+  {
+    v3 = CDMOSLoggerForCategory(3);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315138;
+      v6 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke";
+      _os_log_impl(&dword_1DC287000, v3, OS_LOG_TYPE_INFO, "%s [WARN]: Unable to retrieve SELF CDM setup metrics object! This log is likely unusable.", buf, 0xCu);
+    }
+  }
+}
+
+void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_553(uint64_t a1)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = [*(*(*(a1 + 48) + 8) + 40) objectForKey:*(a1 + 32)];
+
+  if (v2)
+  {
+    v3 = [*(*(*(a1 + 48) + 8) + 40) objectForKey:*(a1 + 32)];
+    [v3 setFailureReason:2];
+
+    v5 = [*(*(*(a1 + 48) + 8) + 40) objectForKey:*(a1 + 32)];
+    [v5 setErrorCode:{objc_msgSend(*(a1 + 40), "code")}];
   }
 
   else
@@ -1484,46 +1492,15 @@ void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_552(uint64_t 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v8 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke";
+      v7 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke";
       _os_log_impl(&dword_1DC287000, v4, OS_LOG_TYPE_INFO, "%s [WARN]: Unable to retrieve SELF CDM setup metrics object! This log is likely unusable.", buf, 0xCu);
     }
-
-    v5 = *MEMORY[0x1E69E9840];
-  }
-}
-
-void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_553(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = [*(*(*(a1 + 48) + 8) + 40) objectForKey:*(a1 + 32)];
-
-  if (v2)
-  {
-    v3 = [*(*(*(a1 + 48) + 8) + 40) objectForKey:*(a1 + 32)];
-    [v3 setFailureReason:2];
-
-    v7 = [*(*(*(a1 + 48) + 8) + 40) objectForKey:*(a1 + 32)];
-    [v7 setErrorCode:{objc_msgSend(*(a1 + 40), "code")}];
-    v4 = *MEMORY[0x1E69E9840];
-  }
-
-  else
-  {
-    v5 = CDMOSLoggerForCategory(3);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
-    {
-      *buf = 136315138;
-      v9 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke";
-      _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: Unable to retrieve SELF CDM setup metrics object! This log is likely unusable.", buf, 0xCu);
-    }
-
-    v6 = *MEMORY[0x1E69E9840];
   }
 }
 
 void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_559(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (WeakRetained)
   {
@@ -1535,17 +1512,17 @@ void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_559(uint64_t 
     if (v5)
     {
       v6 = dispatch_group_create();
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_2_560;
-      v10[3] = &unk_1E862E520;
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_2_560;
+      v9[3] = &unk_1E862E520;
       v7 = *(a1 + 56);
-      v11 = v6;
-      v14 = v7;
-      v13 = *(a1 + 32);
-      v12 = WeakRetained;
+      v10 = v6;
+      v13 = v7;
+      v12 = *(a1 + 32);
+      v11 = WeakRetained;
       v8 = v6;
-      [v5 enumerateObjectsUsingBlock:v10];
+      [v5 enumerateObjectsUsingBlock:v9];
       dispatch_group_wait(v8, 0xFFFFFFFFFFFFFFFFLL);
     }
 
@@ -1555,15 +1532,13 @@ void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_559(uint64_t 
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v16 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke";
+        v15 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke";
         _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s [WARN]: No services to warmup!", buf, 0xCu);
       }
     }
 
     [CDMSELFLogUtil cdmAllServicesWarmupEnded:*(*(*(a1 + 40) + 8) + 40) logMessage:@"SELF all services warmup ended message emitted" dataDispatcherContext:*(*(*(a1 + 48) + 8) + 40)];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_2_560(uint64_t a1, void *a2)
@@ -1594,61 +1569,53 @@ void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_3(uint64_t a1
 
 void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1[4] + 8) + 40) objectForKey:*(*(a1[5] + 8) + 40)];
 
   if (v2)
   {
-    v7 = [*(*(a1[4] + 8) + 40) objectForKey:*(*(a1[5] + 8) + 40)];
-    v3 = a1[6];
-    [v7 setStartLogicalTimestampInNs:SiriAnalyticsMachAbsoluteTimeGetNanoseconds()];
-    v4 = *MEMORY[0x1E69E9840];
+    v4 = [*(*(a1[4] + 8) + 40) objectForKey:*(*(a1[5] + 8) + 40)];
+    [v4 setStartLogicalTimestampInNs:SiriAnalyticsMachAbsoluteTimeGetNanoseconds()];
   }
 
   else
   {
-    v5 = CDMOSLoggerForCategory(3);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = CDMOSLoggerForCategory(3);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v9 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke_2";
-      _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: Unable to retrieve SELF CDM setup metrics object! This log is likely unusable.", buf, 0xCu);
+      v6 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke_2";
+      _os_log_impl(&dword_1DC287000, v3, OS_LOG_TYPE_INFO, "%s [WARN]: Unable to retrieve SELF CDM setup metrics object! This log is likely unusable.", buf, 0xCu);
     }
-
-    v6 = *MEMORY[0x1E69E9840];
   }
 }
 
 void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_545(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1[4] + 8) + 40) objectForKey:*(*(a1[5] + 8) + 40)];
 
   if (v2)
   {
-    v7 = [*(*(a1[4] + 8) + 40) objectForKey:*(*(a1[5] + 8) + 40)];
-    v3 = a1[6];
-    [v7 setEndLogicalTimestampInNs:SiriAnalyticsMachAbsoluteTimeGetNanoseconds()];
-    v4 = *MEMORY[0x1E69E9840];
+    v4 = [*(*(a1[4] + 8) + 40) objectForKey:*(*(a1[5] + 8) + 40)];
+    [v4 setEndLogicalTimestampInNs:SiriAnalyticsMachAbsoluteTimeGetNanoseconds()];
   }
 
   else
   {
-    v5 = CDMOSLoggerForCategory(3);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = CDMOSLoggerForCategory(3);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v9 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke";
-      _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: Unable to retrieve SELF CDM setup metrics object! This log is likely unusable.", buf, 0xCu);
+      v6 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke";
+      _os_log_impl(&dword_1DC287000, v3, OS_LOG_TYPE_INFO, "%s [WARN]: Unable to retrieve SELF CDM setup metrics object! This log is likely unusable.", buf, 0xCu);
     }
-
-    v6 = *MEMORY[0x1E69E9840];
   }
 }
 
 void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_535(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   v6 = [v4 cmdError];
@@ -1660,11 +1627,11 @@ void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_535(uint64_t 
     {
       v8 = [v4 cmdError];
       v9 = [v8 description];
-      v13 = 136315394;
-      v14 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke";
-      v15 = 2114;
-      v16 = v9;
-      _os_log_error_impl(&dword_1DC287000, v7, OS_LOG_TYPE_ERROR, "%s [ERR]: Warmup failed with error %{public}@.", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke";
+      v14 = 2114;
+      v15 = v9;
+      _os_log_error_impl(&dword_1DC287000, v7, OS_LOG_TYPE_ERROR, "%s [ERR]: Warmup failed with error %{public}@.", &v12, 0x16u);
     }
   }
 
@@ -1677,35 +1644,33 @@ void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_535(uint64_t 
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = [v5 description];
-        v13 = 136315394;
-        v14 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke";
-        v15 = 2114;
-        v16 = v11;
-        _os_log_error_impl(&dword_1DC287000, v7, OS_LOG_TYPE_ERROR, "%s [ERR]: Warmup failed with error %{public}@.", &v13, 0x16u);
+        v12 = 136315394;
+        v13 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke";
+        v14 = 2114;
+        v15 = v11;
+        _os_log_error_impl(&dword_1DC287000, v7, OS_LOG_TYPE_ERROR, "%s [ERR]: Warmup failed with error %{public}@.", &v12, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 136315138;
-      v14 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke";
-      _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s Warmup succeeded.", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "[CDMServiceCenter handleSetup:forCallback:]_block_invoke";
+      _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s Warmup succeeded.", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleWarmup:(id)warmup forCallback:(id)callback
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   warmupCopy = warmup;
   callbackCopy = callback;
   v6 = os_signpost_id_generate(CDMLogContext);
   v7 = CDMLogContext;
   v8 = v7;
   spid = v6;
-  v38 = v6 - 1;
+  v37 = v6 - 1;
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     *buf = 0;
@@ -1715,59 +1680,59 @@ void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_535(uint64_t 
   dynamicConfig = [warmupCopy dynamicConfig];
   [(CDMServiceCenter *)self mergeConfig:dynamicConfig];
 
-  v42 = [(CDMServiceCenter *)self getServicesToWarmup:warmupCopy];
-  if ([v42 count])
+  v41 = [(CDMServiceCenter *)self getServicesToWarmup:warmupCopy];
+  if ([v41 count])
   {
     selfMetadata = [warmupCopy selfMetadata];
     dataDispatcherContext = [warmupCopy dataDispatcherContext];
     [CDMSELFLogUtil cdmAllServicesWarmupStarted:selfMetadata logMessage:@"SELF all services warmup started message emitted" dataDispatcherContext:dataDispatcherContext];
     *buf = 0;
-    v61 = buf;
-    v62 = 0x3032000000;
-    v63 = __Block_byref_object_copy_;
-    v64 = __Block_byref_object_dispose_;
-    v65 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v42, "count")}];
+    v60 = buf;
+    v61 = 0x3032000000;
+    v62 = __Block_byref_object_copy_;
+    v63 = __Block_byref_object_dispose_;
+    v64 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v41, "count")}];
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __45__CDMServiceCenter_handleWarmup_forCallback___block_invoke;
     aBlock[3] = &unk_1E862E3E8;
     aBlock[4] = buf;
-    v46 = _Block_copy(aBlock);
-    v45 = [[CDMWarmupRequestCommand alloc] initWithDynamicConfig:self->_currentConfig selfMetadata:selfMetadata];
+    v45 = _Block_copy(aBlock);
+    v44 = [[CDMWarmupRequestCommand alloc] initWithDynamicConfig:self->_currentConfig selfMetadata:selfMetadata];
     v10 = dispatch_group_create();
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
-    v11 = v42;
-    v12 = [v11 countByEnumeratingWithState:&v55 objects:v73 count:16];
+    v11 = v41;
+    v12 = [v11 countByEnumeratingWithState:&v54 objects:v72 count:16];
     if (v12)
     {
-      v13 = *v56;
+      v13 = *v55;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v56 != v13)
+          if (*v55 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v55 + 1) + 8 * i);
+          v15 = *(*(&v54 + 1) + 8 * i);
           dispatch_group_enter(v10);
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __45__CDMServiceCenter_handleWarmup_forCallback___block_invoke_512;
           block[3] = &unk_1E862EBA0;
           block[4] = v15;
-          v52 = v45;
-          v54 = v46;
-          v53 = v10;
+          v51 = v44;
+          v53 = v45;
+          v52 = v10;
           v16 = dispatch_block_create(0, block);
           dispatch_async(self->_cdmServiceCenterQueue, v16);
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v55 objects:v73 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v54 objects:v72 count:16];
       }
 
       while (v12);
@@ -1775,58 +1740,58 @@ void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_535(uint64_t 
 
     dispatch_group_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
     v17 = objc_alloc(MEMORY[0x1E695DF70]);
-    v44 = [v17 initWithCapacity:{objc_msgSend(*(v61 + 5), "count")}];
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
+    v43 = [v17 initWithCapacity:{objc_msgSend(*(v60 + 5), "count")}];
     v48 = 0u;
-    allKeys = [*(v61 + 5) allKeys];
-    v19 = [allKeys countByEnumeratingWithState:&v47 objects:v72 count:16];
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    allKeys = [*(v60 + 5) allKeys];
+    v19 = [allKeys countByEnumeratingWithState:&v46 objects:v71 count:16];
     if (v19)
     {
-      v20 = *v48;
+      v20 = *v47;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v48 != v20)
+          if (*v47 != v20)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v22 = *(*(&v47 + 1) + 8 * j);
-          v23 = [*(v61 + 5) objectForKey:v22];
+          v22 = *(*(&v46 + 1) + 8 * j);
+          v23 = [*(v60 + 5) objectForKey:v22];
           v24 = MEMORY[0x1E696AEC0];
           localizedDescription = [v23 localizedDescription];
           v26 = [v24 stringWithFormat:@"Service: %@, Error: %@", v22, localizedDescription];
-          [v44 addObject:v26];
+          [v43 addObject:v26];
         }
 
-        v19 = [allKeys countByEnumeratingWithState:&v47 objects:v72 count:16];
+        v19 = [allKeys countByEnumeratingWithState:&v46 objects:v71 count:16];
       }
 
       while (v19);
     }
 
-    if ([v44 count])
+    if ([v43 count])
     {
       if (callbackCopy)
       {
-        v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CDM failed to warmup. The following services failed to warmup: %@", v44];
+        v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CDM failed to warmup. The following services failed to warmup: %@", v43];
         v28 = CDMOSLoggerForCategory(3);
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          *v68 = 136315394;
-          v69 = "[CDMServiceCenter handleWarmup:forCallback:]";
-          v70 = 2114;
-          v71 = v27;
-          _os_log_error_impl(&dword_1DC287000, v28, OS_LOG_TYPE_ERROR, "%s [ERR]: [insights-cdm-summary]:\n%{public}@", v68, 0x16u);
+          *v67 = 136315394;
+          v68 = "[CDMServiceCenter handleWarmup:forCallback:]";
+          v69 = 2114;
+          v70 = v27;
+          _os_log_error_impl(&dword_1DC287000, v28, OS_LOG_TYPE_ERROR, "%s [ERR]: [insights-cdm-summary]:\n%{public}@", v67, 0x16u);
         }
 
         v29 = MEMORY[0x1E696ABC0];
-        v66 = *MEMORY[0x1E696A578];
-        v67 = v27;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+        v65 = *MEMORY[0x1E696A578];
+        v66 = v27;
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
         v31 = [v29 errorWithDomain:@"CDMServiceCenter" code:4 userInfo:v30];
 
         callbackCopy[2](callbackCopy, 0, v31);
@@ -1843,10 +1808,10 @@ void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_535(uint64_t 
 
     v34 = CDMLogContext;
     v35 = v34;
-    if (v38 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
+    if (v37 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
     {
-      *v68 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1DC287000, v35, OS_SIGNPOST_INTERVAL_END, spid, "CDMServicesWarmup", " enableTelemetry=YES ", v68, 2u);
+      *v67 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1DC287000, v35, OS_SIGNPOST_INTERVAL_END, spid, "CDMServicesWarmup", " enableTelemetry=YES ", v67, 2u);
     }
 
     _Block_object_dispose(buf, 8);
@@ -1862,19 +1827,17 @@ void __44__CDMServiceCenter_handleSetup_forCallback___block_invoke_535(uint64_t 
 
     v32 = CDMLogContext;
     v33 = v32;
-    if (v38 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+    if (v37 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
     {
       *buf = 0;
       _os_signpost_emit_with_name_impl(&dword_1DC287000, v33, OS_SIGNPOST_INTERVAL_END, spid, "CDMServicesWarmup", " enableTelemetry=YES ", buf, 2u);
     }
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __45__CDMServiceCenter_handleWarmup_forCallback___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -1885,13 +1848,13 @@ void __45__CDMServiceCenter_handleWarmup_forCallback___block_invoke(uint64_t a1,
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = [v7 serviceName];
-      v16 = 136315650;
-      v17 = "[CDMServiceCenter handleWarmup:forCallback:]_block_invoke";
-      v18 = 2112;
-      v19 = v9;
-      v20 = 2048;
-      v21 = [v7 serviceState];
-      _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s Warmed up Service: %@ State: %tu", &v16, 0x20u);
+      v15 = 136315650;
+      v16 = "[CDMServiceCenter handleWarmup:forCallback:]_block_invoke";
+      v17 = 2112;
+      v18 = v9;
+      v19 = 2048;
+      v20 = [v7 serviceState];
+      _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s Warmed up Service: %@ State: %tu", &v15, 0x20u);
     }
 
     v10 = [v7 cmdError];
@@ -1922,63 +1885,60 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __45__CDMServiceCenter_handleWarmup_forCallback___block_invoke_512(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) serviceName];
-    v5 = 136315394;
-    v6 = "[CDMServiceCenter handleWarmup:forCallback:]_block_invoke";
-    v7 = 2112;
-    v8 = v3;
-    _os_log_impl(&dword_1DC287000, v2, OS_LOG_TYPE_INFO, "%s Warmup %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[CDMServiceCenter handleWarmup:forCallback:]_block_invoke";
+    v6 = 2112;
+    v7 = v3;
+    _os_log_impl(&dword_1DC287000, v2, OS_LOG_TYPE_INFO, "%s Warmup %@", &v4, 0x16u);
   }
 
   [*(a1 + 32) handleCommand:*(a1 + 40) withCallback:*(a1 + 56)];
   dispatch_group_leave(*(a1 + 48));
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getServicesToWarmup:(id)warmup
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   warmupCopy = warmup;
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_dagServices, "count")}];
   graphName = [(CDMDynamicConfig *)self->_currentConfig graphName];
   v7 = [(CDMServiceCenter *)self getEnabledDAGServiceNamesForGraph:graphName];
 
   commandServicesDict = self->_commandServicesDict;
-  v24 = warmupCopy;
+  v23 = warmupCopy;
   commandName = [warmupCopy commandName];
   v10 = [(NSMutableDictionary *)commandServicesDict objectForKeyedSubscript:commandName];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v11 = self->_dagServices;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v25 objects:v35 count:16];
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v24 objects:v34 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       v15 = 0;
       do
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * v15);
+        v16 = *(*(&v24 + 1) + 8 * v15);
         v17 = objc_opt_class();
         v18 = NSStringFromClass(v17);
         if ([v7 containsObject:v18])
@@ -2002,11 +1962,11 @@ void __45__CDMServiceCenter_handleWarmup_forCallback___block_invoke_512(uint64_t
             serviceName = [v16 serviceName];
             serviceState = [v16 serviceState];
             *buf = 136315650;
-            v30 = "[CDMServiceCenter getServicesToWarmup:]";
-            v31 = 2112;
-            v32 = serviceName;
-            v33 = 2048;
-            v34 = serviceState;
+            v29 = "[CDMServiceCenter getServicesToWarmup:]";
+            v30 = 2112;
+            v31 = serviceName;
+            v32 = 2048;
+            v33 = serviceState;
             _os_log_debug_impl(&dword_1DC287000, v18, OS_LOG_TYPE_DEBUG, "%s Service %@ is not ready: State:%tu. Skipping warmup.", buf, 0x20u);
           }
         }
@@ -2016,13 +1976,11 @@ LABEL_13:
       }
 
       while (v13 != v15);
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v25 objects:v35 count:16];
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v24 objects:v34 count:16];
     }
 
     while (v13);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -2192,7 +2150,7 @@ LABEL_13:
 
 - (void)handleCommand:(id)command forCallback:(id)callback
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   commandCopy = command;
   callbackCopy = callback;
   if ([CDMServiceCenterUtils isServiceCenterEnabled:self->_config])
@@ -2206,11 +2164,11 @@ LABEL_13:
       block[2] = __46__CDMServiceCenter_handleCommand_forCallback___block_invoke;
       block[3] = &unk_1E862F390;
       block[4] = self;
-      v30 = commandCopy;
-      v31 = callbackCopy;
+      v29 = commandCopy;
+      v30 = callbackCopy;
       dispatch_async(cdmServiceCenterQueue, block);
 
-      v9 = v30;
+      v9 = v29;
 LABEL_6:
 
       goto LABEL_21;
@@ -2220,16 +2178,16 @@ LABEL_6:
     if (objc_opt_isKindOfClass())
     {
       v10 = self->_cdmServiceCenterQueue;
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __46__CDMServiceCenter_handleCommand_forCallback___block_invoke_2;
-      v26[3] = &unk_1E862F390;
-      v26[4] = self;
-      v27 = commandCopy;
-      v28 = callbackCopy;
-      dispatch_async(v10, v26);
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __46__CDMServiceCenter_handleCommand_forCallback___block_invoke_2;
+      v25[3] = &unk_1E862F390;
+      v25[4] = self;
+      v26 = commandCopy;
+      v27 = callbackCopy;
+      dispatch_async(v10, v25);
 
-      v9 = v27;
+      v9 = v26;
       goto LABEL_6;
     }
 
@@ -2239,17 +2197,17 @@ LABEL_6:
       v12 = [(NSMutableDictionary *)self->_commandServicesDict objectForKeyedSubscript:commandName];
       if (v12)
       {
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __46__CDMServiceCenter_handleCommand_forCallback___block_invoke_496;
-        v21[3] = &unk_1E862E3C0;
-        v22 = commandCopy;
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __46__CDMServiceCenter_handleCommand_forCallback___block_invoke_496;
+        v20[3] = &unk_1E862E3C0;
+        v21 = commandCopy;
         selfCopy = self;
-        v25 = callbackCopy;
-        v24 = commandName;
-        [v12 enumerateObjectsUsingBlock:v21];
+        v24 = callbackCopy;
+        v23 = commandName;
+        [v12 enumerateObjectsUsingBlock:v20];
 
-        v13 = v22;
+        v13 = v21;
       }
 
       else
@@ -2258,9 +2216,9 @@ LABEL_6:
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v37 = "[CDMServiceCenter handleCommand:forCallback:]";
-          v38 = 2114;
-          v39 = commandName;
+          v36 = "[CDMServiceCenter handleCommand:forCallback:]";
+          v37 = 2114;
+          v38 = commandName;
           _os_log_error_impl(&dword_1DC287000, v17, OS_LOG_TYPE_ERROR, "%s [ERR]: No service found for command %{public}@", buf, 0x16u);
         }
 
@@ -2270,9 +2228,9 @@ LABEL_6:
         }
 
         v18 = MEMORY[0x1E696ABC0];
-        v32 = *MEMORY[0x1E696A578];
-        v33 = @"No service found for command";
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+        v31 = *MEMORY[0x1E696A578];
+        v32 = @"No service found for command";
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
         v13 = [v18 errorWithDomain:@"CDMServiceCenter" code:0 userInfo:v19];
 
         (*(callbackCopy + 2))(callbackCopy, 0, v13);
@@ -2286,18 +2244,18 @@ LABEL_19:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v37 = "[CDMServiceCenter handleCommand:forCallback:]";
-      v38 = 2114;
-      v39 = @"Handle command called but CDM system is not ready";
+      v36 = "[CDMServiceCenter handleCommand:forCallback:]";
+      v37 = 2114;
+      v38 = @"Handle command called but CDM system is not ready";
       _os_log_error_impl(&dword_1DC287000, v14, OS_LOG_TYPE_ERROR, "%s [ERR]: %{public}@", buf, 0x16u);
     }
 
     if (callbackCopy)
     {
       v15 = MEMORY[0x1E696ABC0];
-      v34 = *MEMORY[0x1E696A578];
-      v35 = @"Handle command called but CDM system is not ready";
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+      v33 = *MEMORY[0x1E696A578];
+      v34 = @"Handle command called but CDM system is not ready";
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
       commandName = [v15 errorWithDomain:@"CDMServiceCenter" code:0 userInfo:v16];
 
       (*(callbackCopy + 2))(callbackCopy, 0, commandName);
@@ -2306,86 +2264,81 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __46__CDMServiceCenter_handleCommand_forCallback___block_invoke_496(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(a1 + 32);
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (v5 = *(a1 + 32), objc_opt_class(), (objc_opt_isKindOfClass()) || (v6 = *(a1 + 32), objc_opt_class(), (objc_opt_isKindOfClass()) || (v7 = *(a1 + 32), objc_opt_class(), (objc_opt_isKindOfClass()))
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
-    v8 = CDMOSLoggerForCategory(3);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v4 = CDMOSLoggerForCategory(3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v19 = [*(a1 + 32) commandName];
+      v14 = [*(a1 + 32) commandName];
       *buf = 136315394;
-      v30 = "[CDMServiceCenter handleCommand:forCallback:]_block_invoke";
-      v31 = 2112;
-      v32 = v19;
-      _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s Dispatch supported command on _cdmServiceCenterQueue with user initiated priority 37. command=%@", buf, 0x16u);
+      v25 = "[CDMServiceCenter handleCommand:forCallback:]_block_invoke";
+      v26 = 2112;
+      v27 = v14;
+      _os_log_debug_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEBUG, "%s Dispatch supported command on _cdmServiceCenterQueue with user initiated priority 37. command=%@", buf, 0x16u);
     }
 
-    v9 = *(*(a1 + 40) + 72);
+    v5 = *(*(a1 + 40) + 72);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __46__CDMServiceCenter_handleCommand_forCallback___block_invoke_501;
     block[3] = &unk_1E862F390;
-    v10 = &v26;
-    v26 = v3;
-    v11 = &v27;
-    v27 = *(a1 + 32);
-    v12 = &v28;
-    v28 = *(a1 + 56);
-    v13 = v3;
-    v14 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
-    dispatch_async(v9, v14);
+    v6 = &v21;
+    v21 = v3;
+    v7 = &v22;
+    v22 = *(a1 + 32);
+    v8 = &v23;
+    v23 = *(a1 + 56);
+    v9 = v3;
+    v10 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
+    dispatch_async(v5, v10);
   }
 
   else
   {
-    v16 = CDMOSLoggerForCategory(3);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v11 = CDMOSLoggerForCategory(3);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v20 = *(a1 + 48);
+      v15 = *(a1 + 48);
       *buf = 136315394;
-      v30 = "[CDMServiceCenter handleCommand:forCallback:]_block_invoke_2";
-      v31 = 2112;
-      v32 = v20;
-      _os_log_debug_impl(&dword_1DC287000, v16, OS_LOG_TYPE_DEBUG, "%s Dispatch %@ on CDM service center queue with queue's priority.", buf, 0x16u);
+      v25 = "[CDMServiceCenter handleCommand:forCallback:]_block_invoke_2";
+      v26 = 2112;
+      v27 = v15;
+      _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Dispatch %@ on CDM service center queue with queue's priority.", buf, 0x16u);
     }
 
-    v17 = *(*(a1 + 40) + 72);
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __46__CDMServiceCenter_handleCommand_forCallback___block_invoke_503;
-    v21[3] = &unk_1E862F390;
-    v10 = &v22;
-    v22 = v3;
-    v11 = &v23;
-    v23 = *(a1 + 32);
-    v12 = &v24;
-    v24 = *(a1 + 56);
-    v18 = v3;
-    dispatch_async(v17, v21);
+    v12 = *(*(a1 + 40) + 72);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __46__CDMServiceCenter_handleCommand_forCallback___block_invoke_503;
+    v16[3] = &unk_1E862F390;
+    v6 = &v17;
+    v17 = v3;
+    v7 = &v18;
+    v18 = *(a1 + 32);
+    v8 = &v19;
+    v19 = *(a1 + 56);
+    v13 = v3;
+    dispatch_async(v12, v16);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (CDMServiceCenter)initWithConfig:(id)config
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   configCopy = config;
   v5 = CDMOSLoggerForCategory(4);
   spid = os_signpost_id_generate(v5);
 
   v6 = CDMOSLoggerForCategory(4);
   v7 = v6;
-  v48 = spid - 1;
+  v47 = spid - 1;
   if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     LOWORD(buf[0]) = 0;
@@ -2416,53 +2369,53 @@ void __46__CDMServiceCenter_handleCommand_forCallback___block_invoke_496(uint64_
     cdmServiceCenterQueue = self->_cdmServiceCenterQueue;
     self->_cdmServiceCenterQueue = v18;
 
-    v49 = [CDMServiceCenterUtils tryInitDAGServices:configCopy];
+    v48 = [CDMServiceCenterUtils tryInitDAGServices:configCopy];
     v20 = [[CDMComposerService alloc] initWithConfig:self->_config];
     composerService = self->_composerService;
     self->_composerService = v20;
 
-    v22 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSObject count](v49, "count") + 1}];
-    [v22 addObjectsFromArray:v49];
+    v22 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSObject count](v48, "count") + 1}];
+    [v22 addObjectsFromArray:v48];
     [v22 addObject:self->_composerService];
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
     v64 = 0u;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     obj = v22;
-    v54 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
-    if (v54)
+    v53 = [obj countByEnumeratingWithState:&v62 objects:v67 count:16];
+    if (v53)
     {
-      v53 = *v64;
+      v52 = *v63;
       do
       {
-        for (i = 0; i != v54; ++i)
+        for (i = 0; i != v53; ++i)
         {
-          if (*v64 != v53)
+          if (*v63 != v52)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v63 + 1) + 8 * i);
+          v24 = *(*(&v62 + 1) + 8 * i);
           [v24 addObserver:self];
-          v61 = 0u;
-          v62 = 0u;
-          v59 = 0u;
           v60 = 0u;
+          v61 = 0u;
+          v58 = 0u;
+          v59 = 0u;
           supportedCommands = [v24 supportedCommands];
-          v26 = [supportedCommands countByEnumeratingWithState:&v59 objects:v67 count:16];
+          v26 = [supportedCommands countByEnumeratingWithState:&v58 objects:v66 count:16];
           if (v26)
           {
-            v27 = *v60;
+            v27 = *v59;
             do
             {
               for (j = 0; j != v26; ++j)
               {
-                if (*v60 != v27)
+                if (*v59 != v27)
                 {
                   objc_enumerationMutation(supportedCommands);
                 }
 
-                v29 = *(*(&v59 + 1) + 8 * j);
+                v29 = *(*(&v58 + 1) + 8 * j);
                 v30 = [(NSMutableDictionary *)self->_commandServicesDict objectForKeyedSubscript:v29];
                 v31 = v30 == 0;
 
@@ -2476,20 +2429,20 @@ void __46__CDMServiceCenter_handleCommand_forCallback___block_invoke_496(uint64_
                 [v33 addObject:v24];
               }
 
-              v26 = [supportedCommands countByEnumeratingWithState:&v59 objects:v67 count:16];
+              v26 = [supportedCommands countByEnumeratingWithState:&v58 objects:v66 count:16];
             }
 
             while (v26);
           }
         }
 
-        v54 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
+        v53 = [obj countByEnumeratingWithState:&v62 objects:v67 count:16];
       }
 
-      while (v54);
+      while (v53);
     }
 
-    v34 = [MEMORY[0x1E695DEC8] arrayWithArray:v49];
+    v34 = [MEMORY[0x1E695DEC8] arrayWithArray:v48];
     dagServices = self->_dagServices;
     self->_dagServices = v34;
 
@@ -2508,7 +2461,7 @@ void __46__CDMServiceCenter_handleCommand_forCallback___block_invoke_496(uint64_
     aBlock[1] = 3221225472;
     aBlock[2] = __35__CDMServiceCenter_initWithConfig___block_invoke;
     aBlock[3] = &unk_1E862E370;
-    objc_copyWeak(&v57, buf);
+    objc_copyWeak(&v56, buf);
     v40 = _Block_copy(aBlock);
     defaultCallback = self->_defaultCallback;
     self->_defaultCallback = v40;
@@ -2516,22 +2469,22 @@ void __46__CDMServiceCenter_handleCommand_forCallback___block_invoke_496(uint64_
     [(CDMServiceCenter *)self setSystemState:1];
     v42 = CDMOSLoggerForCategory(4);
     v43 = v42;
-    if (v48 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
+    if (v47 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
     {
-      *v55 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1DC287000, v43, OS_SIGNPOST_INTERVAL_END, spid, "CDMServiceCenterSetup", " enableTelemetry=YES ", v55, 2u);
+      *v54 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1DC287000, v43, OS_SIGNPOST_INTERVAL_END, spid, "CDMServiceCenterSetup", " enableTelemetry=YES ", v54, 2u);
     }
 
-    objc_destroyWeak(&v57);
+    objc_destroyWeak(&v56);
     objc_destroyWeak(buf);
 
-    v44 = v49;
+    v44 = v48;
   }
 
   else
   {
     v45 = CDMOSLoggerForCategory(4);
-    if (v48 >= 0xFFFFFFFFFFFFFFFELL)
+    if (v47 >= 0xFFFFFFFFFFFFFFFELL)
     {
       v44 = v45;
     }
@@ -2547,13 +2500,12 @@ void __46__CDMServiceCenter_handleCommand_forCallback___block_invoke_496(uint64_
     }
   }
 
-  v47 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __35__CDMServiceCenter_initWithConfig___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = CDMOSLoggerForCategory(3);
@@ -2561,13 +2513,13 @@ void __35__CDMServiceCenter_initWithConfig___block_invoke(uint64_t a1, void *a2,
   {
     v8 = [v5 commandName];
     v9 = [v6 localizedDescription];
-    v13 = 136315650;
-    v14 = "[CDMServiceCenter initWithConfig:]_block_invoke";
-    v15 = 2112;
-    v16 = v8;
-    v17 = 2112;
-    v18 = v9;
-    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s [CDMCommandOutputCallback-Default] %@ : %@", &v13, 0x20u);
+    v12 = 136315650;
+    v13 = "[CDMServiceCenter initWithConfig:]_block_invoke";
+    v14 = 2112;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v9;
+    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s [CDMCommandOutputCallback-Default] %@ : %@", &v12, 0x20u);
   }
 
   if (!v5 || v6)
@@ -2583,13 +2535,11 @@ void __35__CDMServiceCenter_initWithConfig___block_invoke(uint64_t a1, void *a2,
     v10 = objc_loadWeakRetained((a1 + 32));
     [(CDMGenericSendCommand *)v10 handleCommand:v5 forCallback:0];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)getDynamicConfigWithAssetCollectionForGraph:(id)graph withLocale:(id)locale withError:(id *)error withSelfMetadata:(id)metadata
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   aClassName = graph;
   localeCopy = locale;
   metadataCopy = metadata;
@@ -2598,11 +2548,11 @@ void __35__CDMServiceCenter_initWithConfig___block_invoke(uint64_t a1, void *a2,
   {
     localeIdentifier = [localeCopy localeIdentifier];
     *buf = 136315650;
-    v39 = "+[CDMServiceCenter getDynamicConfigWithAssetCollectionForGraph:withLocale:withError:withSelfMetadata:]";
-    v40 = 2112;
-    v41 = aClassName;
-    v42 = 2112;
-    v43 = localeIdentifier;
+    v38 = "+[CDMServiceCenter getDynamicConfigWithAssetCollectionForGraph:withLocale:withError:withSelfMetadata:]";
+    v39 = 2112;
+    v40 = aClassName;
+    v41 = 2112;
+    v42 = localeIdentifier;
     _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s Get dynamic configs with asset collection for graph: %@ with locale: %@.", buf, 0x20u);
   }
 
@@ -2623,9 +2573,9 @@ void __35__CDMServiceCenter_initWithConfig___block_invoke(uint64_t a1, void *a2,
     v20 = [CDMUAFAssetsManager getUAFClientManagersForLocale:localeIdentifier4 withCDMAssetsInfo:v16];
 
     +[CDMUAFAssetsManager reInitCDMUAFAssetsCache];
-    v37 = 0;
-    [v17 setupForLocale:localeCopy cdmAssetsInfo:v16 error:&v37];
-    v21 = v37;
+    v36 = 0;
+    [v17 setupForLocale:localeCopy cdmAssetsInfo:v16 error:&v36];
+    v21 = v36;
     v22 = v21;
     if (v21)
     {
@@ -2635,9 +2585,9 @@ void __35__CDMServiceCenter_initWithConfig___block_invoke(uint64_t a1, void *a2,
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v39 = "+[CDMServiceCenter getDynamicConfigWithAssetCollectionForGraph:withLocale:withError:withSelfMetadata:]";
-        v40 = 2114;
-        v41 = v22;
+        v38 = "+[CDMServiceCenter getDynamicConfigWithAssetCollectionForGraph:withLocale:withError:withSelfMetadata:]";
+        v39 = 2114;
+        v40 = v22;
         _os_log_error_impl(&dword_1DC287000, v24, OS_LOG_TYPE_ERROR, "%s [ERR]: CDM assets manager failed to setup with error: %{public}@.", buf, 0x16u);
       }
 
@@ -2664,14 +2614,12 @@ void __35__CDMServiceCenter_initWithConfig___block_invoke(uint64_t a1, void *a2,
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v39 = "+[CDMServiceCenter getDynamicConfigWithAssetCollectionForGraph:withLocale:withError:withSelfMetadata:]";
+      v38 = "+[CDMServiceCenter getDynamicConfigWithAssetCollectionForGraph:withLocale:withError:withSelfMetadata:]";
       _os_log_error_impl(&dword_1DC287000, v26, OS_LOG_TYPE_ERROR, "%s [ERR]: Some parameters are empty.", buf, 0xCu);
     }
 
     v27 = v13;
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

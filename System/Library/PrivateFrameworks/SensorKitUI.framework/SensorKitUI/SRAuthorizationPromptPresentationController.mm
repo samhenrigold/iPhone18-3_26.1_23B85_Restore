@@ -59,18 +59,18 @@ SRAuthorizationPromptPresentationController *__61__SRAuthorizationPromptPresenta
 
 - (BOOL)presentAnyViewController:(id)controller reason:(int64_t)reason completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   isPresenting = [(SRAuthorizationPromptPresentationController *)self isPresenting];
   if (isPresenting)
   {
     v10 = SRLogAuthorizationPromptPresentationController;
     if (os_log_type_enabled(SRLogAuthorizationPromptPresentationController, OS_LOG_TYPE_ERROR))
     {
-      v13 = 134218240;
+      v12 = 134218240;
       reasonCopy = reason;
-      v15 = 2048;
+      v14 = 2048;
       reason = [(SRAuthorizationPromptPresentationController *)self reason];
-      _os_log_error_impl(&dword_265602000, v10, OS_LOG_TYPE_ERROR, "Rejecting prompt request %ld due to ongoing prompt %ld", &v13, 0x16u);
+      _os_log_error_impl(&dword_265602000, v10, OS_LOG_TYPE_ERROR, "Rejecting prompt request %ld due to ongoing prompt %ld", &v12, 0x16u);
     }
 
     (*(handler + 2))(handler, [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CDC650] code:8195 userInfo:0]);
@@ -86,7 +86,6 @@ SRAuthorizationPromptPresentationController *__61__SRAuthorizationPromptPresenta
     [(SRRemoteAuthorizationPromptViewController *)[(SRAuthorizationPromptPresentationController *)self viewController] setDelegate:self];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return !isPresenting;
 }
 
@@ -257,7 +256,7 @@ SRAuthorizationPromptPresentationController *__61__SRAuthorizationPromptPresenta
 
 - (void)completePromptWithError:(id)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(SRAuthorizationPromptPresentationController *)self setError:error];
   v4 = [(SRAuthorizationPromptPresentationController *)self navigationControllerFromRoot:[(SRAuthorizationPromptPresentationController *)self presentationAnchor]];
   viewController = [(SRAuthorizationPromptPresentationController *)self viewController];
@@ -266,11 +265,11 @@ SRAuthorizationPromptPresentationController *__61__SRAuthorizationPromptPresenta
     v6 = SRLogAuthorizationPromptPresentationController;
     if (os_log_type_enabled(SRLogAuthorizationPromptPresentationController, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 134349312;
-      v12 = viewController;
-      v13 = 2050;
+      v10 = 134349312;
+      v11 = viewController;
+      v12 = 2050;
       presentingViewController = [(SRRemoteAuthorizationPromptViewController *)viewController presentingViewController];
-      _os_log_impl(&dword_265602000, v6, OS_LOG_TYPE_DEFAULT, "Dismissing ViewController %{public}p from presenting ViewController %{public}p", &v11, 0x16u);
+      _os_log_impl(&dword_265602000, v6, OS_LOG_TYPE_DEFAULT, "Dismissing ViewController %{public}p from presenting ViewController %{public}p", &v10, 0x16u);
     }
 
     [-[SRRemoteAuthorizationPromptViewController presentingViewController](viewController "presentingViewController")];
@@ -285,11 +284,11 @@ SRAuthorizationPromptPresentationController *__61__SRAuthorizationPromptPresenta
     {
       if (v9)
       {
-        v11 = 134349312;
-        v12 = viewController;
-        v13 = 2050;
+        v10 = 134349312;
+        v11 = viewController;
+        v12 = 2050;
         presentingViewController = v4;
-        _os_log_impl(&dword_265602000, v8, OS_LOG_TYPE_DEFAULT, "Popping ViewController %{public}p from NavigationController %{public}p", &v11, 0x16u);
+        _os_log_impl(&dword_265602000, v8, OS_LOG_TYPE_DEFAULT, "Popping ViewController %{public}p from NavigationController %{public}p", &v10, 0x16u);
       }
 
       [v4 popViewControllerAnimated:1];
@@ -299,16 +298,14 @@ SRAuthorizationPromptPresentationController *__61__SRAuthorizationPromptPresenta
     {
       if (v9)
       {
-        v11 = 134349056;
-        v12 = viewController;
-        _os_log_impl(&dword_265602000, v8, OS_LOG_TYPE_DEFAULT, "ViewController %{public}p is neither modal or in a NavigationController, just cleaning up", &v11, 0xCu);
+        v10 = 134349056;
+        v11 = viewController;
+        _os_log_impl(&dword_265602000, v8, OS_LOG_TYPE_DEFAULT, "ViewController %{public}p is neither modal or in a NavigationController, just cleaning up", &v10, 0xCu);
       }
 
       [(SRAuthorizationPromptPresentationController *)self viewControllerCleanUp];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __71__SRAuthorizationPromptPresentationController_completePromptWithError___block_invoke()

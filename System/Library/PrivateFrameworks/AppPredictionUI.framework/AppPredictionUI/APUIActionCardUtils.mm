@@ -161,7 +161,7 @@ LABEL_7:
 
 + (id)cardForCardSection:(id)section
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D4C230];
   sectionCopy = section;
   v5 = objc_alloc_init(v3);
@@ -169,11 +169,10 @@ LABEL_7:
   uUIDString = [uUID UUIDString];
   [v5 setCardId:uUIDString];
 
-  v11[0] = sectionCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = sectionCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
 
   [v5 setCardSections:v8];
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -211,11 +210,11 @@ LABEL_7:
 
 + (id)cardViewForNSUserActivity:(id)activity withConfig:(id)config
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = [self cardSectionForNSUserActivity:activity withConfig:config];
   v5 = MEMORY[0x277D4C818];
-  v11[0] = v4;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v4;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v7 = [v5 viewsForCardSections:v6 feedbackListener:0];
 
   if ([v7 count])
@@ -227,19 +226,17 @@ LABEL_7:
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)cardViewForUAUserActivityProxy:(id)proxy withConfig:(id)config
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = [self cardSectionForUAUserActivityProxy:proxy withConfig:config];
   v5 = MEMORY[0x277D4C818];
-  v11[0] = v4;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v4;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v7 = [v5 viewsForCardSections:v6 feedbackListener:0];
 
   if ([v7 count])
@@ -251,19 +248,17 @@ LABEL_7:
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)cardViewForINInteraction:(id)interaction withConfig:(id)config
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = [self cardSectionForINInteraction:interaction withConfig:config];
   v5 = MEMORY[0x277D4C818];
-  v11[0] = v4;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v4;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v7 = [v5 viewsForCardSections:v6 feedbackListener:0];
 
   if ([v7 count])
@@ -275,19 +270,17 @@ LABEL_7:
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)cardViewForINIntent:(id)intent withConfig:(id)config
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = [self cardSectionForINIntent:intent withConfig:config];
   v5 = MEMORY[0x277D4C818];
-  v11[0] = v4;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v4;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v7 = [v5 viewsForCardSections:v6 feedbackListener:0];
 
   if ([v7 count])
@@ -300,18 +293,16 @@ LABEL_7:
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)cardViewForVoiceShortcutWithPhrase:(id)phrase name:(id)name description:(id)description keyImage:(id)image applicationBundleIdentifier:(id)identifier config:(id)config
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v8 = [self cardSectionForVoiceShortcutWithPhrase:phrase name:name description:description keyImage:image applicationBundleIdentifier:identifier config:config];
   v9 = MEMORY[0x277D4C818];
-  v15[0] = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v11 = [v9 viewsForCardSections:v10 feedbackListener:0];
 
   if ([v11 count])
@@ -324,18 +315,16 @@ LABEL_7:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (id)cardViewForHeroApp:(id)app withConfig:(id)config
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = [self cardSectionForHeroApp:app withConfig:config];
   v5 = MEMORY[0x277D4C818];
-  v11[0] = v4;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v4;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v7 = [v5 viewsForCardSections:v6 feedbackListener:0];
 
   if ([v7 count])
@@ -347,8 +336,6 @@ LABEL_7:
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -411,7 +398,7 @@ void __46__APUIActionCardUtils_cardViewReuseIdentifier__block_invoke()
 
 + (id)_generateCardSectionWithInfo:(id)info config:(id)config
 {
-  v77[1] = *MEMORY[0x277D85DE8];
+  v76[1] = *MEMORY[0x277D85DE8];
   infoCopy = info;
   configCopy = config;
   bundleId = [configCopy bundleId];
@@ -478,8 +465,8 @@ void __46__APUIActionCardUtils_cardViewReuseIdentifier__block_invoke()
     v30 = [v28 textWithString:subtitle];
 
     [v30 setMaxLines:{objc_msgSend(configCopy, "maxLinesForSubtitle")}];
-    v77[0] = v30;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:1];
+    v76[0] = v30;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:1];
     [v20 setDescriptions:v31];
   }
 
@@ -503,8 +490,8 @@ void __46__APUIActionCardUtils_cardViewReuseIdentifier__block_invoke()
       v37 = MEMORY[0x277D4C820];
       bundleId7 = [infoCopy bundleId];
       v39 = [v37 appIconForBundleIdentifier:bundleId7 variant:0];
-      v76 = v39;
-      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v76 count:1];
+      v75 = v39;
+      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v75 count:1];
       footnote = [v20 footnote];
       [footnote setIcons:v40];
 
@@ -645,14 +632,12 @@ LABEL_35:
     }
   }
 
-  v74 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 + (void)_configureCardInfo:(id)info forINInteraction:(id)interaction withConfig:(id)config
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   interactionCopy = interaction;
   configCopy = config;
@@ -757,30 +742,30 @@ LABEL_21:
     {
     }
 
-    v53 = configCopy;
+    v52 = configCopy;
     v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v52 = intent;
+    v51 = intent;
     apui_keyPeople2 = [intent apui_keyPeople];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
-    v36 = [apui_keyPeople2 countByEnumeratingWithState:&v54 objects:v58 count:16];
+    v36 = [apui_keyPeople2 countByEnumeratingWithState:&v53 objects:v57 count:16];
     if (v36)
     {
       v37 = v36;
       nameComponents = 0;
-      v39 = *v55;
+      v39 = *v54;
       do
       {
         for (i = 0; i != v37; ++i)
         {
-          if (*v55 != v39)
+          if (*v54 != v39)
           {
             objc_enumerationMutation(apui_keyPeople2);
           }
 
-          v41 = *(*(&v54 + 1) + 8 * i);
+          v41 = *(*(&v53 + 1) + 8 * i);
           contactIdentifier = [v41 contactIdentifier];
           if (contactIdentifier)
           {
@@ -793,7 +778,7 @@ LABEL_21:
           }
         }
 
-        v37 = [apui_keyPeople2 countByEnumeratingWithState:&v54 objects:v58 count:16];
+        v37 = [apui_keyPeople2 countByEnumeratingWithState:&v53 objects:v57 count:16];
       }
 
       while (v37);
@@ -809,14 +794,14 @@ LABEL_21:
       v43 = objc_alloc_init(MEMORY[0x277D4C2D0]);
       [v43 setContactIdentifiers:v34];
       [infoCopy setImage:v43];
-      intent = v52;
-      configCopy = v53;
+      intent = v51;
+      configCopy = v52;
     }
 
     else
     {
-      intent = v52;
-      configCopy = v53;
+      intent = v51;
+      configCopy = v52;
       if (!nameComponents)
       {
 LABEL_47:
@@ -828,16 +813,16 @@ LABEL_47:
       givenName = [nameComponents givenName];
       if ([givenName length])
       {
-        v50 = [givenName substringToIndex:1];
+        v49 = [givenName substringToIndex:1];
       }
 
       else
       {
-        v50 = &stru_2851FF3F8;
+        v49 = &stru_2851FF3F8;
       }
 
       familyName = [nameComponents familyName];
-      v51 = givenName;
+      v50 = givenName;
       if ([familyName length])
       {
         v46 = [familyName substringToIndex:1];
@@ -848,8 +833,8 @@ LABEL_47:
         v46 = &stru_2851FF3F8;
       }
 
-      v49 = v46;
-      v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", v50, v46];
+      v48 = v46;
+      v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", v49, v46];
       [v43 setMonogramLetters:v47];
 
       [infoCopy setImage:v43];
@@ -859,8 +844,6 @@ LABEL_47:
   }
 
 LABEL_48:
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_configureCardInfo:(id)info forINIntent:(id)intent withConfig:(id)config
@@ -929,18 +912,18 @@ LABEL_48:
 
     if (thumbnailURL)
     {
-      v23 = [objc_alloc(MEMORY[0x277D4C6B8]) initWithURL:thumbnailURL];
-      [infoCopy setImage:v23];
+      v24 = [objc_alloc(MEMORY[0x277D4C6B8]) initWithURL:thumbnailURL];
+      [infoCopy setImage:v24];
 
       image = [infoCopy image];
       [image setCornerRoundingStyle:2];
     }
   }
 
-  v25 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  v26 = __atxlog_handle_ui(v21);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    [APUIActionCardUtils _configureCardInfo:v25 forNSUserActivity:? withConfig:?];
+    [APUIActionCardUtils _configureCardInfo:v26 forNSUserActivity:? withConfig:?];
   }
 }
 
@@ -1090,7 +1073,7 @@ LABEL_11:
   infoCopy = info;
   actionCopy = action;
   configCopy = config;
-  v11 = __atxlog_handle_ui();
+  v11 = __atxlog_handle_ui(configCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [APUIActionCardUtils _configureCardInfo:v11 forATXAction:? withConfig:?];

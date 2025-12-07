@@ -11,18 +11,16 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[6] = *MEMORY[0x277D85DE8];
+  v6[6] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"Type";
-  v7[1] = @"Server";
-  v7[2] = @"ServerPort";
-  v7[3] = @"ProxyAuthenticationCredentialsAssetReference";
-  v7[4] = @"PACURL";
-  v7[5] = @"PACFallbackAllowed";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:6];
+  v6[0] = @"Type";
+  v6[1] = @"Server";
+  v6[2] = @"ServerPort";
+  v6[3] = @"ProxyAuthenticationCredentialsAssetReference";
+  v6[4] = @"PACURL";
+  v6[5] = @"PACFallbackAllowed";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:6];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

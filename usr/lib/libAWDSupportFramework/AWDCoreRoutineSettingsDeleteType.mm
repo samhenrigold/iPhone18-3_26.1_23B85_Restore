@@ -69,7 +69,6 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -80,7 +79,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    deletionMethod = self->_deletionMethod;
 
     PBDataWriterWriteInt32Field();
   }
@@ -132,7 +130,6 @@
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 32);
     if (has)
     {
       if ((*(equal + 32) & 1) == 0 || self->_timestamp != *(equal + 1))

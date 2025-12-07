@@ -101,7 +101,7 @@ LABEL_11:
 
 - (id)description
 {
-  v21[3] = *MEMORY[0x1E69E9840];
+  v20[3] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = MEMORY[0x1E696AEC0];
@@ -117,21 +117,19 @@ LABEL_11:
   }
 
   v8 = [v5 stringWithFormat:@"rawValue: %@", v7];
-  v21[0] = v8;
+  v20[0] = v8;
   v9 = MEMORY[0x1E696AEC0];
   [(LARatchetState *)self duration];
   v11 = NSStringFromLARatchetStateDuration(v10);
   v12 = [v9 stringWithFormat:@"duration: %@", v11];
-  v21[1] = v12;
+  v20[1] = v12;
   v13 = MEMORY[0x1E696AEC0];
   uuid = [(LARatchetState *)self uuid];
   v15 = [v13 stringWithFormat:@"uuid: %@", uuid];
-  v21[2] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
+  v20[2] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
   v17 = [v16 componentsJoinedByString:@" "];;
   v18 = [v3 stringWithFormat:@"<%@ %p %@>", v4, self, v17];;
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

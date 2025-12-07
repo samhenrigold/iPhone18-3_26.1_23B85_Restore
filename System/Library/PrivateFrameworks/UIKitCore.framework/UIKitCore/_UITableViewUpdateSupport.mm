@@ -1,7 +1,7 @@
 @interface _UITableViewUpdateSupport
 - (BOOL)_isReloadSectionUpdate;
+- (CGFloat)_startOfRowAfterFooterInSection:(uint64_t)section withRowData:;
 - (UIImageView)_imageViewForView:(void *)view;
-- (double)_startOfRowAfterFooterInSection:(uint64_t)section withRowData:;
 - (double)_startOfRowAfterHeaderInSection:(void *)section withRowData:;
 - (double)_startOfRowAfterRow:(void *)row withRowData:;
 - (id)_collectionViewUpdateItems;
@@ -33,23 +33,23 @@
 
 - (void)_setupAnimations
 {
-  if (self)
+  if (result)
   {
-    [(_UITableViewUpdateSupport *)self _computeVisibleBounds];
-    [(_UITableViewUpdateSupport *)self _faultInRealHeightsOfNeededElements];
-    [(_UITableViewUpdateSupport *)self _setupAnimationStructures];
-    [(_UITableViewUpdateSupport *)self _computeAutomaticAnimationTypes];
-    [(_UITableViewUpdateSupport *)self _setupAnimationsForExistingVisibleCells];
-    [(_UITableViewUpdateSupport *)self _setupAnimationForReorderingRow];
-    [(_UITableViewUpdateSupport *)self _setupAnimationsForNewlyInsertedCells];
-    [(_UITableViewUpdateSupport *)self _setupAnimationsForInsertedHeadersAndFooters];
-    [(_UITableViewUpdateSupport *)self _setupAnimationsForExistingOffscreenCells];
-    [(_UITableViewUpdateSupport *)self _setupAnimationsForExistingHeadersAndFooters];
-    [(_UITableViewUpdateSupport *)self _setupAnimationForTableHeader];
-    [(_UITableViewUpdateSupport *)self _setupAnimationForTableFooter];
-    [(_UITableViewUpdateSupport *)self _setupAnimationsForDeletedCells];
+    [(_UITableViewUpdateSupport *)result _computeVisibleBounds];
+    [(_UITableViewUpdateSupport *)result _faultInRealHeightsOfNeededElements];
+    [(_UITableViewUpdateSupport *)result _setupAnimationStructures];
+    [(_UITableViewUpdateSupport *)result _computeAutomaticAnimationTypes];
+    [(_UITableViewUpdateSupport *)result _setupAnimationsForExistingVisibleCells];
+    [(_UITableViewUpdateSupport *)result _setupAnimationForReorderingRow];
+    [(_UITableViewUpdateSupport *)result _setupAnimationsForNewlyInsertedCells];
+    [(_UITableViewUpdateSupport *)result _setupAnimationsForInsertedHeadersAndFooters];
+    [(_UITableViewUpdateSupport *)result _setupAnimationsForExistingOffscreenCells];
+    [(_UITableViewUpdateSupport *)result _setupAnimationsForExistingHeadersAndFooters];
+    [(_UITableViewUpdateSupport *)result _setupAnimationForTableHeader];
+    [(_UITableViewUpdateSupport *)result _setupAnimationForTableFooter];
+    [(_UITableViewUpdateSupport *)result _setupAnimationsForDeletedCells];
 
-    [(_UITableViewUpdateSupport *)self _setupAnimationsForDeletedHeadersAndFooters];
+    [(_UITableViewUpdateSupport *)result _setupAnimationsForDeletedHeadersAndFooters];
   }
 }
 
@@ -266,7 +266,7 @@ LABEL_24:
       v2 = v12;
       v13 = v12;
       v14 = v5;
-      if (v5 < v5 + v12)
+      if (v5 < (v5 + v12))
       {
         do
         {
@@ -5273,7 +5273,7 @@ LABEL_230:
   return MaxY;
 }
 
-- (double)_startOfRowAfterFooterInSection:(uint64_t)section withRowData:
+- (CGFloat)_startOfRowAfterFooterInSection:(uint64_t)section withRowData:
 {
   if (!self)
   {
@@ -5456,7 +5456,7 @@ LABEL_230:
       v25 = v24;
       if (v24)
       {
-        v26 = *(v24 + 8);
+        v26 = v24[8];
       }
 
       else
@@ -5497,7 +5497,7 @@ LABEL_13:
               v32 = v31;
               if (v31)
               {
-                v33 = *(v31 + 8);
+                v33 = v31[8];
               }
 
               else

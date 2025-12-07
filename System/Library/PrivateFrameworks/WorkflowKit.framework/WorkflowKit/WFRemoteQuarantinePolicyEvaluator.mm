@@ -20,7 +20,7 @@
 
 - (void)_evaluatePolicyForRequest:(id)request completion:(id)completion
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
   currentThread = [MEMORY[0x1E696AF00] currentThread];
@@ -35,25 +35,25 @@
 
   javaScriptVirtualMachine = [(WFRemoteQuarantinePolicyEvaluator *)self javaScriptVirtualMachine];
   v12 = [objc_alloc(MEMORY[0x1E696EB40]) initWithVirtualMachine:javaScriptVirtualMachine];
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x2020000000;
-  v60 = 0;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x2020000000;
+  v59 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __74__WFRemoteQuarantinePolicyEvaluator__evaluatePolicyForRequest_completion___block_invoke;
   aBlock[3] = &unk_1E83759A0;
-  v56 = &v57;
+  v55 = &v56;
   v13 = completionCopy;
-  v55 = v13;
+  v54 = v13;
   v14 = _Block_copy(aBlock);
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = __74__WFRemoteQuarantinePolicyEvaluator__evaluatePolicyForRequest_completion___block_invoke_2;
-  v52[3] = &unk_1E83759C8;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __74__WFRemoteQuarantinePolicyEvaluator__evaluatePolicyForRequest_completion___block_invoke_2;
+  v51[3] = &unk_1E83759C8;
   v15 = v14;
-  v53 = v15;
-  [v12 setExceptionHandler:v52];
+  v52 = v15;
+  [v12 setExceptionHandler:v51];
   [v12 setObject:&__block_literal_global_199 forKeyedSubscript:@"WFLocalizedString"];
   v16 = +[WFRemoteQuarantinePolicyManager sharedManager];
   policyString = [v16 policyString];
@@ -61,52 +61,52 @@
   if (policyString)
   {
     v18 = [v12 evaluateScript:policyString];
-    if ((v58[3] & 1) == 0)
+    if ((v57[3] & 1) == 0)
     {
-      v46 = 0;
-      v47 = &v46;
-      v48 = 0x3032000000;
-      v49 = __Block_byref_object_copy__12286;
-      v50 = __Block_byref_object_dispose__12287;
-      v51 = 0;
+      v45 = 0;
+      v46 = &v45;
+      v47 = 0x3032000000;
+      v48 = __Block_byref_object_copy__12286;
+      v49 = __Block_byref_object_dispose__12287;
+      v50 = 0;
       objc_initWeak(&location, self);
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __74__WFRemoteQuarantinePolicyEvaluator__evaluatePolicyForRequest_completion___block_invoke_200;
-      v39[3] = &unk_1E8375A10;
-      objc_copyWeak(&v44, &location);
-      v42 = &v46;
-      v43 = &v57;
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __74__WFRemoteQuarantinePolicyEvaluator__evaluatePolicyForRequest_completion___block_invoke_200;
+      v38[3] = &unk_1E8375A10;
+      objc_copyWeak(&v43, &location);
+      v41 = &v45;
+      v42 = &v56;
       v19 = v15;
-      v41 = v19;
+      v40 = v19;
       v20 = requestCopy;
-      v40 = v20;
-      v21 = _Block_copy(v39);
+      v39 = v20;
+      v21 = _Block_copy(v38);
       [v12 setObject:v21 forKeyedSubscript:@"completionHandler"];
 
       policyFunctionName = [v20 policyFunctionName];
-      v34 = [v12 objectForKeyedSubscript:policyFunctionName];
+      v33 = [v12 objectForKeyedSubscript:policyFunctionName];
 
       v23 = [v12 objectForKeyedSubscript:@"completionHandler"];
-      v38 = 0;
-      v24 = [v20 javaScriptCoreRepresentationWithError:&v38];
-      v25 = v38;
+      v37 = 0;
+      v24 = [v20 javaScriptCoreRepresentationWithError:&v37];
+      v25 = v37;
       if (v24)
       {
         v26 = MEMORY[0x1E695DFF0];
-        v36[0] = MEMORY[0x1E69E9820];
-        v36[1] = 3221225472;
-        v36[2] = __74__WFRemoteQuarantinePolicyEvaluator__evaluatePolicyForRequest_completion___block_invoke_210;
-        v36[3] = &unk_1E8375A38;
-        v37 = v19;
-        v27 = [v26 scheduledTimerWithTimeInterval:0 repeats:v36 block:3.0];
-        v28 = v47[5];
-        v47[5] = v27;
+        v35[0] = MEMORY[0x1E69E9820];
+        v35[1] = 3221225472;
+        v35[2] = __74__WFRemoteQuarantinePolicyEvaluator__evaluatePolicyForRequest_completion___block_invoke_210;
+        v35[3] = &unk_1E8375A38;
+        v36 = v19;
+        v27 = [v26 scheduledTimerWithTimeInterval:0 repeats:v35 block:3.0];
+        v28 = v46[5];
+        v46[5] = v27;
 
-        v61[0] = v24;
-        v61[1] = v23;
-        v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:2];
-        v30 = [v34 callWithArguments:v29];
+        v60[0] = v24;
+        v60[1] = v23;
+        v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:2];
+        v30 = [v33 callWithArguments:v29];
       }
 
       else
@@ -115,18 +115,18 @@
         if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v63 = "[WFRemoteQuarantinePolicyEvaluator _evaluatePolicyForRequest:completion:]";
-          v64 = 2112;
-          v65 = v25;
+          v62 = "[WFRemoteQuarantinePolicyEvaluator _evaluatePolicyForRequest:completion:]";
+          v63 = 2112;
+          v64 = v25;
           _os_log_impl(&dword_1CA256000, v31, OS_LOG_TYPE_ERROR, "%s Failed to generate JSC representation: %@", buf, 0x16u);
         }
 
         (*(v19 + 2))(v19, 1, 0);
       }
 
-      objc_destroyWeak(&v44);
+      objc_destroyWeak(&v43);
       objc_destroyWeak(&location);
-      _Block_object_dispose(&v46, 8);
+      _Block_object_dispose(&v45, 8);
     }
   }
 
@@ -135,8 +135,7 @@
     (*(v15 + 2))(v15, 1, 0);
   }
 
-  _Block_object_dispose(&v57, 8);
-  v32 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v56, 8);
 }
 
 uint64_t __74__WFRemoteQuarantinePolicyEvaluator__evaluatePolicyForRequest_completion___block_invoke(uint64_t result)

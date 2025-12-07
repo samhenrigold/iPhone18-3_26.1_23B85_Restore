@@ -75,11 +75,10 @@ void ___MDItemSetPrivateAttributesForURL_block_invoke_5(uint64_t a1)
 
 void ___MDItemSetPrivateAttributesForURL_block_invoke_3_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_242636000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error from remote service: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_242636000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error from remote service: %@", &v1, 0xCu);
 }
 
 @end

@@ -24,28 +24,28 @@ id __69___PSContactSuggester_iMessageDomainIdentifiersForDomainIdentifiers___blo
 
 void __69___PSContactSuggester_iMessageDomainIdentifiersForDomainIdentifiers___block_invoke_70(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v10 + 1) + 8 * v7) chatIdentifier];
+        v8 = [*(*(&v9 + 1) + 8 * v7) chatIdentifier];
         if (v8)
         {
           [*(a1 + 32) addObject:v8];
@@ -55,15 +55,13 @@ void __69___PSContactSuggester_iMessageDomainIdentifiersForDomainIdentifiers___b
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __69___PSContactSuggester_iMessageDomainIdentifiersForDomainIdentifiers___block_invoke_73(uint64_t a1, void *a2)
@@ -166,28 +164,28 @@ void __150___PSContactSuggester_gameCenterSuggestionsWithMaxSuggestions_interact
 
 uint64_t __150___PSContactSuggester_gameCenterSuggestionsWithMaxSuggestions_interactionDomains_appleUsersOnly_includeGroupSuggestions_excludeContactsByIdentifiers___block_invoke_120(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = [a2 recipients];
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     v7 = 1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [*(*(&v12 + 1) + 8 * i) identifier];
+        v9 = [*(*(&v11 + 1) + 8 * i) identifier];
         if (v9)
         {
           if ([*(a1 + 32) containsObject:v9])
@@ -202,7 +200,7 @@ uint64_t __150___PSContactSuggester_gameCenterSuggestionsWithMaxSuggestions_inte
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -215,7 +213,6 @@ uint64_t __150___PSContactSuggester_gameCenterSuggestionsWithMaxSuggestions_inte
 
   [*(a1 + 32) unionSet:*(a1 + 40)];
   [*(a1 + 40) removeAllObjects];
-  v10 = *MEMORY[0x1E69E9840];
   return v7 & 1;
 }
 
@@ -330,30 +327,30 @@ void __54___PSContactSuggester__cascadeContentForContactPriors__block_invoke(uin
 
 void __54___PSContactSuggester__cascadeContentForContactPriors__block_invoke_3(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v2 = [a2 allLocalInstances];
-  v3 = [v2 countByEnumeratingWithState:&v20 objects:v30 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v19 objects:v29 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v21;
+    v6 = *v20;
     *&v4 = 67109376;
-    v18 = v4;
+    v17 = v4;
     do
     {
       v7 = 0;
       do
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = [*(*(&v20 + 1) + 8 * v7) content];
+        v8 = [*(*(&v19 + 1) + 8 * v7) content];
         if ([v8 minVersion] && objc_msgSend(v8, "version"))
         {
           if ([v8 minVersion] <= 1)
@@ -371,11 +368,11 @@ void __54___PSContactSuggester__cascadeContentForContactPriors__block_invoke_3(u
             v10 = [v8 version];
             v11 = [v8 minVersion];
             *buf = 67109632;
-            v25 = v10;
-            v26 = 1024;
-            v27 = v11;
-            v28 = 1024;
-            v29 = 1;
+            v24 = v10;
+            v25 = 1024;
+            v26 = v11;
+            v27 = 1024;
+            v28 = 1;
             _os_log_impl(&dword_1B5ED1000, v9, OS_LOG_TYPE_DEFAULT, "Skipping persisted cascade data with version=%d, minVersion=%d because this incantation of the software (%d) does not satisfy that minVersion", buf, 0x14u);
           }
         }
@@ -387,10 +384,10 @@ void __54___PSContactSuggester__cascadeContentForContactPriors__block_invoke_3(u
           {
             v12 = [v8 version];
             v13 = [v8 minVersion];
-            *buf = v18;
-            v25 = v12;
-            v26 = 1024;
-            v27 = v13;
+            *buf = v17;
+            v24 = v12;
+            v25 = 1024;
+            v26 = v13;
             _os_log_fault_impl(&dword_1B5ED1000, v9, OS_LOG_TYPE_FAULT, "Skipping persisted cascade data with invalid versioning info (version=%d, minVersion=%d)", buf, 0xEu);
           }
         }
@@ -399,7 +396,7 @@ void __54___PSContactSuggester__cascadeContentForContactPriors__block_invoke_3(u
       }
 
       while (v5 != v7);
-      v14 = [v2 countByEnumeratingWithState:&v20 objects:v30 count:16];
+      v14 = [v2 countByEnumeratingWithState:&v19 objects:v29 count:16];
       v5 = v14;
     }
 
@@ -407,8 +404,6 @@ void __54___PSContactSuggester__cascadeContentForContactPriors__block_invoke_3(u
   }
 
 LABEL_18:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 id __90___PSContactSuggester__filteredContactDictionaryFromCascadeContent_forContactIdentifiers___block_invoke(uint64_t a1, void *a2)
@@ -502,7 +497,7 @@ BOOL __58___PSContactSuggester_contactPriorsForContactIdentifiers___block_invoke
 
 id __54___PSContactSuggester_contactPriorSuggestionsForText___block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 entityInfo];
   if ([v4 entityType] != 1)
@@ -517,28 +512,28 @@ id __54___PSContactSuggester_contactPriorSuggestionsForText___block_invoke(uint6
     v5 = v4;
     if ([v5 itemType]== 19668)
     {
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       v6 = [v3 fieldMatches];
-      v7 = [v6 countByEnumeratingWithState:&v25 objects:v35 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v24 objects:v34 count:16];
       if (v7)
       {
         v8 = v7;
-        v22 = a1;
-        v9 = *v26;
+        v21 = a1;
+        v9 = *v25;
         v10 = MEMORY[0x1E695E0F0];
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v26 != v9)
+            if (*v25 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v12 = [*(*(&v25 + 1) + 8 * i) entityFieldInfo];
+            v12 = [*(*(&v24 + 1) + 8 * i) entityFieldInfo];
             if ([v12 entityType] == 1)
             {
               getSEMCascadeEntityFieldInfoClass();
@@ -550,12 +545,12 @@ id __54___PSContactSuggester_contactPriorSuggestionsForText___block_invoke(uint6
                 {
 
                   v6 = [v5 allMetaContent];
-                  v23[0] = MEMORY[0x1E69E9820];
-                  v23[1] = 3221225472;
-                  v23[2] = __54___PSContactSuggester_contactPriorSuggestionsForText___block_invoke_188;
-                  v23[3] = &unk_1E7C245D0;
-                  v24 = *(v22 + 32);
-                  v10 = [v6 _pas_mappedArrayWithTransform:v23];
+                  v22[0] = MEMORY[0x1E69E9820];
+                  v22[1] = 3221225472;
+                  v22[2] = __54___PSContactSuggester_contactPriorSuggestionsForText___block_invoke_188;
+                  v22[3] = &unk_1E7C245D0;
+                  v23 = *(v21 + 32);
+                  v10 = [v6 _pas_mappedArrayWithTransform:v22];
 
                   goto LABEL_27;
                 }
@@ -566,23 +561,23 @@ id __54___PSContactSuggester_contactPriorSuggestionsForText___block_invoke(uint6
                 v13 = +[_PSLogging generalChannel];
                 if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
                 {
-                  v20 = *(v22 + 32);
-                  v19 = objc_opt_class();
+                  v19 = *(v21 + 32);
+                  v18 = objc_opt_class();
                   SEMCascadeEntityFieldInfoClass = getSEMCascadeEntityFieldInfoClass();
                   *buf = 138478339;
-                  v30 = v20;
-                  v31 = 2114;
-                  v32 = v19;
-                  v33 = 2114;
-                  v34 = SEMCascadeEntityFieldInfoClass;
-                  v21 = SEMCascadeEntityFieldInfoClass;
+                  v29 = v19;
+                  v30 = 2114;
+                  v31 = v18;
+                  v32 = 2114;
+                  v33 = SEMCascadeEntityFieldInfoClass;
+                  v20 = SEMCascadeEntityFieldInfoClass;
                   _os_log_error_impl(&dword_1B5ED1000, v13, OS_LOG_TYPE_ERROR, "For text %{private}@ got %{public}@ when %{public}@ was expected", buf, 0x20u);
                 }
               }
             }
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v25 objects:v35 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v24 objects:v34 count:16];
         }
 
         while (v8);
@@ -612,25 +607,24 @@ LABEL_27:
 LABEL_28:
 
 LABEL_29:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
-id __54___PSContactSuggester_contactPriorSuggestionsForText___block_invoke_188(uint64_t a1, void *a2)
+_PSContactPrior *__54___PSContactSuggester_contactPriorSuggestionsForText___block_invoke_188(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
     v6 = [v3 sourceItemIdentifier];
-    v11 = 138478083;
-    v12 = v5;
-    v13 = 2113;
-    v14 = v6;
-    _os_log_impl(&dword_1B5ED1000, v4, OS_LOG_TYPE_INFO, "For text %{private}@ outputting contact identifier %{private}@", &v11, 0x16u);
+    v10 = 138478083;
+    v11 = v5;
+    v12 = 2113;
+    v13 = v6;
+    _os_log_impl(&dword_1B5ED1000, v4, OS_LOG_TYPE_INFO, "For text %{private}@ outputting contact identifier %{private}@", &v10, 0x16u);
   }
 
   v7 = objc_opt_new();
@@ -639,8 +633,6 @@ id __54___PSContactSuggester_contactPriorSuggestionsForText___block_invoke_188(u
 
   [v7 setPriorScore:0.0];
   [v7 setRank:0];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -709,27 +701,27 @@ void __55___PSContactSuggester__cascadeContentForPriorsArchive___block_invoke_2(
 
 void __55___PSContactSuggester__cascadeContentForPriorsArchive___block_invoke_4(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = [a2 allLocalInstances];
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = *(a1 + 32);
         v10 = [v8 content];
         v11 = [v8 metaContent];
@@ -737,13 +729,11 @@ void __55___PSContactSuggester__cascadeContentForPriorsArchive___block_invoke_4(
         (*(v9 + 16))(v9, v10, v11, v12);
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __46___PSContactSuggester__writeArchiveToCascade___block_invoke(uint64_t a1, void *a2)
@@ -757,46 +747,38 @@ void __46___PSContactSuggester__writeArchiveToCascade___block_invoke(uint64_t a1
 
 void __91___PSContactSuggester_contactSuggestionsWithMaxSuggestions_excludeContactsWithIdentifiers___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __150___PSContactSuggester_gameCenterSuggestionsWithMaxSuggestions_interactionDomains_appleUsersOnly_includeGroupSuggestions_excludeContactsByIdentifiers___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 error];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Finalizing local events failed: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Finalizing local events failed: %@", v4, 0xCu);
 }
 
 void __150___PSContactSuggester_gameCenterSuggestionsWithMaxSuggestions_interactionDomains_appleUsersOnly_includeGroupSuggestions_excludeContactsByIdentifiers___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __54___PSContactSuggester_contactPriorSuggestionsForText___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
-  v7 = 138478339;
-  v8 = v4;
-  v9 = 2114;
-  v10 = objc_opt_class();
-  v11 = 2114;
+  v6 = 138478339;
+  v7 = v4;
+  v8 = 2114;
+  v9 = objc_opt_class();
+  v10 = 2114;
   SEMCascadeEntityInfoClass = getSEMCascadeEntityInfoClass();
   v5 = SEMCascadeEntityInfoClass;
-  _os_log_error_impl(&dword_1B5ED1000, a3, OS_LOG_TYPE_ERROR, "For text %{private}@ got %{public}@ when %{public}@ was expected", &v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B5ED1000, a3, OS_LOG_TYPE_ERROR, "For text %{private}@ got %{public}@ when %{public}@ was expected", &v6, 0x20u);
 }
 
 @end

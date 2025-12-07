@@ -6,14 +6,15 @@
 
 - (id)describeProperties
 {
-  v6.receiver = self;
-  v6.super_class = AAProximityPairingStatusPayloadB463;
-  describeProperties = [(AAProximityPairingStatusPayloadBeatsUntethered *)&v6 describeProperties];
-  [(AAProximityPairingStatusPayloadB463 *)self color];
-  NSAppendPrintF_safe();
-  v3 = describeProperties;
+  v8.receiver = self;
+  v8.super_class = AAProximityPairingStatusPayloadB463;
+  describeProperties = [(AAProximityPairingStatusPayloadBeatsUntethered *)&v8 describeProperties];
+  v7 = describeProperties;
+  NSAppendPrintF_safe(&v7, ", col: %d", [(AAProximityPairingStatusPayloadB463 *)self color]);
+  v4 = v7;
+  v5 = v7;
 
-  return describeProperties;
+  return v4;
 }
 
 @end

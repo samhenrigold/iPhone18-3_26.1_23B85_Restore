@@ -23,69 +23,65 @@
 
 + (id)adStatusConditionsFromConditionsArray:(id)array
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
   v4 = arrayCopy;
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = @"statusConditionType";
-    v8 = *v26;
+    v8 = *v23;
     v9 = 0x1E695D000uLL;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         v12 = [v11 objectForKey:v7];
         v13 = [v11 objectForKey:@"identifier"];
         if (v12)
         {
-          v14 = *(v9 + 4016);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             if (v13)
             {
-              v15 = *(v9 + 4016);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
-                v16 = v7;
-                v17 = v9;
-                v18 = v4;
-                v19 = adStatusConditionTypeForType(v12);
-                v20 = [[FCAdStatusCondition alloc] initWithStatusConditionType:v19 identifier:v13];
-                v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v19];
-                [dictionary setObject:v20 forKey:v21];
+                v14 = v7;
+                v15 = v9;
+                v16 = v4;
+                v17 = adStatusConditionTypeForType(v12);
+                v18 = [[FCAdStatusCondition alloc] initWithStatusConditionType:v17 identifier:v13];
+                v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v17];
+                [dictionary setObject:v18 forKey:v19];
 
-                v4 = v18;
-                v9 = v17;
-                v7 = v16;
+                v4 = v16;
+                v9 = v15;
+                v7 = v14;
               }
             }
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

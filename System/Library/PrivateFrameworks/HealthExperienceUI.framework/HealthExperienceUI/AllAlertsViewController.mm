@@ -36,26 +36,26 @@
   sub_1B9F12538();
   v7 = v6;
   v8 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v19 - v12;
+  MEMORY[0x1EEE9AC00](v6, v9);
+  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12, v13);
+  v15 = &v21 - v14;
   sub_1BA4A45C8();
   selfCopy = self;
-  v15 = sub_1B9F23FB0();
-  v16 = OBJC_IVAR____TtC18HealthExperienceUI27CompoundSectionedDataSource_snapshot;
+  v17 = sub_1B9F23FB0();
+  v18 = OBJC_IVAR____TtC18HealthExperienceUI27CompoundSectionedDataSource_snapshot;
   swift_beginAccess();
-  (*(v8 + 16))(v10, v15 + v16, v7);
+  (*(v8 + 16))(v11, v17 + v18, v7);
 
-  v17 = sub_1BA4A44B8();
-  v18 = *(v8 + 8);
-  v18(v10, v7);
-  if (!v17)
+  v19 = sub_1BA4A44B8();
+  v20 = *(v8 + 8);
+  v20(v11, v7);
+  if (!v19)
   {
     [(AllAlertsViewController *)selfCopy dismissViewControllerAnimated:1 completion:0];
   }
 
-  v18(v13, v7);
+  v20(v15, v7);
 }
 
 - (_TtC18HealthExperienceUIP33_769EF482A8E949D5E185D49C9A04EEB923AllAlertsViewController)initWithCollectionViewLayout:(id)layout

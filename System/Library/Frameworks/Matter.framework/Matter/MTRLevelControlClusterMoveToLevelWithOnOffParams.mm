@@ -74,7 +74,7 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  LOBYTE(v26) = 0;
+  v26[0] = 0;
   LOBYTE(unsignedShortValue) = 0;
   v28 = 0;
   v29 = 0;
@@ -82,7 +82,7 @@
   v25[1] = 0;
   v24 = v25;
   level = [(MTRLevelControlClusterMoveToLevelWithOnOffParams *)self level];
-  LOBYTE(v26) = [level unsignedCharValue];
+  v26[0] = [level unsignedCharValue];
 
   transitionTime = [(MTRLevelControlClusterMoveToLevelWithOnOffParams *)self transitionTime];
 
@@ -110,7 +110,7 @@
     v22 = 0;
     sub_238EA16C4(&v19, &v23, 0);
     sub_2393C7BF0(v18, &v19, 0xFFFFFFFF);
-    v10 = sub_238F1D5F0(&v26, v18, 0x100uLL);
+    v10 = sub_238F1D5F0(v26, v18, 0x100uLL);
     v12 = v10;
     if (v10 || (v10 = sub_238DD2EFC(v18, &v23), v12 = v10, v10))
     {

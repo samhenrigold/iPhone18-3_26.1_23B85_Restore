@@ -45,9 +45,11 @@
 
 uint64_t __46__STUIStatusBarDataBroadcaster_sharedInstance__block_invoke(uint64_t a1)
 {
-  qword_280C1E848 = [objc_alloc(*(a1 + 32)) _init];
+  v1 = [objc_alloc(*(a1 + 32)) _init];
+  v2 = qword_280C1E848;
+  qword_280C1E848 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (id)_init

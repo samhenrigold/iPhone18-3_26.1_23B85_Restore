@@ -25,7 +25,6 @@
 
 uint64_t __49__PABSUnlockWithAppleWatchManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sharedInstance_2 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -33,26 +32,26 @@ uint64_t __49__PABSUnlockWithAppleWatchManager_sharedInstance__block_invoke(uint
 
 - (void)canUseWatchToUnlockWithCompletionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2050000000;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2050000000;
   v4 = getNRPairedDeviceRegistryClass_softClass;
-  v21 = getNRPairedDeviceRegistryClass_softClass;
+  v20 = getNRPairedDeviceRegistryClass_softClass;
   if (!getNRPairedDeviceRegistryClass_softClass)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v23 = __getNRPairedDeviceRegistryClass_block_invoke;
-    v24 = &unk_279A03148;
-    v25 = &v18;
+    v22 = __getNRPairedDeviceRegistryClass_block_invoke;
+    v23 = &unk_279A03148;
+    v24 = &v17;
     __getNRPairedDeviceRegistryClass_block_invoke(&buf);
-    v4 = v19[3];
+    v4 = v18[3];
   }
 
   v5 = v4;
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v17, 8);
   sharedInstance = [v4 sharedInstance];
   isPaired = [sharedInstance isPaired];
 
@@ -67,42 +66,42 @@ uint64_t __49__PABSUnlockWithAppleWatchManager_sharedInstance__block_invoke(uint
 
   if (isPaired)
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2050000000;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2050000000;
     v10 = getSFUnlockManagerClass_softClass;
-    v21 = getSFUnlockManagerClass_softClass;
+    v20 = getSFUnlockManagerClass_softClass;
     if (!getSFUnlockManagerClass_softClass)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v23 = __getSFUnlockManagerClass_block_invoke;
-      v24 = &unk_279A03148;
-      v25 = &v18;
+      v22 = __getSFUnlockManagerClass_block_invoke;
+      v23 = &unk_279A03148;
+      v24 = &v17;
       __getSFUnlockManagerClass_block_invoke(&buf);
-      v10 = v19[3];
+      v10 = v18[3];
     }
 
     v11 = v10;
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
     sharedUnlockManager = [v10 sharedUnlockManager];
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
     v13 = getIDSDefaultPairedDeviceSymbolLoc_ptr;
-    v21 = getIDSDefaultPairedDeviceSymbolLoc_ptr;
+    v20 = getIDSDefaultPairedDeviceSymbolLoc_ptr;
     if (!getIDSDefaultPairedDeviceSymbolLoc_ptr)
     {
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v23 = __getIDSDefaultPairedDeviceSymbolLoc_block_invoke;
-      v24 = &unk_279A03148;
-      v25 = &v18;
+      v22 = __getIDSDefaultPairedDeviceSymbolLoc_block_invoke;
+      v23 = &unk_279A03148;
+      v24 = &v17;
       __getIDSDefaultPairedDeviceSymbolLoc_block_invoke(&buf);
-      v13 = v19[3];
+      v13 = v18[3];
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
     if (!v13)
     {
       [PABSTouchIDPasscodeController enrollResult:bkIdentity:];
@@ -110,31 +109,30 @@ uint64_t __49__PABSUnlockWithAppleWatchManager_sharedInstance__block_invoke(uint
     }
 
     v14 = *v13;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __76__PABSUnlockWithAppleWatchManager_canUseWatchToUnlockWithCompletionHandler___block_invoke;
-    v16[3] = &unk_279A03300;
-    v17 = handlerCopy;
-    [sharedUnlockManager unlockEnabledWithDevice:v14 completionHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __76__PABSUnlockWithAppleWatchManager_canUseWatchToUnlockWithCompletionHandler___block_invoke;
+    v15[3] = &unk_279A03300;
+    v16 = handlerCopy;
+    [sharedUnlockManager unlockEnabledWithDevice:v14 completionHandler:v15];
   }
 
   else
   {
     (*(handlerCopy + 2))(handlerCopy, 0);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-void __76__PABSUnlockWithAppleWatchManager_canUseWatchToUnlockWithCompletionHandler___block_invoke(uint64_t a1, char a2, void *a3)
+void __76__PABSUnlockWithAppleWatchManager_canUseWatchToUnlockWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   if (v5)
   {
     v6 = PABSLogForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __76__PABSUnlockWithAppleWatchManager_canUseWatchToUnlockWithCompletionHandler___block_invoke_cold_1(a2);
+      __76__PABSUnlockWithAppleWatchManager_canUseWatchToUnlockWithCompletionHandler___block_invoke_cold_1(v3);
     }
   }
 
@@ -143,26 +141,26 @@ void __76__PABSUnlockWithAppleWatchManager_canUseWatchToUnlockWithCompletionHand
 
 - (void)canUseVisionToUnlockWithCompletionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2050000000;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2050000000;
   v4 = getSFAuthenticationManagerClass_softClass;
-  v17 = getSFAuthenticationManagerClass_softClass;
+  v16 = getSFAuthenticationManagerClass_softClass;
   if (!getSFAuthenticationManagerClass_softClass)
   {
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v19 = __getSFAuthenticationManagerClass_block_invoke;
-    v20 = &unk_279A03148;
-    v21 = &v14;
+    v18 = __getSFAuthenticationManagerClass_block_invoke;
+    v19 = &unk_279A03148;
+    v20 = &v13;
     __getSFAuthenticationManagerClass_block_invoke(&buf);
-    v4 = v15[3];
+    v4 = v14[3];
   }
 
   v5 = v4;
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v13, 8);
   v6 = [v4 alloc];
   v7 = [v6 initWithQueue:MEMORY[0x277D85CD0]];
   v8 = [v7 isSupportedForType:12];
@@ -177,20 +175,18 @@ void __76__PABSUnlockWithAppleWatchManager_canUseWatchToUnlockWithCompletionHand
 
   if (v8)
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __77__PABSUnlockWithAppleWatchManager_canUseVisionToUnlockWithCompletionHandler___block_invoke;
-    v12[3] = &unk_279A03EE0;
-    v13 = handlerCopy;
-    [v7 listCandidateDevicesForType:12 completionHandler:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __77__PABSUnlockWithAppleWatchManager_canUseVisionToUnlockWithCompletionHandler___block_invoke;
+    v11[3] = &unk_279A03EE0;
+    v12 = handlerCopy;
+    [v7 listCandidateDevicesForType:12 completionHandler:v11];
   }
 
   else
   {
     (*(handlerCopy + 2))(handlerCopy, 0);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __77__PABSUnlockWithAppleWatchManager_canUseVisionToUnlockWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -211,22 +207,16 @@ void __77__PABSUnlockWithAppleWatchManager_canUseVisionToUnlockWithCompletionHan
 
 void __76__PABSUnlockWithAppleWatchManager_canUseWatchToUnlockWithCompletionHandler___block_invoke_cold_1(char a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithBool:a1 & 1];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_2(&dword_25E0E9000, v2, v3, "Unlock using Watch: %@ %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_25E0E9000, v2, v3, "Unlock using Watch: %@ %@", v4, v5, v6, v7);
 }
 
 void __77__PABSUnlockWithAppleWatchManager_canUseVisionToUnlockWithCompletionHandler___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_2(&dword_25E0E9000, v2, v3, "Unlock using Vision: %@ %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_25E0E9000, v2, v3, "Unlock using Vision: %@ %@", v4, v5, v6, v7);
 }
 
 @end

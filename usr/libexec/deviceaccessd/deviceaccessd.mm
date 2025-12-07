@@ -30,9 +30,9 @@ void sub_100001D74(uint64_t a1, void *a2, void *a3, uint64_t a4)
   [WeakRetained _browserResultChangedFromOldResult:v8 newResult:v7 batchComplete:a4];
 }
 
-void sub_100002060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100002060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -64,13 +64,12 @@ void sub_1000020AC(uint64_t a1)
       v1 = *(*(*(a1 + 40) + 8) + 40);
     }
 
-    v3 = v1;
-    LogPrintF();
+    LogPrintF(&dword_100060190, "[DALocalNetworkScanner _browserStateChanged:error:]_block_invoke", 90, "Browser failed with error: %@", v1);
   }
 
 LABEL_7:
-  v4 = [*(a1 + 32) completionHandler];
-  (*(v4 + 2))(v4, 0, *(*(*(a1 + 40) + 8) + 40));
+  v3 = [*(a1 + 32) completionHandler];
+  (*(v3 + 2))(v3, 0, *(*(*(a1 + 40) + 8) + 40));
 }
 
 uint64_t sub_100002EE4(uint64_t result, uint64_t a2)
@@ -80,24 +79,22 @@ uint64_t sub_100002EE4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_100002EFC(uint64_t a1)
+void sub_100002EFC(uint64_t a1, uint64_t a2)
 {
-  v1 = *(*(a1 + 32) + 8);
-  obj = *(v1 + 40);
-  v2 = *(a1 + 40);
+  v2 = *(*(a1 + 32) + 8);
+  obj = *(v2 + 40);
   v3 = CUDescriptionWithLevel();
-  NSAppendPrintF();
-  objc_storeStrong((v1 + 40), obj);
+  NSAppendPrintF(&obj, "%@\n", v3);
+  objc_storeStrong((v2 + 40), obj);
 }
 
-void sub_100002F6C(uint64_t a1)
+void sub_100002F6C(uint64_t a1, uint64_t a2)
 {
-  v1 = *(*(a1 + 32) + 8);
-  obj = *(v1 + 40);
-  v2 = *(a1 + 40);
+  v2 = *(*(a1 + 32) + 8);
+  obj = *(v2 + 40);
   v3 = CUDescriptionWithLevel();
-  NSAppendPrintF();
-  objc_storeStrong((v1 + 40), obj);
+  NSAppendPrintF(&obj, "%@\n", v3);
+  objc_storeStrong((v2 + 40), obj);
 }
 
 void sub_100002FDC(uint64_t a1, void *a2, void *a3)
@@ -107,59 +104,75 @@ void sub_100002FDC(uint64_t a1, void *a2, void *a3)
   v5 = a3;
   v6 = a2;
   v7 = [v5 discoverySet];
-  [v7 count];
-  v8 = [v5 discoveryObj];
+  v8 = [v7 count];
+  v9 = [v5 discoveryObj];
 
-  NSAppendPrintF();
+  NSAppendPrintF(&obj, "AppID %@, clients %d, %@\n", v6, v8, v9);
   objc_storeStrong((v4 + 40), obj);
 }
 
-id sub_100003104(uint64_t a1)
+id sub_100003104(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_1000603A0 <= 30)
   {
-    sub_100030DBC();
+    if (dword_1000603A0 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_100030DBC(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 _activate];
+  return [v4 _activate];
 }
 
-id sub_100003594(uint64_t a1)
+id sub_100003594(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_1000603A0 <= 30)
   {
-    sub_100030E40();
+    if (dword_1000603A0 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_100030E40(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 _prefsChanged];
+  return [v4 _prefsChanged];
 }
 
-id sub_1000035FC(uint64_t a1)
+id sub_1000035FC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_1000603A0 <= 50)
   {
-    sub_100030E5C();
+    if (dword_1000603A0 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_100030E5C(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 _removeAllDevicesAndAppAccess];
+  return [v4 _removeAllDevicesAndAppAccess];
 }
 
-id sub_100003664(uint64_t a1)
+id sub_100003664(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_1000603A0 <= 50)
   {
-    sub_100030E78();
+    if (dword_1000603A0 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_100030E78(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 resetWiFiIdentifier:&stru_100058BE8];
+  return [v4 resetWiFiIdentifier:&stru_100058BE8];
 }
 
 id sub_1000036F4(uint64_t a1)
@@ -172,23 +185,31 @@ id sub_1000036F4(uint64_t a1)
 
 void sub_100003738(id a1, OS_xpc_object *a2)
 {
-  xpc_dictionary_get_string(a2, _xpc_event_key_name);
-  if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  string = xpc_dictionary_get_string(a2, _xpc_event_key_name);
+  if (dword_1000603A0 <= 50)
   {
-    sub_100030E94();
+    v3 = string;
+    if (dword_1000603A0 != -1 || _LogCategory_Initialize())
+    {
+      sub_100030E94(v3);
+    }
   }
 }
 
-id sub_100003818(uint64_t a1)
+id sub_100003818(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_1000603A0 <= 30)
   {
-    sub_100030ED4();
+    if (dword_1000603A0 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_100030ED4(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 _invalidate];
+  return [v4 _invalidate];
 }
 
 void sub_100003AC4(id a1, NSString *a2, DADaemonDiscovery *a3, BOOL *a4)
@@ -207,7 +228,7 @@ void sub_100003C44(uint64_t a1)
   v2 = +[WiFiAwareDeviceCapabilities currentDeviceCapabilities];
   if (dword_1000603A0 <= 20 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100030F24();
+    sub_100030F24(v2);
   }
 
   v3 = [v2 supportedFeatures];
@@ -240,7 +261,7 @@ void sub_100004A94(uint64_t a1, void *a2)
   v3 = [v6 bundleIdentifier];
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100031264();
+    sub_100031264(v3);
   }
 
   v4 = [v6 appState];
@@ -258,30 +279,20 @@ void sub_100004CFC(uint64_t a1, void *a2)
   [*(a1 + 32) addObject:v3];
 }
 
-void sub_100004FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100004FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  (*(v9 + 16))(v9);
+  va_start(va, a16);
+  (*(v16 + 16))(v16, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100005010(uint64_t a1)
 {
-  if (*(*(*(a1 + 32) + 8) + 40) && dword_1000603A0 <= 90)
+  if (*(*(*(a1 + 32) + 8) + 40) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    if (dword_1000603A0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      v2 = *(*(*(a1 + 32) + 8) + 40);
-    }
-
-    v3 = CUPrintNSError();
-    LogPrintF();
+    v1 = CUPrintNSError();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _keychainMarkDeviceForRestoreOnSameDevice]_block_invoke", 90, "### KeychainMarkDevicesForRestoreOnSameDevice failed: %@", v1);
   }
 }
 
@@ -315,7 +326,7 @@ void sub_100005A6C(uint64_t a1, void *a2)
   v3 = a2;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100031670();
+    sub_100031670(v3);
   }
 
   v4 = [v3 appAccessInfoMap];
@@ -346,7 +357,7 @@ void sub_100005B70(uint64_t a1, uint64_t a2)
     v7 = v8;
     if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _removeAllDevicesAndAppAccess]_block_invoke_2", 50, "### Removed-AllDevicesAndAppAccess %@, %@", v4, v7);
     }
   }
 }
@@ -356,7 +367,7 @@ void sub_100005D20(uint64_t a1, void *a2)
   v3 = a2;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_1000316F0();
+    sub_1000316F0(v3);
   }
 
   v7[0] = _NSConcreteStackBlock;
@@ -376,9 +387,7 @@ void sub_100005DFC(uint64_t a1, void *a2)
   v3 = a2;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v12 = *(a1 + 32);
-    v14 = v3;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer removeAppsAccess:]_block_invoke_2", 50, "### removeAppsAccess %@ %@", *(a1 + 32), v3);
   }
 
   v4 = [v3 appAccessInfoMap];
@@ -388,31 +397,28 @@ void sub_100005DFC(uint64_t a1, void *a2)
   {
     [v5 setState:0];
     v7 = *(a1 + 40);
-    v21 = 0;
-    [v7 updateAppAccessInfo:v6 accessoryDevice:v3 removalType:1 error:&v21];
-    v8 = v21;
+    v16 = 0;
+    [v7 updateAppAccessInfo:v6 accessoryDevice:v3 removalType:1 error:&v16];
+    v8 = v16;
     if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      v15 = v3;
-      v16 = v8;
-      v13 = v6;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer removeAppsAccess:]_block_invoke_2", 50, "### removeAppsAccess %@ %@ %@", v6, v3, v8);
     }
   }
 
   v9 = [v3 accessoryServicesMap];
   if (v9)
   {
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100005FE0;
-    v17[3] = &unk_100058DF8;
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100005FE0;
+    v12[3] = &unk_100058DF8;
     v10 = *(a1 + 32);
     v11 = *(a1 + 40);
-    v18 = v10;
-    v19 = v11;
-    v20 = v3;
-    [v9 enumerateKeysAndObjectsUsingBlock:v17];
+    v13 = v10;
+    v14 = v11;
+    v15 = v3;
+    [v9 enumerateKeysAndObjectsUsingBlock:v12];
   }
 }
 
@@ -450,21 +456,11 @@ void sub_100006880(_Unwind_Exception *a1)
 
 void sub_1000068E4(uint64_t a1)
 {
-  if (*(*(*(a1 + 40) + 8) + 40) && dword_1000603A0 <= 90)
+  if (*(*(*(a1 + 40) + 8) + 40) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    if (dword_1000603A0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      v3 = *(*(*(a1 + 40) + 8) + 40);
-    }
-
     v2 = *(a1 + 32);
-    v4 = CUPrintNSError();
-    LogPrintF();
+    v3 = CUPrintNSError();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer updateAppAccessInfo:accessoryDevice:removalType:error:]_block_invoke", 90, "### UpdateAppAccessInfo %@ failed: %@", v2, v3);
   }
 }
 
@@ -520,6 +516,13 @@ void *sub_100006D10(uint64_t a1)
   return result;
 }
 
+void sub_100006F28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_100006F58(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -545,7 +548,7 @@ void sub_100006F58(uint64_t a1, void *a2, void *a3)
   {
     if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100031864();
+      sub_100031864(v6);
     }
 
     [v6 setState:0];
@@ -556,7 +559,7 @@ void sub_100006F58(uint64_t a1, void *a2, void *a3)
     v16 = v17;
     if ((v15 & 1) == 0 && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _checkAppAccessInfoExpired]_block_invoke", 90, "Error removing access info: appID %@, %@", v5, v16);
     }
   }
 
@@ -564,29 +567,20 @@ void sub_100006F58(uint64_t a1, void *a2, void *a3)
 LABEL_16:
 }
 
-void sub_100007640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_100007640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  (*(v33 + 16))(v33);
-  _Block_object_dispose(&a33, 8);
+  va_start(va, a32);
+  (*(v32 + 16))(v32, a2, a3, a4, a5, a6, a7, a8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_1000076A8(uint64_t a1)
 {
-  if (*(*(*(a1 + 32) + 8) + 40) && dword_1000603A0 <= 90)
+  if (*(*(*(a1 + 32) + 8) + 40) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    if (dword_1000603A0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      v2 = *(*(*(a1 + 32) + 8) + 40);
-    }
-
-    v3 = CUPrintNSError();
-    LogPrintF();
+    v1 = CUPrintNSError();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _checkDevicesForAllApps]_block_invoke", 90, "### CheckDevicesForAllApps failed: %@", v1);
   }
 }
 
@@ -621,57 +615,36 @@ void sub_1000080C0(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_1000086FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000086FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  (*(a5 + 16))();
+  va_start(va, a20);
+  (*(a12 + 16))(a12, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100008758(uint64_t a1)
 {
-  if (*(*(*(a1 + 40) + 8) + 40) && dword_1000603A0 <= 90)
+  if (*(*(*(a1 + 40) + 8) + 40) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    if (dword_1000603A0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      v2 = *(*(*(a1 + 40) + 8) + 40);
-    }
-
-    v3 = CUPrintNSError();
-    v4 = *(a1 + 32);
-    LogPrintF();
+    v2 = CUPrintNSError();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer generateImageURLForDevice:]_block_invoke", 90, "### GenerateImageURL failed, %@, %@", v2, *(a1 + 32));
   }
 }
 
 void sub_10000956C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
-  (*(a22 + 16))();
+  (*(a22 + 16))(a22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(&STACK[0x2B8], 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100009670(uint64_t a1)
 {
-  if (*(*(*(a1 + 32) + 8) + 40) && dword_1000603A0 <= 90)
+  if (*(*(*(a1 + 32) + 8) + 40) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    if (dword_1000603A0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      v2 = *(*(*(a1 + 32) + 8) + 40);
-    }
-
-    v3 = CUPrintNSError();
-    LogPrintF();
+    v1 = CUPrintNSError();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer getDevicesWithFlags:appID:]_block_invoke", 90, "### GetDevices failed, %@", v1);
   }
 }
 
@@ -745,13 +718,13 @@ void sub_10000994C(uint64_t a1, void *a2, void *a3)
 
   else if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10003198C();
+    sub_10003198C(v10);
   }
 }
 
-void sub_10000A70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_10000A70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -771,10 +744,7 @@ void sub_10000A734(uint64_t a1, void *a2, _BYTE *a3)
     {
       if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        v15 = *(a1 + 40);
-        v16 = *(a1 + 32);
-        v14 = v7;
-        LogPrintF();
+        LogPrintF(&dword_1000603A0, "[DADaemonServer revokeBluetoothGlobalTCCIfNeededForDeviceAppAccessInfo:device:]_block_invoke", 50, "### saveDeviceAppAccessInfo found config %@ for device %@ appAccessInfo %@", v7, *(a1 + 40), *(a1 + 32));
       }
 
       objc_storeStrong((*(*(a1 + 48) + 8) + 40), v7);
@@ -783,23 +753,23 @@ void sub_10000A734(uint64_t a1, void *a2, _BYTE *a3)
   }
 
   v11 = [v5 configurations];
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_10000A8DC;
-  v17[3] = &unk_100058F60;
-  v18 = *(a1 + 32);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10000A8DC;
+  v14[3] = &unk_100058F60;
+  v15 = *(a1 + 32);
   v12 = *(a1 + 40);
   v13 = *(a1 + 48);
-  v19 = v12;
-  v20 = v13;
-  v21 = a3;
-  [v11 enumerateObjectsUsingBlock:v17];
+  v16 = v12;
+  v17 = v13;
+  v18 = a3;
+  [v11 enumerateObjectsUsingBlock:v14];
 }
 
 void sub_10000A8DC(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v12 = a2;
-  v7 = [v12 associationIdentifier];
+  v10 = a2;
+  v7 = [v10 associationIdentifier];
   v8 = [*(a1 + 32) associationIdentifier];
   v9 = [v8 isEqualToString:v7];
 
@@ -807,9 +777,7 @@ void sub_10000A8DC(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   {
     if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      v10 = *(a1 + 40);
-      v11 = *(a1 + 32);
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer revokeBluetoothGlobalTCCIfNeededForDeviceAppAccessInfo:device:]_block_invoke_2", 50, "### saveDeviceAppAccessInfo found config %@ for device %@ appAccessInfo %@", v10, *(a1 + 40), *(a1 + 32));
     }
 
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
@@ -818,11 +786,12 @@ void sub_10000A8DC(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_10000BA74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+void sub_10000BA74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
 {
-  (*(a17 + 16))();
+  va_start(va, a54);
+  (*(a17 + 16))(a17, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(&a51, 8);
-  _Block_object_dispose(&a55, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -842,36 +811,40 @@ void sub_10000BB84(uint64_t a1)
   dispatch_async(v2, v3);
 }
 
-void sub_10000BC40(uint64_t a1)
+void sub_10000BC40(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a1;
   if (*(*(*(a1 + 32) + 8) + 24) >= 2)
   {
-    if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1000603A0 <= 30)
     {
-      sub_100031BE4();
+      if (dword_1000603A0 != -1 || (a1 = _LogCategory_Initialize(), a1))
+      {
+        sub_100031BE4(a1, a2, a3);
+      }
     }
 
-    v8 = @"GroupableDevicesCount";
-    v2 = [NSNumber numberWithInt:*(*(*(a1 + 32) + 8) + 24)];
-    v9 = v2;
-    v3 = [NSDictionary dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+    v10 = @"GroupableDevicesCount";
+    v4 = [NSNumber numberWithInt:*(*(*(v3 + 32) + 8) + 24)];
+    v11 = v4;
+    v5 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
 
-    [DADeviceAccessAnalytics sendAnalytics:v3 forEvent:@"com.apple.Bluetooth.DeviceGroupingUsage"];
+    [DADeviceAccessAnalytics sendAnalytics:v5 forEvent:@"com.apple.Bluetooth.DeviceGroupingUsage"];
   }
 
-  if (*(*(*(a1 + 40) + 8) + 24) >= 2)
+  if (*(*(*(v3 + 40) + 8) + 24) >= 2)
   {
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
       sub_100031C00();
     }
 
-    v6 = @"GroupableDevicesCount";
-    v4 = [NSNumber numberWithInt:*(*(*(a1 + 40) + 8) + 24)];
-    v7 = v4;
-    v5 = [NSDictionary dictionaryWithObjects:&v7 forKeys:&v6 count:1];
+    v8 = @"GroupableDevicesCount";
+    v6 = [NSNumber numberWithInt:*(*(*(v3 + 40) + 8) + 24)];
+    v9 = v6;
+    v7 = [NSDictionary dictionaryWithObjects:&v9 forKeys:&v8 count:1];
 
-    [DADeviceAccessAnalytics sendAnalytics:v5 forEvent:@"com.apple.Bluetooth.GroupedDevices"];
+    [DADeviceAccessAnalytics sendAnalytics:v7 forEvent:@"com.apple.Bluetooth.GroupedDevices"];
   }
 }
 
@@ -931,19 +904,22 @@ void sub_10000EDDC(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void *sub_10000F024(void *result)
+void *sub_10000F024(void *result, uint64_t a2, uint64_t a3)
 {
   if (result[4] == *(result[5] + 72))
   {
-    v2 = result;
-    if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+    v4 = result;
+    if (dword_1000603A0 <= 30)
     {
-      sub_100032288();
+      if (dword_1000603A0 != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        sub_100032288(result, a2, a3);
+      }
     }
 
-    v3 = v2[5];
+    v5 = v4[5];
 
-    return [v3 _checkDevices];
+    return [v5 _checkDevices];
   }
 
   return result;
@@ -988,13 +964,12 @@ void sub_10000F7F0(uint64_t a1, uint64_t a2, void *a3)
       [v5 setState:0];
       v8 = *(a1 + 32);
       v9 = *(a1 + 40);
-      v12 = 0;
-      [v8 updateAppAccessInfo:v5 accessoryDevice:v9 removalType:1 error:&v12];
-      v10 = v12;
+      v11 = 0;
+      [v8 updateAppAccessInfo:v5 accessoryDevice:v9 removalType:1 error:&v11];
+      v10 = v11;
       if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        v11 = *(a1 + 40);
-        LogPrintF();
+        LogPrintF(&dword_1000603A0, "[DADaemonServer removeDiscovery:]_block_invoke_2", 50, "### Invalidate devices waiting for app approval when UI is dismissed %@, %@, %@", *(a1 + 40), v5, v10);
       }
     }
   }
@@ -1039,50 +1014,41 @@ void sub_10000FC0C(uint64_t a1)
   +[DADeviceAccessAnalytics markState:deviceID:shared:discovery:flags:sourceApp:atTime:errorCode:](DADeviceAccessAnalytics, "markState:deviceID:shared:discovery:flags:sourceApp:atTime:errorCode:", v3, v4, v5, v6, [*(a1 + 48) flags], v2, *(a1 + 64), 0);
 }
 
-uint64_t sub_10001098C(uint64_t result)
+uint64_t sub_10001098C(uint64_t result, uint64_t a2)
 {
   if (dword_1000603A0 <= 50)
   {
-    v1 = result;
+    v2 = a2;
+    v3 = result;
     if (dword_1000603A0 != -1)
     {
-      return sub_100032718(v1);
+      return sub_100032718(v3, v2);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return sub_100032718(v1);
+      return sub_100032718(v3, v2);
     }
   }
 
   return result;
 }
 
-void sub_100011828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100011828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  (*(v11 + 16))(v11);
+  va_start(va, a18);
+  (*(v18 + 16))(v18, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100011868(uint64_t a1)
 {
-  if (*(*(*(a1 + 32) + 8) + 40) && dword_1000603A0 <= 90)
+  if (*(*(*(a1 + 32) + 8) + 40) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    if (dword_1000603A0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      v2 = *(*(*(a1 + 32) + 8) + 40);
-    }
-
-    v3 = CUPrintNSError();
-    LogPrintF();
+    v1 = CUPrintNSError();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateDeviceStateForBluetooth:device:]_block_invoke", 90, "### _updateDeviceStateForBluetooth failed, %@", v1);
   }
 }
 
@@ -1100,7 +1066,7 @@ void sub_100011A14(id a1, NSUUID *a2, NSDictionary *a3, BOOL *a4)
     {
       if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1000603A0, "[DADaemonServer _cleanupBTDiscoveryIfPossible:]_block_invoke", 50, "### _cleanupBTDiscovery nameless BT Accessory %@ %@ %@", v11, v5, v6);
       }
     }
   }
@@ -1108,16 +1074,12 @@ void sub_100011A14(id a1, NSUUID *a2, NSDictionary *a3, BOOL *a4)
 
 void sub_100011EC8(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v42 = a3;
+  v40 = a3;
   v7 = a4;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
     v8 = sub_10002D350(a2);
-    v40 = *(a1 + 32);
-    v41 = v7;
-    v38 = v8;
-    v39 = v42;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _persistBluetoothDevice:device:requirePairing:pairWithCTKD:]_block_invoke", 50, "### _persistBluetoothDevice BT pairing manager event %@ %@ %@ %@", v8, v40, *(a1 + 32), v7);
   }
 
   v9 = [*(a1 + 40) hotspotSSIDPrefixes];
@@ -1132,7 +1094,7 @@ void sub_100011EC8(uint64_t a1, uint64_t a2, void *a3, void *a4)
     v10 = [v11 count] != 0;
   }
 
-  v12 = [v42 appConfirmsAuth];
+  v12 = [v40 appConfirmsAuth];
   v13 = v12;
   if (a2 > 19)
   {
@@ -1140,27 +1102,27 @@ void sub_100011EC8(uint64_t a1, uint64_t a2, void *a3, void *a4)
     {
       if (a2 == 30)
       {
-        v21 = [*(a1 + 48) upgradeInProgress];
+        v23 = [*(a1 + 48) upgradeInProgress];
         if ([*(a1 + 48) upgradeInProgress])
         {
           [*(a1 + 48) setDeviceUpgradeFinished:0 inProgress:0 failed:1];
-          v16 = 0;
+          v18 = 0;
         }
 
         else
         {
-          v16 = [*(a1 + 56) deviceRequiresMultiTechDiscovery:*(a1 + 48)];
+          v18 = [*(a1 + 56) deviceRequiresMultiTechDiscovery:*(a1 + 48)];
         }
 
         [*(a1 + 48) setBluetoothOnboardingFinished:0];
-        if ([v7 code] == 350014 || v21)
+        if ([v7 code] == 350014 || v23)
         {
-          v22 = [*(a1 + 48) bluetoothIdentifier];
-          v23 = [*(a1 + 56) _findDADeviceWithBTIdentifier:v22];
-          v24 = [v23 appAccessInfoMap];
-          v25 = [v24 objectForKeyedSubscript:*(a1 + 72)];
+          v24 = [*(a1 + 48) bluetoothIdentifier];
+          v25 = [*(a1 + 56) _findDADeviceWithBTIdentifier:v24];
+          v26 = [v25 appAccessInfoMap];
+          v27 = [v26 objectForKeyedSubscript:*(a1 + 72)];
 
-          if ([v25 state] == 25)
+          if ([v27 state] == 25)
           {
 
 LABEL_59:
@@ -1170,40 +1132,40 @@ LABEL_59:
           *(*(*(a1 + 88) + 8) + 24) = 0;
 
 LABEL_50:
-          v33 = [*(a1 + 56) _updateStateForDiscoveryDeviceID:*(a1 + 80) state:*(*(*(a1 + 88) + 8) + 24) appID:*(a1 + 72) referenceDevice:*(a1 + 48)];
-          if (v33)
+          v35 = [*(a1 + 56) _updateStateForDiscoveryDeviceID:*(a1 + 80) state:*(*(*(a1 + 88) + 8) + 24) appID:*(a1 + 72) referenceDevice:*(a1 + 48)];
+          if (v35)
           {
-            v22 = v33;
+            v24 = v35;
           }
 
           else
           {
-            v34 = [*(a1 + 48) bluetoothIdentifier];
-            v22 = [*(a1 + 56) _findDADeviceWithBTIdentifier:v34];
+            v36 = [*(a1 + 48) bluetoothIdentifier];
+            v24 = [*(a1 + 56) _findDADeviceWithBTIdentifier:v36];
 
-            if (!v22)
+            if (!v24)
             {
               goto LABEL_60;
             }
           }
 
-          v35 = [*(a1 + 48) name];
-          [v22 setName:v35];
+          v37 = [*(a1 + 48) name];
+          [v24 setName:v37];
 
-          if (v42)
+          if (v40)
           {
             if (a2 == 20 && !v7)
             {
-              [v22 setFlags:{objc_msgSend(v22, "flags") | 0x40}];
-              if ([v42 pairedWithCTKD])
+              [v24 setFlags:{objc_msgSend(v24, "flags") | 0x40}];
+              if ([v40 pairedWithCTKD])
               {
-                [v22 setFlags:{objc_msgSend(v22, "flags") | 0x20}];
+                [v24 setFlags:{objc_msgSend(v24, "flags") | 0x20}];
               }
             }
           }
 
           [*(a1 + 32) setState:*(*(*(a1 + 88) + 8) + 24)];
-          [*(a1 + 56) updateAppAccessInfo:*(a1 + 32) accessoryDevice:v22 removalType:v16 error:0];
+          [*(a1 + 56) updateAppAccessInfo:*(a1 + 32) accessoryDevice:v24 removalType:v18 error:0];
           goto LABEL_59;
         }
 
@@ -1217,13 +1179,16 @@ LABEL_23:
         goto LABEL_60;
       }
 
-      v14 = [v42 pairingType];
-      v15 = [v42 pairingRequired];
+      v14 = [v40 pairingType];
+      v15 = [v40 pairingRequired];
       if (v13 && (v15 & 1) == 0)
       {
-        if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+        if (dword_1000603A0 <= 90)
         {
-          sub_100032ADC();
+          if (dword_1000603A0 != -1 || (v15 = _LogCategory_Initialize(), v15))
+          {
+            sub_100032ADC(v15, v16, v17);
+          }
         }
 
         [*(*(a1 + 56) + 304) respondToPairingRequest:*(a1 + 64) type:v14 accept:0 passkey:0];
@@ -1234,32 +1199,32 @@ LABEL_23:
       {
         if (v14 != 10)
         {
-          v31 = v42;
-          v32 = [[DAEventDeviceBluetoothPairingRequest alloc] initWithEventType:55 pairingInfo:v31];
+          v33 = v40;
+          v34 = [[DAEventDeviceBluetoothPairingRequest alloc] initWithEventType:55 pairingInfo:v33];
 
-          [*(a1 + 56) _discoveryEvent:v32 appID:*(a1 + 72)];
+          [*(a1 + 56) _discoveryEvent:v34 appID:*(a1 + 72)];
           goto LABEL_48;
         }
 
-        v26 = *(a1 + 64);
-        v27 = *(*(a1 + 56) + 304);
-        v28 = 10;
-        v29 = 1;
+        v28 = *(a1 + 64);
+        v29 = *(*(a1 + 56) + 304);
+        v30 = 10;
+        v31 = 1;
       }
 
       else
       {
-        v26 = *(a1 + 64);
-        v27 = *(*(a1 + 56) + 304);
-        v28 = 0;
-        v29 = 0;
+        v28 = *(a1 + 64);
+        v29 = *(*(a1 + 56) + 304);
+        v30 = 0;
+        v31 = 0;
       }
 
-      [v27 respondToPairingRequest:v26 type:v28 accept:v29 passkey:0];
+      [v29 respondToPairingRequest:v28 type:v30 accept:v31 passkey:0];
 LABEL_48:
-      v16 = 0;
-      v19 = *(*(a1 + 88) + 8);
-      v20 = 10;
+      v18 = 0;
+      v21 = *(*(a1 + 88) + 8);
+      v22 = 10;
       goto LABEL_49;
     }
 
@@ -1274,44 +1239,44 @@ LABEL_48:
       goto LABEL_48;
     }
 
-    v17 = [*(a1 + 48) SSID];
-    v18 = v17 == 0 && v10;
+    v19 = [*(a1 + 48) SSID];
+    v20 = v19 == 0 && v10;
 
-    if (v18 != 1)
+    if (v20 != 1)
     {
-      v30 = [*(a1 + 48) bluetoothIdentifier];
+      v32 = [*(a1 + 48) bluetoothIdentifier];
 
-      if (!v30)
+      if (!v32)
       {
         goto LABEL_60;
       }
 
-      v19 = *(*(a1 + 88) + 8);
+      v21 = *(*(a1 + 88) + 8);
       if ((v13 & 1) == 0)
       {
-        v16 = 0;
-        v20 = 25;
+        v18 = 0;
+        v22 = 25;
         goto LABEL_49;
       }
 
-      v16 = 0;
+      v18 = 0;
       goto LABEL_30;
     }
 
 LABEL_29:
-    v16 = 0;
-    v19 = *(*(a1 + 88) + 8);
+    v18 = 0;
+    v21 = *(*(a1 + 88) + 8);
 LABEL_30:
-    v20 = 20;
+    v22 = 20;
 LABEL_49:
-    *(v19 + 24) = v20;
+    *(v21 + 24) = v22;
     goto LABEL_50;
   }
 
   if (!a2)
   {
 LABEL_22:
-    v16 = 0;
+    v18 = 0;
     goto LABEL_23;
   }
 
@@ -1323,9 +1288,9 @@ LABEL_22:
 LABEL_60:
   if (([*(*(a1 + 56) + 304) busy] & 1) == 0)
   {
-    v36 = *(a1 + 56);
-    v37 = *(v36 + 304);
-    *(v36 + 304) = 0;
+    v38 = *(a1 + 56);
+    v39 = *(v38 + 304);
+    *(v38 + 304) = 0;
   }
 }
 
@@ -1352,21 +1317,19 @@ void sub_1000126A8(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v10 = v5;
-    v11 = v6;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateBluetoothScannerIfNeeded]_block_invoke", 50, "### _updateBluetoothScannerIfNeeded App: %@ inDaemonDiscovery: %@", v5, v6);
   }
 
   v7 = [v6 discoverySet];
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_1000127C4;
-  v12[3] = &unk_1000591D0;
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_1000127C4;
+  v10[3] = &unk_1000591D0;
   v8 = *(a1 + 32);
-  v13 = v5;
-  v14 = v8;
+  v11 = v5;
+  v12 = v8;
   v9 = v5;
-  [v7 enumerateObjectsUsingBlock:v12];
+  [v7 enumerateObjectsUsingBlock:v10];
 }
 
 void sub_1000127C4(uint64_t a1, void *a2)
@@ -1374,12 +1337,10 @@ void sub_1000127C4(uint64_t a1, void *a2)
   v3 = a2;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v9 = *(a1 + 32);
-    v10 = v3;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateBluetoothScannerIfNeeded]_block_invoke_2", 50, "### _updateBluetoothScannerIfNeeded App: %@ inDiscoveryObj: %@", *(a1 + 32), v3);
   }
 
-  v4 = [NSMutableArray array:v9];
+  v4 = +[NSMutableArray array];
   v5 = [v3 configuration];
   if (v5)
   {
@@ -1392,38 +1353,34 @@ void sub_1000127C4(uint64_t a1, void *a2)
     [v4 addObjectsFromArray:v6];
   }
 
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_100012928;
-  v11[3] = &unk_1000591A8;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100012928;
+  v9[3] = &unk_1000591A8;
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
-  v12 = v7;
-  v13 = v8;
-  [v4 enumerateObjectsUsingBlock:v11];
+  v10 = v7;
+  v11 = v8;
+  [v4 enumerateObjectsUsingBlock:v9];
 }
 
 void sub_100012928(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v11 = v3;
+  v7 = v3;
   if (dword_1000603A0 <= 50)
   {
-    if (dword_1000603A0 != -1 || (v4 = _LogCategory_Initialize(), v3 = v11, v4))
+    if (dword_1000603A0 != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
     {
-      v7 = *(a1 + 32);
-      v9 = v3;
-      LogPrintF();
-      v3 = v11;
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _updateBluetoothScannerIfNeeded]_block_invoke_3", 50, "### _updateBluetoothScannerIfNeeded App: %@ config: %@", *(a1 + 32), v3);
+      v3 = v7;
     }
   }
 
-  v5 = [*(a1 + 40) _parseDADiscoveryConfiguration:{v3, v7, v9}];
+  v5 = [*(a1 + 40) _parseDADiscoveryConfiguration:v3];
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v8 = *(a1 + 32);
-    v10 = v5;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateBluetoothScannerIfNeeded]_block_invoke_3", 50, "### _updateBluetoothScannerIfNeeded Adding filter app: %@ filters: %@", *(a1 + 32), v5);
   }
 
   if ([v5 count])
@@ -1485,13 +1442,13 @@ void sub_100012DF4(id a1, NSError *a2, NSNumber *a3)
   v4 = a3;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100032BE0();
+    sub_100032BE0(v5, v4);
   }
 }
 
 void sub_100013028(uint64_t a1, void *a2, void *a3)
 {
-  v15 = a2;
+  v12 = a2;
   v5 = a3;
   v6 = [v5 objectForKeyedSubscript:@"ADVData"];
   v7 = [v6 objectForKeyedSubscript:CBAdvertisementDataTimestamp];
@@ -1502,27 +1459,24 @@ void sub_100013028(uint64_t a1, void *a2, void *a3)
   v11 = *(a1 + 48) - v9;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v13 = v11;
-    v14 = v10;
-    v12 = v15;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _checkAndReportLostBTDevices]_block_invoke", 50, "### btUUID %@ seen %f seconds ago threshold:%f", v12, *&v11, *&v10);
   }
 
   if (v11 > v10)
   {
     if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100032C84();
+      sub_100032C84(v12);
     }
 
-    [*(a1 + 40) addObject:{v5, v12, *&v13, *&v14}];
+    [*(a1 + 40) addObject:v5];
   }
 }
 
 void sub_100013180(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v13 = [v3 objectForKeyedSubscript:@"CBPeripheral"];
+  v12 = [v3 objectForKeyedSubscript:@"CBPeripheral"];
   v4 = [v3 objectForKeyedSubscript:@"ADVData"];
   v5 = [v4 objectForKeyedSubscript:CBAdvertisementDataTimestamp];
   [v5 doubleValue];
@@ -1530,11 +1484,10 @@ void sub_100013180(uint64_t a1, void *a2)
 
   v8 = [v3 objectForKeyedSubscript:@"DADevice"];
 
-  v9 = [v13 identifier];
+  v9 = [v12 identifier];
   [*(*(a1 + 32) + 288) removeObjectForKey:v9];
-  v12 = *(a1 + 40) - v7;
-  v10 = DAErrorF();
-  v11 = [[DADeviceEvent alloc] initWithEventType:41 device:v8 error:{v10, v8, v13, *&v12}];
+  v10 = DAErrorF(350015, "Lost %@ %@ last seen %f seconds ago", v8, v12, *(a1 + 40) - v7);
+  v11 = [[DADeviceEvent alloc] initWithEventType:41 device:v8 error:v10];
   [*(a1 + 32) _discoveryEvent:v11 appID:*(*(a1 + 32) + 256)];
 }
 
@@ -1547,9 +1500,12 @@ void *sub_1000133F0(void *result)
     v3 = result;
     *(v1 + 312) = 0;
 
-    if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1000603A0 <= 50)
     {
-      sub_100032D1C();
+      if (dword_1000603A0 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_100032D1C(v4, v5, v6);
+      }
     }
 
     [v3[5] _stopBTScan];
@@ -1558,9 +1514,9 @@ void *sub_1000133F0(void *result)
     if (*(result + 296) == 1)
     {
       [result _startBTScan];
-      v4 = v3[5];
+      v7 = v3[5];
 
-      return [v4 _armBTScanTimer];
+      return [v7 _armBTScanTimer];
     }
   }
 
@@ -1570,8 +1526,8 @@ void *sub_1000133F0(void *result)
 void sub_100013654(uint64_t a1, uint64_t a2, void *a3)
 {
   v6 = [a3 objectForKeyedSubscript:@"DADevice"];
-  v4 = DAErrorF();
-  v5 = [[DADeviceEvent alloc] initWithEventType:41 device:v6 error:{v4, v6}];
+  v4 = DAErrorF(350016, "bluetoothd crashed, lost %@", v6);
+  v5 = [[DADeviceEvent alloc] initWithEventType:41 device:v6 error:v4];
   [*(a1 + 32) _discoveryEvent:v5 appID:*(*(a1 + 32) + 256)];
 }
 
@@ -1599,71 +1555,65 @@ void sub_10001386C(uint64_t a1, void *a2)
     [*(a1 + 32) addObject:v5];
     if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100032DF4();
+      sub_100032DF4(v5);
     }
   }
 
 LABEL_9:
 }
 
-void sub_100013BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100013BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100013BDC(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v13 = a2;
-  v7 = [v13 bluetoothIdentifier];
-  v8 = (a1 + 32);
-  v9 = [*(a1 + 32) identifier];
-  v10 = [v7 isEqual:v9];
+  v10 = a2;
+  v7 = [v10 bluetoothIdentifier];
+  v8 = [*(a1 + 32) identifier];
+  v9 = [v7 isEqual:v8];
 
-  if (v10)
+  if (v9)
   {
-    v12 = *(a1 + 40);
-    v11 = a1 + 40;
-    objc_storeStrong((*(v12 + 8) + 40), a2);
+    objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
     *a4 = 1;
     if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100032E74(v11, v8);
+      sub_100032E74();
     }
   }
 }
 
-void sub_100013F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100013F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100013F48(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v12 = a2;
-  v7 = [v12 bluetoothIdentifier];
-  v8 = (a1 + 32);
-  v9 = [v7 isEqual:*(a1 + 32)];
+  v9 = a2;
+  v7 = [v9 bluetoothIdentifier];
+  v8 = [v7 isEqual:*(a1 + 32)];
 
-  if (v9)
+  if (v8)
   {
-    v11 = *(a1 + 40);
-    v10 = a1 + 40;
-    objc_storeStrong((*(v11 + 8) + 40), a2);
+    objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
     *a4 = 1;
     if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100032EF4(v10, v8);
+      sub_100032EF4();
     }
   }
 }
 
-void sub_1000141C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000141C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1683,7 +1633,7 @@ void sub_1000141E0(void *a1, void *a2, uint64_t a3, _BYTE *a4)
     if (v8)
     {
       v13 = a1[6];
-      v12 = (a1 + 6);
+      v12 = a1 + 6;
       objc_storeStrong((*(v13 + 8) + 40), a2);
       *a4 = 1;
       if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
@@ -1700,26 +1650,24 @@ void sub_100014CF4(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v11 = v5;
-    v12 = v6;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer centralManager:didDiscoverPeripheral:advertisementData:RSSI:]_block_invoke", 50, "### didDiscoverPeripheral App: %@ inDaemonDiscovery: %@", v5, v6);
   }
 
   v7 = [v6 discoverySet];
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_100014E5C;
-  v13[3] = &unk_1000593A0;
-  v14 = v5;
-  v15 = *(a1 + 32);
-  v16 = v6;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100014E5C;
+  v11[3] = &unk_1000593A0;
+  v12 = v5;
+  v13 = *(a1 + 32);
+  v14 = v6;
   v8 = *(a1 + 48);
-  v17 = *(a1 + 40);
-  v18 = v8;
-  v19 = *(a1 + 56);
+  v15 = *(a1 + 40);
+  v16 = v8;
+  v17 = *(a1 + 56);
   v9 = v6;
   v10 = v5;
-  [v7 enumerateObjectsUsingBlock:v13];
+  [v7 enumerateObjectsUsingBlock:v11];
 }
 
 void sub_100014E5C(uint64_t a1, void *a2)
@@ -1727,9 +1675,7 @@ void sub_100014E5C(uint64_t a1, void *a2)
   v3 = a2;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v11 = *(a1 + 32);
-    v14 = v3;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer centralManager:didDiscoverPeripheral:advertisementData:RSSI:]_block_invoke_2", 50, "### didDiscoverPeripheral App: %@ inDiscoveryObj: %@", *(a1 + 32), v3);
   }
 
   v4 = [v3 configuration];
@@ -1737,9 +1683,7 @@ void sub_100014E5C(uint64_t a1, void *a2)
   {
     if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      v12 = *(a1 + 32);
-      v15 = v4;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer centralManager:didDiscoverPeripheral:advertisementData:RSSI:]_block_invoke_2", 50, "### didDiscoverPeripheral App: %@ config: %@", *(a1 + 32), v4);
     }
 
     v5 = [v4 associationIdentifier];
@@ -1750,48 +1694,40 @@ void sub_100014E5C(uint64_t a1, void *a2)
     {
       if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        v13 = *(a1 + 32);
-        v17 = *(a1 + 48);
-        LogPrintF();
-        [*(a1 + 56) _reportDiscoveredBTDevice:*(a1 + 64) advertisementData:*(a1 + 40) RSSI:*(a1 + 72) AppID:*(a1 + 32) DADaemonDiscovery:*(a1 + 48) DADiscovery:v3 config:{v4, v17, v3, v4}];
+        LogPrintF(&dword_1000603A0, "[DADaemonServer centralManager:didDiscoverPeripheral:advertisementData:RSSI:]_block_invoke_2", 50, "### didDiscoverPeripheral found filter App: %@ inDaemonDiscovery: %@ inDiscoveryObj: %@ config: %@", *(a1 + 32), *(a1 + 48), v3, v4);
       }
 
-      else
-      {
-        [*(a1 + 56) _reportDiscoveredBTDevice:*(a1 + 64) advertisementData:*(a1 + 40) RSSI:*(a1 + 72) AppID:*(a1 + 32) DADaemonDiscovery:*(a1 + 48) DADiscovery:v3 config:{v4, v16, v18, v19}];
-      }
+      [*(a1 + 56) _reportDiscoveredBTDevice:*(a1 + 64) advertisementData:*(a1 + 40) RSSI:*(a1 + 72) AppID:*(a1 + 32) DADaemonDiscovery:*(a1 + 48) DADiscovery:v3 config:v4];
     }
   }
 
   v8 = [v3 configurations];
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_100015100;
-  v20[3] = &unk_100059378;
-  v21 = *(a1 + 32);
-  v22 = *(a1 + 40);
-  v23 = *(a1 + 48);
-  v24 = v3;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100015100;
+  v11[3] = &unk_100059378;
+  v12 = *(a1 + 32);
+  v13 = *(a1 + 40);
+  v14 = *(a1 + 48);
+  v15 = v3;
   v9 = *(a1 + 64);
-  v25 = *(a1 + 56);
-  v26 = v9;
-  v27 = *(a1 + 72);
+  v16 = *(a1 + 56);
+  v17 = v9;
+  v18 = *(a1 + 72);
   v10 = v3;
-  [v8 enumerateObjectsUsingBlock:v20];
+  [v8 enumerateObjectsUsingBlock:v11];
 }
 
 void sub_100015100(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v10 = v3;
+  v8 = v3;
   if (dword_1000603A0 <= 50)
   {
-    if (dword_1000603A0 != -1 || (v4 = _LogCategory_Initialize(), v3 = v10, v4))
+    if (dword_1000603A0 != -1 || (v4 = _LogCategory_Initialize(), v3 = v8, v4))
     {
-      v8 = *(a1 + 32);
-      v9 = v3;
-      LogPrintF();
-      v3 = v10;
+      LogPrintF(&dword_1000603A0, "[DADaemonServer centralManager:didDiscoverPeripheral:advertisementData:RSSI:]_block_invoke_3", 50, "### didDiscoverPeripheral App: %@ config: %@", *(a1 + 32), v3);
+      v3 = v8;
     }
   }
 
@@ -1803,36 +1739,26 @@ void sub_100015100(uint64_t a1, void *a2)
   {
     if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000330A0(a1);
+      sub_1000330A0(a1, v8);
     }
 
-    [*(a1 + 64) _reportDiscoveredBTDevice:*(a1 + 72) advertisementData:*(a1 + 40) RSSI:*(a1 + 80) AppID:*(a1 + 32) DADaemonDiscovery:*(a1 + 48) DADiscovery:*(a1 + 56) config:v10];
+    [*(a1 + 64) _reportDiscoveredBTDevice:*(a1 + 72) advertisementData:*(a1 + 40) RSSI:*(a1 + 80) AppID:*(a1 + 32) DADaemonDiscovery:*(a1 + 48) DADiscovery:*(a1 + 56) config:v8];
   }
 }
 
-void sub_100015474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100015474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_1000154A8(uint64_t a1)
 {
-  if (*(*(*(a1 + 32) + 8) + 40) && dword_1000603A0 <= 90)
+  if (*(*(*(a1 + 32) + 8) + 40) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    if (dword_1000603A0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      v2 = *(*(*(a1 + 32) + 8) + 40);
-    }
-
-    v3 = CUPrintNSError();
-    LogPrintF();
+    v1 = CUPrintNSError();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateLocalNetworkScannerIfNeeded]_block_invoke", 90, "[LN] _updateLocalNetworkScannerIfNeeded error: %@", v1);
   }
 }
 
@@ -1842,52 +1768,48 @@ void sub_10001556C(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v13 = v5;
-    v14 = v6;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateLocalNetworkScannerIfNeeded]_block_invoke_2", 50, "[LN] app='%@' daemon discovery='%@'", v5, v6);
   }
 
-  v7 = [NSMutableArray array:v13];
+  v7 = +[NSMutableArray array];
   v8 = [v6 localNetworkScannerSet];
   [v8 removeAllObjects];
 
   v9 = [v6 discoverySet];
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_100015734;
-  v17[3] = &unk_1000591D0;
-  v18 = v5;
-  v19 = v7;
-  v10 = v7;
-  v11 = v5;
-  [v9 enumerateObjectsUsingBlock:v17];
   v15[0] = _NSConcreteStackBlock;
   v15[1] = 3221225472;
-  v15[2] = sub_100015824;
-  v15[3] = &unk_1000591A8;
-  v15[4] = *(a1 + 32);
-  v16 = v6;
+  v15[2] = sub_100015734;
+  v15[3] = &unk_1000591D0;
+  v16 = v5;
+  v17 = v7;
+  v10 = v7;
+  v11 = v5;
+  [v9 enumerateObjectsUsingBlock:v15];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100015824;
+  v13[3] = &unk_1000591A8;
+  v13[4] = *(a1 + 32);
+  v14 = v6;
   v12 = v6;
-  [v10 enumerateObjectsUsingBlock:v15];
+  [v10 enumerateObjectsUsingBlock:v13];
 }
 
 void sub_100015734(uint64_t a1, void *a2)
 {
-  v7 = a2;
+  v5 = a2;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v5 = *(a1 + 32);
-    v6 = v7;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateLocalNetworkScannerIfNeeded]_block_invoke_3", 50, "### LocalNetworkScanner App: %@ inDiscoveryObj: %@", *(a1 + 32), v5);
   }
 
-  v3 = [v7 configuration];
+  v3 = [v5 configuration];
   if (v3)
   {
     [*(a1 + 40) addObject:v3];
   }
 
-  v4 = [v7 configurations];
+  v4 = [v5 configurations];
   if (v4)
   {
     [*(a1 + 40) addObjectsFromArray:v4];
@@ -1959,77 +1881,72 @@ void sub_100015A48(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_100015BD4;
-  v8[3] = &unk_100058B58;
-  v9 = *(a1 + 32);
-  v7 = objc_retainBlock(v8);
+  v8 = _NSConcreteStackBlock;
+  v9 = 3221225472;
+  v10 = sub_100015BD4;
+  v11 = &unk_100058B58;
+  v12 = *(a1 + 32);
+  v7 = objc_retainBlock(&v8);
   if (v5)
   {
-    if (dword_1000603A0 > 50 || dword_1000603A0 == -1 && !_LogCategory_Initialize())
+    if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_6;
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _updateLocalNetworkScannerIfNeeded]_block_invoke_5", 50, "### LocalNetworkScanner found endpoint: %@", v5, v8, v9, v10, v11);
     }
-
-LABEL_4:
-    LogPrintF();
-    goto LABEL_6;
   }
 
-  if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  else if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_4;
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateLocalNetworkScannerIfNeeded]_block_invoke_5", 90, "### LocalNetworkScanner cannot find endpoint, %@", v6, v8, v9, v10, v11);
   }
 
-LABEL_6:
   (v7[2])(v7);
 }
 
 void sub_100015BDC(uint64_t a1)
 {
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = [*(a1 + 32) localNetworkScannerSet];
-  v2 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v2 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v2)
   {
-    v3 = *v32;
+    v3 = *v31;
     do
     {
       for (i = 0; i != v2; i = i + 1)
       {
-        if (*v32 != v3)
+        if (*v31 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v31 + 1) + 8 * i);
+        v5 = *(*(&v30 + 1) + 8 * i);
         v6 = [v5 discoveredEndpoint];
 
         if (v6)
         {
-          v25 = 0;
-          v26 = &v25;
-          v27 = 0x3032000000;
-          v28 = sub_100002EE4;
-          v29 = sub_100002EF4;
-          v30 = 0;
+          v24 = 0;
+          v25 = &v24;
+          v26 = 0x3032000000;
+          v27 = sub_100002EE4;
+          v28 = sub_100002EF4;
+          v29 = 0;
           v7 = [v5 discoveryConfiguration];
           v8 = [v7 bundleID];
 
           v9 = [*(a1 + 40) getDevicesWithFlags:8 appID:0];
-          v24[0] = _NSConcreteStackBlock;
-          v24[1] = 3221225472;
-          v24[2] = sub_100015FD0;
-          v24[3] = &unk_100059328;
-          v24[4] = v5;
-          v24[5] = &v25;
-          [v9 enumerateObjectsUsingBlock:v24];
+          v23[0] = _NSConcreteStackBlock;
+          v23[1] = 3221225472;
+          v23[2] = sub_100015FD0;
+          v23[3] = &unk_100059328;
+          v23[4] = v5;
+          v23[5] = &v24;
+          [v9 enumerateObjectsUsingBlock:v23];
           v10 = [v5 discoveryConfiguration];
-          v11 = v26[5];
+          v11 = v25[5];
           if (v11)
           {
             [v11 setDiscoveryConfiguration:v10];
@@ -2038,17 +1955,17 @@ void sub_100015BDC(uint64_t a1)
           else
           {
             v12 = objc_alloc_init(DADevice);
-            v13 = v26[5];
-            v26[5] = v12;
+            v13 = v25[5];
+            v25[5] = v12;
 
             v14 = +[NSUUID UUID];
             v15 = [v14 UUIDString];
-            [v26[5] setIdentifier:v15];
+            [v25[5] setIdentifier:v15];
 
-            [v26[5] setDiscoveryConfiguration:v10];
-            [v26[5] setFlags:8];
+            [v25[5] setDiscoveryConfiguration:v10];
+            [v25[5] setFlags:8];
             v16 = [v10 displayName];
-            [v26[5] setName:v16];
+            [v25[5] setName:v16];
 
             v17 = [v10 hotspotSSIDs];
             LOBYTE(v14) = [v17 count] == 0;
@@ -2057,34 +1974,33 @@ void sub_100015BDC(uint64_t a1)
             {
               v18 = [v10 hotspotSSIDs];
               v19 = [v18 firstObject];
-              [v26[5] setSSID:v19];
+              [v25[5] setSSID:v19];
             }
 
             if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
             {
-              v22 = v26[5];
-              LogPrintF();
+              LogPrintF(&dword_1000603A0, "[DADaemonServer _updateLocalNetworkScannerIfNeeded]_block_invoke_7", 50, "### LocalNetworkScanner created %@", v25[5]);
             }
           }
 
           v20 = [DADeviceEvent alloc];
-          v21 = [v20 initWithEventType:40 device:v26[5]];
+          v21 = [v20 initWithEventType:40 device:v25[5]];
           [*(a1 + 40) _discoveryEvent:v21 appID:v8];
 
-          _Block_object_dispose(&v25, 8);
+          _Block_object_dispose(&v24, 8);
         }
       }
 
-      v2 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v2 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v2);
   }
 }
 
-void sub_100015FA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100015FA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2110,11 +2026,12 @@ void sub_100015FD0(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_100016B88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_100016B88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  objc_destroyWeak((v23 + 40));
+  va_start(va, a22);
+  objc_destroyWeak((v22 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a23, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2124,23 +2041,21 @@ void sub_100016BC4(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v11 = v5;
-    v12 = v6;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiManagerIfNeeded]_block_invoke", 50, "[WIFI] app='%@' daemon discovery='%@'", v5, v6);
   }
 
   v7 = [v6 discoverySet];
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_100016CF4;
-  v13[3] = &unk_100058F88;
-  v14 = v5;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100016CF4;
+  v11[3] = &unk_100058F88;
+  v12 = v5;
   v8 = *(a1 + 32);
   v9 = *(a1 + 40);
-  v15 = v8;
-  v16 = v9;
+  v13 = v8;
+  v14 = v9;
   v10 = v5;
-  [v7 enumerateObjectsUsingBlock:v13];
+  [v7 enumerateObjectsUsingBlock:v11];
 }
 
 void sub_100016CF4(uint64_t a1, void *a2)
@@ -2387,84 +2302,84 @@ void sub_1000171FC(uint64_t a1, void *a2)
 
   if (v5 && !v12)
   {
-    sub_100033780();
+    sub_100033780(v13, v14, v15);
   }
 
   else
   {
-    v36 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
+    v16 = [v3 hotspotSSIDs];
+    v17 = [v16 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    if (v17)
+    {
+      v18 = v17;
+      v19 = *v38;
+      do
+      {
+        for (i = 0; i != v18; i = i + 1)
+        {
+          if (*v38 != v19)
+          {
+            objc_enumerationMutation(v16);
+          }
+
+          v21 = [[DAWiFiScanDescriptor alloc] initWithSSID:*(*(&v37 + 1) + 8 * i)];
+          [(DAWiFiScanDescriptor *)v21 setBundleID:*(a1 + 32)];
+          [(DAWiFiScanDescriptor *)v21 setConfiguration:v3];
+          [*(a1 + 40) addObject:v21];
+        }
+
+        v18 = [v16 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      }
+
+      while (v18);
+    }
+
     v35 = 0u;
-    v13 = [v3 hotspotSSIDs];
-    v14 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
-    if (v14)
-    {
-      v15 = v14;
-      v16 = *v35;
-      do
-      {
-        for (i = 0; i != v15; i = i + 1)
-        {
-          if (*v35 != v16)
-          {
-            objc_enumerationMutation(v13);
-          }
-
-          v18 = [[DAWiFiScanDescriptor alloc] initWithSSID:*(*(&v34 + 1) + 8 * i)];
-          [(DAWiFiScanDescriptor *)v18 setBundleID:*(a1 + 32)];
-          [(DAWiFiScanDescriptor *)v18 setConfiguration:v3];
-          [*(a1 + 40) addObject:v18];
-        }
-
-        v15 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
-      }
-
-      while (v15);
-    }
-
-    v32 = 0u;
+    v36 = 0u;
     v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v19 = [v3 hotspotSSIDPrefixes];
-    v20 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
-    if (v20)
+    v34 = 0u;
+    v22 = [v3 hotspotSSIDPrefixes];
+    v23 = [v22 countByEnumeratingWithState:&v33 objects:v41 count:16];
+    if (v23)
     {
-      v21 = v20;
-      v22 = *v31;
+      v24 = v23;
+      v25 = *v34;
       do
       {
-        for (j = 0; j != v21; j = j + 1)
+        for (j = 0; j != v24; j = j + 1)
         {
-          if (*v31 != v22)
+          if (*v34 != v25)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v22);
           }
 
-          v24 = [[DAWiFiScanDescriptor alloc] initWithPrefix:*(*(&v30 + 1) + 8 * j)];
-          [(DAWiFiScanDescriptor *)v24 setBundleID:*(a1 + 32)];
-          [(DAWiFiScanDescriptor *)v24 setConfiguration:v3];
-          [*(a1 + 40) addObject:v24];
+          v27 = [[DAWiFiScanDescriptor alloc] initWithPrefix:*(*(&v33 + 1) + 8 * j)];
+          [(DAWiFiScanDescriptor *)v27 setBundleID:*(a1 + 32)];
+          [(DAWiFiScanDescriptor *)v27 setConfiguration:v3];
+          [*(a1 + 40) addObject:v27];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v33 objects:v41 count:16];
       }
 
-      while (v21);
+      while (v24);
     }
 
-    v25 = [v3 wifiAwareServiceName];
+    v28 = [v3 wifiAwareServiceName];
 
-    if (v25)
+    if (v28)
     {
-      v26 = [v3 wifiAwareServiceName];
-      v27 = [*(a1 + 48) wifiAwareVendorNameMatch];
-      v28 = [*(a1 + 48) wifiAwareModelNameMatch];
-      v29 = [[DAWiFiScanDescriptor alloc] initWithServiceName:v26 vendorNameMatch:v27 modelNameMatch:v28];
-      [(DAWiFiScanDescriptor *)v29 setBundleID:*(a1 + 32)];
-      [(DAWiFiScanDescriptor *)v29 setConfiguration:v3];
-      [*(a1 + 40) addObject:v29];
+      v29 = [v3 wifiAwareServiceName];
+      v30 = [*(a1 + 48) wifiAwareVendorNameMatch];
+      v31 = [*(a1 + 48) wifiAwareModelNameMatch];
+      v32 = [[DAWiFiScanDescriptor alloc] initWithServiceName:v29 vendorNameMatch:v30 modelNameMatch:v31];
+      [(DAWiFiScanDescriptor *)v32 setBundleID:*(a1 + 32)];
+      [(DAWiFiScanDescriptor *)v32 setConfiguration:v3];
+      [*(a1 + 40) addObject:v32];
     }
   }
 }
@@ -2478,7 +2393,7 @@ void sub_1000175F4(uint64_t a1, void *a2, void *a3)
   {
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000337E0();
+      sub_1000337E0(v5);
     }
   }
 
@@ -2486,7 +2401,7 @@ void sub_1000175F4(uint64_t a1, void *a2, void *a3)
   {
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100033820();
+      sub_100033820(v6);
     }
 
     v10[0] = _NSConcreteStackBlock;
@@ -2509,9 +2424,7 @@ void sub_10001774C(id *a1, void *a2, void *a3)
   v6 = a3;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    v89 = v5;
-    v90 = v6;
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiManagerIfNeeded]_block_invoke_5", 30, "[WIFI] descriptor='%@' networks='%@'", v5, v6);
   }
 
   v7 = [v5 configuration];
@@ -2520,66 +2433,66 @@ void sub_10001774C(id *a1, void *a2, void *a3)
   v9 = [v5 configuration];
   v10 = [v9 existingDeviceIdentifier];
 
-  v95 = a1;
+  v93 = a1;
   if (!v10)
   {
-    v96 = [a1[5] getDevicesWithFlags:1032 appID:0];
+    v94 = [a1[5] getDevicesWithFlags:1032 appID:0];
+    v102 = 0u;
+    v103 = 0u;
     v104 = 0u;
     v105 = 0u;
-    v106 = 0u;
-    v107 = 0u;
     obj = v6;
-    v97 = [obj countByEnumeratingWithState:&v104 objects:v113 count:16];
-    if (!v97)
+    v95 = [obj countByEnumeratingWithState:&v102 objects:v111 count:16];
+    if (!v95)
     {
       goto LABEL_95;
     }
 
-    v91 = v6;
-    v93 = v8;
-    v94 = *v105;
+    v89 = v6;
+    v91 = v8;
+    v92 = *v103;
 LABEL_22:
     v24 = 0;
 LABEL_23:
-    if (*v105 != v94)
+    if (*v103 != v92)
     {
       objc_enumerationMutation(obj);
     }
 
-    v98 = v24;
-    v25 = *(*(&v104 + 1) + 8 * v24);
+    v96 = v24;
+    v25 = *(*(&v102 + 1) + 8 * v24);
     v26 = v5;
     v27 = [v5 configuration];
-    v99 = [v27 associationIdentifier];
+    v97 = [v27 associationIdentifier];
 
-    v102 = 0u;
-    v103 = 0u;
     v100 = 0u;
     v101 = 0u;
-    v28 = v96;
-    v29 = [v28 countByEnumeratingWithState:&v100 objects:v112 count:16];
+    v98 = 0u;
+    v99 = 0u;
+    v28 = v94;
+    v29 = [v28 countByEnumeratingWithState:&v98 objects:v110 count:16];
     if (!v29)
     {
 LABEL_35:
 
       v5 = v26;
-      v40 = v95;
-      v41 = v98;
+      v40 = v93;
+      v41 = v96;
       goto LABEL_46;
     }
 
     v30 = v29;
-    v31 = *v101;
+    v31 = *v99;
 LABEL_27:
     v32 = 0;
     while (1)
     {
-      if (*v101 != v31)
+      if (*v99 != v31)
       {
         objc_enumerationMutation(v28);
       }
 
-      v33 = *(*(&v100 + 1) + 8 * v32);
+      v33 = *(*(&v98 + 1) + 8 * v32);
       if ([v33 state] != 1)
       {
         v34 = [v33 SSID];
@@ -2597,8 +2510,8 @@ LABEL_27:
           v42 = [v26 configuration];
           [v33 setDiscoveryConfiguration:v42];
 
-          v40 = v95;
-          v41 = v98;
+          v40 = v93;
+          v41 = v96;
           if ([v25 isUnsecured])
           {
             [v33 setFlags:{objc_msgSend(v33, "flags") | 0x80}];
@@ -2618,7 +2531,7 @@ LABEL_46:
           {
             v48 = v40[4];
             v49 = [v25 wifiAwareOTAName];
-            v44 = [v48 findAlreadyDiscoveredDeviceForMultiTech:v99 appID:v93 bluetoothIdentifier:0 wifiAwareOTAName:v49];
+            v44 = [v48 findAlreadyDiscoveredDeviceForMultiTech:v97 appID:v91 bluetoothIdentifier:0 wifiAwareOTAName:v49];
 
             if (!v44)
             {
@@ -2634,7 +2547,7 @@ LABEL_46:
             {
               if (dword_1000603A0 != -1 || _LogCategory_Initialize())
               {
-                sub_1000338B8();
+                sub_1000338B8(v44);
               }
 
 LABEL_60:
@@ -2710,7 +2623,7 @@ LABEL_64:
 
           if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
           {
-            sub_1000339A4();
+            sub_1000339A4(v25);
           }
 
           v44 = 0;
@@ -2749,24 +2662,24 @@ LABEL_76:
           {
             if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
             {
-              sub_1000339E4();
+              sub_1000339E4(v44);
             }
 
             v77 = [v44 appAccessInfoMap];
-            v78 = [v77 objectForKeyedSubscript:v93];
+            v78 = [v77 objectForKeyedSubscript:v91];
 
             [v40[4] updateAppAccessInfo:v78 accessoryDevice:v44 removalType:0 error:0];
           }
 
           v24 = v41 + 1;
-          if (v24 == v97)
+          if (v24 == v95)
           {
-            v79 = [obj countByEnumeratingWithState:&v104 objects:v113 count:16];
-            v97 = v79;
+            v79 = [obj countByEnumeratingWithState:&v102 objects:v111 count:16];
+            v95 = v79;
             if (!v79)
             {
-              v96 = v28;
-              v6 = v91;
+              v94 = v28;
+              v6 = v89;
               goto LABEL_94;
             }
 
@@ -2792,15 +2705,15 @@ LABEL_76:
           [v33 setDiscoveryConfiguration:v43];
 
           [v33 setSignature:{objc_msgSend(v25, "signature")}];
-          v40 = v95;
-          v41 = v98;
+          v40 = v93;
+          v41 = v96;
           goto LABEL_45;
         }
       }
 
       if (v30 == ++v32)
       {
-        v30 = [v28 countByEnumeratingWithState:&v100 objects:v112 count:16];
+        v30 = [v28 countByEnumeratingWithState:&v98 objects:v110 count:16];
         if (v30)
         {
           goto LABEL_27;
@@ -2814,31 +2727,31 @@ LABEL_76:
   v11 = [v5 configuration];
   v12 = [v11 existingDeviceIdentifier];
 
-  v96 = v12;
+  v94 = v12;
   obj = [a1[4] findExistingDeviceForUpgrade:v12 appID:v8];
   if (obj)
   {
-    v93 = v8;
-    v110 = 0u;
-    v111 = 0u;
+    v91 = v8;
     v108 = 0u;
     v109 = 0u;
+    v106 = 0u;
+    v107 = 0u;
     v13 = v6;
-    v14 = [v13 countByEnumeratingWithState:&v108 objects:v114 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v106 objects:v112 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v109;
+      v16 = *v107;
       do
       {
         for (i = 0; i != v15; i = i + 1)
         {
-          if (*v109 != v16)
+          if (*v107 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v108 + 1) + 8 * i);
+          v18 = *(*(&v106 + 1) + 8 * i);
           v19 = [v18 serviceName];
           if (v19)
           {
@@ -2868,14 +2781,14 @@ LABEL_76:
                 [obj setWiFiAwareOnboardingFinished:0];
                 [obj setDeviceUpgradeFinished:0 inProgress:1 failed:0];
                 v84 = [[DADeviceEvent alloc] initWithEventType:40 device:obj];
-                v85 = v95[4];
+                v85 = v93[4];
                 v86 = [v5 bundleID];
                 [v85 _discoveryEvent:v84 appID:v86];
 
                 v87 = [obj appAccessInfoMap];
-                v88 = [v87 objectForKeyedSubscript:v93];
+                v88 = [v87 objectForKeyedSubscript:v91];
 
-                [v95[4] updateAppAccessInfo:v88 accessoryDevice:obj removalType:0 error:0];
+                [v93[4] updateAppAccessInfo:v88 accessoryDevice:obj removalType:0 error:0];
                 goto LABEL_93;
               }
             }
@@ -2886,7 +2799,7 @@ LABEL_76:
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v108 objects:v114 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v106 objects:v112 count:16];
       }
 
       while (v15);
@@ -2895,7 +2808,7 @@ LABEL_76:
 LABEL_93:
 
 LABEL_94:
-    v8 = v93;
+    v8 = v91;
   }
 
 LABEL_95:
@@ -2928,7 +2841,7 @@ void sub_10001847C(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 
   else if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100033A24((a1 + 32));
+    sub_100033A24();
   }
 }
 
@@ -2943,7 +2856,7 @@ uint64_t sub_1000187C0(uint64_t a1, void *a2)
       v6 = v3;
       if (dword_1000603A0 != -1 || (v3 = _LogCategory_Initialize(), v4 = v6, v3))
       {
-        sub_100033BA8(a1);
+        sub_100033BA8(a1, v6);
 LABEL_13:
         v4 = v6;
       }
@@ -2970,7 +2883,7 @@ void sub_100019100(uint64_t a1, void *a2)
   {
     if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100033CB8();
+      sub_100033CB8(v3);
     }
 
     v4 = *(*(a1 + 32) + 88);
@@ -3150,7 +3063,7 @@ LABEL_33:
         [v6 setOSSpecificAttributes:v21];
         if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
         {
-          sub_100033F18(v6);
+          sub_100033F18(v6, v21);
         }
 
         v29 = *(a1 + 48);
@@ -3172,7 +3085,7 @@ LABEL_33:
 
     if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100033DFC((a1 + 40));
+      sub_100033DFC();
     }
   }
 
@@ -3192,7 +3105,7 @@ void sub_100019D20(uint64_t a1, void *a2, uint64_t a3, void *a4)
   v8 = a4;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _persistWiFiAwareDevice:device:pairingID:bundleID:]_block_invoke", 30, "[WiFi] wifiAwareDevicePairedHandler appPairingID='%lld', deviceUUID='%@' and error='%@'", a3, v8, v7);
   }
 
   v9 = *(*(a1 + 32) + 88);
@@ -3213,108 +3126,114 @@ void sub_100019D20(uint64_t a1, void *a2, uint64_t a3, void *a4)
   dispatch_async(v9, block);
 }
 
-void sub_100019E7C(uint64_t a1)
+void sub_100019E7C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = (a1 + 32);
+  v3 = a1;
   if (*(a1 + 32))
   {
     if ([*(a1 + 40) upgradeInProgress])
     {
       if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_100034084(v2);
+        sub_100034084();
       }
 
-      v3 = [*(a1 + 40) state];
-      [*(a1 + 40) setDeviceUpgradeFinished:0 inProgress:0 failed:1];
+      v4 = [*(v3 + 40) state];
+      [*(v3 + 40) setDeviceUpgradeFinished:0 inProgress:0 failed:1];
 LABEL_30:
-      v5 = 0;
+      v6 = 0;
       goto LABEL_31;
     }
 
     if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_100034044(v2);
+      sub_100034044();
     }
 
-    v3 = 0;
-    if ([*(a1 + 48) deviceRequiresMultiTechDiscovery:*(a1 + 40)])
+    v4 = 0;
+    if ([*(v3 + 48) deviceRequiresMultiTechDiscovery:*(v3 + 40)])
     {
-      v5 = 4;
+      v6 = 4;
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1000603A0 <= 30)
     {
-      sub_1000340C4();
+      if (dword_1000603A0 != -1 || (a1 = _LogCategory_Initialize(), a1))
+      {
+        sub_1000340C4(a1, a2, a3);
+      }
     }
 
-    if ([*(a1 + 40) upgradeInProgress])
+    if ([*(v3 + 40) upgradeInProgress])
     {
-      [*(a1 + 40) setDeviceUpgradeFinished:1 inProgress:0 failed:0];
+      [*(v3 + 40) setDeviceUpgradeFinished:1 inProgress:0 failed:0];
     }
 
-    [*(a1 + 40) setWiFiAwareOnboardingFinished:1];
-    if ([*(a1 + 48) deviceRequiresMultiTechDiscovery:*(a1 + 40)] && !objc_msgSend(*(a1 + 40), "bluetoothSetupFinished"))
+    [*(v3 + 40) setWiFiAwareOnboardingFinished:1];
+    if ([*(v3 + 48) deviceRequiresMultiTechDiscovery:*(v3 + 40)] && !objc_msgSend(*(v3 + 40), "bluetoothSetupFinished"))
     {
-      v3 = 10;
+      v4 = 10;
     }
 
     else
     {
-      v4 = [*(a1 + 40) discoveryConfiguration];
-      if (([v4 flags] & 0x10) != 0)
+      v5 = [*(v3 + 40) discoveryConfiguration];
+      if (([v5 flags] & 0x10) != 0)
       {
-        v3 = 20;
+        v4 = 20;
       }
 
       else
       {
-        v3 = 25;
+        v4 = 25;
       }
     }
 
-    v5 = [*(a1 + 40) SSID];
+    v6 = [*(v3 + 40) SSID];
 
-    if (v5)
+    if (v6)
     {
       if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_100034044(v2);
+        sub_100034044();
       }
 
-      [*(a1 + 40) setSSID:0];
+      [*(v3 + 40) setSSID:0];
       goto LABEL_30;
     }
   }
 
 LABEL_31:
-  v8 = [*(a1 + 56) deviceIdentifier];
-  v6 = [*(a1 + 56) bundleIdentifier];
-  v7 = [*(a1 + 48) _updateStateForDiscoveryDeviceID:v8 state:v3 appID:v6 referenceDevice:*(a1 + 40)];
-  [v7 setWifiAwareDevicePairingID:*(a1 + 64)];
-  [*(a1 + 56) setWifiAwarePairingID:*(a1 + 72)];
-  if (v7)
+  v12 = [*(v3 + 56) deviceIdentifier];
+  v7 = [*(v3 + 56) bundleIdentifier];
+  v8 = [*(v3 + 48) _updateStateForDiscoveryDeviceID:v12 state:v4 appID:v7 referenceDevice:*(v3 + 40)];
+  [v8 setWifiAwareDevicePairingID:*(v3 + 64)];
+  v9 = [*(v3 + 56) setWifiAwarePairingID:*(v3 + 72)];
+  if (v8)
   {
     if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      sub_1000340E0(v7);
+      sub_1000340E0(v8);
     }
 
-    [*(a1 + 56) setState:v3];
-    [*(a1 + 48) updateAppAccessInfo:*(a1 + 56) accessoryDevice:v7 removalType:v5 error:0];
+    [*(v3 + 56) setState:v4];
+    [*(v3 + 48) updateAppAccessInfo:*(v3 + 56) accessoryDevice:v8 removalType:v6 error:0];
   }
 
-  else if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  else if (dword_1000603A0 <= 90)
   {
-    sub_10003413C();
+    if (dword_1000603A0 != -1 || (v9 = _LogCategory_Initialize(), v9))
+    {
+      sub_10003413C(v9, v10, v11);
+    }
   }
 }
 
@@ -3328,16 +3247,20 @@ void sub_10001A164(uint64_t a1)
 
 void sub_10001A1FC(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  v3 = a2;
+  v8 = v3;
+  if (dword_1000603A0 <= 90)
   {
-    sub_100034158();
+    if (dword_1000603A0 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_100034158(v3, v4, v5);
+    }
   }
 
-  v3 = [[DAWiFiAwarePairingInfo alloc] initWithWiFiAwareIdentifier:*(a1 + 48) pairingType:*(a1 + 56)];
-  [v3 setPasskey:v5];
-  v4 = [[DAEventDeviceWiFiAwarePairingRequest alloc] initWithEventType:56 pairingInfo:v3];
-  [*(a1 + 32) _discoveryEvent:v4 appID:*(a1 + 40)];
+  v6 = [[DAWiFiAwarePairingInfo alloc] initWithWiFiAwareIdentifier:*(a1 + 48) pairingType:*(a1 + 56)];
+  [v6 setPasskey:v8];
+  v7 = [[DAEventDeviceWiFiAwarePairingRequest alloc] initWithEventType:56 pairingInfo:v6];
+  [*(a1 + 32) _discoveryEvent:v7 appID:*(a1 + 40)];
 }
 
 void sub_10001A758(_Unwind_Exception *a1)
@@ -3347,47 +3270,52 @@ void sub_10001A758(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_10001A7A4(uint64_t a1)
+void sub_10001A7A4(uint64_t result)
 {
-  if (*(*(*(a1 + 48) + 8) + 40) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  if (*(*(*(result + 48) + 8) + 40) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
     sub_100034174();
   }
 }
 
-uint64_t sub_10001A814(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_10001A814(uint64_t a1)
 {
-  if ((off_100060388[0])(*(a1 + 64), a2, a3))
+  v2 = off_100060388(*(a1 + 64));
+  if (v2)
   {
-    if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1000603A0 <= 30)
     {
-      sub_10003421C();
+      if (dword_1000603A0 != -1 || (v2 = _LogCategory_Initialize(), v2))
+      {
+        sub_10003421C(v2, v3, v4);
+      }
     }
 
-    v4 = *(a1 + 48);
-    v5 = *(a1 + 56);
     nw_endpoint_set_txt_record();
   }
 
   else
   {
-    if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1000603A0 <= 30)
     {
-      sub_100034200();
+      if (dword_1000603A0 != -1 || (v2 = _LogCategory_Initialize(), v2))
+      {
+        sub_100034200(v2, v3, v4);
+      }
     }
 
-    v12[0] = @"BundleID";
-    v12[1] = @"SupportsBonjour";
-    v6 = *(a1 + 40);
-    v13[0] = *(a1 + 32);
-    v13[1] = &off_10005ABD8;
-    v12[2] = @"BonjourServices";
-    v7 = [v6 protocolType];
-    v8 = [v7 identifier];
-    v13[2] = v8;
-    v9 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:3];
-    v10 = [*(a1 + 40) identifier];
-    [DADeviceAccessAnalytics sendAnalyticsInfo:v9 forEvent:@"com.apple.DeviceAccess.BonjourMetadataFailure" withDeviceIdentifier:v10];
+    v11[0] = @"BundleID";
+    v11[1] = @"SupportsBonjour";
+    v5 = *(a1 + 40);
+    v12[0] = *(a1 + 32);
+    v12[1] = &off_10005ABD8;
+    v11[2] = @"BonjourServices";
+    v6 = [v5 protocolType];
+    v7 = [v6 identifier];
+    v12[2] = v7;
+    v8 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:3];
+    v9 = [*(a1 + 40) identifier];
+    [DADeviceAccessAnalytics sendAnalyticsInfo:v8 forEvent:@"com.apple.DeviceAccess.BonjourMetadataFailure" withDeviceIdentifier:v9];
   }
 
   return 1;
@@ -3400,22 +3328,22 @@ void sub_10001B228(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_10001B2B8(uint64_t a1)
+void sub_10001B2B8(uint64_t result)
 {
-  if (*(*(*(a1 + 48) + 8) + 40) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  if (*(*(*(result + 48) + 8) + 40) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
     sub_100034238();
   }
 }
 
-uint64_t sub_10001B328(uint64_t a1, int a2, void *a3)
+uint64_t sub_10001B328(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
   v6 = v5;
   v9 = v5;
   if (dword_1000603A0 <= 30 && (dword_1000603A0 != -1 || (v5 = _LogCategory_Initialize(), v6 = v9, v5)))
   {
-    v5 = sub_1000342C4();
+    v5 = sub_1000342C4(a2);
     v6 = v9;
     if (!v9)
     {
@@ -3432,7 +3360,7 @@ uint64_t sub_10001B328(uint64_t a1, int a2, void *a3)
   {
     if (dword_1000603A0 != -1 || (v5 = _LogCategory_Initialize(), v6 = v9, v5))
     {
-      v5 = LogPrintF();
+      v5 = LogPrintF(&dword_1000603A0, "[DADaemonServer _addSSDPDatatoNWEndpoint:appID:]_block_invoke_2", 30, "Get error %@ from nw connection with state: %u!", v6, a2);
       v6 = v9;
     }
   }
@@ -3475,17 +3403,17 @@ LABEL_22:
   return _objc_release_x1(v5, v6);
 }
 
-void sub_10001BA30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10001BA30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
-  (*(v16 + 16))(v16);
+  va_start(va, a23);
+  (*(v23 + 16))(v23, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10001BA84(uint64_t a1)
+void sub_10001BA84(uint64_t result)
 {
-  if (*(*(*(a1 + 56) + 8) + 40) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  if (*(*(*(result + 56) + 8) + 40) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
     sub_1000343B0();
   }
@@ -3540,9 +3468,9 @@ void sub_10001C1D8(uint64_t a1, void *a2)
   _Block_object_dispose(&v13, 8);
 }
 
-void sub_10001C384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10001C384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3616,9 +3544,9 @@ void sub_10001C4E0(uint64_t a1, void *a2)
   _Block_object_dispose(&v15, 8);
 }
 
-void sub_10001C69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10001C69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3643,30 +3571,20 @@ void sub_10001C6C8(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-void sub_10001CEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10001CEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  (*(v11 + 16))(v11);
+  va_start(va, a18);
+  (*(v18 + 16))(v18, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10001CF00(uint64_t a1)
 {
-  if (*(*(*(a1 + 32) + 8) + 40) && dword_1000603A0 <= 90)
+  if (*(*(*(a1 + 32) + 8) + 40) && dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    if (dword_1000603A0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      v2 = *(*(*(a1 + 32) + 8) + 40);
-    }
-
-    v3 = CUPrintNSError();
-    LogPrintF();
+    v1 = CUPrintNSError();
+    LogPrintF(&dword_1000603A0, "[DADaemonServer _necpUpdateUUIDsWithBlock:]_block_invoke", 90, "### NECP update UUID failed, %@", v1);
   }
 }
 
@@ -3691,7 +3609,7 @@ uint64_t sub_10001E1C4(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(qword_100060888, "mdns_signed_browse_result_create_from_data");
-  off_100060380[0] = v6;
+  off_100060380 = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -3704,7 +3622,7 @@ uint64_t sub_10001E274(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(qword_100060888, "mdns_signed_browse_result_covers_txt_rdata");
-  off_100060388[0] = v6;
+  off_100060388 = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -3718,52 +3636,46 @@ void sub_10001E2F8(void *a1)
     sub_1000349AC();
   }
 
-  off_100060390[0] = dlsym(qword_100060888, "mdns_release");
-  (off_100060390[0])(v2);
+  off_100060390 = dlsym(qword_100060888, "mdns_release");
+  off_100060390(v2);
 }
 
-uint64_t sub_10001E3A0()
+uint64_t sub_10001E3A0(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
 
-  return LogPrintF();
+  return LogPrintF(a1, a2, 50, a4);
 }
 
-uint64_t sub_10001E3B4()
+uint64_t sub_10001E3B4(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
 
-  return LogPrintF();
+  return LogPrintF(a1, a2, 90, a4);
 }
 
-uint64_t sub_10001E46C(uint64_t result, uint64_t *a2)
-{
-  v2 = *(*(*result + 8) + 40);
-  v3 = *a2;
-  return result;
-}
-
-uint64_t sub_10001E4A8()
+uint64_t sub_10001E4A8(uint64_t a1)
 {
 
   return objc_opt_isKindOfClass();
 }
 
-uint64_t sub_10001E4C0()
+uint64_t sub_10001E4C0(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
 
-  return LogPrintF();
+  return LogPrintF(a1, a2, 8388638, a4);
 }
 
-id sub_10001E504(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+id sub_10001E504(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
 
-  return [v39 countByEnumeratingWithState:&a23 objects:&a39 count:16];
+  return [v38 countByEnumeratingWithState:&a23 objects:va count:{16, a6, a7, a8}];
 }
 
-void sub_10001FA1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10001FA1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3787,7 +3699,7 @@ void sub_10001FA58(uint64_t a1, void *a2, void *a3)
 
     if (dword_100060470 <= 90 && (dword_100060470 != -1 || _LogCategory_Initialize()))
     {
-      sub_100034BE8();
+      sub_100034BE8(v5);
     }
   }
 
@@ -3795,32 +3707,32 @@ void sub_10001FA58(uint64_t a1, void *a2, void *a3)
   {
     if (dword_100060470 <= 30 && (dword_100060470 != -1 || _LogCategory_Initialize()))
     {
-      sub_100034C28();
+      sub_100034C28(v6);
     }
 
-    v25 = 0u;
-    v26 = 0u;
     v23 = 0u;
     v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v10 = v6;
-    v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v24;
+      v13 = *v22;
       do
       {
         v14 = 0;
         do
         {
-          if (*v24 != v13)
+          if (*v22 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
           if (dword_100060470 <= 30)
           {
-            v15 = *(*(&v23 + 1) + 8 * v14);
+            v15 = *(*(&v21 + 1) + 8 * v14);
             if (dword_100060470 != -1 || _LogCategory_Initialize())
             {
               sub_100034C68(v15);
@@ -3831,26 +3743,24 @@ void sub_10001FA58(uint64_t a1, void *a2, void *a3)
         }
 
         while (v12 != v14);
-        v16 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v16 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
         v12 = v16;
       }
 
       while (v16);
     }
 
-    v17 = [*(a1 + 32) _coalesceResults:v10 descriptors:{*(*(a1 + 32) + 96), v23}];
+    v17 = [*(a1 + 32) _coalesceResults:v10 descriptors:{*(*(a1 + 32) + 96), v21}];
     v18 = *(*(a1 + 48) + 8);
     v19 = *(v18 + 40);
     *(v18 + 40) = v17;
   }
 
-  v20 = *(*(*(a1 + 40) + 8) + 40);
-  v21 = *(*(*(a1 + 48) + 8) + 40);
   (*(*(*(a1 + 32) + 16) + 16))();
-  v22 = *(a1 + 32);
-  if (v22[9] == 1)
+  v20 = *(a1 + 32);
+  if (v20[9] == 1)
   {
-    [v22 _queueNextScan];
+    [v20 _queueNextScan];
   }
 }
 
@@ -3965,10 +3875,11 @@ LABEL_17:
   return v17;
 }
 
-void sub_100024B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_100024B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  (*(a13 + 16))();
-  _Block_object_dispose(&a39, 8);
+  va_start(va, a38);
+  (*(a13 + 16))(a13, a2, a3, a4, a5, a6, a7, a8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3983,44 +3894,33 @@ id sub_100024BBC(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_1000606C0 <= 90)
-  {
-    if (dword_1000606C0 == -1)
+    if (dword_1000606C0 <= 90)
     {
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (dword_1000606C0 != -1 || (v6 = _LogCategory_Initialize(), v2 = a1[6], v6))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        v5 = CUPrintPID();
+        LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcBluetoothAccessInfoGet:]_block_invoke", 90, "### BluetoothAccessInfo get failed: %@, from %@", v4, v5);
 
-      v10 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v4 = CUPrintNSError();
-    v5 = *(a1[4] + 36);
-    v11 = CUPrintPID();
-    LogPrintF();
+    v7 = *(*(v2 + 8) + 40);
+    v8 = a1[4];
+    v9 = a1[5];
 
-    v2 = a1[6];
+    return [v8 _xpcSendReplyError:v7 request:v9];
   }
 
-LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = a1[4];
-  v9 = a1[5];
-
-  return [v8 _xpcSendReplyError:v7 request:v9];
+  return result;
 }
 
-void sub_100024E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100024E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4029,39 +3929,35 @@ id sub_100024E70(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_1000606C0 <= 90)
-  {
-    if (dword_1000606C0 == -1)
+    if (dword_1000606C0 <= 90)
     {
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (dword_1000606C0 != -1 || (v6 = _LogCategory_Initialize(), v2 = a1[6], v6))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        v5 = CUPrintPID();
+        LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcCheckAppHasMediaDeviceDiscoveryExtension:]_block_invoke", 90, "### CheckAppHasMediaDeviceDiscoveryExtension failed: %@, from %@", v4, v5);
 
-      v10 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v4 = CUPrintNSError();
-    v5 = *(a1[4] + 36);
-    v11 = CUPrintPID();
-    LogPrintF();
+    v7 = *(*(v2 + 8) + 40);
+    v8 = a1[4];
+    v9 = a1[5];
 
-    v2 = a1[6];
+    return [v8 _xpcSendReplyError:v7 request:v9];
   }
 
-LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = a1[4];
-  v9 = a1[5];
+  return result;
+}
 
-  return [v8 _xpcSendReplyError:v7 request:v9];
+void sub_100026010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
+{
+  va_start(va, a39);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void *sub_10002605C(uint64_t a1, uint64_t a2)
@@ -4282,10 +4178,11 @@ LABEL_31:
   (v29[2])();
 }
 
-void sub_100027260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
+void sub_100027260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, ...)
 {
-  (*(a16 + 16))();
-  _Block_object_dispose(&a59, 8);
+  va_start(va, a58);
+  (*(a16 + 16))(a16, a2, a3, a4, a5, a6, a7, a8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4350,10 +4247,11 @@ void sub_100027458(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000278CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_1000278CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  (*(v31 + 16))(v31);
-  _Block_object_dispose(&a31, 8);
+  va_start(va, a30);
+  (*(v30 + 16))(v30, a2, a3, a4, a5, a6, a7, a8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4380,48 +4278,48 @@ void *sub_100027930(void *result)
 void *sub_100027CB0(void *result)
 {
   v1 = result[6];
-  if (!*(*(v1 + 8) + 40))
+  v2 = *(*(v1 + 8) + 40);
+  if (!v2)
   {
     return result;
   }
 
-  v2 = result;
+  v3 = result;
   if (dword_1000606C0 <= 90)
   {
     if (dword_1000606C0 == -1)
     {
-      v4 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v4)
+      v5 = _LogCategory_Initialize();
+      v1 = v3[6];
+      if (!v5)
       {
         goto LABEL_7;
       }
 
-      v8 = *(*(v1 + 8) + 40);
+      v2 = *(*(v1 + 8) + 40);
     }
 
-    v3 = *(v2[4] + 36);
-    v9 = CUPrintPID();
-    LogPrintF();
+    v4 = CUPrintPID();
+    LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcResetWiFiIdentifier:]_block_invoke", 90, "### ResetWiFiIdentifier failed: %@ from %@", v2, v4);
 
-    v1 = v2[6];
+    v1 = v3[6];
   }
 
 LABEL_7:
-  v5 = *(*(v1 + 8) + 40);
-  v6 = v2[4];
-  v7 = v2[5];
+  v6 = *(*(v1 + 8) + 40);
+  v7 = v3[4];
+  v8 = v3[5];
 
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return [v7 _xpcSendReplyError:v6 request:v8];
 }
 
 void sub_100027DA0(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v6 = a2;
   reply = xpc_dictionary_create_reply(*(a1 + 32));
   if (reply)
   {
-    if (v4)
+    if (v6)
     {
       CUXPCEncodeNSError();
     }
@@ -4431,46 +4329,46 @@ void sub_100027DA0(uint64_t a1, void *a2)
 
   else
   {
-    sub_1000366B8();
+    sub_1000366B8(0, v3, v4);
   }
 }
 
 void *sub_100028284(void *result)
 {
   v1 = result[6];
-  if (!*(*(v1 + 8) + 40))
+  v2 = *(*(v1 + 8) + 40);
+  if (!v2)
   {
     return result;
   }
 
-  v2 = result;
+  v3 = result;
   if (dword_1000606C0 <= 90)
   {
     if (dword_1000606C0 == -1)
     {
-      v4 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v4)
+      v5 = _LogCategory_Initialize();
+      v1 = v3[6];
+      if (!v5)
       {
         goto LABEL_7;
       }
 
-      v8 = *(*(v1 + 8) + 40);
+      v2 = *(*(v1 + 8) + 40);
     }
 
-    v3 = *(v2[4] + 36);
-    v9 = CUPrintPID();
-    LogPrintF();
+    v4 = CUPrintPID();
+    LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcSetDeviceAccessoryServiceInfo:]_block_invoke", 90, "### SetDeviceAccessoryServiceInfo failed: %@ from %@", v2, v4);
 
-    v1 = v2[6];
+    v1 = v3[6];
   }
 
 LABEL_7:
-  v5 = *(*(v1 + 8) + 40);
-  v6 = v2[4];
-  v7 = v2[5];
+  v6 = *(*(v1 + 8) + 40);
+  v7 = v3[4];
+  v8 = v3[5];
 
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return [v7 _xpcSendReplyError:v6 request:v8];
 }
 
 void sub_100028798(_Unwind_Exception *a1)
@@ -4483,45 +4381,45 @@ void sub_100028798(_Unwind_Exception *a1)
 void *sub_1000287E0(void *result)
 {
   v1 = result[6];
-  if (!*(*(v1 + 8) + 40))
+  v2 = *(*(v1 + 8) + 40);
+  if (!v2)
   {
     return result;
   }
 
-  v2 = result;
+  v3 = result;
   if (dword_1000606C0 <= 90)
   {
     if (dword_1000606C0 == -1)
     {
-      v4 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v4)
+      v5 = _LogCategory_Initialize();
+      v1 = v3[6];
+      if (!v5)
       {
         goto LABEL_7;
       }
 
-      v8 = *(*(v1 + 8) + 40);
+      v2 = *(*(v1 + 8) + 40);
     }
 
-    v3 = *(v2[4] + 36);
-    v9 = CUPrintPID();
-    LogPrintF();
+    v4 = CUPrintPID();
+    LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcSetDeviceAppAccessInfo:]_block_invoke", 90, "### SetDeviceAppAccessInfo failed: %@ from %@", v2, v4);
 
-    v1 = v2[6];
+    v1 = v3[6];
   }
 
 LABEL_7:
-  v5 = *(*(v1 + 8) + 40);
-  v6 = v2[4];
-  v7 = v2[5];
+  v6 = *(*(v1 + 8) + 40);
+  v7 = v3[4];
+  v8 = v3[5];
 
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return [v7 _xpcSendReplyError:v6 request:v8];
 }
 
-void sub_100028C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100028C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  (*(v13 + 16))(v13);
+  va_start(va, a20);
+  (*(v20 + 16))(v20, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4530,45 +4428,34 @@ id sub_100028C5C(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_1000606C0 <= 90)
-  {
-    if (dword_1000606C0 == -1)
+    if (dword_1000606C0 <= 90)
     {
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (dword_1000606C0 != -1 || (v6 = _LogCategory_Initialize(), v2 = a1[6], v6))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        v5 = CUPrintPID();
+        LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcGetAuthorizedAccessories:]_block_invoke", 90, "### GetAuthorizedAccessories failed: %@ from %@", v4, v5);
 
-      v10 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v4 = CUPrintNSError();
-    v5 = *(a1[4] + 36);
-    v11 = CUPrintPID();
-    LogPrintF();
+    v7 = *(*(v2 + 8) + 40);
+    v8 = a1[4];
+    v9 = a1[5];
 
-    v2 = a1[6];
+    return [v8 _xpcSendReplyError:v7 request:v9];
   }
 
-LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = a1[4];
-  v9 = a1[5];
-
-  return [v8 _xpcSendReplyError:v7 request:v9];
+  return result;
 }
 
-void sub_1000290A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000290A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  (*(v13 + 16))(v13);
+  va_start(va, a20);
+  (*(v20 + 16))(v20, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4577,45 +4464,34 @@ id sub_1000290E8(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_1000606C0 <= 90)
-  {
-    if (dword_1000606C0 == -1)
+    if (dword_1000606C0 <= 90)
     {
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (dword_1000606C0 != -1 || (v6 = _LogCategory_Initialize(), v2 = a1[6], v6))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        v5 = CUPrintPID();
+        LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcGetAuthorizedDevices:]_block_invoke", 90, "### GetAuthorizedDevices failed: %@ from %@", v4, v5);
 
-      v10 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v4 = CUPrintNSError();
-    v5 = *(a1[4] + 36);
-    v11 = CUPrintPID();
-    LogPrintF();
+    v7 = *(*(v2 + 8) + 40);
+    v8 = a1[4];
+    v9 = a1[5];
 
-    v2 = a1[6];
+    return [v8 _xpcSendReplyError:v7 request:v9];
   }
 
-LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = a1[4];
-  v9 = a1[5];
-
-  return [v8 _xpcSendReplyError:v7 request:v9];
+  return result;
 }
 
-void sub_100029658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100029658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(a5 + 16))();
+  va_start(va, a22);
+  (*(a12 + 16))(a12, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4624,39 +4500,28 @@ id sub_1000296A8(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_1000606C0 <= 90)
-  {
-    if (dword_1000606C0 == -1)
+    if (dword_1000606C0 <= 90)
     {
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (dword_1000606C0 != -1 || (v6 = _LogCategory_Initialize(), v2 = a1[6], v6))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        v5 = CUPrintPID();
+        LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcGetDevices:]_block_invoke", 90, "### GetDevices failed: %@ from %@", v4, v5);
 
-      v10 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v4 = CUPrintNSError();
-    v5 = *(a1[4] + 36);
-    v11 = CUPrintPID();
-    LogPrintF();
+    v7 = *(*(v2 + 8) + 40);
+    v8 = a1[4];
+    v9 = a1[5];
 
-    v2 = a1[6];
+    return [v8 _xpcSendReplyError:v7 request:v9];
   }
 
-LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = a1[4];
-  v9 = a1[5];
-
-  return [v8 _xpcSendReplyError:v7 request:v9];
+  return result;
 }
 
 void sub_1000299A0(_Unwind_Exception *a1)
@@ -4688,45 +4553,35 @@ id sub_100029F40(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_1000606C0 <= 90)
-  {
-    if (dword_1000606C0 == -1)
+    if (dword_1000606C0 <= 90)
     {
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (dword_1000606C0 != -1 || (v6 = _LogCategory_Initialize(), v2 = a1[6], v6))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        v5 = CUPrintPID();
+        LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcModifyDeviceSettings:]_block_invoke", 90, "### ModifyDeviceSettings failed: %@ from %@", v4, v5);
 
-      v10 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v4 = CUPrintNSError();
-    v5 = *(a1[4] + 36);
-    v11 = CUPrintPID();
-    LogPrintF();
+    v7 = *(*(v2 + 8) + 40);
+    v8 = a1[4];
+    v9 = a1[5];
 
-    v2 = a1[6];
+    return [v8 _xpcSendReplyError:v7 request:v9];
   }
 
-LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = a1[4];
-  v9 = a1[5];
-
-  return [v8 _xpcSendReplyError:v7 request:v9];
+  return result;
 }
 
-void sub_10002A49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_10002A49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  (*(v27 + 16))(v27);
-  _Block_object_dispose(&a27, 8);
+  va_start(va, a26);
+  (*(v26 + 16))(v26, a2, a3, a4, a5, a6, a7, a8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4734,39 +4589,28 @@ id sub_10002A4E8(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_1000606C0 <= 90)
-  {
-    if (dword_1000606C0 == -1)
+    if (dword_1000606C0 <= 90)
     {
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (dword_1000606C0 != -1 || (v6 = _LogCategory_Initialize(), v2 = a1[6], v6))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        v5 = CUPrintPID();
+        LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcSetDeviceState:]_block_invoke", 90, "### SetDeviceState failed: %@ from %@", v4, v5);
 
-      v10 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v4 = CUPrintNSError();
-    v5 = *(a1[4] + 36);
-    v11 = CUPrintPID();
-    LogPrintF();
+    v7 = *(*(v2 + 8) + 40);
+    v8 = a1[4];
+    v9 = a1[5];
 
-    v2 = a1[6];
+    return [v8 _xpcSendReplyError:v7 request:v9];
   }
 
-LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = a1[4];
-  v9 = a1[5];
-
-  return [v8 _xpcSendReplyError:v7 request:v9];
+  return result;
 }
 
 void sub_10002A98C(_Unwind_Exception *a1)
@@ -4780,45 +4624,34 @@ id sub_10002A9D8(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_1000606C0 <= 90)
-  {
-    if (dword_1000606C0 == -1)
+    if (dword_1000606C0 <= 90)
     {
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (dword_1000606C0 != -1 || (v6 = _LogCategory_Initialize(), v2 = a1[6], v6))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        v5 = CUPrintPID();
+        LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcSetPartialIPs:]_block_invoke", 90, "### SetPartialIPs failed: %@ from %@", v4, v5);
 
-      v10 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v4 = CUPrintNSError();
-    v5 = *(a1[4] + 36);
-    v11 = CUPrintPID();
-    LogPrintF();
+    v7 = *(*(v2 + 8) + 40);
+    v8 = a1[4];
+    v9 = a1[5];
 
-    v2 = a1[6];
+    return [v8 _xpcSendReplyError:v7 request:v9];
   }
 
-LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = a1[4];
-  v9 = a1[5];
-
-  return [v8 _xpcSendReplyError:v7 request:v9];
+  return result;
 }
 
-void sub_10002AE40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10002AE40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  (*(v13 + 16))(v13);
+  va_start(va, a20);
+  (*(v20 + 16))(v20, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4827,45 +4660,34 @@ id sub_10002AE88(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_1000606C0 <= 90)
-  {
-    if (dword_1000606C0 == -1)
+    if (dword_1000606C0 <= 90)
     {
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (dword_1000606C0 != -1 || (v6 = _LogCategory_Initialize(), v2 = a1[6], v6))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        v5 = CUPrintPID();
+        LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcBluetoothPairingMsg:]_block_invoke", 90, "### RespondToBluetoothPairingRequest failed: %@, from %@", v4, v5);
 
-      v10 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v4 = CUPrintNSError();
-    v5 = *(a1[4] + 36);
-    v11 = CUPrintPID();
-    LogPrintF();
+    v7 = *(*(v2 + 8) + 40);
+    v8 = a1[4];
+    v9 = a1[5];
 
-    v2 = a1[6];
+    return [v8 _xpcSendReplyError:v7 request:v9];
   }
 
-LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = a1[4];
-  v9 = a1[5];
-
-  return [v8 _xpcSendReplyError:v7 request:v9];
+  return result;
 }
 
-void sub_10002B1C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10002B1C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  (*(v11 + 16))(v11);
+  va_start(va, a18);
+  (*(v18 + 16))(v18, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4874,39 +4696,28 @@ id sub_10002B204(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_1000606C0 <= 90)
-  {
-    if (dword_1000606C0 == -1)
+    if (dword_1000606C0 <= 90)
     {
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (dword_1000606C0 != -1 || (v6 = _LogCategory_Initialize(), v2 = a1[6], v6))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        v5 = CUPrintPID();
+        LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcWiFiAwarePairingMsg:]_block_invoke", 90, "### [WiFi] RespondToWiFiAwarePairingRequest failed: %@, from %@", v4, v5);
 
-      v10 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v4 = CUPrintNSError();
-    v5 = *(a1[4] + 36);
-    v11 = CUPrintPID();
-    LogPrintF();
+    v7 = *(*(v2 + 8) + 40);
+    v8 = a1[4];
+    v9 = a1[5];
 
-    v2 = a1[6];
+    return [v8 _xpcSendReplyError:v7 request:v9];
   }
 
-LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = a1[4];
-  v9 = a1[5];
-
-  return [v8 _xpcSendReplyError:v7 request:v9];
+  return result;
 }
 
 void sub_10002B604(_Unwind_Exception *a1)
@@ -4920,42 +4731,31 @@ id sub_10002B64C(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_1000606C0 <= 90)
-  {
-    if (dword_1000606C0 == -1)
+    if (dword_1000606C0 <= 90)
     {
-      v6 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v6)
+      if (dword_1000606C0 != -1 || (v6 = _LogCategory_Initialize(), v2 = a1[6], v6))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        v5 = CUPrintPID();
+        LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcGetPartialIPs:]_block_invoke", 90, "### GetPartialIPs failed: %@ from %@", v4, v5);
 
-      v10 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v4 = CUPrintNSError();
-    v5 = *(a1[4] + 36);
-    v11 = CUPrintPID();
-    LogPrintF();
+    v7 = *(*(v2 + 8) + 40);
+    v8 = a1[4];
+    v9 = a1[5];
 
-    v2 = a1[6];
+    return [v8 _xpcSendReplyError:v7 request:v9];
   }
 
-LABEL_7:
-  v7 = *(*(v2 + 8) + 40);
-  v8 = a1[4];
-  v9 = a1[5];
-
-  return [v8 _xpcSendReplyError:v7 request:v9];
+  return result;
 }
 
-uint64_t start(int a1, uint64_t a2)
+uint64_t start(unsigned int a1, uint64_t a2)
 {
   if (a1 < 2)
   {
@@ -4971,10 +4771,10 @@ LABEL_9:
     }
 
     signal(13, 1);
-    v6 = objc_alloc_init(DADaemonServer);
-    [(DADaemonServer *)v6 activate];
-    v7 = +[NSRunLoop mainRunLoop];
-    [v7 run];
+    v5 = objc_alloc_init(DADaemonServer);
+    [(DADaemonServer *)v5 activate];
+    v6 = +[NSRunLoop mainRunLoop];
+    [v6 run];
   }
 
   else
@@ -4989,7 +4789,6 @@ LABEL_9:
         break;
       }
 
-      v5 = *v2;
       if (!strcmp_prefix() || !strcmp_prefix())
       {
         break;
@@ -5017,16 +4816,20 @@ void sub_10002BBD8(uint64_t a1)
   *(v2 + 8) = 0;
 }
 
-id sub_10002C0F4(uint64_t a1)
+id sub_10002C0F4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_1000607A0 <= 30 && (dword_1000607A0 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_1000607A0 <= 30)
   {
-    sub_1000367F4();
+    if (dword_1000607A0 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1000367F4(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 cancelAll];
+  return [v4 cancelAll];
 }
 
 id sub_10002C2DC(uint64_t a1)
@@ -5073,9 +4876,8 @@ void sub_10002C584(uint64_t a1)
     v1 = *v2;
     if (!*(*v2 + 4))
     {
-      v12 = v1[5];
-      v3 = DAErrorF();
-      [*v2 _reportFailure:{v3, v12}];
+      v3 = DAErrorF(350014, "cancelCurrentTask pending task %@", v1[5]);
+      [*v2 _reportFailure:v3];
 
       v1 = *v2;
     }
@@ -5086,35 +4888,38 @@ void sub_10002C584(uint64_t a1)
   *(*v2 + 5) = v4;
 
   *(*v2 + 4) = 0;
-  v6 = *v2;
+  v8 = *v2;
   if (*(*v2 + 5))
   {
 
-    [v6 _runNextTask];
+    [v8 _runNextTask];
   }
 
   else
   {
-    if (dword_1000607A0 <= 50 && (dword_1000607A0 != -1 || _LogCategory_Initialize()))
+    if (dword_1000607A0 <= 50)
     {
-      sub_1000369A0();
+      if (dword_1000607A0 != -1 || (v8 = _LogCategory_Initialize(), v8))
+      {
+        sub_1000369A0(v8, v6, v7);
+      }
     }
 
     [*(*v2 + 2) setDelegate:0];
-    v7 = *(*v2 + 1);
+    v9 = *(*v2 + 1);
     *(*v2 + 1) = 0;
 
     *(*v2 + 56) = 0;
-    v8 = *(*v2 + 6);
+    v10 = *(*v2 + 6);
     *(*v2 + 6) = 0;
 
-    v9 = *(*v2 + 5);
+    v11 = *(*v2 + 5);
     *(*v2 + 5) = 0;
 
-    v10 = *(*v2 + 3);
+    v12 = *(*v2 + 3);
     *(*v2 + 3) = 0;
 
-    v11 = *(*v2 + 2);
+    v13 = *(*v2 + 2);
     *(*v2 + 2) = 0;
 
     *(*v2 + 59) = 0;
@@ -5139,9 +4944,8 @@ LABEL_4:
       sub_100036A04(a1 + 32);
     }
 
-    v20 = *(*(a1 + 32) + 40);
-    v6 = DAErrorF();
-    [*(a1 + 32) _reportFailure:{v6, v20}];
+    v6 = DAErrorF(350014, "Cancelled pending task %@", *(*(a1 + 32) + 40));
+    [*(a1 + 32) _reportFailure:v6];
 
     v5 = *(a1 + 32);
 LABEL_8:
@@ -5191,23 +4995,26 @@ LABEL_8:
   *(*(a1 + 32) + 59) = 0;
 }
 
-void sub_10002CF98(uint64_t a1)
+void sub_10002CF98(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_1000607A0 <= 50 && (dword_1000607A0 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_1000607A0 <= 50)
   {
-    sub_100036D0C();
+    if (dword_1000607A0 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_100036D0C(a1, a2, a3);
+    }
   }
 
-  [*(*(a1 + 32) + 8) cancelPeripheralConnection:*(*(a1 + 32) + 24)];
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 24);
-  *(v2 + 24) = 0;
+  [*(*(v3 + 32) + 8) cancelPeripheralConnection:*(*(v3 + 32) + 24)];
+  v4 = *(v3 + 32);
+  v5 = *(v4 + 24);
+  *(v4 + 24) = 0;
 
-  v4 = [*(*(a1 + 32) + 40) bluetoothUUID];
-  v5 = *(*(a1 + 32) + 40);
-  v6 = DAErrorF();
+  v6 = [*(*(v3 + 32) + 40) bluetoothUUID];
+  v7 = DAErrorF(350003, "BT Task timed out btuuid %@ task %@", v6, *(*(v3 + 32) + 40));
 
-  [*(a1 + 32) _reportFailure:{v6, v4, v5}];
+  [*(v3 + 32) _reportFailure:v7];
 }
 
 const __CFString *sub_10002D350(uint64_t a1)
@@ -5241,10 +5048,10 @@ const __CFString *sub_10002D350(uint64_t a1)
   return @"?";
 }
 
-uint64_t sub_10002E95C()
+uint64_t sub_10002E95C(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
 
-  return LogPrintF();
+  return LogPrintF(a1, a2, 30, a4);
 }
 
 void sub_10002EAD8(void *a1, void *a2)
@@ -5264,21 +5071,95 @@ void sub_10002EAD8(void *a1, void *a2)
         v8 = "Removing";
       }
 
-      v12 = a1[4];
-      v13 = v6;
-      v11 = v8;
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _updateAppInfo:existingInfoPlistOptions:]_block_invoke", 50, "### UpdateAppsAccess: '%s' AppsAccess %@ for %@", v8, a1[4], v6);
     }
 
     v9 = a1[5];
-    v14 = 0;
-    [v9 updateAppAccessInfo:v6 accessoryDevice:v3 removalType:v7 == 0 error:{&v14, v11, v12, v13}];
-    v10 = v14;
+    v11 = 0;
+    [v9 updateAppAccessInfo:v6 accessoryDevice:v3 removalType:v7 == 0 error:&v11];
+    v10 = v11;
     if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _updateAppInfo:existingInfoPlistOptions:]_block_invoke", 50, "### UpdateAppsAccess: updated %@ with error %@", v3, v10);
     }
   }
+}
+
+uint64_t sub_100030F64()
+{
+  sub_10001E410();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "AllowAppleToAppleWiFiAware: %s -> %s", v2, v0);
+}
+
+uint64_t sub_100030FBC()
+{
+  sub_10001E410();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "AlwaysRequireAccessoryRemovalUserConfirmation: %s -> %s", v2, v0);
+}
+
+uint64_t sub_100031014()
+{
+  sub_10001E410();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "BluetoothBlockIncomingClassicConnection: %s -> %s", v2, v0);
+}
+
+uint64_t sub_10003106C()
+{
+  sub_10001E410();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "BluetoothPairingWithMITM: %s -> %s", v2, v0);
+}
+
+uint64_t sub_1000310C4()
+{
+  sub_10001E410();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "EnforceApprovedExtensions: %s -> %s", v2, v0);
+}
+
+uint64_t sub_10003111C()
+{
+  sub_10001E410();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "Enabled: %s -> %s", v2, v0);
+}
+
+uint64_t sub_100031174()
+{
+  sub_10001E410();
+  if (v3)
+  {
+    v0 = v1;
+  }
+
+  return LogPrintF(&dword_1000603A0, "[DADaemonServer _prefsChanged]", 30, "Keychain Disabled: %s -> %s", v2, v0);
 }
 
 void sub_1000311CC()
@@ -5286,49 +5167,65 @@ void sub_1000311CC()
   DADeviceAccessorySetupOptionsToString();
   objc_claimAutoreleasedReturnValue();
   sub_10001E3F8();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer appBundleInfoAccessoryOptions:]", 50, "### appBundleHasASKEnabled %@ supports %@");
 }
 
-void sub_1000312E4()
+void sub_1000312E4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10001E3B4();
+    sub_10001E3B4(&dword_1000603A0, "[DADaemonServer _keychainVerificationDevicesRestoredOnSameDevice]", a3, "### Keychain item verification unavailable before first unlock");
   }
 }
 
 void sub_100031344()
 {
   sub_10001E3D4();
-  if (dword_1000603A0 <= 40 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  if (dword_1000603A0 <= 40)
   {
-    LogPrintF();
+    v3 = v2;
+    if (dword_1000603A0 != -1 || _LogCategory_Initialize())
+    {
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _keychainVerificationDevicesRestoredOnSameDevice]", 40, "### Keychain items %@", v3);
+    }
   }
 
   *v0 = v1;
 }
 
-void sub_1000313D0()
+void sub_1000313D0(uint64_t a1)
 {
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   sub_10001E3E0();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _keychainVerificationDevicesRestoredOnSameDevice]", 90, "### Unable to drop accessory cache %@");
 }
 
-void sub_100031424()
+void sub_100031424(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10001E3B4();
+    sub_10001E3B4(&dword_1000603A0, "[DADaemonServer _keychainVerificationDevicesRestoredOnSameDevice]", a3, "### Keychain disabled, skipping verifying with keychain");
   }
 }
 
-void sub_100031584()
+uint64_t sub_100031484()
+{
+  v0 = off_100060398();
+  v1 = "no";
+  if (v0)
+  {
+    v1 = "yes";
+  }
+
+  return LogPrintF(&dword_1000603A0, "[DADaemonServer updateDADevicesWithInstalledApps]", 90, "### Buddy - %s", v1);
+}
+
+void sub_100031584(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10001E3B4();
+    sub_10001E3B4(&dword_1000603A0, "[DADaemonServer updateDADevicesWithInstalledApps]", a3, "### Cannot validate cache yet, device in buddy");
   }
 }
 
@@ -5337,29 +5234,29 @@ void sub_100031730()
   DADeviceAccessorySetupOptionsToString();
   objc_claimAutoreleasedReturnValue();
   sub_10001E4D8();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateAppInfo:existingInfoPlistOptions:]", 50, "### UpdateAppsAccess: %@ with existing info plist options: %@");
 }
 
-void sub_1000317B4()
+void sub_1000317B4(double a1)
 {
-  v0 = CUPrintDurationDouble();
-  LogPrintF();
+  v1 = CUPrintDurationDouble();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _checkAppAccessInfo]", 30, "CheckAppAccessInfo timer update: %@", v1);
 }
 
-void sub_100031810()
+void sub_100031810(double a1)
 {
   CUPrintDurationDouble();
   objc_claimAutoreleasedReturnValue();
   sub_10001E3E0();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _checkAppAccessInfo]", 30, "CheckAppAccessInfo timer start: %@");
 }
 
-void sub_1000318F4()
+void sub_1000318F4(uint64_t a1)
 {
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   sub_10001E3F8();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _checkDevicesForAppDataURL:]", 90, "### Remove app failed: %@, %@");
 }
 
 void sub_1000319CC()
@@ -5367,9 +5264,9 @@ void sub_1000319CC()
   if (dword_1000603A0 <= 30)
   {
     sub_10001E434();
-    if (!v0 || _LogCategory_Initialize())
+    if (!v1 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer reportAuthorizedDevices:]", 30, "No authorized devices for appID: %@", v0);
     }
   }
 }
@@ -5377,28 +5274,24 @@ void sub_1000319CC()
 void sub_100031B04()
 {
   sub_10001E3D4();
-  if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
+  if (dword_1000603A0 <= 90)
   {
-    LogPrintF();
+    v3 = v2;
+    if (dword_1000603A0 != -1 || _LogCategory_Initialize())
+    {
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _saveAppDataDict:fileURL:]", 90, "### Serialize app data failed: %@", v3);
+    }
   }
 
   *v0 = v1;
 }
 
-uint64_t sub_100031B90(uint64_t a1)
+void sub_100031D98(void *a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 24);
-  v3 = *(*(*(a1 + 48) + 8) + 24);
-  return LogPrintF();
-}
-
-void sub_100031D98(uint64_t *a1)
-{
-  v2 = *a1;
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   sub_10001E3F8();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _saveDeviceAppAccessInfo:device:error:]", 90, "SaveDeviceAppAccessInfo: iTunes backup resource %@, error %{public}@");
 }
 
 void sub_100031FB0(void *a1)
@@ -5406,16 +5299,15 @@ void sub_100031FB0(void *a1)
   [a1 name];
   objc_claimAutoreleasedReturnValue();
   v2 = [sub_10001E3C8() bundleID];
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer modifyAccessoryDevice:session:settings:error:]", 30, "[WiFi] _saveDeviceAppAccessInfo: Updating WiFi Aware name deviceName='%@' and bundleID='%@'", v1, v2);
 }
 
-void sub_10003210C(uint64_t *a1)
+void sub_10003210C(void *a1)
 {
-  v2 = *a1;
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   sub_10001E3F8();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _saveAccessoryDevice:oldDeviceReference:bundleID:existingOptions:removalType:error:]", 90, "_saveAccessoryDevice: iTunes backup resource %@, error %{public}@");
 }
 
 void sub_100032168()
@@ -5425,16 +5317,15 @@ void sub_100032168()
   v2 = [*(v0 + 40) identifier];
   v3 = *(v0 + 48);
   v4 = CUPrintNSError();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _saveAccessoryDevice:oldDeviceReference:bundleID:existingOptions:removalType:error:]_block_invoke_2", 30, "Failed to uninstall Wi-Fi Aware device %@, deviceID='%@', forBundleID='%@', error='%@'", v5, v2, v3, v4);
 }
 
 void sub_100032230(uint64_t a1)
 {
-  v2 = *(a1 + 160);
   CUPrintDurationDouble();
   objc_claimAutoreleasedReturnValue();
   sub_10001E3E0();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateDeviceStateTimer]", 30, "DeviceState timer start: %@");
 }
 
 void sub_100032404()
@@ -5442,35 +5333,35 @@ void sub_100032404()
   if (dword_1000603A0 <= 90)
   {
     sub_10001E434();
-    if (!v0 || _LogCategory_Initialize())
+    if (!v1 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer removeDiscovery:]", 90, "### RemoveDiscovery failed: no bundleID, %@", v0);
     }
   }
 }
 
-void sub_10003261C()
+void sub_10003261C(uint64_t a1, uint64_t a2)
 {
-  v0 = CUPrintNSError();
-  LogPrintF();
+  v3 = CUPrintNSError();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer runMigrationWithDiscovery:fromPostOnboarding:]", 90, "Error migrating device %@, %@", v3, a2);
 }
 
-void sub_1000326B8()
+void sub_1000326B8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10001E3B4();
+    sub_10001E3B4(&dword_1000603A0, "[DADaemonServer runMigrationWithDiscovery:fromPostOnboarding:]", a3, "### runMigrationWithDiscovery skip migration appID missing");
   }
 }
 
-uint64_t sub_100032860(uint64_t result)
+void *sub_100032860(void *result)
 {
   v1 = result;
   if (dword_1000603A0 <= 90)
   {
     if (dword_1000603A0 != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&dword_1000603A0, "[DADaemonServer runUpgradeWithDiscovery:]", 90, "### runUpgradeWithDiscovery skip: cannot find existing device to upgrade");
     }
   }
 
@@ -5478,29 +5369,30 @@ uint64_t sub_100032860(uint64_t result)
   return result;
 }
 
-void sub_1000328D4()
+void sub_1000328D4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10001E3B4();
+    sub_10001E3B4(&dword_1000603A0, "[DADaemonServer runUpgradeWithDiscovery:]", a3, "### runUpgradeWithDiscovery skip: upgrade config missing");
   }
 }
 
-void sub_100032934()
+void sub_100032934(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1000603A0 <= 90 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10001E3B4();
+    sub_10001E3B4(&dword_1000603A0, "[DADaemonServer runUpgradeWithDiscovery:]", a3, "### runUpgradeWithDiscovery skip: upgrade appID missing");
   }
 }
 
-uint64_t sub_1000329D4(uint64_t a1, void *a2)
+uint64_t sub_1000329D4(uint64_t result, void *a2)
 {
   if (dword_1000603A0 <= 90)
   {
+    v3 = result;
     if (dword_1000603A0 != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&dword_1000603A0, "[DADaemonServer findExistingDeviceForUpgrade:appID:]", 90, "### No discovery for appID: %@", v3);
     }
   }
 
@@ -5508,13 +5400,14 @@ uint64_t sub_1000329D4(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t sub_100032A58(uint64_t a1, void *a2)
+uint64_t sub_100032A58(uint64_t result, void *a2)
 {
   if (dword_1000603A0 <= 90)
   {
+    v3 = result;
     if (dword_1000603A0 != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&dword_1000603A0, "[DADaemonServer findAlreadyDiscoveredDeviceForMultiTech:appID:bluetoothIdentifier:wifiAwareOTAName:]", 90, "### No discovery for appID: %@", v3);
     }
   }
 
@@ -5525,45 +5418,28 @@ uint64_t sub_100032A58(uint64_t a1, void *a2)
 void sub_100032B38()
 {
   sub_10001E3D4();
-  v2 = sub_10002D350(v1);
-  v3 = *(v0 + 32);
-  LogPrintF();
+  v3 = sub_10002D350(v2);
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _forgetBluetoothDevice:]_block_invoke", 50, "### _forgetBluetoothDevice BT pairing manager event %@ uuid:%@ error:%@", v3, *(v1 + 32), v0);
 }
 
-void sub_100032BE0()
+void sub_100032BE0(uint64_t a1, uint64_t a2)
 {
-  v0 = CUPrintNSError();
-  LogPrintF();
+  v3 = CUPrintNSError();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _startBTScan]_block_invoke", 50, "### centralManagerDidUpdateState Scan Stopped %@, %@ ms", v3, a2);
 }
 
 void sub_100032CC4(uint64_t a1)
 {
-  v2 = *(a1 + 128);
   CUPrintDurationDouble();
   objc_claimAutoreleasedReturnValue();
   sub_10001E3E0();
-  LogPrintF();
-}
-
-uint64_t sub_100032F34(uint64_t *a1, uint64_t a2)
-{
-  v3 = *a1;
-  v4 = *(*(*a2 + 8) + 40);
-  return LogPrintF();
-}
-
-uint64_t sub_1000330A0(void *a1)
-{
-  v4 = a1[7];
-  v2 = a1[4];
-  v3 = a1[6];
-  return LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _armBTScanTimer]", 30, "BT Scan refresh timer start: %@");
 }
 
 void sub_100033108(void *a1)
 {
-  v1 = [a1 bundleID];
-  LogPrintF();
+  v2 = [a1 bundleID];
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateLocalNetworkScannerIfNeeded]_block_invoke_4", 50, "### LocalNetworkScanner App: %@ config: %@", v2, a1);
 }
 
 void sub_100033174()
@@ -5571,61 +5447,60 @@ void sub_100033174()
   if (dword_1000603A0 <= 90)
   {
     sub_10001E434();
-    if (!v0 || _LogCategory_Initialize())
+    if (!v1 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _updateLocalNetworkScannerIfNeeded]_block_invoke_4", 90, "### LocalNetwork scan failed, %@", v0);
     }
   }
 }
 
 void sub_1000331F0(uint64_t a1, id *a2)
 {
-  v2 = *(*(*a1 + 8) + 40);
   [*a2 discoveredEndpoint];
   objc_claimAutoreleasedReturnValue();
   sub_10001E4D8();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateLocalNetworkScannerIfNeeded]_block_invoke_8", 50, "### LocalNetworkScanner found existing DADevice %@ for %@");
 }
 
-void sub_100033264()
+void sub_100033264(uint64_t a1)
 {
   DADeviceStateToString();
   objc_claimAutoreleasedReturnValue();
   sub_10001E4D8();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateDeviceStateForWifi:currentState:]", 50, "### _updateDeviceStateForWifi device %@ state %@");
 }
 
 void sub_1000332CC()
 {
   sub_10001E3D4();
-  v1 = v0;
-  v2 = [v0 name];
-  [v1 identifier];
+  v2 = v1;
+  v4 = [v1 name];
+  [v2 identifier];
   objc_claimAutoreleasedReturnValue();
-  [sub_10001E3EC() wifiAwarePairingID];
-  LogPrintF();
+  v3 = [sub_10001E3EC() wifiAwarePairingID];
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateDeviceStateForWiFiAware:device:oldState:]", 30, "[WiFi] deauthorize device %@, deviceID='%@', bundleID='%@', appPairingID:'%llu'", v4, v2, v0, v3);
 }
 
 void sub_100033364()
 {
   sub_10001E3D4();
-  v1 = v0;
-  v3 = [v0 name];
-  [v1 identifier];
+  v2 = v1;
+  v4 = [v1 name];
+  [v2 identifier];
   objc_claimAutoreleasedReturnValue();
   sub_10001E3EC();
-  v2 = CUPrintNSError();
-  LogPrintF();
+  v3 = CUPrintNSError();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateDeviceStateForWiFiAware:device:oldState:]", 90, "Failed to de-authorize Wi-Fi Aware device %@, deviceID =%@ for app %@, Error=%@", v4, v2, v0, v3);
 }
 
 void sub_100033408()
 {
   sub_10001E3D4();
-  [v1 name];
+  [v2 name];
   objc_claimAutoreleasedReturnValue();
   sub_10001E3EC();
-  v2 = CUPrintNSError();
-  LogPrintF();
+  v3 = CUPrintNSError();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateDeviceStateForWiFiAware:device:oldState:]", 90, "Failed to authorize wi-fi aware device %@ for app %@, Error=%@", v1, v0, v3);
 }
 
 void sub_100033480()
@@ -5634,7 +5509,7 @@ void sub_100033480()
   v11 = [v1 name];
   v2 = CUPrintNSError();
   sub_10001E460(v2, v3, v4, v5, v6, v7, v8, v9, v10, v0, v2, v11);
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateDeviceStateForWiFiAware:device:oldState:]", 90, "Failed to re-authorize wi-fi aware device %@ for app %@, Error=%@");
 }
 
 void sub_1000335B4(uint64_t a1, void *a2)
@@ -5645,7 +5520,7 @@ void sub_1000335B4(uint64_t a1, void *a2)
   objc_claimAutoreleasedReturnValue();
   v6 = [sub_10001E3C8() wifiAwareServiceName];
   sub_10001E4E4(v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19);
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiManagerIfNeeded]_block_invoke_2", 30, "[WIFI] single app='%@' discovery config='%@' SSIDs='%@' prefixes='%@' wifiAwareServiceName:'%@'", v5);
 }
 
 uint64_t sub_100033654(uint64_t a1)
@@ -5656,7 +5531,7 @@ uint64_t sub_100033654(uint64_t a1)
     v4 = a1;
     if (dword_1000603A0 != -1 || (a1 = _LogCategory_Initialize(), v2 = v4, a1))
     {
-      a1 = LogPrintF();
+      a1 = LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiManagerIfNeeded]_block_invoke_2", 50, "[WIFI] skipping since configuration has BT as well and it does not require wi-fi aware");
       v2 = v4;
     }
   }
@@ -5672,14 +5547,14 @@ void sub_1000336E0(uint64_t a1, void *a2)
   objc_claimAutoreleasedReturnValue();
   v6 = [sub_10001E3C8() wifiAwareServiceName];
   sub_10001E4E4(v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19);
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiManagerIfNeeded]_block_invoke_3", 30, "[WIFI] app='%@' discovery config='%@' SSIDs='%@' prefixes='%@' wifiAwareServiceName:'%@'", v5);
 }
 
-void sub_100033780()
+void sub_100033780(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1000603A0 <= 50 && (dword_1000603A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10001E3A0();
+    sub_10001E3A0(&dword_1000603A0, "[DADaemonServer _updateWiFiManagerIfNeeded]_block_invoke_3", a3, "[WIFI] skipping since configuration has BT as well and it does not require wi-fi aware");
   }
 }
 
@@ -5688,7 +5563,7 @@ void sub_100033860(void *a1)
   [a1 bundleID];
   objc_claimAutoreleasedReturnValue();
   sub_10001E3F8();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiManagerIfNeeded]_block_invoke_5", 30, "[WIFI] found existing device='%@' for bundle %@");
 }
 
 void sub_1000338F8(void *a1)
@@ -5696,7 +5571,7 @@ void sub_1000338F8(void *a1)
   [a1 wifiAwareOTAName];
   objc_claimAutoreleasedReturnValue();
   sub_10001E3E0();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiManagerIfNeeded]_block_invoke_5", 30, "[WIFI] Setting WiFi Device OTA name='%@'");
 }
 
 void sub_10003394C(void *a1)
@@ -5704,7 +5579,7 @@ void sub_10003394C(void *a1)
   [a1 bundleID];
   objc_claimAutoreleasedReturnValue();
   sub_10001E3F8();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiManagerIfNeeded]_block_invoke_5", 30, "[WIFI] reporting new device='%@' for bundle %@");
 }
 
 void sub_100033A64(void *a1)
@@ -5712,7 +5587,7 @@ void sub_100033A64(void *a1)
   v12 = [a1 networkName];
   v2 = [a1 bundleID];
   sub_10001E460(v2, v3, v4, v5, v6, v7, v8, v9, v10, v2, v11, v12);
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _forgetWiFiDevice:]_block_invoke", 30, "[WiFi] removing profile = '%@ - %@'");
 }
 
 void sub_100033AE8()
@@ -5726,22 +5601,15 @@ void sub_100033AE8()
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   sub_10001E450();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _forgetWiFiDevice:]_block_invoke", 90, "[WiFi] failed to remove profile = '%@ - %@' error = '%@'");
 }
 
-void sub_100033BA8(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v3 = CUPrintNSError();
-  LogPrintF();
-}
-
-uint64_t sub_100033C18(uint64_t a1)
+void sub_100033BA8(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  return LogPrintF();
+  v4 = CUPrintNSError();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _forgetWiFiAwareDevice:]_block_invoke", 90, "[WiFi] failed to uninstall device %@ for bundleID='%@', error='%@'", v2, v3, v4);
 }
 
 void sub_100033CF8(void *a1)
@@ -5749,7 +5617,7 @@ void sub_100033CF8(void *a1)
   v12 = [a1 networkName];
   v2 = [a1 bundleID];
   sub_10001E460(v2, v3, v4, v5, v6, v7, v8, v9, v10, v2, v11, v12);
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiDevice:bundleID:]_block_invoke", 30, "[WiFi] removing profile = '%@ - %@'");
 }
 
 void sub_100033D7C()
@@ -5763,27 +5631,26 @@ void sub_100033D7C()
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   sub_10001E450();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiDevice:bundleID:]_block_invoke", 90, "[WiFi] failed to remove profile = '%@ - %@' error = '%@'");
 }
 
 void sub_100033E3C()
 {
   sub_10001E3D4();
-  v1 = [v0 networkName];
-  LogPrintF();
+  v3 = [v2 networkName];
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiDevice:bundleID:]_block_invoke", 30, "[WiFi] updating display name for '%@' to '%@' (was '%@')", v3, v1, v0);
 }
 
-void sub_100033EA8(void *a1, uint64_t *a2)
+void sub_100033EA8(void *a1, void *a2)
 {
   v3 = [a1 networkName];
-  v4 = *a2;
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiDevice:bundleID:]_block_invoke", 30, "[WiFi] setting accessory identifier for '%@' to '%@'", v3, *a2);
 }
 
-void sub_100033F18(void *a1)
+void sub_100033F18(void *a1, uint64_t a2)
 {
-  v1 = [a1 networkName];
-  LogPrintF();
+  v3 = [a1 networkName];
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiDevice:bundleID:]_block_invoke", 30, "[WiFi] updating profile for '%@' with attributes '%@'", v3, a2);
 }
 
 void sub_100033F84()
@@ -5797,13 +5664,13 @@ void sub_100033F84()
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   sub_10001E450();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _updateWiFiDevice:bundleID:]_block_invoke", 90, "[WiFi] failed to update profile = '%@ - %@' error = '%@'");
 }
 
 void sub_1000340E0(void *a1)
 {
   v1 = [a1 wifiAwareDevicePairingID];
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _persistWiFiAwareDevice:device:pairingID:bundleID:]_block_invoke_2", 30, "[WiFi] updating deviceappaccess info with UUID='%@'", v1);
 }
 
 void sub_100034174()
@@ -5814,7 +5681,7 @@ void sub_100034174()
   sub_10001E440();
   v3 = CUPrintNSError();
   sub_10001E460(v3, v4, v5, v6, v7, v8, v9, v10, v11, v2, v3, v12);
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _addTXTRecordToNWEndpoint:appID:]_block_invoke", 90, "### Process Metadata failed: deviceID %@, appID %@, %@");
 }
 
 void sub_100034238()
@@ -5825,23 +5692,15 @@ void sub_100034238()
   sub_10001E440();
   v3 = CUPrintNSError();
   sub_10001E460(v3, v4, v5, v6, v7, v8, v9, v10, v11, v2, v3, v12);
-  LogPrintF();
-}
-
-uint64_t sub_100034304(uint64_t a1)
-{
-  v2 = *(a1 + 72);
-  v3 = *(a1 + 80);
-  return LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _addSSDPDatatoNWEndpoint:appID:]_block_invoke", 90, "### Process SSDP Metadata failed: deviceID %@, appID %@, %@");
 }
 
 void sub_100034348(uint64_t a1)
 {
-  v1 = *(a1 + 40);
   [*(a1 + 48) identifier];
   objc_claimAutoreleasedReturnValue();
   sub_10001E4D8();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _addSSDPDatatoNWEndpoint:appID:]_block_invoke_2", 30, "Host is on local network for appID %@, deviceID %@");
 }
 
 void sub_1000343B0()
@@ -5852,7 +5711,7 @@ void sub_1000343B0()
   v3 = *(v0 + 48);
   sub_10001E440();
   v4 = CUPrintNSError();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _necpSignEndpointForDevice:appID:]_block_invoke", 90, "### Sign endpoint failed: NWEP %@, deviceID %@, appID %@, %@", v2, v5, v3, v4);
 }
 
 void *sub_100034448(void *result)
@@ -5903,47 +5762,47 @@ void *sub_100034538(void *result)
   return result;
 }
 
-uint64_t sub_100034588(uint64_t result)
+uint64_t *sub_100034588(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (dword_1000603A0 <= 90)
   {
     if (dword_1000603A0 != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&dword_1000603A0, "[DADaemonServer _necpUpdateUUIDForAppID:device:]", 90, "### NECP update UUID failed: no NECP clientID (%zu < %zu), appID %@, deviceID %@", a2, 48, a3, a4);
     }
 
-    v1 = result;
+    v6 = result;
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *v1;
-      return LogPrintF();
+      a2 = *v6;
+      return LogPrintF(&dword_1000603A0, "[DADaemonServer _necpUpdateUUIDForAppID:device:]", 90, "### NECP update UUID failed: no NECP clientID (%zu < %zu), appID %@, deviceID %@", a2, 48, a3, a4);
     }
   }
 
   return result;
 }
 
-void sub_100034628()
+void sub_100034628(uint64_t a1, uint64_t a2)
 {
   if (dword_1000603A0 <= 90)
   {
     sub_10001E434();
-    if (!v0 || _LogCategory_Initialize())
+    if (!v4 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _necpUpdateUUIDForAppID:device:]", 90, "### NECP update UUID failed: no NECP signature, appID %@, deviceID %@", v2, a2);
     }
   }
 }
 
-void sub_1000346A8()
+void sub_1000346A8(uint64_t a1, uint64_t a2)
 {
   if (dword_1000603A0 <= 30)
   {
     sub_10001E434();
-    if (!v0 || _LogCategory_Initialize())
+    if (!v4 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _necpUpdateUUIDForAppID:device:]", 30, "NECP update UUID skipped: no NW endpoint, appID %@, deviceID %@", v2, a2);
     }
   }
 }
@@ -5953,9 +5812,9 @@ void sub_100034724()
   if (dword_1000603A0 <= 90)
   {
     sub_10001E434();
-    if (!v0 || _LogCategory_Initialize())
+    if (!v1 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&dword_1000603A0, "[DADaemonServer _necpUpdateUUIDForAppID:device:]", 90, "### NECP update UUID failed: no deviceID, appID %@", v0);
     }
   }
 }
@@ -5965,7 +5824,7 @@ void sub_10003479C(void *a1)
   [a1 bundleIdentifier];
   objc_claimAutoreleasedReturnValue();
   sub_10001E3E0();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer checkAppHasMediaDeviceDiscoveryExtension:]", 30, "Ignoring extension without entitlement: %@");
 }
 
 id sub_100034870(uint64_t a1, void *a2)
@@ -5980,111 +5839,104 @@ void sub_1000348B0(void *a1)
   [a1 description];
   objc_claimAutoreleasedReturnValue();
   sub_10001E3E0();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer getPartialIPsWithAppBundleID:error:]", 30, "IP: %@");
 }
 
 void sub_100034920()
 {
   v0 = CUPrintXPC();
-  LogPrintF();
+  LogPrintF(&dword_1000603A0, "[DADaemonServer _xpcListenerEvent:]", 90, "### XPC listener error: %@", v0);
 }
 
 void sub_100034A00(void *a1)
 {
   v2 = [a1 serviceName];
   v3 = [a1 configuration];
-  LogPrintF();
+  LogPrintF(&dword_100060470, "[DAWiFiScanner startScanningWithDescriptors:]", 30, "[WiFi] found serviceName='%@' configuration='%@' called", v2, v3);
 }
 
 void sub_100034C68(void *a1)
 {
   v1 = [a1 networkName];
-  LogPrintF();
+  LogPrintF(&dword_100060470, "[DAWiFiScanner _performScan]_block_invoke", 30, "[WiFi] Found network='%@'", v1);
 }
 
 void sub_100034CC0(void *a1)
 {
-  v1 = [a1 scanResultPredicate];
-  LogPrintF();
+  v2 = [a1 scanResultPredicate];
+  LogPrintF(&dword_100060470, "[DAWiFiScanner _coalesceResults:descriptors:]", 30, "[WiFi] descriptor='%@' predicate='%@'", a1, v2);
 }
 
 void sub_100034F3C(uint64_t a1)
 {
   v1 = objc_retainBlock(*(a1 + 176));
-  LogPrintF();
+  LogPrintF(&dword_100060470, "[DAWiFiScanner respondToWiFiAwarePairingRequest:accept:pairingType:passkey:]", 30, "[WiFi] pinCodeHandler='%@'", v1);
 }
 
 void sub_100034F98(uint64_t a1)
 {
   v1 = objc_retainBlock(*(a1 + 32));
-  LogPrintF();
+  LogPrintF(&dword_100060470, "[DAWiFiScanner pairingPINAccepted:]", 30, "[WiFi] pinCodeHandler='%@'", v1);
 }
 
-void sub_100034FF4(void *a1)
+void sub_100034FF4(void *a1, uint64_t a2)
 {
-  v1 = [a1 configuration];
-  v2 = [v1 serviceName];
-  LogPrintF();
+  v3 = [a1 configuration];
+  v4 = [v3 serviceName];
+  LogPrintF(&dword_100060470, "[DAWiFiScanner _resultForSubscriber:descriptors:discoveryResult:]", 30, "[WiFi] Subscriber Filtering for matching descriptor='%@' with serviceName='%@'", a2, v4);
 }
 
-void sub_100035068(void *a1)
+void sub_100035068(void *a1, uint64_t a2)
 {
-  v1 = [a1 configuration];
-  v2 = [v1 serviceName];
-  LogPrintF();
+  v3 = [a1 configuration];
+  v4 = [v3 serviceName];
+  LogPrintF(&dword_100060470, "[DAWiFiScanner _resultForSubscriber:descriptors:discoveryResult:]", 30, "[WiFi] Subscriber descriptor='%@' matchedServiceName='%@'", a2, v4);
 }
 
 void sub_10003511C(void *a1)
 {
   v1 = [a1 serviceName];
-  LogPrintF();
+  LogPrintF(&dword_100060470, "[DAWiFiScanner _resultForSubscriber:descriptors:discoveryResult:]", 30, "[WiFi] Subscriber could not find match with serviceName='%@'", v1);
 }
 
-void sub_100035174(void *a1)
+void sub_100035174(void *a1, uint64_t a2)
 {
-  v1 = [a1 serviceName];
-  LogPrintF();
+  v3 = [a1 serviceName];
+  LogPrintF(&dword_100060470, "[DAWiFiScanner _resultForSubscriber:descriptors:discoveryResult:]", 30, "[WiFi] Subscriber found match pairingName='%@' with serviceName='%@'", a2, v3);
 }
 
 void sub_1000352D0(uint64_t a1)
 {
   v1 = [*(a1 + 160) name];
-  LogPrintF();
+  LogPrintF(&dword_100060470, "[DAWiFiScanner _configurePublisherWithPairingClient:]", 30, "[WiFi] WiFi Aware Pairing Info name='%@'", v1);
 }
 
-uint64_t sub_1000354B0(uint64_t a1)
+void sub_100035714(id *a1, uint64_t a2)
 {
-  v2 = *(a1 + 152);
-  v3 = *(a1 + 160);
-  return LogPrintF();
-}
-
-void sub_100035714(id *a1)
-{
-  v1 = [*a1 configuration];
-  v2 = [v1 serviceName];
-  LogPrintF();
+  v3 = [*a1 configuration];
+  v4 = [v3 serviceName];
+  LogPrintF(&dword_100060470, "[DAWiFiScanner pairingRequestApprovalRequiredByPublisher:forSubscriber:withPairingMethod:pairingSetupApprovalCompletion:]", 30, "[WiFi] Publisher descriptor='%@' matchedServiceName='%@'", a2, v4);
 }
 
 void sub_1000357CC(void *a1)
 {
   v1 = [a1 serviceName];
-  LogPrintF();
+  LogPrintF(&dword_100060470, "[DAWiFiScanner pairingRequestApprovalRequiredByPublisher:forSubscriber:withPairingMethod:pairingSetupApprovalCompletion:]", 30, "[WiFi] Publisher could not find match with serviceName='%@'", v1);
 }
 
-void sub_100035BC0(void *a1)
+void sub_100035BC0(void *a1, const char *a2)
 {
-  v2 = [a1 bundleIdentifier];
-  v3 = [a1 extensionPointRecord];
-  v4 = [v3 identifier];
-  LogPrintF();
+  v4 = [a1 bundleIdentifier];
+  v5 = [a1 extensionPointRecord];
+  v6 = [v5 identifier];
+  LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection activate]", 20, a2, v4, v6);
 }
 
 void sub_100035C48(uint64_t a1)
 {
   sub_10002B860(a1);
-  v1 = CUPrintPID();
-  LogPrintF();
+  v2 = CUPrintPID();
+  LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection invalidate]", 30, "Invalidate: %@, from %@", v1, v2);
 }
 
 void sub_100035CB4(id *a1, uint64_t a2, void *a3, uint64_t a4)
@@ -6115,113 +5967,112 @@ void sub_100035D78(uint64_t a1)
   sub_10002B860(a1);
   v2 = CUPrintPID();
   v1 = CUPrintNSError();
-  LogPrintF();
+  LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _entitledAndReturnError:]", 90, "### DeviceAccess denied: %@, %@", v2, v1);
 }
 
 void sub_100035E00()
 {
   v0 = CUPrintXPC();
-  LogPrintF();
+  LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection xpcReceivedMessage:]", 90, "### XPC connection error: %@", v0);
 }
 
 void sub_100035E5C(uint64_t a1)
 {
-  v1 = *(a1 + 36);
-  v2 = CUPrintPID();
-  LogPrintF();
+  v1 = CUPrintPID();
+  LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection xpcReceivedMessage:]", 20, "XPC connection ended: %@", v1);
 }
 
-void sub_100035F34()
+void sub_100035F34(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1000606C0 <= 90 && (dword_1000606C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10001E3B4();
+    sub_10001E3B4(&dword_1000606C0, "[DADaemonXPCConnection _xpcSendEvent:]", a3, "### Send event with no cnx");
   }
 }
 
-void sub_100035F94()
+void sub_100035F94(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1000606C0 <= 90 && (dword_1000606C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10001E3B4();
+    sub_10001E3B4(&dword_1000606C0, "[DADaemonXPCConnection _xpcSendReply:]", a3, "### Send reply with no cnx");
   }
 }
 
-void sub_100035FF4()
+void sub_100035FF4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1000606C0 <= 90 && (dword_1000606C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10001E3B4();
+    sub_10001E3B4(&dword_1000606C0, "[DADaemonXPCConnection _xpcSendReplyError:request:]", a3, "### Send error with no cnx");
   }
 }
 
-void sub_100036054()
+void sub_100036054(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1000606C0 <= 90 && (dword_1000606C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10001E3B4();
+    sub_10001E3B4(&dword_1000606C0, "[DADaemonXPCConnection _xpcSendReplyError:request:]", a3, "### Send error create reply failed");
   }
 }
 
 void sub_1000360E8(void *a1, uint64_t a2)
 {
-  v4 = DAErrorF();
+  v4 = DAErrorF(350001, "Mismatched bundleID");
   [a1 _xpcSendReplyError:v4 request:a2];
 }
 
 void sub_100036144(uint64_t a1)
 {
   sub_10002B860(a1);
-  v1 = CUPrintPID();
-  LogPrintF();
+  v2 = CUPrintPID();
+  LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcDADiscoveryActivate:]", 30, "Activate: %@, from %@", v1, v2);
 }
 
 void sub_1000361A0()
 {
   if (dword_1000606C0 <= 90 && (dword_1000606C0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcDADiscoveryActivate:]", 90, "### DADiscovery activate create reply failed", v0, v1);
   }
 }
 
-void sub_10003623C()
+void sub_10003623C(uint64_t a1)
 {
-  v0 = CUPrintNSError();
-  LogPrintF();
+  v1 = CUPrintNSError();
+  LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcDADiscoveryActivate:]", 90, "### DADiscovery activate decode failed: %@", v1);
 }
 
 void sub_1000362C8(uint64_t a1)
 {
   sub_10002B860(a1);
-  v1 = CUPrintPID();
-  LogPrintF();
+  v2 = CUPrintPID();
+  LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcDADiscoveryMigrationComplete:]", 30, "Migrate: %@, from %@", v1, v2);
 }
 
-void sub_10003638C()
+void sub_10003638C(uint64_t a1)
 {
-  v0 = CUPrintNSError();
-  LogPrintF();
+  v1 = CUPrintNSError();
+  LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcDADiscoveryMigrationComplete:]", 90, "### DADiscovery complete migration decode failed: %@", v1);
 }
 
 void sub_100036418()
 {
   if (dword_1000606C0 <= 90 && (dword_1000606C0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcDADiscoveryInvalidateWithReason:]", 90, "### DADiscovery invalidation report create reply failed", v0, v1);
   }
 }
 
 void sub_1000364B4()
 {
   v0 = CUPrintNSError();
-  LogPrintF();
+  LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcDADiscoveryInvalidateWithReason:]", 90, "### DADiscovery invalidating with reason decode failed: %@", v0);
 }
 
 void sub_100036514()
 {
   if (dword_1000606C0 <= 90 && (dword_1000606C0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcDiagnosticShow:]", 90, "### DiagnosticShow create reply failed", v0, v1);
   }
 }
 
@@ -6231,14 +6082,14 @@ void sub_10003657C(uint64_t a1)
   CUPrintPID();
   objc_claimAutoreleasedReturnValue();
   sub_10002B86C();
-  LogPrintF();
+  LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcRemoveDeviceAppAccessInfo:]_block_invoke", 90, "### RemoveDeviceAppAccessInfo[%@] failed: %@");
 }
 
 void sub_1000365E4(uint64_t a1)
 {
   sub_10002B850(a1);
-  v1 = CUPrintPID();
-  LogPrintF();
+  v2 = CUPrintPID();
+  LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcRemoveDeviceAppAccessInfo:]_block_invoke_4", 90, "### RemoveDeviceConfirmation[%@] alert failed: %@", v2, v1);
 }
 
 void sub_100036650(uint64_t a1)
@@ -6247,75 +6098,61 @@ void sub_100036650(uint64_t a1)
   CUPrintPID();
   objc_claimAutoreleasedReturnValue();
   sub_10002B86C();
-  LogPrintF();
+  LogPrintF(&dword_1000606C0, "[DADaemonXPCConnection _xpcRemoveDeviceConfirmation:accessInfo:userConfirmed:request:]_block_invoke", 90, "### RemoveDeviceConfirmation[%@] failed: %@");
 }
 
-void sub_1000366B8()
+void sub_1000366B8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1000606C0 <= 90 && (dword_1000606C0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10001E3B4();
+    sub_10001E3B4(&dword_1000606C0, "[DADaemonXPCConnection _xpcResetWiFiIdentifier:]_block_invoke_2", a3, "### ResetWiFiIdentifier create reply failed");
   }
 }
 
 void sub_100036738()
 {
-  v0 = *__error();
-  v1 = CUPrintErrorCode();
-  LogPrintF();
+  __error();
+  v0 = CUPrintErrorCode();
+  LogPrintF(&dword_100060730, "int main(int, const char **)", 90, "### _set_user_dir_suffix failed: %@", v0);
 }
 
-void sub_10003679C()
+void sub_10003679C(double a1)
 {
-  v0 = CUPrintDurationDouble();
-  LogPrintF();
+  v1 = CUPrintDurationDouble();
+  LogPrintF(&dword_1000607A0, "[DABluetoothTask setTimerTimeout:queue:handler:]", 30, "BT task timeout timer start: %@", v1);
 }
 
-void sub_100036850()
-{
-  if (dword_1000607A0 <= 30 && (dword_1000607A0 != -1 || _LogCategory_Initialize()))
-  {
-    sub_10002E95C();
-  }
-}
-
-void sub_1000368B0()
+void sub_100036850(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1000607A0 <= 30 && (dword_1000607A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_10002E95C();
+    sub_10002E95C(&dword_1000607A0, "[DABluetoothPairingManager persistBluetoothDevice:pairingRequired:pairWithCTKD:displayName:taskTimeout:appConfirmsAuth:supportsHID:completion:]", a3, "### persistBluetoothDevice no queue");
   }
 }
 
-uint64_t sub_100036910(uint64_t a1)
+void sub_1000368B0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 48);
-  return LogPrintF();
+  if (dword_1000607A0 <= 30 && (dword_1000607A0 != -1 || _LogCategory_Initialize()))
+  {
+    sub_10002E95C(&dword_1000607A0, "[DABluetoothPairingManager forgetBluetoothDevice:completion:]", a3, "### forgetBluetoothDevice no queue");
+  }
 }
 
-uint64_t sub_1000369BC(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 48);
-  return LogPrintF();
-}
-
-uint64_t sub_100036A90(uint64_t result)
+uint64_t *sub_100036A90(uint64_t *result, uint64_t a2)
 {
   if (dword_1000607A0 <= 30)
   {
     if (dword_1000607A0 != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&dword_1000607A0, "[DABluetoothPairingManager _runNextTask]", 30, "### _runNextTask waiting for current operation to be completed %@", a2);
     }
 
-    v1 = result;
+    v2 = result;
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *v1;
-      return LogPrintF();
+      a2 = *v2;
+      return LogPrintF(&dword_1000607A0, "[DABluetoothPairingManager _runNextTask]", 30, "### _runNextTask waiting for current operation to be completed %@", a2);
     }
   }
 
@@ -6325,13 +6162,11 @@ uint64_t sub_100036A90(uint64_t result)
 void sub_100036C78(id *a1)
 {
   v1 = [*a1 bluetoothUUID];
-  LogPrintF();
+  LogPrintF(&dword_1000607A0, "[DABluetoothPairingManager _runNextTask]", 50, "### _runNextTask cannot connect use %@, aborting", v1);
 }
 
-void sub_100036E28(uint64_t a1, uint64_t a2)
+void sub_100036E28(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = CUPrintNSError();
-  v4 = *(a2 + 40);
-  v5 = v3;
-  LogPrintF();
+  v5 = CUPrintNSError();
+  LogPrintF(&dword_1000607A0, "[DABluetoothPairingManager pairingAgent:peerDidFailToCompletePairing:error:]", 50, "### peerDidFailToCompletePairing %@ %@ %@", a3, v5, *(a2 + 40));
 }

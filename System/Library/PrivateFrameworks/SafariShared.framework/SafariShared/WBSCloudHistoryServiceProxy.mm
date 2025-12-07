@@ -43,19 +43,19 @@
 
 void __79__WBSCloudHistoryServiceProxy__defaultProxyErrorHandlerWithSimpleReplyHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 32);
-  if (v4)
+  v4 = a2;
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    (*(v4 + 16))(v4, 0, v3);
+    (*(v5 + 16))(v5, 0, v4);
   }
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXCloudHistory(0, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __79__WBSCloudHistoryServiceProxy__defaultProxyErrorHandlerWithSimpleReplyHandler___block_invoke_cold_1(v5, v3);
+      __79__WBSCloudHistoryServiceProxy__defaultProxyErrorHandlerWithSimpleReplyHandler___block_invoke_cold_1(v6, v4);
     }
   }
 }

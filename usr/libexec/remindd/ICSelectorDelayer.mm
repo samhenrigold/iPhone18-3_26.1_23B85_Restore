@@ -1,5 +1,6 @@
 @interface ICSelectorDelayer
 - (BOOL)isScheduledToFire;
+- (ICSelectorDelayer)initWithTarget:(id)target selector:(SEL)selector delay:(double)delay waitToFireUntilRequestsStop:(BOOL)stop callOnMainThread:(BOOL)thread;
 - (SEL)selector;
 - (id)target;
 - (void)_cancelFireRequests;
@@ -12,6 +13,30 @@
 @end
 
 @implementation ICSelectorDelayer
+
+- (ICSelectorDelayer)initWithTarget:(id)target selector:(SEL)selector delay:(double)delay waitToFireUntilRequestsStop:(BOOL)stop callOnMainThread:(BOOL)thread
+{
+  threadCopy = thread;
+  stopCopy = stop;
+  targetCopy = target;
+  v18.receiver = self;
+  v18.super_class = ICSelectorDelayer;
+  v13 = [(ICSelectorDelayer *)&v18 init];
+  v14 = v13;
+  if (v13)
+  {
+    [(ICSelectorDelayer *)v13 setTarget:targetCopy];
+    [(ICSelectorDelayer *)v14 setSelector:selector];
+    [(ICSelectorDelayer *)v14 setDelay:delay];
+    [(ICSelectorDelayer *)v14 setWaitToFireUntilRequestsStop:stopCopy];
+    [(ICSelectorDelayer *)v14 setCallOnMainThread:threadCopy];
+    v15 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v16 = dispatch_queue_create("com.apple.reminders.coalescer.requests", v15);
+    [(ICSelectorDelayer *)v14 setRequestQueue:v16];
+  }
+
+  return v14;
+}
 
 - (void)dealloc
 {
@@ -78,7 +103,7 @@
 
   else
   {
-    v5 = +[REMLog cloudkit];
+    v5 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       sub_10075FDE4(self, v5);

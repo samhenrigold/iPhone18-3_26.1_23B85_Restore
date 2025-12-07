@@ -62,7 +62,7 @@
 
 - (void)tableView:(id)view moveRowAtIndexPath:(id)path toIndexPath:(id)indexPath
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   indexPathCopy = indexPath;
   section = [pathCopy section];
@@ -76,34 +76,34 @@
     [v11 insertObject:v12 atIndex:{objc_msgSend(indexPathCopy, "row")}];
     [(PHLiveLookupSettingsController *)self setExtensions:v11];
     v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v11, "count")}];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v14 = v11;
-    v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v23;
+      v17 = *v22;
       do
       {
         v18 = 0;
         do
         {
-          if (*v23 != v17)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          identifier = [*(*(&v22 + 1) + 8 * v18) identifier];
+          identifier = [*(*(&v21 + 1) + 8 * v18) identifier];
           [v13 addObject:identifier];
 
           ++v18;
         }
 
         while (v16 != v18);
-        v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v16);
@@ -112,8 +112,6 @@
     extensionManager = [(PHLiveLookupSettingsController *)self extensionManager];
     [extensionManager setWithPrioritizedExtensionIdentifiers:v13];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)specifiers
@@ -133,45 +131,43 @@
 
 - (id)readPreferenceValue:(id)value
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = [(PHLiveLookupSettingsController *)self extensionForSpecifier:value];
   if (v4)
   {
     extensionManager = [(PHLiveLookupSettingsController *)self extensionManager];
     v6 = [extensionManager extensionEnabled:v4];
 
-    v7 = TPSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = TPSLog(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = @"DISABLED";
+      v10 = @"DISABLED";
       if (v6)
       {
-        v8 = @"ENABLED";
+        v10 = @"ENABLED";
       }
 
-      v12 = 138412546;
-      v13 = v4;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_DEFAULT, "Getting extension enabled (%@) as %@", &v12, 0x16u);
+      v13 = 138412546;
+      v14 = v4;
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_DEFAULT, "Getting extension enabled (%@) as %@", &v13, 0x16u);
     }
 
-    v9 = [MEMORY[0x277CCABB0] numberWithBool:v6];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:v6];
   }
 
   else
   {
-    v9 = 0;
+    v11 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v11;
 }
 
 - (void)setPreferenceValue:(id)value specifier:(id)specifier
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   specifierCopy = specifier;
   v8 = [(PHLiveLookupSettingsController *)self extensionForSpecifier:specifierCopy];
@@ -181,55 +177,55 @@
     v10 = [extensionManager extensionEnabled:v8];
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      bOOLValue = [valueCopy BOOLValue];
+      isKindOfClass = [valueCopy BOOLValue];
+      v13 = isKindOfClass;
     }
 
     else
     {
-      bOOLValue = 0;
+      v13 = 0;
     }
 
-    v12 = TPSLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = TPSLog(isKindOfClass, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = @"DISABLED";
-      if (bOOLValue)
+      v15 = @"DISABLED";
+      if (v13)
       {
-        v13 = @"ENABLED";
+        v15 = @"ENABLED";
       }
 
       *buf = 138412546;
-      v26 = v8;
-      v27 = 2112;
-      v28 = v13;
-      _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "Setting live lookup extension (%@) to %@", buf, 0x16u);
+      v27 = v8;
+      v28 = 2112;
+      v29 = v15;
+      _os_log_impl(&dword_21B8E9000, v14, OS_LOG_TYPE_DEFAULT, "Setting live lookup extension (%@) to %@", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
     extensionManager2 = [(PHLiveLookupSettingsController *)self extensionManager];
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __63__PHLiveLookupSettingsController_setPreferenceValue_specifier___block_invoke;
-    v20 = &unk_2782E3A20;
-    objc_copyWeak(&v23, buf);
-    v15 = specifierCopy;
-    v21 = v15;
-    v24 = bOOLValue;
-    v22 = v8;
-    [extensionManager2 setEnabled:bOOLValue forExtension:v22 completion:&v17];
+    v18 = MEMORY[0x277D85DD0];
+    v19 = 3221225472;
+    v20 = __63__PHLiveLookupSettingsController_setPreferenceValue_specifier___block_invoke;
+    v21 = &unk_2782E3A20;
+    objc_copyWeak(&v24, buf);
+    v17 = specifierCopy;
+    v22 = v17;
+    v25 = v13;
+    v23 = v8;
+    [extensionManager2 setEnabled:v13 forExtension:v23 completion:&v18];
 
-    if (v10 != bOOLValue)
+    if (v10 != v13)
     {
-      [v15 setProperty:MEMORY[0x277CBEC38] forKey:{*MEMORY[0x277D3FEA8], v17, v18, v19, v20, v21}];
+      [v17 setProperty:MEMORY[0x277CBEC38] forKey:{*MEMORY[0x277D3FEA8], v18, v19, v20, v21, v22}];
     }
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(buf);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __63__PHLiveLookupSettingsController_setPreferenceValue_specifier___block_invoke(uint64_t a1, void *a2)
@@ -253,27 +249,28 @@ void __63__PHLiveLookupSettingsController_setPreferenceValue_specifier___block_i
 void __63__PHLiveLookupSettingsController_setPreferenceValue_specifier___block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
     [*(a1 + 32) setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FEA8]];
-    [WeakRetained refreshView];
+    WeakRetained = [v4 refreshView];
   }
 
   if (*(a1 + 40))
   {
-    v3 = TPSLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = TPSLog(WeakRetained, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __63__PHLiveLookupSettingsController_setPreferenceValue_specifier___block_invoke_2_cold_1(a1, (a1 + 40), v3);
+      __63__PHLiveLookupSettingsController_setPreferenceValue_specifier___block_invoke_2_cold_1(a1, (a1 + 40), v5);
     }
 
-    v4 = objc_loadWeakRetained((a1 + 56));
-    v5 = v4;
-    if (v4)
+    v6 = objc_loadWeakRetained((a1 + 56));
+    v7 = v6;
+    if (v6)
     {
-      [v4 presentError:*(a1 + 40) fromSettingEnabled:*(a1 + 64) forExtension:*(a1 + 48)];
-      v6 = [v5 parent];
-      [v6 reloadSpecifier:*(a1 + 32) animated:1];
+      [v6 presentError:*(a1 + 40) fromSettingEnabled:*(a1 + 64) forExtension:*(a1 + 48)];
+      v8 = [v7 parent];
+      [v8 reloadSpecifier:*(a1 + 32) animated:1];
     }
   }
 }
@@ -294,31 +291,30 @@ void __63__PHLiveLookupSettingsController_setPreferenceValue_specifier___block_i
 {
   v14 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
-  v5 = TPSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSLog(notificationCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = objc_opt_class();
-    v7 = v6;
+    v7 = objc_opt_class();
+    v8 = v7;
     name = [notificationCopy name];
     v10 = 138412546;
-    v11 = v6;
+    v11 = v7;
     v12 = 2112;
     v13 = name;
-    _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v10, 0x16u);
+    _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling <%@>", &v10, 0x16u);
   }
 
   [(PHLiveLookupSettingsController *)self _updateExtensions];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateExtensions
 {
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v3 = TPSLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v5 = TPSLog(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21B8E9000, v3, OS_LOG_TYPE_DEFAULT, "live lookup _updateExtensions", buf, 2u);
+    _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "live lookup _updateExtensions", buf, 2u);
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -326,90 +322,93 @@ void __63__PHLiveLookupSettingsController_setPreferenceValue_specifier___block_i
   block[2] = __51__PHLiveLookupSettingsController__updateExtensions__block_invoke;
   block[3] = &unk_2782E3960;
   block[4] = self;
-  v4 = MEMORY[0x277D85CD0];
+  v6 = MEMORY[0x277D85CD0];
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
 void __51__PHLiveLookupSettingsController__updateExtensions__block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) extensionManager];
   v3 = [v2 extensions];
 
   if (v3)
   {
-    v4 = TPSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = TPSLog(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v27 = v3;
-      _os_log_impl(&dword_21B8E9000, v4, OS_LOG_TYPE_DEFAULT, "Received live lookup extensions %@", buf, 0xCu);
+      v29 = v3;
+      _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "Received live lookup extensions %@", buf, 0xCu);
     }
   }
 
-  v5 = TPSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v7 = TPSLog(v4, v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = v3;
-    _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "live lookup _updateExtensions: %@", buf, 0xCu);
+    v29 = v3;
+    _os_log_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_DEFAULT, "live lookup _updateExtensions: %@", buf, 0xCu);
   }
 
-  if (!v3 || ([*(a1 + 32) extensions], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v3, "isEqualToArray:", v6), v6, (v7 & 1) == 0))
+  if (!v3 || ([*(a1 + 32) extensions], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v3, "isEqualToArray:", v8), v8, (v9 & 1) == 0))
   {
-    v8 = [*(a1 + 32) parent];
-    v9 = [v8 isEditing];
+    v10 = [*(a1 + 32) parent];
+    v11 = [v10 isEditing];
 
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      v10 = [MEMORY[0x277CBEB18] array];
-      [*(a1 + 32) setExtensions:v10];
+      v12 = [MEMORY[0x277CBEB18] array];
+      [*(a1 + 32) setExtensions:v12];
 
+      v25 = 0u;
+      v26 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v21 = 0u;
-      v22 = 0u;
-      v20 = v3;
-      v11 = v3;
-      v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
-      if (v12)
+      v22 = v3;
+      v13 = v3;
+      v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      if (v14)
       {
-        v13 = v12;
-        v14 = *v22;
+        v16 = v14;
+        v17 = *v24;
         do
         {
-          for (i = 0; i != v13; ++i)
+          v18 = 0;
+          do
           {
-            if (*v22 != v14)
+            if (*v24 != v17)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v13);
             }
 
-            v16 = *(*(&v21 + 1) + 8 * i);
-            v17 = TPSLog();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            v19 = *(*(&v23 + 1) + 8 * v18);
+            v20 = TPSLog(v14, v15);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v27 = v16;
-              _os_log_impl(&dword_21B8E9000, v17, OS_LOG_TYPE_DEFAULT, "live lookup extension: %@", buf, 0xCu);
+              v29 = v19;
+              _os_log_impl(&dword_21B8E9000, v20, OS_LOG_TYPE_DEFAULT, "live lookup extension: %@", buf, 0xCu);
             }
 
-            v18 = [*(a1 + 32) extensions];
-            [v18 addObject:v16];
+            v21 = [*(a1 + 32) extensions];
+            [v21 addObject:v19];
+
+            ++v18;
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          while (v16 != v18);
+          v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v16 = v14;
         }
 
-        while (v13);
+        while (v14);
       }
 
       [*(a1 + 32) refreshView];
-      v3 = v20;
+      v3 = v22;
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_extensionFrom:(id)from
@@ -426,30 +425,30 @@ void __51__PHLiveLookupSettingsController__updateExtensions__block_invoke(uint64
 
 - (BOOL)_isUniqueExtension:(id)extension
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   selfCopy = self;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = [(PHLiveLookupSettingsController *)self extensions];
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v23;
+    v7 = *v22;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = [(PHLiveLookupSettingsController *)selfCopy _extensionFrom:*(*(&v22 + 1) + 8 * i)];
+        v9 = [(PHLiveLookupSettingsController *)selfCopy _extensionFrom:*(*(&v21 + 1) + 8 * i)];
         v10 = v9;
         if (v9)
         {
@@ -472,7 +471,7 @@ void __51__PHLiveLookupSettingsController__updateExtensions__block_invoke(uint64
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v5)
       {
         continue;
@@ -490,14 +489,13 @@ LABEL_14:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)createExtensionsGroupSpecifiers
 {
-  v56 = *MEMORY[0x277D85DE8];
-  v3 = TPSLog();
+  v57 = *MEMORY[0x277D85DE8];
+  v3 = TPSLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -514,105 +512,104 @@ LABEL_14:
   v10 = [v9 localizedStringForKey:@"LIVE_LOOKUP_EXTENSIONS_LIST_FOOTER" value:&stru_282D54710 table:@"CallDirectorySettings"];
   [v8 setProperty:v10 forKey:*MEMORY[0x277D3FF88]];
 
-  v43 = array;
-  v39 = v8;
-  [array insertObject:v8 atIndex:0];
-  v11 = TPSLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v44 = array;
+  v40 = v8;
+  v11 = [array insertObject:v8 atIndex:0];
+  v13 = TPSLog(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     extensions = [(PHLiveLookupSettingsController *)self extensions];
     *buf = 138412290;
-    v55 = extensions;
-    _os_log_impl(&dword_21B8E9000, v11, OS_LOG_TYPE_DEFAULT, "live lookup extensions=%@", buf, 0xCu);
+    v56 = extensions;
+    _os_log_impl(&dword_21B8E9000, v13, OS_LOG_TYPE_DEFAULT, "live lookup extensions=%@", buf, 0xCu);
   }
 
-  v13 = objc_alloc(MEMORY[0x277CBEB18]);
+  v15 = objc_alloc(MEMORY[0x277CBEB18]);
   extensions2 = [(PHLiveLookupSettingsController *)self extensions];
-  v42 = [v13 initWithCapacity:{objc_msgSend(extensions2, "count")}];
+  v43 = [v15 initWithCapacity:{objc_msgSend(extensions2, "count")}];
 
-  v50 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
+  v50 = 0u;
   extensions3 = [(PHLiveLookupSettingsController *)self extensions];
-  v16 = [extensions3 countByEnumeratingWithState:&v48 objects:v53 count:16];
-  if (v16)
+  v18 = [extensions3 countByEnumeratingWithState:&v49 objects:v54 count:16];
+  if (v18)
   {
-    v17 = v16;
-    v18 = *v49;
+    v19 = v18;
+    v20 = *v50;
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v49 != v18)
+        if (*v50 != v20)
         {
           objc_enumerationMutation(extensions3);
         }
 
-        v20 = *(*(&v48 + 1) + 8 * i);
-        v21 = MEMORY[0x277CCA9C8];
+        v22 = *(*(&v49 + 1) + 8 * i);
+        v23 = MEMORY[0x277CCA9C8];
         extensionManager = [(PHLiveLookupSettingsController *)self extensionManager];
-        v23 = [extensionManager extensionName:v20];
-        v24 = [v21 extensionWithIdentifier:v23 error:0];
+        v25 = [extensionManager extensionName:v22];
+        v26 = [v23 extensionWithIdentifier:v25 error:0];
 
-        if (v24)
+        if (v26)
         {
-          [v42 addObject:v24];
+          [v43 addObject:v26];
         }
       }
 
-      v17 = [extensions3 countByEnumeratingWithState:&v48 objects:v53 count:16];
+      v19 = [extensions3 countByEnumeratingWithState:&v49 objects:v54 count:16];
     }
 
-    while (v17);
+    while (v19);
   }
 
-  v46 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
+  v46 = 0u;
   obj = [(PHLiveLookupSettingsController *)self extensions];
-  v25 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
-  if (v25)
+  v27 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+  if (v27)
   {
-    v26 = v25;
-    v27 = *v45;
-    v41 = *MEMORY[0x277D3FFC0];
+    v28 = v27;
+    v29 = *v46;
+    v42 = *MEMORY[0x277D3FFC0];
     do
     {
-      for (j = 0; j != v26; ++j)
+      for (j = 0; j != v28; ++j)
       {
-        if (*v45 != v27)
+        if (*v46 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v44 + 1) + 8 * j);
-        v30 = [(PHLiveLookupSettingsController *)self _extensionFrom:v29];
-        if (v30)
+        v31 = *(*(&v45 + 1) + 8 * j);
+        v32 = [(PHLiveLookupSettingsController *)self _extensionFrom:v31];
+        if (v32)
         {
-          v31 = [(PHLiveLookupSettingsController *)self _localizedExtensionTitleForExtension:v30 unique:[(PHLiveLookupSettingsController *)self _isUniqueExtension:v30]];
-          v32 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v31 target:self set:sel_setPreferenceValue_specifier_ get:sel_readPreferenceValue_ detail:0 cell:6 edit:0];
-          v33 = MEMORY[0x277D755B8];
-          plugInKitProxy = [v30 plugInKitProxy];
-          v35 = [v33 _iconForResourceProxy:plugInKitProxy format:0];
+          v33 = [(PHLiveLookupSettingsController *)self _localizedExtensionTitleForExtension:v32 unique:[(PHLiveLookupSettingsController *)self _isUniqueExtension:v32]];
+          v34 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v33 target:self set:sel_setPreferenceValue_specifier_ get:sel_readPreferenceValue_ detail:0 cell:6 edit:0];
+          v35 = MEMORY[0x277D755B8];
+          plugInKitProxy = [v32 plugInKitProxy];
+          v37 = [v35 _iconForResourceProxy:plugInKitProxy format:0];
 
-          [v32 setProperty:v35 forKey:v41];
-          [v32 setProperty:v29 forKey:@"LiveLookupDBExtension"];
-          [v43 addObject:v32];
+          [v34 setProperty:v37 forKey:v42];
+          [v34 setProperty:v31 forKey:@"LiveLookupDBExtension"];
+          [v44 addObject:v34];
         }
       }
 
-      v26 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v28 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
     }
 
-    while (v26);
+    while (v28);
   }
 
-  v36 = [v43 copy];
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = [v44 copy];
 
-  return v36;
+  return v38;
 }
 
 - (id)_localizedExtensionTitleForExtension:(id)extension unique:(BOOL)unique
@@ -657,7 +654,7 @@ LABEL_14:
 
 - (void)refreshView
 {
-  v3 = TPSLog();
+  v3 = TPSLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -714,18 +711,17 @@ LABEL_14:
 
 void __63__PHLiveLookupSettingsController_setPreferenceValue_specifier___block_invoke_2_cold_1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 64);
   v4 = *(a1 + 48);
   v5 = *a2;
-  v7[0] = 67109634;
-  v7[1] = v3;
-  v8 = 2112;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v5;
-  _os_log_error_impl(&dword_21B8E9000, log, OS_LOG_TYPE_ERROR, "Error setting enabled to %d for live lookup extension %@: %@", v7, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = 67109634;
+  v6[1] = v3;
+  v7 = 2112;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v5;
+  _os_log_error_impl(&dword_21B8E9000, log, OS_LOG_TYPE_ERROR, "Error setting enabled to %d for live lookup extension %@: %@", v6, 0x1Cu);
 }
 
 @end

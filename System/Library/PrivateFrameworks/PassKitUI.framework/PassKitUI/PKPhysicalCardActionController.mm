@@ -300,11 +300,11 @@ void __64__PKPhysicalCardActionController__performAction_onPhysicalCard___block_
   }
 }
 
-uint64_t __64__PKPhysicalCardActionController__performAction_onPhysicalCard___block_invoke_3(uint64_t result, char a2)
+id *__64__PKPhysicalCardActionController__performAction_onPhysicalCard___block_invoke_3(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) _transitionToState:3 withError:0];
+    return [result[4] _transitionToState:3 withError:0];
   }
 
   return result;

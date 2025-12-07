@@ -5,6 +5,9 @@
 - (void)generateDiversifiedPINForDataSession:(id)session completionHandler:(id)handler;
 - (void)generateStatisticsReportForDataSession:(id)session completionHandler:(id)handler;
 - (void)handleError:(int64_t)error;
+- (void)publishDataConfirmedForHandle:(id)handle localInterfaceIndex:(unsigned int)index serviceSpecificInfo:(id)info;
+- (void)publishDataConfirmedForHandle:(id)handle localInterfaceIndex:(unsigned int)index serviceSpecificInfo:(id)info pairingKeyStoreID:(id)d;
+- (void)publishDataConfirmedForHandle:(id)handle localInterfaceIndex:(unsigned int)index serviceSpecificInfo:(id)info pairingKeyStoreID:(id)d deviceID:(unint64_t)iD;
 - (void)publishDataTerminatedForHandle:(id)handle reason:(int64_t)reason;
 - (void)publishDetectedMulticastError:(int64_t)error fromMulticastReceiver:(id)receiver;
 - (void)publishFailedToStartWithError:(int64_t)error;
@@ -13,6 +16,8 @@
 - (void)publishPairingDidSucceedWithPairingKeyStoreID:(id)d deviceID:(unint64_t)iD;
 - (void)publishPairingRequestIndicatedBySubscriber:(id)subscriber withPairingMethod:(int64_t)method pairingAuthenticationGeneratedCompletionHandler:(id)handler;
 - (void)publishReceivedDataBlobForMulticastSession:(id)session fromPeer:(id)peer;
+- (void)publishReceivedMessage:(id)message fromSubscriberID:(unsigned __int8)d subscriberAddress:(id)address;
+- (void)publishStartedWithInstanceID:(unsigned __int8)d maximumNANDataPath:(unsigned int)path;
 - (void)publishTerminatedWithReason:(int64_t)reason;
 - (void)reportIssue:(id)issue forDataSession:(id)session;
 - (void)sendDataBlobForMulticastSession:(id)session toPeerAddress:(id)address usingMulticastAddress:(unsigned __int8)multicastAddress completionHandler:(id)handler;
@@ -77,35 +82,35 @@
 
 - (void)startConnectionUsingProxy:(id)proxy completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   handlerCopy = handler;
   delegate = [(WiFiAwarePublisher *)self delegate];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v9 = self->_dataSessionHandles;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [delegate publisher:self dataTerminatedForHandle:*(*(&v16 + 1) + 8 * v13++) reason:{-1, v16}];
+        [delegate publisher:self dataTerminatedForHandle:*(*(&v15 + 1) + 8 * v13++) reason:{-1, v15}];
       }
 
       while (v11 != v13);
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
@@ -114,8 +119,6 @@
   [(NSMutableArray *)self->_dataSessionHandles removeAllObjects];
   configuration = [(WiFiAwarePublisher *)self configuration];
   [proxyCopy createPublishWithConfiguration:configuration completionHandler:handlerCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMessage:(id)message toPeerAddress:(id)address withInstanceID:(unsigned __int8)d completionHandler:(id)handler
@@ -425,6 +428,66 @@ uint64_t __77__WiFiAwarePublisher_generateDiversifiedPINForDataSession_completio
   return result;
 }
 
+- (void)publishStartedWithInstanceID:(unsigned __int8)d maximumNANDataPath:(unsigned int)path
+{
+  v4 = *&path;
+  publishID = self->_publishID;
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:d];
+  v8 = self->_publishID;
+  self->_publishID = v7;
+
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+  maximumNANDataPath = self->_maximumNANDataPath;
+  self->_maximumNANDataPath = v9;
+
+  if (!publishID)
+  {
+    delegate = [(WiFiAwarePublisher *)self delegate];
+    [delegate publisherStarted:self];
+  }
+}
+
+- (void)publishDataConfirmedForHandle:(id)handle localInterfaceIndex:(unsigned int)index serviceSpecificInfo:(id)info
+{
+  v6 = *&index;
+  handleCopy = handle;
+  infoCopy = info;
+  [(NSMutableArray *)self->_dataSessionHandles addObject:handleCopy];
+  delegate = [(WiFiAwarePublisher *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate publisher:self dataConfirmedForHandle:handleCopy localInterfaceIndex:v6 serviceSpecificInfo:infoCopy];
+  }
+}
+
+- (void)publishDataConfirmedForHandle:(id)handle localInterfaceIndex:(unsigned int)index serviceSpecificInfo:(id)info pairingKeyStoreID:(id)d
+{
+  v8 = *&index;
+  handleCopy = handle;
+  infoCopy = info;
+  dCopy = d;
+  [(NSMutableArray *)self->_dataSessionHandles addObject:handleCopy];
+  delegate = [(WiFiAwarePublisher *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate publisher:self dataConfirmedForHandle:handleCopy localInterfaceIndex:v8 serviceSpecificInfo:infoCopy pairingKeyStoreID:dCopy];
+  }
+}
+
+- (void)publishDataConfirmedForHandle:(id)handle localInterfaceIndex:(unsigned int)index serviceSpecificInfo:(id)info pairingKeyStoreID:(id)d deviceID:(unint64_t)iD
+{
+  v10 = *&index;
+  handleCopy = handle;
+  infoCopy = info;
+  dCopy = d;
+  [(NSMutableArray *)self->_dataSessionHandles addObject:handleCopy];
+  delegate = [(WiFiAwarePublisher *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate publisher:self dataConfirmedForHandle:handleCopy localInterfaceIndex:v10 serviceSpecificInfo:infoCopy pairingKeyStoreID:dCopy deviceID:iD];
+  }
+}
+
 - (void)publishDataTerminatedForHandle:(id)handle reason:(int64_t)reason
 {
   handleCopy = handle;
@@ -447,6 +510,18 @@ uint64_t __77__WiFiAwarePublisher_generateDiversifiedPINForDataSession_completio
   xpcConnection = self->_xpcConnection;
 
   [(WiFiP2PXPCConnection *)xpcConnection stop];
+}
+
+- (void)publishReceivedMessage:(id)message fromSubscriberID:(unsigned __int8)d subscriberAddress:(id)address
+{
+  dCopy = d;
+  messageCopy = message;
+  addressCopy = address;
+  delegate = [(WiFiAwarePublisher *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate publisher:self receivedMessage:messageCopy fromSubscriberID:dCopy subscriberAddress:addressCopy];
+  }
 }
 
 - (void)publishDetectedMulticastError:(int64_t)error fromMulticastReceiver:(id)receiver
@@ -479,7 +554,7 @@ uint64_t __77__WiFiAwarePublisher_generateDiversifiedPINForDataSession_completio
 
 - (void)publishPairingApprovalForSubscriber:(id)subscriber withPairingMethod:(int64_t)method pairingSetupApprovalHandler:(id)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   subscriberCopy = subscriber;
   handlerCopy = handler;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -498,12 +573,12 @@ uint64_t __77__WiFiAwarePublisher_generateDiversifiedPINForDataSession_completio
   {
     if (objc_opt_respondsToSelector())
     {
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __104__WiFiAwarePublisher_publishPairingApprovalForSubscriber_withPairingMethod_pairingSetupApprovalHandler___block_invoke;
-      v15[3] = &unk_2787AB568;
-      v16 = handlerCopy;
-      [pairingDelegate pairingRequestApprovalRequiredByPublisher:self forSubscriber:subscriberCopy withPairingMethod:method pairingSetupApprovalHandler:v15];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __104__WiFiAwarePublisher_publishPairingApprovalForSubscriber_withPairingMethod_pairingSetupApprovalHandler___block_invoke;
+      v14[3] = &unk_2787AB568;
+      v15 = handlerCopy;
+      [pairingDelegate pairingRequestApprovalRequiredByPublisher:self forSubscriber:subscriberCopy withPairingMethod:method pairingSetupApprovalHandler:v14];
     }
 
     else
@@ -511,13 +586,11 @@ uint64_t __77__WiFiAwarePublisher_generateDiversifiedPINForDataSession_completio
       (*(handlerCopy + 2))(handlerCopy, 1, 0);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishPairingApprovalForSubscriber:(id)subscriber withPairingMethod:(int64_t)method pairingSetupApprovalCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   subscriberCopy = subscriber;
   completionCopy = completion;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -536,12 +609,12 @@ uint64_t __77__WiFiAwarePublisher_generateDiversifiedPINForDataSession_completio
   {
     if (objc_opt_respondsToSelector())
     {
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __107__WiFiAwarePublisher_publishPairingApprovalForSubscriber_withPairingMethod_pairingSetupApprovalCompletion___block_invoke;
-      v15[3] = &unk_2787AB590;
-      v16 = completionCopy;
-      [pairingDelegate pairingRequestApprovalRequiredByPublisher:self forSubscriber:subscriberCopy withPairingMethod:method pairingSetupApprovalCompletion:v15];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __107__WiFiAwarePublisher_publishPairingApprovalForSubscriber_withPairingMethod_pairingSetupApprovalCompletion___block_invoke;
+      v14[3] = &unk_2787AB590;
+      v15 = completionCopy;
+      [pairingDelegate pairingRequestApprovalRequiredByPublisher:self forSubscriber:subscriberCopy withPairingMethod:method pairingSetupApprovalCompletion:v14];
     }
 
     else
@@ -549,13 +622,11 @@ uint64_t __77__WiFiAwarePublisher_generateDiversifiedPINForDataSession_completio
       (*(completionCopy + 2))(completionCopy, 1, 0);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishPairingRequestIndicatedBySubscriber:(id)subscriber withPairingMethod:(int64_t)method pairingAuthenticationGeneratedCompletionHandler:(id)handler
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   subscriberCopy = subscriber;
   handlerCopy = handler;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -586,26 +657,26 @@ uint64_t __77__WiFiAwarePublisher_generateDiversifiedPINForDataSession_completio
 
           if (pairingPINCode)
           {
-            v33 = MEMORY[0x277CCAB68];
+            v32 = MEMORY[0x277CCAB68];
             configuration3 = [(WiFiAwarePublisher *)self configuration];
             datapathConfiguration3 = [configuration3 datapathConfiguration];
             securityConfiguration3 = [datapathConfiguration3 securityConfiguration];
             pairingPINCode2 = [securityConfiguration3 pairingPINCode];
-            v38 = [v33 stringWithString:pairingPINCode2];
+            v37 = [v32 stringWithString:pairingPINCode2];
 
-            v14 = v38;
+            v14 = v37;
           }
 
           else
           {
-            v45 = 6;
+            v44 = 6;
             do
             {
               [v14 appendFormat:@"%d", arc4random_uniform(0xAu)];
-              --v45;
+              --v44;
             }
 
-            while (v45);
+            while (v44);
           }
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -614,8 +685,8 @@ uint64_t __77__WiFiAwarePublisher_generateDiversifiedPINForDataSession_completio
             _os_log_error_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Invoking pairingAuthenticationGeneratedCompletionHandler callback", buf, 2u);
           }
 
-          v46 = [v14 dataUsingEncoding:4];
-          handlerCopy[2](handlerCopy, v46);
+          v45 = [v14 dataUsingEncoding:4];
+          handlerCopy[2](handlerCopy, v45);
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
@@ -644,8 +715,8 @@ uint64_t __77__WiFiAwarePublisher_generateDiversifiedPINForDataSession_completio
         }
 
         *buf = 0;
-        v41 = MEMORY[0x277D86220];
-        v42 = "Pairing delegate does not implement method pairingRequestIndicatedForPublisher";
+        v40 = MEMORY[0x277D86220];
+        v41 = "Pairing delegate does not implement method pairingRequestIndicatedForPublisher";
       }
 
       else
@@ -677,14 +748,14 @@ uint64_t __77__WiFiAwarePublisher_generateDiversifiedPINForDataSession_completio
 
           else
           {
-            v43 = 8;
+            v42 = 8;
             do
             {
               [v14 appendFormat:@"%C", objc_msgSend(@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "characterAtIndex:", arc4random_uniform(objc_msgSend(@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "length")))];
-              --v43;
+              --v42;
             }
 
-            while (v43);
+            while (v42);
           }
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -693,8 +764,8 @@ uint64_t __77__WiFiAwarePublisher_generateDiversifiedPINForDataSession_completio
             _os_log_error_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Invoking pairingAuthenticationGeneratedCompletionHandler callback", buf, 2u);
           }
 
-          v44 = [v14 dataUsingEncoding:4];
-          handlerCopy[2](handlerCopy, v44);
+          v43 = [v14 dataUsingEncoding:4];
+          handlerCopy[2](handlerCopy, v43);
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
@@ -714,8 +785,8 @@ LABEL_43:
         }
 
         *buf = 0;
-        v41 = MEMORY[0x277D86220];
-        v42 = "Pairing delegate does not implement method pairingRequestIndicatedForPublisher";
+        v40 = MEMORY[0x277D86220];
+        v41 = "Pairing delegate does not implement method pairingRequestIndicatedForPublisher";
       }
 
       goto LABEL_45;
@@ -730,10 +801,10 @@ LABEL_43:
 
       uUID = [MEMORY[0x277CCAD78] UUID];
       uUIDString = [uUID UUIDString];
-      v28 = [uUIDString dataUsingEncoding:4];
+      v27 = [uUIDString dataUsingEncoding:4];
 
-      handlerCopy[2](handlerCopy, v28);
-      [pairingDelegate pairingRequestIndicatedForPublisher:self bySubscriber:subscriberCopy usingNFCTag:v28];
+      handlerCopy[2](handlerCopy, v27);
+      [pairingDelegate pairingRequestIndicatedForPublisher:self bySubscriber:subscriberCopy usingNFCTag:v27];
 LABEL_22:
 
       goto LABEL_12;
@@ -743,10 +814,10 @@ LABEL_22:
     {
       uUID2 = [MEMORY[0x277CCAD78] UUID];
       uUIDString2 = [uUID2 UUIDString];
-      v28 = [uUIDString2 dataUsingEncoding:4];
+      v27 = [uUIDString2 dataUsingEncoding:4];
 
-      handlerCopy[2](handlerCopy, v28);
-      [pairingDelegate pairingRequestIndicatedForPublisher:self bySubscriber:subscriberCopy usingQRCodeInformation:v28];
+      handlerCopy[2](handlerCopy, v27);
+      [pairingDelegate pairingRequestIndicatedForPublisher:self bySubscriber:subscriberCopy usingQRCodeInformation:v27];
       goto LABEL_22;
     }
   }
@@ -754,30 +825,28 @@ LABEL_22:
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    v41 = MEMORY[0x277D86220];
-    v42 = "No pairing delegate, skipping invoking pairingRequestIndicatedForPublisher";
+    v40 = MEMORY[0x277D86220];
+    v41 = "No pairing delegate, skipping invoking pairingRequestIndicatedForPublisher";
 LABEL_45:
-    _os_log_error_impl(&dword_22DFDF000, v41, OS_LOG_TYPE_ERROR, v42, buf, 2u);
+    _os_log_error_impl(&dword_22DFDF000, v40, OS_LOG_TYPE_ERROR, v41, buf, 2u);
   }
 
 LABEL_11:
   handlerCopy[2](handlerCopy, 0);
 LABEL_12:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishPairingDidSucceedWithPairingKeyStoreID:(id)d deviceID:(unint64_t)iD
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = dCopy;
-    v14 = 2048;
+    v11 = 138412546;
+    v12 = dCopy;
+    v13 = 2048;
     iDCopy = iD;
-    _os_log_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "publishPairingDidSucceed PairingKeyStoreID: %@ DeviceID: %llu", &v12, 0x16u);
+    _os_log_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "publishPairingDidSucceed PairingKeyStoreID: %@ DeviceID: %llu", &v11, 0x16u);
   }
 
   configuration = [(WiFiAwarePublisher *)self configuration];
@@ -789,8 +858,6 @@ LABEL_12:
   {
     [pairingDelegate pairingRequestCompletedForPublisher:self pairingKeyStoreID:dCopy deviceID:iD];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description

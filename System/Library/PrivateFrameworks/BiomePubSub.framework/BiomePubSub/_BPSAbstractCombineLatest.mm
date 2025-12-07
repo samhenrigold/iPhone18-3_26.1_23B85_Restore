@@ -51,7 +51,7 @@
 
 - (void)requestDemand:(int64_t)demand
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   if (demand <= 0)
   {
@@ -71,27 +71,27 @@
 
     [(_BPSAbstractCombineLatest *)selfCopy setDemand:[(_BPSAbstractCombineLatest *)selfCopy demand]+ demand];
     os_unfair_lock_unlock(&selfCopy->_lock);
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         v11 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * v11);
+          v12 = *(*(&v15 + 1) + 8 * v11);
           null = [MEMORY[0x1E695DFB0] null];
           v14 = [v12 isEqual:null];
 
@@ -104,14 +104,12 @@
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)receiveSubscription:(id)subscription atIndex:(unint64_t)index
@@ -123,19 +121,8 @@
   }
 
   os_unfair_lock_lock(&self->_lock);
-  if ([(_BPSAbstractCombineLatest *)self cancelled])
+  if (-[_BPSAbstractCombineLatest cancelled](self, "cancelled") || (-[_BPSAbstractCombineLatest subscriptions](self, "subscriptions"), v6 = objc_claimAutoreleasedReturnValue(), [v6 objectAtIndexedSubscript:index], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E695DFB0], "null"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqual:", v8), v8, v7, v6, (v9 & 1) == 0))
   {
-    goto LABEL_6;
-  }
-
-  subscriptions = [(_BPSAbstractCombineLatest *)self subscriptions];
-  v7 = [subscriptions objectAtIndexedSubscript:index];
-  null = [MEMORY[0x1E695DFB0] null];
-  v9 = [v7 isEqual:null];
-
-  if ((v9 & 1) == 0)
-  {
-LABEL_6:
     os_unfair_lock_unlock(&self->_lock);
     NSLog(&cfstr_ShouldCancelSu.isa);
     [subscriptionCopy cancel];
@@ -143,8 +130,8 @@ LABEL_6:
 
   else
   {
-    subscriptions2 = [(_BPSAbstractCombineLatest *)self subscriptions];
-    [subscriptions2 setObject:subscriptionCopy atIndexedSubscript:index];
+    subscriptions = [(_BPSAbstractCombineLatest *)self subscriptions];
+    [subscriptions setObject:subscriptionCopy atIndexedSubscript:index];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -152,7 +139,7 @@ LABEL_6:
 
 - (int64_t)receiveInput:(id)input atIndex:(unint64_t)index
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   inputCopy = input;
   selfCopy = self;
   if ([(_BPSAbstractCombineLatest *)selfCopy upstreamCount]<= index)
@@ -174,25 +161,23 @@ LABEL_6:
   buffers = [(_BPSAbstractCombineLatest *)selfCopy buffers];
   [buffers setObject:inputCopy atIndexedSubscript:index];
 
-  v23 = 0u;
-  v24 = 0u;
   v21 = 0u;
   v22 = 0u;
-  buffers2 = [(_BPSAbstractCombineLatest *)selfCopy buffers];
-  v10 = [buffers2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v20 = 0u;
+  v9 = [(_BPSAbstractCombineLatest *)selfCopy buffers:0];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
-    v11 = *v22;
+    v11 = *v20;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v20 != v11)
         {
-          objc_enumerationMutation(buffers2);
+          objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -201,7 +186,7 @@ LABEL_6:
         }
       }
 
-      v10 = [buffers2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v10)
       {
         continue;
@@ -213,7 +198,7 @@ LABEL_6:
 
 LABEL_17:
 
-  if ([(_BPSAbstractCombineLatest *)selfCopy recursion]|| ([(_BPSAbstractCombineLatest *)selfCopy demand]< 1 ? (v14 = 1) : (v14 = v10), (v14 & 1) != 0))
+  if ([(_BPSAbstractCombineLatest *)selfCopy recursion]|| ([(_BPSAbstractCombineLatest *)selfCopy demand]< 1 ? (v13 = 1) : (v13 = v10), (v13 & 1) != 0))
   {
 LABEL_22:
     os_unfair_lock_unlock(&selfCopy->_lock);
@@ -222,34 +207,33 @@ LABEL_22:
   else
   {
     [(_BPSAbstractCombineLatest *)selfCopy setDemand:[(_BPSAbstractCombineLatest *)selfCopy demand]- 1];
-    buffers3 = [(_BPSAbstractCombineLatest *)selfCopy buffers];
+    buffers2 = [(_BPSAbstractCombineLatest *)selfCopy buffers];
     os_unfair_lock_unlock(&selfCopy->_lock);
-    v18 = [(_BPSAbstractCombineLatest *)selfCopy convertValues:buffers3];
+    v16 = [(_BPSAbstractCombineLatest *)selfCopy convertValues:buffers2];
     os_unfair_lock_lock(&selfCopy->_lock);
     [(_BPSAbstractCombineLatest *)selfCopy setRecursion:1];
     os_unfair_lock_unlock(&selfCopy->_lock);
     os_unfair_recursive_lock_lock_with_options();
     downstream = [(_BPSAbstractCombineLatest *)selfCopy downstream];
-    v20 = [downstream receiveInput:v18];
+    v18 = [downstream receiveInput:v16];
 
     os_unfair_recursive_lock_unlock();
     os_unfair_lock_lock(&selfCopy->_lock);
     [(_BPSAbstractCombineLatest *)selfCopy setRecursion:0];
-    if (v20 >= 1)
+    if (v18 >= 1)
     {
-      [(_BPSAbstractCombineLatest *)selfCopy setDemand:[(_BPSAbstractCombineLatest *)selfCopy demand]+ v20];
+      [(_BPSAbstractCombineLatest *)selfCopy setDemand:[(_BPSAbstractCombineLatest *)selfCopy demand]+ v18];
     }
 
     os_unfair_lock_unlock(&selfCopy->_lock);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (void)receiveCompletion:(id)completion atIndex:(unint64_t)index
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   selfCopy = self;
   state = [completionCopy state];
@@ -258,15 +242,15 @@ LABEL_22:
     v16 = __biome_log_for_category();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v28 = objc_opt_class();
-      v29 = v28;
+      v27 = objc_opt_class();
+      v28 = v27;
       error = [completionCopy error];
       *buf = 138412802;
-      v33 = v28;
-      v34 = 2048;
+      v32 = v27;
+      v33 = 2048;
       indexCopy = index;
-      v36 = 2112;
-      v37 = error;
+      v35 = 2112;
+      v36 = error;
       _os_log_error_impl(&dword_1C871B000, v16, OS_LOG_TYPE_ERROR, "%@ - Complete at index: %lud with error: %@", buf, 0x20u);
     }
 
@@ -308,12 +292,12 @@ LABEL_22:
     }
 
     os_unfair_lock_unlock(&selfCopy->_lock);
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __55___BPSAbstractCombineLatest_receiveCompletion_atIndex___block_invoke;
-    v31[3] = &__block_descriptor_40_e32_v32__0__BPSSubscription_8Q16_B24l;
-    v31[4] = index;
-    [v19 enumerateObjectsUsingBlock:v31];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __55___BPSAbstractCombineLatest_receiveCompletion_atIndex___block_invoke;
+    v30[3] = &__block_descriptor_40_e32_v32__0__BPSSubscription_8Q16_B24l;
+    v30[4] = index;
+    [v19 enumerateObjectsUsingBlock:v30];
     os_unfair_recursive_lock_lock_with_options();
     downstream = [(_BPSAbstractCombineLatest *)selfCopy downstream];
     [downstream receiveCompletion:completionCopy];
@@ -324,20 +308,8 @@ LABEL_22:
   else if (!state)
   {
     os_unfair_lock_lock(&selfCopy->_lock);
-    if ([(_BPSAbstractCombineLatest *)selfCopy finished])
+    if (-[_BPSAbstractCombineLatest finished](selfCopy, "finished") || (-[_BPSAbstractCombineLatest setFinishCount:](selfCopy, "setFinishCount:", -[_BPSAbstractCombineLatest finishCount](selfCopy, "finishCount") + 1), [MEMORY[0x1E695DFB0] null], v9 = objc_claimAutoreleasedReturnValue(), -[_BPSAbstractCombineLatest subscriptions](selfCopy, "subscriptions"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "setObject:atIndexedSubscript:", v9, index), v10, v9, v11 = -[_BPSAbstractCombineLatest finishCount](selfCopy, "finishCount"), v11 != -[_BPSAbstractCombineLatest upstreamCount](selfCopy, "upstreamCount")))
     {
-      goto LABEL_18;
-    }
-
-    [(_BPSAbstractCombineLatest *)selfCopy setFinishCount:[(_BPSAbstractCombineLatest *)selfCopy finishCount]+ 1];
-    null3 = [MEMORY[0x1E695DFB0] null];
-    subscriptions3 = [(_BPSAbstractCombineLatest *)selfCopy subscriptions];
-    [subscriptions3 setObject:null3 atIndexedSubscript:index];
-
-    finishCount = [(_BPSAbstractCombineLatest *)selfCopy finishCount];
-    if (finishCount != [(_BPSAbstractCombineLatest *)selfCopy upstreamCount])
-    {
-LABEL_18:
       os_unfair_lock_unlock(&selfCopy->_lock);
     }
 
@@ -349,9 +321,9 @@ LABEL_18:
         v12 = 0;
         do
         {
-          null4 = [MEMORY[0x1E695DFB0] null];
+          null3 = [MEMORY[0x1E695DFB0] null];
           buffers2 = [(_BPSAbstractCombineLatest *)selfCopy buffers];
-          [buffers2 setObject:null4 atIndexedSubscript:v12];
+          [buffers2 setObject:null3 atIndexedSubscript:v12];
 
           ++v12;
         }
@@ -367,19 +339,15 @@ LABEL_18:
       os_unfair_recursive_lock_unlock();
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancel
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = 138412290;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_debug_impl(&dword_1C871B000, a2, OS_LOG_TYPE_DEBUG, "%@ - Cancel", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_debug_impl(&dword_1C871B000, a2, OS_LOG_TYPE_DEBUG, "%@ - Cancel", &v4, 0xCu);
 }
 
 - (void)requestDemand:.cold.1()

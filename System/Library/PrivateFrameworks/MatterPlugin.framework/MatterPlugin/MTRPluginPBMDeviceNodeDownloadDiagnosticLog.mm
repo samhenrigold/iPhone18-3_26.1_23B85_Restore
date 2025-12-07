@@ -81,7 +81,7 @@
 
 + (id)urlFromResponsePayload:(id)payload error:(id *)error
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   v6 = [MTRPluginPBMVariableValueResponseMessage variableValueFromResponsePayloadData:payload];
   object = [v6 object];
   objc_opt_class();
@@ -95,9 +95,9 @@
       v10 = [v9 stringByAppendingPathComponent:@"com.apple.homed"];
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v37[0] = 0;
-      v12 = [defaultManager createDirectoryAtPath:v10 withIntermediateDirectories:1 attributes:0 error:v37];
-      v13 = v37[0];
+      v36[0] = 0;
+      v12 = [defaultManager createDirectoryAtPath:v10 withIntermediateDirectories:1 attributes:0 error:v36];
+      v13 = v36[0];
 
       if (v12)
       {
@@ -116,15 +116,15 @@
       }
 
       v18 = [v14 stringByAppendingString:@"/Matter/DiagnosticLog/"];
-      v36 = *MEMORY[0x277CCA180];
-      v37[0] = &unk_28697C6C0;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+      v35 = *MEMORY[0x277CCA180];
+      v36[0] = &unk_28697C6C0;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-      v35 = 0;
-      if ([defaultManager2 fileExistsAtPath:v18 isDirectory:&v35])
+      v34 = 0;
+      if ([defaultManager2 fileExistsAtPath:v18 isDirectory:&v34])
       {
         v21 = 0;
-        if ((v35 & 1) == 0)
+        if ((v34 & 1) == 0)
         {
           goto LABEL_16;
         }
@@ -132,10 +132,10 @@
 
       else
       {
-        v34 = 0;
-        v22 = [defaultManager2 createDirectoryAtPath:v18 withIntermediateDirectories:1 attributes:v19 error:&v34];
-        v21 = v34;
-        v35 = v22;
+        v33 = 0;
+        v22 = [defaultManager2 createDirectoryAtPath:v18 withIntermediateDirectories:1 attributes:v19 error:&v33];
+        v21 = v33;
+        v34 = v22;
         if (!v22)
         {
 LABEL_16:
@@ -148,13 +148,13 @@ LABEL_16:
         }
       }
 
-      v33 = v21;
-      [defaultManager2 setAttributes:v19 ofItemAtPath:v18 error:&v33];
-      v23 = v33;
+      v32 = v21;
+      [defaultManager2 setAttributes:v19 ofItemAtPath:v18 error:&v32];
+      v23 = v32;
 
       v21 = v23;
 LABEL_20:
-      v24 = v35;
+      v24 = v34;
 
       if (v24 == 1)
       {
@@ -239,8 +239,6 @@ LABEL_20:
 
 LABEL_38:
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
@@ -312,33 +310,31 @@ LABEL_38:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_header)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_node)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    logType = self->_logType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    timeoutInterval = self->_timeoutInterval;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

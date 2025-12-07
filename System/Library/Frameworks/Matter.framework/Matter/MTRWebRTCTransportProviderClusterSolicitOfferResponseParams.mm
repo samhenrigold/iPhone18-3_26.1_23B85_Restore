@@ -73,11 +73,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:1363 commandID:1 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v17)
   {
     sub_2393C5AAC(v16);
-    sub_2393C5ADC(v16, *(v17 + 1), *(v17 + 3));
+    sub_2393C5ADC(v16, *(v17 + 8), *(v17 + 24));
     v8 = sub_2393C6FD0(v16, 256);
     if (!v8)
     {
@@ -140,17 +140,17 @@ LABEL_6:
   v6 = [MEMORY[0x277CCABB0] numberWithBool:*(struct + 2)];
   [(MTRWebRTCTransportProviderClusterSolicitOfferResponseParams *)self setDeferredOffer:v6];
 
-  if (*(struct + 4) == 1 && (sub_238E0A934(struct + 4)[2] & 1) != 0)
+  if (*(struct + 4) == 1 && (BYTE2(sub_238E0A934(struct + 4, v7)->super.isa) & 1) != 0)
   {
-    v7 = MEMORY[0x277CCABB0];
-    v8 = sub_238E0A934(struct + 4);
-    if ((v8[2] & 1) == 0)
+    v9 = MEMORY[0x277CCABB0];
+    v10 = sub_238E0A934(struct + 4, v8);
+    if ((BYTE2(v10->super.isa) & 1) == 0)
     {
       goto LABEL_12;
     }
 
-    v9 = [v7 numberWithUnsignedShort:*v8];
-    [(MTRWebRTCTransportProviderClusterSolicitOfferResponseParams *)self setVideoStreamID:v9];
+    v11 = [v9 numberWithUnsignedShort:LOWORD(v10->super.isa)];
+    [(MTRWebRTCTransportProviderClusterSolicitOfferResponseParams *)self setVideoStreamID:v11];
   }
 
   else
@@ -158,31 +158,31 @@ LABEL_6:
     [(MTRWebRTCTransportProviderClusterSolicitOfferResponseParams *)self setVideoStreamID:0];
   }
 
-  v11 = *(struct + 10);
-  v10 = struct + 10;
-  if (v11 != 1 || (sub_238E0A934(v10)[2] & 1) == 0)
+  v14 = *(struct + 10);
+  v13 = struct + 10;
+  if (v14 != 1 || (BYTE2(sub_238E0A934(v13, v12)->super.isa) & 1) == 0)
   {
     [(MTRWebRTCTransportProviderClusterSolicitOfferResponseParams *)self setAudioStreamID:0];
     goto LABEL_11;
   }
 
-  v12 = MEMORY[0x277CCABB0];
-  v13 = sub_238E0A934(v10);
-  if ((v13[2] & 1) == 0)
+  v16 = MEMORY[0x277CCABB0];
+  v17 = sub_238E0A934(v13, v15);
+  if ((BYTE2(v17->super.isa) & 1) == 0)
   {
 LABEL_12:
     sub_238EA195C();
   }
 
-  v14 = [v12 numberWithUnsignedShort:*v13];
-  [(MTRWebRTCTransportProviderClusterSolicitOfferResponseParams *)self setAudioStreamID:v14];
+  v18 = [v16 numberWithUnsignedShort:LOWORD(v17->super.isa)];
+  [(MTRWebRTCTransportProviderClusterSolicitOfferResponseParams *)self setAudioStreamID:v18];
 
 LABEL_11:
-  v15 = 0;
-  v16 = 0;
-  result.mFile = v16;
-  result.mError = v15;
-  result.mLine = HIDWORD(v15);
+  v19 = 0;
+  v20 = 0;
+  result.mFile = v20;
+  result.mError = v19;
+  result.mLine = HIDWORD(v19);
   return result;
 }
 

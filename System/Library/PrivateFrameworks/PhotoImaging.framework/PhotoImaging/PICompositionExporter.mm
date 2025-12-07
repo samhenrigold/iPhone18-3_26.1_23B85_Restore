@@ -400,7 +400,7 @@ LABEL_16:
 
     livePhotoKeyFrameAdjustmentController = [(PICompositionController *)v12 livePhotoKeyFrameAdjustmentController];
     v30 = livePhotoKeyFrameAdjustmentController;
-    if (livePhotoKeyFrameAdjustmentController && ([livePhotoKeyFrameAdjustmentController keyFrameTime], (v65 & 1) != 0) || objc_msgSend(autoLoopAdjustmentController, "enabled"))
+    if (livePhotoKeyFrameAdjustmentController && (objc_msgSend_keyFrameTime(livePhotoKeyFrameAdjustmentController), (v65 & 1) != 0) || [autoLoopAdjustmentController enabled])
     {
       if ((v28 & 2) != 0)
       {

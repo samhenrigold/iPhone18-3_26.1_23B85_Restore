@@ -30,7 +30,7 @@
 {
   if (asset)
   {
-    [asset duration];
+    objc_msgSend_duration(asset, a2);
   }
 
   else

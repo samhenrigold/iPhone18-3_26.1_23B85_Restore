@@ -145,25 +145,25 @@
 {
   activityCopy = activity;
   resultsCopy = results;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 1;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 1;
   v22 = 0;
-  v23[0] = &v22;
-  v23[1] = 0x3032000000;
-  v23[2] = sub_10007AA98;
-  v23[3] = sub_10007AAA8;
-  v24 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_10007AA98;
+  v26 = sub_10007AAA8;
+  v27 = 0;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v30 = "[_DASActivityDependencyManager reportActivity:consumedResults:error:]";
-    v31 = 2112;
-    v32 = activityCopy;
-    v33 = 2112;
-    v34 = resultsCopy;
+    v33 = "[_DASActivityDependencyManager reportActivity:consumedResults:error:]";
+    v34 = 2112;
+    v35 = activityCopy;
+    v36 = 2112;
+    v37 = resultsCopy;
     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "%s: %@ reporting result consumption: %@", buf, 0x20u);
   }
 
@@ -176,15 +176,15 @@
   v17 = v12;
   v20 = &v22;
   v13 = activityCopy;
-  v21 = &v25;
+  v21 = &v28;
   v18 = v13;
   selfCopy = self;
   dispatch_sync(queue, block);
-  if (*(v26 + 24) != 1 || *(v23[0] + 40))
+  if (*(v29 + 24) != 1 || v23[5])
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_1001222B0(v13, v23);
+      sub_1001222B0();
       if (!error)
       {
         goto LABEL_8;
@@ -196,15 +196,15 @@
     if (error)
     {
 LABEL_7:
-      *error = *(v23[0] + 40);
+      *error = v23[5];
     }
   }
 
 LABEL_8:
-  v14 = *(v26 + 24);
+  v14 = *(v29 + 24);
 
   _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v28, 8);
 
   return v14;
 }
@@ -213,25 +213,25 @@ LABEL_8:
 {
   activityCopy = activity;
   resultsCopy = results;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 1;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 1;
   v22 = 0;
-  v23[0] = &v22;
-  v23[1] = 0x3032000000;
-  v23[2] = sub_10007AA98;
-  v23[3] = sub_10007AAA8;
-  v24 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_10007AA98;
+  v26 = sub_10007AAA8;
+  v27 = 0;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v30 = "[_DASActivityDependencyManager reportActivity:producedResults:error:]";
-    v31 = 2112;
-    v32 = activityCopy;
-    v33 = 2112;
-    v34 = resultsCopy;
+    v33 = "[_DASActivityDependencyManager reportActivity:producedResults:error:]";
+    v34 = 2112;
+    v35 = activityCopy;
+    v36 = 2112;
+    v37 = resultsCopy;
     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "%s: %@ reporting result production: %@", buf, 0x20u);
   }
 
@@ -244,15 +244,15 @@ LABEL_8:
   v17 = v12;
   v20 = &v22;
   v13 = activityCopy;
-  v21 = &v25;
+  v21 = &v28;
   v18 = v13;
   selfCopy = self;
   dispatch_sync(queue, block);
-  if (*(v26 + 24) != 1 || *(v23[0] + 40))
+  if (*(v29 + 24) != 1 || v23[5])
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_1001223D0(v13, v23);
+      sub_1001223D0();
       if (!error)
       {
         goto LABEL_8;
@@ -264,15 +264,15 @@ LABEL_8:
     if (error)
     {
 LABEL_7:
-      *error = *(v23[0] + 40);
+      *error = v23[5];
     }
   }
 
 LABEL_8:
-  v14 = *(v26 + 24);
+  v14 = *(v29 + 24);
 
   _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v28, 8);
 
   return v14;
 }
@@ -297,7 +297,7 @@ LABEL_8:
 {
   forCopy = for;
   dependencies = [forCopy dependencies];
-  if (dependencies && (v6 = dependencies, [forCopy dependencies], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "count"), v7, v6, v8))
+  if (dependencies && (v6 = dependencies, [forCopy dependencies], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend_count(v7), v7, v6, v8))
   {
     if (![forCopy dependenciesPreCleared])
     {
@@ -367,7 +367,7 @@ LABEL_9:
 - (BOOL)isDependentActivity:(id)activity
 {
   dependencies = [activity dependencies];
-  v4 = [dependencies count] != 0;
+  v4 = objc_msgSend_count(dependencies) != 0;
 
   return v4;
 }
@@ -528,7 +528,7 @@ LABEL_9:
 {
   activityCopy = activity;
   dependencies = [activityCopy dependencies];
-  if ([dependencies count])
+  if (objc_msgSend_count(dependencies))
   {
     v5 = 1;
   }
@@ -536,7 +536,7 @@ LABEL_9:
   else
   {
     producedResultIdentifiers = [activityCopy producedResultIdentifiers];
-    v5 = [producedResultIdentifiers count] != 0;
+    v5 = objc_msgSend_count(producedResultIdentifiers) != 0;
   }
 
   return v5;

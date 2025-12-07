@@ -41,39 +41,37 @@
 
 + (NSSet)_selectedIdentifiers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = _LTPreferencesInstalledLocales();
   v3 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v2, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        lt_localeIdentifier = [*(*(&v12 + 1) + 8 * i) lt_localeIdentifier];
+        lt_localeIdentifier = [*(*(&v11 + 1) + 8 * i) lt_localeIdentifier];
         [v3 addObject:lt_localeIdentifier];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -96,7 +94,7 @@
   {
     if ((options & 0x30) != 0)
     {
-      v4 = _LTOSLogAssets();
+      v4 = _LTOSLogAssets(self, a2);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         +[_LTDLanguageAssetService _languageAssetFilterFromOptions:];
@@ -110,7 +108,7 @@
   {
     if ((options & 0x10) != 0)
     {
-      v5 = _LTOSLogAssets();
+      v5 = _LTOSLogAssets(self, a2);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         +[_LTDLanguageAssetService _languageAssetFilterFromOptions:];
@@ -149,19 +147,19 @@
 {
   completionCopy = completion;
   v7 = [self _languageAssetFilterFromOptions:options];
-  v8 = _LTOSLogAssets();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _LTOSLogAssets(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     +[_LTDLanguageAssetService assetsWithOptions:completion:];
   }
 
-  v9 = +[_LTDLanguageAssetCache shared];
-  v10 = [v9 assetsFilteredUsing:v7];
+  v10 = +[_LTDLanguageAssetCache shared];
+  v11 = [v10 assetsFilteredUsing:v7];
 
-  if (v10)
+  if (v11)
   {
-    v11 = _LTOSLogAssets();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v14 = _LTOSLogAssets(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       +[_LTDLanguageAssetService assetsWithOptions:completion:];
       if (!completionCopy)
@@ -175,7 +173,7 @@
     if (completionCopy)
     {
 LABEL_6:
-      completionCopy[2](completionCopy, v10, 0);
+      completionCopy[2](completionCopy, v11, 0);
     }
   }
 
@@ -243,126 +241,125 @@ LABEL_12:
 + (id)_supportedLocalesWithError:(id *)error
 {
   v4 = [_LTDConfigurationService offlineConfigurationWithError:?];
-  v5 = v4;
+  v6 = v4;
   if (*error)
   {
-    v6 = _LTOSLogAssets();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _LTOSLogAssets(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(_LTDLanguageAssetService *)error _supportedLocalesWithError:v6, v7, v8, v9, v10, v11, v12];
+      [(_LTDLanguageAssetService *)error _supportedLocalesWithError:v7, v8, v9, v10, v11, v12, v13];
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
     languageIdentifiers = [v4 languageIdentifiers];
-    v13 = [languageIdentifiers _ltCompactMap:&__block_literal_global_17];
+    v14 = [languageIdentifiers _ltCompactMap:&__block_literal_global_17];
   }
 
-  return v13;
+  return v14;
 }
 
 + (id)_localeRanks
 {
-  v32[1] = *MEMORY[0x277D85DE8];
-  v30 = 0;
-  v2 = [self _supportedLocalesWithError:&v30];
-  v3 = v30;
-  if (v3 || ![v2 count])
+  v37[1] = *MEMORY[0x277D85DE8];
+  v35 = 0;
+  v2 = [self _supportedLocalesWithError:&v35];
+  v3 = v35;
+  v5 = v3;
+  if (v3 || (v3 = [v2 count]) == 0)
   {
-    v4 = _LTOSLogAssets();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = _LTOSLogAssets(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       +[_LTDLanguageAssetService _localeRanks];
     }
 
-    v5 = 0;
+    v7 = 0;
   }
 
   else
   {
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-    v7 = currentLocale;
+    v10 = currentLocale;
     if (currentLocale)
     {
-      v8 = MEMORY[0x277CBEAF8];
-      v32[0] = currentLocale;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
-      v10 = [v8 lt_bestMatchForPreferredLocales:v9 fromSupportedLocales:v2];
+      v11 = MEMORY[0x277CBEAF8];
+      v37[0] = currentLocale;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+      v13 = [v11 lt_bestMatchForPreferredLocales:v12 fromSupportedLocales:v2];
 
-      if (v10)
+      if (v13)
       {
-        v11 = _LTPreferencesAdditionalLikelyPreferredLocales(v10);
-        if ([v11 count])
+        v16 = _LTPreferencesAdditionalLikelyPreferredLocales(v13);
+        if ([v16 count])
         {
-          v31 = v10;
-          v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
-          v13 = [v12 arrayByAddingObjectsFromArray:v11];
+          v36 = v13;
+          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+          v19 = [v18 arrayByAddingObjectsFromArray:v16];
 
-          v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v13, "count")}];
-          if ([v13 count])
+          v7 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v19, "count")}];
+          if ([v19 count])
           {
-            v14 = 0;
+            v20 = 0;
             do
             {
-              v15 = v14 + 1;
-              v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v14 + 1];
-              v17 = [v13 objectAtIndexedSubscript:v14];
-              [v5 setObject:v16 forKeyedSubscript:v17];
+              v21 = v20 + 1;
+              v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v20 + 1];
+              v23 = [v19 objectAtIndexedSubscript:v20];
+              [v7 setObject:v22 forKeyedSubscript:v23];
 
-              v14 = v15;
+              v20 = v21;
             }
 
-            while (v15 < [v13 count]);
+            while (v21 < [v19 count]);
           }
         }
 
         else
         {
-          v20 = _LTOSLogAssets();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v26 = _LTOSLogAssets(0, v17);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
-            [(_LTDLanguageAssetService *)v20 _localeRanks:v21];
+            [(_LTDLanguageAssetService *)v26 _localeRanks:v27];
           }
 
-          v5 = 0;
+          v7 = 0;
         }
       }
 
       else
       {
-        v19 = _LTOSLogAssets();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v25 = _LTOSLogAssets(v14, v15);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          +[(_LTDLanguageAssetService *)v19];
+          +[(_LTDLanguageAssetService *)v25];
         }
 
-        v5 = 0;
+        v7 = 0;
       }
     }
 
     else
     {
-      v18 = _LTOSLogAssets();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v24 = _LTOSLogAssets(0, v9);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         +[_LTDLanguageAssetService _localeRanks];
       }
 
-      v5 = 0;
+      v7 = 0;
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v5;
+  return v7;
 }
 
 + (id)_complementaryLocaleIfMissingForAssets:(id)assets preferredComplements:(id)complements
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   complementsCopy = complements;
   if ([assetsCopy count] != 1)
@@ -386,9 +383,9 @@ LABEL_12:
     _ltLocaleIdentifier = [firstObject _ltLocaleIdentifier];
     firstObject2 = [assetsCopy firstObject];
     ltIdentifier = [firstObject2 ltIdentifier];
-    v19 = [_ltLocaleIdentifier isEqualToString:ltIdentifier];
+    v18 = [_ltLocaleIdentifier isEqualToString:ltIdentifier];
 
-    if (!v19)
+    if (!v18)
     {
 LABEL_3:
       v10 = 0;
@@ -403,13 +400,14 @@ LABEL_3:
   firstObject3 = [assetsCopy firstObject];
   locale = [firstObject3 locale];
 
-  v32 = 0;
-  v22 = [self _supportedLocalesWithError:&v32];
-  v23 = v32;
-  if (v23)
+  v34 = 0;
+  v21 = [self _supportedLocalesWithError:&v34];
+  v22 = v34;
+  v24 = v22;
+  if (v22)
   {
-    v24 = _LTOSLogAssets();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = _LTOSLogAssets(v22, v23);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       +[_LTDLanguageAssetService _localeRanks];
     }
@@ -419,48 +417,48 @@ LABEL_3:
 
   else
   {
-    v25 = [MEMORY[0x277CBEAF8] lt_bestMatchForPreferredLocales:complementsCopy fromSupportedLocales:v22];
-    if (!v25)
+    v26 = [MEMORY[0x277CBEAF8] lt_bestMatchForPreferredLocales:complementsCopy fromSupportedLocales:v21];
+    if (!v26)
     {
-      v26 = _LTPreferencesAdditionalLikelyPreferredLocales(locale);
-      if ([v26 count])
+      v27 = _LTPreferencesAdditionalLikelyPreferredLocales(locale);
+      if ([v27 count])
       {
-        v25 = [MEMORY[0x277CBEAF8] lt_bestMatchForPreferredLocales:v26 fromSupportedLocales:v22];
+        v26 = [MEMORY[0x277CBEAF8] lt_bestMatchForPreferredLocales:v27 fromSupportedLocales:v21];
       }
 
       else
       {
-        v25 = 0;
+        v26 = 0;
       }
     }
 
-    _ltLocaleIdentifier2 = [v25 _ltLocaleIdentifier];
+    _ltLocaleIdentifier2 = [v26 _ltLocaleIdentifier];
     if (_ltLocaleIdentifier2)
     {
       _ltLocaleIdentifier3 = [locale _ltLocaleIdentifier];
-      v29 = [_ltLocaleIdentifier3 isEqualToString:_ltLocaleIdentifier2];
+      v31 = [_ltLocaleIdentifier3 isEqualToString:_ltLocaleIdentifier2];
 
-      if (v29)
+      if (v31)
       {
-        v30 = 0;
+        v32 = 0;
       }
 
       else
       {
-        v30 = v25;
+        v32 = v26;
       }
 
-      v10 = v30;
+      v10 = v32;
     }
 
     else
     {
-      v31 = _LTOSLogAssets();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      v33 = _LTOSLogAssets(0, v28);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v34 = complementsCopy;
-        _os_log_impl(&dword_232E53000, v31, OS_LOG_TYPE_INFO, "Failed to locate a supported complement for %{public}@", buf, 0xCu);
+        v36 = complementsCopy;
+        _os_log_impl(&dword_232E53000, v33, OS_LOG_TYPE_INFO, "Failed to locate a supported complement for %{public}@", buf, 0xCu);
       }
 
       v10 = 0;
@@ -468,179 +466,177 @@ LABEL_3:
   }
 
 LABEL_4:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 + (void)setAssets:(id)assets options:(unint64_t)options progress:(id)progress completion:(id)completion
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   progressCopy = progress;
   completionCopy = completion;
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __66___LTDLanguageAssetService_setAssets_options_progress_completion___block_invoke;
-  v58[3] = &unk_2789B5D20;
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = __66___LTDLanguageAssetService_setAssets_options_progress_completion___block_invoke;
+  v60[3] = &unk_2789B5D20;
   v13 = completionCopy;
-  v59 = v13;
-  v43 = MEMORY[0x238398770](v58);
-  v14 = _LTOSLogAssets();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v61 = v13;
+  v45 = MEMORY[0x238398770](v60);
+  v15 = _LTOSLogAssets(v45, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v62 = assetsCopy;
-    _os_log_impl(&dword_232E53000, v14, OS_LOG_TYPE_INFO, "Language asset service received install request: %{public}@", buf, 0xCu);
+    v64 = assetsCopy;
+    _os_log_impl(&dword_232E53000, v15, OS_LOG_TYPE_INFO, "Language asset service received install request: %{public}@", buf, 0xCu);
   }
 
-  v44 = [self _complementaryLocaleIfMissingForAssets:assetsCopy preferredComplements:0];
-  if (v44)
+  v16 = [self _complementaryLocaleIfMissingForAssets:assetsCopy preferredComplements:0];
+  v46 = v16;
+  if (v16)
   {
-    v15 = _LTOSLogAssets();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v18 = _LTOSLogAssets(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = v15;
+      v19 = v18;
       firstObject = [assetsCopy firstObject];
       ltIdentifier = [firstObject ltIdentifier];
-      [v44 _ltLocaleIdentifier];
-      v20 = v19 = options;
+      [v46 _ltLocaleIdentifier];
+      v23 = v22 = options;
       *buf = 138543618;
-      v62 = ltIdentifier;
-      v63 = 2114;
-      v64 = v20;
-      _os_log_impl(&dword_232E53000, v16, OS_LOG_TYPE_DEFAULT, "Request only downloads %{public}@, downloading complement %{public}@ to ensure a bi-directional pair", buf, 0x16u);
+      v64 = ltIdentifier;
+      v65 = 2114;
+      v66 = v23;
+      _os_log_impl(&dword_232E53000, v19, OS_LOG_TYPE_DEFAULT, "Request only downloads %{public}@, downloading complement %{public}@ to ensure a bi-directional pair", buf, 0x16u);
 
-      options = v19;
+      options = v22;
     }
 
-    v21 = [objc_alloc(MEMORY[0x277CE1B00]) initWithLocale:v44 state:1];
-    v22 = [assetsCopy arrayByAddingObject:v21];
+    v24 = [objc_alloc(MEMORY[0x277CE1B00]) initWithLocale:v46 state:1];
+    v25 = [assetsCopy arrayByAddingObject:v24];
 
-    assetsCopy = v22;
+    assetsCopy = v25;
   }
 
-  v23 = assetsCopy;
-  allObjects = v23;
+  v26 = assetsCopy;
+  allObjects = v26;
   optionsCopy = options;
   if ((options & 8) == 0)
   {
-    v40 = v13;
-    v41 = progressCopy;
+    v42 = v13;
+    v43 = progressCopy;
     _selectedAssets = [self _selectedAssets];
-    v26 = [_selectedAssets mutableCopy];
+    v29 = [_selectedAssets mutableCopy];
 
+    v58 = 0u;
+    v59 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v27 = v23;
-    v28 = [v27 countByEnumeratingWithState:&v54 objects:v60 count:16];
-    if (v28)
+    v30 = v26;
+    v31 = [v30 countByEnumeratingWithState:&v56 objects:v62 count:16];
+    if (v31)
     {
-      v29 = v28;
-      v30 = *v55;
+      v32 = v31;
+      v33 = *v57;
       do
       {
-        for (i = 0; i != v29; ++i)
+        for (i = 0; i != v32; ++i)
         {
-          if (*v55 != v30)
+          if (*v57 != v33)
           {
-            objc_enumerationMutation(v27);
+            objc_enumerationMutation(v30);
           }
 
-          v32 = *(*(&v54 + 1) + 8 * i);
-          progress = [v32 progress];
+          v35 = *(*(&v56 + 1) + 8 * i);
+          progress = [v35 progress];
           offlineState = [progress offlineState];
 
           if (offlineState)
           {
-            [v26 addObject:v32];
+            [v29 addObject:v35];
           }
 
           else
           {
-            [v26 removeObject:v32];
+            [v29 removeObject:v35];
           }
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v54 objects:v60 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v56 objects:v62 count:16];
       }
 
-      while (v29);
+      while (v32);
     }
 
-    allObjects = [v26 allObjects];
+    allObjects = [v29 allObjects];
 
-    v13 = v40;
-    progressCopy = v41;
+    v13 = v42;
+    progressCopy = v43;
   }
 
   _localeRanks = [self _localeRanks];
-  v36 = +[_LTDLanguageAssetCache shared];
-  v37 = [v36 preheatWithLanguages:allObjects];
-  [v36 markReadyForFilter:32];
-  if ([v37 count])
+  v39 = +[_LTDLanguageAssetCache shared];
+  v40 = [v39 preheatWithLanguages:allObjects];
+  [v39 markReadyForFilter:32];
+  if ([v40 count])
   {
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __66___LTDLanguageAssetService_setAssets_options_progress_completion___block_invoke_24;
-    v45[3] = &unk_2789B6290;
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __66___LTDLanguageAssetService_setAssets_options_progress_completion___block_invoke_24;
+    v47[3] = &unk_2789B6290;
     selfCopy = self;
-    v49 = v13;
-    v38 = v43;
-    v50 = v43;
-    v46 = v36;
-    v47 = _localeRanks;
-    v48 = v37;
-    v53 = optionsCopy;
-    v51 = progressCopy;
-    [_LTDAssetService assetsForLocales:v48 includeTTS:1 completion:v45];
+    v51 = v13;
+    v41 = v45;
+    v52 = v45;
+    v48 = v39;
+    v49 = _localeRanks;
+    v50 = v40;
+    v55 = optionsCopy;
+    v53 = progressCopy;
+    [_LTDAssetService assetsForLocales:v50 includeTTS:1 completion:v47];
   }
 
   else
   {
-    [v36 setRequiredAssets:MEMORY[0x277CBEBF8] localeRanks:_localeRanks];
-    v38 = v43;
+    [v39 setRequiredAssets:MEMORY[0x277CBEBF8] localeRanks:_localeRanks];
+    v41 = v45;
     if (v13)
     {
-      v43[2](v43, 0);
+      v45[2](v45, 0);
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setInstalledLocales:(id)locales useCellular:(BOOL)cellular progress:(id)progress completion:(id)completion
 {
   cellularCopy = cellular;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   localesCopy = locales;
   progressCopy = progress;
   completionCopy = completion;
   v11 = +[_LTDLanguageAssetCache shared];
   v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(localesCopy, "count")}];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v13 = localesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v31;
+    v16 = *v30;
     do
     {
       v17 = 0;
       do
       {
-        if (*v31 != v16)
+        if (*v30 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        _ltLocaleIdentifier = [*(*(&v30 + 1) + 8 * v17) _ltLocaleIdentifier];
+        _ltLocaleIdentifier = [*(*(&v29 + 1) + 8 * v17) _ltLocaleIdentifier];
         v19 = [v11 assetForIdentifier:_ltLocaleIdentifier];
 
         progress = [v19 progress];
@@ -651,27 +647,25 @@ LABEL_4:
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v15);
   }
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __80___LTDLanguageAssetService_setInstalledLocales_useCellular_progress_completion___block_invoke;
-  v28[3] = &unk_2789B62B8;
-  v29 = progressCopy;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __80___LTDLanguageAssetService_setInstalledLocales_useCellular_progress_completion___block_invoke_2;
-  v26[3] = &unk_2789B5D20;
-  v27 = completionCopy;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __80___LTDLanguageAssetService_setInstalledLocales_useCellular_progress_completion___block_invoke;
+  v27[3] = &unk_2789B62B8;
+  v28 = progressCopy;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __80___LTDLanguageAssetService_setInstalledLocales_useCellular_progress_completion___block_invoke_2;
+  v25[3] = &unk_2789B5D20;
+  v26 = completionCopy;
   v21 = completionCopy;
   v22 = progressCopy;
-  [self setAssets:v12 options:cellularCopy | 0xALL progress:v28 completion:v26];
-
-  v23 = *MEMORY[0x277D85DE8];
+  [self setAssets:v12 options:cellularCopy | 0xALL progress:v27 completion:v25];
 }
 
 + (BOOL)_applyRequiredProgressUpdate:(id)update
@@ -686,19 +680,20 @@ LABEL_4:
 + (void)_syncInstalledLocalesWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = _LTOSLogAssets();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _LTOSLogAssets(completionCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_232E53000, v5, OS_LOG_TYPE_DEFAULT, "Sync install begin", buf, 2u);
+    _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_DEFAULT, "Sync install begin", buf, 2u);
   }
 
   onDeviceModeSupported = [self onDeviceModeSupported];
-  v7 = _LTOSLogAssets();
-  v8 = v7;
-  if ((onDeviceModeSupported & 1) == 0)
+  v8 = onDeviceModeSupported;
+  v10 = _LTOSLogAssets(onDeviceModeSupported, v9);
+  v11 = v10;
+  if ((v8 & 1) == 0)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       +[_LTDLanguageAssetService _syncInstalledLocalesWithCompletion:];
       if (!completionCopy)
@@ -716,19 +711,19 @@ LABEL_4:
     goto LABEL_10;
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_232E53000, v8, OS_LOG_TYPE_DEFAULT, "Sync install query selected begin", buf, 2u);
+    _os_log_impl(&dword_232E53000, v11, OS_LOG_TYPE_DEFAULT, "Sync install query selected begin", buf, 2u);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __64___LTDLanguageAssetService__syncInstalledLocalesWithCompletion___block_invoke;
-  v9[3] = &unk_2789B5D70;
-  v10 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __64___LTDLanguageAssetService__syncInstalledLocalesWithCompletion___block_invoke;
+  v12[3] = &unk_2789B5D70;
+  v13 = completionCopy;
   selfCopy = self;
-  [self assetsWithOptions:32 completion:v9];
+  [self assetsWithOptions:32 completion:v12];
 
 LABEL_10:
 }
@@ -804,40 +799,38 @@ LABEL_10:
 
 + (id)_selectedAssets
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   _selectedIdentifiers = [self _selectedIdentifiers];
   v3 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(_selectedIdentifiers, "count")}];
   v4 = +[_LTDLanguageAssetCache shared];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = _selectedIdentifiers;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [v4 assetForIdentifier:{*(*(&v13 + 1) + 8 * i), v13}];
+        v10 = [v4 assetForIdentifier:{*(*(&v12 + 1) + 8 * i), v12}];
         [v3 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -871,14 +864,14 @@ LABEL_10:
   sessionCopy = session;
   observationsCopy = observations;
   completionCopy = completion;
-  v15 = _LTOSLogAssets();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  v16 = _LTOSLogAssets(completionCopy, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v16 = v15;
+    v17 = v16;
     uUIDString = [sessionCopy UUIDString];
     *buf = 138543362;
     v31 = uUIDString;
-    _os_log_impl(&dword_232E53000, v16, OS_LOG_TYPE_INFO, "Start language status session %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_232E53000, v17, OS_LOG_TYPE_INFO, "Start language status session %{public}@", buf, 0xCu);
   }
 
   queue = [self queue];
@@ -892,26 +885,24 @@ LABEL_10:
   v26 = completionCopy;
   hintCopy = hint;
   selfCopy = self;
-  v19 = completionCopy;
-  v20 = observationsCopy;
-  v21 = sessionCopy;
+  v20 = completionCopy;
+  v21 = observationsCopy;
+  v22 = sessionCopy;
   dispatch_async(queue, v23);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (void)cancelLanguageStatusSession:(id)session
 {
   v15 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
-  v5 = _LTOSLogAssets();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = _LTOSLogAssets(sessionCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = v5;
+    v7 = v6;
     uUIDString = [sessionCopy UUIDString];
     *buf = 138543362;
     v14 = uUIDString;
-    _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_INFO, "Cancel language status session %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_INFO, "Cancel language status session %{public}@", buf, 0xCu);
   }
 
   queue = [self queue];
@@ -920,313 +911,311 @@ LABEL_10:
   block[2] = __56___LTDLanguageAssetService_cancelLanguageStatusSession___block_invoke;
   block[3] = &unk_2789B5B70;
   v12 = sessionCopy;
-  v9 = sessionCopy;
+  v10 = sessionCopy;
   dispatch_async(queue, block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)addLanguages:(id)languages useCellular:(BOOL)cellular
 {
   cellularCopy = cellular;
-  v75 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   languagesCopy = languages;
-  v6 = _LTOSLogAssets();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _LTOSLogAssets(languagesCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v74 = languagesCopy;
-    _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_DEFAULT, "Add languages %{public}@", buf, 0xCu);
+    v76 = languagesCopy;
+    _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_DEFAULT, "Add languages %{public}@", buf, 0xCu);
   }
 
-  LODWORD(v46) = cellularCopy;
+  LODWORD(v48) = cellularCopy;
   if (cellularCopy)
   {
-    v7 = 2;
+    v8 = 2;
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
-  v8 = +[_LTDLanguageAssetCache shared];
-  v66 = 0u;
-  v67 = 0u;
+  v9 = +[_LTDLanguageAssetCache shared];
   v68 = 0u;
   v69 = 0u;
-  v9 = languagesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v66 objects:v72 count:16];
-  if (v10)
+  v70 = 0u;
+  v71 = 0u;
+  v10 = languagesCopy;
+  v11 = [v10 countByEnumeratingWithState:&v68 objects:v74 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v67;
+    v12 = v11;
+    v13 = *v69;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v67 != v12)
+        if (*v69 != v13)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        _ltLocaleIdentifier = [*(*(&v66 + 1) + 8 * i) _ltLocaleIdentifier];
-        v15 = [v8 assetForIdentifier:_ltLocaleIdentifier];
-        progress = [v15 progress];
+        _ltLocaleIdentifier = [*(*(&v68 + 1) + 8 * i) _ltLocaleIdentifier];
+        v16 = [v9 assetForIdentifier:_ltLocaleIdentifier];
+        progress = [v16 progress];
         offlineState = [progress offlineState];
 
         if (!offlineState)
         {
-          progress2 = [v15 progress];
+          progress2 = [v16 progress];
           [progress2 setOfflineState:1];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v66 objects:v72 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v68 objects:v74 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
-  [v8 multicastObservers];
-  v19 = MEMORY[0x277CBEB58];
+  [v9 multicastObservers];
+  v20 = MEMORY[0x277CBEB58];
   selectedLocales = [self selectedLocales];
-  v21 = [v19 setWithArray:selectedLocales];
+  v22 = [v20 setWithArray:selectedLocales];
 
-  v22 = [MEMORY[0x277CBEB98] setWithArray:v9];
-  [v21 unionSet:v22];
+  v23 = [MEMORY[0x277CBEB98] setWithArray:v10];
+  [v22 unionSet:v23];
 
-  allObjects = [v21 allObjects];
+  allObjects = [v22 allObjects];
   [self setSelectedLocales:allObjects];
 
-  v65 = 0;
-  v24 = [self _languageModelsForLocales:v9 initialState:1 error:&v65];
-  v25 = v65;
-  if (!v25)
+  v67 = 0;
+  v25 = [self _languageModelsForLocales:v10 initialState:1 error:&v67];
+  v26 = v67;
+  v28 = v26;
+  if (!v26)
   {
-    v49 = 0;
-    v51 = v24;
-    v53 = v21;
-    v36 = 2;
-    v59 = 0u;
-    v60 = 0u;
-    if (v47)
+    v51 = 0;
+    v53 = v25;
+    v55 = v22;
+    v39 = 2;
+    v61 = 0u;
+    v62 = 0u;
+    if (v49)
     {
-      v36 = 3;
+      v39 = 3;
     }
 
-    v48 = v36;
-    v57 = 0uLL;
-    v58 = 0uLL;
-    v37 = v9;
-    v38 = [v37 countByEnumeratingWithState:&v57 objects:v70 count:16];
-    if (v38)
+    v50 = v39;
+    v59 = 0uLL;
+    v60 = 0uLL;
+    v40 = v10;
+    v41 = [v40 countByEnumeratingWithState:&v59 objects:v72 count:16];
+    if (v41)
     {
-      v39 = v38;
-      v40 = *v58;
+      v42 = v41;
+      v43 = *v60;
       do
       {
-        for (j = 0; j != v39; ++j)
+        for (j = 0; j != v42; ++j)
         {
-          if (*v58 != v40)
+          if (*v60 != v43)
           {
-            objc_enumerationMutation(v37);
+            objc_enumerationMutation(v40);
           }
 
-          v42 = *(*(&v57 + 1) + 8 * j);
-          v43 = +[_LTDAssetAnalytics shared];
-          v44 = [v43 createEventWithNSLocale:v42 connectionType:v7 downloadTriggerSource:0];
+          v45 = *(*(&v59 + 1) + 8 * j);
+          v46 = +[_LTDAssetAnalytics shared];
+          v47 = [v46 createEventWithNSLocale:v45 connectionType:v8 downloadTriggerSource:0];
 
-          [v44 startTimer];
+          [v47 startTimer];
         }
 
-        v39 = [v37 countByEnumeratingWithState:&v57 objects:v70 count:16];
+        v42 = [v40 countByEnumeratingWithState:&v59 objects:v72 count:16];
       }
 
-      while (v39);
+      while (v42);
     }
 
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __53___LTDLanguageAssetService_addLanguages_useCellular___block_invoke;
-    v55[3] = &unk_2789B54E0;
-    v56 = v37;
-    v24 = v51;
-    [self setAssets:v51 options:v48 progress:0 completion:v55];
-    v27 = v56;
-    v21 = v53;
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __53___LTDLanguageAssetService_addLanguages_useCellular___block_invoke;
+    v57[3] = &unk_2789B54E0;
+    v58 = v40;
+    v25 = v53;
+    [self setAssets:v53 options:v50 progress:0 completion:v57];
+    v30 = v58;
+    v22 = v55;
     goto LABEL_36;
   }
 
-  v26 = _LTOSLogAssets();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v29 = _LTOSLogAssets(v26, v27);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
     +[_LTDLanguageAssetService addLanguages:useCellular:];
   }
 
+  v65 = 0u;
+  v66 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v27 = v9;
-  v28 = [v27 countByEnumeratingWithState:&v61 objects:v71 count:16];
-  if (v28)
+  v30 = v10;
+  v31 = [v30 countByEnumeratingWithState:&v63 objects:v73 count:16];
+  if (v31)
   {
-    v29 = v28;
-    v49 = v25;
-    v50 = v24;
-    v52 = v21;
-    v30 = *v62;
+    v32 = v31;
+    v51 = v28;
+    v52 = v25;
+    v54 = v22;
+    v33 = *v64;
     do
     {
-      for (k = 0; k != v29; ++k)
+      for (k = 0; k != v32; ++k)
       {
-        if (*v62 != v30)
+        if (*v64 != v33)
         {
-          objc_enumerationMutation(v27);
+          objc_enumerationMutation(v30);
         }
 
-        v32 = *(*(&v61 + 1) + 8 * k);
-        v33 = +[_LTDAssetAnalytics shared];
-        v34 = [v33 createEventWithNSLocale:v32 connectionType:v7 downloadTriggerSource:0];
+        v35 = *(*(&v63 + 1) + 8 * k);
+        v36 = +[_LTDAssetAnalytics shared];
+        v37 = [v36 createEventWithNSLocale:v35 connectionType:v8 downloadTriggerSource:0];
 
-        [v34 setDownloadOutcome:3];
-        v35 = +[_LTDAssetAnalytics shared];
-        [v35 sendEventToAnalytics:v34];
+        [v37 setDownloadOutcome:3];
+        v38 = +[_LTDAssetAnalytics shared];
+        [v38 sendEventToAnalytics:v37];
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v61 objects:v71 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v63 objects:v73 count:16];
     }
 
-    while (v29);
-    v24 = v50;
-    v21 = v52;
+    while (v32);
+    v25 = v52;
+    v22 = v54;
 LABEL_36:
-    v25 = v49;
+    v28 = v51;
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 + (void)removeLanguages:(id)languages
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   languagesCopy = languages;
-  v5 = _LTOSLogAssets();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _LTOSLogAssets(languagesCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v51 = languagesCopy;
-    _os_log_impl(&dword_232E53000, v5, OS_LOG_TYPE_DEFAULT, "Remove languages %{public}@", buf, 0xCu);
+    v53 = languagesCopy;
+    _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_DEFAULT, "Remove languages %{public}@", buf, 0xCu);
   }
 
+  v48 = 0u;
+  v49 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v6 = languagesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v44 objects:v49 count:16];
-  if (v7)
+  v7 = languagesCopy;
+  v8 = [v7 countByEnumeratingWithState:&v46 objects:v51 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v45;
+    v9 = v8;
+    v10 = *v47;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v45 != v9)
+        if (*v47 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v44 + 1) + 8 * i);
-        v12 = +[_LTDAssetAnalytics shared];
-        v13 = [v12 getEventWithNSLocale:v11];
+        v12 = *(*(&v46 + 1) + 8 * i);
+        v13 = +[_LTDAssetAnalytics shared];
+        v14 = [v13 getEventWithNSLocale:v12];
 
-        if (v13)
+        if (v14)
         {
-          [v13 setDownloadOutcome:2];
-          v14 = +[_LTDAssetAnalytics shared];
-          [v14 sendEventToAnalytics:v13];
+          [v14 setDownloadOutcome:2];
+          v15 = +[_LTDAssetAnalytics shared];
+          [v15 sendEventToAnalytics:v14];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v46 objects:v51 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
-  v15 = +[_LTDLanguageAssetCache shared];
-  v40 = 0u;
-  v41 = 0u;
+  v16 = +[_LTDLanguageAssetCache shared];
   v42 = 0u;
   v43 = 0u;
-  v16 = v6;
-  v17 = [v16 countByEnumeratingWithState:&v40 objects:v48 count:16];
-  if (v17)
+  v44 = 0u;
+  v45 = 0u;
+  v17 = v7;
+  v18 = [v17 countByEnumeratingWithState:&v42 objects:v50 count:16];
+  if (v18)
   {
-    v18 = v17;
-    v19 = *v41;
+    v19 = v18;
+    v20 = *v43;
     do
     {
-      for (j = 0; j != v18; ++j)
+      for (j = 0; j != v19; ++j)
       {
-        if (*v41 != v19)
+        if (*v43 != v20)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v17);
         }
 
-        _ltLocaleIdentifier = [*(*(&v40 + 1) + 8 * j) _ltLocaleIdentifier];
-        v22 = [v15 assetForIdentifier:_ltLocaleIdentifier];
-        progress = [v22 progress];
+        _ltLocaleIdentifier = [*(*(&v42 + 1) + 8 * j) _ltLocaleIdentifier];
+        v23 = [v16 assetForIdentifier:_ltLocaleIdentifier];
+        progress = [v23 progress];
         offlineState = [progress offlineState];
 
         if (offlineState)
         {
-          progress2 = [v22 progress];
+          progress2 = [v23 progress];
           [progress2 setOfflineState:0];
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v40 objects:v48 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v42 objects:v50 count:16];
     }
 
-    while (v18);
+    while (v19);
   }
 
-  [v15 multicastObservers];
-  v26 = MEMORY[0x277CBEB58];
+  [v16 multicastObservers];
+  v27 = MEMORY[0x277CBEB58];
   selectedLocales = [self selectedLocales];
-  v28 = [v26 setWithArray:selectedLocales];
+  v29 = [v27 setWithArray:selectedLocales];
 
-  v29 = [MEMORY[0x277CBEB98] setWithArray:v16];
-  [v28 minusSet:v29];
+  v30 = [MEMORY[0x277CBEB98] setWithArray:v17];
+  [v29 minusSet:v30];
 
-  allObjects = [v28 allObjects];
+  allObjects = [v29 allObjects];
   [self setSelectedLocales:allObjects];
 
   selectedLocales2 = [self selectedLocales];
-  v32 = [selectedLocales2 count];
+  v33 = [selectedLocales2 count];
 
-  if (!v32)
+  if (!v33)
   {
-    v33 = +[_LTDAssetService cleanupScheduler];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __44___LTDLanguageAssetService_removeLanguages___block_invoke;
-    v39[3] = &__block_descriptor_40_e15_v16__0___v__B_8l;
-    v39[4] = self;
-    [v33 scheduleAssetCleanupWork:v39];
+    v34 = +[_LTDAssetService cleanupScheduler];
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __44___LTDLanguageAssetService_removeLanguages___block_invoke;
+    v41[3] = &__block_descriptor_40_e15_v16__0___v__B_8l;
+    v41[4] = self;
+    [v34 scheduleAssetCleanupWork:v41];
   }
 
-  v38 = 0;
-  v34 = [self _languageModelsForLocales:v16 initialState:0 error:&v38];
-  v35 = v38;
-  if (v35)
+  v40 = 0;
+  v35 = [self _languageModelsForLocales:v17 initialState:0 error:&v40];
+  v36 = v40;
+  v38 = v36;
+  if (v36)
   {
-    v36 = _LTOSLogAssets();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v39 = _LTOSLogAssets(v36, v37);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       +[_LTDLanguageAssetService removeLanguages:];
     }
@@ -1234,22 +1223,17 @@ LABEL_36:
 
   else
   {
-    [self setAssets:v34 options:2 progress:0 completion:0];
+    [self setAssets:v35 options:2 progress:0 completion:0];
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_resetSymlinkDirectory
 {
   OUTLINED_FUNCTION_10();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   path = [OUTLINED_FUNCTION_2() path];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_1(&dword_232E53000, v4, v5, "Creation of symlink folder %@ failed: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_232E53000, v4, v5, "Creation of symlink folder %@ failed: %@", v6, v7, v8, v9);
 }
 
 + (id)_languageModelsForLocales:(id)locales initialState:(int64_t)state error:(id *)error
@@ -1311,21 +1295,19 @@ LABEL_36:
 
 + (void)_cacheInstalledLanguages
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_11();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_synthesizeInitialObservationsFromDefaults
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = _LTPreferencesOfflineLanguageInstallationStatus();
-  v27 = 0;
-  v5 = [self _supportedLocalesWithError:&v27];
-  v6 = v27;
+  v26 = 0;
+  v5 = [self _supportedLocalesWithError:&v26];
+  v6 = v26;
   if (v6)
   {
     v7 = v3;
@@ -1333,28 +1315,28 @@ LABEL_36:
 
   else
   {
-    v21 = v5;
+    v20 = v5;
     v8 = v3;
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     obj = v5;
-    v9 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v9 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v24;
+      v11 = *v23;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v23 + 1) + 8 * i);
+          v13 = *(*(&v22 + 1) + 8 * i);
           _ltLocaleIdentifier = [v13 _ltLocaleIdentifier];
           v15 = [v4 objectForKeyedSubscript:_ltLocaleIdentifier];
 
@@ -1367,7 +1349,7 @@ LABEL_36:
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v10 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v10);
@@ -1376,10 +1358,8 @@ LABEL_36:
     v3 = v8;
     v7 = [v8 sortedArrayUsingSelector:sel_compare_];
     v6 = 0;
-    v5 = v21;
+    v5 = v20;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1440,13 +1420,11 @@ LABEL_36:
 + (void)assetsWithOptions:completion:.cold.1()
 {
   OUTLINED_FUNCTION_10();
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = v2;
   v4 = [OUTLINED_FUNCTION_2() _languageAssetFilterDescription:v0];
   OUTLINED_FUNCTION_1_2();
-  _os_log_debug_impl(&dword_232E53000, v1, OS_LOG_TYPE_DEBUG, "Language asset service received state request with filter %{public}@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_232E53000, v1, OS_LOG_TYPE_DEBUG, "Language asset service received state request with filter %{public}@", v5, 0xCu);
 }
 
 + (void)assetsWithOptions:completion:.cold.2()
@@ -1458,18 +1436,16 @@ LABEL_36:
 
 + (void)_supportedLocalesWithError:(uint64_t)a3 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, a2, a3, "Failed to read offline configuration for supported locales %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_2_0(&dword_232E53000, a2, a3, "Failed to read offline configuration for supported locales %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)_localeRanks
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, v0, v1, "Failed to read supported locales for system locale complement %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_0_1();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
 + (void)_syncInstalledLocalesWithCompletion:.cold.1()
@@ -1477,22 +1453,6 @@ LABEL_36:
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-+ (void)addLanguages:useCellular:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, v0, v1, "Add languages failure %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)removeLanguages:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_2_0(&dword_232E53000, v0, v1, "Remove languages failure %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

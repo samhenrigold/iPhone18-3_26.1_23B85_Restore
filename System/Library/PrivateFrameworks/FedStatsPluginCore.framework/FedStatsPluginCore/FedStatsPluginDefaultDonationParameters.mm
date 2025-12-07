@@ -27,35 +27,35 @@
 
 - (unint64_t)expectedCohortSizeFor:(id)for
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   forCopy = for;
   allKeys = [forCopy allKeys];
   v6 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
   selfCopy = self;
   expectedCohortSizes = [(FedStatsPluginDefaultDonationParameters *)self expectedCohortSizes];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v25;
+    v11 = *v24;
     while (2)
     {
       v12 = 0;
       v13 = expectedCohortSizes;
       do
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v24 + 1) + 8 * v12);
+        v14 = *(*(&v23 + 1) + 8 * v12);
         v15 = [forCopy objectForKey:v14];
         v16 = [FedStatsPluginDefaultDonationParameters expectedCohortSizesKeyForCohortVariable:v14 cohortValue:v15];
 
@@ -79,7 +79,7 @@
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v10)
       {
         continue;
@@ -109,7 +109,6 @@
   defaultExpectedCohortSize = unsignedIntegerValue;
 LABEL_19:
 
-  v21 = *MEMORY[0x277D85DE8];
   return defaultExpectedCohortSize;
 }
 
@@ -152,7 +151,7 @@ LABEL_19:
 
 + (id)defaultDonationParametersWithConfiguration:(id)configuration error:(id *)error
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -193,171 +192,171 @@ LABEL_26:
             goto LABEL_26;
           }
 
-          v17 = [configurationCopy objectForKey:@"defaultExpectedCohortSize"];
-          if (v17 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          v16 = [configurationCopy objectForKey:@"defaultExpectedCohortSize"];
+          if (v16 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            [v17 doubleValue];
-            if (v18 > 0.0)
+            [v16 doubleValue];
+            if (v17 > 0.0)
             {
-              v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v17, "unsignedIntegerValue")}];
-              v20 = [v19 isEqualToNumber:v17];
+              v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v16, "unsignedIntegerValue")}];
+              v19 = [v18 isEqualToNumber:v16];
 
-              if (v20)
+              if (v19)
               {
-                v21 = [configurationCopy objectForKey:@"expectedCohortSizes"];
+                v20 = [configurationCopy objectForKey:@"expectedCohortSizes"];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v49 = v17;
-                  v50 = v9;
-                  if (v21)
+                  v48 = v16;
+                  v49 = v9;
+                  if (v20)
                   {
-                    if ([v21 count])
+                    if ([v20 count])
                     {
-                      firstObject = [v21 firstObject];
-                      v55 = [firstObject count];
+                      firstObject = [v20 firstObject];
+                      v54 = [firstObject count];
                     }
 
                     else
                     {
-                      v55 = 0;
+                      v54 = 0;
                     }
                   }
 
                   else
                   {
-                    v55 = 0;
-                    v21 = MEMORY[0x277CBEBF8];
+                    v54 = 0;
+                    v20 = MEMORY[0x277CBEBF8];
                   }
 
-                  v56 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:1];
+                  v55 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:1];
+                  v65 = 0u;
                   v66 = 0u;
                   v67 = 0u;
                   v68 = 0u;
-                  v69 = 0u;
-                  v21 = v21;
-                  v52 = [v21 countByEnumeratingWithState:&v66 objects:v71 count:16];
-                  if (v52)
+                  v20 = v20;
+                  v51 = [v20 countByEnumeratingWithState:&v65 objects:v70 count:16];
+                  if (v51)
                   {
-                    v53 = *v67;
-                    v54 = v21;
-                    v24 = 0x278FF7000uLL;
+                    v52 = *v66;
+                    v53 = v20;
+                    v23 = 0x278FF7000uLL;
 LABEL_50:
-                    v25 = 0;
-                    v51 = *(v24 + 2904);
+                    v24 = 0;
+                    v50 = *(v23 + 2904);
                     while (1)
                     {
-                      if (*v67 != v53)
+                      if (*v66 != v52)
                       {
-                        objc_enumerationMutation(v21);
+                        objc_enumerationMutation(v20);
                       }
 
-                      v26 = *(*(&v66 + 1) + 8 * v25);
-                      if (v55 != [v26 count])
+                      v25 = *(*(&v65 + 1) + 8 * v24);
+                      if (v54 != [v25 count])
                       {
                         break;
                       }
 
-                      v58 = [v26 objectForKey:@"expectedCohortSize"];
-                      if (!v58 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+                      v57 = [v25 objectForKey:@"expectedCohortSize"];
+                      if (!v57 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
                       {
                         if (error)
-                          v47 = {;
-                          *error = [FedStatsPluginError errorWithCode:100 description:v47];
+                          v46 = {;
+                          *error = [FedStatsPluginError errorWithCode:100 description:v46];
                           goto LABEL_76;
                         }
 
 LABEL_77:
 
 LABEL_78:
-                        v21 = v54;
+                        v20 = v53;
 
                         v13 = 0;
-                        v17 = v49;
-                        v9 = v50;
+                        v16 = v48;
+                        v9 = v49;
                         goto LABEL_79;
                       }
 
-                      v57 = v25;
-                      v61 = v26;
-                      allKeys = [v26 allKeys];
-                      v28 = [allKeys mutableCopy];
+                      v56 = v24;
+                      v60 = v25;
+                      allKeys = [v25 allKeys];
+                      v27 = [allKeys mutableCopy];
 
-                      [v28 removeObject:@"expectedCohortSize"];
-                      [v28 sortUsingSelector:v51];
-                      v29 = v56;
+                      [v27 removeObject:@"expectedCohortSize"];
+                      [v27 sortUsingSelector:v50];
+                      v28 = v55;
+                      v61 = 0u;
                       v62 = 0u;
                       v63 = 0u;
                       v64 = 0u;
-                      v65 = 0u;
-                      v30 = v28;
-                      v31 = [v30 countByEnumeratingWithState:&v62 objects:v70 count:16];
-                      if (v31)
+                      v29 = v27;
+                      v30 = [v29 countByEnumeratingWithState:&v61 objects:v69 count:16];
+                      if (v30)
                       {
-                        v32 = v31;
-                        v33 = *v63;
-                        obj = v30;
+                        v31 = v30;
+                        v32 = *v62;
+                        obj = v29;
                         do
                         {
-                          v34 = 0;
-                          v35 = v29;
+                          v33 = 0;
+                          v34 = v28;
                           do
                           {
-                            if (*v63 != v33)
+                            if (*v62 != v32)
                             {
                               objc_enumerationMutation(obj);
                             }
 
-                            v36 = *(*(&v62 + 1) + 8 * v34);
-                            v37 = [v61 objectForKey:v36];
-                            v38 = [FedStatsPluginDefaultDonationParameters expectedCohortSizesKeyForCohortVariable:v36 cohortValue:v37];
+                            v35 = *(*(&v61 + 1) + 8 * v33);
+                            v36 = [v60 objectForKey:v35];
+                            v37 = [FedStatsPluginDefaultDonationParameters expectedCohortSizesKeyForCohortVariable:v35 cohortValue:v36];
 
-                            v39 = [v35 objectForKey:v38];
+                            v38 = [v34 objectForKey:v37];
 
-                            if (!v39)
+                            if (!v38)
                             {
-                              v40 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:1];
-                              [v35 setObject:v40 forKey:v38];
+                              v39 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:1];
+                              [v34 setObject:v39 forKey:v37];
                             }
 
-                            v29 = [v35 objectForKey:v38];
+                            v28 = [v34 objectForKey:v37];
 
-                            ++v34;
-                            v35 = v29;
+                            ++v33;
+                            v34 = v28;
                           }
 
-                          while (v32 != v34);
-                          v30 = obj;
-                          v32 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
+                          while (v31 != v33);
+                          v29 = obj;
+                          v31 = [obj countByEnumeratingWithState:&v61 objects:v69 count:16];
                         }
 
-                        while (v32);
+                        while (v31);
                       }
 
-                      v41 = [v29 objectForKey:@"expectedCohortSize"];
+                      v40 = [v28 objectForKey:@"expectedCohortSize"];
 
-                      if (v41)
+                      if (v40)
                       {
-                        v47 = v30;
+                        v46 = v29;
                         if (error)
-                          v48 = {;
-                          *error = [FedStatsPluginError errorWithCode:100 description:v48];
+                          v47 = {;
+                          *error = [FedStatsPluginError errorWithCode:100 description:v47];
                         }
 
 LABEL_76:
                         goto LABEL_77;
                       }
 
-                      [v29 setObject:v58 forKey:@"expectedCohortSize"];
+                      [v28 setObject:v57 forKey:@"expectedCohortSize"];
 
-                      v25 = v57 + 1;
-                      v21 = v54;
-                      if (v57 + 1 == v52)
+                      v24 = v56 + 1;
+                      v20 = v53;
+                      if (v56 + 1 == v51)
                       {
-                        v42 = [v54 countByEnumeratingWithState:&v66 objects:v71 count:16];
-                        v24 = 0x278FF7000;
-                        v52 = v42;
-                        if (v42)
+                        v41 = [v53 countByEnumeratingWithState:&v65 objects:v70 count:16];
+                        v23 = 0x278FF7000;
+                        v51 = v41;
+                        if (v41)
                         {
                           goto LABEL_50;
                         }
@@ -367,7 +366,7 @@ LABEL_76:
                     }
 
                     if (error)
-                      v59 = {;
+                      v58 = {;
                       *error = [FedStatsPluginError errorWithCode:100 description:?];
                     }
 
@@ -376,13 +375,13 @@ LABEL_76:
 
 LABEL_68:
 
-                  v43 = [FedStatsPluginDefaultDonationParameters alloc];
+                  v42 = [FedStatsPluginDefaultDonationParameters alloc];
                   [v6 doubleValue];
-                  v45 = v44;
-                  v9 = v50;
-                  [v50 doubleValue];
-                  v17 = v49;
-                  v13 = -[FedStatsPluginDefaultDonationParameters initWithEpsilon:delta:defaultExpectedCohortSize:expectedCohortSizes:](v43, "initWithEpsilon:delta:defaultExpectedCohortSize:expectedCohortSizes:", [v49 unsignedIntegerValue], v56, v45, v46);
+                  v44 = v43;
+                  v9 = v49;
+                  [v49 doubleValue];
+                  v16 = v48;
+                  v13 = -[FedStatsPluginDefaultDonationParameters initWithEpsilon:delta:defaultExpectedCohortSize:expectedCohortSizes:](v42, "initWithEpsilon:delta:defaultExpectedCohortSize:expectedCohortSizes:", [v48 unsignedIntegerValue], v55, v44, v45);
 LABEL_79:
                 }
 
@@ -409,7 +408,7 @@ LABEL_79:
           else if (error)
           {
 LABEL_40:
-            [FedStatsPluginError errorWithCode:100 description:v23];
+            [FedStatsPluginError errorWithCode:100 description:v22];
             *error = v13 = 0;
 LABEL_42:
 
@@ -452,39 +451,34 @@ LABEL_20:
 
 LABEL_21:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (void)expectedCohortSizeFor:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24AB24000, a2, OS_LOG_TYPE_DEBUG, "No expected cohort size for cohort values %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24AB24000, a2, OS_LOG_TYPE_DEBUG, "No expected cohort size for cohort values %@", &v2, 0xCu);
 }
 
 - (void)expectedCohortSizeFor:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24AB24000, a2, OS_LOG_TYPE_DEBUG, "No expected cohort size value for cohort values %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24AB24000, a2, OS_LOG_TYPE_DEBUG, "No expected cohort size value for cohort values %@", &v2, 0xCu);
 }
 
 - (void)distributionFor:(double)a3 .cold.1(void *a1, NSObject *a2, double a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [a1 successProbability];
-  v7 = 134218240;
-  v8 = a3;
-  v9 = 2048;
-  v10 = v5;
-  _os_log_error_impl(&dword_24AB24000, a2, OS_LOG_TYPE_ERROR, "NB(%e,%e) failed. Check the logs.", &v7, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218240;
+  v7 = a3;
+  v8 = 2048;
+  v9 = v5;
+  _os_log_error_impl(&dword_24AB24000, a2, OS_LOG_TYPE_ERROR, "NB(%e,%e) failed. Check the logs.", &v6, 0x16u);
 }
 
 @end

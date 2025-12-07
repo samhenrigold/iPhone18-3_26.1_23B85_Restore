@@ -39,50 +39,50 @@ flatbuffers::DetachedBuffer *__34__QSSChoiceAlignment_flatbuffData__block_invoke
 
 - (Offset<siri::speech::schema_fb::ChoiceAlignment>)addObjectToBuffer:(void *)buffer
 {
-  v35 = *MEMORY[0x277D85DE8];
-  memset(&v32, 0, sizeof(v32));
+  v31 = *MEMORY[0x277D85DE8];
+  memset(&v28, 0, sizeof(v28));
   post_itn_choice_indices = [(QSSChoiceAlignment *)self post_itn_choice_indices];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v32, [post_itn_choice_indices count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v28, [post_itn_choice_indices count]);
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   post_itn_choice_indices2 = [(QSSChoiceAlignment *)self post_itn_choice_indices];
-  v7 = [post_itn_choice_indices2 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v7 = [post_itn_choice_indices2 countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v7)
   {
-    v8 = *v29;
+    v8 = *v25;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(post_itn_choice_indices2);
         }
 
-        intValue = [*(*(&v28 + 1) + 8 * i) intValue];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v32, &intValue);
+        intValue = [*(*(&v24 + 1) + 8 * i) intValue];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v28, &intValue);
       }
 
-      v7 = [post_itn_choice_indices2 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v7 = [post_itn_choice_indices2 countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v7);
   }
 
-  if (v32.__end_ == v32.__begin_)
+  if (v28.__end_ == v28.__begin_)
   {
     begin = &flatbuffers::data<int,std::allocator<int>>(std::vector<int> const&)::t;
   }
 
   else
   {
-    begin = v32.__begin_;
+    begin = v28.__begin_;
   }
 
-  v21 = flatbuffers::FlatBufferBuilder::CreateVector<int>(buffer, begin, v32.__end_ - v32.__begin_);
+  v20 = flatbuffers::FlatBufferBuilder::CreateVector<int>(buffer, begin, v28.__end_ - v28.__begin_);
   pre_itn_token_to_post_itn_char_alignments = [(QSSChoiceAlignment *)self pre_itn_token_to_post_itn_char_alignments];
   v12 = [pre_itn_token_to_post_itn_char_alignments count];
   if (v12)
@@ -95,16 +95,11 @@ flatbuffers::DetachedBuffer *__34__QSSChoiceAlignment_flatbuffData__block_invoke
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
+  memset(v22, 0, sizeof(v22));
   obj = [(QSSChoiceAlignment *)self pre_itn_token_to_post_itn_char_alignments];
-  if ([obj countByEnumeratingWithState:&v23 objects:v33 count:16])
+  if ([obj countByEnumeratingWithState:v22 objects:v29 count:16])
   {
-    *v24;
-    *v24;
-    [**(&v23 + 1) addObjectToBuffer:buffer];
+    [**(&v22[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -115,7 +110,7 @@ flatbuffers::DetachedBuffer *__34__QSSChoiceAlignment_flatbuffData__block_invoke
   v14 = *(buffer + 8);
   v15 = *(buffer + 12);
   v16 = *(buffer + 10);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, v21);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, v20);
   if (v13)
   {
     v17 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v13);
@@ -123,12 +118,11 @@ flatbuffers::DetachedBuffer *__34__QSSChoiceAlignment_flatbuffData__block_invoke
   }
 
   v18.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v14 - v15 + v16);
-  if (v32.__begin_)
+  if (v28.__begin_)
   {
-    operator delete(v32.__begin_);
+    operator delete(v28.__begin_);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

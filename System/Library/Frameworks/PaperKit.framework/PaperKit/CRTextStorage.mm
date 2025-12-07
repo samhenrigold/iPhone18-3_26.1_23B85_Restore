@@ -83,7 +83,7 @@
 
 - (_TtC8PaperKit13CRTextStorage)initWithContentsOfMarkdownFileAtURL:(id)l options:(id)options baseURL:(id)rL error:(id *)error
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v14 - v8;
   v10 = type metadata accessor for URL();
@@ -109,7 +109,7 @@
 
 - (_TtC8PaperKit13CRTextStorage)initWithMarkdown:(id)markdown options:(id)options baseURL:(id)l error:(id *)error
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v17 - v9;
   markdownCopy = markdown;
@@ -140,7 +140,7 @@
 
 - (_TtC8PaperKit13CRTextStorage)initWithMarkdownString:(id)string options:(id)options baseURL:(id)l error:(id *)error
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v14 - v8;
   if (l)

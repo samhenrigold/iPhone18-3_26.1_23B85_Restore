@@ -1,3 +1,19 @@
+std::string *sub_10000F7A0(std::string *this, std::string *a2)
+{
+  *&this->__r_.__value_.__l.__data_ = 0uLL;
+  this->__r_.__value_.__r.__words[2] = 0;
+  v3 = (a2 - 1);
+  do
+  {
+    v4 = v3->__r_.__value_.__s.__data_[1];
+    v3 = (v3 + 1);
+  }
+
+  while (v4);
+  sub_10000F7FC(this, a2, v3);
+  return this;
+}
+
 void sub_10000F7E0(_Unwind_Exception *exception_object)
 {
   if (*(v1 + 23) < 0)
@@ -141,16 +157,16 @@ std::string *sub_10000F974(std::string *this, std::string *a2)
   return this;
 }
 
-void (__cdecl ***sub_10000F9CC(void (__cdecl ***a1)(std::ifstream *__hidden this)))(std::ifstream *__hidden this)
+void (__cdecl ***sub_10000F9CC(void (__cdecl ***a1)(std::ifstream *__hidden this), uint64_t a2, int a3))(std::ifstream *__hidden this)
 {
   a1[59] = 0;
-  *a1 = v3;
-  *(*(v3 - 3) + a1) = v2;
+  *a1 = v5;
+  *(*(v5 - 3) + a1) = v4;
   a1[1] = 0;
-  v4 = (*(*a1 - 3) + a1);
-  std::ios_base::init(v4, a1 + 2);
-  v4[1].__vftable = 0;
-  v4[1].__fmtflags_ = -1;
+  v6 = (*(*a1 - 3) + a1);
+  std::ios_base::init(v6, a1 + 2);
+  v6[1].__vftable = 0;
+  v6[1].__fmtflags_ = -1;
   std::filebuf::basic_filebuf();
   if (!std::filebuf::open())
   {
@@ -283,16 +299,16 @@ void *sub_10000FF20(void *a1, uint64_t a2, uint64_t a3)
   if (v13 == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, &std::ctype<char>::id);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -389,13 +405,13 @@ void sub_100010234(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t sub_100010250()
 {
   sub_10000F7A0(&__p, "/var/db/timezone/tz/");
-  sub_100000F34(&__p, &unk_100018000);
+  sub_100000F34(&__p, qword_100018000);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  return __cxa_atexit(sub_100001088, &unk_100018000, &_mh_execute_header);
+  return __cxa_atexit(sub_100001088, qword_100018000, &_mh_execute_header);
 }
 
 void sub_1000102CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)

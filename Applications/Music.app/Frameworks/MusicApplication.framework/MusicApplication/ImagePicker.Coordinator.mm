@@ -12,7 +12,7 @@
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info
 {
   _s3__C7InfoKeyVMa_0(0);
-  sub_85BACC(&qword_E16FF0, _s3__C7InfoKeyVMa_0);
+  sub_85BACC(&qword_E16FF0, _s3__C7InfoKeyVMa_0, &unk_B29BD0);
   v6 = sub_AB8FF0();
   controllerCopy = controller;
   selfCopy = self;
@@ -39,7 +39,7 @@
 {
   v6 = sub_AB31C0();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3150();
   controllerCopy = controller;
@@ -52,7 +52,7 @@
 - (void)presentationControllerDidDismiss:(id)dismiss
 {
   type metadata accessor for ImagePicker(0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E1C390);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E1C390, &qword_B2C3A0);
   sub_AB7800();
 }
 

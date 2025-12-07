@@ -646,11 +646,11 @@ LABEL_28:
 LABEL_20:
   v27 = [PKTextInputResultCommand alloc];
   v28 = v35[4];
-  v29 = [(PKTextInputResultCommand *)v27 initWithQueryItem:v28 handwritingShot:v6 immediateCommitType:1 applyAfterDelay:standardCommitDelay];
+  v29 = [(PKTextInputResultCommand *)&v27->super.isa initWithQueryItem:v28 handwritingShot:v6 immediateCommitType:1 applyAfterDelay:standardCommitDelay];
 
   if (v29)
   {
-    objc_storeWeak((v29 + 16), self);
+    objc_storeWeak(v29 + 2, self);
   }
 
   if (v12)
@@ -667,8 +667,8 @@ LABEL_20:
 
   if (v29 && v31)
   {
-    *(v29 + 112) = v35[14];
-    *(v29 + 120) = 0;
+    v29[14] = v35[14];
+    v29[15] = 0;
   }
 
   _resultCommandsQueue = [(PKTextInputHandwritingController *)self _resultCommandsQueue];
@@ -1156,7 +1156,7 @@ LABEL_18:
     v30 = v31;
     if (v31)
     {
-      objc_storeWeak((v31 + 16), self);
+      objc_storeWeak(v31 + 2, self);
     }
   }
 

@@ -21,7 +21,7 @@
 
 void __31__BluetoothBridge_addListeners__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = BluetoothEndpointManagerLogComponent;
   if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_INFO))
   {
@@ -29,39 +29,39 @@ void __31__BluetoothBridge_addListeners__block_invoke(uint64_t a1)
     _os_log_impl(&dword_241BB7000, v2, OS_LOG_TYPE_INFO, "Audio devices changed", buf, 2u);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v3 = [MEMORY[0x277CBE030] devicesWithDiscoveryFlags:0x80000A08000 error:0];
-  v4 = [v3 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v19;
+    v7 = *v18;
     *&v5 = 138412546;
-    v17 = v5;
+    v16 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
-        v10 = [*(a1 + 32) createDescriptionWithDevice:{v9, v17}];
+        v9 = *(*(&v17 + 1) + 8 * i);
+        v10 = [*(a1 + 32) createDescriptionWithDevice:{v9, v16}];
         if (v10)
         {
           v11 = v10;
           v12 = BluetoothEndpointManagerLogComponent;
           if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_INFO))
           {
-            *buf = v17;
-            v23 = v11;
-            v24 = 2112;
-            v25 = v9;
+            *buf = v16;
+            v22 = v11;
+            v23 = 2112;
+            v24 = v9;
             _os_log_impl(&dword_241BB7000, v12, OS_LOG_TYPE_INFO, "HAL: %@ %@", buf, 0x16u);
           }
 
@@ -70,7 +70,7 @@ void __31__BluetoothBridge_addListeners__block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [v3 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v6);
@@ -93,8 +93,6 @@ void __31__BluetoothBridge_addListeners__block_invoke(uint64_t a1)
       _os_log_impl(&dword_241BB7000, v15, OS_LOG_TYPE_DEFAULT, "Activation block is nil", buf, 2u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedBluetoothBridge
@@ -169,10 +167,10 @@ uint64_t __30__BluetoothBridge_setManager___block_invoke(uint64_t a1)
 
 - (void)getHFPSupportStatus
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v3 = [MEMORY[0x277CBE010] controllerInfoAndReturnError:&v15];
-  v4 = v15;
+  v17 = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v3 = [MEMORY[0x277CBE010] controllerInfoAndReturnError:&v14];
+  v4 = v14;
   if (v4)
   {
     v5 = 1;
@@ -192,12 +190,12 @@ uint64_t __30__BluetoothBridge_setManager___block_invoke(uint64_t a1)
 
     v6 = dispatch_time(0, 1000000000);
     queue = [(BluetoothBridge *)self queue];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __38__BluetoothBridge_getHFPSupportStatus__block_invoke;
-    v14[3] = &unk_278D10640;
-    v14[4] = self;
-    dispatch_after(v6, queue, v14);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __38__BluetoothBridge_getHFPSupportStatus__block_invoke;
+    v13[3] = &unk_278D10640;
+    v13[4] = self;
+    dispatch_after(v6, queue, v13);
   }
 
   else
@@ -215,12 +213,10 @@ uint64_t __30__BluetoothBridge_setManager___block_invoke(uint64_t a1)
       }
 
       *buf = 136315138;
-      v17 = v12;
+      v16 = v12;
       _os_log_impl(&dword_241BB7000, v10, OS_LOG_TYPE_DEFAULT, "HFP %s", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (__CFDictionary)createDescriptionWithDevice:(id)device
@@ -453,16 +449,15 @@ LABEL_9:
 
 - (void)addListeners
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_241BB7000, a2, OS_LOG_TYPE_ERROR, "Failed to add AudioDevice listener %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_241BB7000, a2, OS_LOG_TYPE_ERROR, "Failed to add AudioDevice listener %d", v2, 8u);
 }
 
 void __31__BluetoothBridge_addListeners__block_invoke_37(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = BluetoothEndpointManagerLogComponent;
   if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_DEFAULT))
@@ -471,22 +466,22 @@ void __31__BluetoothBridge_addListeners__block_invoke_37(uint64_t a1, void *a2)
     [v3 discoveryFlags];
     v6 = CUPrintFlags64();
     *buf = 138412546;
-    v17 = v3;
-    v18 = 2112;
-    v19 = v6;
+    v16 = v3;
+    v17 = 2112;
+    v18 = v6;
     _os_log_impl(&dword_241BB7000, v5, OS_LOG_TYPE_DEFAULT, "Device found %@ with flags:%@", buf, 0x16u);
   }
 
   if ([*(a1 + 32) shouldRemoveDevice:v3])
   {
-    v14 = @"DeviceID";
+    v13 = @"DeviceID";
     v7 = [*(a1 + 32) uidFromDevice:v3];
-    v15 = v7;
-    BluetoothEndpointManagerHandleRemove([MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1], objc_msgSend(*(a1 + 32), "manager"));
+    v14 = v7;
+    BluetoothEndpointManagerHandleRemove([MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1], objc_msgSend(*(a1 + 32), "manager"));
 
     v8 = [*(a1 + 32) addressFromDevice:{v3, @"DeviceID"}];
-    v13 = v8;
-    BluetoothEndpointManagerHandleRemove([MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1], objc_msgSend(*(a1 + 32), "manager"));
+    v12 = v8;
+    BluetoothEndpointManagerHandleRemove([MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1], objc_msgSend(*(a1 + 32), "manager"));
   }
 
   else
@@ -499,19 +494,17 @@ void __31__BluetoothBridge_addListeners__block_invoke_37(uint64_t a1, void *a2)
       CFRelease(v10);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __31__BluetoothBridge_addListeners__block_invoke_41(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = BluetoothEndpointManagerLogComponent;
   if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = v3;
+    v14 = v3;
     _os_log_impl(&dword_241BB7000, v4, OS_LOG_TYPE_DEFAULT, "Device lost %@", buf, 0xCu);
   }
 
@@ -528,17 +521,15 @@ void __31__BluetoothBridge_addListeners__block_invoke_41(uint64_t a1, void *a2)
 
   else
   {
-    v12 = @"DeviceID";
+    v11 = @"DeviceID";
     v5 = [*(a1 + 32) uidFromDevice:v3];
-    v13 = v5;
-    BluetoothEndpointManagerHandleRemove([MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1], objc_msgSend(*(a1 + 32), "manager"));
+    v12 = v5;
+    BluetoothEndpointManagerHandleRemove([MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1], objc_msgSend(*(a1 + 32), "manager"));
 
     v6 = [*(a1 + 32) addressFromDevice:{v3, @"DeviceID"}];
-    v11 = v6;
-    BluetoothEndpointManagerHandleRemove([MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1], objc_msgSend(*(a1 + 32), "manager"));
+    v10 = v6;
+    BluetoothEndpointManagerHandleRemove([MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1], objc_msgSend(*(a1 + 32), "manager"));
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __31__BluetoothBridge_addListeners__block_invoke_42(uint64_t a1, void *a2)
@@ -557,7 +548,7 @@ void __31__BluetoothBridge_addListeners__block_invoke_42(uint64_t a1, void *a2)
 - (void)startLEScanning:(BOOL)scanning
 {
   scanningCopy = scanning;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = MGGetStringAnswer();
   if (v5 && (v6 = v5, v7 = [v5 isEqualToString:@"AudioAccessory"], CFRelease(v6), v7))
   {
@@ -577,8 +568,8 @@ void __31__BluetoothBridge_addListeners__block_invoke_42(uint64_t a1, void *a2)
       v10 = v9;
       *buf = 67109376;
       targetUserSession = [(BluetoothBridge *)self targetUserSession];
-      v22 = 1024;
-      v23 = scanningCopy;
+      v21 = 1024;
+      v22 = scanningCopy;
       _os_log_impl(&dword_241BB7000, v10, OS_LOG_TYPE_DEFAULT, "Starting LE scanning (%d) fast:%d", buf, 0xEu);
     }
 
@@ -607,8 +598,6 @@ void __31__BluetoothBridge_addListeners__block_invoke_42(uint64_t a1, void *a2)
       dispatch_after(v15, queue, lowerScanRate);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __35__BluetoothBridge_startLEScanning___block_invoke(uint64_t a1)
@@ -752,18 +741,17 @@ LABEL_38:
 - (BOOL)isHALPublished:(unsigned __int8)published device:(id)device
 {
   publishedCopy = published;
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = [(BluetoothBridge *)self addressFromDevice:device];
   HIDWORD(v6) = *"bolg";
-  v23 = 0;
   outData = 0;
-  v22 = 0;
+  v21 = 0uLL;
   ioDataSize = 0;
   LODWORD(v6) = 1919186467;
   inAddress.mElement = 0;
   *&inAddress.mSelector = v6;
   v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-btaudio", v5];
-  if (AudioObjectGetPropertyDataSize(1u, &inAddress, 0, 0, &v23 + 1))
+  if (AudioObjectGetPropertyDataSize(1u, &inAddress, 0, 0, &v21 + 3))
   {
     if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_ERROR))
     {
@@ -773,80 +761,79 @@ LABEL_38:
     goto LABEL_4;
   }
 
-  v11 = HIDWORD(v23);
-  v12 = malloc_type_malloc(HIDWORD(v23), 0x100004052888210uLL);
-  if (!v12)
+  v10 = HIDWORD(v21);
+  v11 = malloc_type_malloc(HIDWORD(v21), 0x100004052888210uLL);
+  if (!v11)
   {
 LABEL_4:
     v8 = 0;
     goto LABEL_5;
   }
 
-  v13 = v12;
-  if (AudioObjectGetPropertyData(1u, &inAddress, 0, 0, &v23 + 1, v12))
+  v12 = v11;
+  if (AudioObjectGetPropertyData(1u, &inAddress, 0, 0, &v21 + 3, v11))
   {
     if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_ERROR))
     {
       [BluetoothBridge isHALPublished:device:];
     }
 
-    free(v13);
+    free(v12);
     goto LABEL_4;
   }
 
-  if (v11 < 4)
+  if (v10 < 4)
   {
 LABEL_16:
-    free(v13);
-    v18 = BluetoothEndpointManagerLogComponent;
+    free(v12);
+    v17 = BluetoothEndpointManagerLogComponent;
     if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = "HFP";
+      v18 = "HFP";
       if (publishedCopy == 1)
       {
-        v19 = "A2DP";
+        v18 = "A2DP";
       }
 
       *buf = 136315394;
-      v26 = v19;
-      v27 = 2112;
-      v28 = v5;
-      _os_log_impl(&dword_241BB7000, v18, OS_LOG_TYPE_DEFAULT, "%s is not published for %@", buf, 0x16u);
+      v24 = v18;
+      v25 = 2112;
+      v26 = v5;
+      _os_log_impl(&dword_241BB7000, v17, OS_LOG_TYPE_DEFAULT, "%s is not published for %@", buf, 0x16u);
     }
 
     goto LABEL_4;
   }
 
-  v14 = 0;
-  v15 = 4 * (v11 >> 2);
+  v13 = 0;
+  v14 = 4 * (v10 >> 2);
   while (1)
   {
-    v16 = *&v13[v14];
+    v15 = *&v12[v13];
     ioDataSize = 8;
-    v22 = 0x676C6F6275696420;
-    LODWORD(v23) = 0;
-    if (!AudioObjectGetPropertyData(v16, &v22, 0, 0, &ioDataSize, &outData))
+    *&v21 = 0x676C6F6275696420;
+    DWORD2(v21) = 0;
+    if (!AudioObjectGetPropertyData(v15, &v21, 0, 0, &ioDataSize, &outData))
     {
-      v17 = [v7 isEqual:outData];
+      v16 = [v7 isEqual:outData];
       CFRelease(outData);
-      if (v17)
+      if (v16)
       {
         break;
       }
     }
 
-    v14 += 4;
-    if (v15 == v14)
+    v13 += 4;
+    if (v14 == v13)
     {
       goto LABEL_16;
     }
   }
 
-  free(v13);
+  free(v12);
   v8 = 1;
 LABEL_5:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -888,7 +875,7 @@ LABEL_15:
 
 - (unsigned)supportedFormats:(id)formats
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   formatsCopy = formats;
   v5 = formatsCopy;
   if (formatsCopy)
@@ -920,9 +907,9 @@ LABEL_15:
       v11 = BluetoothEndpointManagerLogComponent;
       if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = v5;
-        _os_log_impl(&dword_241BB7000, v11, OS_LOG_TYPE_DEFAULT, "%@ is guest not in contacts removing handsfree service", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = v5;
+        _os_log_impl(&dword_241BB7000, v11, OS_LOG_TYPE_DEFAULT, "%@ is guest not in contacts removing handsfree service", &v13, 0xCu);
       }
 
       LOBYTE(v8) = v8 & 0xFD;
@@ -944,37 +931,36 @@ LABEL_15:
     v9 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)deviceFromIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v4 = objc_alloc_init(MEMORY[0x277CBE020]);
   [v4 setIdentifier:identifierCopy];
   [MEMORY[0x277CBE030] devicesWithDiscoveryFlags:0x80000A08000 error:0];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = v18 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v5 = v17 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        if ([v10 isEquivalentToCBDevice:v4 compareFlags:{8, v15}])
+        v10 = *(*(&v14 + 1) + 8 * i);
+        if ([v10 isEquivalentToCBDevice:v4 compareFlags:{8, v14}])
         {
           v12 = v10;
 
@@ -982,7 +968,7 @@ LABEL_15:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -996,14 +982,12 @@ LABEL_15:
   if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = identifierCopy;
+    v19 = identifierCopy;
     _os_log_impl(&dword_241BB7000, v11, OS_LOG_TYPE_DEFAULT, "Couldn't find a paired device with identifier %@", buf, 0xCu);
   }
 
   v12 = v4;
 LABEL_13:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1030,7 +1014,7 @@ LABEL_13:
 
 - (void)connectToAddress:(id)address completionHandler:(id)handler
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v7 = [(BluetoothBridge *)self deviceFromIdentifier:address];
   if ([(BluetoothBridge *)self isConnected:v7])
@@ -1046,7 +1030,7 @@ LABEL_13:
       v9 = v8;
       v10 = [(BluetoothBridge *)self nameFromDevice:v7];
       *buf = 138412290;
-      v38 = v10;
+      v37 = v10;
       _os_log_impl(&dword_241BB7000, v9, OS_LOG_TYPE_DEFAULT, "Connect to device %@", buf, 0xCu);
     }
 
@@ -1071,42 +1055,42 @@ LABEL_13:
       [v12 setServiceFlags:524312];
     }
 
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __54__BluetoothBridge_connectToAddress_completionHandler___block_invoke;
-    v35[3] = &unk_278D106D8;
-    v35[4] = self;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __54__BluetoothBridge_connectToAddress_completionHandler___block_invoke;
+    v34[3] = &unk_278D106D8;
+    v34[4] = self;
     v14 = v7;
-    v36 = v14;
-    [v12 activateWithCompletion:v35];
+    v35 = v14;
+    [v12 activateWithCompletion:v34];
     v15 = objc_alloc_init(MEMORY[0x277CBE028]);
     [v15 setAudioRouteHidden:0];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __54__BluetoothBridge_connectToAddress_completionHandler___block_invoke_63;
-    v33[3] = &unk_278D10448;
-    v34 = v11;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __54__BluetoothBridge_connectToAddress_completionHandler___block_invoke_63;
+    v32[3] = &unk_278D10448;
+    v33 = v11;
     v16 = v11;
-    [v16 modifyDevice:v14 settings:v15 completion:v33];
+    [v16 modifyDevice:v14 settings:v15 completion:v32];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __54__BluetoothBridge_connectToAddress_completionHandler___block_invoke_64;
     block[3] = &unk_278D10700;
     v17 = handlerCopy;
     block[4] = self;
-    v32 = v17;
+    v31 = v17;
     v18 = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block);
     [(BluetoothBridge *)self setActivationTimeoutBlock:v18];
 
-    v24 = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __54__BluetoothBridge_connectToAddress_completionHandler___block_invoke_65;
-    v27 = &unk_278D10728;
+    v23 = MEMORY[0x277D85DD0];
+    v24 = 3221225472;
+    v25 = __54__BluetoothBridge_connectToAddress_completionHandler___block_invoke_65;
+    v26 = &unk_278D10728;
     selfCopy = self;
-    v28 = v14;
-    v29 = v17;
-    [(BluetoothBridge *)self setActivation:&v24];
-    v19 = [(BluetoothBridge *)self activation:v24];
+    v27 = v14;
+    v28 = v17;
+    [(BluetoothBridge *)self setActivation:&v23];
+    v19 = [(BluetoothBridge *)self activation:v23];
     v19[2]();
 
     v20 = dispatch_time(0, 20000000000);
@@ -1114,13 +1098,11 @@ LABEL_13:
     activationTimeoutBlock = [(BluetoothBridge *)self activationTimeoutBlock];
     dispatch_after(v20, queue, activationTimeoutBlock);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __54__BluetoothBridge_connectToAddress_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = BluetoothEndpointManagerLogComponent;
   if (v3)
@@ -1137,12 +1119,10 @@ void __54__BluetoothBridge_connectToAddress_completionHandler___block_invoke(uin
     v5 = *(a1 + 40);
     v7 = v4;
     v8 = [v6 nameFromDevice:v5];
-    v10 = 138412290;
-    v11 = v8;
-    _os_log_impl(&dword_241BB7000, v7, OS_LOG_TYPE_DEFAULT, "Baseband connected to %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v8;
+    _os_log_impl(&dword_241BB7000, v7, OS_LOG_TYPE_DEFAULT, "Baseband connected to %@", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __54__BluetoothBridge_connectToAddress_completionHandler___block_invoke_63(uint64_t a1, void *a2)
@@ -1188,39 +1168,34 @@ void __54__BluetoothBridge_connectToAddress_completionHandler___block_invoke_65(
 
 void __31__BluetoothBridge_addListeners__block_invoke_42_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241BB7000, a2, OS_LOG_TYPE_ERROR, "Starting Discovery error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241BB7000, a2, OS_LOG_TYPE_ERROR, "Starting Discovery error %@", &v2, 0xCu);
 }
 
 - (void)supportedFormats:(void *)a3 .cold.1(void *a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 nameFromDevice:a3];
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 1024;
-  v11 = [a3 supportedServices];
-  _os_log_error_impl(&dword_241BB7000, v5, OS_LOG_TYPE_ERROR, "Error Service Mask isn't right %@ has service mask 0x%X", &v8, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v6;
+  v9 = 1024;
+  v10 = [a3 supportedServices];
+  _os_log_error_impl(&dword_241BB7000, v5, OS_LOG_TYPE_ERROR, "Error Service Mask isn't right %@ has service mask 0x%X", &v7, 0x12u);
 }
 
 void __54__BluetoothBridge_connectToAddress_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = a2;
   v5 = [v2 nameFromDevice:v3];
-  v7 = 138412290;
-  v8 = v5;
-  _os_log_error_impl(&dword_241BB7000, v4, OS_LOG_TYPE_ERROR, "Error connecting to %@", &v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412290;
+  v7 = v5;
+  _os_log_error_impl(&dword_241BB7000, v4, OS_LOG_TYPE_ERROR, "Error connecting to %@", &v6, 0xCu);
 }
 
 @end

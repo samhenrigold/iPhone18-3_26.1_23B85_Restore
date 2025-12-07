@@ -40,7 +40,7 @@
     v9 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
     {
-      [HDMCUnconfirmedDeviationNotificationScheduledState notificationStateFromDictionaryRepresentation:v9];
+      [(HDMCUnconfirmedDeviationNotificationScheduledState *)v9 notificationStateFromDictionaryRepresentation:self, representationCopy];
     }
 
     v8 = 0;
@@ -83,20 +83,18 @@
   [v4 handleFailureInMethod:a1 object:a2 file:@"HDMCUnconfirmedDeviationNotificationStateMachineState.m" lineNumber:152 description:@"You cannot enter a scheduled state without a fire day associated with it"];
 }
 
-+ (void)notificationStateFromDictionaryRepresentation:(void *)a1 .cold.1(void *a1)
++ (void)notificationStateFromDictionaryRepresentation:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = v2;
-  v4 = HKSensitiveLogItem();
-  v6 = 138543618;
-  v7 = v2;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_2293D1000, v1, OS_LOG_TYPE_ERROR, "[%{public}@] Cannot retrieve full state from dictionary: %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = objc_opt_class();
+  v5 = v4;
+  v6 = HKSensitiveLogItem();
+  v7 = 138543618;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_2293D1000, v3, OS_LOG_TYPE_ERROR, "[%{public}@] Cannot retrieve full state from dictionary: %@", &v7, 0x16u);
 }
 
 @end

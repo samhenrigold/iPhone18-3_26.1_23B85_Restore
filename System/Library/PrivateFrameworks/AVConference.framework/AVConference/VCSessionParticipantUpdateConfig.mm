@@ -161,7 +161,7 @@ LABEL_6:
   [(VCSessionParticipantUpdateConfig *)self updateDescription];
 }
 
-uint64_t __72__VCSessionParticipantUpdateConfig_setValue_forPropertyName_forceCache___block_invoke(uint64_t a1, void *a2)
+void *__72__VCSessionParticipantUpdateConfig_setValue_forPropertyName_forceCache___block_invoke(uint64_t a1, void *a2)
 {
   v4 = [a2 hasPendingChanges];
   result = [a2 setIsVisible:{objc_msgSend(*(a1 + 32), "unsignedIntValue") == 0}];
@@ -174,7 +174,7 @@ uint64_t __72__VCSessionParticipantUpdateConfig_setValue_forPropertyName_forceCa
   return result;
 }
 
-uint64_t __72__VCSessionParticipantUpdateConfig_setValue_forPropertyName_forceCache___block_invoke_2(uint64_t a1, void *a2)
+void *__72__VCSessionParticipantUpdateConfig_setValue_forPropertyName_forceCache___block_invoke_2(uint64_t a1, void *a2)
 {
   v4 = [a2 hasPendingChanges];
   result = [a2 setProminenceIndex:{objc_msgSend(*(a1 + 32), "unsignedIntValue")}];

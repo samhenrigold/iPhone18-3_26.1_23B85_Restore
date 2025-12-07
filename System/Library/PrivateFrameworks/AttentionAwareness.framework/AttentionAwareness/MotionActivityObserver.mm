@@ -71,7 +71,7 @@ void __57__MotionActivityObserver_initWithCallbackQueue_observer___block_invoke_
   dispatch_async(v5, v7);
 }
 
-uint64_t __57__MotionActivityObserver_initWithCallbackQueue_observer___block_invoke_3(uint64_t a1)
+void *__57__MotionActivityObserver_initWithCallbackQueue_observer___block_invoke_3(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 40);
   result = [*(a1 + 40) stationary];

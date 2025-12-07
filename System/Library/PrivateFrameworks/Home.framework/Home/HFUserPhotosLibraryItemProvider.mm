@@ -32,8 +32,8 @@
   aBlock[3] = &unk_277DFDD80;
   aBlock[4] = self;
   v3 = _Block_copy(aBlock);
-  home = [(HFUserPhotosLibraryItemProvider *)self home];
-  hf_allUsersIncludingCurrentUser = [home hf_allUsersIncludingCurrentUser];
+  v4 = objc_msgSend_home(self);
+  hf_allUsersIncludingCurrentUser = [v4 hf_allUsersIncludingCurrentUser];
   v6 = [(HFItemProvider *)self reloadItemsWithHomeKitObjects:hf_allUsersIncludingCurrentUser filter:0 itemMap:v3];
 
   v10[0] = MEMORY[0x277D85DD0];
@@ -67,7 +67,7 @@ HFUserPhotosLibraryItem *__46__HFUserPhotosLibraryItemProvider_reloadItems__bloc
   if (v6)
   {
     v7 = [HFUserPhotosLibraryItem alloc];
-    v8 = [*(a1 + 32) home];
+    v8 = objc_msgSend_home(*(a1 + 32));
     v9 = [(HFUserPhotosLibraryItem *)v7 initWithUser:v6 inHome:v8];
   }
 
@@ -98,19 +98,17 @@ id __46__HFUserPhotosLibraryItemProvider_reloadItems__block_invoke_2(uint64_t a1
 
 id __46__HFUserPhotosLibraryItemProvider_reloadItems__block_invoke_3(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = HFLogForCategory(0x2CuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v2;
-    _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "Person fetch failed with error %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v2;
+    _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "Person fetch failed with error %@", &v6, 0xCu);
   }
 
   v4 = [MEMORY[0x277D2C900] futureWithNoResult];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

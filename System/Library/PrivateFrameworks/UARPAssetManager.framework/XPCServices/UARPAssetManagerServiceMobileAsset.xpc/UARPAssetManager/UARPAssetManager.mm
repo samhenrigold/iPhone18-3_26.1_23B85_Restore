@@ -7,7 +7,7 @@ int main(int argc, const char **argv, const char **envp)
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "MobileAsset Asset Manager service started", v8, 2u);
   }
 
-  v4 = AUSandboxPlatformInitWithHomeDirectory(v3, 0, "/private/var/db/accessoryupdater/");
+  v4 = AUSandboxPlatformInitWithHomeDirectory(v3, 0);
   if (!v4)
   {
     v5 = objc_opt_new();
@@ -163,30 +163,21 @@ uint64_t sub_100002E5C(uint64_t result, uint64_t a2)
 
 uint64_t sub_100002E74(void *a1)
 {
-  v2 = [*(a1[4] + 24) cacheRecordForSubscription:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 24) cacheRecordForSubscription:a1[5]];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_100002FA4(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 24) copyCache];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 24) copyCache];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_1000030D0(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 24) copyAllSubscriptions];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 24) copyAllSubscriptions];
 
   return _objc_release_x1();
 }
@@ -275,10 +266,11 @@ void sub_10000438C(uint64_t a1, uint64_t a2)
   dispatch_sync(v6, block);
 }
 
-void sub_100004AF0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004AF0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100004B48(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -967,16 +959,16 @@ LABEL_20:
   return v12;
 }
 
-id AssetManagerDirectoryPath()
+id AssetManagerDirectoryPath(uint64_t a1)
 {
   if (qword_10001A6B0 != -1)
   {
     sub_10000BC0C();
   }
 
-  v1 = qword_10001A6A8;
+  v2 = qword_10001A6A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100006030(id a1)
@@ -1343,7 +1335,7 @@ void sub_100007F00(uint64_t a1)
 
           else if (os_log_type_enabled(*(*(a1 + 32) + 8), OS_LOG_TYPE_ERROR))
           {
-            sub_10000BD94((a1 + 48));
+            sub_10000BD94();
           }
 
           goto LABEL_14;
@@ -1368,9 +1360,9 @@ LABEL_14:
   }
 }
 
-void sub_1000081C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000081C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1413,9 +1405,9 @@ void sub_1000081DC(uint64_t a1)
   }
 }
 
-void sub_100008410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100008410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1457,9 +1449,9 @@ void sub_100008428(uint64_t a1)
   }
 }
 
-void sub_100008674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100008674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1787,16 +1779,18 @@ LABEL_53:
   }
 }
 
-void sub_1000094F0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000094F0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_100009510(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100009510(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t sub_10000954C()
@@ -1805,53 +1799,55 @@ uint64_t sub_10000954C()
   return objc_opt_class();
 }
 
-uint64_t AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(void *a1)
+uint64_t AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(void *a1, const char *a2)
 {
-  v1 = a1;
-  if (!v1)
+  v2 = a1;
+  if (!v2)
   {
-    v1 = &_os_log_default;
     v2 = &_os_log_default;
+    v3 = &_os_log_default;
   }
 
-  v3 = v1;
-  bzero(v7, 0x400uLL);
-  v4 = v3;
+  v4 = v2;
+  bzero(v8, 0x400uLL);
+  v5 = v4;
   if (_set_user_dir_suffix())
   {
-    if (confstr(65537, v7, 0x400uLL))
+    if (confstr(65537, v8, 0x400uLL))
     {
-      v5 = 0;
+      v6 = 0;
       goto LABEL_11;
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10000C274();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_10000C1F4();
   }
 
-  v5 = 1;
+  v6 = 1;
 LABEL_11:
 
-  return v5;
+  return v6;
 }
 
-void sub_100009C14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100009C14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
-void sub_10000B678(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000B678(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_INFO, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_INFO, a4, va, 0xCu);
 }
 
 void sub_10000B700(void *a1, void *a2)
@@ -1907,11 +1903,43 @@ void sub_10000BB70(uint64_t a1, uint64_t a2)
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: Invalid firmware file %@ error: %@", &v2, 0x20u);
 }
 
-void sub_10000BD94(uint64_t *a1)
+void sub_10000BC20()
 {
-  v1 = *a1;
+  LODWORD(v6) = 136315394;
+  *(&v6 + 4) = "[UARPAssetManagerServiceAssetCache init]";
+  sub_10000952C();
+  sub_100009510(&_mh_execute_header, v0, v1, "%s: Invalid Asset Cache Registry at file: %@", v2, v3, v4, v5, v6, DWORD2(v6));
+}
+
+void sub_10000BC9C()
+{
+  LODWORD(v6) = 136315394;
+  *(&v6 + 4) = "[UARPAssetManagerServiceAssetCache init]";
+  sub_10000952C();
+  sub_100009510(&_mh_execute_header, v0, v1, "%s: Invalid Asset Cache Registry from file: %@", v2, v3, v4, v5, v6, DWORD2(v6));
+}
+
+void sub_10000BD18()
+{
+  LODWORD(v6) = 136315394;
+  *(&v6 + 4) = "[UARPAssetManagerServiceAssetCache init]";
+  sub_10000952C();
+  sub_100009510(&_mh_execute_header, v0, v1, "%s: No readable Asset Cache Registry, creating registry for path: %{public}@", v2, v3, v4, v5, v6, DWORD2(v6));
+}
+
+void sub_10000BD94()
+{
+  v6 = 136315394;
   sub_100009538();
-  sub_100009510(&_mh_execute_header, v2, v3, "%s: Could not create cache record for asset: %{public}@", v4, v5, v6, v7, 2u);
+  sub_100009510(&_mh_execute_header, v0, v1, "%s: Could not create cache record for asset: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_10000BE0C()
+{
+  LODWORD(v6) = 136315394;
+  *(&v6 + 4) = "[UARPAssetManagerServiceAssetCache save]";
+  sub_10000952C();
+  sub_100009510(&_mh_execute_header, v0, v1, "%s: Could not create cache directory path with error: %{public}@", v2, v3, v4, v5, v6, DWORD2(v6));
 }
 
 void sub_10000BE88(os_log_t log)
@@ -1921,11 +1949,11 @@ void sub_10000BE88(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%s: Failed to save asset cache registry to file", &v1, 0xCu);
 }
 
-void sub_10000BF0C(uint64_t *a1)
+void sub_10000BF0C()
 {
-  v1 = *a1;
+  v6 = 136315394;
   sub_100009538();
-  sub_100009510(&_mh_execute_header, v2, v3, "%s: Failed to archive asset cache registry: %{public}@", v4, v5, v6, v7, 2u);
+  sub_100009510(&_mh_execute_header, v0, v1, "%s: Failed to archive asset cache registry: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_10000BF84(void *a1)
@@ -1934,7 +1962,7 @@ void sub_10000BF84(void *a1)
   v3 = sub_10000954C();
   v4 = NSStringFromClass(v3);
   sub_1000094DC();
-  sub_1000094F0(&_mh_execute_header, v5, v6, "%@ does not provide %s", v7, v8, v9, v10, v11);
+  sub_1000094F0(&_mh_execute_header, v5, v6, "%@ does not provide %s", v7, v8, v9, v10);
 }
 
 void sub_10000C020(void *a1)
@@ -1943,7 +1971,7 @@ void sub_10000C020(void *a1)
   v3 = sub_10000954C();
   v4 = NSStringFromClass(v3);
   sub_1000094DC();
-  sub_1000094F0(&_mh_execute_header, v5, v6, "%@ does not provide %s", v7, v8, v9, v10, v11);
+  sub_1000094F0(&_mh_execute_header, v5, v6, "%@ does not provide %s", v7, v8, v9, v10);
 }
 
 void sub_10000C0BC(void *a1)
@@ -1952,7 +1980,7 @@ void sub_10000C0BC(void *a1)
   v3 = sub_10000954C();
   v4 = NSStringFromClass(v3);
   sub_1000094DC();
-  sub_1000094F0(&_mh_execute_header, v5, v6, "%@ does not provide %s", v7, v8, v9, v10, v11);
+  sub_1000094F0(&_mh_execute_header, v5, v6, "%@ does not provide %s", v7, v8, v9, v10);
 }
 
 void sub_10000C158(void *a1)
@@ -1961,7 +1989,21 @@ void sub_10000C158(void *a1)
   v3 = sub_10000954C();
   v4 = NSStringFromClass(v3);
   sub_1000094DC();
-  sub_1000094F0(&_mh_execute_header, v5, v6, "%@ does not provide %s", v7, v8, v9, v10, v11);
+  sub_1000094F0(&_mh_execute_header, v5, v6, "%@ does not provide %s", v7, v8, v9, v10);
+}
+
+void sub_10000C1F4()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100009C14(&_mh_execute_header, v0, v1, "failed to set temporary directory suffix: %d", v2, v3, v4, v5, v6);
+}
+
+void sub_10000C274()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100009C14(&_mh_execute_header, v0, v1, "failed to initialize temporary directory: %d", v2, v3, v4, v5, v6);
 }
 
 void sub_10000C448(uint64_t a1, NSObject *a2)

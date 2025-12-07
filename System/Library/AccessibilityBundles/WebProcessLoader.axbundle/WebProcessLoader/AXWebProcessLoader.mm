@@ -17,22 +17,23 @@
 
 void __33__AXWebProcessLoader__axUpdated___block_invoke()
 {
-  v4 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
   v0 = _AXSApplicationAccessibilityEnabled();
   v1 = AXLogCommon();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    v3[0] = 67109120;
-    v3[1] = v0 != 0;
-    _os_log_impl(&dword_29C7BB000, v1, OS_LOG_TYPE_INFO, "WebProcess loader updated: checking whether to load: %d", v3, 8u);
+    v2[0] = 67109120;
+    v2[1] = v0 != 0;
+    _os_log_impl(&dword_29C7BB000, v1, OS_LOG_TYPE_INFO, "WebProcess loader updated: checking whether to load: %d", v2, 8u);
   }
 
-  if (v0 && MACancelDownloadErrorDomain_block_invoke_onceToken != -1)
+  if (v0)
   {
-    __33__AXWebProcessLoader__axUpdated___block_invoke_cold_1();
+    if (MACancelDownloadErrorDomain_block_invoke_onceToken != -1)
+    {
+      __33__AXWebProcessLoader__axUpdated___block_invoke_cold_1();
+    }
   }
-
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 void __33__AXWebProcessLoader__axUpdated___block_invoke_281()
@@ -90,14 +91,14 @@ void __33__AXWebProcessLoader__axUpdated___block_invoke_281()
 
 uint64_t __32__AXWebProcessLoader_initialize__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = _AXSApplicationAccessibilityEnabled();
   v3 = AXLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v6[0] = 67109120;
-    v6[1] = v2 != 0;
-    _os_log_impl(&dword_29C7BB000, v3, OS_LOG_TYPE_INFO, "WebProcess loader checking whether to load: %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v2 != 0;
+    _os_log_impl(&dword_29C7BB000, v3, OS_LOG_TYPE_INFO, "WebProcess loader checking whether to load: %d", v5, 8u);
   }
 
   if (v2)
@@ -106,9 +107,7 @@ uint64_t __32__AXWebProcessLoader_initialize__block_invoke(uint64_t a1)
   }
 
   [*(a1 + 32) _axUpdated:0];
-  result = [*(a1 + 32) _registerForAccessibility];
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  return [*(a1 + 32) _registerForAccessibility];
 }
 
 + (void)_accessibilityLoadWebCoreAXBundle
@@ -121,7 +120,7 @@ uint64_t __32__AXWebProcessLoader_initialize__block_invoke(uint64_t a1)
 
 void __55__AXWebProcessLoader__accessibilityLoadWebCoreAXBundle__block_invoke()
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   if (_CFMZEnabled())
   {
     AXAccessibilityMacCatalystBundlesDirectory();
@@ -140,13 +139,13 @@ void __55__AXWebProcessLoader__accessibilityLoadWebCoreAXBundle__block_invoke()
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_29C7BB000, v4, OS_LOG_TYPE_INFO, "Loading WebCore bundle: %@", buf, 0xCu);
   }
 
-  v10 = 0;
-  v5 = [v3 loadAndReturnError:&v10];
-  v6 = v10;
+  v9 = 0;
+  v5 = [v3 loadAndReturnError:&v9];
+  v6 = v9;
   if (v5)
   {
     v7 = [objc_msgSend(v3 "principalClass")];
@@ -160,16 +159,6 @@ void __55__AXWebProcessLoader__accessibilityLoadWebCoreAXBundle__block_invoke()
       __33__AXWebProcessLoader__axUpdated___block_invoke_281_cold_1();
     }
   }
-
-  v9 = *MEMORY[0x29EDCA608];
-}
-
-void __33__AXWebProcessLoader__axUpdated___block_invoke_281_cold_1()
-{
-  v3 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_29C7BB000, v0, v1, "Error loading bundle: %@ %@");
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 @end

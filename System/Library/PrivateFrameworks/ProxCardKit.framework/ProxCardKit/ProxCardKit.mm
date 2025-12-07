@@ -23,16 +23,16 @@ void sub_260F72438(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-BOOL _PRXDefaultCardWidthForDevice()
+BOOL _PRXDefaultCardWidthForDevice(uint64_t a1)
 {
   result = PRXIsPad();
-  if (!result)
+  if ((result & 1) == 0)
   {
-    v1 = [MEMORY[0x277D759A0] mainScreen];
-    [v1 nativeBounds];
-
     v2 = [MEMORY[0x277D759A0] mainScreen];
-    [v2 nativeScale];
+    [v2 nativeBounds];
+
+    v3 = [MEMORY[0x277D759A0] mainScreen];
+    [v3 nativeScale];
 
     PRXIsPad();
     return PRXIsPad();
@@ -41,8 +41,9 @@ BOOL _PRXDefaultCardWidthForDevice()
   return result;
 }
 
-double PRXCardPreferredSize(uint64_t a1, unint64_t a2)
+double PRXCardPreferredSize(_BOOL8 a1, unint64_t a2)
 {
+  v2 = a1;
   if (a2 > 1)
   {
     v4 = *MEMORY[0x277CBF3A8];
@@ -50,19 +51,19 @@ double PRXCardPreferredSize(uint64_t a1, unint64_t a2)
 
   else
   {
-    _PRXDefaultCardWidthForDevice();
+    a1 = _PRXDefaultCardWidthForDevice(a1);
     v4 = v3;
   }
 
-  if (a1 == 1)
+  if (v2)
   {
-    _PRXDefaultCardWidthForDevice();
+    _PRXDefaultCardWidthForDevice(a1);
   }
 
   return v4;
 }
 
-uint64_t PRXCardPreferredSizeClassForContainerBounds(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4)
+BOOL PRXCardPreferredSizeClassForContainerBounds(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4)
 {
   Width = CGRectGetWidth(*&a1);
   v12.origin.x = a1;
@@ -88,7 +89,7 @@ double PRXPreferredPickerRowHeight()
   return v2;
 }
 
-BOOL PRXExpectedCardWidthForStyle(uint64_t a1)
+BOOL PRXExpectedCardWidthForStyle(_BOOL8 a1)
 {
   v2 = [MEMORY[0x277D759A0] mainScreen];
   [v2 bounds];
@@ -116,11 +117,11 @@ BOOL PRXExpectedCardWidthForStyle(uint64_t a1)
   return PRXIsPad();
 }
 
-double PRXCardContainerDefaultLayoutMargins()
+double PRXCardContainerDefaultLayoutMargins(uint64_t a1)
 {
-  v0 = PRXIsPad();
+  v1 = PRXIsPad();
   result = 80.0;
-  if (!v0)
+  if (!v1)
   {
     return 6.0;
   }
@@ -182,9 +183,9 @@ void sub_260F7B82C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_260F7BBAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_260F7BBAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -218,7 +219,7 @@ uint64_t FrontBoardServicesLibrary()
   v1 = v3[0];
   if (!FrontBoardServicesLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -231,7 +232,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __FrontBoardServicesLibraryCore_block_invoke()
+uint64_t __FrontBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   FrontBoardServicesLibraryCore_frameworkLibrary = result;
@@ -272,7 +273,7 @@ Class __getLSApplicationWorkspaceClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -290,7 +291,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __CoreServicesLibraryCore_block_invoke()
+uint64_t __CoreServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreServicesLibraryCore_frameworkLibrary = result;
@@ -311,16 +312,16 @@ void sub_260F7E5F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id PRXDefaultLog()
+id PRXDefaultLog(uint64_t a1)
 {
   if (PRXDefaultLog_onceToken != -1)
   {
     PRXDefaultLog_cold_1();
   }
 
-  v1 = PRXDefaultLog_log;
+  v2 = PRXDefaultLog_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PRXDefaultLog_block_invoke()

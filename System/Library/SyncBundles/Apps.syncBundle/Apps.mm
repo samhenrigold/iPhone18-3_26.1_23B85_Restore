@@ -37,9 +37,9 @@ void sub_597C(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_5C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_5C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -74,13 +74,21 @@ void sub_5CF4(uint64_t a1)
   }
 }
 
-BOOL sub_6A3C(_BOOL8 result)
+void *sub_6A3C(void *result)
 {
   if (result)
   {
     v1 = result;
     objc_opt_class();
-    return (objc_opt_isKindOfClass() & 1) != 0 && [v1 rangeOfString:@"/.."] == 0x7FFFFFFFFFFFFFFFLL;
+    if (objc_opt_isKindOfClass())
+    {
+      return ([v1 rangeOfString:@"/.."] == 0x7FFFFFFFFFFFFFFFLL);
+    }
+
+    else
+    {
+      return 0;
+    }
   }
 
   return result;
@@ -124,14 +132,14 @@ id sub_6FC0(uint64_t a1)
   return [v2 removeAllObjects];
 }
 
-void sub_7638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_7638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -216,14 +224,14 @@ void *sub_8C54(void *result)
   return result;
 }
 
-void sub_8FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_8FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -363,9 +371,9 @@ void sub_9660(uint64_t a1, void *a2)
   objc_autoreleasePoolPop(v4);
 }
 
-void sub_99E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_99E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -521,13 +529,13 @@ void sub_AC0C(uint64_t a1)
   }
 }
 
-void sub_B6A4(uint64_t a1)
+void sub_B6A4(uint64_t a1, uint64_t a2)
 {
-  v2 = _ATLogCategorySyncBundle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _ATLogCategorySyncBundle();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Finished waiting for placeholder installs", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Finished waiting for placeholder installs", v4, 2u);
   }
 
   *(*(a1 + 32) + 96) = 1;
@@ -551,9 +559,9 @@ uint64_t sub_BB68(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_BD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_BD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -577,16 +585,18 @@ uint64_t sub_BDA0(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_BEA4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_BEA4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_BEC4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_BEC4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
 BOOL sub_BEE4(NSObject *a1)
@@ -595,67 +605,73 @@ BOOL sub_BEE4(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-void sub_C0DC(_BYTE *a1)
+void sub_C0DC(_BYTE *a1, uint64_t a2)
 {
-  v2 = _ATLogCategorySyncBundle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _ATLogCategorySyncBundle();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    sub_BEC4(&dword_0, v3, v4, "can't create work area", v5, v6, v7, v8, 0);
+    v10 = 0;
+    sub_BEC4(&dword_0, v4, v5, "can't create work area", v6, v7, v8, v9, v10);
   }
 
   *a1 = 0;
 }
 
-void sub_C134(_BYTE *a1)
+void sub_C134(_BYTE *a1, uint64_t a2)
 {
-  v2 = _ATLogCategorySyncBundle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _ATLogCategorySyncBundle();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    sub_BEC4(&dword_0, v3, v4, "Nothing to do", v5, v6, v7, v8, 0);
+    v10 = 0;
+    sub_BEC4(&dword_0, v4, v5, "Nothing to do", v6, v7, v8, v9, v10);
   }
 
   *a1 = 1;
 }
 
-void sub_C190(_BYTE *a1)
+void sub_C190(_BYTE *a1, uint64_t a2)
 {
-  v2 = _ATLogCategorySyncBundle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _ATLogCategorySyncBundle();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    sub_BEC4(&dword_0, v3, v4, "Can't move staging area", v5, v6, v7, v8, 0);
+    v10 = 0;
+    sub_BEC4(&dword_0, v4, v5, "Can't move staging area", v6, v7, v8, v9, v10);
   }
 
   *a1 = 0;
 }
 
-void sub_C1E8(const void *a1)
+void sub_C1E8(const void *a1, uint64_t a2)
 {
-  v2 = _ATLogCategorySyncBundle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = _ATLogCategorySyncBundle();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    sub_BEA4(&dword_0, v3, v4, "couldn't create bundle from URL", v5, v6, v7, v8, 0);
+    v10 = 0;
+    sub_BEA4(&dword_0, v4, v5, "couldn't create bundle from URL", v6, v7, v8, v9, v10);
   }
 
   CFRelease(a1);
 }
 
-void sub_C244(_BYTE *a1)
+void sub_C244(_BYTE *a1, uint64_t a2)
 {
-  v2 = _ATLogCategorySyncBundle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = _ATLogCategorySyncBundle();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    sub_BEA4(&dword_0, v3, v4, "couldn't create URL", v5, v6, v7, v8, 0);
+    v10 = 0;
+    sub_BEA4(&dword_0, v4, v5, "couldn't create URL", v6, v7, v8, v9, v10);
   }
 
   *a1 = 0;
 }
 
-void sub_C29C(_BYTE *a1)
+void sub_C29C(_BYTE *a1, uint64_t a2)
 {
-  v2 = _ATLogCategorySyncBundle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = _ATLogCategorySyncBundle();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    sub_BEA4(&dword_0, v3, v4, "missing bundlePath", v5, v6, v7, v8, 0);
+    v10 = 0;
+    sub_BEA4(&dword_0, v4, v5, "missing bundlePath", v6, v7, v8, v9, v10);
   }
 
   *a1 = 0;

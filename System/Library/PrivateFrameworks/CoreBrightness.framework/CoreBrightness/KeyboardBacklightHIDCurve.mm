@@ -21,6 +21,7 @@
 - (void)calculateLevelPercentageAtAmbient:(float)ambient;
 - (void)dealloc;
 - (void)getKeyboardBacklightPreferences;
+- (void)handleLuxUpdate:(float)update;
 - (void)reconfigureSettingsForColor:(int)color;
 - (void)setBacklightLevel:(float)level;
 - (void)setBrightness:(float)brightness;
@@ -89,7 +90,7 @@
     [(KeyboardBacklight *)selfCopy setHysteresisOn:1];
     if ([(KeyboardBacklight *)selfCopy levelUnit]== 16777441)
     {
-      luxToNitsCurve = 0;
+      luxToNitsCurve[0] = 0;
       defaultLuxToNitsCurve = 0;
       dword_1ECDDDB70 = 1116471296;
       dword_1ECDDDB90 = 1116471296;
@@ -133,7 +134,7 @@
   v6.super_class = KeyboardBacklightHIDCurve;
   v4 = [(KeyboardBacklight *)&v6 description];
   [(KeyboardBacklightHIDCurve *)selfCopy maxCurveNits];
-  return [v5 stringWithFormat:@"%@ maxCurveNits %f luxToNitsCurve [%f, %f], [%f, %f], [%f, %f], [%f, %f]", v4, v2, *&luxToNitsCurve, *&dword_1ECDDDB6C, *&dword_1ECDDDB70, *&dword_1ECDDDB74, *&dword_1ECDDDB78, *&dword_1ECDDDB7C, *&dword_1ECDDDB80, *&dword_1ECDDDB84];
+  return [v5 stringWithFormat:@"%@ maxCurveNits %f luxToNitsCurve [%f, %f], [%f, %f], [%f, %f], [%f, %f]", v4, v2, *luxToNitsCurve, *&dword_1ECDDDB6C, *&dword_1ECDDDB70, *&dword_1ECDDDB74, *&dword_1ECDDDB78, *&dword_1ECDDDB7C, *&dword_1ECDDDB80, *&dword_1ECDDDB84];
 }
 
 - (id)copyPropertyForKey:(id)key
@@ -228,7 +229,6 @@
     [(KeyboardBacklightHIDCurve *)self handleLuxUpdate:?];
   }
 
-  *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -268,7 +268,6 @@
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -390,8 +389,6 @@
       _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Hysteresis = %f Default curve = %@", v25, 0x16u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateBrightnessCurve:(id)curve
@@ -414,7 +411,7 @@
     if (v41)
     {
       [v41 floatValue];
-      luxToNitsCurve = v7;
+      luxToNitsCurve[0] = v7;
     }
 
     v40 = [curveCopy objectForKey:@"KeyboardCurveX2"];
@@ -508,7 +505,7 @@
       _os_log_error_impl(&dword_1DE8E5000, log, v24, "Keyboard brightness curve is corrupted -> use default curve.", v29, 2u);
     }
 
-    luxToNitsCurve = defaultLuxToNitsCurve;
+    luxToNitsCurve[0] = defaultLuxToNitsCurve;
     dword_1ECDDDB70 = dword_1ECDDDB90;
     dword_1ECDDDB78 = dword_1ECDDDB98;
     dword_1ECDDDB80 = dword_1ECDDDBA0;
@@ -540,7 +537,7 @@
 
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    *&v14 = *&luxToNitsCurve;
+    *&v14 = *luxToNitsCurve;
     *&v15 = *&dword_1ECDDDB6C;
     *&v16 = *&dword_1ECDDDB70;
     *&v17 = *&dword_1ECDDDB74;
@@ -552,15 +549,13 @@
     __os_log_helper_16_0_9_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v45, v14, v15, v16, v17, v18, v19, v20, v13, COERCE__INT64(v12));
     _os_log_impl(&dword_1DE8E5000, v22, OS_LOG_TYPE_DEFAULT, "Updated lux to nits curve to [%f, %f], [%f, %f], [%f, %f], [%f, %f] (Hysteresis = %f)", v45, 0x5Cu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isBrightnessCurveValid:(id)valid
 {
   v21 = 1;
   v20 = ((*&dword_1ECDDDB94 - *&dword_1ECDDDB8C) / (*&dword_1ECDDDB90 - *&defaultLuxToNitsCurve)) * 1.5;
-  v19 = *&luxToNitsCurve;
+  v19 = *luxToNitsCurve;
   v18 = *&dword_1ECDDDB70;
   v16 = [valid objectForKey:@"KeyboardCurveX1"];
   if (v16)
@@ -608,66 +603,62 @@
 
 - (NSDictionary)brightnessCurve
 {
-  v13[8] = *MEMORY[0x1E69E9840];
-  v12[0] = @"KeyboardCurveX1";
-  LODWORD(v2) = luxToNitsCurve;
-  v13[0] = [MEMORY[0x1E696AD98] numberWithFloat:v2];
-  v12[1] = @"KeyboardCurveX2";
+  v12[8] = *MEMORY[0x1E69E9840];
+  v11[0] = @"KeyboardCurveX1";
+  LODWORD(v2) = luxToNitsCurve[0];
+  v12[0] = [MEMORY[0x1E696AD98] numberWithFloat:v2];
+  v11[1] = @"KeyboardCurveX2";
   LODWORD(v3) = dword_1ECDDDB70;
-  v13[1] = [MEMORY[0x1E696AD98] numberWithFloat:v3];
-  v12[2] = @"KeyboardCurveX3";
+  v12[1] = [MEMORY[0x1E696AD98] numberWithFloat:v3];
+  v11[2] = @"KeyboardCurveX3";
   LODWORD(v4) = dword_1ECDDDB78;
-  v13[2] = [MEMORY[0x1E696AD98] numberWithFloat:v4];
-  v12[3] = @"KeyboardCurveX4";
+  v12[2] = [MEMORY[0x1E696AD98] numberWithFloat:v4];
+  v11[3] = @"KeyboardCurveX4";
   LODWORD(v5) = dword_1ECDDDB80;
-  v13[3] = [MEMORY[0x1E696AD98] numberWithFloat:v5];
-  v12[4] = @"KeyboardCurveY1";
+  v12[3] = [MEMORY[0x1E696AD98] numberWithFloat:v5];
+  v11[4] = @"KeyboardCurveY1";
   LODWORD(v6) = dword_1ECDDDB6C;
-  v13[4] = [MEMORY[0x1E696AD98] numberWithFloat:v6];
-  v12[5] = @"KeyboardCurveY2";
+  v12[4] = [MEMORY[0x1E696AD98] numberWithFloat:v6];
+  v11[5] = @"KeyboardCurveY2";
   LODWORD(v7) = dword_1ECDDDB74;
-  v13[5] = [MEMORY[0x1E696AD98] numberWithFloat:v7];
-  v12[6] = @"KeyboardCurveY3";
+  v12[5] = [MEMORY[0x1E696AD98] numberWithFloat:v7];
+  v11[6] = @"KeyboardCurveY3";
   LODWORD(v8) = dword_1ECDDDB7C;
-  v13[6] = [MEMORY[0x1E696AD98] numberWithFloat:v8];
-  v12[7] = @"KeyboardCurveY4";
+  v12[6] = [MEMORY[0x1E696AD98] numberWithFloat:v8];
+  v11[7] = @"KeyboardCurveY4";
   LODWORD(v9) = dword_1ECDDDB84;
-  v13[7] = [MEMORY[0x1E696AD98] numberWithFloat:v9];
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:8];
-  *MEMORY[0x1E69E9840];
-  return v11;
+  v12[7] = [MEMORY[0x1E696AD98] numberWithFloat:v9];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:8];
 }
 
 - (id)defaultBrightnessCurve
 {
-  v13[8] = *MEMORY[0x1E69E9840];
-  v12[0] = @"KeyboardCurveX1";
+  v12[8] = *MEMORY[0x1E69E9840];
+  v11[0] = @"KeyboardCurveX1";
   LODWORD(v2) = defaultLuxToNitsCurve;
-  v13[0] = [MEMORY[0x1E696AD98] numberWithFloat:v2];
-  v12[1] = @"KeyboardCurveX2";
+  v12[0] = [MEMORY[0x1E696AD98] numberWithFloat:v2];
+  v11[1] = @"KeyboardCurveX2";
   LODWORD(v3) = dword_1ECDDDB90;
-  v13[1] = [MEMORY[0x1E696AD98] numberWithFloat:v3];
-  v12[2] = @"KeyboardCurveX3";
+  v12[1] = [MEMORY[0x1E696AD98] numberWithFloat:v3];
+  v11[2] = @"KeyboardCurveX3";
   LODWORD(v4) = dword_1ECDDDB98;
-  v13[2] = [MEMORY[0x1E696AD98] numberWithFloat:v4];
-  v12[3] = @"KeyboardCurveX4";
+  v12[2] = [MEMORY[0x1E696AD98] numberWithFloat:v4];
+  v11[3] = @"KeyboardCurveX4";
   LODWORD(v5) = dword_1ECDDDBA0;
-  v13[3] = [MEMORY[0x1E696AD98] numberWithFloat:v5];
-  v12[4] = @"KeyboardCurveY1";
+  v12[3] = [MEMORY[0x1E696AD98] numberWithFloat:v5];
+  v11[4] = @"KeyboardCurveY1";
   LODWORD(v6) = dword_1ECDDDB8C;
-  v13[4] = [MEMORY[0x1E696AD98] numberWithFloat:v6];
-  v12[5] = @"KeyboardCurveY2";
+  v12[4] = [MEMORY[0x1E696AD98] numberWithFloat:v6];
+  v11[5] = @"KeyboardCurveY2";
   LODWORD(v7) = dword_1ECDDDB94;
-  v13[5] = [MEMORY[0x1E696AD98] numberWithFloat:v7];
-  v12[6] = @"KeyboardCurveY3";
+  v12[5] = [MEMORY[0x1E696AD98] numberWithFloat:v7];
+  v11[6] = @"KeyboardCurveY3";
   LODWORD(v8) = dword_1ECDDDB9C;
-  v13[6] = [MEMORY[0x1E696AD98] numberWithFloat:v8];
-  v12[7] = @"KeyboardCurveY4";
+  v12[6] = [MEMORY[0x1E696AD98] numberWithFloat:v8];
+  v11[7] = @"KeyboardCurveY4";
   LODWORD(v9) = dword_1ECDDDBA4;
-  v13[7] = [MEMORY[0x1E696AD98] numberWithFloat:v9];
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:8];
-  *MEMORY[0x1E69E9840];
-  return v11;
+  v12[7] = [MEMORY[0x1E696AD98] numberWithFloat:v9];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:8];
 }
 
 - (float)maxCurveNits
@@ -886,7 +877,6 @@
   v19.receiver = selfCopy;
   v19.super_class = KeyboardBacklightHIDCurve;
   [(KeyboardBacklight *)&v19 getKeyboardBacklightPreferences];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)storeKeyboardBacklightPreferences
@@ -940,8 +930,6 @@
     __os_log_helper_16_2_1_8_66(v12, [(KeyboardBacklight *)self keyboardSpecificPreferences]);
     _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Brightness curve stored to preferences: %{public}@", v12, 0xCu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateLuxToNitsCurve
@@ -963,7 +951,7 @@
   }
 
   [(KeyboardBacklight *)selfCopy currentLux];
-  if (v2 < *&luxToNitsCurve || ([(KeyboardBacklight *)selfCopy currentLux], v3 > *&dword_1ECDDDB80))
+  if (v2 < *luxToNitsCurve || ([(KeyboardBacklight *)selfCopy currentLux], v3 > *&dword_1ECDDDB80))
   {
     v38 = (_COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log());
     v52 = v38;
@@ -1297,8 +1285,6 @@
       _os_log_impl(&dword_1DE8E5000, v10, OS_LOG_TYPE_DEFAULT, "Manual keyboard brightness adjustment not allowed (Lux=%f)", v21, 0xCu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setBrightness:(float)brightness withFadeSpeed:(int)speed commit:(BOOL)commit
@@ -1456,8 +1442,6 @@
       _os_log_impl(&dword_1DE8E5000, v10, v11, "Manual keyboard brightness adjustment not allowed", v22, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setBacklightLevel:(float)level
@@ -1512,7 +1496,6 @@
   }
 
   [(KeyboardBacklightHIDCurve *)self setBrightness:COERCE_DOUBLE(LODWORD(v5))];
-  *MEMORY[0x1E69E9840];
 }
 
 - (float)currentLuxToNits
@@ -1815,6 +1798,162 @@
   return result;
 }
 
+- (void)handleLuxUpdate:(float)update
+{
+  v47 = *MEMORY[0x1E69E9840];
+  selfCopy = self;
+  v43 = a2;
+  updateCopy = update;
+  if (update < 0.0)
+  {
+    v34 = (_COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log());
+    v41 = v34;
+    v40 = 16;
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    {
+      log = v41;
+      type = v40;
+      __os_log_helper_16_0_0(v39);
+      _os_log_error_impl(&dword_1DE8E5000, log, type, "ASSERTION FAILED: lux >= 0.0F", v39, 2u);
+    }
+  }
+
+  *&v3 = updateCopy;
+  [(KeyboardBacklight *)selfCopy setCurrentLux:v3];
+  if ([(KeyboardBacklight *)selfCopy hysteresisOn])
+  {
+    v31 = updateCopy;
+    v30 = *&dword_1ECDDDB80;
+    [(KeyboardBacklightHIDCurve *)selfCopy luxHysteresis];
+    v5 = v4;
+    *&v6 = v31;
+    [(KeyboardBacklight *)selfCopy setHysteresisOn:v31 < (v30 + v5), v6];
+  }
+
+  if (![(KeyboardBacklight *)selfCopy suspend])
+  {
+    *&v7 = updateCopy;
+    [(KeyboardBacklight *)selfCopy setManualAdjust:updateCopy <= *&dword_1ECDDDB80, v7];
+    v38 = 1;
+    if (selfCopy->_color == 70 && ![(KeyboardBacklight *)selfCopy hysteresisOn]&& [(KeyboardBacklight *)selfCopy saturated])
+    {
+      *&v8 = updateCopy;
+      if (updateCopy >= *&dword_1ECDDDB80)
+      {
+        v38 = 0;
+      }
+
+      else
+      {
+        [(KeyboardBacklight *)selfCopy setSaturated:0, v8];
+        [(KeyboardBacklight *)selfCopy setHysteresisOn:1];
+      }
+    }
+
+    else if ([(KeyboardBacklight *)selfCopy saturated]&& (v29 = updateCopy, v28 = *&dword_1ECDDDB80, [(KeyboardBacklightHIDCurve *)selfCopy luxHysteresis], v10 = *&v9, *&v9 = v29, v29 < (v28 - v10)))
+    {
+      [(KeyboardBacklight *)selfCopy setSaturated:0, v9];
+    }
+
+    else if ([(KeyboardBacklight *)selfCopy saturated]|| (*&v11 = updateCopy, updateCopy <= *&dword_1ECDDDB80))
+    {
+      if ([(KeyboardBacklight *)selfCopy suppressed]|| [(KeyboardBacklight *)selfCopy saturated])
+      {
+        v38 = 0;
+      }
+    }
+
+    else
+    {
+      [(KeyboardBacklight *)selfCopy setSaturated:1, v11];
+    }
+
+    [(KeyboardBacklight *)selfCopy levelPercentage];
+    if (v12 > 0.0 && [(KeyboardBacklight *)selfCopy autoAdjust]&& ![(KeyboardBacklight *)selfCopy suspend]&& (v38 & 1) != 0)
+    {
+      v25 = selfCopy;
+      [(KeyboardBacklight *)selfCopy previousLevel];
+      [(KeyboardBacklightHIDCurve *)v25 perceptualBrightnessForLevel:?];
+      v37 = v13;
+      [(KeyboardBacklight *)selfCopy levelPercentage];
+      v36 = v14;
+      v26 = selfCopy;
+      [(KeyboardBacklightHIDCurve *)selfCopy currentLuxToAmbient];
+      [(KeyboardBacklightHIDCurve *)v26 calculateLevelPercentageAtAmbient:?];
+      v27 = selfCopy;
+      [(KeyboardBacklightHIDCurve *)selfCopy level];
+      [(KeyboardBacklightHIDCurve *)v27 perceptualBrightnessForLevel:?];
+      v35 = v15;
+      if (selfCopy->super.super._logHandle)
+      {
+        logHandle = selfCopy->super.super._logHandle;
+      }
+
+      else
+      {
+        if (_COREBRIGHTNESS_LOG_DEFAULT)
+        {
+          inited = _COREBRIGHTNESS_LOG_DEFAULT;
+        }
+
+        else
+        {
+          inited = init_default_corebrightness_log();
+        }
+
+        logHandle = inited;
+      }
+
+      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+      {
+        *&v21 = updateCopy;
+        [(KeyboardBacklight *)selfCopy previousLevel];
+        *&v22 = v16;
+        [(KeyboardBacklightHIDCurve *)selfCopy level];
+        __os_log_helper_16_0_6_8_0_8_0_8_0_8_0_8_0_8_0(v46, v21, COERCE__INT64(v37), COERCE__INT64(v35), COERCE__INT64(fabs((v35 - v37))), v22, COERCE__INT64(v17));
+        _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Lux = %f, prevPerceptualLevel = %f, currentPerceptualLevel = %f, diff = %f, prevLevel = %f, level = %f", v46, 0x3Eu);
+      }
+
+      if (fabs((v35 - v37)) >= 0.00999999978 || [(KeyboardBacklight *)selfCopy saturated])
+      {
+        [(KeyboardBacklight *)selfCopy updateBacklightDeviceWithReason:3];
+      }
+
+      else
+      {
+        LODWORD(v18) = v36;
+        [(KeyboardBacklight *)selfCopy setLevelPercentage:v18];
+      }
+    }
+
+    if (selfCopy->super.super._logHandle)
+    {
+      v20 = selfCopy->super.super._logHandle;
+    }
+
+    else
+    {
+      if (_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        v19 = _COREBRIGHTNESS_LOG_DEFAULT;
+      }
+
+      else
+      {
+        v19 = init_default_corebrightness_log();
+      }
+
+      v20 = v19;
+    }
+
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    {
+      __os_log_helper_16_2_1_8_64(v45, selfCopy);
+      _os_log_debug_impl(&dword_1DE8E5000, v20, OS_LOG_TYPE_DEBUG, "%@", v45, 0xCu);
+    }
+  }
+}
+
 - (void)calculateLevelPercentageAtAmbient:(float)ambient
 {
   selfCopy = self;
@@ -1952,8 +2091,6 @@
     self->_color = color;
     [(KeyboardBacklightHIDCurve *)self reconfigureSettingsForColor:color];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)reconfigureSettingsForColor:(int)color
@@ -2054,8 +2191,6 @@
 
     MEMORY[0x1E69E5920](v11);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateDefaultCurveForColor:(int)color
@@ -2202,8 +2337,6 @@
 
       break;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 @end

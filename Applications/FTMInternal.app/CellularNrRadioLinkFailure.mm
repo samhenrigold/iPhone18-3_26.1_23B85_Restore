@@ -1,8 +1,12 @@
 @interface CellularNrRadioLinkFailure
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)deploymentAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)expiryTimerDurationAsString:(int)string;
+- (id)mobilityStateAsString:(int)string;
+- (id)reasonAsString:(int)string;
 - (int)StringAsDeployment:(id)deployment;
 - (int)StringAsExpiryTimerDuration:(id)duration;
 - (int)StringAsMobilityState:(id)state;
@@ -54,6 +58,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFF7F | v3;
+}
+
+- (id)reasonAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003183B0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsReason:(id)reason
@@ -138,6 +157,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFB | v3;
+}
+
+- (id)expiryTimerDurationAsString:(int)string
+{
+  if (string >= 0x15)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003183F8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsExpiryTimerDuration:(id)duration
@@ -344,6 +378,21 @@
   *&self->_has = *&self->_has & 0xFFEF | v3;
 }
 
+- (id)mobilityStateAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003184A0 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsMobilityState:(id)state
 {
   stateCopy = state;
@@ -421,6 +470,29 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFD | v3;
+}
+
+- (id)deploymentAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"DEPLOYMENT_NSA";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"DEPLOYMENT_SA";
+  }
+
+  return v4;
 }
 
 - (int)StringAsDeployment:(id)deployment
@@ -656,7 +728,6 @@ LABEL_39:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x80) == 0)
@@ -676,7 +747,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  reason = self->_reason;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -691,7 +761,6 @@ LABEL_4:
   }
 
 LABEL_20:
-  expiryTimerDuration = self->_expiryTimerDuration;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -706,7 +775,6 @@ LABEL_5:
   }
 
 LABEL_21:
-  rlmInSyncOutOfSyncThreshold = self->_rlmInSyncOutOfSyncThreshold;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -721,7 +789,6 @@ LABEL_6:
   }
 
 LABEL_22:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -736,12 +803,10 @@ LABEL_7:
   }
 
 LABEL_23:
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_8:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -751,16 +816,15 @@ LABEL_9:
     PBDataWriterWriteDataField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x10) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x10) != 0)
   {
-    mobilityState = self->_mobilityState;
     PBDataWriterWriteInt32Field();
-    v6 = self->_has;
-    if ((v6 & 8) == 0)
+    v5 = self->_has;
+    if ((v5 & 8) == 0)
     {
 LABEL_13:
-      if ((v6 & 2) == 0)
+      if ((v5 & 2) == 0)
       {
         goto LABEL_15;
       }
@@ -769,17 +833,15 @@ LABEL_13:
     }
   }
 
-  else if ((v6 & 8) == 0)
+  else if ((v5 & 8) == 0)
   {
     goto LABEL_13;
   }
 
-  lastRsrp = self->_lastRsrp;
   PBDataWriterWriteSint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_14:
-    deployment = self->_deployment;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1119,7 +1181,6 @@ LABEL_12:
       goto LABEL_58;
     }
 
-    v7 = *(equalCopy + 60);
     if (self->_rlmInSyncOutOfSyncThreshold)
     {
       if ((*(equalCopy + 60) & 1) == 0)
@@ -1188,56 +1249,56 @@ LABEL_12:
     }
 
 LABEL_58:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_59;
   }
 
 LABEL_43:
-  v9 = *(equalCopy + 32);
+  v8 = *(equalCopy + 32);
   if ((has & 0x10) != 0)
   {
-    if ((v9 & 0x10) == 0 || self->_mobilityState != *(equalCopy + 7))
+    if ((v8 & 0x10) == 0 || self->_mobilityState != *(equalCopy + 7))
     {
       goto LABEL_58;
     }
   }
 
-  else if ((v9 & 0x10) != 0)
+  else if ((v8 & 0x10) != 0)
   {
     goto LABEL_58;
   }
 
   if ((has & 8) != 0)
   {
-    if ((v9 & 8) == 0 || self->_lastRsrp != *(equalCopy + 6))
+    if ((v8 & 8) == 0 || self->_lastRsrp != *(equalCopy + 6))
     {
       goto LABEL_58;
     }
   }
 
-  else if ((v9 & 8) != 0)
+  else if ((v8 & 8) != 0)
   {
     goto LABEL_58;
   }
 
   if ((has & 2) != 0)
   {
-    if ((v9 & 2) == 0 || self->_deployment != *(equalCopy + 4))
+    if ((v8 & 2) == 0 || self->_deployment != *(equalCopy + 4))
     {
       goto LABEL_58;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v10 = (v9 & 2) == 0;
+    v9 = (v8 & 2) == 0;
   }
 
 LABEL_59:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

@@ -820,7 +820,7 @@ LABEL_8:
     v10 = self->_layout;
     if (v10)
     {
-      [(_UINavigationBarContentViewLayout *)v10 currentButtonBarLayoutInfo];
+      objc_msgSend_currentButtonBarLayoutInfo(v10);
       if ((v15[58] & 1) == 0)
       {
 LABEL_18:
@@ -833,7 +833,7 @@ LABEL_19:
       v12 = self->_layout;
       if (v12)
       {
-        [(_UINavigationBarContentViewLayout *)v12 currentButtonBarLayoutInfo];
+        objc_msgSend_currentButtonBarLayoutInfo(v12);
         v11 = 0.0;
         if (v14[57])
         {
@@ -1733,11 +1733,10 @@ LABEL_41:
 - (void)setStaticNavBarButtonItem:(id)item
 {
   itemCopy = item;
-  staticNavBarButtonItem = self->_staticNavBarButtonItem;
-  v7 = itemCopy;
+  v6 = itemCopy;
   if (itemCopy)
   {
-    if ([itemCopy isEqual:staticNavBarButtonItem])
+    if (objc_msgSend_isEqual_(itemCopy))
     {
       goto LABEL_4;
     }
@@ -1745,7 +1744,7 @@ LABEL_41:
     goto LABEL_3;
   }
 
-  if (staticNavBarButtonItem)
+  if (self->_staticNavBarButtonItem)
   {
 LABEL_3:
     objc_storeStrong(&self->_staticNavBarButtonItem, item);
@@ -1917,13 +1916,13 @@ LABEL_4:
   layout = self->_layout;
   if (layout)
   {
-    [(_UINavigationBarContentViewLayout *)layout currentButtonBarLayoutInfo];
+    objc_msgSend_currentButtonBarLayoutInfo(layout);
     layout = self->_layout;
     if (BYTE10(v12))
     {
       if (layout)
       {
-        [(_UINavigationBarContentViewLayout *)layout currentButtonBarLayoutInfo];
+        objc_msgSend_currentButtonBarLayoutInfo(layout);
         if (BYTE9(v8))
         {
           return;
@@ -2446,9 +2445,9 @@ LABEL_26:
                   {
                     if (v57)
                     {
-                      v59 = [v56 isEqual:v57];
+                      isEqual = objc_msgSend_isEqual_(v56);
 
-                      if (v59)
+                      if (isEqual)
                       {
                         goto LABEL_73;
                       }

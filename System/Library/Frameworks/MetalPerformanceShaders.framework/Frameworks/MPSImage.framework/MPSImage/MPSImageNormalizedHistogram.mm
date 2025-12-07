@@ -18,13 +18,13 @@
 
 - (MPSImageNormalizedHistogram)initWithDevice:(id)device
 {
-  v11[1] = 1;
-  v12 = 0u;
-  v11[0] = 256;
+  v9[1] = 1;
+  v10 = 0u;
+  v9[0] = 256;
   __asm { FMOV            V0.4S, #1.0 }
 
-  v13 = _Q0;
-  return objc_msgSend_initWithDevice_histogramInfo_(self, a2, device, v11, v3, v4);
+  v11 = _Q0;
+  return objc_msgSend_initWithDevice_histogramInfo_(self, a2, device, v9);
 }
 
 - (MPSImageHistogramInfo)histogramInfo
@@ -39,9 +39,9 @@
 
 - (MPSImageNormalizedHistogram)initWithDevice:(id)device histogramInfo:(const MPSImageHistogramInfo *)histogramInfo
 {
-  v22.receiver = self;
-  v22.super_class = MPSImageNormalizedHistogram;
-  v6 = [(MPSKernel *)&v22 initWithDevice:?];
+  v16.receiver = self;
+  v16.super_class = MPSImageNormalizedHistogram;
+  v6 = [(MPSKernel *)&v16 initWithDevice:?];
   v7 = v6;
   if (!v6)
   {
@@ -63,9 +63,9 @@
       *(v6 + 152) = v9;
       v6[200] = 1;
       v10 = [MPSImageStatisticsMinAndMax alloc];
-      v15 = objc_msgSend_initWithDevice_(v10, v11, device, v12, v13, v14);
-      v7->_minmaxFilter = v15;
-      objc_msgSend_setEdgeMode_(v15, v16, 0, v17, v18, v19);
+      v12 = objc_msgSend_initWithDevice_(v10, v11, device);
+      v7->_minmaxFilter = v12;
+      objc_msgSend_setEdgeMode_(v12, v13, 0);
       return v7;
     }
 
@@ -78,8 +78,8 @@
   else if (MTLReportFailureTypeEnabled())
   {
 LABEL_9:
-    v21 = objc_opt_class();
-    NSStringFromClass(v21);
+    v15 = objc_opt_class();
+    NSStringFromClass(v15);
     MTLReportFailure();
   }
 
@@ -88,51 +88,51 @@ LABEL_9:
 
 - (MPSImageNormalizedHistogram)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v96.receiver = self;
-  v96.super_class = MPSImageNormalizedHistogram;
+  v39.receiver = self;
+  v39.super_class = MPSImageNormalizedHistogram;
   v6 = [MPSKernel initWithCoder:sel_initWithCoder_device_ device:?];
-  v11 = v6;
+  v8 = v6;
   if (v6)
   {
     if (*(&v6->super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 == 0x10000)
     {
-      v6->histogramEntries = objc_msgSend_decodeInt64ForKey_(aDecoder, v7, @"MPSImageNormalizedHistogram.histogramEntries", v8, v9, v10);
-      v11->histogramAlpha = objc_msgSend_decodeBoolForKey_(aDecoder, v12, @"MPSImageNormalizedHistogram.histogramAlpha", v13, v14, v15);
-      objc_msgSend_decodeFloatForKey_(aDecoder, v16, @"MPSImageNormalizedHistogram.minPixelValueX", v17, v18, v19);
-      *v11->minPixelValue = v20;
-      objc_msgSend_decodeFloatForKey_(aDecoder, v21, @"MPSImageNormalizedHistogram.minPixelValueY", v22, v23, v24);
-      *&v11->minPixelValue[4] = v25;
-      objc_msgSend_decodeFloatForKey_(aDecoder, v26, @"MPSImageNormalizedHistogram.minPixelValueZ", v27, v28, v29);
-      *&v11->minPixelValue[8] = v30;
-      objc_msgSend_decodeFloatForKey_(aDecoder, v31, @"MPSImageNormalizedHistogram.minPixelValueW", v32, v33, v34);
-      *&v11->minPixelValue[12] = v35;
-      objc_msgSend_decodeFloatForKey_(aDecoder, v36, @"MPSImageNormalizedHistogram.maxPixelValueX", v37, v38, v39);
-      *v11->maxPixelValue = v40;
-      objc_msgSend_decodeFloatForKey_(aDecoder, v41, @"MPSImageNormalizedHistogram.maxPixelValueY", v42, v43, v44);
-      *&v11->maxPixelValue[4] = v45;
-      objc_msgSend_decodeFloatForKey_(aDecoder, v46, @"MPSImageNormalizedHistogram.maxPixelValueZ", v47, v48, v49);
-      *&v11->maxPixelValue[8] = v50;
-      objc_msgSend_decodeFloatForKey_(aDecoder, v51, @"MPSImageNormalizedHistogram.maxPixelValueW", v52, v53, v54);
-      *&v11->maxPixelValue[12] = v55;
-      v11->_clipRectSource.origin.x = objc_msgSend_decodeInt64ForKey_(aDecoder, v56, @"MPSImageNormalizedHistogram.clipRectSource.origin.x", v57, v58, v59);
-      v11->_clipRectSource.origin.y = objc_msgSend_decodeInt64ForKey_(aDecoder, v60, @"MPSImageNormalizedHistogram.clipRectSource.origin.y", v61, v62, v63);
-      v11->_clipRectSource.origin.z = objc_msgSend_decodeInt64ForKey_(aDecoder, v64, @"MPSImageNormalizedHistogram.clipRectSource.origin.z", v65, v66, v67);
-      v11->_clipRectSource.size.width = objc_msgSend_decodeInt64ForKey_(aDecoder, v68, @"MPSImageNormalizedHistogram.clipRectSource.size.width", v69, v70, v71);
-      v11->_clipRectSource.size.height = objc_msgSend_decodeInt64ForKey_(aDecoder, v72, @"MPSImageNormalizedHistogram.clipRectSource.size.height", v73, v74, v75);
-      v11->_clipRectSource.size.depth = objc_msgSend_decodeInt64ForKey_(aDecoder, v76, @"MPSImageNormalizedHistogram.clipRectSource.size.depth", v77, v78, v79);
-      v11->_zeroHistogram = objc_msgSend_decodeBoolForKey_(aDecoder, v80, @"MPSImageNormalizedHistogram.zeroHistogram", v81, v82, v83);
-      v84 = [MPSImageStatisticsMinAndMax alloc];
-      v89 = objc_msgSend_initWithDevice_(v84, v85, device, v86, v87, v88);
-      v11->_minmaxFilter = v89;
-      objc_msgSend_setEdgeMode_(v89, v90, 0, v91, v92, v93);
+      v6->histogramEntries = objc_msgSend_decodeInt64ForKey_(aDecoder, v7, @"MPSImageNormalizedHistogram.histogramEntries");
+      v8->histogramAlpha = objc_msgSend_decodeBoolForKey_(aDecoder, v9, @"MPSImageNormalizedHistogram.histogramAlpha");
+      objc_msgSend_decodeFloatForKey_(aDecoder, v10, @"MPSImageNormalizedHistogram.minPixelValueX");
+      *v8->minPixelValue = v11;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v12, @"MPSImageNormalizedHistogram.minPixelValueY");
+      *&v8->minPixelValue[4] = v13;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v14, @"MPSImageNormalizedHistogram.minPixelValueZ");
+      *&v8->minPixelValue[8] = v15;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v16, @"MPSImageNormalizedHistogram.minPixelValueW");
+      *&v8->minPixelValue[12] = v17;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v18, @"MPSImageNormalizedHistogram.maxPixelValueX");
+      *v8->maxPixelValue = v19;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v20, @"MPSImageNormalizedHistogram.maxPixelValueY");
+      *&v8->maxPixelValue[4] = v21;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v22, @"MPSImageNormalizedHistogram.maxPixelValueZ");
+      *&v8->maxPixelValue[8] = v23;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v24, @"MPSImageNormalizedHistogram.maxPixelValueW");
+      *&v8->maxPixelValue[12] = v25;
+      v8->_clipRectSource.origin.x = objc_msgSend_decodeInt64ForKey_(aDecoder, v26, @"MPSImageNormalizedHistogram.clipRectSource.origin.x");
+      v8->_clipRectSource.origin.y = objc_msgSend_decodeInt64ForKey_(aDecoder, v27, @"MPSImageNormalizedHistogram.clipRectSource.origin.y");
+      v8->_clipRectSource.origin.z = objc_msgSend_decodeInt64ForKey_(aDecoder, v28, @"MPSImageNormalizedHistogram.clipRectSource.origin.z");
+      v8->_clipRectSource.size.width = objc_msgSend_decodeInt64ForKey_(aDecoder, v29, @"MPSImageNormalizedHistogram.clipRectSource.size.width");
+      v8->_clipRectSource.size.height = objc_msgSend_decodeInt64ForKey_(aDecoder, v30, @"MPSImageNormalizedHistogram.clipRectSource.size.height");
+      v8->_clipRectSource.size.depth = objc_msgSend_decodeInt64ForKey_(aDecoder, v31, @"MPSImageNormalizedHistogram.clipRectSource.size.depth");
+      v8->_zeroHistogram = objc_msgSend_decodeBoolForKey_(aDecoder, v32, @"MPSImageNormalizedHistogram.zeroHistogram");
+      v33 = [MPSImageStatisticsMinAndMax alloc];
+      v35 = objc_msgSend_initWithDevice_(v33, v34, device);
+      v8->_minmaxFilter = v35;
+      objc_msgSend_setEdgeMode_(v35, v36, 0);
     }
 
     else
     {
       if (MTLReportFailureTypeEnabled())
       {
-        v94 = objc_opt_class();
-        NSStringFromClass(v94);
+        v37 = objc_opt_class();
+        NSStringFromClass(v37);
         MTLReportFailure();
       }
 
@@ -140,40 +140,40 @@ LABEL_9:
     }
   }
 
-  return v11;
+  return v8;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   *(&self->super.super.isa + *MEMORY[0x277CD7358] + 2) = 1;
-  v72.receiver = self;
-  v72.super_class = MPSImageNormalizedHistogram;
-  [(MPSKernel *)&v72 encodeWithCoder:?];
-  objc_msgSend_encodeInt64_forKey_(coder, v5, self->histogramEntries, @"MPSImageNormalizedHistogram.histogramEntries", v6, v7);
-  objc_msgSend_encodeBool_forKey_(coder, v8, self->histogramAlpha, @"MPSImageNormalizedHistogram.histogramAlpha", v9, v10);
-  LODWORD(v11) = *self->minPixelValue;
-  objc_msgSend_encodeFloat_forKey_(coder, v12, @"MPSImageNormalizedHistogram.minPixelValueX", v13, v14, v15, v11);
-  LODWORD(v16) = *&self->minPixelValue[4];
-  objc_msgSend_encodeFloat_forKey_(coder, v17, @"MPSImageNormalizedHistogram.minPixelValueY", v18, v19, v20, v16);
-  LODWORD(v21) = *&self->minPixelValue[8];
-  objc_msgSend_encodeFloat_forKey_(coder, v22, @"MPSImageNormalizedHistogram.minPixelValueZ", v23, v24, v25, v21);
-  LODWORD(v26) = *&self->minPixelValue[12];
-  objc_msgSend_encodeFloat_forKey_(coder, v27, @"MPSImageNormalizedHistogram.minPixelValueW", v28, v29, v30, v26);
-  LODWORD(v31) = *self->maxPixelValue;
-  objc_msgSend_encodeFloat_forKey_(coder, v32, @"MPSImageNormalizedHistogram.maxPixelValueX", v33, v34, v35, v31);
-  LODWORD(v36) = *&self->maxPixelValue[4];
-  objc_msgSend_encodeFloat_forKey_(coder, v37, @"MPSImageNormalizedHistogram.maxPixelValueY", v38, v39, v40, v36);
-  LODWORD(v41) = *&self->maxPixelValue[8];
-  objc_msgSend_encodeFloat_forKey_(coder, v42, @"MPSImageNormalizedHistogram.maxPixelValueZ", v43, v44, v45, v41);
-  LODWORD(v46) = *&self->maxPixelValue[12];
-  objc_msgSend_encodeFloat_forKey_(coder, v47, @"MPSImageNormalizedHistogram.maxPixelValueW", v48, v49, v50, v46);
-  objc_msgSend_encodeInt64_forKey_(coder, v51, self->_clipRectSource.origin.x, @"MPSImageNormalizedHistogram.clipRectSource.origin.x", v52, v53);
-  objc_msgSend_encodeInt64_forKey_(coder, v54, self->_clipRectSource.origin.y, @"MPSImageNormalizedHistogram.clipRectSource.origin.y", v55, v56);
-  objc_msgSend_encodeInt64_forKey_(coder, v57, self->_clipRectSource.origin.z, @"MPSImageNormalizedHistogram.clipRectSource.origin.z", v58, v59);
-  objc_msgSend_encodeInt64_forKey_(coder, v60, self->_clipRectSource.size.width, @"MPSImageNormalizedHistogram.clipRectSource.size.width", v61, v62);
-  objc_msgSend_encodeInt64_forKey_(coder, v63, self->_clipRectSource.size.height, @"MPSImageNormalizedHistogram.clipRectSource.size.height", v64, v65);
-  objc_msgSend_encodeInt64_forKey_(coder, v66, self->_clipRectSource.size.depth, @"MPSImageNormalizedHistogram.clipRectSource.size.depth", v67, v68);
-  objc_msgSend_encodeBool_forKey_(coder, v69, self->_zeroHistogram, @"MPSImageNormalizedHistogram.zeroHistogram", v70, v71);
+  v30.receiver = self;
+  v30.super_class = MPSImageNormalizedHistogram;
+  [(MPSKernel *)&v30 encodeWithCoder:?];
+  objc_msgSend_encodeInt64_forKey_(coder, v5, self->histogramEntries, @"MPSImageNormalizedHistogram.histogramEntries");
+  objc_msgSend_encodeBool_forKey_(coder, v6, self->histogramAlpha, @"MPSImageNormalizedHistogram.histogramAlpha");
+  LODWORD(v7) = *self->minPixelValue;
+  objc_msgSend_encodeFloat_forKey_(coder, v8, @"MPSImageNormalizedHistogram.minPixelValueX", v7);
+  LODWORD(v9) = *&self->minPixelValue[4];
+  objc_msgSend_encodeFloat_forKey_(coder, v10, @"MPSImageNormalizedHistogram.minPixelValueY", v9);
+  LODWORD(v11) = *&self->minPixelValue[8];
+  objc_msgSend_encodeFloat_forKey_(coder, v12, @"MPSImageNormalizedHistogram.minPixelValueZ", v11);
+  LODWORD(v13) = *&self->minPixelValue[12];
+  objc_msgSend_encodeFloat_forKey_(coder, v14, @"MPSImageNormalizedHistogram.minPixelValueW", v13);
+  LODWORD(v15) = *self->maxPixelValue;
+  objc_msgSend_encodeFloat_forKey_(coder, v16, @"MPSImageNormalizedHistogram.maxPixelValueX", v15);
+  LODWORD(v17) = *&self->maxPixelValue[4];
+  objc_msgSend_encodeFloat_forKey_(coder, v18, @"MPSImageNormalizedHistogram.maxPixelValueY", v17);
+  LODWORD(v19) = *&self->maxPixelValue[8];
+  objc_msgSend_encodeFloat_forKey_(coder, v20, @"MPSImageNormalizedHistogram.maxPixelValueZ", v19);
+  LODWORD(v21) = *&self->maxPixelValue[12];
+  objc_msgSend_encodeFloat_forKey_(coder, v22, @"MPSImageNormalizedHistogram.maxPixelValueW", v21);
+  objc_msgSend_encodeInt64_forKey_(coder, v23, self->_clipRectSource.origin.x, @"MPSImageNormalizedHistogram.clipRectSource.origin.x");
+  objc_msgSend_encodeInt64_forKey_(coder, v24, self->_clipRectSource.origin.y, @"MPSImageNormalizedHistogram.clipRectSource.origin.y");
+  objc_msgSend_encodeInt64_forKey_(coder, v25, self->_clipRectSource.origin.z, @"MPSImageNormalizedHistogram.clipRectSource.origin.z");
+  objc_msgSend_encodeInt64_forKey_(coder, v26, self->_clipRectSource.size.width, @"MPSImageNormalizedHistogram.clipRectSource.size.width");
+  objc_msgSend_encodeInt64_forKey_(coder, v27, self->_clipRectSource.size.height, @"MPSImageNormalizedHistogram.clipRectSource.size.height");
+  objc_msgSend_encodeInt64_forKey_(coder, v28, self->_clipRectSource.size.depth, @"MPSImageNormalizedHistogram.clipRectSource.size.depth");
+  objc_msgSend_encodeBool_forKey_(coder, v29, self->_zeroHistogram, @"MPSImageNormalizedHistogram.zeroHistogram");
 }
 
 - (id)copyWithZone:(_NSZone *)zone device:(id)device
@@ -208,10 +208,10 @@ LABEL_9:
 - (id)debugDescription
 {
   v3 = MEMORY[0x277CCACA8];
-  v10.receiver = self;
-  v10.super_class = MPSImageNormalizedHistogram;
-  v4 = [(MPSKernel *)&v10 debugDescription];
-  return objc_msgSend_stringWithFormat_(v3, v5, @"%@\n\tHistogram Entries:  %lu\n\tHistogram for Alpha: %d", v6, v7, v8, v4, self->histogramEntries, self->histogramAlpha);
+  v7.receiver = self;
+  v7.super_class = MPSImageNormalizedHistogram;
+  v4 = [(MPSKernel *)&v7 debugDescription];
+  return objc_msgSend_stringWithFormat_(v3, v5, @"%@\n\tHistogram Entries:  %lu\n\tHistogram for Alpha: %d", v4, self->histogramEntries, self->histogramAlpha);
 }
 
 - (size_t)histogramSizeForSourceFormat:(MTLPixelFormat)sourceFormat
@@ -255,62 +255,60 @@ LABEL_9:
   {
     v14 = self->histogramEntries * dword_239989980[style];
     v15 = *MEMORY[0x277CD7370];
-    v16 = *(&self->super.super.isa + v15);
     ComputeState = MPSLibrary::GetComputeState();
     if (!ComputeState)
     {
       return;
     }
 
-    v23 = ComputeState;
-    v24 = objc_msgSend_threadExecutionWidth(ComputeState, v18, v19, v20, v21, v22);
-    objc_msgSend_setComputePipelineState_(encoder, v25, v23, v26, v27, v28);
-    v29 = *(&self->super.super.isa + v15);
+    v19 = ComputeState;
+    v20 = objc_msgSend_threadExecutionWidth(ComputeState, v17, v18);
+    objc_msgSend_setComputePipelineState_(encoder, v21, v19);
     MPSLibrary::ReleaseComputeState();
-    v32 = v14 >> 10;
+    v23 = v14 >> 10;
     if (v14 >> 10 <= 1)
     {
-      v32 = 1;
+      v23 = 1;
     }
 
     if (v14 < 0x100)
     {
-      v33 = 1;
+      v24 = 1;
     }
 
     else
     {
-      v33 = v32;
+      v24 = v23;
     }
 
     if (v14 > 0xFF)
     {
-      v34 = 1024;
+      v25 = 1024;
       if (v14 < 0x400)
       {
-        v34 = v14;
+        v25 = v14;
       }
 
-      v24 = v34 >> 2;
+      v20 = v25 >> 2;
     }
 
     else
     {
-      if (v14 > v24)
+      if (v14 > v20)
       {
-        v24 = v14;
+        v20 = v14;
       }
 
-      *v76 = v14;
-      objc_msgSend_setBytes_length_atIndex_(encoder, v30, v76, 4, 1, v31, textureCopy);
+      *v51 = v14;
+      objc_msgSend_setBytes_length_atIndex_(encoder, v22, v51, 4, 1, textureCopy);
     }
 
-    objc_msgSend_setBuffer_offset_atIndex_(encoder, v30, histogram, offset, 0, v31, textureCopy);
-    *v76 = v33;
-    *&v76[8] = vdupq_n_s64(1uLL);
-    v81 = v24;
-    v82 = *&v76[8];
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v35, v76, &v81, v36, v37);
+    objc_msgSend_setBuffer_offset_atIndex_(encoder, v22, histogram, offset, 0, textureCopy);
+    *v51 = v24;
+    *&v51[8] = vdupq_n_s64(1uLL);
+    v56 = v20;
+    v57 = *&v51[8];
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v26, v51, &v56);
   }
 
   else
@@ -320,75 +318,73 @@ LABEL_9:
 
   if (self->histogramEntries == 256)
   {
-    v38 = 5;
+    v27 = 5;
   }
 
   else
   {
-    v38 = 0;
+    v27 = 0;
   }
 
-  v39 = *(&self->super.super.isa + v15);
-  v40 = v38 + style;
-  v41 = MPSLibrary::GetComputeState();
-  if (v41)
+  v28 = v27 + style;
+  v29 = MPSLibrary::GetComputeState();
+  if (v29)
   {
-    objc_msgSend_setComputePipelineState_(encoder, v42, v41, v43, v44, v45);
-    v46 = *(&self->super.super.isa + v15);
+    objc_msgSend_setComputePipelineState_(encoder, v30, v29);
     MPSLibrary::ReleaseComputeState();
-    v50 = *(*((*(&self->super.super.isa + v15))[35] + 16 * v40) + 64);
-    if (v50 == 2 || v50 == 4)
+    v32 = *(*((*(&self->super.super.isa + v15))[35] + 16 * v28) + 64);
+    if (v32 == 2 || v32 == 4)
     {
-      v52 = 5;
-      v53 = 31;
+      v34 = 5;
+      v35 = 31;
     }
 
     else
     {
-      v52 = 4;
-      v53 = 15;
+      v34 = 4;
+      v35 = 15;
     }
 
-    v54 = *self->maxPixelValue;
-    *v76 = *self->minPixelValue;
-    *&v76[16] = v54;
-    v55 = vmovn_s64(*&extent->var0.var0);
+    v36 = *self->maxPixelValue;
+    *v51 = *self->minPixelValue;
+    *&v51[16] = v36;
+    v37 = vmovn_s64(*&extent->var0.var0);
     var1 = extent->var1.var1;
-    *&v54 = vmovn_s64(*&extent->var1.var0);
+    *&v36 = vmovn_s64(*&extent->var1.var0);
     var0 = extent->var1.var0;
-    v80 = 0;
-    v78 = v55.u16[2];
-    v77 = v55.i16[0];
-    v58 = (var0 + v53) >> v52;
-    v59 = (var1 + v53) >> v52;
-    v79 = WORD2(v54);
+    v55 = 0;
+    v53 = v37.u16[2];
+    v52 = v37.i16[0];
+    v40 = (var0 + v35) >> v34;
+    v41 = (var1 + v35) >> v34;
+    v54 = WORD2(v36);
     histogramEntries = self->histogramEntries;
-    HIWORD(v78) = v54;
-    *&v80 = (histogramEntries - 1);
-    WORD2(v80) = histogramEntries;
-    objc_msgSend_setTexture_atIndex_(encoder, v47, textureCopy, 0, v48, v49, textureCopy);
-    objc_msgSend_setTexture_atIndex_(encoder, v61, minmaxTexture, 1, v62, v63);
-    if ((v50 - 3) <= 1)
+    HIWORD(v53) = v36;
+    *&v55 = (histogramEntries - 1);
+    WORD2(v55) = histogramEntries;
+    objc_msgSend_setTexture_atIndex_(encoder, v31, textureCopy, 0, textureCopy);
+    objc_msgSend_setTexture_atIndex_(encoder, v43, minmaxTexture, 1);
+    if ((v32 - 3) <= 1)
     {
       if ((style - 1) >= 4)
       {
-        objc_msgSend_setThreadgroupMemoryLength_atIndex_(encoder, v64, 0, 0, v65, v66);
+        objc_msgSend_setThreadgroupMemoryLength_atIndex_(encoder, v44, 0, 0);
       }
 
       else
       {
-        objc_msgSend_setThreadgroupMemoryLength_atIndex_(encoder, v64, ((style - 1) << 10) + 1024, 0, v65, v66);
+        objc_msgSend_setThreadgroupMemoryLength_atIndex_(encoder, v44, ((style - 1) << 10) + 1024, 0);
       }
     }
 
-    objc_msgSend_setBuffer_offset_atIndex_(encoder, v64, histogram, offset, 0, v66);
-    objc_msgSend_setBytes_length_atIndex_(encoder, v67, v76, 48, 1, v68);
-    v81 = v58;
-    *&v82 = v59;
-    *(&v82 + 1) = 1;
-    v74 = vdupq_n_s64(0x10uLL);
-    v75 = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v69, &v81, &v74, v70, v71);
+    objc_msgSend_setBuffer_offset_atIndex_(encoder, v44, histogram, offset, 0);
+    objc_msgSend_setBytes_length_atIndex_(encoder, v45, v51, 48, 1);
+    v56 = v40;
+    *&v57 = v41;
+    *(&v57 + 1) = 1;
+    v49 = vdupq_n_s64(0x10uLL);
+    v50 = 1;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(encoder, v46, &v56, &v49);
   }
 }
 
@@ -404,71 +400,71 @@ LABEL_9:
   if ((v16 & 1) == 0)
   {
     v19 = *(&self->super.super.isa + v14);
-    v20 = objc_msgSend_pixelFormat(0, a2, encoder, buffer, texture, minmaxTexture);
-    v26 = objc_msgSend_pixelFormat(texture, v21, v22, v23, v24, v25);
+    v20 = objc_msgSend_pixelFormat(0, a2, encoder);
+    v23 = objc_msgSend_pixelFormat(texture, v21, v22);
     MPSDevice::GetPixelInfo(v19, v20, MPSImageFeatureChannelFormatNone);
-    PixelInfo = MPSDevice::GetPixelInfo(v19, v26, MPSImageFeatureChannelFormatNone);
+    PixelInfo = MPSDevice::GetPixelInfo(v19, v23, MPSImageFeatureChannelFormatNone);
     if (!texture && MTLReportFailureTypeEnabled())
     {
-      v105 = objc_opt_class();
-      textureCopy2 = NSStringFromClass(v105);
+      v64 = objc_opt_class();
+      textureCopy2 = NSStringFromClass(v64);
       MTLReportFailure();
     }
 
-    v33 = v16 & 0xFFFFFFFFFFFFFFE2;
-    if (v33 && MTLReportFailureTypeEnabled())
+    v27 = v16 & 0xFFFFFFFFFFFFFFE2;
+    if (v27 && MTLReportFailureTypeEnabled())
     {
-      v106 = objc_opt_class();
-      textureCopy2 = NSStringFromClass(v106);
-      v114 = v33;
+      v65 = objc_opt_class();
+      textureCopy2 = NSStringFromClass(v65);
+      v71 = v27;
       MTLReportFailure();
     }
 
-    objc_msgSend_textureType(texture, v27, v28, v29, v30, v31, textureCopy2, v114);
+    objc_msgSend_textureType(texture, v24, v25, textureCopy2, v71);
     minmaxTextureCopy2 = minmaxTexture;
-    if (objc_msgSend_textureType(texture, v34, v35, v36, v37, v38) != 2 && MTLReportFailureTypeEnabled())
+    if (objc_msgSend_textureType(texture, v28, v29) != 2 && MTLReportFailureTypeEnabled())
     {
       textureCopy2 = texture;
       MTLReportFailure();
     }
 
-    v39 = ~PixelInfo;
+    v30 = ~PixelInfo;
     offsetCopy2 = offset;
     histogramCopy2 = histogram;
     bufferCopy2 = buffer;
-    if ((v39 & 0xF000000) == 0 && MTLReportFailureTypeEnabled())
+    if ((v30 & 0xF000000) == 0 && MTLReportFailureTypeEnabled())
     {
       textureCopy2 = texture;
-      v114 = v26;
+      v71 = v23;
       MTLReportFailure();
     }
   }
 
-  if (texture && (objc_msgSend_isEqual_(texture, a2, 0, buffer, texture, minmaxTexture) & 1) == 0)
+  if (texture && (objc_msgSend_isEqual_(texture, a2, 0) & 1) == 0)
   {
     if (!histogramCopy2 && (*(&self->super.super.isa + v15) & 1) == 0 && MTLReportFailureTypeEnabled())
     {
-      v107 = objc_opt_class();
-      textureCopy2 = NSStringFromClass(v107);
+      v66 = objc_opt_class();
+      textureCopy2 = NSStringFromClass(v66);
       MTLReportFailure();
     }
 
-    memset(&v122, 0, sizeof(v122));
-    v121.width = objc_msgSend_width(texture, v40, v41, v42, v43, v44, textureCopy2, v114);
-    v121.height = objc_msgSend_height(texture, v45, v46, v47, v48, v49);
-    v121.depth = 1;
-    v50 = *&self->_clipRectSource.origin.z;
-    *&v120.origin.x = *&self->_clipRectSource.origin.x;
-    *&v120.origin.z = v50;
-    *&v120.size.height = *&self->_clipRectSource.size.height;
-    MPSGetEffectiveClipRegion(&v122, &v121, &v120);
-    v51 = *(&self->super.super.isa + v14);
-    v57 = objc_msgSend_pixelFormat(texture, v52, v53, v54, v55, v56);
-    v63 = (MPSDevice::GetPixelInfo(v51, v57, MPSImageFeatureChannelFormatNone) >> 24) & 0xF;
+    memset(&v79, 0, sizeof(v79));
+    v78.width = objc_msgSend_width(texture, v31, v32, textureCopy2, v71);
+    v78.height = objc_msgSend_height(texture, v33, v34);
+    v78.depth = 1;
+    v35 = *&self->_clipRectSource.origin.z;
+    *&v77.origin.x = *&self->_clipRectSource.origin.x;
+    *&v77.origin.z = v35;
+    *&v77.size.height = *&self->_clipRectSource.size.height;
+    MPSGetEffectiveClipRegion(&v79, &v78, &v77);
+    v36 = *(&self->super.super.isa + v14);
+    v39 = objc_msgSend_pixelFormat(texture, v37, v38);
+    v42 = (MPSDevice::GetPixelInfo(v36, v39, MPSImageFeatureChannelFormatNone) >> 24) & 0xF;
     if ((*(&self->super.super.isa + v15) & 1) == 0)
     {
-      v64 = v63 == 15 || v63 == 0;
-      if (v64 && MTLReportFailureTypeEnabled())
+      v43 = v42 == 15 || v42 == 0;
+      if (v43 && MTLReportFailureTypeEnabled())
       {
         textureCopy3 = texture;
         MTLReportFailure();
@@ -479,68 +475,68 @@ LABEL_9:
         MTLReportFailure();
       }
 
-      objc_msgSend_width(texture, v58, v59, v60, v61, v62, textureCopy3);
-      v65 = v122.size.width + v122.origin.x;
-      if (v65 > objc_msgSend_width(texture, v66, v67, v68, v69, v70) && MTLReportFailureTypeEnabled())
+      objc_msgSend_width(texture, v40, v41, textureCopy3);
+      v44 = v79.size.width + v79.origin.x;
+      if (v44 > objc_msgSend_width(texture, v45, v46) && MTLReportFailureTypeEnabled())
       {
-        v113 = v122.size.width + v122.origin.x;
-        v115 = objc_msgSend_width(texture, v71, v72, v73, v74, v75);
+        v70 = v79.size.width + v79.origin.x;
+        v72 = objc_msgSend_width(texture, v47, v48);
         MTLReportFailure();
       }
 
-      objc_msgSend_height(texture, v71, v72, v73, v74, v75, v113, v115);
-      v76 = v122.size.height + v122.origin.y;
-      if (v76 > objc_msgSend_height(texture, v77, v78, v79, v80, v81) && MTLReportFailureTypeEnabled())
+      objc_msgSend_height(texture, v47, v48, v70, v72);
+      v49 = v79.size.height + v79.origin.y;
+      if (v49 > objc_msgSend_height(texture, v50, v51) && MTLReportFailureTypeEnabled())
       {
-        textureCopy3 = (v122.size.height + v122.origin.y);
-        v115 = objc_msgSend_height(texture, v58, v108, v109, v110, v62);
+        textureCopy3 = (v79.size.height + v79.origin.y);
+        v72 = objc_msgSend_height(texture, v40, v67);
         MTLReportFailure();
       }
     }
 
-    if (v122.size.height && v122.size.width)
+    if (v79.size.height && v79.size.width)
     {
-      if (v63 == 4)
+      if (v42 == 4)
       {
         if (self->histogramAlpha)
         {
-          v63 = 4;
+          v42 = 4;
         }
 
         else
         {
-          v63 = 3;
+          v42 = 3;
         }
       }
 
-      objc_msgSend_encodeToCommandBuffer_sourceTexture_destinationTexture_(self->_minmaxFilter, v58, bufferCopy2, texture, minmaxTextureCopy2, v62, textureCopy3, v115);
+      objc_msgSend_encodeToCommandBuffer_sourceTexture_destinationTexture_(self->_minmaxFilter, v40, bufferCopy2, texture, minmaxTextureCopy2, textureCopy3, v72);
       if (encoder)
       {
-        v120 = v122;
-        LODWORD(v116) = v63;
-        objc_msgSend_encodeInternalToCommandEncoder_commandBuffer_sourceTexture_minmaxTexture_histogram_histogramOffset_inputExtent_srcStyle_(self, v82, encoder, bufferCopy2, texture, minmaxTextureCopy2, histogramCopy2, offsetCopy2, &v120, v116);
+        v77 = v79;
+        LODWORD(v73) = v42;
+        objc_msgSend_encodeInternalToCommandEncoder_commandBuffer_sourceTexture_minmaxTexture_histogram_histogramOffset_inputExtent_srcStyle_(self, v52, encoder, bufferCopy2, texture, minmaxTextureCopy2, histogramCopy2, offsetCopy2, &v77, v73);
       }
 
       else
       {
-        v83 = objc_alloc(MEMORY[0x277CD7210]);
-        v84 = bufferCopy2;
-        v92 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v83, v85, bufferCopy2, 0, v86, v87);
-        v121.width = v92;
-        v121.height = self;
+        v53 = objc_alloc(MEMORY[0x277CD7210]);
+        v54 = bufferCopy2;
+        v57 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v53, v55, bufferCopy2, 0);
+        v78.width = v57;
+        v78.height = self;
         if ((*(&self->super.super.isa + *MEMORY[0x277CD7378]) & 0x18) != 0)
         {
-          v93 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
-          if (v93 || (v94 = objc_opt_class(), v95 = NSStringFromClass(v94), objc_msgSend_setLabel_(self, v96, v95, v97, v98, v99), (v93 = v95) != 0))
+          v58 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
+          if (v58 || (v59 = objc_opt_class(), v60 = NSStringFromClass(v59), objc_msgSend_setLabel_(self, v61, v60), (v58 = v60) != 0))
           {
-            objc_msgSend_setLabel_(v92, v88, v93, v89, v90, v91);
+            objc_msgSend_setLabel_(v57, v56, v58);
           }
         }
 
-        v120 = v122;
-        LODWORD(v116) = v63;
-        objc_msgSend_encodeInternalToCommandEncoder_commandBuffer_sourceTexture_minmaxTexture_histogram_histogramOffset_inputExtent_srcStyle_(self, v88, v92, v84, texture, minmaxTextureCopy2, histogramCopy2, offsetCopy2, &v120, v116);
-        objc_msgSend_endEncoding(v92, v100, v101, v102, v103, v104);
+        v77 = v79;
+        LODWORD(v73) = v42;
+        objc_msgSend_encodeInternalToCommandEncoder_commandBuffer_sourceTexture_minmaxTexture_histogram_histogramOffset_inputExtent_srcStyle_(self, v56, v57, v54, texture, minmaxTextureCopy2, histogramCopy2, offsetCopy2, &v77, v73);
+        objc_msgSend_endEncoding(v57, v62, v63);
       }
     }
   }

@@ -1,12 +1,15 @@
 @interface TSSStyle
 + (BOOL)validateIntValue:(int *)value forProperty:(int)property min:(int)min max:(int)max;
 + (BOOL)validateIntValueAsBool:(int *)bool forProperty:(int)property;
++ (BOOL)validateObjectValue:(id *)value withClass:(Class)class forProperty:(int)property;
 + (TSSPropertyMap)defaultPropertyMap;
 + (TSSPropertySet)properties;
 + (TSSPropertySet)propertiesAllowingNSNull;
 + (double)fontSizeForFontSize:(double)size scalingFactor:(double)factor;
++ (id)boxedDefaultValueForProperty:(int)property;
 + (id)defaultStyleWithContext:(id)context;
 + (id)description;
+- (BOOL)definesProperty:(int)property;
 - (BOOL)hasEqualPropertyValues:(id)values;
 - (BOOL)hasEqualValues:(id)values forProperties:(id)properties;
 - (BOOL)hasEqualValuesToPropertyMap:(id)map forProperties:(id)properties;
@@ -14,10 +17,12 @@
 - (BOOL)isDescendentOf:(id)of;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToStyle:(id)style ignoreObjectContext:(BOOL)context;
+- (BOOL)isEqualToStyle:(id)style ignoreObjectContext:(BOOL)context ignoreObjectUUID:(BOOL)d;
 - (BOOL)isParentOf:(id)of;
 - (BOOL)isRelatedTo:(id)to;
 - (BOOL)overridePropertyMapIsEqualTo:(id)to;
 - (BOOL)overridesAnyProperty;
+- (BOOL)p_hasEqualValuesTo:(id)to forProperty:(int)property;
 - (NSSet)referencedStyles;
 - (NSString)contentTag;
 - (TSSPropertyMap)overridePropertyMap;
@@ -31,7 +36,16 @@
 - (TSSStylesheet)stylesheet;
 - (TSURetainedPointerSet)children;
 - (TSURetainedPointerSet)descendants;
+- (double)CGFloatValueForProperty:(int)property;
+- (double)doubleValueForProperty:(int)property;
+- (double)overrideCGFloatValueForProperty:(int)property;
+- (double)overrideDoubleValueForProperty:(int)property;
+- (float)floatValueForProperty:(int)property;
+- (float)overrideFloatValueForProperty:(int)property;
 - (id)archivableRepresentationOfChangeSet:(id)set;
+- (id)boxedOverrideValueForProperty:(int)property;
+- (id)boxedValueForProperty:(int)property;
+- (id)boxedValueForProperty:(int)property oldBoxedValue:(id)value transformedByTransform:(CGAffineTransform *)transform;
 - (id)copyFlattenedWithContext:(id)context;
 - (id)copyPropertyMap;
 - (id)copyWithContext:(id)context includeParentProperties:(BOOL)properties;
@@ -39,21 +53,33 @@
 - (id)copyWithZone:(_NSZone *)zone context:(id)context;
 - (id)newOverridePropertyMapWithPropertyMap:(id)map;
 - (id)overridePropertyMapWithPropertyMap:(id)map overridePropertyMap:(id)propertyMap collapseSourceOverrides:(BOOL)overrides;
+- (id)overrideValueForProperty:(int)property;
 - (id)propertyMapIgnoringStyle:(id)style;
 - (id)propertyMapThatNeedsToBeTransformedWithTransformedObjects:(id)objects;
+- (id)valueForProperty:(int)property;
 - (id)valuesForProperties:(id)properties;
+- (int)intValueForProperty:(int)property;
+- (int)overrideIntValueForProperty:(int)property;
 - (unint64_t)hash;
 - (unint64_t)overrideCount;
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver;
 - (void)removeAllValues;
+- (void)removeValueForProperty:(int)property;
 - (void)replaceReferencedStylesUsingBlock:(id)block;
 - (void)saveToArchive:(void *)archive archiver:(id)archiver;
+- (void)setBoxedValue:(id)value forProperty:(int)property;
+- (void)setCGFloatValue:(double)value forProperty:(int)property;
+- (void)setDoubleValue:(double)value forProperty:(int)property;
+- (void)setFloatValue:(float)value forProperty:(int)property;
+- (void)setIntValue:(int)value forProperty:(int)property;
+- (void)setIsVariation:(BOOL)variation;
 - (void)setName:(id)name;
 - (void)setObjectUUID:(id)d;
 - (void)setOverridePropertyMap:(id)map;
 - (void)setParent:(id)parent;
 - (void)setStyleIdentifier:(id)identifier;
 - (void)setStylesheet:(id)stylesheet;
+- (void)setValue:(id)value forProperty:(int)property;
 - (void)setValuesForProperties:(id)properties;
 @end
 
@@ -70,6 +96,15 @@
 
     objc_storeStrong(&self->mStyleIdentifier, v9);
     identifierCopy = v9;
+  }
+}
+
+- (void)setIsVariation:(BOOL)variation
+{
+  if (self->mIsVariation != variation)
+  {
+    objc_msgSend_willModify(self, a2, variation);
+    self->mIsVariation = variation;
   }
 }
 
@@ -145,6 +180,71 @@
   return v26;
 }
 
++ (id)boxedDefaultValueForProperty:(int)property
+{
+  v3 = *&property;
+  v5 = String(property);
+  if (v5 <= 1)
+  {
+    if (!v5)
+    {
+      v9 = objc_msgSend_defaultValueForProperty_(self, v6, v3);
+      goto LABEL_15;
+    }
+
+    if (v5 == 1)
+    {
+      v7 = objc_msgSend_defaultIntValueForProperty_(self, v6, v3);
+      if (v7 != 0x80000000)
+      {
+        v9 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v8, v7);
+        goto LABEL_15;
+      }
+
+      goto LABEL_14;
+    }
+
+    goto LABEL_10;
+  }
+
+  if (v5 != 2)
+  {
+    if (v5 == 3)
+    {
+      objc_msgSend_defaultDoubleValueForProperty_(self, v6, v3);
+      if (v12 != INFINITY)
+      {
+        v9 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v10, v11);
+        goto LABEL_15;
+      }
+
+      goto LABEL_14;
+    }
+
+LABEL_10:
+    v13 = MEMORY[0x277D81150];
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "+[TSSStyle boxedDefaultValueForProperty:]");
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSStyle.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v17, v14, v16, 381, 0, "Unexpected property type");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19);
+    goto LABEL_14;
+  }
+
+  objc_msgSend_defaultFloatValueForProperty_(self, v6, v3);
+  if (v22 != INFINITY)
+  {
+    v9 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v20, v21);
+    goto LABEL_15;
+  }
+
+LABEL_14:
+  v9 = 0;
+LABEL_15:
+
+  return v9;
+}
+
 + (id)defaultStyleWithContext:(id)context
 {
   contextCopy = context;
@@ -179,17 +279,7 @@
   v13 = [(TSSStyle *)&v61 initWithContext:context];
   if (v13)
   {
-    if (!mapCopy)
-    {
-      goto LABEL_13;
-    }
-
-    v14 = objc_opt_class();
-    v17 = objc_msgSend_properties(v14, v15, v16);
-    v20 = objc_msgSend_allProperties(mapCopy, v18, v19);
-    v22 = objc_msgSend_containsProperties_(v17, v21, v20);
-
-    if ((v22 & 1) == 0)
+    if (mapCopy && (v14 = objc_opt_class(), objc_msgSend_properties(v14, v15, v16), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend_allProperties(mapCopy, v18, v19), v20 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend_containsProperties_(v17, v21, v20), v20, v17, (v22 & 1) == 0))
     {
       v41 = objc_msgSend_allProperties(mapCopy, v12, v23);
       v42 = objc_opt_class();
@@ -209,7 +299,6 @@
 
     else
     {
-LABEL_13:
       if (objc_msgSend_isEqual_(nameCopy, v12, &stru_2885E7A20))
       {
         v26 = MEMORY[0x277D81150];
@@ -298,6 +387,142 @@ LABEL_13:
   return isEqualToStyle_ignoreObjectContext_ignoreObjectUUID;
 }
 
+- (BOOL)isEqualToStyle:(id)style ignoreObjectContext:(BOOL)context ignoreObjectUUID:(BOOL)d
+{
+  dCopy = d;
+  contextCopy = context;
+  styleCopy = style;
+  v11 = styleCopy;
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x2020000000;
+  v12 = 1;
+  v69 = 1;
+  if (styleCopy != self)
+  {
+    if (styleCopy)
+    {
+      if (contextCopy || (objc_msgSend_context(styleCopy, v9, v10), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend_context(self, v14, v15), v16 = objc_claimAutoreleasedReturnValue(), v16, v13, v13 == v16))
+      {
+        mName = v11->mName;
+        v18 = self->mName;
+        if (mName == v18 || (objc_msgSend_isEqualToString_(mName, v9, v18) & 1) != 0)
+        {
+          mStyleIdentifier = v11->mStyleIdentifier;
+          v20 = self->mStyleIdentifier;
+          if (mStyleIdentifier == v20 || (objc_msgSend_isEqualToString_(mStyleIdentifier, v9, v20)) && v11->mIsVariation == self->mIsVariation)
+          {
+            if (dCopy || v11->mParent || self->mParent || (objc_msgSend_objectUUID(v11, v9, v20), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectUUID(self, v22, v23), v24 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend_isEqual_(v21, v25, v24), v24, v21, (v26 & 1) != 0))
+            {
+              v27 = objc_msgSend_currentThread(MEMORY[0x277CCACC8], v9, v20);
+              v30 = objc_msgSend_threadDictionary(v27, v28, v29);
+
+              v32 = objc_msgSend_objectForKeyedSubscript_(v30, v31, @"TSSStyleIsEqualStylesBeingCompared");
+              if (!v32)
+              {
+                v32 = objc_alloc_init(MEMORY[0x277CBEB58]);
+                objc_msgSend_setObject_forKeyedSubscript_(v30, v33, v32, @"TSSStyleIsEqualStylesBeingCompared");
+              }
+
+              v34 = [TSSStyleComparison alloc];
+              v36 = objc_msgSend_initWithStyle_andStyle_(v34, v35, self, v11);
+              if (objc_msgSend_containsObject_(v32, v37, v36))
+              {
+                goto LABEL_33;
+              }
+
+              objc_opt_class();
+              if ((objc_opt_isKindOfClass() & 1) == 0)
+              {
+                *(v67 + 24) = 0;
+LABEL_33:
+
+                v12 = *(v67 + 24);
+                goto LABEL_34;
+              }
+
+              objc_msgSend_addObject_(v32, v38, v36);
+              mParent = v11->mParent;
+              v41 = self->mParent;
+              if (mParent != v41 && (objc_msgSend_isEqualToStyle_ignoreObjectContext_ignoreObjectUUID_(mParent, v39, v41, contextCopy, dCopy) & 1) == 0)
+              {
+                goto LABEL_30;
+              }
+
+              mOverridePropertyMap = v11->mOverridePropertyMap;
+              if (mOverridePropertyMap != self->mOverridePropertyMap)
+              {
+                v60 = objc_msgSend_allProperties(mOverridePropertyMap, v39, v41);
+                v45 = objc_msgSend_allProperties(self->mOverridePropertyMap, v43, v44);
+                isEqual = objc_msgSend_isEqual_(v60, v46, v45);
+
+                if ((isEqual & 1) == 0)
+                {
+                  goto LABEL_30;
+                }
+
+                v48 = v11->mParent;
+                v49 = self->mParent;
+                if (v48 != v49 && (objc_msgSend_isEqualToStyle_ignoreObjectContext_ignoreObjectUUID_(v48, v39, v49, contextCopy, dCopy) & 1) == 0)
+                {
+                  goto LABEL_30;
+                }
+
+                v50 = v11->mOverridePropertyMap;
+                if (v50 != self->mOverridePropertyMap)
+                {
+                  v51 = objc_msgSend_allProperties(v50, v39, v49);
+                  v54 = objc_msgSend_allProperties(self->mOverridePropertyMap, v52, v53);
+                  v56 = objc_msgSend_isEqual_(v51, v55, v54);
+
+                  if (v56)
+                  {
+                    v57 = self->mOverridePropertyMap;
+                    v61[0] = MEMORY[0x277D85DD0];
+                    v61[1] = 3221225472;
+                    v61[2] = sub_276C9D418;
+                    v61[3] = &unk_27A6EE820;
+                    v64 = contextCopy;
+                    v65 = dCopy;
+                    v62 = v11;
+                    v63 = &v66;
+                    objc_msgSend_enumeratePropertiesAndObjectsUsingBlock_(v57, v58, v61);
+
+LABEL_32:
+                    objc_msgSend_removeObject_(v32, v39, v36);
+                    goto LABEL_33;
+                  }
+
+LABEL_30:
+                  *(v67 + 24) = 0;
+                  goto LABEL_32;
+                }
+              }
+
+              *(v67 + 24) = 1;
+              goto LABEL_32;
+            }
+          }
+        }
+      }
+
+      v12 = 0;
+      *(v67 + 24) = 0;
+    }
+
+    else
+    {
+      v12 = 0;
+      v69 = 0;
+    }
+  }
+
+LABEL_34:
+  _Block_object_dispose(&v66, 8);
+
+  return v12 & 1;
+}
+
 - (id)copyFlattenedWithContext:(id)context
 {
   contextCopy = context;
@@ -341,6 +566,164 @@ LABEL_13:
   return v8;
 }
 
+- (id)boxedValueForProperty:(int)property
+{
+  v3 = *&property;
+  mOverridePropertyMap = self->mOverridePropertyMap;
+  if (!mOverridePropertyMap || (objc_msgSend_boxedObjectForProperty_(mOverridePropertyMap, a2, *&property), (v6 = objc_claimAutoreleasedReturnValue()) == 0))
+  {
+    mParent = self->mParent;
+    if (mParent)
+    {
+      objc_msgSend_boxedValueForProperty_(mParent, a2, v3);
+    }
+
+    else
+    {
+      v8 = objc_opt_class();
+      objc_msgSend_boxedDefaultValueForProperty_(v8, v9, v3);
+    }
+    v6 = ;
+  }
+
+  return v6;
+}
+
+- (id)valueForProperty:(int)property
+{
+  v3 = *&property;
+  mOverridePropertyMap = self->mOverridePropertyMap;
+  if (!mOverridePropertyMap || (objc_msgSend_objectForProperty_(mOverridePropertyMap, a2, *&property), (v6 = objc_claimAutoreleasedReturnValue()) == 0))
+  {
+    mParent = self->mParent;
+    if (mParent)
+    {
+      objc_msgSend_valueForProperty_(mParent, a2, v3);
+    }
+
+    else
+    {
+      v8 = objc_opt_class();
+      objc_msgSend_defaultValueForProperty_(v8, v9, v3);
+    }
+    v6 = ;
+  }
+
+  return v6;
+}
+
+- (int)intValueForProperty:(int)property
+{
+  v3 = *&property;
+  mOverridePropertyMap = self->mOverridePropertyMap;
+  if (!mOverridePropertyMap || (result = objc_msgSend_intValueForProperty_(mOverridePropertyMap, a2, *&property), result == 0x80000000))
+  {
+    mParent = self->mParent;
+    if (mParent)
+    {
+
+      return objc_msgSend_intValueForProperty_(mParent, a2, v3);
+    }
+
+    else
+    {
+      v8 = objc_opt_class();
+
+      return objc_msgSend_defaultIntValueForProperty_(v8, v9, v3);
+    }
+  }
+
+  return result;
+}
+
+- (float)floatValueForProperty:(int)property
+{
+  v3 = *&property;
+  mOverridePropertyMap = self->mOverridePropertyMap;
+  if (!mOverridePropertyMap || (objc_msgSend_floatValueForProperty_(mOverridePropertyMap, a2, *&property), result == INFINITY))
+  {
+    mParent = self->mParent;
+    if (mParent)
+    {
+
+      objc_msgSend_floatValueForProperty_(mParent, a2, v3);
+    }
+
+    else
+    {
+      v8 = objc_opt_class();
+
+      objc_msgSend_defaultFloatValueForProperty_(v8, v9, v3);
+    }
+  }
+
+  return result;
+}
+
+- (double)doubleValueForProperty:(int)property
+{
+  v3 = *&property;
+  mOverridePropertyMap = self->mOverridePropertyMap;
+  if (!mOverridePropertyMap || (objc_msgSend_doubleValueForProperty_(mOverridePropertyMap, a2, *&property), result == INFINITY))
+  {
+    mParent = self->mParent;
+    if (mParent)
+    {
+
+      objc_msgSend_doubleValueForProperty_(mParent, a2, v3);
+    }
+
+    else
+    {
+      v8 = objc_opt_class();
+
+      objc_msgSend_defaultDoubleValueForProperty_(v8, v9, v3);
+    }
+  }
+
+  return result;
+}
+
+- (double)CGFloatValueForProperty:(int)property
+{
+  v3 = *&property;
+  mOverridePropertyMap = self->mOverridePropertyMap;
+  if (!mOverridePropertyMap || (objc_msgSend_CGFloatValueForProperty_(mOverridePropertyMap, a2, *&property), result == INFINITY))
+  {
+    mParent = self->mParent;
+    if (mParent)
+    {
+
+      objc_msgSend_CGFloatValueForProperty_(mParent, a2, v3);
+    }
+
+    else
+    {
+      v8 = String(v3);
+      if (v8 == 3)
+      {
+        v12 = objc_opt_class();
+
+        objc_msgSend_defaultDoubleValueForProperty_(v12, v13, v3);
+      }
+
+      else if (v8 == 2)
+      {
+        v9 = objc_opt_class();
+        objc_msgSend_defaultFloatValueForProperty_(v9, v10, v3);
+        return v11;
+      }
+
+      else
+      {
+        return INFINITY;
+      }
+    }
+  }
+
+  return result;
+}
+
 - (id)valuesForProperties:(id)properties
 {
   propertiesCopy = properties;
@@ -350,46 +733,304 @@ LABEL_13:
   return v7;
 }
 
+- (void)setBoxedValue:(id)value forProperty:(int)property
+{
+  v4 = *&property;
+  valueCopy = value;
+  objc_msgSend_willModify(self, v7, v8);
+  if (valueCopy)
+  {
+    mOverridePropertyMap = self->mOverridePropertyMap;
+    if (!mOverridePropertyMap)
+    {
+      v11 = objc_alloc_init(TSSPropertyMap);
+      v12 = self->mOverridePropertyMap;
+      self->mOverridePropertyMap = v11;
+
+      mOverridePropertyMap = self->mOverridePropertyMap;
+    }
+
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = sub_276C9DCE4;
+    v26[3] = &unk_27A6EE7F8;
+    v26[4] = self;
+    objc_msgSend_enumerateReferencedDataForProperty_usingBlock_(mOverridePropertyMap, v9, v4, v26);
+    objc_msgSend_setBoxedObject_forProperty_(self->mOverridePropertyMap, v13, valueCopy, v4);
+    v14 = self->mOverridePropertyMap;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = sub_276C9DCEC;
+    v25[3] = &unk_27A6EE7F8;
+    v25[4] = self;
+    objc_msgSend_enumerateReferencedDataForProperty_usingBlock_(v14, v15, v4, v25);
+  }
+
+  else
+  {
+    v16 = MEMORY[0x277D81150];
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSSStyle setBoxedValue:forProperty:]");
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSStyle.m");
+    v20 = String(v4);
+    v21 = TSUObjectReferenceDescription();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v22, v17, v19, 841, 0, "Tried to set property %{public}@ of style %{public}@ to an undefined value.", v20, v21);
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24);
+  }
+}
+
+- (void)setValue:(id)value forProperty:(int)property
+{
+  v4 = *&property;
+  valueCopy = value;
+  objc_msgSend_willModify(self, v7, v8);
+  if (valueCopy)
+  {
+    mOverridePropertyMap = self->mOverridePropertyMap;
+    if (!mOverridePropertyMap)
+    {
+      v11 = objc_alloc_init(TSSPropertyMap);
+      v12 = self->mOverridePropertyMap;
+      self->mOverridePropertyMap = v11;
+
+      mOverridePropertyMap = self->mOverridePropertyMap;
+    }
+
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = sub_276C9DED0;
+    v26[3] = &unk_27A6EE7F8;
+    v26[4] = self;
+    objc_msgSend_enumerateReferencedDataForProperty_usingBlock_(mOverridePropertyMap, v9, v4, v26);
+    objc_msgSend_setObject_forProperty_(self->mOverridePropertyMap, v13, valueCopy, v4);
+    v14 = self->mOverridePropertyMap;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = sub_276C9DED8;
+    v25[3] = &unk_27A6EE7F8;
+    v25[4] = self;
+    objc_msgSend_enumerateReferencedDataForProperty_usingBlock_(v14, v15, v4, v25);
+  }
+
+  else
+  {
+    v16 = MEMORY[0x277D81150];
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSSStyle setValue:forProperty:]");
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSStyle.m");
+    v20 = String(v4);
+    v21 = TSUObjectReferenceDescription();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v22, v17, v19, 865, 0, "Tried to set property %{public}@ of style %{public}@ to an undefined value.", v20, v21);
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24);
+  }
+}
+
+- (void)setIntValue:(int)value forProperty:(int)property
+{
+  v4 = *&property;
+  v5 = *&value;
+  objc_msgSend_willModify(self, a2, *&value);
+  if (v5 == 0x80000000)
+  {
+    v8 = MEMORY[0x277D81150];
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSSStyle setIntValue:forProperty:]");
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSStyle.m");
+    v12 = String(v4);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v11, 879, 0, "Int property value must be defined. Property: %{public}@ (%d)", v12, v4);
+
+    v16 = MEMORY[0x277D81150];
+
+    objc_msgSend_logBacktraceThrottled(v16, v14, v15);
+  }
+
+  else
+  {
+    mOverridePropertyMap = self->mOverridePropertyMap;
+    if (!mOverridePropertyMap)
+    {
+      v18 = objc_alloc_init(TSSPropertyMap);
+      v19 = self->mOverridePropertyMap;
+      self->mOverridePropertyMap = v18;
+
+      mOverridePropertyMap = self->mOverridePropertyMap;
+    }
+
+    MEMORY[0x2821F9670](mOverridePropertyMap, sel_setIntValue_forProperty_, v5);
+  }
+}
+
+- (void)setFloatValue:(float)value forProperty:(int)property
+{
+  v4 = *&property;
+  objc_msgSend_willModify(self, a2, *&property);
+  if (value == INFINITY)
+  {
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSSStyle setFloatValue:forProperty:]");
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSStyle.m");
+    v15 = String(v4);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v16, v12, v14, 892, 0, "Float property value must be defined. Property: %{public}@ (%d)", v15, v4);
+
+    v19 = MEMORY[0x277D81150];
+
+    objc_msgSend_logBacktraceThrottled(v19, v17, v18);
+  }
+
+  else
+  {
+    mOverridePropertyMap = self->mOverridePropertyMap;
+    if (!mOverridePropertyMap)
+    {
+      v9 = objc_alloc_init(TSSPropertyMap);
+      v10 = self->mOverridePropertyMap;
+      self->mOverridePropertyMap = v9;
+
+      mOverridePropertyMap = self->mOverridePropertyMap;
+    }
+
+    MEMORY[0x2821F9670](mOverridePropertyMap, sel_setFloatValue_forProperty_, v4);
+  }
+}
+
+- (void)setDoubleValue:(double)value forProperty:(int)property
+{
+  v4 = *&property;
+  objc_msgSend_willModify(self, a2, *&property);
+  if (value == INFINITY)
+  {
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSSStyle setDoubleValue:forProperty:]");
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSStyle.m");
+    v15 = String(v4);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v16, v12, v14, 905, 0, "Double property value must be defined. Property: %{public}@ (%d)", v15, v4);
+
+    v19 = MEMORY[0x277D81150];
+
+    objc_msgSend_logBacktraceThrottled(v19, v17, v18);
+  }
+
+  else
+  {
+    mOverridePropertyMap = self->mOverridePropertyMap;
+    if (!mOverridePropertyMap)
+    {
+      v9 = objc_alloc_init(TSSPropertyMap);
+      v10 = self->mOverridePropertyMap;
+      self->mOverridePropertyMap = v9;
+
+      mOverridePropertyMap = self->mOverridePropertyMap;
+    }
+
+    MEMORY[0x2821F9670](mOverridePropertyMap, sel_setDoubleValue_forProperty_, v4);
+  }
+}
+
+- (void)setCGFloatValue:(double)value forProperty:(int)property
+{
+  v4 = *&property;
+  objc_msgSend_willModify(self, a2, *&property);
+  if (value == INFINITY)
+  {
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSSStyle setCGFloatValue:forProperty:]");
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSStyle.m");
+    v15 = String(v4);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v16, v12, v14, 918, 0, "CGFloat property value must be defined. Property: %{public}@ (%d)", v15, v4);
+
+    v19 = MEMORY[0x277D81150];
+
+    objc_msgSend_logBacktraceThrottled(v19, v17, v18);
+  }
+
+  else
+  {
+    mOverridePropertyMap = self->mOverridePropertyMap;
+    if (!mOverridePropertyMap)
+    {
+      v9 = objc_alloc_init(TSSPropertyMap);
+      v10 = self->mOverridePropertyMap;
+      self->mOverridePropertyMap = v9;
+
+      mOverridePropertyMap = self->mOverridePropertyMap;
+    }
+
+    MEMORY[0x2821F9670](mOverridePropertyMap, sel_setCGFloatValue_forProperty_, v4);
+  }
+}
+
 - (void)setValuesForProperties:(id)properties
 {
   propertiesCopy = properties;
-  objc_msgSend_willModify(self, v5, v6);
+  v7 = objc_msgSend_willModify(self, v5, v6);
   if (propertiesCopy)
   {
     if (self->mOverridePropertyMap)
     {
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = sub_276C9E57C;
+      v17[3] = &unk_27A6EE848;
+      v17[4] = self;
+      objc_msgSend_enumeratePropertiesAndObjectsUsingBlock_(propertiesCopy, v8, v17);
+      objc_msgSend_addValuesFromPropertyMap_(self->mOverridePropertyMap, v10, propertiesCopy);
       v16[0] = MEMORY[0x277D85DD0];
       v16[1] = 3221225472;
-      v16[2] = sub_276C9E57C;
+      v16[2] = sub_276C9E604;
       v16[3] = &unk_27A6EE848;
       v16[4] = self;
-      objc_msgSend_enumeratePropertiesAndObjectsUsingBlock_(propertiesCopy, v7, v16);
-      objc_msgSend_addValuesFromPropertyMap_(self->mOverridePropertyMap, v9, propertiesCopy);
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = sub_276C9E604;
-      v15[3] = &unk_27A6EE848;
-      v15[4] = self;
-      objc_msgSend_enumeratePropertiesAndObjectsUsingBlock_(propertiesCopy, v10, v15);
+      v7 = objc_msgSend_enumeratePropertiesAndObjectsUsingBlock_(propertiesCopy, v11, v16);
     }
 
     else
     {
-      v11 = objc_msgSend_copy(propertiesCopy, v7, v8);
+      v12 = objc_msgSend_copy(propertiesCopy, v8, v9);
       mOverridePropertyMap = self->mOverridePropertyMap;
-      self->mOverridePropertyMap = v11;
+      self->mOverridePropertyMap = v12;
 
-      v13 = self->mOverridePropertyMap;
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = sub_276C9E574;
-      v17[3] = &unk_27A6EE7F8;
-      v17[4] = self;
-      objc_msgSend_enumerateDataPropertiesUsingBlock_(v13, v14, v17);
+      v14 = self->mOverridePropertyMap;
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = sub_276C9E574;
+      v18[3] = &unk_27A6EE7F8;
+      v18[4] = self;
+      v7 = objc_msgSend_enumerateDataPropertiesUsingBlock_(v14, v15, v18);
     }
   }
 
-  sub_276CBE6E4();
+  sub_276CBE6E4(v7);
+}
+
+- (void)removeValueForProperty:(int)property
+{
+  v3 = *&property;
+  objc_msgSend_willModify(self, a2, *&property);
+  if (v3 >> 1 >= 0x907)
+  {
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSSStyle removeValueForProperty:]");
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSStyle.m");
+    v11 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v10, v3);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v12, v7, v9, 953, 0, "Property ID <%{public}@> out of range.", v11);
+
+    objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v13, v14);
+  }
+
+  if (objc_msgSend_overridesProperty_(self, v5, v3))
+  {
+    mOverridePropertyMap = self->mOverridePropertyMap;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = sub_276C9E800;
+    v21[3] = &unk_27A6EE7F8;
+    v21[4] = self;
+    objc_msgSend_enumerateReferencedDataForProperty_usingBlock_(mOverridePropertyMap, v15, v3, v21);
+    objc_msgSend_removeValueForProperty_(self->mOverridePropertyMap, v17, v3);
+    if (!objc_msgSend_count(self->mOverridePropertyMap, v18, v19))
+    {
+      v20 = self->mOverridePropertyMap;
+      self->mOverridePropertyMap = 0;
+    }
+  }
 }
 
 - (void)removeAllValues
@@ -404,6 +1045,19 @@ LABEL_13:
   objc_msgSend_enumerateDataPropertiesUsingBlock_(mOverridePropertyMap, v5, v7);
   v6 = self->mOverridePropertyMap;
   self->mOverridePropertyMap = 0;
+}
+
+- (BOOL)definesProperty:(int)property
+{
+  v3 = *&property;
+  if (objc_msgSend_containsProperty_(self->mOverridePropertyMap, a2, *&property))
+  {
+    return 1;
+  }
+
+  mParent = self->mParent;
+
+  return objc_msgSend_definesProperty_(mParent, v5, v3);
 }
 
 - (NSString)contentTag
@@ -443,6 +1097,133 @@ LABEL_13:
     return objc_msgSend_count(result, a2, v2);
   }
 
+  return result;
+}
+
+- (id)boxedOverrideValueForProperty:(int)property
+{
+  v3 = *&property;
+  v5 = String(property);
+  if (v5 <= 1)
+  {
+    if (!v5)
+    {
+      v9 = objc_msgSend_overrideValueForProperty_(self, v6, v3);
+      goto LABEL_15;
+    }
+
+    if (v5 == 1)
+    {
+      v7 = objc_msgSend_overrideIntValueForProperty_(self, v6, v3);
+      if (v7 != 0x80000000)
+      {
+        v9 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v8, v7);
+        goto LABEL_15;
+      }
+
+      goto LABEL_14;
+    }
+
+    goto LABEL_10;
+  }
+
+  if (v5 != 2)
+  {
+    if (v5 == 3)
+    {
+      objc_msgSend_overrideDoubleValueForProperty_(self, v6, v3);
+      if (v12 != INFINITY)
+      {
+        v9 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v10, v11);
+        goto LABEL_15;
+      }
+
+      goto LABEL_14;
+    }
+
+LABEL_10:
+    v13 = MEMORY[0x277D81150];
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSSStyle boxedOverrideValueForProperty:]");
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSStyle.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v17, v14, v16, 1059, 0, "Unexpected property type");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19);
+    goto LABEL_14;
+  }
+
+  objc_msgSend_overrideFloatValueForProperty_(self, v6, v3);
+  if (v22 != INFINITY)
+  {
+    v9 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v20, v21);
+    goto LABEL_15;
+  }
+
+LABEL_14:
+  v9 = 0;
+LABEL_15:
+
+  return v9;
+}
+
+- (id)overrideValueForProperty:(int)property
+{
+  mOverridePropertyMap = self->mOverridePropertyMap;
+  if (mOverridePropertyMap)
+  {
+    mOverridePropertyMap = objc_msgSend_objectForProperty_(mOverridePropertyMap, a2, *&property);
+    v3 = vars8;
+  }
+
+  return mOverridePropertyMap;
+}
+
+- (int)overrideIntValueForProperty:(int)property
+{
+  mOverridePropertyMap = self->mOverridePropertyMap;
+  if (mOverridePropertyMap)
+  {
+    return objc_msgSend_intValueForProperty_(mOverridePropertyMap, a2, *&property);
+  }
+
+  else
+  {
+    return 0x80000000;
+  }
+}
+
+- (float)overrideFloatValueForProperty:(int)property
+{
+  mOverridePropertyMap = self->mOverridePropertyMap;
+  if (!mOverridePropertyMap)
+  {
+    return INFINITY;
+  }
+
+  objc_msgSend_floatValueForProperty_(mOverridePropertyMap, a2, *&property);
+  return result;
+}
+
+- (double)overrideDoubleValueForProperty:(int)property
+{
+  mOverridePropertyMap = self->mOverridePropertyMap;
+  if (!mOverridePropertyMap)
+  {
+    return INFINITY;
+  }
+
+  objc_msgSend_doubleValueForProperty_(mOverridePropertyMap, a2, *&property);
+  return result;
+}
+
+- (double)overrideCGFloatValueForProperty:(int)property
+{
+  mOverridePropertyMap = self->mOverridePropertyMap;
+  if (!mOverridePropertyMap)
+  {
+    return INFINITY;
+  }
+
+  objc_msgSend_CGFloatValueForProperty_(mOverridePropertyMap, a2, *&property);
   return result;
 }
 
@@ -668,6 +1449,84 @@ LABEL_6:
   LOBYTE(self) = objc_msgSend_hasEqualValues_forProperties_(self, v9, valuesCopy, v8);
 
   return self;
+}
+
+- (BOOL)p_hasEqualValuesTo:(id)to forProperty:(int)property
+{
+  v4 = *&property;
+  toCopy = to;
+  v7 = String(v4);
+  if (v7 > 1)
+  {
+    if (v7 == 2)
+    {
+      objc_msgSend_floatValueForProperty_(self, v8, v4);
+      v28 = v27;
+      objc_msgSend_floatValueForProperty_(toCopy, v29, v4);
+      if (v28 == v30)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else
+    {
+      if (v7 != 3)
+      {
+        goto LABEL_10;
+      }
+
+      objc_msgSend_doubleValueForProperty_(self, v8, v4);
+      v12 = v11;
+      objc_msgSend_doubleValueForProperty_(toCopy, v13, v4);
+      if (v12 == v14)
+      {
+        goto LABEL_17;
+      }
+    }
+
+LABEL_19:
+    v31 = 0;
+    goto LABEL_20;
+  }
+
+  if (!v7)
+  {
+    v23 = objc_msgSend_valueForProperty_(self, v8, v4);
+    v26 = objc_msgSend_objectForProperty_(toCopy, v24, v4);
+    if ((!v23 || objc_msgSend_isEqual_(v23, v25, v26)) && (!v26 || objc_msgSend_isEqual_(v26, v25, v23)))
+    {
+
+      goto LABEL_17;
+    }
+
+    goto LABEL_19;
+  }
+
+  if (v7 != 1)
+  {
+LABEL_10:
+    v15 = MEMORY[0x277D81150];
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSSStyle p_hasEqualValuesTo:forProperty:]");
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSStyle.m");
+    v19 = String(v4);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v20, v16, v18, 1238, 0, "Comparing property values for unknown property %{public}@ (%d) of unknown type.", v19, v4);
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22);
+    goto LABEL_19;
+  }
+
+  v9 = objc_msgSend_intValueForProperty_(self, v8, v4);
+  if (v9 != objc_msgSend_intValueForProperty_(toCopy, v10, v4))
+  {
+    goto LABEL_19;
+  }
+
+LABEL_17:
+  v31 = 1;
+LABEL_20:
+
+  return v31;
 }
 
 - (BOOL)hasEqualValuesToPropertyMap:(id)map forProperties:(id)properties
@@ -1267,6 +2126,42 @@ LABEL_6:
   return result;
 }
 
++ (BOOL)validateObjectValue:(id *)value withClass:(Class)class forProperty:(int)property
+{
+  if (value)
+  {
+    v5 = *&property;
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) != 0 && (v8 = objc_opt_class(), objc_msgSend_propertiesAllowingNSNull(v8, v9, v10), v11 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend_containsProperty_(v11, v12, v5), v11, (v13 & 1) == 0))
+    {
+      v15 = objc_msgSend_boxedDefaultValueForProperty_(self, v14, v5);
+      *value = v15;
+      if (!v15)
+      {
+        return v15;
+      }
+    }
+
+    else
+    {
+      v15 = *value;
+      if (!*value)
+      {
+        return v15;
+      }
+    }
+
+    LOBYTE(v15) = (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0);
+  }
+
+  else
+  {
+    LOBYTE(v15) = 0;
+  }
+
+  return v15;
+}
+
 - (id)archivableRepresentationOfChangeSet:(id)set
 {
   setCopy = set;
@@ -1305,6 +2200,28 @@ LABEL_6:
   {
     return v5;
   }
+}
+
+- (id)boxedValueForProperty:(int)property oldBoxedValue:(id)value transformedByTransform:(CGAffineTransform *)transform
+{
+  v6 = *&property;
+  valueCopy = value;
+  if (v6 == 17 && objc_msgSend_transformsFontSizes(self, v8, v9))
+  {
+    objc_msgSend_floatValue(valueCopy, v8, v11);
+    objc_msgSend_fontSizeForFontSize_scalingFactor_(TSSStyle, v13, v14, v12, transform->d);
+    *&v15 = v15;
+    v18 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v16, v17, v15);
+  }
+
+  else
+  {
+    v18 = objc_msgSend_boxedObjectForProperty_(self, v8, v6);
+  }
+
+  v19 = v18;
+
+  return v19;
 }
 
 - (id)propertyMapThatNeedsToBeTransformedWithTransformedObjects:(id)objects
@@ -1487,14 +2404,8 @@ LABEL_6:
     v17 = objc_msgSend_tsp_protobufString(mName, v6, v7);
     *(archive + 4) |= 1u;
     sub_276CA3CD4(__p, v17);
-    v18 = *(archive + 1);
-    if (v18)
-    {
-      v32 = *(v18 & 0xFFFFFFFFFFFFFFFELL);
-    }
-
     google::protobuf::internal::ArenaStringPtr::Set();
-    if (v35 < 0)
+    if (v31 < 0)
     {
       operator delete(__p[0]);
     }
@@ -1503,17 +2414,11 @@ LABEL_6:
   mStyleIdentifier = self->mStyleIdentifier;
   if (mStyleIdentifier)
   {
-    v20 = objc_msgSend_tsp_protobufString(mStyleIdentifier, v6, v7);
+    v19 = objc_msgSend_tsp_protobufString(mStyleIdentifier, v6, v7);
     *(archive + 4) |= 2u;
-    sub_276CA3CD4(__p, v20);
-    v21 = *(archive + 1);
-    if (v21)
-    {
-      v33 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
-    }
-
+    sub_276CA3CD4(__p, v19);
     google::protobuf::internal::ArenaStringPtr::Set();
-    if (v35 < 0)
+    if (v31 < 0)
     {
       operator delete(__p[0]);
     }
@@ -1523,20 +2428,20 @@ LABEL_6:
   if (mParent)
   {
     *(archive + 4) |= 4u;
-    v23 = *(archive + 5);
-    if (!v23)
+    v21 = *(archive + 5);
+    if (!v21)
     {
-      v24 = *(archive + 1);
-      if (v24)
+      v22 = *(archive + 1);
+      if (v22)
       {
-        v24 = *(v24 & 0xFFFFFFFFFFFFFFFELL);
+        v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v23 = MEMORY[0x277CA0650](v24);
-      *(archive + 5) = v23;
+      v21 = MEMORY[0x277CA0650](v22);
+      *(archive + 5) = v21;
     }
 
-    objc_msgSend_setStrongReference_message_(archiverCopy, v6, mParent, v23);
+    objc_msgSend_setStrongReference_message_(archiverCopy, v6, mParent, v21);
   }
 
   if (self->mIsVariation)
@@ -1547,24 +2452,24 @@ LABEL_6:
 
   WeakRetained = objc_loadWeakRetained(&self->mStylesheet);
 
-  if (WeakRetained && (objc_msgSend_isForCopy(archiverCopy, v26, v27) & 1) == 0)
+  if (WeakRetained && (objc_msgSend_isForCopy(archiverCopy, v24, v25) & 1) == 0)
   {
-    v29 = objc_loadWeakRetained(&self->mStylesheet);
+    v27 = objc_loadWeakRetained(&self->mStylesheet);
     *(archive + 4) |= 8u;
-    v30 = *(archive + 6);
-    if (!v30)
+    v28 = *(archive + 6);
+    if (!v28)
     {
-      v31 = *(archive + 1);
-      if (v31)
+      v29 = *(archive + 1);
+      if (v29)
       {
-        v31 = *(v31 & 0xFFFFFFFFFFFFFFFELL);
+        v29 = *(v29 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v30 = MEMORY[0x277CA0650](v31);
-      *(archive + 6) = v30;
+      v28 = MEMORY[0x277CA0650](v29);
+      *(archive + 6) = v28;
     }
 
-    objc_msgSend_setWeakReference_message_(archiverCopy, v28, v29, v30);
+    objc_msgSend_setWeakReference_message_(archiverCopy, v26, v27, v28);
   }
 }
 

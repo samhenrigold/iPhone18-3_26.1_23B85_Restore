@@ -5,6 +5,7 @@
 - (void)_collectAndClearCurrentSettingWithTraceNamePrefix:(id)prefix triggerUserNotification:(BOOL)notification callback:(id)callback;
 - (void)_collectionQueue_collectWithStartDate:(id)date endDate:(id)endDate traceNamePrefix:(id)prefix collectionType:(unsigned __int8)type triggerUserNotification:(BOOL)notification collectionConfig:(id)config clearPresetSettings:(BOOL)settings callback:(id)self0;
 - (void)_confirmTraceDirectoryExists;
+- (void)_generateCollectionErrorCoreAnalyticsTelemetry:(unsigned __int8)telemetry traceWindowStartDate:(id)date traceWindowEndDate:(id)endDate collectionType:(unsigned __int8)type;
 - (void)_generateCoreAnalyticsTelemetry:(id)telemetry collectionEndDate:(id)date traceWindowStartDate:(id)startDate traceWindowEndDate:(id)endDate traceCount:(unint64_t)count totalTraceSizeBytes:(unint64_t)bytes archiveSizeBytes:(id)sizeBytes collectionType:(unsigned __int8)self0;
 - (void)_initCollectionConfig;
 - (void)_initInstrumentationConfig;
@@ -39,7 +40,15 @@
 - (void)resetCollectLookbackInterval:(id)interval;
 - (void)resetCollectMSS:(id)s;
 - (void)resetSettings:(id)settings;
+- (void)setCollectAppInFocus:(BOOL)focus callback:(id)callback;
+- (void)setCollectLoggingAppLaunch:(BOOL)launch callback:(id)callback;
+- (void)setCollectLoggingHangs:(BOOL)hangs callback:(id)callback;
+- (void)setCollectLoggingMetalFramePacing:(BOOL)pacing callback:(id)callback;
+- (void)setCollectLoggingPerfPowerMetrics:(BOOL)metrics callback:(id)callback;
+- (void)setCollectLoggingScrolling:(BOOL)scrolling callback:(id)callback;
+- (void)setCollectLoggingUserInteraction:(BOOL)interaction callback:(id)callback;
 - (void)setCollectLookbackInterval:(double)interval callback:(id)callback;
+- (void)setCollectMSS:(BOOL)s callback:(id)callback;
 - (void)setImitationRecordStartDate:(id)date callback:(id)callback;
 - (void)setMetalPerDrawableSignpostsEnabled:(id)enabled callback:(id)callback;
 - (void)setMetricMonitoredAppProcessNames:(id)names callback:(id)callback;
@@ -72,107 +81,108 @@
   processIdentifier = [connectionCopy processIdentifier];
   proc_name(processIdentifier, buffer, 0x20u);
   v9 = [NSString stringWithUTF8String:buffer];
-  if (![(PTPCPassiveCollectionService *)self _connectionIsEntitled:connectionCopy toEntitlement:@"com.apple.PerformanceTrace.PassiveConfigurationAccess"])
+  v10 = [(PTPCPassiveCollectionService *)self _connectionIsEntitled:connectionCopy toEntitlement:@"com.apple.PerformanceTrace.PassiveConfigurationAccess"];
+  if ((v10 & 1) == 0)
   {
-    v16 = sub_10000B5D4();
-    if (os_signpost_enabled(v16))
+    v18 = sub_10000B5D4(v10);
+    if (os_signpost_enabled(v18))
     {
       *buf = 138543618;
-      v42 = v9;
-      v43 = 1024;
-      v44 = processIdentifier;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ClientLacksEntitlement", "Client '%{public}@ [%u]' is missing required entitlement", buf, 0x12u);
+      v45 = v9;
+      v46 = 1024;
+      v47 = processIdentifier;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ClientLacksEntitlement", "Client '%{public}@ [%u]' is missing required entitlement", buf, 0x12u);
     }
 
     goto LABEL_9;
   }
 
   pidToConnection = [(PTPCPassiveCollectionService *)self pidToConnection];
-  v11 = [NSNumber numberWithInt:processIdentifier];
-  v12 = [pidToConnection objectForKeyedSubscript:v11];
-  v13 = v12 == 0;
+  v12 = [NSNumber numberWithInt:processIdentifier];
+  v13 = [pidToConnection objectForKeyedSubscript:v12];
+  v14 = v13 == 0;
 
-  if (!v13)
+  if (!v14)
   {
-    v14 = sub_10000B5D4();
-    if (os_signpost_enabled(v14))
+    v16 = sub_10000B5D4(v15);
+    if (os_signpost_enabled(v16))
     {
       pidToConnection2 = [(PTPCPassiveCollectionService *)self pidToConnection];
       *buf = 138543874;
-      v42 = v9;
-      v43 = 1024;
-      v44 = processIdentifier;
-      v45 = 1024;
-      v46 = [pidToConnection2 count];
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PreExistingClientProcessConnection", "Client '%{public}@ [%u]' already has a connection. %u concurrent client(s) at this time.", buf, 0x18u);
+      v45 = v9;
+      v46 = 1024;
+      v47 = processIdentifier;
+      v48 = 1024;
+      v49 = [pidToConnection2 count];
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PreExistingClientProcessConnection", "Client '%{public}@ [%u]' already has a connection. %u concurrent client(s) at this time.", buf, 0x18u);
     }
 
 LABEL_9:
-    v17 = 0;
+    v19 = 0;
     goto LABEL_10;
   }
 
   objc_initWeak(&location, self);
-  v19 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___PTPCPassiveCollectionConfigurationInterface];
-  [connectionCopy setExportedInterface:v19];
+  v21 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___PTPCPassiveCollectionConfigurationInterface];
+  [connectionCopy setExportedInterface:v21];
 
   [connectionCopy setExportedObject:self];
-  v20 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___PTPCPassiveCollectionClientDelegate];
-  [connectionCopy setRemoteObjectInterface:v20];
+  v22 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___PTPCPassiveCollectionClientDelegate];
+  [connectionCopy setRemoteObjectInterface:v22];
 
-  v36[0] = _NSConcreteStackBlock;
-  v36[1] = 3221225472;
-  v36[2] = sub_10000B618;
-  v36[3] = &unk_100020B00;
-  objc_copyWeak(&v38, &location);
-  v39 = processIdentifier;
-  v21 = v9;
-  v37 = v21;
-  [connectionCopy setInvalidationHandler:v36];
-  v28 = _NSConcreteStackBlock;
-  v29 = 3221225472;
-  v30 = sub_10000B79C;
-  v31 = &unk_100020B28;
-  objc_copyWeak(&v34, &location);
-  v35 = processIdentifier;
-  v22 = v21;
-  v32 = v22;
+  v39[0] = _NSConcreteStackBlock;
+  v39[1] = 3221225472;
+  v39[2] = sub_10000B618;
+  v39[3] = &unk_100020B00;
+  objc_copyWeak(&v41, &location);
+  v42 = processIdentifier;
+  v23 = v9;
+  v40 = v23;
+  [connectionCopy setInvalidationHandler:v39];
+  v31 = _NSConcreteStackBlock;
+  v32 = 3221225472;
+  v33 = sub_10000B79C;
+  v34 = &unk_100020B28;
+  objc_copyWeak(&v37, &location);
+  v38 = processIdentifier;
+  v24 = v23;
+  v35 = v24;
   selfCopy = self;
-  [connectionCopy setInterruptionHandler:&v28];
-  v23 = [(PTPCPassiveCollectionService *)self pidToConnection:v28];
-  v24 = [NSNumber numberWithInt:processIdentifier];
-  [v23 setObject:connectionCopy forKeyedSubscript:v24];
+  [connectionCopy setInterruptionHandler:&v31];
+  v25 = [(PTPCPassiveCollectionService *)self pidToConnection:v31];
+  v26 = [NSNumber numberWithInt:processIdentifier];
+  [v25 setObject:connectionCopy forKeyedSubscript:v26];
 
-  v25 = sub_10000B758();
-  if (os_signpost_enabled(v25))
+  v28 = sub_10000B758(v27);
+  if (os_signpost_enabled(v28))
   {
     pidToConnection3 = [(PTPCPassiveCollectionService *)self pidToConnection];
-    v27 = [pidToConnection3 count];
+    v30 = [pidToConnection3 count];
     *buf = 138543874;
-    v42 = v22;
-    v43 = 1024;
-    v44 = processIdentifier;
-    v45 = 1024;
-    v46 = v27;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v25, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NewCollectionClientConnection", "Opened new connection for client '%{public}@ [%u]'. %u concurrent client(s) at this time.", buf, 0x18u);
+    v45 = v24;
+    v46 = 1024;
+    v47 = processIdentifier;
+    v48 = 1024;
+    v49 = v30;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v28, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NewCollectionClientConnection", "Opened new connection for client '%{public}@ [%u]'. %u concurrent client(s) at this time.", buf, 0x18u);
   }
 
   [connectionCopy resume];
-  objc_destroyWeak(&v34);
+  objc_destroyWeak(&v37);
 
-  objc_destroyWeak(&v38);
+  objc_destroyWeak(&v41);
   objc_destroyWeak(&location);
-  v17 = 1;
+  v19 = 1;
 LABEL_10:
 
-  return v17;
+  return v19;
 }
 
 - (void)_initCollectionConfig
 {
-  v20 = 0;
-  v3 = [PTPCMutablePassiveCollectionConfig currentPersistedSettings:0 errorOut:&v20];
-  v4 = v20;
+  v23 = 0;
+  v3 = [PTPCMutablePassiveCollectionConfig currentPersistedSettings:0 errorOut:&v23];
+  v4 = v23;
   passiveCollectionConfig = self->_passiveCollectionConfig;
   self->_passiveCollectionConfig = v3;
 
@@ -180,33 +190,34 @@ LABEL_10:
 
   if (!passiveCollectionConfig || v4)
   {
-    v7 = sub_10000B5D4();
-    if (os_signpost_enabled(v7))
+    v8 = sub_10000B5D4(v7);
+    if (os_signpost_enabled(v8))
     {
       localizedDescription = [v4 localizedDescription];
-      v9 = localizedDescription;
-      v10 = @"Unknown";
+      v10 = localizedDescription;
+      v11 = @"Unknown";
       if (localizedDescription)
       {
-        v10 = localizedDescription;
+        v11 = localizedDescription;
       }
 
       *buf = 138543362;
-      v22 = v10;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidPersistedSettings", "Forced to clear due to error: %{public}@", buf, 0xCu);
+      v25 = v11;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidPersistedSettings", "Forced to clear due to error: %{public}@", buf, 0xCu);
     }
 
-    v19 = 0;
-    v11 = [PTPCMutablePassiveCollectionConfig resetPersistedDefaults:0 errorOut:&v19];
-    v12 = v19;
-    if (v11)
+    v22 = 0;
+    v12 = [PTPCMutablePassiveCollectionConfig resetPersistedDefaults:0 errorOut:&v22];
+    v13 = v22;
+    v14 = v13;
+    if (v12)
     {
-      v18 = v4;
-      v13 = [PTPCMutablePassiveCollectionConfig currentPersistedSettings:0 errorOut:&v18];
-      v14 = v18;
+      v21 = v4;
+      v15 = [PTPCMutablePassiveCollectionConfig currentPersistedSettings:0 errorOut:&v21];
+      v16 = v21;
 
-      v15 = self->_passiveCollectionConfig;
-      self->_passiveCollectionConfig = v13;
+      v17 = self->_passiveCollectionConfig;
+      self->_passiveCollectionConfig = v15;
 
       passiveCollectionConfig2 = [(PTPCPassiveCollectionService *)self passiveCollectionConfig];
 
@@ -216,19 +227,19 @@ LABEL_10:
         return;
       }
 
-      v17 = sub_10000B5D4();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v20 = sub_10000B5D4(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
-        sub_100013264(v14);
+        sub_100013264(v16);
       }
     }
 
     else
     {
-      v17 = sub_10000B5D4();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v20 = sub_10000B5D4(v13);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
-        sub_100013264(v12);
+        sub_100013264(v14);
       }
     }
 
@@ -238,9 +249,9 @@ LABEL_10:
 
 - (void)_initInstrumentationConfig
 {
-  v8 = 0;
-  v3 = [PTPCPassiveInstrumentationConfig currentPersistedSettings:0 errorOut:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [PTPCPassiveInstrumentationConfig currentPersistedSettings:0 errorOut:&v9];
+  v4 = v9;
   instrumentationConfig = self->_instrumentationConfig;
   self->_instrumentationConfig = v3;
 
@@ -248,8 +259,8 @@ LABEL_10:
 
   if (!instrumentationConfig)
   {
-    v7 = sub_10000B5D4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = sub_10000B5D4(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       sub_1000132FC(v4);
     }
@@ -264,7 +275,7 @@ LABEL_10:
   if (v2)
   {
     v4 = v2;
-    v3 = sub_10000B5D4();
+    v3 = sub_10000B5D4(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       sub_100013394(v4, v3);
@@ -282,17 +293,17 @@ LABEL_10:
   handler[1] = 3221225472;
   handler[2] = sub_10000BD40;
   handler[3] = &unk_100020B50;
-  objc_copyWeak(&v7, &location);
+  objc_copyWeak(&v8, &location);
   xpc_set_event_stream_handler("com.apple.notifyd.matching", connectionQueue, handler);
 
-  v4 = sub_10000B758();
-  if (os_signpost_enabled(v4))
+  v5 = sub_10000B758(v4);
+  if (os_signpost_enabled(v5))
   {
-    *v5 = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "RegisteredForMetricMonitorTimeoutNotification", "", v5, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "RegisteredForMetricMonitorTimeoutNotification", "", v6, 2u);
   }
 
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(&location);
 }
 
@@ -326,8 +337,7 @@ LABEL_10:
     [(PTPCPassiveCollectionService *)v2 _initCollectionConfig];
     [(PTPCPassiveCollectionService *)v2 _initInstrumentationConfig];
     [(PTPCPassiveCollectionService *)v2 _registerForMetricMonitorTimeout];
-    [(PTPCPassiveCollectionService *)v2 _confirmTraceDirectoryExists];
-    v15 = sub_10000B758();
+    v15 = sub_10000B758([(PTPCPassiveCollectionService *)v2 _confirmTraceDirectoryExists]);
     if (os_signpost_enabled(v15))
     {
       *v17 = 0;
@@ -343,6 +353,16 @@ LABEL_10:
   sCopy = s;
   passiveCollectionConfig = [(PTPCPassiveCollectionService *)self passiveCollectionConfig];
   (*(s + 2))(sCopy, [passiveCollectionConfig collectMSS]);
+}
+
+- (void)setCollectMSS:(BOOL)s callback:(id)callback
+{
+  sCopy = s;
+  callbackCopy = callback;
+  passiveCollectionConfig = [(PTPCPassiveCollectionService *)self passiveCollectionConfig];
+  [passiveCollectionConfig setCollectMSS:sCopy];
+
+  callbackCopy[2](callbackCopy, 0);
 }
 
 - (void)resetCollectMSS:(id)s
@@ -361,6 +381,16 @@ LABEL_10:
   (*(focus + 2))(focusCopy, [passiveCollectionConfig collectAppInFocus]);
 }
 
+- (void)setCollectAppInFocus:(BOOL)focus callback:(id)callback
+{
+  focusCopy = focus;
+  callbackCopy = callback;
+  passiveCollectionConfig = [(PTPCPassiveCollectionService *)self passiveCollectionConfig];
+  [passiveCollectionConfig setCollectAppInFocus:focusCopy];
+
+  callbackCopy[2](callbackCopy, 0);
+}
+
 - (void)resetCollectAppInFocus:(id)focus
 {
   focusCopy = focus;
@@ -375,6 +405,16 @@ LABEL_10:
   metricsCopy = metrics;
   passiveCollectionConfig = [(PTPCPassiveCollectionService *)self passiveCollectionConfig];
   (*(metrics + 2))(metricsCopy, [passiveCollectionConfig collectLoggingPerfPowerMetrics]);
+}
+
+- (void)setCollectLoggingPerfPowerMetrics:(BOOL)metrics callback:(id)callback
+{
+  metricsCopy = metrics;
+  callbackCopy = callback;
+  passiveCollectionConfig = [(PTPCPassiveCollectionService *)self passiveCollectionConfig];
+  [passiveCollectionConfig setCollectLoggingPerfPowerMetrics:metricsCopy];
+
+  callbackCopy[2](callbackCopy, 0);
 }
 
 - (void)resetCollectLoggingPerfPowerMetrics:(id)metrics
@@ -393,6 +433,16 @@ LABEL_10:
   (*(hangs + 2))(hangsCopy, [passiveCollectionConfig collectLoggingHangs]);
 }
 
+- (void)setCollectLoggingHangs:(BOOL)hangs callback:(id)callback
+{
+  hangsCopy = hangs;
+  callbackCopy = callback;
+  passiveCollectionConfig = [(PTPCPassiveCollectionService *)self passiveCollectionConfig];
+  [passiveCollectionConfig setCollectLoggingHangs:hangsCopy];
+
+  callbackCopy[2](callbackCopy, 0);
+}
+
 - (void)resetCollectLoggingHangs:(id)hangs
 {
   hangsCopy = hangs;
@@ -407,6 +457,16 @@ LABEL_10:
   interactionCopy = interaction;
   passiveCollectionConfig = [(PTPCPassiveCollectionService *)self passiveCollectionConfig];
   (*(interaction + 2))(interactionCopy, [passiveCollectionConfig collectLoggingUserInteraction]);
+}
+
+- (void)setCollectLoggingUserInteraction:(BOOL)interaction callback:(id)callback
+{
+  interactionCopy = interaction;
+  callbackCopy = callback;
+  passiveCollectionConfig = [(PTPCPassiveCollectionService *)self passiveCollectionConfig];
+  [passiveCollectionConfig setCollectLoggingUserInteraction:interactionCopy];
+
+  callbackCopy[2](callbackCopy, 0);
 }
 
 - (void)resetCollectLoggingUserInteraction:(id)interaction
@@ -425,6 +485,16 @@ LABEL_10:
   (*(pacing + 2))(pacingCopy, [passiveCollectionConfig collectLoggingMetalFramePacing]);
 }
 
+- (void)setCollectLoggingMetalFramePacing:(BOOL)pacing callback:(id)callback
+{
+  pacingCopy = pacing;
+  callbackCopy = callback;
+  passiveCollectionConfig = [(PTPCPassiveCollectionService *)self passiveCollectionConfig];
+  [passiveCollectionConfig setCollectLoggingMetalFramePacing:pacingCopy];
+
+  callbackCopy[2](callbackCopy, 0);
+}
+
 - (void)resetCollectLoggingMetalFramePacing:(id)pacing
 {
   pacingCopy = pacing;
@@ -441,6 +511,16 @@ LABEL_10:
   (*(scrolling + 2))(scrollingCopy, [passiveCollectionConfig collectLoggingScrolling]);
 }
 
+- (void)setCollectLoggingScrolling:(BOOL)scrolling callback:(id)callback
+{
+  scrollingCopy = scrolling;
+  callbackCopy = callback;
+  passiveCollectionConfig = [(PTPCPassiveCollectionService *)self passiveCollectionConfig];
+  [passiveCollectionConfig setCollectLoggingScrolling:scrollingCopy];
+
+  callbackCopy[2](callbackCopy, 0);
+}
+
 - (void)resetCollectLoggingScrolling:(id)scrolling
 {
   scrollingCopy = scrolling;
@@ -455,6 +535,16 @@ LABEL_10:
   launchCopy = launch;
   passiveCollectionConfig = [(PTPCPassiveCollectionService *)self passiveCollectionConfig];
   (*(launch + 2))(launchCopy, [passiveCollectionConfig collectLoggingAppLaunch]);
+}
+
+- (void)setCollectLoggingAppLaunch:(BOOL)launch callback:(id)callback
+{
+  launchCopy = launch;
+  callbackCopy = callback;
+  passiveCollectionConfig = [(PTPCPassiveCollectionService *)self passiveCollectionConfig];
+  [passiveCollectionConfig setCollectLoggingAppLaunch:launchCopy];
+
+  callbackCopy[2](callbackCopy, 0);
 }
 
 - (void)resetCollectLoggingAppLaunch:(id)launch
@@ -488,22 +578,22 @@ LABEL_10:
   [endDateCopy timeIntervalSinceDate:startDateCopy];
   v23 = v22;
 
-  v49[0] = @"TimeToCollectSeconds";
+  v50[0] = @"TimeToCollectSeconds";
   v24 = [NSNumber numberWithDouble:v21];
-  v50[0] = v24;
-  v49[1] = @"CollectionWindowSeconds";
+  v51[0] = v24;
+  v50[1] = @"CollectionWindowSeconds";
   v25 = [NSNumber numberWithDouble:v23];
-  v50[1] = v25;
-  v49[2] = @"TraceCount";
+  v51[1] = v25;
+  v50[2] = @"TraceCount";
   v26 = [NSNumber numberWithUnsignedLongLong:count];
-  v50[2] = v26;
-  v49[3] = @"TotalTraceBytes";
+  v51[2] = v26;
+  v50[3] = @"TotalTraceBytes";
   v27 = [NSNumber numberWithUnsignedLongLong:bytes];
-  v50[3] = v27;
-  v49[4] = @"CollectionType";
+  v51[3] = v27;
+  v50[4] = @"CollectionType";
   v28 = [NSNumber numberWithUnsignedChar:type];
-  v50[4] = v28;
-  v29 = [NSDictionary dictionaryWithObjects:v50 forKeys:v49 count:5];
+  v51[4] = v28;
+  v29 = [NSDictionary dictionaryWithObjects:v51 forKeys:v50 count:5];
   v30 = [v29 mutableCopy];
 
   if (sizeBytesCopy)
@@ -512,9 +602,9 @@ LABEL_10:
   }
 
   instrumentationConfig = [(PTPCPassiveCollectionService *)self instrumentationConfig];
-  v42 = 0;
-  v32 = [instrumentationConfig perDrawableEnabled:&v42];
-  v33 = v42;
+  v43 = 0;
+  v32 = [instrumentationConfig perDrawableEnabled:&v43];
+  v33 = v43;
 
   if (v32)
   {
@@ -522,47 +612,113 @@ LABEL_10:
   }
 
   instrumentationConfig2 = [(PTPCPassiveCollectionService *)self instrumentationConfig];
-  v41 = 0;
-  v35 = [instrumentationConfig2 mssPMICycleInterval:&v41];
-  v36 = v41;
+  v42 = 0;
+  v35 = [instrumentationConfig2 mssPMICycleInterval:&v42];
+  v36 = v42;
 
   if (v35)
   {
     [v30 setObject:v35 forKeyedSubscript:@"MSSPMIInterval"];
   }
 
-  v37 = sub_10000CFA4();
-  if (os_signpost_enabled(v37))
+  v38 = sub_10000CFA4(v37);
+  if (os_signpost_enabled(v38))
   {
     generateCoreAnalyticsTelemetry = [(PTPCPassiveCollectionService *)self generateCoreAnalyticsTelemetry];
-    v39 = @"NO";
+    v40 = @"NO";
     if (generateCoreAnalyticsTelemetry)
     {
-      v39 = @"YES";
+      v40 = @"YES";
     }
 
     if ((type - 1) > 3u)
     {
-      v40 = @"Unknown";
+      v41 = @"Unknown";
     }
 
     else
     {
-      v40 = *(&off_100020C40 + (type - 1));
+      v41 = *(&off_100020C40 + (type - 1));
     }
 
     *buf = 138543874;
-    v44 = v39;
-    v45 = 2114;
-    v46 = v40;
-    v47 = 2114;
-    v48 = v30;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v37, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TraceCollectionCoreAnalytics", "Will submit payload: %{public}@, collection type: %{public}@\nPayload:\n%{public}@", buf, 0x20u);
+    v45 = v40;
+    v46 = 2114;
+    v47 = v41;
+    v48 = 2114;
+    v49 = v30;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v38, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TraceCollectionCoreAnalytics", "Will submit payload: %{public}@, collection type: %{public}@\nPayload:\n%{public}@", buf, 0x20u);
   }
 
   if ([(PTPCPassiveCollectionService *)self generateCoreAnalyticsTelemetry])
   {
     AnalyticsSendEvent();
+  }
+}
+
+- (void)_generateCollectionErrorCoreAnalyticsTelemetry:(unsigned __int8)telemetry traceWindowStartDate:(id)date traceWindowEndDate:(id)endDate collectionType:(unsigned __int8)type
+{
+  if (telemetry != 1)
+  {
+    typeCopy = type;
+    telemetryCopy = telemetry;
+    [endDate timeIntervalSinceDate:date];
+    v27[0] = @"CollectionWindowDuration";
+    v9 = [NSNumber numberWithDouble:?];
+    v28[0] = v9;
+    v27[1] = @"CollectionType";
+    v10 = [NSNumber numberWithUnsignedChar:typeCopy];
+    v28[1] = v10;
+    v27[2] = @"ErrorType";
+    v11 = [NSNumber numberWithUnsignedChar:telemetryCopy];
+    v28[2] = v11;
+    v12 = [NSDictionary dictionaryWithObjects:v28 forKeys:v27 count:3];
+
+    v14 = sub_10000CFA4(v13);
+    if (os_signpost_enabled(v14))
+    {
+      generateCoreAnalyticsTelemetry = [(PTPCPassiveCollectionService *)self generateCoreAnalyticsTelemetry];
+      v16 = @"NO";
+      if (generateCoreAnalyticsTelemetry)
+      {
+        v16 = @"YES";
+      }
+
+      if ((typeCopy - 1) > 3u)
+      {
+        v17 = @"Unknown";
+      }
+
+      else
+      {
+        v17 = *(&off_100020C40 + (typeCopy - 1));
+      }
+
+      if ((telemetryCopy - 2) > 3u)
+      {
+        v18 = @"Unknown";
+      }
+
+      else
+      {
+        v18 = *(&off_100020C60 + (telemetryCopy - 2));
+      }
+
+      v19 = 138544130;
+      v20 = v16;
+      v21 = 2114;
+      v22 = v17;
+      v23 = 2114;
+      v24 = v18;
+      v25 = 2114;
+      v26 = v12;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TraceCollectionErrorCoreAnalytics", "Will submit payload: %{public}@, collection type: %{public}@, error type: %{public}@\nPayload:\n%{public}@", &v19, 0x2Au);
+    }
+
+    if ([(PTPCPassiveCollectionService *)self generateCoreAnalyticsTelemetry])
+    {
+      AnalyticsSendEvent();
+    }
   }
 }
 
@@ -575,7 +731,7 @@ LABEL_10:
   prefixCopy = prefix;
   configCopy = config;
   callbackCopy = callback;
-  v148 = os_transaction_create();
+  v162 = os_transaction_create();
   if (!prefixCopy)
   {
     prefixCopy = [configCopy name];
@@ -585,562 +741,568 @@ LABEL_10:
   [(PTPCPassiveCollectionService *)self _confirmTraceDirectoryExists];
   v18 = sub_10000AB30(dateCopy);
   v19 = sub_10000AB30(endDateCopy);
-  v151 = prefixCopy;
+  v165 = prefixCopy;
   v20 = [NSString stringWithFormat:@"%@_%@_to_%@", prefixCopy, v18, v19];
 
-  v21 = sub_10000B758();
-  v22 = v21;
-  v23 = qword_100025A60;
-  if ((qword_100025A60 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+  v22 = sub_10000B758(v21);
+  v23 = v22;
+  v24 = qword_100025A60;
+  if ((qword_100025A60 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
   {
     if (notificationCopy)
     {
-      v24 = @"Notification";
+      v25 = @"Notification";
     }
 
     else
     {
-      v24 = @"Handle";
+      v25 = @"Handle";
     }
 
-    v25 = [configCopy debugDescription];
+    v26 = [configCopy debugDescription];
     *buf = 138544386;
-    v170 = v20;
-    v171 = 2114;
-    v172 = dateCopy;
-    v173 = 2114;
-    v174 = endDateCopy;
-    v175 = 2114;
-    v176 = v24;
-    v177 = 2114;
-    v178 = v25;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_INTERVAL_BEGIN, v23, "CollectingTrace", "Collecting trace with prefix '%{public}@', interval: %{public}@ -> %{public}@, Exposing result via %{public}@\n%{public}@", buf, 0x34u);
+    v184 = v20;
+    v185 = 2114;
+    v186 = dateCopy;
+    v187 = 2114;
+    v188 = endDateCopy;
+    v189 = 2114;
+    v190 = v25;
+    v191 = 2114;
+    v192 = v26;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, OS_SIGNPOST_INTERVAL_BEGIN, v24, "CollectingTrace", "Collecting trace with prefix '%{public}@', interval: %{public}@ -> %{public}@, Exposing result via %{public}@\n%{public}@", buf, 0x34u);
   }
 
-  v26 = qword_100025A60++;
-  v152 = +[NSDate date];
-  v27 = NSTemporaryDirectory();
-  v28 = [v27 stringByAppendingPathComponent:v20];
+  v27 = qword_100025A60++;
+  v166 = +[NSDate date];
+  v28 = NSTemporaryDirectory();
+  v29 = [v28 stringByAppendingPathComponent:v20];
 
-  [NSURL fileURLWithPath:v28];
-  v150 = v147 = v20;
-  v29 = [[_TtC20ptpassivecollectiond20PTPCPassiveCollector alloc] initWithConfig:configCopy traceNamePrefix:v20 outputDirectory:v150];
-  v166 = 0;
-  v30 = dateCopy;
-  v31 = [(PTPCPassiveCollector *)v29 collectWithStartDate:dateCopy endDate:endDateCopy error:&v166];
-  v32 = v166;
-  v33 = endDateCopy;
-  v149 = callbackCopy;
-  v145 = v31;
-  v146 = v29;
-  if (v32)
+  [NSURL fileURLWithPath:v29];
+  v164 = v161 = v20;
+  v30 = [[_TtC20ptpassivecollectiond20PTPCPassiveCollector alloc] initWithConfig:configCopy traceNamePrefix:v20 outputDirectory:v164];
+  v180 = 0;
+  v31 = dateCopy;
+  v32 = [(PTPCPassiveCollector *)v30 collectWithStartDate:dateCopy endDate:endDateCopy error:&v180];
+  v33 = v180;
+  v34 = endDateCopy;
+  v163 = callbackCopy;
+  v159 = v32;
+  v160 = v30;
+  if (v33)
   {
-    v34 = v32;
-    v35 = v151;
+    v35 = v33;
+    v36 = v165;
     if (settings)
     {
       instrumentationConfig = [(PTPCPassiveCollectionService *)selfCopy instrumentationConfig];
       clearPresetSettings = [instrumentationConfig clearPresetSettings];
     }
 
-    v38 = v30;
-    [(PTPCPassiveCollectionService *)selfCopy _generateCollectionErrorCoreAnalyticsTelemetry:2 traceWindowStartDate:v30 traceWindowEndDate:v33 collectionType:typeCopy];
+    v39 = v31;
+    v40 = [(PTPCPassiveCollectionService *)selfCopy _generateCollectionErrorCoreAnalyticsTelemetry:2 traceWindowStartDate:v31 traceWindowEndDate:v34 collectionType:typeCopy];
     if (callbackCopy)
     {
-      (callbackCopy[2])(callbackCopy, 0, 0, v34);
+      v40 = (callbackCopy[2])(callbackCopy, 0, 0, v35);
     }
 
-    v39 = sub_10000B758();
-    v40 = v39;
-    v41 = qword_100025A60;
-    v42 = v152;
-    if ((qword_100025A60 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
+    v41 = sub_10000B758(v40);
+    v42 = v41;
+    v43 = qword_100025A60;
+    v44 = v166;
+    if ((qword_100025A60 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
     {
-      localizedDescription = [(__CFString *)v34 localizedDescription];
-      v44 = localizedDescription;
-      v45 = @"Unknown";
+      localizedDescription = [(__CFString *)v35 localizedDescription];
+      v46 = localizedDescription;
+      v47 = @"Unknown";
       if (localizedDescription)
       {
-        v45 = localizedDescription;
+        v47 = localizedDescription;
       }
 
       *buf = 138543362;
-      v170 = v45;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v40, OS_SIGNPOST_INTERVAL_END, v41, "CollectingTrace", "Failed due to error: %{public}@", buf, 0xCu);
+      v184 = v47;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v42, OS_SIGNPOST_INTERVAL_END, v43, "CollectingTrace", "Failed due to error: %{public}@", buf, 0xCu);
 
-      v42 = v152;
+      v44 = v166;
     }
 
     goto LABEL_122;
   }
 
-  v139 = v26;
-  if ([v31 count])
+  v153 = v27;
+  if ([v32 count])
   {
-    v141 = v28;
-    v140 = endDateCopy;
-    v138 = v30;
-    v164 = 0u;
-    v165 = 0u;
-    v162 = 0u;
-    v163 = 0u;
-    obj = v31;
-    v46 = [obj countByEnumeratingWithState:&v162 objects:v168 count:16];
-    v47 = &AnalyticsSendEvent_ptr;
-    if (v46)
+    v155 = v29;
+    v154 = endDateCopy;
+    v152 = v31;
+    v178 = 0u;
+    v179 = 0u;
+    v176 = 0u;
+    v177 = 0u;
+    obj = v32;
+    v48 = [obj countByEnumeratingWithState:&v176 objects:v182 count:16];
+    v49 = &AnalyticsSendEvent_ptr;
+    if (v48)
     {
-      v48 = v46;
-      v49 = 0;
-      v50 = *v163;
+      v50 = v48;
+      v51 = 0;
+      v52 = *v177;
       do
       {
-        for (i = 0; i != v48; i = i + 1)
+        for (i = 0; i != v50; i = i + 1)
         {
-          if (*v163 != v50)
+          if (*v177 != v52)
           {
             objc_enumerationMutation(obj);
           }
 
-          v52 = *(*(&v162 + 1) + 8 * i);
-          defaultManager = [v47[192] defaultManager];
-          v161 = 0;
-          v54 = [defaultManager attributesOfItemAtPath:v52 error:&v161];
-          v55 = v161;
-          fileSize = [v54 fileSize];
+          v54 = *(*(&v176 + 1) + 8 * i);
+          defaultManager = [v49[192] defaultManager];
+          v175 = 0;
+          v56 = [defaultManager attributesOfItemAtPath:v54 error:&v175];
+          v57 = v175;
+          fileSize = [v56 fileSize];
 
-          v57 = sub_10000B758();
-          if (os_signpost_enabled(v57))
+          v60 = sub_10000B758(v59);
+          if (os_signpost_enabled(v60))
           {
             *buf = 138543874;
-            v170 = v52;
-            v171 = 2050;
-            v172 = fileSize;
-            v173 = 2114;
-            v174 = v55;
-            _os_signpost_emit_with_name_impl(&_mh_execute_header, v57, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CollectedTrace", "Collected trace: '%{public}@', %{public}llu bytes (size error: %{public}@", buf, 0x20u);
+            v184 = v54;
+            v185 = 2050;
+            v186 = fileSize;
+            v187 = 2114;
+            v188 = v57;
+            _os_signpost_emit_with_name_impl(&_mh_execute_header, v60, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CollectedTrace", "Collected trace: '%{public}@', %{public}llu bytes (size error: %{public}@", buf, 0x20u);
           }
 
-          v49 += fileSize;
-          v47 = &AnalyticsSendEvent_ptr;
+          v51 += fileSize;
+          v49 = &AnalyticsSendEvent_ptr;
         }
 
-        v48 = [obj countByEnumeratingWithState:&v162 objects:v168 count:16];
+        v50 = [obj countByEnumeratingWithState:&v176 objects:v182 count:16];
       }
 
-      while (v48);
+      while (v50);
     }
 
     else
     {
-      v49 = 0;
+      v51 = 0;
     }
 
     if (notificationCopy)
     {
-      v66 = @"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/PerformanceTraces/";
+      v70 = @"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/PerformanceTraces/";
     }
 
     else
     {
-      v66 = NSTemporaryDirectory();
+      v70 = NSTemporaryDirectory();
     }
 
-    v35 = v151;
-    v67 = v141;
-    v34 = v66;
-    lastPathComponent = [v67 lastPathComponent];
-    v69 = [NSString stringWithFormat:@"%@.aar", lastPathComponent];
-    v70 = [(__CFString *)v34 stringByAppendingPathComponent:v69];
+    v36 = v165;
+    v71 = v155;
+    v35 = v70;
+    lastPathComponent = [v71 lastPathComponent];
+    v73 = [NSString stringWithFormat:@"%@.aar", lastPathComponent];
+    v74 = [(__CFString *)v35 stringByAppendingPathComponent:v73];
 
-    v167 = 0;
-    v155 = v67;
-    LODWORD(v67) = sub_10000F6F8(v67, v70, &v167);
-    v71 = v167;
-    v72 = v71;
-    if (!v67 || v71)
+    v181 = 0;
+    v169 = v71;
+    LODWORD(v71) = sub_10000F6F8(v71, v74, &v181);
+    v75 = v181;
+    v76 = v75;
+    if (!v71 || v75)
     {
-      v73 = sub_10000B5D4();
-      if (os_signpost_enabled(v73))
+      v77 = sub_10000B5D4(v75);
+      if (os_signpost_enabled(v77))
       {
-        localizedDescription2 = [v72 localizedDescription];
-        v75 = localizedDescription2;
-        v76 = @"Unknown";
+        localizedDescription2 = [v76 localizedDescription];
+        v79 = localizedDescription2;
+        v80 = @"Unknown";
         *buf = 138543874;
-        v170 = v155;
+        v184 = v169;
         if (localizedDescription2)
         {
-          v76 = localizedDescription2;
+          v80 = localizedDescription2;
         }
 
-        v171 = 2114;
-        v172 = v70;
-        v173 = 2112;
-        v174 = v76;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v73, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ArchivingFailure", "Failed to archive '%{public}@' to '%{public}@' due to error: %@", buf, 0x20u);
+        v185 = 2114;
+        v186 = v74;
+        v187 = 2112;
+        v188 = v80;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v77, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ArchivingFailure", "Failed to archive '%{public}@' to '%{public}@' due to error: %@", buf, 0x20u);
       }
 
-      v40 = 0;
+      v42 = 0;
     }
 
     else
     {
-      v40 = v70;
+      v42 = v74;
     }
 
-    defaultManager2 = [v47[192] defaultManager];
-    v160 = 0;
-    v78 = [defaultManager2 removeItemAtURL:v150 error:&v160];
-    v79 = v160;
+    defaultManager2 = [v49[192] defaultManager];
+    v174 = 0;
+    v82 = [defaultManager2 removeItemAtURL:v164 error:&v174];
+    v83 = v174;
 
-    if (v78)
+    if (v82)
     {
-      v80 = sub_10000B758();
-      v38 = v138;
-      if (!os_signpost_enabled(v80))
+      v85 = sub_10000B758(v84);
+      v39 = v152;
+      if (!os_signpost_enabled(v85))
       {
         goto LABEL_60;
       }
 
-      path = [v150 path];
+      path = [v164 path];
       *buf = 138543362;
-      v170 = path;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v80, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TraceFileCleanup", "Cleaned up '%{public}@'", buf, 0xCu);
+      v184 = path;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v85, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TraceFileCleanup", "Cleaned up '%{public}@'", buf, 0xCu);
     }
 
     else
     {
-      v80 = sub_10000B5D4();
-      v38 = v138;
-      if (!os_signpost_enabled(v80))
+      v85 = sub_10000B5D4(v84);
+      v39 = v152;
+      if (!os_signpost_enabled(v85))
       {
         goto LABEL_60;
       }
 
-      path = [v150 path];
-      localizedDescription3 = [v79 localizedDescription];
-      v83 = localizedDescription3;
-      v84 = @"Unknown";
+      path = [v164 path];
+      localizedDescription3 = [v83 localizedDescription];
+      v88 = localizedDescription3;
+      v89 = @"Unknown";
       if (localizedDescription3)
       {
-        v84 = localizedDescription3;
+        v89 = localizedDescription3;
       }
 
       *buf = 138543618;
-      v170 = path;
-      v171 = 2112;
-      v172 = v84;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v80, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TraceFileCleanupFailure", "Failed to cleanup '%{public}@' due to error: %@", buf, 0x16u);
+      v184 = path;
+      v185 = 2112;
+      v186 = v89;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v85, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TraceFileCleanupFailure", "Failed to cleanup '%{public}@' due to error: %@", buf, 0x16u);
     }
 
 LABEL_60:
-    v28 = v141;
+    v29 = v155;
 
-    v42 = v152;
-    if ((sub_100001644(v40) & 1) == 0)
+    v90 = sub_100001644(v42);
+    v44 = v166;
+    if ((v90 & 1) == 0)
     {
-      v85 = sub_10000B5D4();
-      if (os_signpost_enabled(v85))
+      v91 = sub_10000B5D4(v90);
+      if (os_signpost_enabled(v91))
       {
         *buf = 138543362;
-        v170 = v40;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v85, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedToMarkPurgeable", "Failed to mark '%{public}@' medium urgency purgeable", buf, 0xCu);
+        v184 = v42;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v91, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedToMarkPurgeable", "Failed to mark '%{public}@' medium urgency purgeable", buf, 0xCu);
       }
     }
 
-    v86 = sub_1000021A8(v40);
-    if (v86)
+    v92 = sub_1000021A8(v42);
+    v93 = v92;
+    if (v92)
     {
-      v87 = sub_10000B5D4();
-      if (os_signpost_enabled(v87))
+      v94 = sub_10000B5D4(v92);
+      if (os_signpost_enabled(v94))
       {
         *buf = 138543362;
-        v170 = v40;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v87, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedToUpdatePermissions", "Failed to update POSIX permissions of file '%{public}@'", buf, 0xCu);
+        v184 = v42;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v94, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedToUpdatePermissions", "Failed to update POSIX permissions of file '%{public}@'", buf, 0xCu);
       }
 
-      v28 = v141;
+      v29 = v155;
     }
 
     if (notificationCopy)
     {
-      v159 = 0;
-      v88 = sub_10000175C(v40, &v159);
-      v89 = v159;
-      if (v88)
+      v173 = 0;
+      v96 = sub_10000175C(v42, &v173);
+      v97 = v173;
+      v98 = v97;
+      if (v96)
       {
-        v90 = 0;
-        v91 = 0;
-        v156 = 0;
+        v99 = 0;
+        v100 = 0;
+        v170 = 0;
         settingsCopy2 = settings;
-        v93 = v139;
-        v94 = &AnalyticsSendEvent_ptr;
+        v102 = v153;
+        v103 = &AnalyticsSendEvent_ptr;
 LABEL_112:
 
-        date = [v94[204] date];
-        LOBYTE(v137) = typeCopy;
-        -[PTPCPassiveCollectionService _generateCoreAnalyticsTelemetry:collectionEndDate:traceWindowStartDate:traceWindowEndDate:traceCount:totalTraceSizeBytes:archiveSizeBytes:collectionType:](selfCopy, "_generateCoreAnalyticsTelemetry:collectionEndDate:traceWindowStartDate:traceWindowEndDate:traceCount:totalTraceSizeBytes:archiveSizeBytes:collectionType:", v152, date, v38, v140, [obj count], v49, v90, v137);
+        date = [v103[204] date];
+        LOBYTE(v151) = typeCopy;
+        -[PTPCPassiveCollectionService _generateCoreAnalyticsTelemetry:collectionEndDate:traceWindowStartDate:traceWindowEndDate:traceCount:totalTraceSizeBytes:archiveSizeBytes:collectionType:](selfCopy, "_generateCoreAnalyticsTelemetry:collectionEndDate:traceWindowStartDate:traceWindowEndDate:traceCount:totalTraceSizeBytes:archiveSizeBytes:collectionType:", v166, date, v39, v154, [obj count], v51, v99, v151);
         if (settingsCopy2)
         {
           instrumentationConfig2 = [(PTPCPassiveCollectionService *)selfCopy instrumentationConfig];
           clearPresetSettings2 = [instrumentationConfig2 clearPresetSettings];
         }
 
-        if (v149)
+        v146 = v163;
+        if (v163)
         {
-          v149[2]();
+          v146 = v163[2]();
         }
 
-        v133 = sub_10000B758();
-        v134 = v133;
-        v33 = v140;
-        if (v93 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v133))
+        v147 = sub_10000B758(v146);
+        v148 = v147;
+        v34 = v154;
+        if (v102 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v147))
         {
           *buf = 138543362;
-          v170 = v40;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v134, OS_SIGNPOST_INTERVAL_END, v93, "CollectingTrace", "Successfully collected to path '%{public}@. Scheduling eager exit to mitigate fragmentation/leaks.", buf, 0xCu);
+          v184 = v42;
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v148, OS_SIGNPOST_INTERVAL_END, v102, "CollectingTrace", "Successfully collected to path '%{public}@. Scheduling eager exit to mitigate fragmentation/leaks.", buf, 0xCu);
         }
 
         sub_100002698();
-        v135 = dispatch_time(0, 10000000000);
+        v149 = dispatch_time(0, 10000000000);
         connectionQueue = [(PTPCPassiveCollectionService *)selfCopy connectionQueue];
-        dispatch_after(v135, connectionQueue, &stru_100020B70);
+        dispatch_after(v149, connectionQueue, &stru_100020B70);
 
-        v35 = v151;
-        v42 = v152;
+        v36 = v165;
+        v44 = v166;
 LABEL_120:
-        v28 = v141;
+        v29 = v155;
 LABEL_121:
 
 LABEL_122:
-        v65 = v148;
+        v69 = v162;
         goto LABEL_123;
       }
 
-      v101 = sub_10000B5D4();
-      v94 = &AnalyticsSendEvent_ptr;
-      if (os_signpost_enabled(v101))
+      v111 = sub_10000B5D4(v97);
+      v103 = &AnalyticsSendEvent_ptr;
+      if (os_signpost_enabled(v111))
       {
-        localizedDescription4 = [v89 localizedDescription];
-        v103 = localizedDescription4;
-        v104 = @"Unknown";
+        localizedDescription4 = [v98 localizedDescription];
+        v113 = localizedDescription4;
+        v114 = @"Unknown";
         if (localizedDescription4)
         {
-          v104 = localizedDescription4;
+          v114 = localizedDescription4;
         }
 
         *buf = 138543618;
-        v170 = v40;
-        v171 = 2114;
-        v172 = v104;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v101, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedToPostUserNotification", "Non-fatal error: Failed to post user notification for '%{public}@' due to error: %{public}@", buf, 0x16u);
+        v184 = v42;
+        v185 = 2114;
+        v186 = v114;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v111, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedToPostUserNotification", "Non-fatal error: Failed to post user notification for '%{public}@' due to error: %{public}@", buf, 0x16u);
       }
 
-      v90 = 0;
-      v91 = 0;
-      v156 = 0;
+      v99 = 0;
+      v100 = 0;
+      v170 = 0;
     }
 
     else
     {
-      if (!v40)
+      if (!v42)
       {
-        v105 = sub_10000B5D4();
-        if (os_signpost_enabled(v105))
+        v115 = sub_10000B5D4(v95);
+        if (os_signpost_enabled(v115))
         {
           *buf = 138543618;
-          v170 = v155;
-          v171 = 2114;
-          v172 = 0;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v105, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ArchivingFailure", "Failed to archive '%{public}@ to '%{public}@'", buf, 0x16u);
+          v184 = v169;
+          v185 = 2114;
+          v186 = 0;
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v115, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ArchivingFailure", "Failed to archive '%{public}@ to '%{public}@'", buf, 0x16u);
         }
 
-        v156 = [NSError passiveTraceError:2 description:@"Archiving collected trace files failed"];
-        v33 = v140;
+        v170 = [NSError passiveTraceError:2 description:@"Archiving collected trace files failed"];
+        v34 = v154;
         if (settings)
         {
           instrumentationConfig3 = [(PTPCPassiveCollectionService *)selfCopy instrumentationConfig];
           clearPresetSettings3 = [instrumentationConfig3 clearPresetSettings];
         }
 
-        [(PTPCPassiveCollectionService *)selfCopy _generateCollectionErrorCoreAnalyticsTelemetry:4 traceWindowStartDate:v38 traceWindowEndDate:v140 collectionType:typeCopy];
-        if (v149)
+        [(PTPCPassiveCollectionService *)selfCopy _generateCollectionErrorCoreAnalyticsTelemetry:4 traceWindowStartDate:v39 traceWindowEndDate:v154 collectionType:typeCopy];
+        v118 = v163;
+        if (v163)
         {
-          v149[2]();
+          v118 = v163[2]();
         }
 
-        v108 = sub_10000B758();
-        v91 = v108;
-        v109 = qword_100025A60;
-        if ((qword_100025A60 - 1) > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v108))
+        v119 = sub_10000B758(v118);
+        v100 = v119;
+        v120 = qword_100025A60;
+        if ((qword_100025A60 - 1) > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v119))
         {
           goto LABEL_121;
         }
 
-        localizedDescription5 = [v156 localizedDescription];
-        v111 = localizedDescription5;
-        v112 = @"Unknown";
+        localizedDescription5 = [v170 localizedDescription];
+        v122 = localizedDescription5;
+        v123 = @"Unknown";
         if (localizedDescription5)
         {
-          v112 = localizedDescription5;
+          v123 = localizedDescription5;
         }
 
         *buf = 138543362;
-        v170 = v112;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v91, OS_SIGNPOST_INTERVAL_END, v109, "CollectingTrace", "Failed due to error: %{public}@", buf, 0xCu);
+        v184 = v123;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v100, OS_SIGNPOST_INTERVAL_END, v120, "CollectingTrace", "Failed due to error: %{public}@", buf, 0xCu);
 
         goto LABEL_120;
       }
 
-      v95 = v40;
-      v96 = +[NSFileManager defaultManager];
-      v97 = [v96 attributesOfItemAtPath:v95 error:0];
-      v143 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v97 fileSize]);
+      v104 = v42;
+      v105 = +[NSFileManager defaultManager];
+      v106 = [v105 attributesOfItemAtPath:v104 error:0];
+      v157 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v106 fileSize]);
 
-      v156 = v95;
-      [v95 UTF8String];
-      v98 = sandbox_extension_issue_file();
-      v94 = &AnalyticsSendEvent_ptr;
-      if (!v98)
+      v170 = v104;
+      [v104 UTF8String];
+      v107 = sandbox_extension_issue_file();
+      v103 = &AnalyticsSendEvent_ptr;
+      if (!v107)
       {
-        v113 = sub_10000B5D4();
-        v33 = v140;
-        if (os_signpost_enabled(v113))
+        v124 = sub_10000B5D4(0);
+        v34 = v154;
+        if (os_signpost_enabled(v124))
         {
           *buf = 138543362;
-          v170 = v156;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v113, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SandboxExtensionFailure", "Failed to issue RW extension for '%{public}@", buf, 0xCu);
+          v184 = v170;
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v124, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SandboxExtensionFailure", "Failed to issue RW extension for '%{public}@", buf, 0xCu);
         }
 
-        v114 = +[NSFileManager defaultManager];
-        v158 = 0;
-        v115 = [v114 removeItemAtPath:v156 error:&v158];
-        v116 = v158;
+        v125 = +[NSFileManager defaultManager];
+        v172 = 0;
+        v126 = [v125 removeItemAtPath:v170 error:&v172];
+        v127 = v172;
 
-        if ((v115 & 1) == 0)
+        if ((v126 & 1) == 0)
         {
-          v117 = sub_10000B5D4();
-          if (os_signpost_enabled(v117))
+          v129 = sub_10000B5D4(v128);
+          if (os_signpost_enabled(v129))
           {
-            localizedDescription6 = [v116 localizedDescription];
-            v119 = localizedDescription6;
-            v120 = @"Unknown";
+            localizedDescription6 = [v127 localizedDescription];
+            v131 = localizedDescription6;
+            v132 = @"Unknown";
             if (localizedDescription6)
             {
-              v120 = localizedDescription6;
+              v132 = localizedDescription6;
             }
 
             *buf = 138543618;
-            v170 = v156;
-            v171 = 2112;
-            v172 = v120;
-            _os_signpost_emit_with_name_impl(&_mh_execute_header, v117, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ArchiveCleanupFailure", "Failed to cleanup '%{public}@' due to error: %@", buf, 0x16u);
+            v184 = v170;
+            v185 = 2112;
+            v186 = v132;
+            _os_signpost_emit_with_name_impl(&_mh_execute_header, v129, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ArchiveCleanupFailure", "Failed to cleanup '%{public}@' due to error: %@", buf, 0x16u);
           }
         }
 
-        v121 = [NSError passiveTraceError:2 description:@"Failed to issue sandbox extension"];
+        v133 = [NSError passiveTraceError:2 description:@"Failed to issue sandbox extension"];
         if (settings)
         {
           instrumentationConfig4 = [(PTPCPassiveCollectionService *)selfCopy instrumentationConfig];
           clearPresetSettings4 = [instrumentationConfig4 clearPresetSettings];
         }
 
-        [(PTPCPassiveCollectionService *)selfCopy _generateCollectionErrorCoreAnalyticsTelemetry:5 traceWindowStartDate:v38 traceWindowEndDate:v140 collectionType:typeCopy];
-        if (v149)
+        [(PTPCPassiveCollectionService *)selfCopy _generateCollectionErrorCoreAnalyticsTelemetry:5 traceWindowStartDate:v39 traceWindowEndDate:v154 collectionType:typeCopy];
+        v136 = v163;
+        if (v163)
         {
-          v149[2]();
+          v136 = v163[2]();
         }
 
-        v124 = sub_10000B758();
-        v125 = v124;
-        v126 = qword_100025A60;
-        if ((qword_100025A60 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v124))
+        v137 = sub_10000B758(v136);
+        v138 = v137;
+        v139 = qword_100025A60;
+        if ((qword_100025A60 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v137))
         {
-          localizedDescription7 = [v121 localizedDescription];
-          v128 = localizedDescription7;
-          v129 = @"Unknown";
+          localizedDescription7 = [v133 localizedDescription];
+          v141 = localizedDescription7;
+          v142 = @"Unknown";
           if (localizedDescription7)
           {
-            v129 = localizedDescription7;
+            v142 = localizedDescription7;
           }
 
           *buf = 138543362;
-          v170 = v129;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v125, OS_SIGNPOST_INTERVAL_END, v126, "CollectingTrace", "Failed due to error: %{public}@", buf, 0xCu);
+          v184 = v142;
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v138, OS_SIGNPOST_INTERVAL_END, v139, "CollectingTrace", "Failed due to error: %{public}@", buf, 0xCu);
 
-          v33 = v140;
+          v34 = v154;
         }
 
-        v35 = v151;
-        v42 = v152;
-        v28 = v141;
-        v91 = v143;
+        v36 = v165;
+        v44 = v166;
+        v29 = v155;
+        v100 = v157;
         goto LABEL_121;
       }
 
-      v99 = v98;
-      v100 = [NSString stringWithUTF8String:v98];
-      free(v99);
-      v89 = sub_10000B758();
-      if (os_signpost_enabled(v89))
+      v108 = v107;
+      v109 = [NSString stringWithUTF8String:v107];
+      free(v108);
+      v98 = sub_10000B758(v110);
+      if (os_signpost_enabled(v98))
       {
         *buf = 138543362;
-        v91 = v156;
-        v170 = v156;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v89, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CollectionSuccess", "Successfully archived to '%{public}@'", buf, 0xCu);
-        v90 = v143;
+        v100 = v170;
+        v184 = v170;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v98, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CollectionSuccess", "Successfully archived to '%{public}@'", buf, 0xCu);
+        v99 = v157;
       }
 
       else
       {
-        v90 = v143;
-        v91 = v156;
+        v99 = v157;
+        v100 = v170;
       }
 
-      v156 = v100;
+      v170 = v109;
     }
 
     settingsCopy2 = settings;
-    v93 = v139;
+    v102 = v153;
     goto LABEL_112;
   }
 
-  v34 = [NSError passiveTraceError:2 description:@"Failed to collect any trace files due to unknown error"];
-  v38 = v30;
+  v35 = [NSError passiveTraceError:2 description:@"Failed to collect any trace files due to unknown error"];
+  v39 = v31;
   if (settings)
   {
     instrumentationConfig5 = [(PTPCPassiveCollectionService *)selfCopy instrumentationConfig];
     clearPresetSettings5 = [instrumentationConfig5 clearPresetSettings];
   }
 
-  [(PTPCPassiveCollectionService *)selfCopy _generateCollectionErrorCoreAnalyticsTelemetry:3 traceWindowStartDate:v30 traceWindowEndDate:v33 collectionType:typeCopy];
-  v35 = v151;
+  v63 = [(PTPCPassiveCollectionService *)selfCopy _generateCollectionErrorCoreAnalyticsTelemetry:3 traceWindowStartDate:v31 traceWindowEndDate:v34 collectionType:typeCopy];
+  v36 = v165;
   if (callbackCopy)
   {
-    (callbackCopy[2])(callbackCopy, 0, 0, v34);
+    v63 = (callbackCopy[2])(callbackCopy, 0, 0, v35);
   }
 
-  v60 = sub_10000B758();
-  v40 = v60;
-  v61 = qword_100025A60;
-  if ((qword_100025A60 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v60))
+  v64 = sub_10000B758(v63);
+  v42 = v64;
+  v65 = qword_100025A60;
+  if ((qword_100025A60 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v64))
   {
-    localizedDescription8 = [(__CFString *)v34 localizedDescription];
-    v63 = localizedDescription8;
-    v64 = @"Unknown";
+    localizedDescription8 = [(__CFString *)v35 localizedDescription];
+    v67 = localizedDescription8;
+    v68 = @"Unknown";
     if (localizedDescription8)
     {
-      v64 = localizedDescription8;
+      v68 = localizedDescription8;
     }
 
     *buf = 138543362;
-    v170 = v64;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v40, OS_SIGNPOST_INTERVAL_END, v61, "CollectingTrace", "Failed due to error: %{public}@", buf, 0xCu);
+    v184 = v68;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v42, OS_SIGNPOST_INTERVAL_END, v65, "CollectingTrace", "Failed due to error: %{public}@", buf, 0xCu);
 
-    v35 = v151;
+    v36 = v165;
   }
 
-  v65 = v148;
-  v42 = v152;
+  v69 = v162;
+  v44 = v166;
 LABEL_123:
 }
 
@@ -1212,51 +1374,52 @@ LABEL_123:
   if (currentPresetSetting)
   {
     v15 = sub_1000041C0(currentPresetSetting);
+    v16 = v15;
     if (v15 && imitationRecordStartDate)
     {
       if (currentPresetSetting == 1)
       {
-        v16 = 3;
+        v17 = 3;
       }
 
       else
       {
-        v16 = 0;
+        v17 = 0;
       }
 
-      v17 = +[NSDate date];
+      v18 = +[NSDate date];
       collectionQueue = [(PTPCPassiveCollectionService *)self collectionQueue];
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10000EB00;
       block[3] = &unk_100020BC0;
       block[4] = self;
-      v25 = imitationRecordStartDate;
-      v26 = v17;
-      v30 = v16;
+      v26 = imitationRecordStartDate;
+      v27 = v18;
+      v31 = v17;
       notificationCopy = notification;
-      v27 = prefixCopy;
-      v28 = v15;
-      v29 = callbackCopy;
-      v19 = v15;
-      v20 = v17;
+      v28 = prefixCopy;
+      v29 = v16;
+      v30 = callbackCopy;
+      v20 = v16;
+      v21 = v18;
       dispatch_async(collectionQueue, block);
     }
 
     else
     {
-      v21 = sub_10000B5D4();
-      if (os_signpost_enabled(v21))
+      v22 = sub_10000B5D4(v15);
+      if (os_signpost_enabled(v22))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TraceCollectionFromRecordingSessionFailed", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TraceCollectionFromRecordingSessionFailed", "", buf, 2u);
       }
 
       instrumentationConfig2 = [(PTPCPassiveCollectionService *)self instrumentationConfig];
       clearPresetSettings = [instrumentationConfig2 clearPresetSettings];
 
-      v20 = [NSError passiveTraceError:0 description:@"Collection failed due to unknown internal error"];
-      (*(callbackCopy + 2))(callbackCopy, 0, 0, v20);
+      v21 = [NSError passiveTraceError:0 description:@"Collection failed due to unknown internal error"];
+      (*(callbackCopy + 2))(callbackCopy, 0, 0, v21);
     }
   }
 }

@@ -13,31 +13,31 @@
 
 - (VCDatagramChannelIDSEmulated)initWithIDSDatagramChannel:(id)channel mode:(int64_t)mode
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = VCDatagramChannelIDSEmulated;
-  v6 = [(VCObject *)&v11 init];
+  v21 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = VCDatagramChannelIDSEmulated;
+  v6 = [(VCObject *)&v12 init];
   v7 = v6;
   if (v6)
   {
     v6->_mode = mode;
     v6->_idsChannel = channel;
-    v7->super._token = VCDatagramChannelIDS_Token(channel);
+    v7->super._token = VCDatagramChannelIDS_Token(channel, v8);
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v8 = VRTraceErrorLogLevelToCSTR();
-      v9 = *MEMORY[0x1E6986650];
+      v9 = VRTraceErrorLogLevelToCSTR();
+      v10 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v13 = v8;
-        v14 = 2080;
-        v15 = "[VCDatagramChannelIDSEmulated initWithIDSDatagramChannel:mode:]";
-        v16 = 1024;
-        v17 = 31;
-        v18 = 2048;
-        v19 = v7;
-        _os_log_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VCDatagramChannelIDSEmulated %p created", buf, 0x26u);
+        v14 = v9;
+        v15 = 2080;
+        v16 = "[VCDatagramChannelIDSEmulated initWithIDSDatagramChannel:mode:]";
+        v17 = 1024;
+        v18 = 31;
+        v19 = 2048;
+        v20 = v7;
+        _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VCDatagramChannelIDSEmulated %p created", buf, 0x26u);
       }
     }
   }
@@ -137,7 +137,7 @@
 - (BOOL)writeToEmulatedNetworkWithDatagram:(const void *)datagram datagramSize:(unsigned int)size datagramInfo:(id)info options:(id *)options
 {
   v6 = *&size;
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (size < 0x5DD)
   {
     v9 = *&info.var4;
@@ -148,7 +148,7 @@
     {
       v13 = v12;
       memcpy(__dst, &unk_1DBD487C8, sizeof(__dst));
-      [(VCEmulatedPacket *)v13 metadata];
+      objc_msgSend_metadata(v13);
       *__dst = v6;
       *&__dst[4] = v10;
       *&__dst[12] = v9;
@@ -175,26 +175,26 @@
 
       __dst[136] = v17;
       [(VCEmulatedPacket *)v13 setSize:v6];
-      memcpy(v21, __dst, sizeof(v21));
-      [(VCEmulatedPacket *)v13 setMetadata:v21];
-      [(VCEmulatedPacket *)v13 setArrivalTime:micro()];
-      v18 = 3;
+      memcpy(v23, __dst, sizeof(v23));
+      v18 = [(VCEmulatedPacket *)v13 setMetadata:v23];
+      [(VCEmulatedPacket *)v13 setArrivalTime:micro(v18, v19)];
+      v20 = 3;
       if (WORD1(v10) == 800)
       {
-        v18 = 1;
+        v20 = 1;
       }
 
       if (WORD1(v10) == 700)
       {
-        v19 = 2;
+        v21 = 2;
       }
 
       else
       {
-        v19 = v18;
+        v21 = v20;
       }
 
-      [(VCEmulatedPacket *)v13 setType:v19];
+      [(VCEmulatedPacket *)v13 setType:v21];
       [(VCEmulatedNetwork *)self->_network push:v13];
 
       LOBYTE(v7) = 1;
@@ -332,14 +332,14 @@ void __52__VCDatagramChannelIDSEmulated_setupEmulatedNetwork__block_invoke(uint6
   }
 }
 
-uint64_t __52__VCDatagramChannelIDSEmulated_setupEmulatedNetwork__block_invoke_6(uint64_t result, void *a2)
+void *__52__VCDatagramChannelIDSEmulated_setupEmulatedNetwork__block_invoke_6(void *result, void *a2)
 {
   v8 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = result;
     memcpy(v7, &unk_1DBD487C8, sizeof(v7));
-    [a2 metadata];
+    objc_msgSend_metadata(a2);
     result = [a2 isLost];
     if ((result & 1) == 0)
     {
@@ -356,9 +356,9 @@ uint64_t __52__VCDatagramChannelIDSEmulated_setupEmulatedNetwork__block_invoke_6
           v4 = 0;
         }
 
-        v5 = *(*(v3 + 32) + 224);
+        v5 = *(v3[4] + 224);
         v6 = [a2 datagram];
-        return [v5 writeDatagram:v6 datagramSize:v7[0] datagramInfo:*&v7[1] options:LOWORD(v7[3]) completionHandler:{v4, *(v3 + 40)}];
+        return [v5 writeDatagram:v6 datagramSize:v7[0] datagramInfo:*&v7[1] options:LOWORD(v7[3]) completionHandler:{v4, v3[5]}];
       }
     }
   }

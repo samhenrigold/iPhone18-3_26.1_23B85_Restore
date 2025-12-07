@@ -84,7 +84,7 @@ LABEL_22:
 
       else if (os_log_type_enabled(off_100014B00, OS_LOG_TYPE_ERROR))
       {
-        sub_100008624(&cf);
+        sub_100008624();
       }
     }
 
@@ -166,7 +166,6 @@ LABEL_7:
 {
   if (self->_subscription)
   {
-    subscribedChannels = self->_subscribedChannels;
     Samples = IOReportCreateSamples();
     if (Samples)
     {
@@ -178,10 +177,10 @@ LABEL_7:
 
   else
   {
-    sub_100008850(&v5);
+    sub_100008850(&v4);
   }
 
-  Samples = v5;
+  Samples = v4;
 LABEL_3:
 
   return Samples;
@@ -364,11 +363,11 @@ LABEL_6:
 - (id)getLifetimeStats
 {
   v6 = 0;
-  v7[0] = &v6;
-  v7[1] = 0x3032000000;
-  v7[2] = sub_100007318;
-  v7[3] = sub_100007328;
-  v8 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = sub_100007318;
+  v10 = sub_100007328;
+  v11 = 0;
   queue = self->_queue;
   v5[0] = _NSConcreteStackBlock;
   v5[1] = 3221225472;
@@ -379,10 +378,10 @@ LABEL_6:
   dispatch_sync(queue, v5);
   if (os_log_type_enabled(off_100014B00, OS_LOG_TYPE_DEBUG))
   {
-    sub_100008B2C(v7);
+    sub_100008B2C();
   }
 
-  v3 = *(v7[0] + 40);
+  v3 = v7[5];
   _Block_object_dispose(&v6, 8);
 
   return v3;

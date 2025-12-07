@@ -82,16 +82,16 @@
 
 + (id)versionForString:()VersionFactories
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a3;
+  v9 = 0;
   v10 = 0;
   v11 = 0;
-  v12 = 0;
   v4 = [objc_alloc(MEMORY[0x277CCAC80]) initWithString:v3];
   v5 = 0;
   do
   {
-    if (![v4 scanInteger:{&v10 + v5, v10}] || (*(&v10 + v5) & 0x8000000000000000) != 0)
+    if (![v4 scanInteger:{&v9 + v5, v9}] || (*(&v9 + v5) & 0x8000000000000000) != 0)
     {
       v6 = 0;
     }
@@ -122,14 +122,14 @@
   while (v6 == 1);
   if (v6 && [v4 isAtEnd])
   {
-    if (v10 >> 16)
+    if (v9 >> 16)
     {
       [MEMORY[0x277CCABB0] numberWithInteger:?];
     }
 
     else
     {
-      [MEMORY[0x277CCABB0] numberWithUnsignedInteger:(v10 << 16) | (v11 << 8) | v12];
+      [MEMORY[0x277CCABB0] numberWithUnsignedInteger:(v9 << 16) | (v10 << 8) | v11];
     }
     v7 = ;
   }
@@ -138,8 +138,6 @@
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

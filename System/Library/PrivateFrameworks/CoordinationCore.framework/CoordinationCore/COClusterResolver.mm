@@ -91,9 +91,9 @@
   _Block_object_dispose(&v4, 8);
 }
 
-uint64_t __29__COClusterResolver_activate__block_invoke(uint64_t a1)
+void *__29__COClusterResolver_activate__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) activatedCluster];
   if (result)
   {
@@ -107,11 +107,11 @@ uint64_t __29__COClusterResolver_activate__block_invoke(uint64_t a1)
     {
       v5 = *(a1 + 32);
       v6 = [v5 cluster];
-      v8 = 134218242;
-      v9 = v5;
-      v10 = 2112;
-      v11 = v6;
-      _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p activating resolver for Cluster %@", &v8, 0x16u);
+      v7 = 134218242;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v6;
+      _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p activating resolver for Cluster %@", &v7, 0x16u);
     }
 
     v3 = 1;
@@ -119,7 +119,6 @@ uint64_t __29__COClusterResolver_activate__block_invoke(uint64_t a1)
   }
 
   *(*(*(a1 + 40) + 8) + 24) = v3;
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -169,7 +168,7 @@ void __30__COClusterResolver__activate__block_invoke(uint64_t a1, void *a2)
   }
 }
 
-uint64_t __30__COClusterResolver__activate__block_invoke_2(uint64_t a1)
+void *__30__COClusterResolver__activate__block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) bootstrapCompleted];
   [*(a1 + 32) setBootstrapCompleted:1];
@@ -184,52 +183,51 @@ uint64_t __30__COClusterResolver__activate__block_invoke_2(uint64_t a1)
 
 - (void)_invokeBootstrapBlocks
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__7;
-  v16 = __Block_byref_object_dispose__7;
-  v17 = 0;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __43__COClusterResolver__invokeBootstrapBlocks__block_invoke;
-  v11[3] = &unk_278E15638;
-  v11[4] = self;
-  v11[5] = &v12;
-  [(COClusterResolver *)self _withLock:v11];
-  v9 = 0u;
-  v10 = 0u;
-  v7 = 0u;
+  v18 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__7;
+  v15 = __Block_byref_object_dispose__7;
+  v16 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __43__COClusterResolver__invokeBootstrapBlocks__block_invoke;
+  v10[3] = &unk_278E15638;
+  v10[4] = self;
+  v10[5] = &v11;
+  [(COClusterResolver *)self _withLock:v10];
   v8 = 0u;
-  v2 = v13[5];
-  v3 = [v2 countByEnumeratingWithState:&v7 objects:v18 count:16];
+  v9 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  v2 = v12[5];
+  v3 = [v2 countByEnumeratingWithState:&v6 objects:v17 count:16];
   if (v3)
   {
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        (*(*(*(&v7 + 1) + 8 * v5) + 16))(*(*(&v7 + 1) + 8 * v5));
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v7 objects:v18 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v6 objects:v17 count:16];
     }
 
     while (v3);
   }
 
-  _Block_object_dispose(&v12, 8);
-  v6 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v11, 8);
 }
 
 uint64_t __43__COClusterResolver__invokeBootstrapBlocks__block_invoke(uint64_t a1)
@@ -246,20 +244,20 @@ uint64_t __43__COClusterResolver__invokeBootstrapBlocks__block_invoke(uint64_t a
 
 - (BOOL)_updateIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   os_unfair_lock_assert_owner(&self->_lock);
   currentIdentifier = [(COClusterResolver *)self currentIdentifier];
   v6 = COCoreLogForCategory(13);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134218498;
+    v9 = 134218498;
     selfCopy = self;
-    v12 = 2112;
-    v13 = identifierCopy;
-    v14 = 2112;
-    v15 = currentIdentifier;
-    _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p identifier updated to %@ from %@", &v10, 0x20u);
+    v11 = 2112;
+    v12 = identifierCopy;
+    v13 = 2112;
+    v14 = currentIdentifier;
+    _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p identifier updated to %@ from %@", &v9, 0x20u);
   }
 
   if (identifierCopy | currentIdentifier && ([currentIdentifier isEqual:identifierCopy] & 1) == 0)
@@ -273,7 +271,6 @@ uint64_t __43__COClusterResolver__invokeBootstrapBlocks__block_invoke(uint64_t a
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

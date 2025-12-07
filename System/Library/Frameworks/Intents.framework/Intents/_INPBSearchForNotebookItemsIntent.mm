@@ -2,7 +2,13 @@
 - (BOOL)isEqual:(id)equal;
 - (_INPBSearchForNotebookItemsIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)dateSearchTypeAsString:(int)string;
 - (id)dictionaryRepresentation;
+- (id)itemTypeAsString:(int)string;
+- (id)locationSearchTypeAsString:(int)string;
+- (id)statusAsString:(int)string;
+- (id)taskPriorityAsString:(int)string;
+- (id)temporalEventTriggerTypesAsString:(int)string;
 - (int)StringAsDateSearchType:(id)type;
 - (int)StringAsItemType:(id)type;
 - (int)StringAsLocationSearchType:(id)type;
@@ -733,13 +739,11 @@ LABEL_63:
 
   if (content)
   {
-    content = self->_content;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBSearchForNotebookItemsIntent *)self hasDateSearchType])
   {
-    dateSearchType = self->_dateSearchType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -761,7 +765,6 @@ LABEL_63:
 
   if ([(_INPBSearchForNotebookItemsIntent *)self hasIncludeAllNoteContents])
   {
-    includeAllNoteContents = self->_includeAllNoteContents;
     PBDataWriterWriteBOOLField();
   }
 
@@ -775,7 +778,6 @@ LABEL_63:
 
   if ([(_INPBSearchForNotebookItemsIntent *)self hasItemType])
   {
-    itemType = self->_itemType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -789,7 +791,6 @@ LABEL_63:
 
   if ([(_INPBSearchForNotebookItemsIntent *)self hasLocationSearchType])
   {
-    locationSearchType = self->_locationSearchType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -797,33 +798,29 @@ LABEL_63:
 
   if (notebookItemIdentifier)
   {
-    notebookItemIdentifier = self->_notebookItemIdentifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBSearchForNotebookItemsIntent *)self hasStatus])
   {
-    status = self->_status;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBSearchForNotebookItemsIntent *)self hasTaskPriority])
   {
-    taskPriority = self->_taskPriority;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_temporalEventTriggerTypes.count)
   {
-    v22 = 0;
+    v14 = 0;
     do
     {
-      v23 = self->_temporalEventTriggerTypes.list[v22];
       PBDataWriterWriteInt32Field();
-      ++v22;
+      ++v14;
     }
 
-    while (v22 < self->_temporalEventTriggerTypes.count);
+    while (v14 < self->_temporalEventTriggerTypes.count);
   }
 
   title = [(_INPBSearchForNotebookItemsIntent *)self title];
@@ -866,6 +863,21 @@ LABEL_63:
   return v4;
 }
 
+- (id)temporalEventTriggerTypesAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7283890[string];
+  }
+
+  return v4;
+}
+
 - (void)addTemporalEventTriggerType:(int)type
 {
   if (type != 0x7FFFFFFF)
@@ -895,6 +907,21 @@ LABEL_63:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)taskPriorityAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7283878[string];
   }
 
   return v4;
@@ -951,6 +978,34 @@ LABEL_63:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)statusAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 20)
+    {
+      v4 = @"COMPLETED";
+    }
+
+    else if (string == 10)
+    {
+      v4 = @"NOT_COMPLETED";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_STATUS";
   }
 
   return v4;
@@ -1016,6 +1071,29 @@ LABEL_63:
   return v4;
 }
 
+- (id)locationSearchTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 10)
+    {
+      v4 = @"BY_LOCATION_TRIGGER";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_LOCATION_SEARCH_TYPE";
+  }
+
+  return v4;
+}
+
 - (void)setHasLocationSearchType:(BOOL)type
 {
   if (type)
@@ -1072,6 +1150,49 @@ LABEL_63:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)itemTypeAsString:(int)string
+{
+  if (string > 19)
+  {
+    if (string == 20)
+    {
+      v4 = @"TASK_LIST";
+    }
+
+    else
+    {
+      if (string != 30)
+      {
+LABEL_12:
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"TASK";
+    }
+  }
+
+  else
+  {
+    if (string)
+    {
+      if (string == 10)
+      {
+        v4 = @"NOTE";
+
+        return v4;
+      }
+
+      goto LABEL_12;
+    }
+
+    v4 = @"UNKNOWN_NOTE_TYPE";
   }
 
   return v4;
@@ -1148,6 +1269,49 @@ LABEL_63:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)dateSearchTypeAsString:(int)string
+{
+  if (string > 19)
+  {
+    if (string == 20)
+    {
+      v4 = @"BY_MODIFIED_DATE";
+    }
+
+    else
+    {
+      if (string != 30)
+      {
+LABEL_12:
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"BY_CREATED_DATE";
+    }
+  }
+
+  else
+  {
+    if (string)
+    {
+      if (string == 10)
+      {
+        v4 = @"BY_DUE_DATE";
+
+        return v4;
+      }
+
+      goto LABEL_12;
+    }
+
+    v4 = @"UNKNOWN_DATE_SEARCH_TYPE";
   }
 
   return v4;

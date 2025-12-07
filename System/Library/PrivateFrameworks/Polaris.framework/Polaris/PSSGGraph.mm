@@ -11,20 +11,17 @@
 
 - (NSArray)inputs
 {
-  v2 = *(self + OBJC_IVAR___PSSGGraph_inputs);
   type metadata accessor for PSSGGraphInput(self);
 
-  v3 = sub_25EB6E3C8();
+  v2 = sub_25EB6E3C8();
 
-  return v3;
+  return v2;
 }
 
 - (void)setInputs:(id)inputs
 {
   type metadata accessor for PSSGGraphInput(self);
-  v4 = sub_25EB6E3D8();
-  v5 = *(self + OBJC_IVAR___PSSGGraph_inputs);
-  *(self + OBJC_IVAR___PSSGGraph_inputs) = v4;
+  *(self + OBJC_IVAR___PSSGGraph_inputs) = sub_25EB6E3D8();
 }
 
 - (NSSet)sharedOutputs
@@ -33,7 +30,7 @@
   sub_25EB12868();
 
   type metadata accessor for PSSGResourceID(0);
-  sub_25EB24DC0(&qword_27FD11EA0, 255, type metadata accessor for PSSGResourceID);
+  sub_25EB24DC0(&qword_27FD11EA0, 255, type metadata accessor for PSSGResourceID, MEMORY[0x277D85378]);
   v3 = sub_25EB6E428();
 
   return v3;
@@ -61,7 +58,7 @@
   if (outputs)
   {
     type metadata accessor for PSSGResourceID(0);
-    sub_25EB24DC0(&qword_27FD11EA0, 255, type metadata accessor for PSSGResourceID);
+    sub_25EB24DC0(&qword_27FD11EA0, 255, type metadata accessor for PSSGResourceID, MEMORY[0x277D85378]);
     v8 = sub_25EB6E438();
   }
 

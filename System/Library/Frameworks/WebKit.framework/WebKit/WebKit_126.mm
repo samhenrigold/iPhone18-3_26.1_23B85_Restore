@@ -63,30 +63,31 @@ uint64_t WebKit::VideoPresentationModelContext::willEnterPictureInPicture(WebKit
   v2 = WebKit::VideoPresentationModelContext::loggerPtr(this);
   if (v2)
   {
-    v3 = v2;
+    v4 = v2;
     atomic_fetch_add(v2 + 2, 1u);
-    v4 = *(*(this + 3) + 336);
-    v7[0] = "VideoPresentationModelContext";
-    v7[1] = 30;
-    v7[2] = "willEnterPictureInPicture";
-    v7[3] = v4;
-    if (WTF::Logger::willLog<WTF::Logger::LogSiteIdentifier>(v2, &WebKit2LogFullscreen, 0, v7))
+    v5 = *(*(this + 3) + 336);
+    v8[0] = "VideoPresentationModelContext";
+    v8[1] = 30;
+    v8[2] = "willEnterPictureInPicture";
+    v8[3] = v5;
+    if (WTF::Logger::willLog<WTF::Logger::LogSiteIdentifier>(v2, &WebKit2LogFullscreen, 0, v8))
     {
-      WTF::Logger::log<WTF::Logger::LogSiteIdentifier>(&WebKit2LogFullscreen, 0, v7);
+      WTF::Logger::log<WTF::Logger::LogSiteIdentifier>(&WebKit2LogFullscreen, 0, v8);
     }
 
-    if (atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
+    v3 = (v4 + 2);
+    if (atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
     {
-      atomic_store(1u, v3 + 2);
-      (*(*v3 + 8))(v3);
+      atomic_store(1u, v3);
+      (*(*v4 + 8))(v4);
     }
   }
 
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F1102D70;
-  v7[0] = v5;
-  WTF::WeakHashSet<WebCore::VideoPresentationModelClient,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach(this + 6, v7);
-  return (*(*v5 + 8))(v5);
+  v6 = WTF::fastMalloc(v3, 0x10);
+  *v6 = &unk_1F1102D70;
+  v8[0] = v6;
+  WTF::WeakHashSet<WebCore::VideoPresentationModelClient,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach(this + 6, v8);
+  return (*(*v6 + 8))(v6);
 }
 
 uint64_t WebKit::VideoPresentationModelContext::failedToEnterPictureInPicture(WebKit::VideoPresentationModelContext *this)
@@ -94,30 +95,31 @@ uint64_t WebKit::VideoPresentationModelContext::failedToEnterPictureInPicture(We
   v2 = WebKit::VideoPresentationModelContext::loggerPtr(this);
   if (v2)
   {
-    v3 = v2;
+    v4 = v2;
     atomic_fetch_add(v2 + 2, 1u);
-    v4 = *(*(this + 3) + 336);
-    v7[0] = "VideoPresentationModelContext";
-    v7[1] = 30;
-    v7[2] = "failedToEnterPictureInPicture";
-    v7[3] = v4;
-    if (WTF::Logger::willLog<WTF::Logger::LogSiteIdentifier>(v2, &WebKit2LogFullscreen, 0, v7))
+    v5 = *(*(this + 3) + 336);
+    v8[0] = "VideoPresentationModelContext";
+    v8[1] = 30;
+    v8[2] = "failedToEnterPictureInPicture";
+    v8[3] = v5;
+    if (WTF::Logger::willLog<WTF::Logger::LogSiteIdentifier>(v2, &WebKit2LogFullscreen, 0, v8))
     {
-      WTF::Logger::log<WTF::Logger::LogSiteIdentifier>(&WebKit2LogFullscreen, 0, v7);
+      WTF::Logger::log<WTF::Logger::LogSiteIdentifier>(&WebKit2LogFullscreen, 0, v8);
     }
 
-    if (atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
+    v3 = (v4 + 2);
+    if (atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
     {
-      atomic_store(1u, v3 + 2);
-      (*(*v3 + 8))(v3);
+      atomic_store(1u, v3);
+      (*(*v4 + 8))(v4);
     }
   }
 
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F1102D98;
-  v7[0] = v5;
-  WTF::WeakHashSet<WebCore::VideoPresentationModelClient,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach(this + 6, v7);
-  return (*(*v5 + 8))(v5);
+  v6 = WTF::fastMalloc(v3, 0x10);
+  *v6 = &unk_1F1102D98;
+  v8[0] = v6;
+  WTF::WeakHashSet<WebCore::VideoPresentationModelClient,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach(this + 6, v8);
+  return (*(*v6 + 8))(v6);
 }
 
 uint64_t WebKit::VideoPresentationModelContext::willExitPictureInPicture(WebKit::VideoPresentationModelContext *this)
@@ -125,30 +127,31 @@ uint64_t WebKit::VideoPresentationModelContext::willExitPictureInPicture(WebKit:
   v2 = WebKit::VideoPresentationModelContext::loggerPtr(this);
   if (v2)
   {
-    v3 = v2;
+    v4 = v2;
     atomic_fetch_add(v2 + 2, 1u);
-    v4 = *(*(this + 3) + 336);
-    v7[0] = "VideoPresentationModelContext";
-    v7[1] = 30;
-    v7[2] = "willExitPictureInPicture";
-    v7[3] = v4;
-    if (WTF::Logger::willLog<WTF::Logger::LogSiteIdentifier>(v2, &WebKit2LogFullscreen, 0, v7))
+    v5 = *(*(this + 3) + 336);
+    v8[0] = "VideoPresentationModelContext";
+    v8[1] = 30;
+    v8[2] = "willExitPictureInPicture";
+    v8[3] = v5;
+    if (WTF::Logger::willLog<WTF::Logger::LogSiteIdentifier>(v2, &WebKit2LogFullscreen, 0, v8))
     {
-      WTF::Logger::log<WTF::Logger::LogSiteIdentifier>(&WebKit2LogFullscreen, 0, v7);
+      WTF::Logger::log<WTF::Logger::LogSiteIdentifier>(&WebKit2LogFullscreen, 0, v8);
     }
 
-    if (atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
+    v3 = (v4 + 2);
+    if (atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
     {
-      atomic_store(1u, v3 + 2);
-      (*(*v3 + 8))(v3);
+      atomic_store(1u, v3);
+      (*(*v4 + 8))(v4);
     }
   }
 
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F1102DC0;
-  v7[0] = v5;
-  WTF::WeakHashSet<WebCore::VideoPresentationModelClient,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach(this + 6, v7);
-  return (*(*v5 + 8))(v5);
+  v6 = WTF::fastMalloc(v3, 0x10);
+  *v6 = &unk_1F1102DC0;
+  v8[0] = v6;
+  WTF::WeakHashSet<WebCore::VideoPresentationModelClient,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach(this + 6, v8);
+  return (*(*v6 + 8))(v6);
 }
 
 void WebKit::VideoPresentationModelContext::setRequiresTextTrackRepresentation(WebKit::VideoPresentationModelContext *this, char a2)
@@ -216,7 +219,7 @@ void WebKit::VideoPresentationModelContext::setRequiresTextTrackRepresentation(W
               bmalloc::api::tzoneFree(v16, v17);
             }
 
-            WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v9 + 16));
+            WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v9 + 16), v13);
           }
 
           CFRelease(*(v7 - 8));
@@ -237,11 +240,11 @@ void WebKit::VideoPresentationModelContext::setRequiresTextTrackRepresentation(W
   }
 }
 
-void sub_19DCA1104(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, IPC::Encoder *a16)
+void sub_19DCA1104(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, IPC::Encoder *a16)
 {
   if (a15 == 1 && a13)
   {
-    (*(*a13 + 8))(a13);
+    (*(*a13 + 8))(a13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a16)
@@ -250,7 +253,7 @@ void sub_19DCA1104(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int 
     bmalloc::api::tzoneFree(v20, v21);
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v17);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v17, a2);
   CFRelease(*(v18 - 8));
   if (v16[4] == 1)
   {
@@ -328,7 +331,7 @@ void WebKit::VideoPresentationModelContext::setTextTrackRepresentationBounds(Web
               bmalloc::api::tzoneFree(v18, v19);
             }
 
-            WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v11 + 16));
+            WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v11 + 16), v15);
           }
 
           CFRelease(*(v6 - 8));
@@ -349,11 +352,11 @@ void WebKit::VideoPresentationModelContext::setTextTrackRepresentationBounds(Web
   }
 }
 
-void sub_19DCA13A4(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
+void sub_19DCA13A4(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
 {
   if (a11 == 1 && a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
@@ -362,7 +365,7 @@ void sub_19DCA13A4(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int 
     bmalloc::api::tzoneFree(v16, v17);
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v13);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v13, a2);
   CFRelease(*(v14 - 8));
   if (v12[4] == 1)
   {
@@ -475,7 +478,7 @@ void sub_19DCA1688(_Unwind_Exception *a1, void *a2)
     if (atomic_fetch_add(v7, 0xFFFFFFFF) == 1)
     {
       atomic_store(1u, v7);
-      (*(*v6 + 8))(v6);
+      (*(*v6 + 8))(v6, a2);
     }
   }
 
@@ -583,7 +586,7 @@ uint64_t WebKit::VideoPresentationManagerProxy::invalidate(WebKit::VideoPresenta
       IPC::MessageReceiverMap::removeMessageReceiver(v7 + 96, 0x97u, *(v6 + 32));
       if (v7)
       {
-        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16));
+        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v7 + 16), v8);
       }
 
       v9 = *(this + 6);
@@ -893,7 +896,7 @@ unint64_t *WebKit::VideoPresentationManagerProxy::controlsManagerInterface@<X0>(
   return this;
 }
 
-unint64_t *WebKit::VideoPresentationManagerProxy::ensureInterface@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X8>)
+unint64_t *WebKit::VideoPresentationManagerProxy::ensureInterface@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X8>)
 {
   result = WebKit::VideoPresentationManagerProxy::ensureModelAndInterface(a1, a2, a3);
   v6 = result[1];
@@ -985,10 +988,10 @@ void sub_19DCA20B0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-unint64_t *WebKit::VideoPresentationManagerProxy::ensureModelAndInterface(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t *WebKit::VideoPresentationManagerProxy::ensureModelAndInterface(unint64_t a1, uint64_t a2, uint64_t a3)
 {
-  *&v32 = a2;
-  *(&v32 + 1) = a3;
+  *&v33 = a2;
+  *(&v33 + 1) = a3;
   if (!(a2 | a3))
   {
     __break(0xC471u);
@@ -1015,7 +1018,7 @@ LABEL_42:
     v5 = 0;
   }
 
-  v6 = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(&v32) & v5;
+  v6 = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(&v33) & v5;
   v7 = (v4 + 32 * v6);
   v9 = *v7;
   v8 = v7[1];
@@ -1025,7 +1028,7 @@ LABEL_42:
     v11 = 1;
     do
     {
-      if (__PAIR128__(v8, v9) == v32)
+      if (__PAIR128__(v8, v9) == v33)
       {
         return v7 + 2;
       }
@@ -1052,7 +1055,7 @@ LABEL_42:
     }
   }
 
-  *v7 = v32;
+  *v7 = v33;
   v12 = *(a1 + 48);
   if (!v12 || (v13 = *(v12 + 8)) == 0)
   {
@@ -1060,47 +1063,48 @@ LABEL_42:
     goto LABEL_42;
   }
 
-  v14 = v32;
+  v14 = v33;
   CFRetain(*(v13 - 8));
   v15 = *(a1 + 56);
   ++*(v15 + 16);
-  v31 = v13;
+  v32 = v13;
   v16 = WebKit::PlaybackSessionManagerProxy::ensureModelAndInterface(v15, v14, *(&v14 + 1));
   v17 = *v16;
-  ++*(*v16 + 16);
-  v18 = WTF::fastMalloc(0x58);
-  *(v18 + 8) = 3;
-  *v18 = &unk_1F1102670;
+  v18 = (*(*v16 + 16) + 1);
+  *(*v16 + 16) = v18;
+  v19 = WTF::fastMalloc(v18, 0x58);
+  v19[1] = 3;
+  *v19 = &unk_1F1102670;
   WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((a1 + 24), a1);
-  v19 = *(a1 + 24);
-  atomic_fetch_add(v19, 1u);
-  *(v18 + 16) = v19;
+  v20 = *(a1 + 24);
+  atomic_fetch_add(v20, 1u);
+  v19[2] = v20;
   ++v17[4];
-  *(v18 + 24) = v17;
-  *(v18 + 32) = v14;
-  *(v18 + 80) = 0;
-  *(v18 + 40) = *(&v14 + 1);
-  *(v18 + 48) = 0;
-  *(v18 + 56) = 0;
-  *(v18 + 64) = 0;
-  *(v18 + 72) = 0;
-  v20 = WebKit::PlaybackSessionManagerProxy::ensureModelAndInterface(v15, v14, *(&v14 + 1))[1];
-  ++*(v20 + 4);
-  WebCore::VideoPresentationInterfaceAVKitLegacy::create(v33, v20, v21);
-  v22 = v33[0];
-  v34 = v14;
-  v35 = 0;
-  WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,unsigned int,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::add<int>((v15 + 72), &v34, &v35, v33);
-  ++*(v33[0] + 16);
+  v19[3] = v17;
+  v19[4] = v14;
+  v19[10] = 0;
+  v19[5] = *(&v14 + 1);
+  v19[6] = 0;
+  v19[7] = 0;
+  v19[8] = 0;
+  *(v19 + 36) = 0;
+  v21 = WebKit::PlaybackSessionManagerProxy::ensureModelAndInterface(v15, v14, *(&v14 + 1))[1];
+  ++*(v21 + 4);
+  WebCore::VideoPresentationInterfaceAVKitLegacy::create(v34, v21, v22);
+  v23 = v34[0];
+  v35 = v14;
+  v36 = 0;
+  WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,unsigned int,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::add<int>((v15 + 72), &v35, &v36, v34);
+  ++*(v34[0] + 16);
   WebCore::VideoPresentationInterfaceIOS::setVideoPresentationModel();
-  if (*(v20 + 4) == 1)
+  if (*(v21 + 4) == 1)
   {
-    (*(*v20 + 8))(v20);
+    (*(*v21 + 8))(v21);
   }
 
   else
   {
-    --*(v20 + 4);
+    --*(v21 + 4);
   }
 
   if (v17[4] == 1)
@@ -1123,38 +1127,38 @@ LABEL_42:
     --*(v15 + 16);
   }
 
-  CFRelease(*(v31 - 8));
-  v24 = v7[2];
-  v7[2] = v18;
-  if (v24)
-  {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationModel,(WTF::DestructionThread)0>::deref((v24 + 8), v23);
-  }
-
-  v25 = v7[3];
-  v7[3] = v22;
+  CFRelease(*(v32 - 8));
+  v25 = v7[2];
+  v7[2] = v19;
   if (v25)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v25 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationModel,(WTF::DestructionThread)0>::deref((v25 + 8), v24);
   }
 
-  v26 = *(a1 + 64);
+  v26 = v7[3];
+  v7[3] = v23;
   if (v26)
   {
-    v27 = *(v26 - 12) + 1;
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v26 + 104), v24);
+  }
+
+  v27 = *(a1 + 64);
+  if (v27)
+  {
+    v28 = *(v27 - 12) + 1;
   }
 
   else
   {
-    v27 = 1;
+    v28 = 1;
   }
 
-  *(v26 - 12) = v27;
-  v28 = (*(v26 - 16) + v27);
-  v29 = *(v26 - 4);
-  if (v29 > 0x400)
+  *(v27 - 12) = v28;
+  v29 = (*(v27 - 16) + v28);
+  v30 = *(v27 - 4);
+  if (v30 > 0x400)
   {
-    if (v29 > 2 * v28)
+    if (v30 > 2 * v29)
     {
       return v7 + 2;
     }
@@ -1162,7 +1166,7 @@ LABEL_42:
     goto LABEL_31;
   }
 
-  if (3 * v29 <= 4 * v28)
+  if (3 * v30 <= 4 * v29)
   {
 LABEL_31:
     v7 = WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>::expand((a1 + 64), v7);
@@ -1175,7 +1179,7 @@ void sub_19DCA24D8(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, ui
 {
   if (v13[4] == 1)
   {
-    (*(*v13 + 8))(v13);
+    (*(*v13 + 8))(v13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -1229,9 +1233,9 @@ uint64_t WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<Web
 
   result = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(a2);
   v11 = result & v9;
-  v12 = (v8 + 24 * (result & v9));
+  v12 = v8 + 24 * (result & v9);
   v14 = *v12;
-  v13 = v12[1];
+  v13 = *(v12 + 8);
   if (*v12 != 0)
   {
     v15 = 0;
@@ -1262,9 +1266,9 @@ uint64_t WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<Web
       }
 
       v11 = (v11 + v16) & v9;
-      v12 = (v8 + 24 * v11);
+      v12 = v8 + 24 * v11;
       v14 = *v12;
-      v13 = v12[1];
+      v13 = *(v12 + 8);
       ++v16;
     }
 
@@ -1280,7 +1284,7 @@ uint64_t WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<Web
   }
 
   *v12 = *a2;
-  *(v12 + 4) = *a3;
+  *(v12 + 16) = *a3;
   v17 = *a1;
   if (*a1)
   {
@@ -1345,9 +1349,9 @@ uint64_t WebKit::VideoPresentationManagerProxy::addClientForContext(uint64_t a1,
 
 void WebKit::VideoPresentationManagerProxy::removeClientForContext(void *a1, uint64_t a2, uint64_t a3)
 {
-  v118 = *MEMORY[0x1E69E9840];
-  *&v111 = a2;
-  *(&v111 + 1) = a3;
+  v119[2] = *MEMORY[0x1E69E9840];
+  *&v112 = a2;
+  *(&v112 + 1) = a3;
   v3 = a1 + 9;
   v4 = a1[9];
   if (!v4)
@@ -1368,21 +1372,21 @@ void WebKit::VideoPresentationManagerProxy::removeClientForContext(void *a1, uin
   }
 
   v6 = *(v4 - 8);
-  v7 = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(&v111);
+  v7 = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(&v112);
   v8 = v7 & v6;
   v9 = (v4 + 24 * (v7 & v6));
   v10 = *v9;
   v11 = v9[1];
-  if (*v9 == v111 && v11 == *(&v111 + 1))
+  if (*v9 == v112 && v11 == *(&v112 + 1))
   {
 LABEL_15:
-    if (v111 == 0)
+    if (v112 == 0)
     {
       __break(0xC471u);
       JUMPOUT(0x19DCA3180);
     }
 
-    if (*(&v111 + 1) == -1)
+    if (*(&v112 + 1) == -1)
     {
       __break(0xC471u);
       JUMPOUT(0x19DCA31A0);
@@ -1392,12 +1396,12 @@ LABEL_15:
     if (*v3)
     {
       v17 = *(v16 - 8);
-      v7 = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(&v111);
+      v7 = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(&v112);
       v18 = v7 & v17;
       v19 = (v16 + 24 * (v7 & v17));
       v20 = *v19;
       v21 = v19[1];
-      if (*v19 == v111 && v21 == *(&v111 + 1))
+      if (*v19 == v112 && v21 == *(&v112 + 1))
       {
 LABEL_29:
         v26 = (*(v16 + 24 * v18 + 16) - 1);
@@ -1405,10 +1409,10 @@ LABEL_31:
         v27 = *(a1[7] + 80);
         atomic_fetch_add((v27 + 8), 1u);
         v28 = *(a1[7] + 88);
-        v110[0] = "PlaybackSessionManagerProxy";
-        v110[1] = 28;
-        v110[2] = "removeClientForContext";
-        v110[3] = v28;
+        v111[0] = "PlaybackSessionManagerProxy";
+        v111[1] = 28;
+        v111[2] = "removeClientForContext";
+        v111[3] = v28;
         v29 = MEMORY[0x1E696EBD0];
         while (1)
         {
@@ -1432,12 +1436,12 @@ LABEL_31:
               {
                 v36 = *v34;
                 *buf = 0;
-                WTF::Logger::LogSiteIdentifier::toString(&buf[8], v110);
-                v117 = 0;
-                WTF::String::number(v26);
-                WTF::Vector<WTF::JSONLogValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v112, buf, 2uLL);
-                (*(*v36 + 16))(v36, &WebKit2LogFullscreen, 0, v112);
-                WTF::Vector<std::tuple<Inspector::BackendDispatcher::CommonErrorCode,WTF::String>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v112, v37);
+                WTF::Logger::LogSiteIdentifier::toString(&buf[8], v111);
+                v118 = 0;
+                WTF::String::number(v119, v26);
+                WTF::Vector<WTF::JSONLogValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v113, buf, 2uLL);
+                (*(*v36 + 16))(v36, &WebKit2LogFullscreen, 0, v113);
+                WTF::Vector<std::tuple<Inspector::BackendDispatcher::CommonErrorCode,WTF::String>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v113, v37);
                 for (i = 24; i != -8; i -= 16)
                 {
                   v40 = *&buf[i];
@@ -1466,26 +1470,26 @@ LABEL_31:
               goto LABEL_77;
             }
 
-            WTF::Logger::LogSiteIdentifier::toString(&v114, v110);
-            WTF::String::number(v26);
-            *buf = v114;
-            v112[0] = v113;
-            WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::String,void>>(buf, v112, &v115);
-            if (!v115)
+            WTF::Logger::LogSiteIdentifier::toString(&v115, v111);
+            WTF::String::number(&v114, v26);
+            *buf = v115;
+            v113[0] = v114;
+            WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::String,void>>(buf, v113, &v116);
+            if (!v116)
             {
               __break(0xC471u);
               JUMPOUT(0x19DCA31E8);
             }
 
-            v43 = v113;
-            v113 = 0;
+            v43 = v114;
+            v114 = 0;
             if (v43 && atomic_fetch_add_explicit(v43, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
               WTF::StringImpl::destroy(v43, v42);
             }
 
-            v44 = v114;
-            v114 = 0;
+            v44 = v115;
+            v115 = 0;
             if (v44 && atomic_fetch_add_explicit(v44, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
               WTF::StringImpl::destroy(v44, v42);
@@ -1496,12 +1500,12 @@ LABEL_31:
             if (v46)
             {
               WTF::String::utf8();
-              v48 = v112[0] ? v112[0] + 16 : 0;
+              v48 = v113[0] ? v113[0] + 16 : 0;
               *buf = 136446210;
               *&buf[4] = v48;
               _os_log_impl(&dword_19D52D000, v45, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
-              v46 = v112[0];
-              v112[0] = 0;
+              v46 = v113[0];
+              v113[0] = 0;
               if (v46)
               {
                 if (*v46 == 1)
@@ -1541,12 +1545,12 @@ LABEL_31:
                     {
                       v56 = *v54;
                       *buf = 0;
-                      WTF::Logger::LogSiteIdentifier::toString(&buf[8], v110);
-                      v117 = 0;
-                      WTF::String::number(v26);
-                      WTF::Vector<WTF::JSONLogValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v112, buf, 2uLL);
-                      (*(*v56 + 16))(v56, &WebKit2LogFullscreen, 0, v112);
-                      WTF::Vector<std::tuple<Inspector::BackendDispatcher::CommonErrorCode,WTF::String>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v112, v57);
+                      WTF::Logger::LogSiteIdentifier::toString(&buf[8], v111);
+                      v118 = 0;
+                      WTF::String::number(v119, v26);
+                      WTF::Vector<WTF::JSONLogValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v113, buf, 2uLL);
+                      (*(*v56 + 16))(v56, &WebKit2LogFullscreen, 0, v113);
+                      WTF::Vector<std::tuple<Inspector::BackendDispatcher::CommonErrorCode,WTF::String>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v113, v57);
                       for (j = 24; j != -8; j -= 16)
                       {
                         v59 = *&buf[j];
@@ -1575,8 +1579,8 @@ LABEL_31:
               }
             }
 
-            v61 = v115;
-            v115 = 0;
+            v61 = v116;
+            v116 = 0;
             if (v61 && atomic_fetch_add_explicit(v61, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
               WTF::StringImpl::destroy(v61, v47);
@@ -1601,13 +1605,13 @@ LABEL_77:
 LABEL_79:
         if (v26 > 0)
         {
-          if (v111 == 0)
+          if (v112 == 0)
           {
             __break(0xC471u);
             JUMPOUT(0x19DCA31C0);
           }
 
-          if (*(&v111 + 1) == -1)
+          if (*(&v112 + 1) == -1)
           {
             __break(0xC471u);
             JUMPOUT(0x19DCA31E0);
@@ -1624,7 +1628,7 @@ LABEL_79:
             v63 = 0;
           }
 
-          v64 = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(&v111) & v63;
+          v64 = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(&v112) & v63;
           v65 = (v62 + 24 * v64);
           v67 = *v65;
           v66 = v65[1];
@@ -1634,7 +1638,7 @@ LABEL_79:
             v69 = 1;
             do
             {
-              if (__PAIR128__(v66, v67) == v111)
+              if (__PAIR128__(v66, v67) == v112)
               {
                 *(v65 + 4) = v26;
                 return;
@@ -1663,7 +1667,7 @@ LABEL_79:
             }
           }
 
-          *v65 = v111;
+          *v65 = v112;
           *(v65 + 4) = v26;
           v70 = *v3;
           if (*v3)
@@ -1677,17 +1681,17 @@ LABEL_79:
           }
 
           *(v70 - 12) = v71;
-          v84 = (*(v70 - 16) + v71);
-          v85 = *(v70 - 4);
-          if (v85 > 0x400)
+          v85 = (*(v70 - 16) + v71);
+          v86 = *(v70 - 4);
+          if (v86 > 0x400)
           {
-            if (v85 > 2 * v84)
+            if (v86 > 2 * v85)
             {
               return;
             }
           }
 
-          else if (3 * v85 > 4 * v84)
+          else if (3 * v86 > 4 * v85)
           {
             return;
           }
@@ -1696,38 +1700,38 @@ LABEL_79:
           return;
         }
 
-        WebKit::VideoPresentationManagerProxy::ensureInterface(a1, v111, *(&v111 + 1), buf);
+        WebKit::VideoPresentationManagerProxy::ensureInterface(a1, v112, *(&v112 + 1), buf);
         v72 = *buf;
         WebKit::VideoPresentationManagerProxy::invalidateInterface(*buf, v73);
-        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v72 + 104));
-        WebKit::PlaybackSessionManagerProxy::removeClientForContext(a1[7], v111, *(&v111 + 1));
-        v74 = a1[9];
-        if (!v74)
+        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v72 + 104), v74);
+        WebKit::PlaybackSessionManagerProxy::removeClientForContext(a1[7], v112, *(&v112 + 1));
+        v75 = a1[9];
+        if (!v75)
         {
           goto LABEL_127;
         }
 
-        if (v111 == 0)
+        if (v112 == 0)
         {
           __break(0xC471u);
           JUMPOUT(0x19DCA3208);
         }
 
-        if (*(&v111 + 1) == -1)
+        if (*(&v112 + 1) == -1)
         {
           __break(0xC471u);
           JUMPOUT(0x19DCA3228);
         }
 
-        v75 = *(v74 - 8);
-        v76 = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(&v111) & v75;
-        v77 = (v74 + 24 * v76);
-        v78 = *v77;
-        v79 = v77[1];
-        if (*v77 == v111 && v79 == *(&v111 + 1))
+        v76 = *(v75 - 8);
+        v77 = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(&v112) & v76;
+        v78 = (v75 + 24 * v77);
+        v79 = *v78;
+        v80 = v78[1];
+        if (*v78 == v112 && v80 == *(&v112 + 1))
         {
 LABEL_110:
-          v83 = *v3;
+          v84 = *v3;
           if (!*v3)
           {
             goto LABEL_120;
@@ -1736,85 +1740,85 @@ LABEL_110:
 
         else
         {
-          v81 = 1;
-          while (v78 | v79)
+          v82 = 1;
+          while (v79 | v80)
           {
-            v76 = (v76 + v81) & v75;
-            v77 = (v74 + 24 * v76);
-            v78 = *v77;
-            v79 = v77[1];
-            ++v81;
-            if (*v77 == v111 && v79 == *(&v111 + 1))
+            v77 = (v77 + v82) & v76;
+            v78 = (v75 + 24 * v77);
+            v79 = *v78;
+            v80 = v78[1];
+            ++v82;
+            if (*v78 == v112 && v80 == *(&v112 + 1))
             {
               goto LABEL_110;
             }
           }
 
-          v83 = *v3;
+          v84 = *v3;
           if (!*v3)
           {
             goto LABEL_127;
           }
 
-          v77 = (v83 + 24 * *(v83 - 4));
+          v78 = (v84 + 24 * *(v84 - 4));
         }
 
-        v83 += 24 * *(v83 - 4);
-        if (v83 == v77)
+        v84 += 24 * *(v84 - 4);
+        if (v84 == v78)
         {
 LABEL_127:
-          v90 = (a1 + 8);
-          v91 = a1[8];
-          if (!v91)
+          v91 = (a1 + 8);
+          v92 = a1[8];
+          if (!v92)
           {
             goto LABEL_157;
           }
 
-          if (v111 == 0)
+          if (v112 == 0)
           {
             __break(0xC471u);
             JUMPOUT(0x19DCA3248);
           }
 
-          if (*(&v111 + 1) != -1)
+          if (*(&v112 + 1) != -1)
           {
-            v92 = *(v91 - 8);
-            v94 = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(&v111) & v92;
-            v95 = (v91 + 32 * v94);
-            v96 = *v95;
-            v97 = v95[1];
-            if (*v95 == v111 && v97 == *(&v111 + 1))
+            v93 = *(v92 - 8);
+            v95 = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(&v112) & v93;
+            v96 = (v92 + 32 * v95);
+            v97 = *v96;
+            v98 = v96[1];
+            if (*v96 == v112 && v98 == *(&v112 + 1))
             {
 LABEL_141:
-              v101 = *v90;
-              if (!*v90)
+              v102 = *v91;
+              if (!*v91)
               {
 LABEL_146:
-                if (v101 != v95)
+                if (v102 != v96)
                 {
-                  *v95 = -1;
-                  v95[1] = -1;
-                  v102 = v95[3];
-                  v95[3] = 0;
-                  if (v102)
-                  {
-                    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v102 + 104));
-                  }
-
-                  v103 = v95[2];
-                  v95[2] = 0;
+                  *v96 = -1;
+                  v96[1] = -1;
+                  v103 = v96[3];
+                  v96[3] = 0;
                   if (v103)
                   {
-                    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationModel,(WTF::DestructionThread)0>::deref((v103 + 8), v93);
+                    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v103 + 104), v94);
                   }
 
-                  v104 = *v90;
-                  v105 = vadd_s32(*(*v90 - 2), 0xFFFFFFFF00000001);
-                  *(v104 - 2) = v105;
-                  v106 = *(v104 - 1);
-                  if (6 * v105.i32[1] < v106 && v106 >= 9)
+                  v104 = v96[2];
+                  v96[2] = 0;
+                  if (v104)
                   {
-                    WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>::rehash( a1 + 8,  v106 >> 1,  0);
+                    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationModel,(WTF::DestructionThread)0>::deref((v104 + 8), v94);
+                  }
+
+                  v105 = *v91;
+                  v106 = vadd_s32(*(*v91 - 2), 0xFFFFFFFF00000001);
+                  *(v105 - 2) = v106;
+                  v107 = *(v105 - 1);
+                  if (6 * v106.i32[1] < v107 && v107 >= 9)
+                  {
+                    WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>::rehash( a1 + 8,  v107 >> 1,  0);
                   }
                 }
 
@@ -1824,45 +1828,45 @@ LABEL_146:
 
             else
             {
-              v99 = 1;
-              while (v96 | v97)
+              v100 = 1;
+              while (v97 | v98)
               {
-                v94 = (v94 + v99) & v92;
-                v95 = (v91 + 32 * v94);
-                v96 = *v95;
-                v97 = v95[1];
-                ++v99;
-                if (*v95 == v111 && v97 == *(&v111 + 1))
+                v95 = (v95 + v100) & v93;
+                v96 = (v92 + 32 * v95);
+                v97 = *v96;
+                v98 = v96[1];
+                ++v100;
+                if (*v96 == v112 && v98 == *(&v112 + 1))
                 {
                   goto LABEL_141;
                 }
               }
 
-              v101 = *v90;
-              if (!*v90)
+              v102 = *v91;
+              if (!*v91)
               {
                 goto LABEL_157;
               }
 
-              v95 = &v101[4 * *(v101 - 1)];
+              v96 = &v102[4 * *(v102 - 1)];
             }
 
-            v101 += 4 * *(v101 - 1);
-            if (v101 != v95)
+            v102 += 4 * *(v102 - 1);
+            if (v102 != v96)
             {
               goto LABEL_146;
             }
 
 LABEL_157:
-            v108 = a1[6];
-            if (v108)
+            v109 = a1[6];
+            if (v109)
             {
-              v109 = *(v108 + 8);
-              if (v109)
+              v110 = *(v109 + 8);
+              if (v110)
               {
-                CFRetain(*(v109 - 8));
-                WebKit::WebPageProxy::didCleanupFullscreen((v109 - 16));
-                CFRelease(*(v109 - 8));
+                CFRetain(*(v110 - 8));
+                WebKit::WebPageProxy::didCleanupFullscreen((v110 - 16));
+                CFRelease(*(v110 - 8));
               }
             }
 
@@ -1875,17 +1879,17 @@ LABEL_175:
         }
 
 LABEL_120:
-        if (v83 != v77)
+        if (v84 != v78)
         {
-          *v77 = -1;
-          v77[1] = -1;
-          v86 = *v3;
-          v87 = vadd_s32(*(*v3 - 16), 0xFFFFFFFF00000001);
-          *(v86 - 16) = v87;
-          v88 = *(v86 - 4);
-          if (6 * v87.i32[1] < v88 && v88 >= 9)
+          *v78 = -1;
+          v78[1] = -1;
+          v87 = *v3;
+          v88 = vadd_s32(*(*v3 - 16), 0xFFFFFFFF00000001);
+          *(v87 - 16) = v88;
+          v89 = *(v87 - 4);
+          if (6 * v88.i32[1] < v89 && v89 >= 9)
           {
-            WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,unsigned int>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,unsigned int>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,unsigned int,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>::rehash(v3, v88 >> 1, 0);
+            WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,unsigned int>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,unsigned int>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,unsigned int,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>::rehash(v3, v89 >> 1, 0);
           }
         }
 
@@ -1900,7 +1904,7 @@ LABEL_120:
         v20 = *v24;
         v21 = v24[1];
         ++v23;
-        if (v20 == v111 && v21 == *(&v111 + 1))
+        if (v20 == v112 && v21 == *(&v112 + 1))
         {
           goto LABEL_29;
         }
@@ -1919,7 +1923,7 @@ LABEL_120:
     v10 = *v14;
     v11 = v14[1];
     ++v13;
-    if (v10 == v111 && v11 == *(&v111 + 1))
+    if (v10 == v112 && v11 == *(&v112 + 1))
     {
       goto LABEL_15;
     }
@@ -1962,76 +1966,77 @@ unsigned int *WebKit::VideoPresentationManagerProxy::forEachSession(unsigned int
     {
       result = WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>::begin(*(result + 8));
       v6 = *(v2 - 4);
-      v19 = 0;
+      v7 = (v3 >> 28);
       v20 = 0;
-      if (v3 >> 28)
+      v21 = 0;
+      if (v7)
       {
         __break(0xC471u);
       }
 
       else
       {
-        v7 = result;
-        v8 = v5;
-        v10 = WTF::fastMalloc((16 * v3));
-        v11 = (v2 + 32 * v6);
-        LODWORD(v20) = v3;
-        v19 = v10;
-        if (v7 != v11)
+        v8 = result;
+        v9 = v5;
+        v11 = WTF::fastMalloc(v7, (16 * v3));
+        v12 = v2 + 32 * v6;
+        LODWORD(v21) = v3;
+        v20 = v11;
+        if (v8 != v12)
         {
-          v12 = 0;
+          v13 = 0;
           do
           {
-            std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>::pair[abi:sn200100]<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>,0>(&v21, v7 + 2);
-            v13 = (v10 + 16 * v12);
-            *v13 = v21;
-            v13[1] = v22;
+            std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>::pair[abi:sn200100]<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>,0>(&v22, (v8 + 16));
+            v14 = &v11[2 * v13];
+            *v14 = v22;
+            v14[1] = v23;
             do
             {
-              v7 += 8;
-              if (v7 == v8)
+              v8 += 32;
+              if (v8 == v9)
               {
                 break;
               }
             }
 
-            while (*v7 == 0 || *(v7 + 1) == -1);
-            ++v12;
+            while (*v8 == 0 || *(v8 + 8) == -1);
+            ++v13;
           }
 
-          while (v7 != v11);
-          HIDWORD(v20) = v12;
-          v15 = v19;
-          if (v12)
+          while (v8 != v12);
+          HIDWORD(v21) = v13;
+          v16 = v20;
+          if (v13)
           {
-            v16 = 16 * v12;
+            v17 = 16 * v13;
             do
             {
-              std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>::pair[abi:sn200100](&v21, v15);
-              (*(**a2 + 16))(*a2, v21, v22);
-              v17 = v22;
-              v22 = 0;
-              if (v17)
-              {
-                WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v17 + 104));
-              }
-
-              v18 = v21;
-              v21 = 0;
+              std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>::pair[abi:sn200100](&v22, v16);
+              (*(**a2 + 16))(*a2, v22, v23);
+              v18 = v23;
+              v23 = 0;
               if (v18)
               {
-                WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationModel,(WTF::DestructionThread)0>::deref((v18 + 8), v9);
+                WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v18 + 104), v10);
               }
 
-              v15 += 2;
-              v16 -= 16;
+              v19 = v22;
+              v22 = 0;
+              if (v19)
+              {
+                WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationModel,(WTF::DestructionThread)0>::deref((v19 + 8), v10);
+              }
+
+              v16 += 2;
+              v17 -= 16;
             }
 
-            while (v16);
+            while (v17);
           }
         }
 
-        return WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v19, v9);
+        return WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v20, v10);
       }
     }
   }
@@ -2044,8 +2049,8 @@ void WebKit::VideoPresentationManagerProxy::requestBitmapImageForCurrentTime(uin
   v5 = *(a1 + 48);
   if (!v5 || (v6 = *(v5 + 8)) == 0)
   {
-    LOBYTE(v20[0]) = 0;
-    v23 = 0;
+    LOBYTE(v23[0]) = 0;
+    v26 = 0;
     WTF::CompletionHandler<void ()(std::optional<WebCore::ShareableBitmapHandle> &&)>::operator()(a4);
     return;
   }
@@ -2058,71 +2063,71 @@ void WebKit::VideoPresentationManagerProxy::requestBitmapImageForCurrentTime(uin
       if (v10)
       {
         atomic_fetch_add((v10 + 16), 1u);
-        WebKit::VideoPresentationManagerProxy::findInterface(a1, a2, a3, &v19);
-        v11 = v19;
-        if (v19)
+        WebKit::VideoPresentationManagerProxy::findInterface(a1, a2, a3, &v22);
+        v11 = v22;
+        if (v22)
         {
-          v12 = WebCore::VideoPresentationInterfaceIOS::playerIdentifier(v19);
+          v12 = WebCore::VideoPresentationInterfaceIOS::playerIdentifier(v22);
           if (v13)
           {
             v14 = *(v6 + 336);
             v15 = (v14 + 16);
             atomic_fetch_add((v14 + 16), 1u);
             v16 = *(v14 + 120);
-            v24 = v12;
-            v25 = v16;
-            v20[0] = &v25;
-            v20[1] = &v24;
-            WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::GPUProcess::RequestBitmapImageForCurrentTime,WTF::CompletionHandler<void ()(std::optional<WebCore::ShareableBitmapHandle> &&)>>(v10, v20, a4, 0, 0, 1);
-            WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v15);
+            v27 = v12;
+            v28 = v16;
+            v23[0] = &v28;
+            v23[1] = &v27;
+            WebKit::AuxiliaryProcessProxy::sendWithAsyncReply<Messages::GPUProcess::RequestBitmapImageForCurrentTime,WTF::CompletionHandler<void ()(std::optional<WebCore::ShareableBitmapHandle> &&)>>(v10, v23, a4, 0, 0, 1);
+            WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v15, v17);
           }
 
           else
           {
-            LOBYTE(v20[0]) = 0;
-            v23 = 0;
+            LOBYTE(v23[0]) = 0;
+            v26 = 0;
             WTF::CompletionHandler<void ()(std::optional<WebCore::ShareableBitmapHandle> &&)>::operator()(a4);
-            if (v23 == 1)
+            if (v26 == 1)
             {
-              if (v22 == 1)
+              if (v25 == 1)
               {
-                v18 = cf;
+                v21 = cf;
                 cf = 0;
-                if (v18)
+                if (v21)
                 {
-                  CFRelease(v18);
+                  CFRelease(v21);
                 }
               }
 
-              WTF::MachSendRight::~MachSendRight(v20);
+              WTF::MachSendRight::~MachSendRight(v23);
             }
           }
 
-          WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref(v11 + 13);
+          WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref(v11 + 13, v18);
         }
 
         else
         {
-          LOBYTE(v20[0]) = 0;
-          v23 = 0;
+          LOBYTE(v23[0]) = 0;
+          v26 = 0;
           WTF::CompletionHandler<void ()(std::optional<WebCore::ShareableBitmapHandle> &&)>::operator()(a4);
-          if (v23 == 1)
+          if (v26 == 1)
           {
-            if (v22 == 1)
+            if (v25 == 1)
             {
-              v17 = cf;
+              v20 = cf;
               cf = 0;
-              if (v17)
+              if (v20)
               {
-                CFRelease(v17);
+                CFRelease(v20);
               }
             }
 
-            WTF::MachSendRight::~MachSendRight(v20);
+            WTF::MachSendRight::~MachSendRight(v23);
           }
         }
 
-        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v10 + 16));
+        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v10 + 16), v19);
         goto LABEL_24;
       }
     }
@@ -2133,14 +2138,14 @@ void WebKit::VideoPresentationManagerProxy::requestBitmapImageForCurrentTime(uin
     WebKit::singleton(void)::singleton = 0;
   }
 
-  LOBYTE(v20[0]) = 0;
-  v23 = 0;
+  LOBYTE(v23[0]) = 0;
+  v26 = 0;
   WTF::CompletionHandler<void ()(std::optional<WebCore::ShareableBitmapHandle> &&)>::operator()(a4);
 LABEL_24:
   CFRelease(*(v6 - 8));
 }
 
-void sub_19DCA38AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, CFTypeRef cf, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
+void sub_19DCA38AC(_Unwind_Exception *a1, unint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, CFTypeRef cf, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
 {
   if (a20 == 1)
   {
@@ -2157,8 +2162,8 @@ void sub_19DCA38AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     WTF::MachSendRight::~MachSendRight(&a10);
   }
 
-  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v21 + 104));
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v20);
+  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v21 + 104), a2);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v20, v25);
   CFRelease(*(v22 - 8));
   _Unwind_Resume(a1);
 }
@@ -2173,11 +2178,11 @@ uint64_t WTF::CompletionHandler<void ()(std::optional<WebCore::ShareableBitmapHa
   return v2(v1);
 }
 
-unsigned int *WTF::WeakHashSet<WTF::Observer<void ()(BOOL)>,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::add<WTF::Observer<void ()(BOOL)>>@<X0>(uint64_t a1@<X0>, atomic_uint *volatile *a2@<X1>, uint64_t a3@<X8>)
+unsigned int *WTF::WeakHashSet<WTF::Observer<void ()(BOOL)>,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::add<WTF::Observer<void ()(BOOL)>>@<X0>(uint64_t *a1@<X0>, atomic_uint *volatile *a2@<X1>, uint64_t a3@<X8>)
 {
-  v6 = *(a1 + 12);
-  v7 = *(a1 + 8) + 1;
-  *(a1 + 8) = v7;
+  v6 = *(a1 + 3);
+  v7 = *(a1 + 2) + 1;
+  *(a1 + 2) = v7;
   if (v7 > v6)
   {
     v8 = *a1;
@@ -2192,7 +2197,7 @@ LABEL_15:
         {
           WTF::HashTable<WTF::Ref<WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>,WTF::DefaultRefDerefTraits<WTF::DefaultWeakPtrImpl>>,WTF::Ref<WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>,WTF::DefaultRefDerefTraits<WTF::DefaultWeakPtrImpl>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::Ref<WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>,WTF::DefaultRefDerefTraits<WTF::DefaultWeakPtrImpl>>>,WTF::HashTraits<WTF::Ref<WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>,WTF::DefaultRefDerefTraits<WTF::DefaultWeakPtrImpl>>>,WTF::HashTraits<WTF::Ref<WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>,WTF::DefaultRefDerefTraits<WTF::DefaultWeakPtrImpl>>>,WTF::FastMalloc>::shrinkToBestSize(a1);
           v8 = *a1;
-          *(a1 + 8) = 0;
+          *(a1 + 2) = 0;
           if (!v8)
           {
             goto LABEL_22;
@@ -2201,7 +2206,7 @@ LABEL_15:
 
         else
         {
-          *(a1 + 8) = 0;
+          *(a1 + 2) = 0;
         }
 
         LODWORD(v8) = *(v8 - 12);
@@ -2214,7 +2219,7 @@ LABEL_15:
 LABEL_22:
         v17 = 2 * v8;
 LABEL_24:
-        *(a1 + 12) = v17;
+        *(a1 + 3) = v17;
         goto LABEL_25;
       }
 
@@ -2257,7 +2262,7 @@ LABEL_24:
     }
 
     LODWORD(v8) = 0;
-    *(a1 + 8) = 0;
+    *(a1 + 2) = 0;
     goto LABEL_22;
   }
 
@@ -2295,7 +2300,7 @@ void sub_19DCA3C18(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-void WebKit::VideoPresentationManagerProxy::createLayerHostViewWithID(WKLayerHostView **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, float *a6)
+void WebKit::VideoPresentationManagerProxy::createLayerHostViewWithID(WKLayerHostView **a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, float *a6)
 {
   v9 = WebKit::VideoPresentationManagerProxy::ensureModelAndInterface(a2, a3, a4);
   std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>::pair[abi:sn200100](&v34, v9);
@@ -2360,7 +2365,7 @@ void WebKit::VideoPresentationManagerProxy::createLayerHostViewWithID(WKLayerHos
   v22 = *(a5 + 16);
   if (v22)
   {
-    WTF::EmbeddedFixedVector<unsigned char,WTF::FastMalloc>::create<unsigned char const*>(v22 + 4, &v22[*v22 + 4], &v36);
+    WTF::EmbeddedFixedVector<unsigned char,WTF::FastMalloc>::create<unsigned char const*>((v22 + 1), (v22 + *v22 + 4), &v36);
     v23 = v36;
   }
 
@@ -2391,7 +2396,7 @@ void WebKit::VideoPresentationManagerProxy::createLayerHostViewWithID(WKLayerHos
     v27 = qword_1ED640D38;
     if (os_log_type_enabled(qword_1ED640D38, OS_LOG_TYPE_ERROR))
     {
-      v31 = 0;
+      LOWORD(v31) = 0;
       _os_log_error_impl(&dword_19D52D000, v27, OS_LOG_TYPE_ERROR, "VideoPresentationManagerProxy::createLayerHostViewWithID: could not create layer handle", &v31, 2u);
     }
   }
@@ -2405,7 +2410,7 @@ void WebKit::VideoPresentationManagerProxy::createLayerHostViewWithID(WKLayerHos
   v35 = 0;
   if (v29)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v29 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v29 + 104), v28);
   }
 
   v30 = v34;
@@ -2422,7 +2427,7 @@ void sub_19DCA3EBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   if (a13)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((a13 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((a13 + 104), v16);
   }
 
   if (a12)
@@ -2502,18 +2507,18 @@ unsigned int *WebKit::VideoPresentationManagerProxy::returningToStandbyInterface
   v14[2] = v6;
   v14[3] = v9;
   v14[4] = (v7 + 32 * v8);
-  WTF::map<0ul,WTF::CrashOnOverflow,16ul,WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::copyToVectorOf<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>>(WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const&)::{lambda(std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>&&)#1},WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const>( v14,  v15);
+  WTF::map<0ul,WTF::CrashOnOverflow,16ul,WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::copyToVectorOf<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>>(WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const&)::{lambda(std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>&&)#1},WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const>( v14,  &v15);
   if (!v16)
   {
 LABEL_10:
-    this = WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v15, v10);
+    this = WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v15, v10);
 LABEL_11:
     *a2 = 0;
     return this;
   }
 
   v11 = 16 * v16;
-  v12 = (*v15 + 8);
+  v12 = (v15 + 8);
   while (1)
   {
     v13 = *v12;
@@ -2523,7 +2528,7 @@ LABEL_11:
       break;
     }
 
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v13 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v13 + 104), v10);
     v12 += 2;
     v11 -= 16;
     if (!v11)
@@ -2533,12 +2538,12 @@ LABEL_11:
   }
 
   *a2 = v13;
-  return WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v15, v10);
+  return WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v15, v10);
 }
 
-void WebKit::VideoPresentationManagerProxy::createViewWithID(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, int *a4@<X3>, float *a5@<X4>, const WebCore::FloatSize *a6@<X5>, void *a7@<X8>)
+void WebKit::VideoPresentationManagerProxy::createViewWithID(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, int *a4@<X3>, float *a5@<X4>, const WebCore::FloatSize *a6@<X5>, void *a7@<X8>)
 {
-  v98[1] = *MEMORY[0x1E69E9840];
+  v99[1] = *MEMORY[0x1E69E9840];
   v14 = qword_1ED640D38;
   if (os_log_type_enabled(qword_1ED640D38, OS_LOG_TYPE_DEFAULT))
   {
@@ -2589,9 +2594,9 @@ void WebKit::VideoPresentationManagerProxy::createViewWithID(uint64_t a1@<X0>, u
             *buf = 0;
             WTF::Logger::LogSiteIdentifier::toString(&buf[8], v86);
             v96 = 0;
-            WTF::String::number(v21);
-            v97 = 0;
-            WTF::String::String(v98, ", Creating AVPlayerLayerView");
+            WTF::String::number(&v97, v21);
+            v98 = 0;
+            WTF::String::String(v99, ", Creating AVPlayerLayerView");
             WTF::Vector<WTF::JSONLogValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v90, buf, 3uLL);
             (*(*v28 + 16))(v28, &WebKit2LogFullscreen, 0, v90);
             WTF::Vector<std::tuple<Inspector::BackendDispatcher::CommonErrorCode,WTF::String>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v90, v29);
@@ -2627,7 +2632,7 @@ void WebKit::VideoPresentationManagerProxy::createViewWithID(uint64_t a1@<X0>, u
 
         WTF::Logger::LogSiteIdentifier::toString(&v93, v86);
         a7 = v84;
-        WTF::String::number(v21);
+        WTF::String::number(&v92, v21);
         WTF::String::String(&v91, ", Creating AVPlayerLayerView");
         WTF::makeString<WTF::String,WTF::String,WTF::String>(&v93, &v92, &v91, &v94);
         v34 = v91;
@@ -2703,9 +2708,9 @@ void WebKit::VideoPresentationManagerProxy::createViewWithID(uint64_t a1@<X0>, u
                   *buf = 0;
                   WTF::Logger::LogSiteIdentifier::toString(&buf[8], v86);
                   v96 = 0;
-                  WTF::String::number(v21);
-                  v97 = 0;
-                  WTF::String::String(v98, ", Creating AVPlayerLayerView");
+                  WTF::String::number(&v97, v21);
+                  v98 = 0;
+                  WTF::String::String(v99, ", Creating AVPlayerLayerView");
                   WTF::Vector<WTF::JSONLogValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v90, buf, 3uLL);
                   (*(*v48 + 16))(v48, &WebKit2LogFullscreen, 0, v90);
                   WTF::Vector<std::tuple<Inspector::BackendDispatcher::CommonErrorCode,WTF::String>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v90, v49);
@@ -2884,7 +2889,7 @@ LABEL_56:
           bmalloc::api::tzoneFree(v82, v83);
         }
 
-        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v71 + 16));
+        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v71 + 16), v75);
       }
 
       CFRelease(*(v69 - 8));
@@ -2911,7 +2916,7 @@ LABEL_56:
   v89 = 0;
   if (v80)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v80 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v80 + 104), v18);
   }
 
   v81 = v88;
@@ -2948,7 +2953,7 @@ void sub_19DCA4AD8(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
 
   if (a24)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((a24 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((a24 + 104), a2);
   }
 
   if (a23)
@@ -2961,20 +2966,20 @@ void sub_19DCA4AD8(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
 
 uint64_t *WebKit::VideoPresentationManagerProxy::swapFullscreenModes(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  WebKit::VideoPresentationManagerProxy::findInterface(a1, a2, a3, &v16);
-  result = WebKit::VideoPresentationManagerProxy::findInterface(a1, a4, a5, &v15);
-  v12 = v15;
-  v11 = v16;
-  if (v16)
+  WebKit::VideoPresentationManagerProxy::findInterface(a1, a2, a3, &v18);
+  result = WebKit::VideoPresentationManagerProxy::findInterface(a1, a4, a5, &v17);
+  v13 = v17;
+  v12 = v18;
+  if (v18)
   {
-    if (v15)
+    if (v17)
     {
-      v13 = *(v16 + 53);
-      v14 = *(v15 + 212);
-      (*(*v16 + 320))(v16, v15);
-      if ((*(v11 + 53) & 1) != (v13 & 1))
+      v14 = *(v18 + 53);
+      v15 = *(v17 + 212);
+      (*(*v18 + 320))(v18, v17);
+      if ((*(v12 + 53) & 1) != (v14 & 1))
       {
-        if (*(v11 + 53))
+        if (*(v12 + 53))
         {
           WebKit::VideoPresentationManagerProxy::addClientForContext(a1, a2, a3);
         }
@@ -2985,9 +2990,9 @@ uint64_t *WebKit::VideoPresentationManagerProxy::swapFullscreenModes(void *a1, u
         }
       }
 
-      if ((*(v12 + 212) & 1) != (v14 & 1))
+      if ((*(v13 + 212) & 1) != (v15 & 1))
       {
-        if (*(v12 + 212))
+        if (*(v13 + 212))
         {
           WebKit::VideoPresentationManagerProxy::addClientForContext(a1, a4, a5);
         }
@@ -2998,28 +3003,28 @@ uint64_t *WebKit::VideoPresentationManagerProxy::swapFullscreenModes(void *a1, u
         }
       }
 
-      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v12 + 104));
+      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v13 + 104), v16);
     }
 
-    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref(v11 + 13);
+    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref(v12 + 13, v11);
   }
 
-  else if (v15)
+  else if (v17)
   {
-    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v15 + 104));
+    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v17 + 104), v11);
   }
 
   return result;
 }
 
-void sub_19DCA4FD4(_Unwind_Exception *a1)
+void sub_19DCA4FD4(_Unwind_Exception *a1, unint64_t a2)
 {
-  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v2 + 104));
-  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v1 + 104));
+  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v3 + 104), a2);
+  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v2 + 104), v5);
   _Unwind_Resume(a1);
 }
 
-void WebKit::VideoPresentationManagerProxy::setupFullscreenWithID(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5, float *a6, float *a7, uint64_t a8, unsigned __int8 a9, unsigned __int8 a10, unsigned __int8 a11)
+void WebKit::VideoPresentationManagerProxy::setupFullscreenWithID(unint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5, float *a6, const WebCore::FloatSize *a7, uint64_t a8, unsigned __int8 a9, unsigned __int8 a10, unsigned __int8 a11)
 {
   v47 = *MEMORY[0x1E69E9840];
   v11 = *(a1 + 48);
@@ -3151,7 +3156,7 @@ LABEL_24:
 
   if (*a7 > 0.0)
   {
-    v22 = a7[1];
+    v22 = *(a7 + 1);
     if (v22 > 0.0)
     {
       *(a1 + 40) = 100.0 / (*a7 / v22);
@@ -3167,7 +3172,7 @@ LABEL_33:
   v44 = 0;
   if (v36)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v36 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v36 + 104), v23);
   }
 
   v37 = v43;
@@ -3189,7 +3194,7 @@ void sub_19DCA5438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   if (a11)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((a11 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((a11 + 104), v17);
   }
 
   if (a10)
@@ -3205,37 +3210,37 @@ uint64_t *WebKit::VideoPresentationManagerProxy::setPlayerIdentifier(uint64_t *r
 {
   if ((result[4] & 1) == 0)
   {
-    result = WebKit::VideoPresentationManagerProxy::findInterface(result, a2, a3, &v8);
-    v7 = v8;
-    if (v8)
+    result = WebKit::VideoPresentationManagerProxy::findInterface(result, a2, a3, &v9);
+    v7 = v9;
+    if (v9)
     {
-      (*(*v8 + 104))(v8, a4, a5);
-      return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v7 + 104));
+      (*(*v9 + 104))(v9, a4, a5);
+      return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v7 + 104), v8);
     }
   }
 
   return result;
 }
 
-atomic_uchar **WebKit::VideoPresentationManagerProxy::audioSessionCategoryChanged(uint64_t a1, uint64_t a2, uint64_t a3, char a4, char a5, char a6)
+atomic_ullong *WebKit::VideoPresentationManagerProxy::audioSessionCategoryChanged(unint64_t a1, uint64_t a2, uint64_t a3, char a4, char a5, char a6)
 {
-  WebKit::VideoPresentationManagerProxy::ensureModel(a1, a2, a3, &v13);
-  v9 = v13;
-  v17 = a4;
-  v16 = a5;
-  v15 = a6;
-  v10 = WTF::fastMalloc(0x20);
-  *v10 = &unk_1F1102D48;
-  v10[1] = &v17;
-  v10[2] = &v16;
-  v10[3] = &v15;
-  v14 = v10;
-  WTF::WeakHashSet<WebCore::VideoPresentationModelClient,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach((v9 + 48), &v14);
-  result = (*(*v10 + 8))(v10);
+  WebKit::VideoPresentationManagerProxy::ensureModel(&v14, a1, a2, a3);
+  v9 = v14;
+  v18 = a4;
+  v17 = a5;
+  v16 = a6;
+  v11 = WTF::fastMalloc(v10, 0x20);
+  *v11 = &unk_1F1102D48;
+  v11[1] = &v18;
+  v11[2] = &v17;
+  v11[3] = &v16;
+  v15 = v11;
+  WTF::WeakHashSet<WebCore::VideoPresentationModelClient,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::forEach((v9 + 48), &v15);
+  result = (*(*v11 + 8))(v11);
   if (v9)
   {
 
-    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationModel,(WTF::DestructionThread)0>::deref((v9 + 8), v12);
+    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationModel,(WTF::DestructionThread)0>::deref((v9 + 8), v13);
   }
 
   return result;
@@ -3278,11 +3283,11 @@ uint64_t *WebKit::VideoPresentationManagerProxy::setHasVideo(uint64_t *result, u
   return result;
 }
 
-void WebKit::VideoPresentationManagerProxy::setVideoDimensions(uint64_t a1, uint64_t a2, uint64_t a3, float *a4)
+void WebKit::VideoPresentationManagerProxy::setVideoDimensions(unint64_t a1, uint64_t a2, uint64_t a3, const WebCore::FloatSize *a4)
 {
   v6 = WebKit::VideoPresentationManagerProxy::ensureModelAndInterface(a1, a2, a3);
   std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>::pair[abi:sn200100](&v13, v6);
-  if (*(v13 + 16) == *a4 && *(v13 + 17) == a4[1])
+  if (*(v13 + 16) == *a4 && *(v13 + 17) == *(a4 + 1))
   {
     v8 = 0;
   }
@@ -3297,7 +3302,7 @@ void WebKit::VideoPresentationManagerProxy::setVideoDimensions(uint64_t a1, uint
   {
     if (*a4 > 0.0)
     {
-      v10 = a4[1];
+      v10 = *(a4 + 1);
       if (v10 > 0.0)
       {
         *(a1 + 40) = 100.0 / (*a4 / v10);
@@ -3314,7 +3319,7 @@ void WebKit::VideoPresentationManagerProxy::setVideoDimensions(uint64_t a1, uint
   v14 = 0;
   if (v11)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v11 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v11 + 104), v9);
   }
 
   v12 = v13;
@@ -3329,7 +3334,7 @@ void sub_19DCA5820(_Unwind_Exception *exception_object, void *a2, int a3, int a4
 {
   if (a10)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((a10 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((a10 + 104), a2);
   }
 
   if (a9)
@@ -3340,14 +3345,14 @@ void sub_19DCA5820(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-void WebKit::VideoPresentationManagerProxy::exitFullscreen(uint64_t a1, uint64_t a2, uint64_t a3, WTF::RefCountedBase *a4, float a5, float a6, float a7, float a8)
+void WebKit::VideoPresentationManagerProxy::exitFullscreen(unint64_t a1, uint64_t a2, uint64_t a3, WTF::RefCountedBase *a4, float a5, float a6, float a7, float a8)
 {
-  v28 = a2;
-  v29 = a3;
-  *v27 = a5;
-  *&v27[1] = a6;
-  *&v27[2] = a7;
-  *&v27[3] = a8;
+  v29 = a2;
+  v30 = a3;
+  *v28 = a5;
+  *&v28[1] = a6;
+  *&v28[2] = a7;
+  *&v28[3] = a8;
   v9 = *(a1 + 48);
   if (v9)
   {
@@ -3365,11 +3370,11 @@ void WebKit::VideoPresentationManagerProxy::exitFullscreen(uint64_t a1, uint64_t
         }
 
         v15 = *(v14 - 8);
-        v16 = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(&v28) & v15;
+        v16 = WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::PlatformLayerIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>::hash(&v29) & v15;
         v17 = (v14 + 32 * v16);
         v18 = *v17;
         v19 = v17[1];
-        if (*v17 == v28 && v19 == v29)
+        if (*v17 == v29 && v19 == v30)
         {
 LABEL_17:
           if (WebKit::VideoPresentationManagerProxy::hasMode(a1, 1))
@@ -3379,18 +3384,18 @@ LABEL_17:
 
           if (*(a1 + 32) != 1)
           {
-            WebKit::VideoPresentationManagerProxy::ensureInterface(a1, v28, v29, v31);
-            v25 = v31[0];
-            v26 = (*(*v31[0] + 176))(v31[0], v27);
+            WebKit::VideoPresentationManagerProxy::ensureInterface(a1, v29, v30, v32);
+            v25 = v32[0];
+            v26 = (*(*v32[0] + 176))(v32[0], v28);
             WTF::CompletionHandler<void ()(BOOL)>::operator()(a4, v26);
-            WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v25 + 104));
+            WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v25 + 104), v27);
             goto LABEL_27;
           }
 
-          v31[0] = v28;
-          v31[1] = v29;
-          v30 = v31;
-          WebKit::VideoPresentationManagerProxy::sendToWebProcess<Messages::VideoPresentationManager::ReturnVideoContentLayer>(*(a1 + 48), v28, v29, &v30);
+          v32[0] = v29;
+          v32[1] = v30;
+          v31 = v32;
+          WebKit::VideoPresentationManagerProxy::sendToWebProcess<Messages::VideoPresentationManager::ReturnVideoContentLayer>(*(a1 + 48), v29, v30, &v31);
           v24 = 1;
 LABEL_25:
           WTF::CompletionHandler<void ()(BOOL)>::operator()(a4, v24);
@@ -3407,7 +3412,7 @@ LABEL_27:
           v18 = *v22;
           v19 = v22[1];
           ++v21;
-          if (v18 == v28 && v19 == v29)
+          if (v18 == v29 && v19 == v30)
           {
             goto LABEL_17;
           }
@@ -3422,28 +3427,28 @@ LABEL_27:
   WTF::CompletionHandler<void ()(BOOL)>::operator()(a4, 0);
 }
 
-void WebKit::VideoPresentationManagerProxy::exitFullscreenWithoutAnimationToMode(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
+void WebKit::VideoPresentationManagerProxy::exitFullscreenWithoutAnimationToMode(unint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (a4 >= 8)
   {
-    v7 = qword_1ED6416C8;
+    v8 = qword_1ED6416C8;
     if (os_log_type_enabled(qword_1ED6416C8, OS_LOG_TYPE_FAULT))
     {
       LODWORD(buf) = 136446210;
       *(&buf + 4) = "void WebKit::VideoPresentationManagerProxy::exitFullscreenWithoutAnimationToMode(PlaybackSessionContextIdentifier, WebCore::HTMLMediaElementEnums::VideoFullscreenMode)";
-      _os_log_fault_impl(&dword_19D52D000, v7, OS_LOG_TYPE_FAULT, "/Library/Caches/com.apple.xbs/Sources/WebKit/Source/WebKit/UIProcess/Cocoa/VideoPresentationManagerProxy.mm 1226: Invalid message dispatched %{public}s", &buf, 0xCu);
+      _os_log_fault_impl(&dword_19D52D000, v8, OS_LOG_TYPE_FAULT, "/Library/Caches/com.apple.xbs/Sources/WebKit/Source/WebKit/UIProcess/Cocoa/VideoPresentationManagerProxy.mm 1226: Invalid message dispatched %{public}s", &buf, 0xCu);
     }
 
-    v8 = *(a1 + 48);
-    if (!v8 || (v9 = *(v8 + 8)) == 0)
+    v9 = *(a1 + 48);
+    if (!v9 || (v10 = *(v9 + 8)) == 0)
     {
       __break(0xC471u);
       JUMPOUT(0x19DCA5C44);
     }
 
-    v10 = *(*(v9 + 336) + 88);
-    if (!v10 || (*(v10 + 94) = 1, IPC::s_shouldCrashOnMessageCheckFailure == 1))
+    v11 = *(*(v10 + 336) + 88);
+    if (!v11 || (*(v11 + 94) = 1, IPC::s_shouldCrashOnMessageCheckFailure == 1))
     {
       __break(0xC471u);
       JUMPOUT(0x19DCA5BE0);
@@ -3458,7 +3463,7 @@ void WebKit::VideoPresentationManagerProxy::exitFullscreenWithoutAnimationToMode
       *&buf = a2;
       *(&buf + 1) = a3;
       p_buf = &buf;
-      v12 = a4;
+      v13 = a4;
       WebKit::VideoPresentationManagerProxy::sendToWebProcess<Messages::VideoPresentationManager::FullscreenModeChanged>(*(a1 + 48), a2, a3, &p_buf);
     }
 
@@ -3469,7 +3474,7 @@ void WebKit::VideoPresentationManagerProxy::exitFullscreenWithoutAnimationToMode
       WebCore::VideoPresentationInterfaceIOS::exitFullscreenWithoutAnimationToMode(buf);
       if (v6)
       {
-        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v6 + 104));
+        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v6 + 104), v7);
       }
 
       WebKit::VideoPresentationManagerProxy::hasVideoInPictureInPictureDidChange(a1, (v5 & 2) != 0);
@@ -3477,38 +3482,38 @@ void WebKit::VideoPresentationManagerProxy::exitFullscreenWithoutAnimationToMode
   }
 }
 
-void sub_19DCA5C68(_Unwind_Exception *exception_object)
+void sub_19DCA5C68(_Unwind_Exception *exception_object, unint64_t a2)
 {
-  if (v1)
+  if (v2)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v1 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v2 + 104), a2);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void WebKit::VideoPresentationManagerProxy::setVideoFullscreenMode(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
+void WebKit::VideoPresentationManagerProxy::setVideoFullscreenMode(unint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (a4 >= 8)
   {
-    v6 = qword_1ED6416C8;
+    v7 = qword_1ED6416C8;
     if (os_log_type_enabled(qword_1ED6416C8, OS_LOG_TYPE_FAULT))
     {
-      *v10 = 136446210;
-      *&v10[4] = "void WebKit::VideoPresentationManagerProxy::setVideoFullscreenMode(PlaybackSessionContextIdentifier, WebCore::HTMLMediaElementEnums::VideoFullscreenMode)";
-      _os_log_fault_impl(&dword_19D52D000, v6, OS_LOG_TYPE_FAULT, "/Library/Caches/com.apple.xbs/Sources/WebKit/Source/WebKit/UIProcess/Cocoa/VideoPresentationManagerProxy.mm 1240: Invalid message dispatched %{public}s", v10, 0xCu);
+      *v11 = 136446210;
+      *&v11[4] = "void WebKit::VideoPresentationManagerProxy::setVideoFullscreenMode(PlaybackSessionContextIdentifier, WebCore::HTMLMediaElementEnums::VideoFullscreenMode)";
+      _os_log_fault_impl(&dword_19D52D000, v7, OS_LOG_TYPE_FAULT, "/Library/Caches/com.apple.xbs/Sources/WebKit/Source/WebKit/UIProcess/Cocoa/VideoPresentationManagerProxy.mm 1240: Invalid message dispatched %{public}s", v11, 0xCu);
     }
 
-    v7 = *(a1 + 48);
-    if (!v7 || (v8 = *(v7 + 8)) == 0)
+    v8 = *(a1 + 48);
+    if (!v8 || (v9 = *(v8 + 8)) == 0)
     {
       __break(0xC471u);
       JUMPOUT(0x19DCA5DC4);
     }
 
-    v9 = *(*(v8 + 336) + 88);
-    if (!v9 || (*(v9 + 94) = 1, IPC::s_shouldCrashOnMessageCheckFailure == 1))
+    v10 = *(*(v9 + 336) + 88);
+    if (!v10 || (*(v10 + 94) = 1, IPC::s_shouldCrashOnMessageCheckFailure == 1))
     {
       __break(0xC471u);
       JUMPOUT(0x19DCA5D60);
@@ -3517,21 +3522,21 @@ void WebKit::VideoPresentationManagerProxy::setVideoFullscreenMode(uint64_t a1, 
 
   else
   {
-    WebKit::VideoPresentationManagerProxy::ensureInterface(a1, a2, a3, v10);
-    v5 = *v10;
-    WebCore::VideoPresentationInterfaceIOS::setMode(*v10);
+    WebKit::VideoPresentationManagerProxy::ensureInterface(a1, a2, a3, v11);
+    v5 = *v11;
+    WebCore::VideoPresentationInterfaceIOS::setMode(*v11);
     if (v5)
     {
-      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v5 + 104));
+      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v5 + 104), v6);
     }
   }
 }
 
-void sub_19DCA5DE8(_Unwind_Exception *exception_object)
+void sub_19DCA5DE8(_Unwind_Exception *exception_object, unint64_t a2)
 {
-  if (v1)
+  if (v2)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v1 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v2 + 104), a2);
   }
 
   _Unwind_Resume(exception_object);
@@ -3570,16 +3575,16 @@ atomic_ullong *WebKit::VideoPresentationManagerProxy::setInlineRect(atomic_ullon
 {
   if ((result[4] & 1) == 0)
   {
-    WebKit::VideoPresentationManagerProxy::ensureInterface(result, a2, a3, &v8);
-    v7 = v8;
-    (*(*v8 + 208))(v8, a4, a5);
-    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v7 + 104));
+    WebKit::VideoPresentationManagerProxy::ensureInterface(result, a2, a3, &v9);
+    v7 = v9;
+    (*(*v9 + 208))(v9, a4, a5);
+    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v7 + 104), v8);
   }
 
   return result;
 }
 
-void WebKit::VideoPresentationManagerProxy::setHasVideoContentLayer(WebKit::VideoPresentationManagerProxy *a1, uint64_t a2, uint64_t a3, int a4)
+void WebKit::VideoPresentationManagerProxy::setHasVideoContentLayer(WebKit::VideoPresentationManagerProxy *a1, uint64_t a2, uint64_t a3, _BOOL4 a4)
 {
   if (*(a1 + 32) == 1)
   {
@@ -3598,28 +3603,28 @@ void WebKit::VideoPresentationManagerProxy::setHasVideoContentLayer(WebKit::Vide
 
   else
   {
-    WebKit::VideoPresentationManagerProxy::ensureInterface(a1, a2, a3, &v5);
-    v4 = v5;
-    WebCore::VideoPresentationInterfaceIOS::setHasVideoContentLayer(v5);
+    WebKit::VideoPresentationManagerProxy::ensureInterface(a1, a2, a3, &v6);
+    v4 = v6;
+    WebCore::VideoPresentationInterfaceIOS::setHasVideoContentLayer(v6);
     if (v4)
     {
 
-      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref(v4 + 13);
+      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref(v4 + 13, v5);
     }
   }
 }
 
-void sub_19DCA6084(_Unwind_Exception *exception_object)
+void sub_19DCA6084(_Unwind_Exception *exception_object, unint64_t a2)
 {
-  if (v1)
+  if (v2)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v1 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v2 + 104), a2);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void WebKit::VideoPresentationManagerProxy::cleanupFullscreen(uint64_t a1, uint64_t a2, uint64_t a3)
+void WebKit::VideoPresentationManagerProxy::cleanupFullscreen(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 32) == 1)
   {
@@ -3629,20 +3634,20 @@ void WebKit::VideoPresentationManagerProxy::cleanupFullscreen(uint64_t a1, uint6
 
   else
   {
-    WebKit::VideoPresentationManagerProxy::ensureInterface(a1, a2, a3, &v4);
-    v3 = v4;
-    (*(*v4 + 184))(v4);
+    WebKit::VideoPresentationManagerProxy::ensureInterface(a1, a2, a3, &v5);
+    v3 = v5;
+    (*(*v5 + 184))(v5);
 
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v3 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v3 + 104), v4);
   }
 }
 
-void WebKit::VideoPresentationManagerProxy::preparedToReturnToInline(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float a5, float a6, float a7, float a8)
+void WebKit::VideoPresentationManagerProxy::preparedToReturnToInline(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float a5, float a6, float a7, float a8)
 {
-  *v16 = a5;
-  *&v16[1] = a6;
-  *&v16[2] = a7;
-  *&v16[3] = a8;
+  *v17 = a5;
+  *&v17[1] = a6;
+  *&v17[2] = a7;
+  *&v17[3] = a8;
   v8 = *(a1 + 48);
   if (v8)
   {
@@ -3653,10 +3658,10 @@ void WebKit::VideoPresentationManagerProxy::preparedToReturnToInline(uint64_t a1
       (*(**(v9 + 104) + 32))(*(v9 + 104), v9 - 16);
       if ((*(a1 + 32) & 1) == 0)
       {
-        WebKit::VideoPresentationManagerProxy::ensureInterface(a1, a2, a3, &v15);
-        v14 = v15;
-        (*(*v15 + 200))(v15, a4, v16);
-        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v14 + 104));
+        WebKit::VideoPresentationManagerProxy::ensureInterface(a1, a2, a3, &v16);
+        v14 = v16;
+        (*(*v16 + 200))(v16, a4, v17);
+        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v14 + 104), v15);
       }
 
       CFRelease(*(v9 - 8));
@@ -3664,10 +3669,10 @@ void WebKit::VideoPresentationManagerProxy::preparedToReturnToInline(uint64_t a1
   }
 }
 
-void sub_19DCA623C(_Unwind_Exception *a1)
+void sub_19DCA623C(_Unwind_Exception *a1, unint64_t a2)
 {
-  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v1 + 104));
-  CFRelease(*(v2 - 8));
+  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v2 + 104), a2);
+  CFRelease(*(v3 - 8));
   _Unwind_Resume(a1);
 }
 
@@ -3675,51 +3680,51 @@ atomic_ullong *WebKit::VideoPresentationManagerProxy::preparedToExitFullscreen(a
 {
   if ((result[4] & 1) == 0)
   {
-    WebKit::VideoPresentationManagerProxy::ensureInterface(result, a2, a3, &v4);
-    v3 = v4;
-    result = WebCore::VideoPresentationInterfaceIOS::preparedToExitFullscreen(v4);
+    WebKit::VideoPresentationManagerProxy::ensureInterface(result, a2, a3, &v5);
+    v3 = v5;
+    result = WebCore::VideoPresentationInterfaceIOS::preparedToExitFullscreen(v5);
     if (v3)
     {
-      return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref(v3 + 13);
+      return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref(v3 + 13, v4);
     }
   }
 
   return result;
 }
 
-void sub_19DCA62AC(_Unwind_Exception *exception_object)
+void sub_19DCA62AC(_Unwind_Exception *exception_object, unint64_t a2)
 {
-  if (v1)
+  if (v2)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v1 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v2 + 104), a2);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-WTF *WebKit::VideoPresentationManagerProxy::textTrackRepresentationUpdate(uint64_t a1, uint64_t a2, uint64_t a3)
+WTF *WebKit::VideoPresentationManagerProxy::textTrackRepresentationUpdate(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   WebCore::ShareableBitmap::create();
-  result = v13;
-  if (!v13)
+  result = v14;
+  if (!v14)
   {
     return result;
   }
 
   WebCore::ShareableBitmap::createPlatformImage();
-  WebKit::VideoPresentationManagerProxy::ensureInterface(a1, a2, a3, &v11);
-  v7 = v11;
-  cf = v12;
-  if (v12)
+  WebKit::VideoPresentationManagerProxy::ensureInterface(a1, a2, a3, &v12);
+  v8 = v12;
+  cf = v13;
+  if (v13)
   {
-    CFRetain(v12);
+    CFRetain(v13);
   }
 
   WebCore::VideoFullscreenCaptions::setTrackRepresentationImage();
   if (cf)
   {
     CFRelease(cf);
-    if (!v7)
+    if (!v8)
     {
       goto LABEL_7;
     }
@@ -3727,25 +3732,25 @@ WTF *WebKit::VideoPresentationManagerProxy::textTrackRepresentationUpdate(uint64
     goto LABEL_6;
   }
 
-  if (v7)
+  if (v8)
   {
 LABEL_6:
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v7 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v8 + 104), v9);
   }
 
 LABEL_7:
-  v9 = v12;
-  v12 = 0;
-  if (v9)
+  v10 = v13;
+  v13 = 0;
+  if (v10)
   {
-    CFRelease(v9);
+    CFRelease(v10);
   }
 
-  result = v13;
-  v13 = 0;
+  result = v14;
+  v14 = 0;
   if (result)
   {
-    return WTF::ThreadSafeRefCounted<WebCore::ShareableBitmap,(WTF::DestructionThread)0>::deref(result, v8);
+    return WTF::ThreadSafeRefCounted<WebCore::ShareableBitmap,(WTF::DestructionThread)0>::deref(result, v9);
   }
 
   return result;
@@ -3755,7 +3760,7 @@ void sub_19DCA639C(_Unwind_Exception *exception_object, void *a2, int a3, int a4
 {
   if (v12)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v12 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v12 + 104), a2);
   }
 
   if (cf)
@@ -3771,50 +3776,50 @@ void sub_19DCA639C(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-atomic_ullong *WebKit::VideoPresentationManagerProxy::textTrackRepresentationSetContentsScale(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
+atomic_ullong *WebKit::VideoPresentationManagerProxy::textTrackRepresentationSetContentsScale(unint64_t a1, uint64_t a2, uint64_t a3, float a4)
 {
-  WebKit::VideoPresentationManagerProxy::ensureInterface(a1, a2, a3, &v7);
-  v5 = v7;
-  result = WebCore::VideoFullscreenCaptions::setTrackRepresentationContentsScale((v7 + 32), a4);
+  WebKit::VideoPresentationManagerProxy::ensureInterface(a1, a2, a3, &v8);
+  v5 = v8;
+  result = WebCore::VideoFullscreenCaptions::setTrackRepresentationContentsScale((v8 + 32), a4);
   if (v5)
   {
 
-    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v5 + 104));
+    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v5 + 104), v7);
   }
 
   return result;
 }
 
-void sub_19DCA647C(_Unwind_Exception *exception_object)
+void sub_19DCA647C(_Unwind_Exception *exception_object, unint64_t a2)
 {
-  v2 = v1;
-  if (v2)
+  v3 = v2;
+  if (v3)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v2 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v3 + 104), a2);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-atomic_ullong *WebKit::VideoPresentationManagerProxy::textTrackRepresentationSetHidden(uint64_t a1, uint64_t a2, uint64_t a3)
+atomic_ullong *WebKit::VideoPresentationManagerProxy::textTrackRepresentationSetHidden(unint64_t a1, uint64_t a2, uint64_t a3, BOOL a4)
 {
-  WebKit::VideoPresentationManagerProxy::ensureInterface(a1, a2, a3, &v5);
-  v3 = v5;
-  result = WebCore::VideoFullscreenCaptions::setTrackRepresentationHidden((v5 + 32));
-  if (v3)
+  WebKit::VideoPresentationManagerProxy::ensureInterface(a1, a2, a3, &v7);
+  v4 = v7;
+  result = WebCore::VideoFullscreenCaptions::setTrackRepresentationHidden((v7 + 32));
+  if (v4)
   {
 
-    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v3 + 104));
+    return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v4 + 104), v6);
   }
 
   return result;
 }
 
-void sub_19DCA6500(_Unwind_Exception *exception_object)
+void sub_19DCA6500(_Unwind_Exception *exception_object, unint64_t a2)
 {
-  if (v1)
+  if (v2)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v1 + 104));
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v2 + 104), a2);
   }
 
   _Unwind_Resume(exception_object);
@@ -3873,7 +3878,7 @@ void WebKit::VideoPresentationManagerProxy::sendToWebProcess<Messages::VideoPres
           bmalloc::api::tzoneFree(v15, v16);
         }
 
-        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v8 + 16));
+        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v8 + 16), v12);
       }
 
       CFRelease(*(v4 - 8));
@@ -3881,11 +3886,11 @@ void WebKit::VideoPresentationManagerProxy::sendToWebProcess<Messages::VideoPres
   }
 }
 
-void sub_19DCA66A0(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
+void sub_19DCA66A0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
 {
   if (a11 == 1 && a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
@@ -3894,7 +3899,7 @@ void sub_19DCA66A0(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int 
     bmalloc::api::tzoneFree(v15, v16);
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v12);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v12, a2);
   CFRelease(*(v13 - 8));
   _Unwind_Resume(a1);
 }
@@ -3950,7 +3955,7 @@ void WebKit::VideoPresentationManagerProxy::sendToWebProcess<Messages::VideoPres
           bmalloc::api::tzoneFree(v15, v16);
         }
 
-        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v8 + 16));
+        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v8 + 16), v12);
       }
 
       CFRelease(*(v4 - 8));
@@ -3958,11 +3963,11 @@ void WebKit::VideoPresentationManagerProxy::sendToWebProcess<Messages::VideoPres
   }
 }
 
-void sub_19DCA6890(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
+void sub_19DCA6890(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
 {
   if (a11 == 1 && a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
@@ -3971,7 +3976,7 @@ void sub_19DCA6890(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int 
     bmalloc::api::tzoneFree(v15, v16);
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v12);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v12, a2);
   CFRelease(*(v13 - 8));
   _Unwind_Resume(a1);
 }
@@ -4027,7 +4032,7 @@ void WebKit::VideoPresentationManagerProxy::sendToWebProcess<Messages::VideoPres
           bmalloc::api::tzoneFree(v15, v16);
         }
 
-        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v8 + 16));
+        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v8 + 16), v12);
       }
 
       CFRelease(*(v4 - 8));
@@ -4035,11 +4040,11 @@ void WebKit::VideoPresentationManagerProxy::sendToWebProcess<Messages::VideoPres
   }
 }
 
-void sub_19DCA6A7C(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
+void sub_19DCA6A7C(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
 {
   if (a11 == 1 && a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
@@ -4048,7 +4053,7 @@ void sub_19DCA6A7C(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int 
     bmalloc::api::tzoneFree(v15, v16);
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v12);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v12, a2);
   CFRelease(*(v13 - 8));
   _Unwind_Resume(a1);
 }
@@ -4126,7 +4131,7 @@ void WebKit::VideoPresentationManagerProxy::sendToWebProcess<Messages::VideoPres
           bmalloc::api::tzoneFree(v15, v16);
         }
 
-        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v8 + 16));
+        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v8 + 16), v12);
       }
 
       CFRelease(*(v4 - 8));
@@ -4134,11 +4139,11 @@ void WebKit::VideoPresentationManagerProxy::sendToWebProcess<Messages::VideoPres
   }
 }
 
-void sub_19DCA6CC8(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
+void sub_19DCA6CC8(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
 {
   if (a11 == 1 && a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
@@ -4147,7 +4152,7 @@ void sub_19DCA6CC8(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int 
     bmalloc::api::tzoneFree(v15, v16);
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v12);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v12, a2);
   CFRelease(*(v13 - 8));
   _Unwind_Resume(a1);
 }
@@ -4204,7 +4209,7 @@ void WebKit::VideoPresentationManagerProxy::sendToWebProcess<Messages::VideoPres
           bmalloc::api::tzoneFree(v15, v16);
         }
 
-        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v8 + 16));
+        WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v8 + 16), v12);
       }
 
       CFRelease(*(v4 - 8));
@@ -4212,11 +4217,11 @@ void WebKit::VideoPresentationManagerProxy::sendToWebProcess<Messages::VideoPres
   }
 }
 
-void sub_19DCA6EC4(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
+void sub_19DCA6EC4(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, IPC::Encoder *a12)
 {
   if (a11 == 1 && a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
@@ -4225,22 +4230,22 @@ void sub_19DCA6EC4(_Unwind_Exception *a1, void *a2, int a3, int a4, int a5, int 
     bmalloc::api::tzoneFree(v15, v16);
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v12);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v12, a2);
   CFRelease(*(v13 - 8));
   _Unwind_Resume(a1);
 }
 
 uint64_t WebKit::VideoPresentationManagerProxy::playerViewController(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  WebKit::VideoPresentationManagerProxy::findInterface(a1, a2, a3, &v6);
-  v3 = v6;
-  if (!v6)
+  WebKit::VideoPresentationManagerProxy::findInterface(a1, a2, a3, &v7);
+  v3 = v7;
+  if (!v7)
   {
     return 0;
   }
 
-  v4 = (*(*v6 + 168))(v6);
-  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v3 + 104));
+  v4 = (*(*v7 + 168))(v7);
+  WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v3 + 104), v5);
   return v4;
 }
 
@@ -4253,9 +4258,9 @@ uint64_t *WebKit::VideoPresentationManagerProxy::bestVideoForElementFullscreen@<
   }
 
   v4 = *(this + 15);
-  *&v63.origin.x = this[14];
-  v63.origin.y = v4;
-  this = WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>::find<WTF::IdentityHashTranslator<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>>,(WTF::ShouldValidateKey)1,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>( this + 8,  &v63);
+  *&v64.origin.x = this[14];
+  v64.origin.y = v4;
+  this = WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>::find<WTF::IdentityHashTranslator<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>>,(WTF::ShouldValidateKey)1,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>( this + 8,  &v64);
   v5 = v2[8];
   if (v5)
   {
@@ -4299,12 +4304,12 @@ LABEL_10:
       {
         v15 = v13;
         [v14 bounds];
-        v63.origin.x = v16;
-        v63.origin.y = v17;
-        v63.size.width = v18;
-        v63.size.height = v19;
-        v61 = 0;
+        v64.origin.x = v16;
+        v64.origin.y = v17;
+        v64.size.width = v18;
+        v64.size.height = v19;
         v62 = 0;
+        v63 = 0;
         v20 = v2[8];
         v21 = WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>::begin(v20);
         v22 = v21;
@@ -4318,15 +4323,15 @@ LABEL_10:
         {
           do
           {
-            std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>::pair[abi:sn200100]<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>,0>(&v60, (v22 + 16));
-            if (*(*&v60.origin.x + 73))
+            std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>::pair[abi:sn200100]<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>,0>(&v61, (v22 + 16));
+            if (*(*&v61.origin.x + 73))
             {
-              v26 = HIDWORD(v62);
-              if (HIDWORD(v62) == v62)
+              v26 = HIDWORD(v63);
+              if (HIDWORD(v63) == v63)
               {
-                v27 = WTF::Vector<WTF::Ref<WebCore::ApplePayError,WTF::RawPtrTraits<WebCore::ApplePayError>,WTF::DefaultRefDerefTraits<WebCore::ApplePayError>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v61, HIDWORD(v62) + 1, &v60.origin.y);
-                v28 = HIDWORD(v62);
-                v29 = v61;
+                v27 = WTF::Vector<WTF::Ref<WebCore::ApplePayError,WTF::RawPtrTraits<WebCore::ApplePayError>,WTF::DefaultRefDerefTraits<WebCore::ApplePayError>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v62, HIDWORD(v63) + 1, &v61.origin.y);
+                v28 = HIDWORD(v63);
+                v29 = v62;
                 v30 = *v27;
                 while (1)
                 {
@@ -4346,15 +4351,15 @@ LABEL_10:
                 }
 
                 WTF::ThreadSafeWeakPtrControlBlock::strongRef(*(v30 + 104));
-                v33 = HIDWORD(v62);
+                v33 = HIDWORD(v63);
 LABEL_31:
-                v29[v28] = v30;
+                *&v29[8 * v28] = v30;
               }
 
               else
               {
-                v34 = v61;
-                y = v60.origin.y;
+                v34 = v62;
+                y = v61.origin.y;
                 while (1)
                 {
                   v36 = *(*&y + 104);
@@ -4373,23 +4378,23 @@ LABEL_31:
                 }
 
                 WTF::ThreadSafeWeakPtrControlBlock::strongRef(*(*&y + 104));
-                v33 = HIDWORD(v62);
+                v33 = HIDWORD(v63);
 LABEL_29:
-                *&v34[v26] = y;
+                *&v34[8 * v26] = y;
               }
 
-              HIDWORD(v62) = v33 + 1;
+              HIDWORD(v63) = v33 + 1;
             }
 
-            v38 = v60.origin.y;
-            v60.origin.y = 0.0;
+            v38 = v61.origin.y;
+            v61.origin.y = 0.0;
             if (v38 != 0.0)
             {
-              WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((*&v38 + 104));
+              WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((*&v38 + 104), v25);
             }
 
-            x = v60.origin.x;
-            v60.origin.x = 0.0;
+            x = v61.origin.x;
+            v61.origin.x = 0.0;
             if (x != 0.0)
             {
               WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationModel,(WTF::DestructionThread)0>::deref((*&x + 8), v25);
@@ -4410,14 +4415,14 @@ LABEL_29:
           while (v22 != v20);
         }
 
-        WebCore::FloatRect::FloatRect(&v60, &v63);
-        v42 = v60.origin.y;
+        WebCore::FloatRect::FloatRect(&v61, &v64);
+        v42 = v61.origin.y;
         *a2 = 0;
-        if (HIDWORD(v62))
+        if (HIDWORD(v63))
         {
           v43 = 0;
-          v44 = v61;
-          v45 = &v61[HIDWORD(v62)];
+          v44 = v62;
+          v45 = &v62[8 * HIDWORD(v63)];
           v46 = 0.0;
           do
           {
@@ -4425,64 +4430,64 @@ LABEL_29:
             if (v47)
             {
               v48 = v47;
-              memset(&v60, 0, sizeof(v60));
+              memset(&v61, 0, sizeof(v61));
               [v47 bounds];
               [v47 convertRect:0 toLayer:?];
-              v60.origin.x = v49;
-              v60.origin.y = v50;
-              v60.size.width = v51;
-              v60.size.height = v52;
-              WebCore::FloatRect::FloatRect(&v59, &v63);
-              WebCore::FloatRect::FloatRect(v58, &v60);
-              v64 = v59;
-              WebCore::FloatRect::intersect(&v64, v58);
-              if (*(&v64 + 2) > 0.0 && *(&v64 + 3) > 0.0)
+              v61.origin.x = v49;
+              v61.origin.y = v50;
+              v61.size.width = v51;
+              v61.size.height = v52;
+              WebCore::FloatRect::FloatRect(&v60, &v64);
+              WebCore::FloatRect::FloatRect(v59, &v61);
+              v65 = v60;
+              WebCore::FloatRect::intersect(&v65, v59);
+              if (*(&v65 + 2) > 0.0 && *(&v65 + 3) > 0.0)
               {
-                v53 = *(&v64 + 2) * *(&v64 + 3);
-                if ((*(&v64 + 2) * *(&v64 + 3)) > v46 && v53 >= ((*&v42 * *(&v42 + 1)) * 0.25))
+                v54 = *(&v65 + 2) * *(&v65 + 3);
+                if ((*(&v65 + 2) * *(&v65 + 3)) > v46 && v54 >= ((*&v42 * *(&v42 + 1)) * 0.25))
                 {
-                  v55 = *v44;
+                  v56 = *v44;
                   if (*v44)
                   {
                     while (1)
                     {
-                      v56 = *(v55 + 104);
-                      if ((v56 & 1) == 0)
+                      v57 = *(v56 + 104);
+                      if ((v57 & 1) == 0)
                       {
                         break;
                       }
 
-                      v57 = *(v55 + 104);
-                      atomic_compare_exchange_strong_explicit((v55 + 104), &v57, v56 + 2, memory_order_relaxed, memory_order_relaxed);
-                      if (v57 == v56)
+                      v58 = *(v56 + 104);
+                      atomic_compare_exchange_strong_explicit((v56 + 104), &v58, v57 + 2, memory_order_relaxed, memory_order_relaxed);
+                      if (v58 == v57)
                       {
                         goto LABEL_57;
                       }
                     }
 
-                    WTF::ThreadSafeWeakPtrControlBlock::strongRef(*(v55 + 104));
+                    WTF::ThreadSafeWeakPtrControlBlock::strongRef(*(v56 + 104));
                   }
 
 LABEL_57:
-                  *a2 = v55;
+                  *a2 = v56;
                   if (v43)
                   {
-                    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v43 + 104));
+                    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v43 + 104), v53);
                   }
 
-                  v43 = v55;
-                  v46 = v53;
+                  v43 = v56;
+                  v46 = v54;
                 }
               }
             }
 
-            ++v44;
+            v44 += 8;
           }
 
           while (v44 != v45);
         }
 
-        WTF::Vector<WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v61, v41);
+        WTF::Vector<WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v62, v41);
       }
 
       else
@@ -4502,12 +4507,12 @@ LABEL_57:
   return this;
 }
 
-void sub_19DCA73EC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_19DCA73EC(_Unwind_Exception *a1, __n128 a2, __n128 a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a10);
-  WTF::Vector<WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
+  va_start(va, a18);
+  WTF::Vector<WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a4);
 
-  (*(*v10 + 1720))(v10);
+  (*(*v18 + 1720))(v18);
   _Unwind_Resume(a1);
 }
 
@@ -4544,7 +4549,7 @@ void sub_19DCA7E08(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DCA8314(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, char a12)
+void sub_19DCA8314(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
 {
   if (a12 == 1)
   {
@@ -4554,24 +4559,24 @@ void sub_19DCA8314(_Unwind_Exception *exception_object, void *a2, int a3, int a4
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DCA8664(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+void sub_19DCA8664(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a18);
+  va_start(va, a24);
   WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(va, a2);
-  v23 = *(v20 - 80);
-  *(v20 - 80) = 0;
-  if (v23 && atomic_fetch_add_explicit(v23, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v29 = *(v26 - 80);
+  *(v26 - 80) = 0;
+  if (v29 && atomic_fetch_add_explicit(v29, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v23, v22);
+    WTF::StringImpl::destroy(v29, v28);
   }
 
-  if (v19)
+  if (v25)
   {
   }
 
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v18 + 32, v22);
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v18 + 16, v24);
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v18, v25);
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v24 + 32, v28);
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v24 + 16, v30);
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v24, v31);
   _Unwind_Resume(a1);
 }
 
@@ -4614,8 +4619,8 @@ void __destroy_helper_block_e8_32c53_ZTSKZ39__WKContactPicker_dismissWithContact
 
 API::Object *API::UIClient::configurationForLocalInspector@<X0>(API::Object **a1@<X8>)
 {
-  v5 = API::Object::newObject(0x28uLL, 71);
-  result = API::Object::Object(v5);
+  v2 = API::Object::newObject(0x28uLL, 71);
+  result = API::Object::Object(v2);
   *result = &unk_1F111B510;
   *(result + 3) = 0;
   *(result + 4) = 0;
@@ -4700,7 +4705,7 @@ uint64_t WTF::BlockPtr<void ()(BOOL)>::fromCallable<WebKit::SystemPreviewControl
 
 void WTF::BlockPtr<void ()(BOOL)>::fromCallable<WebKit::SystemPreviewController::begin(WTF::URL const&,WebCore::SecurityOriginData const&,WebCore::SystemPreviewInfo const&,WTF::CompletionHandler<void ()(void)> &&)::$_0>(WebKit::SystemPreviewController::begin(WTF::URL const&,WebCore::SecurityOriginData const&,WebCore::SystemPreviewInfo const&,WTF::CompletionHandler<void ()(void)> &&)::$_0)::{lambda(void *,BOOL)#1}::__invoke(uint64_t a1, int a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = *(a1 + 72);
@@ -4721,7 +4726,7 @@ void WTF::BlockPtr<void ()(BOOL)>::fromCallable<WebKit::SystemPreviewController:
             {
               v8 = *(v4 + 96);
               *buf = 134217984;
-              v40 = v8;
+              v41 = v8;
               _os_log_impl(&dword_19D52D000, v7, OS_LOG_TYPE_DEFAULT, "SystemPreview began on %lld", buf, 0xCu);
             }
 
@@ -4732,20 +4737,20 @@ void WTF::BlockPtr<void ()(BOOL)>::fromCallable<WebKit::SystemPreviewController:
               atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed);
             }
 
-            *v37 = v9;
-            *&v37[8] = *(a1 + 88);
-            v38 = *(a1 + 104);
-            WebCore::ResourceRequestBase::ResourceRequestBase(buf, v37, 0);
-            v41 = 0;
-            v12 = *v37;
-            *v37 = 0;
+            *v38 = v9;
+            *&v38[8] = *(a1 + 88);
+            v39 = *(a1 + 104);
+            WebCore::ResourceRequestBase::ResourceRequestBase(buf, v38, 0);
+            v42 = 0;
+            v12 = *v38;
+            *v38 = 0;
             if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
               WTF::StringImpl::destroy(v12, v11);
             }
 
-            v37[0] = 0;
-            LOBYTE(v38) = -1;
+            v38[0] = 0;
+            LOBYTE(v39) = -1;
             LODWORD(v13) = *(a1 + 64);
             if (*(a1 + 64))
             {
@@ -4754,7 +4759,7 @@ void WTF::BlockPtr<void ()(BOOL)>::fromCallable<WebKit::SystemPreviewController:
                 goto LABEL_20;
               }
 
-              *v37 = *(a1 + 40);
+              *v38 = *(a1 + 40);
             }
 
             else
@@ -4765,53 +4770,54 @@ void WTF::BlockPtr<void ()(BOOL)>::fromCallable<WebKit::SystemPreviewController:
                 atomic_fetch_add_explicit(v14, 2u, memory_order_relaxed);
               }
 
-              *v37 = v14;
+              *v38 = v14;
               v13 = *(a1 + 48);
               if (v13)
               {
                 atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed);
               }
 
-              *&v37[8] = v13;
-              *&v37[16] = *(a1 + 56);
+              *&v38[8] = v13;
+              *&v38[16] = *(a1 + 56);
               LOBYTE(v13) = *(a1 + 64);
             }
 
-            LOBYTE(v38) = v13;
+            LOBYTE(v39) = v13;
 LABEL_20:
-            BYTE8(v38) = 1;
-            v15 = *(a1 + 72);
-            if (v15)
+            add = 1;
+            BYTE8(v39) = 1;
+            v16 = *(a1 + 72);
+            if (v16)
             {
-              atomic_fetch_add(v15, 1u);
+              add = atomic_fetch_add(v16, 1u);
             }
 
-            v16 = *(a1 + 32);
+            v17 = *(a1 + 32);
             *(a1 + 32) = 0;
-            v17 = WTF::fastMalloc(0x18);
-            *v17 = &unk_1F1102868;
-            v17[1] = v15;
-            v17[2] = v16;
-            v36 = v17;
-            WebKit::WebPageProxy::dataTaskWithRequest(v6 - 16, buf, v37, 0, &v36);
-            v18 = v36;
-            v36 = 0;
-            if (v18)
+            v18 = WTF::fastMalloc(add, 0x18);
+            *v18 = &unk_1F1102868;
+            v18[1] = v16;
+            v18[2] = v17;
+            v37 = v18;
+            WebKit::WebPageProxy::dataTaskWithRequest(v6 - 16, buf, v38, 0, &v37);
+            v19 = v37;
+            v37 = 0;
+            if (v19)
             {
-              (*(*v18 + 8))(v18);
+              (*(*v19 + 8))(v19);
             }
 
-            if (BYTE8(v38) == 1)
+            if (BYTE8(v39) == 1)
             {
-              mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(v37);
+              mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(v38);
             }
 
             WTF::String::operator=((v4 + 144), (a1 + 80));
-            v19 = *(a1 + 88);
+            v20 = *(a1 + 88);
             *(v4 + 168) = *(a1 + 104);
-            *(v4 + 152) = v19;
+            *(v4 + 152) = v20;
             WTF::URL::fragmentIdentifier((a1 + 80));
-            if ((v20 & 0x100000000) != 0)
+            if ((v21 & 0x100000000) != 0)
             {
               WTF::String::String();
             }
@@ -4821,72 +4827,72 @@ LABEL_20:
               WTF::String::String();
             }
 
-            v22 = *v37;
-            *v37 = 0;
-            v23 = *(v4 + 224);
-            *(v4 + 224) = v22;
-            if (v23)
+            v23 = *v38;
+            *v38 = 0;
+            v24 = *(v4 + 224);
+            *(v4 + 224) = v23;
+            if (v24)
             {
-              if (atomic_fetch_add_explicit(v23, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              if (atomic_fetch_add_explicit(v24, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v23, v21);
+                WTF::StringImpl::destroy(v24, v22);
               }
 
-              v23 = *v37;
-              *v37 = 0;
-              if (v23 && atomic_fetch_add_explicit(v23, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              v24 = *v38;
+              *v38 = 0;
+              if (v24 && atomic_fetch_add_explicit(v24, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                v23 = WTF::StringImpl::destroy(v23, v21);
+                v24 = WTF::StringImpl::destroy(v24, v22);
               }
             }
 
-            v24 = [objc_alloc((*MEMORY[0x1E69E2338])(v23)) init];
-            v25 = *(v4 + 232);
-            *(v4 + 232) = v24;
-            if (v25)
+            v25 = [objc_alloc((*MEMORY[0x1E69E2338])(v24)) init];
+            v26 = *(v4 + 232);
+            *(v4 + 232) = v25;
+            if (v26)
             {
             }
 
-            v26 = [[_WKPreviewControllerDelegate alloc] initWithSystemPreviewController:v4];
-            v27 = *(v4 + 240);
-            *(v4 + 240) = v26;
-            if (v27)
+            v27 = [[_WKPreviewControllerDelegate alloc] initWithSystemPreviewController:v4];
+            v28 = *(v4 + 240);
+            *(v4 + 240) = v27;
+            if (v28)
             {
 
-              v26 = *(v4 + 240);
+              v27 = *(v4 + 240);
             }
 
-            [*(v4 + 232) setDelegate:v26];
-            v28 = [_WKPreviewControllerDataSource alloc];
-            v29 = *v10;
+            [*(v4 + 232) setDelegate:v27];
+            v29 = [_WKPreviewControllerDataSource alloc];
+            v30 = *v10;
             if (*v10)
             {
-              atomic_fetch_add_explicit(v29, 2u, memory_order_relaxed);
+              atomic_fetch_add_explicit(v30, 2u, memory_order_relaxed);
             }
 
-            *v37 = v29;
-            *&v37[8] = *(a1 + 88);
-            v38 = *(a1 + 104);
-            v30 = [(_WKPreviewControllerDataSource *)v28 initWithSystemPreviewController:v4 MIMEType:@"model/vnd.usdz+zip" originatingPageURL:v37];
-            v32 = *(v4 + 248);
-            *(v4 + 248) = v30;
-            if (v32)
+            *v38 = v30;
+            *&v38[8] = *(a1 + 88);
+            v39 = *(a1 + 104);
+            v31 = [(_WKPreviewControllerDataSource *)v29 initWithSystemPreviewController:v4 MIMEType:@"model/vnd.usdz+zip" originatingPageURL:v38];
+            v33 = *(v4 + 248);
+            *(v4 + 248) = v31;
+            if (v33)
             {
             }
 
-            v33 = *v37;
-            *v37 = 0;
-            if (v33 && atomic_fetch_add_explicit(v33, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            v34 = *v38;
+            *v38 = 0;
+            if (v34 && atomic_fetch_add_explicit(v34, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v33, v31);
+              WTF::StringImpl::destroy(v34, v32);
             }
 
             [*(v4 + 232) setDataSource:*(v4 + 248)];
             [*(a1 + 120) presentViewController:*(v4 + 232) animated:1 completion:0];
             *(v4 + 12) = 0;
-            v34 = v41;
-            v41 = 0;
-            if (v34)
+            v35 = v42;
+            v42 = 0;
+            if (v35)
             {
             }
 
@@ -4899,12 +4905,12 @@ LABEL_20:
     }
   }
 
-  v35 = (a1 + 32);
+  v36 = (a1 + 32);
 
-  WTF::CompletionHandler<void ()(void)>::operator()(v35);
+  WTF::CompletionHandler<void ()(void)>::operator()(v36);
 }
 
-void sub_19DCA9860(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41)
+void sub_19DCA9860(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41)
 {
   if (a11 && atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
@@ -4929,7 +4935,7 @@ void *WTF::Detail::CallableWrapper<WebKit::SystemPreviewController::begin(WTF::U
   a1[2] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = a1[1];
@@ -4950,7 +4956,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::SystemPreviewController::begin(WTF
   *(this + 2) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 1);
@@ -5030,7 +5036,7 @@ void WTF::Detail::CallableWrapper<WebKit::SystemPreviewController::begin(WTF::UR
           WTF::RefCounted<WebKit::ProcessThrottlerActivity>::deref((v18 + 8), v17);
         }
 
-        WebKit::ProcessThrottler::deref((v13 + 144));
+        WebKit::ProcessThrottler::deref((v13 + 144), v17);
         CFRelease(*(v11 - 8));
         goto LABEL_15;
       }
@@ -5398,11 +5404,11 @@ uint64_t WTF::BlockPtr<void ()(WKPermissionDecision)>::fromCallable<WebKit::UIDe
   return v9();
 }
 
-void sub_19DCAA4C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DCAA4C8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5674,8 +5680,8 @@ void WTF::BlockPtr<void ()(NSArray *)>::fromCallable<WebKit::UIDelegate::UIClien
               objc_enumerationMutation(a2);
             }
 
-            [WKFileUploadPanel _moveToNewTemporaryDirectory:*(*(&v21 + 1) + 8 * v8) fileCoordinator:v4 fileManager:v5 asCopy:1, v17];
-            if (v18[0] == 1)
+            objc_msgSend__moveToNewTemporaryDirectory_fileCoordinator_fileManager_asCopy_(WKFileUploadPanel, v17);
+            if (v18 == 1)
             {
               v17 = [v19 path];
               if (HIDWORD(v26) == v26)
@@ -5715,9 +5721,9 @@ void WTF::BlockPtr<void ()(NSArray *)>::fromCallable<WebKit::UIDelegate::UIClien
 
       v12 = *(a1 + 48);
       API::OpenPanelParameters::allowedMIMETypes(&v17);
-      API::Array::toStringVector(v17, v18);
-      WebKit::WebOpenPanelResultListenerProxy::chooseFiles(v12, &v25, v18);
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v18, v13);
+      API::Array::toStringVector(&v18, v17);
+      WebKit::WebOpenPanelResultListenerProxy::chooseFiles(v12, &v25, &v18);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v18, v13);
       v15 = v17;
       v17 = 0;
       if (v15)
@@ -5745,19 +5751,19 @@ void WTF::BlockPtr<void ()(NSArray *)>::fromCallable<WebKit::UIDelegate::UIClien
   }
 }
 
-void sub_19DCAAD50(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_19DCAAD50(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a15);
-  if (a3)
+  va_start(va, a21);
+  if (a9)
   {
-    CFRelease(*(a3 + 8));
+    CFRelease(*(a9 + 8));
   }
 
-  if (v16)
+  if (v22)
   {
   }
 
-  if (v15)
+  if (v21)
   {
   }
 
@@ -5857,7 +5863,7 @@ uint64_t WTF::BlockPtr<void ()(WKDisplayCapturePermissionDecision)>::fromCallabl
     v5 = *(a1 + 32);
     *(*(a1 + 40) + 24) = 1;
     *(a1 + 32) = 0;
-    v6 = WTF::fastMalloc(0x18);
+    v6 = WTF::fastMalloc(1, 0x18);
     *v6 = &unk_1F1102A90;
     v6[1] = v5;
     v6[2] = a2;
@@ -5873,11 +5879,11 @@ uint64_t WTF::BlockPtr<void ()(WKDisplayCapturePermissionDecision)>::fromCallabl
   return result;
 }
 
-void sub_19DCAB048(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DCAB048(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5909,17 +5915,17 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::UIDelegate::UIClient::callDisplayC
   return WTF::fastFree(this, a2);
 }
 
-uint64_t WTF::Detail::CallableWrapper<WebKit::UIDelegate::UIClient::callDisplayCapturePermissionDelegate(WebKit::WebPageProxy &,WebKit::WebFrameProxy &,WebKit::FrameInfoData &&,API::SecurityOrigin &,API::SecurityOrigin,WebKit::UserMediaPermissionRequestProxy &)::$_0::operator()(WKDisplayCapturePermissionDecision)::{lambda(void)#1},void>::call(uint64_t result)
+_DWORD *WTF::Detail::CallableWrapper<WebKit::UIDelegate::UIClient::callDisplayCapturePermissionDelegate(WebKit::WebPageProxy &,WebKit::WebFrameProxy &,WebKit::FrameInfoData &&,API::SecurityOrigin &,API::SecurityOrigin,WebKit::UserMediaPermissionRequestProxy &)::$_0::operator()(WKDisplayCapturePermissionDecision)::{lambda(void)#1},void>::call(_DWORD *result)
 {
-  v1 = *(result + 16);
+  v1 = *(result + 2);
   switch(v1)
   {
     case 0:
-      return WebKit::UserMediaPermissionRequestProxy::deny(*(result + 8), 5u);
+      return WebKit::UserMediaPermissionRequestProxy::deny(*(result + 1), 5u);
     case 2:
-      return (*(**(result + 8) + 24))(*(result + 8), 0);
+      return (*(**(result + 1) + 24))(*(result + 1), 0);
     case 1:
-      return (*(**(result + 8) + 24))(*(result + 8), 1);
+      return (*(**(result + 1) + 24))(*(result + 1), 1);
   }
 
   return result;
@@ -5952,7 +5958,7 @@ uint64_t WTF::BlockPtr<void ()(WKPermissionDecision)>::fromCallable<WebKit::UIDe
     v5 = *(a1 + 32);
     *(*(a1 + 40) + 24) = 1;
     *(a1 + 32) = 0;
-    v6 = WTF::fastMalloc(0x18);
+    v6 = WTF::fastMalloc(1, 0x18);
     *v6 = &unk_1F1102AD8;
     v6[1] = v5;
     v6[2] = a2;
@@ -5968,11 +5974,11 @@ uint64_t WTF::BlockPtr<void ()(WKPermissionDecision)>::fromCallable<WebKit::UIDe
   return result;
 }
 
-void sub_19DCAB2DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DCAB2DC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6025,7 +6031,7 @@ WTF::StringImpl *WTF::Detail::CallableWrapper<WebKit::UIDelegate::UIClient::deci
     v4 = *(result + 1);
     if (*(v4 + 448) - 1 >= 2 && *(v4 + 428))
     {
-      WebKit::UserMediaPermissionRequestProxy::videoDeviceUIDs(v4, &v13);
+      WebKit::UserMediaPermissionRequestProxy::videoDeviceUIDs(&v13, v4);
       if (!v14)
       {
         goto LABEL_30;
@@ -6067,7 +6073,7 @@ LABEL_23:
       return result;
     }
 
-    WebKit::UserMediaPermissionRequestProxy::audioDeviceUIDs(v4, &v13);
+    WebKit::UserMediaPermissionRequestProxy::audioDeviceUIDs(&v13, v4);
     if (v14)
     {
       v9 = *v13;
@@ -6125,7 +6131,7 @@ uint64_t WTF::BlockPtr<void ()(BOOL)>::fromCallable<WebKit::UIDelegate::UIClient
     v5 = *(a1 + 32);
     if (*(v5 + 448) - 1 >= 2 && *(v5 + 428))
     {
-      WebKit::UserMediaPermissionRequestProxy::videoDeviceUIDs(v5, &v14);
+      WebKit::UserMediaPermissionRequestProxy::videoDeviceUIDs(&v14, v5);
       if (!v15)
       {
         goto LABEL_26;
@@ -6170,7 +6176,7 @@ LABEL_19:
       return result;
     }
 
-    WebKit::UserMediaPermissionRequestProxy::audioDeviceUIDs(v5, &v14);
+    WebKit::UserMediaPermissionRequestProxy::audioDeviceUIDs(&v14, v5);
     if (v15)
     {
       v10 = *v14;
@@ -6416,7 +6422,7 @@ uint64_t WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<W
         *v4 = 0;
         if (v5)
         {
-          WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v5 + 104));
+          WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v5 + 104), a2);
         }
 
         v6 = *(v4 - 1);
@@ -6437,32 +6443,32 @@ uint64_t WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<W
   return WTF::fastFree((a1 - 16), a2);
 }
 
-atomic_ullong *WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref(atomic_ullong *result)
+atomic_ullong *WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref(atomic_ullong *result, unint64_t a2)
 {
-  v1 = result;
+  v2 = result;
   while (1)
   {
-    v2 = *result;
+    v3 = *result;
     if ((*result & 1) == 0)
     {
       break;
     }
 
-    v3 = *result;
-    atomic_compare_exchange_strong_explicit(result, &v3, v2 - 2, memory_order_relaxed, memory_order_relaxed);
-    if (v3 == v2)
+    v4 = *result;
+    atomic_compare_exchange_strong_explicit(result, &v4, v3 - 2, memory_order_relaxed, memory_order_relaxed);
+    if (v4 == v3)
     {
-      if (v2 == 3)
+      if (v3 == 3)
       {
-        v4 = WTF::fastMalloc(0x10);
-        *v4 = &unk_1F1102BE0;
-        v4[1] = v1;
-        v6 = v4;
+        v5 = WTF::fastMalloc(3, 0x10);
+        *v5 = &unk_1F1102BE0;
+        v5[1] = v2;
+        v7 = v5;
         WTF::ensureOnMainRunLoop();
-        result = v6;
-        if (v6)
+        result = v7;
+        if (v7)
         {
-          return (*(*v6 + 8))(v6);
+          return (*(*v7 + 8))(v7);
         }
       }
 
@@ -6470,50 +6476,50 @@ atomic_ullong *WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::Vid
     }
   }
 
-  v5 = *result;
+  v6 = *result;
 
-  return WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>(v5);
+  return WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>(v6, a2);
 }
 
-void sub_19DCABDA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DCABDA0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-atomic_uchar *WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>(atomic_uchar *this)
+atomic_uchar *WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>(atomic_uchar *this, unint64_t a2)
 {
-  v1 = this;
-  v2 = 0;
-  atomic_compare_exchange_strong_explicit(this, &v2, 1u, memory_order_acquire, memory_order_acquire);
-  if (v2)
-  {
-    this = MEMORY[0x19EB01E30](this);
-  }
-
-  v3 = *(v1 + 1) - 1;
-  *(v1 + 1) = v3;
+  v2 = this;
+  v3 = 0;
+  atomic_compare_exchange_strong_explicit(this, &v3, 1u, memory_order_acquire, memory_order_acquire);
   if (v3)
   {
-    v4 = 0;
+    this = MEMORY[0x19EB01E30](this, a2);
+  }
+
+  v4 = (*(v2 + 1) - 1);
+  *(v2 + 1) = v4;
+  if (v4)
+  {
+    v5 = 0;
   }
 
   else
   {
-    v4 = *(v1 + 3);
-    ++*(v1 + 2);
-    *(v1 + 3) = 0;
+    v5 = *(v2 + 3);
+    ++*(v2 + 2);
+    *(v2 + 3) = 0;
   }
 
-  v5 = 1;
-  atomic_compare_exchange_strong_explicit(v1, &v5, 0, memory_order_release, memory_order_relaxed);
-  if (v5 == 1)
+  v6 = 1;
+  atomic_compare_exchange_strong_explicit(v2, &v6, 0, memory_order_release, memory_order_relaxed);
+  if (v6 == 1)
   {
-    if (v3)
+    if (v4)
     {
       return this;
     }
@@ -6521,34 +6527,35 @@ atomic_uchar *WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebCore::VideoPres
 
   else
   {
-    v7 = v3;
-    this = WTF::Lock::unlockSlow(v1);
-    if (v7)
+    v8 = v4;
+    this = WTF::Lock::unlockSlow(v2);
+    v4 = v8;
+    if (v8)
     {
       return this;
     }
   }
 
-  v6 = WTF::fastMalloc(0x18);
-  *v6 = &unk_1F1102C08;
-  *(v6 + 1) = v1;
-  *(v6 + 2) = v4;
-  v8 = v6;
+  v7 = WTF::fastMalloc(v4, 0x18);
+  *v7 = &unk_1F1102C08;
+  v7[1] = v2;
+  v7[2] = v5;
+  v9 = v7;
   WTF::ensureOnMainRunLoop();
-  this = v8;
-  if (v8)
+  this = v9;
+  if (v9)
   {
-    return (*(*v8 + 8))(v8);
+    return (*(*v9 + 8))(v9);
   }
 
   return this;
 }
 
-void sub_19DCABEE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DCABEE0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6560,7 +6567,7 @@ uint64_t WTF::Detail::CallableWrapper<void WTF::ThreadSafeWeakPtrControlBlock::s
   result = *(a1 + 16);
   if (result)
   {
-    result = (*(*result + 8))(result);
+    result = (*(*result + 8))(result, a2);
   }
 
   v4 = 0;
@@ -6568,7 +6575,7 @@ uint64_t WTF::Detail::CallableWrapper<void WTF::ThreadSafeWeakPtrControlBlock::s
   atomic_compare_exchange_strong_explicit(v3, &v4, 1u, memory_order_acquire, memory_order_acquire);
   if (v4)
   {
-    result = MEMORY[0x19EB01E30](v3);
+    result = MEMORY[0x19EB01E30](v3, a2);
   }
 
   v6 = *(v3 + 16) - 1;
@@ -6844,7 +6851,7 @@ LABEL_6:
   return result;
 }
 
-const void **WTF::RefCounted<WebKit::SystemPreviewController>::deref(const void **result)
+unsigned int **WTF::RefCounted<WebKit::SystemPreviewController>::deref(unsigned int **result)
 {
   if (*result == 1)
   {
@@ -6861,7 +6868,7 @@ const void **WTF::RefCounted<WebKit::SystemPreviewController>::deref(const void 
   return result;
 }
 
-void WebKit::SystemPreviewController::~SystemPreviewController(const void **this)
+void WebKit::SystemPreviewController::~SystemPreviewController(unsigned int **this)
 {
   _Block_release(this[35]);
   v3 = this[34];
@@ -7062,7 +7069,7 @@ uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::RetainPtr
   v3 = *a1;
   if (*a1 && (v4 = *(v3 - 4)) != 0)
   {
-    v5 = v4 << (6 * *(v3 - 12) >= (2 * v4));
+    v5 = (v4 << (6 * *(v3 - 12) >= (2 * v4)));
   }
 
   else
@@ -7073,8 +7080,9 @@ uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::RetainPtr
   return WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::RetainPtr<AVCaptureDeviceRotationCoordinator>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::RetainPtr<AVCaptureDeviceRotationCoordinator>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::RetainPtr<AVCaptureDeviceRotationCoordinator>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RetainPtr<AVCaptureDeviceRotationCoordinator>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(a1, v5, a2);
 }
 
-uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::RetainPtr<AVCaptureDeviceRotationCoordinator>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::RetainPtr<AVCaptureDeviceRotationCoordinator>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::RetainPtr<AVCaptureDeviceRotationCoordinator>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RetainPtr<AVCaptureDeviceRotationCoordinator>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t a3)
+uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::RetainPtr<AVCaptureDeviceRotationCoordinator>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::RetainPtr<AVCaptureDeviceRotationCoordinator>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::RetainPtr<AVCaptureDeviceRotationCoordinator>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RetainPtr<AVCaptureDeviceRotationCoordinator>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -7090,8 +7098,8 @@ uint64_t WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::RetainPtr
 
   v9 = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -7241,7 +7249,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::UserMediaPermissionRequestManagerP
   *(this + 2) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -7260,7 +7268,7 @@ void WTF::Detail::CallableWrapper<WebKit::UserMediaPermissionRequestManagerProxy
   }
 }
 
-atomic_uchar **WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationModel,(WTF::DestructionThread)0>::deref(atomic_uchar **result, void *a2)
+atomic_ullong *WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationModel,(WTF::DestructionThread)0>::deref(atomic_ullong *result, void *a2)
 {
   do
   {
@@ -7277,7 +7285,7 @@ atomic_uchar **WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::Vid
   while (v3 != v2);
   if (v2 == 3)
   {
-    return (*(*(result - 1) + 1))();
+    return (*(*(result - 1) + 8))();
   }
 
   return result;
@@ -7289,7 +7297,7 @@ uint64_t WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebCore::VideoPresentat
   atomic_compare_exchange_strong_explicit(this, &v3, 1u, memory_order_acquire, memory_order_acquire);
   if (v3)
   {
-    MEMORY[0x19EB01E30](this);
+    MEMORY[0x19EB01E30](this, a2);
   }
 
   v4 = *(this + 1) - 1;
@@ -7914,7 +7922,7 @@ uint64_t WTF::Detail::CallableWrapper<WTF::CompletionHandler<void ()(IPC::Connec
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -8009,7 +8017,7 @@ uint64_t WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<W
   v3 = *a1;
   if (*a1 && (v4 = *(v3 - 4)) != 0)
   {
-    v5 = v4 << (6 * *(v3 - 12) >= (2 * v4));
+    v5 = (v4 << (6 * *(v3 - 12) >= (2 * v4)));
   }
 
   else
@@ -8020,8 +8028,9 @@ uint64_t WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<W
   return WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>::rehash(a1, v5, a2);
 }
 
-uint64_t WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t a3)
+uint64_t WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -8037,8 +8046,8 @@ uint64_t WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<W
 
   v9 = WTF::fastZeroedMalloc(((32 * a2) | 0x10));
   *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -8056,7 +8065,7 @@ uint64_t WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<W
           *(v13 + 24) = 0;
           if (v16)
           {
-            WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v16 + 104));
+            WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v16 + 104), v10);
           }
 
           v17 = *(v13 + 16);
@@ -8094,7 +8103,7 @@ uint64_t WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<W
           *(v21 + 24) = 0;
           if (v22)
           {
-            WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v22 + 104));
+            WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v22 + 104), v10);
           }
 
           v23 = *(v21 + 16);
@@ -8115,7 +8124,7 @@ uint64_t WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<W
           *(v13 + 24) = 0;
           if (v26)
           {
-            WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v26 + 104));
+            WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v26 + 104), v10);
           }
 
           v27 = *(v13 + 16);
@@ -8216,7 +8225,7 @@ unsigned int *WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelConte
       *v5 = 0;
       if (v6)
       {
-        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v6 + 104));
+        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v6 + 104), a2);
       }
 
       v7 = *(v5 - 1);
@@ -8244,14 +8253,14 @@ unsigned int *WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelConte
   return a1;
 }
 
-uint64_t WTF::map<0ul,WTF::CrashOnOverflow,16ul,WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::copyToVectorOf<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>>(WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const&)::{lambda(std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>&&)#1},WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const>@<X0>(uint64_t **a1@<X0>, void *a2@<X8>)
+uint64_t *WTF::map<0ul,WTF::CrashOnOverflow,16ul,WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::copyToVectorOf<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>>(WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const&)::{lambda(std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>&&)#1},WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const>@<X0>(uint64_t **a1@<X0>, uint64_t *a3@<X8>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  return WTF::Mapper<WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::copyToVectorOf<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>>(WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const&)::{lambda(std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>&&)#1},WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const&,void>::map( a2,  a1);
+  *a3 = 0;
+  a3[1] = 0;
+  return WTF::Mapper<WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::copyToVectorOf<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>>(WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const&)::{lambda(std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>&&)#1},WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const&,void>::map( a3,  a1);
 }
 
-uint64_t WTF::Mapper<WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::copyToVectorOf<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>>(WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const&)::{lambda(std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>&&)#1},WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const&,void>::map(uint64_t result, uint64_t **a2)
+uint64_t *WTF::Mapper<WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::copyToVectorOf<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>>(WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const&)::{lambda(std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>&&)#1},WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::SizedIteratorRange<WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>,WTF::HashTableConstValuesIterator<WTF::HashTable<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashMap<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>,WTF::DefaultHash<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::HashTraits<std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>>,WTF::FastMalloc>,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::MediaPlayerClientIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>,std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>>> const&,void>::map(uint64_t *result, uint64_t **a2)
 {
   v3 = result;
   v4 = **a2;
@@ -8260,63 +8269,64 @@ uint64_t WTF::Mapper<WTF::Vector<std::pair<WTF::Ref<WebKit::VideoPresentationMod
     v5 = *(v4 - 12);
     if (v5)
     {
-      if (v5 >> 28)
+      v6 = (v5 >> 28);
+      if (v6)
       {
         __break(0xC471u);
         return result;
       }
 
-      result = WTF::fastMalloc((16 * v5));
-      *(v3 + 8) = v5;
+      result = WTF::fastMalloc(v6, (16 * v5));
+      *(v3 + 2) = v5;
       *v3 = result;
     }
   }
 
-  v6 = a2[1];
-  v7 = a2[3];
-  if (v6 != v7)
+  v7 = a2[1];
+  v8 = a2[3];
+  if (v7 != v8)
   {
-    v8 = a2[2];
+    v9 = a2[2];
     do
     {
-      result = std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>::pair[abi:sn200100](&v18, v6 + 2);
-      v10 = *(v3 + 12);
-      v11 = v10 + 1;
-      v12 = (*v3 + 16 * v10);
-      v13 = v18;
-      v18 = 0;
-      *v12 = v13;
+      result = std::pair<WTF::Ref<WebKit::VideoPresentationModelContext,WTF::RawPtrTraits<WebKit::VideoPresentationModelContext>,WTF::DefaultRefDerefTraits<WebKit::VideoPresentationModelContext>>,WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>>::pair[abi:sn200100](&v19, v7 + 2);
+      v11 = *(v3 + 3);
+      v12 = v11 + 1;
+      v13 = (*v3 + 16 * v11);
       v14 = v19;
       v19 = 0;
-      v12[1] = v14;
-      *(v3 + 12) = v11;
-      v15 = v19;
-      v19 = 0;
-      if (v15)
-      {
-        result = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v15 + 104));
-      }
-
-      v16 = v18;
-      v18 = 0;
+      *v13 = v14;
+      v15 = v20;
+      v20 = 0;
+      v13[1] = v15;
+      *(v3 + 3) = v12;
+      v16 = v20;
+      v20 = 0;
       if (v16)
       {
-        result = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationModel,(WTF::DestructionThread)0>::deref((v16 + 8), v9);
+        result = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v16 + 104), v10);
+      }
+
+      v17 = v19;
+      v19 = 0;
+      if (v17)
+      {
+        result = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationModel,(WTF::DestructionThread)0>::deref((v17 + 8), v10);
       }
 
       do
       {
-        v6 += 4;
-        if (v6 == v8)
+        v7 += 4;
+        if (v7 == v9)
         {
           break;
         }
       }
 
-      while (*v6 == 0 || v6[1] == -1);
+      while (*v7 == 0 || v7[1] == -1);
     }
 
-    while (v6 != v7);
+    while (v7 != v8);
   }
 
   return result;
@@ -8374,13 +8384,13 @@ void sub_19DCAE6BC(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-unint64_t WTF::Vector<WTF::CompletionHandler<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<WTF::CompletionHandler<void ()(void)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 8 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 8 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -8412,7 +8422,7 @@ unint64_t WTF::Vector<WTF::CompletionHandler<void ()(void)>,0ul,WTF::CrashOnOver
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -8449,8 +8459,8 @@ uint64_t IPC::ArgumentCoder<std::optional<WebCore::FloatSize>,void>::encode<IPC:
 {
   if (*(a2 + 8))
   {
-    v6 = 1;
-    IPC::Encoder::operator<<<BOOL>(a1, &v6);
+    v7 = 1;
+    IPC::Encoder::operator<<<BOOL>(a1, &v7);
     if (*(a2 + 8))
     {
       return IPC::ArgumentCoder<WebCore::FloatPoint,void>::encode(a1, a2);
@@ -8459,14 +8469,14 @@ uint64_t IPC::ArgumentCoder<std::optional<WebCore::FloatSize>,void>::encode<IPC:
     else
     {
       v5 = std::__throw_bad_optional_access[abi:sn200100]();
-      return WTF::Vector<WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v5);
+      return WTF::Vector<WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtrTraits<WebCore::VideoPresentationInterfaceIOS>,WTF::DefaultRefDerefTraits<WebCore::VideoPresentationInterfaceIOS>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v5, v6);
     }
   }
 
   else
   {
-    v7 = 0;
-    return IPC::Encoder::operator<<<BOOL>(a1, &v7);
+    v8 = 0;
+    return IPC::Encoder::operator<<<BOOL>(a1, &v8);
   }
 }
 
@@ -8483,7 +8493,7 @@ uint64_t WTF::Vector<WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtr
       *v4 = 0;
       if (v6)
       {
-        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v6 + 104));
+        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebCore::VideoPresentationInterfaceIOS,(WTF::DestructionThread)2>::deref((v6 + 104), a2);
       }
 
       v4 = (v4 + 8);
@@ -8504,7 +8514,7 @@ uint64_t WTF::Vector<WTF::Ref<WebCore::VideoPresentationInterfaceIOS,WTF::RawPtr
   return a1;
 }
 
-uint64_t *WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t *result, atomic_uint **a2, unint64_t a3)
+uint64_t **WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t **result, atomic_uint **a2, unint64_t a3)
 {
   v3 = result;
   *result = 0;
@@ -8518,7 +8528,7 @@ uint64_t *WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>
   if (!(a3 >> 29))
   {
     v6 = 8 * a3;
-    v7 = WTF::fastMalloc((8 * a3));
+    v7 = WTF::fastMalloc(0, (8 * a3));
     *(v3 + 2) = v4;
     *v3 = v7;
     v8 = *(v3 + 3);
@@ -8533,7 +8543,7 @@ uint64_t *WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>
         v11 = *(v3 + 3);
       }
 
-      *(v9 + 8 * v8) = v10;
+      v9[v8] = v10;
       v8 = v11 + 1;
       *(v3 + 3) = v11 + 1;
       ++a2;
@@ -8780,7 +8790,7 @@ BOOL WebKit::NetworkResourceLoadMap::remove(uint64_t a1, uint64_t a2)
   return v2 != 0;
 }
 
-uint64_t WebKit::NetworkResourceLoadMap::take@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void *WebKit::NetworkResourceLoadMap::take@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v16 = a2;
   v5 = WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::Ref<WebKit::NetworkResourceLoader,WTF::RawPtrTraits<WebKit::NetworkResourceLoader>,WTF::DefaultRefDerefTraits<WebKit::NetworkResourceLoader>>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::Ref<WebKit::NetworkResourceLoader,WTF::RawPtrTraits<WebKit::NetworkResourceLoader>,WTF::DefaultRefDerefTraits<WebKit::NetworkResourceLoader>>>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::Ref<WebKit::NetworkResourceLoader,WTF::RawPtrTraits<WebKit::NetworkResourceLoader>,WTF::DefaultRefDerefTraits<WebKit::NetworkResourceLoader>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::Ref<WebKit::NetworkResourceLoader,WTF::RawPtrTraits<WebKit::NetworkResourceLoader>,WTF::DefaultRefDerefTraits<WebKit::NetworkResourceLoader>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::find<WTF::IdentityHashTranslator<WTF::HashMap<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::Ref<WebKit::NetworkResourceLoader,WTF::RawPtrTraits<WebKit::NetworkResourceLoader>,WTF::DefaultRefDerefTraits<WebKit::NetworkResourceLoader>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::Ref<WebKit::NetworkResourceLoader,WTF::RawPtrTraits<WebKit::NetworkResourceLoader>,WTF::DefaultRefDerefTraits<WebKit::NetworkResourceLoader>>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(WTF::ShouldValidateKey)1,WTF::ObjectIdentifierGeneric<WebCore::ResourceLoaderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>( a1,  &v16);
@@ -8865,77 +8875,79 @@ uint64_t std::ranges::__any_of::operator()[abi:sn200100]<WTF::SizedIteratorRange
 
 void WebKit::NetworkResourceLoadParameters::createSandboxExtensionHandlesIfNecessary(WebKit::NetworkResourceLoadParameters *this)
 {
-  v40 = *MEMORY[0x1E69E9840];
-  WebCore::ResourceRequestBase::httpBody(&v38, (this + 24));
-  v3 = v38;
-  *&v38 = 0;
+  v43 = *MEMORY[0x1E69E9840];
+  WebCore::ResourceRequestBase::httpBody(&v41, (this + 24));
+  v3 = v41;
+  *&v41 = 0;
   if (!v3)
   {
     goto LABEL_2;
   }
 
   WTF::RefCounted<WebCore::FormData>::deref(v3);
-  WebCore::ResourceRequestBase::httpBody(v34, (this + 24));
-  v16 = *&v34[0];
-  v17 = *(*&v34[0] + 20);
+  WebCore::ResourceRequestBase::httpBody(v37, (this + 24));
+  v16 = *&v37[0];
+  v17 = *(*&v37[0] + 20);
   if (!v17)
   {
-    *&v34[0] = 0;
-    goto LABEL_44;
+    *&v37[0] = 0;
+    goto LABEL_47;
   }
 
-  v18 = *(*&v34[0] + 8);
+  v18 = *(*&v37[0] + 8);
   v19 = 48 * v17;
   do
   {
     if (v18 && *(v18 + 40) == 1)
     {
-      v32 = v18;
-      v33 = v19;
-      v26 = *v18;
-      if (v26)
+      v35 = v18;
+      v36 = v19;
+      v28 = *v18;
+      if (v28)
       {
-        v27 = *(v26 + 16);
-        v26 = *(v26 + 4);
-        v28 = ((v27 >> 2) & 1) << 32;
+        v29 = *(v28 + 16);
+        v30 = *(v28 + 8);
+        v28 = *(v28 + 4);
+        v31 = ((v29 >> 2) & 1) << 32;
       }
 
       else
       {
-        v28 = 0x100000000;
+        v30 = 0;
+        v31 = 0x100000000;
       }
 
-      v1 = v26 | v1 & 0xFFFFFF0000000000 | v28;
-      WebKit::SandboxExtension::createHandle(0, &v38);
-      if (BYTE8(v38) != 1)
+      v1 = v28 | v1 & 0xFFFFFF0000000000 | v31;
+      WebKit::SandboxExtension::createHandle(0, &v41, v30, v1);
+      if (BYTE8(v41) != 1)
       {
-        goto LABEL_41;
+        goto LABEL_43;
       }
 
-      v29 = *(this + 805);
-      if (v29 == *(this + 804))
+      v32 = *(this + 805);
+      if (v32 == *(this + 804))
       {
-        WTF::Vector<WebKit::SandboxExtensionHandle,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WebKit::SandboxExtensionHandle>(this + 3208, &v38);
-        if ((BYTE8(v38) & 1) == 0)
+        WTF::Vector<WebKit::SandboxExtensionHandle,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::appendSlowCase<(WTF::FailureAction)0,WebKit::SandboxExtensionHandle>(this + 401, &v41);
+        if ((BYTE8(v41) & 1) == 0)
         {
-LABEL_41:
-          v18 = v32;
-          v19 = v33;
+LABEL_43:
+          v18 = v35;
+          v19 = v36;
           goto LABEL_16;
         }
       }
 
       else
       {
-        v30 = *(this + 401);
-        v31 = v38;
-        *&v38 = 0;
-        *(v30 + 8 * v29) = v31;
-        *(this + 805) = v29 + 1;
+        v33 = *(this + 401);
+        v34 = v41;
+        *&v41 = 0;
+        *(v33 + 8 * v32) = v34;
+        *(this + 805) = v32 + 1;
       }
 
-      WebKit::SandboxExtensionHandle::~SandboxExtensionHandle(&v38);
-      goto LABEL_41;
+      WebKit::SandboxExtensionHandle::~SandboxExtensionHandle(&v41);
+      goto LABEL_43;
     }
 
 LABEL_16:
@@ -8944,11 +8956,11 @@ LABEL_16:
   }
 
   while (v19);
-  v16 = *&v34[0];
-  *&v34[0] = 0;
+  v16 = *&v37[0];
+  *&v37[0] = 0;
   if (v16)
   {
-LABEL_44:
+LABEL_47:
     WTF::RefCounted<WebCore::FormData>::deref(v16);
   }
 
@@ -8960,16 +8972,16 @@ LABEL_2:
     v6 = WebKit::WebProcess::singleton(v4, v5);
     v7 = WebKit::WebProcess::ensureNetworkProcessConnection(v6);
     v8 = *(v7 + 48);
-    v38 = *(v7 + 32);
-    v39 = v8;
+    v41 = *(v7 + 32);
+    v42 = v8;
     if (*(v7 + 64))
     {
       v9 = WebCore::ResourceRequestBase::url((this + 24));
-      WTF::URL::fileSystemPath(&v35, v9);
-      if (v35)
+      WTF::URL::fileSystemPath(&v38, v9);
+      if (v38)
       {
-        v10 = *(v35 + 1);
-        v11 = *(v35 + 1) | (((*(v35 + 4) >> 2) & 1) << 32);
+        v10 = *(v38 + 1);
+        v11 = *(v38 + 1) | (((*(v38 + 4) >> 2) & 1) << 32);
       }
 
       else
@@ -8978,11 +8990,11 @@ LABEL_2:
         v11 = 0x100000000;
       }
 
-      v34[0] = v38;
-      v34[1] = v39;
-      WebKit::SandboxExtension::createHandleForReadByAuditToken(v10, v11, v34, &v36);
-      v13 = v35;
-      v35 = 0;
+      v37[0] = v41;
+      v37[1] = v42;
+      WebKit::SandboxExtension::createHandleForReadByAuditToken(v10, v11, v37, &v39);
+      v13 = v38;
+      v38 = 0;
       if (v13)
       {
         if (atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -8991,18 +9003,18 @@ LABEL_2:
         }
       }
 
-      if (v37 != 1)
+      if (v40 != 1)
       {
         return;
       }
 
       v14 = *(this + 3232);
-      v15 = v36;
-      v36 = 0;
+      v15 = v39;
+      v39 = 0;
       if (v14 == 1)
       {
         std::unique_ptr<WebKit::SandboxExtensionImpl>::reset[abi:sn200100](this + 403, v15);
-        if ((v37 & 1) == 0)
+        if ((v40 & 1) == 0)
         {
           return;
         }
@@ -9014,33 +9026,45 @@ LABEL_2:
         *(this + 3232) = 1;
       }
 
-      v25 = &v36;
+      v27 = &v39;
     }
 
     else
     {
       v20 = WebCore::ResourceRequestBase::url((this + 24));
-      WTF::URL::fileSystemPath(&v36, v20);
-      WebKit::SandboxExtension::createHandle(0, v34);
-      v22 = v36;
-      v36 = 0;
-      if (v22 && atomic_fetch_add_explicit(v22, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      WTF::URL::fileSystemPath(&v39, v20);
+      if (v39)
       {
-        WTF::StringImpl::destroy(v22, v21);
+        v21 = *(v39 + 1);
+        v22 = *(v39 + 1) | (((*(v39 + 4) >> 2) & 1) << 32);
       }
 
-      if (BYTE8(v34[0]) != 1)
+      else
+      {
+        v21 = 0;
+        v22 = 0x100000000;
+      }
+
+      WebKit::SandboxExtension::createHandle(0, v37, v21, v22);
+      v24 = v39;
+      v39 = 0;
+      if (v24 && atomic_fetch_add_explicit(v24, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      {
+        WTF::StringImpl::destroy(v24, v23);
+      }
+
+      if (BYTE8(v37[0]) != 1)
       {
         return;
       }
 
-      v23 = *(this + 3232);
-      v24 = *&v34[0];
-      *&v34[0] = 0;
-      if (v23 == 1)
+      v25 = *(this + 3232);
+      v26 = *&v37[0];
+      *&v37[0] = 0;
+      if (v25 == 1)
       {
-        std::unique_ptr<WebKit::SandboxExtensionImpl>::reset[abi:sn200100](this + 403, v24);
-        if ((BYTE8(v34[0]) & 1) == 0)
+        std::unique_ptr<WebKit::SandboxExtensionImpl>::reset[abi:sn200100](this + 403, v26);
+        if ((BYTE8(v37[0]) & 1) == 0)
         {
           return;
         }
@@ -9048,60 +9072,60 @@ LABEL_2:
 
       else
       {
-        *(this + 403) = v24;
+        *(this + 403) = v26;
         *(this + 3232) = 1;
       }
 
-      v25 = v34;
+      v27 = v37;
     }
 
-    WebKit::SandboxExtensionHandle::~SandboxExtensionHandle(v25);
+    WebKit::SandboxExtensionHandle::~SandboxExtensionHandle(v27);
   }
 }
 
-double WebKit::NetworkResourceLoadParameters::networkLoadParameters@<D0>(WebKit::NetworkResourceLoadParameters *this@<X0>, uint64_t a2@<X8>)
+double WebKit::NetworkResourceLoadParameters::networkLoadParameters@<D0>(uint64_t *__return_ptr a1@<X8>, WebKit::NetworkResourceLoadParameters *this@<X0>)
 {
-  *a2 = *this;
-  *(a2 + 16) = *(this + 2);
+  *a1 = *this;
+  a1[2] = *(this + 2);
   v4 = *(this + 28);
   if (v4)
   {
     atomic_fetch_add(v4, 1u);
   }
 
-  *(a2 + 24) = v4;
+  a1[3] = v4;
   v5 = *(this + 29);
   if (v5)
   {
     atomic_fetch_add(v5, 1u);
   }
 
-  *(a2 + 32) = v5;
-  *(a2 + 40) = *(this + 60);
-  WebCore::ResourceRequest::ResourceRequest((a2 + 48), (this + 24));
-  *(a2 + 248) = *(this + 61);
-  *(a2 + 252) = *(this + 248);
-  *(a2 + 253) = *(this + 249);
-  *(a2 + 256) = 0;
-  *(a2 + 3168) = 0;
+  a1[4] = v5;
+  *(a1 + 10) = *(this + 60);
+  WebCore::ResourceRequest::ResourceRequest(a1 + 6, (this + 24));
+  *(a1 + 62) = *(this + 61);
+  *(a1 + 252) = *(this + 248);
+  *(a1 + 253) = *(this + 249);
+  *(a1 + 256) = 0;
+  *(a1 + 3168) = 0;
   if (*(this + 3168) == 1)
   {
-    WebKit::NavigationActionData::NavigationActionData((a2 + 256), (this + 256));
-    *(a2 + 3168) = 1;
+    WebKit::NavigationActionData::NavigationActionData((a1 + 32), (this + 256));
+    *(a1 + 3168) = 1;
   }
 
   result = 0.0;
-  *(a2 + 3184) = 0u;
-  *(a2 + 3200) = *(this + 3184);
-  *(a2 + 3208) = 0;
-  *(a2 + 3232) = 0;
-  *(a2 + 3240) = *(this + 3185);
-  *(a2 + 3244) = *(this + 1595);
-  *(a2 + 3248) = *(this + 399);
+  *(a1 + 199) = 0u;
+  *(a1 + 3200) = *(this + 3184);
+  *(a1 + 3208) = 0;
+  *(a1 + 3232) = 0;
+  *(a1 + 810) = *(this + 3185);
+  *(a1 + 1622) = *(this + 1595);
+  a1[406] = *(this + 399);
   return result;
 }
 
-uint64_t WebKit::NetworkResourceLoader::NetworkResourceLoader(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t *a4)
+uint64_t WebKit::NetworkResourceLoader::NetworkResourceLoader(unint64_t a1, __int128 *a2, uint64_t a3, uint64_t **a4)
 {
   v7 = (a1 + 4096);
   *(a1 + 16) = 0x100000000;
@@ -9126,20 +9150,20 @@ uint64_t WebKit::NetworkResourceLoader::NetworkResourceLoader(uint64_t a1, __int
   *(a1 + 4424) = 0;
   *(a1 + 4432) = 0;
   *(a1 + 4440) = 0;
-  WebKit::NetworkConnectionToWebProcess::resolveBlobReferences(a3, (a1 + 80), a1 + 4448);
+  WebKit::NetworkConnectionToWebProcess::resolveBlobReferences(a3, (a1 + 80), (a1 + 4448));
   *(a1 + 4464) = 0;
   v7[370] = *(a1 + 327);
   *(a1 + 4472) = 0u;
   *(a1 + 4488) = 0;
   WebCore::TimerBase::TimerBase((a1 + 4496));
   *(a1 + 4496) = &unk_1F10EB388;
-  v8 = WTF::fastMalloc(0x20);
-  *v8 = &unk_1F11033B0;
-  v8[1] = a1;
-  v8[2] = WebKit::NetworkResourceLoader::bufferingTimerFired;
-  v8[3] = 0;
-  *(a1 + 4544) = v8;
-  v9 = (a1 + 4552);
+  v9 = WTF::fastMalloc(v8, 0x20);
+  *v9 = &unk_1F11033B0;
+  v9[1] = a1;
+  v9[2] = WebKit::NetworkResourceLoader::bufferingTimerFired;
+  v9[3] = 0;
+  *(a1 + 4544) = v9;
+  v10 = (a1 + 4552);
   *(a1 + 4616) = 0;
   *(a1 + 4584) = 0;
   *(a1 + 4552) = 0u;
@@ -9176,243 +9200,243 @@ uint64_t WebKit::NetworkResourceLoader::NetworkResourceLoader(uint64_t a1, __int
   *(a1 + 5280) = 0u;
   *(a1 + 5293) = 0;
   *(a1 + 5304) = 0;
-  v10 = *(a3 + 88);
-  v73 = *(*(a1 + 4144) + 96);
-  v11 = WTF::HashMap<PAL::SessionID,std::unique_ptr<WebKit::NetworkSession>,WTF::DefaultHash<PAL::SessionID>,WTF::HashTraits<PAL::SessionID>,WTF::HashTraits<std::unique_ptr<WebKit::NetworkSession>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<PAL::SessionID,std::unique_ptr<WebKit::NetworkSession>,WTF::DefaultHash<PAL::SessionID>,WTF::HashTraits<PAL::SessionID>,WTF::HashTraits<std::unique_ptr<WebKit::NetworkSession>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<PAL::SessionID>>,PAL::SessionID>((v10 + 240), &v73);
-  if (v11)
+  v11 = *(a3 + 88);
+  v74 = *(*(a1 + 4144) + 96);
+  v12 = WTF::HashMap<PAL::SessionID,std::unique_ptr<WebKit::NetworkSession>,WTF::DefaultHash<PAL::SessionID>,WTF::HashTraits<PAL::SessionID>,WTF::HashTraits<std::unique_ptr<WebKit::NetworkSession>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<PAL::SessionID,std::unique_ptr<WebKit::NetworkSession>,WTF::DefaultHash<PAL::SessionID>,WTF::HashTraits<PAL::SessionID>,WTF::HashTraits<std::unique_ptr<WebKit::NetworkSession>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<PAL::SessionID>>,PAL::SessionID>((v11 + 240), &v74);
+  if (v12)
   {
-    v13 = v11;
-    v14 = *(v11 + 16) + 1;
-    *(v11 + 16) = v14;
-    v15 = *(v11 + 624);
-    if (v15)
-    {
-      ++*(v15 + 8);
-    }
-
-    v16 = *v9;
-    *v9 = v15;
+    v14 = v12;
+    v15 = *(v12 + 16) + 1;
+    *(v12 + 16) = v15;
+    v16 = *(v12 + 624);
     if (v16)
     {
-      WTF::RefCounted<WebKit::NetworkCache::Cache>::deref((v16 + 8), v12);
-      v14 = *(v13 + 16);
+      ++*(v16 + 8);
     }
 
-    if (!v14)
+    v17 = *v10;
+    *v10 = v16;
+    if (v17)
+    {
+      WTF::RefCounted<WebKit::NetworkCache::Cache>::deref((v17 + 8), v13);
+      v15 = *(v14 + 16);
+    }
+
+    if (!v15)
     {
       result = 290;
       __break(0xC471u);
       return result;
     }
 
-    *(v13 + 16) = v14 - 1;
+    *(v14 + 16) = v15 - 1;
   }
 
   if (*a4 || (*(a1 + 3568) & 1) != 0 || *(a1 + 3334) == 1)
   {
-    v17 = 1;
+    v18 = 1;
     if (*(a1 + 251) == 1)
     {
-      v17 = *(a1 + 3588) != 0;
+      v18 = *(a1 + 3588) != 0;
     }
 
-    v18 = *(a3 + 88);
-    atomic_fetch_add(v18 + 36, 1u);
-    v59 = *(a3 + 296);
-    v60 = a4;
-    LODWORD(v73) = *(a1 + 3328);
-    *(&v73 + 3) = *(a1 + 3331);
-    v19 = *(a1 + 3336);
-    if (v19)
+    v19 = *(a3 + 88);
+    atomic_fetch_add(v19 + 36, 1u);
+    v60 = *(a3 + 296);
+    v61 = a4;
+    LODWORD(v74) = *(a1 + 3328);
+    *(&v74 + 3) = *(a1 + 3331);
+    v20 = *(a1 + 3336);
+    if (v20)
     {
-      atomic_fetch_add_explicit(v19, 2u, memory_order_relaxed);
+      atomic_fetch_add_explicit(v20, 2u, memory_order_relaxed);
     }
 
-    *v74 = v19;
-    v20 = *(a1 + 3360);
-    *&v74[8] = *(a1 + 3344);
-    *&v74[24] = v20;
-    v21 = *(*(a1 + 4144) + 96);
-    v22 = *(a1 + 80);
-    WTF::Vector<WebCore::HTTPHeaderMap::CommonHeader,0ul,WTF::CrashOnOverflow,6ul,WTF::FastMalloc>::Vector(v71, a1 + 3536);
-    WTF::Vector<WebCore::HTTPHeaderMap::UncommonHeader,0ul,WTF::CrashOnOverflow,0ul,WTF::FastMalloc>::Vector(v72, a1 + 3552);
-    v23 = WebCore::ResourceRequestBase::url((a1 + 104));
-    v24 = *v23;
-    if (*v23)
+    *v75 = v20;
+    v21 = *(a1 + 3360);
+    *&v75[8] = *(a1 + 3344);
+    *&v75[24] = v21;
+    v22 = *(*(a1 + 4144) + 96);
+    v23 = *(a1 + 80);
+    WTF::Vector<WebCore::HTTPHeaderMap::CommonHeader,0ul,WTF::CrashOnOverflow,6ul,WTF::FastMalloc>::Vector(v72, a1 + 3536);
+    WTF::Vector<WebCore::HTTPHeaderMap::UncommonHeader,0ul,WTF::CrashOnOverflow,0ul,WTF::FastMalloc>::Vector(v73, a1 + 3552);
+    v24 = WebCore::ResourceRequestBase::url((a1 + 104));
+    v25 = *v24;
+    if (*v24)
     {
-      atomic_fetch_add_explicit(v24, 2u, memory_order_relaxed);
+      atomic_fetch_add_explicit(v25, 2u, memory_order_relaxed);
     }
 
-    v68 = v24;
-    v25 = *(v23 + 24);
-    v69 = *(v23 + 8);
-    v70 = v25;
-    v26 = *(a1 + 3624);
-    if (v26)
-    {
-      atomic_fetch_add_explicit(v26, 2u, memory_order_relaxed);
-    }
-
-    v65 = v26;
-    v66 = *(a1 + 3632);
-    v67 = *(a1 + 3648);
-    v27 = *(a1 + 312);
+    v69 = v25;
+    v26 = *(v24 + 24);
+    v70 = *(v24 + 8);
+    v71 = v26;
+    v27 = *(a1 + 3624);
     if (v27)
     {
-      atomic_fetch_add(v27, 1u);
+      atomic_fetch_add_explicit(v27, 2u, memory_order_relaxed);
     }
 
-    v64 = v27;
-    v28 = *(a1 + 304);
+    v66 = v27;
+    v67 = *(a1 + 3632);
+    v68 = *(a1 + 3648);
+    v28 = *(a1 + 312);
     if (v28)
     {
       atomic_fetch_add(v28, 1u);
     }
 
-    v63 = v28;
+    v65 = v28;
+    v29 = *(a1 + 304);
+    if (v29)
+    {
+      atomic_fetch_add(v29, 1u);
+    }
+
+    v64 = v29;
     if (*(a1 + 3588))
     {
-      v29 = **(a1 + 3576);
-      atomic_fetch_add(v29, 1u);
+      v30 = **(a1 + 3576);
+      atomic_fetch_add(v30, 1u);
     }
 
     else
     {
-      v29 = 0;
+      v30 = 0;
     }
 
-    v62 = v29;
-    v30 = *(a1 + 3569);
-    WebCore::ResourceRequestBase::httpReferrer(&v61, (a1 + 104));
-    v31 = *(a1 + 3268);
-    v32 = *(a1 + 3270);
-    v33 = v7[528];
-    v35 = WebKit::NetworkLoadChecker::operator new(0x4A0, v34);
-    Checker = WebKit::NetworkLoadChecker::NetworkLoadChecker(v35, v18, a1, v59, &v73, v21, v22, 1, v71, &v68, &v65, &v64, &v63, &v62, v30, &v61, v31, v58, v32, SHIDWORD(v32), v33, v17);
-    v38 = *(a1 + 4600);
+    v63 = v30;
+    v31 = *(a1 + 3569);
+    WebCore::ResourceRequestBase::httpReferrer(&v62, (a1 + 104));
+    v32 = *(a1 + 3268);
+    v33 = *(a1 + 3270);
+    v34 = v7[528];
+    v36 = WebKit::NetworkLoadChecker::operator new(0x4A0, v35);
+    Checker = WebKit::NetworkLoadChecker::NetworkLoadChecker(v36, v19, a1, v60, &v74, v22, v23, 1, v72, &v69, &v66, &v65, &v64, &v63, v31, &v62, v32, v59, v33, SHIDWORD(v33), v34, v18);
+    v39 = *(a1 + 4600);
     *(a1 + 4600) = Checker;
-    if (v38)
+    if (v39)
     {
-      WTF::RefCounted<WebKit::NetworkLoadChecker>::deref((v38 + 8), v37);
+      WTF::RefCounted<WebKit::NetworkLoadChecker>::deref((v39 + 8), v38);
     }
 
-    v39 = v61;
-    v61 = 0;
-    if (v39 && atomic_fetch_add_explicit(v39, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    v40 = v62;
+    v62 = 0;
+    if (v40 && atomic_fetch_add_explicit(v40, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v39, v37);
-    }
-
-    if (v62)
-    {
-      WTF::ThreadSafeRefCounted<WebCore::SecurityOrigin,(WTF::DestructionThread)0>::deref(v62, v37);
+      WTF::StringImpl::destroy(v40, v38);
     }
 
     if (v63)
     {
-      WTF::ThreadSafeRefCounted<WebCore::SecurityOrigin,(WTF::DestructionThread)0>::deref(v63, v37);
+      WTF::ThreadSafeRefCounted<WebCore::SecurityOrigin,(WTF::DestructionThread)0>::deref(v63, v38);
     }
 
     if (v64)
     {
-      WTF::ThreadSafeRefCounted<WebCore::SecurityOrigin,(WTF::DestructionThread)0>::deref(v64, v37);
+      WTF::ThreadSafeRefCounted<WebCore::SecurityOrigin,(WTF::DestructionThread)0>::deref(v64, v38);
     }
 
-    v40 = v65;
-    v65 = 0;
-    if (v40 && atomic_fetch_add_explicit(v40, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (v65)
     {
-      WTF::StringImpl::destroy(v40, v37);
+      WTF::ThreadSafeRefCounted<WebCore::SecurityOrigin,(WTF::DestructionThread)0>::deref(v65, v38);
     }
 
-    v41 = v68;
-    v68 = 0;
+    v41 = v66;
+    v66 = 0;
     if (v41 && atomic_fetch_add_explicit(v41, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v41, v37);
+      WTF::StringImpl::destroy(v41, v38);
     }
 
-    WTF::Vector<WebCore::HTTPHeaderMap::UncommonHeader,0ul,WTF::CrashOnOverflow,0ul,WTF::FastMalloc>::~Vector(v72, v37);
-    WTF::Vector<WebCore::HTTPHeaderMap::CommonHeader,0ul,WTF::CrashOnOverflow,6ul,WTF::FastMalloc>::~Vector(v71, v42);
-    v44 = *v74;
-    if (*v74 && atomic_fetch_add_explicit(*v74, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    v42 = v69;
+    v69 = 0;
+    if (v42 && atomic_fetch_add_explicit(v42, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v44, v43);
+      WTF::StringImpl::destroy(v42, v38);
     }
 
-    if (atomic_fetch_add(v18 + 36, 0xFFFFFFFF) == 1)
+    WTF::Vector<WebCore::HTTPHeaderMap::UncommonHeader,0ul,WTF::CrashOnOverflow,0ul,WTF::FastMalloc>::~Vector(v73, v38);
+    WTF::Vector<WebCore::HTTPHeaderMap::CommonHeader,0ul,WTF::CrashOnOverflow,6ul,WTF::FastMalloc>::~Vector(v72, v43);
+    v45 = *v75;
+    if (*v75 && atomic_fetch_add_explicit(*v75, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      atomic_store(1u, v18 + 36);
-      (*(*v18 + 24))(v18);
+      WTF::StringImpl::destroy(v45, v44);
     }
 
-    v45 = *(a1 + 4600);
-    if (v45)
+    if (atomic_fetch_add(v19 + 36, 0xFFFFFFFF) == 1)
     {
-      ++*(v45 + 8);
+      atomic_store(1u, v19 + 36);
+      (*(*v19 + 24))(v19);
+    }
+
+    v46 = *(a1 + 4600);
+    if (v46)
+    {
+      ++*(v46 + 8);
     }
 
     if (*(a1 + 3400) == 1)
     {
-      WTF::Vector<std::pair<WTF::String,WebCore::ContentSecurityPolicyHeaderType>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(&v73, (a1 + 3376));
-      *&v74[8] = *(a1 + 3392);
-      v74[12] = *(a1 + 3396);
-      std::optional<WebCore::ContentSecurityPolicyResponseHeaders>::operator=[abi:sn200100]<WebCore::ContentSecurityPolicyResponseHeaders,void>(v45 + 264, &v73);
-      WTF::Vector<std::pair<WTF::String,WebCore::ContentSecurityPolicyHeaderType>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v73, v46);
+      WTF::Vector<std::pair<WTF::String,WebCore::ContentSecurityPolicyHeaderType>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(&v74, (a1 + 3376));
+      *&v75[8] = *(a1 + 3392);
+      v75[12] = *(a1 + 3396);
+      std::optional<WebCore::ContentSecurityPolicyResponseHeaders>::operator=[abi:sn200100]<WebCore::ContentSecurityPolicyResponseHeaders,void>(v46 + 264, &v74);
+      WTF::Vector<std::pair<WTF::String,WebCore::ContentSecurityPolicyHeaderType>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v74, v47);
     }
 
-    *(v45 + 296) = *(a1 + 3488);
-    WTF::String::operator=((v45 + 304), (a1 + 3496));
-    WTF::String::operator=((v45 + 312), (a1 + 3504));
-    *(v45 + 320) = *(a1 + 3512);
-    WTF::String::operator=((v45 + 328), (a1 + 3520));
-    WTF::String::operator=((v45 + 336), (a1 + 3528));
-    v47 = *(a1 + 4064);
-    if (v47)
+    *(v46 + 296) = *(a1 + 3488);
+    WTF::String::operator=((v46 + 304), (a1 + 3496));
+    WTF::String::operator=((v46 + 312), (a1 + 3504));
+    *(v46 + 320) = *(a1 + 3512);
+    WTF::String::operator=((v46 + 328), (a1 + 3520));
+    WTF::String::operator=((v46 + 336), (a1 + 3528));
+    v48 = *(a1 + 4064);
+    if (v48)
     {
-      atomic_fetch_add_explicit(v47, 2u, memory_order_relaxed);
+      atomic_fetch_add_explicit(v48, 2u, memory_order_relaxed);
     }
 
-    v73 = v47;
-    v48 = *(a1 + 4088);
-    *v74 = *(a1 + 4072);
-    *&v74[16] = v48;
-    v49 = *(a1 + 3448);
-    if (v49)
+    v74 = v48;
+    v49 = *(a1 + 4088);
+    *v75 = *(a1 + 4072);
+    *&v75[16] = v49;
+    v50 = *(a1 + 3448);
+    if (v50)
     {
-      atomic_fetch_add_explicit(v49, 2u, memory_order_relaxed);
+      atomic_fetch_add_explicit(v50, 2u, memory_order_relaxed);
     }
 
-    v68 = v49;
-    v50 = *(a1 + 3472);
-    v69 = *(a1 + 3456);
-    v70 = v50;
-    v51 = *(a1 + 4104);
-    v52 = *(a1 + 4112);
-    WTF::URL::operator=(v45 + 344, &v73);
-    WTF::URL::operator=(v45 + 384, &v68);
-    *(v45 + 424) = v51;
-    *(v45 + 432) = v52;
-    v54 = v68;
-    v68 = 0;
-    if (v54 && atomic_fetch_add_explicit(v54, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v54, v53);
-    }
-
-    v55 = v73;
-    v73 = 0;
+    v69 = v50;
+    v51 = *(a1 + 3472);
+    v70 = *(a1 + 3456);
+    v71 = v51;
+    v52 = *(a1 + 4104);
+    v53 = *(a1 + 4112);
+    WTF::URL::operator=((v46 + 344), &v74);
+    WTF::URL::operator=((v46 + 384), &v69);
+    *(v46 + 424) = v52;
+    *(v46 + 432) = v53;
+    v55 = v69;
+    v69 = 0;
     if (v55 && atomic_fetch_add_explicit(v55, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v55, v53);
+      WTF::StringImpl::destroy(v55, v54);
     }
 
-    WTF::RefCounted<WebKit::NetworkLoadChecker>::deref((v45 + 8), v53);
-    if (*v60)
+    v56 = v74;
+    v74 = 0;
+    if (v56 && atomic_fetch_add_explicit(v56, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      v57 = WTF::fastMalloc(0x228);
-      WebKit::NetworkResourceLoader::SynchronousLoadData::SynchronousLoadData(v57, v60);
-      std::unique_ptr<WebKit::NetworkResourceLoader::SynchronousLoadData>::reset[abi:sn200100]((a1 + 4440), v57);
+      WTF::StringImpl::destroy(v56, v54);
+    }
+
+    WTF::RefCounted<WebKit::NetworkLoadChecker>::deref((v46 + 8), v54);
+    if (*v61)
+    {
+      v58 = WTF::fastMalloc(*v61, 0x228);
+      WebKit::NetworkResourceLoader::SynchronousLoadData::SynchronousLoadData(v58, v61);
+      std::unique_ptr<WebKit::NetworkResourceLoader::SynchronousLoadData>::reset[abi:sn200100]((a1 + 4440), v58);
     }
   }
 

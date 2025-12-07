@@ -136,29 +136,38 @@ LABEL_9:
 
 - (CGSize)_layoutWithBounds:(CGRect)bounds
 {
+  height = bounds.size.height;
   width = bounds.size.width;
+  y = bounds.origin.y;
+  x = bounds.origin.x;
   [(PKContinuousButton *)self->_button sizeThatFits:bounds.size.width, bounds.size.height];
-  if (v5 >= 50.0)
+  if (v9.n128_f64[0] >= 50.0)
   {
-    v6 = v5;
+    v15 = v9.n128_f64[0];
   }
 
   else
   {
-    v6 = 50.0;
+    v15 = 50.0;
   }
 
   if (!self->_isTemplateLayout)
   {
     button = self->_button;
-    PKSizeAlignedInRect();
+    v8.n128_f64[0] = width;
+    v9.n128_f64[0] = v15;
+    v10.n128_f64[0] = x;
+    v11.n128_f64[0] = y;
+    v12.n128_f64[0] = width;
+    v13.n128_f64[0] = height;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v8, v9, v10, v11, v12, v13, v14);
     [(PKContinuousButton *)button setFrame:?];
   }
 
-  v8 = width;
-  v9 = v6;
-  result.height = v9;
-  result.width = v8;
+  v17 = width;
+  v18 = v15;
+  result.height = v18;
+  result.width = v17;
   return result;
 }
 

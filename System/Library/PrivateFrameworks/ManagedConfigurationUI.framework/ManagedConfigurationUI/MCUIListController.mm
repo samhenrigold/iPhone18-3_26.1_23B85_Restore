@@ -20,6 +20,7 @@
 - (void)accountCellWasTapped:(id)tapped;
 - (void)dealloc;
 - (void)handleURL:(id)l;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -196,6 +197,14 @@ void __45__MCUIListController_initWithNibName_bundle___block_invoke_3(uint64_t a
 
   v11 = +[MCUIWatchManager shared];
   [v11 reloadProfiles];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MCUIListController;
+  [(MCUIListController *)&v4 viewDidAppear:appear];
+  [(MCUIListController *)self _setupDeviceExpert];
 }
 
 - (void)_setupDeviceExpert
@@ -518,36 +527,33 @@ void __62__MCUIListController__loadVPNSpecifiersWithCompletionHandler___block_in
 
 void __62__MCUIListController__loadVPNSpecifiersWithCompletionHandler___block_invoke_2(uint64_t a1)
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
     v3 = *(a1 + 32);
     v4 = *MEMORY[0x277D3FDF8];
-    v17[0] = *MEMORY[0x277D3FE08];
-    v17[1] = v4;
-    v18[0] = v3;
-    v18[1] = MEMORY[0x277CBEC28];
-    v17[2] = @"isDeviceManagement";
-    v18[2] = MEMORY[0x277CBEC38];
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
-    v14 = v5;
-    v15 = @"items";
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
-    v16 = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    v8 = *&WeakRetained[*MEMORY[0x277D3FD20]];
-    v9 = [WeakRetained bundle];
-    v13 = 0;
-    v10 = SpecifiersFromPlist();
-    v11 = v13;
-    [WeakRetained setVpnSpecifiers:{v10, &v13}];
+    v15[0] = *MEMORY[0x277D3FE08];
+    v15[1] = v4;
+    v16[0] = v3;
+    v16[1] = MEMORY[0x277CBEC28];
+    v15[2] = @"isDeviceManagement";
+    v16[2] = MEMORY[0x277CBEC38];
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+    v12 = v5;
+    v13 = @"items";
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+    v14 = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+    v8 = [WeakRetained bundle];
+    v11 = 0;
+    v9 = SpecifiersFromPlist();
+    v10 = v11;
+    [WeakRetained setVpnSpecifiers:{v9, &v11}];
 
-    [WeakRetained setVpnBundleControllers:v11];
+    [WeakRetained setVpnBundleControllers:v10];
     (*(*(a1 + 40) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldDeferPushForSpecifierID:(id)d
@@ -687,46 +693,46 @@ void __63__MCUIListController__mainQueue_setManagedSignInButtonEnabled___block_i
 
 - (void)_showAccountDetailsPaneWithUsername:(id)username completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = [MEMORY[0x277D03230] itemSpecifierIDForAccountUsername:username];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   specifiers = [(MCUIListController *)self specifiers];
-  v9 = [specifiers countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [specifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(specifiers);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         identifier = [v13 identifier];
         v15 = [identifier isEqualToString:v7];
 
         if (v15)
         {
-          v17[0] = MEMORY[0x277D85DD0];
-          v17[1] = 3221225472;
-          v17[2] = __69__MCUIListController__showAccountDetailsPaneWithUsername_completion___block_invoke;
-          v17[3] = &unk_279861C40;
-          v17[4] = self;
-          v17[5] = v13;
-          dispatch_async(MEMORY[0x277D85CD0], v17);
+          v16[0] = MEMORY[0x277D85DD0];
+          v16[1] = 3221225472;
+          v16[2] = __69__MCUIListController__showAccountDetailsPaneWithUsername_completion___block_invoke;
+          v16[3] = &unk_279861C40;
+          v16[4] = self;
+          v16[5] = v13;
+          dispatch_async(MEMORY[0x277D85CD0], v16);
           goto LABEL_11;
         }
       }
 
-      v10 = [specifiers countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [specifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v10)
       {
         continue;
@@ -742,8 +748,6 @@ LABEL_11:
   {
     completionCopy[2](completionCopy);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)prepareHandlingURLForSpecifierID:(id)d resourceDictionary:(id)dictionary animatePush:(BOOL *)push

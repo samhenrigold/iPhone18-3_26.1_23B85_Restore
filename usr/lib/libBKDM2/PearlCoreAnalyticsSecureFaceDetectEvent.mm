@@ -12,35 +12,34 @@
 
 - (PearlCoreAnalyticsSecureFaceDetectEvent)initWithName:(id)name
 {
-  v18[6] = *MEMORY[0x29EDCA608];
-  v15.receiver = self;
-  v15.super_class = PearlCoreAnalyticsSecureFaceDetectEvent;
-  v3 = [(PearlCoreAnalyticsEvent *)&v15 initWithName:name];
+  v17[6] = *MEMORY[0x29EDCA608];
+  v14.receiver = self;
+  v14.super_class = PearlCoreAnalyticsSecureFaceDetectEvent;
+  v3 = [(PearlCoreAnalyticsEvent *)&v14 initWithName:name];
   v4 = v3;
   if (v3)
   {
     v5 = *MEMORY[0x29EDBFD98];
     v6 = *(&v3->super.super.super.isa + v5);
-    v18[0] = *MEMORY[0x29EDBFDB8];
-    v18[1] = @"sequenceStartDate";
-    v18[2] = @"sequenceEndDate";
-    v18[3] = @"sessionID";
-    v18[4] = @"timeout";
-    v18[5] = @"lastFeedback";
-    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v18 count:6];
+    v17[0] = *MEMORY[0x29EDBFDB8];
+    v17[1] = @"sequenceStartDate";
+    v17[2] = @"sequenceEndDate";
+    v17[3] = @"sessionID";
+    v17[4] = @"timeout";
+    v17[5] = @"lastFeedback";
+    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v17 count:6];
     v8 = [v6 arrayByAddingObjectsFromArray:v7];
     v9 = *(&v4->super.super.super.isa + v5);
     *(&v4->super.super.super.isa + v5) = v8;
 
-    v16 = @"secureFaceDetectTimeBounded";
-    v17 = 0x2A1E03978;
-    v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v15 = @"secureFaceDetectTimeBounded";
+    v16 = 0x2A1E03978;
+    v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
     v11 = *MEMORY[0x29EDBFD88];
     v12 = *(&v4->super.super.super.isa + v11);
     *(&v4->super.super.super.isa + v11) = v10;
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -109,15 +108,12 @@ LABEL_5:
 
 - (void)updateStatus
 {
-  v8 = *MEMORY[0x29EDCA608];
   if (OUTLINED_FUNCTION_16(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_15(&dword_296CA4000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_15(&dword_296CA4000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 - (BOOL)calculateAndCheckValues
@@ -303,7 +299,7 @@ LABEL_5:
 
 - (void)initWithName:(void *)a3 dictionary:(void *)a4 .cold.1(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   if (__osLog)
   {
     v8 = __osLog;
@@ -317,21 +313,20 @@ LABEL_5:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
-    v11 = &unk_296D32C0B;
+    v10 = &unk_296D32C0B;
     OUTLINED_FUNCTION_4();
-    v12 = 51;
-    _os_log_impl(&dword_296CA4000, v8, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v10, 0x30u);
+    v11 = 51;
+    _os_log_impl(&dword_296CA4000, v8, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v9, 0x30u);
   }
 
   *a4 = 0;
   *a3 = 0;
   *a2 = a1;
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 - (void)initWithName:(void *)a3 dictionary:(void *)a4 .cold.2(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   if (__osLog)
   {
     v10 = __osLog;
@@ -345,29 +340,25 @@ LABEL_5:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
-    v13 = &unk_296D32C0B;
+    v12 = &unk_296D32C0B;
     OUTLINED_FUNCTION_4();
-    v14 = 54;
-    _os_log_impl(&dword_296CA4000, v10, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v12, 0x30u);
+    v13 = 54;
+    _os_log_impl(&dword_296CA4000, v10, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v11, 0x30u);
   }
 
   *a5 = 0;
   *a4 = a2;
   *a3 = a1;
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 - (void)calculateAndCheckValues
 {
-  v8 = *MEMORY[0x29EDCA608];
   if (OUTLINED_FUNCTION_16(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_15(&dword_296CA4000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_15(&dword_296CA4000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 @end

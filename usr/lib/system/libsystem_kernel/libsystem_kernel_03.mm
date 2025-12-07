@@ -1,3 +1,1510 @@
+kern_return_t _host_page_size(host_t host, vm_size_t *out_page_size)
+{
+  v11 = 0;
+  v12 = 0uLL;
+  v13 = 0;
+  reply_port = mig_get_reply_port();
+  *&v10.msgh_bits = 0x1800001513;
+  *&v10.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v10.msgh_voucher_port = 0xCA00000000;
+  v5 = mach_msg2_internal(&v10, 0x200000003, 0x1800001513, __PAIR64__(reply_port, host), 0xCA00000000, (reply_port << 32), 0x34, 0);
+  v6 = v5;
+  if ((v5 - 268435458) > 0xE || ((1 << (v5 - 2)) & 0x4003) == 0)
+  {
+    if (v5)
+    {
+      mig_dealloc_reply_port(v10.msgh_local_port);
+      return v6;
+    }
+
+    if (v10.msgh_id == 71)
+    {
+      v6 = -308;
+    }
+
+    else if (v10.msgh_id == 302)
+    {
+      if ((v10.msgh_bits & 0x80000000) == 0)
+      {
+        if (v10.msgh_size == 44)
+        {
+          if (!v10.msgh_remote_port)
+          {
+            v6 = v12;
+            if (!v12)
+            {
+              *out_page_size = *(&v12 + 4);
+              return v6;
+            }
+
+            goto LABEL_23;
+          }
+        }
+
+        else if (v10.msgh_size == 36)
+        {
+          if (v10.msgh_remote_port)
+          {
+            v8 = 1;
+          }
+
+          else
+          {
+            v8 = v12 == 0;
+          }
+
+          if (v8)
+          {
+            v6 = -300;
+          }
+
+          else
+          {
+            v6 = v12;
+          }
+
+          goto LABEL_23;
+        }
+      }
+
+      v6 = -300;
+    }
+
+    else
+    {
+      v6 = -301;
+    }
+
+LABEL_23:
+    mach_msg_destroy(&v10);
+  }
+
+  return v6;
+}
+
+kern_return_t mach_memory_object_memory_entry(host_t host, BOOLean_t internal, vm_size_t size, vm_prot_t permission, memory_object_t pager, mach_port_t *entry_handle)
+{
+  v13 = 1;
+  v14 = pager;
+  v15 = 0x13000000000000;
+  v16 = NDR_record;
+  v17 = internal;
+  v18 = size;
+  v19 = permission;
+  reply_port = mig_get_reply_port();
+  *&v12.msgh_bits = 0x4080001513;
+  *&v12.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v12.msgh_voucher_port = 0xCB00000000;
+  v9 = mach_msg2_internal(&v12, 0x200000003, 0x4080001513, __PAIR64__(reply_port, host), 0xCB00000000, ((reply_port << 32) | 1), 0x30, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
+  {
+    if (!v9)
+    {
+      if (v12.msgh_id == 71)
+      {
+        v10 = -308;
+      }
+
+      else if (v12.msgh_id == 303)
+      {
+        if ((v12.msgh_bits & 0x80000000) == 0)
+        {
+          if (v12.msgh_size == 36)
+          {
+            v10 = -300;
+            if (v15)
+            {
+              if (v12.msgh_remote_port)
+              {
+                v10 = -300;
+              }
+
+              else
+              {
+                v10 = v15;
+              }
+            }
+          }
+
+          else
+          {
+            v10 = -300;
+          }
+
+          goto LABEL_20;
+        }
+
+        v10 = -300;
+        if (v13 == 1 && *&v12.msgh_size == 40 && HIWORD(v15) << 16 == 1114112)
+        {
+          v10 = 0;
+          *entry_handle = v14;
+          return v10;
+        }
+      }
+
+      else
+      {
+        v10 = -301;
+      }
+
+LABEL_20:
+      mach_msg_destroy(&v12);
+      return v10;
+    }
+
+    mig_dealloc_reply_port(v12.msgh_local_port);
+  }
+
+  return v10;
+}
+
+kern_return_t host_processor_info(host_t host, processor_flavor_t flavor, natural_t *out_processor_count, processor_info_array_t *out_processor_info, mach_msg_type_number_t *out_processor_infoCnt)
+{
+  v18 = 0u;
+  v17 = 0u;
+  *v16 = NDR_record;
+  *&v16[8] = flavor;
+  reply_port = mig_get_reply_port();
+  *&v15.msgh_bits = 0x2400001513;
+  *&v15.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v15.msgh_voucher_port = 0xCC00000000;
+  v10 = mach_msg2_internal(&v15, 0x200000003, 0x2400001513, __PAIR64__(reply_port, host), 0xCC00000000, (reply_port << 32), 0x44, 0);
+  v11 = v10;
+  if ((v10 - 268435458) > 0xE || ((1 << (v10 - 2)) & 0x4003) == 0)
+  {
+    if (!v10)
+    {
+      if (v15.msgh_id == 71)
+      {
+        v11 = -308;
+      }
+
+      else if (v15.msgh_id == 304)
+      {
+        if ((v15.msgh_bits & 0x80000000) != 0)
+        {
+          v11 = -300;
+          if (*v16 == 1 && v15.msgh_size == 60 && !v15.msgh_remote_port && BYTE3(v17) == 1)
+          {
+            v13 = DWORD1(v17) >> 2;
+            if (DWORD1(v17) >> 2 == DWORD1(v18))
+            {
+              v11 = 0;
+              *out_processor_count = v18;
+              *out_processor_info = *&v16[4];
+              *out_processor_infoCnt = v13;
+              return v11;
+            }
+          }
+        }
+
+        else if (v15.msgh_size == 36)
+        {
+          v11 = -300;
+          if (*&v16[8])
+          {
+            if (v15.msgh_remote_port)
+            {
+              v11 = -300;
+            }
+
+            else
+            {
+              v11 = *&v16[8];
+            }
+          }
+        }
+
+        else
+        {
+          v11 = -300;
+        }
+      }
+
+      else
+      {
+        v11 = -301;
+      }
+
+      mach_msg_destroy(&v15);
+      return v11;
+    }
+
+    mig_dealloc_reply_port(v15.msgh_local_port);
+  }
+
+  return v11;
+}
+
+kern_return_t kmod_get_info(host_t host, kmod_args_t *modules, mach_msg_type_number_t *modulesCnt)
+{
+  v15 = 0;
+  v14 = 0u;
+  v13 = 0u;
+  reply_port = mig_get_reply_port();
+  *&v12.msgh_bits = 0x1800001513;
+  *&v12.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v12.msgh_voucher_port = 0xCF00000000;
+  v7 = mach_msg2_internal(&v12, 0x200000003, 0x1800001513, __PAIR64__(reply_port, host), 0xCF00000000, (reply_port << 32), 0x40, 0);
+  v8 = v7;
+  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
+  {
+    if (!v7)
+    {
+      if (v12.msgh_id == 71)
+      {
+        v8 = -308;
+      }
+
+      else if (v12.msgh_id == 307)
+      {
+        if ((v12.msgh_bits & 0x80000000) != 0)
+        {
+          v8 = -300;
+          if (v13 == 1 && *&v12.msgh_size == 56 && HIBYTE(v13) == 1)
+          {
+            v10 = v14;
+            if (v14 == HIDWORD(v14))
+            {
+              v8 = 0;
+              *modules = *(&v13 + 4);
+              *modulesCnt = v10;
+              return v8;
+            }
+          }
+        }
+
+        else if (v12.msgh_size == 36)
+        {
+          v8 = -300;
+          if (DWORD2(v13))
+          {
+            if (v12.msgh_remote_port)
+            {
+              v8 = -300;
+            }
+
+            else
+            {
+              v8 = DWORD2(v13);
+            }
+          }
+        }
+
+        else
+        {
+          v8 = -300;
+        }
+      }
+
+      else
+      {
+        v8 = -301;
+      }
+
+      mach_msg_destroy(&v12);
+      return v8;
+    }
+
+    mig_dealloc_reply_port(v12.msgh_local_port);
+  }
+
+  return v8;
+}
+
+kern_return_t host_virtual_physical_table_info(host_t host, hash_info_bucket_array_t *info, mach_msg_type_number_t *infoCnt)
+{
+  v15 = 0;
+  v14 = 0u;
+  v13 = 0u;
+  reply_port = mig_get_reply_port();
+  *&v12.msgh_bits = 0x1800001513;
+  *&v12.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v12.msgh_voucher_port = 0xD100000000;
+  v7 = mach_msg2_internal(&v12, 0x200000003, 0x1800001513, __PAIR64__(reply_port, host), 0xD100000000, (reply_port << 32), 0x40, 0);
+  v8 = v7;
+  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
+  {
+    if (!v7)
+    {
+      if (v12.msgh_id == 71)
+      {
+        v8 = -308;
+      }
+
+      else if (v12.msgh_id == 309)
+      {
+        if ((v12.msgh_bits & 0x80000000) != 0)
+        {
+          v8 = -300;
+          if (v13 == 1 && *&v12.msgh_size == 56 && HIBYTE(v13) == 1)
+          {
+            v10 = v14 >> 2;
+            if (v14 >> 2 == HIDWORD(v14))
+            {
+              v8 = 0;
+              *info = *(&v13 + 4);
+              *infoCnt = v10;
+              return v8;
+            }
+          }
+        }
+
+        else if (v12.msgh_size == 36)
+        {
+          v8 = -300;
+          if (DWORD2(v13))
+          {
+            if (v12.msgh_remote_port)
+            {
+              v8 = -300;
+            }
+
+            else
+            {
+              v8 = DWORD2(v13);
+            }
+          }
+        }
+
+        else
+        {
+          v8 = -300;
+        }
+      }
+
+      else
+      {
+        v8 = -301;
+      }
+
+      mach_msg_destroy(&v12);
+      return v8;
+    }
+
+    mig_dealloc_reply_port(v12.msgh_local_port);
+  }
+
+  return v8;
+}
+
+kern_return_t processor_set_default(host_t host, processor_set_name_t *default_set)
+{
+  v10 = 0;
+  v11 = 0;
+  v12 = 0;
+  reply_port = mig_get_reply_port();
+  *&v9.msgh_bits = 0x1800001513;
+  *&v9.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v9.msgh_voucher_port = 0xD500000000;
+  v5 = mach_msg2_internal(&v9, 0x200000003, 0x1800001513, __PAIR64__(reply_port, host), 0xD500000000, (reply_port << 32), 0x30, 0);
+  v6 = v5;
+  if ((v5 - 268435458) > 0xE || ((1 << (v5 - 2)) & 0x4003) == 0)
+  {
+    if (!v5)
+    {
+      if (v9.msgh_id == 71)
+      {
+        v6 = -308;
+      }
+
+      else if (v9.msgh_id == 313)
+      {
+        if ((v9.msgh_bits & 0x80000000) != 0)
+        {
+          v6 = -300;
+          if (v10 == 1 && *&v9.msgh_size == 40 && HIWORD(v11) << 16 == 1114112)
+          {
+            v6 = 0;
+            *default_set = HIDWORD(v10);
+            return v6;
+          }
+        }
+
+        else if (v9.msgh_size == 36)
+        {
+          v6 = -300;
+          if (v11)
+          {
+            if (v9.msgh_remote_port)
+            {
+              v6 = -300;
+            }
+
+            else
+            {
+              v6 = v11;
+            }
+          }
+        }
+
+        else
+        {
+          v6 = -300;
+        }
+      }
+
+      else
+      {
+        v6 = -301;
+      }
+
+      mach_msg_destroy(&v9);
+      return v6;
+    }
+
+    mig_dealloc_reply_port(v9.msgh_local_port);
+  }
+
+  return v6;
+}
+
+kern_return_t processor_set_create(host_t host, processor_set_t *new_set, processor_set_name_t *new_name)
+{
+  v15 = 0;
+  v14 = 0u;
+  v13 = 0u;
+  reply_port = mig_get_reply_port();
+  *&v12.msgh_bits = 0x1800001513;
+  *&v12.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v12.msgh_voucher_port = 0xD600000000;
+  v7 = mach_msg2_internal(&v12, 0x200000003, 0x1800001513, __PAIR64__(reply_port, host), 0xD600000000, (reply_port << 32), 0x3C, 0);
+  v8 = v7;
+  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
+  {
+    if (!v7)
+    {
+      if (v12.msgh_id == 71)
+      {
+        v8 = -308;
+      }
+
+      else if (v12.msgh_id == 314)
+      {
+        if ((v12.msgh_bits & 0x80000000) != 0)
+        {
+          v8 = -300;
+          if (v13 == 2 && *&v12.msgh_size == 52 && HIWORD(v13) << 16 == 1114112 && WORD5(v14) << 16 == 1114112)
+          {
+            v8 = 0;
+            v10 = v14;
+            *new_set = DWORD1(v13);
+            *new_name = v10;
+            return v8;
+          }
+        }
+
+        else if (v12.msgh_size == 36)
+        {
+          v8 = -300;
+          if (DWORD2(v13))
+          {
+            if (v12.msgh_remote_port)
+            {
+              v8 = -300;
+            }
+
+            else
+            {
+              v8 = DWORD2(v13);
+            }
+          }
+        }
+
+        else
+        {
+          v8 = -300;
+        }
+      }
+
+      else
+      {
+        v8 = -301;
+      }
+
+      mach_msg_destroy(&v12);
+      return v8;
+    }
+
+    mig_dealloc_reply_port(v12.msgh_local_port);
+  }
+
+  return v8;
+}
+
+kern_return_t mach_memory_object_memory_entry_64(host_t host, BOOLean_t internal, memory_object_size_t size, vm_prot_t permission, memory_object_t pager, mach_port_t *entry_handle)
+{
+  v13 = 1;
+  v14 = pager;
+  v15 = 0x13000000000000;
+  v16 = NDR_record;
+  v17 = internal;
+  v18 = size;
+  v19 = permission;
+  reply_port = mig_get_reply_port();
+  *&v12.msgh_bits = 0x4080001513;
+  *&v12.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v12.msgh_voucher_port = 0xD700000000;
+  v9 = mach_msg2_internal(&v12, 0x200000003, 0x4080001513, __PAIR64__(reply_port, host), 0xD700000000, ((reply_port << 32) | 1), 0x30, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
+  {
+    if (!v9)
+    {
+      if (v12.msgh_id == 71)
+      {
+        v10 = -308;
+      }
+
+      else if (v12.msgh_id == 315)
+      {
+        if ((v12.msgh_bits & 0x80000000) == 0)
+        {
+          if (v12.msgh_size == 36)
+          {
+            v10 = -300;
+            if (v15)
+            {
+              if (v12.msgh_remote_port)
+              {
+                v10 = -300;
+              }
+
+              else
+              {
+                v10 = v15;
+              }
+            }
+          }
+
+          else
+          {
+            v10 = -300;
+          }
+
+          goto LABEL_20;
+        }
+
+        v10 = -300;
+        if (v13 == 1 && *&v12.msgh_size == 40 && HIWORD(v15) << 16 == 1114112)
+        {
+          v10 = 0;
+          *entry_handle = v14;
+          return v10;
+        }
+      }
+
+      else
+      {
+        v10 = -301;
+      }
+
+LABEL_20:
+      mach_msg_destroy(&v12);
+      return v10;
+    }
+
+    mig_dealloc_reply_port(v12.msgh_local_port);
+  }
+
+  return v10;
+}
+
+kern_return_t host_lockgroup_info(host_t host, lockgroup_info_array_t *lockgroup_info, mach_msg_type_number_t *lockgroup_infoCnt)
+{
+  v15 = 0;
+  v14 = 0u;
+  v13 = 0u;
+  reply_port = mig_get_reply_port();
+  *&v12.msgh_bits = 0x1800001513;
+  *&v12.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v12.msgh_voucher_port = 0xDA00000000;
+  v7 = mach_msg2_internal(&v12, 0x200000003, 0x1800001513, __PAIR64__(reply_port, host), 0xDA00000000, (reply_port << 32), 0x40, 0);
+  v8 = v7;
+  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
+  {
+    if (!v7)
+    {
+      if (v12.msgh_id == 71)
+      {
+        v8 = -308;
+      }
+
+      else if (v12.msgh_id == 318)
+      {
+        if ((v12.msgh_bits & 0x80000000) != 0)
+        {
+          v8 = -300;
+          if (v13 == 1 && *&v12.msgh_size == 56 && HIBYTE(v13) == 1)
+          {
+            v10 = v14 / 0x108;
+            if (v14 / 0x108 == HIDWORD(v14))
+            {
+              v8 = 0;
+              *lockgroup_info = *(&v13 + 4);
+              *lockgroup_infoCnt = v10;
+              return v8;
+            }
+          }
+        }
+
+        else if (v12.msgh_size == 36)
+        {
+          v8 = -300;
+          if (DWORD2(v13))
+          {
+            if (v12.msgh_remote_port)
+            {
+              v8 = -300;
+            }
+
+            else
+            {
+              v8 = DWORD2(v13);
+            }
+          }
+        }
+
+        else
+        {
+          v8 = -300;
+        }
+      }
+
+      else
+      {
+        v8 = -301;
+      }
+
+      mach_msg_destroy(&v12);
+      return v8;
+    }
+
+    mig_dealloc_reply_port(v12.msgh_local_port);
+  }
+
+  return v8;
+}
+
+kern_return_t mach_zone_info(mach_port_t host, mach_zone_name_array_t *names, mach_msg_type_number_t *namesCnt, mach_zone_info_array_t *info, mach_msg_type_number_t *infoCnt)
+{
+  v19 = 0u;
+  memset(v20, 0, sizeof(v20));
+  v18 = 0u;
+  reply_port = mig_get_reply_port();
+  *&v17.msgh_bits = 0x1800001513;
+  *&v17.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v17.msgh_voucher_port = 0xDC00000000;
+  v11 = mach_msg2_internal(&v17, 0x200000003, 0x1800001513, __PAIR64__(reply_port, host), 0xDC00000000, (reply_port << 32), 0x54, 0);
+  v12 = v11;
+  if ((v11 - 268435458) > 0xE || ((1 << (v11 - 2)) & 0x4003) == 0)
+  {
+    if (!v11)
+    {
+      if (v17.msgh_id == 71)
+      {
+        v12 = -308;
+      }
+
+      else if (v17.msgh_id == 320)
+      {
+        if ((v17.msgh_bits & 0x80000000) != 0)
+        {
+          v12 = -300;
+          if (v18 == 2 && v17.msgh_size == 76 && !v17.msgh_remote_port && HIBYTE(v18) == 1 && HIBYTE(v19) == 1)
+          {
+            v14 = v19 / 0x50;
+            if (v19 / 0x50 == v20[3])
+            {
+              v15 = v20[0] >> 6;
+              if (v20[0] >> 6 == v20[4])
+              {
+                v12 = 0;
+                *names = *(&v18 + 4);
+                *namesCnt = v14;
+                *info = *(&v19 + 4);
+                *infoCnt = v15;
+                return v12;
+              }
+            }
+          }
+        }
+
+        else if (v17.msgh_size == 36)
+        {
+          v12 = -300;
+          if (DWORD2(v18))
+          {
+            if (v17.msgh_remote_port)
+            {
+              v12 = -300;
+            }
+
+            else
+            {
+              v12 = DWORD2(v18);
+            }
+          }
+        }
+
+        else
+        {
+          v12 = -300;
+        }
+      }
+
+      else
+      {
+        v12 = -301;
+      }
+
+      mach_msg_destroy(&v17);
+      return v12;
+    }
+
+    mig_dealloc_reply_port(v17.msgh_local_port);
+  }
+
+  return v12;
+}
+
+uint64_t mach_zone_force_gc(unsigned int a1)
+{
+  v8 = 0;
+  v9 = 0;
+  v10 = 0;
+  reply_port = mig_get_reply_port();
+  *&v7.msgh_bits = 0x1800001513;
+  *&v7.msgh_remote_port = __PAIR64__(reply_port, a1);
+  *&v7.msgh_voucher_port = 0xDD00000000;
+  v3 = mach_msg2_internal(&v7, 0x200000003, 0x1800001513, __PAIR64__(reply_port, a1), 0xDD00000000, (reply_port << 32), 0x2C, 0);
+  v4 = v3;
+  if ((v3 - 268435458) > 0xE || ((1 << (v3 - 2)) & 0x4003) == 0)
+  {
+    if (v3)
+    {
+      mig_dealloc_reply_port(v7.msgh_local_port);
+      return v4;
+    }
+
+    if (v7.msgh_id == 71)
+    {
+      v4 = 4294966988;
+    }
+
+    else if (v7.msgh_id == 321)
+    {
+      v4 = 4294966996;
+      if ((v7.msgh_bits & 0x80000000) == 0 && *&v7.msgh_size == 36)
+      {
+        v4 = v9;
+        if (!v9)
+        {
+          return v4;
+        }
+      }
+    }
+
+    else
+    {
+      v4 = 4294966995;
+    }
+
+    mach_msg_destroy(&v7);
+  }
+
+  return v4;
+}
+
+uint64_t _kernelrpc_host_create_mach_voucher(unsigned int a1, const void *a2, size_t __n, _DWORD *a4)
+{
+  v13 = NDR_record;
+  if (__n > 0x1400)
+  {
+    return 4294966989;
+  }
+
+  v6 = __n;
+  memset(v15, 0, 476);
+  memmove(v15, a2, __n);
+  v14 = v6;
+  v8 = ((v6 + 3) & 0x3FFCu) + 36;
+  reply_port = mig_get_reply_port();
+  v12.msgh_bits = 5395;
+  v12.msgh_size = v8;
+  *&v12.msgh_remote_port = __PAIR64__(reply_port, a1);
+  *&v12.msgh_voucher_port = 0xDE00000000;
+  v10 = mach_msg2_internal(&v12, 0x200000003, ((((v8 >> 2) & 0x1FFF) << 34) | 0x1513), __PAIR64__(reply_port, a1), 0xDE00000000, (reply_port << 32), 0x30, 0);
+  v4 = v10;
+  if ((v10 - 268435458) > 0xE || ((1 << (v10 - 2)) & 0x4003) == 0)
+  {
+    if (!v10)
+    {
+      if (v12.msgh_id == 71)
+      {
+        v4 = 4294966988;
+      }
+
+      else if (v12.msgh_id == 322)
+      {
+        if ((v12.msgh_bits & 0x80000000) != 0)
+        {
+          v4 = 4294966996;
+          if (*&v13.mig_vers == 1 && v12.msgh_size == 40 && !v12.msgh_remote_port && WORD1(v15[0]) << 16 == 1114112)
+          {
+            v4 = 0;
+            *a4 = *&v13.int_rep;
+            return v4;
+          }
+        }
+
+        else if (v12.msgh_size == 36)
+        {
+          v4 = 4294966996;
+          if (v14)
+          {
+            if (v12.msgh_remote_port)
+            {
+              v4 = 4294966996;
+            }
+
+            else
+            {
+              v4 = v14;
+            }
+          }
+        }
+
+        else
+        {
+          v4 = 4294966996;
+        }
+      }
+
+      else
+      {
+        v4 = 4294966995;
+      }
+
+      mach_msg_destroy(&v12);
+      return v4;
+    }
+
+    mig_dealloc_reply_port(v12.msgh_local_port);
+  }
+
+  return v4;
+}
+
+kern_return_t host_register_mach_voucher_attr_manager(host_t host, mach_voucher_attr_manager_t attr_manager, mach_voucher_attr_value_handle_t default_value, mach_voucher_attr_key_t *new_key, ipc_voucher_attr_control_t *new_attr_control)
+{
+  v14 = 1;
+  v15 = attr_manager;
+  v16 = 0x13000000000000;
+  v17 = NDR_record;
+  v19 = 0;
+  v18 = default_value;
+  reply_port = mig_get_reply_port();
+  *&v13.msgh_bits = 0x3880001513;
+  *&v13.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v13.msgh_voucher_port = 0xDF00000000;
+  v9 = mach_msg2_internal(&v13, 0x200000003, 0x3880001513, __PAIR64__(reply_port, host), 0xDF00000000, ((reply_port << 32) | 1), 0x3C, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
+  {
+    if (!v9)
+    {
+      if (v13.msgh_id == 71)
+      {
+        v10 = -308;
+      }
+
+      else if (v13.msgh_id == 323)
+      {
+        if ((v13.msgh_bits & 0x80000000) == 0)
+        {
+          if (v13.msgh_size == 36)
+          {
+            v10 = -300;
+            if (v16)
+            {
+              if (v13.msgh_remote_port)
+              {
+                v10 = -300;
+              }
+
+              else
+              {
+                v10 = v16;
+              }
+            }
+          }
+
+          else
+          {
+            v10 = -300;
+          }
+
+          goto LABEL_20;
+        }
+
+        v10 = -300;
+        if (v14 == 1 && *&v13.msgh_size == 52 && HIWORD(v16) << 16 == 1114112)
+        {
+          v10 = 0;
+          v11 = v15;
+          *new_key = v18;
+          *new_attr_control = v11;
+          return v10;
+        }
+      }
+
+      else
+      {
+        v10 = -301;
+      }
+
+LABEL_20:
+      mach_msg_destroy(&v13);
+      return v10;
+    }
+
+    mig_dealloc_reply_port(v13.msgh_local_port);
+  }
+
+  return v10;
+}
+
+kern_return_t host_register_well_known_mach_voucher_attr_manager(host_t host, mach_voucher_attr_manager_t attr_manager, mach_voucher_attr_value_handle_t default_value, mach_voucher_attr_key_t key, ipc_voucher_attr_control_t *new_attr_control)
+{
+  v12 = 1;
+  v13 = attr_manager;
+  v14 = 0x13000000000000;
+  v15 = NDR_record;
+  v16 = default_value;
+  v17 = key;
+  reply_port = mig_get_reply_port();
+  *&v11.msgh_bits = 0x3C80001513;
+  *&v11.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v11.msgh_voucher_port = 0xE000000000;
+  v8 = mach_msg2_internal(&v11, 0x200000003, 0x3C80001513, __PAIR64__(reply_port, host), 0xE000000000, ((reply_port << 32) | 1), 0x30, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
+  {
+    if (!v8)
+    {
+      if (v11.msgh_id == 71)
+      {
+        v9 = -308;
+      }
+
+      else if (v11.msgh_id == 324)
+      {
+        if ((v11.msgh_bits & 0x80000000) == 0)
+        {
+          if (v11.msgh_size == 36)
+          {
+            v9 = -300;
+            if (v14)
+            {
+              if (v11.msgh_remote_port)
+              {
+                v9 = -300;
+              }
+
+              else
+              {
+                v9 = v14;
+              }
+            }
+          }
+
+          else
+          {
+            v9 = -300;
+          }
+
+          goto LABEL_20;
+        }
+
+        v9 = -300;
+        if (v12 == 1 && *&v11.msgh_size == 40 && HIWORD(v14) << 16 == 1114112)
+        {
+          v9 = 0;
+          *new_attr_control = v13;
+          return v9;
+        }
+      }
+
+      else
+      {
+        v9 = -301;
+      }
+
+LABEL_20:
+      mach_msg_destroy(&v11);
+      return v9;
+    }
+
+    mig_dealloc_reply_port(v11.msgh_local_port);
+  }
+
+  return v9;
+}
+
+kern_return_t host_set_atm_diagnostic_flag(host_t host, uint32_t diagnostic_flag)
+{
+  v11 = 0;
+  v9 = NDR_record;
+  v10 = diagnostic_flag;
+  reply_port = mig_get_reply_port();
+  *&v8.msgh_bits = 0x2400001513;
+  *&v8.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v8.msgh_voucher_port = 0xE100000000;
+  v4 = mach_msg2_internal(&v8, 0x200000003, 0x2400001513, __PAIR64__(reply_port, host), 0xE100000000, (reply_port << 32), 0x2C, 0);
+  v5 = v4;
+  if ((v4 - 268435458) > 0xE || ((1 << (v4 - 2)) & 0x4003) == 0)
+  {
+    if (v4)
+    {
+      mig_dealloc_reply_port(v8.msgh_local_port);
+      return v5;
+    }
+
+    if (v8.msgh_id == 71)
+    {
+      v5 = -308;
+    }
+
+    else if (v8.msgh_id == 325)
+    {
+      v5 = -300;
+      if ((v8.msgh_bits & 0x80000000) == 0 && *&v8.msgh_size == 36)
+      {
+        v5 = v10;
+        if (!v10)
+        {
+          return v5;
+        }
+      }
+    }
+
+    else
+    {
+      v5 = -301;
+    }
+
+    mach_msg_destroy(&v8);
+  }
+
+  return v5;
+}
+
+kern_return_t mach_memory_info(mach_port_t host, mach_zone_name_array_t *names, mach_msg_type_number_t *namesCnt, mach_zone_info_array_t *info, mach_msg_type_number_t *infoCnt, mach_memory_info_array_t *memory_info, mach_msg_type_number_t *memory_infoCnt)
+{
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v23 = 0u;
+  reply_port = mig_get_reply_port();
+  *&v22.msgh_bits = 0x1800001513;
+  *&v22.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v22.msgh_voucher_port = 0xE300000000;
+  v15 = mach_msg2_internal(&v22, 0x200000003, 0x1800001513, __PAIR64__(reply_port, host), 0xE300000000, (reply_port << 32), 0x68, 0);
+  v16 = v15;
+  if ((v15 - 268435458) > 0xE || ((1 << (v15 - 2)) & 0x4003) == 0)
+  {
+    if (!v15)
+    {
+      if (v22.msgh_id == 71)
+      {
+        v16 = -308;
+      }
+
+      else if (v22.msgh_id == 327)
+      {
+        if ((v22.msgh_bits & 0x80000000) != 0)
+        {
+          v16 = -300;
+          if (v23 == 3 && v22.msgh_size == 96 && !v22.msgh_remote_port && HIBYTE(v23) == 1 && HIBYTE(v24) == 1 && HIBYTE(v25) == 1)
+          {
+            v18 = v24 / 0x50;
+            if (v24 / 0x50 == HIDWORD(v26))
+            {
+              v19 = v25 >> 6;
+              if (v25 >> 6 == v27)
+              {
+                v20 = v26 / 0xB0;
+                if (v26 / 0xB0 == DWORD1(v27))
+                {
+                  v16 = 0;
+                  *names = *(&v23 + 4);
+                  *namesCnt = v18;
+                  *info = *(&v24 + 4);
+                  *infoCnt = v19;
+                  *memory_info = *(&v25 + 4);
+                  *memory_infoCnt = v20;
+                  return v16;
+                }
+              }
+            }
+          }
+        }
+
+        else if (v22.msgh_size == 36)
+        {
+          v16 = -300;
+          if (DWORD2(v23))
+          {
+            if (v22.msgh_remote_port)
+            {
+              v16 = -300;
+            }
+
+            else
+            {
+              v16 = DWORD2(v23);
+            }
+          }
+        }
+
+        else
+        {
+          v16 = -300;
+        }
+      }
+
+      else
+      {
+        v16 = -301;
+      }
+
+      mach_msg_destroy(&v22);
+      return v16;
+    }
+
+    mig_dealloc_reply_port(v22.msgh_local_port);
+  }
+
+  return v16;
+}
+
+kern_return_t host_set_multiuser_config_flags(host_priv_t host_priv, uint32_t multiuser_flags)
+{
+  v11 = 0;
+  v9 = NDR_record;
+  v10 = multiuser_flags;
+  reply_port = mig_get_reply_port();
+  *&v8.msgh_bits = 0x2400001513;
+  *&v8.msgh_remote_port = __PAIR64__(reply_port, host_priv);
+  *&v8.msgh_voucher_port = 0xE400000000;
+  v4 = mach_msg2_internal(&v8, 0x200000003, 0x2400001513, __PAIR64__(reply_port, host_priv), 0xE400000000, (reply_port << 32), 0x2C, 0);
+  v5 = v4;
+  if ((v4 - 268435458) > 0xE || ((1 << (v4 - 2)) & 0x4003) == 0)
+  {
+    if (v4)
+    {
+      mig_dealloc_reply_port(v8.msgh_local_port);
+      return v5;
+    }
+
+    if (v8.msgh_id == 71)
+    {
+      v5 = -308;
+    }
+
+    else if (v8.msgh_id == 328)
+    {
+      v5 = -300;
+      if ((v8.msgh_bits & 0x80000000) == 0 && *&v8.msgh_size == 36)
+      {
+        v5 = v10;
+        if (!v10)
+        {
+          return v5;
+        }
+      }
+    }
+
+    else
+    {
+      v5 = -301;
+    }
+
+    mach_msg_destroy(&v8);
+  }
+
+  return v5;
+}
+
+kern_return_t mach_zone_info_for_zone(host_priv_t host, mach_zone_name_t *name, mach_zone_info_t *info)
+{
+  v15 = NDR_record;
+  v5 = *&name->mzn_name[48];
+  *&v16[32] = *&name->mzn_name[32];
+  *&v16[48] = v5;
+  *&v16[64] = *&name->mzn_name[64];
+  v6 = *&name->mzn_name[16];
+  *v16 = *name->mzn_name;
+  *&v16[16] = v6;
+  reply_port = mig_get_reply_port();
+  *&v14.msgh_bits = 0x7000001513;
+  *&v14.msgh_remote_port = __PAIR64__(reply_port, host);
+  *&v14.msgh_voucher_port = 0xE700000000;
+  v8 = mach_msg2_internal(&v14, 0x200000003, 0x7000001513, __PAIR64__(reply_port, host), 0xE700000000, (reply_port << 32), 0x6C, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
+  {
+    if (!v8)
+    {
+      if (v14.msgh_id == 71)
+      {
+        v9 = -308;
+      }
+
+      else if (v14.msgh_id == 331)
+      {
+        if ((v14.msgh_bits & 0x80000000) == 0)
+        {
+          if (v14.msgh_size == 100)
+          {
+            if (!v14.msgh_remote_port)
+            {
+              v9 = *v16;
+              if (!*v16)
+              {
+                v12 = *&v16[20];
+                *&info->mzi_count = *&v16[4];
+                *&info->mzi_max_size = v12;
+                v13 = *&v16[52];
+                *&info->mzi_alloc_size = *&v16[36];
+                *&info->mzi_exhaustible = v13;
+                return v9;
+              }
+
+              goto LABEL_20;
+            }
+          }
+
+          else if (v14.msgh_size == 36)
+          {
+            if (v14.msgh_remote_port)
+            {
+              v10 = 1;
+            }
+
+            else
+            {
+              v10 = *v16 == 0;
+            }
+
+            if (v10)
+            {
+              v9 = -300;
+            }
+
+            else
+            {
+              v9 = *v16;
+            }
+
+            goto LABEL_20;
+          }
+        }
+
+        v9 = -300;
+      }
+
+      else
+      {
+        v9 = -301;
+      }
+
+LABEL_20:
+      mach_msg_destroy(&v14);
+      return v9;
+    }
+
+    mig_dealloc_reply_port(v14.msgh_local_port);
+  }
+
+  return v9;
+}
+
+uint64_t mach_zone_info_for_largest_zone(unsigned int a1, _OWORD *a2, _OWORD *a3)
+{
+  v16 = 0;
+  memset(&v15[24], 0, 160);
+  reply_port = mig_get_reply_port();
+  *v15 = 0x1800001513;
+  *&v15[8] = __PAIR64__(reply_port, a1);
+  *&v15[16] = 0xE800000000;
+  v7 = mach_msg2_internal(v15, 0x200000003, 0x1800001513, __PAIR64__(reply_port, a1), 0xE800000000, (reply_port << 32), 0xBC, 0);
+  v8 = v7;
+  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
+  {
+    if (!v7)
+    {
+      if (*&v15[20] == 71)
+      {
+        v8 = 4294966988;
+      }
+
+      else if (*&v15[20] == 332)
+      {
+        if ((*v15 & 0x80000000) == 0)
+        {
+          if (*&v15[4] == 180)
+          {
+            if (!*&v15[8])
+            {
+              v8 = *&v15[32];
+              if (!*&v15[32])
+              {
+                v11 = *&v15[52];
+                v12 = *&v15[84];
+                a2[2] = *&v15[68];
+                a2[3] = v12;
+                a2[4] = *&v15[100];
+                *a2 = *&v15[36];
+                a2[1] = v11;
+                v13 = *&v15[164];
+                a3[2] = *&v15[148];
+                a3[3] = v13;
+                v14 = *&v15[132];
+                *a3 = *&v15[116];
+                a3[1] = v14;
+                return v8;
+              }
+
+              goto LABEL_20;
+            }
+          }
+
+          else if (*&v15[4] == 36)
+          {
+            if (*&v15[8])
+            {
+              v9 = 1;
+            }
+
+            else
+            {
+              v9 = *&v15[32] == 0;
+            }
+
+            if (v9)
+            {
+              v8 = 4294966996;
+            }
+
+            else
+            {
+              v8 = *&v15[32];
+            }
+
+            goto LABEL_20;
+          }
+        }
+
+        v8 = 4294966996;
+      }
+
+      else
+      {
+        v8 = 4294966995;
+      }
+
+LABEL_20:
+      mach_msg_destroy(v15);
+      return v8;
+    }
+
+    mig_dealloc_reply_port(*&v15[12]);
+  }
+
+  return v8;
+}
+
+uint64_t mach_zone_get_zlog_zones(unsigned int a1, void *a2, unsigned int *a3)
+{
+  v15 = 0;
+  v14 = 0u;
+  v13 = 0u;
+  reply_port = mig_get_reply_port();
+  *&v12.msgh_bits = 0x1800001513;
+  *&v12.msgh_remote_port = __PAIR64__(reply_port, a1);
+  *&v12.msgh_voucher_port = 0xE900000000;
+  v7 = mach_msg2_internal(&v12, 0x200000003, 0x1800001513, __PAIR64__(reply_port, a1), 0xE900000000, (reply_port << 32), 0x40, 0);
+  v8 = v7;
+  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
+  {
+    if (!v7)
+    {
+      if (v12.msgh_id == 71)
+      {
+        v8 = 4294966988;
+      }
+
+      else if (v12.msgh_id == 333)
+      {
+        if ((v12.msgh_bits & 0x80000000) != 0)
+        {
+          v8 = 4294966996;
+          if (v13 == 1 && *&v12.msgh_size == 56 && HIBYTE(v13) == 1)
+          {
+            v10 = v14 / 0x50;
+            if (v14 / 0x50 == HIDWORD(v14))
+            {
+              v8 = 0;
+              *a2 = *(&v13 + 4);
+              *a3 = v10;
+              return v8;
+            }
+          }
+        }
+
+        else if (v12.msgh_size == 36)
+        {
+          v8 = 4294966996;
+          if (DWORD2(v13))
+          {
+            if (v12.msgh_remote_port)
+            {
+              v8 = 4294966996;
+            }
+
+            else
+            {
+              v8 = DWORD2(v13);
+            }
+          }
+        }
+
+        else
+        {
+          v8 = 4294966996;
+        }
+      }
+
+      else
+      {
+        v8 = 4294966995;
+      }
+
+      mach_msg_destroy(&v12);
+      return v8;
+    }
+
+    mig_dealloc_reply_port(v12.msgh_local_port);
+  }
+
+  return v8;
+}
+
 uint64_t mach_zone_get_btlog_records(unsigned int a1, _OWORD *a2, void *a3, _DWORD *a4)
 {
   *v15 = NDR_record;

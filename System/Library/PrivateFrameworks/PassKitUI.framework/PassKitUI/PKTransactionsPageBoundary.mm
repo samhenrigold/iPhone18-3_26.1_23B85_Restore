@@ -7,35 +7,35 @@
 
 - (_TtC9PassKitUI26PKTransactionsPageBoundary)initWithDate:(id)date identifier:(id)identifier
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBD39970);
-  MEMORY[0x1EEE9AC00](v6 - 8, v7);
-  v9 = &v16 - v8;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBD39970, &unk_1BE0B9F80);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v15 - v7;
   if (date)
   {
     sub_1BE04AEE4();
-    v10 = sub_1BE04AF64();
-    (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
+    v9 = sub_1BE04AF64();
+    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
   }
 
   else
   {
-    v11 = sub_1BE04AF64();
-    (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
+    v10 = sub_1BE04AF64();
+    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
   }
 
   if (identifier)
   {
-    v12 = sub_1BE052434();
-    v14 = v13;
+    v11 = sub_1BE052434();
+    v13 = v12;
   }
 
   else
   {
-    v12 = 0;
-    v14 = 0;
+    v11 = 0;
+    v13 = 0;
   }
 
-  return PKTransactionsPageBoundary.init(date:identifier:)(v9, v12, v14);
+  return PKTransactionsPageBoundary.init(date:identifier:)(v8, v11, v13);
 }
 
 - (_TtC9PassKitUI26PKTransactionsPageBoundary)init

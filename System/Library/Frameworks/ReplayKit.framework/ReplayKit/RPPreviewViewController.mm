@@ -5,9 +5,56 @@
 - (id)previewControllerDelegate;
 - (void)extensionDidFinishWithActivityTypes:(id)types;
 - (void)videoEditor:(id)editor didFinishWithActivityTypes:(id)types;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation RPPreviewViewController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = RPPreviewViewController;
+  [(RPPreviewViewController *)&v7 viewWillAppear:appear];
+  v4 = +[RPScreenRecorder sharedRecorder];
+  [v4 setWindowRotationLocked:1];
+
+  mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
+  -[RPPreviewViewController setWasStatusBarHidden:](self, "setWasStatusBarHidden:", [mEMORY[0x277D75128] isStatusBarHidden]);
+
+  mEMORY[0x277D75128]2 = [MEMORY[0x277D75128] sharedApplication];
+  [mEMORY[0x277D75128]2 setStatusBarHidden:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = RPPreviewViewController;
+  [(RPPreviewViewController *)&v3 viewDidAppear:appear];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  wasStatusBarHidden = [(RPPreviewViewController *)self wasStatusBarHidden];
+  mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
+  [mEMORY[0x277D75128] setStatusBarHidden:wasStatusBarHidden];
+
+  v7.receiver = self;
+  v7.super_class = RPPreviewViewController;
+  [(RPPreviewViewController *)&v7 viewWillDisappear:disappearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = RPPreviewViewController;
+  [(RPPreviewViewController *)&v4 viewDidDisappear:disappear];
+  v3 = +[RPScreenRecorder sharedRecorder];
+  [v3 setWindowRotationLocked:0];
+}
 
 + (void)loadPreviewViewControllerWithMovieURL:(id)l completion:(id)completion
 {
@@ -18,7 +65,7 @@
 
 + (void)loadPreviewViewControllerWithMovieURL:(id)l attachmentURL:(id)rL overrideShareMessage:(id)message overrideTintColor:(id)color completion:(id)completion
 {
-  v72[1] = *MEMORY[0x277D85DE8];
+  v71[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   messageCopy = message;
@@ -30,9 +77,9 @@
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "RPVideoPreviewViewController:loadPreviewViewControllerWithCompletion", buf, 2u);
   }
 
-  v65 = 0;
-  v16 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:@"com.apple.ReplayKit.RPVideoEditorExtension" error:&v65];
-  v17 = v65;
+  v64 = 0;
+  v16 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:@"com.apple.ReplayKit.RPVideoEditorExtension" error:&v64];
+  v17 = v64;
   if (v17 || !v16)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -45,11 +92,11 @@
 
   else
   {
-    v58 = v16;
-    v59 = completionCopy;
+    v57 = v16;
+    v58 = completionCopy;
     array = [MEMORY[0x277CBEB18] array];
     v18 = MEMORY[0x277CC2050];
-    v60 = colorCopy;
+    v59 = colorCopy;
     if (rLCopy)
     {
       v19 = objc_alloc_init(MEMORY[0x277CCA9D8]);
@@ -59,11 +106,11 @@
       v21 = objc_alloc(MEMORY[0x277CCAA88]);
       path = [rLCopy path];
       v23 = [v21 initWithItem:path typeIdentifier:*v18];
-      v72[0] = v23;
-      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:1];
+      v71[0] = v23;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:1];
       [v19 setAttachments:v24];
 
-      colorCopy = v60;
+      colorCopy = v59;
       [array addObject:v19];
     }
 
@@ -74,8 +121,8 @@
       [v25 setAttributedTitle:v26];
 
       v27 = [objc_alloc(MEMORY[0x277CCAA88]) initWithItem:messageCopy typeIdentifier:*v18];
-      v71 = v27;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v71 count:1];
+      v70 = v27;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v70 count:1];
       [v25 setAttachments:v28];
 
       [array addObject:v25];
@@ -90,8 +137,8 @@
       v31 = objc_alloc(MEMORY[0x277CCAA88]);
       v32 = *v18;
       v33 = [v31 initWithItem:colorCopy typeIdentifier:*v18];
-      v70 = v33;
-      v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v70 count:1];
+      v69 = v33;
+      v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
       [v29 setAttachments:v34];
 
       [array addObject:v29];
@@ -105,15 +152,15 @@
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     [mainBundle load];
     infoDictionary = [mainBundle infoDictionary];
-    v57 = [infoDictionary objectForKey:*MEMORY[0x277CBEC40]];
+    v56 = [infoDictionary objectForKey:*MEMORY[0x277CBEC40]];
 
     v36 = objc_alloc_init(MEMORY[0x277CCA9D8]);
     v37 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"RPVideoEditorExtensionAppNameKey" attributes:0];
     [v36 setAttributedTitle:v37];
 
-    v38 = [objc_alloc(MEMORY[0x277CCAA88]) initWithItem:v57 typeIdentifier:v32];
-    v69 = v38;
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
+    v38 = [objc_alloc(MEMORY[0x277CCAA88]) initWithItem:v56 typeIdentifier:v32];
+    v68 = v38;
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
     [v36 setAttachments:v39];
 
     [array addObject:v36];
@@ -124,8 +171,8 @@
     v42 = objc_alloc(MEMORY[0x277CCAA88]);
     path2 = [lCopy path];
     v44 = [v42 initWithItem:path2 typeIdentifier:v32];
-    v68 = v44;
-    [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
+    v67 = v44;
+    [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
     v46 = v45 = lCopy;
     [v40 setAttachments:v46];
 
@@ -137,29 +184,27 @@
     v49 = objc_alloc(MEMORY[0x277CCAA88]);
     bundleIdentifier = [mainBundle bundleIdentifier];
     v51 = [v49 initWithItem:bundleIdentifier typeIdentifier:v32];
-    v67 = v51;
-    v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
+    v66 = v51;
+    v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
     [v47 setAttachments:v52];
 
     lCopy = v45;
     [array addObject:v47];
     v53 = objc_opt_class();
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __129__RPPreviewViewController_loadPreviewViewControllerWithMovieURL_attachmentURL_overrideShareMessage_overrideTintColor_completion___block_invoke;
-    v62[3] = &unk_278B62538;
-    v63 = v45;
-    completionCopy = v59;
-    v64 = v59;
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __129__RPPreviewViewController_loadPreviewViewControllerWithMovieURL_attachmentURL_overrideShareMessage_overrideTintColor_completion___block_invoke;
+    v61[3] = &unk_278B62538;
+    v62 = v45;
+    completionCopy = v58;
+    v63 = v58;
     v54 = v53;
-    v16 = v58;
-    [v54 viewControllerForExtension:v58 inputItems:array completionHandler:v62];
+    v16 = v57;
+    [v54 viewControllerForExtension:v57 inputItems:array completionHandler:v61];
 
-    colorCopy = v60;
+    colorCopy = v59;
     v17 = 0;
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 void __129__RPPreviewViewController_loadPreviewViewControllerWithMovieURL_attachmentURL_overrideShareMessage_overrideTintColor_completion___block_invoke(uint64_t a1, void *a2)
@@ -355,20 +400,18 @@ void __63__RPPreviewViewController_extensionDidFinishWithActivityTypes___block_i
 
 + (void)loadPreviewViewControllerWithMovieURL:(void *)a1 attachmentURL:overrideShareMessage:overrideTintColor:completion:.cold.1(void *a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = [a1 code];
-  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "error getting extension: %i", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = [a1 code];
+  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "error getting extension: %i", v1, 8u);
 }
 
 void __83__RPPreviewViewController_viewControllerForExtension_inputItems_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = [a1 code];
-  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error instantiating remote view controller for extension: %i", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = [a1 code];
+  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error instantiating remote view controller for extension: %i", v1, 8u);
 }
 
 @end

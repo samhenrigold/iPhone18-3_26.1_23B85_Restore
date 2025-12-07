@@ -10,14 +10,11 @@
 
 - (NSString)term
 {
-  v2 = (self + OBJC_IVAR____TtC26SensitiveContentAnalysisML28SCMLPeopleDetectionAttribute_term);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_1B8AF0658();
+  v2 = sub_1B8AF0658();
 
-  return v5;
+  return v2;
 }
 
 - (void)setTerm:(id)term
@@ -26,7 +23,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR____TtC26SensitiveContentAnalysisML28SCMLPeopleDetectionAttribute_term);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

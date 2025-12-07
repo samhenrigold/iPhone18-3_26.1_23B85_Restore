@@ -7,7 +7,7 @@
 
 + (id)trackQuerySignature:(id)signature inReferenceSignature:(id)referenceSignature usingMergePolicy:(int64_t)policy configuration:(id)configuration error:(id *)error
 {
-  v56[1] = *MEMORY[0x277D85DE8];
+  v55[1] = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   referenceSignatureCopy = referenceSignature;
   configurationCopy = configuration;
@@ -19,9 +19,9 @@
     v19 = v18;
     [referenceSignatureCopy duration];
     0x4000000000000000 = [v17 stringWithFormat:@"Duration of query signature: %f or reference signature: %f is less than the minimum required duration for tracking: %f", v19, v20, 0x4000000000000000];
-    v55 = *MEMORY[0x277CCA450];
-    v56[0] = 0x4000000000000000;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:&v55 count:1];
+    v54 = *MEMORY[0x277CCA450];
+    v55[0] = 0x4000000000000000;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:&v54 count:1];
     [SHError annotateClientError:error code:201 underlyingError:0 keyOverrides:v22];
 LABEL_4:
     v23 = 0;
@@ -32,22 +32,22 @@ LABEL_4:
   spectralPeaksData2 = [referenceSignatureCopy spectralPeaksData];
   numHistogramBuckets = [configurationCopy numHistogramBuckets];
   [configurationCopy scoreThreshold];
-  v28 = v27;
+  v27 = v26;
   boundingBox = [configurationCopy boundingBox];
   [configurationCopy frequencyPenaltyMultiplier];
-  v30 = v29;
+  v29 = v28;
   forwardPassOnly = [configurationCopy forwardPassOnly];
   singlePassOnly = [configurationCopy singlePassOnly];
   refineStartEnd = [configurationCopy refineStartEnd];
   [configurationCopy queryThreshold];
-  LODWORD(v35) = v34;
-  v53 = 0;
-  BYTE1(v44) = refineStartEnd;
-  LOBYTE(v44) = singlePassOnly;
-  LODWORD(v36) = v28;
-  LODWORD(v37) = v30;
-  v22 = [SignatureAlignmentTracker compareQuerySignature:spectralPeaksData withReferenceSignature:spectralPeaksData2 mergeMode:policy numHistogramBuckets:numHistogramBuckets scoreThreshold:boundingBox boundingBox:forwardPassOnly frequencyPenaltyMultiplier:v36 forwardPassOnly:v37 singlePassOnly:v35 refineStartEnd:v44 queryThreshold:&v53 error:?];
-  0x4000000000000000 = v53;
+  LODWORD(v34) = v33;
+  v52 = 0;
+  BYTE1(v43) = refineStartEnd;
+  LOBYTE(v43) = singlePassOnly;
+  LODWORD(v35) = v27;
+  LODWORD(v36) = v29;
+  v22 = [SignatureAlignmentTracker compareQuerySignature:spectralPeaksData withReferenceSignature:spectralPeaksData2 mergeMode:policy numHistogramBuckets:numHistogramBuckets scoreThreshold:boundingBox boundingBox:forwardPassOnly frequencyPenaltyMultiplier:v35 forwardPassOnly:v36 singlePassOnly:v34 refineStartEnd:v43 queryThreshold:&v52 error:?];
+  0x4000000000000000 = v52;
 
   if (!v22)
   {
@@ -55,42 +55,40 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v48 = referenceSignatureCopy;
-  v38 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v22, "count")}];
+  v47 = referenceSignatureCopy;
+  v37 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v22, "count")}];
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   v22 = v22;
-  v39 = [v22 countByEnumeratingWithState:&v49 objects:v54 count:16];
-  if (v39)
+  v38 = [v22 countByEnumeratingWithState:&v48 objects:v53 count:16];
+  if (v38)
   {
-    v40 = v39;
-    v41 = *v50;
+    v39 = v38;
+    v40 = *v49;
     do
     {
-      for (i = 0; i != v40; ++i)
+      for (i = 0; i != v39; ++i)
       {
-        if (*v50 != v41)
+        if (*v49 != v40)
         {
           objc_enumerationMutation(v22);
         }
 
-        v43 = [self buildSignatureAlignment:*(*(&v49 + 1) + 8 * i)];
-        [v38 addObject:v43];
+        v42 = [self buildSignatureAlignment:*(*(&v48 + 1) + 8 * i)];
+        [v37 addObject:v42];
       }
 
-      v40 = [v22 countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v39 = [v22 countByEnumeratingWithState:&v48 objects:v53 count:16];
     }
 
-    while (v40);
+    while (v39);
   }
 
-  v23 = [v38 copy];
-  referenceSignatureCopy = v48;
+  v23 = [v37 copy];
+  referenceSignatureCopy = v47;
 LABEL_5:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

@@ -48,15 +48,15 @@
 - (BOOL)loadResources:(id *)resources
 {
   v67 = *MEMORY[0x1E69E9840];
-  v4 = sub_1AC090E50();
+  v4 = sub_1AC090E50(self);
   v5 = os_signpost_id_generate(v4);
 
-  v6 = sub_1AC090E50();
-  v7 = v6;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = sub_1AC090E50(v6);
+  v8 = v7;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC05D000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "CSUSceneNetLoadResources", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC05D000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "CSUSceneNetLoadResources", "", &buf, 2u);
   }
 
   v65[0] = &unk_1F20D0580;
@@ -64,25 +64,25 @@
   v66 = v65;
   if (!self->_net.__ptr_)
   {
-    v8 = sub_1AC090E50();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = sub_1AC090E50(v65);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v13 = objc_msgSend_revision(self->_configuration, v9, v10, v11, v12);
+      v14 = objc_msgSend_revision(self->_configuration, v10, v11, v12, v13);
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = v13;
-      _os_log_impl(&dword_1AC05D000, v8, OS_LOG_TYPE_INFO, "SceneNet model configuration revision is %ld", &buf, 0xCu);
+      *(&buf + 4) = v14;
+      _os_log_impl(&dword_1AC05D000, v9, OS_LOG_TYPE_INFO, "SceneNet model configuration revision is %ld", &buf, 0xCu);
     }
 
-    if (objc_msgSend_revision(self->_configuration, v14, v15, v16, v17) == 3 && objc_msgSend_espressoExecutionEngine(self->_configuration, v18, v19, v20, v21) == 10007)
+    if (objc_msgSend_revision(self->_configuration, v15, v16, v17, v18) == 3 && objc_msgSend_espressoExecutionEngine(self->_configuration, v19, v20, v21, v22) == 10007)
     {
-      v22 = objc_msgSend_espressoNetworkPath(self->_configuration, v18, v19, v20, v21);
-      v25 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v22, v23, @".espresso.net", @"_dev_op.espresso.net", v24);
+      v23 = objc_msgSend_espressoNetworkPath(self->_configuration, v19, v20, v21, v22);
+      v26 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v23, v24, @".espresso.net", @"_dev_op.espresso.net", v25);
 
-      v26 = v25;
-      v31 = objc_msgSend_UTF8String(v25, v27, v28, v29, v30);
+      v27 = v26;
+      v32 = objc_msgSend_UTF8String(v26, v28, v29, v30, v31);
       buf = 0uLL;
       v50 = 0;
-      v51 = objc_msgSend_espressoExecutionEngine(self->_configuration, v32, v33, v34, v35, v31);
+      v51 = objc_msgSend_espressoExecutionEngine(self->_configuration, v33, v34, v35, v36, v32);
       v52 = 1;
       v53 = 0;
       v54 = 0;
@@ -99,12 +99,12 @@
       sub_1AC063040();
     }
 
-    v36 = objc_msgSend_espressoNetworkPath(self->_configuration, v18, v19, v20, v21);
-    v37 = v36;
-    v42 = objc_msgSend_UTF8String(v36, v38, v39, v40, v41);
+    v37 = objc_msgSend_espressoNetworkPath(self->_configuration, v19, v20, v21, v22);
+    v38 = v37;
+    v43 = objc_msgSend_UTF8String(v37, v39, v40, v41, v42);
     buf = 0uLL;
     v50 = 0;
-    v51 = objc_msgSend_espressoExecutionEngine(self->_configuration, v43, v44, v45, v46, v42);
+    v51 = objc_msgSend_espressoExecutionEngine(self->_configuration, v44, v45, v46, v47, v43);
     v52 = 1;
     v53 = 0;
     v54 = 0;
@@ -132,22 +132,21 @@
     (*(*v66 + 40))(v66);
   }
 
-  v47 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (BOOL)resampleImage:(__CVBuffer *)image intoInputImage:(__CVBuffer *)inputImage error:(id *)error
 {
   v19 = *MEMORY[0x1E69E9840];
-  v8 = sub_1AC090E50();
+  v8 = sub_1AC090E50(self);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = sub_1AC090E50();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = sub_1AC090E50(v10);
+  v12 = v11;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     LOWORD(v17[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC05D000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "CSUSceneNetResampleImage", "", v17, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC05D000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "CSUSceneNetResampleImage", "", v17, 2u);
   }
 
   v17[0] = &unk_1F20D0610;
@@ -159,8 +158,8 @@
     operator new();
   }
 
-  v13 = VTPixelTransferSessionTransferImage(**ptr, image, inputImage);
-  sub_1AC0670CC(v13, "Image Transfer");
+  v14 = VTPixelTransferSessionTransferImage(**ptr, image, inputImage);
+  sub_1AC0670CC(v14, "Image Transfer");
   if (!v18)
   {
     sub_1AC066F88();
@@ -174,10 +173,9 @@
 
   else if (v18)
   {
-    (*(*v18 + 40))(v18, v14);
+    (*(*v18 + 40))(v18, v15);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -185,21 +183,21 @@
 {
   v17 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v7 = sub_1AC090E50();
+  v7 = sub_1AC090E50(completionCopy);
   v8 = os_signpost_id_generate(v7);
 
-  v9 = sub_1AC090E50();
-  v10 = v9;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = sub_1AC090E50(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC05D000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "CSUSceneNetRunOnInputImage", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC05D000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "CSUSceneNetRunOnInputImage", "", buf, 2u);
   }
 
   *buf = &unk_1F20D0690;
   v15 = v8;
   v16 = buf;
-  objc_msgSend__unsafeRunOnInputImage_completion_(self, v11, image, completionCopy, v12);
+  objc_msgSend__unsafeRunOnInputImage_completion_(self, v12, image, completionCopy, v13);
   if (!v16)
   {
     sub_1AC066F88();
@@ -215,8 +213,6 @@
   {
     (*(*v16 + 40))();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (vector<float,)computeAllSceneClassificationLikelihoods:(CSUSceneNetV5 *)self
@@ -249,7 +245,7 @@
     v42 = v40;
     std::to_string(&v48, v41[12]);
     sub_1AC063E68("Number of channels ", &v48, &v49);
-    sub_1AC063FAC(" in supplied likelihood buffer does not match the expected number ", &v49, &v50);
+    sub_1AC063FAC(&v50, " in supplied likelihood buffer does not match the expected number ", &v49);
     std::to_string(&v47, v27);
     if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
@@ -289,42 +285,42 @@
 
 - (BOOL)enumerateSceneClassificationLikelihoods:(id)likelihoods usingBlock:(id)block error:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   likelihoodsCopy = likelihoods;
   blockCopy = block;
   v17 = objc_msgSend_sceneTaxonomyWithError_(self->_configuration, v10, error, v11, v12);
   if (v17)
   {
-    v46 = objc_msgSend_leafSceneClassificationVocabularyName(self->_configuration, v13, v14, v15, v16);
+    v45 = objc_msgSend_leafSceneClassificationVocabularyName(self->_configuration, v13, v14, v15, v16);
     v22 = objc_msgSend_hierarchicalSceneClassificationVocabularyName(self->_configuration, v18, v19, v20, v21);
     objc_msgSend_computeAllSceneClassificationLikelihoods_(self, v23, likelihoodsCopy, v24, v25);
-    v26 = v51;
+    v26 = v50;
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
-    v52[0] = v46;
-    v52[1] = v22;
-    v29 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v52, 2, v28);
-    v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v47, v53, 16);
+    v51[0] = v45;
+    v51[1] = v22;
+    v29 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v51, 2, v28);
+    v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v46, v52, 16);
     if (v34)
     {
-      v35 = *v48;
+      v35 = *v47;
       do
       {
         for (i = 0; i != v34; ++i)
         {
-          if (*v48 != v35)
+          if (*v47 != v35)
           {
             objc_enumerationMutation(v29);
           }
 
-          v37 = objc_msgSend__vocabularyNamed_(v17, v31, *(*(&v47 + 1) + 8 * i), v32, v33);
+          v37 = objc_msgSend__vocabularyNamed_(v17, v31, *(*(&v46 + 1) + 8 * i), v32, v33);
           started = objc_msgSend_startIndex(v37, v38, v39, v40, v41);
           sub_1AC0642AC(v37, v26 + 4 * started, blockCopy);
         }
 
-        v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v31, &v47, v53, 16);
+        v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v31, &v46, v52, 16);
       }
 
       while (v34);
@@ -343,7 +339,6 @@
     v43 = 0;
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return v43;
 }
 
@@ -978,24 +973,21 @@ LABEL_49:
 
 - (void)_unsafeRunOnInputImage:(__CVBuffer *)image completion:(id)completion
 {
-  v26[11] = *MEMORY[0x1E69E9840];
+  v24[11] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v26[0] = 0;
-  Resources = objc_msgSend_loadResources_(self, v6, v26, v7, v8);
-  v10 = v26[0];
+  v24[0] = 0;
+  Resources = objc_msgSend_loadResources_(self, v6, v24, v7, v8);
+  v10 = v24[0];
   v15 = v10;
   if (Resources)
   {
-    ptr = self->_net.__ptr_;
-    v17 = objc_msgSend_inputImageTensorName(self->_configuration, v11, v12, v13, v14);
-    v18 = v17;
-    v25[7] = objc_msgSend_UTF8String(v17, v19, v20, v21, v22);
-    sub_1AC06B064(v25, image);
+    v16 = objc_msgSend_inputImageTensorName(self->_configuration, v11, v12, v13, v14);
+    v17 = v16;
+    v23[7] = objc_msgSend_UTF8String(v16, v18, v19, v20, v21);
+    sub_1AC06B064(v23, image);
   }
 
   completionCopy[2](completionCopy, 0, v10);
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id).cxx_construct

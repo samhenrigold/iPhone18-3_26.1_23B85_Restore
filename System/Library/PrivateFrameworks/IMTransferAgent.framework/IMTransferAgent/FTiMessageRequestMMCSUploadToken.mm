@@ -11,17 +11,17 @@
 
 - (FTiMessageRequestMMCSUploadToken)init
 {
-  v10.receiver = self;
-  v10.super_class = FTiMessageRequestMMCSUploadToken;
-  v2 = [(IDSMessage *)&v10 init];
+  v6.receiver = self;
+  v6.super_class = FTiMessageRequestMMCSUploadToken;
+  v2 = [(IDSMessage *)&v6 init];
   if (v2)
   {
     IMGetiMessageSettings();
     v3 = 0;
-    v6 = objc_msgSend_lastObject(v3, v4, v5);
-    objc_msgSend_setTopic_(v2, v7, v6);
+    lastObject = [v3 lastObject];
+    [(IDSBaseMessage *)v2 setTopic:lastObject];
 
-    objc_msgSend_setWantsResponse_(v2, v8, 1);
+    [(IDSBaseMessage *)v2 setWantsResponse:1];
   }
 
   return v2;
@@ -29,72 +29,70 @@
 
 - (void)dealloc
 {
-  objc_msgSend_setResponseAuthToken_(self, a2, 0);
-  objc_msgSend_setResponseRequestURL_(self, v3, 0);
-  objc_msgSend_setResponseRequestorID_(self, v4, 0);
-  objc_msgSend_setLength_(self, v5, 0);
-  objc_msgSend_setTopic_(self, v6, 0);
-  objc_msgSend_setSignature_(self, v7, 0);
-  objc_msgSend_setContentBody_(self, v8, 0);
-  objc_msgSend_setContentHeaders_(self, v9, 0);
-  objc_msgSend_setResponseContentHeaders_(self, v10, 0);
-  objc_msgSend_setSenderID_(self, v11, 0);
-  objc_msgSend_setDestinationID_(self, v12, 0);
-  objc_msgSend_setAnonymousSenderID_(self, v13, 0);
-  objc_msgSend_setSessionToken_(self, v14, 0);
-  objc_msgSend_setPushToken_(self, v15, 0);
-  v16.receiver = self;
-  v16.super_class = FTiMessageRequestMMCSUploadToken;
-  [(FTiMessageRequestMMCSUploadToken *)&v16 dealloc];
+  [(FTiMessageRequestMMCSUploadToken *)self setResponseAuthToken:0];
+  [(FTiMessageRequestMMCSUploadToken *)self setResponseRequestURL:0];
+  [(FTiMessageRequestMMCSUploadToken *)self setResponseRequestorID:0];
+  [(FTiMessageRequestMMCSUploadToken *)self setLength:0];
+  [(IDSBaseMessage *)self setTopic:0];
+  [(FTiMessageRequestMMCSUploadToken *)self setSignature:0];
+  [(FTiMessageRequestMMCSUploadToken *)self setContentBody:0];
+  [(FTiMessageRequestMMCSUploadToken *)self setContentHeaders:0];
+  [(FTiMessageRequestMMCSUploadToken *)self setResponseContentHeaders:0];
+  [(FTiMessageRequestMMCSUploadToken *)self setSenderID:0];
+  [(FTiMessageRequestMMCSUploadToken *)self setDestinationID:0];
+  [(FTiMessageRequestMMCSUploadToken *)self setAnonymousSenderID:0];
+  [(FTiMessageRequestMMCSUploadToken *)self setSessionToken:0];
+  [(FTiMessageRequestMMCSUploadToken *)self setPushToken:0];
+  v3.receiver = self;
+  v3.super_class = FTiMessageRequestMMCSUploadToken;
+  [(FTiMessageRequestMMCSUploadToken *)&v3 dealloc];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v66.receiver = self;
-  v66.super_class = FTiMessageRequestMMCSUploadToken;
-  v4 = [(IDSMessage *)&v66 copyWithZone:zone];
-  v7 = objc_msgSend_responseAuthToken(self, v5, v6);
-  objc_msgSend_setResponseAuthToken_(v4, v8, v7);
+  v19.receiver = self;
+  v19.super_class = FTiMessageRequestMMCSUploadToken;
+  v4 = [(IDSMessage *)&v19 copyWithZone:zone];
+  responseAuthToken = [(FTiMessageRequestMMCSUploadToken *)self responseAuthToken];
+  [v4 setResponseAuthToken:responseAuthToken];
 
-  v11 = objc_msgSend_responseRequestURL(self, v9, v10);
-  objc_msgSend_setResponseRequestURL_(v4, v12, v11);
+  responseRequestURL = [(FTiMessageRequestMMCSUploadToken *)self responseRequestURL];
+  [v4 setResponseRequestURL:responseRequestURL];
 
-  v15 = objc_msgSend_responseRequestorID(self, v13, v14);
-  objc_msgSend_setResponseRequestorID_(v4, v16, v15);
+  responseRequestorID = [(FTiMessageRequestMMCSUploadToken *)self responseRequestorID];
+  [v4 setResponseRequestorID:responseRequestorID];
 
-  v19 = objc_msgSend_length(self, v17, v18);
-  objc_msgSend_setLength_(v4, v20, v19);
+  v8 = [(FTiMessageRequestMMCSUploadToken *)self length];
+  [v4 setLength:v8];
 
-  v23 = objc_msgSend_signature(self, v21, v22);
-  objc_msgSend_setSignature_(v4, v24, v23);
+  signature = [(FTiMessageRequestMMCSUploadToken *)self signature];
+  [v4 setSignature:signature];
 
-  v27 = objc_msgSend_contentBody(self, v25, v26);
-  objc_msgSend_setContentBody_(v4, v28, v27);
+  contentBody = [(FTiMessageRequestMMCSUploadToken *)self contentBody];
+  [v4 setContentBody:contentBody];
 
-  v31 = objc_msgSend_contentHeaders(self, v29, v30);
-  objc_msgSend_setContentHeaders_(v4, v32, v31);
+  contentHeaders = [(FTiMessageRequestMMCSUploadToken *)self contentHeaders];
+  [v4 setContentHeaders:contentHeaders];
 
-  v35 = objc_msgSend_contentVersion(self, v33, v34);
-  objc_msgSend_setContentVersion_(v4, v36, v35);
-  v39 = objc_msgSend_responseContentHeaders(self, v37, v38);
-  objc_msgSend_setResponseContentHeaders_(v4, v40, v39);
+  [v4 setContentVersion:{-[FTiMessageRequestMMCSUploadToken contentVersion](self, "contentVersion")}];
+  responseContentHeaders = [(FTiMessageRequestMMCSUploadToken *)self responseContentHeaders];
+  [v4 setResponseContentHeaders:responseContentHeaders];
 
-  v43 = objc_msgSend_responseContentVersion(self, v41, v42);
-  objc_msgSend_setResponseContentVersion_(v4, v44, v43);
-  v47 = objc_msgSend_senderID(self, v45, v46);
-  objc_msgSend_setSenderID_(v4, v48, v47);
+  [v4 setResponseContentVersion:{-[FTiMessageRequestMMCSUploadToken responseContentVersion](self, "responseContentVersion")}];
+  senderID = [(FTiMessageRequestMMCSUploadToken *)self senderID];
+  [v4 setSenderID:senderID];
 
-  v51 = objc_msgSend_destinationID(self, v49, v50);
-  objc_msgSend_setDestinationID_(v4, v52, v51);
+  destinationID = [(FTiMessageRequestMMCSUploadToken *)self destinationID];
+  [v4 setDestinationID:destinationID];
 
-  v55 = objc_msgSend_anonymousSenderID(self, v53, v54);
-  objc_msgSend_setAnonymousSenderID_(v4, v56, v55);
+  anonymousSenderID = [(FTiMessageRequestMMCSUploadToken *)self anonymousSenderID];
+  [v4 setAnonymousSenderID:anonymousSenderID];
 
-  v59 = objc_msgSend_sessionToken(self, v57, v58);
-  objc_msgSend_setSessionToken_(v4, v60, v59);
+  sessionToken = [(FTiMessageRequestMMCSUploadToken *)self sessionToken];
+  [v4 setSessionToken:sessionToken];
 
-  v63 = objc_msgSend_pushToken(self, v61, v62);
-  objc_msgSend_setPushToken_(v4, v64, v63);
+  pushToken = [(FTiMessageRequestMMCSUploadToken *)self pushToken];
+  [v4 setPushToken:pushToken];
 
   return v4;
 }
@@ -102,23 +100,23 @@
 - (id)requiredKeys
 {
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  objc_msgSend_addObject_(v2, v3, @"mS");
-  objc_msgSend_addObject_(v2, v4, @"mL");
+  [v2 addObject:@"mS"];
+  [v2 addObject:@"mL"];
 
   return v2;
 }
 
 - (id)messageBody
 {
-  v41.receiver = self;
-  v41.super_class = FTiMessageRequestMMCSUploadToken;
-  messageBody = [(IDSMessage *)&v41 messageBody];
-  v6 = objc_msgSend_mutableCopy(messageBody, v4, v5);
+  v16.receiver = self;
+  v16.super_class = FTiMessageRequestMMCSUploadToken;
+  messageBody = [(IDSMessage *)&v16 messageBody];
+  v4 = [messageBody mutableCopy];
 
-  v9 = objc_msgSend_signature(self, v7, v8);
-  if (v9)
+  signature = [(FTiMessageRequestMMCSUploadToken *)self signature];
+  if (signature)
   {
-    CFDictionarySetValue(v6, @"mS", v9);
+    CFDictionarySetValue(v4, @"mS", signature);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -126,10 +124,10 @@
     sub_254867F68();
   }
 
-  v12 = objc_msgSend_length(self, v10, v11);
-  if (v12)
+  v6 = [(FTiMessageRequestMMCSUploadToken *)self length];
+  if (v6)
   {
-    CFDictionarySetValue(v6, @"mL", v12);
+    CFDictionarySetValue(v4, @"mL", v6);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -137,89 +135,86 @@
     sub_254868004();
   }
 
-  v13 = MEMORY[0x277CCABB0];
-  v16 = objc_msgSend_contentVersion(self, v14, v15);
-  v18 = objc_msgSend_numberWithInteger_(v13, v17, v16);
-  if (v18)
+  v7 = [MEMORY[0x277CCABB0] numberWithInteger:{-[FTiMessageRequestMMCSUploadToken contentVersion](self, "contentVersion")}];
+  if (v7)
   {
-    CFDictionarySetValue(v6, @"cV", v18);
+    CFDictionarySetValue(v4, @"cV", v7);
   }
 
-  v21 = objc_msgSend_contentHeaders(self, v19, v20);
-  if (v21)
+  contentHeaders = [(FTiMessageRequestMMCSUploadToken *)self contentHeaders];
+  if (contentHeaders)
   {
-    CFDictionarySetValue(v6, @"cH", v21);
+    CFDictionarySetValue(v4, @"cH", contentHeaders);
   }
 
-  v24 = objc_msgSend_contentBody(self, v22, v23);
-  if (v24)
+  contentBody = [(FTiMessageRequestMMCSUploadToken *)self contentBody];
+  if (contentBody)
   {
-    CFDictionarySetValue(v6, @"cB", v24);
+    CFDictionarySetValue(v4, @"cB", contentBody);
   }
 
-  v27 = objc_msgSend_pushToken(self, v25, v26);
-  if (v27)
+  pushToken = [(FTiMessageRequestMMCSUploadToken *)self pushToken];
+  if (pushToken)
   {
-    CFDictionarySetValue(v6, @"t", v27);
+    CFDictionarySetValue(v4, @"t", pushToken);
   }
 
-  v30 = objc_msgSend_anonymousSenderID(self, v28, v29);
-  if (v30)
+  anonymousSenderID = [(FTiMessageRequestMMCSUploadToken *)self anonymousSenderID];
+  if (anonymousSenderID)
   {
-    CFDictionarySetValue(v6, @"sI", v30);
+    CFDictionarySetValue(v4, @"sI", anonymousSenderID);
   }
 
-  v33 = objc_msgSend_sessionToken(self, v31, v32);
-  if (v33)
+  sessionToken = [(FTiMessageRequestMMCSUploadToken *)self sessionToken];
+  if (sessionToken)
   {
-    CFDictionarySetValue(v6, @"sT", v33);
+    CFDictionarySetValue(v4, @"sT", sessionToken);
   }
 
-  v36 = objc_msgSend_senderID(self, v34, v35);
-  if (v36)
+  senderID = [(FTiMessageRequestMMCSUploadToken *)self senderID];
+  if (senderID)
   {
-    CFDictionarySetValue(v6, @"sP", v36);
+    CFDictionarySetValue(v4, @"sP", senderID);
   }
 
-  v39 = objc_msgSend_destinationID(self, v37, v38);
-  if (v39)
+  destinationID = [(FTiMessageRequestMMCSUploadToken *)self destinationID];
+  if (destinationID)
   {
-    CFDictionarySetValue(v6, @"tP", v39);
+    CFDictionarySetValue(v4, @"tP", destinationID);
   }
 
-  return v6;
+  return v4;
 }
 
 - (void)handleResponseDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v6 = objc_msgSend_objectForKey_(dictionaryCopy, v4, @"mA");
+  v4 = [dictionaryCopy objectForKey:@"mA"];
+  if (v4)
+  {
+    [(FTiMessageRequestMMCSUploadToken *)self setResponseAuthToken:v4];
+  }
+
+  v5 = [dictionaryCopy objectForKey:@"mR"];
+  if (v5)
+  {
+    [(FTiMessageRequestMMCSUploadToken *)self setResponseRequestURL:v5];
+  }
+
+  v6 = [dictionaryCopy objectForKey:@"mU"];
   if (v6)
   {
-    objc_msgSend_setResponseAuthToken_(self, v5, v6);
+    [(FTiMessageRequestMMCSUploadToken *)self setResponseRequestorID:v6];
   }
 
-  v8 = objc_msgSend_objectForKey_(dictionaryCopy, v5, @"mR");
-  if (v8)
-  {
-    objc_msgSend_setResponseRequestURL_(self, v7, v8);
-  }
+  v7 = [dictionaryCopy objectForKey:@"cV"];
+  -[FTiMessageRequestMMCSUploadToken setResponseContentVersion:](self, "setResponseContentVersion:", [v7 intValue]);
 
-  v10 = objc_msgSend_objectForKey_(dictionaryCopy, v7, @"mU");
-  if (v10)
-  {
-    objc_msgSend_setResponseRequestorID_(self, v9, v10);
-  }
+  v8 = [dictionaryCopy objectForKey:@"cH"];
+  [(FTiMessageRequestMMCSUploadToken *)self setResponseContentHeaders:v8];
 
-  v11 = objc_msgSend_objectForKey_(dictionaryCopy, v9, @"cV");
-  v14 = objc_msgSend_intValue(v11, v12, v13);
-  objc_msgSend_setResponseContentVersion_(self, v15, v14);
-
-  v17 = objc_msgSend_objectForKey_(dictionaryCopy, v16, @"cH");
-  objc_msgSend_setResponseContentHeaders_(self, v18, v17);
-
-  v20 = objc_msgSend_objectForKey_(dictionaryCopy, v19, @"cB");
-  objc_msgSend_setResponseContentBody_(self, v21, v20);
+  v9 = [dictionaryCopy objectForKey:@"cB"];
+  [(FTiMessageRequestMMCSUploadToken *)self setResponseContentBody:v9];
 }
 
 @end

@@ -20,29 +20,29 @@
 - (void)setCompatibilityDescriptions:(id)descriptions
 {
   selfCopy = self;
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   descriptionsCopy = descriptions;
   array = [MEMORY[0x1E695DF70] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = descriptionsCopy;
-  v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [v9 objectForKeyedSubscript:{@"formatted_text", selfCopy}];
         v11 = [v10 objectAtIndexedSubscript:0];
         v12 = [v11 objectForKey:@"text"];
@@ -53,14 +53,13 @@
         [array addObject:v14];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
 
   [(SPCoreSpotlightResult *)selfCopy setDescriptions:array];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasDetail

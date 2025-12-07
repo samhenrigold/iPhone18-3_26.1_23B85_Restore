@@ -61,7 +61,7 @@
     v10 = objc_opt_class();
     if (v10)
     {
-      [v10 _vibrantColorMatrixInput];
+      objc_msgSend__vibrantColorMatrixInput(v10);
     }
 
     else

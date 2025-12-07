@@ -95,7 +95,7 @@ id sub_100001348()
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for AudioDiagnosticExtension()
+uint64_t type metadata accessor for AudioDiagnosticExtension(uint64_t a1)
 {
   result = qword_100008258;
   if (!qword_100008258)
@@ -106,16 +106,14 @@ uint64_t type metadata accessor for AudioDiagnosticExtension()
   return result;
 }
 
-uint64_t sub_1000014E8()
+uint64_t sub_1000014E8(uint64_t a1, uint64_t a2)
 {
   result = sub_100001998();
-  if (v1 <= 0x3F)
+  if (v3 <= 0x3F)
   {
-    v3 = *(result - 8) + 64;
     result = sub_1000019D8();
-    if (v2 <= 0x3F)
+    if (v4 <= 0x3F)
     {
-      v4 = *(result - 8) + 64;
       result = swift_updateClassMetadata2();
       if (!result)
       {
@@ -127,7 +125,7 @@ uint64_t sub_1000014E8()
   return result;
 }
 
-char *sub_1000015B8(char *a1, int64_t a2, char a3)
+char *sub_1000015B8(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1000015D8(a1, a2, a3, *v3);
   *v3 = result;
@@ -254,7 +252,6 @@ uint64_t sub_1000018E0(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

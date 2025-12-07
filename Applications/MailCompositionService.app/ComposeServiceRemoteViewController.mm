@@ -20,6 +20,8 @@
 - (void)securityScopeForURL:(id)l withReply:(id)reply;
 - (void)serializedPlaceholderForFileName:(id)name fileSize:(int64_t)size mimeType:(id)type contentID:(id)d withReply:(id)reply;
 - (void)setCompositionValues:(id)values;
+- (void)setContentVisible:(BOOL)visible;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewServiceDidTerminateWithError:(id)error;
 @end
 
@@ -29,9 +31,9 @@
 {
   nameCopy = name;
   bundleCopy = bundle;
-  v22.receiver = self;
-  v22.super_class = ComposeServiceRemoteViewController;
-  v8 = [(ComposeServiceRemoteViewController *)&v22 initWithNibName:nameCopy bundle:bundleCopy];
+  v21.receiver = self;
+  v21.super_class = ComposeServiceRemoteViewController;
+  v8 = [(ComposeServiceRemoteViewController *)&v21 initWithNibName:nameCopy bundle:bundleCopy];
   if (v8)
   {
     v9 = [[_MFMailCompositionContext alloc] initWithComposeType:1];
@@ -39,36 +41,35 @@
     attachmentManager = v8->_attachmentManager;
     v8->_attachmentManager = v10;
 
-    v12 = v8->_attachmentManager;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v13 = objc_alloc_init(MFAttachmentComposeManager);
-      v14 = v8->_attachmentManager;
-      v8->_attachmentManager = v13;
+      v12 = objc_alloc_init(MFAttachmentComposeManager);
+      v13 = v8->_attachmentManager;
+      v8->_attachmentManager = v12;
     }
 
-    v15 = [[ComposeNavigationController alloc] initWithComposition:v9 mailComposeControllerOptions:2];
+    v14 = [[ComposeNavigationController alloc] initWithComposition:v9 mailComposeControllerOptions:2];
     navigationController = v8->_navigationController;
-    v8->_navigationController = v15;
+    v8->_navigationController = v14;
 
     [(ComposeNavigationController *)v8->_navigationController setMailComposeDelegate:v8];
-    v17 = +[NSNotificationCenter defaultCenter];
-    [v17 addObserver:v8 selector:"_firstDraw:" name:MFMailComposeViewFirstDraw object:0];
+    v16 = +[NSNotificationCenter defaultCenter];
+    [v16 addObserver:v8 selector:"_firstDraw:" name:MFMailComposeViewFirstDraw object:0];
 
     [(ComposeServiceRemoteViewController *)v8 addChildViewController:v8->_navigationController];
     [NSURLProtocol registerClass:objc_opt_class()];
     +[MailAccount reloadAccounts];
-    v18 = MFLogGeneral();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v17 = MFLogGeneral();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v19 = objc_opt_class();
-      v20 = NSStringFromClass(v19);
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
       *buf = 138412546;
-      v24 = v20;
-      v25 = 2048;
-      v26 = v8;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "#CompositionServices <%@:%p> initialized", buf, 0x16u);
+      v23 = v19;
+      v24 = 2048;
+      v25 = v8;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "#CompositionServices <%@:%p> initialized", buf, 0x16u);
     }
   }
 
@@ -115,6 +116,20 @@
 
   _mailComposeView = [(ComposeNavigationController *)self->_navigationController _mailComposeView];
   [_mailComposeView setIsForEditing:1];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = ComposeServiceRemoteViewController;
+  [(ComposeServiceRemoteViewController *)&v7 viewDidAppear:appear];
+  view = [(ComposeServiceRemoteViewController *)self view];
+  window = [view window];
+  _rootSheetPresentationController = [window _rootSheetPresentationController];
+
+  [_rootSheetPresentationController _setAllowsTearOff:1];
+  [_rootSheetPresentationController setPrefersGrabberVisible:{+[UIDevice mf_isPadIdiom](UIDevice, "mf_isPadIdiom")}];
+  [_rootSheetPresentationController setDelegate:self];
 }
 
 - (void)_willAppearInRemoteViewController
@@ -221,7 +236,7 @@
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "#CompositionServices %p: Composition requests send", &v14, 0xCu);
   }
 
-  [(ComposeServiceRemoteViewController *)self _hostAuditToken:0xAAAAAAAAAAAAAAAALL];
+  objc_msgSend__hostAuditToken(self, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL);
   if (UIAuditTokenTaskHasEntitlementOrIsSimulator())
   {
     _remoteViewControllerProxy = [(ComposeServiceRemoteViewController *)self _remoteViewControllerProxy];
@@ -427,6 +442,28 @@ LABEL_12:
   }
 
   dispatch_async(&_dispatch_main_q, block);
+}
+
+- (void)setContentVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  v5 = MFLogGeneral();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v6 = "NO";
+    if (visibleCopy)
+    {
+      v6 = "YES";
+    }
+
+    v7 = 134218242;
+    selfCopy = self;
+    v9 = 2080;
+    v10 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "#CompositionServices %p: Setting content visible: %s", &v7, 0x16u);
+  }
+
+  [(ComposeNavigationController *)self->_navigationController setContentVisible:visibleCopy];
 }
 
 - (void)framesForAttachmentsWithIdentifiers:(id)identifiers withReply:(id)reply

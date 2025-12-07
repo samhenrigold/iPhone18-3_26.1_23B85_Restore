@@ -46,12 +46,12 @@
 
 - (void)airplaneModeChanged
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICellularDataListItemsController *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v11 = "[PSUICellularDataListItemsController airplaneModeChanged]";
+    v10 = "[PSUICellularDataListItemsController airplaneModeChanged]";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s Received airplane mode changed", buf, 0xCu);
   }
 
@@ -78,8 +78,6 @@
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __58__PSUICellularDataListItemsController_airplaneModeChanged__block_invoke(uint64_t a1)
@@ -121,85 +119,85 @@ void __50__PSUICellularDataListItemsController_reloadCache__block_invoke(uint64_
 
 - (id)specifiers
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v34 = *MEMORY[0x277D3FC48];
-    v45.receiver = self;
-    v45.super_class = PSUICellularDataListItemsController;
-    specifiers = [(PSListItemsController *)&v45 specifiers];
+    v33 = *MEMORY[0x277D3FC48];
+    v44.receiver = self;
+    v44.super_class = PSUICellularDataListItemsController;
+    specifiers = [(PSListItemsController *)&v44 specifiers];
     v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v39 = [v5 localizedStringForKey:@"CELLULAR_DATA_SWITCHING_FOOTER" value:&stru_287733598 table:@"Gemini-Gemini"];
+    v38 = [v5 localizedStringForKey:@"CELLULAR_DATA_SWITCHING_FOOTER" value:&stru_287733598 table:@"Gemini-Gemini"];
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v6 = specifiers;
-    v7 = [v6 countByEnumeratingWithState:&v41 objects:v48 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v40 objects:v47 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
       v10 = 0;
-      v11 = *v42;
-      v38 = *MEMORY[0x277D3FE58];
-      v37 = *MEMORY[0x277D3FE68];
-      v35 = *MEMORY[0x277D40128];
+      v11 = *v41;
+      v37 = *MEMORY[0x277D3FE58];
+      v36 = *MEMORY[0x277D3FE68];
+      v34 = *MEMORY[0x277D40128];
       do
       {
         v12 = 0;
-        v40 = v8;
+        v39 = v8;
         do
         {
-          if (*v42 != v11)
+          if (*v41 != v11)
           {
             objc_enumerationMutation(v6);
           }
 
-          v13 = *(*(&v41 + 1) + 8 * v12);
+          v13 = *(*(&v40 + 1) + 8 * v12);
           if ([v13 cellType])
           {
             v14 = *MEMORY[0x277D3FD20];
             v15 = [*(&self->super.super.super.super.super.super.isa + v14) planItemForListItem:v13];
             if (v15)
             {
-              [v13 setProperty:objc_opt_class() forKey:v38];
+              [v13 setProperty:objc_opt_class() forKey:v37];
               getLogger = [(PSUICellularDataListItemsController *)self getLogger];
               if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v47 = v15;
+                v46 = v15;
                 _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Setting plan item: %@", buf, 0xCu);
               }
 
-              [v13 setProperty:v15 forKey:v37];
+              [v13 setProperty:v15 forKey:v36];
               v17 = [*(&self->super.super.super.super.super.super.isa + v14) subscriptionContextForListItem:v13];
               if (v17)
               {
-                [v13 setProperty:v17 forKey:v35];
+                [v13 setProperty:v17 forKey:v34];
               }
 
               isSelected = [v15 isSelected];
               if ([(PSUICellularDataListItemsController *)self _isDataSwitchAutomatic:v15])
               {
                 v19 = MEMORY[0x277CCACA8];
-                v36 = v10;
+                v35 = v10;
                 v20 = v6;
                 v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
                 v22 = [v21 localizedStringForKey:@"CELLULAR_DATA_SWITCHING_FOOTER_PNW" value:&stru_287733598 table:@"Gemini-Gemini"];
                 v23 = [v19 stringWithFormat:v22];
 
                 v6 = v20;
-                v10 = v36;
+                v10 = v35;
                 v9 = 1;
-                v39 = v23;
+                v38 = v23;
               }
 
               v10 += isSelected;
 
-              v8 = v40;
+              v8 = v39;
             }
           }
 
@@ -207,7 +205,7 @@ void __50__PSUICellularDataListItemsController_reloadCache__block_invoke(uint64_
         }
 
         while (v8 != v12);
-        v8 = [v6 countByEnumeratingWithState:&v41 objects:v48 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v40 objects:v47 count:16];
       }
 
       while (v8);
@@ -223,7 +221,7 @@ void __50__PSUICellularDataListItemsController_reloadCache__block_invoke(uint64_
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v47) = v10;
+      LODWORD(v46) = v10;
       _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "Lines turned on: %d", buf, 8u);
     }
 
@@ -231,7 +229,7 @@ void __50__PSUICellularDataListItemsController_reloadCache__block_invoke(uint64_
 
     v26 = [MEMORY[0x277CBEB18] arrayWithArray:v6];
     v27 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"CELLULAR_DATA_SWITCHING_GROUP"];
-    [v27 setProperty:v39 forKey:*MEMORY[0x277D3FF88]];
+    [v27 setProperty:v38 forKey:*MEMORY[0x277D3FF88]];
     [v26 addObject:v27];
     if ((v9 & 1) == 0)
     {
@@ -244,13 +242,11 @@ void __50__PSUICellularDataListItemsController_reloadCache__block_invoke(uint64_
 
     [MEMORY[0x277D4D878] logSpecifiers:v26 origin:@"[PSUICellularDataListItemsController specifiers] end"];
     v30 = [v26 copy];
-    v31 = *(&self->super.super.super.super.super.super.isa + v34);
-    *(&self->super.super.super.super.super.super.isa + v34) = v30;
+    v31 = *(&self->super.super.super.super.super.super.isa + v33);
+    *(&self->super.super.super.super.super.super.isa + v33) = v30;
 
-    v3 = *(&self->super.super.super.super.super.super.isa + v34);
+    v3 = *(&self->super.super.super.super.super.super.isa + v33);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

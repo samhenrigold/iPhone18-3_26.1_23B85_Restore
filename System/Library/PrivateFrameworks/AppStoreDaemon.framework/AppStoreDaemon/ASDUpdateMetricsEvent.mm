@@ -111,16 +111,15 @@
 
 + (id)relativeMetricsKeys
 {
-  v5[7] = *MEMORY[0x1E69E9840];
-  v5[0] = @"d";
-  v5[1] = @"ps";
-  v5[2] = @"pc";
-  v5[3] = @"ds";
-  v5[4] = @"dc";
-  v5[5] = @"is";
-  v5[6] = @"ic";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:7];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[7] = *MEMORY[0x1E69E9840];
+  v4[0] = @"d";
+  v4[1] = @"ps";
+  v4[2] = @"pc";
+  v4[3] = @"ds";
+  v4[4] = @"dc";
+  v4[5] = @"is";
+  v4[6] = @"ic";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:7];
 
   return v2;
 }

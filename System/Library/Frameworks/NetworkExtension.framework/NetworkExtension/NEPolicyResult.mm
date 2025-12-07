@@ -17,9 +17,72 @@
 + (id)skipWithOrder:(unsigned int)order;
 + (id)tunnelIPToInterfaceName:(id)name secondaryResultType:(int64_t)type;
 - (NEPolicyResult)init;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 @end
 
 @implementation NEPolicyResult
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  if (self)
+  {
+    v8 = self->_resultType - 1;
+    if (v8 > 0xF)
+    {
+      v9 = @"unknown";
+    }
+
+    else
+    {
+      v9 = *(&off_1E7F0A588 + v8);
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v10 = v9;
+  [v7 appendPrettyObject:v10 withName:@"result-type" andIndent:v5 options:options];
+
+  secondaryResultType = self->_secondaryResultType;
+  if (secondaryResultType)
+  {
+    if (secondaryResultType > 0x10)
+    {
+      v12 = @"unknown";
+    }
+
+    else
+    {
+      v12 = *(&off_1E7F0A588 + secondaryResultType - 1);
+    }
+
+    v13 = v12;
+    [v7 appendPrettyObject:v13 withName:@"secondary-result" andIndent:v5 options:options];
+  }
+
+  controlUnit = self->_controlUnit;
+  if (controlUnit)
+  {
+    [v7 appendPrettyInt:controlUnit withName:@"control-unit" andIndent:v5 options:options];
+  }
+
+  effectiveType = self->_effectiveType;
+  if (effectiveType)
+  {
+    [v7 appendPrettyInt:effectiveType withName:@"effective-type" andIndent:v5 options:options];
+  }
+
+  [v7 appendPrettyObject:self->_agentUUID withName:@"agent-uuid" andIndent:v5 options:options];
+  [v7 appendPrettyObject:self->_interfaceName withName:@"interface" andIndent:v5 options:options];
+  [v7 appendPrettyObject:self->_routeRules withName:@"route-rules" andIndent:v5 options:options];
+
+  return v7;
+}
 
 - (NEPolicyResult)init
 {

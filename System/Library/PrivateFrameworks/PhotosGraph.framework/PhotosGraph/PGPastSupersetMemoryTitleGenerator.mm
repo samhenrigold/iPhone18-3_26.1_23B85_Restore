@@ -22,7 +22,7 @@
 
 - (id)_locationTitle
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   titleGenerationContext = [(PGTitleGenerator *)self titleGenerationContext];
   locationHelper = [titleGenerationContext locationHelper];
 
@@ -38,8 +38,8 @@
       v10 = [v9 localizedStringForKey:@"PGPastSupersetMemoryTitleFormatWithLocation %@" value:@"PGPastSupersetMemoryTitleFormatWithLocation %@" table:@"Localizable"];
       v11 = [v8 localizedStringWithFormat:v10, v7];
 
-      v16[0] = v7;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+      v15[0] = v7;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
       v13 = [PGCommonTitleUtility titleWithLineBreakForTitle:v11 andUsedNames:v12];
     }
 
@@ -53,8 +53,6 @@
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

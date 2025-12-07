@@ -79,16 +79,16 @@
 
 - (TIContextTokens)initWithContext:(const TITokenID *)context contextLength:(unint64_t)length contextStringTokens:(id)tokens
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
-  v26.receiver = self;
-  v26.super_class = TIContextTokens;
-  if ([(TIContextTokens *)&v26 init])
+  v25.receiver = self;
+  v25.super_class = TIContextTokens;
+  if ([(TIContextTokens *)&v25 init])
   {
     v7 = [tokensCopy count];
-    v24 = 0;
-    v25 = 0;
     v23 = 0;
+    v24 = 0;
+    v22 = 0;
     if (v7)
     {
       if (v7 < 0xAAAAAAAAAAAAAABLL)
@@ -99,19 +99,19 @@
       std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v8 = tokensCopy;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v20;
+      v12 = *v19;
       v13 = 0;
-      v14 = *v20;
+      v14 = *v19;
       while (1)
       {
         if (v14 != v12)
@@ -119,11 +119,11 @@
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * v11);
+        v15 = *(*(&v18 + 1) + 8 * v11);
         std::string::__assign_external(v13, [v15 UTF8String]);
         if (++v11 >= v10)
         {
-          v16 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
+          v16 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
           if (!v16)
           {
             break;
@@ -133,7 +133,7 @@
           v11 = 0;
         }
 
-        v14 = *v20;
+        v14 = *v19;
         ++v13;
       }
     }
@@ -141,7 +141,6 @@
     operator new();
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

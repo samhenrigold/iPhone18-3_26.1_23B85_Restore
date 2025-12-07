@@ -37,16 +37,16 @@
   {
 LABEL_6:
     protectionSpace3 = [authenticateCopy protectionSpace];
-    v20 = +[NSURLCredential credentialForTrust:](NSURLCredential, "credentialForTrust:", [protectionSpace3 serverTrust]);
+    v21 = +[NSURLCredential credentialForTrust:](NSURLCredential, "credentialForTrust:", [protectionSpace3 serverTrust]);
 
-    completionCopy[2](completionCopy, 0, v20);
+    completionCopy[2](completionCopy, 0, v21);
     goto LABEL_10;
   }
 
-  v21 = sub_100063A54();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v22 = sub_100063A54(v19);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    sub_1000CC3FC(taskCopy, v21);
+    sub_1000CC3FC(taskCopy, v22);
   }
 
   completionCopy[2](completionCopy, 2, 0);

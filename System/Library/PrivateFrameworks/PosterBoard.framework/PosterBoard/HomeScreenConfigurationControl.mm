@@ -34,7 +34,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_21B62B2F8();
+  sub_21B62B2F8(selfCopy);
 }
 
 - (void)setSelected:(BOOL)selected
@@ -53,14 +53,16 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_21B62BAB4(highlighted);
+  sub_21B62BAB4(highlightedCopy);
 }
 
 - (void)setEnabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  sub_21B62BCA8(enabled);
+  sub_21B62BCA8(enabledCopy);
 }
 
 - (_TtC11PosterBoard30HomeScreenConfigurationControl)initWithFrame:(CGRect)frame

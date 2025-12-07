@@ -52,7 +52,7 @@
   }
 
   v5.receiver = self;
-  v5.super_class = type metadata accessor for SelectAccountsViewController();
+  v5.super_class = type metadata accessor for SelectAccountsViewController(0);
   [(SelectAccountsViewController *)&v5 dealloc];
 }
 

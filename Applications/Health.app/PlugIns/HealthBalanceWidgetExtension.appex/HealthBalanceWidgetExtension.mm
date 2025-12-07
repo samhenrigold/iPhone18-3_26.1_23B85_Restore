@@ -1,55 +1,51 @@
 uint64_t sub_100001250@<X0>(uint64_t a1@<X8>)
 {
-  v40 = a1;
-  sub_100001880();
-  v39 = v2;
-  v3 = *(*(v2 - 8) + 64);
-  (__chkstk_darwin)();
-  v38 = &v34 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v37 = sub_100001A3C();
-  v34 = *(v37 - 8);
-  v5 = v34;
-  v6 = *(v34 + 64);
-  v7 = (__chkstk_darwin)();
-  v36 = &v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v41 = &v34 - v9;
-  v10 = sub_100001A5C();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10);
-  v14 = &v34 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = sub_100001A1C();
-  v35 = *(v15 - 8);
-  v16 = v35;
-  v17 = *(v35 + 64);
-  v18 = __chkstk_darwin(v15);
-  v20 = &v34 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v18);
-  v22 = &v34 - v21;
-  v23 = *(v11 + 16);
-  v23(v14, v1, v10);
+  v36 = a1;
+  sub_100001880(0);
+  v35 = v2;
+  __chkstk_darwin(v2);
+  v34 = &v30 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v33 = sub_100001A3C();
+  v30 = *(v33 - 8);
+  v4 = v30;
+  v5 = __chkstk_darwin(v33);
+  v32 = &v30 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v37 = &v30 - v7;
+  v8 = sub_100001A5C();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v30 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = sub_100001A1C();
+  v31 = *(v12 - 8);
+  v13 = v31;
+  v14 = __chkstk_darwin(v12);
+  v16 = &v30 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14);
+  v18 = &v30 - v17;
+  v19 = *(v9 + 16);
+  v19(v11, v1, v8);
   sub_100001A0C();
-  v23(v14, v1, v10);
-  v24 = v41;
+  v19(v11, v1, v8);
+  v20 = v37;
   sub_100001A2C();
-  v25 = *(v16 + 16);
-  v25(v20, v22, v15);
-  v26 = *(v5 + 16);
-  v27 = v36;
-  v28 = v24;
-  v29 = v37;
-  v26(v36, v28, v37);
-  v30 = v38;
-  v25(v38, v20, v15);
-  v26(&v30[*(v39 + 48)], v27, v29);
+  v21 = *(v13 + 16);
+  v21(v16, v18, v12);
+  v22 = *(v4 + 16);
+  v23 = v32;
+  v24 = v20;
+  v25 = v33;
+  v22(v32, v24, v33);
+  v26 = v34;
+  v21(v34, v16, v12);
+  v22(&v26[*(v35 + 48)], v23, v25);
   sub_100001A7C();
-  v31 = *(v34 + 8);
-  v31(v41, v29);
-  v32 = *(v35 + 8);
-  v32(v22, v15);
-  v31(v27, v29);
-  return (v32)(v20, v15);
+  v27 = *(v30 + 8);
+  v27(v37, v25);
+  v28 = *(v31 + 8);
+  v28(v18, v12);
+  v27(v23, v25);
+  return (v28)(v16, v12);
 }
 
 uint64_t sub_1000015EC()
@@ -61,13 +57,13 @@ uint64_t sub_1000015EC()
 
 int main(int argc, const char **argv, const char **envp)
 {
-  type metadata accessor for HealthBalanceWidgets();
-  sub_100001938(&qword_100008098, type metadata accessor for HealthBalanceWidgets);
+  type metadata accessor for HealthBalanceWidgets(0);
+  sub_100001938(&qword_100008098, type metadata accessor for HealthBalanceWidgets, "1%");
   sub_100001A8C();
   return 0;
 }
 
-uint64_t type metadata accessor for HealthBalanceWidgets()
+uint64_t type metadata accessor for HealthBalanceWidgets(uint64_t a1)
 {
   result = qword_1000080F8;
   if (!qword_1000080F8)
@@ -94,10 +90,10 @@ uint64_t sub_100001788(uint64_t a1, uint64_t a2)
   return v5(a1, a2, a2, v4);
 }
 
-uint64_t sub_1000017F8()
+uint64_t sub_1000017F8(uint64_t a1)
 {
   result = sub_100001A5C();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -106,21 +102,21 @@ uint64_t sub_1000017F8()
   return result;
 }
 
-void sub_100001880()
+void sub_100001880(uint64_t a1)
 {
   if (!qword_100008130)
   {
     sub_100001A1C();
     sub_100001A3C();
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &qword_100008130);
     }
   }
 }
 
-uint64_t sub_100001938(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100001938(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -133,15 +129,15 @@ uint64_t sub_100001938(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-void sub_100001980()
+void sub_100001980(uint64_t a1)
 {
   if (!qword_100008140)
   {
-    sub_100001880();
-    v0 = sub_100001A6C();
-    if (!v1)
+    sub_100001880(255);
+    v1 = sub_100001A6C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100008140);
+      atomic_store(v1, &qword_100008140);
     }
   }
 }

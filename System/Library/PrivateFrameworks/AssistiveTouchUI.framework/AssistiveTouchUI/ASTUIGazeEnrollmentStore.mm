@@ -4,6 +4,7 @@
 - (id)_retrieveDictionary;
 - (void)clearStore;
 - (void)saveCalibratedArray:(id)array;
+- (void)saveEnrollmentCompleted:(BOOL)completed;
 - (void)saveEnrollmentPoint:(CGPoint)point withGazePoint:(CGPoint)gazePoint;
 @end
 
@@ -60,6 +61,13 @@
   [mEMORY[0x277CE7E20] setAssistiveTouchMouseOnDeviceEyeTrackingEnrollmentPointToGazePointMap:0];
 }
 
+- (void)saveEnrollmentCompleted:(BOOL)completed
+{
+  completedCopy = completed;
+  mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
+  [mEMORY[0x277CE7E20] setAssistiveTouchMouseOnDeviceEyeTrackingEnrollmentCompleted:completedCopy];
+}
+
 - (void)clearStore
 {
   mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
@@ -74,31 +82,31 @@
 
 - (id)_retrieveDictionary
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
   assistiveTouchMouseOnDeviceEyeTrackingEnrollmentPointToGazePointMap = [mEMORY[0x277CE7E20] assistiveTouchMouseOnDeviceEyeTrackingEnrollmentPointToGazePointMap];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v4 = assistiveTouchMouseOnDeviceEyeTrackingEnrollmentPointToGazePointMap;
-  v5 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v20 = *v22;
+    v19 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v20)
+        if (*v21 != v19)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v21 + 1) + 8 * i);
+        v8 = *(*(&v20 + 1) + 8 * i);
         v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v8 options:0];
         v10 = objc_alloc(MEMORY[0x277CBEA90]);
         v11 = [v4 objectForKeyedSubscript:v8];
@@ -123,13 +131,11 @@
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v6);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

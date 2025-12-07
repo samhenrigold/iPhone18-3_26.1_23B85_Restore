@@ -34,7 +34,7 @@
 
 - (id)getDeclaredMethods
 {
-  v2 = JavaLangReflectMethod_class_();
+  v2 = JavaLangReflectMethod_class_(self, a2);
 
   return [IOSObjectArray arrayWithLength:0 type:v2];
 }
@@ -81,68 +81,37 @@
   {
     if (v2 > 82)
     {
-      if (v2 == 83)
+      if (v2 != 83 && v2 != 90)
       {
-        v3 = off_1003E8C88;
-        goto LABEL_20;
-      }
-
-      if (v2 == 90)
-      {
-        v3 = off_1003E8C50;
-        goto LABEL_20;
+        return 0;
       }
     }
 
-    else
+    else if (v2 != 73 && v2 != 74)
     {
-      if (v2 == 73)
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (v2 <= 67)
+    {
+      if (v2 == 66 || v2 == 67)
       {
-        v3 = off_1003E8C78;
-        goto LABEL_20;
+        goto LABEL_15;
       }
 
-      if (v2 == 74)
-      {
-        v3 = off_1003E8C80;
-        goto LABEL_20;
-      }
+      return 0;
     }
 
-    return 0;
-  }
-
-  if (v2 > 67)
-  {
-    if (v2 == 68)
+    if (v2 != 68 && v2 != 70)
     {
-      v3 = off_1003E8C68;
-      goto LABEL_20;
+      return 0;
     }
-
-    if (v2 == 70)
-    {
-      v3 = off_1003E8C70;
-      goto LABEL_20;
-    }
-
-    return 0;
   }
 
-  if (v2 == 66)
-  {
-    v3 = off_1003E8C58;
-    goto LABEL_20;
-  }
-
-  if (v2 != 67)
-  {
-    return 0;
-  }
-
-  v3 = off_1003E8C60;
-LABEL_20:
-  v4 = *v3;
+LABEL_15:
 
   return objc_opt_class();
 }
@@ -220,7 +189,7 @@ LABEL_20:
       {
         var3 = value->var3;
 
-        return JavaLangShort_valueOfWithShort_(var3);
+        return JavaLangShort_valueOfWithShort_(var3, v5);
       }
 
       else
@@ -252,7 +221,7 @@ LABEL_20:
 
       var5 = value->var5;
 
-      return JavaLangLong_valueOfWithLong_(var5);
+      return JavaLangLong_valueOfWithLong_(var5, v5);
     }
   }
 
@@ -260,9 +229,9 @@ LABEL_20:
   {
     if (v4 == 68)
     {
-      v12 = value->var5;
+      v13 = value->var5;
 
-      return JavaLangDouble_valueOfWithDouble_(*&v12);
+      return JavaLangDouble_valueOfWithDouble_(v4, v5, *&v13);
     }
 
     else
@@ -272,9 +241,9 @@ LABEL_20:
         return 0;
       }
 
-      v8 = value->var4;
+      v9 = value->var4;
 
-      return JavaLangFloat_valueOfWithFloat_(*&v8);
+      return JavaLangFloat_valueOfWithFloat_(v4, v5, *&v9);
     }
   }
 
@@ -286,15 +255,15 @@ LABEL_20:
       {
         var2 = value->var2;
 
-        return JavaLangCharacter_valueOfWithChar_(var2);
+        return JavaLangCharacter_valueOfWithChar_(var2, v5);
       }
 
       return 0;
     }
 
-    v10 = value->var1;
+    v11 = value->var1;
 
-    return JavaLangByte_valueOfWithByte_(v10);
+    return JavaLangByte_valueOfWithByte_(v11, v5);
   }
 }
 
@@ -308,7 +277,7 @@ LABEL_20:
       if (v2 == 83)
       {
 
-        return JavaLangShort_class_();
+        return JavaLangShort_class_(v2, v3);
       }
 
       else
@@ -335,7 +304,7 @@ LABEL_20:
         return 0;
       }
 
-      return JavaLangLong_class_();
+      return JavaLangLong_class_(v2, v3);
     }
   }
 
@@ -344,7 +313,7 @@ LABEL_20:
     if (v2 == 68)
     {
 
-      return JavaLangDouble_class_();
+      return JavaLangDouble_class_(v2, v3);
     }
 
     else
@@ -354,7 +323,7 @@ LABEL_20:
         return 0;
       }
 
-      return JavaLangFloat_class_();
+      return JavaLangFloat_class_(v2, v3);
     }
   }
 
@@ -365,13 +334,13 @@ LABEL_20:
       if (v2 == 67)
       {
 
-        return JavaLangCharacter_class_();
+        return JavaLangCharacter_class_(v2, v3);
       }
 
       return 0;
     }
 
-    return JavaLangByte_class_();
+    return JavaLangByte_class_(v2, v3);
   }
 }
 

@@ -87,7 +87,7 @@
     }
 
     v8 = qword_100228FE8;
-    _NRLogWithArgs();
+    _NRLogWithArgs(v8, 1, "%s%.30s:%-4d Received start agent request", ", "[NRPreferWiFiAgent startAgentWithOptions:]"", 242);
   }
 
   objc_sync_exit(selfCopy);
@@ -132,11 +132,7 @@
       dispatch_once(&qword_100228FF0, &stru_1001FAE10);
     }
 
-    v5 = 55;
-    selfCopy = self;
-    v3 = "";
-    v4 = "[NRPreferWiFiAgent dealloc]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_100228FE8, 1, "%s%.30s:%-4d Dealloc: %@", ", "[NRPreferWiFiAgent dealloc]"", 55, self);
   }
 
   if (self)
@@ -155,23 +151,23 @@
           dispatch_once(&qword_100228FF0, &stru_1001FAE10);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_100228FE8, 17, "Prefer Wi-Fi agent getting dealloc'd without unregistering");
       }
     }
 
     self->_invalidated = 1;
   }
 
-  v7.receiver = self;
-  v7.super_class = NRPreferWiFiAgent;
-  [(NRPreferWiFiAgent *)&v7 dealloc:v3];
+  v3.receiver = self;
+  v3.super_class = NRPreferWiFiAgent;
+  [(NRPreferWiFiAgent *)&v3 dealloc];
 }
 
 - (NRPreferWiFiAgent)init
 {
-  v22.receiver = self;
-  v22.super_class = NRPreferWiFiAgent;
-  v2 = [(NRPreferWiFiAgent *)&v22 init];
+  v24.receiver = self;
+  v24.super_class = NRPreferWiFiAgent;
+  v2 = [(NRPreferWiFiAgent *)&v24 init];
   if (!v2)
   {
     v17 = sub_100073670();
@@ -180,14 +176,14 @@
     if (IsLevelEnabled)
     {
       v19 = sub_100073670();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v19, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRPreferWiFiAgent init]"", 36);
     }
 
-    _os_log_pack_size();
-    v20 = *__error();
-    v21 = _os_log_pack_fill();
-    *v21 = 136446210;
-    *(v21 + 4) = "[NRPreferWiFiAgent init]";
+    v20 = _os_log_pack_size();
+    v21 = __error();
+    v22 = _os_log_pack_fill(&v23 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0), v20, *v21, &_mh_execute_header, "%{public}s [super init] failed");
+    *v22 = 136446210;
+    *(v22 + 4) = "[NRPreferWiFiAgent init]";
     sub_100073670();
     _NRLogAbortWithPack();
   }

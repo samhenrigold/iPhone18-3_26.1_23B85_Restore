@@ -579,14 +579,14 @@ void __35__TUIDSLookupManager_cancelQueries__block_invoke(uint64_t a1)
 
 - (void)beginQueryWithDestinations:(id)destinations services:(unint64_t)services
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
-  v7 = TUDefaultLog();
+  v7 = TUDefaultLog(destinationsCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v15 = destinationsCopy;
-    v16 = 2048;
+    v14 = destinationsCopy;
+    v15 = 2048;
     servicesCopy = services;
     _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "[TUIDSLookupManager:beginQueryWithDestinations] destinations=%@, services=%lu", buf, 0x16u);
   }
@@ -596,23 +596,21 @@ void __35__TUIDSLookupManager_cancelQueries__block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __58__TUIDSLookupManager_beginQueryWithDestinations_services___block_invoke;
   block[3] = &unk_1E7425028;
-  v12 = destinationsCopy;
+  v11 = destinationsCopy;
   servicesCopy2 = services;
   block[4] = self;
   v9 = destinationsCopy;
   dispatch_async(queue, block);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __58__TUIDSLookupManager_beginQueryWithDestinations_services___block_invoke(uint64_t result)
+id *__58__TUIDSLookupManager_beginQueryWithDestinations_services___block_invoke(id *result)
 {
   v1 = result;
-  v2 = *(result + 48);
+  v2 = result[6];
   if (v2)
   {
-    result = [*(result + 32) beginQueryWithDestination:*(result + 40) onService:*MEMORY[0x1E69A47E8]];
-    v2 = *(v1 + 48);
+    result = [result[4] beginQueryWithDestination:result[5] onService:*MEMORY[0x1E69A47E8]];
+    v2 = v1[6];
     if ((v2 & 2) == 0)
     {
 LABEL_3:
@@ -630,8 +628,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  result = [*(v1 + 32) beginQueryWithDestination:*(v1 + 40) onService:*MEMORY[0x1E69A47F0]];
-  v2 = *(v1 + 48);
+  result = [v1[4] beginQueryWithDestination:v1[5] onService:*MEMORY[0x1E69A47F0]];
+  v2 = v1[6];
   if ((v2 & 4) == 0)
   {
 LABEL_4:
@@ -644,8 +642,8 @@ LABEL_4:
   }
 
 LABEL_10:
-  result = [*(v1 + 32) beginQueryWithDestination:*(v1 + 40) onService:*MEMORY[0x1E69A47F8]];
-  v2 = *(v1 + 48);
+  result = [v1[4] beginQueryWithDestination:v1[5] onService:*MEMORY[0x1E69A47F8]];
+  v2 = v1[6];
   if ((v2 & 8) == 0)
   {
 LABEL_5:
@@ -655,8 +653,8 @@ LABEL_5:
     }
 
 LABEL_12:
-    result = [*(v1 + 32) beginQueryWithDestination:*(v1 + 40) onService:@"com.apple.private.alloy.nameandphoto"];
-    if ((*(v1 + 48) & 0x10) == 0)
+    result = [v1[4] beginQueryWithDestination:v1[5] onService:@"com.apple.private.alloy.nameandphoto"];
+    if ((v1[6] & 0x10) == 0)
     {
       return result;
     }
@@ -665,8 +663,8 @@ LABEL_12:
   }
 
 LABEL_11:
-  result = [*(v1 + 32) beginQueryWithDestination:*(v1 + 40) onService:@"com.apple.private.alloy.facetime.messaging"];
-  v2 = *(v1 + 48);
+  result = [v1[4] beginQueryWithDestination:v1[5] onService:@"com.apple.private.alloy.facetime.messaging"];
+  v2 = v1[6];
   if ((v2 & 0x20) != 0)
   {
     goto LABEL_12;
@@ -679,8 +677,8 @@ LABEL_6:
   }
 
 LABEL_13:
-  v3 = *(v1 + 32);
-  v4 = *(v1 + 40);
+  v3 = v1[4];
+  v4 = v1[5];
   v5 = *MEMORY[0x1E69A4818];
 
   return [v3 beginQueryWithDestination:v4 onService:v5];
@@ -688,28 +686,28 @@ LABEL_13:
 
 - (void)beginQueryWithDestination:(id)destination onService:(id)service
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   serviceCopy = service;
-  v8 = TUDefaultLog();
+  v8 = TUDefaultLog(serviceCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v26 = destinationCopy;
-    v27 = 2112;
-    v28 = serviceCopy;
+    v25 = destinationCopy;
+    v26 = 2112;
+    v27 = serviceCopy;
     _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "[TUIDSLookupManager:beginQueryWithDestination] destinations=%@, services=%@", buf, 0x16u);
   }
 
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __58__TUIDSLookupManager_beginQueryWithDestination_onService___block_invoke;
-  v22 = &unk_1E7426658;
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __58__TUIDSLookupManager_beginQueryWithDestination_onService___block_invoke;
+  v21 = &unk_1E7426658;
   selfCopy = self;
   v9 = serviceCopy;
-  v24 = v9;
-  v10 = _Block_copy(&v19);
-  v11 = [(TUIDSLookupManager *)self preferredFromID:v19];
+  v23 = v9;
+  v10 = _Block_copy(&v18);
+  v11 = [(TUIDSLookupManager *)self preferredFromID:v18];
   queryController = [(TUIDSLookupManager *)self queryController];
   v13 = objc_opt_respondsToSelector();
 
@@ -726,8 +724,6 @@ LABEL_13:
   {
     [queryController2 refreshIDStatusForDestinations:allObjects service:v9 preferredFromID:v11 listenerID:v16 queue:queue completionBlock:v10];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginQueryWithRefreshForDestination:(id)destination onService:(id)service
@@ -775,14 +771,14 @@ LABEL_13:
 
 - (void)beginBatchQueryWithDestinations:(id)destinations services:(unint64_t)services
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
-  v7 = TUDefaultLog();
+  v7 = TUDefaultLog(destinationsCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v15 = destinationsCopy;
-    v16 = 2048;
+    v14 = destinationsCopy;
+    v15 = 2048;
     servicesCopy = services;
     _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "[TUIDSLookupManager:beginBatchQueryWithDestinations] destinations=%@, services=%lu", buf, 0x16u);
   }
@@ -792,13 +788,11 @@ LABEL_13:
   block[1] = 3221225472;
   block[2] = __63__TUIDSLookupManager_beginBatchQueryWithDestinations_services___block_invoke;
   block[3] = &unk_1E7425028;
-  v12 = destinationsCopy;
+  v11 = destinationsCopy;
   servicesCopy2 = services;
   block[4] = self;
   v9 = destinationsCopy;
   dispatch_async(queue, block);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __63__TUIDSLookupManager_beginBatchQueryWithDestinations_services___block_invoke(uint64_t a1)
@@ -930,14 +924,14 @@ LABEL_8:
   dispatch_async(queue, block);
 }
 
-uint64_t __64__TUIDSLookupManager_beginCachedQueryWithDestinations_services___block_invoke(uint64_t result)
+id *__64__TUIDSLookupManager_beginCachedQueryWithDestinations_services___block_invoke(id *result)
 {
   v1 = result;
-  v2 = *(result + 48);
+  v2 = result[6];
   if (v2)
   {
-    result = [*(result + 32) beginCachedQueryWithDestinations:*(result + 40) onService:*MEMORY[0x1E69A47E8]];
-    v2 = *(v1 + 48);
+    result = [result[4] beginCachedQueryWithDestinations:result[5] onService:*MEMORY[0x1E69A47E8]];
+    v2 = v1[6];
     if ((v2 & 2) == 0)
     {
 LABEL_3:
@@ -955,8 +949,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  result = [*(v1 + 32) beginCachedQueryWithDestinations:*(v1 + 40) onService:*MEMORY[0x1E69A47F0]];
-  v2 = *(v1 + 48);
+  result = [v1[4] beginCachedQueryWithDestinations:v1[5] onService:*MEMORY[0x1E69A47F0]];
+  v2 = v1[6];
   if ((v2 & 4) == 0)
   {
 LABEL_4:
@@ -969,8 +963,8 @@ LABEL_4:
   }
 
 LABEL_10:
-  result = [*(v1 + 32) beginCachedQueryWithDestinations:*(v1 + 40) onService:*MEMORY[0x1E69A47F8]];
-  v2 = *(v1 + 48);
+  result = [v1[4] beginCachedQueryWithDestinations:v1[5] onService:*MEMORY[0x1E69A47F8]];
+  v2 = v1[6];
   if ((v2 & 8) == 0)
   {
 LABEL_5:
@@ -980,8 +974,8 @@ LABEL_5:
     }
 
 LABEL_12:
-    result = [*(v1 + 32) beginCachedQueryWithDestinations:*(v1 + 40) onService:@"com.apple.private.alloy.nameandphoto"];
-    if ((*(v1 + 48) & 0x10) == 0)
+    result = [v1[4] beginCachedQueryWithDestinations:v1[5] onService:@"com.apple.private.alloy.nameandphoto"];
+    if ((v1[6] & 0x10) == 0)
     {
       return result;
     }
@@ -990,8 +984,8 @@ LABEL_12:
   }
 
 LABEL_11:
-  result = [*(v1 + 32) beginCachedQueryWithDestinations:*(v1 + 40) onService:@"com.apple.private.alloy.facetime.messaging"];
-  v2 = *(v1 + 48);
+  result = [v1[4] beginCachedQueryWithDestinations:v1[5] onService:@"com.apple.private.alloy.facetime.messaging"];
+  v2 = v1[6];
   if ((v2 & 0x20) != 0)
   {
     goto LABEL_12;
@@ -1004,8 +998,8 @@ LABEL_6:
   }
 
 LABEL_13:
-  v3 = *(v1 + 32);
-  v4 = *(v1 + 40);
+  v3 = v1[4];
+  v4 = v1[5];
   v5 = *MEMORY[0x1E69A4818];
 
   return [v3 beginCachedQueryWithDestinations:v4 onService:v5];
@@ -1032,30 +1026,30 @@ LABEL_13:
 
 void __65__TUIDSLookupManager_beginCachedQueryWithDestinations_onService___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 mutableCopy];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        v11 = [v5 objectForKeyedSubscript:{v10, v14}];
+        v10 = *(*(&v13 + 1) + 8 * i);
+        v11 = [v5 objectForKeyedSubscript:{v10, v13}];
         v12 = [v11 isEqual:&unk_1F09C6010];
 
         if ((v12 & 1) == 0)
@@ -1064,40 +1058,39 @@ void __65__TUIDSLookupManager_beginCachedQueryWithDestinations_onService___block
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   [*(a1 + 32) handleIDSQueryResultWithDestinationStatus:v4 onService:*(a1 + 40)];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isAnyDestinationAvailableInDestinations:(id)destinations usingCache:(id)cache
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   object = [cache object];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = destinationsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = [object objectForKeyedSubscript:{*(*(&v15 + 1) + 8 * i), v15}];
+        v11 = [object objectForKeyedSubscript:{*(*(&v14 + 1) + 8 * i), v14}];
         v12 = v11;
         if (v11 && [v11 integerValue] == 1)
         {
@@ -1107,7 +1100,7 @@ void __65__TUIDSLookupManager_beginCachedQueryWithDestinations_onService___block
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         continue;
@@ -1119,7 +1112,6 @@ void __65__TUIDSLookupManager_beginCachedQueryWithDestinations_onService___block
 
 LABEL_12:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -1144,22 +1136,21 @@ LABEL_12:
 
 - (void)batchQueryController:(id)controller updatedDestinationsStatus:(id)status onService:(id)service error:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   serviceCopy = service;
-  v10 = TUDefaultLog();
+  v10 = TUDefaultLog(serviceCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = TULoggableStringForObject(statusCopy);
-    v13 = 138412546;
-    v14 = serviceCopy;
-    v15 = 2112;
-    v16 = v11;
-    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Received query status response for service %@: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = serviceCopy;
+    v14 = 2112;
+    v15 = v11;
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Received query status response for service %@: %@", &v12, 0x16u);
   }
 
   [(TUIDSLookupManager *)self handleIDSQueryResultWithDestinationStatus:statusCopy onService:serviceCopy];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleIDSQueryResultWithDestinationStatus:(id)status onService:(id)service
@@ -1265,44 +1256,38 @@ LABEL_14:
 
 void __74__TUIDSLookupManager_handleIDSQueryResultWithDestinationStatus_onService___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = [a2 mutableCopy];
-  [v3 addEntriesFromDictionary:*(a1 + 32)];
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog([v3 addEntriesFromDictionary:*(a1 + 32)]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = TULoggableStringForObject(v3);
-    v9 = 138412290;
-    v10 = v5;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Updating destinations for FaceTime audio service: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v5;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Updating destinations for FaceTime audio service: %@", &v8, 0xCu);
   }
 
   v6 = [*(a1 + 40) idsFaceTimeAudioStatuses];
   v7 = [v3 copy];
   [v6 setObject:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __74__TUIDSLookupManager_handleIDSQueryResultWithDestinationStatus_onService___block_invoke_87(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = [a2 mutableCopy];
-  [v3 addEntriesFromDictionary:*(a1 + 32)];
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog([v3 addEntriesFromDictionary:*(a1 + 32)]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = TULoggableStringForObject(v3);
-    v9 = 138412290;
-    v10 = v5;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Updating destinations for FaceTime video service: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v5;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Updating destinations for FaceTime video service: %@", &v8, 0xCu);
   }
 
   v6 = [*(a1 + 40) idsFaceTimeVideoStatuses];
   v7 = [v3 copy];
   [v6 setObject:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __74__TUIDSLookupManager_handleIDSQueryResultWithDestinationStatus_onService___block_invoke_88(uint64_t a1, void *a2)
@@ -1320,29 +1305,28 @@ void __74__TUIDSLookupManager_handleIDSQueryResultWithDestinationStatus_onServic
   v21 = v6;
   [v4 performWhileLocked:&v16];
 
-  v7 = TUDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = TUDefaultLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = TULoggableStringForObject(v3);
-    v9 = [*(a1 + 32) idsModernStatuses];
-    v10 = TULoggableStringForObject(v9);
-    v11 = [*(a1 + 32) idsWebCapableStatuses];
-    v12 = TULoggableStringForObject(v11);
-    v13 = [*(a1 + 32) idsAVLessSharePlayCapableStatuses];
-    v14 = TULoggableStringForObject(v13);
+    v9 = TULoggableStringForObject(v3);
+    v10 = [*(a1 + 32) idsModernStatuses];
+    v11 = TULoggableStringForObject(v10);
+    v12 = [*(a1 + 32) idsWebCapableStatuses];
+    v13 = TULoggableStringForObject(v12);
+    v14 = [*(a1 + 32) idsAVLessSharePlayCapableStatuses];
+    v15 = TULoggableStringForObject(v14);
     *buf = 138413058;
-    v23 = v8;
+    v23 = v9;
     v24 = 2112;
-    v25 = v10;
+    v25 = v11;
     v26 = 2112;
-    v27 = v12;
+    v27 = v13;
     v28 = 2112;
-    v29 = v14;
-    _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "Updated filtered destinations for Multiway service: %@ modern: %@ webCapable: %@ avLessSharePlayCapable: %@", buf, 0x2Au);
+    v29 = v15;
+    _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "Updated filtered destinations for Multiway service: %@ modern: %@ webCapable: %@ avLessSharePlayCapable: %@", buf, 0x2Au);
   }
 
   [*(a1 + 32) postStatusChangedNotification];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __74__TUIDSLookupManager_handleIDSQueryResultWithDestinationStatus_onService___block_invoke_2(uint64_t a1, void *a2)
@@ -1356,58 +1340,51 @@ void __74__TUIDSLookupManager_handleIDSQueryResultWithDestinationStatus_onServic
 
 void __74__TUIDSLookupManager_handleIDSQueryResultWithDestinationStatus_onService___block_invoke_89(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = [a2 mutableCopy];
-  [v3 addEntriesFromDictionary:*(a1 + 32)];
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog([v3 addEntriesFromDictionary:*(a1 + 32)]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = TULoggableStringForObject(v3);
-    v9 = 138412290;
-    v10 = v5;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Updating destinations for iMessage service: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v5;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Updating destinations for iMessage service: %@", &v8, 0xCu);
   }
 
   v6 = [*(a1 + 40) idsiMessageStatuses];
   v7 = [v3 copy];
   [v6 setObject:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __74__TUIDSLookupManager_handleIDSQueryResultWithDestinationStatus_onService___block_invoke_90(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = [a2 mutableCopy];
-  [v3 addEntriesFromDictionary:*(a1 + 32)];
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog([v3 addEntriesFromDictionary:*(a1 + 32)]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = TULoggableStringForObject(v3);
-    v9 = 138412290;
-    v10 = v5;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Updating destinations for video messaging service: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v5;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Updating destinations for video messaging service: %@", &v8, 0xCu);
   }
 
   v6 = [*(a1 + 40) idsVideoMessagingStatuses];
   v7 = [v3 copy];
   [v6 setObject:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __74__TUIDSLookupManager_handleIDSQueryResultWithDestinationStatus_onService___block_invoke_91(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = [a2 mutableCopy];
-  [v3 addEntriesFromDictionary:*(a1 + 32)];
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog([v3 addEntriesFromDictionary:*(a1 + 32)]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = TULoggableStringForObject(v3);
-    v9 = 138412290;
-    v10 = v5;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Updating destinations for name and photo service: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v5;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Updating destinations for name and photo service: %@", &v8, 0xCu);
   }
 
   v6 = [*(a1 + 40) idsNameAndPhotoStatuses];
@@ -1415,43 +1392,42 @@ void __74__TUIDSLookupManager_handleIDSQueryResultWithDestinationStatus_onServic
   [v6 setObject:v7];
 
   [*(a1 + 40) postStatusChangedNotification];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)filteredDestinationForMultiway:(id)multiway completionBlock:(id)block
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   multiwayCopy = multiway;
   blockCopy = block;
   v8 = [multiwayCopy mutableCopy];
   cUTWeakLinkClass() = [CUTWeakLinkClass() sharedInstance];
   if ([cUTWeakLinkClass() isGreenTea])
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     allKeys = [multiwayCopy allKeys];
-    v11 = [allKeys countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v11 = [allKeys countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v29;
+      v13 = *v28;
       do
       {
         v14 = 0;
         do
         {
-          if (*v29 != v13)
+          if (*v28 != v13)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          [v8 setObject:&unk_1F09C6028 forKeyedSubscript:*(*(&v28 + 1) + 8 * v14++)];
+          [v8 setObject:&unk_1F09C6028 forKeyedSubscript:*(*(&v27 + 1) + 8 * v14++)];
         }
 
         while (v12 != v14);
-        v12 = [allKeys countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v12 = [allKeys countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v12);
@@ -1463,27 +1439,27 @@ void __74__TUIDSLookupManager_handleIDSQueryResultWithDestinationStatus_onServic
   else
   {
     v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __69__TUIDSLookupManager_filteredDestinationForMultiway_completionBlock___block_invoke;
-    v26[3] = &unk_1E74266A0;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __69__TUIDSLookupManager_filteredDestinationForMultiway_completionBlock___block_invoke;
+    v25[3] = &unk_1E74266A0;
     v16 = v15;
-    v27 = v16;
-    [multiwayCopy enumerateKeysAndObjectsUsingBlock:v26];
+    v26 = v16;
+    [multiwayCopy enumerateKeysAndObjectsUsingBlock:v25];
     if ([v16 count])
     {
       queryController = [(TUIDSLookupManager *)self queryController];
-      v21 = *MEMORY[0x1E69A47F8];
+      v20 = *MEMORY[0x1E69A47F8];
       preferredFromID = [(TUIDSLookupManager *)self preferredFromID];
       v19 = dispatch_get_global_queue(33, 0);
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __69__TUIDSLookupManager_filteredDestinationForMultiway_completionBlock___block_invoke_2;
-      v22[3] = &unk_1E7426718;
-      v23 = v8;
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __69__TUIDSLookupManager_filteredDestinationForMultiway_completionBlock___block_invoke_2;
+      v21[3] = &unk_1E7426718;
+      v22 = v8;
       selfCopy = self;
-      v25 = blockCopy;
-      [queryController currentRemoteDevicesForDestinations:v16 service:v21 preferredFromID:preferredFromID listenerID:@"com.apple.TelephonyUtilities" queue:v19 completionBlock:v22];
+      v24 = blockCopy;
+      [queryController currentRemoteDevicesForDestinations:v16 service:v20 preferredFromID:preferredFromID listenerID:@"com.apple.TelephonyUtilities" queue:v19 completionBlock:v21];
     }
 
     else
@@ -1491,8 +1467,6 @@ void __74__TUIDSLookupManager_handleIDSQueryResultWithDestinationStatus_onServic
       blockCopy[2](blockCopy, v8);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __69__TUIDSLookupManager_filteredDestinationForMultiway_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1558,49 +1532,48 @@ void __69__TUIDSLookupManager_filteredDestinationForMultiway_completionBlock___b
   v27 = v19;
   [v17 performWhileLocked:v25];
 
-  v20 = TUDefaultLog();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = TUDefaultLog(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = TULoggableStringForObject(*(a1 + 32));
+    v22 = TULoggableStringForObject(*(a1 + 32));
     *buf = 138412290;
-    v40 = v21;
-    _os_log_impl(&dword_1956FD000, v20, OS_LOG_TYPE_DEFAULT, "Updated filtered destinations for Multiway service: %@", buf, 0xCu);
+    v40 = v22;
+    _os_log_impl(&dword_1956FD000, v21, OS_LOG_TYPE_DEFAULT, "Updated filtered destinations for Multiway service: %@", buf, 0xCu);
   }
 
-  (*(*(a1 + 48) + 16))(*(a1 + 48), *(a1 + 32), v22, v23);
-  v24 = *MEMORY[0x1E69E9840];
+  (*(*(a1 + 48) + 16))(*(a1 + 48), *(a1 + 32), v23, v24);
 }
 
 void __69__TUIDSLookupManager_filteredDestinationForMultiway_completionBlock___block_invoke_3(id *a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = a3;
-  v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v26 = *v28;
-    v25 = *MEMORY[0x1E69A5040];
+    v25 = *v27;
+    v24 = *MEMORY[0x1E69A5040];
     v8 = *MEMORY[0x1E69A5070];
-    v23 = *MEMORY[0x1E69A5050];
+    v22 = *MEMORY[0x1E69A5050];
     v9 = *MEMORY[0x1E69A5048];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v26)
+        if (*v27 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v26 + 1) + 8 * i);
         v12 = [v11 capabilities];
-        v13 = [v12 valueForCapability:v25];
+        v13 = [v12 valueForCapability:v24];
 
         if (v13)
         {
@@ -1617,7 +1590,7 @@ void __69__TUIDSLookupManager_filteredDestinationForMultiway_completionBlock___b
         v16 = [v15 valueForCapability:v8];
 
         v17 = a1 + 5;
-        if (v16 || ([v11 capabilities], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "valueForCapability:", v23), v18, v17 = a1 + 6, v19))
+        if (v16 || ([v11 capabilities], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "valueForCapability:", v22), v18, v17 = a1 + 6, v19))
         {
           [*v17 addObject:v5];
         }
@@ -1631,13 +1604,11 @@ void __69__TUIDSLookupManager_filteredDestinationForMultiway_completionBlock___b
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v7);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __69__TUIDSLookupManager_filteredDestinationForMultiway_completionBlock___block_invoke_107(uint64_t a1, uint64_t a2)
@@ -1734,55 +1705,55 @@ void __95__TUIDSLookupManager_queryHasEndpointWithCapabilities_forMultiwayDestin
 
 void __95__TUIDSLookupManager_queryHasEndpointWithCapabilities_forMultiwayDestinations_completionBlock___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v25 = a4;
-  v44 = *MEMORY[0x1E69E9840];
+  v24 = a4;
+  v43 = *MEMORY[0x1E69E9840];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = a3;
-  v28 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+  if (v27)
   {
-    v27 = *v38;
+    v26 = *v37;
     do
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v27; ++i)
       {
-        if (*v38 != v27)
+        if (*v37 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v37 + 1) + 8 * i);
+        v6 = *(*(&v36 + 1) + 8 * i);
+        v32 = 0u;
         v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v36 = 0u;
         v7 = [*(a1 + 32) requiredCapabilities];
-        v8 = [v7 countByEnumeratingWithState:&v33 objects:v42 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v32 objects:v41 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v34;
+          v10 = *v33;
           v11 = 1;
           do
           {
             for (j = 0; j != v9; ++j)
             {
-              if (*v34 != v10)
+              if (*v33 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v13 = *(*(&v33 + 1) + 8 * j);
+              v13 = *(*(&v32 + 1) + 8 * j);
               v14 = [v6 capabilities];
               LODWORD(v13) = [v14 valueForCapability:v13] != 0;
 
               v11 &= v13;
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v33 objects:v42 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v32 objects:v41 count:16];
           }
 
           while (v9);
@@ -1797,41 +1768,41 @@ void __95__TUIDSLookupManager_queryHasEndpointWithCapabilities_forMultiwayDestin
         {
         }
 
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v15 = [*(a1 + 32) requiredMissingCapabilities];
-        v16 = [v15 countByEnumeratingWithState:&v29 objects:v41 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v28 objects:v40 count:16];
         if (!v16)
         {
 
 LABEL_26:
           *(*(*(a1 + 40) + 8) + 24) = 1;
-          *v25 = 1;
+          *v24 = 1;
           continue;
         }
 
         v17 = v16;
-        v18 = *v30;
+        v18 = *v29;
         LOBYTE(v19) = 1;
         do
         {
           for (k = 0; k != v17; ++k)
           {
-            if (*v30 != v18)
+            if (*v29 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v21 = *(*(&v29 + 1) + 8 * k);
+            v21 = *(*(&v28 + 1) + 8 * k);
             v22 = [v6 capabilities];
             v23 = [v22 valueForCapability:v21];
 
             v19 = (v23 == 0) & v19;
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v29 objects:v41 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v28 objects:v40 count:16];
         }
 
         while (v17);
@@ -1842,13 +1813,11 @@ LABEL_26:
         }
       }
 
-      v28 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v27 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

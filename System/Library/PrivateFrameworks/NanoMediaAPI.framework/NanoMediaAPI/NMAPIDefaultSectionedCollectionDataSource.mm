@@ -132,7 +132,7 @@
 
 - (void)_parseResults
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   sectionResultIDs = self->_sectionResultIDs;
   self->_sectionResultIDs = v3;
@@ -153,33 +153,33 @@
   importedIdentifierSets = self->_importedIdentifierSets;
   self->_importedIdentifierSets = v11;
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   obj = self->_results;
-  v13 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v43 count:16];
+  v13 = [(NSArray *)obj countByEnumeratingWithState:&v30 objects:v42 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v32;
+    v15 = *v31;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v32 != v15)
+        if (*v31 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v31 + 1) + 8 * i);
+        v17 = *(*(&v30 + 1) + 8 * i);
         itemsArray = [v17 itemsArray];
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __58__NMAPIDefaultSectionedCollectionDataSource__parseResults__block_invoke;
-        v30[3] = &unk_27993AFD8;
-        v30[4] = self;
-        v19 = [MEMORY[0x277CCAC30] predicateWithBlock:v30];
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __58__NMAPIDefaultSectionedCollectionDataSource__parseResults__block_invoke;
+        v29[3] = &unk_27993AFD8;
+        v29[4] = self;
+        v19 = [MEMORY[0x277CCAC30] predicateWithBlock:v29];
         v20 = [itemsArray filteredArrayUsingPredicate:v19];
 
         if ([v20 count])
@@ -192,7 +192,7 @@
         }
       }
 
-      v14 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v14 = [(NSArray *)obj countByEnumeratingWithState:&v30 objects:v42 count:16];
     }
 
     while (v14);
@@ -201,22 +201,20 @@
   v23 = NMLogForCategory(10);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    v25 = self->_sectionResultIDs;
-    v26 = self->_sectionResults;
-    v27 = self->_sectionedItemResultIDs;
-    v28 = self->_itemResults;
+    v24 = self->_sectionResultIDs;
+    v25 = self->_sectionResults;
+    v26 = self->_sectionedItemResultIDs;
+    v27 = self->_itemResults;
     *buf = 138413058;
-    v36 = v25;
-    v37 = 2112;
-    v38 = v26;
-    v39 = 2112;
-    v40 = v27;
-    v41 = 2112;
-    v42 = v28;
+    v35 = v24;
+    v36 = 2112;
+    v37 = v25;
+    v38 = 2112;
+    v39 = v26;
+    v40 = 2112;
+    v41 = v27;
     _os_log_debug_impl(&dword_25B251000, v23, OS_LOG_TYPE_DEBUG, "[NanoMediaAPI] _sectionResultIDs: %@, _sectionResults: %@, _sectionedItemResultIDs: %@, _itemResults: %@", buf, 0x2Au);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addSectionWithIdentifier:(id)identifier dictionary:(id)dictionary
@@ -349,7 +347,7 @@ void __64__NMAPIDefaultSectionedCollectionDataSource__addItemsFromArray___block_
 
 void __79__NMAPIDefaultSectionedCollectionDataSource__storeBrowseSectionWithDictionary___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = a2;
+  v19 = a2;
   v3 = [*(a1 + 32) objectForKey:@"name"];
   v4 = v3;
   if (v3)
@@ -384,7 +382,7 @@ void __79__NMAPIDefaultSectionedCollectionDataSource__storeBrowseSectionWithDict
     }
   }
 
-  [v20 setTitle:v5];
+  [v19 setTitle:v5];
   v11 = [*(a1 + 32) objectForKey:@"href"];
   v12 = v11;
   if (v11)
@@ -399,11 +397,10 @@ void __79__NMAPIDefaultSectionedCollectionDataSource__storeBrowseSectionWithDict
 
   v14 = v13;
 
-  v15 = *(*(a1 + 40) + 8);
   if ((objc_opt_respondsToSelector() & 1) != 0 && [*(*(a1 + 40) + 8) performSelector:sel_resultsPerSection] >= 1)
   {
-    v16 = [*(a1 + 32) objectForKey:@"next"];
-    if (!v16)
+    v15 = [*(a1 + 32) objectForKey:@"next"];
+    if (!v15)
     {
 
       v14 = 0;
@@ -412,46 +409,45 @@ void __79__NMAPIDefaultSectionedCollectionDataSource__storeBrowseSectionWithDict
 
   if (v14)
   {
-    v17 = [*(a1 + 40) _musicURLWithPartialURLString:v14];
-    [v20 setLoadAdditionalContentURL:v17];
+    v16 = [*(a1 + 40) _musicURLWithPartialURLString:v14];
+    [v19 setLoadAdditionalContentURL:v16];
   }
 
   else
   {
-    [v20 setLoadAdditionalContentURL:0];
+    [v19 setLoadAdditionalContentURL:0];
   }
 
-  v18 = [*(a1 + 32) valueForKeyPath:@"attributes.editorialElementKind"];
-  if ([v18 isEqualToString:@"488"])
+  v17 = [*(a1 + 32) valueForKeyPath:@"attributes.editorialElementKind"];
+  if ([v17 isEqualToString:@"488"])
   {
-    v19 = 13;
+    v18 = 13;
   }
 
-  else if ([v18 isEqualToString:@"388"])
+  else if ([v17 isEqualToString:@"388"])
   {
-    v19 = 10;
+    v18 = 10;
   }
 
-  else if ([v18 isEqualToString:@"391"])
+  else if ([v17 isEqualToString:@"391"])
   {
-    v19 = 11;
+    v18 = 11;
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  [v20 setSectionType:v19];
+  [v19 setSectionType:v18];
 }
 
 void __64__NMAPIDefaultSectionedCollectionDataSource__addItemsFromArray___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B251000, a2, OS_LOG_TYPE_ERROR, "Failed to retrieve object %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B251000, a2, OS_LOG_TYPE_ERROR, "Failed to retrieve object %@", &v2, 0xCu);
 }
 
 @end

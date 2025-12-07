@@ -10,13 +10,12 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  type = self->_type;
   coderCopy = coder;
-  [coderCopy encodeInteger:type forKey:@"updateType"];
-  [coderCopy encodeInteger:self->_touchIdentifier forKey:@"touchIdentifier"];
-  [coderCopy encodeBool:self->_isDetached forKey:@"isDetached"];
-  [coderCopy encodeInteger:self->_contextID forKey:@"contextID"];
-  [coderCopy encodeInteger:self->_pid forKey:@"pid"];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
 }
 
 - (BKSTouchDeliveryUpdate)initWithCoder:(id)coder
@@ -27,11 +26,11 @@
   v5 = [(BKSTouchDeliveryUpdate *)&v7 init];
   if (v5)
   {
-    v5->_type = [coderCopy decodeIntegerForKey:@"updateType"];
-    v5->_touchIdentifier = [coderCopy decodeIntegerForKey:@"touchIdentifier"];
-    v5->_isDetached = [coderCopy decodeBoolForKey:@"isDetached"];
-    v5->_contextID = [coderCopy decodeIntegerForKey:@"contextID"];
-    v5->_pid = [coderCopy decodeIntegerForKey:@"pid"];
+    v5->_type = [coderCopy decodeIntegerForKey:?];
+    v5->_touchIdentifier = [coderCopy decodeIntegerForKey:?];
+    v5->_isDetached = [coderCopy decodeBoolForKey:?];
+    v5->_contextID = [coderCopy decodeIntegerForKey:?];
+    v5->_pid = [coderCopy decodeIntegerForKey:?];
   }
 
   return v5;
@@ -40,41 +39,35 @@
 - (void)appendDescriptionToStream:(id)stream
 {
   streamCopy = stream;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __52__BKSTouchDeliveryUpdate_appendDescriptionToStream___block_invoke;
-  v6[3] = &unk_1E6F47C78;
+  v6 = MEMORY[0x1E69E9820];
   v7 = streamCopy;
   selfCopy = self;
   v5 = streamCopy;
-  [v5 appendProem:0 block:v6];
+  [v5 appendProem:v6 block:{3221225472, __52__BKSTouchDeliveryUpdate_appendDescriptionToStream___block_invoke, &unk_1E6F47C78}];
 }
 
 id __52__BKSTouchDeliveryUpdate_appendDescriptionToStream___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = NSStringFromBKSTouchDeliveryUpdateType(*(*(a1 + 40) + 24));
-  [v2 appendString:v3 withName:0];
+  [v2 appendString:? withName:?];
 
   v4 = *(a1 + 40);
-  v5 = *(v4 + 12);
-  if (v5)
+  if (*(v4 + 12))
   {
-    v6 = [*(a1 + 32) appendInteger:v5 withName:@"touchIdentifier"];
+    v5 = [*(a1 + 32) appendInteger:? withName:?];
     v4 = *(a1 + 40);
   }
 
   if (*(v4 + 8) == 1)
   {
-    v7 = [*(a1 + 32) appendBool:1 withName:@"detached"];
-    v4 = *(a1 + 40);
+    v6 = [*(a1 + 32) appendBool:? withName:?];
   }
 
-  result = [*(a1 + 32) appendInteger:*(v4 + 20) withName:@"pid"];
-  v9 = *(*(a1 + 40) + 16);
-  if (v9)
+  result = [*(a1 + 32) appendInteger:? withName:?];
+  if (*(*(a1 + 40) + 16))
   {
-    return [*(a1 + 32) appendInteger:v9 withName:@"contextID"];
+    return [*(a1 + 32) appendInteger:? withName:?];
   }
 
   return result;
@@ -111,7 +104,7 @@ id __52__BKSTouchDeliveryUpdate_appendDescriptionToStream___block_invoke(uint64_
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  result = [[BKSTouchDeliveryUpdate allocWithZone:?]];
+  result = [+[BKSTouchDeliveryUpdate allocWithZone:](BKSTouchDeliveryUpdate init];
   *(result + 3) = self->_type;
   *(result + 3) = self->_touchIdentifier;
   *(result + 8) = self->_isDetached;

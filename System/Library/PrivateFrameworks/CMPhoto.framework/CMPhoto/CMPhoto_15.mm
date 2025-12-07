@@ -227,11 +227,11 @@ LABEL_74:
   }
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v11 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v6 = a1 + 112;
     v7 = &v11;
@@ -698,14 +698,12 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](ui
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = *(a2 + 24);
     *(v4 + 40) = *(a2 + 5);
     *(v4 + 24) = v7;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v8 = v4 + 48;
   }
@@ -1154,7 +1152,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl
     v8 = v6[1];
     if (v8 == 40)
     {
-      v9 = v6 + 2;
+      v9 = (v6 + 2);
       std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
       marked_count = a1->__marked_count_;
       do
@@ -1387,7 +1385,7 @@ BOOL std::basic_regex<char,std::regex_traits<char>>::__test_back_ref(std::basic_
   return 1;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   v6 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(a1, a2, a3);
   if (v6 == a2)
@@ -1405,7 +1403,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_bra
   return v7;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   end = a1->__end_;
   marked_count = a1->__marked_count_;
@@ -1423,7 +1421,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_exp
         std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
         v11 = a1->__marked_count_;
         ++a1->__open_count_;
-        v12 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, v9 + 1, a3);
+        v12 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, (v9 + 1), a3);
         if (v12 == a3 || (v9 = v12, *v12 != 41))
         {
           std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
@@ -1468,7 +1466,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_one_cha
     return v6;
   }
 
-  if (a2 != a3 && *v7 == 46)
+  if (a2 != a3 && LOBYTE(v7->__traits_.__loc_.__locale_) == 46)
   {
     operator new();
   }
@@ -1521,7 +1519,7 @@ LABEL_8:
   return v3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_CHAR_ERE<char const*>(uint64_t a1, std::basic_regex<char> *this, std::basic_regex<char> *a3)
+std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_CHAR_ERE<char const*>(uint64_t a1, std::basic_regex<char> *this, std::basic_regex<char> *a3)
 {
   v3 = this;
   if (this == a3)
@@ -1540,7 +1538,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_
   if (!v6 || (v5 - 123) < 3)
   {
     std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v5);
-    return v3 + 2;
+    return (v3 + 2);
   }
 
   if ((*(a1 + 24) & 0x1F0) != 0x40)
@@ -1552,13 +1550,13 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_
       v9 = 0;
     }
 
-    return v3 + v9;
+    return (v3 + v9);
   }
 
   return std::basic_regex<char,std::regex_traits<char>>::__parse_awk_escape<char const*>(a1, v4, a3, 0);
 }
 
-void std::__shared_ptr_emplace<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>>::__shared_ptr_emplace[abi:ne200100]<char const(&)[40],std::allocator<std::basic_regex<char,std::regex_traits<char>>>,0>(std::regex_traits<char> *a1, const char *a2)
+void std::__shared_ptr_emplace<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>>::__shared_ptr_emplace[abi:ne200100]<char const(&)[40],std::allocator<std::basic_regex<char,std::regex_traits<char>>>,0>(std::regex_traits<char> *a1, char *a2)
 {
   a1->__ct_ = 0;
   a1->__col_ = 0;
@@ -1566,12 +1564,12 @@ void std::__shared_ptr_emplace<std::basic_regex<char,std::regex_traits<char>> co
   std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](a1 + 1, a2, 0);
 }
 
-void std::__shared_ptr_emplace<vega::DateTime const>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::allocator<vega::DateTime>,0>(uint64_t a1)
+void std::__shared_ptr_emplace<vega::DateTime const>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::allocator<vega::DateTime>,0>(uint64_t a1, uint64_t a2)
 {
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *a1 = &unk_1F19178E0;
-  vega::DateTime::DateTime((a1 + 24));
+  vega::DateTime::DateTime((a1 + 24), a2);
 }
 
 void std::__shared_ptr_emplace<vega::DateTime const>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -1604,12 +1602,12 @@ void std::__shared_ptr_emplace<vega::DateTime const>::__on_zero_shared(void *a1)
   }
 }
 
-void *std::__shared_ptr_emplace<vega::RegexString const>::__shared_ptr_emplace[abi:ne200100]<std::string const&,std::shared_ptr<std::basic_regex<char,std::regex_traits<char>> const> const,std::allocator<vega::RegexString>,0>(void *a1)
+void *std::__shared_ptr_emplace<vega::RegexString const>::__shared_ptr_emplace[abi:ne200100]<std::string const&,std::shared_ptr<std::basic_regex<char,std::regex_traits<char>> const> const,std::allocator<vega::RegexString>,0>(void *a1, __int128 *a2, void *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F1917930;
-  vega::RegexString::RegexString(a1 + 3);
+  vega::RegexString::RegexString((a1 + 3), a2, a3);
   return a1;
 }
 
@@ -1636,12 +1634,12 @@ void std::__destroy_at[abi:ne200100]<vega::RegexString,0>(uint64_t a1)
   }
 }
 
-void *std::__shared_ptr_emplace<vega::RegexString const>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::shared_ptr<std::basic_regex<char,std::regex_traits<char>> const> const,std::allocator<vega::RegexString>,0>(void *a1)
+void *std::__shared_ptr_emplace<vega::RegexString const>::__shared_ptr_emplace[abi:ne200100]<std::string &,std::shared_ptr<std::basic_regex<char,std::regex_traits<char>> const> const,std::allocator<vega::RegexString>,0>(void *a1, __int128 *a2, void *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F1917930;
-  vega::RegexString::RegexString(a1 + 3);
+  vega::RegexString::RegexString((a1 + 3), a2, a3);
   return a1;
 }
 
@@ -1697,7 +1695,7 @@ void sub_1A59F4EB8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void vega::dicom::File::File(_OWORD *a1, uint64_t a2, char a3, char a4)
+void vega::dicom::File::File(_OWORD *a1, void *a2, char a3, char a4)
 {
   v6 = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -1819,7 +1817,7 @@ void sub_1A59F5D9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<vega::dicom::TransferSyntax>::__init_with_size[abi:ne200100]<vega::dicom::TransferSyntax const*,vega::dicom::TransferSyntax const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<vega::dicom::TransferSyntax>::__init_with_size[abi:ne200100]<vega::dicom::TransferSyntax const*,vega::dicom::TransferSyntax const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1836,7 +1834,7 @@ void sub_1A59F5EF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<vega::dicom::TransferSyntax>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<vega::dicom::TransferSyntax>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -1927,23 +1925,23 @@ uint64_t std::ostringstream::~ostringstream(uint64_t a1, uint64_t *a2)
   return std::ostream::~ostream();
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2, int a3)
 {
   a1[59] = 0;
-  v2 = MEMORY[0x1E69E5528] + 64;
+  v4 = MEMORY[0x1E69E5528] + 64;
   a1[53] = MEMORY[0x1E69E5528] + 64;
-  v3 = *(MEMORY[0x1E69E54C8] + 16);
-  v4 = *(MEMORY[0x1E69E54C8] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  a1[1] = 0;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 2);
-  v6 = MEMORY[0x1E69E5528] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x1E69E54C8] + 16);
+  v6 = *(MEMORY[0x1E69E54C8] + 8);
   *a1 = v6;
-  a1[53] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  a1[1] = 0;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 2);
+  v8 = MEMORY[0x1E69E5528] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[53] = v4;
   MEMORY[0x1AC552780](a1 + 2);
   if (!std::filebuf::open())
   {
@@ -1960,7 +1958,7 @@ void sub_1A59F6310(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__shared_ptr_emplace<vega::dicom::Reader>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<std::istream> &,BOOL &,BOOL &,std::allocator<vega::dicom::Reader>,0>(void *a1, uint64_t *a2, unsigned __int8 *a3, unsigned __int8 *a4)
+void *std::__shared_ptr_emplace<vega::dicom::Reader>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<std::istream> &,BOOL &,BOOL &,std::allocator<vega::dicom::Reader>,0>(void *a1, uint64_t *a2, char *a3, char *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -1969,7 +1967,7 @@ void *std::__shared_ptr_emplace<vega::dicom::Reader>::__shared_ptr_emplace[abi:n
   return a1;
 }
 
-uint64_t std::construct_at[abi:ne200100]<vega::dicom::Reader,std::shared_ptr<std::istream> &,BOOL &,BOOL &,vega::dicom::Reader*>(uint64_t a1, uint64_t *a2, unsigned __int8 *a3, unsigned __int8 *a4)
+uint64_t std::construct_at[abi:ne200100]<vega::dicom::Reader,std::shared_ptr<std::istream> &,BOOL &,BOOL &,vega::dicom::Reader*>(uint64_t a1, uint64_t *a2, char *a3, char *a4)
 {
   v5 = a2[1];
   v7 = *a2;
@@ -2105,12 +2103,12 @@ void sub_1A59F6918(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _ZNSt3__120__shared_ptr_emplaceIN4vega5dicom8PreambleENS_9allocatorIS3_EEEC2B8ne200100IJES5_Li0EEES5_DpOT_(uint64_t a1)
+void *_ZNSt3__120__shared_ptr_emplaceIN4vega5dicom8PreambleENS_9allocatorIS3_EEEC2B8ne200100IJES5_Li0EEES5_DpOT_(void *a1)
 {
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   *a1 = &unk_1F19179F0;
-  vega::dicom::Preamble::Preamble((a1 + 24));
+  vega::dicom::Preamble::Preamble(a1 + 24);
   return a1;
 }
 
@@ -2220,62 +2218,101 @@ void sub_1A59F6DD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::dicom::Reader::read_data_element@<X0>(void *a1@<X0>, void *a2@<X1>, int a3@<W2>, void *a4@<X8>)
+uint64_t vega::dicom::Reader::seek_pos(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = *(a2 + 112);
+  v7[6] = *(a2 + 96);
+  v7[7] = v2;
+  v8 = *(a2 + 128);
+  v3 = *(a2 + 48);
+  v7[2] = *(a2 + 32);
+  v7[3] = v3;
+  v4 = *(a2 + 80);
+  v7[4] = *(a2 + 64);
+  v7[5] = v4;
+  v5 = *(a2 + 16);
+  v7[0] = *a2;
+  v7[1] = v5;
+  return vega::dicom::RawReader::seek_pos(a1 + 40, v7);
+}
+
+uint64_t vega::dicom::Reader::seek_delta(uint64_t a1, uint64_t a2)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = *(a2 + 112);
+  v7[6] = *(a2 + 96);
+  v7[7] = v2;
+  v8 = *(a2 + 128);
+  v3 = *(a2 + 48);
+  v7[2] = *(a2 + 32);
+  v7[3] = v3;
+  v4 = *(a2 + 80);
+  v7[4] = *(a2 + 64);
+  v7[5] = v4;
+  v5 = *(a2 + 16);
+  v7[0] = *a2;
+  v7[1] = v5;
+  return vega::dicom::RawReader::seek_delta(a1 + 40, v7);
+}
+
+uint64_t vega::dicom::Reader::read_data_element@<X0>(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+{
+  v21[17] = *MEMORY[0x1E69E9840];
   if (a3 >= 101)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v18, "read_data_element() recursion level hit. Corrupt file");
-    std::runtime_error::runtime_error(exception, &v18);
+    std::string::basic_string[abi:ne200100]<0>(&v20, "read_data_element() recursion level hit. Corrupt file");
+    std::runtime_error::runtime_error(exception, &v20);
     exception->__vftable = &unk_1F1917B30;
   }
 
   if (!*a2)
   {
-    v9 = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v17, "read_data_element() must receive parent DataSet");
-    std::runtime_error::runtime_error(v9, &v17);
-    v9->__vftable = &unk_1F1917B30;
+    v11 = __cxa_allocate_exception(0x10uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v19, "read_data_element() must receive parent DataSet");
+    std::runtime_error::runtime_error(v11, &v19);
+    v11->__vftable = &unk_1F1917B30;
   }
 
   v6 = vega::Formatter::indent((a1 + 2));
   vega::operator<<<char [18]>(v6, "read_data_element");
   vega::Formatter::newline((a1 + 2));
   ++a1[3];
-  v16 = 0;
-  v15 = 0;
+  v18 = 0;
+  v17 = 0;
   *a4 = 0;
   a4[1] = 0;
-  if ((vega::dicom::RawReader::read_into<vega::Tag>((a1 + 5), &v16) & 1) == 0)
+  if ((vega::dicom::RawReader::read_into<vega::Tag>((a1 + 5), &v18) & 1) == 0)
   {
-    v10 = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v14, "Reader failed to read element tag");
-    std::runtime_error::runtime_error(v10, &v14);
-    v10->__vftable = &unk_1F1917B30;
+    v12 = __cxa_allocate_exception(0x10uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v16, "Reader failed to read element tag");
+    std::runtime_error::runtime_error(v12, &v16);
+    v12->__vftable = &unk_1F1917B30;
   }
 
   if (!vega::dicom::RawWriter::vr_explicit((a1 + 5)))
   {
-    v12.__r_.__value_.__s.__data_[0] = 1;
+    v14.__r_.__value_.__s.__data_[0] = 1;
     std::allocate_shared[abi:ne200100]<vega::dicom::DataElement,std::allocator<vega::dicom::DataElement>,vega::Tag &,std::shared_ptr<vega::dicom::DataSet> &,BOOL,0>();
   }
 
-  if ((vega::dicom::RawReader::read_into<vega::VR>((a1 + 5)) & 1) == 0)
+  if ((vega::dicom::RawReader::read_into<vega::VR>((a1 + 5), &v17) & 1) == 0)
   {
-    v11 = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v13, "Reader failed to read in explicit VR");
-    std::runtime_error::runtime_error(v11, &v13);
-    v11->__vftable = &unk_1F1917B30;
+    v13 = __cxa_allocate_exception(0x10uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v15, "Reader failed to read in explicit VR");
+    std::runtime_error::runtime_error(v13, &v15);
+    v13->__vftable = &unk_1F1917B30;
   }
 
-  if (*CMPhotoGetEncodeAccelerationModeOverride(&v16) || *vega::Tag::element(&v16) | v15)
+  CMPhotoGetEncodeAccelerationModeOverride();
+  if (*v7 || (v8 = vega::Tag::element(&v18), *v8 | v17))
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::DataElement,std::allocator<vega::dicom::DataElement>,vega::Tag &,vega::VR &,std::shared_ptr<vega::dicom::DataSet> &,0>();
   }
 
-  vega::dicom::RawReader::eof_pos((a1 + 5), &v19);
-  return vega::dicom::RawReader::seek_pos();
+  vega::dicom::RawReader::eof_pos(v21, (a1 + 5));
+  return vega::dicom::RawReader::seek_pos((a1 + 5), v21);
 }
 
 uint64_t vega::operator<<<char [18]>(uint64_t a1, char *__s)
@@ -2356,20 +2393,20 @@ uint64_t vega::dicom::RawReader::read_into<unsigned int>(vega::dicom::IOState *a
   return 0;
 }
 
-uint64_t vega::dicom::RawReader::read_into<unsigned short>(vega::dicom::IOState *a1)
+uint64_t vega::dicom::RawReader::read_into<unsigned short>(vega::dicom::IOState *a1, uint64_t a2)
 {
   if (vega::dicom::IOState::swap(a1))
   {
     for (i = 1; ; i = 0)
     {
-      v3 = i;
+      v4 = i;
       std::istream::read();
       if (!*(*(a1 + 2) + 8))
       {
         break;
       }
 
-      if ((v3 & 1) == 0)
+      if ((v4 & 1) == 0)
       {
         return 1;
       }
@@ -2388,12 +2425,12 @@ uint64_t vega::dicom::RawReader::read_into<unsigned short>(vega::dicom::IOState 
   return 0;
 }
 
-__n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<Q0>(char *__s@<X1>, std::string *a2@<X0>, std::string *a3@<X8>)
+__n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<Q0>(std::string *__return_ptr a1@<X8>, char *__s@<X1>, std::string *a3@<X0>)
 {
   v6 = strlen(__s);
-  v7 = std::string::append(a2, __s, v6);
+  v7 = std::string::append(a3, __s, v6);
   result = *v7;
-  *a3 = *v7->n128_u8;
+  *a1 = *v7->n128_u8;
   v7->n128_u64[0] = 0;
   v7->n128_u64[1] = 0;
   v7[1].n128_u64[0] = 0;
@@ -2402,7 +2439,7 @@ __n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<c
 
 uint64_t vega::dicom::Reader::read_data_element_undefined_sequence(void *a1, uint64_t a2, int a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v6 = vega::Formatter::indent((a1 + 2));
   if (*(v6 + 16) == 1)
   {
@@ -2413,11 +2450,10 @@ uint64_t vega::dicom::Reader::read_data_element_undefined_sequence(void *a1, uin
   result = vega::dicom::RawReader::eof((a1 + 5));
   if ((result & 1) == 0)
   {
-    v8 = (a3 + 1);
-    while (1)
+    for (i = a3 + 1; ; ++i)
     {
       v19 = 0;
-      vega::dicom::RawReader::tell(v20, (a1 + 5));
+      vega::dicom::RawReader::tell();
       if ((vega::dicom::RawReader::read_into<vega::Tag>((a1 + 5), &v19) & 1) == 0)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -2431,16 +2467,16 @@ uint64_t vega::dicom::Reader::read_data_element_undefined_sequence(void *a1, uin
         break;
       }
 
-      v22[6] = v20[6];
-      v22[7] = v20[7];
-      v23 = v21;
-      v22[2] = v20[2];
-      v22[3] = v20[3];
-      v22[4] = v20[4];
-      v22[5] = v20[5];
-      v22[0] = v20[0];
-      v22[1] = v20[1];
-      vega::dicom::RawReader::seek_pos();
+      v29[6] = v26;
+      v29[7] = v27;
+      v30 = v28;
+      v29[2] = v22;
+      v29[3] = v23;
+      v29[4] = v24;
+      v29[5] = v25;
+      v29[0] = v20;
+      v29[1] = v21;
+      vega::dicom::RawReader::seek_pos((a1 + 5), v29);
       ++a1[3];
       v9 = *(a2 + 8);
       v15 = *a2;
@@ -2450,26 +2486,25 @@ uint64_t vega::dicom::Reader::read_data_element_undefined_sequence(void *a1, uin
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      vega::dicom::Reader::read_data_set(v22, a1, &v15, v8);
+      vega::dicom::Reader::read_data_set(a1, &v15, i, v29);
       if (v16)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v16);
       }
 
       --a1[3];
-      if (*&v22[0])
+      if (*&v29[0])
       {
         v10 = vega::dicom::DataElement::data_sets(*a2);
-        std::vector<std::shared_ptr<vega::manipulators::OtherWordManipulator>>::push_back[abi:ne200100](v10, v22);
+        std::vector<std::shared_ptr<vega::manipulators::OtherWordManipulator>>::push_back[abi:ne200100](v10, v29);
       }
 
-      if (*(&v22[0] + 1))
+      if (*(&v29[0] + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v22[0] + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v29[0] + 1));
       }
 
       result = vega::dicom::RawReader::eof((a1 + 5));
-      v8 = (v8 + 1);
       if (result)
       {
         return result;
@@ -2483,9 +2518,9 @@ uint64_t vega::dicom::Reader::read_data_element_undefined_sequence(void *a1, uin
     }
 
     vega::Formatter::newline((a1 + 2));
-    LODWORD(v22[0]) = 0;
-    result = vega::dicom::RawReader::read_into<unsigned int>((a1 + 5), v22);
-    if (LODWORD(v22[0]))
+    LODWORD(v29[0]) = 0;
+    result = vega::dicom::RawReader::read_into<unsigned int>((a1 + 5), v29);
+    if (LODWORD(v29[0]))
     {
       v12 = 0;
     }
@@ -2530,7 +2565,7 @@ LABEL_6:
 
 uint64_t *vega::dicom::Reader::read_data_element_finite_sequence(void *a1, uint64_t a2, int a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = vega::Formatter::indent((a1 + 2));
   if (*(v6 + 16) == 1)
   {
@@ -2538,48 +2573,47 @@ uint64_t *vega::dicom::Reader::read_data_element_finite_sequence(void *a1, uint6
   }
 
   vega::Formatter::newline((a1 + 2));
-  vega::dicom::RawReader::tell(v16, (a1 + 5));
+  vega::dicom::RawReader::tell();
   v7 = *vega::dicom::SOPClass::uid(*a2);
-  v8 = v17;
-  result = vega::dicom::RawReader::tell(v16, (a1 + 5));
-  v10 = v8 + v7;
-  if (v17 < v10)
+  result = vega::dicom::RawReader::tell();
+  v9 = v16 + v7;
+  if (v16 < v9)
   {
-    v11 = (a3 + 1);
+    v10 = a3 + 1;
     do
     {
       ++a1[3];
-      v12 = *(a2 + 8);
-      v14 = *a2;
-      v15 = v12;
-      if (v12)
+      v11 = *(a2 + 8);
+      v13 = *a2;
+      v14 = v11;
+      if (v11)
       {
-        atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      vega::dicom::Reader::read_data_set(v16, a1, &v14, v11);
-      if (v15)
+      vega::dicom::Reader::read_data_set(a1, &v13, v10, v15);
+      if (v14)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v14);
       }
 
       --a1[3];
-      if (*&v16[0])
+      if (*&v15[0])
       {
-        v13 = vega::dicom::DataElement::data_sets(*a2);
-        std::vector<std::shared_ptr<vega::manipulators::OtherWordManipulator>>::push_back[abi:ne200100](v13, v16);
+        v12 = vega::dicom::DataElement::data_sets(*a2);
+        std::vector<std::shared_ptr<vega::manipulators::OtherWordManipulator>>::push_back[abi:ne200100](v12, v15);
       }
 
-      if (*(&v16[0] + 1))
+      if (*(&v15[0] + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v16[0] + 1));
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v15[0] + 1));
       }
 
-      result = vega::dicom::RawReader::tell(v16, (a1 + 5));
-      v11 = (v11 + 1);
+      result = vega::dicom::RawReader::tell();
+      ++v10;
     }
 
-    while (v17 < v10);
+    while (v16 < v9);
   }
 
   return result;
@@ -2600,7 +2634,7 @@ void vega::dicom::Reader::read_data_element_value_field(uint64_t a1, vega **a2)
   v4 = vega::Formatter::indent((a1 + 16));
   vega::operator<<<char [18]>(v4, "element is not sequence");
   vega::Formatter::newline((a1 + 16));
-  vega::manipulator_for (*a2, v5);
+  vega::manipulator_for (*a2);
 }
 
 void sub_1A59F8B7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, void *a47, uint64_t a48, int a49, __int16 a50, char a51, char a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
@@ -2680,77 +2714,77 @@ LABEL_26:
   goto LABEL_26;
 }
 
-vega::Formatter *vega::dicom::Reader::read_data_set@<X0>(void *a1@<X0>, void *a2@<X8>)
+vega::Formatter *vega::dicom::Reader::read_data_set@<X0>(void *a1@<X0>, void *a4@<X8>)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v4 = vega::Formatter::indent((a1 + 2));
-  if (*(v4 + 16) == 1)
+  v22 = *MEMORY[0x1E69E9840];
+  v6 = vega::Formatter::indent((a1 + 2));
+  if (*(v6 + 16) == 1)
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*v4, "read_data_set", 13);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*v6, "read_data_set", 13);
   }
 
   vega::Formatter::newline((a1 + 2));
   ++a1[3];
-  v18 = 0;
-  if ((vega::dicom::RawReader::read_into<vega::Tag>((a1 + 5), &v18) & 1) == 0)
+  v20 = 0;
+  if ((vega::dicom::RawReader::read_into<vega::Tag>((a1 + 5), &v20) & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v17, "Reader failed to read in data set tag");
-    std::runtime_error::runtime_error(exception, &v17);
+    std::string::basic_string[abi:ne200100]<0>(&v19, "Reader failed to read in data set tag");
+    std::runtime_error::runtime_error(exception, &v19);
     exception->__vftable = &unk_1F1917B30;
   }
 
-  if (vega::Tag::is_item_tag(&v18))
+  if (vega::Tag::is_item_tag(&v20))
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::DataSet,std::allocator<vega::dicom::DataSet>,std::shared_ptr<vega::dicom::DataElement> &,0>();
   }
 
-  if (!vega::Tag::is_item_delimitation_tag(&v18))
+  if (!vega::Tag::is_item_delimitation_tag(&v20))
   {
-    v13 = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v15, "Reader unexpectedly reached end of read_data_set() method");
-    std::runtime_error::runtime_error(v13, &v15);
-    v13->__vftable = &unk_1F1917B30;
+    v15 = __cxa_allocate_exception(0x10uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v17, "Reader unexpectedly reached end of read_data_set() method");
+    std::runtime_error::runtime_error(v15, &v17);
+    v15->__vftable = &unk_1F1917B30;
   }
 
-  LODWORD(v19) = 0;
-  v5 = vega::dicom::RawReader::read_into<unsigned int>((a1 + 5), &v19);
-  if (v19)
+  LODWORD(v21) = 0;
+  v7 = vega::dicom::RawReader::read_into<unsigned int>((a1 + 5), &v21);
+  if (v21)
   {
-    v6 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v6 = v5;
+    v8 = v7;
   }
 
-  if ((v6 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
-    v14 = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v16, "Reader failed to read in length of item delimitation tag");
-    std::runtime_error::runtime_error(v14, &v16);
-    v14->__vftable = &unk_1F1917B30;
+    v16 = __cxa_allocate_exception(0x10uLL);
+    std::string::basic_string[abi:ne200100]<0>(&v18, "Reader failed to read in length of item delimitation tag");
+    std::runtime_error::runtime_error(v16, &v18);
+    v16->__vftable = &unk_1F1917B30;
   }
 
-  v7 = vega::Formatter::indent((a1 + 2));
-  v8 = vega::operator<<<char [18]>(v7, "DataSet (delim): ");
-  v9 = v8;
-  if (*(v8 + 16) == 1)
-  {
-    vega::operator<<(*v8);
-  }
-
-  v10 = vega::operator<<<char [18]>(v9, " ");
+  v9 = vega::Formatter::indent((a1 + 2));
+  v10 = vega::operator<<<char [18]>(v9, "DataSet (delim): ");
+  v11 = v10;
   if (*(v10 + 16) == 1)
   {
-    MEMORY[0x1AC552920](*v10, v19);
+    vega::operator<<(*v10);
+  }
+
+  v12 = vega::operator<<<char [18]>(v11, " ");
+  if (*(v12 + 16) == 1)
+  {
+    MEMORY[0x1AC552920](*v12, v21);
   }
 
   result = vega::Formatter::newline((a1 + 2));
   --a1[3];
-  *a2 = 0;
-  a2[1] = 0;
+  *a4 = 0;
+  a4[1] = 0;
   return result;
 }
 
@@ -2788,7 +2822,7 @@ void vega::dicom::Reader::ReadingError::~ReadingError(std::runtime_error *this)
   JUMPOUT(0x1AC552B90);
 }
 
-void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[abi:ne200100]<vega::Tag &,vega::VR &,std::shared_ptr<vega::dicom::DataSet> &,std::allocator<vega::dicom::DataElement>,0>(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[abi:ne200100]<vega::Tag &,vega::VR &,std::shared_ptr<vega::dicom::DataSet> &,std::allocator<vega::dicom::DataElement>,0>(void *a1, vega::Tag *a2, vega::VR *a3, uint64_t *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -2797,7 +2831,7 @@ void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[
   return a1;
 }
 
-uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,vega::Tag &,vega::VR &,std::shared_ptr<vega::dicom::DataSet> &,vega::dicom::DataElement*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,vega::Tag &,vega::VR &,std::shared_ptr<vega::dicom::DataSet> &,vega::dicom::DataElement*>(uint64_t a1, vega::Tag *a2, vega::VR *a3, uint64_t *a4)
 {
   v5 = a4[1];
   v7 = *a4;
@@ -2826,7 +2860,7 @@ void sub_1A59F9880(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[abi:ne200100]<vega::Tag &,std::shared_ptr<vega::dicom::DataSet> &,BOOL,std::allocator<vega::dicom::DataElement>,0>(void *a1, uint64_t a2, uint64_t *a3, unsigned __int8 *a4)
+void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[abi:ne200100]<vega::Tag &,std::shared_ptr<vega::dicom::DataSet> &,BOOL,std::allocator<vega::dicom::DataElement>,0>(void *a1, vega::Tag *a2, uint64_t *a3, char *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -2835,7 +2869,7 @@ void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[
   return a1;
 }
 
-uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,vega::Tag &,std::shared_ptr<vega::dicom::DataSet> &,BOOL,vega::dicom::DataElement*>(uint64_t a1, uint64_t a2, uint64_t *a3, unsigned __int8 *a4)
+uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,vega::Tag &,std::shared_ptr<vega::dicom::DataSet> &,BOOL,vega::dicom::DataElement*>(uint64_t a1, vega::Tag *a2, uint64_t *a3, char *a4)
 {
   v5 = a3[1];
   v7 = *a3;
@@ -2894,17 +2928,17 @@ void std::__throw_bad_weak_ptr[abi:ne200100]()
 
 void vega::dicom::Reader::read_data_element()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA788))
+  if (__cxa_guard_acquire(byte_1ED6FA788))
   {
     _MergedGlobals_14 = 20819;
-    __cxa_guard_release(&qword_1ED6FA788);
+    __cxa_guard_release(byte_1ED6FA788);
   }
 }
 
-void vega::RFC1951::inflate()
+void vega::RFC1951::inflate(uint64_t a1)
 {
-  MEMORY[0x1EEE9AC00]();
-  v0 = *MEMORY[0x1E69E9840];
+  MEMORY[0x1EEE9AC00](a1);
+  v1 = *MEMORY[0x1E69E9840];
   _ZNSt3__115allocate_sharedB8ne200100INS_18basic_stringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEENS4_IS6_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
 }
 
@@ -2950,7 +2984,7 @@ void sub_1A59F9E88(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x1A59F9E74);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string[abi:ne200100](void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -2962,13 +2996,13 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
@@ -3180,10 +3214,10 @@ void vega::UID::BASE(std::string *a1@<X8>)
 {
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "1.2.840.113635.100.22");
-    if (SHIBYTE(v4) < 0)
+    if (SHIBYTE(v3) < 0)
     {
       std::string::__init_copy_ctor_external(&vega::UID::BASE(void)::BASE, __p[0], __p[1]);
-      if (SHIBYTE(v4) < 0)
+      if (SHIBYTE(v3) < 0)
       {
         operator delete(__p[0]);
       }
@@ -3192,7 +3226,7 @@ void vega::UID::BASE(std::string *a1@<X8>)
     else
     {
       vega::UID::BASE(void)::BASE = *__p;
-      unk_1EB1ECB38 = v4;
+      unk_1EB1ECB38 = v3;
     }
   }
 
@@ -3238,12 +3272,12 @@ std::string *vega::UID::UID(std::string *this, __int128 *a2)
 void vega::UID::IMPLEMENTATION_CLASS_UID(std::string *a1@<X8>)
 {
   {
-    vega::UID::BASE(&v3);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(".1", &v3.__r_.__value_.__l.__data_, __p);
-    if (SHIBYTE(v5) < 0)
+    vega::UID::BASE(&v2);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, ".1", &v2.__r_.__value_.__l.__data_);
+    if (SHIBYTE(v4) < 0)
     {
       std::string::__init_copy_ctor_external(&vega::UID::IMPLEMENTATION_CLASS_UID(void)::IMPLEMENTATION_CLASS_UID, __p[0], __p[1]);
-      if (SHIBYTE(v5) < 0)
+      if (SHIBYTE(v4) < 0)
       {
         operator delete(__p[0]);
       }
@@ -3252,12 +3286,12 @@ void vega::UID::IMPLEMENTATION_CLASS_UID(std::string *a1@<X8>)
     else
     {
       vega::UID::IMPLEMENTATION_CLASS_UID(void)::IMPLEMENTATION_CLASS_UID = *__p;
-      unk_1EB1ECB58 = v5;
+      unk_1EB1ECB58 = v4;
     }
 
-    if (SHIBYTE(v3.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v2.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v3.__r_.__value_.__l.__data_);
+      operator delete(v2.__r_.__value_.__l.__data_);
     }
   }
 
@@ -3288,41 +3322,41 @@ void sub_1A59FA7D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(char *__s@<X1>, const void **a2@<X0>, void **a3@<X8>)
+uint64_t *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(uint64_t ***__return_ptr a1@<X8>, char *__s@<X1>, const void **a3@<X0>)
 {
-  if (*(a2 + 23) >= 0)
+  if (*(a3 + 23) >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = *(a3 + 23);
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = a3[1];
   }
 
   v7 = strlen(__s);
-  result = std::string::basic_string[abi:ne200100](a3, v6 + v7);
-  if (*(a3 + 23) < 0)
+  result = std::string::basic_string[abi:ne200100](a1, v6 + v7);
+  if (*(a1 + 23) < 0)
   {
-    a3 = *a3;
+    a1 = *a1;
   }
 
   if (v6)
   {
-    if (*(a2 + 23) >= 0)
+    if (*(a3 + 23) >= 0)
     {
-      v9 = a2;
+      v9 = a3;
     }
 
     else
     {
-      v9 = *a2;
+      v9 = *a3;
     }
 
-    result = memmove(a3, v9, v6);
+    result = memmove(a1, v9, v6);
   }
 
-  v10 = a3 + v6;
+  v10 = a1 + v6;
   if (v7)
   {
     result = memmove(v10, __s, v7);
@@ -3416,7 +3450,7 @@ BOOL vega::UID::operator!=(void *a1, void *a2)
   return memcmp(a1, a2, v3) != 0;
 }
 
-void vega::UID::generate(vega::UID *this@<X0>, std::string *a2@<X8>)
+void vega::UID::generate(std::string *__return_ptr a1@<X8>, vega::UID *this@<X0>)
 {
   v2 = this;
   std::to_string(&v21, this);
@@ -3565,7 +3599,7 @@ LABEL_7:
   std::stringbuf::str[abi:ne200100](&v17[0].__r_.__value_.__l.__size_, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(a2, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(a1, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -3574,7 +3608,7 @@ LABEL_7:
 
   else
   {
-    *a2 = __p;
+    *a1 = __p;
   }
 
   v17[0].__r_.__value_.__r.__words[0] = *MEMORY[0x1E69E54E8];
@@ -3595,30 +3629,30 @@ LABEL_7:
   }
 }
 
-void sub_1A59FAD30(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
+void sub_1A59FAD30(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  va_start(va, a21);
-  if (a7 < 0)
+  va_start(va, a25);
+  if (SHIBYTE(a11) < 0)
   {
-    operator delete(__p);
+    operator delete(a9);
   }
 
-  std::ostringstream::~ostringstream(&a8, MEMORY[0x1E69E54E8]);
+  std::ostringstream::~ostringstream(&a12, MEMORY[0x1E69E54E8]);
   MEMORY[0x1AC552AF0](va);
-  if (*(v21 - 57) < 0)
+  if (*(v25 - 57) < 0)
   {
-    operator delete(*(v21 - 80));
+    operator delete(*(v25 - 80));
   }
 
   _Unwind_Resume(a1);
 }
 
-_BYTE *vega::UID::timestamp@<X0>(_BYTE *a1@<X8>)
+uint64_t *vega::UID::timestamp@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = time(0);
-  v3 = gmtime(&v5);
-  strftime(__s, 0xFuLL, "%Y%m%d%H%M%S", v3);
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = time(0);
+  v2 = gmtime(&v4);
+  strftime(__s, 0xFuLL, "%Y%m%d%H%M%S", v2);
   return std::string::basic_string[abi:ne200100]<0>(a1, __s);
 }
 
@@ -3695,7 +3729,7 @@ void sub_1A59FB06C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -3707,11 +3741,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 vega::dicom::IOState *vega::dicom::RawWriter::RawWriter(vega::dicom::IOState *a1, uint64_t a2)
@@ -3751,9 +3785,9 @@ vega::dicom::IOState *vega::dicom::RawWriter::RawWriter(vega::dicom::IOState *a1
   return a1;
 }
 
-void sub_1A59FB2EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
+void sub_1A59FB2EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
 {
-  MEMORY[0x1AC5528C0](&a16);
+  MEMORY[0x1AC5528C0](&a16, a2, a3, a4, a5, a6, a7, a8);
   v18 = *(v16 + 24);
   if (v18)
   {
@@ -3763,23 +3797,23 @@ void sub_1A59FB2EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t vega::dicom::RawWriter::tell@<X0>(uint64_t this@<X0>, uint64_t a2@<X8>)
+uint64_t *vega::dicom::RawWriter::tell@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v2 = *(this + 16) + *(**(this + 16) - 24);
+  v2 = this[2] + *(*this[2] - 24);
   if ((*(v2 + 32) & 5) == 0)
   {
     return (*(**(v2 + 40) + 32))(*(v2 + 40), 0, 1, 16);
   }
 
-  *(a2 + 96) = 0u;
-  *(a2 + 112) = 0u;
-  *(a2 + 64) = 0u;
-  *(a2 + 80) = 0u;
-  *(a2 + 32) = 0u;
-  *(a2 + 48) = 0u;
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  *(a2 + 128) = -1;
+  *(a1 + 6) = 0u;
+  *(a1 + 7) = 0u;
+  *(a1 + 4) = 0u;
+  *(a1 + 5) = 0u;
+  *(a1 + 2) = 0u;
+  *(a1 + 3) = 0u;
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  a1[16] = -1;
   return this;
 }
 
@@ -3803,13 +3837,13 @@ uint64_t vega::dicom::RawWriter::seek_pos(uint64_t a1)
 
 uint64_t vega::dicom::RawWriter::write_from<vega::Tag>(vega::dicom::IOState *a1, vega::Tag *a2)
 {
-  CMPhotoGetEncodeAccelerationModeOverride(a2);
-  v4 = vega::dicom::RawWriter::write_from<unsigned short>(a1);
-  vega::Tag::element(a2);
-  return vega::dicom::RawWriter::write_from<unsigned short>(a1) + v4;
+  CMPhotoGetEncodeAccelerationModeOverride();
+  v5 = vega::dicom::RawWriter::write_from<unsigned short>(a1, v4);
+  v6 = vega::Tag::element(a2);
+  return vega::dicom::RawWriter::write_from<unsigned short>(a1, v6) + v5;
 }
 
-uint64_t vega::dicom::RawWriter::write_from<vega::VR>(vega::dicom::IOState *a1)
+uint64_t vega::dicom::RawWriter::write_from<vega::VR>(vega::dicom::IOState *a1, uint64_t a2)
 {
   vega::dicom::IOState::swap(a1);
   std::ostream::write();
@@ -3940,9 +3974,9 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void vega::dictionary::Dictionary::Dictionary(void *a1)
+void vega::dictionary::Dictionary::Dictionary(void *a1, uint64_t *a2)
 {
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   a1[2] = 0;
   a1[1] = 0;
   a1[3] = 0;
@@ -3958,10 +3992,10 @@ void vega::dictionary::Dictionary::Dictionary(void *a1)
   a1[13] = 0;
   a1[12] = a1 + 13;
   a1[14] = 0;
-  std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](v1, "^public \\(([0-9a-fA-FxX]{4}),([0-9a-fA-FxX]{4})\\)\\s+([a-zA-Z]{2}(?:[/_][a-zA-Z]{2})*)\\s+(\\w+)\\s+([1-9]\\d*(?:-(?:[1-9]\\d*)?n?)?)$", 0);
+  std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](v2, "^public \\(([0-9a-fA-FxX]{4}),([0-9a-fA-FxX]{4})\\)\\s+([a-zA-Z]{2}(?:[/_][a-zA-Z]{2})*)\\s+(\\w+)\\s+([1-9]\\d*(?:-(?:[1-9]\\d*)?n?)?)$", 0);
 }
 
-void sub_1A59FC500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11, uint64_t a12, void **a13, void **a14, void **a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, std::__shared_weak_count *a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59, uint64_t a60, uint64_t a61, void *a62, uint64_t a63)
+void sub_1A59FC500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, void **a14, void *a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, std::__shared_weak_count *a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, uint64_t a43, char *a44, char *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59, uint64_t a60, uint64_t a61, void *a62, uint64_t a63)
 {
   if (a40 < 0)
   {
@@ -3986,26 +4020,26 @@ void sub_1A59FC500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   a44 = &a59;
   std::vector<std::shared_ptr<vega::dicom::DataSet>>::__destroy_vector::operator()[abi:ne200100](&a44);
-  if (a67 < 0)
+  if (a65 < 0)
   {
     operator delete(a62);
   }
 
   std::ifstream::~ifstream(&STACK[0x230], MEMORY[0x1E69E54C8]);
   MEMORY[0x1AC552AF0](&STACK[0x3D8]);
-  std::basic_regex<char,std::regex_traits<char>>::~basic_regex(&a68);
-  std::basic_regex<char,std::regex_traits<char>>::~basic_regex(&a72);
+  std::basic_regex<char,std::regex_traits<char>>::~basic_regex(&a66);
+  std::basic_regex<char,std::regex_traits<char>>::~basic_regex(&a67);
   std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>>>::destroy(a16, *a15);
   std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::destroy(a10, *a11);
   std::__tree<std::__value_type<unsigned int,std::set<vega::Tag>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::set<vega::Tag>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::set<vega::Tag>>>>::destroy(a12, *a13);
-  v74 = *a14;
+  v69 = *a14;
   if (*a14)
   {
-    *(v72 + 32) = v74;
-    operator delete(v74);
+    *(v67 + 32) = v69;
+    operator delete(v69);
   }
 
-  std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>>>::destroy(v72, *(v72 + 8));
+  std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>>>::destroy(v67, *(v67 + 8));
   _Unwind_Resume(a1);
 }
 
@@ -4055,7 +4089,7 @@ void **std::vector<std::shared_ptr<vega::dictionary::Page const>>::push_back[abi
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -4086,7 +4120,7 @@ void **std::vector<std::shared_ptr<vega::dictionary::Page const>>::push_back[abi
   return result;
 }
 
-void vega::dictionary::Dictionary::add_pages(uint64_t a1, vega::dictionary::Page ***a2)
+void vega::dictionary::Dictionary::add_pages(uint64_t **a1, vega::dictionary::Page ***a2)
 {
   v49[0] = 0;
   v49[1] = 0;
@@ -4099,23 +4133,23 @@ void vega::dictionary::Dictionary::add_pages(uint64_t a1, vega::dictionary::Page
     goto LABEL_44;
   }
 
-  v5 = (a1 + 56);
-  v6 = a1 + 80;
+  v5 = (a1 + 7);
+  v6 = a1 + 10;
   do
   {
     v7 = vega::dictionary::Page::name(*v3);
-    std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>>>::__emplace_unique_key_args<std::string,std::string const&,std::shared_ptr<vega::dictionary::Page const> const&>(a1, v7);
+    std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>>>::__emplace_unique_key_args<std::string,std::string const&,std::shared_ptr<vega::dictionary::Page const> const&>(a1, v7, v7, v3);
     v8 = vega::dictionary::Page::tag_mask(*v3);
     v9 = vega::Tag::tag((v8 + 4));
     v47 = vega::math::popcount(v9);
-    std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v48, &v47);
+    std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v48, &v47, &v47);
     v10 = *v5;
     if (!*v5)
     {
       goto LABEL_11;
     }
 
-    v11 = a1 + 56;
+    v11 = (a1 + 7);
     do
     {
       v12 = *(v10 + 32);
@@ -4130,19 +4164,19 @@ void vega::dictionary::Dictionary::add_pages(uint64_t a1, vega::dictionary::Page
     }
 
     while (v10);
-    if (v11 == v5 || v47 < *(v11 + 32))
+    if (v11 == v5 || v47 < *(v11 + 8))
     {
 LABEL_11:
       v45 = 0;
       v46 = 0;
       v44 = &v45;
-      std::__tree<std::__value_type<unsigned int,std::set<vega::Tag>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::set<vega::Tag>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::set<vega::Tag>>>>::__emplace_unique_key_args<unsigned int,unsigned int &,std::set<vega::Tag>>(a1 + 48, &v47);
+      std::__tree<std::__value_type<unsigned int,std::set<vega::Tag>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::set<vega::Tag>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::set<vega::Tag>>>>::__emplace_unique_key_args<unsigned int,unsigned int &,std::set<vega::Tag>>(a1 + 6, &v47, &v47, &v44);
       std::__tree<unsigned int>::destroy(&v44, v45);
       v15 = *v5;
-      v11 = a1 + 56;
+      v11 = (a1 + 7);
       if (*v5)
       {
-        v16 = a1 + 56;
+        v16 = (a1 + 7);
         do
         {
           v17 = *(v15 + 32);
@@ -4157,36 +4191,36 @@ LABEL_11:
         }
 
         while (v15);
-        v11 = a1 + 56;
+        v11 = (a1 + 7);
         if (v16 != v5)
         {
           v11 = v16;
-          if (v47 < *(v16 + 32))
+          if (v47 < *(v16 + 8))
           {
-            v11 = a1 + 56;
+            v11 = (a1 + 7);
           }
         }
       }
     }
 
     v19 = vega::dictionary::Page::tag_mask(*v3);
-    std::__tree<vega::Tag>::__emplace_unique_key_args<vega::Tag,vega::Tag const&>(v11 + 40, (v19 + 4));
+    std::__tree<vega::Tag>::__emplace_unique_key_args<vega::Tag,vega::Tag const&>(v11 + 5, (v19 + 4), (v19 + 4));
     v20 = vega::dictionary::Page::tag_mask(*v3);
-    v21 = std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::find<vega::Tag>(a1 + 72, (v20 + 4));
+    v21 = std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::find<vega::Tag>((a1 + 9), (v20 + 4));
     if (v6 == v21)
     {
       v22 = vega::dictionary::Page::tag_mask(*v3);
       v45 = 0;
       v46 = 0;
       v44 = &v45;
-      std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::__emplace_unique_key_args<vega::Tag,vega::Tag const&,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>(a1 + 72, (v22 + 4));
+      std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::__emplace_unique_key_args<vega::Tag,vega::Tag const&,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>(a1 + 9, (v22 + 4), (v22 + 4), &v44);
       std::__tree<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>>>::destroy(&v44, v45);
       v23 = vega::dictionary::Page::tag_mask(*v3);
-      v21 = std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::find<vega::Tag>(a1 + 72, (v23 + 4));
+      v21 = std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::find<vega::Tag>((a1 + 9), (v23 + 4));
     }
 
     v24 = vega::dictionary::Page::tag_mask(*v3);
-    std::__tree<std::__value_type<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>::__emplace_unique_key_args<vega::Tag,vega::Tag const&,std::shared_ptr<vega::dictionary::Page const> const&>(v21 + 40, v24);
+    std::__tree<std::__value_type<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>::__emplace_unique_key_args<vega::Tag,vega::Tag const&,std::shared_ptr<vega::dictionary::Page const> const&>((v21 + 40), v24, v24, v3);
     v3 += 2;
   }
 
@@ -4195,18 +4229,18 @@ LABEL_11:
   if (v48 == v49)
   {
 LABEL_44:
-    v26 = *(a1 + 32);
+    v26 = a1[4];
   }
 
   else
   {
-    v26 = *(a1 + 32);
+    v26 = a1[4];
     do
     {
-      v27 = *(a1 + 40);
+      v27 = a1[5];
       if (v26 >= v27)
       {
-        v28 = *(a1 + 24);
+        v28 = a1[3];
         v29 = v26 - v28;
         v30 = (v26 - v28) >> 2;
         v31 = v30 + 1;
@@ -4233,19 +4267,19 @@ LABEL_44:
 
         if (v33)
         {
-          std::allocator<int>::allocate_at_least[abi:ne200100](a1 + 24, v33);
+          std::allocator<int>::allocate_at_least[abi:ne200100]((a1 + 3), v33);
         }
 
         v34 = v30;
         v35 = (4 * v30);
         v36 = &v35[-v34];
         *v35 = *(v25 + 7);
-        v26 = v35 + 1;
+        v26 = (v35 + 1);
         memcpy(v36, v28, v29);
-        v37 = *(a1 + 24);
-        *(a1 + 24) = v36;
-        *(a1 + 32) = v26;
-        *(a1 + 40) = 0;
+        v37 = a1[3];
+        a1[3] = v36;
+        a1[4] = v26;
+        a1[5] = 0;
         if (v37)
         {
           operator delete(v37);
@@ -4254,10 +4288,11 @@ LABEL_44:
 
       else
       {
-        *v26++ = *(v25 + 7);
+        *v26 = *(v25 + 7);
+        v26 += 4;
       }
 
-      *(a1 + 32) = v26;
+      a1[4] = v26;
       v38 = v25[1];
       if (v38)
       {
@@ -4288,8 +4323,8 @@ LABEL_44:
     while (v39 != v49);
   }
 
-  v41 = *(a1 + 24);
-  v42 = 126 - 2 * __clz((v26 - v41) >> 2);
+  v41 = a1[3];
+  v42 = 126 - 2 * __clz(&v26[-v41] >> 2);
   if (v26 == v41)
   {
     v43 = 0;
@@ -4300,16 +4335,16 @@ LABEL_44:
     v43 = v42;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>,false>(v26, v26, v41, *(a1 + 24), &v44, v43, 1);
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>,false>(v26, v26, v41, a1[3], &v44, v43, 1);
   std::__tree<unsigned int>::destroy(&v48, v49[0]);
 }
 
 uint64_t vega::dictionary::Dictionary::page_for@<X0>(uint64_t this@<X0>, const vega::Tag *a2@<X1>, void *a3@<X8>)
 {
-  v28 = 0;
+  v29 = 0;
   v3 = *(this + 24);
-  v27 = *(this + 32);
-  if (v3 == v27)
+  v28 = *(this + 32);
+  if (v3 == v28)
   {
 LABEL_35:
     *a3 = 0;
@@ -4357,7 +4392,7 @@ LABEL_11:
     }
 
 LABEL_34:
-    if (++v3 == v27)
+    if (++v3 == v28)
     {
       goto LABEL_35;
     }
@@ -4368,21 +4403,22 @@ LABEL_34:
     v15 = vega::Tag::tag((v13 + 13));
     HIDWORD(v16) = vega::Tag::tag(a2) & v15;
     LODWORD(v16) = HIDWORD(v16);
-    v28 = v16 >> 16;
+    v29 = v16 >> 16;
     v17 = std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::find<vega::Tag>(v5 + 72, v13 + 13);
-    this = std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::find<vega::Tag>(v17 + 40, &v28);
+    this = std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::find<vega::Tag>(v17 + 40, &v29);
     if (v17 + 48 == this)
     {
       goto LABEL_28;
     }
 
     v18 = this;
-    v19 = *CMPhotoGetEncodeAccelerationModeOverride(a2);
+    CMPhotoGetEncodeAccelerationModeOverride();
+    v20 = *v19;
     this = vega::dictionary::Page::name(*(v18 + 40));
-    v20 = *(this + 23);
-    if ((v20 & 0x80000000) == 0)
+    v21 = *(this + 23);
+    if ((v21 & 0x80000000) == 0)
     {
-      if (v20 == 14)
+      if (v21 == 14)
       {
         goto LABEL_19;
       }
@@ -4396,38 +4432,38 @@ LABEL_34:
     }
 
 LABEL_27:
-    if ((v19 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
       goto LABEL_36;
     }
 
 LABEL_28:
-    v23 = *(v13 + 1);
-    if (v23)
+    v24 = *(v13 + 1);
+    if (v24)
     {
       do
       {
-        v24 = v23;
-        v23 = *v23;
+        v25 = v24;
+        v24 = *v24;
       }
 
-      while (v23);
+      while (v24);
     }
 
     else
     {
       do
       {
-        v24 = *(v13 + 2);
-        v21 = *v24 == v13;
-        v13 = v24;
+        v25 = *(v13 + 2);
+        v22 = *v25 == v13;
+        v13 = v25;
       }
 
-      while (!v21);
+      while (!v22);
     }
 
-    v13 = v24;
-    if (v24 == v14)
+    v13 = v25;
+    if (v25 == v14)
     {
       goto LABEL_34;
     }
@@ -4435,26 +4471,26 @@ LABEL_28:
 
   this = *this;
 LABEL_19:
-  v21 = *this == 0x4365746176697250 && *(this + 6) == 0x726F746165724365;
-  v22 = v21;
-  if ((v22 ^ v19))
+  v22 = *this == 0x4365746176697250 && *(this + 6) == 0x726F746165724365;
+  v23 = v22;
+  if ((v23 ^ v20))
   {
     goto LABEL_28;
   }
 
 LABEL_36:
-  v25 = *(v18 + 48);
+  v26 = *(v18 + 48);
   *a3 = *(v18 + 40);
-  a3[1] = v25;
-  if (v25)
+  a3[1] = v26;
+  if (v26)
   {
-    atomic_fetch_add_explicit((v25 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v26 + 8), 1uLL, memory_order_relaxed);
   }
 
   return this;
 }
 
-uint64_t vega::dictionary::Dictionary::page_for@<X0>(uint64_t a1@<X0>, void **a2@<X1>, void *a3@<X8>)
+uint64_t vega::dictionary::Dictionary::page_for@<X0>(uint64_t a1@<X0>, char *a2@<X1>, void *a3@<X8>)
 {
   result = std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(a1, a2);
   if (a1 + 8 == result)
@@ -4477,7 +4513,7 @@ uint64_t vega::dictionary::Dictionary::page_for@<X0>(uint64_t a1@<X0>, void **a2
   return result;
 }
 
-uint64_t vega::dictionary::Dictionary::private_owner@<X0>(uint64_t a1@<X0>, void **a2@<X1>, void *a3@<X8>)
+uint64_t vega::dictionary::Dictionary::private_owner@<X0>(uint64_t a1@<X0>, char *a2@<X1>, void *a3@<X8>)
 {
   result = std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(a1 + 96, a2);
   if (a1 + 104 == result)
@@ -4500,17 +4536,17 @@ uint64_t vega::dictionary::Dictionary::private_owner@<X0>(uint64_t a1@<X0>, void
   return result;
 }
 
-void *std::vector<char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<vega::Byte>::__vallocate[abi:ne200100](result, a2);
+    std::vector<vega::Byte>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1A59FD000(_Unwind_Exception *exception_object)
@@ -4703,9 +4739,9 @@ LABEL_52:
     v16 = v15->__r_.__value_.__s.__data_[i];
     if (v16 != 120)
     {
-      EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(v4);
-      *EncodeAccelerationModeOverride |= 15 << v13;
-      v18 = CMPhotoGetEncodeAccelerationModeOverride(a1);
+      CMPhotoGetEncodeAccelerationModeOverride();
+      *v17 |= 15 << v13;
+      CMPhotoGetEncodeAccelerationModeOverride();
       v19 = v16 - 48;
       if ((v16 - 48) >= 0xA)
       {
@@ -4813,12 +4849,12 @@ uint64_t std::ifstream::~ifstream(uint64_t *a1, uint64_t *a2)
   return std::istream::~istream();
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>,false>(uint64_t a1, unsigned int *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, char a7)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>,false>(uint64_t result, char *a2, uint64_t a3, char *a4, uint64_t a5, uint64_t a6, char a7)
 {
 LABEL_1:
   for (i = 1 - a6; ; ++i)
   {
-    v15 = a2 - a4;
+    v15 = (a2 - a4) >> 2;
     if (v15 <= 2)
     {
       if (v15 < 2)
@@ -5012,14 +5048,15 @@ LABEL_9:
       {
         if (a2 != a4)
         {
-          v64 = a2 - 1;
-          if (a2 - 1 != a4)
+          v64 = a2 - 4;
+          if (a2 - 4 != a4)
           {
             v65 = 0;
-            v66 = a2 - 1;
+            v66 = a2 - 4;
             do
             {
-              v68 = *--v66;
+              v68 = *(v66 - 1);
+              v66 -= 4;
               v67 = v68;
               v69 = *v64;
               if (v68 < v69)
@@ -5035,7 +5072,7 @@ LABEL_9:
                     break;
                   }
 
-                  ++v71;
+                  v71 += 4;
                   v69 = *v72;
                   v70 -= 4;
                 }
@@ -5044,7 +5081,7 @@ LABEL_9:
                 *(v72 - 1) = v67;
               }
 
-              --a2;
+              a2 -= 4;
               v65 += 4;
               v64 = v66;
             }
@@ -5056,14 +5093,15 @@ LABEL_9:
 
       else if (a2 != a4)
       {
-        v76 = a2 - 1;
-        if (a2 - 1 != a4)
+        v76 = a2 - 4;
+        if (a2 - 4 != a4)
         {
-          v77 = a2 - 1;
+          v77 = a2 - 4;
           do
           {
-            v78 = v76 + 1;
-            v80 = *--v77;
+            v78 = v76 + 4;
+            v80 = *(v77 - 1);
+            v77 -= 4;
             v79 = v80;
             if (v80 < *v76)
             {
@@ -5071,7 +5109,8 @@ LABEL_9:
               {
                 *(v76 - 1) = *(v78 - 1);
                 v81 = *v78;
-                v76 = v78++;
+                v76 = v78;
+                v78 += 4;
               }
 
               while (v79 < v81);
@@ -5092,15 +5131,15 @@ LABEL_9:
     {
       if (a2 != a4)
       {
-        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>,std::reverse_iterator<std::__wrap_iter<unsigned int *>>>(a1, a2, a3, a4, a3, a4, a5);
+        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>,std::reverse_iterator<std::__wrap_iter<unsigned int *>>>(result, a2, a3, a4, a3, a4, a5);
       }
 
       return;
     }
 
     v16 = ((a2 - a4) >> 1) & 0xFFFFFFFFFFFFFFFCLL;
-    v17 = (a2 - v16);
-    v18 = a2 - v16;
+    v17 = &a2[-v16];
+    v18 = &a2[-v16];
     v19 = *a4;
     if (v15 >= 0x81)
     {
@@ -5141,16 +5180,16 @@ LABEL_26:
       }
 
       v30 = *v17;
-      v28 = v17 + 1;
+      v28 = v17 + 4;
       v29 = v30;
       v31 = *(a2 - 2);
-      v32 = a4[1];
+      v32 = *(a4 + 1);
       if (v30 >= v31)
       {
         if (v32 < v29)
         {
           *(v28 - 1) = v32;
-          a4[1] = v29;
+          *(a4 + 1) = v29;
           v33 = *(v28 - 1);
           v34 = *(a2 - 2);
           if (v33 < v34)
@@ -5171,25 +5210,25 @@ LABEL_26:
 
         *(a2 - 2) = v29;
         *(v28 - 1) = v31;
-        v35 = a4[1];
+        v35 = *(a4 + 1);
         if (v35 < v31)
         {
           *(v28 - 1) = v35;
 LABEL_38:
-          a4[1] = v31;
+          *(a4 + 1) = v31;
         }
       }
 
-      v36 = a2 - v16 - 4;
+      v36 = &a2[-v16 - 4];
       v37 = *(v36 - 1);
       v38 = *(a2 - 3);
-      v39 = a4[2];
+      v39 = *(a4 + 2);
       if (v37 >= v38)
       {
         if (v39 < v37)
         {
           *(v36 - 1) = v39;
-          a4[2] = v37;
+          *(a4 + 2) = v37;
           v40 = *(v36 - 1);
           v41 = *(a2 - 3);
           if (v40 < v41)
@@ -5210,12 +5249,12 @@ LABEL_38:
 
         *(a2 - 3) = v37;
         *(v36 - 1) = v38;
-        v42 = a4[2];
+        v42 = *(a4 + 2);
         if (v42 < v38)
         {
           *(v36 - 1) = v42;
 LABEL_47:
-          a4[2] = v38;
+          *(a4 + 2) = v38;
         }
       }
 
@@ -5309,8 +5348,8 @@ LABEL_58:
       a6 = -i;
       if (v92 == 1)
       {
-        v89 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>>(a1, a2, v90, v91);
-        if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>>((v53 - 1), v53 - 1, a3, a4))
+        v89 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>>(result, a2, v90, v91);
+        if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>>((v53 - 4), v53 - 1, a3, a4))
         {
           a3 = v52;
           a4 = v53;
@@ -5324,21 +5363,21 @@ LABEL_58:
 
         if (v89)
         {
-          a1 = v52;
-          a2 = v53 - 1;
+          result = v52;
+          a2 = v53 - 4;
           goto LABEL_1;
         }
       }
 
-      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>,false>(a1, a2, v52, v53, a5, a6, a7 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>,false>(result, a2, v52, v53, a5, a6, a7 & 1);
       a7 = 0;
-      a2 = v53 - 1;
-      a1 = v52;
+      a2 = v53 - 4;
+      result = v52;
       goto LABEL_1;
     }
 
-    std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::reverse_iterator<std::__wrap_iter<unsigned int *>>,std::__less<void,void> &>(a1, a2, a3, a4);
-    a1 = v50;
+    std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::reverse_iterator<std::__wrap_iter<unsigned int *>>,std::__less<void,void> &>(result, a2, a3, a4);
+    result = v50;
     a2 = v51;
     a7 = 0;
   }
@@ -5854,7 +5893,7 @@ LABEL_48:
   return v5 & 1;
 }
 
-uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>,std::reverse_iterator<std::__wrap_iter<unsigned int *>>>(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5, unsigned int *a6, uint64_t a7)
+uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>,std::reverse_iterator<std::__wrap_iter<unsigned int *>>>(uint64_t a1, char *a2, uint64_t a3, char *a4, uint64_t a5, char *a6, uint64_t a7)
 {
   v8 = a2 - a4;
   if (a2 != a4)
@@ -5867,7 +5906,7 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__le
     {
       v17 = v16 >> 1;
       v18 = v17 + 1;
-      v19 = a2 - 4 * v17;
+      v19 = &a2[-4 * v17];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>>(a1, a2, a7, v14, v19, v19);
@@ -5883,13 +5922,14 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__le
       v20 = a4;
       do
       {
-        v22 = *--v20;
+        v22 = *(v20 - 1);
+        v20 -= 4;
         v21 = v22;
-        v23 = *(a2 - 4);
+        v23 = *(a2 - 1);
         if (v22 < v23)
         {
           *v20 = v23;
-          *(a2 - 4) = v21;
+          *(a2 - 1) = v21;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>>(a1, a2, a7, v14, a1, a2);
         }
       }
@@ -5899,10 +5939,10 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__le
 
     if (v14 >= 2)
     {
-      v24 = a4 + 1;
+      v24 = a4 + 4;
       do
       {
-        v25 = *(a2 - 4);
+        v25 = *(a2 - 1);
         std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>>(a1, a2, a7, v14);
         if (v24 == v27)
         {
@@ -5913,10 +5953,10 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__le
         {
           *(v27 - 1) = *(v24 - 1);
           *(v24 - 1) = v25;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>>(a1, a2, v26, v27 - 1, a7, (a2 - (v27 - 1)) >> 2);
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<unsigned int *>>>(a1, a2, v26, v27 - 1, a7, (a2 - (v27 - 4)) >> 2);
         }
 
-        ++v24;
+        v24 += 4;
       }
 
       while (v14-- > 2);
@@ -6091,12 +6131,12 @@ void std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<
   }
 }
 
-void *std::__shared_ptr_emplace<vega::dictionary::Page const>::__shared_ptr_emplace[abi:ne200100]<std::string const&,vega::TagMask const&,vega::MultiVR const&,vega::VM const&,std::allocator<vega::dictionary::Page>,0>(void *a1)
+void *std::__shared_ptr_emplace<vega::dictionary::Page const>::__shared_ptr_emplace[abi:ne200100]<std::string const&,vega::TagMask const&,vega::MultiVR const&,vega::VM const&,std::allocator<vega::dictionary::Page>,0>(void *a1, __int128 *a2, uint64_t *a3, uint64_t a4, uint64_t *a5)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F1917C50;
-  vega::dictionary::Page::Page(a1 + 3);
+  vega::dictionary::Page::Page((a1 + 3), a2, a3, a4, a5);
   return a1;
 }
 
@@ -6130,7 +6170,7 @@ void std::__shared_ptr_emplace<vega::dictionary::Page const>::__on_zero_shared(u
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::find<std::string>(uint64_t a1, char *a2)
 {
   v2 = a1 + 8;
   v3 = *(a1 + 8);
@@ -6162,8 +6202,7 @@ uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<vega::diction
 
 std::string *std::__shared_ptr_emplace<vega::dictionary::PrivateOwner>::__shared_ptr_emplace[abi:ne200100]<std::string,std::allocator<vega::dictionary::PrivateOwner>,0>(std::string *a1, __int128 *a2)
 {
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
   a1->__r_.__value_.__r.__words[0] = &unk_1F1917CA0;
   vega::dictionary::PrivateOwner::PrivateOwner(a1 + 1, a2);
   return a1;
@@ -6188,18 +6227,18 @@ void std::__destroy_at[abi:ne200100]<vega::dictionary::PrivateOwner,0>(uint64_t 
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__emplace_unique_key_args<std::string,std::string const&,std::shared_ptr<vega::dictionary::PrivateOwner>&>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__emplace_unique_key_args<std::string,std::string const&,std::shared_ptr<vega::dictionary::PrivateOwner>&>(uint64_t a1, uint64_t ***a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__construct_node<std::string const&,std::shared_ptr<vega::dictionary::PrivateOwner>&>();
   }
 
-  return v2;
+  return v4;
 }
 
-void *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+char *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -6210,7 +6249,7 @@ void *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -6228,8 +6267,8 @@ void *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -6245,7 +6284,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -6305,29 +6344,29 @@ std::string *std::pair<std::string const,std::shared_ptr<vega::dictionary::Priva
   return this;
 }
 
-void *std::__shared_ptr_emplace<vega::dictionary::Page const>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<vega::dictionary::PrivateOwner> &,std::string const&,vega::TagMask const&,vega::MultiVR const&,vega::VM const&,std::allocator<vega::dictionary::Page>,0>(void *a1, uint64_t *a2)
+void *std::__shared_ptr_emplace<vega::dictionary::Page const>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<vega::dictionary::PrivateOwner> &,std::string const&,vega::TagMask const&,vega::MultiVR const&,vega::VM const&,std::allocator<vega::dictionary::Page>,0>(void *a1, uint64_t *a2, __int128 *a3, void *a4, uint64_t a5, uint64_t *a6)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F1917C50;
-  std::construct_at[abi:ne200100]<vega::dictionary::Page,std::shared_ptr<vega::dictionary::PrivateOwner> &,std::string const&,vega::TagMask const&,vega::MultiVR const&,vega::VM const&,vega::dictionary::Page*>((a1 + 3), a2);
+  std::construct_at[abi:ne200100]<vega::dictionary::Page,std::shared_ptr<vega::dictionary::PrivateOwner> &,std::string const&,vega::TagMask const&,vega::MultiVR const&,vega::VM const&,vega::dictionary::Page*>((a1 + 3), a2, a3, a4, a5, a6);
   return a1;
 }
 
-uint64_t std::construct_at[abi:ne200100]<vega::dictionary::Page,std::shared_ptr<vega::dictionary::PrivateOwner> &,std::string const&,vega::TagMask const&,vega::MultiVR const&,vega::VM const&,vega::dictionary::Page*>(uint64_t a1, uint64_t *a2)
+uint64_t std::construct_at[abi:ne200100]<vega::dictionary::Page,std::shared_ptr<vega::dictionary::PrivateOwner> &,std::string const&,vega::TagMask const&,vega::MultiVR const&,vega::VM const&,vega::dictionary::Page*>(uint64_t a1, uint64_t *a2, __int128 *a3, void *a4, uint64_t a5, uint64_t *a6)
 {
-  v3 = a2[1];
-  v5 = *a2;
-  v6 = v3;
-  if (v3)
+  v7 = a2[1];
+  v9 = *a2;
+  v10 = v7;
+  if (v7)
   {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  vega::dictionary::Page::Page(a1, &v5);
-  if (v6)
+  vega::dictionary::Page::Page(a1, &v9, a3, a4, a5, a6);
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
   return a1;
@@ -6343,12 +6382,12 @@ void sub_1A59FED4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__shared_ptr_emplace<vega::dictionary::Page const>::__shared_ptr_emplace[abi:ne200100]<std::string,vega::TagMask,vega::MultiVR,vega::VM,std::allocator<vega::dictionary::Page>,0>(void *a1)
+void *std::__shared_ptr_emplace<vega::dictionary::Page const>::__shared_ptr_emplace[abi:ne200100]<std::string,vega::TagMask,vega::MultiVR,vega::VM,std::allocator<vega::dictionary::Page>,0>(void *a1, __int128 *a2, uint64_t *a3, uint64_t a4, uint64_t *a5)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F1917C50;
-  vega::dictionary::Page::Page(a1 + 3);
+  vega::dictionary::Page::Page((a1 + 3), a2, a3, a4, a5);
   return a1;
 }
 
@@ -6363,108 +6402,108 @@ void std::__tree<unsigned int>::destroy(uint64_t a1, void *a2)
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>>>::__emplace_unique_key_args<std::string,std::string const&,std::shared_ptr<vega::dictionary::Page const> const&>(uint64_t a1, void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>>>::__emplace_unique_key_args<std::string,std::string const&,std::shared_ptr<vega::dictionary::Page const> const&>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::PrivateOwner>>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vega::dictionary::Page const>>>>::__construct_node<std::string const&,std::shared_ptr<vega::dictionary::Page const> const&>();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t *std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(uint64_t a1, unsigned int *a2)
+uint64_t **std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(uint64_t **a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 7);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::set<vega::Tag>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::set<vega::Tag>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::set<vega::Tag>>>>::__emplace_unique_key_args<unsigned int,unsigned int &,std::set<vega::Tag>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,std::set<vega::Tag>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::set<vega::Tag>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::set<vega::Tag>>>>::__emplace_unique_key_args<unsigned int,unsigned int &,std::set<vega::Tag>>(uint64_t **a1, unsigned int *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_8:
     std::__tree<std::__value_type<unsigned int,std::set<vega::Tag>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::set<vega::Tag>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::set<vega::Tag>>>>::__construct_node<unsigned int &,std::set<vega::Tag>>();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 8);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t std::__tree<vega::Tag>::__emplace_unique_key_args<vega::Tag,vega::Tag const&>(uint64_t a1, unsigned __int16 *a2)
+uint64_t std::__tree<vega::Tag>::__emplace_unique_key_args<vega::Tag,vega::Tag const&>(uint64_t **a1, unsigned __int16 *a2, _DWORD *a3)
 {
-  v2 = *std::__tree<vega::Tag>::__find_equal<vega::Tag>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<vega::Tag>::__find_equal<vega::Tag>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 unsigned __int16 *std::__tree<vega::Tag>::__find_equal<vega::Tag>(uint64_t a1, unsigned __int16 **a2, unsigned __int16 *a3)
@@ -6553,9 +6592,9 @@ uint64_t std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_
   return v5;
 }
 
-uint64_t std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::__emplace_unique_key_args<vega::Tag,vega::Tag const&,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>(uint64_t a1, unsigned __int16 *a2)
+uint64_t *std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::__emplace_unique_key_args<vega::Tag,vega::Tag const&,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>(uint64_t **a1, unsigned __int16 *a2, _DWORD *a3, void *a4)
 {
-  result = *std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::__find_equal<vega::Tag>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::__find_equal<vega::Tag>(a1, &v5, a2);
   if (!result)
   {
     std::__tree<std::__value_type<unsigned int,std::set<vega::Tag>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::set<vega::Tag>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::set<vega::Tag>>>>::__construct_node<unsigned int &,std::set<vega::Tag>>();
@@ -6610,15 +6649,15 @@ LABEL_9:
   return v5;
 }
 
-uint64_t std::__tree<std::__value_type<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>::__emplace_unique_key_args<vega::Tag,vega::Tag const&,std::shared_ptr<vega::dictionary::Page const> const&>(uint64_t a1, unsigned __int16 *a2)
+uint64_t std::__tree<std::__value_type<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>::__emplace_unique_key_args<vega::Tag,vega::Tag const&,std::shared_ptr<vega::dictionary::Page const> const&>(uint64_t **a1, unsigned __int16 *a2, _DWORD *a3, void *a4)
 {
-  v2 = *std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::__find_equal<vega::Tag>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::map<vega::Tag,std::shared_ptr<vega::dictionary::Page const>>>>>::__find_equal<vega::Tag>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 double vega::math::frexp10(vega::math *this, double a2, int *a3)
@@ -6644,7 +6683,7 @@ uint64_t vega::math::popcount(vega::math *this)
   return v1.u32[0];
 }
 
-void vega::manipulator_for (vega *this, const vega::dicom::DataElement *a2)
+void vega::manipulator_for (vega *this)
 {
   v3 = vega::dictionary::Page::name(this);
   if (vega::Tag::operator==(v3, vega::Tag::PIXEL_DATA))
@@ -6863,7 +6902,7 @@ void vega::manipulator_for (vega *this, const vega::dicom::DataElement *a2)
   exception = __cxa_allocate_exception(0x10uLL);
   std::string::basic_string[abi:ne200100]<0>(&v53, "Unhandled VR ");
   v34 = vega::dicom::DataElement::vr(this);
-  vega::VR::str(v34, v51);
+  vega::VR::str(v51, v34);
   if ((v52 & 0x80u) == 0)
   {
     v35 = v51;
@@ -7003,177 +7042,177 @@ LABEL_18:
   goto LABEL_18;
 }
 
-void vega::vr::AE(vega::vr *this)
+void vega::vr::AE(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA7D0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA7D0, memory_order_acquire) & 1) == 0)
   {
     vega::vr::AE();
   }
 }
 
-void vega::vr::AS(vega::vr *this)
+void vega::vr::AS(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA7D8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA7D8, memory_order_acquire) & 1) == 0)
   {
     vega::vr::AS();
   }
 }
 
-void vega::vr::CS(vega::vr *this)
+void vega::vr::CS(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA7E8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA7E8, memory_order_acquire) & 1) == 0)
   {
     vega::vr::CS();
   }
 }
 
-void vega::vr::DA(vega::vr *this)
+void vega::vr::DA(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA7F0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA7F0, memory_order_acquire) & 1) == 0)
   {
     vega::vr::DA();
   }
 }
 
-void vega::vr::DS(vega::vr *this)
+void vega::vr::DS(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA7F8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA7F8, memory_order_acquire) & 1) == 0)
   {
     vega::vr::DS();
   }
 }
 
-void vega::vr::DT(vega::vr *this)
+void vega::vr::DT(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA800, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA800, memory_order_acquire) & 1) == 0)
   {
     vega::vr::DT();
   }
 }
 
-void vega::vr::IS(vega::vr *this)
+void vega::vr::IS(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA818, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA818, memory_order_acquire) & 1) == 0)
   {
     vega::vr::IS();
   }
 }
 
-void vega::vr::LO(vega::vr *this)
+void vega::vr::LO(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA820, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA820, memory_order_acquire) & 1) == 0)
   {
     vega::vr::LO();
   }
 }
 
-void vega::vr::LT(vega::vr *this)
+void vega::vr::LT(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA828, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA828, memory_order_acquire) & 1) == 0)
   {
     vega::vr::LT();
   }
 }
 
-void vega::vr::OF(vega::vr *this)
+void vega::vr::OF(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA840, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA840, memory_order_acquire) & 1) == 0)
   {
     vega::vr::OF();
   }
 }
 
-void vega::vr::OD(vega::vr *this)
+void vega::vr::OD(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA848, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA848, memory_order_acquire) & 1) == 0)
   {
     vega::vr::OD();
   }
 }
 
-void vega::vr::PN(vega::vr *this)
+void vega::vr::PN(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA850, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA850, memory_order_acquire) & 1) == 0)
   {
     vega::vr::PN();
   }
 }
 
-void vega::vr::SH(vega::vr *this)
+void vega::vr::SH(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA858, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA858, memory_order_acquire) & 1) == 0)
   {
     vega::vr::SH();
   }
 }
 
-void vega::vr::SL(vega::vr *this)
+void vega::vr::SL(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA860, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA860, memory_order_acquire) & 1) == 0)
   {
     vega::vr::SL();
   }
 }
 
-void vega::vr::ST(vega::vr *this)
+void vega::vr::ST(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA870, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA870, memory_order_acquire) & 1) == 0)
   {
     vega::vr::ST();
   }
 }
 
-void vega::vr::TM(vega::vr *this)
+void vega::vr::TM(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA878, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA878, memory_order_acquire) & 1) == 0)
   {
     vega::vr::TM();
   }
 }
 
-void vega::vr::UI(vega::vr *this)
+void vega::vr::UI(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA880, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA880, memory_order_acquire) & 1) == 0)
   {
     vega::vr::UI();
   }
 }
 
-void vega::vr::UL(vega::vr *this)
+void vega::vr::UL(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA888, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA888, memory_order_acquire) & 1) == 0)
   {
     vega::vr::UL();
   }
 }
 
-void vega::vr::UN(vega::vr *this)
+void vega::vr::UN(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA890, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA890, memory_order_acquire) & 1) == 0)
   {
     vega::vr::UN();
   }
 }
 
-void vega::vr::UT(vega::vr *this)
+void vega::vr::UT(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA8A0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA8A0, memory_order_acquire) & 1) == 0)
   {
     vega::vr::UT();
   }
 }
 
-void vega::vr::SV(vega::vr *this)
+void vega::vr::SV(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA8A8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA8A8, memory_order_acquire) & 1) == 0)
   {
     vega::vr::SV();
   }
 }
 
-void vega::vr::UV(vega::vr *this)
+void vega::vr::UV(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA8B0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA8B0, memory_order_acquire) & 1) == 0)
   {
     vega::vr::UV();
   }
@@ -7196,7 +7235,7 @@ void vega::manipulators::PixelDataManipulator::~PixelDataManipulator(vega::manip
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -7207,12 +7246,12 @@ void vega::manipulators::PixelDataManipulator::~PixelDataManipulator(vega::manip
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
 
-uint64_t vega::manipulators::FixedSizeElementManipulator<vega::Byte>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::FixedSizeElementManipulator<vega::Byte>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v13);
   if (*(a1 + 16) != *(a1 + 8))
@@ -7343,7 +7382,7 @@ BOOL vega::manipulators::FixedSizeElementManipulator<vega::Byte>::read_from(void
       }
 
       a1[2] = v11;
-      if ((vega::dicom::RawReader::read_into<vega::Byte>(a2) & 1) == 0)
+      if ((vega::dicom::RawReader::read_into<vega::Byte>(a2, (v11 - 1)) & 1) == 0)
       {
         break;
       }
@@ -7405,20 +7444,20 @@ uint64_t vega::manipulators::FixedSizeElementManipulator<vega::Byte>::operator==
   return result;
 }
 
-uint64_t vega::dicom::RawReader::read_into<vega::Byte>(vega::dicom::IOState *a1)
+uint64_t vega::dicom::RawReader::read_into<vega::Byte>(vega::dicom::IOState *a1, uint64_t a2)
 {
-  v2 = vega::dicom::IOState::swap(a1);
+  v3 = vega::dicom::IOState::swap(a1);
   std::istream::read();
-  v3 = *(*(a1 + 2) + 8);
-  if (v2)
+  v4 = *(*(a1 + 2) + 8);
+  if (v3)
   {
-    if (!v3)
+    if (!v4)
     {
       return 0;
     }
   }
 
-  else if (!v3)
+  else if (!v4)
   {
     return 0;
   }
@@ -7441,7 +7480,7 @@ BOOL vega::manipulators::PixelDataManipulator::allows_vr(vega::manipulators::Pix
     return 1;
   }
 
-  if ((atomic_load_explicit(&qword_1ED6FA8C0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA8C0, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::PixelDataManipulator::allows_vr();
   }
@@ -7451,12 +7490,12 @@ BOOL vega::manipulators::PixelDataManipulator::allows_vr(vega::manipulators::Pix
   return vega::Word::operator==(this, v5);
 }
 
-uint64_t vega::operator<<<std::string>(uint64_t a1, uint64_t a2)
+uint64_t vega::operator<<<std::string>(uint64_t a1, uint64_t ***a2)
 {
   if (*(a1 + 16) == 1)
   {
     v3 = *a1;
-    v4 = *(a2 + 8);
+    v4 = a2[1];
     if (*(a2 + 23) >= 0)
     {
       v5 = *(a2 + 23);
@@ -7474,7 +7513,7 @@ uint64_t vega::operator<<<std::string>(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t vega::to_json<vega::Byte>@<X0>(unsigned __int8 *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<vega::Byte>@<X0>(unsigned __int8 *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   MEMORY[0x1AC552920](&v7, *a1);
@@ -7495,9 +7534,9 @@ uint64_t vega::to_json<vega::Byte>@<X0>(unsigned __int8 *a1@<X0>, _BYTE *a2@<X8>
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A5A014B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A014B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7512,16 +7551,16 @@ void std::__shared_ptr_emplace<vega::manipulators::ApplicationEntityManipulator>
 
 void vega::manipulators::ApplicationEntityManipulator::~ApplicationEntityManipulator(vega::manipulators::ApplicationEntityManipulator *this)
 {
-  v2 = (this + 8);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v2);
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  v1 = (this + 8);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
-  v3 = (this + 8);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(this);
-  MEMORY[0x1AC552B90](EncodeAccelerationModeOverride, 0xA1C4030951706);
+  v1 = (this + 8);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  MEMORY[0x1AC552B90]();
 }
 
 void sub_1A5A01668(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -7534,7 +7573,7 @@ void sub_1A5A01668(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::manipulators::PaddedStringManipulator<std::string>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::PaddedStringManipulator<std::string>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v15);
   v4 = *(a1 + 8);
@@ -7628,7 +7667,7 @@ BOOL vega::manipulators::PaddedStringManipulator<std::string>::read_from(uint64_
     v14 = 0;
     v8 = 1;
     v9 = a3;
-    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2) & 1) != 0)
+    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2, &v14) & 1) != 0)
     {
       v10 = v14;
       __p.__r_.__value_.__s.__data_[0] = v14;
@@ -7823,7 +7862,7 @@ void sub_1A5A01DF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::manipulators::PaddedStringManipulator<std::string>::parse_from_string(void *a1, const std::string *a2)
+uint64_t vega::manipulators::PaddedStringManipulator<std::string>::parse_from_string(void ***a1, const std::string *a2)
 {
   std::istringstream::basic_istringstream[abi:ne200100](v26, a2, 8);
   memset(&__str, 0, sizeof(__str));
@@ -7899,7 +7938,7 @@ LABEL_8:
           v16 = 24 * v10 + 24;
           v17 = a1[1];
           v18 = a1[2] - v17;
-          v19 = 24 * v10 - v18;
+          v19 = (24 * v10 - v18);
           memcpy((v14 - v18), v17, v18);
           v20 = a1[1];
           a1[1] = v19;
@@ -7922,9 +7961,9 @@ LABEL_8:
         else
         {
           v9 = *&__p.__r_.__value_.__l.__data_;
-          *(v8 + 16) = *(&__p.__r_.__value_.__l + 2);
+          v8[2] = __p.__r_.__value_.__r.__words[2];
           *v8 = v9;
-          a1[2] = v8 + 24;
+          a1[2] = v8 + 3;
         }
       }
     }
@@ -7971,7 +8010,7 @@ void sub_1A5A0219C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t vega::to_json<std::string>@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<std::string>@<X0>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   vega::to_json<std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>>(v6, a1);
@@ -7992,14 +8031,14 @@ uint64_t vega::to_json<std::string>@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
   return MEMORY[0x1AC552AF0](&v10);
 }
 
-void sub_1A5A02368(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A02368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t vega::to_json<std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>>(uint64_t a1, uint64_t *a2)
+uint64_t vega::to_json<std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>>(uint64_t a1, uint64_t **a2)
 {
   v13 = 34;
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>((a1 + 16), &v13, 1);
@@ -8130,7 +8169,7 @@ void vega::manipulators::AgeStringManipulator::~AgeStringManipulator(vega::manip
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -8141,7 +8180,7 @@ void vega::manipulators::AgeStringManipulator::~AgeStringManipulator(vega::manip
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -8156,7 +8195,7 @@ void sub_1A5A02724(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::manipulators::PaddedStringManipulator<vega::Age>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::PaddedStringManipulator<vega::Age>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v17);
   v4 = *(a1 + 8);
@@ -8167,7 +8206,7 @@ uint64_t vega::manipulators::PaddedStringManipulator<vega::Age>::str@<X0>(uint64
     v7 = 0;
     do
     {
-      vega::Age::str((v4 + v5), &__p);
+      vega::Age::str(&__p, (v4 + v5));
       if ((v16 & 0x80u) == 0)
       {
         p_p = &__p;
@@ -8250,7 +8289,7 @@ BOOL vega::manipulators::PaddedStringManipulator<vega::Age>::read_from(void *a1,
     v14 = 0;
     v8 = 1;
     v9 = a3;
-    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2) & 1) != 0)
+    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2, &v14) & 1) != 0)
     {
       v10 = v14;
       __p.__r_.__value_.__s.__data_[0] = v14;
@@ -8445,19 +8484,17 @@ void sub_1A5A02EA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<vega::Age>::reserve(void *result, unint64_t a2)
+void std::vector<vega::Age>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 2)
+  if (a2 > (a1[2] - *a1) >> 2)
   {
     if (!(a2 >> 62))
     {
-      std::allocator<vega::Age>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<vega::Age>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t vega::manipulators::PaddedStringManipulator<vega::Age>::parse_from_string(void *a1, const std::string *a2)
@@ -8600,7 +8637,7 @@ void std::allocator<vega::Age>::allocate_at_least[abi:ne200100](uint64_t a1, uni
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Age>,(vega::manipulators::PaddedStringManipulator<vega::Age>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Age>,(vega::manipulators::PaddedStringManipulator<vega::Age>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -8609,14 +8646,14 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Age>,
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<vega::Age>(a1, v4);
+    vega::Json::value_to_json<vega::Age>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -8629,12 +8666,12 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Age>,
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<vega::Age>(a1, &v4[v9]);
+        vega::Json::value_to_json<vega::Age>(result, &v4[v9]);
         v4 = *(a2 + 8);
         v11 = (*(a2 + 16) - v4) >> 2;
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
           v4 = *(a2 + 8);
@@ -8648,9 +8685,9 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Age>,
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -8659,7 +8696,7 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Age>,
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
@@ -8683,7 +8720,7 @@ void sub_1A5A034D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::to_json<vega::Age>@<X0>(unsigned __int16 *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::to_json<vega::Age>@<X0>(unsigned __int16 *a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   vega::to_json<std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>,vega::Age>(v6, a1);
@@ -8704,9 +8741,9 @@ uint64_t vega::to_json<vega::Age>@<X0>(unsigned __int16 *a1@<X0>, _BYTE *a2@<X8>
   return MEMORY[0x1AC552AF0](&v10);
 }
 
-void sub_1A5A03670(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A03670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -8944,7 +8981,7 @@ void vega::manipulators::AttributeTagManipulator::~AttributeTagManipulator(vega:
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -8955,12 +8992,12 @@ void vega::manipulators::AttributeTagManipulator::~AttributeTagManipulator(vega:
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
 
-uint64_t vega::manipulators::FixedSizeElementManipulator<vega::Tag>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::FixedSizeElementManipulator<vega::Tag>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v13);
   if (*(a1 + 16) != *(a1 + 8))
@@ -9210,7 +9247,7 @@ uint64_t vega::manipulators::FixedSizeElementManipulator<vega::Tag>::operator==(
   return result;
 }
 
-void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::Tag>,(vega::manipulators::FixedSizeElementManipulator<vega::Tag>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::Tag>,(vega::manipulators::FixedSizeElementManipulator<vega::Tag>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -9219,14 +9256,14 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::T
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<vega::Tag>(a1);
+    vega::Json::value_to_json<vega::Tag>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -9239,14 +9276,16 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::T
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<vega::Tag>(a1);
-        v11 = (*(a2 + 16) - *(a2 + 8)) >> 2;
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        vega::Json::value_to_json<vega::Tag>(result, v4 + v9);
+        v4 = *(a2 + 8);
+        v11 = (*(a2 + 16) - v4) >> 2;
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
-          v11 = (*(a2 + 16) - *(a2 + 8)) >> 2;
+          v4 = *(a2 + 8);
+          v11 = (*(a2 + 16) - v4) >> 2;
         }
 
         ++v10;
@@ -9256,9 +9295,9 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::T
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -9267,15 +9306,15 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::T
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
-void vega::Json::value_to_json<vega::Tag>(uint64_t a1)
+void vega::Json::value_to_json<vega::Tag>(uint64_t a1, uint64_t a2)
 {
   vega::to_json<vega::Tag>(__p);
   vega::operator<<<std::string>(a1, __p);
-  if (v3 < 0)
+  if (v4 < 0)
   {
     operator delete(__p[0]);
   }
@@ -9291,30 +9330,30 @@ void sub_1A5A043A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::to_json<vega::Tag>@<X0>(_BYTE *a1@<X8>)
+uint64_t vega::to_json<vega::Tag>@<X0>(void *a2@<X8>)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v4);
-  vega::to_json<std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>,vega::Tag>(v4);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v4, a1);
-  v4[0] = *MEMORY[0x1E69E54D8];
-  v2 = *(MEMORY[0x1E69E54D8] + 72);
-  *(v4 + *(v4[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
-  v4[2] = v2;
-  v5 = MEMORY[0x1E69E5548] + 16;
-  if (v7 < 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v5);
+  vega::to_json<std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>,vega::Tag>(v5);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v5, a2);
+  v5[0] = *MEMORY[0x1E69E54D8];
+  v3 = *(MEMORY[0x1E69E54D8] + 72);
+  *(v5 + *(v5[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+  v5[2] = v3;
+  v6 = MEMORY[0x1E69E5548] + 16;
+  if (v8 < 0)
   {
-    operator delete(v6[7].__locale_);
+    operator delete(v7[7].__locale_);
   }
 
-  v5 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v6);
+  v6 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v7);
   std::iostream::~basic_iostream();
-  return MEMORY[0x1AC552AF0](&v8);
+  return MEMORY[0x1AC552AF0](&v9);
 }
 
-void sub_1A5A04540(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5A04540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -9545,7 +9584,7 @@ void sub_1A5A04984(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::manipulators::PaddedStringManipulator<vega::Date>::str@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t vega::manipulators::PaddedStringManipulator<vega::Date>::str@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v17);
   v4 = *(a1 + 8);
@@ -9629,7 +9668,7 @@ uint64_t vega::manipulators::PaddedStringManipulator<vega::Date>::str@<X0>(uint6
   return MEMORY[0x1AC552AF0](&v22);
 }
 
-BOOL vega::manipulators::PaddedStringManipulator<vega::Date>::read_from(uint64_t a1, vega::dicom::IOState *a2, unint64_t a3)
+BOOL vega::manipulators::PaddedStringManipulator<vega::Date>::read_from(uint64_t *a1, vega::dicom::IOState *a2, unint64_t a3)
 {
   if (a3)
   {
@@ -9639,7 +9678,7 @@ BOOL vega::manipulators::PaddedStringManipulator<vega::Date>::read_from(uint64_t
     v14 = 0;
     v8 = 1;
     v9 = a3;
-    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2) & 1) != 0)
+    while ((vega::dicom::RawReader::read_into<vega::Byte>(a2, &v14) & 1) != 0)
     {
       v10 = v14;
       __p.__r_.__value_.__s.__data_[0] = v14;
@@ -9652,8 +9691,8 @@ BOOL vega::manipulators::PaddedStringManipulator<vega::Date>::read_from(uint64_t
       v6 = v8++ >= a3;
       if (!--v9)
       {
-        std::vector<vega::Date>::__base_destruct_at_end[abi:ne200100](a1 + 8, *(a1 + 8));
-        std::vector<vega::Date>::reserve((a1 + 8), v7 + 1);
+        std::vector<vega::Date>::__base_destruct_at_end[abi:ne200100]((a1 + 1), a1[1]);
+        std::vector<vega::Date>::reserve(a1 + 1, v7 + 1);
         std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v15, &__p);
         vega::manipulators::PaddedStringManipulator<vega::Date>::parse_from_string(a1, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -9684,7 +9723,7 @@ BOOL vega::manipulators::PaddedStringManipulator<vega::Date>::read_from(uint64_t
 
   else
   {
-    std::vector<vega::Date>::__base_destruct_at_end[abi:ne200100](a1 + 8, *(a1 + 8));
+    std::vector<vega::Date>::__base_destruct_at_end[abi:ne200100]((a1 + 1), a1[1]);
     return 1;
   }
 

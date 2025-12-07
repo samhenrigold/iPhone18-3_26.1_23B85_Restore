@@ -8,7 +8,7 @@
 
 - (id)routingBatteryTextWithFormatter:()Routing
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   v4 = a3;
   array = [MEMORY[0x1E695DF70] array];
   batteryLevel = [self batteryLevel];
@@ -137,57 +137,58 @@ LABEL_23:
   {
     logicalLeaderOutputDevice = [selfCopy logicalLeaderOutputDevice];
     alternateTransportType = [logicalLeaderOutputDevice alternateTransportType];
-    if ([logicalLeaderOutputDevice deviceType] == 2)
+    deviceType = [logicalLeaderOutputDevice deviceType];
+    if (deviceType == 2)
     {
-      v42 = MCLogCategoryDefault();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v43 = MCLogCategoryDefault(deviceType);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
-        v52 = objc_opt_class();
-        v43 = [logicalLeaderOutputDevice uid];
+        v53 = objc_opt_class();
+        v44 = [logicalLeaderOutputDevice uid];
         name = [logicalLeaderOutputDevice name];
         [logicalLeaderOutputDevice deviceType];
-        v51 = MRAVOutputDeviceTypeCopyDescription();
+        v52 = MRAVOutputDeviceTypeCopyDescription();
         [logicalLeaderOutputDevice modelID];
-        v45 = v53 = v4;
-        v46 = [batteryLevel description];
+        v46 = v54 = v4;
+        v47 = [batteryLevel description];
         *buf = 138544898;
-        v55 = v52;
-        v56 = 2114;
-        v57 = v43;
-        v58 = 2114;
-        v59 = name;
-        v60 = 2114;
-        v61 = v51;
-        v62 = 2114;
-        v63 = v45;
-        v64 = 2114;
-        v65 = alternateTransportType;
-        v66 = 2114;
-        v67 = v46;
-        _os_log_impl(&dword_1A20FC000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@ Battery Info - id: %{public}@ | name: %{public}@ | device type: %{public}@ | model: %{public}@ | transport: %{public}@ | battery: %{public}@", buf, 0x48u);
+        v56 = v53;
+        v57 = 2114;
+        v58 = v44;
+        v59 = 2114;
+        v60 = name;
+        v61 = 2114;
+        v62 = v52;
+        v63 = 2114;
+        v64 = v46;
+        v65 = 2114;
+        v66 = alternateTransportType;
+        v67 = 2114;
+        v68 = v47;
+        _os_log_impl(&dword_1A20FC000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@ Battery Info - id: %{public}@ | name: %{public}@ | device type: %{public}@ | model: %{public}@ | transport: %{public}@ | battery: %{public}@", buf, 0x48u);
 
-        v4 = v53;
+        v4 = v54;
       }
 
       if ([alternateTransportType isEqualToString:*MEMORY[0x1E6958720]])
       {
-        v47 = +[MRUStringsProvider USBAudio];
-        [array addObject:v47];
+        v48 = +[MRUStringsProvider USBAudio];
+        [array addObject:v48];
       }
     }
   }
 
   if ([array count])
   {
-    v48 = [array componentsJoinedByString:@"  "];
+    v49 = [array componentsJoinedByString:@"  "];
   }
 
   else
   {
-    v48 = 0;
+    v49 = 0;
   }
 
-  return v48;
+  return v49;
 }
 
 - (id)alternateTransportType

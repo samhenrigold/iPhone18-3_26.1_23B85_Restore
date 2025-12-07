@@ -5,9 +5,9 @@ void sub_100000EBC(id a1)
   _objc_release_x1();
 }
 
-void sub_1000013A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000013A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -51,7 +51,7 @@ Class sub_100001624(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -62,7 +62,7 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "BNBannerSource");
   }
 
   qword_10000E310 = *(*(*(a1 + 32) + 8) + 24);
@@ -71,7 +71,6 @@ LABEL_4:
 
 uint64_t sub_100001778(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000E318 = result;
   return result;
@@ -90,9 +89,9 @@ uint64_t start(int a1, char **a2)
   return v9;
 }
 
-void sub_100002770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100002770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -121,9 +120,9 @@ id sub_100002788()
   return v1;
 }
 
-void sub_100002850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100002850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -139,7 +138,7 @@ void sub_100002A98(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "PLPillView");
     sub_100002B08();
   }
 }
@@ -168,7 +167,7 @@ void sub_100002B08()
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
@@ -177,7 +176,6 @@ void sub_100002B08()
 
 uint64_t sub_100002C14(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000E328 = result;
   return result;
@@ -195,7 +193,7 @@ Class sub_100002C88(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "PLPillContentItem");
     return [(_UIOverlayDaemonAppDelegate *)v3 application:v4 didFinishLaunchingWithOptions:v5, v6];
   }
 

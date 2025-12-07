@@ -26,6 +26,8 @@
 - (void)_updateDateActivityDataBecameVisibleWithDate:(id)date;
 - (void)_updateDateFriendshipBeganWithDate:(id)date;
 - (void)consolidateIfNeeded;
+- (void)insertEventWithType:(unsigned __int16)type;
+- (void)insertEventWithType:(unsigned __int16)type timestamp:(id)timestamp;
 - (void)insertEvents:(id)events;
 - (void)setRelationshipEvents:(id)events;
 - (void)traverseRelationshipHistoryStartingAtEventWithAnchor:(unint64_t)anchor block:(id)block;
@@ -35,29 +37,29 @@
 
 - (void)_updateCurrentRelationshipState
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   [(ASRelationship *)self _clearRelationshipState];
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v3 = self->_relationshipEvents;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v44;
+    v6 = *v43;
     do
     {
       v7 = 0;
       do
       {
-        if (*v44 != v6)
+        if (*v43 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v43 + 1) + 8 * v7);
+        v8 = *(*(&v42 + 1) + 8 * v7);
         type = [v8 type];
         if (type <= 199)
         {
@@ -377,14 +379,12 @@ LABEL_65:
       }
 
       while (v5 != v7);
-      v41 = [(NSArray *)v3 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v41 = [(NSArray *)v3 countByEnumeratingWithState:&v42 objects:v46 count:16];
       v5 = v41;
     }
 
     while (v41);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearRelationshipState
@@ -472,35 +472,35 @@ LABEL_65:
 
 - (unint64_t)currentRelationshipEventAnchor
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_relationshipEvents;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        anchor = [*(*(&v11 + 1) + 8 * i) anchor];
+        anchor = [*(*(&v10 + 1) + 8 * i) anchor];
         if (v5 <= anchor)
         {
           v5 = anchor;
         }
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -511,13 +511,12 @@ LABEL_65:
     v5 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (NSString)description
 {
-  v3 = _MostRecentEventsWithCount(self->_relationshipEvents, 0xFuLL);
+  v3 = _MostRecentEventsWithCount(self->_relationshipEvents, 0xF);
   v4 = MEMORY[0x277CCACA8];
   v13 = *&self->_version;
   cloudKitAddress = self->_cloudKitAddress;
@@ -624,7 +623,7 @@ LABEL_65:
 
 - (ASCodableCloudKitRelationship)codableRelationship
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(ASCodableCloudKitRelationship);
   uUID = [(ASRelationship *)self UUID];
   hk_dataForUUIDBytes = [uUID hk_dataForUUIDBytes];
@@ -639,29 +638,29 @@ LABEL_65:
   cloudKitAddress = [(ASRelationship *)self cloudKitAddress];
   [(ASCodableCloudKitRelationship *)v3 setCloudKitAddress:cloudKitAddress];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   addresses = [(ASRelationship *)self addresses];
-  v10 = [addresses countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v10 = [addresses countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v39;
+    v12 = *v38;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v39 != v12)
+        if (*v38 != v12)
         {
           objc_enumerationMutation(addresses);
         }
 
-        [(ASCodableCloudKitRelationship *)v3 addAddresses:*(*(&v38 + 1) + 8 * i)];
+        [(ASCodableCloudKitRelationship *)v3 addAddresses:*(*(&v37 + 1) + 8 * i)];
       }
 
-      v11 = [addresses countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v11 = [addresses countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v11);
@@ -676,30 +675,30 @@ LABEL_65:
   relationshipEvents = [(ASRelationship *)self relationshipEvents];
   -[ASCodableCloudKitRelationship setEventCount:](v3, "setEventCount:", [relationshipEvents count]);
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   relationshipEvents2 = [(ASRelationship *)self relationshipEvents];
-  v18 = [relationshipEvents2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v18 = [relationshipEvents2 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v35;
+    v20 = *v34;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v35 != v20)
+        if (*v34 != v20)
         {
           objc_enumerationMutation(relationshipEvents2);
         }
 
-        _codableRelationshipEvent = [*(*(&v34 + 1) + 8 * j) _codableRelationshipEvent];
+        _codableRelationshipEvent = [*(*(&v33 + 1) + 8 * j) _codableRelationshipEvent];
         [(ASCodableCloudKitRelationship *)v3 addEvents:_codableRelationshipEvent];
       }
 
-      v19 = [relationshipEvents2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v19 = [relationshipEvents2 countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v19);
@@ -731,96 +730,78 @@ LABEL_65:
     [(ASCodableCloudKitRelationship *)v3 setReceivedInvitation:v31];
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 + (void)_relationshipWithRecord:(id)record relationshipEventRecords:(id)records completion:(id)completion
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   recordsCopy = records;
   completionCopy = completion;
   v10 = _ASCloudKitSchemaVersionForRecord(recordCopy);
+  v12 = v10;
   if ((v10 - 4) > 0xFFFFFFFFFFFFFFFDLL)
   {
     encryptedValues = [recordCopy encryptedValues];
-    v12 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
+    v14 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v13 = v12;
+      v15 = v14;
     }
 
     else
     {
-      v13 = 0;
+      v15 = 0;
     }
 
-    if (v13)
+    if (v15)
     {
-      v75 = [[ASCodableCloudKitRelationship alloc] initWithData:v13];
-      v14 = [ASRelationship relationshipWithCodableRelationship:"relationshipWithCodableRelationship:version:" version:?];
-      v15 = [recordCopy objectForKeyedSubscript:@"RemoteActivityDataShareReference"];
+      v84 = [[ASCodableCloudKitRelationship alloc] initWithData:v15];
+      v18 = [ASRelationship relationshipWithCodableRelationship:"relationshipWithCodableRelationship:version:" version:?];
+      v19 = [recordCopy objectForKeyedSubscript:@"RemoteActivityDataShareReference"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v16 = v15;
+        v20 = v19;
       }
 
       else
       {
-        v16 = 0;
+        v20 = 0;
       }
 
-      v73 = v16;
-      recordID = [v16 recordID];
-      [v14 setRemoteActivityDataShareID:recordID];
+      v82 = v20;
+      recordID = [v20 recordID];
+      [v18 setRemoteActivityDataShareID:recordID];
 
-      v18 = [recordCopy objectForKeyedSubscript:@"RemoteRelationshipShareReference"];
+      v22 = [recordCopy objectForKeyedSubscript:@"RemoteRelationshipShareReference"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v19 = v18;
+        v23 = v22;
       }
 
       else
       {
-        v19 = 0;
+        v23 = 0;
       }
 
-      v72 = v19;
-      recordID2 = [v19 recordID];
-      [v14 setRemoteRelationshipShareID:recordID2];
+      v81 = v23;
+      recordID2 = [v23 recordID];
+      [v18 setRemoteRelationshipShareID:recordID2];
 
       share = [recordCopy share];
       recordID3 = [share recordID];
-      v23 = v14;
-      v24 = recordID3;
-      v76 = v23;
-      [v23 setRelationshipShareID:recordID3];
+      v27 = v18;
+      v28 = recordID3;
+      v85 = v27;
+      [v27 setRelationshipShareID:recordID3];
 
       if (ASSecureCloudEnabled())
       {
-        v25 = [recordCopy objectForKeyedSubscript:@"RelationshipZoneShareReference"];
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          v26 = v25;
-        }
-
-        else
-        {
-          v26 = 0;
-        }
-
-        v27 = v13;
-
-        recordID4 = [v26 recordID];
-        [v76 setRelationshipZoneShareID:recordID4];
-
-        v29 = [recordCopy objectForKeyedSubscript:@"RemoteRelationshipZoneShareReference"];
+        v29 = [recordCopy objectForKeyedSubscript:@"RelationshipZoneShareReference"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -832,156 +813,173 @@ LABEL_65:
           v30 = 0;
         }
 
-        recordID5 = [v30 recordID];
-        [v76 setRemoteRelationshipZoneShareID:recordID5];
+        v31 = v15;
 
-        v13 = v27;
+        recordID4 = [v30 recordID];
+        [v85 setRelationshipZoneShareID:recordID4];
+
+        v33 = [recordCopy objectForKeyedSubscript:@"RemoteRelationshipZoneShareReference"];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v34 = v33;
+        }
+
+        else
+        {
+          v34 = 0;
+        }
+
+        recordID5 = [v34 recordID];
+        [v85 setRemoteRelationshipZoneShareID:recordID5];
+
+        v15 = v31;
       }
 
-      v32 = [objc_alloc(MEMORY[0x277CCAAB0]) initRequiringSecureCoding:1];
-      [recordCopy encodeSystemFieldsWithCoder:v32];
-      [v32 finishEncoding];
-      v33 = objc_alloc(MEMORY[0x277CCAAC8]);
-      v71 = v32;
-      encodedData = [v32 encodedData];
-      v85 = 0;
-      v35 = [v33 initForReadingFromData:encodedData error:&v85];
-      v36 = v85;
+      v36 = [objc_alloc(MEMORY[0x277CCAAB0]) initRequiringSecureCoding:1];
+      [recordCopy encodeSystemFieldsWithCoder:v36];
+      [v36 finishEncoding];
+      v37 = objc_alloc(MEMORY[0x277CCAAC8]);
+      v80 = v36;
+      encodedData = [v36 encodedData];
+      v94 = 0;
+      v39 = [v37 initForReadingFromData:encodedData error:&v94];
+      v40 = v94;
 
-      v74 = v36;
-      if (v36)
+      v83 = v40;
+      if (v40)
       {
-        ASLoggingInitialize();
+        ASLoggingInitialize(v41, v42);
         if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
         {
           +[ASRelationship(CloudKitCodingSupport) _relationshipWithRecord:relationshipEventRecords:completion:];
         }
       }
 
-      v70 = v35;
-      v37 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithCoder:v35];
-      [v76 setSystemFieldsOnlyRecord:v37];
+      v79 = v39;
+      v43 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithCoder:v39];
+      [v85 setSystemFieldsOnlyRecord:v43];
 
-      v38 = v75;
-      eventCount = [(ASCodableCloudKitRelationship *)v75 eventCount];
-      if (v10 == 3)
+      v44 = v84;
+      eventCount = [(ASCodableCloudKitRelationship *)v84 eventCount];
+      if (v12 == 3)
       {
-        relationshipEvents = [v76 relationshipEvents];
-        v41 = [relationshipEvents count];
+        relationshipEvents = [v85 relationshipEvents];
+        v47 = [relationshipEvents count];
 
-        v42 = eventCount == v41;
-        v43 = v76;
-        v45 = v72;
-        v44 = v73;
-        if (!v42)
+        v50 = eventCount == v47;
+        v51 = v85;
+        v53 = v81;
+        v52 = v82;
+        if (!v50)
         {
-          ASLoggingInitialize();
-          v46 = ASLogCloudKit;
+          ASLoggingInitialize(v48, v49);
+          v54 = ASLogCloudKit;
           if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
           {
-            [ASRelationship(CloudKitCodingSupport) _relationshipWithRecord:v46 relationshipEventRecords:v76 completion:?];
+            [ASRelationship(CloudKitCodingSupport) _relationshipWithRecord:v54 relationshipEventRecords:v85 completion:?];
           }
         }
 
-        v83[0] = MEMORY[0x277D85DD0];
-        v83[1] = 3221225472;
-        v83[2] = __101__ASRelationship_CloudKitCodingSupport___relationshipWithRecord_relationshipEventRecords_completion___block_invoke;
-        v83[3] = &unk_278C461B0;
-        v84 = recordCopy;
-        v47 = [recordsCopy objectsPassingTest:v83];
-        completionCopy[2](completionCopy, v76, v47);
+        v92[0] = MEMORY[0x277D85DD0];
+        v92[1] = 3221225472;
+        v92[2] = __101__ASRelationship_CloudKitCodingSupport___relationshipWithRecord_relationshipEventRecords_completion___block_invoke;
+        v92[3] = &unk_278C461B0;
+        v93 = recordCopy;
+        v55 = [recordsCopy objectsPassingTest:v92];
+        completionCopy[2](completionCopy, v85, v55);
 
-        v48 = v84;
+        v56 = v93;
       }
 
       else
       {
-        v66 = v13;
-        v78 = [MEMORY[0x277CBEB98] set];
-        v79 = 0u;
-        v80 = 0u;
-        v81 = 0u;
-        v82 = 0u;
-        v68 = recordsCopy;
+        v75 = v15;
+        v87 = [MEMORY[0x277CBEB98] set];
+        v88 = 0u;
+        v89 = 0u;
+        v90 = 0u;
+        v91 = 0u;
+        v77 = recordsCopy;
         obj = recordsCopy;
-        v49 = [obj countByEnumeratingWithState:&v79 objects:v86 count:16];
-        v67 = completionCopy;
-        v69 = eventCount;
-        if (v49)
+        v57 = [obj countByEnumeratingWithState:&v88 objects:v95 count:16];
+        v76 = completionCopy;
+        v78 = eventCount;
+        if (v57)
         {
-          v50 = v49;
-          v51 = *v80;
-          v48 = MEMORY[0x277CBEBF8];
+          v58 = v57;
+          v59 = *v89;
+          v56 = MEMORY[0x277CBEBF8];
           do
           {
-            for (i = 0; i != v50; ++i)
+            for (i = 0; i != v58; ++i)
             {
-              if (*v80 != v51)
+              if (*v89 != v59)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v53 = *(*(&v79 + 1) + 8 * i);
-              parent = [v53 parent];
+              v61 = *(*(&v88 + 1) + 8 * i);
+              parent = [v61 parent];
               recordID6 = [parent recordID];
-              v56 = recordCopy;
+              v64 = recordCopy;
               recordID7 = [recordCopy recordID];
-              v58 = [recordID6 isEqual:recordID7];
+              v66 = [recordID6 isEqual:recordID7];
 
-              if (v58)
+              if (v66)
               {
-                v59 = [ASRelationshipEvent relationshipEventWithRecord:v53];
-                v60 = [v48 arrayByAddingObject:v59];
+                v67 = [ASRelationshipEvent relationshipEventWithRecord:v61];
+                v68 = [v56 arrayByAddingObject:v67];
 
-                v61 = [v78 setByAddingObject:v53];
+                v69 = [v87 setByAddingObject:v61];
 
-                v78 = v61;
-                v48 = v60;
+                v87 = v69;
+                v56 = v68;
               }
 
-              recordCopy = v56;
+              recordCopy = v64;
             }
 
-            v50 = [obj countByEnumeratingWithState:&v79 objects:v86 count:16];
+            v58 = [obj countByEnumeratingWithState:&v88 objects:v95 count:16];
           }
 
-          while (v50);
+          while (v58);
         }
 
         else
         {
-          v48 = MEMORY[0x277CBEBF8];
+          v56 = MEMORY[0x277CBEBF8];
         }
 
-        [v76 setRelationshipEvents:v48];
-        relationshipEvents2 = [v76 relationshipEvents];
-        v63 = [relationshipEvents2 count];
+        [v85 setRelationshipEvents:v56];
+        relationshipEvents2 = [v85 relationshipEvents];
+        v71 = [relationshipEvents2 count];
 
-        if (v69 != v63)
+        if (v78 != v71)
         {
-          ASLoggingInitialize();
-          v64 = ASLogCloudKit;
+          ASLoggingInitialize(v72, v73);
+          v74 = ASLogCloudKit;
           if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
           {
-            [ASRelationship(CloudKitCodingSupport) _relationshipWithRecord:v64 relationshipEventRecords:v76 completion:?];
+            [ASRelationship(CloudKitCodingSupport) _relationshipWithRecord:v74 relationshipEventRecords:v85 completion:?];
           }
         }
 
-        completionCopy = v67;
-        v67[2](v67, v76, v78);
+        completionCopy = v76;
+        v76[2](v76, v85, v87);
 
-        recordsCopy = v68;
-        v13 = v66;
-        v38 = v75;
-        v43 = v76;
-        v45 = v72;
-        v44 = v73;
+        recordsCopy = v77;
+        v15 = v75;
+        v44 = v84;
+        v51 = v85;
+        v53 = v81;
+        v52 = v82;
       }
     }
 
     else
     {
-      ASLoggingInitialize();
+      ASLoggingInitialize(v16, v17);
       if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
       {
         +[ASRelationship(CloudKitCodingSupport) _relationshipWithRecord:relationshipEventRecords:completion:];
@@ -993,7 +991,7 @@ LABEL_65:
 
   else
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(v10, v11);
     if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
     {
       +[ASRelationship(CloudKitCodingSupport) _relationshipWithRecord:relationshipEventRecords:completion:];
@@ -1001,8 +999,6 @@ LABEL_65:
 
     completionCopy[2](completionCopy, 0, recordsCopy);
   }
-
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __101__ASRelationship_CloudKitCodingSupport___relationshipWithRecord_relationshipEventRecords_completion___block_invoke(uint64_t a1, void *a2)
@@ -1017,7 +1013,7 @@ uint64_t __101__ASRelationship_CloudKitCodingSupport___relationshipWithRecord_re
 
 + (id)relationshipWithCodableRelationship:(id)relationship version:(int64_t)version
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   relationshipCopy = relationship;
   v6 = objc_alloc_init(ASRelationship);
   [(ASRelationship *)v6 setVersion:version];
@@ -1043,52 +1039,53 @@ uint64_t __101__ASRelationship_CloudKitCodingSupport___relationshipWithRecord_re
   [(ASRelationship *)v6 setPreferredReachableAddress:preferredReachableAddress];
 
   preferredReachableService = [relationshipCopy preferredReachableService];
-  v37 = v6;
+  v38 = v6;
   [(ASRelationship *)v6 setPreferredReachableService:preferredReachableService];
 
-  v40 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
+  v40 = 0u;
   events = [relationshipCopy events];
-  v18 = [events countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v18 = [events countByEnumeratingWithState:&v39 objects:v45 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v39;
+    v20 = *v40;
     v21 = MEMORY[0x277CBEBF8];
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v39 != v20)
+        if (*v40 != v20)
         {
           objc_enumerationMutation(events);
         }
 
-        v23 = *(*(&v38 + 1) + 8 * i);
+        v23 = *(*(&v39 + 1) + 8 * i);
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v24 = v23;
-          v25 = [ASRelationshipEvent _relationshipEventWithCodable:v24];
-          v26 = [v21 arrayByAddingObject:v25];
+          v26 = v23;
+          v27 = [ASRelationshipEvent _relationshipEventWithCodable:v26];
+          v28 = [v21 arrayByAddingObject:v27];
 
-          v21 = v26;
+          v21 = v28;
         }
 
         else
         {
-          ASLoggingInitialize();
-          v27 = ASLogCloudKit;
+          ASLoggingInitialize(isKindOfClass, v25);
+          v29 = ASLogCloudKit;
           if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
           {
-            [(ASRelationship(CloudKitCodingSupport) *)v42 relationshipWithCodableRelationship:v27 version:v23, &v43];
+            [(ASRelationship(CloudKitCodingSupport) *)v43 relationshipWithCodableRelationship:v29 version:v23, &v44];
           }
         }
       }
 
-      v19 = [events countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v19 = [events countByEnumeratingWithState:&v39 objects:v45 count:16];
     }
 
     while (v19);
@@ -1099,88 +1096,86 @@ uint64_t __101__ASRelationship_CloudKitCodingSupport___relationshipWithRecord_re
     v21 = MEMORY[0x277CBEBF8];
   }
 
-  [(ASRelationship *)v37 setRelationshipEvents:v21];
-  -[ASRelationship setSupportedPhoneFeatures:](v37, "setSupportedPhoneFeatures:", [relationshipCopy supportedPhoneFeatures]);
-  -[ASRelationship setSupportedWatchFeatures:](v37, "setSupportedWatchFeatures:", [relationshipCopy supportedWatchFeatures]);
-  -[ASRelationship setCloudType:](v37, "setCloudType:", [relationshipCopy cloudType]);
+  [(ASRelationship *)v38 setRelationshipEvents:v21];
+  -[ASRelationship setSupportedPhoneFeatures:](v38, "setSupportedPhoneFeatures:", [relationshipCopy supportedPhoneFeatures]);
+  -[ASRelationship setSupportedWatchFeatures:](v38, "setSupportedWatchFeatures:", [relationshipCopy supportedWatchFeatures]);
+  -[ASRelationship setCloudType:](v38, "setCloudType:", [relationshipCopy cloudType]);
   secureCloudUpgradeToken = [relationshipCopy secureCloudUpgradeToken];
-  [(ASRelationship *)v37 setSecureCloudUpgradeToken:secureCloudUpgradeToken];
+  [(ASRelationship *)v38 setSecureCloudUpgradeToken:secureCloudUpgradeToken];
 
-  v29 = objc_opt_class();
+  v31 = objc_opt_class();
   sentInvitation = [relationshipCopy sentInvitation];
-  v31 = ASSecureUnarchiveClassWithData(v29, sentInvitation);
-  [(ASRelationship *)v37 setSentInvitation:v31];
+  v33 = ASSecureUnarchiveClassWithData(v31, sentInvitation);
+  [(ASRelationship *)v38 setSentInvitation:v33];
 
-  v32 = objc_opt_class();
+  v34 = objc_opt_class();
   receivedInvitation = [relationshipCopy receivedInvitation];
-  v34 = ASSecureUnarchiveClassWithData(v32, receivedInvitation);
-  [(ASRelationship *)v37 setReceivedInvitation:v34];
+  v36 = ASSecureUnarchiveClassWithData(v34, receivedInvitation);
+  [(ASRelationship *)v38 setReceivedInvitation:v36];
 
-  [(ASRelationship *)v37 consolidateIfNeeded];
-  v35 = *MEMORY[0x277D85DE8];
+  [(ASRelationship *)v38 consolidateIfNeeded];
 
-  return v37;
+  return v38;
 }
 
 + (id)relationshipsWithRelationshipAndEventRecords:(id)records
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   v4 = [recordsCopy objectsPassingTest:&__block_literal_global];
-  v17 = [recordsCopy objectsPassingTest:&__block_literal_global_464];
+  v18 = [recordsCopy objectsPassingTest:&__block_literal_global_464];
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
   array = [MEMORY[0x277CBEB18] array];
-  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
   obj = v4;
-  v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v23;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __86__ASRelationship_CloudKitCodingSupport__relationshipsWithRelationshipAndEventRecords___block_invoke_3;
-        v18[3] = &unk_278C461F8;
-        v19 = v5;
-        v20 = array;
-        [ASRelationship _relationshipWithRecord:v11 relationshipEventRecords:v17 completion:v18];
+        v11 = *(*(&v22 + 1) + 8 * i);
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __86__ASRelationship_CloudKitCodingSupport__relationshipsWithRelationshipAndEventRecords___block_invoke_3;
+        v19[3] = &unk_278C461F8;
+        v20 = v5;
+        v21 = array;
+        [ASRelationship _relationshipWithRecord:v11 relationshipEventRecords:v18 completion:v19];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v8);
   }
 
-  v12 = [v17 mutableCopy];
+  v12 = [v18 mutableCopy];
   [v12 removeObjectsInArray:array];
-  if ([v12 count])
+  v13 = [v12 count];
+  if (v13)
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(v13, v14);
     if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
     {
       +[ASRelationship(CloudKitCodingSupport) relationshipsWithRelationshipAndEventRecords:];
     }
   }
 
-  v13 = [MEMORY[0x277CBEA60] arrayWithArray:v5];
+  v15 = [MEMORY[0x277CBEA60] arrayWithArray:v5];
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v15;
 }
 
 uint64_t __86__ASRelationship_CloudKitCodingSupport__relationshipsWithRelationshipAndEventRecords___block_invoke(uint64_t a1, void *a2)
@@ -1595,18 +1590,17 @@ void __86__ASRelationship_CloudKitCodingSupport__relationshipsWithRelationshipAn
 
 - (id)fullDescription
 {
-  v3 = _MostRecentEventsWithCount(self->_relationshipEvents, 0x19uLL);
+  v3 = _MostRecentEventsWithCount(self->_relationshipEvents, 0x19);
   v4 = objc_alloc_init(MEMORY[0x277CCAB68]);
-  cloudKitAddress = self->_cloudKitAddress;
-  [v4 appendFormat:@"Relationship v%ld %@ (%@)\n", self->_version, cloudKitAddress, self->_UUID];
+  [v4 appendFormat:@"Relationship v%ld %@ (%@)\n", self->_version, self->_cloudKitAddress, self->_UUID];
   [v4 appendFormat:@"CloudKit Address: %@\n", self->_cloudKitAddress];
   [v4 appendFormat:@"Preferred Reachable Address: %@\n", self->_preferredReachableAddress];
   [v4 appendFormat:@"Preferred Service Identifier: %@\n", self->_preferredReachableService];
   [v4 appendFormat:@"All Addresses: %@\n", self->_addresses];
   [v4 appendFormat:@"Incoming Handshake Token: %@\n", self->_incomingHandshakeToken];
   [v4 appendFormat:@"Outgoing Handshake Token: %@\n", self->_outgoingHandshakeToken];
-  v6 = NSStringFromASCloudType(self->_cloudType);
-  [v4 appendFormat:@"Cloud Type: %@\n", v6];
+  v5 = NSStringFromASCloudType(self->_cloudType);
+  [v4 appendFormat:@"Cloud Type: %@\n", v5];
 
   [v4 appendFormat:@"Sent Invitation: %@\n", self->_sentInvitation];
   [v4 appendFormat:@"Received Invitation: %@\n", self->_receivedInvitation];
@@ -1616,9 +1610,9 @@ void __86__ASRelationship_CloudKitCodingSupport__relationshipsWithRelationshipAn
 
   [v4 appendFormat:@"Remote Zone Share ID: %@\n", self->_remoteRelationshipZoneShareID];
   [v4 appendFormat:@"Events: %@\n", v3];
-  v9 = [v4 copy];
+  v8 = [v4 copy];
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)hasInviteRequestEvent
@@ -1637,53 +1631,70 @@ void __86__ASRelationship_CloudKitCodingSupport__relationshipsWithRelationshipAn
   [(ASRelationship *)self _setRelationshipEvents:v4];
 }
 
+- (void)insertEventWithType:(unsigned __int16)type
+{
+  typeCopy = type;
+  date = [MEMORY[0x277CBEAA8] date];
+  [(ASRelationship *)self insertEventWithType:typeCopy timestamp:date];
+}
+
+- (void)insertEventWithType:(unsigned __int16)type timestamp:(id)timestamp
+{
+  typeCopy = type;
+  v9[1] = *MEMORY[0x277D85DE8];
+  timestampCopy = timestamp;
+  v7 = [[ASRelationshipEvent alloc] initWithType:typeCopy anchor:[(ASRelationship *)self _nextAnchor] timestamp:timestampCopy];
+
+  v9[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  [(ASRelationship *)self insertEvents:v8];
+}
+
 - (void)insertEvents:(id)events
 {
   v12 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
-  ASLoggingInitialize();
-  v5 = ASLogRelationships;
+  ASLoggingInitialize(eventsCopy, v5);
+  v6 = ASLogRelationships;
   if (os_log_type_enabled(ASLogRelationships, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138543362;
     v11 = eventsCopy;
-    _os_log_impl(&dword_23E4FA000, v5, OS_LOG_TYPE_DEFAULT, "Inserting events: %{public}@", &v10, 0xCu);
+    _os_log_impl(&dword_23E4FA000, v6, OS_LOG_TYPE_DEFAULT, "Inserting events: %{public}@", &v10, 0xCu);
   }
 
-  v6 = [(NSArray *)self->_relationshipEvents arrayByAddingObjectsFromArray:eventsCopy];
-  v7 = [v6 sortedArrayUsingComparator:&__block_literal_global_2];
-  v8 = _ConsolidatedEvents(v7);
-  [(ASRelationship *)self _setRelationshipEvents:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = [(NSArray *)self->_relationshipEvents arrayByAddingObjectsFromArray:eventsCopy];
+  v8 = [v7 sortedArrayUsingComparator:&__block_literal_global_2];
+  v9 = _ConsolidatedEvents(v8);
+  [(ASRelationship *)self _setRelationshipEvents:v9];
 }
 
 - (NSDate)timestampForMostRecentRelationshipEvent
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   firstObject = [(NSArray *)self->_relationshipEvents firstObject];
   timestamp = [firstObject timestamp];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v5 = self->_relationshipEvents;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         timestamp2 = [v10 timestamp];
         v12 = [timestamp2 compare:timestamp];
 
@@ -1695,13 +1706,11 @@ void __86__ASRelationship_CloudKitCodingSupport__relationshipsWithRelationshipAn
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return timestamp;
 }
@@ -1764,38 +1773,38 @@ void __86__ASRelationship_CloudKitCodingSupport__relationshipsWithRelationshipAn
 
 - (void)consolidateIfNeeded
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = self->_relationshipEvents;
-  if ([(NSArray *)v3 count]>= 0x32)
+  v4 = [(NSArray *)v3 count];
+  if (v4 >= 0x32)
   {
-    ASLoggingInitialize();
-    v4 = ASLogRelationships;
+    ASLoggingInitialize(v4, v5);
+    v6 = ASLogRelationships;
     if (os_log_type_enabled(ASLogRelationships, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
+      v12 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_23E4FA000, v4, OS_LOG_TYPE_DEFAULT, "Relationship needs consolidation %@", &v9, 0xCu);
+      _os_log_impl(&dword_23E4FA000, v6, OS_LOG_TYPE_DEFAULT, "Relationship needs consolidation %@", &v12, 0xCu);
     }
 
-    v5 = _ConsolidatedEvents(v3);
-    [(ASRelationship *)self _setRelationshipEvents:v5];
-    v6 = [(NSArray *)v3 count];
-    if ((v6 - [v5 count]) >= 0x15)
+    v7 = _ConsolidatedEvents(v3);
+    [(ASRelationship *)self _setRelationshipEvents:v7];
+    v8 = [(NSArray *)v3 count];
+    v9 = [v7 count];
+    if ((v8 - v9) >= 0x15)
     {
-      ASLoggingInitialize();
-      v7 = ASLogRelationships;
+      ASLoggingInitialize(v9, v10);
+      v11 = ASLogRelationships;
       if (os_log_type_enabled(ASLogRelationships, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 138412290;
+        v12 = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&dword_23E4FA000, v7, OS_LOG_TYPE_DEFAULT, "Relationship needs push for significant consolidation %@", &v9, 0xCu);
+        _os_log_impl(&dword_23E4FA000, v11, OS_LOG_TYPE_DEFAULT, "Relationship needs push for significant consolidation %@", &v12, 0xCu);
       }
 
       self->_needsPushForConsolidation = 1;
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setRelationshipEvents:(id)events

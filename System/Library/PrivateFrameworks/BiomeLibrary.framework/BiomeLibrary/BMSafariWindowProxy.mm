@@ -128,7 +128,7 @@ LABEL_23:
 
 - (id)jsonDictionary
 {
-  v26[5] = *MEMORY[0x1E69E9840];
+  v25[5] = *MEMORY[0x1E69E9840];
   domain = [(BMSafariWindowProxy *)self domain];
   openedDomain = [(BMSafariWindowProxy *)self openedDomain];
   visited = [(BMSafariWindowProxy *)self visited];
@@ -156,48 +156,48 @@ LABEL_23:
     v10 = 0;
   }
 
-  v21 = @"domain";
+  v20 = @"domain";
   null = domain;
   if (!domain)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = null;
-  v26[0] = null;
-  v22 = @"openedDomain";
+  v18 = null;
+  v25[0] = null;
+  v21 = @"openedDomain";
   null2 = openedDomain;
   if (!openedDomain)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[1] = null2;
-  v23 = @"visited";
+  v25[1] = null2;
+  v22 = @"visited";
   null3 = v8;
   if (!v8)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[2] = null3;
-  v24 = @"property";
+  v25[2] = null3;
+  v23 = @"property";
   null4 = v9;
   if (!v9)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[3] = null4;
-  v25 = @"accessedPropertyDirectly";
+  v25[3] = null4;
+  v24 = @"accessedPropertyDirectly";
   null5 = v10;
   if (!v10)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[4] = null5;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v21 count:{5, v19}];
+  v25[4] = null5;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v20 count:{5, v18}];
   if (v10)
   {
     if (v9)
@@ -255,19 +255,18 @@ LABEL_21:
 LABEL_29:
 
 LABEL_22:
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (BMSafariWindowProxy)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v53[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"domain"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v43 = 0;
+    v42 = 0;
 LABEL_4:
     v8 = [dictionaryCopy objectForKeyedSubscript:@"openedDomain"];
     if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -277,35 +276,35 @@ LABEL_4:
       {
         if (!error)
         {
-          v42 = 0;
+          v41 = 0;
           v18 = 0;
           goto LABEL_38;
         }
 
         v19 = objc_alloc(MEMORY[0x1E696ABC0]);
         v20 = *MEMORY[0x1E698F240];
-        v50 = *MEMORY[0x1E696A578];
+        v49 = *MEMORY[0x1E696A578];
         errorCopy = error;
         error = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"openedDomain"];
         errorCopy2 = error;
-        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&errorCopy2 forKeys:&v50 count:1];
-        v42 = 0;
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&errorCopy2 forKeys:&v49 count:1];
+        v41 = 0;
         v18 = 0;
         *errorCopy = [v19 initWithDomain:v20 code:2 userInfo:v9];
         goto LABEL_37;
       }
 
-      v42 = v8;
+      v41 = v8;
     }
 
     else
     {
-      v42 = 0;
+      v41 = 0;
     }
 
     v9 = [dictionaryCopy objectForKeyedSubscript:@"visited"];
     errorCopy3 = error;
-    v41 = v7;
+    v40 = v7;
     if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -340,20 +339,20 @@ LABEL_4:
             goto LABEL_37;
           }
 
-          v32 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v33 = *MEMORY[0x1E698F240];
-          v48 = *MEMORY[0x1E696A578];
+          v31 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v32 = *MEMORY[0x1E698F240];
+          v47 = *MEMORY[0x1E696A578];
           v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"visited"];
-          v49 = v24;
-          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-          v34 = [v32 initWithDomain:v33 code:2 userInfo:v23];
+          v48 = v24;
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+          v33 = [v31 initWithDomain:v32 code:2 userInfo:v23];
           errorCopy4 = error;
           error = 0;
           v18 = 0;
-          *errorCopy4 = v34;
+          *errorCopy4 = v33;
 LABEL_36:
 
-          v7 = v41;
+          v7 = v40;
 LABEL_37:
 
           goto LABEL_38;
@@ -392,15 +391,15 @@ LABEL_23:
             goto LABEL_36;
           }
 
-          v39 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v37 = *MEMORY[0x1E698F240];
-          v46 = *MEMORY[0x1E696A578];
+          v38 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v36 = *MEMORY[0x1E698F240];
+          v45 = *MEMORY[0x1E696A578];
           v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"property"];
-          v47 = v27;
-          v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+          v46 = v27;
+          v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
           v24 = 0;
           v18 = 0;
-          *errorCopy3 = [v39 initWithDomain:v37 code:2 userInfo:v26];
+          *errorCopy3 = [v38 initWithDomain:v36 code:2 userInfo:v26];
           goto LABEL_35;
         }
 
@@ -423,13 +422,13 @@ LABEL_23:
       {
         if (errorCopy3)
         {
-          v38 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v36 = *MEMORY[0x1E698F240];
-          v44 = *MEMORY[0x1E696A578];
-          v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"accessedPropertyDirectly"];
-          v45 = v30;
-          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
-          *errorCopy3 = [v38 initWithDomain:v36 code:2 userInfo:v31];
+          v37 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v35 = *MEMORY[0x1E698F240];
+          v43 = *MEMORY[0x1E696A578];
+          v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"accessedPropertyDirectly"];
+          v44 = v29;
+          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+          *errorCopy3 = [v37 initWithDomain:v35 code:2 userInfo:v30];
         }
 
         v27 = 0;
@@ -445,7 +444,7 @@ LABEL_23:
       v27 = 0;
     }
 
-    v18 = -[BMSafariWindowProxy initWithDomain:openedDomain:visited:property:accessedPropertyDirectly:](self, "initWithDomain:openedDomain:visited:property:accessedPropertyDirectly:", v43, v42, error, [v24 intValue], v27);
+    v18 = -[BMSafariWindowProxy initWithDomain:openedDomain:visited:property:accessedPropertyDirectly:](self, "initWithDomain:openedDomain:visited:property:accessedPropertyDirectly:", v42, v41, error, [v24 intValue], v27);
     self = v18;
 LABEL_35:
 
@@ -455,30 +454,29 @@ LABEL_35:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v43 = v7;
+    v42 = v7;
     goto LABEL_4;
   }
 
   if (!error)
   {
-    v43 = 0;
+    v42 = 0;
     v18 = 0;
     goto LABEL_39;
   }
 
   v16 = objc_alloc(MEMORY[0x1E696ABC0]);
   v17 = *MEMORY[0x1E698F240];
-  v52 = *MEMORY[0x1E696A578];
-  v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"domain"];
-  v53[0] = v42;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:&v52 count:1];
-  v43 = 0;
+  v51 = *MEMORY[0x1E696A578];
+  v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"domain"];
+  v52[0] = v41;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+  v42 = 0;
   v18 = 0;
   *error = [v16 initWithDomain:v17 code:2 userInfo:v8];
 LABEL_38:
 
 LABEL_39:
-  v28 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -506,15 +504,12 @@ LABEL_39:
 
   if (self->_hasRaw_visited)
   {
-    raw_visited = self->_raw_visited;
     PBDataWriterWriteDoubleField();
   }
 
-  property = self->_property;
   PBDataWriterWriteUint32Field();
   if (self->_hasAccessedPropertyDirectly)
   {
-    accessedPropertyDirectly = self->_accessedPropertyDirectly;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -804,39 +799,35 @@ LABEL_61:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"domain" number:1 type:13 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"openedDomain" number:2 type:13 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"visited" number:3 type:0 subMessageClass:0];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"property" number:4 type:4 subMessageClass:0];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"accessedPropertyDirectly" number:5 type:12 subMessageClass:0];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"domain" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"openedDomain" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"visited" dataType:3 requestOnly:0 fieldNumber:3 protoDataType:0 convertedType:2];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"property" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:4 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"accessedPropertyDirectly" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:12 convertedType:0];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }

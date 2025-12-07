@@ -133,7 +133,7 @@ LABEL_14:
         v40 = asset;
         if (asset)
         {
-          [asset vcp_livePhotoStillDisplayTime];
+          objc_msgSend_vcp_livePhotoStillDisplayTime(asset);
         }
 
         else
@@ -204,7 +204,7 @@ LABEL_14:
           [*(v11 + 1) setQualityMode:{+[VCPSettlingEffectAnalyzer getFRCQualityMode](VCPSettlingEffectAnalyzer, "getFRCQualityMode")}];
           if (trackCopy)
           {
-            [trackCopy preferredTransform];
+            objc_msgSend_preferredTransform(trackCopy);
           }
 
           else
@@ -349,7 +349,7 @@ LABEL_14:
                       v102 = v101;
                       if (v101)
                       {
-                        [v101 presentationTimeStamp];
+                        objc_msgSend_presentationTimeStamp(v101);
                       }
 
                       else
@@ -660,11 +660,11 @@ LABEL_2:
 
         rhs.value = 0;
         assetWriter = self->_assetWriter;
-        buffer = [(FRCFrame *)self->_previousFrame buffer];
+        v57 = objc_msgSend_buffer(self->_previousFrame);
         previousFrame = self->_previousFrame;
         if (previousFrame)
         {
-          [(FRCFrame *)previousFrame presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(previousFrame);
         }
 
         else
@@ -672,14 +672,14 @@ LABEL_2:
           memset(&buf, 0, sizeof(buf));
         }
 
-        v9 = [(VCPMovieAssetWriter *)assetWriter addPixelBuffer:buffer withTime:&buf withAttachment:0];
+        v9 = [(VCPMovieAssetWriter *)assetWriter addPixelBuffer:v57 withTime:&buf withAttachment:0];
         if (!v9)
         {
           previousMetadata = self->_previousMetadata;
           v88 = self->_previousFrame;
           if (v88)
           {
-            [(FRCFrame *)v88 presentationTimeStamp];
+            objc_msgSend_presentationTimeStamp(v88);
           }
 
           else
@@ -832,11 +832,11 @@ LABEL_75:
 
         v83 = [v115 count];
         v84 = self->_assetWriter;
-        buffer2 = [(FRCFrame *)self->_previousFrame buffer];
+        v85 = objc_msgSend_buffer(self->_previousFrame);
         v86 = self->_previousFrame;
         if (v86)
         {
-          [(FRCFrame *)v86 presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(v86);
         }
 
         else
@@ -844,7 +844,7 @@ LABEL_75:
           memset(&buf, 0, sizeof(buf));
         }
 
-        v9 = [(VCPMovieAssetWriter *)v84 addPixelBuffer:buffer2 withTime:&buf withAttachment:0];
+        v9 = [(VCPMovieAssetWriter *)v84 addPixelBuffer:v85 withTime:&buf withAttachment:0];
         if (v9)
         {
           goto LABEL_109;
@@ -854,7 +854,7 @@ LABEL_75:
         v99 = self->_previousFrame;
         if (v99)
         {
-          [(FRCFrame *)v99 presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(v99);
         }
 
         else
@@ -883,7 +883,7 @@ LABEL_109:
             v101 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v127 forKeys:&v126 count:{1, v110}];
             v102 = self->_assetWriter;
             v103 = [v115 objectAtIndexedSubscript:v100];
-            buffer3 = [v103 buffer];
+            v104 = objc_msgSend_buffer(v103);
             *&buf.value = *&p_outputFrameDuration->value;
             buf.epoch = self->_outputFrameDuration.epoch;
             CMTimeMultiply(&v120, &buf, ++v100);
@@ -891,7 +891,7 @@ LABEL_109:
             buf.epoch = self->_anchorPTS.epoch;
             time2 = v120;
             CMTimeAdd(&rhs, &buf, &time2);
-            v9 = [(VCPMovieAssetWriter *)v102 addPixelBuffer:buffer3 withTime:&rhs withAttachment:v101];
+            v9 = [(VCPMovieAssetWriter *)v102 addPixelBuffer:v104 withTime:&rhs withAttachment:v101];
 
             if (v9)
             {
@@ -944,7 +944,7 @@ LABEL_116:
         v107 = v106;
         if (v106)
         {
-          [v106 presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(v106);
         }
 
         else
@@ -1332,11 +1332,11 @@ LABEL_14:
     if (v23)
     {
       assetWriter = self->_assetWriter;
-      buffer = [(FRCFrame *)self->_previousFrame buffer];
+      v25 = objc_msgSend_buffer(self->_previousFrame);
       v26 = self->_previousFrame;
       if (v26)
       {
-        [(FRCFrame *)v26 presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(v26);
       }
 
       else
@@ -1344,7 +1344,7 @@ LABEL_14:
         memset(&time, 0, sizeof(time));
       }
 
-      v8 = [(VCPMovieAssetWriter *)assetWriter addPixelBuffer:buffer withTime:&time withAttachment:0];
+      v8 = [(VCPMovieAssetWriter *)assetWriter addPixelBuffer:v25 withTime:&time withAttachment:0];
       if (v8)
       {
         goto LABEL_14;
@@ -1354,7 +1354,7 @@ LABEL_14:
       v34 = self->_previousFrame;
       if (v34)
       {
-        [(FRCFrame *)v34 presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(v34);
       }
 
       else
@@ -1383,7 +1383,7 @@ LABEL_14:
         v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
         v36 = self->_assetWriter;
         v37 = [v7 objectAtIndexedSubscript:v35];
-        buffer2 = [v37 buffer];
+        v38 = objc_msgSend_buffer(v37);
         *&time.value = *&p_outputFrameDuration->value;
         time.epoch = self->_outputFrameDuration.epoch;
         CMTimeMultiply(&v51, &time, v35 + 1);
@@ -1391,7 +1391,7 @@ LABEL_14:
         time.epoch = self->_anchorPTS.epoch;
         rhs = v51;
         CMTimeAdd(&v53, &time, &rhs);
-        v8 = [(VCPMovieAssetWriter *)v36 addPixelBuffer:buffer2 withTime:&v53 withAttachment:v47];
+        v8 = [(VCPMovieAssetWriter *)v36 addPixelBuffer:v38 withTime:&v53 withAttachment:v47];
 
         if (v8 || (v39 = self->_previousMetadata, *&time.value = *&p_outputFrameDuration->value, time.epoch = self->_outputFrameDuration.epoch, CMTimeMultiply(&v51, &time, v35 + 1), *&time.value = *&p_anchorPTS->value, time.epoch = self->_anchorPTS.epoch, rhs = v51, CMTimeAdd(&v53, &time, &rhs), (v8 = [(VCPSettlingEffectAnalyzer *)self createLivePhotoInfoSample:v39 withTimestamp:&v53 isInterpolated:1 updatedSample:&v57]) != 0))
         {
@@ -1409,10 +1409,10 @@ LABEL_14:
       }
 
       v40 = self->_assetWriter;
-      buffer3 = [v6 buffer];
+      v41 = objc_msgSend_buffer(v6);
       if (v6)
       {
-        [v6 presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(v6);
       }
 
       else
@@ -1420,7 +1420,7 @@ LABEL_14:
         memset(&time, 0, sizeof(time));
       }
 
-      v8 = [(VCPMovieAssetWriter *)v40 addPixelBuffer:buffer3 withTime:&time withAttachment:0];
+      v8 = [(VCPMovieAssetWriter *)v40 addPixelBuffer:v41 withTime:&time withAttachment:0];
       if (v8)
       {
         goto LABEL_14;
@@ -1429,7 +1429,7 @@ LABEL_14:
       v42 = self->_previousMetadata;
       if (v6)
       {
-        [v6 presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(v6);
       }
 
       else
@@ -1967,7 +1967,7 @@ uint64_t __64__VCPSettlingEffectAnalyzer_getFramePTSList_before_withOptions___bl
     v10 = asset;
     if (asset)
     {
-      [(__CFDictionary *)asset vcp_livePhotoStillDisplayTime];
+      objc_msgSend_vcp_livePhotoStillDisplayTime(asset);
     }
 
     else

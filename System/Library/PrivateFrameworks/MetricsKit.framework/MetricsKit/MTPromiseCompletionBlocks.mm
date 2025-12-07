@@ -138,7 +138,7 @@ uint64_t __64__MTPromiseCompletionBlocks_callSuccessBlock_withPromiseResult___bl
 
 - (void)flushCompletionBlocksWithPromiseResult:(id)result
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -146,26 +146,26 @@ uint64_t __64__MTPromiseCompletionBlocks_callSuccessBlock_withPromiseResult___bl
   [(NSMutableArray *)selfCopy->_completionBlocks removeAllObjects];
   objc_sync_exit(selfCopy);
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
+        v11 = *(*(&v14 + 1) + 8 * v10);
         result = [resultCopy result];
         error = [resultCopy error];
         (*(v11 + 16))(v11, result, error);
@@ -174,13 +174,11 @@ uint64_t __64__MTPromiseCompletionBlocks_callSuccessBlock_withPromiseResult___bl
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -204,9 +204,7 @@ LABEL_21:
   shoppingReferenceNode = self->_shoppingReferenceNode;
   self->_shoppingReferenceNode = v35;
 
-  v37 = [[CLSSignalNode alloc] initWithIdentifier:2147483643 name:@"Junk - Utility Reference" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
-  utilityReferenceNode = self->_utilityReferenceNode;
-  self->_utilityReferenceNode = v37;
+  self->_utilityReferenceNode = [[CLSSignalNode alloc] initWithIdentifier:2147483643 name:@"Junk - Utility Reference" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
 
   MEMORY[0x2821F96F8]();
 }
@@ -282,9 +280,7 @@ LABEL_21:
   shoppingReferenceNode = self->_shoppingReferenceNode;
   self->_shoppingReferenceNode = v35;
 
-  v37 = [[CLSSignalNode alloc] initWithIdentifier:2147483643 name:@"Junk - Utility Reference" operatingPoint:0.41 highPrecisionOperatingPoint:0.64 highRecallOperatingPoint:0.21];
-  utilityReferenceNode = self->_utilityReferenceNode;
-  self->_utilityReferenceNode = v37;
+  self->_utilityReferenceNode = [[CLSSignalNode alloc] initWithIdentifier:2147483643 name:@"Junk - Utility Reference" operatingPoint:0.41 highPrecisionOperatingPoint:0.64 highRecallOperatingPoint:0.21];
 
   MEMORY[0x2821F96F8]();
 }
@@ -360,9 +356,7 @@ LABEL_21:
   shoppingReferenceNode = self->_shoppingReferenceNode;
   self->_shoppingReferenceNode = v35;
 
-  v37 = [[CLSSignalNode alloc] initWithIdentifier:2147483643 name:@"Junk - Utility Reference" operatingPoint:0.39 highPrecisionOperatingPoint:0.7 highRecallOperatingPoint:0.27];
-  utilityReferenceNode = self->_utilityReferenceNode;
-  self->_utilityReferenceNode = v37;
+  self->_utilityReferenceNode = [[CLSSignalNode alloc] initWithIdentifier:2147483643 name:@"Junk - Utility Reference" operatingPoint:0.39 highPrecisionOperatingPoint:0.7 highRecallOperatingPoint:0.27];
 
   MEMORY[0x2821F96F8]();
 }
@@ -371,9 +365,7 @@ LABEL_21:
 {
   [(CLSJunkClassificationModel *)self setupVersion31];
   self->_version = 32;
-  v3 = [[CLSSignalNode alloc] initWithIdentifier:2147483629 name:@"Junk - Text Document" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
-  textDocumentNode = self->_textDocumentNode;
-  self->_textDocumentNode = v3;
+  self->_textDocumentNode = [[CLSSignalNode alloc] initWithIdentifier:2147483629 name:@"Junk - Text Document" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
 
   MEMORY[0x2821F96F8]();
 }
@@ -453,19 +445,17 @@ LABEL_21:
   utilityReferenceNode = self->_utilityReferenceNode;
   self->_utilityReferenceNode = v37;
 
-  v39 = [[CLSSignalNode alloc] initWithIdentifier:0x7FFFFFFFLL name:@"Junk - Legacy" operatingPoint:0.1 highPrecisionOperatingPoint:0.1 highRecallOperatingPoint:0.1];
-  legacyNode = self->_legacyNode;
-  self->_legacyNode = v39;
+  self->_legacyNode = [[CLSSignalNode alloc] initWithIdentifier:0x7FFFFFFFLL name:@"Junk - Legacy" operatingPoint:0.1 highPrecisionOperatingPoint:0.1 highRecallOperatingPoint:0.1];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (CLSJunkClassificationModel)initWithSceneAnalysisVersion:(unint64_t)version
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = CLSJunkClassificationModel;
-  v4 = [(CLSJunkClassificationModel *)&v9 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CLSJunkClassificationModel;
+  v4 = [(CLSJunkClassificationModel *)&v8 init];
   v5 = v4;
   if (v4)
   {
@@ -489,12 +479,12 @@ LABEL_21:
                 v6 = objc_opt_class();
                 *buf = 67109378;
                 versionCopy = version;
-                v12 = 2112;
-                v13 = v6;
+                v11 = 2112;
+                v12 = v6;
                 _os_log_impl(&dword_25E5F0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unsupported version %d in %@", buf, 0x12u);
               }
 
-              v5 = 0;
+              return 0;
             }
           }
 
@@ -522,7 +512,6 @@ LABEL_21:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

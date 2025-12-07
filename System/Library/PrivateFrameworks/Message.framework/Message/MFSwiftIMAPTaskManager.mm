@@ -45,8 +45,8 @@
 
 - (void)test_tearDown
 {
-  MEMORY[0x1E69E5928](self);
-  sub_1B0A4C224();
+  v2 = MEMORY[0x1E69E5928](self);
+  sub_1B0A4C224(v2, v3);
   MEMORY[0x1E69E5920](self);
 }
 

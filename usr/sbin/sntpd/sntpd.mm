@@ -90,7 +90,7 @@ uint64_t start(int a1, char **a2)
     v11 = *v4;
     v15 = v4[2];
     v14 = v11;
-    sntp_server_exchange(&v20, &v17, eventlist.ident, &v14, sub_100000774, v16);
+    sntp_server_exchange(v16, &v20, &v17, LODWORD(eventlist.ident), &v14, sub_100000774);
   }
 
   sntp_header_unmap(v4);
@@ -103,7 +103,7 @@ unint64_t sub_100000774()
   v3.tv_nsec = 0;
   clock_gettime(_CLOCK_REALTIME, &v3);
   v3.tv_sec += 2208988800;
-  v0 = sntp_datestamp_from_timespec(v3.tv_sec);
+  v0 = sntp_datestamp_from_timespec(v3.tv_sec, v3.tv_nsec);
   return sntp_timestamp_from_datestamp(v0, v1);
 }
 
@@ -485,37 +485,38 @@ unint64_t sntp_server_respond@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t 
   return result;
 }
 
-uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, int a3@<W0>, __int128 *a4@<X3>, uint64_t (*a5)(void)@<X4>, uint64_t a6@<X8>)
+uint64_t *sntp_server_exchange@<X0>(uint64_t *__return_ptr a1@<X8>, sockaddr *a2@<X1>, socklen_t *a3@<X2>, uint64_t a4@<X0>, __int128 *a5@<X3>, uint64_t (*a6)(void)@<X4>)
 {
-  *(a6 + 48) = 0u;
-  *(a6 + 64) = 0u;
-  *(a6 + 16) = 0u;
-  *(a6 + 32) = 0u;
-  *a6 = 0u;
-  if (!a5)
+  *(a1 + 3) = 0u;
+  *(a1 + 4) = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  if (!a6)
   {
     sub_1000018CC();
   }
 
+  v10 = a4;
   v23 = 0uLL;
   v24 = 0uLL;
   v22 = 0uLL;
-  result = recvfrom(a3, &v22, 0x30uLL, 64, a1, a2);
+  result = recvfrom(a4, &v22, 0x30uLL, 64, a2, a3);
   if (result == 48)
   {
-    if (a1 && a2)
+    if (a2 && a3)
     {
-      v13 = *a2;
-      sa_family = a1->sa_family;
-      *(a6 + 76) = sa_family;
+      v13 = *a3;
+      sa_family = a2->sa_family;
+      *(a1 + 19) = sa_family;
       if (v13 == 16 && sa_family == 2)
       {
-        *(a6 + 60) = *&a1->sa_data[2];
+        *(a1 + 15) = *&a2->sa_data[2];
       }
 
       else if (v13 == 28 && sa_family == 30)
       {
-        *(a6 + 60) = *&a1->sa_data[6];
+        *(a1 + 60) = *&a2->sa_data[6];
       }
     }
 
@@ -524,12 +525,12 @@ uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, int a3
     v19[1] = v23;
     v19[2] = v24;
     memset(v20, 0, sizeof(v20));
-    v17 = *a4;
-    v18 = *(a4 + 2);
-    sntp_server_respond(v19, &v17, a5, v20);
-    if (a2)
+    v17 = *a5;
+    v18 = *(a5 + 2);
+    sntp_server_respond(v19, &v17, a6, v20);
+    if (a3)
     {
-      v15 = *a2;
+      v15 = *a3;
     }
 
     else
@@ -537,23 +538,23 @@ uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, int a3
       v15 = 0;
     }
 
-    if (sendto(a3, v20, 0x30uLL, 0, a1, v15) != 48)
+    if (sendto(v10, v20, 0x30uLL, 0, a2, v15) != 48)
     {
-      *a6 = 5;
+      *a1 = 5;
     }
 
-    *(a6 + 36) = v22;
+    *(a1 + 36) = v22;
     v16 = *(&v24 + 1);
-    *(a6 + 52) = v23;
-    *(a6 + 4) = sntp_timestamp_ntoh(v16);
-    *(a6 + 12) = sntp_timestamp_ntoh(v21);
+    *(a1 + 52) = v23;
+    *(a1 + 4) = sntp_timestamp_ntoh(v16);
+    *(a1 + 12) = sntp_timestamp_ntoh(v21);
     result = sntp_timestamp_ntoh(*(&v21 + 1));
-    *(a6 + 20) = result;
+    *(a1 + 20) = result;
   }
 
   else
   {
-    *a6 = 7;
+    *a1 = 7;
   }
 
   return result;
@@ -775,39 +776,13 @@ LABEL_10:
   if (v21)
   {
     v22 = v21;
-    if (!a6)
-    {
-      goto LABEL_29;
-    }
-
-    v30 = 0;
-    v31 = 0;
-    memset(v27, 0, 28);
-    if (ai_family == 2)
-    {
-      v30 = 2063598080;
-      v31 = 0;
-      v23 = &v30;
-      v24 = 16;
-    }
-
-    else
-    {
-      memset(&v27[0].sa_data[2], 0, 24);
-      *&v27[0].sa_data[6] = in6addr_any;
-      *&v27[0].sa_len = 2063605276;
-      v23 = v27;
-      v24 = 28;
-    }
-
-    if (bind(v21, v23, v24))
+    if (a6 && ((v30 = 0, v31 = 0, memset(v27, 0, 28), ai_family != 2) ? (memset(&v27[0].sa_data[2], 0, 24), *&v27[0].sa_data[6] = in6addr_any, *&v27[0].sa_len = 2063605276, v23 = v27, v24 = 28) : (v30 = 2063598080, v31 = 0, v23 = &v30, v24 = 16), bind(v21, v23, v24)))
     {
       v25 = 3;
     }
 
     else
     {
-LABEL_29:
       if (!connect(v22, ai_addr, ai_addrlen))
       {
         sntp_client_exchange(v22, a4, a5, a7);

@@ -50,26 +50,26 @@ uint64_t __31__BLSBacklight_sharedBacklight__block_invoke(uint64_t a1)
 {
   objc_opt_self();
   os_unfair_lock_lock(&_classLock_0);
-  v0 = _defaultBacklightProxy;
-  if (!v0)
+  v1 = _defaultBacklightProxy;
+  if (!v1)
   {
-    v1 = +[BLSRuntime isHostProcess];
-    v2 = off_278428410;
-    if (!v1)
+    v2 = +[BLSRuntime isHostProcess];
+    v3 = off_278428410;
+    if (!v2)
     {
-      v2 = off_278428478;
+      v3 = off_278428478;
     }
 
-    v3 = objc_alloc_init(*v2);
-    v4 = _defaultBacklightProxy;
-    _defaultBacklightProxy = v3;
+    v4 = objc_alloc_init(*v3);
+    v5 = _defaultBacklightProxy;
+    _defaultBacklightProxy = v4;
 
-    v0 = v3;
+    v1 = v4;
   }
 
   os_unfair_lock_unlock(&_classLock_0);
 
-  return v0;
+  return v1;
 }
 
 + (void)setDefaultBacklightProxy:(id)proxy
@@ -77,12 +77,13 @@ uint64_t __31__BLSBacklight_sharedBacklight__block_invoke(uint64_t a1)
   proxyCopy = proxy;
   os_unfair_lock_lock(&_classLock_0);
   v5 = _defaultBacklightProxy;
+  v6 = v5;
   if (!v5)
   {
-    v6 = bls_backlight_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = bls_backlight_log(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [BLSBacklight setDefaultBacklightProxy:v6];
+      [BLSBacklight setDefaultBacklightProxy:v7];
     }
 
     goto LABEL_10;
@@ -90,11 +91,11 @@ uint64_t __31__BLSBacklight_sharedBacklight__block_invoke(uint64_t a1)
 
   if (!proxyCopy)
   {
-    v6 = bls_backlight_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = bls_backlight_log(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21FE25000, v6, OS_LOG_TYPE_DEFAULT, "BLSBacklightProxy defaultBacklightProxy reset - should only occur during unit testing", buf, 2u);
+      _os_log_impl(&dword_21FE25000, v7, OS_LOG_TYPE_DEFAULT, "BLSBacklightProxy defaultBacklightProxy reset - should only occur during unit testing", buf, 2u);
     }
 
 LABEL_10:
@@ -108,10 +109,10 @@ LABEL_10:
   os_unfair_lock_unlock(&_classLock_0);
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"attempting to replace backlightProxy:%@ which does not respond to replaceWithBacklightProxy:", v5}];
+    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"attempting to replace backlightProxy:%@ which does not respond to replaceWithBacklightProxy:", v6}];
   }
 
-  [v5 replaceWithBacklightProxy:proxyCopy];
+  [v6 replaceWithBacklightProxy:proxyCopy];
 LABEL_11:
 }
 

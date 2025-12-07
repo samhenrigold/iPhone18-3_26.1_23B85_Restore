@@ -126,21 +126,22 @@
     PDFRectRotate([(PDFPage *)self->_private->page rotation], v5, v6);
     v8 = v7;
     v10 = v9;
-    v11 = PDFPointMake(0.0, 0.0);
-    v13 = v12;
-    v14 = self->_private;
-    v15 = v8 + v14->pageMargins.left + v14->pageMargins.right;
-    v16 = v10 + v14->pageMargins.top + v14->pageMargins.bottom;
+    PDFPointMake();
+    v12 = v11;
+    v14 = v13;
+    v15 = self->_private;
+    v16 = v8 + v15->pageMargins.left + v15->pageMargins.right;
+    v17 = v10 + v15->pageMargins.top + v15->pageMargins.bottom;
     [v4 bounds];
-    v21 = PDFScaleRectToRect(v11, v13, v15, v16, v17, v18, v19, v20);
+    v22 = PDFScaleRectToRect(v12, v14, v16, v17, v18, v19, v20, v21);
   }
 
   else
   {
-    v21 = 1.0;
+    v22 = 1.0;
   }
 
-  return v21;
+  return v22;
 }
 
 - (void)setBackgroundImage:(id)image atBackgroundQuality:(int)quality
@@ -295,7 +296,8 @@
     PDFRectRotate([(PDFPage *)self->_private->page rotation], v8, v9);
     v11 = v10;
     v13 = v12;
-    [(PDFPageView *)self->_private->pageView setFrame:PDFPointMake(0.0, 0.0)];
+    PDFPointMake();
+    [(PDFPageView *)self->_private->pageView setFrame:?];
     v36 = v4;
     highlightedSelections = [v4 highlightedSelections];
     v37 = 0u;

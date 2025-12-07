@@ -19,7 +19,7 @@
 
 - (id)intervalString
 {
-  v3 = defaultFormatter();
+  v3 = defaultFormatter(self);
   v4 = v3;
   if (self->_endDate)
   {

@@ -37,7 +37,7 @@
   os_activity_scope_leave(&buf);
 }
 
-uint64_t __67__WBSCloudBookmarksMigrationCoordinator_startCoordinatingMigration__block_invoke(uint64_t a1)
+void *__67__WBSCloudBookmarksMigrationCoordinator_startCoordinatingMigration__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 32) = 0;
   v2 = *(a1 + 32);
@@ -200,15 +200,15 @@ void __92__WBSCloudBookmarksMigrationCoordinator__determineCourseOfActionFromSyn
   dispatch_async(processingQueue, v4);
 }
 
-uint64_t __61__WBSCloudBookmarksMigrationCoordinator_setMigrationEnabled___block_invoke(uint64_t result)
+void *__61__WBSCloudBookmarksMigrationCoordinator_setMigrationEnabled___block_invoke(void *result)
 {
   v1 = *(result + 40);
-  v2 = *(result + 32);
+  v2 = result[4];
   if (v1 != *(v2 + 40))
   {
     *(v2 + 40) = v1;
-    result = *(result + 32);
-    if (*(result + 40) == 1 && *(result + 32) == 2)
+    result = result[4];
+    if (*(result + 40) == 1 && result[4] == 2)
     {
       return [result startCoordinatingMigration];
     }
@@ -320,9 +320,9 @@ void __89__WBSCloudBookmarksMigrationCoordinator__determineCourseOfActionFromRem
   }
 }
 
-void __89__WBSCloudBookmarksMigrationCoordinator__determineCourseOfActionFromRemoteMigrationState__block_invoke_13(uint64_t a1)
+void __89__WBSCloudBookmarksMigrationCoordinator__determineCourseOfActionFromRemoteMigrationState__block_invoke_13(uint64_t result)
 {
-  v2 = *(a1 + 40);
+  v2 = *(result + 40);
   if (v2 > 0)
   {
     if (v2 == 1)
@@ -334,13 +334,13 @@ void __89__WBSCloudBookmarksMigrationCoordinator__determineCourseOfActionFromRem
         _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_DEFAULT, "Remote migration state indicates someone else is migrating", v7, 2u);
       }
 
-      [*(a1 + 32) _considerOverridingOtherMigratingDevice];
+      [*(result + 32) _considerOverridingOtherMigratingDevice];
     }
 
     else if (v2 == 2)
     {
-      [*(a1 + 32) _logKeyAction:@"Remote migration state indicates migration is done; triggering local migration"];
-      v4 = *(*(a1 + 32) + 8);
+      [*(result + 32) _logKeyAction:@"Remote migration state indicates migration is done; triggering local migration"];
+      v4 = *(*(result + 32) + 8);
 
       [v4 beginMigrationFromDAV];
     }
@@ -364,7 +364,7 @@ void __89__WBSCloudBookmarksMigrationCoordinator__determineCourseOfActionFromRem
       _os_log_impl(&dword_1BB6F3000, v3, OS_LOG_TYPE_DEFAULT, "Remote migration state indicates migration has not happened yet", buf, 2u);
     }
 
-    [*(a1 + 32) _beginMigrationIfPossible];
+    [*(result + 32) _beginMigrationIfPossible];
   }
 }
 

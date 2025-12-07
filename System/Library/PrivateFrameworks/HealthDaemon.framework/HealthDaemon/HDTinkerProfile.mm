@@ -44,11 +44,11 @@
 
 void __32__HDTinkerProfile_awakeFromDisk__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) cloudSyncManager];
-  v10 = 0;
-  v3 = [v2 shareOwnerParticipantWithError:&v10];
-  v4 = v10;
+  v9 = 0;
+  v3 = [v2 shareOwnerParticipantWithError:&v9];
+  v4 = v9;
 
   if (!v3)
   {
@@ -61,7 +61,7 @@ void __32__HDTinkerProfile_awakeFromDisk__block_invoke(uint64_t a1)
       {
         v7 = *(a1 + 32);
         *buf = 138543362;
-        v12 = v7;
+        v11 = v7;
         _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Failed to lookup share owner participant upon profile awake from disk; assuming it is set for this launch.", buf, 0xCu);
       }
     }
@@ -70,17 +70,15 @@ void __32__HDTinkerProfile_awakeFromDisk__block_invoke(uint64_t a1)
     {
       if (v6)
       {
-        v9 = *(a1 + 32);
+        v8 = *(a1 + 32);
         *buf = 138543362;
-        v12 = v9;
+        v11 = v8;
         _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@: No share owner participant set after launch for this Tinker profile. Triggering deletion.", buf, 0xCu);
       }
 
       [*(a1 + 32) triggerDeletion];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)pairedNRDeviceUUIDWithError:(id *)error

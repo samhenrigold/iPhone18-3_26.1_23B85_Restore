@@ -1,3 +1,94 @@
+double NTKUpNextThumbnailSize()
+{
+  v0 = +[(CLKRenderingContext *)NTKFaceViewRenderingContext];
+  v1 = [v0 device];
+  v2 = [v1 sizeClass];
+
+  result = 53.5;
+  if (!v2)
+  {
+    return 46.0;
+  }
+
+  return result;
+}
+
+id NTKCellClassForStyle(unint64_t a1)
+{
+  if (a1 > 6)
+  {
+    v2 = 0;
+  }
+
+  else
+  {
+    v2 = objc_opt_class();
+  }
+
+  return v2;
+}
+
+double NTKSuggestedHeaderImageSizeForStyle(unint64_t a1, void *a2)
+{
+  v3 = a2;
+  [NTKCellClassForStyle(a1) suggestedHeaderImageSizeForDevice:v3];
+  v5 = v4;
+
+  return v5;
+}
+
+double NTKSuggestedBodyImageSizeForStyle(unint64_t a1, void *a2)
+{
+  v3 = a2;
+  [NTKCellClassForStyle(a1) suggestedBodyImageSizeForDevice:v3];
+  v5 = v4;
+
+  return v5;
+}
+
+void NTKUpNextFileRadarWithData(void *a1)
+{
+  v10[1] = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  if (NTKInternalBuild(v1, v2))
+  {
+    v3 = MEMORY[0x277CBEBC0];
+    v4 = NTKUpNextDiagnosticLogsFileName();
+    v5 = [v3 fileURLWithPath:v4];
+
+    if (v5)
+    {
+      v9 = 0;
+      v6 = [v1 writeToURL:v5 atomically:1 encoding:4 error:&v9];
+      v7 = v9;
+      if (v6)
+      {
+        v10[0] = v5;
+        v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+        NTKDPromptToRaiseRadarWithAdditionalFiles(@"Siri Face Radar", @"Additional diagnostic logs were collected from your watch. Tap 'OK' to continue raising the radar. (Internal alert only.)", @"Supergreen: <Descriptive Title>", 0, v8, 0);
+LABEL_8:
+
+        goto LABEL_9;
+      }
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    v8 = _NTKLoggingObjectForDomain(0, "NTKLoggingDomainDefault");
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      NTKUpNextFileRadarWithData_cold_1(v7, v8);
+    }
+
+    goto LABEL_8;
+  }
+
+LABEL_9:
+}
+
 id NTKUpNextDiagnosticLogsFileName()
 {
   if (NTKUpNextDiagnosticLogsFileName_onceToken != -1)
@@ -67,10 +158,11 @@ void sub_22DB206E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_12(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_12(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 uint64_t getImageOrientation(CGImageSource *a1)
@@ -116,16 +208,16 @@ void sub_22DB22538(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id NTKCollectionServerInterface()
+id NTKCollectionServerInterface(uint64_t a1)
 {
   if (NTKCollectionServerInterface_onceToken != -1)
   {
     NTKCollectionServerInterface_cold_1();
   }
 
-  v1 = NTKCollectionServerInterface_interface;
+  v2 = NTKCollectionServerInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 void __NTKCollectionServerInterface_block_invoke()
@@ -140,16 +232,16 @@ void __NTKCollectionServerInterface_block_invoke()
   [NTKCollectionServerInterface_interface setClasses:v4 forSelector:sel_setOrderedFaceUUIDs_ argumentIndex:0 ofReply:0];
 }
 
-id NTKCollectionClientInterface()
+id NTKCollectionClientInterface(uint64_t a1)
 {
   if (NTKCollectionClientInterface_onceToken != -1)
   {
     NTKCollectionClientInterface_cold_1();
   }
 
-  v1 = NTKCollectionClientInterface_interface;
+  v2 = NTKCollectionClientInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 void __NTKCollectionClientInterface_block_invoke()
@@ -177,11 +269,12 @@ void sub_22DB239C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22DB252C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_22DB252C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
 {
-  _Block_object_dispose(&a47, 8);
-  _Block_object_dispose((v47 - 224), 8);
-  _Block_object_dispose((v47 - 176), 8);
+  va_start(va, a46);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v46 - 224), 8);
+  _Block_object_dispose((v46 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -199,32 +292,32 @@ void sub_22DB25C5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22DB26DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DB26DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 112), 8);
+  _Block_object_dispose((v16 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DB270D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DB270D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -239,18 +332,18 @@ void sub_22DB27C90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22DB2AEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DB2AEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DB2C6AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22DB2C6AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -261,65 +354,65 @@ uint64_t __Block_byref_object_copy__33(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22DB2D4DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DB2D4DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DB2DC70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_22DB2DC70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DB2E794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22DB2EC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22DB2EF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
-{
-  va_start(va, a17);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22DB2FAC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22DB31C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22DB32484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22DB2E794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DB340B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DB2EC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22DB2EF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22DB2FAC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22DB31C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22DB32484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22DB340B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -331,10 +424,10 @@ void sub_22DB346B8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22DB34800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DB34800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  objc_destroyWeak((v9 + 48));
+  va_start(va, a16);
+  objc_destroyWeak((v16 + 48));
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -353,16 +446,16 @@ id NTKComplicationSlotDescriptor(uint64_t a1, void *a2, void *a3)
   return v10;
 }
 
-void sub_22DB35064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DB35064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DB352A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DB352A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -451,16 +544,16 @@ __n128 _LayoutConstants_5@<Q0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
   return result;
 }
 
-id NTKVictoryTransitionTimingFunction()
+id NTKVictoryTransitionTimingFunction(uint64_t a1)
 {
   if (NTKVictoryTransitionTimingFunction_onceToken != -1)
   {
     NTKVictoryTransitionTimingFunction_cold_1();
   }
 
-  v1 = NTKVictoryTransitionTimingFunction__function;
+  v2 = NTKVictoryTransitionTimingFunction__function;
 
-  return v1;
+  return v2;
 }
 
 void __NTKVictoryTransitionTimingFunction_block_invoke(double a1, double a2, double a3, double a4)
@@ -628,7 +721,7 @@ BOOL NTKWidgetVisibilityFromComplicationVisibility(_BOOL8 result)
 {
   if (result != 2)
   {
-    return result == 1;
+    return result;
   }
 
   return result;
@@ -641,20 +734,20 @@ uint64_t __Block_byref_object_copy__34(uint64_t result, uint64_t a2)
   return result;
 }
 
-id NTKArgonExtractorBasePath()
+id NTKArgonExtractorBasePath(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v0 = BSCurrentUserDirectory();
-  v1 = [v0 stringByAppendingPathComponent:@"/Library/NanoTimeKit/FaceSupport/ExtractedBundles/"];
-  v2 = _NTKLoggingObjectForDomain(39, "NTKLoggingDomainArgon");
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = BSCurrentUserDirectory();
+  v3 = [v2 stringByAppendingPathComponent:@"/Library/NanoTimeKit/FaceSupport/ExtractedBundles/"];
+  v4 = _NTKLoggingObjectForDomain(39, "NTKLoggingDomainArgon");
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 138412290;
-    v5 = v1;
-    _os_log_impl(&dword_22D9C5000, v2, OS_LOG_TYPE_DEFAULT, "Extracting to %@", &v4, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_22D9C5000, v4, OS_LOG_TYPE_DEFAULT, "Extracting to %@", &v6, 0xCu);
   }
 
-  return v1;
+  return v3;
 }
 
 id NTKArgonExtractorBuildVersion()
@@ -682,9 +775,9 @@ id NTKArgonExtractorBuildVersion()
   return v0;
 }
 
-void sub_22DB48960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DB48960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -774,9 +867,9 @@ void __destructor_8_S_s24_S_s64(uint64_t a1)
   v2 = *(a1 + 64);
 }
 
-void sub_22DB4EE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DB4EE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1211,9 +1304,9 @@ void __destructor_8_S_s24_S_s72(uint64_t a1)
   v2 = *(a1 + 72);
 }
 
-void sub_22DB5D18C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DB5D18C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1393,9 +1486,9 @@ uint64_t NTKEqualStrings(void *a1, void *a2)
   }
 }
 
-void sub_22DB5E96C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DB5E96C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1441,22 +1534,23 @@ double __NTKWhistlerBezelCircularViewFontSize_block_invoke_2(uint64_t a1, uint64
   return v4;
 }
 
-void OUTLINED_FUNCTION_2_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-id _NTKRegisteredDisplayClasses()
+id _NTKRegisteredDisplayClasses(uint64_t a1)
 {
   if (_NTKRegisteredDisplayClasses_onceToken != -1)
   {
     _NTKRegisteredDisplayClasses_cold_1();
   }
 
-  v1 = _NTKRegisteredDisplayClasses_displayClasses;
+  v2 = _NTKRegisteredDisplayClasses_displayClasses;
 
-  return v1;
+  return v2;
 }
 
 id NTKComplicationDisplayClassForTemplateAndFamily(void *a1, uint64_t a2)
@@ -1467,7 +1561,7 @@ id NTKComplicationDisplayClassForTemplateAndFamily(void *a1, uint64_t a2)
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v4 = _NTKRegisteredDisplayClasses();
+  v4 = _NTKRegisteredDisplayClasses(v3);
   v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
@@ -1549,7 +1643,7 @@ uint64_t __Block_byref_object_copy__37(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22DB6817C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_22DB6817C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a59, 8);
   _Block_object_dispose(&a65, 8);
@@ -1571,16 +1665,16 @@ void sub_22DB6B6BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22DB6DC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DB6DC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DB6EAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DB6EAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1599,18 +1693,19 @@ void sub_22DB74F14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22DB75388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_22DB75388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DB78E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_22DB78E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a33, 8);
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1621,16 +1716,16 @@ uint64_t __Block_byref_object_copy__39(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22DB79878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_22DB79878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DB7A184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DB7A184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1927,6 +2022,13 @@ uint64_t NTKPhotosUpdateLegibility(void *a1)
   _Block_object_dispose(&v26, 8);
 
   return v13 & 1;
+}
+
+void sub_22DB81630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void __NTKPhotosUpdateLegibility_block_invoke(uint64_t a1, uint64_t a2)
@@ -2725,7 +2827,7 @@ double NTKPhotosVideoDimensions(void *a1)
     [v2 naturalSize];
     v4 = v3;
     v6 = v5;
-    [v2 preferredTransform];
+    objc_msgSend_preferredTransform(v2);
     v7 = fabs(v6 * v10 + v9 * v4);
   }
 
@@ -2835,9 +2937,9 @@ void __NTKPhotosConfirmMemoryWasViewed_block_invoke(uint64_t a1)
   _Block_object_dispose(&v14, 8);
 }
 
-void sub_22DB83534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DB83534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2857,7 +2959,7 @@ void __NTKPhotosConfirmMemoryWasViewed_block_invoke_358(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-uint64_t NTKPhotosCanEncodeHEIC()
+uint64_t NTKPhotosCanEncodeHEIC(uint64_t a1, uint64_t a2)
 {
   if (NTKPhotosCanEncodeHEIC_onceToken != -1)
   {
@@ -2874,24 +2976,26 @@ void __NTKPhotosCanEncodeHEIC_block_invoke()
   NTKPhotosCanEncodeHEIC_isSupported = [(__CFArray *)v1 containsObject:v0];
 }
 
-void sub_22DB83B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22DB83B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id NTKLocationComponentStringsShowSecondsAndLatLongTitle(void *a1, int a2, int a3)
+id NTKLocationComponentStringsShowSecondsAndLatLongTitle(void *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   v17[2] = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = v5;
   if (v5)
   {
     [v5 coordinate];
-    v8 = CoordinateComponentString(1, a2, a3, v7);
+    v8 = CoordinateComponentString(1, v4, v3, v7);
     [v6 coordinate];
-    v10 = CoordinateComponentString(0, a2, a3, v9);
+    v10 = CoordinateComponentString(0, v4, v3, v9);
     v14[0] = @"NTKLocationComponentLatitudeKey";
     v14[1] = @"NTKLocationComponentLongitudeKey";
     v15[0] = v8;
@@ -2901,7 +3005,7 @@ id NTKLocationComponentStringsShowSecondsAndLatLongTitle(void *a1, int a2, int a
 
   else
   {
-    if (a2)
+    if (v4)
     {
       v12 = @"LOCATION_UNKNOWN_POSITION";
     }
@@ -3160,7 +3264,7 @@ LABEL_30:
   return v12;
 }
 
-double _smallRectSwatchSize()
+double _smallRectSwatchSize(uint64_t a1, uint64_t a2)
 {
   if (_smallRectSwatchSize_onceToken != -1)
   {
@@ -3170,7 +3274,7 @@ double _smallRectSwatchSize()
   return *&_smallRectSwatchSize_size_0;
 }
 
-double _largeRectSwatchSize()
+double _largeRectSwatchSize(uint64_t a1, uint64_t a2)
 {
   if (_largeRectSwatchSize_onceToken != -1)
   {
@@ -3180,69 +3284,69 @@ double _largeRectSwatchSize()
   return *&_largeRectSwatchSize_size_0;
 }
 
-uint64_t ___smallCircleSwatchSize_block_invoke()
+uint64_t ___smallCircleSwatchSize_block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = NTKCScreenStyle();
-  v1 = 36.0;
+  result = NTKCScreenStyle(a1, a2);
+  v3 = 36.0;
   if (result == 1)
   {
-    v1 = 42.3333333;
+    v3 = 42.3333333;
   }
 
-  _smallCircleSwatchSize_size_0 = *&v1;
-  _smallCircleSwatchSize_size_1 = *&v1;
+  _smallCircleSwatchSize_size_0 = *&v3;
+  _smallCircleSwatchSize_size_1 = *&v3;
   return result;
 }
 
-double ___largeCircleSwatchSize_block_invoke()
+double ___largeCircleSwatchSize_block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = dbl_22DCE8FF0[NTKCScreenStyle() == 1];
+  result = dbl_22DCE8FF0[NTKCScreenStyle(a1, a2) == 1];
   _largeCircleSwatchSize_size_0 = *&result;
   _largeCircleSwatchSize_size_1 = *&result;
   return result;
 }
 
-uint64_t ___smallRectSwatchSize_block_invoke()
+uint64_t ___smallRectSwatchSize_block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = NTKCScreenStyle();
-  v1 = 62.0;
+  result = NTKCScreenStyle(a1, a2);
+  v3 = 62.0;
   if (result == 1)
   {
-    v1 = 71.3333333;
+    v3 = 71.3333333;
   }
 
-  _smallRectSwatchSize_size_0 = *&v1;
-  _smallRectSwatchSize_size_1 = *&v1;
+  _smallRectSwatchSize_size_0 = *&v3;
+  _smallRectSwatchSize_size_1 = *&v3;
   return result;
 }
 
-uint64_t ___largeRectSwatchSize_block_invoke()
+uint64_t ___largeRectSwatchSize_block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = NTKCScreenStyle();
-  v1 = 116.0;
+  result = NTKCScreenStyle(a1, a2);
+  v3 = 116.0;
   if (result == 1)
   {
-    v1 = 113.333333;
+    v3 = 113.333333;
   }
 
   _largeRectSwatchSize_size_0 = *&dbl_22DCE8FF0[result == 1];
-  _largeRectSwatchSize_size_1 = *&v1;
+  _largeRectSwatchSize_size_1 = *&v3;
   return result;
 }
 
-double ___shortLargeRectSwatchSize_block_invoke()
+double ___shortLargeRectSwatchSize_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = _largeRectSwatchSize();
-  _smallRectSwatchSize();
-  result = v1 * 0.6;
-  _shortLargeRectSwatchSize_size_0 = *&v0;
-  *&_shortLargeRectSwatchSize_size_1 = v1 * 0.6;
+  v2 = _largeRectSwatchSize(a1, a2);
+  _smallRectSwatchSize(v3, v4);
+  result = v5 * 0.6;
+  _shortLargeRectSwatchSize_size_0 = *&v2;
+  *&_shortLargeRectSwatchSize_size_1 = v5 * 0.6;
   return result;
 }
 
-void sub_22DB86658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DB86658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3374,36 +3478,44 @@ uint64_t NTKSectionForSectionIdentifier(void *a1)
   return v2;
 }
 
-void sub_22DB878B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_22DB878B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
-  objc_destroyWeak((v19 + 64));
+  va_start(va, location);
+  objc_destroyWeak((v18 + 64));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22DB89D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DB8F07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DB894FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a7);
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DB8F624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_22DB89D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22DB8F07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22DB8F624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+{
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3416,10 +3528,11 @@ uint64_t __Block_byref_object_copy__41(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_5_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void _LayoutConstants_10(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
@@ -3487,11 +3600,11 @@ void __destructor_8_S_s8_s16_S_s32_s40(uint64_t a1)
   v2 = *(a1 + 40);
 }
 
-void sub_22DB90D14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DB90D14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 48), 8);
+  _Block_object_dispose((v13 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3503,9 +3616,9 @@ void sub_22DB90F60(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22DB92654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DB92654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3518,9 +3631,9 @@ void sub_22DB94944(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22DB9845C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DB9845C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3532,9 +3645,9 @@ uint64_t __Block_byref_object_copy__42(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22DB986D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DB986D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3627,30 +3740,30 @@ void __NTKWorldClockCityAbbreviation_block_invoke(uint64_t a1, void *a2, uint64_
   }
 }
 
-void sub_22DB9E09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DB9E09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DB9E25C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DB9E25C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DB9E730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22DB9E730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DB9E978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DB9E978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3670,16 +3783,16 @@ void sub_22DBA06E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id NTKTrackedPhotosServerInterface()
+id NTKTrackedPhotosServerInterface(uint64_t a1)
 {
   if (NTKTrackedPhotosServerInterface_onceToken != -1)
   {
     NTKTrackedPhotosServerInterface_cold_1();
   }
 
-  v1 = NTKTrackedPhotosServerInterface_interface;
+  v2 = NTKTrackedPhotosServerInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 void __NTKTrackedPhotosServerInterface_block_invoke()
@@ -3708,23 +3821,23 @@ void sub_22DBA513C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id NTKFaceBundleStringFromFaceStyle(uint64_t a1)
 {
-  v2 = _NTKStringFromFaceStyleDict();
+  v2 = _NTKStringFromFaceStyleDict(a1);
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
   v4 = [v2 objectForKeyedSubscript:v3];
 
   return v4;
 }
 
-id _NTKStringFromFaceStyleDict()
+id _NTKStringFromFaceStyleDict(uint64_t a1)
 {
   if (_NTKStringFromFaceStyleDict_onceToken != -1)
   {
     _NTKStringFromFaceStyleDict_cold_1();
   }
 
-  v1 = _NTKStringFromFaceStyleDict_dictionary;
+  v2 = _NTKStringFromFaceStyleDict_dictionary;
 
-  return v1;
+  return v2;
 }
 
 BOOL NTKFaceBundleGetFaceStyleFromString(void *a1, void *a2)
@@ -3747,23 +3860,23 @@ BOOL NTKFaceBundleGetFaceStyleFromString(void *a1, void *a2)
 
 id NTKFaceBundleStringFromCustomEditMode(uint64_t a1)
 {
-  v2 = _NTKStringFromEditModeDict();
+  v2 = _NTKStringFromEditModeDict(a1);
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
   v4 = [v2 objectForKeyedSubscript:v3];
 
   return v4;
 }
 
-id _NTKStringFromEditModeDict()
+id _NTKStringFromEditModeDict(uint64_t a1)
 {
   if (_NTKStringFromEditModeDict_onceToken != -1)
   {
     _NTKStringFromEditModeDict_cold_1();
   }
 
-  v1 = _NTKStringFromEditModeDict_dictionary;
+  v2 = _NTKStringFromEditModeDict_dictionary;
 
-  return v1;
+  return v2;
 }
 
 BOOL NTKFaceBundleGetCustomEditModeFromString(void *a1, void *a2)
@@ -3786,23 +3899,23 @@ BOOL NTKFaceBundleGetCustomEditModeFromString(void *a1, void *a2)
 
 id NTKFaceBundleStringFromComplicationType(uint64_t a1)
 {
-  v2 = _NTKStringFromComplicationTypeDict();
+  v2 = _NTKStringFromComplicationTypeDict(a1);
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1];
   v4 = [v2 objectForKeyedSubscript:v3];
 
   return v4;
 }
 
-id _NTKStringFromComplicationTypeDict()
+id _NTKStringFromComplicationTypeDict(uint64_t a1)
 {
   if (_NTKStringFromComplicationTypeDict_onceToken != -1)
   {
     _NTKStringFromComplicationTypeDict_cold_1();
   }
 
-  v1 = _NTKStringFromComplicationTypeDict_dictionary;
+  v2 = _NTKStringFromComplicationTypeDict_dictionary;
 
-  return v1;
+  return v2;
 }
 
 BOOL NTKFaceBundleGetComplicationTypeFromString(void *a1, void *a2)
@@ -3825,23 +3938,23 @@ BOOL NTKFaceBundleGetComplicationTypeFromString(void *a1, void *a2)
 
 id NTKFaceBundleStringFromDateStyle(uint64_t a1)
 {
-  v2 = _NTKStringFromDateStyleDict();
+  v2 = _NTKStringFromDateStyleDict(a1);
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1];
   v4 = [v2 objectForKeyedSubscript:v3];
 
   return v4;
 }
 
-id _NTKStringFromDateStyleDict()
+id _NTKStringFromDateStyleDict(uint64_t a1)
 {
   if (_NTKStringFromDateStyleDict_onceToken != -1)
   {
     _NTKStringFromDateStyleDict_cold_1();
   }
 
-  v1 = _NTKStringFromDateStyleDict_dictionary;
+  v2 = _NTKStringFromDateStyleDict_dictionary;
 
-  return v1;
+  return v2;
 }
 
 BOOL NTKFaceBundleGetDateStyleFromString(void *a1, void *a2)
@@ -3865,28 +3978,28 @@ BOOL NTKFaceBundleGetDateStyleFromString(void *a1, void *a2)
 id NTKFaceBundleStringFromComplicationSlot(void *a1)
 {
   v1 = a1;
-  v2 = _NTKStringFromComplicationSlotDict();
+  v2 = _NTKStringFromComplicationSlotDict(v1);
   v3 = [v2 objectForKeyedSubscript:v1];
 
   return v3;
 }
 
-id _NTKStringFromComplicationSlotDict()
+id _NTKStringFromComplicationSlotDict(uint64_t a1)
 {
   if (_NTKStringFromComplicationSlotDict_onceToken != -1)
   {
     _NTKStringFromComplicationSlotDict_cold_1();
   }
 
-  v1 = _NTKStringFromComplicationSlotDict_dictionary;
+  v2 = _NTKStringFromComplicationSlotDict_dictionary;
 
-  return v1;
+  return v2;
 }
 
 BOOL NTKFaceBundleGetComplicationSlotFromString(void *a1, void *a2)
 {
   v3 = a1;
-  v4 = _NTKComplicationSlotFromStringDict();
+  v4 = _NTKComplicationSlotFromStringDict(v3);
   v5 = [v4 objectForKeyedSubscript:v3];
 
   if (v5)
@@ -3898,22 +4011,22 @@ BOOL NTKFaceBundleGetComplicationSlotFromString(void *a1, void *a2)
   return v5 != 0;
 }
 
-id _NTKComplicationSlotFromStringDict()
+id _NTKComplicationSlotFromStringDict(uint64_t a1)
 {
   if (_NTKComplicationSlotFromStringDict_onceToken != -1)
   {
     _NTKComplicationSlotFromStringDict_cold_1();
   }
 
-  v1 = _NTKComplicationSlotFromStringDict_dictionary;
+  v2 = _NTKComplicationSlotFromStringDict_dictionary;
 
-  return v1;
+  return v2;
 }
 
 id NTKFaceBundleComplicationSlotFromString(void *a1)
 {
   v1 = a1;
-  v2 = _NTKComplicationSlotFromStringDict();
+  v2 = _NTKComplicationSlotFromStringDict(v1);
   v3 = [v2 objectForKeyedSubscript:v1];
 
   return v3;
@@ -4078,124 +4191,124 @@ id _EnumValueRange(unint64_t a1, unint64_t a2)
   return i;
 }
 
-id NTKNewToFortuneColors()
+id NTKNewToFortuneColors(uint64_t a1)
 {
   if (NTKNewToFortuneColors_onceToken != -1)
   {
     NTKNewToFortuneColors_cold_1();
   }
 
-  v1 = NTKNewToFortuneColors_fortuneColors;
+  v2 = NTKNewToFortuneColors_fortuneColors;
 
-  return v1;
+  return v2;
 }
 
-id NTKNewToElectricColors()
+id NTKNewToElectricColors(uint64_t a1)
 {
   if (NTKNewToElectricColors_onceToken != -1)
   {
     NTKNewToElectricColors_cold_1();
   }
 
-  v1 = NTKNewToElectricColors_electricColors;
+  v2 = NTKNewToElectricColors_electricColors;
 
-  return v1;
+  return v2;
 }
 
-id NTKNewToEmperorColors()
+id NTKNewToEmperorColors(uint64_t a1)
 {
   if (NTKNewToEmperorColors_onceToken != -1)
   {
     NTKNewToEmperorColors_cold_1();
   }
 
-  v1 = NTKNewToEmperorColors_emperorColors;
+  v2 = NTKNewToEmperorColors_emperorColors;
 
-  return v1;
+  return v2;
 }
 
-id NTKNewToGloryColors()
+id NTKNewToGloryColors(uint64_t a1)
 {
   if (NTKNewToGloryColors_onceToken != -1)
   {
     NTKNewToGloryColors_cold_1();
   }
 
-  v1 = NTKNewToGloryColors_gloryColors;
+  v2 = NTKNewToGloryColors_gloryColors;
 
-  return v1;
+  return v2;
 }
 
-id NTKNewToGloryEColors()
+id NTKNewToGloryEColors(uint64_t a1)
 {
   if (NTKNewToGloryEColors_onceToken != -1)
   {
     NTKNewToGloryEColors_cold_1();
   }
 
-  v1 = NTKNewToGloryEColors_gloryEColors;
+  v2 = NTKNewToGloryEColors_gloryEColors;
 
-  return v1;
+  return v2;
 }
 
-id NTKNewToGraceColors()
+id NTKNewToGraceColors(uint64_t a1)
 {
   if (NTKNewToGraceColors_onceToken != -1)
   {
     NTKNewToGraceColors_cold_1();
   }
 
-  v1 = NTKNewToGraceColors_graceColors;
+  v2 = NTKNewToGraceColors_graceColors;
 
-  return v1;
+  return v2;
 }
 
-id NTKNewToGraceEColors()
+id NTKNewToGraceEColors(uint64_t a1)
 {
   if (NTKNewToGraceEColors_onceToken != -1)
   {
     NTKNewToGraceEColors_cold_1();
   }
 
-  v1 = NTKNewToGraceEColors_graceColors;
+  v2 = NTKNewToGraceEColors_graceColors;
 
-  return v1;
+  return v2;
 }
 
-id NTKNewToHunterColors()
+id NTKNewToHunterColors(uint64_t a1)
 {
   if (NTKNewToHunterColors_onceToken != -1)
   {
     NTKNewToHunterColors_cold_1();
   }
 
-  v1 = NTKNewToHunterColors_hunterColors;
+  v2 = NTKNewToHunterColors_hunterColors;
 
-  return v1;
+  return v2;
 }
 
-id NTKNewToHunterEColors()
+id NTKNewToHunterEColors(uint64_t a1)
 {
   if (NTKNewToHunterEColors_onceToken != -1)
   {
     NTKNewToHunterEColors_cold_1();
   }
 
-  v1 = NTKNewToHunterEColors_hunterEColors;
+  v2 = NTKNewToHunterEColors_hunterEColors;
 
-  return v1;
+  return v2;
 }
 
-id NTKDistinctSportPlusAndEditionColors()
+id NTKDistinctSportPlusAndEditionColors(uint64_t a1)
 {
   if (NTKDistinctSportPlusAndEditionColors_onceToken != -1)
   {
     NTKDistinctSportPlusAndEditionColors_cold_1();
   }
 
-  v1 = NTKDistinctSportPlusAndEditionColors_distinctCollectionColors;
+  v2 = NTKDistinctSportPlusAndEditionColors_distinctCollectionColors;
 
-  return v1;
+  return v2;
 }
 
 void __NTKNewToElectricColors_block_invoke()
@@ -5247,16 +5360,16 @@ void sub_22DBBEB5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22DBBF6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DBBF6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DBBF900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DBBF900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5431,16 +5544,16 @@ double __NTKColorMonogramComplicationFontForCharacterCount_block_invoke_2(uint64
   return v5;
 }
 
-id NTKActivityBackgroundPlatterColor()
+id NTKActivityBackgroundPlatterColor(uint64_t a1)
 {
   if (NTKActivityBackgroundPlatterColor_onceToken != -1)
   {
     NTKActivityBackgroundPlatterColor_cold_1();
   }
 
-  v1 = NTKActivityBackgroundPlatterColor_color;
+  v2 = NTKActivityBackgroundPlatterColor_color;
 
-  return v1;
+  return v2;
 }
 
 void __NTKActivityBackgroundPlatterColor_block_invoke()
@@ -5450,11 +5563,12 @@ void __NTKActivityBackgroundPlatterColor_block_invoke()
   NTKActivityBackgroundPlatterColor_color = v0;
 }
 
-void sub_22DBCC22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_22DBCC22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
+  va_start(va, a48);
   _Block_object_dispose(&a45, 8);
-  _Block_object_dispose(&a49, 8);
-  _Block_object_dispose((v49 - 256), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v48 - 256), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5472,9 +5586,9 @@ uint64_t __Block_byref_object_copy__44(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22DBCFB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DBCFB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5487,9 +5601,9 @@ void sub_22DBD00AC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22DBD6798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DBD6798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5523,9 +5637,9 @@ id NTKSharedWidgetComplicationProvider(void *a1)
   return v4;
 }
 
-void sub_22DBDB0B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22DBDB0B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5582,35 +5696,35 @@ void sub_22DBDD958(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22DBDDC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DBDDC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _PathToComplicationNoContentImageArchive()
+uint64_t _PathToComplicationNoContentImageArchive(uint64_t a1)
 {
   if (_NTKComplicationNoContentImagesCacheDirectory_onceToken != -1)
   {
     _PathToComplicationNoContentImageArchive_cold_1();
   }
 
-  v1 = _NTKComplicationNoContentImagesCacheDirectory___path;
+  v2 = _NTKComplicationNoContentImagesCacheDirectory___path;
 
-  return [v1 stringByAppendingPathComponent:@"NoContentImages.archive"];
+  return [v2 stringByAppendingPathComponent:@"NoContentImages.archive"];
 }
 
-id NTKMusicTintColor()
+id NTKMusicTintColor(uint64_t a1)
 {
   if (NTKMusicTintColor_onceToken != -1)
   {
     NTKMusicTintColor_cold_1();
   }
 
-  v1 = NTKMusicTintColor__color;
+  v2 = NTKMusicTintColor__color;
 
-  return v1;
+  return v2;
 }
 
 void __NTKMusicTintColor_block_invoke()
@@ -5620,16 +5734,16 @@ void __NTKMusicTintColor_block_invoke()
   NTKMusicTintColor__color = v0;
 }
 
-id NTKMusicTintColorHeadline()
+id NTKMusicTintColorHeadline(uint64_t a1)
 {
   if (NTKMusicTintColorHeadline_onceToken != -1)
   {
     NTKMusicTintColorHeadline_cold_1();
   }
 
-  v1 = NTKMusicTintColorHeadline__color;
+  v2 = NTKMusicTintColorHeadline__color;
 
-  return v1;
+  return v2;
 }
 
 void __NTKMusicTintColorHeadline_block_invoke()
@@ -5639,16 +5753,16 @@ void __NTKMusicTintColorHeadline_block_invoke()
   NTKMusicTintColorHeadline__color = v0;
 }
 
-id NTKMusicTintColorBody()
+id NTKMusicTintColorBody(uint64_t a1)
 {
   if (NTKMusicTintColorBody_onceToken != -1)
   {
     NTKMusicTintColorBody_cold_1();
   }
 
-  v1 = NTKMusicTintColorBody__color;
+  v2 = NTKMusicTintColorBody__color;
 
-  return v1;
+  return v2;
 }
 
 void __NTKMusicTintColorBody_block_invoke()
@@ -5658,16 +5772,16 @@ void __NTKMusicTintColorBody_block_invoke()
   NTKMusicTintColorBody__color = v0;
 }
 
-id NTKMusicTintColorBody2()
+id NTKMusicTintColorBody2(uint64_t a1)
 {
   if (NTKMusicTintColorBody2_onceToken != -1)
   {
     NTKMusicTintColorBody2_cold_1();
   }
 
-  v1 = NTKMusicTintColorBody2__color;
+  v2 = NTKMusicTintColorBody2__color;
 
-  return v1;
+  return v2;
 }
 
 void __NTKMusicTintColorBody2_block_invoke()
@@ -5677,9 +5791,9 @@ void __NTKMusicTintColorBody2_block_invoke()
   NTKMusicTintColorBody2__color = v0;
 }
 
-void sub_22DBE0114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_22DBE0114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5698,9 +5812,9 @@ void sub_22DBE16F8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22DBE3B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DBE3B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6075,16 +6189,16 @@ void _UpdateIdealizedDate()
   }
 }
 
-id NTKNilOrDateOverrideInDemoMode()
+id NTKNilOrDateOverrideInDemoMode(uint64_t a1)
 {
   if (NTKNilOrDateOverrideInDemoMode_onceToken != -1)
   {
     NTKNilOrDateOverrideInDemoMode_cold_1();
   }
 
-  v1 = NTKNilOrDateOverrideInDemoMode___date;
+  v2 = NTKNilOrDateOverrideInDemoMode___date;
 
-  return v1;
+  return v2;
 }
 
 void __NTKNilOrDateOverrideInDemoMode_block_invoke()
@@ -6140,11 +6254,12 @@ void sub_22DBEC834(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22DBECF6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_22DBECF6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6213,9 +6328,9 @@ id _peopleComplicationForContact(void *a1, void *a2)
   return v8;
 }
 
-void sub_22DBEF39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DBEF39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6319,9 +6434,9 @@ id _peopleComplicationsForContacts(void *a1, void *a2)
   return v5;
 }
 
-void sub_22DBEFA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DBEFA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6333,16 +6448,16 @@ void sub_22DBF02A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22DBF0750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22DBF0750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DBF3390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DBF3390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6539,16 +6654,16 @@ uint64_t _MaxFaceDataMode(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-id _LegacyControllerClasses()
+id _LegacyControllerClasses(uint64_t a1)
 {
   if (_LegacyControllerClasses_onceToken != -1)
   {
     _LegacyControllerClasses_cold_1();
   }
 
-  v1 = _LegacyControllerClasses___classes;
+  v2 = _LegacyControllerClasses___classes;
 
-  return v1;
+  return v2;
 }
 
 void sub_22DC01678(_Unwind_Exception *a1)
@@ -6571,13 +6686,14 @@ void sub_22DC08AE0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22DC096B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id location, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_22DC096B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id location, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
-  objc_destroyWeak((v45 + 40));
+  va_start(va, a44);
+  objc_destroyWeak((v44 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a45, 8);
-  _Block_object_dispose((v46 - 192), 8);
-  _Block_object_dispose((v46 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v45 - 192), 8);
+  _Block_object_dispose((v45 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6691,7 +6807,7 @@ double NTKUtilityComplicationHighlightPadding(void *a1)
   v1 = a1;
   ___LayoutConstants_block_invoke_70(v1, v5);
   v2 = v6;
-  ___LayoutConstants_block_invoke_70(v1, &v4);
+  ___LayoutConstants_block_invoke_70(v1, v4);
 
   return v2;
 }
@@ -6714,16 +6830,16 @@ double NTKUtilityTouchEdgeInsetsForPlacementAndDevice(char a1, void *a2)
   return v4;
 }
 
-id NTKUtilityComplicationPlatterColor()
+id NTKUtilityComplicationPlatterColor(uint64_t a1)
 {
   if (NTKUtilityComplicationPlatterColor_onceToken != -1)
   {
     NTKUtilityComplicationPlatterColor_cold_1();
   }
 
-  v1 = NTKUtilityComplicationPlatterColor_color;
+  v2 = NTKUtilityComplicationPlatterColor_color;
 
-  return v1;
+  return v2;
 }
 
 void __NTKUtilityComplicationPlatterColor_block_invoke()
@@ -6752,60 +6868,60 @@ BOOL NTKUtilityComplicationCurvedPointInside(int a1, double a2, double a3, doubl
 {
   if (a1)
   {
-    v20 = a8;
+    v14 = a8;
   }
 
   else
   {
-    v20 = a7;
+    v14 = a7;
   }
 
   if (a1)
   {
-    v21 = a7;
+    v15 = a7;
   }
 
   else
   {
-    v21 = a8;
+    v15 = a8;
   }
 
   if (a1)
   {
-    v22 = a12;
+    v16 = a12;
   }
 
   else
   {
-    v22 = a10;
+    v16 = a10;
   }
 
   if (a1)
   {
-    v23 = a10;
+    v17 = a10;
   }
 
   else
   {
-    v23 = a12;
+    v17 = a12;
   }
 
-  v24 = a2 - a5;
-  v25 = a3 - a6;
-  v26 = atan2(a3 - a6, a2 - a5);
-  v27 = sqrt(v24 * v24 + v25 * v25);
-  v28 = v26 >= v20 - a11;
-  if (v27 < a4 - v23)
+  v18 = a2 - a5;
+  v19 = a3 - a6;
+  v20 = atan2(a3 - a6, a2 - a5);
+  v21 = sqrt(v18 * v18 + v19 * v19);
+  v22 = v20 >= v14 - a11;
+  if (v21 < a4 - v17)
   {
-    v28 = 0;
+    v22 = 0;
   }
 
-  if (v26 > a13 + v21)
+  if (v20 > a13 + v15)
   {
-    v28 = 0;
+    v22 = 0;
   }
 
-  return v27 <= v22 + a4 && v28;
+  return v21 <= v16 + a4 && v22;
 }
 
 void sub_22DC249E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, id a16)
@@ -6833,21 +6949,21 @@ __n128 _LayoutConstants_13@<Q0>(uint64_t a1@<X8>)
   return result;
 }
 
-id _NTKHiddenWidgetVendingBundleIdentifiers()
+id _NTKHiddenWidgetVendingBundleIdentifiers(uint64_t a1)
 {
   if (_NTKHiddenWidgetVendingBundleIdentifiers_onceToken != -1)
   {
     _NTKHiddenWidgetVendingBundleIdentifiers_cold_1();
   }
 
-  v1 = _NTKHiddenWidgetVendingBundleIdentifiers_exemptedBundleIdentifiers;
+  v2 = _NTKHiddenWidgetVendingBundleIdentifiers_exemptedBundleIdentifiers;
 
-  return v1;
+  return v2;
 }
 
-void sub_22DC29708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22DC29708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6859,16 +6975,16 @@ uint64_t __Block_byref_object_copy__53(uint64_t result, uint64_t a2)
   return result;
 }
 
-id NTKFaceSnapshotServerInterface()
+id NTKFaceSnapshotServerInterface(uint64_t a1)
 {
   if (NTKFaceSnapshotServerInterface_onceToken != -1)
   {
     NTKFaceSnapshotServerInterface_cold_1();
   }
 
-  v1 = NTKFaceSnapshotServerInterface_interface;
+  v2 = NTKFaceSnapshotServerInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 void __NTKFaceSnapshotServerInterface_block_invoke()
@@ -6883,16 +6999,16 @@ void __NTKFaceSnapshotServerInterface_block_invoke()
   [NTKFaceSnapshotServerInterface_interface setClasses:v2 forSelector:sel_requestSnapshotOfFaceInstanceDescriptor_options_completion_ argumentIndex:1 ofReply:1];
 }
 
-id NTKFaceSnapshotClientInterface()
+id NTKFaceSnapshotClientInterface(uint64_t a1)
 {
   if (NTKFaceSnapshotClientInterface_onceToken != -1)
   {
     NTKFaceSnapshotClientInterface_cold_1();
   }
 
-  v1 = NTKFaceSnapshotClientInterface_interface;
+  v2 = NTKFaceSnapshotClientInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 void __NTKFaceSnapshotClientInterface_block_invoke()
@@ -6967,7 +7083,7 @@ id compositionAssetForVideo(void *a1)
   {
     if (v1)
     {
-      [v1 duration];
+      objc_msgSend_duration(v1);
     }
 
     else
@@ -7009,7 +7125,7 @@ id cropCompositionFor(void *a1, void *a2, CGFloat a3, CGFloat a4, CGFloat a5, CG
   memset(&v60, 0, sizeof(v60));
   if (v22)
   {
-    [v22 preferredTransform];
+    objc_msgSend_preferredTransform(v22);
     b = v60.b;
     a = v60.a;
     d = v60.d;
@@ -7113,7 +7229,7 @@ id cropCompositionFor(void *a1, void *a2, CGFloat a3, CGFloat a4, CGFloat a5, CG
   v43 = [MEMORY[0x277CE6570] videoCompositionInstruction];
   if (v13)
   {
-    [v13 duration];
+    objc_msgSend_duration(v13);
   }
 
   else
@@ -7152,9 +7268,9 @@ void sub_22DC2FC44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22DC30AC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DC30AC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7558,7 +7674,7 @@ double NTKFaceEditingSwatchDiameter()
 {
   v0 = [MEMORY[0x277CBBAE8] currentDevice];
   ___LayoutConstants_block_invoke_72(v0, v3);
-  v1 = v3[0];
+  v1 = *v3;
 
   return v1;
 }
@@ -7585,7 +7701,7 @@ double NTKFaceEditingFullscreenKeylineMargin()
 double NTKFaceEditingKeylineLabelInsets()
 {
   v0 = [MEMORY[0x277CBBAE8] currentDevice];
-  ___LayoutConstants_block_invoke_72(v0, &v2);
+  ___LayoutConstants_block_invoke_72(v0, v2);
 
   return 0.0;
 }
@@ -7740,32 +7856,32 @@ double NTKKeylineCornerRadiusLarge()
   return v1;
 }
 
-id NTKFaceEditingInterpolatedCircularDialPathForDevice(void *a1, double a2)
+id NTKFaceEditingInterpolatedCircularDialPathForDevice(void *a1, double a2, double a3)
 {
-  v3 = a1;
-  [v3 screenBounds];
-  v5 = v4;
-  v7 = v6;
-  v22 = v8;
+  v4 = a1;
+  [v4 screenBounds];
+  v6 = v5;
+  v8 = v7;
   v23 = v9;
+  v24 = v10;
   CLKSizeCenteredInRectForDevice();
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  [v3 screenCornerRadius];
-  v21 = v18;
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
+  [v4 screenCornerRadius];
+  v22 = v19;
 
   if (a2 >= 1.0)
   {
-    v19 = [MEMORY[0x277D75208] bezierPathWithOvalInRect:{v11, v13, v15, v17}];
+    v20 = [MEMORY[0x277D75208] bezierPathWithOvalInRect:{v12, v14, v16, v18}];
   }
 
   else
   {
     if (a2 <= 0.0)
     {
-      [MEMORY[0x277D75208] bezierPathWithRoundedRect:v5 cornerRadius:{v7, v22, v23, v21}];
+      [MEMORY[0x277D75208] bezierPathWithRoundedRect:v6 cornerRadius:{v8, v23, v24, v22}];
     }
 
     else
@@ -7774,22 +7890,22 @@ id NTKFaceEditingInterpolatedCircularDialPathForDevice(void *a1, double a2)
       CLKInterpolateBetweenRects();
       [MEMORY[0x277D75208] _bezierPathWithArcRoundedRect:*&a2 cornerRadius:?];
     }
-    v19 = ;
+    v20 = ;
   }
 
-  return v19;
+  return v20;
 }
 
-id NTKComplicationStoreServerInterface()
+id NTKComplicationStoreServerInterface(uint64_t a1)
 {
   if (NTKComplicationStoreServerInterface_onceToken != -1)
   {
     NTKComplicationStoreServerInterface_cold_1();
   }
 
-  v1 = NTKComplicationStoreServerInterface_interface;
+  v2 = NTKComplicationStoreServerInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 void __NTKComplicationStoreServerInterface_block_invoke()
@@ -7804,16 +7920,16 @@ void __NTKComplicationStoreServerInterface_block_invoke()
   [NTKComplicationStoreServerInterface_interface setClasses:v4 forSelector:sel_updateComplicationDescriptors_forClientIdentifier_ argumentIndex:0 ofReply:0];
 }
 
-id NTKComplicationStoreClientInterface()
+id NTKComplicationStoreClientInterface(uint64_t a1)
 {
   if (NTKComplicationStoreClientInterface_onceToken != -1)
   {
     NTKComplicationStoreClientInterface_cold_1();
   }
 
-  v1 = NTKComplicationStoreClientInterface_interface;
+  v2 = NTKComplicationStoreClientInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 void __NTKComplicationStoreClientInterface_block_invoke()
@@ -7887,9 +8003,9 @@ void sub_22DC3B1A8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22DC3C328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DC3C328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7908,9 +8024,9 @@ void sub_22DC3C72C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22DC3CAC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DC3CAC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7922,23 +8038,23 @@ void sub_22DC3CE70(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22DC3D49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22DC3D49C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DC3D99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DC3D99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DC3DC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DC3DC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7971,9 +8087,9 @@ void sub_22DC3F740(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22DC409F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_22DC409F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8000,10 +8116,11 @@ id _NTKArgonCloudKitClientError(uint64_t a1, void *a2)
   return v6;
 }
 
-void sub_22DC43308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_22DC43308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 192), 8);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 192), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8061,16 +8178,16 @@ uint64_t NTKFaceLibraryMaxFaceCountForDevice(void *a1)
   }
 }
 
-id NTKHomeDirectory()
+id NTKHomeDirectory(uint64_t a1)
 {
   if (NTKHomeDirectory_onceToken != -1)
   {
     NTKHomeDirectory_cold_1();
   }
 
-  v1 = NTKHomeDirectory___path;
+  v2 = NTKHomeDirectory___path;
 
-  return v1;
+  return v2;
 }
 
 void __NTKHomeDirectory_block_invoke()
@@ -8091,16 +8208,16 @@ void __NTKHomeDirectory_block_invoke()
   [v4 setAttributes:v5 ofItemAtPath:NTKHomeDirectory___path error:0];
 }
 
-id NTKCacheDirectory()
+id NTKCacheDirectory(uint64_t a1)
 {
   if (NTKCacheDirectory_onceToken != -1)
   {
     NTKCacheDirectory_cold_1();
   }
 
-  v1 = NTKCacheDirectory_path;
+  v2 = NTKCacheDirectory_path;
 
-  return v1;
+  return v2;
 }
 
 void __NTKCacheDirectory_block_invoke()
@@ -8123,38 +8240,38 @@ void __NTKCacheDirectory_block_invoke()
   [v5 setAttributes:v6 ofItemAtPath:NTKCacheDirectory_path error:0];
 }
 
-id NTKMainBundleDependentCacheDirectory()
+id NTKMainBundleDependentCacheDirectory(uint64_t a1)
 {
   if (NTKMainBundleDependentCacheDirectory_onceToken != -1)
   {
     NTKMainBundleDependentCacheDirectory_cold_1();
   }
 
-  v1 = NTKMainBundleDependentCacheDirectory___path;
+  v2 = NTKMainBundleDependentCacheDirectory___path;
 
-  return v1;
+  return v2;
 }
 
 void __NTKMainBundleDependentCacheDirectory_block_invoke()
 {
   v0 = [MEMORY[0x277CCA8D8] mainBundle];
-  v5 = [v0 bundleIdentifier];
+  v6 = [v0 bundleIdentifier];
 
-  v1 = NTKCacheDirectory();
-  v2 = [v1 stringByAppendingPathComponent:v5];
-  v3 = NTKMainBundleDependentCacheDirectory___path;
-  NTKMainBundleDependentCacheDirectory___path = v2;
+  v2 = NTKCacheDirectory(v1);
+  v3 = [v2 stringByAppendingPathComponent:v6];
+  v4 = NTKMainBundleDependentCacheDirectory___path;
+  NTKMainBundleDependentCacheDirectory___path = v3;
 
-  v4 = [MEMORY[0x277CCAA00] defaultManager];
-  [v4 createDirectoryAtPath:NTKMainBundleDependentCacheDirectory___path withIntermediateDirectories:1 attributes:0 error:0];
+  v5 = [MEMORY[0x277CCAA00] defaultManager];
+  [v5 createDirectoryAtPath:NTKMainBundleDependentCacheDirectory___path withIntermediateDirectories:1 attributes:0 error:0];
 }
 
-id NTKActiveFaceSnapshotPath()
+id NTKActiveFaceSnapshotPath(uint64_t a1)
 {
-  v0 = NTKCacheDirectory();
-  v1 = [v0 stringByAppendingPathComponent:@"ActiveFaceSnapshot@2x.png"];
+  v1 = NTKCacheDirectory(a1);
+  v2 = [v1 stringByAppendingPathComponent:@"ActiveFaceSnapshot@2x.png"];
 
-  return v1;
+  return v2;
 }
 
 void NTKEnumerateComplicationStates(void *a1)
@@ -8290,118 +8407,118 @@ uint64_t _NTKCollectionSpecificIndexForFace(void *a1)
 
 id _NTKCollectionSpecificFaceStylesForDevice(void *a1)
 {
-  v35[12] = *MEMORY[0x277D85DE8];
+  v36[12] = *MEMORY[0x277D85DE8];
   v1 = a1;
-  if (NTKShowHardwareSpecificFaces())
+  if (NTKShowHardwareSpecificFaces(v1, v2))
   {
     if ([v1 deviceCategory] != 1)
     {
-      v2 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKPoodleFaceBundle");
-      v35[0] = v2;
-      v30 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKHadesFaceBundle");
-      v35[1] = v30;
-      v29 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKSecretariatFaceBundle");
-      v35[2] = v29;
-      v28 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKBellonaFaceBundle");
-      v35[3] = v28;
-      v27 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKSquallFaceBundle");
-      v35[4] = v27;
-      v17 = [[NTKFaceDescriptor alloc] initWithFaceStyle:42];
-      v35[5] = v17;
-      v18 = [[NTKFaceDescriptor alloc] initWithFaceStyle:14];
-      v35[6] = v18;
-      v19 = [[NTKFaceDescriptor alloc] initWithFaceStyle:35];
-      v35[7] = v19;
-      v20 = [[NTKFaceDescriptor alloc] initWithFaceStyle:19];
-      v35[8] = v20;
-      v21 = [[NTKFaceDescriptor alloc] initWithFaceStyle:219];
-      v35[9] = v21;
-      v22 = [[NTKFaceDescriptor alloc] initWithFaceStyle:20];
-      v35[10] = v22;
-      v23 = [[NTKFaceDescriptor alloc] initWithFaceStyle:220];
-      v35[11] = v23;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:12];
+      v3 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKPoodleFaceBundle");
+      v36[0] = v3;
+      v31 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKHadesFaceBundle");
+      v36[1] = v31;
+      v30 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKSecretariatFaceBundle");
+      v36[2] = v30;
+      v29 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKBellonaFaceBundle");
+      v36[3] = v29;
+      v28 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKSquallFaceBundle");
+      v36[4] = v28;
+      v18 = [[NTKFaceDescriptor alloc] initWithFaceStyle:42];
+      v36[5] = v18;
+      v19 = [[NTKFaceDescriptor alloc] initWithFaceStyle:14];
+      v36[6] = v19;
+      v20 = [[NTKFaceDescriptor alloc] initWithFaceStyle:35];
+      v36[7] = v20;
+      v21 = [[NTKFaceDescriptor alloc] initWithFaceStyle:19];
+      v36[8] = v21;
+      v22 = [[NTKFaceDescriptor alloc] initWithFaceStyle:219];
+      v36[9] = v22;
+      v23 = [[NTKFaceDescriptor alloc] initWithFaceStyle:20];
+      v36[10] = v23;
+      v24 = [[NTKFaceDescriptor alloc] initWithFaceStyle:220];
+      v36[11] = v24;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:12];
 
       goto LABEL_12;
     }
 
-    v2 = [[NTKFaceDescriptor alloc] initWithFaceStyle:14];
-    v34[0] = v2;
-    v3 = [[NTKFaceDescriptor alloc] initWithFaceStyle:19];
-    v34[1] = v3;
-    v4 = [[NTKFaceDescriptor alloc] initWithFaceStyle:219];
-    v34[2] = v4;
-    v5 = [[NTKFaceDescriptor alloc] initWithFaceStyle:20];
-    v34[3] = v5;
-    v6 = [[NTKFaceDescriptor alloc] initWithFaceStyle:220];
-    v34[4] = v6;
-    v7 = MEMORY[0x277CBEA60];
-    v8 = v34;
+    v3 = [[NTKFaceDescriptor alloc] initWithFaceStyle:14];
+    v35[0] = v3;
+    v4 = [[NTKFaceDescriptor alloc] initWithFaceStyle:19];
+    v35[1] = v4;
+    v5 = [[NTKFaceDescriptor alloc] initWithFaceStyle:219];
+    v35[2] = v5;
+    v6 = [[NTKFaceDescriptor alloc] initWithFaceStyle:20];
+    v35[3] = v6;
+    v7 = [[NTKFaceDescriptor alloc] initWithFaceStyle:220];
+    v35[4] = v7;
+    v8 = MEMORY[0x277CBEA60];
+    v9 = v35;
     goto LABEL_4;
   }
 
   if ([v1 collectionType] == 5)
   {
-    v9 = objc_opt_new();
+    v10 = objc_opt_new();
     if ([v1 deviceCategory] != 1)
     {
-      v10 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKPoodleFaceBundle");
-      v33[0] = v10;
-      v11 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKHadesFaceBundle");
-      v33[1] = v11;
-      v12 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKSecretariatFaceBundle");
-      v33[2] = v12;
-      v13 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKBellonaFaceBundle");
-      v33[3] = v13;
-      v14 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKSquallFaceBundle");
-      v33[4] = v14;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:5];
-      [v9 addObjectsFromArray:v15];
+      v11 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKPoodleFaceBundle");
+      v34[0] = v11;
+      v12 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKHadesFaceBundle");
+      v34[1] = v12;
+      v13 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKSecretariatFaceBundle");
+      v34[2] = v13;
+      v14 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKBellonaFaceBundle");
+      v34[3] = v14;
+      v15 = NTKFaceDescriptorFromBundleIdentifier(@"com.apple.NTKSquallFaceBundle");
+      v34[4] = v15;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:5];
+      [v10 addObjectsFromArray:v16];
 
       if ([v1 isZeusBlack])
       {
-        v16 = [[NTKFaceDescriptor alloc] initWithFaceStyle:42];
-        [v9 addObject:v16];
+        v17 = [[NTKFaceDescriptor alloc] initWithFaceStyle:42];
+        [v10 addObject:v17];
       }
     }
 
-    v2 = [[NTKFaceDescriptor alloc] initWithFaceStyle:14];
-    [v9 addObject:v2];
+    v3 = [[NTKFaceDescriptor alloc] initWithFaceStyle:14];
+    [v10 addObject:v3];
     goto LABEL_12;
   }
 
   if ([v1 supportsVictoryFaces])
   {
-    v25 = [v1 deviceCategory];
-    v26 = [NTKFaceDescriptor alloc];
-    if (v25 == 1)
+    v26 = [v1 deviceCategory];
+    v27 = [NTKFaceDescriptor alloc];
+    if (v26 == 1)
     {
-      v2 = [(NTKFaceDescriptor *)v26 initWithFaceStyle:19];
-      v31[0] = v2;
-      v3 = [[NTKFaceDescriptor alloc] initWithFaceStyle:219];
-      v31[1] = v3;
-      v4 = [[NTKFaceDescriptor alloc] initWithFaceStyle:20];
-      v31[2] = v4;
-      v5 = [[NTKFaceDescriptor alloc] initWithFaceStyle:220];
-      v31[3] = v5;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:4];
+      v3 = [(NTKFaceDescriptor *)v27 initWithFaceStyle:19];
+      v32[0] = v3;
+      v4 = [[NTKFaceDescriptor alloc] initWithFaceStyle:219];
+      v32[1] = v4;
+      v5 = [[NTKFaceDescriptor alloc] initWithFaceStyle:20];
+      v32[2] = v5;
+      v6 = [[NTKFaceDescriptor alloc] initWithFaceStyle:220];
+      v32[3] = v6;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:4];
       goto LABEL_5;
     }
 
-    v2 = [(NTKFaceDescriptor *)v26 initWithFaceStyle:35];
-    v32[0] = v2;
-    v3 = [[NTKFaceDescriptor alloc] initWithFaceStyle:19];
-    v32[1] = v3;
-    v4 = [[NTKFaceDescriptor alloc] initWithFaceStyle:219];
-    v32[2] = v4;
-    v5 = [[NTKFaceDescriptor alloc] initWithFaceStyle:20];
-    v32[3] = v5;
-    v6 = [[NTKFaceDescriptor alloc] initWithFaceStyle:220];
-    v32[4] = v6;
-    v7 = MEMORY[0x277CBEA60];
-    v8 = v32;
+    v3 = [(NTKFaceDescriptor *)v27 initWithFaceStyle:35];
+    v33[0] = v3;
+    v4 = [[NTKFaceDescriptor alloc] initWithFaceStyle:19];
+    v33[1] = v4;
+    v5 = [[NTKFaceDescriptor alloc] initWithFaceStyle:219];
+    v33[2] = v5;
+    v6 = [[NTKFaceDescriptor alloc] initWithFaceStyle:20];
+    v33[3] = v6;
+    v7 = [[NTKFaceDescriptor alloc] initWithFaceStyle:220];
+    v33[4] = v7;
+    v8 = MEMORY[0x277CBEA60];
+    v9 = v33;
 LABEL_4:
-    v9 = [v7 arrayWithObjects:v8 count:5];
+    v10 = [v8 arrayWithObjects:v9 count:5];
 
 LABEL_5:
 LABEL_12:
@@ -8409,10 +8526,10 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v9 = MEMORY[0x277CBEBF8];
+  v10 = MEMORY[0x277CBEBF8];
 LABEL_13:
 
-  return v9;
+  return v10;
 }
 
 uint64_t NTKAddableSortFaces(void *a1, void *a2)
@@ -8429,55 +8546,75 @@ uint64_t NTKFaceStyleIsAvailable(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = NTKEffectiveFaceStyleForFaceStyle(a1);
-  if (!NTKGPUIsEnabled())
+  if (!NTKGPUIsEnabled(v4, v5))
   {
-    v7 = (v4 & 0xFFFFFFFFFFFFFFF7) == 4;
+    v9 = (v4 & 0xFFFFFFFFFFFFFFF7) == 4;
     goto LABEL_30;
   }
 
-  v5 = [v3 collectionType];
-  if (v4 == 14 && v5 != 5)
+  v6 = [v3 collectionType];
+  if (v4 == 14 && v6 != 5)
   {
     goto LABEL_4;
   }
 
   if (v4 == 42)
   {
-    if ([v3 isZeusBlack])
+    v6 = [v3 isZeusBlack];
+    if (v6)
     {
 LABEL_14:
-      v6 = 1;
+      v8 = 1;
       goto LABEL_15;
     }
   }
 
-  else if (v4 - 19 > 1 && (v4 != 35 || [v3 deviceCategory] == 1) || (objc_msgSend(v3, "supportsVictoryFaces") & 1) != 0)
+  else
   {
-    goto LABEL_14;
+    if (v4 - 19 > 1)
+    {
+      if (v4 != 35)
+      {
+        goto LABEL_14;
+      }
+
+      v6 = [v3 deviceCategory];
+      if (v6 == 1)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    v6 = [v3 supportsVictoryFaces];
+    if (v6)
+    {
+      goto LABEL_14;
+    }
   }
 
 LABEL_4:
-  v6 = NTKShowHardwareSpecificFaces();
+  v6 = NTKShowHardwareSpecificFaces(v6, v7);
+  v8 = v6;
 LABEL_15:
-  if ((NTKShowInternalFaces() & 1) == 0)
+  if ((NTKShowInternalFaces(v6, v7) & 1) == 0)
   {
-    v6 &= ![NTKFace isFaceStyleAvailableInternal:v4 forDevice:v3];
+    v8 &= ![NTKFace isFaceStyleAvailableInternal:v4 forDevice:v3];
   }
 
-  v7 = ((v4 & 0xFFFFFFFFFFFFFFF7) != 5) & v6;
+  v9 = ((v4 & 0xFFFFFFFFFFFFFFF7) != 5) & v8;
   if ([v3 isRunningNapiliGMOrLater] && (v4 <= 0x29 && ((1 << v4) & 0x20192000000) != 0 || v4 - 228 <= 4 && ((1 << (v4 + 28)) & 0x19) != 0))
   {
-    v7 = 0;
+    v9 = 0;
   }
 
   if ([v3 supportsPDRCapability:3669496134] && (v4 <= 0x18 && ((1 << v4) & 0x1240004) != 0 || v4 - 202 <= 0x16 && ((1 << (v4 + 54)) & 0x490001) != 0))
   {
-    v7 = 0;
+    v9 = 0;
   }
 
 LABEL_30:
 
-  return v7;
+  return v9;
 }
 
 NTKFaceDescriptor *NTKFaceDescriptorFromFaceStyle(uint64_t a1)
@@ -8513,7 +8650,7 @@ NTKFaceDescriptor *NTKFaceDescriptorFromBundleIdentifier(void *a1)
 
 id _NTKAllAvailableFaceDescriptorsForDevice(void *a1)
 {
-  v82[41] = *MEMORY[0x277D85DE8];
+  v84[41] = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (NTKInternalBuild(v1, v2) && (CLKRunningInProcess() & 1) == 0)
   {
@@ -8524,178 +8661,179 @@ id _NTKAllAvailableFaceDescriptorsForDevice(void *a1)
     }
   }
 
-  v73 = _NTKCollectionSpecificFaceStylesForDevice(v1);
-  v71 = [[NTKFaceDescriptor alloc] initWithFaceStyle:16];
-  v82[0] = v71;
-  v69 = [[NTKFaceDescriptor alloc] initWithFaceStyle:216];
-  v82[1] = v69;
-  v68 = [[NTKFaceDescriptor alloc] initWithFaceStyle:17];
-  v82[2] = v68;
-  v67 = [[NTKFaceDescriptor alloc] initWithFaceStyle:217];
-  v82[3] = v67;
-  v66 = [[NTKFaceDescriptor alloc] initWithFaceStyle:2];
-  v82[4] = v66;
-  v65 = [[NTKFaceDescriptor alloc] initWithFaceStyle:202];
-  v82[5] = v65;
-  v64 = [[NTKFaceDescriptor alloc] initWithFaceStyle:3];
-  v82[6] = v64;
-  v63 = [[NTKFaceDescriptor alloc] initWithFaceStyle:203];
-  v82[7] = v63;
-  v62 = [[NTKFaceDescriptor alloc] initWithFaceStyle:23];
-  v82[8] = v62;
-  v61 = [[NTKFaceDescriptor alloc] initWithFaceStyle:223];
-  v82[9] = v61;
-  v60 = [[NTKFaceDescriptor alloc] initWithFaceStyle:10];
-  v82[10] = v60;
-  v59 = [[NTKFaceDescriptor alloc] initWithFaceStyle:210];
-  v82[11] = v59;
-  v58 = [[NTKFaceDescriptor alloc] initWithFaceStyle:4];
-  v82[12] = v58;
-  v56 = [[NTKFaceDescriptor alloc] initWithFaceStyle:6];
-  v82[13] = v56;
-  v55 = [[NTKFaceDescriptor alloc] initWithFaceStyle:18];
-  v82[14] = v55;
-  v54 = [[NTKFaceDescriptor alloc] initWithFaceStyle:218];
-  v82[15] = v54;
-  v53 = [[NTKFaceDescriptor alloc] initWithFaceStyle:22];
-  v82[16] = v53;
-  v52 = [[NTKFaceDescriptor alloc] initWithFaceStyle:26];
-  v82[17] = v52;
-  v51 = [[NTKFaceDescriptor alloc] initWithFaceStyle:33];
-  v82[18] = v51;
-  v50 = [[NTKFaceDescriptor alloc] initWithFaceStyle:233];
-  v82[19] = v50;
-  v49 = [[NTKFaceDescriptor alloc] initWithFaceStyle:25];
-  v82[20] = v49;
-  v48 = [[NTKFaceDescriptor alloc] initWithFaceStyle:1];
-  v82[21] = v48;
-  v47 = [[NTKFaceDescriptor alloc] initWithFaceStyle:201];
-  v82[22] = v47;
-  v46 = [[NTKFaceDescriptor alloc] initWithFaceStyle:21];
-  v82[23] = v46;
-  v45 = [[NTKFaceDescriptor alloc] initWithFaceStyle:221];
-  v82[24] = v45;
-  v44 = [[NTKFaceDescriptor alloc] initWithFaceStyle:8];
-  v82[25] = v44;
-  v43 = [[NTKFaceDescriptor alloc] initWithFaceStyle:7];
-  v82[26] = v43;
-  v42 = [[NTKFaceDescriptor alloc] initWithFaceStyle:0];
-  v82[27] = v42;
-  v41 = [[NTKFaceDescriptor alloc] initWithFaceStyle:200];
-  v82[28] = v41;
-  v40 = [[NTKFaceDescriptor alloc] initWithFaceStyle:12];
-  v82[29] = v40;
-  v39 = [[NTKFaceDescriptor alloc] initWithFaceStyle:212];
-  v82[30] = v39;
-  v38 = [[NTKFaceDescriptor alloc] initWithFaceStyle:27];
-  v82[31] = v38;
-  v37 = [[NTKFaceDescriptor alloc] initWithFaceStyle:227];
-  v82[32] = v37;
+  v75 = _NTKCollectionSpecificFaceStylesForDevice(v1);
+  v73 = [[NTKFaceDescriptor alloc] initWithFaceStyle:16];
+  v84[0] = v73;
+  v71 = [[NTKFaceDescriptor alloc] initWithFaceStyle:216];
+  v84[1] = v71;
+  v70 = [[NTKFaceDescriptor alloc] initWithFaceStyle:17];
+  v84[2] = v70;
+  v69 = [[NTKFaceDescriptor alloc] initWithFaceStyle:217];
+  v84[3] = v69;
+  v68 = [[NTKFaceDescriptor alloc] initWithFaceStyle:2];
+  v84[4] = v68;
+  v67 = [[NTKFaceDescriptor alloc] initWithFaceStyle:202];
+  v84[5] = v67;
+  v66 = [[NTKFaceDescriptor alloc] initWithFaceStyle:3];
+  v84[6] = v66;
+  v65 = [[NTKFaceDescriptor alloc] initWithFaceStyle:203];
+  v84[7] = v65;
+  v64 = [[NTKFaceDescriptor alloc] initWithFaceStyle:23];
+  v84[8] = v64;
+  v63 = [[NTKFaceDescriptor alloc] initWithFaceStyle:223];
+  v84[9] = v63;
+  v62 = [[NTKFaceDescriptor alloc] initWithFaceStyle:10];
+  v84[10] = v62;
+  v61 = [[NTKFaceDescriptor alloc] initWithFaceStyle:210];
+  v84[11] = v61;
+  v60 = [[NTKFaceDescriptor alloc] initWithFaceStyle:4];
+  v84[12] = v60;
+  v58 = [[NTKFaceDescriptor alloc] initWithFaceStyle:6];
+  v84[13] = v58;
+  v57 = [[NTKFaceDescriptor alloc] initWithFaceStyle:18];
+  v84[14] = v57;
+  v56 = [[NTKFaceDescriptor alloc] initWithFaceStyle:218];
+  v84[15] = v56;
+  v55 = [[NTKFaceDescriptor alloc] initWithFaceStyle:22];
+  v84[16] = v55;
+  v54 = [[NTKFaceDescriptor alloc] initWithFaceStyle:26];
+  v84[17] = v54;
+  v53 = [[NTKFaceDescriptor alloc] initWithFaceStyle:33];
+  v84[18] = v53;
+  v52 = [[NTKFaceDescriptor alloc] initWithFaceStyle:233];
+  v84[19] = v52;
+  v51 = [[NTKFaceDescriptor alloc] initWithFaceStyle:25];
+  v84[20] = v51;
+  v50 = [[NTKFaceDescriptor alloc] initWithFaceStyle:1];
+  v84[21] = v50;
+  v49 = [[NTKFaceDescriptor alloc] initWithFaceStyle:201];
+  v84[22] = v49;
+  v48 = [[NTKFaceDescriptor alloc] initWithFaceStyle:21];
+  v84[23] = v48;
+  v47 = [[NTKFaceDescriptor alloc] initWithFaceStyle:221];
+  v84[24] = v47;
+  v46 = [[NTKFaceDescriptor alloc] initWithFaceStyle:8];
+  v84[25] = v46;
+  v45 = [[NTKFaceDescriptor alloc] initWithFaceStyle:7];
+  v84[26] = v45;
+  v44 = [[NTKFaceDescriptor alloc] initWithFaceStyle:0];
+  v84[27] = v44;
+  v43 = [[NTKFaceDescriptor alloc] initWithFaceStyle:200];
+  v84[28] = v43;
+  v42 = [[NTKFaceDescriptor alloc] initWithFaceStyle:12];
+  v84[29] = v42;
+  v41 = [[NTKFaceDescriptor alloc] initWithFaceStyle:212];
+  v84[30] = v41;
+  v40 = [[NTKFaceDescriptor alloc] initWithFaceStyle:27];
+  v84[31] = v40;
+  v39 = [[NTKFaceDescriptor alloc] initWithFaceStyle:227];
+  v84[32] = v39;
   v4 = [[NTKFaceDescriptor alloc] initWithFaceStyle:32];
-  v82[33] = v4;
+  v84[33] = v4;
   v5 = [[NTKFaceDescriptor alloc] initWithFaceStyle:232];
-  v82[34] = v5;
+  v84[34] = v5;
   v6 = [[NTKFaceDescriptor alloc] initWithFaceStyle:31];
-  v82[35] = v6;
+  v84[35] = v6;
   v7 = [[NTKFaceDescriptor alloc] initWithFaceStyle:231];
-  v82[36] = v7;
+  v84[36] = v7;
   v8 = [[NTKFaceDescriptor alloc] initWithFaceStyle:28];
-  v82[37] = v8;
+  v84[37] = v8;
   v9 = [[NTKFaceDescriptor alloc] initWithFaceStyle:228];
-  v82[38] = v9;
+  v84[38] = v9;
   v10 = [[NTKFaceDescriptor alloc] initWithFaceStyle:37];
-  v82[39] = v10;
+  v84[39] = v10;
   v11 = [[NTKFaceDescriptor alloc] initWithFaceStyle:38];
-  v82[40] = v11;
-  v57 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:41];
+  v84[40] = v11;
+  v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:41];
 
   v12 = [MEMORY[0x277CBEB18] array];
   v13 = +[NTKFaceBundleManager sharedManager];
-  v78[0] = MEMORY[0x277D85DD0];
-  v78[1] = 3221225472;
-  v78[2] = ___NTKAllAvailableFaceDescriptorsForDevice_block_invoke_2;
-  v78[3] = &unk_27877E890;
+  v80[0] = MEMORY[0x277D85DD0];
+  v80[1] = 3221225472;
+  v80[2] = ___NTKAllAvailableFaceDescriptorsForDevice_block_invoke_2;
+  v80[3] = &unk_27877E890;
   v14 = v12;
-  v79 = v14;
-  [v13 enumerateFaceBundlesOnDevice:v1 withBlock:v78];
+  v81 = v14;
+  [v13 enumerateFaceBundlesOnDevice:v1 withBlock:v80];
 
-  if (([v1 isExplorer] & 1) != 0 || NTKShowHardwareSpecificFaces())
+  v15 = [v1 isExplorer];
+  if ((v15 & 1) != 0 || NTKShowHardwareSpecificFaces(v15, v16))
   {
-    v15 = [[NTKFaceDescriptor alloc] initWithFaceStyle:24];
-    v16 = [v57 arrayByAddingObject:v15];
+    v17 = [[NTKFaceDescriptor alloc] initWithFaceStyle:24];
+    v18 = [v59 arrayByAddingObject:v17];
 
-    v17 = [[NTKFaceDescriptor alloc] initWithFaceStyle:224];
-    v18 = [v16 arrayByAddingObject:v17];
+    v19 = [[NTKFaceDescriptor alloc] initWithFaceStyle:224];
+    v20 = [v18 arrayByAddingObject:v19];
   }
 
   else
   {
-    v18 = v57;
+    v20 = v59;
   }
 
   if ([v1 deviceCategory] != 1)
   {
-    v72 = [[NTKFaceDescriptor alloc] initWithFaceStyle:34];
-    v81[0] = v72;
-    v70 = [[NTKFaceDescriptor alloc] initWithFaceStyle:30];
-    v81[1] = v70;
-    v19 = [[NTKFaceDescriptor alloc] initWithFaceStyle:29];
-    v81[2] = v19;
-    v20 = [[NTKFaceDescriptor alloc] initWithFaceStyle:41];
-    v81[3] = v20;
-    v21 = [[NTKFaceDescriptor alloc] initWithFaceStyle:36];
-    v81[4] = v21;
-    v22 = [[NTKFaceDescriptor alloc] initWithFaceStyle:39];
-    v81[5] = v22;
-    v23 = v18;
-    v24 = [[NTKFaceDescriptor alloc] initWithFaceStyle:40];
-    v81[6] = v24;
-    [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:7];
-    v26 = v25 = v14;
-    v27 = [v23 arrayByAddingObjectsFromArray:v26];
+    v74 = [[NTKFaceDescriptor alloc] initWithFaceStyle:34];
+    v83[0] = v74;
+    v72 = [[NTKFaceDescriptor alloc] initWithFaceStyle:30];
+    v83[1] = v72;
+    v21 = [[NTKFaceDescriptor alloc] initWithFaceStyle:29];
+    v83[2] = v21;
+    v22 = [[NTKFaceDescriptor alloc] initWithFaceStyle:41];
+    v83[3] = v22;
+    v23 = [[NTKFaceDescriptor alloc] initWithFaceStyle:36];
+    v83[4] = v23;
+    v24 = [[NTKFaceDescriptor alloc] initWithFaceStyle:39];
+    v83[5] = v24;
+    v25 = v20;
+    v26 = [[NTKFaceDescriptor alloc] initWithFaceStyle:40];
+    v83[6] = v26;
+    [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:7];
+    v28 = v27 = v14;
+    v29 = [v25 arrayByAddingObjectsFromArray:v28];
 
-    v14 = v25;
-    v18 = v27;
+    v14 = v27;
+    v20 = v29;
   }
 
-  v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  [v28 addObjectsFromArray:v73];
-  [v28 addObjectsFromArray:v18];
-  [v28 addObjectsFromArray:v14];
-  v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v74 = 0u;
-  v75 = 0u;
+  v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  [v30 addObjectsFromArray:v75];
+  [v30 addObjectsFromArray:v20];
+  [v30 addObjectsFromArray:v14];
+  v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v76 = 0u;
   v77 = 0u;
-  v30 = v28;
-  v31 = [v30 countByEnumeratingWithState:&v74 objects:v80 count:16];
-  if (v31)
+  v78 = 0u;
+  v79 = 0u;
+  v32 = v30;
+  v33 = [v32 countByEnumeratingWithState:&v76 objects:v82 count:16];
+  if (v33)
   {
-    v32 = v31;
-    v33 = *v75;
+    v34 = v33;
+    v35 = *v77;
     do
     {
-      for (i = 0; i != v32; ++i)
+      for (i = 0; i != v34; ++i)
       {
-        if (*v75 != v33)
+        if (*v77 != v35)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v32);
         }
 
-        v35 = *(*(&v74 + 1) + 8 * i);
-        if ([v35 isAvailableForDevice:v1])
+        v37 = *(*(&v76 + 1) + 8 * i);
+        if ([v37 isAvailableForDevice:v1])
         {
-          [v29 addObject:v35];
+          [v31 addObject:v37];
         }
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v74 objects:v80 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v76 objects:v82 count:16];
     }
 
-    while (v32);
+    while (v34);
   }
 
-  return v29;
+  return v31;
 }
 
 id NTKFaceDescriptorsNeedingPrewarm(void *a1)
@@ -8971,16 +9109,16 @@ uint64_t __NTKDefaultLibrarySelectedFace_block_invoke(uint64_t a1, void *a2)
   return v5;
 }
 
-id NTKNewToFortuneFaceStyles()
+id NTKNewToFortuneFaceStyles(uint64_t a1)
 {
   if (NTKNewToFortuneFaceStyles_onceToken != -1)
   {
     NTKNewToFortuneFaceStyles_cold_1();
   }
 
-  v1 = NTKNewToFortuneFaceStyles___fortuneStyles;
+  v2 = NTKNewToFortuneFaceStyles___fortuneStyles;
 
-  return v1;
+  return v2;
 }
 
 void __NTKNewToFortuneFaceStyles_block_invoke()
@@ -8989,16 +9127,16 @@ void __NTKNewToFortuneFaceStyles_block_invoke()
   NTKNewToFortuneFaceStyles___fortuneStyles = &unk_28418B8C0;
 }
 
-id NTKNewToGloryFaceStyles()
+id NTKNewToGloryFaceStyles(uint64_t a1)
 {
   if (NTKNewToGloryFaceStyles_onceToken != -1)
   {
     NTKNewToGloryFaceStyles_cold_1();
   }
 
-  v1 = NTKNewToGloryFaceStyles___newStyles;
+  v2 = NTKNewToGloryFaceStyles___newStyles;
 
-  return v1;
+  return v2;
 }
 
 void __NTKNewToGloryFaceStyles_block_invoke()
@@ -9007,16 +9145,16 @@ void __NTKNewToGloryFaceStyles_block_invoke()
   NTKNewToGloryFaceStyles___newStyles = &unk_28418B8D8;
 }
 
-id NTKNewToGloryFFaceStyles()
+id NTKNewToGloryFFaceStyles(uint64_t a1)
 {
   if (NTKNewToGloryFFaceStyles_onceToken != -1)
   {
     NTKNewToGloryFFaceStyles_cold_1();
   }
 
-  v1 = NTKNewToGloryFFaceStyles___newStyles;
+  v2 = NTKNewToGloryFFaceStyles___newStyles;
 
-  return v1;
+  return v2;
 }
 
 void __NTKNewToGloryFFaceStyles_block_invoke()
@@ -9025,16 +9163,16 @@ void __NTKNewToGloryFFaceStyles_block_invoke()
   NTKNewToGloryFFaceStyles___newStyles = &unk_28418B8F0;
 }
 
-id NTKNewToGraceFaceStyles()
+id NTKNewToGraceFaceStyles(uint64_t a1)
 {
   if (NTKNewToGraceFaceStyles_onceToken != -1)
   {
     NTKNewToGraceFaceStyles_cold_1();
   }
 
-  v1 = NTKNewToGraceFaceStyles___newStyles;
+  v2 = NTKNewToGraceFaceStyles___newStyles;
 
-  return v1;
+  return v2;
 }
 
 void __NTKNewToGraceFaceStyles_block_invoke()
@@ -9043,16 +9181,16 @@ void __NTKNewToGraceFaceStyles_block_invoke()
   NTKNewToGraceFaceStyles___newStyles = &unk_28418B908;
 }
 
-id NTKMigratableFaceStyles()
+id NTKMigratableFaceStyles(uint64_t a1)
 {
   if (NTKMigratableFaceStyles_onceToken != -1)
   {
     NTKMigratableFaceStyles_cold_1();
   }
 
-  v1 = NTKMigratableFaceStyles___migratableStyles;
+  v2 = NTKMigratableFaceStyles___migratableStyles;
 
-  return v1;
+  return v2;
 }
 
 void __NTKMigratableFaceStyles_block_invoke()
@@ -9213,170 +9351,4 @@ __CFString *NTKComplicationFamilyDescription(uint64_t a1)
   {
     return @"monogram";
   }
-}
-
-id _NTKBundleIDToComplicationTypesMappingCompanion()
-{
-  if (_NTKBundleIDToComplicationTypesMappingCompanion_onceToken != -1)
-  {
-    _NTKBundleIDToComplicationTypesMappingCompanion_cold_1();
-  }
-
-  v1 = _NTKBundleIDToComplicationTypesMappingCompanion_bundleIDToComplicationTypesMapping;
-
-  return v1;
-}
-
-id _NTKBundleIDToComplicationTypesMappingGizmo()
-{
-  v0 = [MEMORY[0x277CBBAE8] currentDevice];
-  v1 = ___NTKBundleIDToComplicationTypesMappingGizmo_block_invoke(v0, v0);
-
-  return v1;
-}
-
-id NTKBundleIDToComplicationTypesMappingForDevice(void *a1)
-{
-  v1 = a1;
-  v2 = v1;
-  if (v1 && ![v1 isRunningGraceOrLater])
-  {
-    v3 = _NTKBundleIDToComplicationTypesMappingCompanion();
-  }
-
-  else
-  {
-    v3 = _NTKBundleIDToComplicationTypesMappingGizmo();
-  }
-
-  v4 = v3;
-
-  return v4;
-}
-
-id _NTKComplicationTypesToBundleIDMappingCompanion()
-{
-  if (_NTKComplicationTypesToBundleIDMappingCompanion_onceToken != -1)
-  {
-    _NTKComplicationTypesToBundleIDMappingCompanion_cold_1();
-  }
-
-  v1 = _NTKComplicationTypesToBundleIDMappingCompanion_complicationTypesTobundleIDMapping;
-
-  return v1;
-}
-
-id _NTKComplicationTypesToBundleIDMappingGizmo()
-{
-  v0 = [MEMORY[0x277CBBAE8] currentDevice];
-  v1 = ___NTKComplicationTypesToBundleIDMappingGizmo_block_invoke(v0, v0);
-
-  return v1;
-}
-
-id NTKComplicationTypesToBundleIDMappingForDevice(void *a1)
-{
-  v1 = a1;
-  v2 = v1;
-  if (v1 && ![v1 isRunningGraceOrLater])
-  {
-    v3 = _NTKComplicationTypesToBundleIDMappingCompanion();
-  }
-
-  else
-  {
-    v3 = _NTKComplicationTypesToBundleIDMappingGizmo();
-  }
-
-  v4 = v3;
-
-  return v4;
-}
-
-id NTKComplicationTypesForDeviceWithBundleID(void *a1, void *a2)
-{
-  v3 = a2;
-  v4 = NTKBundleIDToComplicationTypesMappingForDevice(a1);
-  v5 = [v4 objectForKeyedSubscript:v3];
-
-  return v5;
-}
-
-id _NTKDisabledComplicationTypesForDevice(void *a1)
-{
-  v27 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = NTKBundleIDToComplicationTypesMappingForDevice(v1);
-  v3 = objc_alloc_init(MEMORY[0x277CCAB58]);
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v22;
-    do
-    {
-      for (i = 0; i != v6; ++i)
-      {
-        if (*v22 != v7)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v9 = *(*(&v21 + 1) + 8 * i);
-        if (NTKIsSystemAppRestrictedOrRemoved(v9))
-        {
-          v10 = [v4 objectForKey:v9];
-          v17 = 0u;
-          v18 = 0u;
-          v19 = 0u;
-          v20 = 0u;
-          v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
-          if (v11)
-          {
-            v12 = v11;
-            v13 = *v18;
-            do
-            {
-              for (j = 0; j != v12; ++j)
-              {
-                if (*v18 != v13)
-                {
-                  objc_enumerationMutation(v10);
-                }
-
-                [v3 addIndex:{objc_msgSend(*(*(&v17 + 1) + 8 * j), "unsignedIntegerValue")}];
-              }
-
-              v12 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
-            }
-
-            while (v12);
-          }
-        }
-      }
-
-      v6 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
-    }
-
-    while (v6);
-  }
-
-  if (([v1 isEcgPhoneComplicationEnabled] & 1) == 0)
-  {
-    [v3 addIndex:46];
-  }
-
-  if (([v1 isRadioPhoneComplicationEnabled] & 1) == 0)
-  {
-    [v3 addIndex:35];
-  }
-
-  v15 = [v3 copy];
-
-  return v15;
 }

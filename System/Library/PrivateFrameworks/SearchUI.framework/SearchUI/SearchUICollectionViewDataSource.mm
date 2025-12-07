@@ -1591,6 +1591,20 @@ LABEL_48:
   return result;
 }
 
+- (void)reloadSection:(uint64_t)a3 animated:(uint64_t)a4 reconfigureExisting:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1DA169000, a2, a3, "Attempted to reload section %@ which is not part of current snapshot!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)reloadSectionWithIdentifier:(uint64_t)a3 animated:(uint64_t)a4 reconfigureExisting:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1DA169000, a2, a3, "Attempted to reload section (identifier: %@) that is not part of current snapshot!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)removeRowModel:(void *)a1 completion:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
   v10 = *MEMORY[0x1E69E9840];

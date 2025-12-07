@@ -8,191 +8,189 @@
 {
   v58 = *MEMORY[0x1E69E9840];
   resolverCopy = resolver;
-  v4 = 0;
+  v52 = resolverCopy;
   v5 = 0;
   v6 = 0;
+  v7 = 0;
   p_vtable = LSDefaultApplicationQueryDatabaseDefaultAppEvaluator.vtable;
   do
   {
-    if (v5)
+    if (v6)
     {
-      v8 = _LSDefaultLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _LSDefaultLog(resolverCopy);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v57 = v5;
-        _os_log_error_impl(&dword_18162D000, v8, OS_LOG_TYPE_ERROR, "failed batch fetch of all plugins, retrying: %@", buf, 0xCu);
+        v57 = v6;
+        _os_log_error_impl(&dword_18162D000, v9, OS_LOG_TYPE_ERROR, "failed batch fetch of all plugins, retrying: %@", buf, 0xCu);
       }
     }
 
-    v9 = MEMORY[0x1E695DFD8];
+    v10 = MEMORY[0x1E695DFD8];
     _init = [objc_alloc((p_vtable + 257)) _init];
-    v11 = [v9 setWithObject:_init];
+    v12 = [v10 setWithObject:_init];
     v55 = 0;
-    v12 = [resolverCopy _resolveQueries:v11 XPCConnection:0 error:&v55];
-    v5 = v55;
+    v13 = [v52 _resolveQueries:v12 XPCConnection:0 error:&v55];
+    v6 = v55;
 
-    allValues = [v12 allValues];
+    allValues = [v13 allValues];
     firstObject = [allValues firstObject];
-    v14FirstObject = [firstObject firstObject];
+    v15FirstObject = [firstObject firstObject];
 
-    v16 = v14FirstObject;
-    pluginUnits = [v14FirstObject pluginUnits];
-    dbUUID = [v14FirstObject dbUUID];
+    v17 = v15FirstObject;
+    pluginUnits = [v15FirstObject pluginUnits];
+    dbUUID = [v15FirstObject dbUUID];
     v53 = dbUUID;
     if (pluginUnits)
     {
-      v19 = dbUUID == 0;
+      v20 = dbUUID == 0;
     }
 
     else
     {
-      v19 = 1;
+      v20 = 1;
     }
 
-    if (!v19)
+    if (!v20)
     {
-      v48 = v14FirstObject;
-      v49 = v12;
-      v50 = v6;
-      v51 = v4;
-      v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v48 = v15FirstObject;
+      v49 = v13;
+      v50 = v7;
+      v51 = v5;
+      v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
       if ([pluginUnits count])
       {
-        v21 = 0;
-        v22 = 50;
+        v22 = 0;
+        v23 = 50;
         while (1)
         {
-          v23 = objc_autoreleasePoolPush();
-          v24 = [pluginUnits count];
-          v25 = (v24 - v21) >= 0x32 ? 50 : v24 - v21;
-          v26 = [pluginUnits subarrayWithRange:{v21, v25}];
+          v24 = objc_autoreleasePoolPush();
+          v25 = [pluginUnits count];
+          v26 = (v25 - v22) >= 0x32 ? 50 : v25 - v22;
+          v27 = [pluginUnits subarrayWithRange:{v22, v26}];
           v54 = 0;
-          v27 = MEMORY[0x1E695DFD8];
-          v28 = resolverCopy;
-          v29 = v26;
-          v30 = v53;
-          v31 = [[LSPlugInQueryWithUnits alloc] initWithPlugInUnits:v29 forDatabaseWithUUID:v30];
+          v28 = MEMORY[0x1E695DFD8];
+          v29 = v52;
+          v30 = v27;
+          v31 = v53;
+          v32 = [[LSPlugInQueryWithUnits alloc] initWithPlugInUnits:v30 forDatabaseWithUUID:v31];
 
-          v32 = [v27 setWithObject:v31];
-          v33 = [v28 _resolveQueries:v32 XPCConnection:0 error:&v54];
+          v33 = [v28 setWithObject:v32];
+          v34 = [v29 _resolveQueries:v33 XPCConnection:0 error:&v54];
 
-          if (v33)
+          if (v34)
           {
-            allValues2 = [v33 allValues];
+            allValues2 = [v34 allValues];
             firstObject2 = [allValues2 firstObject];
-            v36 = firstObject2;
-            v37 = MEMORY[0x1E695E0F0];
+            v37 = firstObject2;
+            v38 = MEMORY[0x1E695E0F0];
             if (firstObject2)
             {
-              v37 = firstObject2;
+              v38 = firstObject2;
             }
 
-            v38 = v37;
+            v39 = v38;
           }
 
           else
           {
-            v38 = 0;
+            v39 = 0;
           }
 
-          v39 = v54;
-          if (!v38)
+          v40 = v54;
+          if (!v39)
           {
             break;
           }
 
-          [v20 addObjectsFromArray:v38];
+          [v21 addObjectsFromArray:v39];
 
-          objc_autoreleasePoolPop(v23);
-          v21 = v22;
-          v40 = [pluginUnits count] > v22;
-          v22 += 50;
-          v5 = v39;
-          if (!v40)
+          objc_autoreleasePoolPop(v24);
+          v22 = v23;
+          v41 = [pluginUnits count] > v23;
+          v23 += 50;
+          v6 = v40;
+          if (!v41)
           {
             goto LABEL_24;
           }
         }
 
-        objc_autoreleasePoolPop(v23);
-        v4 = v51;
+        objc_autoreleasePoolPop(v24);
+        v5 = v51;
       }
 
       else
       {
-        v39 = v5;
+        v40 = v6;
 LABEL_24:
-        v4 = [v20 copy];
+        v5 = [v21 copy];
       }
 
-      v5 = v39;
-      v6 = v50;
+      v6 = v40;
+      v7 = v50;
       p_vtable = (LSDefaultApplicationQueryDatabaseDefaultAppEvaluator + 24);
-      v16 = v48;
-      v12 = v49;
+      v17 = v48;
+      v13 = v49;
     }
 
-    if (v4)
+    if (v5)
     {
-      v41 = 1;
+      v42 = 1;
     }
 
-    else if (_LSNSErrorIsXPCConnectionInterrupted(v5))
+    else if (_LSNSErrorIsXPCConnectionInterrupted(v6))
     {
-      v41 = 0;
+      v42 = 0;
     }
 
     else
     {
-      domain = [v5 domain];
+      domain = [v6 domain];
       if ([domain isEqual:@"LSApplicationWorkspaceErrorDomain"])
       {
-        v41 = [v5 code] != 114;
+        v42 = [v6 code] != 114;
       }
 
       else
       {
-        v41 = 1;
+        v42 = 1;
       }
     }
 
-    if (v41)
+    if (v42)
     {
       break;
     }
 
-    ++v6;
+    ++v7;
   }
 
-  while (v6 != 10);
-  if (!v4)
+  while (v7 != 10);
+  if (!v5)
   {
-    v43 = _LSDefaultLog();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v44 = _LSDefaultLog(resolverCopy);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
-      [LSPlugInQueryAll resolveExpensiveQueryRemotelyUsingResolver:v5 error:v43];
+      [LSPlugInQueryAll resolveExpensiveQueryRemotelyUsingResolver:v6 error:v44];
     }
 
     if (error)
     {
-      v44 = v5;
-      *error = v5;
+      v45 = v6;
+      *error = v6;
     }
   }
 
-  v45 = *MEMORY[0x1E69E9840];
-
-  return v4;
+  return v5;
 }
 
 - (void)resolveExpensiveQueryRemotelyUsingResolver:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "failed batch fetch of all plugins, giving up: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "failed batch fetch of all plugins, giving up: %@", &v2, 0xCu);
 }
 
 @end

@@ -89,7 +89,7 @@
       {
       }
 
-      v36 = sub_10024A6D0();
+      v36 = sub_10024A6D0(AMSURLSession);
       v121 = v30;
       v37 = sub_10024AB48(v36, v26, v30);
       v132 = v29;
@@ -395,7 +395,7 @@ LABEL_67:
               v114 = v126;
               if ([v114 count])
               {
-                v115 = sub_1003C27BC();
+                v115 = sub_1003C27BC(AppInstallsDatabaseStore);
                 v142[0] = _NSConcreteStackBlock;
                 v142[1] = 3221225472;
                 v142[2] = sub_1003ECB98;

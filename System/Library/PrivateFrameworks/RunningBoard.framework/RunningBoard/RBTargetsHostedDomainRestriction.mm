@@ -43,7 +43,7 @@ uint64_t __77__RBTargetsHostedDomainRestriction_domainRestrictionForDictionary_w
 
 - (BOOL)allowsContext:(id)context withError:(id *)error
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   targetProcess = [contextCopy targetProcess];
   identity = [targetProcess identity];
@@ -57,19 +57,17 @@ uint64_t __77__RBTargetsHostedDomainRestriction_domainRestrictionForDictionary_w
     v13 = MEMORY[0x277CCA9B8];
     v14 = *MEMORY[0x277D47050];
     v15 = *MEMORY[0x277CCA470];
-    v22[0] = @"Target not hosted by originator";
+    v21[0] = @"Target not hosted by originator";
     v16 = *MEMORY[0x277D47048];
-    v21[0] = v15;
-    v21[1] = v16;
+    v20[0] = v15;
+    v20[1] = v16;
     v17 = [(RBTargetsHostedDomainRestriction *)self description];
-    v22[1] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v21[1] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
     *error = [v13 errorWithDomain:v14 code:3 userInfo:v18];
   }
 
-  result = v10 == rbs_pid;
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return v10 == rbs_pid;
 }
 
 - (BOOL)isEqual:(id)equal

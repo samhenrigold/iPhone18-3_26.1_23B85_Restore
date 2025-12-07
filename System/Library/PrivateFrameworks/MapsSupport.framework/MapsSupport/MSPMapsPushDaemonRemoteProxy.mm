@@ -29,6 +29,7 @@
 - (void)showParkedCarBulletinForEvent:(id)event;
 - (void)showParkedCarReplacementBulletinForEvent:(id)event replacingEvent:(id)replacingEvent;
 - (void)showPredictedRouteTrafficIncidentBulletinForCommuteDetails:(id)details;
+- (void)showTrafficIncidentAlertWithID:(id)d withReroute:(BOOL)reroute title:(id)title description:(id)description;
 - (void)showVenueBulletinWithTitle:(id)title message:(id)message actionURL:(id)l;
 - (void)simulateProblemResolution;
 - (void)simulateRAPStatusChangeNotification;
@@ -389,6 +390,19 @@ uint64_t __57__MSPMapsPushDaemonRemoteProxy_fetchCurrentAnnouncement___block_inv
   }
 }
 
+- (void)showTrafficIncidentAlertWithID:(id)d withReroute:(BOOL)reroute title:(id)title description:(id)description
+{
+  rerouteCopy = reroute;
+  dCopy = d;
+  titleCopy = title;
+  descriptionCopy = description;
+  if (+[MSPMapsInstallState isMapsAppInstalled])
+  {
+    _remoteObjectProxy = [(MSPMapsPushDaemonRemoteProxy *)self _remoteObjectProxy];
+    [_remoteObjectProxy showTrafficIncidentAlertWithID:dCopy withReroute:rerouteCopy title:titleCopy description:descriptionCopy];
+  }
+}
+
 - (void)clearTrafficIncidentBulletinWithAlertID:(id)d
 {
   dCopy = d;
@@ -509,38 +523,36 @@ uint64_t __57__MSPMapsPushDaemonRemoteProxy_fetchCurrentAnnouncement___block_inv
 
 void __97__MSPMapsPushDaemonRemoteProxy_pushDaemonProxyReceivedNotificationData_forType_recordIdentifier___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) pushDaemonProxyReceivedNotificationData:*(a1 + 40) forType:*(a1 + 48) recordIdentifier:{*(a1 + 56), v8}];
+        [*(*(&v7 + 1) + 8 * v6++) pushDaemonProxyReceivedNotificationData:*(a1 + 40) forType:*(a1 + 48) recordIdentifier:{*(a1 + 56), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

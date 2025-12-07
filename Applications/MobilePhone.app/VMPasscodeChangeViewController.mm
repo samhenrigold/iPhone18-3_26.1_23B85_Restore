@@ -108,18 +108,18 @@
     {
       [(VMPasscodeChangeViewController *)self setSelectedAccount:firstObject];
       v7 = [(VMPasscodeChangeViewController *)self passcodeViewControllerForAccount:firstObject];
-      v11 = v7;
-      v9 = [NSArray arrayWithObjects:&v11 count:1];
-      [(VMPasscodeChangeViewController *)self setViewControllers:v9];
+      v12 = v7;
+      v10 = [NSArray arrayWithObjects:&v12 count:1];
+      [(VMPasscodeChangeViewController *)self setViewControllers:v10];
     }
 
     else
     {
-      v7 = PHDefaultLog();
+      v7 = PHDefaultLog(v9);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "No accounts were found.", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "No accounts were found.", v11, 2u);
       }
     }
   }
@@ -127,8 +127,8 @@
   else
   {
     firstObject = [(VMPasscodeChangeViewController *)self accountsViewController];
-    v12 = firstObject;
-    v7 = [NSArray arrayWithObjects:&v12 count:1];
+    v13 = firstObject;
+    v7 = [NSArray arrayWithObjects:&v13 count:1];
     [(VMPasscodeChangeViewController *)self setViewControllers:v7];
   }
 }
@@ -248,7 +248,7 @@
 
   else
   {
-    v8 = PHDefaultLog();
+    v8 = PHDefaultLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 134217984;

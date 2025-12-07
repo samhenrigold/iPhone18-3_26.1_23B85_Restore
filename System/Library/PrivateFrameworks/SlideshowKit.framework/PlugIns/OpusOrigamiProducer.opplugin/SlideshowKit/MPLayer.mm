@@ -146,7 +146,7 @@
 - (id)description
 {
   v3 = [[+[NSString stringWithFormat:](NSString stringByAppendingFormat:@"============================= Layer %d Description =============================\n" stringByAppendingFormat:"stringByAppendingFormat:", @"\t        Effect Container Count: %d\n", [(NSMutableArray *)self->_effectContainers count]], "stringByAppendingFormat:", @"\t                  Filter Count: %d\n", [(NSMutableArray *)self->_filters count]];
-  [(MPLayer *)self duration];
+  objc_msgSend_duration(self);
   v5 = [(NSString *)v3 stringByAppendingFormat:@"\t                      Duration: %f\n", v4];
   if (self->_plug)
   {
@@ -1056,7 +1056,7 @@
   [(MPLayerInternal *)self->_internal setTimeIn:?];
   -[MPLayerInternal setIsTriggered:](self->_internal, "setIsTriggered:", [struct isTriggered]);
   -[MPLayerInternal setStartsPaused:](self->_internal, "setStartsPaused:", [struct startsPaused]);
-  [struct duration];
+  objc_msgSend_duration(struct);
   [(MPLayerInternal *)self->_internal setDuration:?];
   [struct phaseInDuration];
   [(MPLayerInternal *)self->_internal setPhaseInDuration:?];
@@ -1529,7 +1529,7 @@
     v4 = v3;
     [(MPLayer *)self phaseOutDuration];
     v6 = v4 + v5;
-    [(MPLayer *)self duration];
+    objc_msgSend_duration(self);
     v8 = v7 - v6;
     if (v8 >= 0.0)
     {
@@ -1556,14 +1556,14 @@
     v5 = [(NSMutableArray *)self->_effectContainers objectAtIndex:index];
     if (([v5 isTransitionConnected] & 1) == 0)
     {
-      [objc_msgSend(v5 "transition")];
+      objc_msgSend_duration([v5 transition]);
       [(MPLayer *)self updateDurationPadding:-v6];
       effectContainers = self->_effectContainers;
       v8 = index ? [(NSMutableArray *)effectContainers objectAtIndex:index - 1]: [(NSMutableArray *)effectContainers lastObject];
       v9 = v8;
       if (([v8 isTransitionConnected] & 1) == 0)
       {
-        [objc_msgSend(v9 "transition")];
+        objc_msgSend_duration([v9 transition]);
         v11 = -v10;
 
         [(MPLayer *)self updateDurationPadding:v11];
@@ -1633,7 +1633,7 @@
 
           v8 = *(*(&v12 + 1) + 8 * i);
           [v8 setStartTime:v6];
-          [v8 duration];
+          objc_msgSend_duration(v8);
           v10 = v9;
           [v8 outroTransitionDuration];
           v6 = v6 + v10 - v11;

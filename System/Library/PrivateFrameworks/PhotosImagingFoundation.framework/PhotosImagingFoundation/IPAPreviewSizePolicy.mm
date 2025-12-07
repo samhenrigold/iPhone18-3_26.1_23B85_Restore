@@ -87,9 +87,9 @@
   policyCopy = policy;
   thresholdCopy = threshold;
   producedThresholdCopy = producedThreshold;
-  v26.receiver = self;
-  v26.super_class = IPAPreviewSizePolicy;
-  v18 = [(IPAPreviewSizePolicy *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = IPAPreviewSizePolicy;
+  v18 = [(IPAPreviewSizePolicy *)&v27 init];
   if (!styleCopy)
   {
     _PFAssertFailHandler();
@@ -114,7 +114,7 @@ LABEL_10:
   {
 LABEL_11:
     v25 = _PFAssertFailHandler();
-    return NSStringFromPFIntPoint(v25);
+    return NSStringFromPFIntPoint(v25, v26);
   }
 
   v19 = v18;

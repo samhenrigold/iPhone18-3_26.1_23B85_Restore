@@ -7,19 +7,19 @@
 
 - (_RESmallSetFeatureValue)initWithSet:(id)set
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   setCopy = set;
-  v22.receiver = self;
-  v22.super_class = _RESmallSetFeatureValue;
-  v5 = [(_RESmallSetFeatureValue *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = _RESmallSetFeatureValue;
+  v5 = [(_RESmallSetFeatureValue *)&v21 init];
   if (v5)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v6 = setCopy;
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (!v7)
     {
 
@@ -38,7 +38,7 @@ LABEL_13:
 
     v8 = v7;
     v9 = 0;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       v11 = 0;
@@ -46,18 +46,18 @@ LABEL_13:
       v13 = &v5->super.super.super.isa + v9;
       do
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13[1] = RECreateFeatureValueTaggedPointer(*(*(&v18 + 1) + 8 * v11++));
+        v13[1] = RECreateFeatureValueTaggedPointer(*(*(&v17 + 1) + 8 * v11++));
         --v12;
         ++v13;
       }
 
       while (v8 != v11);
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
       v9 = -v12;
     }
 
@@ -72,7 +72,6 @@ LABEL_13:
 
 LABEL_14:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

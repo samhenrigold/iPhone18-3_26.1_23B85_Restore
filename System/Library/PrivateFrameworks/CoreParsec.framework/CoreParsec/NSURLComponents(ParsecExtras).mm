@@ -30,7 +30,7 @@
 
 - (id)parsec_normalizedURLStringWithOptions:()ParsecExtras
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (!a3)
   {
     v6 = [self URL];
@@ -56,28 +56,28 @@
   rangeOfHost = [self rangeOfHost];
   if (v10)
   {
-    v31 = string;
+    v30 = string;
     v11 = [string substringWithRange:{rangeOfHost, v10}];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v12 = v6;
-    v13 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v33;
+      v15 = *v32;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v33 != v15)
+          if (*v32 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [v11 rangeOfString:*(*(&v32 + 1) + 8 * i) options:9];
+          v17 = [v11 rangeOfString:*(*(&v31 + 1) + 8 * i) options:9];
           if (v17 != 0x7FFFFFFFFFFFFFFFLL)
           {
             v19 = [v11 substringFromIndex:v17 + v18];
@@ -86,14 +86,14 @@
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v14);
     }
 
     [absoluteString appendString:v11];
-    string = v31;
+    string = v30;
   }
 
   rangeOfPath = [self rangeOfPath];
@@ -136,7 +136,6 @@ LABEL_25:
   }
 
 LABEL_29:
-  v29 = *MEMORY[0x1E69E9840];
 
   return absoluteString;
 }

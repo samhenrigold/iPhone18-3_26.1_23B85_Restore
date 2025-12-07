@@ -22,11 +22,11 @@
 
 - (_HDSPPowerAssertion)initWithIdentifier:(id)identifier timeout:(double)timeout
 {
-  v36[4] = *MEMORY[0x277D85DE8];
+  v35[4] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v28.receiver = self;
-  v28.super_class = _HDSPPowerAssertion;
-  v8 = [(_HDSPPowerAssertion *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = _HDSPPowerAssertion;
+  v8 = [(_HDSPPowerAssertion *)&v27 init];
   v9 = v8;
   if (v8)
   {
@@ -50,16 +50,16 @@
       }
     }
 
-    v35[0] = @"AssertType";
-    v35[1] = @"AssertName";
-    v36[0] = @"PreventUserIdleSystemSleep";
-    v36[1] = identifierCopy;
-    v36[2] = @"TimeoutActionRelease";
-    v35[2] = @"TimeoutAction";
-    v35[3] = @"TimeoutSeconds";
+    v34[0] = @"AssertType";
+    v34[1] = @"AssertName";
+    v35[0] = @"PreventUserIdleSystemSleep";
+    v35[1] = identifierCopy;
+    v35[2] = @"TimeoutActionRelease";
+    v34[2] = @"TimeoutAction";
+    v34[3] = @"TimeoutSeconds";
     v16 = [MEMORY[0x277CCABB0] numberWithDouble:timeout];
-    v36[3] = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:4];
+    v35[3] = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:4];
 
     v18 = IOPMAssertionCreateWithProperties(v17, &v9->_assertionID);
     if (v18)
@@ -68,16 +68,16 @@
       v20 = HKSPLogForCategory();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v24 = objc_opt_class();
-        v25 = MEMORY[0x277CCABB0];
-        v26 = v24;
-        v27 = [v25 numberWithInt:v19];
+        v23 = objc_opt_class();
+        v24 = MEMORY[0x277CCABB0];
+        v25 = v23;
+        v26 = [v24 numberWithInt:v19];
         *buf = 138543874;
-        v30 = v24;
-        v31 = 2114;
-        v32 = v27;
-        v33 = 2114;
-        v34 = identifierCopy;
+        v29 = v23;
+        v30 = 2114;
+        v31 = v26;
+        v32 = 2114;
+        v33 = identifierCopy;
         _os_log_error_impl(&dword_269B11000, v20, OS_LOG_TYPE_ERROR, "[%{public}@] Error %{public}@ taking power assert for %{public}@", buf, 0x20u);
       }
     }
@@ -85,7 +85,6 @@
     v21 = v9;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

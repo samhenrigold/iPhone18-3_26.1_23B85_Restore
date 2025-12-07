@@ -915,17 +915,17 @@ LABEL_131:
 {
   nCopy = n;
   pathCopy = path;
-  v180 = nCopy;
-  v174 = pathCopy;
+  v182 = nCopy;
+  v176 = pathCopy;
   if (nCopy)
   {
     if (pathCopy)
     {
       [nCopy dataUsingEncoding:4];
-      v173 = v204 = 0;
-      v179 = [NSJSONSerialization JSONObjectWithData:"JSONObjectWithData:options:error:" options:? error:?];
-      v176 = 0;
-      if (v176)
+      v175 = v205 = 0;
+      v181 = [NSJSONSerialization JSONObjectWithData:"JSONObjectWithData:options:error:" options:? error:?];
+      v178 = 0;
+      if (v178)
       {
         if (qword_10045B060 != -1)
         {
@@ -935,11 +935,11 @@ LABEL_131:
         log = qword_10045B068;
         if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
         {
-          v7 = [v176 description];
+          v7 = [v178 description];
           v8 = v7;
           uTF8String = [v7 UTF8String];
-          v10 = v180;
-          uTF8String2 = [v180 UTF8String];
+          v10 = v182;
+          uTF8String2 = [v182 UTF8String];
           *buf = 136315394;
           *&buf[4] = uTF8String;
           *&buf[12] = 2080;
@@ -952,8 +952,8 @@ LABEL_131:
 
       else
       {
-        v13 = [v179 objectForKey:@"venues"];
-        v172 = v13;
+        v13 = [v181 objectForKey:@"venues"];
+        v174 = v13;
         if (v13)
         {
           if ([v13 count])
@@ -967,68 +967,68 @@ LABEL_131:
             v14 = qword_10045B068;
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
             {
-              v15 = [v172 count];
-              LODWORD(v205[0]) = 134217984;
-              *(v205 + 4) = v15;
-              _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "@IndoorAvl, generateAvlTileFromJSON, adding %lu venues", v205, 0xCu);
+              v15 = [v174 count];
+              LODWORD(v206[0]) = 134217984;
+              *(v206 + 4) = v15;
+              _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "@IndoorAvl, generateAvlTileFromJSON, adding %lu venues", v206, 0xCu);
             }
 
-            v202 = 0u;
             v203 = 0u;
-            v200 = 0u;
+            v204 = 0u;
             v201 = 0u;
-            log = v172;
-            v170 = [log countByEnumeratingWithState:&v200 objects:v209 count:16];
-            if (v170)
+            v202 = 0u;
+            log = v174;
+            v172 = [log countByEnumeratingWithState:&v201 objects:v210 count:16];
+            if (v172)
             {
-              v171 = *v201;
+              v173 = *v202;
               do
               {
-                for (i = 0; i != v170; i = i + 1)
+                for (i = 0; i != v172; i = i + 1)
                 {
-                  if (*v201 != v171)
+                  if (*v202 != v173)
                   {
                     objc_enumerationMutation(log);
                   }
 
-                  v178 = *(*(&v200 + 1) + 8 * i);
-                  v16 = *v211;
+                  v180 = *(*(&v201 + 1) + 8 * i);
+                  v16 = *v212;
                   v17 = *&buf[24];
-                  if (*&buf[24] >= *v211)
+                  if (*&buf[24] >= *v212)
                   {
-                    if (*v211 == *&v211[4])
+                    if (*v212 == *&v212[4])
                     {
-                      wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&buf[16], *v211 + 1);
-                      v16 = *v211;
+                      wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&buf[16], *v212 + 1);
+                      v16 = *v212;
                     }
 
-                    *v211 = v16 + 1;
+                    *v212 = v16 + 1;
                     operator new();
                   }
 
                   ++*&buf[24];
                   v18 = *(*&buf[16] + 8 * v17);
-                  v19 = [v178 objectForKey:@"exteriors"];
-                  v198 = 0u;
+                  v19 = [v180 objectForKey:@"exteriors"];
                   v199 = 0u;
-                  v196 = 0u;
+                  v200 = 0u;
                   v197 = 0u;
+                  v198 = 0u;
                   obj = v19;
-                  v20 = [obj countByEnumeratingWithState:&v196 objects:v208 count:16];
+                  v20 = [obj countByEnumeratingWithState:&v197 objects:v209 count:16];
                   if (v20)
                   {
-                    v182 = *v197;
+                    v184 = *v198;
                     do
                     {
-                      v183 = v20;
-                      for (j = 0; j != v183; j = j + 1)
+                      v185 = v20;
+                      for (j = 0; j != v185; j = j + 1)
                       {
-                        if (*v197 != v182)
+                        if (*v198 != v184)
                         {
                           objc_enumerationMutation(obj);
                         }
 
-                        v22 = *(*(&v196 + 1) + 8 * j);
+                        v22 = *(*(&v197 + 1) + 8 * j);
                         v23 = *(v18 + 52);
                         v24 = *(v18 + 48);
                         if (v24 >= v23)
@@ -1047,7 +1047,6 @@ LABEL_131:
                         *(v18 + 48) = v24 + 1;
                         v26 = *(v25 + 8 * v24);
                         v27 = [v22 objectForKey:@"latitude"];
-                        v184 = v22;
                         v28 = [v22 objectForKey:@"longitude"];
                         if (qword_10045B060 != -1)
                         {
@@ -1058,9 +1057,9 @@ LABEL_131:
                         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
                         {
                           v30 = [v27 count];
-                          LODWORD(v205[0]) = 134217984;
-                          *(v205 + 4) = v30;
-                          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "@IndoorAvl, generateAvlTileFromJSON, adding %lu exterior points", v205, 0xCu);
+                          LODWORD(v206[0]) = 134217984;
+                          *(v206 + 4) = v30;
+                          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "@IndoorAvl, generateAvlTileFromJSON, adding %lu exterior points", v206, 0xCu);
                         }
 
                         for (k = 0; k < [v27 count]; ++k)
@@ -1068,146 +1067,144 @@ LABEL_131:
                           v32 = [v27 objectAtIndex:k];
                           [v32 doubleValue];
                           v34 = *(v26 + 24);
-                          v35 = *(v26 + 16);
                           if (v34 == *(v26 + 28))
                           {
                             if (2 * v34 <= v34 + 1)
                             {
-                              v36 = v34 + 1;
+                              v35 = v34 + 1;
                             }
 
                             else
                             {
-                              v36 = 2 * v34;
+                              v35 = 2 * v34;
                             }
 
-                            if (v36 <= 4)
+                            if (v35 <= 4)
                             {
-                              v36 = 4;
+                              v35 = 4;
                             }
 
-                            *(v26 + 28) = v36;
+                            *(v26 + 28) = v35;
                             operator new[]();
                           }
 
-                          v37 = *(v26 + 16);
+                          v36 = *(v26 + 16);
                           *(v26 + 24) = v34 + 1;
-                          *(v37 + 8 * v34) = v33;
+                          *(v36 + 8 * v34) = v33;
 
-                          v38 = [v28 objectAtIndex:k];
-                          [v38 doubleValue];
-                          v40 = *(v26 + 48);
-                          v41 = *(v26 + 40);
-                          if (v40 == *(v26 + 52))
+                          v37 = [v28 objectAtIndex:k];
+                          [v37 doubleValue];
+                          v39 = *(v26 + 48);
+                          if (v39 == *(v26 + 52))
                           {
-                            if (2 * v40 <= v40 + 1)
+                            if (2 * v39 <= v39 + 1)
                             {
-                              v42 = v40 + 1;
+                              v40 = v39 + 1;
                             }
 
                             else
                             {
-                              v42 = 2 * v40;
+                              v40 = 2 * v39;
                             }
 
-                            if (v42 <= 4)
+                            if (v40 <= 4)
                             {
-                              v42 = 4;
+                              v40 = 4;
                             }
 
-                            *(v26 + 52) = v42;
+                            *(v26 + 52) = v40;
                             operator new[]();
                           }
 
-                          v43 = *(v26 + 40);
-                          *(v26 + 48) = v40 + 1;
-                          *(v43 + 8 * v40) = v39;
+                          v41 = *(v26 + 40);
+                          *(v26 + 48) = v39 + 1;
+                          *(v41 + 8 * v39) = v38;
                         }
 
-                        v44 = [v184 valueForKey:@"tolerance"];
-                        [v44 doubleValue];
+                        v42 = [v22 valueForKey:@"tolerance"];
+                        [v42 doubleValue];
                         *(v26 + 76) |= 4u;
-                        *(v26 + 64) = v45;
+                        *(v26 + 64) = v43;
                       }
 
-                      v20 = [obj countByEnumeratingWithState:&v196 objects:v208 count:16];
+                      v20 = [obj countByEnumeratingWithState:&v197 objects:v209 count:16];
                     }
 
                     while (v20);
                   }
 
-                  v194 = 0u;
                   v195 = 0u;
+                  v196 = 0u;
+                  v194 = 0u;
                   v193 = 0u;
-                  v192 = 0u;
-                  v46 = [v178 objectForKey:@"ids"];
-                  v47 = [v46 countByEnumeratingWithState:&v192 objects:v207 count:16];
-                  if (v47)
+                  v44 = [v180 objectForKey:@"ids"];
+                  v45 = [v44 countByEnumeratingWithState:&v193 objects:v208 count:16];
+                  if (v45)
                   {
-                    v48 = *v193;
+                    v46 = *v194;
                     do
                     {
-                      for (m = 0; m != v47; m = m + 1)
+                      for (m = 0; m != v45; m = m + 1)
                       {
-                        if (*v193 != v48)
+                        if (*v194 != v46)
                         {
-                          objc_enumerationMutation(v46);
+                          objc_enumerationMutation(v44);
                         }
 
-                        v50 = *(*(&v192 + 1) + 8 * m);
-                        v51 = v50;
-                        uTF8String3 = [v50 UTF8String];
-                        v53 = uTF8String3;
-                        v54 = *(v18 + 28);
-                        v55 = *(v18 + 24);
-                        if (v55 >= v54)
+                        v48 = *(*(&v193 + 1) + 8 * m);
+                        v49 = v48;
+                        uTF8String3 = [v48 UTF8String];
+                        v51 = uTF8String3;
+                        v52 = *(v18 + 28);
+                        v53 = *(v18 + 24);
+                        if (v53 >= v52)
                         {
-                          if (v54 == *(v18 + 32))
+                          if (v52 == *(v18 + 32))
                           {
-                            uTF8String3 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v18 + 16), v54 + 1);
-                            v54 = *(v18 + 28);
+                            uTF8String3 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v18 + 16), v52 + 1);
+                            v52 = *(v18 + 28);
                           }
 
-                          *(v18 + 28) = v54 + 1;
-                          v57 = wireless_diagnostics::google::protobuf::internal::StringTypeHandlerBase::New(uTF8String3);
-                          v58 = *(v18 + 16);
-                          v59 = *(v18 + 24);
-                          *(v18 + 24) = v59 + 1;
-                          *(v58 + 8 * v59) = v57;
+                          *(v18 + 28) = v52 + 1;
+                          v55 = wireless_diagnostics::google::protobuf::internal::StringTypeHandlerBase::New(uTF8String3);
+                          v56 = *(v18 + 16);
+                          v57 = *(v18 + 24);
+                          *(v18 + 24) = v57 + 1;
+                          *(v56 + 8 * v57) = v55;
                         }
 
                         else
                         {
-                          v56 = *(v18 + 16);
-                          *(v18 + 24) = v55 + 1;
-                          v57 = *(v56 + 8 * v55);
+                          v54 = *(v18 + 16);
+                          *(v18 + 24) = v53 + 1;
+                          v55 = *(v54 + 8 * v53);
                         }
 
-                        std::string::assign(v57, v53);
+                        std::string::assign(v55, v51);
                         if (qword_10045B060 != -1)
                         {
                           sub_100382E10();
                         }
 
-                        v60 = qword_10045B068;
-                        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+                        v58 = qword_10045B068;
+                        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
                         {
-                          v61 = v50;
-                          uTF8String4 = [v50 UTF8String];
-                          LODWORD(v205[0]) = 136315138;
-                          *(v205 + 4) = uTF8String4;
-                          _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEBUG, "@IndoorAvl, generateAvlTileFromJSON, added venue ID %s", v205, 0xCu);
+                          v59 = v48;
+                          uTF8String4 = [v48 UTF8String];
+                          LODWORD(v206[0]) = 136315138;
+                          *(v206 + 4) = uTF8String4;
+                          _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEBUG, "@IndoorAvl, generateAvlTileFromJSON, added venue ID %s", v206, 0xCu);
                         }
                       }
 
-                      v47 = [v46 countByEnumeratingWithState:&v192 objects:v207 count:16];
+                      v45 = [v44 countByEnumeratingWithState:&v193 objects:v208 count:16];
                     }
 
-                    while (v47);
+                    while (v45);
                   }
 
-                  v63 = [v178 valueForKey:@"context"];
-                  intValue = [v63 intValue];
+                  v61 = [v180 valueForKey:@"context"];
+                  intValue = [v61 intValue];
 
                   if (intValue - 1 < 2)
                   {
@@ -1215,324 +1212,323 @@ LABEL_131:
                     *(v18 + 96) = intValue;
                   }
 
-                  v65 = [v178 objectForKey:@"tileDownloadConfiguration"];
-                  v66 = [v65 objectForKey:@"floorIdxsForWifiDownloadOnly"];
+                  v63 = [v180 objectForKey:@"tileDownloadConfiguration"];
+                  v64 = [v63 objectForKey:@"floorIdxsForWifiDownloadOnly"];
                   *(v18 + 104) |= 4u;
-                  v67 = *(v18 + 64);
-                  if (!v67)
+                  v65 = *(v18 + 64);
+                  if (!v65)
                   {
                     operator new();
                   }
 
-                  v190 = 0u;
                   v191 = 0u;
-                  v188 = 0u;
+                  v192 = 0u;
                   v189 = 0u;
-                  v68 = v66;
-                  v69 = [v68 countByEnumeratingWithState:&v188 objects:v206 count:16];
-                  if (v69)
+                  v190 = 0u;
+                  v66 = v64;
+                  v67 = [v66 countByEnumeratingWithState:&v189 objects:v207 count:16];
+                  if (v67)
                   {
-                    v70 = *v189;
+                    v68 = *v190;
                     do
                     {
-                      for (n = 0; n != v69; n = n + 1)
+                      for (n = 0; n != v67; n = n + 1)
                       {
-                        if (*v189 != v70)
+                        if (*v190 != v68)
                         {
-                          objc_enumerationMutation(v68);
+                          objc_enumerationMutation(v66);
                         }
 
-                        unsignedIntValue = [*(*(&v188 + 1) + 8 * n) unsignedIntValue];
-                        v74 = *(v67 + 24);
-                        v75 = *(v67 + 16);
-                        if (v74 == *(v67 + 28))
+                        unsignedIntValue = [*(*(&v189 + 1) + 8 * n) unsignedIntValue];
+                        v72 = *(v65 + 24);
+                        if (v72 == *(v65 + 28))
                         {
-                          if (2 * v74 <= v74 + 1)
+                          if (2 * v72 <= v72 + 1)
                           {
-                            v76 = v74 + 1;
+                            v73 = v72 + 1;
                           }
 
                           else
                           {
-                            v76 = 2 * v74;
+                            v73 = 2 * v72;
                           }
 
-                          if (v76 <= 4)
+                          if (v73 <= 4)
                           {
-                            v76 = 4;
+                            v73 = 4;
                           }
 
-                          *(v67 + 28) = v76;
+                          *(v65 + 28) = v73;
                           operator new[]();
                         }
 
-                        v72 = *(v67 + 16);
-                        *(v67 + 24) = v74 + 1;
-                        *(v72 + 4 * v74) = unsignedIntValue;
+                        v70 = *(v65 + 16);
+                        *(v65 + 24) = v72 + 1;
+                        *(v70 + 4 * v72) = unsignedIntValue;
                       }
 
-                      v69 = [v68 countByEnumeratingWithState:&v188 objects:v206 count:16];
+                      v67 = [v66 countByEnumeratingWithState:&v189 objects:v207 count:16];
                     }
 
-                    while (v69);
+                    while (v67);
                   }
                 }
 
-                v170 = [log countByEnumeratingWithState:&v200 objects:v209 count:16];
+                v172 = [log countByEnumeratingWithState:&v201 objects:v210 count:16];
               }
 
-              while (v170);
+              while (v172);
             }
 
-            v77 = [v179 valueForKey:@"parameterOverrides"];
-            v78 = v77 == 0;
+            v74 = [v181 valueForKey:@"parameterOverrides"];
+            v75 = v74 == 0;
 
-            if (!v78)
+            if (!v75)
             {
-              v226 |= 2u;
-              v79 = v212;
-              if (!v212)
+              v227 |= 2u;
+              v76 = v213;
+              if (!v213)
               {
                 operator new();
               }
 
-              v80 = [v179 objectForKeyedSubscript:@"parameterOverrides"];
-              [CLAvailabilityTileParser _setParamOverrides:v79 fromDict:v80];
+              v77 = [v181 objectForKeyedSubscript:@"parameterOverrides"];
+              [CLAvailabilityTileParser _setParamOverrides:v76 fromDict:v77];
             }
 
-            v81 = [v179 objectForKey:@"motionActivityDebounceParameters"];
-            v82 = v81 == 0;
+            v78 = [v181 objectForKey:@"motionActivityDebounceParameters"];
+            v79 = v78 == 0;
 
-            if (!v82)
+            if (!v79)
             {
-              v83 = [v179 objectForKey:@"motionActivityDebounceParameters"];
-              v84 = [v83 valueForKey:@"nonFitnessToCyclingSeconds"];
-              v85 = v84 == 0;
+              v80 = [v181 objectForKey:@"motionActivityDebounceParameters"];
+              v81 = [v80 valueForKey:@"nonFitnessToCyclingSeconds"];
+              v82 = v81 == 0;
 
-              if (!v85)
+              if (!v82)
               {
-                v226 |= 0x4000u;
-                v86 = v224;
-                if (!v224)
+                v227 |= 0x4000u;
+                v83 = v225;
+                if (!v225)
                 {
                   operator new();
                 }
 
-                v87 = [v83 valueForKey:@"nonFitnessToCyclingSeconds"];
-                unsignedIntValue2 = [v87 unsignedIntValue];
-                *(v86 + 36) |= 1u;
-                *(v86 + 16) = unsignedIntValue2;
+                v84 = [v80 valueForKey:@"nonFitnessToCyclingSeconds"];
+                unsignedIntValue2 = [v84 unsignedIntValue];
+                *(v83 + 36) |= 1u;
+                *(v83 + 16) = unsignedIntValue2;
               }
 
-              v89 = [v83 valueForKey:@"nonFitnessToRunningSeconds"];
-              v90 = v89 == 0;
+              v86 = [v80 valueForKey:@"nonFitnessToRunningSeconds"];
+              v87 = v86 == 0;
 
-              if (!v90)
+              if (!v87)
               {
-                v226 |= 0x4000u;
-                v91 = v224;
-                if (!v224)
+                v227 |= 0x4000u;
+                v88 = v225;
+                if (!v225)
                 {
                   operator new();
                 }
 
-                v92 = [v83 valueForKey:@"nonFitnessToRunningSeconds"];
-                unsignedIntValue3 = [v92 unsignedIntValue];
-                *(v91 + 36) |= 2u;
-                *(v91 + 20) = unsignedIntValue3;
+                v89 = [v80 valueForKey:@"nonFitnessToRunningSeconds"];
+                unsignedIntValue3 = [v89 unsignedIntValue];
+                *(v88 + 36) |= 2u;
+                *(v88 + 20) = unsignedIntValue3;
               }
 
-              v94 = [v83 valueForKey:@"runningToNonFitnessSeconds"];
-              v95 = v94 == 0;
+              v91 = [v80 valueForKey:@"runningToNonFitnessSeconds"];
+              v92 = v91 == 0;
 
-              if (!v95)
+              if (!v92)
               {
-                v226 |= 0x4000u;
-                v96 = v224;
-                if (!v224)
+                v227 |= 0x4000u;
+                v93 = v225;
+                if (!v225)
                 {
                   operator new();
                 }
 
-                v97 = [v83 valueForKey:@"runningToNonFitnessSeconds"];
-                unsignedIntValue4 = [v97 unsignedIntValue];
-                *(v96 + 36) |= 4u;
-                *(v96 + 24) = unsignedIntValue4;
+                v94 = [v80 valueForKey:@"runningToNonFitnessSeconds"];
+                unsignedIntValue4 = [v94 unsignedIntValue];
+                *(v93 + 36) |= 4u;
+                *(v93 + 24) = unsignedIntValue4;
               }
 
-              v99 = [v83 valueForKey:@"cyclingToNonFitnessSeconds"];
-              v100 = v99 == 0;
+              v96 = [v80 valueForKey:@"cyclingToNonFitnessSeconds"];
+              v97 = v96 == 0;
 
-              if (!v100)
+              if (!v97)
               {
-                v226 |= 0x4000u;
-                v101 = v224;
-                if (!v224)
+                v227 |= 0x4000u;
+                v98 = v225;
+                if (!v225)
                 {
                   operator new();
                 }
 
-                v102 = [v83 valueForKey:@"cyclingToNonFitnessSeconds"];
-                unsignedIntValue5 = [v102 unsignedIntValue];
-                *(v101 + 36) |= 8u;
-                *(v101 + 28) = unsignedIntValue5;
+                v99 = [v80 valueForKey:@"cyclingToNonFitnessSeconds"];
+                unsignedIntValue5 = [v99 unsignedIntValue];
+                *(v98 + 36) |= 8u;
+                *(v98 + 28) = unsignedIntValue5;
               }
             }
 
-            v104 = [v179 valueForKey:@"availabilityZScoreConfidenceInterval"];
-            v105 = v104 == 0;
+            v101 = [v181 valueForKey:@"availabilityZScoreConfidenceInterval"];
+            v102 = v101 == 0;
 
-            if (!v105)
+            if (!v102)
             {
-              v106 = [v179 valueForKey:@"availabilityZScoreConfidenceInterval"];
-              [v106 doubleValue];
-              v226 |= 4u;
-              v213 = v107;
+              v103 = [v181 valueForKey:@"availabilityZScoreConfidenceInterval"];
+              [v103 doubleValue];
+              v227 |= 4u;
+              v214 = v104;
             }
 
-            v108 = [v179 valueForKey:@"indoorPrefetchRadiusKM"];
-            v109 = v108 == 0;
+            v105 = [v181 valueForKey:@"indoorPrefetchRadiusKM"];
+            v106 = v105 == 0;
 
-            if (!v109)
+            if (!v106)
             {
-              v110 = [v179 valueForKey:@"indoorPrefetchRadiusKM"];
-              unsignedIntValue6 = [v110 unsignedIntValue];
-              v226 |= 8u;
-              v214 = unsignedIntValue6;
+              v107 = [v181 valueForKey:@"indoorPrefetchRadiusKM"];
+              unsignedIntValue6 = [v107 unsignedIntValue];
+              v227 |= 8u;
+              v215 = unsignedIntValue6;
             }
 
-            v112 = [v179 valueForKey:@"regionalPrefetchRadiusKM"];
-            v113 = v112 == 0;
+            v109 = [v181 valueForKey:@"regionalPrefetchRadiusKM"];
+            v110 = v109 == 0;
 
-            if (!v113)
+            if (!v110)
             {
-              v114 = [v179 valueForKey:@"regionalPrefetchRadiusKM"];
-              unsignedIntValue7 = [v114 unsignedIntValue];
-              v226 |= 0x10u;
-              v215 = unsignedIntValue7;
+              v111 = [v181 valueForKey:@"regionalPrefetchRadiusKM"];
+              unsignedIntValue7 = [v111 unsignedIntValue];
+              v227 |= 0x10u;
+              v216 = unsignedIntValue7;
             }
 
-            v116 = [v179 valueForKey:@"indoorPrefetchMaxFloorCount"];
-            v117 = v116 == 0;
+            v113 = [v181 valueForKey:@"indoorPrefetchMaxFloorCount"];
+            v114 = v113 == 0;
 
-            if (!v117)
+            if (!v114)
             {
-              v118 = [v179 valueForKey:@"indoorPrefetchMaxFloorCount"];
-              unsignedIntValue8 = [v118 unsignedIntValue];
-              v226 |= 0x20u;
-              v216 = unsignedIntValue8;
+              v115 = [v181 valueForKey:@"indoorPrefetchMaxFloorCount"];
+              unsignedIntValue8 = [v115 unsignedIntValue];
+              v227 |= 0x20u;
+              v217 = unsignedIntValue8;
             }
 
-            v120 = [v179 valueForKey:@"regionalPrefetchMaxFloorCount"];
-            v121 = v120 == 0;
+            v117 = [v181 valueForKey:@"regionalPrefetchMaxFloorCount"];
+            v118 = v117 == 0;
 
-            if (!v121)
+            if (!v118)
             {
-              v122 = [v179 valueForKey:@"regionalPrefetchMaxFloorCount"];
-              unsignedIntValue9 = [v122 unsignedIntValue];
-              v226 |= 0x40u;
-              v217 = unsignedIntValue9;
+              v119 = [v181 valueForKey:@"regionalPrefetchMaxFloorCount"];
+              unsignedIntValue9 = [v119 unsignedIntValue];
+              v227 |= 0x40u;
+              v218 = unsignedIntValue9;
             }
 
-            v124 = [v179 valueForKey:@"indoorPrefetchMaxTotalBytes"];
-            v125 = v124 == 0;
+            v121 = [v181 valueForKey:@"indoorPrefetchMaxTotalBytes"];
+            v122 = v121 == 0;
 
-            if (!v125)
+            if (!v122)
             {
-              v126 = [v179 valueForKey:@"indoorPrefetchMaxTotalBytes"];
-              unsignedIntValue10 = [v126 unsignedIntValue];
-              v226 |= 0x80u;
-              v218 = unsignedIntValue10;
+              v123 = [v181 valueForKey:@"indoorPrefetchMaxTotalBytes"];
+              unsignedIntValue10 = [v123 unsignedIntValue];
+              v227 |= 0x80u;
+              v219 = unsignedIntValue10;
             }
 
-            v128 = [v179 valueForKey:@"regionalPrefetchMaxTotalBytes"];
-            v129 = v128 == 0;
+            v125 = [v181 valueForKey:@"regionalPrefetchMaxTotalBytes"];
+            v126 = v125 == 0;
 
-            if (!v129)
+            if (!v126)
             {
-              v130 = [v179 valueForKey:@"regionalPrefetchMaxTotalBytes"];
-              unsignedIntValue11 = [v130 unsignedIntValue];
-              v226 |= 0x100u;
-              v219 = unsignedIntValue11;
+              v127 = [v181 valueForKey:@"regionalPrefetchMaxTotalBytes"];
+              unsignedIntValue11 = [v127 unsignedIntValue];
+              v227 |= 0x100u;
+              v220 = unsignedIntValue11;
             }
 
-            v132 = [v179 valueForKey:@"indoorLocationOfInterestMergeRadiusKM"];
-            v133 = v132 == 0;
+            v129 = [v181 valueForKey:@"indoorLocationOfInterestMergeRadiusKM"];
+            v130 = v129 == 0;
 
-            if (!v133)
+            if (!v130)
             {
-              v134 = [v179 valueForKey:@"indoorLocationOfInterestMergeRadiusKM"];
-              unsignedIntValue12 = [v134 unsignedIntValue];
-              v226 |= 0x200u;
-              v220 = unsignedIntValue12;
+              v131 = [v181 valueForKey:@"indoorLocationOfInterestMergeRadiusKM"];
+              unsignedIntValue12 = [v131 unsignedIntValue];
+              v227 |= 0x200u;
+              v221 = unsignedIntValue12;
             }
 
-            v136 = [v179 valueForKey:@"regionalLocationOfInterestMergeRadiusKM"];
-            v137 = v136 == 0;
+            v133 = [v181 valueForKey:@"regionalLocationOfInterestMergeRadiusKM"];
+            v134 = v133 == 0;
 
-            if (!v137)
+            if (!v134)
             {
-              v138 = [v179 valueForKey:@"regionalLocationOfInterestMergeRadiusKM"];
-              unsignedIntValue13 = [v138 unsignedIntValue];
-              v226 |= 0x400u;
-              v221 = unsignedIntValue13;
+              v135 = [v181 valueForKey:@"regionalLocationOfInterestMergeRadiusKM"];
+              unsignedIntValue13 = [v135 unsignedIntValue];
+              v227 |= 0x400u;
+              v222 = unsignedIntValue13;
             }
 
-            v140 = [v179 valueForKey:@"preferPredictionWithinNActivityCycles"];
-            v141 = v140 == 0;
+            v137 = [v181 valueForKey:@"preferPredictionWithinNActivityCycles"];
+            v138 = v137 == 0;
 
-            if (!v141)
+            if (!v138)
             {
-              v142 = [v179 valueForKey:@"preferPredictionWithinNActivityCycles"];
-              unsignedIntValue14 = [v142 unsignedIntValue];
-              v226 |= 0x800u;
-              v222 = unsignedIntValue14;
+              v139 = [v181 valueForKey:@"preferPredictionWithinNActivityCycles"];
+              unsignedIntValue14 = [v139 unsignedIntValue];
+              v227 |= 0x800u;
+              v223 = unsignedIntValue14;
             }
 
-            v144 = [v179 valueForKey:@"indoorNumberOfDaysBeforeTileRedownload"];
-            v145 = v144 == 0;
+            v141 = [v181 valueForKey:@"indoorNumberOfDaysBeforeTileRedownload"];
+            v142 = v141 == 0;
 
-            if (!v145)
+            if (!v142)
             {
-              v146 = [v179 valueForKey:@"indoorNumberOfDaysBeforeTileRedownload"];
-              [v146 floatValue];
-              v226 |= 0x1000u;
-              v223 = v147;
+              v143 = [v181 valueForKey:@"indoorNumberOfDaysBeforeTileRedownload"];
+              [v143 floatValue];
+              v227 |= 0x1000u;
+              v224 = v144;
             }
 
-            v148 = [v179 valueForKey:@"regionalNumberOfDaysBeforeTileRedownload"];
-            v149 = v148 == 0;
+            v145 = [v181 valueForKey:@"regionalNumberOfDaysBeforeTileRedownload"];
+            v146 = v145 == 0;
 
-            if (!v149)
+            if (!v146)
             {
-              v150 = [v179 valueForKey:@"regionalNumberOfDaysBeforeTileRedownload"];
-              [v150 floatValue];
-              v226 |= 0x2000u;
-              v225 = v151;
+              v147 = [v181 valueForKey:@"regionalNumberOfDaysBeforeTileRedownload"];
+              [v147 floatValue];
+              v227 |= 0x2000u;
+              v226 = v148;
             }
 
-            path = [v174 path];
-            v153 = path;
+            path = [v176 path];
+            v150 = path;
             uTF8String5 = [path UTF8String];
-            v155 = strlen(uTF8String5);
-            if (v155 >= 0x7FFFFFFFFFFFFFF8)
+            v152 = strlen(uTF8String5);
+            if (v152 >= 0x7FFFFFFFFFFFFFF8)
             {
               sub_10000D39C();
             }
 
-            v156 = v155;
-            if (v155 >= 0x17)
+            v153 = v152;
+            if (v152 >= 0x17)
             {
               operator new();
             }
 
-            *(&__dst.__r_.__value_.__s + 23) = v155;
-            if (v155)
+            *(&__dst.__r_.__value_.__s + 23) = v152;
+            if (v152)
             {
-              memmove(&__dst, uTF8String5, v155);
+              memmove(&__dst, uTF8String5, v152);
             }
 
-            __dst.__r_.__value_.__s.__data_[v156] = 0;
+            __dst.__r_.__value_.__s.__data_[v153] = 0;
 
             if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
             {
@@ -1544,27 +1540,27 @@ LABEL_131:
               __p = __dst;
             }
 
-            HIBYTE(v205[2]) = 16;
-            strcpy(v205, ".protoToFile-tmp");
-            sub_10001AEA8(&__p, v205);
-            if (SHIBYTE(v205[2]) < 0)
+            HIBYTE(v206[2]) = 16;
+            strcpy(v206, ".protoToFile-tmp");
+            sub_10001AEA8(&__p, v206);
+            if (SHIBYTE(v206[2]) < 0)
             {
-              operator delete(v205[0]);
+              operator delete(v206[0]);
             }
 
-            sub_100170A3C(&__p, 2, &v185);
-            wireless_diagnostics::google::protobuf::io::FileOutputStream::FileOutputStream(v205, v185, -1);
+            sub_100170A3C(&__p, 2, &v186);
+            wireless_diagnostics::google::protobuf::io::FileOutputStream::FileOutputStream(v206, v186, -1);
             sub_10002B4FC(buf);
-            wireless_diagnostics::google::protobuf::io::FileOutputStream::~FileOutputStream(v205);
-            sub_100170CB4(&v185);
+            wireless_diagnostics::google::protobuf::io::FileOutputStream::~FileOutputStream(v206);
+            sub_100170CB4(&v186);
             sub_10001A224(&__p, &__dst, 0);
             if (qword_10045B060 != -1)
             {
               sub_100382E10();
             }
 
-            v163 = qword_10045B068;
-            if (os_log_type_enabled(v163, OS_LOG_TYPE_DEBUG))
+            v160 = qword_10045B068;
+            if (os_log_type_enabled(v160, OS_LOG_TYPE_DEBUG))
             {
               p_dst = &__dst;
               if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -1572,9 +1568,9 @@ LABEL_131:
                 p_dst = __dst.__r_.__value_.__r.__words[0];
               }
 
-              LODWORD(v205[0]) = 136315138;
-              *(v205 + 4) = p_dst;
-              _os_log_impl(&_mh_execute_header, v163, OS_LOG_TYPE_DEBUG, "@IndoorAvl, generateAvlTileFromJSON, find tile at %s", v205, 0xCu);
+              LODWORD(v206[0]) = 136315138;
+              *(v206 + 4) = p_dst;
+              _os_log_impl(&_mh_execute_header, v160, OS_LOG_TYPE_DEBUG, "@IndoorAvl, generateAvlTileFromJSON, find tile at %s", v206, 0xCu);
             }
 
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -1597,14 +1593,14 @@ LABEL_131:
             sub_100382E10();
           }
 
-          v157 = qword_10045B068;
-          if (os_log_type_enabled(v157, OS_LOG_TYPE_ERROR))
+          v154 = qword_10045B068;
+          if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
           {
-            v160 = v180;
-            uTF8String6 = [v180 UTF8String];
+            v157 = v182;
+            uTF8String6 = [v182 UTF8String];
             *buf = 136315138;
             *&buf[4] = uTF8String6;
-            _os_log_impl(&_mh_execute_header, v157, OS_LOG_TYPE_ERROR, "@IndoorAvl, generateAvlTileFromJSON, expected at least one venue, str=\n%s\n", buf, 0xCu);
+            _os_log_impl(&_mh_execute_header, v154, OS_LOG_TYPE_ERROR, "@IndoorAvl, generateAvlTileFromJSON, expected at least one venue, str=\n%s\n", buf, 0xCu);
           }
         }
 
@@ -1615,19 +1611,19 @@ LABEL_131:
             sub_100382E10();
           }
 
-          v157 = qword_10045B068;
-          if (os_log_type_enabled(v157, OS_LOG_TYPE_ERROR))
+          v154 = qword_10045B068;
+          if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
           {
-            v158 = v180;
-            uTF8String7 = [v180 UTF8String];
+            v155 = v182;
+            uTF8String7 = [v182 UTF8String];
             *buf = 136315138;
             *&buf[4] = uTF8String7;
-            _os_log_impl(&_mh_execute_header, v157, OS_LOG_TYPE_ERROR, "@IndoorAvl, generateAvlTileFromJSON, no venues given in avl tile json??, str=\n%s\n", buf, 0xCu);
+            _os_log_impl(&_mh_execute_header, v154, OS_LOG_TYPE_ERROR, "@IndoorAvl, generateAvlTileFromJSON, no venues given in avl tile json??, str=\n%s\n", buf, 0xCu);
           }
         }
 
         v12 = 0;
-        log = v172;
+        log = v174;
       }
 
 LABEL_154:
@@ -1635,7 +1631,7 @@ LABEL_154:
       return v12;
     }
 
-    v168 = sub_10002833C();
+    v168 = sub_10002833C(0);
     if (os_log_type_enabled(v168, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
@@ -1643,81 +1639,85 @@ LABEL_154:
       *&buf[10] = "";
       *&buf[18] = 2082;
       *&buf[20] = "assert";
-      *v211 = 2081;
-      *&v211[2] = "path != nullptr";
+      *v212 = 2081;
+      *&v212[2] = "path != nullptr";
       _os_log_impl(&_mh_execute_header, v168, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate at nil path, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v169 = sub_10002833C();
-    if (os_signpost_enabled(v169))
+    v170 = sub_10002833C(v169);
+    if (os_signpost_enabled(v170))
     {
       *buf = 68289539;
       *&buf[8] = 2082;
       *&buf[10] = "";
       *&buf[18] = 2082;
       *&buf[20] = "assert";
-      *v211 = 2081;
-      *&v211[2] = "path != nullptr";
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v169, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "@IndoorAvl, generateAvlTileFromJSON, cannot generate at nil path", "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate at nil path, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      *v212 = 2081;
+      *&v212[2] = "path != nullptr";
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v170, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "@IndoorAvl, generateAvlTileFromJSON, cannot generate at nil path", "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate at nil path, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v167 = sub_10002833C();
-    if (os_log_type_enabled(v167, OS_LOG_TYPE_INFO))
+    v166 = sub_10002833C(v171);
+    if (os_log_type_enabled(v166, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
       *&buf[8] = 2082;
       *&buf[10] = "";
       *&buf[18] = 2082;
       *&buf[20] = "assert";
-      *v211 = 2081;
-      *&v211[2] = "path != nullptr";
-      _os_log_impl(&_mh_execute_header, v167, OS_LOG_TYPE_INFO, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate at nil path, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      *v212 = 2081;
+      *&v212[2] = "path != nullptr";
+      _os_log_impl(&_mh_execute_header, v166, OS_LOG_TYPE_INFO, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate at nil path, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
+
+    v167 = 254;
   }
 
   else
   {
-    v165 = sub_10002833C();
-    if (os_log_type_enabled(v165, OS_LOG_TYPE_FAULT))
+    v162 = sub_10002833C(pathCopy);
+    if (os_log_type_enabled(v162, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
       *&buf[8] = 2082;
       *&buf[10] = "";
       *&buf[18] = 2082;
       *&buf[20] = "assert";
-      *v211 = 2081;
-      *&v211[2] = "jsonStr != nullptr";
-      _os_log_impl(&_mh_execute_header, v165, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      *v212 = 2081;
+      *&v212[2] = "jsonStr != nullptr";
+      _os_log_impl(&_mh_execute_header, v162, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v166 = sub_10002833C();
-    if (os_signpost_enabled(v166))
+    v164 = sub_10002833C(v163);
+    if (os_signpost_enabled(v164))
     {
       *buf = 68289539;
       *&buf[8] = 2082;
       *&buf[10] = "";
       *&buf[18] = 2082;
       *&buf[20] = "assert";
-      *v211 = 2081;
-      *&v211[2] = "jsonStr != nullptr";
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v166, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string", "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      *v212 = 2081;
+      *&v212[2] = "jsonStr != nullptr";
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v164, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string", "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v167 = sub_10002833C();
-    if (os_log_type_enabled(v167, OS_LOG_TYPE_INFO))
+    v166 = sub_10002833C(v165);
+    if (os_log_type_enabled(v166, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
       *&buf[8] = 2082;
       *&buf[10] = "";
       *&buf[18] = 2082;
       *&buf[20] = "assert";
-      *v211 = 2081;
-      *&v211[2] = "jsonStr != nullptr";
-      _os_log_impl(&_mh_execute_header, v167, OS_LOG_TYPE_INFO, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      *v212 = 2081;
+      *&v212[2] = "jsonStr != nullptr";
+      _os_log_impl(&_mh_execute_header, v166, OS_LOG_TYPE_INFO, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
+
+    v167 = 253;
   }
 
-  result = abort_report_np();
+  result = abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/Framework/CLAvailabilityTileParser.mm", v167, "+[CLAvailabilityTileParser generateAvlTileFromJSON:atPath:]");
   __break(1u);
   return result;
 }

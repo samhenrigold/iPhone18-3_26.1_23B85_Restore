@@ -31,8 +31,8 @@
 
 - (NSString)debugDescription
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"animate";
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"animate";
   animate = [(AMSUIWebActivityIndicatorModel *)self animate];
   v3 = @"false";
   if (animate)
@@ -40,11 +40,9 @@
     v3 = @"true";
   }
 
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v4 description];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

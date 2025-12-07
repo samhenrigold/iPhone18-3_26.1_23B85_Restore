@@ -1,5 +1,5 @@
 @interface PKAngularOpacitySlider
-+ (void)_layoutGradientMaskLayer:(double)layer frame:(double)frame isReversed:(uint64_t)reversed;
++ (void)_layoutGradientMaskLayer:(double)layer frame:(double)frame isReversed:(double)reversed;
 - (BOOL)gestureRecognizer:(id)recognizer shouldReceiveTouch:(id)touch;
 - (CGSize)sizeThatFits:(CGSize)result;
 - (_PKColorAlphaSliderDelegate)delegate;
@@ -27,7 +27,7 @@
 
   v39.receiver = self;
   v39.super_class = PKAngularOpacitySlider;
-  v13 = objc_msgSendSuper2(&v39, sel_initWithFrame_);
+  v13 = objc_msgSendSuper2(&v39, sel_initWithFrame_, a2, frame, angle, endAngle);
   v14 = v13;
   if (v13)
   {
@@ -319,7 +319,7 @@ void __44__PKAngularOpacitySlider_setColor_animated___block_invoke_2(uint64_t a1
 
   colorViewMaskLayer = [(PKAngularOpacitySlider *)self colorViewMaskLayer];
   [colorView bounds];
-  [(PKAngularOpacitySlider *)v22 _layoutGradientMaskLayer:v23 frame:v24 isReversed:v25, PKAngularOpacitySlider, colorViewMaskLayer];
+  [PKAngularOpacitySlider _layoutGradientMaskLayer:colorViewMaskLayer frame:v22 isReversed:v23, v24, v25];
 
   alphaGridView = [(PKAngularOpacitySlider *)self alphaGridView];
   [alphaGridView setFrame:{v11, v13, v15, v17}];
@@ -327,7 +327,7 @@ void __44__PKAngularOpacitySlider_setColor_animated___block_invoke_2(uint64_t a1
   [alphaGridView setClipsToBounds:1];
   alphaGridViewMaskLayer = [(PKAngularOpacitySlider *)self alphaGridViewMaskLayer];
   [alphaGridView bounds];
-  [(PKAngularOpacitySlider *)v28 _layoutGradientMaskLayer:v29 frame:v30 isReversed:v31, PKAngularOpacitySlider, alphaGridViewMaskLayer];
+  [PKAngularOpacitySlider _layoutGradientMaskLayer:alphaGridViewMaskLayer frame:v28 isReversed:v29, v30, v31];
 
   [color alphaComponent];
   v33 = [(PKAngularOpacitySlider *)self _knobViewFrameForColorAlpha:v32];
@@ -372,10 +372,10 @@ void __44__PKAngularOpacitySlider_setColor_animated___block_invoke_2(uint64_t a1
   [colorViewMaskLayer2 setLocations:v51];
 }
 
-+ (void)_layoutGradientMaskLayer:(double)layer frame:(double)frame isReversed:(uint64_t)reversed
++ (void)_layoutGradientMaskLayer:(double)layer frame:(double)frame isReversed:(double)reversed
 {
   v16[2] = *MEMORY[0x1E69E9840];
-  v10 = a6;
+  v10 = a2;
   objc_opt_self();
   whiteColor = [MEMORY[0x1E69DC888] whiteColor];
   v12 = [whiteColor colorWithAlphaComponent:0.0];
@@ -386,7 +386,7 @@ void __44__PKAngularOpacitySlider_setColor_animated___block_invoke_2(uint64_t a1
   v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   [v10 setColors:v15];
 
-  [v10 setFrame:{self, a2, layer, frame}];
+  [v10 setFrame:{layer, frame, reversed, a6}];
 }
 
 - (CGSize)sizeThatFits:(CGSize)result

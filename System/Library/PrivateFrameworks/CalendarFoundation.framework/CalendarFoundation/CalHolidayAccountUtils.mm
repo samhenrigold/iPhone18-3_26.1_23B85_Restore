@@ -6,6 +6,7 @@
 + (id)holidayAccountDescription;
 + (id)logHandle;
 + (void)ensureHolidayAccountExistsWithAccountStore:(id)store;
++ (void)setHolidayCalendarIsEnabled:(BOOL)enabled withAccountStore:(id)store;
 @end
 
 @implementation CalHolidayAccountUtils
@@ -36,6 +37,48 @@ uint64_t __35__CalHolidayAccountUtils_logHandle__block_invoke()
   LOBYTE(selfCopy) = [selfCopy _isEnabledWithAccount:v4];
 
   return selfCopy;
+}
+
++ (void)setHolidayCalendarIsEnabled:(BOOL)enabled withAccountStore:(id)store
+{
+  enabledCopy = enabled;
+  v15 = *MEMORY[0x1E69E9840];
+  storeCopy = store;
+  v7 = [self _holidayAccountWithAccountStore:storeCopy];
+  if ([self _isEnabledWithAccount:v7] != enabledCopy)
+  {
+    logHandle = [self logHandle];
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      v14 = enabledCopy;
+      _os_log_impl(&dword_1B990D000, logHandle, OS_LOG_TYPE_DEFAULT, "Setting holiday account to %{BOOL}d", buf, 8u);
+    }
+
+    if (!v7)
+    {
+      v7 = [self _createUnsavedHolidayAccountWithAccountStore:storeCopy];
+    }
+
+    [v7 setEnabled:enabledCopy forDataclass:*MEMORY[0x1E6959630]];
+    v12 = 0;
+    v9 = [storeCopy saveVerifiedAccount:v7 error:&v12];
+    v10 = v12;
+    if (v9)
+    {
+      defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+      [defaultCenter postNotificationName:@"CalHolidayAccountEnabledChanged" object:0];
+    }
+
+    else
+    {
+      defaultCenter = [self logHandle];
+      if (os_log_type_enabled(defaultCenter, OS_LOG_TYPE_ERROR))
+      {
+        [CalHolidayAccountUtils setHolidayCalendarIsEnabled:v10 withAccountStore:defaultCenter];
+      }
+    }
+  }
 }
 
 + (void)ensureHolidayAccountExistsWithAccountStore:(id)store
@@ -71,15 +114,15 @@ uint64_t __35__CalHolidayAccountUtils_logHandle__block_invoke()
 
 + (id)_holidayAccountWithAccountStore:(id)store
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v14[0] = *MEMORY[0x1E6959870];
+  v13[1] = *MEMORY[0x1E69E9840];
+  v13[0] = *MEMORY[0x1E6959870];
   v4 = MEMORY[0x1E695DEC8];
   storeCopy = store;
-  v6 = [v4 arrayWithObjects:v14 count:1];
-  v13 = 0;
-  v7 = [storeCopy accountsWithAccountTypeIdentifiers:v6 error:&v13];
+  v6 = [v4 arrayWithObjects:v13 count:1];
+  v12 = 0;
+  v7 = [storeCopy accountsWithAccountTypeIdentifiers:v6 error:&v12];
 
-  v8 = v13;
+  v8 = v12;
   if (v7)
   {
     firstObject = [v7 firstObject];
@@ -96,14 +139,12 @@ uint64_t __35__CalHolidayAccountUtils_logHandle__block_invoke()
     firstObject = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return firstObject;
 }
 
 + (id)_createUnsavedHolidayAccountWithAccountStore:(id)store
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = [store accountTypeWithAccountTypeIdentifier:*MEMORY[0x1E6959870]];
   v5 = [objc_alloc(MEMORY[0x1E6959A28]) initWithAccountType:v4];
   holidayAccountDescription = [self holidayAccountDescription];
@@ -116,32 +157,28 @@ uint64_t __35__CalHolidayAccountUtils_logHandle__block_invoke()
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [v5 identifier];
-    v11 = 138543362;
-    v12 = identifier;
-    _os_log_impl(&dword_1B990D000, logHandle, OS_LOG_TYPE_DEFAULT, "Creating holiday account with identifier %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = identifier;
+    _os_log_impl(&dword_1B990D000, logHandle, OS_LOG_TYPE_DEFAULT, "Creating holiday account with identifier %{public}@", &v10, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (void)setHolidayCalendarIsEnabled:(uint64_t)a1 withAccountStore:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Failed to save holiday account: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Failed to save holiday account: %@", &v2, 0xCu);
 }
 
 + (void)_holidayAccountWithAccountStore:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Failed to get holiday account: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Failed to get holiday account: %@", &v2, 0xCu);
 }
 
 @end

@@ -10,57 +10,55 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"udc_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"udc_id";
   v2 = +[(HDUserDomainConceptEntity *)HDMedicalUserDomainConceptEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (BOOL)insertDataForUserDomainConcept:(id)concept userDomainConceptID:(int64_t)d transaction:(id)transaction error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   conceptCopy = concept;
   protectedDatabase = [transaction protectedDatabase];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = [conceptCopy categoryTypes];
-  v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v19 = conceptCopy;
-    v13 = *v23;
+    v18 = conceptCopy;
+    v13 = *v22;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __118__HDMedicalUserDomainConceptCategoryTypesEntity_insertDataForUserDomainConcept_userDomainConceptID_transaction_error___block_invoke_2;
-        v21[3] = &unk_278613B58;
-        v21[4] = v15;
-        v21[5] = d;
-        if (![protectedDatabase executeCachedStatementForKey:&insertDataForUserDomainConcept_userDomainConceptID_transaction_error__statementKey_0 error:error SQLGenerator:&__block_literal_global_89 bindingHandler:v21 enumerationHandler:{0, v19}])
+        v15 = *(*(&v21 + 1) + 8 * i);
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __118__HDMedicalUserDomainConceptCategoryTypesEntity_insertDataForUserDomainConcept_userDomainConceptID_transaction_error___block_invoke_2;
+        v20[3] = &unk_278613B58;
+        v20[4] = v15;
+        v20[5] = d;
+        if (![protectedDatabase executeCachedStatementForKey:&insertDataForUserDomainConcept_userDomainConceptID_transaction_error__statementKey_0 error:error SQLGenerator:&__block_literal_global_89 bindingHandler:v20 enumerationHandler:{0, v18}])
         {
           v16 = 0;
           goto LABEL_11;
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v12)
       {
         continue;
@@ -71,7 +69,7 @@
 
     v16 = 1;
 LABEL_11:
-    conceptCopy = v19;
+    conceptCopy = v18;
   }
 
   else
@@ -79,7 +77,6 @@ LABEL_11:
     v16 = 1;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

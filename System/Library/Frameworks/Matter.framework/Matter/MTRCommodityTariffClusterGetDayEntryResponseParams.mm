@@ -55,11 +55,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:1792 commandID:1 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v18)
   {
     sub_2393C5AAC(v17);
-    sub_2393C5ADC(v17, *(v18 + 1), *(v18 + 3));
+    sub_2393C5ADC(v17, *(v18 + 8), *(v18 + 24));
     v8 = sub_2393C6FD0(v17, 256);
     if (!v8)
     {
@@ -130,7 +130,7 @@ LABEL_6:
 
   if (*(struct + 6) == 1)
   {
-    dayEntry4 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*sub_238E0A934(struct + 6)];
+    dayEntry4 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{LOWORD(sub_238E0A934(struct + 6, v10)->super.isa)}];
     dayEntry3 = [(MTRCommodityTariffClusterGetDayEntryResponseParams *)self dayEntry];
     [dayEntry3 setDuration:dayEntry4];
   }
@@ -143,7 +143,7 @@ LABEL_6:
 
   if (*(struct + 10) == 1)
   {
-    dayEntry6 = [MEMORY[0x277CCABB0] numberWithShort:*sub_238E0A934(struct + 10)];
+    dayEntry6 = [MEMORY[0x277CCABB0] numberWithShort:{SLOWORD(sub_238E0A934(struct + 10, v13)->super.isa)}];
     dayEntry5 = [(MTRCommodityTariffClusterGetDayEntryResponseParams *)self dayEntry];
     [dayEntry5 setRandomizationOffset:dayEntry6];
   }
@@ -154,11 +154,11 @@ LABEL_6:
     [dayEntry6 setRandomizationOffset:0];
   }
 
-  v15 = *(struct + 14);
-  v14 = struct + 14;
-  if (v15 == 1)
+  v18 = *(struct + 14);
+  v17 = struct + 14;
+  if (v18 == 1)
   {
-    dayEntry8 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(v14)];
+    dayEntry8 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(v17, v16)->super.isa)}];
     dayEntry7 = [(MTRCommodityTariffClusterGetDayEntryResponseParams *)self dayEntry];
     [dayEntry7 setRandomizationType:dayEntry8];
   }
@@ -169,11 +169,11 @@ LABEL_6:
     [dayEntry8 setRandomizationType:0];
   }
 
-  v18 = 0;
-  v19 = 0;
-  result.mFile = v19;
-  result.mError = v18;
-  result.mLine = HIDWORD(v18);
+  v21 = 0;
+  v22 = 0;
+  result.mFile = v22;
+  result.mError = v21;
+  result.mLine = HIDWORD(v21);
   return result;
 }
 

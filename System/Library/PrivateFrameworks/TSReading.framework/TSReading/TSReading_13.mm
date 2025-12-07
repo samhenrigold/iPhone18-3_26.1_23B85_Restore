@@ -96,7 +96,7 @@ LABEL_14:
   }
 }
 
-uint64_t TSWPLayoutChore::pCompareLineFragments(NSUInteger isDifferentFromLineFragment, TSWPLineFragmentArray **a2, TSWPLineFragmentArray **a3, TSWPColumn *a4, char a5, double a6)
+uint64_t TSWPLayoutChore::pCompareLineFragments(NSUInteger isDifferentFromLineFragment, const TSWPLineFragment ****a2, TSWPLineFragment ****a3, TSWPColumn *a4, char a5, double a6)
 {
   v72 = isDifferentFromLineFragment;
   v10 = *MEMORY[0x277CBF398];
@@ -104,9 +104,9 @@ uint64_t TSWPLayoutChore::pCompareLineFragments(NSUInteger isDifferentFromLineFr
   v12 = *(MEMORY[0x277CBF398] + 16);
   v13 = *(MEMORY[0x277CBF398] + 24);
   v14 = **a3;
-  v15 = *(*a3 + 1);
+  v15 = (*a3)[1];
   v17 = **a2;
-  v16 = *(*a2 + 1);
+  v16 = (*a2)[1];
   while (1)
   {
     while (v14 != v15)
@@ -325,7 +325,7 @@ LABEL_10:
 
   if (a4)
   {
-    [(TSWPColumn *)a4 transformFromWP];
+    objc_msgSend_transformFromWP(a4);
   }
 
   else
@@ -445,7 +445,7 @@ void pAddChangeBarAdornmentRect(void *a1, void *a2, void *a3, CGFloat a4, CGFloa
   [a1 addAdornmentRect:&v26];
 }
 
-TSWPLineFragment *TSWPLayoutChore::pFillAnchoredDrawableLineFragment@<X0>(uint64_t a1@<X0>, uint64_t **a2@<X1>, uint64_t **a3@<X2>, TSWPLineFragment **a4@<X8>, CGFloat a5@<D0>, CGFloat a6@<D1>, CGFloat a7@<D2>, CGFloat a8@<D3>)
+TSWPLineFragment *TSWPLayoutChore::pFillAnchoredDrawableLineFragment@<X0>(uint64_t a1@<X0>, double ***a2@<X1>, double ***a3@<X2>, TSWPLineFragment **a4@<X8>, CGFloat a5@<D0>, CGFloat a6@<D1>, CGFloat a7@<D2>, CGFloat a8@<D3>)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -569,65 +569,65 @@ double TSWPLayoutChore::pDropCapElevationHeight(id *this)
   return Line * v9;
 }
 
-void TSWPLayoutChore::pLayoutDropCap(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, __int128 *a6)
+void TSWPLayoutChore::pLayoutDropCap(uint64_t a1, NSUInteger a2, NSUInteger a3, void x3_0, void x4_0, __int128 *a4)
 {
-  v7 = a6[11];
-  v42 = a6[10];
-  v43 = v7;
-  v8 = a6[13];
-  v44 = a6[12];
-  v45 = v8;
-  v9 = a6[7];
-  v38 = a6[6];
-  v39 = v9;
-  v10 = a6[9];
-  v40 = a6[8];
-  v41 = v10;
-  v11 = a6[3];
-  v34 = a6[2];
-  v35 = v11;
-  v12 = a6[5];
-  v36 = a6[4];
-  v37 = v12;
-  v13 = a6[1];
-  v32 = *a6;
-  v33 = v13;
-  v14 = *(a1 + 904);
-  v15 = [*(a1 + 8) textSourceForLayoutInRange:{*(a1 + 160), *(a1 + 168)}];
-  v16 = [v15 characterStyleAtCharIndex:v14 effectiveRange:0];
-  v17 = *(a1 + 176);
-  FontForStyle = TSWPFastCreateFontForStyle(v16, v17, [*(a1 + 184) scaleTextPercent]);
-  v31[0] = v14;
-  v31[1] = 1;
-  [v15 filteredCoreTextAttributesFontScaleEffectiveRange:v31 filterDelegate:TSWPParagraphEnumerator::coreTextPropertiesFilterDelegate((a1 + 104))];
-  if (v19 != 1.0 && v19 > 0.0 && FontForStyle)
+  v10 = a4[11];
+  v45 = a4[10];
+  v46 = v10;
+  v11 = a4[13];
+  v47 = a4[12];
+  v48 = v11;
+  v12 = a4[7];
+  v41 = a4[6];
+  v42 = v12;
+  v13 = a4[9];
+  v43 = a4[8];
+  v44 = v13;
+  v14 = a4[3];
+  v37 = a4[2];
+  v38 = v14;
+  v15 = a4[5];
+  v39 = a4[4];
+  v40 = v15;
+  v16 = a4[1];
+  v35 = *a4;
+  v36 = v16;
+  v17 = *(a1 + 904);
+  v18 = [*(a1 + 8) textSourceForLayoutInRange:{*(a1 + 160), *(a1 + 168)}];
+  v19 = [v18 characterStyleAtCharIndex:v17 effectiveRange:0];
+  v20 = *(a1 + 176);
+  FontForStyle = TSWPFastCreateFontForStyle(v19, v20, [*(a1 + 184) scaleTextPercent]);
+  v34[0] = v17;
+  v34[1] = 1;
+  [v18 filteredCoreTextAttributesFontScaleEffectiveRange:v34 filterDelegate:TSWPParagraphEnumerator::coreTextPropertiesFilterDelegate((a1 + 104))];
+  if (v22 != 1.0 && v22 > 0.0 && FontForStyle)
   {
-    v20 = v19 * CTFontGetSize(FontForStyle);
-    v21 = CTFontCopyPostScriptName(FontForStyle);
+    v23 = v22 * CTFontGetSize(FontForStyle);
+    v24 = CTFontCopyPostScriptName(FontForStyle);
     CFRelease(FontForStyle);
-    FontForStyle = TSWPCreateFontWithName(v21, v20);
+    TSWPCreateFontWithName(v24, v23);
   }
 
-  v29 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v22 = [v17 valueForProperty:{85, TSWPFontHeightInfoForFont(FontForStyle, &v27)}];
-  v23 = [v22 mode];
-  [v22 amount];
-  Line = TSWPLineFragmentCalculateOffsetForNextLine(&v27, 0, v23, v24);
+  v31 = 0u;
+  v25 = [v20 valueForProperty:{85, TSWPFontHeightInfoForFont(&v30)}];
+  v26 = [v25 mode];
+  [v25 amount];
+  Line = TSWPLineFragmentCalculateOffsetForNextLine(&v30, 0, v26, v27);
   if (*(a1 + 336) == 2)
   {
-    v26 = *&v27 + *(a1 + 376) * *(a1 + 344);
+    v29 = *&v30 + *(a1 + 376) * *(a1 + 344);
   }
 
   else
   {
-    v26 = *&v27 + *&v29 + fmax(*&v28, *(&v27 + 1));
+    v29 = *&v30 + *&v32 + fmax(*&v31, *(&v30 + 1));
   }
 
-  TSWPDropCapLayoutState::dropCapHeightWithGuess(a1 + 864, v26 + (*(a1 + 920) - 1) * Line);
-  TSWPDropCapLayoutState::lineCapHeightWithGuess(a1 + 864, *(&v30 + 1));
+  TSWPDropCapLayoutState::dropCapHeightWithGuess(a1 + 864, v29 + (*(a1 + 920) - 1) * Line);
+  TSWPDropCapLayoutState::lineCapHeightWithGuess(a1 + 864, *(&v33 + 1));
   operator new();
 }
 
@@ -685,36 +685,36 @@ uint64_t TSWPLayoutChore::pSetupTypesetterIfNeeded(TSWPLayoutChore *this, CGSize
   return result;
 }
 
-uint64_t TSWPLayoutChore::pFillSingleLineFragment@<X0>(uint64_t a1@<X0>, char a2@<W4>, uint64_t a3@<X5>, uint64_t **a4@<X6>, uint64_t **a5@<X7>, TSWPLineFragment **a6@<X8>, double a7@<D0>, double a8@<D1>, double a9@<D2>, double a10@<D3>, _WORD *a11, _BYTE *a12)
+uint64_t TSWPLayoutChore::pFillSingleLineFragment@<X0>(uint64_t a1@<X0>, char a4@<W4>, uint64_t a5@<X5>, uint64_t **a6@<X6>, uint64_t **a7@<X7>, TSWPLineFragment **a8@<X8>, double a9@<D0>, double a10@<D1>, double a11@<D2>, double a12@<D3>, _WORD *a13, _BYTE *a14, char a15)
 {
-  *a6 = 0;
-  a6[1] = 0;
-  *(a1 + 600) = a7;
-  *(a1 + 608) = a8;
-  *(a1 + 616) = a9;
-  *(a1 + 624) = a10;
-  if (a9 < 0.0)
+  *a8 = 0;
+  a8[1] = 0;
+  *(a1 + 600) = a9;
+  *(a1 + 608) = a10;
+  *(a1 + 616) = a11;
+  *(a1 + 624) = a12;
+  if (a11 < 0.0)
   {
     *(a1 + 616) = 0;
-    a9 = 0.0;
+    a11 = 0.0;
   }
 
-  v15 = *(a1 + 80);
-  *(a3 + 145) = a2;
-  *(a3 + 146) = a2 ^ 1;
-  for (i = *a4; ; *a4 = i)
+  v18 = *(a1 + 80);
+  *(a5 + 145) = a4;
+  *(a5 + 146) = a4 ^ 1;
+  for (i = *a6; ; *a6 = i)
   {
-    if (i == *a5)
+    if (i == *a7)
     {
-      v17 = 0;
+      v20 = 0;
 LABEL_8:
-      *(a3 + 152) = v17;
+      *(a5 + 152) = v20;
       goto LABEL_9;
     }
 
-    v17 = *i;
-    v18 = **i;
-    if (v18 >= v15)
+    v20 = *i;
+    v21 = **i;
+    if (v21 >= v18)
     {
       break;
     }
@@ -722,98 +722,98 @@ LABEL_8:
     i += 2;
   }
 
-  if (v17[25] == v17[24] && (*(a3 + 58) & 1) == 0)
+  if (*(v20 + 200) == *(v20 + 192) && (*(a5 + 58) & 1) == 0)
   {
     goto LABEL_8;
   }
 
-  v37 = *(v17 + 6);
-  if ((v37 & 4) != 0 || v15 != v18 || ((v37 >> 13) & 1) != (*(a1 + 32) & 0x10) >> 4)
+  v41 = *(v20 + 24);
+  if ((v41 & 4) != 0 || v18 != v21 || ((v41 >> 13) & 1) != (*(a1 + 32) & 0x10) >> 4)
   {
     goto LABEL_8;
   }
 
-  v38 = *(v17 + 6) == a7 && *(v17 + 7) == a8;
-  if (!v38 || *(v17 + 8) != a9)
+  v42 = *(v20 + 48) == a9 && *(v20 + 56) == a10;
+  if (!v42 || *(v20 + 64) != a11)
   {
     goto LABEL_8;
   }
 
-  std::shared_ptr<TSWPLineFragment>::operator=[abi:ne200100](a6, i);
-  TSWPLineFragment::setWasReused(*a6);
-  v39 = *a6;
-  *(a3 + 152) = v17;
-  if (!v39)
+  std::shared_ptr<TSWPLineFragment>::operator=[abi:ne200100](a8, i);
+  TSWPLineFragment::setWasReused(*a8);
+  v43 = *a8;
+  *(a5 + 152) = v20;
+  if (!v43)
   {
 LABEL_9:
     operator new();
   }
 
-  *(a3 + 200) = v39;
-  v40 = TSWPCoreTextTypesetter::skipLine(*(a1 + 2024), (a1 + 80), a3);
-  *(a1 + 80) = v40;
-  v19 = *(a1 + 168) + *(a1 + 160);
-  if (v40 > v19)
-  {
-    v20 = [MEMORY[0x277D6C290] currentHandler];
-    v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"line_fragment_ptr TSWPLayoutChore::pFillSingleLineFragment(const CGRect, const NSRange, const NSUInteger, const BOOL, TSWPTypesetterParamBlock &, TSWPLineFragmentArray::line_iterator &, const TSWPLineFragmentArray::line_iterator &, unichar &, BOOL &, BOOL)"}];
-    [v20 handleFailureInFunction:v21 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 1778, @"Bad _state.charIndex"}];
-    v19 = *(a1 + 168) + *(a1 + 160);
-  }
-
-  v22 = *a6;
-  if (*(*a6 + 1) + **a6 > v19)
+  *(a5 + 200) = v43;
+  v44 = TSWPCoreTextTypesetter::skipLine(*(a1 + 2024), (a1 + 80), a5);
+  *(a1 + 80) = v44;
+  v22 = *(a1 + 168) + *(a1 + 160);
+  if (v44 > v22)
   {
     v23 = [MEMORY[0x277D6C290] currentHandler];
     v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"line_fragment_ptr TSWPLayoutChore::pFillSingleLineFragment(const CGRect, const NSRange, const NSUInteger, const BOOL, TSWPTypesetterParamBlock &, TSWPLineFragmentArray::line_iterator &, const TSWPLineFragmentArray::line_iterator &, unichar &, BOOL &, BOOL)"}];
-    [v23 handleFailureInFunction:v24 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 1779, @"Bad line end"}];
-    v22 = *a6;
+    [v23 handleFailureInFunction:v24 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 1778, @"Bad _state.charIndex"}];
+    v22 = *(a1 + 168) + *(a1 + 160);
   }
 
-  if (*(v22 + 25) == *(v22 + 24) && (*(a3 + 58) & 1) == 0)
+  v25 = *a8;
+  if (*(*a8 + 1) + **a8 > v22)
   {
-    v25 = [MEMORY[0x277D6C290] currentHandler];
-    v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"line_fragment_ptr TSWPLayoutChore::pFillSingleLineFragment(const CGRect, const NSRange, const NSUInteger, const BOOL, TSWPTypesetterParamBlock &, TSWPLineFragmentArray::line_iterator &, const TSWPLineFragmentArray::line_iterator &, unichar &, BOOL &, BOOL)"}];
-    [v25 handleFailureInFunction:v26 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 1780, @"Bad glyphCount"}];
-    v22 = *a6;
-    if (!*a6)
+    v26 = [MEMORY[0x277D6C290] currentHandler];
+    v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"line_fragment_ptr TSWPLayoutChore::pFillSingleLineFragment(const CGRect, const NSRange, const NSUInteger, const BOOL, TSWPTypesetterParamBlock &, TSWPLineFragmentArray::line_iterator &, const TSWPLineFragmentArray::line_iterator &, unichar &, BOOL &, BOOL)"}];
+    [v26 handleFailureInFunction:v27 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 1779, @"Bad line end"}];
+    v25 = *a8;
+  }
+
+  if (*(v25 + 25) == *(v25 + 24) && (*(a5 + 58) & 1) == 0)
+  {
+    v28 = [MEMORY[0x277D6C290] currentHandler];
+    v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"line_fragment_ptr TSWPLayoutChore::pFillSingleLineFragment(const CGRect, const NSRange, const NSUInteger, const BOOL, TSWPTypesetterParamBlock &, TSWPLineFragmentArray::line_iterator &, const TSWPLineFragmentArray::line_iterator &, unichar &, BOOL &, BOOL)"}];
+    [v28 handleFailureInFunction:v29 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 1780, @"Bad glyphCount"}];
+    v25 = *a8;
+    if (!*a8)
     {
-      v27 = [MEMORY[0x277D6C290] currentHandler];
-      v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"line_fragment_ptr TSWPLayoutChore::pFillSingleLineFragment(const CGRect, const NSRange, const NSUInteger, const BOOL, TSWPTypesetterParamBlock &, TSWPLineFragmentArray::line_iterator &, const TSWPLineFragmentArray::line_iterator &, unichar &, BOOL &, BOOL)"}];
-      [v27 handleFailureInFunction:v28 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 1782, @"failed to create a line fragment"}];
-      v22 = *a6;
+      v30 = [MEMORY[0x277D6C290] currentHandler];
+      v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"line_fragment_ptr TSWPLayoutChore::pFillSingleLineFragment(const CGRect, const NSRange, const NSUInteger, const BOOL, TSWPTypesetterParamBlock &, TSWPLineFragmentArray::line_iterator &, const TSWPLineFragmentArray::line_iterator &, unichar &, BOOL &, BOOL)"}];
+      [v30 handleFailureInFunction:v31 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 1782, @"failed to create a line fragment"}];
+      v25 = *a8;
     }
   }
 
-  if ((*(a3 + 32) & 4) != 0)
+  if ((*(a5 + 32) & 4) != 0)
   {
-    v29 = (v22 + 216);
-    v30 = *(v22 + 27);
-    if (*(a1 + 632) >= v30)
+    v32 = (v25 + 216);
+    v33 = *(v25 + 27);
+    if (*(a1 + 632) >= v33)
     {
-      v30 = *(a1 + 632);
+      v33 = *(a1 + 632);
     }
 
-    *(a1 + 632) = v30;
-    if (*(v22 + 22))
+    *(a1 + 632) = v33;
+    if (*(v25 + 22))
     {
-      if (v30 >= *v29)
+      if (v33 >= *v32)
       {
-        v29 = (a1 + 632);
+        v32 = (a1 + 632);
       }
 
-      *(a1 + 632) = *v29;
+      *(a1 + 632) = *v32;
     }
   }
 
-  v31 = TSWPLayoutChore::pApplySpaceAfterToLineFragment(a1, v22, 0, *(a3 + 208), *(a3 + 216));
-  if (v31)
+  v34 = TSWPLayoutChore::pApplySpaceAfterToLineFragment(a1, v25, 0, *(a5 + 208), *(a5 + 216));
+  if (v34)
   {
     Paragraph = TSWPLayoutChore::pSetupNextParagraph(a1);
-    *a12 = 0;
-    if (Paragraph && *(a1 + 80) > v15)
+    *a14 = 0;
+    if (Paragraph && *(a1 + 80) > v18)
     {
-      LOBYTE(v31) = [*(a1 + 8) hasColumnStyleForParagraphBreakAtCharIndex:*(a3 + 216)];
+      LOBYTE(v34) = [*(a1 + 8) hasColumnStyleForParagraphBreakAtCharIndex:*(a5 + 216)];
       goto LABEL_29;
     }
   }
@@ -821,32 +821,32 @@ LABEL_9:
   else
   {
 LABEL_29:
-    *a12 = v31;
+    *a14 = v34;
   }
 
-  v33 = *(a3 + 208);
-  result = IsParagraphBreakingCharacter(*(a3 + 208));
-  if (v33 == 8232)
+  v37 = *(a5 + 208);
+  result = IsParagraphBreakingCharacter(*(a5 + 208), v35);
+  if (v37 == 8232)
   {
-    v35 = 1;
+    v39 = 1;
   }
 
   else
   {
-    v35 = result;
+    v39 = result;
   }
 
-  if (v35)
+  if (v39)
   {
-    v36 = *(a3 + 208);
+    v40 = *(a5 + 208);
   }
 
   else
   {
-    v36 = 0;
+    v40 = 0;
   }
 
-  *a11 = v36;
+  *a13 = v40;
   return result;
 }
 
@@ -875,16 +875,16 @@ uint64_t TSWPLayoutChore::pApplySpaceAfterToLineFragment(TSWPLayoutChore *this, 
 
   v11 = *(this + 57);
   v12 = [*(this + 1) wpKind];
-  v13 = 6.0;
+  v14 = 6.0;
   if (v12 == 5)
   {
-    v13 = 0.0;
+    v14 = 0.0;
   }
 
-  v14 = fmax(*(this + 55) + v11 + v13, 0.0);
+  v15 = fmax(*(this + 55) + v11 + v14, 0.0);
   if (*(this + 107) == 4 && v10)
   {
-    *(a3 + 80) = CGRectInset(*(a2 + 80), -v14, 0.0);
+    *(a3 + 80) = CGRectInset(*(a2 + 80), -v15, 0.0);
   }
 
   if (*(this + 10) < *(this + 21) + *(this + 20))
@@ -894,9 +894,9 @@ uint64_t TSWPLayoutChore::pApplySpaceAfterToLineFragment(TSWPLayoutChore *this, 
 
   if (*(this + 57) != 0.0)
   {
-    if (TSWPParagraphEnumerator::isLastParagraph((this + 104)) || (v17 = [*(this + 1) characterAtIndex:*(this + 20) + *(this + 21) - 1] - 4, v17 < 0xC) && ((0x907u >> v17) & 1) != 0 || (TSWPParagraphEnumerator::next((this + 104), &v27), v18 = TSWPParagraphEnumerator::paragraphStyle(&v27, 0), TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v27), objc_msgSend(v18, "intValueForProperty:", 102) != 4))
+    if (TSWPParagraphEnumerator::isLastParagraph((this + 104)) || (v18 = [*(this + 1) characterAtIndex:*(this + 20) + *(this + 21) - 1] - 4, v18 < 0xC) && ((0x907u >> v18) & 1) != 0 || (TSWPParagraphEnumerator::next((this + 104), &v28), v19 = TSWPParagraphEnumerator::paragraphStyle(&v28, 0), TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v28), objc_msgSend(v19, "intValueForProperty:", 102) != 4))
     {
-      v19 = 0;
+      v20 = 0;
       if (!v10)
       {
         goto LABEL_25;
@@ -905,29 +905,29 @@ uint64_t TSWPLayoutChore::pApplySpaceAfterToLineFragment(TSWPLayoutChore *this, 
 
     else
     {
-      v19 = [v18 valueForProperty:103];
+      v20 = [v19 valueForProperty:103];
       if (!v10)
       {
         goto LABEL_25;
       }
     }
 
-    v20 = *(this + 107);
-    if ((v20 - 2) < 2 || v20 == 4 && ([*(this + 54) isEqual:v19] & 1) == 0)
+    v21 = *(this + 107);
+    if ((v21 - 2) < 2 || v21 == 4 && ([*(this + 54) isEqual:v20] & 1) == 0)
     {
-      *(a3 + 20) = v14 + *(a3 + 20);
-      *(a3 + 9) = v14 + *(a3 + 9);
-      *(a3 + 13) = v14 + *(a3 + 13);
+      *(a3 + 20) = v15 + *(a3 + 20);
+      *(a3 + 9) = v15 + *(a3 + 9);
+      *(a3 + 13) = v15 + *(a3 + 13);
     }
   }
 
 LABEL_25:
   *(this + 88) = 0;
-  v21 = IsParagraphBreakingCharacter(a4);
-  if (v21)
+  v22 = IsParagraphBreakingCharacter(a4, v13);
+  if (v22)
   {
-    v22 = *(this + 49);
-    if (v22 <= 0.0 || *(this + 26) + *(this + 25) == a5)
+    v23 = *(this + 49);
+    if (v23 <= 0.0 || *(this + 26) + *(this + 25) == a5)
     {
       result = 1;
       goto LABEL_38;
@@ -942,8 +942,8 @@ LABEL_25:
       goto LABEL_38;
     }
 
-    v22 = *(this + 49);
-    if (v22 <= 0.0)
+    v23 = *(this + 49);
+    if (v23 <= 0.0)
     {
 LABEL_12:
       result = 0;
@@ -953,25 +953,25 @@ LABEL_12:
 
   if (v10)
   {
-    *(a3 + 20) = v22 + *(a3 + 20);
-    *(a3 + 9) = v22 + *(a3 + 9);
-    *(a3 + 13) = v22 + *(a3 + 13);
+    *(a3 + 20) = v23 + *(a3 + 20);
+    *(a3 + 9) = v23 + *(a3 + 9);
+    *(a3 + 13) = v23 + *(a3 + 13);
   }
 
   Line = TSWPLineFragment::calculateOffsetForNextLine(a2, *(this + 84), *(this + 47));
-  v24 = *(a2 + 20);
-  v25 = *(a2 + 14) + *(a2 + 18) + *(a2 + 16) + *(a2 + 17) + *(a2 + 19) + v24 - Line;
-  if (v25 > 0.0)
+  v25 = *(a2 + 20);
+  v26 = *(a2 + 14) + *(a2 + 18) + *(a2 + 16) + *(a2 + 17) + *(a2 + 19) + v25 - Line;
+  if (v26 > 0.0)
   {
-    v26 = fmin(v25, v24);
-    *(this + 88) = -v26;
+    v27 = fmin(v26, v25);
+    *(this + 88) = -v27;
     if (a3)
     {
-      *(a3 + 9) = *(a3 + 9) - v26;
+      *(a3 + 9) = *(a3 + 9) - v27;
     }
   }
 
-  result = v21;
+  result = v22;
 LABEL_38:
   *(this + 592) = 0;
   return result;
@@ -1029,9 +1029,9 @@ void TSWPLayoutChore::pSetupStateForDropCap(id *this, id *a2)
   }
 }
 
-void sub_26C94CAE4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C94CAE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TSWPDropCapLayoutState::~TSWPDropCapLayoutState(va);
   _Unwind_Resume(a1);
 }
@@ -1057,9 +1057,9 @@ void TSWPLayoutChore::pSetupStateForLineStyling(id *this, id *a2)
   }
 }
 
-void sub_26C94CC28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C94CC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TSWPLineStylingLayoutState::~TSWPLineStylingLayoutState(va);
   _Unwind_Resume(a1);
 }
@@ -1156,7 +1156,7 @@ LABEL_19:
   return v5;
 }
 
-uint64_t TSWPLayoutChore::pCreateAttachmentPartitionLineFragment(TSWPLayoutChore *this, double a2, CGSize a3, int a4, BOOL *a5)
+uint64_t TSWPLayoutChore::pCreateAttachmentPartitionLineFragment(TSWPLayoutChore *this, CGFloat a2, CGSize a3, int a4, BOOL *a5)
 {
   height = a3.height;
   width = a3.width;
@@ -1312,7 +1312,7 @@ uint64_t TSWPLayoutChore::pGetAlignmentForParagraphStyle(TSWPLayoutChore *this, 
 
 uint64_t TSWPLayoutChore::pCreateFullContainerAnchoredDrawableLineFragment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CGFloat *a9, _BYTE *a10)
 {
-  v10 = MEMORY[0x28223BE20]();
+  v10 = MEMORY[0x28223BE20](a1);
   v46 = *MEMORY[0x277D85DE8];
   if (*(v10 + 80) != *(v10 + 88))
   {
@@ -1477,7 +1477,7 @@ uint64_t TSWPLayoutChore::pAddFootnotesForLineRange(id *this, _NSRange a2, doubl
   return v17;
 }
 
-uint64_t TSWPLayoutChore::pIsLastColumn(id *this)
+void *TSWPLayoutChore::pIsLastColumn(id *this)
 {
   if (![this[1] wpKind])
   {
@@ -1489,7 +1489,7 @@ uint64_t TSWPLayoutChore::pIsLastColumn(id *this)
   result = [this[257] isLastTarget];
   if (result)
   {
-    return [objc_msgSend(this[257] "columns")] == this[23];
+    return ([objc_msgSend(this[257] "columns")] == this[23]);
   }
 
   return result;
@@ -1537,7 +1537,7 @@ uint64_t TSWPLayoutChore::pFindCharIndexOfRunThatMadeUsGrowToLineHeightGuess(TSW
   return v7;
 }
 
-uint64_t TSWPLayoutChore::pSetupAnchoredGraphics(TSWPLayoutChore *this, NSMutableArray *a2, _NSRange a3, double a4, TSWPLayoutState *a5, CGSize a6, char a7, double *a8, double *a9, double *a10)
+uint64_t TSWPLayoutChore::pSetupAnchoredGraphics(TSWPLayoutChore *this, NSMutableArray *a2, _NSRange a3, double a4, TSWPLayoutState *a5, CGSize a6, uint64_t a7, double *a8, double *a9, double *a10)
 {
   v67[0] = 0;
   if (*(this + 14))
@@ -1547,6 +1547,7 @@ uint64_t TSWPLayoutChore::pSetupAnchoredGraphics(TSWPLayoutChore *this, NSMutabl
     return result;
   }
 
+  v14 = a7;
   height = a6.height;
   width = a6.width;
   length = a3.length;
@@ -1620,7 +1621,7 @@ LABEL_12:
           {
             v60 = *MEMORY[0x277CBF348];
             v59 = *MEMORY[0x277CBF3A8];
-            v57 |= TSWPLayoutChore::pPositionAnchoredAttachment(this, x, y, v25, v26, a4, width, height, v35, v36, v31, v61, a5, a7, &v66, a2, v67, &v60, &v59, &v62) ^ 1;
+            v57 |= TSWPLayoutChore::pPositionAnchoredAttachment(this, x, y, v25, v26, a4, width, height, v35, v36, v31, v61, a5, v14, &v66, a2, v67, &v60, &v59, &v62) ^ 1;
             v37 = [(TSWPDrawableAttachment *)v31 isHTMLWrap];
             v38 = v58;
             v39 = fmax(v58, *(&v60 + 1) + *(&v59 + 1));
@@ -1740,10 +1741,10 @@ BOOL TSWPLayoutChore::pAnchoredGraphicInLineRange(uint64_t a1, unint64_t a2, uin
   return v10 < v4;
 }
 
-unint64_t TSWPLayoutChore::removeFootnotesInRange(id *this, _NSRange a2)
+char *TSWPLayoutChore::removeFootnotesInRange(id *this, _NSRange a2)
 {
   result = [this[1] footnoteRangeForTextRange:{a2.location, a2.length}];
-  if (result < result + v4)
+  if (result < &result[v4])
   {
     v5 = result;
     v6 = v4;
@@ -1791,41 +1792,41 @@ uint64_t TSWPLayoutChore::pPullDownWidowsFromPreviousColumn(TSWPLayoutChore *thi
   }
 
   v11 = v9;
-  TSWPLayoutState::TSWPLayoutState(v44, a2);
+  TSWPLayoutState::TSWPLayoutState(v43, a2);
   v12 = *(this + 1);
-  v13 = [*(this + 3) styleProvider];
+  [*(this + 3) styleProvider];
   if (v12)
   {
-    [v12 paragraphEnumeratorAtCharIndex:location styleProvider:v13];
+    objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(v12);
   }
 
   else
   {
-    memset(&v43, 0, sizeof(v43));
+    memset(&v42, 0, sizeof(v42));
   }
 
-  if (TSWPParagraphEnumerator::paragraphTextRange(&v43) == location)
+  if (TSWPParagraphEnumerator::paragraphTextRange(&v42) == location)
   {
-    for (i = 0; !TSWPParagraphEnumerator::isFirstParagraph(&v43); i = 1)
+    for (i = 0; !TSWPParagraphEnumerator::isFirstParagraph(&v42); i = 1)
     {
-      TSWPParagraphEnumerator::operator--(&v43);
-      v15 = TSWPParagraphEnumerator::paragraphStyle(&v43, &v42);
-      if (v42.location <= v11 || ![v15 intValueForProperty:90])
+      TSWPParagraphEnumerator::operator--(&v42);
+      v14 = TSWPParagraphEnumerator::paragraphStyle(&v42, &v41);
+      if (v41.location <= v11 || ![v14 intValueForProperty:90])
       {
         break;
       }
 
-      location = v42.location;
-      TSWPParagraphEnumerator::operator--(v45);
-      *v47 = v42;
+      location = v41.location;
+      TSWPParagraphEnumerator::operator--(v44);
+      v46 = v41;
       if (!v7)
       {
         v7 = (this + 816);
       }
 
       TSWPTopicNumberHints::backUpByOneParagraph(this + 16, v7, *(this + 1));
-      v16 = *(this + 105);
-      if (*(this + 99) < v16 && v16 != 0x7FFFFFFFFFFFFFFFLL)
+      v15 = *(this + 105);
+      if (*(this + 99) < v15 && v15 != 0x7FFFFFFFFFFFFFFFLL)
       {
         TSWPTopicNumberHints::operator=(this + 17, this + 16);
       }
@@ -1837,10 +1838,20 @@ uint64_t TSWPLayoutChore::pPullDownWidowsFromPreviousColumn(TSWPLayoutChore *thi
     i = 0;
   }
 
-  v17 = [v6 range];
-  if (location <= v17 + v18)
+  v16 = [v6 range];
+  if (location <= v16 + v17)
   {
-    v19 = (v17 + v18);
+    v18 = (v16 + v17);
+  }
+
+  else
+  {
+    v18 = location;
+  }
+
+  if (location >= v16 + v17)
+  {
+    v19 = (v16 + v17);
   }
 
   else
@@ -1848,144 +1859,134 @@ uint64_t TSWPLayoutChore::pPullDownWidowsFromPreviousColumn(TSWPLayoutChore *thi
     v19 = location;
   }
 
-  if (location >= v17 + v18)
-  {
-    v20 = (v17 + v18);
-  }
-
-  else
-  {
-    v20 = location;
-  }
-
-  [v6 trimToCharIndex:location inTarget:*(this + 257) removeAutoNumberFootnoteCount:{objc_msgSend(*(this + 1), "autoNumberFootnoteCountForRange:", v20, v19 - v20)}];
+  [v6 trimToCharIndex:location inTarget:*(this + 257) removeAutoNumberFootnoteCount:{objc_msgSend(*(this + 1), "autoNumberFootnoteCountForRange:", v19, v18 - v19)}];
   if (i)
   {
-    *(this + 104) = v45[0];
-    *(this + 120) = v45[1];
-    *(this + 136) = v45[2];
-    *(this + 152) = v46;
-    *(this + 10) = *v47;
+    *(this + 104) = v44[0];
+    *(this + 120) = v44[1];
+    *(this + 136) = v44[2];
+    *(this + 152) = v45;
+    *(this + 10) = v46;
     *(this + 10) = location;
     TSWPLayoutChore::pSetupStateForParagraphIndex(this, 0);
     if (v7)
     {
-      v21 = v7;
+      v20 = v7;
     }
 
     else
     {
-      v21 = (this + 816);
+      v20 = (this + 816);
     }
 
-    TSWPTopicNumberHints::operator=(this + 16, v21);
+    TSWPTopicNumberHints::operator=(this + 16, v20);
     TSWPTopicNumberHints::advanceToCharIndex(this + 16, *(this + 10), *(this + 1));
   }
 
   else
   {
-    v22 = (location - v47[0]);
-    if (location >= v47[0])
+    v21 = &location[-v46.location];
+    if (location >= v46.location)
     {
-      v44[0] = location;
-      v48 = (location - v47[0]);
+      v43[0] = location;
+      v47 = &location[-v46.location];
       if (location > *(this + 8))
       {
-        v23 = [MEMORY[0x277D6C290] currentHandler];
-        v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BOOL TSWPLayoutChore::pPullDownWidowsFromPreviousColumn(TSWPLayoutState *)"];
-        [v23 handleFailureInFunction:v24 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 4591, @"Bad backUpLayoutState.charIndex"}];
-        v22 = v48;
+        v22 = [MEMORY[0x277D6C290] currentHandler];
+        v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BOOL TSWPLayoutChore::pPullDownWidowsFromPreviousColumn(TSWPLayoutState *)"];
+        [v22 handleFailureInFunction:v23 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 4591, @"Bad backUpLayoutState.charIndex"}];
+        v21 = v47;
       }
 
-      if (v22 >= v47[1])
+      if (v21 >= v46.length)
       {
-        v25 = [MEMORY[0x277D6C290] currentHandler];
-        v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BOOL TSWPLayoutChore::pPullDownWidowsFromPreviousColumn(TSWPLayoutState *)"];
-        [v25 handleFailureInFunction:v26 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 4592, @"Bad typesetterCharIndex"}];
+        v24 = [MEMORY[0x277D6C290] currentHandler];
+        v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BOOL TSWPLayoutChore::pPullDownWidowsFromPreviousColumn(TSWPLayoutState *)"];
+        [v24 handleFailureInFunction:v25 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 4592, @"Bad typesetterCharIndex"}];
       }
 
-      v49 = v44[0] == v47[0];
+      v48 = v43[0] == v46.location;
       objc_opt_class();
-      v27 = TSUDynamicCast();
-      v28 = v27;
-      if (v27)
+      v26 = TSUDynamicCast();
+      v27 = v26;
+      if (v26)
       {
-        [v27 wpBounds];
-        fixSpaceAfterForParagraphBorder(this + 80, [v28 lineFragmentArray], v29, v30, v31, v32);
-        [v28 clearAdornments];
-        TSWPLayoutChore::addParagraphAdornmentsToColumn(v28, *(this + 24), [*(this + 3) styleProvider]);
-        v33 = *(this + 24);
+        [v26 wpBounds];
+        fixSpaceAfterForParagraphBorder(this + 80, [v27 lineFragmentArray], v28, v29, v30, v31);
+        [v27 clearAdornments];
+        TSWPLayoutChore::addParagraphAdornmentsToColumn(v27, *(this + 24), [*(this + 3) styleProvider]);
+        v32 = *(this + 24);
         [*(this + 3) styleProvider];
-        TSWPLayoutChore::addChangeBarAdornmentsToColumn(v28, v33);
+        TSWPLayoutChore::addChangeBarAdornmentsToColumn(v27, v32);
       }
 
-      TSWPLayoutChore::pRestoreStateFromOldState(this, v44);
+      TSWPLayoutChore::pRestoreStateFromOldState(this, v43);
       (*(**(this + 253) + 32))(*(this + 253), *(this + 72));
       if (location == TSWPParagraphEnumerator::paragraphTextRange((this + 104)))
       {
         if (v7)
         {
-          v34 = v7;
+          v33 = v7;
         }
 
         else
         {
-          v34 = (this + 816);
+          v33 = (this + 816);
         }
 
-        TSWPTopicNumberHints::backUpByOneParagraph(this + 16, v34, *(this + 1));
+        TSWPTopicNumberHints::backUpByOneParagraph(this + 16, v33, *(this + 1));
       }
 
       TSWPTopicNumberHints::advanceToCharIndex(this + 16, *(this + 10), *(this + 1));
     }
   }
 
-  v35 = *(this + 99);
-  v36 = *(this + 105);
-  v37 = v35 < v36 || v35 == 0x7FFFFFFFFFFFFFFFLL;
-  if (v37 && v36 != 0x7FFFFFFFFFFFFFFFLL)
+  v34 = *(this + 99);
+  v35 = *(this + 105);
+  v36 = v34 < v35 || v34 == 0x7FFFFFFFFFFFFFFFLL;
+  if (v36 && v35 != 0x7FFFFFFFFFFFFFFFLL)
   {
     TSWPTopicNumberHints::operator=(this + 17, this + 16);
   }
 
   [*(this + 23) setStartCharIndex:*(this + 10)];
-  v38 = *(this + 251) - *(this + 250);
-  if (v38)
+  v37 = *(this + 251) - *(this + 250);
+  if (v37)
   {
-    v39 = 0x82FA0BE82FA0BE83 * (v38 >> 4);
-    v40 = v38 - 688;
+    v38 = 0x82FA0BE82FA0BE83 * (v37 >> 4);
+    v39 = v37 - 688;
     do
     {
-      v41 = *(this + 250);
-      if (*(v41 + v40) > *(this + 10))
+      v40 = *(this + 250);
+      if (*(v40 + v39) > *(this + 10))
       {
-        TSWPLayoutState::operator=((v41 + v40), this + 10);
+        TSWPLayoutState::operator=((v40 + v39), this + 10);
       }
 
-      v40 -= 688;
-      --v39;
+      v39 -= 688;
+      --v38;
     }
 
-    while (v39);
+    while (v38);
   }
 
-  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v43);
-  TSWPLayoutState::~TSWPLayoutState(v44);
+  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v42);
+  TSWPLayoutState::~TSWPLayoutState(v43);
   return 1;
 }
 
-void sub_26C94E5E8(_Unwind_Exception *a1, uint64_t a2, TSWPParagraphEnumerator *a3, uint64_t a4, uint64_t a5, ...)
+void sub_26C94E5E8(_Unwind_Exception *a1, uint64_t a2, TSWPParagraphEnumerator *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
   v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   TSWPParagraphEnumerator::~TSWPParagraphEnumerator(va);
   TSWPLayoutState::~TSWPLayoutState(va1);
   _Unwind_Resume(a1);
@@ -2017,7 +2018,7 @@ uint64_t TSWPLayoutChore::pHandleOrphanAndKeepTogether(uint64_t a1, TSWPLineFrag
     return 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v49 = a3;
+  v50 = a3;
   v22 = TSWPLineFragmentArray::count(*a2);
   v23 = *(a1 + 80);
   if (!v21)
@@ -2040,32 +2041,32 @@ uint64_t TSWPLayoutChore::pHandleOrphanAndKeepTogether(uint64_t a1, TSWPLineFrag
     goto LABEL_15;
   }
 
-  v55.origin.x = a6;
-  v55.origin.y = a7;
-  v55.size.width = a8;
-  v55.size.height = a9;
-  if (TSWPLineFragment::preventWidowCorrection(v19, v55))
+  v56.origin.x = a6;
+  v56.origin.y = a7;
+  v56.size.width = a8;
+  v56.size.height = a9;
+  if (TSWPLineFragment::preventWidowCorrection(v19, v56))
   {
     goto LABEL_15;
   }
 
-  v48 = v22 - LineIndexForCharIndex;
+  v49 = v22 - LineIndexForCharIndex;
   if (v22 - LineIndexForCharIndex != 1 || v25 <= a5)
   {
-    if (v48 == 2 && v25 > a5)
+    if (v49 == 2 && v25 > a5)
     {
       v19 = TSWPLineFragmentArray::objectAtIndex(*a2, LineIndexForCharIndex);
-      v56.origin.x = a6;
-      v56.origin.y = a7;
-      v56.size.width = a8;
-      v56.size.height = a9;
-      if (!TSWPLineFragment::preventWidowCorrection(v19, v56))
+      v57.origin.x = a6;
+      v57.origin.y = a7;
+      v57.size.width = a8;
+      v57.size.height = a9;
+      if (!TSWPLineFragment::preventWidowCorrection(v19, v57))
       {
         goto LABEL_63;
       }
     }
 
-    else if (v48 >= 3)
+    else if (v49 >= 3)
     {
 LABEL_63:
       v26 = 0;
@@ -2085,23 +2086,23 @@ LABEL_16:
   v27 = 0x7FFFFFFFFFFFFFFFLL;
   v26 = 1;
 LABEL_17:
-  TSWPParagraphEnumerator::TSWPParagraphEnumerator(&v53, (a1 + 104));
+  TSWPParagraphEnumerator::TSWPParagraphEnumerator(&v54, (a1 + 104));
   if ((v26 != 0 || !v21) && v23 && v23 < *(a1 + 64))
   {
-    v52 = *(a1 + 160);
-    TSWPParagraphEnumerator::TSWPParagraphEnumerator(&v51, &v53);
+    v53 = *(a1 + 160);
+    TSWPParagraphEnumerator::TSWPParagraphEnumerator(&v52, &v54);
     v28 = 0;
     while (1)
     {
       v29 = v28;
-      if (TSWPParagraphEnumerator::isFirstParagraph(&v51))
+      if (TSWPParagraphEnumerator::isFirstParagraph(&v52))
       {
         break;
       }
 
-      TSWPParagraphEnumerator::operator--(&v51);
-      v30 = TSWPParagraphEnumerator::paragraphStyle(&v51, &v52);
-      if (v52.length + v52.location <= a5)
+      TSWPParagraphEnumerator::operator--(&v52);
+      v30 = TSWPParagraphEnumerator::paragraphStyle(&v52, &v53);
+      if (v53.length + v53.location <= a5)
       {
         break;
       }
@@ -2112,19 +2113,19 @@ LABEL_17:
       {
         if (v29)
         {
-          v23 = v52.length + v52.location;
-          LineIndexForCharIndex = TSWPLineFragmentArray::findLineIndexForCharIndex(*a2, v52.length + v52.location);
-          TSWPParagraphEnumerator::next(&v51, &v50);
+          v23 = v53.length + v53.location;
+          LineIndexForCharIndex = TSWPLineFragmentArray::findLineIndexForCharIndex(*a2, v53.length + v53.location);
+          TSWPParagraphEnumerator::next(&v52, &v51);
           v26 = v22 - LineIndexForCharIndex;
-          v53 = v50;
-          TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v50);
+          v54 = v51;
+          TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v51);
         }
 
         break;
       }
     }
 
-    TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v51);
+    TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v52);
   }
 
   if (v26)
@@ -2146,11 +2147,11 @@ LABEL_17:
 
     (*(**(a1 + 2024) + 24))(*(a1 + 2024));
     *(a1 + 80) = v23;
-    v35 = *&v53.var2;
-    *(a1 + 104) = *&v53.var0;
+    v35 = *&v54.var2;
+    *(a1 + 104) = *&v54.var0;
     *(a1 + 120) = v35;
-    *(a1 + 136) = *&v53.var4;
-    *(a1 + 152) = v53.var6;
+    *(a1 + 136) = *&v54.var4;
+    *(a1 + 152) = v54.var6;
     TSWPLayoutChore::pSetupStateForParagraphIndex(a1, 0);
     v36 = *(a1 + 160);
     if (v36)
@@ -2158,66 +2159,66 @@ LABEL_17:
       v37 = v36 - 1;
       v38 = [*(a1 + 8) characterAtIndex:v36 - 1];
       v39 = v38;
-      v40 = IsParagraphBreakingCharacter(v38);
-      if (v40)
+      v41 = IsParagraphBreakingCharacter(v38, v40);
+      if (v41)
       {
         if ([*(a1 + 8) hasColumnStyleForParagraphBreakAtCharIndex:v37])
         {
-          v40 = 1;
+          v41 = 1;
         }
 
         else
         {
-          v40 = [*(a1 + 8) hasSectionForParagraphBreakAtCharIndex:v37];
+          v41 = [*(a1 + 8) hasSectionForParagraphBreakAtCharIndex:v37];
         }
       }
     }
 
     else
     {
-      v40 = 0;
+      v41 = 0;
       v39 = 0;
     }
 
-    *v49 = v39;
-    *a4 = v40;
-    if (TSWPLayoutChore::pAnchoredGraphicInLineRange(v40, LineIndexForCharIndex, v26, a2))
+    *v50 = v39;
+    *a4 = v41;
+    if (TSWPLayoutChore::pAnchoredGraphicInLineRange(v41, LineIndexForCharIndex, v26, a2))
     {
       *(a1 + 640) = 1;
     }
 
-    v41 = *TSWPLineFragmentArray::objectAtIndex(*a2, LineIndexForCharIndex);
-    v42 = TSWPLineFragmentArray::objectAtIndex(*a2, v26 + LineIndexForCharIndex - 1);
-    v43 = v42[1];
-    v44 = v43 + *v42;
-    if (v41 <= v44)
+    v42 = *TSWPLineFragmentArray::objectAtIndex(*a2, LineIndexForCharIndex);
+    v43 = TSWPLineFragmentArray::objectAtIndex(*a2, v26 + LineIndexForCharIndex - 1);
+    v44 = v43[1];
+    v45 = v44 + *v43;
+    if (v42 <= v45)
     {
-      v45 = v43 + *v42;
+      v46 = v44 + *v43;
     }
 
     else
     {
-      v45 = v41;
+      v46 = v42;
     }
 
-    if (v41 >= v44)
+    if (v42 >= v45)
     {
-      v46.location = v44;
+      v47.location = v45;
     }
 
     else
     {
-      v46.location = v41;
+      v47.location = v42;
     }
 
-    v46.length = v45 - v46.location;
-    TSWPLayoutChore::removeFootnotesInRange(a1, v46);
-    v54.location = LineIndexForCharIndex;
-    v54.length = v26;
-    TSWPLineFragmentArray::removeObjectsInRange(*a2, v54);
+    v47.length = v46 - v47.location;
+    TSWPLayoutChore::removeFootnotesInRange(a1, v47);
+    v55.location = LineIndexForCharIndex;
+    v55.length = v26;
+    TSWPLineFragmentArray::removeObjectsInRange(*a2, v55);
   }
 
-  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v53);
+  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v54);
   return v27;
 }
 
@@ -2228,13 +2229,13 @@ void sub_26C94EB0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t TSWPLayoutChore::pAdjustTrailingSpaceAfter(uint64_t a1, TSWPLineFragmentArray **a2)
+double *TSWPLayoutChore::pAdjustTrailingSpaceAfter(uint64_t a1, TSWPLineFragmentArray **a2)
 {
   result = TSWPLineFragmentArray::lastObject(*a2);
   if (result)
   {
     v5 = result;
-    v6 = *(result + 160);
+    v6 = result[20];
     if (v6 != 0.0)
     {
       v7 = *(a1 + 160);
@@ -2480,20 +2481,20 @@ uint64_t TSWPLayoutChore::pGetParagraphStyleAtCharIndex(TSWPLayoutChore *this, N
   if (a2 < v4 || a2 - v4 >= v5)
   {
     v7 = *(this + 1);
-    v8 = [*(this + 3) styleProvider];
+    [*(this + 3) styleProvider];
     if (v7)
     {
-      [v7 paragraphEnumeratorAtCharIndex:a2 styleProvider:v8];
+      objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(v7);
     }
 
     else
     {
-      memset(&v11, 0, sizeof(v11));
+      memset(&v10, 0, sizeof(v10));
     }
 
-    v10 = TSWPParagraphEnumerator::paragraphStyle(&v11, 0);
-    TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v11);
-    return v10;
+    v9 = TSWPParagraphEnumerator::paragraphStyle(&v10, 0);
+    TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v10);
+    return v9;
   }
 
   else
@@ -2509,20 +2510,20 @@ uint64_t TSWPLayoutChore::pParagraphRunsRightToLeftAtCharIndex(TSWPLayoutChore *
   if (a2 < v4 || a2 - v4 >= v5)
   {
     v7 = *(this + 1);
-    v8 = [*(this + 3) styleProvider];
+    [*(this + 3) styleProvider];
     if (v7)
     {
-      [v7 paragraphEnumeratorAtCharIndex:a2 styleProvider:v8];
+      objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(v7);
     }
 
     else
     {
-      memset(&v11, 0, sizeof(v11));
+      memset(&v10, 0, sizeof(v10));
     }
 
-    v10 = TSWPParagraphEnumerator::paragraphRunsRightToLeft(&v11);
-    TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v11);
-    return v10;
+    v9 = TSWPParagraphEnumerator::paragraphRunsRightToLeft(&v10);
+    TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v10);
+    return v9;
   }
 
   else
@@ -2707,7 +2708,7 @@ LABEL_17:
 
 uint64_t TSWPLayoutChore::pHandleLayoutBreaksAndColumnBalancing(uint64_t a1, int a2, NSUInteger a3, uint64_t a4, uint64_t a5, double a6, uint64_t a7, NSUInteger a8, int a9, double *a10, double *a11, double *a12, double *a13, _BYTE *a14, _DWORD *a15)
 {
-  if (!a2 || ([objc_msgSend(*(a1 + 2056) columnMetricsForCharIndex:*(a1 + 80) outRange:{0), "alwaysStartsNewTarget"}] & 1) != 0)
+  if (!a2 || ([objc_msgSend(*(a1 + 2056) columnMetricsForCharIndex:*(a1 + 80) outRange:{0, a5, a7), "alwaysStartsNewTarget"}] & 1) != 0)
   {
     if (*a14 != 1)
     {
@@ -2859,94 +2860,72 @@ LABEL_35:
   return result;
 }
 
-void TSWPLayoutChore::pCreateLineRefsAfterColumnBalancing(uint64_t a1, uint64_t a2, int a3)
+void TSWPLayoutChore::pCreateLineRefsAfterColumnBalancing(uint64_t a1, NSUInteger *a2, unsigned int a3)
 {
   v5 = [*(a1 + 2056) autosizeFlags];
-  v6 = *(a2 + 144);
-  if (v6 < *(a2 + 152) + v6)
+  v6 = a2[18];
+  if (v6 < a2[19] + v6)
   {
     v7 = 0;
     v8 = v5 & 0xC;
-    while (1)
+    do
     {
       v9 = [objc_msgSend(*(a1 + 2056) "columns")];
-      *(a2 + 104) = v9;
-      *(a2 + 160) = v6;
+      a2[13] = v9;
+      a2[20] = v6;
       v10 = [v9 countLines];
       if (v10)
       {
-        break;
+        v11 = v10;
+        for (i = 0; i != v11; ++i)
+        {
+          v13 = [v9 lineFragmentAtIndex:i];
+          if (*(v13 + 25) == *(v13 + 24))
+          {
+            v14 = v13;
+            v15 = *v13;
+            *a2 = *v13;
+            if ((v7 & 1) == 0 || (v16 = TSWPParagraphEnumerator::paragraphTextRange((a2 + 3)), v15 >= v16 + v17))
+            {
+              v26[0] = a1 + 872;
+              v26[1] = a1 + 1936;
+              v18 = *(a1 + 8);
+              [*(a1 + 24) styleProvider];
+              if (v18)
+              {
+                objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(v18);
+              }
+
+              else
+              {
+                memset(&v25, 0, sizeof(v25));
+              }
+
+              v19 = *&v25.var2;
+              *(a2 + 3) = *&v25.var0;
+              *(a2 + 5) = v19;
+              *(a2 + 7) = *&v25.var4;
+              *(a2 + 72) = v25.var6;
+              TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v25);
+              TSWPLayoutChore::pSetupStateForParagraphIndex(a1, a2);
+              v20 = *(a1 + 2024);
+              v21 = *MEMORY[0x277CBF3A8];
+              v22 = *(MEMORY[0x277CBF3A8] + 8);
+              v23 = TSWPParagraphEnumerator::relevantParagraphIndex((a2 + 3));
+              TSWPCoreTextTypesetter::beginParagraphLayout(v20, a2, a1 + 768, v26, v23, v21, v22);
+            }
+
+            TSWPCoreTextTypesetter::createLineRefsForLineFragment(*(a1 + 2024), v14, a2, v8 != 0, a3);
+            v7 = 1;
+          }
+        }
       }
 
-LABEL_15:
       TSWPLayoutChore::pPostProcessAttachments(a1, [v9 lineFragmentArray]);
-      if (++v6 >= *(a2 + 152) + *(a2 + 144))
-      {
-        return;
-      }
+      ++v6;
     }
 
-    v11 = v10;
-    v12 = 0;
-    while (1)
-    {
-      v13 = [v9 lineFragmentAtIndex:v12];
-      if (*(v13 + 25) == *(v13 + 24))
-      {
-        break;
-      }
-
-LABEL_14:
-      if (v11 == ++v12)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    v14 = v13;
-    v15 = *v13;
-    *a2 = *v13;
-    if (v7)
-    {
-      v16 = TSWPParagraphEnumerator::paragraphTextRange((a2 + 24));
-      if (v15 < v16 + v17)
-      {
-LABEL_13:
-        TSWPCoreTextTypesetter::createLineRefsForLineFragment(*(a1 + 2024), v14, a2, v8 != 0, a3);
-        v7 = 1;
-        goto LABEL_14;
-      }
-
-      v15 = *a2;
-    }
-
-    v27[0] = a1 + 872;
-    v27[1] = a1 + 1936;
-    v18 = *(a1 + 8);
-    v19 = [*(a1 + 24) styleProvider];
-    if (v18)
-    {
-      [v18 paragraphEnumeratorAtCharIndex:v15 styleProvider:v19];
-    }
-
-    else
-    {
-      memset(&v26, 0, sizeof(v26));
-    }
-
-    v20 = *&v26.var2;
-    *(a2 + 24) = *&v26.var0;
-    *(a2 + 40) = v20;
-    *(a2 + 56) = *&v26.var4;
-    *(a2 + 72) = v26.var6;
-    TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v26);
-    TSWPLayoutChore::pSetupStateForParagraphIndex(a1, a2);
-    v21 = *(a1 + 2024);
-    v22 = *MEMORY[0x277CBF3A8];
-    v23 = *(MEMORY[0x277CBF3A8] + 8);
-    v24 = TSWPParagraphEnumerator::relevantParagraphIndex((a2 + 24));
-    TSWPCoreTextTypesetter::beginParagraphLayout(v21, a2, a1 + 768, v27, v24, v22, v23);
-    goto LABEL_13;
+    while (v6 < a2[19] + a2[18]);
   }
 }
 
@@ -3187,22 +3166,22 @@ uint64_t pLayoutGeometryIsBeingManipulated(TSDLayout *a1)
 
 double TSWPLayoutChore::pCalculateAttachmentPosition(id *a1, TSWPDrawableAttachment *a2, unint64_t a3, const TSWPLayoutState *a4, char a5, double *a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10, double a11, CGFloat a12, CGFloat a13, double a14, double a15)
 {
-  v28 = [(TSDDrawableInfo *)[(TSWPDrawableAttachment *)a2 drawable] exteriorTextWrap];
-  if ([(TSDExteriorTextWrap *)v28 isHTMLWrap])
+  v27 = [(TSDDrawableInfo *)[(TSWPDrawableAttachment *)a2 drawable:a7] exteriorTextWrap];
+  if ([(TSDExteriorTextWrap *)v27 isHTMLWrap])
   {
-    v29 = [(TSDExteriorTextWrap *)v28 direction];
-    if (v29)
+    v28 = [(TSDExteriorTextWrap *)v27 direction];
+    if (v28)
     {
-      if (v29 == 2)
+      if (v28 == 2)
       {
-        v44.origin.x = a7;
-        v44.origin.y = a8;
-        v44.size.width = a9;
-        v44.size.height = a10;
-        MinX = CGRectGetMidX(v44) + a15 * -0.5;
+        v43.origin.x = a7;
+        v43.origin.y = a8;
+        v43.size.width = a9;
+        v43.size.height = a10;
+        MinX = CGRectGetMidX(v43) + a15 * -0.5;
       }
 
-      else if (v29 == 1)
+      else if (v28 == 1)
       {
         MinX = *a6;
         *a6 = a15 + *a6;
@@ -3210,11 +3189,11 @@ double TSWPLayoutChore::pCalculateAttachmentPosition(id *a1, TSWPDrawableAttachm
 
       else
       {
-        v46.origin.x = a7;
-        v46.origin.y = a8;
-        v46.size.width = a9;
-        v46.size.height = a10;
-        MinX = CGRectGetMinX(v46);
+        v45.origin.x = a7;
+        v45.origin.y = a8;
+        v45.size.width = a9;
+        v45.size.height = a10;
+        MinX = CGRectGetMinX(v45);
       }
     }
 
@@ -3229,79 +3208,79 @@ double TSWPLayoutChore::pCalculateAttachmentPosition(id *a1, TSWPDrawableAttachm
   {
     [(TSWPDrawableAttachment *)a2 hOffset];
     [(TSWPDrawableAttachment *)a2 vOffset];
-    v31 = [(TSWPDrawableAttachment *)a2 hOffsetType];
-    if (v31 == 2)
+    v30 = [(TSWPDrawableAttachment *)a2 hOffsetType];
+    if (v30 == 2)
     {
-      v32 = a10;
+      v31 = a10;
       objc_opt_class();
-      v36 = TSUDynamicCast();
+      v35 = TSUDynamicCast();
       [(TSWPDrawableAttachment *)a2 hOffset];
-      v38 = v37;
-      if (v36)
+      v37 = v36;
+      if (v35)
       {
-        [v36 frame];
+        [v35 frame];
       }
 
       else
       {
-        v39 = 0.0;
+        v38 = 0.0;
       }
 
-      MinX = v38 - v39;
+      MinX = v37 - v38;
     }
 
-    else if (v31 == 1)
+    else if (v30 == 1)
     {
-      v45.origin.x = a7;
-      v45.origin.y = a8;
-      v45.size.width = a9;
-      v32 = a10;
-      v45.size.height = a10;
-      v34 = CGRectGetMinX(v45);
+      v44.origin.x = a7;
+      v44.origin.y = a8;
+      v44.size.width = a9;
+      v31 = a10;
+      v44.size.height = a10;
+      v33 = CGRectGetMinX(v44);
       [(TSWPDrawableAttachment *)a2 hOffset];
-      MinX = v34 + v35;
+      MinX = v33 + v34;
     }
 
     else
     {
-      if (v31)
+      if (v30)
       {
-        v47.origin.x = a7;
-        v47.origin.y = a8;
-        v47.size.width = a9;
-        v32 = a10;
-        v47.size.height = a10;
-        v33 = CGRectGetMinX(v47);
+        v46.origin.x = a7;
+        v46.origin.y = a8;
+        v46.size.width = a9;
+        v31 = a10;
+        v46.size.height = a10;
+        v32 = CGRectGetMinX(v46);
       }
 
       else
       {
-        v32 = a10;
+        v31 = a10;
         [(TSWPDrawableAttachment *)a2 hOffset];
       }
 
-      MinX = v33;
+      MinX = v32;
     }
 
-    v40 = [(TSWPDrawableAttachment *)a2 vOffsetType];
-    if (v40 == 1)
+    v39 = [(TSWPDrawableAttachment *)a2 vOffsetType];
+    if (v39 == 1)
     {
       objc_opt_class();
-      v41 = TSUDynamicCast();
+      v40 = TSUDynamicCast();
       [(TSWPDrawableAttachment *)a2 vOffset];
-      if (v41)
+      if (v40)
       {
-        [v41 frame];
+        [v40 frame];
       }
     }
 
-    else if (v40)
+    else if (v39)
     {
-      v48.origin.x = a7;
-      v48.origin.y = a8;
-      v48.size.width = a9;
-      v48.size.height = v32;
-      CGRectGetMinY(v48);
+      v47.origin.x = a7;
+      v47.origin.y = a8;
+      v47.size.width = a9;
+      v47.size.height = v31;
+      CGRectGetMinY(v47);
     }
 
     else if ([a1[23] startCharIndex] <= a3)
@@ -3310,9 +3289,9 @@ double TSWPLayoutChore::pCalculateAttachmentPosition(id *a1, TSWPDrawableAttachm
     }
   }
 
-  v43.width = a12;
-  v43.height = a13;
-  TSWPLayoutChore::pAnchoredDrawableVerticalAdjustment(a1, a2, a4, v43, a5);
+  v42.width = a12;
+  v42.height = a13;
+  TSWPLayoutChore::pAnchoredDrawableVerticalAdjustment(a1, a2, a4, v42, a5);
   return MinX;
 }
 
@@ -3376,7 +3355,7 @@ LABEL_10:
   return v10 + TSWPAttachmentVAlignmentCorrection(-[TSWPDrawableAttachment vAlignment](a2, "vAlignment"), CharacterStyleAtCharIndex, *(a3 + 12), [*(a3 + 13) scaleTextPercent]);
 }
 
-uint64_t TSWPLayoutChore::pPositionAnchoredAttachment(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, double a6, CGFloat a7, CGFloat a8, uint64_t a9, uint64_t a10, TSWPDrawableAttachment *a11, unint64_t a12, const TSWPLayoutState *a13, char a14, void *a15, void *a16, _DWORD *a17, double *a18, uint64_t a19, uint64_t a20)
+uint64_t TSWPLayoutChore::pPositionAnchoredAttachment(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, double a6, CGFloat a7, CGFloat a8, uint64_t a9, uint64_t a10, TSWPDrawableAttachment *a11, unint64_t a12, const TSWPLayoutState *a13, char a14, void *a15, void *a16, _DWORD *a17, double *a18, double *a19, uint64_t a20)
 {
   v79 = *MEMORY[0x277D85DE8];
   v30 = [*(a1 + 2056) currentAnchoredDrawableLayouts];
@@ -3422,7 +3401,7 @@ uint64_t TSWPLayoutChore::pPositionAnchoredAttachment(uint64_t a1, CGFloat a2, C
           }
 
           *a19 = adjustedLayoutSize(v35);
-          *(a19 + 8) = v56;
+          *(a19 + 1) = v56;
           return 1;
         }
       }
@@ -3440,7 +3419,7 @@ uint64_t TSWPLayoutChore::pPositionAnchoredAttachment(uint64_t a1, CGFloat a2, C
   v36 = [*(a1 + 2056) validatedLayoutForAnchoredDrawable:{-[TSWPDrawableAttachment drawable](a11, "drawable")}];
   v37 = adjustedLayoutSize(v36);
   *a19 = v37;
-  *(a19 + 8) = v38;
+  *(a19 + 1) = v38;
   *a18 = TSWPLayoutChore::pCalculateAttachmentPosition(a1, a11, a12, a13, a14, a20, a2, a3, a4, a5, a6, a7, a8, v39, v37);
   *(a18 + 1) = v40;
   v41 = [(TSDLayout *)v36 iterativePositioningState];
@@ -3494,7 +3473,7 @@ uint64_t TSWPLayoutChore::pPositionAnchoredAttachment(uint64_t a1, CGFloat a2, C
   {
     v58 = a6;
     v59 = a18[1];
-    v60 = v59 + *(a19 + 8) - v57;
+    v60 = v59 + a19[1] - v57;
     if (v60 > 0.0)
     {
       [(TSWPDrawableAttachment *)a11 vOffset];
@@ -3506,7 +3485,7 @@ uint64_t TSWPLayoutChore::pPositionAnchoredAttachment(uint64_t a1, CGFloat a2, C
       }
     }
 
-    if (v59 + *(a19 + 8) > v57)
+    if (v59 + a19[1] > v57)
     {
       v81.width = a7;
       v81.height = a8;
@@ -3627,245 +3606,248 @@ LABEL_7:
   return v3 - (v6 + v5);
 }
 
-uint64_t TSWPLayoutChore::pAnchoredGraphicAndTextCollisionsInTarget()
+uint64_t TSWPLayoutChore::pAnchoredGraphicAndTextCollisionsInTarget(uint64_t a1)
 {
-  v0 = MEMORY[0x28223BE20]();
-  v2 = v1;
-  v3 = v0;
-  v107[16] = *MEMORY[0x277D85DE8];
-  v4 = [*(v0 + 2056) columns];
-  v5 = [objc_msgSend(v4 "firstObject")];
-  v6 = [objc_msgSend(v4 "lastObject")];
-  v8 = v6 + v7;
-  if (v5 >= v6 + v7)
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v4 = v1;
+  v110[16] = *MEMORY[0x277D85DE8];
+  v5 = [*(v1 + 2056) columns];
+  v6 = [objc_msgSend(v5 "firstObject")];
+  v7 = [objc_msgSend(v5 "lastObject")];
+  v9 = v7 + v8;
+  if (v6 >= v7 + v8)
   {
-    v9 = v6 + v7;
+    v10 = v7 + v8;
   }
 
   else
   {
-    v9 = v5;
+    v10 = v6;
   }
 
-  if (v5 != v6 + v7 && v9 != 0x7FFFFFFFFFFFFFFFLL)
+  if (v6 != v7 + v8 && v10 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    if (v5 > v8)
+    if (v6 > v9)
     {
-      v8 = v5;
+      v9 = v6;
     }
 
-    v11 = [*(v3 + 8) attachmentIndexRangeForTextRange:{v9, v8 - v9}];
-    if (v12)
+    v12 = [*(v4 + 8) attachmentIndexRangeForTextRange:{v10, v9 - v10}];
+    if (v13)
     {
-      v13 = v11;
       v14 = v12;
-      v89 = v4;
-      v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v12];
-      v16 = v13 + v14;
-      v91 = v3;
-      if (v13 < v13 + v14)
+      v15 = v13;
+      v92 = v5;
+      v16 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v13];
+      v17 = v14 + v15;
+      v94 = v4;
+      if (v14 < v14 + v15)
       {
-        v17 = v13;
-        v90 = v2;
+        v18 = v14;
+        v93 = v3;
         do
         {
           objc_opt_class();
-          [*(v3 + 8) attachmentAtAttachmentIndex:v17 outCharIndex:0];
-          v18 = TSUDynamicCast();
-          if ([v18 isAnchored])
+          [*(v4 + 8) attachmentAtAttachmentIndex:v18 outCharIndex:0];
+          v19 = TSUDynamicCast();
+          if ([v19 isAnchored])
           {
-            if (([v18 isHTMLWrap] & 1) == 0)
+            if (([v19 isHTMLWrap] & 1) == 0)
             {
-              v19 = [v18 drawable];
-              if ((objc_opt_respondsToSelector() & 1) == 0 || ([*(v3 + 2056) siblingTargetIsManipulatingDrawable:v19] & 1) == 0)
+              v20 = [v19 drawable];
+              if ((objc_opt_respondsToSelector() & 1) == 0 || ([*(v4 + 2056) siblingTargetIsManipulatingDrawable:v20] & 1) == 0)
               {
-                if ([*(v3 + 2056) validatedLayoutForAnchoredDrawable:{objc_msgSend(v18, "drawable")}])
+                if ([*(v4 + 2056) validatedLayoutForAnchoredDrawable:{objc_msgSend(v19, "drawable")}])
                 {
-                  v20 = TSUProtocolCast();
-                  if (v20)
+                  v21 = TSUProtocolCast();
+                  if (v21)
                   {
-                    v102 = 0u;
+                    v105 = 0u;
+                    v106 = 0u;
                     v103 = 0u;
-                    v100 = 0u;
-                    v101 = 0u;
-                    v21 = [v20 descendentWrappables];
-                    v22 = [v21 countByEnumeratingWithState:&v100 objects:v107 count:16];
-                    if (v22)
+                    v104 = 0u;
+                    v22 = [v21 descendentWrappables];
+                    v23 = [v22 countByEnumeratingWithState:&v103 objects:v110 count:16];
+                    if (v23)
                     {
-                      v23 = v22;
-                      v24 = *v101;
+                      v24 = v23;
+                      v25 = *v104;
                       do
                       {
-                        for (i = 0; i != v23; ++i)
+                        for (i = 0; i != v24; ++i)
                         {
-                          if (*v101 != v24)
+                          if (*v104 != v25)
                           {
-                            objc_enumerationMutation(v21);
+                            objc_enumerationMutation(v22);
                           }
 
-                          v26 = *(*(&v100 + 1) + 8 * i);
-                          if ([v26 wrapType] && objc_msgSend(v26, "wrapType") != 5)
+                          v27 = *(*(&v103 + 1) + 8 * i);
+                          if ([v27 wrapType] && objc_msgSend(v27, "wrapType") != 5)
                           {
-                            [v15 addObject:v26];
+                            [v16 addObject:v27];
                           }
                         }
 
-                        v23 = [v21 countByEnumeratingWithState:&v100 objects:v107 count:16];
+                        v24 = [v22 countByEnumeratingWithState:&v103 objects:v110 count:16];
                       }
 
-                      while (v23);
+                      while (v24);
                     }
                   }
 
-                  v27 = TSUProtocolCast();
-                  v2 = v90;
-                  v3 = v91;
-                  v16 = v13 + v14;
-                  if ([v27 wrapType] && objc_msgSend(v27, "wrapType") != 5)
+                  v28 = TSUProtocolCast();
+                  v3 = v93;
+                  v4 = v94;
+                  v17 = v14 + v15;
+                  if ([v28 wrapType] && objc_msgSend(v28, "wrapType") != 5)
                   {
-                    [v15 addObject:v27];
+                    [v16 addObject:v28];
                   }
                 }
               }
             }
           }
 
-          ++v17;
+          ++v18;
         }
 
-        while (v17 != v16);
+        while (v18 != v17);
       }
 
-      v98 = 0u;
+      v101 = 0u;
+      v102 = 0u;
       v99 = 0u;
-      v96 = 0u;
-      v97 = 0u;
-      v28 = [v15 countByEnumeratingWithState:&v96 objects:v106 count:16];
-      if (v28)
+      v100 = 0u;
+      v29 = [v16 countByEnumeratingWithState:&v99 objects:v109 count:16];
+      if (v29)
       {
-        v29 = *v97;
-        v84 = *v97;
+        v30 = *v100;
+        v87 = *v100;
         do
         {
-          v30 = 0;
-          v31 = v89;
-          v85 = v28;
+          v31 = 0;
+          v32 = v92;
+          v88 = v29;
           do
           {
-            if (*v97 != v29)
+            if (*v100 != v30)
             {
-              objc_enumerationMutation(v15);
+              objc_enumerationMutation(v16);
             }
 
-            v86 = v30;
-            v32 = *(*(&v96 + 1) + 8 * v30);
-            [v32 boundsInfluencingExteriorWrap];
-            v37 = TSDRoundedRect(v33, v34, v35, v36);
-            v39 = v38;
+            v89 = v31;
+            v33 = *(*(&v99 + 1) + 8 * v31);
+            v34 = [v33 boundsInfluencingExteriorWrap];
+            v39 = TSDRoundedRect(v34, v35, v36, v37, v38);
             v41 = v40;
             v43 = v42;
-            v44 = *(v3 + 2056);
-            if (v44)
+            v45 = v44;
+            v46 = *(v4 + 2056);
+            if (v46)
             {
-              [v44 transformInRoot];
+              objc_msgSend_transformInRoot(v46);
             }
 
             else
             {
-              memset(&v95, 0, sizeof(v95));
+              memset(&v98, 0, sizeof(v98));
             }
 
-            CGAffineTransformInvert(&v104, &v95);
-            v108.origin.x = v37;
-            v108.origin.y = v39;
-            v108.size.width = v41;
-            v108.size.height = v43;
-            v109 = CGRectApplyAffineTransform(v108, &v104);
-            rect2[0] = *&v109.origin.x;
-            y = v109.origin.y;
-            width = v109.size.width;
-            height = v109.size.height;
+            CGAffineTransformInvert(&v107, &v98);
+            v111.origin.x = v39;
+            v111.origin.y = v41;
+            v111.size.width = v43;
+            v111.size.height = v45;
+            v112 = CGRectApplyAffineTransform(v111, &v107);
+            rect2[0] = *&v112.origin.x;
+            y = v112.origin.y;
+            width = v112.size.width;
+            height = v112.size.height;
             memset(&rect2[1], 0, 32);
-            v93 = 0u;
-            v94 = 0u;
-            v87 = [v31 countByEnumeratingWithState:&rect2[1] objects:v105 count:16];
-            if (v87)
+            v96 = 0u;
+            v97 = 0u;
+            v90 = [v32 countByEnumeratingWithState:&rect2[1] objects:v108 count:16];
+            if (v90)
             {
-              v88 = *rect2[3];
+              v91 = *rect2[3];
               do
               {
-                v48 = 0;
+                v50 = 0;
                 while (2)
                 {
-                  if (*rect2[3] != v88)
+                  if (*rect2[3] != v91)
                   {
-                    objc_enumerationMutation(v31);
+                    objc_enumerationMutation(v32);
                   }
 
-                  v49 = [*(rect2[2] + 8 * v48) lineFragmentArray];
-                  v50 = **v49;
-                  v51 = (*v49)[1];
-                  while (v50 != v51)
+                  v51 = [*(rect2[2] + 8 * v50) lineFragmentArray];
+                  v52 = **v51;
+                  v53 = *(*v51 + 8);
+                  while (v52 != v53)
                   {
-                    v52 = *(*v50 + 48);
-                    v53 = *(*v50 + 64);
-                    v54 = *(*v50 + 128);
-                    if (v54 < *(*v50 + 120))
+                    v54 = *(*v52 + 48);
+                    v55 = *(*v52 + 64);
+                    v56 = *(*v52 + 128);
+                    if (v56 < *(*v52 + 120))
                     {
-                      v54 = *(*v50 + 120);
+                      v56 = *(*v52 + 120);
                     }
 
-                    v55 = *(*v50 + 144) + *(*v50 + 136) + v54;
-                    v56 = *(*v50 + 56) + *(*v50 + 112);
-                    v110.origin.x = TSDRoundedRect(*(*v50 + 48), v56, *(*v50 + 64), v55);
-                    *&v113.origin.x = rect2[0];
-                    v113.origin.y = y;
-                    v113.size.width = width;
-                    v113.size.height = height;
-                    if (CGRectIntersectsRect(v110, v113))
+                    v57 = *(*v52 + 144) + *(*v52 + 136) + v56;
+                    v58 = *(*v52 + 56) + *(*v52 + 112);
+                    v113.origin.x = TSDRoundedRect(v51, *(*v52 + 48), v58, *(*v52 + 64), v57);
+                    *&v116.origin.x = rect2[0];
+                    v116.origin.y = y;
+                    v116.size.width = width;
+                    v116.size.height = height;
+                    v51 = CGRectIntersectsRect(v113, v116);
+                    if (v51)
                     {
-                      [v2 rectInRoot:{v52, v56, v53, v55}];
-                      v58 = v57;
+                      [v3 rectInRoot:{v54, v58, v55, v57}];
                       v60 = v59;
                       v62 = v61;
                       v64 = v63;
-                      LODWORD(v65) = +[TSWPTextWrapper splitLine:lineSegmentRects:polygon:type:skipHint:](TSWPTextWrapper, "splitLine:lineSegmentRects:polygon:type:skipHint:", &v104, [v32 wrapPolygon], 1, 0, v57, v59, v61, v63);
-                      v66 = TSDRoundedRect(v58, v60, v62, v64);
-                      v68 = v67;
-                      v70 = v69;
-                      v72 = v71;
-                      if (v65 != 1)
+                      v66 = v65;
+                      v67 = +[TSWPTextWrapper splitLine:lineSegmentRects:polygon:type:skipHint:](TSWPTextWrapper, "splitLine:lineSegmentRects:polygon:type:skipHint:", &v107, [v33 wrapPolygon], 1, 0, v59, v61, v63, v65);
+                      LODWORD(v68) = v67;
+                      v69 = TSDRoundedRect(v67, v60, v62, v64, v66);
+                      v71 = v70;
+                      v73 = v72;
+                      v75 = v74;
+                      if (v68 != 1)
                       {
-                        if (v65)
+                        if (v68)
                         {
-                          v73 = 0;
-                          v65 = v65;
-                          p_c = &v104.c;
+                          v76 = 0;
+                          v68 = v68;
+                          p_c = &v107.c;
                           do
                           {
                             if (*p_c >= 18.0)
                             {
-                              v111.origin.x = TSDRoundedRect(*(p_c - 2), *(p_c - 1), *p_c, p_c[1]);
-                              v114.origin.x = v66;
-                              v114.origin.y = v68;
-                              v114.size.width = v70;
-                              v114.size.height = v72;
-                              if (!CGRectEqualToRect(v111, v114))
+                              v114.origin.x = TSDRoundedRect(v51, *(p_c - 2), *(p_c - 1), *p_c, p_c[1]);
+                              v117.origin.x = v69;
+                              v117.origin.y = v71;
+                              v117.size.width = v73;
+                              v117.size.height = v75;
+                              v51 = CGRectEqualToRect(v114, v117);
+                              if (!v51)
                               {
-                                v16 = v13 + v14;
+                                v17 = v14 + v15;
                                 goto LABEL_69;
                               }
 
-                              v73 = 1;
+                              v76 = 1;
                             }
 
                             p_c += 4;
-                            --v65;
+                            --v68;
                           }
 
-                          while (v65);
-                          v16 = v13 + v14;
-                          if (v73)
+                          while (v68);
+                          v17 = v14 + v15;
+                          if (v76)
                           {
                             goto LABEL_61;
                           }
@@ -3873,59 +3855,60 @@ uint64_t TSWPLayoutChore::pAnchoredGraphicAndTextCollisionsInTarget()
 
 LABEL_69:
 
-                        v79 = [v2 anchoredDrawablesForRelayout];
-                        if (v13 < v16)
+                        v82 = [v3 anchoredDrawablesForRelayout];
+                        if (v14 < v17)
                         {
-                          v80 = v79;
+                          v83 = v82;
                           do
                           {
                             objc_opt_class();
-                            [*(v91 + 8) attachmentAtAttachmentIndex:v13 outCharIndex:0];
-                            v81 = TSUDynamicCast();
-                            if ([v81 isAnchored] && (objc_msgSend(v80, "containsObject:", objc_msgSend(v81, "drawable")) & 1) == 0)
+                            [*(v94 + 8) attachmentAtAttachmentIndex:v14 outCharIndex:0];
+                            v84 = TSUDynamicCast();
+                            if ([v84 isAnchored] && (objc_msgSend(v83, "containsObject:", objc_msgSend(v84, "drawable")) & 1) == 0)
                             {
-                              [v80 addObject:{objc_msgSend(v81, "drawable")}];
+                              [v83 addObject:{objc_msgSend(v84, "drawable")}];
                             }
 
-                            ++v13;
-                            --v14;
+                            ++v14;
+                            --v15;
                           }
 
-                          while (v14);
+                          while (v15);
                         }
 
-                        if (![objc_msgSend(v2 "anchoredDrawablesForRelayout")])
+                        if (![objc_msgSend(v3 "anchoredDrawablesForRelayout")])
                         {
-                          v82 = [MEMORY[0x277D6C290] currentHandler];
-                          v83 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL TSWPLayoutChore::pAnchoredGraphicAndTextCollisionsInTarget(TSDLayout<TSWPLayoutTarget> *, NSString *&)"}];
-                          [v82 handleFailureInFunction:v83 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 6715, @"Found collision but no anchored drawables"}];
+                          v85 = [MEMORY[0x277D6C290] currentHandler];
+                          v86 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL TSWPLayoutChore::pAnchoredGraphicAndTextCollisionsInTarget(TSDLayout<TSWPLayoutTarget> *, NSString *&)"}];
+                          [v85 handleFailureInFunction:v86 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLayoutChore.mm"), 6715, @"Found collision but no anchored drawables"}];
                         }
 
                         return 1;
                       }
 
-                      v115.origin.x = TSDRoundedRect(v104.a, v104.b, v104.c, v104.d);
-                      v115.origin.y = v75;
-                      v115.size.width = v76;
-                      v115.size.height = v77;
-                      v112.origin.x = v66;
-                      v112.origin.y = v68;
-                      v112.size.width = v70;
-                      v112.size.height = v72;
-                      if (!CGRectEqualToRect(v112, v115))
+                      v118.origin.x = TSDRoundedRect(v51, v107.a, v107.b, v107.c, v107.d);
+                      v118.origin.y = v78;
+                      v118.size.width = v79;
+                      v118.size.height = v80;
+                      v115.origin.x = v69;
+                      v115.origin.y = v71;
+                      v115.size.width = v73;
+                      v115.size.height = v75;
+                      v51 = CGRectEqualToRect(v115, v118);
+                      if ((v51 & 1) == 0)
                       {
                         goto LABEL_69;
                       }
                     }
 
 LABEL_61:
-                    v50 += 16;
+                    v52 += 16;
                   }
 
-                  ++v48;
-                  v3 = v91;
-                  v31 = v89;
-                  if (v48 != v87)
+                  ++v50;
+                  v4 = v94;
+                  v32 = v92;
+                  if (v50 != v90)
                   {
                     continue;
                   }
@@ -3933,21 +3916,21 @@ LABEL_61:
                   break;
                 }
 
-                v29 = v84;
-                v87 = [v89 countByEnumeratingWithState:&rect2[1] objects:v105 count:16];
+                v30 = v87;
+                v90 = [v92 countByEnumeratingWithState:&rect2[1] objects:v108 count:16];
               }
 
-              while (v87);
+              while (v90);
             }
 
-            v30 = v86 + 1;
+            v31 = v89 + 1;
           }
 
-          while (v86 + 1 != v85);
-          v28 = [v15 countByEnumeratingWithState:&v96 objects:v106 count:16];
+          while (v89 + 1 != v88);
+          v29 = [v16 countByEnumeratingWithState:&v99 objects:v109 count:16];
         }
 
-        while (v28);
+        while (v29);
       }
     }
   }
@@ -4051,9 +4034,9 @@ uint64_t std::vector<TSWPLayoutState>::__emplace_back_slow_path<TSWPLayoutState 
   return v12;
 }
 
-void sub_26C9514B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26C9514B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TSWPLayoutState>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4134,9 +4117,9 @@ void std::shared_ptr<TSWPLineFragment>::shared_ptr[abi:ne200100]<TSWPLineFragmen
   operator new();
 }
 
-void sub_26C951694(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C951694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<TSWPLineFragment>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4176,7 +4159,7 @@ TSWPLineFragment *std::__shared_ptr_pointer<TSWPLineFragment *,std::shared_ptr<T
 
 uint64_t TSWPShapeStyleIdentifierString(uint64_t a1, uint64_t a2)
 {
-  v3 = TSWPShapePackageStringForPresetKind(a1);
+  v3 = TSWPShapePackageStringForPresetKind(a1, a2);
 
   return String(v3, a2, @"shapestyle");
 }
@@ -4260,7 +4243,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<unsigned lo
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t TSWPBundle()
+uint64_t TSWPBundle(uint64_t a1, uint64_t a2)
 {
   if (TSWPBundle::onceToken != -1)
   {
@@ -4270,26 +4253,24 @@ uint64_t TSWPBundle()
   return TSWPBundle::bundle;
 }
 
-uint64_t __TSWPBundle_block_invoke()
+void *__TSWPBundle_block_invoke()
 {
   result = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   TSWPBundle::bundle = result;
   return result;
 }
 
-void *std::vector<_TSWPCharIndexAndAffinity>::reserve(void *result, unint64_t a2)
+void std::vector<_TSWPCharIndexAndAffinity>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<_TSWPCharIndexAndAffinity>>(result, a2);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<_TSWPCharIndexAndAffinity>>(a1, a2);
     }
 
     std::string::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
 void std::vector<_TSWPCharIndexAndAffinity>::push_back[abi:nn200100](uint64_t a1, _OWORD *a2)
@@ -4361,7 +4342,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<_TSWPCharIndexAndAffi
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-void sub_26C9587D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27)
+void sub_26C9587D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27)
 {
   _Block_object_dispose(&a20, 8);
   if (__p)
@@ -4383,14 +4364,12 @@ void sub_26C9587D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 __Block_byref_object_copy__22(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -4707,20 +4686,21 @@ void *anonymous namespace::TSWPFootnoteSymbolFromNumber(_anonymous_namespace_ *t
   return v2;
 }
 
-id anonymous namespace::ideographicNumberStringForValue(uint64_t a1, unsigned int a2)
+id anonymous namespace::ideographicNumberStringForValue(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = [MEMORY[0x277CCAB68] string];
   v5 = v4;
-  v6 = a2;
+  v6 = v2;
   if (a1)
   {
     v16 = v4;
-    v17 = a2;
+    v17 = v2;
     v18 = 1;
     v19 = v7;
     LOWORD(v16) = *v10;
     v11 = [MEMORY[0x277CCACA8] stringWithCharacters:&v16 length:1];
-    if (a2 && a2 != 3)
+    if (v2 && v2 != 3)
     {
       v12 = [MEMORY[0x277CBEB18] arrayWithArray:{objc_msgSend(v5, "componentsSeparatedByString:", v11)}];
       [v12 removeObject:&stru_287D36338];
@@ -4748,7 +4728,7 @@ id anonymous namespace::ideographicNumberStringForValue(uint64_t a1, unsigned in
   return v5;
 }
 
-uint64_t anonymous namespace::TSWPCircledNumberLabelFromNumber(_anonymous_namespace_ *this)
+void *anonymous namespace::TSWPCircledNumberLabelFromNumber(_anonymous_namespace_ *this)
 {
   if (!this)
   {
@@ -4834,7 +4814,7 @@ LABEL_7:
 
 LABEL_6:
     v4 = v7 + 1;
-    *&__b[2 * v7] = 39;
+    __b[v7] = 39;
     v3 = (v3 % 0x3E8);
     goto LABEL_7;
   }
@@ -4944,7 +4924,7 @@ uint64_t std::accumulate[abi:nn200100]<anonymous namespace::IdeographicNumber *,
   return a3;
 }
 
-void *anonymous namespace::ideographicNumberStringForSmallValue(uint64_t a1, unsigned int a2)
+void *anonymous namespace::ideographicNumberStringForSmallValue(uint64_t a1, int a2)
 {
   if (a1 >> 4 >= 0x271)
   {
@@ -5239,16 +5219,16 @@ LABEL_15:
   return v5;
 }
 
-void sub_26C95DA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_26C95DA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C95DC5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C95DC5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5538,9 +5518,9 @@ LABEL_27:
   return result;
 }
 
-void sub_26C9623B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26C9623B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   TSWPAttributeEnumerator::~TSWPAttributeEnumerator(va);
   _Unwind_Resume(a1);
 }
@@ -5575,23 +5555,23 @@ void sub_26C964980(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_26C965174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26C965174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   TSWPAttributeEnumerator::~TSWPAttributeEnumerator(va);
   _Unwind_Resume(a1);
 }
 
-void sub_26C9657C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C9657C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   TSWPAttributeEnumerator::~TSWPAttributeEnumerator(va);
   _Unwind_Resume(a1);
 }
 
-void sub_26C969C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C969C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5603,30 +5583,30 @@ __n128 __Block_byref_object_copy__24(__n128 *a1, __n128 *a2)
   return result;
 }
 
-void sub_26C96A478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  TSWPAttributeEnumerator::~TSWPAttributeEnumerator(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_26C96A604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26C96A478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
   va_start(va, a5);
   TSWPAttributeEnumerator::~TSWPAttributeEnumerator(va);
   _Unwind_Resume(a1);
 }
 
-void sub_26C96A80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26C96A604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   TSWPAttributeEnumerator::~TSWPAttributeEnumerator(va);
   _Unwind_Resume(a1);
 }
 
-void sub_26C96A8F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C96A80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a7);
+  va_start(va, a9);
+  TSWPAttributeEnumerator::~TSWPAttributeEnumerator(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_26C96A8F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5641,41 +5621,41 @@ void sub_26C9700D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__tree<std::__value_type<unsigned long,std::shared_ptr<TSWPParagraphTypesetter>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::shared_ptr<TSWPParagraphTypesetter>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::shared_ptr<TSWPParagraphTypesetter>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long,std::shared_ptr<TSWPParagraphTypesetter>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::shared_ptr<TSWPParagraphTypesetter>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::shared_ptr<TSWPParagraphTypesetter>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -5729,42 +5709,42 @@ uint64_t TSWPParagraphTypesetter::TSWPParagraphTypesetter(uint64_t a1, void *a2,
   {
     std::vector<unsigned short>::resize(v8, v9);
     [*a1 getCharacters:*(a1 + 32) range:{0, v9}];
-    v10 = *(a1 + 32);
-    if (v9 - 1 >= (*(a1 + 40) - v10) >> 1)
+    v11 = *(a1 + 32);
+    if (v9 - 1 >= (*(a1 + 40) - v11) >> 1)
     {
-      v11 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v11 = *(v10 + 2 * (v9 - 1));
+      v12 = *(v11 + 2 * (v9 - 1));
     }
   }
 
   else
   {
     std::vector<unsigned short>::resize(v8, 1uLL);
-    v11 = 0;
+    v12 = 0;
     **v8 = 0;
   }
 
-  if (IsParagraphBreakingCharacter(v11))
+  if (IsParagraphBreakingCharacter(v12, v10))
   {
-    v12 = v11;
+    v13 = v12;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  *(a1 + 72) = v12;
+  *(a1 + 72) = v13;
   if (v9)
   {
-    v13 = v9 - 1;
-    if ([*a1 hasColumnBreakAtCharIndex:v13])
+    v14 = v9 - 1;
+    if ([*a1 hasColumnBreakAtCharIndex:v14])
     {
-      *(*v8 + 2 * v13) = 8233;
+      *(*v8 + 2 * v14) = 8233;
     }
   }
 
@@ -5789,20 +5769,20 @@ void sub_26C972694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<unsigned short>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned short>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned short>::__append(a1, a2 - v2);
+    std::vector<unsigned short>::__append(result, a2 - v2);
   }
 }
 
@@ -5835,11 +5815,11 @@ void TSWPParagraphTypesetter::~TSWPParagraphTypesetter(TSWPParagraphTypesetter *
   }
 }
 
-void sub_26C972790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_26C972790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  a10 = (v10 + 104);
+  a10 = v10 + 104;
   std::vector<_TSWPTateChuYokoRun>::__destroy_vector::operator()[abi:nn200100](&a10);
-  a10 = (v10 + 80);
+  a10 = v10 + 80;
   std::vector<_TSWPRubyRun>::__destroy_vector::operator()[abi:nn200100](&a10);
   v12 = *(v10 + 32);
   if (v12)
@@ -6056,7 +6036,7 @@ TSWPParagraphTypesetter *TSWPParagraphTypesetter::pApplyRubyRunDelegatesToAttrib
 {
   if (*(this + 11) != *(this + 10))
   {
-    TSWPParagraphTypesetter::pAddRubyRunDelegateAtIndexForRun();
+    TSWPParagraphTypesetter::pAddRubyRunDelegateAtIndexForRun(this, *(*(this + 10) + 8), *(this + 10));
   }
 
   return this;
@@ -6348,7 +6328,7 @@ LABEL_50:
     }
 
     FontForStyle = TSWPFastCreateFontForStyle(0, v29, 0x64uLL);
-    TSWPFontGetLineHeight();
+    TSWPFontGetLineHeight(FontForStyle);
     v45 = v44;
     CFRelease(FontForStyle);
     v46 = CTTypesetterCreateWithAttributedString(aStr);
@@ -6584,7 +6564,7 @@ double TSWPParagraphTypesetter::getPositionForLocalCharIndex(TSWPParagraphTypese
   return v5;
 }
 
-unint64_t TSWPParagraphTypesetter::pCalculateRubyOverlap(uint64_t a1, unint64_t *a2, uint64_t a3, void *a4, void *a5)
+void *TSWPParagraphTypesetter::pCalculateRubyOverlap(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
 {
   *a5 = 0;
   *a4 = 0;
@@ -6722,7 +6702,7 @@ double TSWPParagraphTypesetter::createRubyLineRefsForLineFragment(TSWPParagraphT
               v52 = v42;
               v53 = 0;
               CFRetain(v25);
-              std::vector<TSWPLineRef>::push_back[abi:nn200100](a2 + 224, &cf);
+              std::vector<TSWPLineRef>::push_back[abi:nn200100](a2 + 28, &cf);
             }
 
             else
@@ -6744,7 +6724,7 @@ double TSWPParagraphTypesetter::createRubyLineRefsForLineFragment(TSWPParagraphT
               v53 = 0;
               CFRetain(v35);
               CFRelease(v35);
-              std::vector<TSWPLineRef>::push_back[abi:nn200100](a2 + 224, &cf);
+              std::vector<TSWPLineRef>::push_back[abi:nn200100](a2 + 28, &cf);
             }
 
             v18 = 1.0;
@@ -6837,7 +6817,7 @@ void TSWPParagraphTypesetter::createTateChuYokoLineRefsForLineFragment(TSWPParag
           }
 
           v20 = *v7;
-          std::vector<TSWPLineRef>::push_back[abi:nn200100](a2 + 248, cf);
+          std::vector<TSWPLineRef>::push_back[abi:nn200100](a2 + 31, cf);
           v4 = cf[0];
           if (cf[0])
           {
@@ -6863,7 +6843,7 @@ void sub_26C973D04(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *TSWPParagraphTypesetter::findTateChuYokoLineRefsForCharIndex(TSWPParagraphTypesetter *this, uint64_t a2)
+void **TSWPParagraphTypesetter::findTateChuYokoLineRefsForCharIndex(TSWPParagraphTypesetter *this, uint64_t a2)
 {
   if (*(this + 13) == *(this + 14))
   {
@@ -6916,7 +6896,7 @@ void *TSWPParagraphTypesetter::findTateChuYokoLineRefsForCharIndex(TSWPParagraph
   }
 
   while (*v12 == v3);
-  return v12 - 7;
+  return (v12 - 7);
 }
 
 uint64_t TSWPParagraphTypesetter::rubyLayoutIsDisabledForField(TSWPParagraphTypesetter *this, TSWPRubyField *a2)
@@ -7364,10 +7344,10 @@ double TSWPTateChuYokoRunDelegateGetWidthCallback(double *a1)
   }
 }
 
-uint64_t std::vector<TSWPLineRef>::push_back[abi:nn200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<TSWPLineRef>::push_back[abi:nn200100](unint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<TSWPLineRef>::__emplace_back_slow_path<TSWPLineRef const&>(a1, a2);
   }
@@ -7378,7 +7358,7 @@ uint64_t std::vector<TSWPLineRef>::push_back[abi:nn200100](uint64_t a1, uint64_t
     result = v3 + 48;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -7399,21 +7379,21 @@ CFTypeRef std::vector<TSWPLineRef>::__construct_one_at_end[abi:nn200100]<TSWPLin
   return result;
 }
 
-uint64_t std::vector<TSWPLineRef>::__emplace_back_slow_path<TSWPLineRef const&>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<TSWPLineRef>::__emplace_back_slow_path<TSWPLineRef const&>(unint64_t *a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 4);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
   if (v2 + 1 > 0x555555555555555)
   {
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 4) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 4);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
   {
     v6 = 0x555555555555555;
   }
@@ -7451,14 +7431,14 @@ uint64_t std::vector<TSWPLineRef>::__emplace_back_slow_path<TSWPLineRef const&>(
   }
 
   *&v18 = v9 + 48;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = v7 + *a1 - v10;
   std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<TSWPLineRef>,TSWPLineRef*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -7467,9 +7447,9 @@ uint64_t std::vector<TSWPLineRef>::__emplace_back_slow_path<TSWPLineRef const&>(
   return v15;
 }
 
-void sub_26C9748AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26C9748AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TSWPLineRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7648,7 +7628,7 @@ void std::vector<unsigned short>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-uint64_t std::vector<_TSWPRubyRun>::__emplace_back_slow_path<_TSWPRubyRun const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<_TSWPRubyRun>::__emplace_back_slow_path<_TSWPRubyRun const&>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -7698,9 +7678,9 @@ uint64_t std::vector<_TSWPRubyRun>::__emplace_back_slow_path<_TSWPRubyRun const&
   return v12;
 }
 
-void sub_26C974D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26C974D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<_TSWPRubyRun>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7848,9 +7828,9 @@ uint64_t std::vector<_TSWPTateChuYokoRun>::__emplace_back_slow_path<_TSWPTateChu
   return v12;
 }
 
-void sub_26C975088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26C975088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<_TSWPTateChuYokoRun>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8921,25 +8901,25 @@ id *TSWPLineBalancingLayoutState::prepareForRestore(id *this, id *a2, char a3, d
   {
     v14 = [MEMORY[0x277D6C290] currentHandler];
     v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSWPLineBalancingLayoutState::prepareForRestore(const TSWPLayoutState &, const BOOL, const CGFloat, const uint, const uint, const CGFloat)"}];
-    this = [v14 handleFailureInFunction:v15 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLineBalancingLayoutState.mm"), 64, @"Prepare for rendering line balancing in wrong state: %d", *(v13 + 728)}];
+    this = [v14 handleFailureInFunction:v15 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLineBalancingLayoutState.mm"), 64, @"Prepare for rendering line balancing in wrong state: %d", *(v13 + 182)}];
   }
 
-  *(v13 + 704) = a4;
-  *(v13 + 768) = a4;
+  *(v13 + 88) = a4;
+  *(v13 + 96) = a4;
   *(v13 + 792) = 0;
   if ((a3 & 1) != 0 || (this = [a2[12] intValueForProperty:51], this < 1))
   {
-    *(v13 + 728) = 0;
+    *(v13 + 182) = 0;
   }
 
   else
   {
-    *(v13 + 732) = a5;
-    *(v13 + 728) = 1;
+    *(v13 + 183) = a5;
+    *(v13 + 182) = 1;
     this = TSWPLayoutState::operator=(v13, a2);
-    *(v13 + 688) = a5;
-    *(v13 + 692) = a6;
-    *(v13 + 696) = a7;
+    *(v13 + 172) = a5;
+    *(v13 + 173) = a6;
+    *(v13 + 87) = a7;
   }
 
   return this;
@@ -9157,7 +9137,7 @@ LABEL_16:
   return this;
 }
 
-double TSWPLineBalancingLayoutState::pUpdateWithEndOfParagraphOrColumn(TSWPLineBalancingLayoutState *this, uint64_t a2, int a3, double result)
+double TSWPLineBalancingLayoutState::pUpdateWithEndOfParagraphOrColumn(TSWPLineBalancingLayoutState *this, uint64_t a2, uint64_t a3, double result)
 {
   v5 = *(this + 182);
   switch(v5)
@@ -9359,7 +9339,7 @@ LABEL_29:
   return result;
 }
 
-BOOL FloatArraysEqual(double *a1, double *a2, unint64_t a3)
+uint64_t FloatArraysEqual(double *a1, double *a2, unint64_t a3)
 {
   if (!a3)
   {
@@ -9614,9 +9594,9 @@ void TSWPLineFragmentArray::removeLastObject(TSWPLineFragmentArray *this)
   *(this + 12) = v4;
 }
 
-uint64_t TSWPLineFragmentArray::removeObjectsInRange(TSWPLineFragmentArray *this, _NSRange a2)
+__int128 *TSWPLineFragmentArray::removeObjectsInRange(TSWPLineFragmentArray *this, _NSRange a2)
 {
-  result = std::vector<std::shared_ptr<TSWPLineFragment>>::erase(this, *this + 16 * a2.location, (*this + 16 * (a2.location + a2.length)));
+  result = std::vector<std::shared_ptr<TSWPLineFragment>>::erase(this, (*this + 16 * a2.location), (*this + 16 * (a2.location + a2.length)));
   *(this + 12) = 0;
   v4 = *this;
   v5 = *(this + 1);
@@ -9646,7 +9626,7 @@ uint64_t TSWPLineFragmentArray::removeObjectsInRange(TSWPLineFragmentArray *this
   return result;
 }
 
-uint64_t std::vector<std::shared_ptr<TSWPLineFragment>>::erase(uint64_t a1, uint64_t a2, __int128 *a3)
+__int128 *std::vector<std::shared_ptr<TSWPLineFragment>>::erase(uint64_t a1, __int128 *a2, __int128 *a3)
 {
   if (a3 != a2)
   {
@@ -9775,4 +9755,26 @@ double TSWPLineFragmentArray::erasableBounds(TSWPLineFragmentArray *this, char a
   }
 
   return x;
+}
+
+TSWPLineFragmentArray *TSWPLineFragmentArray::incrementStartCharIndexes(TSWPLineFragmentArray *this, uint64_t a2)
+{
+  v2 = *this;
+  v3 = *(this + 1);
+  if (*this != v3)
+  {
+    do
+    {
+      v5 = *v2;
+      v2 += 2;
+      *v5 += a2;
+      *(v5 + 16) += a2;
+      this = [*(v5 + 184) adjustRangesByDelta:a2];
+      *(v5 + 496) = *(v5 + 488);
+    }
+
+    while (v2 != v3);
+  }
+
+  return this;
 }

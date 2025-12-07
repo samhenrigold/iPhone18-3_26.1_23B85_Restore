@@ -11,10 +11,14 @@
 - (id)accountPropertyForKey:(id)key;
 - (void)setAccountDescription:(id)description;
 - (void)setAccountProperty:(id)property forKey:(id)key;
+- (void)setAuthenticated:(BOOL)authenticated;
 - (void)setAuthenticationTypeNone;
 - (void)setAuthenticationTypeParent;
+- (void)setEnabledForCalendarsDataClass:(BOOL)class;
 - (void)setPassword:(id)password;
+- (void)setProvisionedForCalendarsDataClass:(BOOL)class;
 - (void)setUsername:(id)username;
+- (void)setVisible:(BOOL)visible;
 @end
 
 @implementation CalChangeFilteringMigrationAccount
@@ -139,6 +143,13 @@
   return bOOLValue;
 }
 
+- (void)setVisible:(BOOL)visible
+{
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:visible];
+  modifiedPropertyValues = [(CalChangeFilteringMigrationAccount *)self modifiedPropertyValues];
+  [modifiedPropertyValues setObject:v5 forKeyedSubscript:@"_CalChangeFilterMigrationAccount_visible"];
+}
+
 - (BOOL)enabledForCalendarsDataClass
 {
   modifiedPropertyValues = [(CalChangeFilteringMigrationAccount *)self modifiedPropertyValues];
@@ -156,6 +167,13 @@
   }
 
   return bOOLValue;
+}
+
+- (void)setEnabledForCalendarsDataClass:(BOOL)class
+{
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:class];
+  modifiedPropertyValues = [(CalChangeFilteringMigrationAccount *)self modifiedPropertyValues];
+  [modifiedPropertyValues setObject:v5 forKeyedSubscript:@"_CalChangeFilterMigrationAccount_enabledForCalendarsDataClass"];
 }
 
 - (BOOL)provisionedForCalendarsDataClass
@@ -177,6 +195,13 @@
   return bOOLValue;
 }
 
+- (void)setProvisionedForCalendarsDataClass:(BOOL)class
+{
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:class];
+  modifiedPropertyValues = [(CalChangeFilteringMigrationAccount *)self modifiedPropertyValues];
+  [modifiedPropertyValues setObject:v5 forKeyedSubscript:@"_CalChangeFilterMigrationAccount_provisionedForCalendarsDataClass"];
+}
+
 - (BOOL)authenticated
 {
   modifiedPropertyValues = [(CalChangeFilteringMigrationAccount *)self modifiedPropertyValues];
@@ -194,6 +219,13 @@
   }
 
   return bOOLValue;
+}
+
+- (void)setAuthenticated:(BOOL)authenticated
+{
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:authenticated];
+  modifiedPropertyValues = [(CalChangeFilteringMigrationAccount *)self modifiedPropertyValues];
+  [modifiedPropertyValues setObject:v5 forKeyedSubscript:@"_CalChangeFilterMigrationAccount_authenticated"];
 }
 
 - (NSString)username

@@ -1,6 +1,7 @@
 @interface WDTableViewSection
 - (WDTableViewSection)initWithDelegate:(id)delegate atSection:(unint64_t)section;
 - (WDTableViewSectionDelegate)delegate;
+- (void)reloadAnimated:(BOOL)animated;
 @end
 
 @implementation WDTableViewSection
@@ -20,6 +21,13 @@
   }
 
   return v8;
+}
+
+- (void)reloadAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained reloadSection:self->_section animated:animatedCopy];
 }
 
 - (WDTableViewSectionDelegate)delegate

@@ -15,9 +15,10 @@
 - (void)acquireSessionWithCompletionHandler:(id)handler
 {
   v4 = _Block_copy(handler);
-  *(swift_allocObject() + 16) = v4;
+  v5 = swift_allocObject();
+  *(v5 + 16) = v4;
   selfCopy = self;
-  sub_2250B4C44();
+  sub_2250B4C44(sub_2250C76B8, v5);
 }
 
 @end

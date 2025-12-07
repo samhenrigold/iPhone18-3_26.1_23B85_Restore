@@ -57,7 +57,7 @@
 
 - (HMCHIPAccessoryPairing)initWithCoder:(id)coder
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMCAP.ck.identifier"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMCAP.ck.home"];
@@ -80,13 +80,13 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v17 = 138543874;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v6;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded identifier: %@ home: %@", &v17, 0x20u);
+      v16 = 138543874;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v5;
+      v20 = 2112;
+      v21 = v6;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded identifier: %@ home: %@", &v16, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -101,7 +101,6 @@
     v14 = selfCopy;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

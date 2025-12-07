@@ -958,7 +958,6 @@ LABEL_57:
       goto LABEL_180;
     }
 
-    v8 = *(equalCopy + 126);
     if (self->_installed)
     {
       if ((*(equalCopy + 126) & 1) == 0)
@@ -985,7 +984,6 @@ LABEL_57:
       goto LABEL_180;
     }
 
-    v9 = *(equalCopy + 128);
     if (self->_sharingEnabled)
     {
       if ((*(equalCopy + 128) & 1) == 0)
@@ -1012,7 +1010,6 @@ LABEL_57:
       goto LABEL_180;
     }
 
-    v10 = *(equalCopy + 127);
     if (self->_personalAutomationsEnabled)
     {
       if ((*(equalCopy + 127) & 1) == 0)
@@ -1039,7 +1036,6 @@ LABEL_57:
       goto LABEL_180;
     }
 
-    v11 = *(equalCopy + 125);
     if (self->_homeAutomationsEnabled)
     {
       if ((*(equalCopy + 125) & 1) == 0)
@@ -1092,7 +1088,6 @@ LABEL_57:
       goto LABEL_180;
     }
 
-    v12 = *(equalCopy + 129);
     if (self->_sleepEnabled)
     {
       if ((*(equalCopy + 129) & 1) == 0)
@@ -1349,7 +1344,6 @@ LABEL_57:
   {
     if ((v7 & 0x2000000) != 0)
     {
-      v14 = *(equalCopy + 124);
       if (self->_autoShortcutsSectionsViewed)
       {
         if ((*(equalCopy + 124) & 1) == 0)
@@ -1367,7 +1361,7 @@ LABEL_57:
     }
 
 LABEL_180:
-    v15 = 0;
+    v9 = 0;
     goto LABEL_181;
   }
 
@@ -1449,17 +1443,17 @@ LABEL_150:
       goto LABEL_180;
     }
 
-    v15 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v15 = (v7 & 8) == 0;
+    v9 = (v7 & 8) == 0;
   }
 
 LABEL_181:
 
-  return v15;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -2378,19 +2372,18 @@ LABEL_38:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v38 = toCopy;
+  v7 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v38;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((*&has & 0x8000000) != 0)
   {
-    installed = self->_installed;
     PBDataWriterWriteBOOLField();
-    toCopy = v38;
+    toCopy = v7;
     has = self->_has;
     if ((*&has & 0x20000000) == 0)
     {
@@ -2409,9 +2402,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  sharingEnabled = self->_sharingEnabled;
   PBDataWriterWriteBOOLField();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
   {
@@ -2425,9 +2417,8 @@ LABEL_6:
   }
 
 LABEL_43:
-  personalAutomationsEnabled = self->_personalAutomationsEnabled;
   PBDataWriterWriteBOOLField();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
   {
@@ -2441,9 +2432,8 @@ LABEL_7:
   }
 
 LABEL_44:
-  homeAutomationsEnabled = self->_homeAutomationsEnabled;
   PBDataWriterWriteBOOLField();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x80000) == 0)
   {
@@ -2457,9 +2447,8 @@ LABEL_8:
   }
 
 LABEL_45:
-  shortcutComplicationSlotsUsed = self->_shortcutComplicationSlotsUsed;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 1) == 0)
   {
@@ -2473,9 +2462,8 @@ LABEL_9:
   }
 
 LABEL_46:
-  appComplicationSlotsUsed = self->_appComplicationSlotsUsed;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
   {
@@ -2489,9 +2477,8 @@ LABEL_10:
   }
 
 LABEL_47:
-  sleepEnabled = self->_sleepEnabled;
   PBDataWriterWriteBOOLField();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x200000) == 0)
   {
@@ -2505,9 +2492,8 @@ LABEL_11:
   }
 
 LABEL_48:
-  shortcutsCount = self->_shortcutsCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x20) == 0)
   {
@@ -2521,9 +2507,8 @@ LABEL_12:
   }
 
 LABEL_49:
-  folderCount = self->_folderCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 4) == 0)
   {
@@ -2537,9 +2522,8 @@ LABEL_13:
   }
 
 LABEL_50:
-  averageShortcutCountPerFolder = self->_averageShortcutCountPerFolder;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x800000) == 0)
   {
@@ -2553,9 +2537,8 @@ LABEL_14:
   }
 
 LABEL_51:
-  uncategorizedShortcutCount = self->_uncategorizedShortcutCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x100000) == 0)
   {
@@ -2569,9 +2552,8 @@ LABEL_15:
   }
 
 LABEL_52:
-  shortcutRunCount = self->_shortcutRunCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 2) == 0)
   {
@@ -2585,9 +2567,8 @@ LABEL_16:
   }
 
 LABEL_53:
-  appSessionCount = self->_appSessionCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
   {
@@ -2601,9 +2582,8 @@ LABEL_17:
   }
 
 LABEL_54:
-  watchShortcutCount = self->_watchShortcutCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x400000) == 0)
   {
@@ -2617,9 +2597,8 @@ LABEL_18:
   }
 
 LABEL_55:
-  sleepShortcutsCount = self->_sleepShortcutsCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x4000) == 0)
   {
@@ -2633,9 +2612,8 @@ LABEL_19:
   }
 
 LABEL_56:
-  numberOfSmallWidgets = self->_numberOfSmallWidgets;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x200) == 0)
   {
@@ -2649,9 +2627,8 @@ LABEL_20:
   }
 
 LABEL_57:
-  numberOfMediumWidgets = self->_numberOfMediumWidgets;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x80) == 0)
   {
@@ -2665,9 +2642,8 @@ LABEL_21:
   }
 
 LABEL_58:
-  numberOfLargeWidgets = self->_numberOfLargeWidgets;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x20000) == 0)
   {
@@ -2681,9 +2657,8 @@ LABEL_22:
   }
 
 LABEL_59:
-  numberOfWidgetsOnHomeScreen = self->_numberOfWidgetsOnHomeScreen;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x40000) == 0)
   {
@@ -2697,9 +2672,8 @@ LABEL_23:
   }
 
 LABEL_60:
-  numberOfWidgetsOnLoL = self->_numberOfWidgetsOnLoL;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x400) == 0)
   {
@@ -2713,9 +2687,8 @@ LABEL_24:
   }
 
 LABEL_61:
-  numberOfPersonalAutomationsEnabled = self->_numberOfPersonalAutomationsEnabled;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x800) == 0)
   {
@@ -2729,9 +2702,8 @@ LABEL_25:
   }
 
 LABEL_62:
-  numberOfPersonalAutomationsFromSuggestionsEnabled = self->_numberOfPersonalAutomationsFromSuggestionsEnabled;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x8000) == 0)
   {
@@ -2745,35 +2717,32 @@ LABEL_26:
   }
 
 LABEL_63:
-  numberOfSuggestedAutomationsGenerated = self->_numberOfSuggestedAutomationsGenerated;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
+  toCopy = v7;
   if ((*&self->_has & 0x10000) != 0)
   {
 LABEL_27:
-    numberOfSuggestedAutomationsGeneratedUserAlreadyHas = self->_numberOfSuggestedAutomationsGeneratedUserAlreadyHas;
     PBDataWriterWriteUint32Field();
-    toCopy = v38;
+    toCopy = v7;
   }
 
 LABEL_28:
   if (self->_automationSuggestionsTrialIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v38;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 0x2000000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x2000000) != 0)
   {
-    autoShortcutsSectionsViewed = self->_autoShortcutsSectionsViewed;
     PBDataWriterWriteBOOLField();
-    toCopy = v38;
-    v7 = self->_has;
-    if ((*&v7 & 0x1000) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((*&v6 & 0x1000) == 0)
     {
 LABEL_32:
-      if ((*&v7 & 0x100) == 0)
+      if ((*&v6 & 0x100) == 0)
       {
         goto LABEL_33;
       }
@@ -2782,19 +2751,18 @@ LABEL_32:
     }
   }
 
-  else if ((*&v7 & 0x1000) == 0)
+  else if ((*&v6 & 0x1000) == 0)
   {
     goto LABEL_32;
   }
 
-  numberOfRemoteWidgetsSetup = self->_numberOfRemoteWidgetsSetup;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
-  v7 = self->_has;
-  if ((*&v7 & 0x100) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x100) == 0)
   {
 LABEL_33:
-    if ((*&v7 & 0x40) == 0)
+    if ((*&v6 & 0x40) == 0)
     {
       goto LABEL_34;
     }
@@ -2803,14 +2771,13 @@ LABEL_33:
   }
 
 LABEL_67:
-  numberOfLockScreenWidgets = self->_numberOfLockScreenWidgets;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
-  v7 = self->_has;
-  if ((*&v7 & 0x40) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x40) == 0)
   {
 LABEL_34:
-    if ((*&v7 & 0x2000) == 0)
+    if ((*&v6 & 0x2000) == 0)
     {
       goto LABEL_35;
     }
@@ -2819,14 +2786,13 @@ LABEL_34:
   }
 
 LABEL_68:
-  numberOfExtraLargeWidgets = self->_numberOfExtraLargeWidgets;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
-  v7 = self->_has;
-  if ((*&v7 & 0x2000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x2000) == 0)
   {
 LABEL_35:
-    if ((*&v7 & 0x10) == 0)
+    if ((*&v6 & 0x10) == 0)
     {
       goto LABEL_36;
     }
@@ -2835,14 +2801,13 @@ LABEL_35:
   }
 
 LABEL_69:
-  numberOfSmallMultiShortcutWidgets = self->_numberOfSmallMultiShortcutWidgets;
   PBDataWriterWriteUint32Field();
-  toCopy = v38;
-  v7 = self->_has;
-  if ((*&v7 & 0x10) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x10) == 0)
   {
 LABEL_36:
-    if ((*&v7 & 8) == 0)
+    if ((*&v6 & 8) == 0)
     {
       goto LABEL_38;
     }
@@ -2851,15 +2816,13 @@ LABEL_36:
   }
 
 LABEL_70:
-  coherenceSyncEnablement = self->_coherenceSyncEnablement;
   PBDataWriterWriteInt32Field();
-  toCopy = v38;
+  toCopy = v7;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_37:
-    coherenceBlobSize = self->_coherenceBlobSize;
     PBDataWriterWriteUint32Field();
-    toCopy = v38;
+    toCopy = v7;
   }
 
 LABEL_38:

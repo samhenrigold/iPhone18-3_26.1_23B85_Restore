@@ -215,13 +215,13 @@ LABEL_7:
   bitmap = self->_bitmap;
   if (bitmap)
   {
-    [(_UIBoundingPathBitmap *)bitmap bitmapData];
+    objc_msgSend_bitmapData(bitmap);
     v35 = self->_bitmap;
     v36 = v66;
     v37 = scaleCopy;
     if (v35)
     {
-      [(_UIBoundingPathBitmap *)v35 bitmapData];
+      objc_msgSend_bitmapData(v35);
       v38 = *(&v62 + 1);
       goto LABEL_13;
     }
@@ -300,7 +300,7 @@ LABEL_20:
   {
     if (v46)
     {
-      [v46 bitmapData];
+      objc_msgSend_bitmapData(v46);
     }
 
     else
@@ -338,9 +338,9 @@ LABEL_22:
   {
     if (bitmapCopy)
     {
-      [bitmapCopy bitmapData];
+      objc_msgSend_bitmapData(bitmapCopy);
       v13 = v34;
-      [bitmapCopy bitmapData];
+      objc_msgSend_bitmapData(bitmapCopy);
       v14 = v32;
     }
 
@@ -353,9 +353,9 @@ LABEL_22:
 
   else if (bitmapCopy)
   {
-    [bitmapCopy bitmapData];
+    objc_msgSend_bitmapData(bitmapCopy);
     v13 = v35;
-    [bitmapCopy bitmapData];
+    objc_msgSend_bitmapData(bitmapCopy);
     v14 = v33;
   }
 
@@ -484,7 +484,7 @@ LABEL_18:
   result = self->_bitmap;
   if (result)
   {
-    result = [(_UIIntegralRect *)result bitmapData];
+    result = objc_msgSend_bitmapData(result, rect);
   }
 
   var0 = retstr->var0.var0;
@@ -672,7 +672,7 @@ LABEL_49:
   result = self->_bitmap;
   if (result)
   {
-    result = [(_UIIntegralRect *)result bitmapData];
+    result = objc_msgSend_bitmapData(result, rect);
   }
 
   var0 = retstr->var0.var0;
@@ -853,15 +853,14 @@ LABEL_42:
 
 - (CGRect)_inscribedRectInBoundingPathAndRect:(CGRect)rect byInsettingRect:(CGRect)insettingRect onEdges:(unint64_t)edges withOptions:(unint64_t)options
 {
-  optionsCopy = options;
   y = insettingRect.origin.y;
   height = insettingRect.size.height;
   x = insettingRect.origin.x;
   width = insettingRect.size.width;
   r1 = rect.size.height;
-  v8 = rect.size.width;
-  v9 = rect.origin.y;
-  v10 = rect.origin.x;
+  v7 = rect.size.width;
+  v8 = rect.origin.y;
+  v9 = rect.origin.x;
   coordinateSpace = [(_UIBoundingPath *)self coordinateSpace];
   if (!coordinateSpace)
   {
@@ -870,99 +869,99 @@ LABEL_42:
   }
 
   [coordinateSpace bounds];
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
   scale = self->_scale;
   orientation = self->_orientation;
   bitmap = self->_bitmap;
-  v57 = scale;
+  v55 = scale;
   if (bitmap)
   {
-    [(_UIBoundingPathBitmap *)bitmap bitmapData];
-    v25 = self->_bitmap;
-    v58 = v72 / scale;
-    if (v25)
+    objc_msgSend_bitmapData(bitmap);
+    v24 = self->_bitmap;
+    v56 = v67 / scale;
+    if (v24)
     {
-      [(_UIBoundingPathBitmap *)v25 bitmapData];
-      v26 = *(&v68 + 1);
+      objc_msgSend_bitmapData(v24);
+      v25 = *(&v63 + 1);
       goto LABEL_8;
     }
   }
 
   else
   {
-    v75 = 0;
-    v73 = 0u;
-    v74 = 0u;
-    v72 = 0u;
-    v58 = 0.0 / scale;
+    v70 = 0;
+    v68 = 0u;
+    v69 = 0u;
+    v67 = 0u;
+    v56 = 0.0 / scale;
   }
 
-  v71 = 0;
-  v69 = 0u;
-  v70 = 0u;
-  v68 = 0u;
-  v26 = 0.0;
+  v66 = 0;
+  v64 = 0u;
+  v65 = 0u;
+  v63 = 0u;
+  v25 = 0.0;
 LABEL_8:
-  v76.origin.x = v10;
-  v76.origin.y = v9;
-  v76.size.width = v8;
-  v76.size.height = r1;
-  v87.origin.x = v15;
-  v87.origin.y = v17;
-  v87.size.width = v19;
-  v87.size.height = v21;
-  v77 = CGRectIntersection(v76, v87);
-  [(_UIBoundingPath *)self _inscribedRectInBoundingRect:edges byInsettingRect:v77.origin.x onEdges:v77.origin.y, v77.size.width, v77.size.height, x, y, width, height];
-  v27 = v78.origin.x;
-  v28 = v78.origin.y;
-  v29 = v78.size.width;
-  v30 = v78.size.height;
-  if (CGRectIsNull(v78) || v29 <= 0.0 || v30 <= 0.0 || ((v31 = v26 / v57, v32 = _UIWindowConvertRectFromOrientationToOrientation(orientation, 1, v27, v28, v29, v30, v58, v31), v34 = v33, v36 = v35, v38 = v37, v39 = _UIRectEdgeConvertedFromOrientationToPortrait(edges, orientation), CGAffineTransformMakeScale(&v67, v57, v57), v79.origin.x = v32, v79.origin.y = v34, v79.size.width = v36, v79.size.height = v38, v80 = CGRectApplyAffineTransform(v79, &v67), v81 = CGRectIntegral(v80), v81.size.width >= 1) ? (v40 = v81.size.height <= 0) : (v40 = 1), v40 || (*&v64 = v81.origin.x, *(&v64 + 1) = v81.origin.y, *&c = v81.size.width, *&d = v81.size.height, [(_UIComplexBoundingPath *)self _rectByHorizontallyInsettingPortraitPixelRect:&v64 onPortraitEdges:v39 performCompleteTest:(optionsCopy & 1) == 0, v81.origin.x, v81.origin.y], *&v67.c < 1 || *&v67.d <= 0 || (v64 = *&v67.a, c = v67.c, d = v67.d, [(_UIComplexBoundingPath *)self _rectByVerticallyInsettingPortraitPixelRect:&v64 onPortraitEdges:v39 performCompleteTest:(optionsCopy & 1) == 0], *&v67.c < 1) || *&v67.d <= 0)))
+  v71.origin.x = v9;
+  v71.origin.y = v8;
+  v71.size.width = v7;
+  v71.size.height = r1;
+  v82.origin.x = v14;
+  v82.origin.y = v16;
+  v82.size.width = v18;
+  v82.size.height = v20;
+  v72 = CGRectIntersection(v71, v82);
+  [(_UIBoundingPath *)self _inscribedRectInBoundingRect:edges byInsettingRect:v72.origin.x onEdges:v72.origin.y, v72.size.width, v72.size.height, x, y, width, height];
+  v26 = v73.origin.x;
+  v27 = v73.origin.y;
+  v28 = v73.size.width;
+  v29 = v73.size.height;
+  if (CGRectIsNull(v73) || v28 <= 0.0 || v29 <= 0.0 || ((v30 = v25 / v55, v31 = _UIWindowConvertRectFromOrientationToOrientation(orientation, 1, v26, v27, v28, v29, v56, v30), v33 = v32, v35 = v34, v37 = v36, _UIRectEdgeConvertedFromOrientationToPortrait(edges, orientation), CGAffineTransformMakeScale(&v62, v55, v55), v74.origin.x = v31, v74.origin.y = v33, v74.size.width = v35, v74.size.height = v37, v75 = CGRectApplyAffineTransform(v74, &v62), v76 = CGRectIntegral(v75), v76.size.width >= 1) ? (v38 = v76.size.height <= 0) : (v38 = 1), v38 || (objc_msgSend__rectByHorizontallyInsettingPortraitPixelRect_onPortraitEdges_performCompleteTest_(self, v76.origin.x, v76.origin.y), *&v62.c < 1 || *&v62.d <= 0 || (objc_msgSend__rectByVerticallyInsettingPortraitPixelRect_onPortraitEdges_performCompleteTest_(self), *&v62.c < 1) || *&v62.d <= 0)))
   {
-    v41 = *MEMORY[0x1E695F050];
-    v42 = *(MEMORY[0x1E695F050] + 8);
-    v43 = *(MEMORY[0x1E695F050] + 16);
-    v44 = *(MEMORY[0x1E695F050] + 24);
+    v39 = *MEMORY[0x1E695F050];
+    v40 = *(MEMORY[0x1E695F050] + 8);
+    v41 = *(MEMORY[0x1E695F050] + 16);
+    v42 = *(MEMORY[0x1E695F050] + 24);
   }
 
   else
   {
-    v49 = *&v67.a;
-    v50 = *&v67.b;
-    v51 = *&v67.c;
-    v52 = *&v67.d;
-    CGAffineTransformMakeScale(&v67, 1.0 / v57, 1.0 / v57);
-    v82.origin.x = v49;
-    v82.origin.y = v50;
-    v82.size.width = v51;
-    v82.size.height = v52;
-    v83 = CGRectApplyAffineTransform(v82, &v67);
-    v88.origin.x = _UIWindowConvertRectFromOrientationToOrientation(1, orientation, v83.origin.x, v83.origin.y, v83.size.width, v83.size.height, v58, v31);
-    v88.origin.y = v53;
-    v88.size.width = v54;
-    v88.size.height = v55;
-    v84.origin.x = x;
-    v84.size.width = width;
-    v84.origin.y = y;
-    v84.size.height = height;
-    v85 = CGRectIntersection(v84, v88);
-    v41 = v85.origin.x;
-    v42 = v85.origin.y;
-    v43 = v85.size.width;
-    v44 = v85.size.height;
+    v47 = *&v62.a;
+    v48 = *&v62.b;
+    v49 = *&v62.c;
+    v50 = *&v62.d;
+    CGAffineTransformMakeScale(&v62, 1.0 / v55, 1.0 / v55);
+    v77.origin.x = v47;
+    v77.origin.y = v48;
+    v77.size.width = v49;
+    v77.size.height = v50;
+    v78 = CGRectApplyAffineTransform(v77, &v62);
+    v83.origin.x = _UIWindowConvertRectFromOrientationToOrientation(1, orientation, v78.origin.x, v78.origin.y, v78.size.width, v78.size.height, v56, v30);
+    v83.origin.y = v51;
+    v83.size.width = v52;
+    v83.size.height = v53;
+    v79.origin.x = x;
+    v79.size.width = width;
+    v79.origin.y = y;
+    v79.size.height = height;
+    v80 = CGRectIntersection(v79, v83);
+    v39 = v80.origin.x;
+    v40 = v80.origin.y;
+    v41 = v80.size.width;
+    v42 = v80.size.height;
   }
 
+  v43 = v39;
+  v44 = v40;
   v45 = v41;
   v46 = v42;
-  v47 = v43;
-  v48 = v44;
-  result.size.height = v48;
-  result.size.width = v47;
-  result.origin.y = v46;
-  result.origin.x = v45;
+  result.size.height = v46;
+  result.size.width = v45;
+  result.origin.y = v44;
+  result.origin.x = v43;
   return result;
 }
 
@@ -979,7 +978,7 @@ LABEL_8:
   bitmap = self->_bitmap;
   if (bitmap)
   {
-    [(_UIBoundingPathBitmap *)bitmap bitmapData];
+    objc_msgSend_bitmapData(bitmap);
   }
 
   if (ratio <= 0.0)
@@ -1127,7 +1126,7 @@ LABEL_8:
     goto LABEL_7;
   }
 
-  [(_UIBoundingPathBitmap *)bitmap bitmapData];
+  objc_msgSend_bitmapData(bitmap);
   v21 = self->_bitmap;
   v57 = v67 / scale;
   if (!v21)
@@ -1141,7 +1140,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  [(_UIBoundingPathBitmap *)v21 bitmapData];
+  objc_msgSend_bitmapData(v21, *&v57);
   v22 = *(&v63 + 1);
 LABEL_8:
   v71.origin.x = x;
@@ -1207,7 +1206,7 @@ LABEL_8:
   bitmap = self->_bitmap;
   if (bitmap)
   {
-    [(_UIBoundingPathBitmap *)bitmap bitmapData];
+    objc_msgSend_bitmapData(bitmap, a2);
   }
 
   v13 = _UIDirectionVectorForCorner(corner);
@@ -1474,7 +1473,7 @@ LABEL_52:
       v55 = *&radii->var2;
       v74 = *&radii->var0;
       v75 = v55;
-      if ((isRectInBoundingPathCornerWithMinimumPadding(&v76, &v74, corner, v18, v39, v51, v52, path) & 1) == 0)
+      if (!isRectInBoundingPathCornerWithMinimumPadding(&v76, &v74, corner, v18, v39, v51, v52, path))
       {
         v36 = v33 + v36;
         goto LABEL_54;
@@ -1533,12 +1532,12 @@ LABEL_68:
   bitmap = self->_bitmap;
   if (bitmap)
   {
-    [(_UIBoundingPathBitmap *)bitmap bitmapData];
+    objc_msgSend_bitmapData(bitmap);
     v23 = self->_bitmap;
     v60 = v71 / scale;
     if (v23)
     {
-      [(_UIBoundingPathBitmap *)v23 bitmapData];
+      objc_msgSend_bitmapData(v23, *&v60);
       v24 = *(&v67 + 1);
       goto LABEL_8;
     }
@@ -1674,7 +1673,7 @@ LABEL_19:
   bitmap = self->_bitmap;
   if (bitmap)
   {
-    [(_UIBoundingPathBitmap *)bitmap bitmapData];
+    objc_msgSend_bitmapData(bitmap, a2);
   }
 
   if (edge == 8 || edge == 2)
@@ -2479,12 +2478,12 @@ LABEL_189:
   bitmap = self->_bitmap;
   if (bitmap)
   {
-    [(_UIBoundingPathBitmap *)bitmap bitmapData];
+    objc_msgSend_bitmapData(bitmap);
     v23 = self->_bitmap;
     v60 = v70 / scale;
     if (v23)
     {
-      [(_UIBoundingPathBitmap *)v23 bitmapData];
+      objc_msgSend_bitmapData(v23);
       v24 = *(&v66 + 1);
       goto LABEL_8;
     }
@@ -2705,12 +2704,12 @@ LABEL_19:
   bitmap = self->_bitmap;
   if (bitmap)
   {
-    [(_UIBoundingPathBitmap *)bitmap bitmapData];
+    objc_msgSend_bitmapData(bitmap);
     v6 = self->_bitmap;
     v7 = v28 / scale;
     if (v6)
     {
-      [(_UIBoundingPathBitmap *)v6 bitmapData];
+      objc_msgSend_bitmapData(v6);
       v8 = *(&v24 + 1);
       goto LABEL_6;
     }

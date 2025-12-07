@@ -20,75 +20,75 @@
 - (AXAuditResult)initWithAXAuditCategoryResults:(id)results
 {
   selfCopy = self;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   v4 = objc_opt_new();
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = resultsCopy;
-  v24 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
-  if (v24)
+  v23 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+  if (v23)
   {
-    v23 = *v34;
+    v22 = *v33;
     do
     {
       v5 = 0;
       do
       {
-        if (*v34 != v23)
+        if (*v33 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v33 + 1) + 8 * v5);
+        v6 = *(*(&v32 + 1) + 8 * v5);
+        v28 = 0u;
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
         caseResults = [v6 caseResults];
-        v8 = [caseResults countByEnumeratingWithState:&v29 objects:v38 count:16];
+        v8 = [caseResults countByEnumeratingWithState:&v28 objects:v37 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v30;
+          v10 = *v29;
           do
           {
             v11 = 0;
             do
             {
-              if (*v30 != v10)
+              if (*v29 != v10)
               {
                 objc_enumerationMutation(caseResults);
               }
 
-              v12 = *(*(&v29 + 1) + 8 * v11);
+              v12 = *(*(&v28 + 1) + 8 * v11);
+              v24 = 0u;
               v25 = 0u;
               v26 = 0u;
               v27 = 0u;
-              v28 = 0u;
               auditIssues = [v12 auditIssues];
-              v14 = [auditIssues countByEnumeratingWithState:&v25 objects:v37 count:16];
+              v14 = [auditIssues countByEnumeratingWithState:&v24 objects:v36 count:16];
               if (v14)
               {
                 v15 = v14;
-                v16 = *v26;
+                v16 = *v25;
                 do
                 {
                   v17 = 0;
                   do
                   {
-                    if (*v26 != v16)
+                    if (*v25 != v16)
                     {
                       objc_enumerationMutation(auditIssues);
                     }
 
-                    [v4 addObject:*(*(&v25 + 1) + 8 * v17++)];
+                    [v4 addObject:*(*(&v24 + 1) + 8 * v17++)];
                   }
 
                   while (v15 != v17);
-                  v15 = [auditIssues countByEnumeratingWithState:&v25 objects:v37 count:16];
+                  v15 = [auditIssues countByEnumeratingWithState:&v24 objects:v36 count:16];
                 }
 
                 while (v15);
@@ -98,7 +98,7 @@
             }
 
             while (v11 != v9);
-            v9 = [caseResults countByEnumeratingWithState:&v29 objects:v38 count:16];
+            v9 = [caseResults countByEnumeratingWithState:&v28 objects:v37 count:16];
           }
 
           while (v9);
@@ -107,15 +107,14 @@
         ++v5;
       }
 
-      while (v5 != v24);
-      v24 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+      while (v5 != v23);
+      v23 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
 
   v18 = [(AXAuditResult *)selfCopy initWithAuditIssues:v4];
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -137,92 +136,92 @@
 
 - (void)_generateIssueToImageMapping
 {
-  v53 = *MEMORY[0x277D85DE8];
-  v39 = objc_opt_new();
-  v41 = +[AXAuditScreenshotManager sharedManager];
+  v52 = *MEMORY[0x277D85DE8];
+  v38 = objc_opt_new();
+  v40 = +[AXAuditScreenshotManager sharedManager];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   selfCopy = self;
   obj = [(AXAuditResult *)self auditIssues];
-  v42 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
-  if (v42)
+  v41 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+  if (v41)
   {
-    v40 = *v47;
+    v39 = *v46;
     v3 = 1;
     v4 = 0x277CCA000uLL;
     do
     {
-      for (i = 0; i != v42; ++i)
+      for (i = 0; i != v41; ++i)
       {
-        if (*v47 != v40)
+        if (*v46 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v46 + 1) + 8 * i);
+        v6 = *(*(&v45 + 1) + 8 * i);
         v7 = [*(v4 + 2992) numberWithInt:v3];
         [v6 setImageIdentifier:v7];
 
-        v8 = [v41 screenshotForIssue:v6 elementRect:0];
+        v8 = [v40 screenshotForIssue:v6 elementRect:0];
         v9 = MEMORY[0x277CCAE60];
         timeStamp = [v6 timeStamp];
-        [v41 screenshotBorderFrameForTimestamp:timeStamp];
+        [v40 screenshotBorderFrameForTimestamp:timeStamp];
         v11 = [v9 valueWithRect:?];
 
         v12 = *(v4 + 2992);
         timeStamp2 = [v6 timeStamp];
-        [v41 screenshotScaleFactorForTimestamp:timeStamp2];
+        [v40 screenshotScaleFactorForTimestamp:timeStamp2];
         *&v14 = v14;
-        v45 = [v12 numberWithFloat:v14];
+        v44 = [v12 numberWithFloat:v14];
 
         v15 = *(v4 + 2992);
         timeStamp3 = [v6 timeStamp];
-        [v41 screenshotRotationForTimestamp:timeStamp3];
+        [v40 screenshotRotationForTimestamp:timeStamp3];
         *&v17 = v17;
-        v44 = [v15 numberWithFloat:v17];
+        v43 = [v15 numberWithFloat:v17];
 
         v18 = MEMORY[0x277CCAE60];
         timeStamp4 = [v6 timeStamp];
-        [v41 screenshotDisplayBoundsForTimestamp:timeStamp4];
+        [v40 screenshotDisplayBoundsForTimestamp:timeStamp4];
         v20 = [v18 valueWithRect:?];
 
         v21 = *(v4 + 2992);
         timeStamp5 = [v6 timeStamp];
-        v23 = [v21 numberWithBool:{objc_msgSend(v41, "screenshotShouldFlipOutlineForTimestamp:", timeStamp5)}];
+        v23 = [v21 numberWithBool:{objc_msgSend(v40, "screenshotShouldFlipOutlineForTimestamp:", timeStamp5)}];
 
         v24 = UIImagePNGRepresentation(v8);
         v25 = v24;
         if (v24)
         {
           v26 = MEMORY[0x277CBEAC0];
-          v51[0] = v24;
-          v51[1] = v11;
-          v51[2] = v45;
-          v51[3] = v44;
-          v51[4] = v20;
-          v51[5] = v23;
-          v43 = v11;
-          [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:6];
+          v50[0] = v24;
+          v50[1] = v11;
+          v50[2] = v44;
+          v50[3] = v43;
+          v50[4] = v20;
+          v50[5] = v23;
+          v42 = v11;
+          [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:6];
           v27 = v8;
           v29 = v28 = v3;
-          v50[0] = @"imageData";
-          v50[1] = @"borderFrame";
-          v50[2] = @"displayNativeScale";
-          v50[3] = @"rotationRadians";
-          v50[4] = @"displayBounds";
-          v50[5] = @"shouldFlipOutline";
-          [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:6];
+          v49[0] = @"imageData";
+          v49[1] = @"borderFrame";
+          v49[2] = @"displayNativeScale";
+          v49[3] = @"rotationRadians";
+          v49[4] = @"displayBounds";
+          v49[5] = @"shouldFlipOutline";
+          [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:6];
           v31 = v30 = v4;
           v32 = [v26 dictionaryWithObjects:v29 forKeys:v31];
 
           v33 = [*(v30 + 2992) numberWithInt:v28];
           stringValue = [v33 stringValue];
-          [v39 setObject:v32 forKey:stringValue];
+          [v38 setObject:v32 forKey:stringValue];
 
           v4 = v30;
-          v11 = v43;
+          v11 = v42;
 
           LODWORD(v33) = v28;
           v8 = v27;
@@ -230,16 +229,14 @@
         }
       }
 
-      v42 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v41 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
     }
 
-    while (v42);
+    while (v41);
   }
 
-  v35 = [v39 copy];
+  v35 = [v38 copy];
   [(AXAuditResult *)selfCopy setAuditIssueToScreenshotMapping:v35];
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (id)screenshotInfoDictionaryForAuditIssue:(id)issue

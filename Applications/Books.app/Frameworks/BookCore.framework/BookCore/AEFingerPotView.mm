@@ -43,7 +43,7 @@
       if (!selectedOutline)
       {
         v6 = [UIImageView alloc];
-        v7 = IMCommonCoreBundle();
+        v7 = IMCommonCoreBundle(v6);
         v8 = [UIImage imageNamed:@"ib_text_pop_icon_highlight_swatch_selection" inBundle:v7];
         v9 = [v6 initWithImage:v8];
         [(AEFingerPotView *)self setSelectedOutline:v9];
@@ -94,7 +94,7 @@ LABEL_4:
     else
     {
       v7 = [UIImageView alloc];
-      v8 = IMCommonCoreBundle();
+      v8 = IMCommonCoreBundle(v7);
       traitCollection = [(AEFingerPotView *)self traitCollection];
       v10 = [UIImage imageNamed:@"FingerPot_Pressed" inBundle:v8 compatibleWithTraitCollection:traitCollection];
       v11 = [v7 initWithImage:v10];

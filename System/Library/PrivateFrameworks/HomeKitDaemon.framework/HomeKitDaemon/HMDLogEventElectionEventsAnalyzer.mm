@@ -72,7 +72,7 @@
 
 - (void)handlePrimaryResidentChangedNotification:(id)notification
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"HMDResidentDeviceManagerResidentDeviceNotificationKey"];
@@ -101,9 +101,9 @@
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         v21 = HMFGetLogIdentifier();
-        v23 = 138543362;
-        v24 = v21;
-        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Ignoring notification for home where we can't be a resident", &v23, 0xCu);
+        v22 = 138543362;
+        v23 = v21;
+        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Ignoring notification for home where we can't be a resident", &v22, 0xCu);
       }
 
       objc_autoreleasePoolPop(v18);
@@ -134,15 +134,13 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v23 = 138543362;
-      v24 = v17;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly received update primary resident notification but the primary resident is nil", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v17;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly received update primary resident notification but the primary resident is nil", &v22, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeEvent:(id)event
@@ -300,11 +298,11 @@ LABEL_6:
 
 - (HMDLogEventElectionEventsAnalyzer)initWithDataSource:(id)source
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
-  v20.receiver = self;
-  v20.super_class = HMDLogEventElectionEventsAnalyzer;
-  v5 = [(HMDLogEventElectionEventsAnalyzer *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = HMDLogEventElectionEventsAnalyzer;
+  v5 = [(HMDLogEventElectionEventsAnalyzer *)&v19 init];
   if (v5)
   {
     legacyCountersManager = [sourceCopy legacyCountersManager];
@@ -314,11 +312,11 @@ LABEL_6:
 
     v5->_isCurrentDeviceInSecondaryResidentCoordinationMesh = 0;
     logEventDispatcher = [sourceCopy logEventDispatcher];
-    v21[0] = objc_opt_class();
-    v21[1] = objc_opt_class();
-    v21[2] = objc_opt_class();
-    v21[3] = objc_opt_class();
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+    v20[0] = objc_opt_class();
+    v20[1] = objc_opt_class();
+    v20[2] = objc_opt_class();
+    v20[3] = objc_opt_class();
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
     [logEventDispatcher addObserver:v5 forEventClasses:v10];
 
     notificationCenter = [sourceCopy notificationCenter];
@@ -335,24 +333,22 @@ LABEL_6:
       legacyCountersManager2 = [sourceCopy legacyCountersManager];
       v14 = [HMDCounterThresholdTTRTrigger alloc];
       radarInitiator2 = [sourceCopy radarInitiator];
-      LOBYTE(v19) = 1;
-      v16 = [(HMDCounterThresholdTTRTrigger *)v14 initWithThreshold:100 displayReason:@"primary resident changed excessively" radarTitle:@"HomeKit Issue Detected: Excessive primary resident changes" componentName:@"Resident" componentVersion:@"Resident" componentID:938669 radarInitiator:radarInitiator2 primaryOnly:v19 dataSource:sourceCopy];
+      LOBYTE(v18) = 1;
+      v16 = [(HMDCounterThresholdTTRTrigger *)v14 initWithThreshold:100 displayReason:@"primary resident changed excessively" radarTitle:@"HomeKit Issue Detected: Excessive primary resident changes" componentName:@"Resident" componentVersion:@"Resident" componentID:938669 radarInitiator:radarInitiator2 primaryOnly:v18 dataSource:sourceCopy];
       [legacyCountersManager2 addObserver:v16 forEventName:@"v3ResidentSelectionPrimaryResidentChangedCount" requestGroup:@"HMDLogEventElectionEventsAnalyzerRequestGroup"];
     }
 
     [(HMDEventCounterGroup *)v5->_counterGroup resumeDurationCounter:@"v2CurrentDeviceInPrimaryMeshDurationSeconds"];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 + (id)managedEventCounterRequestGroups
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = @"HMDLogEventElectionEventsAnalyzerRequestGroup";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = @"HMDLogEventElectionEventsAnalyzerRequestGroup";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

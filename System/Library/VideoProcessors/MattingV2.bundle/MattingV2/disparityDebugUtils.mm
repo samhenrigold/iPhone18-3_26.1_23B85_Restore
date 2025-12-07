@@ -1,6 +1,7 @@
 @interface disparityDebugUtils
 + (void)createPathIfNeeded:(id)needed;
 - (disparityDebugUtils)initWithMetalContext:(id)context;
+- (void)ApplyColorWheelAndWrite:(unsigned int)write height:(unsigned int)height data:(float *)data fileFullPath:(const char *)path;
 - (void)WriteBinDataToFile:(void *)file length:(unsigned int)length fileFullPath:(const char *)path;
 - (void)computeRobustMinMaxForF16DisparityBuffer:(__CVBuffer *)buffer WithDisparityScale:(float)scale AndPercentile:(float)percentile OutSignalMin:(float *)min OutSignalMax:(float *)max;
 - (void)convertRGB10A2ToRGBA8:(char *)a8 rbs:(unint64_t)rbs ToRGBA:(char *)a outWidth:(unsigned int)width outHeight:(unsigned int)height;
@@ -1249,6 +1250,17 @@ LABEL_23:
   free(v37);
   free(v15);
   free(v18);
+}
+
+- (void)ApplyColorWheelAndWrite:(unsigned int)write height:(unsigned int)height data:(float *)data fileFullPath:(const char *)path
+{
+  v8 = *&height;
+  v15 = sub_2957DF794(80, 30, 20, 20, 30, 0, 0, 1, 0.0);
+  v10 = malloc_type_malloc(4 * write * v8, 0x7C78171DuLL);
+  sub_2957DFEB0(v15, write, v8, data, 4 * write, 4, v10, 4 * write, v11, v12, v13, v14, 4);
+  sub_2957DB3F8(write, v8, 4 * write, v10, path);
+  free(v10);
+  sub_2957DFD8C(&v15);
 }
 
 - (void)saveF16DisparityBuffer:(__CVBuffer *)buffer AsBinaryFile:(const char *)file

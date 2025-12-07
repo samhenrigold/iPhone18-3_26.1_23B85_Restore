@@ -34,7 +34,7 @@
   [layer2 setAllowsGroupBlending:allowsGroupBlending];
 }
 
-uint64_t __53__CNContactCell__setAnimating_clippingAdjacentCells___block_invoke()
+void *__53__CNContactCell__setAnimating_clippingAdjacentCells___block_invoke()
 {
   result = [MEMORY[0x1E69DD028] instancesRespondToSelector:sel__setAnimating_clippingAdjacentCells_];
   _setAnimating_clippingAdjacentCells__respondsToSelector = result;

@@ -8,47 +8,45 @@
 
 - (id)applyPreprocessingOnUtt:(id)utt
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   uttCopy = utt;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__112;
-  v16 = __Block_byref_object_dispose__113;
-  v17 = [uttCopy mutableCopy];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__112;
+  v15 = __Block_byref_object_dispose__113;
+  v16 = [uttCopy mutableCopy];
   regexMatchingRules = self->_regexMatchingRules;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __42__SLRegexMatcher_applyPreprocessingOnUtt___block_invoke;
-  v11[3] = &unk_279C0E920;
-  v11[4] = self;
-  v11[5] = &v12;
-  [(NSArray *)regexMatchingRules enumerateObjectsUsingBlock:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __42__SLRegexMatcher_applyPreprocessingOnUtt___block_invoke;
+  v10[3] = &unk_279C0E920;
+  v10[4] = self;
+  v10[5] = &v11;
+  [(NSArray *)regexMatchingRules enumerateObjectsUsingBlock:v10];
   v6 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v19 = "[SLRegexMatcher applyPreprocessingOnUtt:]";
-    v20 = 2112;
-    v21 = uttCopy;
+    v18 = "[SLRegexMatcher applyPreprocessingOnUtt:]";
+    v19 = 2112;
+    v20 = uttCopy;
     _os_log_impl(&dword_26754E000, v6, OS_LOG_TYPE_DEFAULT, "%s Input to regex: %@", buf, 0x16u);
     v6 = SLLogContextFacilityCoreSpeech;
   }
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = v13[5];
+    v7 = v12[5];
     *buf = 136315394;
-    v19 = "[SLRegexMatcher applyPreprocessingOnUtt:]";
-    v20 = 2112;
-    v21 = v7;
+    v18 = "[SLRegexMatcher applyPreprocessingOnUtt:]";
+    v19 = 2112;
+    v20 = v7;
     _os_log_impl(&dword_26754E000, v6, OS_LOG_TYPE_DEFAULT, "%s Output of regex: %@", buf, 0x16u);
   }
 
-  v8 = v13[5];
-  _Block_object_dispose(&v12, 8);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = v12[5];
+  _Block_object_dispose(&v11, 8);
 
   return v8;
 }
@@ -96,7 +94,7 @@ void __42__SLRegexMatcher_applyPreprocessingOnUtt___block_invoke(uint64_t a1, vo
 
 void __48__SLRegexMatcher__compileRegexRulesForPatterns___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:@"patternMatch"];
   v5 = [v3 objectForKeyedSubscript:@"replaceWith"];
@@ -126,11 +124,11 @@ void __48__SLRegexMatcher__compileRegexRulesForPatterns___block_invoke(uint64_t 
         v12 = v11;
         v13 = [v8 localizedDescription];
         *buf = 136315650;
-        v18 = "[SLRegexMatcher _compileRegexRulesForPatterns:]_block_invoke";
-        v19 = 2112;
-        v20 = v4;
-        v21 = 2112;
-        v22 = v13;
+        v17 = "[SLRegexMatcher _compileRegexRulesForPatterns:]_block_invoke";
+        v18 = 2112;
+        v19 = v4;
+        v20 = 2112;
+        v21 = v13;
         _os_log_error_impl(&dword_26754E000, v12, OS_LOG_TYPE_ERROR, "%s Unable to decode pattern %@ with err %@", buf, 0x20u);
       }
     }
@@ -148,21 +146,19 @@ void __48__SLRegexMatcher__compileRegexRulesForPatterns___block_invoke(uint64_t 
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v18 = "[SLRegexMatcher _compileRegexRulesForPatterns:]_block_invoke";
+      v17 = "[SLRegexMatcher _compileRegexRulesForPatterns:]_block_invoke";
       _os_log_error_impl(&dword_26754E000, v14, OS_LOG_TYPE_ERROR, "%s Empty pattern, ignore", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (SLRegexMatcher)initWithConfigFile:(id)file
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   fileCopy = file;
-  v20.receiver = self;
-  v20.super_class = SLRegexMatcher;
-  v5 = [(SLRegexMatcher *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = SLRegexMatcher;
+  v5 = [(SLRegexMatcher *)&v19 init];
   if (!v5)
   {
     goto LABEL_12;
@@ -193,9 +189,9 @@ LABEL_12:
 
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing config for regex matcher %@", v7];
   v10 = MEMORY[0x277CCA9B8];
-  v25 = @"reason";
-  v26[0] = v9;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v24 = @"reason";
+  v25[0] = v9;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
   v12 = [v10 errorWithDomain:@"com.apple.sl" code:115 userInfo:v11];
 
   if (!v12)
@@ -207,19 +203,18 @@ LABEL_12:
   v13 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
-    v18 = v13;
+    v17 = v13;
     localizedDescription = [v12 localizedDescription];
     *buf = 136315394;
-    v22 = "[SLRegexMatcher initWithConfigFile:]";
-    v23 = 2112;
-    v24 = localizedDescription;
-    _os_log_error_impl(&dword_26754E000, v18, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
+    v21 = "[SLRegexMatcher initWithConfigFile:]";
+    v22 = 2112;
+    v23 = localizedDescription;
+    _os_log_error_impl(&dword_26754E000, v17, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
   }
 
   v14 = 0;
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

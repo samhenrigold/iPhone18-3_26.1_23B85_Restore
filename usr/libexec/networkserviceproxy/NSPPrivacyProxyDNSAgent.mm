@@ -1,5 +1,6 @@
 @interface NSPPrivacyProxyDNSAgent
 + (id)agentType;
+- (BOOL)reportError:(int)error withOptions:(id)options;
 - (NSPPrivacyProxyDNSAgent)initWithDelegate:(id)delegate;
 - (NSPPrivacyProxyDNSAgentDelegate)delegate;
 - (id)copyAgentData;
@@ -95,6 +96,16 @@
   }
 
   return v13;
+}
+
+- (BOOL)reportError:(int)error withOptions:(id)options
+{
+  v4 = *&error;
+  optionsCopy = options;
+  delegate = [(NSPPrivacyProxyDNSAgent *)self delegate];
+  [delegate reportErrorForDNSAgent:self error:v4 withOptions:optionsCopy];
+
+  return 1;
 }
 
 - (NSPPrivacyProxyDNSAgentDelegate)delegate

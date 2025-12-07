@@ -58,7 +58,7 @@
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
   sub_100406138();
-  sub_100004758(&v5);
+  sub_100004758(v5);
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -85,7 +85,7 @@
   if (*(&self->super.super.super.super.isa + OBJC_IVAR____TtC9Reminders29TTRIListSharingViewController_allowsEditing) == 1)
   {
     selfCopy = self;
-    v10 = sub_100101C44();
+    v10 = sub_100101C44(v8);
     if ((v11 & 0x100) != 0)
     {
       v12 = 0;

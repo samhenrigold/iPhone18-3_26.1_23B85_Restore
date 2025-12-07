@@ -22,9 +22,9 @@
 
   if (v8 && v7)
   {
-    v11 = [v8 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-    if (v11)
+    if (isEqualToString)
     {
       goto LABEL_13;
     }
@@ -46,7 +46,7 @@ LABEL_12:
   v14 = v13;
   if (v9 && v12)
   {
-    v15 = [v13 isEqualToString:v12];
+    v15 = objc_msgSend_isEqualToString_(v13);
 
     if ((v15 & 1) == 0)
     {
@@ -85,7 +85,7 @@ LABEL_27:
 
   if (v9 && v22)
   {
-    v26 = [v23 isEqualToString:v22];
+    v26 = objc_msgSend_isEqualToString_(v23);
 
     if (v26)
     {
@@ -139,7 +139,7 @@ LABEL_18:
     goto LABEL_22;
   }
 
-  v29 = [v28 isEqualToString:v27];
+  v29 = objc_msgSend_isEqualToString_(v28);
 
   if (v29)
   {
@@ -163,20 +163,20 @@ LABEL_23:
 
 + (BOOL)canRepresentURL:(id)l item:(id)item parentItems:(id)items
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   v6 = getWFFilesLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     providerDomainID = [itemCopy providerDomainID];
     providerID = [itemCopy providerID];
-    v16 = 136315650;
-    v17 = "+[WFiCloudFileLocation canRepresentURL:item:parentItems:]";
-    v18 = 2112;
-    v19 = providerDomainID;
-    v20 = 2112;
-    v21 = providerID;
-    _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s Evaluating item with provider domain id: %@ && provider id %@", &v16, 0x20u);
+    v15 = 136315650;
+    v16 = "+[WFiCloudFileLocation canRepresentURL:item:parentItems:]";
+    v17 = 2112;
+    v18 = providerDomainID;
+    v19 = 2112;
+    v20 = providerID;
+    _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s Evaluating item with provider domain id: %@ && provider id %@", &v15, 0x20u);
   }
 
   v9 = WFPossibleMobileDocumentsFileProviderDomainIDs();
@@ -193,7 +193,6 @@ LABEL_23:
     v11 = [v12 containsObject:providerID2];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

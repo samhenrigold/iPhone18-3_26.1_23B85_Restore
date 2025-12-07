@@ -25,43 +25,43 @@
     {
       if (v6)
       {
-        v8 = [(__CFString *)v6 isEqualToString:@"product"];
+        isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-        if (v8)
+        if (isEqualToString)
         {
           goto LABEL_5;
         }
 
         v10 = v7;
-        if (v10 == @"tax" || (v11 = v10, v12 = [(__CFString *)v10 isEqualToString:@"tax"], v11, (v12 & 1) != 0))
+        if (v10 == @"tax" || (v11 = v10, v12 = objc_msgSend_isEqualToString_(v10), v11, (v12 & 1) != 0))
         {
           v9 = 2;
           goto LABEL_22;
         }
 
         v13 = v11;
-        if (v13 == @"shipping" || (v14 = v13, v15 = [(__CFString *)v13 isEqualToString:@"shipping"], v14, (v15 & 1) != 0))
+        if (v13 == @"shipping" || (v14 = v13, v15 = objc_msgSend_isEqualToString_(v13), v14, (v15 & 1) != 0))
         {
           v9 = 3;
           goto LABEL_22;
         }
 
         v16 = v14;
-        if (v16 == @"other" || (v17 = v16, v18 = [(__CFString *)v16 isEqualToString:@"other"], v17, (v18 & 1) != 0))
+        if (v16 == @"other" || (v17 = v16, v18 = objc_msgSend_isEqualToString_(v16), v17, (v18 & 1) != 0))
         {
           v9 = 4;
           goto LABEL_22;
         }
 
         v19 = v17;
-        if (v19 == @"tradeIn" || (v20 = v19, v21 = [(__CFString *)v19 isEqualToString:@"tradeIn"], v20, (v21 & 1) != 0))
+        if (v19 == @"tradeIn" || (v20 = v19, v21 = objc_msgSend_isEqualToString_(v19), v20, (v21 & 1) != 0))
         {
           v9 = 5;
           goto LABEL_22;
         }
 
         v22 = v20;
-        if (v22 == @"accessory" || (v23 = v22, v24 = [(__CFString *)v22 isEqualToString:@"accessory"], v23, v24))
+        if (v22 == @"accessory" || (v23 = v22, v24 = objc_msgSend_isEqualToString_(v22), v23, v24))
         {
           v9 = 6;
           goto LABEL_22;
@@ -162,9 +162,9 @@ LABEL_22:
       goto LABEL_21;
     }
 
-    v12 = [(NSString *)v9 isEqualToString:v10];
+    isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-    if (!v12)
+    if (!isEqualToString)
     {
       goto LABEL_22;
     }
@@ -183,7 +183,7 @@ LABEL_22:
   {
     if (v9 && v14)
     {
-      v15 = [(NSString *)v9 isEqualToString:v14];
+      v15 = objc_msgSend_isEqualToString_(v9);
 
       if (v15)
       {

@@ -145,16 +145,16 @@
 
 - (void)parseASParseContext:(id)context root:(id)root parent:(id)parent callbackDict:(id)dict streamCallbackDict:(id)callbackDict account:(id)account
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   rootCopy = root;
   parentCopy = parent;
   dictCopy = dict;
   callbackDictCopy = callbackDict;
   accountCopy = account;
-  v52.receiver = self;
-  v52.super_class = ASSettingsTaskUserInformationGetResponse;
-  [(ASItem *)&v52 parseASParseContext:contextCopy root:rootCopy parent:parentCopy callbackDict:dictCopy streamCallbackDict:callbackDictCopy account:accountCopy];
+  v51.receiver = self;
+  v51.super_class = ASSettingsTaskUserInformationGetResponse;
+  [(ASItem *)&v51 parseASParseContext:contextCopy root:rootCopy parent:parentCopy callbackDict:dictCopy streamCallbackDict:callbackDictCopy account:accountCopy];
   parsingState = self->super._parsingState;
   if (parsingState < 2)
   {
@@ -169,8 +169,8 @@
 
   else
   {
-    v46 = rootCopy;
-    v47 = contextCopy;
+    v45 = rootCopy;
+    v46 = contextCopy;
     v22 = DALoggingwithCategory();
     v23 = *(MEMORY[0x277D03988] + 7);
     if (os_log_type_enabled(v22, v23))
@@ -180,33 +180,33 @@
       _os_log_impl(&dword_24A0AC000, v22, v23, "%@ Parsed its context.", buf, 0xCu);
     }
 
-    v42 = dictCopy;
-    v44 = parentCopy;
+    v41 = dictCopy;
+    v43 = parentCopy;
 
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     accounts = [(ASSettingsTaskUserInformationGetResponse *)self accounts];
-    v25 = [accounts countByEnumeratingWithState:&v48 objects:v53 count:16];
+    v25 = [accounts countByEnumeratingWithState:&v47 objects:v52 count:16];
     if (v25)
     {
       v26 = v25;
       v21 = 0;
-      v27 = *v49;
+      v27 = *v48;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v49 != v27)
+          if (*v48 != v27)
           {
             objc_enumerationMutation(accounts);
           }
 
-          v29 = *(*(&v48 + 1) + 8 * i);
+          v29 = *(*(&v47 + 1) + 8 * i);
           if (v21)
           {
-            accountId = [*(*(&v48 + 1) + 8 * i) accountId];
+            accountId = [*(*(&v47 + 1) + 8 * i) accountId];
 
             if (accountId)
             {
@@ -219,7 +219,7 @@
           v21 = v31;
         }
 
-        v26 = [accounts countByEnumeratingWithState:&v48 objects:v53 count:16];
+        v26 = [accounts countByEnumeratingWithState:&v47 objects:v52 count:16];
       }
 
       while (v26);
@@ -244,9 +244,9 @@
     emailAddressList3 = [v21 emailAddressList];
     primarySMTPAddress = [emailAddressList3 primarySMTPAddress];
 
-    parentCopy = v45;
-    rootCopy = v46;
-    dictCopy = v43;
+    parentCopy = v44;
+    rootCopy = v45;
+    dictCopy = v42;
     if (primarySMTPAddress)
     {
       emailAddressList4 = [v21 emailAddressList];
@@ -254,10 +254,8 @@
       [(ASSettingsTaskUserInformationGetResponse *)self setPrimarySMTPAddress:primarySMTPAddress2];
     }
 
-    contextCopy = v47;
+    contextCopy = v46;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 @end

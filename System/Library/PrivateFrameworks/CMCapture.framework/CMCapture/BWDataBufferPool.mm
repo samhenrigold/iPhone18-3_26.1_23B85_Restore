@@ -16,7 +16,7 @@
 {
   if (result)
   {
-    v1 = result;
+    v10 = result;
     if (*(result + 32) == 1)
     {
       if (*(result + 56))
@@ -26,43 +26,43 @@
 
       else
       {
-        fig_log_get_emitter();
+        emitter = fig_log_get_emitter();
 
-        return FigSignalErrorAtGM();
+        return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE11, "<<<< BWDataBufferPool >>>>", 0xC0, v9, v16, v17, a9);
       }
     }
 
     else
     {
       os_unfair_lock_lock((result + 48));
-      if (!*(v1 + 56))
+      if (!*(v10 + 56))
       {
-        v2 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:3];
-        v3 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 16)];
-        [v2 setObject:v3 forKeyedSubscript:*MEMORY[0x1E6965CA8]];
-        [v2 setObject:&unk_1F22439C0 forKeyedSubscript:*MEMORY[0x1E6965CA0]];
-        v4 = *(v1 + 24);
-        if (v4)
+        v11 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:3];
+        v12 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v10 + 16)];
+        [v11 setObject:v12 forKeyedSubscript:*MEMORY[0x1E6965CA8]];
+        [v11 setObject:&unk_1F22439C0 forKeyedSubscript:*MEMORY[0x1E6965CA0]];
+        v13 = *(v10 + 24);
+        if (v13)
         {
-          [v2 setObject:v4 forKeyedSubscript:*MEMORY[0x1E6965CB0]];
+          [v11 setObject:v13 forKeyedSubscript:*MEMORY[0x1E6965CB0]];
         }
 
-        dataBufferAttributes = [*(v1 + 8) dataBufferAttributes];
-        if (*(v1 + 40))
+        dataBufferAttributes = [*(v10 + 8) dataBufferAttributes];
+        if (*(v10 + 40))
         {
           [MEMORY[0x1E695DF90] dictionaryWithDictionary:dataBufferAttributes];
           FigCFDictionaryAddEntriesToDictionaryWithRecursion();
         }
 
-        [*(v1 + 8) dataFormat];
-        [*(v1 + 8) dataBufferSize];
-        *(v1 + 72) = CVDataBufferPoolCreate();
-        v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:{*(v1 + 16), *MEMORY[0x1E6965C98]}];
-        *(v1 + 64) = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
+        [*(v10 + 8) dataFormat];
+        [*(v10 + 8) dataBufferSize];
+        *(v10 + 72) = CVDataBufferPoolCreate();
+        v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:{*(v10 + 16), *MEMORY[0x1E6965C98]}];
+        *(v10 + 64) = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
       }
 
-      os_unfair_lock_unlock((v1 + 48));
-      return *(v1 + 72);
+      os_unfair_lock_unlock((v10 + 48));
+      return *(v10 + 72);
     }
   }
 
@@ -163,16 +163,16 @@ LABEL_13:
 void __50__BWDataBufferPool_prefetchWithCompletionHandler___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = [(BWDataBufferPool *)*(a1 + 32) _ensurePool];
-  if (!v3)
+  v10 = [(BWDataBufferPool *)*(a1 + 32) _ensurePool:v3];
+  if (!v10)
   {
-    v3 = CVDataBufferPoolPrefetchPages();
+    v10 = CVDataBufferPoolPrefetchPages();
   }
 
-  v4 = *(a1 + 40);
-  if (v4)
+  v11 = *(a1 + 40);
+  if (v11)
   {
-    (*(v4 + 16))(v4, v3);
+    (*(v11 + 16))(v11, v10);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -190,7 +190,7 @@ void __50__BWDataBufferPool_prefetchWithCompletionHandler___block_invoke(uint64_
 
 - (void)setCapacity:(unint64_t)capacity
 {
-  if (self->_clientProvidesPool || [BWDataBufferPool setCapacity:?])
+  if (self->_clientProvidesPool || [(BWDataBufferPool *)self setCapacity:capacity, capacity, v3, v4, v5, v6, v7])
   {
     self->_capacity = capacity;
   }
@@ -207,11 +207,18 @@ void __50__BWDataBufferPool_prefetchWithCompletionHandler___block_invoke(uint64_
 {
   if (result)
   {
-    if ([(BWDataBufferPool *)result _ensurePool]|| CVDataBufferPoolCreateDataBuffer())
+    if ([(BWDataBufferPool *)result _ensurePool:a2])
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_1();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    }
+
+    else if (CVDataBufferPoolCreateDataBuffer())
+    {
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_0_1();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     return 0;

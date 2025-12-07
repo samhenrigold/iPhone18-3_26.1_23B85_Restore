@@ -39,6 +39,7 @@
 - (void)startAccPowerTimer:(unsigned int)timer ForPortService:(unsigned int)service;
 - (void)startIOAccMgrPortDetectTimer:(unsigned int)timer;
 - (void)stopServer:(int)server forceExitingImmediately:(BOOL)immediately;
+- (void)toggleAccessoryPowerForPortService:(unsigned int)service;
 - (void)unregisterClientPortAccessory:(id)accessory;
 - (void)updateDeviceUUIDState;
 - (void)updatePortManagers;
@@ -114,14 +115,14 @@
         NSLog(@"_attachiAPInterfaceUSBDevices: could not install kIOFirstMatchNotification notification, error: %08x", v8);
       }
 
-      sub_1000120B8(v8, self->_iAPInterfaceDeviceArrivedIterator);
-      v9 = IOServiceAddMatchingNotification(self->_iapInterfaceNotifyPort, "IOServiceTerminate", v7, sub_100012624, 0, &self->_iAPInterfaceDeviceRemovedIterator);
-      if (v9)
+      sub_1000120B8(v8, self->_iAPInterfaceDeviceArrivedIterator, v9, v10, v11);
+      v12 = IOServiceAddMatchingNotification(self->_iapInterfaceNotifyPort, "IOServiceTerminate", v7, sub_100012624, 0, &self->_iAPInterfaceDeviceRemovedIterator);
+      if (v12)
       {
-        NSLog(@"_attachiAPInterfaceUSBDevices: could not install kIOTerminatedNotification notification, error: %08x", v9);
+        NSLog(@"_attachiAPInterfaceUSBDevices: could not install kIOTerminatedNotification notification, error: %08x", v12);
       }
 
-      sub_100012624(v9, self->_iAPInterfaceDeviceRemovedIterator);
+      sub_100012624(v12, self->_iAPInterfaceDeviceRemovedIterator);
       Main = CFRunLoopGetMain();
       RunLoopSource = IONotificationPortGetRunLoopSource(self->_iapInterfaceNotifyPort);
       CFRunLoopAddSource(Main, RunLoopSource, kCFRunLoopDefaultMode);
@@ -396,9 +397,9 @@
 
 - (IAPTransportServer)init
 {
-  v29.receiver = self;
-  v29.super_class = IAPTransportServer;
-  v2 = [(IAPTransportServer *)&v29 init];
+  v26.receiver = self;
+  v26.super_class = IAPTransportServer;
+  v2 = [(IAPTransportServer *)&v26 init];
   if (!v2)
   {
     return v2;
@@ -431,33 +432,33 @@
   *(v2 + 16) = dispatch_queue_create("IAPTransportServerAccPowerTimerQueue", 0);
   *(v2 + 29) = dispatch_queue_create("IAPTransportServerShutdownQueue", 0);
   *(v2 + 33) = 0;
-  v28[0] = 0;
-  v28[1] = v28;
-  v28[2] = 0x3052000000;
-  v28[3] = sub_100012FBC;
-  v28[4] = sub_100012FCC;
-  v28[5] = v2;
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0x3052000000;
+  v25[3] = sub_100012FBC;
+  v25[4] = sub_100012FCC;
+  v25[5] = v2;
   *(v2 + 27) = 0;
   if (+[IAPTransportServer supportsIAPD])
   {
     v5 = [[IAPXPCConnection alloc] initWithServiceName:@"com.apple.iapd.xpc" queueName:@"com.apple.iapd.IAPXPCConnection"];
     *(v2 + 27) = v5;
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_100014340;
-    v27[3] = &unk_10002D460;
-    v27[4] = v28;
-    [(IAPXPCConnection *)v5 setDisconnectBlock:v27];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100014340;
+    v24[3] = &unk_10002D460;
+    v24[4] = v25;
+    [(IAPXPCConnection *)v5 setDisconnectBlock:v24];
   }
 
   v6 = [[IAPXPCConnection alloc] initWithServiceName:@"com.apple.iap2d.xpc" queueName:@"com.apple.iap2d.IAPXPCConnection"];
   *(v2 + 28) = v6;
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_100014350;
-  v26[3] = &unk_10002D460;
-  v26[4] = v28;
-  [(IAPXPCConnection *)v6 setDisconnectBlock:v26];
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_100014350;
+  v23[3] = &unk_10002D460;
+  v23[4] = v25;
+  [(IAPXPCConnection *)v6 setDisconnectBlock:v23];
   dispatch_async(&_dispatch_main_q, &stru_10002D888);
   v7 = IONotificationPortCreate(kIOMasterPortDefault);
   *(v2 + 46) = 0;
@@ -477,8 +478,8 @@
     v9 = 10;
   }
 
-  v23 = v9;
-  v24 = 0;
+  v20 = v9;
+  v21 = 0;
   while (1)
   {
     existing[0] = 0;
@@ -522,8 +523,8 @@
           if (!qword_100031DC8)
           {
             _os_assert_log();
-            v20 = _os_crash();
-            sub_10001B804(v20);
+            _os_crash();
+            sub_10001B804();
           }
         }
 
@@ -545,8 +546,8 @@
           if (!qword_100031DD8)
           {
             _os_assert_log();
-            v21 = _os_crash();
-            sub_10001B804(v21);
+            _os_crash();
+            sub_10001B804();
           }
         }
 
@@ -563,7 +564,7 @@
 
     syslog(4, "IAPTransportServer: init:%d: __pIapAppleIDBusRootE75 == NULL\n", 2373);
     usleep(0x186A0u);
-    if (!qword_100031DC8 && v24++ < v23)
+    if (!qword_100031DC8 && v21++ < v20)
     {
       continue;
     }
@@ -588,8 +589,8 @@
   if (!qword_100031DD0)
   {
     _os_assert_log();
-    v22 = _os_crash();
-    sub_10001B804(v22);
+    _os_crash();
+    sub_10001B804();
   }
 
   v2[188] = MGGetBoolAnswer();
@@ -637,7 +638,7 @@ LABEL_36:
     }
   }
 
-  _Block_object_dispose(v28, 8);
+  _Block_object_dispose(v25, 8);
   return v2;
 }
 
@@ -1369,7 +1370,7 @@ LABEL_11:
 {
   if (port)
   {
-    nullsub_15(port, 8, 0);
+    nullsub_15();
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000163B0;
@@ -1550,6 +1551,15 @@ LABEL_11:
 
     CFRelease(v5);
   }
+}
+
+- (void)toggleAccessoryPowerForPortService:(unsigned int)service
+{
+  v3 = *&service;
+  NSLog(@"%s:%d Turning Acc Power off for portService: %u", a2, "[IAPTransportServer toggleAccessoryPowerForPortService:]", 3354, service);
+  sub_100011538(v3, 1);
+
+  [(IAPTransportServer *)self startAccPowerTimer:1250 ForPortService:v3];
 }
 
 @end

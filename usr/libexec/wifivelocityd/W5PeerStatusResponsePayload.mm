@@ -93,7 +93,7 @@
       v33 = 66;
       v34 = 2114;
       v35 = v19;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v22, 0, "[wifivelocity] %s (%s:%u) init error (error='%{public}@'", &v28, 38);
     }
 
     v5 = 0;
@@ -113,21 +113,19 @@ LABEL_14:
     version = [(W5PeerStatusResponsePayload *)self version];
     status = [(W5PeerStatusResponsePayload *)self status];
     peerStatus = [(W5PeerStatusResponsePayload *)self peerStatus];
-    v21 = 136316418;
-    v22 = "[W5PeerStatusResponsePayload encode]";
-    v23 = 2080;
-    v24 = "W5PeerStatusResponsePayload.m";
-    v25 = 1024;
-    v26 = 77;
-    v27 = 2114;
-    v28 = version;
-    v29 = 2048;
-    v30 = status;
-    v31 = 2114;
-    v32 = peerStatus;
-    LODWORD(v19) = 58;
-    v18 = &v21;
-    _os_log_send_and_compose_impl();
+    v20 = 136316418;
+    v21 = "[W5PeerStatusResponsePayload encode]";
+    v22 = 2080;
+    v23 = "W5PeerStatusResponsePayload.m";
+    v24 = 1024;
+    v25 = 77;
+    v26 = 2114;
+    v27 = version;
+    v28 = 2048;
+    v29 = status;
+    v30 = 2114;
+    v31 = peerStatus;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %s (%s:%u) version='%{public}@', status=%ld, status='%{public}@'", &v20, 58);
   }
 
   version2 = [(W5PeerStatusResponsePayload *)self version];
@@ -159,26 +157,25 @@ LABEL_17:
   }
 
   peerStatus2 = [(W5PeerStatusResponsePayload *)self peerStatus];
-  v20 = 0;
-  version2 = [NSKeyedArchiver archivedDataWithRootObject:peerStatus2 requiringSecureCoding:1 error:&v20];
-  v12 = v20;
+  v19 = 0;
+  version2 = [NSKeyedArchiver archivedDataWithRootObject:peerStatus2 requiringSecureCoding:1 error:&v19];
+  v12 = v19;
 
   if (!version2 || v12)
   {
     v13 = sub_100098A04();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 136315906;
-      v22 = "[W5PeerStatusResponsePayload encode]";
-      v23 = 2080;
-      v24 = "W5PeerStatusResponsePayload.m";
-      v25 = 1024;
-      v26 = 94;
-      v27 = 2114;
-      v28 = v12;
-      LODWORD(v19) = 38;
-      v18 = &v21;
-      _os_log_send_and_compose_impl();
+      v20 = 136315906;
+      v21 = "[W5PeerStatusResponsePayload encode]";
+      v22 = 2080;
+      v23 = "W5PeerStatusResponsePayload.m";
+      v24 = 1024;
+      v25 = 94;
+      v26 = 2114;
+      v27 = v12;
+      LODWORD(v18) = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v13, 0, "[wifivelocity] %s (%s:%u) failed to encode status with error='%{public}@'", &v20, v18);
     }
   }
 

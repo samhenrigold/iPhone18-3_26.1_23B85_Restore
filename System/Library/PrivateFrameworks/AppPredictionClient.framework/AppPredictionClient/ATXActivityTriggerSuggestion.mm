@@ -41,55 +41,56 @@
 
   if (![v5 count])
   {
-    v6 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = __atxlog_handle_modes(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [(ATXActivityTriggerSuggestion *)v6 localizedTriggerSuggestionText:v14];
+      [(ATXActivityTriggerSuggestion *)v7 localizedTriggerSuggestionText:v15];
     }
 
     goto LABEL_11;
   }
 
-  if ([v5 count] >= 2)
+  v6 = [v5 count];
+  if (v6 >= 2)
   {
-    v6 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = __atxlog_handle_modes(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [(ATXActivityTriggerSuggestion *)v6 localizedTriggerSuggestionText:v7];
+      [(ATXActivityTriggerSuggestion *)v7 localizedTriggerSuggestionText:v8];
     }
 
     goto LABEL_11;
   }
 
   [(ATXActivity *)self->_activity activityType];
-  v6 = ATXActivityTypeToDNDModeSemanticType();
-  if (!v6)
+  v7 = ATXActivityTypeToDNDModeSemanticType();
+  if (!v7)
   {
 LABEL_11:
-    v26 = 0;
+    v27 = 0;
     goto LABEL_12;
   }
 
   userModeName = [(ATXActivity *)self->_activity userModeName];
   if (![userModeName length])
   {
-    firstObject = __atxlog_handle_modes();
+    firstObject = __atxlog_handle_modes(0);
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_FAULT))
     {
-      [(ATXActivityTriggerSuggestion *)firstObject localizedTriggerSuggestionText:v28];
+      [(ATXActivityTriggerSuggestion *)firstObject localizedTriggerSuggestionText:v29];
     }
 
-    v26 = 0;
+    v27 = 0;
     goto LABEL_30;
   }
 
-  integerValue = [v6 integerValue];
+  integerValue = [v7 integerValue];
   firstObject = [v5 firstObject];
-  v24 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v25 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v25 = [(ATXActivityTriggerSuggestion *)self _localizedStringForSmartActivationFromBundle:v24 semanticType:integerValue userModeName:userModeName];
+    v26 = [(ATXActivityTriggerSuggestion *)self _localizedStringForSmartActivationFromBundle:v25 semanticType:integerValue userModeName:userModeName];
   }
 
   else
@@ -97,7 +98,7 @@ LABEL_11:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v25 = [(ATXActivityTriggerSuggestion *)self _localizedStringForLocationTriggerFromBundle:v24 semanticType:integerValue userModeName:userModeName];
+      v26 = [(ATXActivityTriggerSuggestion *)self _localizedStringForLocationTriggerFromBundle:v25 semanticType:integerValue userModeName:userModeName];
     }
 
     else
@@ -105,7 +106,7 @@ LABEL_11:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v25 = [(ATXActivityTriggerSuggestion *)self _localizedStringForSleepingTriggerFromBundle:v24 semanticType:integerValue userModeName:userModeName];
+        v26 = [(ATXActivityTriggerSuggestion *)self _localizedStringForSleepingTriggerFromBundle:v25 semanticType:integerValue userModeName:userModeName];
       }
 
       else
@@ -113,7 +114,7 @@ LABEL_11:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v25 = [(ATXActivityTriggerSuggestion *)self _localizedStringForDrivingTriggerFromBundle:v24 semanticType:integerValue userModeName:userModeName];
+          v26 = [(ATXActivityTriggerSuggestion *)self _localizedStringForDrivingTriggerFromBundle:v25 semanticType:integerValue userModeName:userModeName];
         }
 
         else
@@ -121,38 +122,39 @@ LABEL_11:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v25 = [(ATXActivityTriggerSuggestion *)self _localizedStringForWorkoutTriggerFromBundle:v24 semanticType:integerValue userModeName:userModeName];
+            v26 = [(ATXActivityTriggerSuggestion *)self _localizedStringForWorkoutTriggerFromBundle:v25 semanticType:integerValue userModeName:userModeName];
           }
 
           else
           {
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            isKindOfClass = objc_opt_isKindOfClass();
+            if ((isKindOfClass & 1) == 0)
             {
-              v35 = __atxlog_handle_modes();
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+              v37 = __atxlog_handle_modes(isKindOfClass);
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
               {
                 [(ATXActivityTriggerSuggestion *)firstObject localizedTriggerSuggestionText];
               }
 
-              v26 = 0;
+              v27 = 0;
               goto LABEL_29;
             }
 
-            v25 = [(ATXActivityTriggerSuggestion *)self _localizedStringForGameControllerTriggerFromBundle:v24 semanticType:integerValue userModeName:userModeName];
+            v26 = [(ATXActivityTriggerSuggestion *)self _localizedStringForGameControllerTriggerFromBundle:v25 semanticType:integerValue userModeName:userModeName];
           }
         }
       }
     }
   }
 
-  v26 = v25;
+  v27 = v26;
 LABEL_29:
 
 LABEL_30:
 LABEL_12:
 
-  return v26;
+  return v27;
 }
 
 - (id)_localizableStringForModeSemanticType:(int64_t)type
@@ -163,7 +165,7 @@ LABEL_12:
     return qword_1E80C4490[v4];
   }
 
-  v6 = __atxlog_handle_modes();
+  v6 = __atxlog_handle_modes(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
     [(ATXActivityTriggerSuggestion *)type _localizableStringForModeSemanticType:v6];

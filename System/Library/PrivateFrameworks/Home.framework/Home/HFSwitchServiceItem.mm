@@ -7,20 +7,18 @@
 
 - (id)createControlItemsWithOptions:(id)options
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   controlItemValueSourceForPrimaryService = [(HFServiceItem *)self controlItemValueSourceForPrimaryService];
   v6 = MEMORY[0x277CBEB98];
   v7 = [HFPowerStateControlItem alloc];
-  v14 = @"title";
+  v13 = @"title";
   v8 = HFItemOptionalLocalizedString(@"HFControlShortTitlePower", optionsCopy);
 
-  v15[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v14[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v10 = [(HFPowerStateControlItem *)v7 initWithValueSource:controlItemValueSourceForPrimaryService displayResults:v9];
   v11 = [v6 setWithObject:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

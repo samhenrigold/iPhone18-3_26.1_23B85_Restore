@@ -125,17 +125,17 @@
   return v10;
 }
 
-void __60__CRDataDetectorUtilities__personNameScoreForString_locale___block_invoke()
+void __60__CRDataDetectorUtilities__personNameScoreForString_locale___block_invoke(uint64_t a1)
 {
-  v0 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v5 = [v0 URLForResource:@"lex-names" withExtension:@"gzt"];
-
   v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v2 = [v1 URLForResource:@"names" withExtension:@"gzt"];
+  v6 = [v1 URLForResource:@"lex-names" withExtension:@"gzt"];
 
-  v3 = [[CRNamedEntityRecognizer alloc] initWithNameGazetteerURL:v5 lastNameGazetteerURL:v2];
-  v4 = qword_1ED95FE20;
-  qword_1ED95FE20 = v3;
+  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v3 = [v2 URLForResource:@"names" withExtension:@"gzt"];
+
+  v4 = [[CRNamedEntityRecognizer alloc] initWithNameGazetteerURL:v6 lastNameGazetteerURL:v3];
+  v5 = qword_1ED95FE20;
+  qword_1ED95FE20 = v4;
 }
 
 + (double)_personNameScoreForFullNameString:(id)string locale:(id)locale

@@ -66,7 +66,7 @@
 
 - (BOOL)searchBarShouldClear:(id)clear
 {
-  type metadata accessor for AnyAccessibilityValue?(0, &lazy cache variable for type metadata for ()?);
+  type metadata accessor for AnyAccessibilityValue?(0, &lazy cache variable for type metadata for ()?, MEMORY[0x1E69E7CA8] + 8);
   selfCopy = self;
   static Update.ensure<A>(_:)();
 

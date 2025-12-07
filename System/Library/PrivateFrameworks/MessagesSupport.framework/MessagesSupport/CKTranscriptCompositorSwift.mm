@@ -60,19 +60,16 @@
 
 - (id)datasource
 {
-  v3 = OBJC_IVAR___CKTranscriptCompositorSwift_datasource;
   swift_beginAccess();
-  v4 = *(self + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setDatasource:(id)datasource
 {
   v5 = OBJC_IVAR___CKTranscriptCompositorSwift_datasource;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = datasource;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -131,14 +128,12 @@
 
 - (NSArray)boundarySupplementaryItems
 {
-  v3 = OBJC_IVAR___CKTranscriptCompositorSwift_boundarySupplementaryItems;
   swift_beginAccess();
-  v4 = *(self + v3);
   sub_2156873E4(0, &qword_28119C870, 0x277CFB830);
 
-  v5 = sub_2156930E0();
+  v2 = sub_2156930E0();
 
-  return v5;
+  return v2;
 }
 
 - (void)setBoundarySupplementaryItems:(id)items

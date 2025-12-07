@@ -55,42 +55,42 @@ BOOL __33__HKRateLimiter__lock_usedBudget__block_invoke(uint64_t a1, void *a2)
 - (uint64_t)_lock_usedBudget
 {
   selfCopy = self;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:-*(self + 32)];
     v3 = *(selfCopy + 16);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __33__HKRateLimiter__lock_usedBudget__block_invoke;
-    v16[3] = &unk_1E737D0B0;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __33__HKRateLimiter__lock_usedBudget__block_invoke;
+    v15[3] = &unk_1E737D0B0;
     v4 = v2;
-    v17 = v4;
-    [v3 hk_removeObjectsPassingTest:v16];
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
+    v16 = v4;
+    [v3 hk_removeObjectsPassingTest:v15];
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v5 = *(selfCopy + 16);
-    v6 = [v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
       selfCopy = 0;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          selfCopy += [*(*(&v12 + 1) + 8 * i) cost];
+          selfCopy += [*(*(&v11 + 1) + 8 * i) cost];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v11 objects:v17 count:16];
       }
 
       while (v7);
@@ -102,7 +102,6 @@ BOOL __33__HKRateLimiter__lock_usedBudget__block_invoke(uint64_t a1, void *a2)
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

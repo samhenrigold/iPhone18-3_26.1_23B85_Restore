@@ -9,7 +9,7 @@
 - (int64_t)state
 {
   swift_getKeyPath();
-  sub_1A4891BD0(&qword_1EB1295C8, type metadata accessor for LemonadeFeatureAvailabilityMonitor);
+  sub_1A4891BD0(&qword_1EB1295C8, type metadata accessor for LemonadeFeatureAvailabilityMonitor, &protocol conformance descriptor for LemonadeFeatureAvailabilityMonitor);
   selfCopy = self;
   sub_1A52415D4();
 

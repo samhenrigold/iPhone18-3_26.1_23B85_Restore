@@ -60,13 +60,13 @@
   if (v6)
   {
     v7 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:8 updateMode:3];
-    v8 = SBAppendSwitcherModifierResponse(v7, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v9 = [SBTimerEventSwitcherEventResponse alloc];
     v10 = [(SBResizeGrabberHintingSwitcherModifier *)self description];
     v11 = [(SBTimerEventSwitcherEventResponse *)v9 initWithDelay:0 validator:v10 reason:1.5];
 
-    v12 = SBAppendSwitcherModifierResponse(v11, v8);
+    v12 = SBAppendSwitcherModifierResponse();
 
     v13 = v12;
   }
@@ -97,7 +97,7 @@
   }
 
   v9 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:8 updateMode:3];
-  v10 = SBAppendSwitcherModifierResponse(v9, v5);
+  v10 = SBAppendSwitcherModifierResponse();
 
   return v10;
 }
@@ -138,7 +138,7 @@
 {
   eventCopy = event;
   corners = self->_corners;
-  if (corners == [eventCopy corners])
+  if (corners == objc_msgSend_corners(eventCopy))
   {
     displayItem = self->_displayItem;
     displayItem = [eventCopy displayItem];

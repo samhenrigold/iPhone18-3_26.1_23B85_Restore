@@ -500,13 +500,13 @@ LABEL_8:
     }
 
     *buf = 67109890;
-    v30 = v13;
-    v31 = 2082;
-    v32 = object_getClassName(self);
-    v33 = 2082;
-    v34 = sel_getName(a2);
-    v35 = 1024;
-    v36 = 920;
+    v29 = v13;
+    v30 = 2082;
+    v31 = object_getClassName(self);
+    v32 = 2082;
+    v33 = sel_getName(a2);
+    v34 = 1024;
+    v35 = 920;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i System is sleeping", buf, 0x22u);
   }
 
@@ -522,14 +522,14 @@ LABEL_8:
       v17 = object_getClass(selfCopy);
       v18 = class_isMetaClass(v17);
       v19 = object_getClassName(selfCopy);
-      v28 = sel_getName(a2);
+      v27 = sel_getName(a2);
       v20 = 45;
       if (v18)
       {
         v20 = 43;
       }
 
-      v16(5, "%c[%{public}s %{public}s]:%i Aborting active session", v20, v19, v28, 923);
+      v16(5, "%c[%{public}s %{public}s]:%i Aborting active session", v20, v19, v27, 923);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -550,18 +550,17 @@ LABEL_8:
       v24 = object_getClassName(selfCopy);
       v25 = sel_getName(a2);
       *buf = 67109890;
-      v30 = v23;
-      v31 = 2082;
-      v32 = v24;
-      v33 = 2082;
-      v34 = v25;
-      v35 = 1024;
-      v36 = 923;
+      v29 = v23;
+      v30 = 2082;
+      v31 = v24;
+      v32 = 2082;
+      v33 = v25;
+      v34 = 1024;
+      v35 = 923;
       _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Aborting active session", buf, 0x22u);
     }
 
     [(NFAdminSession *)selfCopy->_activeSession abort:4];
-    activeSession = selfCopy->_activeSession;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -1237,7 +1236,7 @@ LABEL_8:
 
   if (apsInited)
   {
-    sub_100023F30(&selfCopy->super.isa, connectionCopy, completionCopy);
+    sub_100023F30(selfCopy, connectionCopy, completionCopy);
   }
 
   else

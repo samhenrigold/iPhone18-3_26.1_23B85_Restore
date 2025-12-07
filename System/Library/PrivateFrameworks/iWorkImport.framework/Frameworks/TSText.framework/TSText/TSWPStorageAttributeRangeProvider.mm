@@ -48,9 +48,9 @@
       var4 = self->_enumerator->var4;
       if (!var4)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d No attribute array.", "[TSWPStorageAttributeRangeProvider nextRange]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorageIterator.mm", 173);
         v8 = MEMORY[0x277D81150];
-        v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSWPStorageAttributeRangeProvider nextRange]", "[TSWPStorageAttributeRangeProvider nextRange]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorageIterator.mm", 173);
+        v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSWPStorageAttributeRangeProvider nextRange]");
         v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPStorageIterator.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v10, v12, 173, 1, "No attribute array.");
 

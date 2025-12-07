@@ -72,31 +72,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_jpegData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_originalDigest)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    originIdentifier = self->_originIdentifier;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -173,7 +171,6 @@
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 40);
   if (has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -193,14 +190,14 @@
     if (![(NSData *)originalDigest isEqual:?])
     {
 LABEL_16:
-      v9 = 0;
+      v8 = 0;
       goto LABEL_17;
     }
 
     has = self->_has;
   }
 
-  v9 = (*(equalCopy + 40) & 2) == 0;
+  v8 = (*(equalCopy + 40) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0 || self->_originIdentifier != *(equalCopy + 6))
@@ -208,12 +205,12 @@ LABEL_16:
       goto LABEL_16;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_17:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

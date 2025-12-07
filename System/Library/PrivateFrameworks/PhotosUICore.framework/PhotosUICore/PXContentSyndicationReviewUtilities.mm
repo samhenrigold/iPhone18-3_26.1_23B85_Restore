@@ -7,7 +7,7 @@
 
 + (id)syndicationPhotosGrid
 {
-  v2 = sub_1A41801C8();
+  v2 = sub_1A41801C8(self, a2);
 
   return v2;
 }
@@ -15,7 +15,7 @@
 - (PXContentSyndicationReviewUtilities)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ContentSyndicationReviewUtilities();
+  v3.super_class = type metadata accessor for ContentSyndicationReviewUtilities(self, a2);
   return [(PXContentSyndicationReviewUtilities *)&v3 init];
 }
 

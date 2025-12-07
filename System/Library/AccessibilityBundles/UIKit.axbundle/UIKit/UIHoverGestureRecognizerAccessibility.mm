@@ -120,7 +120,7 @@
   if (elementCopy)
   {
     _axGesture = [(UIHoverGestureRecognizerAccessibility *)elementCopy _axGesture];
-    v14 = [(UIHoverGestureRecognizerAccessibility *)elementCopy _axSimulatedState]> 0;
+    v15 = [(UIHoverGestureRecognizerAccessibility *)elementCopy _axSimulatedState]> 0;
     view = [_axGesture view];
     [view accessibilityFrame];
     rect1.origin.x = v2;
@@ -133,21 +133,35 @@
     rect2.origin.y = v7;
     rect2.size.width = v8;
     rect2.size.height = v9;
-    CGRectContainsRect(rect1, rect2);
-    [UIHoverGestureRecognizerAccessibility _axSetSimulatedState:elementCopy];
-    v11 = [(UIHoverGestureRecognizerAccessibility *)elementCopy _axSimulatedState]> 0;
-    if (v14 || v11)
+    if (CGRectContainsRect(rect1, rect2))
+    {
+      v10 = 2;
+      if (!v15)
+      {
+        v10 = 1;
+      }
+
+      [(UIHoverGestureRecognizerAccessibility *)elementCopy _axSetSimulatedState:v10];
+    }
+
+    else
+    {
+      [(UIHoverGestureRecognizerAccessibility *)elementCopy _axSetSimulatedState:?];
+    }
+
+    v12 = [(UIHoverGestureRecognizerAccessibility *)elementCopy _axSimulatedState]> 0;
+    if (v15 || v12)
     {
       [(UIHoverGestureRecognizerAccessibility *)elementCopy _accessibilitySimulateStateChange];
     }
 
     objc_storeStrong(&_axGesture, 0);
-    v16 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v16 = 1;
+    v17 = 1;
   }
 
   objc_storeStrong(&location, 0);
@@ -259,18 +273,18 @@ double __74__UIHoverGestureRecognizerAccessibility__accessibilitySimulateStateCh
     {
       if ((v6 & 1) == 0 && ([(UIHoverGestureRecognizerAccessibility *)selfCopy _axIsListeningForNotifications]& 1) != 0)
       {
-        [UIHoverGestureRecognizerAccessibility _axSetIsListeningForNotifications:selfCopy];
+        [(UIHoverGestureRecognizerAccessibility *)selfCopy _axSetIsListeningForNotifications:?];
         defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
         [defaultCenter removeObserver:selfCopy name:*MEMORY[0x29EDC7EB8] object:0];
         MEMORY[0x29EDC9740](defaultCenter);
-        [UIHoverGestureRecognizerAccessibility _axSetSimulatedState:selfCopy];
+        [(UIHoverGestureRecognizerAccessibility *)selfCopy _axSetSimulatedState:?];
         [(UIHoverGestureRecognizerAccessibility *)selfCopy _accessibilitySimulateStateChange];
       }
     }
 
     else
     {
-      [UIHoverGestureRecognizerAccessibility _axSetIsListeningForNotifications:selfCopy];
+      [(UIHoverGestureRecognizerAccessibility *)selfCopy _axSetIsListeningForNotifications:?];
       defaultCenter2 = [MEMORY[0x29EDBA068] defaultCenter];
       [defaultCenter2 addObserver:selfCopy selector:sel__accessibilityFocusedElementChanged_ name:*MEMORY[0x29EDC7EB8] object:0];
       MEMORY[0x29EDC9740](defaultCenter2);

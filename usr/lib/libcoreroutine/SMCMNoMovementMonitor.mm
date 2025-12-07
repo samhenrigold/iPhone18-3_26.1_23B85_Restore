@@ -136,27 +136,27 @@
   dispatch_async(queue, v7);
 }
 
-void __40__SMCMNoMovementMonitor_didStateUpdate___block_invoke(uint64_t a1)
+void __40__SMCMNoMovementMonitor_didStateUpdate___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
-    v2 = objc_opt_new();
-    v3 = [[SMCMNoMovementStateUpdate alloc] initWithCMNoMovementStateUpdate:*(a1 + 32)];
-    [v2 setState:v3];
+    v3 = objc_opt_new();
+    v4 = [[SMCMNoMovementStateUpdate alloc] initWithCMNoMovementStateUpdate:*(a1 + 32)];
+    [v3 setState:v4];
 
-    [*(a1 + 40) postNotification:v2];
+    [*(a1 + 40) postNotification:v3];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v5 = [v2 state];
-        v6 = 136315394;
-        v7 = "[SMCMNoMovementMonitor didStateUpdate:]_block_invoke";
-        v8 = 2112;
-        v9 = v5;
-        _os_log_impl(&dword_2304B3000, v4, OS_LOG_TYPE_INFO, "%s, posted notification with state, %@", &v6, 0x16u);
+        v6 = [v3 state];
+        v7 = 136315394;
+        v8 = "[SMCMNoMovementMonitor didStateUpdate:]_block_invoke";
+        v9 = 2112;
+        v10 = v6;
+        _os_log_impl(&dword_2304B3000, v5, OS_LOG_TYPE_INFO, "%s, posted notification with state, %@", &v7, 0x16u);
       }
     }
   }

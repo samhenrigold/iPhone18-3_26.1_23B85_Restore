@@ -3,7 +3,7 @@
 + (PKInkBehavior)inkBehaviorVariantWithDictionary:(void *)dictionary renderingDescriptor:(void *)descriptor identifier:(uint64_t)identifier version:(void *)version variant:;
 + (PKInkRenderingDescriptor)inkRenderingDescriptorWithDictionary:(uint64_t)dictionary;
 + (id)inkBehaviorFromDictionary:(void *)dictionary identifier:(uint64_t)identifier version:(void *)version variant:;
-+ (id)inkBehaviorsWithIdentifer:(uint64_t)identifer version:;
++ (id)inkBehaviorsWithIdentifer:(__CFString *)identifer version:;
 + (id)plistDictionaryForInk:(uint64_t)ink;
 + (id)plistPathForIdentifier:(uint64_t)identifier;
 + (id)v2plistPathForIdentifier:(uint64_t)identifier;
@@ -552,7 +552,7 @@
   memset(v135, 0, sizeof(v135));
   memset(v134, 0, sizeof(v134));
   memset(v133, 0, sizeof(v133));
-  std::vector<PKOutputFunction>::__init_with_size[abi:ne200100]<PKOutputFunction*,PKOutputFunction*>(v133, v144, *(&v144 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v144 + 1) - v144) >> 4));
+  std::vector<PKOutputFunction>::__init_with_size[abi:ne200100]<PKOutputFunction*,PKOutputFunction*>(v133, v144, SDWORD2(v144), 0xAAAAAAAAAAAAAAABLL * ((*(&v144 + 1) - v144) >> 4));
   memset(v132, 0, sizeof(v132));
   std::vector<PKOutputFunction>::__init_with_size[abi:ne200100]<PKOutputFunction*,PKOutputFunction*>(v132, v142, v143, 0xAAAAAAAAAAAAAAABLL * ((v143 - v142) >> 4));
   memset(v131, 0, sizeof(v131));
@@ -606,7 +606,7 @@
   return v110;
 }
 
-+ (id)inkBehaviorsWithIdentifer:(uint64_t)identifer version:
++ (id)inkBehaviorsWithIdentifer:(__CFString *)identifer version:
 {
   v46[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -617,12 +617,12 @@
   if (v31 && ([MEMORY[0x1E695DFF8] fileURLWithPath:v31], v6 = objc_claimAutoreleasedReturnValue(), +[PKInkBehavior loadInkV2WithURL:](PKInkBehavior, "loadInkV2WithURL:", v6), v7 = objc_claimAutoreleasedReturnValue(), v6, v7))
   {
     v34 = v7;
-    if ([v7 version] == identifer)
+    if (objc_msgSend_version(v7) == identifer)
     {
       v8 = [PKInkKey alloc];
-      version = [v7 version];
+      v9 = objc_msgSend_version(v7);
       variant = [v7 variant];
-      v11 = [(PKInkKey *)v8 initWithIdentifier:v3 version:version variant:variant];
+      v11 = [(PKInkKey *)v8 initWithIdentifier:v3 version:v9 variant:variant];
 
       v45 = v11;
       v46[0] = v7;
@@ -812,8 +812,8 @@
   outputCopy = output;
   objc_opt_self();
   *self = 0;
-  *(self + 8) = 0;
-  *(self + 16) = 0;
+  self[1] = 0;
+  self[2] = 0;
   v30 = +[PKInkProperties inputNames];
   v39 = 0u;
   v40 = 0u;
@@ -925,19 +925,19 @@
           }
         }
 
-        v25 = *(self + 8);
-        if (v25 >= *(self + 16))
+        v25 = self[1];
+        if (v25 >= self[2])
         {
           v26 = std::vector<PKOutputFunction>::__emplace_back_slow_path<PKOutputFunction>(self, v32);
         }
 
         else
         {
-          PKOutputFunction::PKOutputFunction(*(self + 8), v32);
+          PKOutputFunction::PKOutputFunction(self[1], v32);
           v26 = v25 + 48;
         }
 
-        *(self + 8) = v26;
+        self[1] = v26;
 
         v27 = v36;
         v36 = 0;

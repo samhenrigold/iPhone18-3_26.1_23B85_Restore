@@ -136,9 +136,9 @@
   }
 
   classReferenceKey = self->_classReferenceKey;
-  _classReferenceKey = [equal _classReferenceKey];
+  [equal _classReferenceKey];
 
-  return [(NSString *)classReferenceKey isEqualToString:_classReferenceKey];
+  return objc_msgSend_isEqualToString_(classReferenceKey);
 }
 
 - (id)description

@@ -120,15 +120,15 @@ LABEL_17:
                 scopedIdentifier = [v20 scopedIdentifier];
                 identifier = [scopedIdentifier identifier];
 
-                if ([@"----Root-Folder----" isEqualToString:identifier] & 1) != 0 || (objc_msgSend(@"----Project-Root-Folder----", "isEqualToString:", identifier))
+                if (objc_msgSend_isEqualToString_(@"----Root-Folder----") & 1) != 0 || (objc_msgSend_isEqualToString_(@"----Project-Root-Folder----"))
                 {
-                  if ([@"----Root-Folder----" isEqualToString:identifier])
+                  if (objc_msgSend_isEqualToString_(@"----Root-Folder----"))
                   {
                     v23 = [(PLGenericAlbum *)PLManagedFolder rootFolderInLibrary:self->_photoLibrary];
                     goto LABEL_41;
                   }
 
-                  if ([@"----Project-Root-Folder----" isEqualToString:identifier])
+                  if (objc_msgSend_isEqualToString_(@"----Project-Root-Folder----"))
                   {
                     v23 = [(PLGenericAlbum *)PLManagedFolder projectAlbumRootFolderInLibrary:self->_photoLibrary];
 LABEL_41:

@@ -62,7 +62,7 @@
               [v19 alpha];
               if (fabs(v24) >= 0.00000011920929 && ![v19 representedElementCategory])
               {
-                if (!v16 || (!v19 ? (v34 = 0.0, v25 = 0.0) : ([v19 transform3D], v25 = v34), objc_msgSend(v16, "transform3D"), v25 > v33))
+                if (!v16 || (!v19 ? (v34 = 0.0, v25 = 0.0) : (objc_msgSend_transform3D(v19), v25 = v34), objc_msgSend_transform3D(v16), v25 > v33))
                 {
                   v26 = v19;
 

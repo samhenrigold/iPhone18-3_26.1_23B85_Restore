@@ -1,6 +1,6 @@
 void alm_app_will_launch_with_signpost_id(uint64_t a1, int a2, const char *a3, const char *a4, uint64_t a5, os_signpost_id_t a6)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   alm_build_version_string(__dst, a3, a4);
   v10 = alm_FrontBoard_lifecycle_log_s_log;
   if (!alm_FrontBoard_lifecycle_log_s_log)
@@ -13,18 +13,18 @@ void alm_app_will_launch_with_signpost_id(uint64_t a1, int a2, const char *a3, c
   if (a6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     v12 = "YES";
-    v15 = 136446722;
-    *v16 = a1;
+    v14 = 136446722;
+    *v15 = a1;
     if (a2)
     {
       v12 = "NO";
     }
 
-    *&v16[8] = 2082;
-    *&v16[10] = v12;
-    *&v16[18] = 2050;
-    *&v16[20] = a5;
-    _os_signpost_emit_with_name_impl(&dword_1D842D000, v10, OS_SIGNPOST_INTERVAL_BEGIN, a6, "AppLaunch", "TransitionSource=%{public, signpost.telemetry:string1}s IsForeground=%{public, signpost.telemetry:string2}s %{public, signpost.description:begin_time}llu enableTelemetry=YES ", &v15, 0x20u);
+    *&v15[8] = 2082;
+    *&v15[10] = v12;
+    *&v15[18] = 2050;
+    *&v15[20] = a5;
+    _os_signpost_emit_with_name_impl(&dword_1D842D000, v10, OS_SIGNPOST_INTERVAL_BEGIN, a6, "AppLaunch", "TransitionSource=%{public, signpost.telemetry:string1}s IsForeground=%{public, signpost.telemetry:string2}s %{public, signpost.description:begin_time}llu enableTelemetry=YES ", &v14, 0x20u);
   }
 
   v13 = alm_application_launch_log_s_log;
@@ -36,13 +36,13 @@ void alm_app_will_launch_with_signpost_id(uint64_t a1, int a2, const char *a3, c
 
   if (v11 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    v15 = 67240706;
-    *v16 = a2 ^ 1;
-    *&v16[4] = 2082;
-    *&v16[6] = __dst;
-    *&v16[14] = 2050;
-    *&v16[16] = a5;
-    _os_signpost_emit_with_name_impl(&dword_1D842D000, v13, OS_SIGNPOST_INTERVAL_BEGIN, a6, "ApplicationFirstFramePresentation", "IsForeground=%{public, signpost.telemetry:number1}d AppVersion=%{public, signpost.telemetry:string1}s %{public, signpost.description:begin_time}llu", &v15, 0x1Cu);
+    v14 = 67240706;
+    *v15 = a2 ^ 1;
+    *&v15[4] = 2082;
+    *&v15[6] = __dst;
+    *&v15[14] = 2050;
+    *&v15[16] = a5;
+    _os_signpost_emit_with_name_impl(&dword_1D842D000, v13, OS_SIGNPOST_INTERVAL_BEGIN, a6, "ApplicationFirstFramePresentation", "IsForeground=%{public, signpost.telemetry:number1}d AppVersion=%{public, signpost.telemetry:string1}s %{public, signpost.description:begin_time}llu", &v14, 0x1Cu);
     v13 = alm_application_launch_log_s_log;
   }
 
@@ -54,13 +54,13 @@ void alm_app_will_launch_with_signpost_id(uint64_t a1, int a2, const char *a3, c
 
   if (v11 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    v15 = 67240706;
-    *v16 = a2 ^ 1;
-    *&v16[4] = 2082;
-    *&v16[6] = __dst;
-    *&v16[14] = 2050;
-    *&v16[16] = a5;
-    _os_signpost_emit_with_name_impl(&dword_1D842D000, v13, OS_SIGNPOST_INTERVAL_BEGIN, a6, "ApplicationFirstFramePresentationResponsive", "IsForeground=%{public, signpost.telemetry:number1}d AppVersion=%{public, signpost.telemetry:string1}s %{public, signpost.description:begin_time}llu", &v15, 0x1Cu);
+    v14 = 67240706;
+    *v15 = a2 ^ 1;
+    *&v15[4] = 2082;
+    *&v15[6] = __dst;
+    *&v15[14] = 2050;
+    *&v15[16] = a5;
+    _os_signpost_emit_with_name_impl(&dword_1D842D000, v13, OS_SIGNPOST_INTERVAL_BEGIN, a6, "ApplicationFirstFramePresentationResponsive", "IsForeground=%{public, signpost.telemetry:number1}d AppVersion=%{public, signpost.telemetry:string1}s %{public, signpost.description:begin_time}llu", &v14, 0x1Cu);
     v13 = alm_application_launch_log_s_log;
   }
 
@@ -72,16 +72,14 @@ void alm_app_will_launch_with_signpost_id(uint64_t a1, int a2, const char *a3, c
 
   if (v11 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    v15 = 67240706;
-    *v16 = a2 ^ 1;
-    *&v16[4] = 2082;
-    *&v16[6] = __dst;
-    *&v16[14] = 2050;
-    *&v16[16] = a5;
-    _os_signpost_emit_with_name_impl(&dword_1D842D000, v13, OS_SIGNPOST_INTERVAL_BEGIN, a6, "ApplicationLaunchExtendedResponsive", "IsForeground=%{public, signpost.telemetry:number1}d AppVersion=%{public, signpost.telemetry:string1}s %{public, signpost.description:begin_time}llu", &v15, 0x1Cu);
+    v14 = 67240706;
+    *v15 = a2 ^ 1;
+    *&v15[4] = 2082;
+    *&v15[6] = __dst;
+    *&v15[14] = 2050;
+    *&v15[16] = a5;
+    _os_signpost_emit_with_name_impl(&dword_1D842D000, v13, OS_SIGNPOST_INTERVAL_BEGIN, a6, "ApplicationLaunchExtendedResponsive", "IsForeground=%{public, signpost.telemetry:number1}d AppVersion=%{public, signpost.telemetry:string1}s %{public, signpost.description:begin_time}llu", &v14, 0x1Cu);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void alm_app_will_launch_with_details_and_metrics_payload(const char *a1, int a2, const char *a3, const char *a4, const char *a5, uint64_t a6, os_signpost_id_t *a7, xpc_object_t *a8)
@@ -279,7 +277,7 @@ size_t alm_build_version_string(char *__dst, const char *a2, const char *a3)
 
 void alm_app_will_activate_with_signpost_id(uint64_t a1, int a2, const char *a3, const char *a4, uint64_t a5, os_signpost_id_t a6)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   alm_build_version_string(__dst, a3, a4);
   v9 = _os_feature_enabled_impl();
   if (a6 && v9)
@@ -301,18 +299,18 @@ void alm_app_will_activate_with_signpost_id(uint64_t a1, int a2, const char *a3,
   if (a6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     v12 = "YES";
-    v16 = __dst;
-    v15 = 136446722;
+    v15 = __dst;
+    v14 = 136446722;
     if (a2)
     {
       v12 = "NO";
     }
 
-    v17 = 2082;
-    v18 = v12;
-    v19 = 2050;
-    v20 = a5;
-    _os_signpost_emit_with_name_impl(&dword_1D842D000, v11, OS_SIGNPOST_INTERVAL_BEGIN, a6, "ApplicationActivationFirstFramePresentation", "AppVersion=%{public, signpost.telemetry:string1}s IsForeground=%{public, signpost.telemetry:string2}s %{public, signpost.description:begin_time}llu", &v15, 0x20u);
+    v16 = 2082;
+    v17 = v12;
+    v18 = 2050;
+    v19 = a5;
+    _os_signpost_emit_with_name_impl(&dword_1D842D000, v11, OS_SIGNPOST_INTERVAL_BEGIN, a6, "ApplicationActivationFirstFramePresentation", "AppVersion=%{public, signpost.telemetry:string1}s IsForeground=%{public, signpost.telemetry:string2}s %{public, signpost.description:begin_time}llu", &v14, 0x20u);
     v11 = alm_application_launch_log_s_log;
   }
 
@@ -325,26 +323,24 @@ void alm_app_will_activate_with_signpost_id(uint64_t a1, int a2, const char *a3,
   if (a6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     v13 = "YES";
-    v16 = __dst;
-    v15 = 136446722;
+    v15 = __dst;
+    v14 = 136446722;
     if (a2)
     {
       v13 = "NO";
     }
 
-    v17 = 2082;
-    v18 = v13;
-    v19 = 2050;
-    v20 = a5;
-    _os_signpost_emit_with_name_impl(&dword_1D842D000, v11, OS_SIGNPOST_INTERVAL_BEGIN, a6, "ApplicationActivationFirstFramePresentationResponsive", "AppVersion=%{public, signpost.telemetry:string1}s IsForeground=%{public, signpost.telemetry:string2}s %{public, signpost.description:begin_time}llu", &v15, 0x20u);
+    v16 = 2082;
+    v17 = v13;
+    v18 = 2050;
+    v19 = a5;
+    _os_signpost_emit_with_name_impl(&dword_1D842D000, v11, OS_SIGNPOST_INTERVAL_BEGIN, a6, "ApplicationActivationFirstFramePresentationResponsive", "AppVersion=%{public, signpost.telemetry:string1}s IsForeground=%{public, signpost.telemetry:string2}s %{public, signpost.description:begin_time}llu", &v14, 0x20u);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void alm_app_did_present_with_metrics_payload(os_signpost_id_t a1, void *a2, int a3, uint64_t a4)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v8 = _os_feature_enabled_impl();
   v9 = MEMORY[0x1E69E9E80];
   if (a2 && v8 && MEMORY[0x1DA718120](a2) == v9 && xpc_dictionary_get_BOOL(a2, "should_capture_launch"))
@@ -547,18 +543,17 @@ LABEL_42:
   }
 
 LABEL_60:
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 0x40000000;
-  v27[2] = __alm_app_did_present_with_metrics_payload_block_invoke_2;
-  v27[3] = &unk_1E8515FC8;
-  v29 = v18;
-  v27[6] = a2;
-  v27[7] = v19;
-  v28 = v11;
-  v27[4] = a4;
-  v27[5] = a1;
-  alm_execute_when_main_queue_idle_with_condition(&__block_literal_global_39, v27);
-  v26 = *MEMORY[0x1E69E9840];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 0x40000000;
+  v26[2] = __alm_app_did_present_with_metrics_payload_block_invoke_2;
+  v26[3] = &unk_1E8515FC8;
+  v28 = v18;
+  v26[6] = a2;
+  v26[7] = v19;
+  v27 = v11;
+  v26[4] = a4;
+  v26[5] = a1;
+  alm_execute_when_main_queue_idle_with_condition(&__block_literal_global_39, v26);
 }
 
 uint64_t _alm_build_launch_info()
@@ -584,12 +579,13 @@ uint64_t _alm_build_launch_info()
   return v3 | (32 * v5);
 }
 
-void alm_did_reach_launch_milestone(int a1)
+void alm_did_reach_launch_milestone(uint64_t a1)
 {
+  v1 = a1;
   s_launch_milestones &= ~a1;
   if (_os_feature_enabled_impl())
   {
-    ca_send_event_from_reached_milestone = alm_get_ca_send_event_from_reached_milestone(a1);
+    ca_send_event_from_reached_milestone = alm_get_ca_send_event_from_reached_milestone(v1);
     if (ca_send_event_from_reached_milestone != 2)
     {
       v3 = ca_send_event_from_reached_milestone;
@@ -644,13 +640,12 @@ void __alm_execute_when_main_queue_idle_with_condition_block_invoke(uint64_t a1)
       }
     }
 
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
   if (*(*(*(a1 + 56) + 8) + 24) > 9u)
   {
-    v6 = *(*(*(a1 + 64) + 8) + 24);
-LABEL_13:
+LABEL_12:
     (*(*(a1 + 40) + 16))();
     _Block_release(*(*(*(a1 + 72) + 8) + 40));
     *(*(*(a1 + 72) + 8) + 40) = 0;
@@ -658,55 +653,55 @@ LABEL_13:
   }
 
   ++*(*(*(a1 + 48) + 8) + 24);
-  v7 = mach_continuous_time();
-  v8 = v7;
-  v9 = *(*(a1 + 56) + 8);
-  if ((v7 - *(*(*(a1 + 80) + 8) + 24)) * *(a1 + 88) / *(a1 + 92) > 0x7A11FF)
+  v6 = mach_continuous_time();
+  v7 = v6;
+  v8 = *(*(a1 + 56) + 8);
+  if ((v6 - *(*(*(a1 + 80) + 8) + 24)) * *(a1 + 88) / *(a1 + 92) > 0x7A11FF)
   {
-    *(v9 + 24) = 0;
-    *(*(*(a1 + 64) + 8) + 24) = v7;
-    v10 = alm_general_log_s_log;
+    *(v8 + 24) = 0;
+    *(*(*(a1 + 64) + 8) + 24) = v6;
+    v9 = alm_general_log_s_log;
     if (!alm_general_log_s_log)
     {
-      v10 = os_log_create("com.apple.app_launch_measurement", "General");
-      alm_general_log_s_log = v10;
+      v9 = os_log_create("com.apple.app_launch_measurement", "General");
+      alm_general_log_s_log = v9;
     }
 
-    if (!os_signpost_enabled(v10))
+    if (!os_signpost_enabled(v9))
     {
-      goto LABEL_24;
+      goto LABEL_23;
     }
 
-    v14 = 0;
-    v11 = "ResponsiveCheckFailed";
-    v12 = &v14;
+    v13 = 0;
+    v10 = "ResponsiveCheckFailed";
+    v11 = &v13;
   }
 
   else
   {
-    ++*(v9 + 24);
-    v10 = alm_general_log_s_log;
+    ++*(v8 + 24);
+    v9 = alm_general_log_s_log;
     if (!alm_general_log_s_log)
     {
-      v10 = os_log_create("com.apple.app_launch_measurement", "General");
-      alm_general_log_s_log = v10;
+      v9 = os_log_create("com.apple.app_launch_measurement", "General");
+      alm_general_log_s_log = v9;
     }
 
-    if (!os_signpost_enabled(v10))
+    if (!os_signpost_enabled(v9))
     {
-      goto LABEL_24;
+      goto LABEL_23;
     }
 
-    v15 = 0;
-    v11 = "ResponsiveCheckSucceeded";
-    v12 = &v15;
+    v14 = 0;
+    v10 = "ResponsiveCheckSucceeded";
+    v11 = &v14;
   }
 
-  _os_signpost_emit_with_name_impl(&dword_1D842D000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v11, "", v12, 2u);
-LABEL_24:
-  *(*(*(a1 + 80) + 8) + 24) = v8;
-  v13 = dispatch_time(0, 3000000);
-  dispatch_after(v13, MEMORY[0x1E69E96A0], *(*(*(a1 + 72) + 8) + 40));
+  _os_signpost_emit_with_name_impl(&dword_1D842D000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v10, "", v11, 2u);
+LABEL_23:
+  *(*(*(a1 + 80) + 8) + 24) = v7;
+  v12 = dispatch_time(0, 3000000);
+  dispatch_after(v12, MEMORY[0x1E69E96A0], *(*(*(a1 + 72) + 8) + 40));
 }
 
 uint64_t alm_get_ca_send_event_from_reached_milestone(int a1)
@@ -753,9 +748,9 @@ LABEL_12:
   return result;
 }
 
-void alm_aggregate_and_send_ca_measurement_event(uint64_t a1, unsigned int a2)
+void alm_aggregate_and_send_ca_measurement_event(unint64_t result, unsigned int a2)
 {
-  if (a1 && a2 <= 1 && (*(a1 + 779) & 1) != 0 && strnlen((a1 + 385), 0x80uLL) >= 5)
+  if (result && a2 <= 1 && (*(result + 779) & 1) != 0 && strnlen((result + 385), 0x80uLL) >= 5)
   {
     v3 = a2 ? "com.apple.app_launch_measurement.ExtendedLaunchMetrics" : "com.apple.app_launch_measurement.FirstFramePresentationMetric";
     if ((analytics_send_event_lazy() & 1) == 0)
@@ -845,7 +840,7 @@ void alm_execute_when_main_queue_idle_with_condition(uint64_t a1, uint64_t a2)
 
 void alm_app_did_activate_with_responsive_check(os_signpost_id_t a1, int a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (_os_feature_enabled_impl())
   {
     qword_1ED6BD710 = mach_continuous_time();
@@ -865,9 +860,9 @@ void alm_app_did_activate_with_responsive_check(os_signpost_id_t a1, int a2, uin
     if (a1 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
     {
       *buf = 67240448;
-      v13 = a2;
-      v14 = 1026;
-      v15 = v7;
+      v12 = a2;
+      v13 = 1026;
+      v14 = v7;
       _os_signpost_emit_with_name_impl(&dword_1D842D000, v8, OS_SIGNPOST_INTERVAL_END, a1, "ApplicationActivationFirstFramePresentation", "ActivationFlag=%{public, signpost.telemetry:number1}d LaunchInfo=%{public, signpost.telemetry:number2}d enableTelemetry=YES ", buf, 0xEu);
     }
 
@@ -889,20 +884,19 @@ void alm_app_did_activate_with_responsive_check(os_signpost_id_t a1, int a2, uin
     if (a1 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
     {
       *buf = 67240192;
-      v13 = a2;
+      v12 = a2;
       _os_signpost_emit_with_name_impl(&dword_1D842D000, v6, OS_SIGNPOST_INTERVAL_END, a1, "ApplicationActivationFirstFramePresentation", "ActivationFlag=%{public, signpost.telemetry:number1}d enableTelemetry=YES ", buf, 8u);
     }
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 0x40000000;
-  v10[2] = __alm_app_did_activate_with_responsive_check_block_invoke_2;
-  v10[3] = &unk_1E8516058;
-  v11 = a2;
-  v10[4] = a3;
-  v10[5] = a1;
-  alm_execute_when_main_queue_idle_with_condition(&__block_literal_global_48, v10);
-  v9 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 0x40000000;
+  v9[2] = __alm_app_did_activate_with_responsive_check_block_invoke_2;
+  v9[3] = &unk_1E8516058;
+  v10 = a2;
+  v9[4] = a3;
+  v9[5] = a1;
+  alm_execute_when_main_queue_idle_with_condition(&__block_literal_global_48, v9);
 }
 
 void alm_app_extended_launch_end_with_details(uint64_t a1, void *a2, uint64_t a3)
@@ -973,7 +967,7 @@ void alm_app_extended_launch_end_with_details(uint64_t a1, void *a2, uint64_t a3
   alm_execute_when_main_queue_idle_with_condition(&__block_literal_global_44, v11);
 }
 
-void *__alm_aggregate_and_send_ca_measurement_event_block_invoke(uint64_t a1)
+xpc_object_t __alm_aggregate_and_send_ca_measurement_event_block_invoke(uint64_t a1)
 {
   v3 = 0;
   alm_generate_ca_payload_from_metrics_data(*(a1 + 32), *(a1 + 40), &v3);
@@ -995,32 +989,32 @@ void *__alm_aggregate_and_send_ca_measurement_event_block_invoke(uint64_t a1)
   return v3;
 }
 
-void alm_generate_ca_payload_from_metrics_data(uint64_t a1, int a2, void **a3)
+void alm_generate_ca_payload_from_metrics_data(uint64_t a1, int a2, xpc_object_t *a3)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   if (!a3)
   {
-    v15 = alm_general_log_s_log;
+    v14 = alm_general_log_s_log;
     if (!alm_general_log_s_log)
     {
-      v15 = os_log_create("com.apple.app_launch_measurement", "General");
-      alm_general_log_s_log = v15;
+      v14 = os_log_create("com.apple.app_launch_measurement", "General");
+      alm_general_log_s_log = v14;
     }
 
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       alm_generate_ca_payload_from_metrics_data_cold_1();
     }
 
-    goto LABEL_49;
+    return;
   }
 
   *a3 = xpc_dictionary_create(0, 0, 0);
   bzero(string, 0x203uLL);
-  v57 = 0u;
-  v58 = 0u;
-  *__str = 0u;
+  v55 = 0u;
   v56 = 0u;
+  *__str = 0u;
+  v54 = 0u;
   alm_build_version_string(string, (a1 + 1), (a1 + 129));
   snprintf(__str, 0x40uLL, "%llu", *(a1 + 656));
   alm_decode_dyld_launch_info_into_dict(*(a1 + 644), *a3);
@@ -1033,10 +1027,10 @@ void alm_generate_ca_payload_from_metrics_data(uint64_t a1, int a2, void **a3)
   if (_os_feature_enabled_impl())
   {
     v9 = *(a1 + 760);
-    memset(&v54, 0, sizeof(v54));
-    if (getrusage(0, &v54) >= 0)
+    memset(&v52, 0, sizeof(v52));
+    if (getrusage(0, &v52) >= 0)
     {
-      ru_majflt = v54.ru_majflt;
+      ru_majflt = v52.ru_majflt;
     }
 
     else
@@ -1044,155 +1038,155 @@ void alm_generate_ca_payload_from_metrics_data(uint64_t a1, int a2, void **a3)
       ru_majflt = 0;
     }
 
-    alm_get_disk_fullness_percentage();
-    v12 = v11;
+    disk_fullness_percentage = alm_get_disk_fullness_percentage();
     xpc_dictionary_set_uint64(*a3, "shared_cache_cryptex_ext_count", v9);
     xpc_dictionary_set_uint64(*a3, "num_pagein_during_launch", ru_majflt);
-    v13 = *(a1 + 768);
-    if (v13 >= 7)
+    v12 = *(a1 + 768);
+    if (v12 >= 7)
     {
-      if (v13 >= 0xD)
+      if (v12 >= 0xD)
       {
-        if (v13 >= 0x13)
+        if (v12 >= 0x13)
         {
-          if (v13 >= 0x19)
+          if (v12 >= 0x19)
           {
-            if (v13 < 0x31)
+            if (v12 < 0x31)
             {
-              v14 = 48;
+              v13 = 48;
             }
 
             else
             {
-              v14 = 49;
+              v13 = 49;
             }
           }
 
           else
           {
-            v14 = 24;
+            v13 = 24;
           }
         }
 
         else
         {
-          v14 = 18;
+          v13 = 18;
         }
       }
 
       else
       {
-        v14 = 12;
+        v13 = 12;
       }
     }
 
     else
     {
-      v14 = 6;
+      v13 = 6;
     }
 
-    xpc_dictionary_set_uint64(*a3, "file_system_months", v14);
-    if (v12 <= 50.0)
+    xpc_dictionary_set_uint64(*a3, "file_system_months", v13);
+    if (disk_fullness_percentage <= 50.0)
     {
-      *&v17 = 50.0;
+      *&v16 = 50.0;
     }
 
     else
     {
-      if (v12 > 80.0)
+      if (disk_fullness_percentage > 80.0)
       {
-        if (v12 <= 90.0)
+        if (disk_fullness_percentage <= 90.0)
         {
-          v16 = 90.0;
+          v15 = 90.0;
         }
 
         else
         {
-          v16 = 95.0;
-          if (v12 > 95.0)
+          v15 = 95.0;
+          if (disk_fullness_percentage > 95.0)
           {
-            v16 = 96.0;
+            v15 = 96.0;
           }
         }
 
         goto LABEL_30;
       }
 
-      *&v17 = 80.0;
+      *&v16 = 80.0;
     }
 
-    v16 = *&v17;
+    v15 = *&v16;
 LABEL_30:
-    xpc_dictionary_set_double(*a3, "disk_fullness_percentage", v16);
+    xpc_dictionary_set_double(*a3, "disk_fullness_percentage", v15);
   }
 
   if (a2 == 1)
   {
-    v23 = alm_mach_time_to_ns(*(a1 + 680), v6, v7, v8);
-    v22 = v23 - alm_mach_time_to_ns(*(a1 + 664), v24, v25, v26);
-    v30 = alm_mach_time_to_ns(*(a1 + 688), v27, v28, v29);
-    v34 = (v30 - alm_mach_time_to_ns(*(a1 + 664), v31, v32, v33));
-    v35 = v34 / 1000000.0;
-    v38 = alm_mach_time_to_ns(*(a1 + 672), v34, v36, v37);
-    v42 = (v38 - alm_mach_time_to_ns(*(a1 + 664), v39, v40, v41));
-    v43 = v42 / 1000000.0;
-    v46 = alm_mach_time_to_ns(*(a1 + 720), v42, v44, v45);
-    v50 = alm_mach_time_to_ns(*(a1 + 664), v47, v48, v49);
+    v22 = alm_mach_time_to_ns(*(a1 + 680), v6, v7, v8);
+    v21 = v22 - alm_mach_time_to_ns(*(a1 + 664), v23, v24, v25);
+    v29 = alm_mach_time_to_ns(*(a1 + 688), v26, v27, v28);
+    v33 = (v29 - alm_mach_time_to_ns(*(a1 + 664), v30, v31, v32));
+    v34 = v33 / 1000000.0;
+    v37 = alm_mach_time_to_ns(*(a1 + 672), v33, v35, v36);
+    v41 = (v37 - alm_mach_time_to_ns(*(a1 + 664), v38, v39, v40));
+    v42 = v41 / 1000000.0;
+    v45 = alm_mach_time_to_ns(*(a1 + 720), v41, v43, v44);
+    v49 = alm_mach_time_to_ns(*(a1 + 664), v46, v47, v48);
     if (*(a1 + 728))
+    {
+      v50 = 0.0;
+    }
+
+    else
+    {
+      v50 = (v45 - v49) / 1000000.0;
+    }
+
+    if (*(a1 + 696))
     {
       v51 = 0.0;
     }
 
     else
     {
-      v51 = (v46 - v50) / 1000000.0;
-    }
-
-    if (*(a1 + 696))
-    {
-      v52 = 0.0;
-    }
-
-    else
-    {
-      v52 = v35;
+      v51 = v34;
     }
 
     if (*(a1 + 778) == 1)
     {
       if (!*(a1 + 688))
       {
-        v52 = 20.0;
+        v51 = 20.0;
       }
 
       if (!*(a1 + 720))
       {
-        v51 = 20.0;
+        v50 = 20.0;
       }
 
       if (!*(a1 + 672))
       {
-        v43 = 20.0;
+        v42 = 20.0;
       }
     }
 
     xpc_dictionary_set_uint64(*a3, "activation_flags", *(a1 + 648));
-    xpc_dictionary_set_double(*a3, "extended_responsive_time", v51);
-    xpc_dictionary_set_double(*a3, "legacy_frontboard_launch_time", v43);
-    xpc_dictionary_set_double(*a3, "first_frame_presentation_responsive_time", v52);
-    goto LABEL_48;
+    xpc_dictionary_set_double(*a3, "extended_responsive_time", v50);
+    xpc_dictionary_set_double(*a3, "legacy_frontboard_launch_time", v42);
+    xpc_dictionary_set_double(*a3, "first_frame_presentation_responsive_time", v51);
   }
 
-  if (!a2)
+  else
   {
-    v18 = alm_mach_time_to_ns(*(a1 + 680), v6, v7, v8);
-    v22 = v18 - alm_mach_time_to_ns(*(a1 + 664), v19, v20, v21);
-LABEL_48:
-    xpc_dictionary_set_double(*a3, "first_frame_presentation_time", v22 / 1000000.0);
+    if (a2)
+    {
+      return;
+    }
+
+    v17 = alm_mach_time_to_ns(*(a1 + 680), v6, v7, v8);
+    v21 = v17 - alm_mach_time_to_ns(*(a1 + 664), v18, v19, v20);
   }
 
-LABEL_49:
-  v53 = *MEMORY[0x1E69E9840];
+  xpc_dictionary_set_double(*a3, "first_frame_presentation_time", v21 / 1000000.0);
 }
 
 void alm_decode_dyld_launch_info_into_dict(unsigned int a1, void *a2)
@@ -1215,12 +1209,21 @@ void alm_decode_dyld_launch_info_into_dict(unsigned int a1, void *a2)
   }
 }
 
-uint64_t alm_get_disk_fullness_percentage()
+float alm_get_disk_fullness_percentage()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  bzero(&v2, 0x878uLL);
-  result = statfs("/", &v2);
-  v1 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  bzero(&v3, 0x878uLL);
+  v0 = statfs("/", &v3);
+  result = 0.0;
+  if (!v0)
+  {
+    v2 = v3.f_blocks * v3.f_bsize;
+    if (v2)
+    {
+      return 100.0 - (v3.f_bavail * v3.f_bsize) * 100.0 / v2;
+    }
+  }
+
   return result;
 }
 
@@ -1238,7 +1241,7 @@ unint64_t alm_mach_time_to_ns(unint64_t a1, double a2, double a3, double a4)
 
 void __alm_app_did_present_with_metrics_payload_block_invoke_2(uint64_t a1, int a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = alm_application_launch_log_s_log;
   if (a2)
   {
@@ -1251,8 +1254,8 @@ void __alm_app_did_present_with_metrics_payload_block_invoke_2(uint64_t a1, int 
     v5 = *(a1 + 40);
     if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
     {
-      LOWORD(v18) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1D842D000, v4, OS_SIGNPOST_INTERVAL_END, v5, "ApplicationFirstFramePresentationResponsive", " BAILED=yes ", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1D842D000, v4, OS_SIGNPOST_INTERVAL_END, v5, "ApplicationFirstFramePresentationResponsive", " BAILED=yes ", &v17, 2u);
     }
 
     if (_os_feature_enabled_impl())
@@ -1278,8 +1281,8 @@ void __alm_app_did_present_with_metrics_payload_block_invoke_2(uint64_t a1, int 
       v7 = *(a1 + 40);
       if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
       {
-        LOWORD(v18) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1D842D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "ApplicationLaunchExtendedResponsive", " BAILED=yes ", &v18, 2u);
+        LOWORD(v17) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1D842D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "ApplicationLaunchExtendedResponsive", " BAILED=yes ", &v17, 2u);
       }
 
       if (_os_feature_enabled_impl())
@@ -1308,11 +1311,11 @@ LABEL_39:
     if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
     {
       v10 = *(a1 + 64);
-      v18 = 134218240;
-      v19 = a3;
-      v20 = 1026;
-      v21 = v10;
-      _os_signpost_emit_with_name_impl(&dword_1D842D000, v4, OS_SIGNPOST_INTERVAL_END, v9, "ApplicationFirstFramePresentationResponsive", "%{signpost.description:end_time}llu LaunchInfo=%{public, signpost.telemetry:number2}d enableTelemetry=YES ", &v18, 0x12u);
+      v17 = 134218240;
+      v18 = a3;
+      v19 = 1026;
+      v20 = v10;
+      _os_signpost_emit_with_name_impl(&dword_1D842D000, v4, OS_SIGNPOST_INTERVAL_END, v9, "ApplicationFirstFramePresentationResponsive", "%{signpost.description:end_time}llu LaunchInfo=%{public, signpost.telemetry:number2}d enableTelemetry=YES ", &v17, 0x12u);
     }
 
     if (*(a1 + 48))
@@ -1339,11 +1342,11 @@ LABEL_39:
       if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
       {
         v13 = *(a1 + 64);
-        v18 = 134218240;
-        v19 = a3;
-        v20 = 1026;
-        v21 = v13;
-        _os_signpost_emit_with_name_impl(&dword_1D842D000, v11, OS_SIGNPOST_INTERVAL_END, v12, "ApplicationLaunchExtendedResponsive", "%{signpost.description:end_time}llu LaunchInfo=%{public, signpost.telemetry:number2}d enableTelemetry=YES ", &v18, 0x12u);
+        v17 = 134218240;
+        v18 = a3;
+        v19 = 1026;
+        v20 = v13;
+        _os_signpost_emit_with_name_impl(&dword_1D842D000, v11, OS_SIGNPOST_INTERVAL_END, v12, "ApplicationLaunchExtendedResponsive", "%{signpost.description:end_time}llu LaunchInfo=%{public, signpost.telemetry:number2}d enableTelemetry=YES ", &v17, 0x12u);
       }
 
       if (_os_feature_enabled_impl())
@@ -1383,12 +1386,11 @@ LABEL_39:
   }
 
   alm_did_reach_launch_milestone(2);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __alm_app_did_activate_with_responsive_check_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = alm_application_launch_log_s_log;
   if (a2)
   {
@@ -1401,13 +1403,13 @@ void __alm_app_did_activate_with_responsive_check_block_invoke_2(uint64_t a1, ui
     v6 = *(a1 + 40);
     if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
     {
-      LOWORD(v16) = 0;
+      LOWORD(v15) = 0;
       v7 = " BAILED=yes ";
       v8 = v5;
       v9 = v6;
       v10 = 2;
 LABEL_12:
-      _os_signpost_emit_with_name_impl(&dword_1D842D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "ApplicationActivationFirstFramePresentationResponsive", v7, &v16, v10);
+      _os_signpost_emit_with_name_impl(&dword_1D842D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "ApplicationActivationFirstFramePresentationResponsive", v7, &v15, v10);
     }
   }
 
@@ -1423,10 +1425,10 @@ LABEL_12:
     if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
     {
       v13 = *(a1 + 48);
-      v16 = 134218240;
-      v17 = a3;
-      v18 = 1026;
-      v19 = v13;
+      v15 = 134218240;
+      v16 = a3;
+      v17 = 1026;
+      v18 = v13;
       v7 = "%{signpost.description:end_time}llu ActivationFlag=%{public, signpost.telemetry:number1}d enableTelemetry=YES ";
       v8 = v5;
       v9 = v12;
@@ -1442,7 +1444,6 @@ LABEL_12:
   }
 
   alm_did_reach_launch_milestone(16);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 double alm_ca_metric_info_init()
@@ -1648,19 +1649,16 @@ uint64_t alm_get_num_months_since_last_erase_install()
 
 uint64_t alm_retreive_process_name(char *a1, size_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (a1 && (memset(buffer, 0, sizeof(buffer)), v4 = getpid(), proc_name(v4, buffer, 0x100u)))
   {
-    result = (snprintf(a1, a2, "(P)%s", buffer) >> 31);
+    return (snprintf(a1, a2, "(P)%s", buffer) >> 31);
   }
 
   else
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t alm_get_process_num_page_in()
@@ -1679,7 +1677,7 @@ uint64_t alm_get_process_num_page_in()
 
 void __alm_app_extended_launch_end_with_details_block_invoke_2(uint64_t a1, int a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = s_launch_milestones;
   v5 = alm_application_launch_log_s_log;
   if (a2)
@@ -1693,8 +1691,8 @@ void __alm_app_extended_launch_end_with_details_block_invoke_2(uint64_t a1, int 
     v6 = *(a1 + 40);
     if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
     {
-      LOWORD(v18) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1D842D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "ApplicationLaunchExtendedResponsive", " BAILED=yes ", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1D842D000, v5, OS_SIGNPOST_INTERVAL_END, v6, "ApplicationLaunchExtendedResponsive", " BAILED=yes ", &v17, 2u);
     }
 
     if (_os_feature_enabled_impl())
@@ -1715,8 +1713,8 @@ void __alm_app_extended_launch_end_with_details_block_invoke_2(uint64_t a1, int 
       v8 = *(a1 + 40);
       if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
       {
-        LOWORD(v18) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1D842D000, v7, OS_SIGNPOST_INTERVAL_END, v8, "ApplicationLaunchExtendedOnlyResponsive", " BAILED=yes", &v18, 2u);
+        LOWORD(v17) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1D842D000, v7, OS_SIGNPOST_INTERVAL_END, v8, "ApplicationLaunchExtendedOnlyResponsive", " BAILED=yes", &v17, 2u);
       }
 
       byte_1ED6BD738 = 1;
@@ -1742,11 +1740,11 @@ LABEL_34:
     if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
     {
       v11 = *(a1 + 56);
-      v18 = 134218240;
-      v19 = a3;
-      v20 = 1026;
-      v21 = v11;
-      _os_signpost_emit_with_name_impl(&dword_1D842D000, v5, OS_SIGNPOST_INTERVAL_END, v10, "ApplicationLaunchExtendedResponsive", "%{signpost.description:end_time}llu LaunchInfo=%{public, signpost.telemetry:number2}d enableTelemetry=YES ", &v18, 0x12u);
+      v17 = 134218240;
+      v18 = a3;
+      v19 = 1026;
+      v20 = v11;
+      _os_signpost_emit_with_name_impl(&dword_1D842D000, v5, OS_SIGNPOST_INTERVAL_END, v10, "ApplicationLaunchExtendedResponsive", "%{signpost.description:end_time}llu LaunchInfo=%{public, signpost.telemetry:number2}d enableTelemetry=YES ", &v17, 0x12u);
     }
 
     if (_os_feature_enabled_impl())
@@ -1768,11 +1766,11 @@ LABEL_34:
       if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
       {
         v14 = *(a1 + 56);
-        v18 = 134218240;
-        v19 = a3;
-        v20 = 1026;
-        v21 = v14;
-        _os_signpost_emit_with_name_impl(&dword_1D842D000, v12, OS_SIGNPOST_INTERVAL_END, v13, "ApplicationLaunchExtendedOnlyResponsive", "%{signpost.description:end_time}llu LaunchInfo=%{public, signpost.telemetry:number2}d enableTelemetry=YES ", &v18, 0x12u);
+        v17 = 134218240;
+        v18 = a3;
+        v19 = 1026;
+        v20 = v14;
+        _os_signpost_emit_with_name_impl(&dword_1D842D000, v12, OS_SIGNPOST_INTERVAL_END, v13, "ApplicationLaunchExtendedOnlyResponsive", "%{signpost.description:end_time}llu LaunchInfo=%{public, signpost.telemetry:number2}d enableTelemetry=YES ", &v17, 0x12u);
       }
 
       if (_os_feature_enabled_impl())
@@ -1802,7 +1800,6 @@ LABEL_34:
   }
 
   alm_did_reach_launch_milestone(8);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t alm_legacy_app_regular_or_extended_launch_end(uint64_t result)
@@ -1972,97 +1969,89 @@ uint64_t alm_will_start_extended_launch_task(const __CFString *a1)
 
 uint64_t alm_did_finish_extended_launch_task(const __CFString *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  if (a1 && CFStringGetLength(a1) <= 256)
+  v10 = *MEMORY[0x1E69E9840];
+  if (!a1 || CFStringGetLength(a1) > 256)
   {
-    if (s_alm_launch_signpost_id)
-    {
-      v4 = s_frontboard_launch_signpost_id == 0;
-    }
+    return 1;
+  }
 
-    else
-    {
-      v4 = 1;
-    }
-
-    if (v4)
-    {
-      v5 = alm_general_log_s_log;
-      if (!alm_general_log_s_log)
-      {
-        v5 = os_log_create("com.apple.app_launch_measurement", "General");
-        alm_general_log_s_log = v5;
-      }
-
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-      {
-        alm_did_finish_extended_launch_task_cold_1();
-      }
-
-      result = 6;
-    }
-
-    else
-    {
-      v6 = 0;
-      while (1)
-      {
-        v7 = s_launch_tasks[v6];
-        if (v7)
-        {
-          if (CFEqual(a1, v7))
-          {
-            break;
-          }
-        }
-
-        if (++v6 == 16)
-        {
-          result = 5;
-          goto LABEL_4;
-        }
-      }
-
-      CFRelease(s_launch_tasks[v6]);
-      s_launch_tasks[v6] = 0;
-      if (!--s_launch_task_count)
-      {
-        v8 = alm_FrontBoard_lifecycle_log_s_log;
-        if (!alm_FrontBoard_lifecycle_log_s_log)
-        {
-          v8 = os_log_create("com.apple.FrontBoard", "AppLaunch");
-          alm_FrontBoard_lifecycle_log_s_log = v8;
-        }
-
-        v9 = s_frontboard_launch_signpost_id;
-        if ((s_frontboard_launch_signpost_id - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
-        {
-          v10[0] = 67240192;
-          v10[1] = 1;
-          _os_signpost_emit_with_name_impl(&dword_1D842D000, v8, OS_SIGNPOST_INTERVAL_END, v9, "AppLaunch", "IsExtendedLaunch=%{public, signpost.telemetry:number1}u enableTelemetry=YES ", v10, 8u);
-        }
-
-        if (_os_feature_enabled_impl())
-        {
-          qword_1ED6BD6E8 = mach_continuous_time();
-          HIBYTE(word_1ED6BD6C9) = 1;
-        }
-
-        alm_app_extended_launch_end_with_details(s_alm_launch_signpost_id, 0, 0);
-      }
-
-      result = 0;
-    }
+  if (s_alm_launch_signpost_id)
+  {
+    v3 = s_frontboard_launch_signpost_id == 0;
   }
 
   else
   {
-    result = 1;
+    v3 = 1;
   }
 
-LABEL_4:
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  if (v3)
+  {
+    v4 = alm_general_log_s_log;
+    if (!alm_general_log_s_log)
+    {
+      v4 = os_log_create("com.apple.app_launch_measurement", "General");
+      alm_general_log_s_log = v4;
+    }
+
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      alm_did_finish_extended_launch_task_cold_1();
+    }
+
+    return 6;
+  }
+
+  else
+  {
+    v5 = 0;
+    while (1)
+    {
+      v6 = s_launch_tasks[v5];
+      if (v6)
+      {
+        if (CFEqual(a1, v6))
+        {
+          break;
+        }
+      }
+
+      if (++v5 == 16)
+      {
+        return 5;
+      }
+    }
+
+    CFRelease(s_launch_tasks[v5]);
+    s_launch_tasks[v5] = 0;
+    if (!--s_launch_task_count)
+    {
+      v7 = alm_FrontBoard_lifecycle_log_s_log;
+      if (!alm_FrontBoard_lifecycle_log_s_log)
+      {
+        v7 = os_log_create("com.apple.FrontBoard", "AppLaunch");
+        alm_FrontBoard_lifecycle_log_s_log = v7;
+      }
+
+      v8 = s_frontboard_launch_signpost_id;
+      if ((s_frontboard_launch_signpost_id - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+      {
+        v9[0] = 67240192;
+        v9[1] = 1;
+        _os_signpost_emit_with_name_impl(&dword_1D842D000, v7, OS_SIGNPOST_INTERVAL_END, v8, "AppLaunch", "IsExtendedLaunch=%{public, signpost.telemetry:number1}u enableTelemetry=YES ", v9, 8u);
+      }
+
+      if (_os_feature_enabled_impl())
+      {
+        qword_1ED6BD6E8 = mach_continuous_time();
+        HIBYTE(word_1ED6BD6C9) = 1;
+      }
+
+      alm_app_extended_launch_end_with_details(s_alm_launch_signpost_id, 0, 0);
+    }
+
+    return 0;
+  }
 }
 
 uint64_t alm_bucketize_file_system_months(unint64_t a1)
@@ -2164,70 +2153,67 @@ void s_telemetry_timeout_handler_block_invoke()
   }
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void alm_app_will_launch_with_details_and_metrics_payload_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1D842D000, a2, OS_LOG_TYPE_DEBUG, "Random sampling decided not to capture 3rd party %s data", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1D842D000, a2, OS_LOG_TYPE_DEBUG, "Random sampling decided not to capture 3rd party %s data", &v2, 0xCu);
 }
 
 void alm_app_will_launch_with_details_and_metrics_payload_cold_3(uint64_t a1, NSObject *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = _MergedGlobals;
   v5 = mach_continuous_time();
-  v10 = 136315650;
-  v11 = a1;
-  v12 = 1024;
-  v13 = v4;
-  v14 = 2048;
-  v15 = alm_mach_time_to_ns(v5 - qword_1ECA38940, v6, v7, v8) / 0x34630B8A000;
-  _os_log_debug_impl(&dword_1D842D000, a2, OS_LOG_TYPE_DEBUG, "Capture 3rd party %s data. Num Collected(24hr): %d Num hours: %llu", &v10, 0x1Cu);
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = 136315650;
+  v10 = a1;
+  v11 = 1024;
+  v12 = v4;
+  v13 = 2048;
+  v14 = alm_mach_time_to_ns(v5 - qword_1ECA38940, v6, v7, v8) / 0x34630B8A000;
+  _os_log_debug_impl(&dword_1D842D000, a2, OS_LOG_TYPE_DEBUG, "Capture 3rd party %s data. Num Collected(24hr): %d Num hours: %llu", &v9, 0x1Cu);
 }
 
 void alm_app_will_launch_with_details_and_metrics_payload_cold_4(NSObject *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = mach_continuous_time();
-  v7[0] = 67109376;
-  v7[1] = 4;
-  v8 = 2048;
-  v9 = alm_mach_time_to_ns(v2 - qword_1ECA38940, v3, v4, v5) / 0x34630B8A000;
-  _os_log_debug_impl(&dword_1D842D000, a1, OS_LOG_TYPE_DEBUG, "Reached per-day limit of %d for capturing 3rd party data ! Wont collect data. Num hours: %llu", v7, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  v6[0] = 67109376;
+  v6[1] = 4;
+  v7 = 2048;
+  v8 = alm_mach_time_to_ns(v2 - qword_1ECA38940, v3, v4, v5) / 0x34630B8A000;
+  _os_log_debug_impl(&dword_1D842D000, a1, OS_LOG_TYPE_DEBUG, "Reached per-day limit of %d for capturing 3rd party data ! Wont collect data. Num hours: %llu", v6, 0x12u);
 }
 
 void alm_aggregate_and_send_ca_measurement_event_cold_1(uint64_t a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 67109378;
-  v4[1] = a2;
-  v5 = 2080;
-  v6 = a1;
-  _os_log_error_impl(&dword_1D842D000, log, OS_LOG_TYPE_ERROR, "Failed to send CA Event for app launch measurements for ca_event_type: %d event_name: %s", v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109378;
+  v3[1] = a2;
+  v4 = 2080;
+  v5 = a1;
+  _os_log_error_impl(&dword_1D842D000, log, OS_LOG_TYPE_ERROR, "Failed to send CA Event for app launch measurements for ca_event_type: %d event_name: %s", v3, 0x12u);
 }
 
 void s_telemetry_timeout_handler_block_invoke_cold_1(os_log_t log)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67109120;
-  v2[1] = 20;
-  _os_log_error_impl(&dword_1D842D000, log, OS_LOG_TYPE_ERROR, "CA Telemetry timedout after %d seconds due to app launch has not reached all responsive milestones", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67109120;
+  v1[1] = 20;
+  _os_log_error_impl(&dword_1D842D000, log, OS_LOG_TYPE_ERROR, "CA Telemetry timedout after %d seconds due to app launch has not reached all responsive milestones", v1, 8u);
 }

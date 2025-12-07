@@ -12,91 +12,90 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.relay.managed";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.relay.managed";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (MCRelayPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v51.receiver = self;
-  v51.super_class = MCRelayPayload;
-  v9 = [(MCPayload *)&v51 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v50.receiver = self;
+  v50.super_class = MCRelayPayload;
+  v9 = [(MCPayload *)&v50 initWithDictionary:dictionaryCopy profile:profile outError:error];
   v10 = v9;
   if (v9)
   {
     v9->_restrictDomains = 0;
-    v50 = 0;
-    v11 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"RelayUUID" isRequired:0 outError:&v50];
-    v12 = v50;
+    v49 = 0;
+    v11 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"RelayUUID" isRequired:0 outError:&v49];
+    v12 = v49;
     relayUUID = v10->_relayUUID;
     v10->_relayUUID = v11;
 
     if (!v12)
     {
-      v49 = 0;
-      v14 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"UIToggleEnabled" isRequired:0 outError:&v49];
-      v12 = v49;
+      v48 = 0;
+      v14 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"UIToggleEnabled" isRequired:0 outError:&v48];
+      v12 = v48;
       uiToggleEnabled = v10->_uiToggleEnabled;
       v10->_uiToggleEnabled = v14;
 
       if (!v12)
       {
-        v48 = 0;
-        v16 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"Relays" isRequired:1 outError:&v48];
-        v12 = v48;
+        v47 = 0;
+        v16 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"Relays" isRequired:1 outError:&v47];
+        v12 = v47;
         relays = v10->_relays;
         v10->_relays = v16;
 
         if (!v12)
         {
-          v47 = 0;
-          v18 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"MatchDomains" isRequired:0 outError:&v47];
-          v12 = v47;
+          v46 = 0;
+          v18 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"MatchDomains" isRequired:0 outError:&v46];
+          v12 = v46;
           matchDomains = v10->_matchDomains;
           v10->_matchDomains = v18;
 
           if (!v12)
           {
-            v46 = 0;
-            v20 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"ExcludedDomains" isRequired:0 outError:&v46];
-            v12 = v46;
+            v45 = 0;
+            v20 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"ExcludedDomains" isRequired:0 outError:&v45];
+            v12 = v45;
             excludedDomains = v10->_excludedDomains;
             v10->_excludedDomains = v20;
 
             if (!v12)
             {
-              v45 = 0;
-              v22 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"MatchFQDNs" isRequired:0 outError:&v45];
-              v12 = v45;
+              v44 = 0;
+              v22 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"MatchFQDNs" isRequired:0 outError:&v44];
+              v12 = v44;
               matchFQDNs = v10->_matchFQDNs;
               v10->_matchFQDNs = v22;
 
               if (!v12)
               {
-                v44 = 0;
-                v24 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"ExcludedFQDNs" isRequired:0 outError:&v44];
-                v12 = v44;
+                v43 = 0;
+                v24 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"ExcludedFQDNs" isRequired:0 outError:&v43];
+                v12 = v43;
                 excludedFQDNs = v10->_excludedFQDNs;
                 v10->_excludedFQDNs = v24;
 
                 if (!v12)
                 {
-                  v43 = 0;
-                  v26 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"AllowDNSFailover" isRequired:0 outError:&v43];
-                  v12 = v43;
+                  v42 = 0;
+                  v26 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"AllowDNSFailover" isRequired:0 outError:&v42];
+                  v12 = v42;
                   v10->_allowDNSFailover = [v26 BOOLValue];
 
                   if (!v12)
                   {
-                    v42 = 0;
-                    v27 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"OnDemandRules" isRequired:0 outError:&v42];
-                    v12 = v42;
+                    v41 = 0;
+                    v27 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"OnDemandRules" isRequired:0 outError:&v41];
+                    v12 = v41;
                     onDemandRules = v10->_onDemandRules;
                     v10->_onDemandRules = v27;
                   }
@@ -116,9 +115,9 @@
         v30 = v29;
         friendlyName = [(MCPayload *)v10 friendlyName];
         *buf = 138543618;
-        v53 = friendlyName;
-        v54 = 2114;
-        v55 = dictionaryCopy;
+        v52 = friendlyName;
+        v53 = 2114;
+        v54 = dictionaryCopy;
         _os_log_impl(&dword_1A795B000, v30, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
       }
     }
@@ -141,9 +140,9 @@
         v38 = v37;
         mCVerboseDescription = [v33 MCVerboseDescription];
         *buf = 138543618;
-        v53 = v37;
-        v54 = 2114;
-        v55 = mCVerboseDescription;
+        v52 = v37;
+        v53 = 2114;
+        v54 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v36, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
       }
 
@@ -151,7 +150,6 @@
     }
   }
 
-  v40 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -303,32 +301,32 @@
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v37 = objc_opt_new();
+  v43 = *MEMORY[0x1E69E9840];
+  v36 = objc_opt_new();
   array = [MEMORY[0x1E695DF70] array];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   relays = [(MCRelayPayload *)self relays];
-  v4 = [relays countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v4 = [relays countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (!v4)
   {
     goto LABEL_16;
   }
 
   v5 = v4;
-  v6 = *v40;
+  v6 = *v39;
   while (2)
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v40 != v6)
+      if (*v39 != v6)
       {
         objc_enumerationMutation(relays);
       }
 
-      v8 = *(*(&v39 + 1) + 8 * i);
+      v8 = *(*(&v38 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -361,7 +359,7 @@
       }
     }
 
-    v5 = [relays countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v5 = [relays countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (v5)
     {
       continue;
@@ -391,7 +389,7 @@ LABEL_16:
   [array addObject:v23];
 
   v24 = [MCKeyValueSection sectionWithKeyValues:array];
-  [v37 addObject:v24];
+  [v36 addObject:v24];
 
   matchDomains = [(MCRelayPayload *)self matchDomains];
   v26 = [matchDomains count];
@@ -402,7 +400,7 @@ LABEL_16:
     v28 = MCLocalizedString(@"RELAY_MATCH_DOMAINS");
     v29 = [MCKeyValueSection sectionWithLocalizedArray:matchDomains2 title:v28 footer:0];
 
-    [v37 addObject:v29];
+    [v36 addObject:v29];
   }
 
   excludedDomains = [(MCRelayPayload *)self excludedDomains];
@@ -414,24 +412,20 @@ LABEL_16:
     v33 = MCLocalizedString(@"RELAY_EXCLUDED_DOMAINS");
     v34 = [MCKeyValueSection sectionWithLocalizedArray:excludedDomains2 title:v33 footer:0];
 
-    [v37 addObject:v34];
+    [v36 addObject:v34];
   }
 
-  v35 = *MEMORY[0x1E69E9840];
-
-  return v37;
+  return v36;
 }
 
 - (id)installationWarnings
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MCLocalizedString(@"INSTALL_WARNING_RELAY_TITLE");
   v3 = MCLocalizedStringByDevice(@"INSTALL_WARNING_RELAY");
   v4 = [MCProfileWarning warningWithLocalizedTitle:v2 localizedBody:v3 isLongForm:1];
-  v8[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
 
   return v5;
 }

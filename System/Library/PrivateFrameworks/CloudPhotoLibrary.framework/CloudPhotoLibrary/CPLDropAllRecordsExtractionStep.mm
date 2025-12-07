@@ -6,38 +6,38 @@
 
 - (BOOL)extractToBatch:(id)batch maximumCount:(unint64_t)count maximumResourceSize:(unint64_t)size error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v8 = [(CPLBatchExtractionStep *)self storage:batch];
   storage = [(CPLBatchExtractionStep *)self storage];
   scopeIdentifier = [(CPLBatchExtractionStep *)self scopeIdentifier];
   v11 = [storage allChangesWithScopeIdentifier:scopeIdentifier];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
-    v16 = *v27;
+    v16 = *v26;
     while (2)
     {
       v17 = 0;
       v18 = v15;
       do
       {
-        if (*v27 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v19 = *(*(&v26 + 1) + 8 * v17);
-        v25 = v18;
-        v20 = [v8 removeChange:v19 error:&v25];
-        v15 = v25;
+        v19 = *(*(&v25 + 1) + 8 * v17);
+        v24 = v18;
+        v20 = [v8 removeChange:v19 error:&v24];
+        v15 = v24;
 
         if (!v20)
         {
@@ -62,7 +62,7 @@
       }
 
       while (v14 != v17);
-      v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v14)
       {
         continue;
@@ -80,7 +80,6 @@
   v22 = 1;
 LABEL_15:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 

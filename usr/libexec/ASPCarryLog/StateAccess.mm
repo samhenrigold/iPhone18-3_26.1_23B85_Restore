@@ -72,21 +72,17 @@
 - (id)getValueForKey:(id)key expectedType:(int)type
 {
   keyCopy = key;
-  v11[0] = objc_opt_class();
-  v11[1] = objc_opt_class();
-  v11[2] = objc_opt_class();
-  v11[3] = objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
   aspCarryDefaults = [(StateAccess *)self aspCarryDefaults];
   v8 = [aspCarryDefaults objectForKey:keyCopy];
 
-  if (type <= 3)
+  if (type <= 3 && (objc_opt_isKindOfClass() & 1) == 0)
   {
-    v9 = v11[type];
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
 
-      v8 = 0;
-    }
+    v8 = 0;
   }
 
   return v8;
@@ -96,23 +92,19 @@
 {
   domainCopy = domain;
   keyCopy = key;
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v15[2] = objc_opt_class();
-  v15[3] = objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
   aspCarryDefaults = [(StateAccess *)self aspCarryDefaults];
   v11 = [aspCarryDefaults persistentDomainForName:domainCopy];
 
   v12 = [v11 objectForKey:keyCopy];
 
-  if (type <= 3)
+  if (type <= 3 && (objc_opt_isKindOfClass() & 1) == 0)
   {
-    v13 = v15[type];
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
 
-      v12 = 0;
-    }
+    v12 = 0;
   }
 
   return v12;

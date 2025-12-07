@@ -195,7 +195,7 @@ LABEL_42:
   }
 
   v14 = spaceCopy;
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   if (CGRectIsInfinite(v75))
   {
     v44 = NUAssertLogger_21137();
@@ -356,7 +356,7 @@ LABEL_47:
     }
 
     v11 = MEMORY[0x1E69B3D40];
-    [imageCopy extent];
+    objc_msgSend_extent(imageCopy);
     NUPixelRectFromCGRect();
     v12 = [v11 newPixelBufferOfSize:v23[6] format:{v23[7], v10}];
     if (v12)
@@ -388,7 +388,7 @@ LABEL_47:
         }
 
         [v17 setAlphaMode:v19];
-        [imageCopy extent];
+        objc_msgSend_extent(imageCopy);
         NUPixelRectFromCGRect();
         v20 = [v9 renderImage:imageCopy rect:v23 toDestination:v18 atPoint:*MEMORY[0x1E69B38F8] error:{*(MEMORY[0x1E69B38F8] + 8), error}];
         if (v20)
@@ -587,7 +587,7 @@ LABEL_36:
   v19 = fullSizeGeometry;
   if (fullSizeGeometry)
   {
-    [fullSizeGeometry extent];
+    objc_msgSend_extent(fullSizeGeometry);
   }
 
   else
@@ -720,7 +720,7 @@ LABEL_24:
   v13 = fullSizeGeometry;
   if (fullSizeGeometry)
   {
-    [fullSizeGeometry extent];
+    objc_msgSend_extent(fullSizeGeometry);
   }
 
   else
@@ -889,7 +889,7 @@ LABEL_34:
   }
 
   memset(buf, 0, 32);
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   NUPixelRectFromCGRect();
   [(NURenderJob *)self renderScale];
   NUPixelRectToCGRect();
@@ -900,7 +900,7 @@ LABEL_34:
   v15 = fullSizeGeometry;
   if (fullSizeGeometry)
   {
-    [fullSizeGeometry extent];
+    objc_msgSend_extent(fullSizeGeometry);
   }
 
   NUPixelRectToCGRect();
@@ -1406,7 +1406,7 @@ LABEL_51:
         [effectiveLayout imageSize];
         v84 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"{%.2f, %.2f}", v82, v83];
         backgroundImage4 = [(_PIParallaxLayerStackJob *)self backgroundImage];
-        [backgroundImage4 extent];
+        objc_msgSend_extent(backgroundImage4);
         v90 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"{{%.2f, %.2f}, {%.2f, %.2f}}", v86, v87, v88, v89];
         v91 = [v80 stringWithFormat:@"id:%@, is:%@, be:%@", lastObject, v84, v90];
 
@@ -1982,7 +1982,7 @@ LABEL_93:
                         v139 = outputGeometry2;
                         if (outputGeometry2)
                         {
-                          [outputGeometry2 extent];
+                          objc_msgSend_extent(outputGeometry2);
                         }
 
                         else

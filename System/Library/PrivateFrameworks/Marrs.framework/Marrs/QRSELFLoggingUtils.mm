@@ -12,6 +12,7 @@
 + (id)createCCQRContextEvaluatedEvent:(QRResponse *)event withNLXMetadata:(id)metadata andLinkId:(id)id;
 + (id)createCCQRContextEvaluatedTier1Event:(QRResponse *)event withNLXMetadata:(id)metadata andLinkId:(id)id;
 + (id)createCCQRContextEventWrapper:(id)wrapper withMetaData:(id)data;
++ (id)createEventMetadataWithNlId:(id)id andWithTrpId:(id)trpId andWithRequestId:(id)requestId andWithResultCandidateId:(id)candidateId andWithRequester:(int)requester;
 + (id)createRDContextEvaluatedEvent:(QRResponse *)event withNLXMetadata:(id)metadata;
 + (id)createRDContextEventWrapper:(id)wrapper withMetaData:(id)data;
 + (int)convertMarrsErrorCode:(int64_t)code;
@@ -108,7 +109,7 @@
 
 + (BOOL)emitQueryRewriteFailedEventWithMetadata:(id)metadata andErrorCode:(int64_t)code byPredictorType:(int)type
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   if (!type)
   {
@@ -127,15 +128,14 @@ LABEL_5:
   v11 = QRLoggerForCategory(0);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 136315138;
-    v15 = "+[QRSELFLoggingUtils emitQueryRewriteFailedEventWithMetadata:andErrorCode:byPredictorType:]";
-    _os_log_debug_impl(&dword_2227A9000, v11, OS_LOG_TYPE_DEBUG, "%s Query rewrite SELF logging event with NoLogging type.", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "+[QRSELFLoggingUtils emitQueryRewriteFailedEventWithMetadata:andErrorCode:byPredictorType:]";
+    _os_log_debug_impl(&dword_2227A9000, v11, OS_LOG_TYPE_DEBUG, "%s Query rewrite SELF logging event with NoLogging type.", &v13, 0xCu);
   }
 
   v10 = 1;
 LABEL_9:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -189,29 +189,29 @@ LABEL_9:
 
 + (BOOL)emitQueryRewriteEvaluatedEventWithResponse:(QRResponse *)response andNLXMetadata:(id)metadata byPredictorType:(int)type
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   if (!type)
   {
-    memset(v15, 0, sizeof(v15));
-    std::vector<marrs::qr::orchestration::QRHypothesis>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRHypothesis*,marrs::qr::orchestration::QRHypothesis*>(v15, response->var0.var0, response->var0.var1, 0x6DB6DB6DB6DB6DB7 * ((response->var0.var1 - response->var0.var0) >> 3));
-    v16 = *&response->var1;
-    v17 = *&response->var3;
+    memset(v14, 0, sizeof(v14));
+    std::vector<marrs::qr::orchestration::QRHypothesis>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRHypothesis*,marrs::qr::orchestration::QRHypothesis*>(v14, response->var0.var0, response->var0.var1, 0x6DB6DB6DB6DB6DB7 * ((response->var0.var1 - response->var0.var0) >> 3));
+    v15 = *&response->var1;
+    v16 = *&response->var3;
     var5 = response->var5;
-    v9 = v15;
-    v10 = [self emitRDEvaluatedEventWithResponse:v15 andNLXMetadata:metadataCopy];
+    v9 = v14;
+    v10 = [self emitRDEvaluatedEventWithResponse:v14 andNLXMetadata:metadataCopy];
     goto LABEL_5;
   }
 
   if (type == 4)
   {
-    memset(v19, 0, sizeof(v19));
-    std::vector<marrs::qr::orchestration::QRHypothesis>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRHypothesis*,marrs::qr::orchestration::QRHypothesis*>(v19, response->var0.var0, response->var0.var1, 0x6DB6DB6DB6DB6DB7 * ((response->var0.var1 - response->var0.var0) >> 3));
-    v20 = *&response->var1;
-    v21 = *&response->var3;
-    v22 = response->var5;
-    v9 = v19;
-    v10 = [self emitCCQREvaluatedEventWithResponse:v19 andNLXMetadata:metadataCopy];
+    memset(v18, 0, sizeof(v18));
+    std::vector<marrs::qr::orchestration::QRHypothesis>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRHypothesis*,marrs::qr::orchestration::QRHypothesis*>(v18, response->var0.var0, response->var0.var1, 0x6DB6DB6DB6DB6DB7 * ((response->var0.var1 - response->var0.var0) >> 3));
+    v19 = *&response->var1;
+    v20 = *&response->var3;
+    v21 = response->var5;
+    v9 = v18;
+    v10 = [self emitCCQREvaluatedEventWithResponse:v18 andNLXMetadata:metadataCopy];
 LABEL_5:
     v11 = v10;
     *buf = v9;
@@ -230,7 +230,6 @@ LABEL_5:
   v11 = 1;
 LABEL_9:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -262,7 +261,7 @@ LABEL_9:
 
 + (BOOL)emitQueryRewriteStartedEventWithMetadata:(id)metadata byPredictorType:(int)type
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   if (!type)
   {
@@ -281,15 +280,14 @@ LABEL_5:
   v9 = QRLoggerForCategory(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 136315138;
-    v13 = "+[QRSELFLoggingUtils emitQueryRewriteStartedEventWithMetadata:byPredictorType:]";
-    _os_log_debug_impl(&dword_2227A9000, v9, OS_LOG_TYPE_DEBUG, "%s Query rewrite SELF logging event with NoLogging type.", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "+[QRSELFLoggingUtils emitQueryRewriteStartedEventWithMetadata:byPredictorType:]";
+    _os_log_debug_impl(&dword_2227A9000, v9, OS_LOG_TYPE_DEBUG, "%s Query rewrite SELF logging event with NoLogging type.", &v11, 0xCu);
   }
 
   v8 = 1;
 LABEL_9:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -420,9 +418,32 @@ LABEL_9:
   return v7;
 }
 
++ (id)createEventMetadataWithNlId:(id)id andWithTrpId:(id)trpId andWithRequestId:(id)requestId andWithResultCandidateId:(id)candidateId andWithRequester:(int)requester
+{
+  v7 = *&requester;
+  v22 = *MEMORY[0x277D85DE8];
+  idCopy = id;
+  trpIdCopy = trpId;
+  requestIdCopy = requestId;
+  candidateIdCopy = candidateId;
+  v15 = QRLoggerForCategory(0);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    v18 = 136315394;
+    v19 = "+[QRSELFLoggingUtils createEventMetadataWithNlId:andWithTrpId:andWithRequestId:andWithResultCandidateId:andWithRequester:]";
+    v20 = 1024;
+    v21 = v7;
+    _os_log_debug_impl(&dword_2227A9000, v15, OS_LOG_TYPE_DEBUG, "%s Emitted event with requester type: %d", &v18, 0x12u);
+  }
+
+  v16 = [NLXMetadataGenerator createEventMetadataWithNlId:idCopy andWithTrpId:trpIdCopy andWithRequestId:requestIdCopy andWithResultCandidateId:candidateIdCopy andWithRequester:v7];
+
+  return v16;
+}
+
 + (void)emitEvent:(id)event
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if ([eventCopy hasEventMetadata] && (objc_msgSend(eventCopy, "eventMetadata"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "hasNlId"), v4, (v5 & 1) != 0))
   {
@@ -436,11 +457,11 @@ LABEL_9:
       nlId = [eventMetadata nlId];
       toNSUUID = [nlId toNSUUID];
       uUIDString = [toNSUUID UUIDString];
-      v13 = 136315394;
-      v14 = "+[QRSELFLoggingUtils emitEvent:]";
-      v15 = 2080;
+      v12 = 136315394;
+      v13 = "+[QRSELFLoggingUtils emitEvent:]";
+      v14 = 2080;
       uTF8String = [uUIDString UTF8String];
-      _os_log_debug_impl(&dword_2227A9000, v7, OS_LOG_TYPE_DEBUG, "%s Emitted event with NL ID: %s", &v13, 0x16u);
+      _os_log_debug_impl(&dword_2227A9000, v7, OS_LOG_TYPE_DEBUG, "%s Emitted event with NL ID: %s", &v12, 0x16u);
     }
   }
 
@@ -449,13 +470,11 @@ LABEL_9:
     v7 = QRLoggerForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 136315138;
-      v14 = "+[QRSELFLoggingUtils emitEvent:]";
-      _os_log_debug_impl(&dword_2227A9000, v7, OS_LOG_TYPE_DEBUG, "%s Due to NL ID being Nil, this event won't be emitted.", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "+[QRSELFLoggingUtils emitEvent:]";
+      _os_log_debug_impl(&dword_2227A9000, v7, OS_LOG_TYPE_DEBUG, "%s Due to NL ID being Nil, this event won't be emitted.", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

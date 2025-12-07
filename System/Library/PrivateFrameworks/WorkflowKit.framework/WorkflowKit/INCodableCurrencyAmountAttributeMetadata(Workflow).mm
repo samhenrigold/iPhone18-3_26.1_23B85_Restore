@@ -87,20 +87,18 @@
 
 - (id)wf_updatedParameterDefinition:()Workflow forCodableAttribute:localizer:
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = &off_1F4AFF5D8;
-  v2 = objc_msgSendSuper2(&v9, sel_wf_updatedParameterDefinition_forCodableAttribute_localizer_);
-  v10[0] = @"PossibleUnits";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = &off_1F4AFF5D8;
+  v2 = objc_msgSendSuper2(&v8, sel_wf_updatedParameterDefinition_forCodableAttribute_localizer_);
+  v9[0] = @"PossibleUnits";
   currencyCodes = [self currencyCodes];
-  v10[1] = @"AllowsNegativeNumbers";
-  v11[0] = currencyCodes;
+  v9[1] = @"AllowsNegativeNumbers";
+  v10[0] = currencyCodes;
   v4 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(self, "supportsNegativeNumbers")}];
-  v11[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v6 = [v2 definitionByAddingEntriesInDictionary:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

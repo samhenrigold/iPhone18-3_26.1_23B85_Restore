@@ -43,21 +43,20 @@
   ObjectType = swift_getObjectType();
   v11 = sub_22911B8DC();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
   MEMORY[0x28223BE20](v11);
-  v15 = &v21 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22911B8CC();
   configurationCopy = configuration;
   clientCopy = client;
   swift_unknownObjectRetain();
-  v18 = sub_22911B8BC();
-  v21.receiver = self;
-  v21.super_class = ObjectType;
-  v19 = [(HDStandardTaskServer *)&v21 initWithUUID:v18 configuration:configurationCopy client:clientCopy delegate:delegate];
+  v17 = sub_22911B8BC();
+  v20.receiver = self;
+  v20.super_class = ObjectType;
+  v18 = [(HDStandardTaskServer *)&v20 initWithUUID:v17 configuration:configurationCopy client:clientCopy delegate:delegate];
 
   swift_unknownObjectRelease();
-  (*(v12 + 8))(v15, v11);
-  return v19;
+  (*(v12 + 8))(v14, v11);
+  return v18;
 }
 
 - (void)remote_queryWithEncodedQueryDescriptor:(id)descriptor completion:(id)completion

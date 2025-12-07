@@ -72,12 +72,12 @@
 
 - (void)didEncounterAuthenticationFailureForPersonID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v16 = dCopy;
+    v15 = dCopy;
     _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Encountered authentication error for personID %@.", buf, 0xCu);
   }
 
@@ -91,7 +91,7 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v16 = dCopy;
+        v15 = dCopy;
         _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Cannot find primary account for personID %@. Ignoring authentication error.", buf, 0xCu);
       }
 
@@ -119,14 +119,14 @@
         {
           self->_state = 1;
           acAccountStore = self->_acAccountStore;
-          v11[0] = MEMORY[0x277D85DD0];
-          v11[1] = 3221225472;
-          v11[2] = __72__MSAuthenticationManager_didEncounterAuthenticationFailureForPersonID___block_invoke;
-          v11[3] = &unk_2798A4BD8;
-          v12 = dCopy;
+          v10[0] = MEMORY[0x277D85DD0];
+          v10[1] = 3221225472;
+          v10[2] = __72__MSAuthenticationManager_didEncounterAuthenticationFailureForPersonID___block_invoke;
+          v10[3] = &unk_2798A4BD8;
+          v11 = dCopy;
           selfCopy = self;
-          v14 = aa_primaryAppleAccount;
-          [(ACAccountStore *)acAccountStore aa_updatePropertiesForAppleAccount:v14 completion:v11];
+          v13 = aa_primaryAppleAccount;
+          [(ACAccountStore *)acAccountStore aa_updatePropertiesForAppleAccount:v13 completion:v10];
         }
 
         goto LABEL_20;
@@ -144,7 +144,7 @@
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = dCopy;
+      v15 = dCopy;
       _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "The account for personID %@ is not yet vetted. Waiting for account change.", buf, 0xCu);
     }
 
@@ -162,8 +162,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __72__MSAuthenticationManager_didEncounterAuthenticationFailureForPersonID___block_invoke(uint64_t a1, char a2, void *a3)
@@ -187,46 +185,44 @@ void __72__MSAuthenticationManager_didEncounterAuthenticationFailureForPersonID_
 
 void __72__MSAuthenticationManager_didEncounterAuthenticationFailureForPersonID___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       v2 = *(a1 + 32);
       *buf = 138412290;
-      v12 = v2;
+      v11 = v2;
       _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "The account for personID %@ has been successfully reauthenticated.", buf, 0xCu);
     }
 
     v3 = *(a1 + 40);
     v4 = *(a1 + 48);
     v5 = *(v3 + 24);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __72__MSAuthenticationManager_didEncounterAuthenticationFailureForPersonID___block_invoke_14;
-    v9[3] = &unk_2798A4B88;
-    v9[4] = v3;
-    v10 = v4;
-    [v5 saveVerifiedAccount:v10 withCompletionHandler:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __72__MSAuthenticationManager_didEncounterAuthenticationFailureForPersonID___block_invoke_14;
+    v8[3] = &unk_2798A4B88;
+    v8[4] = v3;
+    v9 = v4;
+    [v5 saveVerifiedAccount:v9 withCompletionHandler:v8];
   }
 
   else
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 56);
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 56);
       *buf = 138412546;
-      v12 = v7;
-      v13 = 2114;
-      v14 = v8;
+      v11 = v6;
+      v12 = 2114;
+      v13 = v7;
       _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not reauthenticate personID %@. Error: %{public}@", buf, 0x16u);
     }
 
     [*(a1 + 40) _renewCredentialsForAccount:*(a1 + 48)];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __72__MSAuthenticationManager_didEncounterAuthenticationFailureForPersonID___block_invoke_14(uint64_t a1, char a2)
@@ -244,26 +240,20 @@ void __72__MSAuthenticationManager_didEncounterAuthenticationFailureForPersonID_
 
 void __72__MSAuthenticationManager_didEncounterAuthenticationFailureForPersonID___block_invoke_2_15(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) == 1)
   {
     v2 = *(a1 + 32);
-    v3 = *MEMORY[0x277D85DE8];
 
     [v2 _didReceiveAccountConfigChangedNotification];
   }
 
-  else
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      v5 = *(a1 + 40);
-      v6 = 138412290;
-      v7 = v5;
-      _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to save account %@ after authentication.", &v6, 0xCu);
-    }
-
-    v4 = *MEMORY[0x277D85DE8];
+    v3 = *(a1 + 40);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to save account %@ after authentication.", &v4, 0xCu);
   }
 }
 
@@ -284,7 +274,7 @@ void __72__MSAuthenticationManager_didEncounterAuthenticationFailureForPersonID_
   }
 }
 
-uint64_t __46__MSAuthenticationManager_waitForDeviceUnlock__block_invoke(uint64_t a1, int a2)
+void *__46__MSAuthenticationManager_waitForDeviceUnlock__block_invoke(uint64_t a1, int a2)
 {
   result = MKBGetDeviceLockState();
   if (result == 3 || !result)
@@ -305,43 +295,41 @@ uint64_t __46__MSAuthenticationManager_waitForDeviceUnlock__block_invoke(uint64_
 
 - (void)_renewCredentialsForAccount:(id)account
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v12 = accountCopy;
+    v11 = accountCopy;
     _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Renewing credential for %@", buf, 0xCu);
   }
 
   self->_state = 2;
   acAccountStore = self->_acAccountStore;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __55__MSAuthenticationManager__renewCredentialsForAccount___block_invoke;
-  v8[3] = &unk_2798A4B60;
-  v9 = accountCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __55__MSAuthenticationManager__renewCredentialsForAccount___block_invoke;
+  v7[3] = &unk_2798A4B60;
+  v8 = accountCopy;
   selfCopy = self;
   v6 = accountCopy;
-  [(ACAccountStore *)acAccountStore renewCredentialsForAccount:v6 force:0 reason:@"Photo Stream" completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(ACAccountStore *)acAccountStore renewCredentialsForAccount:v6 force:0 reason:@"Photo Stream" completion:v7];
 }
 
 void __55__MSAuthenticationManager__renewCredentialsForAccount___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       v6 = *(a1 + 32);
-      v9 = 138412546;
-      v10 = v6;
-      v11 = 2112;
-      v12 = v5;
-      _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to renew credentials for account %@: %@.", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v5;
+      _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to renew credentials for account %@: %@.", &v8, 0x16u);
     }
   }
 
@@ -350,15 +338,13 @@ void __55__MSAuthenticationManager__renewCredentialsForAccount___block_invoke(ui
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       v7 = *(a1 + 32);
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Successfully renewed credentials for account %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Successfully renewed credentials for account %@", &v8, 0xCu);
     }
 
     [*(a1 + 40) _didReceiveAccountConfigChangedNotification];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

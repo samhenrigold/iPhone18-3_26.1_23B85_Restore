@@ -6,6 +6,7 @@
 - (void)setModel_id:(id)model_id;
 - (void)setSession_id:(id)session_id;
 - (void)setSpeech_id:(id)speech_id;
+- (void)setSupport_homograph:(BOOL)support_homograph;
 - (void)setText:(id)text;
 - (void)setWave_data:(id)wave_data;
 @end
@@ -79,6 +80,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setSupport_homograph:(BOOL)support_homograph
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:support_homograph];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

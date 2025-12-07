@@ -42,7 +42,7 @@
 
 + (id)_mapkit_preferredFontForTextStyleTimeDisplayInTableViewCell:()MKExtras addingSymbolicTraits:useMonospace:
 {
-  v6 = [self _mapkit_preferredFontForTextStyleInTableViewCell:? addingSymbolicTraits:?];
+  v6 = [self _mapkit_preferredFontForTextStyleInTableViewCell:a3 addingSymbolicTraits:a4];
   v7 = [v6 _mapkit_fontByAddingFeaturesForTimeDisplayUseMonospace:a5];
 
   return v7;

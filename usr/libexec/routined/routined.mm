@@ -133,11 +133,7 @@ uint64_t sub_100001778(uint64_t result, void *a2, uint64_t a3)
 {
   if (a2 && !a3)
   {
-    v3 = result;
-    v4 = [a2 copy];
-    v5 = *(v3 + 32);
-    v6 = *(v5 + 16);
-    *(v5 + 16) = v4;
+    *(*(result + 32) + 16) = [a2 copy];
 
     return _objc_release_x1();
   }
@@ -149,11 +145,7 @@ uint64_t sub_1000017C8(uint64_t result, void *a2, uint64_t a3)
 {
   if (a2 && !a3)
   {
-    v3 = result;
-    v4 = [a2 copy];
-    v5 = *(v3 + 32);
-    v6 = *(v5 + 24);
-    *(v5 + 24) = v4;
+    *(*(result + 32) + 24) = [a2 copy];
 
     return _objc_release_x1();
   }

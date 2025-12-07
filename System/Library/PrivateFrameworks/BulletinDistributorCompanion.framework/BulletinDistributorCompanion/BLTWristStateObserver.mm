@@ -42,7 +42,7 @@
 
 - (void)profileConnectionDidReceiveRestrictionChangedNotification:(id)notification userInfo:(id)info
 {
-  v5 = BLTWorkQueue();
+  v5 = BLTWorkQueue(self);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __92__BLTWristStateObserver_profileConnectionDidReceiveRestrictionChangedNotification_userInfo___block_invoke;
@@ -82,34 +82,34 @@
 {
   v12 = *MEMORY[0x277D85DE8];
   _isWristDetectionDisabled = [(BLTWristStateObserver *)self _isWristDetectionDisabled];
-  v4 = blt_settings_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v4 = _isWristDetectionDisabled;
+  v5 = blt_settings_log(_isWristDetectionDisabled);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = "ENABLED";
+    v6 = "ENABLED";
     if (self->_isWristDetectDisabled)
     {
-      v6 = "DISABLED";
+      v7 = "DISABLED";
     }
 
     else
     {
-      v6 = "ENABLED";
+      v7 = "ENABLED";
     }
 
-    if (_isWristDetectionDisabled)
+    if (v4)
     {
-      v5 = "DISABLED";
+      v6 = "DISABLED";
     }
 
     v8 = 136315394;
-    v9 = v6;
+    v9 = v7;
     v10 = 2080;
-    v11 = v5;
-    _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_INFO, "Updating wrist detect from %s to %s", &v8, 0x16u);
+    v11 = v6;
+    _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_INFO, "Updating wrist detect from %s to %s", &v8, 0x16u);
   }
 
-  self->_isWristDetectDisabled = _isWristDetectionDisabled;
-  v7 = *MEMORY[0x277D85DE8];
+  self->_isWristDetectDisabled = v4;
 }
 
 @end

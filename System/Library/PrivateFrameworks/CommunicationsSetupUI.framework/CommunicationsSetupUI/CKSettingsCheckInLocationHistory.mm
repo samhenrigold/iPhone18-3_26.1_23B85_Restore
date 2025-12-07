@@ -5,6 +5,7 @@
 - (id)sampleMapDataSpecifier;
 - (id)specifiers;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)updateSampleDataSpecifiersAnimated:(BOOL)animated;
 @end
 
 @implementation CKSettingsCheckInLocationHistory
@@ -202,6 +203,119 @@
   v3 = ;
 
   return v3;
+}
+
+- (void)updateSampleDataSpecifiersAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v49 = *MEMORY[0x277D85DE8];
+  selectionGroup = [(CKSettingsCheckInLocationHistory *)self selectionGroup];
+  getSelectionGroupFooterText = [(CKSettingsCheckInLocationHistory *)self getSelectionGroupFooterText];
+  [selectionGroup setProperty:getSelectionGroupFooterText forKey:*MEMORY[0x277D3FF88]];
+
+  selectionGroup2 = [(CKSettingsCheckInLocationHistory *)self selectionGroup];
+  [(CKSettingsCheckInLocationHistory *)self reloadSpecifier:selectionGroup2 animated:1];
+
+  v46 = 0;
+  sampleMapDataGroup = [(CKSettingsCheckInLocationHistory *)self sampleMapDataGroup];
+  identifier = [sampleMapDataGroup identifier];
+  [(CKSettingsCheckInLocationHistory *)self getGroup:&v46 row:0 ofSpecifierID:identifier];
+
+  v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v10 = [(CKSettingsCheckInLocationHistory *)self specifiersInGroup:v46];
+  v11 = [v10 countByEnumeratingWithState:&v42 objects:v48 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v43;
+    do
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v43 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        v15 = *(*(&v42 + 1) + 8 * i);
+        identifier2 = [v15 identifier];
+        sampleMapDataGroup2 = [(CKSettingsCheckInLocationHistory *)self sampleMapDataGroup];
+        identifier3 = [sampleMapDataGroup2 identifier];
+
+        if (identifier2 != identifier3)
+        {
+          [(CKSettingsCheckInLocationHistory *)self removeSpecifier:v15 animated:animatedCopy];
+        }
+      }
+
+      v12 = [v10 countByEnumeratingWithState:&v42 objects:v48 count:16];
+    }
+
+    while (v12);
+  }
+
+  sampleMapDataGroup3 = [(CKSettingsCheckInLocationHistory *)self sampleMapDataGroup];
+  identifier4 = [sampleMapDataGroup3 identifier];
+  v21 = [(CKSettingsCheckInLocationHistory *)self indexOfSpecifierID:identifier4]+ 1;
+
+  if (v21 != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    sampleMapDataSpecifier = [(CKSettingsCheckInLocationHistory *)self sampleMapDataSpecifier];
+    [(CKSettingsCheckInLocationHistory *)self insertSpecifier:sampleMapDataSpecifier atIndex:v21 animated:animatedCopy];
+
+    sampleDevicesDataGroup = [(CKSettingsCheckInLocationHistory *)self sampleDevicesDataGroup];
+    identifier5 = [sampleDevicesDataGroup identifier];
+    [(CKSettingsCheckInLocationHistory *)self getGroup:&v46 row:0 ofSpecifierID:identifier5];
+
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v25 = [(CKSettingsCheckInLocationHistory *)self specifiersInGroup:v46, 0];
+    v26 = [v25 countByEnumeratingWithState:&v38 objects:v47 count:16];
+    if (v26)
+    {
+      v27 = v26;
+      v28 = *v39;
+      do
+      {
+        for (j = 0; j != v27; ++j)
+        {
+          if (*v39 != v28)
+          {
+            objc_enumerationMutation(v25);
+          }
+
+          v30 = *(*(&v38 + 1) + 8 * j);
+          identifier6 = [v30 identifier];
+          sampleDevicesDataGroup2 = [(CKSettingsCheckInLocationHistory *)self sampleDevicesDataGroup];
+          identifier7 = [sampleDevicesDataGroup2 identifier];
+
+          if (identifier6 != identifier7)
+          {
+            [(CKSettingsCheckInLocationHistory *)self removeSpecifier:v30 animated:animatedCopy];
+          }
+        }
+
+        v27 = [v25 countByEnumeratingWithState:&v38 objects:v47 count:16];
+      }
+
+      while (v27);
+    }
+
+    sampleDevicesDataGroup3 = [(CKSettingsCheckInLocationHistory *)self sampleDevicesDataGroup];
+    identifier8 = [sampleDevicesDataGroup3 identifier];
+    v36 = [(CKSettingsCheckInLocationHistory *)self indexOfSpecifierID:identifier8]+ 1;
+
+    if (v36 != 0x7FFFFFFFFFFFFFFFLL)
+    {
+      sampleDevicesDataSpecifier = [(CKSettingsCheckInLocationHistory *)self sampleDevicesDataSpecifier];
+      [(CKSettingsCheckInLocationHistory *)self insertSpecifier:sampleDevicesDataSpecifier atIndex:v36 animated:animatedCopy];
+    }
+  }
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

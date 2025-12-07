@@ -279,7 +279,7 @@ LABEL_6:
 
 - (void)_setupSubviews
 {
-  v23[4] = *MEMORY[0x1E69E9840];
+  v22[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(_TipMaskView);
   tipMaskView = self->_tipMaskView;
   self->_tipMaskView = v3;
@@ -296,24 +296,22 @@ LABEL_6:
   topLayoutConstraint = self->_topLayoutConstraint;
   self->_topLayoutConstraint = v9;
 
-  v22 = MEMORY[0x1E696ACD8];
-  v23[0] = self->_topLayoutConstraint;
+  v21 = MEMORY[0x1E696ACD8];
+  v22[0] = self->_topLayoutConstraint;
   bottomAnchor = [(UIView *)self->_backgroundView bottomAnchor];
   bottomAnchor2 = [(MUFeatureDiscoveryAnnotationView *)self bottomAnchor];
   v13 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v23[1] = v13;
+  v22[1] = v13;
   leadingAnchor = [(UIView *)self->_backgroundView leadingAnchor];
   leadingAnchor2 = [(MUFeatureDiscoveryAnnotationView *)self leadingAnchor];
   v16 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v23[2] = v16;
+  v22[2] = v16;
   trailingAnchor = [(UIView *)self->_backgroundView trailingAnchor];
   trailingAnchor2 = [(MUFeatureDiscoveryAnnotationView *)self trailingAnchor];
   v19 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v23[3] = v19;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:4];
-  [v22 activateConstraints:v20];
-
-  v21 = *MEMORY[0x1E69E9840];
+  v22[3] = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:4];
+  [v21 activateConstraints:v20];
 }
 
 - (void)layoutSubviews

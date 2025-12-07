@@ -75,12 +75,12 @@
 {
   v5 = *(self + OBJC_IVAR____TtC5Books33BookReaderContainerViewController_appIntentsInfo);
   *(self + OBJC_IVAR____TtC5Books33BookReaderContainerViewController_appIntentsInfo) = info;
-  sub_10000A7C4(0, &qword_100AEA140);
+  sub_10000A7C4(0, &qword_100AEA140, BCAppIntentsAssetViewControllerInfo_ptr);
   infoCopy = info;
   selfCopy = self;
   if ((sub_1007A3184() & 1) == 0)
   {
-    type metadata accessor for BookReaderContainerViewController();
+    type metadata accessor for BookReaderContainerViewController(0);
     sub_1007A3004();
   }
 }
@@ -137,7 +137,7 @@
 - (void)viewDidLayoutSubviews
 {
   v13.receiver = self;
-  v13.super_class = type metadata accessor for BookReaderContainerViewController();
+  v13.super_class = type metadata accessor for BookReaderContainerViewController(0);
   v2 = v13.receiver;
   [(BookReaderContainerViewController *)&v13 viewDidLayoutSubviews];
   view = [v2 view];
@@ -181,7 +181,7 @@
 {
   disappearCopy = disappear;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for BookReaderContainerViewController();
+  v9.super_class = type metadata accessor for BookReaderContainerViewController(0);
   v6 = v9.receiver;
   windowCopy = window;
   [(BookReaderContainerViewController *)&v9 viewDidMoveToWindow:windowCopy shouldAppearOrDisappear:disappearCopy];
@@ -223,9 +223,10 @@
   recognizerCopy = recognizer;
   touchCopy = touch;
   selfCopy = self;
-  v9 = sub_10056293C(recognizerCopy, touchCopy);
+  sub_10056293C(recognizerCopy, touchCopy);
+  v10 = v9;
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(id)begin
@@ -264,7 +265,7 @@
 
   sub_100563600(action, v16, v17);
 
-  sub_100007840(v16, &unk_100AD5B40);
+  sub_100007840(v16, &unk_100AD5B40, &unk_100811300);
   v8 = v18;
   if (v18)
   {
@@ -293,7 +294,7 @@
 
   if (v3)
   {
-    sub_10000A7C4(0, &qword_100ADA970);
+    sub_10000A7C4(0, &qword_100ADA970, UIKeyCommand_ptr);
     v4.super.isa = sub_1007A25D4().super.isa;
   }
 
@@ -570,7 +571,7 @@
   height = size.height;
   width = size.width;
   v14.receiver = self;
-  v14.super_class = type metadata accessor for BookReaderContainerViewController();
+  v14.super_class = type metadata accessor for BookReaderContainerViewController(0);
   swift_unknownObjectRetain();
   v7 = v14.receiver;
   [(BookReaderContainerViewController *)&v14 viewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];
@@ -595,7 +596,7 @@
 - (void)viewSafeAreaInsetsDidChange
 {
   v14.receiver = self;
-  v14.super_class = type metadata accessor for BookReaderContainerViewController();
+  v14.super_class = type metadata accessor for BookReaderContainerViewController(0);
   v2 = v14.receiver;
   [(BookReaderContainerViewController *)&v14 viewSafeAreaInsetsDidChange];
   v3 = *&v2[OBJC_IVAR____TtC5Books33BookReaderContainerViewController_bookReaderHostEnvironmentProvider];
@@ -625,16 +626,16 @@
   selfCopy = self;
   sub_1007A3504();
   swift_unknownObjectRelease();
-  sub_10056DEB0();
+  sub_10056DEB0(v8);
 
-  sub_1000074E0(&v8);
+  sub_1000074E0(v8);
 }
 
 - (void)buildContextTree:(id)tree
 {
-  sub_1007A2044();
+  v4 = sub_1007A2044();
   selfCopy = self;
-  sub_100569C3C();
+  sub_100569C3C(v4);
 }
 
 - (void)forceRepagination

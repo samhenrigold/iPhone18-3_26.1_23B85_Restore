@@ -11,6 +11,7 @@
 - (void)_trimEnabledPushTopicsForEnvironment:(unint64_t)environment filterBlock:(id)block;
 - (void)_updatePushWakeTopicsForConnection:(id)connection expectedPushWakeTopics:(id)topics;
 - (void)_updatePushWakeTopicsForConnectionIfNeeded:(id)needed enablePushWake:(BOOL)wake;
+- (void)_updatePushWakeTopicsIfNeededWithEnablePushWake:(BOOL)wake;
 - (void)addPushServiceObserver:(id)observer;
 - (void)connection:(id)connection didReceiveMessageForTopic:(id)topic userInfo:(id)info;
 - (void)connection:(id)connection didReceivePublicToken:(id)token;
@@ -228,15 +229,13 @@ uint64_t __62__MDMPushServiceManager_disablePushWakeWithCompletionHandler___bloc
 
 void __38__MDMPushServiceManager__staticTopics__block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"com.apple.dep.apnsv2";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = @"com.apple.dep.apnsv2";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   v2 = [v0 setWithArray:v1];
   v3 = _staticTopics_set;
   _staticTopics_set = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupConnectionForEnvironmentIfNeeded:(unint64_t)needed
@@ -439,31 +438,31 @@ void __74__MDMPushServiceManager__trimEnabledPushTopicsForEnvironment_filterBloc
 
 - (void)_notifyObserversWithBlock:(id)block
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   observers = [(MDMPushServiceManager *)self observers];
   v6 = [observers copy];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         nonretainedObjectValue = [v12 nonretainedObjectValue];
         if (nonretainedObjectValue)
         {
@@ -477,13 +476,21 @@ void __74__MDMPushServiceManager__trimEnabledPushTopicsForEnvironment_filterBloc
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
+}
 
-  v15 = *MEMORY[0x277D85DE8];
+- (void)_updatePushWakeTopicsIfNeededWithEnablePushWake:(BOOL)wake
+{
+  wakeCopy = wake;
+  v5 = [(MDMPushServiceManager *)self _connectionForEnvironment:0];
+  [(MDMPushServiceManager *)self _updatePushWakeTopicsForConnectionIfNeeded:v5 enablePushWake:wakeCopy];
+
+  v6 = [(MDMPushServiceManager *)self _connectionForEnvironment:1];
+  [(MDMPushServiceManager *)self _updatePushWakeTopicsForConnectionIfNeeded:v6 enablePushWake:wakeCopy];
 }
 
 - (void)_updatePushWakeTopicsForConnectionIfNeeded:(id)needed enablePushWake:(BOOL)wake
@@ -518,34 +525,32 @@ void __74__MDMPushServiceManager__trimEnabledPushTopicsForEnvironment_filterBloc
 
 - (void)_updatePushWakeTopicsForConnection:(id)connection expectedPushWakeTopics:(id)topics
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   topicsCopy = topics;
   v7 = *(DMCLogObjects() + 8);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543618;
-    v10 = topicsCopy;
-    v11 = 2114;
-    v12 = connectionCopy;
-    _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_DEFAULT, "MDMPushServiceManager: setting push wake topics: %{public}@ for connection: %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = topicsCopy;
+    v10 = 2114;
+    v11 = connectionCopy;
+    _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_DEFAULT, "MDMPushServiceManager: setting push wake topics: %{public}@ for connection: %{public}@", &v8, 0x16u);
   }
 
   [connectionCopy setPushWakeTopics:topicsCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   connectionCopy = connection;
   v8 = *(DMCLogObjects() + 8);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v17 = "[MDMPushServiceManager connection:didReceivePublicToken:]";
+    v16 = "[MDMPushServiceManager connection:didReceivePublicToken:]";
     _os_log_impl(&dword_2561F5000, v8, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
   }
 
@@ -553,22 +558,20 @@ void __74__MDMPushServiceManager__trimEnabledPushTopicsForEnvironment_filterBloc
   dispatch_assert_queue_V2(notificationQueue);
 
   v10 = [(MDMPushServiceManager *)self _environmentForConnection:connectionCopy];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __58__MDMPushServiceManager_connection_didReceivePublicToken___block_invoke;
-  v13[3] = &unk_27982CA00;
-  v13[4] = self;
-  v14 = tokenCopy;
-  v15 = v10;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __58__MDMPushServiceManager_connection_didReceivePublicToken___block_invoke;
+  v12[3] = &unk_27982CA00;
+  v12[4] = self;
+  v13 = tokenCopy;
+  v14 = v10;
   v11 = tokenCopy;
-  [(MDMPushServiceManager *)self _notifyObserversWithBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(MDMPushServiceManager *)self _notifyObserversWithBlock:v12];
 }
 
 - (void)connection:(id)connection didReceiveToken:(id)token forTopic:(id)topic identifier:(id)identifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   topicCopy = topic;
   connectionCopy = connection;
@@ -576,7 +579,7 @@ void __74__MDMPushServiceManager__trimEnabledPushTopicsForEnvironment_filterBloc
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v23 = "[MDMPushServiceManager connection:didReceiveToken:forTopic:identifier:]";
+    v22 = "[MDMPushServiceManager connection:didReceiveToken:forTopic:identifier:]";
     _os_log_impl(&dword_2561F5000, v12, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
   }
 
@@ -584,19 +587,17 @@ void __74__MDMPushServiceManager__trimEnabledPushTopicsForEnvironment_filterBloc
   dispatch_assert_queue_V2(notificationQueue);
 
   v14 = [(MDMPushServiceManager *)self _environmentForConnection:connectionCopy];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __72__MDMPushServiceManager_connection_didReceiveToken_forTopic_identifier___block_invoke;
-  v18[3] = &unk_27982CAC8;
-  v18[4] = self;
-  v19 = tokenCopy;
-  v20 = topicCopy;
-  v21 = v14;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __72__MDMPushServiceManager_connection_didReceiveToken_forTopic_identifier___block_invoke;
+  v17[3] = &unk_27982CAC8;
+  v17[4] = self;
+  v18 = tokenCopy;
+  v19 = topicCopy;
+  v20 = v14;
   v15 = topicCopy;
   v16 = tokenCopy;
-  [(MDMPushServiceManager *)self _notifyObserversWithBlock:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [(MDMPushServiceManager *)self _notifyObserversWithBlock:v17];
 }
 
 void __72__MDMPushServiceManager_connection_didReceiveToken_forTopic_identifier___block_invoke(void *a1, void *a2)
@@ -610,7 +611,7 @@ void __72__MDMPushServiceManager_connection_didReceiveToken_forTopic_identifier_
 
 - (void)connection:(id)connection didReceiveMessageForTopic:(id)topic userInfo:(id)info
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   topicCopy = topic;
   infoCopy = info;
   connectionCopy = connection;
@@ -618,7 +619,7 @@ void __72__MDMPushServiceManager_connection_didReceiveToken_forTopic_identifier_
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v22 = "[MDMPushServiceManager connection:didReceiveMessageForTopic:userInfo:]";
+    v21 = "[MDMPushServiceManager connection:didReceiveMessageForTopic:userInfo:]";
     _os_log_impl(&dword_2561F5000, v11, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
   }
 
@@ -626,19 +627,17 @@ void __72__MDMPushServiceManager_connection_didReceiveToken_forTopic_identifier_
   dispatch_assert_queue_V2(notificationQueue);
 
   v13 = [(MDMPushServiceManager *)self _environmentForConnection:connectionCopy];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __71__MDMPushServiceManager_connection_didReceiveMessageForTopic_userInfo___block_invoke;
-  v17[3] = &unk_27982CAC8;
-  v17[4] = self;
-  v18 = topicCopy;
-  v19 = infoCopy;
-  v20 = v13;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __71__MDMPushServiceManager_connection_didReceiveMessageForTopic_userInfo___block_invoke;
+  v16[3] = &unk_27982CAC8;
+  v16[4] = self;
+  v17 = topicCopy;
+  v18 = infoCopy;
+  v19 = v13;
   v14 = infoCopy;
   v15 = topicCopy;
-  [(MDMPushServiceManager *)self _notifyObserversWithBlock:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(MDMPushServiceManager *)self _notifyObserversWithBlock:v16];
 }
 
 @end

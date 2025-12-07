@@ -52,7 +52,7 @@
   peripheralCopy = peripheral;
   selfCopy = self;
   errorCopy = error;
-  sub_10000B22C();
+  sub_10000B22C(errorCopy);
 }
 
 - (void)centralManager:(id)manager didDisconnectPeripheral:(id)peripheral error:(id)error
@@ -61,7 +61,7 @@
   peripheralCopy = peripheral;
   selfCopy = self;
   errorCopy = error;
-  sub_10000B430();
+  sub_10000B430(errorCopy);
 }
 
 - (void)peripheral:(id)peripheral didDiscoverServices:(id)services

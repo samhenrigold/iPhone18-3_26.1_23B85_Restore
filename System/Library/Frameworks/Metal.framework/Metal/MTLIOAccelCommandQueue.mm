@@ -3,6 +3,7 @@
 - (BOOL)setBackgroundGPUPriority:(unint64_t)priority;
 - (BOOL)setBackgroundGPUPriority:(unint64_t)priority offset:(unsigned __int16)offset;
 - (BOOL)setGPUPriority:(unint64_t)priority;
+- (BOOL)setGPUPriority:(unint64_t)priority offset:(unsigned __int16)offset;
 - (MTLIOAccelCommandQueue)initWithDevice:(id)device descriptor:(id)descriptor;
 - (void)dealloc;
 - (void)setCompletionQueue:(id)queue;
@@ -14,23 +15,20 @@
 
 - (MTLIOAccelCommandQueue)initWithDevice:(id)device descriptor:(id)descriptor
 {
-  v11.receiver = self;
-  v11.super_class = MTLIOAccelCommandQueue;
-  v5 = [(_MTLCommandQueue *)&v11 initWithDevice:device descriptor:descriptor];
+  v8.receiver = self;
+  v8.super_class = MTLIOAccelCommandQueue;
+  v5 = [(_MTLCommandQueue *)&v8 initWithDevice:device descriptor:descriptor];
   if (v5)
   {
     v5->_device = device;
     [device sharedRef];
-    qosLevel_low = LODWORD(v5->super._qosLevel);
-    v7 = IOAccelCommandQueueCreateWithQoS();
-    v5->_commandQueue = v7;
-    if (v7)
+    v6 = IOAccelCommandQueueCreateWithQoS();
+    v5->_commandQueue = v6;
+    if (v6)
     {
-      completionQueueDispatch = v5->super._completionQueueDispatch;
       IOAccelCommandQueueSetDispatchQueue();
       v5->_priority = 1;
       v5->_backgroundPriority = 3;
-      commandQueue = v5->_commandQueue;
       v5->super._globalTraceObjectID = IOAccelCommandQueueGetGlobalTraceObjectID();
     }
 
@@ -46,14 +44,12 @@
 
 - (void)setLabel:(id)label
 {
-  v7.receiver = self;
-  v7.super_class = MTLIOAccelCommandQueue;
-  [(_MTLCommandQueue *)&v7 setLabel:?];
+  v5.receiver = self;
+  v5.super_class = MTLIOAccelCommandQueue;
+  [(_MTLCommandQueue *)&v5 setLabel:?];
   if (**MEMORY[0x1E69A8488])
   {
     [(MTLDevice *)self->_device deviceRef];
-    globalTraceObjectID = self->super._globalTraceObjectID;
-    labelTraceID = self->super._labelTraceID;
     [label cStringUsingEncoding:1];
     self->super._labelTraceID = IOAccelDeviceTraceObjectLabel();
   }
@@ -61,12 +57,11 @@
 
 - (void)dealloc
 {
-  commandQueue = self->_commandQueue;
   IOAccelCommandQueueRelease();
 
-  v4.receiver = self;
-  v4.super_class = MTLIOAccelCommandQueue;
-  [(_MTLCommandQueue *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = MTLIOAccelCommandQueue;
+  [(_MTLCommandQueue *)&v3 dealloc];
 }
 
 - (void)setCompletionQueue:(id)queue
@@ -79,28 +74,33 @@
 
   self->super._completionQueueDispatch = queue;
   dispatch_retain(queue);
-  commandQueue = self->_commandQueue;
-  v7 = self->super._completionQueueDispatch;
 
   IOAccelCommandQueueSetDispatchQueue();
 }
 
 - (BOOL)_setGPUPriority:(unint64_t)priority backgroundPriority:(unint64_t)backgroundPriority
 {
-  commandQueue = self->_commandQueue;
-  v8 = IOAccelCommandQueueSetPriorityAndBackground();
-  if (!v8)
+  v7 = IOAccelCommandQueueSetPriorityAndBackground();
+  if (!v7)
   {
     self->_priority = priority;
     self->_backgroundPriority = backgroundPriority;
   }
 
-  return v8 == 0;
+  return v7 == 0;
 }
 
 - (BOOL)setGPUPriority:(unint64_t)priority
 {
   validateGPUPriority(priority, 0, priority, v3, v4, v5, v6, v7);
+  backgroundPriority = self->_backgroundPriority;
+
+  return [(MTLIOAccelCommandQueue *)self _setGPUPriority:priority backgroundPriority:backgroundPriority];
+}
+
+- (BOOL)setGPUPriority:(unint64_t)priority offset:(unsigned __int16)offset
+{
+  validateGPUPriority(priority, 0, priority, offset, v4, v5, v6, v7);
   backgroundPriority = self->_backgroundPriority;
 
   return [(MTLIOAccelCommandQueue *)self _setGPUPriority:priority backgroundPriority:backgroundPriority];
@@ -134,15 +134,15 @@
 {
   aBlock[5] = *MEMORY[0x1E69E9840];
   MEMORY[0x1EEE9AC00](self);
-  v8 = (&v24 - ((v7 + 23) & 0xFFFFFFFFFFFFFFF0));
+  v8 = (&v22 - ((v7 + 23) & 0xFFFFFFFFFFFFFFF0));
   bzero(v8, v7 + 8);
-  v25 = v8;
+  v23 = v8;
   v8[1] = count;
   if (count)
   {
-    v27 = MEMORY[0x1E69E9820];
-    v26 = __53__MTLIOAccelCommandQueue_submitCommandBuffers_count___block_invoke;
-    v9 = v25 + 3;
+    v25 = MEMORY[0x1E69E9820];
+    v24 = __53__MTLIOAccelCommandQueue_submitCommandBuffers_count___block_invoke;
+    v9 = v23 + 3;
     countCopy = count;
     do
     {
@@ -150,21 +150,21 @@
       v12 = *(*buffers + 77);
       *(v9 - 1) = *(*(v12 + 32) + 48);
       *v9 = *(*(v12 + 64) + 48);
-      aBlock[0] = v27;
+      aBlock[0] = v25;
       aBlock[1] = 3221225472;
-      aBlock[2] = v26;
+      aBlock[2] = v24;
       aBlock[3] = &unk_1E6EEBAA0;
       aBlock[4] = v11;
       v13 = _Block_copy(aBlock);
       *(v9 + 1) = v13;
       v11[80] = v13;
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __53__MTLIOAccelCommandQueue_submitCommandBuffers_count___block_invoke_2;
-      v31[3] = &unk_1E6EEBAC8;
-      v31[4] = v11;
-      v31[5] = self;
-      v14 = _Block_copy(v31);
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __53__MTLIOAccelCommandQueue_submitCommandBuffers_count___block_invoke_2;
+      v29[3] = &unk_1E6EEBAC8;
+      v29[4] = v11;
+      v29[5] = self;
+      v14 = _Block_copy(v29);
       *(v9 + 3) = v14;
       v11[81] = v14;
       if ([v11 isProfilingEnabled])
@@ -189,45 +189,44 @@
     while (countCopy);
   }
 
-  commandQueue = self->_commandQueue;
-  v16 = IOAccelCommandQueueSubmitCommandBuffers();
-  if (v16)
+  v15 = IOAccelCommandQueueSubmitCommandBuffers();
+  if (v15)
   {
-    if (v16 == 268435459)
+    if (v15 == 268435459)
     {
-      v17 = 15;
+      v16 = 15;
     }
 
     else
     {
-      v17 = 1;
+      v16 = 1;
     }
 
-    if (v16 == -536870174)
+    if (v15 == -536870174)
     {
-      v18 = 7;
+      v17 = 7;
     }
 
     else
     {
-      v18 = v17;
+      v17 = v16;
     }
 
     if (count)
     {
-      v19 = MEMORY[0x1E69E9820];
-      v20 = (v25 + 4);
+      v18 = MEMORY[0x1E69E9820];
+      v19 = (v23 + 4);
       do
       {
         commandQueueDispatch = self->super._commandQueueDispatch;
-        block[0] = v19;
+        block[0] = v18;
         block[1] = 3221225472;
         block[2] = __53__MTLIOAccelCommandQueue_submitCommandBuffers_count___block_invoke_3;
         block[3] = &unk_1E6EEBAF0;
-        v22 = *v20;
-        v20 = (v20 + 24);
-        v29 = v22;
-        v30 = v18;
+        v21 = *v19;
+        v19 = (v19 + 24);
+        v27 = v21;
+        v28 = v17;
         dispatch_async(commandQueueDispatch, block);
         --count;
       }
@@ -235,8 +234,6 @@
       while (count);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __53__MTLIOAccelCommandQueue_submitCommandBuffers_count___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
@@ -287,12 +284,11 @@ void __53__MTLIOAccelCommandQueue_submitCommandBuffers_count___block_invoke_2(ui
 void __53__MTLIOAccelCommandQueue_submitCommandBuffers_count___block_invoke_3(uint64_t a1)
 {
   (*(*(a1 + 32) + 16))();
-  v2 = *(a1 + 48);
   (*(*(a1 + 40) + 16))();
   _Block_release(*(a1 + 32));
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  _Block_release(v3);
+  _Block_release(v2);
 }
 
 @end

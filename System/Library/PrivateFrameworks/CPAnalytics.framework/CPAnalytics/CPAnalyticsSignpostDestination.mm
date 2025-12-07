@@ -32,7 +32,7 @@
 
 - (void)_checkSignpostsEndForEvent:(id)event
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   name = [eventCopy name];
   v6 = [name isEqualToString:@"com.photos.CPAnalytics.signpost.end"];
@@ -94,12 +94,12 @@
               v21 = CPAnalyticsLog();
               if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
-                v24 = [MEMORY[0x277CCABB0] numberWithDouble:v14];
-                v25 = 138412546;
-                v26 = v24;
-                v27 = 2112;
-                v28 = v11;
-                _os_log_error_impl(&dword_24260A000, v21, OS_LOG_TYPE_ERROR, "signpost duration should not be negative. Duration: %@, start date: %@", &v25, 0x16u);
+                v23 = [MEMORY[0x277CCABB0] numberWithDouble:v14];
+                v24 = 138412546;
+                v25 = v23;
+                v26 = 2112;
+                v27 = v11;
+                _os_log_error_impl(&dword_24260A000, v21, OS_LOG_TYPE_ERROR, "signpost duration should not be negative. Duration: %@, start date: %@", &v24, 0x16u);
               }
 
               v14 = 0.0;
@@ -112,8 +112,6 @@
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_trackSignpostsStartForEvent:(id)event

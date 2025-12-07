@@ -41,7 +41,7 @@
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"values"];
-    if ([v6 count] == 12)
+    if (objc_msgSend_count(v6) == 12)
     {
       v7 = 0;
       engagementValues = v5->_engagementValues;
@@ -65,38 +65,37 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v21[12] = *MEMORY[0x1E69E9840];
+  v20[12] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AD98];
   v5 = self->_renderValues[0];
   coderCopy = coder;
-  v19 = [v4 numberWithShort:v5];
-  v21[0] = v19;
-  v18 = [MEMORY[0x1E696AD98] numberWithShort:self->_renderValues[1]];
-  v21[1] = v18;
-  v17 = [MEMORY[0x1E696AD98] numberWithShort:self->_renderValues[2]];
-  v21[2] = v17;
+  v18 = [v4 numberWithShort:v5];
+  v20[0] = v18;
+  v17 = [MEMORY[0x1E696AD98] numberWithShort:self->_renderValues[1]];
+  v20[1] = v17;
+  v16 = [MEMORY[0x1E696AD98] numberWithShort:self->_renderValues[2]];
+  v20[2] = v16;
   v6 = [MEMORY[0x1E696AD98] numberWithShort:self->_renderValues[3]];
-  v21[3] = v6;
+  v20[3] = v6;
   v7 = [MEMORY[0x1E696AD98] numberWithShort:self->_renderValues[4]];
-  v21[4] = v7;
+  v20[4] = v7;
   v8 = [MEMORY[0x1E696AD98] numberWithShort:self->_renderValues[5]];
-  v21[5] = v8;
+  v20[5] = v8;
   v9 = [MEMORY[0x1E696AD98] numberWithShort:self->_engagementValues[0]];
-  v21[6] = v9;
+  v20[6] = v9;
   v10 = [MEMORY[0x1E696AD98] numberWithShort:self->_engagementValues[1]];
-  v21[7] = v10;
+  v20[7] = v10;
   v11 = [MEMORY[0x1E696AD98] numberWithShort:self->_engagementValues[2]];
-  v21[8] = v11;
+  v20[8] = v11;
   v12 = [MEMORY[0x1E696AD98] numberWithShort:self->_engagementValues[3]];
-  v21[9] = v12;
+  v20[9] = v12;
   v13 = [MEMORY[0x1E696AD98] numberWithShort:self->_engagementValues[4]];
-  v21[10] = v13;
+  v20[10] = v13;
   v14 = [MEMORY[0x1E696AD98] numberWithShort:self->_engagementValues[5]];
-  v21[11] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:12];
+  v20[11] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:12];
 
   [coderCopy encodeObject:v15 forKey:@"values"];
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getRankingValues:(signed __int16 *)values withRankingValueSize:(unint64_t)size forType:(int)type

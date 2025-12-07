@@ -56,7 +56,7 @@
 {
   if (self->_xpcCnx)
   {
-    FatalErrorF("XPC connection still active during dealloc", a2, v2, v3, v4, v5, v6, v7, v16.receiver);
+    FatalErrorF("XPC connection still active during dealloc", a2);
   }
 
   identityCreatedHandler = self->_identityCreatedHandler;
@@ -80,9 +80,9 @@
   pairedPeerChangedHandler = self->_pairedPeerChangedHandler;
   self->_pairedPeerChangedHandler = 0;
 
-  v16.receiver = self;
-  v16.super_class = CUPairingManager;
-  [(CUPairingManager *)&v16 dealloc];
+  v10.receiver = self;
+  v10.super_class = CUPairingManager;
+  [(CUPairingManager *)&v10 dealloc];
 }
 
 - (void)pairedPeerChanged:(id)changed options:(unint64_t)options
@@ -92,7 +92,7 @@
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
     identifier = [changedCopy identifier];
-    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager pairedPeerChanged:options:]", 0x1Eu, "PairedPeerChanged %@, %#{flags}\n", v7, v8, v9, v10, identifier);
+    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager pairedPeerChanged:options:]", 30, "PairedPeerChanged %@, %#{flags}\n", v7, v8, v9, v10, identifier);
   }
 
   pairedPeerChangedHandler = self->_pairedPeerChangedHandler;
@@ -113,7 +113,7 @@
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
     identifier = [removedCopy identifier];
-    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager pairedPeerRemoved:options:]", 0x1Eu, "PairedPeerRemoved %@, %#{flags}\n", v7, v8, v9, v10, identifier);
+    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager pairedPeerRemoved:options:]", 30, "PairedPeerRemoved %@, %#{flags}\n", v7, v8, v9, v10, identifier);
   }
 
   pairedPeerRemovedHandler = self->_pairedPeerRemovedHandler;
@@ -134,7 +134,7 @@
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
     identifier = [addedCopy identifier];
-    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager pairedPeerAdded:options:]", 0x1Eu, "PairedPeerAdded %@, %#{flags}\n", v7, v8, v9, v10, identifier);
+    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager pairedPeerAdded:options:]", 30, "PairedPeerAdded %@, %#{flags}\n", v7, v8, v9, v10, identifier);
   }
 
   pairedPeerAddedHandler = self->_pairedPeerAddedHandler;
@@ -153,7 +153,7 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager pairingIdentityDeletedWithOptions:]", 0x1Eu, "PairingIdentityDeleted %#{flags}\n", v5, v6, v7, v8, options);
+    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager pairingIdentityDeletedWithOptions:]", 30, "PairingIdentityDeleted %#{flags}\n", v5, v6, v7, v8, options);
   }
 
   identityDeletedHandler = self->_identityDeletedHandler;
@@ -172,7 +172,7 @@
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
     identifier = [createdCopy identifier];
-    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager pairingIdentityCreated:options:]", 0x1Eu, "PairingIdentityCreated %@, %#{flags}\n", v7, v8, v9, v10, identifier);
+    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager pairingIdentityCreated:options:]", 30, "PairingIdentityCreated %@, %#{flags}\n", v7, v8, v9, v10, identifier);
   }
 
   identityCreatedHandler = self->_identityCreatedHandler;
@@ -190,14 +190,14 @@
 {
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _startMonitoringWithOptions:]", 0x1Eu, "StartMonitoring %#{flags}\n", v3, v4, v5, v6, options);
+    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _startMonitoringWithOptions:]", 30, "StartMonitoring %#{flags}\n", v3, v4, v5, v6, options);
   }
 
   if ([(CUPairingManager *)self _ensureXPCStarted])
   {
     if (gLogCategory_CUPairingManager <= 60 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _startMonitoringWithOptions:]", 0x3Cu, "### StartMonitoring %#{flags} failed: %#m\n", v9, v10, v11, v12, options);
+      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _startMonitoringWithOptions:]", 60, "### StartMonitoring %#{flags} failed: %#m\n", v9, v10, v11, v12, options);
     }
   }
 
@@ -353,7 +353,7 @@ void __78__CUPairingManager_updatePairedPeersWithGroupID_groupInfo_options_compl
   completionCopy = completion;
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _showWithCompletion:]", 0x1Eu, "Show\n", v4, v5, v6, v7, v26);
+    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _showWithCompletion:]", 30, "Show\n", v4, v5, v6, v7, v26);
   }
 
   _ensureXPCStarted = [(CUPairingManager *)self _ensureXPCStarted];
@@ -362,7 +362,7 @@ void __78__CUPairingManager_updatePairedPeersWithGroupID_groupInfo_options_compl
     v18 = _ensureXPCStarted;
     if (gLogCategory_CUPairingManager <= 60 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _showWithCompletion:]", 0x3Cu, "### Show failed: %#m\n", v10, v11, v12, v13, v18);
+      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _showWithCompletion:]", 60, "### Show failed: %#m\n", v10, v11, v12, v13, v18);
     }
 
     v19 = MEMORY[0x1E696ABC0];
@@ -427,7 +427,7 @@ void __78__CUPairingManager_updatePairedPeersWithGroupID_groupInfo_options_compl
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
     identifier = [peerCopy identifier];
-    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _removePairedPeer:options:completion:]", 0x1Eu, "RemovePairedPeer %@, %#{flags}\n", v11, v12, v13, v14, identifier);
+    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _removePairedPeer:options:completion:]", 30, "RemovePairedPeer %@, %#{flags}\n", v11, v12, v13, v14, identifier);
   }
 
   _ensureXPCStarted = [(CUPairingManager *)self _ensureXPCStarted];
@@ -437,7 +437,7 @@ void __78__CUPairingManager_updatePairedPeersWithGroupID_groupInfo_options_compl
     if (gLogCategory_CUPairingManager <= 60 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x3Cu)))
     {
       identifier2 = [peerCopy identifier];
-      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _removePairedPeer:options:completion:]", 0x3Cu, "### RemovePairedPeer %@, %#{flags} failed: %#m\n", v22, v23, v24, v25, identifier2);
+      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _removePairedPeer:options:completion:]", 60, "### RemovePairedPeer %@, %#{flags} failed: %#m\n", v22, v23, v24, v25, identifier2);
     }
 
     v26 = MEMORY[0x1E696ABC0];
@@ -506,7 +506,7 @@ void __78__CUPairingManager_updatePairedPeersWithGroupID_groupInfo_options_compl
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
     identifier = [peerCopy identifier];
-    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _savePairedPeer:options:completion:]", 0x1Eu, "SavePairedPeer %@, %#{flags}\n", v11, v12, v13, v14, identifier);
+    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _savePairedPeer:options:completion:]", 30, "SavePairedPeer %@, %#{flags}\n", v11, v12, v13, v14, identifier);
   }
 
   _ensureXPCStarted = [(CUPairingManager *)self _ensureXPCStarted];
@@ -516,7 +516,7 @@ void __78__CUPairingManager_updatePairedPeersWithGroupID_groupInfo_options_compl
     if (gLogCategory_CUPairingManager <= 60 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x3Cu)))
     {
       identifier2 = [peerCopy identifier];
-      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _savePairedPeer:options:completion:]", 0x3Cu, "### SavePairedPeer %@, %#{flags} failed: %#m\n", v22, v23, v24, v25, identifier2);
+      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _savePairedPeer:options:completion:]", 60, "### SavePairedPeer %@, %#{flags} failed: %#m\n", v22, v23, v24, v25, identifier2);
     }
 
     v26 = MEMORY[0x1E696ABC0];
@@ -585,7 +585,7 @@ void __78__CUPairingManager_updatePairedPeersWithGroupID_groupInfo_options_compl
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
     identifier = [peerCopy identifier];
-    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _findPairedPeer:options:completion:]", 0x1Eu, "FindPairedPeer %@, %#{flags}\n", v11, v12, v13, v14, identifier);
+    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _findPairedPeer:options:completion:]", 30, "FindPairedPeer %@, %#{flags}\n", v11, v12, v13, v14, identifier);
   }
 
   _ensureXPCStarted = [(CUPairingManager *)self _ensureXPCStarted];
@@ -594,7 +594,7 @@ void __78__CUPairingManager_updatePairedPeersWithGroupID_groupInfo_options_compl
     v24 = _ensureXPCStarted;
     if (gLogCategory_CUPairingManager <= 60 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _findPairedPeer:options:completion:]", 0x3Cu, "### FindPairedPeer %#{flags} failed: %#m\n", v16, v17, v18, v19, options);
+      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _findPairedPeer:options:completion:]", 60, "### FindPairedPeer %#{flags} failed: %#m\n", v16, v17, v18, v19, options);
     }
 
     v25 = MEMORY[0x1E696ABC0];
@@ -661,7 +661,7 @@ void __78__CUPairingManager_updatePairedPeersWithGroupID_groupInfo_options_compl
   completionCopy = completion;
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _getPairedPeersWithOptions:completion:]", 0x1Eu, "GetPairedPeers %#{flags}\n", v6, v7, v8, v9, options);
+    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _getPairedPeersWithOptions:completion:]", 30, "GetPairedPeers %#{flags}\n", v6, v7, v8, v9, options);
   }
 
   _ensureXPCStarted = [(CUPairingManager *)self _ensureXPCStarted];
@@ -670,7 +670,7 @@ void __78__CUPairingManager_updatePairedPeersWithGroupID_groupInfo_options_compl
     v20 = _ensureXPCStarted;
     if (gLogCategory_CUPairingManager <= 60 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _getPairedPeersWithOptions:completion:]", 0x3Cu, "### GetPairedPeers %#{flags} failed: %#m\n", v12, v13, v14, v15, options);
+      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _getPairedPeersWithOptions:completion:]", 60, "### GetPairedPeers %#{flags} failed: %#m\n", v12, v13, v14, v15, options);
     }
 
     v21 = MEMORY[0x1E696ABC0];
@@ -833,7 +833,7 @@ LABEL_18:
   completionCopy = completion;
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _deletePairingIdentityWithOptions:completion:]", 0x1Eu, "DeletePairingIdentity %#{flags}\n", v6, v7, v8, v9, options);
+    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _deletePairingIdentityWithOptions:completion:]", 30, "DeletePairingIdentity %#{flags}\n", v6, v7, v8, v9, options);
   }
 
   _ensureXPCStarted = [(CUPairingManager *)self _ensureXPCStarted];
@@ -842,7 +842,7 @@ LABEL_18:
     v20 = _ensureXPCStarted;
     if (gLogCategory_CUPairingManager <= 60 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _deletePairingIdentityWithOptions:completion:]", 0x3Cu, "### DeletePairingIdentity %#{flags} failed: %#m\n", v12, v13, v14, v15, options);
+      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _deletePairingIdentityWithOptions:completion:]", 60, "### DeletePairingIdentity %#{flags} failed: %#m\n", v12, v13, v14, v15, options);
     }
 
     v21 = MEMORY[0x1E696ABC0];
@@ -906,7 +906,7 @@ LABEL_18:
   completionCopy = completion;
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _getPairingIdentityWithOptions:tryCount:completion:]", 0x1Eu, "GetPairingIdentity %#{flags}\n", v8, v9, v10, v11, options);
+    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _getPairingIdentityWithOptions:tryCount:completion:]", 30, "GetPairingIdentity %#{flags}\n", v8, v9, v10, v11, options);
   }
 
   _ensureXPCStarted = [(CUPairingManager *)self _ensureXPCStarted];
@@ -915,7 +915,7 @@ LABEL_18:
     v21 = _ensureXPCStarted;
     if (gLogCategory_CUPairingManager <= 60 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _getPairingIdentityWithOptions:tryCount:completion:]", 0x3Cu, "### GetPairingIdentity %#{flags} failed: %#m\n", v14, v15, v16, v17, options);
+      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _getPairingIdentityWithOptions:tryCount:completion:]", 60, "### GetPairingIdentity %#{flags} failed: %#m\n", v14, v15, v16, v17, options);
     }
 
     v22 = MEMORY[0x1E696ABC0];
@@ -962,7 +962,7 @@ void __71__CUPairingManager__getPairingIdentityWithOptions_tryCount_completion__
     {
       if (gLogCategory_CUPairingManager != -1 || (v8 = _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x3Cu), v7 = *(a1 + 56), v8))
       {
-        LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _getPairingIdentityWithOptions:tryCount:completion:]_block_invoke", 0x3Cu, "### GetPairingIdentity daemon restart...retrying %u of 10\n", v3, v4, v5, v6, v7);
+        LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _getPairingIdentityWithOptions:tryCount:completion:]_block_invoke", 60, "### GetPairingIdentity daemon restart...retrying %u of 10\n", v3, v4, v5, v6, v7);
         LODWORD(v7) = *(a1 + 56);
       }
     }
@@ -1004,7 +1004,7 @@ void __71__CUPairingManager__getPairingIdentityWithOptions_tryCount_completion__
   {
     if (!self->_invalidateCalled && gLogCategory_CUPairingManager <= 50 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x32u)))
     {
-      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _invalidated]", 0x32u, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v20);
+      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _invalidated]", 50, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v20);
     }
 
     invalidationHandler = self->_invalidationHandler;
@@ -1041,7 +1041,7 @@ void __71__CUPairingManager__getPairingIdentityWithOptions_tryCount_completion__
     if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
     {
 
-      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _invalidated]", 0x1Eu, "Invalidated\n", v16, v17, v18, v19, v22);
+      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _invalidated]", 30, "Invalidated\n", v16, v17, v18, v19, v22);
     }
   }
 }
@@ -1054,7 +1054,7 @@ void __71__CUPairingManager__getPairingIdentityWithOptions_tryCount_completion__
     self->_invalidateCalled = 1;
     if (!self->_invalidateDone && gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _invalidate]", 0x1Eu, "Invalidating\n", v3, v4, v5, v6, v9);
+      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _invalidate]", 30, "Invalidating\n", v3, v4, v5, v6, v9);
     }
 
     xpcCnx = self->_xpcCnx;
@@ -1089,14 +1089,14 @@ void __71__CUPairingManager__getPairingIdentityWithOptions_tryCount_completion__
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_CUPairingManager <= 50 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x32u)))
   {
-    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _interrupted]", 0x32u, "### Interrupted\n", v3, v4, v5, v6, v14);
+    LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _interrupted]", 50, "### Interrupted\n", v3, v4, v5, v6, v14);
   }
 
   if (self->_monitoring && ![(CUPairingManager *)self _ensureXPCStarted])
   {
     if (gLogCategory_CUPairingManager <= 50 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x32u)))
     {
-      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _interrupted]", 0x32u, "Restarting monitor after interruption\n", v7, v8, v9, v10, v14);
+      LogPrintF(&gLogCategory_CUPairingManager, "[CUPairingManager _interrupted]", 50, "Restarting monitor after interruption\n", v7, v8, v9, v10, v14);
     }
 
     remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
@@ -1171,7 +1171,7 @@ void __71__CUPairingManager__getPairingIdentityWithOptions_tryCount_completion__
 {
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUPairingManager, "+[CUPairingManager copySystemPairingIdentifierWithFlags:error:]", 0x1Eu, "CopySystemPairingIdentifier: trying direct", v4, v5, v6, v7, v45);
+    LogPrintF(&gLogCategory_CUPairingManager, "+[CUPairingManager copySystemPairingIdentifierWithFlags:error:]", 30, "CopySystemPairingIdentifier: trying direct", v4, v5, v6, v7, v45);
   }
 
   initStandalone = [[CUPairingDaemon alloc] initStandalone];
@@ -1184,7 +1184,7 @@ void __71__CUPairingManager__getPairingIdentityWithOptions_tryCount_completion__
   {
     if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUPairingManager, "+[CUPairingManager copySystemPairingIdentifierWithFlags:error:]", 0x1Eu, "CopySystemPairingIdentifier: direct: %@", v17, v18, v19, v20, uUIDString);
+      LogPrintF(&gLogCategory_CUPairingManager, "+[CUPairingManager copySystemPairingIdentifierWithFlags:error:]", 30, "CopySystemPairingIdentifier: direct: %@", v17, v18, v19, v20, uUIDString);
     }
 
     v26 = uUIDString;
@@ -1196,7 +1196,7 @@ LABEL_14:
   if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
   {
     v21 = NSPrintF("%#m", v14, v15, v16, v17, v18, v19, v20, v48);
-    LogPrintF(&gLogCategory_CUPairingManager, "+[CUPairingManager copySystemPairingIdentifierWithFlags:error:]", 0x1Eu, "CopySystemPairingIdentifier: direct failed (error=%@), trying XPC", v22, v23, v24, v25, v21);
+    LogPrintF(&gLogCategory_CUPairingManager, "+[CUPairingManager copySystemPairingIdentifierWithFlags:error:]", 30, "CopySystemPairingIdentifier: direct failed (error=%@), trying XPC", v22, v23, v24, v25, v21);
   }
 
   v47 = 0;
@@ -1217,7 +1217,7 @@ LABEL_14:
       {
         if (gLogCategory_CUPairingManager <= 30 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x1Eu)))
         {
-          LogPrintF(&gLogCategory_CUPairingManager, "+[CUPairingManager copySystemPairingIdentifierWithFlags:error:]", 0x1Eu, "CopySystemPairingIdentifier: XPC: %@", v32, v33, v34, v35, v38);
+          LogPrintF(&gLogCategory_CUPairingManager, "+[CUPairingManager copySystemPairingIdentifierWithFlags:error:]", 30, "CopySystemPairingIdentifier: XPC: %@", v32, v33, v34, v35, v38);
         }
 
         v26 = v38;
@@ -1234,7 +1234,7 @@ LABEL_14:
   if (gLogCategory_CUPairingManager <= 90 && (gLogCategory_CUPairingManager != -1 || _LogCategory_Initialize(&gLogCategory_CUPairingManager, 0x5Au)))
   {
     v39 = NSPrintF("%#m", v29, v30, v31, v32, v33, v34, v35, v48);
-    LogPrintF(&gLogCategory_CUPairingManager, "+[CUPairingManager copySystemPairingIdentifierWithFlags:error:]", 0x5Au, "### CopySystemPairingIdentifier failed: error=%@", v40, v41, v42, v43, v39);
+    LogPrintF(&gLogCategory_CUPairingManager, "+[CUPairingManager copySystemPairingIdentifierWithFlags:error:]", 90, "### CopySystemPairingIdentifier failed: error=%@", v40, v41, v42, v43, v39);
   }
 
   if (error)
@@ -1249,7 +1249,7 @@ LABEL_14:
       v44 = 4294960596;
     }
 
-    NSErrorF_safe(*MEMORY[0x1E696A768], v44, "CopySystemPairingIdentifier failed", v31, v32, v33, v34, v35, v45);
+    NSErrorF_safe(*MEMORY[0x1E696A768], v44, "CopySystemPairingIdentifier failed");
     *error = v27 = 0;
   }
 

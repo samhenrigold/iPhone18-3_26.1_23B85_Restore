@@ -1,57 +1,3 @@
-uint64_t CRDT::OrderedSet::Clear(uint64_t this)
-{
-  v1 = this;
-  v2 = *(this + 32);
-  if ((v2 & 3) != 0)
-  {
-    if (v2)
-    {
-      this = *(this + 40);
-      if (this)
-      {
-        this = CRDT::Array::Clear(this);
-        v2 = *(v1 + 32);
-      }
-    }
-
-    if ((v2 & 2) != 0)
-    {
-      v3 = *(v1 + 48);
-      if (v3)
-      {
-        this = google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(v3 + 40);
-        *(v3 + 32) = 0;
-        if (*(v3 + 31) < 0)
-        {
-          **(v3 + 8) = 0;
-          *(v3 + 16) = 0;
-        }
-
-        else
-        {
-          *(v3 + 8) = 0;
-          *(v3 + 31) = 0;
-        }
-      }
-    }
-  }
-
-  *(v1 + 32) = 0;
-  if (*(v1 + 31) < 0)
-  {
-    **(v1 + 8) = 0;
-    *(v1 + 16) = 0;
-  }
-
-  else
-  {
-    *(v1 + 8) = 0;
-    *(v1 + 31) = 0;
-  }
-
-  return this;
-}
-
 uint64_t CRDT::OrderedSet::MergePartialFromCodedStream(CRDT::OrderedSet *this, google::protobuf::io::CodedInputStream *a2)
 {
   google::protobuf::io::StringOutputStream::StringOutputStream(v29, this + 8);
@@ -236,9 +182,9 @@ LABEL_50:
   return v26;
 }
 
-void sub_19A2031A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_19A2031A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va);
   _Unwind_Resume(a1);
 }
@@ -287,17 +233,17 @@ uint64_t CRDT::OrderedSet::SerializeWithCachedSizes(CRDT::OrderedSet *this, goog
   return google::protobuf::io::CodedOutputStream::WriteRaw(a2, v8, v7);
 }
 
-uint64_t CRDT::OrderedSet::ByteSize(CRDT::OrderedSet *this)
+uint64_t CRDT::OrderedSet::ByteSize(CRDT::OrderedSet *this, unsigned int a2)
 {
   if (!*(this + 32))
   {
-    v2 = 0;
+    v3 = 0;
     goto LABEL_18;
   }
 
   if ((*(this + 32) & 1) == 0)
   {
-    v2 = 0;
+    v3 = 0;
     if ((*(this + 32) & 2) == 0)
     {
       goto LABEL_18;
@@ -306,66 +252,65 @@ uint64_t CRDT::OrderedSet::ByteSize(CRDT::OrderedSet *this)
     goto LABEL_12;
   }
 
-  v3 = *(this + 5);
-  if (!v3)
+  v4 = *(this + 5);
+  if (!v4)
   {
     CRDT::protobuf_AddDesc_crframework_2eproto(0);
-    v3 = *(CRDT::OrderedSet::default_instance_ + 40);
+    v4 = *(CRDT::OrderedSet::default_instance_ + 40);
   }
 
-  v4 = CRDT::Array::ByteSize(v3);
-  v5 = v4;
-  if (v4 >= 0x80)
+  v5 = CRDT::Array::ByteSize(v4, a2);
+  v6 = v5;
+  if (v5 >= 0x80)
   {
-    v6 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v4);
+    v7 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5);
   }
 
   else
   {
-    v6 = 1;
+    v7 = 1;
   }
 
-  v2 = v5 + v6 + 1;
+  v3 = v6 + v7 + 1;
   if ((*(this + 8) & 2) != 0)
   {
 LABEL_12:
-    v7 = *(this + 6);
-    if (!v7)
+    v8 = *(this + 6);
+    if (!v8)
     {
       CRDT::protobuf_AddDesc_crframework_2eproto(0);
-      v7 = *(CRDT::OrderedSet::default_instance_ + 48);
+      v8 = *(CRDT::OrderedSet::default_instance_ + 48);
     }
 
-    v8 = CRDT::Dictionary::ByteSize(v7);
-    v9 = v8;
-    if (v8 >= 0x80)
+    v9 = CRDT::Dictionary::ByteSize(v8);
+    v10 = v9;
+    if (v9 >= 0x80)
     {
-      v10 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v8);
+      v11 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v9);
     }
 
     else
     {
-      v10 = 1;
+      v11 = 1;
     }
 
-    v2 += v9 + v10 + 1;
+    v3 += v10 + v11 + 1;
   }
 
 LABEL_18:
-  v11 = *(this + 31);
-  if (v11 < 0)
+  v12 = *(this + 31);
+  if (v12 < 0)
   {
-    v11 = *(this + 2);
+    v12 = *(this + 2);
   }
 
-  result = (v2 + v11);
+  result = (v3 + v12);
   *(this + 9) = result;
   return result;
 }
 
-std::string *CRDT::OrderedSet::CheckTypeAndMergeFrom(CRDT::OrderedSet *this, char **lpsrc)
+std::string *CRDT::OrderedSet::CheckTypeAndMergeFrom(std::string *this, std::string *lpsrc)
 {
-  v4 = **lpsrc;
   {
     replica_manager::VectorTimestampElement::CheckTypeAndMergeFrom();
   }
@@ -450,7 +395,7 @@ void CRDT::Document_CustomObject_MapEntry::~Document_CustomObject_MapEntry(void 
     operator delete(this[1]);
   }
 
-  TTBoundedCheckedCastNSUIntegerToUInt32(this);
+  TTBoundedCheckedCastNSUIntegerToUInt32();
 }
 
 {
@@ -681,15 +626,15 @@ LABEL_45:
   return v23;
 }
 
-void sub_19A2039F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A2039F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
-  MEMORY[0x19A8FD070](v2, 0x10B3C407D90225ELL);
+  v9 = va_arg(va1, void);
+  MEMORY[0x19A8FD070](v3, 0x10B3C407D90225ELL);
   google::protobuf::io::CodedOutputStream::~CodedOutputStream(va);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va1);
   _Unwind_Resume(a1);
@@ -813,9 +758,8 @@ LABEL_19:
   return result;
 }
 
-std::string *CRDT::Document_CustomObject_MapEntry::CheckTypeAndMergeFrom(CRDT::Document_CustomObject_MapEntry *this, char **lpsrc)
+std::string *CRDT::Document_CustomObject_MapEntry::CheckTypeAndMergeFrom(CRDT::Document_CustomObject_MapEntry *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     replica_manager::VectorTimestampElement::CheckTypeAndMergeFrom();
   }
@@ -823,7 +767,7 @@ std::string *CRDT::Document_CustomObject_MapEntry::CheckTypeAndMergeFrom(CRDT::D
   return CRDT::Document_CustomObject_MapEntry::MergeFrom(this, lpsrc);
 }
 
-std::string *CRDT::Document_CustomObject::MergeFrom(CRDT::Document_CustomObject *this, const CRDT::Document_CustomObject *a2)
+std::string *CRDT::Document_CustomObject::MergeFrom(int32x2_t *this, int32x2_t *a2)
 {
   if (a2 == this)
   {
@@ -833,18 +777,18 @@ std::string *CRDT::Document_CustomObject::MergeFrom(CRDT::Document_CustomObject 
     google::protobuf::internal::LogMessage::~LogMessage(&v14[0].__r_.__value_.__l.__data_);
   }
 
-  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::Document_CustomObject_MapEntry>::TypeHandler>((this + 40), (a2 + 40));
-  if (*(a2 + 32))
+  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::Document_CustomObject_MapEntry>::TypeHandler>(this + 5, a2 + 5);
+  if (a2[4].i8[0])
   {
-    v5 = *(a2 + 16);
-    *(this + 8) |= 1u;
-    *(this + 16) = v5;
+    v5 = a2[8].i32[0];
+    this[4].i32[0] |= 1u;
+    this[8].i32[0] = v5;
   }
 
-  v8 = *(a2 + 1);
-  v7 = a2 + 8;
+  v8 = a2[1];
+  v7 = a2 + 1;
   v6 = v8;
-  v9 = v7[23];
+  v9 = v7[2].i8[7];
   if (v9 >= 0)
   {
     v10 = v7;
@@ -857,20 +801,20 @@ std::string *CRDT::Document_CustomObject::MergeFrom(CRDT::Document_CustomObject 
 
   if (v9 >= 0)
   {
-    v11 = v7[23];
+    v11 = v7[2].u8[7];
   }
 
   else
   {
-    v11 = *(v7 + 1);
+    v11 = v7[1];
   }
 
-  return std::string::append((this + 8), v10, v11);
+  return std::string::append(&this[1], v10, v11);
 }
 
-void sub_19A203D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A203D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -885,7 +829,7 @@ void CRDT::Document_CustomObject::~Document_CustomObject(CRDT::Document_CustomOb
     operator delete(*(this + 1));
   }
 
-  TTBoundedCheckedCastNSUIntegerToUInt32(this);
+  TTBoundedCheckedCastNSUIntegerToUInt32();
 }
 
 {
@@ -914,9 +858,9 @@ uint64_t CRDT::Document_CustomObject::Clear(CRDT::Document_CustomObject *this)
   return result;
 }
 
-uint64_t CRDT::Document_CustomObject::MergePartialFromCodedStream(CRDT::Document_CustomObject *this, google::protobuf::io::CodedInputStream *a2)
+uint64_t CRDT::Document_CustomObject::MergePartialFromCodedStream(int32x2_t *this, google::protobuf::io::CodedInputStream *a2)
 {
-  google::protobuf::io::StringOutputStream::StringOutputStream(v29, this + 8);
+  google::protobuf::io::StringOutputStream::StringOutputStream(v29, &this[1]);
   google::protobuf::io::CodedOutputStream::CodedOutputStream(v28, v29);
   while (1)
   {
@@ -1013,29 +957,29 @@ LABEL_16:
       *(a2 + 1) = v12;
     }
 
-    *(this + 16) = v11;
-    *(this + 8) |= 1u;
+    this[8].i32[0] = v11;
+    this[4].i32[0] |= 1u;
     if (v12 < v10 && *v12 == 26)
     {
       do
       {
         *(a2 + 1) = v12 + 1;
 LABEL_27:
-        v14 = *(this + 13);
-        v15 = *(this + 12);
+        v14 = this[6].i32[1];
+        v15 = this[6].i32[0];
         if (v15 >= v14)
         {
-          if (v14 == *(this + 14))
+          if (v14 == this[7].i32[0])
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 5, v14 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&this[5], v14 + 1);
           }
 
           operator new();
         }
 
-        v16 = *(this + 5);
-        *(this + 12) = v15 + 1;
-        v17 = *(v16 + 8 * v15);
+        v16 = this[5];
+        this[6].i32[0] = v15 + 1;
+        v17 = *(*&v16 + 8 * v15);
         v30 = 0;
         v18 = *(a2 + 1);
         if (v18 >= *(a2 + 2) || *v18 < 0)
@@ -1092,9 +1036,9 @@ LABEL_50:
   return v26;
 }
 
-void sub_19A2041C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_19A2041C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va);
   _Unwind_Resume(a1);
 }
@@ -1198,9 +1142,8 @@ uint64_t CRDT::Document_CustomObject::ByteSize(CRDT::Document_CustomObject *this
   return result;
 }
 
-std::string *CRDT::Document_CustomObject::CheckTypeAndMergeFrom(CRDT::Document_CustomObject *this, char **lpsrc)
+std::string *CRDT::Document_CustomObject::CheckTypeAndMergeFrom(int32x2_t *this, int32x2_t *lpsrc)
 {
-  v4 = **lpsrc;
   {
     replica_manager::VectorTimestampElement::CheckTypeAndMergeFrom();
   }
@@ -1443,7 +1386,7 @@ void CRDT::Document_DocObject::~Document_DocObject(CRDT::Document_DocObject *thi
     operator delete(*(v1 + 1));
   }
 
-  TTBoundedCheckedCastNSUIntegerToUInt32(v1);
+  TTBoundedCheckedCastNSUIntegerToUInt32();
 }
 
 {
@@ -2555,15 +2498,15 @@ LABEL_50:
   }
 }
 
-void sub_19A206384(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A206384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
-  MEMORY[0x19A8FD070](v2, 0x10B3C406C843DA2);
+  v9 = va_arg(va1, void);
+  MEMORY[0x19A8FD070](v3, 0x10B3C406C843DA2);
   google::protobuf::io::CodedOutputStream::~CodedOutputStream(va);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va1);
   _Unwind_Resume(a1);
@@ -2682,94 +2625,93 @@ uint64_t CRDT::Document_DocObject::SerializeWithCachedSizes(CRDT::Document_DocOb
   return google::protobuf::io::CodedOutputStream::WriteRaw(a2, v8, v7);
 }
 
-uint64_t CRDT::Document_DocObject::ByteSize(CRDT::RegisterLatest **this)
+uint64_t CRDT::Document_DocObject::ByteSize(CRDT::RegisterLatest **this, unsigned int a2)
 {
   switch(*(this + 12))
   {
     case 1:
     case 2:
     case 3:
-      v2 = CRDT::RegisterLatest::ByteSize(this[5]);
+      v3 = CRDT::RegisterLatest::ByteSize(this[5]);
       goto LABEL_15;
     case 4:
     case 5:
     case 6:
-      v2 = CRDT::Dictionary::ByteSize(this[5]);
+      v3 = CRDT::Dictionary::ByteSize(this[5]);
       goto LABEL_15;
     case 7:
-      v2 = CRDT::Timestamp::ByteSize(this[5]);
+      v3 = CRDT::Timestamp::ByteSize(this[5]);
       goto LABEL_15;
     case 8:
-      v2 = CRDT::VectorTimestamp::ByteSize(this[5]);
+      v3 = CRDT::VectorTimestamp::ByteSize(this[5]);
       goto LABEL_15;
     case 9:
-      v2 = CRDT::Index::ByteSize(this[5]);
+      v3 = CRDT::Index::ByteSize(this[5]);
       goto LABEL_15;
     case 0xA:
-      v2 = topotext::String::ByteSize(this[5]);
+      v3 = topotext::String::ByteSize(this[5], a2);
       goto LABEL_15;
     case 0xB:
-      v6 = google::protobuf::io::CodedOutputStream::VarintSize64(this[5]) + 1;
+      v7 = google::protobuf::io::CodedOutputStream::VarintSize64(this[5]) + 1;
       break;
     case 0xC:
-      v2 = CRDT::OneOf::ByteSize(this[5]);
+      v3 = CRDT::OneOf::ByteSize(this[5]);
       goto LABEL_15;
     case 0xD:
-      v2 = CRDT::Document_CustomObject::ByteSize(this[5]);
+      v3 = CRDT::Document_CustomObject::ByteSize(this[5]);
       goto LABEL_15;
     case 0xE:
-      v2 = CRDT::StringArray::ByteSize(this[5]);
+      v3 = CRDT::StringArray::ByteSize(this[5], a2);
       goto LABEL_15;
     case 0xF:
-      v2 = CRDT::Array::ByteSize(this[5]);
+      v3 = CRDT::Array::ByteSize(this[5], a2);
 LABEL_15:
-      v7 = v2;
-      if (v2 >= 0x80)
-      {
-        v8 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v2);
-      }
-
-      else
-      {
-        v8 = 1;
-      }
-
-      v6 = v7 + v8 + 1;
-      break;
-    case 0x10:
-      v3 = CRDT::OrderedSet::ByteSize(this[5]);
-      v4 = v3;
+      v8 = v3;
       if (v3 >= 0x80)
       {
-        v5 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v3);
+        v9 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v3);
       }
 
       else
       {
-        v5 = 1;
+        v9 = 1;
       }
 
-      v6 = v4 + v5 + 2;
+      v7 = v8 + v9 + 1;
+      break;
+    case 0x10:
+      v4 = CRDT::OrderedSet::ByteSize(this[5], a2);
+      v5 = v4;
+      if (v4 >= 0x80)
+      {
+        v6 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v4);
+      }
+
+      else
+      {
+        v6 = 1;
+      }
+
+      v7 = v5 + v6 + 2;
       break;
     default:
-      v6 = 0;
+      v7 = 0;
       break;
   }
 
-  v9 = *(this + 31);
-  if ((v9 & 0x8000000000000000) != 0)
+  v10 = *(this + 31);
+  if ((v10 & 0x8000000000000000) != 0)
   {
-    v9 = this[2];
+    v10 = this[2];
   }
 
-  result = (v6 + v9);
+  result = (v7 + v10);
   *(this + 9) = result;
   return result;
 }
 
-std::string *CRDT::Document_DocObject::CheckTypeAndMergeFrom(const CRDT::RegisterLatest **this, char **lpsrc)
+std::string *CRDT::Document_DocObject::CheckTypeAndMergeFrom(const CRDT::RegisterLatest **this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     replica_manager::VectorTimestampElement::CheckTypeAndMergeFrom();
   }
@@ -2827,7 +2769,7 @@ void sub_19A2068A4(_Unwind_Exception *a1)
     operator delete(*v6);
   }
 
-  TTBoundedCheckedCastNSUIntegerToUInt32(v1);
+  TTBoundedCheckedCastNSUIntegerToUInt32();
   _Unwind_Resume(a1);
 }
 
@@ -2855,14 +2797,14 @@ void CRDT::Document::SharedCtor(CRDT::Document *this)
   *(this + 4) = 0;
 }
 
-void sub_19A2069A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A2069A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
 
-std::string *CRDT::Document::MergeFrom(CRDT::Document *this, const CRDT::Document *a2)
+std::string *CRDT::Document::MergeFrom(int32x2_t *this, int32x2_t *a2)
 {
   if (a2 == this)
   {
@@ -2872,23 +2814,23 @@ std::string *CRDT::Document::MergeFrom(CRDT::Document *this, const CRDT::Documen
     google::protobuf::internal::LogMessage::~LogMessage(&v21[0].__r_.__value_.__l.__data_);
   }
 
-  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::Document_DocObject>::TypeHandler>((this + 56), (a2 + 56));
-  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>((this + 80), (a2 + 80));
-  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>((this + 104), (a2 + 104));
-  v5 = google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>((this + 128), (a2 + 128));
-  LOBYTE(v6) = *(a2 + 32);
+  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::Document_DocObject>::TypeHandler>(this + 7, a2 + 7);
+  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(this + 10, a2 + 10);
+  google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(this + 13, a2 + 13);
+  v5 = google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(this + 16, a2 + 16);
+  LOBYTE(v6) = a2[4].i8[0];
   if (v6)
   {
-    if (*(a2 + 32))
+    if (a2[4].i8[0])
     {
-      *(this + 8) |= 1u;
-      v7 = *(this + 5);
+      this[4].i32[0] |= 1u;
+      v7 = this[5];
       if (!v7)
       {
         operator new();
       }
 
-      v8 = *(a2 + 5);
+      v8 = a2[5];
       if (!v8)
       {
         CRDT::protobuf_AddDesc_crframework_2eproto(v5);
@@ -2896,7 +2838,7 @@ std::string *CRDT::Document::MergeFrom(CRDT::Document *this, const CRDT::Documen
       }
 
       v5 = CRDT::VectorTimestamp::MergeFrom(v7, v8);
-      v6 = *(a2 + 8);
+      v6 = a2[4].i32[0];
       if ((v6 & 2) == 0)
       {
 LABEL_6:
@@ -2909,19 +2851,19 @@ LABEL_6:
       }
     }
 
-    else if ((*(a2 + 32) & 2) == 0)
+    else if ((a2[4].i8[0] & 2) == 0)
     {
       goto LABEL_6;
     }
 
-    *(this + 8) |= 2u;
-    v9 = *(this + 6);
+    this[4].i32[0] |= 2u;
+    v9 = this[6];
     if (!v9)
     {
       operator new();
     }
 
-    v10 = *(a2 + 6);
+    v10 = a2[6];
     if (!v10)
     {
       CRDT::protobuf_AddDesc_crframework_2eproto(v5);
@@ -2929,17 +2871,17 @@ LABEL_6:
     }
 
     v5 = CRDT::VectorTimestamp::MergeFrom(v9, v10);
-    if ((*(a2 + 8) & 0x40) != 0)
+    if ((a2[4].i32[0] & 0x40) != 0)
     {
 LABEL_18:
-      *(this + 8) |= 0x40u;
-      v11 = *(this + 19);
+      this[4].i32[0] |= 0x40u;
+      v11 = this[19];
       if (!v11)
       {
         operator new();
       }
 
-      v12 = *(a2 + 19);
+      v12 = a2[19];
       if (!v12)
       {
         CRDT::protobuf_AddDesc_crframework_2eproto(v5);
@@ -2951,10 +2893,10 @@ LABEL_18:
   }
 
 LABEL_23:
-  v15 = *(a2 + 1);
-  v14 = a2 + 8;
+  v15 = a2[1];
+  v14 = a2 + 1;
   v13 = v15;
-  v16 = v14[23];
+  v16 = v14[2].i8[7];
   if (v16 >= 0)
   {
     v17 = v14;
@@ -2967,15 +2909,15 @@ LABEL_23:
 
   if (v16 >= 0)
   {
-    v18 = v14[23];
+    v18 = v14[2].u8[7];
   }
 
   else
   {
-    v18 = *(v14 + 1);
+    v18 = v14[1];
   }
 
-  return std::string::append((this + 8), v17, v18);
+  return std::string::append(&this[1], v17, v18);
 }
 
 void CRDT::Document::~Document(CRDT::Document *this)
@@ -2991,7 +2933,7 @@ void CRDT::Document::~Document(CRDT::Document *this)
     operator delete(*(this + 1));
   }
 
-  TTBoundedCheckedCastNSUIntegerToUInt32(this);
+  TTBoundedCheckedCastNSUIntegerToUInt32();
 }
 
 {
@@ -3104,9 +3046,9 @@ uint64_t CRDT::Document::Clear(CRDT::Document *this)
   return result;
 }
 
-uint64_t CRDT::Document::MergePartialFromCodedStream(CRDT::Document *this, google::protobuf::io::CodedInputStream *a2)
+uint64_t CRDT::Document::MergePartialFromCodedStream(int32x2_t *this, google::protobuf::io::CodedInputStream *a2)
 {
-  google::protobuf::io::StringOutputStream::StringOutputStream(v61, this + 8);
+  google::protobuf::io::StringOutputStream::StringOutputStream(v61, &this[1]);
   TagFallback = google::protobuf::io::CodedOutputStream::CodedOutputStream(v60, v61);
   do
   {
@@ -3150,8 +3092,8 @@ LABEL_2:
                 goto LABEL_38;
               }
 
-              *(this + 8) |= 1u;
-              v11 = *(this + 5);
+              this[4].i32[0] |= 1u;
+              v11 = this[5];
               if (!v11)
               {
                 operator new();
@@ -3211,8 +3153,8 @@ LABEL_2:
               }
 
 LABEL_51:
-              *(this + 8) |= 2u;
-              v20 = *(this + 6);
+              this[4].i32[0] |= 2u;
+              v20 = this[6];
               if (!v20)
               {
                 operator new();
@@ -3264,21 +3206,21 @@ LABEL_51:
                 {
                   *(a2 + 1) = v27 + 1;
 LABEL_65:
-                  v28 = *(this + 17);
-                  v29 = *(this + 16);
+                  v28 = this[8].i32[1];
+                  v29 = this[8].i32[0];
                   if (v29 >= v28)
                   {
-                    if (v28 == *(this + 18))
+                    if (v28 == this[9].i32[0])
                     {
-                      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 7, v28 + 1);
+                      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&this[7], v28 + 1);
                     }
 
                     operator new();
                   }
 
-                  v30 = *(this + 7);
-                  *(this + 16) = v29 + 1;
-                  v31 = *(v30 + 8 * v29);
+                  v30 = this[7];
+                  this[8].i32[0] = v29 + 1;
+                  v31 = *(*&v30 + 8 * v29);
                   v62 = 0;
                   v32 = *(a2 + 1);
                   if (v32 >= *(a2 + 2) || *v32 < 0)
@@ -3333,21 +3275,21 @@ LABEL_65:
                       {
                         *(a2 + 1) = v27 + 1;
 LABEL_83:
-                        v39 = *(this + 23);
-                        v40 = *(this + 22);
+                        v39 = this[11].i32[1];
+                        v40 = this[11].i32[0];
                         if (v40 >= v39)
                         {
-                          if (v39 == *(this + 24))
+                          if (v39 == this[12].i32[0])
                           {
-                            TagFallback = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 10, v39 + 1);
+                            TagFallback = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&this[10], v39 + 1);
                           }
 
                           google::protobuf::internal::StringTypeHandlerBase::New(TagFallback);
                         }
 
-                        v41 = *(this + 10);
-                        *(this + 22) = v40 + 1;
-                        TagFallback = google::protobuf::internal::WireFormatLite::ReadString(a2, *(v41 + 8 * v40));
+                        v41 = this[10];
+                        this[11].i32[0] = v40 + 1;
+                        TagFallback = google::protobuf::internal::WireFormatLite::ReadString(a2, *(*&v41 + 8 * v40));
                         if (!TagFallback)
                         {
                           goto LABEL_128;
@@ -3448,21 +3390,21 @@ LABEL_40:
 
         while (1)
         {
-          v43 = *(this + 29);
-          v44 = *(this + 28);
+          v43 = this[14].i32[1];
+          v44 = this[14].i32[0];
           if (v44 >= v43)
           {
-            if (v43 == *(this + 30))
+            if (v43 == this[15].i32[0])
             {
-              TagFallback = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 13, v43 + 1);
+              TagFallback = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&this[13], v43 + 1);
             }
 
             google::protobuf::internal::StringTypeHandlerBase::New(TagFallback);
           }
 
-          v45 = *(this + 13);
-          *(this + 28) = v44 + 1;
-          TagFallback = google::protobuf::internal::WireFormatLite::ReadString(a2, *(v45 + 8 * v44));
+          v45 = this[13];
+          this[14].i32[0] = v44 + 1;
+          TagFallback = google::protobuf::internal::WireFormatLite::ReadString(a2, *(*&v45 + 8 * v44));
           if (!TagFallback)
           {
             goto LABEL_128;
@@ -3502,21 +3444,21 @@ LABEL_92:
 
       while (2)
       {
-        v47 = *(this + 35);
-        v48 = *(this + 34);
+        v47 = this[17].i32[1];
+        v48 = this[17].i32[0];
         if (v48 >= v47)
         {
-          if (v47 == *(this + 36))
+          if (v47 == this[18].i32[0])
           {
-            TagFallback = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 16, v47 + 1);
+            TagFallback = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&this[16], v47 + 1);
           }
 
           google::protobuf::internal::StringTypeHandlerBase::New(TagFallback);
         }
 
-        v49 = *(this + 16);
-        *(this + 34) = v48 + 1;
-        TagFallback = google::protobuf::internal::WireFormatLite::ReadString(a2, *(v49 + 8 * v48));
+        v49 = this[16];
+        this[17].i32[0] = v48 + 1;
+        TagFallback = google::protobuf::internal::WireFormatLite::ReadString(a2, *(*&v49 + 8 * v48));
         if (!TagFallback)
         {
           goto LABEL_128;
@@ -3555,8 +3497,8 @@ LABEL_102:
     }
 
 LABEL_113:
-    *(this + 8) |= 0x40u;
-    v51 = *(this + 19);
+    this[4].i32[0] |= 0x40u;
+    v51 = this[19];
     if (!v51)
     {
       operator new();
@@ -3608,15 +3550,15 @@ LABEL_130:
   return v58;
 }
 
-void sub_19A207734(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19A207734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
-  MEMORY[0x19A8FD070](v2, 0x1093C4020A6E6BFLL);
+  v9 = va_arg(va1, void);
+  MEMORY[0x19A8FD070](v3, 0x1093C4020A6E6BFLL);
   google::protobuf::io::CodedOutputStream::~CodedOutputStream(va);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va1);
   _Unwind_Resume(a1);
@@ -3831,177 +3773,176 @@ LABEL_25:
     do
     {
       v19 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<CRDT::Document_DocObject>::TypeHandler>(this + 56, v18);
-      v20 = CRDT::Document_DocObject::ByteSize(v19);
-      v21 = v20;
-      if (v20 >= 0x80)
+      v21 = CRDT::Document_DocObject::ByteSize(v19, v20);
+      v22 = v21;
+      if (v21 >= 0x80)
       {
-        v22 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v20);
+        v23 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v21);
       }
 
       else
       {
-        v22 = 1;
+        v23 = 1;
       }
 
-      v17 += v21 + v22;
+      v17 += v22 + v23;
       ++v18;
     }
 
     while (v18 < *(this + 16));
   }
 
-  v23 = *(this + 22);
-  v24 = v23 + v17;
-  if (v23 >= 1)
+  v24 = *(this + 22);
+  v25 = v24 + v17;
+  if (v24 >= 1)
   {
-    v25 = 0;
+    v26 = 0;
     do
     {
-      v26 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(this + 80, v25);
-      v27 = *(v26 + 23);
-      v28 = v27;
-      v29 = *(v26 + 8);
-      if ((v27 & 0x80u) == 0)
+      v27 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(this + 80, v26);
+      v28 = *(v27 + 23);
+      v29 = v28;
+      v30 = *(v27 + 8);
+      if ((v28 & 0x80u) == 0)
       {
-        v30 = *(v26 + 23);
+        v31 = *(v27 + 23);
       }
 
       else
       {
-        v30 = v29;
+        v31 = v30;
       }
 
-      if (v30 >= 0x80)
+      if (v31 >= 0x80)
       {
-        v31 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v30);
-        v27 = *(v26 + 23);
-        v29 = *(v26 + 8);
-        v28 = *(v26 + 23);
+        v32 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v31);
+        v28 = *(v27 + 23);
+        v30 = *(v27 + 8);
+        v29 = *(v27 + 23);
       }
 
       else
       {
-        v31 = 1;
+        v32 = 1;
       }
 
-      if (v28 < 0)
+      if (v29 < 0)
       {
-        v27 = v29;
+        v28 = v30;
       }
 
-      v24 += v31 + v27;
-      ++v25;
+      v25 += v32 + v28;
+      ++v26;
     }
 
-    while (v25 < *(this + 22));
+    while (v26 < *(this + 22));
   }
 
-  v32 = *(this + 28);
-  v33 = v32 + v24;
-  if (v32 >= 1)
+  v33 = *(this + 28);
+  v34 = v33 + v25;
+  if (v33 >= 1)
   {
-    v34 = 0;
+    v35 = 0;
     do
     {
-      v35 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(this + 104, v34);
-      v36 = *(v35 + 23);
-      v37 = v36;
-      v38 = *(v35 + 8);
-      if ((v36 & 0x80u) == 0)
+      v36 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(this + 104, v35);
+      v37 = *(v36 + 23);
+      v38 = v37;
+      v39 = *(v36 + 8);
+      if ((v37 & 0x80u) == 0)
       {
-        v39 = *(v35 + 23);
+        v40 = *(v36 + 23);
       }
 
       else
       {
-        v39 = v38;
+        v40 = v39;
       }
 
-      if (v39 >= 0x80)
+      if (v40 >= 0x80)
       {
-        v40 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v39);
-        v36 = *(v35 + 23);
-        v38 = *(v35 + 8);
-        v37 = *(v35 + 23);
+        v41 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v40);
+        v37 = *(v36 + 23);
+        v39 = *(v36 + 8);
+        v38 = *(v36 + 23);
       }
 
       else
       {
-        v40 = 1;
+        v41 = 1;
       }
 
-      if (v37 < 0)
+      if (v38 < 0)
       {
-        v36 = v38;
+        v37 = v39;
       }
 
-      v33 += v40 + v36;
-      ++v34;
+      v34 += v41 + v37;
+      ++v35;
     }
 
-    while (v34 < *(this + 28));
+    while (v35 < *(this + 28));
   }
 
-  v41 = *(this + 34);
-  v42 = v41 + v33;
-  if (v41 >= 1)
+  v42 = *(this + 34);
+  v43 = v42 + v34;
+  if (v42 >= 1)
   {
-    v43 = 0;
+    v44 = 0;
     do
     {
-      v44 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(this + 128, v43);
-      v45 = *(v44 + 23);
-      v46 = v45;
-      v47 = *(v44 + 8);
-      if ((v45 & 0x80u) == 0)
+      v45 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<std::string>::TypeHandler>(this + 128, v44);
+      v46 = *(v45 + 23);
+      v47 = v46;
+      v48 = *(v45 + 8);
+      if ((v46 & 0x80u) == 0)
       {
-        v48 = *(v44 + 23);
+        v49 = *(v45 + 23);
       }
 
       else
       {
-        v48 = v47;
+        v49 = v48;
       }
 
-      if (v48 >= 0x80)
+      if (v49 >= 0x80)
       {
-        v49 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v48);
-        v45 = *(v44 + 23);
-        v47 = *(v44 + 8);
-        v46 = *(v44 + 23);
+        v50 = google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v49);
+        v46 = *(v45 + 23);
+        v48 = *(v45 + 8);
+        v47 = *(v45 + 23);
       }
 
       else
       {
-        v49 = 1;
+        v50 = 1;
       }
 
-      if (v46 < 0)
+      if (v47 < 0)
       {
-        v45 = v47;
+        v46 = v48;
       }
 
-      v42 += v49 + v45;
-      ++v43;
+      v43 += v50 + v46;
+      ++v44;
     }
 
-    while (v43 < *(this + 34));
+    while (v44 < *(this + 34));
   }
 
-  v50 = *(this + 31);
-  if (v50 < 0)
+  v51 = *(this + 31);
+  if (v51 < 0)
   {
-    v50 = *(this + 2);
+    v51 = *(this + 2);
   }
 
-  result = (v42 + v50);
+  result = (v43 + v51);
   *(this + 9) = result;
   return result;
 }
 
-std::string *CRDT::Document::CheckTypeAndMergeFrom(CRDT::Document *this, char **lpsrc)
+std::string *CRDT::Document::CheckTypeAndMergeFrom(int32x2_t *this, int32x2_t *lpsrc)
 {
-  v4 = **lpsrc;
   {
     replica_manager::VectorTimestampElement::CheckTypeAndMergeFrom();
   }
@@ -4049,9 +3990,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_19A207EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A207EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4077,9 +4018,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_19A207F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A207F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4105,9 +4046,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_19A208070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A208070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4133,9 +4074,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_19A20814C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A20814C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4161,28 +4102,28 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_19A20828C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A20828C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void sub_19A208368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A208368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void sub_19A208444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A208444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::VectorTimestamp_Element>::TypeHandler>(google::protobuf::internal::RepeatedPtrFieldBase *this, google::protobuf::internal::RepeatedPtrFieldBase *a2)
+void *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::VectorTimestamp_Element>::TypeHandler>(int32x2_t *this, int32x2_t *a2)
 {
   if (a2 == this)
   {
@@ -4192,18 +4133,18 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
     google::protobuf::internal::LogMessage::~LogMessage(&v12[0].__r_.__value_.__l.__data_);
   }
 
-  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, *(a2 + 2) + *(this + 2));
-  if (*(a2 + 2) >= 1)
+  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, a2[1].i32[0] + this[1].i32[0]);
+  if (a2[1].i32[0] >= 1)
   {
     v6 = 0;
     do
     {
       v7 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<CRDT::VectorTimestamp_Element>::TypeHandler>(a2, v6);
-      v8 = *(this + 3);
-      v9 = *(this + 2);
+      v8 = this[1].i32[1];
+      v9 = this[1].i32[0];
       if (v9 >= v8)
       {
-        if (v8 == *(this + 4))
+        if (v8 == this[2].i32[0])
         {
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, v8 + 1);
         }
@@ -4212,25 +4153,25 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
       }
 
       v10 = *this;
-      *(this + 2) = v9 + 1;
+      this[1].i32[0] = v9 + 1;
       result = CRDT::VectorTimestamp_Element::MergeFrom(*(v10 + 8 * v9), v7);
       ++v6;
     }
 
-    while (v6 < *(a2 + 2));
+    while (v6 < a2[1].i32[0]);
   }
 
   return result;
 }
 
-void sub_19A2085DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A2085DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::Dictionary_Element>::TypeHandler>(google::protobuf::internal::RepeatedPtrFieldBase *this, google::protobuf::internal::RepeatedPtrFieldBase *a2)
+void *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::Dictionary_Element>::TypeHandler>(int32x2_t *this, int32x2_t *a2)
 {
   if (a2 == this)
   {
@@ -4240,18 +4181,18 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
     google::protobuf::internal::LogMessage::~LogMessage(&v12[0].__r_.__value_.__l.__data_);
   }
 
-  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, *(a2 + 2) + *(this + 2));
-  if (*(a2 + 2) >= 1)
+  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, a2[1].i32[0] + this[1].i32[0]);
+  if (a2[1].i32[0] >= 1)
   {
     v6 = 0;
     do
     {
       v7 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<CRDT::Dictionary_Element>::TypeHandler>(a2, v6);
-      v8 = *(this + 3);
-      v9 = *(this + 2);
+      v8 = this[1].i32[1];
+      v9 = this[1].i32[0];
       if (v9 >= v8)
       {
-        if (v8 == *(this + 4))
+        if (v8 == this[2].i32[0])
         {
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, v8 + 1);
         }
@@ -4260,25 +4201,25 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
       }
 
       v10 = *this;
-      *(this + 2) = v9 + 1;
+      this[1].i32[0] = v9 + 1;
       result = CRDT::Dictionary_Element::MergeFrom(*(v10 + 8 * v9), v7);
       ++v6;
     }
 
-    while (v6 < *(a2 + 2));
+    while (v6 < a2[1].i32[0]);
   }
 
   return result;
 }
 
-void sub_19A20876C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A20876C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::Index_Element>::TypeHandler>(google::protobuf::internal::RepeatedPtrFieldBase *this, google::protobuf::internal::RepeatedPtrFieldBase *a2)
+void *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::Index_Element>::TypeHandler>(int32x2_t *this, int32x2_t *a2)
 {
   if (a2 == this)
   {
@@ -4288,18 +4229,18 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
     google::protobuf::internal::LogMessage::~LogMessage(&v12[0].__r_.__value_.__l.__data_);
   }
 
-  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, *(a2 + 2) + *(this + 2));
-  if (*(a2 + 2) >= 1)
+  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, a2[1].i32[0] + this[1].i32[0]);
+  if (a2[1].i32[0] >= 1)
   {
     v6 = 0;
     do
     {
       v7 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<CRDT::Index_Element>::TypeHandler>(a2, v6);
-      v8 = *(this + 3);
-      v9 = *(this + 2);
+      v8 = this[1].i32[1];
+      v9 = this[1].i32[0];
       if (v9 >= v8)
       {
-        if (v8 == *(this + 4))
+        if (v8 == this[2].i32[0])
         {
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, v8 + 1);
         }
@@ -4308,25 +4249,25 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
       }
 
       v10 = *this;
-      *(this + 2) = v9 + 1;
+      this[1].i32[0] = v9 + 1;
       result = CRDT::Index_Element::MergeFrom(*(v10 + 8 * v9), v7);
       ++v6;
     }
 
-    while (v6 < *(a2 + 2));
+    while (v6 < a2[1].i32[0]);
   }
 
   return result;
 }
 
-void sub_19A2088F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A2088F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::OneOf_Element>::TypeHandler>(google::protobuf::internal::RepeatedPtrFieldBase *this, google::protobuf::internal::RepeatedPtrFieldBase *a2)
+void *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::OneOf_Element>::TypeHandler>(int32x2_t *this, int32x2_t *a2)
 {
   if (a2 == this)
   {
@@ -4336,18 +4277,18 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
     google::protobuf::internal::LogMessage::~LogMessage(&v12[0].__r_.__value_.__l.__data_);
   }
 
-  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, *(a2 + 2) + *(this + 2));
-  if (*(a2 + 2) >= 1)
+  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, a2[1].i32[0] + this[1].i32[0]);
+  if (a2[1].i32[0] >= 1)
   {
     v6 = 0;
     do
     {
       v7 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<CRDT::OneOf_Element>::TypeHandler>(a2, v6);
-      v8 = *(this + 3);
-      v9 = *(this + 2);
+      v8 = this[1].i32[1];
+      v9 = this[1].i32[0];
       if (v9 >= v8)
       {
-        if (v8 == *(this + 4))
+        if (v8 == this[2].i32[0])
         {
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, v8 + 1);
         }
@@ -4356,25 +4297,25 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
       }
 
       v10 = *this;
-      *(this + 2) = v9 + 1;
+      this[1].i32[0] = v9 + 1;
       result = CRDT::OneOf_Element::MergeFrom(*(v10 + 8 * v9), v7);
       ++v6;
     }
 
-    while (v6 < *(a2 + 2));
+    while (v6 < a2[1].i32[0]);
   }
 
   return result;
 }
 
-void sub_19A208A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A208A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::StringArray_ArrayAttachment>::TypeHandler>(google::protobuf::internal::RepeatedPtrFieldBase *this, google::protobuf::internal::RepeatedPtrFieldBase *a2)
+void *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::StringArray_ArrayAttachment>::TypeHandler>(int32x2_t *this, int32x2_t *a2)
 {
   if (a2 == this)
   {
@@ -4384,18 +4325,18 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
     google::protobuf::internal::LogMessage::~LogMessage(&v12[0].__r_.__value_.__l.__data_);
   }
 
-  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, *(a2 + 2) + *(this + 2));
-  if (*(a2 + 2) >= 1)
+  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, a2[1].i32[0] + this[1].i32[0]);
+  if (a2[1].i32[0] >= 1)
   {
     v6 = 0;
     do
     {
       v7 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<CRDT::StringArray_ArrayAttachment>::TypeHandler>(a2, v6);
-      v8 = *(this + 3);
-      v9 = *(this + 2);
+      v8 = this[1].i32[1];
+      v9 = this[1].i32[0];
       if (v9 >= v8)
       {
-        if (v8 == *(this + 4))
+        if (v8 == this[2].i32[0])
         {
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, v8 + 1);
         }
@@ -4404,25 +4345,25 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
       }
 
       v10 = *this;
-      *(this + 2) = v9 + 1;
+      this[1].i32[0] = v9 + 1;
       result = CRDT::StringArray_ArrayAttachment::MergeFrom(*(v10 + 8 * v9), v7);
       ++v6;
     }
 
-    while (v6 < *(a2 + 2));
+    while (v6 < a2[1].i32[0]);
   }
 
   return result;
 }
 
-void sub_19A208BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A208BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::Document_CustomObject_MapEntry>::TypeHandler>(google::protobuf::internal::RepeatedPtrFieldBase *this, google::protobuf::internal::RepeatedPtrFieldBase *a2)
+void *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::Document_CustomObject_MapEntry>::TypeHandler>(int32x2_t *this, int32x2_t *a2)
 {
   if (a2 == this)
   {
@@ -4432,18 +4373,18 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
     google::protobuf::internal::LogMessage::~LogMessage(&v12[0].__r_.__value_.__l.__data_);
   }
 
-  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, *(a2 + 2) + *(this + 2));
-  if (*(a2 + 2) >= 1)
+  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, a2[1].i32[0] + this[1].i32[0]);
+  if (a2[1].i32[0] >= 1)
   {
     v6 = 0;
     do
     {
       v7 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<CRDT::Document_CustomObject_MapEntry>::TypeHandler>(a2, v6);
-      v8 = *(this + 3);
-      v9 = *(this + 2);
+      v8 = this[1].i32[1];
+      v9 = this[1].i32[0];
       if (v9 >= v8)
       {
-        if (v8 == *(this + 4))
+        if (v8 == this[2].i32[0])
         {
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, v8 + 1);
         }
@@ -4452,25 +4393,25 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
       }
 
       v10 = *this;
-      *(this + 2) = v9 + 1;
+      this[1].i32[0] = v9 + 1;
       result = CRDT::Document_CustomObject_MapEntry::MergeFrom(*(v10 + 8 * v9), v7);
       ++v6;
     }
 
-    while (v6 < *(a2 + 2));
+    while (v6 < a2[1].i32[0]);
   }
 
   return result;
 }
 
-void sub_19A208D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A208D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::Document_DocObject>::TypeHandler>(google::protobuf::internal::RepeatedPtrFieldBase *this, google::protobuf::internal::RepeatedPtrFieldBase *a2)
+void *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<CRDT::Document_DocObject>::TypeHandler>(int32x2_t *this, int32x2_t *a2)
 {
   if (a2 == this)
   {
@@ -4480,18 +4421,18 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
     google::protobuf::internal::LogMessage::~LogMessage(&v12[0].__r_.__value_.__l.__data_);
   }
 
-  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, *(a2 + 2) + *(this + 2));
-  if (*(a2 + 2) >= 1)
+  result = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, a2[1].i32[0] + this[1].i32[0]);
+  if (a2[1].i32[0] >= 1)
   {
     v6 = 0;
     do
     {
       v7 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<CRDT::Document_DocObject>::TypeHandler>(a2, v6);
-      v8 = *(this + 3);
-      v9 = *(this + 2);
+      v8 = this[1].i32[1];
+      v9 = this[1].i32[0];
       if (v9 >= v8)
       {
-        if (v8 == *(this + 4))
+        if (v8 == this[2].i32[0])
         {
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this, v8 + 1);
         }
@@ -4500,20 +4441,20 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google:
       }
 
       v10 = *this;
-      *(this + 2) = v9 + 1;
+      this[1].i32[0] = v9 + 1;
       result = CRDT::Document_DocObject::MergeFrom(*(v10 + 8 * v9), v7);
       ++v6;
     }
 
-    while (v6 < *(a2 + 2));
+    while (v6 < a2[1].i32[0]);
   }
 
   return result;
 }
 
-void sub_19A208EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A208EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4677,7 +4618,7 @@ void sub_19A2091F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL google::protobuf::internal::WireFormatLite::SkipMessage(google::protobuf::internal::WireFormatLite *this, google::protobuf::io::CodedInputStream *a2, google::protobuf::io::CodedOutputStream *a3, google::protobuf::io::CodedOutputStream *a4)
+uint64_t google::protobuf::internal::WireFormatLite::SkipMessage(google::protobuf::internal::WireFormatLite *this, google::protobuf::io::CodedInputStream *a2, google::protobuf::io::CodedOutputStream *a3, google::protobuf::io::CodedOutputStream *a4)
 {
   do
   {
@@ -4707,7 +4648,7 @@ BOOL google::protobuf::internal::WireFormatLite::SkipMessage(google::protobuf::i
     }
   }
 
-  while ((google::protobuf::internal::WireFormatLite::SkipField(this, TagFallback, a2, a4) & 1) != 0);
+  while (google::protobuf::internal::WireFormatLite::SkipField(this, TagFallback, a2, a4));
   return v8;
 }
 
@@ -4810,9 +4751,9 @@ uint64_t google::protobuf::internal::WireFormatLite::WriteString(int a1, uint64_
   return google::protobuf::io::CodedOutputStream::WriteRaw(this, v9, v10);
 }
 
-void sub_19A20956C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A20956C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4873,9 +4814,9 @@ uint64_t google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(int
   }
 }
 
-void sub_19A209668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A209668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4928,9 +4869,9 @@ uint64_t google::protobuf::internal::WireFormatLite::WriteBytes(int a1, uint64_t
   return google::protobuf::io::CodedOutputStream::WriteRaw(this, v9, v10);
 }
 
-void sub_19A209750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A209750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4991,9 +4932,9 @@ uint64_t google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(int 
   }
 }
 
-void sub_19A20984C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19A20984C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5075,64 +5016,54 @@ LABEL_16:
 
 void REMWeekdayFromICSWeekday_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Encountered an unknown ICSWeekday: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Encountered an unknown ICSWeekday: %d", v2, 8u);
 }
 
 void REMCheckedDynamicCast_cold_1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = +[REMLog utility];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v7 = 138412546;
-    v8 = objc_opt_class();
-    v9 = 2112;
-    v10 = a2;
-    _os_log_fault_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_FAULT, "rem_log_fault_if (src != nil && result == nil) -- Unexpected object type in checked dynamic cast %@ expects %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = objc_opt_class();
+    v8 = 2112;
+    v9 = a2;
+    _os_log_fault_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_FAULT, "rem_log_fault_if (src != nil && result == nil) -- Unexpected object type in checked dynamic cast %@ expects %@", &v6, 0x16u);
   }
 
   *a3 = 0;
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void REMCheckedProtocolCast_cold_1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = +[REMLog utility];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v4 = 138412290;
-    v5 = a1;
-    _os_log_fault_impl(&dword_19A0DB000, v2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (!protocol) -- Protocol is nil {src: %@}", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = a1;
+    _os_log_fault_impl(&dword_19A0DB000, v2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (!protocol) -- Protocol is nil {src: %@}", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void NSStringFromREMAccountType_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AD98] numberWithInteger:0];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void NSStringFromREMAccountType_cold_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AD98] numberWithInteger:a1];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 NSRange NSIntersectionRange(NSRange range1, NSRange range2)

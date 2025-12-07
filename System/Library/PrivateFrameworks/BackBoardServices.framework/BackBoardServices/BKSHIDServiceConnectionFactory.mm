@@ -3,7 +3,7 @@
 - (id)clientConnectionForServiceWithName:(id)name;
 - (id)clientConnectionForServiceWithName:(id)name isNonLaunching:(BOOL *)launching;
 - (id)clientConnectionForServiceWithName:(id)name multiplexer:(id)multiplexer;
-- (id)clientConnectionForServiceWithName:(void *)name multiplexer:(_BYTE *)multiplexer isNonLaunching:;
+- (void)clientConnectionForServiceWithName:(void *)name multiplexer:(_BYTE *)multiplexer isNonLaunching:;
 @end
 
 @implementation BKSHIDServiceConnectionFactory
@@ -45,9 +45,9 @@ void __48__BKSHIDServiceConnectionFactory_sharedInstance__block_invoke()
   return v9;
 }
 
-- (id)clientConnectionForServiceWithName:(void *)name multiplexer:(_BYTE *)multiplexer isNonLaunching:
+- (void)clientConnectionForServiceWithName:(void *)name multiplexer:(_BYTE *)multiplexer isNonLaunching:
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v7 = a2;
   nameCopy = name;
   v9 = nameCopy;
@@ -55,28 +55,28 @@ void __48__BKSHIDServiceConnectionFactory_sharedInstance__block_invoke()
   {
     if (!v7)
     {
-      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"serviceName"];
+      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"serviceName"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v18 = NSStringFromSelector(sel_clientConnectionForServiceWithName_multiplexer_isNonLaunching_);
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
+        v17 = NSStringFromSelector(sel_clientConnectionForServiceWithName_multiplexer_isNonLaunching_);
+        v18 = objc_opt_class();
+        v19 = NSStringFromClass(v18);
         *buf = 138544642;
-        v28 = v18;
-        v29 = 2114;
-        v30 = v20;
-        v31 = 2048;
+        v26 = v17;
+        v27 = 2114;
+        v28 = v19;
+        v29 = 2048;
         selfCopy2 = self;
-        v33 = 2114;
-        v34 = @"BKSHIDServiceConnectionFactory.m";
-        v35 = 1024;
-        v36 = 58;
-        v37 = 2114;
-        v38 = v17;
+        v31 = 2114;
+        v32 = @"BKSHIDServiceConnectionFactory.m";
+        v33 = 1024;
+        v34 = 58;
+        v35 = 2114;
+        v36 = v16;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v17 UTF8String];
+      [v16 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18638FA2CLL);
@@ -84,34 +84,34 @@ void __48__BKSHIDServiceConnectionFactory_sharedInstance__block_invoke()
 
     if (!nameCopy)
     {
-      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"multiplexer"];
+      v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"multiplexer"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v22 = NSStringFromSelector(sel_clientConnectionForServiceWithName_multiplexer_isNonLaunching_);
-        v23 = objc_opt_class();
-        v24 = NSStringFromClass(v23);
+        v21 = NSStringFromSelector(sel_clientConnectionForServiceWithName_multiplexer_isNonLaunching_);
+        v22 = objc_opt_class();
+        v23 = NSStringFromClass(v22);
         *buf = 138544642;
-        v28 = v22;
-        v29 = 2114;
-        v30 = v24;
-        v31 = 2048;
+        v26 = v21;
+        v27 = 2114;
+        v28 = v23;
+        v29 = 2048;
         selfCopy2 = self;
-        v33 = 2114;
-        v34 = @"BKSHIDServiceConnectionFactory.m";
-        v35 = 1024;
-        v36 = 59;
-        v37 = 2114;
-        v38 = v21;
+        v31 = 2114;
+        v32 = @"BKSHIDServiceConnectionFactory.m";
+        v33 = 1024;
+        v34 = 59;
+        v35 = 2114;
+        v36 = v20;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v21 UTF8String];
+      [v20 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18638FB24);
     }
 
-    v10 = [MEMORY[0x1E698F498] endpointForMachName:@"com.apple.backboard.hid-services.xpc" service:v7 instance:0];
+    v10 = [MEMORY[0x1E698F498] endpointForMachName:? service:? instance:?];
     v11 = v10;
     if (v10)
     {
@@ -121,13 +121,9 @@ void __48__BKSHIDServiceConnectionFactory_sharedInstance__block_invoke()
       }
 
       v12 = objc_alloc(MEMORY[0x1E698F4D8]);
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __96__BKSHIDServiceConnectionFactory_clientConnectionForServiceWithName_multiplexer_isNonLaunching___block_invoke;
-      v25[3] = &unk_1E6F47038;
-      v26 = v9;
-      v13 = [v12 initWithEndpoint:v11 options:v25];
-      v14 = v26;
+      v24 = v9;
+      v13 = [v12 initWithEndpoint:? options:?];
+      v14 = v24;
     }
 
     else
@@ -136,7 +132,7 @@ void __48__BKSHIDServiceConnectionFactory_sharedInstance__block_invoke()
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v28 = v7;
+        v26 = v7;
         _os_log_error_impl(&dword_186345000, v14, OS_LOG_TYPE_ERROR, "cannot get endpoint for mach service (on behalf of BSService name: %{public}@)", buf, 0xCu);
       }
 
@@ -148,8 +144,6 @@ void __48__BKSHIDServiceConnectionFactory_sharedInstance__block_invoke()
   {
     v13 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

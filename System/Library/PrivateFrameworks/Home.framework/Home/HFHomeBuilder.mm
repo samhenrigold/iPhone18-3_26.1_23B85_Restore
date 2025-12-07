@@ -46,9 +46,9 @@
 - (void)setHome:(id)home
 {
   homeCopy = home;
-  home = [(HFItemBuilder *)self home];
+  v5 = objc_msgSend_home(self);
 
-  if (home != homeCopy)
+  if (v5 != homeCopy)
   {
     v12.receiver = self;
     v12.super_class = HFHomeBuilder;
@@ -87,8 +87,8 @@ LABEL_9:
 
 - (id)commitItem
 {
-  home = [(HFItemBuilder *)self home];
-  v4 = home == 0;
+  v3 = objc_msgSend_home(self, a2);
+  v4 = v3 == 0;
 
   performValidation = [(HFHomeBuilder *)self performValidation];
   v17[0] = MEMORY[0x277D85DD0];
@@ -162,13 +162,13 @@ id __27__HFHomeBuilder_commitItem__block_invoke_2(uint64_t a1)
   return v4;
 }
 
-id __27__HFHomeBuilder_commitItem__block_invoke_4(uint64_t a1)
+id __27__HFHomeBuilder_commitItem__block_invoke_4(uint64_t a1, const char *a2)
 {
-  v1 = MEMORY[0x277D2C900];
-  v2 = [*(a1 + 32) home];
-  v3 = [v1 futureWithResult:v2];
+  v2 = MEMORY[0x277D2C900];
+  v3 = objc_msgSend_home(*(a1 + 32), a2);
+  v4 = [v2 futureWithResult:v3];
 
-  return v3;
+  return v4;
 }
 
 id __27__HFHomeBuilder_commitItem__block_invoke_5(uint64_t a1, void *a2)
@@ -234,17 +234,15 @@ void __27__HFHomeBuilder_commitItem__block_invoke_6()
 
 - (id)performValidation
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D2C900];
   v4 = [(HFItemBuilder *)self lazy_verifyPropertyIsSet:@"name"];
-  v11[0] = v4;
+  v10[0] = v4;
   name = [(HFHomeBuilder *)self name];
   v6 = [(HFItemBuilder *)self lazy_verifyNameIsNotEmpty:name];
-  v11[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v3 chainFutures:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -310,8 +308,8 @@ id __27__HFHomeBuilder_createHome__block_invoke_2(uint64_t a1, void *a2)
 
 - (id)updateName
 {
-  home = [(HFItemBuilder *)self home];
-  name = [home name];
+  v3 = objc_msgSend_home(self, a2);
+  name = [v3 name];
   name2 = [(HFHomeBuilder *)self name];
   v6 = [name isEqualToString:name2];
 
@@ -344,7 +342,7 @@ void __27__HFHomeBuilder_updateName__block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
   v4 = a2;
-  v6 = [v3 home];
+  v6 = objc_msgSend_home(v3);
   v5 = [*(a1 + 32) name];
   [v6 updateName:v5 completionHandler:v4];
 }
@@ -377,22 +375,22 @@ void __27__HFHomeBuilder_updateName__block_invoke_4(uint64_t a1, void *a2)
   v4 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     [v4 homeDidUpdateName:v3];
   }
 }
 
 - (id)updateUserNotes
 {
-  home = [(HFItemBuilder *)self home];
-  hf_notesApplicationData = [home hf_notesApplicationData];
+  v3 = objc_msgSend_home(self, a2);
+  hf_notesApplicationData = [v3 hf_notesApplicationData];
 
   userNotes = [(HFHomeBuilder *)self userNotes];
   if (userNotes | hf_notesApplicationData && (v6 = userNotes, -[HFHomeBuilder userNotes](self, "userNotes"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 isEqualToString:hf_notesApplicationData], v7, v6, !v8))
   {
-    home2 = [(HFItemBuilder *)self home];
+    v10 = objc_msgSend_home(self);
     userNotes2 = [(HFHomeBuilder *)self userNotes];
-    v9 = [home2 hf_setNotesApplicationData:userNotes2];
+    v9 = [v10 hf_setNotesApplicationData:userNotes2];
   }
 
   else

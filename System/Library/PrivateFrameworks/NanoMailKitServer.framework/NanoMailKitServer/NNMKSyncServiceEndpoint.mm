@@ -1,6 +1,7 @@
 @interface NNMKSyncServiceEndpoint
 - (BOOL)_willIdRepeat:(id)repeat;
 - (NNMKSyncServiceEndpoint)initWithIDSServiceName:(id)name queue:(id)queue;
+- (id)sendProtobufData:(id)data type:(unint64_t)type priority:(unint64_t)priority repeatPreventionId:(id)id timeoutCategory:(unint64_t)category allowCloudDelivery:(BOOL)delivery;
 - (void)_initializeServiceTransport;
 - (void)_removeExpiredRepeatPreventionRecords;
 - (void)_storeRepeatPreventionId:(id)id priority:(unint64_t)priority;
@@ -64,11 +65,36 @@ void __56__NNMKSyncServiceEndpoint_initWithIDSServiceName_queue___block_invoke(u
 
 - (void)_initializeServiceTransport
 {
-  v3 = [[NNMKSyncServiceIDSTransport alloc] initWithServiceName:self->_idsServiceName queue:self->_serviceQueue delegate:self];
-  serviceTransport = self->_serviceTransport;
-  self->_serviceTransport = v3;
+  self->_serviceTransport = [[NNMKSyncServiceIDSTransport alloc] initWithServiceName:self->_idsServiceName queue:self->_serviceQueue delegate:self];
 
   MEMORY[0x2821F96F8]();
+}
+
+- (id)sendProtobufData:(id)data type:(unint64_t)type priority:(unint64_t)priority repeatPreventionId:(id)id timeoutCategory:(unint64_t)category allowCloudDelivery:(BOOL)delivery
+{
+  deliveryCopy = delivery;
+  dataCopy = data;
+  idCopy = id;
+  if (idCopy)
+  {
+    if ([(NNMKSyncServiceEndpoint *)self _willIdRepeat:idCopy])
+    {
+      v16 = 0;
+    }
+
+    else
+    {
+      v16 = [(NNMKSyncServiceTransport *)self->_serviceTransport sendProtobufData:dataCopy type:type priority:priority timeoutCategory:category allowCloudDelivery:deliveryCopy];
+      [(NNMKSyncServiceEndpoint *)self _storeRepeatPreventionId:idCopy priority:priority];
+    }
+  }
+
+  else
+  {
+    v16 = [(NNMKSyncServiceEndpoint *)self sendProtobufData:dataCopy type:type priority:priority timeoutCategory:category allowCloudDelivery:deliveryCopy];
+  }
+
+  return v16;
 }
 
 - (void)syncServiceTransport:(id)transport didReadProtobufData:(id)data type:(unint64_t)type
@@ -132,40 +158,38 @@ void __56__NNMKSyncServiceEndpoint_initWithIDSServiceName_queue___block_invoke(u
 
 - (void)_removeExpiredRepeatPreventionRecords
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   allKeys = [(NSMutableDictionary *)self->_repeatPreventionRecords allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v9 + 1) + 8 * i);
         if (![(NNMKSyncServiceEndpoint *)self _willIdRepeat:v8])
         {
           [(NSMutableDictionary *)self->_repeatPreventionRecords removeObjectForKey:v8];
         }
       }
 
-      v5 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

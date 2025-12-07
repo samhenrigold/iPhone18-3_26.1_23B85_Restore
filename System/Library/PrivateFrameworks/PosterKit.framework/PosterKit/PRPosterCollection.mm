@@ -890,12 +890,12 @@ void __52__PRPosterCollection_chargerIdentifierRelationships__block_invoke(uint6
   reverseCopy = reverse;
   configurationsCopy = configurations;
   v7 = configurationsCopy;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__4;
-  v20 = __Block_byref_object_dispose__4;
-  v21 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__4;
+  v21 = __Block_byref_object_dispose__4;
+  v22 = 0;
   if (reverseCopy)
   {
     v8 = 2;
@@ -906,21 +906,21 @@ void __52__PRPosterCollection_chargerIdentifierRelationships__block_invoke(uint6
     v8 = 0;
   }
 
-  if (configurationsCopy && [configurationsCopy count])
+  if (configurationsCopy && (configurationsCopy = [configurationsCopy count]) != 0)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___block_invoke;
-    v15[3] = &unk_1E7844C48;
-    v15[4] = self;
-    v15[5] = &v16;
-    [v7 enumerateObjectsWithOptions:v8 usingBlock:v15];
-    if (!v17[5])
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___block_invoke;
+    v16[3] = &unk_1E7844C48;
+    v16[4] = self;
+    v16[5] = &v17;
+    v9 = [v7 enumerateObjectsWithOptions:v8 usingBlock:v16];
+    if (!v18[5])
     {
-      v9 = PRLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = PRLogCommon(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [PRPosterCollection fallbackSelectedForSortedConfigurations:v9 reverse:?];
+        [PRPosterCollection fallbackSelectedForSortedConfigurations:v10 reverse:?];
       }
 
       if (reverseCopy)
@@ -932,45 +932,45 @@ void __52__PRPosterCollection_chargerIdentifierRelationships__block_invoke(uint6
       {
         [v7 firstObject];
       }
-      v10 = ;
-      v13 = v17[5];
-      v17[5] = v10;
+      v11 = ;
+      v14 = v18[5];
+      v18[5] = v11;
     }
 
-    v12 = v17[5];
+    v13 = v18[5];
   }
 
   else
   {
-    v11 = PRLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = PRLogCommon(configurationsCopy);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [PRPosterCollection fallbackSelectedForSortedConfigurations:v11 reverse:?];
+      [PRPosterCollection fallbackSelectedForSortedConfigurations:v12 reverse:?];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v17, 8);
 
-  return v12;
+  return v13;
 }
 
 void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = [*(a1 + 32) configuredPropertiesForPoster:v7];
   v9 = [v8 focusConfiguration];
 
   if (!v9)
   {
-    v10 = PRLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = PRLogCommon(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = v7;
-      _os_log_impl(&dword_1A8AA7000, v10, OS_LOG_TYPE_DEFAULT, "Choosing selected configuration: choosing MRU unpaired configuration %{public}@", &v11, 0xCu);
+      v12 = 138543362;
+      v13 = v7;
+      _os_log_impl(&dword_1A8AA7000, v11, OS_LOG_TYPE_DEFAULT, "Choosing selected configuration: choosing MRU unpaired configuration %{public}@", &v12, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
@@ -980,7 +980,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
 
 - (void)initWithSelectedPoster:(char *)a1 posters:associatedPosterMap:attributeProvider:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -988,7 +988,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -998,7 +998,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
 
 - (void)initWithSelectedPoster:(char *)a1 posters:associatedPosterMap:attributeProvider:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSOrderedSetClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1006,7 +1006,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSOrderedSetClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1016,7 +1016,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
 
 - (void)initWithSelectedPoster:(char *)a1 posters:associatedPosterMap:attributeProvider:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSMapTableClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1024,7 +1024,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSMapTableClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1034,7 +1034,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
 
 - (void)initWithSelectedPoster:(char *)a1 posters:associatedPosterMap:attributeProvider:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1042,7 +1042,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1052,7 +1052,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
 
 - (void)initWithSelectedPoster:(char *)a1 posters:associatedPosterMap:attributeProvider:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1060,7 +1060,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1070,7 +1070,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
 
 - (void)attributesForPoster:(char *)a1 ofTypes:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1078,7 +1078,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterConfigurationClass]", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1089,7 +1089,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
 
 - (void)attributesForPoster:(char *)a1 ofTypes:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1097,7 +1097,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -1108,7 +1108,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
 
 - (void)configuredPropertiesForPoster:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1116,7 +1116,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1126,7 +1126,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
 
 - (void)configuredPropertiesForPoster:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1134,7 +1134,7 @@ void __70__PRPosterCollection_fallbackSelectedForSortedConfigurations_reverse___
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

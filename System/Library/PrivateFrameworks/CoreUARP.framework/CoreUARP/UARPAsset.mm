@@ -189,7 +189,7 @@ void __36__UARPAsset_prepareLocalFileForUse___block_invoke(uint64_t a1)
 
     if ((v8 & 1) == 0 && os_log_type_enabled(*(*v2 + 24), OS_LOG_TYPE_ERROR))
     {
-      __36__UARPAsset_prepareLocalFileForUse___block_invoke_cold_2(v2);
+      __36__UARPAsset_prepareLocalFileForUse___block_invoke_cold_2();
     }
 
     v9 = *(*(a1 + 32) + 8);
@@ -203,7 +203,7 @@ void __36__UARPAsset_prepareLocalFileForUse___block_invoke(uint64_t a1)
 
     if (os_log_type_enabled(*(*(a1 + 32) + 24), OS_LOG_TYPE_DEBUG))
     {
-      __36__UARPAsset_prepareLocalFileForUse___block_invoke_cold_3(v2);
+      __36__UARPAsset_prepareLocalFileForUse___block_invoke_cold_3();
     }
   }
 
@@ -220,66 +220,58 @@ void __36__UARPAsset_prepareLocalFileForUse___block_invoke(uint64_t a1)
 
     if (os_log_type_enabled(*(*(a1 + 32) + 24), OS_LOG_TYPE_DEBUG))
     {
-      __36__UARPAsset_prepareLocalFileForUse___block_invoke_cold_1(v2);
+      __36__UARPAsset_prepareLocalFileForUse___block_invoke_cold_1();
     }
   }
 }
 
 - (void)concludeLocalFileAccess
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_247AA7000, v0, OS_LOG_TYPE_ERROR, "%s: Error closing file %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_247AA7000, v0, OS_LOG_TYPE_ERROR, "%s: Error closing file %@", v1, 0x16u);
 }
 
 - (void)fileLength
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_247AA7000, v0, v1, "%s: Failed to get file size attribute for %@ with error %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_247AA7000, v0, v1, "%s: Failed to get file size attribute for %@ with error %@", v2);
 }
 
 - (void)prepareLocalFileForUse:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  *v4 = 136315650;
-  *&v4[4] = "[UARPAsset prepareLocalFileForUse:]";
-  *&v4[12] = 2112;
-  *&v4[14] = *(a1 + 8);
-  *&v4[22] = 2112;
-  OUTLINED_FUNCTION_3(&dword_247AA7000, a2, a3, "%s: Failed to Write/Read to url(%@) with Error: %@", *v4, *&v4[8], *&v4[16], *(*a2 + 40));
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 136315650;
+  *&v3[4] = "[UARPAsset prepareLocalFileForUse:]";
+  *&v3[12] = 2112;
+  *&v3[14] = *(a1 + 8);
+  *&v3[22] = 2112;
+  OUTLINED_FUNCTION_3(&dword_247AA7000, a2, a3, "%s: Failed to Write/Read to url(%@) with Error: %@", *v3, *&v3[8], *&v3[16], *(*a2 + 40));
 }
 
-void __36__UARPAsset_prepareLocalFileForUse___block_invoke_cold_1(uint64_t a1)
+void __36__UARPAsset_prepareLocalFileForUse___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_1_2(a1, *MEMORY[0x277D85DE8]);
-  v3[0] = 136315394;
+  OUTLINED_FUNCTION_1_2(*MEMORY[0x277D85DE8]);
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(&dword_247AA7000, v1, OS_LOG_TYPE_DEBUG, "%s: Opened Asset for reading at %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_247AA7000, v0, OS_LOG_TYPE_DEBUG, "%s: Opened Asset for reading at %@", v1, 0x16u);
 }
 
-void __36__UARPAsset_prepareLocalFileForUse___block_invoke_cold_2(uint64_t a1)
+void __36__UARPAsset_prepareLocalFileForUse___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_1_2(a1, *MEMORY[0x277D85DE8]);
-  v3[0] = 136315394;
+  OUTLINED_FUNCTION_1_2(*MEMORY[0x277D85DE8]);
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_4();
-  _os_log_error_impl(&dword_247AA7000, v1, OS_LOG_TYPE_ERROR, "%s: Failed to createFileAtPath for use %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_247AA7000, v0, OS_LOG_TYPE_ERROR, "%s: Failed to createFileAtPath for use %@", v1, 0x16u);
 }
 
-void __36__UARPAsset_prepareLocalFileForUse___block_invoke_cold_3(uint64_t a1)
+void __36__UARPAsset_prepareLocalFileForUse___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_1_2(a1, *MEMORY[0x277D85DE8]);
-  v3[0] = 136315394;
+  OUTLINED_FUNCTION_1_2(*MEMORY[0x277D85DE8]);
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(&dword_247AA7000, v1, OS_LOG_TYPE_DEBUG, "%s: Opened Asset for writing at %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_247AA7000, v0, OS_LOG_TYPE_DEBUG, "%s: Opened Asset for writing at %@", v1, 0x16u);
 }
 
 @end

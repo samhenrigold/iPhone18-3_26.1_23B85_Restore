@@ -696,7 +696,7 @@ uint64_t HgcAnalyzeGrain::RenderTile(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-uint64_t HgcAnalyzeGrain::GetDOD(HgcAnalyzeGrain *this, HGRenderer *a2, unsigned int a3, HGRect a4)
+uint64_t HgcAnalyzeGrain::GetDOD(HgcAnalyzeGrain *this, HGRenderer *a2, uint64_t a3, HGRect a4)
 {
   v4 = *&a4.var2;
   v5 = *&a4.var0;
@@ -705,11 +705,11 @@ uint64_t HgcAnalyzeGrain::GetDOD(HgcAnalyzeGrain *this, HGRenderer *a2, unsigned
     return 0;
   }
 
-  v6 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+  v6 = HGRectMake4i(-1, -1, 1, 1);
   return HGRectGrow(v5, v4, v6);
 }
 
-uint64_t HgcAnalyzeGrain::GetROI(HgcAnalyzeGrain *this, HGRenderer *a2, unsigned int a3, HGRect a4)
+uint64_t HgcAnalyzeGrain::GetROI(HgcAnalyzeGrain *this, HGRenderer *a2, uint64_t a3, HGRect a4)
 {
   v4 = *&a4.var2;
   v5 = *&a4.var0;
@@ -718,7 +718,7 @@ uint64_t HgcAnalyzeGrain::GetROI(HgcAnalyzeGrain *this, HGRenderer *a2, unsigned
     return 0;
   }
 
-  v6 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+  v6 = HGRectMake4i(-1, -1, 1, 1);
   return HGRectGrow(v5, v4, v6);
 }
 
@@ -3157,7 +3157,7 @@ uint64_t HgcConcentricPolygonsGradient::GetDOD(HgcConcentricPolygonsGradient *th
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -3179,7 +3179,7 @@ uint64_t HgcConcentricPolygonsGradient::GetROI(HGNode *this, HGRenderer *a2, int
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -5068,7 +5068,7 @@ uint64_t HgciOSLightTunnel::GetDOD(HgciOSLightTunnel *this, HGRenderer *a2, int 
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -5090,7 +5090,7 @@ uint64_t HgciOSLightTunnel::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect 
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -5566,7 +5566,7 @@ uint64_t HgciOSTwirl::GetDOD(HgciOSTwirl *this, HGRenderer *a2, int a3, HGRect a
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -5588,7 +5588,7 @@ uint64_t HgciOSTwirl::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -5985,7 +5985,7 @@ uint64_t HgciOSStretch::GetDOD(HgciOSStretch *this, HGRenderer *a2, int a3, HGRe
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -6007,7 +6007,7 @@ uint64_t HgciOSStretch::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -6643,7 +6643,7 @@ uint64_t HgciOSKaleidoscope::GetDOD(HgciOSKaleidoscope *this, HGRenderer *a2, in
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -6665,7 +6665,7 @@ uint64_t HgciOSKaleidoscope::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -7244,7 +7244,7 @@ uint64_t HgcCamcorder::GetDOD(HgcCamcorder *this, HGRenderer *a2, int a3, HGRect
   v6 = *&a4.var0;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v8 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v8 = HGRectMake4i(-1, -1, 1, 1);
     v6 = HGRectGrow(v6, v5, v8);
     v5 = v9;
   }
@@ -7303,7 +7303,7 @@ uint64_t HgcCamcorder::GetROI(HgcCamcorder *this, HGRenderer *a2, int a3, HGRect
     HGTransform::~HGTransform(v31);
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v29 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v29 = HGRectMake4i(-1, -1, 1, 1);
       return HGRectGrow(v4, v28, v29);
     }
   }
@@ -7387,7 +7387,7 @@ HgcCamcorder *HgcCamcorder::GetOutput(HgcCamcorder *this, void *a2)
   return this;
 }
 
-void TXGetGlyphBitmapInfo(uint64_t a1, uint64_t a2, int a3, float64x2_t *a4, double *a5, double *a6, float64x2_t *a7, uint64_t *a8, double a9, double a10, CGGlyph *a11, char a12)
+void TXGetGlyphBitmapInfo(uint64_t a1, uint64_t a2, int a3, float64x2_t *a4, double *a5, double *a6, uint64_t a7, uint64_t *a8, double a9, double a10, CGGlyph *a11, char a12)
 {
   v21 = 0.0;
   if (a12)
@@ -7412,21 +7412,21 @@ void TXGetGlyphBitmapInfo(uint64_t a1, uint64_t a2, int a3, float64x2_t *a4, dou
     TXCoreTextFont::getMetricsForGlyph(a2, v28, a6, v51, a9);
     v29 = v51[1];
     *a7 = v51[0];
-    a7[1] = v29;
-    a7[2] = v51[2];
-    v30 = a7[1];
+    *(a7 + 16) = v29;
+    *(a7 + 32) = v51[2];
+    v30 = *(a7 + 16);
     *a4 = *a7;
     a4[1] = v30;
     v31 = *a8;
     v30.f64[0] = -*a8;
     *a4 = vsubq_f64(*a4, vdupq_lane_s64(*a8, 0));
     v32 = v30.f64[0] - v31;
-    v33 = a7->f64[0];
-    v34 = ceil(a4[1].f64[0] - v32 + fabs(a7->f64[0]));
+    v33 = *a7;
+    v34 = ceil(a4[1].f64[0] - v32 + fabs(*a7));
     v35 = ceil(a4[1].f64[1] - v32);
     a4[1].f64[0] = v34;
     a4[1].f64[1] = v35;
-    v36 = a7[1].f64[0];
+    v36 = *(a7 + 16);
     if (v33 >= 0.0)
     {
       v37 = -*a8;
@@ -7438,9 +7438,9 @@ void TXGetGlyphBitmapInfo(uint64_t a1, uint64_t a2, int a3, float64x2_t *a4, dou
     }
 
     a4->f64[0] = v37;
-    v38 = a7->f64[0];
+    v38 = *a7;
     v39 = v36 * 0.5;
-    a4->f64[1] = vcvtmd_s64_f64(a7->f64[1] + 0.5 + 0.0000001) - *a8;
+    a4->f64[1] = vcvtmd_s64_f64(*(a7 + 8) + 0.5 + 0.0000001) - *a8;
     if (v38 >= 0.0)
     {
       v39 = v39 + v38;
@@ -7756,22 +7756,22 @@ void sub_25FAC1A24(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t TXGlyphRequest::TXGlyphRequest(uint64_t result, uint64_t a2)
+uint64_t TXGlyphRequest::TXGlyphRequest(uint64_t a1, uint64_t a2)
 {
-  *result = *a2;
-  *(result + 8) = *(a2 + 8);
-  *(result + 16) = *(a2 + 16);
-  *(result + 24) = *(a2 + 24);
-  *(result + 32) = *(a2 + 32);
+  *a1 = *a2;
+  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 32) = *(a2 + 32);
   v2 = *(a2 + 36);
-  *(result + 36) = v2;
-  *(result + 40) = *(a2 + 40);
+  *(a1 + 36) = v2;
+  *(a1 + 40) = *(a2 + 40);
   if ((v2 & 0x1000000) != 0)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 double PCMatrix33Tmpl<double>::operator=(uint64_t a1, uint64_t a2)
@@ -8027,7 +8027,7 @@ void std::vector<unsigned int>::__append(std::vector<int> *this, std::vector<int
   }
 }
 
-void std::vector<TXLineMetrics>::push_back[abi:ne200100](uint64_t *a1, __int128 *a2)
+void std::vector<TXLineMetrics>::push_back[abi:ne200100](char **a1, __int128 *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -8069,24 +8069,24 @@ void std::vector<TXLineMetrics>::push_back[abi:ne200100](uint64_t *a1, __int128 
     v14[3] = v17;
     *v14 = v15;
     v14[1] = v16;
-    v9 = (v10 << 6) + 64;
+    v9 = ((v10 << 6) + 64);
     v18 = *a1;
     v19 = a1[1];
-    v20 = (v10 << 6) + *a1 - v19;
+    v20 = ((v10 << 6) + *a1 - v19);
     if (*a1 != v19)
     {
       v21 = ((v10 << 6) + *a1 - v19);
       do
       {
         v22 = *v18;
-        v23 = v18[1];
-        v24 = v18[3];
-        v21[2] = v18[2];
+        v23 = *(v18 + 1);
+        v24 = *(v18 + 3);
+        v21[2] = *(v18 + 2);
         v21[3] = v24;
         *v21 = v22;
         v21[1] = v23;
         v21 += 4;
-        v18 += 4;
+        v18 += 64;
       }
 
       while (v18 != v19);
@@ -8111,7 +8111,7 @@ void std::vector<TXLineMetrics>::push_back[abi:ne200100](uint64_t *a1, __int128 
     v4[3] = v8;
     *v4 = v6;
     v4[1] = v7;
-    v9 = (v4 + 4);
+    v9 = v4 + 4;
   }
 
   a1[1] = v9;
@@ -8119,7 +8119,7 @@ void std::vector<TXLineMetrics>::push_back[abi:ne200100](uint64_t *a1, __int128 
 
 void TXParagraphStyle::TXParagraphStyle(TXParagraphStyle *this, TXTextLayout *a2)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  *(&v19 + 1) = *MEMORY[0x277D85DE8];
   *(this + 131) = 0;
   *(this + 1056) = 1;
   *this = &unk_2871ECA20;
@@ -8160,7 +8160,7 @@ void TXParagraphStyle::TXParagraphStyle(TXParagraphStyle *this, TXTextLayout *a2
   *(this + 111) = 0;
   *(this + 113) = 0;
   *(this + 112) = 0;
-  std::vector<TXLineMetrics>::__init_with_size[abi:ne200100]<TXLineMetrics const*,TXLineMetrics const*>(this + 888, v15, v19, 1uLL);
+  std::vector<TXLineMetrics>::__init_with_size[abi:ne200100]<TXLineMetrics const*,TXLineMetrics const*>(this + 111, v15, &v19, 1uLL);
   PCWorkingColorVector::PCWorkingColorVector((this + 928));
   *(this + 118) = a2;
   *(this + 119) = 0;
@@ -8229,7 +8229,7 @@ void *TXParagraphStyle::cloneBehaviorsFromSource(void *this, const TXParagraphSt
   if (this[118])
   {
     v2 = this;
-    TXParagraphStyle::getBehaviors(a2, &v11);
+    TXParagraphStyle::getBehaviors(&v11, a2);
     for (i = v12; i != &v11; i = i[1])
     {
       v4 = i[2];
@@ -8247,7 +8247,7 @@ void *TXParagraphStyle::cloneBehaviorsFromSource(void *this, const TXParagraphSt
               if (v9)
               {
                 v10 = v9;
-                if (OZChannelFolder::findMatchingDescendant((v2 + 40), ChanBase))
+                if (OZChannelFolder::findMatchingDescendant((v2 + 5), ChanBase))
                 {
                   (*(*v10 + 224))(v10);
                 }
@@ -8264,14 +8264,14 @@ void *TXParagraphStyle::cloneBehaviorsFromSource(void *this, const TXParagraphSt
   return this;
 }
 
-void sub_25FAC27E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FAC27E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
 
-void TXParagraphStyle::TXParagraphStyle(TXParagraphStyle *this, TXTextLayout *a2, TXParagraphStyle *a3)
+void TXParagraphStyle::TXParagraphStyle(TXParagraphStyle *this, TXTextLayout *a2, TXParagraphStyle *a3, int a4)
 {
   *(this + 131) = 0;
   *(this + 1056) = 1;
@@ -8281,12 +8281,12 @@ void TXParagraphStyle::TXParagraphStyle(TXParagraphStyle *this, TXTextLayout *a2
   *(this + 2) = 0;
   *(this + 3) = 0;
   *(this + 4) = 0;
-  PCURL::PCURL(v11, @"Text Paragraph Style Heading");
-  Instance = TXParagraphStyleFolder_Factory::getInstance(v6);
-  OZChannelFolder::OZChannelFolder((this + 40), Instance, v11, (a2 + 58880), 0x193u, 128, 0);
+  PCURL::PCURL(v15, @"Text Paragraph Style Heading");
+  Instance = TXParagraphStyleFolder_Factory::getInstance(v7);
+  OZChannelFolder::OZChannelFolder((this + 40), Instance, v15, (a2 + 58880), 0x193u, 128, 0);
   *(this + 5) = &unk_2871ECB20;
   *(this + 7) = &unk_2871ECDF8;
-  PCString::~PCString(v11);
+  PCString::~PCString(v15);
   OZChannelEnum::OZChannelEnum((this + 168), (a3 + 168), (this + 40));
   OZChannelEnum::OZChannelEnum((this + 424), (a3 + 424), (this + 40));
   OZChannel::OZChannel((this + 680), (a3 + 680), (this + 40));
@@ -8298,7 +8298,7 @@ void TXParagraphStyle::TXParagraphStyle(TXParagraphStyle *this, TXTextLayout *a2
   *(this + 111) = 0;
   *(this + 113) = 0;
   *(this + 112) = 0;
-  std::vector<TXLineMetrics>::__init_with_size[abi:ne200100]<TXLineMetrics const*,TXLineMetrics const*>(this + 888, *(a3 + 111), *(a3 + 112), (*(a3 + 112) - *(a3 + 111)) >> 6);
+  std::vector<TXLineMetrics>::__init_with_size[abi:ne200100]<TXLineMetrics const*,TXLineMetrics const*>(this + 111, *(a3 + 111), *(a3 + 112), (*(a3 + 112) - *(a3 + 111)) >> 6);
   PCWorkingColorVector::PCWorkingColorVector((this + 928));
   *(this + 118) = a2;
   *(this + 119) = 0;
@@ -8309,14 +8309,15 @@ void TXParagraphStyle::TXParagraphStyle(TXParagraphStyle *this, TXTextLayout *a2
   *(this + 124) = this + 1000;
   PCSharedCount::PCSharedCount(this + 127);
   *(this + 129) = 0;
-  v8 = *(a3 + 104);
-  if (((*(a3 + 105) - v8) & 0x7FFFFFFF8) != 0)
+  v9 = *(a3 + 104);
+  if (((*(a3 + 105) - v9) & 0x7FFFFFFF8) != 0)
   {
-    v9 = MEMORY[0x277CC08F0];
-    v10 = *v8;
-    OZChannel::getValueAsDouble((*v8 + 136), MEMORY[0x277CC08F0], 0.0);
-    OZChannel::getValueAsInt((v10 + 288), v9, 0.0);
-    TXParagraphStyle::insertTab();
+    v10 = MEMORY[0x277CC08F0];
+    v11 = *v9;
+    OZChannel::getValueAsDouble((*v9 + 136), MEMORY[0x277CC08F0], 0.0);
+    v13 = v12;
+    ValueAsInt = OZChannel::getValueAsInt((v11 + 288), v10, 0.0);
+    TXParagraphStyle::insertTab(this, ValueAsInt, v13);
   }
 
   *(this + 107) = *(a3 + 107);
@@ -8444,8 +8445,8 @@ void TXParagraphStyle::~TXParagraphStyle(TXParagraphStyle *this, uint64_t *a2)
   }
 
   OZChannel::~OZChannel((this + 680));
-  OZChannelEnum::~OZChannelEnum((this + 424));
-  OZChannelEnum::~OZChannelEnum((this + 168));
+  OZChannelEnum::~OZChannelEnum(this + 53);
+  OZChannelEnum::~OZChannelEnum(this + 21);
   OZChannelFolder::~OZChannelFolder((this + 40));
   v18 = *(this + 2);
   if (v18)
@@ -8672,8 +8673,8 @@ void TXParagraphStyle::shiftCaretInsertionIndices(TXParagraphStyle *this, int a2
     {
       v12 = *(v3 + 40);
       v13 = *(v3 + 4) + v5;
-      v15[3] = &v13;
-      v6 = std::__tree<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(&v14, &v13);
+      v16 = &v13;
+      v6 = std::__tree<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(&v14, &v13, &std::piecewise_construct, &v16);
       v7.i64[0] = 0xFFFFFFFFLL;
       v7.i64[1] = 0xFFFFFFFFLL;
       *(v6 + 5) = vbslq_s8(vceqq_s64(v12, v7), v7, vaddq_s64(v12, v11));
@@ -8725,17 +8726,17 @@ double TXParagraphStyle::clearLeftRightCaretPositionMaps(TXParagraphStyle *this)
   return result;
 }
 
-void *TXParagraphStyle::setCaretPositionPair(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+void *TXParagraphStyle::setCaretPositionPair(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7[0] = a2;
-  v7[2] = v7;
-  result = std::__tree<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(a1 + 992, v7);
+  v7 = a2;
+  v8 = &v7;
+  result = std::__tree<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(a1 + 992, &v7, &std::piecewise_construct, &v8);
   result[5] = a3;
   result[6] = a4;
   return result;
 }
 
-uint64_t TXParagraphStyle::setLineBreaks(TXParagraphStyle *this, unint64_t *a2, int a3)
+_DWORD *TXParagraphStyle::setLineBreaks(TXParagraphStyle *this, unint64_t *a2, int a3)
 {
   result = *(this + 114);
   if (result)
@@ -8828,12 +8829,12 @@ void std::vector<TXTabStop *>::push_back[abi:ne200100](uint64_t a1, void *a2)
   *(a1 + 8) = v6;
 }
 
-uint64_t TXParagraphStyle::getTabs@<X0>(TXParagraphStyle *this@<X0>, void *a2@<X8>)
+uint64_t *TXParagraphStyle::getTabs@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  return std::vector<TXTabStop *>::__init_with_size[abi:ne200100]<TXTabStop **,TXTabStop **>(a2, *(this + 104), *(this + 105), (*(this + 105) - *(this + 104)) >> 3);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  return std::vector<TXTabStop *>::__init_with_size[abi:ne200100]<TXTabStop **,TXTabStop **>(a1, *(a2 + 832), *(a2 + 840), (*(a2 + 840) - *(a2 + 832)) >> 3);
 }
 
 uint64_t TXParagraphStyle::writeHeader(TXParagraphStyle *this, PCSerializerWriteStream *a2)
@@ -8901,7 +8902,7 @@ uint64_t TXParagraphStyle::parseElement(TXParagraphStyle *this, PCSerializerRead
     v14 = 0;
     PCSerializerReadStream::getAttributeAsDouble(a2, a3, 1, &v15);
     PCSerializerReadStream::getAttributeAsUInt32(a2, a3, 2, &v14);
-    TXParagraphStyle::insertTab();
+    TXParagraphStyle::insertTab(this, v14, v15);
   }
 
   if (v6 == 110)
@@ -8987,60 +8988,60 @@ LABEL_28:
   return 1;
 }
 
-void TXParagraphStyle::calcHashForStateAndSetDirty(uint64_t a1)
+void TXParagraphStyle::calcHashForStateAndSetDirty(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](a1);
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v10 = v1;
-  v19[520] = *MEMORY[0x277D85DE8];
-  PCHashWriteStream::PCHashWriteStream(v19);
-  v17 = *v9;
-  OZChannel::calcHashForState((v10 + 168), v19, &v17);
-  v17 = *v9;
-  OZChannel::calcHashForState((v10 + 424), v19, &v17);
-  v17 = *v9;
-  (*(*(v7 + 7683) + 448))(v7 + 7683, v19, &v17);
-  v11 = *PCHashWriteStream::getHash(v19)->i8;
-  *&v17.value = v11;
-  v12 = *(v10 + 856);
-  if (v12 < *(v10 + 864) + v12)
+  MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  v24[520] = *MEMORY[0x277D85DE8];
+  PCHashWriteStream::PCHashWriteStream(v24);
+  v21 = *v12;
+  OZChannel::calcHashForState((v14 + 168), v24, &v21);
+  v21 = *v12;
+  OZChannel::calcHashForState((v14 + 424), v24, &v21);
+  v21 = *v12;
+  (*(*(v10 + 7683) + 448))(v10 + 7683, v24, &v21);
+  v15 = *PCHashWriteStream::getHash(v24)->i8;
+  *&v21.value = v15;
+  v16 = *(v14 + 856);
+  if (v16 < *(v14 + 864) + v16)
   {
     do
     {
-      StyleRunAtCharOffset = TXTextLayout::getStyleRunAtCharOffset(v7, v12);
-      v15 = *(StyleRunAtCharOffset + 24);
-      v18 = &v15;
-      v16 = *(std::__tree<std::__value_type<unsigned int,PCHash128>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCHash128>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCHash128>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v5, &v15) + 2);
-      PCHash128::operator+=(&v17, &v16);
-      v12 = *(StyleRunAtCharOffset + 28) + *(StyleRunAtCharOffset + 24);
+      StyleRunAtCharOffset = TXTextLayout::getStyleRunAtCharOffset(v10, v16);
+      v19 = *(StyleRunAtCharOffset + 24);
+      v23 = &v19;
+      v20 = *(std::__tree<std::__value_type<unsigned int,PCHash128>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCHash128>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCHash128>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v8, &v19, &std::piecewise_construct, &v23, &v22) + 2);
+      PCHash128::operator+=(&v21, &v20);
+      v16 = *(StyleRunAtCharOffset + 28) + *(StyleRunAtCharOffset + 24);
     }
 
-    while (v12 < *(v10 + 864) + *(v10 + 856));
-    v11 = *&v17.value;
+    while (v16 < *(v14 + 864) + *(v14 + 856));
+    v15 = *&v21.value;
   }
 
-  if (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(*(v10 + 928), v11)))))
+  if (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(*(v14 + 928), v15)))))
   {
-    *(v10 + 928) = *&v17.value;
-    if (v3)
+    *(v14 + 928) = *&v21.value;
+    if (v6)
     {
-      *(v10 + 872) = 1;
-      v14 = *(v10 + 944);
-      *&v16 = *(v10 + 1032);
-      TXTextLayout::invalidateTextObjectsInRange(v14, &v16);
-      *(v10 + 1032) = 0;
+      *(v14 + 872) = 1;
+      v18 = *(v14 + 944);
+      *&v20 = *(v14 + 1032);
+      TXTextLayout::invalidateTextObjectsInRange(v18, &v20);
+      *(v14 + 1032) = 0;
     }
   }
 
-  PCHashWriteStream::~PCHashWriteStream(v19);
+  PCHashWriteStream::~PCHashWriteStream(v24);
 }
 
-void sub_25FAC40DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_25FAC40DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   PCHashWriteStream::~PCHashWriteStream(va);
   _Unwind_Resume(a1);
 }
@@ -9087,12 +9088,12 @@ void TXParagraphStyle::setAttributedString(TXParagraphStyle *this, __CFAttribute
   *(this + 119) = a2;
 }
 
-void TXParagraphStyle::getBehaviors(TXParagraphStyle *this@<X0>, void *a2@<X8>)
+void TXParagraphStyle::getBehaviors(uint64_t *__return_ptr a1@<X8>, TXParagraphStyle *this@<X0>)
 {
-  *a2 = a2;
-  a2[1] = a2;
-  a2[2] = 0;
-  OZBehavior::GetBehaviorsAffectingChannel(this + 5, a2, 1);
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
+  OZBehavior::GetBehaviorsAffectingChannel(this + 5, a1, 1);
 }
 
 uint64_t TXParagraphStyleFolder_Factory::getInstance(TXParagraphStyleFolder_Factory *this)
@@ -9216,7 +9217,7 @@ void non-virtual thunk toTXParagraphStyle::TXParagraphStyle_lineSpacingInfo::~TX
 
 void OZChannelDouble::OZChannelDouble(OZChannelDouble *this, double a2, const PCString *a3, OZChannelFolder *a4, unsigned int a5, int a6, OZChannelImpl *a7, OZChannelInfo *a8)
 {
-  OZChannelDouble_FactoryBase = getOZChannelDouble_FactoryBase();
+  OZChannelDouble_FactoryBase = getOZChannelDouble_FactoryBase(this);
   OZChannel::OZChannel(this, OZChannelDouble_FactoryBase, a3, a4, a5, a6, a7, a8);
   *this = &unk_287245C60;
   *(this + 2) = &unk_287245FC0;
@@ -9287,7 +9288,7 @@ void non-virtual thunk toTXParagraphStyleFolder_Factory::~TXParagraphStyleFolder
   TXParagraphStyleFolder_Factory::~TXParagraphStyleFolder_Factory((this - 128));
 }
 
-uint64_t std::vector<TXLineMetrics>::__init_with_size[abi:ne200100]<TXLineMetrics const*,TXLineMetrics const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TXLineMetrics>::__init_with_size[abi:ne200100]<TXLineMetrics const*,TXLineMetrics const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9309,7 +9310,7 @@ void sub_25FAC4F04(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<TXLineMetrics>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TXLineMetrics>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -9405,7 +9406,7 @@ uint64_t *std::vector<TXDirectionalRun>::__swap_out_circular_buffer(uint64_t *re
     {
       v7 = *(v5 + 16);
       v8 = *v5;
-      v5 = (v5 + 24);
+      v5 += 24;
       *v6 = v8;
       *(v6 + 16) = v7;
       v6 += 24;
@@ -9439,56 +9440,56 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<TXDirectionalRun>>(ui
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__tree<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t **std::__tree<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::__tree_node<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::__tree_node<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -9563,23 +9564,23 @@ uint64_t **std::__tree<std::__value_type<unsigned long,std::pair<unsigned long,u
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>>>::__emplace_multi<std::pair<unsigned long const,std::pair<unsigned long,unsigned long>> const&>();
+    std::__tree<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>>>::__emplace_multi<std::pair<unsigned long const,std::pair<unsigned long,unsigned long>> const&>(v5, (a2 + 4));
   }
 
   return result;
 }
 
-void sub_25FAC5418(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FAC5418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>>>::__node_insert_multi(uint64_t **a1, uint64_t *a2)
+uint64_t *std::__tree<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<unsigned long,unsigned long>>>>::__node_insert_multi(uint64_t a1, uint64_t *a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -9609,7 +9610,7 @@ uint64_t *std::__tree<std::__value_type<unsigned long,std::pair<unsigned long,un
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -9617,7 +9618,7 @@ LABEL_8:
   return a2;
 }
 
-uint64_t std::vector<TXTabStop *>::__init_with_size[abi:ne200100]<TXTabStop **,TXTabStop **>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TXTabStop *>::__init_with_size[abi:ne200100]<TXTabStop **,TXTabStop **>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9639,41 +9640,41 @@ void sub_25FAC55A8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,PCHash128>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCHash128>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCHash128>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,PCHash128>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCHash128>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCHash128>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v5 = *(a1 + 8);
+  if (!v5)
   {
 LABEL_8:
     std::__tree<std::__value_type<unsigned int,PCHash128>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCHash128>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCHash128>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>();
   }
 
-  v3 = *a2;
+  v6 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v7 = v5;
+      v8 = *(v5 + 28);
+      if (v6 >= v8)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v5 = *v7;
+      if (!*v7)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v8 >= v6)
     {
-      return v4;
+      return v7;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v5 = v7[1];
+    if (!v5)
     {
       goto LABEL_8;
     }
@@ -9693,7 +9694,7 @@ void *TXTabStop::TXTabStop(void *a1, TXParagraphStyle *a2, unsigned int a3, doub
   v8 = (a1 + 1);
   PCURL::PCURL(&v12, @"Text Layout Tab Stop Heading");
   HeadingChannel = TXParagraphStyle::getHeadingChannel(a2);
-  OZChannelFolder::OZChannelFolder(v8, &v12, HeadingChannel, 0x1F5u, 8u, 0);
+  OZChannelFolder::OZChannelFolder(v8, &v12, HeadingChannel, 0x1F5u, 8, 0);
   PCString::~PCString(&v12);
   PCURL::PCURL(&v12, @"Text Layout Tab Stop Position");
   OZChannelDouble::OZChannelDouble((a1 + 17), a4, &v12, v8, 0x1F6u, 0, 0, 0);
@@ -9721,7 +9722,7 @@ void TXTabStop::~TXTabStop(TXTabStop *this)
   v2 = (this + 136);
   OZChannelFolder::removeDescendant((this + 8), (this + 136));
   OZChannelFolder::removeDescendant((this + 8), (this + 288));
-  OZChannelEnum::~OZChannelEnum((this + 288));
+  OZChannelEnum::~OZChannelEnum(this + 36);
   OZChannel::~OZChannel(v2);
   OZChannelFolder::~OZChannelFolder((this + 8));
 }
@@ -9863,14 +9864,4 @@ uint64_t non-virtual thunk toTXTextInput::deleteThis(TXTextInput *this, OZChanne
 
 {
   return TXTextLayout::deleteThis((this - 216), a2);
-}
-
-void TXTextInput::cloneBehaviorsEffects(TXTextInput *this, const OZSceneNode *a2, unsigned int a3)
-{
-  TXTextLayout::cloneBehaviorsEffects(this, a2, a3);
-  if (*(this + 64416) == 1)
-  {
-
-    TXTextInput::rebuildTextFromBehavior(this);
-  }
 }

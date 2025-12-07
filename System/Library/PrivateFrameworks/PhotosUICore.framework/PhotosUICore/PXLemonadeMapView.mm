@@ -21,7 +21,7 @@
 - (_TtC12PhotosUICore17PXLemonadeMapView)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for PXLemonadeMapView();
+  v3.super_class = type metadata accessor for PXLemonadeMapView(self, a2);
   return [(PXLemonadeMapView *)&v3 init];
 }
 

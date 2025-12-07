@@ -134,9 +134,9 @@
 - (BOOL)gestureRecognizerShouldBegin:(id)begin
 {
   view = [begin view];
-  v4 = _UIPreviewInteractionAllowedToBeginForView(view);
+  v5 = _UIPreviewInteractionAllowedToBeginForView(view, v4);
 
-  return v4;
+  return v5;
 }
 
 - (void)_handleTouchObservingGestureRecognizer:(id)recognizer

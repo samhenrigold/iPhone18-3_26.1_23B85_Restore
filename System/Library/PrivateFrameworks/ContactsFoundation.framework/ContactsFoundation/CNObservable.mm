@@ -122,9 +122,11 @@
 
 uint64_t __31__CNObservable_emptyObservable__block_invoke()
 {
-  emptyObservable_cn_once_object_5 = objc_alloc_init(_CNEmptyObservable);
+  v0 = objc_alloc_init(_CNEmptyObservable);
+  v1 = emptyObservable_cn_once_object_5;
+  emptyObservable_cn_once_object_5 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)observableWithInitialState:(id)state condition:(id)condition nextState:(id)nextState resultSelector:(id)selector
@@ -166,9 +168,11 @@ uint64_t __31__CNObservable_emptyObservable__block_invoke()
 
 uint64_t __22__CNObservable_os_log__block_invoke()
 {
-  os_log_cn_once_object_1_5 = os_log_create("com.apple.contacts.rx", "general");
+  v0 = os_log_create("com.apple.contacts.rx", "general");
+  v1 = os_log_cn_once_object_1_5;
+  os_log_cn_once_object_1_5 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (OS_os_log)os_log_protocol
@@ -185,9 +189,11 @@ uint64_t __22__CNObservable_os_log__block_invoke()
 
 uint64_t __31__CNObservable_os_log_protocol__block_invoke()
 {
-  os_log_protocol_cn_once_object_2 = os_log_create("com.apple.contacts.rx", "protocol");
+  v0 = os_log_create("com.apple.contacts.rx", "protocol");
+  v1 = os_log_protocol_cn_once_object_2;
+  os_log_protocol_cn_once_object_2 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)observableWithBlock:(id)block
@@ -721,9 +727,11 @@ id __53__CNObservable_observableWithTimeInterval_scheduler___block_invoke_5(uint
 
 uint64_t __31__CNObservable_neverObservable__block_invoke()
 {
-  neverObservable_cn_once_object_4 = objc_alloc_init(_CNNeverObservable);
+  v0 = objc_alloc_init(_CNNeverObservable);
+  v1 = neverObservable_cn_once_object_4;
+  neverObservable_cn_once_object_4 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)timerWithDelay:(double)delay
@@ -798,34 +806,34 @@ id __41__CNObservable_timerWithDelay_scheduler___block_invoke_5(uint64_t a1)
 
 + (id)combineLatest:(id)latest resultScheduler:(id)scheduler schedulerProvider:(id)provider
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   latestCopy = latest;
   schedulerCopy = scheduler;
   providerCopy = provider;
   array = [MEMORY[0x1E695DF70] array];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v11 = latestCopy;
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [array addObject:*(*(&v26 + 1) + 8 * i)];
+        [array addObject:*(*(&v25 + 1) + 8 * i)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v13);
@@ -853,28 +861,24 @@ id __41__CNObservable_timerWithDelay_scheduler___block_invoke_5(uint64_t a1)
 
   v19 = v16;
 LABEL_14:
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __64__CNObservable_combineLatest_resultScheduler_schedulerProvider___block_invoke_2;
-  v24[3] = &unk_1E6ED65D0;
-  v25 = array;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __64__CNObservable_combineLatest_resultScheduler_schedulerProvider___block_invoke_2;
+  v23[3] = &unk_1E6ED65D0;
+  v24 = array;
   v20 = array;
-  v21 = [v19 pipelineDescription:v24];
-
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = [v19 pipelineDescription:v23];
 
   return v21;
 }
 
 id __64__CNObservable_combineLatest_resultScheduler_schedulerProvider___block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v7[0] = a2;
+  v6[1] = *MEMORY[0x1E69E9840];
+  v6[0] = a2;
   v2 = MEMORY[0x1E695DEC8];
   v3 = a2;
-  v4 = [v2 arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = [v2 arrayWithObjects:v6 count:1];
 
   return v4;
 }
@@ -1226,15 +1230,13 @@ void __26__CNObservable_observeOn___block_invoke_7(uint64_t a1)
 
 - (id)ambWith:(id)with
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v9[0] = self;
-  v9[1] = with;
+  v8[2] = *MEMORY[0x1E69E9840];
+  v8[0] = self;
+  v8[1] = with;
   v3 = MEMORY[0x1E695DEC8];
   withCopy = with;
-  v5 = [v3 arrayWithObjects:v9 count:2];
+  v5 = [v3 arrayWithObjects:v8 count:2];
   v6 = [CNObservable amb:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -2617,13 +2619,13 @@ id __21__CNObservable_skip___block_invoke(uint64_t a1, void *a2)
   return v9;
 }
 
-uint64_t __21__CNObservable_skip___block_invoke_2(uint64_t result, uint64_t a2)
+void *__21__CNObservable_skip___block_invoke_2(void *result, uint64_t a2)
 {
-  v2 = *(*(result + 40) + 8);
+  v2 = *(*(result + 5) + 8);
   v3 = *(v2 + 24);
   if (!v3)
   {
-    return [*(result + 32) observerDidReceiveResult:a2];
+    return [*(result + 4) observerDidReceiveResult:a2];
   }
 
   *(v2 + 24) = v3 - 1;
@@ -2722,23 +2724,21 @@ id __25__CNObservable_skipLast___block_invoke_6(uint64_t a1)
 
 - (id)startWith:(id)with scheduler:(id)scheduler
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   withCopy = with;
   v7 = [CNObservable observableWithResults:withCopy scheduler:scheduler];
-  v16[0] = v7;
-  v16[1] = self;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[0] = v7;
+  v15[1] = self;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   v9 = [CNObservable concatenate:v8];
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __36__CNObservable_startWith_scheduler___block_invoke;
-  v14[3] = &unk_1E6ED65D0;
-  v15 = withCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __36__CNObservable_startWith_scheduler___block_invoke;
+  v13[3] = &unk_1E6ED65D0;
+  v14 = withCopy;
   v10 = withCopy;
-  v11 = [v9 pipelineDescriptionWithOperation:v14 onObservable:self];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = [v9 pipelineDescriptionWithOperation:v13 onObservable:self];
 
   return v11;
 }
@@ -3237,21 +3237,21 @@ uint64_t __21__CNObservable_take___block_invoke_2(uint64_t a1, void *a2)
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-uint64_t __21__CNObservable_take___block_invoke_3(uint64_t result)
+id *__21__CNObservable_take___block_invoke_3(id *result)
 {
-  if (*(*(*(result + 40) + 8) + 24) == 1)
+  if (*(*(result[5] + 1) + 24) == 1)
   {
-    return [*(result + 32) observerDidComplete];
+    return [result[4] observerDidComplete];
   }
 
   return result;
 }
 
-uint64_t __21__CNObservable_take___block_invoke_4(uint64_t result, uint64_t a2)
+id *__21__CNObservable_take___block_invoke_4(id *result, uint64_t a2)
 {
-  if (*(*(*(result + 40) + 8) + 24) == 1)
+  if (*(*(result[5] + 1) + 24) == 1)
   {
-    return [*(result + 32) observerDidFailWithError:a2];
+    return [result[4] observerDidFailWithError:a2];
   }
 
   return result;
@@ -3852,13 +3852,13 @@ id __22__CNObservable_using___block_invoke(uint64_t a1, void *a2)
 + (id)observableWithAbsoluteTimestamps:(id)timestamps schedulerProvider:(id)provider
 {
   selfCopy = self;
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   timestampsCopy = timestamps;
   providerCopy = provider;
   v7 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"timestamp" ascending:1];
-  v36[0] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
-  v30 = timestampsCopy;
+  v35[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
+  v29 = timestampsCopy;
   v9 = [timestampsCopy sortedArrayUsingDescriptors:v8];
 
   array = [MEMORY[0x1E695DF70] array];
@@ -3866,26 +3866,26 @@ id __22__CNObservable_using___block_invoke(uint64_t a1, void *a2)
   [firstObject timestamp];
   v13 = v12;
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v14 = v9;
-  v15 = [v14 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v32;
+    v17 = *v31;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v32 != v17)
+        if (*v31 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v31 + 1) + 8 * i);
+        v19 = *(*(&v30 + 1) + 8 * i);
         [v19 timestamp];
         v21 = vabdd_f64(v20, v13);
         v22 = [CNRelativeTimestamped alloc];
@@ -3897,15 +3897,13 @@ id __22__CNObservable_using___block_invoke(uint64_t a1, void *a2)
         v13 = v25;
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v16);
   }
 
   v26 = [selfCopy observableWithRelativeTimestamps:array schedulerProvider:providerCopy];
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
@@ -3936,34 +3934,34 @@ id __22__CNObservable_using___block_invoke(uint64_t a1, void *a2)
 
 CNCancelationToken *__84__CNObservable_TimestampReplay__observableWithRelativeTimestamps_schedulerProvider___block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc_init(CNQueue);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v31;
+    v8 = *v30;
     do
     {
       v9 = 0;
       do
       {
-        if (*v31 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(CNQueue *)v4 enqueue:*(*(&v30 + 1) + 8 * v9++)];
+        [(CNQueue *)v4 enqueue:*(*(&v29 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v7);
@@ -3974,24 +3972,23 @@ CNCancelationToken *__84__CNObservable_TimestampReplay__observableWithRelativeTi
   v12 = [(CNQueue *)v4 peek];
   [v12 timestamp];
   v14 = v13;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __84__CNObservable_TimestampReplay__observableWithRelativeTimestamps_schedulerProvider___block_invoke_2;
-  v24[3] = &unk_1E6ED75F8;
-  v29 = *(a1 + 48);
-  v25 = v4;
-  v26 = v3;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __84__CNObservable_TimestampReplay__observableWithRelativeTimestamps_schedulerProvider___block_invoke_2;
+  v23[3] = &unk_1E6ED75F8;
+  v28 = *(a1 + 48);
+  v24 = v4;
+  v25 = v3;
   v15 = v11;
-  v27 = v15;
-  v28 = v10;
+  v26 = v15;
+  v27 = v10;
   v16 = v10;
   v17 = v3;
   v18 = v4;
-  v19 = [v16 afterDelay:v24 performBlock:v14];
-  v20 = v28;
+  v19 = [v16 afterDelay:v23 performBlock:v14];
+  v20 = v27;
   v21 = v15;
 
-  v22 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -4281,7 +4278,7 @@ id __79__CNObservable_NSNotification__observableOnNotificationCenter_withName_ob
 id __75__CNObservable_DarwinNotify__observableOnDarwinNotificationCenterWithName___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DarwinObservers();
+  v4 = DarwinObservers(v3);
   v5 = [MEMORY[0x1E696AFB0] UUID];
   [v4 setObject:v3 forKey:v5];
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -4348,11 +4345,10 @@ id __79__CNObservable_NSKeyValueObserving__observableForKeyPath_ofObject_withOpt
 
 void __29__CNObservable_dematerialize__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1859F0000, a2, OS_LOG_TYPE_DEBUG, "Attempt to dematerialize a non-event: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1859F0000, a2, OS_LOG_TYPE_DEBUG, "Attempt to dematerialize a non-event: %{public}@", &v2, 0xCu);
 }
 
 @end

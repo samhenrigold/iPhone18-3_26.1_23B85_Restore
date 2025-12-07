@@ -78,16 +78,21 @@
   shouldLog = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
   oSLogObject = [v7 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
@@ -98,14 +103,13 @@
     v12 = v11;
     *location = 138412546;
     *&location[4] = v11;
-    v33 = 2048;
-    v34 = [requestsCopy count];
-    LODWORD(v22) = 22;
-    v13 = _os_log_send_and_compose_impl();
+    v32 = 2048;
+    v33 = [requestsCopy count];
+    v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Adding %ld upload requests", location, 22);
 
     if (v13)
     {
-      v14 = [NSString stringWithCString:v13 encoding:4, location, v22];
+      v14 = [NSString stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog();
     }
@@ -116,44 +120,44 @@
   }
 
   objc_initWeak(location, self);
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = requestsCopy;
-  v15 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v15 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v15)
   {
-    v16 = *v28;
+    v16 = *v27;
     do
     {
       for (i = 0; i != v15; i = i + 1)
       {
-        if (*v28 != v16)
+        if (*v27 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v27 + 1) + 8 * i);
+        v18 = *(*(&v26 + 1) + 8 * i);
         v19 = [[NSNumber alloc] initWithLongLong:{objc_msgSend(v18, "databaseIdentifier")}];
         v20 = [[PrepareDirectUploadOperation alloc] initWithRequest:v18];
-        v24[0] = _NSConcreteStackBlock;
-        v24[1] = 3221225472;
-        v24[2] = sub_1000D4640;
-        v24[3] = &unk_1003282B0;
-        objc_copyWeak(&v26, location);
-        v24[4] = v18;
-        v24[5] = self;
+        v23[0] = _NSConcreteStackBlock;
+        v23[1] = 3221225472;
+        v23[2] = sub_1000D4640;
+        v23[3] = &unk_1003282B0;
+        objc_copyWeak(&v25, location);
+        v23[4] = v18;
+        v23[5] = self;
         v21 = v19;
-        v25 = v21;
-        [(PrepareDirectUploadOperation *)v20 setOutputBlock:v24];
+        v24 = v21;
+        [(PrepareDirectUploadOperation *)v20 setOutputBlock:v23];
         [(NSMutableArray *)self->_uploadDatabaseIDs addObject:v21];
         [(ISOperationQueue *)self->_preparationQueue addOperation:v20];
 
-        objc_destroyWeak(&v26);
+        objc_destroyWeak(&v25);
       }
 
-      v15 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v15 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v15);
@@ -261,16 +265,21 @@
     shouldLog = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v17) = shouldLog;
     }
 
     oSLogObject = [v15 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
@@ -279,33 +288,33 @@
     {
       v19 = objc_opt_class();
       v20 = v19;
-      objc_getAssociatedObject(taskCopy, "com.apple.itunesstored.upload.id");
+      v21 = objc_getAssociatedObject(taskCopy, "com.apple.itunesstored.upload.id");
       v23 = 138412802;
       v24 = v19;
-      v26 = v25 = 2112;
+      v25 = 2112;
+      v26 = v21;
       v27 = 2112;
       v28 = v14;
-      LODWORD(v22) = 32;
-      v21 = _os_log_send_and_compose_impl();
+      v22 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Fail upload: %@, after HTTP error: %@", &v23, 32);
 
-      if (!v21)
+      if (!v22)
       {
-LABEL_14:
+LABEL_15:
 
         handlerCopy[2](handlerCopy, 0);
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v21 encoding:4, &v23, v22];
-      free(v21);
+      oSLogObject = [NSString stringWithCString:v22 encoding:4];
+      free(v22);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   handlerCopy[2](handlerCopy, 1);
-LABEL_15:
+LABEL_16:
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
@@ -378,26 +387,26 @@ LABEL_15:
   requestCopy = request;
   configurationCopy = configuration;
   lRequestCopy = lRequest;
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v10 = self->_sessions;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v38 objects:v50 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v37 objects:v49 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v39;
+    v13 = *v38;
 LABEL_3:
     v14 = 0;
     while (1)
     {
-      if (*v39 != v13)
+      if (*v38 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v38 + 1) + 8 * v14);
+      v15 = *(*(&v37 + 1) + 8 * v14);
       configuration = [v15 configuration];
       v17 = [configuration isEqual:configurationCopy];
 
@@ -408,7 +417,7 @@ LABEL_3:
 
       if (v12 == ++v14)
       {
-        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v38 objects:v50 count:16];
+        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v37 objects:v49 count:16];
         if (v12)
         {
           goto LABEL_3;
@@ -444,7 +453,7 @@ LABEL_14:
   localAssetURL = [requestCopy localAssetURL];
   v22 = [v18 uploadTaskWithRequest:lRequestCopy fromFile:localAssetURL];
 
-  v36 = requestCopy;
+  v35 = requestCopy;
   v23 = [[NSNumber alloc] initWithLongLong:{objc_msgSend(requestCopy, "databaseIdentifier")}];
   objc_setAssociatedObject(v22, "com.apple.itunesstored.upload.id", v23, 1);
   v24 = +[SSLogConfig sharedDaemonConfig];
@@ -477,29 +486,28 @@ LABEL_14:
 
   if (!v28)
   {
-    v33 = v36;
+    v33 = v35;
     goto LABEL_26;
   }
 
   v29 = objc_opt_class();
-  v35 = v29;
+  v34 = v29;
   taskIdentifier = [v22 taskIdentifier];
   identifier = [configurationCopy identifier];
-  v42 = 138413058;
-  v43 = v29;
-  v44 = 2048;
-  v45 = taskIdentifier;
-  v46 = 2112;
-  v47 = v23;
-  v48 = 2112;
-  v49 = identifier;
-  LODWORD(v34) = 42;
-  v32 = _os_log_send_and_compose_impl();
+  v41 = 138413058;
+  v42 = v29;
+  v43 = 2048;
+  v44 = taskIdentifier;
+  v45 = 2112;
+  v46 = v23;
+  v47 = 2112;
+  v48 = identifier;
+  v32 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Starting task: %lu, for upload: %@, session: %@", &v41, 42);
 
-  v33 = v36;
+  v33 = v35;
   if (v32)
   {
-    oSLogObject = [NSString stringWithCString:v32 encoding:4, &v42, v34];
+    oSLogObject = [NSString stringWithCString:v32 encoding:4];
     free(v32);
     SSFileLog();
 LABEL_26:
@@ -695,13 +703,12 @@ LABEL_26:
               v41 = 2048;
               v42 = (countOfBytesSent / v11);
               LODWORD(v26) = 32;
-              v25 = &v37;
-              v22 = _os_log_send_and_compose_impl();
+              v22 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "%@: Upload %lld did update progress: %.2f", &v37, v26);
 
               v6 = v27;
               if (v22)
               {
-                oSLogObject = [NSString stringWithCString:v22 encoding:4, &v37, v26];
+                oSLogObject = [NSString stringWithCString:v22 encoding:4];
                 free(v22);
                 v25 = oSLogObject;
                 SSFileLog();

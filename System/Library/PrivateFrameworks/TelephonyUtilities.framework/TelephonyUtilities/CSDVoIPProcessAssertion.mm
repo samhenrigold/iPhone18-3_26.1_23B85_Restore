@@ -30,7 +30,7 @@
 {
   if (self->_processAssertion)
   {
-    v3 = sub_100004778();
+    v3 = sub_100004778(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       bundleIdentifier = [(CSDVoIPProcessAssertion *)self bundleIdentifier];

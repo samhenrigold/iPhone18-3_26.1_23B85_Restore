@@ -25,7 +25,7 @@
 - (unint64_t)count
 {
   assets = [(PLImportSession *)self assets];
-  v3 = [assets count];
+  v3 = objc_msgSend_count(assets);
 
   return v3;
 }
@@ -96,7 +96,7 @@
       {
         v7 = v6;
         assets = [(PLImportSession *)self assets];
-        v9 = [assets count];
+        v9 = objc_msgSend_count(assets);
 
         if (!v9)
         {
@@ -192,7 +192,7 @@
   v13 = PLBackendGetLog();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v14 = [v10 count];
+    v14 = objc_msgSend_count(v10);
     shortObjectIDURI = [(PLManagedObject *)self shortObjectIDURI];
     *buf = 134218242;
     v19 = v14;
@@ -407,15 +407,15 @@ LABEL_13:
   v18 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   contextCopy = context;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v7 = [MEMORY[0x1E695D5E0] fetchRequestWithEntityName:@"ImportSession"];
     dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", @"importSessionID", dsCopy];
     [v7 setPredicate:dsCopy];
 
-    [v7 setFetchLimit:{objc_msgSend(dsCopy, "count")}];
+    [v7 setFetchLimit:objc_msgSend_count(dsCopy)];
     [v7 setReturnsObjectsAsFaults:0];
-    if ([dsCopy count] >= 0x65)
+    if (objc_msgSend_count(dsCopy) >= 0x65)
     {
       [v7 setFetchBatchSize:100];
     }

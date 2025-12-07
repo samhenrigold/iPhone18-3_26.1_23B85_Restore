@@ -33,7 +33,7 @@
 
 - (void)transferAppAssetPromisesForCoordinators:(id)coordinators logKey:(id)key
 {
-  sub_10009FAD4(0, &qword_10059EEE0);
+  sub_10009FAD4(0, &qword_10059EEE0, IXRestoringAppInstallCoordinator_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   keyCopy = key;
   selfCopy = self;
@@ -42,7 +42,7 @@
 
 - (void)sendDiscoverEvent
 {
-  v2 = sub_100085D40(&qword_10059C3E0);
+  v2 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v2 - 8);
   v4 = &v7 - v3;
   v5 = type metadata accessor for TaskPriority();

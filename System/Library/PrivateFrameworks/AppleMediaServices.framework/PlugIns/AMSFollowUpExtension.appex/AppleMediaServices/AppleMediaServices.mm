@@ -71,17 +71,16 @@ void sub_100001878(uint64_t a1, int a2, void *a3)
     v8 = [v7 OSLogObject];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = *(a1 + 32);
-      v12 = v10;
-      v13 = [v11 item];
-      v14 = [v13 logKey];
-      v22 = 138543618;
-      v23 = v10;
-      v24 = 2114;
-      v25 = v14;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Follow up cleared", &v22, 0x16u);
+      v9 = objc_opt_class();
+      v10 = *(a1 + 32);
+      v11 = v9;
+      v12 = [v10 item];
+      v13 = [v12 logKey];
+      v20 = 138543618;
+      v21 = v9;
+      v22 = 2114;
+      v23 = v13;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Follow up cleared", &v20, 0x16u);
     }
   }
 
@@ -95,20 +94,19 @@ void sub_100001878(uint64_t a1, int a2, void *a3)
     v8 = [v7 OSLogObject];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
+      v14 = objc_opt_class();
       v15 = *(a1 + 32);
-      v16 = objc_opt_class();
-      v17 = *(a1 + 32);
-      v18 = v16;
-      v19 = [v17 item];
-      v20 = [v19 logKey];
-      v21 = AMSLogableError();
-      v22 = 138543874;
-      v23 = v16;
+      v16 = v14;
+      v17 = [v15 item];
+      v18 = [v17 logKey];
+      v19 = AMSLogableError();
+      v20 = 138543874;
+      v21 = v14;
+      v22 = 2114;
+      v23 = v18;
       v24 = 2114;
-      v25 = v20;
-      v26 = 2114;
-      v27 = v21;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to clear follow up. Error = %{public}@", &v22, 0x20u);
+      v25 = v19;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to clear follow up. Error = %{public}@", &v20, 0x20u);
     }
   }
 }
@@ -128,17 +126,16 @@ void sub_100001B94(uint64_t a1, int a2, void *a3)
     v8 = [v7 OSLogObject];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = *(a1 + 32);
-      v12 = v10;
-      v13 = [v11 item];
-      v14 = [v13 logKey];
-      v22 = 138543618;
-      v23 = v10;
-      v24 = 2114;
-      v25 = v14;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully performed the follow up action.", &v22, 0x16u);
+      v9 = objc_opt_class();
+      v10 = *(a1 + 32);
+      v11 = v9;
+      v12 = [v10 item];
+      v13 = [v12 logKey];
+      v20 = 138543618;
+      v21 = v9;
+      v22 = 2114;
+      v23 = v13;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully performed the follow up action.", &v20, 0x16u);
     }
   }
 
@@ -152,20 +149,19 @@ void sub_100001B94(uint64_t a1, int a2, void *a3)
     v8 = [v7 OSLogObject];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
+      v14 = objc_opt_class();
       v15 = *(a1 + 32);
-      v16 = objc_opt_class();
-      v17 = *(a1 + 32);
-      v18 = v16;
-      v19 = [v17 item];
-      v20 = [v19 logKey];
-      v21 = AMSLogableError();
-      v22 = 138543874;
-      v23 = v16;
+      v16 = v14;
+      v17 = [v15 item];
+      v18 = [v17 logKey];
+      v19 = AMSLogableError();
+      v20 = 138543874;
+      v21 = v14;
+      v22 = 2114;
+      v23 = v18;
       v24 = 2114;
-      v25 = v20;
-      v26 = 2114;
-      v27 = v21;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to perform the follow up action. Error = %{public}@", &v22, 0x20u);
+      v25 = v19;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to perform the follow up action. Error = %{public}@", &v20, 0x20u);
     }
   }
 }
@@ -185,29 +181,28 @@ void sub_100001E84(uint64_t a1, void *a2, void *a3)
     v8 = [v7 OSLogObject];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = *(a1 + 32);
-      v12 = v10;
-      v13 = [v11 item];
-      v14 = [v13 logKey];
-      v15 = AMSLogableError();
-      v23 = 138543874;
-      v24 = v10;
+      v9 = objc_opt_class();
+      v10 = *(a1 + 32);
+      v11 = v9;
+      v12 = [v10 item];
+      v13 = [v12 logKey];
+      v14 = AMSLogableError();
+      v21 = 138543874;
+      v22 = v9;
+      v23 = 2114;
+      v24 = v13;
       v25 = 2114;
       v26 = v14;
-      v27 = 2114;
-      v28 = v15;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to flush action metrics. Error = %{public}@", &v23, 0x20u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to flush action metrics. Error = %{public}@", &v21, 0x20u);
     }
   }
 
   else
   {
-    v16 = @"skipped";
+    v15 = @"skipped";
     if ((objc_opt_respondsToSelector() & 1) != 0 && [v5 BOOLValue])
     {
-      v16 = @"posted";
+      v15 = @"posted";
     }
 
     v7 = +[AMSLogConfig sharedFollowUpConfig];
@@ -219,19 +214,18 @@ void sub_100001E84(uint64_t a1, void *a2, void *a3)
     v8 = [v7 OSLogObject];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
+      v16 = objc_opt_class();
       v17 = *(a1 + 32);
-      v18 = objc_opt_class();
-      v19 = *(a1 + 32);
-      v20 = v18;
-      v21 = [v19 item];
-      v22 = [v21 logKey];
-      v23 = 138543874;
-      v24 = v18;
+      v18 = v16;
+      v19 = [v17 item];
+      v20 = [v19 logKey];
+      v21 = 138543874;
+      v22 = v16;
+      v23 = 2114;
+      v24 = v20;
       v25 = 2114;
-      v26 = v22;
-      v27 = 2114;
-      v28 = v16;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Follow up action metrics %{public}@", &v23, 0x20u);
+      v26 = v15;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Follow up action metrics %{public}@", &v21, 0x20u);
     }
   }
 }
@@ -256,45 +250,43 @@ void sub_100002314(uint64_t a1, void *a2, void *a3)
     v7 = [v6 OSLogObject];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = *(a1 + 32);
-      v11 = v9;
-      v12 = [v10 item];
-      v13 = [v12 logKey];
-      v14 = AMSLogableError();
-      v23 = 138543874;
-      v24 = v9;
+      v8 = objc_opt_class();
+      v9 = *(a1 + 32);
+      v10 = v8;
+      v11 = [v9 item];
+      v12 = [v11 logKey];
+      v13 = AMSLogableError();
+      v21 = 138543874;
+      v22 = v8;
+      v23 = 2114;
+      v24 = v12;
       v25 = 2114;
       v26 = v13;
-      v27 = 2114;
-      v28 = v14;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to determine URL type. Error = %{public}@", &v23, 0x20u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to determine URL type. Error = %{public}@", &v21, 0x20u);
     }
   }
 
   else if ([a2 integerValue] == 1)
   {
-    v15 = +[AMSLogConfig sharedFollowUpConfig];
-    if (!v15)
+    v14 = +[AMSLogConfig sharedFollowUpConfig];
+    if (!v14)
     {
-      v15 = +[AMSLogConfig sharedConfig];
+      v14 = +[AMSLogConfig sharedConfig];
     }
 
-    v16 = [v15 OSLogObject];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = [v14 OSLogObject];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
+      v16 = objc_opt_class();
       v17 = *(a1 + 32);
-      v18 = objc_opt_class();
-      v19 = *(a1 + 32);
-      v20 = v18;
-      v21 = [v19 item];
-      v22 = [v21 logKey];
-      v23 = 138543618;
-      v24 = v18;
-      v25 = 2114;
-      v26 = v22;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Follow Up is web legacy type@", &v23, 0x16u);
+      v18 = v16;
+      v19 = [v17 item];
+      v20 = [v19 logKey];
+      v21 = 138543618;
+      v22 = v16;
+      v23 = 2114;
+      v24 = v20;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Follow Up is web legacy type@", &v21, 0x16u);
     }
 
     [*(a1 + 32) _presentLegacyAccountViewController];
@@ -306,9 +298,9 @@ void sub_100002314(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10000277C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000277C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -333,20 +325,19 @@ void sub_1000027AC(uint64_t a1, void *a2, void *a3)
       v8 = +[AMSLogConfig sharedConfig];
     }
 
-    v22 = [v8 OSLogObject];
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v20 = [v8 OSLogObject];
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *(*(*(a1 + 40) + 8) + 40);
-      v24 = objc_opt_class();
-      v25 = AMSLogKey();
-      v28 = 138543618;
-      v29 = v24;
-      v30 = 2114;
-      v31 = v25;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Task finished successfully. Clearing follow up", &v28, 0x16u);
+      v21 = objc_opt_class();
+      v22 = AMSLogKey();
+      v25 = 138543618;
+      v26 = v21;
+      v27 = 2114;
+      v28 = v22;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Task finished successfully. Clearing follow up", &v25, 0x16u);
     }
 
-    v21 = *(*(*(a1 + 40) + 8) + 40);
+    v19 = *(*(*(a1 + 40) + 8) + 40);
     goto LABEL_18;
   }
 
@@ -358,59 +349,57 @@ void sub_1000027AC(uint64_t a1, void *a2, void *a3)
   v9 = [v8 OSLogObject];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v10 = *(*(*(a1 + 40) + 8) + 40);
-    v11 = objc_opt_class();
-    v12 = AMSLogKey();
-    v28 = 138543874;
-    v29 = v11;
-    v30 = 2114;
-    v31 = v12;
-    v32 = 2114;
-    v33 = v6;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to run engagement task. %{public}@", &v28, 0x20u);
+    v10 = objc_opt_class();
+    v11 = AMSLogKey();
+    v25 = 138543874;
+    v26 = v10;
+    v27 = 2114;
+    v28 = v11;
+    v29 = 2114;
+    v30 = v6;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to run engagement task. %{public}@", &v25, 0x20u);
   }
 
-  v13 = [*(a1 + 32) action];
-  if (([v13 shouldClear] & 1) == 0)
+  v12 = [*(a1 + 32) action];
+  if (([v12 shouldClear] & 1) == 0)
   {
 
     goto LABEL_20;
   }
 
-  v14 = [*(a1 + 32) action];
-  v15 = [v14 requiresFollowUpUI];
+  v13 = [*(a1 + 32) action];
+  v14 = [v13 requiresFollowUpUI];
 
-  if (v15)
+  if (v14)
   {
-    v16 = +[AMSLogConfig sharedFollowUpConfig];
-    if (!v16)
+    v15 = +[AMSLogConfig sharedFollowUpConfig];
+    if (!v15)
     {
-      v16 = +[AMSLogConfig sharedConfig];
+      v15 = +[AMSLogConfig sharedConfig];
     }
 
-    v17 = [v16 OSLogObject];
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = [v15 OSLogObject];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = *(*(*(a1 + 40) + 8) + 40);
-      v19 = objc_opt_class();
-      v20 = AMSLogKey();
-      v28 = 138543618;
-      v29 = v19;
-      v30 = 2114;
-      v31 = v20;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Clearing follow up due to shouldClear despite error.", &v28, 0x16u);
+      v17 = objc_opt_class();
+      v18 = AMSLogKey();
+      v25 = 138543618;
+      v26 = v17;
+      v27 = 2114;
+      v28 = v18;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Clearing follow up due to shouldClear despite error.", &v25, 0x16u);
     }
 
-    v21 = *(a1 + 32);
+    v19 = *(a1 + 32);
 LABEL_18:
-    [v21 _enqueueClearFollowUp];
+    [v19 _enqueueClearFollowUp];
   }
 
 LABEL_20:
   [*(*(*(a1 + 40) + 8) + 40) _dismiss];
-  v26 = *(*(a1 + 40) + 8);
-  v27 = *(v26 + 40);
-  *(v26 + 40) = 0;
+  v23 = *(*(a1 + 40) + 8);
+  v24 = *(v23 + 40);
+  *(v23 + 40) = 0;
 }
 
 id sub_100002B40(uint64_t a1)

@@ -20,7 +20,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B37503B8();
+  sub_1B37503B8(delegate);
 }
 
 - (PUPickerOnboardingHeaderView)initWithClientDisplayName:(id)name isLimitedLibraryPicker:(BOOL)picker closeAction:(id)action
@@ -60,7 +60,7 @@
 - (void)didMoveToWindow
 {
   selfCopy = self;
-  sub_1B3752C88();
+  sub_1B3752C88(selfCopy);
 }
 
 - (void)hovering:(id)hovering

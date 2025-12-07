@@ -3,15 +3,20 @@
 - (void)_addLog:(id)log logLevel:(unint64_t)level;
 - (void)_encounterMethodCall:(SEL)call animatedValue:(unint64_t)value;
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)previewDidDisappear:(BOOL)disappear;
 - (void)previewIsAppearingWithProgress:(double)progress;
+- (void)previewWillAppear:(BOOL)appear;
+- (void)previewWillDisappear:(BOOL)disappear;
 - (void)previewWillFinishAppearing;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 @end
 
 @implementation QLDebugItemViewController
 
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   contentsCopy = contents;
   contextCopy = context;
   handlerCopy = handler;
@@ -68,9 +73,9 @@
   view4 = [(QLDebugItemViewController *)self view];
   v33 = MEMORY[0x277CCAAD0];
   v34 = self->_logTextView;
-  v42 = @"textView";
-  v43 = v34;
-  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+  v41 = @"textView";
+  v42 = v34;
+  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
   v36 = [v33 constraintsWithVisualFormat:@"H:|[textView]|" options:0 metrics:0 views:v35];
   [view4 addConstraints:v36];
 
@@ -86,7 +91,42 @@
   [(QLDebugItemViewController *)self _addLog:v40 logLevel:3];
 
   handlerCopy[2](handlerCopy, 0);
-  v41 = *MEMORY[0x277D85DE8];
+}
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v19.receiver = self;
+  v19.super_class = QLDebugItemViewController;
+  appearanceCopy = appearance;
+  [(QLItemViewController *)&v19 setAppearance:appearanceCopy animated:animatedCopy];
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __52__QLDebugItemViewController_setAppearance_animated___block_invoke;
+  aBlock[3] = &unk_278B57190;
+  aBlock[4] = self;
+  v8 = _Block_copy(aBlock);
+  v9 = v8;
+  if (animatedCopy)
+  {
+    [MEMORY[0x277D75D18] animateWithDuration:v8 animations:0.2];
+  }
+
+  else
+  {
+    (*(v8 + 2))(v8);
+  }
+
+  v10 = MEMORY[0x277CCACA8];
+  v11 = NSStringFromSelector(a2);
+  [appearanceCopy topInset];
+  v13 = v12;
+  [appearanceCopy bottomInset];
+  v15 = v14;
+  presentationMode = [appearanceCopy presentationMode];
+
+  v17 = [v10 stringWithFormat:@"%@: %f, %f, %ld", v11, v13, v15, presentationMode];
+  [(QLDebugItemViewController *)self _addLog:v17 logLevel:0];
 }
 
 void __52__QLDebugItemViewController_setAppearance_animated___block_invoke(uint64_t a1)
@@ -103,6 +143,21 @@ void __52__QLDebugItemViewController_setAppearance_animated___block_invoke(uint6
   [v4 setNeedsLayout];
 }
 
+- (void)previewWillAppear:(BOOL)appear
+{
+  v10[1] = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = QLDebugItemViewController;
+  [(QLItemViewController *)&v8 previewWillAppear:appear];
+  [(QLDebugItemViewController *)self _encounterMethodCall:a2];
+  v9 = @"previewItemName";
+  context = [(QLItemViewController *)self context];
+  previewTitle = [context previewTitle];
+  v10[0] = previewTitle;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  QLNotifySelector(a2, v7);
+}
+
 - (void)previewIsAppearingWithProgress:(double)progress
 {
   v5.receiver = self;
@@ -117,6 +172,52 @@ void __52__QLDebugItemViewController_setAppearance_animated___block_invoke(uint6
   v4.super_class = QLDebugItemViewController;
   [(QLItemViewController *)&v4 previewWillFinishAppearing];
   [(QLDebugItemViewController *)self _encounterMethodCall:a2];
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  v10[1] = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = QLDebugItemViewController;
+  [(QLItemViewController *)&v8 previewDidAppear:appear];
+  [(QLDebugItemViewController *)self _encounterMethodCall:a2];
+  v9 = @"previewItemName";
+  context = [(QLItemViewController *)self context];
+  previewTitle = [context previewTitle];
+  v10[0] = previewTitle;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  QLNotifySelector(a2, v7);
+}
+
+- (void)previewWillDisappear:(BOOL)disappear
+{
+  v10[1] = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = QLDebugItemViewController;
+  [(QLItemViewController *)&v8 previewWillDisappear:disappear];
+  [(QLDebugItemViewController *)self _encounterMethodCall:a2];
+  v9 = @"previewItemName";
+  context = [(QLItemViewController *)self context];
+  previewTitle = [context previewTitle];
+  v10[0] = previewTitle;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  QLNotifySelector(a2, v7);
+}
+
+- (void)previewDidDisappear:(BOOL)disappear
+{
+  v10[1] = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = QLDebugItemViewController;
+  [(QLItemViewController *)&v8 previewDidDisappear:disappear];
+  [(QLDebugItemViewController *)self _encounterMethodCall:a2];
+  [(QLDebugItemViewController *)self _addLog:@"\n---\n" logLevel:3];
+  v9 = @"previewItemName";
+  context = [(QLItemViewController *)self context];
+  previewTitle = [context previewTitle];
+  v10[0] = previewTitle;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  QLNotifySelector(a2, v7);
 }
 
 - (void)_encounterMethodCall:(SEL)call animatedValue:(unint64_t)value
@@ -159,8 +260,8 @@ void __52__QLDebugItemViewController_setAppearance_animated___block_invoke(uint6
 
 - (id)_attributesForLogLevel:(unint64_t)level
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = *MEMORY[0x277D740C0];
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = *MEMORY[0x277D740C0];
   switch(level)
   {
     case 2uLL:
@@ -189,11 +290,11 @@ void __52__QLDebugItemViewController_setAppearance_animated___block_invoke(uint6
       break;
   }
 
-  v13[0] = redColor;
-  v12[1] = *MEMORY[0x277D740A8];
+  v12[0] = redColor;
+  v11[1] = *MEMORY[0x277D740A8];
   v8 = [MEMORY[0x277D74300] systemFontOfSize:14.0];
-  v13[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   if (v7)
   {
@@ -224,8 +325,6 @@ LABEL_12:
   if (level == 2)
   {
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

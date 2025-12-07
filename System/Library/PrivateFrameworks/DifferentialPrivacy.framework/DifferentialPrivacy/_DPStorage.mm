@@ -3,6 +3,9 @@
 + (id)entitiesRequiringMaintenance;
 + (id)errorStringFor:(int64_t)for;
 + (id)shuffleOrderOfRecords:(id)records count:(unint64_t)count;
++ (id)storageWithDirectory:(id)directory readOnly:(BOOL)only;
+- (BOOL)deleteStorageWithObliterationOption:(BOOL)option;
+- (_DPStorage)initWithDirectory:(id)directory readOnly:(BOOL)only;
 - (id)removeBadObjects:(id)objects;
 - (void)dealloc;
 - (void)deleteAllRecordsByKey:(id)key withCompletion:(id)completion;
@@ -20,33 +23,186 @@
 
 @implementation _DPStorage
 
+- (_DPStorage)initWithDirectory:(id)directory readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  v79[12] = *MEMORY[0x277D85DE8];
+  directoryCopy = directory;
+  v75.receiver = self;
+  v75.super_class = _DPStorage;
+  v7 = [(_DPStorage *)&v75 init];
+  if (v7)
+  {
+    v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v72 = [v8 pathForResource:@"DifferentialPrivacyDataModel" ofType:@"momd"];
+
+    v71 = [MEMORY[0x277CBEBC0] fileURLWithPath:v72];
+    v7->_readOnly = onlyCopy;
+    v9 = [_DPCoreDataStorage storageWithDirectory:directoryCopy databaseName:@"DifferentialPrivacy" modelURL:v71 readOnly:onlyCopy];
+    coredataStorage = v7->_coredataStorage;
+    v7->_coredataStorage = v9;
+
+    v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v12 = dispatch_queue_create("com.apple.DifferentialPrivacy.storage", v11);
+    queue = v7->_queue;
+    v7->_queue = v12;
+
+    v69 = +[_DPModelInfoRecord entityName];
+    v78[0] = v69;
+    v67 = objc_opt_new();
+    v79[0] = v67;
+    v65 = +[_DPPrivacyBudgetRecord entityName];
+    v78[1] = v65;
+    v63 = objc_opt_new();
+    v79[1] = v63;
+    v61 = +[_DPNumericDataRecord entityName];
+    v78[2] = v61;
+    v59 = objc_opt_new();
+    v79[2] = v59;
+    v57 = +[_DPBitValueRecord entityName];
+    v78[3] = v57;
+    v55 = objc_opt_new();
+    v79[3] = v55;
+    v53 = +[_DPOBHSequenceRecord entityName];
+    v78[4] = v53;
+    v51 = objc_opt_new();
+    v79[4] = v51;
+    v49 = +[_DPCMSSequenceRecord entityName];
+    v78[5] = v49;
+    v47 = objc_opt_new();
+    v79[5] = v47;
+    v45 = +[_DPCMSWordRecord entityName];
+    v78[6] = v45;
+    v43 = objc_opt_new();
+    v79[6] = v43;
+    v14 = +[_DPHCMSSequenceRecord entityName];
+    v78[7] = v14;
+    v15 = objc_opt_new();
+    v79[7] = v15;
+    v16 = +[_DPHCMSWordRecord entityName];
+    v78[8] = v16;
+    v17 = objc_opt_new();
+    v79[8] = v17;
+    v18 = +[_DPPTRecord entityName];
+    v78[9] = v18;
+    v73 = directoryCopy;
+    v19 = objc_opt_new();
+    v79[9] = v19;
+    v20 = +[_DPBSSFPRecord entityName];
+    v78[10] = v20;
+    v21 = objc_opt_new();
+    v79[10] = v21;
+    +[_DPPrioRecord entityName];
+    v22 = v74 = v7;
+    v78[11] = v22;
+    v23 = objc_opt_new();
+    v79[11] = v23;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v78 count:12];
+    converterFromEntity = v74->_converterFromEntity;
+    v74->_converterFromEntity = v24;
+
+    v70 = [objc_opt_class() description];
+    v76[0] = v70;
+    v68 = objc_opt_new();
+    v77[0] = v68;
+    v66 = [objc_opt_class() description];
+    v76[1] = v66;
+    v64 = objc_opt_new();
+    v77[1] = v64;
+    v62 = [objc_opt_class() description];
+    v76[2] = v62;
+    v60 = objc_opt_new();
+    v77[2] = v60;
+    v58 = [objc_opt_class() description];
+    v76[3] = v58;
+    v56 = objc_opt_new();
+    v77[3] = v56;
+    v54 = [objc_opt_class() description];
+    v76[4] = v54;
+    v52 = objc_opt_new();
+    v77[4] = v52;
+    v50 = [objc_opt_class() description];
+    v76[5] = v50;
+    v48 = objc_opt_new();
+    v77[5] = v48;
+    v46 = [objc_opt_class() description];
+    v76[6] = v46;
+    v44 = objc_opt_new();
+    v77[6] = v44;
+    v42 = [objc_opt_class() description];
+    v76[7] = v42;
+    v41 = objc_opt_new();
+    v77[7] = v41;
+    v40 = [objc_opt_class() description];
+    v76[8] = v40;
+    v39 = objc_opt_new();
+    v77[8] = v39;
+    v26 = [objc_opt_class() description];
+    v76[9] = v26;
+    v27 = objc_opt_new();
+    v77[9] = v27;
+    v28 = [objc_opt_class() description];
+    v76[10] = v28;
+    v29 = objc_opt_new();
+    v77[10] = v29;
+    v30 = [objc_opt_class() description];
+    v76[11] = v30;
+    v31 = objc_opt_new();
+    v77[11] = v31;
+    v32 = [objc_opt_class() description];
+    v76[12] = v32;
+    v33 = objc_opt_new();
+    v77[12] = v33;
+    v34 = [objc_opt_class() description];
+    v76[13] = v34;
+    v35 = objc_opt_new();
+    v77[13] = v35;
+    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:14];
+    converterFromClass = v74->_converterFromClass;
+    v74->_converterFromClass = v36;
+
+    directoryCopy = v73;
+    v7 = v74;
+  }
+
+  return v7;
+}
+
++ (id)storageWithDirectory:(id)directory readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  directoryCopy = directory;
+  v7 = [[self alloc] initWithDirectory:directoryCopy readOnly:onlyCopy];
+
+  return v7;
+}
+
 - (id)removeBadObjects:(id)objects
 {
-  v13[9] = *MEMORY[0x277D85DE8];
+  v12[9] = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   v4 = objc_autoreleasePoolPush();
   v5 = [objectsCopy mutableCopy];
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v13[2] = objc_opt_class();
-  v13[3] = objc_opt_class();
-  v13[4] = objc_opt_class();
-  v13[5] = objc_opt_class();
-  v13[6] = objc_opt_class();
-  v13[7] = objc_opt_class();
-  v13[8] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:9];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __31___DPStorage_removeBadObjects___block_invoke;
-  v11[3] = &unk_27858AF40;
-  v12 = v6;
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v12[2] = objc_opt_class();
+  v12[3] = objc_opt_class();
+  v12[4] = objc_opt_class();
+  v12[5] = objc_opt_class();
+  v12[6] = objc_opt_class();
+  v12[7] = objc_opt_class();
+  v12[8] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:9];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __31___DPStorage_removeBadObjects___block_invoke;
+  v10[3] = &unk_27858AF40;
+  v11 = v6;
   v7 = v6;
-  v8 = [objectsCopy indexesOfObjectsPassingTest:v11];
+  v8 = [objectsCopy indexesOfObjectsPassingTest:v10];
   [v5 removeObjectsAtIndexes:v8];
 
   objc_autoreleasePoolPop(v4);
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -84,7 +240,7 @@
 
 + (id)createFetchRequestFor:(id)for entityName:(id)name predicate:(id)predicate fetchLimit:(unint64_t)limit fetchOffset:(unint64_t)offset
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   forCopy = for;
   nameCopy = name;
   predicateCopy = predicate;
@@ -99,39 +255,37 @@
   [v14 setFetchLimit:limit];
   [v14 setFetchOffset:offset];
   v17 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"creationDate" ascending:1];
-  v31[0] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+  v30[0] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
   [v14 setSortDescriptors:v18];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   sortDescriptors = [v14 sortDescriptors];
-  v20 = [sortDescriptors countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v20 = [sortDescriptors countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v27;
+    v22 = *v26;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v27 != v22)
+        if (*v26 != v22)
         {
           objc_enumerationMutation(sortDescriptors);
         }
 
-        [*(*(&v26 + 1) + 8 * i) allowEvaluation];
+        [*(*(&v25 + 1) + 8 * i) allowEvaluation];
       }
 
-      v21 = [sortDescriptors countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v21 = [sortDescriptors countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v21);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -304,18 +458,18 @@
 
 - (void)saveRecords:(id)records andFlush:(BOOL)flush withCompletion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   completionCopy = completion;
   if ([recordsCopy count])
   {
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__4;
-    v31 = __Block_byref_object_dispose__4;
-    v32 = [(_DPStorage *)self removeBadObjects:recordsCopy];
-    v11 = [v28[5] count];
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__4;
+    v30 = __Block_byref_object_dispose__4;
+    v31 = [(_DPStorage *)self removeBadObjects:recordsCopy];
+    v11 = [v27[5] count];
     if (v11 != [recordsCopy count])
     {
       v12 = +[_DPLog framework];
@@ -327,7 +481,7 @@
       }
     }
 
-    if ([v28[5] count])
+    if ([v27[5] count])
     {
       coredataStorage = [(_DPStorage *)self coredataStorage];
       v16 = +[_DPDataProtectionStateMonitor dataProtectionClassC];
@@ -343,17 +497,17 @@
       }
 
       v19 = os_transaction_create();
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __50___DPStorage_saveRecords_andFlush_withCompletion___block_invoke;
-      v22[3] = &unk_27858B0D0;
-      v25 = &v27;
-      v22[4] = self;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __50___DPStorage_saveRecords_andFlush_withCompletion___block_invoke;
+      v21[3] = &unk_27858B0D0;
+      v24 = &v26;
+      v21[4] = self;
       v20 = v17;
-      v23 = v20;
+      v22 = v20;
       flushCopy = flush;
-      v24 = completionCopy;
-      [v20 performWithOptions:4 andBlock:v22];
+      v23 = completionCopy;
+      [v20 performWithOptions:4 andBlock:v21];
     }
 
     else
@@ -361,15 +515,13 @@
       [(_DPStorage *)self handleEmptyArrayError:4 completion:completionCopy];
     }
 
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v26, 8);
   }
 
   else
   {
     [(_DPStorage *)self handleEmptyArrayError:3 completion:completionCopy];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateRecords:(id)records withCompletion:(id)completion
@@ -494,6 +646,21 @@
   [v15 performWithOptions:4 andBlock:v17];
 }
 
+- (BOOL)deleteStorageWithObliterationOption:(BOOL)option
+{
+  if (self->_readOnly)
+  {
+    return 0;
+  }
+
+  optionCopy = option;
+  coredataStorage = [(_DPStorage *)self coredataStorage];
+  v6 = +[_DPDataProtectionStateMonitor dataProtectionClassC];
+  LOBYTE(optionCopy) = [coredataStorage deleteStorageFor:v6 obliterate:optionCopy];
+
+  return optionCopy;
+}
+
 - (void)flush
 {
   v3 = os_transaction_create();
@@ -527,30 +694,28 @@
 
 + (id)entitiesRequiringMaintenance
 {
-  v15[10] = *MEMORY[0x277D85DE8];
-  v14 = +[_DPNumericDataRecord entityName];
-  v15[0] = v14;
+  v14[10] = *MEMORY[0x277D85DE8];
+  v13 = +[_DPNumericDataRecord entityName];
+  v14[0] = v13;
   v2 = +[_DPBitValueRecord entityName];
-  v15[1] = v2;
+  v14[1] = v2;
   v3 = +[_DPOBHSequenceRecord entityName];
-  v15[2] = v3;
+  v14[2] = v3;
   v4 = +[_DPCMSWordRecord entityName];
-  v15[3] = v4;
+  v14[3] = v4;
   v5 = +[_DPCMSSequenceRecord entityName];
-  v15[4] = v5;
+  v14[4] = v5;
   v6 = +[_DPHCMSWordRecord entityName];
-  v15[5] = v6;
+  v14[5] = v6;
   v7 = +[_DPHCMSSequenceRecord entityName];
-  v15[6] = v7;
+  v14[6] = v7;
   v8 = +[_DPPTRecord entityName];
-  v15[7] = v8;
+  v14[7] = v8;
   v9 = +[_DPBSSFPRecord entityName];
-  v15[8] = v9;
+  v14[8] = v9;
   v10 = +[_DPPrioRecord entityName];
-  v15[9] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:10];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[9] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:10];
 
   return v11;
 }
@@ -608,13 +773,10 @@
 
 - (void)updateRecords:(uint64_t)a1 withCompletion:(const char *)a2 .cold.1(uint64_t a1, const char *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromSelector(a2);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_3(&dword_22622D000, v5, v6, "%@ : %@ : found foreign objects", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_22622D000, v5, v6, "%@ : %@ : found foreign objects", v7, v8, v9, v10);
 }
 
 @end

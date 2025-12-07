@@ -109,15 +109,15 @@
   {
     clientScene = [self clientScene];
     hostHandle = [clientScene hostHandle];
-    auditToken = [hostHandle auditToken];
+    v3 = objc_msgSend_auditToken(hostHandle);
   }
 
   else
   {
-    auditToken = 0;
+    v3 = 0;
   }
 
-  return auditToken;
+  return v3;
 }
 
 - (void)setClientViewControllerIsReady:(void *)ready
@@ -376,9 +376,9 @@ LABEL_20:
   identityToken = [_FBSScene identityToken];
   clientScene = [(FBSSceneComponent *)self clientScene];
   identityToken2 = [clientScene identityToken];
-  v15 = [identityToken isEqual:identityToken2];
+  isEqual = objc_msgSend_isEqual_(identityToken);
 
-  if (v15)
+  if (isEqual)
   {
     v16 = *(__UILogGetCategoryCachedImpl("ViewServices", &sceneWillConnect____s_category) + 8);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))

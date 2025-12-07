@@ -16,41 +16,38 @@
 - (void)appendDescriptionToStream:(id)stream
 {
   streamCopy = stream;
-  v5 = [streamCopy appendObject:self->_environment withName:@"environment"];
-  v6 = [streamCopy appendObject:self->_token withName:@"token" skipIfNil:1];
+  v5 = [streamCopy appendObject:? withName:?];
+  v6 = [streamCopy appendObject:? withName:? skipIfNil:?];
   if ([streamCopy hasSuccinctStyle])
   {
-    v7 = [streamCopy appendInteger:-[NSSet count](self->_keyCommands withName:{"count"), @"keyCommands"}];
+    [(NSSet *)self->_keyCommands count];
+    v7 = [streamCopy appendInteger:? withName:?];
   }
 
   else
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __64__BKSHIDEventKeyCommandsRegistration_appendDescriptionToStream___block_invoke;
-    v8[3] = &unk_1E6F47000;
-    v8[4] = self;
+    v8 = MEMORY[0x1E69E9820];
     v9 = streamCopy;
-    [v9 appendCustomFormatWithName:@"keyCommands" block:v8];
+    [v9 appendCustomFormatWithName:v8 block:{3221225472, __64__BKSHIDEventKeyCommandsRegistration_appendDescriptionToStream___block_invoke, &unk_1E6F47000, self}];
   }
 }
 
 - (id)succinctDescription
 {
-  v3 = MEMORY[0x1E698E688];
+  v2 = MEMORY[0x1E698E688];
   succinctStyle = [MEMORY[0x1E698E690] succinctStyle];
-  v5 = [v3 descriptionForRootObject:self withStyle:succinctStyle];
+  v4 = [v2 descriptionForRootObject:? withStyle:?];
 
-  return v5;
+  return v4;
 }
 
 - (NSString)debugDescription
 {
-  v3 = MEMORY[0x1E698E688];
+  v2 = MEMORY[0x1E698E688];
   debugStyle = [MEMORY[0x1E698E690] debugStyle];
-  v5 = [v3 descriptionForRootObject:self withStyle:debugStyle];
+  v4 = [v2 descriptionForRootObject:? withStyle:?];
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -58,26 +55,24 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v13 = 1;
+    v7 = 1;
   }
 
   else
   {
     v5 = objc_opt_class();
-    if ((v5 == objc_opt_class() || (v6 = objc_opt_class(), v6 == objc_opt_class())) && (environment = self->_environment, v8 = equalCopy->_environment, BSEqualObjects()) && (token = self->_token, v10 = equalCopy->_token, BSEqualObjects()))
+    if ((v5 == objc_opt_class() || (v6 = objc_opt_class(), v6 == objc_opt_class())) && BSEqualObjects() && BSEqualObjects())
     {
-      keyCommands = self->_keyCommands;
-      v12 = equalCopy->_keyCommands;
-      v13 = BSEqualObjects();
+      v7 = BSEqualObjects();
     }
 
     else
     {
-      v13 = 0;
+      v7 = 0;
     }
   }
 
-  return v13;
+  return v7;
 }
 
 - (unint64_t)hash
@@ -89,90 +84,62 @@
 
 - (BKSHIDEventKeyCommandsRegistration)initWithCoder:(id)coder
 {
-  v39[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   if (v5 == objc_opt_class() || (v6 = objc_opt_class(), v6 == objc_opt_class()))
   {
-    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"environment"];
-    if (v12)
+    objc_opt_class();
+    v11 = [coderCopy decodeObjectOfClass:? forKey:?];
+    if (v11)
     {
-      v9 = v12;
-      v13 = MEMORY[0x1E695DFD8];
-      v14 = objc_opt_class();
-      v15 = [v13 setWithObjects:{v14, objc_opt_class(), 0}];
-      v10 = [coderCopy decodeObjectOfClasses:v15 forKey:@"keyCommands"];
+      v8 = v11;
+      v12 = MEMORY[0x1E695DFD8];
+      objc_opt_class();
+      v13 = [v12 setWithObjects:{objc_opt_class(), 0}];
+      v9 = [coderCopy decodeObjectOfClasses:? forKey:?];
 
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      if ((objc_opt_isKindOfClass() & 1) != 0 && ![v9 bs_containsObjectPassingTest:?])
       {
-        if (![v10 bs_containsObjectPassingTest:&__block_literal_global_7724])
-        {
-          v31 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"token"];
-          self = [(BKSHIDEventKeyCommandsRegistration *)self _initWithEnvironment:v9 token:v31 keyCommands:v10];
+        objc_opt_class();
+        v23 = [coderCopy decodeObjectOfClass:? forKey:?];
+        self = [BKSHIDEventKeyCommandsRegistration _initWithEnvironment:"_initWithEnvironment:token:keyCommands:" token:? keyCommands:?];
 
-          selfCopy = self;
-          goto LABEL_12;
-        }
-
-        v16 = MEMORY[0x1E696ABC0];
-        v17 = *MEMORY[0x1E696A250];
-        v38 = *MEMORY[0x1E696A588];
-        v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode BKSHIDEventKeyCommandsRegistration: keyCommands contains non-BKSHIDEventKeyCommand elements : %@", v10];
-        v39[0] = v18;
-        v19 = MEMORY[0x1E695DF20];
-        v20 = v39;
-        v21 = &v38;
+        selfCopy = self;
+        goto LABEL_11;
       }
 
-      else
-      {
-        v16 = MEMORY[0x1E696ABC0];
-        v17 = *MEMORY[0x1E696A250];
-        v36 = *MEMORY[0x1E696A588];
-        v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode BKSHIDEventKeyCommandsRegistration: keyCommands not of class NSSet : %@", v10];
-        v37 = v18;
-        v19 = MEMORY[0x1E695DF20];
-        v20 = &v37;
-        v21 = &v36;
-      }
-
-      v26 = [v19 dictionaryWithObjects:v20 forKeys:v21 count:1];
-      v27 = [v16 errorWithDomain:v17 code:4866 userInfo:v26];
-      [coderCopy failWithError:v27];
+      v17 = MEMORY[0x1E696ABC0];
+      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:v9];
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+      v20 = [v17 errorWithDomain:? code:? userInfo:?];
+      [coderCopy failWithError:?];
     }
 
     else
     {
-      v22 = MEMORY[0x1E696ABC0];
-      v23 = *MEMORY[0x1E696A250];
-      v34 = *MEMORY[0x1E696A588];
-      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode BKSHIDEventKeyCommandsRegistration: invalid environment : environment=%@", 0];
-      v35 = v10;
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-      v25 = [v22 errorWithDomain:v23 code:4866 userInfo:v24];
-      [coderCopy failWithError:v25];
+      v14 = MEMORY[0x1E696ABC0];
+      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:0];
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+      v16 = [v14 errorWithDomain:? code:? userInfo:?];
+      [coderCopy failWithError:?];
 
-      v9 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
     v7 = MEMORY[0x1E696ABC0];
-    v8 = *MEMORY[0x1E696A250];
-    v32 = *MEMORY[0x1E696A588];
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode BKSHIDEventKeyCommandsRegistration: subclasses are not allowed : %@", objc_opt_class()];
-    v33 = v9;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-    v11 = [v7 errorWithDomain:v8 code:4866 userInfo:v10];
-    [coderCopy failWithError:v11];
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    v10 = [v7 errorWithDomain:? code:? userInfo:?];
+    [coderCopy failWithError:?];
   }
 
   selfCopy = 0;
-LABEL_12:
+LABEL_11:
 
-  v29 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -187,26 +154,22 @@ BOOL __52__BKSHIDEventKeyCommandsRegistration_initWithCoder___block_invoke(uint6
 
 - (void)encodeWithCoder:(id)coder
 {
-  environment = self->_environment;
   coderCopy = coder;
-  [coderCopy encodeObject:environment forKey:@"environment"];
-  [coderCopy encodeObject:self->_token forKey:@"token"];
-  [coderCopy encodeObject:self->_keyCommands forKey:@"keyCommands"];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
 {
-  v4 = [BKSMutableHIDEventKeyCommandsRegistration allocWithZone:zone];
-  environment = self->_environment;
-  token = self->_token;
-  keyCommands = self->_keyCommands;
+  v3 = [BKSMutableHIDEventKeyCommandsRegistration allocWithZone:?];
 
-  return [(BKSHIDEventKeyCommandsRegistration *)v4 _initWithEnvironment:environment token:token keyCommands:keyCommands];
+  return [BKSHIDEventKeyCommandsRegistration _initWithEnvironment:v3 token:"_initWithEnvironment:token:keyCommands:" keyCommands:?];
 }
 
 - (id)_initWithEnvironment:(id)environment token:(id)token keyCommands:(id)commands
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   environmentCopy = environment;
   tokenCopy = token;
   commandsCopy = commands;
@@ -216,37 +179,37 @@ BOOL __52__BKSHIDEventKeyCommandsRegistration_initWithCoder___block_invoke(uint6
     v13 = objc_opt_class();
     if (v13 != objc_opt_class())
     {
-      v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDEventKeyCommandsRegistration cannot be subclassed"];
+      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v24 = NSStringFromSelector(a2);
-        v25 = objc_opt_class();
-        v26 = NSStringFromClass(v25);
+        v23 = NSStringFromSelector(a2);
+        v24 = objc_opt_class();
+        v25 = NSStringFromClass(v24);
         *buf = 138544642;
-        v29 = v24;
-        v30 = 2114;
-        v31 = v26;
-        v32 = 2048;
+        v28 = v23;
+        v29 = 2114;
+        v30 = v25;
+        v31 = 2048;
         selfCopy = self;
-        v34 = 2114;
-        v35 = @"BKSHIDEventKeyCommandsRegistration.m";
-        v36 = 1024;
-        v37 = 35;
-        v38 = 2114;
-        v39 = v23;
+        v33 = 2114;
+        v34 = @"BKSHIDEventKeyCommandsRegistration.m";
+        v35 = 1024;
+        v36 = 35;
+        v37 = 2114;
+        v38 = v22;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v23 UTF8String];
+      [v22 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18638F5ECLL);
     }
   }
 
-  v27.receiver = self;
-  v27.super_class = BKSHIDEventKeyCommandsRegistration;
-  v14 = [(BKSHIDEventKeyCommandsRegistration *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = BKSHIDEventKeyCommandsRegistration;
+  v14 = [(BKSHIDEventKeyCommandsRegistration *)&v26 init];
   if (v14)
   {
     v15 = [environmentCopy copy];
@@ -262,13 +225,12 @@ BOOL __52__BKSHIDEventKeyCommandsRegistration_initWithCoder___block_invoke(uint6
     v14->_keyCommands = v19;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BKSHIDEventKeyCommandsRegistration)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"-init is not allowed on BKSHIDEventKeyCommandsRegistration"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);

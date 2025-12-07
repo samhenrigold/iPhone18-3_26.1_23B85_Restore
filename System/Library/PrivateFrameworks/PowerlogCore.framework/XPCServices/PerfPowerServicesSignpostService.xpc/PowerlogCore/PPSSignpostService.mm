@@ -21,7 +21,7 @@
 
 - (void)notifyExpired
 {
-  v3 = PPSLogSignpostService();
+  v3 = PPSLogSignpostService(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

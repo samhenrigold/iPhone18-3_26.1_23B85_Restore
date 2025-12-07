@@ -158,7 +158,7 @@
   {
     v4 = intervalCopy / 3600;
     v5 = MEMORY[0x1E696AEC0];
-    v6 = CKFrameworkBundle();
+    v6 = CKFrameworkBundle(self);
     v7 = v6;
     v8 = @"OFFER_TIME_REMAINING_HOURS";
     goto LABEL_5;
@@ -168,7 +168,7 @@
   if (v4)
   {
     v5 = MEMORY[0x1E696AEC0];
-    v6 = CKFrameworkBundle();
+    v6 = CKFrameworkBundle(self);
     v7 = v6;
     v8 = @"OFFER_TIME_REMAINING_MINUTES";
 LABEL_5:
@@ -194,7 +194,7 @@ LABEL_5:
     goto LABEL_9;
   }
 
-  v12 = CKFrameworkBundle();
+  v12 = CKFrameworkBundle(self);
   v16 = [v12 localizedStringForKey:@"OFFER_TIME_REMAINING_LESS_THAN_ONE_MINUTE" value:&stru_1F04268F8 table:@"ChatKit"];
 LABEL_9:
   v17 = v16;

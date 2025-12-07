@@ -109,27 +109,8 @@
 
 - (void)viewWillLayoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIITunesStoreUIPageViewController *)v3 viewWillLayoutSubviews:v4];
-      }
-    }
-  }
-
-  if ([(SKUIITunesStoreUIPageViewController *)self showsCancelButton])
-  {
-    navigationItemForScriptInterface = [(SUStorePageViewController *)self navigationItemForScriptInterface];
-    [(SKUIITunesStoreUIPageViewController *)self _addCancelButtonToNavigationItem:navigationItemForScriptInterface];
-  }
-
-  v12.receiver = self;
-  v12.super_class = SKUIITunesStoreUIPageViewController;
-  [(SKUIITunesStoreUIPageViewController *)&v12 viewWillLayoutSubviews];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIITunesStoreUIPageViewController viewWillLayoutSubviews]";
 }
 
 - (void)_addCancelButtonToNavigationItem:(id)item
@@ -184,6 +165,24 @@
   WeakRetained = objc_loadWeakRetained(&self->_productPageViewController);
 
   return WeakRetained;
+}
+
+- (void)handleFailureWithError:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIITunesStoreUIPageViewController handleFailureWithError:]";
+}
+
+- (void)presentDialogForError:(uint64_t)a3 pendUntilVisible:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIITunesStoreUIPageViewController presentDialogForError:pendUntilVisible:]";
+}
+
+- (void)resetNavigationItem:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIITunesStoreUIPageViewController resetNavigationItem:]";
 }
 
 @end

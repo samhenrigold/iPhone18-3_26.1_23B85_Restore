@@ -7,7 +7,7 @@
 
 - (id)nf_sha1
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = [self dataUsingEncoding:4];
   CC_SHA1([v1 bytes], objc_msgSend(v1, "length"), md);
   v2 = [MEMORY[0x277CCAB68] stringWithCapacity:40];
@@ -15,8 +15,6 @@
   {
     [v2 appendFormat:@"%02x", md[i]];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

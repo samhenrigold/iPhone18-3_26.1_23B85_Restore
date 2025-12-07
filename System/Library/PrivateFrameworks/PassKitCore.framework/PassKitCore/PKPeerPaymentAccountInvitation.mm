@@ -27,15 +27,15 @@
     {
       if (v8)
       {
-        v10 = [(__CFString *)v8 isEqualToString:@"pending"];
+        isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-        if (v10)
+        if (isEqualToString)
         {
           goto LABEL_5;
         }
 
         v12 = v9;
-        if (v12 == @"accepted" || (v13 = v12, v14 = [(__CFString *)v12 isEqualToString:@"accepted"], v13, v14))
+        if (v12 == @"accepted" || (v13 = v12, v14 = objc_msgSend_isEqualToString_(v12), v13, v14))
         {
           v11 = 2;
           goto LABEL_10;
@@ -144,9 +144,9 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v9 = [(NSString *)v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v9)
+    if (!isEqualToString)
     {
       goto LABEL_12;
     }

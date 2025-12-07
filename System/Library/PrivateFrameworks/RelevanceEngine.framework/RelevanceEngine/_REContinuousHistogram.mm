@@ -113,31 +113,25 @@
 
 - (unint64_t)mean
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v14 = 0;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
-  v10 = 0;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __30___REContinuousHistogram_mean__block_invoke;
-  v6[3] = &unk_2785FABD0;
-  v6[4] = &v11;
-  v6[5] = &v7;
-  [(_REContinuousHistogram *)self enumerateValuesUsingBlock:v6];
-  v2 = v8[3];
-  if (v2)
-  {
-    v3 = v12[3] / v2;
-  }
-
-  v4 = RECreateDoubleFeatureValueTaggedPointer();
-  _Block_object_dispose(&v7, 8);
-  _Block_object_dispose(&v11, 8);
-  return v4;
+  v6[0] = 0;
+  v6[1] = v6;
+  v6[2] = 0x2020000000;
+  v6[3] = 0;
+  v5[0] = 0;
+  v5[1] = v5;
+  v5[2] = 0x2020000000;
+  v5[3] = 0;
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __30___REContinuousHistogram_mean__block_invoke;
+  v4[3] = &unk_2785FABD0;
+  v4[4] = v6;
+  v4[5] = v5;
+  [(_REContinuousHistogram *)self enumerateValuesUsingBlock:v4];
+  v2 = RECreateDoubleFeatureValueTaggedPointer();
+  _Block_object_dispose(v5, 8);
+  _Block_object_dispose(v6, 8);
+  return v2;
 }
 
 - (unint64_t)standardDeviation

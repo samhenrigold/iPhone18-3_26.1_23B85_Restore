@@ -20,7 +20,7 @@
     v19 = v18;
     if (v14)
     {
-      [v14 shadowSettings];
+      objc_msgSend_shadowSettings(v14);
       v20 = *(&v32 + 1);
     }
 
@@ -66,7 +66,7 @@
   v15 = a9;
   v16 = a7;
   v17 = a6;
-  v18 = [objc_opt_class() sbui_legibilityImageForSettings:v17 scale:v16 inputImage:1 inputSize:a8 allowMinFillHeightHack:v15 type:self pool:{a2, a3}];
+  v18 = [objc_opt_class() sbui_legibilityImageForSettings:v17 scale:v16 inputImage:1 inputSize:a8 allowMinFillHeightHack:v15 type:a2 pool:{a3, a4}];
 
   return v18;
 }
@@ -76,7 +76,7 @@
   v17 = a10;
   v18 = a7;
   v19 = a6;
-  v20 = [objc_opt_class() sbui_legibilityImageForSettings:v19 scale:v18 inputImage:a8 inputSize:0 allowMinFillHeightHack:a9 strength:v17 type:self pool:{a2, a3}];
+  v20 = [objc_opt_class() sbui_legibilityImageForSettings:v19 scale:v18 inputImage:a8 inputSize:0 allowMinFillHeightHack:a9 strength:v17 type:a2 pool:{a3, a4}];
 
   return v20;
 }

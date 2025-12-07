@@ -59,13 +59,13 @@ void __23__EDInMemoryThread_log__block_invoke(uint64_t a1)
 
 - (EDInMemoryThread)initWithMessages:(id)messages originatingQuery:(id)query threadScope:(id)scope
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   queryCopy = query;
   scopeCopy = scope;
-  v28.receiver = self;
-  v28.super_class = EDInMemoryThread;
-  v11 = [(EDInMemoryThread *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = EDInMemoryThread;
+  v11 = [(EDInMemoryThread *)&v27 init];
   if (v11)
   {
     v12 = [messagesCopy ef_filter:&__block_literal_global_30];
@@ -109,7 +109,6 @@ void __23__EDInMemoryThread_log__block_invoke(uint64_t a1)
   v25 = v11;
 LABEL_10:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -146,7 +145,7 @@ uint64_t __66__EDInMemoryThread_initWithMessages_originatingQuery_threadScope___
 
 void __46__EDInMemoryThread__createThreadWithObjectID___block_invoke(id *a1, void *a2)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [a1[4] date];
   [v3 setDate:v4];
@@ -181,26 +180,26 @@ void __46__EDInMemoryThread__createThreadWithObjectID___block_invoke(id *a1, voi
 
   [v3 setIsVIP:{objc_msgSend(a1[5], "_combinedIsVIP")}];
   [v3 setIsBlocked:{objc_msgSend(a1[5], "_combinedIsBlocked")}];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v14 = *(a1[5] + 1);
-  v15 = [v14 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v15)
   {
-    v16 = *v35;
+    v16 = *v34;
     do
     {
       v17 = 0;
       do
       {
-        if (*v35 != v16)
+        if (*v34 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v34 + 1) + 8 * v17);
+        v18 = *(*(&v33 + 1) + 8 * v17);
         v19 = [v3 searchResultType];
         v20 = [v18 searchResultType];
         if (v19 <= v20)
@@ -218,7 +217,7 @@ void __46__EDInMemoryThread__createThreadWithObjectID___block_invoke(id *a1, voi
       }
 
       while (v15 != v17);
-      v15 = [v14 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v15);
@@ -267,8 +266,6 @@ void __46__EDInMemoryThread__createThreadWithObjectID___block_invoke(id *a1, voi
       __46__EDInMemoryThread__createThreadWithObjectID___block_invoke_cold_1(v32, buf, v31);
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -317,30 +314,30 @@ uint64_t __32__EDInMemoryThread_addMessages___block_invoke(uint64_t a1, void *a2
 
 - (void)_addMessagesToThread:(id)thread
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   threadCopy = thread;
   _dateSortDescriptors = [objc_opt_class() _dateSortDescriptors];
   v6 = EFComparatorFromSortDescriptors();
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   obj = threadCopy;
-  v7 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [(NSMutableArray *)self->_messages ef_indexOfObject:v10 usingComparator:v6];
         if (v11 == 0x7FFFFFFFFFFFFFFFLL)
         {
@@ -360,42 +357,40 @@ uint64_t __32__EDInMemoryThread_addMessages___block_invoke(uint64_t a1, void *a2
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)changeMessages:(id)messages forKeyPaths:(id)paths threadIsEmpty:(BOOL *)empty
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   pathsCopy = paths;
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
   selfCopy = self;
   v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v11 = messagesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v12)
   {
-    v13 = *v26;
+    v13 = *v25;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v26 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v25 + 1) + 8 * i);
+        v15 = *(*(&v24 + 1) + 8 * i);
         flags = [v15 flags];
         deleted = [flags deleted];
 
@@ -412,7 +407,7 @@ uint64_t __32__EDInMemoryThread_addMessages___block_invoke(uint64_t a1, void *a2
         [v18 addObject:v15];
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v12);
@@ -420,8 +415,6 @@ uint64_t __32__EDInMemoryThread_addMessages___block_invoke(uint64_t a1, void *a2
 
   v19 = [MEMORY[0x1E699AD98] changesForKeyPaths:pathsCopy ofItems:v10];
   v20 = [(EDInMemoryThread *)selfCopy _calculateChangesAfterRemovingMessages:v9 applyingChanges:v19 threadIsEmpty:empty];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -474,34 +467,32 @@ uint64_t __32__EDInMemoryThread_addMessages___block_invoke(uint64_t a1, void *a2
 
 void __50__EDInMemoryThread_updateMessage_fromOldObjectID___block_invoke(void *a1, void *a2)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectID];
   v5 = [v4 isEqual:a1[4]];
 
   if (v5)
   {
-    v13 = 0;
+    v12 = 0;
     v6 = a1[5];
-    v15[0] = v3;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
-    v8 = [v6 removeMessages:v7 threadIsEmpty:&v13];
+    v14[0] = v3;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v8 = [v6 removeMessages:v7 threadIsEmpty:&v12];
 
     v9 = a1[5];
-    v14 = a1[6];
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
+    v13 = a1[6];
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
     v11 = [v9 addMessages:v10];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_calculateChangesAfterRemovingMessages:(id)messages applyingChanges:(id)changes threadIsEmpty:(BOOL *)empty
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   changesCopy = changes;
-  v21 = messagesCopy;
+  v20 = messagesCopy;
   if ([messagesCopy count])
   {
     [(NSMutableArray *)self->_messages removeObjectsInArray:messagesCopy];
@@ -509,25 +500,25 @@ void __50__EDInMemoryThread_updateMessage_fromOldObjectID___block_invoke(void *a
 
   if ([changesCopy count])
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v10 = self->_messages;
-    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v11)
     {
-      v12 = *v23;
+      v12 = *v22;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v12)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v22 + 1) + 8 * i);
+          v14 = *(*(&v21 + 1) + 8 * i);
           objectID = [v14 objectID];
           v16 = [changesCopy objectForKeyedSubscript:objectID];
 
@@ -537,7 +528,7 @@ void __50__EDInMemoryThread_updateMessage_fromOldObjectID___block_invoke(void *a
           }
         }
 
-        v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v11);
@@ -551,8 +542,6 @@ void __50__EDInMemoryThread_updateMessage_fromOldObjectID___block_invoke(void *a
     thread = [(EDInMemoryThread *)self thread];
     *empty = [thread count] == 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return _calculateAndApplyChange;
 }
@@ -590,14 +579,12 @@ void __50__EDInMemoryThread_updateMessage_fromOldObjectID___block_invoke(void *a
 
 void __40__EDInMemoryThread__dateSortDescriptors__block_invoke()
 {
-  v4[1] = *MEMORY[0x1E69E9840];
+  v3[1] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E699ADA0] sortDescriptorForDateAscending:0];
-  v4[0] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
+  v3[0] = v0;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
   v2 = _dateSortDescriptors_sDateSortDescriptors;
   _dateSortDescriptors_sDateSortDescriptors = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isSortedByDate:(id)date
@@ -614,30 +601,30 @@ void __40__EDInMemoryThread__dateSortDescriptors__block_invoke()
 
 - (id)_combinedReadLater
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v2 = self->_messages;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (!v3)
   {
     goto LABEL_14;
   }
 
   v4 = 0;
-  v5 = *v18;
+  v5 = *v17;
   do
   {
     for (i = 0; i != v3; i = i + 1)
     {
-      if (*v18 != v5)
+      if (*v17 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v7 = *(*(&v17 + 1) + 8 * i);
+      v7 = *(*(&v16 + 1) + 8 * i);
       readLater = [v7 readLater];
       v9 = readLater == 0;
 
@@ -653,7 +640,7 @@ void __40__EDInMemoryThread__dateSortDescriptors__block_invoke()
       }
     }
 
-    v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
   }
 
   while (v3);
@@ -669,38 +656,37 @@ LABEL_14:
 
   v3 = 0;
 LABEL_16:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)_combinedSenderList
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA0]);
   displayMessage = [(EDInMemoryThread *)self displayMessage];
   senderList = [displayMessage senderList];
   [v3 addObjectsFromArray:senderList];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = self->_messages;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         if (v10 != displayMessage)
         {
           senderList2 = [v10 senderList];
@@ -708,7 +694,7 @@ LABEL_16:
         }
       }
 
-      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -716,77 +702,73 @@ LABEL_16:
 
   array = [v3 array];
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (id)_combinedToList
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA0]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_messages;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        toList = [*(*(&v12 + 1) + 8 * i) toList];
+        toList = [*(*(&v11 + 1) + 8 * i) toList];
         [v3 addObjectsFromArray:toList];
       }
 
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   array = [v3 array];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)_combinedCCList
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA0]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_messages;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        ccList = [*(*(&v12 + 1) + 8 * i) ccList];
+        ccList = [*(*(&v11 + 1) + 8 * i) ccList];
         [v3 addObjectsFromArray:ccList];
       }
 
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -794,40 +776,38 @@ LABEL_16:
 
   array = [v3 array];
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (BOOL)_combinedHasUnflagged
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_messages;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) hasUnflagged])
+        if ([*(*(&v7 + 1) + 8 * i) hasUnflagged])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -839,38 +819,37 @@ LABEL_16:
 
 LABEL_11:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (id)_combinedFlagColors
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (_combinedFlagColors_onceToken != -1)
   {
     [EDInMemoryThread _combinedFlagColors];
   }
 
   v3 = objc_alloc_init(MEMORY[0x1E696AD50]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_messages;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
 LABEL_5:
     v7 = 0;
     while (1)
     {
-      if (*v14 != v6)
+      if (*v13 != v6)
       {
         objc_enumerationMutation(v4);
       }
 
-      flagColors = [*(*(&v13 + 1) + 8 * v7) flagColors];
+      flagColors = [*(*(&v12 + 1) + 8 * v7) flagColors];
       [v3 addIndexes:flagColors];
 
       if ([v3 containsIndexes:_combinedFlagColors_sAllFlagColors])
@@ -880,7 +859,7 @@ LABEL_5:
 
       if (v5 == ++v7)
       {
-        v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v5)
         {
           goto LABEL_5;
@@ -903,7 +882,6 @@ LABEL_5:
 
   v10 = v9;
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -916,33 +894,33 @@ void __39__EDInMemoryThread__combinedFlagColors__block_invoke()
 
 - (BOOL)_combinedIsVIP
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_messages;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isVIP])
+        if ([*(*(&v7 + 1) + 8 * i) isVIP])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -954,39 +932,38 @@ void __39__EDInMemoryThread__combinedFlagColors__block_invoke()
 
 LABEL_11:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (BOOL)_combinedIsBlocked
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_messages;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isBlocked])
+        if ([*(*(&v7 + 1) + 8 * i) isBlocked])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -998,7 +975,6 @@ LABEL_11:
 
 LABEL_11:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -1027,33 +1003,33 @@ id __44__EDInMemoryThread__maxSearchRelevanceScore__block_invoke(uint64_t a1, vo
 
 - (BOOL)_combinedHasAttachments
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_messages;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) hasAttachments])
+        if ([*(*(&v7 + 1) + 8 * i) hasAttachments])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -1065,33 +1041,32 @@ id __44__EDInMemoryThread__maxSearchRelevanceScore__block_invoke(uint64_t a1, vo
 
 LABEL_11:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (id)_newestDisplayDate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   distantPast = [MEMORY[0x1E695DF00] distantPast];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = self->_messages;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         displayDate = [v8 displayDate];
         v10 = [displayDate ef_isLaterThanDate:distantPast];
 
@@ -1103,52 +1078,48 @@ LABEL_11:
         }
       }
 
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return distantPast;
 }
 
 - (id)_combinedMailboxes
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA0]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_messages;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        mailboxes = [*(*(&v12 + 1) + 8 * i) mailboxes];
+        mailboxes = [*(*(&v11 + 1) + 8 * i) mailboxes];
         [v3 addObjectsFromArray:mailboxes];
       }
 
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   array = [v3 array];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return array;
 }

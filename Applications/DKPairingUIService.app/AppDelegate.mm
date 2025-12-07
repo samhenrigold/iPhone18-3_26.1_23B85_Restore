@@ -21,13 +21,12 @@
 {
   v5 = type metadata accessor for URL();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = sub_10000E6BC(v9);
-  (*(v6 + 8))(v9, v5);
-  return v10 & 1;
+  v13 = sub_10000E6BC(v8, v9, v10, v11, v12);
+  (*(v6 + 8))(v8, v5);
+  return v13 & 1;
 }
 
 - (_TtC18DKPairingUIService11AppDelegate)init

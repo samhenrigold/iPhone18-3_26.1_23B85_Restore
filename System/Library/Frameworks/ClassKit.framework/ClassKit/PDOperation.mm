@@ -48,7 +48,7 @@
     v11 = [NSString stringWithFormat:@"%@-%@", v10, v6->_operationID];
     [(PDOperation *)v6 setName:v11];
 
-    v12 = sub_10010AE9C();
+    v12 = sub_10010AE9C(PDUtil);
     sourceApplicationBundleIdentifier = v6->_sourceApplicationBundleIdentifier;
     v6->_sourceApplicationBundleIdentifier = v12;
 

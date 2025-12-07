@@ -17,7 +17,7 @@
   title = [visualization title];
   visualization2 = [(PXHUDAbstractVisualizationView *)self visualization];
   timeInterval = [visualization2 timeInterval];
-  [timeInterval duration];
+  objc_msgSend_duration(timeInterval);
   v9 = [v3 stringWithFormat:@"%@: %.2f", title, v8];
   [(UILabel *)self->_titleAndTimeLabel setText:v9];
 

@@ -31,7 +31,7 @@
 
 - (void)performSelectionWithPreferredPrimaryResident:(id)resident requireAutoUpdate:(BOOL)update reason:(unint64_t)reason completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   residentCopy = resident;
   completionCopy = completion;
   context = [(HMDResidentSelectionMode *)self context];
@@ -55,21 +55,21 @@
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v18;
-      v30 = 2112;
-      v31 = delegate;
+      v28 = v18;
+      v29 = 2112;
+      v30 = delegate;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Sorted list of residents for auto selection: %@.", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
-    v19 = [delegate copy];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __113__HMDResidentSelectionAutoMode_performSelectionWithPreferredPrimaryResident_requireAutoUpdate_reason_completion___block_invoke;
-    v26[3] = &unk_278678440;
-    v26[4] = selfCopy;
-    v27 = completionCopy;
-    [(HMDResidentSelectionMode *)selfCopy selectPrimaryResidentFromResidents:v19 requireAutoUpdate:0 completion:v26];
+    v19 = objc_msgSend_copy(delegate);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __113__HMDResidentSelectionAutoMode_performSelectionWithPreferredPrimaryResident_requireAutoUpdate_reason_completion___block_invoke;
+    v25[3] = &unk_278678440;
+    v25[4] = selfCopy;
+    v26 = completionCopy;
+    [(HMDResidentSelectionMode *)selfCopy selectPrimaryResidentFromResidents:v19 requireAutoUpdate:0 completion:v25];
   }
 
   else
@@ -81,7 +81,7 @@
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v23;
+      v28 = v23;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@There are no residents in the home. Auto mode selection failed.", buf, 0xCu);
     }
 
@@ -90,8 +90,6 @@
     v24 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:14];
     [delegate primarySelectionMode:selfCopy2 didFailToSelectWithError:v24];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __113__HMDResidentSelectionAutoMode_performSelectionWithPreferredPrimaryResident_requireAutoUpdate_reason_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -115,7 +113,7 @@ void __113__HMDResidentSelectionAutoMode_performSelectionWithPreferredPrimaryRes
 
 void __113__HMDResidentSelectionAutoMode_performSelectionWithPreferredPrimaryResident_requireAutoUpdate_reason_completion___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
   v3 = *(a1 + 40);
   v4 = objc_autoreleasePoolPush();
@@ -128,11 +126,11 @@ void __113__HMDResidentSelectionAutoMode_performSelectionWithPreferredPrimaryRes
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Auto mode selection failed with error: %@.", &v14, 0x16u);
+      v11 = 138543618;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v9;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Auto mode selection failed with error: %@.", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -144,19 +142,15 @@ void __113__HMDResidentSelectionAutoMode_performSelectionWithPreferredPrimaryRes
     if (v7)
     {
       v10 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v10;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Auto mode selection completed.", &v14, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Auto mode selection completed.", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
-  v11 = *(a1 + 48);
-  v12 = *(a1 + 40);
   (*(*(a1 + 56) + 16))();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDResidentSelectionAutoMode)initWithContext:(id)context
@@ -180,10 +174,9 @@ void __113__HMDResidentSelectionAutoMode_performSelectionWithPreferredPrimaryRes
 
 void __43__HMDResidentSelectionAutoMode_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_109905;
-  logCategory__hmf_once_v5_109905 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_109905;
+  logCategory__hmf_once_v5_109905 = v0;
 }
 
 @end

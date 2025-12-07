@@ -1,4 +1,4 @@
-void sub_25FAEEBBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, PCString a20, char a21, uint64_t a22, PCString a23)
+void sub_25FAEEBBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, PCString a20, uint64_t a21, uint64_t a22, PCString a23)
 {
   PCString::~PCString(&a20);
   OZLockingGroup::WriteSentry::~WriteSentry(&a21);
@@ -8,7 +8,7 @@ void sub_25FAEEBBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void TXTextLayout::updateTextStateInParagraph(TXTextLayout *this, unsigned int a2)
 {
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v28, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v28, v4);
   v5 = *(this + 2378);
   v6 = *(v5 + 8 * (a2 - 1));
   v7 = *(v5 + 8 * a2);
@@ -46,13 +46,13 @@ void TXTextLayout::updateTextStateInParagraph(TXTextLayout *this, unsigned int a
       ComposedCharacter = TXTextLayout::getComposedCharacter(this, v15 + *(v18 + 80));
       v20 = *(v17 + v16);
       PCString::set((v20 + 72), ComposedCharacter);
-      v21 = *(ComposedCharacter + 1);
-      v22 = *(ComposedCharacter + 3);
+      v21 = *(ComposedCharacter + 8);
+      v22 = *(ComposedCharacter + 24);
       *(v20 + 112) = *(ComposedCharacter + 10);
       *(v20 + 80) = v21;
       *(v20 + 96) = v22;
       v29 = &v27;
-      v23 = std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 8032, &v27);
+      v23 = std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<TXTextObject>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 8032, &v27, &std::piecewise_construct, &v29);
       v24 = *(v17 + v16);
       v25 = *(v17 + v16 + 8);
       if (v25)
@@ -74,17 +74,17 @@ void TXTextLayout::updateTextStateInParagraph(TXTextLayout *this, unsigned int a
     while (v9 > v8);
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v28);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v28);
 }
 
-void sub_25FAEEE34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FAEEE34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TXTextLayout::clearInvalidTextObjects(TXTextLayout *this)
+__int128 *TXTextLayout::clearInvalidTextObjects(TXTextLayout *this)
 {
   v1 = this + 57344;
   v2 = *(this + 7353);
@@ -158,7 +158,7 @@ uint64_t TXTextLayout::clearInvalidTextObjects(TXTextLayout *this)
   return std::vector<std::shared_ptr<TXTextObject>>::erase((v1 + 1480), v2, v3);
 }
 
-uint64_t std::vector<std::shared_ptr<TXTextObject>>::erase(uint64_t a1, uint64_t a2, __int128 *a3)
+__int128 *std::vector<std::shared_ptr<TXTextObject>>::erase(uint64_t a1, __int128 *a2, __int128 *a3)
 {
   if (a3 != a2)
   {
@@ -269,18 +269,18 @@ char *TXTextLayout::getDirectionalRun(TXTextLayout *this, int a2)
 uint64_t TXTextLayout::getComposedCharacterCount(TXTextLayout *this)
 {
   v2 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::ReadSentry::ReadSentry(v5, v2);
+  OZLockingGroup::ReadSentry::ReadSentry(&v5, v2);
   v3 = *(this + 16078);
-  OZLockingGroup::ReadSentry::~ReadSentry(v5);
+  OZLockingGroup::ReadSentry::~ReadSentry(&v5);
   return v3;
 }
 
 uint64_t TXTextLayout::getComposedCharacterCountIgnoringSpaces(TXTextLayout *this)
 {
   v2 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::ReadSentry::ReadSentry(v5, v2);
+  OZLockingGroup::ReadSentry::ReadSentry(&v5, v2);
   v3 = *(this + 16080);
-  OZLockingGroup::ReadSentry::~ReadSentry(v5);
+  OZLockingGroup::ReadSentry::~ReadSentry(&v5);
   return v3;
 }
 
@@ -288,7 +288,7 @@ void TXTextLayout::invalidateTextObjectsInRange(Li3DEngineScene *a1, int *a2)
 {
   v3 = a1 + 57344;
   v4 = Li3DEngineScene::sceneManager(a1);
-  OZLockingGroup::WriteSentry::WriteSentry(v12, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v12, v4);
   v5 = *a2;
   v6 = (a2[1] + v5);
   v7 = *(v3 + 185);
@@ -311,7 +311,7 @@ void TXTextLayout::invalidateTextObjectsInRange(Li3DEngineScene *a1, int *a2)
     while (!__CFADD__(v9++, 1));
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v12);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v12);
 }
 
 void TXTextLayout::computeExtraLineSpacingForDiacritics(TXTextLayout *this, const CMTime *a2)
@@ -1094,7 +1094,7 @@ uint64_t std::vector<PCVector3<double>>::push_back[abi:ne200100](uint64_t *a1, u
   return result;
 }
 
-uint64_t TXTextLayout::doLayoutForEmptyString(TXTextLayout *this)
+__int128 *TXTextLayout::doLayoutForEmptyString(TXTextLayout *this)
 {
   *(this + 4831) = 1;
   if (OZChannel::getValueAsInt((this + 20464), MEMORY[0x277CC08F0], 0.0) == 2)
@@ -1138,108 +1138,108 @@ uint64_t TXTextLayout::doLayoutForEmptyString(TXTextLayout *this)
   return TXTextLayout::clearInvalidTextObjects(this);
 }
 
-int *TXTextLayout::getTextHashForState@<X0>(void *lpsrc@<X1>, uint64_t a2@<X0>, CMTime *a3@<X2>, int a4@<W4>, int8x8_t *a5@<X8>)
+uint64_t *TXTextLayout::getTextHashForState@<X0>(int8x8_t *__return_ptr a1@<X8>, void *lpsrc@<X1>, uint64_t a3@<X0>, CMTime *a4@<X2>, int a5@<W4>)
 {
   if (!v32)
   {
     __cxa_bad_cast();
   }
 
-  if (a4)
+  if (a5)
   {
-    v34 = *a3;
-    OZChannel::calcHashForState((a2 + 19600), lpsrc, &v34);
-    v34 = *a3;
-    OZChannel::calcHashForState((a2 + 19752), lpsrc, &v34);
-    v34 = *a3;
-    OZChannel::calcHashForState((a2 + 20312), lpsrc, &v34);
-    v34 = *a3;
-    OZChannel::calcHashForState((a2 + 20720), lpsrc, &v34);
-    v34 = *a3;
-    OZChannel::calcHashForState((a2 + 22136), lpsrc, &v34);
-    v34 = *a3;
-    OZChannel::calcHashForState((a2 + 59560), lpsrc, &v34);
-    v34 = *a3;
-    OZChannelFolder::calcHashForState((a2 + 23688), lpsrc, &v34);
-    v34 = *a3;
-    OZChannel::calcHashForState((a2 + 24272), lpsrc, &v34);
-    v34 = *a3;
-    OZChannel::calcHashForState((a2 + 24424), lpsrc, &v34);
-    v34 = *a3;
-    OZChannel::calcHashForState((a2 + 24576), lpsrc, &v34);
-    v34 = *a3;
-    OZChannel::calcHashForState((a2 + 24728), lpsrc, &v34);
-    v34 = *a3;
-    OZChannel::calcHashForState((a2 + 24880), lpsrc, &v34);
-    v34 = *a3;
-    OZChannel::calcHashForState((a2 + 59128), lpsrc, &v34);
-    v34 = *a3;
-    OZChannel::calcHashForState((a2 + 59888), lpsrc, &v34);
-    v34 = *a3;
-    OZChannel::calcHashForState((a2 + 60360), lpsrc, &v34);
-    v34 = *a3;
-    OZChannelFolder::calcHashForState((a2 + 20976), lpsrc, &v34);
+    v34 = *a4;
+    OZChannel::calcHashForState((a3 + 19600), lpsrc, &v34);
+    v34 = *a4;
+    OZChannel::calcHashForState((a3 + 19752), lpsrc, &v34);
+    v34 = *a4;
+    OZChannel::calcHashForState((a3 + 20312), lpsrc, &v34);
+    v34 = *a4;
+    OZChannel::calcHashForState((a3 + 20720), lpsrc, &v34);
+    v34 = *a4;
+    OZChannel::calcHashForState((a3 + 22136), lpsrc, &v34);
+    v34 = *a4;
+    OZChannel::calcHashForState((a3 + 59560), lpsrc, &v34);
+    v34 = *a4;
+    OZChannelFolder::calcHashForState((a3 + 23688), lpsrc, &v34);
+    v34 = *a4;
+    OZChannel::calcHashForState((a3 + 24272), lpsrc, &v34);
+    v34 = *a4;
+    OZChannel::calcHashForState((a3 + 24424), lpsrc, &v34);
+    v34 = *a4;
+    OZChannel::calcHashForState((a3 + 24576), lpsrc, &v34);
+    v34 = *a4;
+    OZChannel::calcHashForState((a3 + 24728), lpsrc, &v34);
+    v34 = *a4;
+    OZChannel::calcHashForState((a3 + 24880), lpsrc, &v34);
+    v34 = *a4;
+    OZChannel::calcHashForState((a3 + 59128), lpsrc, &v34);
+    v34 = *a4;
+    OZChannel::calcHashForState((a3 + 59888), lpsrc, &v34);
+    v34 = *a4;
+    OZChannel::calcHashForState((a3 + 60360), lpsrc, &v34);
+    v34 = *a4;
+    OZChannelFolder::calcHashForState((a3 + 20976), lpsrc, &v34);
   }
 
-  OZChannel::getValueAsInt((a2 + 20464), MEMORY[0x277CC08F0], 0.0);
-  for (i = *(a2 + 19352); i != a2 + 19344; i = *(i + 8))
+  OZChannel::getValueAsInt((a3 + 20464), MEMORY[0x277CC08F0], 0.0);
+  for (i = *(a3 + 19352); i != a3 + 19344; i = *(i + 8))
   {
     v10 = *(i + 16) + 1304;
-    v34 = *a3;
+    v34 = *a4;
     (*(*v10 + 448))(v10, lpsrc, &v34);
     v11 = *(i + 16);
-    v34 = *a3;
+    v34 = *a4;
     (*(*(v11 + 536) + 448))(v11 + 536, lpsrc, &v34);
     v12 = *(i + 16);
-    v34 = *a3;
+    v34 = *a4;
     (*(*(v12 + 1696) + 448))(v12 + 1696, lpsrc, &v34);
     v13 = *(i + 16);
-    v34 = *a3;
+    v34 = *a4;
     (*(*(v13 + 1976) + 448))(v13 + 1976, lpsrc, &v34);
     v14 = *(i + 16);
-    v34 = *a3;
+    v34 = *a4;
     (*(*(v14 + 2256) + 448))(v14 + 2256, lpsrc, &v34);
     v15 = *(i + 16);
-    v34 = *a3;
+    v34 = *a4;
     (*(*(v15 + 49416) + 448))(v15 + 49416, lpsrc, &v34);
     v16 = *(i + 16);
-    v34 = *a3;
+    v34 = *a4;
     (*(*(v16 + 2408) + 448))(v16 + 2408, lpsrc, &v34);
     v17 = *(i + 16);
-    v34 = *a3;
+    v34 = *a4;
     (*(*(v17 + 2560) + 448))(v17 + 2560, lpsrc, &v34);
     v18 = *(i + 16);
-    v34 = *a3;
+    v34 = *a4;
     (*(*(v18 + 5352) + 448))(v18 + 5352, lpsrc, &v34);
     v19 = *(i + 16);
-    v34 = *a3;
+    v34 = *a4;
     (*(*(v19 + 5504) + 448))(v19 + 5504, lpsrc, &v34);
     v20 = *(i + 16);
-    v34 = *a3;
+    v34 = *a4;
     (*(*(v20 + 2864) + 448))(v20 + 2864, lpsrc, &v34);
     v21 = *(i + 16);
-    v34 = *a3;
+    v34 = *a4;
     (*(*(v21 + 3456) + 448))(v21 + 3456, lpsrc, &v34);
     v22 = *(i + 16);
-    v34 = *a3;
+    v34 = *a4;
     (*(*(v22 + 4344) + 448))(v22 + 4344, lpsrc, &v34);
   }
 
-  v23 = *(a2 + 19024);
-  v24 = *(a2 + 19032);
+  v23 = *(a3 + 19024);
+  v24 = *(a3 + 19032);
   while (v23 != v24)
   {
     v25 = *v23++;
     LineSpacingChannel = TXParagraphStyle::getLineSpacingChannel(v25);
-    v34 = *a3;
+    v34 = *a4;
     (*(*LineSpacingChannel + 448))(LineSpacingChannel, lpsrc, &v34);
   }
 
   Hash = PCHashWriteStream::getHash(v32);
-  *a5 = *Hash;
-  a5[1] = Hash[1];
-  v28 = *(a2 + 1208);
-  if (v28 == a2 + 1200)
+  *a1 = *Hash;
+  a1[1] = Hash[1];
+  v28 = *(a3 + 1208);
+  if (v28 == a3 + 1200)
   {
 LABEL_14:
     (*(*lpsrc + 40))(lpsrc);
@@ -1258,25 +1258,25 @@ LABEL_14:
       }
 
       v28 = *(v28 + 8);
-      if (v28 == a2 + 1200)
+      if (v28 == a3 + 1200)
       {
         goto LABEL_14;
       }
     }
 
     (*(*lpsrc + 40))(lpsrc);
-    v34 = *a3;
-    (*(*(a2 + 27984) + 448))(a2 + 27984, lpsrc, &v34);
+    v34 = *a4;
+    (*(*(a3 + 27984) + 448))(a3 + 27984, lpsrc, &v34);
     (*(*lpsrc + 112))(lpsrc, &v34);
   }
 
-  TXChannelString::getString((a2 + 19048), &v34);
+  TXChannelString::getString(&v34, (a3 + 19048));
   (*(*lpsrc + 104))(lpsrc, &v34);
   PCString::~PCString(&v34);
-  OZChannel::getValueAsDouble((a2 + 61464), MEMORY[0x277CC08F0], 0.0);
+  OZChannel::getValueAsDouble((a3 + 61464), MEMORY[0x277CC08F0], 0.0);
   (*(*lpsrc + 88))(lpsrc);
   v30 = PCHashWriteStream::getHash(v32);
-  return PCHash128::operator+=(a5, v30);
+  return PCHash128::operator+=(a1, v30);
 }
 
 uint64_t TXTextLayout::doLayoutForParagraphs(TXTextLayout *this, double a2, CMTime *a3)
@@ -1589,7 +1589,7 @@ uint64_t TXTextLayout::shrinkToTopBottomMargins(TXTextLayout *this, double a2, C
 void TXTextLayout::performLayoutWithPath(TXTextLayout *this, CMTime *a2)
 {
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v59, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(v58, v4);
   if (OZChannel::getValueAsInt((this + 20464), MEMORY[0x277CC08F0], 0.0) == 2)
   {
     ValueAsInt = OZChannel::getValueAsInt((this + 54280), MEMORY[0x277CC08F0], 0.0);
@@ -1601,29 +1601,29 @@ void TXTextLayout::performLayoutWithPath(TXTextLayout *this, CMTime *a2)
 
     if (((*(*(this + v6) + 552))(this + v6, 0) & 1) == 0)
     {
-      OZRenderState::OZRenderState(&v58);
+      OZRenderState::OZRenderState(&v57);
       v7 = *&a2->value;
-      v58.var0.var3 = a2->epoch;
+      v57.var0.var3 = a2->epoch;
+      v54 = 0.0;
       v55 = 0.0;
-      v56 = 0.0;
       __asm { FMOV            V0.2D, #-1.0 }
 
-      v57 = _Q0;
-      *&v58.var0.var0 = v7;
-      TXTextLayout::getTypographicBounds(this, &v55, &v58, 1, 0);
-      TXTextLayout::initializePaths(this, &v55);
+      v56 = _Q0;
+      *&v57.var0.var0 = v7;
+      TXTextLayout::getTypographicBounds(this, &v54, &v57, 1, 0);
+      TXTextLayout::initializePaths(this, &v54);
     }
 
-    *&v58.var0.var0 = *&a2->value;
-    v58.var0.var3 = a2->epoch;
-    PathLength = TXTextLayout::getPathLength(this, &v58);
+    *&v57.var0.var0 = *&a2->value;
+    v57.var0.var3 = a2->epoch;
+    PathLength = TXTextLayout::getPathLength(this, &v57);
     v14 = OZChannel::getValueAsInt((this + 58144), MEMORY[0x277CC08F0], 0.0) ? TXTextLayout::isLoopPath(this) : 0;
     OZChannel::getValueAsDouble((this + 57840), a2, 0.0);
     v16 = v15;
     v17 = (*(*this + 304))(this);
     v18 = OZChannel::getValueAsInt((this + 20720), MEMORY[0x277CC08F0], 0.0);
     v19 = *(this + 7354) - *(this + 7353);
-    memset(&v58, 0, 24);
+    memset(&v57, 0, 24);
     if ((v19 & 0xFFFFFFFF0) != 0)
     {
       v20 = v18;
@@ -1638,17 +1638,16 @@ void TXTextLayout::performLayoutWithPath(TXTextLayout *this, CMTime *a2)
       do
       {
         v26 = *(this + 7353);
-        TXTextObject::getPosition(*(v26 + v21), a2, &v55);
-        v27 = v55;
-        v28 = v56;
-        v52 = 0.0;
+        TXTextObject::getPosition(&v54, *(v26 + v21), a2);
+        v27 = v54;
+        v28 = v55;
+        v52 = 0uLL;
         v53 = 0.0;
-        v54 = 0.0;
         v50 = 0.0;
         v51 = 0.0;
         v49 = 0.0;
-        *&v58.var0.var0 = v47;
-        v58.var0.var3 = 0;
+        *&v57.var0.var0 = v47;
+        v57.var0.var3 = 0;
         v29 = OZChannel::getValueAsInt((this + 58448), MEMORY[0x277CC08F0], 0.0);
         if (v14)
         {
@@ -1682,11 +1681,11 @@ void TXTextLayout::performLayoutWithPath(TXTextLayout *this, CMTime *a2)
 LABEL_29:
             AdvanceWidth = TXTextObject::getAdvanceWidth(*(v26 + v21), a2);
             v48 = *a2;
-            TXTextLayout::getPathPosition(this, &v48, v14, &v52, &v51, &v50, &v49, v29 != 0, v30, AdvanceWidth, &v58);
-            v38 = v52;
+            TXTextLayout::getPathPosition(this, &v48, v14, &v52, &v51, &v50, &v49, v29 != 0, v30, AdvanceWidth, &v57);
+            v38 = v52.f64[0];
             v39 = __sincos_stret(v49);
             v36 = v38 - v28 * v39.__sinval;
-            v35 = v53 + v28 * v39.__cosval;
+            v35 = v52.f64[1] + v28 * v39.__cosval;
             goto LABEL_30;
           }
 
@@ -1703,11 +1702,11 @@ LABEL_29:
 
         v32 = TXTextObject::getAdvanceWidth(*(v26 + v21), a2);
         v48 = *a2;
-        TXTextLayout::getPathPosition(this, &v48, v14, &v52, &v51, &v50, &v49, v29 != 0, v31, v32, &v58);
-        v33 = v53;
+        TXTextLayout::getPathPosition(this, &v48, v14, &v52, &v51, &v50, &v49, v29 != 0, v31, v32, &v57);
+        v33 = v52.f64[1];
         v34 = __sincos_stret(v49);
         v35 = v33 + v27 * v34.__sinval;
-        v36 = v52 + v27 * v34.__cosval;
+        v36 = v52.f64[0] + v27 * v34.__cosval;
 LABEL_30:
         if (v17)
         {
@@ -1716,7 +1715,7 @@ LABEL_30:
 
         else
         {
-          v40 = v54;
+          v40 = v53;
         }
 
         v41 = TXTextLayout::alignToPath(this);
@@ -1744,7 +1743,7 @@ LABEL_30:
     }
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v59);
+  OZLockingGroup::WriteSentry::~WriteSentry(v58);
 }
 
 double TXTextLayout::getPathLength(TXTextLayout *this, CMTime *a2)
@@ -1855,7 +1854,7 @@ uint64_t TXTextLayout::isLoopPath(TXTextLayout *this)
   return result;
 }
 
-uint64_t TXTextLayout::getPathPosition(uint64_t a1, const CMTime *a2, int a3, double *a4, void *a5, void *a6, double *a7, int a8, double a9, double a10, int a11)
+uint64_t TXTextLayout::getPathPosition(uint64_t a1, const CMTime *a2, int a3, float64x2_t *a4, void *a5, void *a6, double *a7, int a8, double a9, double a10, int a11)
 {
   v139 = 0.0;
   v140[0] = 0.0;
@@ -2245,9 +2244,9 @@ LABEL_12:
   {
     v27 = v139;
     v28 = v138;
-    *a4 = v140[0];
-    a4[1] = v27;
-    a4[2] = v28;
+    a4->f64[0] = v140[0];
+    a4->f64[1] = v27;
+    a4[1].f64[0] = v28;
     if (OZChannel::getValueAsInt((a1 + 54280), MEMORY[0x277CC08F0], 0.0))
     {
       v29 = 0;
@@ -2325,7 +2324,7 @@ LABEL_12:
         v48 = v138 - v114 * *&v120.epoch;
         v47.f64[1] = v139;
         *a4 = vsubq_f64(v47, vmulq_n_f64(*&v120.value, v114));
-        a4[2] = v48;
+        a4[1].f64[0] = v48;
       }
     }
   }
@@ -2416,7 +2415,7 @@ double TXTextLayout::computeTypeOnFactor(TXTextLayout *this, unsigned int a2, CM
 
 PCString *TXTextLayout::hitCheckWithTransform(uint64_t a1, float32x2_t *a2, OZRenderState *a3, const LiCamera *a4, float64x2_t *a5, unsigned int a6, int a7, double *a8)
 {
-  v109 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   if (a6 & 4) != 0 && ((*(*(a1 + 200) + 680))())
   {
     return 0;
@@ -2424,310 +2423,310 @@ PCString *TXTextLayout::hitCheckWithTransform(uint64_t a1, float32x2_t *a2, OZRe
 
   if ((a6 & 2) != 0)
   {
-    v94 = *&a3->var0.var0;
-    *&v95 = a3->var0.var3;
-    if (!(*(*(a1 + 216) + 104))(a1 + 216, &v94, 1, 1, 1))
+    v96 = *&a3->var0.var0;
+    *&v97 = a3->var0.var3;
+    if (!(*(*(a1 + 216) + 104))(a1 + 216, &v96, 1, 1, 1))
     {
       return 0;
     }
   }
 
-  PCWorkingColorVector::PCWorkingColorVector(v101);
-  TXTextLayout::doLayout(a1, a3, v101);
+  PCWorkingColorVector::PCWorkingColorVector(v103);
+  TXTextLayout::doLayout(a1, a3, v103, v14, v15);
   if ((a6 & 8) != 0)
   {
-    v14 = HIBYTE(a6);
+    v16 = HIBYTE(a6);
   }
 
   else
   {
-    v14 = 0.0;
+    v16 = 0.0;
   }
 
-  v15 = a1 + 200;
+  v17 = a1 + 200;
   if (((*(*(a1 + 200) + 680))(a1 + 200) & a7) == 1)
   {
+    v98 = xmmword_2603429E0;
+    v97 = xmmword_2603429E0;
     v96 = xmmword_2603429E0;
-    v95 = xmmword_2603429E0;
-    v94 = xmmword_2603429E0;
-    (*(*a1 + 440))(a1, &v94, a3);
-    v99 = vcvtq_f64_f32(*a2);
-    v100 = 0;
-    (*(*v15 + 1384))(v92, a1 + 200, &v99, a4, a3, 0);
-    if (!PCRayIntersectsBox(v92, &v94, a5))
+    (*(*a1 + 440))(a1, &v96, a3);
+    v101 = vcvtq_f64_f32(*a2);
+    v102 = 0;
+    (*(*v17 + 1384))(v94, a1 + 200, &v101, a4, a3, 0);
+    if (!PCRayIntersectsBox(v94, &v96, a5))
     {
       return 0;
     }
 
-    return v15;
+    return v17;
   }
 
-  v16 = (*(*v15 + 272))(a1 + 200);
-  OZScene::calcWorldToFilmSpaceMatrixForCamera(v16, a4, &v99);
-  v17 = (*(*v15 + 272))(a1 + 200);
-  OZScene::calcWorldToFilmSpaceMatrixForCamera(v17, a4, &v94);
-  v58 = a4;
+  v18 = (*(*v17 + 272))(a1 + 200);
+  OZScene::calcWorldToFilmSpaceMatrixForCamera(&v101, v18, a4);
+  v19 = (*(*v17 + 272))(a1 + 200);
+  OZScene::calcWorldToFilmSpaceMatrixForCamera(&v96, v19, a4);
+  v60 = a4;
   for (i = 0; i != 16; i += 4)
   {
-    v19 = &v99.f64[i];
-    v20 = *(&v94 + i * 8 + 16);
-    *v19 = *(&v94 + i * 8);
-    v19[1] = v20;
+    v21 = &v101.f64[i];
+    v22 = *(&v96 + i * 8 + 16);
+    *v21 = *(&v96 + i * 8);
+    v21[1] = v22;
   }
 
-  v21 = Li3DEngineScene::sceneManager(a1);
-  OZLockingGroup::WriteSentry::WriteSentry(v98, v21);
-  OZRenderParams::OZRenderParams(&v94);
-  OZRenderParams::setState(&v94, a3);
-  v97 = 0;
-  OZRenderParams::OZRenderParams(v92, &v94);
-  v93 = 1;
-  v91 = 0x3FF0000000000000;
-  v88 = 0x3FF0000000000000;
-  v85 = 0x3FF0000000000000;
-  v82 = 0x3FF0000000000000;
-  v83 = 0u;
-  v84 = 0u;
+  v23 = Li3DEngineScene::sceneManager(a1);
+  OZLockingGroup::WriteSentry::WriteSentry(v100, v23);
+  OZRenderParams::OZRenderParams(&v96);
+  OZRenderParams::setState(&v96, a3);
+  v99 = 0;
+  OZRenderParams::OZRenderParams(v94, &v96);
+  v95 = 1;
+  v93 = 0x3FF0000000000000;
+  v90 = 0x3FF0000000000000;
+  v87 = 0x3FF0000000000000;
+  v84 = 0x3FF0000000000000;
+  v85 = 0u;
   v86 = 0u;
-  v87 = 0u;
+  v88 = 0u;
   v89 = 0u;
-  v90 = 0u;
+  v91 = 0u;
+  v92 = 0u;
   if (!a8)
   {
-    (*(*v15 + 1256))(a1 + 200, &v82, a3);
+    (*(*v17 + 1256))(a1 + 200, &v84, a3);
   }
 
-  v102[0] = *&a3->var0.var0;
-  *&v102[1] = a3->var0.var3;
-  OZChannel::getValueAsDouble((a1 + 59888), v102, 0.0);
-  v23 = v22;
-  v102[0] = *&a3->var0.var0;
-  *&v102[1] = a3->var0.var3;
-  OZChannel::getValueAsDouble((a1 + 60360), v102, 0.0);
+  v104[0] = *&a3->var0.var0;
+  *&v104[1] = a3->var0.var3;
+  OZChannel::getValueAsDouble((a1 + 59888), v104, 0.0);
   v25 = v24;
+  v104[0] = *&a3->var0.var0;
+  *&v104[1] = a3->var0.var3;
+  OZChannel::getValueAsDouble((a1 + 60360), v104, 0.0);
+  v27 = v26;
   HostApplicationDelegate = OZApplication::getHostApplicationDelegate(theApp);
-  v64 = OZHostApplicationDelegateHandler::wantsToIgnoreTextBoundsOfTransparentObjects(HostApplicationDelegate);
-  v59 = a1 + 200;
-  v60 = a1;
-  v27 = *(a1 + 58824);
-  v61 = a5;
-  v62 = *(a1 + 58832);
-  if (v27 != v62)
+  v66 = OZHostApplicationDelegateHandler::wantsToIgnoreTextBoundsOfTransparentObjects(HostApplicationDelegate);
+  v61 = a1 + 200;
+  v62 = a1;
+  v29 = *(a1 + 58824);
+  v63 = a5;
+  v64 = *(a1 + 58832);
+  if (v29 != v64)
   {
-    v28 = 0;
+    v30 = 0;
     while (1)
     {
-      v29 = 0;
+      v31 = 0;
+      memset(v83, 0, sizeof(v83));
+      v82 = 0u;
       memset(v81, 0, sizeof(v81));
-      v80 = 0u;
-      memset(v79, 0, sizeof(v79));
       do
       {
-        v30 = *v27;
-        v31 = *(*v27 + 33);
-        if (v31)
+        v32 = *v29;
+        v33 = *(*v29 + 33);
+        if (v33)
         {
-          v32 = *(v31 + 8);
-          v33 = *(v31 + 16);
-          if (v33)
+          v34 = *(v33 + 8);
+          v35 = *(v33 + 16);
+          if (v35)
           {
-            atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
-            v30 = *v27;
+            atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
+            v32 = *v29;
           }
-        }
-
-        else
-        {
-          v33 = 0;
-          v32 = 0;
-        }
-
-        v102[0] = *&a3->var0.var0;
-        *&v102[1] = a3->var0.var3;
-        if (!TXTextObject::isAttributeEnabled(v30, v29, v102) || v64 && (FaceOpacity = TXTextObject::getFaceOpacity(*v27, a3), !a3->var25) && fabs(FaceOpacity) < 0.0000001)
-        {
-          v35 = 6;
-          if (!v33)
-          {
-            goto LABEL_30;
-          }
-
-LABEL_29:
-          std::__shared_weak_count::__release_shared[abi:ne200100](v33);
-          goto LABEL_30;
-        }
-
-        if (a8)
-        {
-          v108 = 0x3FF0000000000000;
-          v105 = 0x3FF0000000000000;
-          *(&v102[2] + 1) = 0x3FF0000000000000;
-          *&v102[0] = 0x3FF0000000000000;
-          memset(v102 + 8, 0, 32);
-          v103 = 0u;
-          v104 = 0u;
-          v106 = 0u;
-          v107 = 0u;
-          TXTextObject::getTransformMatrix(*v27, v102, v92, 1, 0, 0, 1, v25, v23);
-          PCMatrix44Tmpl<double>::leftMult(v102, a8);
-          v78 = 0uLL;
-          v77 = 0uLL;
-          v76 = 0uLL;
-          v75 = 0uLL;
-          TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(*v27, a3, &v78, &v77, &v76, &v75, v29, 1, 0.0, 0.0, 0.0, 0.0, 1u, 0);
-          v74 = 0;
-          OZChannelBase::setRangeName(*v27, a3);
-          *&v73.value = v75;
-          v73.epoch = v74;
-          v71 = v76;
-          v72 = v74;
-          v69 = v78;
-          v70 = v74;
-          v67 = v77;
-          v68 = v74;
-          PCMatrix44Tmpl<double>::transform<double>(v102, &v73.value, &v73.value);
-          PCMatrix44Tmpl<double>::transform<double>(v102, v71.f64, v71.f64);
-          PCMatrix44Tmpl<double>::transform<double>(v102, v69.f64, v69.f64);
-          PCMatrix44Tmpl<double>::transform<double>(v102, v67.f64, v67.f64);
-          *(v81 + 8) = v73;
-          v80 = v71;
-          *&v81[0] = v72;
-          *(&v79[1] + 8) = v67;
-          *(&v79[2] + 1) = v68;
-          *&v79[1] = v70;
-          v79[0] = v69;
-        }
-
-        else
-        {
-          TXTextObject::getTransformedImageCornersWithFourCornerPinning(*v27, &v94, v79, v29, v25, v23, 1, 0, &v82);
-        }
-
-        v65 = v32;
-        v36 = a3;
-        v37 = v28;
-        v38 = 0;
-        v104 = 0u;
-        v103 = 0u;
-        v39 = -1;
-        v40 = v79;
-        memset(v102, 0, sizeof(v102));
-        do
-        {
-          memset(&v73, 0, sizeof(v73));
-          PCMatrix44Tmpl<double>::transform<double>(v99.f64, v40, &v73.value);
-          if (v39 < 2)
-          {
-            v41 = 1;
-          }
-
-          else
-          {
-            v41 = -1;
-          }
-
-          if (v38 <= 1)
-          {
-            v42 = -v14;
-          }
-
-          else
-          {
-            v42 = v14;
-          }
-
-          v43.f64[1] = v42;
-          v43.f64[0] = v14 * v41;
-          v102[v38++] = vaddq_f64(v43, *&v73.value);
-          ++v39;
-          v40 += 3;
-        }
-
-        while (v38 != 4);
-        v104 = v102[0];
-        v44 = v37;
-        a3 = v36;
-        if (v29 == 3 && OZChannel::getValueAsInt((v65 + 19528), MEMORY[0x277CC08F0], 0.0))
-        {
-          v45 = *v27;
-          v73 = *v36;
-          DropShadowDistance = TXTextObject::getDropShadowDistance(v45, &v73);
-          v47 = *v27;
-          v73 = *v36;
-          DropShadowAngle = TXTextObject::getDropShadowAngle(v47, &v73);
-          v49 = __sincos_stret(DropShadowAngle);
-          v50 = 5;
-          v51 = v102 + 1;
-          do
-          {
-            v52 = DropShadowDistance * v49.__sinval + *v51;
-            *(v51 - 1) = DropShadowDistance * v49.__cosval + *(v51 - 1);
-            *v51 = v52;
-            v51 += 2;
-            --v50;
-          }
-
-          while (v50);
-        }
-
-        *&v73.value = vcvtq_f64_f32(*a2);
-        v53 = pointInPolygon(&v73.value, v102, 5);
-        v28 = v53 | v44;
-        if (v53)
-        {
-          v35 = 4;
         }
 
         else
         {
           v35 = 0;
+          v34 = 0;
         }
 
-        if (v33)
+        v104[0] = *&a3->var0.var0;
+        *&v104[1] = a3->var0.var3;
+        if ((TXTextObject::isAttributeEnabled(v32, v31, v104) & 1) == 0 || v66 && (FaceOpacity = TXTextObject::getFaceOpacity(*v29, a3), !a3->var25) && fabs(FaceOpacity) < 0.0000001)
+        {
+          v37 = 6;
+          if (!v35)
+          {
+            goto LABEL_30;
+          }
+
+LABEL_29:
+          std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+          goto LABEL_30;
+        }
+
+        if (a8)
+        {
+          v110 = 0x3FF0000000000000;
+          v107 = 0x3FF0000000000000;
+          *(&v104[2] + 1) = 0x3FF0000000000000;
+          *&v104[0] = 0x3FF0000000000000;
+          memset(v104 + 8, 0, 32);
+          v105 = 0u;
+          v106 = 0u;
+          v108 = 0u;
+          v109 = 0u;
+          TXTextObject::getTransformMatrix(*v29, v104, v94, 1, 0, 0, 1uLL, v27, v25);
+          PCMatrix44Tmpl<double>::leftMult(v104, a8);
+          v80 = 0uLL;
+          v79 = 0uLL;
+          v78 = 0uLL;
+          v77 = 0uLL;
+          TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(*v29, a3, &v80, &v79, &v78, &v77, v31, 1, 0.0, 0.0, 0.0, 0.0, 1, 0);
+          v76 = 0;
+          OZChannelBase::setRangeName(*v29, a3);
+          *&var0.value = v77;
+          var0.epoch = v76;
+          v73 = v78;
+          v74 = v76;
+          v71 = v80;
+          v72 = v76;
+          v69 = v79;
+          v70 = v76;
+          PCMatrix44Tmpl<double>::transform<double>(v104, &var0.value, &var0.value);
+          PCMatrix44Tmpl<double>::transform<double>(v104, v73.f64, v73.f64);
+          PCMatrix44Tmpl<double>::transform<double>(v104, v71.f64, v71.f64);
+          PCMatrix44Tmpl<double>::transform<double>(v104, v69.f64, v69.f64);
+          *(v83 + 8) = var0;
+          v82 = v73;
+          *&v83[0] = v74;
+          *(&v81[1] + 8) = v69;
+          *(&v81[2] + 1) = v70;
+          *&v81[1] = v72;
+          v81[0] = v71;
+        }
+
+        else
+        {
+          TXTextObject::getTransformedImageCornersWithFourCornerPinning(*v29, &v96, v81, v31, v27, v25, 1, 0, &v84);
+        }
+
+        v67 = v34;
+        v38 = a3;
+        v39 = v30;
+        v40 = 0;
+        v106 = 0u;
+        v105 = 0u;
+        v41 = -1;
+        v42 = v81;
+        memset(v104, 0, sizeof(v104));
+        do
+        {
+          memset(&var0, 0, sizeof(var0));
+          PCMatrix44Tmpl<double>::transform<double>(v101.f64, v42, &var0.value);
+          if (v41 < 2)
+          {
+            v43 = 1;
+          }
+
+          else
+          {
+            v43 = -1;
+          }
+
+          if (v40 <= 1)
+          {
+            v44 = -v16;
+          }
+
+          else
+          {
+            v44 = v16;
+          }
+
+          v45.f64[1] = v44;
+          v45.f64[0] = v16 * v43;
+          v104[v40++] = vaddq_f64(v45, *&var0.value);
+          ++v41;
+          v42 += 3;
+        }
+
+        while (v40 != 4);
+        v106 = v104[0];
+        v46 = v39;
+        a3 = v38;
+        if (v31 == 3 && OZChannel::getValueAsInt((v67 + 19528), MEMORY[0x277CC08F0], 0.0))
+        {
+          v47 = *v29;
+          var0 = v38->var0;
+          DropShadowDistance = TXTextObject::getDropShadowDistance(v47, &var0);
+          v49 = *v29;
+          var0 = v38->var0;
+          DropShadowAngle = TXTextObject::getDropShadowAngle(v49, &var0);
+          v51 = __sincos_stret(DropShadowAngle);
+          v52 = 5;
+          v53 = v104 + 1;
+          do
+          {
+            v54 = DropShadowDistance * v51.__sinval + *v53;
+            *(v53 - 1) = DropShadowDistance * v51.__cosval + *(v53 - 1);
+            *v53 = v54;
+            v53 += 2;
+            --v52;
+          }
+
+          while (v52);
+        }
+
+        *&var0.value = vcvtq_f64_f32(*a2);
+        v55 = pointInPolygon(&var0.value, v104, 5);
+        v30 = v55 | v46;
+        if (v55)
+        {
+          v37 = 4;
+        }
+
+        else
+        {
+          v37 = 0;
+        }
+
+        if (v35)
         {
           goto LABEL_29;
         }
 
 LABEL_30:
-        if (v35 != 6 && v35)
+        if (v37 != 6 && v37)
         {
           break;
         }
 
-        ++v29;
+        v31 = (v31 + 1);
       }
 
-      while (v29 != 4);
-      v27 += 2;
-      if (v27 == v62)
+      while (v31 != 4);
+      v29 += 2;
+      if (v29 == v64)
       {
         goto LABEL_57;
       }
     }
   }
 
-  LOBYTE(v28) = 0;
+  LOBYTE(v30) = 0;
 LABEL_57:
-  v15 = v59;
-  v54 = (*(*v59 + 272))(v59);
-  if ((OZChannelBase::isObjectRef(v54) != 1) | v28 & 1 || (StringPtr = TXChannelString::getStringPtr(&v60[2381]), PCString::size(StringPtr)) && !TXTextLayout::isAllWhitespace(v60) || (v102[2] = xmmword_2603429E0, v102[1] = xmmword_2603429E0, v102[0] = xmmword_2603429E0, TXTextLayout::getLocalVolumeForHitCheck(v60, v102, a3), *&v73.value = vcvtq_f64_f32(*a2), v73.epoch = 0, (*(*v59 + 1384))(v79, v59, &v73, v58, a3, 0), !PCRayIntersectsBox(v79, v102, v61)))
+  v17 = v61;
+  v56 = (*(*v61 + 272))(v61);
+  if ((OZChannelBase::isObjectRef(v56) != 1) | v30 & 1 || (StringPtr = TXChannelString::getStringPtr(&v62[2381]), PCString::size(StringPtr)) && !TXTextLayout::isAllWhitespace(v62) || (v104[2] = xmmword_2603429E0, v104[1] = xmmword_2603429E0, v104[0] = xmmword_2603429E0, TXTextLayout::getLocalVolumeForHitCheck(v62, v104, a3), *&var0.value = vcvtq_f64_f32(*a2), var0.epoch = 0, (*(*v61 + 1384))(v81, v61, &var0, v60, a3, 0), !PCRayIntersectsBox(v81, v104, v63)))
   {
-    OZRenderParams::~OZRenderParams(v92);
-    OZRenderParams::~OZRenderParams(&v94);
-    OZLockingGroup::WriteSentry::~WriteSentry(v98);
-    if (v28)
+    OZRenderParams::~OZRenderParams(v94);
+    OZRenderParams::~OZRenderParams(&v96);
+    OZLockingGroup::WriteSentry::~WriteSentry(v100);
+    if (v30)
     {
-      v56 = v60;
+      v58 = v62;
     }
 
     else
     {
-      v56 = 0;
+      v58 = 0;
     }
 
-    if (v56)
+    if (v58)
     {
-      return v56 + 25;
+      return v58 + 25;
     }
 
     else
@@ -2738,12 +2737,12 @@ LABEL_57:
 
   else
   {
-    OZRenderParams::~OZRenderParams(v92);
-    OZRenderParams::~OZRenderParams(&v94);
-    OZLockingGroup::WriteSentry::~WriteSentry(v98);
+    OZRenderParams::~OZRenderParams(v94);
+    OZRenderParams::~OZRenderParams(&v96);
+    OZLockingGroup::WriteSentry::~WriteSentry(v100);
   }
 
-  return v15;
+  return v17;
 }
 
 void sub_25FAF331C(_Unwind_Exception *a1)
@@ -2754,7 +2753,7 @@ void sub_25FAF331C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t TXTextLayout::didAddToScene(TXTextLayout *this, OZScene *a2)
+void *TXTextLayout::didAddToScene(TXTextLayout *this, OZScene *a2)
 {
   OZTransformNode::didAddToScene((this + 200), a2);
   result = OZDocument::addCPPObserver(*(a2 + 198), this + 18976, 1001);
@@ -2784,7 +2783,7 @@ OZLockingElement *TXTextLayout::willRemoveFromScene(OZLockingElement *this, OZSc
   if (a2)
   {
     v3 = this;
-    v4 = (this + 19344);
+    v4 = this + 19344;
     for (i = *(this + 2419); i != v4; i = *(i + 8))
     {
       OZStyle::unregisterAllMaterials(*(i + 16));
@@ -2806,7 +2805,7 @@ OZLockingElement *TXTextLayout::willRemoveFromScene(OZLockingElement *this, OZSc
     OZLockingElement::willRemoveFromScene(v3, a2);
     v8 = *(a2 + 198);
 
-    return OZDocument::removeCPPObserver(v8);
+    return OZDocument::removeCPPObserver(v8, v3 + 18976);
   }
 
   return this;
@@ -2821,7 +2820,7 @@ void TXTextLayout::setName(TXTextLayout *this, PCString *a2, int a3)
 
   else
   {
-    PCString::substrTo(a2, 30, &v6.var0);
+    PCString::substrTo(&v6.var0, a2, 30);
     OZObjectManipulator::setName((this + 216), &v6, a3);
     PCString::~PCString(&v6);
   }
@@ -2836,7 +2835,7 @@ __n128 TXTextLayout::getNaturalDuration@<Q0>(TXTextLayout *this@<X0>, __n128 *a2
   {
     v4 = ((*(*v3 + 272))(v3) + 336);
 
-    result.n128_u64[0] = OZSceneSettings::getFrameDuration(v4, a2).n128_u64[0];
+    result.n128_u64[0] = OZSceneSettings::getFrameDuration(a2, v4).n128_u64[0];
   }
 
   else
@@ -2857,7 +2856,7 @@ void TXTextLayout::dirty(TXTextLayout *this)
   OZValueCache<OZBoundsCacheItem>::flush(this + 63888);
   OZValueCache<OZBoundsCacheItem>::flush(this + 64032);
   v2 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v7, v2);
+  OZLockingGroup::WriteSentry::WriteSentry(&v7, v2);
   v3 = TXTextLayout::timeGlyphPropertiesMap(this);
   TXTimeGlyphPropertiesMap::flush(v3);
   v4 = (this + 64184);
@@ -2879,12 +2878,12 @@ void TXTextLayout::dirty(TXTextLayout *this)
 
   *(this + 19332) = 0;
   *(this + 64324) = 1;
-  OZLockingGroup::WriteSentry::~WriteSentry(v7);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v7);
 }
 
-void sub_25FAF37C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FAF37C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -2936,7 +2935,7 @@ uint64_t TXTextLayout::doEval(TXTextLayout *this, OZChannelBase *a2, const CMTim
 void TXTextLayout::transform(Li3DEngineScene *a1, double *a2, const OZRenderState *a3)
 {
   v6 = Li3DEngineScene::sceneManager(a1);
-  OZLockingGroup::WriteSentry::WriteSentry(v22, v6);
+  OZLockingGroup::WriteSentry::WriteSentry(&v22, v6);
   v21 = 0x3FF0000000000000;
   v18 = 0x3FF0000000000000;
   v15 = 0x3FF0000000000000;
@@ -2964,21 +2963,21 @@ void TXTextLayout::transform(Li3DEngineScene *a1, double *a2, const OZRenderStat
     {
       OZRenderParams::OZRenderParams(v11);
       OZRenderParams::setState(v11, a3);
-      TXTextObject::getTransformMatrix(*v10, &v12, v11, 1, 1, 0, 1, 0.0, 0.0);
+      TXTextObject::getTransformMatrix(*v10, &v12, v11, 1, 1, 0, 1uLL, 0.0, 0.0);
       OZRenderParams::~OZRenderParams(v11);
     }
   }
 
   else
   {
-    (*(*(a1 + 25) + 1256))(a1 + 25, &v12, a3);
+    (*(*(a1 + 25) + 1256))(a1 + 200, &v12, a3);
   }
 
   PCMatrix44Tmpl<double>::transform<double>(&v12, a2, a2);
-  OZLockingGroup::WriteSentry::~WriteSentry(v22);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v22);
 }
 
-void TXTextLayout::createSnapSetForCamera(void *a1, const LiCamera *a2, uint64_t a3, OZRenderState *a4, int a5, int a6)
+void TXTextLayout::createSnapSetForCamera(void *a1, const LiCamera *a2, uint64_t **a3, OZRenderState *a4, int a5, int a6)
 {
   v58 = 0uLL;
   __asm { FMOV            V0.2D, #-1.0 }
@@ -3001,7 +3000,7 @@ void TXTextLayout::createSnapSetForCamera(void *a1, const LiCamera *a2, uint64_t
   a1 += 25;
   (*(v17 + 1256))(a1, &v47, a4);
   v18 = (*(*a1 + 272))(a1);
-  OZScene::calcWorldToFilmSpaceMatrixForCamera(v18, a2, v46);
+  OZScene::calcWorldToFilmSpaceMatrixForCamera(v46, v18, a2);
   PCMatrix44Tmpl<double>::leftMult(&v47, v46);
   *&v19.f64[0] = v48;
   *&v20.f64[0] = v49;
@@ -3037,9 +3036,9 @@ void TXTextLayout::createSnapSetForCamera(void *a1, const LiCamera *a2, uint64_t
   {
     v41 = vaddq_f64(v39, v40);
     OZSnap::OZSnap(v45, 258, 0.5 * vaddq_f64(v39, v41).f64[0], v39.f64[1], v41.f64[1]);
-    std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v45);
+    std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v45, v45);
     OZSnap::OZSnap(v45, 514, (v58.f64[1] + v58.f64[1] + v59.f64[1]) * 0.5, v58.f64[0], v58.f64[0] + v59.f64[0]);
-    std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v45);
+    std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v45, v45);
   }
 
   if (a6)
@@ -3062,17 +3061,17 @@ void TXTextLayout::createSnapSetForCamera(void *a1, const LiCamera *a2, uint64_t
     }
 
     OZSnap::OZSnap(v45, 257, v58.f64[0], v44, v44 + v43);
-    std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v45);
+    std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v45, v45);
     OZSnap::OZSnap(v45, 260, v58.f64[0] + v59.f64[0], v58.f64[1], v58.f64[1] + v59.f64[1]);
-    std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v45);
+    std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v45, v45);
     OZSnap::OZSnap(v45, 513, v58.f64[1], v58.f64[0], v58.f64[0] + v59.f64[0]);
-    std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v45);
+    std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v45, v45);
     OZSnap::OZSnap(v45, 516, v58.f64[1] + v59.f64[1], v58.f64[0], v58.f64[0] + v59.f64[0]);
-    std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v45);
+    std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v45, v45);
   }
 }
 
-unint64_t TXTextLayout::isGlowEnabled(TXTextLayout *this, const CMTime *a2)
+uint64_t TXTextLayout::isGlowEnabled(TXTextLayout *this, const CMTime *a2)
 {
   isEnabled = 1;
   if ((OZChannelBase::isEnabled((this + 38664), 0, 1) & 1) == 0)
@@ -3104,7 +3103,7 @@ unint64_t TXTextLayout::isGlowEnabled(TXTextLayout *this, const CMTime *a2)
   return isEnabled;
 }
 
-unint64_t TXTextLayout::isTextDropShadowEnabled(TXTextLayout *this)
+uint64_t TXTextLayout::isTextDropShadowEnabled(TXTextLayout *this)
 {
   isEnabled = 1;
   if ((OZChannelBase::isEnabled((this + 45048), 0, 1) & 1) == 0)
@@ -3136,115 +3135,119 @@ unint64_t TXTextLayout::isTextDropShadowEnabled(TXTextLayout *this)
   return isEnabled;
 }
 
-double TXTextLayout::calcStaticHash(uint64_t a1, const void *a2)
+double TXTextLayout::calcStaticHash(uint64_t a1, const void *a2, uint64_t **a3)
 {
   (*(*(a1 + 200) + 528))();
-  if (!v4)
+  if (!v6)
   {
     __cxa_bad_cast();
   }
 
-  v5 = v4;
-  v12 = *PCHashWriteStream::getHash(v4)->i8;
-  (*(*v5 + 40))(v5);
-  v6 = *(a1 + 208);
-  v11 = xmmword_260347A90;
-  if ((OZFactory::isKindOfClass(v6, &v11) & 1) == 0)
+  v7 = v6;
+  v16 = *PCHashWriteStream::getHash(v6)->i8;
+  (*(*v7 + 40))(v7);
+  v8 = *(a1 + 208);
+  v15 = xmmword_260347A90;
+  if ((OZFactory::isKindOfClass(v8, &v15) & 1) == 0)
   {
-    TXChannelString::getString((a1 + 19048), &v11);
-    v7 = PCString::size(&v11);
-    PCString::~PCString(&v11);
-    if (v7)
+    TXChannelString::getString(&v15, (a1 + 19048));
+    v9 = PCString::size(&v15);
+    PCString::~PCString(&v15);
+    if (v9)
     {
-      TXChannelString::getString((a1 + 19048), &v11);
-      (*(*a2 + 104))(a2, &v11);
-      PCString::~PCString(&v11);
+      TXChannelString::getString(&v15, (a1 + 19048));
+      (*(*a2 + 104))(a2, &v15);
+      PCString::~PCString(&v15);
     }
   }
 
   (*(*a2 + 88))(a2, *(a1 + 19432));
-  v8 = MEMORY[0x277CC08F0];
+  v10 = MEMORY[0x277CC08F0];
   OZChannel::getValueAsDouble((a1 + 24272), MEMORY[0x277CC08F0], 0.0);
   (*(*a2 + 88))(a2);
-  OZChannel::getValueAsDouble((a1 + 24424), v8, 0.0);
+  OZChannel::getValueAsDouble((a1 + 24424), v10, 0.0);
   (*(*a2 + 88))(a2);
-  OZChannel::getValueAsDouble((a1 + 24576), v8, 0.0);
+  OZChannel::getValueAsDouble((a1 + 24576), v10, 0.0);
   (*(*a2 + 88))(a2);
-  OZChannel::getValueAsDouble((a1 + 24728), v8, 0.0);
+  OZChannel::getValueAsDouble((a1 + 24728), v10, 0.0);
   (*(*a2 + 88))(a2);
-  OZChannel::getValueAsDouble((a1 + 61464), v8, 0.0);
+  OZChannel::getValueAsDouble((a1 + 61464), v10, 0.0);
   (*(*a2 + 88))(a2);
-  if (*(a1 + 19352) != a1 + 19344)
+  v11 = a1 + 19344;
+  v12 = *(a1 + 19352);
+  if (v12 != v11)
   {
-    OZObjectManipulator::getStaticHash();
+    OZObjectManipulator::getStaticHash((*(v12 + 16) + 16), a2, a3);
   }
 
-  Hash = PCHashWriteStream::getHash(v5);
-  PCHash128::operator+=(&v12, Hash);
-  *&result = PCHashWriteStream::setHash(v5, &v12).n128_u64[0];
+  Hash = PCHashWriteStream::getHash(v7);
+  PCHash128::operator+=(&v16, Hash);
+  *&result = PCHashWriteStream::setHash(v7, &v16).n128_u64[0];
   return result;
 }
 
-double non-virtual thunk toTXTextLayout::calcStaticHash(uint64_t a1, const void *a2)
+double non-virtual thunk toTXTextLayout::calcStaticHash(uint64_t a1, const void *a2, uint64_t **a3)
 {
-  return TXTextLayout::calcStaticHash(a1 - 200, a2);
+  return TXTextLayout::calcStaticHash(a1 - 200, a2, a3);
 }
 
 {
-  return TXTextLayout::calcStaticHash(a1 - 216, a2);
+  return TXTextLayout::calcStaticHash(a1 - 216, a2, a3);
 }
 
-void TXTextLayout::calcStaticHash(PCString *a1, const void *a2)
+void TXTextLayout::calcStaticHash(PCString *a1, void *a2, uint64_t **a3, int a4)
 {
-  OZTransformNode::calcStaticHash(&a1[25]);
-  if (!v4)
+  OZTransformNode::calcStaticHash(&a1[25], a2, a3, a4);
+  if (!v7)
   {
     __cxa_bad_cast();
   }
 
-  v5 = v4;
-  v14 = *PCHashWriteStream::getHash(v4)->i8;
-  (*(*v5 + 40))(v5);
-  v6 = Li3DEngineScene::sceneManager(a1);
-  OZLockingGroup::WriteSentry::WriteSentry(v13, v6);
-  TXChannelString::getString(a1 + 2381, &v12);
-  v7 = PCString::size(&v12);
-  PCString::~PCString(&v12);
-  if (v7)
+  v8 = v7;
+  v18 = *PCHashWriteStream::getHash(v7)->i8;
+  (*(*v8 + 40))(v8);
+  v9 = Li3DEngineScene::sceneManager(a1);
+  OZLockingGroup::WriteSentry::WriteSentry(&v17, v9);
+  TXChannelString::getString(&v16, a1 + 2381);
+  v10 = PCString::size(&v16);
+  PCString::~PCString(&v16);
+  if (v10)
   {
-    TXChannelString::getString(a1 + 2381, &v12);
-    (*(*a2 + 104))(a2, &v12);
-    PCString::~PCString(&v12);
+    TXChannelString::getString(&v16, a1 + 2381);
+    (*(*a2 + 104))(a2, &v16);
+    PCString::~PCString(&v16);
   }
 
-  if (a1[2419].var0 != &a1[2418])
+  var0 = a1[2419].var0;
+  if (var0 != &a1[2418])
   {
-    OZObjectManipulator::getStaticHash();
+    OZObjectManipulator::getStaticHash(var0->data + 1, a2, a3);
   }
 
-  var0 = a1[2378].var0;
-  v9 = a1[2379].var0;
-  while (var0 != v9)
+  v12 = a1[2378].var0;
+  v13 = a1[2379].var0;
+  while (v12 != v13)
   {
-    StaticHash = TXParagraphStyle::getStaticHash(*var0, a2);
-    PCHash128::operator+=(&v14, StaticHash);
-    ++var0;
+    StaticHash = TXParagraphStyle::getStaticHash(*v12, a2);
+    PCHash128::operator+=(&v18, StaticHash);
+    ++v12;
   }
 
-  Hash = PCHashWriteStream::getHash(v5);
-  PCHash128::operator+=(&v14, Hash);
-  PCHashWriteStream::setHash(v5, &v14);
-  OZLockingGroup::WriteSentry::~WriteSentry(v13);
+  Hash = PCHashWriteStream::getHash(v8);
+  PCHash128::operator+=(&v18, Hash);
+  PCHashWriteStream::setHash(v8, &v18);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v17);
 }
 
-void sub_25FAF44E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+void sub_25FAF44E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   PCString::~PCString(&a9);
-  OZLockingGroup::WriteSentry::~WriteSentry(&a10);
+  OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TXTextLayout::colorConversionCache(TXTextLayout *this)
+uint64_t *TXTextLayout::colorConversionCache(TXTextLayout *this)
 {
   if (!*(this + 7621))
   {
@@ -3254,7 +3257,7 @@ uint64_t TXTextLayout::colorConversionCache(TXTextLayout *this)
   return *(this + 7621);
 }
 
-void TXTextLayout::cacheColorConversion(int a1, PCColor *this, uint64_t a3, int a4, int a5)
+void TXTextLayout::cacheColorConversion(TXTextLayout *a1, PCColor *this, uint64_t a3, int a4, int a5)
 {
   LODWORD(v9[1]) = a4;
   LODWORD(v9[2]) = a5;
@@ -3306,7 +3309,7 @@ double TXTextLayout::calcHashForState(PCString *a1, const void *a2)
   v5 = v4;
   v9 = *PCHashWriteStream::getHash(v4)->i8;
   (*(*a2 + 40))(a2);
-  TXChannelString::getString(a1 + 2381, v8);
+  TXChannelString::getString(v8, a1 + 2381);
   (*(*a2 + 104))(a2, v8);
   PCString::~PCString(v8);
   if (a1[2419].var0 != &a1[2418])
@@ -3520,7 +3523,7 @@ void TXTextLayout::calcHashForState(uint64_t a1, void *lpsrc, CMTime *a3, uint64
   {
     v32 = Li3DEngineScene::sceneManager(a1);
     OZLockingGroup::WriteSentry::WriteSentry(v36, v32);
-    TXChannelString::getString((a1 + 19048), &v35);
+    TXChannelString::getString(&v35, (a1 + 19048));
     (*(*lpsrc + 104))(lpsrc, &v35);
     PCString::~PCString(&v35);
     OZLockingGroup::WriteSentry::~WriteSentry(v36);
@@ -3528,7 +3531,7 @@ void TXTextLayout::calcHashForState(uint64_t a1, void *lpsrc, CMTime *a3, uint64
 
   else
   {
-    TXChannelString::getString((a1 + 19048), v36);
+    TXChannelString::getString(v36, (a1 + 19048));
     (*(*lpsrc + 104))(lpsrc, v36);
     PCString::~PCString(v36);
   }
@@ -3557,7 +3560,7 @@ void TXTextLayout::calcHashForState(uint64_t a1, void *lpsrc, CMTime *a3, uint64
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&v39, *&v39.timescale);
 }
 
-void sub_25FAF53CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10, PCString a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, void *a18)
+void sub_25FAF53CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10, PCString a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18)
 {
   PCString::~PCString(&a10);
   OZLockingGroup::WriteSentry::~WriteSentry(&a11);
@@ -3569,7 +3572,7 @@ void TXTextLayout::getTextObjectWithIndex(TXTextLayout *this@<X0>, unsigned int 
 {
   v5 = this + 57344;
   v6 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::ReadSentry::ReadSentry(v9, v6);
+  OZLockingGroup::ReadSentry::ReadSentry(&v9, v6);
   v7 = *(v5 + 185);
   if (a2 >= ((*(v5 + 186) - v7) >> 4))
   {
@@ -3587,10 +3590,10 @@ void TXTextLayout::getTextObjectWithIndex(TXTextLayout *this@<X0>, unsigned int 
     }
   }
 
-  OZLockingGroup::ReadSentry::~ReadSentry(v9);
+  OZLockingGroup::ReadSentry::~ReadSentry(&v9);
 }
 
-uint64_t TXTextLayout::getDirectOffset(uint64_t a1, float32x2_t *a2, const OZRenderState *a3, _BYTE *a4, const LiCamera *a5, int a6, _BYTE *a7)
+uint64_t TXTextLayout::getDirectOffset(uint64_t a1, float32x2_t *a2, const OZRenderState *a3, _BYTE *a4, const LiCamera *a5, uint64_t a6, _BYTE *a7)
 {
   v94 = *MEMORY[0x277D85DE8];
   if (a4)
@@ -3602,7 +3605,7 @@ uint64_t TXTextLayout::getDirectOffset(uint64_t a1, float32x2_t *a2, const OZRen
   if (PCString::size(StringPtr))
   {
     v12 = (*(*(a1 + 200) + 272))(a1 + 200);
-    OZScene::calcWorldToFilmSpaceMatrixForCamera(v12, a5, v89);
+    OZScene::calcWorldToFilmSpaceMatrixForCamera(v89, v12, a5);
     v13 = Li3DEngineScene::sceneManager(a1);
     OZLockingGroup::WriteSentry::WriteSentry(v88, v13);
     OZRenderParams::OZRenderParams(v86);
@@ -3657,7 +3660,7 @@ LABEL_8:
     v67 = 0u;
     v69 = 0u;
     v70 = 0u;
-    TXTextObject::getTransformMatrix(*v18, &var0, &v86[0].value, 1, 0, 0, 1, v17, v15);
+    TXTextObject::getTransformMatrix(*v18, &var0, &v86[0].value, 1, 0, 0, 1uLL, v17, v15);
     v21 = 0;
     while (1)
     {
@@ -3689,7 +3692,7 @@ LABEL_8:
           v61 = 0uLL;
           v60 = 0uLL;
           v59 = 0uLL;
-          TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(*v18, v86, &v60, &v59, &v61, &v62, a6, 1, 0.0, 0.0, 0.0, 0.0, 1u, 0);
+          TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(*v18, v86, &v60, &v59, &v61, &v62, a6, 1, 0.0, 0.0, 0.0, 0.0, 1, 0);
           v57 = v62;
           v58 = 0;
           v55 = v61;
@@ -3864,7 +3867,7 @@ void TXTextLayout::getCursorOrigin(TXTextLayout *this, double *a2, double *a3)
 {
   if (OZChannel::getValueAsInt((this + 20464), MEMORY[0x277CC08F0], 0.0) && (v6 = MEMORY[0x277CC08F0], OZChannel::getValueAsInt((this + 20464), MEMORY[0x277CC08F0], 0.0) != 2))
   {
-    TXTextLayout::getStyleAtCharOffset(this, 0, &v20);
+    TXTextLayout::getStyleAtCharOffset(&v20, this, 0);
     v19 = *v6;
     Size = TXTextStyle::getSize(v20, &v19, 0.0);
     OZChannel::getValueAsDouble((this + 24424), MEMORY[0x277CC08F0], 0.0);
@@ -3935,7 +3938,7 @@ void TXTextLayout::getVisibleCharacterRange(TXTextLayout *this@<X0>, CMTime *a2@
 {
   v5 = this + 57344;
   v6 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v16, v6);
+  OZLockingGroup::WriteSentry::WriteSentry(&v16, v6);
   *a3 = 0;
   v7 = *(v5 + 185);
   v8 = *(v5 + 186);
@@ -3998,14 +4001,14 @@ LABEL_4:
 LABEL_16:
   *a3 = v14;
   *(a3 + 4) = v9;
-  OZLockingGroup::WriteSentry::~WriteSentry(v16);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v16);
 }
 
-void sub_25FAF5F88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FAF5F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  *v2 = v4;
-  v2[1] = v3;
+  va_start(va, a3);
+  *v3 = v5;
+  v3[1] = v4;
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -4049,330 +4052,330 @@ void TXTextLayout::scaleToBothMargins(TXTextLayout *this, CMTime *a2)
   if ((*(*this + 1144))(this))
   {
 
-    TXTextLayout::shrinkToBothMarginsBinary(this, a2);
+    TXTextLayout::shrinkToBothMarginsBinary(this, a2, v4, v5, v6);
   }
 
   else
   {
 
-    TXTextLayout::shrinkToBothMarginsLinear(this, a2);
+    TXTextLayout::shrinkToBothMarginsLinear(this, a2, v4, v5, v6);
   }
 }
 
-void TXTextLayout::shrinkToBothMarginsBinary(TXTextLayout *this, CMTime *a2)
+void TXTextLayout::shrinkToBothMarginsBinary(TXTextLayout *this, CMTime *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  TXTextLayout::calcMarginScaleHash(this, a2);
-  v4 = *(this + 3852);
-  if (!*&vorr_s8(*v4.i8, *&vextq_s8(v4, v4, 8uLL)) || (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(v22, v4)))) & 1) != 0)
+  TXTextLayout::calcMarginScaleHash(this, a2, a3, a4, a5);
+  v7 = *(this + 3852);
+  if (!*&vorr_s8(*v7.i8, *&vextq_s8(v7, v7, 8uLL)) || (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(v28, v7)))) & 1) != 0)
   {
-    v5 = TXTextLayout::computeMarginWidth(this);
-    v6 = TXTextLayout::computeMarginHeight(this);
-    v7 = 0;
-    v8 = *(this + 7971);
-    v9 = -1.0;
-    v10 = 1;
-    v11 = 8;
-    v12 = 0.01;
-    v13 = 1.0;
+    v8 = TXTextLayout::computeMarginWidth(this);
+    v9 = TXTextLayout::computeMarginHeight(this);
+    v10 = 0;
+    v11 = *(this + 7971);
+    v12 = -1.0;
+    v13 = 1;
+    v14 = 8;
+    v15 = 0.01;
+    v16 = 1.0;
     do
     {
       InitialValue = OZChannel::getInitialValue((this + 61464));
-      isBiggerThanMargins = TXTextLayout::isBiggerThanMargins(this, v5, v6, a2);
-      if (v9 >= InitialValue)
+      isBiggerThanMargins = TXTextLayout::isBiggerThanMargins(this, v8, v9, a2);
+      if (v12 >= InitialValue)
       {
-        v16 = v9;
+        v19 = v12;
       }
 
       else
       {
-        v16 = InitialValue;
+        v19 = InitialValue;
       }
 
       if (!isBiggerThanMargins)
       {
-        v9 = v16;
+        v12 = v19;
       }
 
-      if (v10)
+      if (v13)
       {
-        v17 = 1.0;
+        v20 = 1.0;
       }
 
       else
       {
-        v18 = isBiggerThanMargins;
-        v19 = OZChannel::getInitialValue((this + 61464));
-        if (v18)
+        v21 = isBiggerThanMargins;
+        v22 = OZChannel::getInitialValue((this + 61464));
+        if (v21)
         {
-          v13 = v19;
+          v16 = v22;
         }
 
         else
         {
-          v12 = v19;
+          v15 = v22;
         }
 
-        v17 = (v13 + v12) * 0.5;
+        v20 = (v16 + v15) * 0.5;
       }
 
-      v20 = v11 == 1;
-      if (v20 && v9 > 0.0)
+      v23 = v14 == 1;
+      if (v23 && v12 > 0.0)
       {
-        v17 = v9;
+        v20 = v12;
       }
 
-      OZChannel::setInitialValue((this + 61464), v17, 1);
+      OZChannel::setInitialValue((this + 61464), v20, 1);
       TXTextLayout::setAllParagraphsDirty(this);
-      TXTextLayout::doLayoutForParagraphs(this, v5, a2);
-      v7 |= v20;
-      if ((v7 & 1) != 0 && v8 < 1.0)
+      TXTextLayout::doLayoutForParagraphs(this, v8, a2);
+      v10 |= v23;
+      if ((v10 & 1) != 0 && v11 < 1.0)
       {
-        TXTextLayout::shrinkDownToOneLine(this, v5, a2);
+        TXTextLayout::shrinkDownToOneLine(this, v8, a2);
       }
 
-      v10 = 0;
-      --v11;
+      v13 = 0;
+      --v14;
     }
 
-    while (v11);
-    TXTextLayout::calcMarginScaleHash(this, a2);
-    *(this + 3852) = v21;
+    while (v14);
+    TXTextLayout::calcMarginScaleHash(this, a2, v24, v25, v26);
+    *(this + 3852) = v27;
   }
 }
 
-void TXTextLayout::shrinkToBothMarginsLinear(TXTextLayout *this, CMTime *a2)
+void TXTextLayout::shrinkToBothMarginsLinear(TXTextLayout *this, CMTime *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  TXTextLayout::calcMarginScaleHash(this, a2);
-  v3 = *(this + 3852);
-  if (*&vorr_s8(*v3.i8, *&vextq_s8(v3, v3, 8uLL)) && (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(v75, v3)))) & 1) == 0)
+  TXTextLayout::calcMarginScaleHash(this, a2, a3, a4, a5);
+  v6 = *(this + 3852);
+  if (*&vorr_s8(*v6.i8, *&vextq_s8(v6, v6, 8uLL)) && (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(v81[0], v6)))) & 1) == 0)
   {
     return;
   }
 
-  v4 = (this + 61440);
+  v7 = (this + 61440);
   HostApplicationDelegate = OZApplication::getHostApplicationDelegate(theApp);
-  v70 = OZHostApplicationDelegateHandler::wantsToLimitLinesOfText(HostApplicationDelegate);
+  v76 = OZHostApplicationDelegateHandler::wantsToLimitLinesOfText(HostApplicationDelegate);
   NumberOfLinesToLimitTextTo = OZHostApplicationDelegateHandler::getNumberOfLinesToLimitTextTo(HostApplicationDelegate);
-  v74 = *a2;
-  OZChannel::getValueAsDouble((this + 22136), &v74, 0.0);
-  v7 = v6;
-  v8 = 0;
-  v9 = 0;
-  v71 = 1;
-  v10 = MEMORY[0x277CC08F0];
+  v80 = *a2;
+  OZChannel::getValueAsDouble((this + 22136), &v80, 0.0);
+  v10 = v9;
+  v11 = 0;
+  v12 = 0;
+  v77 = 1;
+  v13 = MEMORY[0x277CC08F0];
   while (1)
   {
-    v11 = v8;
-    OZChannel::getValueAsDouble((this + 24728), v10, 0.0);
-    v13 = v12;
-    OZChannel::getValueAsDouble((this + 24576), v10, 0.0);
-    v15 = v14;
-    if (OZChannel::getValueAsInt((this + 20464), v10, 0.0) == 4 || OZChannel::getValueAsInt((this + 20720), v10, 0.0))
+    v14 = v11;
+    OZChannel::getValueAsDouble((this + 24728), v13, 0.0);
+    v16 = v15;
+    OZChannel::getValueAsDouble((this + 24576), v13, 0.0);
+    v18 = v17;
+    if (OZChannel::getValueAsInt((this + 20464), v13, 0.0) == 4 || OZChannel::getValueAsInt((this + 20720), v13, 0.0))
     {
-      OZChannel::getValueAsDouble((this + 24272), v10, 0.0);
-      v17 = v16;
-      OZChannel::getValueAsDouble((this + 24424), v10, 0.0);
-      v19 = vabdd_f64(v17, v18);
+      OZChannel::getValueAsDouble((this + 24272), v13, 0.0);
+      v20 = v19;
+      OZChannel::getValueAsDouble((this + 24424), v13, 0.0);
+      v22 = vabdd_f64(v20, v21);
     }
 
     else
     {
-      v19 = vabdd_f64(v13, v15);
+      v22 = vabdd_f64(v16, v18);
     }
 
     if (*(theApp + 82) == 1)
     {
-      TXTextLayout::_getImageBoundsFromParagraphs(this, a2, &v72);
-      v20 = *(this + 2378);
-      if (*(this + 2379) == v20)
+      TXTextLayout::_getImageBoundsFromParagraphs(&v78.value, this, a2);
+      v23 = *(this + 2378);
+      if (*(this + 2379) == v23)
       {
         std::vector<unsigned int>::__throw_out_of_range[abi:ne200100]();
       }
 
-      v21 = 0;
-      v22 = v73 + **(*v20 + 888) - (*(*(*v20 + 888) + 40) + *(*(*v20 + 888) + 56));
+      v24 = 0;
+      v25 = v79 + **(*v23 + 888) - (*(*(*v23 + 888) + 40) + *(*(*v23 + 888) + 56));
     }
 
     else
     {
-      v23 = v4[370];
-      v24 = *(this + 2378);
-      v25 = *(this + 2379);
-      if (v24 == v25)
+      v26 = v7[370];
+      v27 = *(this + 2378);
+      v28 = *(this + 2379);
+      if (v27 == v28)
       {
-        v21 = 0;
-        v26 = 0.0;
+        v24 = 0;
+        v29 = 0.0;
       }
 
       else
       {
-        v21 = 0;
-        v26 = 0.0;
+        v24 = 0;
+        v29 = 0.0;
         do
         {
-          v27 = *v24;
-          v72 = v74;
-          OZChannel::getValueAsDouble((v27 + 680), &v72, 0.0);
-          v29 = v28;
-          v30 = (*(*this + 712))(this, &v74);
-          if (OZChannel::getValueAsInt((this + 20464), v10, 0.0) == 4)
+          v30 = *v27;
+          v78 = v80;
+          OZChannel::getValueAsDouble((v30 + 680), &v78, 0.0);
+          v32 = v31;
+          v33 = (*(*this + 712))(this, &v80);
+          if (OZChannel::getValueAsInt((this + 20464), v13, 0.0) == 4)
           {
-            v31 = *(v27 + 856);
-            v32 = 0.0;
-            if (v31 < *(v27 + 864) + v31)
+            v34 = *(v30 + 856);
+            v35 = 0.0;
+            if (v34 < *(v30 + 864) + v34)
             {
-              v33 = v31;
-              v34 = 0.0;
-              v35 = 0.0;
+              v36 = v34;
+              v37 = 0.0;
+              v38 = 0.0;
               do
               {
-                TXHelperFunctions::GetTextObjectContainingCharIndex(this, v33, 1, 0, &v72);
-                TypographicBounds = TXTextObject::getTypographicBounds(v72.value);
-                v37 = *TypographicBounds;
-                v38 = TypographicBounds[2];
-                LayoutRealPos = TXTextObject::getLayoutRealPos(v72.value);
-                v40 = v33 == 0;
-                if (v35 > LayoutRealPos || v33 == 0)
+                TXHelperFunctions::GetTextObjectContainingCharIndex(&v78.value, this, v36, 1, 0);
+                TypographicBounds = TXTextObject::getTypographicBounds(v78.value);
+                v40 = *TypographicBounds;
+                v41 = TypographicBounds[2];
+                LayoutRealPos = TXTextObject::getLayoutRealPos(v78.value);
+                v43 = v36 == 0;
+                if (v38 > LayoutRealPos || v36 == 0)
                 {
-                  v35 = LayoutRealPos;
+                  v38 = LayoutRealPos;
                 }
 
-                if (v34 < v37 + v38 + LayoutRealPos)
+                if (v37 < v40 + v41 + LayoutRealPos)
                 {
-                  v40 = 1;
+                  v43 = 1;
                 }
 
-                if (v40)
+                if (v43)
                 {
-                  v34 = v37 + v38 + LayoutRealPos;
+                  v37 = v40 + v41 + LayoutRealPos;
                 }
 
-                if (*&v72.timescale)
+                if (*&v78.timescale)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](*&v72.timescale);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](*&v78.timescale);
                 }
 
-                ++v33;
+                ++v36;
               }
 
-              while (v33 < (*(v27 + 864) + *(v27 + 856)));
-              v32 = v34 - v35;
+              while (v36 < (*(v30 + 864) + *(v30 + 856)));
+              v35 = v37 - v38;
             }
 
-            v26 = v26 + v32;
+            v29 = v29 + v35;
           }
 
           else
           {
-            v42 = *(v27 + 876);
-            v21 += v42;
-            if (v42)
+            v45 = *(v30 + 876);
+            v24 += v45;
+            if (v45)
             {
-              v43 = (*(v27 + 888) + 8);
+              v46 = (*(v30 + 888) + 8);
               do
               {
-                v26 = v26 + v23 + (v7 + v29) * v30 + *(v43 - 1) - *v43;
-                v43 += 8;
-                --v42;
+                v29 = v29 + v26 + (v10 + v32) * v33 + *(v46 - 1) - *v46;
+                v46 += 8;
+                --v45;
               }
 
-              while (v42);
+              while (v45);
             }
           }
 
-          ++v24;
+          ++v27;
         }
 
-        while (v24 != v25);
-        v25 = *(this + 2379);
-        v4 = (this + 61440);
+        while (v27 != v28);
+        v28 = *(this + 2379);
+        v7 = (this + 61440);
       }
 
-      v44 = *(v25 - 1);
-      v72 = *v10;
-      OZChannel::getValueAsDouble((v44 + 680), &v72, 0.0);
-      v22 = v26 - (v23 + v45 * (*(*this + 712))(this, &v74));
+      v47 = *(v28 - 1);
+      v78 = *v13;
+      OZChannel::getValueAsDouble((v47 + 680), &v78, 0.0);
+      v25 = v29 - (v26 + v48 * (*(*this + 712))(this, &v80));
     }
 
-    ValueAsInt = OZChannel::getValueAsInt((this + 20720), v10, 0.0);
-    v47 = ValueAsInt == 0;
-    v48 = ValueAsInt ? (this + 24576) : (this + 24424);
-    v49 = v47 ? (this + 24272) : (this + 24728);
-    OZChannel::getValueAsDouble(v48, v10, 0.0);
-    v51 = v50;
-    OZChannel::getValueAsDouble(v49, v10, 0.0);
-    v53 = v51 - v52;
-    v54 = v21 > NumberOfLinesToLimitTextTo ? v70 : 0;
-    v55 = TXTextLayout::linesFitInParagraphWidth(this, v53);
-    v56 = TXTextLayout::wordsFitInParagraphWidth(this, v53);
+    ValueAsInt = OZChannel::getValueAsInt((this + 20720), v13, 0.0);
+    v50 = ValueAsInt == 0;
+    v51 = ValueAsInt ? (this + 24576) : (this + 24424);
+    v52 = v50 ? (this + 24272) : (this + 24728);
+    OZChannel::getValueAsDouble(v51, v13, 0.0);
+    v54 = v53;
+    OZChannel::getValueAsDouble(v52, v13, 0.0);
+    v56 = v54 - v55;
+    v57 = v24 > NumberOfLinesToLimitTextTo ? v76 : 0;
+    v58 = TXTextLayout::linesFitInParagraphWidth(this, v56);
+    v59 = TXTextLayout::wordsFitInParagraphWidth(this, v56);
     isPunctuationSeparatedByLineBreaks = TXTextLayout::isPunctuationSeparatedByLineBreaks(this);
-    v58 = v4[291];
-    v59 = v22 > v19 || v55 == 0;
-    if (!v59 && (v54 & 1) == 0 && v56 && isPunctuationSeparatedByLineBreaks == 0)
+    v64 = v7[291];
+    v65 = v25 > v22 || v58 == 0;
+    if (!v65 && (v57 & 1) == 0 && v59 && isPunctuationSeparatedByLineBreaks == 0)
     {
       break;
     }
 
-    if (((v71 | v9) & 1) != 0 && OZChannel::getInitialValue((this + 61464)) >= 0.02)
+    if (((v77 | v12) & 1) != 0 && OZChannel::getInitialValue((this + 61464)) >= 0.02)
     {
-      v9 = 1;
-      v61 = -0.01;
+      v12 = 1;
+      v67 = -0.01;
 LABEL_63:
       InitialValue = OZChannel::getInitialValue((this + 61464));
-      OZChannel::setInitialValue((this + 61464), InitialValue + v61, 1);
+      OZChannel::setInitialValue((this + 61464), InitialValue + v67, 1);
       TXTextLayout::setAllParagraphsDirty(this);
-      TXTextLayout::doLayoutForParagraphs(this, v53, a2);
-      v71 = 0;
-      v8 = v11;
+      TXTextLayout::doLayoutForParagraphs(this, v56, a2);
+      v77 = 0;
+      v11 = v14;
     }
 
     else
     {
-      v8 = 0;
-      v9 = 1;
-      if ((v11 & 1) == 0)
+      v11 = 0;
+      v12 = 1;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_64;
       }
     }
   }
 
-  if (((v71 | v11) & 1) != 0 && OZChannel::getInitialValue((this + 61464)) < 1.0)
+  if (((v77 | v14) & 1) != 0 && OZChannel::getInitialValue((this + 61464)) < 1.0)
   {
-    v11 = 1;
-    v61 = 0.01;
+    v14 = 1;
+    v67 = 0.01;
     goto LABEL_63;
   }
 
 LABEL_64:
-  if (v58 < 1.0 && NumLinesInParagraphs(this) >= 2 && ((*(this + 2379) - *(this + 2378)) & 0x7FFFFFFF8) == 8)
+  if (v64 < 1.0 && NumLinesInParagraphs(this) >= 2 && ((*(this + 2379) - *(this + 2378)) & 0x7FFFFFFF8) == 8)
   {
-    v63 = OZChannel::getInitialValue((this + 61464));
+    v69 = OZChannel::getInitialValue((this + 61464));
     do
     {
-      v64 = OZChannel::getInitialValue((this + 61464));
-      v65 = v64 + -0.05;
-      v66 = v4[291];
-      if (v64 + -0.05 >= v66)
+      v70 = OZChannel::getInitialValue((this + 61464));
+      v71 = v70 + -0.05;
+      v72 = v7[291];
+      if (v70 + -0.05 >= v72)
       {
-        v67 = v64 + -0.05;
+        v73 = v70 + -0.05;
       }
 
       else
       {
-        v67 = v63;
+        v73 = v69;
       }
 
-      OZChannel::setInitialValue((this + 61464), v67, 1);
+      OZChannel::setInitialValue((this + 61464), v73, 1);
       TXTextLayout::setAllParagraphsDirty(this);
-      TXTextLayout::doLayoutForParagraphs(this, v53, a2);
+      TXTextLayout::doLayoutForParagraphs(this, v56, a2);
     }
 
-    while (NumLinesInParagraphs(this) != 1 && v65 >= v66);
+    while (NumLinesInParagraphs(this) != 1 && v71 >= v72);
   }
 
-  TXTextLayout::calcMarginScaleHash(this, a2);
-  *(this + 3852) = *&v72.value;
+  TXTextLayout::calcMarginScaleHash(this, a2, v61, v62, v63);
+  *(this + 3852) = *&v78.value;
 }
 
 void sub_25FAF692C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22)
@@ -4385,61 +4388,61 @@ void sub_25FAF692C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TXTextLayout::calcMarginScaleHash(TXTextLayout *this, const CMTime *a2)
+void TXTextLayout::calcMarginScaleHash(TXTextLayout *this, const CMTime *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = MEMORY[0x28223BE20](this);
-  v4 = v3;
-  v5 = v2;
-  v7 = v6;
-  v16[520] = *MEMORY[0x277D85DE8];
-  PCHashWriteStream::PCHashWriteStream(v16);
-  v8 = (v5 + 19344);
-  v9 = *(v5 + 19352);
-  if (v9 != (v5 + 19344))
+  MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v19[520] = *MEMORY[0x277D85DE8];
+  PCHashWriteStream::PCHashWriteStream(v19);
+  v11 = (v8 + 19344);
+  v12 = *(v8 + 19352);
+  if (v12 != (v8 + 19344))
   {
     do
     {
-      v11 = v9[2];
-      v10 = v9[3];
-      if (v10)
+      v14 = v12[2];
+      v13 = v12[3];
+      if (v13)
       {
-        atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v15 = *v4;
-      Size = TXTextStyle::getSize(v11, &v15, 0.0);
-      PCHashWriteStream::writeValue(v16, Size);
-      var8 = v11[3].var8;
-      var9 = v11[3].var9;
+      v18 = *v6;
+      Size = TXTextStyle::getSize(v14, &v18, 0.0);
+      PCHashWriteStream::writeValue(v19, Size);
+      var8 = v14[3].var8;
+      var9 = v14[3].var9;
       if (var9)
       {
         atomic_fetch_add_explicit(&var9->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      PCHashWriteStream::writeValue(v16, var8 + 1);
+      PCHashWriteStream::writeValue(v19, var8 + 1);
       if (var9)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](var9);
       }
 
-      if (v10)
+      if (v13)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v13);
       }
 
-      v9 = v9[1];
+      v12 = v12[1];
     }
 
-    while (v9 != v8);
+    while (v12 != v11);
   }
 
-  *v7 = *PCHashWriteStream::getHash(v16)->i8;
-  PCHashWriteStream::~PCHashWriteStream(v16);
+  *v10 = *PCHashWriteStream::getHash(v19)->i8;
+  PCHashWriteStream::~PCHashWriteStream(v19);
 }
 
-void sub_25FAF6A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FAF6A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   PCHashWriteStream::~PCHashWriteStream(va);
   _Unwind_Resume(a1);
 }
@@ -4547,7 +4550,7 @@ void TXTextLayout::computeTotalHeight(TXTextLayout *this, const CMTime *a2)
   OZChannel::getValueAsDouble((this + 22136), a2, 0.0);
   if (*(theApp + 82) == 1)
   {
-    TXTextLayout::_getImageBoundsFromParagraphs(this, a2, &v33);
+    TXTextLayout::_getImageBoundsFromParagraphs(&v33.value, this, a2);
     if (*(this + 2379) == *(this + 2378))
     {
       std::vector<unsigned int>::__throw_out_of_range[abi:ne200100]();
@@ -4581,11 +4584,11 @@ void TXTextLayout::computeTotalHeight(TXTextLayout *this, const CMTime *a2)
             v19 = 0.0;
             do
             {
-              TXHelperFunctions::GetTextObjectContainingCharIndex(this, v17, 1, 0, &v33);
-              TypographicBounds = TXTextObject::getTypographicBounds(v33.var0);
+              TXHelperFunctions::GetTextObjectContainingCharIndex(&v33.value, this, v17, 1, 0);
+              TypographicBounds = TXTextObject::getTypographicBounds(v33.value);
               v21 = *TypographicBounds;
               v22 = TypographicBounds[2];
-              LayoutRealPos = TXTextObject::getLayoutRealPos(v33.var0);
+              LayoutRealPos = TXTextObject::getLayoutRealPos(v33.value);
               v24 = v17 == 0;
               if (v19 > LayoutRealPos || v17 == 0)
               {
@@ -4602,9 +4605,9 @@ void TXTextLayout::computeTotalHeight(TXTextLayout *this, const CMTime *a2)
                 v18 = v21 + v22 + LayoutRealPos;
               }
 
-              if (*&v33.var1)
+              if (*&v33.timescale)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](*&v33.var1);
+                std::__shared_weak_count::__release_shared[abi:ne200100](*&v33.timescale);
               }
 
               ++v17;
@@ -4633,15 +4636,15 @@ void TXTextLayout::computeTotalHeight(TXTextLayout *this, const CMTime *a2)
                 v31 = *(v11 + 856);
                 if (v31)
                 {
-                  TXHelperFunctions::GetTextObjectContainingCharIndex(this, (v31 - 1), 1, 0, &v33);
-                  if (v33.var0)
+                  TXHelperFunctions::GetTextObjectContainingCharIndex(&v33.value, this, (v31 - 1), 1, 0);
+                  if (v33.value)
                   {
-                    v30 = *(TXTextObject::getTypographicBounds(v33.var0) + 24);
+                    v30 = *(TXTextObject::getTypographicBounds(v33.value) + 24);
                   }
 
-                  if (*&v33.var1)
+                  if (*&v33.timescale)
                   {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](*&v33.var1);
+                    std::__shared_weak_count::__release_shared[abi:ne200100](*&v33.timescale);
                   }
                 }
               }
@@ -4716,12 +4719,12 @@ uint64_t TXTextLayout::isTooManyLines(TXTextLayout *this)
   return result;
 }
 
-void TXTextLayout::updateShrinkToMarginsChannel(const PCString *this)
+void TXTextLayout::updateShrinkToMarginsChannel(PCString *this)
 {
   v5 = *MEMORY[0x277D85DE8];
   *v3 = xmmword_260347B84;
   v4 = 3;
-  OZChannelEnum::setTags(&this[7651], v3, 5);
+  OZChannelEnum::setTags(&this[7651].var0, v3, 5);
   PCURL::PCURL(&v2, @"Text Layout Scale To Margins Proportional Enum");
   OZChannelEnum::setStrings(this + 7651, &v2, 1);
   PCString::~PCString(&v2);
@@ -4729,7 +4732,7 @@ void TXTextLayout::updateShrinkToMarginsChannel(const PCString *this)
 
 double TXTextLayout::getSeqPosScaleForChar(TXTextLayout *this, unsigned int a2, CMTime *a3)
 {
-  TXTextLayout::getStyleAtCharOffset(this, a2, &v7);
+  TXTextLayout::getStyleAtCharOffset(&v7, this, a2);
   v6 = *a3;
   Size = TXTextStyle::getSize(v7, &v6, 0.0);
   if (v8)
@@ -4753,7 +4756,7 @@ void sub_25FAF7354(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t TXTextLayout::getWordIndex(TXTextLayout *this, int a2)
 {
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::ReadSentry::ReadSentry(v9, v4);
+  OZLockingGroup::ReadSentry::ReadSentry(&v9, v4);
   v5 = *(this + 7623);
   if (!v5)
   {
@@ -4783,7 +4786,7 @@ LABEL_8:
     v7 = 0;
   }
 
-  OZLockingGroup::ReadSentry::~ReadSentry(v9);
+  OZLockingGroup::ReadSentry::~ReadSentry(&v9);
   return v7;
 }
 
@@ -4880,7 +4883,7 @@ uint64_t TXTextLayout::lineIndexToCharIndex(TXTextLayout *this, int a2)
   }
 }
 
-uint64_t TXTextLayout::writeBody(TXTextLayout *this, PCSerializerWriteStream *a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t TXTextLayout::writeBody(TXTextLayout *this, PCSerializerWriteStream *a2, uint64_t a3, _BOOL4 a4, uint64_t a5)
 {
   v10 = (this + 52256);
   PCSerializerWriteStream::pushScope(a2, &TXLayoutScope);
@@ -5013,7 +5016,7 @@ LABEL_32:
   return OZElement::writeBody((this + 200), a2, a3, a4, a5);
 }
 
-uint64_t non-virtual thunk toTXTextLayout::writeBody(TXTextLayout *this, PCSerializerWriteStream *a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t non-virtual thunk toTXTextLayout::writeBody(TXTextLayout *this, PCSerializerWriteStream *a2, uint64_t a3, BOOL a4, uint64_t a5)
 {
   return TXTextLayout::writeBody((this - 200), a2, a3, a4, a5);
 }
@@ -5022,32 +5025,32 @@ uint64_t non-virtual thunk toTXTextLayout::writeBody(TXTextLayout *this, PCSeria
   return TXTextLayout::writeBody((this - 248), a2, a3, a4, a5);
 }
 
-void TXTextLayout::markFactoriesForSerialization(OZFactory **this, PCSerializerWriteStream *a2)
+void TXTextLayout::markFactoriesForSerialization(OZFactory **this, OZChannelFolder *a2, BOOL a3)
 {
   OZSceneNode::markFactoriesForSerialization(this + 25, a2);
-  v4 = this + 2418;
-  v5 = this[2419];
-  if (v5 != this + 2418)
+  v5 = this + 2418;
+  v6 = this[2419];
+  if (v6 != this + 2418)
   {
     do
     {
-      v6 = v5[2];
-      v7 = v5[3];
-      if (v7)
+      v7 = v6[2];
+      v8 = v6[3];
+      if (v8)
       {
-        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      (*(*v6 + 192))(v6, a2, 0);
-      if (v7)
+      (*(*v7 + 192))(v7, a2, 0);
+      if (v8)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v8);
       }
 
-      v5 = v5[1];
+      v6 = v6[1];
     }
 
-    while (v5 != v4);
+    while (v6 != v5);
   }
 }
 
@@ -5061,13 +5064,13 @@ void sub_25FAF7F24(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void non-virtual thunk toTXTextLayout::markFactoriesForSerialization(OZFactory **this, PCSerializerWriteStream *a2)
+void non-virtual thunk toTXTextLayout::markFactoriesForSerialization(OZFactory **this, OZChannelFolder *a2, BOOL a3)
 {
-  TXTextLayout::markFactoriesForSerialization(this - 25, a2);
+  TXTextLayout::markFactoriesForSerialization(this - 25, a2, a3);
 }
 
 {
-  TXTextLayout::markFactoriesForSerialization(this - 31, a2);
+  TXTextLayout::markFactoriesForSerialization(this - 31, a2, a3);
 }
 
 uint64_t TXTextLayout::parseBegin(TXTextLayout *this, PCSerializerReadStream *a2)
@@ -5222,9 +5225,9 @@ uint64_t TXTextLayout::isPathNormalInitialized(TXTextLayout *this)
     return 0;
   }
 
-  OZChannel::getKeyframes(v2, 0, &v14);
-  OZChannel::getKeyframes((this + 52792), 0, v13);
-  OZChannel::getKeyframes((this + 53240), 0, __p);
+  OZChannel::getKeyframes(&v14, v2, 0);
+  OZChannel::getKeyframes(v13, (this + 52792), 0);
+  OZChannel::getKeyframes(__p, (this + 53240), 0);
   v3 = v14;
   if (v15 == v14)
   {
@@ -5352,7 +5355,7 @@ uint64_t TXTextLayout::parseElement(TXTextLayout *this, PCSerializerReadStream *
         v16 = *v29;
         v28 = *v6;
         v31.var0 = &v28;
-        v17 = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(this + 19224, &v28);
+        v17 = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(this + 19224, &v28, &std::piecewise_construct, &v31);
 LABEL_35:
         v17[5] = v16;
         goto LABEL_71;
@@ -5552,7 +5555,7 @@ LABEL_40:
       v16 = v28;
       v27 = *v29;
       v31.var0 = &v27;
-      v17 = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(this + 19224, &v27);
+      v17 = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(this + 19224, &v27, &std::piecewise_construct, &v31);
       goto LABEL_35;
     case 520:
       v29[0] = 0;
@@ -5630,7 +5633,7 @@ uint64_t TXTextLayout::centerAnchorPoint(TXTextLayout *this, double a2, int a3)
   v6 = (this + 200);
   if ((*(*(this + 25) + 272))(this + 200))
   {
-    v7 = (*(*v6 + 272))(v6);
+    v7 = (*(v6->var0 + 34))(v6);
   }
 
   else
@@ -5639,7 +5642,7 @@ uint64_t TXTextLayout::centerAnchorPoint(TXTextLayout *this, double a2, int a3)
   }
 
   memset(&v44, 0, sizeof(v44));
-  OZScene::getCurrentTime(v7, &v44);
+  OZScene::getCurrentTime(&v44, v7);
   OZTransformNode::getPivot(v6, &v45, &v44);
   v8 = MEMORY[0x277CC08F0];
   OZChannel::getValueAsDouble((this + 24576), MEMORY[0x277CC08F0], 0.0);
@@ -5737,7 +5740,7 @@ void TXTextLayout::didFinishInitializing(TXTextLayout *this, int a2)
       v7 = (*(**(v5 + 16) + 112))(*(v5 + 16));
       (*(*(this + 25) + 1128))(&v22, this + 200);
       OZChannelObjectRootBase::setTimeExtent(v7, &v22, a2);
-      OZChannelObjectRootBase::getTimeOffset(this + 16, &v22);
+      OZChannelObjectRootBase::getTimeOffset(&v22, this + 16);
       v8 = OZChannelObjectRootBase::setTimeOffset(v7, &v22, a2);
       v9 = *(v5 + 16);
       v10 = *(v9 + 480);
@@ -5749,7 +5752,7 @@ void TXTextLayout::didFinishInitializing(TXTextLayout *this, int a2)
         OZChannelObjectRootBase::setTimeExtent(v12, &v22, 0);
         v13 = *v10++;
         v14 = (*(*v13 + 208))(v13);
-        OZChannelObjectRootBase::getTimeOffset(this + 16, &v22);
+        OZChannelObjectRootBase::getTimeOffset(&v22, this + 16);
         v8 = OZChannelObjectRootBase::setTimeOffset(v14, &v22, 0);
       }
 
@@ -5769,7 +5772,7 @@ void TXTextLayout::didFinishInitializing(TXTextLayout *this, int a2)
   OZChannel::reparametrizeChannel((v3 + 880));
   if (!(*(*(v3 + 110) + 832))(v3 + 880))
   {
-    OZChannel::getKeyframes((this + 52640), 0, &v22);
+    OZChannel::getKeyframes(&v22.value, (this + 52640), 0);
     value = v22.value;
     if (*&v22.timescale != v22.value)
     {
@@ -5796,7 +5799,7 @@ void TXTextLayout::didFinishInitializing(TXTextLayout *this, int a2)
 
   if (!(*(*(v3 + 221) + 832))(v3 + 1768))
   {
-    OZChannel::getKeyframes((this + 53528), 0, &v22);
+    OZChannel::getKeyframes(&v22.value, (this + 53528), 0);
     v18 = v22.value;
     if (*&v22.timescale != v22.value)
     {
@@ -5887,7 +5890,7 @@ uint64_t TXTextLayout::didFinishLoadingIntoScene(TXTextLayout *this)
   *(this + 63761) = 0;
   if (*(this + 2379) == *(this + 2378))
   {
-    TXTextLayout::createParagraphStylesFromNewLines(this);
+    TXTextLayout::createParagraphStylesFromNewLines(this, 1);
   }
 
   TXTextLayout::rebuildParagraphStyles(this);
@@ -5902,8 +5905,8 @@ uint64_t TXTextLayout::didFinishLoadingIntoScene(TXTextLayout *this)
   ValueAsInt = OZChannel::getValueAsInt((this + 20464), v2, 0.0);
   TXTextLayout::cacheMargins(this, ValueAsInt);
   *(this + 18988) = 1;
-  OZRenderState::OZRenderState(&v5);
-  return TXTextLayout::doLayout(this, &v5, 0);
+  OZRenderState::OZRenderState(&v7);
+  return TXTextLayout::doLayout(this, &v7, 0, v4, v5);
 }
 
 uint64_t non-virtual thunk toTXTextLayout::didFinishLoadingIntoScene(TXTextLayout *this)
@@ -5928,9 +5931,9 @@ void initializeNormalsForPath(OZChannelPosition3D *a1)
   v2 = (a1 + 136);
   if ((*(*(a1 + 17) + 832))(a1 + 136) >= 2)
   {
-    OZChannel::getKeyframes(v2, 0, &v8);
-    OZChannel::getKeyframes((a1 + 288), 0, v7);
-    OZChannel::getKeyframes((a1 + 736), 0, __p);
+    OZChannel::getKeyframes(&v8, v2, 0);
+    OZChannel::getKeyframes(v7, (a1 + 288), 0);
+    OZChannel::getKeyframes(__p, (a1 + 736), 0);
     v3 = v8;
     if (v9 != v8)
     {
@@ -5984,7 +5987,7 @@ void sub_25FAF9C18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t OZCurrentThread::getInstance(OZCurrentThread *this)
+OZCurrentThread *OZCurrentThread::getInstance(OZCurrentThread *this)
 {
   if (!OZCurrentThread::_instance)
   {
@@ -5996,153 +5999,153 @@ uint64_t OZCurrentThread::getInstance(OZCurrentThread *this)
 
 BOOL PCMatrix44Tmpl<double>::getTransformation(__int128 *a1, uint64_t a2)
 {
-  v39 = 0x3FF0000000000000;
-  v36 = 1.0;
-  v33 = 1.0;
-  v30 = 1.0;
+  v32 = 0x3FF0000000000000;
+  v29 = 1.0;
+  v26 = 1.0;
+  v23 = 1.0;
   __y = 0u;
-  v32 = 0u;
-  v34 = 0u;
+  v25 = 0u;
+  v27 = 0u;
   __x = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  PartialTransformation = PCMatrix44Tmpl<double>::getPartialTransformation(a1, a2, &v30);
+  v30 = 0u;
+  v31 = 0u;
+  PartialTransformation = PCMatrix44Tmpl<double>::getPartialTransformation(a1, a2, &v23);
   if (PartialTransformation)
   {
-    v11 = *(a2 + 48);
-    if (v11 > 2)
+    v4 = *(a2 + 48);
+    if (v4 > 2)
     {
-      if (v11 == 3)
+      if (v4 == 3)
       {
-        v19 = asin(-*&__y);
-        *(a2 + 72) = v19;
-        if (fabs(cos(v19)) < 0.0000001)
+        v12 = asin(-*&__y);
+        *(a2 + 72) = v12;
+        if (fabs(cos(v12)) < 0.0000001)
         {
-          v20 = v36;
-          v21 = -*&v34;
+          v13 = v29;
+          v14 = -*&v27;
 LABEL_21:
-          *(a2 + 56) = atan2(v21, v20);
+          *(a2 + 56) = atan2(v14, v13);
           *(a2 + 64) = 0;
           return PartialTransformation;
         }
 
-        *(a2 + 56) = atan2(*(&__x + 1), v33);
-        v26 = *(&__y + 1);
-        v27 = v30;
+        *(a2 + 56) = atan2(*(&__x + 1), v26);
+        v19 = *(&__y + 1);
+        v20 = v23;
 LABEL_32:
-        *(a2 + 64) = atan2(v26, v27);
+        *(a2 + 64) = atan2(v19, v20);
         return PartialTransformation;
       }
 
-      if (v11 != 4)
+      if (v4 != 4)
       {
-        if (v11 != 5)
+        if (v4 != 5)
         {
           goto LABEL_18;
         }
 
-        v15 = asin(*(&__y + 1));
-        *(a2 + 64) = v15;
-        if (fabs(cos(v15)) >= 0.0000001)
+        v8 = asin(*(&__y + 1));
+        *(a2 + 64) = v8;
+        if (fabs(cos(v8)) >= 0.0000001)
         {
-          *(a2 + 56) = atan2(-*&v34, v36);
-          v25 = v30;
-          v28 = *&__y;
+          *(a2 + 56) = atan2(-*&v27, v29);
+          v18 = v23;
+          v21 = *&__y;
 LABEL_30:
-          v24 = -v28;
+          v17 = -v21;
           goto LABEL_34;
         }
 
-        v16 = *(&__x + 1);
-        v17 = v33;
+        v9 = *(&__x + 1);
+        v10 = v26;
 LABEL_15:
-        *(a2 + 56) = atan2(v16, v17);
+        *(a2 + 56) = atan2(v9, v10);
 LABEL_25:
         *(a2 + 72) = 0;
         return PartialTransformation;
       }
 
-      v23 = asin(-*&v34);
-      *(a2 + 56) = v23;
-      if (fabs(cos(v23)) < 0.0000001)
+      v16 = asin(-*&v27);
+      *(a2 + 56) = v16;
+      if (fabs(cos(v16)) < 0.0000001)
       {
-        v14 = v30;
-        v13 = -*&__x;
+        v7 = v23;
+        v6 = -*&__x;
         goto LABEL_24;
       }
 
-      *(a2 + 64) = atan2(*(&__y + 1), v36);
-      v24 = *(&v32 + 1);
-      v25 = v33;
+      *(a2 + 64) = atan2(*(&__y + 1), v29);
+      v17 = *(&v25 + 1);
+      v18 = v26;
     }
 
     else
     {
-      if (v11)
+      if (v4)
       {
-        if (v11 != 1)
+        if (v4 != 1)
         {
-          if (v11 == 2)
+          if (v4 == 2)
           {
-            v12 = asin(*(&__x + 1));
-            *(a2 + 56) = v12;
-            if (fabs(cos(v12)) < 0.0000001)
+            v5 = asin(*(&__x + 1));
+            *(a2 + 56) = v5;
+            if (fabs(cos(v5)) < 0.0000001)
             {
-              v13 = *(&__y + 1);
-              v14 = v30;
+              v6 = *(&__y + 1);
+              v7 = v23;
 LABEL_24:
-              *(a2 + 64) = atan2(v13, v14);
+              *(a2 + 64) = atan2(v6, v7);
               goto LABEL_25;
             }
 
-            *(a2 + 64) = atan2(-*&__x, v36);
-            v28 = *&__y;
-            v25 = v33;
+            *(a2 + 64) = atan2(-*&__x, v29);
+            v21 = *&__y;
+            v18 = v26;
             goto LABEL_30;
           }
 
 LABEL_18:
-          PCPrint("File %s, line %d should not have been reached:\n\t", v3, v4, v5, v6, v7, v8, v9, "/AppleInternal/Library/BuildRoots/4~B_vzugBVzI53cLeUsWlBTaFKJKVmLd5Y5P_6Sn4/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/ProCore/PCMatrix44.h");
+          PCPrint("File %s, line %d should not have been reached:\n\t", "/AppleInternal/Library/BuildRoots/4~B_vzugBVzI53cLeUsWlBTaFKJKVmLd5Y5P_6Sn4/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/ProCore/PCMatrix44.h", 2271);
           pcAbortImpl();
         }
 
-        v22 = asin(*(&v32 + 1));
-        *(a2 + 72) = v22;
-        if (fabs(cos(v22)) < 0.0000001)
+        v15 = asin(*(&v25 + 1));
+        *(a2 + 72) = v15;
+        if (fabs(cos(v15)) < 0.0000001)
         {
-          v21 = *(&__x + 1);
-          v20 = v36;
+          v14 = *(&__x + 1);
+          v13 = v29;
           goto LABEL_21;
         }
 
-        *(a2 + 56) = atan2(-*&v34, v33);
-        v27 = v30;
-        v26 = -*&__x;
+        *(a2 + 56) = atan2(-*&v27, v26);
+        v20 = v23;
+        v19 = -*&__x;
         goto LABEL_32;
       }
 
-      v18 = asin(-*&__x);
-      *(a2 + 64) = v18;
-      if (fabs(cos(v18)) < 0.0000001)
+      v11 = asin(-*&__x);
+      *(a2 + 64) = v11;
+      if (fabs(cos(v11)) < 0.0000001)
       {
-        v17 = v33;
-        v16 = -*&v34;
+        v10 = v26;
+        v9 = -*&v27;
         goto LABEL_15;
       }
 
-      *(a2 + 56) = atan2(*(&__x + 1), v36);
-      v24 = *(&v32 + 1);
-      v25 = v30;
+      *(a2 + 56) = atan2(*(&__x + 1), v29);
+      v17 = *(&v25 + 1);
+      v18 = v23;
     }
 
 LABEL_34:
-    *(a2 + 72) = atan2(v24, v25);
+    *(a2 + 72) = atan2(v17, v18);
   }
 
   return PartialTransformation;
 }
 
-void TXTextLayout::allowDrag(TXTextLayout *this, OZFactoryBase *lpsrc, OZChannelBase *a3, unsigned int a4, unsigned int *a5, unsigned int *a6, int a7)
+void TXTextLayout::allowDrag(TXTextLayout *this, OZFactoryBase *lpsrc, OZChannelBase *a3, unsigned int a4, unsigned int *a5, unsigned int *a6, unsigned int a7)
 {
   *a5 = 0;
   if (!lpsrc)
@@ -6188,7 +6191,7 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  TXTextLayout::getCurrentStyleForInsertion(this, &v21);
+  TXTextLayout::getCurrentStyleForInsertion(&v21, this);
   if (v21 && v12 != a3)
   {
     *a5 = v20 & 1;
@@ -6200,7 +6203,7 @@ LABEL_16:
   }
 }
 
-void non-virtual thunk toTXTextLayout::allowDrag(TXTextLayout *this, OZFactoryBase *a2, OZChannelBase *a3, unsigned int a4, unsigned int *a5, unsigned int *a6, int a7)
+void non-virtual thunk toTXTextLayout::allowDrag(TXTextLayout *this, OZFactoryBase *a2, OZChannelBase *a3, unsigned int a4, unsigned int *a5, unsigned int *a6, unsigned int a7)
 {
   TXTextLayout::allowDrag((this - 200), a2, a3, a4, a5, a6, a7);
 }
@@ -6660,7 +6663,7 @@ LABEL_134:
 
   else
   {
-    PCString::substrTo(&v125, (v47 - 1), &v129);
+    PCString::substrTo(&v129, &v125, (v47 - 1));
     PCString::set(&v124, &v129);
     PCString::~PCString(&v129);
     v48 = PCString::find(&v124, &v126) >= 0;
@@ -6669,7 +6672,7 @@ LABEL_134:
   PCSharedCount::PCSharedCount(&v123);
   if (v48)
   {
-    PCString::substrFrom(&v125, v47 + 1, &v129);
+    PCString::substrFrom(&v129, &v125, v47 + 1);
     PCString::set(&v123, &v129);
     PCString::~PCString(&v129);
     PCString::PCString(&v129, ".");
@@ -6680,7 +6683,7 @@ LABEL_134:
       goto LABEL_105;
     }
 
-    PCString::substrTo(&v123, v91 - 1, &v129);
+    PCString::substrTo(&v129, &v123, v91 - 1);
     PCString::set(&v123, &v129);
   }
 
@@ -6709,7 +6712,7 @@ LABEL_134:
     PCString::~PCString(&v122);
     if ((v95 & 0x80000000) == 0)
     {
-      PCString::substrTo(&v123, v95 - 1, &v122.var0);
+      PCString::substrTo(&v122.var0, &v123, v95 - 1);
       PCString::set(&v123, &v122);
       PCString::~PCString(&v122);
     }
@@ -6770,7 +6773,7 @@ LABEL_105:
         PCString::~PCString(&v129);
         if ((a7 & 2) != 0)
         {
-          CurrentTime = OZScene::getCurrentTime(v120, &v129);
+          CurrentTime = OZScene::getCurrentTime(&v129, v120);
           (*(a3->var0 + 38))(a3, &v129, v46, CurrentTime);
         }
 
@@ -6840,7 +6843,7 @@ void *TXTextLayout::addMaterialToSequenceBehaviors(void *this, OZMaterialBase *a
   return this;
 }
 
-char *TXTextLayout::moveMaterialLayer(TXTextLayout *this, unsigned int a2, unsigned int a3, unsigned int a4, int a5)
+char *TXTextLayout::moveMaterialLayer(TXTextLayout *this, unsigned int a2, unsigned int a3, int a4, int a5)
 {
   v10 = this + 19344;
   v11 = *(this + 2419);
@@ -7084,73 +7087,73 @@ void TXTextLayout::prepareForRender(TXTextLayout *this, const OZRenderState *a2)
     *(this + 19321) = 1;
   }
 
-  TXTextLayout::doLayout(this, a2, 0);
+  TXTextLayout::doLayout(this, a2, 0, v4, v5);
   var0 = a2->var0;
   for (i = *(this + 2419); i != (this + 19344); i = i[1])
   {
-    v5 = i[2];
-    v20 = var0;
-    TXTextStyle::updateGradient(v5, &v20);
+    v7 = i[2];
+    v24 = var0;
+    TXTextStyle::updateGradient(v7, &v24);
   }
 
   if (*(this + 14718) == 2)
   {
-    PCString::PCString(&v23, this + 7358);
-    TXChannelString::getString(this + 2381, &v20);
-    v6 = PCString::caseInsensitiveCompare(&v23, &v20);
-    PCString::~PCString(&v20);
-    if (v6)
+    PCString::PCString(&v27, this + 7358);
+    TXChannelString::getString(&v24, this + 2381);
+    v8 = PCString::caseInsensitiveCompare(&v27, &v24);
+    PCString::~PCString(&v24);
+    if (v8)
     {
-      v7 = Li3DEngineScene::sceneManager(this);
-      OZLockingGroup::WriteSentry::WriteSentry(v22, v7);
-      v8 = (*(*(this + 25) + 640))(this + 200);
-      (*(*v8 + 712))(&v20);
-      v18 = a2->var0;
-      v9 = (*(*(this + 25) + 272))(this + 200);
-      OZSceneSettings::getFrameDuration((v9 + 336), &v16);
-      time1 = v18;
-      *&time2.value = v16;
-      time2.epoch = v17;
-      v10 = PC_CMTimeFloorToSampleDuration(&time1, &time2, &v19);
-      v11 = (*(*(this + 25) + 272))(this + 200, v10);
-      OZSceneSettings::getFrameDuration((v11 + 336), &v14);
-      time1 = v20;
-      time2 = v19;
+      v9 = Li3DEngineScene::sceneManager(this);
+      OZLockingGroup::WriteSentry::WriteSentry(&v26, v9);
+      v10 = (*(*(this + 25) + 640))(this + 200);
+      (*(*v10 + 712))(&v24);
+      v22 = a2->var0;
+      v11 = (*(*(this + 25) + 272))(this + 200);
+      OZSceneSettings::getFrameDuration(&v20, (v11 + 336));
+      time1 = v22;
+      *&time2.value = v20;
+      time2.epoch = v21;
+      v12 = PC_CMTimeFloorToSampleDuration(&time1, &time2, &v23);
+      v13 = (*(*(this + 25) + 272))(this + 200, v12);
+      OZSceneSettings::getFrameDuration(&v18, (v13 + 336));
+      time1 = v24;
+      time2 = v23;
       if (CMTimeCompare(&time1, &time2) <= 0)
       {
-        time1 = v20;
-        time2 = v21;
-        PC_CMTimeSaferAdd(&time1, &time2, &v26);
-        time1 = v26;
-        *&time2.value = v14;
-        time2.epoch = v15;
-        PC_CMTimeSaferSubtract(&time1, &time2, &v25);
-        time1 = v19;
+        time1 = v24;
         time2 = v25;
-        if (CMTimeCompare(&time1, &time2) <= 0 || (v21.flags & 1) != 0 && (v21.flags & 0x10) != 0)
+        PC_CMTimeSaferAdd(&time1, &time2, &v30);
+        time1 = v30;
+        *&time2.value = v18;
+        time2.epoch = v19;
+        PC_CMTimeSaferSubtract(&time1, &time2, &v29);
+        time1 = v23;
+        time2 = v29;
+        if (CMTimeCompare(&time1, &time2) <= 0 || (v25.flags & 1) != 0 && (v25.flags & 0x10) != 0)
         {
           TXTextLayout::setString(this, this + 7358, 1);
           TXTextLayout::updateDisplayString(this, &var0);
-          v12 = *(*(this + 2422) + 16);
-          TXTextLayout::getDisplayString(this, &v20);
-          v13 = PCString::size(&v20);
-          *(v12 + 24) = 0;
-          *(v12 + 28) = v13;
-          PCString::~PCString(&v20);
+          v14 = *(*(this + 2422) + 16);
+          TXTextLayout::getDisplayString(this, &v24);
+          v15 = PCString::size(&v24);
+          *(v14 + 24) = 0;
+          *(v14 + 28) = v15;
+          PCString::~PCString(&v24);
           TXTextLayout::rebuildParagraphStyles(this);
           TXTextLayout::setAllParagraphsDirty(this);
-          TXTextLayout::doLayout(this, a2, 0);
+          TXTextLayout::doLayout(this, a2, 0, v16, v17);
         }
       }
 
-      OZLockingGroup::WriteSentry::~WriteSentry(v22);
+      OZLockingGroup::WriteSentry::~WriteSentry(&v26);
     }
 
-    PCString::~PCString(&v23);
+    PCString::~PCString(&v27);
   }
 }
 
-void sub_25FAFBF60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, PCString a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, PCString a28)
+void sub_25FAFBF60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, PCString a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, PCString a28)
 {
   PCString::~PCString(&a21);
   OZLockingGroup::WriteSentry::~WriteSentry(&a27);
@@ -7266,7 +7269,7 @@ BOOL TXTextLayout::shouldRenumberChannel(TXTextLayout *this, OZChannelBase *a2)
   return (OZFactory::isKindOfClass(var1, &v6) & 1) == 0 && OZObjectManipulator::shouldRenumberChannel((this + 216), a2);
 }
 
-void TXTextLayout::deleteMaterialLayer(TXTextLayout *this, unsigned int a2, unsigned int a3)
+void TXTextLayout::deleteMaterialLayer(TXTextLayout *this, int a2, unsigned int a3)
 {
   v4 = this + 19344;
   v5 = *(this + 2419);
@@ -7318,18 +7321,18 @@ void TXTextLayout::deleteMaterialLayer(TXTextLayout *this, unsigned int a2, unsi
   OZDocument::postNotification(v14, 0x80000);
 }
 
-void TXTextLayout::setNameOfMaterialAtIndex(TXTextLayout *this, const PCString *a2, unsigned int a3, uint64_t a4, int a5)
+void TXTextLayout::setNameOfMaterialAtIndex(void *this, const PCString *a2, int a3, uint64_t a4, int a5)
 {
-  v5 = this + 19344;
-  v6 = *(this + 2419);
-  if (v6 != this + 19344)
+  v5 = this + 2418;
+  v6 = this[2419];
+  if (v6 != this + 2418)
   {
     v12 = 0;
     v13 = a3;
     do
     {
-      v14 = *(*(v6 + 2) + 480);
-      if (v13 >= (*(*(v6 + 2) + 488) - v14) >> 3)
+      v14 = *(v6[2] + 480);
+      if (v13 >= (*(v6[2] + 488) - v14) >> 3)
       {
         std::vector<unsigned int>::__throw_out_of_range[abi:ne200100]();
       }
@@ -7345,14 +7348,14 @@ void TXTextLayout::setNameOfMaterialAtIndex(TXTextLayout *this, const PCString *
         }
       }
 
-      v6 = *(v6 + 1);
+      v6 = v6[1];
     }
 
     while (v6 != v5);
     if (v12)
     {
-      TXSequenceChannels::renameMaterialAtIndex((this + 25032), a2, a3, a4);
-      for (i = *(this + 151); i != (this + 1200); i = i[1])
+      TXSequenceChannels::renameMaterialAtIndex((this + 3129), a2, a3, a4);
+      for (i = this[151]; i != this + 150; i = i[1])
       {
         v17 = i[2];
         if (v17)
@@ -7527,7 +7530,7 @@ uint64_t TXTextLayout::doResetMaterial(uint64_t this, unsigned int a2)
 
 void TXTextLayout::didResetMaterial(TXTextLayout *this, unsigned int a2)
 {
-  TXTextLayout::getStyleAtCharOffset(this, 0, &v7);
+  TXTextLayout::getStyleAtCharOffset(&v7, this, 0);
   v4 = *(v7 + 480);
   if (a2 >= ((*(v7 + 488) - v4) >> 3))
   {
@@ -7567,7 +7570,7 @@ void *TXTextLayout::doReset3DExtrusionProperties(void *this)
       v3 = v2[2];
       v4 = v3[5079];
       v5 = *v4;
-      v6 = *(v4 + 8);
+      v6 = v4[1];
       if (*v4 != v6)
       {
         v7 = v3 + 6075;
@@ -7597,9 +7600,9 @@ void *TXTextLayout::doReset3DExtrusionProperties(void *this)
   return this;
 }
 
-void sub_25FAFD6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_25FAFD6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
@@ -7684,7 +7687,7 @@ uint64_t TXTextLayout::getPrecompType(TXTextLayout *this, CMTime *a2)
   return *(this + 15931);
 }
 
-uint64_t TXTextLayout::buildSceneObjectForFace(uint64_t a1, CMTime *a2, uint64_t a3, TXTextObject **a4)
+uint64_t TXTextLayout::buildSceneObjectForFace(TXTextLayout *a1, CMTime *a2, const OZRenderGraphState *a3, const TXTextObject **a4)
 {
   v4 = *a4;
   v6 = *a2;
@@ -7696,7 +7699,7 @@ uint64_t TXTextLayout::buildSceneObjectForFace(uint64_t a1, CMTime *a2, uint64_t
   return 0;
 }
 
-uint64_t TXTextLayout::buildSceneObjectForGlow(uint64_t a1, CMTime *a2, uint64_t a3, TXTextObject **a4)
+uint64_t TXTextLayout::buildSceneObjectForGlow(TXTextLayout *a1, CMTime *a2, const OZRenderGraphState *a3, const TXTextObject **a4)
 {
   v4 = *a4;
   v6 = *a2;
@@ -7715,7 +7718,7 @@ void sub_25FAFDDD8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t TXTextLayout::buildSceneObjectForOutline(uint64_t a1, CMTime *a2, uint64_t a3, TXTextObject **a4)
+uint64_t TXTextLayout::buildSceneObjectForOutline(TXTextLayout *a1, CMTime *a2, const OZRenderGraphState *a3, const TXTextObject **a4)
 {
   v4 = *a4;
   v6 = *a2;
@@ -7727,7 +7730,7 @@ uint64_t TXTextLayout::buildSceneObjectForOutline(uint64_t a1, CMTime *a2, uint6
   return 0;
 }
 
-uint64_t TXTextLayout::buildSceneObjectForDropShadow(uint64_t a1, CMTime *a2, uint64_t a3, TXTextObject **a4)
+uint64_t TXTextLayout::buildSceneObjectForDropShadow(_DWORD *a1, CMTime *a2, uint64_t a3, TXTextObject **a4)
 {
   v4 = *a4;
   v6 = *a2;
@@ -7739,16 +7742,17 @@ uint64_t TXTextLayout::buildSceneObjectForDropShadow(uint64_t a1, CMTime *a2, ui
   return 0;
 }
 
-void sub_25FAFE314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_25FAFE314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  MEMORY[0x2666E9F00](v30, 0x10B1C40DE3F20C5);
-  if (v29)
+  va_start(va, a28);
+  MEMORY[0x2666E9F00](v29, 0x10B1C40DE3F20C5, a3, a4, a5, a6, a7, a8);
+  if (v28)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
   }
 
-  OZRenderParams::~OZRenderParams(&a29);
-  PCSharedCount::~PCSharedCount(v31 + 1);
+  OZRenderParams::~OZRenderParams(va);
+  PCSharedCount::~PCSharedCount(v30 + 1);
   _Unwind_Resume(a1);
 }
 
@@ -7967,11 +7971,11 @@ uint64_t TXTextLayout::clearFontMap(TXTextLayout *this)
   return PCMutex::unlock((this + 61000));
 }
 
-void TXTextLayout::makeRenderGraphOfElements(TXTextLayout *this, const OZRenderState *a2, LiGraphBuilder *a3, const OZRenderGraphState *a4)
+void TXTextLayout::makeRenderGraphOfElements(TXTextLayout *this, OZRenderState *a2, LiGraphBuilder *a3, const OZRenderGraphState *a4, int a5)
 {
-  v5 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v7, v5);
-  OZRenderState::OZRenderState(&v6, a2);
+  v6 = Li3DEngineScene::sceneManager(this);
+  OZLockingGroup::WriteSentry::WriteSentry(v8, v6);
+  OZRenderState::OZRenderState(&v7, a2);
   operator new();
 }
 
@@ -8063,7 +8067,7 @@ LABEL_31:
             v47 = *(*v11 + 388);
             v22 = *(v34 + 292);
             *&v42 = &v47;
-            v23 = std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v22, &v47);
+            v23 = std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v22, &v47, &std::piecewise_construct, &v42);
             v24 = *(v23 + 15);
             v46[4] = *(v23 + 13);
             v46[5] = v24;
@@ -8187,12 +8191,12 @@ LABEL_52:
   OZRenderParams::~OZRenderParams(v49);
 }
 
-void sub_25FB005E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56, int a57, char a58)
+void sub_25FB005E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, OZLockingGroup *a56, char a58)
 {
   OZLockingGroup::WriteSentry::~WriteSentry(&a56);
-  if (v58)
+  if (v57)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v58);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v57);
   }
 
   OZRenderParams::~OZRenderParams(&a58);
@@ -8227,7 +8231,7 @@ void TXTextLayout::clearGlyphGroups(TXTextLayout *this)
   std::vector<TXParagraphStyle *>::resize(v2, 0);
 }
 
-void TXTextLayout::makeRenderImageSource(TXTextLayout *this@<X0>, PCSharedCount *a2@<X8>)
+void TXTextLayout::makeRenderImageSource(TXTextLayout *this@<X0>, PCSharedCount *a5@<X8>)
 {
   StringPtr = TXChannelString::getStringPtr((this + 19048));
   if (PCString::size(StringPtr))
@@ -8235,9 +8239,9 @@ void TXTextLayout::makeRenderImageSource(TXTextLayout *this@<X0>, PCSharedCount 
     operator new();
   }
 
-  a2->var0 = 0;
+  a5->var0 = 0;
 
-  PCSharedCount::PCSharedCount(a2 + 1);
+  PCSharedCount::PCSharedCount(a5 + 1);
 }
 
 void sub_25FB00F4C(_Unwind_Exception *a1)
@@ -8252,7 +8256,7 @@ void sub_25FB00F4C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-LiGraphBuilder *std::unique_ptr<LiGraphBuilder>::reset[abi:ne200100](LiGraphBuilder **a1, LiGraphBuilder *a2)
+PCSharedCount *std::unique_ptr<LiGraphBuilder>::reset[abi:ne200100](PCSharedCount **a1, PCSharedCount *a2)
 {
   result = *a1;
   *a1 = a2;
@@ -8292,13 +8296,13 @@ void OZRenderGraphState::~OZRenderGraphState(OZRenderGraphState *this)
   std::__list_imp<unsigned int>::clear(this + 8);
 }
 
-void non-virtual thunk toTXTextLayout::makeRenderImageSource(TXTextLayout *this@<X0>, PCSharedCount *a2@<X8>)
+void non-virtual thunk toTXTextLayout::makeRenderImageSource(TXTextLayout *this@<X0>, PCSharedCount *a5@<X8>)
 {
-  TXTextLayout::makeRenderImageSource((this - 200), a2);
+  TXTextLayout::makeRenderImageSource((this - 200), a5);
 }
 
 {
-  TXTextLayout::makeRenderImageSource((this - 6728), a2);
+  TXTextLayout::makeRenderImageSource((this - 6728), a5);
 }
 
 BOOL PCRay3<double>::transform(uint64_t a1, double *a2)
@@ -8318,23 +8322,23 @@ BOOL PCRay3<double>::transform(uint64_t a1, double *a2)
 void TXTextLayout::buildRenderGraph(TXTextLayout *this, OZRenderState *a2, LiGraphBuilder *a3, const OZRenderGraphState *a4)
 {
   v8 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v48, v8);
+  OZLockingGroup::WriteSentry::WriteSentry(v51, v8);
   StringPtr = TXChannelString::getStringPtr((this + 19048));
   {
-    OZRenderState::OZRenderState(&v47, a2);
-    if (!v47.var31)
+    OZRenderState::OZRenderState(&v50, a2);
+    if (!v50.var31)
     {
       goto LABEL_12;
     }
 
-    v10 = *(v47.var31 + 1);
+    v10 = *(v50.var31 + 1);
     if (!v10)
     {
       goto LABEL_12;
     }
 
     v11 = this + 200;
-    v12 = v47.var31 + 8;
+    v12 = v50.var31 + 8;
     do
     {
       v13 = v10[4];
@@ -8349,7 +8353,7 @@ void TXTextLayout::buildRenderGraph(TXTextLayout *this, OZRenderState *a2, LiGra
     }
 
     while (v10);
-    if (v12 == v47.var31 + 1 || (v16 = v12[4], v11 < v16) || v16 == *(v47.var31 + 5))
+    if (v12 == v50.var31 + 1 || (v16 = v12[4], v11 < v16) || v16 == *(v50.var31 + 5))
     {
 LABEL_12:
       *(this + 63720) = 0;
@@ -8386,8 +8390,8 @@ LABEL_12:
                 {
                   var0 = a2->var0;
                   v23 = TXChannelString::getStringPtr((this + 19048));
-                  PCString::size(v23);
-                  TXSequenceBehavior::createInfluenceCache(v22, &var0);
+                  v24 = PCString::size(v23);
+                  TXSequenceBehavior::createInfluenceCache(v22, &var0, v24);
                 }
               }
             }
@@ -8398,55 +8402,55 @@ LABEL_12:
           while (v19 != v18);
         }
 
-        v24 = a4;
+        v25 = a4;
         OZRenderGraphState::OZRenderGraphState(&var0, a4);
         (*(*v17 + 2064))(this + 200, a2, &var0);
         if ((*(*this + 936))(this, MEMORY[0x277CC08F0]))
         {
-          TXTextLayout::doLayout(this, a2, 0);
-          v37 = a2->var0;
-          PrecompType = TXTextLayout::getPrecompType(this, &v37);
+          TXTextLayout::doLayout(this, a2, 0, v26, v27);
+          v40 = a2->var0;
+          PrecompType = TXTextLayout::getPrecompType(this, &v40);
           if (PrecompType == 1)
           {
             LiGraphBuilder::partitionWorld(a3);
           }
 
-          OZRenderGraphState::OZRenderGraphState(&v37, v24);
-          LiGraphBuilder::getCurrentLocalToWorld(a3, v36);
-          for (i = 0; i != 128; i += 32)
+          OZRenderGraphState::OZRenderGraphState(&v40, v25);
+          LiGraphBuilder::getCurrentLocalToWorld(v39, a3);
+          for (i = 0; i != 16; i += 4)
           {
-            v27 = &v37 + i;
-            v28 = *&v36[i + 16];
-            *(v27 + 6) = *&v36[i];
-            *(v27 + 7) = v28;
+            v30 = &v40 + i * 8;
+            v31 = *&v39[i + 2];
+            *(v30 + 6) = *&v39[i];
+            *(v30 + 7) = v31;
           }
 
-          OZElement::buildRenderGraph((this + 200), a2, a3, &v37);
+          OZElement::buildRenderGraph((this + 200), a2, a3, &v40);
           if (PrecompType == 1)
           {
             LiGraphBuilder::partitionWorld(a3);
           }
 
-          v39 = &unk_2871F25A8;
-          if (v40 < 0)
+          v42 = &unk_2871F25A8;
+          if (v43 < 0)
           {
-            v29 = 1;
+            v32 = 1;
           }
 
           else
           {
-            v29 = v40;
+            v32 = v43;
           }
 
-          PCArray<LiLight,PCArray_Traits<LiLight>>::resize(&v39, 0, v29);
-          if (v41)
+          PCArray<LiLight,PCArray_Traits<LiLight>>::resize(&v42, 0, v32);
+          if (v44)
           {
-            MEMORY[0x2666E9ED0](v41, 0x1000C8077774924);
+            MEMORY[0x2666E9ED0](v44, 0x1000C8077774924);
           }
 
-          v41 = 0;
-          v40 = 0;
-          std::__list_imp<unsigned int>::clear(v38);
+          v44 = 0;
+          v43 = 0;
+          std::__list_imp<unsigned int>::clear(v41);
         }
 
         else
@@ -8455,30 +8459,30 @@ LABEL_12:
           (*(*this + 904))(this, a2, a3, &var0, 0);
         }
 
-        v30 = TXChannelString::getStringPtr((this + 19048));
-        if (PCString::size(v30))
+        v33 = TXChannelString::getStringPtr((this + 19048));
+        if (PCString::size(v33))
         {
-          v31 = (*(*this + 1192))(this) ^ 1;
+          v34 = (*(*this + 1192))(this) ^ 1;
           if (!a3)
           {
-            LOBYTE(v31) = 1;
+            LOBYTE(v34) = 1;
           }
 
-          if ((v31 & 1) == 0)
+          if ((v34 & 1) == 0)
           {
             if ((*(*this + 296))(this))
             {
-              LiGraphBuilder::getCurrentInsertionGroup(a3, &v37);
-              if (!v37.value)
+              LiGraphBuilder::getCurrentInsertionGroup(&v40, a3);
+              if (!v40.value)
               {
                 throw_PCNullPointerException(1);
               }
 
-              (*(*v37.value + 192))(v37.value, 1);
-              PCSharedCount::~PCSharedCount(&v37.timescale);
+              (*(*v40.value + 192))(v40.value, 1);
+              PCSharedCount::~PCSharedCount(&v40.timescale);
             }
 
-            TXTextLayout::buildBackgroundGeode(this, a2, v24);
+            TXTextLayout::buildBackgroundGeode(this, a2, v25);
           }
         }
 
@@ -8490,42 +8494,42 @@ LABEL_12:
         *(this + 63728) = 0;
         for (j = *(this + 151); j != v18; j = *(j + 8))
         {
-          v33 = *(j + 16);
-          if (v33)
+          v36 = *(j + 16);
+          if (v36)
           {
-            if (v34)
+            if (v37)
             {
-              v37 = a2->var0;
-              TXSequenceBehavior::clearInfluenceCache(v34, &v37);
+              v40 = a2->var0;
+              TXSequenceBehavior::clearInfluenceCache(v37, &v40);
             }
           }
         }
 
-        v44 = &unk_2871F25A8;
-        if (v45 < 0)
+        v47 = &unk_2871F25A8;
+        if (v48 < 0)
         {
-          v35 = 1;
+          v38 = 1;
         }
 
         else
         {
-          v35 = v45;
+          v38 = v48;
         }
 
-        PCArray<LiLight,PCArray_Traits<LiLight>>::resize(&v44, 0, v35);
-        if (v46)
+        PCArray<LiLight,PCArray_Traits<LiLight>>::resize(&v47, 0, v38);
+        if (v49)
         {
-          MEMORY[0x2666E9ED0](v46, 0x1000C8077774924);
+          MEMORY[0x2666E9ED0](v49, 0x1000C8077774924);
         }
 
-        v46 = 0;
-        v45 = 0;
-        std::__list_imp<unsigned int>::clear(v43);
+        v49 = 0;
+        v48 = 0;
+        std::__list_imp<unsigned int>::clear(v46);
       }
     }
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v48);
+  OZLockingGroup::WriteSentry::~WriteSentry(v51);
 }
 
 void sub_25FB01938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
@@ -8548,19 +8552,19 @@ void TXTextLayout::buildBackgroundGeode(TXTextLayout *this, CMTime *a2, const OZ
   operator new();
 }
 
-void sub_25FB01C38(_Unwind_Exception *a1, uint64_t a2, atomic_uint *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25FB01C38(_Unwind_Exception *a1, uint64_t a2, atomic_uint *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, atomic_uint *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
-  if (a3)
+  va_start(va, a19);
+  if (a10)
   {
-    if (atomic_fetch_add(a3 - 3, 0xFFFFFFFF) == 1)
+    if (atomic_fetch_add(a10 - 3, 0xFFFFFFFF) == 1)
     {
-      *a3 = 0;
-      free(a3 - 3);
+      *a10 = 0;
+      free(a10 - 3);
     }
   }
 
-  PCSharedCount::~PCSharedCount(v12 + 1);
+  PCSharedCount::~PCSharedCount(v19 + 1);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -8634,29 +8638,36 @@ uint64_t TXTextLayout::doesTransformFromLocalToScreenSpace(TXTextLayout *this, c
   }
 }
 
-void TXTextLayout::addFillSource(uint64_t a1@<X0>, const PCSharedCount *a2@<X1>, TXTextObject *a3@<X2>, CMTime *a4@<X3>, const FxColorDescription *a5@<X4>, unsigned int a6@<W5>, int a7@<W6>, PCSharedCount *a8@<X8>)
+void sub_25FB021F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  OZRenderParams::~OZRenderParams(va);
+  _Unwind_Resume(a1);
+}
+
+void TXTextLayout::addFillSource(uint64_t a1@<X0>, const PCSharedCount *a2@<X1>, TXTextObject *a3@<X2>, CMTime *a4@<X3>, FxColorDescription *a5@<X4>, unsigned int a6@<W5>, int a7@<W6>, PCSharedCount *a8@<X8>, double a9@<D0>, double a10@<D1>, double a11@<D2>, double a12@<D3>)
 {
   a8->var0 = a2->var0;
-  v14 = a8 + 1;
+  v18 = a8 + 1;
   PCSharedCount::PCSharedCount(a8 + 1, a2 + 1);
-  v15 = *(a3 + 33);
-  if (v15)
+  v19 = *(a3 + 33);
+  if (v19)
   {
-    v17 = *(v15 + 8);
-    v16 = *(v15 + 16);
-    if (v16)
+    v21 = *(v19 + 8);
+    v20 = *(v19 + 16);
+    if (v20)
     {
-      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
     }
   }
 
   else
   {
-    v16 = 0;
-    v17 = 0;
+    v20 = 0;
+    v21 = 0;
   }
 
-  FillType = TXTextStyle::getFillType(v17, a6);
+  FillType = TXTextStyle::getFillType(v21, a6);
   if (FillType == 1)
   {
     __asm { FMOV            V0.2D, #1.0 }
@@ -8666,29 +8677,29 @@ void TXTextLayout::addFillSource(uint64_t a1@<X0>, const PCSharedCount *a2@<X1>,
       OZChannel::getValueAsDouble((a1 + 60520), MEMORY[0x277CC08F0], 0.0);
     }
 
-    PCSharedCount::PCSharedCount(&v25, v14);
-    TXTextStyle::getGradientChannel(v17, a6);
-    v27 = *a4;
-    TXTextStyle::getGradient(v17, a6, &v27, a5);
-    v26 = *a4;
+    PCSharedCount::PCSharedCount(&v29, v18);
+    TXTextStyle::getGradientChannel(v21, a6);
+    v31 = *a4;
+    TXTextStyle::getGradient(v21, a6, &v31, a5);
+    v30 = *a4;
     TXTextLayout::scaleAffectsLayout(a1);
     operator new();
   }
 
-  if (FillType == 2 && TXTextStyle::hasTexture(v17, a6))
+  if (FillType == 2 && TXTextStyle::hasTexture(v21, a6))
   {
-    TextureChannel = TXTextStyle::getTextureChannel(v17, a6);
-    v27 = *a4;
-    OZChannel::getValueAsDouble(TextureChannel + 5, &v27, 0.0);
-    OZChannel::getValueAsDouble(TextureChannel + 6, &v27, 0.0);
-    TXTextObject::getImageBounds(a3, a4, &v27);
+    TextureChannel = TXTextStyle::getTextureChannel(v21, a6);
+    v31 = *a4;
+    OZChannel::getValueAsDouble(TextureChannel + 5, &v31, 0.0);
+    OZChannel::getValueAsDouble(TextureChannel + 6, &v31, 0.0);
+    TXTextObject::getImageBounds(&v31.value, a3, a4);
     TXTextObject::getTypographicBounds(a3);
     operator new();
   }
 
-  if (v16)
+  if (v20)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
   }
 }
 
@@ -8727,9 +8738,9 @@ PC_Sp_counted_base **PCPtr<LiImageSource>::operator=<TXTextureDecal>(PC_Sp_count
   return a1;
 }
 
-void sub_25FB02994(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB02994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
@@ -8743,33 +8754,33 @@ void sub_25FB02C58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void TXTextLayout::getLiImageSourceForOutline(uint64_t a1, uint64_t a2, uint64_t a3, TXTextObject **a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void TXTextLayout::getLiImageSourceForOutline(uint64_t a1, CMTime *a2, const FxColorDescription *a3, TXTextObject **a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
   *a7 = 1;
-  v8 = *(*a4 + 33);
-  v9 = *(v8 + 8);
-  v10 = *(v8 + 16);
-  if (v10)
+  v11 = *(*a4 + 33);
+  v12 = *(v11 + 8);
+  v13 = *(v11 + 16);
+  if (v13)
   {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  if (OZChannel::getValueAsInt((v9 + 30928), MEMORY[0x277CC08F0], 0.0))
+  if (OZChannel::getValueAsInt((v12 + 30928), MEMORY[0x277CC08F0], 0.0))
   {
     TXTextObject::isEmoji(*a4);
-    if (!v10)
+    if (!v13)
     {
       goto LABEL_6;
     }
   }
 
-  else if (!v10)
+  else if (!v13)
   {
 LABEL_6:
     makeTextObjectRender();
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   goto LABEL_6;
 }
 
@@ -8893,18 +8904,18 @@ void sub_25FB03ADC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25FB03E30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25FB03E30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v11.var0 = va_arg(va1, PC_Sp_counted_base *);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  PCSharedCount::~PCSharedCount(v9 + 1);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v18.var0 = va_arg(va1, PC_Sp_counted_base *);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  PCSharedCount::~PCSharedCount(v16 + 1);
   PCSharedCount::~PCSharedCount(va);
-  PCSharedCount::~PCSharedCount(v8 + 1);
+  PCSharedCount::~PCSharedCount(v15 + 1);
   PCSharedCount::~PCSharedCount(va1);
   _Unwind_Resume(a1);
 }
@@ -8941,18 +8952,18 @@ uint64_t TXTextLayout::buildLighting(TXTextLayout *this, LiGeode *a2, const LiLi
   return result;
 }
 
-uint64_t TXTextLayout::buildMaterials@<X0>(uint64_t a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+uint64_t TXTextLayout::buildMaterials@<X0>(uint64_t a1@<X0>, OZRenderParams *a2@<X1>, uint64_t a3@<X8>, uint64_t a4@<X2>, uint64_t a5@<X3>)
 {
-  OZElement::buildMaterials((a1 + 200), a2, a3, a4, a5);
-  if (*(a5 + 101) == 1)
+  OZElement::buildMaterials((a1 + 200), a2, a4, a5, a3);
+  if (*(a3 + 101) == 1)
   {
-    *(a5 + 104) = OZRenderParams::getTextRenderQuality(a2) == 6;
+    *(a3 + 104) = OZRenderParams::getTextRenderQuality(a2) == 6;
   }
 
   result = (*(*a1 + 296))(a1);
   if (result)
   {
-    *(a5 + 101) = 1;
+    *(a3 + 101) = 1;
   }
 
   return result;
@@ -9147,590 +9158,590 @@ LABEL_29:
   return v14 | v17;
 }
 
-CGColorSpace **TXTextLayout::buildHGNodeForDropShadow(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 *a9, __int128 *a10, double *a11, _DWORD *a12, unsigned __int8 a13, char a14)
+CGColorSpace **TXTextLayout::buildHGNodeForDropShadow(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 *a9, __int128 *a10, double *a11, float *a12, unsigned __int8 a13, char a14)
 {
-  v14 = MEMORY[0x28223BE20](a1);
+  MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
+  v109 = v14;
   v108 = v15;
-  v107 = v16;
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
-  v24 = v23;
-  v26 = v25;
-  v27 = v14;
+  v17 = v16;
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
+  v25 = v24;
+  v27 = v26;
   v29 = v28;
-  v153 = *MEMORY[0x277D85DE8];
-  RequestedColorDescription = LiAgent::getRequestedColorDescription(v21);
-  OZEaseInInterpolator::~OZEaseInInterpolator(RequestedColorDescription);
-  v32 = v31;
+  v154 = *MEMORY[0x277D85DE8];
+  RequestedColorDescription = LiAgent::getRequestedColorDescription(v20);
+  OZEaseInInterpolator::~OZEaseInInterpolator(RequestedColorDescription, v31);
+  v33 = v32;
   DynamicRange = FxColorDescription::getDynamicRange(RequestedColorDescription);
   ToneMapMethod = FxColorDescription::getToneMapMethod(RequestedColorDescription);
-  PCWorkingColor::PCWorkingColor(&v150, v32, DynamicRange, ToneMapMethod);
-  v35 = *v26;
-  *&v152.var0.var0 = *v24;
-  v152.var0.var3 = v24[2];
-  if ((TXTextObject::isDropShadowVisible(v35, &v152, &v150) & 1) == 0)
+  PCWorkingColor::PCWorkingColor(&v151, v33, DynamicRange, ToneMapMethod);
+  v36 = *v25;
+  *&v153.var0.var0 = *v23;
+  v153.var0.var3 = v23[2];
+  if ((TXTextObject::isDropShadowVisible(v36, &v153, &v151) & 1) == 0)
   {
     *v29 = 0;
-    return PCCFRef<CGColorSpace *>::~PCCFRef(&v151);
+    return PCCFRef<CGColorSpace *>::~PCCFRef(&v152);
   }
 
-  v36 = *(*v26 + 264);
-  if (!v36)
+  v37 = *(*v25 + 264);
+  if (!v37)
   {
-    v37 = 0;
+    v38 = 0;
     goto LABEL_13;
   }
 
-  v106 = v18;
-  v38 = *(v36 + 8);
-  v37 = *(v36 + 16);
-  if (v37)
+  v107 = v17;
+  v39 = *(v37 + 8);
+  v38 = *(v37 + 16);
+  if (v38)
   {
-    atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  if (!v38)
+  if (!v39)
   {
 LABEL_13:
     *v29 = 0;
-    if (!v37)
+    if (!v38)
     {
-      return PCCFRef<CGColorSpace *>::~PCCFRef(&v151);
+      return PCCFRef<CGColorSpace *>::~PCCFRef(&v152);
     }
 
     goto LABEL_110;
   }
 
-  v39 = *v26;
-  *&v152.var0.var0 = *v24;
-  v152.var0.var3 = v24[2];
-  v105 = v37;
-  DropShadowDistance = TXTextObject::getDropShadowDistance(v39, &v152);
-  v41 = *v26;
-  *&v152.var0.var0 = *v24;
-  v152.var0.var3 = v24[2];
-  DropShadowAngle = TXTextObject::getDropShadowAngle(v41, &v152);
+  v40 = *v25;
+  *&v153.var0.var0 = *v23;
+  v153.var0.var3 = v23[2];
+  v106 = v38;
+  DropShadowDistance = TXTextObject::getDropShadowDistance(v40, &v153);
+  v42 = *v25;
+  *&v153.var0.var0 = *v23;
+  v153.var0.var3 = v23[2];
+  DropShadowAngle = TXTextObject::getDropShadowAngle(v42, &v153);
   ScenePixelAspectRatio = OZSceneNode::getScenePixelAspectRatio((v27 + 200));
-  v44 = __sincos_stret(DropShadowAngle);
-  v149 = 0x3FF0000000000000;
-  v146 = 0x3FF0000000000000;
-  v143 = 0x3FF0000000000000;
-  v140 = 0x3FF0000000000000;
-  v141 = 0u;
+  v45 = __sincos_stret(DropShadowAngle);
+  v150 = 0x3FF0000000000000;
+  v147 = 0x3FF0000000000000;
+  v144 = 0x3FF0000000000000;
+  v141 = 0x3FF0000000000000;
   v142 = 0u;
-  v144 = 0u;
+  v143 = 0u;
   v145 = 0u;
-  v147 = 0u;
+  v146 = 0u;
   v148 = 0u;
-  v45 = DropShadowDistance * v44.__sinval;
-  v46 = DropShadowDistance * v44.__cosval;
-  v47.f64[0] = v46 * ScenePixelAspectRatio;
-  PCMatrix44Tmpl<double>::leftTranslate(&v140, v47, v45, 0.0);
-  if (OZChannel::getValueAsInt((v27 + 20464), MEMORY[0x277CC08F0], 0.0) != 3 && OZChannel::getValueAsInt((v27 + 20464), MEMORY[0x277CC08F0], 0.0) != 4 && LiAgent::haveROI(v22))
+  v149 = 0u;
+  v46 = DropShadowDistance * v45.__sinval;
+  v47 = DropShadowDistance * v45.__cosval;
+  v48.f64[0] = v47 * ScenePixelAspectRatio;
+  PCMatrix44Tmpl<double>::leftTranslate(&v141, v48, v46, 0.0);
+  if (OZChannel::getValueAsInt((v27 + 20464), MEMORY[0x277CC08F0], 0.0) != 3 && OZChannel::getValueAsInt((v27 + 20464), MEMORY[0x277CC08F0], 0.0) != 4 && LiAgent::haveROI(v21))
   {
-    if (OZRenderParams::getTextRenderQuality(v24))
+    if (OZRenderParams::getTextRenderQuality(v23))
     {
-      v48 = a10[5];
-      v109[4] = a10[4];
-      v109[5] = v48;
-      v49 = a10[7];
-      v109[6] = a10[6];
-      v109[7] = v49;
-      v50 = a10[1];
-      v109[0] = *a10;
-      v109[1] = v50;
-      v51 = a10[3];
-      v109[2] = a10[2];
-      v109[3] = v51;
+      v49 = a10[5];
+      v110[4] = a10[4];
+      v110[5] = v49;
+      v50 = a10[7];
+      v110[6] = a10[6];
+      v110[7] = v50;
+      v51 = a10[1];
+      v110[0] = *a10;
+      v110[1] = v51;
+      v52 = a10[3];
+      v110[2] = a10[2];
+      v110[3] = v52;
     }
 
     else
     {
-      LiAgent::getObjectToPixelTransform(v22, v109);
+      LiAgent::getObjectToPixelTransform(v110, v21);
     }
 
-    OZRenderState::OZRenderState(&v152, v24);
-    v152.var4 = 1;
+    OZRenderState::OZRenderState(&v153, v23);
+    v153.var4 = 1;
+    v140 = 0.0;
     v139 = 0.0;
-    v138 = 0.0;
-    v52 = *v26;
-    v125 = *v24;
-    TXTextObject::getDropShadowBlur(v52, &v125, &v139, &v138);
-    TXTextObject::getImageBounds(*v26, &v152, &v136);
-    v53.f64[0] = v139;
-    v53.f64[1] = v138;
+    v53 = *v25;
+    v126 = *v23;
+    TXTextObject::getDropShadowBlur(v53, &v126, &v140, &v139);
+    TXTextObject::getImageBounds(&v137, *v25, &v153);
+    v54.f64[0] = v140;
+    v54.f64[1] = v139;
     __asm { FMOV            V1.2D, #3.0 }
 
-    v59 = vmulq_f64(v53, _Q1);
+    v60 = vmulq_f64(v54, _Q1);
     __asm { FMOV            V1.2D, #2.0 }
 
-    v61 = vaddq_f64(v59, _Q1);
-    v136 = vsubq_f64(v136, v61);
-    v137 = vsubq_f64(v137, vsubq_f64(vnegq_f64(v61), v61));
+    v62 = vaddq_f64(v60, _Q1);
+    v137 = vsubq_f64(v137, v62);
+    v138 = vsubq_f64(v138, vsubq_f64(vnegq_f64(v62), v62));
+    v136 = 0.0;
     v135 = 0.0;
-    v134 = 0.0;
-    v62 = *v26;
-    v125 = *v24;
-    TXTextObject::getDropShadowScale(v62, &v125, &v135, &v134, 1);
-    v133 = 0x3FF0000000000000;
-    v130 = 0x3FF0000000000000;
-    v127 = 1.0;
-    v125.value = 0x3FF0000000000000;
-    *&v125.timescale = 0u;
-    v126 = 0u;
-    v128 = 0u;
+    v63 = *v25;
+    v126 = *v23;
+    TXTextObject::getDropShadowScale(v63, &v126, &v136, &v135, 1);
+    v134 = 0x3FF0000000000000;
+    v131 = 0x3FF0000000000000;
+    v128 = 1.0;
+    v126.value = 0x3FF0000000000000;
+    *&v126.timescale = 0u;
+    v127 = 0u;
     v129 = 0u;
-    v131 = 0u;
+    v130 = 0u;
     v132 = 0u;
+    v133 = 0u;
+    if (v136 != 1.0)
+    {
+      *&v126.value = v136;
+      *&v126.timescale = v136 * 0.0;
+      *&v126.epoch = v136 * 0.0;
+      *&v127 = v136 * 0.0;
+    }
+
     if (v135 != 1.0)
     {
-      *&v125.value = v135;
-      *&v125.timescale = v135 * 0.0;
-      *&v125.epoch = v135 * 0.0;
-      *&v126 = v135 * 0.0;
+      *(&v127 + 1) = v135 * 0.0;
+      v128 = v135;
+      *&v129 = v135 * 0.0;
+      *(&v129 + 1) = v135 * 0.0;
     }
 
-    if (v134 != 1.0)
-    {
-      *(&v126 + 1) = v134 * 0.0;
-      v127 = v134;
-      *&v128 = v134 * 0.0;
-      *(&v128 + 1) = v134 * 0.0;
-    }
-
-    ValueAsInt = OZChannel::getValueAsInt((v38 + 19528), MEMORY[0x277CC08F0], 0.0);
-    v124 = 0x3FF0000000000000;
-    v121 = 0x3FF0000000000000;
-    v118 = 0x3FF0000000000000;
-    v117.f64[0] = 1.0;
-    v64.f64[1] = 0.0;
-    memset(&v117.f64[1], 0, 32);
-    v119 = 0u;
+    ValueAsInt = OZChannel::getValueAsInt((v39 + 19528), MEMORY[0x277CC08F0], 0.0);
+    v125 = 0x3FF0000000000000;
+    v122 = 0x3FF0000000000000;
+    v119 = 0x3FF0000000000000;
+    v118.f64[0] = 1.0;
+    v65.f64[1] = 0.0;
+    memset(&v118.f64[1], 0, 32);
     v120 = 0u;
-    v122 = 0u;
+    v121 = 0u;
     v123 = 0u;
+    v124 = 0u;
     if (ValueAsInt)
     {
-      v64.f64[0] = v46;
-      PCMatrix44Tmpl<double>::leftTranslate(&v117, v64, v45, 0.0);
-      PCMatrix44Tmpl<double>::operator*(&v117, v109, v110);
-      PCMatrix44Tmpl<double>::operator*(v110, a9, &v111);
-      PCMatrix44Tmpl<double>::operator*(&v111, v108, v114);
+      v65.f64[0] = v47;
+      PCMatrix44Tmpl<double>::leftTranslate(&v118, v65, v46, 0.0);
+      PCMatrix44Tmpl<double>::operator*(&v118, v110, &v111);
+      PCMatrix44Tmpl<double>::operator*(&v111, a9, &v112);
+      PCMatrix44Tmpl<double>::operator*(&v112, v109, &v115);
     }
 
     else
     {
-      PCMatrix44Tmpl<double>::operator*(v109, a9, v110);
-      PCMatrix44Tmpl<double>::operator*(v110, v108, &v111);
-      PCMatrix44Tmpl<double>::operator*(&v111, &v140, v114);
+      PCMatrix44Tmpl<double>::operator*(v110, a9, &v111);
+      PCMatrix44Tmpl<double>::operator*(&v111, v109, &v112);
+      PCMatrix44Tmpl<double>::operator*(&v112, &v141, &v115);
     }
 
-    PCMatrix44Tmpl<double>::operator*(v114, &v125.value, v116);
-    LiAgent::getROI(v22, v114);
-    v65.i64[0] = v114[0].n128_i32[0];
-    v65.i64[1] = v114[0].n128_i32[1];
-    v111 = vcvtq_f64_s64(v65);
-    v112 = v114[0].n128_i32[2];
-    v113 = v114[0].n128_i32[3];
-    if ((v114[0].n128_u32[2] & 0x80000000) == 0 && (v114[0].n128_u32[3] & 0x80000000) == 0)
+    PCMatrix44Tmpl<double>::operator*(&v115, &v126.value, v117);
+    LiAgent::getROI(&v115, v21);
+    v66.i64[0] = SLODWORD(v115.f64[0]);
+    v66.i64[1] = SHIDWORD(v115.f64[0]);
+    v112 = vcvtq_f64_s64(v66);
+    v113 = SLODWORD(v115.f64[1]);
+    v114 = SHIDWORD(v115.f64[1]);
+    if ((LODWORD(v115.f64[1]) & 0x80000000) == 0 && (HIDWORD(v115.f64[1]) & 0x80000000) == 0)
     {
-      LiImagePolygon::LiImagePolygon(v114);
-      LiImagePolygon::set(v114, v136.f64, 0);
-      liTransformAndClip(v111.f64, v116[0].i64, v114);
-      if (((v115[1] - *v115) & 0x1FFFFFFFE0) == 0)
+      LiImagePolygon::LiImagePolygon(&v115);
+      LiImagePolygon::set(&v115, v137.f64, 0);
+      liTransformAndClip(v112.f64, v117[0].i64, &v115);
+      if (((v116[1] - *v116) & 0x1FFFFFFFE0) == 0)
       {
         *v29 = 0;
-        LiImagePolygon::~LiImagePolygon(v114);
-        if (!v37)
+        LiImagePolygon::~LiImagePolygon(&v115);
+        if (!v38)
         {
-          return PCCFRef<CGColorSpace *>::~PCCFRef(&v151);
+          return PCCFRef<CGColorSpace *>::~PCCFRef(&v152);
         }
 
         goto LABEL_110;
       }
 
-      LiImagePolygon::~LiImagePolygon(v114);
+      LiImagePolygon::~LiImagePolygon(&v115);
     }
   }
 
-  v66 = OZChannel::getValueAsInt((v38 + 13976), MEMORY[0x277CC08F0], 0.0);
-  isColorAnimated = TXTextLayout::isColorAnimated(v27, (v38 + 14232), (v38 + 18040), v66, 1021, 1022);
-  v136.f64[0] = 0.0;
-  PCWorkingColorVector::PCWorkingColorVector(v116);
-  v114[0] = xmmword_260343AA0;
+  v67 = OZChannel::getValueAsInt((v39 + 13976), MEMORY[0x277CC08F0], 0.0);
+  isColorAnimated = TXTextLayout::isColorAnimated(v27, (v39 + 14232), (v39 + 18040), v67, 1021, 1022);
+  v137.f64[0] = 0.0;
+  PCWorkingColorVector::PCWorkingColorVector(v117);
+  v115 = xmmword_260343AA0;
+  v140 = 1.0;
   v139 = 1.0;
-  v138 = 1.0;
-  v68 = LiAgent::getRequestedColorDescription(v22);
-  v111 = 0uLL;
-  v135 = 0.0;
-  LOBYTE(v103) = a13;
-  if (TXTextLayout::getCachedTextureOrImage(v27, *v26, v24, v22, 3u, isColorAnimated, a9, a10, v116, &v139, &v138, v114, v103, &v111, &v135, a14))
+  v69 = LiAgent::getRequestedColorDescription(v21);
+  v112 = 0uLL;
+  v136 = 0.0;
+  LOBYTE(v104) = a13;
+  if (TXTextLayout::getCachedTextureOrImage(v27, *v25, v23, v21, 3, isColorAnimated, a9, a10, v117, &v140, &v139, &v115, v104, &v112, &v136, a14))
   {
-    TXTextLayout::makeHGTextureOrBitmapNode(v24, &v111, &v135, v114, v22, a13, &v152);
-    var0 = v152.var0.var0;
-    if (*&v136.f64[0] == v152.var0.var0)
+    TXTextLayout::makeHGTextureOrBitmapNode(&v153, v23, &v112, &v136, &v115, v21, a13);
+    var0 = v153.var0.var0;
+    if (*&v137.f64[0] == v153.var0.var0)
     {
-      if (*&v136.f64[0])
+      if (*&v137.f64[0])
       {
-        (*(*v152.var0.var0 + 24))(v152.var0.var0);
+        (*(*v153.var0.var0 + 24))(v153.var0.var0);
       }
     }
 
     else
     {
-      if (*&v136.f64[0])
+      if (*&v137.f64[0])
       {
-        (*(**&v136.f64[0] + 24))();
+        (*(**&v137.f64[0] + 24))();
       }
 
-      *&v136.f64[0] = var0;
-      v152.var0.var0 = 0;
+      *&v137.f64[0] = var0;
+      v153.var0.var0 = 0;
     }
 
-    v70 = a11;
-    *a11 = 1.0 / v139;
-    a11[5] = 1.0 / v138;
-    v152.var7.var0[1][2] = 1.0;
-    v152.var7.var0[0][1] = 1.0;
-    v152.var3 = 1.0;
-    v152.var0.var0 = 0x3FF0000000000000;
-    memset(&v152.var0.var1, 0, 32);
-    memset(&v152.var4, 0, 32);
-    memset(&v152.var7.var0[0][2], 0, 32);
-    if (!*v20)
+    v71 = a11;
+    *a11 = 1.0 / v140;
+    a11[5] = 1.0 / v139;
+    v153.var7.var0[1][2] = 1.0;
+    v153.var7.var0[0][1] = 1.0;
+    v153.var3 = 1.0;
+    v153.var0.var0 = 0x3FF0000000000000;
+    memset(&v153.var0.var1, 0, 32);
+    memset(&v153.var4, 0, 32);
+    memset(&v153.var7.var0[0][2], 0, 32);
+    if (!*v19)
     {
-      PCMatrix44Tmpl<double>::operator*(a10, a9, &v125);
-      PCMatrix44Tmpl<double>::operator*(&v125, v108, v109);
+      PCMatrix44Tmpl<double>::operator*(a10, a9, &v126);
+      PCMatrix44Tmpl<double>::operator*(&v126, v109, v110);
       for (i = 0; i != 8; i += 2)
       {
-        v72 = (&v152.var0.var0 + i * 16);
-        v73 = v109[i + 1];
-        *v72 = v109[i];
-        v72[1] = v73;
+        v73 = (&v153.var0.var0 + i * 16);
+        v74 = v110[i + 1];
+        *v73 = v110[i];
+        v73[1] = v74;
       }
 
-      if (!OZChannel::getValueAsInt((v38 + 19528), MEMORY[0x277CC08F0], 0.0))
+      if (!OZChannel::getValueAsInt((v39 + 19528), MEMORY[0x277CC08F0], 0.0))
       {
-        PCMatrix44Tmpl<double>::rightMult(&v152, &v140);
+        PCMatrix44Tmpl<double>::rightMult(&v153, &v141);
       }
 
-      PCMatrix44Tmpl<double>::rightMult(&v152, a11);
+      PCMatrix44Tmpl<double>::rightMult(&v153, a11);
     }
 
-    if (!PCMatrix44Tmpl<double>::isIdentity(&v152.var0.var0))
+    if (!PCMatrix44Tmpl<double>::isIdentity(&v153.var0.var0))
     {
-      v74.i64[0] = v114[0].n128_i32[2];
-      v74.i64[1] = v114[0].n128_i32[3];
+      v75.i64[0] = SLODWORD(v115.f64[1]);
+      v75.i64[1] = SHIDWORD(v115.f64[1]);
       __asm { FMOV            V2.2D, #0.5 }
 
-      v76 = vmulq_f64(vcvtq_f64_s64(v74), _Q2);
-      v74.i64[0] = v114[0].n128_i32[0];
-      v74.i64[1] = v114[0].n128_i32[1];
-      v125.value = vcvt_f32_f64(vaddq_f64(v76, vcvtq_f64_s64(v74)));
-      LiAgent::makeHeliumXForm(v22, &v152, &v136, v109);
-      v77 = *v109;
-      if (*&v136.f64[0] == *&v109[0])
+      v77 = vmulq_f64(vcvtq_f64_s64(v75), _Q2);
+      v75.i64[0] = SLODWORD(v115.f64[0]);
+      v75.i64[1] = SHIDWORD(v115.f64[0]);
+      v126.value = vcvt_f32_f64(vaddq_f64(v77, vcvtq_f64_s64(v75)));
+      LiAgent::makeHeliumXForm(v21, &v153, &v137, v110);
+      v78 = *v110;
+      if (*&v137.f64[0] == *&v110[0])
       {
-        if (*&v136.f64[0])
+        if (*&v137.f64[0])
         {
-          (*(**&v109[0] + 24))(*&v109[0]);
+          (*(**&v110[0] + 24))(*&v110[0]);
         }
       }
 
       else
       {
-        if (*&v136.f64[0])
+        if (*&v137.f64[0])
         {
-          (*(**&v136.f64[0] + 24))();
-          v77 = *v109;
+          (*(**&v137.f64[0] + 24))();
+          v78 = *v110;
         }
 
-        v136.f64[0] = v77;
+        v137.f64[0] = v78;
       }
     }
 
-    if ((TXTextObject::isEmoji(*v26) & isColorAnimated) != 1)
+    if ((TXTextObject::isEmoji(*v25) & isColorAnimated) != 1)
     {
       goto LABEL_71;
     }
 
     if (a12)
     {
-      *a12 = 1065353216;
+      *a12 = 1.0;
     }
 
-    v78.n128_u32[0] = v150.n128_u32[3];
-    if (v150.n128_f32[3] == 1.0 || (v104 - 1) >= 2)
+    v79.n128_u32[0] = v151.n128_u32[3];
+    if (v151.n128_f32[3] == 1.0 || (v105 - 1) >= 2)
     {
-      if (v104)
+      if (v105)
       {
         goto LABEL_64;
       }
 
-      v79 = COERCE_DOUBLE(HGObject::operator new(0x200uLL));
-      HgcTXColor::HgcTXColor(*&v79);
+      v80 = COERCE_DOUBLE(HGObject::operator new(0x200uLL));
+      HgcTXColor::HgcTXColor(*&v80);
     }
 
     else
     {
       if (a12)
       {
-        *a12 = v150.n128_u32[3];
-        v79 = v136.f64[0];
-        if (*&v136.f64[0])
+        *a12 = v151.n128_f32[3];
+        v80 = v137.f64[0];
+        if (*&v137.f64[0])
         {
-          (*(**&v136.f64[0] + 16))(*&v136.f64[0], v78.n128_f32[0]);
+          (*(**&v137.f64[0] + 16))(*&v137.f64[0], v79.n128_f32[0]);
           goto LABEL_66;
         }
 
 LABEL_71:
-        if (*v20)
+        if (*v19)
         {
-          if (OZChannel::getValueAsInt((v38 + 13976), MEMORY[0x277CC08F0], 0.0) == 2)
+          if (OZChannel::getValueAsInt((v39 + 13976), MEMORY[0x277CC08F0], 0.0) == 2)
           {
-            v80 = TXTextStyle::hasTexture(v38, (v38 + 16448));
+            v81 = TXTextStyle::hasTexture(v39, (v39 + 16448));
           }
 
           else
           {
-            v80 = 0;
+            v81 = 0;
           }
 
-          **v20 = v106;
-          if (OZChannel::getValueAsInt((v38 + 19528), MEMORY[0x277CC08F0], 0.0))
+          **v19 = v107;
+          if (OZChannel::getValueAsInt((v39 + 19528), MEMORY[0x277CC08F0], 0.0))
           {
-            LiAgent::getObjectToPixelTransform(v22, &v117);
-            v81 = v106;
-            PCMatrix44Tmpl<double>::operator*(&v140, &v117, &v125);
-            PCMatrix44Tmpl<double>::operator*(&v125, a9, v109);
-            PCMatrix44Tmpl<double>::operator*(v109, v108, &v152);
-            v82 = *v20;
-            v83 = (*v20 + 8);
-            if (&v152 != v83)
+            LiAgent::getObjectToPixelTransform(&v118, v21);
+            v82 = v107;
+            PCMatrix44Tmpl<double>::operator*(&v141, &v118, &v126);
+            PCMatrix44Tmpl<double>::operator*(&v126, a9, v110);
+            PCMatrix44Tmpl<double>::operator*(v110, v109, &v153);
+            v83 = *v19;
+            v84 = (*v19 + 8);
+            if (&v153 != v84)
             {
-              v84 = 0;
-              v85 = &v152;
+              v85 = 0;
+              v86 = &v153;
               do
               {
                 for (j = 0; j != 32; j += 8)
                 {
-                  *(&v83->var0.var0 + j) = *(&v85->var0.var0 + j);
+                  *(&v84->var0.var0 + j) = *(&v86->var0.var0 + j);
                 }
 
-                ++v84;
-                v83 = (v83 + 32);
-                v85 = (v85 + 32);
+                ++v85;
+                v84 = (v84 + 32);
+                v86 = (v86 + 32);
               }
 
-              while (v84 != 4);
+              while (v85 != 4);
             }
           }
 
           else
           {
-            LiAgent::getObjectToPixelTransform(v22, &v117);
-            v81 = v106;
-            PCMatrix44Tmpl<double>::operator*(&v117, a9, &v125);
-            PCMatrix44Tmpl<double>::operator*(&v125, v108, v109);
-            PCMatrix44Tmpl<double>::operator*(v109, &v140, &v152);
-            v82 = *v20;
-            v87 = (*v20 + 8);
-            if (&v152 != v87)
+            LiAgent::getObjectToPixelTransform(&v118, v21);
+            v82 = v107;
+            PCMatrix44Tmpl<double>::operator*(&v118, a9, &v126);
+            PCMatrix44Tmpl<double>::operator*(&v126, v109, v110);
+            PCMatrix44Tmpl<double>::operator*(v110, &v141, &v153);
+            v83 = *v19;
+            v88 = (*v19 + 8);
+            if (&v153 != v88)
             {
-              v88 = 0;
-              v89 = &v152;
+              v89 = 0;
+              v90 = &v153;
               do
               {
                 for (k = 0; k != 32; k += 8)
                 {
-                  *(&v87->var0.var0 + k) = *(&v89->var0.var0 + k);
+                  *(&v88->var0.var0 + k) = *(&v90->var0.var0 + k);
                 }
 
-                ++v88;
-                v87 = (v87 + 32);
-                v89 = (v89 + 32);
+                ++v89;
+                v88 = (v88 + 32);
+                v90 = (v90 + 32);
               }
 
-              while (v88 != 4);
+              while (v89 != 4);
             }
           }
 
-          v91 = v82 + 66;
-          if (v82 + 66 != a11)
+          v92 = v83 + 66;
+          if (v83 + 66 != a11)
           {
             for (m = 0; m != 4; ++m)
             {
               for (n = 0; n != 32; n += 8)
               {
-                *&v91[n / 4] = v70[n / 8];
+                *&v92[n / 4] = v71[n / 8];
               }
 
-              v91 += 8;
-              v70 += 4;
+              v92 += 8;
+              v71 += 4;
             }
           }
 
-          v94 = 0;
-          *(v82 + 465) = 1;
-          v152.var7.var0[1][2] = 1.0;
-          v152.var7.var0[0][1] = 1.0;
-          v152.var3 = 1.0;
-          v152.var0.var0 = 0x3FF0000000000000;
-          memset(&v152.var0.var1, 0, 32);
-          memset(&v152.var7.var0[0][2], 0, 32);
-          memset(&v152.var4, 0, 32);
+          v95 = 0;
+          *(v83 + 465) = 1;
+          v153.var7.var0[1][2] = 1.0;
+          v153.var7.var0[0][1] = 1.0;
+          v153.var3 = 1.0;
+          v153.var0.var0 = 0x3FF0000000000000;
+          memset(&v153.var0.var1, 0, 32);
+          memset(&v153.var7.var0[0][2], 0, 32);
+          memset(&v153.var4, 0, 32);
           do
           {
-            v95 = &v82[v94 + 34];
-            *v95 = *(&v152.var0.var0 + v94 * 4);
-            v95[1] = *(&v152.var0.var3 + v94 * 4);
-            v94 += 8;
+            v96 = &v83[v95 + 34];
+            *v96 = *(&v153.var0.var0 + v95 * 4);
+            v96[1] = *(&v153.var0.var3 + v95 * 4);
+            v95 += 8;
           }
 
-          while (v94 != 32);
-          if (v107)
+          while (v95 != 32);
+          if (v108)
           {
-            *(v82 + 98) = v116[0];
+            *(v83 + 98) = v117[0];
           }
 
           else
           {
-            PCHashWriteStream::PCHashWriteStream(&v152);
-            PCHashWriteStream::writeValue(&v152, v81);
-            PCHashWriteStream::close(&v152);
-            PCWorkingColorVector::PCWorkingColorVector(v109);
-            Hash = PCHashWriteStream::getHash(&v152);
-            v109[0] = *Hash->i8;
-            *(*v20 + 392) = *Hash->i8;
-            PCHashWriteStream::~PCHashWriteStream(&v152);
+            PCHashWriteStream::PCHashWriteStream(&v153);
+            PCHashWriteStream::writeValue(&v153, v82);
+            PCHashWriteStream::close(&v153);
+            PCWorkingColorVector::PCWorkingColorVector(v110);
+            Hash = PCHashWriteStream::getHash(&v153);
+            v110[0] = *Hash->i8;
+            *(*v19 + 392) = *Hash->i8;
+            PCHashWriteStream::~PCHashWriteStream(&v153);
           }
 
-          v97 = *v20;
-          *(*v20 + 456) = 1;
-          v99 = *v26;
-          v98 = *(v26 + 8);
-          if (v98)
+          v98 = *v19;
+          *(*v19 + 456) = 1;
+          v100 = *v25;
+          v99 = *(v25 + 8);
+          if (v99)
           {
-            atomic_fetch_add_explicit((v98 + 8), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((v99 + 8), 1uLL, memory_order_relaxed);
           }
 
-          v100 = *(v97 + 480);
-          *(v97 + 472) = v99;
-          *(v97 + 480) = v98;
-          if (v100)
+          v101 = *(v98 + 480);
+          *(v98 + 472) = v100;
+          *(v98 + 480) = v99;
+          if (v101)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v100);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v101);
           }
 
-          PCWorkingColor::operator=((*v20 + 408), &v150);
-          v101 = *v20;
-          *(v101 + 460) = 3;
-          *(v101 + 464) = v80;
+          PCWorkingColor::operator=((*v19 + 408), &v151);
+          v102 = *v19;
+          *(v102 + 460) = 3;
+          *(v102 + 464) = v81;
         }
 
-        *v29 = *&v136.f64[0];
-        v136.f64[0] = 0.0;
+        *v29 = *&v137.f64[0];
+        v137.f64[0] = 0.0;
         goto LABEL_103;
       }
 
-      v79 = COERCE_DOUBLE(HGObject::operator new(0x200uLL));
-      HgcTXAlpha::HgcTXAlpha(*&v79);
+      v80 = COERCE_DOUBLE(HGObject::operator new(0x200uLL));
+      HgcTXAlpha::HgcTXAlpha(*&v80);
     }
 
-    if (v79 != 0.0)
+    if (v80 != 0.0)
     {
-      (*(**&v79 + 120))(COERCE_FLOAT64_T(*&v79), 0, *&v136.f64[0]);
-      LODWORD(v152.var0.var0) = 0;
-      LODWORD(v109[0]) = 0;
-      LODWORD(v125.value) = 0;
-      LODWORD(v117.f64[0]) = 0;
-      PCWorkingColor::getRGBA(&v150, &v152, v109, &v125, &v117);
-      (*(**&v79 + 96))(COERCE_FLOAT64_T(*&v79), 0, *&v152.var0.var0, *v109, *&v125.value, *v117.f64);
+      (*(**&v80 + 120))(COERCE_FLOAT64_T(*&v80), 0, *&v137.f64[0]);
+      LODWORD(v153.var0.var0) = 0;
+      LODWORD(v110[0]) = 0;
+      LODWORD(v126.value) = 0;
+      LODWORD(v118.f64[0]) = 0;
+      PCWorkingColor::getRGBA(&v151, &v153, v110, &v126, &v118);
+      (*(**&v80 + 96))(COERCE_FLOAT64_T(*&v80), 0, *&v153.var0.var0, *v110, *&v126.value, *v118.f64);
       goto LABEL_66;
     }
 
 LABEL_64:
-    v79 = v136.f64[0];
-    if (!*&v136.f64[0])
+    v80 = v137.f64[0];
+    if (!*&v137.f64[0])
     {
       goto LABEL_71;
     }
 
-    (*(**&v136.f64[0] + 16))(*&v136.f64[0], v78);
+    (*(**&v137.f64[0] + 16))(*&v137.f64[0], v79);
 LABEL_66:
-    if (*&v136.f64[0] == *&v79)
+    if (*&v137.f64[0] == *&v80)
     {
-      (*(**&v79 + 24))(COERCE_FLOAT64_T(*&v79));
+      (*(**&v80 + 24))(COERCE_FLOAT64_T(*&v80));
     }
 
     else
     {
-      if (*&v136.f64[0])
+      if (*&v137.f64[0])
       {
-        (*(**&v136.f64[0] + 24))();
+        (*(**&v137.f64[0] + 24))();
       }
 
-      v136.f64[0] = v79;
+      v137.f64[0] = v80;
     }
 
     goto LABEL_71;
   }
 
-  *&v125.timescale = 0u;
-  v126 = 0u;
-  *&v125.value = v139;
-  v127 = v138;
-  v128 = 0u;
+  *&v126.timescale = 0u;
+  v127 = 0u;
+  *&v126.value = v140;
+  v128 = v139;
   v129 = 0u;
-  v131 = 0u;
+  v130 = 0u;
   v132 = 0u;
-  v130 = 0x3FF0000000000000;
-  v133 = 0x3FF0000000000000;
-  if (fabs(v139) >= 0.0000001 && fabs(v138) >= 0.0000001)
+  v133 = 0u;
+  v131 = 0x3FF0000000000000;
+  v134 = 0x3FF0000000000000;
+  if (fabs(v140) >= 0.0000001 && fabs(v139) >= 0.0000001)
   {
-    LOBYTE(v134) = 0;
-    TXTextLayout::getLiImageSourceForDropShadow(v27, v24, v68, v26, &v150, &v134);
+    LOBYTE(v135) = 0;
+    TXTextLayout::getLiImageSourceForDropShadow(v27, v23, v69, v25, &v151, &v135);
   }
 
   *v29 = 0;
 LABEL_103:
-  if (v135 != 0.0)
+  if (v136 != 0.0)
   {
-    (*(**&v135 + 24))(COERCE_DOUBLE(*&v135));
+    (*(**&v136 + 24))(COERCE_DOUBLE(*&v136));
   }
 
-  v37 = v105;
-  if (*&v111.f64[1])
+  v38 = v106;
+  if (*&v112.f64[1])
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*&v111.f64[1]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](*&v112.f64[1]);
   }
 
-  if (*&v136.f64[0])
+  if (*&v137.f64[0])
   {
-    (*(**&v136.f64[0] + 24))(*&v136.f64[0]);
+    (*(**&v137.f64[0] + 24))(*&v137.f64[0]);
   }
 
-  if (v105)
+  if (v106)
   {
 LABEL_110:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
   }
 
-  return PCCFRef<CGColorSpace *>::~PCCFRef(&v151);
+  return PCCFRef<CGColorSpace *>::~PCCFRef(&v152);
 }
 
 void sub_25FB0573C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  HGObject::operator delete(v68);
+  HGObject::operator delete(v65);
   if (STACK[0x458])
   {
     (*(*STACK[0x458] + 24))(STACK[0x458]);
   }
 
-  if (a68)
+  if (a65)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a68);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a65);
   }
 
   if (STACK[0x460])
@@ -9747,532 +9758,532 @@ void sub_25FB0573C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-CGColorSpace **TXTextLayout::buildHGNodeForGlow(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 *a9, _OWORD *a10, uint64_t a11, _DWORD *a12, unsigned __int8 a13)
+CGColorSpace **TXTextLayout::buildHGNodeForGlow(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 *a9, __int128 *a10, uint64_t a11, float *a12, unsigned __int8 a13)
 {
-  v13 = MEMORY[0x28223BE20](a1);
-  v104 = v15;
+  MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
   v105 = v14;
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
-  v23 = v22;
-  v25 = v24;
-  v26 = v13;
+  v106 = v13;
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
+  v22 = v21;
+  v24 = v23;
+  v26 = v25;
   v28 = v27;
-  v148 = *MEMORY[0x277D85DE8];
-  RequestedColorDescription = LiAgent::getRequestedColorDescription(v20);
-  OZEaseInInterpolator::~OZEaseInInterpolator(RequestedColorDescription);
-  v31 = v30;
+  v149 = *MEMORY[0x277D85DE8];
+  RequestedColorDescription = LiAgent::getRequestedColorDescription(v19);
+  OZEaseInInterpolator::~OZEaseInInterpolator(RequestedColorDescription, v30);
+  v32 = v31;
   DynamicRange = FxColorDescription::getDynamicRange(RequestedColorDescription);
   ToneMapMethod = FxColorDescription::getToneMapMethod(RequestedColorDescription);
-  PCWorkingColor::PCWorkingColor(&v145, v31, DynamicRange, ToneMapMethod);
+  PCWorkingColor::PCWorkingColor(&v146, v32, DynamicRange, ToneMapMethod);
+  v145 = 0.0;
   v144 = 0.0;
-  v143 = 0.0;
-  v34 = *v25;
-  *&v147.var0.var0 = *v23;
-  v147.var0.var3 = v23[2];
-  if (TXTextObject::isGlowVisible(v34, &v147, &v145, &v144, &v143))
+  v35 = *v24;
+  *&v148.var0.var0 = *v22;
+  v148.var0.var3 = v22[2];
+  if (TXTextObject::isGlowVisible(v35, &v148, &v146, &v145, &v144))
   {
+    v143 = 0.0;
     v142 = 0.0;
-    v141 = 0.0;
-    v35 = *v25;
-    *&v147.var0.var0 = *v23;
-    v147.var0.var3 = v23[2];
-    TXTextObject::getGlowOffset(v35, &v147, &v142, &v141, 1);
-    if (OZChannel::getValueAsInt((v26 + 20464), MEMORY[0x277CC08F0], 0.0) != 3 && OZChannel::getValueAsInt((v26 + 20464), MEMORY[0x277CC08F0], 0.0) != 4 && LiAgent::haveROI(v21))
+    v36 = *v24;
+    *&v148.var0.var0 = *v22;
+    v148.var0.var3 = v22[2];
+    TXTextObject::getGlowOffset(v36, &v148, &v143, &v142, 1);
+    if (OZChannel::getValueAsInt((v26 + 20464), MEMORY[0x277CC08F0], 0.0) != 3 && OZChannel::getValueAsInt((v26 + 20464), MEMORY[0x277CC08F0], 0.0) != 4 && LiAgent::haveROI(v20))
     {
-      if (OZRenderParams::getTextRenderQuality(v23))
+      if (OZRenderParams::getTextRenderQuality(v22))
       {
-        v36 = a10[5];
-        v108[4] = a10[4];
-        v108[5] = v36;
-        v37 = a10[7];
-        v108[6] = a10[6];
-        v108[7] = v37;
-        v38 = a10[1];
-        v108[0] = *a10;
-        v108[1] = v38;
-        v39 = a10[3];
-        v108[2] = a10[2];
-        v108[3] = v39;
+        v37 = a10[5];
+        v109[4] = a10[4];
+        v109[5] = v37;
+        v38 = a10[7];
+        v109[6] = a10[6];
+        v109[7] = v38;
+        v39 = a10[1];
+        v109[0] = *a10;
+        v109[1] = v39;
+        v40 = a10[3];
+        v109[2] = a10[2];
+        v109[3] = v40;
       }
 
       else
       {
-        LiAgent::getObjectToPixelTransform(v21, v108);
+        LiAgent::getObjectToPixelTransform(v109, v20);
       }
 
-      OZRenderState::OZRenderState(&v147, v23);
-      v147.var4 = 1;
-      TXTextObject::getImageBounds(*v25, &v147, &v139);
-      v40.f64[0] = v144;
-      v40.f64[1] = v143;
+      OZRenderState::OZRenderState(&v148, v22);
+      v148.var4 = 1;
+      TXTextObject::getImageBounds(&v140, *v24, &v148);
+      v41.f64[0] = v145;
+      v41.f64[1] = v144;
       __asm { FMOV            V1.2D, #3.0 }
 
-      v45 = vmulq_f64(v40, _Q1);
+      v46 = vmulq_f64(v41, _Q1);
       __asm { FMOV            V1.2D, #2.0 }
 
-      v47 = vaddq_f64(v45, _Q1);
-      v139 = vsubq_f64(v139, v47);
-      v140 = vsubq_f64(v140, vsubq_f64(vnegq_f64(v47), v47));
-      *&v113 = 0;
-      v111 = 0.0;
-      v48 = *v25;
-      *v129 = *v23;
-      *&v129[16] = v23[2];
-      TXTextObject::getGlowScale(v48, v129, &v113, &v111, 1);
+      v48 = vaddq_f64(v46, _Q1);
+      v140 = vsubq_f64(v140, v48);
+      v141 = vsubq_f64(v141, vsubq_f64(vnegq_f64(v48), v48));
+      *&v114 = 0;
+      v112 = 0.0;
+      v49 = *v24;
+      *v130 = *v22;
+      *&v130[16] = v22[2];
+      TXTextObject::getGlowScale(v49, v130, &v114, &v112, 1);
+      v139 = 0.0;
       v138 = 0.0;
       v137 = 0.0;
-      v136 = 0.0;
-      v49 = *v25;
-      *v129 = *v23;
-      *&v129[16] = v23[2];
-      TXTextObject::getPivot(v49, &v138, &v137, &v136, v129, 1);
-      v135 = 0x3FF0000000000000;
-      v132 = 0x3FF0000000000000;
-      memset(&v129[8], 0, 32);
-      v130 = 0u;
+      v50 = *v24;
+      *v130 = *v22;
+      *&v130[16] = v22[2];
+      TXTextObject::getPivot(v50, &v139, &v138, &v137, v130, 1uLL);
+      v136 = 0x3FF0000000000000;
+      v133 = 0x3FF0000000000000;
+      memset(&v130[8], 0, 32);
       v131 = 0u;
-      v133 = 0u;
+      v132 = 0u;
       v134 = 0u;
-      *&v129[40] = 0x3FF0000000000000;
-      *v129 = 0x3FF0000000000000;
-      v50 = PCMatrix44Tmpl<double>::leftTranslate(v129, COERCE_UNSIGNED_INT64(-v138), -v137, 0.0);
-      if (*&v113 != 1.0)
+      v135 = 0u;
+      *&v130[40] = 0x3FF0000000000000;
+      *v130 = 0x3FF0000000000000;
+      v51 = PCMatrix44Tmpl<double>::leftTranslate(v130, COERCE_UNSIGNED_INT64(-v139), -v138, 0.0);
+      if (*&v114 != 1.0)
       {
-        *v129 = vmulq_n_f64(*v129, *&v113);
-        *&v129[16] = vmulq_n_f64(*&v129[16], *&v113);
+        *v130 = vmulq_n_f64(*v130, *&v114);
+        *&v130[16] = vmulq_n_f64(*&v130[16], *&v114);
       }
 
-      if (v111 != 1.0)
+      if (v112 != 1.0)
       {
-        v50 = vmulq_n_f64(v130, v111);
-        *&v129[32] = vmulq_n_f64(*&v129[32], v111);
-        v130 = v50;
+        v51 = vmulq_n_f64(v131, v112);
+        *&v130[32] = vmulq_n_f64(*&v130[32], v112);
+        v131 = v51;
       }
 
-      v50.f64[0] = v138;
-      v51 = PCMatrix44Tmpl<double>::leftTranslate(v129, v50, v137, 0.0);
-      v51.f64[0] = v142;
-      PCMatrix44Tmpl<double>::leftTranslate(v129, v51, v141, 0.0);
-      PCMatrix44Tmpl<double>::operator*(v108, a9, v114);
-      PCMatrix44Tmpl<double>::operator*(v114, v104, v117);
-      PCMatrix44Tmpl<double>::operator*(v117, v129, &v119);
-      LiAgent::getROI(v21, v117);
-      v52.i64[0] = v117[0].n128_i32[0];
-      v52.i64[1] = v117[0].n128_i32[1];
-      *v114 = vcvtq_f64_s64(v52);
-      v115 = v117[0].n128_i32[2];
-      v116 = v117[0].n128_i32[3];
-      if ((v117[0].n128_u32[2] & 0x80000000) == 0 && (v117[0].n128_u32[3] & 0x80000000) == 0)
+      v51.f64[0] = v139;
+      v52 = PCMatrix44Tmpl<double>::leftTranslate(v130, v51, v138, 0.0);
+      v52.f64[0] = v143;
+      PCMatrix44Tmpl<double>::leftTranslate(v130, v52, v142, 0.0);
+      PCMatrix44Tmpl<double>::operator*(v109, a9, v115);
+      PCMatrix44Tmpl<double>::operator*(v115, v105, v118);
+      PCMatrix44Tmpl<double>::operator*(v118, v130, &v120);
+      LiAgent::getROI(v118, v20);
+      v53.i64[0] = v118[0].n128_i32[0];
+      v53.i64[1] = v118[0].n128_i32[1];
+      *v115 = vcvtq_f64_s64(v53);
+      v116 = v118[0].n128_i32[2];
+      v117 = v118[0].n128_i32[3];
+      if ((v118[0].n128_u32[2] & 0x80000000) == 0 && (v118[0].n128_u32[3] & 0x80000000) == 0)
       {
-        LiImagePolygon::LiImagePolygon(v117);
-        LiImagePolygon::set(v117, v139.f64, 0);
-        liTransformAndClip(v114, &v119, v117);
-        if (((v118[1] - *v118) & 0x1FFFFFFFE0) == 0)
+        LiImagePolygon::LiImagePolygon(v118);
+        LiImagePolygon::set(v118, v140.f64, 0);
+        liTransformAndClip(v115, &v120, v118);
+        if (((v119[1] - *v119) & 0x1FFFFFFFE0) == 0)
         {
           *v28 = 0.0;
-          LiImagePolygon::~LiImagePolygon(v117);
-          return PCCFRef<CGColorSpace *>::~PCCFRef(&v146);
+          LiImagePolygon::~LiImagePolygon(v118);
+          return PCCFRef<CGColorSpace *>::~PCCFRef(&v147);
         }
 
-        LiImagePolygon::~LiImagePolygon(v117);
+        LiImagePolygon::~LiImagePolygon(v118);
       }
     }
 
-    v101 = v17;
-    v102 = v19;
-    v106 = v23;
-    v107 = v25;
-    v103 = v28;
-    v53 = *(v26 + 1208);
-    if (v53 == v26 + 1200)
+    v102 = v16;
+    v103 = v18;
+    v107 = v22;
+    v108 = v24;
+    v104 = v28;
+    v54 = *(v26 + 1208);
+    if (v54 == v26 + 1200)
     {
 LABEL_24:
-      v57 = 1;
+      v58 = 1;
     }
 
     else
     {
       while (1)
       {
-        v54 = *(v53 + 16);
-        if (v54)
+        v55 = *(v54 + 16);
+        if (v55)
         {
-          if (v55)
+          if (v56)
           {
-            if ((*(*v55 + 616))(v55, 1017, 0, 0))
+            if ((*(*v56 + 616))(v56, 1017, 0, 0))
             {
               break;
             }
           }
 
-          if (v56 && TXTextSequenceBehavior::isChannelEnabled(v56, 1017))
+          if (v57 && TXTextSequenceBehavior::isChannelEnabled(v57, 1017))
           {
             break;
           }
         }
 
-        v53 = *(v53 + 8);
-        if (v53 == v26 + 1200)
+        v54 = *(v54 + 8);
+        if (v54 == v26 + 1200)
         {
           goto LABEL_24;
         }
       }
 
-      v57 = 0;
+      v58 = 0;
     }
 
-    v58 = *(*v107 + 33);
-    v59 = *(v58 + 8);
-    v60 = *(v58 + 16);
-    if (v60)
+    v59 = *(*v108 + 33);
+    v60 = *(v59 + 8);
+    v61 = *(v59 + 16);
+    if (v61)
     {
-      atomic_fetch_add_explicit(&v60->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v61->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    ValueAsInt = OZChannel::getValueAsInt((v59 + 31208), MEMORY[0x277CC08F0], 0.0);
-    v138 = 0.0;
-    PCWorkingColorVector::PCWorkingColorVector(&v139);
-    v135 = 0x3FF0000000000000;
-    v132 = 0x3FF0000000000000;
-    *&v129[40] = 0x3FF0000000000000;
-    *v129 = 0x3FF0000000000000;
-    memset(&v129[8], 0, 32);
-    v130 = 0u;
+    ValueAsInt = OZChannel::getValueAsInt((v60 + 31208), MEMORY[0x277CC08F0], 0.0);
+    v139 = 0.0;
+    PCWorkingColorVector::PCWorkingColorVector(&v140);
+    v136 = 0x3FF0000000000000;
+    v133 = 0x3FF0000000000000;
+    *&v130[40] = 0x3FF0000000000000;
+    *v130 = 0x3FF0000000000000;
+    memset(&v130[8], 0, 32);
     v131 = 0u;
-    v133 = 0u;
+    v132 = 0u;
     v134 = 0u;
+    v135 = 0u;
     OZChannel::getValueAsDouble((v26 + 60520), MEMORY[0x277CC08F0], 0.0);
-    if (v62.f64[0] >= 4.0 || ValueAsInt == 0)
+    if (v63.f64[0] >= 4.0 || ValueAsInt == 0)
     {
-      v62.f64[0] = v142;
-      PCMatrix44Tmpl<double>::leftTranslate(v129, v62, v141, 0.0);
+      v63.f64[0] = v143;
+      PCMatrix44Tmpl<double>::leftTranslate(v130, v63, v142, 0.0);
     }
 
-    v113 = xmmword_260343AA0;
+    v114 = xmmword_260343AA0;
+    v138 = 1.0;
     v137 = 1.0;
-    v136 = 1.0;
-    v64 = LiAgent::getRequestedColorDescription(v21);
-    v65 = a11;
-    if (!v57)
+    v65 = LiAgent::getRequestedColorDescription(v20);
+    v66 = a11;
+    if (!v58)
     {
-      LOBYTE(v111) = 0;
-      TXTextLayout::getLiImageSourceForGlow(v26, v106, v64, v107, &v145, &v111);
+      LOBYTE(v112) = 0;
+      TXTextLayout::getLiImageSourceForGlow(v26, v107, v65, v108, &v146, &v112);
     }
 
-    v111 = 0.0;
-    v112 = 0;
-    v110 = 0;
-    LOBYTE(v100) = a13;
-    if (TXTextLayout::getCachedTextureOrImage(v26, *v107, v106, v21, 2u, 1, a9, a10, &v139, &v137, &v136, &v113, v100, &v111, &v110, 1))
+    v112 = 0.0;
+    v113 = 0;
+    v111 = 0;
+    LOBYTE(v101) = a13;
+    if (TXTextLayout::getCachedTextureOrImage(v26, *v108, v107, v20, 2, 1, a9, a10, &v140, &v138, &v137, &v114, v101, &v112, &v111, 1))
     {
-      TXTextLayout::makeHGTextureOrBitmapNode(v106, &v111, &v110, &v113, v21, a13, &v147);
-      var0 = v147.var0.var0;
-      if (*&v138 == v147.var0.var0)
+      TXTextLayout::makeHGTextureOrBitmapNode(&v148, v107, &v112, &v111, &v114, v20, a13);
+      var0 = v148.var0.var0;
+      if (*&v139 == v148.var0.var0)
       {
-        if (v138 != 0.0)
+        if (v139 != 0.0)
         {
-          (*(*v147.var0.var0 + 24))(v147.var0.var0);
+          (*(*v148.var0.var0 + 24))(v148.var0.var0);
         }
       }
 
       else
       {
-        if (v138 != 0.0)
+        if (v139 != 0.0)
         {
-          (*(**&v138 + 24))();
+          (*(**&v139 + 24))();
         }
 
-        v138 = *&var0;
-        v147.var0.var0 = 0;
+        v139 = *&var0;
+        v148.var0.var0 = 0;
       }
 
-      *a11 = 1.0 / v137;
-      *(a11 + 40) = 1.0 / v136;
-      v147.var7.var0[1][2] = 1.0;
-      v147.var7.var0[0][1] = 1.0;
-      v147.var3 = 1.0;
-      v147.var0.var0 = 0x3FF0000000000000;
-      memset(&v147.var0.var1, 0, 32);
-      memset(&v147.var4, 0, 32);
-      memset(&v147.var7.var0[0][2], 0, 32);
-      if (!*v105)
+      *a11 = 1.0 / v138;
+      *(a11 + 40) = 1.0 / v137;
+      v148.var7.var0[1][2] = 1.0;
+      v148.var7.var0[0][1] = 1.0;
+      v148.var3 = 1.0;
+      v148.var0.var0 = 0x3FF0000000000000;
+      memset(&v148.var0.var1, 0, 32);
+      memset(&v148.var4, 0, 32);
+      memset(&v148.var7.var0[0][2], 0, 32);
+      if (!*v106)
       {
-        PCMatrix44Tmpl<double>::operator*(a10, a9, v114);
-        PCMatrix44Tmpl<double>::operator*(v114, v104, v117);
-        PCMatrix44Tmpl<double>::operator*(v117, v129, &v119);
-        PCMatrix44Tmpl<double>::operator*(&v119, a11, v108);
+        PCMatrix44Tmpl<double>::operator*(a10, a9, v115);
+        PCMatrix44Tmpl<double>::operator*(v115, v105, v118);
+        PCMatrix44Tmpl<double>::operator*(v118, v130, &v120);
+        PCMatrix44Tmpl<double>::operator*(&v120, a11, v109);
         for (i = 0; i != 8; i += 2)
         {
-          v68 = (&v147.var0.var0 + i * 16);
-          v69 = v108[i + 1];
-          *v68 = v108[i];
-          v68[1] = v69;
+          v69 = (&v148.var0.var0 + i * 16);
+          v70 = v109[i + 1];
+          *v69 = v109[i];
+          v69[1] = v70;
         }
       }
 
-      if (!PCMatrix44Tmpl<double>::isIdentity(&v147.var0.var0))
+      if (!PCMatrix44Tmpl<double>::isIdentity(&v148.var0.var0))
       {
-        v70.i64[0] = SDWORD2(v113);
-        v70.i64[1] = SHIDWORD(v113);
+        v71.i64[0] = SDWORD2(v114);
+        v71.i64[1] = SHIDWORD(v114);
         __asm { FMOV            V2.2D, #0.5 }
 
-        v72 = vmulq_f64(vcvtq_f64_s64(v70), _Q2);
-        v70.i64[0] = v113;
-        v70.i64[1] = SDWORD1(v113);
-        *&v119 = vcvt_f32_f64(vaddq_f64(v72, vcvtq_f64_s64(v70)));
-        LiAgent::makeHeliumXForm(v21, &v147, &v138, v108);
-        v73 = *v108;
-        if (*&v138 == *&v108[0])
+        v73 = vmulq_f64(vcvtq_f64_s64(v71), _Q2);
+        v71.i64[0] = v114;
+        v71.i64[1] = SDWORD1(v114);
+        *&v120 = vcvt_f32_f64(vaddq_f64(v73, vcvtq_f64_s64(v71)));
+        LiAgent::makeHeliumXForm(v20, &v148, &v139, v109);
+        v74 = *&v109[0];
+        if (*&v139 == *&v109[0])
         {
-          if (v138 != 0.0)
+          if (v139 != 0.0)
           {
-            (*(**&v108[0] + 24))(*&v108[0]);
+            (*(**&v109[0] + 24))(*&v109[0]);
           }
         }
 
         else
         {
-          if (v138 != 0.0)
+          if (v139 != 0.0)
           {
-            (*(**&v138 + 24))();
-            v73 = *v108;
+            (*(**&v139 + 24))();
+            v74 = *&v109[0];
           }
 
-          v138 = v73;
+          v139 = *&v74;
         }
       }
 
-      if (v110)
+      if (v111)
       {
-        (*(*v110 + 24))(v110);
+        (*(*v111 + 24))(v111);
       }
 
-      if (v112)
+      if (v113)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v112);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v113);
       }
 
-      WorkingColorSpace = OZRenderParams::getWorkingColorSpace(v106);
-      PCWorkingColor::WHITE(WorkingColorSpace, &v147);
-      v75 = operator!=(&v145, &v147);
-      PCCFRef<CGColorSpace *>::~PCCFRef(&v147.var0.var3);
-      if (v75 && v145.n128_f32[3] != 1.0)
+      WorkingColorSpace = OZRenderParams::getWorkingColorSpace(v107);
+      PCWorkingColor::WHITE(&v148, WorkingColorSpace);
+      v76 = operator!=(&v146, &v148);
+      PCCFRef<CGColorSpace *>::~PCCFRef(&v148.var0.var3);
+      if (v76 && v146.n128_f32[3] != 1.0)
       {
         if (a12)
         {
-          *a12 = v145.n128_u32[3];
+          *a12 = v146.n128_f32[3];
         }
 
         else
         {
-          *&v76 = COERCE_DOUBLE(HGObject::operator new(0x200uLL));
-          HgcTXAlpha::HgcTXAlpha(v76);
-          if (*&v76 != 0.0)
+          *&v77 = COERCE_DOUBLE(HGObject::operator new(0x200uLL));
+          HgcTXAlpha::HgcTXAlpha(v77);
+          if (*&v77 != 0.0)
           {
-            (*(*v76 + 120))(v76, 0, COERCE_DOUBLE(*&v138));
-            LODWORD(v147.var0.var0) = 0;
-            LODWORD(v108[0]) = 0;
-            LODWORD(v119) = 0;
-            v117[0].n128_u32[0] = 0;
-            PCWorkingColor::getRGBA(&v145, &v147, v108, &v119, v117);
-            (*(*v76 + 96))(v76, 0, *&v147.var0.var0, *v108, *&v119, v117[0].n128_f32[0]);
-            if (*&v138 != v76)
+            (*(*v77 + 120))(v77, 0, COERCE_DOUBLE(*&v139));
+            LODWORD(v148.var0.var0) = 0;
+            LODWORD(v109[0]) = 0;
+            LODWORD(v120) = 0;
+            v118[0].n128_u32[0] = 0;
+            PCWorkingColor::getRGBA(&v146, &v148, v109, &v120, v118);
+            (*(*v77 + 96))(v77, 0, *&v148.var0.var0, *v109, *&v120, v118[0].n128_f32[0]);
+            if (*&v139 != v77)
             {
-              if (v138 != 0.0)
+              if (v139 != 0.0)
               {
-                (*(**&v138 + 24))();
+                (*(**&v139 + 24))();
               }
 
-              v138 = *&v76;
-              (*(*v76 + 16))(v76);
+              v139 = *&v77;
+              (*(*v77 + 16))(v77);
             }
 
-            (*(*v76 + 24))(v76);
+            (*(*v77 + 24))(v77);
           }
         }
       }
 
-      if (*v105)
+      if (*v106)
       {
-        v77 = *(*v107 + 33);
-        if (v77)
+        v78 = *(*v108 + 33);
+        if (v78)
         {
-          v78 = *(v77 + 8);
-          v79 = *(v77 + 16);
-          if (v79)
+          v79 = *(v78 + 8);
+          v80 = *(v78 + 16);
+          if (v80)
           {
-            atomic_fetch_add_explicit(&v79->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v80->__shared_owners_, 1uLL, memory_order_relaxed);
           }
         }
 
         else
         {
-          v78 = 0;
           v79 = 0;
+          v80 = 0;
         }
 
-        if (OZChannel::getValueAsInt((v78 + 31208), MEMORY[0x277CC08F0], 0.0) == 2)
+        if (OZChannel::getValueAsInt((v79 + 31208), MEMORY[0x277CC08F0], 0.0) == 2)
         {
-          v80 = TXTextStyle::hasTexture(v78, (v78 + 33680));
+          v81 = TXTextStyle::hasTexture(v79, (v79 + 33680));
         }
 
         else
         {
-          v80 = 0;
+          v81 = 0;
         }
 
-        **v105 = v102;
-        LiAgent::getObjectToPixelTransform(v21, v117);
-        PCMatrix44Tmpl<double>::operator*(v117, a9, &v119);
-        PCMatrix44Tmpl<double>::operator*(&v119, v104, v108);
-        PCMatrix44Tmpl<double>::operator*(v108, v129, &v147);
-        v81 = *v105;
-        v82 = (*v105 + 8);
-        if (&v147 != v82)
+        **v106 = v103;
+        LiAgent::getObjectToPixelTransform(v118, v20);
+        PCMatrix44Tmpl<double>::operator*(v118, a9, &v120);
+        PCMatrix44Tmpl<double>::operator*(&v120, v105, v109);
+        PCMatrix44Tmpl<double>::operator*(v109, v130, &v148);
+        v82 = *v106;
+        v83 = (*v106 + 8);
+        if (&v148 != v83)
         {
-          v83 = 0;
-          v84 = &v147;
+          v84 = 0;
+          v85 = &v148;
           do
           {
             for (j = 0; j != 32; j += 8)
             {
-              *(&v82->var0.var0 + j) = *(&v84->var0.var0 + j);
+              *(&v83->var0.var0 + j) = *(&v85->var0.var0 + j);
             }
 
-            ++v83;
-            v82 = (v82 + 32);
-            v84 = (v84 + 32);
+            ++v84;
+            v83 = (v83 + 32);
+            v85 = (v85 + 32);
           }
 
-          while (v83 != 4);
+          while (v84 != 4);
         }
 
-        v86 = v81 + 66;
-        if (v81 + 66 != a11)
+        v87 = v82 + 66;
+        if (v82 + 66 != a11)
         {
           for (k = 0; k != 4; ++k)
           {
             for (m = 0; m != 8; m += 2)
             {
-              *&v86[m] = *(v65 + m * 4);
+              *&v87[m] = *(v66 + m * 4);
             }
 
-            v86 += 8;
-            v65 += 32;
+            v87 += 8;
+            v66 += 32;
           }
         }
 
-        *(v81 + 465) = 1;
-        if (v101)
+        *(v82 + 465) = 1;
+        if (v102)
         {
-          *&v108[0] = 0;
-          v119 = 0.0;
-          *&v147.var0.var0 = v139;
-          v89 = v107;
-          *(v81 + 98) = v139;
+          *&v109[0] = 0;
+          v120 = 0.0;
+          *&v148.var0.var0 = v140;
+          v90 = v108;
+          *(v82 + 98) = v140;
         }
 
         else
         {
-          PCHashWriteStream::PCHashWriteStream(&v147);
-          PCHashWriteStream::writeValue(&v147, v102);
-          v89 = v107;
-          PCHashWriteStream::close(&v147);
-          PCWorkingColorVector::PCWorkingColorVector(v108);
-          Hash = PCHashWriteStream::getHash(&v147);
-          v108[0] = *Hash->i8;
-          *(*v105 + 392) = *Hash->i8;
-          PCHashWriteStream::~PCHashWriteStream(&v147);
+          PCHashWriteStream::PCHashWriteStream(&v148);
+          PCHashWriteStream::writeValue(&v148, v103);
+          v90 = v108;
+          PCHashWriteStream::close(&v148);
+          PCWorkingColorVector::PCWorkingColorVector(v109);
+          Hash = PCHashWriteStream::getHash(&v148);
+          v109[0] = *Hash->i8;
+          *(*v106 + 392) = *Hash->i8;
+          PCHashWriteStream::~PCHashWriteStream(&v148);
         }
 
-        v91 = 0;
-        v147.var7.var0[1][2] = 1.0;
-        v147.var7.var0[0][1] = 1.0;
-        v147.var3 = 1.0;
-        v147.var0.var0 = 0x3FF0000000000000;
-        memset(&v147.var0.var1, 0, 32);
-        memset(&v147.var7.var0[0][2], 0, 32);
-        v92 = *v105;
-        v93 = *v105 + 136;
-        memset(&v147.var4, 0, 32);
+        v92 = 0;
+        v148.var7.var0[1][2] = 1.0;
+        v148.var7.var0[0][1] = 1.0;
+        v148.var3 = 1.0;
+        v148.var0.var0 = 0x3FF0000000000000;
+        memset(&v148.var0.var1, 0, 32);
+        memset(&v148.var7.var0[0][2], 0, 32);
+        v93 = *v106;
+        v94 = *v106 + 136;
+        memset(&v148.var4, 0, 32);
         do
         {
-          v94 = (v93 + v91);
-          *v94 = *(&v147.var0.var0 + v91);
-          v94[1] = *(&v147.var0.var3 + v91);
-          v91 += 32;
+          v95 = (v94 + v92);
+          *v95 = *(&v148.var0.var0 + v92);
+          v95[1] = *(&v148.var0.var3 + v92);
+          v92 += 32;
         }
 
-        while (v91 != 128);
-        *(v92 + 456) = 1;
-        v96 = *v89;
-        v95 = v89[1];
-        if (v95)
+        while (v92 != 128);
+        *(v93 + 456) = 1;
+        v97 = *v90;
+        v96 = v90[1];
+        if (v96)
         {
-          atomic_fetch_add_explicit(v95 + 1, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v96 + 1, 1uLL, memory_order_relaxed);
         }
 
-        v97 = *(v92 + 480);
-        *(v92 + 472) = v96;
-        *(v92 + 480) = v95;
-        if (v97)
+        v98 = *(v93 + 480);
+        *(v93 + 472) = v97;
+        *(v93 + 480) = v96;
+        if (v98)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v97);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v98);
         }
 
-        PCWorkingColor::operator=((*v105 + 408), &v145);
-        v98 = *v105;
-        *(v98 + 460) = 2;
-        *(v98 + 464) = v80;
-        if (v79)
+        PCWorkingColor::operator=((*v106 + 408), &v146);
+        v99 = *v106;
+        *(v99 + 460) = 2;
+        *(v99 + 464) = v81;
+        if (v80)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v79);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v80);
         }
       }
 
-      *v103 = v138;
+      *v104 = v139;
     }
 
     else
     {
-      v120 = 0u;
       v121 = 0u;
-      v119 = v137;
-      v122 = v136;
-      v123 = 0u;
+      v122 = 0u;
+      v120 = v138;
+      v123 = v137;
       v124 = 0u;
-      v126 = 0u;
+      v125 = 0u;
       v127 = 0u;
-      v125 = 0x3FF0000000000000;
-      v128 = 0x3FF0000000000000;
-      if (fabs(v137) >= 0.0000001 && fabs(v136) >= 0.0000001)
+      v128 = 0u;
+      v126 = 0x3FF0000000000000;
+      v129 = 0x3FF0000000000000;
+      if (fabs(v138) >= 0.0000001 && fabs(v137) >= 0.0000001)
       {
-        v109 = 0;
-        TXTextLayout::getLiImageSourceForGlow(v26, v106, v64, v107, &v145, &v109);
+        v110 = 0;
+        TXTextLayout::getLiImageSourceForGlow(v26, v107, v65, v108, &v146, &v110);
       }
 
-      *v103 = 0.0;
-      if (v110)
+      *v104 = 0.0;
+      if (v111)
       {
-        (*(*v110 + 24))(v110);
+        (*(*v111 + 24))(v111);
       }
 
-      if (v112)
+      if (v113)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v112);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v113);
       }
 
-      if (v138 != 0.0)
+      if (v139 != 0.0)
       {
-        (*(**&v138 + 24))(COERCE_DOUBLE(*&v138));
+        (*(**&v139 + 24))(COERCE_DOUBLE(*&v139));
       }
     }
 
-    if (v60)
+    if (v61)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v60);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v61);
     }
   }
 
@@ -10281,5 +10292,5 @@ LABEL_24:
     *v28 = 0.0;
   }
 
-  return PCCFRef<CGColorSpace *>::~PCCFRef(&v146);
+  return PCCFRef<CGColorSpace *>::~PCCFRef(&v147);
 }

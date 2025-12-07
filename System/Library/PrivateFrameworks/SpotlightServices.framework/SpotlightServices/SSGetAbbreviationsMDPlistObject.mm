@@ -13,23 +13,22 @@ void ___SSGetAbbreviationsMDPlistObject_block_invoke()
     if (v2 != -1)
     {
       v3 = v2;
-      memset(&v9, 0, sizeof(v9));
-      if (!fstat(v2, &v9))
+      memset(&v8, 0, sizeof(v8));
+      if (!fstat(v2, &v8))
       {
-        v4 = mmap(0, v9.st_size, 1, 1, v3, 0);
+        v4 = mmap(0, v8.st_size, 1, 1, v3, 0);
         if (v4 == -1)
         {
           goto LABEL_11;
         }
 
         v5 = v4;
-        v6 = *MEMORY[0x1E695E480];
         _SSGetAbbreviationsMDPlistObject_sAbbreviationsContainer = _MDPlistContainerCreateWithBytes();
         if (_SSGetAbbreviationsMDPlistObject_sAbbreviationsContainer)
         {
           _MDPlistGetRootPlistObjectFromPlist();
-          _SSGetAbbreviationsMDPlistObject_rootObj = v7;
-          qword_1ECB9F218 = v8;
+          _SSGetAbbreviationsMDPlistObject_rootObj = v6;
+          qword_1ECB9F218 = v7;
           if (_MDPlistGetPlistObjectType() == 241)
           {
             if (!_SSGetAbbreviationsMDPlistObject_sAbbreviationsContainer)
@@ -46,7 +45,7 @@ LABEL_11:
         }
 
 LABEL_10:
-        munmap(v5, v9.st_size);
+        munmap(v5, v8.st_size);
         goto LABEL_11;
       }
     }

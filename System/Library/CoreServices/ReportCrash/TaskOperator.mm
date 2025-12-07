@@ -7,7 +7,7 @@
 
 - (TaskOperator)initWithTask:(unsigned int)task
 {
-  v4 = sub_100026AF4();
+  v4 = sub_100026AF4(*&task);
   v5 = self + OBJC_IVAR___TaskOperator_extraction;
   *v5 = 2;
   v5[1] = v4 & 1;

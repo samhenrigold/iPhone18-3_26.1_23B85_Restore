@@ -24,37 +24,36 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFEngineRPMObservable.engineRPMService(_:didUpdateRotationalSpeedState:)();
+  CAFEngineRPMObservable.engineRPMService(_:didUpdateRotationalSpeedState:)(selfCopy, state);
 }
 
 - (void)engineRPMService:(id)service didUpdateRotationalSpeedMarkerRedline:(id)redline
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo22CAFUnitRotationalSpeedCGSgMd, &_s10Foundation11MeasurementVySo22CAFUnitRotationalSpeedCGSgMR);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v16 - v9;
+  v9 = &v15 - v8;
   if (redline)
   {
     type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFUnitRotationalSpeed, 0x277CF8778);
     static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo22CAFUnitRotationalSpeedCGMd, &_s10Foundation11MeasurementVySo22CAFUnitRotationalSpeedCGMR);
-    v12 = v10;
-    v13 = 0;
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo22CAFUnitRotationalSpeedCGMd, &_s10Foundation11MeasurementVySo22CAFUnitRotationalSpeedCGMR);
+    v11 = v9;
+    v12 = 0;
   }
 
   else
   {
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo22CAFUnitRotationalSpeedCGMd, &_s10Foundation11MeasurementVySo22CAFUnitRotationalSpeedCGMR);
-    v12 = v10;
-    v13 = 1;
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo22CAFUnitRotationalSpeedCGMd, &_s10Foundation11MeasurementVySo22CAFUnitRotationalSpeedCGMR);
+    v11 = v9;
+    v12 = 1;
   }
 
-  __swift_storeEnumTagSinglePayload(v12, v13, 1, v11);
+  __swift_storeEnumTagSinglePayload(v11, v12, 1, v10);
   serviceCopy = service;
   selfCopy = self;
-  CAFEngineRPMObservable.engineRPMService(_:didUpdateRotationalSpeedMarkerRedline:)(selfCopy, v10);
+  CAFEngineRPMObservable.engineRPMService(_:didUpdateRotationalSpeedMarkerRedline:)(selfCopy, v9);
 
-  outlined destroy of Measurement<CAFUnitRotationalSpeed>?(v10);
+  outlined destroy of Measurement<CAFUnitRotationalSpeed>?(v9);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

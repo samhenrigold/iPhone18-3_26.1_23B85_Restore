@@ -8,6 +8,7 @@
 - (void)_migrateFromSystemPreferencesStoreOrSettingsStoreWithCompletion:(id)completion;
 - (void)_migrateOffStatusWithCompletion:(id)completion;
 - (void)_networkReachabilityDidChange:(id)change;
+- (void)_performUserSettingsAction:(unint64_t)action settings:(id)settings dsid:(id)dsid isMigration:(BOOL)migration completion:(id)completion;
 - (void)_performUserSettingsOperation:(id)operation dsid:(id)dsid completion:(id)completion;
 - (void)fetchStatusForAllTypesWithCompletion:(id)completion;
 - (void)getStatusForType:(unint64_t)type withCompletion:(id)completion;
@@ -41,40 +42,42 @@ void __44__WLKPostPlayAutoPlayManager_defaultManager__block_invoke()
 {
   v2 = +[WLKSystemPreferencesStore sharedPreferences];
   v3 = +[WLKSettingsStore sharedSettings];
-  if ([v2 hasPostPlayAutoPlayNextVideoPreferences])
+  hasPostPlayAutoPlayNextVideoPreferences = [v2 hasPostPlayAutoPlayNextVideoPreferences];
+  if (hasPostPlayAutoPlayNextVideoPreferences)
   {
-    v4 = WLKSystemLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = WLKSystemLogObject(hasPostPlayAutoPlayNextVideoPreferences);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Migrating post play auto-play from WLKSystemPreferencesStore", buf, 2u);
+      _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Migrating post play auto-play from WLKSystemPreferencesStore", buf, 2u);
     }
 
-    v5 = v2;
+    v6 = v2;
   }
 
   else
   {
-    if (![v3 hasPostPlayAutoPlayNextVideoPreferences])
+    hasPostPlayAutoPlayNextVideoPreferences2 = [v3 hasPostPlayAutoPlayNextVideoPreferences];
+    if (!hasPostPlayAutoPlayNextVideoPreferences2)
     {
-      LOBYTE(v6) = 0;
+      LOBYTE(v8) = 0;
       goto LABEL_11;
     }
 
-    v4 = WLKSystemLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = WLKSystemLogObject(hasPostPlayAutoPlayNextVideoPreferences2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Migrating post play auto-play from WLKSettingsStore", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Migrating post play auto-play from WLKSettingsStore", v10, 2u);
     }
 
-    v5 = v3;
+    v6 = v3;
   }
 
-  v6 = [v5 postPlayAutoPlayNextVideo] ^ 1;
+  v8 = [v6 postPlayAutoPlayNextVideo] ^ 1;
 LABEL_11:
 
-  return v6;
+  return v8;
 }
 
 - (WLKPostPlayAutoPlayManager)initWithCache:(id)cache
@@ -118,47 +121,48 @@ LABEL_11:
 
 - (void)getStatusForType:(unint64_t)type withCompletion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v19 = 0;
-  v7 = WLKPostPlayAutoPlayCheckHasActiveAccount(&v19);
-  v8 = v19;
+  v21 = 0;
+  v7 = WLKPostPlayAutoPlayCheckHasActiveAccount(&v21);
+  v8 = v21;
+  v9 = v8;
   if (v7)
   {
     cache = [(WLKPostPlayAutoPlayManager *)self cache];
-    v10 = [cache hasCacheForType:type];
+    v11 = [cache hasCacheForType:type];
 
-    if (v10)
+    if (v11)
     {
       cache2 = [(WLKPostPlayAutoPlayManager *)self cache];
-      v12 = [cache2 currentSettingForType:type];
+      v14 = [cache2 currentSettingForType:type];
 
-      v13 = WLKSystemLogObject();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = WLKSystemLogObject(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
+        v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
         *buf = 138412546;
-        v21 = v14;
-        v22 = 1024;
-        v23 = v12;
-        _os_log_impl(&dword_272A0F000, v13, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - getStatusForType: %@, replied with cached state: %d", buf, 0x12u);
+        v23 = v17;
+        v24 = 1024;
+        v25 = v14;
+        _os_log_impl(&dword_272A0F000, v16, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - getStatusForType: %@, replied with cached state: %d", buf, 0x12u);
       }
 
       if (completionCopy)
       {
-        completionCopy[2](completionCopy, v12, 0);
+        completionCopy[2](completionCopy, v14, 0);
       }
     }
 
     else
     {
-      v16 = WLKSystemLogObject();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v19 = WLKSystemLogObject(v12);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
+        v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
         *buf = 138412290;
-        v21 = v17;
-        _os_log_impl(&dword_272A0F000, v16, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - getStatusForType: %@, no cache found.", buf, 0xCu);
+        v23 = v20;
+        _os_log_impl(&dword_272A0F000, v19, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - getStatusForType: %@, no cache found.", buf, 0xCu);
       }
 
       [(WLKPostPlayAutoPlayManager *)self _fetchStatusForType:type withCompletion:completionCopy];
@@ -167,19 +171,17 @@ LABEL_11:
 
   else
   {
-    v15 = WLKSystemLogObject();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = WLKSystemLogObject(v8);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [WLKPostPlayAutoPlayManager getStatusForType:withCompletion:];
     }
 
     if (completionCopy)
     {
-      (completionCopy)[2](completionCopy, 1, v8);
+      (completionCopy)[2](completionCopy, 1, v9);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSettings:(id)settings completion:(id)completion
@@ -190,7 +192,7 @@ LABEL_11:
   v16 = 0;
   v8 = WLKPostPlayAutoPlayCheckHasActiveAccount(&v16);
   v9 = v16;
-  v10 = WLKSystemLogObject();
+  v10 = WLKSystemLogObject(v9);
   v11 = v10;
   if (v8)
   {
@@ -201,7 +203,8 @@ LABEL_11:
       _os_log_impl(&dword_272A0F000, v11, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - setSettings: %@", buf, 0xCu);
     }
 
-    if ([settingsCopy _hasValues])
+    _hasValues = [settingsCopy _hasValues];
+    if (_hasValues)
     {
       v14[0] = MEMORY[0x277D85DD0];
       v14[1] = 3221225472;
@@ -213,11 +216,11 @@ LABEL_11:
 
     else
     {
-      v12 = WLKSystemLogObject();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = WLKSystemLogObject(_hasValues);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_272A0F000, v12, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Nothing to update since settings has no values set", buf, 2u);
+        _os_log_impl(&dword_272A0F000, v13, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Nothing to update since settings has no values set", buf, 2u);
       }
 
       if (completionCopy)
@@ -239,8 +242,6 @@ LABEL_11:
       (*(completionCopy + 2))(completionCopy, 0, v9);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__WLKPostPlayAutoPlayManager_setSettings_completion___block_invoke(uint64_t a1)
@@ -257,7 +258,7 @@ uint64_t __53__WLKPostPlayAutoPlayManager_setSettings_completion___block_invoke(
 - (void)fetchStatusForAllTypesWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = WLKSystemLogObject();
+  v5 = WLKSystemLogObject(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -283,106 +284,108 @@ uint64_t __53__WLKPostPlayAutoPlayManager_setSettings_completion___block_invoke(
 void __67__WLKPostPlayAutoPlayManager_fetchStatusForAllTypesWithCompletion___block_invoke(id *a1)
 {
   WeakRetained = objc_loadWeakRetained(a1 + 6);
-  if (![WeakRetained isFetchingAllStatusInProgress])
+  v3 = [WeakRetained isFetchingAllStatusInProgress];
+  if (!v3)
   {
     [WeakRetained setIsFetchingAllStatusInProgress:1];
     objc_initWeak(buf, WeakRetained);
-    v5 = [WeakRetained cache];
-    v6 = [v5 isWaitingForConnection];
+    v6 = [WeakRetained cache];
+    v7 = [v6 isWaitingForConnection];
 
-    if (v6)
+    if (v7)
     {
-      v7 = WLKSystemLogObject();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = WLKSystemLogObject(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v24 = 0;
-        _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Retry sending request for current settings.", v24, 2u);
+        *v27 = 0;
+        _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Retry sending request for current settings.", v27, 2u);
       }
 
       if (![WeakRetained _hasPreviousPreferenceAsDisableAutoPlay])
       {
-        v13 = [a1[4] cache];
-        v14 = [v13 currentSettings];
+        v16 = [a1[4] cache];
+        v17 = [v16 currentSettings];
 
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __67__WLKPostPlayAutoPlayManager_fetchStatusForAllTypesWithCompletion___block_invoke_2;
-        v18[3] = &unk_279E5FEE8;
-        objc_copyWeak(&v20, buf);
-        v19 = a1[5];
-        [WeakRetained _performUserSettingsAction:1 settings:v14 dsid:0 isMigration:0 completion:v18];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __67__WLKPostPlayAutoPlayManager_fetchStatusForAllTypesWithCompletion___block_invoke_2;
+        v21[3] = &unk_279E5FEE8;
+        objc_copyWeak(&v23, buf);
+        v22 = a1[5];
+        [WeakRetained _performUserSettingsAction:1 settings:v17 dsid:0 isMigration:0 completion:v21];
 
-        objc_destroyWeak(&v20);
+        objc_destroyWeak(&v23);
         goto LABEL_21;
       }
 
-      v8 = v21;
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __67__WLKPostPlayAutoPlayManager_fetchStatusForAllTypesWithCompletion___block_invoke_51;
-      v21[3] = &unk_279E5E660;
-      objc_copyWeak(&v23, buf);
-      v22 = a1[5];
-      [WeakRetained _migrateFromSystemPreferencesStoreOrSettingsStoreWithCompletion:v21];
-      v9 = v22;
+      v10 = v24;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __67__WLKPostPlayAutoPlayManager_fetchStatusForAllTypesWithCompletion___block_invoke_51;
+      v24[3] = &unk_279E5E660;
+      objc_copyWeak(&v26, buf);
+      v25 = a1[5];
+      [WeakRetained _migrateFromSystemPreferencesStoreOrSettingsStoreWithCompletion:v24];
+      v11 = v25;
     }
 
     else
     {
-      if ([WeakRetained isMigrationInProgress])
+      v12 = [WeakRetained isMigrationInProgress];
+      if (v12)
       {
-        v10 = WLKSystemLogObject();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v13 = WLKSystemLogObject(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          *v24 = 0;
-          _os_log_impl(&dword_272A0F000, v10, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - There is ongoing migration. Skip the GET action", v24, 2u);
+          *v27 = 0;
+          _os_log_impl(&dword_272A0F000, v13, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - There is ongoing migration. Skip the GET action", v27, 2u);
         }
 
         [WeakRetained setIsFetchingAllStatusInProgress:0];
-        v11 = a1[5];
-        if (v11)
+        v14 = a1[5];
+        if (v14)
         {
-          v11[2]();
+          v14[2]();
         }
 
         goto LABEL_21;
       }
 
-      v12 = WLKSystemLogObject();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = WLKSystemLogObject(v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        *v24 = 0;
-        _os_log_impl(&dword_272A0F000, v12, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - _performUserSettingsAction GET", v24, 2u);
+        *v27 = 0;
+        _os_log_impl(&dword_272A0F000, v15, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - _performUserSettingsAction GET", v27, 2u);
       }
 
-      v8 = v15;
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __67__WLKPostPlayAutoPlayManager_fetchStatusForAllTypesWithCompletion___block_invoke_52;
-      v15[3] = &unk_279E5FEE8;
-      objc_copyWeak(&v17, buf);
-      v16 = a1[5];
-      [WeakRetained _performUserSettingsAction:0 settings:0 dsid:0 isMigration:0 completion:v15];
-      v9 = v16;
+      v10 = v18;
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __67__WLKPostPlayAutoPlayManager_fetchStatusForAllTypesWithCompletion___block_invoke_52;
+      v18[3] = &unk_279E5FEE8;
+      objc_copyWeak(&v20, buf);
+      v19 = a1[5];
+      [WeakRetained _performUserSettingsAction:0 settings:0 dsid:0 isMigration:0 completion:v18];
+      v11 = v19;
     }
 
-    objc_destroyWeak(v8 + 5);
+    objc_destroyWeak(v10 + 5);
 LABEL_21:
     objc_destroyWeak(buf);
     goto LABEL_22;
   }
 
-  v3 = WLKSystemLogObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = WLKSystemLogObject(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - There is ongoing fetchStatusForAllTypesWithCompletion. Skip this one.", buf, 2u);
+    _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - There is ongoing fetchStatusForAllTypesWithCompletion. Skip this one.", buf, 2u);
   }
 
-  v4 = a1[5];
-  if (v4)
+  v5 = a1[5];
+  if (v5)
   {
-    v4[2]();
+    v5[2]();
   }
 
 LABEL_22:
@@ -427,7 +430,7 @@ void __67__WLKPostPlayAutoPlayManager_fetchStatusForAllTypesWithCompletion___blo
   v14 = 0;
   v5 = WLKPostPlayAutoPlayCheckHasActiveAccount(&v14);
   v6 = v14;
-  v7 = WLKSystemLogObject();
+  v7 = WLKSystemLogObject(v6);
   v8 = v7;
   if (v5)
   {
@@ -477,7 +480,7 @@ uint64_t __62__WLKPostPlayAutoPlayManager__migrateOffStatusWithCompletion___bloc
 - (void)_migrateFromSystemPreferencesStoreOrSettingsStoreWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = WLKSystemLogObject();
+  v5 = WLKSystemLogObject(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -502,13 +505,14 @@ uint64_t __62__WLKPostPlayAutoPlayManager__migrateOffStatusWithCompletion___bloc
 void __94__WLKPostPlayAutoPlayManager__migrateFromSystemPreferencesStoreOrSettingsStoreWithCompletion___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if ([WeakRetained isMigrationInProgress])
+  v3 = [WeakRetained isMigrationInProgress];
+  if (v3)
   {
-    v3 = WLKSystemLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = WLKSystemLogObject(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Migration is in progress, ignoring this call _migrateFromSystemPreferencesStoreOrSettingsStore.", buf, 2u);
+      _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Migration is in progress, ignoring this call _migrateFromSystemPreferencesStoreOrSettingsStore.", buf, 2u);
     }
   }
 
@@ -516,23 +520,23 @@ void __94__WLKPostPlayAutoPlayManager__migrateFromSystemPreferencesStoreOrSettin
   {
     [WeakRetained setIsMigrationInProgress:1];
     objc_initWeak(buf, WeakRetained);
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __94__WLKPostPlayAutoPlayManager__migrateFromSystemPreferencesStoreOrSettingsStoreWithCompletion___block_invoke_2;
-    v5[3] = &unk_279E5FF10;
-    objc_copyWeak(&v7, buf);
-    v6 = *(a1 + 32);
-    [WeakRetained _migrateOffStatusWithCompletion:v5];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __94__WLKPostPlayAutoPlayManager__migrateFromSystemPreferencesStoreOrSettingsStoreWithCompletion___block_invoke_2;
+    v6[3] = &unk_279E5FF10;
+    objc_copyWeak(&v8, buf);
+    v7 = *(a1 + 32);
+    [WeakRetained _migrateOffStatusWithCompletion:v6];
 
-    objc_destroyWeak(&v7);
+    objc_destroyWeak(&v8);
     objc_destroyWeak(buf);
     goto LABEL_9;
   }
 
-  v4 = *(a1 + 32);
-  if (v4)
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    (*(v4 + 16))();
+    (*(v5 + 16))();
   }
 
 LABEL_9:
@@ -560,7 +564,7 @@ void __94__WLKPostPlayAutoPlayManager__migrateFromSystemPreferencesStoreOrSettin
 
 - (void)_handleAccountDidChange:(id)change
 {
-  v4 = WLKSystemLogObject();
+  v4 = WLKSystemLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -573,7 +577,7 @@ void __94__WLKPostPlayAutoPlayManager__migrateFromSystemPreferencesStoreOrSettin
 
 - (void)_networkReachabilityDidChange:(id)change
 {
-  v4 = WLKSystemLogObject();
+  v4 = WLKSystemLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -585,11 +589,11 @@ void __94__WLKPostPlayAutoPlayManager__migrateFromSystemPreferencesStoreOrSettin
 
   if (isNetworkReachable)
   {
-    v7 = WLKSystemLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = WLKSystemLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Device is back online.", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Device is back online.", v9, 2u);
     }
 
     [(WLKPostPlayAutoPlayManager *)self fetchStatusForAllTypesWithCompletion:0];
@@ -599,9 +603,10 @@ void __94__WLKPostPlayAutoPlayManager__migrateFromSystemPreferencesStoreOrSettin
 - (void)_fetchStatusForType:(unint64_t)type withCompletion:(id)completion
 {
   completionCopy = completion;
-  v15 = 0;
-  v7 = WLKPostPlayAutoPlayCheckHasActiveAccount(&v15);
-  v8 = v15;
+  v16 = 0;
+  v7 = WLKPostPlayAutoPlayCheckHasActiveAccount(&v16);
+  v8 = v16;
+  v9 = v8;
   if (v7)
   {
     objc_initWeak(&location, self);
@@ -610,80 +615,78 @@ void __94__WLKPostPlayAutoPlayManager__migrateFromSystemPreferencesStoreOrSettin
     block[1] = 3221225472;
     block[2] = __65__WLKPostPlayAutoPlayManager__fetchStatusForType_withCompletion___block_invoke;
     block[3] = &unk_279E5FF60;
-    objc_copyWeak(v13, &location);
-    v13[1] = type;
-    v12 = completionCopy;
+    objc_copyWeak(v14, &location);
+    v14[1] = type;
+    v13 = completionCopy;
     dispatch_async(queue, block);
 
-    objc_destroyWeak(v13);
+    objc_destroyWeak(v14);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v10 = WLKSystemLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = WLKSystemLogObject(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [WLKPostPlayAutoPlayManager getStatusForType:withCompletion:];
     }
 
     if (completionCopy)
     {
-      (*(completionCopy + 2))(completionCopy, 1, v8);
+      (*(completionCopy + 2))(completionCopy, 1, v9);
     }
   }
 }
 
 void __65__WLKPostPlayAutoPlayManager__fetchStatusForType_withCompletion___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if ([WeakRetained isMigrationInProgress])
   {
     v3 = [WeakRetained cache];
     v4 = [v3 currentSettingForType:*(a1 + 48)];
 
-    v5 = WLKSystemLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = WLKSystemLogObject(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v15) = v4;
-      _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - fetchStatus replied with cached state because there is ongoing migration: %d", buf, 8u);
+      LODWORD(v16) = v4;
+      _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - fetchStatus replied with cached state because there is ongoing migration: %d", buf, 8u);
     }
 
-    v6 = *(a1 + 32);
-    if (v6)
+    v7 = *(a1 + 32);
+    if (v7)
     {
-      (*(v6 + 16))(v6, v4, 0);
+      (*(v7 + 16))(v7, v4, 0);
     }
   }
 
   else
   {
-    objc_initWeak(&location, WeakRetained);
-    v7 = WLKSystemLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    inited = objc_initWeak(&location, WeakRetained);
+    v9 = WLKSystemLogObject(inited);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 48)];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 48)];
       *buf = 138412290;
-      v15 = v8;
-      _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - fetchStatusForType: %@", buf, 0xCu);
+      v16 = v10;
+      _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - fetchStatusForType: %@", buf, 0xCu);
     }
 
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __65__WLKPostPlayAutoPlayManager__fetchStatusForType_withCompletion___block_invoke_56;
-    v10[3] = &unk_279E5FF38;
-    objc_copyWeak(v12, &location);
-    v12[1] = *(a1 + 48);
-    v11 = *(a1 + 32);
-    [WeakRetained _performUserSettingsAction:0 settings:0 dsid:0 isMigration:0 completion:v10];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __65__WLKPostPlayAutoPlayManager__fetchStatusForType_withCompletion___block_invoke_56;
+    v11[3] = &unk_279E5FF38;
+    objc_copyWeak(v13, &location);
+    v13[1] = *(a1 + 48);
+    v12 = *(a1 + 32);
+    [WeakRetained _performUserSettingsAction:0 settings:0 dsid:0 isMigration:0 completion:v11];
 
-    objc_destroyWeak(v12);
+    objc_destroyWeak(v13);
     objc_destroyWeak(&location);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __65__WLKPostPlayAutoPlayManager__fetchStatusForType_withCompletion___block_invoke_56(uint64_t a1, uint64_t a2, void *a3)
@@ -694,24 +697,103 @@ void __65__WLKPostPlayAutoPlayManager__fetchStatusForType_withCompletion___block
   v6 = [WeakRetained cache];
   v7 = [v6 currentSettingForType:*(a1 + 48)];
 
-  v8 = WLKSystemLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = WLKSystemLogObject(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [v4 localizedDescription];
+    v10 = [v4 localizedDescription];
     v12[0] = 67109378;
     v12[1] = v7;
     v13 = 2112;
-    v14 = v9;
-    _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - fetchStatus replied with fresh state: %d, error: %@", v12, 0x12u);
+    v14 = v10;
+    _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - fetchStatus replied with fresh state: %d, error: %@", v12, 0x12u);
   }
 
-  v10 = *(a1 + 32);
-  if (v10)
+  v11 = *(a1 + 32);
+  if (v11)
   {
-    (*(v10 + 16))(v10, v7, v4);
+    (*(v11 + 16))(v11, v7, v4);
+  }
+}
+
+- (void)_performUserSettingsAction:(unint64_t)action settings:(id)settings dsid:(id)dsid isMigration:(BOOL)migration completion:(id)completion
+{
+  migrationCopy = migration;
+  settingsCopy = settings;
+  dsidCopy = dsid;
+  completionCopy = completion;
+  v37 = 0;
+  v15 = WLKPostPlayAutoPlayCheckHasActiveAccount(&v37);
+  v16 = v37;
+  v17 = v16;
+  if (v15)
+  {
+    v18 = [[WLKUserSettings alloc] initWithPostPlayAutoPlaySettings:settingsCopy];
+    v19 = [[WLKUserSettingsRequestOperation alloc] initWithAction:action userSettings:v18 dsid:dsidCopy isMigration:migrationCopy];
+    if (dsidCopy)
+    {
+      v30 = v18;
+      activeAccount = [MEMORY[0x277D6C478] activeAccount];
+      v21 = activeAccount;
+      if (activeAccount && ([activeAccount ams_DSID], v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "stringValue"), v23 = objc_claimAutoreleasedReturnValue(), v22, v23))
+      {
+        [dsidCopy stringValue];
+        v24 = v29 = v19;
+        v25 = [v23 isEqualToString:v24];
+
+        v19 = v29;
+      }
+
+      else
+      {
+        v25 = 0;
+      }
+
+      v18 = v30;
+    }
+
+    else
+    {
+      v25 = 1;
+    }
+
+    if (action == 1 && v25)
+    {
+      cache = [(WLKPostPlayAutoPlayManager *)self cache];
+      [cache setIsWaitingForConnection:0];
+
+      cache2 = [(WLKPostPlayAutoPlayManager *)self cache];
+      [cache2 updateWithSettings:settingsCopy];
+    }
+
+    objc_initWeak(&location, self);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __94__WLKPostPlayAutoPlayManager__performUserSettingsAction_settings_dsid_isMigration_completion___block_invoke;
+    v31[3] = &unk_279E5FF88;
+    objc_copyWeak(v34, &location);
+    v34[1] = action;
+    v35 = v25;
+    v33 = completionCopy;
+    v32 = settingsCopy;
+    [(WLKPostPlayAutoPlayManager *)self _performUserSettingsOperation:v19 dsid:dsidCopy completion:v31];
+
+    objc_destroyWeak(v34);
+    objc_destroyWeak(&location);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v26 = WLKSystemLogObject(v16);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      [WLKPostPlayAutoPlayManager getStatusForType:withCompletion:];
+    }
+
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, 0, v17);
+    }
+  }
 }
 
 void __94__WLKPostPlayAutoPlayManager__performUserSettingsAction_settings_dsid_isMigration_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -723,11 +805,11 @@ void __94__WLKPostPlayAutoPlayManager__performUserSettingsAction_settings_dsid_i
   {
     if ([v6 code] == -1009 && *(a1 + 56) == 1 && *(a1 + 64) == 1)
     {
-      v8 = WLKSystemLogObject();
+      v8 = WLKSystemLogObject(-1009);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v21 = 0;
-        _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - No internet connection. Retry later when device is back online", v21, 2u);
+        *v19 = 0;
+        _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - No internet connection. Retry later when device is back online", v19, 2u);
       }
 
       v9 = [WeakRetained cache];
@@ -751,10 +833,9 @@ void __94__WLKPostPlayAutoPlayManager__performUserSettingsAction_settings_dsid_i
         goto LABEL_21;
       }
 
-      v20 = *(a1 + 32);
-      v19 = *(v10 + 16);
+      v18 = *(v10 + 16);
 LABEL_20:
-      v19();
+      v18();
     }
   }
 
@@ -776,8 +857,7 @@ LABEL_20:
     v17 = *(a1 + 40);
     if (v17)
     {
-      v18 = *(a1 + 32);
-      v19 = *(v17 + 16);
+      v18 = *(v17 + 16);
       goto LABEL_20;
     }
   }
@@ -816,73 +896,74 @@ void __76__WLKPostPlayAutoPlayManager__performUserSettingsOperation_dsid_complet
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if ([*(a1 + 32) action] != 1 || (objc_msgSend(*(a1 + 32), "userSettings"), v3 = objc_claimAutoreleasedReturnValue(), v3, v3))
   {
-    v4 = [*(a1 + 32) userSettings];
-    v5 = [v4 postPlayAutoPlaySettings];
+    v5 = [*(a1 + 32) userSettings];
+    v6 = [v5 postPlayAutoPlaySettings];
 
-    v6 = [*(a1 + 32) action];
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    if (!v8)
+    v7 = [*(a1 + 32) action];
+    v8 = *(a1 + 32);
+    v9 = *(a1 + 40);
+    if (!v9)
     {
-      v8 = &unk_288222CB0;
+      v9 = &unk_288222CB0;
     }
 
-    v9 = v8;
-    if (v6 == 1)
+    v10 = v9;
+    if (v7 == 1)
     {
-      v10 = [WeakRetained ongoingUpdateOperations];
-      v11 = [v10 objectForKey:v9];
+      v11 = [WeakRetained ongoingUpdateOperations];
+      v12 = [v11 objectForKey:v10];
 
-      if (v11 && ([v11 isCancelled] & 1) == 0)
+      if (v12 && (v13 = [v12 isCancelled], (v13 & 1) == 0))
       {
-        v18 = WLKSystemLogObject();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = WLKSystemLogObject(v13);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(location[0]) = 0;
-          _os_log_impl(&dword_272A0F000, v18, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - There is ongoing operation.", location, 2u);
+          _os_log_impl(&dword_272A0F000, v19, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - There is ongoing operation.", location, 2u);
         }
 
-        v19 = [v11 userSettings];
-        v27 = [v19 postPlayAutoPlaySettings];
+        v20 = [v12 userSettings];
+        v29 = [v20 postPlayAutoPlaySettings];
 
-        LODWORD(v19) = [v27 isEqual:v5];
-        v20 = WLKSystemLogObject();
-        v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
-        if (v19)
+        v21 = [v29 isEqual:v6];
+        LODWORD(v20) = v21;
+        v22 = WLKSystemLogObject(v21);
+        v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+        if (v20)
         {
-          if (v21)
+          if (v23)
           {
             LOWORD(location[0]) = 0;
-            _os_log_impl(&dword_272A0F000, v20, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - The ongoing operation has the same settings, skipping the latest one.", location, 2u);
+            _os_log_impl(&dword_272A0F000, v22, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - The ongoing operation has the same settings, skipping the latest one.", location, 2u);
           }
 
           (*(*(a1 + 56) + 16))();
           goto LABEL_12;
         }
 
-        if (v21)
+        if (v23)
         {
           LOWORD(location[0]) = 0;
-          _os_log_impl(&dword_272A0F000, v20, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - The ongoing operation has different settings, cancel the ongoing operation.", location, 2u);
+          _os_log_impl(&dword_272A0F000, v22, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - The ongoing operation has different settings, cancel the ongoing operation.", location, 2u);
         }
 
-        [v11 cancel];
-        v22 = [WeakRetained ongoingUpdateOperations];
-        [v22 removeObjectForKey:v9];
+        [v12 cancel];
+        v24 = [WeakRetained ongoingUpdateOperations];
+        [v24 removeObjectForKey:v10];
 
-        v26 = [v5 _newSettingsMergedWithPreviousSettings:v27];
-        v23 = WLKSystemLogObject();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v28 = [v6 _newSettingsMergedWithPreviousSettings:v29];
+        v25 = WLKSystemLogObject(v28);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(location[0]) = 138412290;
-          *(location + 4) = v26;
-          _os_log_impl(&dword_272A0F000, v23, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - New settings: %@", location, 0xCu);
+          *(location + 4) = v28;
+          _os_log_impl(&dword_272A0F000, v25, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - New settings: %@", location, 0xCu);
         }
 
-        v24 = [[WLKUserSettings alloc] initWithPostPlayAutoPlaySettings:v26];
-        v25 = -[WLKUserSettingsRequestOperation initWithAction:userSettings:]([WLKUserSettingsRequestOperation alloc], "initWithAction:userSettings:", [*(a1 + 32) action], v24);
+        v26 = [[WLKUserSettings alloc] initWithPostPlayAutoPlaySettings:v28];
+        v27 = -[WLKUserSettingsRequestOperation initWithAction:userSettings:]([WLKUserSettingsRequestOperation alloc], "initWithAction:userSettings:", [*(a1 + 32) action], v26);
 
-        v7 = v25;
+        v8 = v27;
       }
 
       else
@@ -890,31 +971,31 @@ void __76__WLKPostPlayAutoPlayManager__performUserSettingsOperation_dsid_complet
       }
     }
 
-    objc_initWeak(location, v7);
+    objc_initWeak(location, v8);
     objc_initWeak(&from, WeakRetained);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __76__WLKPostPlayAutoPlayManager__performUserSettingsOperation_dsid_completion___block_invoke_64;
-    v28[3] = &unk_279E5FFB0;
-    objc_copyWeak(&v31, location);
-    v30 = *(a1 + 56);
-    objc_copyWeak(&v32, &from);
-    v33 = v6 == 1;
-    v28[4] = *(a1 + 48);
-    v12 = v9;
-    v29 = v12;
-    [(WLKUserSettingsRequestOperation *)v7 setCompletionBlock:v28];
-    if (v6 == 1)
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __76__WLKPostPlayAutoPlayManager__performUserSettingsOperation_dsid_completion___block_invoke_64;
+    v30[3] = &unk_279E5FFB0;
+    objc_copyWeak(&v33, location);
+    v32 = *(a1 + 56);
+    objc_copyWeak(&v34, &from);
+    v35 = v7 == 1;
+    v30[4] = *(a1 + 48);
+    v14 = v10;
+    v31 = v14;
+    [(WLKUserSettingsRequestOperation *)v8 setCompletionBlock:v30];
+    if (v7 == 1)
     {
-      v13 = [WeakRetained ongoingUpdateOperations];
-      [v13 setObject:v7 forKey:v12];
+      v15 = [WeakRetained ongoingUpdateOperations];
+      [v15 setObject:v8 forKey:v14];
     }
 
-    v14 = [MEMORY[0x277CCABD8] wlkDefaultQueue];
-    [v14 addOperation:v7];
+    v16 = [MEMORY[0x277CCABD8] wlkDefaultQueue];
+    [v16 addOperation:v8];
 
-    objc_destroyWeak(&v32);
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&from);
     objc_destroyWeak(location);
 LABEL_12:
@@ -922,27 +1003,25 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v16 = WLKSystemLogObject();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = WLKSystemLogObject(v4);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(location[0]) = 0;
-    _os_log_impl(&dword_272A0F000, v16, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Post play auto-play (user settings) action will not be executed -- empty userSettings parameter.", location, 2u);
+    _os_log_impl(&dword_272A0F000, v17, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Post play auto-play (user settings) action will not be executed -- empty userSettings parameter.", location, 2u);
   }
 
-  v17 = *(a1 + 56);
-  v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"WLKPostPlayAutoPlayErrorDomain" code:-1 userInfo:0];
-  (*(v17 + 16))(v17, 0, v5);
+  v18 = *(a1 + 56);
+  v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"WLKPostPlayAutoPlayErrorDomain" code:-1 userInfo:0];
+  (*(v18 + 16))(v18, 0, v6);
 LABEL_13:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __76__WLKPostPlayAutoPlayManager__performUserSettingsOperation_dsid_completion___block_invoke_64(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = [WeakRetained error];
-  v4 = WLKSystemLogObject();
+  v4 = WLKSystemLogObject(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
@@ -950,9 +1029,9 @@ void __76__WLKPostPlayAutoPlayManager__performUserSettingsOperation_dsid_complet
     {
       v6 = [v3 localizedDescription];
       *buf = 138412546;
-      v18 = v6;
-      v19 = 2048;
-      v20 = [WeakRetained action];
+      v17 = v6;
+      v18 = 2048;
+      v19 = [WeakRetained action];
       _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Post play auto-play (user settings) action failed -- %@. Request -- %lu", buf, 0x16u);
     }
 
@@ -967,9 +1046,9 @@ void __76__WLKPostPlayAutoPlayManager__performUserSettingsOperation_dsid_complet
     {
       v9 = [0 localizedDescription];
       *buf = 138412546;
-      v18 = v9;
-      v19 = 2048;
-      v20 = [WeakRetained action];
+      v17 = v9;
+      v18 = 2048;
+      v19 = [WeakRetained action];
       _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlay - Post play auto-play (user settings) action succeeded -- %@. Request -- %lu", buf, 0x16u);
     }
 
@@ -983,30 +1062,20 @@ void __76__WLKPostPlayAutoPlayManager__performUserSettingsOperation_dsid_complet
   if (*(a1 + 72) == 1)
   {
     v13 = *(*(a1 + 32) + 8);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __76__WLKPostPlayAutoPlayManager__performUserSettingsOperation_dsid_completion___block_invoke_65;
-    v15[3] = &unk_279E5E5F8;
-    v15[4] = v11;
-    v16 = *(a1 + 40);
-    dispatch_async(v13, v15);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __76__WLKPostPlayAutoPlayManager__performUserSettingsOperation_dsid_completion___block_invoke_65;
+    v14[3] = &unk_279E5E5F8;
+    v14[4] = v11;
+    v15 = *(a1 + 40);
+    dispatch_async(v13, v14);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __76__WLKPostPlayAutoPlayManager__performUserSettingsOperation_dsid_completion___block_invoke_65(uint64_t a1)
 {
   v2 = [*(a1 + 32) ongoingUpdateOperations];
   [v2 removeObjectForKey:*(a1 + 40)];
-}
-
-- (void)getStatusForType:withCompletion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_272A0F000, v0, v1, "WLKPostPlayAutoPlay - User is not signed in, returning early with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

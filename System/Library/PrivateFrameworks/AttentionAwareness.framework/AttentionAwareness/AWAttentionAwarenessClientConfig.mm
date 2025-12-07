@@ -43,7 +43,7 @@
 
 void __62__AWAttentionAwarenessClientConfig_decrementTagIndexRefCount___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 72);
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(a1 + 40)];
   v4 = [v2 objectForKeyedSubscript:v3];
@@ -91,15 +91,15 @@ void __62__AWAttentionAwarenessClientConfig_decrementTagIndexRefCount___block_in
           v29 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v27];
           v30 = [v28 objectForKeyedSubscript:v29];
           v31 = tagDescription(v27, v30);
-          v38 = 136315906;
-          v39 = *&v16;
-          v40 = 1024;
-          *v41 = 247;
-          *&v41[4] = 2048;
-          *&v41[6] = v21;
-          v42 = 2112;
-          v43 = v31;
-          _os_log_impl(&dword_1BB2EF000, v15, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: removed %@ from tag map", &v38, 0x26u);
+          v37 = 136315906;
+          v38 = *&v16;
+          v39 = 1024;
+          *v40 = 247;
+          *&v40[4] = 2048;
+          *&v40[6] = v21;
+          v41 = 2112;
+          v42 = v31;
+          _os_log_impl(&dword_1BB2EF000, v15, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: removed %@ from tag map", &v37, 0x26u);
 
 LABEL_31:
 LABEL_32:
@@ -155,17 +155,17 @@ LABEL_32:
           v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v22];
           v25 = [v23 objectForKeyedSubscript:v24];
           v26 = tagDescription(v22, v25);
-          v38 = 136316162;
-          v39 = *&v11;
-          v40 = 1024;
-          *v41 = 242;
-          *&v41[4] = 2048;
-          *&v41[6] = v19;
-          v42 = 2112;
-          v43 = v26;
-          v44 = 2048;
-          v45 = v6;
-          _os_log_impl(&dword_1BB2EF000, v10, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: decremented ref count of %@ to %llu", &v38, 0x30u);
+          v37 = 136316162;
+          v38 = *&v11;
+          v39 = 1024;
+          *v40 = 242;
+          *&v40[4] = 2048;
+          *&v40[6] = v19;
+          v41 = 2112;
+          v42 = v26;
+          v43 = 2048;
+          v44 = v6;
+          _os_log_impl(&dword_1BB2EF000, v10, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: decremented ref count of %@ to %llu", &v37, 0x30u);
 
           goto LABEL_33;
         }
@@ -189,18 +189,16 @@ LABEL_32:
         v14 = v13 / 1000000000.0;
       }
 
-      v37 = tagDescription(*(a1 + 40), 0);
-      v38 = 134218242;
-      v39 = v14;
-      v40 = 2112;
-      *v41 = v37;
-      _os_log_error_impl(&dword_1BB2EF000, v10, OS_LOG_TYPE_ERROR, "%13.5f: trying to decrement ref for non-existent %@", &v38, 0x16u);
+      v36 = tagDescription(*(a1 + 40), 0);
+      v37 = 134218242;
+      v38 = v14;
+      v39 = 2112;
+      *v40 = v36;
+      _os_log_error_impl(&dword_1BB2EF000, v10, OS_LOG_TYPE_ERROR, "%13.5f: trying to decrement ref for non-existent %@", &v37, 0x16u);
     }
 
 LABEL_33:
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)incrementTagIndexRefCount:(unint64_t)count
@@ -220,7 +218,7 @@ LABEL_33:
 
 void __62__AWAttentionAwarenessClientConfig_incrementTagIndexRefCount___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 72);
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(a1 + 40)];
   v4 = [v2 objectForKeyedSubscript:v3];
@@ -267,17 +265,17 @@ void __62__AWAttentionAwarenessClientConfig_incrementTagIndexRefCount___block_in
           v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v16];
           v19 = [v17 objectForKeyedSubscript:v18];
           v20 = tagDescription(v16, v19);
-          v23 = 136316162;
-          v24 = *&v10;
-          v25 = 1024;
-          *v26 = 216;
-          *&v26[4] = 2048;
-          *&v26[6] = v15;
-          v27 = 2112;
-          v28 = v20;
-          v29 = 2048;
-          v30 = v5;
-          _os_log_impl(&dword_1BB2EF000, v9, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: incremented ref count of %@ to %llu", &v23, 0x30u);
+          v22 = 136316162;
+          v23 = *&v10;
+          v24 = 1024;
+          *v25 = 216;
+          *&v25[4] = 2048;
+          *&v25[6] = v15;
+          v26 = 2112;
+          v27 = v20;
+          v28 = 2048;
+          v29 = v5;
+          _os_log_impl(&dword_1BB2EF000, v9, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: incremented ref count of %@ to %llu", &v22, 0x30u);
 
           goto LABEL_18;
         }
@@ -301,18 +299,16 @@ void __62__AWAttentionAwarenessClientConfig_incrementTagIndexRefCount___block_in
         v13 = v12 / 1000000000.0;
       }
 
-      v22 = tagDescription(*(a1 + 40), 0);
-      v23 = 134218242;
-      v24 = v13;
-      v25 = 2112;
-      *v26 = v22;
-      _os_log_error_impl(&dword_1BB2EF000, v9, OS_LOG_TYPE_ERROR, "%13.5f: trying to increment ref for non-existent %@", &v23, 0x16u);
+      v21 = tagDescription(*(a1 + 40), 0);
+      v22 = 134218242;
+      v23 = v13;
+      v24 = 2112;
+      *v25 = v21;
+      _os_log_error_impl(&dword_1BB2EF000, v9, OS_LOG_TYPE_ERROR, "%13.5f: trying to increment ref for non-existent %@", &v22, 0x16u);
     }
 
 LABEL_18:
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)tagForIndex:(unint64_t)index
@@ -381,7 +377,7 @@ void __48__AWAttentionAwarenessClientConfig_tagForIndex___block_invoke(void *a1)
 
 void __43__AWAttentionAwarenessClientConfig_addTag___block_invoke(void *a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   v3 = *(v2 + 56);
   *(v2 + 56) = v3 + 1;
@@ -397,7 +393,7 @@ void __43__AWAttentionAwarenessClientConfig_addTag___block_invoke(void *a1)
 
   if (currentLogLevel < 7)
   {
-    goto LABEL_14;
+    return;
   }
 
   v9 = _AALog();
@@ -431,19 +427,17 @@ LABEL_8:
   }
 
   v14 = tagDescription(*(*(a1[6] + 8) + 24), a1[5]);
-  v16 = 136315906;
-  v17 = v10;
-  v18 = 1024;
-  v19 = 178;
-  v20 = 2048;
-  v21 = v13;
-  v22 = 2112;
-  v23 = v14;
-  _os_log_impl(&dword_1BB2EF000, v9, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: adding %@ to tag map", &v16, 0x26u);
+  v15 = 136315906;
+  v16 = v10;
+  v17 = 1024;
+  v18 = 178;
+  v19 = 2048;
+  v20 = v13;
+  v21 = 2112;
+  v22 = v14;
+  _os_log_impl(&dword_1BB2EF000, v9, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: adding %@ to tag map", &v15, 0x26u);
 
 LABEL_13:
-LABEL_14:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelNotification:(AWNotification_s *)notification
@@ -514,16 +508,16 @@ void __80__AWAttentionAwarenessClientConfig_notifySupportedEventsChangedWithQueu
 
 - (void)updateState:(BOOL)state
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   self->_supportedEventsValid = 0;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __48__AWAttentionAwarenessClientConfig_updateState___block_invoke;
-  v22[3] = &unk_1E7F37ED8;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __48__AWAttentionAwarenessClientConfig_updateState___block_invoke;
+  v21[3] = &unk_1E7F37ED8;
   stateCopy = state;
-  v22[4] = self;
-  v5 = [AWServiceManager invokeWithService:v22];
+  v21[4] = self;
+  v5 = [AWServiceManager invokeWithService:v21];
   if (v5)
   {
     if (currentLogLevel >= 3)
@@ -531,21 +525,21 @@ void __80__AWAttentionAwarenessClientConfig_notifySupportedEventsChangedWithQueu
       v6 = _AALog();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v16 = absTimeNS();
-        if (v16 == -1)
+        v15 = absTimeNS();
+        if (v15 == -1)
         {
-          v17 = INFINITY;
+          v16 = INFINITY;
         }
 
         else
         {
-          v17 = v16 / 1000000000.0;
+          v16 = v15 / 1000000000.0;
         }
 
         *buf = 134218242;
-        v26 = v17;
-        v27 = 2112;
-        v28 = v5;
+        v25 = v16;
+        v26 = 2112;
+        v27 = v5;
         _os_log_error_impl(&dword_1BB2EF000, v6, OS_LOG_TYPE_ERROR, "%13.5f: failed get supported events: %@", buf, 0x16u);
       }
     }
@@ -553,38 +547,36 @@ void __80__AWAttentionAwarenessClientConfig_notifySupportedEventsChangedWithQueu
     self->_supportedEventsValid = 0;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v7 = self->_notifyQueues;
-  v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
-        v13 = [(NSMutableDictionary *)self->_notifyQueues objectForKeyedSubscript:v12, v18];
+        v12 = *(*(&v17 + 1) + 8 * i);
+        v13 = [(NSMutableDictionary *)self->_notifyQueues objectForKeyedSubscript:v12, v17];
         v14 = [(NSMutableDictionary *)self->_notifyBlocks objectForKeyedSubscript:v12];
         dispatch_async(v13, v14);
       }
 
-      v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __48__AWAttentionAwarenessClientConfig_updateState___block_invoke(uint64_t a1, void *a2)
@@ -601,7 +593,7 @@ uint64_t __48__AWAttentionAwarenessClientConfig_updateState___block_invoke(uint6
 
 void __48__AWAttentionAwarenessClientConfig_updateState___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (*(a1 + 40) == 1)
   {
     if (currentLogLevel == 5)
@@ -622,17 +614,17 @@ void __48__AWAttentionAwarenessClientConfig_updateState___block_invoke_2(uint64_
 
         v11 = getEventMaskDescription(*(*(a1 + 32) + 40));
         v12 = getEventMaskDescription(a2);
-        v17 = 134218498;
-        v18 = v6;
-        v19 = 2112;
-        *v20 = v11;
-        *&v20[8] = 2112;
-        *&v20[10] = v12;
+        v16 = 134218498;
+        v17 = v6;
+        v18 = 2112;
+        *v19 = v11;
+        *&v19[8] = 2112;
+        *&v19[10] = v12;
         v13 = "%13.5f: supported event mask changed from %@ to %@";
         v14 = v4;
         v15 = 32;
 LABEL_20:
-        _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, &v17, v15);
+        _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, &v16, v15);
       }
 
 LABEL_21:
@@ -668,16 +660,16 @@ LABEL_21:
 
             v11 = getEventMaskDescription(*(*(a1 + 32) + 40));
             v12 = getEventMaskDescription(a2);
-            v17 = 136316162;
-            v18 = *&v7;
-            v19 = 1024;
-            *v20 = 128;
-            *&v20[4] = 2048;
-            *&v20[6] = v10;
-            *&v20[14] = 2112;
-            *&v20[16] = v11;
-            v21 = 2112;
-            v22 = v12;
+            v16 = 136316162;
+            v17 = *&v7;
+            v18 = 1024;
+            *v19 = 128;
+            *&v19[4] = 2048;
+            *&v19[6] = v10;
+            *&v19[14] = 2112;
+            *&v19[16] = v11;
+            v20 = 2112;
+            v21 = v12;
             v13 = "%30s:%-4d: %13.5f: supported event mask changed from %@ to %@";
             v14 = v4;
             v15 = 48;
@@ -693,7 +685,6 @@ LABEL_21:
 LABEL_22:
   *(*(a1 + 32) + 40) = a2;
   *(*(a1 + 32) + 48) = 1;
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)supportedEvents
@@ -717,11 +708,11 @@ LABEL_22:
 
 uint64_t __51__AWAttentionAwarenessClientConfig_supportedEvents__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   result = *(a1 + 32);
   if ((*(result + 48) & 1) == 0)
   {
-    v4 = 5;
+    v3 = 5;
     while (1)
     {
       result = *(a1 + 32);
@@ -731,31 +722,31 @@ uint64_t __51__AWAttentionAwarenessClientConfig_supportedEvents__block_invoke(ui
       }
 
       [result updateState:1];
-      if (!--v4)
+      if (!--v3)
       {
         result = *(a1 + 32);
         if ((*(result + 48) & 1) == 0 && currentLogLevel >= 3)
         {
-          v5 = _AALog();
-          if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+          v4 = _AALog();
+          if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
           {
-            v6 = absTimeNS();
-            if (v6 == -1)
+            v5 = absTimeNS();
+            if (v5 == -1)
             {
-              v7 = INFINITY;
+              v6 = INFINITY;
             }
 
             else
             {
-              v7 = v6 / 1000000000.0;
+              v6 = v5 / 1000000000.0;
             }
 
-            v8 = getEventMaskDescription(*(*(a1 + 32) + 40));
-            v9 = 134218242;
-            v10 = v7;
-            v11 = 2112;
-            v12 = v8;
-            _os_log_error_impl(&dword_1BB2EF000, v5, OS_LOG_TYPE_ERROR, "%13.5f: returning invalid supportedEvents %@", &v9, 0x16u);
+            v7 = getEventMaskDescription(*(*(a1 + 32) + 40));
+            v8 = 134218242;
+            v9 = v6;
+            v10 = 2112;
+            v11 = v7;
+            _os_log_error_impl(&dword_1BB2EF000, v4, OS_LOG_TYPE_ERROR, "%13.5f: returning invalid supportedEvents %@", &v8, 0x16u);
           }
 
           result = *(a1 + 32);
@@ -767,7 +758,6 @@ uint64_t __51__AWAttentionAwarenessClientConfig_supportedEvents__block_invoke(ui
   }
 
   *(*(*(a1 + 40) + 8) + 24) = *(result + 40);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 

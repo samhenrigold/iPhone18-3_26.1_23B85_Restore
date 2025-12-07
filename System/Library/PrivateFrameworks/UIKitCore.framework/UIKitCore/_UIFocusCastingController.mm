@@ -693,9 +693,9 @@ LABEL_17:
 {
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
-  v5 = [bundleIdentifier isEqualToString:@"com.apple.PineBoard"];
+  isEqualToString = objc_msgSend_isEqualToString_(bundleIdentifier);
 
-  if ((v5 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     focusSystem = [(_UIFocusCastingController *)self focusSystem];
     focusedItem = [focusSystem focusedItem];

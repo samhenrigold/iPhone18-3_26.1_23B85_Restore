@@ -6,6 +6,7 @@
 - (SALocalSearchMapItemSnippet)mapItemSnippet;
 - (id)generateURLWithSession:(id)session;
 - (void)_updateTitleAndSubtitleWithCompletionHandler:(id)handler;
+- (void)captureUserAction:(int)action details:(id)details resultIndex:(int)index mapItemPlaceData:(id)data;
 - (void)dealloc;
 - (void)donateLocationForMapItem:(id)item;
 - (void)locationManagerDidChangeAuthorization:(id)authorization;
@@ -17,6 +18,9 @@
 - (void)setDelegate:(id)delegate;
 - (void)setSelectedMapItemIndex:(unint64_t)index;
 - (void)siriDidScrollVisible:(BOOL)visible;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation MABaseSnippetViewController
@@ -58,6 +62,32 @@
   v3.receiver = self;
   v3.super_class = MABaseSnippetViewController;
   [(MABaseSnippetViewController *)&v3 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MABaseSnippetViewController;
+  [(MABaseSnippetViewController *)&v4 viewWillAppear:appear];
+  self->_appearing = 1;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = MABaseSnippetViewController;
+  [(MABaseSnippetViewController *)&v5 viewDidAppear:appear];
+  self->_appearing = 0;
+  locManager = [(MABaseSnippetViewController *)self locManager];
+  [locManager startUpdatingLocation];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = MABaseSnippetViewController;
+  [(MABaseSnippetViewController *)&v4 viewWillDisappear:disappear];
+  [(CLLocationManager *)self->_locManager stopUpdatingLocation];
 }
 
 - (void)setDelegate:(id)delegate
@@ -333,6 +363,34 @@ LABEL_11:
   {
     (*(handler + 2))(handler);
   }
+}
+
+- (void)captureUserAction:(int)action details:(id)details resultIndex:(int)index mapItemPlaceData:(id)data
+{
+  v7 = *&index;
+  v8 = *&action;
+  detailsCopy = details;
+  dataCopy = data;
+  if (!detailsCopy)
+  {
+    selectedLocalSearchMapItem = [(MABaseSnippetViewController *)self selectedLocalSearchMapItem];
+
+    if (selectedLocalSearchMapItem)
+    {
+      selectedLocalSearchMapItem2 = [(MABaseSnippetViewController *)self selectedLocalSearchMapItem];
+      v13 = [MKMapItem mapItemWithLocalSearchMapItem:selectedLocalSearchMapItem2];
+      detailsCopy = [GEOPlaceActionDetails actionDetailsWithMapItem:v13 timestamp:[(MABaseSnippetViewController *)self selectedMapItemIndex] resultIndex:0.0];
+    }
+
+    else
+    {
+      detailsCopy = 0;
+    }
+  }
+
+  v14 = [MKMapItem mapItemWithSerializedPlaceData:dataCopy];
+  v15 = +[MKMapService sharedService];
+  [v15 captureUserAction:v8 onTarget:-[MABaseSnippetViewController analyticsUITarget](self placeActionDetails:"analyticsUITarget") mapItem:detailsCopy resultIndex:{v14, v7}];
 }
 
 @end

@@ -220,18 +220,18 @@ LABEL_48:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [input activeExternalSyncVideoFrameDuration];
-            if (v40 & 1) != 0 || ([input activeLockedVideoFrameDuration], (v39))
+            objc_msgSend_activeExternalSyncVideoFrameDuration(input);
+            if (v40 & 1) != 0 || (objc_msgSend_activeLockedVideoFrameDuration(input), (v39))
             {
               if (v23)
               {
-                [v23 activeExternalSyncVideoFrameDuration];
+                objc_msgSend_activeExternalSyncVideoFrameDuration(v23);
                 if ((v37 & 0x100000000) != 0)
                 {
                   goto LABEL_39;
                 }
 
-                [v23 activeLockedVideoFrameDuration];
+                objc_msgSend_activeLockedVideoFrameDuration(v23);
                 if ((v34 & 0x100000000) != 0)
                 {
                   goto LABEL_39;
@@ -303,7 +303,7 @@ LABEL_47:
   return v27;
 }
 
-uint64_t __55__AVCaptureMultiCamSession__canAddInput_failureReason___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__55__AVCaptureMultiCamSession__canAddInput_failureReason___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isEqualToSet:*(a1 + 32)];
   if (result)
@@ -605,7 +605,7 @@ LABEL_48:
 
 - (void)handleVideoInputDevice:(id)device activeFormatChanged:(id)changed
 {
-  v7 = [changed objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
+  v7 = objc_msgSend_objectForKeyedSubscript_(changed, a2, *MEMORY[0x1E696A4F0]);
   _requireMultiCamSupportedFormatsForVideoDevices = [(AVCaptureMultiCamSession *)self _requireMultiCamSupportedFormatsForVideoDevices];
   if (-[AVCaptureSession isRunning](self, "isRunning") && _requireMultiCamSupportedFormatsForVideoDevices && ([v7 isMultiCamSupported] & 1) == 0)
   {
@@ -789,7 +789,7 @@ LABEL_19:
           activeFormat = [device activeFormat];
           if (activeFormat)
           {
-            [activeFormat lowestSupportedVideoFrameDuration];
+            objc_msgSend_lowestSupportedVideoFrameDuration(activeFormat);
             v23 = v82 / v81;
           }
 
@@ -821,7 +821,7 @@ LABEL_19:
           v61 = v13;
           if (v19)
           {
-            [v19 videoMinFrameDurationOverride];
+            objc_msgSend_videoMinFrameDurationOverride(v19);
             if ((v79 & 0x100000000) != 0)
             {
               v23 = v79 / v78;
@@ -870,7 +870,7 @@ LABEL_19:
           v72 = 0u;
           v69 = 0u;
           v70 = 0u;
-          v34 = [obj objectForKeyedSubscript:v19];
+          v34 = objc_msgSend_objectForKeyedSubscript_(obj);
           v35 = [v34 countByEnumeratingWithState:&v69 objects:v68 count:16];
           if (v35)
           {
@@ -1010,69 +1010,69 @@ LABEL_19:
 {
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v3 = [MEMORY[0x1E695DFA8] set];
-  v153 = 0u;
-  v154 = 0u;
   v155 = 0u;
   v156 = 0u;
+  v157 = 0u;
+  v158 = 0u;
   obj = [(AVCaptureSession *)self connections];
-  v88 = v3;
-  v75 = [(NSArray *)obj countByEnumeratingWithState:&v153 objects:v152 count:16];
+  v90 = v3;
+  v77 = [(NSArray *)obj countByEnumeratingWithState:&v155 objects:v154 count:16];
   v4 = 0;
-  if (v75)
+  if (v77)
   {
-    v74 = *v154;
+    v76 = *v156;
     v5 = *MEMORY[0x1E6987608];
-    v81 = *MEMORY[0x1E69875A0];
-    v77 = *MEMORY[0x1E69875C0];
-    v78 = *MEMORY[0x1E6987608];
+    v83 = *MEMORY[0x1E69875A0];
+    v79 = *MEMORY[0x1E69875C0];
+    v80 = *MEMORY[0x1E6987608];
     do
     {
       v6 = 0;
       do
       {
-        if (*v154 != v74)
+        if (*v156 != v76)
         {
           v7 = v6;
           objc_enumerationMutation(obj);
           v6 = v7;
         }
 
-        v76 = v6;
-        v8 = *(*(&v153 + 1) + 8 * v6);
+        v78 = v6;
+        v8 = *(*(&v155 + 1) + 8 * v6);
         [v8 output];
-        v95 = v8;
+        v97 = v8;
         if ([v8 isActive])
         {
           if ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ([v8 isEnabled] & 1) != 0 || objc_msgSend(v8, "isLive"))
           {
+            v153 = 0u;
+            v152 = 0u;
             v151 = 0u;
             v150 = 0u;
-            v149 = 0u;
-            v148 = 0u;
             inputPorts = [v8 inputPorts];
-            v9 = [inputPorts countByEnumeratingWithState:&v148 objects:v147 count:16];
+            v9 = [inputPorts countByEnumeratingWithState:&v150 objects:v149 count:16];
             if (v9)
             {
               v10 = v9;
-              v11 = *v149;
-              v79 = *v149;
+              v11 = *v151;
+              v81 = *v151;
               do
               {
                 v12 = 0;
-                v80 = v10;
+                v82 = v10;
                 do
                 {
-                  if (*v149 != v11)
+                  if (*v151 != v11)
                   {
                     objc_enumerationMutation(inputPorts);
                   }
 
-                  v13 = *(*(&v148 + 1) + 8 * v12);
+                  v13 = *(*(&v150 + 1) + 8 * v12);
                   input = [v13 input];
                   videoDevice = [input videoDevice];
                   if ([videoDevice hasMediaType:v5])
                   {
-                    if ([videoDevice isVirtualDevice] && objc_msgSend(objc_msgSend(v13, "mediaType"), "isEqual:", v77))
+                    if ([videoDevice isVirtualDevice] && objc_msgSend(objc_msgSend(v13, "mediaType"), "isEqual:", v79))
                     {
                       constituentDevices = [videoDevice constituentDevices];
                     }
@@ -1087,103 +1087,103 @@ LABEL_19:
                         v18 = [videoDevice constituentDeviceWithDeviceType:sourceDeviceType];
                       }
 
-                      v146 = v18;
-                      constituentDevices = [MEMORY[0x1E695DEC8] arrayWithObjects:&v146 count:1];
+                      v148 = v18;
+                      constituentDevices = [MEMORY[0x1E695DEC8] arrayWithObjects:&v148 count:1];
                     }
 
+                    v147 = 0u;
+                    v146 = 0u;
                     v145 = 0u;
                     v144 = 0u;
-                    v143 = 0u;
-                    v142 = 0u;
-                    v91 = constituentDevices;
-                    v100 = [constituentDevices countByEnumeratingWithState:&v142 objects:v141 count:16];
-                    if (v100)
+                    v93 = constituentDevices;
+                    v102 = [constituentDevices countByEnumeratingWithState:&v144 objects:v143 count:16];
+                    if (v102)
                     {
-                      v89 = videoDevice;
-                      v85 = v12;
-                      v87 = v4;
-                      v98 = *v143;
+                      v91 = videoDevice;
+                      v87 = v12;
+                      v89 = v4;
+                      v100 = *v145;
                       do
                       {
                         v19 = 0;
                         do
                         {
-                          if (*v143 != v98)
+                          if (*v145 != v100)
                           {
-                            objc_enumerationMutation(v91);
+                            objc_enumerationMutation(v93);
                           }
 
-                          v105 = v19;
-                          v20 = *(*(&v142 + 1) + 8 * v19);
+                          v107 = v19;
+                          v20 = *(*(&v144 + 1) + 8 * v19);
                           deviceType2 = [v20 deviceType];
                           uniqueID = [v20 uniqueID];
-                          dictionary2 = [dictionary objectForKeyedSubscript:uniqueID];
+                          dictionary2 = objc_msgSend_objectForKeyedSubscript_(dictionary);
                           if (!dictionary2)
                           {
                             dictionary2 = [MEMORY[0x1E695DF90] dictionary];
                             [dictionary setObject:dictionary2 forKeyedSubscript:uniqueID];
-                            [dictionary2 setObject:v89 forKeyedSubscript:@"VideoDevice"];
+                            [dictionary2 setObject:v91 forKeyedSubscript:@"VideoDevice"];
                             [dictionary2 setObject:objc_msgSend(MEMORY[0x1E695DFA8] forKeyedSubscript:{"set"), @"SourceDeviceTypesInUse"}];
                             [dictionary2 setObject:objc_msgSend(MEMORY[0x1E695DF90] forKeyedSubscript:{"dictionary"), @"VISEnabledForSourceDeviceType"}];
-                            v139 = 0uLL;
-                            v140 = 0;
-                            activeFormat = [v89 activeFormat];
+                            v141 = 0uLL;
+                            v142 = 0;
+                            activeFormat = [v91 activeFormat];
                             if (activeFormat)
                             {
-                              [activeFormat lowestSupportedVideoFrameDuration];
+                              objc_msgSend_lowestSupportedVideoFrameDuration(activeFormat);
                             }
 
                             else
                             {
-                              v139 = 0uLL;
-                              v140 = 0;
+                              v141 = 0uLL;
+                              v142 = 0;
                             }
 
-                            v137 = 0uLL;
-                            v138 = 0;
+                            v139 = 0uLL;
+                            v140 = 0;
                             if (input)
                             {
-                              [input videoMinFrameDurationOverride];
-                              if (BYTE12(v137))
+                              objc_msgSend_videoMinFrameDurationOverride(input);
+                              if (BYTE12(v139))
                               {
-                                HIDWORD(v25) = DWORD1(v137);
-                                v139 = v137;
-                                v140 = v138;
+                                HIDWORD(v25) = DWORD1(v139);
+                                v141 = v139;
+                                v142 = v140;
                               }
                             }
 
-                            *&v25 = SDWORD2(v139) / v139;
+                            *&v25 = SDWORD2(v141) / v141;
                             [dictionary2 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:", v25), @"MaxActiveFrameRate"}];
                           }
 
-                          [objc_msgSend(dictionary2 objectForKeyedSubscript:{@"SourceDeviceTypesInUse", "addObject:", deviceType2}];
-                          if ([v95 activeVideoStabilizationMode])
+                          [objc_msgSend_objectForKeyedSubscript_(dictionary2) addObject:deviceType2];
+                          if ([v97 activeVideoStabilizationMode])
                           {
                             if ([objc_msgSend(v20 "constituentDevices")])
                             {
+                              v138 = 0u;
+                              v137 = 0u;
                               v136 = 0u;
                               v135 = 0u;
-                              v134 = 0u;
-                              v133 = 0u;
                               constituentDevices2 = [v20 constituentDevices];
-                              v27 = [constituentDevices2 countByEnumeratingWithState:&v133 objects:v132 count:16];
+                              v27 = [constituentDevices2 countByEnumeratingWithState:&v135 objects:v134 count:16];
                               if (v27)
                               {
                                 v28 = v27;
-                                v29 = *v134;
+                                v29 = *v136;
                                 do
                                 {
                                   for (i = 0; i != v28; ++i)
                                   {
-                                    if (*v134 != v29)
+                                    if (*v136 != v29)
                                     {
                                       objc_enumerationMutation(constituentDevices2);
                                     }
 
-                                    [objc_msgSend(dictionary2 objectForKeyedSubscript:{@"VISEnabledForSourceDeviceType", "setObject:forKeyedSubscript:", objc_msgSend(MEMORY[0x1E696AD98], "numberWithBool:", 1), objc_msgSend(*(*(&v133 + 1) + 8 * i), "deviceType")}];
+                                    [objc_msgSend_objectForKeyedSubscript_(dictionary2) setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithBool:", 1), objc_msgSend(*(*(&v135 + 1) + 8 * i), "deviceType")}];
                                   }
 
-                                  v28 = [constituentDevices2 countByEnumeratingWithState:&v133 objects:v132 count:16];
+                                  v28 = [constituentDevices2 countByEnumeratingWithState:&v135 objects:v134 count:16];
                                 }
 
                                 while (v28);
@@ -1192,28 +1192,28 @@ LABEL_19:
 
                             else
                             {
-                              [objc_msgSend(dictionary2 objectForKeyedSubscript:{@"VISEnabledForSourceDeviceType", "setObject:forKeyedSubscript:", objc_msgSend(MEMORY[0x1E696AD98], "numberWithBool:", 1), deviceType2}];
+                              [objc_msgSend_objectForKeyedSubscript_(dictionary2) setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithBool:", 1), deviceType2}];
                             }
                           }
 
-                          v19 = v105 + 1;
+                          v19 = v107 + 1;
                         }
 
-                        while (v105 + 1 != v100);
-                        v100 = [v91 countByEnumeratingWithState:&v142 objects:v141 count:16];
+                        while (v107 + 1 != v102);
+                        v102 = [v93 countByEnumeratingWithState:&v144 objects:v143 count:16];
                       }
 
-                      while (v100);
-                      v4 = v87;
-                      v3 = v88;
-                      v5 = v78;
-                      v11 = v79;
-                      v10 = v80;
-                      v12 = v85;
+                      while (v102);
+                      v4 = v89;
+                      v3 = v90;
+                      v5 = v80;
+                      v11 = v81;
+                      v10 = v82;
+                      v12 = v87;
                     }
                   }
 
-                  else if (([videoDevice hasMediaType:v81] & (v4 == 0)) != 0)
+                  else if (([videoDevice hasMediaType:v83] & (v4 == 0)) != 0)
                   {
                     v4 = videoDevice;
                   }
@@ -1222,7 +1222,7 @@ LABEL_19:
                 }
 
                 while (v12 != v10);
-                v10 = [inputPorts countByEnumeratingWithState:&v148 objects:v147 count:16];
+                v10 = [inputPorts countByEnumeratingWithState:&v150 objects:v149 count:16];
               }
 
               while (v10);
@@ -1230,45 +1230,45 @@ LABEL_19:
           }
         }
 
-        v6 = v76 + 1;
+        v6 = v78 + 1;
       }
 
-      while (v76 + 1 != v75);
-      v75 = [(NSArray *)obj countByEnumeratingWithState:&v153 objects:v152 count:16];
+      while (v78 + 1 != v77);
+      v77 = [(NSArray *)obj countByEnumeratingWithState:&v155 objects:v154 count:16];
     }
 
-    while (v75);
+    while (v77);
   }
 
-  v131 = 0u;
+  v133 = 0u;
+  v132 = 0u;
   v130 = 0u;
-  v128 = 0u;
-  v129 = 0u;
+  v131 = 0u;
   allValues = [dictionary allValues];
-  v86 = [allValues countByEnumeratingWithState:&v128 objects:v127 count:16];
-  if (v86)
+  v88 = [allValues countByEnumeratingWithState:&v130 objects:v129 count:16];
+  if (v88)
   {
-    v84 = *v129;
+    v86 = *v131;
     do
     {
       v31 = 0;
       do
       {
-        if (*v129 != v84)
+        if (*v131 != v86)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v94 = *(*(&v128 + 1) + 8 * v31);
-        v32 = [v94 objectForKeyedSubscript:@"VideoDevice"];
+        v96 = *(*(&v130 + 1) + 8 * v31);
+        v32 = objc_msgSend_objectForKeyedSubscript_(v96);
         activeFormat2 = [v32 activeFormat];
-        v139 = 0uLL;
-        v140 = 0;
-        v101 = activeFormat2;
+        v141 = 0uLL;
+        v142 = 0;
+        v103 = activeFormat2;
         if (activeFormat2)
         {
-          [activeFormat2 lowestSupportedVideoFrameDuration];
-          v34 = SDWORD2(v139) / v139;
+          objc_msgSend_lowestSupportedVideoFrameDuration(activeFormat2);
+          v34 = SDWORD2(v141) / v141;
         }
 
         else
@@ -1276,7 +1276,7 @@ LABEL_19:
           v34 = NAN;
         }
 
-        v35 = [v94 objectForKeyedSubscript:@"MaxActiveFrameRate"];
+        v35 = objc_msgSend_objectForKeyedSubscript_(v96);
         v36 = v34;
         if (v35)
         {
@@ -1284,161 +1284,163 @@ LABEL_19:
           v36 = v37;
         }
 
-        v90 = v31;
+        v92 = v31;
         v38 = [objc_msgSend(objc_msgSend(v32 "activeFormat")];
-        v99 = [v32 isVideoHDREnabled] | v38;
-        v39 = [v94 objectForKeyedSubscript:@"SourceDeviceTypesInUse"];
-        v106 = v39;
+        v101 = [v32 isVideoHDREnabled] | v38;
+        v39 = objc_msgSend_objectForKeyedSubscript_(v96);
+        v108 = v39;
         if ([objc_msgSend(v32 "constituentDevices")] && objc_msgSend(v39, "containsObject:", objc_msgSend(v32, "deviceType")))
         {
-          v40 = [objc_msgSend(objc_msgSend(v94 objectForKeyedSubscript:{@"VISEnabledForSourceDeviceType", "objectForKeyedSubscript:", objc_msgSend(v32, "deviceType")), "BOOLValue"}];
+          v40 = objc_msgSend_objectForKeyedSubscript_(v96);
+          [v32 deviceType];
+          bOOLValue = [objc_msgSend_objectForKeyedSubscript_(v40) BOOLValue];
           if (v34 <= 30.0)
           {
-            v41 = 3;
+            v42 = 3;
           }
 
           else
           {
-            v41 = 2;
+            v42 = 2;
           }
 
-          v123 = 0u;
-          v124 = 0u;
-          v92 = v40;
-          if (!v40)
+          v125 = 0u;
+          v126 = 0u;
+          v94 = bOOLValue;
+          if (!bOOLValue)
           {
-            v41 = 1;
+            v42 = 1;
           }
 
-          v103 = v41;
-          v125 = 0uLL;
-          v126 = 0uLL;
-          v96 = v32;
+          v105 = v42;
+          v127 = 0uLL;
+          v128 = 0uLL;
+          v98 = v32;
           constituentDevices3 = [v32 constituentDevices];
-          v43 = [constituentDevices3 countByEnumeratingWithState:&v123 objects:v122 count:16];
-          if (v43)
+          v44 = [constituentDevices3 countByEnumeratingWithState:&v125 objects:v124 count:16];
+          if (v44)
           {
-            v44 = v43;
-            v45 = 0;
+            v45 = v44;
             v46 = 0;
-            v47 = *v124;
-            if (v99)
+            v47 = 0;
+            v48 = *v126;
+            if (v101)
             {
-              v48 = 2.0;
+              v49 = 2.0;
             }
 
             else
             {
-              v48 = 1.0;
+              v49 = 1.0;
             }
 
             do
             {
-              for (j = 0; j != v44; ++j)
+              for (j = 0; j != v45; ++j)
               {
-                if (*v124 != v47)
+                if (*v126 != v48)
                 {
                   objc_enumerationMutation(constituentDevices3);
                 }
 
-                v50 = *(*(&v123 + 1) + 8 * j);
-                if (([v39 containsObject:{objc_msgSend(v50, "deviceType")}] & 1) == 0)
+                v51 = *(*(&v125 + 1) + 8 * j);
+                if (([v39 containsObject:{objc_msgSend(v51, "deviceType")}] & 1) == 0)
                 {
-                  v51 = avcmcs_constituentDeviceFormatFromVirtualDeviceFormat(v101, v50);
-                  baseSensorPowerConsumption = [v51 baseSensorPowerConsumption];
-                  LODWORD(v51) = (baseSensorPowerConsumption + ((v36 * [v51 variableSensorPowerConsumption]) * v48));
-                  v53 = v51 + (((v36 / 30.0) * v48) * [v50 powerConsumptionAt30FPSForOISMode:v103]);
-                  v39 = v106;
-                  if (v53 > v45)
+                  v52 = avcmcs_constituentDeviceFormatFromVirtualDeviceFormat(v103, v51);
+                  baseSensorPowerConsumption = [v52 baseSensorPowerConsumption];
+                  LODWORD(v52) = (baseSensorPowerConsumption + ((v36 * [v52 variableSensorPowerConsumption]) * v49));
+                  v54 = v52 + (((v36 / 30.0) * v49) * [v51 powerConsumptionAt30FPSForOISMode:v105]);
+                  v39 = v108;
+                  if (v54 > v46)
                   {
-                    v45 = v53;
-                    v46 = v50;
+                    v46 = v54;
+                    v47 = v51;
                   }
                 }
               }
 
-              v44 = [constituentDevices3 countByEnumeratingWithState:&v123 objects:v122 count:16];
+              v45 = [constituentDevices3 countByEnumeratingWithState:&v125 objects:v124 count:16];
             }
 
-            while (v44);
+            while (v45);
           }
 
           else
           {
-            v46 = 0;
+            v47 = 0;
           }
 
-          v32 = v96;
-          [v39 removeObject:{objc_msgSend(v96, "deviceType")}];
-          if (v46)
+          v32 = v98;
+          [v39 removeObject:{objc_msgSend(v98, "deviceType")}];
+          if (v47)
           {
-            [v39 addObject:{objc_msgSend(v46, "deviceType")}];
-            v54 = [MEMORY[0x1E696AD98] numberWithBool:v92];
-            v55 = [v94 objectForKeyedSubscript:@"VISEnabledForSourceDeviceType"];
-            deviceType3 = [v46 deviceType];
-            v57 = v55;
-            v39 = v106;
-            [v57 setObject:v54 forKeyedSubscript:deviceType3];
+            [v39 addObject:{objc_msgSend(v47, "deviceType")}];
+            v55 = [MEMORY[0x1E696AD98] numberWithBool:v94];
+            v56 = objc_msgSend_objectForKeyedSubscript_(v96);
+            deviceType3 = [v47 deviceType];
+            v58 = v56;
+            v39 = v108;
+            [v58 setObject:v55 forKeyedSubscript:deviceType3];
           }
         }
 
         constituentDevices4 = [v32 constituentDevices];
         if (![constituentDevices4 count])
         {
-          v121 = v32;
-          constituentDevices4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v121 count:1];
+          v123 = v32;
+          constituentDevices4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v123 count:1];
         }
 
+        v121 = 0u;
+        v122 = 0u;
         v119 = 0u;
         v120 = 0u;
-        v117 = 0u;
-        v118 = 0u;
-        v59 = [constituentDevices4 countByEnumeratingWithState:&v117 objects:v116 count:16];
-        v3 = v88;
-        if (v59)
+        v60 = [constituentDevices4 countByEnumeratingWithState:&v119 objects:v118 count:16];
+        v3 = v90;
+        if (v60)
         {
-          v60 = v59;
-          v104 = *v118;
-          v97 = constituentDevices4;
+          v61 = v60;
+          v106 = *v120;
+          v99 = constituentDevices4;
           do
           {
-            for (k = 0; k != v60; ++k)
+            for (k = 0; k != v61; ++k)
             {
-              if (*v118 != v104)
+              if (*v120 != v106)
               {
-                objc_enumerationMutation(v97);
+                objc_enumerationMutation(v99);
               }
 
-              v62 = *(*(&v117 + 1) + 8 * k);
-              v63 = [v39 containsObject:{objc_msgSend(v62, "deviceType")}];
-              v112 = 0u;
-              v113 = 0u;
+              v63 = *(*(&v119 + 1) + 8 * k);
+              v64 = [v39 containsObject:{objc_msgSend(v63, "deviceType")}];
               v114 = 0u;
               v115 = 0u;
-              v64 = [v3 countByEnumeratingWithState:&v112 objects:v111 count:16];
-              if (v64)
+              v116 = 0u;
+              v117 = 0u;
+              v65 = [v3 countByEnumeratingWithState:&v114 objects:v113 count:16];
+              if (v65)
               {
-                v65 = v64;
-                v66 = *v113;
+                v66 = v65;
+                v67 = *v115;
 LABEL_99:
-                v67 = 0;
+                v68 = 0;
                 while (1)
                 {
-                  if (*v113 != v66)
+                  if (*v115 != v67)
                   {
-                    objc_enumerationMutation(v88);
+                    objc_enumerationMutation(v90);
                   }
 
-                  v68 = *(*(&v112 + 1) + 8 * v67);
-                  if ([v68 objectForKeyedSubscript:@"Device"] == v62)
+                  v69 = *(*(&v114 + 1) + 8 * v68);
+                  if (objc_msgSend_objectForKeyedSubscript_(v69) == v63)
                   {
                     break;
                   }
 
-                  if (v65 == ++v67)
+                  if (v66 == ++v68)
                   {
-                    v65 = [v88 countByEnumeratingWithState:&v112 objects:v111 count:16];
-                    if (v65)
+                    v66 = [v90 countByEnumeratingWithState:&v114 objects:v113 count:16];
+                    if (v66)
                     {
                       goto LABEL_99;
                     }
@@ -1447,15 +1449,15 @@ LABEL_99:
                   }
                 }
 
-                if (!v68)
+                if (!v69)
                 {
                   goto LABEL_109;
                 }
 
-                v3 = v88;
-                if (v63)
+                v3 = v90;
+                if (v64)
                 {
-                  [v88 removeObject:v68];
+                  [v90 removeObject:v69];
                   goto LABEL_110;
                 }
               }
@@ -1463,60 +1465,62 @@ LABEL_99:
               else
               {
 LABEL_109:
-                if (v63)
+                if (v64)
                 {
 LABEL_110:
-                  v69 = [objc_msgSend(objc_msgSend(v94 objectForKeyedSubscript:{@"VISEnabledForSourceDeviceType", "objectForKeyedSubscript:", objc_msgSend(v62, "deviceType")), "BOOLValue"}];
-                  v70 = v36;
+                  v70 = objc_msgSend_objectForKeyedSubscript_(v96);
+                  [v63 deviceType];
+                  bOOLValue2 = [objc_msgSend_objectForKeyedSubscript_(v70) BOOLValue];
+                  v72 = v36;
                 }
 
                 else
                 {
-                  v69 = 0;
-                  v70 = 7;
+                  bOOLValue2 = 0;
+                  v72 = 7;
                 }
 
-                v71 = avcmcs_constituentDeviceFormatFromVirtualDeviceFormat(v101, v62);
-                v110[0] = v62;
-                v109[0] = @"Device";
-                v109[1] = @"VISEnabled";
-                v110[1] = [MEMORY[0x1E696AD98] numberWithBool:v69];
-                v110[2] = v71;
-                v109[2] = @"ActiveFormat";
-                v109[3] = @"MaxActiveFrameRate";
-                v110[3] = [MEMORY[0x1E696AD98] numberWithInt:v70];
-                v109[4] = @"ISPProcessingEnabled";
-                v110[4] = [MEMORY[0x1E696AD98] numberWithBool:v63];
-                v109[5] = @"SIFREnabled";
-                v110[5] = [MEMORY[0x1E696AD98] numberWithBool:v99 & 1];
-                v3 = v88;
-                [v88 addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v110, v109, 6)}];
+                v73 = avcmcs_constituentDeviceFormatFromVirtualDeviceFormat(v103, v63);
+                v112[0] = v63;
+                v111[0] = @"Device";
+                v111[1] = @"VISEnabled";
+                v112[1] = [MEMORY[0x1E696AD98] numberWithBool:bOOLValue2];
+                v112[2] = v73;
+                v111[2] = @"ActiveFormat";
+                v111[3] = @"MaxActiveFrameRate";
+                v112[3] = [MEMORY[0x1E696AD98] numberWithInt:v72];
+                v111[4] = @"ISPProcessingEnabled";
+                v112[4] = [MEMORY[0x1E696AD98] numberWithBool:v64];
+                v111[5] = @"SIFREnabled";
+                v112[5] = [MEMORY[0x1E696AD98] numberWithBool:v101 & 1];
+                v3 = v90;
+                [v90 addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v112, v111, 6)}];
               }
 
-              v39 = v106;
+              v39 = v108;
             }
 
-            v60 = [v97 countByEnumeratingWithState:&v117 objects:v116 count:16];
+            v61 = [v99 countByEnumeratingWithState:&v119 objects:v118 count:16];
           }
 
-          while (v60);
+          while (v61);
         }
 
-        v31 = v90 + 1;
+        v31 = v92 + 1;
       }
 
-      while (v90 + 1 != v86);
-      v86 = [allValues countByEnumeratingWithState:&v128 objects:v127 count:16];
+      while (v92 + 1 != v88);
+      v88 = [allValues countByEnumeratingWithState:&v130 objects:v129 count:16];
     }
 
-    while (v86);
+    while (v88);
   }
 
   if (v4)
   {
-    v107 = @"Device";
-    v108 = v4;
-    [v3 addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v108, &v107, 1)}];
+    v109 = @"Device";
+    v110 = v4;
+    [v3 addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v110, &v109, 1)}];
   }
 
   return v3;
@@ -1631,20 +1635,20 @@ LABEL_7:
         }
 
         baseSensorPowerConsumption = *(*(&v134 + 1) + 8 * v3);
-        v4 = [baseSensorPowerConsumption objectForKeyedSubscript:{@"Device", selfCopy}];
+        v4 = objc_msgSend_objectForKeyedSubscript_(baseSensorPowerConsumption, selfCopy);
         if ([v4 hasMediaType:v15])
         {
           v17 = v16;
           v18 = v13;
-          v19 = [objc_msgSend(baseSensorPowerConsumption objectForKeyedSubscript:{@"VISEnabled", "intValue"}];
-          v20 = [baseSensorPowerConsumption objectForKeyedSubscript:@"ActiveFormat"];
-          [objc_msgSend(baseSensorPowerConsumption objectForKeyedSubscript:{@"MaxActiveFrameRate", "floatValue"}];
+          intValue = [objc_msgSend_objectForKeyedSubscript_(baseSensorPowerConsumption) intValue];
+          v20 = objc_msgSend_objectForKeyedSubscript_(baseSensorPowerConsumption);
+          [objc_msgSend_objectForKeyedSubscript_(baseSensorPowerConsumption) floatValue];
           v22 = v21;
-          v23 = [objc_msgSend(baseSensorPowerConsumption objectForKeyedSubscript:{@"SIFREnabled", "BOOLValue"}];
-          v24 = [objc_msgSend(baseSensorPowerConsumption objectForKeyedSubscript:{@"ISPProcessingEnabled", "BOOLValue"}];
+          bOOLValue = [objc_msgSend_objectForKeyedSubscript_(baseSensorPowerConsumption) BOOLValue];
+          bOOLValue2 = [objc_msgSend_objectForKeyedSubscript_(baseSensorPowerConsumption) BOOLValue];
           baseSensorPowerConsumption = [v20 baseSensorPowerConsumption];
           variableSensorPowerConsumption = [v20 variableSensorPowerConsumption];
-          if (v23)
+          if (bOOLValue)
           {
             v26 = 2.0;
           }
@@ -1654,7 +1658,7 @@ LABEL_7:
             v26 = 1.0;
           }
 
-          if (v24)
+          if (bOOLValue2)
           {
             v27 = [objc_msgSend(v20 "figCaptureSourceVideoFormat")];
             ispPowerConsumption = [v20 ispPowerConsumption];
@@ -1687,7 +1691,7 @@ LABEL_7:
             v30 = 2;
           }
 
-          if (v19)
+          if (intValue)
           {
             v31 = v30;
           }
@@ -1897,10 +1901,10 @@ LABEL_7:
                   OUTLINED_FUNCTION_1_6();
                   if (input)
                   {
-                    [input videoMinFrameDurationOverride];
+                    objc_msgSend_videoMinFrameDurationOverride(input);
                     if ((v114 & 0x100000000) != 0)
                     {
-                      [input videoMinFrameDurationOverride];
+                      objc_msgSend_videoMinFrameDurationOverride(input);
                       goto LABEL_91;
                     }
                   }
@@ -1914,7 +1918,7 @@ LABEL_7:
 
                   if (v62)
                   {
-                    [v62 lowestSupportedVideoFrameDuration];
+                    objc_msgSend_lowestSupportedVideoFrameDuration(v62);
                   }
 
                   else
@@ -2006,7 +2010,7 @@ LABEL_102:
                     activeDepthDataFormat = [v74 activeDepthDataFormat];
                     if (activeDepthDataFormat)
                     {
-                      [activeDepthDataFormat lowestSupportedVideoFrameDuration];
+                      objc_msgSend_lowestSupportedVideoFrameDuration(activeDepthDataFormat);
                     }
 
                     else
@@ -2016,7 +2020,7 @@ LABEL_102:
 
                     if (input2)
                     {
-                      [input2 videoMinFrameDurationOverride];
+                      objc_msgSend_videoMinFrameDurationOverride(input2);
                       if (0 >> 96)
                       {
                         v116 = 0uLL;

@@ -435,7 +435,7 @@ LABEL_24:
   v48 = objc_msgSend_strokeCoveredTextRange(v13, v43, v44, v45, v46, v47);
   v50 = v49;
   v54 = objc_msgSend_relativeLocationFromAbsoluteLocation_(v13, v49, v48, v51, v52, v53);
-  v55 = sub_1837E11D0(MidX, MidY, CHTextInputGesture, v13, v54, v50);
+  v55 = sub_1837E11D0(CHTextInputGesture, v13, v54, v50, MidX, MidY);
   v299 = objc_msgSend_controlCharacterSet(MEMORY[0x1E696AD48], v56, v57, v58, v59, v60);
   v66 = objc_msgSend_newlineCharacterSet(MEMORY[0x1E696AB08], v61, v62, v63, v64, v65);
   v72 = objc_msgSend_invertedSet(v66, v67, v68, v69, v70, v71);

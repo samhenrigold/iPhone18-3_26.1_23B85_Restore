@@ -71,58 +71,58 @@
 
 - (id)objectForKeyedSubscript:(id)subscript
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   subscriptCopy = subscript;
   if (subscriptCopy)
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
     v6 = [(NSMutableDictionary *)selfCopy->_hits objectForKey:subscriptCopy];
-    v7 = v6;
+    v8 = v6;
     if (v6)
     {
-      v8 = [v6 unsignedIntegerValue] + 1;
+      v9 = [v6 unsignedIntegerValue] + 1;
       hits = selfCopy->_hits;
-      v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v8];
-      [(NSMutableDictionary *)hits setObject:v10 forKey:subscriptCopy];
+      v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v9];
+      [(NSMutableDictionary *)hits setObject:v11 forKey:subscriptCopy];
 
-      if (MapsSuggestionsLoggingIsVerbose())
-      {
-        v11 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-        {
-          [(MapsSuggestionsLimitedDictionary *)selfCopy totalHitRatio];
-          v17 = 138412802;
-          v18 = subscriptCopy;
-          v19 = 1024;
-          *v20 = v8;
-          *&v20[4] = 2048;
-          *&v20[6] = v12;
-          _os_log_impl(&dword_1C5126000, v11, OS_LOG_TYPE_DEBUG, "HIT '%@' x %u (total ratio: %.2f)", &v17, 0x1Cu);
-        }
-      }
-
-      ++selfCopy->_totalHits;
-      v13 = [(NSMutableDictionary *)selfCopy->_dict objectForKey:subscriptCopy];
-    }
-
-    else
-    {
-      if (MapsSuggestionsLoggingIsVerbose())
+      if (MapsSuggestionsLoggingIsVerbose(v12, v13))
       {
         v14 = GEOFindOrCreateLog();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           [(MapsSuggestionsLimitedDictionary *)selfCopy totalHitRatio];
-          v17 = 138412546;
-          v18 = subscriptCopy;
-          v19 = 2048;
-          *v20 = v15;
-          _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_DEBUG, "MISSED '%@' (total ratio: %.2f)", &v17, 0x16u);
+          v20 = 138412802;
+          v21 = subscriptCopy;
+          v22 = 1024;
+          *v23 = v9;
+          *&v23[4] = 2048;
+          *&v23[6] = v15;
+          _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_DEBUG, "HIT '%@' x %u (total ratio: %.2f)", &v20, 0x1Cu);
         }
       }
 
-      v13 = 0;
+      ++selfCopy->_totalHits;
+      v16 = [(NSMutableDictionary *)selfCopy->_dict objectForKey:subscriptCopy];
+    }
+
+    else
+    {
+      if (MapsSuggestionsLoggingIsVerbose(0, v7))
+      {
+        v17 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        {
+          [(MapsSuggestionsLimitedDictionary *)selfCopy totalHitRatio];
+          v20 = 138412546;
+          v21 = subscriptCopy;
+          v22 = 2048;
+          *v23 = v18;
+          _os_log_impl(&dword_1C5126000, v17, OS_LOG_TYPE_DEBUG, "MISSED '%@' (total ratio: %.2f)", &v20, 0x16u);
+        }
+      }
+
+      v16 = 0;
       ++selfCopy->_totalMisses;
     }
 
@@ -134,21 +134,21 @@
     selfCopy = GEOFindOrCreateLog();
     if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136446978;
-      v18 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsLimitedDictionary.m";
-      v19 = 1024;
-      *v20 = 48;
-      *&v20[4] = 2082;
-      *&v20[6] = "[MapsSuggestionsLimitedDictionary objectForKeyedSubscript:]";
-      v21 = 2082;
-      v22 = "nil == (key)";
-      _os_log_impl(&dword_1C5126000, &selfCopy->super, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a key", &v17, 0x26u);
+      v20 = 136446978;
+      v21 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsLimitedDictionary.m";
+      v22 = 1024;
+      *v23 = 48;
+      *&v23[4] = 2082;
+      *&v23[6] = "[MapsSuggestionsLimitedDictionary objectForKeyedSubscript:]";
+      v24 = 2082;
+      v25 = "nil == (key)";
+      _os_log_impl(&dword_1C5126000, &selfCopy->super, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a key", &v20, 0x26u);
     }
 
-    v13 = 0;
+    v16 = 0;
   }
 
-  return v13;
+  return v16;
 }
 
 - (void)setObject:(id)object forKeyedSubscript:(id)subscript

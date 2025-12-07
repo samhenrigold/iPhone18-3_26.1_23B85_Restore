@@ -26,11 +26,12 @@
 
 - (CSDConversationCallCoordinationManager)initWithConversationManager:(id)manager sharePlayAvailabilityManager:(id)availabilityManager compositeContainerProvider:(id)provider relaySupportEnabled:(BOOL)enabled serverBag:(id)bag queue:(id)queue
 {
+  enabledCopy = enabled;
   swift_unknownObjectRetain();
 
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  return sub_100344E1C(manager, availabilityManager, provider, enabled, bag, queue);
+  return sub_100344E1C(manager, availabilityManager, provider, enabledCopy, bag, queue);
 }
 
 - (void)handleActivitySessionCreationRequestWithActivity:(TUConversationActivity *)activity onContainerWithID:(NSUUID *)d completionHandler:(id)handler

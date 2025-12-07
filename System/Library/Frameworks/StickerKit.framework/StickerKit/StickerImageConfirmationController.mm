@@ -12,7 +12,7 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_19A65D210();
+  sub_19A65D210(v2);
 }
 
 - (void)didTapImageView:(id)view
@@ -24,10 +24,10 @@
 
 - (void)viewDidLoad
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v13 - v4;
-  v6 = type metadata accessor for StickerImageConfirmationController();
+  v6 = type metadata accessor for StickerImageConfirmationController(0);
   v13.receiver = self;
   v13.super_class = v6;
   selfCopy = self;
@@ -49,7 +49,7 @@
 {
   disappearCopy = disappear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for StickerImageConfirmationController();
+  v7.super_class = type metadata accessor for StickerImageConfirmationController(0);
   v4 = v7.receiver;
   [(StickerImageConfirmationController *)&v7 viewWillDisappear:disappearCopy];
   presentedViewController = [v4 presentedViewController];

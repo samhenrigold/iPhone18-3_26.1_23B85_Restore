@@ -138,7 +138,7 @@
 {
   if (a3 != a5)
   {
-    v6 = [self appendInteger:? withName:?];
+    v6 = [self appendInteger:a3 withName:a4];
   }
 
   return self;
@@ -218,7 +218,7 @@
     v7[2] = __93__BSDescriptionBuilder_UIKitAdditions__ui_appendInterfaceOrientation_withName_skipIfUnknown___block_invoke;
     v7[3] = &__block_descriptor_40_e43_v16__0___BSDescriptionStringAppendTarget__8l;
     v7[4] = a3;
-    [self appendCustomFormatWithName:a4 block:v7];
+    [self appendCustomFormatWithName:a4 block:{v7, a5}];
   }
 
   return self;
@@ -233,7 +233,7 @@
     v7[2] = __95__BSDescriptionBuilder_UIKitAdditions__ui_appendInterfaceOrientationMask_withName_skipIfEmpty___block_invoke;
     v7[3] = &__block_descriptor_40_e43_v16__0___BSDescriptionStringAppendTarget__8l;
     v7[4] = a3;
-    [self appendCustomFormatWithName:a4 block:v7];
+    [self appendCustomFormatWithName:a4 block:{v7, a5}];
   }
 
   return self;
@@ -263,7 +263,7 @@
     v7[2] = __104__BSDescriptionBuilder_UIKitAdditions__ui_appendReferenceDisplayModeStatus_withName_skipIfNotSupported___block_invoke;
     v7[3] = &__block_descriptor_40_e43_v16__0___BSDescriptionStringAppendTarget__8l;
     v7[4] = a3;
-    [self appendCustomFormatWithName:a4 block:v7];
+    [self appendCustomFormatWithName:a4 block:{v7, a5}];
   }
 
   return self;

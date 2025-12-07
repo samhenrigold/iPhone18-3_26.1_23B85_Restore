@@ -87,7 +87,7 @@
 
   else
   {
-    result = [unk_287374870(result cameraMatrixAtTime:{a4.var0), "getBytes:length:", v26, 128}];
+    result = [unk_287374FB0(result cameraMatrixAtTime:{a4.var0), "getBytes:length:", v26, 128}];
     v10 = v26[0];
     v11 = v26[1];
     v12 = v26[2];
@@ -153,41 +153,41 @@
   *retstr->var20 = xmmword_2603431B0;
   *retstr->var21 = xmmword_260343890;
   result = [(PAEEquirectProject *)self getProjectionFOVYDegrees:a4->var0.var1, a5, a6, a7];
-  *&v13 = v13;
-  retstr->var3 = *&v13;
+  *&v12 = v12;
+  retstr->var3 = *&v12;
   if (self)
   {
-    result = [(PAEEquirectProject *)self getViewMatrix:a4->var0.var1];
+    result = objc_msgSend_getViewMatrix_(self);
+    v13 = *&v20;
     v14 = *&v21;
     v15 = *&v22;
-    v16 = *&v23;
   }
 
   else
   {
-    v23 = 0u;
-    v21 = 0u;
     v22 = 0u;
-    v16 = 0.0;
+    v20 = 0u;
+    v21 = 0u;
     v15 = 0.0;
     v14 = 0.0;
+    v13 = 0.0;
   }
 
-  retstr->var0[0] = v14;
-  retstr->var0[1] = v15;
-  retstr->var0[2] = v16;
+  retstr->var0[0] = v13;
+  retstr->var0[1] = v14;
+  retstr->var0[2] = v15;
   if (a6)
   {
     [a6 width];
     result = [a6 height];
   }
 
-  retstr->var1[0] = *(&v21 + 1);
-  retstr->var1[1] = *(&v22 + 1);
-  retstr->var1[2] = *(&v23 + 1);
-  retstr->var2[0] = *(&v21 + 2);
-  retstr->var2[1] = *(&v22 + 2);
-  retstr->var2[2] = *(&v23 + 2);
+  retstr->var1[0] = *(&v20 + 1);
+  retstr->var1[1] = *(&v21 + 1);
+  retstr->var1[2] = *(&v22 + 1);
+  retstr->var2[0] = *(&v20 + 2);
+  retstr->var2[1] = *(&v21 + 2);
+  retstr->var2[2] = *(&v22 + 2);
   *&retstr->var12 = 0;
   if (a6)
   {
@@ -196,41 +196,41 @@
     retstr->var13 = result;
     if (self)
     {
-      result = [(PAESharedDefaultBase *)self getPixelTransformForImage:a6];
+      result = objc_msgSend_getPixelTransformForImage_(self);
     }
 
     else
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
     }
 
-    *retstr->var20 = vcvt_hight_f32_f64(vcvt_f32_f64(v17), v18);
-    *retstr->var21 = vcvt_hight_f32_f64(vcvt_f32_f64(v19), v20);
+    *retstr->var20 = vcvt_hight_f32_f64(vcvt_f32_f64(v16), v17);
+    *retstr->var21 = vcvt_hight_f32_f64(vcvt_f32_f64(v18), v19);
   }
 
   *&retstr->var14 = 0;
   if (a5)
   {
-    result = [a5 imageInfo];
+    result = objc_msgSend_imageInfo(a5);
     *&retstr->var14 = vmovn_s64(0);
     if (self)
     {
-      result = [(PAESharedDefaultBase *)self getInversePixelTransformForImage:a5];
+      result = objc_msgSend_getInversePixelTransformForImage_(self);
     }
 
     else
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
     }
 
-    *retstr->var18 = vcvt_hight_f32_f64(vcvt_f32_f64(v17), v18);
-    *retstr->var19 = vcvt_hight_f32_f64(vcvt_f32_f64(v19), v20);
+    *retstr->var18 = vcvt_hight_f32_f64(vcvt_f32_f64(v16), v17);
+    *retstr->var19 = vcvt_hight_f32_f64(vcvt_f32_f64(v18), v19);
     retstr->var17 = 1;
   }
 
@@ -242,70 +242,70 @@
 {
   if ([output imageType] == 3)
   {
-    v7 = [(PROAPIAccessing *)self->super.super._apiManager apiForProtocol:&unk_28735E258];
-    v8 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
-    if (v8)
+    [(PROAPIAccessing *)self->super.super._apiManager apiForProtocol:&unk_28735E258];
+    v7 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
+    if (v7)
     {
-      v20 = 0;
-      v9 = *&info->var2;
-      v10 = *&info->var4;
-      *v19.var0 = *&info->var0.var0;
-      *&v19.var1[1] = v9;
-      *&v19.var2[2] = v10;
-      [(PAESharedDefaultBase *)self getHeliumImage:&v20 layerOffsetX:0 layerOffsetY:0 requestInfo:&v19 fromParm:1 atTime:info->var0.var1];
-      if (v20)
+      v19 = 0;
+      v8 = *&info->var2;
+      v9 = *&info->var4;
+      *v18.var0 = *&info->var0.var0;
+      *&v18.var1[1] = v8;
+      *&v18.var2[2] = v9;
+      [(PAESharedDefaultBase *)self getHeliumImage:&v19 layerOffsetX:0 layerOffsetY:0 requestInfo:&v18 fromParm:1 atTime:info->var0.var1];
+      if (v19)
       {
-        [v20 heliumRef];
-        v11 = *v19.var0;
-        if (*v19.var0)
+        objc_msgSend_heliumRef(v19);
+        v10 = *v18.var0;
+        if (*v18.var0)
         {
-          (*(**v19.var0 + 24))(*v19.var0);
+          (*(**v18.var0 + 24))(*v18.var0);
         }
       }
 
       else
       {
         fwrite("PAEEquirectProject: failed to get equirect input image.\n", 0x38uLL, 1uLL, *MEMORY[0x277D85DF8]);
-        v11 = 0;
+        v10 = 0;
       }
 
-      v12 = *&info->var2;
-      v18[0] = *&info->var0.var0;
-      v18[1] = v12;
-      v18[2] = *&info->var4;
-      [(PAEEquirectProject *)self getParams:v18];
-      v13 = HGObject::operator new(0x240uLL);
-      HGEquirectProject::HGEquirectProject(v13);
-      v14 = HGEquirectProject::setParams(v13, &v19);
-      (*(*v13 + 120))(v13, 0, v11, v14);
-      v15 = HGObject::operator new(0x210uLL);
-      HGXForm::HGXForm(v15);
-      (*(*v15 + 120))(v15, 0, v13);
-      HGTransform::HGTransform(v18);
-      HGTransform::Translate(v18, 0.0, -v19.var15, 0.0);
-      HGTransform::Scale(v18, 1.0, -1.0, 1.0);
-      (*(*v15 + 576))(v15, v18);
-      v17 = v15;
-      (*(*v15 + 16))(v15);
-      [output setHeliumRef:&v17];
-      if (v17)
+      v11 = *&info->var2;
+      v17[0] = *&info->var0.var0;
+      v17[1] = v11;
+      v17[2] = *&info->var4;
+      objc_msgSend_getParams__::(self);
+      v12 = HGObject::operator new(0x240uLL);
+      HGEquirectProject::HGEquirectProject(v12);
+      v13 = HGEquirectProject::setParams(v12, &v18);
+      (*(*v12 + 120))(v12, 0, v10, v13);
+      v14 = HGObject::operator new(0x210uLL);
+      HGXForm::HGXForm(v14);
+      (*(*v14 + 120))(v14, 0, v12);
+      HGTransform::HGTransform(v17);
+      HGTransform::Translate(v17, 0.0, -v18.var15, 0.0);
+      HGTransform::Scale(v17, 1.0, -1.0, 1.0);
+      (*(*v14 + 576))(v14, v17);
+      v16 = v14;
+      (*(*v14 + 16))(v14);
+      [output setHeliumRef:&v16];
+      if (v16)
       {
-        (*(*v17 + 24))(v17);
+        (*(*v16 + 24))(v16);
       }
 
-      HGTransform::~HGTransform(v18);
-      (*(*v15 + 24))(v15);
-      (*(*v13 + 24))(v13);
-      LOBYTE(v8) = 1;
+      HGTransform::~HGTransform(v17);
+      (*(*v14 + 24))(v14);
+      (*(*v12 + 24))(v12);
+      LOBYTE(v7) = 1;
     }
   }
 
   else
   {
-    LOBYTE(v8) = 0;
+    LOBYTE(v7) = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 @end

@@ -51,7 +51,7 @@
     v9 = 20;
   }
 
-  v91 = v9;
+  v35 = v9;
   if (bitDepth == 2)
   {
     v12 = 60;
@@ -62,56 +62,52 @@
     v12 = 30;
   }
 
-  v92 = v12;
+  v36 = v12;
   IOSurface = CVPixelBufferGetIOSurface(downsample);
   v14 = CVPixelBufferGetIOSurface(to);
   v15 = MEMORY[0x277CD7058];
   Width = CVPixelBufferGetWidth(downsample);
-  Height = CVPixelBufferGetHeight(downsample);
-  v19 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(v15, v18, v10, Width, Height, 0);
-  objc_msgSend_setUsage_(v19, v20, 1, v21);
-  v93 = objc_msgSend_newTextureWithDescriptor_iosurface_plane_(self->_device, v22, v19, IOSurface, 0);
-  v23 = MEMORY[0x277CD7058];
-  v24 = CVPixelBufferGetWidth(downsample) >> 1;
-  v25 = CVPixelBufferGetHeight(downsample);
-  v27 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(v23, v26, v11, v24, v25 >> 1, 0);
+  v17 = [v15 texture2DDescriptorWithPixelFormat:v10 width:Width height:CVPixelBufferGetHeight(downsample) mipmapped:0];
+  [v17 setUsage:1];
+  v37 = [(MTLDevice *)self->_device newTextureWithDescriptor:v17 iosurface:IOSurface plane:0];
+  v18 = MEMORY[0x277CD7058];
+  v19 = CVPixelBufferGetWidth(downsample) >> 1;
+  v20 = [v18 texture2DDescriptorWithPixelFormat:v11 width:v19 height:CVPixelBufferGetHeight(downsample) >> 1 mipmapped:0];
 
-  objc_msgSend_setUsage_(v27, v28, 1, v29);
-  v31 = objc_msgSend_newTextureWithDescriptor_iosurface_plane_(self->_device, v30, v27, IOSurface, 1);
-  v32 = MEMORY[0x277CD7058];
-  v33 = CVPixelBufferGetWidth(to);
-  v34 = CVPixelBufferGetHeight(to);
-  v36 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(v32, v35, v91, v33, v34, 0);
+  [v20 setUsage:1];
+  v21 = [(MTLDevice *)self->_device newTextureWithDescriptor:v20 iosurface:IOSurface plane:1];
+  v22 = MEMORY[0x277CD7058];
+  v23 = CVPixelBufferGetWidth(to);
+  v24 = [v22 texture2DDescriptorWithPixelFormat:v35 width:v23 height:CVPixelBufferGetHeight(to) mipmapped:0];
 
-  objc_msgSend_setUsage_(v36, v37, 2, v38);
-  v40 = objc_msgSend_newTextureWithDescriptor_iosurface_plane_(self->_device, v39, v36, v14, 0);
-  v41 = MEMORY[0x277CD7058];
-  v42 = CVPixelBufferGetWidth(to) >> 1;
-  v43 = CVPixelBufferGetHeight(to);
-  v45 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(v41, v44, v92, v42, v43 >> 1, 0);
+  [v24 setUsage:2];
+  v25 = [(MTLDevice *)self->_device newTextureWithDescriptor:v24 iosurface:v14 plane:0];
+  v26 = MEMORY[0x277CD7058];
+  v27 = CVPixelBufferGetWidth(to) >> 1;
+  v28 = [v26 texture2DDescriptorWithPixelFormat:v36 width:v27 height:CVPixelBufferGetHeight(to) >> 1 mipmapped:0];
 
-  objc_msgSend_setUsage_(v45, v46, 2, v47);
-  v49 = objc_msgSend_newTextureWithDescriptor_iosurface_plane_(self->_device, v48, v45, v14, 1);
-  v53 = objc_msgSend_threadExecutionWidth(self->_downsampleState, v50, v51, v52);
-  v57 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_downsampleState, v54, v55, v56) / v53;
-  v61 = objc_msgSend_commandBuffer(self->_queue, v58, v59, v60);
-  objc_msgSend_setLabel_(v61, v62, @"Panorama:GPUDownscaler", v63);
-  v67 = objc_msgSend_computeCommandEncoder(v61, v64, v65, v66);
-  objc_msgSend_setComputePipelineState_(v67, v68, self->_downsampleState, v69);
-  objc_msgSend_setTexture_atIndex_(v67, v70, v93, 0);
-  objc_msgSend_setTexture_atIndex_(v67, v71, v31, 1);
-  objc_msgSend_setTexture_atIndex_(v67, v72, v40, 2);
-  objc_msgSend_setTexture_atIndex_(v67, v73, v49, 3);
-  v95[0] = objc_msgSend_width(v49, v74, v75, v76);
-  v95[1] = objc_msgSend_height(v49, v77, v78, v79);
-  v95[2] = 1;
-  v94[0] = v53;
-  v94[1] = v57;
-  v94[2] = 1;
-  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v67, v80, v95, v94);
-  objc_msgSend_endEncoding(v67, v81, v82, v83);
-  objc_msgSend_commit(v61, v84, v85, v86);
-  objc_msgSend_waitUntilCompleted(v61, v87, v88, v89);
+  [v28 setUsage:2];
+  v29 = [(MTLDevice *)self->_device newTextureWithDescriptor:v28 iosurface:v14 plane:1];
+  threadExecutionWidth = [(MTLComputePipelineState *)self->_downsampleState threadExecutionWidth];
+  v31 = [(MTLComputePipelineState *)self->_downsampleState maxTotalThreadsPerThreadgroup]/ threadExecutionWidth;
+  commandBuffer = [(MTLCommandQueue *)self->_queue commandBuffer];
+  [commandBuffer setLabel:@"Panorama:GPUDownscaler"];
+  computeCommandEncoder = [commandBuffer computeCommandEncoder];
+  [computeCommandEncoder setComputePipelineState:self->_downsampleState];
+  [computeCommandEncoder setTexture:v37 atIndex:0];
+  [computeCommandEncoder setTexture:v21 atIndex:1];
+  [computeCommandEncoder setTexture:v25 atIndex:2];
+  [computeCommandEncoder setTexture:v29 atIndex:3];
+  v39[0] = [v29 width];
+  v39[1] = [v29 height];
+  v39[2] = 1;
+  v38[0] = threadExecutionWidth;
+  v38[1] = v31;
+  v38[2] = 1;
+  [computeCommandEncoder dispatchThreads:v39 threadsPerThreadgroup:v38];
+  [computeCommandEncoder endEncoding];
+  [commandBuffer commit];
+  [commandBuffer waitUntilCompleted];
 
   return 0;
 }
@@ -119,66 +115,64 @@
 - (ACTPanoGPUDownscaler)initWithContext:(id)context
 {
   contextCopy = context;
-  v22.receiver = self;
-  v22.super_class = ACTPanoGPUDownscaler;
-  v8 = [(ACTPanoGPUDownscaler *)&v22 init];
-  if (v8 && (objc_msgSend_device(contextCopy, v5, v6, v7), v9 = objc_claimAutoreleasedReturnValue(), device = v8->_device, v8->_device = v9, device, (v14 = v8->_device) != 0) && (v15 = objc_msgSend_newCommandQueue(v14, v11, v12, v13), queue = v8->_queue, v8->_queue = v15, queue, v8->_queue))
+  v15.receiver = self;
+  v15.super_class = ACTPanoGPUDownscaler;
+  v5 = [(ACTPanoGPUDownscaler *)&v15 init];
+  if (v5 && ([contextCopy device], v6 = objc_claimAutoreleasedReturnValue(), device = v5->_device, v5->_device = v6, device, (v8 = v5->_device) != 0) && (v9 = -[MTLDevice newCommandQueue](v8, "newCommandQueue"), queue = v5->_queue, v5->_queue = v9, queue, v5->_queue))
   {
-    v18 = objc_msgSend_computePipelineStateFor_constants_(contextCopy, v17, @"downsampleYUV", 0);
-    downsampleState = v8->_downsampleState;
-    v8->_downsampleState = v18;
+    v11 = [contextCopy computePipelineStateFor:@"downsampleYUV" constants:0];
+    downsampleState = v5->_downsampleState;
+    v5->_downsampleState = v11;
 
-    v20 = v8;
+    v13 = v5;
   }
 
   else
   {
-    v20 = 0;
+    v13 = 0;
   }
 
-  return v20;
+  return v13;
 }
 
 - (ACTPanoGPUDownscaler)init
 {
-  v27.receiver = self;
-  v27.super_class = ACTPanoGPUDownscaler;
-  v2 = [(ACTPanoGPUDownscaler *)&v27 init];
+  v15.receiver = self;
+  v15.super_class = ACTPanoGPUDownscaler;
+  v2 = [(ACTPanoGPUDownscaler *)&v15 init];
   if (v2)
   {
     v3 = objc_alloc(MEMORY[0x277CF6C78]);
-    v4 = MEMORY[0x277CCA8D8];
-    v5 = objc_opt_class();
-    v8 = objc_msgSend_bundleForClass_(v4, v6, v5, v7);
-    inited = objc_msgSend_initWithbundle_andOptionalCommandQueue_(v3, v9, v8, 0);
+    v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v5 = [v3 initWithbundle:v4 andOptionalCommandQueue:0];
 
-    v14 = objc_msgSend_device(inited, v11, v12, v13);
+    device = [v5 device];
     device = v2->_device;
-    v2->_device = v14;
+    v2->_device = device;
 
-    v19 = v2->_device;
-    if (v19 && (v20 = objc_msgSend_newCommandQueue(v19, v16, v17, v18), queue = v2->_queue, v2->_queue = v20, queue, v2->_queue))
+    v8 = v2->_device;
+    if (v8 && (v9 = [(MTLDevice *)v8 newCommandQueue], queue = v2->_queue, v2->_queue = v9, queue, v2->_queue))
     {
-      v23 = objc_msgSend_computePipelineStateFor_constants_(inited, v22, @"downsampleYUV", 0);
+      v11 = [v5 computePipelineStateFor:@"downsampleYUV" constants:0];
       downsampleState = v2->_downsampleState;
-      v2->_downsampleState = v23;
+      v2->_downsampleState = v11;
 
-      v25 = v2;
+      v13 = v2;
     }
 
     else
     {
-      v25 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v25 = 0;
-    inited = 0;
+    v13 = 0;
+    v5 = 0;
   }
 
-  return v25;
+  return v13;
 }
 
 @end

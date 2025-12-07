@@ -16,12 +16,12 @@
   [(PKPassHeaderViewCell *)&v4 layoutSubviews];
   contentView = [(PKPassHeaderViewCell *)self contentView];
   [contentView bounds];
-  [(PKPassHeaderViewCell *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKPassHeaderViewCell *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;

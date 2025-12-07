@@ -10,9 +10,9 @@
   listenerCopy = listener;
   connectionCopy = connection;
   selfCopy = self;
-  v9 = sub_100001BD4(connectionCopy);
+  v11 = sub_100001BD4(connectionCopy, v9, v10);
 
-  return v9 & 1;
+  return v11 & 1;
 }
 
 - (_TtC15ResolverService15ServiceDelegate)init

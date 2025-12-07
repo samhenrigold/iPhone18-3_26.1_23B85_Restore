@@ -17,7 +17,7 @@ void sub_F1179(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, char a6)
   v13 = v6;
   v6 = __CFADD__(v6, *v7) | __CFADD__(a3, v6 + *v7);
   *v7 += a3 + v13;
-  v17[2 * v8] += a3 + v6;
+  LOBYTE(v17[v8]) += a3 + v6;
   LOBYTE(v7) = v7 - 116;
   v6 = __CFADD__(a3, *v7);
   *v7 += a3;
@@ -29,7 +29,6 @@ void sub_F1179(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, char a6)
   *v7 += a3 + v15;
   LOBYTE(v7) = (__CFADD__(v6, v7) | __CFADD__(v6 + v7, 52)) + v6 + v7 + 52 + 80;
   v7[4 * a1] = v7;
-  BYTE1(a3) += *v7;
   *v7 |= a6;
   *v7 |= a4;
   *v7 |= a4;

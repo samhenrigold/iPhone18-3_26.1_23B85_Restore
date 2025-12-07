@@ -1,5 +1,6 @@
 @interface CSAggressiveECModeHandler
 - (CSAggressiveECModeHandler)init;
+- (void)_configureAggressiveEchoCancellationParams:(BOOL)params;
 - (void)notifySiriSessionStateTTSOngoing:(BOOL)ongoing;
 - (void)setAttendingState:(BOOL)state;
 - (void)setAudioSessionState:(id)state;
@@ -17,6 +18,41 @@
   block[3] = &unk_100253C20;
   block[4] = self;
   dispatch_async(queue, block);
+}
+
+- (void)_configureAggressiveEchoCancellationParams:(BOOL)params
+{
+  paramsCopy = params;
+  v5 = CSLogContextFacilityCoreSpeech;
+  if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"remove";
+    if (paramsCopy)
+    {
+      v6 = @"apply";
+    }
+
+    *buf = 136315394;
+    v11 = "[CSAggressiveECModeHandler _configureAggressiveEchoCancellationParams:]";
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s  %@ Aggressive EC params", buf, 0x16u);
+  }
+
+  if (CSIsIOS())
+  {
+    if (+[CSUtils isContinuousConversationSupported])
+    {
+      v7 = +[CSAVVoiceTriggerClientManager sharedVoiceTriggerClient];
+      v8[0] = _NSConcreteStackBlock;
+      v8[1] = 3221225472;
+      v8[2] = sub_100119F5C;
+      v8[3] = &unk_100251D58;
+      v9 = paramsCopy;
+      v8[4] = self;
+      [v7 setAggressiveECMode:paramsCopy completionBlock:v8];
+    }
+  }
 }
 
 - (void)notifySiriSessionStateTTSOngoing:(BOOL)ongoing

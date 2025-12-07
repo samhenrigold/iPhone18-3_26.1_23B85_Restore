@@ -3,12 +3,28 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)protocolVersionAsString:(int)string;
 - (void)copyTo:(id)to;
 - (void)mergeFrom:(id)from;
 - (void)writeTo:(id)to;
 @end
 
 @implementation NPKProtoStandaloneResponseHeader
+
+- (id)protocolVersionAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"Version1";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
 
 - (id)description
 {
@@ -49,8 +65,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  protocolVersion = self->_protocolVersion;
-  v6 = toCopy;
   PBDataWriterWriteInt32Field();
   if (self->_sessionIdentifier)
   {

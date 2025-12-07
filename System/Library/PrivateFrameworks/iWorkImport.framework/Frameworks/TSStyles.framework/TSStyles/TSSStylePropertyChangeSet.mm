@@ -12,9 +12,54 @@
 - (id)variationPropertyMapFromStyle:(id)style;
 - (id)variationStyleFrom:(id)from inStylesheet:(id)stylesheet;
 - (unint64_t)hash;
+- (void)setBoxedValue:(id)value forProperty:(int)property;
+- (void)setSpec:(id)spec forProperty:(int)property;
+- (void)setUnsetSpecForProperty:(int)property;
 @end
 
 @implementation TSSStylePropertyChangeSet
+
+- (void)setBoxedValue:(id)value forProperty:(int)property
+{
+  v4 = *&property;
+  v5 = MEMORY[0x277D81150];
+  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSSStylePropertyChangeSet setBoxedValue:forProperty:]");
+  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSStylePropertyChangeSet.mm");
+  v9 = objc_opt_class();
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v10, v6, v8, 26, 0, "Unexpected property %d for class %@.", v4, v9);
+
+  v13 = MEMORY[0x277D81150];
+
+  objc_msgSend_logBacktraceThrottled(v13, v11, v12);
+}
+
+- (void)setSpec:(id)spec forProperty:(int)property
+{
+  v4 = *&property;
+  v5 = MEMORY[0x277D81150];
+  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSSStylePropertyChangeSet setSpec:forProperty:]");
+  v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSStylePropertyChangeSet.mm");
+  v9 = objc_opt_class();
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v10, v6, v8, 31, 0, "Unexpected property %d for class %@.", v4, v9);
+
+  v13 = MEMORY[0x277D81150];
+
+  objc_msgSend_logBacktraceThrottled(v13, v11, v12);
+}
+
+- (void)setUnsetSpecForProperty:(int)property
+{
+  v3 = *&property;
+  v4 = MEMORY[0x277D81150];
+  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSSStylePropertyChangeSet setUnsetSpecForProperty:]");
+  v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSStylePropertyChangeSet.mm");
+  v8 = objc_opt_class();
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v9, v5, v7, 36, 0, "Unexpected property %d for class %@.", v3, v8);
+
+  v12 = MEMORY[0x277D81150];
+
+  objc_msgSend_logBacktraceThrottled(v12, v10, v11);
+}
 
 - (id)collectUndoForStyle:(id)style
 {

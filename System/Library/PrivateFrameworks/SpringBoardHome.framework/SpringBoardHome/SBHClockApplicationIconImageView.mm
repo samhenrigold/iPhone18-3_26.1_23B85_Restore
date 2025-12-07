@@ -155,14 +155,14 @@
 
 - (void)updateUnanimated
 {
-  v6.receiver = self;
-  v6.super_class = SBHClockApplicationIconImageView;
-  [(SBLiveIconImageView *)&v6 updateUnanimated];
-  v3 = _SBClockIconGetCalendar();
+  v7.receiver = self;
+  v7.super_class = SBHClockApplicationIconImageView;
+  updateUnanimated = [(SBLiveIconImageView *)&v7 updateUnanimated];
+  v4 = _SBClockIconGetCalendar(updateUnanimated);
   effectiveDate = [objc_opt_class() effectiveDate];
-  v5 = [v3 components:224 fromDate:effectiveDate];
+  v6 = [v4 components:224 fromDate:effectiveDate];
 
-  [(SBHClockApplicationIconImageView *)self _updateUnanimatedWithComponents:v5];
+  [(SBHClockApplicationIconImageView *)self _updateUnanimatedWithComponents:v6];
 }
 
 + (id)effectiveDate
@@ -419,7 +419,7 @@
 
 + (void)_tickTimerFired:(id)fired
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   firedCopy = fired;
   fireDate = [firedCopy fireDate];
   v5 = 224;
@@ -450,41 +450,41 @@
     }
   }
 
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
+  v18 = 0u;
   v11 = __tickClients;
-  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v17;
+    v14 = *v18;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v17 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [*(*(&v16 + 1) + 8 * i) _timerFiredWithComponents:v6 flags:{v5, v16}];
+        [*(*(&v17 + 1) + 8 * i) _timerFiredWithComponents:v6 flags:{v5, v17}];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v13);
   }
 
-  _SBClockIconResetTickTimer();
+  _SBClockIconResetTickTimer(v16);
 }
 
 + (void)_handleTimeChange:(id)change
 {
   v18 = *MEMORY[0x1E69E9840];
-  v4 = _SBClockIconGetCalendar();
+  v4 = _SBClockIconGetCalendar(self);
   systemTimeZone = [MEMORY[0x1E695DFE8] systemTimeZone];
   [v4 setTimeZone:systemTimeZone];
 
@@ -838,7 +838,7 @@ LABEL_5:
 
 - (void)getMetrics:(SBHClockApplicationIconImageMetrics *)metrics
 {
-  [(SBIconImageView *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self, a2);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -1365,7 +1365,7 @@ LABEL_8:
 
 - (void)_setAnimating:(BOOL)animating
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (animating)
   {
     [(SBHClockApplicationIconImageView *)self updateUnanimated];
@@ -1375,16 +1375,17 @@ LABEL_8:
       _SBClockIconGetCalendar_cold_1();
     }
 
-    if (([__tickClients containsObject:selfCopy] & 1) == 0)
+    v5 = [__tickClients containsObject:selfCopy];
+    if ((v5 & 1) == 0)
     {
-      v5 = SBLogClock();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = SBLogClock(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 134218240;
-        v13 = selfCopy;
-        v14 = 2048;
-        v15 = [__tickClients count] + 1;
-        _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "Add clock icon tick client: %p/%lu", &v12, 0x16u);
+        v15 = 134218240;
+        v16 = selfCopy;
+        v17 = 2048;
+        v18 = [__tickClients count] + 1;
+        _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_DEFAULT, "Add clock icon tick client: %p/%lu", &v15, 0x16u);
       }
 
       [__tickClients addObject:selfCopy];
@@ -1401,34 +1402,35 @@ LABEL_8:
   else
   {
     selfCopy2 = self;
-    if ([__tickClients containsObject:selfCopy2])
+    v9 = [__tickClients containsObject:selfCopy2];
+    if (v9)
     {
-      v8 = SBLogClock();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = SBLogClock(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 134218240;
-        v13 = selfCopy2;
-        v14 = 2048;
-        v15 = [__tickClients count] - 1;
-        _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, "Remove clock icon tick client: %p/%lu", &v12, 0x16u);
+        v15 = 134218240;
+        v16 = selfCopy2;
+        v17 = 2048;
+        v18 = [__tickClients count] - 1;
+        _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "Remove clock icon tick client: %p/%lu", &v15, 0x16u);
       }
 
       [__tickClients removeObject:selfCopy2];
       if (![__tickClients count])
       {
         [__displayLink invalidate];
-        v9 = __displayLink;
+        v11 = __displayLink;
         __displayLink = 0;
 
         [__tickTimer invalidate];
-        v10 = __tickTimer;
+        v12 = __tickTimer;
         __tickTimer = 0;
 
-        v11 = SBLogClock();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v14 = SBLogClock(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v12) = 0;
-          _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "Stopped clock icon tick timer", &v12, 2u);
+          LOWORD(v15) = 0;
+          _os_log_impl(&dword_1BEB18000, v14, OS_LOG_TYPE_DEFAULT, "Stopped clock icon tick timer", &v15, 2u);
         }
       }
     }

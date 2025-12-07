@@ -45,11 +45,10 @@
 
 - (uint64_t)incrementAssertionForDuration:(void *)duration outResetCount:(double)count error:
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v17 = 0;
-    goto LABEL_16;
+    return 0;
   }
 
   v8 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:?];
@@ -64,24 +63,24 @@
 
   else
   {
-    v23 = 0;
-    v11 = [self _takeAssertionForDuration:&v23 error:count];
-    v12 = v23;
-    v13 = _ef_log_EFProtectedFile();
+    v22 = 0;
+    v11 = [self _takeAssertionForDuration:&v22 error:count];
+    v12 = v22;
+    v13 = _ef_log_EFProtectedFile(v12);
     v14 = v13;
     if (!v11)
     {
       v16 = v13;
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v21 = *(self + 40);
+        v20 = *(self + 40);
         ef_publicDescription = [v12 ef_publicDescription];
         *buf = 134218498;
         countCopy2 = count;
-        v26 = 2114;
-        v27 = v21;
-        v28 = 2114;
-        v29 = ef_publicDescription;
+        v25 = 2114;
+        v26 = v20;
+        v27 = 2114;
+        v28 = ef_publicDescription;
         _os_log_error_impl(&dword_1C6152000, v16, OS_LOG_TYPE_ERROR, "Failed to take assertion of duration %f on files %{public}@ due to error: %{public}@", buf, 0x20u);
       }
 
@@ -95,8 +94,8 @@
       v15 = *(self + 40);
       *buf = 134218242;
       countCopy2 = count;
-      v26 = 2114;
-      v27 = v15;
+      v25 = 2114;
+      v26 = v15;
       _os_log_impl(&dword_1C6152000, v14, OS_LOG_TYPE_DEFAULT, "Took assertion of duration %f on files %{public}@", buf, 0x16u);
     }
 
@@ -113,14 +112,12 @@ LABEL_13:
     *duration = v12;
   }
 
-LABEL_16:
-  v19 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (void)decrementAssertionWithResetCount:(uint64_t)count
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (count)
   {
     os_unfair_lock_lock((count + 32));
@@ -139,10 +136,10 @@ LABEL_16:
       *(count + 16) = v5;
       if (!v5)
       {
-        v15 = 0;
-        v6 = [count _releaseAssertionWithError:&v15];
-        v7 = v15;
-        v8 = _ef_log_EFProtectedFile();
+        v14 = 0;
+        v6 = [count _releaseAssertionWithError:&v14];
+        v7 = v14;
+        v8 = _ef_log_EFProtectedFile(v7);
         v9 = v8;
         if (v6)
         {
@@ -164,8 +161,6 @@ LABEL_16:
 
     os_unfair_lock_unlock((count + 32));
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_takeAssertionForDuration:(double)duration error:(id *)error
@@ -191,12 +186,12 @@ LABEL_16:
 
 - (BOOL)_iterateFilesPerformingAction:(id)action error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   actionCopy = action;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   if (self)
   {
     protectedFiles = self->_protectedFiles;
@@ -209,29 +204,29 @@ LABEL_16:
 
   v7 = protectedFiles;
   v8 = 0;
-  v9 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (!v9)
   {
     v11 = 1;
     goto LABEL_18;
   }
 
-  v10 = *v24;
-  v21 = *MEMORY[0x1E696A798];
+  v10 = *v23;
+  v20 = *MEMORY[0x1E696A798];
   v11 = 1;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v24 != v10)
+      if (*v23 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v13 = *(*(&v23 + 1) + 8 * i);
-      v22 = 0;
+      v13 = *(*(&v22 + 1) + 8 * i);
+      v21 = 0;
       v14 = [(_EFProtectedFile *)v13 fileDescriptorWithError:?];
-      v15 = v22;
+      v15 = v21;
       if (v14)
       {
         if (actionCopy[2](actionCopy, v14) != -1)
@@ -239,7 +234,7 @@ LABEL_16:
           goto LABEL_14;
         }
 
-        v16 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:v21 code:*__error() userInfo:0];
+        v16 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:v20 code:*__error() userInfo:0];
 
         v15 = v16;
       }
@@ -259,7 +254,7 @@ LABEL_16:
 LABEL_14:
     }
 
-    v9 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v9 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
   }
 
   while (v9);
@@ -271,7 +266,6 @@ LABEL_18:
     *error = v8;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v11 & 1;
 }
 
@@ -286,16 +280,14 @@ LABEL_18:
 
 - (void)decrementAssertionWithResetCount:(NSObject *)a1 .cold.2(NSObject *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a2 + 40);
-    v6 = 138543362;
-    v7 = v4;
-    _os_log_impl(&dword_1C6152000, a1, OS_LOG_TYPE_DEFAULT, "Released assertion on files %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_impl(&dword_1C6152000, a1, OS_LOG_TYPE_DEFAULT, "Released assertion on files %{public}@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

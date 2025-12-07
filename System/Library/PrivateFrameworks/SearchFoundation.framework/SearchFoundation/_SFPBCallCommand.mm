@@ -153,9 +153,7 @@ LABEL_8:
 
 - (void)setPhoneNumber:(id)number
 {
-  v4 = [number copy];
-  phoneNumber = self->_phoneNumber;
-  self->_phoneNumber = v4;
+  self->_phoneNumber = [number copy];
 
   MEMORY[0x1EEE66BB8]();
 }

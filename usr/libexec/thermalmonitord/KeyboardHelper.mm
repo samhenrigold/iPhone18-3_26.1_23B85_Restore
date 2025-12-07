@@ -132,73 +132,70 @@
 - (void)registerForFolioEvents
 {
   self->_hidClient = IOHIDEventSystemClientCreate();
-  v21[0] = @"PrimaryUsagePage";
-  v21[1] = @"PrimaryUsage";
-  v22[0] = [NSNumber numberWithInt:11];
-  v22[1] = [NSNumber numberWithInt:1];
-  [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:2];
-  hidClient = self->_hidClient;
+  v18[0] = @"PrimaryUsagePage";
+  v18[1] = @"PrimaryUsage";
+  v19[0] = [NSNumber numberWithInt:11];
+  v19[1] = [NSNumber numberWithInt:1];
+  [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:2];
   IOHIDEventSystemClientSetMatching();
-  v4 = self->_hidClient;
   IOHIDEventSystemClientRegisterEventCallback();
-  v5 = self->_hidClient;
   IOHIDEventSystemClientScheduleWithRunLoop();
-  v6 = self->_hidClient;
-  if (v6)
+  hidClient = self->_hidClient;
+  if (hidClient)
   {
-    v7 = IOHIDEventSystemClientCopyServices(v6);
-    if (v7)
+    v4 = IOHIDEventSystemClientCopyServices(hidClient);
+    if (v4)
     {
-      v8 = v7;
-      if (CFArrayGetCount(v7) >= 1)
+      v5 = v4;
+      if (CFArrayGetCount(v4) >= 1)
       {
-        Count = CFArrayGetCount(v8);
+        Count = CFArrayGetCount(v5);
         if (Count >= 1)
         {
-          v10 = 0;
-          v11 = Count & 0x7FFFFFFF;
+          v7 = 0;
+          v8 = Count & 0x7FFFFFFF;
           do
           {
-            if (CFArrayGetValueAtIndex(v8, v10))
+            if (CFArrayGetValueAtIndex(v5, v7))
             {
               KeyboardEvent = IOHIDEventCreateKeyboardEvent();
               if (!KeyboardEvent)
               {
-                v13 = qword_1000AB718;
+                v10 = qword_1000AB718;
                 if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
                 {
-                  sub_10005B4E4(&buf, v20, v13);
+                  sub_10005B4E4(&buf, v17, v10);
                 }
               }
 
-              v14 = IOHIDServiceClientCopyEvent();
-              if (v14)
+              v11 = IOHIDServiceClientCopyEvent();
+              if (v11)
               {
-                v15 = v14;
+                v12 = v11;
                 [(KeyboardHelper *)self updateFolioState:IOHIDEventGetIntegerValue() != 0];
-                CFRelease(v15);
+                CFRelease(v12);
               }
 
               else
               {
-                v16 = qword_1000AB718;
+                v13 = qword_1000AB718;
                 if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
                 {
-                  sub_10005B524(&v17, v18, v16);
+                  sub_10005B524(&v14, v15, v13);
                 }
               }
 
               CFRelease(KeyboardEvent);
             }
 
-            ++v10;
+            ++v7;
           }
 
-          while (v11 != v10);
+          while (v8 != v7);
         }
       }
 
-      CFRelease(v8);
+      CFRelease(v5);
     }
 
     else if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))

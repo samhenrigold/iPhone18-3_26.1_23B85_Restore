@@ -3,6 +3,9 @@
 - (_INPBStartWorkoutIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)sequenceLabelAsString:(int)string;
+- (id)workoutGoalUnitTypeAsString:(int)string;
+- (id)workoutLocationTypeAsString:(int)string;
 - (int)StringAsSequenceLabel:(id)label;
 - (int)StringAsWorkoutGoalUnitType:(id)type;
 - (int)StringAsWorkoutLocationType:(id)type;
@@ -25,35 +28,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_associatedItems count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v5 = self->_associatedItems;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v31;
+      v8 = *v30;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v31 != v8)
+          if (*v30 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v30 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v29 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v7);
@@ -159,8 +162,6 @@
   workoutName = [(_INPBStartWorkoutIntent *)self workoutName];
   dictionaryRepresentation5 = [workoutName dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation5 forKeyedSubscript:@"workoutName"];
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -563,35 +564,34 @@ LABEL_52:
 
 - (void)writeTo:(id)to
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v5 = self->_associatedItems;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
+    v8 = *v19;
     do
     {
       v9 = 0;
       do
       {
-        if (*v27 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -623,37 +623,31 @@ LABEL_52:
 
   if ([(_INPBStartWorkoutIntent *)self hasIsBuiltInWorkoutType])
   {
-    isBuiltInWorkoutType = self->_isBuiltInWorkoutType;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBStartWorkoutIntent *)self hasIsOpenEnded])
   {
-    isOpenEnded = self->_isOpenEnded;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBStartWorkoutIntent *)self hasIsVoiceOnly])
   {
-    isVoiceOnly = self->_isVoiceOnly;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBStartWorkoutIntent *)self hasSequenceLabel])
   {
-    sequenceLabel = self->_sequenceLabel;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBStartWorkoutIntent *)self hasWorkoutGoalUnitType])
   {
-    workoutGoalUnitType = self->_workoutGoalUnitType;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBStartWorkoutIntent *)self hasWorkoutLocationType])
   {
-    workoutLocationType = self->_workoutLocationType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -664,8 +658,6 @@ LABEL_52:
     workoutName2 = [(_INPBStartWorkoutIntent *)self workoutName];
     PBDataWriterWriteSubmessage();
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsWorkoutLocationType:(id)type
@@ -679,6 +671,29 @@ LABEL_52:
   else
   {
     v4 = [typeCopy isEqualToString:@"INDOOR"];
+  }
+
+  return v4;
+}
+
+- (id)workoutLocationTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"INDOOR";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"OUTDOOR";
   }
 
   return v4;
@@ -775,6 +790,21 @@ LABEL_52:
   return v4;
 }
 
+- (id)workoutGoalUnitTypeAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7283B80[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasWorkoutGoalUnitType:(BOOL)type
 {
   if (type)
@@ -816,6 +846,29 @@ LABEL_52:
   else
   {
     v4 = [labelCopy isEqualToString:@"next"];
+  }
+
+  return v4;
+}
+
+- (id)sequenceLabelAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"next";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"last";
   }
 
   return v4;

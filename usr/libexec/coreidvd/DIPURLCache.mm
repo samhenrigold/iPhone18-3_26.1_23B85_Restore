@@ -13,16 +13,15 @@
 {
   v4 = type metadata accessor for URLRequest();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URLRequest._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  v10 = sub_1005FEBE8(v8);
+  v9 = sub_1005FEBE8(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 
-  return v10;
+  return v9;
 }
 
 - (void)storeCachedResponse:(id)response forDataTask:(id)task
@@ -50,26 +49,25 @@
   ObjectType = swift_getObjectType();
   v7 = type metadata accessor for URLRequest();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URLRequest._unconditionallyBridgeFromObjectiveC(_:)();
   responseCopy = response;
   selfCopy = self;
-  v14 = sub_100600EC4(responseCopy, 0, 1);
-  if (v14)
+  v13 = sub_100600EC4(responseCopy, 0, 1);
+  if (v13)
   {
-    v15 = v14;
+    v14 = v13;
     isa = URLRequest._bridgeToObjectiveC()().super.isa;
-    v17.receiver = selfCopy;
-    v17.super_class = ObjectType;
-    [(DIPURLCache *)&v17 storeCachedResponse:v15 forRequest:isa];
+    v16.receiver = selfCopy;
+    v16.super_class = ObjectType;
+    [(DIPURLCache *)&v16 storeCachedResponse:v14 forRequest:isa];
 
-    responseCopy = v15;
+    responseCopy = v14;
     selfCopy = isa;
   }
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (_TtC8coreidvd11DIPURLCache)initWithMemoryCapacity:(int64_t)capacity diskCapacity:(int64_t)diskCapacity diskPath:(id)path
@@ -82,25 +80,24 @@
 - (_TtC8coreidvd11DIPURLCache)initWithMemoryCapacity:(int64_t)capacity diskCapacity:(int64_t)diskCapacity directoryURL:(id)l
 {
   v6 = sub_100007224(&unk_100844540, &unk_1006BFBC0);
-  v7 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v9 = &v14 - v8;
+  v8 = &v13 - v7;
   if (l)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    v10 = type metadata accessor for URL();
-    v12 = 0;
-    v11 = (*(v10 - 8) + 56);
+    v9 = type metadata accessor for URL();
+    v11 = 0;
+    v10 = (*(v9 - 8) + 56);
   }
 
   else
   {
-    v10 = type metadata accessor for URL();
-    v11 = (*(v10 - 8) + 56);
-    v12 = 1;
+    v9 = type metadata accessor for URL();
+    v10 = (*(v9 - 8) + 56);
+    v11 = 1;
   }
 
-  (*v11)(v9, v12, 1, v10);
+  (*v10)(v8, v11, 1, v9);
   result = _swift_stdlib_reportUnimplementedInitializer();
   __break(1u);
   return result;

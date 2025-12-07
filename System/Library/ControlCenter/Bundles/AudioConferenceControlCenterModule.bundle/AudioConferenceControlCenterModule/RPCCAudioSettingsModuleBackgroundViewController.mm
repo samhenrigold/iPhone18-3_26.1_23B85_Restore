@@ -193,7 +193,7 @@ LABEL_21:
   v3 = +[NSNotificationCenter defaultCenter];
   [v3 addObserver:self selector:"handleAVControlCenterNotification:" name:AVControlCenterMicrophoneModesModuleSupportedMicrophoneModesDidChangeNotification object:0];
 
-  if (sub_C1A4() && sub_C274())
+  if (sub_C1A4(0) && sub_C274())
   {
     if (__RPLogLevel <= 1u)
     {
@@ -700,7 +700,7 @@ LABEL_11:
 
 - (BOOL)autoMicModeSupported
 {
-  if (!sub_C1A4())
+  if (!sub_C1A4(0))
   {
     return 0;
   }
@@ -727,7 +727,7 @@ LABEL_11:
 
   else
   {
-    v8 = sub_1EFEC();
+    sub_1EFEC();
     [(RPCCAudioSettingsModuleBackgroundViewController *)v8 updateAutoMicModeState];
   }
 
@@ -739,7 +739,7 @@ LABEL_11:
   autoMicModeSupported = [(RPCCAudioSettingsModuleBackgroundViewController *)self autoMicModeSupported];
   if (autoMicModeSupported)
   {
-    if (sub_C1A4())
+    if (sub_C1A4(0))
     {
       if (sub_C5BC())
       {
@@ -750,7 +750,7 @@ LABEL_11:
           v6 = sub_C5BC();
           if (!v6)
           {
-            v9 = sub_1EFEC();
+            sub_1EFEC();
             [(RPCCAudioSettingsModuleBackgroundViewController *)v9 updateAutomaticMicModeButtonConstraints];
             return;
           }
@@ -818,7 +818,7 @@ LABEL_11:
   [(CCUILabeledRoundButtonViewController *)self->_automaticMicModeButton setEnabled:[(CCUILabeledRoundButtonViewController *)self->_automaticMicModeButton isEnabled]^ 1];
   [(RPCCAudioSettingsModuleBackgroundViewController *)self setAutomaticMicModeSubtitle:[(CCUILabeledRoundButtonViewController *)self->_automaticMicModeButton isEnabled]];
   [(RPCCAudioSettingsModuleBackgroundViewController *)self setAutomaticMicModeGlyphState:[(CCUILabeledRoundButtonViewController *)self->_automaticMicModeButton isEnabled]];
-  if (sub_C1A4() && sub_C6F8())
+  if (sub_C1A4(0) && sub_C6F8())
   {
     if (__RPLogLevel <= 1u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {

@@ -27,7 +27,7 @@
 
 - (id)eventPayload
 {
-  v11[3] = *MEMORY[0x1E69E9840];
+  v10[3] = *MEMORY[0x1E69E9840];
   restoreChoice = [(BYAnalyticsExpressRestore *)self restoreChoice];
   if (restoreChoice > 3)
   {
@@ -39,17 +39,15 @@
     v4 = off_1E7D03DF0[restoreChoice];
   }
 
-  v10[0] = @"paneShown";
+  v9[0] = @"paneShown";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:{-[BYAnalyticsExpressRestore paneShown](self, "paneShown")}];
-  v11[0] = v5;
-  v10[1] = @"offeredBackup";
+  v10[0] = v5;
+  v9[1] = @"offeredBackup";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:{-[BYAnalyticsExpressRestore offeredBackup](self, "offeredBackup")}];
-  v10[2] = @"restoreChoice";
-  v11[1] = v6;
-  v11[2] = v4;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[2] = @"restoreChoice";
+  v10[1] = v6;
+  v10[2] = v4;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   return v7;
 }

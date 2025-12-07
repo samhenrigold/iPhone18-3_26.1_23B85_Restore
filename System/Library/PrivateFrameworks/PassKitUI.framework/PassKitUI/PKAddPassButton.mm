@@ -238,9 +238,10 @@
     [(PKAddPassButton *)self _baseIntrinsicMultiLineSize];
   }
 
-  v5 = v3;
-  v6 = v4;
-  PKFloatRoundToPixel();
+  v5 = v3.n128_f64[0];
+  v6 = v4.n128_f64[0];
+  v3.n128_f64[0] = v4.n128_f64[0] * 0.5;
+  PKFloatRoundToPixel(v3, v4);
   v8 = v6 + v7 * 2.0;
   v9 = v5 + v7 * 2.0;
   result.height = v8;
@@ -268,9 +269,9 @@
 
 - (void)layoutSubviews
 {
-  v126.receiver = self;
-  v126.super_class = PKAddPassButton;
-  [(PKAddPassButton *)&v126 layoutSubviews];
+  v169.receiver = self;
+  v169.super_class = PKAddPassButton;
+  [(PKAddPassButton *)&v169 layoutSubviews];
   [(PKAddPassButton *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -288,221 +289,288 @@
   }
 
   [(PKShapeView *)self->_maskView setFrame:v4, v6, v8, v10];
-  v112 = v6;
+  v153 = v6;
   [(PKAddPassButton *)self _adjustVisibleLabelWithBounds:v4, v6, v8, v10];
   [(UILabel *)self->_singleLineLabel alpha];
   v14 = v13;
   [(PKAddPassButton *)self _intrinsicContentSizeForSingleLine:v13 > 0.0];
-  v16 = v15;
-  PKFloatRoundToPixel();
-  v18 = v17;
-  v19 = fmin(v10 / v16, 1.0);
-  memset(&v125, 0, sizeof(v125));
-  if (v19 == 1.0)
+  v16 = v15.n128_f64[0];
+  v17.n128_f64[0] = v15.n128_f64[0] * 0.25;
+  PKFloatRoundToPixel(v17, v15);
+  v24 = v23;
+  v25 = fmin(v10 / v16, 1.0);
+  memset(&v168, 0, sizeof(v168));
+  if (v25 == 1.0)
   {
-    v20 = *(MEMORY[0x1E69792E8] + 80);
-    *&v125.m31 = *(MEMORY[0x1E69792E8] + 64);
-    *&v125.m33 = v20;
-    v21 = *(MEMORY[0x1E69792E8] + 112);
-    *&v125.m41 = *(MEMORY[0x1E69792E8] + 96);
-    *&v125.m43 = v21;
-    v22 = *(MEMORY[0x1E69792E8] + 16);
-    *&v125.m11 = *MEMORY[0x1E69792E8];
-    *&v125.m13 = v22;
-    v23 = *(MEMORY[0x1E69792E8] + 48);
-    *&v125.m21 = *(MEMORY[0x1E69792E8] + 32);
-    *&v125.m23 = v23;
+    v28 = *(MEMORY[0x1E69792E8] + 80);
+    *&v168.m31 = *(MEMORY[0x1E69792E8] + 64);
+    *&v168.m33 = v28;
+    v29 = *(MEMORY[0x1E69792E8] + 112);
+    *&v168.m41 = *(MEMORY[0x1E69792E8] + 96);
+    *&v168.m43 = v29;
+    v30 = *(MEMORY[0x1E69792E8] + 16);
+    *&v168.m11 = *MEMORY[0x1E69792E8];
+    *&v168.m13 = v30;
+    v26 = *(MEMORY[0x1E69792E8] + 32);
+    v27 = *(MEMORY[0x1E69792E8] + 48);
+    *&v168.m21 = v26;
+    *&v168.m23 = v27;
   }
 
   else
   {
-    CATransform3DMakeScale(&v125, v19, v19, 1.0);
+    CATransform3DMakeScale(&v168, v25, v25, 1.0);
   }
 
-  v119 = v14;
-  width = self->_singleLineSize.width;
+  v162 = v14;
+  v18.n128_u64[0] = *&self->_iconSize.height;
+  v19.n128_u64[0] = *&self->_singleLineSize.width;
   left = self->_singleLineAlignmentInset.left;
+  height = self->_singleLineSize.height;
   top = self->_singleLineAlignmentInset.top;
   bottom = self->_singleLineAlignmentInset.bottom;
-  v103 = v19 * self->_iconSize.width;
+  v144 = v25 * self->_iconSize.width;
   amount = self->_singleLineAlignmentInset.right;
-  v25 = v19 * 8.0;
-  rect = v19 * self->_multiLineSize.width;
-  v26 = self->_multiLineAlignmentInset.top;
-  v27 = self->_multiLineAlignmentInset.left;
-  v28 = self->_multiLineAlignmentInset.bottom;
+  v31 = v25 * 8.0;
+  v27.n128_u64[0] = *&self->_multiLineSize.height;
+  rect = v25 * self->_multiLineSize.width;
+  v20.n128_u64[0] = *&self->_multiLineAlignmentInset.top;
+  v21.n128_u64[0] = *&self->_multiLineAlignmentInset.left;
+  v22.n128_u64[0] = *&self->_multiLineAlignmentInset.bottom;
   right = self->_multiLineAlignmentInset.right;
   if (v8 != self->_boundsSize.width || v10 != self->_boundsSize.height)
   {
     self->_boundsSize.width = v8;
     self->_boundsSize.height = v10;
-    v30 = MEMORY[0x1E69DC728];
-    v31 = v4;
-    v33 = *MEMORY[0x1E695EFF8];
-    v32 = *(MEMORY[0x1E695EFF8] + 8);
-    v115 = width;
-    v108 = v27;
-    v110 = v26;
-    v106 = v28;
-    v102 = right;
-    PKFloatRoundToPixel();
-    v35 = v34;
-    v36 = v33;
-    v4 = v31;
-    v37 = v32;
-    v25 = v19 * 8.0;
-    v38 = [v30 _bezierPathWithPillRect:v36 cornerRadius:{v37, v8, v10, v35}];
-    -[CAShapeLayer setPath:](self->_layer, "setPath:", [v38 CGPath]);
+    v33 = MEMORY[0x1E69DC728];
+    v34 = v4;
+    v36 = *MEMORY[0x1E695EFF8];
+    v35 = *(MEMORY[0x1E695EFF8] + 8);
+    v26.n128_f64[0] = v25 * 4.0;
+    v157 = v19.n128_u64[0];
+    v160 = v18.n128_u64[0];
+    v155 = v27.n128_u64[0];
+    v149 = v21.n128_u64[0];
+    v151 = v20.n128_u64[0];
+    v147 = v22.n128_u64[0];
+    v142 = right;
+    PKFloatRoundToPixel(v26, v27);
+    v38 = v37;
+    v39 = v36;
+    v4 = v34;
+    v40 = v35;
+    v31 = v25 * 8.0;
+    v41 = [v33 _bezierPathWithPillRect:v39 cornerRadius:{v40, v8, v10, v38}];
+    -[CAShapeLayer setPath:](self->_layer, "setPath:", [v41 CGPath]);
     shapeLayer = [(PKShapeView *)self->_maskView shapeLayer];
-    [shapeLayer setPath:{objc_msgSend(v38, "CGPath")}];
+    [shapeLayer setPath:{objc_msgSend(v41, "CGPath")}];
 
-    right = v102;
-    v28 = v106;
-    v27 = v108;
-    v26 = v110;
-    width = v115;
+    right = v142;
+    v22.n128_u64[0] = v147;
+    v21.n128_u64[0] = v149;
+    v20.n128_u64[0] = v151;
+    v27.n128_u64[0] = v155;
+    v19.n128_u64[0] = v157;
+    v18.n128_u64[0] = v160;
   }
 
-  v116 = v19 * v26;
-  v118 = v19 * width;
-  v114 = v19 * v27;
-  v92 = v19 * v28;
-  v91 = v19 * right;
+  v143 = v25 * v18.n128_f64[0];
+  v158 = v25 * v20.n128_f64[0];
+  v161 = v25 * v19.n128_f64[0];
+  v156 = v25 * v21.n128_f64[0];
+  v128 = v25 * v22.n128_f64[0];
+  v130 = v25 * v27.n128_f64[0];
+  v127 = v25 * right;
+  v27.n128_u64[1] = 0;
   memset(&slice, 0, sizeof(slice));
-  v40 = v4 + v18 * v19;
-  v41 = v112 + v18 * v19;
-  v42 = v18 * v19 + v18 * v19;
-  v43 = v8 - v42;
-  v44 = v10 - v42;
-  PKSizeAlignedInRect();
-  remainder = v127;
-  CGRectDivide(v127, &slice, &remainder, v103, v12);
-  v45 = 0.0;
-  v46 = 0.0;
-  v47 = 0.0;
-  v48 = 0.0;
-  if (v119 <= 0.0)
+  v43 = v4 + v24 * v25;
+  v44 = v153 + v24 * v25;
+  v45 = v24 * v25 + v24 * v25;
+  v46 = v8 - v45;
+  v47 = v10 - v45;
+  v132 = v31 + v144;
+  v26.n128_f64[0] = v31 + v144 + rect;
+  v18.n128_f64[0] = v43 - (v26.n128_f64[0] - v46);
+  if (v46 >= v26.n128_f64[0])
   {
-    PKSizeAlignedInRect();
-  }
-
-  v107 = v46;
-  v109 = v48;
-  v111 = v47;
-  v113 = v45;
-  v100 = v19 * left;
-  v101 = v19 * top;
-  v98 = v19 * bottom;
-  v96 = v19 * amount;
-  amounta = v25;
-  CGRectDivide(remainder, &slice, &remainder, v25, v12);
-  CGRectDivide(remainder, &slice, &remainder, rect, v12);
-  v49 = v116 + v92;
-  PKSizeAlignedInRect();
-  v93 = v51;
-  v94 = v50;
-  v53 = v52;
-  recta = v114 + v91 + v54;
-  remainder.origin.x = v40;
-  remainder.origin.y = v41;
-  remainder.size.width = v43;
-  remainder.size.height = v44;
-  PKSizeAlignedInRect();
-  remainder = v128;
-  CGRectDivide(v128, &slice, &remainder, v103, v12);
-  if (v119 > 0.0)
-  {
-    PKSizeAlignedInRect();
-    v109 = v55;
-    v111 = v56;
-    v107 = v57;
-    v113 = v58;
-  }
-
-  v117 = v93 - v116;
-  v59 = v49 + v53;
-  CGRectDivide(remainder, &slice, &remainder, amounta, v12);
-  CGRectDivide(remainder, &slice, &remainder, v118, v12);
-  PKSizeAlignedInRect();
-  v64 = v60 - v100;
-  v65 = v61 - v101;
-  v66 = v100 + v96 + v62;
-  v67 = v101 + v98 + v63;
-  if (v119 <= 0.0)
-  {
-    v68 = v100 + v96 + v62;
+    v20.n128_f64[0] = v46;
   }
 
   else
   {
-    v68 = recta;
+    v20.n128_f64[0] = v46 + v26.n128_f64[0] - v46;
   }
 
-  v69 = v60 - v100;
-  v70 = v61 - v101;
-  v71 = v100 + v96 + v62;
-  v72 = v101 + v98 + v63;
-  if (v119 <= 0.0)
+  if (((v46 < v26.n128_f64[0]) & _shouldReverseLayoutDirection) == 0)
   {
-    v69 = v94 - v114;
-    v70 = v117;
-    v71 = recta;
-    v72 = v59;
+    v18.n128_f64[0] = v43;
+  }
+
+  v48 = *MEMORY[0x1E69BB7F8];
+  v27.n128_f64[0] = v47;
+  v19.n128_f64[0] = v153 + v24 * v25;
+  v21.n128_f64[0] = v47;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v26, v27, v18, v19, v20, v21, v22);
+  remainder = v170;
+  CGRectDivide(v170, &slice, &remainder, v144, v12);
+  v52.n128_u64[0] = 0;
+  v53.n128_u64[0] = 0;
+  v54.n128_u64[0] = 0;
+  v55.n128_u64[0] = 0;
+  if (v162 <= 0.0)
+  {
+    v53.n128_u64[0] = *&slice.origin.x;
+    v52.n128_u64[0] = *&slice.origin.y;
+    v49.n128_u64[0] = *&slice.size.width;
+    v50.n128_u64[0] = *&slice.size.height;
+    v55.n128_f64[0] = v144;
+    v54.n128_f64[0] = v143;
+    PKSizeAlignedInRect(v48, v55, v54, v53, v52, v49, v50, v51);
+  }
+
+  v148 = v53.n128_f64[0];
+  v150 = v55.n128_f64[0];
+  v152 = v54.n128_f64[0];
+  v154 = v52.n128_f64[0];
+  v56 = v25 * height;
+  v139 = v25 * left;
+  v141 = v25 * top;
+  v137 = v25 * bottom;
+  v133 = v56;
+  v135 = v25 * amount;
+  amounta = v31;
+  CGRectDivide(remainder, &slice, &remainder, v31, v12);
+  CGRectDivide(remainder, &slice, &remainder, rect, v12);
+  v57.n128_f64[0] = rect - (v156 + v127);
+  v58 = v158 + v128;
+  v59.n128_f64[0] = v130 - (v158 + v128);
+  v60.n128_u64[0] = *&slice.origin.x;
+  v61.n128_u64[0] = *&slice.origin.y;
+  v62.n128_u64[0] = *&slice.size.width;
+  v63.n128_u64[0] = *&slice.size.height;
+  PKSizeAlignedInRect(v48, v57, v59, v60, v61, v62, v63, v64);
+  v129 = v66;
+  v131 = v65;
+  v68 = v67;
+  recta = v156 + v127 + v69;
+  remainder.origin.x = v43;
+  remainder.origin.y = v44;
+  remainder.size.width = v46;
+  remainder.size.height = v47;
+  v70.n128_f64[0] = v132 + v161;
+  v71.n128_f64[0] = v47;
+  v72.n128_f64[0] = v43;
+  v73.n128_f64[0] = v44;
+  v74.n128_f64[0] = v46;
+  v75.n128_f64[0] = v47;
+  PKSizeAlignedInRect(v48, v70, v71, v72, v73, v74, v75, v76);
+  remainder = v171;
+  CGRectDivide(v171, &slice, &remainder, v144, v12);
+  if (v162 > 0.0)
+  {
+    v79.n128_u64[0] = *&slice.origin.x;
+    v80.n128_u64[0] = *&slice.origin.y;
+    v81.n128_u64[0] = *&slice.size.width;
+    v82.n128_u64[0] = *&slice.size.height;
+    v77.n128_f64[0] = v144;
+    v78.n128_f64[0] = v143;
+    PKSizeAlignedInRect(v48, v77, v78, v79, v80, v81, v82, v83);
+    v150 = v84;
+    v152 = v85;
+    v148 = v86;
+    v154 = v87;
+  }
+
+  v159 = v129 - v158;
+  v88 = v58 + v68;
+  CGRectDivide(remainder, &slice, &remainder, amounta, v12);
+  CGRectDivide(remainder, &slice, &remainder, v161, v12);
+  v89.n128_f64[0] = v161 - (v139 + v135);
+  v90.n128_f64[0] = v133 - (v141 + v137);
+  v91.n128_u64[0] = *&slice.origin.x;
+  v92.n128_u64[0] = *&slice.origin.y;
+  v93.n128_u64[0] = *&slice.size.width;
+  v94.n128_u64[0] = *&slice.size.height;
+  PKSizeAlignedInRect(v48, v89, v90, v91, v92, v93, v94, v95);
+  v100 = v96 - v139;
+  v101 = v97 - v141;
+  v102 = v139 + v135 + v98;
+  v103 = v141 + v137 + v99;
+  if (v162 <= 0.0)
+  {
+    v104 = v139 + v135 + v98;
+  }
+
+  else
+  {
+    v104 = recta;
+  }
+
+  v105 = v96 - v139;
+  v106 = v97 - v141;
+  v107 = v139 + v135 + v98;
+  v108 = v141 + v137 + v99;
+  if (v162 <= 0.0)
+  {
+    v105 = v131 - v156;
+    v106 = v159;
+    v107 = recta;
+    v108 = v88;
   }
 
   if (_shouldReverseLayoutDirection)
   {
-    MinX = CGRectGetMaxX(*&v69) - v68;
+    MinX = CGRectGetMaxX(*&v105) - v104;
   }
 
   else
   {
-    MinX = CGRectGetMinX(*&v69);
+    MinX = CGRectGetMinX(*&v105);
   }
 
-  if (v119 <= 0.0)
+  if (v162 <= 0.0)
   {
-    v74 = v94 - v114;
-  }
-
-  else
-  {
-    v74 = MinX;
-  }
-
-  if (v119 <= 0.0)
-  {
-    v75 = MinX;
+    v110 = v131 - v156;
   }
 
   else
   {
-    v75 = v64;
+    v110 = MinX;
+  }
+
+  if (v162 <= 0.0)
+  {
+    v111 = MinX;
+  }
+
+  else
+  {
+    v111 = v100;
   }
 
   layer = [(UIImageView *)self->_iconView layer];
   [layer anchorPoint];
-  v78 = v77;
-  v80 = v79;
-  v122 = v125;
-  [layer setTransform:&v122];
-  [layer setPosition:{v109 + v78 * v107, v111 + v80 * v113}];
+  v114 = v113;
+  v116 = v115;
+  v165 = v168;
+  [layer setTransform:&v165];
+  [layer setPosition:{v150 + v114 * v148, v152 + v116 * v154}];
   layer2 = [(UILabel *)self->_multiLineLabel layer];
 
   [layer2 anchorPoint];
-  v83 = v82;
-  v85 = v84;
-  v122 = v125;
-  [layer2 setTransform:&v122];
-  [layer2 setPosition:{v74 + v83 * recta, v117 + v85 * v59}];
+  v119 = v118;
+  v121 = v120;
+  v165 = v168;
+  [layer2 setTransform:&v165];
+  [layer2 setPosition:{v110 + v119 * recta, v159 + v121 * v88}];
   layer3 = [(UILabel *)self->_singleLineLabel layer];
 
   [layer3 anchorPoint];
-  v88 = v87;
-  v90 = v89;
-  v122 = v125;
-  [layer3 setTransform:&v122];
-  [layer3 setPosition:{v75 + v88 * v66, v65 + v90 * v67}];
+  v124 = v123;
+  v126 = v125;
+  v165 = v168;
+  [layer3 setTransform:&v165];
+  [layer3 setPosition:{v111 + v124 * v102, v101 + v126 * v103}];
 }
 
 - (void)_adjustVisibleLabelWithBounds:(CGRect)bounds

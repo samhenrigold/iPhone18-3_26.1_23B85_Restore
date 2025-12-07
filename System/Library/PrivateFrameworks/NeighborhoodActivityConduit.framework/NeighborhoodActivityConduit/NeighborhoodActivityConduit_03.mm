@@ -1,818 +1,3 @@
-unint64_t lazy protocol witness table accessor for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action()
-{
-  result = lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action;
-  if (!lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action;
-  if (!lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action;
-  if (!lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action;
-  if (!lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType()
-{
-  result = lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType;
-  if (!lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType;
-  if (!lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType;
-  if (!lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType;
-  if (!lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode()
-{
-  result = lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode;
-  if (!lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode;
-  if (!lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode;
-  if (!lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode;
-  if (!lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode);
-  }
-
-  return result;
-}
-
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
-{
-  result = *a1;
-  if (!result)
-  {
-    v4 = *a2;
-    result = swift_getTypeByMangledNameInContextInMetadataState2();
-    *a1 = result;
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type NCProtoConversationState and conformance NCProtoConversationState()
-{
-  result = lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState;
-  if (!lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState;
-  if (!lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState;
-  if (!lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState;
-  if (!lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState()
-{
-  result = lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState;
-  if (!lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState;
-  if (!lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState;
-  if (!lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState;
-  if (!lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status()
-{
-  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status;
-  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status;
-  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status;
-  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status;
-  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service()
-{
-  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service;
-  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service;
-  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service;
-  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service;
-  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason()
-{
-  result = lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason;
-  if (!lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason;
-  if (!lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason;
-  if (!lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason;
-  if (!lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType()
-{
-  result = lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType;
-  if (!lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType;
-  if (!lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType;
-  if (!lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType;
-  if (!lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType()
-{
-  result = lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType;
-  if (!lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType;
-  if (!lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType;
-  if (!lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType;
-  if (!lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason()
-{
-  result = lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason;
-  if (!lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason;
-  if (!lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason;
-  if (!lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason;
-  if (!lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason);
-  }
-
-  return result;
-}
-
-uint64_t lazy protocol witness table accessor for type [NCProtoConversationAVMode] and conformance [A](unint64_t *a1, uint64_t *a2, uint64_t *a3)
-{
-  result = *a1;
-  if (!result)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t __swift_memcpy9_8(uint64_t result, uint64_t *a2)
-{
-  v2 = *a2;
-  *(result + 8) = *(a2 + 8);
-  *result = v2;
-  return result;
-}
-
-void type metadata completion function for NCProtoContactInfo()
-{
-  type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
-    {
-      swift_cvw_initStructMetadataWithLayoutString();
-    }
-  }
-}
-
-uint64_t type metadata completion function for NCProtoContactHandleAnonym()
-{
-  result = type metadata accessor for UnknownStorage();
-  if (v1 <= 0x3F)
-  {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
-  }
-
-  return result;
-}
-
-void type metadata completion function for NCProtoContinuityFavorite()
-{
-  type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoContactInfo?, type metadata accessor for NCProtoContactInfo, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoContactHandleAnonym?, type metadata accessor for NCProtoContactHandleAnonym, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
-      {
-        swift_cvw_initStructMetadataWithLayoutString();
-      }
-    }
-  }
-}
-
-void type metadata accessor for NCProtoContactInfo?(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*a4)(uint64_t, uint64_t))
-{
-  if (!*a2)
-  {
-    v7 = a3(255);
-    v8 = a4(a1, v7);
-    if (!v9)
-    {
-      atomic_store(v8, a2);
-    }
-  }
-}
-
-void type metadata completion function for NCProtoAddressableContact()
-{
-  type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for [NCProtoContactHandleAnonym], type metadata accessor for NCProtoContactHandleAnonym, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for UnknownStorage();
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoContactInfo?, type metadata accessor for NCProtoContactInfo, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
-      {
-        swift_cvw_initStructMetadataWithLayoutString();
-      }
-    }
-  }
-}
-
-void type metadata completion function for NCProtoActiveConversation()
-{
-  type metadata accessor for String?(319, &lazy cache variable for type metadata for [String], MEMORY[0x277D837D0], MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for UnknownStorage();
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
-      {
-        type metadata accessor for String?(319, &lazy cache variable for type metadata for NCProtoConversationAVMode?, &type metadata for NCProtoConversationAVMode, MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
-        {
-          type metadata accessor for String?(319, &lazy cache variable for type metadata for UInt64?, MEMORY[0x277D84D38], MEMORY[0x277D83D88]);
-          if (v4 <= 0x3F)
-          {
-            type metadata accessor for String?(319, &lazy cache variable for type metadata for NCProtoConversationState?, &type metadata for NCProtoConversationState, MEMORY[0x277D83D88]);
-            if (v5 <= 0x3F)
-            {
-              type metadata accessor for String?(319, &lazy cache variable for type metadata for NCProtoConversationLetMeInRequestState?, &type metadata for NCProtoConversationLetMeInRequestState, MEMORY[0x277D83D88]);
-              if (v6 <= 0x3F)
-              {
-                type metadata accessor for String?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
-                if (v7 <= 0x3F)
-                {
-                  swift_cvw_initStructMetadataWithLayoutString();
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-uint64_t type metadata completion function for NCProtoContinuityCall()
-{
-  result = type metadata accessor for UnknownStorage();
-  if (v1 <= 0x3F)
-  {
-    result = type metadata accessor for NCProtoContinuityCall._StorageClass(319);
-    if (v2 <= 0x3F)
-    {
-      swift_cvw_initStructMetadataWithLayoutString();
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-void type metadata completion function for NCProtoStartedSessionEvent()
-{
-  type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoMemberAssociationPrimaryInfo?, type metadata accessor for NCProtoMemberAssociationPrimaryInfo, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for String?(319, &lazy cache variable for type metadata for NCProtoConversationAVMode?, &type metadata for NCProtoConversationAVMode, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
-      {
-        type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
-        {
-          swift_cvw_initStructMetadataWithLayoutString();
-        }
-      }
-    }
-  }
-}
-
-uint64_t type metadata completion function for NCProtoPendingConversationDisconnectedEvent()
-{
-  return type metadata completion function for NCProtoPendingConversationDisconnectedEvent();
-}
-
-{
-  result = type metadata accessor for UnknownStorage();
-  if (v1 <= 0x3F)
-  {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
-  }
-
-  return result;
-}
-
-uint64_t type metadata completion function for NCProtoAddMemberResponse(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t))
-{
-  result = a6(319, a4, a5);
-  if (v7 <= 0x3F)
-  {
-    result = type metadata accessor for UnknownStorage();
-    if (v8 <= 0x3F)
-    {
-      swift_cvw_initStructMetadataWithLayoutString();
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-void type metadata completion function for NCProtoRecentCallsDidChangeEvent()
-{
-  type metadata accessor for String?(319, &lazy cache variable for type metadata for [Data], MEMORY[0x277CC9318], MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for [String : NCProtoContactInfo](319, &lazy cache variable for type metadata for [String : NCProtoContactInfo], type metadata accessor for NCProtoContactInfo);
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for [String : NCProtoContactInfo](319, &lazy cache variable for type metadata for [String : NCProtoCallInfo], type metadata accessor for NCProtoCallInfo);
-      if (v2 <= 0x3F)
-      {
-        type metadata accessor for UnknownStorage();
-        if (v3 <= 0x3F)
-        {
-          swift_cvw_initStructMetadataWithLayoutString();
-        }
-      }
-    }
-  }
-}
-
-uint64_t type metadata completion function for NCProtoSuggestionAdvertisement()
-{
-  return type metadata completion function for NCProtoSuggestionAdvertisement();
-}
-
-{
-  result = type metadata accessor for UnknownStorage();
-  if (v1 <= 0x3F)
-  {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
-  }
-
-  return result;
-}
-
-void type metadata completion function for NCProtoLagunaConnectionRequest()
-{
-  type metadata accessor for String?(319, &lazy cache variable for type metadata for [Data], MEMORY[0x277CC9318], MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for [String : NCProtoContactInfo](319, &lazy cache variable for type metadata for [String : NCProtoContactInfo], type metadata accessor for NCProtoContactInfo);
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for [NCProtoActiveConversation], type metadata accessor for NCProtoActiveConversation, MEMORY[0x277D83940]);
-      if (v2 <= 0x3F)
-      {
-        type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for [NCProtoContinuityFavorite], type metadata accessor for NCProtoContinuityFavorite, MEMORY[0x277D83940]);
-        if (v3 <= 0x3F)
-        {
-          type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for [NCProtoContinuityCall], type metadata accessor for NCProtoContinuityCall, MEMORY[0x277D83940]);
-          if (v4 <= 0x3F)
-          {
-            type metadata accessor for [String : NCProtoContactInfo](319, &lazy cache variable for type metadata for [String : NCProtoCallInfo], type metadata accessor for NCProtoCallInfo);
-            if (v5 <= 0x3F)
-            {
-              type metadata accessor for UnknownStorage();
-              if (v6 <= 0x3F)
-              {
-                type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoCallState?, type metadata accessor for NCProtoCallState, MEMORY[0x277D83D88]);
-                if (v7 <= 0x3F)
-                {
-                  swift_cvw_initStructMetadataWithLayoutString();
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-void type metadata completion function for NCProtoNearbyCallStatusChangedEvent()
-{
-  type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for [NCProtoContinuityCall], type metadata accessor for NCProtoContinuityCall, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for String?(319, &lazy cache variable for type metadata for [String], MEMORY[0x277D837D0], MEMORY[0x277D83940]);
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for UnknownStorage();
-      if (v2 <= 0x3F)
-      {
-        type metadata accessor for String?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
-        {
-          swift_cvw_initStructMetadataWithLayoutString();
-        }
-      }
-    }
-  }
-}
-
-void type metadata completion function for NCProtoBlockedListUpdateEvent()
-{
-  type metadata accessor for [String : Bool](319, &lazy cache variable for type metadata for [String : Bool]);
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for UnknownStorage();
-    if (v1 <= 0x3F)
-    {
-      swift_cvw_initStructMetadataWithLayoutString();
-    }
-  }
-}
-
 uint64_t __swift_get_extra_inhabitant_index_235Tm(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
@@ -856,13 +41,13 @@ uint64_t __swift_store_extra_inhabitant_index_236Tm(uint64_t result, uint64_t a2
   return result;
 }
 
-void type metadata completion function for NCProtoAddMemberRequest()
+void type metadata completion function for NCProtoAddMemberRequest(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for String?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -925,13 +110,13 @@ void type metadata completion function for NCProtoDeviceTokenResponse(uint64_t a
   }
 }
 
-void type metadata completion function for NCProtoTransferActiveConversationRequest()
+void type metadata completion function for NCProtoTransferActiveConversationRequest(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -951,25 +136,37 @@ void type metadata completion function for NCProtoIDSProxyMessage.ParticipantIDL
   }
 }
 
-void type metadata completion function for NCProtoCallInfo()
+uint64_t type metadata completion function for NCProtoPendingConversationDisconnectedEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for [String : Bool](319, &lazy cache variable for type metadata for [String : String]);
-  if (v0 <= 0x3F)
+  result = type metadata accessor for UnknownStorage();
+  if (v5 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+void type metadata completion function for NCProtoCallInfo(uint64_t a1)
+{
+  type metadata accessor for [String : Bool](319, &lazy cache variable for type metadata for [String : String], MEMORY[0x277D837D0]);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UnknownStorage();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoSenderIdentity?, type metadata accessor for NCProtoSenderIdentity, MEMORY[0x277D83D88]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             type metadata accessor for String?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -980,16 +177,16 @@ void type metadata completion function for NCProtoCallInfo()
   }
 }
 
-void type metadata completion function for NCProtoUpdateBlockedStateRequest()
+void type metadata completion function for NCProtoUpdateBlockedStateRequest(uint64_t a1)
 {
   type metadata accessor for String?(319, &lazy cache variable for type metadata for [Data], MEMORY[0x277CC9318], MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UnknownStorage();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoSpamCallModelInfo?, type metadata accessor for NCProtoSpamCallModelInfo, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -1010,41 +207,41 @@ void type metadata completion function for NCProtoPrepareTransferRequest(uint64_
   }
 }
 
-void type metadata completion function for NCProtoSpamCallModelInfo()
+void type metadata completion function for NCProtoSpamCallModelInfo(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for String?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void type metadata completion function for NCProtoStartLagunaSessionResponse()
+void type metadata completion function for NCProtoStartLagunaSessionResponse(uint64_t a1)
 {
   type metadata accessor for String?(319, &lazy cache variable for type metadata for [Data], MEMORY[0x277CC9318], MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for [String : NCProtoContactInfo](319, &lazy cache variable for type metadata for [String : NCProtoContactInfo], type metadata accessor for NCProtoContactInfo);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for [NCProtoActiveConversation], type metadata accessor for NCProtoActiveConversation, MEMORY[0x277D83940]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for [NCProtoContinuityFavorite], type metadata accessor for NCProtoContinuityFavorite, MEMORY[0x277D83940]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for [NCProtoContinuityCall], type metadata accessor for NCProtoContinuityCall, MEMORY[0x277D83940]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             type metadata accessor for [String : NCProtoContactInfo](319, &lazy cache variable for type metadata for [String : NCProtoCallInfo], type metadata accessor for NCProtoCallInfo);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               type metadata accessor for UnknownStorage();
-              if (v6 <= 0x3F)
+              if (v7 <= 0x3F)
               {
                 swift_cvw_initStructMetadataWithLayoutString();
               }
@@ -1056,16 +253,16 @@ void type metadata completion function for NCProtoStartLagunaSessionResponse()
   }
 }
 
-void type metadata completion function for NCProtoJoinActiveConversationRequest()
+void type metadata completion function for NCProtoJoinActiveConversationRequest(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -1073,16 +270,16 @@ void type metadata completion function for NCProtoJoinActiveConversationRequest(
   }
 }
 
-void type metadata completion function for NCProtoGetAddressableContactsResponse()
+void type metadata completion function for NCProtoGetAddressableContactsResponse(uint64_t a1)
 {
   type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for [NCProtoAddressableContact], type metadata accessor for NCProtoAddressableContact, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UnknownStorage();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for String?(319, &lazy cache variable for type metadata for Int64?, MEMORY[0x277D84A28], MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -1133,29 +330,29 @@ uint64_t __swift_store_extra_inhabitant_index_173Tm(uint64_t result, uint64_t a2
   return result;
 }
 
-void type metadata completion function for NCProtoGetImageForContactRequest()
+void type metadata completion function for NCProtoGetImageForContactRequest(uint64_t a1)
 {
   type metadata accessor for String?(319, &lazy cache variable for type metadata for [NCProtoContactImageType], &type metadata for NCProtoContactImageType, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UnknownStorage();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void type metadata completion function for NCProtoGetImageForContactResponse()
+void type metadata completion function for NCProtoGetImageForContactResponse(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for String?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for String?(319, &lazy cache variable for type metadata for NCProtoContactImageType?, &type metadata for NCProtoContactImageType, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -1163,29 +360,41 @@ void type metadata completion function for NCProtoGetImageForContactResponse()
   }
 }
 
-void type metadata completion function for NCProtoIncomingCallBannerActionRequest()
+uint64_t type metadata completion function for NCProtoSuggestionAdvertisement(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  result = type metadata accessor for UnknownStorage();
+  if (v6 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+void type metadata completion function for NCProtoIncomingCallBannerActionRequest(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void type metadata completion function for NCProtoCallState()
+void type metadata completion function for NCProtoCallState(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for String?(319, &lazy cache variable for type metadata for NCProtoConversationAVMode?, &type metadata for NCProtoConversationAVMode, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -1248,22 +457,22 @@ void type metadata completion function for NCProtoSuggestionAdvertisementDidChan
   }
 }
 
-void type metadata completion function for NCProtoDeviceTokenRequest()
+void type metadata completion function for NCProtoDeviceTokenRequest(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoMemberAssociationPrimaryInfo?, type metadata accessor for NCProtoMemberAssociationPrimaryInfo, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoCallState?, type metadata accessor for NCProtoCallState, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for String?(319, &lazy cache variable for type metadata for NCProtoDeviceTokenRequest.ConversationHandoffType?, &type metadata for NCProtoDeviceTokenRequest.ConversationHandoffType, MEMORY[0x277D83D88]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -1273,16 +482,16 @@ void type metadata completion function for NCProtoDeviceTokenRequest()
   }
 }
 
-void type metadata completion function for NCProtoDisconnectRequest()
+void type metadata completion function for NCProtoDisconnectRequest(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for String?(319, &lazy cache variable for type metadata for NCProtoDisconnectRequest.DisconnectReason?, &type metadata for NCProtoDisconnectRequest.DisconnectReason, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -1381,10 +590,10 @@ uint64_t __swift_store_extra_inhabitant_index_164Tm(uint64_t result, uint64_t a2
   return result;
 }
 
-uint64_t type metadata completion function for NCProtoEndedSessionEvent()
+uint64_t type metadata completion function for NCProtoEndedSessionEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for UnknownStorage();
-  if (v1 <= 0x3F)
+  if (v5 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -1409,10 +618,10 @@ uint64_t __swift_store_extra_inhabitant_index_269Tm(uint64_t a1, uint64_t a2)
   return v5(a1, a2, a2, v4);
 }
 
-uint64_t type metadata completion function for NCProtoLagunaConnectionResponse()
+uint64_t type metadata completion function for NCProtoLagunaConnectionResponse(uint64_t a1)
 {
   result = type metadata accessor for UnknownStorage();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -1421,22 +630,22 @@ uint64_t type metadata completion function for NCProtoLagunaConnectionResponse()
   return result;
 }
 
-void type metadata completion function for NCProtoMemberAssociationPrimaryInfo()
+void type metadata completion function for NCProtoMemberAssociationPrimaryInfo(uint64_t a1)
 {
   type metadata accessor for String?(319, &lazy cache variable for type metadata for [NCProtoMemberAssociationPrimaryInfo.MemberAssociationType], &type metadata for NCProtoMemberAssociationPrimaryInfo.MemberAssociationType, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UnknownStorage();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for String?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for String?(319, &lazy cache variable for type metadata for UInt64?, MEMORY[0x277D84D38], MEMORY[0x277D83D88]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -1459,16 +668,16 @@ void type metadata completion function for NCProtoFavoritesDidChangeEvent(uint64
   }
 }
 
-uint64_t type metadata completion function for NCProtoIDSProxyMessage.OneOf_Message()
+uint64_t type metadata completion function for NCProtoIDSProxyMessage.OneOf_Message(uint64_t a1)
 {
   result = type metadata accessor for NCProtoIDSProxyMessage.RawData(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = type metadata accessor for NCProtoIDSProxyMessage.Resource(319);
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
         return 0;
@@ -1495,29 +704,29 @@ uint64_t type metadata completion function for NCProtoJoinEvent(uint64_t a1, uin
   return result;
 }
 
-void type metadata completion function for NCProtoIDSProxyMessage.Resource()
+void type metadata completion function for NCProtoIDSProxyMessage.Resource(uint64_t a1)
 {
   type metadata accessor for [String : NCProtoContactInfo](319, &lazy cache variable for type metadata for [String : Google_Protobuf_Value], MEMORY[0x277D215F0]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UnknownStorage();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void type metadata completion function for NCProtoIDSProxyMessage.GroupUpdate()
+void type metadata completion function for NCProtoIDSProxyMessage.GroupUpdate(uint64_t a1)
 {
   type metadata accessor for String?(319, &lazy cache variable for type metadata for [String], MEMORY[0x277D837D0], MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for [String : NCProtoContactInfo](319, &lazy cache variable for type metadata for [String : NCProtoIDSProxyMessage.ParticipantIDList], type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for UnknownStorage();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -1525,7 +734,7 @@ void type metadata completion function for NCProtoIDSProxyMessage.GroupUpdate()
   }
 }
 
-uint64_t __swift_get_extra_inhabitant_index_124Tm(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t __swift_get_extra_inhabitant_index_124Tm(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -1580,26 +789,22 @@ void type metadata accessor for String?(uint64_t a1, unint64_t *a2, uint64_t a3,
   }
 }
 
-void type metadata completion function for NCProtoContinuityCall._StorageClass()
+void type metadata completion function for NCProtoContinuityCall._StorageClass(uint64_t a1)
 {
   type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoCallInfo?, type metadata accessor for NCProtoCallInfo, MEMORY[0x277D83D88]);
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -1624,6 +829,18 @@ uint64_t outlined init with copy of NCProtoContactInfo?(uint64_t a1, uint64_t a2
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
   (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
+}
+
+NeighborhoodActivityConduit::IncomingHandoffContext __swiftcall IncomingHandoffContext.init(isAudioEnabled:isVideoEnabled:callType:isCaptioningEnabled:skipPreviewBulletin:)(Swift::Bool isAudioEnabled, Swift::Bool isVideoEnabled, NeighborhoodActivityConduit::CallType callType, Swift::Bool isCaptioningEnabled, Swift::Bool skipPreviewBulletin)
+{
+  v6 = *callType;
+  *v5 = isAudioEnabled;
+  v5[1] = isVideoEnabled;
+  v5[2] = v6;
+  v5[3] = isCaptioningEnabled;
+  v5[4] = skipPreviewBulletin;
+  result.isAudioEnabled = isAudioEnabled;
+  return result;
 }
 
 uint64_t IncomingHandoffContext.description.getter()
@@ -1745,24 +962,17 @@ uint64_t IncomingHandoffContext.description.getter()
 
 uint64_t IncomingHandoffContext.queryItem.getter()
 {
-  v8 = *v0;
-  v9 = v0[1];
-  v10 = v0[2];
-  v11 = v0[3];
-  v12 = v0[4];
-  v1 = type metadata accessor for JSONEncoder();
-  v2 = *(v1 + 48);
-  v3 = *(v1 + 52);
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
   lazy protocol witness table accessor for type IncomingHandoffContext and conformance IncomingHandoffContext();
-  v4 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  v6 = v5;
-  outlined copy of Data._Representation(v4, v5);
+  v0 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v2 = v1;
+  outlined copy of Data._Representation(v0, v1);
   Data.base64EncodedString(options:)(0);
-  outlined consume of Data._Representation(v4, v6);
+  outlined consume of Data._Representation(v0, v2);
 
-  outlined consume of Data._Representation(v4, v6);
+  outlined consume of Data._Representation(v0, v2);
   URLQueryItem.init(name:value:)();
 }
 
@@ -1791,10 +1001,10 @@ unint64_t protocol witness for CodingKey.stringValue.getter in conformance Incom
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance IncomingHandoffContext.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance IncomingHandoffContext.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized IncomingHandoffContext.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized IncomingHandoffContext.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -1816,88 +1026,75 @@ uint64_t IncomingHandoffContext.encode(to:)(void *a1)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit22IncomingHandoffContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit22IncomingHandoffContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = v15 - v7;
-  v9 = *v1;
-  v10 = v1[1];
-  v16 = v1[2];
-  v17 = v10;
-  v11 = v1[3];
-  v15[0] = v1[4];
-  v15[1] = v11;
-  v12 = a1[4];
+  v7 = v12 - v6;
+  v8 = v1[1];
+  v13 = v1[2];
+  v14 = v8;
+  v9 = v1[3];
+  v12[0] = v1[4];
+  v12[1] = v9;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type IncomingHandoffContext.CodingKeys and conformance IncomingHandoffContext.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v23 = 0;
+  v20 = 0;
   KeyedEncodingContainer.encode(_:forKey:)();
   if (!v2)
   {
-    v14 = v16;
-    v22 = 1;
+    v11 = v13;
+    v19 = 1;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v21 = v14;
-    v20 = 2;
+    v18 = v11;
+    v17 = 2;
     lazy protocol witness table accessor for type CallType and conformance CallType();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v19 = 3;
+    v16 = 3;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v18 = 4;
+    v15 = 4;
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  return (*(v5 + 8))(v8, v4);
+  return (*(v5 + 8))(v7, v4);
 }
 
-uint64_t IncomingHandoffContext.init(from:)@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t IncomingHandoffContext.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit22IncomingHandoffContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit22IncomingHandoffContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v18 - v8;
-  v10 = a1[4];
+  v8 = &v16 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type IncomingHandoffContext.CodingKeys and conformance IncomingHandoffContext.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v2)
   {
-    v27 = 0;
-    v11 = KeyedDecodingContainer.decode(_:forKey:)();
-    v26 = 1;
-    v21 = KeyedDecodingContainer.decode(_:forKey:)();
-    v24 = 2;
+    v25 = 0;
+    v9 = KeyedDecodingContainer.decode(_:forKey:)();
+    v24 = 1;
+    v19 = KeyedDecodingContainer.decode(_:forKey:)();
+    v22 = 2;
     lazy protocol witness table accessor for type CallType and conformance CallType();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v12 = v25;
-    v23 = 3;
+    v10 = v23;
+    v21 = 3;
+    v11 = KeyedDecodingContainer.decode(_:forKey:)();
+    v17 = v10;
+    v18 = v11;
+    v20 = 4;
     v13 = KeyedDecodingContainer.decode(_:forKey:)();
-    v19 = v12;
-    v20 = v13;
-    v22 = 4;
-    v15 = KeyedDecodingContainer.decode(_:forKey:)();
-    v18 = v11 & 1;
-    LOBYTE(v12) = v21 & 1;
-    v16 = v20 & 1;
-    (*(v6 + 8))(v9, v5);
-    v17 = v19;
-    *a2 = v18;
-    a2[1] = v12;
-    a2[2] = v17;
-    a2[3] = v16;
-    a2[4] = v15 & 1;
+    v16 = v9 & 1;
+    LOBYTE(v10) = v19 & 1;
+    v14 = v18 & 1;
+    (*(v6 + 8))(v8, v5);
+    v15 = v17;
+    *a2 = v16;
+    a2[1] = v10;
+    a2[2] = v15;
+    a2[3] = v14;
+    a2[4] = v13 & 1;
   }
 
   return __swift_destroy_boxed_opaque_existential_1(a1);
-}
-
-uint64_t JoinFailureContext.nacErrorCode.getter()
-{
-  v1 = (v0 + *(type metadata accessor for JoinFailureContext(0) + 20));
-  result = *v1;
-  v3 = *(v1 + 8);
-  return result;
 }
 
 uint64_t JoinFailureContext.init(conversationUUID:nacErrorCode:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X8>)
@@ -1916,17 +1113,15 @@ uint64_t JoinFailureContext.description.getter()
   _StringGuts.grow(_:)(56);
   MEMORY[0x22AA66730](0xD000000000000025, 0x80000002255E13A0);
   type metadata accessor for UUID();
-  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-  v1 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x22AA66730](v1);
+  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9628]);
+  v0 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x22AA66730](v0);
 
   MEMORY[0x22AA66730](0x6F72724563616E20, 0xEE003D65646F4372);
-  v2 = (v0 + *(type metadata accessor for JoinFailureContext(0) + 20));
-  v5 = *v2;
-  v6 = *(v2 + 8);
+  type metadata accessor for JoinFailureContext(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSiSgMd, &_sSiSgMR);
-  v3 = String.init<A>(describing:)();
-  MEMORY[0x22AA66730](v3);
+  v1 = String.init<A>(describing:)();
+  MEMORY[0x22AA66730](v1);
 
   MEMORY[0x22AA66730](62, 0xE100000000000000);
   return 0;
@@ -1934,20 +1129,18 @@ uint64_t JoinFailureContext.description.getter()
 
 uint64_t JoinFailureContext.queryItem.getter()
 {
-  v0 = type metadata accessor for JSONEncoder();
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
   type metadata accessor for JoinFailureContext(0);
-  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinFailureContext and conformance JoinFailureContext, type metadata accessor for JoinFailureContext);
-  v3 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  v5 = v4;
-  outlined copy of Data._Representation(v3, v4);
+  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinFailureContext and conformance JoinFailureContext, type metadata accessor for JoinFailureContext, &protocol conformance descriptor for JoinFailureContext);
+  v0 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v2 = v1;
+  outlined copy of Data._Representation(v0, v1);
   Data.base64EncodedString(options:)(0);
-  outlined consume of Data._Representation(v3, v5);
+  outlined consume of Data._Representation(v0, v2);
 
-  outlined consume of Data._Representation(v3, v5);
+  outlined consume of Data._Representation(v0, v2);
   URLQueryItem.init(name:value:)();
 }
 
@@ -1995,28 +1188,25 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance JoinFai
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance JoinFailureContext.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance JoinFailureContext.CodingKeys(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x22AA66B50](v1);
+  MEMORY[0x22AA66B50](v2);
   return Hasher._finalize()();
 }
 
-unint64_t protocol witness for CodingKey.stringValue.getter in conformance JoinFailureContext.CodingKeys()
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance JoinFailureContext.CodingKeys()
 {
   if (*v0)
   {
-    result = 0x726F72724563616ELL;
+    return 0x726F72724563616ELL;
   }
 
   else
   {
-    result = 0xD000000000000010;
+    return 0xD000000000000010;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for CodingKey.init(stringValue:) in conformance JoinFailureContext.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
@@ -2068,51 +1258,42 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t JoinFailureContext.encode(to:)(void *a1)
 {
-  v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit18JoinFailureContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit18JoinFailureContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v15[-v8];
-  v10 = a1[4];
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit18JoinFailureContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit18JoinFailureContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v8[-v5];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type JoinFailureContext.CodingKeys and conformance JoinFailureContext.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v15[15] = 0;
+  v8[15] = 0;
   type metadata accessor for UUID();
-  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
+  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC95F8]);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (!v2)
+  if (!v1)
   {
-    v11 = (v3 + *(type metadata accessor for JoinFailureContext(0) + 20));
-    v12 = *v11;
-    v13 = *(v11 + 8);
-    v15[14] = 1;
+    type metadata accessor for JoinFailureContext(0);
+    v8[14] = 1;
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
   }
 
-  return (*(v6 + 8))(v9, v5);
+  return (*(v4 + 8))(v6, v3);
 }
 
-uint64_t JoinFailureContext.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t JoinFailureContext.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v27 = a2;
+  v23 = a2;
   v4 = type metadata accessor for UUID();
-  v29 = *(v4 - 8);
-  v30 = v4;
-  v5 = *(v29 + 64);
+  v25 = *(v4 - 8);
+  v26 = v4;
   MEMORY[0x28223BE20](v4);
-  v7 = &v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit18JoinFailureContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit18JoinFailureContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
-  v28 = *(v31 - 8);
-  v8 = *(v28 + 64);
-  MEMORY[0x28223BE20](v31);
-  v10 = &v26 - v9;
-  v11 = type metadata accessor for JoinFailureContext(0);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11);
-  v14 = &v26 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = a1[4];
+  v6 = &v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit18JoinFailureContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit18JoinFailureContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
+  v24 = *(v27 - 8);
+  MEMORY[0x28223BE20](v27);
+  v8 = &v22 - v7;
+  v9 = type metadata accessor for JoinFailureContext(0);
+  MEMORY[0x28223BE20](v9);
+  v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type JoinFailureContext.CodingKeys and conformance JoinFailureContext.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -2121,26 +1302,26 @@ uint64_t JoinFailureContext.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  v26 = v14;
-  v16 = v28;
-  v17 = v29;
-  v33 = 0;
-  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-  v18 = v30;
+  v22 = v11;
+  v12 = v24;
+  v13 = v25;
+  v29 = 0;
+  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9618]);
+  v14 = v26;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  (*(v17 + 32))(v26, v7, v18);
-  v32 = 1;
-  v19 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v21 = v20;
-  (*(v16 + 8))(v10, v31);
-  v23 = v26;
-  v22 = v27;
-  v24 = &v26[*(v11 + 20)];
-  *v24 = v19;
-  v24[8] = v21 & 1;
-  outlined init with copy of JoinFailureContext(v23, v22, type metadata accessor for JoinFailureContext);
+  (*(v13 + 32))(v22, v6, v14);
+  v28 = 1;
+  v15 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v17 = v16;
+  (*(v12 + 8))(v8, v27);
+  v19 = v22;
+  v18 = v23;
+  v20 = &v22[*(v9 + 20)];
+  *v20 = v15;
+  v20[8] = v17 & 1;
+  outlined init with copy of JoinFailureContext(v19, v18, type metadata accessor for JoinFailureContext);
   __swift_destroy_boxed_opaque_existential_1(a1);
-  return outlined destroy of JoinFailureContext(v23, type metadata accessor for JoinFailureContext);
+  return outlined destroy of JoinFailureContext(v19, type metadata accessor for JoinFailureContext);
 }
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance JoinFailureContext(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2201,7 +1382,7 @@ uint64_t JoinContinuityConversationRequestContext.description.getter()
   _StringGuts.grow(_:)(118);
   MEMORY[0x22AA66730](0xD00000000000003BLL, 0x80000002255E13D0);
   type metadata accessor for UUID();
-  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
+  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9628]);
   v1 = dispatch thunk of CustomStringConvertible.description.getter();
   MEMORY[0x22AA66730](v1);
 
@@ -2281,20 +1462,18 @@ uint64_t JoinContinuityConversationRequestContext.description.getter()
 
 uint64_t JoinContinuityConversationRequestContext.queryItem.getter()
 {
-  v0 = type metadata accessor for JSONEncoder();
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
   type metadata accessor for JoinContinuityConversationRequestContext(0);
-  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinContinuityConversationRequestContext and conformance JoinContinuityConversationRequestContext, type metadata accessor for JoinContinuityConversationRequestContext);
-  v3 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  v5 = v4;
-  outlined copy of Data._Representation(v3, v4);
+  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinContinuityConversationRequestContext and conformance JoinContinuityConversationRequestContext, type metadata accessor for JoinContinuityConversationRequestContext, &protocol conformance descriptor for JoinContinuityConversationRequestContext);
+  v0 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v2 = v1;
+  outlined copy of Data._Representation(v0, v1);
   Data.base64EncodedString(options:)(0);
-  outlined consume of Data._Representation(v3, v5);
+  outlined consume of Data._Representation(v0, v2);
 
-  outlined consume of Data._Representation(v3, v5);
+  outlined consume of Data._Representation(v0, v2);
   URLQueryItem.init(name:value:)();
 }
 
@@ -2323,10 +1502,10 @@ unint64_t protocol witness for CodingKey.stringValue.getter in conformance JoinC
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance JoinContinuityConversationRequestContext.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance JoinContinuityConversationRequestContext.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized JoinContinuityConversationRequestContext.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized JoinContinuityConversationRequestContext.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -2346,56 +1525,46 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t JoinContinuityConversationRequestContext.encode(to:)(void *a1)
 {
-  v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v16[-v8];
-  v10 = a1[4];
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v8[-v5];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type JoinContinuityConversationRequestContext.CodingKeys and conformance JoinContinuityConversationRequestContext.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v16[15] = 0;
+  v8[15] = 0;
   type metadata accessor for UUID();
-  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
+  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC95F8]);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (!v2)
+  if (!v1)
   {
-    v11 = type metadata accessor for JoinContinuityConversationRequestContext(0);
-    v12 = *(v3 + v11[5]);
-    v16[14] = 1;
+    type metadata accessor for JoinContinuityConversationRequestContext(0);
+    v8[14] = 1;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v13 = *(v3 + v11[6]);
-    v16[13] = 2;
+    v8[13] = 2;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v14 = *(v3 + v11[7]);
-    v16[12] = 3;
+    v8[12] = 3;
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  return (*(v6 + 8))(v9, v5);
+  return (*(v4 + 8))(v6, v3);
 }
 
-uint64_t JoinContinuityConversationRequestContext.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t JoinContinuityConversationRequestContext.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v22 = a2;
+  v18 = a2;
   v4 = type metadata accessor for UUID();
-  v23 = *(v4 - 8);
-  v5 = *(v23 + 64);
+  v19 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v26 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
-  v24 = *(v7 - 8);
-  v25 = v7;
-  v8 = *(v24 + 64);
-  MEMORY[0x28223BE20](v7);
-  v10 = &v21 - v9;
-  v11 = type metadata accessor for JoinContinuityConversationRequestContext(0);
-  v12 = *(*(v11 - 1) + 64);
-  MEMORY[0x28223BE20](v11);
-  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = a1[4];
+  v22 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
+  v20 = *(v6 - 8);
+  v21 = v6;
+  MEMORY[0x28223BE20](v6);
+  v8 = &v17 - v7;
+  v9 = type metadata accessor for JoinContinuityConversationRequestContext(0);
+  MEMORY[0x28223BE20](v9);
+  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type JoinContinuityConversationRequestContext.CodingKeys and conformance JoinContinuityConversationRequestContext.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -2404,30 +1573,29 @@ uint64_t JoinContinuityConversationRequestContext.init(from:)@<X0>(uint64_t *a1@
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  v16 = v14;
-  v17 = v23;
-  v30 = 0;
-  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-  v18 = v25;
+  v12 = v11;
+  v13 = v19;
+  v26 = 0;
+  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9618]);
+  v14 = v21;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  (*(v17 + 32))(v16, v26, v4);
-  v29 = 1;
-  *(v16 + v11[5]) = KeyedDecodingContainer.decode(_:forKey:)() & 1;
-  v28 = 2;
-  *(v16 + v11[6]) = KeyedDecodingContainer.decode(_:forKey:)() & 1;
-  v27 = 3;
-  v19 = KeyedDecodingContainer.decode(_:forKey:)();
-  (*(v24 + 8))(v10, v18);
-  *(v16 + v11[7]) = v19 & 1;
-  outlined init with copy of JoinFailureContext(v16, v22, type metadata accessor for JoinContinuityConversationRequestContext);
+  (*(v13 + 32))(v12, v22, v4);
+  v25 = 1;
+  *(v12 + v9[5]) = KeyedDecodingContainer.decode(_:forKey:)() & 1;
+  v24 = 2;
+  *(v12 + v9[6]) = KeyedDecodingContainer.decode(_:forKey:)() & 1;
+  v23 = 3;
+  v15 = KeyedDecodingContainer.decode(_:forKey:)();
+  (*(v20 + 8))(v8, v14);
+  *(v12 + v9[7]) = v15 & 1;
+  outlined init with copy of JoinFailureContext(v12, v18, type metadata accessor for JoinContinuityConversationRequestContext);
   __swift_destroy_boxed_opaque_existential_1(a1);
-  return outlined destroy of JoinFailureContext(v16, type metadata accessor for JoinContinuityConversationRequestContext);
+  return outlined destroy of JoinFailureContext(v12, type metadata accessor for JoinContinuityConversationRequestContext);
 }
 
 uint64_t IncomingCallBannerContext.callUUID.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -2435,7 +1603,6 @@ uint64_t IncomingCallBannerContext.callUUID.getter()
 uint64_t IncomingCallBannerContext.title.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
@@ -2443,7 +1610,6 @@ uint64_t IncomingCallBannerContext.title.getter()
 uint64_t IncomingCallBannerContext.subtitle.getter()
 {
   v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
 
   return v1;
 }
@@ -2488,10 +1654,7 @@ uint64_t IncomingCallBannerContext.description.getter()
   v4 = v0[3];
   v5 = v0[4];
   v6 = v0[5];
-  v7 = v0[6];
-  v12 = v0[7];
-  v13 = v0[8];
-  v14 = *(v0 + 72);
+  v11 = *(v0 + 72);
   _StringGuts.grow(_:)(128);
   MEMORY[0x22AA66730](0xD000000000000024, 0x80000002255E1470);
   MEMORY[0x22AA66730](v1, v2);
@@ -2509,31 +1672,31 @@ uint64_t IncomingCallBannerContext.description.getter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataVSgMd, &_s10Foundation4DataVSgMR);
   _print_unlocked<A, B>(_:_:)();
   MEMORY[0x22AA66730](0x7265536C6C616320, 0xED00003D65636976);
-  v8 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x22AA66730](v8);
+  v7 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x22AA66730](v7);
 
   MEMORY[0x22AA66730](0xD000000000000011, 0x80000002255E14C0);
-  if (v14)
+  if (v11)
   {
-    v9 = 1702195828;
+    v8 = 1702195828;
   }
 
   else
   {
-    v9 = 0x65736C6166;
+    v8 = 0x65736C6166;
   }
 
-  if (v14)
+  if (v11)
   {
-    v10 = 0xE400000000000000;
+    v9 = 0xE400000000000000;
   }
 
   else
   {
-    v10 = 0xE500000000000000;
+    v9 = 0xE500000000000000;
   }
 
-  MEMORY[0x22AA66730](v9, v10);
+  MEMORY[0x22AA66730](v8, v9);
 
   MEMORY[0x22AA66730](62, 0xE100000000000000);
   return 0;
@@ -2541,24 +1704,17 @@ uint64_t IncomingCallBannerContext.description.getter()
 
 uint64_t IncomingCallBannerContext.queryItem.getter()
 {
-  v10 = v0[2];
-  *v11 = v0[3];
-  *&v11[9] = *(v0 + 57);
-  v8 = *v0;
-  v9 = v0[1];
-  v1 = type metadata accessor for JSONEncoder();
-  v2 = *(v1 + 48);
-  v3 = *(v1 + 52);
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
   lazy protocol witness table accessor for type IncomingCallBannerContext and conformance IncomingCallBannerContext();
-  v4 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  v6 = v5;
-  outlined copy of Data._Representation(v4, v5);
+  v0 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v2 = v1;
+  outlined copy of Data._Representation(v0, v1);
   Data.base64EncodedString(options:)(0);
-  outlined consume of Data._Representation(v4, v6);
+  outlined consume of Data._Representation(v0, v2);
 
-  outlined consume of Data._Representation(v4, v6);
+  outlined consume of Data._Representation(v0, v2);
   URLQueryItem.init(name:value:)();
 }
 
@@ -2600,10 +1756,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Incomi
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance IncomingCallBannerContext.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance IncomingCallBannerContext.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized IncomingCallBannerContext.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized IncomingCallBannerContext.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -2625,62 +1781,56 @@ uint64_t IncomingCallBannerContext.encode(to:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit25IncomingCallBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit25IncomingCallBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v18 - v6;
-  v8 = *v1;
-  v9 = v1[1];
-  v10 = v1[2];
-  v23 = v1[3];
-  v24 = v10;
-  v11 = v1[4];
-  v21 = v1[5];
-  v22 = v11;
-  v12 = v1[6];
-  v19 = v1[7];
-  v20 = v12;
-  v18 = v1[8];
-  v28 = *(v1 + 72);
-  v13 = a1[4];
+  v6 = &v14 - v5;
+  v7 = *(v1 + 16);
+  v19 = *(v1 + 24);
+  v20 = v7;
+  v8 = *(v1 + 32);
+  v17 = *(v1 + 40);
+  v18 = v8;
+  v9 = *(v1 + 48);
+  v15 = *(v1 + 56);
+  v16 = v9;
+  v14 = *(v1 + 64);
+  v24 = *(v1 + 72);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type IncomingCallBannerContext.CodingKeys and conformance IncomingCallBannerContext.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  LOBYTE(v26) = 0;
-  v14 = v25;
+  LOBYTE(v22) = 0;
+  v10 = v21;
   KeyedEncodingContainer.encode(_:forKey:)();
-  if (v14)
+  if (v10)
   {
-    return (*(v4 + 8))(v7, v3);
+    return (*(v4 + 8))(v6, v3);
   }
 
-  v17 = v19;
-  v16 = v20;
-  LOBYTE(v26) = 1;
+  v13 = v15;
+  v12 = v16;
+  LOBYTE(v22) = 1;
   KeyedEncodingContainer.encode(_:forKey:)();
-  LOBYTE(v26) = 2;
+  LOBYTE(v22) = 2;
   KeyedEncodingContainer.encode(_:forKey:)();
-  v26 = v16;
-  v27 = v17;
-  v29 = 3;
-  outlined copy of Data?(v16, v17);
+  v22 = v12;
+  v23 = v13;
+  v25 = 3;
+  outlined copy of Data?(v12, v13);
   lazy protocol witness table accessor for type Data and conformance Data();
   KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-  outlined consume of Data?(v26, v27);
-  LOBYTE(v26) = 4;
+  outlined consume of Data?(v22, v23);
+  LOBYTE(v22) = 4;
   KeyedEncodingContainer.encode(_:forKey:)();
-  LOBYTE(v26) = 5;
+  LOBYTE(v22) = 5;
   KeyedEncodingContainer.encode(_:forKey:)();
-  return MEMORY[8](v7, v3);
+  return MEMORY[8](v6, v3);
 }
 
-uint64_t IncomingCallBannerContext.init(from:)@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t IncomingCallBannerContext.init(from:)@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit25IncomingCallBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit25IncomingCallBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v25 - v8;
-  v10 = a1[4];
+  v8 = &v23 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type IncomingCallBannerContext.CodingKeys and conformance IncomingCallBannerContext.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -2689,62 +1839,62 @@ uint64_t IncomingCallBannerContext.init(from:)@<X0>(uint64_t *a1@<X0>, _OWORD *a
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  LOBYTE(v38) = 0;
-  v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  v13 = v12;
-  LOBYTE(v38) = 1;
-  v31 = KeyedDecodingContainer.decode(_:forKey:)();
-  v33 = v14;
-  LOBYTE(v38) = 2;
-  v15 = KeyedDecodingContainer.decode(_:forKey:)();
-  v32 = v16;
-  v29 = v15;
-  LOBYTE(v34) = 3;
+  LOBYTE(v36) = 0;
+  v9 = KeyedDecodingContainer.decode(_:forKey:)();
+  v11 = v10;
+  LOBYTE(v36) = 1;
+  v29 = KeyedDecodingContainer.decode(_:forKey:)();
+  v31 = v12;
+  LOBYTE(v36) = 2;
+  v13 = KeyedDecodingContainer.decode(_:forKey:)();
+  v30 = v14;
+  v27 = v13;
+  LOBYTE(v32) = 3;
   lazy protocol witness table accessor for type Data and conformance Data();
-  v30 = 0;
+  v28 = 0;
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v28 = v38;
-  v27 = v39;
-  LOBYTE(v38) = 4;
-  v26 = KeyedDecodingContainer.decode(_:forKey:)();
-  v48 = 5;
-  v17 = KeyedDecodingContainer.decode(_:forKey:)();
-  (*(v6 + 8))(v9, v5);
-  LODWORD(v30) = v17 & 1;
-  *&v34 = v11;
-  *(&v34 + 1) = v13;
-  v18 = v33;
-  *&v35 = v31;
-  *(&v35 + 1) = v33;
-  v19 = v32;
-  *&v36 = v29;
-  *(&v36 + 1) = v32;
-  v20 = v28;
-  v21 = v27;
-  *v37 = v28;
-  *&v37[8] = v27;
-  *&v37[16] = v26;
-  v37[24] = v30;
-  v22 = *v37;
-  a2[2] = v36;
-  a2[3] = v22;
-  *(a2 + 57) = *&v37[9];
-  v23 = v35;
-  *a2 = v34;
-  a2[1] = v23;
-  outlined init with copy of IncomingCallBannerContext(&v34, &v38);
+  v26 = v36;
+  v25 = v37;
+  LOBYTE(v36) = 4;
+  v24 = KeyedDecodingContainer.decode(_:forKey:)();
+  v46 = 5;
+  v15 = KeyedDecodingContainer.decode(_:forKey:)();
+  (*(v6 + 8))(v8, v5);
+  LODWORD(v28) = v15 & 1;
+  *&v32 = v9;
+  *(&v32 + 1) = v11;
+  v16 = v31;
+  *&v33 = v29;
+  *(&v33 + 1) = v31;
+  v17 = v30;
+  *&v34 = v27;
+  *(&v34 + 1) = v30;
+  v18 = v26;
+  v19 = v25;
+  *v35 = v26;
+  *&v35[8] = v25;
+  *&v35[16] = v24;
+  v35[24] = v28;
+  v20 = *v35;
+  a2[2] = v34;
+  a2[3] = v20;
+  *(a2 + 57) = *&v35[9];
+  v21 = v33;
+  *a2 = v32;
+  a2[1] = v21;
+  outlined init with copy of IncomingCallBannerContext(&v32, &v36);
   __swift_destroy_boxed_opaque_existential_1(a1);
-  v38 = v11;
-  v39 = v13;
-  v40 = v31;
-  v41 = v18;
-  v42 = v29;
+  v36 = v9;
+  v37 = v11;
+  v38 = v29;
+  v39 = v16;
+  v40 = v27;
+  v41 = v17;
+  v42 = v18;
   v43 = v19;
-  v44 = v20;
-  v45 = v21;
-  v46 = v26;
-  v47 = v30;
-  return outlined destroy of IncomingCallBannerContext(&v38);
+  v44 = v24;
+  v45 = v28;
+  return outlined destroy of IncomingCallBannerContext(&v36);
 }
 
 NeighborhoodActivityConduit::IncomingCallBannerContext::BannerState_optional __swiftcall IncomingCallBannerContext.BannerState.init(rawValue:)(Swift::Int rawValue)
@@ -2762,7 +1912,6 @@ NeighborhoodActivityConduit::IncomingCallBannerContext::BannerState_optional __s
 uint64_t CallUpdateBannerContext.callUUID.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -2770,7 +1919,6 @@ uint64_t CallUpdateBannerContext.callUUID.getter()
 uint64_t CallUpdateBannerContext.subtitle.getter()
 {
   v1 = *(v0 + 24);
-  v2 = *(v0 + 32);
 
   return v1;
 }
@@ -2785,13 +1933,18 @@ unint64_t CallUpdateBannerContext.requestIdentifier.getter()
   return 0xD000000000000015;
 }
 
+void __swiftcall CallUpdateBannerContext.init(callUUID:bannerState:subtitle:)(NeighborhoodActivityConduit::CallUpdateBannerContext *__return_ptr retstr, Swift::String callUUID, NeighborhoodActivityConduit::IncomingCallBannerContext::BannerState bannerState, Swift::String_optional subtitle)
+{
+  v4 = *bannerState;
+  retstr->callUUID = callUUID;
+  retstr->bannerState = v4;
+  retstr->subtitle = subtitle;
+}
+
 uint64_t CallUpdateBannerContext.description.getter()
 {
   v1 = *v0;
   v2 = v0[1];
-  v3 = *(v0 + 16);
-  v4 = v0[3];
-  v5 = v0[4];
   _StringGuts.grow(_:)(85);
   MEMORY[0x22AA66730](0xD000000000000022, 0x80000002255E14E0);
   MEMORY[0x22AA66730](v1, v2);
@@ -2812,23 +1965,17 @@ uint64_t CallUpdateBannerContext.description.getter()
 
 uint64_t CallUpdateBannerContext.queryItem.getter()
 {
-  v8 = *v0;
-  v9 = v0[1];
-  v10 = *(v0 + 16);
-  v11 = *(v0 + 3);
-  v1 = type metadata accessor for JSONEncoder();
-  v2 = *(v1 + 48);
-  v3 = *(v1 + 52);
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
   lazy protocol witness table accessor for type CallUpdateBannerContext and conformance CallUpdateBannerContext();
-  v4 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  v6 = v5;
-  outlined copy of Data._Representation(v4, v5);
+  v0 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v2 = v1;
+  outlined copy of Data._Representation(v0, v1);
   Data.base64EncodedString(options:)(0);
-  outlined consume of Data._Representation(v4, v6);
+  outlined consume of Data._Representation(v0, v2);
 
-  outlined consume of Data._Representation(v4, v6);
+  outlined consume of Data._Representation(v0, v2);
   URLQueryItem.init(name:value:)();
 }
 
@@ -2851,10 +1998,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance CallUp
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance CallUpdateBannerContext.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance CallUpdateBannerContext.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized CallUpdateBannerContext.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized CallUpdateBannerContext.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -2876,43 +2023,37 @@ uint64_t CallUpdateBannerContext.encode(to:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit23CallUpdateBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit23CallUpdateBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = v14 - v6;
-  v8 = *v1;
-  v9 = v1[1];
-  v15 = *(v1 + 16);
-  v10 = v1[3];
-  v14[1] = v1[4];
-  v14[2] = v10;
-  v11 = a1[4];
+  v6 = v10 - v5;
+  v11 = *(v1 + 16);
+  v7 = *(v1 + 24);
+  v10[1] = *(v1 + 32);
+  v10[2] = v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type CallUpdateBannerContext.CodingKeys and conformance CallUpdateBannerContext.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v19 = 0;
-  v12 = v14[3];
+  v15 = 0;
+  v8 = v10[3];
   KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v12)
+  if (!v8)
   {
-    v18 = v15;
-    v17 = 1;
+    v14 = v11;
+    v13 = 1;
     lazy protocol witness table accessor for type IncomingCallBannerContext.BannerState and conformance IncomingCallBannerContext.BannerState();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v16 = 2;
+    v12 = 2;
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
   }
 
-  return (*(v4 + 8))(v7, v3);
+  return (*(v4 + 8))(v6, v3);
 }
 
-uint64_t CallUpdateBannerContext.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t CallUpdateBannerContext.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit23CallUpdateBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit23CallUpdateBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v20 - v8;
-  v10 = a1[4];
+  v8 = &v18 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type CallUpdateBannerContext.CodingKeys and conformance CallUpdateBannerContext.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -2921,25 +2062,25 @@ uint64_t CallUpdateBannerContext.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  v26 = 0;
-  v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  v13 = v12;
-  v14 = v11;
-  v24 = 1;
+  v24 = 0;
+  v9 = KeyedDecodingContainer.decode(_:forKey:)();
+  v11 = v10;
+  v12 = v9;
+  v22 = 1;
   lazy protocol witness table accessor for type IncomingCallBannerContext.BannerState and conformance IncomingCallBannerContext.BannerState();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v22 = v25;
-  v23 = 2;
-  v15 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v18 = v17;
-  v19 = *(v6 + 8);
-  v21 = v15;
-  v19(v9, v5);
-  *a2 = v14;
-  *(a2 + 8) = v13;
-  *(a2 + 16) = v22;
-  *(a2 + 24) = v21;
-  *(a2 + 32) = v18;
+  v20 = v23;
+  v21 = 2;
+  v13 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  v16 = v15;
+  v17 = *(v6 + 8);
+  v19 = v13;
+  v17(v8, v5);
+  *a2 = v12;
+  *(a2 + 8) = v11;
+  *(a2 + 16) = v20;
+  *(a2 + 24) = v19;
+  *(a2 + 32) = v16;
 
   __swift_destroy_boxed_opaque_existential_1(a1);
 }
@@ -2947,7 +2088,6 @@ uint64_t CallUpdateBannerContext.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2
 uint64_t DismissBannerContext.callUUID.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -2981,25 +2121,21 @@ uint64_t DismissBannerContext.description.getter()
 
 uint64_t DismissBannerContext.queryItem.getter()
 {
-  v8 = *v0;
-  v9 = v0[1];
-  v1 = type metadata accessor for JSONEncoder();
-  v2 = *(v1 + 48);
-  v3 = *(v1 + 52);
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
   lazy protocol witness table accessor for type DismissBannerContext and conformance DismissBannerContext();
-  v4 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  v6 = v5;
-  outlined copy of Data._Representation(v4, v5);
+  v0 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v2 = v1;
+  outlined copy of Data._Representation(v0, v1);
   Data.base64EncodedString(options:)(0);
-  outlined consume of Data._Representation(v4, v6);
+  outlined consume of Data._Representation(v0, v2);
 
-  outlined consume of Data._Representation(v4, v6);
+  outlined consume of Data._Representation(v0, v2);
   URLQueryItem.init(name:value:)();
 }
 
-uint64_t static DismissBannerContext.== infix(_:_:)(void *a1, void *a2)
+uint64_t static DismissBannerContext.== infix(_:_:)(uint64_t *a1, void *a2)
 {
   if (*a1 == *a2 && a1[1] == a2[1])
   {
@@ -3019,7 +2155,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Dismiss
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DismissBannerContext.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DismissBannerContext.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x22AA66B50](0);
@@ -3061,39 +2197,33 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t DismissBannerContext.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit20DismissBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit20DismissBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
-  v7 = &v12 - v6;
-  v8 = *v1;
-  v9 = v1[1];
-  v10 = a1[4];
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit20DismissBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit20DismissBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &v7 - v4;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type DismissBannerContext.CodingKeys and conformance DismissBannerContext.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   KeyedEncodingContainer.encode(_:forKey:)();
-  return (*(v4 + 8))(v7, v3);
+  return (*(v3 + 8))(v5, v2);
 }
 
-uint64_t DismissBannerContext.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t DismissBannerContext.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit20DismissBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit20DismissBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v15 - v8;
-  v10 = a1[4];
+  v8 = &v13 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type DismissBannerContext.CodingKeys and conformance DismissBannerContext.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v2)
   {
-    v11 = KeyedDecodingContainer.decode(_:forKey:)();
-    v13 = v12;
-    (*(v6 + 8))(v9, v5);
-    *a2 = v11;
-    a2[1] = v13;
+    v9 = KeyedDecodingContainer.decode(_:forKey:)();
+    v11 = v10;
+    (*(v6 + 8))(v8, v5);
+    *a2 = v9;
+    a2[1] = v11;
   }
 
   return __swift_destroy_boxed_opaque_existential_1(a1);
@@ -3101,22 +2231,18 @@ uint64_t DismissBannerContext.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<
 
 uint64_t protocol witness for Encodable.encode(to:) in conformance DismissBannerContext(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit20DismissBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit20DismissBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
-  v7 = &v12 - v6;
-  v8 = *v1;
-  v9 = v1[1];
-  v10 = a1[4];
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit20DismissBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit20DismissBannerContextV10CodingKeys33_055134E0D8552AD4E70ECAB0A8951A29LLOGMR);
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &v7 - v4;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type DismissBannerContext.CodingKeys and conformance DismissBannerContext.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   KeyedEncodingContainer.encode(_:forKey:)();
-  return (*(v4 + 8))(v7, v3);
+  return (*(v3 + 8))(v5, v2);
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance DismissBannerContext(void *a1, void *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance DismissBannerContext(uint64_t *a1, void *a2)
 {
   if (*a1 == *a2 && a1[1] == a2[1])
   {
@@ -3263,18 +2389,20 @@ unint64_t lazy protocol witness table accessor for type CallType and conformance
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
-uint64_t lazy protocol witness table accessor for type UUID and conformance UUID(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type UUID and conformance UUID(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3332,13 +2460,13 @@ unint64_t lazy protocol witness table accessor for type JoinFailureContext.Codin
   return result;
 }
 
-uint64_t specialized static IncomingCallBannerContext.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t specialized static IncomingCallBannerContext.== infix(_:_:)(uint64_t *a1, uint64_t a2)
 {
-  v2 = *(a1 + 16);
-  v4 = *(a1 + 24);
-  v3 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 56);
+  v2 = a1[2];
+  v4 = a1[3];
+  v3 = a1[4];
+  v5 = a1[5];
+  v6 = a1[7];
   v15 = *(a1 + 72);
   v7 = *(a2 + 16);
   v8 = *(a2 + 24);
@@ -3346,11 +2474,11 @@ uint64_t specialized static IncomingCallBannerContext.== infix(_:_:)(uint64_t a1
   v10 = *(a2 + 40);
   v11 = *(a2 + 56);
   v18 = *(a2 + 48);
-  v19 = *(a1 + 48);
+  v19 = a1[6];
   v16 = *(a2 + 64);
-  v17 = *(a1 + 64);
+  v17 = a1[8];
   v14 = *(a2 + 72);
-  if ((*a1 != *a2 || *(a1 + 8) != *(a2 + 8)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v2 != v7 || v4 != v8) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v3 != v9 || v5 != v10) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  if ((*a1 != *a2 || a1[1] != *(a2 + 8)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v2 != v7 || v4 != v8) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v3 != v9 || v5 != v10) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     return 0;
   }
@@ -3389,7 +2517,7 @@ LABEL_15:
   outlined consume of Data?(v18, v11);
   outlined consume of Data?(v19, v6);
   result = 0;
-  if ((v13 & 1) != 0 && v17 == v16)
+  if (v13 && v17 == v16)
   {
     return v15 ^ v14 ^ 1u;
   }
@@ -3397,15 +2525,15 @@ LABEL_15:
   return result;
 }
 
-uint64_t specialized static CallUpdateBannerContext.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t specialized static CallUpdateBannerContext.== infix(_:_:)(uint64_t *a1, uint64_t a2)
 {
   v2 = *(a1 + 16);
-  v3 = *(a1 + 24);
-  v4 = *(a1 + 32);
+  v3 = a1[3];
+  v4 = a1[4];
   v5 = *(a2 + 16);
   v7 = *(a2 + 24);
   v6 = *(a2 + 32);
-  if (*a1 == *a2 && *(a1 + 8) == *(a2 + 8))
+  if (*a1 == *a2 && a1[1] == *(a2 + 8))
   {
     if (v2 != v5)
     {
@@ -3853,27 +2981,27 @@ unint64_t lazy protocol witness table accessor for type DismissBannerContext.Cod
 
 uint64_t instantiation function for generic protocol witness table for JoinFailureContext(void *a1)
 {
-  a1[1] = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinFailureContext and conformance JoinFailureContext, type metadata accessor for JoinFailureContext);
-  a1[2] = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinFailureContext and conformance JoinFailureContext, type metadata accessor for JoinFailureContext);
-  a1[3] = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinFailureContext and conformance JoinFailureContext, type metadata accessor for JoinFailureContext);
-  result = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinFailureContext and conformance JoinFailureContext, type metadata accessor for JoinFailureContext);
+  a1[1] = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinFailureContext and conformance JoinFailureContext, type metadata accessor for JoinFailureContext, &protocol conformance descriptor for JoinFailureContext);
+  a1[2] = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinFailureContext and conformance JoinFailureContext, type metadata accessor for JoinFailureContext, &protocol conformance descriptor for JoinFailureContext);
+  a1[3] = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinFailureContext and conformance JoinFailureContext, type metadata accessor for JoinFailureContext, &protocol conformance descriptor for JoinFailureContext);
+  result = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinFailureContext and conformance JoinFailureContext, type metadata accessor for JoinFailureContext, &protocol conformance descriptor for JoinFailureContext);
   a1[4] = result;
   return result;
 }
 
 uint64_t instantiation function for generic protocol witness table for JoinContinuityConversationRequestContext(void *a1)
 {
-  a1[1] = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinContinuityConversationRequestContext and conformance JoinContinuityConversationRequestContext, type metadata accessor for JoinContinuityConversationRequestContext);
-  a1[2] = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinContinuityConversationRequestContext and conformance JoinContinuityConversationRequestContext, type metadata accessor for JoinContinuityConversationRequestContext);
-  a1[3] = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinContinuityConversationRequestContext and conformance JoinContinuityConversationRequestContext, type metadata accessor for JoinContinuityConversationRequestContext);
-  result = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinContinuityConversationRequestContext and conformance JoinContinuityConversationRequestContext, type metadata accessor for JoinContinuityConversationRequestContext);
+  a1[1] = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinContinuityConversationRequestContext and conformance JoinContinuityConversationRequestContext, type metadata accessor for JoinContinuityConversationRequestContext, &protocol conformance descriptor for JoinContinuityConversationRequestContext);
+  a1[2] = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinContinuityConversationRequestContext and conformance JoinContinuityConversationRequestContext, type metadata accessor for JoinContinuityConversationRequestContext, &protocol conformance descriptor for JoinContinuityConversationRequestContext);
+  a1[3] = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinContinuityConversationRequestContext and conformance JoinContinuityConversationRequestContext, type metadata accessor for JoinContinuityConversationRequestContext, &protocol conformance descriptor for JoinContinuityConversationRequestContext);
+  result = lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type JoinContinuityConversationRequestContext and conformance JoinContinuityConversationRequestContext, type metadata accessor for JoinContinuityConversationRequestContext, &protocol conformance descriptor for JoinContinuityConversationRequestContext);
   a1[4] = result;
   return result;
 }
 
 uint64_t instantiation function for generic protocol witness table for IncomingHandoffContext(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void), uint64_t (*a6)(void), uint64_t (*a7)(void))
 {
-  a1[1] = a4();
+  a1[1] = (a4)(a1, a2, a3);
   a1[2] = a5();
   a1[3] = a6();
   result = a7();
@@ -3940,13 +3068,13 @@ uint64_t storeEnumTagSinglePayload for IncomingHandoffContext(uint64_t result, u
   return result;
 }
 
-void type metadata completion function for JoinFailureContext()
+void type metadata completion function for JoinFailureContext(uint64_t a1)
 {
   type metadata accessor for UUID();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Int?();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -3965,10 +3093,10 @@ void type metadata accessor for Int?()
   }
 }
 
-uint64_t type metadata completion function for JoinContinuityConversationRequestContext()
+uint64_t type metadata completion function for JoinContinuityConversationRequestContext(uint64_t a1)
 {
   result = type metadata accessor for UUID();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -5317,56 +4445,55 @@ uint64_t static HandlesHasher.hash(_:)(uint64_t a1)
 {
   v2 = type metadata accessor for SHA512Digest();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for SHA512();
-  v24 = *(v7 - 8);
-  v8 = *(v24 + 64);
-  MEMORY[0x28223BE20](v7);
-  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *(a1 + 16);
-  if (!v11)
+  v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for SHA512();
+  v23 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(a1 + 16);
+  if (!v9)
   {
-    v12 = MEMORY[0x277D84F90];
+    v10 = MEMORY[0x277D84F90];
     goto LABEL_5;
   }
 
+  v19 = v5;
   v20 = v6;
-  v21 = v7;
-  v22 = v3;
-  v23 = v2;
-  v12 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSS_Tt1g5(v11, 0);
-  v13 = specialized Sequence._copySequenceContents(initializing:)(v26, v12 + 4, v11, a1);
+  v21 = v3;
+  v22 = v2;
+  v10 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSS_Tt1g5(v9, 0);
+  v11 = specialized Sequence._copySequenceContents(initializing:)(v25, v10 + 4, v9, a1);
+  v12 = v25[0];
 
-  outlined consume of Set<String>.Iterator._Variant();
-  if (v13 == v11)
+  outlined consume of Set<String>.Iterator._Variant(v12);
+  if (v11 == v9)
   {
-    v3 = v22;
-    v2 = v23;
+    v3 = v21;
+    v2 = v22;
+    v5 = v19;
     v6 = v20;
-    v7 = v21;
 LABEL_5:
-    v26[0] = v12;
-    specialized MutableCollection<>.sort(by:)(v26);
-    v14 = MEMORY[0x22AA667C0](v26[0], MEMORY[0x277D837D0]);
-    v16 = v15;
+    v25[0] = v10;
+    specialized MutableCollection<>.sort(by:)(v25);
+    v13 = MEMORY[0x22AA667C0](v25[0], MEMORY[0x277D837D0]);
+    v15 = v14;
 
-    v26[0] = v14;
-    v26[1] = v16;
+    v25[0] = v13;
+    v25[1] = v15;
     SHA512.init()();
-    specialized String.withUTF8<A>(_:)(v26);
+    specialized String.withUTF8<A>(_:)(v25);
 
     SHA512.finalize()();
     SHA512Digest.withUnsafeBytes<A>(_:)();
-    (*(v3 + 8))(v6, v2);
-    v17 = v25;
-    (*(v24 + 8))(v10, v7);
-    return v17;
+    (*(v3 + 8))(v5, v2);
+    v16 = v24;
+    (*(v23 + 8))(v8, v6);
+    return v16;
   }
 
   __break(1u);
-  MEMORY[0x22AA66DF0](v12);
+  MEMORY[0x22AA66DF0](v10);
 
   __break(1u);
   return result;
@@ -5378,7 +4505,7 @@ uint64_t specialized String.withUTF8<A>(_:)(uint64_t *a1)
   v3 = a1[1];
   if ((v3 & 0x1000000000000000) != 0)
   {
-    v9 = static String._copying(_:)();
+    v9 = static String._copying(_:)(v2, v3);
     v11 = v10;
 
     v2 = v9;
@@ -5429,11 +4556,11 @@ LABEL_3:
   return MEMORY[0x22AA66650](v8, v7);
 }
 
-uint64_t closure #2 in static HandlesHasher.hash(_:)@<X0>(uint64_t result@<X0>, _BYTE *a2@<X1>, uint64_t *a3@<X8>)
+char *closure #2 in static HandlesHasher.hash(_:)@<X0>(char *result@<X0>, char *a2@<X1>, char **a3@<X8>)
 {
   if (result)
   {
-    v4 = &a2[-result];
+    v4 = a2 - result;
     if (a2 == result)
     {
       result = 0;
@@ -5443,29 +4570,27 @@ uint64_t closure #2 in static HandlesHasher.hash(_:)@<X0>(uint64_t result@<X0>, 
     else if (v4 <= 14)
     {
       result = specialized Data.InlineData.init(_:)(result, a2);
-      v5 = v10 & 0xFFFFFFFFFFFFFFLL;
+      v5 = (v7 & 0xFFFFFFFFFFFFFFLL);
     }
 
     else
     {
-      v6 = type metadata accessor for __DataStorage();
-      v7 = *(v6 + 48);
-      v8 = *(v6 + 52);
+      type metadata accessor for __DataStorage();
       swift_allocObject();
-      v9 = __DataStorage.init(bytes:length:)();
+      v6 = __DataStorage.init(bytes:length:)();
       if (v4 >= 0x7FFFFFFF)
       {
         type metadata accessor for Data.RangeReference();
         result = swift_allocObject();
-        *(result + 16) = 0;
-        *(result + 24) = v4;
-        v5 = v9 | 0x8000000000000000;
+        *(result + 2) = 0;
+        *(result + 3) = v4;
+        v5 = (v6 | 0x8000000000000000);
       }
 
       else
       {
-        result = v4 << 32;
-        v5 = v9 | 0x4000000000000000;
+        result = (v4 << 32);
+        v5 = (v6 | 0x4000000000000000);
       }
     }
 
@@ -5481,22 +4606,35 @@ uint64_t closure #2 in static HandlesHasher.hash(_:)@<X0>(uint64_t result@<X0>, 
   return result;
 }
 
-uint64_t static String._copying(_:)()
+uint64_t static String._copying(_:)(uint64_t a1, unint64_t a2)
 {
-  v0 = String.subscript.getter();
-  v4 = static String._copying(_:)(v0, v1, v2, v3);
+  v2 = String.subscript.getter();
+  v6 = static String._copying(_:)(v2, v3, v4, v5);
 
-  return v4;
+  return v6;
 }
 
 uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
-  if ((a4 & 0x1000000000000000) == 0)
+  if ((a4 & 0x1000000000000000) != 0)
+  {
+    v9 = Substring.UTF8View.distance(from:to:)();
+    if (!v9 || (v10 = v9, v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v9, 0), v12 = specialized Sequence._copySequenceContents(initializing:)(v14, (v11 + 4), v10, a1, a2, a3, a4), , , v12 == v10))
+    {
+      v13 = static String._uncheckedFromUTF8(_:)();
+
+      return v13;
+    }
+
+    __break(1u);
+  }
+
+  else
   {
     if ((a4 & 0x2000000000000000) != 0)
     {
-      v15[0] = a3;
-      v15[1] = a4 & 0xFFFFFFFFFFFFFFLL;
+      v14[0] = a3;
+      v14[1] = a4 & 0xFFFFFFFFFFFFFFLL;
       return static String._uncheckedFromUTF8(_:)();
     }
 
@@ -5504,32 +4642,8 @@ uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, un
     {
       goto LABEL_4;
     }
-
-    goto LABEL_11;
   }
 
-  v9 = Substring.UTF8View.distance(from:to:)();
-  if (!v9)
-  {
-    v11 = MEMORY[0x277D84F90];
-    goto LABEL_13;
-  }
-
-  v10 = v9;
-  v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v9, 0);
-  v12 = specialized Sequence._copySequenceContents(initializing:)(v15, (v11 + 4), v10, a1, a2, a3, a4);
-
-  if (v12 == v10)
-  {
-LABEL_13:
-    v13 = v11[2];
-    v14 = static String._uncheckedFromUTF8(_:)();
-
-    return v14;
-  }
-
-  __break(1u);
-LABEL_11:
   _StringObject.sharedUTF8.getter();
 LABEL_4:
 
@@ -5724,7 +4838,7 @@ LABEL_38:
   return result;
 }
 
-uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -6458,7 +5572,7 @@ LABEL_3:
 
   else
   {
-    v5 = (v9 + a4);
+    v5 = v9 + a4;
   }
 
   if (v5 < v9)
@@ -6691,7 +5805,6 @@ uint64_t specialized Array.remove(at:)(unint64_t a1)
     v6 = v5 - 1;
     v7 = v3 + 16 * a1;
     v8 = *(v7 + 32);
-    v9 = *(v7 + 40);
     memmove((v7 + 32), (v7 + 48), 16 * (v5 - 1 - a1));
     *(v3 + 16) = v6;
     *v1 = v3;
@@ -6895,7 +6008,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
 uint64_t specialized Data.InlineData.init(_:)(_BYTE *__src, _BYTE *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2 - __src;
   if (__src)
   {
@@ -6921,16 +6034,18 @@ LABEL_11:
 
   result = 0;
   __dst = 0;
-  v10 = v3;
-  v9 = 0;
+  v9 = v3;
   v8 = 0;
-  if (__src && a2 != __src)
+  v7 = 0;
+  if (__src)
   {
-    memcpy(&__dst, __src, v2);
-    result = __dst;
+    if (a2 != __src)
+    {
+      memcpy(&__dst, __src, v2);
+      return __dst;
+    }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6946,29 +6061,27 @@ uint64_t WeakTask.value.getter()
 {
   v1 = v0[4];
   v2 = *(v0[3] + 16);
-  v3 = *(MEMORY[0x277D857C8] + 4);
-  v4 = swift_task_alloc();
-  v0[5] = v4;
-  v5 = *(v1 + 80);
-  v0[6] = v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-  *v4 = v0;
-  v4[1] = WeakTask.value.getter;
-  v7 = v0[2];
-  v8 = MEMORY[0x277D84950];
+  v3 = swift_task_alloc();
+  v0[5] = v3;
+  v4 = *(v1 + 80);
+  v0[6] = v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+  *v3 = v0;
+  v3[1] = WeakTask.value.getter;
+  v6 = v0[2];
+  v7 = MEMORY[0x277D84950];
 
-  return MEMORY[0x282200430](v7, v2, v5, v6, v8);
+  return MEMORY[0x282200430](v6, v2, v4, v5, v7);
 }
 
 {
-  v2 = *(*v1 + 40);
-  v3 = *v1;
+  v2 = *v1;
 
   if (v0)
   {
-    v4 = *(v3 + 8);
+    v3 = *(v2 + 8);
 
-    return v4();
+    return v3();
   }
 
   else
@@ -6996,67 +6109,62 @@ uint64_t *WeakTask.init(_:)(uint64_t a1, uint64_t a2)
 {
   v5 = *v2;
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v13 - v8;
-  v10 = type metadata accessor for TaskPriority();
-  (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
-  v11 = swift_allocObject();
-  v11[2] = 0;
-  v11[3] = 0;
-  v11[4] = *(v5 + 80);
-  v11[5] = a1;
-  v11[6] = a2;
-  v2[2] = _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfC(0, 0, v9, &_sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTRTATu, v11);
+  v8 = &v13 - v7;
+  v9 = type metadata accessor for TaskPriority();
+  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v11 = *(v5 + 80);
+  v10[4] = v11;
+  v10[5] = a1;
+  v10[6] = a2;
+  v2[2] = _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfC(0, 0, v8, &_sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTRTATu, v10, v11);
   return v2;
 }
 
 uint64_t _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTR(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
-  v9 = (a4 + *a4);
-  v6 = a4[1];
-  v7 = swift_task_alloc();
-  *(v4 + 16) = v7;
-  *v7 = v4;
-  v7[1] = _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTRTQ0_;
+  v8 = (a4 + *a4);
+  v6 = swift_task_alloc();
+  *(v4 + 16) = v6;
+  *v6 = v4;
+  v6[1] = _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTRTQ0_;
 
-  return v9(a1);
+  return v8(a1);
 }
 
 uint64_t _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTRTQ0_()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTRTA(uint64_t a1)
 {
   v4 = v1[2];
   v5 = v1[3];
-  v6 = v1[4];
-  v7 = v1[5];
-  v8 = v1[6];
-  v9 = swift_task_alloc();
-  *(v2 + 16) = v9;
-  *v9 = v2;
-  v9[1] = _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTRTQ0_;
+  v6 = v1[5];
+  v7 = swift_task_alloc();
+  *(v2 + 16) = v7;
+  *v7 = v2;
+  v7[1] = _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTRTQ0_;
 
-  return _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTR(a1, v4, v5, v7);
+  return _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTR(a1, v4, v5, v6);
 }
 
-uint64_t _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v26[-1] - v11;
-  v27[0] = a4;
-  v27[1] = a5;
-  outlined init with copy of TaskPriority?(a3, &v26[-1] - v11);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v24[-1] - v11;
+  v24[5] = a4;
+  v24[6] = a5;
+  outlined init with copy of TaskPriority?(a3, &v24[-1] - v11);
   v13 = type metadata accessor for TaskPriority();
   v14 = *(v13 - 8);
   v15 = (*(v14 + 48))(v12, 1, v13);
@@ -7072,34 +6180,32 @@ uint64_t _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaK
     (*(v14 + 8))(v12, v13);
   }
 
-  v17 = *(a5 + 16);
-  v16 = *(a5 + 24);
+  v16 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v17)
+  if (v16)
   {
     swift_getObjectType();
-    v18 = dispatch thunk of Actor.unownedExecutor.getter();
-    v20 = v19;
+    v17 = dispatch thunk of Actor.unownedExecutor.getter();
+    v19 = v18;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v21 = String.utf8CString.getter();
-      v22 = *(v21 + 16);
-      _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfcBoSRys4Int8VGXEfU_(v21 + 32, v27, v26);
+      v20 = String.utf8CString.getter();
+      _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfcBoSRys4Int8VGXEfU_(v20 + 32, v24);
 
-      v23 = v26[0];
+      v21 = v24[0];
       outlined destroy of TaskPriority?(a3);
 
-      return v23;
+      return v21;
     }
   }
 
   else
   {
-    v18 = 0;
-    v20 = 0;
+    v17 = 0;
+    v19 = 0;
     if (a2)
     {
       goto LABEL_6;
@@ -7107,12 +6213,12 @@ LABEL_6:
   }
 
   outlined destroy of TaskPriority?(a3);
-  if (v20 | v18)
+  if (v19 | v17)
   {
-    v26[1] = 0;
-    v26[2] = 0;
-    v26[3] = v18;
-    v26[4] = v20;
+    v24[1] = 0;
+    v24[2] = 0;
+    v24[3] = v17;
+    v24[4] = v19;
   }
 
   return swift_task_create();
@@ -7125,8 +6231,6 @@ void *WeakTask.deinit()
 
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
   MEMORY[0x22AA66840](v1, v2, v3, MEMORY[0x277D84950]);
-
-  v4 = v0[2];
 
   return v0;
 }
@@ -7152,15 +6256,13 @@ uint64_t outlined destroy of TaskPriority?(uint64_t a1)
   return a1;
 }
 
-uint64_t _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfcBoSRys4Int8VGXEfU_@<X0>(uint64_t result@<X0>, uint64_t *a2@<X5>, uint64_t *a3@<X8>)
+uint64_t _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfcBoSRys4Int8VGXEfU_@<X0>(uint64_t result@<X0>, uint64_t *a7@<X8>)
 {
   if (result)
   {
-    v4 = *a2;
-    v5 = a2[1];
 
     result = swift_task_create();
-    *a3 = result;
+    *a7 = result;
   }
 
   else
@@ -7200,7 +6302,6 @@ uint64_t AssertionManager.Assertion.value.setter(uint64_t a1)
 uint64_t (*AssertionManager.Assertion.value.modify(uint64_t a1))(uint64_t a1, char a2)
 {
   *(a1 + 24) = v1;
-  v2 = *(*v1 + 88);
   swift_beginAccess();
   return AssertionManager.Assertion.value.modify;
 }
@@ -7210,20 +6311,10 @@ uint64_t AssertionManager.Assertion.value.modify(uint64_t a1, char a2)
   result = swift_endAccess();
   if ((a2 & 1) == 0)
   {
-    v5 = *(a1 + 24) + *(**(a1 + 24) + 104);
-    v6 = *(v5 + 8);
-    return (*v5)(result);
+    return (*(*(a1 + 24) + *(**(a1 + 24) + 104)))(result);
   }
 
   return result;
-}
-
-uint64_t AssertionManager.Assertion.__allocating_init(_:invalidationHandler:valueChangedHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v11 = *(v5 + 48);
-  v12 = *(v5 + 52);
-  swift_allocObject();
-  return AssertionManager.Assertion.init(_:invalidationHandler:valueChangedHandler:)(a1, a2, a3, a4, a5);
 }
 
 uint64_t AssertionManager.Assertion.init(_:invalidationHandler:valueChangedHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -7240,35 +6331,26 @@ uint64_t AssertionManager.Assertion.init(_:invalidationHandler:valueChangedHandl
 
 uint64_t AssertionManager.Assertion.deinit(uint64_t a1)
 {
-  v2 = v1;
-  v3 = *(*v1 + 80);
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
+  v2 = *(*v1 + 80);
+  v3 = *(v2 - 8);
   MEMORY[0x28223BE20](a1);
-  v7 = &v21 - v6;
-  v9 = v1 + *(v8 + 96);
-  v11 = *v9;
-  v10 = *(v9 + 8);
-  v12 = *(v8 + 88);
+  v5 = &v13 - v4;
+  v7 = *(v1 + *(v6 + 96));
+  v8 = *(v6 + 88);
   swift_beginAccess();
-  (*(v4 + 16))(v7, v2 + v12, v3);
+  (*(v3 + 16))(v5, v1 + v8, v2);
 
-  v11(v7);
+  v7(v5);
 
-  v13 = *(v4 + 8);
-  v13(v7, v3);
-  v14 = v2 + *(*v2 + 104);
-  v16 = *v14;
-  v15 = *(v14 + 8);
+  v9 = *(v3 + 8);
+  v9(v5, v2);
+  v10 = *(v1 + *(*v1 + 104));
 
-  v16(v17);
+  v10(v11);
 
-  v13((v2 + v12), v3);
-  v18 = *(v9 + 8);
+  v9((v1 + v8), v2);
 
-  v19 = *(v14 + 8);
-
-  return v2;
+  return v1;
 }
 
 uint64_t AssertionManager.Assertion.__deallocating_deinit(uint64_t a1)
@@ -7293,43 +6375,39 @@ void *AssertionManager.init()()
   v2 = *v0;
   swift_defaultActor_initialize();
   v1[14] = [objc_opt_self() weakObjectsHashTable];
-  v3 = *(v2 + 80);
-  type metadata accessor for AssertionManager.Assertion();
+  type metadata accessor for AssertionManager.Assertion(255, *(v2 + 80), v3, v4);
   type metadata accessor for Array();
   type metadata accessor for PassthroughSubject();
   v1[15] = PassthroughSubject.__allocating_init()();
   return v1;
 }
 
-uint64_t AssertionManager.assertionsSequence.getter@<X0>(uint64_t *a1@<X8>)
+uint64_t AssertionManager.assertionsSequence.getter@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X2>, uint64_t a3@<X3>)
 {
-  v7 = v1[15];
-  v3 = *(*v1 + 80);
-  type metadata accessor for AssertionManager.Assertion();
+  type metadata accessor for AssertionManager.Assertion(255, *(*v3 + 80), a2, a3);
   type metadata accessor for Array();
-  v4 = type metadata accessor for PassthroughSubject();
+  v5 = type metadata accessor for PassthroughSubject();
   WitnessTable = swift_getWitnessTable();
   a1[3] = type metadata accessor for AsyncPublisher();
   a1[4] = swift_getWitnessTable();
   __swift_allocate_boxed_opaque_existential_1(a1);
-  return MEMORY[0x22AA66620](v4, WitnessTable);
+  return MEMORY[0x22AA66620](v5, WitnessTable);
 }
 
-uint64_t AssertionManager.assertionCountSequence.getter@<X0>(uint64_t *a1@<X8>)
+uint64_t AssertionManager.assertionCountSequence.getter@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X2>, uint64_t a3@<X3>)
 {
-  v3 = *(*v1 + 80);
-  type metadata accessor for AssertionManager.Assertion();
+  v5 = *(*v3 + 80);
+  type metadata accessor for AssertionManager.Assertion(255, v5, a2, a3);
   type metadata accessor for Array();
   type metadata accessor for PassthroughSubject();
   swift_getWitnessTable();
-  v4 = type metadata accessor for Publishers.MapKeyPath();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = v12 - v7;
-  v9 = v1[15];
-  v12[0] = v3;
-  v12[1] = v9;
+  v6 = type metadata accessor for Publishers.MapKeyPath();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = v13 - v8;
+  v10 = v3[15];
+  v13[0] = v5;
+  v13[1] = v10;
   swift_getKeyPath();
 
   Publisher.map<A>(_:)();
@@ -7338,72 +6416,67 @@ uint64_t AssertionManager.assertionCountSequence.getter@<X0>(uint64_t *a1@<X8>)
   a1[3] = type metadata accessor for AsyncPublisher();
   a1[4] = swift_getWitnessTable();
   __swift_allocate_boxed_opaque_existential_1(a1);
-  MEMORY[0x22AA66620](v4, WitnessTable);
-  return (*(v5 + 8))(v8, v4);
+  MEMORY[0x22AA66620](v6, WitnessTable);
+  return (*(v7 + 8))(v9, v6);
 }
 
 uint64_t AssertionManager.takeAssertion(_:invalidationHandler:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v7 = *(*v3 + 80);
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x28223BE20](a1);
-  v11 = &v22 - v10;
-  v12 = type metadata accessor for AssertionManager.Assertion();
-  (*(v8 + 16))(v11, a1, v7);
+  v10 = &v20 - v9;
+  type metadata accessor for AssertionManager.Assertion(0, v7, v11, v12);
+  (*(v8 + 16))(v10, a1, v7);
   v13 = swift_allocObject();
   swift_weakInit();
   v14 = swift_allocObject();
   *(v14 + 16) = v7;
   *(v14 + 24) = v13;
-  v15 = *(v12 + 48);
-  v16 = *(v12 + 52);
-  v17 = swift_allocObject();
-  (*(*(*(*v17 + 80) - 8) + 32))(v17 + *(*v17 + 88), v11);
-  v18 = (v17 + *(*v17 + 96));
-  *v18 = a2;
-  v18[1] = a3;
-  v19 = (v17 + *(*v17 + 104));
-  *v19 = partial apply for closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:);
-  v19[1] = v14;
-  v20 = v3[14];
+  v15 = swift_allocObject();
+  (*(*(*(*v15 + 80) - 8) + 32))(v15 + *(*v15 + 88), v10);
+  v16 = (v15 + *(*v15 + 96));
+  *v16 = a2;
+  v16[1] = a3;
+  v17 = (v15 + *(*v15 + 104));
+  *v17 = partial apply for closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:);
+  v17[1] = v14;
+  v18 = v3[14];
 
-  [v20 addObject_];
+  [v18 addObject_];
   AssertionManager.assertionsChanged()();
-  return v17;
+  return v15;
 }
 
 uint64_t specialized closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:)(uint64_t a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v9 - v4;
-  v6 = type metadata accessor for TaskPriority();
-  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
-  v7 = swift_allocObject();
-  v7[2] = 0;
-  v7[3] = 0;
-  v7[4] = a1;
+  v4 = &v8 - v3;
+  v5 = type metadata accessor for TaskPriority();
+  (*(*(v5 - 8) + 56))(v4, 1, 1, v5);
+  v6 = swift_allocObject();
+  v6[2] = 0;
+  v6[3] = 0;
+  v6[4] = a1;
 
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCytSg_Tt2g5(0, 0, v5, &async function pointer to partial apply for specialized closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:), v7);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCytSg_Tt2g5(0, 0, v4, &async function pointer to partial apply for specialized closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:), v6);
 }
 
 uint64_t closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:)(uint64_t a1, uint64_t a2)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v11 - v6;
-  v8 = type metadata accessor for TaskPriority();
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-  v9 = swift_allocObject();
-  v9[2] = 0;
-  v9[3] = 0;
-  v9[4] = a2;
-  v9[5] = a1;
+  v6 = &v10 - v5;
+  v7 = type metadata accessor for TaskPriority();
+  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v8 = swift_allocObject();
+  v8[2] = 0;
+  v8[3] = 0;
+  v8[4] = a2;
+  v8[5] = a1;
 
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCytSg_Tt2g5(0, 0, v7, &async function pointer to partial apply for closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:), v9);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCytSg_Tt2g5(0, 0, v6, &async function pointer to partial apply for closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:), v8);
 }
 
 uint64_t closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7415,7 +6488,6 @@ uint64_t closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidati
 
 uint64_t closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:)()
 {
-  v1 = *(v0 + 48);
   swift_beginAccess();
   Strong = swift_weakLoadStrong();
   *(v0 + 56) = Strong;
@@ -7428,17 +6500,10 @@ uint64_t closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidati
   else
   {
     **(v0 + 40) = 1;
-    v3 = *(v0 + 8);
+    v2 = *(v0 + 8);
 
-    return v3();
+    return v2();
   }
-}
-
-{
-  v1 = *(v0 + 56);
-  AssertionManager.assertionsChanged()();
-
-  return MEMORY[0x2822009F8](closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:), 0, 0);
 }
 
 {
@@ -7446,58 +6511,63 @@ uint64_t closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidati
   return (*(v0 + 8))();
 }
 
+uint64_t closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:)(uint64_t a1)
+{
+  AssertionManager.assertionsChanged()();
+
+  return MEMORY[0x2822009F8](closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:), 0, 0);
+}
+
 uint64_t specialized AssertionManager.assertionsChanged()()
 {
-  v1 = v0;
-  v2 = [*(v0 + 112) allObjects];
+  v1 = [*(v0 + 112) allObjects];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16AssertionManagerC0D0Cyyt_GMd, &_s27NeighborhoodActivityConduit16AssertionManagerC0D0Cyyt_GMR);
-  v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (one-time initialization token for assertionManager != -1)
   {
     swift_once();
   }
 
-  v4 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v4, static Logger.assertionManager);
+  v3 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v3, static Logger.assertionManager);
 
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v5, v6))
+  v4 = Logger.logObject.getter();
+  v5 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v4, v5))
   {
-    v7 = swift_slowAlloc();
-    *v7 = 134217984;
-    if (v3 >> 62)
+    v6 = swift_slowAlloc();
+    *v6 = 134217984;
+    if (v2 >> 62)
     {
-      if (v3 < 0)
+      if (v2 < 0)
       {
-        v11 = v3;
+        v9 = v2;
       }
 
       else
       {
-        v11 = v3 & 0xFFFFFFFFFFFFFF8;
+        v9 = v2 & 0xFFFFFFFFFFFFFF8;
       }
 
-      v8 = MEMORY[0x22AA66940](v11);
+      v7 = MEMORY[0x22AA66940](v9);
     }
 
     else
     {
-      v8 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      v7 = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
-    *(v7 + 4) = v8;
+    *(v6 + 4) = v7;
 
-    _os_log_impl(&dword_225565000, v5, v6, "Assertions updated with new count: %ld.", v7, 0xCu);
-    MEMORY[0x22AA66F00](v7, -1, -1);
+    _os_log_impl(&dword_225565000, v4, v5, "Assertions updated with new count: %ld.", v6, 0xCu);
+    MEMORY[0x22AA66F00](v6, -1, -1);
   }
 
   else
   {
   }
 
-  v9 = *(v1 + 120);
   PassthroughSubject.send(_:)();
 }
 
@@ -7506,104 +6576,100 @@ uint64_t AssertionManager.assertionsChanged()()
   v1 = v0;
   v2 = *v0;
   v3 = [v1[14] allObjects];
-  v4 = *(v2 + 80);
-  v5 = type metadata accessor for AssertionManager.Assertion();
-  v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = type metadata accessor for AssertionManager.Assertion(0, *(v2 + 80), v4, v5);
+  v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (one-time initialization token for assertionManager != -1)
   {
     swift_once();
   }
 
-  v7 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v7, static Logger.assertionManager);
+  v8 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v8, static Logger.assertionManager);
 
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v8, v9))
+  v9 = Logger.logObject.getter();
+  v10 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v9, v10))
   {
-    v10 = swift_slowAlloc();
-    *v10 = 134217984;
-    *(v10 + 4) = MEMORY[0x22AA667E0](v6, v5);
+    v11 = swift_slowAlloc();
+    *v11 = 134217984;
+    *(v11 + 4) = MEMORY[0x22AA667E0](v7, v6);
 
-    _os_log_impl(&dword_225565000, v8, v9, "Assertions updated with new count: %ld.", v10, 0xCu);
-    MEMORY[0x22AA66F00](v10, -1, -1);
+    _os_log_impl(&dword_225565000, v9, v10, "Assertions updated with new count: %ld.", v11, 0xCu);
+    MEMORY[0x22AA66F00](v11, -1, -1);
   }
 
   else
   {
   }
 
-  v11 = v1[15];
   PassthroughSubject.send(_:)();
 }
 
 uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCytSg_Tt2g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = v27 - v11;
-  outlined init with copy of TaskPriority?(a3, v27 - v11);
-  v13 = type metadata accessor for TaskPriority();
-  v14 = *(v13 - 8);
-  v15 = (*(v14 + 48))(v12, 1, v13);
+  v11 = v25 - v10;
+  outlined init with copy of TaskPriority?(a3, v25 - v10);
+  v12 = type metadata accessor for TaskPriority();
+  v13 = *(v12 - 8);
+  v14 = (*(v13 + 48))(v11, 1, v12);
 
-  if (v15 == 1)
+  if (v14 == 1)
   {
-    outlined destroy of TaskPriority?(v12);
+    outlined destroy of TaskPriority?(v11);
   }
 
   else
   {
     TaskPriority.rawValue.getter();
-    (*(v14 + 8))(v12, v13);
+    (*(v13 + 8))(v11, v12);
   }
 
-  v17 = *(a5 + 16);
-  v16 = *(a5 + 24);
+  v15 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v17)
+  if (v15)
   {
     swift_getObjectType();
-    v18 = dispatch thunk of Actor.unownedExecutor.getter();
-    v20 = v19;
+    v16 = dispatch thunk of Actor.unownedExecutor.getter();
+    v18 = v17;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v21 = String.utf8CString.getter() + 32;
-      v22 = swift_allocObject();
-      *(v22 + 16) = a4;
-      *(v22 + 24) = a5;
+      v19 = String.utf8CString.getter() + 32;
+      v20 = swift_allocObject();
+      *(v20 + 16) = a4;
+      *(v20 + 24) = a5;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sytSgMd, &_sytSgMR);
-      v23 = (v20 | v18);
-      if (v20 | v18)
+      v21 = (v18 | v16);
+      if (v18 | v16)
       {
-        v28[0] = 0;
-        v28[1] = 0;
-        v23 = v28;
-        v28[2] = v18;
-        v28[3] = v20;
+        v26[0] = 0;
+        v26[1] = 0;
+        v21 = v26;
+        v26[2] = v16;
+        v26[3] = v18;
       }
 
-      v27[1] = 7;
-      v27[2] = v23;
-      v27[3] = v21;
-      v24 = swift_task_create();
+      v25[1] = 7;
+      v25[2] = v21;
+      v25[3] = v19;
+      v22 = swift_task_create();
 
       outlined destroy of TaskPriority?(a3);
 
-      return v24;
+      return v22;
     }
   }
 
   else
   {
+    v16 = 0;
     v18 = 0;
-    v20 = 0;
     if (a2)
     {
       goto LABEL_6;
@@ -7611,16 +6677,16 @@ LABEL_6:
   }
 
   outlined destroy of TaskPriority?(a3);
-  v26 = swift_allocObject();
-  *(v26 + 16) = a4;
-  *(v26 + 24) = a5;
+  v24 = swift_allocObject();
+  *(v24 + 16) = a4;
+  *(v24 + 24) = a5;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sytSgMd, &_sytSgMR);
-  if (v20 | v18)
+  if (v18 | v16)
   {
-    v28[4] = 0;
-    v28[5] = 0;
-    v28[6] = v18;
-    v28[7] = v20;
+    v26[4] = 0;
+    v26[5] = 0;
+    v26[6] = v16;
+    v26[7] = v18;
   }
 
   return swift_task_create();
@@ -7628,7 +6694,6 @@ LABEL_6:
 
 uint64_t AssertionManager.deinit()
 {
-  v1 = *(v0 + 120);
 
   swift_defaultActor_destroy();
   return v0;
@@ -7673,27 +6738,25 @@ uint64_t one-time initialization function for assertionManager()
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRytSg_TG5(uint64_t a1, int *a2)
 {
   *(v2 + 16) = a1;
-  v6 = (a2 + *a2);
-  v3 = a2[1];
-  v4 = swift_task_alloc();
-  *(v2 + 24) = v4;
-  *v4 = v2;
-  v4[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRytSg_TG5TQ0_;
+  v5 = (a2 + *a2);
+  v3 = swift_task_alloc();
+  *(v2 + 24) = v3;
+  *v3 = v2;
+  v3[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRytSg_TG5TQ0_;
 
-  return v6(v2 + 32);
+  return v5(v2 + 32);
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRytSg_TG5TQ0_()
 {
   v1 = *v0;
-  v2 = *(*v0 + 24);
-  v3 = *(*v0 + 16);
-  v6 = *v0;
+  v2 = *(*v0 + 16);
+  v5 = *v0;
 
-  *v3 = *(v1 + 32);
-  v4 = *(v6 + 8);
+  *v2 = *(v1 + 32);
+  v3 = *(v5 + 8);
 
-  return v4();
+  return v3();
 }
 
 uint64_t specialized closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7705,7 +6768,6 @@ uint64_t specialized closure #1 in closure #1 in AssertionManager.takeAssertion(
 
 uint64_t specialized closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:)()
 {
-  v1 = *(v0 + 48);
   swift_beginAccess();
   Strong = swift_weakLoadStrong();
   *(v0 + 56) = Strong;
@@ -7718,14 +6780,13 @@ uint64_t specialized closure #1 in closure #1 in AssertionManager.takeAssertion(
   else
   {
     **(v0 + 40) = 1;
-    v3 = *(v0 + 8);
+    v2 = *(v0 + 8);
 
-    return v3();
+    return v2();
   }
 }
 
 {
-  v1 = *(v0 + 56);
   specialized AssertionManager.assertionsChanged()();
 
   return MEMORY[0x2822009F8](specialized closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:), 0, 0);
@@ -7738,9 +6799,7 @@ uint64_t specialized AssertionManager.Assertion.value.setter(uint64_t a1)
   swift_beginAccess();
   (*(*(*(v3 + 80) - 8) + 24))(v1 + v4, a1);
   v5 = swift_endAccess();
-  v6 = v1 + *(*v1 + 104);
-  v7 = *(v6 + 8);
-  return (*v6)(v5);
+  return (*(v1 + *(*v1 + 104)))(v5);
 }
 
 uint64_t *__swift_allocate_boxed_opaque_existential_1(uint64_t *result)
@@ -7754,20 +6813,11 @@ uint64_t *__swift_allocate_boxed_opaque_existential_1(uint64_t *result)
   return result;
 }
 
-uint64_t partial apply for closure #1 in AssertionManager<A>.takeAssertion(invalidationHandler:)()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
 uint64_t type metadata completion function for AssertionManager.Assertion(uint64_t a1)
 {
-  v1 = *(a1 + 80);
   result = swift_checkMetadataState();
-  if (v3 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
     result = swift_initClassMetadata2();
     if (!result)
     {
@@ -7793,38 +6843,35 @@ uint64_t partial apply for specialized closure #1 in closure #1 in AssertionMana
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRytSg_TG5TA(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = partial apply for specialized closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:);
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = partial apply for specialized closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:);
 
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRytSg_TG5(a1, v5);
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRytSg_TG5(a1, v4);
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRytSg_TG5TA_25(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTRTQ0_;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTRTQ0_;
 
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRytSg_TG5(a1, v5);
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRytSg_TG5(a1, v4);
 }
 
 uint64_t partial apply for closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:)(uint64_t a1)
 {
   v4 = v1[2];
   v5 = v1[3];
-  v7 = v1[4];
   v6 = v1[5];
-  v8 = swift_task_alloc();
-  *(v2 + 16) = v8;
-  *v8 = v2;
-  v8[1] = _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTRTQ0_;
+  v7 = swift_task_alloc();
+  *(v2 + 16) = v7;
+  *v7 = v2;
+  v7[1] = _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTRTQ0_;
 
   return closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:)(a1, v4, v5, v6);
 }
@@ -7934,46 +6981,42 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 uint64_t CallType.encode(to:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit8CallTypeO15VideoCodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit8CallTypeO15VideoCodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMR);
-  v23 = *(v3 - 8);
-  v24 = v3;
-  v4 = *(v23 + 64);
+  v19 = *(v3 - 8);
+  v20 = v3;
   MEMORY[0x28223BE20](v3);
-  v22 = &v20 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit8CallTypeO15AudioCodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit8CallTypeO15AudioCodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMR);
-  v20 = *(v6 - 8);
-  v21 = v6;
-  v7 = *(v20 + 64);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v20 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit8CallTypeO10CodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit8CallTypeO10CodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMR);
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v20 - v13;
-  v15 = *v1;
-  v16 = a1[4];
+  v18 = &v16 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit8CallTypeO15AudioCodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit8CallTypeO15AudioCodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMR);
+  v16 = *(v5 - 8);
+  v17 = v5;
+  MEMORY[0x28223BE20](v5);
+  v7 = &v16 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit8CallTypeO10CodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMd, &_ss22KeyedEncodingContainerVy27NeighborhoodActivityConduit8CallTypeO10CodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMR);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v16 - v10;
+  v12 = *v1;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type CallType.CodingKeys and conformance CallType.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v17 = (v11 + 8);
-  if (v15)
+  v13 = (v9 + 8);
+  if (v12)
   {
-    v26 = 1;
+    v22 = 1;
     lazy protocol witness table accessor for type CallType.VideoCodingKeys and conformance CallType.VideoCodingKeys();
-    v18 = v22;
+    v14 = v18;
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    (*(v23 + 8))(v18, v24);
+    (*(v19 + 8))(v14, v20);
   }
 
   else
   {
-    v25 = 0;
+    v21 = 0;
     lazy protocol witness table accessor for type CallType.AudioCodingKeys and conformance CallType.AudioCodingKeys();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    (*(v20 + 8))(v9, v21);
+    (*(v16 + 8))(v7, v17);
   }
 
-  return (*v17)(v14, v10);
+  return (*v13)(v11, v8);
 }
 
 unint64_t lazy protocol witness table accessor for type CallType.CodingKeys and conformance CallType.CodingKeys()
@@ -8097,85 +7140,80 @@ Swift::Int CallType.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t CallType.init(from:)@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t CallType.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v36 = a2;
+  v30 = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit8CallTypeO15VideoCodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMd, &_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit8CallTypeO15VideoCodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMR);
   v4 = *(v3 - 8);
-  v33 = v3;
-  v34 = v4;
-  v5 = *(v4 + 64);
+  v27 = v3;
+  v28 = v4;
   MEMORY[0x28223BE20](v3);
-  v7 = &v30 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit8CallTypeO15AudioCodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMd, &_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit8CallTypeO15AudioCodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMR);
-  v32 = *(v8 - 8);
-  v9 = *(v32 + 64);
-  MEMORY[0x28223BE20](v8);
-  v11 = &v30 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit8CallTypeO10CodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMd, &_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit8CallTypeO10CodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMR);
-  v35 = *(v12 - 8);
-  v13 = *(v35 + 64);
-  MEMORY[0x28223BE20](v12);
-  v15 = &v30 - v14;
-  v16 = a1[4];
+  v6 = &v24 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit8CallTypeO15AudioCodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMd, &_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit8CallTypeO15AudioCodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMR);
+  v26 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v9 = &v24 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit8CallTypeO10CodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMd, &_ss22KeyedDecodingContainerVy27NeighborhoodActivityConduit8CallTypeO10CodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOGMR);
+  v29 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v12 = &v24 - v11;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type CallType.CodingKeys and conformance CallType.CodingKeys();
-  v17 = v37;
+  v13 = v31;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v17)
+  if (v13)
   {
     goto LABEL_7;
   }
 
-  v31 = v8;
-  v37 = a1;
-  v19 = v35;
-  v18 = v36;
-  v20 = v15;
-  v21 = KeyedDecodingContainer.allKeys.getter();
-  if (*(v21 + 16) != 1)
+  v25 = v7;
+  v31 = a1;
+  v15 = v29;
+  v14 = v30;
+  v16 = v12;
+  v17 = KeyedDecodingContainer.allKeys.getter();
+  if (*(v17 + 16) != 1)
   {
-    v23 = type metadata accessor for DecodingError();
+    v19 = type metadata accessor for DecodingError();
     swift_allocError();
-    v25 = v24;
-    v26 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    *v25 = &type metadata for CallType;
+    v21 = v20;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v21 = &type metadata for CallType;
     KeyedDecodingContainer.codingPath.getter();
     DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
-    (*(*(v23 - 8) + 104))(v25, *MEMORY[0x277D84160], v23);
+    (*(*(v19 - 8) + 104))(v21, *MEMORY[0x277D84160], v19);
     swift_willThrow();
-    (*(v19 + 8))(v20, v12);
+    (*(v15 + 8))(v16, v10);
     swift_unknownObjectRelease();
-    a1 = v37;
+    a1 = v31;
 LABEL_7:
-    v28 = a1;
-    return __swift_destroy_boxed_opaque_existential_1(v28);
+    v22 = a1;
+    return __swift_destroy_boxed_opaque_existential_1(v22);
   }
 
-  v30 = v21;
-  v22 = *(v21 + 32);
-  if (v22)
+  v24 = v17;
+  v18 = *(v17 + 32);
+  if (v18)
   {
-    v39 = 1;
+    v33 = 1;
     lazy protocol witness table accessor for type CallType.VideoCodingKeys and conformance CallType.VideoCodingKeys();
     KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    (*(v34 + 8))(v7, v33);
+    (*(v28 + 8))(v6, v27);
   }
 
   else
   {
-    v27 = *(v21 + 32);
-    v38 = 0;
+    v32 = 0;
     lazy protocol witness table accessor for type CallType.AudioCodingKeys and conformance CallType.AudioCodingKeys();
     KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    (*(v32 + 8))(v11, v31);
+    (*(v26 + 8))(v9, v25);
   }
 
-  (*(v19 + 8))(v20, v12);
+  (*(v15 + 8))(v16, v10);
   swift_unknownObjectRelease();
-  *v18 = v22;
-  v28 = v37;
-  return __swift_destroy_boxed_opaque_existential_1(v28);
+  *v14 = v18;
+  v22 = v31;
+  return __swift_destroy_boxed_opaque_existential_1(v22);
 }
 
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance CallType()
@@ -8227,11 +7265,10 @@ unint64_t FaceTimeURLQueryItemName.rawValue.getter(unsigned __int8 a1)
   }
 }
 
-uint64_t static FaceTimeURL.from(url:allowCallLinks:)@<X0>(uint64_t a1@<X8>)
+uint64_t static FaceTimeURL.from(url:allowCallLinks:)@<X0>(uint64_t x8_0@<X8>)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation13URLComponentsVSgMd, &_s10Foundation13URLComponentsVSgMR);
-  v3 = *(*(v2 - 8) + 64);
-  v4 = MEMORY[0x28223BE20](v2 - 8);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation13URLComponentsVSgMd, &_s10Foundation13URLComponentsVSgMR);
+  v4 = MEMORY[0x28223BE20](v3 - 8);
   v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v4);
   v8 = &v13 - v7;
@@ -8256,7 +7293,7 @@ LABEL_4:
   }
 
 LABEL_5:
-  static FaceTimeURL.from(queryItems:)(v11, a1);
+  static FaceTimeURL.from(queryItems:)(v11, x8_0);
 
   return outlined destroy of NCProtoContactInfo?(v8, &_s10Foundation13URLComponentsVSgMd, &_s10Foundation13URLComponentsVSgMR);
 }
@@ -8271,178 +7308,158 @@ uint64_t outlined init with copy of URLComponents?(uint64_t a1, uint64_t a2)
 uint64_t static FaceTimeURL.from(queryItems:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18JoinFailureContextVSgMd, &_s27NeighborhoodActivityConduit18JoinFailureContextVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v193 = &v189 - v6;
-  v192 = type metadata accessor for JoinFailureContext(0);
-  v191 = *(v192 - 8);
-  v7 = *(v191 + 64);
-  MEMORY[0x28223BE20](v192);
-  v189 = &v189 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextVSgMd, &_s27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v196 = &v189 - v11;
-  v195 = type metadata accessor for JoinContinuityConversationRequestContext(0);
-  v194 = *(v195 - 8);
-  v12 = *(v194 + 64);
-  MEMORY[0x28223BE20](v195);
-  v190 = &v189 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for String.Encoding();
-  v216 = *(v14 - 8);
-  v217 = v14;
-  v15 = *(v216 + 64);
-  MEMORY[0x28223BE20](v14);
-  v215 = &v189 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = type metadata accessor for URLQueryItem();
-  v18 = *(v17 - 8);
-  v19 = *(v18 + 64);
-  v20 = MEMORY[0x28223BE20](v17);
-  v212 = &v189 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = MEMORY[0x28223BE20](v20);
-  v200 = &v189 - v23;
-  v24 = MEMORY[0x28223BE20](v22);
-  v26 = &v189 - v25;
-  v27 = MEMORY[0x28223BE20](v24);
-  v220 = &v189 - v28;
+  v184 = &v180 - v5;
+  v183 = type metadata accessor for JoinFailureContext(0);
+  v182 = *(v183 - 8);
+  MEMORY[0x28223BE20](v183);
+  v180 = &v180 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextVSgMd, &_s27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
+  v187 = &v180 - v8;
+  v186 = type metadata accessor for JoinContinuityConversationRequestContext(0);
+  v185 = *(v186 - 8);
+  MEMORY[0x28223BE20](v186);
+  v181 = &v180 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for String.Encoding();
+  v207 = *(v10 - 8);
+  v208 = v10;
+  MEMORY[0x28223BE20](v10);
+  v206 = &v180 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for URLQueryItem();
+  v13 = *(v12 - 8);
+  v14 = MEMORY[0x28223BE20](v12);
+  v203 = &v180 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = MEMORY[0x28223BE20](v14);
+  v191 = &v180 - v17;
+  v18 = MEMORY[0x28223BE20](v16);
+  v20 = &v180 - v19;
+  v21 = MEMORY[0x28223BE20](v18);
+  v211 = &v180 - v22;
+  v23 = MEMORY[0x28223BE20](v21);
+  v192 = &v180 - v24;
+  v25 = MEMORY[0x28223BE20](v23);
+  v193 = &v180 - v26;
+  v27 = MEMORY[0x28223BE20](v25);
+  v204 = &v180 - v28;
   v29 = MEMORY[0x28223BE20](v27);
-  v201 = &v189 - v30;
+  v194 = &v180 - v30;
   v31 = MEMORY[0x28223BE20](v29);
-  v202 = &v189 - v32;
+  v195 = &v180 - v32;
   v33 = MEMORY[0x28223BE20](v31);
-  v213 = &v189 - v34;
-  v35 = MEMORY[0x28223BE20](v33);
-  v203 = &v189 - v36;
-  v37 = MEMORY[0x28223BE20](v35);
-  v204 = &v189 - v38;
-  v39 = MEMORY[0x28223BE20](v37);
-  v41 = &v189 - v40;
-  v42 = MEMORY[0x28223BE20](v39);
-  v205 = &v189 - v43;
-  v44 = MEMORY[0x28223BE20](v42);
-  v206 = &v189 - v45;
-  v46 = MEMORY[0x28223BE20](v44);
-  v48 = &v189 - v47;
-  v49 = MEMORY[0x28223BE20](v46);
-  v207 = &v189 - v50;
-  v51 = MEMORY[0x28223BE20](v49);
-  v210 = &v189 - v52;
-  v53 = MEMORY[0x28223BE20](v51);
-  v55 = &v189 - v54;
-  v56 = MEMORY[0x28223BE20](v53);
-  v208 = &v189 - v57;
-  MEMORY[0x28223BE20](v56);
-  v211 = &v189 - v58;
-  v59 = type metadata accessor for JSONDecoder();
-  v60 = *(v59 + 48);
-  v61 = *(v59 + 52);
+  v35 = &v180 - v34;
+  v36 = MEMORY[0x28223BE20](v33);
+  v196 = &v180 - v37;
+  v38 = MEMORY[0x28223BE20](v36);
+  v197 = &v180 - v39;
+  v40 = MEMORY[0x28223BE20](v38);
+  v42 = &v180 - v41;
+  v43 = MEMORY[0x28223BE20](v40);
+  v198 = &v180 - v44;
+  v45 = MEMORY[0x28223BE20](v43);
+  v201 = &v180 - v46;
+  v47 = MEMORY[0x28223BE20](v45);
+  v49 = &v180 - v48;
+  v50 = MEMORY[0x28223BE20](v47);
+  v199 = &v180 - v51;
+  MEMORY[0x28223BE20](v50);
+  v202 = &v180 - v52;
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
-  v62 = JSONDecoder.init()();
-  v63 = *(a1 + 16);
-  if (v63)
+  v53 = JSONDecoder.init()();
+  v54 = *(a1 + 16);
+  if (v54)
   {
-    v209 = v62;
-    v197 = 0;
-    v198 = v26;
-    v199 = a2;
-    v219 = v18;
-    v65 = *(v18 + 16);
-    v64 = v18 + 16;
-    v66 = a1 + ((*(v64 + 64) + 32) & ~*(v64 + 64));
-    v221 = *(v64 + 56);
-    v222 = v65;
-    v223 = v64;
-    v224 = (v64 - 8);
-    v218 = v66;
-    v214 = v63;
-    v67 = v63;
+    v200 = v53;
+    v188 = 0;
+    v189 = v20;
+    v190 = a2;
+    v210 = v13;
+    v56 = *(v13 + 16);
+    v55 = v13 + 16;
+    v57 = a1 + ((*(v55 + 64) + 32) & ~*(v55 + 64));
+    v212 = *(v55 + 56);
+    v213 = v56;
+    v214 = v55;
+    v215 = (v55 - 8);
+    v209 = v57;
+    v205 = v54;
+    v58 = v54;
     while (1)
     {
-      v222(v55, v66, v17);
-      if (URLQueryItem.name.getter() == 0xD000000000000020 && 0x80000002255DF880 == v68)
+      v213(v49, v57, v12);
+      if (URLQueryItem.name.getter() == 0xD000000000000020 && 0x80000002255DF880 == v59)
       {
         break;
       }
 
-      v69 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v60 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if (v69)
+      if (v60)
       {
         goto LABEL_10;
       }
 
-      v70 = *v224;
-      result = (*v224)(v55, v17);
-      v66 += v221;
-      if (!--v67)
+      v61 = *v215;
+      result = (*v215)(v49, v12);
+      v57 += v212;
+      if (!--v58)
       {
         goto LABEL_14;
       }
     }
 
 LABEL_10:
-    v72 = *(v219 + 32);
-    v73 = v208;
-    v72(v208, v55, v17);
-    v74 = v211;
-    v72(v211, v73, v17);
+    v63 = *(v210 + 32);
+    v64 = v199;
+    v63(v199, v49, v12);
+    v65 = v202;
+    v63(v202, v64, v12);
     URLQueryItem.value.getter();
-    if (!v75)
+    if (!v66 || (v67 = v206, static String.Encoding.utf8.getter(), v68 = String.data(using:allowLossyConversion:)(), v70 = v69, , (*(v207 + 8))(v67, v208), v70 >> 60 == 15) || (v71 = Data.init(base64Encoded:options:)(), v73 = v72, outlined consume of Data?(v68, v70), v73 >> 60 == 15))
     {
-      goto LABEL_13;
-    }
-
-    v76 = v215;
-    static String.Encoding.utf8.getter();
-    v77 = String.data(using:allowLossyConversion:)();
-    v79 = v78;
-
-    (*(v216 + 8))(v76, v217);
-    if (v79 >> 60 == 15 || (v80 = Data.init(base64Encoded:options:)(), v82 = v81, outlined consume of Data?(v77, v79), v82 >> 60 == 15))
-    {
-LABEL_13:
-      v70 = *v224;
-      result = (*v224)(v74, v17);
+      v61 = *v215;
+      result = (*v215)(v65, v12);
     }
 
     else
     {
-      lazy protocol witness table accessor for type JoinFailureContext and conformance JoinFailureContext(&lazy protocol witness table cache variable for type JoinContinuityConversationRequestContext and conformance JoinContinuityConversationRequestContext, type metadata accessor for JoinContinuityConversationRequestContext);
-      v163 = v196;
-      v164 = v195;
-      v165 = v197;
+      lazy protocol witness table accessor for type JoinFailureContext and conformance JoinFailureContext(&lazy protocol witness table cache variable for type JoinContinuityConversationRequestContext and conformance JoinContinuityConversationRequestContext, type metadata accessor for JoinContinuityConversationRequestContext, &protocol conformance descriptor for JoinContinuityConversationRequestContext);
+      v154 = v187;
+      v155 = v186;
+      v156 = v188;
       dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-      if (!v165)
+      if (!v156)
       {
-        (*v224)(v211, v17);
-        outlined consume of Data?(v80, v82);
+        (*v215)(v202, v12);
+        outlined consume of Data?(v71, v73);
 
-        (*(v194 + 56))(v163, 0, 1, v164);
-        v173 = v190;
-        outlined init with take of JoinFailureContext(v163, v190, type metadata accessor for JoinContinuityConversationRequestContext);
-        v174 = v173;
-        v175 = v199;
-        outlined init with take of JoinFailureContext(v174, v199, type metadata accessor for JoinContinuityConversationRequestContext);
-        v176 = type metadata accessor for FaceTimeURL();
+        (*(v185 + 56))(v154, 0, 1, v155);
+        v164 = v181;
+        outlined init with take of JoinFailureContext(v154, v181, type metadata accessor for JoinContinuityConversationRequestContext);
+        v165 = v164;
+        v166 = v190;
+        outlined init with take of JoinFailureContext(v165, v190, type metadata accessor for JoinContinuityConversationRequestContext);
+        v167 = type metadata accessor for FaceTimeURL(0);
         goto LABEL_95;
       }
 
-      MEMORY[0x22AA66DF0](v165);
-      outlined consume of Data?(v80, v82);
-      v70 = *v224;
-      (*v224)(v211, v17);
-      (*(v194 + 56))(v163, 1, 1, v164);
-      result = outlined destroy of NCProtoContactInfo?(v163, &_s27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextVSgMd, &_s27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextVSgMR);
-      v197 = 0;
+      MEMORY[0x22AA66DF0](v156);
+      outlined consume of Data?(v71, v73);
+      v61 = *v215;
+      (*v215)(v202, v12);
+      (*(v185 + 56))(v154, 1, 1, v155);
+      result = outlined destroy of NCProtoContactInfo?(v154, &_s27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextVSgMd, &_s27NeighborhoodActivityConduit40JoinContinuityConversationRequestContextVSgMR);
+      v188 = 0;
     }
 
 LABEL_14:
-    v83 = v218;
-    v84 = v214;
-    v85 = v213;
+    v74 = v209;
+    v75 = v205;
+    v76 = v204;
     while (1)
     {
-      if (!v84)
+      if (!v75)
       {
         __break(1u);
 LABEL_97:
@@ -8456,429 +7473,365 @@ LABEL_100:
         return result;
       }
 
-      v222(v48, v83, v17);
-      if (URLQueryItem.name.getter() == 0xD00000000000001ELL && 0x80000002255DF8B0 == v86)
+      v213(v42, v74, v12);
+      if (URLQueryItem.name.getter() == 0xD00000000000001ELL && 0x80000002255DF8B0 == v77)
       {
         break;
       }
 
-      v87 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v78 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if (v87)
+      if (v78)
       {
         goto LABEL_22;
       }
 
-      result = v70(v48, v17);
-      v83 += v221;
-      if (!--v84)
+      result = v61(v42, v12);
+      v74 += v212;
+      if (!--v75)
       {
         goto LABEL_26;
       }
     }
 
 LABEL_22:
-    v88 = *(v219 + 32);
-    v89 = v207;
-    v88(v207, v48, v17);
-    v90 = v210;
-    v88(v210, v89, v17);
+    v79 = *(v210 + 32);
+    v80 = v198;
+    v79(v198, v42, v12);
+    v81 = v201;
+    v79(v201, v80, v12);
     URLQueryItem.value.getter();
-    if (!v91)
+    if (!v82 || (v83 = v206, static String.Encoding.utf8.getter(), v84 = String.data(using:allowLossyConversion:)(), v86 = v85, , v87 = v83, v76 = v204, (*(v207 + 8))(v87, v208), v86 >> 60 == 15) || (v88 = Data.init(base64Encoded:options:)(), v90 = v89, outlined consume of Data?(v84, v86), v90 >> 60 == 15))
     {
-      goto LABEL_25;
-    }
-
-    v92 = v215;
-    static String.Encoding.utf8.getter();
-    v93 = String.data(using:allowLossyConversion:)();
-    v95 = v94;
-
-    v96 = v92;
-    v85 = v213;
-    (*(v216 + 8))(v96, v217);
-    if (v95 >> 60 == 15 || (v97 = Data.init(base64Encoded:options:)(), v99 = v98, outlined consume of Data?(v93, v95), v99 >> 60 == 15))
-    {
-LABEL_25:
-      result = v70(v90, v17);
+      result = v61(v81, v12);
 LABEL_26:
-      v100 = v218;
-      v101 = v214;
+      v91 = v209;
+      v92 = v205;
       while (1)
       {
-        if (!v101)
+        if (!v92)
         {
           goto LABEL_97;
         }
 
-        v222(v41, v100, v17);
-        if (URLQueryItem.name.getter() == 0x676E696D6F636E69 && v102 == 0xEF66666F646E6148)
+        v213(v35, v91, v12);
+        if (URLQueryItem.name.getter() == 0x676E696D6F636E69 && v93 == 0xEF66666F646E6148)
         {
           break;
         }
 
-        v103 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v94 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if (v103)
+        if (v94)
         {
           goto LABEL_34;
         }
 
-        result = v70(v41, v17);
-        v100 += v221;
-        if (!--v101)
+        result = v61(v35, v12);
+        v91 += v212;
+        if (!--v92)
         {
           goto LABEL_38;
         }
       }
 
 LABEL_34:
-      v104 = *(v219 + 32);
-      v105 = v205;
-      v104(v205, v41, v17);
-      v106 = v206;
-      v104(v206, v105, v17);
+      v95 = *(v210 + 32);
+      v96 = v196;
+      v95(v196, v35, v12);
+      v97 = v197;
+      v95(v197, v96, v12);
       URLQueryItem.value.getter();
-      if (!v107)
+      if (!v98 || (v99 = v206, static String.Encoding.utf8.getter(), v100 = String.data(using:allowLossyConversion:)(), v102 = v101, , v103 = v99, v76 = v204, (*(v207 + 8))(v103, v208), v102 >> 60 == 15) || (v104 = Data.init(base64Encoded:options:)(), v106 = v105, outlined consume of Data?(v100, v102), v106 >> 60 == 15))
       {
-        goto LABEL_37;
-      }
-
-      v108 = v215;
-      static String.Encoding.utf8.getter();
-      v109 = String.data(using:allowLossyConversion:)();
-      v111 = v110;
-
-      v112 = v108;
-      v85 = v213;
-      (*(v216 + 8))(v112, v217);
-      if (v111 >> 60 == 15 || (v113 = Data.init(base64Encoded:options:)(), v115 = v114, outlined consume of Data?(v109, v111), v115 >> 60 == 15))
-      {
-LABEL_37:
-        result = v70(v106, v17);
+        result = v61(v97, v12);
 LABEL_38:
-        v116 = v218;
-        v117 = v214;
-        v118 = v214;
-        v119 = v198;
+        v107 = v209;
+        v108 = v205;
+        v109 = v205;
+        v110 = v189;
         while (1)
         {
-          if (!v118)
+          if (!v109)
           {
             goto LABEL_98;
           }
 
-          v222(v85, v116, v17);
-          if (URLQueryItem.name.getter() == 0xD000000000000016 && 0x80000002255DF8E0 == v120)
+          v213(v76, v107, v12);
+          if (URLQueryItem.name.getter() == 0xD000000000000016 && 0x80000002255DF8E0 == v111)
           {
             break;
           }
 
-          v121 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          v112 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-          if (v121)
+          if (v112)
           {
             goto LABEL_46;
           }
 
-          result = v70(v85, v17);
-          v116 += v221;
-          if (!--v118)
+          result = v61(v76, v12);
+          v107 += v212;
+          if (!--v109)
           {
             goto LABEL_50;
           }
         }
 
 LABEL_46:
-        v122 = *(v219 + 32);
-        v123 = v203;
-        v122(v203, v85, v17);
-        v124 = v204;
-        v122(v204, v123, v17);
+        v113 = *(v210 + 32);
+        v114 = v194;
+        v113(v194, v76, v12);
+        v115 = v195;
+        v113(v195, v114, v12);
         URLQueryItem.value.getter();
-        if (!v125)
+        if (!v116 || (v117 = v206, static String.Encoding.utf8.getter(), v118 = String.data(using:allowLossyConversion:)(), v120 = v119, , (*(v207 + 8))(v117, v208), v120 >> 60 == 15) || (v121 = Data.init(base64Encoded:options:)(), v123 = v122, outlined consume of Data?(v118, v120), v123 >> 60 == 15))
         {
-          goto LABEL_49;
-        }
-
-        v126 = v215;
-        static String.Encoding.utf8.getter();
-        v127 = String.data(using:allowLossyConversion:)();
-        v129 = v128;
-
-        (*(v216 + 8))(v126, v217);
-        if (v129 >> 60 == 15 || (v130 = Data.init(base64Encoded:options:)(), v132 = v131, outlined consume of Data?(v127, v129), v132 >> 60 == 15))
-        {
-LABEL_49:
-          result = v70(v124, v17);
+          result = v61(v115, v12);
 LABEL_50:
-          v133 = v218;
-          v134 = v218;
-          v135 = v117;
+          v124 = v209;
+          v125 = v209;
+          v126 = v108;
           while (1)
           {
-            if (!v135)
+            if (!v126)
             {
               goto LABEL_99;
             }
 
-            v222(v220, v134, v17);
-            if (URLQueryItem.name.getter() == 0xD000000000000010 && 0x80000002255DF900 == v136)
+            v213(v211, v125, v12);
+            if (URLQueryItem.name.getter() == 0xD000000000000010 && 0x80000002255DF900 == v127)
             {
               break;
             }
 
-            v137 = _stringCompareWithSmolCheck(_:_:expecting:)();
+            v128 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-            if (v137)
+            if (v128)
             {
               goto LABEL_58;
             }
 
-            result = v70(v220, v17);
-            v134 += v221;
-            if (!--v135)
+            result = v61(v211, v12);
+            v125 += v212;
+            if (!--v126)
             {
               goto LABEL_62;
             }
           }
 
 LABEL_58:
-          v138 = *(v219 + 32);
-          v139 = v201;
-          v138(v201, v220, v17);
-          v140 = v202;
-          v138(v202, v139, v17);
+          v129 = *(v210 + 32);
+          v130 = v192;
+          v129(v192, v211, v12);
+          v131 = v193;
+          v129(v193, v130, v12);
           URLQueryItem.value.getter();
-          if (!v141)
+          if (!v132 || (v133 = v206, static String.Encoding.utf8.getter(), v134 = String.data(using:allowLossyConversion:)(), v136 = v135, , (*(v207 + 8))(v133, v208), v136 >> 60 == 15) || (v137 = Data.init(base64Encoded:options:)(), v139 = v138, outlined consume of Data?(v134, v136), v139 >> 60 == 15))
           {
-            goto LABEL_61;
-          }
-
-          v142 = v215;
-          static String.Encoding.utf8.getter();
-          v143 = String.data(using:allowLossyConversion:)();
-          v145 = v144;
-
-          (*(v216 + 8))(v142, v217);
-          if (v145 >> 60 == 15 || (v146 = Data.init(base64Encoded:options:)(), v148 = v147, outlined consume of Data?(v143, v145), v148 >> 60 == 15))
-          {
-LABEL_61:
-            result = v70(v140, v17);
+            result = v61(v131, v12);
 LABEL_62:
-            v149 = v212;
+            v140 = v203;
             while (1)
             {
-              if (!v117)
+              if (!v108)
               {
                 goto LABEL_100;
               }
 
-              v222(v149, v133, v17);
-              if (URLQueryItem.name.getter() == 0xD000000000000019 && 0x80000002255DF920 == v150)
+              v213(v140, v124, v12);
+              if (URLQueryItem.name.getter() == 0xD000000000000019 && 0x80000002255DF920 == v141)
               {
                 break;
               }
 
-              v151 = _stringCompareWithSmolCheck(_:_:expecting:)();
+              v142 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-              if (v151)
+              if (v142)
               {
                 goto LABEL_70;
               }
 
-              result = v70(v149, v17);
-              v133 += v221;
-              if (!--v117)
+              result = v61(v140, v12);
+              v124 += v212;
+              if (!--v108)
               {
 
 LABEL_75:
-                a2 = v199;
+                a2 = v190;
                 goto LABEL_76;
               }
             }
 
 LABEL_70:
-            v152 = *(v219 + 32);
-            v153 = v200;
-            v152(v200, v149, v17);
-            v152(v119, v153, v17);
+            v143 = *(v210 + 32);
+            v144 = v191;
+            v143(v191, v140, v12);
+            v143(v110, v144, v12);
             URLQueryItem.value.getter();
-            if (!v154)
+            if (!v145 || (v146 = v206, static String.Encoding.utf8.getter(), v147 = String.data(using:allowLossyConversion:)(), v149 = v148, , (*(v207 + 8))(v146, v208), v149 >> 60 == 15) || (v150 = Data.init(base64Encoded:options:)(), v152 = v151, outlined consume of Data?(v147, v149), v152 >> 60 == 15))
             {
-              goto LABEL_73;
-            }
-
-            v155 = v215;
-            static String.Encoding.utf8.getter();
-            v156 = String.data(using:allowLossyConversion:)();
-            v158 = v157;
-
-            (*(v216 + 8))(v155, v217);
-            if (v158 >> 60 == 15 || (v159 = Data.init(base64Encoded:options:)(), v161 = v160, outlined consume of Data?(v156, v158), v161 >> 60 == 15))
-            {
-LABEL_73:
 
 LABEL_74:
-              v70(v119, v17);
+              v61(v110, v12);
               goto LABEL_75;
             }
 
             lazy protocol witness table accessor for type DismissBannerContext and conformance DismissBannerContext();
-            v172 = v197;
+            v163 = v188;
             dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-            if (v172)
+            if (v163)
             {
-              MEMORY[0x22AA66DF0](v172);
+              MEMORY[0x22AA66DF0](v163);
 
-              outlined consume of Data?(v159, v161);
+              outlined consume of Data?(v150, v152);
               goto LABEL_74;
             }
 
-            v70(v119, v17);
+            v61(v110, v12);
 
-            outlined consume of Data?(v159, v161);
-            v188 = *(&v225 + 1);
-            v175 = v199;
-            *v199 = v225;
-            *(v175 + 8) = v188;
-            v176 = type metadata accessor for FaceTimeURL();
+            outlined consume of Data?(v150, v152);
+            v179 = *(&v216 + 1);
+            v166 = v190;
+            *v190 = v216;
+            *(v166 + 8) = v179;
+            v167 = type metadata accessor for FaceTimeURL(0);
           }
 
           else
           {
             lazy protocol witness table accessor for type CallUpdateBannerContext and conformance CallUpdateBannerContext();
-            v171 = v197;
+            v162 = v188;
             dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-            if (v171)
+            if (v162)
             {
-              MEMORY[0x22AA66DF0](v171);
-              outlined consume of Data?(v146, v148);
-              result = v70(v140, v17);
-              v197 = 0;
+              MEMORY[0x22AA66DF0](v162);
+              outlined consume of Data?(v137, v139);
+              result = v61(v131, v12);
+              v188 = 0;
               goto LABEL_62;
             }
 
-            v70(v140, v17);
+            v61(v131, v12);
 
-            outlined consume of Data?(v146, v148);
-            v185 = *(&v225 + 1);
-            v186 = v226[0];
-            v187 = *&v226[8];
-            v175 = v199;
-            *v199 = v225;
-            *(v175 + 8) = v185;
-            *(v175 + 16) = v186;
-            *(v175 + 24) = v187;
-            v176 = type metadata accessor for FaceTimeURL();
+            outlined consume of Data?(v137, v139);
+            v176 = *(&v216 + 1);
+            v177 = v217[0];
+            v178 = *&v217[8];
+            v166 = v190;
+            *v190 = v216;
+            *(v166 + 8) = v176;
+            *(v166 + 16) = v177;
+            *(v166 + 24) = v178;
+            v167 = type metadata accessor for FaceTimeURL(0);
           }
         }
 
         else
         {
           lazy protocol witness table accessor for type IncomingCallBannerContext and conformance IncomingCallBannerContext();
-          v170 = v197;
+          v161 = v188;
           dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-          if (v170)
+          if (v161)
           {
-            MEMORY[0x22AA66DF0](v170);
-            outlined consume of Data?(v130, v132);
-            result = v70(v124, v17);
-            v197 = 0;
+            MEMORY[0x22AA66DF0](v161);
+            outlined consume of Data?(v121, v123);
+            result = v61(v115, v12);
+            v188 = 0;
             goto LABEL_50;
           }
 
-          v70(v124, v17);
+          v61(v115, v12);
 
-          outlined consume of Data?(v130, v132);
-          v183 = *v227;
-          v175 = v199;
-          *(v199 + 32) = *&v226[16];
-          *(v175 + 48) = v183;
-          *(v175 + 57) = *&v227[9];
-          v184 = *v226;
-          *v175 = v225;
-          *(v175 + 16) = v184;
-          v176 = type metadata accessor for FaceTimeURL();
+          outlined consume of Data?(v121, v123);
+          v174 = *v218;
+          v166 = v190;
+          *(v190 + 32) = *&v217[16];
+          *(v166 + 48) = v174;
+          *(v166 + 57) = *&v218[9];
+          v175 = *v217;
+          *v166 = v216;
+          *(v166 + 16) = v175;
+          v167 = type metadata accessor for FaceTimeURL(0);
         }
       }
 
       else
       {
         lazy protocol witness table accessor for type IncomingHandoffContext and conformance IncomingHandoffContext();
-        v169 = v197;
+        v160 = v188;
         dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-        if (v169)
+        if (v160)
         {
-          MEMORY[0x22AA66DF0](v169);
-          outlined consume of Data?(v113, v115);
-          result = v70(v106, v17);
-          v197 = 0;
+          MEMORY[0x22AA66DF0](v160);
+          outlined consume of Data?(v104, v106);
+          result = v61(v97, v12);
+          v188 = 0;
           goto LABEL_38;
         }
 
-        v70(v106, v17);
+        v61(v97, v12);
 
-        outlined consume of Data?(v113, v115);
-        v179 = BYTE1(v225);
-        v180 = BYTE2(v225);
-        v181 = BYTE3(v225);
-        v182 = BYTE4(v225);
-        v175 = v199;
-        *v199 = v225;
-        *(v175 + 1) = v179;
-        *(v175 + 2) = v180;
-        *(v175 + 3) = v181;
-        *(v175 + 4) = v182;
-        v176 = type metadata accessor for FaceTimeURL();
+        outlined consume of Data?(v104, v106);
+        v170 = BYTE1(v216);
+        v171 = BYTE2(v216);
+        v172 = BYTE3(v216);
+        v173 = BYTE4(v216);
+        v166 = v190;
+        *v190 = v216;
+        *(v166 + 1) = v170;
+        *(v166 + 2) = v171;
+        *(v166 + 3) = v172;
+        *(v166 + 4) = v173;
+        v167 = type metadata accessor for FaceTimeURL(0);
       }
     }
 
     else
     {
-      lazy protocol witness table accessor for type JoinFailureContext and conformance JoinFailureContext(&lazy protocol witness table cache variable for type JoinFailureContext and conformance JoinFailureContext, type metadata accessor for JoinFailureContext);
-      v166 = v193;
-      v167 = v192;
-      v168 = v197;
+      lazy protocol witness table accessor for type JoinFailureContext and conformance JoinFailureContext(&lazy protocol witness table cache variable for type JoinFailureContext and conformance JoinFailureContext, type metadata accessor for JoinFailureContext, &protocol conformance descriptor for JoinFailureContext);
+      v157 = v184;
+      v158 = v183;
+      v159 = v188;
       dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-      if (v168)
+      if (v159)
       {
-        MEMORY[0x22AA66DF0](v168);
-        outlined consume of Data?(v97, v99);
-        v70(v210, v17);
-        (*(v191 + 56))(v166, 1, 1, v167);
-        result = outlined destroy of NCProtoContactInfo?(v166, &_s27NeighborhoodActivityConduit18JoinFailureContextVSgMd, &_s27NeighborhoodActivityConduit18JoinFailureContextVSgMR);
-        v197 = 0;
+        MEMORY[0x22AA66DF0](v159);
+        outlined consume of Data?(v88, v90);
+        v61(v201, v12);
+        (*(v182 + 56))(v157, 1, 1, v158);
+        result = outlined destroy of NCProtoContactInfo?(v157, &_s27NeighborhoodActivityConduit18JoinFailureContextVSgMd, &_s27NeighborhoodActivityConduit18JoinFailureContextVSgMR);
+        v188 = 0;
         goto LABEL_26;
       }
 
-      v70(v210, v17);
+      v61(v201, v12);
 
-      outlined consume of Data?(v97, v99);
-      (*(v191 + 56))(v166, 0, 1, v167);
-      v177 = v189;
-      outlined init with take of JoinFailureContext(v166, v189, type metadata accessor for JoinFailureContext);
-      v178 = v177;
-      v175 = v199;
-      outlined init with take of JoinFailureContext(v178, v199, type metadata accessor for JoinFailureContext);
-      v176 = type metadata accessor for FaceTimeURL();
+      outlined consume of Data?(v88, v90);
+      (*(v182 + 56))(v157, 0, 1, v158);
+      v168 = v180;
+      outlined init with take of JoinFailureContext(v157, v180, type metadata accessor for JoinFailureContext);
+      v169 = v168;
+      v166 = v190;
+      outlined init with take of JoinFailureContext(v169, v190, type metadata accessor for JoinFailureContext);
+      v167 = type metadata accessor for FaceTimeURL(0);
     }
 
 LABEL_95:
     swift_storeEnumTagMultiPayload();
-    return (*(*(v176 - 8) + 56))(v175, 0, 1, v176);
+    return (*(*(v167 - 8) + 56))(v166, 0, 1, v167);
   }
 
   else
   {
 
 LABEL_76:
-    v162 = type metadata accessor for FaceTimeURL();
-    return (*(*(v162 - 8) + 56))(a2, 1, 1, v162);
+    v153 = type metadata accessor for FaceTimeURL(0);
+    return (*(*(v153 - 8) + 56))(a2, 1, 1, v153);
   }
 }
 
-uint64_t type metadata accessor for FaceTimeURL()
+uint64_t type metadata accessor for FaceTimeURL(uint64_t a1)
 {
   result = type metadata singleton initialization cache for FaceTimeURL;
   if (!type metadata singleton initialization cache for FaceTimeURL)
@@ -8889,7 +7842,7 @@ uint64_t type metadata accessor for FaceTimeURL()
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type JoinFailureContext and conformance JoinFailureContext(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type JoinFailureContext and conformance JoinFailureContext(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8937,17 +7890,17 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance FaceTim
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance FaceTimeURLQueryItemName()
+uint64_t protocol witness for Hashable.hash(into:) in conformance FaceTimeURLQueryItemName(uint64_t a1)
 {
-  FaceTimeURLQueryItemName.rawValue.getter(*v0);
+  FaceTimeURLQueryItemName.rawValue.getter(*v1);
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FaceTimeURLQueryItemName()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FaceTimeURLQueryItemName(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  FaceTimeURLQueryItemName.rawValue.getter(v1);
+  FaceTimeURLQueryItemName.rawValue.getter(v2);
   String.hash(into:)();
 
   return Hasher._finalize()();
@@ -8970,124 +7923,120 @@ unint64_t protocol witness for RawRepresentable.rawValue.getter in conformance F
 
 uint64_t specialized static FaceTimeURL.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v93 = a2;
-  v89 = type metadata accessor for JoinFailureContext(0);
-  v3 = *(*(v89 - 8) + 64);
-  MEMORY[0x28223BE20](v89);
-  v92 = &v88 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v90 = type metadata accessor for JoinContinuityConversationRequestContext(0);
-  v5 = *(*(v90 - 1) + 64);
-  MEMORY[0x28223BE20](v90);
-  v91 = &v88 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for FaceTimeURL();
-  v8 = *(*(v7 - 8) + 64);
-  v9 = MEMORY[0x28223BE20](v7);
-  v11 = (&v88 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v89 = a2;
+  v85 = type metadata accessor for JoinFailureContext(0);
+  MEMORY[0x28223BE20](v85);
+  v88 = &v84 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v86 = type metadata accessor for JoinContinuityConversationRequestContext(0);
+  MEMORY[0x28223BE20](v86);
+  v87 = &v84 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for FaceTimeURL(0);
+  v6 = MEMORY[0x28223BE20](v5);
+  v8 = (&v84 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = MEMORY[0x28223BE20](v6);
+  v11 = &v84 - v10;
   v12 = MEMORY[0x28223BE20](v9);
-  v14 = &v88 - v13;
+  v14 = (&v84 - v13);
   v15 = MEMORY[0x28223BE20](v12);
-  v17 = (&v88 - v16);
+  v17 = &v84 - v16;
   v18 = MEMORY[0x28223BE20](v15);
-  v20 = &v88 - v19;
-  v21 = MEMORY[0x28223BE20](v18);
-  v23 = &v88 - v22;
-  MEMORY[0x28223BE20](v21);
-  v25 = &v88 - v24;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit11FaceTimeURLO_ACtMd, &_s27NeighborhoodActivityConduit11FaceTimeURLO_ACtMR);
-  v27 = *(*(v26 - 8) + 64);
-  v28 = MEMORY[0x28223BE20](v26 - 8);
-  v30 = &v88 + *(v28 + 56) - v29;
-  v31 = a1;
-  v32 = &v88 - v29;
-  outlined init with copy of FaceTimeURL(v31, &v88 - v29);
-  outlined init with copy of FaceTimeURL(v93, v30);
+  v20 = &v84 - v19;
+  MEMORY[0x28223BE20](v18);
+  v22 = &v84 - v21;
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit11FaceTimeURLO_ACtMd, &_s27NeighborhoodActivityConduit11FaceTimeURLO_ACtMR);
+  v24 = MEMORY[0x28223BE20](v23 - 8);
+  v26 = &v84 + *(v24 + 56) - v25;
+  v27 = a1;
+  v28 = &v84 - v25;
+  outlined init with copy of FaceTimeURL(v27, &v84 - v25);
+  outlined init with copy of FaceTimeURL(v89, v26);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 2)
   {
     if (!EnumCaseMultiPayload)
     {
-      outlined init with copy of FaceTimeURL(v32, v25);
+      outlined init with copy of FaceTimeURL(v28, v22);
       if (!swift_getEnumCaseMultiPayload())
       {
-        v78 = v91;
-        outlined init with take of JoinFailureContext(v30, v91, type metadata accessor for JoinContinuityConversationRequestContext);
-        if ((static UUID.== infix(_:_:)() & 1) != 0 && v25[v90[5]] == *(v78 + v90[5]) && v25[v90[6]] == *(v78 + v90[6]))
+        v74 = v87;
+        outlined init with take of JoinFailureContext(v26, v87, type metadata accessor for JoinContinuityConversationRequestContext);
+        if ((static UUID.== infix(_:_:)() & 1) != 0 && v22[v86[5]] == *(v74 + v86[5]) && v22[v86[6]] == *(v74 + v86[6]))
         {
-          v85 = v90[7];
-          v86 = v25[v85];
-          v87 = *(v78 + v85);
-          outlined destroy of FaceTimeURL(v78, type metadata accessor for JoinContinuityConversationRequestContext);
-          if (v86 == v87)
+          v81 = v86[7];
+          v82 = v22[v81];
+          v83 = *(v74 + v81);
+          outlined destroy of FaceTimeURL(v74, type metadata accessor for JoinContinuityConversationRequestContext);
+          if (v82 == v83)
           {
-            v83 = type metadata accessor for JoinContinuityConversationRequestContext;
-            v84 = v25;
+            v79 = type metadata accessor for JoinContinuityConversationRequestContext;
+            v80 = v22;
             goto LABEL_49;
           }
         }
 
         else
         {
-          outlined destroy of FaceTimeURL(v78, type metadata accessor for JoinContinuityConversationRequestContext);
+          outlined destroy of FaceTimeURL(v74, type metadata accessor for JoinContinuityConversationRequestContext);
         }
 
-        v79 = type metadata accessor for JoinContinuityConversationRequestContext;
-        v80 = v25;
+        v75 = type metadata accessor for JoinContinuityConversationRequestContext;
+        v76 = v22;
 LABEL_41:
-        outlined destroy of FaceTimeURL(v80, v79);
-        outlined destroy of FaceTimeURL(v32, type metadata accessor for FaceTimeURL);
+        outlined destroy of FaceTimeURL(v76, v75);
+        outlined destroy of FaceTimeURL(v28, type metadata accessor for FaceTimeURL);
         goto LABEL_32;
       }
 
-      outlined destroy of FaceTimeURL(v25, type metadata accessor for JoinContinuityConversationRequestContext);
+      outlined destroy of FaceTimeURL(v22, type metadata accessor for JoinContinuityConversationRequestContext);
       goto LABEL_31;
     }
 
     if (EnumCaseMultiPayload == 1)
     {
-      outlined init with copy of FaceTimeURL(v32, v23);
+      outlined init with copy of FaceTimeURL(v28, v20);
       if (swift_getEnumCaseMultiPayload() == 1)
       {
-        v34 = v92;
-        outlined init with take of JoinFailureContext(v30, v92, type metadata accessor for JoinFailureContext);
+        v30 = v88;
+        outlined init with take of JoinFailureContext(v26, v88, type metadata accessor for JoinFailureContext);
         if (static UUID.== infix(_:_:)())
         {
-          v35 = v32;
-          v36 = *(v89 + 20);
-          v37 = *&v23[v36];
-          v38 = v23[v36 + 8];
-          v39 = (v34 + v36);
-          v40 = *v39;
-          v41 = *(v39 + 8);
-          outlined destroy of FaceTimeURL(v34, type metadata accessor for JoinFailureContext);
-          if (v38)
+          v31 = v28;
+          v32 = *(v85 + 20);
+          v33 = *&v20[v32];
+          v34 = v20[v32 + 8];
+          v35 = (v30 + v32);
+          v36 = *v35;
+          v37 = *(v35 + 8);
+          outlined destroy of FaceTimeURL(v30, type metadata accessor for JoinFailureContext);
+          if (v34)
           {
-            v32 = v35;
-            if (v41)
+            v28 = v31;
+            if (v37)
             {
 LABEL_48:
-              v83 = type metadata accessor for JoinFailureContext;
-              v84 = v23;
+              v79 = type metadata accessor for JoinFailureContext;
+              v80 = v20;
 LABEL_49:
-              outlined destroy of FaceTimeURL(v84, v83);
-              v81 = v32;
+              outlined destroy of FaceTimeURL(v80, v79);
+              v77 = v28;
               goto LABEL_50;
             }
           }
 
           else
           {
-            if (v37 == v40)
+            if (v33 == v36)
             {
-              v82 = v41;
+              v78 = v37;
             }
 
             else
             {
-              v82 = 1;
+              v78 = 1;
             }
 
-            v32 = v35;
-            if ((v82 & 1) == 0)
+            v28 = v31;
+            if ((v78 & 1) == 0)
             {
               goto LABEL_48;
             }
@@ -9096,41 +8045,41 @@ LABEL_49:
 
         else
         {
-          outlined destroy of FaceTimeURL(v34, type metadata accessor for JoinFailureContext);
+          outlined destroy of FaceTimeURL(v30, type metadata accessor for JoinFailureContext);
         }
 
-        v79 = type metadata accessor for JoinFailureContext;
-        v80 = v23;
+        v75 = type metadata accessor for JoinFailureContext;
+        v76 = v20;
         goto LABEL_41;
       }
 
-      outlined destroy of FaceTimeURL(v23, type metadata accessor for JoinFailureContext);
+      outlined destroy of FaceTimeURL(v20, type metadata accessor for JoinFailureContext);
       goto LABEL_31;
     }
 
-    outlined init with copy of FaceTimeURL(v32, v20);
+    outlined init with copy of FaceTimeURL(v28, v17);
     if (swift_getEnumCaseMultiPayload() == 2)
     {
-      v61 = v20[4];
-      v62 = v20[3];
-      v63 = v20[2];
-      v64 = v20[1];
-      v65 = *v30;
-      v66 = v30[1];
-      v67 = v30[2];
-      v68 = v30[3];
-      v69 = v30[4];
-      LOBYTE(v102) = *v20;
-      BYTE1(v102) = v64;
-      BYTE2(v102) = v63;
-      BYTE3(v102) = v62;
-      BYTE4(v102) = v61;
-      LOBYTE(v98) = v65;
-      BYTE1(v98) = v66;
-      BYTE2(v98) = v67;
-      BYTE3(v98) = v68;
-      BYTE4(v98) = v69;
-      v52 = specialized static IncomingHandoffContext.== infix(_:_:)(&v102, &v98);
+      v57 = v17[4];
+      v58 = v17[3];
+      v59 = v17[2];
+      v60 = v17[1];
+      v61 = *v26;
+      v62 = v26[1];
+      v63 = v26[2];
+      v64 = v26[3];
+      v65 = v26[4];
+      LOBYTE(v98) = *v17;
+      BYTE1(v98) = v60;
+      BYTE2(v98) = v59;
+      BYTE3(v98) = v58;
+      BYTE4(v98) = v57;
+      LOBYTE(v94) = v61;
+      BYTE1(v94) = v62;
+      BYTE2(v94) = v63;
+      BYTE3(v94) = v64;
+      BYTE4(v94) = v65;
+      v48 = specialized static IncomingHandoffContext.== infix(_:_:)(&v98, &v94);
       goto LABEL_19;
     }
 
@@ -9139,121 +8088,121 @@ LABEL_49:
 
   if (EnumCaseMultiPayload == 3)
   {
-    outlined init with copy of FaceTimeURL(v32, v17);
-    v53 = v17[3];
-    v104 = v17[2];
-    v105[0] = v53;
-    *(v105 + 9) = *(v17 + 57);
-    v54 = v17[1];
-    v102 = *v17;
-    v103 = v54;
+    outlined init with copy of FaceTimeURL(v28, v14);
+    v49 = v14[3];
+    v100 = v14[2];
+    v101[0] = v49;
+    *(v101 + 9) = *(v14 + 57);
+    v50 = v14[1];
+    v98 = *v14;
+    v99 = v50;
     if (swift_getEnumCaseMultiPayload() == 3)
     {
-      v55 = *(v30 + 1);
-      v56 = *(v30 + 3);
-      v100 = *(v30 + 2);
-      v101[0] = v56;
-      *(v101 + 9) = *(v30 + 57);
-      v57 = *(v30 + 1);
-      v98 = *v30;
-      v99 = v57;
-      v58 = v17[3];
-      v96[2] = v17[2];
-      v97[0] = v58;
-      *(v97 + 9) = *(v17 + 57);
-      v59 = v17[1];
-      v96[0] = *v17;
-      v96[1] = v59;
-      v60 = *(v30 + 3);
-      v94[2] = v100;
-      v95[0] = v60;
-      *(v95 + 9) = *(v30 + 57);
-      v94[0] = v98;
-      v94[1] = v55;
-      v52 = specialized static IncomingCallBannerContext.== infix(_:_:)(v96, v94);
+      v51 = *(v26 + 1);
+      v52 = *(v26 + 3);
+      v96 = *(v26 + 2);
+      v97[0] = v52;
+      *(v97 + 9) = *(v26 + 57);
+      v53 = *(v26 + 1);
+      v94 = *v26;
+      v95 = v53;
+      v54 = v14[3];
+      v92[2] = v14[2];
+      v93[0] = v54;
+      *(v93 + 9) = *(v14 + 57);
+      v55 = v14[1];
+      v92[0] = *v14;
+      v92[1] = v55;
+      v56 = *(v26 + 3);
+      v90[2] = v96;
+      v91[0] = v56;
+      *(v91 + 9) = *(v26 + 57);
+      v90[0] = v94;
+      v90[1] = v51;
+      v48 = specialized static IncomingCallBannerContext.== infix(_:_:)(v92, v90);
+      outlined destroy of IncomingCallBannerContext(&v94);
       outlined destroy of IncomingCallBannerContext(&v98);
-      outlined destroy of IncomingCallBannerContext(&v102);
 LABEL_19:
-      outlined destroy of FaceTimeURL(v32, type metadata accessor for FaceTimeURL);
-      return v52 & 1;
+      outlined destroy of FaceTimeURL(v28, type metadata accessor for FaceTimeURL);
+      return v48 & 1;
     }
 
-    outlined destroy of IncomingCallBannerContext(&v102);
+    outlined destroy of IncomingCallBannerContext(&v98);
 LABEL_31:
-    outlined destroy of NCProtoContactInfo?(v32, &_s27NeighborhoodActivityConduit11FaceTimeURLO_ACtMd, &_s27NeighborhoodActivityConduit11FaceTimeURLO_ACtMR);
+    outlined destroy of NCProtoContactInfo?(v28, &_s27NeighborhoodActivityConduit11FaceTimeURLO_ACtMd, &_s27NeighborhoodActivityConduit11FaceTimeURLO_ACtMR);
     goto LABEL_32;
   }
 
   if (EnumCaseMultiPayload != 4)
   {
-    v70 = v32;
-    outlined init with copy of FaceTimeURL(v32, v11);
-    v72 = *v11;
-    v71 = v11[1];
+    v66 = v28;
+    outlined init with copy of FaceTimeURL(v28, v8);
+    v68 = *v8;
+    v67 = v8[1];
     if (swift_getEnumCaseMultiPayload() == 5)
     {
-      v73 = *v30;
-      v74 = *(v30 + 1);
-      if (v72 == v73 && v71 == v74)
+      v69 = *v26;
+      v70 = *(v26 + 1);
+      if (v68 == v69 && v67 == v70)
       {
       }
 
       else
       {
-        v76 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v72 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if ((v76 & 1) == 0)
+        if ((v72 & 1) == 0)
         {
-          outlined destroy of FaceTimeURL(v70, type metadata accessor for FaceTimeURL);
+          outlined destroy of FaceTimeURL(v66, type metadata accessor for FaceTimeURL);
 LABEL_32:
-          v52 = 0;
-          return v52 & 1;
+          v48 = 0;
+          return v48 & 1;
         }
       }
 
-      v81 = v70;
+      v77 = v66;
 LABEL_50:
-      outlined destroy of FaceTimeURL(v81, type metadata accessor for FaceTimeURL);
-      v52 = 1;
-      return v52 & 1;
+      outlined destroy of FaceTimeURL(v77, type metadata accessor for FaceTimeURL);
+      v48 = 1;
+      return v48 & 1;
     }
 
-    v32 = v70;
+    v28 = v66;
     goto LABEL_31;
   }
 
-  outlined init with copy of FaceTimeURL(v32, v14);
-  v42 = *(v14 + 1);
-  v43 = v32;
-  v44 = *(v14 + 4);
+  outlined init with copy of FaceTimeURL(v28, v11);
+  v38 = *(v11 + 1);
+  v39 = v28;
+  v40 = *(v11 + 4);
   if (swift_getEnumCaseMultiPayload() != 4)
   {
 
-    v32 = v43;
+    v28 = v39;
     goto LABEL_31;
   }
 
-  v45 = *(v14 + 3);
-  v46 = v14[16];
-  v47 = *v30;
-  v48 = *(v30 + 1);
-  v49 = v30[16];
-  v50 = *(v30 + 3);
-  v51 = *(v30 + 4);
-  *&v102 = *v14;
-  *(&v102 + 1) = v42;
-  LOBYTE(v103) = v46;
-  *(&v103 + 1) = v45;
-  *&v104 = v44;
-  *&v98 = v47;
-  *(&v98 + 1) = v48;
-  LOBYTE(v99) = v49;
-  *(&v99 + 1) = v50;
-  *&v100 = v51;
-  v52 = specialized static CallUpdateBannerContext.== infix(_:_:)(&v102, &v98);
+  v41 = *(v11 + 3);
+  v42 = v11[16];
+  v43 = *v26;
+  v44 = *(v26 + 1);
+  v45 = v26[16];
+  v46 = *(v26 + 3);
+  v47 = *(v26 + 4);
+  *&v98 = *v11;
+  *(&v98 + 1) = v38;
+  LOBYTE(v99) = v42;
+  *(&v99 + 1) = v41;
+  *&v100 = v40;
+  *&v94 = v43;
+  *(&v94 + 1) = v44;
+  LOBYTE(v95) = v45;
+  *(&v95 + 1) = v46;
+  *&v96 = v47;
+  v48 = specialized static CallUpdateBannerContext.== infix(_:_:)(&v98, &v94);
 
-  outlined destroy of FaceTimeURL(v43, type metadata accessor for FaceTimeURL);
-  return v52 & 1;
+  outlined destroy of FaceTimeURL(v39, type metadata accessor for FaceTimeURL);
+  return v48 & 1;
 }
 
 unint64_t specialized FaceTimeURLQueryItemName.init(rawValue:)(Swift::String string)
@@ -9286,13 +8235,13 @@ unint64_t lazy protocol witness table accessor for type FaceTimeURLQueryItemName
   return result;
 }
 
-uint64_t type metadata completion function for FaceTimeURL()
+uint64_t type metadata completion function for FaceTimeURL(uint64_t a1)
 {
   result = type metadata accessor for JoinContinuityConversationRequestContext(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for JoinFailureContext(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
       return 0;
@@ -9304,7 +8253,7 @@ uint64_t type metadata completion function for FaceTimeURL()
 
 uint64_t outlined init with copy of FaceTimeURL(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for FaceTimeURL();
+  v4 = type metadata accessor for FaceTimeURL(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -9347,21 +8296,18 @@ uint64_t static AsyncUtilities.timeout<A>(after:work:)()
   *(v4 + 24) = v5;
   *(v4 + 40) = v3;
   *(v4 + 48) = v2;
-  v6 = *(MEMORY[0x277D859B8] + 4);
-  v7 = swift_task_alloc();
-  *(v0 + 72) = v7;
-  *v7 = v0;
-  v7[1] = static AsyncUtilities.timeout<A>(after:work:);
-  v8 = *(v0 + 16);
-  v11 = *(v0 + 56);
+  v6 = swift_task_alloc();
+  *(v0 + 72) = v6;
+  *v6 = v0;
+  v6[1] = static AsyncUtilities.timeout<A>(after:work:);
+  v7 = *(v0 + 16);
 
-  return MEMORY[0x282200740](v8);
+  return MEMORY[0x282200740](v7);
 }
 
 {
-  v2 = *(*v1 + 72);
-  v3 = *v1;
-  v3[10] = v0;
+  v2 = *v1;
+  *(v2 + 80) = v0;
 
   if (v0)
   {
@@ -9371,21 +8317,18 @@ uint64_t static AsyncUtilities.timeout<A>(after:work:)()
 
   else
   {
-    v4 = v3[8];
 
-    v5 = v3[1];
+    v3 = *(v2 + 8);
 
-    return v5();
+    return v3();
   }
 }
 
 {
-  v1 = v0[8];
 
-  v2 = v0[1];
-  v3 = v0[10];
+  v1 = *(v0 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t closure #1 in static AsyncUtilities.timeout<A>(after:work:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
@@ -9402,16 +8345,12 @@ uint64_t closure #1 in static AsyncUtilities.timeout<A>(after:work:)(uint64_t a1
   v7[10] = v8;
   v9 = type metadata accessor for Optional();
   v7[11] = v9;
-  v10 = *(v9 - 8);
-  v7[12] = v10;
-  v11 = *(v10 + 64) + 15;
+  v7[12] = *(v9 - 8);
   v7[13] = swift_task_alloc();
-  v12 = *(v8 - 8);
-  v7[14] = v12;
-  v13 = *(v12 + 64) + 15;
+  v7[14] = *(v8 - 8);
   v7[15] = swift_task_alloc();
   v7[16] = swift_task_alloc();
-  v14 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v7[17] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](closure #1 in static AsyncUtilities.timeout<A>(after:work:), 0, 0);
@@ -9420,48 +8359,43 @@ uint64_t closure #1 in static AsyncUtilities.timeout<A>(after:work:)(uint64_t a1
 uint64_t closure #1 in static AsyncUtilities.timeout<A>(after:work:)()
 {
   v1 = v0[17];
-  v3 = v0[8];
-  v2 = v0[9];
-  v16 = v0[6];
-  v17 = v0[7];
-  v4 = v0[4];
-  v5 = v0[5];
-  v15 = v0[3];
-  v6 = type metadata accessor for TaskPriority();
-  v7 = *(*(v6 - 8) + 56);
-  v7(v1, 1, 1, v6);
-  v8 = swift_allocObject();
-  v8[2] = 0;
-  v8[3] = 0;
-  v8[4] = v3;
-  v8[5] = v4;
-  v8[6] = v5;
-  v9 = type metadata accessor for ThrowingTaskGroup();
+  v2 = v0[8];
+  v13 = v0[6];
+  v14 = v0[7];
+  v3 = v0[4];
+  v4 = v0[5];
+  v5 = type metadata accessor for TaskPriority();
+  v6 = *(*(v5 - 8) + 56);
+  v6(v1, 1, 1, v5);
+  v7 = swift_allocObject();
+  v7[2] = 0;
+  v7[3] = 0;
+  v7[4] = v2;
+  v7[5] = v3;
+  v7[6] = v4;
+  v8 = type metadata accessor for ThrowingTaskGroup();
 
-  _sScg7addTask8priority9operationyScPSg_xyYaKYAcntF(v1, &async function pointer to partial apply for closure #1 in closure #1 in static AsyncUtilities.timeout<A>(after:work:), v8, v9);
+  _sScg7addTask8priority9operationyScPSg_xyYaKYAcntF(v1, &async function pointer to partial apply for closure #1 in closure #1 in static AsyncUtilities.timeout<A>(after:work:), v7, v8);
   outlined destroy of TaskPriority?(v1);
-  v7(v1, 1, 1, v6);
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = v3;
-  v10[5] = v16;
-  v10[6] = v17;
-  _sScg7addTask8priority9operationyScPSg_xyYaKYAcntF(v1, &async function pointer to partial apply for closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work:), v10, v9);
+  v6(v1, 1, 1, v5);
+  v9 = swift_allocObject();
+  v9[2] = 0;
+  v9[3] = 0;
+  v9[4] = v2;
+  v9[5] = v13;
+  v9[6] = v14;
+  _sScg7addTask8priority9operationyScPSg_xyYaKYAcntF(v1, &async function pointer to partial apply for closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work:), v9, v8);
   outlined destroy of TaskPriority?(v1);
-  v11 = swift_task_alloc();
-  v0[18] = v11;
-  *v11 = v0;
-  v11[1] = closure #1 in static AsyncUtilities.timeout<A>(after:work:);
-  v12 = v0[13];
-  v13 = v0[3];
+  v10 = swift_task_alloc();
+  v0[18] = v10;
+  *v10 = v0;
+  v10[1] = closure #1 in static AsyncUtilities.timeout<A>(after:work:);
+  v11 = v0[13];
 
-  return ThrowingTaskGroup.nextResult(isolation:)(v12, 0, 0, v9);
+  return ThrowingTaskGroup.nextResult(isolation:)(v11, 0, 0, v8);
 }
 
 {
-  v1 = *(*v0 + 144);
-  v3 = *v0;
 
   return MEMORY[0x2822009F8](closure #1 in static AsyncUtilities.timeout<A>(after:work:), 0, 0);
 }
@@ -9478,12 +8412,8 @@ uint64_t closure #1 in static AsyncUtilities.timeout<A>(after:work:)()
     *v4 = 1;
     swift_willThrow();
 LABEL_5:
-    v15 = v0[16];
-    v14 = v0[17];
-    v16 = v0[15];
-    v17 = v0[13];
 
-    v18 = v0[1];
+    v13 = v0[1];
     goto LABEL_7;
   }
 
@@ -9500,24 +8430,21 @@ LABEL_5:
     v10 = v0[16];
     v11 = v0[14];
     v12 = v0[10];
-    v13 = *v0[15];
     swift_willThrow();
     (*(v11 + 8))(v10, v12);
     goto LABEL_5;
   }
 
-  v19 = v0[17];
-  v20 = v0[15];
-  v21 = v0[13];
-  v22 = v0[8];
-  v23 = v0[2];
+  v14 = v0[15];
+  v15 = v0[8];
+  v16 = v0[2];
   (*(v0[14] + 8))(v0[16], v0[10]);
-  (*(*(v22 - 8) + 32))(v23, v20, v22);
+  (*(*(v15 - 8) + 32))(v16, v14, v15);
 
-  v18 = v0[1];
+  v13 = v0[1];
 LABEL_7:
 
-  return v18();
+  return v13();
 }
 
 uint64_t partial apply for closure #1 in static AsyncUtilities.timeout<A>(after:work:)(uint64_t a1, uint64_t a2)
@@ -9562,38 +8489,34 @@ uint64_t partial apply for closure #1 in closure #1 in static AsyncUtilities.tim
 {
   v4 = v1[2];
   v5 = v1[3];
-  v6 = v1[4];
-  v7 = v1[5];
-  v8 = v1[6];
-  v9 = swift_task_alloc();
-  *(v2 + 16) = v9;
-  *v9 = v2;
-  v9[1] = partial apply for specialized closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:);
+  v6 = v1[5];
+  v7 = swift_task_alloc();
+  *(v2 + 16) = v7;
+  *v7 = v2;
+  v7[1] = partial apply for specialized closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:);
 
-  return _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTR(a1, v4, v5, v7);
+  return _sxs5Error_pIegHrzo_xsAA_pIeAgHrzo_s8SendableRzlTR(a1, v4, v5, v6);
 }
 
 uint64_t _sScg7addTask8priority9operationyScPSg_xyYaKYAcntF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = v4;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = v23 - v11;
-  outlined init with copy of TaskPriority?(a1, v23 - v11);
-  v13 = type metadata accessor for TaskPriority();
-  v14 = *(v13 - 8);
-  if ((*(v14 + 48))(v12, 1, v13) == 1)
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = v19 - v9;
+  outlined init with copy of TaskPriority?(a1, v19 - v9);
+  v11 = type metadata accessor for TaskPriority();
+  v12 = *(v11 - 8);
+  if ((*(v12 + 48))(v10, 1, v11) == 1)
   {
-    outlined destroy of TaskPriority?(v12);
+    outlined destroy of TaskPriority?(v10);
     if (*(a3 + 16))
     {
 LABEL_3:
-      v15 = *(a3 + 24);
       swift_getObjectType();
       swift_unknownObjectRetain();
-      v16 = dispatch thunk of Actor.unownedExecutor.getter();
-      v18 = v17;
+      v13 = dispatch thunk of Actor.unownedExecutor.getter();
+      v15 = v14;
       swift_unknownObjectRelease();
       goto LABEL_6;
     }
@@ -9602,31 +8525,30 @@ LABEL_3:
   else
   {
     TaskPriority.rawValue.getter();
-    (*(v14 + 8))(v12, v13);
+    (*(v12 + 8))(v10, v11);
     if (*(a3 + 16))
     {
       goto LABEL_3;
     }
   }
 
-  v16 = 0;
-  v18 = 0;
+  v13 = 0;
+  v15 = 0;
 LABEL_6:
-  v19 = *v5;
-  v20 = *(a4 + 16);
-  v21 = (v18 | v16);
-  if (v18 | v16)
+  v16 = *v5;
+  v17 = (v15 | v13);
+  if (v15 | v13)
   {
-    v24[0] = 0;
-    v24[1] = 0;
-    v21 = v24;
-    v24[2] = v16;
-    v24[3] = v18;
+    v20[0] = 0;
+    v20[1] = 0;
+    v17 = v20;
+    v20[2] = v13;
+    v20[3] = v15;
   }
 
-  v23[1] = 1;
-  v23[2] = v21;
-  v23[3] = v19;
+  v19[1] = 1;
+  v19[2] = v17;
+  v19[3] = v16;
   swift_task_create();
 }
 
@@ -9636,9 +8558,7 @@ uint64_t closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work
   v5[3] = a5;
   v6 = type metadata accessor for ContinuousClock();
   v5[4] = v6;
-  v7 = *(v6 - 8);
-  v5[5] = v7;
-  v8 = *(v7 + 64) + 15;
+  v5[5] = *(v6 - 8);
   v5[6] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work:), 0, 0);
@@ -9646,43 +8566,39 @@ uint64_t closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work
 
 uint64_t closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work:)()
 {
-  v1 = v0[6];
   static Clock<>.continuous.getter();
-  v2 = swift_task_alloc();
-  v0[7] = v2;
-  *v2 = v0;
-  v2[1] = closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work:);
-  v3 = v0[6];
-  v5 = v0[2];
-  v4 = v0[3];
+  v1 = swift_task_alloc();
+  v0[7] = v1;
+  *v1 = v0;
+  v1[1] = closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work:);
+  v3 = v0[2];
+  v2 = v0[3];
 
-  return specialized Clock.sleep(for:tolerance:)(v5, v4, 0, 0, 1);
+  return specialized Clock.sleep(for:tolerance:)(v3, v2, 0, 0, 1);
 }
 
 {
-  v2 = *(*v1 + 56);
-  v3 = *(*v1 + 48);
-  v4 = *(*v1 + 40);
-  v5 = *(*v1 + 32);
-  v8 = *v1;
+  v2 = *(*v1 + 48);
+  v3 = *(*v1 + 40);
+  v4 = *(*v1 + 32);
   *(*v1 + 64) = v0;
 
-  (*(v4 + 8))(v3, v5);
+  (*(v3 + 8))(v2, v4);
   if (v0)
   {
-    v6 = closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work:);
+    v5 = closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work:);
   }
 
   else
   {
-    v6 = closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work:);
+    v5 = closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work:);
   }
 
-  return MEMORY[0x2822009F8](v6, 0, 0);
+  return MEMORY[0x2822009F8](v5, 0, 0);
 }
 
 {
-  v1 = v0[8];
+  v1 = *(v0 + 64);
   static Task<>.checkCancellation()();
   if (!v1)
   {
@@ -9692,80 +8608,72 @@ uint64_t closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work
     swift_willThrow();
   }
 
-  v3 = v0[6];
+  v3 = *(v0 + 8);
 
-  v4 = v0[1];
-
-  return v4();
+  return v3();
 }
 
 {
-  v1 = v0[8];
-  v2 = v0[6];
 
-  v3 = v0[1];
+  v1 = *(v0 + 8);
 
-  return v3();
+  return v1();
 }
 
 uint64_t partial apply for closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work:)(uint64_t a1)
 {
   v4 = v1[2];
   v5 = v1[3];
-  v6 = v1[4];
-  v7 = v1[5];
-  v8 = v1[6];
-  v9 = swift_task_alloc();
-  *(v2 + 16) = v9;
-  *v9 = v2;
-  v9[1] = partial apply for specialized closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:);
+  v6 = v1[5];
+  v7 = v1[6];
+  v8 = swift_task_alloc();
+  *(v2 + 16) = v8;
+  *v8 = v2;
+  v8[1] = partial apply for specialized closure #1 in closure #1 in AssertionManager.takeAssertion(_:invalidationHandler:);
 
-  return closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work:)(a1, v4, v5, v7, v8);
+  return closure #2 in closure #1 in static AsyncUtilities.timeout<A>(after:work:)(a1, v4, v5, v6, v7);
 }
 
 uint64_t ThrowingTaskGroup.nextResult(isolation:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4[2] = a2;
   v4[3] = a3;
-  v7 = *(MEMORY[0x277D85810] + 4);
-  v8 = swift_task_alloc();
-  v4[4] = v8;
-  *v8 = v4;
-  v8[1] = ThrowingTaskGroup.nextResult(isolation:);
+  v7 = swift_task_alloc();
+  v4[4] = v7;
+  *v7 = v4;
+  v7[1] = ThrowingTaskGroup.nextResult(isolation:);
 
   return MEMORY[0x2822004C0](a1, a4);
 }
 
 uint64_t ThrowingTaskGroup.nextResult(isolation:)()
 {
-  v2 = *(*v1 + 32);
-  v3 = *v1;
-  v3[5] = v0;
+  v2 = *v1;
+  v2[5] = v0;
 
   if (v0)
   {
-    if (v3[2])
+    if (v2[2])
     {
-      v4 = v3[3];
       swift_getObjectType();
-      v5 = dispatch thunk of Actor.unownedExecutor.getter();
-      v7 = v6;
+      v3 = dispatch thunk of Actor.unownedExecutor.getter();
+      v5 = v4;
     }
 
     else
     {
+      v3 = 0;
       v5 = 0;
-      v7 = 0;
     }
 
-    return MEMORY[0x2822009F8](ThrowingTaskGroup.nextResult(isolation:), v5, v7);
+    return MEMORY[0x2822009F8](ThrowingTaskGroup.nextResult(isolation:), v3, v5);
   }
 
   else
   {
-    v8 = v3[1];
+    v6 = v2[1];
 
-    return v8();
+    return v6();
   }
 }
 
@@ -9778,9 +8686,7 @@ uint64_t specialized Clock.sleep(for:tolerance:)(uint64_t a1, uint64_t a2, uint6
   *(v6 + 56) = v5;
   v12 = type metadata accessor for ContinuousClock.Instant();
   *(v6 + 64) = v12;
-  v13 = *(v12 - 8);
-  *(v6 + 72) = v13;
-  v14 = *(v13 + 64) + 15;
+  *(v6 + 72) = *(v12 - 8);
   *(v6 + 80) = swift_task_alloc();
   *(v6 + 88) = swift_task_alloc();
   *(v6 + 40) = a1;
@@ -9795,40 +8701,34 @@ uint64_t specialized Clock.sleep(for:tolerance:)(uint64_t a1, uint64_t a2, uint6
 uint64_t specialized Clock.sleep(for:tolerance:)()
 {
   v1 = v0[10];
-  v2 = v0[11];
-  v3 = v0[8];
-  v4 = v0[9];
-  v5 = v0[7];
-  v6 = type metadata accessor for ContinuousClock();
-  v7 = lazy protocol witness table accessor for type ContinuousClock and conformance ContinuousClock(&lazy protocol witness table cache variable for type ContinuousClock and conformance ContinuousClock, MEMORY[0x277D85928]);
+  v2 = v0[8];
+  v3 = v0[9];
+  v4 = type metadata accessor for ContinuousClock();
+  v5 = lazy protocol witness table accessor for type ContinuousClock and conformance ContinuousClock(&lazy protocol witness table cache variable for type ContinuousClock and conformance ContinuousClock, MEMORY[0x277D85928], MEMORY[0x277D85930]);
   dispatch thunk of Clock.now.getter();
-  lazy protocol witness table accessor for type ContinuousClock and conformance ContinuousClock(&lazy protocol witness table cache variable for type ContinuousClock.Instant and conformance ContinuousClock.Instant, MEMORY[0x277D858F8]);
+  lazy protocol witness table accessor for type ContinuousClock and conformance ContinuousClock(&lazy protocol witness table cache variable for type ContinuousClock.Instant and conformance ContinuousClock.Instant, MEMORY[0x277D858F8], MEMORY[0x277D85920]);
   dispatch thunk of InstantProtocol.advanced(by:)();
-  v8 = *(v4 + 8);
-  v0[12] = v8;
-  v0[13] = (v4 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v8(v1, v3);
-  v9 = *(MEMORY[0x277D85A58] + 4);
-  v10 = swift_task_alloc();
-  v0[14] = v10;
-  *v10 = v0;
-  v10[1] = specialized Clock.sleep(for:tolerance:);
-  v11 = v0[11];
-  v12 = v0[7];
+  v6 = *(v3 + 8);
+  v0[12] = v6;
+  v0[13] = (v3 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v6(v1, v2);
+  v7 = swift_task_alloc();
+  v0[14] = v7;
+  *v7 = v0;
+  v7[1] = specialized Clock.sleep(for:tolerance:);
+  v8 = v0[11];
 
-  return MEMORY[0x2822008C8](v11, v0 + 2, v6, v7);
+  return MEMORY[0x2822008C8](v8, v0 + 2, v4, v5);
 }
 
 {
-  v2 = *(*v1 + 112);
-  v3 = *(*v1 + 104);
-  v4 = *(*v1 + 96);
-  v5 = *(*v1 + 88);
-  v6 = *(*v1 + 64);
-  v7 = *v1;
-  v7[15] = v0;
+  v2 = *(*v1 + 96);
+  v3 = *(*v1 + 88);
+  v4 = *(*v1 + 64);
+  v5 = *v1;
+  *(v5 + 120) = v0;
 
-  v4(v5, v6);
+  v2(v3, v4);
   if (v0)
   {
 
@@ -9837,26 +8737,21 @@ uint64_t specialized Clock.sleep(for:tolerance:)()
 
   else
   {
-    v9 = v7[10];
-    v8 = v7[11];
 
-    v10 = v7[1];
+    v6 = *(v5 + 8);
 
-    return v10();
+    return v6();
   }
 }
 
 {
-  v2 = v0[10];
-  v1 = v0[11];
 
-  v3 = v0[1];
-  v4 = v0[15];
+  v1 = *(v0 + 8);
 
-  return v3();
+  return v1();
 }
 
-uint64_t lazy protocol witness table accessor for type ContinuousClock and conformance ContinuousClock(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type ContinuousClock and conformance ContinuousClock(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)

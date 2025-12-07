@@ -87,52 +87,56 @@
       return;
     }
 
-    v12 = +[SSLogConfig sharedDaemonConfig];
-    if (!v12)
+    v13 = +[SSLogConfig sharedDaemonConfig];
+    if (!v13)
     {
-      v12 = +[SSLogConfig sharedConfig];
+      v13 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v12 shouldLog];
-    if ([v12 shouldLogToDisk])
+    shouldLog = [v13 shouldLog];
+    if ([v13 shouldLogToDisk])
     {
-      v14 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v14 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v13 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
     {
-      v14 &= 2u;
+      v15 = v15;
     }
 
-    if (v14)
+    else
     {
-      v22 = 138412290;
-      v23 = objc_opt_class();
-      LODWORD(v19) = 12;
-      v18 = &v22;
-      v15 = _os_log_send_and_compose_impl();
-      if (v15)
+      v15 &= 2u;
+    }
+
+    if (v15)
+    {
+      v23 = 138412290;
+      v24 = objc_opt_class();
+      v17 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Cancel downloads from error alert", &v23, 12);
+      if (v17)
       {
-        v16 = v15;
-        v17 = [NSString stringWithCString:v15 encoding:4, &v22, v19];
-        free(v16);
         v18 = v17;
+        v19 = [NSString stringWithCString:v17 encoding:4];
+        free(v18);
+        v20 = v19;
         SSFileLog();
       }
     }
 
-    v10 = +[DownloadsDatabase downloadsDatabase];
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_100186E54;
-    v20[3] = &unk_100329E90;
-    v20[4] = self;
-    v11 = v20;
+    v11 = +[DownloadsDatabase downloadsDatabase];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_100186E54;
+    v21[3] = &unk_100329E90;
+    v21[4] = self;
+    v12 = v21;
   }
 
   else
@@ -151,46 +155,50 @@
     shouldLog2 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = shouldLog2 | 2;
+      LODWORD(v6) = shouldLog2 | 2;
     }
 
     else
     {
-      v6 = shouldLog2;
+      LODWORD(v6) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject2 = [v4 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
 
     if (v6)
     {
-      v22 = 138412290;
-      v23 = objc_opt_class();
-      LODWORD(v19) = 12;
-      v18 = &v22;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      v23 = 138412290;
+      v24 = objc_opt_class();
+      v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Retry downloads from error alert", &v23, 12);
+      if (v8)
       {
-        v8 = v7;
-        v9 = [NSString stringWithCString:v7 encoding:4, &v22, v19];
-        free(v8);
-        v18 = v9;
+        v9 = v8;
+        v10 = [NSString stringWithCString:v8 encoding:4];
+        free(v9);
+        v20 = v10;
         SSFileLog();
       }
     }
 
-    v10 = +[DownloadsDatabase downloadsDatabase];
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_100186E44;
-    v21[3] = &unk_100329E90;
-    v21[4] = self;
-    v11 = v21;
+    v11 = +[DownloadsDatabase downloadsDatabase];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_100186E44;
+    v22[3] = &unk_100329E90;
+    v22[4] = self;
+    v12 = v22;
   }
 
-  [v10 modifyUsingTransactionBlock:v11];
+  [v11 modifyUsingTransactionBlock:v12];
 }
 
 - (BOOL)_isInstallError:(id)error

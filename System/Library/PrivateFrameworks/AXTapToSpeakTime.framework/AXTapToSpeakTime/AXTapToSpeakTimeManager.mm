@@ -146,7 +146,7 @@ void __52__AXTapToSpeakTimeManager__registerForNotifications__block_invoke(uint6
 
 - (BOOL)_canSpeakTimeForVoice:(unint64_t)voice andGesture:(unint64_t)gesture
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
   tapToSpeakTimeEnabled = [mEMORY[0x277CE7E20] tapToSpeakTimeEnabled];
 
@@ -161,19 +161,17 @@ void __52__AXTapToSpeakTimeManager__registerForNotifications__block_invoke(uint6
           v9 = AXLogTapticTime();
           if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
           {
-            LOWORD(v18) = 0;
+            LOWORD(v17) = 0;
             v10 = "ringer is muted, will NOT speak time";
 LABEL_10:
-            _os_log_impl(&dword_23D6AA000, v9, OS_LOG_TYPE_INFO, v10, &v18, 2u);
+            _os_log_impl(&dword_23D6AA000, v9, OS_LOG_TYPE_INFO, v10, &v17, 2u);
             goto LABEL_11;
           }
 
           goto LABEL_11;
         }
 
-LABEL_27:
-        v11 = 1;
-        goto LABEL_18;
+        return 1;
       }
     }
 
@@ -184,22 +182,22 @@ LABEL_27:
 
       if (tapToSpeakTimeAvailability == 1)
       {
-        v16 = AXLogTapticTime();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        v15 = AXLogTapticTime();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           if (self->_cachedRingerIsMuted)
           {
-            v17 = @"YES";
+            v16 = @"YES";
           }
 
           else
           {
-            v17 = @"NO";
+            v16 = @"NO";
           }
 
-          v18 = 138412290;
-          v19 = v17;
-          _os_log_impl(&dword_23D6AA000, v16, OS_LOG_TYPE_INFO, "availability = respect mute, ringerIsMuted = %@", &v18, 0xCu);
+          v17 = 138412290;
+          v18 = v16;
+          _os_log_impl(&dword_23D6AA000, v15, OS_LOG_TYPE_INFO, "availability = respect mute, ringerIsMuted = %@", &v17, 0xCu);
         }
 
         if (self->_cachedRingerIsMuted)
@@ -210,12 +208,12 @@ LABEL_27:
             goto LABEL_11;
           }
 
-          LOWORD(v18) = 0;
+          LOWORD(v17) = 0;
           v10 = "ringer is muted, will NOT speak time";
           goto LABEL_10;
         }
 
-        goto LABEL_27;
+        return 1;
       }
 
       if (tapToSpeakTimeAvailability == 2)
@@ -224,22 +222,21 @@ LABEL_27:
         v11 = 1;
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v18) = 0;
-          _os_log_impl(&dword_23D6AA000, v9, OS_LOG_TYPE_INFO, "availability = always. ignoring ringer state", &v18, 2u);
+          LOWORD(v17) = 0;
+          _os_log_impl(&dword_23D6AA000, v9, OS_LOG_TYPE_INFO, "availability = always. ignoring ringer state", &v17, 2u);
         }
 
         goto LABEL_12;
       }
     }
 
-    v11 = 0;
-    goto LABEL_18;
+    return 0;
   }
 
   v9 = AXLogTapticTime();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v18) = 0;
+    LOWORD(v17) = 0;
     v10 = "tap to speak time is disabled";
     goto LABEL_10;
   }
@@ -248,8 +245,6 @@ LABEL_11:
   v11 = 0;
 LABEL_12:
 
-LABEL_18:
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -303,7 +298,7 @@ void __48__AXTapToSpeakTimeManager_isCurrentlyOutputting__block_invoke(uint64_t 
 
 - (BOOL)_canTapticTime
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
   voiceOverTapticTimeMode = [mEMORY[0x277CE7E20] voiceOverTapticTimeMode];
 
@@ -316,18 +311,17 @@ void __48__AXTapToSpeakTimeManager_isCurrentlyOutputting__block_invoke(uint64_t 
       v5 = @"YES";
     }
 
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_23D6AA000, v4, OS_LOG_TYPE_INFO, "tapticTimeEnabled = %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_23D6AA000, v4, OS_LOG_TYPE_INFO, "tapticTimeEnabled = %@", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return voiceOverTapticTimeMode;
 }
 
 - (void)outputTime:(id)time preferredVoice:(unint64_t)voice withGesture:(unint64_t)gesture
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   v9 = AXLogTapticTime();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
@@ -350,30 +344,28 @@ void __48__AXTapToSpeakTimeManager_isCurrentlyOutputting__block_invoke(uint64_t 
 
     v12 = v11;
     *buf = 138412802;
-    v21 = timeCopy;
-    v22 = 2112;
-    v23 = v10;
-    v24 = 2112;
-    v25 = v12;
+    v20 = timeCopy;
+    v21 = 2112;
+    v22 = v10;
+    v23 = 2112;
+    v24 = v12;
     _os_log_impl(&dword_23D6AA000, v9, OS_LOG_TYPE_INFO, "Attempting to start time output: %@, for preferredVoice: %@, with gesture: %@", buf, 0x20u);
   }
 
   queue = self->_queue;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __65__AXTapToSpeakTimeManager_outputTime_preferredVoice_withGesture___block_invoke;
-  v16[3] = &unk_278BDFEF0;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __65__AXTapToSpeakTimeManager_outputTime_preferredVoice_withGesture___block_invoke;
+  v15[3] = &unk_278BDFEF0;
   voiceCopy = voice;
   gestureCopy = gesture;
-  v16[4] = self;
-  v17 = timeCopy;
+  v15[4] = self;
+  v16 = timeCopy;
   v14 = timeCopy;
-  dispatch_async(queue, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v15);
 }
 
-uint64_t __65__AXTapToSpeakTimeManager_outputTime_preferredVoice_withGesture___block_invoke(uint64_t a1)
+void *__65__AXTapToSpeakTimeManager_outputTime_preferredVoice_withGesture___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _canSpeakTimeForVoice:*(a1 + 48) andGesture:*(a1 + 56)];
   v3 = *(a1 + 32);
@@ -475,7 +467,7 @@ void __37__AXTapToSpeakTimeManager_stopOutput__block_invoke(uint64_t a1)
 
 void __53__AXTapToSpeakTimeManager__speakTime_preferredVoice___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CB84C0];
   v3 = [*(a1 + 32) dateFormatter];
   v4 = [v3 stringFromDate:*(a1 + 40)];
@@ -496,9 +488,9 @@ void __53__AXTapToSpeakTimeManager__speakTime_preferredVoice___block_invoke(uint
     v9 = AXLogTapticTime();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v8;
-      _os_log_impl(&dword_23D6AA000, v9, OS_LOG_TYPE_DEFAULT, "Default to system voice for current langauge: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v8;
+      _os_log_impl(&dword_23D6AA000, v9, OS_LOG_TYPE_DEFAULT, "Default to system voice for current langauge: %@", &v13, 0xCu);
     }
 
     v10 = [MEMORY[0x277CB84A8] voiceWithLanguage:v8];
@@ -511,17 +503,15 @@ void __53__AXTapToSpeakTimeManager__speakTime_preferredVoice___block_invoke(uint
   v12 = AXLogTapticTime();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412290;
-    v15 = v5;
-    _os_log_impl(&dword_23D6AA000, v12, OS_LOG_TYPE_INFO, "Speaking time: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v5;
+    _os_log_impl(&dword_23D6AA000, v12, OS_LOG_TYPE_INFO, "Speaking time: %@", &v13, 0xCu);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getPreferredSpeechSynthesisVoice
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
   outputVoice = [mEMORY[0x277CEF368] outputVoice];
 
@@ -529,7 +519,7 @@ void __53__AXTapToSpeakTimeManager__speakTime_preferredVoice___block_invoke(uint
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v25 = outputVoice;
+    v24 = outputVoice;
     _os_log_impl(&dword_23D6AA000, v5, OS_LOG_TYPE_DEFAULT, "AFPreferences outputVoice: %@", buf, 0xCu);
   }
 
@@ -540,7 +530,7 @@ void __53__AXTapToSpeakTimeManager__speakTime_preferredVoice___block_invoke(uint
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v25 = systemLanguageID;
+    v24 = systemLanguageID;
     _os_log_impl(&dword_23D6AA000, v8, OS_LOG_TYPE_DEFAULT, "System general language: %@", buf, 0xCu);
   }
 
@@ -552,9 +542,9 @@ void __53__AXTapToSpeakTimeManager__speakTime_preferredVoice___block_invoke(uint
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v25 = languageCode;
-      v26 = 2112;
-      v27 = systemLanguageID;
+      v24 = languageCode;
+      v25 = 2112;
+      v26 = systemLanguageID;
       v16 = "Siri voice language: %@ does not match system general language: %@";
       v17 = v15;
       v18 = 22;
@@ -598,14 +588,14 @@ LABEL_21:
   }
 
   _speechVoicesIncludingSiri = [MEMORY[0x277CB84A8] _speechVoicesIncludingSiri];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __60__AXTapToSpeakTimeManager__getPreferredSpeechSynthesisVoice__block_invoke;
-  v21[3] = &unk_278BDFF40;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __60__AXTapToSpeakTimeManager__getPreferredSpeechSynthesisVoice__block_invoke;
+  v20[3] = &unk_278BDFF40;
   v12 = languageCode;
-  v22 = v12;
-  v23 = name;
-  v13 = [_speechVoicesIncludingSiri ax_firstObjectUsingBlock:v21];
+  v21 = v12;
+  v22 = name;
+  v13 = [_speechVoicesIncludingSiri ax_firstObjectUsingBlock:v20];
 
   if (!v13)
   {
@@ -613,15 +603,13 @@ LABEL_21:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = v12;
+      v24 = v12;
       _os_log_impl(&dword_23D6AA000, v14, OS_LOG_TYPE_DEFAULT, "Unable to find Siri voice for language: %@", buf, 0xCu);
     }
   }
 
-  v15 = v22;
+  v15 = v21;
 LABEL_22:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -681,7 +669,7 @@ uint64_t __60__AXTapToSpeakTimeManager__getPreferredSpeechSynthesisVoice__block_
 
 - (BOOL)_canOutputPremiumVoice
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (_canOutputPremiumVoice_onceToken != -1)
   {
     [AXTapToSpeakTimeManager _canOutputPremiumVoice];
@@ -700,14 +688,12 @@ uint64_t __60__AXTapToSpeakTimeManager__getPreferredSpeechSynthesisVoice__block_
       v3 = @"NO";
     }
 
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_23D6AA000, v2, OS_LOG_TYPE_INFO, "canOutputPremiumVoice: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_23D6AA000, v2, OS_LOG_TYPE_INFO, "canOutputPremiumVoice: %@", &v5, 0xCu);
   }
 
-  result = _canOutputPremiumVoice_canOutputPremiumVoice;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return _canOutputPremiumVoice_canOutputPremiumVoice;
 }
 
 uint64_t __49__AXTapToSpeakTimeManager__canOutputPremiumVoice__block_invoke()
@@ -719,7 +705,7 @@ uint64_t __49__AXTapToSpeakTimeManager__canOutputPremiumVoice__block_invoke()
 
 - (void)_setupAudioSessionForVoice:(unint64_t)voice
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = AXLogTapticTime();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
@@ -733,16 +719,14 @@ uint64_t __49__AXTapToSpeakTimeManager__canOutputPremiumVoice__block_invoke()
       v5 = off_278BDFF60[voice - 1];
     }
 
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_23D6AA000, v4, OS_LOG_TYPE_INFO, "Setting up audio session for %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_23D6AA000, v4, OS_LOG_TYPE_INFO, "Setting up audio session for %@", &v7, 0xCu);
   }
 
   mEMORY[0x277CB83F8] = [MEMORY[0x277CB83F8] sharedInstance];
   [mEMORY[0x277CB83F8] setCategory:*MEMORY[0x277CB8060] withOptions:19 error:0];
   [mEMORY[0x277CB83F8] setActive:1 error:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speechOutputDidComplete
@@ -775,49 +759,45 @@ uint64_t __50__AXTapToSpeakTimeManager_speechOutputDidComplete__block_invoke(uin
 
 - (void)speechSynthesizer:(id)synthesizer didStartSpeechUtterance:(id)utterance
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   utteranceCopy = utterance;
   v5 = AXLogTapticTime();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412290;
-    v8 = utteranceCopy;
-    _os_log_impl(&dword_23D6AA000, v5, OS_LOG_TYPE_INFO, "did start AVSpeechUtterance: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = utteranceCopy;
+    _os_log_impl(&dword_23D6AA000, v5, OS_LOG_TYPE_INFO, "did start AVSpeechUtterance: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speechSynthesizer:(id)synthesizer didFinishSpeechUtterance:(id)utterance
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   utteranceCopy = utterance;
   v6 = AXLogTapticTime();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = utteranceCopy;
-    _os_log_impl(&dword_23D6AA000, v6, OS_LOG_TYPE_INFO, "did finish AVSpeechUtterance: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = utteranceCopy;
+    _os_log_impl(&dword_23D6AA000, v6, OS_LOG_TYPE_INFO, "did finish AVSpeechUtterance: %@", &v7, 0xCu);
   }
 
   [(AXTapToSpeakTimeManager *)self speechOutputDidComplete];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speechSynthesizer:(id)synthesizer didCancelSpeechUtterance:(id)utterance
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   utteranceCopy = utterance;
   v6 = AXLogTapticTime();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = utteranceCopy;
-    _os_log_impl(&dword_23D6AA000, v6, OS_LOG_TYPE_INFO, "did cancel AVSpeechUtterance: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = utteranceCopy;
+    _os_log_impl(&dword_23D6AA000, v6, OS_LOG_TYPE_INFO, "did cancel AVSpeechUtterance: %@", &v7, 0xCu);
   }
 
   [(AXTapToSpeakTimeManager *)self speechOutputDidComplete];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

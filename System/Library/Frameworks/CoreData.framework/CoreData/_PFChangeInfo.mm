@@ -77,7 +77,7 @@
   object = self->_object;
   if (self->_startIndexPath)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@", startIndex: %@", self->_startIndexPath];
+    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_startIndexPath);
   }
 
   else
@@ -87,7 +87,7 @@
 
   if (self->_finalIndexPath)
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@", finalIndex: %@", self->_finalIndexPath];
+    v11 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_finalIndexPath);
   }
 
   else
@@ -95,7 +95,7 @@
     v11 = &stru_1EF3F1768;
   }
 
-  v12 = [v6 stringWithFormat:@"<%@: %p> { object: %p, type: %@%@%@ }", v8, self, object, v5, v10, v11];
+  v12 = objc_msgSend_stringWithFormat_(v6, v8, self, object, v5, v10, v11);
   objc_autoreleasePoolPop(v3);
 
   return v12;

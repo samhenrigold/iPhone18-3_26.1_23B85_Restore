@@ -16,43 +16,43 @@
 
 - (id)accessibilityLabel
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   v3 = [(VUIScorecardViewAccessibility *)self safeValueForKey:@"delegate"];
   v4 = MEMORY[0x29ED3FF80](@"VUIScorecardViewDelegate");
   v5 = [v3 conformsToProtocol:v4];
 
   if (v5)
   {
-    v23 = v3;
+    v22 = v3;
     v6 = [v3 safeSwiftValueForKey:@"scoreboardViewModel"];
     v7 = [v6 safeDictionaryForKey:@"leagueContext"];
     v8 = [v7 safeStringForKey:@"leagueType"];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
-    v22 = v6;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v21 = v6;
     obj = [v6 safeArrayForKey:@"scores"];
-    v9 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v9 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v9)
     {
       v10 = v9;
       accessibilityLabel = 0;
-      v12 = *v26;
+      v12 = *v25;
       do
       {
         v13 = 0;
         v14 = accessibilityLabel;
         do
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v25 + 1) + 8 * v13);
-          if ([v8 isEqualToString:{@"baseball", v20, v21}])
+          v15 = *(*(&v24 + 1) + 8 * v13);
+          if ([v8 isEqualToString:{@"baseball", v19, v20}])
           {
             v16 = [v15 axMapObjectsUsingBlock:&__block_literal_global_6];
           }
@@ -63,8 +63,8 @@
           }
 
           v17 = v16;
-          v20 = AXLabelForElements();
-          v21 = @"__AXStringForVariablesSentinel";
+          v19 = AXLabelForElements();
+          v20 = @"__AXStringForVariablesSentinel";
           accessibilityLabel = __UIAXStringForVariables();
 
           ++v13;
@@ -72,7 +72,7 @@
         }
 
         while (v10 != v13);
-        v10 = [obj countByEnumeratingWithState:&v25 objects:v30 count:{16, v20, @"__AXStringForVariablesSentinel"}];
+        v10 = [obj countByEnumeratingWithState:&v24 objects:v29 count:{16, v19, @"__AXStringForVariablesSentinel"}];
       }
 
       while (v10);
@@ -83,17 +83,15 @@
       accessibilityLabel = 0;
     }
 
-    v3 = v23;
+    v3 = v22;
   }
 
   else
   {
-    v29.receiver = self;
-    v29.super_class = VUIScorecardViewAccessibility;
-    accessibilityLabel = [(VUIScorecardViewAccessibility *)&v29 accessibilityLabel];
+    v28.receiver = self;
+    v28.super_class = VUIScorecardViewAccessibility;
+    accessibilityLabel = [(VUIScorecardViewAccessibility *)&v28 accessibilityLabel];
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 
   return accessibilityLabel;
 }

@@ -647,9 +647,9 @@ LABEL_20:
     }
 
     v21 = v18;
-    v22 = [v18 isEqualToString:v19];
+    isEqualToString = objc_msgSend_isEqualToString_(v18);
 
-    if ((v22 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_20;
     }

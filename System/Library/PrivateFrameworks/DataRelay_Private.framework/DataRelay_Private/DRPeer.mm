@@ -279,7 +279,7 @@ void __33__DRPeer_deviceFound_completion___block_invoke_4(uint64_t a1, void *a2)
 
   if (gLogCategory_DRPeer <= 90 && (gLogCategory_DRPeer != -1 || _LogCategory_Initialize()))
   {
-    __33__DRPeer_deviceFound_completion___block_invoke_4_cold_1(a1);
+    __33__DRPeer_deviceFound_completion___block_invoke_4_cold_1();
   }
 
   v9 = objc_loadWeakRetained((a1 + 32));
@@ -316,7 +316,7 @@ uint64_t __33__DRPeer_deviceFound_completion___block_invoke_5(uint64_t a1, void 
   _activateCopy = _activate;
   if (gLogCategory_DRPeer <= 50 && (gLogCategory_DRPeer != -1 || _LogCategory_Initialize()))
   {
-    [DRPeer _activate:?];
+    [DRPeer _activate:];
   }
 
   v5 = [MEMORY[0x277CBEAA8] now];
@@ -366,21 +366,20 @@ uint64_t __33__DRPeer_deviceFound_completion___block_invoke_5(uint64_t a1, void 
 
 uint64_t __20__DRPeer__activate___block_invoke(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D44250];
-  v3 = NSErrorV();
-  v7 = v3;
+  v2 = NSErrorV();
+  v6 = v2;
   if (gLogCategory_DRPeer <= 90)
   {
-    if (gLogCategory_DRPeer != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
+    if (gLogCategory_DRPeer != -1 || (v3 = _LogCategory_Initialize(), v2 = v6, v3))
     {
-      __20__DRPeer__activate___block_invoke_cold_1(v3);
+      __20__DRPeer__activate___block_invoke_cold_1(v2);
     }
   }
 
-  v5 = *(a1 + 40);
-  if (v5)
+  v4 = *(a1 + 40);
+  if (v4)
   {
-    (*(v5 + 16))(v5, v7);
+    (*(v4 + 16))(v4, v6);
     [*(a1 + 32) reset];
   }
 
@@ -455,7 +454,7 @@ void __20__DRPeer__activate___block_invoke_3(uint64_t a1, void *a2)
 
 - (void)reset
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   self->_requestedDataTypes = 0;
   if (gLogCategory_DRPeer <= 50 && (gLogCategory_DRPeer != -1 || _LogCategory_Initialize()))
   {
@@ -474,27 +473,25 @@ void __20__DRPeer__activate___block_invoke_3(uint64_t a1, void *a2)
   self->_deviceFoundClient = v4;
 
   [(RPCompanionLinkClient *)self->_deviceFoundClient setRssiThreshold:-75];
-  v16[0] = self->_idsIdentifier;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v13[0] = self->_idsIdentifier;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   [(RPCompanionLinkClient *)self->_deviceFoundClient setDeviceFilter:v6];
 
-  v7 = [(NSString *)self->_idsIdentifier isEqualToString:@"RPDestinationIdentifierPairedCompanion"];
-  v8 = self->_deviceFoundClient;
-  if (v7)
+  if ([(NSString *)self->_idsIdentifier isEqualToString:@"RPDestinationIdentifierPairedCompanion"])
   {
-    v9 = 1155104;
+    v7 = 1155104;
   }
 
   else
   {
-    v9 = 1155110;
+    v7 = 1155110;
   }
 
-  [(RPCompanionLinkClient *)self->_deviceFoundClient setControlFlags:v9];
+  [(RPCompanionLinkClient *)self->_deviceFoundClient setControlFlags:v7];
   [(RPCompanionLinkClient *)self->_deviceLostClient invalidate];
-  v10 = objc_alloc_init(MEMORY[0x277D44160]);
+  v8 = objc_alloc_init(MEMORY[0x277D44160]);
   deviceLostClient = self->_deviceLostClient;
-  self->_deviceLostClient = v10;
+  self->_deviceLostClient = v8;
 
   discoveryStartTimestamp = self->_discoveryStartTimestamp;
   self->_discoveryStartTimestamp = 0;
@@ -502,12 +499,11 @@ void __20__DRPeer__activate___block_invoke_3(uint64_t a1, void *a2)
   *&self->_hrmStarted = 0;
   self->_isActivated = 0;
   [(RPCompanionLinkClient *)self->_rapportClient invalidate];
-  v13 = objc_alloc_init(MEMORY[0x277D44160]);
+  v11 = objc_alloc_init(MEMORY[0x277D44160]);
   rapportClient = self->_rapportClient;
-  self->_rapportClient = v13;
+  self->_rapportClient = v11;
 
   [(RPCompanionLinkClient *)self->_rapportClient setControlFlags:1056814];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __33__DRPeer_deviceFound_completion___block_invoke_3_cold_1(uint64_t a1, void *a2)

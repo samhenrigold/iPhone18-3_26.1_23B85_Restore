@@ -18,6 +18,7 @@
 - (NSMeasurement)speed;
 - (NSMeasurement)speedKMH;
 - (NSMeasurement)speedMPH;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -252,6 +253,81 @@
   isInvalid = [speedMPHCharacteristic isInvalid];
 
   return isInvalid;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000021"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    speedCharacteristic = [(CAFSpeedDisplay *)self speedCharacteristic];
+    uniqueIdentifier2 = [speedCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      speed = [(CAFSpeedDisplay *)self speed];
+      [observers speedDisplayService:self didUpdateSpeed:speed];
+LABEL_12:
+
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000046"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    speedKMHCharacteristic = [(CAFSpeedDisplay *)self speedKMHCharacteristic];
+    uniqueIdentifier4 = [speedKMHCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      speed = [(CAFSpeedDisplay *)self speedKMH];
+      [observers speedDisplayService:self didUpdateSpeedKMH:speed];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000030000047"])
+  {
+LABEL_13:
+
+    goto LABEL_14;
+  }
+
+  uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+  speedMPHCharacteristic = [(CAFSpeedDisplay *)self speedMPHCharacteristic];
+  uniqueIdentifier6 = [speedMPHCharacteristic uniqueIdentifier];
+  v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+  if (v22)
+  {
+    observers = [(CAFService *)self observers];
+    speed = [(CAFSpeedDisplay *)self speedMPH];
+    [observers speedDisplayService:self didUpdateSpeedMPH:speed];
+    goto LABEL_12;
+  }
+
+LABEL_14:
+  v23.receiver = self;
+  v23.super_class = CAFSpeedDisplay;
+  [(CAFService *)&v23 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForSpeed

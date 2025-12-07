@@ -6,6 +6,7 @@
 - (CNWallpaperMetadata)initWithFontDescription:(id)description fontColorDescription:(id)colorDescription backgroundColorDescription:(id)backgroundColorDescription extensionBundleID:(id)d vertical:(BOOL)vertical;
 - (NSData)dataRepresentation;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)dataRepresentation;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -221,6 +222,27 @@ uint64_t __26__CNWallpaperMetadata_log__block_invoke()
   }
 
   return v14;
+}
+
+- (void)initWithDataRepresentation:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_1(&dword_1954A0000, a2, a3, "Error unarchiving Core Data value into CNWallpaperMetadata: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)dataRepresentation
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_2_1(&dword_1954A0000, a2, a3, "Error archiving CNWallpaperMetadata: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithCoder:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_1(&dword_1954A0000, a2, a3, "Wallpaper has a higher version number than we know how to handle: %ld", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -102,18 +102,16 @@
 
 - (void)layoutSubviews
 {
-  v7.receiver = self;
-  v7.super_class = NTKSeltzerDialView;
-  [(NTKSeltzerDialView *)&v7 layoutSubviews];
-  v6 = 0;
-  memset(v5, 0, sizeof(v5));
-  sub_82A8(self->_device, v5);
+  v5.receiver = self;
+  v5.super_class = NTKSeltzerDialView;
+  [(NTKSeltzerDialView *)&v5 layoutSubviews];
+  v4 = 0;
+  memset(v3, 0, sizeof(v3));
+  sub_82A8(self->_device, v3);
   [(NTKSeltzerDialView *)self bounds];
   CLKRectGetCenter();
-  device = self->_device;
   CLKRectCenteredAboutPointForDevice();
   [(NTKDialView *)self->_calendarDialView setFrame:?];
-  v4 = self->_device;
   CLKRectCenteredAboutPointForDevice();
   [(NTKDialView *)self->_moonPhaseDialView setFrame:?];
   [(NTKDialView *)self->_moonPhaseDialView frame];
@@ -399,15 +397,13 @@
 
 - (id)_moonPhaseImageForDate:(id)date foregroundColor:(id)color backgroundColor:(id)backgroundColor
 {
-  latitude = self->_currentCoordinate.latitude;
-  longitude = self->_currentCoordinate.longitude;
   backgroundColorCopy = backgroundColor;
   colorCopy = color;
   NUNIMoonPhaseNumber();
-  sub_82A8(self->_device, v13);
-  v11 = NUNIRenderedMoonImage();
+  sub_82A8(self->_device, v11);
+  v9 = NUNIRenderedMoonImage();
 
-  return v11;
+  return v9;
 }
 
 - (id)_currentDate
@@ -662,22 +658,22 @@
 
 - (void)_updateGregorianLabelWithDate:(id)date
 {
-  v7 = [(NSDateFormatter *)self->_gregorianDateFormatter stringFromDate:date];
-  if (NTKSeltzerUseAllUppercaseText())
+  v8 = [(NSDateFormatter *)self->_gregorianDateFormatter stringFromDate:date];
+  if (NTKSeltzerUseAllUppercaseText(v8, v4))
   {
-    v4 = +[NSLocale currentLocale];
-    v5 = [v7 uppercaseStringWithLocale:v4];
+    v5 = +[NSLocale currentLocale];
+    v6 = [v8 uppercaseStringWithLocale:v5];
 
-    v6 = v5;
+    v7 = v6;
   }
 
   else
   {
-    v6 = v7;
+    v7 = v8;
   }
 
-  v8 = v6;
-  [(CLKUICurvedColoringLabel *)self->_gregorianDateLabel setText:v6];
+  v9 = v7;
+  [(CLKUICurvedColoringLabel *)self->_gregorianDateLabel setText:v7];
   [(NTKSeltzerDialView *)self _layoutCurvedLabel:self->_gregorianDateLabel];
 }
 
@@ -687,12 +683,12 @@
   _overlayCalendar = [(NTKSeltzerDialView *)self _overlayCalendar];
   v6 = [CUIKDateStrings monthDayStringForDate:dateCopy inCalendar:_overlayCalendar];
 
-  if (NTKSeltzerUseAllUppercaseText())
+  if (NTKSeltzerUseAllUppercaseText(v7, v8))
   {
-    v7 = +[NSLocale currentLocale];
-    v8 = [v6 uppercaseStringWithLocale:v7];
+    v9 = +[NSLocale currentLocale];
+    v10 = [v6 uppercaseStringWithLocale:v9];
 
-    v6 = v8;
+    v6 = v10;
   }
 
   return v6;
@@ -1102,21 +1098,18 @@ LABEL_8:
 
 - (void)applyInteractiveModeProgress:(double)progress
 {
-  sub_82A8(self->_device, v13);
-  v4 = v14;
-  CGAffineTransformMakeTranslation(&v11, 0.0, -v14);
-  v8 = *&CGAffineTransformIdentity.c;
-  v9 = *&CGAffineTransformIdentity.a;
-  v7 = *&CGAffineTransformIdentity.tx;
+  sub_82A8(self->_device, v10);
+  v4 = v11;
+  CGAffineTransformMakeTranslation(&v8, 0.0, -v11);
   CLKInterpolateBetweenTransform();
   upperContainerView = self->_upperContainerView;
-  v11 = v12;
-  [(UIView *)upperContainerView setTransform:&v11];
-  CGAffineTransformMakeTranslation(&v11, 0.0, v4);
+  v8 = v9;
+  [(UIView *)upperContainerView setTransform:&v8];
+  CGAffineTransformMakeTranslation(&v8, 0.0, v4);
   CLKInterpolateBetweenTransform();
   lowerContainerView = self->_lowerContainerView;
-  v11 = v10;
-  [(UIView *)lowerContainerView setTransform:&v11];
+  v8 = v7;
+  [(UIView *)lowerContainerView setTransform:&v8];
 }
 
 - (void)_animateKeystoneFromPath:(id)path toPath:(id)toPath

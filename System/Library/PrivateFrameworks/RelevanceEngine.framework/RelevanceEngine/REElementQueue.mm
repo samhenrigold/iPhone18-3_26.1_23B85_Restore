@@ -14,48 +14,48 @@
 
 - (REElementQueue)initWithMaximumRelevantElementsCount:(int64_t)count comparators:(id)comparators
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   comparatorsCopy = comparators;
-  v32.receiver = self;
-  v32.super_class = REElementQueue;
-  v7 = [(REElementQueue *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = REElementQueue;
+  v7 = [(REElementQueue *)&v31 init];
   v8 = v7;
   if (v7)
   {
-    v27 = v7;
+    v26 = v7;
     v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(comparatorsCopy, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v10 = comparatorsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v28 objects:v35 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v27 objects:v34 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v29;
+      v13 = *v28;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v29 != v13)
+          if (*v28 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v28 + 1) + 8 * i);
-          v33[0] = MEMORY[0x277D85DD0];
-          v33[1] = 3221225472;
-          v33[2] = __REElementComparatorInverter_block_invoke;
-          v33[3] = &unk_2785FD980;
-          v34 = v15;
+          v15 = *(*(&v27 + 1) + 8 * i);
+          v32[0] = MEMORY[0x277D85DD0];
+          v32[1] = 3221225472;
+          v32[2] = __REElementComparatorInverter_block_invoke;
+          v32[3] = &unk_2785FD980;
+          v33 = v15;
           v16 = v15;
-          v17 = MEMORY[0x22AABC5E0](v33);
+          v17 = MEMORY[0x22AABC5E0](v32);
 
           [v9 addObject:v17];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v28 objects:v35 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v27 objects:v34 count:16];
       }
 
       while (v12);
@@ -64,13 +64,13 @@
     v18 = [REOrderingArray alloc];
     v19 = [v9 copy];
     v20 = [(REOrderingArray *)v18 initWithComparators:v19];
-    v8 = v27;
-    relevantElements = v27->_relevantElements;
-    v27->_relevantElements = v20;
+    v8 = v26;
+    relevantElements = v26->_relevantElements;
+    v26->_relevantElements = v20;
 
     v22 = [MEMORY[0x277CBEB58] set];
-    hiddenElements = v27->_hiddenElements;
-    v27->_hiddenElements = v22;
+    hiddenElements = v26->_hiddenElements;
+    v26->_hiddenElements = v22;
 
     countCopy = 0x7FFFFFFFFFFFFFFFLL;
     if (count < 0x7FFFFFFFFFFFFFFFLL)
@@ -78,10 +78,9 @@
       countCopy = count;
     }
 
-    v27->_maximumRelevantElementsCount = countCopy;
+    v26->_maximumRelevantElementsCount = countCopy;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

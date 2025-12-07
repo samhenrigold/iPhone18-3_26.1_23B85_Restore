@@ -68,25 +68,25 @@
 
 - (id)availabilityStatusPublishedDateForHandle:(id)handle
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
-  v6 = objc_msgSend_statusSubscriptionForHandle_(self, v5, handleCopy);
-  v9 = v6;
-  if (v6)
+  v5 = [(IMHandleAvailabilityManager *)self statusSubscriptionForHandle:handleCopy];
+  v6 = v5;
+  if (v5)
   {
-    v10 = objc_msgSend_currentStatus(v6, v7, v8);
-    v13 = v10;
-    if (v10)
+    currentStatus = [v5 currentStatus];
+    v8 = currentStatus;
+    if (currentStatus)
     {
-      v14 = objc_msgSend_datePublished(v10, v11, v12);
+      datePublished = [currentStatus datePublished];
       if (IMOSLoggingEnabled())
       {
-        v15 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+        v10 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v20 = 138412290;
-          v21 = v14;
-          _os_log_impl(&dword_1A823F000, v15, OS_LOG_TYPE_INFO, "Determined status was published on: %@", &v20, 0xCu);
+          v14 = 138412290;
+          v15 = datePublished;
+          _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "Determined status was published on: %@", &v14, 0xCu);
         }
       }
     }
@@ -95,16 +95,16 @@
     {
       if (IMOSLoggingEnabled())
       {
-        v17 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        v12 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          v20 = 138412290;
-          v21 = v9;
-          _os_log_impl(&dword_1A823F000, v17, OS_LOG_TYPE_INFO, "Subscription has no published status, returning nil status creation date. Subscription: %@", &v20, 0xCu);
+          v14 = 138412290;
+          v15 = v6;
+          _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "Subscription has no published status, returning nil status creation date. Subscription: %@", &v14, 0xCu);
         }
       }
 
-      v14 = 0;
+      datePublished = 0;
     }
   }
 
@@ -112,130 +112,126 @@
   {
     if (IMOSLoggingEnabled())
     {
-      v16 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v11 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_1A823F000, v16, OS_LOG_TYPE_INFO, "Subscription cache miss, returning nil for sync call for status creation date", &v20, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Subscription cache miss, returning nil for sync call for status creation date", &v14, 2u);
       }
     }
 
-    v14 = 0;
+    datePublished = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return datePublished;
 }
 
 - (int64_t)availabilityForHandle:(id)handle
 {
   handleCopy = handle;
-  v7 = objc_msgSend_ID(handleCopy, v5, v6);
-  v9 = objc_msgSend_statusSubscriptionForHandle_(self, v8, handleCopy);
+  v5 = [handleCopy ID];
+  v6 = [(IMHandleAvailabilityManager *)self statusSubscriptionForHandle:handleCopy];
 
-  v11 = objc_msgSend__availablityFromStatusSubscription_handleID_(self, v10, v9, v7);
-  return v11;
+  v7 = [(IMHandleAvailabilityManager *)self _availablityFromStatusSubscription:v6 handleID:v5];
+  return v7;
 }
 
 - (id)statusSubscriptionForHandle:(id)handle
 {
   handleCopy = handle;
-  v17 = 0;
-  v7 = objc_msgSend_currentSubscriptionCache(self, v5, v6);
-  v9 = objc_msgSend__cachedStatusSubscriptionForIMHandle_fromCache_cacheDescription_cacheMiss_(self, v8, handleCopy, v7, @"Current", &v17);
+  v10 = 0;
+  currentSubscriptionCache = [(IMHandleAvailabilityManager *)self currentSubscriptionCache];
+  v6 = [(IMHandleAvailabilityManager *)self _cachedStatusSubscriptionForIMHandle:handleCopy fromCache:currentSubscriptionCache cacheDescription:@"Current" cacheMiss:&v10];
 
-  if (v17 == 1)
+  if (v10 == 1)
   {
-    v12 = objc_msgSend_lastKnownSubscriptionCache(self, v10, v11);
-    v14 = objc_msgSend__cachedStatusSubscriptionForIMHandle_fromCache_cacheDescription_cacheMiss_(self, v13, handleCopy, v12, @"LastKnown", 0);
+    lastKnownSubscriptionCache = [(IMHandleAvailabilityManager *)self lastKnownSubscriptionCache];
+    v8 = [(IMHandleAvailabilityManager *)self _cachedStatusSubscriptionForIMHandle:handleCopy fromCache:lastKnownSubscriptionCache cacheDescription:@"LastKnown" cacheMiss:0];
 
-    objc_msgSend_fetchUpdatedStatusAndUpdateCachesForHandle_lastKnownStatus_(self, v15, handleCopy, v14);
-    v9 = v14;
+    [(IMHandleAvailabilityManager *)self fetchUpdatedStatusAndUpdateCachesForHandle:handleCopy lastKnownStatus:v8];
+    v6 = v8;
   }
 
-  return v9;
+  return v6;
 }
 
 - (void)fetchUpdatedStatusAndUpdateCachesForHandle:(id)handle lastKnownStatus:(id)status
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   statusCopy = status;
-  v10 = objc_msgSend_currentStatus(statusCopy, v8, v9);
-  v13 = objc_msgSend_statusUniqueIdentifier(v10, v11, v12);
+  currentStatus = [statusCopy currentStatus];
+  statusUniqueIdentifier = [currentStatus statusUniqueIdentifier];
 
-  v15 = objc_msgSend__subscriptionCacheKeyForHandle_(self, v14, handleCopy);
-  v16 = self->_pendingFetchesForCacheKeys;
-  objc_sync_enter(v16);
-  if (objc_msgSend_containsObject_(self->_pendingFetchesForCacheKeys, v17, v15))
+  v10 = [(IMHandleAvailabilityManager *)self _subscriptionCacheKeyForHandle:handleCopy];
+  v11 = self->_pendingFetchesForCacheKeys;
+  objc_sync_enter(v11);
+  if (([(NSMutableSet *)self->_pendingFetchesForCacheKeys containsObject:v10]& 1) != 0)
   {
-    objc_sync_exit(v16);
+    objc_sync_exit(v11);
 
     if (IMOSLoggingEnabled())
     {
-      v19 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v12 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v36 = v15;
-        _os_log_impl(&dword_1A823F000, v19, OS_LOG_TYPE_INFO, "We already have a pending subscription fetch for cache key: %@. That fetch will notify if the subscription has changed. Taking no further action.", buf, 0xCu);
+        v23 = v10;
+        _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "We already have a pending subscription fetch for cache key: %@. That fetch will notify if the subscription has changed. Taking no further action.", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    objc_msgSend_addObject_(self->_pendingFetchesForCacheKeys, v18, v15);
-    objc_sync_exit(v16);
+    [(NSMutableSet *)self->_pendingFetchesForCacheKeys addObject:v10];
+    objc_sync_exit(v11);
 
     if (IMOSLoggingEnabled())
     {
-      v20 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      v13 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v36 = v15;
-        _os_log_impl(&dword_1A823F000, v20, OS_LOG_TYPE_INFO, "We do not have any pending fetches for cache key: %@", buf, 0xCu);
+        v23 = v10;
+        _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "We do not have any pending fetches for cache key: %@", buf, 0xCu);
       }
     }
 
     objc_initWeak(buf, self);
-    v23 = objc_msgSend_ID(handleCopy, v21, v22);
-    v26 = objc_msgSend_currentCacheGeneration(self, v24, v25);
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = sub_1A83CCB38;
-    v30[3] = &unk_1E7814728;
-    objc_copyWeak(v34, buf);
-    v34[1] = v26;
-    v31 = v15;
-    v27 = v23;
-    v32 = v27;
-    v33 = v13;
-    objc_msgSend_fetchUpdatedStatusForHandle_completion_(self, v28, handleCopy, v30);
+    v14 = [handleCopy ID];
+    currentCacheGeneration = [(IMHandleAvailabilityManager *)self currentCacheGeneration];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_1A83CCB38;
+    v17[3] = &unk_1E7814728;
+    objc_copyWeak(v21, buf);
+    v21[1] = currentCacheGeneration;
+    v18 = v10;
+    v16 = v14;
+    v19 = v16;
+    v20 = statusUniqueIdentifier;
+    [(IMHandleAvailabilityManager *)self fetchUpdatedStatusForHandle:handleCopy completion:v17];
 
-    objc_destroyWeak(v34);
+    objc_destroyWeak(v21);
     objc_destroyWeak(buf);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchUpdatedStatusForHandle:(id)handle completion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   completionCopy = completion;
-  if (objc_msgSend_isInAppleStoreDemoMode(MEMORY[0x1E69A7EE0], v8, v9))
+  if ([MEMORY[0x1E69A7EE0] isInAppleStoreDemoMode])
   {
     if (IMOSLoggingEnabled())
     {
-      v12 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v8 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "Not fetching subscription in Apple Store Demo mode.", buf, 2u);
+        _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "Not fetching subscription in Apple Store Demo mode.", buf, 2u);
       }
     }
 
@@ -244,18 +240,18 @@
 
   else
   {
-    v13 = objc_msgSend_subscriptionService(self, v10, v11);
-    v16 = objc_msgSend_ID(handleCopy, v14, v15);
-    if (objc_msgSend_matchesLoginHandleForAnyAccount(handleCopy, v17, v18))
+    subscriptionService = [(IMHandleAvailabilityManager *)self subscriptionService];
+    v10 = [handleCopy ID];
+    if ([handleCopy matchesLoginHandleForAnyAccount])
     {
       if (IMOSLoggingEnabled())
       {
-        v20 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        v11 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v34 = v16;
-          _os_log_impl(&dword_1A823F000, v20, OS_LOG_TYPE_INFO, "Handle %@ matches login handle. Fetching personal status subscription", buf, 0xCu);
+          v23 = v10;
+          _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Handle %@ matches login handle. Fetching personal status subscription", buf, 0xCu);
         }
       }
 
@@ -264,39 +260,37 @@
       block[1] = 3221225472;
       block[2] = sub_1A83CD2DC;
       block[3] = &unk_1E7814750;
-      v31 = v13;
-      v32 = completionCopy;
+      v20 = subscriptionService;
+      v21 = completionCopy;
       dispatch_async(privateWorkQueue, block);
 
-      v22 = v31;
+      v13 = v20;
     }
 
     else
     {
-      v23 = objc_msgSend__skHandleForIMHandle_(self, v19, handleCopy);
+      v14 = [(IMHandleAvailabilityManager *)self _skHandleForIMHandle:handleCopy];
       if (IMOSLoggingEnabled())
       {
-        v24 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v15 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v34 = v16;
-          _os_log_impl(&dword_1A823F000, v24, OS_LOG_TYPE_INFO, "Initiating a subscription fetch for handle: %@", buf, 0xCu);
+          v23 = v10;
+          _os_log_impl(&dword_1A823F000, v15, OS_LOG_TYPE_INFO, "Initiating a subscription fetch for handle: %@", buf, 0xCu);
         }
       }
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = sub_1A83CD450;
-      v27[3] = &unk_1E7814778;
-      v28 = v23;
-      v29 = completionCopy;
-      v22 = v23;
-      objc_msgSend_statusSubscriptionForHandle_completion_(v13, v25, v22, v27);
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = sub_1A83CD450;
+      v16[3] = &unk_1E7814778;
+      v17 = v14;
+      v18 = completionCopy;
+      v13 = v14;
+      [subscriptionService statusSubscriptionForHandle:v13 completion:v16];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_postNotificationForUpdatedStatusWithSubscription:(id)subscription
@@ -313,61 +307,60 @@
 
 - (int64_t)_availablityFromStatusSubscription:(id)subscription handleID:(id)d
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   subscriptionCopy = subscription;
   dCopy = d;
   if (subscriptionCopy)
   {
-    v9 = objc_msgSend_currentStatus(subscriptionCopy, v6, v7);
-    v12 = v9;
-    if (!v9)
+    currentStatus = [subscriptionCopy currentStatus];
+    v8 = currentStatus;
+    if (!currentStatus)
     {
       if (IMOSLoggingEnabled())
       {
-        v26 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        v16 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          v33 = 138412290;
-          v34 = dCopy;
-          _os_log_impl(&dword_1A823F000, v26, OS_LOG_TYPE_INFO, "Current status not found for handle %@, returning unknown availability", &v33, 0xCu);
+          v22 = 138412290;
+          v23 = dCopy;
+          _os_log_impl(&dword_1A823F000, v16, OS_LOG_TYPE_INFO, "Current status not found for handle %@, returning unknown availability", &v22, 0xCu);
         }
       }
 
-      v25 = 0;
+      v15 = 0;
       goto LABEL_39;
     }
 
-    v13 = objc_msgSend_statusUniqueIdentifier(v9, v10, v11);
-    v14 = objc_alloc(MEMORY[0x1AC56C550](@"AKAvailability", @"AvailabilityKit"));
-    v18 = objc_msgSend_initWithPublishedStatus_(v14, v15, v12);
-    if (!v18)
+    statusUniqueIdentifier = [currentStatus statusUniqueIdentifier];
+    v10 = [objc_alloc(MEMORY[0x1AC56C550](@"AKAvailability" @"AvailabilityKit"))];
+    if (!v10)
     {
-      v27 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v17 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        sub_1A84E4214(dCopy, v27);
+        sub_1A84E4214(dCopy, v17);
       }
 
-      v25 = 0;
+      v15 = 0;
       goto LABEL_38;
     }
 
-    if (objc_msgSend_isPersonalStatusSubscription(subscriptionCopy, v16, v17))
+    if ([subscriptionCopy isPersonalStatusSubscription])
     {
-      isAvailable = objc_msgSend_isAvailable(v18, v19, v20);
-      v22 = IMOSLoggingEnabled();
+      isAvailable = [v10 isAvailable];
+      v12 = IMOSLoggingEnabled();
       if (isAvailable)
       {
-        if (v22)
+        if (v12)
         {
-          v23 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+          v13 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
-            v33 = 138412546;
-            v34 = dCopy;
-            v35 = 2112;
-            v36 = v13;
-            _os_log_impl(&dword_1A823F000, v23, OS_LOG_TYPE_INFO, "Personal status subscription for handleID %@ says we are AVAILABLE from status %@", &v33, 0x16u);
+            v22 = 138412546;
+            v23 = dCopy;
+            v24 = 2112;
+            v25 = statusUniqueIdentifier;
+            _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "Personal status subscription for handleID %@ says we are AVAILABLE from status %@", &v22, 0x16u);
           }
 
 LABEL_27:
@@ -378,16 +371,16 @@ LABEL_27:
         goto LABEL_28;
       }
 
-      if (v22)
+      if (v12)
       {
-        v30 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        v20 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v33 = 138412546;
-          v34 = dCopy;
-          v35 = 2112;
-          v36 = v13;
-          _os_log_impl(&dword_1A823F000, v30, OS_LOG_TYPE_INFO, "Personal status subscription for handleID %@ says we are UNAVAILABLE from status %@", &v33, 0x16u);
+          v22 = 138412546;
+          v23 = dCopy;
+          v24 = 2112;
+          v25 = statusUniqueIdentifier;
+          _os_log_impl(&dword_1A823F000, v20, OS_LOG_TYPE_INFO, "Personal status subscription for handleID %@ says we are UNAVAILABLE from status %@", &v22, 0x16u);
         }
 
 LABEL_36:
@@ -396,69 +389,68 @@ LABEL_36:
 
     else
     {
-      isAvailableToMe = objc_msgSend_isAvailableToMe(v18, v19, v20);
-      v29 = IMOSLoggingEnabled();
+      isAvailableToMe = [v10 isAvailableToMe];
+      v19 = IMOSLoggingEnabled();
       if (isAvailableToMe)
       {
-        if (v29)
+        if (v19)
         {
-          v23 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+          v13 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
-            v33 = 138412546;
-            v34 = dCopy;
-            v35 = 2112;
-            v36 = v13;
-            _os_log_impl(&dword_1A823F000, v23, OS_LOG_TYPE_INFO, "StatusKit indicates handle %@ is AVAILABLE from status %@", &v33, 0x16u);
+            v22 = 138412546;
+            v23 = dCopy;
+            v24 = 2112;
+            v25 = statusUniqueIdentifier;
+            _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "StatusKit indicates handle %@ is AVAILABLE from status %@", &v22, 0x16u);
           }
 
           goto LABEL_27;
         }
 
 LABEL_28:
-        v25 = 1;
+        v15 = 1;
 LABEL_38:
 
 LABEL_39:
         goto LABEL_40;
       }
 
-      if (v29)
+      if (v19)
       {
-        v30 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        v20 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v33 = 138412546;
-          v34 = dCopy;
-          v35 = 2112;
-          v36 = v13;
-          _os_log_impl(&dword_1A823F000, v30, OS_LOG_TYPE_INFO, "StatusKit indicates handle %@ is UNAVAILABLE from status %@", &v33, 0x16u);
+          v22 = 138412546;
+          v23 = dCopy;
+          v24 = 2112;
+          v25 = statusUniqueIdentifier;
+          _os_log_impl(&dword_1A823F000, v20, OS_LOG_TYPE_INFO, "StatusKit indicates handle %@ is UNAVAILABLE from status %@", &v22, 0x16u);
         }
 
         goto LABEL_36;
       }
     }
 
-    v25 = 2;
+    v15 = 2;
     goto LABEL_38;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v24 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v14 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v33 = 138412290;
-      v34 = dCopy;
-      _os_log_impl(&dword_1A823F000, v24, OS_LOG_TYPE_INFO, "Subscription not found for handle %@, returning unknown availability", &v33, 0xCu);
+      v22 = 138412290;
+      v23 = dCopy;
+      _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "Subscription not found for handle %@, returning unknown availability", &v22, 0xCu);
     }
   }
 
-  v25 = 0;
+  v15 = 0;
 LABEL_40:
 
-  v31 = *MEMORY[0x1E69E9840];
-  return v25;
+  return v15;
 }
 
 - (void)fetchPersonalAvailabilityWithCompletion:(id)completion
@@ -477,176 +469,172 @@ LABEL_40:
 
 - (void)beginObservingAvailabilityForHandle:(id)handle
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
-  if (objc_msgSend_isInAppleStoreDemoMode(MEMORY[0x1E69A7EE0], v5, v6))
+  if ([MEMORY[0x1E69A7EE0] isInAppleStoreDemoMode])
   {
     if (IMOSLoggingEnabled())
     {
-      v9 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v5 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "Not beginnign observing availability in Apple Store Demo mode.", buf, 2u);
+        _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Not beginnign observing availability in Apple Store Demo mode.", buf, 2u);
       }
     }
   }
 
   else
   {
-    v10 = objc_msgSend_ID(handleCopy, v7, v8);
+    v6 = [handleCopy ID];
     if (IMOSLoggingEnabled())
     {
-      v12 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v7 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v30 = v10;
-        _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "Received request to begin observing availability for: %@", buf, 0xCu);
+        v19 = v6;
+        _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Received request to begin observing availability for: %@", buf, 0xCu);
       }
     }
 
-    v13 = objc_msgSend_statusSubscriptionForHandle_(self, v11, handleCopy);
-    v16 = v13;
-    if (v13)
+    v8 = [(IMHandleAvailabilityManager *)self statusSubscriptionForHandle:handleCopy];
+    v9 = v8;
+    if (v8)
     {
-      v17 = objc_msgSend_subscriptionIdentifier(v13, v14, v15);
+      subscriptionIdentifier = [v8 subscriptionIdentifier];
       if (IMOSLoggingEnabled())
       {
-        v18 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        v11 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v30 = v17;
-          v31 = 2112;
-          v32 = v10;
-          _os_log_impl(&dword_1A823F000, v18, OS_LOG_TYPE_INFO, "Retaining transient subscription assertion on subscription: %@ for handle: %@", buf, 0x16u);
+          v19 = subscriptionIdentifier;
+          v20 = 2112;
+          v21 = v6;
+          _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Retaining transient subscription assertion on subscription: %@ for handle: %@", buf, 0x16u);
         }
       }
 
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = sub_1A83CE000;
-      v26[3] = &unk_1E7813450;
-      v27 = v17;
-      v28 = v10;
-      v19 = v17;
-      objc_msgSend_retainTransientSubscriptionAssertionWithCompletion_(v16, v20, v26);
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = sub_1A83CE000;
+      v15[3] = &unk_1E7813450;
+      v16 = subscriptionIdentifier;
+      v17 = v6;
+      v12 = subscriptionIdentifier;
+      [v9 retainTransientSubscriptionAssertionWithCompletion:v15];
     }
 
     else if (IMOSLoggingEnabled())
     {
-      v21 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v13 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v24 = objc_msgSend_ID(handleCopy, v22, v23);
+        v14 = [handleCopy ID];
         *buf = 138412290;
-        v30 = v24;
-        _os_log_impl(&dword_1A823F000, v21, OS_LOG_TYPE_INFO, "Could not find cached subscription for handle: %@. Not observing availability (yet).", buf, 0xCu);
+        v19 = v14;
+        _os_log_impl(&dword_1A823F000, v13, OS_LOG_TYPE_INFO, "Could not find cached subscription for handle: %@. Not observing availability (yet).", buf, 0xCu);
       }
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endObservingAvailabilityForHandle:(id)handle
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
-  v7 = objc_msgSend_isInAppleStoreDemoMode(MEMORY[0x1E69A7EE0], v5, v6);
-  v8 = IMOSLoggingEnabled();
-  if (v7)
+  isInAppleStoreDemoMode = [MEMORY[0x1E69A7EE0] isInAppleStoreDemoMode];
+  v6 = IMOSLoggingEnabled();
+  if (isInAppleStoreDemoMode)
   {
-    if (v8)
+    if (v6)
     {
-      v10 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v7 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "Not ending observing availability in Apple Store Demo mode.", buf, 2u);
+        _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Not ending observing availability in Apple Store Demo mode.", buf, 2u);
       }
     }
   }
 
   else
   {
-    if (v8)
+    if (v6)
     {
-      v11 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v8 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v14 = objc_msgSend_ID(handleCopy, v12, v13);
+        v9 = [handleCopy ID];
         *buf = 138412290;
-        v36 = v14;
-        _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Received request to end observing availability for: %@", buf, 0xCu);
+        v23 = v9;
+        _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "Received request to end observing availability for: %@", buf, 0xCu);
       }
     }
 
-    v15 = objc_msgSend_statusSubscriptionForHandle_(self, v9, handleCopy);
-    v18 = v15;
-    if (v15)
+    v10 = [(IMHandleAvailabilityManager *)self statusSubscriptionForHandle:handleCopy];
+    v11 = v10;
+    if (v10)
     {
-      v19 = objc_msgSend_subscriptionIdentifier(v15, v16, v17);
-      v22 = objc_msgSend_ID(handleCopy, v20, v21);
+      subscriptionIdentifier = [v10 subscriptionIdentifier];
+      v13 = [handleCopy ID];
       if (IMOSLoggingEnabled())
       {
-        v23 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v14 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v36 = v19;
-          v37 = 2112;
-          v38 = v22;
-          _os_log_impl(&dword_1A823F000, v23, OS_LOG_TYPE_INFO, "Releasing transient subscription assertion on subscription: %@ for handle: %@", buf, 0x16u);
+          v23 = subscriptionIdentifier;
+          v24 = 2112;
+          v25 = v13;
+          _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "Releasing transient subscription assertion on subscription: %@ for handle: %@", buf, 0x16u);
         }
       }
 
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = sub_1A83CE470;
-      v32[3] = &unk_1E7813450;
-      v33 = v22;
-      v34 = v19;
-      v24 = v19;
-      v25 = v22;
-      objc_msgSend_releaseTransientSubscriptionAssertionWithCompletion_(v18, v26, v32);
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = sub_1A83CE470;
+      v19[3] = &unk_1E7813450;
+      v20 = v13;
+      v21 = subscriptionIdentifier;
+      v15 = subscriptionIdentifier;
+      v16 = v13;
+      [v11 releaseTransientSubscriptionAssertionWithCompletion:v19];
     }
 
     else if (IMOSLoggingEnabled())
     {
-      v27 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v17 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v30 = objc_msgSend_ID(handleCopy, v28, v29);
+        v18 = [handleCopy ID];
         *buf = 138412290;
-        v36 = v30;
-        _os_log_impl(&dword_1A823F000, v27, OS_LOG_TYPE_INFO, "Could not find cached subscription for handle: %@. Not observing availability (yet).", buf, 0xCu);
+        v23 = v18;
+        _os_log_impl(&dword_1A823F000, v17, OS_LOG_TYPE_INFO, "Could not find cached subscription for handle: %@. Not observing availability (yet).", buf, 0xCu);
       }
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_subscriptionCacheKeyForHandle:(id)handle
 {
   handleCopy = handle;
-  v6 = objc_msgSend_normalizedID(handleCopy, v4, v5);
-  if (!objc_msgSend_length(v6, v7, v8))
+  normalizedID = [handleCopy normalizedID];
+  if (![normalizedID length])
   {
-    v9 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v5 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1A84E4394(handleCopy, v9);
+      sub_1A84E4394(handleCopy, v5);
     }
 
-    v12 = objc_msgSend_ID(handleCopy, v10, v11);
+    v6 = [handleCopy ID];
 
-    v6 = v12;
+    normalizedID = v6;
   }
 
-  return v6;
+  return normalizedID;
 }
 
 - (SKStatusSubscriptionService)subscriptionService
@@ -656,12 +644,11 @@ LABEL_40:
   {
     v4 = MEMORY[0x1AC56C550](@"SKStatusSubscriptionService", @"StatusKit");
     v5 = *MEMORY[0x1AC56C560]("AKAvailabilityStatusTypeIdentifier", @"AvailabilityKit");
-    v6 = [v4 alloc];
-    v8 = objc_msgSend_initWithStatusTypeIdentifier_(v6, v7, v5);
-    v9 = self->_subscriptionService;
-    self->_subscriptionService = v8;
+    v6 = [[v4 alloc] initWithStatusTypeIdentifier:v5];
+    v7 = self->_subscriptionService;
+    self->_subscriptionService = v6;
 
-    objc_msgSend_addDelegate_queue_(self->_subscriptionService, v10, self, MEMORY[0x1E69E96A0]);
+    [(SKStatusSubscriptionService *)self->_subscriptionService addDelegate:self queue:MEMORY[0x1E69E96A0]];
     subscriptionService = self->_subscriptionService;
   }
 
@@ -670,43 +657,43 @@ LABEL_40:
 
 - (id)_cachedStatusSubscriptionForIMHandle:(id)handle fromCache:(id)cache cacheDescription:(id)description cacheMiss:(BOOL *)miss
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   cacheCopy = cache;
   descriptionCopy = description;
-  v14 = objc_msgSend__subscriptionCacheKeyForHandle_(self, v13, handleCopy);
-  v15 = cacheCopy;
-  objc_sync_enter(v15);
-  if (v14)
+  v13 = [(IMHandleAvailabilityManager *)self _subscriptionCacheKeyForHandle:handleCopy];
+  v14 = cacheCopy;
+  objc_sync_enter(v14);
+  if (v13)
   {
-    v17 = objc_msgSend_objectForKey_(v15, v16, v14);
+    v15 = [v14 objectForKey:v13];
   }
 
   else
   {
-    v17 = 0;
+    v15 = 0;
   }
 
-  objc_sync_exit(v15);
+  objc_sync_exit(v14);
 
-  if (!v17)
+  if (!v15)
   {
     if (IMOSLoggingEnabled())
     {
-      v26 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v20 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v30 = 138412546;
-        v31 = descriptionCopy;
-        v32 = 2112;
-        v33 = v14;
-        _os_log_impl(&dword_1A823F000, v26, OS_LOG_TYPE_INFO, "Subscription cache miss (%@) for key %@", &v30, 0x16u);
+        v23 = 138412546;
+        v24 = descriptionCopy;
+        v25 = 2112;
+        v26 = v13;
+        _os_log_impl(&dword_1A823F000, v20, OS_LOG_TYPE_INFO, "Subscription cache miss (%@) for key %@", &v23, 0x16u);
       }
     }
 
     if (miss)
     {
-      v18 = 0;
+      v16 = 0;
       *miss = 1;
       goto LABEL_28;
     }
@@ -728,174 +715,164 @@ LABEL_40:
       if (!IMOSLoggingEnabled())
       {
 LABEL_27:
-        v18 = 0;
+        v16 = 0;
         goto LABEL_28;
       }
 
-      v27 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v21 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        v30 = 138412546;
-        v31 = descriptionCopy;
-        v32 = 2112;
-        v33 = v14;
-        _os_log_impl(&dword_1A823F000, v27, OS_LOG_TYPE_INFO, "Subscription cache hit (%@), we do not have a subscription for key: %@", &v30, 0x16u);
+        v23 = 138412546;
+        v24 = descriptionCopy;
+        v25 = 2112;
+        v26 = v13;
+        _os_log_impl(&dword_1A823F000, v21, OS_LOG_TYPE_INFO, "Subscription cache hit (%@), we do not have a subscription for key: %@", &v23, 0x16u);
       }
     }
 
     else
     {
-      v27 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+      v21 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
       {
-        v30 = 138412802;
-        v31 = descriptionCopy;
-        v32 = 2112;
-        v33 = v14;
-        v34 = 2112;
-        v35 = v17;
-        _os_log_fault_impl(&dword_1A823F000, v27, OS_LOG_TYPE_FAULT, "Subscription cache hit (%@) for key %@, but object in cache is of unknown type: %@", &v30, 0x20u);
+        v23 = 138412802;
+        v24 = descriptionCopy;
+        v25 = 2112;
+        v26 = v13;
+        v27 = 2112;
+        v28 = v15;
+        _os_log_fault_impl(&dword_1A823F000, v21, OS_LOG_TYPE_FAULT, "Subscription cache hit (%@) for key %@, but object in cache is of unknown type: %@", &v23, 0x20u);
       }
     }
 
     goto LABEL_27;
   }
 
-  v18 = v17;
-  v21 = objc_msgSend_currentStatus(v18, v19, v20);
-  v24 = objc_msgSend_statusUniqueIdentifier(v21, v22, v23);
+  v16 = v15;
+  currentStatus = [v16 currentStatus];
+  statusUniqueIdentifier = [currentStatus statusUniqueIdentifier];
 
   if (IMOSLoggingEnabled())
   {
-    v25 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v19 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v30 = 138412802;
-      v31 = descriptionCopy;
-      v32 = 2112;
-      v33 = v14;
-      v34 = 2112;
-      v35 = v24;
-      _os_log_impl(&dword_1A823F000, v25, OS_LOG_TYPE_INFO, "Subscription cache hit (%@), found subscription for key: %@ Status: %@", &v30, 0x20u);
+      v23 = 138412802;
+      v24 = descriptionCopy;
+      v25 = 2112;
+      v26 = v13;
+      v27 = 2112;
+      v28 = statusUniqueIdentifier;
+      _os_log_impl(&dword_1A823F000, v19, OS_LOG_TYPE_INFO, "Subscription cache hit (%@), found subscription for key: %@ Status: %@", &v23, 0x20u);
     }
   }
 
 LABEL_28:
-  v28 = *MEMORY[0x1E69E9840];
 
-  return v18;
+  return v16;
 }
 
 - (id)_skHandleForIMHandle:(id)handle
 {
-  v4 = objc_msgSend_normalizedID(handle, a2, handle);
-  v6 = objc_msgSend__skHandleForString_(self, v5, v4);
+  normalizedID = [handle normalizedID];
+  v5 = [(IMHandleAvailabilityManager *)self _skHandleForString:normalizedID];
 
-  return v6;
+  return v5;
 }
 
 - (id)_skHandleForString:(id)string
 {
   stringCopy = string;
-  v4 = objc_alloc(MEMORY[0x1AC56C550](@"SKHandle", @"StatusKit"));
-  v6 = objc_msgSend_initWithString_(v4, v5, stringCopy);
+  v4 = [objc_alloc(MEMORY[0x1AC56C550](@"SKHandle" @"StatusKit"))];
 
-  return v6;
+  return v4;
 }
 
 - (void)_clearCurrentSubscriptionCache
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = self->_pendingFetchesForCacheKeys;
   objc_sync_enter(v3);
-  v6 = self->_currentCacheGeneration + 1;
+  v4 = self->_currentCacheGeneration + 1;
   if (IMOSLoggingEnabled())
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v12 = 134217984;
-      v13 = v6;
-      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Clearing current subscription cache. New cache generation: %ld", &v12, 0xCu);
+      v7 = 134217984;
+      v8 = v4;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Clearing current subscription cache. New cache generation: %ld", &v7, 0xCu);
     }
   }
 
-  self->_currentCacheGeneration = v6;
-  objc_msgSend_removeAllObjects(self->_pendingFetchesForCacheKeys, v4, v5);
+  self->_currentCacheGeneration = v4;
+  [(NSMutableSet *)self->_pendingFetchesForCacheKeys removeAllObjects];
   objc_sync_exit(v3);
 
-  v8 = self->_currentSubscriptionCache;
-  objc_sync_enter(v8);
-  objc_msgSend_removeAllObjects(self->_currentSubscriptionCache, v9, v10);
-  objc_sync_exit(v8);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v6 = self->_currentSubscriptionCache;
+  objc_sync_enter(v6);
+  [(NSMutableDictionary *)self->_currentSubscriptionCache removeAllObjects];
+  objc_sync_exit(v6);
 }
 
 - (void)subscriptionInvitationReceived:(id)received
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   receivedCopy = received;
   if (IMOSLoggingEnabled())
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v13 = 138412290;
-      v14 = receivedCopy;
-      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Subscription invitation received, clearing cache and notifying UI to subscribe, if necessary. %@", &v13, 0xCu);
+      v7 = 138412290;
+      v8 = receivedCopy;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Subscription invitation received, clearing cache and notifying UI to subscribe, if necessary. %@", &v7, 0xCu);
     }
   }
 
-  objc_msgSend__clearCurrentSubscriptionCache(self, v5, v6);
-  v10 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v8, v9);
-  objc_msgSend___mainThreadPostNotificationName_object_(v10, v11, IMHandleAvailabilityInvitationReceivedNotification, receivedCopy);
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(IMHandleAvailabilityManager *)self _clearCurrentSubscriptionCache];
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter __mainThreadPostNotificationName:IMHandleAvailabilityInvitationReceivedNotification object:receivedCopy];
 }
 
 - (void)subscriptionReceivedStatusUpdate:(id)update
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   if (IMOSLoggingEnabled())
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v13 = 138412290;
-      v14 = updateCopy;
-      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Status update received, clearing cache and notifying UI to display updated status, if necessary. %@", &v13, 0xCu);
+      v7 = 138412290;
+      v8 = updateCopy;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Status update received, clearing cache and notifying UI to display updated status, if necessary. %@", &v7, 0xCu);
     }
   }
 
-  objc_msgSend__clearCurrentSubscriptionCache(self, v5, v6);
-  v10 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v8, v9);
-  objc_msgSend___mainThreadPostNotificationName_object_(v10, v11, IMHandleAvailabilityChangedNotification, updateCopy);
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(IMHandleAvailabilityManager *)self _clearCurrentSubscriptionCache];
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter __mainThreadPostNotificationName:IMHandleAvailabilityChangedNotification object:updateCopy];
 }
 
 - (void)subscriptionStateChanged:(id)changed
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   if (IMOSLoggingEnabled())
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v13 = 138412290;
-      v14 = changedCopy;
-      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Status state changed, clearing cache and notifying UI to refetch all relevant state. %@", &v13, 0xCu);
+      v7 = 138412290;
+      v8 = changedCopy;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Status state changed, clearing cache and notifying UI to refetch all relevant state. %@", &v7, 0xCu);
     }
   }
 
-  objc_msgSend__clearCurrentSubscriptionCache(self, v5, v6);
-  v10 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v8, v9);
-  objc_msgSend___mainThreadPostNotificationName_object_(v10, v11, IMHandleAvailabilityStateChangedNotification, changedCopy);
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(IMHandleAvailabilityManager *)self _clearCurrentSubscriptionCache];
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter __mainThreadPostNotificationName:IMHandleAvailabilityStateChangedNotification object:changedCopy];
 }
 
 - (void)subscriptionServiceDaemonDisconnected:(id)disconnected
@@ -903,17 +880,17 @@ LABEL_28:
   disconnectedCopy = disconnected;
   if (IMOSLoggingEnabled())
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Subscription service daemon was disconnected, (e.g. app is returning from backgrounded) clearing stale cached data and notifying UI to refetch if necessary", v12, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Subscription service daemon was disconnected, (e.g. app is returning from backgrounded) clearing stale cached data and notifying UI to refetch if necessary", v7, 2u);
     }
   }
 
-  objc_msgSend__clearCurrentSubscriptionCache(self, v5, v6);
-  v10 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v8, v9);
-  objc_msgSend___mainThreadPostNotificationName_object_(v10, v11, IMHandleAvailabilityDaemonDisconnectedNotification, 0);
+  [(IMHandleAvailabilityManager *)self _clearCurrentSubscriptionCache];
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter __mainThreadPostNotificationName:IMHandleAvailabilityDaemonDisconnectedNotification object:0];
 }
 
 @end

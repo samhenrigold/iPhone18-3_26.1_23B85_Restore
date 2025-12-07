@@ -232,18 +232,16 @@ LABEL_23:
 
   if (phoneNumber)
   {
-    phoneNumber = self->_phoneNumber;
     PBDataWriterWriteStringField();
   }
 
   rating = [(_INPBRideDriver *)self rating];
 
-  v11 = toCopy;
+  v10 = toCopy;
   if (rating)
   {
-    rating = self->_rating;
     PBDataWriterWriteStringField();
-    v11 = toCopy;
+    v10 = toCopy;
   }
 }
 

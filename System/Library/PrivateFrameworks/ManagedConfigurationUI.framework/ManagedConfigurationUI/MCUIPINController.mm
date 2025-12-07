@@ -6,6 +6,7 @@
 - (void)_updateStyle;
 - (void)presentationControllerDidAttemptToDismiss:(id)dismiss;
 - (void)setDelegate:(id)delegate;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -40,6 +41,15 @@
   }
 
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MCUIPINController;
+  [(DevicePINController *)&v4 viewWillAppear:appear];
+  [(MCUIPINController *)self _updateStyle];
+  [(MCUIPINController *)self setModalInPresentation:[(MCUIPINController *)self style]== 0];
 }
 
 - (void)viewWillLayoutSubviews

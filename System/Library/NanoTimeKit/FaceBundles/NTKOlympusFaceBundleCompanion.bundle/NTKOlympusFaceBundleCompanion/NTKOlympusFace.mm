@@ -231,26 +231,17 @@ LABEL_9:
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
-  switch(mode)
+  if (mode == 10 || mode == 12 || mode == 15)
   {
-    case 10:
-      v4 = NTKOlympusColorEditOption_ptr;
-LABEL_7:
-      v5 = *v4;
-      v6 = objc_opt_class();
-
-      return v6;
-    case 12:
-      v4 = &off_101F0;
-      goto LABEL_7;
-    case 15:
-      v4 = NTKOlympusStyleEditOption_ptr;
-      goto LABEL_7;
+    v4 = objc_opt_class();
   }
 
-  v6 = 0;
+  else
+  {
+    v4 = 0;
+  }
 
-  return v6;
+  return v4;
 }
 
 - (id)editOptionThatHidesAllComplications

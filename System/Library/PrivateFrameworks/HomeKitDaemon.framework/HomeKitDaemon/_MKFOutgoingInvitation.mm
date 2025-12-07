@@ -86,31 +86,31 @@
 
 - (id)allowedAccessoryUUIDs
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   allowedAccessories = [(_MKFOutgoingInvitation *)self allowedAccessories];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(allowedAccessories, "count")}];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   allowedAccessories2 = [(_MKFOutgoingInvitation *)self allowedAccessories];
-  v7 = [allowedAccessories2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [allowedAccessories2 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(allowedAccessories2);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         modelID = [v11 modelID];
         [v5 addObject:modelID];
@@ -118,14 +118,13 @@
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [allowedAccessories2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [allowedAccessories2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
-  v14 = [v5 copy];
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = objc_msgSend_copy(v5);
 
   return v14;
 }

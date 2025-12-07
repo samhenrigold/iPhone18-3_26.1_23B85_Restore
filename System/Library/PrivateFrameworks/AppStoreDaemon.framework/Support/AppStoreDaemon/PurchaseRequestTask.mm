@@ -6,7 +6,7 @@
 
 - (void)main
 {
-  v45 = sub_1001DFF60();
+  v45 = sub_1001DFF60(PurchaseManager);
   selfCopy = self;
   if (self)
   {

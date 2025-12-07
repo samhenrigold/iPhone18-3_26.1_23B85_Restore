@@ -167,7 +167,7 @@ LABEL_30:
   [layout imageSize];
   [layout visibleFrame];
   NURectNormalize();
-  [matteImage extent];
+  objc_msgSend_extent(matteImage);
   NURectDenormalize();
   v9 = v8;
   v11 = v10;
@@ -184,7 +184,7 @@ LABEL_30:
     [layout adaptiveVisibleFrame];
     [v16 topFrameForVisibleRect:v18 adaptiveRect:{v20, v22, v24, v25, v26, v27, v28}];
     NURectNormalize();
-    [matteImage extent];
+    objc_msgSend_extent(matteImage);
     NURectDenormalize();
     v9 = v29;
     v11 = v30;
@@ -199,7 +199,7 @@ LABEL_30:
   v38 = v37;
   v40 = v39;
   context = [v4 context];
-  [PISegmentationHelper computeClockLayerOrderWithAdaptiveTimeRect:matteImage visibleFrame:layoutConfiguration segmentationMatte:context layoutConfiguration:1 context:v34 interactive:v36, v38, v40, v9, v11, v13, v15];
+  objc_msgSend_computeClockLayerOrderWithAdaptiveTimeRect_visibleFrame_segmentationMatte_layoutConfiguration_context_interactive_(PISegmentationHelper, v34, v36, v38, v40, v9, v11, v13, v15);
 
   [(_PIParallaxClockLayoutJob *)self setClockLayerOrder:*&v76[0]];
   [(_PIParallaxClockLayoutJob *)self setClockIntersection:0];

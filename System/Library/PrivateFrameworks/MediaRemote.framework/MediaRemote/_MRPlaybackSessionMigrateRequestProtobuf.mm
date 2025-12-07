@@ -3,6 +3,10 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)endpointOptionsAsString:(int)string;
+- (id)playbackStateAsString:(int)string;
+- (id)playerOptionsAsString:(int)string;
+- (id)recipeTypeAsString:(int)string;
 - (int)StringAsEndpointOptions:(id)options;
 - (int)StringAsPlaybackState:(id)state;
 - (int)StringAsPlayerOptions:(id)options;
@@ -56,35 +60,86 @@
   *&self->_has = *&self->_has & 0xFFBF | v3;
 }
 
+- (id)playerOptionsAsString:(int)string
+{
+  if (string > 3)
+  {
+    switch(string)
+    {
+      case 4:
+        v4 = @"PauseSource";
+
+        break;
+      case 8:
+        v4 = @"RestorePlaybackPosition";
+
+        break;
+      case 16:
+        v4 = @"RestorePlaybackRate";
+
+        break;
+      default:
+LABEL_20:
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+    }
+  }
+
+  else if (string)
+  {
+    if (string != 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"PlayDestination";
+
+        return v4;
+      }
+
+      goto LABEL_20;
+    }
+
+    v4 = @"RestoreDestinationPlaybackState";
+  }
+
+  else
+  {
+    v4 = @"None";
+  }
+
+  return v4;
+}
+
 - (int)StringAsPlayerOptions:(id)options
 {
   optionsCopy = options;
-  if ([optionsCopy isEqualToString:@"None"])
+  if (objc_msgSend_isEqualToString_(optionsCopy))
   {
     v4 = 0;
   }
 
-  else if ([optionsCopy isEqualToString:@"RestoreDestinationPlaybackState"])
+  else if (objc_msgSend_isEqualToString_(optionsCopy))
   {
     v4 = 1;
   }
 
-  else if ([optionsCopy isEqualToString:@"PlayDestination"])
+  else if (objc_msgSend_isEqualToString_(optionsCopy))
   {
     v4 = 2;
   }
 
-  else if ([optionsCopy isEqualToString:@"PauseSource"])
+  else if (objc_msgSend_isEqualToString_(optionsCopy))
   {
     v4 = 4;
   }
 
-  else if ([optionsCopy isEqualToString:@"RestorePlaybackPosition"])
+  else if (objc_msgSend_isEqualToString_(optionsCopy))
   {
     v4 = 8;
   }
 
-  else if ([optionsCopy isEqualToString:@"RestorePlaybackRate"])
+  else if (objc_msgSend_isEqualToString_(optionsCopy))
   {
     v4 = 16;
   }
@@ -125,30 +180,45 @@
   *&self->_has = *&self->_has & 0xFFF7 | v3;
 }
 
+- (id)endpointOptionsAsString:(int)string
+{
+  if (string < 9 && ((0x117u >> string) & 1) != 0)
+  {
+    v4 = off_1E76A1820[string];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsEndpointOptions:(id)options
 {
   optionsCopy = options;
-  if ([optionsCopy isEqualToString:@"None"])
+  if (objc_msgSend_isEqualToString_(optionsCopy))
   {
     v4 = 0;
   }
 
-  else if ([optionsCopy isEqualToString:@"UpdateActiveEndpoint"])
+  else if (objc_msgSend_isEqualToString_(optionsCopy))
   {
     v4 = 1;
   }
 
-  else if ([optionsCopy isEqualToString:@"FallbackToAddOutputDevices"])
+  else if (objc_msgSend_isEqualToString_(optionsCopy))
   {
     v4 = 2;
   }
 
-  else if ([optionsCopy isEqualToString:@"AllowMigrateToGroup"])
+  else if (objc_msgSend_isEqualToString_(optionsCopy))
   {
     v4 = 4;
   }
 
-  else if ([optionsCopy isEqualToString:@"AllowMigrateFromGroup"])
+  else if (objc_msgSend_isEqualToString_(optionsCopy))
   {
     v4 = 8;
   }
@@ -207,35 +277,50 @@
   *&self->_has = *&self->_has & 0xFFDF | v3;
 }
 
+- (id)playbackStateAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A1868[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsPlaybackState:(id)state
 {
   stateCopy = state;
-  if ([stateCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 0;
   }
 
-  else if ([stateCopy isEqualToString:@"Playing"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 1;
   }
 
-  else if ([stateCopy isEqualToString:@"Paused"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 2;
   }
 
-  else if ([stateCopy isEqualToString:@"Stopped"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 3;
   }
 
-  else if ([stateCopy isEqualToString:@"Interrupted"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 4;
   }
 
-  else if ([stateCopy isEqualToString:@"Seeking"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 5;
   }
@@ -336,20 +421,35 @@
   *&self->_has = *&self->_has & 0xFF7F | v3;
 }
 
+- (id)recipeTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A1898[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsRecipeType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"NotPossible"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"Legacy"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"OneShot"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
@@ -376,7 +476,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = dictionary;
   requestID = self->_requestID;
@@ -449,30 +549,30 @@ LABEL_19:
   if ([(NSMutableArray *)self->_events count])
   {
     v11 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_events, "count")}];
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     v12 = self->_events;
-    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v41 objects:v45 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v43;
+      v15 = *v42;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v43 != v15)
+          if (*v42 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          dictionaryRepresentation = [*(*(&v42 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v41 + 1) + 8 * i) dictionaryRepresentation];
           [v11 addObject:dictionaryRepresentation];
         }
 
-        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v42 objects:v46 count:16];
+        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v41 objects:v45 count:16];
       }
 
       while (v14);
@@ -604,14 +704,12 @@ LABEL_53:
     [v4 setObject:v37 forKey:@"recipeType"];
   }
 
-  v40 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_requestID)
   {
@@ -621,49 +719,45 @@ LABEL_53:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    playerOptions = self->_playerOptions;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    endpointOptions = self->_endpointOptions;
     PBDataWriterWriteInt32Field();
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v8 = self->_events;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v9)
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v6 = self->_events;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v25;
+    v8 = v7;
+    v9 = *v14;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v11)
+        if (*v14 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if (*&self->_has)
   {
-    playbackPosition = self->_playbackPosition;
     PBDataWriterWriteDoubleField();
   }
 
@@ -677,17 +771,15 @@ LABEL_53:
     PBDataWriterWriteSubmessage();
   }
 
-  v15 = self->_has;
-  if ((v15 & 0x20) != 0)
+  v11 = self->_has;
+  if ((v11 & 0x20) != 0)
   {
-    playbackState = self->_playbackState;
     PBDataWriterWriteInt32Field();
-    v15 = self->_has;
+    v11 = self->_has;
   }
 
-  if ((v15 & 2) != 0)
+  if ((v11 & 2) != 0)
   {
-    playbackRate = self->_playbackRate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -696,16 +788,15 @@ LABEL_53:
     PBDataWriterWriteSubmessage();
   }
 
-  v18 = self->_has;
-  if ((v18 & 0x100) != 0)
+  v12 = self->_has;
+  if ((v12 & 0x100) != 0)
   {
-    allowFadeTransition = self->_allowFadeTransition;
     PBDataWriterWriteBOOLField();
-    v18 = self->_has;
-    if ((v18 & 0x10) == 0)
+    v12 = self->_has;
+    if ((v12 & 0x10) == 0)
     {
 LABEL_28:
-      if ((v18 & 4) == 0)
+      if ((v12 & 4) == 0)
       {
         goto LABEL_30;
       }
@@ -714,17 +805,15 @@ LABEL_28:
     }
   }
 
-  else if ((v18 & 0x10) == 0)
+  else if ((v12 & 0x10) == 0)
   {
     goto LABEL_28;
   }
 
-  originatorType = self->_originatorType;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_29:
-    destinationTypes = self->_destinationTypes;
     PBDataWriterWriteUint32Field();
   }
 
@@ -746,11 +835,8 @@ LABEL_30:
 
   if ((*&self->_has & 0x80) != 0)
   {
-    recipeType = self->_recipeType;
     PBDataWriterWriteInt32Field();
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -891,7 +977,7 @@ LABEL_27:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_requestID copyWithZone:zone];
   v7 = *(v5 + 96);
@@ -911,30 +997,30 @@ LABEL_27:
     *(v5 + 124) |= 8u;
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v9 = self->_events;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v32;
+    v12 = *v31;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v32 != v12)
+        if (*v31 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v31 + 1) + 8 * i) copyWithZone:{zone, v31}];
+        v14 = [*(*(&v30 + 1) + 8 * i) copyWithZone:{zone, v30}];
         [v5 addEvents:v14];
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v11);
@@ -946,7 +1032,7 @@ LABEL_27:
     *(v5 + 124) |= 1u;
   }
 
-  v15 = [(_MRContentItemProtobuf *)self->_contentItem copyWithZone:zone, v31];
+  v15 = [(_MRContentItemProtobuf *)self->_contentItem copyWithZone:zone, v30];
   v16 = *(v5 + 24);
   *(v5 + 24) = v15;
 
@@ -1023,7 +1109,6 @@ LABEL_22:
     *(v5 + 124) |= 0x80u;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1160,7 +1245,7 @@ LABEL_22:
     }
 
 LABEL_68:
-    v21 = 0;
+    v20 = 0;
     goto LABEL_69;
   }
 
@@ -1169,7 +1254,6 @@ LABEL_68:
     goto LABEL_68;
   }
 
-  v16 = *(equalCopy + 120);
   if (self->_allowFadeTransition)
   {
     if ((*(equalCopy + 120) & 1) == 0)
@@ -1234,25 +1318,25 @@ LABEL_41:
     }
   }
 
-  v20 = *(equalCopy + 62);
+  v19 = *(equalCopy + 62);
   if ((*&self->_has & 0x80) != 0)
   {
-    if ((v20 & 0x80) == 0 || self->_recipeType != *(equalCopy + 22))
+    if ((v19 & 0x80) == 0 || self->_recipeType != *(equalCopy + 22))
     {
       goto LABEL_68;
     }
 
-    v21 = 1;
+    v20 = 1;
   }
 
   else
   {
-    v21 = (v20 & 0x80) == 0;
+    v20 = (v19 & 0x80) == 0;
   }
 
 LABEL_69:
 
-  return v21;
+  return v20;
 }
 
 - (unint64_t)hash
@@ -1421,7 +1505,7 @@ LABEL_29:
 
 - (void)mergeFrom:(id)from
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 12))
   {
@@ -1442,29 +1526,29 @@ LABEL_29:
     *&self->_has |= 8u;
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v6 = *(fromCopy + 5);
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(_MRPlaybackSessionMigrateRequestProtobuf *)self addEvents:*(*(&v24 + 1) + 8 * i), v24];
+        [(_MRPlaybackSessionMigrateRequestProtobuf *)self addEvents:*(*(&v23 + 1) + 8 * i), v23];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v8);
@@ -1608,8 +1692,6 @@ LABEL_39:
     self->_recipeType = *(fromCopy + 22);
     *&self->_has |= 0x80u;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 @end

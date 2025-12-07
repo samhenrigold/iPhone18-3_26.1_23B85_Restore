@@ -94,15 +94,15 @@
 
 void __73__DEDDiagnosticCollector_collectAnnotatedGroupWithIdentifier_parameters___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 40);
-    v11 = 138543362;
-    v12 = v5;
-    _os_log_impl(&dword_248AD7000, v4, OS_LOG_TYPE_INFO, "finished collecting annotated attachments for %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v5;
+    _os_log_impl(&dword_248AD7000, v4, OS_LOG_TYPE_INFO, "finished collecting annotated attachments for %{public}@", &v10, 0xCu);
   }
 
   v6 = [*(a1 + 32) log];
@@ -117,7 +117,6 @@ void __73__DEDDiagnosticCollector_collectAnnotatedGroupWithIdentifier_parameters
   v9 = v3;
 
   dispatch_group_leave(*(a1 + 48));
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)collectItemsWithIdentifier:(id)identifier parameters:(id)parameters
@@ -178,15 +177,15 @@ void __73__DEDDiagnosticCollector_collectAnnotatedGroupWithIdentifier_parameters
 
 void __64__DEDDiagnosticCollector_collectItemsWithIdentifier_parameters___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 40);
-    v11 = 138543362;
-    v12 = v5;
-    _os_log_impl(&dword_248AD7000, v4, OS_LOG_TYPE_INFO, "finished collecting attachments for %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v5;
+    _os_log_impl(&dword_248AD7000, v4, OS_LOG_TYPE_INFO, "finished collecting attachments for %{public}@", &v10, 0xCu);
   }
 
   v6 = [*(a1 + 32) log];
@@ -202,8 +201,6 @@ void __64__DEDDiagnosticCollector_collectItemsWithIdentifier_parameters___block_
 
   [*(*(*(a1 + 56) + 8) + 40) addObjectsFromArray:v3];
   dispatch_group_leave(*(a1 + 48));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_combineParametersWithParameters:(id)parameters extension:(id)extension identifier:(id)identifier
@@ -284,85 +281,82 @@ void __64__DEDDiagnosticCollector_collectItemsWithIdentifier_parameters___block_
 
 - (void)prepareItemsWithIdentifier:(id)identifier parameters:(id)parameters session:(id)session
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   parametersCopy = parameters;
   sessionCopy = session;
   v11 = [(DEDDiagnosticCollector *)self log];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 136315906;
-    v16 = "[DEDDiagnosticCollector prepareItemsWithIdentifier:parameters:session:]";
-    v17 = 2112;
-    v18 = identifierCopy;
-    v19 = 2112;
-    v20 = parametersCopy;
-    v21 = 2112;
-    v22 = sessionCopy;
-    _os_log_debug_impl(&dword_248AD7000, v11, OS_LOG_TYPE_DEBUG, "%s %@ %@ %@", &v15, 0x2Au);
+    v14 = 136315906;
+    v15 = "[DEDDiagnosticCollector prepareItemsWithIdentifier:parameters:session:]";
+    v16 = 2112;
+    v17 = identifierCopy;
+    v18 = 2112;
+    v19 = parametersCopy;
+    v20 = 2112;
+    v21 = sessionCopy;
+    _os_log_debug_impl(&dword_248AD7000, v11, OS_LOG_TYPE_DEBUG, "%s %@ %@ %@", &v14, 0x2Au);
   }
 
   extensionManager = [(DEDDiagnosticCollector *)self extensionManager];
   v13 = [extensionManager extensionForIdentifier:identifierCopy];
 
   [v13 setupWithParameters:parametersCopy session:sessionCopy];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupItemsWithIdentifier:(id)identifier parameters:(id)parameters session:(id)session
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   parametersCopy = parameters;
   sessionCopy = session;
   v11 = [(DEDDiagnosticCollector *)self log];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 136315906;
-    v16 = "[DEDDiagnosticCollector cleanupItemsWithIdentifier:parameters:session:]";
-    v17 = 2112;
-    v18 = identifierCopy;
-    v19 = 2112;
-    v20 = parametersCopy;
-    v21 = 2112;
-    v22 = sessionCopy;
-    _os_log_debug_impl(&dword_248AD7000, v11, OS_LOG_TYPE_DEBUG, "%s %@ %@ %@", &v15, 0x2Au);
+    v14 = 136315906;
+    v15 = "[DEDDiagnosticCollector cleanupItemsWithIdentifier:parameters:session:]";
+    v16 = 2112;
+    v17 = identifierCopy;
+    v18 = 2112;
+    v19 = parametersCopy;
+    v20 = 2112;
+    v21 = sessionCopy;
+    _os_log_debug_impl(&dword_248AD7000, v11, OS_LOG_TYPE_DEBUG, "%s %@ %@ %@", &v14, 0x2Au);
   }
 
   extensionManager = [(DEDDiagnosticCollector *)self extensionManager];
   v13 = [extensionManager extensionForIdentifier:identifierCopy];
 
   [v13 teardownWithParameters:parametersCopy session:sessionCopy];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isDiagnosticExtensionAvailable
 {
-  v17[1] = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
+  v16[1] = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
   v3 = dispatch_semaphore_create(0);
   v4 = MEMORY[0x277CCA9C8];
-  v16 = *MEMORY[0x277CCA0F8];
-  v17[0] = @"com.apple.diagnosticextensions-service";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __56__DEDDiagnosticCollector_isDiagnosticExtensionAvailable__block_invoke;
-  v9[3] = &unk_278F660A8;
-  v9[4] = self;
-  v11 = &v12;
+  v15 = *MEMORY[0x277CCA0F8];
+  v16[0] = @"com.apple.diagnosticextensions-service";
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __56__DEDDiagnosticCollector_isDiagnosticExtensionAvailable__block_invoke;
+  v8[3] = &unk_278F660A8;
+  v8[4] = self;
+  v10 = &v11;
   v6 = v3;
-  v10 = v6;
-  [v4 extensionsWithMatchingAttributes:v5 completion:v9];
+  v9 = v6;
+  [v4 extensionsWithMatchingAttributes:v5 completion:v8];
 
   dispatch_semaphore_wait(v6, 0xFFFFFFFFFFFFFFFFLL);
-  LOBYTE(v4) = *(v13 + 24);
+  LOBYTE(v4) = *(v12 + 24);
 
-  _Block_object_dispose(&v12, 8);
-  v7 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v11, 8);
   return v4 & 1;
 }
 
@@ -388,7 +382,7 @@ void __56__DEDDiagnosticCollector_isDiagnosticExtensionAvailable__block_invoke(u
 
 - (id)extensionForIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   cachedExtensions = [(DEDDiagnosticCollector *)self cachedExtensions];
 
@@ -397,25 +391,25 @@ void __56__DEDDiagnosticCollector_isDiagnosticExtensionAvailable__block_invoke(u
     availableDiagnosticExtensions = [(DEDDiagnosticCollector *)self availableDiagnosticExtensions];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   cachedExtensions2 = [(DEDDiagnosticCollector *)self cachedExtensions];
-  v8 = [cachedExtensions2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [cachedExtensions2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(cachedExtensions2);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         identifier = [v11 identifier];
         v13 = [identifier isEqualToString:identifierCopy];
 
@@ -426,7 +420,7 @@ void __56__DEDDiagnosticCollector_isDiagnosticExtensionAvailable__block_invoke(u
         }
       }
 
-      v8 = [cachedExtensions2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [cachedExtensions2 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -438,42 +432,40 @@ void __56__DEDDiagnosticCollector_isDiagnosticExtensionAvailable__block_invoke(u
 
 LABEL_13:
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)availableDiagnosticExtensions
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   extensionManager = [(DEDDiagnosticCollector *)self extensionManager];
   v4 = [extensionManager extensionsWithFilter:0];
 
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v4, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [DEDExtension extensionWithDEExtension:*(*(&v18 + 1) + 8 * i), v18];
+        v11 = [DEDExtension extensionWithDEExtension:*(*(&v17 + 1) + 8 * i), v17];
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -490,7 +482,6 @@ LABEL_13:
   v15 = v14;
 
   [(DEDDiagnosticCollector *)self setCachedExtensions:v15];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -519,72 +510,46 @@ LABEL_13:
 
 - (void)collectAnnotatedGroupWithIdentifier:parameters:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)collectAnnotatedGroupWithIdentifier:parameters:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_0(&dword_248AD7000, v0, v1, "Could not find extension with identifier %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __73__DEDDiagnosticCollector_collectAnnotatedGroupWithIdentifier_parameters___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 description];
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(&dword_248AD7000, a2, OS_LOG_TYPE_DEBUG, "collected annotated group %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_248AD7000, a2, OS_LOG_TYPE_DEBUG, "collected annotated group %@", v4, 0xCu);
 }
 
 - (void)collectItemsWithIdentifier:parameters:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __64__DEDDiagnosticCollector_collectItemsWithIdentifier_parameters___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(&dword_248AD7000, v0, OS_LOG_TYPE_DEBUG, "collected attachments %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_248AD7000, v0, OS_LOG_TYPE_DEBUG, "collected attachments %@", v1, 0xCu);
 }
 
 - (void)_combineParametersWithParameters:extension:identifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareItemsWithDeferredExtensionInfo:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(&dword_248AD7000, v0, OS_LOG_TYPE_DEBUG, "%s %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-void __56__DEDDiagnosticCollector_isDiagnosticExtensionAvailable__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1_0(&dword_248AD7000, v0, v1, "Error finding diagnostic extension [%@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_248AD7000, v0, OS_LOG_TYPE_DEBUG, "%s %@", v1, 0x16u);
 }
 
 @end

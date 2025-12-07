@@ -4330,7 +4330,7 @@ void __63__MONowPlayingMediaManager__rehydratedMediaPlayEvents_handler___block_i
   v1 = [a1 mediaTitle];
   v2 = [MOMediaPlaySession redactString:v1];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v3, v4, "has title, %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v3, v4, "has title, %@", v5, v6, v7, v8);
 }
 
 - (void)_setDynamicProperties:(void *)a1 mediaPlay:.cold.2(void *a1)
@@ -4338,28 +4338,30 @@ void __63__MONowPlayingMediaManager__rehydratedMediaPlayEvents_handler___block_i
   v1 = [a1 mediaAlbum];
   v2 = [MOMediaPlaySession redactString:v1];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v3, v4, "has album name, %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v3, v4, "has album name, %@", v5, v6, v7, v8);
 }
 
 - (void)_setDynamicProperties:(void *)a1 mediaPlay:.cold.3(void *a1)
 {
   v1 = [a1 mediaPlayerBundleId];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v2, v3, "has media player bundleID, %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v2, v3, "has media player bundleID, %@", v4, v5, v6, v7);
 }
 
 - (void)_setDynamicProperties:(void *)a1 mediaPlay:.cold.4(void *a1)
 {
   v1 = [a1 mediaType];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v2, v3, "has mediaType, %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v2, v3, "has mediaType, %@", v4, v5, v6, v7);
 }
 
 - (void)_setDynamicProperties:(void *)a1 mediaPlay:.cold.5(void *a1)
 {
   v1 = [a1 mediaSumTimePlayed];
   [v1 doubleValue];
-  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v2, v3, "has sumTimePlayed, %f", v4, v5, v6, v7, 0);
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v3, v4, "has sumTimePlayed, %f", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)_setDynamicProperties:(void *)a1 mediaPlay:.cold.6(void *a1)
@@ -4367,7 +4369,7 @@ void __63__MONowPlayingMediaManager__rehydratedMediaPlayEvents_handler___block_i
   v1 = [a1 mediaRepetitions];
   [v1 unsignedLongValue];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v2, v3, "has repetition, %lu", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v2, v3, "has repetition, %lu", v4, v5, v6, v7);
 }
 
 - (void)_setDynamicProperties:(void *)a1 mediaPlay:.cold.7(void *a1)
@@ -4375,7 +4377,7 @@ void __63__MONowPlayingMediaManager__rehydratedMediaPlayEvents_handler___block_i
   v1 = [a1 mediaPlaySessions];
   [v1 count];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v2, v3, "has media play sessions, %lu", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v2, v3, "has media play sessions, %lu", v4, v5, v6, v7);
 }
 
 @end

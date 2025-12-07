@@ -43,7 +43,7 @@ void siri::intelligence::ParseIntelligence_InputGroup(siri::intelligence *this, 
     }
   }
 
-  YAML::Node::operator[]<char [3]>(a2, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, a2, "id");
   v272 = a2;
   v9 = __p[0] != 1 || v282 && (***v282 & 1) == 0;
   if (v281)
@@ -65,7 +65,7 @@ void siri::intelligence::ParseIntelligence_InputGroup(siri::intelligence *this, 
     goto LABEL_38;
   }
 
-  YAML::Node::operator[]<char [3]>(v272, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, v272, "id");
   if ((__p[0] & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x38uLL);
@@ -110,7 +110,7 @@ void siri::intelligence::ParseIntelligence_InputGroup(siri::intelligence *this, 
     goto LABEL_38;
   }
 
-  YAML::Node::operator[]<char [3]>(v272, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, v272, "id");
   if ((__p[0] & 1) == 0)
   {
     v255 = __cxa_allocate_exception(0x38uLL);
@@ -663,7 +663,7 @@ LABEL_134:
   }
 
 LABEL_166:
-  YAML::Node::operator[]<char [7]>(v272, "events", __p);
+  YAML::Node::operator[]<char [7]>(__p, v272, "events");
   v33 = __p[0] != 1 || v282 && (***v282 & 1) == 0;
   if (v281)
   {
@@ -680,7 +680,7 @@ LABEL_166:
     goto LABEL_276;
   }
 
-  YAML::Node::operator[]<char [7]>(v272, "events", __p);
+  YAML::Node::operator[]<char [7]>(__p, v272, "events");
   if ((__p[0] & 1) == 0)
   {
     v247 = __cxa_allocate_exception(0x38uLL);
@@ -709,10 +709,10 @@ LABEL_166:
     if (v35)
     {
 LABEL_185:
-      YAML::Node::operator[]<char [7]>(v272, "events", &v291);
+      YAML::Node::operator[]<char [7]>(&v291, v272, "events");
       if ((v291.__r_.__value_.__s.__data_[0] & 1) != 0 && v295)
       {
-        YAML::detail::node_data::begin(**v295, __p);
+        YAML::detail::node_data::begin(__p, **v295);
         v37 = v293;
         v36 = v294;
         if (v294)
@@ -744,7 +744,7 @@ LABEL_185:
 
       if (v291.__r_.__value_.__s.__data_[0] == 1 && v295)
       {
-        YAML::detail::node_data::end(**v295, __p);
+        YAML::detail::node_data::end(__p, **v295);
         v42 = v294;
         if (v294)
         {
@@ -992,7 +992,7 @@ LABEL_233:
 
       v51 = *(this + 33);
 LABEL_211:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 30, v51 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 120), v51 + 1);
       v49 = *(this + 17);
       v51 = *v49;
       goto LABEL_212;
@@ -1009,7 +1009,7 @@ LABEL_211:
   {
     v40 = *(this + 33);
 LABEL_256:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 30, v40 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 120), v40 + 1);
     v38 = *(this + 17);
     v40 = *v38;
     goto LABEL_257;
@@ -1039,7 +1039,7 @@ LABEL_257:
 LABEL_258:
   if (a3)
   {
-    YAML::Node::operator[]<char [7]>(v272, "events", __p);
+    YAML::Node::operator[]<char [7]>(__p, v272, "events");
     if ((__p[0] & 1) == 0)
     {
       v263 = __cxa_allocate_exception(0x38uLL);
@@ -1096,7 +1096,7 @@ LABEL_258:
     }
   }
 
-  YAML::Node::operator[]<char [7]>(v272, "events", __p);
+  YAML::Node::operator[]<char [7]>(__p, v272, "events");
   siri::intelligence::ParseIntelligence_InputGroup_Event(v41, __p, a3);
   if (v281)
   {
@@ -1111,7 +1111,7 @@ LABEL_275:
   }
 
 LABEL_276:
-  YAML::Node::operator[]<char [13]>(v272, "nlParameters", __p);
+  YAML::Node::operator[]<char [13]>(__p, v272, "nlParameters");
   v70 = __p[0] != 1 || v282 && (***v282 & 1) == 0;
   if (v281)
   {
@@ -1132,7 +1132,7 @@ LABEL_276:
     goto LABEL_387;
   }
 
-  YAML::Node::operator[]<char [13]>(v272, "nlParameters", __p);
+  YAML::Node::operator[]<char [13]>(__p, v272, "nlParameters");
   if ((__p[0] & 1) == 0)
   {
     v248 = __cxa_allocate_exception(0x38uLL);
@@ -1161,10 +1161,10 @@ LABEL_276:
     if (v72)
     {
 LABEL_296:
-      YAML::Node::operator[]<char [13]>(v272, "nlParameters", &v291);
+      YAML::Node::operator[]<char [13]>(&v291, v272, "nlParameters");
       if ((v291.__r_.__value_.__s.__data_[0] & 1) != 0 && v295)
       {
-        YAML::detail::node_data::begin(**v295, __p);
+        YAML::detail::node_data::begin(__p, **v295);
         v74 = v293;
         v73 = v294;
         if (v294)
@@ -1196,7 +1196,7 @@ LABEL_296:
 
       if (v291.__r_.__value_.__s.__data_[0] == 1 && v295)
       {
-        YAML::detail::node_data::end(**v295, __p);
+        YAML::detail::node_data::end(__p, **v295);
         v79 = v294;
         if (v294)
         {
@@ -1444,7 +1444,7 @@ LABEL_344:
 
       v88 = *(this + 27);
 LABEL_322:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 24, v88 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 96), v88 + 1);
       v86 = *(this + 14);
       v88 = *v86;
       goto LABEL_323;
@@ -1461,7 +1461,7 @@ LABEL_322:
   {
     v77 = *(this + 27);
 LABEL_367:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 24, v77 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 96), v77 + 1);
     v75 = *(this + 14);
     v77 = *v75;
     goto LABEL_368;
@@ -1491,7 +1491,7 @@ LABEL_368:
 LABEL_369:
   if (a3)
   {
-    YAML::Node::operator[]<char [13]>(v272, "nlParameters", __p);
+    YAML::Node::operator[]<char [13]>(__p, v272, "nlParameters");
     if ((__p[0] & 1) == 0)
     {
       v264 = __cxa_allocate_exception(0x38uLL);
@@ -1548,7 +1548,7 @@ LABEL_369:
     }
   }
 
-  YAML::Node::operator[]<char [13]>(v272, "nlParameters", __p);
+  YAML::Node::operator[]<char [13]>(__p, v272, "nlParameters");
   siri::intelligence::ParseIntelligence_KeyValueParameter(v78, __p, a3);
   if (v281)
   {
@@ -1563,7 +1563,7 @@ LABEL_386:
   }
 
 LABEL_387:
-  YAML::Node::operator[]<char [10]>(v272, "fallbacks", __p);
+  YAML::Node::operator[]<char [10]>(__p, v272, "fallbacks");
   v107 = __p[0] != 1 || v282 && (***v282 & 1) == 0;
   if (v281)
   {
@@ -1584,7 +1584,7 @@ LABEL_387:
     goto LABEL_498;
   }
 
-  YAML::Node::operator[]<char [10]>(v272, "fallbacks", __p);
+  YAML::Node::operator[]<char [10]>(__p, v272, "fallbacks");
   if ((__p[0] & 1) == 0)
   {
     v249 = __cxa_allocate_exception(0x38uLL);
@@ -1613,10 +1613,10 @@ LABEL_387:
     if (v109)
     {
 LABEL_407:
-      YAML::Node::operator[]<char [10]>(v272, "fallbacks", &v291);
+      YAML::Node::operator[]<char [10]>(&v291, v272, "fallbacks");
       if ((v291.__r_.__value_.__s.__data_[0] & 1) != 0 && v295)
       {
-        YAML::detail::node_data::begin(**v295, __p);
+        YAML::detail::node_data::begin(__p, **v295);
         v111 = v293;
         v110 = v294;
         if (v294)
@@ -1648,7 +1648,7 @@ LABEL_407:
 
       if (v291.__r_.__value_.__s.__data_[0] == 1 && v295)
       {
-        YAML::detail::node_data::end(**v295, __p);
+        YAML::detail::node_data::end(__p, **v295);
         v116 = v294;
         if (v294)
         {
@@ -1896,7 +1896,7 @@ LABEL_455:
 
       v125 = *(this + 15);
 LABEL_433:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 12, v125 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 48), v125 + 1);
       v123 = *(this + 8);
       v125 = *v123;
       goto LABEL_434;
@@ -1913,7 +1913,7 @@ LABEL_433:
   {
     v114 = *(this + 15);
 LABEL_478:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 12, v114 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 48), v114 + 1);
     v112 = *(this + 8);
     v114 = *v112;
     goto LABEL_479;
@@ -1943,7 +1943,7 @@ LABEL_479:
 LABEL_480:
   if (a3)
   {
-    YAML::Node::operator[]<char [10]>(v272, "fallbacks", __p);
+    YAML::Node::operator[]<char [10]>(__p, v272, "fallbacks");
     if ((__p[0] & 1) == 0)
     {
       v265 = __cxa_allocate_exception(0x38uLL);
@@ -2000,7 +2000,7 @@ LABEL_480:
     }
   }
 
-  YAML::Node::operator[]<char [10]>(v272, "fallbacks", __p);
+  YAML::Node::operator[]<char [10]>(__p, v272, "fallbacks");
   siri::intelligence::ParseIntelligence_InputGroup_Fallback(v115, __p, a3);
   if (v281)
   {
@@ -2138,7 +2138,7 @@ LABEL_498:
   }
 
 LABEL_530:
-  YAML::Node::operator[]<char [16]>(v272, "canUseServerTTS", __p);
+  YAML::Node::operator[]<char [16]>(__p, v272, "canUseServerTTS");
   v148 = __p[0] != 1 || v282 && (***v282 & 1) == 0;
   if (v281)
   {
@@ -2159,7 +2159,7 @@ LABEL_530:
     goto LABEL_562;
   }
 
-  YAML::Node::operator[]<char [16]>(v272, "canUseServerTTS", __p);
+  YAML::Node::operator[]<char [16]>(__p, v272, "canUseServerTTS");
   if ((__p[0] & 1) == 0)
   {
     v251 = __cxa_allocate_exception(0x38uLL);
@@ -2205,7 +2205,7 @@ LABEL_530:
     goto LABEL_562;
   }
 
-  YAML::Node::operator[]<char [16]>(v272, "canUseServerTTS", __p);
+  YAML::Node::operator[]<char [16]>(__p, v272, "canUseServerTTS");
   if ((__p[0] & 1) == 0)
   {
     v261 = __cxa_allocate_exception(0x38uLL);
@@ -2262,7 +2262,7 @@ LABEL_530:
   }
 
 LABEL_562:
-  YAML::Node::operator[]<char [12]>(v272, "dialogPhase", __p);
+  YAML::Node::operator[]<char [12]>(__p, v272, "dialogPhase");
   v153 = __p[0] != 1 || v282 && (***v282 & 1) == 0;
   if (v281)
   {
@@ -2283,7 +2283,7 @@ LABEL_562:
     goto LABEL_594;
   }
 
-  YAML::Node::operator[]<char [12]>(v272, "dialogPhase", __p);
+  YAML::Node::operator[]<char [12]>(__p, v272, "dialogPhase");
   if ((__p[0] & 1) == 0)
   {
     v252 = __cxa_allocate_exception(0x38uLL);
@@ -2328,7 +2328,7 @@ LABEL_562:
     goto LABEL_594;
   }
 
-  YAML::Node::operator[]<char [12]>(v272, "dialogPhase", __p);
+  YAML::Node::operator[]<char [12]>(__p, v272, "dialogPhase");
   if ((__p[0] & 1) == 0)
   {
     v262 = __cxa_allocate_exception(0x38uLL);
@@ -2385,7 +2385,7 @@ LABEL_562:
   }
 
 LABEL_594:
-  YAML::Node::operator[]<char [13]>(v272, "legacyEvents", __p);
+  YAML::Node::operator[]<char [13]>(__p, v272, "legacyEvents");
   v157 = __p[0] != 1 || v282 && (***v282 & 1) == 0;
   if (v281)
   {
@@ -2406,7 +2406,7 @@ LABEL_594:
     goto LABEL_705;
   }
 
-  YAML::Node::operator[]<char [13]>(v272, "legacyEvents", __p);
+  YAML::Node::operator[]<char [13]>(__p, v272, "legacyEvents");
   if ((__p[0] & 1) == 0)
   {
     v253 = __cxa_allocate_exception(0x38uLL);
@@ -2435,10 +2435,10 @@ LABEL_594:
     if (v159)
     {
 LABEL_614:
-      YAML::Node::operator[]<char [13]>(v272, "legacyEvents", &v291);
+      YAML::Node::operator[]<char [13]>(&v291, v272, "legacyEvents");
       if ((v291.__r_.__value_.__s.__data_[0] & 1) != 0 && v295)
       {
-        YAML::detail::node_data::begin(**v295, __p);
+        YAML::detail::node_data::begin(__p, **v295);
         v161 = v293;
         v160 = v294;
         if (v294)
@@ -2470,7 +2470,7 @@ LABEL_614:
 
       if (v291.__r_.__value_.__s.__data_[0] == 1 && v295)
       {
-        YAML::detail::node_data::end(**v295, __p);
+        YAML::detail::node_data::end(__p, **v295);
         v166 = v294;
         if (v294)
         {
@@ -2718,7 +2718,7 @@ LABEL_662:
 
       v175 = *(this + 21);
 LABEL_640:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 18, v175 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 72), v175 + 1);
       v173 = *(this + 11);
       v175 = *v173;
       goto LABEL_641;
@@ -2735,7 +2735,7 @@ LABEL_640:
   {
     v164 = *(this + 21);
 LABEL_685:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 18, v164 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 72), v164 + 1);
     v162 = *(this + 11);
     v164 = *v162;
     goto LABEL_686;
@@ -2765,7 +2765,7 @@ LABEL_686:
 LABEL_687:
   if (a3)
   {
-    YAML::Node::operator[]<char [13]>(v272, "legacyEvents", __p);
+    YAML::Node::operator[]<char [13]>(__p, v272, "legacyEvents");
     if ((__p[0] & 1) == 0)
     {
       v266 = __cxa_allocate_exception(0x38uLL);
@@ -2822,7 +2822,7 @@ LABEL_687:
     }
   }
 
-  YAML::Node::operator[]<char [13]>(v272, "legacyEvents", __p);
+  YAML::Node::operator[]<char [13]>(__p, v272, "legacyEvents");
   siri::intelligence::ParseIntelligence_InputGroup_LegacyEvent(v165, __p, a3);
   if (v281)
   {
@@ -2837,7 +2837,7 @@ LABEL_704:
   }
 
 LABEL_705:
-  YAML::Node::operator[]<char [8]>(v272, "intents", __p);
+  YAML::Node::operator[]<char [8]>(__p, v272, "intents");
   v194 = __p[0] != 1 || v282 && (***v282 & 1) == 0;
   if (v281)
   {
@@ -2858,7 +2858,7 @@ LABEL_705:
     goto LABEL_816;
   }
 
-  YAML::Node::operator[]<char [8]>(v272, "intents", __p);
+  YAML::Node::operator[]<char [8]>(__p, v272, "intents");
   if ((__p[0] & 1) == 0)
   {
     v254 = __cxa_allocate_exception(0x38uLL);
@@ -2887,10 +2887,10 @@ LABEL_705:
     if (v196)
     {
 LABEL_725:
-      YAML::Node::operator[]<char [8]>(v272, "intents", &v291);
+      YAML::Node::operator[]<char [8]>(&v291, v272, "intents");
       if ((v291.__r_.__value_.__s.__data_[0] & 1) != 0 && v295)
       {
-        YAML::detail::node_data::begin(**v295, __p);
+        YAML::detail::node_data::begin(__p, **v295);
         v198 = v293;
         v197 = v294;
         if (v294)
@@ -2922,7 +2922,7 @@ LABEL_725:
 
       if (v291.__r_.__value_.__s.__data_[0] == 1 && v295)
       {
-        YAML::detail::node_data::end(**v295, __p);
+        YAML::detail::node_data::end(__p, **v295);
         v203 = v294;
         if (v294)
         {
@@ -3170,7 +3170,7 @@ LABEL_773:
 
       v212 = *(this + 9);
 LABEL_751:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v212 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v212 + 1);
       v210 = *(this + 5);
       v212 = *v210;
       goto LABEL_752;
@@ -3187,7 +3187,7 @@ LABEL_751:
   {
     v201 = *(this + 9);
 LABEL_796:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v201 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v201 + 1);
     v199 = *(this + 5);
     v201 = *v199;
     goto LABEL_797;
@@ -3217,7 +3217,7 @@ LABEL_797:
 LABEL_798:
   if (a3)
   {
-    YAML::Node::operator[]<char [8]>(v272, "intents", __p);
+    YAML::Node::operator[]<char [8]>(__p, v272, "intents");
     if ((__p[0] & 1) == 0)
     {
       v267 = __cxa_allocate_exception(0x38uLL);
@@ -3274,7 +3274,7 @@ LABEL_798:
     }
   }
 
-  YAML::Node::operator[]<char [8]>(v272, "intents", __p);
+  YAML::Node::operator[]<char [8]>(__p, v272, "intents");
   siri::intelligence::ParseIntelligence_InputGroup_Intent(v202, __p, a3);
   if (v281)
   {
@@ -3373,7 +3373,7 @@ void siri::intelligence::ParseIntelligence_Activity(siri::intelligence *this, pr
     }
   }
 
-  YAML::Node::operator[]<char [3]>(a2, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, a2, "id");
   v75 = a2;
   v8 = __p[0] != 1 || v84 && (***v84 & 1) == 0;
   if (v83)
@@ -3395,7 +3395,7 @@ void siri::intelligence::ParseIntelligence_Activity(siri::intelligence *this, pr
     goto LABEL_37;
   }
 
-  YAML::Node::operator[]<char [3]>(v75, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, v75, "id");
   if ((__p[0] & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x38uLL);
@@ -3433,7 +3433,7 @@ void siri::intelligence::ParseIntelligence_Activity(siri::intelligence *this, pr
 
   if (v76)
   {
-    YAML::Node::operator[]<char [3]>(v75, "id", __p);
+    YAML::Node::operator[]<char [3]>(__p, v75, "id");
     if ((__p[0] & 1) == 0)
     {
       v66 = __cxa_allocate_exception(0x38uLL);
@@ -3491,7 +3491,7 @@ void siri::intelligence::ParseIntelligence_Activity(siri::intelligence *this, pr
   }
 
 LABEL_37:
-  YAML::Node::operator[]<char [5]>(v75, "name", __p);
+  YAML::Node::operator[]<char [5]>(__p, v75, "name");
   v12 = __p[0] != 1 || v84 && (***v84 & 1) == 0;
   if (v83)
   {
@@ -3512,7 +3512,7 @@ LABEL_37:
     goto LABEL_68;
   }
 
-  YAML::Node::operator[]<char [5]>(v75, "name", __p);
+  YAML::Node::operator[]<char [5]>(__p, v75, "name");
   if ((__p[0] & 1) == 0)
   {
     v61 = __cxa_allocate_exception(0x38uLL);
@@ -3550,7 +3550,7 @@ LABEL_37:
 
   if (v76)
   {
-    YAML::Node::operator[]<char [5]>(v75, "name", __p);
+    YAML::Node::operator[]<char [5]>(__p, v75, "name");
     if ((__p[0] & 1) == 0)
     {
       v67 = __cxa_allocate_exception(0x38uLL);
@@ -3608,7 +3608,7 @@ LABEL_37:
   }
 
 LABEL_68:
-  YAML::Node::operator[]<char [12]>(v75, "responseIds", __p);
+  YAML::Node::operator[]<char [12]>(__p, v75, "responseIds");
   v16 = __p[0] != 1 || v84 && (***v84 & 1) == 0;
   if (v83)
   {
@@ -3629,7 +3629,7 @@ LABEL_68:
     goto LABEL_171;
   }
 
-  YAML::Node::operator[]<char [12]>(v75, "responseIds", __p);
+  YAML::Node::operator[]<char [12]>(__p, v75, "responseIds");
   if ((__p[0] & 1) == 0)
   {
     v62 = __cxa_allocate_exception(0x38uLL);
@@ -3658,10 +3658,10 @@ LABEL_68:
     if (v18)
     {
 LABEL_88:
-      YAML::Node::operator[]<char [12]>(v75, "responseIds", &v93);
+      YAML::Node::operator[]<char [12]>(&v93, v75, "responseIds");
       if ((v93.__r_.__value_.__s.__data_[0] & 1) != 0 && v97)
       {
-        YAML::detail::node_data::begin(**v97, __p);
+        YAML::detail::node_data::begin(__p, **v97);
         v20 = v95;
         v19 = v96;
         if (v96)
@@ -3693,7 +3693,7 @@ LABEL_88:
 
       if (v93.__r_.__value_.__s.__data_[0] == 1 && v97)
       {
-        YAML::detail::node_data::end(**v97, __p);
+        YAML::detail::node_data::end(__p, **v97);
         v22 = v96;
         if (v96)
         {
@@ -3934,7 +3934,7 @@ LABEL_170:
     goto LABEL_88;
   }
 
-  YAML::Node::operator[]<char [12]>(v75, "responseIds", __p);
+  YAML::Node::operator[]<char [12]>(__p, v75, "responseIds");
   if ((__p[0] & 1) == 0)
   {
     v68 = __cxa_allocate_exception(0x38uLL);
@@ -3971,7 +3971,7 @@ LABEL_170:
 
   if (v76)
   {
-    YAML::Node::operator[]<char [12]>(v75, "responseIds", __p);
+    YAML::Node::operator[]<char [12]>(__p, v75, "responseIds");
     if ((__p[0] & 1) == 0)
     {
       v72 = __cxa_allocate_exception(0x38uLL);
@@ -4030,7 +4030,7 @@ LABEL_170:
   }
 
 LABEL_171:
-  YAML::Node::operator[]<char [13]>(v75, "inputGroupId", __p);
+  YAML::Node::operator[]<char [13]>(__p, v75, "inputGroupId");
   v40 = __p[0] != 1 || v84 && (***v84 & 1) == 0;
   if (v83)
   {
@@ -4051,7 +4051,7 @@ LABEL_171:
     goto LABEL_202;
   }
 
-  YAML::Node::operator[]<char [13]>(v75, "inputGroupId", __p);
+  YAML::Node::operator[]<char [13]>(__p, v75, "inputGroupId");
   if ((__p[0] & 1) == 0)
   {
     v63 = __cxa_allocate_exception(0x38uLL);
@@ -4089,7 +4089,7 @@ LABEL_171:
 
   if (v76)
   {
-    YAML::Node::operator[]<char [13]>(v75, "inputGroupId", __p);
+    YAML::Node::operator[]<char [13]>(__p, v75, "inputGroupId");
     if ((__p[0] & 1) == 0)
     {
       v69 = __cxa_allocate_exception(0x38uLL);
@@ -4147,7 +4147,7 @@ LABEL_171:
   }
 
 LABEL_202:
-  YAML::Node::operator[]<char [7]>(v75, "params", __p);
+  YAML::Node::operator[]<char [7]>(__p, v75, "params");
   v44 = __p[0] != 1 || v84 && (***v84 & 1) == 0;
   if (v83)
   {
@@ -4168,7 +4168,7 @@ LABEL_202:
     goto LABEL_233;
   }
 
-  YAML::Node::operator[]<char [7]>(v75, "params", __p);
+  YAML::Node::operator[]<char [7]>(__p, v75, "params");
   if ((__p[0] & 1) == 0)
   {
     v64 = __cxa_allocate_exception(0x38uLL);
@@ -4206,7 +4206,7 @@ LABEL_202:
 
   if (v76)
   {
-    YAML::Node::operator[]<char [7]>(v75, "params", __p);
+    YAML::Node::operator[]<char [7]>(__p, v75, "params");
     if ((__p[0] & 1) == 0)
     {
       v70 = __cxa_allocate_exception(0x38uLL);
@@ -4264,7 +4264,7 @@ LABEL_202:
   }
 
 LABEL_233:
-  YAML::Node::operator[]<char [11]>(v75, "inputGroup", __p);
+  YAML::Node::operator[]<char [11]>(__p, v75, "inputGroup");
   v48 = __p[0] != 1 || v84 && (***v84 & 1) == 0;
   if (v83)
   {
@@ -4285,7 +4285,7 @@ LABEL_233:
     goto LABEL_264;
   }
 
-  YAML::Node::operator[]<char [11]>(v75, "inputGroup", __p);
+  YAML::Node::operator[]<char [11]>(__p, v75, "inputGroup");
   if ((__p[0] & 1) == 0)
   {
     v65 = __cxa_allocate_exception(0x38uLL);
@@ -4323,7 +4323,7 @@ LABEL_233:
 
   if (v76)
   {
-    YAML::Node::operator[]<char [11]>(v75, "inputGroup", __p);
+    YAML::Node::operator[]<char [11]>(__p, v75, "inputGroup");
     if ((__p[0] & 1) == 0)
     {
       v71 = __cxa_allocate_exception(0x38uLL);
@@ -4465,7 +4465,7 @@ void siri::intelligence::ParseIntelligence_Utterance(siri::intelligence *this, p
     }
   }
 
-  YAML::Node::operator[]<char [3]>(a2, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, a2, "id");
   v9 = __p[0] != 1 || v38 && (***v38 & 1) == 0;
   if (v37)
   {
@@ -4479,7 +4479,7 @@ void siri::intelligence::ParseIntelligence_Utterance(siri::intelligence *this, p
 
   if (!v9)
   {
-    YAML::Node::operator[]<char [3]>(a2, "id", __p);
+    YAML::Node::operator[]<char [3]>(__p, a2, "id");
     if ((__p[0] & 1) == 0)
     {
       exception = __cxa_allocate_exception(0x38uLL);
@@ -4524,7 +4524,7 @@ void siri::intelligence::ParseIntelligence_Utterance(siri::intelligence *this, p
       goto LABEL_37;
     }
 
-    YAML::Node::operator[]<char [3]>(a2, "id", __p);
+    YAML::Node::operator[]<char [3]>(__p, a2, "id");
     if ((__p[0] & 1) == 0)
     {
       v31 = __cxa_allocate_exception(0x38uLL);
@@ -4582,7 +4582,7 @@ void siri::intelligence::ParseIntelligence_Utterance(siri::intelligence *this, p
   }
 
 LABEL_37:
-  YAML::Node::operator[]<char [5]>(a2, "text", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "text");
   v13 = __p[0] != 1 || v38 && (***v38 & 1) == 0;
   if (v37)
   {
@@ -4603,7 +4603,7 @@ LABEL_37:
     goto LABEL_69;
   }
 
-  YAML::Node::operator[]<char [5]>(a2, "text", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "text");
   if ((__p[0] & 1) == 0)
   {
     v29 = __cxa_allocate_exception(0x38uLL);
@@ -4648,7 +4648,7 @@ LABEL_37:
     goto LABEL_69;
   }
 
-  YAML::Node::operator[]<char [5]>(a2, "text", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "text");
   if ((__p[0] & 1) == 0)
   {
     v32 = __cxa_allocate_exception(0x38uLL);
@@ -4705,7 +4705,7 @@ LABEL_37:
   }
 
 LABEL_69:
-  YAML::Node::operator[]<char [12]>(a2, "characterId", __p);
+  YAML::Node::operator[]<char [12]>(__p, a2, "characterId");
   v17 = __p[0] != 1 || v38 && (***v38 & 1) == 0;
   if (v37)
   {
@@ -4726,7 +4726,7 @@ LABEL_69:
     goto LABEL_101;
   }
 
-  YAML::Node::operator[]<char [12]>(a2, "characterId", __p);
+  YAML::Node::operator[]<char [12]>(__p, a2, "characterId");
   if ((__p[0] & 1) == 0)
   {
     v30 = __cxa_allocate_exception(0x38uLL);
@@ -4772,7 +4772,7 @@ LABEL_69:
     goto LABEL_101;
   }
 
-  YAML::Node::operator[]<char [12]>(a2, "characterId", __p);
+  YAML::Node::operator[]<char [12]>(__p, a2, "characterId");
   if ((__p[0] & 1) == 0)
   {
     v33 = __cxa_allocate_exception(0x38uLL);
@@ -4913,7 +4913,7 @@ void siri::intelligence::ParseIntelligence_Character(siri::intelligence *this, p
     }
   }
 
-  YAML::Node::operator[]<char [3]>(a2, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, a2, "id");
   v9 = __p[0] != 1 || v37 && (***v37 & 1) == 0;
   if (v36)
   {
@@ -4927,7 +4927,7 @@ void siri::intelligence::ParseIntelligence_Character(siri::intelligence *this, p
 
   if (!v9)
   {
-    YAML::Node::operator[]<char [3]>(a2, "id", __p);
+    YAML::Node::operator[]<char [3]>(__p, a2, "id");
     if ((__p[0] & 1) == 0)
     {
       exception = __cxa_allocate_exception(0x38uLL);
@@ -4972,7 +4972,7 @@ void siri::intelligence::ParseIntelligence_Character(siri::intelligence *this, p
       goto LABEL_37;
     }
 
-    YAML::Node::operator[]<char [3]>(a2, "id", __p);
+    YAML::Node::operator[]<char [3]>(__p, a2, "id");
     if ((__p[0] & 1) == 0)
     {
       v30 = __cxa_allocate_exception(0x38uLL);
@@ -5030,7 +5030,7 @@ void siri::intelligence::ParseIntelligence_Character(siri::intelligence *this, p
   }
 
 LABEL_37:
-  YAML::Node::operator[]<char [5]>(a2, "name", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "name");
   v13 = __p[0] != 1 || v37 && (***v37 & 1) == 0;
   if (v36)
   {
@@ -5051,7 +5051,7 @@ LABEL_37:
     goto LABEL_69;
   }
 
-  YAML::Node::operator[]<char [5]>(a2, "name", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "name");
   if ((__p[0] & 1) == 0)
   {
     v28 = __cxa_allocate_exception(0x38uLL);
@@ -5096,7 +5096,7 @@ LABEL_37:
     goto LABEL_69;
   }
 
-  YAML::Node::operator[]<char [5]>(a2, "name", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "name");
   if ((__p[0] & 1) == 0)
   {
     v31 = __cxa_allocate_exception(0x38uLL);
@@ -5153,7 +5153,7 @@ LABEL_37:
   }
 
 LABEL_69:
-  YAML::Node::operator[]<char [13]>(a2, "ttsVoiceName", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "ttsVoiceName");
   v17 = __p[0] != 1 || v37 && (***v37 & 1) == 0;
   if (v36)
   {
@@ -5174,7 +5174,7 @@ LABEL_69:
     goto LABEL_101;
   }
 
-  YAML::Node::operator[]<char [13]>(a2, "ttsVoiceName", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "ttsVoiceName");
   if ((__p[0] & 1) == 0)
   {
     v29 = __cxa_allocate_exception(0x38uLL);
@@ -5219,7 +5219,7 @@ LABEL_69:
     goto LABEL_101;
   }
 
-  YAML::Node::operator[]<char [13]>(a2, "ttsVoiceName", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "ttsVoiceName");
   if ((__p[0] & 1) == 0)
   {
     v32 = __cxa_allocate_exception(0x38uLL);
@@ -5359,7 +5359,7 @@ void siri::intelligence::ParseIntelligence_Event(siri::intelligence *this, proto
     }
   }
 
-  YAML::Node::operator[]<char [3]>(a2, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, a2, "id");
   v9 = __p[0] != 1 || v194 && (***v194 & 1) == 0;
   if (v193)
   {
@@ -5380,7 +5380,7 @@ void siri::intelligence::ParseIntelligence_Event(siri::intelligence *this, proto
     goto LABEL_38;
   }
 
-  YAML::Node::operator[]<char [3]>(a2, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, a2, "id");
   if ((__p[0] & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x38uLL);
@@ -5425,7 +5425,7 @@ void siri::intelligence::ParseIntelligence_Event(siri::intelligence *this, proto
     goto LABEL_38;
   }
 
-  YAML::Node::operator[]<char [3]>(a2, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, a2, "id");
   if ((__p[0] & 1) == 0)
   {
     v166 = __cxa_allocate_exception(0x38uLL);
@@ -5482,7 +5482,7 @@ void siri::intelligence::ParseIntelligence_Event(siri::intelligence *this, proto
   }
 
 LABEL_38:
-  YAML::Node::operator[]<char [5]>(a2, "name", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "name");
   v13 = __p[0] != 1 || v194 && (***v194 & 1) == 0;
   if (v193)
   {
@@ -5503,7 +5503,7 @@ LABEL_38:
     goto LABEL_70;
   }
 
-  YAML::Node::operator[]<char [5]>(a2, "name", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "name");
   if ((__p[0] & 1) == 0)
   {
     v158 = __cxa_allocate_exception(0x38uLL);
@@ -5548,7 +5548,7 @@ LABEL_38:
     goto LABEL_70;
   }
 
-  YAML::Node::operator[]<char [5]>(a2, "name", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "name");
   if ((__p[0] & 1) == 0)
   {
     v167 = __cxa_allocate_exception(0x38uLL);
@@ -5605,7 +5605,7 @@ LABEL_38:
   }
 
 LABEL_70:
-  YAML::Node::operator[]<char [13]>(a2, "catiEnsemble", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "catiEnsemble");
   v17 = __p[0] != 1 || v194 && (***v194 & 1) == 0;
   if (v193)
   {
@@ -5626,7 +5626,7 @@ LABEL_70:
     goto LABEL_102;
   }
 
-  YAML::Node::operator[]<char [13]>(a2, "catiEnsemble", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "catiEnsemble");
   if ((__p[0] & 1) == 0)
   {
     v159 = __cxa_allocate_exception(0x38uLL);
@@ -5671,7 +5671,7 @@ LABEL_70:
     goto LABEL_102;
   }
 
-  YAML::Node::operator[]<char [13]>(a2, "catiEnsemble", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "catiEnsemble");
   if ((__p[0] & 1) == 0)
   {
     v168 = __cxa_allocate_exception(0x38uLL);
@@ -5974,7 +5974,7 @@ LABEL_134:
   }
 
 LABEL_166:
-  YAML::Node::operator[]<char [15]>(a2, "userDialogActs", __p);
+  YAML::Node::operator[]<char [15]>(__p, a2, "userDialogActs");
   v29 = __p[0] != 1 || v194 && (***v194 & 1) == 0;
   if (v193)
   {
@@ -5992,7 +5992,7 @@ LABEL_166:
     goto LABEL_270;
   }
 
-  YAML::Node::operator[]<char [15]>(a2, "userDialogActs", __p);
+  YAML::Node::operator[]<char [15]>(__p, a2, "userDialogActs");
   if ((__p[0] & 1) == 0)
   {
     v162 = __cxa_allocate_exception(0x38uLL);
@@ -6021,10 +6021,10 @@ LABEL_166:
     if (v31)
     {
 LABEL_185:
-      YAML::Node::operator[]<char [15]>(a2, "userDialogActs", &v203);
+      YAML::Node::operator[]<char [15]>(&v203, a2, "userDialogActs");
       if ((v203.__r_.__value_.__s.__data_[0] & 1) != 0 && v207)
       {
-        YAML::detail::node_data::begin(**v207, __p);
+        YAML::detail::node_data::begin(__p, **v207);
         v33 = v205;
         v32 = v206;
         if (v206)
@@ -6056,7 +6056,7 @@ LABEL_185:
 
       if (v203.__r_.__value_.__s.__data_[0] == 1 && v207)
       {
-        YAML::detail::node_data::end(**v207, __p);
+        YAML::detail::node_data::end(__p, **v207);
         v34 = v206;
         if (v206)
         {
@@ -6301,7 +6301,7 @@ LABEL_235:
     goto LABEL_185;
   }
 
-  YAML::Node::operator[]<char [15]>(a2, "userDialogActs", __p);
+  YAML::Node::operator[]<char [15]>(__p, a2, "userDialogActs");
   if ((__p[0] & 1) == 0)
   {
     v171 = __cxa_allocate_exception(0x38uLL);
@@ -6345,7 +6345,7 @@ LABEL_235:
     goto LABEL_270;
   }
 
-  YAML::Node::operator[]<char [15]>(a2, "userDialogActs", __p);
+  YAML::Node::operator[]<char [15]>(__p, a2, "userDialogActs");
   if ((__p[0] & 1) == 0)
   {
     v175 = __cxa_allocate_exception(0x38uLL);
@@ -6457,7 +6457,7 @@ LABEL_290:
       YAML::Node::operator[]<char [18]>(&v203, a2, "directInvocations");
       if ((v203.__r_.__value_.__s.__data_[0] & 1) != 0 && v207)
       {
-        YAML::detail::node_data::begin(**v207, __p);
+        YAML::detail::node_data::begin(__p, **v207);
         v57 = v205;
         v56 = v206;
         if (v206)
@@ -6489,7 +6489,7 @@ LABEL_290:
 
       if (v203.__r_.__value_.__s.__data_[0] == 1 && v207)
       {
-        YAML::detail::node_data::end(**v207, __p);
+        YAML::detail::node_data::end(__p, **v207);
         v58 = v206;
         if (v206)
         {
@@ -6837,7 +6837,7 @@ LABEL_374:
   }
 
 LABEL_375:
-  YAML::Node::operator[]<char [11]>(a2, "utterances", __p);
+  YAML::Node::operator[]<char [11]>(__p, a2, "utterances");
   v77 = __p[0] != 1 || v194 && (***v194 & 1) == 0;
   if (v193)
   {
@@ -6858,7 +6858,7 @@ LABEL_375:
     goto LABEL_480;
   }
 
-  YAML::Node::operator[]<char [11]>(a2, "utterances", __p);
+  YAML::Node::operator[]<char [11]>(__p, a2, "utterances");
   if ((__p[0] & 1) == 0)
   {
     v164 = __cxa_allocate_exception(0x38uLL);
@@ -6887,10 +6887,10 @@ LABEL_375:
     if (v79)
     {
 LABEL_395:
-      YAML::Node::operator[]<char [11]>(a2, "utterances", &v203);
+      YAML::Node::operator[]<char [11]>(&v203, a2, "utterances");
       if ((v203.__r_.__value_.__s.__data_[0] & 1) != 0 && v207)
       {
-        YAML::detail::node_data::begin(**v207, __p);
+        YAML::detail::node_data::begin(__p, **v207);
         v81 = v205;
         v80 = v206;
         if (v206)
@@ -6922,7 +6922,7 @@ LABEL_395:
 
       if (v203.__r_.__value_.__s.__data_[0] == 1 && v207)
       {
-        YAML::detail::node_data::end(**v207, __p);
+        YAML::detail::node_data::end(__p, **v207);
         v82 = v206;
         if (v206)
         {
@@ -7167,7 +7167,7 @@ LABEL_445:
     goto LABEL_395;
   }
 
-  YAML::Node::operator[]<char [11]>(a2, "utterances", __p);
+  YAML::Node::operator[]<char [11]>(__p, a2, "utterances");
   if ((__p[0] & 1) == 0)
   {
     v173 = __cxa_allocate_exception(0x38uLL);
@@ -7211,7 +7211,7 @@ LABEL_445:
     goto LABEL_480;
   }
 
-  YAML::Node::operator[]<char [11]>(a2, "utterances", __p);
+  YAML::Node::operator[]<char [11]>(__p, a2, "utterances");
   if ((__p[0] & 1) == 0)
   {
     v177 = __cxa_allocate_exception(0x38uLL);
@@ -7270,7 +7270,7 @@ LABEL_479:
   }
 
 LABEL_480:
-  YAML::Node::operator[]<char [10]>(a2, "nlParsers", __p);
+  YAML::Node::operator[]<char [10]>(__p, a2, "nlParsers");
   v101 = __p[0] != 1 || v194 && (***v194 & 1) == 0;
   if (v193)
   {
@@ -7291,7 +7291,7 @@ LABEL_480:
     goto LABEL_591;
   }
 
-  YAML::Node::operator[]<char [10]>(a2, "nlParsers", __p);
+  YAML::Node::operator[]<char [10]>(__p, a2, "nlParsers");
   if ((__p[0] & 1) == 0)
   {
     v165 = __cxa_allocate_exception(0x38uLL);
@@ -7320,10 +7320,10 @@ LABEL_480:
     if (v103)
     {
 LABEL_500:
-      YAML::Node::operator[]<char [10]>(a2, "nlParsers", &v203);
+      YAML::Node::operator[]<char [10]>(&v203, a2, "nlParsers");
       if ((v203.__r_.__value_.__s.__data_[0] & 1) != 0 && v207)
       {
-        YAML::detail::node_data::begin(**v207, __p);
+        YAML::detail::node_data::begin(__p, **v207);
         v105 = v205;
         v104 = v206;
         if (v206)
@@ -7355,7 +7355,7 @@ LABEL_500:
 
       if (v203.__r_.__value_.__s.__data_[0] == 1 && v207)
       {
-        YAML::detail::node_data::end(**v207, __p);
+        YAML::detail::node_data::end(__p, **v207);
         v111 = v206;
         if (v206)
         {
@@ -7603,7 +7603,7 @@ LABEL_549:
 
       v120 = *(this + 9);
 LABEL_527:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v120 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v120 + 1);
       v118 = *(this + 5);
       v120 = *v118;
       goto LABEL_528;
@@ -7621,7 +7621,7 @@ LABEL_527:
     v108 = *(this + 9);
     v109 = a2;
 LABEL_572:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v108 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v108 + 1);
     v106 = *(this + 5);
     v108 = *v106;
     goto LABEL_573;
@@ -7660,7 +7660,7 @@ LABEL_573:
   }
 
 LABEL_574:
-  YAML::Node::operator[]<char [10]>(v109, "nlParsers", __p);
+  YAML::Node::operator[]<char [10]>(__p, v109, "nlParsers");
   if ((__p[0] & 1) == 0)
   {
     v178 = __cxa_allocate_exception(0x38uLL);
@@ -7717,7 +7717,7 @@ LABEL_574:
   }
 
 LABEL_586:
-  YAML::Node::operator[]<char [10]>(v109, "nlParsers", __p);
+  YAML::Node::operator[]<char [10]>(__p, v109, "nlParsers");
   siri::intelligence::ParseIntelligence_NLParameters(v110, __p, a3);
   if (v193)
   {
@@ -7732,7 +7732,7 @@ LABEL_590:
   }
 
 LABEL_591:
-  YAML::Node::operator[]<char [11]>(v186, "nlProducer", __p);
+  YAML::Node::operator[]<char [11]>(__p, v186, "nlProducer");
   v139 = __p[0] != 1 || v194 && (***v194 & 1) == 0;
   if (v193)
   {
@@ -7763,7 +7763,7 @@ LABEL_591:
     }
 
 LABEL_606:
-    YAML::Node::operator[]<char [11]>(v186, "nlProducer", __p);
+    YAML::Node::operator[]<char [11]>(__p, v186, "nlProducer");
     if ((__p[0] & 1) == 0)
     {
       v174 = __cxa_allocate_exception(0x38uLL);
@@ -7830,7 +7830,7 @@ LABEL_606:
   }
 
 LABEL_618:
-  YAML::Node::operator[]<char [11]>(v186, "nlProducer", __p);
+  YAML::Node::operator[]<char [11]>(__p, v186, "nlProducer");
   siri::intelligence::ParseIntelligence_NLParameters(v140, __p, a3);
   if (v193)
   {
@@ -7926,7 +7926,7 @@ void siri::intelligence::ParseIntelligence_Condition(siri::intelligence *this, p
     }
   }
 
-  YAML::Node::operator[]<char [3]>(a2, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, a2, "id");
   v9 = __p[0] != 1 || v31 && (***v31 & 1) == 0;
   if (v30)
   {
@@ -7940,7 +7940,7 @@ void siri::intelligence::ParseIntelligence_Condition(siri::intelligence *this, p
 
   if (!v9)
   {
-    YAML::Node::operator[]<char [3]>(a2, "id", __p);
+    YAML::Node::operator[]<char [3]>(__p, a2, "id");
     if ((__p[0] & 1) == 0)
     {
       exception = __cxa_allocate_exception(0x38uLL);
@@ -7985,7 +7985,7 @@ void siri::intelligence::ParseIntelligence_Condition(siri::intelligence *this, p
       goto LABEL_37;
     }
 
-    YAML::Node::operator[]<char [3]>(a2, "id", __p);
+    YAML::Node::operator[]<char [3]>(__p, a2, "id");
     if ((__p[0] & 1) == 0)
     {
       v25 = __cxa_allocate_exception(0x38uLL);
@@ -8043,7 +8043,7 @@ void siri::intelligence::ParseIntelligence_Condition(siri::intelligence *this, p
   }
 
 LABEL_37:
-  YAML::Node::operator[]<char [10]>(a2, "condition", __p);
+  YAML::Node::operator[]<char [10]>(__p, a2, "condition");
   v13 = __p[0] != 1 || v31 && (***v31 & 1) == 0;
   if (v30)
   {
@@ -8074,7 +8074,7 @@ LABEL_37:
     }
 
 LABEL_52:
-    YAML::Node::operator[]<char [10]>(a2, "condition", __p);
+    YAML::Node::operator[]<char [10]>(__p, a2, "condition");
     if ((__p[0] & 1) == 0)
     {
       v26 = __cxa_allocate_exception(0x38uLL);
@@ -8141,7 +8141,7 @@ LABEL_52:
   }
 
 LABEL_64:
-  YAML::Node::operator[]<char [10]>(a2, "condition", __p);
+  YAML::Node::operator[]<char [10]>(__p, a2, "condition");
   siri::intelligence::ParseIntelligence_Condition_ConditionEntry(v14, __p, a3);
   if (v30)
   {
@@ -8237,7 +8237,7 @@ void siri::intelligence::ParseIntelligence_Variable(siri::intelligence *this, pr
     }
   }
 
-  YAML::Node::operator[]<char [5]>(a2, "name", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "name");
   v9 = __p[0] != 1 || v158 && (***v158 & 1) == 0;
   if (v157)
   {
@@ -8258,7 +8258,7 @@ void siri::intelligence::ParseIntelligence_Variable(siri::intelligence *this, pr
     goto LABEL_38;
   }
 
-  YAML::Node::operator[]<char [5]>(a2, "name", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "name");
   if ((__p[0] & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x38uLL);
@@ -8303,7 +8303,7 @@ void siri::intelligence::ParseIntelligence_Variable(siri::intelligence *this, pr
     goto LABEL_38;
   }
 
-  YAML::Node::operator[]<char [5]>(a2, "name", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "name");
   if ((__p[0] & 1) == 0)
   {
     v137 = __cxa_allocate_exception(0x38uLL);
@@ -8360,7 +8360,7 @@ void siri::intelligence::ParseIntelligence_Variable(siri::intelligence *this, pr
   }
 
 LABEL_38:
-  YAML::Node::operator[]<char [5]>(a2, "type", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "type");
   v13 = __p[0] != 1 || v158 && (***v158 & 1) == 0;
   if (v157)
   {
@@ -8381,7 +8381,7 @@ LABEL_38:
     goto LABEL_70;
   }
 
-  YAML::Node::operator[]<char [5]>(a2, "type", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "type");
   if ((__p[0] & 1) == 0)
   {
     v129 = __cxa_allocate_exception(0x38uLL);
@@ -8426,7 +8426,7 @@ LABEL_38:
     goto LABEL_70;
   }
 
-  YAML::Node::operator[]<char [5]>(a2, "type", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "type");
   if ((__p[0] & 1) == 0)
   {
     v138 = __cxa_allocate_exception(0x38uLL);
@@ -8483,7 +8483,7 @@ LABEL_38:
   }
 
 LABEL_70:
-  YAML::Node::operator[]<char [11]>(a2, "persistent", __p);
+  YAML::Node::operator[]<char [11]>(__p, a2, "persistent");
   v17 = __p[0] != 1 || v158 && (***v158 & 1) == 0;
   if (v157)
   {
@@ -8504,7 +8504,7 @@ LABEL_70:
     goto LABEL_102;
   }
 
-  YAML::Node::operator[]<char [11]>(a2, "persistent", __p);
+  YAML::Node::operator[]<char [11]>(__p, a2, "persistent");
   if ((__p[0] & 1) == 0)
   {
     v130 = __cxa_allocate_exception(0x38uLL);
@@ -8550,7 +8550,7 @@ LABEL_70:
     goto LABEL_102;
   }
 
-  YAML::Node::operator[]<char [11]>(a2, "persistent", __p);
+  YAML::Node::operator[]<char [11]>(__p, a2, "persistent");
   if ((__p[0] & 1) == 0)
   {
     v139 = __cxa_allocate_exception(0x38uLL);
@@ -8607,7 +8607,7 @@ LABEL_70:
   }
 
 LABEL_102:
-  YAML::Node::operator[]<char [12]>(a2, "description", __p);
+  YAML::Node::operator[]<char [12]>(__p, a2, "description");
   v22 = __p[0] != 1 || v158 && (***v158 & 1) == 0;
   if (v157)
   {
@@ -8628,7 +8628,7 @@ LABEL_102:
     goto LABEL_134;
   }
 
-  YAML::Node::operator[]<char [12]>(a2, "description", __p);
+  YAML::Node::operator[]<char [12]>(__p, a2, "description");
   if ((__p[0] & 1) == 0)
   {
     v131 = __cxa_allocate_exception(0x38uLL);
@@ -8673,7 +8673,7 @@ LABEL_102:
     goto LABEL_134;
   }
 
-  YAML::Node::operator[]<char [12]>(a2, "description", __p);
+  YAML::Node::operator[]<char [12]>(__p, a2, "description");
   if ((__p[0] & 1) == 0)
   {
     v140 = __cxa_allocate_exception(0x38uLL);
@@ -8730,7 +8730,7 @@ LABEL_102:
   }
 
 LABEL_134:
-  YAML::Node::operator[]<char [13]>(a2, "defaultValue", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "defaultValue");
   v26 = __p[0] != 1 || v158 && (***v158 & 1) == 0;
   if (v157)
   {
@@ -8761,7 +8761,7 @@ LABEL_134:
     }
 
 LABEL_149:
-    YAML::Node::operator[]<char [13]>(a2, "defaultValue", __p);
+    YAML::Node::operator[]<char [13]>(__p, a2, "defaultValue");
     if ((__p[0] & 1) == 0)
     {
       v141 = __cxa_allocate_exception(0x38uLL);
@@ -8828,7 +8828,7 @@ LABEL_149:
   }
 
 LABEL_161:
-  YAML::Node::operator[]<char [13]>(a2, "defaultValue", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "defaultValue");
   siri::intelligence::ParseIntelligence_KeyValueParameter(v27, __p, a3);
   if (v157)
   {
@@ -8841,7 +8841,7 @@ LABEL_161:
   }
 
 LABEL_165:
-  YAML::Node::operator[]<char [14]>(a2, "defaultString", __p);
+  YAML::Node::operator[]<char [14]>(__p, a2, "defaultString");
   v31 = __p[0] != 1 || v158 && (***v158 & 1) == 0;
   if (v157)
   {
@@ -8862,7 +8862,7 @@ LABEL_165:
     goto LABEL_197;
   }
 
-  YAML::Node::operator[]<char [14]>(a2, "defaultString", __p);
+  YAML::Node::operator[]<char [14]>(__p, a2, "defaultString");
   if ((__p[0] & 1) == 0)
   {
     v132 = __cxa_allocate_exception(0x38uLL);
@@ -8907,7 +8907,7 @@ LABEL_165:
     goto LABEL_197;
   }
 
-  YAML::Node::operator[]<char [14]>(a2, "defaultString", __p);
+  YAML::Node::operator[]<char [14]>(__p, a2, "defaultString");
   if ((__p[0] & 1) == 0)
   {
     v142 = __cxa_allocate_exception(0x38uLL);
@@ -8964,7 +8964,7 @@ LABEL_165:
   }
 
 LABEL_197:
-  YAML::Node::operator[]<char [14]>(a2, "defaultNumber", __p);
+  YAML::Node::operator[]<char [14]>(__p, a2, "defaultNumber");
   v35 = __p[0] != 1 || v158 && (***v158 & 1) == 0;
   if (v157)
   {
@@ -8985,7 +8985,7 @@ LABEL_197:
     goto LABEL_229;
   }
 
-  YAML::Node::operator[]<char [14]>(a2, "defaultNumber", __p);
+  YAML::Node::operator[]<char [14]>(__p, a2, "defaultNumber");
   if ((__p[0] & 1) == 0)
   {
     v133 = __cxa_allocate_exception(0x38uLL);
@@ -9031,7 +9031,7 @@ LABEL_197:
     goto LABEL_229;
   }
 
-  YAML::Node::operator[]<char [14]>(a2, "defaultNumber", __p);
+  YAML::Node::operator[]<char [14]>(__p, a2, "defaultNumber");
   if ((__p[0] & 1) == 0)
   {
     v143 = __cxa_allocate_exception(0x38uLL);
@@ -9088,7 +9088,7 @@ LABEL_197:
   }
 
 LABEL_229:
-  YAML::Node::operator[]<char [15]>(a2, "defaultBoolean", __p);
+  YAML::Node::operator[]<char [15]>(__p, a2, "defaultBoolean");
   v40 = __p[0] != 1 || v158 && (***v158 & 1) == 0;
   if (v157)
   {
@@ -9109,7 +9109,7 @@ LABEL_229:
     goto LABEL_261;
   }
 
-  YAML::Node::operator[]<char [15]>(a2, "defaultBoolean", __p);
+  YAML::Node::operator[]<char [15]>(__p, a2, "defaultBoolean");
   if ((__p[0] & 1) == 0)
   {
     v134 = __cxa_allocate_exception(0x38uLL);
@@ -9155,7 +9155,7 @@ LABEL_229:
     goto LABEL_261;
   }
 
-  YAML::Node::operator[]<char [15]>(a2, "defaultBoolean", __p);
+  YAML::Node::operator[]<char [15]>(__p, a2, "defaultBoolean");
   if ((__p[0] & 1) == 0)
   {
     v144 = __cxa_allocate_exception(0x38uLL);
@@ -9212,7 +9212,7 @@ LABEL_229:
   }
 
 LABEL_261:
-  YAML::Node::operator[]<char [13]>(a2, "defaultArray", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "defaultArray");
   v45 = __p[0] != 1 || v158 && (***v158 & 1) == 0;
   if (v157)
   {
@@ -9230,7 +9230,7 @@ LABEL_261:
     goto LABEL_371;
   }
 
-  YAML::Node::operator[]<char [13]>(a2, "defaultArray", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "defaultArray");
   if ((__p[0] & 1) == 0)
   {
     v135 = __cxa_allocate_exception(0x38uLL);
@@ -9259,10 +9259,10 @@ LABEL_261:
     if (v47)
     {
 LABEL_280:
-      YAML::Node::operator[]<char [13]>(a2, "defaultArray", &v167);
+      YAML::Node::operator[]<char [13]>(&v167, a2, "defaultArray");
       if ((v167.__r_.__value_.__s.__data_[0] & 1) != 0 && v171)
       {
-        YAML::detail::node_data::begin(**v171, __p);
+        YAML::detail::node_data::begin(__p, **v171);
         v49 = v169;
         v48 = v170;
         if (v170)
@@ -9294,7 +9294,7 @@ LABEL_280:
 
       if (v167.__r_.__value_.__s.__data_[0] == 1 && v171)
       {
-        YAML::detail::node_data::end(**v171, __p);
+        YAML::detail::node_data::end(__p, **v171);
         v54 = v170;
         if (v170)
         {
@@ -9542,7 +9542,7 @@ LABEL_329:
 
       v63 = *(this + 9);
 LABEL_307:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v63 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v63 + 1);
       v61 = *(this + 5);
       v63 = *v61;
       goto LABEL_308;
@@ -9559,7 +9559,7 @@ LABEL_307:
   {
     v52 = *(this + 9);
 LABEL_352:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v52 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v52 + 1);
     v50 = *(this + 5);
     v52 = *v50;
     goto LABEL_353;
@@ -9597,7 +9597,7 @@ LABEL_353:
   }
 
 LABEL_354:
-  YAML::Node::operator[]<char [13]>(a2, "defaultArray", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "defaultArray");
   if ((__p[0] & 1) == 0)
   {
     v145 = __cxa_allocate_exception(0x38uLL);
@@ -9654,7 +9654,7 @@ LABEL_354:
   }
 
 LABEL_366:
-  YAML::Node::operator[]<char [13]>(a2, "defaultArray", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "defaultArray");
   siri::intelligence::ParseIntelligence_KeyValueParameter(v53, __p, a3);
   if (v157)
   {
@@ -9722,7 +9722,7 @@ LABEL_391:
       YAML::Node::operator[]<char [18]>(&v167, v148, "defaultDictionary");
       if ((v167.__r_.__value_.__s.__data_[0] & 1) != 0 && v171)
       {
-        YAML::detail::node_data::begin(**v171, __p);
+        YAML::detail::node_data::begin(__p, **v171);
         v86 = v169;
         v85 = v170;
         if (v170)
@@ -9754,7 +9754,7 @@ LABEL_391:
 
       if (v167.__r_.__value_.__s.__data_[0] == 1 && v171)
       {
-        YAML::detail::node_data::end(**v171, __p);
+        YAML::detail::node_data::end(__p, **v171);
         v92 = v170;
         if (v170)
         {
@@ -10002,7 +10002,7 @@ LABEL_440:
 
       v101 = *(this + 15);
 LABEL_418:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 12, v101 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 48), v101 + 1);
       v99 = *(this + 8);
       v101 = *v99;
       goto LABEL_419;
@@ -10020,7 +10020,7 @@ LABEL_418:
     v89 = *(this + 15);
     v90 = v148;
 LABEL_463:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 12, v89 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 48), v89 + 1);
     v87 = *(this + 8);
     v89 = *v87;
     goto LABEL_464;

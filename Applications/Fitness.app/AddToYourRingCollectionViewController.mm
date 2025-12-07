@@ -117,7 +117,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10065E5A8();
+  sub_10065E5A8(selfCopy);
 }
 
 - (_TtC10FitnessApp37AddToYourRingCollectionViewController)initWithCollectionViewLayout:(id)layout

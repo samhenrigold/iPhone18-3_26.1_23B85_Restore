@@ -8,6 +8,7 @@
 - (double)_unitTest_lastAssertionAttempt;
 - (double)nextAssertionAttempt;
 - (id)_unitTest_pendingDataTypeCodesToAnchors;
+- (id)extension;
 - (int64_t)_unitTest_connectionErrorCount;
 - (unint64_t)_unitTest_pendingAssertionCompletionsCount;
 - (void)_incrementErrorCount;
@@ -15,7 +16,6 @@
 - (void)_lock_cancelTimeoutTimers;
 - (void)assertAndUpdateWithCompletion:(id)completion;
 - (void)extendForDataType:(int64_t)type anchor:(id)anchor completion:(id)completion;
-- (void)extension;
 - (void)invalidateForDataType:(int64_t)type anchor:(id)anchor;
 @end
 
@@ -60,7 +60,7 @@
 
 - (void)extendForDataType:(int64_t)type anchor:(id)anchor completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
@@ -86,11 +86,11 @@
         v15 = *MEMORY[0x277CCC288];
         if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_ERROR))
         {
-          v23 = 134218242;
+          v22 = 134218242;
           typeCopy = type;
-          v25 = 2114;
-          v26 = anchorCopy;
-          _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "Ignoring attempt to set '%lu' to lower anchor '%{public}@'", &v23, 0x16u);
+          v24 = 2114;
+          v25 = anchorCopy;
+          _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "Ignoring attempt to set '%lu' to lower anchor '%{public}@'", &v22, 0x16u);
         }
       }
 
@@ -101,7 +101,7 @@
         [(NSMutableDictionary *)v16 setObject:anchorCopy forKeyedSubscript:v17];
       }
 
-      v18 = [completionCopy copy];
+      v18 = objc_msgSend_copy(completionCopy);
       v19 = _Block_copy(v18);
       pendingAssertionCompletions = self->_pendingAssertionCompletions;
       v21 = [MEMORY[0x277CCABB0] numberWithInteger:type];
@@ -110,11 +110,9 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
-- (void)extension
+- (id)extension
 {
   selfCopy = self;
   if (self)
@@ -130,7 +128,7 @@
 
 - (void)assertAndUpdateWithCompletion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
   if (self->_pendingAssertion)
@@ -147,26 +145,26 @@
     aBlock[2] = __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke;
     aBlock[3] = &unk_278620608;
     aBlock[4] = self;
-    v26 = completionCopy;
+    v25 = completionCopy;
     completionCopy = _Block_copy(aBlock);
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     daemon = [WeakRetained daemon];
     extensionManager = [daemon extensionManager];
     bundleIdentifier = self->_bundleIdentifier;
-    v24 = 0;
-    v9 = [extensionManager extensionForBundleIdentifier:bundleIdentifier error:&v24];
-    v10 = v24;
+    v23 = 0;
+    v9 = [extensionManager extensionForBundleIdentifier:bundleIdentifier error:&v23];
+    v10 = v23;
 
     if (v9)
     {
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_300;
-      v20[3] = &unk_278613150;
-      v21 = v9;
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_300;
+      v19[3] = &unk_278613150;
+      v20 = v9;
       selfCopy = self;
-      v23 = completionCopy;
-      [v21 connectWithCompletionHandler:v20];
+      v22 = completionCopy;
+      [v20 connectWithCompletionHandler:v19];
     }
 
     else
@@ -182,11 +180,11 @@
       {
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v19 = self->_bundleIdentifier;
+          v18 = self->_bundleIdentifier;
           *buf = 138543618;
-          v28 = v19;
-          v29 = 2114;
-          v30 = v10;
+          v27 = v18;
+          v28 = 2114;
+          v29 = v10;
           _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "Failed to assert app extension: '%{public}@' with error: %{public}@", buf, 0x16u);
         }
 
@@ -199,7 +197,7 @@
         {
           v15 = self->_bundleIdentifier;
           *buf = 138543362;
-          v28 = v15;
+          v27 = v15;
           _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "Failed to assert app extesnion: '%{public}@' since the app has been uninstalled.", buf, 0xCu);
         }
 
@@ -211,8 +209,6 @@
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke(uint64_t a1)
@@ -245,7 +241,7 @@ uint64_t __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_inv
 
 void __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_300(uint64_t a1, int a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC288];
@@ -258,7 +254,7 @@ void __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_
       v9 = v6;
       v10 = [v8 extensionIdentifier];
       *buf = 138543362;
-      v36 = v10;
+      v35 = v10;
       _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_INFO, "Connected to app extension: '%{public}@'", buf, 0xCu);
     }
 
@@ -287,42 +283,42 @@ void __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_
       v14 = 15.0;
     }
 
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_301;
-    v33[3] = &unk_278616F38;
-    objc_copyWeak(&v34, buf);
-    v15 = [(HDAppExtensionAssertion *)v12 _newTimerWithDuration:v33 handler:v13];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_301;
+    v32[3] = &unk_278616F38;
+    objc_copyWeak(&v33, buf);
+    v15 = [(HDAppExtensionAssertion *)v12 _newTimerWithDuration:v32 handler:v13];
     v16 = *(*v11 + 80);
     *(*v11 + 80) = v15;
 
     v17 = *v11;
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_2;
-    v30[3] = &unk_2786177F8;
-    v31 = *(a1 + 32);
-    objc_copyWeak(&v32, buf);
-    v18 = [(HDAppExtensionAssertion *)v17 _newTimerWithDuration:v30 handler:v14];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_2;
+    v29[3] = &unk_2786177F8;
+    v30 = *(a1 + 32);
+    objc_copyWeak(&v31, buf);
+    v18 = [(HDAppExtensionAssertion *)v17 _newTimerWithDuration:v29 handler:v14];
     v19 = *(*v11 + 72);
     *(*v11 + 72) = v18;
 
-    v20 = [*(*v11 + 56) copy];
+    v20 = objc_msgSend_copy(*(*v11 + 56));
     [*(*(a1 + 40) + 56) removeAllObjects];
     *(*(a1 + 40) + 104) = 0;
     os_unfair_lock_unlock((*(a1 + 40) + 12));
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_303;
-    v27[3] = &unk_278620630;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_303;
+    v26[3] = &unk_278620630;
     v21 = *(a1 + 32);
     v22 = *(a1 + 40);
-    v28 = v21;
-    v29 = v22;
-    [v20 enumerateKeysAndObjectsUsingBlock:v27];
+    v27 = v21;
+    v28 = v22;
+    [v20 enumerateKeysAndObjectsUsingBlock:v26];
 
-    objc_destroyWeak(&v32);
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(buf);
   }
 
@@ -330,22 +326,20 @@ void __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a1 + 32);
-      v25 = v6;
-      v26 = [v24 extensionIdentifier];
+      v23 = *(a1 + 32);
+      v24 = v6;
+      v25 = [v23 extensionIdentifier];
       *buf = 138543618;
-      v36 = v26;
-      v37 = 2114;
-      v38 = v5;
-      _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "Failed to connect to app extension: '%{public}@' with error: %{public}@", buf, 0x16u);
+      v35 = v25;
+      v36 = 2114;
+      v37 = v5;
+      _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "Failed to connect to app extension: '%{public}@' with error: %{public}@", buf, 0x16u);
     }
 
     [(HDAppExtensionAssertion *)*(a1 + 40) _incrementErrorCount];
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lock_cancelTimeoutTimers
@@ -411,7 +405,7 @@ void __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_
 
 void __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC288];
   if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_INFO))
@@ -419,15 +413,13 @@ void __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 extensionIdentifier];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "Invalidating app extension assertion due to timeout for '%{public}@'", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "Invalidating app extension assertion due to timeout for '%{public}@'", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [(HDAppExtensionAssertion *)WeakRetained _invalidate];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidate
@@ -457,7 +449,7 @@ void __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_
 
 void __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_303(uint64_t a1, void *a2, uint64_t a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   (*(a3 + 16))(a3);
   _HKInitializeLogging();
@@ -467,11 +459,11 @@ void __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_
     v7 = *(a1 + 32);
     v8 = v6;
     v9 = [v7 extensionIdentifier];
-    *v18 = 138543618;
-    *&v18[4] = v9;
-    *&v18[12] = 2114;
-    *&v18[14] = v5;
-    _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_INFO, "Updating app extension: '%{public}@' for data type code: '%{public}@'", v18, 0x16u);
+    *v17 = 138543618;
+    *&v17[4] = v9;
+    *&v17[12] = 2114;
+    *&v17[14] = v5;
+    _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_INFO, "Updating app extension: '%{public}@' for data type code: '%{public}@'", v17, 0x16u);
   }
 
   v10 = *(a1 + 40);
@@ -486,21 +478,19 @@ void __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_
       v15 = v14;
       if (v14)
       {
-        *v18 = MEMORY[0x277D85DD0];
-        *&v18[8] = 3221225472;
-        *&v18[16] = __58__HDAppExtensionAssertion__notifyAppExtensionForDataType___block_invoke;
-        v19 = &unk_278620658;
-        v20 = v10;
-        v23 = v12;
+        *v17 = MEMORY[0x277D85DD0];
+        *&v17[8] = 3221225472;
+        *&v17[16] = __58__HDAppExtensionAssertion__notifyAppExtensionForDataType___block_invoke;
+        v18 = &unk_278620658;
+        v19 = v10;
+        v22 = v12;
         v16 = v14;
-        v21 = v16;
-        v22 = v13;
-        [v16 notifyExtensionOfUpdateForSampleType:v22 completionHandler:v18];
+        v20 = v16;
+        v21 = v13;
+        [v16 notifyExtensionOfUpdateForSampleType:v21 completionHandler:v17];
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateForDataType:(int64_t)type anchor:(id)anchor
@@ -556,7 +546,7 @@ void __57__HDAppExtensionAssertion_assertAndUpdateWithCompletion___block_invoke_
 
 void __58__HDAppExtensionAssertion__notifyAppExtensionForDataType___block_invoke(void *a1, int a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a1[4];
   if (a2)
@@ -574,11 +564,11 @@ void __58__HDAppExtensionAssertion__notifyAppExtensionForDataType___block_invoke
       v11 = v9;
       v12 = [v10 extensionIdentifier];
       *buf = 138543874;
-      v24 = v12;
-      v25 = 2114;
-      v26 = v7;
-      v27 = 2114;
-      v28 = v8;
+      v23 = v12;
+      v24 = 2114;
+      v25 = v7;
+      v26 = 2114;
+      v27 = v8;
       _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_INFO, "Updated app extension: '%{public}@' with data type code: %{public}@ and anchor: %{public}@", buf, 0x20u);
     }
 
@@ -601,18 +591,17 @@ void __58__HDAppExtensionAssertion__notifyAppExtensionForDataType___block_invoke
       goto LABEL_7;
     }
 
-    v21 = a1[5];
+    v20 = a1[5];
     v7 = v19;
-    v22 = [v21 extensionIdentifier];
+    v21 = [v20 extensionIdentifier];
     *buf = 138543618;
-    v24 = v22;
-    v25 = 2114;
-    v26 = v5;
+    v23 = v21;
+    v24 = 2114;
+    v25 = v5;
     _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Failed to update app extension: '%{public}@' with error: %{public}@", buf, 0x16u);
   }
 
 LABEL_7:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_unitTest_pendingAssertionCompletionsCount
@@ -626,7 +615,7 @@ LABEL_7:
 - (id)_unitTest_pendingDataTypeCodesToAnchors
 {
   os_unfair_lock_lock(&self->_lock);
-  v3 = [(NSMutableDictionary *)self->_pendingDataTypeCodesToAnchors copy];
+  v3 = objc_msgSend_copy(self->_pendingDataTypeCodesToAnchors);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;

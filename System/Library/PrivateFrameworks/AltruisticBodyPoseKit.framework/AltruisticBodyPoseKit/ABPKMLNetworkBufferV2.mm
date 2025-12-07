@@ -10,16 +10,16 @@
 
 - (ABPKMLNetworkBufferV2)initWithName:(id)name operation:(e5rt_execution_stream_operation *)operation bindMode:(int64_t)mode useSurface:(BOOL)surface
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v28.receiver = self;
-  v28.super_class = ABPKMLNetworkBufferV2;
-  v11 = [(ABPKMLNetworkBufferV2 *)&v28 init];
+  v21.receiver = self;
+  v21.super_class = ABPKMLNetworkBufferV2;
+  v11 = [(ABPKMLNetworkBufferV2 *)&v21 init];
   v12 = v11;
   if (!v11)
   {
 LABEL_27:
-    v19 = v12;
+    v17 = v12;
     goto LABEL_28;
   }
 
@@ -43,7 +43,6 @@ LABEL_27:
     }
   }
 
-  port = v12->_port;
   if (v12->_useSurface)
   {
     if (e5rt_io_port_retain_surface_desc())
@@ -53,15 +52,7 @@ LABEL_27:
 
     if ([(ABPKMLNetworkBufferV2 *)v12 _readSurfaceDescriptor])
     {
-      surfaceDesc = v12->_surfaceDesc;
-      if (e5rt_surface_object_alloc())
-      {
-        goto LABEL_29;
-      }
-
-      v15 = v12->_port;
-      surfaceObject = v12->_surfaceObject;
-      if (e5rt_io_port_bind_surface_object())
+      if (e5rt_surface_object_alloc() || e5rt_io_port_bind_surface_object())
       {
         goto LABEL_29;
       }
@@ -77,16 +68,18 @@ LABEL_27:
       goto LABEL_29;
     }
 
-    if ([(ABPKMLNetworkBufferV2 *)v12 _readTensorDescriptor])
+    _readTensorDescriptor = [(ABPKMLNetworkBufferV2 *)v12 _readTensorDescriptor];
+    if (_readTensorDescriptor)
     {
-      v29 = *MEMORY[0x277CC4DE8];
-      v30[0] = MEMORY[0x277CBEC10];
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-      if (!CVPixelBufferCreate(*MEMORY[0x277CBECE8], v12->_width, v12->_channels * v12->_height * v12->_batchNumber, 0x4C303068u, v17, &v12->_pixelBuffer))
+      v22 = *MEMORY[0x277CC4DE8];
+      v23[0] = MEMORY[0x277CBEC10];
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v15 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], v12->_width, v12->_channels * v12->_height * v12->_batchNumber, 0x4C303068u, v14, &v12->_pixelBuffer);
+      if (!v15)
       {
         CVPixelBufferLockBaseAddress(v12->_pixelBuffer, 0);
         CVPixelBufferGetIOSurface(v12->_pixelBuffer);
-        if (e5rt_buffer_object_create_from_iosurface() || (v20 = v12->_port, memory = v12->_memory, e5rt_io_port_bind_buffer_object()) || (v22 = v12->_memory, e5rt_buffer_object_get_data_ptr()) || (v23 = v12->_memory, e5rt_buffer_object_get_size()))
+        if (e5rt_buffer_object_create_from_iosurface() || e5rt_io_port_bind_buffer_object() || e5rt_buffer_object_get_data_ptr() || e5rt_buffer_object_get_size())
         {
 LABEL_29:
           last_error_message = e5rt_get_last_error_message();
@@ -99,36 +92,34 @@ LABEL_29:
         goto LABEL_27;
       }
 
-      v18 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v16 = __ABPKLogSharedInstance(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_23EDDC000, v18, OS_LOG_TYPE_ERROR, " Could not create espresso v2 output buffer ", buf, 2u);
+        _os_log_impl(&dword_23EDDC000, v16, OS_LOG_TYPE_ERROR, " Could not create espresso v2 output buffer ", buf, 2u);
       }
     }
 
     else
     {
-      v17 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v14 = __ABPKLogSharedInstance(_readTensorDescriptor);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_23EDDC000, v17, OS_LOG_TYPE_ERROR, " Reading tensor descriptor failed ", buf, 2u);
+        _os_log_impl(&dword_23EDDC000, v14, OS_LOG_TYPE_ERROR, " Reading tensor descriptor failed ", buf, 2u);
       }
     }
   }
 
-  v19 = 0;
+  v17 = 0;
 LABEL_28:
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v17;
 }
 
 - (BOOL)_readSurfaceDescriptor
 {
-  surfaceDesc = self->_surfaceDesc;
-  if (e5rt_surface_desc_get_format() || (v4 = self->_surfaceDesc, e5rt_surface_desc_get_width()) || (v5 = self->_surfaceDesc, e5rt_surface_desc_get_height()))
+  if (e5rt_surface_desc_get_format() || e5rt_surface_desc_get_width() || e5rt_surface_desc_get_height())
   {
     last_error_message = e5rt_get_last_error_message();
     printf("E5RT operation failed with message = %s", last_error_message);
@@ -140,8 +131,7 @@ LABEL_28:
 
 - (BOOL)_readTensorDescriptor
 {
-  tensorDesc = self->_tensorDesc;
-  if (e5rt_tensor_desc_retain_dtype() || e5rt_tensor_desc_dtype_get_num_components() || e5rt_tensor_desc_dtype_get_component_dtype() || e5rt_tensor_desc_dtype_get_element_size() || (v4 = self->_tensorDesc, e5rt_tensor_desc_get_shape()) || (self->_width = 1, self->_height = 1, self->_channels = 1, self->_batchNumber = 1, self->_sequenceLength = 1, v5 = self->_tensorDesc, e5rt_tensor_desc_get_strides()))
+  if (e5rt_tensor_desc_retain_dtype() || e5rt_tensor_desc_dtype_get_num_components() || e5rt_tensor_desc_dtype_get_component_dtype() || e5rt_tensor_desc_dtype_get_element_size() || e5rt_tensor_desc_get_shape() || (self->_width = 1, self->_height = 1, self->_channels = 1, self->_batchNumber = 1, self->_sequenceLength = 1, e5rt_tensor_desc_get_strides()))
   {
     last_error_message = e5rt_get_last_error_message();
     printf("E5RT operation failed with message = %s", last_error_message);
@@ -161,7 +151,7 @@ LABEL_28:
 - (void)setInput:(id)input FromIOSurface:(__IOSurface *)surface
 {
   inputCopy = input;
-  if (self->_surfaceObject && e5rt_surface_object_release() || e5rt_surface_object_create_from_iosurface() || (port = self->_port, surfaceObject = self->_surfaceObject, e5rt_io_port_bind_surface_object()))
+  if (self->_surfaceObject && e5rt_surface_object_release() || e5rt_surface_object_create_from_iosurface() || e5rt_io_port_bind_surface_object())
   {
     last_error_message = e5rt_get_last_error_message();
     printf("E5RT operation failed with message = %s", last_error_message);

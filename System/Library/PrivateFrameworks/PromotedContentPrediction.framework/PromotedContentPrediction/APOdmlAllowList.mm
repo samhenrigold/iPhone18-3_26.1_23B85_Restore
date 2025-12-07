@@ -22,90 +22,88 @@
 
 - (APOdmlAllowList)init
 {
-  v7.receiver = self;
-  v7.super_class = APOdmlAllowList;
-  v2 = [(APOdmlAllowList *)&v7 init];
-  v5 = v2;
+  v5.receiver = self;
+  v5.super_class = APOdmlAllowList;
+  v2 = [(APOdmlAllowList *)&v5 init];
+  v3 = v2;
   if (v2)
   {
-    objc_msgSend_reinitializeAllowList(v2, v3, v4);
+    [(APOdmlAllowList *)v2 reinitializeAllowList];
   }
 
-  return v5;
+  return v3;
 }
 
 - (void)reinitializeAllowList
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_sharedAssetManagerCoordinator(APOdmlAssetManagerCoordinator, a2, v2);
-  v6 = objc_msgSend_assetManagerForPlacementType_assetManagerType_(v4, v5, 0, 0);
+  v15 = *MEMORY[0x277D85DE8];
+  v3 = +[APOdmlAssetManagerCoordinator sharedAssetManagerCoordinator];
+  v4 = [v3 assetManagerForPlacementType:0 assetManagerType:0];
 
-  v8 = objc_msgSend_pathForFactor_isDirectory_(v6, v7, @"AllowList", 0);
-  if (v8)
+  v5 = [v4 pathForFactor:@"AllowList" isDirectory:0];
+  if (v5)
   {
-    v9 = objc_alloc_init(APOdmlAllowListReader);
-    v13 = objc_msgSend_openForReadingContentsOfURL_(v9, v10, v8);
-    if (v13)
+    v6 = objc_alloc_init(APOdmlAllowListReader);
+    v7 = [(APOdmlAllowListReader *)v6 openForReadingContentsOfURL:v5];
+    if (v7)
     {
-      v14 = OdmlLogForCategory(7uLL);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v8 = OdmlLogForCategory(7uLL);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        *v26 = 138412546;
-        *&v26[4] = objc_opt_class();
-        *&v26[12] = 2112;
-        *&v26[14] = v13;
-        v15 = *&v26[4];
-        _os_log_impl(&dword_260ECB000, v14, OS_LOG_TYPE_ERROR, "[%@] Error initializing AllowList: %@", v26, 0x16u);
+        *v14 = 138412546;
+        *&v14[4] = objc_opt_class();
+        *&v14[12] = 2112;
+        *&v14[14] = v7;
+        v9 = *&v14[4];
+        _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_ERROR, "[%@] Error initializing AllowList: %@", v14, 0x16u);
       }
 
-      objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsReranking, v16, v13, 0);
-      v17 = objc_alloc_init(MEMORY[0x277CBEB98]);
+      [APOdmlAnalyticsReranking sendEvent:v7 additionalDetails:0];
+      readFile = objc_alloc_init(MEMORY[0x277CBEB98]);
     }
 
     else
     {
-      v17 = objc_msgSend_readFile(v9, v11, v12);
+      readFile = [(APOdmlAllowListReader *)v6 readFile];
     }
 
-    v24 = v17;
-    objc_msgSend_setAllowList_(self, v18, v17, *v26, *&v26[16]);
+    v13 = readFile;
+    [(APOdmlAllowList *)self setAllowList:readFile, *v14, *&v14[8]];
   }
 
   else
   {
-    v19 = OdmlLogForCategory(7uLL);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v11 = OdmlLogForCategory(7uLL);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      *v26 = 138412290;
-      *&v26[4] = objc_opt_class();
-      v20 = *&v26[4];
-      _os_log_impl(&dword_260ECB000, v19, OS_LOG_TYPE_ERROR, "[%@] Bad path for AllowList asset.", v26, 0xCu);
+      *v14 = 138412290;
+      *&v14[4] = objc_opt_class();
+      v12 = *&v14[4];
+      _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_ERROR, "[%@] Bad path for AllowList asset.", v14, 0xCu);
     }
 
-    v9 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v21, @"APOdmlRerankingErrorDomain", 3004, 0);
-    objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsReranking, v22, v9, 0);
-    v13 = objc_alloc_init(MEMORY[0x277CBEB98]);
-    objc_msgSend_setAllowList_(self, v23, v13);
+    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlRerankingErrorDomain" code:3004 userInfo:0];
+    [APOdmlAnalyticsReranking sendEvent:v6 additionalDetails:0];
+    v7 = objc_alloc_init(MEMORY[0x277CBEB98]);
+    [(APOdmlAllowList *)self setAllowList:v7];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAllowed:(id)allowed
 {
   allowedCopy = allowed;
-  v7 = objc_msgSend_allowList(self, v5, v6);
-  v9 = objc_msgSend_containsObject_(v7, v8, allowedCopy);
+  allowList = [(APOdmlAllowList *)self allowList];
+  v6 = [allowList containsObject:allowedCopy];
 
-  return v9;
+  return v6;
 }
 
 - (unint64_t)count
 {
-  v3 = objc_msgSend_allowList(self, a2, v2);
-  v6 = objc_msgSend_count(v3, v4, v5);
+  allowList = [(APOdmlAllowList *)self allowList];
+  v3 = [allowList count];
 
-  return v6;
+  return v3;
 }
 
 @end

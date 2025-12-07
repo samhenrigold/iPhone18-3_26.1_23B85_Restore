@@ -197,7 +197,7 @@ void __57__COMeshNodeStateTrackerSet_nodeStateTrackersWithStatus___block_invoke(
 
 void __60__COMeshNodeStateTrackerSet_setNodeDormant_withState_error___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) trackers];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
@@ -210,14 +210,12 @@ void __60__COMeshNodeStateTrackerSet_setNodeDormant_withState_error___block_invo
     [v3 lastHeard];
     v6 = [v5 dateWithTimeIntervalSinceReferenceDate:?];
     v7 = [v3 node];
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v7;
-    _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "Going dormant since last heard at %@ on %{public}@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "Going dormant since last heard at %@ on %{public}@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateNodeStateTrackersUsingBlock:(id)block

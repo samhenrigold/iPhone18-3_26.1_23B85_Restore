@@ -123,7 +123,7 @@ void __59__PXPhotoKitAddToLibraryAssetActionPerformer_importAssets___block_invok
   }
 }
 
-void __59__PXPhotoKitAddToLibraryAssetActionPerformer_importAssets___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void __59__PXPhotoKitAddToLibraryAssetActionPerformer_importAssets___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
   *(a1 + 32);

@@ -41,7 +41,7 @@
 
 - (id)_populateManagersDictionaryForBundleIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = +[_HKBehavior sharedBehavior];
   isAppleWatch = [v5 isAppleWatch];
@@ -67,30 +67,28 @@
   v10 = [objc_alloc(*v7) initWithBundleIdentifier:identifierCopy];
   if (v10)
   {
-    v11 = v10;
+    v12 = v10;
     os_unfair_lock_lock(&self->_watchAppInstallationManagersLock);
-    [(NSMutableDictionary *)self->_watchAppInstallationManagersByBundleIdentifier setObject:v11 forKeyedSubscript:identifierCopy];
+    [(NSMutableDictionary *)self->_watchAppInstallationManagersByBundleIdentifier setObject:v12 forKeyedSubscript:identifierCopy];
     os_unfair_lock_unlock(&self->_watchAppInstallationManagersLock);
     goto LABEL_10;
   }
 
 LABEL_7:
-  _HKInitializeLogging();
-  v12 = HKLogInfrastructure();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v10, v11);
+  v15 = HKLogInfrastructure(v13, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138543362;
-    v17 = objc_opt_class();
-    v13 = v17;
-    _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Device does not support HKWatchAppInstallationManager", &v16, 0xCu);
+    v18 = 138543362;
+    v19 = objc_opt_class();
+    v16 = v19;
+    _os_log_impl(&dword_19197B000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Device does not support HKWatchAppInstallationManager", &v18, 0xCu);
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_10:
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v11;
+  return v12;
 }
 
 - (id)watchAppInstallationManagerForBundleIdentifier:(id)identifier
@@ -153,15 +151,15 @@ LABEL_10:
 
 - (id)isWatchAppInstalledWithBundleIdentifier:(id)identifier error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v7 = [(HKWatchAppInstallationDataSource *)self watchAppInstallationManagerForBundleIdentifier:identifierCopy];
   v8 = v7;
   if (v7)
   {
-    v19 = 0;
-    v9 = [v7 isWatchAppInstalledWithError:&v19];
-    v10 = v19;
+    v21 = 0;
+    v9 = [v7 isWatchAppInstalledWithError:&v21];
+    v10 = v21;
     v11 = v10;
     if (v10)
     {
@@ -176,38 +174,36 @@ LABEL_10:
         _HKLogDroppedError(v10);
       }
 
-      _HKInitializeLogging();
-      v14 = HKLogInfrastructure();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      _HKInitializeLogging(v12, v13);
+      v17 = HKLogInfrastructure(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v17 = objc_opt_class();
+        v19 = objc_opt_class();
         *buf = 138543874;
-        v21 = v17;
-        v22 = 2114;
-        v23 = identifierCopy;
+        v23 = v19;
         v24 = 2114;
-        v25 = v11;
-        v18 = v17;
-        _os_log_error_impl(&dword_19197B000, v14, OS_LOG_TYPE_ERROR, "[%{public}@]: Error retrieving value for watch app installation from data source for %{public}@: %{public}@", buf, 0x20u);
+        v25 = identifierCopy;
+        v26 = 2114;
+        v27 = v11;
+        v20 = v19;
+        _os_log_error_impl(&dword_19197B000, v17, OS_LOG_TYPE_ERROR, "[%{public}@]: Error retrieving value for watch app installation from data source for %{public}@: %{public}@", buf, 0x20u);
       }
 
-      v13 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v13 = v9;
+      v14 = v9;
     }
   }
 
   else
   {
-    v13 = MEMORY[0x1E695E110];
+    v14 = MEMORY[0x1E695E110];
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v14;
 }
 
 - (void)unregisterBridgedObserver:(id)observer forKey:(id)key

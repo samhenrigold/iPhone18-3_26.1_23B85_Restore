@@ -108,9 +108,11 @@
 
 uint64_t __28__IMImageStore_defaultStore__block_invoke(uint64_t a1)
 {
-  defaultStore_defaultStore = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = defaultStore_defaultStore;
+  defaultStore_defaultStore = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (IMImageStore)initWithName:(id)name

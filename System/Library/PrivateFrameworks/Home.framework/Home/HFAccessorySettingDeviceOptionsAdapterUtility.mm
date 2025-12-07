@@ -21,7 +21,7 @@
 
 - (HFAccessorySettingDeviceOptionsAdapterUtility)initWithHomeKitSettingsVendor:(id)vendor mode:(unint64_t)mode groupedAccessory:(BOOL)accessory delegate:(id)delegate
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   vendorCopy = vendor;
   delegateCopy = delegate;
   if (mode)
@@ -31,9 +31,9 @@
 
   else
   {
-    v21.receiver = self;
-    v21.super_class = HFAccessorySettingDeviceOptionsAdapterUtility;
-    v12 = [(HFAccessorySettingDeviceOptionsAdapterUtility *)&v21 init];
+    v20.receiver = self;
+    v20.super_class = HFAccessorySettingDeviceOptionsAdapterUtility;
+    v12 = [(HFAccessorySettingDeviceOptionsAdapterUtility *)&v20 init];
     if (v12)
     {
       v13 = vendorCopy;
@@ -58,11 +58,11 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v23 = v12;
-        v24 = 2080;
-        v25 = "[HFAccessorySettingDeviceOptionsAdapterUtility initWithHomeKitSettingsVendor:mode:groupedAccessory:delegate:]";
-        v26 = 2112;
-        v27 = v13;
+        v22 = v12;
+        v23 = 2080;
+        v24 = "[HFAccessorySettingDeviceOptionsAdapterUtility initWithHomeKitSettingsVendor:mode:groupedAccessory:delegate:]";
+        v25 = 2112;
+        v26 = v13;
         _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEFAULT, "%@:%s Instantiated utility class, about to reset rapport client, with media profile container %@", buf, 0x20u);
       }
 
@@ -73,7 +73,6 @@
     selfCopy = self;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -106,81 +105,77 @@
 
 - (id)identifyAccessory
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0x3CuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[HFAccessorySettingDeviceOptionsAdapterUtility identifyAccessory]";
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[HFAccessorySettingDeviceOptionsAdapterUtility identifyAccessory]";
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
   }
 
   v4 = [(HFAccessorySettingDeviceOptionsAdapterUtility *)self _sendRapportMessageToAccessoryWithRequestID:@"com.apple.identify" request:0 options:0];
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)restartAccessory
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0x3CuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[HFAccessorySettingDeviceOptionsAdapterUtility restartAccessory]";
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[HFAccessorySettingDeviceOptionsAdapterUtility restartAccessory]";
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
   }
 
   v4 = [(HFAccessorySettingDeviceOptionsAdapterUtility *)self _sendRapportMessageToAccessoryWithRequestID:@"com.apple.SoundBoard.RebootDeviceRequest" request:0 options:0];
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)restartAccessories
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0x3CuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[HFAccessorySettingDeviceOptionsAdapterUtility restartAccessories]";
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[HFAccessorySettingDeviceOptionsAdapterUtility restartAccessories]";
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
   }
 
   v4 = [(HFAccessorySettingDeviceOptionsAdapterUtility *)self _sendRapportMessageToAccessoriesWithRequestID:@"com.apple.SoundBoard.RebootDeviceRequest" request:0 options:0];
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)resetAccessory
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0x3CuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[HFAccessorySettingDeviceOptionsAdapterUtility resetAccessory]";
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[HFAccessorySettingDeviceOptionsAdapterUtility resetAccessory]";
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
   }
 
   v4 = [(HFAccessorySettingDeviceOptionsAdapterUtility *)self _sendRapportMessageToAccessoryWithRequestID:@"com.apple.SoundBoard.ObliterateRequest" request:0 options:0];
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)requestAirDrop:(id)drop
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dropCopy = drop;
   v5 = HFLogForCategory(0x3CuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = dropCopy;
+    v22 = dropCopy;
     _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Sending AirDrop request for results: %@", buf, 0xCu);
   }
 
@@ -190,15 +185,15 @@
     v7 = +[HFUtilities deviceAirDropIdentifier];
     if ([v7 length])
     {
-      v21[0] = v7;
+      v20[0] = v7;
       v8 = MEMORY[0x277CCABB0];
       date = [MEMORY[0x277CBEAA8] date];
       [date timeIntervalSince1970];
       v10 = [v8 numberWithDouble:?];
-      v20[2] = @"sysdiagnosePath";
-      v21[1] = v10;
-      v21[2] = v6;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
+      v19[2] = @"sysdiagnosePath";
+      v20[1] = v10;
+      v20[2] = v6;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
 
       v12 = [(HFAccessorySettingDeviceOptionsAdapterUtility *)self _sendRapportMessageToAccessoryWithRequestID:@"com.apple.homepod.AirDropFile" request:v11 options:0];
     }
@@ -234,24 +229,21 @@
     v15 = [v14 futureWithError:v7];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)extractWiFiInfo
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0x3CuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[HFAccessorySettingDeviceOptionsAdapterUtility extractWiFiInfo]";
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[HFAccessorySettingDeviceOptionsAdapterUtility extractWiFiInfo]";
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
   }
 
   v4 = [(HFAccessorySettingDeviceOptionsAdapterUtility *)self _sendRapportMessageToAccessoryWithRequestID:@"com.apple.SoundBoard.ExtractWiFiInfo" request:0 options:0];
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -347,41 +339,21 @@ void __68__HFAccessorySettingDeviceOptionsAdapterUtility__setupRapportClient__bl
 
 void __68__HFAccessorySettingDeviceOptionsAdapterUtility__setupRapportClient__block_invoke_291(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x3CuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_debug_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEBUG, "Device Found from Rapport..%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_debug_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEBUG, "Device Found from Rapport..%@", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _updateRapportReachable];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HFAccessorySettingDeviceOptionsAdapterUtility__setupRapportClient__block_invoke_293(uint64_t a1, void *a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = HFLogForCategory(0x3CuLL);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_debug_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEBUG, "Device lost from Rapport..%@", &v7, 0xCu);
-  }
-
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained _updateRapportReachable];
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __68__HFAccessorySettingDeviceOptionsAdapterUtility__setupRapportClient__block_invoke_294(uint64_t a1, void *a2)
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
@@ -390,16 +362,31 @@ void __68__HFAccessorySettingDeviceOptionsAdapterUtility__setupRapportClient__bl
   {
     v6 = 138412290;
     v7 = v3;
-    _os_log_debug_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEBUG, "device changed from Rapport..%@", &v6, 0xCu);
+    _os_log_debug_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEBUG, "Device lost from Rapport..%@", &v6, 0xCu);
+  }
+
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  [WeakRetained _updateRapportReachable];
+}
+
+void __68__HFAccessorySettingDeviceOptionsAdapterUtility__setupRapportClient__block_invoke_294(uint64_t a1, void *a2)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = HFLogForCategory(0x3CuLL);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_debug_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEBUG, "device changed from Rapport..%@", &v5, 0xCu);
   }
 
   [*(a1 + 32) _updateRapportReachable];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HFAccessorySettingDeviceOptionsAdapterUtility__setupRapportClient__block_invoke_296(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -408,9 +395,9 @@ void __68__HFAccessorySettingDeviceOptionsAdapterUtility__setupRapportClient__bl
     v6 = HFLogForCategory(0x3CuLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "RPCompanionLinkClient failed to activate: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v3;
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "RPCompanionLinkClient failed to activate: %@", &v7, 0xCu);
     }
 
     [v5 setRapportClientActivationFailCount:{objc_msgSend(v5, "rapportClientActivationFailCount") + 1}];
@@ -421,13 +408,11 @@ void __68__HFAccessorySettingDeviceOptionsAdapterUtility__setupRapportClient__bl
   {
     [WeakRetained _updateRapportReachable];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetRapportClientWithInvalidation:(BOOL)invalidation
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (invalidation)
   {
     discoveryLink = [(HFAccessorySettingDeviceOptionsAdapterUtility *)self discoveryLink];
@@ -449,20 +434,17 @@ void __68__HFAccessorySettingDeviceOptionsAdapterUtility__setupRapportClient__bl
   [(HFAccessorySettingDeviceOptionsAdapterUtility *)self setDiscoveryLink:0];
   if ([(HFAccessorySettingDeviceOptionsAdapterUtility *)self rapportClientActivationFailCount]> 2)
   {
-    v10 = HFLogForCategory(0x3CuLL);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = HFLogForCategory(0x3CuLL);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 134217984;
-      v13 = 3;
-      _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "RPCompanionLinkClient activation exceeded  (%lu) activation attempts. Seems like a bug in Rapport. Please file a bug.", &v12, 0xCu);
+      v10 = 134217984;
+      v11 = 3;
+      _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "RPCompanionLinkClient activation exceeded  (%lu) activation attempts. Seems like a bug in Rapport. Please file a bug.", &v10, 0xCu);
     }
-
-    v11 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = *MEMORY[0x277D85DE8];
 
     [(HFAccessorySettingDeviceOptionsAdapterUtility *)self _setupRapportClient];
   }
@@ -600,7 +582,7 @@ id __111__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToAcc
 
 - (id)_sendRapportMessageToDevice:(id)device requestID:(id)d request:(id)request options:(id)options
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   dCopy = d;
   requestCopy = request;
@@ -610,9 +592,9 @@ id __111__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToAcc
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v48 = uUID;
-    v49 = 2112;
-    v50 = deviceCopy;
+    v47 = uUID;
+    v48 = 2112;
+    v49 = deviceCopy;
     _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "(Request %@) Preparing to send rapport message to '%@'", buf, 0x16u);
   }
 
@@ -620,31 +602,31 @@ id __111__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToAcc
   [v15 setDestinationDevice:deviceCopy];
   v16 = objc_opt_new();
   mainThreadScheduler = [MEMORY[0x277D2C938] mainThreadScheduler];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __103__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToDevice_requestID_request_options___block_invoke;
-  v43[3] = &unk_277DF32A8;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __103__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToDevice_requestID_request_options___block_invoke;
+  v42[3] = &unk_277DF32A8;
   v18 = v16;
-  v44 = v18;
+  v43 = v18;
   v19 = v15;
-  v45 = v19;
+  v44 = v19;
   v20 = uUID;
-  v46 = v20;
-  v21 = [mainThreadScheduler afterDelay:v43 performBlock:10.0];
+  v45 = v20;
+  v21 = [mainThreadScheduler afterDelay:v42 performBlock:10.0];
 
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __103__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToDevice_requestID_request_options___block_invoke_303;
-  v34[3] = &unk_277DFAE88;
-  v35 = v21;
-  v36 = v20;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __103__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToDevice_requestID_request_options___block_invoke_303;
+  v33[3] = &unk_277DFAE88;
+  v34 = v21;
+  v35 = v20;
   v22 = v18;
-  v37 = v22;
-  v38 = v19;
-  v39 = optionsCopy;
-  v40 = requestCopy;
-  v41 = dCopy;
-  v42 = deviceCopy;
+  v36 = v22;
+  v37 = v19;
+  v38 = optionsCopy;
+  v39 = requestCopy;
+  v40 = dCopy;
+  v41 = deviceCopy;
   v23 = deviceCopy;
   v24 = dCopy;
   v25 = requestCopy;
@@ -652,17 +634,16 @@ id __111__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToAcc
   v27 = v19;
   v28 = v20;
   v29 = v21;
-  [v27 activateWithCompletion:v34];
-  v30 = v42;
+  [v27 activateWithCompletion:v33];
+  v30 = v41;
   v31 = v22;
 
-  v32 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 void __103__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToDevice_requestID_request_options___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) isFinished] & 1) == 0)
   {
     v2 = *(a1 + 32);
@@ -674,18 +655,16 @@ void __103__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToD
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 48);
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(Request %@) Timeout trying to find send!", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(Request %@) Timeout trying to find send!", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __103__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToDevice_requestID_request_options___block_invoke_303(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) cancel];
   if (v3)
@@ -693,11 +672,11 @@ void __103__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToD
     v4 = HFLogForCategory(0x3CuLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 40);
+      v15 = *(a1 + 40);
       *buf = 138412546;
-      v24 = v16;
-      v25 = 2112;
-      v26 = v3;
+      v23 = v15;
+      v24 = 2112;
+      v25 = v3;
       _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "(Request %@) Companion link is invalid; error '%@'", buf, 0x16u);
     }
 
@@ -722,34 +701,32 @@ void __103__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToD
 
     else
     {
-      v21 = @"com.apple.Home.RapportRequest";
+      v20 = @"com.apple.Home.RapportRequest";
       v9 = MEMORY[0x277CCABB0];
       v10 = [MEMORY[0x277CBEAA8] date];
       [v10 timeIntervalSince1970];
       v11 = [v9 numberWithDouble:?];
-      v22 = v11;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      v21 = v11;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
     }
 
     v12 = *(a1 + 56);
     v13 = *(a1 + 80);
     v14 = [*(a1 + 88) identifier];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __103__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToDevice_requestID_request_options___block_invoke_304;
-    v17[3] = &unk_277DFAE60;
-    v18 = *(a1 + 40);
-    v19 = *(a1 + 48);
-    v20 = *(a1 + 56);
-    [v12 sendRequestID:v13 request:v8 destinationID:v14 options:v6 responseHandler:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __103__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToDevice_requestID_request_options___block_invoke_304;
+    v16[3] = &unk_277DFAE60;
+    v17 = *(a1 + 40);
+    v18 = *(a1 + 48);
+    v19 = *(a1 + 56);
+    [v12 sendRequestID:v13 request:v8 destinationID:v14 options:v6 responseHandler:v16];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __103__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToDevice_requestID_request_options___block_invoke_304(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -759,12 +736,12 @@ void __103__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToD
   {
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(a1 + 32);
-      v15 = 138412546;
-      v16 = v14;
-      v17 = 2112;
-      v18 = v9;
-      _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "(Request %@) rapport message send failed with error: %@", &v15, 0x16u);
+      v13 = *(a1 + 32);
+      v14 = 138412546;
+      v15 = v13;
+      v16 = 2112;
+      v17 = v9;
+      _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "(Request %@) rapport message send failed with error: %@", &v14, 0x16u);
     }
 
     [*(a1 + 40) finishWithError:v9];
@@ -775,21 +752,19 @@ void __103__HFAccessorySettingDeviceOptionsAdapterUtility__sendRapportMessageToD
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 32);
-      v15 = 138412802;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v7;
-      v19 = 2112;
-      v20 = v8;
-      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "(Request %@) rapport message sent; response: %@ / options: %@", &v15, 0x20u);
+      v14 = 138412802;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v7;
+      v18 = 2112;
+      v19 = v8;
+      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "(Request %@) rapport message sent; response: %@ / options: %@", &v14, 0x20u);
     }
 
     [*(a1 + 40) finishWithResult:v7];
   }
 
   [*(a1 + 48) invalidate];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HFAccessorySettingDeviceOptionsAdapterUtilityDelegate)delegate

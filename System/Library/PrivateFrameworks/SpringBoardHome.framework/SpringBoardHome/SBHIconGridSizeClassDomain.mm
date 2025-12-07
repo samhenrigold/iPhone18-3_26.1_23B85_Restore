@@ -66,16 +66,20 @@
 
 uint64_t __42__SBHIconGridSizeClassDomain_globalDomain__block_invoke()
 {
-  globalDomain_globalDomain = objc_alloc_init(SBHGlobalIconGridSizeClassDomain);
+  v0 = objc_alloc_init(SBHGlobalIconGridSizeClassDomain);
+  v1 = globalDomain_globalDomain;
+  globalDomain_globalDomain = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __43__SBHIconGridSizeClassDomain_builtInDomain__block_invoke()
 {
-  builtInDomain_builtInDomain = objc_alloc_init(SBHBuiltInIconGridSizeClassDomain);
+  v0 = objc_alloc_init(SBHBuiltInIconGridSizeClassDomain);
+  v1 = builtInDomain_builtInDomain;
+  builtInDomain_builtInDomain = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (SBHIconGridSizeClassDomain)allocWithZone:(_NSZone *)zone
@@ -526,7 +530,7 @@ BOOL __86__SBHIconGridSizeClassDomain_SBHCHSWidgetFamily__iconGridSizeClassForCH
   return v4 & families;
 }
 
-uint64_t __79__SBHIconGridSizeClassDomain_SBHCHSWidgetFamily__filterKnownCHSWidgetFamilies___block_invoke(uint64_t a1, uint64_t a2)
+void *__79__SBHIconGridSizeClassDomain_SBHCHSWidgetFamily__filterKnownCHSWidgetFamilies___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) chsWidgetFamilyForIconGridSizeClass:a2];
   if (result)

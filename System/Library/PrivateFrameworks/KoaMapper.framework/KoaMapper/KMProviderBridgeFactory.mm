@@ -27,7 +27,7 @@
 
 - (id)bridgeForOriginAppId:(id)id languageCode:(id)code
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   idCopy = id;
   codeCopy = code;
   if (!codeCopy)
@@ -38,13 +38,13 @@
       goto LABEL_10;
     }
 
-    v13 = 136315394;
-    v14 = "[KMProviderBridgeFactory bridgeForOriginAppId:languageCode:]";
-    v15 = 2112;
-    v16 = 0;
+    v12 = 136315394;
+    v13 = "[KMProviderBridgeFactory bridgeForOriginAppId:languageCode:]";
+    v14 = 2112;
+    v15 = 0;
     v9 = "%s invalid language code: %@";
 LABEL_15:
-    _os_log_error_impl(&dword_2559DF000, v8, OS_LOG_TYPE_ERROR, v9, &v13, 0x16u);
+    _os_log_error_impl(&dword_2559DF000, v8, OS_LOG_TYPE_ERROR, v9, &v12, 0x16u);
     goto LABEL_10;
   }
 
@@ -65,10 +65,10 @@ LABEL_8:
   v8 = KMLogContextCore;
   if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
   {
-    v13 = 136315394;
-    v14 = "[KMProviderBridgeFactory bridgeForOriginAppId:languageCode:]";
-    v15 = 2112;
-    v16 = idCopy;
+    v12 = 136315394;
+    v13 = "[KMProviderBridgeFactory bridgeForOriginAppId:languageCode:]";
+    v14 = 2112;
+    v15 = idCopy;
     v9 = "%s Unexpected originAppId: %@ for localized single-dataset bridge";
     goto LABEL_15;
   }
@@ -77,14 +77,12 @@ LABEL_10:
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)bridgeForOriginAppId:(id)id
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if ([idCopy isEqual:*MEMORY[0x277D22CC8]])
   {
@@ -132,20 +130,18 @@ LABEL_6:
     goto LABEL_3;
   }
 
-  v10 = KMLogContextCore;
+  v9 = KMLogContextCore;
   if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
   {
-    v11 = 136315394;
-    v12 = "[KMProviderBridgeFactory bridgeForOriginAppId:]";
-    v13 = 2112;
-    v14 = idCopy;
-    _os_log_error_impl(&dword_2559DF000, v10, OS_LOG_TYPE_ERROR, "%s Unexpected originAppId: %@ for unlocalized single-dataset bridge", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[KMProviderBridgeFactory bridgeForOriginAppId:]";
+    v12 = 2112;
+    v13 = idCopy;
+    _os_log_error_impl(&dword_2559DF000, v9, OS_LOG_TYPE_ERROR, "%s Unexpected originAppId: %@ for unlocalized single-dataset bridge", &v10, 0x16u);
   }
 
   v7 = 0;
 LABEL_7:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

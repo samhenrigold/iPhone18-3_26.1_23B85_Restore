@@ -19,7 +19,7 @@
 - (id)staticFunctions
 {
   sub_21B9EB658();
-  sub_21B9BDFC0(0, &qword_27CD9DCC8);
+  sub_21B9BDFC0(0, &qword_27CD9DCC8, off_2782E6E18);
   v2 = sub_21BA87EFC();
 
   return v2;

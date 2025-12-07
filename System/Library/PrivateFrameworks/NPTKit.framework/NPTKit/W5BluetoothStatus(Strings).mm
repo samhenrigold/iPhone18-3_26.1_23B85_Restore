@@ -6,37 +6,37 @@
 
 - (id)dictionary
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   devices = [self devices];
-  v4 = [devices countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v4 = [devices countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
     v8 = 0;
-    v9 = *v28;
+    v9 = *v27;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(devices);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v26 + 1) + 8 * i);
         v8 += [v11 isConnected];
         v6 += [v11 isPaired];
         v7 += [v11 isCloudPaired];
       }
 
-      v5 = [devices countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v5 = [devices countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v5);
@@ -84,8 +84,6 @@
   }
 
   v24 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v2];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

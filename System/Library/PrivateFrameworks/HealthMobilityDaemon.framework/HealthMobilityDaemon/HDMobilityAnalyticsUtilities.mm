@@ -64,16 +64,16 @@
 
 + (id)biologicalSexWithProfile:(id)profile error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCD0D0];
   v7 = *MEMORY[0x277CCBB08];
   profileCopy = profile;
   v9 = [v6 characteristicTypeForIdentifier:v7];
   userCharacteristicsManager = [profileCopy userCharacteristicsManager];
 
-  v19 = 0;
-  v11 = [userCharacteristicsManager userCharacteristicForType:v9 error:&v19];
-  v12 = v19;
+  v18 = 0;
+  v11 = [userCharacteristicsManager userCharacteristicForType:v9 error:&v18];
+  v12 = v18;
 
   if (v11)
   {
@@ -88,8 +88,8 @@
     {
       *buf = 138543618;
       selfCopy = self;
-      v22 = 2114;
-      v23 = v12;
+      v21 = 2114;
+      v22 = v12;
       _os_log_impl(&dword_251962000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Unable to retrieve biological sex, returning not set: %{public}@", buf, 0x16u);
     }
 
@@ -111,29 +111,25 @@
     v13 = &unk_2863D8360;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 + (void)ageWithProfile:(uint64_t)a1 date:(NSObject *)a2 error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_251962000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to convert date of birth to a date", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_251962000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to convert date of birth to a date", &v2, 0xCu);
 }
 
 + (void)ageWithProfile:(uint64_t)a1 date:(uint64_t)a2 error:(os_log_t)log .cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_251962000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to read date of birth with error: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_251962000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to read date of birth with error: %{public}@", &v3, 0x16u);
 }
 
 @end

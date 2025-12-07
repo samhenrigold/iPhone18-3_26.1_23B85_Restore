@@ -15,25 +15,23 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   userUUID = [(HMDBulletinNotificationRegistrationSource *)self userUUID];
   v5 = [v3 initWithName:@"userUUID" value:userUUID];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   deviceAddress = [(HMDBulletinNotificationRegistrationSource *)self deviceAddress];
   v8 = [v6 initWithName:@"deviceAddress" value:deviceAddress];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
 
 - (HMDBulletinNotificationRegistrationSource)initWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMDBNRS.ck.dii"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMDBNRS.ck.did"];
@@ -50,13 +48,13 @@
     }
 
     v14 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v14;
-    v20 = 2112;
-    v21 = 0;
+    v17 = 138543618;
+    v18 = v14;
+    v19 = 2112;
+    v20 = 0;
     v15 = "%{public}@Could not initialize from decoded deviceIdsIdentifier: %@";
 LABEL_11:
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, v15, &v18, 0x16u);
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, v15, &v17, 0x16u);
 
     goto LABEL_12;
   }
@@ -72,10 +70,10 @@ LABEL_11:
     }
 
     v14 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v14;
-    v20 = 2112;
-    v21 = 0;
+    v17 = 138543618;
+    v18 = v14;
+    v19 = 2112;
+    v20 = 0;
     v15 = "%{public}@Could not initialize from decoded deviceIdsDestination: %@";
     goto LABEL_11;
   }
@@ -88,10 +86,10 @@ LABEL_11:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v14;
-      v20 = 2112;
-      v21 = 0;
+      v17 = 138543618;
+      v18 = v14;
+      v19 = 2112;
+      v20 = 0;
       v15 = "%{public}@Could not initialize from decoded userUUID: %@";
       goto LABEL_11;
     }
@@ -109,7 +107,6 @@ LABEL_12:
   v11 = selfCopy3;
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -178,34 +175,32 @@ LABEL_13:
 
 - (id)serializedRegistrationForRemoteMessage
 {
-  v16[4] = *MEMORY[0x277D85DE8];
-  v15[0] = @"HMDBNRS.reg.type";
+  v15[4] = *MEMORY[0x277D85DE8];
+  v14[0] = @"HMDBNRS.reg.type";
   type = [objc_opt_class() type];
-  v16[0] = type;
-  v15[1] = @"HMDBNRS.ck.dii";
+  v15[0] = type;
+  v14[1] = @"HMDBNRS.ck.dii";
   deviceAddress = [(HMDBulletinNotificationRegistrationSource *)self deviceAddress];
   idsIdentifier = [deviceAddress idsIdentifier];
   uUIDString = [idsIdentifier UUIDString];
-  v16[1] = uUIDString;
-  v15[2] = @"HMDBNRS.ck.did";
+  v15[1] = uUIDString;
+  v14[2] = @"HMDBNRS.ck.did";
   deviceAddress2 = [(HMDBulletinNotificationRegistrationSource *)self deviceAddress];
   idsDestination = [deviceAddress2 idsDestination];
-  v16[2] = idsDestination;
-  v15[3] = @"HMDBNRS.ck.uu";
+  v15[2] = idsDestination;
+  v14[3] = @"HMDBNRS.ck.uu";
   userUUID = [(HMDBulletinNotificationRegistrationSource *)self userUUID];
   uUIDString2 = [userUUID UUIDString];
-  v16[3] = uUIDString2;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v15[3] = uUIDString2;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
   v12 = [v11 mutableCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (HMDBulletinNotificationRegistrationSource)initWithDictionary:(id)dictionary
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy objectForKeyedSubscript:@"HMDBNRS.ck.dii"];
   if (!v5)
@@ -227,11 +222,11 @@ LABEL_13:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v20 = HMFGetLogIdentifier();
-        v26 = 138543618;
-        v27 = v20;
-        v28 = 2112;
-        v29 = 0;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded deviceIdsDestination: %@", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v20;
+        v27 = 2112;
+        v28 = 0;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded deviceIdsDestination: %@", &v25, 0x16u);
       }
 
       objc_autoreleasePoolPop(v18);
@@ -260,11 +255,11 @@ LABEL_13:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           v23 = HMFGetLogIdentifier();
-          v26 = 138543618;
-          v27 = v23;
-          v28 = 2112;
-          v29 = 0;
-          _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded userUUID: %@", &v26, 0x16u);
+          v25 = 138543618;
+          v26 = v23;
+          v27 = 2112;
+          v28 = 0;
+          _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded userUUID: %@", &v25, 0x16u);
         }
 
         objc_autoreleasePoolPop(v21);
@@ -285,18 +280,17 @@ LABEL_20:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     v17 = HMFGetLogIdentifier();
-    v26 = 138543618;
-    v27 = v17;
-    v28 = 2112;
-    v29 = 0;
-    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded deviceIdsIdentifier: %@", &v26, 0x16u);
+    v25 = 138543618;
+    v26 = v17;
+    v27 = 2112;
+    v28 = 0;
+    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded deviceIdsIdentifier: %@", &v25, 0x16u);
   }
 
   objc_autoreleasePoolPop(v15);
   v14 = 0;
 LABEL_18:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -332,11 +326,11 @@ LABEL_7:
   v9 = [(HMDBulletinNotificationRegistrationSource *)&v19 init];
   if (v9)
   {
-    v10 = [dCopy copy];
+    v10 = objc_msgSend_copy(dCopy);
     userUUID = v9->_userUUID;
     v9->_userUUID = v10;
 
-    v12 = [v8 copy];
+    v12 = objc_msgSend_copy(v8);
     deviceAddress = v9->_deviceAddress;
     v9->_deviceAddress = v12;
   }

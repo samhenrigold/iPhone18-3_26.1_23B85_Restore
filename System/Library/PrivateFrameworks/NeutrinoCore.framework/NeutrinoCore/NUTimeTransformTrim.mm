@@ -26,7 +26,7 @@
       p_beginTime = &self->_beginTime;
       if (equalCopy)
       {
-        [(NUTimeTransformTrim *)equalCopy beginTime];
+        objc_msgSend_beginTime(equalCopy);
       }
 
       else

@@ -64,18 +64,18 @@
   }
 
   v12 = _Block_copy(handler);
-  v13 = WTF::fastMalloc(0x30);
-  *v13 = &unk_1F10F8828;
-  v13[1] = self;
-  v13[2] = self;
-  v13[3] = redirection;
-  v13[4] = request;
-  v13[5] = v12;
-  v15 = v13;
-  ExceptionTypeFromMainRunLoop = getExceptionTypeFromMainRunLoop(&v15);
-  if (v15)
+  v14 = WTF::fastMalloc(v13, 0x30);
+  *v14 = &unk_1F10F8828;
+  v14[1] = self;
+  v14[2] = self;
+  v14[3] = redirection;
+  v14[4] = request;
+  v14[5] = v12;
+  v17 = v14;
+  ExceptionTypeFromMainRunLoop = getExceptionTypeFromMainRunLoop(&v17, v15);
+  if (v17)
   {
-    (*(*v15 + 8))(v15);
+    (*(*v17 + 8))(v17);
   }
 
   raiseExceptionIfNecessary(ExceptionTypeFromMainRunLoop);
@@ -95,16 +95,16 @@
     responseCopy = response;
   }
 
-  v7 = WTF::fastMalloc(0x20);
-  *v7 = &unk_1F10F8878;
-  v7[1] = self;
-  v7[2] = self;
-  v7[3] = response;
-  v9 = v7;
-  ExceptionTypeFromMainRunLoop = getExceptionTypeFromMainRunLoop(&v9);
-  if (v9)
+  v8 = WTF::fastMalloc(v3, 0x20);
+  *v8 = &unk_1F10F8878;
+  v8[1] = self;
+  v8[2] = self;
+  v8[3] = response;
+  v11 = v8;
+  ExceptionTypeFromMainRunLoop = getExceptionTypeFromMainRunLoop(&v11, v9);
+  if (v11)
   {
-    (*(*v9 + 8))(v9);
+    (*(*v11 + 8))(v11);
   }
 
   raiseExceptionIfNecessary(ExceptionTypeFromMainRunLoop);
@@ -122,16 +122,16 @@
     dataCopy = data;
   }
 
-  v7 = WTF::fastMalloc(0x20);
-  *v7 = &unk_1F10F88A0;
-  v7[1] = self;
-  v7[2] = self;
-  v7[3] = data;
-  v9 = v7;
-  ExceptionTypeFromMainRunLoop = getExceptionTypeFromMainRunLoop(&v9);
-  if (v9)
+  v8 = WTF::fastMalloc(v3, 0x20);
+  *v8 = &unk_1F10F88A0;
+  v8[1] = self;
+  v8[2] = self;
+  v8[3] = data;
+  v11 = v8;
+  ExceptionTypeFromMainRunLoop = getExceptionTypeFromMainRunLoop(&v11, v9);
+  if (v11)
   {
-    (*(*v9 + 8))(v9);
+    (*(*v11 + 8))(v11);
   }
 
   raiseExceptionIfNecessary(ExceptionTypeFromMainRunLoop);
@@ -161,16 +161,16 @@
     errorCopy = error;
   }
 
-  v6 = WTF::fastMalloc(0x20);
-  *v6 = &unk_1F10F88F0;
-  v6[1] = self;
-  v6[2] = self;
-  v6[3] = error;
-  v9 = v6;
-  ExceptionTypeFromMainRunLoop = getExceptionTypeFromMainRunLoop(&v9);
-  if (v9)
+  v7 = WTF::fastMalloc(v3, 0x20);
+  *v7 = &unk_1F10F88F0;
+  v7[1] = self;
+  v7[2] = self;
+  v7[3] = error;
+  v11 = v7;
+  ExceptionTypeFromMainRunLoop = getExceptionTypeFromMainRunLoop(&v11, v8);
+  if (v11)
   {
-    (*(*v9 + 8))(v9);
+    (*(*v11 + 8))(v11);
   }
 
   raiseExceptionIfNecessary(ExceptionTypeFromMainRunLoop);
@@ -193,17 +193,17 @@
     requestCopy = request;
   }
 
-  v10 = WTF::fastMalloc(0x28);
-  *v10 = &unk_1F10F8918;
-  v10[1] = self;
-  v10[2] = self;
-  v10[3] = redirection;
-  v10[4] = request;
-  v12 = v10;
-  ExceptionTypeFromMainRunLoop = getExceptionTypeFromMainRunLoop(&v12);
-  if (v12)
+  v11 = WTF::fastMalloc(v4, 0x28);
+  *v11 = &unk_1F10F8918;
+  v11[1] = self;
+  v11[2] = self;
+  v11[3] = redirection;
+  v11[4] = request;
+  v14 = v11;
+  ExceptionTypeFromMainRunLoop = getExceptionTypeFromMainRunLoop(&v14, v12);
+  if (v14)
   {
-    (*(*v12 + 8))(v12);
+    (*(*v14 + 8))(v14);
   }
 
   raiseExceptionIfNecessary(ExceptionTypeFromMainRunLoop);
@@ -231,41 +231,41 @@
 - (uint64_t)_willPerformRedirection:(uint64_t)redirection newRequest:completionHandler:
 {
   v2 = *(redirection + 16);
-  WebCore::ResourceResponse::ResourceResponse(v12, *(redirection + 24));
-  MEMORY[0x19EB06210](v11, *(redirection + 32));
+  WebCore::ResourceResponse::ResourceResponse(v13, *(redirection + 24));
+  MEMORY[0x19EB06210](v12, *(redirection + 32));
   v3 = *(redirection + 40);
   *(redirection + 40) = 0;
-  v4 = WTF::fastMalloc(0x10);
-  *v4 = &unk_1F10F8850;
-  v4[1] = v3;
-  v10 = v4;
-  v5 = WebKit::WebURLSchemeTask::willPerformRedirection(v2 + 8, v12, v11, &v10);
-  v6 = v10;
-  v10 = 0;
-  if (v6)
+  v5 = WTF::fastMalloc(v4, 0x10);
+  *v5 = &unk_1F10F8850;
+  v5[1] = v3;
+  v11 = v5;
+  v6 = WebKit::WebURLSchemeTask::willPerformRedirection(v2 + 8, v13, v12, &v11);
+  v7 = v11;
+  v11 = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
-  WebCore::ResourceRequest::~ResourceRequest(v11);
-  v8 = v13;
-  v13 = 0;
-  if (v8)
+  WebCore::ResourceRequest::~ResourceRequest(v12);
+  v9 = v14;
+  v14 = 0;
+  if (v9)
   {
   }
 
-  WebCore::ResourceResponseBase::~ResourceResponseBase(v12, v7);
-  return v5;
+  WebCore::ResourceResponseBase::~ResourceResponseBase(v13, v8);
+  return v6;
 }
 
 - (uint64_t)_willPerformRedirection:newRequest:completionHandler:
 {
-  v1 = *(self + 8);
-  v2 = WebCore::ResourceRequest::nsURLRequest();
-  v3 = *(v1 + 16);
+  v2 = *(self + 8);
+  v3 = WebCore::ResourceRequest::nsURLRequest();
+  v4 = *(v2 + 16);
 
-  return v3(v1, v2);
+  return v4(v2, v3);
 }
 
 - (void)didReceiveResponse:(void *)response

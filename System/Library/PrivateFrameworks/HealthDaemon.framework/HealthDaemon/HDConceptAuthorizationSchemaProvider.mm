@@ -635,7 +635,7 @@ BOOL __121__HDConceptAuthorizationSchemaProvider_setObjectAuthorizationStatusCon
 
 + (BOOL)_createRecordsAndInsertByLookingUpUDCs:(id)cs sourceUUID:(id)d profile:(id)profile transaction:(id)transaction errorOut:(id *)out
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   csCopy = cs;
   dCopy = d;
   profileCopy = profile;
@@ -643,28 +643,28 @@ BOOL __121__HDConceptAuthorizationSchemaProvider_setObjectAuthorizationStatusCon
   v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
   selfCopy = self;
   outCopy = out;
-  v37 = [self _allUserDomainConceptsThatSupportUserAnnotatedMedicationDerivation:profileCopy transaction:transactionCopy errorOut:out];
+  v36 = [self _allUserDomainConceptsThatSupportUserAnnotatedMedicationDerivation:profileCopy transaction:transactionCopy errorOut:out];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v16 = csCopy;
-  v36 = [v16 countByEnumeratingWithState:&v39 objects:v43 count:16];
-  if (v36)
+  v35 = [v16 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  if (v35)
   {
-    v35 = *v40;
-    v30 = transactionCopy;
-    v31 = profileCopy;
+    v34 = *v39;
+    v29 = transactionCopy;
+    v30 = profileCopy;
     while (2)
     {
-      for (i = 0; i != v36; ++i)
+      for (i = 0; i != v35; ++i)
       {
-        if (*v40 != v35)
+        if (*v39 != v34)
         {
           objc_enumerationMutation(v16);
         }
 
-        v18 = *(*(&v39 + 1) + 8 * i);
+        v18 = *(*(&v38 + 1) + 8 * i);
         v19 = [v16 objectForKey:v18];
         v20 = v19;
         if (v19)
@@ -676,8 +676,8 @@ BOOL __121__HDConceptAuthorizationSchemaProvider_setObjectAuthorizationStatusCon
 
 LABEL_17:
             v27 = 0;
-            transactionCopy = v30;
-            profileCopy = v31;
+            transactionCopy = v29;
+            profileCopy = v30;
             goto LABEL_18;
           }
         }
@@ -687,12 +687,12 @@ LABEL_17:
           longLongValue = 1;
         }
 
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __119__HDConceptAuthorizationSchemaProvider__createRecordsAndInsertByLookingUpUDCs_sourceUUID_profile_transaction_errorOut___block_invoke;
-        v38[3] = &unk_278627390;
-        v38[4] = v18;
-        v22 = [v37 hk_firstObjectPassingTest:v38];
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __119__HDConceptAuthorizationSchemaProvider__createRecordsAndInsertByLookingUpUDCs_sourceUUID_profile_transaction_errorOut___block_invoke;
+        v37[3] = &unk_278627390;
+        v37[4] = v18;
+        v22 = [v36 hk_firstObjectPassingTest:v37];
         if (v22)
         {
           v23 = objc_alloc(MEMORY[0x277CCD1C8]);
@@ -714,10 +714,10 @@ LABEL_17:
         }
       }
 
-      transactionCopy = v30;
-      profileCopy = v31;
-      v36 = [v16 countByEnumeratingWithState:&v39 objects:v43 count:16];
-      if (v36)
+      transactionCopy = v29;
+      profileCopy = v30;
+      v35 = [v16 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      if (v35)
       {
         continue;
       }
@@ -729,7 +729,6 @@ LABEL_17:
   v27 = [HDConceptAuthorizationEntity insertConceptAuthorizationRecords:v15 transaction:transactionCopy profile:profileCopy error:outCopy];
 LABEL_18:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

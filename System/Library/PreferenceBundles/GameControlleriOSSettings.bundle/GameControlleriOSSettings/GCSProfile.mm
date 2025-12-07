@@ -103,7 +103,7 @@
 - (GCSProfile)initWithName:(id)name sfSymbolsName:(id)symbolsName customizable:(BOOL)customizable uuid:(id)uuid
 {
   customizableCopy = customizable;
-  v8 = sub_DC40(&qword_117558);
+  v8 = sub_DC40(&qword_117558, &unk_E2640);
   __chkstk_darwin(v8 - 8);
   v10 = &v20 - v9;
   v11 = sub_D7C18();

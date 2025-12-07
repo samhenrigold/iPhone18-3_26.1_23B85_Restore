@@ -87,30 +87,30 @@ void __43__ATXDigitalHealthBlacklist_sharedInstance__block_invoke()
 
 - (void)deviceManagementPolicyDidChange:(id)change
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = objc_opt_new();
   v6 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = changeCopy;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         deviceManagementPolicy = [v12 deviceManagementPolicy];
         bundleIdentifier = [v12 bundleIdentifier];
         if (deviceManagementPolicy)
@@ -126,7 +126,7 @@ void __43__ATXDigitalHealthBlacklist_sharedInstance__block_invoke()
         [v15 addObject:bundleIdentifier];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
@@ -137,8 +137,6 @@ void __43__ATXDigitalHealthBlacklist_sharedInstance__block_invoke()
     ATXUpdatePredictionsImmediatelyWithReason(14);
     [MEMORY[0x277D42070] refreshBlendingLayerWithReason:@"Device management policy did change"];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_updateBlacklistWithNewBlacklistedBundleIds:(id)ids whitelistedBundleIds:(id)bundleIds

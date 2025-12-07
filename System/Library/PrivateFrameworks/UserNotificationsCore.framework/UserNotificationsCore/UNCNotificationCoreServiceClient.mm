@@ -12,6 +12,8 @@
 - (void)removeNotificationRecordsWithNonPushTriggerForBundleIdentifier:(id)identifier;
 - (void)removeSimilarNotificationRecords:(id)records forBundleIdentifier:(id)identifier;
 - (void)removeStoreForBundleIdentifier:(id)identifier;
+- (void)saveNotificationRecord:(id)record targetRevisionNumber:(id)number shouldRepost:(BOOL)repost forBundleIdentifier:(id)identifier completionHandler:(id)handler;
+- (void)saveNotificationRequest:(id)request shouldRepost:(BOOL)repost apsMessageTimestamp:(id)timestamp forBundleIdentifier:(id)identifier;
 - (void)setBadgeCount:(int64_t)count forBundleIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)setBadgeNumber:(id)number forBundleIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)setBadgeString:(id)string forBundleIdentifier:(id)identifier completionHandler:(id)handler;
@@ -102,6 +104,109 @@
 LABEL_9:
 
   return v9;
+}
+
+- (void)saveNotificationRecord:(id)record targetRevisionNumber:(id)number shouldRepost:(BOOL)repost forBundleIdentifier:(id)identifier completionHandler:(id)handler
+{
+  repostCopy = repost;
+  recordCopy = record;
+  numberCopy = number;
+  identifierCopy = identifier;
+  handlerCopy = handler;
+  if (!recordCopy)
+  {
+    v16 = *MEMORY[0x1E6983358];
+    if (os_log_type_enabled(*MEMORY[0x1E6983358], OS_LOG_TYPE_ERROR))
+    {
+      [UNCNotificationCoreServiceClient saveNotificationRecord:v16 targetRevisionNumber:? shouldRepost:? forBundleIdentifier:? completionHandler:?];
+      if (!handlerCopy)
+      {
+        goto LABEL_11;
+      }
+    }
+
+    else if (!handlerCopy)
+    {
+      goto LABEL_11;
+    }
+
+    v17 = @"notificationRecord";
+LABEL_10:
+    v19 = _UNCNilArgumentError("[UNCNotificationCoreServiceClient saveNotificationRecord:targetRevisionNumber:shouldRepost:forBundleIdentifier:completionHandler:]", v17);
+    handlerCopy[2](handlerCopy, 0, v19);
+
+    goto LABEL_11;
+  }
+
+  if (!identifierCopy)
+  {
+    v18 = *MEMORY[0x1E6983358];
+    if (os_log_type_enabled(*MEMORY[0x1E6983358], OS_LOG_TYPE_ERROR))
+    {
+      [UNCNotificationCoreServiceClient saveNotificationRecord:v18 targetRevisionNumber:? shouldRepost:? forBundleIdentifier:? completionHandler:?];
+      if (!handlerCopy)
+      {
+        goto LABEL_11;
+      }
+    }
+
+    else if (!handlerCopy)
+    {
+      goto LABEL_11;
+    }
+
+    v17 = @"bundleIdentifier";
+    goto LABEL_10;
+  }
+
+  [(UNCNotificationCoreServiceClientImpl *)self->_client save:recordCopy targetRevisionNumber:numberCopy shouldRepost:repostCopy forBundleIdentifier:identifierCopy completionHandler:handlerCopy];
+LABEL_11:
+}
+
+- (void)saveNotificationRequest:(id)request shouldRepost:(BOOL)repost apsMessageTimestamp:(id)timestamp forBundleIdentifier:(id)identifier
+{
+  repostCopy = repost;
+  requestCopy = request;
+  timestampCopy = timestamp;
+  identifierCopy = identifier;
+  v13 = identifierCopy;
+  if (requestCopy)
+  {
+    if (timestampCopy)
+    {
+      if (identifierCopy)
+      {
+        [(UNCNotificationCoreServiceClientImpl *)self->_client save:requestCopy shouldRepost:repostCopy apsMessageTimestamp:timestampCopy forBundleIdentifier:identifierCopy];
+      }
+
+      else
+      {
+        v16 = *MEMORY[0x1E6983358];
+        if (os_log_type_enabled(*MEMORY[0x1E6983358], OS_LOG_TYPE_ERROR))
+        {
+          [UNCNotificationCoreServiceClient saveNotificationRequest:v16 shouldRepost:? apsMessageTimestamp:? forBundleIdentifier:?];
+        }
+      }
+    }
+
+    else
+    {
+      v15 = *MEMORY[0x1E6983358];
+      if (os_log_type_enabled(*MEMORY[0x1E6983358], OS_LOG_TYPE_ERROR))
+      {
+        [UNCNotificationCoreServiceClient saveNotificationRequest:v15 shouldRepost:? apsMessageTimestamp:? forBundleIdentifier:?];
+      }
+    }
+  }
+
+  else
+  {
+    v14 = *MEMORY[0x1E6983358];
+    if (os_log_type_enabled(*MEMORY[0x1E6983358], OS_LOG_TYPE_ERROR))
+    {
+      [UNCNotificationCoreServiceClient saveNotificationRequest:v14 shouldRepost:? apsMessageTimestamp:? forBundleIdentifier:?];
+    }
+  }
 }
 
 - (void)removeNotificationRecordsForIdentifiers:(id)identifiers bundleIdentifier:(id)identifier
@@ -448,277 +553,202 @@ LABEL_9:
 
 - (void)notificationRecordsForBundleIdentifier:(void *)a1 .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient notificationRecordsForBundleIdentifier:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)notificationRecordForIdentifier:(void *)a1 bundleIdentifier:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient notificationRecordForIdentifier:bundleIdentifier:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)notificationRecordForIdentifier:(void *)a1 bundleIdentifier:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient notificationRecordForIdentifier:bundleIdentifier:]", @"identifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)saveNotificationRecord:(void *)a1 targetRevisionNumber:shouldRepost:forBundleIdentifier:completionHandler:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient saveNotificationRecord:targetRevisionNumber:shouldRepost:forBundleIdentifier:completionHandler:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)saveNotificationRecord:(void *)a1 targetRevisionNumber:shouldRepost:forBundleIdentifier:completionHandler:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient saveNotificationRecord:targetRevisionNumber:shouldRepost:forBundleIdentifier:completionHandler:]", @"notificationRecord");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)saveNotificationRequest:(void *)a1 shouldRepost:apsMessageTimestamp:forBundleIdentifier:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient saveNotificationRequest:shouldRepost:apsMessageTimestamp:forBundleIdentifier:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)saveNotificationRequest:(void *)a1 shouldRepost:apsMessageTimestamp:forBundleIdentifier:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient saveNotificationRequest:shouldRepost:apsMessageTimestamp:forBundleIdentifier:]", @"apsMessageTimestamp");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)saveNotificationRequest:(void *)a1 shouldRepost:apsMessageTimestamp:forBundleIdentifier:.cold.3(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient saveNotificationRequest:shouldRepost:apsMessageTimestamp:forBundleIdentifier:]", @"notificationRequest");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)removeNotificationRecordsForIdentifiers:(void *)a1 bundleIdentifier:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient removeNotificationRecordsForIdentifiers:bundleIdentifier:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)removeNotificationRecordsForIdentifiers:(void *)a1 bundleIdentifier:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient removeNotificationRecordsForIdentifiers:bundleIdentifier:]", @"identifiers");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)removeSimilarNotificationRecords:(void *)a1 forBundleIdentifier:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient removeSimilarNotificationRecords:forBundleIdentifier:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)removeSimilarNotificationRecords:(void *)a1 forBundleIdentifier:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient removeSimilarNotificationRecords:forBundleIdentifier:]", @"records");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)removeNotificationRecordsWithNonPushTriggerForBundleIdentifier:(void *)a1 .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient removeNotificationRecordsWithNonPushTriggerForBundleIdentifier:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)removeInvalidNotificationRecordsForBundleIdentifier:(void *)a1 .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient removeInvalidNotificationRecordsForBundleIdentifier:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)removeAllNotificationRecordsForBundleIdentifier:(void *)a1 .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient removeAllNotificationRecordsForBundleIdentifier:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)removeStoreForBundleIdentifier:(void *)a1 .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient removeStoreForBundleIdentifier:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)badgeNumberForBundleIdentifier:(void *)a1 .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient badgeNumberForBundleIdentifier:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)setBadgeNumber:(void *)a1 forBundleIdentifier:completionHandler:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient setBadgeNumber:forBundleIdentifier:completionHandler:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)setBadgeCount:(void *)a1 forBundleIdentifier:completionHandler:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient setBadgeCount:forBundleIdentifier:completionHandler:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)setBadgeString:(void *)a1 forBundleIdentifier:completionHandler:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient setBadgeString:forBundleIdentifier:completionHandler:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)categoryForIdentifier:(void *)a1 bundleIdentifier:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient categoryForIdentifier:bundleIdentifier:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)categoryForIdentifier:(void *)a1 bundleIdentifier:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient categoryForIdentifier:bundleIdentifier:]", @"categoryIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)categoriesForBundleIdentifier:(void *)a1 .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient categoriesForBundleIdentifier:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)setCategories:(void *)a1 forBundleIdentifier:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient setCategories:forBundleIdentifier:]", @"bundleIdentifier");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 - (void)setCategories:(void *)a1 forBundleIdentifier:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = _UNCNilArgumentErrorDescription("[UNCNotificationCoreServiceClient setCategories:forBundleIdentifier:]", @"categories");
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1DA7A9000, v3, v4, "%@", v5, v6, v7, v8);
 }
 
 @end

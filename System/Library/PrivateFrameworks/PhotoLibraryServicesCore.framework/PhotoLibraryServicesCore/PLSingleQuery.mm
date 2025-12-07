@@ -554,11 +554,11 @@ LABEL_26:
   return v23;
 }
 
-uint64_t __42__PLSingleQuery_Utilities__logDescription__block_invoke(uint64_t result)
+id *__42__PLSingleQuery_Utilities__logDescription__block_invoke(id *result)
 {
-  if (*(*(*(result + 40) + 8) + 24) == 1)
+  if (*(*(result[5] + 1) + 24) == 1)
   {
-    return [*(result + 32) appendFormat:@", "];
+    return [result[4] appendFormat:@", "];
   }
 
   return result;

@@ -1,4 +1,4 @@
-BOOL anonymous namespace::rotateSegmentHAroundM(void *a1, int a2, void *a3, Vec2f *a4, int a5, float a6)
+BOOL anonymous namespace::rotateSegmentHAroundM(void *a1, unsigned int a2, void *a3, Vec2f *a4, int a5, float a6)
 {
   if (a5 < 1)
   {
@@ -65,10 +65,10 @@ void OMKeyer2D::computeSatOffsetVector(OMKeyer2D *this)
   v2 = (*(*this + 96))(this);
   OMPie::computeArc(v2, v3, v4);
   v5 = (*(*this + 96))(this);
-  OMPie::getArcOut(v5, 0.5, &v8);
-  v6 = sqrtf((v8.f32[0] * v8.f32[0]) + (v8.f32[1] * v8.f32[1]));
-  v7 = v8.f32[1] / v6;
-  *(this + 14) = v8.f32[0] / v6;
+  OMPie::getArcOut(&v8, v5, 0.5);
+  v6 = sqrtf((*&v8 * *&v8) + (*(&v8 + 1) * *(&v8 + 1)));
+  v7 = *(&v8 + 1) / v6;
+  *(this + 14) = *&v8 / v6;
   *(this + 15) = v7;
 }
 
@@ -189,7 +189,7 @@ uint64_t OMKeyer2D::setSoftBasedOnHisto(OMKeyer2D *this, float a2)
   return result;
 }
 
-void OMKeyer2D::computeCH(float32x2_t *a1, uint64_t *a2, void *a3, float *a4, _DWORD *a5, _DWORD *a6, float *a7, _DWORD *a8, __n128 a9)
+void OMKeyer2D::computeCH(float32x2_t *a1, uint64_t *a2, float32x2_t **a3, float *a4, _DWORD *a5, _DWORD *a6, float *a7, _DWORD *a8, __n128 a9)
 {
   v10 = *a2;
   v9 = a2[1];
@@ -318,7 +318,7 @@ void OMKeyer2D::computeCH(float32x2_t *a1, uint64_t *a2, void *a3, float *a4, _D
     {
       v35 = a4[1];
       v36 = v33;
-      v37 = (*a3 + 4);
+      v37 = *a3 + 1;
       do
       {
         v34 = *(v37 - 1) + v34;
@@ -375,7 +375,7 @@ uint64_t OMKeyer2D::adjustToRestriction(OMKeyer2D *this)
   return OMPie::offsetSegmentIfNeeded(v6, v7, 0.001);
 }
 
-void OMKeyer2D::computeModel(OMKeyer2D *this, int a2, float a3, int a4, OMSamples *a5, float a6, float a7, float a8, BOOL a9, int a10)
+void OMKeyer2D::computeModel(float32x2_t *this, int a2, float a3, int a4, OMSamples *a5, float a6, float a7, float a8, BOOL a9, int a10)
 {
   if (*(a5 + 8) == 1)
   {
@@ -456,7 +456,7 @@ void OMKeyer2D::computeModel(OMKeyer2D *this, int a2, float a3, int a4, OMSample
     v31 = (*(*this + 16))(this);
     LODWORD(v32) = -1.0;
     v33.n128_u32[0] = 1.0;
-    OMSpline::computeLinearArray(v31, this + 9, v32, v33, -1.0, 1.0, 1.0);
+    OMSpline::computeLinearArray(v31, &this[9], v32, v33, -1.0, 1.0, 1.0);
     OMKeyer2D::tolAdd(this, Description, Serializer, 0, 0, 0, 0);
   }
 
@@ -542,7 +542,7 @@ void OMKeyer2D::computeModel(OMKeyer2D *this, int a2, float a3, int a4, OMSample
 
         else
         {
-          inv(&v77, v76);
+          inv(v76, &v77);
           v54 = *(v41 + 76);
           if (*(v41 + 84))
           {
@@ -663,7 +663,7 @@ void OMKeyer2D::adjustSoft(float32x2_t *a1, uint64_t *a2)
     v4 = (*(*a1 + 96))(a1);
     v5 = *(v4 + 5);
     OMPie::computeArc(v4, v6, v7);
-    OMPie::getArcOut(v4, 0.5, &v41);
+    OMPie::getArcOut(&v41, v4, 0.5);
     v9 = v5[1];
     v8 = v5 + 1;
     v10.n128_u64[0] = vmul_f32(vadd_f32(v9, v41), 0x3F0000003F000000);
@@ -791,14 +791,14 @@ void sub_25FF20B90(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-float32x2_t OMKeyer2D::getTolCenterCbCr@<D0>(OMKeyer2D *this@<X0>, float32x2_t *a2@<X8>)
+float32x2_t OMKeyer2D::getTolCenterCbCr@<D0>(uint64_t *__return_ptr a1@<X8>, OMKeyer2D *this@<X0>)
 {
   v3 = (*(*this + 96))(this);
   OMPie::computeArc(v3, v4, v5);
-  OMPie::getArcIn(v3, 0.5, &v8);
-  OMPie::getArcOut(v3, 0.5, &v7);
+  OMPie::getArcIn(&v8, v3, 0.5);
+  OMPie::getArcOut(&v7, v3, 0.5);
   result = vmul_f32(vadd_f32(v8, v7), 0x3F0000003F000000);
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
@@ -806,26 +806,26 @@ void OMKeyer2D::getSpillSuppressTransf(uint64_t a1, uint64_t a2, uint64_t a3, ui
 {
   v23 = (*(*a1 + 96))(a1);
   OMPie::computeArc(v23, v24, v25);
-  OMPie::getArcIn(v23, 0.5, &v28);
-  OMPie::getArcOut(v23, 0.5, &v27);
+  OMPie::getArcIn(&v28, v23, 0.5);
+  OMPie::getArcOut(&v27, v23, 0.5);
   v29 = vmul_f32(vadd_f32(v28, v27), 0x3F0000003F000000);
-  OMKeyer2D::getSpillSuppressTransf(&v29, a2, a3, a4, a5, a6, a7, v26, a8, a9, a10, a11, a12);
+  OMKeyer2D::getSpillSuppressTransf(&v29, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, v26);
 }
 
-void OMKeyer2D::getSpillSuppressTransf(float *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float a9, float a10, float a11, float a12, float a13)
+void OMKeyer2D::getSpillSuppressTransf(float *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, float a8, float a9, float a10, float a11, float a12, uint64_t a13)
 {
   v20 = *a1;
   v21 = a1[1];
   if (a7)
   {
-    OMColorUtil::getRec2020to709Matrix(a2, a3, a4, a5, a6, a7, a8, v76);
+    OMColorUtil::getRec2020to709Matrix(a2, a3, a4, a5, a6, a7, a13, v76);
     {
       OMColorUtil::getRGBToYCbCrMatrix(0, v35, v36, v37, v38, v39, v40, v41, v75);
       Mat4f::operator*(v75[0].f32, v76, OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::matrixTunedForRec2020);
     }
 
     {
-      inv(OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::matrixTunedForRec2020, OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::inversematrixTunedForRec2020);
+      inv(OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::inversematrixTunedForRec2020, OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::matrixTunedForRec2020);
     }
 
     Mat4f::operator=(v78, OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::matrixTunedForRec2020);
@@ -837,15 +837,15 @@ void OMKeyer2D::getSpillSuppressTransf(float *a1, uint64_t a2, uint64_t a3, uint
     {
       v42 = a6;
       {
-        OMColorUtil::getRGBToYCbCrMatrix(v42, v43, v44, v45, v46, v47, v48, v49, &OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::matrixNormal);
+        OMColorUtil::getRGBToYCbCrMatrix(v42, v43, v44, v45, v46, v47, v48, v49, OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::matrixNormal);
       }
     }
 
     {
-      inv(&OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::matrixNormal, OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::inverseMatrixNormal);
+      inv(OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::inverseMatrixNormal, OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::matrixNormal);
     }
 
-    Mat4f::operator=(v78, &OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::matrixNormal);
+    Mat4f::operator=(v78, OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::matrixNormal);
     v22 = OMKeyer2D::getSpillSuppressTransf(Vec2f const&,float,Vec3f const&,float,float,float,Mat4f &,Mat4f &,Mat4f &,float,OMColorPrimaries,BOOL)::inverseMatrixNormal;
   }
 
@@ -863,7 +863,7 @@ void OMKeyer2D::getSpillSuppressTransf(float *a1, uint64_t a2, uint64_t a3, uint
   }
 
   v26 = v23 * 0.4;
-  v27 = (a9 / (v26 + a9)) + a12;
+  v27 = (a8 / (v26 + a8)) + a11;
   v75[0].i64[0] = *a2;
   v75[0].i32[2] = *(a2 + 8);
   v75[0].i32[3] = 1065353216;
@@ -878,16 +878,16 @@ void OMKeyer2D::getSpillSuppressTransf(float *a1, uint64_t a2, uint64_t a3, uint
   Mat4f::MakeHRot(v66, &v65, v29);
   Mat4f::operator*(v77, v66, v67);
   *v63.var0 = 0;
-  v63.var0[2] = a9;
+  v63.var0[2] = a8;
   Mat4f::MakeHTrans(v64, &v63);
   Mat4f::operator*(v67[0].f32, v64, v68);
   v61.var0[0] = 1.0;
-  v61.var0[1] = a13;
+  v61.var0[1] = a12;
   v61.var0[2] = v27;
   Mat4f::MakeHScale(v62, &v61);
   Mat4f::operator*(v68[0].f32, v62, v69);
   *v59.var0 = 0;
-  v59.var0[2] = -a9;
+  v59.var0[2] = -a8;
   Mat4f::MakeHTrans(v60, &v59);
   Mat4f::operator*(v69[0].f32, v60, v70);
   *v57.var0 = 1065353216;
@@ -898,7 +898,7 @@ void OMKeyer2D::getSpillSuppressTransf(float *a1, uint64_t a2, uint64_t a3, uint
   *&v55.var0[1] = v50;
   Mat4f::MakeHTrans(v56, &v55);
   Mat4f::operator*(v71[0].f32, v56, v72);
-  OMColorUtil::Level4f(v32, a10, a11, v54);
+  OMColorUtil::Level4f(v54, v32, a9, a10);
   Mat4f::operator*(v72[0].f32, v54, v75);
   Mat4f::operator*(v75[0].f32, v78, v76);
   Mat4f::operator=(a4, v76);
@@ -907,7 +907,7 @@ void OMKeyer2D::getSpillSuppressTransf(float *a1, uint64_t a2, uint64_t a3, uint
   Mat4f::MakeHRot(v66, &v65, v29);
   Mat4f::operator*(v77, v66, v67);
   *v63.var0 = 0;
-  v63.var0[2] = a9;
+  v63.var0[2] = a8;
   Mat4f::MakeHTrans(v64, &v63);
   Mat4f::operator*(v67[0].f32, v64, v68);
   v33 = sqrtf((*a1 * *a1) + (a1[1] * a1[1])) * 0.5;
@@ -916,7 +916,7 @@ void OMKeyer2D::getSpillSuppressTransf(float *a1, uint64_t a2, uint64_t a3, uint
   Mat4f::MakeHTrans(v62, &v61);
   Mat4f::operator*(v68[0].f32, v62, v69);
   *v59.var0 = 0;
-  v59.var0[2] = -a9;
+  v59.var0[2] = -a8;
   Mat4f::MakeHTrans(v60, &v59);
   Mat4f::operator*(v69[0].f32, v60, v70);
   *v57.var0 = 1065353216;
@@ -927,12 +927,12 @@ void OMKeyer2D::getSpillSuppressTransf(float *a1, uint64_t a2, uint64_t a3, uint
   *&v55.var0[1] = v50;
   Mat4f::MakeHTrans(v56, &v55);
   Mat4f::operator*(v71[0].f32, v56, v72);
-  OMColorUtil::Level4f(v34, a10, a11, v54);
+  OMColorUtil::Level4f(v54, v34, a9, a10);
   Mat4f::operator*(v72[0].f32, v54, v75);
   Mat4f::operator*(v75[0].f32, v78, v76);
   Mat4f::operator=(a5, v76);
   v70[0].i64[0] = 0;
-  v70[0].f32[2] = -a9;
+  v70[0].f32[2] = -a8;
   Mat4f::MakeHTrans(v72, v70);
   v69[0].i64[0] = 1065353216;
   v69[0].i32[2] = 0;
@@ -942,7 +942,7 @@ void OMKeyer2D::getSpillSuppressTransf(float *a1, uint64_t a2, uint64_t a3, uint
   Mat4f::operator=(a3, v76);
 }
 
-void OMKeyer2D::computeCostPie(int a1, uint64_t *a2, float32x2_t *a3, float32x2_t *a4, float32x2_t *a5, Vec2f *a6, Vec2f *a7, OMPie *this, __n128 a9, double a10, __n128 a11, OMPie *a12, void *a13, int a14)
+void OMKeyer2D::computeCostPie(int a1, uint64_t a2, float32x2_t *a3, float32x2_t *a4, float32x2_t *a5, Vec2f *a6, Vec2f *a7, OMPie *this, __n128 a9, double a10, __n128 a11, OMPie *a12, void *a13, int a14)
 {
   a11.n128_u64[0] = 0;
   do
@@ -1008,10 +1008,10 @@ void sub_25FF2158C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_DWORD *std::vector<OMCostPie>::push_back[abi:ne200100](uint64_t *a1, _DWORD *a2)
+_DWORD *std::vector<OMCostPie>::push_back[abi:ne200100](uint64_t a1, _DWORD *a2)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
   {
     result = std::vector<OMCostPie>::__emplace_back_slow_path<OMCostPie>(a1, a2);
   }
@@ -1022,11 +1022,11 @@ _DWORD *std::vector<OMCostPie>::push_back[abi:ne200100](uint64_t *a1, _DWORD *a2
     result = (v3 + 44);
   }
 
-  a1[1] = result;
+  *(a1 + 8) = result;
   return result;
 }
 
-void OMKeyer2D::computeCostPieAsQuad(int a1, uint64_t *a2, uint64_t a3, OMPie *this, uint64_t *a5)
+void OMKeyer2D::computeCostPieAsQuad(int a1, uint64_t a2, uint64_t a3, OMPie *this, uint64_t *a5)
 {
   if (!OMPie::isQuadActive(this))
   {
@@ -1095,7 +1095,7 @@ void OMKeyer2D::computeCostPieAsQuad(int a1, uint64_t *a2, uint64_t a3, OMPie *t
 
   a5[1] = v15;
   v86[0] = 0;
-  std::vector<int>::vector[abi:ne200100](v91, 0x168uLL);
+  std::vector<int>::vector[abi:ne200100](v91, 0x168uLL, v86);
   v16 = *a5;
   v17 = a5[1] - *a5;
   if ((v17 >> 3) < 1)
@@ -1139,9 +1139,10 @@ void OMKeyer2D::computeCostPieAsQuad(int a1, uint64_t *a2, uint64_t a3, OMPie *t
     while (v19);
   }
 
-  std::vector<int>::vector[abi:ne200100](v90, 0x168uLL);
   v86[0] = -1;
-  std::vector<int>::vector[abi:ne200100](v89, 0x168uLL);
+  std::vector<int>::vector[abi:ne200100](v90, 0x168uLL, v86);
+  v86[0] = -1;
+  std::vector<int>::vector[abi:ne200100](v89, 0x168uLL, v86);
   v26 = 0;
   v27 = 0;
   v28 = v90[0];
@@ -1356,17 +1357,17 @@ BOOL anonymous namespace::isVec2fLessThan(_anonymous_namespace_ *this, const Vec
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const&,Vec2f const&),Vec2f*,false>(unint64_t a1, float *a2, uint64_t (**a3)(void *, unint64_t), uint64_t a4, char a5, __n128 a6)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const&,Vec2f const&),Vec2f*,false>(char *result, char *a2, uint64_t (**a3)(uint64_t, char *), uint64_t a4, char a5, __n128 a6)
 {
 LABEL_1:
-  v72 = a2 - 6;
-  v73 = a2 - 4;
-  v10 = a1;
+  v72 = (a2 - 24);
+  v73 = (a2 - 16);
+  v10 = result;
 LABEL_2:
   v11 = 1 - a4;
   while (1)
   {
-    a1 = v10;
+    result = v10;
     v12 = v11;
     v13 = (a2 - v10) >> 3;
     if (v13 > 2)
@@ -1381,11 +1382,11 @@ LABEL_2:
 
     if (v13 == 2)
     {
-      if ((*a3)(a2 - 1, v10))
+      if ((*a3)((a2 - 8), v10))
       {
         v70 = *v10;
         *v10 = *(a2 - 2);
-        *(v10 + 4) = *(a2 - 1);
+        *(v10 + 1) = *(a2 - 1);
 LABEL_97:
         *(a2 - 1) = v70;
         return;
@@ -1423,30 +1424,30 @@ LABEL_10:
       return;
     }
 
-    v14 = (v10 + 8 * (v13 >> 1));
+    v14 = &v10[8 * (v13 >> 1)];
     v15 = *a3;
     if (v13 >= 0x81)
     {
-      v16 = v15((v10 + 8 * (v13 >> 1)), v10);
-      v17 = (*a3)(a2 - 1, v14);
+      v16 = v15(&v10[8 * (v13 >> 1)], v10);
+      v17 = (*a3)((a2 - 8), v14);
       if (v16)
       {
-        v19 = *a1;
-        v18 = *(a1 + 4);
+        v19 = *result;
+        v18 = *(result + 1);
         if (v17)
         {
-          *a1 = *(a2 - 2);
-          *(a1 + 4) = *(a2 - 1);
+          *result = *(a2 - 2);
+          *(result + 1) = *(a2 - 1);
           *(a2 - 2) = v19;
           *(a2 - 1) = v18;
         }
 
         else
         {
-          *a1 = *v14;
+          *result = *v14;
           *v14 = v19;
           *(v14 + 1) = v18;
-          if ((*a3)(a2 - 1, v14))
+          if ((*a3)((a2 - 8), v14))
           {
             v28 = *v14;
             *v14 = *(a2 - 2);
@@ -1462,35 +1463,35 @@ LABEL_10:
         *v14 = *(a2 - 2);
         *(v14 + 1) = *(a2 - 1);
         *(a2 - 1) = v24;
-        if ((*a3)(v14, a1))
+        if ((*a3)(v14, result))
         {
-          v25 = *a1;
-          *a1 = *v14;
+          v25 = *result;
+          *result = *v14;
           *v14 = v25;
         }
       }
 
-      v29 = v14 - 1;
-      v30 = (*a3)(v14 - 1, a1 + 8);
-      v31 = (*a3)(v73, (v14 - 1));
+      v29 = v14 - 8;
+      v30 = (*a3)((v14 - 8), result + 8);
+      v31 = (*a3)(v73, v14 - 8);
       if (v30)
       {
-        v33 = *(a1 + 8);
-        v32 = *(a1 + 12);
+        v33 = *(result + 2);
+        v32 = *(result + 3);
         if (v31)
         {
-          *(a1 + 8) = *(a2 - 4);
-          *(a1 + 12) = *(a2 - 3);
+          *(result + 2) = *(a2 - 4);
+          *(result + 3) = *(a2 - 3);
           *(a2 - 4) = v33;
           *(a2 - 3) = v32;
         }
 
         else
         {
-          *(a1 + 8) = *v29;
+          *(result + 1) = *v29;
           *v29 = v33;
           *(v14 - 1) = v32;
-          if ((*a3)(v73, (v14 - 1)))
+          if ((*a3)(v73, v14 - 8))
           {
             v37 = *v29;
             *v29 = *(a2 - 4);
@@ -1506,35 +1507,35 @@ LABEL_10:
         *v29 = *(a2 - 4);
         *(v14 - 1) = *(a2 - 3);
         *(a2 - 2) = v34;
-        if ((*a3)(v14 - 1, a1 + 8))
+        if ((*a3)((v14 - 8), result + 8))
         {
-          v35 = *(a1 + 8);
-          *(a1 + 8) = *v29;
+          v35 = *(result + 1);
+          *(result + 1) = *v29;
           *v29 = v35;
         }
       }
 
-      v38 = v14 + 1;
-      v39 = (*a3)(v14 + 1, a1 + 16);
-      v40 = (*a3)(v72, (v14 + 1));
+      v38 = v14 + 8;
+      v39 = (*a3)((v14 + 8), result + 16);
+      v40 = (*a3)(v72, v14 + 8);
       if (v39)
       {
-        v42 = *(a1 + 16);
-        v41 = *(a1 + 20);
+        v42 = *(result + 4);
+        v41 = *(result + 5);
         if (v40)
         {
-          *(a1 + 16) = *(a2 - 6);
-          *(a1 + 20) = *(a2 - 5);
+          *(result + 4) = *(a2 - 6);
+          *(result + 5) = *(a2 - 5);
           *(a2 - 6) = v42;
           *(a2 - 5) = v41;
         }
 
         else
         {
-          *(a1 + 16) = *v38;
+          *(result + 2) = *v38;
           *v38 = v42;
           *(v14 + 3) = v41;
-          if ((*a3)(v72, (v14 + 1)))
+          if ((*a3)(v72, v14 + 8))
           {
             v45 = *v38;
             *v38 = *(a2 - 6);
@@ -1550,16 +1551,16 @@ LABEL_10:
         *v38 = *(a2 - 6);
         *(v14 + 3) = *(a2 - 5);
         *(a2 - 3) = v43;
-        if ((*a3)(v14 + 1, a1 + 16))
+        if ((*a3)((v14 + 8), result + 16))
         {
-          v44 = *(a1 + 16);
-          *(a1 + 16) = *v38;
+          v44 = *(result + 2);
+          *(result + 2) = *v38;
           *v38 = v44;
         }
       }
 
-      v46 = (*a3)(v14, (v14 - 1));
-      v47 = (*a3)(v14 + 1, v14);
+      v46 = (*a3)(v14, v14 - 8);
+      v47 = (*a3)((v14 + 8), v14);
       if (v46)
       {
         v49 = *v29;
@@ -1576,7 +1577,7 @@ LABEL_10:
         *v29 = *v14;
         *v14 = v49;
         *(v14 + 1) = v48;
-        v55 = (*a3)(v14 + 1, v14);
+        v55 = (*a3)((v14 + 8), v14);
         v50 = *v14;
         if (v55)
         {
@@ -1599,7 +1600,7 @@ LABEL_57:
           *v14 = *v38;
           *v38 = v50;
           *(v14 + 3) = v51;
-          v52 = (*a3)(v14, (v14 - 1));
+          v52 = (*a3)(v14, v14 - 8);
           v50 = *v14;
           if (v52)
           {
@@ -1615,9 +1616,9 @@ LABEL_57:
 
 LABEL_58:
       v57 = *(v14 + 1);
-      v58 = *a1;
-      *a1 = v50;
-      *(a1 + 4) = v57;
+      v58 = *result;
+      *result = v50;
+      *(result + 1) = v57;
       *v14 = v58;
       if (a5)
       {
@@ -1627,8 +1628,8 @@ LABEL_58:
       goto LABEL_59;
     }
 
-    v20 = v15(v10, v10 + 8 * (v13 >> 1));
-    v21 = (*a3)(a2 - 1, v10);
+    v20 = v15(v10, &v10[8 * (v13 >> 1)]);
+    v21 = (*a3)((a2 - 8), v10);
     if (v20)
     {
       v23 = *v14;
@@ -1637,12 +1638,12 @@ LABEL_58:
       {
         *v14 = *v10;
         *v10 = v23;
-        *(v10 + 4) = v22;
-        if ((*a3)(a2 - 1, v10))
+        *(v10 + 1) = v22;
+        if ((*a3)((a2 - 8), v10))
         {
           v36 = *v10;
           *v10 = *(a2 - 2);
-          *(v10 + 4) = *(a2 - 1);
+          *(v10 + 1) = *(a2 - 1);
           *(a2 - 1) = v36;
         }
 
@@ -1674,7 +1675,7 @@ LABEL_37:
 
       v26 = *v10;
       *v10 = *(a2 - 2);
-      *(v10 + 4) = *(a2 - 1);
+      *(v10 + 1) = *(a2 - 1);
       *(a2 - 1) = v26;
       if (!(*a3)(v10, v14))
       {
@@ -1691,23 +1692,23 @@ LABEL_37:
     }
 
 LABEL_59:
-    if (((*a3)(a1 - 8, a1) & 1) == 0)
+    if (((*a3)((result - 8), result) & 1) == 0)
     {
-      v10 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,Vec2f *,BOOL (*&)(Vec2f const&,Vec2f const&)>(a1, a2, a3);
+      v10 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,Vec2f *,BOOL (*&)(Vec2f const&,Vec2f const&)>(result, a2, a3);
       goto LABEL_65;
     }
 
 LABEL_60:
-    a6.n128_f32[0] = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,Vec2f *,BOOL (*&)(Vec2f const&,Vec2f const&)>(a1, a2, a3);
+    std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,Vec2f *,BOOL (*&)(Vec2f const&,Vec2f const&)>(result, a2, a3);
     v60 = v59;
     if ((v61 & 1) == 0)
     {
       goto LABEL_63;
     }
 
-    v62 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const&,Vec2f const&),Vec2f*>(a1, v59, a3);
-    v10 = (v60 + 2);
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const&,Vec2f const&),Vec2f*>(v60 + 1, a2, a3))
+    v62 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const&,Vec2f const&),Vec2f*>(result, v59, a3);
+    v10 = (v60 + 8);
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const&,Vec2f const&),Vec2f*>((v60 + 8), a2, a3))
     {
       a4 = -v12;
       a2 = v60;
@@ -1723,8 +1724,8 @@ LABEL_60:
     if (!v62)
     {
 LABEL_63:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const&,Vec2f const&),Vec2f*,false>(a1, v60, a3, -v12, a5 & 1, a6);
-      v10 = (v60 + 2);
+      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const&,Vec2f const&),Vec2f*,false>(result, v60, a3, -v12, a5 & 1);
+      v10 = (v60 + 8);
 LABEL_65:
       a5 = 0;
       a4 = -v12;
@@ -1737,29 +1738,29 @@ LABEL_65:
     if (v13 == 4)
     {
 
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const&,Vec2f const&),Vec2f*,0>(v10, (v10 + 8), (v10 + 16), a2 - 2, a3);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const&,Vec2f const&),Vec2f*,0>(v10, v10 + 2, v10 + 4, a2 - 2, a3);
       return;
     }
 
     if (v13 == 5)
     {
-      v67 = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const&,Vec2f const&),Vec2f*,0>(v10, (v10 + 8), (v10 + 16), (v10 + 24), a3);
-      if (!(*a3)(a2 - 2, v10 + 24, v67))
+      v67 = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const&,Vec2f const&),Vec2f*,0>(v10, v10 + 2, v10 + 4, v10 + 6, a3);
+      if (!(*a3)(a2 - 8, v10 + 24, v67))
       {
         return;
       }
 
-      v68 = *(v10 + 24);
-      *(v10 + 24) = *(a2 - 2);
-      *(v10 + 28) = *(a2 - 1);
+      v68 = *(v10 + 3);
+      *(v10 + 6) = *(a2 - 2);
+      *(v10 + 7) = *(a2 - 1);
       *(a2 - 1) = v68;
-      if (!(*a3)(v10 + 24, v10 + 16))
+      if (!(*a3)((v10 + 24), v10 + 16))
       {
         return;
       }
 
-      *(v10 + 16) = vextq_s8(*(v10 + 16), *(v10 + 16), 8uLL);
-      if (!(*a3)(v10 + 16, v10 + 8))
+      *(v10 + 1) = vextq_s8(*(v10 + 1), *(v10 + 1), 8uLL);
+      if (!(*a3)((v10 + 16), v10 + 8))
       {
         return;
       }
@@ -1771,8 +1772,8 @@ LABEL_65:
     goto LABEL_10;
   }
 
-  v63 = (*a3)(v10 + 8, v10);
-  v64 = (*a3)(a2 - 1, v10 + 8);
+  v63 = (*a3)((v10 + 8), v10);
+  v64 = (*a3)((a2 - 8), v10 + 8);
   if ((v63 & 1) == 0)
   {
     if (!v64)
@@ -1780,12 +1781,12 @@ LABEL_65:
       return;
     }
 
-    v71 = *(v10 + 8);
-    *(v10 + 8) = *(a2 - 2);
-    *(v10 + 12) = *(a2 - 1);
+    v71 = *(v10 + 1);
+    *(v10 + 2) = *(a2 - 2);
+    *(v10 + 3) = *(a2 - 1);
     *(a2 - 1) = v71;
 LABEL_90:
-    if ((*a3)(v10 + 8, v10))
+    if ((*a3)((v10 + 8), v10))
     {
       *v10 = vextq_s8(*v10, *v10, 8uLL);
     }
@@ -1794,24 +1795,24 @@ LABEL_90:
   }
 
   v66 = *v10;
-  v65 = *(v10 + 4);
+  v65 = *(v10 + 1);
   if (v64)
   {
     *v10 = *(a2 - 2);
-    *(v10 + 4) = *(a2 - 1);
+    *(v10 + 1) = *(a2 - 1);
     *(a2 - 2) = v66;
     *(a2 - 1) = v65;
     return;
   }
 
-  *v10 = *(v10 + 8);
-  *(v10 + 8) = v66;
-  *(v10 + 12) = v65;
-  if ((*a3)(a2 - 1, v10 + 8))
+  *v10 = *(v10 + 1);
+  *(v10 + 2) = v66;
+  *(v10 + 3) = v65;
+  if ((*a3)((a2 - 8), v10 + 8))
   {
-    v70 = *(v10 + 8);
-    *(v10 + 8) = *(a2 - 2);
-    *(v10 + 12) = *(a2 - 1);
+    v70 = *(v10 + 1);
+    *(v10 + 2) = *(a2 - 2);
+    *(v10 + 3) = *(a2 - 1);
     goto LABEL_97;
   }
 }
@@ -1914,15 +1915,15 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Ve
           {
             v13 = v6 + v12;
             v14 = *(v6 + v12 + 4);
-            *(v13 + 2) = *(v6 + v12);
-            *(v13 + 3) = v14;
+            *(v13 + 8) = *(v6 + v12);
+            *(v13 + 12) = v14;
             if (!v12)
             {
               break;
             }
 
             v12 -= 8;
-            result = (*a3)(v17, v6 + v12);
+            result = (*a3)(v17, v12 + v6);
             if ((result & 1) == 0)
             {
               v15 = (v6 + v12 + 8);
@@ -1994,7 +1995,7 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
   return result;
 }
 
-unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,Vec2f *,BOOL (*&)(Vec2f const&,Vec2f const&)>(unint64_t a1, _DWORD *a2, uint64_t (**a3)(uint64_t *, unint64_t))
+unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,Vec2f *,BOOL (*&)(Vec2f const&,Vec2f const&)>(uint64_t *a1, _DWORD *a2, uint64_t (**a3)(uint64_t *, unint64_t))
 {
   v4 = a2;
   v11 = *a1;
@@ -2011,7 +2012,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
 
   else
   {
-    v7 = a1 + 8;
+    v7 = (a1 + 1);
     do
     {
       v6 = v7;
@@ -2057,10 +2058,10 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
     while (((*a3)(&v11, v4) & 1) != 0);
   }
 
-  if (v6 - 8 != a1)
+  if ((v6 - 8) != a1)
   {
     *a1 = *(v6 - 8);
-    *(a1 + 4) = *(v6 - 4);
+    *(a1 + 1) = *(v6 - 4);
   }
 
   *(v6 - 8) = v11;
@@ -2111,11 +2112,11 @@ float std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy
     {
       v10 = *v8;
       *v8 = *v9;
-      *(v8 + 4) = *(v9 + 1);
+      *(v8 + 1) = *(v9 + 1);
       *v9 = v10;
       do
       {
-        v8 += 8;
+        ++v8;
       }
 
       while (((*a3)(v8, &v12) & 1) != 0);
@@ -2130,15 +2131,15 @@ float std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy
     while (v8 < v9);
   }
 
-  if ((v8 - 8) != a1)
+  if (v8 - 1 != a1)
   {
-    *a1 = *(v8 - 8);
-    *(a1 + 1) = *(v8 - 4);
+    *a1 = *(v8 - 2);
+    *(a1 + 1) = *(v8 - 1);
   }
 
-  *(v8 - 8) = v12;
+  *(v8 - 2) = v12;
   result = *(&v12 + 1);
-  *(v8 - 4) = HIDWORD(v12);
+  *(v8 - 1) = HIDWORD(v12);
   return result;
 }
 
@@ -2301,15 +2302,15 @@ LABEL_17:
       {
         v24 = a1 + v23;
         v25 = *(a1 + v23 + 20);
-        *(v24 + 24) = *(a1 + v23 + 16);
-        *(v24 + 28) = v25;
+        *(v24 + 6) = *(a1 + v23 + 16);
+        *(v24 + 7) = v25;
         if (v23 == -16)
         {
           break;
         }
 
         v23 -= 8;
-        if (((*a3)(&v29, (v24 + 8)) & 1) == 0)
+        if (((*a3)(&v29, v24 + 2) & 1) == 0)
         {
           v26 = (a1 + v23 + 24);
           goto LABEL_40;
@@ -2320,7 +2321,7 @@ LABEL_17:
 LABEL_40:
       v27 = HIDWORD(v29);
       *v26 = v29;
-      v26[1] = v27;
+      *(v26 + 1) = v27;
       if (++v22 == 8)
       {
         return v20 + 2 == a2;
@@ -2337,7 +2338,7 @@ LABEL_40:
   }
 }
 
-char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const&,Vec2f const&),Vec2f*,Vec2f*>(char *a1, char *a2, char *a3, unsigned int (**a4)(uint64_t, uint64_t), __n128 a5)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const&,Vec2f const&),Vec2f*,Vec2f*>(char *a1, char *a2, char *a3, unsigned int (**a4)(char *, char *), __n128 a5)
 {
   if (a1 != a2)
   {
@@ -2541,7 +2542,7 @@ double std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Vec2f const
   return result;
 }
 
-char *std::vector<Vec2f>::__assign_with_size[abi:ne200100]<Vec2f*,Vec2f*>(char **a1, char *a2, char *a3, unint64_t a4)
+char *std::vector<Vec2f>::__assign_with_size[abi:ne200100]<Vec2f*,Vec2f*>(uint64_t *a1, char *a2, char *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -2625,20 +2626,33 @@ char *std::vector<Vec2f>::__assign_with_size[abi:ne200100]<Vec2f*,Vec2f*>(char *
       v16 = v11;
       do
       {
-        v17 = &v16[v15];
-        *v11 = *&v16[v15];
-        *(v11 + 1) = *&v16[v15 + 4];
+        v17 = v15 + v16;
+        *v11 = *(v15 + v16);
+        *(v11 + 4) = *(v15 + v16 + 4);
         v11 += 8;
         v16 += 8;
       }
 
-      while (v17 + 8 != a3);
+      while ((v17 + 8) != a3);
     }
 
     a1[1] = v16;
   }
 
   return result;
+}
+
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, int *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_25FF232E8(_Unwind_Exception *exception_object)
@@ -2672,7 +2686,7 @@ float std::vector<OMCostPie>::__construct_one_at_end[abi:ne200100]<OMCostPie>(ui
   return result;
 }
 
-_DWORD *std::vector<OMCostPie>::__emplace_back_slow_path<OMCostPie>(uint64_t *a1, _DWORD *a2)
+_DWORD *std::vector<OMCostPie>::__emplace_back_slow_path<OMCostPie>(void **a1, _DWORD *a2)
 {
   v3 = 0x5D1745D1745D174;
   v4 = *a1;
@@ -2759,20 +2773,20 @@ float std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<OMCos
   return result;
 }
 
-char *std::vector<Vec3f>::__insert_with_size[abi:ne200100]<std::__wrap_iter<Vec3f*>,std::__wrap_iter<Vec3f*>>(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4, uint64_t a5)
+char *std::vector<Vec3f>::__insert_with_size[abi:ne200100]<std::__wrap_iter<Vec3f*>,std::__wrap_iter<Vec3f*>>(char **a1, char *a2, _DWORD *a3, _DWORD *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
   {
-    v7 = *(a1 + 8);
-    v8 = *(a1 + 16);
-    if ((0xAAAAAAAAAAAAAAABLL * ((v8 - v7) >> 2)) >= a5)
+    v7 = a1[1];
+    v8 = a1[2];
+    if ((0xAAAAAAAAAAAAAAABLL * (&v8[-v7] >> 2)) >= a5)
     {
       v14 = v7 - a2;
       if ((0xAAAAAAAAAAAAAAABLL * ((v7 - a2) >> 2)) >= a5)
       {
         v21 = 3 * a5;
-        std::vector<Vec3f>::__move_range(a1, a2, v7, a2 + 12 * a5);
+        std::vector<Vec3f>::__move_range(a1, a2, v7, &a2[12 * a5]);
         v22 = 0;
         v23 = &a3[v21];
         do
@@ -2791,29 +2805,29 @@ char *std::vector<Vec3f>::__insert_with_size[abi:ne200100]<std::__wrap_iter<Vec3
       else
       {
         v15 = (a3 + v14);
-        v16 = *(a1 + 8);
+        v16 = a1[1];
         if ((a3 + v14) != a4)
         {
-          v16 = *(a1 + 8);
+          v16 = a1[1];
           v17 = (a3 + v14);
           v18 = v16;
           do
           {
             *v18 = *v17;
-            v18[1] = v17[1];
-            v18[2] = v17[2];
+            *(v18 + 1) = v17[1];
+            *(v18 + 2) = v17[2];
             v17 += 3;
-            v18 += 3;
-            v16 += 3;
+            v18 += 12;
+            v16 += 12;
           }
 
           while (v17 != a4);
         }
 
-        *(a1 + 8) = v16;
+        a1[1] = v16;
         if (v14 >= 1)
         {
-          std::vector<Vec3f>::__move_range(a1, a2, v7, a2 + 12 * a5);
+          std::vector<Vec3f>::__move_range(a1, a2, v7, &a2[12 * a5]);
           v19 = 0;
           do
           {
@@ -2997,10 +3011,10 @@ uint64_t std::vector<Vec3f>::__swap_out_circular_buffer(char **a1, void *a2, cha
   return result;
 }
 
-_DWORD *std::vector<OMVertex>::push_back[abi:ne200100](uint64_t *a1, _DWORD *a2)
+_DWORD *std::vector<OMVertex>::push_back[abi:ne200100](uint64_t a1, _DWORD *a2)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
   {
     result = std::vector<OMVertex>::__emplace_back_slow_path<OMVertex>(a1, a2);
   }
@@ -3018,22 +3032,23 @@ _DWORD *std::vector<OMVertex>::push_back[abi:ne200100](uint64_t *a1, _DWORD *a2)
     result = v3 + 8;
   }
 
-  a1[1] = result;
+  *(a1 + 8) = result;
   return result;
 }
 
-void *OMSpline::getCurveSamples(void *result, void *a2, int a3, int a4, double a5, __n128 a6)
+uint64_t *OMSpline::getCurveSamples(uint64_t *result, void *a2, uint64_t a3, int a4, double a5, __n128 a6)
 {
   v6 = ((result[1] - *result) >> 5) - (a4 ^ 1);
   if (v6 >= 1)
   {
+    v7 = a3;
     v9 = result;
     v10 = 0;
     a6.n128_u32[0] = 1.0;
     v11 = 1.0 / a3;
     do
     {
-      result = OMSpline::getPartialCurveSamples(v9, a2, v10++, a3, v11, a6);
+      result = OMSpline::getPartialCurveSamples(v9, a2, v10++, v7, v11, a6);
     }
 
     while (v6 != v10);
@@ -3042,10 +3057,10 @@ void *OMSpline::getCurveSamples(void *result, void *a2, int a3, int a4, double a
   return result;
 }
 
-unint64_t OMSpline::getPartialCurveSamples(unint64_t result, void *a2, int a3, int a4, float a5, __n128 a6)
+uint64_t *OMSpline::getPartialCurveSamples(uint64_t *result, void *a2, int a3, int a4, float a5, __n128 a6)
 {
   v14 = *result;
-  if (((*(result + 8) - *result) >> 5) - 1 == a3)
+  if (((result[1] - *result) >> 5) - 1 == a3)
   {
     v15 = 0;
   }
@@ -3096,8 +3111,7 @@ unint64_t OMSpline::getPartialCurveSamples(unint64_t result, void *a2, int a3, i
       else
       {
         *result = v35.i32[0];
-        *(result + 4) = HIDWORD(v37[0]);
-        result += 8;
+        *(result++ + 1) = HIDWORD(v37[0]);
       }
 
       a2[1] = result;
@@ -3195,30 +3209,30 @@ uint64_t OMSpline::recomputeInternalBezier(uint64_t this)
   return this;
 }
 
-float OMSpline::move(OMSpline *this, int a2, float *a3, unsigned int a4)
+void OMSpline::move(OMSpline *this, int a2, float *a3, unsigned int a4)
 {
   v5 = a2;
   v6 = *this;
   v7 = (*this + 32 * v5);
   v8 = v7[3];
-  result = *a3 + v7[2];
-  v7[2] = result;
+  v9 = *a3 + v7[2];
+  v7[2] = v9;
   v10 = a3[1] + v8;
   v7[3] = v10;
   if (!a4)
   {
-    *v7 = result;
+    *v7 = v9;
     v7[1] = v10;
-    v7[4] = result;
+    v7[4] = v9;
     v7[5] = v10;
-    return result;
+    return;
   }
 
   if (a4 > 2)
   {
     if (a4 != 3)
     {
-      return result;
+      return;
     }
 
     goto LABEL_11;
@@ -3233,9 +3247,8 @@ LABEL_11:
     v7[1] = a3[1] + v17;
     v18 = v7[5];
     v7[4] = *a3 + v7[4];
-    result = a3[1] + v18;
-    v7[5] = result;
-    return result;
+    v7[5] = a3[1] + v18;
+    return;
   }
 
   v13 = v12 >> 5;
@@ -3327,7 +3340,7 @@ LABEL_11:
 LABEL_45:
       v43 = v15;
       operator delete(v15);
-      return result;
+      return;
     }
 
     if (a2 == 1)
@@ -3574,7 +3587,7 @@ LABEL_45:
     v29 = v24;
   }
 
-  return OMSpline::tangentsAuto(v26, v27, v28, v29);
+  OMSpline::tangentsAuto(v26, v27, v28, v29);
 }
 
 void sub_25FF246B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -3723,7 +3736,7 @@ void OMSpline::addVertexAtEnd(float32x2_t **this, float32x2_t *a2)
   }
 }
 
-void OMSpline::computeLinearArray(void *a1, uint64_t *a2, double a3, __n128 a4, float a5, float a6, float a7)
+void OMSpline::computeLinearArray(uint64_t *a1, uint64_t *a2, double a3, __n128 a4, float a5, float a6, float a7)
 {
   v10 = a4.n128_f32[0];
   v11 = *&a3;
@@ -3812,7 +3825,7 @@ void sub_25FF24B60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_DWORD *std::vector<OMVertex>::__emplace_back_slow_path<OMVertex>(uint64_t *a1, _DWORD *a2)
+_DWORD *std::vector<OMVertex>::__emplace_back_slow_path<OMVertex>(void **a1, _DWORD *a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -3849,11 +3862,11 @@ _DWORD *std::vector<OMVertex>::__emplace_back_slow_path<OMVertex>(uint64_t *a1, 
   v10[5] = a2[5];
   v10[6] = a2[6];
   v10[7] = a2[7];
-  v11 = 32 * v5 - 32 * v9;
+  v11 = (32 * v5 - 32 * v9);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<OMVertex>,OMVertex*>(a1, v3, v4, &v10[-8 * v9]);
   v12 = *a1;
   *a1 = v11;
-  a1[1] = (v10 + 8);
+  a1[1] = v10 + 8;
   a1[2] = 0;
   if (v12)
   {
@@ -4513,7 +4526,7 @@ void OMPie::computeArc(OMPie *this, uint64_t a2, const Vec2f *a3)
   OMPie::computeArcOut(this, v4, v5);
 }
 
-void OMPie::getArcIn(OMPie *this@<X0>, float a2@<S0>, float *a3@<X8>)
+void OMPie::getArcIn(float *__return_ptr a1@<X8>, OMPie *this@<X0>, float a3@<S0>)
 {
   if (!OMPie::isQuadActive(this))
   {
@@ -4524,18 +4537,18 @@ void OMPie::getArcIn(OMPie *this@<X0>, float a2@<S0>, float *a3@<X8>)
   if (v6 == 1)
   {
     v16 = *(this + 4);
-    v8 = 1.0 - a2;
+    v8 = 1.0 - a3;
     if (v16 != 0.0)
     {
       v17 = *(this + 5);
       if (v17 != 0.0)
       {
-        v18 = *(this + 6) + (*(this + 7) * a2);
-        v19 = (v8 * v16) + (v17 * a2);
+        v18 = *(this + 6) + (*(this + 7) * a3);
+        v19 = (v8 * v16) + (v17 * a3);
         v20 = __sincosf_stret(v18);
         v21 = *(this + 5);
         v22 = *(v21 + 12);
-        *a3 = *(v21 + 8) + (v19 * v20.__cosval);
+        *a1 = *(v21 + 8) + (v19 * v20.__cosval);
         v14 = (v19 * v20.__sinval) + v22;
         goto LABEL_9;
       }
@@ -4543,10 +4556,10 @@ void OMPie::getArcIn(OMPie *this@<X0>, float a2@<S0>, float *a3@<X8>)
 
 LABEL_13:
     v23 = *(this + 5);
-    v24 = v23[7] * a2;
+    v24 = v23[7] * a3;
     v25 = v8 * v23[8];
     v26 = v8 * v23[9];
-    *a3 = (v23[6] * a2) + v25;
+    *a1 = (v23[6] * a3) + v25;
     v14 = v24 + v26;
     goto LABEL_9;
   }
@@ -4561,7 +4574,7 @@ LABEL_7:
   }
 
   v7 = *(this + 4);
-  v8 = 1.0 - a2;
+  v8 = 1.0 - a3;
   if (v7 == 0.0)
   {
     goto LABEL_13;
@@ -4573,33 +4586,33 @@ LABEL_7:
     goto LABEL_13;
   }
 
-  v10 = *(this + 6) + (*(this + 7) * a2);
-  v11 = (v8 * v7) + (v9 * a2);
+  v10 = *(this + 6) + (*(this + 7) * a3);
+  v11 = (v8 * v7) + (v9 * a3);
   v12 = __sincosf_stret(v10);
   v13 = v11 * v12.__cosval;
   v14 = v11 * v12.__sinval;
 LABEL_8:
-  *a3 = v13;
+  *a1 = v13;
 LABEL_9:
-  a3[1] = v14;
+  a1[1] = v14;
 }
 
-void OMPie::getArcOut(float32x2_t **this@<X0>, float a2@<S0>, float32x2_t *a3@<X8>)
+void OMPie::getArcOut(uint64_t *__return_ptr a1@<X8>, float32x2_t **this@<X0>, float a3@<S0>)
 {
-  v4 = 1.0 - a2;
+  v4 = 1.0 - a3;
   if (*this == 0.0 || (v5 = *(this + 1), v5 == 0.0))
   {
-    v7 = vadd_f32(vmul_n_f32(*this[5], a2), vmul_n_f32(this[5][2], v4));
+    v7 = vadd_f32(vmul_n_f32(*this[5], a3), vmul_n_f32(this[5][2], v4));
   }
 
   else
   {
-    v8 = (v4 * *this) + (v5 * a2);
-    v6 = __sincosf_stret(*(this + 2) + (*(this + 3) * a2));
+    v8 = (v4 * *this) + (v5 * a3);
+    v6 = __sincosf_stret(*(this + 2) + (*(this + 3) * a3));
     v7 = vmul_n_f32(__PAIR64__(LODWORD(v6.__sinval), LODWORD(v6.__cosval)), v8);
   }
 
-  *a3 = v7;
+  *a1 = v7;
 }
 
 void OMPie::move(OMPie *this, int *a2, Vec2f *a3, float32x2_t *a4)
@@ -4664,24 +4677,24 @@ void OMPie::move(OMPie *this, int *a2, Vec2f *a3, float32x2_t *a4)
 
 LABEL_11:
     v12 = *(this + 5);
-    *(v12 + 8) = *a3;
+    v12[1] = *a3;
     OMPie::computeArcIn(this, a2, a3);
     OMPie::computeArcOut(this, v13, v14);
-    OMPie::getArcOut(this, 0.5, &v84);
-    *v15.f32 = vsub_f32(*(v12 + 16), *v12);
+    OMPie::getArcOut(&v84, this, 0.5);
+    *v15.f32 = vsub_f32(v12[2], *v12);
     v15.i64[1] = v15.i64[0];
     v83 = vmulq_f32(v15, xmmword_26084A7E0);
     v16 = v84;
-    v82[0] = *(v12 + 8);
+    v82[0] = v12[1];
     v82[1] = v84;
     if (OMUtil::findIntersectionOfLineSegment(v83.f32, v82))
     {
-      v18 = *(v12 + 8);
-      v17 = *(v12 + 12);
-      *(v12 + 32) = v18;
-      *(v12 + 36) = v17;
-      *(v12 + 24) = v18;
-      v19 = 28;
+      v18 = v12[1].i32[0];
+      v17 = v12[1].f32[1];
+      v12[4].i32[0] = v18;
+      v12[4].f32[1] = v17;
+      v12[3].i32[0] = v18;
+      v19 = 7;
     }
 
     else
@@ -4689,14 +4702,14 @@ LABEL_11:
       v23 = vmul_f32(v16, v16);
       v23.f32[0] = sqrtf(vaddv_f32(v23));
       v23.f32[0] = vaddv_f32(vmul_f32(vdiv_f32(v16, vdup_lane_s32(v23, 0)), *a3));
-      *(v12 + 8) = 0;
-      v24 = *v12;
-      v25 = *(v12 + 4);
+      v12[1] = 0;
+      v24 = v12->f32[0];
+      v25 = v12->f32[1];
       v26 = sqrtf((v24 * v24) + (v25 * v25));
-      v27 = v23.f32[0] * (*v12 / v26);
+      v27 = v23.f32[0] * (v12->f32[0] / v26);
       v28 = v23.f32[0] * (v25 / v26);
-      v29 = *(v12 + 16);
-      v30 = *(v12 + 20);
+      v29 = v12[2].f32[0];
+      v30 = v12[2].f32[1];
       v31 = sqrtf((v29 * v29) + (v30 * v30));
       v32 = v23.f32[0] * (v29 / v31);
       v17 = v23.f32[0] * (v30 / v31);
@@ -4705,23 +4718,23 @@ LABEL_11:
       v34 = v34 && v33 < v31;
       if (v34)
       {
-        *(v12 + 24) = v27;
-        *(v12 + 28) = v28;
-        v19 = 36;
-        *(v12 + 32) = v32;
+        v12[3].f32[0] = v27;
+        v12[3].f32[1] = v28;
+        v19 = 9;
+        v12[4].f32[0] = v32;
       }
 
       else
       {
-        *(v12 + 24) = v24;
-        *(v12 + 28) = v25;
-        v19 = 36;
+        v12[3].f32[0] = v24;
+        v12[3].f32[1] = v25;
+        v19 = 9;
         v17 = v30;
-        *(v12 + 32) = v29;
+        v12[4].f32[0] = v29;
       }
     }
 
-    *(v12 + v19) = v17;
+    v12->f32[v19] = v17;
     v8 = *a2;
     goto LABEL_29;
   }
@@ -4795,7 +4808,7 @@ LABEL_46:
     v41 = *(this + 5);
     OMPie::computeArcIn(this, a2, a3);
     OMPie::computeArcOut(this, v42, v43);
-    OMPie::getArcOut(this, 0.5, &v83);
+    OMPie::getArcOut(&v83, this, 0.5);
     v44 = v83.i64[0];
     v45 = sqrtf(vaddv_f32(vmul_f32(*a3, *a3)));
     if (v45 <= 0.0)
@@ -4847,7 +4860,7 @@ LABEL_65:
     {
       OMPie::computeArcIn(this, v78, v79);
       OMPie::computeArcOut(this, v80, v81);
-      OMPie::getArcOut(this, 0.5, v82);
+      OMPie::getArcOut(v82, this, 0.5);
       *(v57 + 8) = vmul_n_f32(*(v57 + 8), sqrtf(vaddv_f32(vmul_f32(v82[0], v82[0]))) / sqrtf((*&v44 * *&v44) + (*(&v44 + 1) * *(&v44 + 1))));
     }
 
@@ -4968,12 +4981,12 @@ BOOL OMPie::testIfShouldBeAQuad(OMPie *this, uint64_t a2, const Vec2f *a3)
   v4 = *(this + 5);
   OMPie::computeArcIn(this, a2, a3);
   OMPie::computeArcOut(this, v5, v6);
-  OMPie::getArcOut(this, 0.5, &v23);
+  OMPie::getArcOut(&v23, this, 0.5);
   *v7.f32 = vsub_f32(v4[2], *v4);
   v7.i64[1] = v7.i64[0];
   v22 = vmulq_f32(v7, xmmword_26084A7E0);
   *v7.f32 = v4[1];
-  *&v7.u32[2] = v23;
+  v7.i64[1] = v23;
   v21 = v7;
   result = OMUtil::findIntersectionOfLineSegment(v22.f32, v21.f32);
   if (!result)
@@ -5147,7 +5160,7 @@ BOOL OMPie::setBasedOnOffsetFromOtherPie(OMPie *this, OMPie *a2, float a3, float
   {
     OMPie::computeArcIn(a2, v10, v11);
     OMPie::computeArcOut(a2, v21, v22);
-    OMPie::getArcOut(a2, 0.5, v88);
+    OMPie::getArcOut(v88, a2, 0.5);
     v15 = *(v9 + 8);
     v23 = vmvn_s8(vceq_f32(v15, *&v88[0]));
     v24 = v23.i8[0] | v23.i8[4];
@@ -5167,10 +5180,10 @@ BOOL OMPie::setBasedOnOffsetFromOtherPie(OMPie *this, OMPie *a2, float a3, float
   else
   {
     OMPie::computeOppositeArc(a2, v10, v11);
-    OMPie::getArcOut(a2, 0.5, &v92);
+    OMPie::getArcOut(&v92, a2, 0.5);
     v15 = *(v9 + 8);
     v16 = vmvn_s8(vceq_f32(v15, v92));
-    if (((v16.i32[0] | v16.i32[1]) & 1) != 0 && (v84 = v92.i32[0], v88[0] = v15, *&v17 = *v9, *(&v17 + 1) = *(v9 + 16), *v91[0].f32 = v17, IntersectionOfLineSegment = OMUtil::findIntersectionOfLineSegment(v88, v91), v15 = *(v9 + 8), !IntersectionOfLineSegment))
+    if (((v16.i32[0] | v16.i32[1]) & 1) != 0 && (v84 = v92.i32[0], v88[0] = v15, *&v17 = *v9, *(&v17 + 1) = *(v9 + 16), *v91 = v17, IntersectionOfLineSegment = OMUtil::findIntersectionOfLineSegment(v88, v91), v15 = *(v9 + 8), !IntersectionOfLineSegment))
     {
       v76 = vsub_f32(v15, __PAIR64__(v92.u32[1], v84));
       v77 = vmul_f32(v76, v76);
@@ -5219,9 +5232,9 @@ BOOL OMPie::setBasedOnOffsetFromOtherPie(OMPie *this, OMPie *a2, float a3, float
   OMPie::computeArcOut(v88, v43, v44);
   OMUtil::angle2PI(v9, (v9 + 16), v45);
   v47 = ((v87 * a4) + (v87 * a4)) * 3.14159265 * 0.200000003 / v46;
-  OMPie::getArcOut(v88, 0.0 - v47, v91);
+  OMPie::getArcOut(v91, v88, 0.0 - v47);
   v94 = v91[0];
-  OMPie::getArcOut(v88, v47 + 1.0, v91);
+  OMPie::getArcOut(v91, v88, v47 + 1.0);
   v93 = v91[0];
   if (__p)
   {
@@ -5242,9 +5255,9 @@ BOOL OMPie::setBasedOnOffsetFromOtherPie(OMPie *this, OMPie *a2, float a3, float
       v52[1] = 0;
       OMPie::computeArcIn(v88, v53, v54);
       OMPie::computeArcOut(v88, v55, v56);
-      OMPie::getArcOut(v88, 0.501, v91);
+      OMPie::getArcOut(v91, v88, 0.501);
       v94 = v91[0];
-      OMPie::getArcOut(v88, 0.499, v91);
+      OMPie::getArcOut(v91, v88, 0.499);
       v93 = v91[0];
       if (__p)
       {
@@ -5285,7 +5298,7 @@ BOOL OMPie::setBasedOnOffsetFromOtherPie(OMPie *this, OMPie *a2, float a3, float
       *(&v69 + 1) = v82;
       v88[0] = v69;
       *(&v65 + 1) = v68;
-      *v91[0].f32 = v65;
+      *v91 = v65;
       if (OMUtil::findIntersectionOfLineSegmentExclusive(v88, v91))
       {
         v72 = sqrtf(vaddv_f32(vmul_f32(v83, v83))) / v87;
@@ -5353,12 +5366,12 @@ uint64_t OMPie::offsetSegment_180more(OMPie *this, float32x2_t *a2, const Vec2f 
   }
 
   isQuadActive = OMPie::isQuadActive(this);
-  OMPie::getArcOut(a8, 0.0, &v21);
+  OMPie::getArcOut(&v21, a8, 0.0);
   v16 = v21;
   v17 = 0.04;
   while (1)
   {
-    OMPie::getArcOut(a8, v17, &v20);
+    OMPie::getArcOut(&v20, a8, v17);
     *&v18 = *a6;
     *(&v18 + 1) = *a4;
     *v23 = v18;
@@ -5404,7 +5417,7 @@ uint64_t OMPie::offsetSegmentIfNeeded(OMPie *this, OMPie *a2, float a3)
   v11 = __p;
   OMPie::computeArcIn(this, v12, v13);
   OMPie::computeArcOut(this, v14, v15);
-  OMPie::getArcOut(this, 0.5, &v90);
+  OMPie::getArcOut(&v90, this, 0.5);
   v17 = v90.n128_u64[0];
   v18 = vmul_f32(*v11, *v11);
   v19 = vmul_f32(*(v11 + 16), *(v11 + 16));
@@ -5435,7 +5448,7 @@ uint64_t OMPie::offsetSegmentIfNeeded(OMPie *this, OMPie *a2, float a3)
   {
     OMPie::computeArcIn(this, v26, v27);
     OMPie::computeArcOut(this, v28, v29);
-    OMPie::getArcOut(this, 0.5, v89);
+    OMPie::getArcOut(v89, this, 0.5);
     v5[1] = vmul_n_f32(v5[1], sqrtf(vaddv_f32(vmul_f32(v89[0], v89[0]))) / sqrtf((*&v17 * *&v17) + (*(&v17 + 1) * *(&v17 + 1))));
   }
 
@@ -5502,17 +5515,17 @@ uint64_t OMPie::offsetSegmentIfNeeded(OMPie *this, OMPie *a2, float a3)
 
       OMPie::computeArcIn(this, v49, v50);
       OMPie::computeArcOut(this, v51, v52);
-      OMPie::getArcOut(this, 0.0, &v84);
+      OMPie::getArcOut(&v84, this, 0.0);
       v90.n128_u64[0] = *(v11 + 1);
       v90.n128_u64[1] = *v11;
       v89[0] = *(v11 + 8);
       v89[1] = *v11;
-      v54 = v84.i32[1];
-      v53 = v84.i32[0];
+      v54 = HIDWORD(v84);
+      v53 = v84;
       v55 = 0.04;
       while (1)
       {
-        OMPie::getArcOut(this, v55, &v83);
+        OMPie::getArcOut(&v83, this, v55);
         v87 = __PAIR64__(v54, v53);
         v56 = v83;
         v88 = v83;
@@ -5529,8 +5542,8 @@ uint64_t OMPie::offsetSegmentIfNeeded(OMPie *this, OMPie *a2, float a3)
         }
 
         v55 = v55 + 0.04;
-        v54 = v56.i32[1];
-        v53 = v56.i32[0];
+        v54 = HIDWORD(v56);
+        v53 = v56;
         if (v55 > 1.0001)
         {
           goto LABEL_36;
@@ -5587,10 +5600,10 @@ LABEL_36:
 
   while (2)
   {
-    OMPie::getNextEdgeTurnAround(this, v66, v75, &v90);
+    OMPie::getNextEdgeTurnAround(&v90, this, v66, v75);
     for (i = 0; i != v76; ++i)
     {
-      OMPie::getNextEdgeTurnAround(a2, v65, i, v89);
+      OMPie::getNextEdgeTurnAround(v89, a2, v65, i);
       if (OMUtil::findIntersectionOfLineSegmentExclusive(v89, &v90))
       {
         v81 = 1;
@@ -5609,10 +5622,10 @@ LABEL_36:
   v79 = 0;
   while (2)
   {
-    OMPie::getNextEdgeSweep(this, v66, v79, &v90);
+    OMPie::getNextEdgeSweep(&v90, this, v66, v79);
     for (j = 0; j != v76; ++j)
     {
-      OMPie::getNextEdgeTurnAround(a2, v65, j, v89);
+      OMPie::getNextEdgeTurnAround(v89, a2, v65, j);
       if (OMUtil::findIntersectionOfLineSegmentExclusive(v89, &v90))
       {
         v81 = 0;
@@ -5655,20 +5668,20 @@ uint64_t OMPie::adjustSegment(OMPie *this, Vec2f *a2, Vec2f *a3, float32x2_t *a4
   v14 = *(a10 + 5);
   v15 = *(this + 5);
   isQuadActive = OMPie::isQuadActive(this);
-  OMPie::getArcOut(a10, 0.0, &v64);
-  v18 = v64.i32[1];
-  v17 = v64.i32[0];
+  OMPie::getArcOut(&v64, a10, 0.0);
+  v18 = *(&v64 + 1);
+  v17 = *&v64;
   v19 = 0.04;
   while (1)
   {
-    OMPie::getArcOut(a10, v19, v61);
+    OMPie::getArcOut(v61, a10, v19);
     *&v20 = v15[1];
     *(&v20 + 1) = *a2;
     v63 = v20;
-    LODWORD(v62[0].var0[0]) = v17;
-    LODWORD(v62[0].var0[1]) = v18;
-    v21 = v61[0].i32[1];
-    v17 = v61[0].i32[0];
+    v62[0].var0[0] = v17;
+    v62[0].var0[1] = v18;
+    v21 = *(v61 + 1);
+    v17 = *v61;
     v62[1] = v61[0];
     if (OMUtil::findIntersectionOfLineSegment(&v63, v62))
     {
@@ -5683,7 +5696,7 @@ uint64_t OMPie::adjustSegment(OMPie *this, Vec2f *a2, Vec2f *a3, float32x2_t *a4
     }
   }
 
-  v64.i32[1] = v18;
+  *(&v64 + 1) = v18;
   OMPie::moveAroundArc(this, a5, a2);
   if (isQuadActive)
   {
@@ -5691,12 +5704,12 @@ uint64_t OMPie::adjustSegment(OMPie *this, Vec2f *a2, Vec2f *a3, float32x2_t *a4
   }
 
 LABEL_7:
-  OMPie::getArcOut(a10, 0.04, &v63);
+  OMPie::getArcOut(&v63, a10, 0.04);
   v22 = v63;
   v23 = 0.04;
   while (1)
   {
-    OMPie::getArcOut(a10, v23, v61);
+    OMPie::getArcOut(v61, a10, v23);
     *&v24 = v15[1];
     *(&v24 + 1) = *a2;
     v63 = v24;
@@ -5745,7 +5758,7 @@ LABEL_15:
   {
     if (OMPie::isQuadActive(a10))
     {
-      OMPie::getArcIn(a10, 0.0, v61);
+      OMPie::getArcIn(v61, a10, 0.0);
       *&v33 = v15[1];
       *(&v33 + 1) = *a2;
       v63 = v33;
@@ -5753,7 +5766,7 @@ LABEL_15:
       v35 = 0.04;
       while (1)
       {
-        OMPie::getArcIn(a10, v35, &v59);
+        OMPie::getArcIn(&v59, a10, v35);
         v62[0] = v34;
         v34 = v59;
         v62[1] = v59;
@@ -5819,22 +5832,22 @@ LABEL_15:
   return result;
 }
 
-void OMPie::getNextEdgeTurnAround(OMPie *this@<X0>, int a2@<W1>, signed int a3@<W2>, int8x16_t *a4@<X8>)
+void OMPie::getNextEdgeTurnAround(int8x16_t *__return_ptr a1@<X8>, OMPie *this@<X0>, int a3@<W1>, signed int a4@<W2>)
 {
   v6 = *(this + 5);
-  if (!a2)
+  if (!a3)
   {
-    if (a3)
+    if (a4)
     {
-      if (a3 <= 32)
+      if (a4 <= 32)
       {
 LABEL_8:
-        v9 = vcvts_n_f32_s32(a3, 5uLL);
-        OMPie::getArcOut(this, vcvts_n_f32_s32(a3 - 1, 5uLL), &v13);
-        OMPie::getArcOut(this, v9, &v12);
+        v9 = vcvts_n_f32_s32(a4, 5uLL);
+        OMPie::getArcOut(&v13, this, vcvts_n_f32_s32(a4 - 1, 5uLL));
+        OMPie::getArcOut(&v12, this, v9);
 LABEL_9:
         v8 = v12;
-        *v7.i8 = v13;
+        v7.i64[0] = v13;
         goto LABEL_11;
       }
 
@@ -5850,41 +5863,41 @@ LABEL_9:
     goto LABEL_15;
   }
 
-  if (!a3)
+  if (!a4)
   {
     v7.i64[0] = *(v6 + 24);
     v8 = *v6;
     goto LABEL_11;
   }
 
-  if (a3 <= 32)
+  if (a4 <= 32)
   {
     goto LABEL_8;
   }
 
-  if (a3 != 33)
+  if (a4 != 33)
   {
-    v11 = vcvts_n_f32_u32(a3 - 33, 5uLL);
-    OMPie::getArcIn(this, vcvts_n_f32_u32(a3 - 34, 5uLL), &v13);
-    OMPie::getArcIn(this, v11, &v12);
+    v11 = vcvts_n_f32_u32(a4 - 33, 5uLL);
+    OMPie::getArcIn(&v13, this, vcvts_n_f32_u32(a4 - 34, 5uLL));
+    OMPie::getArcIn(&v12, this, v11);
     goto LABEL_9;
   }
 
   v7.i64[0] = *(v6 + 16);
   v8 = *(v6 + 32);
 LABEL_11:
-  v7.u64[1] = v8;
+  v7.i64[1] = v8;
 LABEL_15:
-  *a4 = v7;
+  *a1 = v7;
 }
 
-__n128 OMPie::getNextEdgeSweep@<Q0>(float32x2_t **this@<X0>, int a2@<W1>, int a3@<W2>, __n128 *a4@<X8>)
+__n128 OMPie::getNextEdgeSweep@<Q0>(__n128 *__return_ptr a1@<X8>, float32x2_t **this@<X0>, int a3@<W1>, int a4@<W2>)
 {
-  if (a2)
+  if (a3)
   {
-    v6 = a3 / 31.0;
-    OMPie::getArcOut(this, v6, &v11);
-    OMPie::getArcIn(this, v6, &v10);
+    v6 = a4 / 31.0;
+    OMPie::getArcOut(&v11, this, v6);
+    OMPie::getArcIn(&v10, this, v6);
     v8 = v10;
     result.n128_u64[0] = v11;
   }
@@ -5892,13 +5905,13 @@ __n128 OMPie::getNextEdgeSweep@<Q0>(float32x2_t **this@<X0>, int a2@<W1>, int a3
   else
   {
     v9 = this[5];
-    OMPie::getArcOut(this, a3 / 31.0, &v11);
+    OMPie::getArcOut(&v11, this, a4 / 31.0);
     result.n128_u64[0] = v11;
     v8 = v9[1];
   }
 
   result.n128_u64[1] = v8;
-  *a4 = result;
+  *a1 = result;
   return result;
 }
 
@@ -6077,7 +6090,7 @@ void OMRect::OMRect(OMRect *this, float a2, float a3, float a4, float a5, int a6
   *(this + 4) = v18;
 }
 
-char *std::vector<Vec3f>::__assign_with_size[abi:ne200100]<Vec3f*,Vec3f*>(char **a1, char *a2, char *a3, unint64_t a4)
+char *std::vector<Vec3f>::__assign_with_size[abi:ne200100]<Vec3f*,Vec3f*>(uint64_t *a1, char *a2, char *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -6164,15 +6177,15 @@ char *std::vector<Vec3f>::__assign_with_size[abi:ne200100]<Vec3f*,Vec3f*>(char *
       v17 = v12;
       do
       {
-        v18 = &v17[v16];
-        *v12 = *&v17[v16];
-        *(v12 + 1) = *&v17[v16 + 4];
-        *(v12 + 2) = *&v17[v16 + 8];
+        v18 = v16 + v17;
+        *v12 = *(v16 + v17);
+        *(v12 + 4) = *(v16 + v17 + 4);
+        *(v12 + 8) = *(v16 + v17 + 8);
         v12 += 12;
         v17 += 12;
       }
 
-      while (v18 + 12 != a3);
+      while ((v18 + 12) != a3);
     }
 
     a1[1] = v17;
@@ -6181,7 +6194,7 @@ char *std::vector<Vec3f>::__assign_with_size[abi:ne200100]<Vec3f*,Vec3f*>(char *
   return result;
 }
 
-void std::vector<Vec3f>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Vec3f>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x1555555555555556)
   {
@@ -6191,7 +6204,7 @@ void std::vector<Vec3f>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<double>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<Vec3f>::__init_with_size[abi:ne200100]<Vec3f*,Vec3f*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Vec3f>::__init_with_size[abi:ne200100]<Vec3f*,Vec3f*>(uint64_t *result, _DWORD *a2, _DWORD *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6234,24 +6247,24 @@ void OMColorUtil::getRGBToYCbCrMatrix(int a1@<W0>, uint64_t a2@<X1>, uint64_t a3
 
 void OMColorUtil::getRec2020to709Matrix(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, Mat4f *a8@<X8>)
 {
-  *&v10 = 0;
-  *(&v10 + 1) = 0x3F80000000000000;
-  *&v9 = 0xBDCE075FBC95182BLL;
-  *(&v9 + 1) = 1066348944;
-  Mat4f::Mat4f(a8, 1.6605, -0.5876, -0.0728, 0.0, -0.1246, 1.1329, -0.0083, 0.0, a1, a2, a3, a4, a5, a6, a7, v9, v10);
+  *&v9 = 0;
+  *(&v9 + 1) = 0x3F80000000000000;
+  *&v8 = 0xBDCE075FBC95182BLL;
+  *(&v8 + 1) = 1066348944;
+  Mat4f::Mat4f(a8, 1.6605, -0.5876, -0.0728, 0.0, -0.1246, 1.1329, -0.0083, 0.0, a1, a2, a3, a4, a5, a6, a7, v8, v9);
 }
 
-void OMColorUtil::Level4f(OMColorUtil *this@<X0>, float a2@<S0>, float a3@<S1>, float32x4_t *a4@<X8>)
+void OMColorUtil::Level4f(float32x4_t *__return_ptr a1@<X8>, OMColorUtil *this@<X0>, float a3@<S0>, float a4@<S1>)
 {
-  v14.var0[0] = a2;
+  v14.var0[0] = a3;
   *&v14.var0[1] = 0;
   Mat4f::MakeHTrans(v15, &v14);
-  v12.var0[0] = (a3 + 1.0) - a2;
+  v12.var0[0] = (a4 + 1.0) - a3;
   __asm { FMOV            V0.2S, #1.0 }
 
   *&v12.var0[1] = _D0;
   Mat4f::MakeHScale(v13, &v12);
-  Mat4f::operator*(v15, v13, a4);
+  Mat4f::operator*(v15, v13, a1);
 }
 
 float OMColorUtil::RGB2LumaHS(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -6297,11 +6310,11 @@ void sub_25FF29C64(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void sub_25FF2A20C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_25FF2A20C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    (*(*a14 + 24))(a14);
+    (*(*a14 + 24))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6314,11 +6327,11 @@ void sub_25FF2A350(void *a1)
   JUMPOUT(0x25FF2A344);
 }
 
-void sub_25FF2A534(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FF2A534(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6348,10 +6361,10 @@ void sub_25FF2AC20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  (*(*v11 + 24))(v11);
+  (*(*v11 + 24))(v11, a2, a3, a4, a5, a6, a7, a8);
   if (a11)
   {
     (*(*a11 + 24))(a11);
@@ -8022,7 +8035,7 @@ uint64_t HgcRenderToEquirect::RenderTile(HgcRenderToEquirect *this, HGTile *a2)
   return 0;
 }
 
-uint64_t HgcRenderToEquirect::GetDOD(HgcRenderToEquirect *this, HGRenderer *a2, int a3, HGRect a4)
+uint64_t HgcRenderToEquirect::GetDOD(HgcRenderToEquirect *this, HGRenderer *a2, unsigned int a3, HGRect a4)
 {
   v4 = *&a4.var2;
   v5 = *&a4.var0;
@@ -8043,7 +8056,7 @@ LABEL_11:
     }
 
 LABEL_10:
-    v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v7 = HGRectMake4i(-1, -1, 1, 1);
     HGRectGrow(v5, v4, v7);
     goto LABEL_11;
   }
@@ -8066,7 +8079,7 @@ LABEL_10:
   return *v6;
 }
 
-uint64_t HgcRenderToEquirect::GetROI(HGNode *this, HGRenderer *a2, signed int a3, HGRect a4)
+uint64_t HgcRenderToEquirect::GetROI(HGNode *this, HGRenderer *a2, unsigned int a3, HGRect a4)
 {
   if (a3 > 2)
   {
@@ -8086,7 +8099,7 @@ uint64_t HgcRenderToEquirect::GetROI(HGNode *this, HGRenderer *a2, signed int a3
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -9824,22 +9837,4 @@ uint64_t HgcColorBalanceNoClipGammaOne::GetROI(HgcColorBalanceNoClipGammaOne *th
   {
     return *&a4.var0;
   }
-}
-
-void HgcColorBalanceNoClipGammaOne::~HgcColorBalanceNoClipGammaOne(HgcColorBalanceNoClipGammaOne *this)
-{
-  *this = &unk_28725B108;
-  v2 = *(this + 62);
-  if (v2)
-  {
-    MEMORY[0x2666E9F00](v2, 0x1000C408070C27FLL);
-  }
-
-  HGColorMatrix::~HGColorMatrix(this);
-}
-
-{
-  HgcColorBalanceNoClipGammaOne::~HgcColorBalanceNoClipGammaOne(this);
-
-  HGObject::operator delete(v1);
 }

@@ -143,8 +143,9 @@ LABEL_10:
   return v7;
 }
 
-uint64_t sub_100000EC0(unsigned int a1, _DWORD *a2, mach_port_t connection)
+uint64_t sub_100000EC0(unsigned int a1, _DWORD *a2, uint64_t connection)
 {
+  v3 = connection;
   v20 = 0;
   v18 = 0u;
   v19 = 0u;
@@ -174,7 +175,7 @@ uint64_t sub_100000EC0(unsigned int a1, _DWORD *a2, mach_port_t connection)
     v8 = __stderrp;
     v9 = sub_1000045BC(v6);
     fprintf(v8, "ERROR: GetKeyFromIndex for index 0x%lx failed with OS error %s.\n", a1, v9);
-    sub_10000486C(connection);
+    sub_10000486C(v3);
   }
 
   else
@@ -189,7 +190,7 @@ uint64_t sub_100000EC0(unsigned int a1, _DWORD *a2, mach_port_t connection)
       *a2 = outputStruct[0];
     }
 
-    if (sub_10000486C(connection))
+    if (sub_10000486C(v3))
     {
       fwrite("ERROR: Failed to properly close SMC data port.\n", 0x2FuLL, 1uLL, __stderrp);
       return -1;
@@ -375,7 +376,7 @@ uint64_t start()
   sub_100001E84();
   sub_100001978(1);
   dword_10000C62C = 0;
-  sub_100001EC0("#KEY", 1, 0xFFFFFFFF, -1, 0);
+  sub_100001EC0("#KEY", 1, 0xFFFFFFFFLL, 0xFFFFFFFFLL, 0);
   v0 = sub_100001E90();
   v1 = v0;
   if (dword_10000C628)
@@ -424,7 +425,7 @@ uint64_t start()
         }
       }
 
-      ++v2;
+      v2 = (v2 + 1);
     }
 
     while (v1 != v2);
@@ -568,8 +569,9 @@ void sub_100001978(int a1)
   dword_10000C658 = a1;
 }
 
-void sub_1000019D4(int a1)
+void sub_1000019D4(uint64_t a1)
 {
+  v1 = a1;
   v4 = objc_alloc_init(NSDate);
   [v4 timeIntervalSince1970];
   qword_10000C660 = *&v2;
@@ -579,7 +581,7 @@ void sub_1000019D4(int a1)
     v3 = 0.0;
   }
 
-  sub_100001A5C(@"TIME_DIFF", a1, v3);
+  sub_100001A5C(@"TIME_DIFF", v1, v3);
 }
 
 void sub_100001A5C(void *a1, int a2, double a3)
@@ -732,8 +734,10 @@ uint64_t sub_100001E9C(uint64_t result, _BYTE *a2)
   return result;
 }
 
-id sub_100001EC0(char *a1, int a2, unsigned int a3, int a4, int a5)
+id sub_100001EC0(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
+  v5 = a4;
+  v6 = a2;
   if ((a3 & 0x80000000) != 0)
   {
 LABEL_6:
@@ -759,7 +763,7 @@ LABEL_6:
   a1 = &aAupo[9 * a3];
 LABEL_7:
   v7 = [NSString stringWithFormat:@"%s", a1];
-  v8 = sub_10000214C(v7, a2, a4);
+  v8 = sub_10000214C(v7, v6, v5);
 
   if ([v8 length])
   {
@@ -851,7 +855,7 @@ char *sub_100001FEC(int a1)
   return v2;
 }
 
-id sub_10000214C(void *a1, int a2, int a3)
+NSMutableString *sub_10000214C(void *a1, int a2, int a3)
 {
   v5 = a1;
   v32 = 0;
@@ -1004,7 +1008,7 @@ void sub_100002470(const char *a1@<X0>, void *a2@<X1>, char *a3@<X2>, void *a4@<
   *(a3 + 2) = 0u;
   *a3 = 0u;
   *(a3 + 3) = 0u;
-  v8 = (a3 + 48);
+  v8 = a3 + 48;
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
@@ -2734,7 +2738,7 @@ uint64_t sub_100003E24(uint64_t a1, const char *a2, unsigned int a3, unsigned __
   return v15;
 }
 
-uint64_t sub_100004030(mach_port_t a1, const char *a2, int a3, unsigned __int8 *a4)
+uint64_t sub_100004030(mach_port_t a1, const char *a2, int a3, char *a4)
 {
   LODWORD(v5) = a3;
   v26 = 0u;

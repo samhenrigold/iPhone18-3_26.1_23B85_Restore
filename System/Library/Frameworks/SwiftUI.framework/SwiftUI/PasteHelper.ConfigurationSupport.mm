@@ -18,17 +18,20 @@
 {
   type metadata accessor for NSItemProvider();
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = *(&self->super.isa + OBJC_IVAR____TtCV7SwiftUI11PasteHelper20ConfigurationSupport_pasteHelper);
-  if (v5)
+  v5 = self + OBJC_IVAR____TtCV7SwiftUI11PasteHelper20ConfigurationSupport_pasteHelper;
+  v6 = *(&self->super.isa + OBJC_IVAR____TtCV7SwiftUI11PasteHelper20ConfigurationSupport_pasteHelper);
+  if (v6)
   {
-    v6 = v4;
+    v7 = v4;
+    v9 = *(v5 + 1);
+    v8 = *(v5 + 2);
     selfCopy = self;
-    outlined copy of PasteHelper?(v5);
-    v10.value._rawValue = v6;
-    v10.is_nil = v5;
-    v8 = PasteHelper.canPaste(_:)(v10);
+    outlined copy of PasteHelper?(v6, v9, v8);
+    v12.value._rawValue = v7;
+    v12.is_nil = v6;
+    LOBYTE(v9) = PasteHelper.canPaste(_:)(v12);
 
-    LOBYTE(v4) = v8;
+    LOBYTE(v4) = v9 & 1;
   }
 
   else
@@ -50,12 +53,13 @@
     selfCopy = self;
 
     v7 = v6(v5);
+    v9 = v8;
 
     if (v7)
     {
-      v7(v8);
+      v7(v10);
 
-      outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v7);
+      outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v7, v9);
     }
 
     else

@@ -70,15 +70,12 @@
 
 - (id)description
 {
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  v5 = *&self->_balanceFields;
-  v6 = [v3 stringWithFormat:@"<%@:%p> {transitProperties:%@, appletState:%@, balanceFields:%@ commutePlanFields:%@, tiles:%@, rangingSuspensionReason:%lu, precursorPassDescription:%@, hasDeviceBoundCommutePlans:%lu", v4, self, self->_transitProperties, self->_transitAppletState, self->_balanceFields, self->_commutePlanFields, self->_tiles, self->_rangingSuspensionReason, self->_precursorPassDescription, self->_hasDeviceBoundCommutePlans];
-  v7 = [v6 mutableCopy];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"<%@:%p> {transitProperties:%@, appletState:%@, balanceFields:%@ commutePlanFields:%@, tiles:%@, rangingSuspensionReason:%lu, precursorPassDescription:%@, hasDeviceBoundCommutePlans:%lu", objc_opt_class(), self, self->_transitProperties, self->_transitAppletState, self->_balanceFields, self->_commutePlanFields, self->_tiles, self->_rangingSuspensionReason, self->_precursorPassDescription, self->_hasDeviceBoundCommutePlans];
+  v4 = [v3 mutableCopy];
 
-  [v7 appendFormat:@", accessories:%@", self->_accessories];
+  [v4 appendFormat:@", accessories:%@", self->_accessories];
 
-  return v7;
+  return v4;
 }
 
 @end

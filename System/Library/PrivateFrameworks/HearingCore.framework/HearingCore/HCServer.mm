@@ -6,6 +6,7 @@
 - (id)sendSynchronousMessageWithPayloadAndGetResponse:(id)response andIdentifier:(unint64_t)identifier;
 - (id)setupServerIfNecessary;
 - (void)dealloc;
+- (void)handleMessageError:(id)error destructive:(BOOL)destructive;
 - (void)handleMessageWithPayload:(id)payload forIdentifier:(unint64_t)identifier;
 - (void)handleReply:(id)reply;
 - (void)resetConnection;
@@ -19,7 +20,7 @@
 
 - (id)setupServerIfNecessary
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   connectionQueue = [(HCServer *)self connectionQueue];
   mach_service = [(HCServer *)self xpcConnection];
   if (!mach_service)
@@ -34,14 +35,14 @@
       mach_service = xpc_connection_create_mach_service([@"com.apple.accessibility.heard" UTF8String], connectionQueue, 0);
       xpc_connection_set_target_queue(mach_service, connectionQueue);
       objc_initWeak(&location, self);
-      v8 = MEMORY[0x1E69E9820];
-      v9 = 3221225472;
-      v10 = __34__HCServer_setupServerIfNecessary__block_invoke;
-      v11 = &unk_1E857ED50;
-      objc_copyWeak(&v12, &location);
-      xpc_connection_set_event_handler(mach_service, &v8);
+      v7 = MEMORY[0x1E69E9820];
+      v8 = 3221225472;
+      v9 = __34__HCServer_setupServerIfNecessary__block_invoke;
+      v10 = &unk_1E857ED50;
+      objc_copyWeak(&v11, &location);
+      xpc_connection_set_event_handler(mach_service, &v7);
       xpc_connection_activate(mach_service);
-      [(HCServer *)self setXpcConnection:mach_service, v8, v9, v10, v11];
+      [(HCServer *)self setXpcConnection:mach_service, v7, v8, v9, v10];
       v5 = HCLogHearingXPC();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
@@ -50,12 +51,10 @@
         _os_log_impl(&dword_1D952C000, v5, OS_LOG_TYPE_DEFAULT, "Set new xpc connection: %@", buf, 0xCu);
       }
 
-      objc_destroyWeak(&v12);
+      objc_destroyWeak(&v11);
       objc_destroyWeak(&location);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return mach_service;
 }
@@ -95,7 +94,7 @@ void __34__HCServer_setupServerIfNecessary__block_invoke(uint64_t a1, void *a2)
 
 - (void)terminateConnectionAndNotify:(BOOL)notify
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = HCLogHearingXPC();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -105,15 +104,13 @@ void __34__HCServer_setupServerIfNecessary__block_invoke(uint64_t a1, void *a2)
   }
 
   connectionQueue = [(HCServer *)self connectionQueue];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __41__HCServer_terminateConnectionAndNotify___block_invoke;
-  v8[3] = &unk_1E857EC88;
-  v8[4] = self;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __41__HCServer_terminateConnectionAndNotify___block_invoke;
+  v7[3] = &unk_1E857EC88;
+  v7[4] = self;
   notifyCopy = notify;
-  dispatch_async(connectionQueue, v8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  dispatch_async(connectionQueue, v7);
 }
 
 void __41__HCServer_terminateConnectionAndNotify___block_invoke(uint64_t a1)
@@ -139,17 +136,16 @@ void __41__HCServer_terminateConnectionAndNotify___block_invoke(uint64_t a1)
 
 - (void)resetConnection
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = HCLogHearingXPC();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1D952C000, v3, OS_LOG_TYPE_DEFAULT, "Connection reset: %@", &v5, 0xCu);
+    _os_log_impl(&dword_1D952C000, v3, OS_LOG_TYPE_DEFAULT, "Connection reset: %@", &v4, 0xCu);
   }
 
   [(HCServer *)self terminateConnectionAndNotify:1];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isConnected
@@ -210,22 +206,7 @@ void __41__HCServer_terminateConnectionAndNotify___block_invoke(uint64_t a1)
     v19 = 0;
     v6 = [MEMORY[0x1E6988810] dictionaryFromXPCMessage:replyCopy error:&v19];
     v7 = v19;
-    if (v7)
-    {
-      goto LABEL_4;
-    }
-
-    v14 = [v6 objectForKey:@"axha_payload"];
-    if (!v14)
-    {
-      goto LABEL_4;
-    }
-
-    v15 = v14;
-    v16 = [v6 objectForKey:@"axha_messageID"];
-    unsignedLongLongValue = [v16 unsignedLongLongValue];
-
-    if (unsignedLongLongValue)
+    if (!v7 && ([v6 objectForKey:@"axha_payload"], (v14 = objc_claimAutoreleasedReturnValue()) != 0) && (v15 = v14, objc_msgSend(v6, "objectForKey:", @"axha_messageID"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "unsignedLongLongValue"), v16, v15, v17))
     {
       v8 = [v6 objectForKey:@"axha_payload"];
       v18 = [v6 objectForKey:@"axha_messageID"];
@@ -234,7 +215,6 @@ void __41__HCServer_terminateConnectionAndNotify___block_invoke(uint64_t a1)
 
     else
     {
-LABEL_4:
       v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Malformed message: %@", v6];
       [(HCServer *)self handleMessageError:v8 destructive:0];
     }
@@ -275,21 +255,22 @@ void __24__HCServer_handleReply___block_invoke_7(uint64_t a1)
   [v1 shouldRestartOnInterruption:v2];
 }
 
-void __24__HCServer_handleReply___block_invoke_2(uint64_t a1, char a2)
+void __24__HCServer_handleReply___block_invoke_2(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = [*(a1 + 32) connectionQueue];
   v6[0] = MEMORY[0x1E69E9820];
   v6[1] = 3221225472;
   v6[2] = __24__HCServer_handleReply___block_invoke_3;
   v6[3] = &unk_1E857ECD8;
   v7 = *(a1 + 40);
-  v8 = a2;
+  v8 = v2;
   dispatch_async(v4, v6);
 
   v5 = HCLogHearingXPC();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __24__HCServer_handleReply___block_invoke_2_cold_1(a2, v5);
+    __24__HCServer_handleReply___block_invoke_2_cold_1(v2, v5);
   }
 }
 
@@ -511,6 +492,20 @@ void __63__HCServer_sendMessageWithPayload_identifier_andResponseBlock___block_i
 LABEL_6:
 }
 
+- (void)handleMessageError:(id)error destructive:(BOOL)destructive
+{
+  destructiveCopy = destructive;
+  errorCopy = error;
+  messageDelegate = [(HCServer *)self messageDelegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    messageDelegate2 = [(HCServer *)self messageDelegate];
+    [messageDelegate2 handleMessageError:errorCopy destructive:destructiveCopy];
+  }
+}
+
 - (AXHeardServerDelegate)delegate
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -527,11 +522,10 @@ LABEL_6:
 
 void __24__HCServer_handleReply___block_invoke_2_cold_1(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_error_impl(&dword_1D952C000, a2, OS_LOG_TYPE_ERROR, "Connection interrupted, restarting: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_error_impl(&dword_1D952C000, a2, OS_LOG_TYPE_ERROR, "Connection interrupted, restarting: %d", v2, 8u);
 }
 
 @end

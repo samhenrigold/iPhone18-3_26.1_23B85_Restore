@@ -7,7 +7,7 @@
 
 + (id)hf_collectionSettingItemForAlarm:()HFAlarmUtilities
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!v5)
   {
@@ -17,8 +17,8 @@
 
   v6 = objc_autoreleasePoolPush();
   v7 = objc_opt_new();
-  v15[0] = v5;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = v5;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   [v7 encodeObject:v8 forKey:@"MTAlarms"];
 
   v9 = objc_alloc(MEMORY[0x277CD1690]);
@@ -26,7 +26,6 @@
   v11 = [v9 initWithValue:encodedDictionary];
 
   objc_autoreleasePoolPop(v6);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

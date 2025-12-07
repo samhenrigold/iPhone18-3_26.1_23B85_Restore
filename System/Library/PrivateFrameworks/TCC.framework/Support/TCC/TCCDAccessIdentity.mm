@@ -342,11 +342,11 @@ LABEL_28:
     {
       v13 = 0;
 LABEL_40:
-      v91 = 0;
-      v53 = [chainCopy attributedBundleUsingOutermostBundle:0 computedStaticCodeRef:0 computedNonIdentifiableBundleURL:&v91];
-      logHandle = v91;
+      v93 = 0;
+      v55 = [chainCopy attributedBundleUsingOutermostBundle:0 computedStaticCodeRef:0 computedNonIdentifiableBundleURL:&v93];
+      logHandle = v93;
       p_super = &self->_bundle->super;
-      self->_bundle = v53;
+      self->_bundle = v55;
 LABEL_41:
 
       bundle = self->_bundle;
@@ -367,8 +367,8 @@ LABEL_41:
             [(TCCDAccessIdentity *)self _makeDisplayNameBlockForURL:bundleURL];
           }
 
-          v59 = +[TCCDPlatform currentPlatform];
-          server2 = [v59 server];
+          v61 = +[TCCDPlatform currentPlatform];
+          server2 = [v61 server];
           p_super = [server2 logHandle];
 
           if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
@@ -376,13 +376,13 @@ LABEL_41:
             sub_10002DCE4(self, p_super);
           }
 
-          v27 = 1;
+          v26 = 1;
           goto LABEL_51;
         }
       }
 
-      v61 = +[TCCDPlatform currentPlatform];
-      server3 = [v61 server];
+      v63 = +[TCCDPlatform currentPlatform];
+      server3 = [v63 server];
       p_super = [server3 logHandle];
 
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
@@ -391,7 +391,7 @@ LABEL_41:
       }
 
 LABEL_50:
-      v27 = 0;
+      v26 = 0;
 LABEL_51:
 
       goto LABEL_52;
@@ -422,29 +422,29 @@ LABEL_51:
       if ((v23 & 1) == 0)
       {
         self->_pluginTargetsSystemExtensionPoint = [v19 extensionPointType] < 2;
-        tCCPolicy = [v19 TCCPolicy];
-        if (tCCPolicy >= 3)
+        extensionPointRecord = [v19 TCCPolicy];
+        if (extensionPointRecord >= 3)
         {
-          v28 = tcc_access_log();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          v27 = tcc_access_log(extensionPointRecord);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             sub_10002D99C();
           }
 
-          v26 = 1;
+          v25 = 1;
         }
 
         else
         {
-          v26 = tCCPolicy;
+          v25 = extensionPointRecord;
         }
 
-        self->_pluginPromptPolicy = v26;
+        self->_pluginPromptPolicy = v25;
       }
     }
 
-    v29 = tcc_access_log();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v28 = tcc_access_log(extensionPointRecord);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       responsiblePID = self->_responsiblePID;
       name = [v19 name];
@@ -458,9 +458,9 @@ LABEL_51:
       *&atoken[20] = name;
       *&atoken[28] = 2048;
       *&atoken[30] = appExtensionType;
-      v101 = 2048;
-      v102 = pluginPromptPolicy;
-      _os_log_debug_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "IDENTITY_ATTRIBUTION: Responsible process (pid=%u) is App Extension: %{public}@, extension point %{public}@, extension type %ld, prompt policy %ld", atoken, 0x30u);
+      v103 = 2048;
+      v104 = pluginPromptPolicy;
+      _os_log_debug_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "IDENTITY_ATTRIBUTION: Responsible process (pid=%u) is App Extension: %{public}@, extension point %{public}@, extension type %ld, prompt policy %ld", atoken, 0x30u);
     }
 
     if (!v13)
@@ -469,43 +469,43 @@ LABEL_51:
     }
 
     p_super = 0;
-    v31 = self->_pluginPromptPolicy;
-    if (!v31)
+    v30 = self->_pluginPromptPolicy;
+    if (!v30)
     {
 LABEL_39:
 
       goto LABEL_40;
     }
 
-    if (v31 != 2)
+    if (v30 != 2)
     {
-      if (v31 == 1)
+      if (v30 == 1)
       {
         containingBundleRecord = [v13 containingBundleRecord];
-        v33 = containingBundleRecord;
-        v37 = 0;
+        v32 = containingBundleRecord;
+        v36 = 0;
         if (containingBundleRecord)
         {
           bundleIdentifier4 = [containingBundleRecord bundleIdentifier];
           if (bundleIdentifier4)
           {
-            v35 = bundleIdentifier4;
-            v36 = [v33 URL];
+            v34 = bundleIdentifier4;
+            v35 = [v32 URL];
 
-            if (v36)
+            if (v35)
             {
-              v37 = 1;
+              v36 = 1;
             }
           }
         }
 
-        bundleIdentifier5 = [v33 bundleIdentifier];
-        v52 = self->_identifier;
+        bundleIdentifier5 = [v32 bundleIdentifier];
+        v54 = self->_identifier;
         self->_identifier = bundleIdentifier5;
 
-        p_super = [v33 URL];
+        p_super = [v32 URL];
 
-        if (!v37)
+        if (!v36)
         {
           goto LABEL_39;
         }
@@ -514,103 +514,104 @@ LABEL_39:
       goto LABEL_68;
     }
 
+    v37 = *&self->_responsibleAuditToken.val[4];
+    v100 = *self->_responsibleAuditToken.val;
+    v101 = v37;
     v38 = *&self->_responsibleAuditToken.val[4];
-    v98 = *self->_responsibleAuditToken.val;
-    v99 = v38;
-    v39 = *&self->_responsibleAuditToken.val[4];
     *atoken = *self->_responsibleAuditToken.val;
-    *&atoken[16] = v39;
-    v40 = [NSNumber numberWithInt:audit_token_to_pid(atoken)];
-    v97 = 0;
-    v41 = [RBSProcessHandle handleForIdentifier:v40 error:&v97];
-    v42 = v97;
+    *&atoken[16] = v38;
+    v39 = [NSNumber numberWithInt:audit_token_to_pid(atoken)];
+    v99 = 0;
+    v40 = [RBSProcessHandle handleForIdentifier:v39 error:&v99];
+    v41 = v99;
 
-    if (v41)
+    if (v40)
     {
-      v89 = v42;
-      v90 = v41;
-      [v41 auditToken];
-      *atoken = v98;
-      *&atoken[16] = v99;
+      v91 = v41;
+      v92 = v40;
+      objc_msgSend_auditToken(v40);
+      *atoken = v100;
+      *&atoken[16] = v101;
       v43 = audit_token_to_pid(atoken);
-      *atoken = v95;
-      *&atoken[16] = v96;
+      *atoken = v97;
+      *&atoken[16] = v98;
       v44 = audit_token_to_pid(atoken);
-      *atoken = v98;
-      *&atoken[16] = v99;
+      *atoken = v100;
+      *&atoken[16] = v101;
       v45 = audit_token_to_pidversion(atoken);
-      *atoken = v95;
-      *&atoken[16] = v96;
+      *atoken = v97;
+      *&atoken[16] = v98;
       v46 = audit_token_to_pidversion(atoken);
       if (v43 != v44 || v45 != v46)
       {
-        v48 = tcc_access_log();
+        v48 = tcc_access_log(v46);
         if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
         {
-          v41 = v90;
-          [v90 auditToken];
-          v87 = sub_10002D734(atoken);
-          *atoken = v98;
-          *&atoken[16] = v99;
-          v88 = sub_10002D734(atoken);
+          v40 = v92;
+          objc_msgSend_auditToken(v92);
+          v89 = sub_10002D734(atoken);
+          *atoken = v100;
+          *&atoken[16] = v101;
+          v90 = sub_10002D734(atoken);
           *atoken = 138543874;
-          *&atoken[4] = v90;
+          *&atoken[4] = v92;
           *&atoken[12] = 2114;
-          *&atoken[14] = v87;
+          *&atoken[14] = v89;
           *&atoken[22] = 2114;
-          *&atoken[24] = v88;
+          *&atoken[24] = v90;
           _os_log_error_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "Rejecting RBSProcessHandle %{public}@ for App Extension because process handle's audit token %{public}@ doesn't match original %{public}@", atoken, 0x20u);
 
           p_super = 0;
-          v42 = v89;
+          v41 = v91;
         }
 
         else
         {
           p_super = 0;
-          v42 = v89;
-          v41 = v90;
+          v41 = v91;
+          v40 = v92;
         }
 
         goto LABEL_64;
       }
 
-      v41 = v90;
-      hostProcess = [v90 hostProcess];
+      v40 = v92;
+      hostProcess = [v92 hostProcess];
       if (hostProcess)
       {
         v48 = hostProcess;
-        v42 = v89;
-        if (([hostProcess isApplication]& 1) != 0)
+        isApplication = [hostProcess isApplication];
+        v41 = v91;
+        if (isApplication)
         {
           memset(atoken, 0, 32);
-          [v48 auditToken];
-          v94 = v89;
-          v95 = *atoken;
-          v96 = *&atoken[16];
-          p_super = [LSBundleRecord bundleRecordForAuditToken:&v95 error:&v94];
-          v49 = v94;
+          objc_msgSend_auditToken(v48);
+          v96 = v91;
+          v97 = *atoken;
+          v98 = *&atoken[16];
+          p_super = [LSBundleRecord bundleRecordForAuditToken:&v97 error:&v96];
+          v50 = v96;
 
           if (p_super)
           {
-            v50 = p_super;
+            v52 = p_super;
           }
 
           else
           {
-            v86 = tcc_access_log();
-            if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+            v88 = tcc_access_log(v51);
+            if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
             {
               sub_10002DA80();
             }
           }
 
-          v42 = v49;
+          v41 = v50;
           goto LABEL_64;
         }
 
-        v69 = tcc_access_log();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+        v71 = tcc_access_log(isApplication);
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
         {
           sub_10002DA10();
         }
@@ -618,9 +619,9 @@ LABEL_39:
 
       else
       {
-        v68 = tcc_access_log();
-        v42 = v89;
-        if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+        v70 = tcc_access_log(0);
+        v41 = v91;
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
         {
           sub_10002DAF0();
         }
@@ -631,7 +632,7 @@ LABEL_39:
 
     else
     {
-      v48 = tcc_access_log();
+      v48 = tcc_access_log(v42);
       if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
         sub_10002DB60();
@@ -641,9 +642,9 @@ LABEL_39:
     p_super = 0;
 LABEL_64:
 
-    if (!p_super || ([p_super bundleIdentifier], (v70 = objc_claimAutoreleasedReturnValue()) == 0) || (v71 = v70, [p_super URL], v72 = objc_claimAutoreleasedReturnValue(), v72, v71, !v72))
+    if (!p_super || ([p_super bundleIdentifier], (v72 = objc_claimAutoreleasedReturnValue()) == 0) || (v73 = v72, [p_super URL], v74 = objc_claimAutoreleasedReturnValue(), v74, v73, !v74))
     {
-      logHandle2 = tcc_access_log();
+      logHandle2 = tcc_access_log(v72);
       if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_ERROR))
       {
         sub_10002DBD0();
@@ -653,32 +654,32 @@ LABEL_64:
     }
 
     bundleIdentifier6 = [p_super bundleIdentifier];
-    v74 = self->_identifier;
+    v76 = self->_identifier;
     self->_identifier = bundleIdentifier6;
 
-    v75 = [p_super URL];
+    v77 = [p_super URL];
 
-    p_super = v75;
+    p_super = v77;
 LABEL_68:
-    v76 = [TCCDBundle bundleWithURL:p_super];
-    v77 = self->_bundle;
-    self->_bundle = v76;
+    v78 = [TCCDBundle bundleWithURL:p_super];
+    v79 = self->_bundle;
+    self->_bundle = v78;
 
-    v78 = self->_bundle;
-    v79 = +[TCCDPlatform currentPlatform];
-    server4 = [v79 server];
+    v80 = self->_bundle;
+    v81 = +[TCCDPlatform currentPlatform];
+    server4 = [v81 server];
     logHandle2 = [server4 logHandle];
 
-    if (v78)
+    if (v80)
     {
       if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_INFO))
       {
-        v82 = self->_pluginBundleURL;
-        v83 = self->_bundle;
+        v84 = self->_pluginBundleURL;
+        v85 = self->_bundle;
         *atoken = 138543618;
-        *&atoken[4] = v82;
+        *&atoken[4] = v84;
         *&atoken[12] = 2114;
-        *&atoken[14] = v83;
+        *&atoken[14] = v85;
         _os_log_impl(&_mh_execute_header, logHandle2, OS_LOG_TYPE_INFO, "IDENTITY_ATTRIBUTION: Attributing App Extension %{public}@ to %{public}@", atoken, 0x16u);
       }
 
@@ -686,14 +687,14 @@ LABEL_68:
       if (TCCDServerHasPolicyOverride(self->_pluginBundleIdentifier, &self->_policy_id, &self->_identifier, atoken))
       {
         self->_client_type = 2;
-        v92[0] = _NSConcreteStackBlock;
-        v92[1] = 3221225472;
-        v92[2] = sub_10002BB44;
-        v92[3] = &unk_1000A5D48;
-        v93 = *atoken;
-        v84 = objc_retainBlock(v92);
+        v94[0] = _NSConcreteStackBlock;
+        v94[1] = 3221225472;
+        v94[2] = sub_10002BB44;
+        v94[3] = &unk_1000A5D48;
+        v95 = *atoken;
+        v86 = objc_retainBlock(v94);
         displayNameBlock = self->displayNameBlock;
-        self->displayNameBlock = v84;
+        self->displayNameBlock = v86;
       }
 
       logHandle = 0;
@@ -716,10 +717,10 @@ LABEL_78:
     sub_10002DE14();
   }
 
-  v27 = 0;
+  v26 = 0;
 LABEL_52:
 
-  return v27;
+  return v26;
 }
 
 - (TCCDAccessIdentity)initWithAttributionChain:(id)chain preferMostSpecificIdentifier:(BOOL)identifier
@@ -744,7 +745,7 @@ LABEL_52:
   v11 = accessingProcess;
   if (accessingProcess)
   {
-    [accessingProcess auditToken];
+    objc_msgSend_auditToken(accessingProcess);
   }
 
   else
@@ -759,7 +760,7 @@ LABEL_52:
   v13 = responsibleProcess2;
   if (responsibleProcess2)
   {
-    [responsibleProcess2 auditToken];
+    objc_msgSend_auditToken(responsibleProcess2);
   }
 
   else
@@ -1147,20 +1148,21 @@ LABEL_24:
   v7 = v6;
   if (v6)
   {
-    v13 = 0;
-    v8 = sub_10002C7EC(v6, &v13);
-    v9 = v13;
+    v14 = 0;
+    v8 = sub_10002C7EC(v6, &v14);
+    v9 = v14;
+    v10 = v9;
     if (v8)
     {
-      v10 = [NSString stringWithUTF8String:tcc_identity_get_identifier()];
-      self = [(TCCDAccessIdentity *)self initWithIdentifier:v10 type:tcc_identity_get_type() executableURL:0 SDKVersion:0 platformType:0];
+      v11 = [NSString stringWithUTF8String:tcc_identity_get_identifier()];
+      self = [(TCCDAccessIdentity *)self initWithIdentifier:v11 type:tcc_identity_get_type() executableURL:0 SDKVersion:0 platformType:0];
       selfCopy = self;
     }
 
     else
     {
-      v10 = tcc_access_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v11 = tcc_access_log(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         sub_10002DF9C();
       }
@@ -1189,89 +1191,91 @@ LABEL_24:
   if (v8)
   {
     selfCopy = self;
-    v25 = contextCopy;
+    v27 = contextCopy;
+    v31 = 0u;
+    v32 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v28;
+      v13 = *v30;
       do
       {
         for (i = 0; i != v12; i = i + 1)
         {
-          if (*v28 != v13)
+          if (*v30 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v27 + 1) + 8 * i);
+          v15 = *(*(&v29 + 1) + 8 * i);
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          isKindOfClass = objc_opt_isKindOfClass();
+          if (isKindOfClass)
           {
-            v26 = 0;
-            v16 = sub_10002C7EC(v15, &v26);
-            v17 = v26;
-            if (v16)
+            v28 = 0;
+            v17 = sub_10002C7EC(v15, &v28);
+            v18 = v28;
+            v19 = v18;
+            if (v17)
             {
               if (tcc_identity_type_and_identifiers_are_equal())
               {
 
-                v21 = [NSString stringWithUTF8String:tcc_identity_get_identifier()];
-                self = [(TCCDAccessIdentity *)selfCopy initWithIdentifier:v21 type:tcc_identity_get_type() executableURL:0 SDKVersion:0 platformType:0];
+                v23 = [NSString stringWithUTF8String:tcc_identity_get_identifier()];
+                self = [(TCCDAccessIdentity *)selfCopy initWithIdentifier:v23 type:tcc_identity_get_type() executableURL:0 SDKVersion:0 platformType:0];
                 selfCopy2 = self;
-                contextCopy = v25;
+                contextCopy = v27;
                 goto LABEL_23;
               }
             }
 
             else
             {
-              v19 = tcc_access_log();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+              v21 = tcc_access_log(v18);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v32 = v17;
-                _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Invalid explicitly assumed identity entitlement: %{public}@", buf, 0xCu);
+                v34 = v19;
+                _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Invalid explicitly assumed identity entitlement: %{public}@", buf, 0xCu);
               }
             }
           }
 
           else
           {
-            v17 = tcc_access_log();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            v19 = tcc_access_log(isKindOfClass);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
-              v18 = objc_opt_class();
+              v20 = objc_opt_class();
               *buf = 138543618;
-              v32 = v18;
-              v33 = 2114;
-              v34 = v15;
-              _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Invalid explicitly assumed identity entitlement: identities should be dictionaries, found %{public}@: %{public}@", buf, 0x16u);
+              v34 = v20;
+              v35 = 2114;
+              v36 = v15;
+              _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Invalid explicitly assumed identity entitlement: identities should be dictionaries, found %{public}@: %{public}@", buf, 0x16u);
             }
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v12);
     }
 
-    v21 = tcc_object_copy_description();
-    v20 = tcc_access_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    v23 = tcc_object_copy_description();
+    v22 = tcc_access_log(v23);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       sub_10002E094();
     }
 
     selfCopy2 = 0;
     self = selfCopy;
-    contextCopy = v25;
+    contextCopy = v27;
 LABEL_23:
   }
 
@@ -1687,7 +1691,7 @@ LABEL_55:
 
     else
     {
-      v9 = tcc_access_log();
+      v9 = tcc_access_log(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10002E37C();

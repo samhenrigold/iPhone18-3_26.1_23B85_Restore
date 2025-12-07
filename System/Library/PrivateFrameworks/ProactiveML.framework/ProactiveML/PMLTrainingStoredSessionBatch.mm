@@ -87,13 +87,11 @@ void __65__PMLTrainingStoredSessionBatch_minibatchStatsForPositiveLabels___block
 
 - (id)minibatchStatsForPositiveLabel:(unint64_t)label
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:label];
-  v9[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [(PMLTrainingStoredSessionBatch *)self minibatchStatsForPositiveLabels:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

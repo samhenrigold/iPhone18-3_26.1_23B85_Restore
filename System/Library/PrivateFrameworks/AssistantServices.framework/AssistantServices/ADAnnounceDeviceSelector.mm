@@ -495,7 +495,7 @@ LABEL_26:
     }
 
     clientIdToAnnounceIdMap = [(ADAnnounceDeviceSelector *)self clientIdToAnnounceIdMap];
-    v10 = [clientIdToAnnounceIdMap objectForKey:identifierCopy];
+    v10 = objc_msgSend_objectForKey_(clientIdToAnnounceIdMap);
 
     v11 = AFSiriLogContextConnection;
     v12 = os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG);

@@ -38,7 +38,7 @@
 
 + (id)possibleRequiredEntitlementsForProcessingMessageWithIdentifier:(int64_t)identifier
 {
-  if (sub_41F8())
+  if (sub_41F8(self, a2, identifier))
   {
     v3.super.isa = sub_455C().super.isa;
   }

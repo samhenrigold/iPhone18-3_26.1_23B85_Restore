@@ -38,22 +38,22 @@
 - (BOOL)isEqual:(id)equal
 {
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v28 = *&self->_anon_40[16], v31 = *self->_anon_40, v37 = *&self->_anon_40[32], v34 = *&self->_anon_40[48], objc_msgSend_viewMatrix(equal, v5, v6, v7), (vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(v31, v11), vceqq_f32(v28, v12)), vandq_s8(vceqq_f32(v37, v13), vceqq_f32(v34, v14)))) & 0x80000000) != 0) && (v29 = *&self[1]._viewport.originX, v32 = *&self[1].super.isa, v38 = *&self[1]._viewport.width, v35 = *&self[1]._viewport.znear, objc_msgSend_projectionMatrix(equal, v8, v9, v10), (vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(v32, v18), vceqq_f32(v29, v19)), vandq_s8(vceqq_f32(v38, v20), vceqq_f32(v35, v21)))) & 0x80000000) != 0))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (v25 = *&self->_anon_40[16], v28 = *self->_anon_40, v34 = *&self->_anon_40[32], v31 = *&self->_anon_40[48], objc_msgSend_viewMatrix(equal, v5, v6), (vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(v28, v9), vceqq_f32(v25, v10)), vandq_s8(vceqq_f32(v34, v11), vceqq_f32(v31, v12)))) & 0x80000000) != 0) && (v26 = *&self[1]._viewport.originX, v29 = *&self[1].super.isa, v35 = *&self[1]._viewport.width, v32 = *&self[1]._viewport.znear, objc_msgSend_projectionMatrix(equal, v7, v8), (vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(v29, v15), vceqq_f32(v26, v16)), vandq_s8(vceqq_f32(v35, v17), vceqq_f32(v32, v18)))) & 0x80000000) != 0))
   {
-    v30 = *&self->_anon_40[16];
-    v33 = *self->_anon_40;
-    v39 = *&self->_anon_40[32];
-    v36 = *&self->_anon_40[48];
-    objc_msgSend_viewMatrix(equal, v15, v16, v17);
-    return vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(v33, v23), vceqq_f32(v30, v24)), vandq_s8(vceqq_f32(v39, v25), vceqq_f32(v36, v26)))) >> 31;
+    v27 = *&self->_anon_40[16];
+    v30 = *self->_anon_40;
+    v36 = *&self->_anon_40[32];
+    v33 = *&self->_anon_40[48];
+    objc_msgSend_viewMatrix(equal, v13, v14);
+    return vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(v30, v20), vceqq_f32(v27, v21)), vandq_s8(vceqq_f32(v36, v22), vceqq_f32(v33, v23)))) >> 31;
   }
 
   else
   {
-    LOBYTE(v22) = 0;
+    LOBYTE(v19) = 0;
   }
 
-  return v22;
+  return v19;
 }
 
 - (unint64_t)hash

@@ -14,7 +14,7 @@
 {
   v33.receiver = self;
   v33.super_class = SWLayoutGuide;
-  result = objc_msgSendSuper2(&v33, sel_init);
+  result = objc_msgSendSuper2(&v33, sel_init, a11, a12, a13, a14, a15, a16);
   if (result)
   {
     result[1] = a2;
@@ -59,45 +59,7 @@
     v56.origin.y = v9;
     v56.size.width = v11;
     v56.size.height = v13;
-    if (!CGRectEqualToRect(v56, v60))
-    {
-      goto LABEL_7;
-    }
-
-    [(SWLayoutGuide *)self contentFrame];
-    v19 = v18;
-    v21 = v20;
-    v23 = v22;
-    v25 = v24;
-    [v5 contentFrame];
-    v61.origin.x = v26;
-    v61.origin.y = v27;
-    v61.size.width = v28;
-    v61.size.height = v29;
-    v57.origin.x = v19;
-    v57.origin.y = v21;
-    v57.size.width = v23;
-    v57.size.height = v25;
-    if (!CGRectEqualToRect(v57, v61))
-    {
-      goto LABEL_7;
-    }
-
-    [(SWLayoutGuide *)self contentSafeAreaFrame];
-    v31 = v30;
-    v33 = v32;
-    v35 = v34;
-    v37 = v36;
-    [v5 contentSafeAreaFrame];
-    v62.origin.x = v38;
-    v62.origin.y = v39;
-    v62.size.width = v40;
-    v62.size.height = v41;
-    v58.origin.x = v31;
-    v58.origin.y = v33;
-    v58.size.width = v35;
-    v58.size.height = v37;
-    if (CGRectEqualToRect(v58, v62))
+    if (CGRectEqualToRect(v56, v60) && (-[SWLayoutGuide contentFrame](self, "contentFrame"), v19 = v18, v21 = v20, v23 = v22, v25 = v24, [v5 contentFrame], v61.origin.x = v26, v61.origin.y = v27, v61.size.width = v28, v61.size.height = v29, v57.origin.x = v19, v57.origin.y = v21, v57.size.width = v23, v57.size.height = v25, CGRectEqualToRect(v57, v61)) && (-[SWLayoutGuide contentSafeAreaFrame](self, "contentSafeAreaFrame"), v31 = v30, v33 = v32, v35 = v34, v37 = v36, objc_msgSend(v5, "contentSafeAreaFrame"), v62.origin.x = v38, v62.origin.y = v39, v62.size.width = v40, v62.size.height = v41, v58.origin.x = v31, v58.origin.y = v33, v58.size.width = v35, v58.size.height = v37, CGRectEqualToRect(v58, v62)))
     {
       [(SWLayoutGuide *)self systemSafeAreaFrame];
       v43 = v42;
@@ -118,7 +80,6 @@
 
     else
     {
-LABEL_7:
       v54 = 0;
     }
   }

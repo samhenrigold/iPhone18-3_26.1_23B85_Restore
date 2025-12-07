@@ -87,7 +87,7 @@ void __40__TPSSecureArchivingUtilities_syncQueue__block_invoke()
   return v14;
 }
 
-void __77__TPSSecureArchivingUtilities_unarchivedObjectOfClasses_forKey_userDefaults___block_invoke(uint64_t *a1)
+void __77__TPSSecureArchivingUtilities_unarchivedObjectOfClasses_forKey_userDefaults___block_invoke(void *a1)
 {
   v2 = *(*(a1[6] + 8) + 40);
   if (!v2)
@@ -116,7 +116,7 @@ void __77__TPSSecureArchivingUtilities_unarchivedObjectOfClasses_forKey_userDefa
       v12 = +[TPSLogger data];
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __77__TPSSecureArchivingUtilities_unarchivedObjectOfClasses_forKey_userDefaults___block_invoke_cold_2(a1 + 4);
+        __77__TPSSecureArchivingUtilities_unarchivedObjectOfClasses_forKey_userDefaults___block_invoke_cold_2();
       }
 
       v13 = *(a1[7] + 8);
@@ -191,7 +191,7 @@ uint64_t __78__TPSSecureArchivingUtilities_archivedDataWithRootObject_forKey_use
       v9 = +[TPSLogger data];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __78__TPSSecureArchivingUtilities_archivedDataWithRootObject_forKey_userDefaults___block_invoke_cold_1(a1);
+        __78__TPSSecureArchivingUtilities_archivedDataWithRootObject_forKey_userDefaults___block_invoke_cold_1();
       }
     }
   }
@@ -202,33 +202,6 @@ uint64_t __78__TPSSecureArchivingUtilities_archivedDataWithRootObject_forKey_use
   }
 
   return [*(*(a1[6] + 8) + 40) synchronize];
-}
-
-void __77__TPSSecureArchivingUtilities_unarchivedObjectOfClasses_forKey_userDefaults___block_invoke_cold_1(uint64_t *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_1C00A7000, v2, v3, "Error secureUnarchiving key %@, exception: %@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __77__TPSSecureArchivingUtilities_unarchivedObjectOfClasses_forKey_userDefaults___block_invoke_cold_2(uint64_t *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_1C00A7000, v2, v3, "Error secureUnarchiving key %@, error: %@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __78__TPSSecureArchivingUtilities_archivedDataWithRootObject_forKey_userDefaults___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_1C00A7000, v2, v3, "Error secureArchiving key %@, error: %@");
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

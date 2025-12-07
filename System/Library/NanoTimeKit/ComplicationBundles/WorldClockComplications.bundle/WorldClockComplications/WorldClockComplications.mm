@@ -1,6 +1,6 @@
 void sub_23BDD0F34(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 32);
   v7 = 40;
   if (!a2)
@@ -9,14 +9,12 @@ void sub_23BDD0F34(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
   }
 
   v8 = *(a1 + v7);
-  v13 = *MEMORY[0x277D740A8];
-  v14[0] = v8;
+  v12 = *MEMORY[0x277D740A8];
+  v13[0] = v8;
   v9 = MEMORY[0x277CBEAC0];
   v10 = a2;
-  v11 = [v9 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v11 = [v9 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   [v6 setAttributes:v11 range:{a3, a4}];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id sub_23BDD1578(void *a1, void *a2, uint64_t a3, void *a4)
@@ -77,7 +75,6 @@ void sub_23BDD2D7C(uint64_t a1)
 
 uint64_t sub_23BDD3088(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_27E1C78E0 = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -85,7 +82,7 @@ uint64_t sub_23BDD3088(uint64_t a1)
 
 void sub_23BDD32C0()
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v1 = [v0 BOOLForKey:@"PerformanceTestingEnabled"];
 
@@ -104,10 +101,10 @@ void sub_23BDD32C0()
     }
 
     v4 = CFAbsoluteTimeGetCurrent() + *MEMORY[0x277CBECD0];
-    v8 = @"timestamp";
+    v7 = @"timestamp";
     v5 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-    v9[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     [v3 setObject:v6 forKeyedSubscript:@"cityAdded"];
 
     [v2 setObject:v3 forKeyedSubscript:@"cityAddTest"];
@@ -115,7 +112,6 @@ void sub_23BDD32C0()
   }
 
   dispatch_async(MEMORY[0x277D85CD0], &unk_284E8ED90);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 double NWCMapPointForLocationOnMap(void *a1, double a2, double a3, double a4)
@@ -175,12 +171,12 @@ id NWCNightMaskPathForDayOfYear()
   v0 = MEMORY[0x28223BE20]();
   v2 = v1;
   v4 = v3;
-  v27[0] = *MEMORY[0x277D85DE8];
+  v26[0] = *MEMORY[0x277D85DE8];
   v5 = v0;
   v6 = sin((v4 + 284.0) * 0.98630137 * 0.0174532925) * 23.45;
-  v7 = (modf(v4, &v25) * 24.0 + -12.0) * 15.0;
+  v7 = (modf(v4, &v24) * 24.0 + -12.0) * 15.0;
   v8 = tan(v6 * 0.0174532925);
-  v9 = &v26;
+  v9 = &v25;
   for (i = -180; i != 181; ++i)
   {
     v11 = i;
@@ -202,7 +198,7 @@ id NWCNightMaskPathForDayOfYear()
   do
   {
     v17 = &v15[v16];
-    v17[722] = NWCMapPointForLocationOnMap(v5, *&v27[v16], *&v27[v16 + 1], v2);
+    v17[722] = NWCMapPointForLocationOnMap(v5, *&v26[v16], *&v26[v16 + 1], v2);
     *(v17 + 723) = v18;
     v16 += 2;
   }
@@ -236,8 +232,6 @@ LABEL_12:
 
   while (v22 * 8);
   free(v15);
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -409,41 +403,37 @@ void sub_23BDD4854(uint64_t a1, void *a2, void *a3)
 
 void sub_23BDD4B54(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v3)
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v1 = *(a1 + 32);
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
   {
-    v4 = v3;
-    v5 = *v11;
+    v3 = v2;
+    v4 = *v7;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v1);
         }
 
-        v7 = *(a1 + 40);
-        v8 = *(a1 + 48);
-        (*(*(*(&v10 + 1) + 8 * v6) + 16))(*(*(&v10 + 1) + 8 * v6));
-        ++v6;
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
+        ++v5;
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
-    while (v4);
+    while (v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 id NTALogForCategory(unint64_t a1)
@@ -589,7 +579,7 @@ uint64_t sub_23BDD63A0()
 
 void sub_23BDD63DC(uint64_t a1, CLLocationDegrees a2, CLLocationDegrees a3, double a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v9 = WeakRetained;
@@ -609,18 +599,16 @@ void sub_23BDD63DC(uint64_t a1, CLLocationDegrees a2, CLLocationDegrees a3, doub
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v19 = *(a1 + 32);
-      v21 = 138412546;
-      v22 = v19;
-      v23 = 2112;
-      v24 = v17;
-      _os_log_impl(&dword_23BDCF000, v18, OS_LOG_TYPE_DEFAULT, "Successfully performed China shift from source location: %@\n ...to shifted location: %@", &v21, 0x16u);
+      v20 = 138412546;
+      v21 = v19;
+      v22 = 2112;
+      v23 = v17;
+      _os_log_impl(&dword_23BDCF000, v18, OS_LOG_TYPE_DEFAULT, "Successfully performed China shift from source location: %@\n ...to shifted location: %@", &v20, 0x16u);
     }
 
     [v9 setChinaShiftedLocation:v17];
     [v9 _invalidate];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23BDD657C(uint64_t a1, void *a2)
@@ -639,9 +627,9 @@ void sub_23BDD657C(uint64_t a1, void *a2)
   }
 }
 
-void sub_23BDD76A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23BDD76A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -687,16 +675,16 @@ __CFString *_NWCComplicationLocalizedStringsTableForType(uint64_t a1)
   }
 }
 
-id _NWCComplicationPreGloryVersionedImageNames()
+id _NWCComplicationPreGloryVersionedImageNames(uint64_t a1)
 {
   if (qword_27E1C7990 != -1)
   {
     sub_23BDD8974();
   }
 
-  v1 = qword_27E1C7988;
+  v2 = qword_27E1C7988;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_23BDD829C()
@@ -709,7 +697,7 @@ uint64_t sub_23BDD829C()
 id _NWCPreGloryComplicationImageName(void *a1)
 {
   v1 = a1;
-  v2 = _NWCComplicationPreGloryVersionedImageNames();
+  v2 = _NWCComplicationPreGloryVersionedImageNames(v1);
   v3 = [v2 containsObject:v1];
 
   if (v3)
@@ -725,19 +713,19 @@ id _NWCPreGloryComplicationImageName(void *a1)
   return v4;
 }
 
-id NWCComplicationBundle()
+id NWCComplicationBundle(uint64_t a1)
 {
   if (qword_27E1C79A0 != -1)
   {
     sub_23BDD8988();
   }
 
-  v1 = qword_27E1C7998;
+  v2 = qword_27E1C7998;
 
-  return v1;
+  return v2;
 }
 
-uint64_t sub_23BDD83AC()
+uint64_t sub_23BDD83AC(uint64_t a1, uint64_t a2)
 {
   qword_27E1C7998 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
 
@@ -748,7 +736,7 @@ id NWCPreGloryComplicationImageNamed(void *a1)
 {
   v1 = _NWCPreGloryComplicationImageName(a1);
   v2 = MEMORY[0x277D755B8];
-  v3 = NWCComplicationBundle();
+  v3 = NWCComplicationBundle(v1);
   v4 = [MEMORY[0x277D759A0] mainScreen];
   v5 = [v4 traitCollection];
   v6 = [v2 imageNamed:v1 inBundle:v3 compatibleWithTraitCollection:v5];
@@ -771,7 +759,7 @@ id NWCComplicationLocalizedString(void *a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = v5;
-  v7 = NWCComplicationBundle();
+  v7 = NWCComplicationBundle(v6);
   v8 = [v7 localizedStringForKey:v4 value:&stru_284E8F490 table:v6];
 
   if (v8)
@@ -827,58 +815,61 @@ uint64_t NWCShouldChinaShiftCoordinates(void *a1)
 
 void sub_23BDD862C(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_23BDCF000, a2, OS_LOG_TYPE_ERROR, "Unable to produce complication template for (unhandled) complication family: %ld.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_23BDCF000, a2, OS_LOG_TYPE_ERROR, "Unable to produce complication template for (unhandled) complication family: %ld.", &v2, 0xCu);
 }
 
 void sub_23BDD86A4(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_debug_impl(&dword_23BDCF000, a2, OS_LOG_TYPE_DEBUG, "Attempt to set nil block on %@ ", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_debug_impl(&dword_23BDCF000, a2, OS_LOG_TYPE_DEBUG, "Attempt to set nil block on %@ ", &v5, 0xCu);
 }
 
 void sub_23BDD8794(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_23BDCF000, a2, OS_LOG_TYPE_ERROR, "Reverse geocode received an error. Schedule retry. Error? %{public}@.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_23BDCF000, a2, OS_LOG_TYPE_ERROR, "Reverse geocode received an error. Schedule retry. Error? %{public}@.", &v2, 0xCu);
 }
 
 void sub_23BDD8820(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23BDCF000, a2, OS_LOG_TYPE_ERROR, "Failed to China shift location. Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23BDCF000, a2, OS_LOG_TYPE_ERROR, "Failed to China shift location. Error: %@", &v2, 0xCu);
 }
 
 void sub_23BDD8898(void *a1, uint64_t a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = objc_opt_class();
   v7 = v6;
   v8 = [a1 cachedEntryModels];
-  v10 = 138543874;
-  v11 = v6;
-  v12 = 2112;
-  v13 = a2;
-  v14 = 2112;
-  v15 = v8;
-  _os_log_error_impl(&dword_23BDCF000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] entryModelForDate is nil for date: %@. Models: %@", &v10, 0x20u);
+  v9 = 138543874;
+  v10 = v6;
+  v11 = 2112;
+  v12 = a2;
+  v13 = 2112;
+  v14 = v8;
+  _os_log_error_impl(&dword_23BDCF000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] entryModelForDate is nil for date: %@. Models: %@", &v9, 0x20u);
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x2821115C8](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
 }
 
 CLLocationCoordinate2D CLLocationCoordinate2DMake(CLLocationDegrees latitude, CLLocationDegrees longitude)
@@ -999,7 +990,7 @@ double sub_23BDD911C(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_23BDD9140(double a1)
+double sub_23BDD9140(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/NanoTimeKit.framework/NanoTimeKit", 0);
   atomic_store(1u, &dword_27E1C78C4);

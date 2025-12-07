@@ -18,7 +18,7 @@
   v9 = sub_1E1AF12AC();
   (*(*(v9 - 8) + 56))(self + v8, 1, 1, v9);
   v11.receiver = self;
-  v11.super_class = type metadata accessor for DynamicTypeButton();
+  v11.super_class = type metadata accessor for DynamicTypeButton(0);
   return [(ImageAlignedButton *)&v11 initWithFrame:x, y, width, height];
 }
 
@@ -38,7 +38,7 @@
   height = fits.height;
   width = fits.width;
   v16.receiver = self;
-  v16.super_class = type metadata accessor for DynamicTypeButton();
+  v16.super_class = type metadata accessor for DynamicTypeButton(0);
   v5 = v16.receiver;
   [(DynamicTypeButton *)&v16 sizeThatFits:width, height];
   v7 = v6;

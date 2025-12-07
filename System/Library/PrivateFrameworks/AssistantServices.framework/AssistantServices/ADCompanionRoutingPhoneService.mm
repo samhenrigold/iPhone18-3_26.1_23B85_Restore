@@ -95,7 +95,7 @@
   dispatch_assert_queue_V2(self->_serialQueue);
   if ([typeCopy isEqualToString:@"phone"])
   {
-    v15 = [messageCopy objectForKey:@"cmd"];
+    v15 = objc_msgSend_objectForKey_(messageCopy);
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     v17 = AFSiriLogContextDaemon;

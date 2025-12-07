@@ -318,26 +318,26 @@ LABEL_63:
 
 - (id)_gatherDiagnosticAndUsageReportFromBackgroundOxygenSaturationSamplesInPreviousDay:(id)day wasWorn:(id)worn error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dayCopy = day;
   wornCopy = worn;
-  v31 = 0;
-  v10 = [(HDRPDailyAnalyticsReport *)self _numberOfWeeksSinceOnboardedAndReturnError:&v31];
-  v11 = v31;
+  v30 = 0;
+  v10 = [(HDRPDailyAnalyticsReport *)self _numberOfWeeksSinceOnboardedAndReturnError:&v30];
+  v11 = v30;
   if (v10)
   {
     goto LABEL_2;
   }
 
   _HKInitializeLogging();
-  v26 = HKLogRespiratoryCategory();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v25 = HKLogRespiratoryCategory();
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = objc_opt_class();
+    v26 = objc_opt_class();
     *buf = 138543362;
-    v33 = v27;
-    v28 = v27;
-    _os_log_impl(&dword_262086000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@] Number of weeks since onboarded is null", buf, 0xCu);
+    v32 = v26;
+    v27 = v26;
+    _os_log_impl(&dword_262086000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@] Number of weeks since onboarded is null", buf, 0xCu);
   }
 
   if (!v11)
@@ -377,15 +377,15 @@ LABEL_2:
   else
   {
     _HKInitializeLogging();
-    v29 = HKLogRespiratoryCategory();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v28 = HKLogRespiratoryCategory();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       [HDRPDailyAnalyticsReport _gatherDiagnosticAndUsageReportFromBackgroundOxygenSaturationSamplesInPreviousDay:wasWorn:error:];
     }
 
     if (error)
     {
-      v30 = v11;
+      v29 = v11;
       v12 = 0;
       *error = v11;
     }
@@ -396,8 +396,6 @@ LABEL_2:
       v12 = 0;
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -426,29 +424,29 @@ LABEL_2:
 
 - (BOOL)_hasCompatiblePairedAppleWatch
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   pairedDeviceRegistry = [(HDRPDailyAnalyticsReport *)self pairedDeviceRegistry];
   getSetupCompletedDevices = [pairedDeviceRegistry getSetupCompletedDevices];
 
-  v4 = [getSetupCompletedDevices countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [getSetupCompletedDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(getSetupCompletedDevices);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         v9 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"BD3A4341-7090-4622-9694-2AC0F536C478"];
         LOBYTE(v8) = [v8 supportsCapability:v9];
 
@@ -459,7 +457,7 @@ LABEL_2:
         }
       }
 
-      v5 = [getSetupCompletedDevices countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [getSetupCompletedDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -472,7 +470,6 @@ LABEL_2:
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -539,7 +536,7 @@ LABEL_11:
 
 - (id)_queryForBackgroundOxygenSaturationSamplesInPreviousDays:(unint64_t)days error:(id *)error
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   v6 = [(HDRPDailyAnalyticsReport *)self _dateIntervalForPreviousDays:days];
   hkrp_oxygenSaturationType = [MEMORY[0x277CCD8D8] hkrp_oxygenSaturationType];
   v8 = HDDataEntityPredicateForObjectsFromAppleWatchSources();
@@ -551,17 +548,15 @@ LABEL_11:
 
   v14 = HDSampleEntityPredicateForDateInterval();
   v15 = MEMORY[0x277D10B20];
-  v23[0] = v8;
-  v23[1] = v13;
-  v23[2] = v14;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
+  v22[0] = v8;
+  v22[1] = v13;
+  v22[2] = v14;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
   v17 = [v15 predicateMatchingAllPredicates:v16];
 
   v18 = MEMORY[0x277D10848];
   profile2 = [(HDRPDailyAnalyticsReport *)self profile];
   v20 = [v18 samplesWithType:hkrp_oxygenSaturationType profile:profile2 encodingOptions:0 predicate:v17 limit:0 anchor:0 error:error];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -580,15 +575,15 @@ LABEL_11:
 
 - (id)_queryForHasWornWatchInPreviousDayAndReturnError:(id *)error
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v5 = [(HDRPDailyAnalyticsReport *)self _dateIntervalForPreviousDays:1];
   v6 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCCB90]];
   v7 = HDDataEntityPredicateForObjectsFromAppleWatchSources();
   v8 = HDSampleEntityPredicateForDateInterval();
   v9 = MEMORY[0x277D10B20];
-  v18[0] = v7;
-  v18[1] = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v17[0] = v7;
+  v17[1] = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
   v11 = [v9 predicateMatchingAllPredicates:v10];
 
   v12 = MEMORY[0x277D10848];
@@ -604,8 +599,6 @@ LABEL_11:
   {
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -696,30 +689,30 @@ uint64_t __77__HDRPDailyAnalyticsReport__numberOfSamplesWithHighElevationTakeFro
 
 - (id)_numberOfSamplesByTruncatedOxygenSaturationValueFromSamples:(id)samples keyPrefix:(id)prefix
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   samplesCopy = samples;
   prefixCopy = prefix;
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = samplesCopy;
-  v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        quantity = [*(*(&v22 + 1) + 8 * i) quantity];
+        quantity = [*(*(&v21 + 1) + 8 * i) quantity];
         [quantity _value];
         v14 = (v13 * 100.0);
 
@@ -749,13 +742,11 @@ uint64_t __77__HDRPDailyAnalyticsReport__numberOfSamplesWithHighElevationTakeFro
         [v7 setObject:v18 forKeyedSubscript:v16];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v9);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -770,89 +761,65 @@ uint64_t __77__HDRPDailyAnalyticsReport__numberOfSamplesWithHighElevationTakeFro
 - (void)generatePayloadAndReturnError:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_0(v0);
-  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not gather improveHealthAndActivityReport: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not gather improveHealthAndActivityReport: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)generatePayloadAndReturnError:.cold.2()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_0(v0);
-  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not gather diagnosticAndUsageReport: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not gather diagnosticAndUsageReport: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)generatePayloadAndReturnError:.cold.3()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_0(v0);
-  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not fetch hasWornWatchInPreviousDay: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not fetch hasWornWatchInPreviousDay: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)generatePayloadAndReturnError:.cold.4()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_0(v0);
-  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not fetch oxygenSaturationSamplesInPrevious30Days: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not fetch oxygenSaturationSamplesInPrevious30Days: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)generatePayloadAndReturnError:.cold.5()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_0(v0);
-  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not fetch oxygenSaturationSamplesInPreviousDay: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not fetch oxygenSaturationSamplesInPreviousDay: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)generatePayloadAndReturnError:.cold.6()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_0(v0);
-  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not fetch backgroundOxygenSaturationSamplesInPrevious30Days: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not fetch backgroundOxygenSaturationSamplesInPrevious30Days: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)generatePayloadAndReturnError:.cold.7()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_0(v0);
-  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not fetch backgroundOxygenSaturationSamplesInPreviousDay: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not fetch backgroundOxygenSaturationSamplesInPreviousDay: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)_gatherDiagnosticAndUsageReportFromBackgroundOxygenSaturationSamplesInPreviousDay:wasWorn:error:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_0(v0);
-  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not read number of weeks since onboarded: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Could not read number of weeks since onboarded: %{public}@", v4, v5, v6, v7);
 }
 
 @end

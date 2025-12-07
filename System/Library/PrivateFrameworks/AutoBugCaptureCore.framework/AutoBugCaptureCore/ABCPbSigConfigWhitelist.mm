@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)globalDecisionAsString:(int)string;
 - (int)StringAsGlobalDecision:(id)decision;
 - (int)globalDecision;
 - (unint64_t)hash;
@@ -25,6 +26,21 @@
   {
     return 0;
   }
+}
+
+- (id)globalDecisionAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278CF1538[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsGlobalDecision:(id)decision
@@ -85,7 +101,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (*&self->_has)
   {
@@ -124,30 +140,30 @@
   if ([(NSMutableArray *)self->_sigConfigs count])
   {
     v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_sigConfigs, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v10 = self->_sigConfigs;
-    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v19;
+      v13 = *v18;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          dictionaryRepresentation = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
           [v9 addObject:dictionaryRepresentation];
         }
 
-        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v12);
@@ -156,18 +172,15 @@
     [dictionary setObject:v9 forKey:@"sig_config"];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (*&self->_has)
   {
-    globalDecision = self->_globalDecision;
     PBDataWriterWriteInt32Field();
   }
 
@@ -186,39 +199,36 @@
     PBDataWriterWriteStringField();
   }
 
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = self->_sigConfigs;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v7)
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_sigConfigs;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v14;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -264,7 +274,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -285,40 +295,39 @@
   v12 = v6[3];
   v6[3] = v11;
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v13 = self->_sigConfigs;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       v17 = 0;
       do
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [*(*(&v21 + 1) + 8 * v17) copyWithZone:{zone, v21}];
+        v18 = [*(*(&v20 + 1) + 8 * v17) copyWithZone:{zone, v20}];
         [v6 addSigConfig:v18];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -330,7 +339,6 @@
     goto LABEL_15;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_globalDecision != *(equalCopy + 8))
@@ -342,7 +350,7 @@
   else if (*(equalCopy + 48))
   {
 LABEL_15:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
@@ -373,17 +381,17 @@ LABEL_15:
   sigConfigs = self->_sigConfigs;
   if (sigConfigs | *(equalCopy + 5))
   {
-    v10 = [(NSMutableArray *)sigConfigs isEqual:?];
+    v9 = [(NSMutableArray *)sigConfigs isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_16:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash
@@ -406,7 +414,7 @@ LABEL_16:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   if (fromCopy[12])
@@ -430,35 +438,33 @@ LABEL_16:
     [(ABCPbSigConfigWhitelist *)self setDeviceModel:?];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = *(v5 + 5);
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(ABCPbSigConfigWhitelist *)self addSigConfig:*(*(&v12 + 1) + 8 * i), v12];
+        [(ABCPbSigConfigWhitelist *)self addSigConfig:*(*(&v11 + 1) + 8 * i), v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

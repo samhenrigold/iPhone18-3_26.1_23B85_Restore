@@ -19,7 +19,7 @@
 
 - (void)handleDidFetchObjectsMessage:(id)message
 {
-  v47[2] = *MEMORY[0x1E69E9840];
+  v46[2] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   messagePayload = [messageCopy messagePayload];
   v6 = [messagePayload objectForKeyedSubscript:@"HMCOFC.mk.fo"];
@@ -34,9 +34,9 @@
       v18 = HMFGetLogIdentifier();
       messagePayload2 = [messageCopy messagePayload];
       *buf = 138543618;
-      v42 = v18;
-      v43 = 2112;
-      v44 = messagePayload2;
+      v41 = v18;
+      v42 = 2112;
+      v43 = messagePayload2;
       _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@Could not find fetched objects in message payload: %@", buf, 0x16u);
     }
 
@@ -73,9 +73,9 @@ LABEL_12:
         v27 = HMFGetLogIdentifier();
         v28 = [v14 count];
         *buf = 138543618;
-        v42 = v27;
-        v43 = 2048;
-        v44 = v28;
+        v41 = v27;
+        v42 = 2048;
+        v43 = v28;
         _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_INFO, "%{public}@Handling %lu fetched objects", buf, 0x16u);
       }
 
@@ -94,9 +94,9 @@ LABEL_12:
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v42 = v38;
-      v43 = 2112;
-      v44 = v14;
+      v41 = v38;
+      v42 = 2112;
+      v43 = v14;
       _os_log_impl(&dword_19BB39000, v37, OS_LOG_TYPE_ERROR, "%{public}@No class for unarchiving and fetchedObjects was not already an array: %@", buf, 0x16u);
     }
 
@@ -111,13 +111,13 @@ LABEL_21:
   v8 = classForUnarchiving;
   v9 = MEMORY[0x1E696ACD0];
   v10 = MEMORY[0x1E695DFD8];
-  v47[0] = objc_opt_class();
-  v47[1] = v8;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
+  v46[0] = objc_opt_class();
+  v46[1] = v8;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
   v12 = [v10 setWithArray:v11];
-  v40 = 0;
-  v13 = [v9 unarchivedObjectOfClasses:v12 fromData:v6 error:&v40];
-  v14 = v40;
+  v39 = 0;
+  v13 = [v9 unarchivedObjectOfClasses:v12 fromData:v6 error:&v39];
+  v14 = v39;
 
   if (v13)
   {
@@ -133,11 +133,11 @@ LABEL_21:
   {
     v33 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v42 = v33;
-    v43 = 2112;
-    v44 = v6;
-    v45 = 2112;
-    v46 = v14;
+    v41 = v33;
+    v42 = 2112;
+    v43 = v6;
+    v44 = 2112;
+    v45 = v14;
     _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@Could decode encoded fetched objects %@: %@", buf, 0x20u);
   }
 
@@ -146,12 +146,11 @@ LABEL_21:
   [messageCopy respondWithError:v34];
 
 LABEL_22:
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchWithCompletion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   context = [(HMCameraObjectFetchClient *)self context];
   messageDispatcher = [context messageDispatcher];
@@ -168,14 +167,14 @@ LABEL_22:
   destination = [(HMCameraObjectFetchClient *)self destination];
   v13 = [v10 messageWithName:messageName destination:destination payload:v8];
 
-  v22 = MEMORY[0x1E69E9820];
-  v23 = 3221225472;
-  v24 = __49__HMCameraObjectFetchClient_fetchWithCompletion___block_invoke;
-  v25 = &unk_1E754DE00;
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 3221225472;
+  v23 = __49__HMCameraObjectFetchClient_fetchWithCompletion___block_invoke;
+  v24 = &unk_1E754DE00;
   selfCopy = self;
   v14 = completionCopy;
-  v27 = v14;
-  [v13 setResponseHandler:&v22];
+  v26 = v14;
+  [v13 setResponseHandler:&v21];
   v15 = objc_autoreleasePoolPush();
   selfCopy2 = self;
   v17 = HMFGetOSLogHandle();
@@ -183,21 +182,19 @@ LABEL_22:
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v29 = v18;
+    v28 = v18;
     _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_INFO, "%{public}@Fetching objects", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v15);
-  v19 = [(HMCameraObjectFetchClient *)selfCopy2 context:v22];
+  v19 = [(HMCameraObjectFetchClient *)selfCopy2 context:v21];
   messageDispatcher2 = [v19 messageDispatcher];
   [messageDispatcher2 sendMessage:v13];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __49__HMCameraObjectFetchClient_fetchWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -210,23 +207,23 @@ void __49__HMCameraObjectFetchClient_fetchWithCompletion___block_invoke(uint64_t
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v5;
+      v26 = v11;
+      v27 = 2112;
+      v28 = v5;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch objects: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     v12 = [*(a1 + 32) context];
     v13 = [v12 delegateCaller];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __49__HMCameraObjectFetchClient_fetchWithCompletion___block_invoke_12;
-    v23[3] = &unk_1E754E458;
-    v14 = &v25;
-    v25 = *(a1 + 40);
-    v24 = v5;
-    [v13 invokeBlock:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __49__HMCameraObjectFetchClient_fetchWithCompletion___block_invoke_12;
+    v22[3] = &unk_1E754E458;
+    v14 = &v24;
+    v24 = *(a1 + 40);
+    v23 = v5;
+    [v13 invokeBlock:v22];
   }
 
   else
@@ -236,27 +233,25 @@ void __49__HMCameraObjectFetchClient_fetchWithCompletion___block_invoke(uint64_t
       v15 = HMFGetLogIdentifier();
       v16 = [*(a1 + 32) fetchedObjects];
       *buf = 138543618;
-      v27 = v15;
-      v28 = 2048;
-      v29 = [v16 count];
+      v26 = v15;
+      v27 = 2048;
+      v28 = [v16 count];
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully fetched %lu objects", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     v17 = [*(a1 + 32) context];
     v18 = [v17 delegateCaller];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __49__HMCameraObjectFetchClient_fetchWithCompletion___block_invoke_14;
-    v21[3] = &unk_1E754E458;
-    v14 = &v22;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __49__HMCameraObjectFetchClient_fetchWithCompletion___block_invoke_14;
+    v20[3] = &unk_1E754E458;
+    v14 = &v21;
     v19 = *(a1 + 40);
-    v21[4] = *(a1 + 32);
-    v22 = v19;
-    [v18 invokeBlock:v21];
+    v20[4] = *(a1 + 32);
+    v21 = v19;
+    [v18 invokeBlock:v20];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __49__HMCameraObjectFetchClient_fetchWithCompletion___block_invoke_14(uint64_t a1)
@@ -325,12 +320,11 @@ void __49__HMCameraObjectFetchClient_fetchWithCompletion___block_invoke_14(uint6
 
 uint64_t __40__HMCameraObjectFetchClient_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_38653;
-  logCategory__hmf_once_v9_38653 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_38653;
+  logCategory__hmf_once_v9_38653 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

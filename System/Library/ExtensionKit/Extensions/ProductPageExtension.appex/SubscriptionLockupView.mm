@@ -69,16 +69,16 @@
 
   v9 = sub_100763ADC();
   v10 = sub_10000A61C(v9, qword_10099E208);
-  v18.receiver = selfCopy;
-  v18.super_class = ObjectType;
-  [(SubscriptionLockupView *)&v18 layoutMargins];
-  v13 = sub_1002630B4(v10, selfCopy, width, height, v11, v12);
-  v15 = v14;
+  v20.receiver = selfCopy;
+  v20.super_class = ObjectType;
+  [(SubscriptionLockupView *)&v20 layoutMargins];
+  v15 = sub_1002630B4(v10, selfCopy, width, height, v13, v14, v11, v12);
+  v17 = v16;
 
-  v16 = v13;
-  v17 = v15;
-  result.height = v17;
-  result.width = v16;
+  v18 = v15;
+  v19 = v17;
+  result.height = v19;
+  result.width = v18;
   return result;
 }
 

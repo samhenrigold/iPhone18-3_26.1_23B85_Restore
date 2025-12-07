@@ -107,16 +107,14 @@
 
 - (id)_createSchemaHash
 {
-  v10 = *MEMORY[0x277D85DE8];
-  memset(v9, 0, sizeof(v9));
-  v3 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v9 length:32 freeWhenDone:0];
+  v9 = *MEMORY[0x277D85DE8];
+  memset(v8, 0, sizeof(v8));
+  v3 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v8 length:32 freeWhenDone:0];
   schema = [(ACCSQLite *)self schema];
   v5 = [schema dataUsingEncoding:4];
 
-  CC_SHA256([v5 bytes], objc_msgSend(v5, "length"), v9);
+  CC_SHA256([v5 bytes], objc_msgSend(v5, "length"), v8);
   cKUppercaseHexStringWithoutSpaces = [v3 CKUppercaseHexStringWithoutSpaces];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return cKUppercaseHexStringWithoutSpaces;
 }
@@ -143,7 +141,7 @@
 
 - (BOOL)openWithError:(id *)error
 {
-  v65[1] = *MEMORY[0x277D85DE8];
+  v64[1] = *MEMORY[0x277D85DE8];
   v5 = self->_path;
   openCount = self->_openCount;
   if (openCount)
@@ -159,9 +157,9 @@ LABEL_3:
 
   stringByDeletingLastPathComponent = [(NSString *)self->_path stringByDeletingLastPathComponent];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v59 = 0;
-  v12 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v59];
-  v13 = v59;
+  v58 = 0;
+  v12 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v58];
+  v13 = v58;
   v14 = v13;
   if (v12)
   {
@@ -188,10 +186,10 @@ LABEL_12:
 
 LABEL_5:
   errorCopy = error;
-  v58 = v14;
+  v57 = v14;
   v15 = v5;
-  v16 = [defaultManager attributesOfItemAtPath:stringByDeletingLastPathComponent error:&v58];
-  v17 = v58;
+  v16 = [defaultManager attributesOfItemAtPath:stringByDeletingLastPathComponent error:&v57];
+  v17 = v57;
 
   v18 = *MEMORY[0x277CCA1B0];
   v19 = [v16 objectForKeyedSubscript:*MEMORY[0x277CCA1B0]];
@@ -200,9 +198,9 @@ LABEL_5:
 
   if ((v21 & 1) == 0)
   {
-    v64 = v18;
-    v65[0] = v20;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:&v64 count:1];
+    v63 = v18;
+    v64[0] = v20;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:&v63 count:1];
     [defaultManager setAttributes:v22 ofItemAtPath:stringByDeletingLastPathComponent error:0];
   }
 
@@ -223,10 +221,10 @@ LABEL_13:
   {
     v28 = MEMORY[0x277CCA9B8];
     v29 = *MEMORY[0x277CCA050];
-    v62 = *MEMORY[0x277CCA450];
+    v61 = *MEMORY[0x277CCA450];
     v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error opening db at %@, rc=%d(0x%x)", self->_path, v27, v27];
-    v63 = v30;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+    v62 = v30;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
     v32 = [v28 errorWithDomain:v29 code:0 userInfo:v31];
 
     v9 = v32;
@@ -262,7 +260,7 @@ LABEL_13:
             {
               if (![(ACCSQLite *)self userVersion])
               {
-                v51 = 0;
+                v50 = 0;
                 goto LABEL_41;
               }
 
@@ -271,7 +269,7 @@ LABEL_13:
               if (v37 == userVersion)
               {
 LABEL_38:
-                v51 = 0;
+                v50 = 0;
 LABEL_42:
                 [(ACCSQLite *)self end];
                 if ([(ACCSQLite *)self shouldVacuum])
@@ -279,7 +277,7 @@ LABEL_42:
                   [(ACCSQLite *)self _periodicVacuum];
                 }
 
-                if ((v51 & 1) != 0 || self->_hasMigrated)
+                if ((v50 & 1) != 0 || self->_hasMigrated)
                 {
                   schemaVersion2 = [(ACCSQLite *)self schemaVersion];
                   [(ACCSQLite *)self setProperty:schemaVersion2 forKey:@"SchemaVersion"];
@@ -303,11 +301,11 @@ LABEL_42:
             delegate = [(ACCSQLite *)self delegate];
             if (delegate)
             {
-              v48 = delegate;
+              v47 = delegate;
               delegate2 = [(ACCSQLite *)self delegate];
-              v50 = [delegate2 migrateDatabase:self fromVersion:v37];
+              v49 = [delegate2 migrateDatabase:self fromVersion:v37];
 
-              if (v50)
+              if (v49)
               {
                 self->_hasMigrated = 1;
               }
@@ -327,13 +325,13 @@ LABEL_42:
           schema = [(ACCSQLite *)self schema];
           [(ACCSQLite *)self executeSQL:@"%@", schema];
 
-          v53 = MEMORY[0x277CCACA8];
+          v52 = MEMORY[0x277CCACA8];
           date = [MEMORY[0x277CBEAA8] date];
           [date timeIntervalSinceReferenceDate];
-          schemaVersion = [v53 stringWithFormat:@"%f", v55];
+          schemaVersion = [v52 stringWithFormat:@"%f", v54];
 
           [(ACCSQLite *)self setProperty:schemaVersion forKey:@"Created"];
-          v51 = 1;
+          v50 = 1;
 LABEL_41:
 
           goto LABEL_42;
@@ -351,10 +349,10 @@ LABEL_27:
     {
       v40 = MEMORY[0x277CCA9B8];
       v41 = *MEMORY[0x277CCA050];
-      v60 = *MEMORY[0x277CCA450];
+      v59 = *MEMORY[0x277CCA450];
       v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error opening db at %@, ", self->_path];
-      v61 = v42;
-      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+      v60 = v42;
+      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
       v9 = [v40 errorWithDomain:v41 code:0 userInfo:v43];
     }
 
@@ -372,27 +370,24 @@ LABEL_27:
 
 LABEL_32:
 
-  v45 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)open
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  v3 = [(ACCSQLite *)self openWithError:&v7];
-  v4 = v7;
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  v3 = [(ACCSQLite *)self openWithError:&v6];
+  v4 = v6;
   if (!v3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     path = [(ACCSQLite *)self path];
     *buf = 138412546;
-    v9 = path;
-    v10 = 2112;
-    v11 = v4;
+    v8 = path;
+    v9 = 2112;
+    v10 = v4;
     _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] accsqlite: Error opening db at %@: %@", buf, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)close
@@ -424,30 +419,30 @@ LABEL_32:
 
 - (void)remove
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   [defaultManager removeItemAtPath:self->_path error:0];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
-  v4 = [&unk_2848FBC30 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v4 = [&unk_2848FBC30 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(&unk_2848FBC30);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
         v10 = [(NSString *)self->_path stringByAppendingString:v8];
         [defaultManager2 removeItemAtPath:v10 error:0];
@@ -456,13 +451,11 @@ LABEL_32:
       }
 
       while (v5 != v7);
-      v5 = [&unk_2848FBC30 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [&unk_2848FBC30 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)lastInsertRowID
@@ -513,7 +506,7 @@ LABEL_32:
 
 - (BOOL)executeSQL:(id)l arguments:(char *)arguments
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCACA8];
   lCopy = l;
   v8 = [[v6 alloc] initWithFormat:lCopy arguments:arguments];
@@ -531,21 +524,21 @@ LABEL_32:
     v11 = v10;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412546;
-      v19 = v8;
-      v20 = 1024;
-      v21 = v11;
+      v17 = 138412546;
+      v18 = v8;
+      v19 = 1024;
+      v20 = v11;
       v12 = MEMORY[0x277D86220];
       v13 = "[#ACCEventLogger] accsqlite: Error executing SQL: %@ (%d)";
       v14 = 18;
 LABEL_7:
-      _os_log_impl(&dword_233656000, v12, OS_LOG_TYPE_DEFAULT, v13, &v18, v14);
+      _os_log_impl(&dword_233656000, v12, OS_LOG_TYPE_DEFAULT, v13, &v17, v14);
     }
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v18) = 0;
+    LOWORD(v17) = 0;
     v12 = MEMORY[0x277D86220];
     v13 = "[#ACCEventLogger] accsqlite: Database is closed";
     v14 = 2;
@@ -555,13 +548,12 @@ LABEL_7:
   v15 = 0;
 LABEL_10:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (id)statementForSQL:(id)l
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (!self->_db)
   {
@@ -587,7 +579,7 @@ LABEL_10:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = v6;
+      v11 = v6;
       _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] Error preparing statement: %@", buf, 0xCu);
     }
 
@@ -596,12 +588,11 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v9 = [ACCSQLiteStatement alloc];
-  v5 = [(ACCSQLiteStatement *)v9 initWithSQLite:self SQL:v6 handle:ppStmt];
+  v8 = [ACCSQLiteStatement alloc];
+  v5 = [(ACCSQLiteStatement *)v8 initWithSQLite:self SQL:v6 handle:ppStmt];
   [(NSMutableDictionary *)self->_statementsBySQL setObject:v5 forKeyedSubscript:v6];
 
 LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -638,38 +629,36 @@ LABEL_10:
 
 - (void)dropAllTables
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   allTableNames = [(ACCSQLite *)self allTableNames];
-  v4 = [allTableNames countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [allTableNames countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(allTableNames);
         }
 
-        [(ACCSQLite *)self executeSQL:@"drop table %@", *(*(&v9 + 1) + 8 * v7++)];
+        [(ACCSQLite *)self executeSQL:@"drop table %@", *(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [allTableNames countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [allTableNames countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)propertyForKey:(id)key
@@ -1182,7 +1171,7 @@ LABEL_13:
 
 - (id)_tableNameForClass:(Class)class
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   aCCSQLiteClassName = [(objc_class *)class ACCSQLiteClassName];
   if ([aCCSQLiteClassName hasPrefix:self->_objectClassPrefix])
   {
@@ -1195,14 +1184,12 @@ LABEL_13:
     {
       v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Object class %@ does not have prefix %@", aCCSQLiteClassName, self->_objectClassPrefix];
       *buf = 138412290;
-      v10 = v6;
+      v9 = v6;
       _os_log_impl(&dword_233656000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[#ACCEventLogger] accsqlite: %@", buf, 0xCu);
     }
 
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

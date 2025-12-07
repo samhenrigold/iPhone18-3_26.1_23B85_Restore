@@ -1,6 +1,7 @@
 @interface MBNetworkPathMonitor
 + (const)_pathTypeStringWithPathType:(int)type;
 - ($1C6001547D93A6C6CE4901F2C331F3E5)networkConnectivity;
+- (BOOL)_updateState:(id *)state path:(id)path pathType:(int)type;
 - (MBNetworkPathMonitor)init;
 - (MBNetworkPathMonitor)initWithQueue:(id)queue;
 - (int)cellularRadioType;
@@ -21,57 +22,55 @@
 
 void __45__MBNetworkPathMonitor__startCellularMonitor__block_invoke_2(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v5 = [objc_opt_class() _pathTypeStringWithPathType:2];
     status = nw_path_get_status(v3);
-    v7 = MBGetDefaultLog();
+    v7 = MBGetDefaultLog(status);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136446722;
-      v23 = v5;
-      v24 = 1024;
-      v25 = status;
-      v26 = 2114;
-      v27 = v3;
+      v16 = v5;
+      v17 = 1024;
+      v18 = status;
+      v19 = 2114;
+      v20 = v3;
       _os_log_impl(&dword_1DEB5D000, v7, OS_LOG_TYPE_DEBUG, "%{public}s path changed, status:%d - %{public}@", buf, 0x1Cu);
-      _MBLog(@"Db", "%{public}s path changed, status:%d - %{public}@", v8, v9, v10, v11, v12, v13, v5);
+      _MBLog(@"Db", "%{public}s path changed, status:%d - %{public}@", v5, status, v3);
     }
 
-    v14 = status & 0xFFFFFFFD;
-    v15 = MEMORY[0x1E12C55B0](v3);
-    v16 = MEMORY[0x1E12C55A0](v3);
-    v17 = 0x1000000;
-    if (!v16)
+    v8 = status & 0xFFFFFFFD;
+    v9 = MEMORY[0x1E12C55B0](v3);
+    v10 = MEMORY[0x1E12C55A0](v3);
+    v11 = 0x1000000;
+    if (!v10)
     {
-      v17 = 0;
+      v11 = 0;
     }
 
-    v18 = 0x10000;
-    if (!v15)
+    v12 = 0x10000;
+    if (!v9)
     {
-      v18 = 0;
+      v12 = 0;
     }
 
-    v19 = 257;
-    if (v14 != 1)
+    v13 = 257;
+    if (v8 != 1)
     {
-      v19 = 1;
+      v13 = 1;
     }
 
-    [WeakRetained _handleCellularStateChange:v19 | v18 | v17 backupOnCellularSupport:WeakRetained[7]];
-    v20 = [WeakRetained initialCellularStateGroup];
-    if (v20)
+    [WeakRetained _handleCellularStateChange:v13 | v12 | v11 backupOnCellularSupport:WeakRetained[7]];
+    v14 = [WeakRetained initialCellularStateGroup];
+    if (v14)
     {
       [WeakRetained setInitialCellularStateGroup:0];
-      dispatch_group_leave(v20);
+      dispatch_group_leave(v14);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (MBNetworkPathMonitor)initWithQueue:(id)queue
@@ -148,7 +147,7 @@ void __45__MBNetworkPathMonitor__startCellularMonitor__block_invoke_2(uint64_t a
 
 - (void)_performBlock:(id)block
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:4];
   initialCellularStateGroup = [(MBNetworkPathMonitor *)self initialCellularStateGroup];
@@ -179,28 +178,28 @@ void __45__MBNetworkPathMonitor__startCellularMonitor__block_invoke_2(uint64_t a
   }
 
   v9 = dispatch_group_create();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = v4;
-  v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       v13 = 0;
       v14 = initialBackupOnCellularSupportGroup;
       do
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        initialBackupOnCellularSupportGroup = *(*(&v22 + 1) + 8 * v13);
+        initialBackupOnCellularSupportGroup = *(*(&v21 + 1) + 8 * v13);
 
         dispatch_group_enter(v9);
         queue = [(MBNetworkPathMonitor *)self queue];
@@ -208,7 +207,7 @@ void __45__MBNetworkPathMonitor__startCellularMonitor__block_invoke_2(uint64_t a
         block[1] = 3221225472;
         block[2] = __38__MBNetworkPathMonitor__performBlock___block_invoke;
         block[3] = &unk_1E8684358;
-        v21 = v9;
+        v20 = v9;
         dispatch_group_notify(initialBackupOnCellularSupportGroup, queue, block);
 
         ++v13;
@@ -216,7 +215,7 @@ void __45__MBNetworkPathMonitor__startCellularMonitor__block_invoke_2(uint64_t a
       }
 
       while (v11 != v13);
-      v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
@@ -224,8 +223,6 @@ void __45__MBNetworkPathMonitor__startCellularMonitor__block_invoke_2(uint64_t a
 
   queue2 = [(MBNetworkPathMonitor *)self queue];
   dispatch_group_notify(v9, queue2, blockCopy);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancel
@@ -249,6 +246,77 @@ void __45__MBNetworkPathMonitor__startCellularMonitor__block_invoke_2(uint64_t a
   {
     return off_1E8684418[type - 1];
   }
+}
+
+- (BOOL)_updateState:(id *)state path:(id)path pathType:(int)type
+{
+  v5 = *&type;
+  *&v27[5] = *MEMORY[0x1E69E9840];
+  pathCopy = path;
+  queue = [(MBNetworkPathMonitor *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  if (!state)
+  {
+    [MBNetworkPathMonitor _updateState:path:pathType:];
+  }
+
+  if (!v5)
+  {
+    [MBNetworkPathMonitor _updateState:path:pathType:];
+  }
+
+  v10 = [objc_opt_class() _pathTypeStringWithPathType:v5];
+  status = nw_path_get_status(pathCopy);
+  v12 = MBGetDefaultLog(status);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136446722;
+    v23 = v10;
+    v24 = 1024;
+    v25 = status;
+    v26 = 2114;
+    *v27 = pathCopy;
+    _os_log_impl(&dword_1DEB5D000, v12, OS_LOG_TYPE_DEBUG, "%{public}s path changed, status:%d - %{public}@", buf, 0x1Cu);
+    _MBLog(@"Db", "%{public}s path changed, status:%d - %{public}@", v10, status, pathCopy);
+  }
+
+  v13 = (status & 0xFFFFFFFD) == 1;
+  v14 = MEMORY[0x1E12C55B0](pathCopy);
+  v15 = MEMORY[0x1E12C55A0](pathCopy);
+  if (state->var0 && state->var1 == v13 && state->var2 == v14 && state->var3 == v15)
+  {
+    v16 = 0;
+  }
+
+  else
+  {
+    state->var0 = 1;
+    state->var1 = v13;
+    state->var2 = v14;
+    state->var3 = v15;
+    v17 = MBGetDefaultLog(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      var1 = state->var1;
+      var2 = state->var2;
+      var3 = state->var3;
+      *buf = 136315906;
+      v23 = v10;
+      v24 = 1024;
+      v25 = var1;
+      v26 = 1024;
+      v27[0] = var2;
+      LOWORD(v27[1]) = 1024;
+      *(&v27[1] + 2) = var3;
+      _os_log_impl(&dword_1DEB5D000, v17, OS_LOG_TYPE_DEFAULT, "%s, available:%d, expensive:%d, constrained:%d", buf, 0x1Eu);
+      _MBLog(@"Df", "%s, available:%d, expensive:%d, constrained:%d", v10, state->var1, state->var2, state->var3);
+    }
+
+    v16 = 1;
+  }
+
+  return v16;
 }
 
 - (void)_handleWiFiStateChange
@@ -359,7 +427,7 @@ void __41__MBNetworkPathMonitor__startWiFiMonitor__block_invoke_2(uint64_t a1, v
 
 - (void)_handleCellularStateChange:(id)change backupOnCellularSupport:(unint64_t)support
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   queue = [(MBNetworkPathMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -378,7 +446,7 @@ void __41__MBNetworkPathMonitor__startWiFiMonitor__block_invoke_2(uint64_t a1, v
   {
     if (!v8)
     {
-      goto LABEL_19;
+      return;
     }
 
     v9 = 0;
@@ -392,21 +460,21 @@ void __41__MBNetworkPathMonitor__startWiFiMonitor__block_invoke_2(uint64_t a1, v
   }
 
   v10 = [objc_opt_class() _pathTypeStringWithPathType:2];
-  v11 = MBGetDefaultLog();
+  v11 = MBGetDefaultLog(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136447234;
-    v24 = v10;
-    v25 = 1024;
-    v26 = (*&change >> 8) & 1;
-    v27 = 1024;
-    v28 = HIWORD(*&change) & 1;
-    v29 = 1024;
-    v30 = HIBYTE(*&change) & 1;
-    v31 = 2048;
+    v17 = v10;
+    v18 = 1024;
+    v19 = (*&change >> 8) & 1;
+    v20 = 1024;
+    v21 = HIWORD(*&change) & 1;
+    v22 = 1024;
+    v23 = HIBYTE(*&change) & 1;
+    v24 = 2048;
     supportCopy = support;
     _os_log_impl(&dword_1DEB5D000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s, available:%d, expensive:%d, constrained:%d, backupOnCellularSupport:0x%lx", buf, 0x28u);
-    _MBLog(@"Df", "%{public}s, available:%d, expensive:%d, constrained:%d, backupOnCellularSupport:0x%lx", v12, v13, v14, v15, v16, v17, v10);
+    _MBLog(@"Df", "%{public}s, available:%d, expensive:%d, constrained:%d, backupOnCellularSupport:0x%lx", v10, (*&change >> 8) & 1, HIWORD(*&change) & 1, HIBYTE(*&change) & 1, support);
   }
 
   if (v8)
@@ -430,9 +498,6 @@ void __41__MBNetworkPathMonitor__startWiFiMonitor__block_invoke_2(uint64_t a1, v
       backupOnCellularSupportUpdateHandler2[2](backupOnCellularSupportUpdateHandler2, support);
     }
   }
-
-LABEL_19:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startCellularMonitor
@@ -594,26 +659,15 @@ void __43__MBNetworkPathMonitor_networkConnectivity__block_invoke(uint64_t a1, u
 
 uint64_t __58__MBNetworkPathMonitor_fetchNetworkConnectivityWithBlock___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  if ((v2[41] & 1) == 0)
-  {
-    v3 = v2[45];
-  }
+  v2 = [*(a1 + 32) dataSubscriptionMonitor];
+  [v2 cellularRadioType];
 
-  if (v2[49] == 1)
-  {
-    v4 = v2[50] << 16;
-  }
+  v3 = [*(a1 + 32) dataSubscriptionMonitor];
+  [v3 backupOnCellularSupport];
 
-  v5 = [v2 dataSubscriptionMonitor];
-  [v5 cellularRadioType];
+  v4 = *(*(a1 + 40) + 16);
 
-  v6 = [*(a1 + 32) dataSubscriptionMonitor];
-  [v6 backupOnCellularSupport];
-
-  v7 = *(*(a1 + 40) + 16);
-
-  return v7();
+  return v4();
 }
 
 - (unint64_t)backupOnCellularSupport

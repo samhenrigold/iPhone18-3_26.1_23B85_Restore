@@ -10,56 +10,54 @@
 {
   v8 = sub_185B67AFC();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v8, v11);
-  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = _Block_copy(completion);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(completion);
   sub_185B67ADC();
   if (description)
   {
-    v15 = sub_185B67E4C();
-    description = v16;
+    v13 = sub_185B67E4C();
+    description = v14;
   }
 
   else
   {
-    v15 = 0;
+    v13 = 0;
   }
 
-  _Block_copy(v14);
+  _Block_copy(v12);
   selfCopy = self;
-  sub_185B1858C(v13, v15, description, selfCopy, v14);
-  _Block_release(v14);
-  _Block_release(v14);
+  sub_185B1858C(v11, v13, description, selfCopy, v12);
+  _Block_release(v12);
+  _Block_release(v12);
 
-  (*(v9 + 8))(v13, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)getExtensionIsFirstPartyForUUID:(id)d completion:(id)completion
 {
   v5 = sub_185B67AFC();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5, v8);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(completion);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = _Block_copy(completion);
   sub_185B67ADC();
-  if (sub_185AE97DC(v10) == 2)
+  if (sub_185AE97DC(v8) == 2)
   {
     sub_185AD0C64();
-    v12 = sub_185B6825C();
+    v10 = sub_185B6825C();
   }
 
   else
   {
-    v12 = sub_185B67FBC();
+    v10 = sub_185B67FBC();
   }
 
-  v13 = v12;
-  v11[2](v11, v12, 0);
-  _Block_release(v11);
+  v11 = v10;
+  v9[2](v9, v10, 0);
+  _Block_release(v9);
 
-  (*(v6 + 8))(v10, v5);
+  (*(v6 + 8))(v8, v5);
 }
 
 - (_TtC13AppProtection21APExtensionInfoClient)init

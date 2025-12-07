@@ -98,40 +98,37 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_caseIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    caseCount = self->_caseCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    caseCountTarget = self->_caseCountTarget;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_caseStatus)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    decision = self->_decision;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -224,7 +221,6 @@
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 36);
   if (has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_caseCount != *(equalCopy + 2))
@@ -262,7 +258,7 @@
     has = self->_has;
   }
 
-  v9 = (*(equalCopy + 36) & 4) == 0;
+  v8 = (*(equalCopy + 36) & 4) == 0;
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 36) & 4) != 0)
@@ -280,17 +276,17 @@
         goto LABEL_19;
       }
 
-      v9 = 1;
+      v8 = 1;
       goto LABEL_20;
     }
 
 LABEL_19:
-    v9 = 0;
+    v8 = 0;
   }
 
 LABEL_20:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

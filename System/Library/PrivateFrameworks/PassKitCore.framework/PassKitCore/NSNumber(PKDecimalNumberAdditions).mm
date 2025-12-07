@@ -10,18 +10,18 @@
 
 - (BOOL)pk_isIntegralNumber
 {
-  v4[0] = 0;
-  v4[1] = 0;
-  v5 = 0;
-  [self decimalValue];
+  v5[0] = 0;
+  v5[1] = 0;
+  v6 = 0;
+  objc_msgSend_decimalValue(self, a2);
   result = 0;
-  if ((v4[0] & 0x1F00) != 0x1000)
+  if ((v5[0] & 0x1F00) != 0x1000)
   {
-    v2[0] = 0;
-    v2[1] = 0;
-    v3 = 0;
-    MEMORY[0x1B26F82E0](v2, v4, 0, 0);
-    return MEMORY[0x1B26F82D0](v2, v4) == 0;
+    v3[0] = 0;
+    v3[1] = 0;
+    v4 = 0;
+    MEMORY[0x1B26F82E0](v3, v5, 0, 0);
+    return MEMORY[0x1B26F82D0](v3, v5) == 0;
   }
 
   return result;

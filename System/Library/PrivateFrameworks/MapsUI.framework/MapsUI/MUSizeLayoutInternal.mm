@@ -43,12 +43,11 @@
 
 - (MULayoutItem)item
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUSizeLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v6);
+  sub_1C5623A68(v5);
   Strong = swift_unknownObjectWeakLoadStrong();
 
-  sub_1C56772C8(v6);
+  sub_1C56772C8(v5);
 
   return Strong;
 }
@@ -61,13 +60,12 @@
     [swift_unknownObjectRetain() _mapsui_disableTranslatesAutoresizingMaskIntoConstraints];
   }
 
-  v5 = *(&selfCopy->super.super.isa + OBJC_IVAR___MUSizeLayoutInternal_builder);
-  sub_1C5623A68(v8);
+  sub_1C5623A68(v7);
   swift_unknownObjectWeakAssign();
-  sub_1C5677410(v8, v7);
-  sub_1C5623B40(v7, v6);
+  sub_1C5677410(v7, v6);
+  sub_1C5623B40(v6, v5);
   swift_unknownObjectRelease();
-  sub_1C56772C8(v8);
+  sub_1C56772C8(v7);
 }
 
 - (CGSize)size
@@ -115,26 +113,22 @@
 
 - (float)priority
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUSizeLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v6);
+  sub_1C5623A68(v5);
 
-  v4 = v7;
-  sub_1C56772C8(v6);
-  return v4;
+  v3 = v6;
+  sub_1C56772C8(v5);
+  return v3;
 }
 
 - (void)setPriority:(float)priority
 {
-  v5 = OBJC_IVAR___MUSizeLayoutInternal_builder;
-  v6 = *(&self->super.super.isa + OBJC_IVAR___MUSizeLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v11);
+  sub_1C5623A68(v7);
   priorityCopy = priority;
-  v8 = *(&self->super.super.isa + v5);
-  sub_1C5677410(v11, v10);
-  sub_1C5623B40(v10, v9);
-  sub_1C56772C8(v11);
+  sub_1C5677410(v7, v6);
+  sub_1C5623B40(v6, v5);
+  sub_1C56772C8(v7);
 }
 
 @end

@@ -185,9 +185,9 @@ LABEL_23:
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -196,9 +196,9 @@ LABEL_23:
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }

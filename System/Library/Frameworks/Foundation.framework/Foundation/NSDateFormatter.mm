@@ -1063,7 +1063,7 @@ LABEL_8:
   }
 
   v7 = [(NSMutableDictionary *)self->_attributes objectForKey:@"dateFormat"];
-  if (!format || v7) && ([v7 isEqualToString:format])
+  if (!format || v7) && (objc_msgSend_isEqualToString_(v7))
   {
 LABEL_11:
     if (locked)

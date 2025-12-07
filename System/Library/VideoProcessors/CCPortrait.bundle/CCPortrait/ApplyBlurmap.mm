@@ -26,7 +26,7 @@
 
 - (ApplyBlurmap)init
 {
-  v2 = uni_logger_api();
+  v2 = uni_logger_api(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = objc_opt_class();
@@ -43,147 +43,146 @@
 - (ApplyBlurmap)initWithMetalQueue:(id)queue
 {
   queueCopy = queue;
-  v8 = queueCopy;
+  v9 = queueCopy;
   if (queueCopy)
   {
-    v9 = objc_msgSend_device(queueCopy, v6, v7);
+    v10 = objc_msgSend_device(queueCopy, v7, v8);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v48.receiver = self;
-  v48.super_class = ApplyBlurmap;
-  v10 = [(ApplyBlurmap *)&v48 init];
-  v11 = v10;
-  if (!v10)
+  v50.receiver = self;
+  v50.super_class = ApplyBlurmap;
+  v11 = [(ApplyBlurmap *)&v50 init];
+  v12 = v11;
+  if (!v11)
   {
-    sub_2956C8DA8(&v49);
-    v15 = 0;
+    sub_2956C8DA8(&v51 + 1);
+    v16 = 0;
+LABEL_26:
+    v45 = HIDWORD(v51);
+    goto LABEL_29;
+  }
+
+  *(v11 + 28) = 0x23D4CCCCDLL;
+  *(v11 + 232) = xmmword_2956D2AC0;
+  *(v11 + 63) = 0;
+  *(v11 + 32) = 0x400000004;
+  *(v11 + 33) = 0x2B8CBCCC00000004;
+  *(v11 + 34) = 0x33DCCCCCDLL;
+  *(v11 + 280) = xmmword_2956D2AD0;
+  *(v11 + 296) = xmmword_2956D2AE0;
+  *(v11 + 78) = 50;
+  *(v11 + 316) = xmmword_2956D2AF0;
+  *(v11 + 332) = xmmword_2956D2B00;
+  *(v11 + 91) = 8;
+  *(v11 + 90) = 0;
+  *(v11 + 44) = 0;
+  *(v11 + 87) = 0;
+  *(v11 + 93) = 1082130432;
+  *(v11 + 52) = 0x3F40000000000000;
+  objc_storeStrong(v11 + 1, queue);
+  v13 = MEMORY[0x29EDB9F48];
+  v14 = objc_opt_class();
+  v16 = objc_msgSend_bundleForClass_(v13, v15, v14);
+  if (!v16)
+  {
+    sub_2956C8D20(&v51 + 1);
     goto LABEL_26;
   }
 
-  *(v10 + 28) = 0x23D4CCCCDLL;
-  *(v10 + 232) = xmmword_2956D2AC0;
-  *(v10 + 63) = 0;
-  *(v10 + 32) = 0x400000004;
-  *(v10 + 33) = 0x2B8CBCCC00000004;
-  *(v10 + 34) = 0x33DCCCCCDLL;
-  *(v10 + 280) = xmmword_2956D2AD0;
-  *(v10 + 296) = xmmword_2956D2AE0;
-  *(v10 + 78) = 50;
-  *(v10 + 316) = xmmword_2956D2AF0;
-  *(v10 + 332) = xmmword_2956D2B00;
-  *(v10 + 91) = 8;
-  *(v10 + 90) = 0;
-  *(v10 + 44) = 0;
-  *(v10 + 87) = 0;
-  *(v10 + 93) = 1082130432;
-  *(v10 + 52) = 0x3F40000000000000;
-  objc_storeStrong(v10 + 1, queue);
-  v12 = MEMORY[0x29EDB9F48];
-  v13 = objc_opt_class();
-  v15 = objc_msgSend_bundleForClass_(v12, v14, v13);
-  if (!v15)
+  v17 = [UniLibrary alloc];
+  v19 = objc_msgSend_initWithDevice_metalOnly_(v17, v18, v10, v9 != 0);
+  v20 = *(v12 + 2);
+  *(v12 + 2) = v19;
+
+  if (!*(v12 + 2))
   {
-    sub_2956C8D20(&v49);
+    sub_2956C8C98(&v51 + 1);
     goto LABEL_26;
   }
 
-  v16 = [UniLibrary alloc];
-  v18 = objc_msgSend_initWithDevice_metalOnly_(v16, v17, v9, v8 != 0);
-  v19 = *(v11 + 2);
-  *(v11 + 2) = v18;
+  v21 = sub_295693A0C(*(v12 + 132));
+  v22 = *(v12 + 25);
+  *(v12 + 25) = v21;
 
-  if (!*(v11 + 2))
+  v25 = *(v12 + 25);
+  if (!v25)
   {
-    sub_2956C8C98(&v49);
+    sub_2956C8C10(&v51 + 1);
     goto LABEL_26;
   }
 
-  v20 = sub_295693A0C(*(v11 + 132));
-  v21 = *(v11 + 25);
-  *(v11 + 25) = v20;
-
-  v24 = *(v11 + 25);
-  if (!v24)
+  if (objc_msgSend_count(v25, v23, v24) != 2)
   {
-    sub_2956C8C10(&v49);
+    sub_2956C8A78(&v51 + 1);
     goto LABEL_26;
   }
 
-  if (objc_msgSend_count(v24, v22, v23) != 2)
+  v27 = objc_msgSend_objectAtIndexedSubscript_(*(v12 + 25), v26, 0);
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    sub_2956C8A78(&v49);
+
+    goto LABEL_23;
+  }
+
+  v29 = objc_msgSend_objectAtIndexedSubscript_(*(v12 + 25), v28, 1);
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if ((isKindOfClass & 1) == 0)
+  {
+LABEL_23:
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v49, v50.receiver, LODWORD(v50.super_class), v51, v52, v53);
+    v45 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294893831, "(Fig)", 630);
+    goto LABEL_29;
+  }
+
+  if (*(v12 + 96) < 1)
+  {
+LABEL_16:
+    v41 = [UniMorphology alloc];
+    v43 = objc_msgSend_initWithDevice_(v41, v42, v10);
+    v44 = *(v12 + 24);
+    *(v12 + 24) = v43;
+
+LABEL_31:
+    v46 = v12;
+    goto LABEL_32;
+  }
+
+  v31 = sub_295693A0C(*(v12 + 96));
+  v32 = *(v12 + 26);
+  *(v12 + 26) = v31;
+
+  v35 = *(v12 + 26);
+  if (!v35)
+  {
+    sub_2956C8B88(&v51 + 1);
     goto LABEL_26;
   }
 
-  v26 = objc_msgSend_objectAtIndexedSubscript_(*(v11 + 25), v25, 0);
+  if (objc_msgSend_count(v35, v33, v34) != 2)
+  {
+    sub_2956C8B00(&v51 + 1);
+    goto LABEL_26;
+  }
+
+  v37 = objc_msgSend_objectAtIndexedSubscript_(*(v12 + 26), v36, 0);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v28 = objc_msgSend_objectAtIndexedSubscript_(*(v11 + 25), v27, 1);
+    v39 = objc_msgSend_objectAtIndexedSubscript_(*(v12 + 26), v38, 1);
     objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
+    v40 = objc_opt_isKindOfClass();
 
-    if (isKindOfClass)
+    if (v40)
     {
-      if (*(v11 + 96) < 1)
-      {
-LABEL_16:
-        v40 = [UniMorphology alloc];
-        v42 = objc_msgSend_initWithDevice_(v40, v41, v9);
-        v43 = *(v11 + 24);
-        *(v11 + 24) = v42;
-
-LABEL_31:
-        v45 = v11;
-        goto LABEL_32;
-      }
-
-      v30 = sub_295693A0C(*(v11 + 96));
-      v31 = *(v11 + 26);
-      *(v11 + 26) = v30;
-
-      v34 = *(v11 + 26);
-      if (v34)
-      {
-        if (objc_msgSend_count(v34, v32, v33) == 2)
-        {
-          v36 = objc_msgSend_objectAtIndexedSubscript_(*(v11 + 26), v35, 0);
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            v38 = objc_msgSend_objectAtIndexedSubscript_(*(v11 + 26), v37, 1);
-            objc_opt_class();
-            v39 = objc_opt_isKindOfClass();
-
-            if (v39)
-            {
-              goto LABEL_16;
-            }
-          }
-
-          else
-          {
-          }
-
-          goto LABEL_28;
-        }
-
-        sub_2956C8B00(&v49);
-      }
-
-      else
-      {
-        sub_2956C8B88(&v49);
-      }
-
-LABEL_26:
-      v44 = v49;
-      goto LABEL_29;
+      goto LABEL_16;
     }
   }
 
@@ -191,20 +190,19 @@ LABEL_26:
   {
   }
 
-LABEL_28:
-  FigDebugAssert3();
-  v44 = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v49, v50.receiver, LODWORD(v50.super_class), v51, v52, v53);
+  v45 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294893831, "(Fig)", 636);
 LABEL_29:
-  if (!v44)
+  if (!v45)
   {
     goto LABEL_31;
   }
 
-  v45 = 0;
+  v46 = 0;
 LABEL_32:
-  v46 = v45;
+  v47 = v46;
 
-  return v46;
+  return v47;
 }
 
 - (void)dealloc
@@ -245,147 +243,157 @@ LABEL_32:
 {
   if (!options)
   {
-    sub_2956C91DC(&v47);
-    return v47;
+    sub_2956C91DC(&v51 + 1);
+    return HIDWORD(v51);
   }
 
   prewarmCopy = prewarm;
   if (*(options + 12) != self->_config_params.nRings)
   {
-    v7 = sub_295693A0C(*(options + 12));
+    v8 = sub_295693A0C(*(options + 12));
     segmentArray = self->_segmentArray;
-    self->_segmentArray = v7;
+    self->_segmentArray = v8;
 
-    v11 = self->_segmentArray;
-    if (!v11)
+    v12 = self->_segmentArray;
+    if (!v12)
     {
-      sub_2956C8F10(&v47);
-      return v47;
+      sub_2956C8F10(&v51 + 1);
+      return HIDWORD(v51);
     }
 
-    if (objc_msgSend_count(v11, v9, v10) != 2)
+    if (objc_msgSend_count(v12, v10, v11) != 2)
     {
-      sub_2956C8E88(&v47);
-      return v47;
+      sub_2956C8E88(&v51 + 1);
+      return HIDWORD(v51);
     }
 
-    v13 = objc_msgSend_objectAtIndexedSubscript_(self->_segmentArray, v12, 0);
+    v14 = objc_msgSend_objectAtIndexedSubscript_(self->_segmentArray, v13, 0);
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    if (objc_opt_isKindOfClass())
     {
+      v16 = objc_msgSend_objectAtIndexedSubscript_(self->_segmentArray, v15, 1);
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
 
-      goto LABEL_43;
+      if (isKindOfClass)
+      {
+        goto LABEL_7;
+      }
     }
 
-    v15 = objc_msgSend_objectAtIndexedSubscript_(self->_segmentArray, v14, 1);
-    objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
-
-    if ((isKindOfClass & 1) == 0)
+    else
     {
-LABEL_43:
-      FigDebugAssert3();
-
-      return FigSignalErrorAtGM();
     }
+
+    v48 = v4;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v50, v51, v52, v53, v54, v55);
+    v49 = 826;
+    goto LABEL_44;
   }
 
+LABEL_7:
   if (*(options + 42) == self->_config_params.fgNRings && self->_fgSegmentArray)
   {
     goto LABEL_13;
   }
 
-  v17 = sub_295693A0C(*(options + 42));
+  v18 = sub_295693A0C(*(options + 42));
   fgSegmentArray = self->_fgSegmentArray;
-  self->_fgSegmentArray = v17;
+  self->_fgSegmentArray = v18;
 
-  v21 = self->_fgSegmentArray;
-  if (!v21)
+  v22 = self->_fgSegmentArray;
+  if (!v22)
   {
-    sub_2956C9154(&v47);
-    return v47;
+    sub_2956C9154(&v51 + 1);
+    return HIDWORD(v51);
   }
 
-  if (objc_msgSend_count(v21, v19, v20) != 2)
+  if (objc_msgSend_count(v22, v20, v21) != 2)
   {
-    sub_2956C8F98(&v47);
-    return v47;
+    sub_2956C8F98(&v51 + 1);
+    return HIDWORD(v51);
   }
 
-  v23 = objc_msgSend_objectAtIndexedSubscript_(self->_fgSegmentArray, v22, 0);
+  v24 = objc_msgSend_objectAtIndexedSubscript_(self->_fgSegmentArray, v23, 0);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    goto LABEL_43;
+    goto LABEL_38;
   }
 
-  v25 = objc_msgSend_objectAtIndexedSubscript_(self->_fgSegmentArray, v24, 1);
+  v26 = objc_msgSend_objectAtIndexedSubscript_(self->_fgSegmentArray, v25, 1);
   objc_opt_class();
-  v26 = objc_opt_isKindOfClass();
+  v27 = objc_opt_isKindOfClass();
 
-  if ((v26 & 1) == 0)
+  if ((v27 & 1) == 0)
   {
-    goto LABEL_43;
+LABEL_38:
+    v48 = v4;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v50, v51, v52, v53, v54, v55);
+    v49 = 840;
+LABEL_44:
+
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294893831, "(Fig)", v49, v48);
   }
 
 LABEL_13:
   *&self->_config_params.simulatedAperture = *options;
-  v27 = *(options + 1);
-  v28 = *(options + 2);
-  v29 = *(options + 4);
+  v28 = *(options + 1);
+  v29 = *(options + 2);
+  v30 = *(options + 4);
   *&self->_config_params.nRings = *(options + 3);
-  *&self->_config_params.relativeWeightThreshold = v29;
-  *&self->_config_params.maxBlur = v27;
-  *&self->_config_params.lumaNoiseAmplitude = v28;
-  v30 = *(options + 5);
-  v31 = *(options + 6);
-  v32 = *(options + 8);
+  *&self->_config_params.relativeWeightThreshold = v30;
+  *&self->_config_params.maxBlur = v28;
+  *&self->_config_params.lumaNoiseAmplitude = v29;
+  v31 = *(options + 5);
+  v32 = *(options + 6);
+  v33 = *(options + 8);
   *&self->_config_params.xhlrbMaxIntensityT1 = *(options + 7);
-  *&self->_config_params.xhlrbWeightGain = v32;
-  *&self->_config_params.ringAmplitude = v30;
-  *&self->_config_params.xhlrbIterations = v31;
-  v33 = *(options + 9);
-  v34 = *(options + 10);
-  v35 = *(options + 12);
+  *&self->_config_params.xhlrbWeightGain = v33;
+  *&self->_config_params.ringAmplitude = v31;
+  *&self->_config_params.xhlrbIterations = v32;
+  v34 = *(options + 9);
+  v35 = *(options + 10);
+  v36 = *(options + 12);
   *&self->_config_params.fgHitThreshold = *(options + 11);
-  *&self->_config_params.fgBlurWeightSmoothstepEnd = v35;
-  *&self->_config_params.ohlbIntensityGain = v33;
-  *&self->_config_params.fgMinNRings = v34;
+  *&self->_config_params.fgBlurWeightSmoothstepEnd = v36;
+  *&self->_config_params.ohlbIntensityGain = v34;
+  *&self->_config_params.fgMinNRings = v35;
   if (prewarmCopy)
   {
     basePixelWeight = self->_config_params.basePixelWeight;
-    v37 = *(options + 11);
+    v38 = *(options + 11);
     if (qword_2A18BA2D0 != -1)
     {
       sub_2956C9020();
     }
 
-    if (v37 >= dword_2A1388808)
+    if (v38 >= dword_2A1388808)
     {
-      v38 = dword_2A1388808;
+      v39 = dword_2A1388808;
     }
 
     else
-    {
-      v38 = v37;
-    }
-
-    if (*(options + 10) >= v38)
     {
       v39 = v38;
     }
 
+    if (*(options + 10) >= v39)
+    {
+      v40 = v39;
+    }
+
     else
     {
-      v39 = *(options + 10);
+      v40 = *(options + 10);
     }
 
     nRings = self->_config_params.nRings;
-    v41 = v39;
+    v42 = v40;
     do
     {
-      self->_config_params.nRings = v41;
+      self->_config_params.nRings = v42;
       Shaders = objc_msgSend_loadShaders(self, a2, options);
       self->_config_params.nRings = nRings;
       if (Shaders)
@@ -394,30 +402,30 @@ LABEL_13:
         return -1;
       }
 
-      ++v41;
+      ++v42;
     }
 
-    while (v38 + 1 != v41);
+    while (v39 + 1 != v42);
     self->_config_params.basePixelWeight = 1.0e-12;
-    v43 = v38 + 1;
+    v44 = v39 + 1;
     do
     {
-      self->_config_params.nRings = v39;
-      v44 = objc_msgSend_loadShaders(self, a2, options);
+      self->_config_params.nRings = v40;
+      v45 = objc_msgSend_loadShaders(self, a2, options);
       self->_config_params.nRings = nRings;
-      if (v44)
+      if (v45)
       {
         sub_2956C907C();
         return -1;
       }
 
-      ++v39;
+      ++v40;
     }
 
-    while (v43 != v39);
-    v45 = objc_msgSend_loadShaders(self, a2, options);
+    while (v44 != v40);
+    v46 = objc_msgSend_loadShaders(self, a2, options);
     self->_config_params.basePixelWeight = basePixelWeight;
-    if (!v45)
+    if (!v46)
     {
       goto LABEL_29;
     }
@@ -1284,7 +1292,7 @@ LABEL_19:
   res2Copy = res2;
   contextCopy = context;
   pathCopy = path;
-  v219 = alphaCopy;
+  v228 = alphaCopy;
   if (alphaCopy)
   {
     configCopy2 = config;
@@ -1312,33 +1320,33 @@ LABEL_19:
     configCopy2 = config;
   }
 
-  v229 = v24;
-  v226 = objc_alloc_init(UniTextureView);
-  v224 = objc_alloc_init(UniTextureView);
-  v274 = 0;
-  v275 = &v274;
-  v276 = 0x3032000000;
-  v277 = sub_295698668;
-  v278 = sub_295698678;
-  v279 = 0;
-  v268 = 0;
-  v269 = &v268;
-  v270 = 0x3032000000;
-  v271 = sub_295698668;
-  v272 = sub_295698678;
-  v273 = 0;
-  v266[0] = 0;
-  v266[1] = v266;
-  v266[2] = 0x2020000000;
-  v267 = 0;
-  v265[0] = MEMORY[0x29EDCA5F8];
-  v265[1] = 3221225472;
-  v265[2] = sub_295698680;
-  v265[3] = &unk_29EDD4838;
-  v265[4] = v266;
-  v265[5] = &v274;
-  v265[6] = &v268;
-  v26 = MEMORY[0x29C250590](v265);
+  v239 = v24;
+  v236 = objc_alloc_init(UniTextureView);
+  v234 = objc_alloc_init(UniTextureView);
+  v284 = 0;
+  v285 = &v284;
+  v286 = 0x3032000000;
+  v287 = sub_295698668;
+  v288 = sub_295698678;
+  v289 = 0;
+  v278 = 0;
+  v279 = &v278;
+  v280 = 0x3032000000;
+  v281 = sub_295698668;
+  v282 = sub_295698678;
+  v283 = 0;
+  v276[0] = 0;
+  v276[1] = v276;
+  v276[2] = 0x2020000000;
+  v277 = 0;
+  v275[0] = MEMORY[0x29EDCA5F8];
+  v275[1] = 3221225472;
+  v275[2] = sub_295698680;
+  v275[3] = &unk_29EDD4838;
+  v275[4] = v276;
+  v275[5] = &v284;
+  v275[6] = &v278;
+  v26 = MEMORY[0x29C250590](v275);
   if (objc_msgSend_setOptions_isPrewarm_(selfCopy3, v27, configCopy2, 0))
   {
     syslog(3, "err error, (%s) at %s:%d", "[ApplyBlurmap applyBackgroundUsingConfig:inputBlurMap:inputAlpha:inputGainMap:inputImage:inputLuma:inputChroma:inputHalfRes1:inputHalfRes2:scale:coreImageRender:version:context:captureFolderMiscPath:]", "/Library/Caches/com.apple.xbs/Sources/CameraCapture/VideoProcessors/Portrait/CCPortrait/ApplyBlurmap.m", 1981);
@@ -1363,16 +1371,16 @@ LABEL_19:
     }
     v34 = ;
 
-    v260.i32[0] = 0;
-    v35 = sub_29569B374(v34, @"HDRGainMap:HDRGainMapVersion", &v260);
-    v36 = v260.i32[0];
-    v260.i32[0] = 0;
-    v37 = sub_29569B374(v34, @"HDRToneMap:Version", &v260);
+    v270.i32[0] = 0;
+    v35 = sub_29569B374(v34, @"HDRGainMap:HDRGainMapVersion", &v270);
+    v36 = v270.i32[0];
+    v270.i32[0] = 0;
+    v37 = sub_29569B374(v34, @"HDRToneMap:Version", &v270);
     v38 = v36 >= 0x20000 && v35;
-    v39 = v260.i32[0] > 0 && v37;
+    v39 = v270.i32[0] > 0 && v37;
     if (!v38 && !v39)
     {
-      v40 = uni_logger_api();
+      v40 = uni_logger_api(v37);
       if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         sub_2956C9E14(v40);
@@ -1405,18 +1413,19 @@ LABEL_62:
 
     if (v34)
     {
-      v260.i32[0] = 0;
-      v42 = sub_29569B374(v34, @"HDRGainMap:HDRGainMapVersion", &v260);
-      v44 = v260.i32[0] >= 0x20000 && v42 && sub_29569B4A0(v34, @"HDRGainMap::HDRGainMapHeadroom", &gainMapHeadroom);
-      v260.i32[0] = 0;
-      v45 = sub_29569B374(v34, @"HDRToneMap:Version", &v260);
-      if (v260.i32[0] > 0 && v45)
+      v270.i32[0] = 0;
+      v42 = sub_29569B374(v34, @"HDRGainMap:HDRGainMapVersion", &v270);
+      v44 = v270.i32[0] >= 0x20000 && v42 && sub_29569B4A0(v34, @"HDRGainMap::HDRGainMapHeadroom", &gainMapHeadroom);
+      v270.i32[0] = 0;
+      v45 = sub_29569B374(v34, @"HDRToneMap:Version", &v270);
+      if (v270.i32[0] > 0 && v45)
       {
-        v260.i32[0] = 0;
-        v44 = sub_29569B4A0(v34, @"HDRToneMap:AlternateHeadroom", &v260);
-        if (v44)
+        v270.i32[0] = 0;
+        v45 = sub_29569B4A0(v34, @"HDRToneMap:AlternateHeadroom", &v270);
+        v44 = v45;
+        if (v45)
         {
-          gainMapHeadroom = exp2f(*v260.i32);
+          gainMapHeadroom = exp2f(*v270.i32);
         }
       }
 
@@ -1428,7 +1437,7 @@ LABEL_62:
 LABEL_55:
           if (v47 == 0.0)
           {
-            v69 = uni_logger_api();
+            v69 = uni_logger_api(v45);
             if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
             {
               sub_2956C9E6C(v69);
@@ -1499,32 +1508,32 @@ LABEL_52:
 LABEL_64:
   if (!objc_msgSend_setOptions_isPrewarm_(selfCopy3, v28, configCopy2, 0))
   {
-    v231 = objc_msgSend_imageWithObject_(UniImage, v71, mapCopy);
-    v263[0] = 0;
-    v262 = 0;
-    *(v263 + 6) = 0;
+    v241 = objc_msgSend_imageWithObject_(UniImage, v71, mapCopy);
+    v273[0] = 0;
+    v272 = 0;
+    *(v273 + 6) = 0;
     objc_msgSend_computeDynamicParams(selfCopy3, v72, v73);
-    v234 = objc_msgSend_dataWithBytes_length_(MEMORY[0x29EDB8DA0], v74, &v262, 22);
+    v244 = objc_msgSend_dataWithBytes_length_(MEMORY[0x29EDB8DA0], v74, &v272, 22);
     v76 = objc_msgSend_imageWithObject_(UniImage, v75, res1Copy);
     objc_msgSend_extent(v76, v77, v78);
-    v222 = v79;
-    v223 = v80;
+    v232 = v79;
+    v233 = v80;
     v82 = v81;
     v84 = v83;
 
     v85 = [UniRunInfo alloc];
-    v86.f64[0] = v222;
-    v86.f64[1] = v223;
+    v86.f64[0] = v232;
+    v86.f64[1] = v233;
     __asm { FMOV            V1.2D, #0.5 }
 
-    v260 = vcvtq_u64_f64(vmulq_f64(v86, _Q1));
-    v261 = 1;
-    v228 = objc_msgSend_initWithGridSize_kernel_(v85, v92, &v260, selfCopy3->_preprocess);
-    objc_msgSend_setCoreImageOutputExtent_(v228, v93, v94, v82, v84, v222, v223);
+    v270 = vcvtq_u64_f64(vmulq_f64(v86, _Q1));
+    v271 = 1;
+    v238 = objc_msgSend_initWithGridSize_kernel_(v85, v92, &v270, selfCopy3->_preprocess);
+    objc_msgSend_setCoreImageOutputExtent_(v238, v93, v94, v82, v84, v232, v233);
     if (render && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v95 = imageCopy;
-      v96 = sub_295696FA8(v231);
+      v96 = sub_295696FA8(v241);
       v98 = sub_2956986C4(v95, v96, v97, configCopy2->bicubicDownsampleParamB, configCopy2->bicubicDownsampleParamC);
 
       v99 = CGColorSpaceCreateWithName(*MEMORY[0x29EDB90F0]);
@@ -1538,9 +1547,9 @@ LABEL_64:
       v110 = v109;
       v112 = v111;
       v114 = v113;
-      v259[0] = v101;
-      v259[1] = v104;
-      v116 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v115, v259, 2);
+      v269[0] = v101;
+      v269[1] = v104;
+      v116 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v115, v269, 2);
       v118 = objc_msgSend_applyWithExtent_arguments_(v103, v117, v116, v108, v110, v112, v114);
 
       v120 = objc_msgSend_imageWithCIImage_(UniImage, v119, v118);
@@ -1548,39 +1557,39 @@ LABEL_64:
 
     else
     {
-      v121 = sub_295696FA8(v231);
+      v121 = sub_295696FA8(v241);
       v123 = v122;
       if (v121 == sub_295696FA8(chromaCopy) && v123 == v125)
       {
         preprocess = selfCopy3->_preprocess;
-        v257[0] = @"inputLumaTex";
-        v257[1] = @"inputChromaTex";
-        v258[0] = lumaCopy;
-        v258[1] = chromaCopy;
-        v257[2] = @"inputBlurMapTex";
-        v257[3] = @"outputTex";
-        v258[2] = v231;
-        v258[3] = res1Copy;
-        v257[4] = @"_renderContext";
-        v258[4] = contextCopy;
-        v118 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v124, v258, v257, 5);
-        v128 = objc_msgSend_imageByApplyingParameters_runInfo_(preprocess, v127, v118, v228);
+        v267[0] = @"inputLumaTex";
+        v267[1] = @"inputChromaTex";
+        v268[0] = lumaCopy;
+        v268[1] = chromaCopy;
+        v267[2] = @"inputBlurMapTex";
+        v267[3] = @"outputTex";
+        v268[2] = v241;
+        v268[3] = res1Copy;
+        v267[4] = @"_renderContext";
+        v268[4] = contextCopy;
+        v118 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v124, v268, v267, 5);
+        v128 = objc_msgSend_imageByApplyingParameters_runInfo_(preprocess, v127, v118, v238);
       }
 
       else
       {
         preprocessScaled = selfCopy3->_preprocessScaled;
-        v255[0] = @"inputLumaTex";
-        v255[1] = @"inputChromaTex";
-        v256[0] = lumaCopy;
-        v256[1] = chromaCopy;
-        v255[2] = @"inputBlurMapTex";
-        v255[3] = @"outputTex";
-        v256[2] = v231;
-        v256[3] = res1Copy;
-        v255[4] = @"_renderContext";
-        v256[4] = contextCopy;
-        v118 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v124, v256, v255, 5);
+        v265[0] = @"inputLumaTex";
+        v265[1] = @"inputChromaTex";
+        v266[0] = lumaCopy;
+        v266[1] = chromaCopy;
+        v265[2] = @"inputBlurMapTex";
+        v265[3] = @"outputTex";
+        v266[2] = v241;
+        v266[3] = res1Copy;
+        v265[4] = @"_renderContext";
+        v266[4] = contextCopy;
+        v118 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v124, v266, v265, 5);
         v128 = objc_msgSend_imageByApplyingParameters_(preprocessScaled, v130, v118);
       }
 
@@ -1589,59 +1598,59 @@ LABEL_64:
 
     if (v120)
     {
-      v253[0] = @"inputImage";
-      v253[1] = @"_renderContext";
-      v254[0] = v120;
-      v254[1] = contextCopy;
-      v253[2] = @"desiredFormat";
-      v254[2] = &unk_2A1C949C0;
-      v132 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v131, v254, v253, 3);
-      v134 = objc_msgSend_imageByApplyingParameters_(v226, v133, v132);
-      v135 = v275[5];
-      v275[5] = v134;
+      v263[0] = @"inputImage";
+      v263[1] = @"_renderContext";
+      v264[0] = v120;
+      v264[1] = contextCopy;
+      v263[2] = @"desiredFormat";
+      v264[2] = &unk_2A1C949C0;
+      v132 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v131, v264, v263, 3);
+      v134 = objc_msgSend_imageByApplyingParameters_(v236, v133, v132);
+      v135 = v285[5];
+      v285[5] = v134;
 
-      if (v275[5])
+      if (v285[5])
       {
-        v251[0] = @"inputImage";
-        v251[1] = @"_renderContext";
-        v252[0] = res2Copy;
-        v252[1] = contextCopy;
-        v251[2] = @"desiredFormat";
-        v252[2] = &unk_2A1C949C0;
-        v137 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v136, v252, v251, 3);
-        v139 = objc_msgSend_imageByApplyingParameters_(v224, v138, v137);
-        v140 = v269[5];
-        v269[5] = v139;
+        v261[0] = @"inputImage";
+        v261[1] = @"_renderContext";
+        v262[0] = res2Copy;
+        v262[1] = contextCopy;
+        v261[2] = @"desiredFormat";
+        v262[2] = &unk_2A1C949C0;
+        v137 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v136, v262, v261, 3);
+        v139 = objc_msgSend_imageByApplyingParameters_(v234, v138, v137);
+        v140 = v279[5];
+        v279[5] = v139;
 
-        if (v269[5])
+        if (v279[5])
         {
-          v141 = v275[5];
+          v141 = v285[5];
 
           if (configCopy2->xhlrbIterations >= 1)
           {
             highlightRecovery = selfCopy3->_highlightRecovery;
-            v249[0] = *MEMORY[0x29EDB9248];
+            v259[0] = *MEMORY[0x29EDB9248];
             *&v144 = scale;
             v146 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v142, v143, v144);
-            v250[0] = v146;
-            v249[1] = @"inputIterations";
+            v260[0] = v146;
+            v259[1] = @"inputIterations";
             v148 = objc_msgSend_numberWithInt_(MEMORY[0x29EDBA070], v147, configCopy2->xhlrbIterations);
-            v250[1] = v148;
-            v250[2] = v234;
-            v249[2] = @"dynamic_params";
-            v249[3] = @"inputImage";
-            v250[3] = v141;
-            v249[4] = @"outputImage";
+            v260[1] = v148;
+            v260[2] = v244;
+            v259[2] = @"dynamic_params";
+            v259[3] = @"inputImage";
+            v260[3] = v141;
+            v259[4] = @"outputImage";
             v149 = v26[2](v26);
-            v249[5] = @"_renderContext";
-            v250[4] = v149;
-            v250[5] = contextCopy;
-            v151 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v150, v250, v249, 6);
+            v259[5] = @"_renderContext";
+            v260[4] = v149;
+            v260[5] = contextCopy;
+            v151 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v150, v260, v259, 6);
             v153 = objc_msgSend_imageByApplyingParameters_(highlightRecovery, v152, v151);
 
             if (!v153)
             {
-              FigDebugAssert3();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v226, v222, v225, v226, pathCopy, v228, v229);
               goto LABEL_115;
             }
 
@@ -1653,88 +1662,88 @@ LABEL_64:
             else
             {
               v154 = (v26[2])(v26);
-              v141 = v275[5];
+              v141 = v285[5];
             }
           }
 
           if (configCopy2->preFilterRadius >= 1 && configCopy2->preFilterBlurStrength > 0.0)
           {
             prefilterX = selfCopy3->_prefilterX;
-            v247[0] = @"dynamic_params";
-            v247[1] = @"inputTex";
-            v248[0] = v234;
-            v248[1] = v141;
-            v247[2] = @"outputTex";
+            v257[0] = @"dynamic_params";
+            v257[1] = @"inputTex";
+            v258[0] = v244;
+            v258[1] = v141;
+            v257[2] = @"outputTex";
             v156 = v26[2](v26);
-            v248[2] = v156;
-            v248[3] = contextCopy;
-            v247[3] = @"_renderContext";
-            v247[4] = @"_kernelScale";
+            v258[2] = v156;
+            v258[3] = contextCopy;
+            v257[3] = @"_renderContext";
+            v257[4] = @"_kernelScale";
             *&v157 = scale;
             v160 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v158, v159, v157);
-            v248[4] = v160;
-            v162 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v161, v248, v247, 5);
+            v258[4] = v160;
+            v162 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v161, v258, v257, 5);
             v164 = objc_msgSend_imageByApplyingParameters_(prefilterX, v163, v162);
 
             if (!v164)
             {
-              FigDebugAssert3();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v226, v222, v225, v226, pathCopy, v228, v229);
               goto LABEL_115;
             }
 
             prefilterY = selfCopy3->_prefilterY;
-            v245[0] = @"dynamic_params";
-            v245[1] = @"inputTex";
-            v246[0] = v234;
-            v246[1] = v164;
-            v245[2] = @"outputTex";
+            v255[0] = @"dynamic_params";
+            v255[1] = @"inputTex";
+            v256[0] = v244;
+            v256[1] = v164;
+            v255[2] = @"outputTex";
             v166 = v26[2](v26);
-            v246[2] = v166;
-            v246[3] = contextCopy;
-            v245[3] = @"_renderContext";
-            v245[4] = @"_kernelScale";
+            v256[2] = v166;
+            v256[3] = contextCopy;
+            v255[3] = @"_renderContext";
+            v255[4] = @"_kernelScale";
             *&v167 = scale;
             v170 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v168, v169, v167);
-            v246[4] = v170;
-            v172 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v171, v246, v245, 5);
+            v256[4] = v170;
+            v172 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v171, v256, v255, 5);
             v141 = objc_msgSend_imageByApplyingParameters_(prefilterY, v173, v172);
 
             if (!v141)
             {
-              FigDebugAssert3();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v226, v222, v225, v226, pathCopy, v228, v229);
               goto LABEL_115;
             }
           }
 
-          if (v229)
+          if (v239)
           {
             sparseWithAlpha = selfCopy3->_sparseWithAlpha;
-            v244[0] = v234;
-            v243[0] = @"dynamic_params";
-            v243[1] = @"segmentStepLUT";
+            v254[0] = v244;
+            v253[0] = @"dynamic_params";
+            v253[1] = @"segmentStepLUT";
             v175 = objc_msgSend_objectAtIndexedSubscript_(selfCopy3->_segmentArray, v142, 0);
-            v244[1] = v175;
-            v243[2] = @"segmentBaseVecLUT";
+            v254[1] = v175;
+            v253[2] = @"segmentBaseVecLUT";
             v179 = objc_msgSend_objectAtIndexedSubscript_(selfCopy3->_segmentArray, v176, 1);
-            v244[2] = v179;
-            v244[3] = v141;
-            v243[3] = @"inputTex";
-            v243[4] = @"gainTex";
+            v254[2] = v179;
+            v254[3] = v141;
+            v253[3] = @"inputTex";
+            v253[4] = @"gainTex";
             v180 = gainMapCopy;
             if (!gainMapCopy)
             {
               v180 = objc_msgSend_null(MEMORY[0x29EDB8E28], v177, v178);
             }
 
-            v244[4] = v180;
-            v243[5] = @"outputTex";
+            v254[4] = v180;
+            v253[5] = @"outputTex";
             v181 = v26[2](v26);
-            v244[5] = v181;
-            v244[6] = v229;
-            v243[6] = @"alphaTex";
-            v243[7] = @"_renderContext";
-            v244[7] = contextCopy;
-            v183 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v182, v244, v243, 8);
+            v254[5] = v181;
+            v254[6] = v239;
+            v253[6] = @"alphaTex";
+            v253[7] = @"_renderContext";
+            v254[7] = contextCopy;
+            v183 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v182, v254, v253, 8);
             v185 = objc_msgSend_imageByApplyingParameters_(sparseWithAlpha, v184, v183);
 
             if (!gainMapCopy)
@@ -1743,9 +1752,9 @@ LABEL_64:
 
             if (!v185)
             {
-              FigDebugAssert3();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v226, v222, v225, v226, pathCopy, v228, v229);
 LABEL_115:
-              FigSignalErrorAtGM();
+              FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v218, v220, v223);
               goto LABEL_116;
             }
           }
@@ -1753,30 +1762,30 @@ LABEL_115:
           else
           {
             sparseNoAlpha = selfCopy3->_sparseNoAlpha;
-            v242[0] = v234;
-            v241[0] = @"dynamic_params";
-            v241[1] = @"segmentStepLUT";
+            v252[0] = v244;
+            v251[0] = @"dynamic_params";
+            v251[1] = @"segmentStepLUT";
             v187 = objc_msgSend_objectAtIndexedSubscript_(selfCopy3->_segmentArray, v142, 0);
-            v242[1] = v187;
-            v241[2] = @"segmentBaseVecLUT";
+            v252[1] = v187;
+            v251[2] = @"segmentBaseVecLUT";
             v191 = objc_msgSend_objectAtIndexedSubscript_(selfCopy3->_segmentArray, v188, 1);
-            v242[2] = v191;
-            v242[3] = v141;
-            v241[3] = @"inputTex";
-            v241[4] = @"gainTex";
+            v252[2] = v191;
+            v252[3] = v141;
+            v251[3] = @"inputTex";
+            v251[4] = @"gainTex";
             v192 = gainMapCopy;
             if (!gainMapCopy)
             {
               v192 = objc_msgSend_null(MEMORY[0x29EDB8E28], v189, v190);
             }
 
-            v242[4] = v192;
-            v241[5] = @"outputTex";
+            v252[4] = v192;
+            v251[5] = @"outputTex";
             v193 = v26[2](v26);
-            v241[6] = @"_renderContext";
-            v242[5] = v193;
-            v242[6] = contextCopy;
-            v195 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v194, v242, v241, 7);
+            v251[6] = @"_renderContext";
+            v252[5] = v193;
+            v252[6] = contextCopy;
+            v195 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v194, v252, v251, 7);
             v185 = objc_msgSend_imageByApplyingParameters_(sparseNoAlpha, v196, v195);
 
             if (!gainMapCopy)
@@ -1785,43 +1794,43 @@ LABEL_115:
 
             if (!v185)
             {
-              FigDebugAssert3();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v226, v222, v225, v226, pathCopy, v228, v229);
               goto LABEL_115;
             }
           }
 
           antialiasX = selfCopy3->_antialiasX;
-          v240[0] = v185;
-          v239[0] = @"inputTex";
-          v239[1] = @"outputTex";
+          v250[0] = v185;
+          v249[0] = @"inputTex";
+          v249[1] = @"outputTex";
           v198 = v26[2](v26);
-          v240[1] = v198;
-          v240[2] = contextCopy;
-          v239[2] = @"_renderContext";
-          v239[3] = @"_kernelScale";
+          v250[1] = v198;
+          v250[2] = contextCopy;
+          v249[2] = @"_renderContext";
+          v249[3] = @"_kernelScale";
           *&v199 = scale;
           v202 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v200, v201, v199);
-          v240[3] = v202;
-          v204 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v203, v240, v239, 4);
+          v250[3] = v202;
+          v204 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v203, v250, v249, 4);
           v206 = objc_msgSend_imageByApplyingParameters_(antialiasX, v205, v204);
 
           if (v206)
           {
             antialiasY = selfCopy3->_antialiasY;
-            v238[0] = v206;
-            v237[0] = @"inputTex";
-            v237[1] = @"outputTex";
+            v248[0] = v206;
+            v247[0] = @"inputTex";
+            v247[1] = @"outputTex";
             v208 = v26[2](v26);
-            v238[1] = v208;
-            v238[2] = v234;
-            v237[2] = @"dynamic_params";
-            v237[3] = @"_renderContext";
-            v238[3] = contextCopy;
-            v237[4] = @"_kernelScale";
+            v248[1] = v208;
+            v248[2] = v244;
+            v247[2] = @"dynamic_params";
+            v247[3] = @"_renderContext";
+            v248[3] = contextCopy;
+            v247[4] = @"_kernelScale";
             *&v209 = scale;
             v212 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v210, v211, v209);
-            v238[4] = v212;
-            v214 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v213, v238, v237, 5);
+            v248[4] = v212;
+            v214 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v213, v248, v247, 5);
             v120 = objc_msgSend_imageByApplyingParameters_(antialiasY, v215, v214);
 
             if (v120)
@@ -1829,47 +1838,47 @@ LABEL_115:
               goto LABEL_99;
             }
 
-            FigDebugAssert3();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v226, v222, v225, v226, pathCopy, v228, v229);
           }
 
           else
           {
-            FigDebugAssert3();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v226, v222, v225, v226, pathCopy, v228, v229);
           }
 
           goto LABEL_115;
         }
 
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v226, v222, v225, v226, pathCopy, v228, v229);
       }
 
       else
       {
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v226, v222, v225, v226, pathCopy, v228, v229);
       }
 
-      FigSignalErrorAtGM();
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v219, v221, v224);
       goto LABEL_99;
     }
 
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v226, v222, v225, v226, pathCopy, v228, v229);
     goto LABEL_115;
   }
 
   syslog(3, "err error, (%s) at %s:%d", "[ApplyBlurmap applyBackgroundUsingConfig:inputBlurMap:inputAlpha:inputGainMap:inputImage:inputLuma:inputChroma:inputHalfRes1:inputHalfRes2:scale:coreImageRender:version:context:captureFolderMiscPath:]", "/Library/Caches/com.apple.xbs/Sources/CameraCapture/VideoProcessors/Portrait/CCPortrait/ApplyBlurmap.m", 2036);
 LABEL_104:
-  v231 = 0;
-  v228 = 0;
-  v234 = 0;
+  v241 = 0;
+  v238 = 0;
+  v244 = 0;
 LABEL_116:
   v120 = 0;
 LABEL_99:
   v216 = v120;
 
-  _Block_object_dispose(v266, 8);
-  _Block_object_dispose(&v268, 8);
+  _Block_object_dispose(v276, 8);
+  _Block_object_dispose(&v278, 8);
 
-  _Block_object_dispose(&v274, 8);
+  _Block_object_dispose(&v284, 8);
 
   return v216;
 }

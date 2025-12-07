@@ -58,7 +58,7 @@
 
 - (id)_appendArguments:(id)arguments toFormatString:(id)string
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   argumentsCopy = arguments;
   stringCopy = string;
   v7 = [argumentsCopy count];
@@ -80,7 +80,7 @@
 
       v8 = [argumentsCopy objectAtIndexedSubscript:0];
       v10 = [argumentsCopy objectAtIndexedSubscript:1];
-      v15 = [argumentsCopy objectAtIndexedSubscript:2];
+      v14 = [argumentsCopy objectAtIndexedSubscript:2];
       v9 = PFLocalizedStringWithValidatedFormat();
     }
 
@@ -109,14 +109,12 @@ LABEL_8:
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v17 = 3;
+    v16 = 3;
     _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Not able to resolve a string with more than %lu arguments. Please file a radar agains Photos Media Mining.", buf, 0xCu);
   }
 
   v9 = 0;
 LABEL_15:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -185,33 +183,33 @@ LABEL_10:
 
 - (id)titleWithMomentNodes:(id)nodes features:(id)features argumentEvaluationContext:(id)context
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   featuresCopy = features;
   contextCopy = context;
   if ([(PGTitleSpec *)self _canFulfillWeekdayCriteriaWithMomentNodes:nodesCopy])
   {
     v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_arguments, "count")}];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v12 = self->_arguments;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v22 + 1) + 8 * i);
+          v17 = *(*(&v21 + 1) + 8 * i);
           if ([v17 requiresInput] && !-[PGTitleSpec _resolveRequiredInputForArgument:](self, "_resolveRequiredInputForArgument:", v17))
           {
             goto LABEL_15;
@@ -229,7 +227,7 @@ LABEL_15:
           [v11 addObject:v18];
         }
 
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v14)
         {
           continue;
@@ -248,39 +246,37 @@ LABEL_16:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (id)titleWithMomentNodes:(id)nodes argumentEvaluationContext:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   contextCopy = context;
   if ([(PGTitleSpec *)self _canFulfillWeekdayCriteriaWithMomentNodes:nodesCopy])
   {
     v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_arguments, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v9 = self->_arguments;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * i);
+          v14 = *(*(&v18 + 1) + 8 * i);
           if ([v14 requiresInput] && !-[PGTitleSpec _resolveRequiredInputForArgument:](self, "_resolveRequiredInputForArgument:", v14))
           {
             goto LABEL_15;
@@ -298,7 +294,7 @@ LABEL_15:
           [v8 addObject:v15];
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v11)
         {
           continue;
@@ -316,8 +312,6 @@ LABEL_16:
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

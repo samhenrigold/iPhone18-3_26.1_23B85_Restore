@@ -3,9 +3,7 @@ intptr_t APSPowerAssertionRaiseTemporary(uint64_t a1)
   dispatch_semaphore_wait(*(a1 + 16), 0xFFFFFFFFFFFFFFFFLL);
   if (gLogCategory_APSPowerAssertion <= 50 && (gLogCategory_APSPowerAssertion != -1 || _LogCategory_Initialize()))
   {
-    v4 = *(a1 + 64);
-    v5 = *(a1 + 40);
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSPowerAssertion, "void APSPowerAssertionRaiseTemporary(APSPowerAssertionRef)", 33554482, "[%{ptr}:%@] Raising temporary assertion for %@ seconds", a1, *(a1 + 64), *(a1 + 40));
   }
 
   IOPMAssertionSetProperty(*(a1 + 48), @"TimeoutSeconds", *(a1 + 40));
@@ -19,7 +17,8 @@ intptr_t APSPowerAssertionRaise(uint64_t a1)
 {
   dispatch_semaphore_wait(*(a1 + 16), 0xFFFFFFFFFFFFFFFFLL);
   v2 = *(a1 + 52);
-  *(a1 + 52) = v2 + 1;
+  v3 = (v2 + 1);
+  *(a1 + 52) = v3;
   if (v2)
   {
     if (gLogCategory_APSPowerAssertion > 50)
@@ -36,8 +35,7 @@ intptr_t APSPowerAssertionRaise(uint64_t a1)
     {
       v3 = *(a1 + 52);
 LABEL_4:
-      v6 = *(a1 + 64);
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSPowerAssertion, "void APSPowerAssertionRaise(APSPowerAssertionRef)", 33554482, "[%{ptr}:%@] Raise requested; already raised. Count: %d", a1, *(a1 + 64), v3);
     }
   }
 
@@ -45,8 +43,7 @@ LABEL_4:
   {
     if (gLogCategory_APSPowerAssertion <= 50 && (gLogCategory_APSPowerAssertion != -1 || _LogCategory_Initialize()))
     {
-      v7 = *(a1 + 64);
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSPowerAssertion, "void APSPowerAssertionRaise(APSPowerAssertionRef)", 33554482, "[%{ptr}:%@] Raise requested; raising.", a1, *(a1 + 64));
     }
 
     IOPMAssertionSetProperty(*(a1 + 56), @"AssertLevel", *(a1 + 24));
@@ -62,6 +59,7 @@ intptr_t APSPowerAssertionRelease(uint64_t a1)
 {
   dispatch_semaphore_wait(*(a1 + 16), 0xFFFFFFFFFFFFFFFFLL);
   v2 = *(a1 + 52);
+  v3 = (v2 - 1);
   if (v2 < 1)
   {
     v3 = *(a1 + 52);
@@ -78,15 +76,14 @@ LABEL_7:
         goto LABEL_14;
       }
 
-      v4 = *(a1 + 52);
+      v3 = *(a1 + 52);
     }
 
-    v8 = *(a1 + 64);
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSPowerAssertion, "void APSPowerAssertionRelease(APSPowerAssertionRef)", 33554482, "[%{ptr}:%@] Release requested; holding. Count: %d", a1, *(a1 + 64), v3);
     goto LABEL_14;
   }
 
-  *(a1 + 52) = v2 - 1;
+  *(a1 + 52) = v3;
   if (v2 != 1)
   {
     goto LABEL_7;
@@ -94,18 +91,17 @@ LABEL_7:
 
   if (gLogCategory_APSPowerAssertion <= 50 && (gLogCategory_APSPowerAssertion != -1 || _LogCategory_Initialize()))
   {
-    v7 = *(a1 + 64);
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSPowerAssertion, "void APSPowerAssertionRelease(APSPowerAssertionRef)", 33554482, "[%{ptr}:%@] Release requested; releasing.", a1, *(a1 + 64));
   }
 
   IOPMAssertionSetProperty(*(a1 + 56), @"AssertLevel", *(a1 + 32));
 LABEL_14:
-  v5 = *(a1 + 16);
+  v4 = *(a1 + 16);
 
-  return dispatch_semaphore_signal(v5);
+  return dispatch_semaphore_signal(v4);
 }
 
-uint64_t APCompressionTypeGetBufferSize(int a1, uint64_t a2)
+uint64_t APCompressionTypeGetBufferSize(int a1, uint64_t a2, int a3, int a4, int a5)
 {
   if (a1 > 3)
   {
@@ -194,40 +190,38 @@ LABEL_16:
 
 uint64_t APSAPAPExtensionConvertSbufTracerDictToBBuf(uint64_t a1, void *a2)
 {
-  v11 = 0;
+  v9 = 0;
   blockBufferOut = 0;
   if (!a2)
   {
     APSLogErrorAt(0);
     v3 = 0;
-    v9 = -6705;
+    v7 = -6705;
 LABEL_13:
-    v11 = v9;
+    v9 = v7;
     goto LABEL_10;
   }
 
   v3 = malloc_type_malloc(0x14uLL, 0x1000040A86A77D5uLL);
   if (!v3)
   {
-    v9 = -6728;
+    v7 = -6728;
     goto LABEL_13;
   }
 
-  v4 = *MEMORY[0x277CD62D0];
   *v3 = CFDictionaryGetInt64Ranged();
-  if (!v11)
+  if (!v9)
   {
-    v5 = *MEMORY[0x277CD62C8];
     CFDictionaryGetCString();
-    v11 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], v3, 0x14uLL, *MEMORY[0x277CBECF0], 0, 0, 0x14uLL, 0, &blockBufferOut);
+    v9 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], v3, 0x14uLL, *MEMORY[0x277CBECF0], 0, 0, 0x14uLL, 0, &blockBufferOut);
     if (blockBufferOut)
     {
-      v6 = CFRetain(blockBufferOut);
-      v7 = blockBufferOut;
-      *a2 = v6;
-      if (v7)
+      v4 = CFRetain(blockBufferOut);
+      v5 = blockBufferOut;
+      *a2 = v4;
+      if (v5)
       {
-        CFRelease(v7);
+        CFRelease(v5);
       }
 
       v3 = 0;
@@ -242,7 +236,7 @@ LABEL_13:
 
 LABEL_10:
   free(v3);
-  return v11;
+  return v9;
 }
 
 uint64_t APSAPAPExtensionConvertSbufTracerBBufToSbufTracerDict(OpaqueCMBlockBuffer *a1, CFTypeRef *a2)
@@ -255,29 +249,28 @@ uint64_t APSAPAPExtensionConvertSbufTracerBBufToSbufTracerDict(OpaqueCMBlockBuff
     if (Mutable)
     {
       v6 = Mutable;
-      v7 = *dataPointerOut;
       UInt32 = FigCFNumberCreateUInt32();
       if (UInt32)
       {
-        v9 = UInt32;
-        v10 = CFStringCreateWithCString(v4, dataPointerOut + 4, 0x8000100u);
-        if (v10)
+        v8 = UInt32;
+        v9 = CFStringCreateWithCString(v4, dataPointerOut + 4, 0x8000100u);
+        if (v9)
         {
-          v11 = v10;
-          CFDictionarySetValue(v6, *MEMORY[0x277CD62D0], v9);
-          CFDictionarySetValue(v6, *MEMORY[0x277CD62C8], v11);
+          v10 = v9;
+          CFDictionarySetValue(v6, *MEMORY[0x277CD62D0], v8);
+          CFDictionarySetValue(v6, *MEMORY[0x277CD62C8], v10);
           *a2 = CFRetain(v6);
-          CFRelease(v9);
-          v12 = v11;
+          CFRelease(v8);
+          v11 = v10;
         }
 
         else
         {
           APSLogErrorAt(0);
-          v12 = v9;
+          v11 = v8;
         }
 
-        CFRelease(v12);
+        CFRelease(v11);
       }
 
       else
@@ -324,7 +317,7 @@ void _APSRTCReportingFinalize(void *a1)
 {
   if (gLogCategory_APSRTCReporting <= 50 && (gLogCategory_APSRTCReporting != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSRTCReporting, "void _APSRTCReportingFinalize(CFTypeRef)", 33554482, "[%{ptr}] APSRTCReporting finalized\n", a1);
   }
 
   v2 = a1[3];
@@ -364,15 +357,15 @@ void _APSRTCReportingFinalize(void *a1)
 
 uint64_t __apsrr_getWeakRefTable_block_invoke()
 {
-  v0 = *MEMORY[0x277CBECE8];
   result = FigCFWeakReferenceTableCreate();
   if (result)
   {
+    v1 = result;
     if (gLogCategory_APSRTCReporting <= 90)
     {
       if (gLogCategory_APSRTCReporting != -1 || (result = _LogCategory_Initialize(), result))
       {
-        result = LogPrintF();
+        result = LogPrintF(&gLogCategory_APSRTCReporting, "FigCFWeakReferenceTableRef apsrr_getWeakRefTable(void)_block_invoke", 35651674, "APSRTCReporting: Can't create weak ref table, error: %#m", v1);
       }
     }
 
@@ -382,7 +375,7 @@ uint64_t __apsrr_getWeakRefTable_block_invoke()
   return result;
 }
 
-uint64_t APSRTCReportingCreateOrCopy(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef *a4, _DWORD *a5)
+uint64_t APSRTCReportingCreateOrCopy(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef *a4, unsigned int *a5)
 {
   cf = 0;
   v17 = 0;
@@ -399,7 +392,7 @@ uint64_t APSRTCReportingCreateOrCopy(uint64_t a1, uint64_t a2, uint64_t a3, CFTy
     {
       if (gLogCategory_APSRTCReporting <= 50 && (gLogCategory_APSRTCReporting != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSRTCReporting, "OSStatus APSRTCReportingCreateOrCopy(CFStringRef, CFStringRef, CFDictionaryRef, APSRTCReportingRef *, uint32_t *)", 33554482, "Created unshared reporting [%{ptr}] with id %u for (%@ %@ %@)\n", cf, v17, a1, a2, a3);
       }
 
       goto LABEL_16;
@@ -503,17 +496,18 @@ LABEL_16:
   return v14;
 }
 
-void sub_2222C68B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_2222C68B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 128), 8);
-  _Block_object_dispose((v27 - 96), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 128), 8);
+  _Block_object_dispose((v26 - 96), 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t APSRTCReportingCreate(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef *a4, uint32_t *a5)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (CFPreferencesGetAppBooleanValue(@"useDynamicRTCSessionIDs", @"com.apple.airplay", 0))
   {
     v7 = arc4random();
@@ -524,20 +518,18 @@ uint64_t APSRTCReportingCreate(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef 
     v7 = 1234;
   }
 
-  v28 = 0;
+  v26 = 0;
   pthread_once(&gAPReportingInitOnce, apsrr_RTCReportingInitOnce);
   if ((sRTCreportingFrameworkIsValid & 1) == 0)
   {
     APSLogErrorAt(0);
-    v21 = 72302;
-    goto LABEL_30;
+    return 72302;
   }
 
   if (!a4)
   {
     APSLogErrorAt(0);
-    v21 = 72301;
-    goto LABEL_30;
+    return 72301;
   }
 
   if (![objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")])
@@ -551,7 +543,7 @@ uint64_t APSRTCReportingCreate(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef 
     v21 = 72300;
     APSLogErrorAt(0);
     APSLogErrorAt(72300);
-    goto LABEL_30;
+    return v21;
   }
 
   v9 = Mutable;
@@ -602,7 +594,7 @@ uint64_t APSRTCReportingCreate(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef 
   *(Instance + 48) = 0;
   *(Instance + 16) = 0u;
   *(Instance + 32) = 0u;
-  SNPrintF();
+  SNPrintF(label, 64, "APSRTCReporting.%{ptr}.queue", Instance);
   Key = dispatch_queue_create(label, 0);
   v15[2] = Key;
   if (Key)
@@ -619,26 +611,26 @@ uint64_t APSRTCReportingCreate(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef 
       Key = FigCFWeakReferenceTableAddValueAndGetKey();
       if (!Key)
       {
-        v15[4] = v28;
+        v15[4] = v26;
         v17 = sRTCReportingAPI_InitWithSessionInfoDict(v10, v13, gFrameworkList, &__block_literal_global_14);
         v15[3] = v17;
         if (v17)
         {
-          v27[0] = MEMORY[0x277D85DD0];
-          v27[1] = 3221225472;
-          v27[2] = __APSRTCReportingCreate_block_invoke_2;
-          v27[3] = &__block_descriptor_48_e21_v16__0____CFString__8l;
-          v27[4] = v15;
-          v27[5] = 0;
-          sRTCReportingAPI_SetMessageBlock(v17, v27);
+          v25[0] = MEMORY[0x277D85DD0];
+          v25[1] = 3221225472;
+          v25[2] = __APSRTCReportingCreate_block_invoke_2;
+          v25[3] = &__block_descriptor_48_e21_v16__0____CFString__8l;
+          v25[4] = v15;
+          v25[5] = 0;
+          sRTCReportingAPI_SetMessageBlock(v17, v25);
           v18 = v15[3];
-          v26[0] = MEMORY[0x277D85DD0];
-          v26[1] = 3221225472;
-          v26[2] = __APSRTCReportingCreate_block_invoke_3;
-          v26[3] = &__block_descriptor_48_e20_v16__0____CFArray__8l;
-          v26[4] = v28;
-          v26[5] = v15;
-          sRTCReportingAPI_StartConfiguration(v18, v26);
+          v24[0] = MEMORY[0x277D85DD0];
+          v24[1] = 3221225472;
+          v24[2] = __APSRTCReportingCreate_block_invoke_3;
+          v24[3] = &__block_descriptor_48_e20_v16__0____CFArray__8l;
+          v24[4] = v26;
+          v24[5] = v15;
+          sRTCReportingAPI_StartConfiguration(v18, v24);
           CFRetain(v15);
           v19 = dispatch_time(0, 30000000000);
           v20 = v15[2];
@@ -650,8 +642,7 @@ uint64_t APSRTCReportingCreate(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef 
           dispatch_after(v19, v20, block);
           if (gLogCategory_APSRTCReporting <= 40 && (gLogCategory_APSRTCReporting != -1 || _LogCategory_Initialize()))
           {
-            v24 = v15[3];
-            LogPrintF();
+            LogPrintF(&gLogCategory_APSRTCReporting, "OSStatus APSRTCReportingCreate(CFStringRef, CFStringRef, CFDictionaryRef, APSRTCReportingRef *, uint32_t *)", 33554472, "Created APSRTCReporting [%{ptr}] with handle [%{ptr}] using session dict %@ user info dict %@", v15, v15[3], v10, v13);
           }
 
           v21 = 0;
@@ -696,8 +687,6 @@ LABEL_26:
     CFRelease(v13);
   }
 
-LABEL_30:
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -705,77 +694,49 @@ void __apsrr_copyOrCreateSharedReporterForClientAndService_block_invoke(void *a1
 {
   v2 = a1[7];
   v3 = *(a1[4] + 8);
-  v4 = *(a1[5] + 8);
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 0;
-  if (!CFDictionaryGetValue(gAPReporting_SharedAgentWeakReferences, v2))
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
+  if (!CFDictionaryGetValue(gAPReporting_SharedAgentWeakReferences, v2) || (v4 = FigCFWeakReferenceHolderCopyReferencedObject(), (v5 = v4) == 0))
   {
-    goto LABEL_12;
-  }
-
-  v5 = FigCFWeakReferenceHolderCopyReferencedObject();
-  v6 = v5;
-  if (!v5)
-  {
-    goto LABEL_12;
-  }
-
-  v7 = *(v5 + 16);
-  block[0] = MEMORY[0x277D85DD0];
-  block[1] = 3221225472;
-  block[2] = __apsrr_copySharedReportingForClientAndServiceInternal_block_invoke;
-  block[3] = &unk_2784A3308;
-  block[4] = &v28;
-  block[5] = v6;
-  dispatch_sync(v7, block);
-  if (*(v29 + 24))
-  {
-    CFDictionaryRemoveValue(gAPReporting_SharedAgentWeakReferences, v2);
-    if (gLogCategory_APSRTCReporting <= 90 && (gLogCategory_APSRTCReporting != -1 || _LogCategory_Initialize()))
-    {
-      LogPrintF();
-    }
-
-    CFRelease(v6);
 LABEL_12:
-    _Block_object_dispose(&v28, 8);
-    v9 = a1[7];
-    v8 = a1[8];
-    v10 = a1[9];
-    v11 = *(a1[4] + 8);
-    v12 = *(a1[5] + 8);
+    _Block_object_dispose(&v18, 8);
+    v8 = a1[7];
+    v7 = a1[8];
+    v9 = a1[9];
+    v10 = *(a1[4] + 8);
+    v11 = *(a1[5] + 8);
     block[0] = 0;
-    LODWORD(v28) = 0;
-    v13 = APSRTCReportingCreate(v8, v10, 0, block, &v28);
-    if (v13)
+    LODWORD(v18) = 0;
+    v12 = APSRTCReportingCreate(v7, v9, 0, block, &v18);
+    if (v12)
     {
-      v17 = v13;
-      APSLogErrorAt(v13);
+      v16 = v12;
+      APSLogErrorAt(v12);
     }
 
     else
     {
-      v14 = FigCFWeakReferenceHolderCreateWithReferencedObject();
-      if (v14)
+      v13 = FigCFWeakReferenceHolderCreateWithReferencedObject();
+      if (v13)
       {
-        v15 = v14;
-        CFDictionarySetValue(gAPReporting_SharedAgentWeakReferences, v9, v14);
-        v16 = v28;
+        v14 = v13;
+        CFDictionarySetValue(gAPReporting_SharedAgentWeakReferences, v8, v13);
+        v15 = v18;
         FigCFDictionarySetInt32();
-        *(v11 + 24) = block[0];
+        *(v10 + 24) = block[0];
         block[0] = 0;
-        *(v12 + 24) = v16;
-        CFRelease(v15);
-        v17 = 0;
+        *(v11 + 24) = v15;
+        CFRelease(v14);
+        v16 = 0;
       }
 
       else
       {
-        v17 = 72300;
+        v16 = 72300;
         APSLogErrorAt(0);
-        APSSignalErrorAt(72300);
+        APSSignalErrorAt(0x11A6C, "! weakHolder", "apsrr_createAndStashSharedReportingForClientAndServiceInternal");
       }
     }
 
@@ -784,37 +745,47 @@ LABEL_12:
       CFRelease(block[0]);
     }
 
-    *(*(a1[6] + 8) + 24) = v17;
+    *(*(a1[6] + 8) + 24) = v16;
     if (gLogCategory_APSRTCReporting <= 50 && (gLogCategory_APSRTCReporting != -1 || _LogCategory_Initialize()))
     {
-      v25 = a1[9];
-      v26 = *(*(a1[6] + 8) + 24);
-      v21 = *(*(a1[5] + 8) + 24);
-      v23 = a1[8];
-      v19 = *(*(a1[4] + 8) + 24);
-      goto LABEL_20;
+      LogPrintF(&gLogCategory_APSRTCReporting, "OSStatus apsrr_copyOrCreateSharedReporterForClientAndService(CFStringRef, CFStringRef, APSRTCReportingRef *, uint32_t *)_block_invoke", 33554482, "Created shared APSRTCReporting [%{ptr}] with id %u for (%@ %@); err: %d\n", *(*(a1[4] + 8) + 24), *(*(a1[5] + 8) + 24), a1[8], a1[9], *(*(a1[6] + 8) + 24));
     }
 
     return;
   }
 
-  *(v3 + 24) = v6;
+  v6 = *(v4 + 16);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __apsrr_copySharedReportingForClientAndServiceInternal_block_invoke;
+  block[3] = &unk_2784A3308;
+  block[4] = &v18;
+  block[5] = v5;
+  dispatch_sync(v6, block);
+  if (*(v19 + 24))
+  {
+    CFDictionaryRemoveValue(gAPReporting_SharedAgentWeakReferences, v2);
+    if (gLogCategory_APSRTCReporting <= 90 && (gLogCategory_APSRTCReporting != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSRTCReporting, "Boolean apsrr_copySharedReportingForClientAndServiceInternal(CFStringRef, APSRTCReportingRef *, uint32_t *)", 33554522, "[%{ptr}] Removed %@ from shared APSRTCReporting dict since it is dead.\n", v5, v2);
+    }
+
+    CFRelease(v5);
+    goto LABEL_12;
+  }
+
+  *(v3 + 24) = v5;
   FigCFDictionaryGetInt32IfPresent();
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v18, 8);
   if (gLogCategory_APSRTCReporting <= 30 && (gLogCategory_APSRTCReporting != -1 || _LogCategory_Initialize()))
   {
-    v22 = a1[8];
-    v24 = a1[9];
-    v18 = *(*(a1[4] + 8) + 24);
-    v20 = *(*(a1[5] + 8) + 24);
-LABEL_20:
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSRTCReporting, "OSStatus apsrr_copyOrCreateSharedReporterForClientAndService(CFStringRef, CFStringRef, APSRTCReportingRef *, uint32_t *)_block_invoke", 33554462, "Copied shared APSRTCReporting [%{ptr}] with id %u for (%@ %@)\n", *(*(a1[4] + 8) + 24), *(*(a1[5] + 8) + 24), a1[8], a1[9]);
   }
 }
 
-void sub_2222C72BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2222C72BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -831,54 +802,55 @@ CFMutableDictionaryRef __apsrr_initializeReporterStash_block_invoke()
   return result;
 }
 
-uint64_t __APSRTCReportingCreate_block_invoke_2(uint64_t result)
+uint64_t __APSRTCReportingCreate_block_invoke_2(uint64_t result, uint64_t a2)
 {
   if (gLogCategory_APSRTCReporting <= 40)
   {
-    v1 = result;
-    if (gLogCategory_APSRTCReporting != -1 || (result = _LogCategory_Initialize(), result))
+    v3 = result;
+    if (gLogCategory_APSRTCReporting != -1)
     {
-      v3 = *(v1 + 40);
-      v2 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSRTCReporting, "OSStatus APSRTCReportingCreate(CFStringRef, CFStringRef, CFDictionaryRef, APSRTCReportingRef *, uint32_t *)_block_invoke_2", 33554472, "[%{ptr}] Reporting log to [%{ptr}]: %@\n", *(v3 + 32), *(v3 + 40), a2);
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return LogPrintF(&gLogCategory_APSRTCReporting, "OSStatus APSRTCReportingCreate(CFStringRef, CFStringRef, CFDictionaryRef, APSRTCReportingRef *, uint32_t *)_block_invoke_2", 33554472, "[%{ptr}] Reporting log to [%{ptr}]: %@\n", *(v3 + 32), *(v3 + 40), a2);
     }
   }
 
   return result;
 }
 
-void __APSRTCReportingCreate_block_invoke_3(uint64_t a1)
+void __APSRTCReportingCreate_block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   if (apsrr_getWeakRefTable_once != -1)
   {
     dispatch_once(&apsrr_getWeakRefTable_once, &__block_literal_global_230);
   }
 
-  v3 = FigCFWeakReferenceTableCopyValue();
-  if (v3)
+  v4 = FigCFWeakReferenceTableCopyValue();
+  if (v4)
   {
-    v4 = v3;
+    v5 = v4;
     if (gLogCategory_APSRTCReporting <= 50 && (gLogCategory_APSRTCReporting != -1 || _LogCategory_Initialize()))
     {
-      v7 = v4[3];
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSRTCReporting, "OSStatus APSRTCReportingCreate(CFStringRef, CFStringRef, CFDictionaryRef, APSRTCReportingRef *, uint32_t *)_block_invoke_3", 33554482, "[%{ptr}] StartConfiguration finished. Supported backends from [%{ptr}]: %@", v5, v5[3], a2);
     }
 
-    v5 = v4[2];
+    v6 = v5[2];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __apsrr_setIsSetupToSendMsg_block_invoke;
     block[3] = &__block_descriptor_40_e5_v8__0l;
-    block[4] = v4;
-    dispatch_sync(v5, block);
-    CFRelease(v4);
+    block[4] = v5;
+    dispatch_sync(v6, block);
+    CFRelease(v5);
   }
 
   else if (gLogCategory_APSRTCReporting <= 50 && (gLogCategory_APSRTCReporting != -1 || _LogCategory_Initialize()))
   {
-    v6 = *(a1 + 40);
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSRTCReporting, "OSStatus APSRTCReportingCreate(CFStringRef, CFStringRef, CFDictionaryRef, APSRTCReportingRef *, uint32_t *)_block_invoke_3", 33554482, "[%{ptr}] StartConfiguration finished after finalize", *(a1 + 40));
   }
 }
 
@@ -897,13 +869,13 @@ void apsrr_setReportingToDead(uint64_t a1)
     *(a1 + 49) = 1;
     if (gLogCategory_APSRTCReporting <= 90 && (gLogCategory_APSRTCReporting != -1 || _LogCategory_Initialize()))
     {
-      CFArrayGetCount(*(a1 + 40));
-      LogPrintF();
+      Count = CFArrayGetCount(*(a1 + 40));
+      LogPrintF(&gLogCategory_APSRTCReporting, "void apsrr_setReportingToDead(APSRTCReportingRef)", 33554522, "[%{ptr}] APSRTCReporting is dead. Cached messages lost: %d\n", a1, Count);
     }
 
-    v2 = *(a1 + 40);
+    v3 = *(a1 + 40);
 
-    CFArrayRemoveAllValues(v2);
+    CFArrayRemoveAllValues(v3);
   }
 }
 
@@ -924,13 +896,13 @@ void __apsrr_setIsSetupToSendMsg_block_invoke(uint64_t a1)
     if (gLogCategory_APSRTCReporting != -1)
     {
 LABEL_6:
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSRTCReporting, "void apsrr_setIsSetupToSendMsg(APSRTCReportingRef)_block_invoke", 33554492, "[%{ptr}] Marked as dead before StartConfiguration finished.", v1);
       return;
     }
 
     if (_LogCategory_Initialize())
     {
-      v3 = *(a1 + 32);
+      v1 = *(a1 + 32);
       goto LABEL_6;
     }
   }
@@ -992,7 +964,7 @@ void apsrr_sendOneMsg(void *a1, __int16 a2, __int16 a3, CFTypeRef cf, uint64_t a
 
 void __apsrr_sendOneMsg_block_invoke(uint64_t a1)
 {
-  v14 = 0;
+  v8 = 0;
   v2 = *(*(a1 + 40) + 24);
   if (!v2)
   {
@@ -1008,26 +980,20 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v3 = sRTCReportingAPI_SendMessageWithError(v2, *(a1 + 56), *(a1 + 58), *(a1 + 48), &v14);
+  v3 = sRTCReportingAPI_SendMessageWithError(v2, *(a1 + 56), *(a1 + 58), *(a1 + 48), &v8);
   if (gLogCategory_APSRTCReporting <= 40 && (gLogCategory_APSRTCReporting != -1 || _LogCategory_Initialize()))
   {
-    v13 = *(a1 + 58);
-    v10 = *(a1 + 56);
-    v12 = *(a1 + 48);
-    v8 = *(a1 + 40);
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSRTCReporting, "OSStatus apsrr_sendOneMsg(APSRTCReportingRef, uint16_t, uint16_t, CFDictionaryRef, APSRTCReportingCompletionHandler)_block_invoke", 33554472, "[%{ptr}] Send message for RTCReporting handle [%{ptr}] method %d payload %@ status %d returned callSucceeded %d\n", *(a1 + 40), *(*(a1 + 40) + 24), *(a1 + 56), *(a1 + 48), *(a1 + 58), v3);
   }
 
-  v5 = v14;
-  if ((v3 & 1) == 0 && v14)
+  v5 = v8;
+  if ((v3 & 1) == 0 && v8)
   {
-    if (gLogCategory_APSRTCReporting <= 90 && (gLogCategory_APSRTCReporting != -1 || (v6 = _LogCategory_Initialize(), v5 = v14, v6)))
+    if (gLogCategory_APSRTCReporting <= 90 && (gLogCategory_APSRTCReporting != -1 || (v6 = _LogCategory_Initialize(), v5 = v8, v6)))
     {
-      v11 = *(a1 + 56);
-      v9 = *(a1 + 40);
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSRTCReporting, "OSStatus apsrr_sendOneMsg(APSRTCReportingRef, uint16_t, uint16_t, CFDictionaryRef, APSRTCReportingCompletionHandler)_block_invoke", 33554522, "[%{ptr}] Failed to send message for RTCReporting handle [%{ptr}] method %d error %@\n", *(a1 + 40), *(*(a1 + 40) + 24), *(a1 + 56), v5);
       v3 = 0;
-      v5 = v14;
+      v5 = v8;
     }
 
     else
@@ -1051,7 +1017,7 @@ LABEL_18:
   v4 = *(a1 + 32);
 LABEL_19:
   (*(v4 + 16))(v4, v3, Code);
-  v5 = v14;
+  v5 = v8;
 LABEL_20:
   if (v5)
   {
@@ -1250,13 +1216,14 @@ void *apsrr_RTCReportingInitOnce()
     {
       if (gLogCategory_APSRTCReporting != -1)
       {
-        return LogPrintF();
+        return LogPrintF(&gLogCategory_APSRTCReporting, "void apsrr_RTCReportingInitOnce(void)", 33554472, "RTC reporting framework isValid=%d\n", v47);
       }
 
       result = _LogCategory_Initialize();
       if (result)
       {
-        return LogPrintF();
+        v47 = sRTCreportingFrameworkIsValid;
+        return LogPrintF(&gLogCategory_APSRTCReporting, "void apsrr_RTCReportingInitOnce(void)", 33554472, "RTC reporting framework isValid=%d\n", v47);
       }
     }
   }
@@ -1266,7 +1233,7 @@ void *apsrr_RTCReportingInitOnce()
     if (gLogCategory_APSRTCReporting != -1 || (result = _LogCategory_Initialize(), result))
     {
 
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSRTCReporting, "void apsrr_RTCReportingInitOnce(void)", 33554522, "figPlayerReportingRunOnce: can't load framework.\n");
     }
   }
 
@@ -1329,18 +1296,16 @@ void __APSRTCReportingSendMsg_block_invoke(uint64_t a1)
           goto LABEL_16;
         }
 
-        v12 = *(a1 + 40);
+        v2 = *(a1 + 40);
       }
 
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSRTCReporting, "OSStatus APSRTCReportingSendMsg(APSRTCReportingRef, uint16_t, uint16_t, CFDictionaryRef, APSRTCReportingCompletionHandler)_block_invoke", 33554492, "[%{ptr}] Cannot send RTC message since the reporting is dead.", v2);
     }
   }
 
   else
   {
-    v3 = *(a1 + 60);
-    v4 = *(a1 + 62);
-    v5 = *(a1 + 32);
+    v3 = *(a1 + 32);
     if (*(v2 + 48))
     {
       apsrr_sendOneMsg(*(a1 + 40), *(a1 + 60), *(a1 + 62), *(a1 + 48), *(a1 + 32));
@@ -1356,7 +1321,7 @@ void __APSRTCReportingSendMsg_block_invoke(uint64_t a1)
     {
       if (gLogCategory_APSRTCReporting <= 50 && (gLogCategory_APSRTCReporting != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSRTCReporting, "OSStatus apsrr_cacheMsg(APSRTCReportingRef, uint16_t, uint16_t, CFDictionaryRef, APSRTCReportingCompletionHandler)", 33554482, "[%{ptr}] Array of cached metrics items is full.", v2);
       }
 
       apsrr_setReportingToDead(v2);
@@ -1371,31 +1336,30 @@ LABEL_29:
       goto LABEL_16;
     }
 
-    v7 = Mutable;
+    v5 = Mutable;
     FigCFDictionarySetInt32();
     FigCFDictionarySetInt32();
     FigCFDictionarySetValue();
-    if (v5)
+    if (v3)
     {
-      v8 = _Block_copy(v5);
-      CFDictionarySetValue(v7, @"CompletionHandler", v8);
-      _Block_release(v8);
+      v6 = _Block_copy(v3);
+      CFDictionarySetValue(v5, @"CompletionHandler", v6);
+      _Block_release(v6);
     }
 
-    CFArrayAppendValue(*(v2 + 40), v7);
-    CFRelease(v7);
+    CFArrayAppendValue(*(v2 + 40), v5);
+    CFRelease(v5);
   }
 
 LABEL_16:
   if (*(*(a1 + 40) + 49))
   {
-    v9 = *(a1 + 32);
-    if (v9)
+    v7 = *(a1 + 32);
+    if (v7)
     {
-      v10 = *(a1 + 56);
-      v11 = *(v9 + 16);
+      v8 = *(v7 + 16);
 
-      v11();
+      v8();
     }
   }
 }
@@ -1412,16 +1376,15 @@ uint64_t APSCryptorGetNull()
 
 void nullCryptor_create(CFTypeRef *a1)
 {
-  v2 = *MEMORY[0x277CBECE8];
   if (APSCryptorGetClassID_sRegisterOnce != -1)
   {
     dispatch_once_f(&APSCryptorGetClassID_sRegisterOnce, &APSCryptorGetClassID_sClassID, cryptor_registerBaseClass);
   }
 
-  v3 = CMDerivedObjectCreate();
-  if (v3)
+  v2 = CMDerivedObjectCreate();
+  if (v2)
   {
-    APSLogErrorAt(v3);
+    APSLogErrorAt(v2);
   }
 
   else
@@ -1483,7 +1446,7 @@ __CFString *nullCryptor_CopyDebugDescription(uint64_t a1)
 
 uint64_t APSDataPacerCongestionControlCreate(uint64_t a1, const void *a2, const void *a3, const void *a4, CFTypeRef *a5)
 {
-  v25 = 0;
+  v23 = 0;
   cf = 0;
   if (a5 && a2 && a3)
   {
@@ -1493,7 +1456,7 @@ uint64_t APSDataPacerCongestionControlCreate(uint64_t a1, const void *a2, const 
     }
 
     v9 = CMDerivedObjectCreate();
-    v27 = v9;
+    v25 = v9;
     if (v9)
     {
       APSLogErrorAt(v9);
@@ -1507,62 +1470,60 @@ uint64_t APSDataPacerCongestionControlCreate(uint64_t a1, const void *a2, const 
     {
       v12 = v11;
       updated = APSRateControllerAVCWrapperSetTargetBitrateDidChangeCallback(a2, congestionControlDataPacer_targetBitrateDidChangeCallback, v11);
-      v27 = updated;
+      v25 = updated;
       if (!updated)
       {
         v14 = a4 ? CFRetain(a4) : 0;
         *(DerivedStorage + 8) = v14;
         CMNotificationCenterGetDefaultLocalCenter();
-        v15 = *(DerivedStorage + 8);
         updated = FigNotificationCenterAddWeakListener();
-        v27 = updated;
+        v25 = updated;
         if (!updated)
         {
           *DerivedStorage = CFRetain(a3);
           CMNotificationCenterGetDefaultLocalCenter();
-          v16 = *DerivedStorage;
           updated = FigNotificationCenterAddWeakListener();
-          v27 = updated;
+          v25 = updated;
           if (!updated)
           {
-            APSSettingsGetDouble(@"congestionControlDataPacerInitialRateMultiplier", &v27);
-            *(DerivedStorage + 24) = v17;
-            *(DerivedStorage + 32) = v27 == 0;
-            v27 = 0;
-            APSSettingsGetDouble(@"congestionControlDataPacerMaxRateMultiplier", &v27);
-            *(DerivedStorage + 40) = v18;
-            *(DerivedStorage + 48) = v27 == 0;
-            v27 = 0;
-            updated = congestionControlDataPacer_updateRateMultiplierInternal();
-            v27 = updated;
+            APSSettingsGetDouble(@"congestionControlDataPacerInitialRateMultiplier", &v25);
+            *(DerivedStorage + 24) = v15;
+            *(DerivedStorage + 32) = v25 == 0;
+            v25 = 0;
+            APSSettingsGetDouble(@"congestionControlDataPacerMaxRateMultiplier", &v25);
+            *(DerivedStorage + 40) = v16;
+            *(DerivedStorage + 48) = v25 == 0;
+            v25 = 0;
+            updated = congestionControlDataPacer_updateRateMultiplierInternal(cf);
+            v25 = updated;
             if (!updated)
             {
               *(DerivedStorage + 16) = APSSettingsGetIntWithOverrideAndDefault(@"congestionControlDataPacerProbingRateBps", 0, 625000);
-              v19 = *DerivedStorage;
-              v20 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-              if (v20)
+              v17 = *DerivedStorage;
+              v18 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+              if (v18)
               {
-                updated = v20(v19, &v25);
-                v27 = updated;
+                updated = v18(v17, &v23);
+                v25 = updated;
                 if (!updated)
                 {
-                  v21 = v25;
-                  if (v25 >> 61)
+                  v19 = v23;
+                  if (v23 >> 61)
                   {
-                    v21 = 0x1FFFFFFFFFFFFFFFLL;
-                    v25 = 0x1FFFFFFFFFFFFFFFLL;
+                    v19 = 0x1FFFFFFFFFFFFFFFLL;
+                    v23 = 0x1FFFFFFFFFFFFFFFLL;
                   }
 
-                  APSRateControllerAVCWrapperConfigure(*(DerivedStorage + 72), (*(DerivedStorage + 96) * (8 * v21)), 8 * v21, (*(DerivedStorage + 88) * (8 * v21)));
-                  v27 = 0;
-                  *(DerivedStorage + 64) = (*(DerivedStorage + 88) * v25);
-                  v22 = FigSimpleMutexCreate();
-                  *(DerivedStorage + 56) = v22;
-                  if (v22)
+                  APSRateControllerAVCWrapperConfigure(*(DerivedStorage + 72), (*(DerivedStorage + 96) * (8 * v19)), 8 * v19, (*(DerivedStorage + 88) * (8 * v19)));
+                  v25 = 0;
+                  *(DerivedStorage + 64) = (*(DerivedStorage + 88) * v23);
+                  v20 = FigSimpleMutexCreate();
+                  *(DerivedStorage + 56) = v20;
+                  if (v20)
                   {
                     if (gLogCategory_APSDataPacerCongestionControl <= 50 && (gLogCategory_APSDataPacerCongestionControl != -1 || _LogCategory_Initialize()))
                     {
-                      LogPrintF();
+                      LogPrintF(&gLogCategory_APSDataPacerCongestionControl, "OSStatus APSDataPacerCongestionControlCreate(CFAllocatorRef, APSRateControllerAVCWrapperRef, APSDataPacerRef, APSDataPacerRef, APSDataPacerRef *)", 33554482, "[%{ptr}] APSDataPacerCongestionControl created.\n", cf);
                     }
 
                     *a5 = cf;
@@ -1572,7 +1533,7 @@ uint64_t APSDataPacerCongestionControlCreate(uint64_t a1, const void *a2, const 
                   else
                   {
                     APSLogErrorAt(0);
-                    v27 = -12786;
+                    v25 = -12786;
                   }
 
                   goto LABEL_27;
@@ -1582,7 +1543,7 @@ uint64_t APSDataPacerCongestionControlCreate(uint64_t a1, const void *a2, const 
               else
               {
                 updated = 4294954514;
-                v27 = -12782;
+                v25 = -12782;
               }
             }
           }
@@ -1596,67 +1557,69 @@ LABEL_27:
     }
 
     APSLogErrorAt(0);
-    v24 = -6728;
+    v22 = -6728;
   }
 
   else
   {
     APSLogErrorAt(0);
-    v24 = -12780;
+    v22 = -12780;
   }
 
-  v27 = v24;
+  v25 = v22;
 LABEL_28:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v27;
+  return v25;
 }
 
-uint64_t congestionControlDataPacer_updateRateMultiplierInternal()
+uint64_t congestionControlDataPacer_updateRateMultiplierInternal(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v12 = 0;
-  Count = APSDataPacerHoseCountGetCount(*(DerivedStorage + 8), &v12);
+  v14 = 0;
+  Count = APSDataPacerHoseCountGetCount(*(DerivedStorage + 8), &v14);
   if (Count)
   {
-    v8 = Count;
+    v12 = Count;
     APSLogErrorAt(Count);
-    return v8;
+    return v12;
   }
 
-  v2 = 0;
-  v3 = kRateMultiplierConfig;
+  v4 = 0;
+  v5 = kRateMultiplierConfig;
   do
   {
-    v4 = *v3;
-    v3 += 3;
-    if (v12 <= v4)
+    v6 = *v5;
+    v5 += 3;
+    if (v14 <= v6)
     {
       break;
     }
 
-    ++v2;
+    ++v4;
   }
 
-  while (v2 != 3);
-  v5 = &kRateMultiplierConfig[3 * v2];
-  v6 = v5 + 1;
+  while (v4 != 3);
+  v7 = &kRateMultiplierConfig[3 * v4];
+  v8 = v7 + 1;
   if (*(DerivedStorage + 32))
   {
-    v6 = (DerivedStorage + 24);
+    v8 = (DerivedStorage + 24);
   }
 
-  *(DerivedStorage + 88) = *v6;
-  v7 = v5 + 2;
+  v9 = *v8;
+  *(DerivedStorage + 88) = *v8;
+  v10 = v7 + 2;
   if (*(DerivedStorage + 48))
   {
-    v7 = (DerivedStorage + 40);
+    v10 = (DerivedStorage + 40);
   }
 
-  *(DerivedStorage + 96) = *v7;
+  v11 = *v10;
+  *(DerivedStorage + 96) = *v10;
   if (gLogCategory_APSDataPacerCongestionControl <= 50)
   {
     if (gLogCategory_APSDataPacerCongestionControl == -1)
@@ -1666,11 +1629,11 @@ uint64_t congestionControlDataPacer_updateRateMultiplierInternal()
         return 0;
       }
 
-      v10 = *(DerivedStorage + 88);
+      v9 = *(DerivedStorage + 88);
       v11 = *(DerivedStorage + 96);
     }
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSDataPacerCongestionControl, "OSStatus congestionControlDataPacer_updateRateMultiplierInternal(APSDataPacerRef)", 33554482, "[%{ptr}] Update multiplierForIntitialRate=%f, multiplierForMaxRate=%f", a1, v9, v11);
   }
 
   return 0;
@@ -1685,13 +1648,13 @@ uint64_t congestionControlDataPacer_handleDataPacingRateDidChange(uint64_t a1, u
     {
       if (gLogCategory_APSDataPacerCongestionControl != -1)
       {
-        return LogPrintF();
+        return LogPrintF(&gLogCategory_APSDataPacerCongestionControl, "void congestionControlDataPacer_handleDataPacingRateDidChange(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554522, "[%{ptr}] Failed to update rate controller constraints!", a2);
       }
 
       result = _LogCategory_Initialize();
       if (result)
       {
-        return LogPrintF();
+        return LogPrintF(&gLogCategory_APSDataPacerCongestionControl, "void congestionControlDataPacer_handleDataPacingRateDidChange(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554522, "[%{ptr}] Failed to update rate controller constraints!", a2);
       }
     }
   }
@@ -1702,35 +1665,34 @@ uint64_t congestionControlDataPacer_handleDataPacingRateDidChange(uint64_t a1, u
 uint64_t congestionControlDataPacer_updateRateConstraints(uint64_t a1, int a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v15 = 0;
-  v4 = *DerivedStorage;
-  v5 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-  if (v5)
+  v14 = 0;
+  v5 = *DerivedStorage;
+  v6 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (v6)
   {
-    v6 = v5(v4, &v15);
-    if (!v6)
+    v7 = v6(v5, &v14);
+    if (!v7)
     {
-      v7 = v15;
-      if (v15 >> 61)
+      v8 = v14;
+      if (v14 >> 61)
       {
-        v7 = 0x1FFFFFFFFFFFFFFFLL;
-        v15 = 0x1FFFFFFFFFFFFFFFLL;
+        v8 = 0x1FFFFFFFFFFFFFFFLL;
+        v14 = 0x1FFFFFFFFFFFFFFFLL;
       }
 
-      v8 = 8 * v7;
-      v9 = *(DerivedStorage + 56);
+      v9 = 8 * v8;
       FigSimpleMutexLock();
       if (*(DerivedStorage + 81))
       {
-        APSRateControllerAVCWrapperSetMinBitrate(*(DerivedStorage + 72), v8);
-        APSRateControllerAVCWrapperSetMaxBitrate(*(DerivedStorage + 72), (*(DerivedStorage + 96) * v8));
+        APSRateControllerAVCWrapperSetMinBitrate(*(DerivedStorage + 72), v9);
+        APSRateControllerAVCWrapperSetMaxBitrate(*(DerivedStorage + 72), (*(DerivedStorage + 96) * v9));
       }
 
       else
       {
         if (a2)
         {
-          updated = congestionControlDataPacer_updateRateMultiplierInternal();
+          updated = congestionControlDataPacer_updateRateMultiplierInternal(a1);
           if (updated)
           {
             v10 = updated;
@@ -1739,8 +1701,9 @@ uint64_t congestionControlDataPacer_updateRateConstraints(uint64_t a1, int a2)
           }
         }
 
-        APSRateControllerAVCWrapperConfigure(*(DerivedStorage + 72), (*(DerivedStorage + 96) * v8), v8, (*(DerivedStorage + 88) * v8));
-        *(DerivedStorage + 64) = (*(DerivedStorage + 88) * v15);
+        APSRateControllerAVCWrapperConfigure(*(DerivedStorage + 72), (*(DerivedStorage + 96) * v9), v9, (*(DerivedStorage + 88) * v9));
+        v12 = (*(DerivedStorage + 88) * v14);
+        *(DerivedStorage + 64) = v12;
         if (gLogCategory_APSDataPacerCongestionControl <= 50)
         {
           if (gLogCategory_APSDataPacerCongestionControl == -1)
@@ -1750,22 +1713,21 @@ uint64_t congestionControlDataPacer_updateRateConstraints(uint64_t a1, int a2)
               goto LABEL_15;
             }
 
-            v14 = *(DerivedStorage + 64);
+            v12 = *(DerivedStorage + 64);
           }
 
-          LogPrintF();
+          LogPrintF(&gLogCategory_APSDataPacerCongestionControl, "OSStatus congestionControlDataPacer_updateRateConstraints(APSDataPacerRef, Boolean)", 33554482, "[%{ptr}] Update current rate=%llu", a1, v12);
         }
       }
 
 LABEL_15:
       v10 = 0;
 LABEL_16:
-      v12 = *(DerivedStorage + 56);
       FigSimpleMutexUnlock();
       return v10;
     }
 
-    v10 = v6;
+    v10 = v7;
   }
 
   else
@@ -1781,7 +1743,7 @@ uint64_t congestionControlDataPacer_handleHoseCountDataPacerRateDidChange(uint64
 {
   if (congestionControlDataPacer_updateRateConstraints(a2, 1) && gLogCategory_APSDataPacerCongestionControl <= 90 && (gLogCategory_APSDataPacerCongestionControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSDataPacerCongestionControl, "void congestionControlDataPacer_handleHoseCountDataPacerRateDidChange(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554522, "[%{ptr}] Failed to update rate controller constraints for hose count change!", a2);
   }
 
   CMNotificationCenterGetDefaultLocalCenter();
@@ -1796,15 +1758,13 @@ uint64_t congestionControlDataPacer_targetBitrateDidChangeCallback(uint64_t a1, 
   {
     v4 = v3;
     DerivedStorage = CMBaseObjectGetDerivedStorage();
-    v6 = *(DerivedStorage + 56);
     FigSimpleMutexLock();
     if (*(DerivedStorage + 81))
     {
-      v7 = *(DerivedStorage + 56);
-      v8 = *(DerivedStorage + 64);
+      v6 = *(DerivedStorage + 64);
       *(DerivedStorage + 64) = a2 >> 3;
       FigSimpleMutexUnlock();
-      if (v8 != a2 >> 3)
+      if (v6 != a2 >> 3)
       {
         CMNotificationCenterGetDefaultLocalCenter();
         CMNotificationCenterPostNotification();
@@ -1813,7 +1773,6 @@ uint64_t congestionControlDataPacer_targetBitrateDidChangeCallback(uint64_t a1, 
 
     else
     {
-      v9 = *(DerivedStorage + 56);
       FigSimpleMutexUnlock();
     }
 
@@ -1826,8 +1785,8 @@ uint64_t congestionControlDataPacer_targetBitrateDidChangeCallback(uint64_t a1, 
 uint64_t congestionControlDataPacer_GetPacedRate(uint64_t a1, unint64_t *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v22 = 0;
-  v23 = 0;
+  v16 = 0;
+  v17 = 0;
   if (!a2)
   {
     APSLogErrorAt(0);
@@ -1836,85 +1795,79 @@ uint64_t congestionControlDataPacer_GetPacedRate(uint64_t a1, unint64_t *a2)
 
   v4 = DerivedStorage;
   v5 = *(DerivedStorage + 8);
-  VTable = CMBaseObjectGetVTable();
-  v7 = *(*(VTable + 16) + 8);
-  if (!v7)
+  v6 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v6)
   {
-    v19 = 4294954514;
-LABEL_17:
-    v20 = v19;
-LABEL_20:
-    APSLogErrorAt(v20);
-    return v19;
+    v13 = 4294954514;
+LABEL_15:
+    v14 = v13;
+LABEL_18:
+    APSLogErrorAt(v14);
+    return v13;
   }
 
-  v8 = *(VTable + 16) + 8;
-  v9 = v7(v5, &v23);
-  if (v9)
+  v7 = v6(v5, &v17);
+  if (v7)
   {
-    v19 = v9;
+    v13 = v7;
+    goto LABEL_15;
+  }
+
+  v8 = *v4;
+  v9 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v9)
+  {
+    v13 = 4294954514;
+LABEL_17:
+    v14 = v13;
+    goto LABEL_18;
+  }
+
+  v10 = v9(v8, &v16);
+  if (v10)
+  {
+    v13 = v10;
     goto LABEL_17;
   }
 
-  v10 = *v4;
-  v11 = CMBaseObjectGetVTable();
-  v12 = *(*(v11 + 16) + 8);
-  if (!v12)
-  {
-    v19 = 4294954514;
-LABEL_19:
-    v20 = v19;
-    goto LABEL_20;
-  }
-
-  v13 = *(v11 + 16) + 8;
-  v14 = v12(v10, &v22);
-  if (v14)
-  {
-    v19 = v14;
-    goto LABEL_19;
-  }
-
-  v15 = *(v4 + 56);
   FigSimpleMutexLock();
-  v16 = 16;
+  v11 = 16;
   if (!*(v4 + 80))
   {
-    v16 = 64;
+    v11 = 64;
   }
 
-  v17 = *(v4 + v16);
+  v12 = *(v4 + v11);
   if (!*(v4 + 80))
   {
-    if (v17 >= v23)
+    if (v12 >= v17)
     {
-      v17 = v23;
+      v12 = v17;
     }
 
-    if (v22 > v23)
+    if (v16 > v17)
     {
-      v17 = v22;
+      v12 = v16;
     }
   }
 
-  *a2 = v17;
-  v18 = *(v4 + 56);
+  *a2 = v12;
   FigSimpleMutexUnlock();
   return 0;
 }
 
-uint64_t congestionControlDataPacer_Finalize()
+uint64_t congestionControlDataPacer_Finalize(const void *a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSDataPacerCongestionControl <= 30 && (gLogCategory_APSDataPacerCongestionControl != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSDataPacerCongestionControl, "void congestionControlDataPacer_Finalize(CMBaseObjectRef)", 33554462, "APSDataPacerCongestionControl %p finalizing.\n", a1);
   }
 
-  v1 = *(DerivedStorage + 72);
-  if (v1)
+  v3 = *(DerivedStorage + 72);
+  if (v3)
   {
-    CFRelease(v1);
+    CFRelease(v3);
   }
 
   if (*DerivedStorage)
@@ -1922,13 +1875,11 @@ uint64_t congestionControlDataPacer_Finalize()
     CFRelease(*DerivedStorage);
   }
 
-  v2 = *(DerivedStorage + 8);
-  if (v2)
+  v4 = *(DerivedStorage + 8);
+  if (v4)
   {
-    CFRelease(v2);
+    CFRelease(v4);
   }
-
-  v3 = *(DerivedStorage + 56);
 
   return FigSimpleMutexDestroy();
 }
@@ -1936,18 +1887,15 @@ uint64_t congestionControlDataPacer_Finalize()
 uint64_t APSDataPacerCongestionControlSetProbing(uint64_t a1, int a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 56);
   FigSimpleMutexLock();
   if (*(DerivedStorage + 80) == a2)
   {
-    v5 = *(DerivedStorage + 56);
     FigSimpleMutexUnlock();
   }
 
   else
   {
     *(DerivedStorage + 80) = a2;
-    v6 = *(DerivedStorage + 56);
     FigSimpleMutexUnlock();
     CMNotificationCenterGetDefaultLocalCenter();
     CMNotificationCenterPostNotification();
@@ -1959,23 +1907,29 @@ uint64_t APSDataPacerCongestionControlSetProbing(uint64_t a1, int a2)
 uint64_t APSDataPacerCongestionControlSetRateControllerPrimed(uint64_t a1, int a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 56);
   FigSimpleMutexLock();
   if (*(DerivedStorage + 81) == a2)
   {
-    v5 = *(DerivedStorage + 56);
     FigSimpleMutexUnlock();
   }
 
   else
   {
     *(DerivedStorage + 81) = a2;
-    v6 = *(DerivedStorage + 56);
     FigSimpleMutexUnlock();
     if (gLogCategory_APSDataPacerCongestionControl <= 50 && (gLogCategory_APSDataPacerCongestionControl != -1 || _LogCategory_Initialize()))
     {
-      *(DerivedStorage + 81);
-      LogPrintF();
+      if (*(DerivedStorage + 81))
+      {
+        v5 = "T";
+      }
+
+      else
+      {
+        v5 = "F";
+      }
+
+      LogPrintF(&gLogCategory_APSDataPacerCongestionControl, "OSStatus APSDataPacerCongestionControlSetRateControllerPrimed(APSDataPacerRef, Boolean)", 33554482, "[%{ptr}] Set rate controller primed=%s", a1, v5);
     }
   }
 
@@ -2015,7 +1969,7 @@ void _APSIOReporterFinalize(uint64_t a1)
 
   if (gLogCategory_APSIOReporter <= 50 && (gLogCategory_APSIOReporter != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSIOReporter, "void _APSIOReporterFinalize(CFTypeRef)", 33554482, "[%{ptr}] finalized", a1);
   }
 }
 
@@ -2039,64 +1993,67 @@ uint64_t APSIOReporterCreate(void *a1)
     *(Instance + 16) = 0;
     *(Instance + 24) = 0;
     v4 = IOServiceNameMatching("CCPipe");
-    if (!v4)
+    if (v4)
     {
-      APSLogErrorAt(0);
-      if (gLogCategory_APSIOReporter <= 90 && (gLogCategory_APSIOReporter != -1 || _LogCategory_Initialize()))
+      v5 = v4;
+      v6 = IOReportCopyChannelsForDrivers();
+      if (v6)
       {
-        LogPrintF();
-      }
-
-      v5 = 0;
-      v6 = 0;
-      goto LABEL_33;
-    }
-
-    v5 = v4;
-    v6 = IOReportCopyChannelsForDrivers();
-    if (v6)
-    {
-      Subscription = IOReportCreateSubscription();
-      v3[2] = Subscription;
-      if (Subscription)
-      {
-        if (gLogCategory_APSIOReporter <= 50 && (gLogCategory_APSIOReporter != -1 || _LogCategory_Initialize()))
+        Subscription = IOReportCreateSubscription();
+        v3[2] = Subscription;
+        if (Subscription)
         {
-          LogPrintF();
+          if (gLogCategory_APSIOReporter <= 50 && (gLogCategory_APSIOReporter != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF(&gLogCategory_APSIOReporter, "OSStatus APSIOReporterCreate(APSIOReporterRef *)", 33554482, "[%{ptr}] created", v3);
+          }
+
+          v8 = 0;
+          *a1 = v3;
+          v3 = 0;
+          goto LABEL_13;
         }
 
-        v8 = 0;
-        *a1 = v3;
-        v3 = 0;
-        goto LABEL_13;
+        APSLogErrorAt(0);
+        if (gLogCategory_APSIOReporter <= 90 && (gLogCategory_APSIOReporter != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_APSIOReporter, "OSStatus APSIOReporterCreate(APSIOReporterRef *)", 33554522, "### [%{ptr}] IOReportCreateSubscription() failed with error=%@", v3, 0);
+        }
       }
 
-      APSLogErrorAt(0);
-      if (gLogCategory_APSIOReporter > 90 || gLogCategory_APSIOReporter == -1 && !_LogCategory_Initialize())
+      else
       {
-        goto LABEL_33;
+        APSLogErrorAt(0);
+        if (gLogCategory_APSIOReporter <= 90 && (gLogCategory_APSIOReporter != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_APSIOReporter, "OSStatus APSIOReporterCreate(APSIOReporterRef *)", 33554522, "### [%{ptr}] IOReportCopyChannelsForDrivers() failed with error=%@", v3, 0);
+        }
       }
     }
 
     else
     {
       APSLogErrorAt(0);
-      if (gLogCategory_APSIOReporter > 90 || gLogCategory_APSIOReporter == -1 && !_LogCategory_Initialize())
+      if (gLogCategory_APSIOReporter <= 90 && (gLogCategory_APSIOReporter != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_33;
+        LogPrintF(&gLogCategory_APSIOReporter, "OSStatus APSIOReporterCreate(APSIOReporterRef *)", 33554522, "### [%{ptr}] IOServiceNameMatching() failed", v3);
       }
+
+      v5 = 0;
+      v6 = 0;
     }
 
-    LogPrintF();
-LABEL_33:
     v8 = 4294960534;
-    goto LABEL_13;
   }
 
-  APSLogErrorAt(0);
-  v5 = 0;
-  v6 = 0;
-  v8 = 4294960568;
+  else
+  {
+    APSLogErrorAt(0);
+    v5 = 0;
+    v6 = 0;
+    v8 = 4294960568;
+  }
+
 LABEL_13:
   if (v3)
   {
@@ -2118,65 +2075,64 @@ LABEL_13:
 
 uint64_t APSIOReporterGetCoreCaptureCount(uint64_t a1, void *a2)
 {
-  v14 = 0;
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2000000000;
-  v13 = 0;
-  if (!a1 || !a2)
+  v12 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2000000000;
+  v11 = 0;
+  if (a1 && a2)
+  {
+    Samples = IOReportCreateSamples();
+    if (Samples)
+    {
+      v5 = v12 == 0;
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+
+    if (v5)
+    {
+      if ((IOReportSelectChannelsInGroup() & 1) == 0 && !v12)
+      {
+        IOReportIterate();
+        v6 = 0;
+        *a2 = v9[3];
+        goto LABEL_11;
+      }
+
+      APSLogErrorAt(0);
+      if (gLogCategory_APSIOReporter <= 90 && (gLogCategory_APSIOReporter != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_APSIOReporter, "OSStatus APSIOReporterGetCoreCaptureCount(APSIOReporterRef, uint64_t *)", 33554522, "### [%{ptr}] IOReportSelectChannelsInGroup() failed with error=%@", a1, v12);
+      }
+    }
+
+    else
+    {
+      APSLogErrorAt(0);
+      if (gLogCategory_APSIOReporter <= 90 && (gLogCategory_APSIOReporter != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_APSIOReporter, "OSStatus APSIOReporterGetCoreCaptureCount(APSIOReporterRef, uint64_t *)", 33554522, "### [%{ptr}] IOReportCreateSamples() failed with error=%@", a1, v12);
+      }
+    }
+
+    v6 = 4294960534;
+  }
+
+  else
   {
     APSLogErrorAt(0);
     Samples = 0;
-    v8 = 4294960591;
-    goto LABEL_11;
+    v6 = 4294960591;
   }
 
-  v4 = *(a1 + 16);
-  v5 = *(a1 + 24);
-  Samples = IOReportCreateSamples();
-  if (Samples)
-  {
-    v7 = v14 == 0;
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  if (v7)
-  {
-    if ((IOReportSelectChannelsInGroup() & 1) == 0 && !v14)
-    {
-      IOReportIterate();
-      v8 = 0;
-      *a2 = v11[3];
-      goto LABEL_11;
-    }
-
-    APSLogErrorAt(0);
-    if (gLogCategory_APSIOReporter > 90 || gLogCategory_APSIOReporter == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_26;
-    }
-  }
-
-  else
-  {
-    APSLogErrorAt(0);
-    if (gLogCategory_APSIOReporter > 90 || gLogCategory_APSIOReporter == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_26;
-    }
-  }
-
-  LogPrintF();
-LABEL_26:
-  v8 = 4294960534;
 LABEL_11:
-  if (v14)
+  if (v12)
   {
-    CFRelease(v14);
+    CFRelease(v12);
   }
 
   if (Samples)
@@ -2184,19 +2140,19 @@ LABEL_11:
     CFRelease(Samples);
   }
 
-  _Block_object_dispose(&v10, 8);
-  return v8;
+  _Block_object_dispose(&v8, 8);
+  return v6;
 }
 
-uint64_t __APSIOReporterGetCoreCaptureCount_block_invoke(uint64_t a1)
+uint64_t __APSIOReporterGetCoreCaptureCount_block_invoke(uint64_t a1, uint64_t a2)
 {
   IntegerValue = IOReportSimpleGetIntegerValue();
   SubGroup = IOReportChannelGetSubGroup();
   ChannelName = IOReportChannelGetChannelName();
   if (SubGroup)
   {
-    v5 = ChannelName;
-    if (CFStringCompare(SubGroup, @"Pipe DriverLogs", 0) == kCFCompareEqualTo && v5 && CFStringHasSuffix(v5, @"Capture Requests"))
+    v6 = ChannelName;
+    if (CFStringCompare(SubGroup, @"Pipe DriverLogs", 0) == kCFCompareEqualTo && v6 && CFStringHasSuffix(v6, @"Capture Requests"))
     {
       *(*(*(a1 + 32) + 8) + 24) = IntegerValue;
     }
@@ -2571,8 +2527,6 @@ uint64_t APSBadgingConvertAPSourceFormatToMATSourceFormat(uint64_t result, uint6
   {
     if (a2)
     {
-      *(result + 24);
-      v3 = *MEMORY[0x277CBECE8];
       SInt32 = FigCFNumberCreateSInt32();
       result = 0;
       *a2 = SInt32;
@@ -2711,33 +2665,27 @@ uint64_t APSBadgingFormatInfoTypeResolve(uint64_t result, int a2)
 
 uint64_t APSAPAPEncodeUIntV(unint64_t a1, uint64_t (*a2)(uint64_t *, void, uint64_t), uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v12 = 0;
+  v12 = *MEMORY[0x277D85DE8];
   v11 = 0;
-  if (a2)
+  v10 = 0;
+  if (!a2)
   {
-    v6 = ilog2_64();
-    v7 = (((v6 - ((37 * v6) >> 8)) >> 1) + ((37 * v6) >> 8)) >> 2;
-    v8 = (v6 * 0x2492492492492493uLL) >> 64;
-    do
-    {
-      *(&v11 + v8) = a1 | 0x80;
-      a1 >>= 7;
-      --v8;
-    }
-
-    while (v8 != -1);
-    *(&v11 + v7) &= ~0x80u;
-    result = a2(&v11, v7 + 1, a3);
+    return 4294960591;
   }
 
-  else
+  v6 = ilog2_64();
+  v7 = (((v6 - ((37 * v6) >> 8)) >> 1) + ((37 * v6) >> 8)) >> 2;
+  v8 = (v6 * 0x2492492492492493uLL) >> 64;
+  do
   {
-    result = 4294960591;
+    *(&v10 + v8) = a1 | 0x80;
+    a1 >>= 7;
+    --v8;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  while (v8 != -1);
+  *(&v10 + v7) &= ~0x80u;
+  return a2(&v10, v7 + 1, a3);
 }
 
 uint64_t APSAPAPGetEncodeSizeUIntV(uint64_t a1, void *a2)
@@ -2816,52 +2764,48 @@ uint64_t APSAPAPEncodeHeader(uint64_t a1, unsigned int a2, uint64_t (*a3)(unint6
 
 uint64_t APSAPAPDecodeHeader(uint64_t (*a1)(unint64_t *, uint64_t, uint64_t), uint64_t a2, uint64_t a3, int *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  memset(v11, 0, 15);
-  if (a1)
+  v13 = *MEMORY[0x277D85DE8];
+  memset(v10, 0, 15);
+  if (!a1)
   {
-    result = a1(v11, 15, a2);
-    if (!result)
+    return 4294960591;
+  }
+
+  result = a1(v10, 15, a2);
+  if (!result)
+  {
+    CMTimeMake(&v9, bswap64(v10[0]), bswap32(v10[1]));
+    value = v9.value;
+    flags = v9.flags;
+    timescale = v9.timescale;
+    if (v9.flags)
     {
-      CMTimeMake(&v10, bswap64(v11[0]), bswap32(v11[1]));
-      value = v10.value;
-      flags = v10.flags;
-      timescale = v10.timescale;
-      if (v10.flags)
+      if (a3)
       {
-        if (a3)
-        {
-          epoch = v10.epoch;
-          *a3 = value;
-          *(a3 + 8) = timescale;
-          *(a3 + 12) = flags;
-          *(a3 + 16) = epoch;
-        }
-
-        result = 0;
-        if (a4)
-        {
-          *a4 = (BYTE4(v11[1]) << 16) | (BYTE5(v11[1]) << 8) | BYTE6(v11[1]);
-        }
+        epoch = v9.epoch;
+        *a3 = value;
+        *(a3 + 8) = timescale;
+        *(a3 + 12) = flags;
+        *(a3 + 16) = epoch;
       }
 
-      else
+      result = 0;
+      if (a4)
       {
-        result = 4294960559;
+        *a4 = (BYTE4(v10[1]) << 16) | (BYTE5(v10[1]) << 8) | BYTE6(v10[1]);
       }
+    }
+
+    else
+    {
+      return 4294960559;
     }
   }
 
-  else
-  {
-    result = 4294960591;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t APSAPAPEncodeExtension(uint64_t (*a1)(uint64_t (*)(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t (**a4)(uint64_t *, void, uint64_t)), void *, uint64_t), uint64_t a2, uint64_t (*a3)(uint64_t *, void, uint64_t), uint64_t a4)
+uint64_t APSAPAPEncodeExtension(uint64_t (*a1)(uint64_t (*)(), void *, uint64_t), uint64_t a2, uint64_t (*a3)(uint64_t *, void, uint64_t), uint64_t a4)
 {
   v9[0] = 0;
   v9[1] = a3;
@@ -2911,16 +2855,14 @@ uint64_t _APSAPAPEncodeExtensionItemCallback(unint64_t a1, unint64_t a2, uint64_
   return result;
 }
 
-uint64_t _APSAPAPProtectedWriteCallback(uint64_t a1, uint64_t a2, unsigned int *a3)
+uint64_t _APSAPAPProtectedWriteCallback(uint64_t a1, uint64_t a2, uint64_t (**a3)(uint64_t))
 {
   result = *a3;
   if (a2)
   {
     if (!result)
     {
-      v7 = *(a3 + 1);
-      v6 = *(a3 + 2);
-      result = v7(a1);
+      result = a3[1](a1);
       *a3 = result;
     }
   }
@@ -3028,7 +2970,7 @@ uint64_t _APSAPAPProtectedReadCallback(uint64_t a1, unint64_t a2, unsigned int *
   return result;
 }
 
-uint64_t APSAPAPGetEncodeSizeExtension(uint64_t (*a1)(void, uint64_t *, uint64_t), uint64_t a2, void *a3)
+uint64_t APSAPAPGetEncodeSizeExtension(uint64_t (*a1)(uint64_t (*)(), uint64_t *, uint64_t), uint64_t a2, void *a3)
 {
   v6 = 0;
   v7 = 0;
@@ -3068,7 +3010,7 @@ uint64_t _APSAPAPGetEncodeSizeExtensionItemCallback(uint64_t a1, uint64_t a2, un
   return v3;
 }
 
-uint64_t APSAPAPEncode(__int128 *a1, unsigned int a2, uint64_t (*a3)(uint64_t (*)(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t (**a4)(uint64_t *, void, uint64_t)), void *, uint64_t), uint64_t a4, uint64_t (*a5)(void, void *, uint64_t), uint64_t a6, uint64_t (*a7)(unint64_t *, uint64_t, uint64_t), uint64_t a8)
+uint64_t APSAPAPEncode(__int128 *a1, unsigned int a2, uint64_t (*a3)(uint64_t (*)(), void *, uint64_t), uint64_t a4, uint64_t (*a5)(void, void *, uint64_t), uint64_t a6, uint64_t (*a7)(unint64_t *, uint64_t, uint64_t), uint64_t a8)
 {
   v18[0] = 0;
   v18[1] = a7;
@@ -4096,27 +4038,25 @@ uint64_t APSSRTCPBBufGetIndex(CMBlockBufferRef theBuffer, uint64_t a2, _DWORD *a
   if (theBuffer && a2 && a3)
   {
     DataLength = CMBlockBufferGetDataLength(theBuffer);
-    VTable = CMBaseObjectGetVTable();
-    v9 = *(*(VTable + 16) + 8);
-    if (v9)
+    v8 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+    if (v8)
     {
-      v10 = *(VTable + 16) + 8;
-      v11 = v9(a2);
+      v9 = v8(a2);
     }
 
     else
     {
-      v11 = 0;
+      v9 = 0;
     }
 
-    if (DataLength < v11 + 12)
+    if (DataLength < v9 + 12)
     {
       return 4294960553;
     }
 
     else
     {
-      result = CMBlockBufferCopyDataBytes(theBuffer, DataLength - v11 - 4, 4uLL, &destination);
+      result = CMBlockBufferCopyDataBytes(theBuffer, DataLength - v9 - 4, 4uLL, &destination);
       if (!result)
       {
         *a3 = bswap32(destination & 0xFFFFFF7F);
@@ -4529,7 +4469,7 @@ uint64_t rtcpBBufUtils_rtcpCCFBFromRecordsApplierEnsureReport(int64x2_t *a1, __i
   return result;
 }
 
-uint64_t rtcpBBufUtils_rtcpCCFBFromRecordsApplierAddReportMetricGap(int64x2_t *a1, int a2, int a3, int a4, int a5)
+uint64_t rtcpBBufUtils_rtcpCCFBFromRecordsApplierAddReportMetricGap(int64x2_t *a1, int a2, int a3, int a4, uint64_t a5)
 {
   v5 = a1[4].u64[0];
   if (!v5)
@@ -4698,32 +4638,31 @@ uint64_t rtcpBBufUtils_rtcpCCFBFromRecordsApplier(int a1, int64x2_t *a2)
         }
 
         v11 = Value;
-        v12 = *Value;
         UInt32 = FigCFNumberGetUInt32();
         if (*v11)
         {
-          v14 = a2->i32[3];
-          v15 = UInt32 - v14;
-          v16 = (v14 - UInt32) >> 6;
-          if (v16 >= 0x1FFE)
+          v13 = a2->i32[3];
+          v14 = UInt32 - v13;
+          v15 = (v13 - UInt32) >> 6;
+          if (v15 >= 0x1FFE)
           {
-            LOWORD(v16) = 8190;
+            LOWORD(v15) = 8190;
           }
 
-          if (v15 > 0)
+          if (v14 > 0)
           {
-            LOWORD(v16) = 0x1FFF;
+            LOWORD(v15) = 0x1FFF;
           }
         }
 
         else
         {
-          LOWORD(v16) = 0x1FFF;
+          LOWORD(v15) = 0x1FFF;
         }
 
-        v17 = (a2[1].i64[1] + a2[2].i64[0]);
-        *v17 = (v16 | (v10 << 13) | 0x8000) >> 8;
-        v17[1] = v16;
+        v16 = (a2[1].i64[1] + a2[2].i64[0]);
+        *v16 = (v15 | (v10 << 13) | 0x8000) >> 8;
+        v16[1] = v15;
         a2[2].i64[0] += 2;
         v7 = a2[4].i16[7] + 1;
         a2[4].i16[7] = v7;
@@ -4741,13 +4680,14 @@ uint64_t rtcpBBufUtils_rtcpCCFBFromRecordsApplier(int a1, int64x2_t *a2)
   return result;
 }
 
-uint64_t APSRTCPCCFBBBufCopyRecordsWithMediaSourceSSRC(OpaqueCMBlockBuffer *a1, const __CFAllocator *a2, int a3, CFTypeRef *a4)
+uint64_t APSRTCPCCFBBBufCopyRecordsWithMediaSourceSSRC(OpaqueCMBlockBuffer *a1, const __CFAllocator *a2, uint64_t a3, CFTypeRef *a4)
 {
   v10 = a2;
   cf = 0;
   v4 = 4294960591;
   if (a1 && a4)
   {
+    v6 = a3;
     v8 = APSRTPSeqNumDictionaryCreateMutable(a2, &kAPSRTCPCCFBRecordDictionaryValueCallbacks, &cf);
     if (v8)
     {
@@ -4756,7 +4696,7 @@ uint64_t APSRTCPCCFBBBufCopyRecordsWithMediaSourceSSRC(OpaqueCMBlockBuffer *a1, 
 
     else
     {
-      v4 = rtcpBBufUtils_rtcpCCFBApplyFunction(a1, a3, rtcpBBufUtils_rtcpCCFBToRecordsApplier, &v10);
+      v4 = rtcpBBufUtils_rtcpCCFBApplyFunction(a1, v6, rtcpBBufUtils_rtcpCCFBToRecordsApplier, &v10);
       if (!v4)
       {
         *a4 = cf;
@@ -4915,58 +4855,56 @@ LABEL_27:
   return result;
 }
 
-uint64_t rtcpBBufUtils_rtcpCCFBToRecordsApplier(int a1, unsigned int *a2, void *key, unsigned __int16 *a4, uint64_t *a5)
+uint64_t rtcpBBufUtils_rtcpCCFBToRecordsApplier(int a1, _DWORD *a2, void *key, unsigned __int16 *a4, void *a5)
 {
-  v18 = 0;
+  v15 = 0;
   if (!a4 || (*a4 & 0x80000000) == 0)
   {
     return 0;
   }
 
-  v9 = a5[1];
-  if (v9)
+  v8 = a5[1];
+  if (v8)
   {
-    if (CFDictionaryGetValue(*(v9 + 24), key))
+    if (CFDictionaryGetValue(*(v8 + 24), key))
     {
       return 4294960566;
     }
 
-    v10 = *a4;
+    v9 = *a4;
   }
 
   else
   {
-    v10 = *a4;
+    v9 = *a4;
   }
 
-  if ((~v10 & 0x1FFE) != 0)
+  if ((~v9 & 0x1FFE) != 0)
   {
-    v12 = *a2;
-    v13 = *a5;
     UInt32 = FigCFNumberCreateUInt32();
     if (!UInt32)
     {
       return 4294960568;
     }
 
-    v11 = UInt32;
-    v10 = *a4;
+    v10 = UInt32;
+    v9 = *a4;
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  v17 = v11;
-  LOWORD(v18) = (v10 >> 13) & 3;
-  v15 = APSRTPSeqNumDictionarySetValue(a5[1], key, &v17);
-  if (v11)
+  v14 = v10;
+  LOWORD(v15) = (v9 >> 13) & 3;
+  v12 = APSRTPSeqNumDictionarySetValue(a5[1], key, &v14);
+  if (v10)
   {
-    CFRelease(v11);
+    CFRelease(v10);
   }
 
-  return v15;
+  return v12;
 }
 
 uint64_t APSRTCPCCFBBBufGetTrailingUnReceivedRangeWithMediaSourceSSRC(OpaqueCMBlockBuffer *a1, int a2, int *a3)
@@ -5863,11 +5801,11 @@ LABEL_15:
   return v4;
 }
 
-uint64_t APSSignalErrorAt(uint64_t a1)
+const char *APSSignalErrorAt(const char *a1, uint64_t a2, const char *a3)
 {
   if (gLogCategory_APSLogUtils <= 90 && (gLogCategory_APSLogUtils != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSLogUtils, "OSStatus APSSignalErrorAt(OSStatus, const char *, const char *)", 33554522, "%s signalled %#m: %s\n", a3, a1);
   }
 
   return a1;
@@ -5881,13 +5819,13 @@ uint64_t APSLogErrorAt(uint64_t result)
     {
       if (gLogCategory_APSLogUtils != -1)
       {
-        return LogPrintF();
+        return LogPrintF(&gLogCategory_APSLogUtils, "void APSLogErrorAt(OSStatus, const char *, int, Boolean)", 33554522, "%s:%d: %s error %#m\n");
       }
 
       result = _LogCategory_Initialize();
       if (result)
       {
-        return LogPrintF();
+        return LogPrintF(&gLogCategory_APSLogUtils, "void APSLogErrorAt(OSStatus, const char *, int, Boolean)", 33554522, "%s:%d: %s error %#m\n");
       }
     }
   }
@@ -5896,13 +5834,13 @@ uint64_t APSLogErrorAt(uint64_t result)
   {
     if (gLogCategory_APSLogUtils != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSLogUtils, "void APSLogErrorAt(OSStatus, const char *, int, Boolean)", 33554522, "%s:%d: false condition\n");
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSLogUtils, "void APSLogErrorAt(OSStatus, const char *, int, Boolean)", 33554522, "%s:%d: false condition\n");
     }
   }
 
@@ -6175,11 +6113,10 @@ uint64_t APSEndpointStreamAudioHoseSendAudioBatchSlow(uint64_t a1, uint64_t a2, 
           return 4294954514;
         }
 
-        v16 = *(v14 + 8);
-        v17 = v15(a1, a2, v11);
-        if (v17)
+        v16 = v15(a1, a2, v11);
+        if (v16)
         {
-          return v17;
+          return v16;
         }
 
         if (v8 == ++v9)
@@ -6218,8 +6155,6 @@ uint64_t _APSThreadSafeSetFinalize(uint64_t a1)
     CFRelease(v2);
     *(a1 + 24) = 0;
   }
-
-  v3 = *(a1 + 16);
 
   return FigSimpleMutexDestroy();
 }
@@ -6274,36 +6209,27 @@ uint64_t APSThreadSafeSetCreate(CFTypeRef *a1)
 
 uint64_t APSThreadSafeSetSetValue(uint64_t a1, const void *a2)
 {
-  v4 = *(a1 + 16);
   FigSimpleMutexCheckIsNotLockedOnThisThread();
-  v5 = *(a1 + 16);
   FigSimpleMutexLock();
   CFSetSetValue(*(a1 + 24), a2);
-  v6 = *(a1 + 16);
 
   return FigSimpleMutexUnlock();
 }
 
 uint64_t APSThreadSafeSetRemoveValue(uint64_t a1, const void *a2)
 {
-  v4 = *(a1 + 16);
   FigSimpleMutexCheckIsNotLockedOnThisThread();
-  v5 = *(a1 + 16);
   FigSimpleMutexLock();
   CFSetRemoveValue(*(a1 + 24), a2);
-  v6 = *(a1 + 16);
 
   return FigSimpleMutexUnlock();
 }
 
 CFIndex APSThreadSafeSetGetCount(uint64_t a1)
 {
-  v2 = *(a1 + 16);
   FigSimpleMutexCheckIsNotLockedOnThisThread();
-  v3 = *(a1 + 16);
   FigSimpleMutexLock();
   Count = CFSetGetCount(*(a1 + 24));
-  v5 = *(a1 + 16);
   FigSimpleMutexUnlock();
   return Count;
 }
@@ -6367,9 +6293,7 @@ uint64_t APSNetworkClockNTPServerCreate(uint64_t a1, uint64_t a2, void *a3)
   else
   {
     v6 = cf;
-    DerivedStorage = CMBaseObjectGetDerivedStorage();
-    *(DerivedStorage + 24) = 1;
-    v8 = *(DerivedStorage + 8);
+    *(CMBaseObjectGetDerivedStorage() + 24) = 1;
     NTPClockSetListenPort();
     *a3 = v6;
   }
@@ -6377,9 +6301,10 @@ uint64_t APSNetworkClockNTPServerCreate(uint64_t a1, uint64_t a2, void *a3)
   return v5;
 }
 
-uint64_t ntpClock_createCommon(uint64_t a1, uint64_t a2, void *a3)
+uint64_t ntpClock_createCommon(uint64_t a1, uint64_t a2, CFTypeRef *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  memset(v8, 0, sizeof(v8));
   if (APSNetworkClockGetClassID_sRegisterOnce != -1)
   {
     dispatch_once_f(&APSNetworkClockGetClassID_sRegisterOnce, &APSNetworkClockGetClassID_sClassID, networkClock_registerBaseClass);
@@ -6388,10 +6313,10 @@ uint64_t ntpClock_createCommon(uint64_t a1, uint64_t a2, void *a3)
   Mutable = CMDerivedObjectCreate();
   if (Mutable)
   {
-    v10 = Mutable;
+    v6 = Mutable;
 LABEL_18:
     APSLogErrorAt(Mutable);
-    goto LABEL_13;
+    return v6;
   }
 
   DerivedStorage = CMBaseObjectGetDerivedStorage();
@@ -6399,7 +6324,7 @@ LABEL_18:
   *DerivedStorage = Mutable;
   if (!Mutable)
   {
-    v10 = 4294895326;
+    v6 = 4294895326;
     goto LABEL_18;
   }
 
@@ -6407,51 +6332,44 @@ LABEL_18:
   DerivedStorage[2] = Mutable;
   if (!Mutable)
   {
-    v10 = 4294895326;
+    v6 = 4294895326;
     goto LABEL_18;
   }
 
   Mutable = NTPClockCreate();
   if (Mutable)
   {
-    v10 = Mutable;
+    v6 = Mutable;
     goto LABEL_18;
   }
 
-  if (SNPrintF() <= 0)
+  if (SNPrintF(v8, 256, "ntpClock %{ptr}", 0) <= 0)
   {
     APSLogErrorAt(0);
-    v10 = 4294895322;
+    return 4294895322;
   }
 
   else
   {
-    v6 = DerivedStorage[1];
     NTPClockSetEpoch();
-    v7 = DerivedStorage[1];
     NTPClockSetP2P();
-    v8 = DerivedStorage[1];
     NTPClockSetThreadName();
-    v9 = DerivedStorage[1];
     NTPClockSetThreadPriority();
     if (gLogCategory_APSNetworkClockNTP <= 50 && (gLogCategory_APSNetworkClockNTP != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSNetworkClockNTP, "OSStatus ntpClock_createCommon(CFAllocatorRef, Boolean, APSNetworkClockRef *)", 33554482, "[%{ptr}] <AirPlayClock> Created APSNetworkClock NTP\n", 0);
     }
 
-    v10 = 0;
+    v6 = 0;
     *a3 = 0;
   }
 
-LABEL_13:
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v6;
 }
 
 uint64_t ntpClock_StopForClient(uint64_t a1, const void *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *DerivedStorage;
   FigSimpleMutexLock();
   if (ntpClock_isStarted())
   {
@@ -6468,17 +6386,16 @@ uint64_t ntpClock_StopForClient(uint64_t a1, const void *a2)
       CFSetRemoveValue(*(DerivedStorage + 16), a2);
       if (gLogCategory_APSNetworkClockNTP <= 50 && (gLogCategory_APSNetworkClockNTP != -1 || _LogCategory_Initialize()))
       {
-        CFSetGetCount(*(DerivedStorage + 16));
-        LogPrintF();
+        v6 = CFSetGetCount(*(DerivedStorage + 16));
+        LogPrintF(&gLogCategory_APSNetworkClockNTP, "OSStatus ntpClock_StopForClient(APSNetworkClockRef, void *)", 33554482, "[%{ptr}] <AirPlayClock> Removed client: [%{ptr}]. Client count: %d\n", a1, a2, v6);
       }
 
       if (Count == 1)
       {
-        v6 = *(DerivedStorage + 8);
         NTPClockStop();
         if (gLogCategory_APSNetworkClockNTP <= 50 && (gLogCategory_APSNetworkClockNTP != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APSNetworkClockNTP, "OSStatus ntpClock_StopForClient(APSNetworkClockRef, void *)", 33554482, "[%{ptr}] <AirPlayClock> Stopped APSNetworkClock NTP\n", a1);
         }
       }
     }
@@ -6486,7 +6403,6 @@ uint64_t ntpClock_StopForClient(uint64_t a1, const void *a2)
 
   v7 = 0;
 LABEL_14:
-  v8 = *DerivedStorage;
   FigSimpleMutexUnlock();
   return v7;
 }
@@ -6494,12 +6410,11 @@ LABEL_14:
 uint64_t ntpClock_StartForClient(uint64_t a1, const void *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *DerivedStorage;
   FigSimpleMutexLock();
   if (!a2)
   {
     APSLogErrorAt(0);
-    v5 = 4294895325;
+    v6 = 4294895325;
     goto LABEL_22;
   }
 
@@ -6510,18 +6425,17 @@ uint64_t ntpClock_StartForClient(uint64_t a1, const void *a2)
 
   if (!CFSetGetCount(*(DerivedStorage + 16)))
   {
-    v5 = *(DerivedStorage + 28);
-    if (v5)
+    v6 = *(DerivedStorage + 28);
+    if (v6)
     {
       if (gLogCategory_APSNetworkClockNTP <= 60 && (gLogCategory_APSNetworkClockNTP != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSNetworkClockNTP, "OSStatus ntpClock_StartForClient(APSNetworkClockRef, void *)", 33554492, "[%{ptr}] <AirPlayClock> Simulating start error: %#m\n", a1, v6);
       }
     }
 
     else
     {
-      v6 = *(DerivedStorage + 8);
       if (*(DerivedStorage + 24))
       {
         started = NTPClockStartServer();
@@ -6532,19 +6446,19 @@ uint64_t ntpClock_StartForClient(uint64_t a1, const void *a2)
         started = NTPClockStartClient();
       }
 
-      v5 = started;
+      v6 = started;
       if (!started)
       {
         if (gLogCategory_APSNetworkClockNTP <= 50 && (gLogCategory_APSNetworkClockNTP != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APSNetworkClockNTP, "OSStatus ntpClock_StartForClient(APSNetworkClockRef, void *)", 33554482, "[%{ptr}] <AirPlayClock> Started APSNetworkClock NTP\n", a1);
         }
 
         goto LABEL_4;
       }
     }
 
-    APSLogErrorAt(v5);
+    APSLogErrorAt(v6);
     goto LABEL_22;
   }
 
@@ -6552,28 +6466,24 @@ LABEL_4:
   CFSetAddValue(*(DerivedStorage + 16), a2);
   if (gLogCategory_APSNetworkClockNTP <= 50 && (gLogCategory_APSNetworkClockNTP != -1 || _LogCategory_Initialize()))
   {
-    CFSetGetCount(*(DerivedStorage + 16));
-    LogPrintF();
+    Count = CFSetGetCount(*(DerivedStorage + 16));
+    LogPrintF(&gLogCategory_APSNetworkClockNTP, "OSStatus ntpClock_StartForClient(APSNetworkClockRef, void *)", 33554482, "[%{ptr}] <AirPlayClock> Added client: [%{ptr}]. Client count: %d\n", a1, a2, Count);
   }
 
 LABEL_12:
-  v5 = 0;
+  v6 = 0;
 LABEL_22:
-  v8 = *DerivedStorage;
   FigSimpleMutexUnlock();
-  return v5;
+  return v6;
 }
 
 uint64_t ntpClock_ConvertNetworkTimeToUpTicks(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v6 = *DerivedStorage;
   FigSimpleMutexLock();
   isStarted = ntpClock_isStarted();
   if (isStarted)
   {
-    v9 = *(a2 + 16);
-    v8 = *(a2 + 8);
     if (*(DerivedStorage + 24))
     {
       UpTicksNearSynchronizedNTPTime = NTPtoUpTicks();
@@ -6581,29 +6491,26 @@ uint64_t ntpClock_ConvertNetworkTimeToUpTicks(uint64_t a1, uint64_t a2, uint64_t
 
     else
     {
-      v11 = *(DerivedStorage + 8);
       UpTicksNearSynchronizedNTPTime = NTPClockGetUpTicksNearSynchronizedNTPTime();
     }
 
-    v12 = 0;
+    v7 = 0;
     *a3 = UpTicksNearSynchronizedNTPTime;
   }
 
   else
   {
     APSLogErrorAt(isStarted);
-    v12 = 4294895323;
+    v7 = 4294895323;
   }
 
-  v13 = *DerivedStorage;
   FigSimpleMutexUnlock();
-  return v12;
+  return v7;
 }
 
 uint64_t ntpClock_GetSynchronizedNetworkTime(uint64_t a1, void *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *DerivedStorage;
   FigSimpleMutexLock();
   isStarted = ntpClock_isStarted();
   if (isStarted)
@@ -6616,11 +6523,10 @@ uint64_t ntpClock_GetSynchronizedNetworkTime(uint64_t a1, void *a2)
 
     else
     {
-      v7 = *(DerivedStorage + 8);
       SynchronizedNTPTime = NTPClockGetSynchronizedNTPTime();
     }
 
-    v8 = 0;
+    v6 = 0;
     *a2 = 0;
     a2[1] = SynchronizedNTPTime << 32;
     a2[2] = HIDWORD(SynchronizedNTPTime);
@@ -6629,34 +6535,31 @@ uint64_t ntpClock_GetSynchronizedNetworkTime(uint64_t a1, void *a2)
   else
   {
     APSLogErrorAt(isStarted);
-    v8 = 4294895323;
+    v6 = 4294895323;
   }
 
-  v9 = *DerivedStorage;
   FigSimpleMutexUnlock();
-  return v8;
+  return v6;
 }
 
-uint64_t ntpClock_SetProperty(uint64_t a1, __CFString *a2)
+uint64_t ntpClock_SetProperty(uint64_t a1, __CFString *a2, uint64_t a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (a2 == @"APSNetworkClock::SimulatedStartError" || a2 && CFEqual(a2, @"APSNetworkClock::SimulatedStartError"))
   {
-    v4 = *DerivedStorage;
     FigSimpleMutexLock();
     *(DerivedStorage + 28) = CFGetInt64();
-    v5 = *DerivedStorage;
     FigSimpleMutexUnlock();
     return 0;
   }
 
   else
   {
-    v6 = 4294954509;
+    v5 = 4294954509;
     APSLogErrorAt(4294954509);
   }
 
-  return v6;
+  return v5;
 }
 
 uint64_t ntpClock_CopyProperty(uint64_t a1, const void *a2, const __CFAllocator *a3, void *a4)
@@ -6666,17 +6569,14 @@ uint64_t ntpClock_CopyProperty(uint64_t a1, const void *a2, const __CFAllocator 
   {
     if (CFEqual(a2, @"PortLocal"))
     {
-      v10 = *DerivedStorage;
       FigSimpleMutexLock();
       if (!*(DerivedStorage + 24) && gLogCategory_APSNetworkClockNTP <= 50 && (gLogCategory_APSNetworkClockNTP != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSNetworkClockNTP, "OSStatus ntpClock_CopyProperty(CMBaseObjectRef, CFStringRef, CFAllocatorRef, void *)", 33554482, "### Accessing local port for NTPClient\n");
       }
 
-      v15 = *(DerivedStorage + 8);
       valuePtr = NTPClockGetListenPort();
       *a4 = CFNumberCreate(a3, kCFNumberSInt32Type, &valuePtr);
-      v16 = *DerivedStorage;
       FigSimpleMutexUnlock();
       if (!*a4)
       {
@@ -6706,17 +6606,15 @@ uint64_t ntpClock_CopyProperty(uint64_t a1, const void *a2, const __CFAllocator 
         goto LABEL_3;
       }
 
-      v11 = *DerivedStorage;
       FigSimpleMutexLock();
       isStarted = ntpClock_isStarted();
-      v13 = MEMORY[0x277CBED28];
+      v11 = MEMORY[0x277CBED28];
       if (!isStarted)
       {
-        v13 = MEMORY[0x277CBED10];
+        v11 = MEMORY[0x277CBED10];
       }
 
-      *a4 = CFRetain(*v13);
-      v14 = *DerivedStorage;
+      *a4 = CFRetain(*v11);
       FigSimpleMutexUnlock();
     }
 
@@ -6737,24 +6635,29 @@ __CFString *ntpClock_CopyDebugDescription(uint64_t a1)
   return Mutable;
 }
 
-uint64_t ntpClock_Finalize()
+uint64_t ntpClock_Finalize(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSNetworkClockNTP <= 50 && (gLogCategory_APSNetworkClockNTP != -1 || _LogCategory_Initialize()))
   {
-    v1 = *(DerivedStorage + 16);
-    if (v1)
+    v3 = *(DerivedStorage + 16);
+    if (v3)
     {
-      CFSetGetCount(v1);
+      Count = CFSetGetCount(v3);
     }
 
-    LogPrintF();
+    else
+    {
+      Count = 0xFFFFFFFFLL;
+    }
+
+    LogPrintF(&gLogCategory_APSNetworkClockNTP, "void ntpClock_Finalize(CMBaseObjectRef)", 33554482, "[%{ptr}] <AirPlayClock> Finalizing APSNetworkClock NTP. Client count: %d\n", a1, Count);
   }
 
-  v2 = *(DerivedStorage + 16);
-  if (v2)
+  v5 = *(DerivedStorage + 16);
+  if (v5)
   {
-    CFRelease(v2);
+    CFRelease(v5);
     *(DerivedStorage + 16) = 0;
   }
 
@@ -6765,14 +6668,14 @@ uint64_t ntpClock_Finalize()
     *(DerivedStorage + 8) = 0;
   }
 
-  v3 = *DerivedStorage;
   result = FigSimpleMutexDestroy();
   *DerivedStorage = 0;
   return result;
 }
 
-uint64_t APSNetworkClockNTPClientCreate(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
+uint64_t APSNetworkClockNTPClientCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
+  v7 = a2;
   cf = 0;
   v8 = ntpClock_createCommon(a1, a3, &cf);
   v9 = v8;
@@ -6788,18 +6691,13 @@ uint64_t APSNetworkClockNTPClientCreate(uint64_t a1, int a2, uint64_t a3, uint64
   else
   {
     v10 = cf;
-    DerivedStorage = CMBaseObjectGetDerivedStorage();
-    v12 = DerivedStorage;
-    *(DerivedStorage + 24) = 0;
-    if (a2)
+    *(CMBaseObjectGetDerivedStorage() + 24) = 0;
+    if (v7)
     {
-      v13 = *(DerivedStorage + 8);
       NTPClockSetQoSDisabled();
     }
 
-    v14 = *(v12 + 8);
     NTPClockSetRTCP();
-    v15 = *(v12 + 8);
     NTPClockSetPeer();
     *a6 = v10;
   }
@@ -6810,7 +6708,6 @@ uint64_t APSNetworkClockNTPClientCreate(uint64_t a1, int a2, uint64_t a3, uint64
 uint64_t APSNetworkClockNTPConvertUpTicksToNTP(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v5 = *DerivedStorage;
   FigSimpleMutexLock();
   isStarted = ntpClock_isStarted();
   if (isStarted)
@@ -6822,29 +6719,26 @@ uint64_t APSNetworkClockNTPConvertUpTicksToNTP(uint64_t a1, uint64_t a2, uint64_
 
     else
     {
-      v8 = *(DerivedStorage + 8);
       SynchronizedNTPTimeNearUpTicks = NTPClockGetSynchronizedNTPTimeNearUpTicks();
     }
 
-    v9 = 0;
+    v7 = 0;
     *a3 = SynchronizedNTPTimeNearUpTicks;
   }
 
   else
   {
     APSLogErrorAt(isStarted);
-    v9 = 4294895323;
+    v7 = 4294895323;
   }
 
-  v10 = *DerivedStorage;
   FigSimpleMutexUnlock();
-  return v9;
+  return v7;
 }
 
 uint64_t APSNetworkClockNTPConvertNTPToUpTicks(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v5 = *DerivedStorage;
   FigSimpleMutexLock();
   isStarted = ntpClock_isStarted();
   if (isStarted)
@@ -6856,23 +6750,21 @@ uint64_t APSNetworkClockNTPConvertNTPToUpTicks(uint64_t a1, uint64_t a2, uint64_
 
     else
     {
-      v8 = *(DerivedStorage + 8);
       UpTicksNearSynchronizedNTPTime = NTPClockGetUpTicksNearSynchronizedNTPTime();
     }
 
-    v9 = 0;
+    v7 = 0;
     *a3 = UpTicksNearSynchronizedNTPTime;
   }
 
   else
   {
     APSLogErrorAt(isStarted);
-    v9 = 4294895323;
+    v7 = 4294895323;
   }
 
-  v10 = *DerivedStorage;
   FigSimpleMutexUnlock();
-  return v9;
+  return v7;
 }
 
 uint64_t APSOasisCPUFloorRaiserGetTypeID()
@@ -6898,33 +6790,28 @@ uint64_t _APSOasisCPUFloorRaiserFinalize(uint64_t a1)
   {
     if (gLogCategory_APSOasisCPUFloorRaiser <= 50 && (gLogCategory_APSOasisCPUFloorRaiser != -1 || _LogCategory_Initialize()))
     {
-      v4 = *(a1 + 24);
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSOasisCPUFloorRaiser, "void _APSOasisCPUFloorRaiserFinalize(CFTypeRef)", 33554482, "[%{ptr}] [%{ptr}] Finalizing while raised.\n", a1, *(a1 + 24));
     }
 
     APSOasisCPUFloorRaiserReleaseAssertion(a1);
   }
-
-  v2 = *(a1 + 16);
 
   return FigSimpleMutexDestroy();
 }
 
 uint64_t APSOasisCPUFloorRaiserReleaseAssertion(uint64_t a1)
 {
-  v2 = *(a1 + 16);
   FigSimpleMutexLock();
   if (!*(a1 + 32))
   {
     APSLogErrorAt(0);
-    v5 = 4294960587;
+    v4 = 4294960587;
     goto LABEL_19;
   }
 
   if (gLogCategory_APSOasisCPUFloorRaiser <= 50 && (gLogCategory_APSOasisCPUFloorRaiser != -1 || _LogCategory_Initialize()))
   {
-    v8 = *(a1 + 24);
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSOasisCPUFloorRaiser, "OSStatus APSOasisCPUFloorRaiserReleaseAssertion(APSOasisCPUFloorRaiserRef)", 33554482, "[%{ptr}] [%{ptr}] Releasing.\n", a1, *(a1 + 24));
   }
 
   if (apsSingletonFloorRaiserIsAllowed_onceToken != -1)
@@ -6934,25 +6821,25 @@ uint64_t APSOasisCPUFloorRaiserReleaseAssertion(uint64_t a1)
 
   if (apsSingletonFloorRaiserIsAllowed_isAllowed)
   {
-    v3 = apsSingletonFloorRaiserInit();
-    if (v3)
+    v2 = apsSingletonFloorRaiserInit();
+    if (v2)
     {
-      v5 = v3;
-      APSLogErrorAt(v3);
+      v4 = v2;
+      APSLogErrorAt(v2);
     }
 
     else
     {
       FigSimpleMutexLock();
-      v4 = dword_27D00B748 - 1;
+      v3 = dword_27D00B748 - 1;
       if (dword_27D00B748 >= 1)
       {
         --dword_27D00B748;
-        if (!v4)
+        if (!v3)
         {
           if (gLogCategory_APSOasisCPUFloorRaiser <= 50 && (gLogCategory_APSOasisCPUFloorRaiser != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&gLogCategory_APSOasisCPUFloorRaiser, "OSStatus apsSingletonFloorRaiserReleaseAssertion(void)", 33554482, "Singleton Posting Notification: 0");
           }
 
           notify_set_state(dword_27D00B74C, 0);
@@ -6965,20 +6852,19 @@ uint64_t APSOasisCPUFloorRaiserReleaseAssertion(uint64_t a1)
 
       APSLogErrorAt(0);
       FigSimpleMutexUnlock();
-      v5 = 4294960587;
+      v4 = 4294960587;
     }
 
-    APSLogErrorAt(v5);
+    APSLogErrorAt(v4);
     goto LABEL_19;
   }
 
 LABEL_18:
-  v5 = 0;
+  v4 = 0;
   *(a1 + 32) = 0;
 LABEL_19:
-  v6 = *(a1 + 16);
   FigSimpleMutexUnlock();
-  return v5;
+  return v4;
 }
 
 uint64_t apsSingletonFloorRaiserInit()
@@ -7034,19 +6920,32 @@ uint64_t __apsSingletonFloorRaiserInit_block_invoke(uint64_t a1)
 uint64_t __apsSingletonFloorRaiserIsAllowed_block_invoke()
 {
   result = FigGetCFPreferenceNumberWithDefault();
+  v1 = result == 0;
   apsSingletonFloorRaiserIsAllowed_isAllowed = result == 0;
   if (gLogCategory_APSOasisCPUFloorRaiser <= 50)
   {
-    if (gLogCategory_APSOasisCPUFloorRaiser != -1)
+    if (gLogCategory_APSOasisCPUFloorRaiser == -1)
     {
-      return LogPrintF();
+      result = _LogCategory_Initialize();
+      if (!result)
+      {
+        return result;
+      }
+
+      v1 = apsSingletonFloorRaiserIsAllowed_isAllowed;
     }
 
-    result = _LogCategory_Initialize();
-    if (result)
+    if (v1)
     {
-      return LogPrintF();
+      v2 = "Yes";
     }
+
+    else
+    {
+      v2 = "No";
+    }
+
+    return LogPrintF(&gLogCategory_APSOasisCPUFloorRaiser, "Boolean apsSingletonFloorRaiserIsAllowed(void)_block_invoke", 33554482, "Oasis Mode is Allowed? %s\n", v2);
   }
 
   return result;
@@ -7099,20 +6998,18 @@ uint64_t APSOasisCPUFloorRaiserCreate(uint64_t a1, uint64_t a2, void *a3)
 
 uint64_t APSOasisCPUFloorRaiserRetainAssertion(uint64_t a1)
 {
-  v2 = *(a1 + 16);
   FigSimpleMutexLock();
   if (*(a1 + 32))
   {
     APSLogErrorAt(0);
-    v5 = 4294960587;
+    v4 = 4294960587;
   }
 
   else
   {
     if (gLogCategory_APSOasisCPUFloorRaiser <= 50 && (gLogCategory_APSOasisCPUFloorRaiser != -1 || _LogCategory_Initialize()))
     {
-      v8 = *(a1 + 24);
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSOasisCPUFloorRaiser, "OSStatus APSOasisCPUFloorRaiserRetainAssertion(APSOasisCPUFloorRaiserRef)", 33554482, "[%{ptr}] [%{ptr}] Raising.\n", a1, *(a1 + 24));
     }
 
     if (apsSingletonFloorRaiserIsAllowed_onceToken != -1)
@@ -7122,44 +7019,43 @@ uint64_t APSOasisCPUFloorRaiserRetainAssertion(uint64_t a1)
 
     if (apsSingletonFloorRaiserIsAllowed_isAllowed)
     {
-      v3 = apsSingletonFloorRaiserInit();
-      if (v3)
+      v2 = apsSingletonFloorRaiserInit();
+      if (v2)
       {
-        v5 = v3;
-        APSLogErrorAt(v3);
-        APSLogErrorAt(v5);
+        v4 = v2;
+        APSLogErrorAt(v2);
+        APSLogErrorAt(v4);
         goto LABEL_18;
       }
 
       FigSimpleMutexLock();
-      v4 = dword_27D00B748;
+      v3 = dword_27D00B748;
       if (!dword_27D00B748)
       {
         if (gLogCategory_APSOasisCPUFloorRaiser <= 50 && (gLogCategory_APSOasisCPUFloorRaiser != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APSOasisCPUFloorRaiser, "OSStatus apsSingletonFloorRaiserAcquireAssertion(void)", 33554482, "Singleton Posting Notification: 1");
         }
 
         notify_set_state(dword_27D00B74C, 1uLL);
         notify_post("com.apple.airplay.oasis");
-        v4 = dword_27D00B748;
+        v3 = dword_27D00B748;
       }
 
-      dword_27D00B748 = v4 + 1;
+      dword_27D00B748 = v3 + 1;
       FigSimpleMutexUnlock();
     }
 
-    v5 = 0;
+    v4 = 0;
     *(a1 + 32) = 1;
   }
 
 LABEL_18:
-  v6 = *(a1 + 16);
   FigSimpleMutexUnlock();
-  return v5;
+  return v4;
 }
 
-uint64_t APSCryptorCTRCreate(uint64_t a1, const __CFData *a2, const __CFData *a3, void *a4)
+uint64_t APSCryptorCTRCreate(uint64_t a1, const __CFData *a2, const __CFData *a3, CFTypeRef *a4)
 {
   if (!a2)
   {
@@ -7201,7 +7097,7 @@ LABEL_17:
 
   if (gLogCategory_APSCryptorCTR <= 30 && (gLogCategory_APSCryptorCTR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSCryptorCTR, "OSStatus APSCryptorCTRCreate(CFAllocatorRef, CFDataRef, CFDataRef, APSCryptorRef *)", 33554462, "APSCryptorCTR %p created.\n", 0);
   }
 
   v8 = 0;
@@ -7238,12 +7134,12 @@ __CFString *ctrCryptor_CopyDebugDescription(uint64_t a1)
   return Mutable;
 }
 
-uint64_t ctrCryptor_Finalize()
+uint64_t ctrCryptor_Finalize(const void *a1)
 {
   CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSCryptorCTR <= 30 && (gLogCategory_APSCryptorCTR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSCryptorCTR, "void ctrCryptor_Finalize(CMBaseObjectRef)", 33554462, "APSCryptorCTR %p finalizing\n", a1);
   }
 
   return AES_CTR_Final();
@@ -7270,7 +7166,7 @@ void _APSRTCPCCFBProcessorFinalize(void *a1)
 {
   if (gLogCategory_APSRTCPCCFBProcessor <= 30 && (gLogCategory_APSRTCPCCFBProcessor != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSRTCPCCFBProcessor, "void _APSRTCPCCFBProcessorFinalize(CFTypeRef)", 33554462, "[%{ptr}] APSRTCPCCFBProcessor finalized", a1);
   }
 
   v2 = a1[2];
@@ -7324,7 +7220,7 @@ uint64_t APSRTCPCCFBProcessorCreate(CFTypeRef *a1)
         *a1 = CFRetain(v3);
         if (gLogCategory_APSRTCPCCFBProcessor <= 30 && (gLogCategory_APSRTCPCCFBProcessor != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APSRTCPCCFBProcessor, "OSStatus APSRTCPCCFBProcessorCreate(APSRTCPCCFBProcessorRef *)", 33554462, "[%{ptr}] APSRTCPCCFBProcessor created", v3);
         }
       }
 
@@ -7520,7 +7416,7 @@ LABEL_27:
   return v11;
 }
 
-uint64_t __rtcpCCFBProcessor_updateRTTEstimate_block_invoke(uint64_t a1, void *key, void *a3)
+uint64_t __rtcpCCFBProcessor_updateRTTEstimate_block_invoke(uint64_t a1, void *key, uint64_t *a3)
 {
   if (!*a3)
   {
@@ -7575,71 +7471,68 @@ uint64_t __rtcpCCFBProcessor_updateRTTEstimate_block_invoke(uint64_t a1, void *k
 
 uint64_t __rtcpCCFBProcessor_updateRateController_block_invoke(uint64_t a1, void *key, void **a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = *(*(a1 + 32) + 16);
   if (v5 && CFDictionaryGetValue(*(v5 + 24), key))
   {
     Value = FigCFDictionaryGetValue();
-    if (!Value || (v8 = Value, (v9 = FigCFDictionaryGetValue()) == 0) || (v10 = v9, v11 = FigCFDictionaryGetValue(), v12 = *MEMORY[0x277CBECE8], v13 = *(a1 + 48), (UInt32 = FigCFNumberCreateUInt32()) == 0))
+    if (!Value || (v8 = Value, (v9 = FigCFDictionaryGetValue()) == 0) || (v10 = v9, v11 = FigCFDictionaryGetValue(), v12 = *MEMORY[0x277CBECE8], (UInt32 = FigCFNumberCreateUInt32()) == 0))
     {
       APSLogErrorAt(0);
-      goto LABEL_19;
+      return 0;
     }
 
-    v15 = UInt32;
-    v16 = *a3;
+    v14 = UInt32;
+    v15 = *a3;
     if (*a3)
     {
       *keys = xmmword_2784A2808;
-      v27 = *off_2784A2818;
-      v28 = @"ProbingSequenceID";
+      v24 = *off_2784A2818;
+      v25 = @"ProbingSequenceID";
       values[0] = v8;
       values[1] = v10;
-      values[2] = v16;
+      values[2] = v15;
       values[3] = UInt32;
       values[4] = v11;
       if (v11)
       {
-        v17 = 5;
+        v16 = 5;
       }
 
       else
       {
-        v17 = 4;
+        v16 = 4;
       }
 
-      v18 = CFDictionaryCreate(v12, keys, values, v17, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      if (v18)
+      v17 = CFDictionaryCreate(v12, keys, values, v16, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      if (v17)
       {
-        v19 = v18;
-        v20 = APSRTPSeqNumDictionarySetValue(*(a1 + 40), key, v18);
-        if (v20)
+        v18 = v17;
+        v19 = APSRTPSeqNumDictionarySetValue(*(a1 + 40), key, v17);
+        if (v19)
         {
-          APSLogErrorAt(v20);
+          APSLogErrorAt(v19);
         }
 
-        CFRelease(v15);
-        v21 = v19;
+        CFRelease(v14);
+        v20 = v18;
         goto LABEL_14;
       }
 
       APSLogErrorAt(0);
     }
 
-    v21 = v15;
+    v20 = v14;
 LABEL_14:
-    CFRelease(v21);
-    goto LABEL_19;
+    CFRelease(v20);
+    return 0;
   }
 
   if (gLogCategory_APSRTCPCCFBProcessor <= 30 && (gLogCategory_APSRTCPCCFBProcessor != -1 || _LogCategory_Initialize()))
   {
-    v24 = *(a1 + 32);
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSRTCPCCFBProcessor, "OSStatus rtcpCCFBProcessor_updateRateController(APSRTCPCCFBProcessorRef, APSRTPSeqNumDictionaryRef, uint32_t)_block_invoke", 33554462, "[%{ptr}] Packet send time and size not available for seqNum:%d", *(a1 + 32), key);
   }
 
-LABEL_19:
-  v22 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -7688,7 +7581,7 @@ uint64_t APSRTCPCCFBProcessorGetMostRecentPacketSendTime(uint64_t a1, void *key,
   return result;
 }
 
-uint64_t APSRTCPCCFBProcessorSetRetransmitTime(uint64_t a1, void *key)
+uint64_t APSRTCPCCFBProcessorSetRetransmitTime(uint64_t a1, void *key, uint64_t a3)
 {
   if (!a1)
   {
@@ -7696,27 +7589,26 @@ uint64_t APSRTCPCCFBProcessorSetRetransmitTime(uint64_t a1, void *key)
     return 4294960591;
   }
 
-  v3 = *(a1 + 16);
-  if (!v3)
+  v4 = *(a1 + 16);
+  if (!v4)
   {
     return 4294960569;
   }
 
-  Value = CFDictionaryGetValue(*(v3 + 24), key);
+  Value = CFDictionaryGetValue(*(v4 + 24), key);
   if (!Value)
   {
     return 4294960569;
   }
 
-  v6 = Value;
+  v7 = Value;
   if (CFDictionaryContainsKey(Value, @"RetransmitTimestamp"))
   {
-    MutableCopy = CFRetain(v6);
+    MutableCopy = CFRetain(v7);
   }
 
   else
   {
-    v9 = *MEMORY[0x277CBECE8];
     MutableCopy = FigCFDictionaryCreateMutableCopy();
     if (!MutableCopy)
     {
@@ -7726,16 +7618,15 @@ uint64_t APSRTCPCCFBProcessorSetRetransmitTime(uint64_t a1, void *key)
   }
 
   FigCFDictionarySetUInt32();
-  v10 = *(a1 + 36);
   FigCFDictionarySetUInt32();
-  v11 = APSRTPSeqNumDictionarySetValue(*(a1 + 16), key, MutableCopy);
-  v8 = v11;
-  if (v11)
+  v10 = APSRTPSeqNumDictionarySetValue(*(a1 + 16), key, MutableCopy);
+  v9 = v10;
+  if (v10)
   {
-    APSLogErrorAt(v11);
+    APSLogErrorAt(v10);
     if (!MutableCopy)
     {
-      return v8;
+      return v9;
     }
 
     goto LABEL_10;
@@ -7747,36 +7638,33 @@ LABEL_10:
     CFRelease(MutableCopy);
   }
 
-  return v8;
+  return v9;
 }
 
-uint64_t APSRTCPCCFBProcessorAddPacketSizeAndSendTime(uint64_t a1, void *key, uint64_t a3, uint64_t a4, int a5)
+uint64_t APSRTCPCCFBProcessorAddPacketSizeAndSendTime(uint64_t a1, void *key, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     APSLogErrorAt(0);
-LABEL_28:
-    v18 = 4294960591;
-    goto LABEL_21;
+    return 4294960591;
   }
 
-  v8 = *(a1 + 16);
-  if (v8 && CFDictionaryGetValue(*(v8 + 24), key))
+  v9 = *(a1 + 16);
+  if (v9 && CFDictionaryGetValue(*(v9 + 24), key))
   {
     APSLogErrorAt(0);
     if (gLogCategory_APSRTCPCCFBProcessor <= 90 && (gLogCategory_APSRTCPCCFBProcessor != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSRTCPCCFBProcessor, "OSStatus APSRTCPCCFBProcessorAddPacketSizeAndSendTime(APSRTCPCCFBProcessorRef, uint16_t, uint32_t, uint32_t, Boolean, uint32_t)", 33554522, "[%{ptr}] Packet Info already present for seqNum:%d", a1, key);
     }
 
-    goto LABEL_28;
+    return 4294960591;
   }
 
-  v9 = *MEMORY[0x277CBECE8];
+  v10 = *MEMORY[0x277CBECE8];
   UInt32 = FigCFNumberCreateUInt32();
-  v11 = FigCFNumberCreateUInt32();
-  v12 = *(a1 + 36);
+  v12 = FigCFNumberCreateUInt32();
   v13 = FigCFNumberCreateUInt32();
   if (a5)
   {
@@ -7789,9 +7677,9 @@ LABEL_28:
   }
 
   *keys = xmmword_2784A27C8;
-  v23 = *off_2784A27D8;
+  v22 = *off_2784A27D8;
   values[0] = UInt32;
-  values[1] = v11;
+  values[1] = v12;
   values[2] = v13;
   values[3] = v14;
   if (v14)
@@ -7804,7 +7692,7 @@ LABEL_28:
     v15 = 3;
   }
 
-  v16 = CFDictionaryCreate(v9, keys, values, v15, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v16 = CFDictionaryCreate(v10, keys, values, v15, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (v16)
   {
     v17 = APSRTPSeqNumDictionarySetValue(*(a1 + 16), key, v16);
@@ -7826,9 +7714,9 @@ LABEL_28:
     CFRelease(UInt32);
   }
 
-  if (v11)
+  if (v12)
   {
-    CFRelease(v11);
+    CFRelease(v12);
   }
 
   if (v13)
@@ -7841,8 +7729,6 @@ LABEL_28:
     CFRelease(v16);
   }
 
-LABEL_21:
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -8071,25 +7957,25 @@ uint64_t APSRTCPCCFBProcessorSetRateControlFeedbackInformationCallback(uint64_t 
   }
 }
 
-uint64_t APSNetworkClockPTPCreate(uint64_t a1, void *a2)
+uint64_t APSNetworkClockPTPCreate(uint64_t a1, CFTypeRef *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v23 = 0u;
+  v26 = *MEMORY[0x277D85DE8];
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
+  v13 = 0u;
   *label = 0u;
-  v10 = 0u;
+  v11 = 0u;
   if (APSNetworkClockGetClassID_sRegisterOnce != -1)
   {
     dispatch_once_f(&APSNetworkClockGetClassID_sRegisterOnce, &APSNetworkClockGetClassID_sClassID, networkClock_registerBaseClass);
@@ -8098,10 +7984,10 @@ uint64_t APSNetworkClockPTPCreate(uint64_t a1, void *a2)
   Mutable = CMDerivedObjectCreate();
   if (Mutable)
   {
-    v6 = Mutable;
-LABEL_35:
+    v8 = Mutable;
+LABEL_40:
     APSLogErrorAt(Mutable);
-    goto LABEL_26;
+    return v8;
   }
 
   DerivedStorage = CMBaseObjectGetDerivedStorage();
@@ -8109,8 +7995,8 @@ LABEL_35:
   *(DerivedStorage + 16) = Mutable;
   if (!Mutable)
   {
-    v6 = 4294895326;
-    goto LABEL_35;
+    v8 = 4294895326;
+    goto LABEL_40;
   }
 
   v5 = *MEMORY[0x277CBECE8];
@@ -8118,52 +8004,51 @@ LABEL_35:
   *(DerivedStorage + 32) = Mutable;
   if (!Mutable)
   {
-    v6 = 4294895326;
-    goto LABEL_35;
+    v8 = 4294895326;
+    goto LABEL_40;
   }
 
   Mutable = CFDictionaryCreateMutable(v5, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   *(DerivedStorage + 40) = Mutable;
   if (!Mutable)
   {
-    v6 = 4294895326;
-    goto LABEL_35;
+    v8 = 4294895326;
+    goto LABEL_40;
   }
 
   Mutable = CFDictionaryCreateMutable(v5, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   *(DerivedStorage + 48) = Mutable;
   if (!Mutable)
   {
-    v6 = 4294895326;
-    goto LABEL_35;
+    v8 = 4294895326;
+    goto LABEL_40;
   }
 
   Mutable = CFDictionaryCreateMutable(v5, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   *(DerivedStorage + 56) = Mutable;
   if (!Mutable)
   {
-    v6 = 4294895326;
-    goto LABEL_35;
+    v8 = 4294895326;
+    goto LABEL_40;
   }
 
-  if (SNPrintF() <= 0)
+  if (SNPrintF(label, 256, "APSNetworkClockPTP-%{ptr}", 0) <= 0)
   {
     APSLogErrorAt(0);
-    v6 = 4294895322;
-    goto LABEL_26;
+    return 4294895322;
   }
 
   Mutable = dispatch_queue_create(label, 0);
   *DerivedStorage = Mutable;
   if (!Mutable)
   {
-    v6 = 4294895326;
-    goto LABEL_35;
+    v8 = 4294895326;
+    goto LABEL_40;
   }
 
   if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus APSNetworkClockPTPCreate(CFAllocatorRef, APSNetworkClockRef *)", 33554482, "[%{ptr}] <AirPlayClock> Created APSNetworkClock PTP\n", 0);
   }
 
   *(DerivedStorage + 8) = APSSettingsGetInt64(@"ptpForceFullMesh", 0) != 0;
@@ -8176,26 +8061,42 @@ LABEL_35:
   *(DerivedStorage + 64) = APSIsPortMatchingOverrideEnabled_sPortMatchingOverrideEnabled ^ 1;
   if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
   {
-    if (!*(DerivedStorage + 9))
+    if (*(DerivedStorage + 9))
     {
-      *(DerivedStorage + 8);
+      v6 = "disabled";
     }
 
-    *(DerivedStorage + 64);
-    LogPrintF();
+    else if (*(DerivedStorage + 8))
+    {
+      v6 = "fully-connected mesh";
+    }
+
+    else
+    {
+      v6 = "optimized";
+    }
+
+    if (*(DerivedStorage + 64))
+    {
+      v7 = "|NoPortMatchingOverride";
+    }
+
+    else
+    {
+      v7 = "";
+    }
+
+    LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus APSNetworkClockPTPCreate(CFAllocatorRef, APSNetworkClockRef *)", 33554482, "[%{ptr}] Using %s (NoExtraHub%s) clock topology", 0, v6, v7);
   }
 
-  v6 = 0;
+  v8 = 0;
   *a2 = 0;
-LABEL_26:
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v8;
 }
 
 uint64_t ptpClock_StopForClient(uint64_t a1, const void *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 16);
   FigSimpleMutexLock();
   if (!a2)
   {
@@ -8214,7 +8115,7 @@ uint64_t ptpClock_StopForClient(uint64_t a1, const void *a2)
   }
 
   v7 = Value;
-  v8 = CFDictionaryGetValue(*(DerivedStorage + 40), Value);
+  v8 = CFDictionaryGetValue(DerivedStorage[5], Value);
   if (v8)
   {
     v9 = CFRetain(v8);
@@ -8226,18 +8127,18 @@ uint64_t ptpClock_StopForClient(uint64_t a1, const void *a2)
   }
 
   FigCFDictionaryApplyBlock();
-  CFDictionaryRemoveValue(*(DerivedStorage + 40), v7);
-  CFDictionaryRemoveValue(*(DerivedStorage + 56), v7);
-  Count = CFDictionaryGetCount(*(DerivedStorage + 32));
-  CFDictionaryRemoveValue(*(DerivedStorage + 32), a2);
-  v11 = CFDictionaryGetCount(*(DerivedStorage + 32));
+  CFDictionaryRemoveValue(DerivedStorage[5], v7);
+  CFDictionaryRemoveValue(DerivedStorage[7], v7);
+  Count = CFDictionaryGetCount(DerivedStorage[4]);
+  CFDictionaryRemoveValue(DerivedStorage[4], a2);
+  v11 = CFDictionaryGetCount(DerivedStorage[4]);
   v12 = 0;
   if (Count >= 1 && v11 <= 0)
   {
     v13 = CMBaseObjectGetDerivedStorage();
     if (!*(v13 + 88) && gLogCategory_APSNetworkClockPTP <= 60 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_stop(APSNetworkClockRef)", 33554492, "[%{ptr}] <AirPlayClock> Stopping clock that is not started\n", a1);
     }
 
     if (!*(v13 + 72))
@@ -8253,22 +8154,21 @@ uint64_t ptpClock_StopForClient(uint64_t a1, const void *a2)
     }
 
     CMNotificationCenterGetDefaultLocalCenter();
-    v14 = *MEMORY[0x277CC00E8];
     [*(v13 + 72) cm8021ASClock];
     FigNotificationCenterRemoveWeakListener();
 
     *(v13 + 72) = 0;
-    v15 = *(v13 + 80);
-    if (v15)
+    v14 = *(v13 + 80);
+    if (v14)
     {
-      CFRelease(v15);
+      CFRelease(v14);
       *(v13 + 80) = 0;
     }
 
     *(v13 + 88) = 0;
     if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_stop(APSNetworkClockRef)", 33554482, "[%{ptr}] <AirPlayClock> APSNetworkClock PTP stopped\n", a1);
     }
 
     v12 = 0;
@@ -8283,12 +8183,11 @@ LABEL_22:
 LABEL_23:
   CFRelease(v7);
 LABEL_24:
-  v16 = *(DerivedStorage + 16);
   FigSimpleMutexUnlock();
   return v12;
 }
 
-uint64_t ptpClock_LockStateChanged(int a1, int a2, CFTypeRef cf1)
+uint64_t ptpClock_LockStateChanged(int a1, uint64_t a2, CFTypeRef cf1)
 {
   result = CFEqual(cf1, *MEMORY[0x277CC00E8]);
   if (result)
@@ -8307,8 +8206,8 @@ uint64_t ptpClock_removePeerInternal(uint64_t a1, const void *a2, const void *a3
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!a2)
   {
-    v16 = 0;
-    v14 = 0;
+    v15 = 0;
+    v13 = 0;
 LABEL_38:
     v6 = 4294895325;
     goto LABEL_11;
@@ -8316,8 +8215,8 @@ LABEL_38:
 
   if (!a3)
   {
-    v16 = 0;
-    v14 = 0;
+    v15 = 0;
+    v13 = 0;
     goto LABEL_38;
   }
 
@@ -8327,82 +8226,81 @@ LABEL_38:
   if (Value)
   {
     v11 = Value;
-    v12 = *MEMORY[0x277CBECE8];
     CFDictionaryGetValue(*(v8 + 40), Value);
     MutableCopy = FigCFDictionaryCreateMutableCopy();
-    v14 = MutableCopy;
+    v13 = MutableCopy;
     if (MutableCopy)
     {
-      v15 = CFDictionaryGetValue(MutableCopy, a3);
-      if (v15)
+      v14 = CFDictionaryGetValue(MutableCopy, a3);
+      if (v14)
       {
-        v16 = CFRetain(v15);
-        if (v16)
+        v15 = CFRetain(v14);
+        if (v15)
         {
-          CFDictionaryRemoveValue(v14, a3);
+          CFDictionaryRemoveValue(v13, a3);
           if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_removePeerInternal(APSNetworkClockRef, void *, CFStringRef)", 33554482, "[%{ptr}] Removing peer %'@", a1, a3);
           }
 
-          ptpClock_closeClockPortsForPeer(a1, v16);
-          v17 = CFDictionaryGetValue(*(v8 + 48), v11);
-          PeerInArray = ptpClock_findPeerInArray(v16, v17);
+          ptpClock_closeClockPortsForPeer(a1, v15);
+          v16 = CFDictionaryGetValue(*(v8 + 48), v11);
+          PeerInArray = ptpClock_findPeerInArray(v15, v16);
           if (PeerInArray == -1)
           {
-            v20 = 0;
+            v19 = 0;
 LABEL_23:
-            v26 = 0;
-            v27 = &v26;
-            v28 = 0x2020000000;
-            v29 = 0;
-            v22 = *(CMBaseObjectGetDerivedStorage() + 40);
-            v23 = FigCFDictionaryCopyArrayOfKeys();
-            if (v23)
+            v24 = 0;
+            v25 = &v24;
+            v26 = 0x2020000000;
+            v27 = 0;
+            CMBaseObjectGetDerivedStorage();
+            v21 = FigCFDictionaryCopyArrayOfKeys();
+            if (v21)
             {
               FigCFArrayApplyBlock();
-              v24 = *(v27 + 6);
-              if (v24)
+              v22 = *(v25 + 6);
+              if (v22)
               {
-                APSLogErrorAt(v24);
+                APSLogErrorAt(v22);
               }
 
-              CFRelease(v23);
+              CFRelease(v21);
             }
 
             else
             {
               APSLogErrorAt(0);
-              *(v27 + 6) = -71970;
+              *(v25 + 6) = -71970;
             }
 
-            _Block_object_dispose(&v26, 8);
-            CFDictionarySetValue(*(v8 + 40), v11, v14);
-            CFRelease(v16);
-            if (v20)
+            _Block_object_dispose(&v24, 8);
+            CFDictionarySetValue(*(v8 + 40), v11, v13);
+            CFRelease(v15);
+            if (v19)
             {
-              CFRelease(v20);
+              CFRelease(v19);
             }
 
             v6 = 0;
 LABEL_34:
-            CFRelease(v14);
+            CFRelease(v13);
             return v6;
           }
 
-          v19 = PeerInArray;
+          v18 = PeerInArray;
           if (gLogCategory_APSNetworkClockPTP <= 30 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_removePeerInternal(APSNetworkClockRef, void *, CFStringRef)", 33554462, "[%{ptr}] Removing peer %'@ from legacyPeers array\n", a1, a3);
           }
 
           CFDictionaryGetValue(*(v8 + 48), v11);
-          v21 = FigCFArrayCreateMutableCopy();
-          if (v21)
+          v20 = FigCFArrayCreateMutableCopy();
+          if (v20)
           {
-            v20 = v21;
-            CFArrayRemoveValueAtIndex(v21, v19);
-            CFDictionarySetValue(*(v8 + 48), v11, v20);
+            v19 = v20;
+            CFArrayRemoveValueAtIndex(v20, v18);
+            CFDictionarySetValue(*(v8 + 48), v11, v19);
             goto LABEL_23;
           }
 
@@ -8417,21 +8315,21 @@ LABEL_34:
 
       else
       {
-        v16 = 0;
+        v15 = 0;
       }
     }
 
     else
     {
-      v16 = 0;
+      v15 = 0;
       v6 = 4294895326;
     }
   }
 
   else
   {
-    v16 = 0;
-    v14 = 0;
+    v15 = 0;
+    v13 = 0;
     v6 = 4294895323;
   }
 
@@ -8439,15 +8337,15 @@ LABEL_11:
   APSLogErrorAt(0);
   if (gLogCategory_APSNetworkClockPTP <= 90 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_removePeerInternal(APSNetworkClockRef, void *, CFStringRef)", 33554522, "[%{ptr}] Failed to remove peer %'@, err %#m\n", a1, a3, v6);
   }
 
-  if (v16)
+  if (v15)
   {
-    CFRelease(v16);
+    CFRelease(v15);
   }
 
-  if (v14)
+  if (v13)
   {
     goto LABEL_34;
   }
@@ -8455,9 +8353,9 @@ LABEL_11:
   return v6;
 }
 
-void sub_2222D247C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2222D247C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8496,10 +8394,14 @@ LABEL_16:
     v12 = ValueAtIndex[5];
     v14 = *(ValueAtIndex + 3);
     v13 = *(ValueAtIndex + 4);
-    if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_APSNetworkClockPTP <= 50)
     {
-      CFDictionaryGetValue(v5, @"ID");
-      LogPrintF();
+      v15 = ValueAtIndex;
+      if (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize())
+      {
+        v16 = CFDictionaryGetValue(v5, @"ID");
+        LogPrintF(&gLogCategory_APSNetworkClockPTP, "void ptpClock_closeClockPortsForPeer(APSNetworkClockRef, CFDictionaryRef)", 33554482, "[%{ptr}] Removing port with address: %@ for peer: %'@", a1, v15, v16);
+      }
     }
 
     if (v11 == 30)
@@ -8656,10 +8558,9 @@ LABEL_22:
 
 uint64_t ptpClock_getLocalPeerClockPortsForClient(uint64_t a1, const void *a2)
 {
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
-  if (a2 && (v4 = DerivedStorage, v5 = CMBaseObjectGetDerivedStorage(), CFDictionaryGetValue(*(v5 + 32), a2)))
+  CMBaseObjectGetDerivedStorage();
+  if (a2 && (DerivedStorage = CMBaseObjectGetDerivedStorage(), CFDictionaryGetValue(*(DerivedStorage + 32), a2)))
   {
-    v6 = *(v4 + 56);
 
     return FigCFDictionaryGetValue();
   }
@@ -8708,8 +8609,8 @@ uint64_t ptpClock_copyRelevantPortAddressesFromPeer(uint64_t a1, const __CFDicti
     {
       if (*(DerivedStorage + 64) && gLogCategory_APSNetworkClockPTP <= 60 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
       {
-        CFDictionaryGetValue(a2, @"ID");
-        LogPrintF();
+        v10 = CFDictionaryGetValue(a2, @"ID");
+        LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_copyRelevantPortAddressesFromPeer(APSNetworkClockRef, CFDictionaryRef, CFArrayRef *)", 33554492, "[%{ptr}] No preferred address for peer %'@", a1, v10);
       }
 
       if (!ptpClock_isPeerHTBuddy(a1, a2) || (Value = CFDictionaryGetValue(a2, @"HTAddress")) == 0)
@@ -8717,7 +8618,7 @@ uint64_t ptpClock_copyRelevantPortAddressesFromPeer(uint64_t a1, const __CFDicti
         Value = FigCFArrayGetFirstValue();
         if (!Value)
         {
-          v10 = 4294895325;
+          v11 = 4294895325;
           APSLogErrorAt(0);
           goto LABEL_18;
         }
@@ -8732,16 +8633,16 @@ uint64_t ptpClock_copyRelevantPortAddressesFromPeer(uint64_t a1, const __CFDicti
     FigCFArrayAppendArray();
   }
 
-  v10 = 0;
+  v11 = 0;
   if (!a3)
   {
 LABEL_18:
     CFRelease(v8);
-    return v10;
+    return v11;
   }
 
   *a3 = v8;
-  return v10;
+  return v11;
 }
 
 const __CFDictionary *ptpClock_isPeerHTBuddy(uint64_t a1, const __CFDictionary *a2)
@@ -8777,7 +8678,6 @@ uint64_t ptpClock_StartForClient(uint64_t a1, const void *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   Int64 = CFNumberCreateInt64();
-  v5 = *(DerivedStorage + 16);
   FigSimpleMutexLock();
   if (a2)
   {
@@ -8785,7 +8685,7 @@ uint64_t ptpClock_StartForClient(uint64_t a1, const void *a2)
     {
 LABEL_32:
       CFDictionaryAddValue(*(DerivedStorage + 32), a2, Int64);
-      v14 = 0;
+      v13 = 0;
       goto LABEL_33;
     }
 
@@ -8808,7 +8708,7 @@ LABEL_32:
 
     if (*(v6 + 88) && gLogCategory_APSNetworkClockPTP <= 60 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_start(APSNetworkClockRef)", 33554492, "[%{ptr}] <AirPlayClock> Starting clock that is already started\n", a1);
     }
 
     if (*(v6 + 72) || (v9 = objc_opt_new(), (*(v6 + 72) = v9) != 0))
@@ -8830,59 +8730,58 @@ LABEL_32:
           v7 = 2000;
         }
 
-        memset(&v18, 0, sizeof(v18));
-        CMTimeMake(&v18, v7, 1000);
+        memset(&v16, 0, sizeof(v16));
+        CMTimeMake(&v16, v7, 1000);
         atomic_store(1u, gAPSNetworkClockPTPIsAllPortSyncIntervalSet);
         v11 = *(v6 + 72);
-        v17 = v18;
-        [v11 setAllPortRemoteSyncMessageIntervals:&v17];
+        v15 = v16;
+        [v11 setAllPortRemoteSyncMessageIntervals:&v15];
         if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_start(APSNetworkClockRef)", 33554482, "[%{ptr}] Setting PTP clock to update every %i ms\n", a1, v7);
         }
       }
 
       CMNotificationCenterGetDefaultLocalCenter();
-      v12 = *MEMORY[0x277CC00E8];
       [*(v6 + 72) cm8021ASClock];
-      v13 = FigNotificationCenterAddWeakListener();
-      if (v13)
+      v12 = FigNotificationCenterAddWeakListener();
+      if (v12)
       {
-        v14 = v13;
+        v13 = v12;
       }
 
       else
       {
-        if (*(v6 + 80) || (v13 = [*(v6 + 72) createClockForSystemDomainClockIdentifier:v6 + 80], !v13))
+        if (*(v6 + 80) || (v12 = [*(v6 + 72) createClockForSystemDomainClockIdentifier:v6 + 80], !v12))
         {
           *(v6 + 88) = 1;
           if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_start(APSNetworkClockRef)", 33554482, "[%{ptr}] <AirPlayClock> APSNetworkClock PTP started\n", a1);
           }
 
           goto LABEL_32;
         }
 
-        v14 = v13;
+        v13 = v12;
       }
 
-      APSLogErrorAt(v13);
+      APSLogErrorAt(v12);
     }
 
     else
     {
       APSLogErrorAt(0);
-      v14 = 4294960568;
+      v13 = 4294960568;
     }
 
-    APSLogErrorAt(v14);
+    APSLogErrorAt(v13);
   }
 
   else
   {
     APSLogErrorAt(0);
-    v14 = 4294895325;
+    v13 = 4294895325;
   }
 
 LABEL_33:
@@ -8891,28 +8790,22 @@ LABEL_33:
     CFRelease(Int64);
   }
 
-  v15 = *(DerivedStorage + 16);
   FigSimpleMutexUnlock();
-  return v14;
+  return v13;
 }
 
 uint64_t ptpClock_SetOrUpdateLocalPeerInfo(uint64_t a1, const __CFDictionary *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 16);
   FigSimpleMutexLock();
   if (a2)
   {
     if (*(DerivedStorage + 24))
     {
       FigCFDictionarySetValueFromKeyInDict();
-      v5 = *(DerivedStorage + 24);
       FigCFDictionarySetValueFromKeyInDict();
-      v6 = *(DerivedStorage + 24);
       FigCFDictionarySetValueFromKeyInDict();
-      v7 = *(DerivedStorage + 24);
       FigCFDictionarySetValueFromKeyInDict();
-      v8 = *(DerivedStorage + 24);
       FigCFDictionarySetValueFromKeyInDict();
       if (!CFDictionaryContainsKey(a2, @"HTGroupUUID"))
       {
@@ -8928,21 +8821,20 @@ uint64_t ptpClock_SetOrUpdateLocalPeerInfo(uint64_t a1, const __CFDictionary *a2
 
       if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
       {
-        v12 = *(DerivedStorage + 24);
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_SetOrUpdateLocalPeerInfo(APSNetworkClockRef, CFDictionaryRef)", 33554482, "[%{ptr}] Updated local peer info to %@", a1, *(DerivedStorage + 24));
       }
 
-      v9 = 0;
+      v5 = 0;
     }
 
     else
     {
       if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_SetOrUpdateLocalPeerInfo(APSNetworkClockRef, CFDictionaryRef)", 33554482, "[%{ptr}] Setting local peer info to %@\n", a1, a2);
       }
 
-      v9 = 0;
+      v5 = 0;
       *(DerivedStorage + 24) = CFDictionaryCreateMutableCopy(*MEMORY[0x277CBECE8], 0, a2);
     }
   }
@@ -8950,69 +8842,66 @@ uint64_t ptpClock_SetOrUpdateLocalPeerInfo(uint64_t a1, const __CFDictionary *a2
   else
   {
     APSLogErrorAt(0);
-    v9 = 4294895325;
+    v5 = 4294895325;
   }
 
-  v10 = *(DerivedStorage + 16);
   FigSimpleMutexUnlock();
-  return v9;
+  return v5;
 }
 
 uint64_t ptpClock_CopyInitialSerializablePeerList(uint64_t a1, int a2, CFTypeRef *a3, CFTypeRef *a4)
 {
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v20 = 0;
+  CMBaseObjectGetDerivedStorage();
+  v16 = 0;
   cf = 0;
-  v9 = *(DerivedStorage + 16);
   FigSimpleMutexLock();
-  v10 = CMBaseObjectGetDerivedStorage();
-  v22 = 0;
-  if (!*(v10 + 24))
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  v18 = 0;
+  if (!*(DerivedStorage + 24))
   {
     APSLogErrorAt(0);
-    v13 = 4294895323;
+    v11 = 4294895323;
 LABEL_26:
-    if (v22)
+    if (v18)
     {
-      CFRelease(v22);
+      CFRelease(v18);
     }
 
-    APSLogErrorAt(v13);
-    v19 = *(DerivedStorage + 16);
+    APSLogErrorAt(v11);
     FigSimpleMutexUnlock();
     Copy = 0;
     goto LABEL_13;
   }
 
-  v11 = v10;
+  v9 = DerivedStorage;
   if (a2)
   {
-    v12 = ptpClock_copyPeerListForHTBuddyPeer(a1, 0, &v22);
-    if (v12)
+    v10 = ptpClock_copyPeerListForHTBuddyPeer(a1, 0, &v18);
+    if (v10)
     {
-      v13 = v12;
+      v11 = v10;
 LABEL_25:
-      APSLogErrorAt(v12);
+      APSLogErrorAt(v10);
       goto LABEL_26;
     }
   }
 
   else
   {
-    v12 = ptpClock_copyPeerListForRegularPeer(a1, 0, 0, &v22);
-    if (v12)
+    v10 = ptpClock_copyPeerListForRegularPeer(a1, 0, 0, &v18);
+    if (v10)
     {
-      v13 = v12;
+      v11 = v10;
       goto LABEL_25;
     }
   }
 
-  Copy = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], *(v11 + 24));
-  v15 = v22;
-  SerializableRepresentationOfPeerList = APSNetworkClockCreateSerializableRepresentationOfPeerList(v22, 1, &cf);
+  Copy = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], *(v9 + 24));
+  v13 = v18;
+  SerializableRepresentationOfPeerList = APSNetworkClockCreateSerializableRepresentationOfPeerList(v18, 1, &cf);
   if (SerializableRepresentationOfPeerList)
   {
-    v13 = SerializableRepresentationOfPeerList;
+    v11 = SerializableRepresentationOfPeerList;
   }
 
   else
@@ -9020,30 +8909,29 @@ LABEL_25:
     if (!a4)
     {
 LABEL_10:
-      v13 = 0;
+      v11 = 0;
       *a3 = cf;
       cf = 0;
       goto LABEL_11;
     }
 
-    SerializableRepresentationOfPeerList = APSNetworkClockCopyPeerAsSerializablePeerDictionary(Copy, &v20);
+    SerializableRepresentationOfPeerList = APSNetworkClockCopyPeerAsSerializablePeerDictionary(Copy, &v16);
     if (!SerializableRepresentationOfPeerList)
     {
-      *a4 = v20;
-      v20 = 0;
+      *a4 = v16;
+      v16 = 0;
       goto LABEL_10;
     }
 
-    v13 = SerializableRepresentationOfPeerList;
+    v11 = SerializableRepresentationOfPeerList;
   }
 
   APSLogErrorAt(SerializableRepresentationOfPeerList);
 LABEL_11:
-  v17 = *(DerivedStorage + 16);
   FigSimpleMutexUnlock();
-  if (v15)
+  if (v13)
   {
-    CFRelease(v15);
+    CFRelease(v13);
   }
 
 LABEL_13:
@@ -9057,12 +8945,12 @@ LABEL_13:
     CFRelease(Copy);
   }
 
-  if (v20)
+  if (v16)
   {
-    CFRelease(v20);
+    CFRelease(v16);
   }
 
-  return v13;
+  return v11;
 }
 
 uint64_t ptpClock_copyPeerListForHTBuddyPeer(uint64_t a1, const void *a2, __CFArray **a3)
@@ -9119,69 +9007,48 @@ uint64_t ptpClock_copyPeerListForRegularPeer(uint64_t a1, const void *a2, const 
   Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
   if (!Mutable)
   {
-    v20 = 4294895326;
+    v19 = 4294895326;
     APSLogErrorAt(0);
-    return v20;
+    return v19;
   }
 
   v12 = Mutable;
   LocalPeerInfoForClient = ptpClock_getLocalPeerInfoForClient(a1, a2);
   if (!LocalPeerInfoForClient)
   {
-    goto LABEL_34;
+    goto LABEL_36;
   }
 
   CFArrayAppendValue(v12, LocalPeerInfoForClient);
-  if ((!a3 || CFDictionaryGetInt64()) && !*(v9 + 8))
+  if (a3 && !CFDictionaryGetInt64())
   {
-    if (!CFDictionaryGetCount(*(v9 + 48)))
+    v14 = "yes";
+LABEL_14:
+    if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
     {
-      Count = 0;
-      v15 = 0;
-      v18 = 30;
-LABEL_18:
-      if (v18 >= gLogCategory_APSNetworkClockPTP && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
-      {
-        LogPrintF();
-      }
-
-      if (Count)
-      {
-        v25.location = 0;
-        v25.length = Count;
-        CFArrayAppendArray(v12, v15, v25);
-      }
-
-      if (a3)
-      {
-        Value = CFDictionaryGetValue(a3, @"TightSyncUUID");
-        v22 = CFDictionaryGetValue(a3, @"HTGroupUUID");
-        if (Value)
-        {
-          if (!v22)
-          {
-            v23 = *(v9 + 40);
-            FigCFDictionaryApplyBlock();
-          }
-        }
-      }
-
-      *a4 = v12;
-      if (v15)
-      {
-        CFRelease(v15);
-      }
-
-      return 0;
+      LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_copyPeerListForRegularPeer(APSNetworkClockRef, void *, CFDictionaryRef, CFArrayRef *)", 33554482, "[%{ptr}] Adding all peers to peer list (legacy: %s)\n", a1, v14);
     }
 
-    v14 = CFArrayCreateMutable(v10, 0, MEMORY[0x277CBF128]);
-    if (v14)
+    FigCFDictionaryApplyBlock();
+    v19 = 0;
+    *a4 = v12;
+    return v19;
+  }
+
+  if (*(v9 + 8))
+  {
+    v14 = "no";
+    goto LABEL_14;
+  }
+
+  if (CFDictionaryGetCount(*(v9 + 48)))
+  {
+    v15 = CFArrayCreateMutable(v10, 0, MEMORY[0x277CBF128]);
+    if (v15)
     {
-      v15 = v14;
-      v16 = *(v9 + 48);
+      v16 = v15;
       CFDictionaryApplyBlock();
-      Count = CFArrayGetCount(v15);
+      Count = CFArrayGetCount(v16);
       if (Count <= 0)
       {
         v18 = 30;
@@ -9192,40 +9059,66 @@ LABEL_18:
         v18 = 50;
       }
 
-      goto LABEL_18;
+      goto LABEL_20;
     }
 
-LABEL_34:
-    v20 = 4294895326;
+LABEL_36:
+    v19 = 4294895326;
     APSLogErrorAt(0);
     CFRelease(v12);
-    return v20;
+    return v19;
   }
 
-  if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
+  Count = 0;
+  v16 = 0;
+  v18 = 30;
+LABEL_20:
+  if (v18 >= gLogCategory_APSNetworkClockPTP && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_copyPeerListForRegularPeer(APSNetworkClockRef, void *, CFDictionaryRef, CFArrayRef *)", v18 | 0x2000000u, "[%{ptr}] Number of legacy peers added to peer list: %d\n", a1, Count);
   }
 
-  v19 = *(v9 + 40);
-  FigCFDictionaryApplyBlock();
-  v20 = 0;
+  if (Count)
+  {
+    v23.location = 0;
+    v23.length = Count;
+    CFArrayAppendArray(v12, v16, v23);
+  }
+
+  if (a3)
+  {
+    Value = CFDictionaryGetValue(a3, @"TightSyncUUID");
+    v21 = CFDictionaryGetValue(a3, @"HTGroupUUID");
+    if (Value)
+    {
+      if (!v21)
+      {
+        FigCFDictionaryApplyBlock();
+      }
+    }
+  }
+
   *a4 = v12;
-  return v20;
+  if (v16)
+  {
+    CFRelease(v16);
+  }
+
+  return 0;
 }
 
 CFTypeRef ptpClock_getLocalPeerInfoForClient(uint64_t a1, const void *a2)
 {
-  if (*(CMBaseObjectGetDerivedStorage() + 24) && (v4 = *MEMORY[0x277CBECE8], (MutableCopy = FigCFDictionaryCreateMutableCopy()) != 0))
+  if (*(CMBaseObjectGetDerivedStorage() + 24) && (MutableCopy = FigCFDictionaryCreateMutableCopy()) != 0)
   {
-    v6 = MutableCopy;
+    v5 = MutableCopy;
     if (a2)
     {
       ptpClock_getLocalPeerClockPortsForClient(a1, a2);
       FigCFDictionarySetValue();
     }
 
-    return CFAutorelease(v6);
+    return CFAutorelease(v5);
   }
 
   else
@@ -9235,23 +9128,15 @@ CFTypeRef ptpClock_getLocalPeerInfoForClient(uint64_t a1, const void *a2)
   }
 }
 
-uint64_t __ptpClock_copyPeerListForRegularPeer_block_invoke_5(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 48);
-  return FigCFDictionaryApplyBlock();
-}
-
 void __ptpClock_copyPeerListForRegularPeer_block_invoke_6(uint64_t a1, uint64_t a2, const void *a3)
 {
   CFStringGetTypeID();
   CFDictionaryGetTypedValue();
-  v5 = *(a1 + 32);
   if (FigCFEqual() && !APSNetworkClockPeerDictionaryIDEqual(*(a1 + 40), a3))
   {
-    v6 = *(a1 + 48);
+    v5 = *(a1 + 48);
 
-    CFArrayAppendValue(v6, a3);
+    CFArrayAppendValue(v5, a3);
   }
 }
 
@@ -9268,28 +9153,25 @@ void __ptpClock_copyPeerListForRegularPeer_block_invoke_2(uint64_t a1, uint64_t 
 uint64_t ptpClock_CopySerializablePeerListForPeer(uint64_t a1, const void *a2, uint64_t a3, int a4, CFTypeRef *a5)
 {
   v10 = 4294895325;
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  CMBaseObjectGetDerivedStorage();
   cf = 0;
-  v23 = 0;
-  v12 = *(DerivedStorage + 16);
+  v18 = 0;
   FigSimpleMutexLock();
   if (!a2 || !a3)
   {
     goto LABEL_17;
   }
 
-  v13 = CMBaseObjectGetDerivedStorage();
-  if (!CFDictionaryGetValue(*(v13 + 32), a2))
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  if (!CFDictionaryGetValue(*(DerivedStorage + 32), a2))
   {
     v10 = 4294895323;
 LABEL_17:
     APSLogErrorAt(0);
-    v21 = *(DerivedStorage + 16);
     FigSimpleMutexUnlock();
     goto LABEL_10;
   }
 
-  v14 = *(DerivedStorage + 40);
   FigCFDictionaryGetValue();
   Value = FigCFDictionaryGetValue();
   if (!Value)
@@ -9298,18 +9180,18 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v16 = ptpClock_copyPeerListForPeerInternal(a1, a2, Value, &v23);
-  if (v16)
+  v13 = ptpClock_copyPeerListForPeerInternal(a1, a2, Value, &v18);
+  if (v13)
   {
-    v10 = v16;
-    APSLogErrorAt(v16);
-    v17 = v23;
+    v10 = v13;
+    APSLogErrorAt(v13);
+    v14 = v18;
   }
 
   else
   {
-    v17 = v23;
-    SerializableRepresentationOfPeerList = APSNetworkClockCreateSerializableRepresentationOfPeerList(v23, a4, &cf);
+    v14 = v18;
+    SerializableRepresentationOfPeerList = APSNetworkClockCreateSerializableRepresentationOfPeerList(v18, a4, &cf);
     v10 = SerializableRepresentationOfPeerList;
     if (SerializableRepresentationOfPeerList)
     {
@@ -9323,11 +9205,10 @@ LABEL_17:
     }
   }
 
-  v19 = *(DerivedStorage + 16);
   FigSimpleMutexUnlock();
-  if (v17)
+  if (v14)
   {
-    CFRelease(v17);
+    CFRelease(v14);
   }
 
 LABEL_10:
@@ -9408,120 +9289,120 @@ LABEL_9:
 uint64_t ptpClock_SetPeers(uint64_t a1, const void *a2, const __CFArray *a3, CFTypeRef *a4, char *a5)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v32 = 0;
+  v31 = 0;
   cf = 0;
-  v11 = *(DerivedStorage + 16);
   FigSimpleMutexLock();
   if (!a2 || !a3)
   {
     APSLogErrorAt(0);
+    v17 = 0;
     v16 = 0;
-    v15 = 0;
     v27 = -71971;
-LABEL_46:
-    v32 = v27;
-    goto LABEL_32;
+LABEL_48:
+    v31 = v27;
+    goto LABEL_34;
   }
 
   if (*(DerivedStorage + 9))
   {
+    v17 = 0;
     v16 = 0;
-    v15 = 0;
-    goto LABEL_32;
+    goto LABEL_34;
   }
 
   if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
   {
-    CFArrayGetCount(a3);
-    if (gLogCategory_APSNetworkClockPTP == -1)
+    Count = CFArrayGetCount(a3);
+    if (gLogCategory_APSNetworkClockPTP > 30)
     {
-      _LogCategory_Initialize();
+      v12 = 1;
     }
 
-    LogPrintF();
+    else
+    {
+      v12 = gLogCategory_APSNetworkClockPTP == -1 && _LogCategory_Initialize() == 0;
+    }
+
+    LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_SetPeers(APSNetworkClockRef, void *, CFArrayRef, CFDictionaryRef *, Boolean *)", 33554482, "[%{ptr}] Set peers with %d peers%?{end} %@", a1, Count, v12, a3);
   }
 
-  v12 = CMBaseObjectGetDerivedStorage();
-  Value = CFDictionaryGetValue(*(v12 + 32), a2);
+  v13 = CMBaseObjectGetDerivedStorage();
+  Value = CFDictionaryGetValue(*(v13 + 32), a2);
   if (!Value)
   {
     APSLogErrorAt(0);
+    v17 = 0;
     v16 = 0;
-    v15 = 0;
     v27 = -71973;
-    goto LABEL_46;
+    goto LABEL_48;
   }
 
   v28 = a4;
-  v29 = DerivedStorage;
-  v14 = a5;
+  v15 = a5;
   CFDictionaryGetValue(*(DerivedStorage + 40), Value);
-  v15 = FigCFDictionaryCopyArrayOfValues();
-  v16 = 0;
-  for (i = 0; i < CFArrayGetCount(v15); ++i)
+  v16 = FigCFDictionaryCopyArrayOfValues();
+  v17 = 0;
+  for (i = 0; i < CFArrayGetCount(v16); ++i)
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(v15, i);
+    ValueAtIndex = CFArrayGetValueAtIndex(v16, i);
     CFStringGetTypeID();
     TypedValue = CFDictionaryGetTypedValue();
     if (ptpClock_findPeerInArray(ValueAtIndex, a3) == -1)
     {
-      v20 = ptpClock_removePeerInternal(a1, a2, TypedValue);
-      v32 = v20;
-      if (v20)
+      v21 = ptpClock_removePeerInternal(a1, a2, TypedValue);
+      v31 = v21;
+      if (v21)
       {
-        APSLogErrorAt(v20);
-        a5 = v14;
+        APSLogErrorAt(v21);
+        a5 = v15;
         a4 = v28;
-        DerivedStorage = v29;
-        goto LABEL_32;
+        goto LABEL_34;
       }
 
-      v16 = 1;
+      v17 = 1;
     }
   }
 
-  v21 = 0;
-  a5 = v14;
+  v22 = 0;
+  a5 = v15;
   a4 = v28;
-  while (v21 < CFArrayGetCount(a3))
+  while (v22 < CFArrayGetCount(a3))
   {
-    v22 = CFArrayGetValueAtIndex(a3, v21);
-    v30 = 0;
-    updated = ptpClock_addOrUpdatePeerInternal(a1, a2, v22, 0, &v30);
-    v32 = updated;
+    v23 = CFArrayGetValueAtIndex(a3, v22);
+    v29 = 0;
+    updated = ptpClock_addOrUpdatePeerInternal(a1, a2, v23, 0, &v29);
+    v31 = updated;
     if (updated)
     {
-      goto LABEL_41;
+      goto LABEL_43;
     }
 
-    if (v30)
+    if (v29)
     {
-      v16 = 1;
+      v17 = 1;
     }
 
-    ++v21;
+    ++v22;
   }
 
   LocalPeerInfoForClient = ptpClock_getLocalPeerInfoForClient(a1, a2);
   updated = APSNetworkClockCopyPeerAsSerializablePeerDictionary(LocalPeerInfoForClient, &cf);
-  v32 = updated;
+  v31 = updated;
   if (updated)
   {
-LABEL_41:
+LABEL_43:
     APSLogErrorAt(updated);
-    DerivedStorage = v29;
-    goto LABEL_32;
+    goto LABEL_34;
   }
 
-  DerivedStorage = v29;
-  if (v16 && gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
+  if (v17 && gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_SetPeers(APSNetworkClockRef, void *, CFArrayRef, CFDictionaryRef *, Boolean *)", 33554482, "[%{ptr}] Updated local peer info: %@", a1, cf);
   }
 
   ptpClock_enablePortsBasedOnTopology(a1, a2);
-  ptpClock_firePeersChangedNotification();
-LABEL_32:
+  ptpClock_firePeersChangedNotification(a1);
+LABEL_34:
   if (a4)
   {
     *a4 = cf;
@@ -9530,14 +9411,13 @@ LABEL_32:
 
   if (a5)
   {
-    *a5 = v16;
+    *a5 = v17;
   }
 
-  v25 = *(DerivedStorage + 16);
   FigSimpleMutexUnlock();
-  if (v15)
+  if (v16)
   {
-    CFRelease(v15);
+    CFRelease(v16);
   }
 
   if (cf)
@@ -9545,13 +9425,13 @@ LABEL_32:
     CFRelease(cf);
   }
 
-  return v32;
+  return v31;
 }
 
 uint64_t ptpClock_addOrUpdatePeerInternal(uint64_t a1, const void *a2, const __CFDictionary *a3, __CFDictionary **a4, char *a5)
 {
-  v110 = *MEMORY[0x277D85DE8];
-  v102 = 0;
+  v104 = *MEMORY[0x277D85DE8];
+  v96 = 0;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!a3)
   {
@@ -9562,16 +9442,15 @@ uint64_t ptpClock_addOrUpdatePeerInternal(uint64_t a1, const void *a2, const __C
   v11 = *(DerivedStorage + 24);
   if (!v11)
   {
-    v78 = 4294895323;
+    v77 = 4294895323;
 LABEL_126:
     APSLogErrorAt(0);
-    goto LABEL_120;
+    return v77;
   }
 
   if (APSNetworkClockPeerDictionaryIDEqual(a3, v11))
   {
-    v78 = 0;
-    goto LABEL_120;
+    return 0;
   }
 
   Value = CFDictionaryGetValue(a3, @"ID");
@@ -9579,8 +9458,7 @@ LABEL_126:
   {
 LABEL_124:
     APSLogErrorAt(0);
-    v78 = 4294895325;
-    goto LABEL_120;
+    return 4294895325;
   }
 
   v13 = Value;
@@ -9588,7 +9466,7 @@ LABEL_124:
   v15 = CFDictionaryGetValue(*(v14 + 32), a2);
   if (!v15)
   {
-    v78 = 4294895323;
+    v77 = 4294895323;
     goto LABEL_126;
   }
 
@@ -9600,17 +9478,16 @@ LABEL_124:
   if (!MutableCopy)
   {
     APSLogErrorAt(0);
-    v78 = 4294895326;
-    goto LABEL_120;
+    return 4294895326;
   }
 
   v19 = MutableCopy;
-  v94 = v16;
-  v96 = a4;
-  v89 = -71973;
-  v93 = CFDictionaryContainsKey(MutableCopy, v13);
+  v88 = v16;
+  v90 = a4;
+  v83 = 4294895323;
+  v87 = CFDictionaryContainsKey(MutableCopy, v13);
   allocator = v17;
-  if (v93)
+  if (v87)
   {
     v20 = CFDictionaryGetValue(theDict, @"ClockPorts");
     v21 = CFDictionaryGetValue(theDict, @"ClockID");
@@ -9636,11 +9513,7 @@ LABEL_11:
             v27 = v26 == -1 && _LogCategory_Initialize() == 0;
           }
 
-          v84 = v27;
-          v85 = theDict;
-          v82 = a1;
-          v83 = v22;
-          LogPrintF();
+          LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_addOrUpdatePeerInternal(APSNetworkClockRef, void *, CFDictionaryRef, CFDictionaryRef *, Boolean *)", 33554482, "[%{ptr}] Updating peer %'@%?{end} %@", a1, v22, v27, theDict);
           goto LABEL_59;
         }
 
@@ -9666,12 +9539,12 @@ LABEL_59:
       v47 = 0;
       theDicta = 0;
       v48 = 0;
-      v49 = v96;
+      v49 = v90;
 LABEL_82:
-      CFDictionarySetValue(*(v10 + 40), v94, v19);
+      CFDictionarySetValue(*(v10 + 40), v88, v19);
       CFDictionaryGetTypeID();
       TypedValue = CFDictionaryGetTypedValue();
-      if (!v93 && *(v10 + 64))
+      if (!v87 && *(v10 + 64))
       {
         if (v49)
         {
@@ -9681,182 +9554,183 @@ LABEL_82:
         goto LABEL_111;
       }
 
-      v98 = v47;
-      v57 = CMBaseObjectGetDerivedStorage();
+      v92 = v47;
+      v56 = CMBaseObjectGetDerivedStorage();
       valuePtr.value = 0;
       if (!TypedValue)
       {
-        v89 = -71971;
+        v58 = 0;
+        v83 = 4294895325;
         goto LABEL_149;
       }
 
-      v58 = v57;
-      if (!*(v57 + 72))
+      v57 = v56;
+      if (!*(v56 + 72))
       {
-LABEL_149:
-        v47 = v98;
-        APSLogErrorAt(0);
-        v53 = theDicta;
-        if (gLogCategory_APSNetworkClockPTP <= 90 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
-        {
-          LogPrintF();
-        }
-
-        v102 = v89;
-        v74 = 0;
-        goto LABEL_154;
-      }
-
-      v95 = v48;
-      v59 = CFDictionaryGetValue(TypedValue, @"ID");
-      if (!v59)
-      {
-        v89 = -71971;
+        v58 = 0;
         goto LABEL_149;
       }
 
-      if (CFDictionaryGetInt64())
+      v89 = v48;
+      v58 = CFDictionaryGetValue(TypedValue, @"ID");
+      if (v58)
       {
-        if (gLogCategory_APSNetworkClockPTP <= 30 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
+        if (CFDictionaryGetInt64())
         {
-          goto LABEL_99;
-        }
-      }
-
-      else
-      {
-        v60 = CFDictionaryGetValue(*(v58 + 24), @"ID");
-        if (!v60)
-        {
-          goto LABEL_149;
-        }
-
-        v61 = v60;
-        v62 = CMBaseObjectGetDerivedStorage();
-        v63 = CFDictionaryGetValue(*(v62 + 32), a2);
-        if (!v63)
-        {
-          goto LABEL_149;
-        }
-
-        v64 = v63;
-        v65 = CFDictionaryGetValue(TypedValue, @"ClockPorts");
-        if (v65 && CFDictionaryGetValue(v65, v61))
-        {
-          v91 = a5;
-          LocalPeerClockPortsForClient = ptpClock_getLocalPeerClockPortsForClient(a1, a2);
-          if (LocalPeerClockPortsForClient)
+          if (gLogCategory_APSNetworkClockPTP <= 30 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
           {
-            v67 = LocalPeerClockPortsForClient;
-            v68 = a1;
-            v69 = CFDictionaryGetValue(TypedValue, @"ClockID");
-            v70 = CFDictionaryGetValue(v67, v59);
-            if (v69)
+            LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_overrideClockPortMatchingForPeerIfPossible(APSNetworkClockRef, void *, CFDictionaryRef)", 33554462, "[%{ptr}] %'@ already overridden", a1, v58);
+          }
+        }
+
+        else
+        {
+          v59 = CFDictionaryGetValue(*(v57 + 24), @"ID");
+          if (!v59)
+          {
+            goto LABEL_149;
+          }
+
+          v60 = v59;
+          v61 = CMBaseObjectGetDerivedStorage();
+          v62 = CFDictionaryGetValue(*(v61 + 32), a2);
+          if (!v62)
+          {
+            goto LABEL_149;
+          }
+
+          v63 = v62;
+          v64 = CFDictionaryGetValue(TypedValue, @"ClockPorts");
+          if (v64 && CFDictionaryGetValue(v64, v60))
+          {
+            v85 = a5;
+            LocalPeerClockPortsForClient = ptpClock_getLocalPeerClockPortsForClient(a1, a2);
+            if (LocalPeerClockPortsForClient)
             {
-              if (v70)
+              v66 = LocalPeerClockPortsForClient;
+              v67 = a1;
+              v68 = CFDictionaryGetValue(TypedValue, @"ClockID");
+              v69 = CFDictionaryGetValue(v66, v58);
+              if (v68 && v69)
               {
-                CFNumberGetValue(v69, kCFNumberSInt64Type, &valuePtr);
+                CFNumberGetValue(v68, kCFNumberSInt64Type, &valuePtr);
+                v70 = CFGetInt64Ranged();
                 v71 = CFGetInt64Ranged();
-                v72 = CFGetInt64Ranged();
-                a1 = v68;
+                a1 = v67;
                 if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
                 {
-                  v82 = v68;
-                  v83 = v59;
-                  LogPrintF();
+                  LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_overrideClockPortMatchingForPeerIfPossible(APSNetworkClockRef, void *, CFDictionaryRef)", 33554482, "[%{ptr}] Overriding port matching strategy for peer %'@", v67, v58);
                 }
 
-                [*(v58 + 72) overridePortReceiveMatching:v72 clockIdentity:valuePtr.value remotePort:{v71, v82, v83, v84, v85}];
-                v75 = CFDictionaryCreateMutableCopy(allocator, 0, TypedValue);
-                v49 = v96;
-                if (v75)
+                [*(v57 + 72) overridePortReceiveMatching:v71 clockIdentity:valuePtr.value remotePort:v70];
+                v74 = CFDictionaryCreateMutableCopy(allocator, 0, TypedValue);
+                v49 = v90;
+                if (v74)
                 {
-                  v76 = v75;
-                  CFDictionarySetValue(v75, @"IsOverridden", *MEMORY[0x277CBED28]);
-                  v77 = CFDictionaryGetValue(*(v58 + 40), v64);
-                  CFDictionarySetValue(v77, v59, v76);
-                  CFRelease(v76);
-                  a5 = v91;
+                  v75 = v74;
+                  CFDictionarySetValue(v74, @"IsOverridden", *MEMORY[0x277CBED28]);
+                  v76 = CFDictionaryGetValue(*(v57 + 40), v63);
+                  CFDictionarySetValue(v76, v58, v75);
+                  CFRelease(v75);
+                  a5 = v85;
                   goto LABEL_110;
                 }
 
-                v89 = -71970;
+                v83 = 4294895326;
+              }
+
+              else
+              {
+                a1 = v67;
               }
             }
+
+LABEL_149:
+            v47 = v92;
+            APSLogErrorAt(0);
+            v52 = theDicta;
+            if (gLogCategory_APSNetworkClockPTP <= 90 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_overrideClockPortMatchingForPeerIfPossible(APSNetworkClockRef, void *, CFDictionaryRef)", 33554522, "[%{ptr}] Failed to override port matching strategy for peer %'@ with err: %#m", a1, v58, v83);
+            }
+
+            v96 = v83;
+            v73 = 0;
+            goto LABEL_154;
           }
 
-          goto LABEL_149;
+          if (gLogCategory_APSNetworkClockPTP <= 60 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_overrideClockPortMatchingForPeerIfPossible(APSNetworkClockRef, void *, CFDictionaryRef)", 33554492, "[%{ptr}] Cannot override port matching strategy for peer %'@, remote port is unknown", a1, v58);
+          }
         }
-
-        if (gLogCategory_APSNetworkClockPTP <= 60 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
-        {
-LABEL_99:
-          LogPrintF();
-        }
-      }
 
 LABEL_110:
-      v102 = 0;
-      v47 = v98;
-      v48 = v95;
-      if (v49)
-      {
-LABEL_102:
-        LocalPeerInfoForClient = ptpClock_getLocalPeerInfoForClient(a1, a2);
-        v74 = APSNetworkClockCopyPeerAsSerializablePeerDictionary(LocalPeerInfoForClient, v49);
-        v102 = v74;
-        v53 = theDicta;
-        if (!v74)
+        v96 = 0;
+        v47 = v92;
+        v48 = v89;
+        if (v49)
         {
-          if (!a5)
+LABEL_102:
+          LocalPeerInfoForClient = ptpClock_getLocalPeerInfoForClient(a1, a2);
+          v73 = APSNetworkClockCopyPeerAsSerializablePeerDictionary(LocalPeerInfoForClient, v49);
+          v96 = v73;
+          v52 = theDicta;
+          if (!v73)
           {
+            if (!a5)
+            {
 LABEL_113:
-            if (v25)
-            {
-              CFRelease(v25);
-            }
+              if (v25)
+              {
+                CFRelease(v25);
+              }
 
-            if (!v53)
-            {
-              goto LABEL_117;
-            }
+              if (!v52)
+              {
+                goto LABEL_117;
+              }
 
-            goto LABEL_116;
-          }
+              goto LABEL_116;
+            }
 
 LABEL_112:
-          *a5 = v48;
+            *a5 = v48;
+            goto LABEL_113;
+          }
+
+LABEL_154:
+          APSLogErrorAt(v73);
           goto LABEL_113;
         }
 
-LABEL_154:
-        APSLogErrorAt(v74);
-        goto LABEL_113;
-      }
-
 LABEL_111:
-      v53 = theDicta;
-      if (!a5)
-      {
-        goto LABEL_113;
+        v52 = theDicta;
+        if (!a5)
+        {
+          goto LABEL_113;
+        }
+
+        goto LABEL_112;
       }
 
-      goto LABEL_112;
+      v83 = 4294895325;
+      goto LABEL_149;
     }
 
     APSLogErrorAt(0);
-    v81 = -71970;
+    v79 = -71970;
     goto LABEL_144;
   }
 
-  v88 = v19;
+  v82 = v19;
   v28 = CMBaseObjectGetDerivedStorage();
-  v107 = 0;
-  v106 = 0;
-  v105 = 0;
-  v108 = *MEMORY[0x277CC0898];
+  v101 = 0;
+  v100 = 0;
+  v99 = 0;
+  v102 = *MEMORY[0x277CC0898];
   v29 = *(MEMORY[0x277CC0898] + 12);
-  v109 = *(MEMORY[0x277CC0898] + 8);
+  v103 = *(MEMORY[0x277CC0898] + 8);
   v30 = *(MEMORY[0x277CC0898] + 16);
   if (APSSettingsIsFeatureEnabled(@"AirPlayPerf_PTPNonTightSyncRate"))
   {
@@ -9868,36 +9742,34 @@ LABEL_111:
         dispatch_once(&ptpClock_getPerPortRateForPeer_sNonTightSyncRateOnce, &__block_literal_global_545);
       }
 
-      v108 = ptpClock_getPerPortRateForPeer_sNonTightSyncRate;
-      v29 = HIDWORD(ptpClock_getPerPortRateForPeer_sNonTightSyncRate);
-      v109 = DWORD2(ptpClock_getPerPortRateForPeer_sNonTightSyncRate);
-      v30 = qword_27D00B788;
+      v102 = *ptpClock_getPerPortRateForPeer_sNonTightSyncRate;
+      v29 = *&ptpClock_getPerPortRateForPeer_sNonTightSyncRate[12];
+      v103 = *&ptpClock_getPerPortRateForPeer_sNonTightSyncRate[8];
+      v30 = *&ptpClock_getPerPortRateForPeer_sNonTightSyncRate[16];
     }
   }
 
   if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
   {
-    v82 = a1;
-    v83 = theDict;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_openClockPortsForPeer(APSNetworkClockRef, CFDictionaryRef, uint16_t *)", 33554482, "[%{ptr}] Adding peer %@", a1, theDict);
   }
 
-  v90 = a5;
+  v84 = a5;
   if (*(v28 + 72))
   {
-    v86 = v13;
-    v87 = v10;
+    v80 = v13;
+    v81 = v10;
     v32 = CFDictionaryGetValue(theDict, @"InterfaceName");
     if (v32)
     {
       v33 = v32;
-      v34 = ptpClock_copyRelevantPortAddressesFromPeer(a1, theDict, &v107);
+      v34 = ptpClock_copyRelevantPortAddressesFromPeer(a1, theDict, &v101);
       if (!v34)
       {
-        v97 = a1;
-        for (i = 0; i < CFArrayGetCount(v107); ++i)
+        v91 = a1;
+        for (i = 0; i < CFArrayGetCount(v101); ++i)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v107, i);
+          ValueAtIndex = CFArrayGetValueAtIndex(v101, i);
           v37 = *(ValueAtIndex + 17);
           v38 = ValueAtIndex[5];
           v40 = *(ValueAtIndex + 3);
@@ -9907,33 +9779,31 @@ LABEL_111:
             v41 = ValueAtIndex;
             if (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize())
             {
-              v83 = v41;
-              v84 = CFDictionaryGetValue(theDict, @"ID");
-              v82 = v97;
-              LogPrintF();
+              v42 = CFDictionaryGetValue(theDict, @"ID");
+              LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_openClockPortsForPeer(APSNetworkClockRef, CFDictionaryRef, uint16_t *)", 33554482, "[%{ptr}] Adding port with address: %@ for peer: %'@", v91, v41, v42);
             }
           }
 
           if (v37 == 30)
           {
-            v42 = [*(v28 + 72) addIPv6PortAndGetIdentity:v33 destinationAddress:v40 clockIdentity:v39 localPortNumber:{&v105, &v106}];
+            v43 = [*(v28 + 72) addIPv6PortAndGetIdentity:v33 destinationAddress:v40 clockIdentity:v39 localPortNumber:{&v99, &v100}];
           }
 
           else
           {
             if (v37 != 2)
             {
-              v43 = 4294895325;
+              v44 = 4294895325;
 LABEL_51:
-              v46 = v43;
+              v46 = v44;
               goto LABEL_52;
             }
 
-            v42 = [*(v28 + 72) addIPv4PortAndGetIdentity:v33 destinationAddress:bswap32(v38) clockIdentity:&v105 localPortNumber:&v106];
+            v43 = [*(v28 + 72) addIPv4PortAndGetIdentity:v33 destinationAddress:bswap32(v38) clockIdentity:&v99 localPortNumber:&v100];
           }
 
-          v43 = v42;
-          if (v42)
+          v44 = v43;
+          if (v43)
           {
             goto LABEL_51;
           }
@@ -9942,93 +9812,86 @@ LABEL_51:
           {
             if (gLogCategory_APSNetworkClockPTP <= 50 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
             {
-              v44 = v106;
-              time.value = v108;
-              time.timescale = v109;
+              v45 = v100;
+              time.value = v102;
+              time.timescale = v103;
               time.flags = v29;
               time.epoch = v30;
               CMTimeConvertScale(&valuePtr, &time, 1000, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
-              v83 = v44;
-              v84 = valuePtr.value;
-              v82 = v97;
-              LogPrintF();
+              LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_openClockPortsForPeer(APSNetworkClockRef, CFDictionaryRef, uint16_t *)", 33554482, "[%{ptr}] Setting peer port %u to update every %lld ms", v91, v45, valuePtr.value);
             }
 
             [*(v28 + 72) cm8021ASClock];
-            time.value = v108;
-            time.timescale = v109;
+            time.value = v102;
+            time.timescale = v103;
             time.flags = v29;
             time.epoch = v30;
             CM8021ASClockSetPortRemoteSyncMessageIntervals();
           }
         }
 
-        v45 = *(v28 + 24);
         v46 = CFDictionarySetInt64();
-        v43 = v46;
+        v44 = v46;
         if (!v46)
         {
-          v10 = v87;
-          v19 = v88;
-          a1 = v97;
+          v10 = v81;
+          v19 = v82;
+          a1 = v91;
           v17 = allocator;
-          v13 = v86;
+          v13 = v80;
           goto LABEL_66;
         }
 
 LABEL_52:
         APSLogErrorAt(v46);
-        v19 = v88;
-        a1 = v97;
+        v19 = v82;
+        a1 = v91;
         goto LABEL_53;
       }
 
-      v43 = v34;
+      v44 = v34;
       APSLogErrorAt(v34);
     }
 
     else
     {
       APSLogErrorAt(0);
-      v43 = 4294895325;
+      v44 = 4294895325;
     }
 
-    v19 = v88;
+    v19 = v82;
 LABEL_53:
     v17 = allocator;
-    v13 = v86;
-    v10 = v87;
+    v13 = v80;
+    v10 = v81;
     goto LABEL_54;
   }
 
   APSLogErrorAt(0);
-  v43 = 4294895323;
-  v19 = v88;
+  v44 = 4294895323;
+  v19 = v82;
 LABEL_54:
   if (gLogCategory_APSNetworkClockPTP <= 90 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
   {
-    v82 = a1;
-    v83 = v43;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_openClockPortsForPeer(APSNetworkClockRef, CFDictionaryRef, uint16_t *)", 33554522, "[%{ptr}] Failed to add peer: %#m\n", a1, v44);
   }
 
   ptpClock_closeClockPortsForPeer(a1, theDict);
 LABEL_66:
-  if (v107)
+  if (v101)
   {
-    CFRelease(v107);
+    CFRelease(v101);
   }
 
-  v102 = v43;
-  if (!v43)
+  v96 = v44;
+  if (!v44)
   {
-    v50 = *(v10 + 24);
     CFStringGetTypeID();
     CFDictionaryGetTypedValue();
-    v51 = ptpClock_getLocalPeerClockPortsForClient(a1, a2);
-    if (v51)
+    v50 = ptpClock_getLocalPeerClockPortsForClient(a1, a2);
+    if (v50)
     {
-      Mutable = CFDictionaryCreateMutableCopy(v17, 0, v51);
+      Mutable = CFDictionaryCreateMutableCopy(v17, 0, v50);
     }
 
     else
@@ -10036,15 +9899,15 @@ LABEL_66:
       Mutable = CFDictionaryCreateMutable(v17, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     }
 
-    v53 = Mutable;
-    a5 = v90;
-    v49 = v96;
+    v52 = Mutable;
+    a5 = v84;
+    v49 = v90;
     if (!Mutable)
     {
       APSLogErrorAt(0);
-      v81 = -12747;
+      v79 = -12747;
 LABEL_144:
-      v102 = v81;
+      v96 = v79;
       goto LABEL_119;
     }
 
@@ -10054,39 +9917,37 @@ LABEL_144:
     {
       if (gLogCategory_APSNetworkClockPTP <= 30 && (gLogCategory_APSNetworkClockPTP != -1 || _LogCategory_Initialize()))
       {
-        v82 = a1;
-        v83 = v13;
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSNetworkClockPTP, "OSStatus ptpClock_addOrUpdatePeerInternal(APSNetworkClockRef, void *, CFDictionaryRef, CFDictionaryRef *, Boolean *)", 33554462, "[%{ptr}] Adding peer %'@ to legacyPeers array\n", a1, v13);
       }
 
-      CFDictionaryGetValue(*(v10 + 48), v94);
-      v54 = FigCFArrayCreateMutableCopy();
-      v47 = v54;
-      if (!v54)
+      CFDictionaryGetValue(*(v10 + 48), v88);
+      v53 = FigCFArrayCreateMutableCopy();
+      v47 = v53;
+      if (!v53)
       {
         APSLogErrorAt(0);
-        v102 = -12747;
+        v96 = -12747;
         goto LABEL_116;
       }
 
-      CFArrayAppendValue(v54, theDict);
-      CFDictionarySetValue(*(v10 + 48), v94, v47);
+      CFArrayAppendValue(v53, theDict);
+      CFDictionarySetValue(*(v10 + 48), v88, v47);
     }
 
-    v55 = CFDictionarySetInt64();
-    v102 = v55;
-    if (!v55)
+    v54 = CFDictionarySetInt64();
+    v96 = v54;
+    if (!v54)
     {
-      theDicta = v53;
-      ptpClock_setLocalPeerClockPortsForClient(a1, a2, v53);
+      theDicta = v52;
+      ptpClock_setLocalPeerClockPortsForClient(a1, a2, v52);
       v25 = 0;
       v48 = 1;
       goto LABEL_82;
     }
 
-    APSLogErrorAt(v55);
+    APSLogErrorAt(v54);
 LABEL_116:
-    CFRelease(v53);
+    CFRelease(v52);
 LABEL_117:
     if (v47)
     {
@@ -10096,11 +9957,8 @@ LABEL_117:
     goto LABEL_119;
   }
 
-  APSLogErrorAt(v43);
+  APSLogErrorAt(v44);
 LABEL_119:
   CFRelease(v19);
-  v78 = v102;
-LABEL_120:
-  v79 = *MEMORY[0x277D85DE8];
-  return v78;
+  return v96;
 }

@@ -402,19 +402,19 @@ void __46__RTDiagnostics_logDiagnosticStateWithReason___block_invoke_2(uint64_t 
   dispatch_async(v4, v9);
 }
 
-void __46__RTDiagnostics_logDiagnosticStateWithReason___block_invoke_3(uint64_t a1)
+void __46__RTDiagnostics_logDiagnosticStateWithReason___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v6 = [v2 stringWithFormat:@"diagnostic provider, %@", v5];
-  [v3 addObject:v6];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = *(a1 + 32);
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = [v3 stringWithFormat:@"diagnostic provider, %@", v6];
+  [v4 addObject:v7];
 
   [*(a1 + 32) addObjectsFromArray:*(a1 + 48)];
-  v7 = *(a1 + 56);
+  v8 = *(a1 + 56);
 
-  dispatch_group_leave(v7);
+  dispatch_group_leave(v8);
 }
 
 void __46__RTDiagnostics_logDiagnosticStateWithReason___block_invoke_4(uint64_t a1)
@@ -502,11 +502,11 @@ void __46__RTDiagnostics_logDiagnosticStateWithReason___block_invoke_4(uint64_t 
   dispatch_async(queue, v7);
 }
 
-uint64_t __39__RTDiagnostics_addDiagnosticProvider___block_invoke(uint64_t result)
+void *__39__RTDiagnostics_addDiagnosticProvider___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(*(result + 40) + 48) addObject:?];
+    return [*(result[5] + 48) addObject:?];
   }
 
   return result;

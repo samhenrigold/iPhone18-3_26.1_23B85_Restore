@@ -40,9 +40,11 @@
 
 uint64_t __34__LARatchetManager_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(LARatchetManager);
+  v0 = objc_alloc_init(LARatchetManager);
+  v1 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (LARatchetManager)init
@@ -89,7 +91,7 @@ uint64_t __34__LARatchetManager_sharedInstance__block_invoke()
 
 void __40__LARatchetManager_stateWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a2;
+  v9 = a2;
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -97,15 +99,14 @@ void __40__LARatchetManager_stateWithCompletion___block_invoke(uint64_t a1, void
     v7 = *(a1 + 40);
     if (v5)
     {
-      v8 = *(a1 + 32);
-      v9 = [objc_opt_class() ratchetErrorForError:v5];
-      (*(v7 + 16))(v7, 0, v9);
+      v8 = [objc_opt_class() ratchetErrorForError:v5];
+      (*(v7 + 16))(v7, 0, v8);
     }
 
     else
     {
-      v9 = [[LARatchetState alloc] initWithState:v10];
-      (*(v7 + 16))(v7, v9, 0);
+      v8 = [[LARatchetState alloc] initWithState:v9];
+      (*(v7 + 16))(v7, v8, 0);
     }
   }
 }
@@ -131,7 +132,7 @@ void __40__LARatchetManager_stateWithCompletion___block_invoke(uint64_t a1, void
 
 void __56__LARatchetManager_checkCanEnableFeatureWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a2;
+  v9 = a2;
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -139,14 +140,13 @@ void __56__LARatchetManager_checkCanEnableFeatureWithCompletion___block_invoke(u
     v7 = *(a1 + 40);
     if (v5)
     {
-      v8 = *(a1 + 32);
-      v9 = [objc_opt_class() ratchetErrorForError:v5];
-      (*(v7 + 16))(v7, v10, v9);
+      v8 = [objc_opt_class() ratchetErrorForError:v5];
+      (*(v7 + 16))(v7, v9, v8);
     }
 
     else
     {
-      (*(v7 + 16))(*(a1 + 40), v10, 0);
+      (*(v7 + 16))(*(a1 + 40), v9, 0);
     }
   }
 }
@@ -172,7 +172,7 @@ void __56__LARatchetManager_checkCanEnableFeatureWithCompletion___block_invoke(u
 
 void __43__LARatchetManager_enableFeatureWithReply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a2;
+  v9 = a2;
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -180,14 +180,13 @@ void __43__LARatchetManager_enableFeatureWithReply___block_invoke(uint64_t a1, v
     v7 = *(a1 + 40);
     if (v5)
     {
-      v8 = *(a1 + 32);
-      v9 = [objc_opt_class() ratchetErrorForError:v5];
-      (*(v7 + 16))(v7, v10, v9);
+      v8 = [objc_opt_class() ratchetErrorForError:v5];
+      (*(v7 + 16))(v7, v9, v8);
     }
 
     else
     {
-      (*(v7 + 16))(*(a1 + 40), v10, 0);
+      (*(v7 + 16))(*(a1 + 40), v9, 0);
     }
   }
 }
@@ -213,7 +212,7 @@ void __43__LARatchetManager_enableFeatureWithReply___block_invoke(uint64_t a1, v
 
 void __64__LARatchetManager_enableFeatureActivatingGracePeriodWithReply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a2;
+  v9 = a2;
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -221,14 +220,13 @@ void __64__LARatchetManager_enableFeatureActivatingGracePeriodWithReply___block_
     v7 = *(a1 + 40);
     if (v5)
     {
-      v8 = *(a1 + 32);
-      v9 = [objc_opt_class() ratchetErrorForError:v5];
-      (*(v7 + 16))(v7, v10, v9);
+      v8 = [objc_opt_class() ratchetErrorForError:v5];
+      (*(v7 + 16))(v7, v9, v8);
     }
 
     else
     {
-      (*(v7 + 16))(*(a1 + 40), v10, 0);
+      (*(v7 + 16))(*(a1 + 40), v9, 0);
     }
   }
 }
@@ -283,14 +281,13 @@ void __57__LARatchetManager_disableFeatureWithContext_completion___block_invoke(
 
 void __58__LARatchetManager_enableFeatureStrictModeWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = a2;
+  v6 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6 = [objc_opt_class() ratchetErrorForError:v7];
-    (*(v5 + 16))(v5, v6);
+    v4 = *(a1 + 40);
+    v5 = [objc_opt_class() ratchetErrorForError:v6];
+    (*(v4 + 16))(v4, v5);
   }
 }
 
@@ -316,14 +313,13 @@ void __58__LARatchetManager_enableFeatureStrictModeWithCompletion___block_invoke
 
 void __67__LARatchetManager_disableFeatureStrictModeWithContext_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = a2;
+  v6 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6 = [objc_opt_class() ratchetErrorForError:v7];
-    (*(v5 + 16))(v5, v6);
+    v4 = *(a1 + 40);
+    v5 = [objc_opt_class() ratchetErrorForError:v6];
+    (*(v4 + 16))(v4, v5);
   }
 }
 
@@ -369,24 +365,23 @@ void __67__LARatchetManager_disableFeatureStrictModeWithContext_completion___blo
 
 void __79__LARatchetManager_performArmRequestWithIdentifier_context_options_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = a2;
+  v10 = a2;
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = objc_opt_class();
+    v7 = *(a1 + 40);
+    v8 = objc_opt_class();
     if (v5)
     {
-      v10 = [v9 ratchetErrorForError:v5];
-      (*(v8 + 16))(v8, 0, v10);
+      v9 = [v8 ratchetErrorForError:v5];
+      (*(v7 + 16))(v7, 0, v9);
     }
 
     else
     {
-      v10 = [v9 ratchetResultForResult:v11];
-      (*(v8 + 16))(v8, v10, 0);
+      v9 = [v8 ratchetResultForResult:v10];
+      (*(v7 + 16))(v7, v9, 0);
     }
   }
 }
@@ -413,7 +408,7 @@ void __79__LARatchetManager_performArmRequestWithIdentifier_context_options_comp
 
 void __46__LARatchetManager_stateInContext_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a2;
+  v9 = a2;
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -421,15 +416,14 @@ void __46__LARatchetManager_stateInContext_completion___block_invoke(uint64_t a1
     v7 = *(a1 + 40);
     if (v5)
     {
-      v8 = *(a1 + 32);
-      v9 = [objc_opt_class() ratchetErrorForError:v5];
-      (*(v7 + 16))(v7, 0, v9);
+      v8 = [objc_opt_class() ratchetErrorForError:v5];
+      (*(v7 + 16))(v7, 0, v8);
     }
 
     else
     {
-      v9 = [[LARatchetState alloc] initWithState:v10];
-      (*(v7 + 16))(v7, v9, 0);
+      v8 = [[LARatchetState alloc] initWithState:v9];
+      (*(v7 + 16))(v7, v8, 0);
     }
   }
 }
@@ -466,7 +460,7 @@ void __69__LARatchetManager_cancelArmRequestWithIdentifier_reason_completion___b
 
 + (id)ratchetResultForResult:(id)result
 {
-  v22[4] = *MEMORY[0x1E69E9840];
+  v21[4] = *MEMORY[0x1E69E9840];
   if (result)
   {
     resultCopy = result;
@@ -475,13 +469,13 @@ void __69__LARatchetManager_cancelArmRequestWithIdentifier_reason_completion___b
     v6 = [resultCopy objectForKeyedSubscript:v5];
     v7 = [(LARatchetState *)v4 initWithState:v6];
 
-    v21[0] = &unk_1F1A6FB48;
+    v20[0] = &unk_1F1A6FB48;
     v8 = [MEMORY[0x1E696AD98] numberWithInteger:*MEMORY[0x1E69AD1E0]];
     v9 = [resultCopy objectForKeyedSubscript:v8];
-    v22[0] = v9;
-    v22[1] = v7;
-    v21[1] = &unk_1F1A6FB60;
-    v21[2] = &unk_1F1A6FB78;
+    v21[0] = v9;
+    v21[1] = v7;
+    v20[1] = &unk_1F1A6FB60;
+    v20[2] = &unk_1F1A6FB78;
     v10 = [MEMORY[0x1E696AD98] numberWithInteger:*MEMORY[0x1E69AD1E8]];
     v11 = [resultCopy objectForKeyedSubscript:v10];
     v12 = v11;
@@ -496,8 +490,8 @@ void __69__LARatchetManager_cancelArmRequestWithIdentifier_reason_completion___b
       v14 = MEMORY[0x1E695E110];
     }
 
-    v22[2] = v14;
-    v21[3] = &unk_1F1A6FB90;
+    v21[2] = v14;
+    v20[3] = &unk_1F1A6FB90;
     v15 = [MEMORY[0x1E696AD98] numberWithInteger:*MEMORY[0x1E69AD1F0]];
     v16 = [resultCopy objectForKeyedSubscript:v15];
 
@@ -511,16 +505,14 @@ void __69__LARatchetManager_cancelArmRequestWithIdentifier_reason_completion___b
       v17 = v13;
     }
 
-    v22[3] = v17;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:4];
+    v21[3] = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:4];
   }
 
   else
   {
     v18 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -542,31 +534,31 @@ void __69__LARatchetManager_cancelArmRequestWithIdentifier_reason_completion___b
 
 + (id)optionsForRatchetArmOptions:(id)options
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   if (optionsCopy)
   {
     v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     allKeys = [optionsCopy allKeys];
-    v6 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           v11 = [objc_opt_class() _optionForRatchetOption:{objc_msgSend(v10, "integerValue")}];
           if (v11 != 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -577,7 +569,7 @@ void __69__LARatchetManager_cancelArmRequestWithIdentifier_reason_completion___b
           }
         }
 
-        v7 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -588,8 +580,6 @@ void __69__LARatchetManager_cancelArmRequestWithIdentifier_reason_completion___b
   {
     v4 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

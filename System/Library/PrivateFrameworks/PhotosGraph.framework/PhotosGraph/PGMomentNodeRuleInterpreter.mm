@@ -9,34 +9,34 @@
 
 - (id)evaluateMomentNodes:(id)nodes forPersonCondition:(id)condition
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   personUUIDs = [condition personUUIDs];
   v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(personUUIDs, "count")}];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = personUUIDs;
-  v9 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v9 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v35;
+    v11 = *v34;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v35 != v11)
+        if (*v34 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = [MEMORY[0x277CD9938] localIdentifierWithUUID:*(*(&v34 + 1) + 8 * i)];
+        v13 = [MEMORY[0x277CD9938] localIdentifierWithUUID:*(*(&v33 + 1) + 8 * i)];
         [v8 addObject:v13];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v10 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v10);
@@ -48,30 +48,30 @@
   if ([v15 count])
   {
     v16 = [MEMORY[0x277CBEB58] set];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
+    v26 = nodesCopy;
     v27 = nodesCopy;
-    v28 = nodesCopy;
-    v17 = [v28 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v17 = [v27 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (!v17)
     {
       goto LABEL_20;
     }
 
     v18 = v17;
-    v19 = *v31;
+    v19 = *v30;
     while (1)
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v31 != v19)
+        if (*v30 != v19)
         {
-          objc_enumerationMutation(v28);
+          objc_enumerationMutation(v27);
         }
 
-        v21 = *(*(&v30 + 1) + 8 * j);
+        v21 = *(*(&v29 + 1) + 8 * j);
         consolidatedPersonNodesPresentInAssets = [v21 consolidatedPersonNodesPresentInAssets];
         if ([consolidatedPersonNodesPresentInAssets intersectsSet:v15])
         {
@@ -91,12 +91,12 @@
         [v16 addObject:v21];
       }
 
-      v18 = [v28 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v18 = [v27 countByEnumeratingWithState:&v29 objects:v37 count:16];
       if (!v18)
       {
 LABEL_20:
 
-        nodesCopy = v27;
+        nodesCopy = v26;
         goto LABEL_22;
       }
     }
@@ -104,8 +104,6 @@ LABEL_20:
 
   v16 = [MEMORY[0x277CBEB98] set];
 LABEL_22:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

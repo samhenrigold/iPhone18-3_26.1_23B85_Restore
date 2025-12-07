@@ -73,7 +73,7 @@
     {
       *v6 = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "=prebuddy-cfu= ignoring prebuddy signal, prebuddy backup already initiated", v6, 2u);
-      _MBLog();
+      _MBLog(@"I ", "=prebuddy-cfu= ignoring prebuddy signal, prebuddy backup already initiated");
     }
   }
 
@@ -160,7 +160,7 @@
 {
   progressCopy = progress;
   accountCopy = account;
-  v62 = [[FLFollowUpController alloc] initWithClientIdentifier:@"com.apple.backupd"];
+  v58 = [[FLFollowUpController alloc] initWithClientIdentifier:@"com.apple.backupd"];
   megaBackupExpirationDate = [(MBPrebuddyFollowUpController *)self megaBackupExpirationDate];
   if (megaBackupExpirationDate)
   {
@@ -182,21 +182,18 @@
     *&buf[12] = 2112;
     *&buf[14] = megaBackupExpirationDate;
     *&buf[22] = 1024;
-    LODWORD(v74) = state;
+    LODWORD(v70) = state;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "=prebuddy-cfu= Updating prebuddy CFU with progress: %.2f expiration:%@ state:%d", buf, 0x1Cu);
-    v51 = megaBackupExpirationDate;
-    v53 = state;
-    v48 = v9;
-    _MBLog();
+    _MBLog(@"I ", "=prebuddy-cfu= Updating prebuddy CFU with progress: %.2f expiration:%@ state:%d", *&v9, megaBackupExpirationDate, state);
   }
 
   v12 = 60 * [progressCopy estimatedTimeRemaining];
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v74 = sub_1001B0E70;
-  v75 = sub_1001B0E80;
-  v76 = 0;
+  v70 = sub_1001B0E70;
+  v71 = sub_1001B0E80;
+  v72 = 0;
   if (v12 <= 0x93A7F)
   {
     proxy = self->_proxy;
@@ -205,18 +202,18 @@
       __assert_rtn("[MBPrebuddyFollowUpController updateFollowupWithBackupProgress:account:]", "MBPrebuddyFollowUpController.m", 159, "_proxy != nil");
     }
 
-    v68[0] = _NSConcreteStackBlock;
-    v68[1] = 3221225472;
-    v68[2] = sub_1001B0E88;
-    v68[3] = &unk_1003BC038;
-    v68[4] = buf;
-    [(MBHelperServiceProtocol *)proxy localizedStringForEstimatedTimeRemaining:v68 reply:v12];
+    v64[0] = _NSConcreteStackBlock;
+    v64[1] = 3221225472;
+    v64[2] = sub_1001B0E88;
+    v64[3] = &unk_1003BC038;
+    v64[4] = buf;
+    [(MBHelperServiceProtocol *)proxy localizedStringForEstimatedTimeRemaining:v64 reply:v12];
   }
 
-  v14 = [MBCKManager sharedInstance:*&v48];
-  v63 = [v14 disabledDomainInfosForAccount:accountCopy];
+  v14 = +[MBCKManager sharedInstance];
+  v59 = [v14 disabledDomainInfosForAccount:accountCopy];
 
-  if ([v63 count])
+  if ([v59 count])
   {
     v15 = state == 6;
   }
@@ -227,22 +224,21 @@
   }
 
   v16 = !v15;
-  v61 = v16;
+  v57 = v16;
   disabledCategoriesManager = self->_disabledCategoriesManager;
-  v67 = 0;
-  v18 = [(MBPrebuddyDisabledCategoriesManager *)disabledCategoriesManager disabledSyncDataclasses:&v67];
-  v19 = v67;
+  v63 = 0;
+  v18 = [(MBPrebuddyDisabledCategoriesManager *)disabledCategoriesManager disabledSyncDataclasses:&v63];
+  v19 = v63;
   v20 = v19;
   if (!v18 && v19)
   {
     v21 = MBGetDefaultLog();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      *v69 = 138412290;
-      *&v69[4] = v20;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "=prebuddy-cfu= Failed to get disabled sync categories to update follow up: %@", v69, 0xCu);
-      v49 = v20;
-      _MBLog();
+      *v65 = 138412290;
+      *&v65[4] = v20;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "=prebuddy-cfu= Failed to get disabled sync categories to update follow up: %@", v65, 0xCu);
+      _MBLog(@"E ", "=prebuddy-cfu= Failed to get disabled sync categories to update follow up: %@", v20);
     }
 
     v20 = 0;
@@ -254,7 +250,7 @@
     v22 = 0;
   }
 
-  v60 = v22;
+  v56 = v22;
   if (state == 6)
   {
     v23 = MBLocalizedStringFromTable();
@@ -276,14 +272,14 @@ LABEL_37:
 
     if (*(*&buf[8] + 40))
     {
-      v50 = v27;
-      v52 = *(*&buf[8] + 40);
+      v48 = v27;
+      v49 = *(*&buf[8] + 40);
       MBLocalizedStringWithSubstitutions();
     }
 
     else
     {
-      v50 = v27;
+      v48 = v27;
       MBLocalizedStringWithFormat();
     }
     v28 = ;
@@ -299,45 +295,45 @@ LABEL_37:
 
   v30 = +[NSCalendar currentCalendar];
   v31 = +[NSDate date];
-  v59 = [v30 components:28 fromDate:v31];
+  v55 = [v30 components:28 fromDate:v31];
 
   megaBackupExpirationDate3 = [(MBPrebuddyFollowUpController *)self megaBackupExpirationDate];
-  v58 = [v30 components:28 fromDate:megaBackupExpirationDate3];
+  v54 = [v30 components:28 fromDate:megaBackupExpirationDate3];
 
-  v33 = [v30 dateFromComponents:v59];
-  v57 = [v30 dateFromComponents:v58];
-  v56 = v33;
-  if ([v33 compare:?] == -1 && (+[NSCalendar currentCalendar](NSCalendar, "currentCalendar"), v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "isDate:inSameDayAsDate:", v33, v57), v34, !v35))
+  v33 = [v30 dateFromComponents:v55];
+  v53 = [v30 dateFromComponents:v54];
+  v52 = v33;
+  if ([v33 compare:?] == -1 && (+[NSCalendar currentCalendar](NSCalendar, "currentCalendar"), v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "isDate:inSameDayAsDate:", v33, v53), v34, !v35))
   {
     v23 = MBLocalizedStringFromTable();
-    v55 = v57;
-    v54 = v33;
+    v51 = v53;
+    v50 = v33;
     v44 = +[NSCalendar currentCalendar];
-    v45 = [v44 components:16 fromDate:v54 toDate:v55 options:0];
+    v45 = [v44 components:16 fromDate:v50 toDate:v51 options:0];
 
     v46 = [v45 day];
     v37 = v46 < 4;
-    *v69 = 0;
-    *&v69[8] = v69;
-    *&v69[16] = 0x3032000000;
-    v70 = sub_1001B0E70;
-    v71 = sub_1001B0E80;
-    v72 = &stru_1003C3430;
+    *v65 = 0;
+    *&v65[8] = v65;
+    *&v65[16] = 0x3032000000;
+    v66 = sub_1001B0E70;
+    v67 = sub_1001B0E80;
+    v68 = &stru_1003C3430;
     v47 = self->_proxy;
     if (!v47)
     {
       __assert_rtn("[MBPrebuddyFollowUpController updateFollowupWithBackupProgress:account:]", "MBPrebuddyFollowUpController.m", 232, "_proxy != nil");
     }
 
-    v66[0] = _NSConcreteStackBlock;
-    v66[1] = 3221225472;
-    v66[2] = sub_1001B0F7C;
-    v66[3] = &unk_1003BC038;
-    v66[4] = v69;
-    [(MBHelperServiceProtocol *)v47 localizedStringForCountdownFrom:v54 toDate:v55 reply:v66];
-    v50 = *(*&v69[8] + 40);
+    v62[0] = _NSConcreteStackBlock;
+    v62[1] = 3221225472;
+    v62[2] = sub_1001B0F7C;
+    v62[3] = &unk_1003BC038;
+    v62[4] = v65;
+    [(MBHelperServiceProtocol *)v47 localizedStringForCountdownFrom:v50 toDate:v51 reply:v62];
+    v48 = *(*&v65[8] + 40);
     v28 = MBLocalizedStringWithSubstitutions();
-    _Block_object_dispose(v69, 8);
+    _Block_object_dispose(v65, 8);
 
     v38 = 0;
   }
@@ -347,14 +343,12 @@ LABEL_37:
     v36 = MBGetDefaultLog();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      *v69 = 138543618;
-      *&v69[4] = v33;
-      *&v69[12] = 2114;
-      *&v69[14] = v57;
-      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "=prebuddy-cfu= Mega Backup Expired, resetting: %{public}@ %{public}@", v69, 0x16u);
-      v50 = v33;
-      v52 = v57;
-      _MBLog();
+      *v65 = 138543618;
+      *&v65[4] = v33;
+      *&v65[12] = 2114;
+      *&v65[14] = v53;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "=prebuddy-cfu= Mega Backup Expired, resetting: %{public}@ %{public}@", v65, 0x16u);
+      _MBLog(@"Df", "=prebuddy-cfu= Mega Backup Expired, resetting: %{public}@ %{public}@", v33, v53);
     }
 
     [(MBPrebuddyFollowUpController *)self reset];
@@ -371,7 +365,7 @@ LABEL_37:
   }
 
 LABEL_38:
-  v40 = [MBPrebuddyManager baseFollowupItem:v50];
+  v40 = [MBPrebuddyManager baseFollowupItem:v48];
   [v40 setTitle:v23];
   [v40 setInformativeText:v28];
   if (v9 < 1.0)
@@ -380,20 +374,20 @@ LABEL_38:
     [v40 setBundleIconName:v41];
   }
 
-  [(MBPrebuddyFollowUpController *)self _updateFollowUpActions:v40 hasDisabledSyncCategories:v60 hasDisabledBackupDomains:v61 canTrackOrder:0 allowsExpirationExtension:v37];
-  v65 = v20;
-  v42 = [v62 postFollowUpItem:v40 error:&v65];
-  v39 = v65;
+  [(MBPrebuddyFollowUpController *)self _updateFollowUpActions:v40 hasDisabledSyncCategories:v56 hasDisabledBackupDomains:v57 canTrackOrder:0 allowsExpirationExtension:v37];
+  v61 = v20;
+  v42 = [v58 postFollowUpItem:v40 error:&v61];
+  v39 = v61;
 
   if ((v42 & 1) == 0)
   {
     v43 = MBGetDefaultLog();
     if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      *v69 = 138412290;
-      *&v69[4] = v39;
-      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "=prebuddy-cfu= failed to post prebuddy follow up, error : %@", v69, 0xCu);
-      _MBLog();
+      *v65 = 138412290;
+      *&v65[4] = v39;
+      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "=prebuddy-cfu= failed to post prebuddy follow up, error : %@", v65, 0xCu);
+      _MBLog(@"E ", "=prebuddy-cfu= failed to post prebuddy follow up, error : %@", v39);
     }
   }
 
@@ -469,7 +463,7 @@ LABEL_45:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "=prebuddy-cfu= Clearing prebuddy follow up.", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "=prebuddy-cfu= Clearing prebuddy follow up.");
   }
 
   v3 = [[FLFollowUpController alloc] initWithClientIdentifier:@"com.apple.backupd"];
@@ -484,7 +478,7 @@ LABEL_45:
       *buf = 138412290;
       v9 = v5;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "=prebuddy-cfu= failed to clear prebuddy follow up, error : %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=prebuddy-cfu= failed to clear prebuddy follow up, error : %@", v5);
     }
   }
 }
@@ -631,7 +625,7 @@ LABEL_6:
     *buf = 138543362;
     v6 = errorCopy;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "=prebuddy-cfu= MBPrebuddyFollowUpController finish XPC with error: %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"E ", "=prebuddy-cfu= MBPrebuddyFollowUpController finish XPC with error: %{public}@", errorCopy);
   }
 }
 

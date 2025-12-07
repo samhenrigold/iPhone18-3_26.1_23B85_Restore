@@ -6,10 +6,9 @@
 
 - (id)p_renderingExporterDelegate
 {
-  v3 = objc_alloc(MEMORY[0x277D7FFC8]);
-  v5 = objc_msgSend_initWithRenderingExporter_(v3, v4, self);
+  v2 = [objc_alloc(MEMORY[0x277D7FFC8]) initWithRenderingExporter:self];
 
-  return v5;
+  return v2;
 }
 
 @end

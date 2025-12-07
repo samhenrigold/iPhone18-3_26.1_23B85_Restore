@@ -65,10 +65,11 @@
   v6 = (self + OBJC_IVAR____TtC11MobileNotes17TagCollectionView_selectionDidChange);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_10000C840(v7);
+  sub_10000C840(v7, v8);
 }
 
 - (id)dataDidChange
@@ -111,10 +112,11 @@
 
   v7 = (self + OBJC_IVAR____TtC11MobileNotes17TagCollectionView_dataDidChange);
   v8 = *(self + OBJC_IVAR____TtC11MobileNotes17TagCollectionView_dataDidChange);
+  v9 = *(self + OBJC_IVAR____TtC11MobileNotes17TagCollectionView_dataDidChange + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10000C840(v8);
+  sub_10000C840(v8, v9);
 }
 
 - (BOOL)isEditing
@@ -170,9 +172,9 @@
     selfCopy2 = self;
   }
 
-  sub_1003AE104();
+  sub_1003AE104(v6);
 
-  sub_1000073B4(v6, &qword_1006BE7A0);
+  sub_1000073B4(v6, &qword_1006BE7A0, &unk_100535E20);
 }
 
 - (void)selectTagSelection:(id)selection animated:(BOOL)animated
@@ -256,7 +258,7 @@
 
 - (id)collectionView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
-  v9 = sub_10015DA04(&unk_1006C3FD0);
+  v9 = sub_10015DA04(&unk_1006C3FD0, &qword_10053D560);
   __chkstk_darwin(v9 - 8);
   v11 = &v18 - v10;
   if (path)
@@ -278,7 +280,7 @@
   v16 = sub_1003B80B8(update, v11);
 
   swift_unknownObjectRelease();
-  sub_1000073B4(v11, &unk_1006C3FD0);
+  sub_1000073B4(v11, &unk_1006C3FD0, &qword_10053D560);
 
   return v16;
 }

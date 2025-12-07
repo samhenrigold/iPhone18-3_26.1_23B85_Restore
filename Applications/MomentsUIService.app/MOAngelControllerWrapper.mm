@@ -16,7 +16,7 @@
 
 - (void)willReturnAssetsForSuggestion:(MOSuggestion *)suggestion withTypes:(NSArray *)types completion:(id)completion
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(completion);
@@ -45,7 +45,7 @@
 
 - (void)willReturnAssetsForSuggestion:(MOSuggestion *)suggestion withTypes:(NSArray *)types onAssetsCallback:(id)callback
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(callback);

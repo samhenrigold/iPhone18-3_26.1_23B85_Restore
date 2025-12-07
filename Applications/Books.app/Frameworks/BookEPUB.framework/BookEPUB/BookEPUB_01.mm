@@ -1,6 +1,6 @@
-void sub_234C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_234C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   ITFileUtil::~ITFileUtil(va);
   _Unwind_Resume(a1);
 }
@@ -162,11 +162,11 @@ BEURLHandlerAssetInfo *_BEURLHandlerAssetInfoForURLUsingCacheItemIncludingFileSi
       v18 = [(BEURLHandlerAssetInfo *)v8 bookEpubIdWithUUIDScheme];
       [(BEURLHandlerAssetInfo *)v6 setBookEpubIdWithUUIDScheme:v18];
 
-      v40 = [v7 be_unescapedPath];
-      v39 = [(BEURLHandlerAssetInfo *)v8 rootPath];
-      if ([v40 length] && objc_msgSend(v39, "length"))
+      v41 = [v7 be_unescapedPath];
+      v40 = [(BEURLHandlerAssetInfo *)v8 rootPath];
+      if ([v41 length] && objc_msgSend(v40, "length"))
       {
-        v19 = [v39 stringByAppendingPathComponent:v40];
+        v19 = [v40 stringByAppendingPathComponent:v41];
         [(BEURLHandlerAssetInfo *)v6 setPath:v19];
 
         v20 = [(BEURLHandlerAssetInfo *)v6 path];
@@ -174,15 +174,15 @@ BEURLHandlerAssetInfo *_BEURLHandlerAssetInfoForURLUsingCacheItemIncludingFileSi
 
         if (v21)
         {
-          v38 = [NSURL fileURLWithPath:v39 isDirectory:1];
+          v39 = [NSURL fileURLWithPath:v40 isDirectory:1];
           v22 = [(BEURLHandlerAssetInfo *)v6 path];
           v23 = [NSURL fileURLWithPath:v22 isDirectory:0];
 
           v24 = +[NSFileManager defaultManager];
-          -[BEURLHandlerAssetInfo setAssetIsInsideBookRootPath:](v6, "setAssetIsInsideBookRootPath:", [v24 be_doesFolderAtURL:v38 containFileAtURL:v23]);
+          -[BEURLHandlerAssetInfo setAssetIsInsideBookRootPath:](v6, "setAssetIsInsideBookRootPath:", [v24 be_doesFolderAtURL:v39 containFileAtURL:v23]);
         }
 
-        v25 = [(BEURLHandlerAssetInfo *)v8 infoForDocumentAtPath:v40];
+        v25 = [(BEURLHandlerAssetInfo *)v8 infoForDocumentAtPath:v41];
         v26 = v25;
         if (v25)
         {
@@ -205,13 +205,13 @@ BEURLHandlerAssetInfo *_BEURLHandlerAssetInfoForURLUsingCacheItemIncludingFileSi
           if (a3 && ![(BEURLHandlerAssetInfo *)v6 fileSize])
           {
             v33 = [(BEURLHandlerAssetInfo *)v6 path];
-            [(BEURLHandlerAssetInfo *)v6 setFileSize:sub_27FE8()];
+            [(BEURLHandlerAssetInfo *)v6 setFileSize:sub_27FE8(v33)];
           }
         }
 
         else
         {
-          v31 = _BookEPUBLog();
+          v31 = _BookEPUBLog(0);
           if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
             [(BEURLHandlerAssetInfo *)v6 path];
@@ -228,10 +228,10 @@ BEURLHandlerAssetInfo *_BEURLHandlerAssetInfoForURLUsingCacheItemIncludingFileSi
 
   if (v35)
   {
-    v36 = _BookEPUBLog();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v37 = _BookEPUBLog(v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      sub_263AF0(v36);
+      sub_263AF0(v37);
     }
   }
 
@@ -589,7 +589,7 @@ LABEL_34:
     v30 = [NSError errorWithDomain:NSURLErrorDomain code:v28 userInfo:0];
     v31 = v29;
     v32 = v30;
-    v33 = _BookEPUBLog();
+    v33 = _BookEPUBLog(v32);
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       sub_263B34();
@@ -923,7 +923,7 @@ LABEL_72:
       v140 = [NSError errorWithDomain:NSURLErrorDomain code:-1014 userInfo:0];
       v141 = v139;
       v142 = v140;
-      v143 = _BookEPUBLog();
+      v143 = _BookEPUBLog(v142);
       if (os_log_type_enabled(v143, OS_LOG_TYPE_ERROR))
       {
         sub_263B34();
@@ -1061,19 +1061,20 @@ void sub_27938(uint64_t a1)
   }
 }
 
-off_t sub_27FE8()
+off_t sub_27FE8(uint64_t a1)
 {
-  if (![__chkstk_darwin() getFileSystemRepresentation:v2 maxLength:4094])
+  *&v1 = __chkstk_darwin(a1).n128_u64[0];
+  if (![v2 getFileSystemRepresentation:v5 maxLength:{4094, v1}])
   {
     return 0;
   }
 
-  if (lstat(v2, &v1))
+  if (lstat(v5, &v4))
   {
     return 0;
   }
 
-  return v1.st_size;
+  return v4.st_size;
 }
 
 void sub_28088(uint64_t a1)
@@ -1107,9 +1108,9 @@ void sub_28088(uint64_t a1)
     io_handler[1] = 3221225472;
     io_handler[2] = sub_28FDC;
     io_handler[3] = &unk_328E80;
-    v107 = v4;
-    v108 = v5;
-    v109 = v8;
+    v108 = v4;
+    v109 = v5;
+    v110 = v8;
     v15 = v4;
     v16 = v5;
     dispatch_io_read(v12, 0, v13, v14, io_handler);
@@ -1119,23 +1120,23 @@ void sub_28088(uint64_t a1)
 
   context = objc_autoreleasePoolPush();
   v17 = *(a1 + 32);
-  v104 = 0;
+  v105 = 0;
   v18 = v17;
   v19 = [v18 sinfData];
 
   if (v19)
   {
-    v105 = 0;
+    v106 = 0;
     v20 = [v18 path];
     v21 = [v18 sinfData];
-    v96 = [ft9cupR7u6OrU4m1pyhB pK0gFZ9QOdm17E9p9cpP:v20 sinfData:v21 refetch:&v105 error:&v104];
+    v97 = [ft9cupR7u6OrU4m1pyhB pK0gFZ9QOdm17E9p9cpP:v20 sinfData:v21 refetch:&v106 error:&v105];
 
-    if (v104)
+    if (v105)
     {
-      v22 = _BookEPUBLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = _BookEPUBLog(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        [v104 description];
+        [v105 description];
         objc_claimAutoreleasedReturnValue();
         sub_263B9C();
       }
@@ -1144,147 +1145,147 @@ void sub_28088(uint64_t a1)
 
   else
   {
-    v23 = [v18 path];
-    v96 = [NSData dataWithContentsOfFile:v23];
+    v24 = [v18 path];
+    v97 = [NSData dataWithContentsOfFile:v24];
   }
 
-  v24 = v104;
-  v101 = v24;
+  v25 = v105;
+  v102 = v25;
   if (*(a1 + 48) != 1)
   {
     goto LABEL_37;
   }
 
-  v25 = *(a1 + 32);
-  v26 = [v25 mimeType];
-  if ([v26 length])
+  v26 = *(a1 + 32);
+  v27 = [v26 mimeType];
+  if ([v27 length])
   {
-    v27 = v26;
-    v28 = BESupportedImageMimeTypes();
-    v29 = [v28 containsObject:v27];
+    v28 = v27;
+    v29 = BESupportedImageMimeTypes();
+    v30 = [v29 containsObject:v28];
   }
 
   else
   {
-    v27 = [v25 requestedURL];
-    v29 = BEDoesURLPointToAnImageFile(v27);
+    v28 = [v26 requestedURL];
+    v30 = BEDoesURLPointToAnImageFile(v28);
   }
 
-  v24 = v101;
-  v30 = v101 ? 0 : v29;
-  if (v30 != 1)
+  v25 = v102;
+  v31 = v102 ? 0 : v30;
+  if (v31 != 1)
   {
 LABEL_37:
-    v57 = *(a1 + 32);
-    v58 = *(a1 + 40);
-    v59 = v57;
-    v60 = v96;
-    v103 = v24;
-    v100 = v59;
-    v98 = [v59 requestedURL];
-    v94 = [v59 path];
-    if (v60)
+    v58 = *(a1 + 32);
+    v59 = *(a1 + 40);
+    v60 = v58;
+    v61 = v97;
+    v104 = v25;
+    v101 = v60;
+    v99 = [v60 requestedURL];
+    v95 = [v60 path];
+    if (v61)
     {
-      v61 = v60;
-      if ((v58[8] & 8) == 0)
+      v62 = v61;
+      if ((v59[8] & 8) == 0)
       {
-        v62 = v58;
         v63 = v59;
         v64 = v60;
-        v65 = [v63 encryptionAlgorithm];
-        v61 = v64;
-        if ([v65 length])
+        v65 = v61;
+        v66 = [v64 encryptionAlgorithm];
+        v62 = v65;
+        if ([v66 length])
         {
-          if (![@"http://www.idpf.org/2008/embedding" compare:v65 options:1] || (v61 = v64, !objc_msgSend(@"http://ns.adobe.com/pdf/enc#RC", "compare:options:", v65, 1)))
+          if (![@"http://www.idpf.org/2008/embedding" compare:v66 options:1] || (v62 = v65, !objc_msgSend(@"http://ns.adobe.com/pdf/enc#RC", "compare:options:", v66, 1)))
           {
-            v66 = objc_alloc_init(BEFontUnmangler);
-            v67 = [v63 requestedURL];
-            v61 = [(BEFontUnmangler *)v66 unmangleFontWithAssetInfo:v63 fileData:v64 URL:v67];
+            v67 = objc_alloc_init(BEFontUnmangler);
+            v68 = [v64 requestedURL];
+            v62 = [(BEFontUnmangler *)v67 unmangleFontWithAssetInfo:v64 fileData:v65 URL:v68];
           }
         }
 
-        v58[8] |= 8uLL;
+        v59[8] |= 8uLL;
       }
 
-      v68 = [v100 mimeType];
-      v69 = v58;
-      v70 = v61;
-      v71 = v68;
-      v93 = v98;
-      v72 = [[NSURLResponse alloc] initWithURL:v93 MIMEType:v71 expectedContentLength:objc_msgSend(v70 textEncodingName:{"length"), 0}];
-      v73 = v69;
-      v74 = v72;
-      v75 = v58[8];
-      v76 = v74;
-      if ((v75 & 1) == 0)
+      v69 = [v101 mimeType];
+      v70 = v59;
+      v71 = v62;
+      v72 = v69;
+      v94 = v99;
+      v73 = [[NSURLResponse alloc] initWithURL:v94 MIMEType:v72 expectedContentLength:objc_msgSend(v71 textEncodingName:{"length"), 0}];
+      v74 = v70;
+      v75 = v73;
+      v76 = v59[8];
+      v77 = v75;
+      if ((v76 & 1) == 0)
       {
-        v58[8] = v75 | 1;
-        v77 = +[BEURLHandler testingDelegate];
-        v78 = v77 == 0;
+        v59[8] = v76 | 1;
+        v78 = +[BEURLHandler testingDelegate];
+        v79 = v78 == 0;
 
-        v76 = v74;
-        if (!v78)
+        v77 = v75;
+        if (!v79)
         {
-          v76 = sub_28D70(v74);
+          v77 = sub_28D70(v75);
         }
 
-        v79 = [v73 delegate];
-        [v79 urlHandler:v73 didReceiveResponse:v76];
+        v80 = [v74 delegate];
+        [v80 urlHandler:v74 didReceiveResponse:v77];
       }
 
-      v80 = v73;
-      v81 = v70;
-      if ((v58[8] & 6) == 0)
+      v81 = v74;
+      v82 = v71;
+      if ((v59[8] & 6) == 0)
       {
-        v82 = [v80 delegate];
-        [v82 urlHandler:v80 didReceiveData:v81];
+        v83 = [v81 delegate];
+        [v83 urlHandler:v81 didReceiveData:v82];
       }
 
-      v83 = v80;
-      v84 = v83;
-      v85 = v58[8];
-      if ((v85 & 6) == 0)
+      v84 = v81;
+      v85 = v84;
+      v86 = v59[8];
+      if ((v86 & 6) == 0)
       {
-        v58[8] = v85 | 4;
-        v86 = [v83 delegate];
-        [v86 urlHandlerDidFinish:v84];
-        v87 = +[BEURLHandler testingDelegate];
-        [v87 urlHandler:v84 didFinishRequest:v84[6]];
+        v59[8] = v86 | 4;
+        v87 = [v84 delegate];
+        [v87 urlHandlerDidFinish:v85];
+        v88 = +[BEURLHandler testingDelegate];
+        [v88 urlHandler:v85 didFinishRequest:v85[6]];
       }
 
-      v88 = v81;
-      v89 = v103;
+      v89 = v82;
+      v90 = v104;
     }
 
     else
     {
-      v90 = v103;
-      if (!v103)
+      v91 = v104;
+      if (!v104)
       {
-        v90 = [NSError errorWithDomain:@"BookUrlHandler" code:0 userInfo:&off_343DD8];
+        v91 = [NSError errorWithDomain:@"BookUrlHandler" code:0 userInfo:&off_343DD8];
       }
 
-      v88 = v58;
-      v71 = v90;
-      v91 = _BookEPUBLog();
-      if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+      v89 = v59;
+      v72 = v91;
+      v92 = _BookEPUBLog(v72);
+      if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
       {
         sub_263B34();
       }
 
-      v92 = v88[8];
-      if ((v92 & 6) != 0)
+      v93 = v89[8];
+      if ((v93 & 6) != 0)
       {
-        v89 = v71;
+        v90 = v72;
         goto LABEL_60;
       }
 
-      v88[8] = v92 | 2;
-      v84 = [v88 delegate];
-      [v84 urlHandler:v88 didFailWithError:v71];
-      v81 = +[BEURLHandler testingDelegate];
-      [v81 urlHandler:v88 request:v88[6] didFailWithError:v71];
-      v89 = v71;
+      v89[8] = v93 | 2;
+      v85 = [v89 delegate];
+      [v85 urlHandler:v89 didFailWithError:v72];
+      v82 = +[BEURLHandler testingDelegate];
+      [v82 urlHandler:v89 request:v89[6] didFailWithError:v72];
+      v90 = v72;
     }
 
 LABEL_60:
@@ -1292,77 +1293,77 @@ LABEL_60:
     return;
   }
 
-  v31 = [[UIImage alloc] initWithData:v96];
-  v32 = v31;
-  if (!v31 || (v33 = v31, (v34 = [v32 CGImage]) == 0) || !+[BEImageFilter imageIsFilteringCandidate:](BEImageFilter, "imageIsFilteringCandidate:", v34))
+  v32 = [[UIImage alloc] initWithData:v97];
+  v33 = v32;
+  if (!v32 || (v34 = v32, (v35 = [v33 CGImage]) == 0) || !+[BEImageFilter imageIsFilteringCandidate:](BEImageFilter, "imageIsFilteringCandidate:", v35))
   {
 LABEL_36:
 
-    v24 = v101;
+    v25 = v102;
     goto LABEL_37;
   }
 
-  v35 = *(a1 + 32);
-  v102 = *(a1 + 40);
-  v36 = v35;
-  v37 = [BEImageFilter invertedImage:v34];
-  if (!v37)
+  v36 = *(a1 + 32);
+  v103 = *(a1 + 40);
+  v37 = v36;
+  v38 = [BEImageFilter invertedImage:v35];
+  if (!v38)
   {
 LABEL_35:
 
     goto LABEL_36;
   }
 
-  v38 = [BEImageFilter pngDataForCIImage:v37];
-  if (![v38 length])
+  v39 = [BEImageFilter pngDataForCIImage:v38];
+  if (![v39 length])
   {
 
     goto LABEL_35;
   }
 
-  v39 = [v36 requestedURL];
-  v40 = v102;
-  v97 = v38;
-  v99 = v39;
-  v41 = [[NSURLResponse alloc] initWithURL:v99 MIMEType:@"image/png" expectedContentLength:objc_msgSend(v97 textEncodingName:{"length"), 0}];
-  v42 = v40;
+  v40 = [v37 requestedURL];
+  v41 = v103;
+  v98 = v39;
+  v100 = v40;
+  v42 = [[NSURLResponse alloc] initWithURL:v100 MIMEType:@"image/png" expectedContentLength:objc_msgSend(v98 textEncodingName:{"length"), 0}];
   v43 = v41;
-  v44 = v42[8];
-  v45 = v43;
-  if ((v44 & 1) == 0)
+  v44 = v42;
+  v45 = v43[8];
+  v46 = v44;
+  if ((v45 & 1) == 0)
   {
-    v42[8] = v44 | 1;
-    v46 = +[BEURLHandler testingDelegate];
-    v47 = v46 == 0;
+    v43[8] = v45 | 1;
+    v47 = +[BEURLHandler testingDelegate];
+    v48 = v47 == 0;
 
-    v45 = v43;
-    if (!v47)
+    v46 = v44;
+    if (!v48)
     {
-      v45 = sub_28D70(v43);
+      v46 = sub_28D70(v44);
     }
 
-    v48 = [v42 delegate];
-    [v48 urlHandler:v42 didReceiveResponse:v45];
+    v49 = [v43 delegate];
+    [v49 urlHandler:v43 didReceiveResponse:v46];
   }
 
-  v49 = v42;
-  v50 = v97;
-  if ((v42[8] & 6) == 0)
+  v50 = v43;
+  v51 = v98;
+  if ((v43[8] & 6) == 0)
   {
-    v51 = [v49 delegate];
-    [v51 urlHandler:v49 didReceiveData:v50];
+    v52 = [v50 delegate];
+    [v52 urlHandler:v50 didReceiveData:v51];
   }
 
-  v52 = v49;
-  v53 = v52;
-  v54 = v42[8];
-  if ((v54 & 6) == 0)
+  v53 = v50;
+  v54 = v53;
+  v55 = v43[8];
+  if ((v55 & 6) == 0)
   {
-    v42[8] = v54 | 4;
-    v55 = [v52 delegate];
-    [v55 urlHandlerDidFinish:v53];
-    v56 = +[BEURLHandler testingDelegate];
-    [v56 urlHandler:v53 didFinishRequest:v53[6]];
+    v43[8] = v55 | 4;
+    v56 = [v53 delegate];
+    [v56 urlHandlerDidFinish:v54];
+    v57 = +[BEURLHandler testingDelegate];
+    [v57 urlHandler:v54 didFinishRequest:v54[6]];
   }
 
   objc_autoreleasePoolPop(context);
@@ -1394,7 +1395,7 @@ void sub_28F30(id a1, int a2)
   if (a2)
   {
     v2 = *&a2;
-    v3 = _BookEPUBLog();
+    v3 = _BookEPUBLog(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [NSNumber numberWithInt:v2];
@@ -1424,7 +1425,7 @@ void sub_28FDC(uint64_t a1, int a2, void *a3, int a4)
     v11 = [NSError errorWithDomain:NSURLErrorDomain code:v9 userInfo:0];
     v12 = v10;
     v13 = v11;
-    v14 = _BookEPUBLog();
+    v14 = _BookEPUBLog(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_263B34();
@@ -1649,7 +1650,7 @@ LABEL_23:
   v59 = [NSError errorWithDomain:NSURLErrorDomain code:v17 userInfo:0];
   v60 = v58;
   v61 = v59;
-  v62 = _BookEPUBLog();
+  v62 = _BookEPUBLog(v61);
   if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
   {
     sub_263B34();
@@ -1687,7 +1688,7 @@ void sub_29B08(id a1, int a2)
   if (a2)
   {
     v2 = *&a2;
-    v3 = _BookEPUBLog();
+    v3 = _BookEPUBLog(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [NSNumber numberWithInt:v2];
@@ -1725,7 +1726,7 @@ void sub_29BC4(uint64_t a1, int a2, void *a3, int a4)
     v12 = [NSError errorWithDomain:NSURLErrorDomain code:v10 userInfo:0];
     v13 = v11;
     v14 = v12;
-    v15 = _BookEPUBLog();
+    v15 = _BookEPUBLog(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_263B34();
@@ -1974,7 +1975,7 @@ LABEL_23:
   v57 = [NSError errorWithDomain:NSURLErrorDomain code:v17 userInfo:0];
   v58 = v56;
   v59 = v57;
-  v60 = _BookEPUBLog();
+  v60 = _BookEPUBLog(v59);
   if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
   {
     sub_263B34();
@@ -2003,10 +2004,11 @@ LABEL_41:
   return v65;
 }
 
-void sub_2A7F0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_2A7F0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_2A818(void *a1, int a2, os_log_t log, const char *a4, uint8_t *a5)
@@ -2031,9 +2033,9 @@ void sub_2AA78(uint64_t a1)
   [v3 setObject:*(a1 + 48) forKey:*(a1 + 40)];
 }
 
-void sub_2ABF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2ABF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2085,9 +2087,9 @@ void sub_2B0B4(uint64_t a1)
   [*(a1 + 32) _removeTaskForHandler:*(a1 + 40)];
 }
 
-void sub_2B2AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2B2AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2116,41 +2118,42 @@ void sub_2B758(uint64_t a1, char a2)
   if (a2)
   {
     v3 = [*(a1 + 32) delegate];
-    if (objc_opt_respondsToSelector())
+    v4 = objc_opt_respondsToSelector();
+    if (v4)
     {
-      v4 = BookEPUBBundle();
-      v5 = [v4 localizedStringForKey:@"OK" value:&stru_33E120 table:0];
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_2B920;
-      v12[3] = &unk_328F40;
-      v13 = *(a1 + 48);
-      v6 = [UIAlertAction actionWithTitle:v5 style:0 handler:v12];
+      v5 = BookEPUBBundle(v4);
+      v6 = [v5 localizedStringForKey:@"OK" value:&stru_33E120 table:0];
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_2B920;
+      v13[3] = &unk_328F40;
+      v14 = *(a1 + 48);
+      v7 = [UIAlertAction actionWithTitle:v6 style:0 handler:v13];
 
-      v7 = [UIAlertController alertControllerWithTitle:&stru_33E120 message:*(a1 + 40) preferredStyle:1];
-      [v7 addAction:v6];
-      [v3 handler:*(a1 + 32) presentAlertController:v7 completion:0];
+      v8 = [UIAlertController alertControllerWithTitle:&stru_33E120 message:*(a1 + 40) preferredStyle:1];
+      [v8 addAction:v7];
+      [v3 handler:*(a1 + 32) presentAlertController:v8 completion:0];
     }
 
     else
     {
-      v9 = objc_retainBlock(*(a1 + 48));
-      v10 = v9;
-      if (v9)
+      v10 = objc_retainBlock(*(a1 + 48));
+      v11 = v10;
+      if (v10)
       {
-        (*(v9 + 2))(v9);
+        (*(v10 + 2))(v10);
       }
     }
   }
 
   else
   {
-    v8 = objc_retainBlock(*(a1 + 48));
-    if (v8)
+    v9 = objc_retainBlock(*(a1 + 48));
+    if (v9)
     {
-      v11 = v8;
-      v8[2]();
-      v8 = v11;
+      v12 = v9;
+      v9[2]();
+      v9 = v12;
     }
   }
 }
@@ -2171,51 +2174,52 @@ void sub_2BA30(uint64_t a1, char a2)
   if (a2)
   {
     v3 = [*(a1 + 32) delegate];
-    if (objc_opt_respondsToSelector())
+    v4 = objc_opt_respondsToSelector();
+    if (v4)
     {
-      v4 = BookEPUBBundle();
-      v5 = [v4 localizedStringForKey:@"OK" value:&stru_33E120 table:0];
+      v5 = BookEPUBBundle(v4);
+      v6 = [v5 localizedStringForKey:@"OK" value:&stru_33E120 table:0];
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_2BCC0;
+      v19[3] = &unk_328F40;
+      v20 = *(a1 + 48);
+      v7 = [UIAlertAction actionWithTitle:v6 style:0 handler:v19];
+
+      v9 = BookEPUBBundle(v8);
+      v10 = [v9 localizedStringForKey:@"Cancel" value:&stru_33E120 table:0];
       v17[0] = _NSConcreteStackBlock;
       v17[1] = 3221225472;
-      v17[2] = sub_2BCC0;
+      v17[2] = sub_2BD10;
       v17[3] = &unk_328F40;
       v18 = *(a1 + 48);
-      v6 = [UIAlertAction actionWithTitle:v5 style:0 handler:v17];
+      v11 = [UIAlertAction actionWithTitle:v10 style:1 handler:v17];
 
-      v7 = BookEPUBBundle();
-      v8 = [v7 localizedStringForKey:@"Cancel" value:&stru_33E120 table:0];
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_2BD10;
-      v15[3] = &unk_328F40;
-      v16 = *(a1 + 48);
-      v9 = [UIAlertAction actionWithTitle:v8 style:1 handler:v15];
-
-      v10 = [UIAlertController alertControllerWithTitle:&stru_33E120 message:*(a1 + 40) preferredStyle:1];
-      [v10 addAction:v6];
-      [v10 addAction:v9];
-      [v3 handler:*(a1 + 32) presentAlertController:v10 completion:0];
+      v12 = [UIAlertController alertControllerWithTitle:&stru_33E120 message:*(a1 + 40) preferredStyle:1];
+      [v12 addAction:v7];
+      [v12 addAction:v11];
+      [v3 handler:*(a1 + 32) presentAlertController:v12 completion:0];
     }
 
     else
     {
-      v12 = objc_retainBlock(*(a1 + 48));
-      v13 = v12;
-      if (v12)
+      v14 = objc_retainBlock(*(a1 + 48));
+      v15 = v14;
+      if (v14)
       {
-        (*(v12 + 2))(v12, 0);
+        (*(v14 + 2))(v14, 0);
       }
     }
   }
 
   else
   {
-    v11 = objc_retainBlock(*(a1 + 48));
-    if (v11)
+    v13 = objc_retainBlock(*(a1 + 48));
+    if (v13)
     {
-      v14 = v11;
-      (*(v11 + 2))(v11, 0);
-      v11 = v14;
+      v16 = v13;
+      (*(v13 + 2))(v13, 0);
+      v13 = v16;
     }
   }
 }
@@ -2261,47 +2265,47 @@ void sub_2C344(uint64_t a1, void *a2)
 UIMenu *__cdecl sub_2C4C4(id a1, NSArray *a2)
 {
   v2 = a2;
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = sub_2C698;
-  v14 = sub_2C6A8;
-  v15 = 0;
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_2C6B0;
-  v9[3] = &unk_328FF8;
-  v9[4] = &v10;
-  [(NSArray *)v2 enumerateObjectsUsingBlock:v9];
-  if (v11[5])
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = sub_2C698;
+  v15 = sub_2C6A8;
+  v16 = 0;
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_2C6B0;
+  v10[3] = &unk_328FF8;
+  v10[4] = &v11;
+  v3 = [(NSArray *)v2 enumerateObjectsUsingBlock:v10];
+  if (v12[5])
   {
-    v16 = v11[5];
-    v3 = [NSArray arrayWithObjects:&v16 count:1];
+    v17 = v12[5];
+    v4 = [NSArray arrayWithObjects:&v17 count:1];
   }
 
   else
   {
-    v4 = _BookEPUBLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _BookEPUBLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "WebKit native open action (WKElementActionTypeOpenIdentifier) not found to open link - fallback to suggested actions", &v8, 2u);
+      v9 = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "WebKit native open action (WKElementActionTypeOpenIdentifier) not found to open link - fallback to suggested actions", &v9, 2u);
     }
 
-    v3 = v2;
+    v4 = v2;
   }
 
-  v5 = v3;
-  v6 = [UIMenu menuWithChildren:v3];
+  v6 = v4;
+  v7 = [UIMenu menuWithChildren:v4];
 
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
 
-  return v6;
+  return v7;
 }
 
-void sub_2C670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2C670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

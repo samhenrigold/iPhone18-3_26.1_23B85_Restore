@@ -420,7 +420,6 @@ LABEL_15:
   has = self->_has;
   if ((has & 0x100) != 0)
   {
-    rxdfrmucastmbss = self->_rxdfrmucastmbss;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x800) == 0)
@@ -440,7 +439,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rxmfrmucastmbss = self->_rxmfrmucastmbss;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -455,7 +453,6 @@ LABEL_4:
   }
 
 LABEL_18:
-  rxcfrmucast = self->_rxcfrmucast;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -470,7 +467,6 @@ LABEL_5:
   }
 
 LABEL_19:
-  rxrtsucast = self->_rxrtsucast;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -485,7 +481,6 @@ LABEL_6:
   }
 
 LABEL_20:
-  rxctsucast = self->_rxctsucast;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -500,7 +495,6 @@ LABEL_7:
   }
 
 LABEL_21:
-  rxackucast = self->_rxackucast;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -515,7 +509,6 @@ LABEL_8:
   }
 
 LABEL_22:
-  rxdfrmocast = self->_rxdfrmocast;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -530,7 +523,6 @@ LABEL_9:
   }
 
 LABEL_23:
-  rxmfrmocast = self->_rxmfrmocast;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -545,7 +537,6 @@ LABEL_10:
   }
 
 LABEL_24:
-  rxcfrmocast = self->_rxcfrmocast;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -560,7 +551,6 @@ LABEL_11:
   }
 
 LABEL_25:
-  rxrtsocast = self->_rxrtsocast;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -575,7 +565,6 @@ LABEL_12:
   }
 
 LABEL_26:
-  rxctsocast = self->_rxctsocast;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -587,7 +576,6 @@ LABEL_13:
     }
 
 LABEL_28:
-    rxmfrmmcast = self->_rxmfrmmcast;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -598,7 +586,6 @@ LABEL_28:
   }
 
 LABEL_27:
-  rxdfrmmcast = self->_rxdfrmmcast;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x200) != 0)
@@ -613,7 +600,6 @@ LABEL_14:
   }
 
 LABEL_29:
-  rxcfrmmcast = self->_rxcfrmmcast;
 
   PBDataWriterWriteUint64Field();
 }

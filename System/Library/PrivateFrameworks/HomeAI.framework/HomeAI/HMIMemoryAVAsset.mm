@@ -9,7 +9,7 @@
 - (HMIMemoryAVAsset)initWithData:(id)data
 {
   dataCopy = data;
-  v6 = [MEMORY[0x277CBEBC0] URLWithString:@"hmi://in-memory"];
+  v6 = [MEMORY[0x277CBEBC0] URLWithString:?];
   v12.receiver = self;
   v12.super_class = HMIMemoryAVAsset;
   v7 = [(HMIMemoryAVAsset *)&v12 initWithURL:v6 options:0];
@@ -21,7 +21,7 @@
     v9 = dispatch_queue_create("HMIMemoryAVAsset", v8);
 
     resourceLoader = [(HMIMemoryAVAsset *)v7 resourceLoader];
-    [resourceLoader setDelegate:v7 queue:v9];
+    [resourceLoader setDelegate:? queue:?];
   }
 
   return v7;
@@ -29,27 +29,28 @@
 
 - (BOOL)resourceLoader:(id)loader shouldWaitForLoadingOfRequestedResource:(id)resource
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   loaderCopy = loader;
   resourceCopy = resource;
   contentInformationRequest = [resourceCopy contentInformationRequest];
   v9 = contentInformationRequest;
   if (contentInformationRequest)
   {
-    [contentInformationRequest setContentType:*MEMORY[0x277CE5D98]];
-    [v9 setContentLength:{-[NSData length](self->_data, "length")}];
-    [v9 setByteRangeAccessSupported:1];
+    [contentInformationRequest setContentType:?];
+    [(NSData *)self->_data length];
+    [v9 setContentLength:?];
+    [v9 setByteRangeAccessSupported:?];
     v10 = objc_autoreleasePoolPush();
     selfCopy = self;
     v12 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       v13 = HMFGetLogIdentifier();
-      v27 = 138543618;
-      v28 = v13;
-      v29 = 2112;
-      v30 = v9;
-      _os_log_impl(&dword_22D12F000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Fullfilled content request: %@", &v27, 0x16u);
+      v26 = 138543618;
+      v27 = v13;
+      v28 = 2112;
+      v29 = v9;
+      _os_log_impl(&dword_22D12F000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Fullfilled content request: %@", &v26, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -65,28 +66,30 @@
   if (([dataRequest requestedOffset] & 0x8000000000000000) == 0 && (objc_msgSend(v15, "requestedLength") & 0x8000000000000000) == 0)
   {
     requestedOffset = [v15 requestedOffset];
-    v17 = [v15 requestedLength] + requestedOffset;
+    v17 = requestedOffset + [v15 requestedLength];
     if (v17 <= [(NSData *)self->_data length])
     {
-      bytes = [(NSData *)self->_data bytes];
-      requestedOffset2 = [v15 requestedOffset];
-      v21 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:&bytes[requestedOffset2] length:objc_msgSend(v15 freeWhenDone:{"requestedLength"), 0}];
-      [v15 respondWithData:v21];
+      [(NSData *)self->_data bytes];
+      [v15 requestedOffset];
+      v19 = MEMORY[0x277CBEA90];
+      [v15 requestedLength];
+      v20 = [v19 dataWithBytesNoCopy:? length:? freeWhenDone:?];
+      [v15 respondWithData:?];
 
-      v22 = objc_autoreleasePoolPush();
+      v21 = objc_autoreleasePoolPush();
       selfCopy2 = self;
-      v24 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v23 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
-        v25 = HMFGetLogIdentifier();
-        v27 = 138543618;
-        v28 = v25;
-        v29 = 2112;
-        v30 = v15;
-        _os_log_impl(&dword_22D12F000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Fullfilled data request: %@", &v27, 0x16u);
+        v24 = HMFGetLogIdentifier();
+        v26 = 138543618;
+        v27 = v24;
+        v28 = 2112;
+        v29 = v15;
+        _os_log_impl(&dword_22D12F000, v23, OS_LOG_TYPE_DEBUG, "%{public}@Fullfilled data request: %@", &v26, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v22);
+      objc_autoreleasePoolPop(v21);
 LABEL_13:
       [resourceCopy finishLoading];
       v18 = 1;
@@ -102,15 +105,15 @@ LABEL_14:
 
 - (BOOL)loadValuesSynchronously
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = dispatch_semaphore_create(0);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __43__HMIMemoryAVAsset_loadValuesSynchronously__block_invoke;
-  v12[3] = &unk_278752868;
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3221225472;
+  v14 = __43__HMIMemoryAVAsset_loadValuesSynchronously__block_invoke;
+  v15 = &unk_278752868;
   v4 = v3;
-  v13 = v4;
-  [(HMIMemoryAVAsset *)self loadValuesAsynchronouslyForKeys:&unk_2840754E0 completionHandler:v12];
+  v16 = v4;
+  [HMIMemoryAVAsset loadValuesAsynchronouslyForKeys:"loadValuesAsynchronouslyForKeys:completionHandler:" completionHandler:?];
   v5 = dispatch_time(0, 2000000000);
   v6 = dispatch_semaphore_wait(v4, v5);
   if (v6)
@@ -122,7 +125,7 @@ LABEL_14:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v15 = v10;
+      v18 = v10;
       _os_log_impl(&dword_22D12F000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to loadValuesAsynchronouslyForKeys, due to timeout.", buf, 0xCu);
     }
 

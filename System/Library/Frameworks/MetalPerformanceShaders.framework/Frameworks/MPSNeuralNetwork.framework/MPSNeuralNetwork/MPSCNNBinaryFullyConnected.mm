@@ -18,7 +18,7 @@
   {
     v3 = objc_opt_class();
     NSStringFromClass(v3);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBinaryConvolution.mm", 0x74B, @"Please initialize the %@ class with initWithDevice:convolutionDescriptor:kernelWeights:biasTerms\n", v4, v5, v6, v7);
   }
 
   return 0;
@@ -55,49 +55,77 @@
   if (*(descriptor + 8) != 1)
   {
     selfCopy = self;
+    biasTermsCopy = biasTerms;
+    scaleTermsCopy = scaleTerms;
+    termsCopy = terms;
+    weightsCopy = weights;
     descriptorCopy = descriptor;
-    v14 = MTLReportFailureTypeEnabled();
+    v18 = MTLReportFailureTypeEnabled();
     descriptor = descriptorCopy;
-    v15 = v14;
+    weights = weightsCopy;
+    terms = termsCopy;
+    scaleTerms = scaleTermsCopy;
+    biasTerms = biasTermsCopy;
+    v19 = v18;
     self = selfCopy;
-    if (v15)
+    if (v19)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBinaryConvolution.mm", 0x786, @"Number of groups for inner product should be 1", weightsCopy, termsCopy, scaleTermsCopy, biasTermsCopy);
       self = selfCopy;
       descriptor = descriptorCopy;
+      weights = weightsCopy;
+      terms = termsCopy;
+      scaleTerms = scaleTermsCopy;
+      biasTerms = biasTermsCopy;
     }
   }
 
   if (*(descriptor + 6) != 1)
   {
     selfCopy2 = self;
+    biasTermsCopy2 = biasTerms;
+    scaleTermsCopy2 = scaleTerms;
+    termsCopy2 = terms;
+    weightsCopy2 = weights;
     descriptorCopy2 = descriptor;
-    v18 = MTLReportFailureTypeEnabled();
+    v26 = MTLReportFailureTypeEnabled();
     descriptor = descriptorCopy2;
-    v19 = v18;
+    weights = weightsCopy2;
+    terms = termsCopy2;
+    scaleTerms = scaleTermsCopy2;
+    biasTerms = biasTermsCopy2;
+    v27 = v26;
     self = selfCopy2;
-    if (v19)
+    if (v27)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBinaryConvolution.mm", 0x787, @"strideX for inner product should be 1", weightsCopy2, termsCopy2, scaleTermsCopy2, biasTermsCopy2);
       self = selfCopy2;
       descriptor = descriptorCopy2;
+      weights = weightsCopy2;
+      terms = termsCopy2;
+      scaleTerms = scaleTermsCopy2;
+      biasTerms = biasTermsCopy2;
     }
   }
 
   if (*(descriptor + 7) != 1)
   {
     selfCopy3 = self;
-    v21 = MTLReportFailureTypeEnabled();
+    biasTermsCopy3 = biasTerms;
+    scaleTermsCopy3 = scaleTerms;
+    termsCopy3 = terms;
+    weightsCopy3 = weights;
+    v33 = MTLReportFailureTypeEnabled();
     self = selfCopy3;
-    if (v21)
+    if (v33)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBinaryConvolution.mm", 0x788, @"strideY for inner product should be 1", weightsCopy3, termsCopy3, scaleTermsCopy3, biasTermsCopy3);
       self = selfCopy3;
     }
   }
 
-  v22.receiver = self;
-  v22.super_class = MPSCNNBinaryFullyConnected;
+  v34.receiver = self;
+  v34.super_class = MPSCNNBinaryFullyConnected;
   result = [MPSCNNBinaryConvolution initWithDeviceImpl:sel_initWithDeviceImpl_convolutionDescriptor_kernelWeights_outputBiasTerms_outputScaleTerms_inputBiasTerms_inputScaleTerms_type_flags_ convolutionDescriptor:inputScaleTerms kernelWeights:type outputBiasTerms:flags outputScaleTerms:? inputBiasTerms:? inputScaleTerms:? type:? flags:?];
   if (result)
   {
@@ -130,9 +158,9 @@
 
 - (MPSCNNBinaryFullyConnected)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v7.receiver = self;
-  v7.super_class = MPSCNNBinaryFullyConnected;
-  result = [(MPSCNNBinaryConvolution *)&v7 initWithCoder:aDecoder device:device];
+  v11.receiver = self;
+  v11.super_class = MPSCNNBinaryFullyConnected;
+  result = [(MPSCNNBinaryConvolution *)&v11 initWithCoder:aDecoder device:device];
   if (result)
   {
     if (*(&result->super.super.super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 == 0x10000)
@@ -148,7 +176,7 @@
       {
         v6 = objc_opt_class();
         NSStringFromClass(v6);
-        MTLReportFailure();
+        MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBinaryConvolution.mm", 0x7BE, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v7, v8, v9, v10);
       }
 
       return 0;

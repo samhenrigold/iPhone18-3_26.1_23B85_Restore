@@ -42,13 +42,13 @@
 
 - (id)_loggingKeyStringRepresentationForValue:(id)value
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   if ([(PETEventNumericalProperty *)self isValidValue:valueCopy])
   {
-    v11 = 0;
+    v10 = 0;
     v5 = [(PETEventNumericalProperty *)self _unsignedIntegerValueForNumericValue:valueCopy];
-    v6 = &v11;
+    v6 = &v10;
     do
     {
       *--v6 = (v5 % 0xA) | 0x30;
@@ -57,15 +57,13 @@
     }
 
     while (v7);
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v6 length:&v11 - v6 encoding:1];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v6 length:&v10 - v6 encoding:1];
   }
 
   else
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

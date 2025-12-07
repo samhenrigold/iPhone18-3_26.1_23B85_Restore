@@ -162,7 +162,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v3 = sub_100002F50();
+      v3 = sub_100002F50(self);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
         if (self->_foreground)
@@ -243,8 +243,8 @@
     if (state)
     {
       v5 = 8 * state - 8;
-      *units = *(&qword_1002D2A20 + v5);
-      return *(&qword_1002D2A90 + v5);
+      *units = *(qword_1002D2A20 + v5);
+      return *(qword_1002D2A90 + v5);
     }
 
     else
@@ -270,7 +270,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = sub_100002F50();
+      v5 = sub_100002F50(self);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         v6 = [CPLEngineSyncManager shortDescriptionForState:state];
@@ -325,20 +325,21 @@
 
 - (void)_emitActivityStateLog
 {
-  if ([(NSCountedSet *)self->_activities count])
+  v4 = [(NSCountedSet *)self->_activities count];
+  if (v4)
   {
     if (_CPLSilentLogging)
     {
       return;
     }
 
-    v4 = sub_10014EDBC();
-    if (sub_10014FD8C(v4))
+    v5 = sub_10014EDBC(v4);
+    if (sub_10014FD8C(v5))
     {
       allObjects = [(NSCountedSet *)self->_activities allObjects];
-      v17 = [allObjects componentsJoinedByString:{@", "}];
+      v18 = [allObjects componentsJoinedByString:{@", "}];
       sub_10014FD7C();
-      _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
+      _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
     }
   }
 
@@ -349,11 +350,11 @@
       return;
     }
 
-    v11 = sub_10014EDBC();
-    if (sub_10014FD8C(v11))
+    v12 = sub_10014EDBC(0);
+    if (sub_10014FD8C(v12))
     {
       sub_10014FD7C();
-      _os_log_impl(v12, v13, v14, v15, v16, 2u);
+      _os_log_impl(v13, v14, v15, v16, v17, 2u);
     }
   }
 }
@@ -361,16 +362,17 @@
 - (void)syncSessionDidFailWithError:(id)error
 {
   errorCopy = error;
-  if ([errorCopy isCPLOperationCancelledError])
+  isCPLOperationCancelledError = [errorCopy isCPLOperationCancelledError];
+  if (isCPLOperationCancelledError)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      transport = sub_100002F50();
+      transport = sub_100002F50(isCPLOperationCancelledError);
       if (os_log_type_enabled(transport, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v21) = 0;
+        LOWORD(v24) = 0;
         sub_100013984();
-        _os_log_impl(v6, v7, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
+        _os_log_impl(v7, v8, OS_LOG_TYPE_DEFAULT, v9, v10, 2u);
       }
 
 LABEL_17:
@@ -379,38 +381,39 @@ LABEL_17:
 
   else
   {
-    if (![errorCopy isCPLErrorWithCode:10000])
+    v11 = [errorCopy isCPLErrorWithCode:10000];
+    if (!v11)
     {
       abstractObject = [(CPLBaseSyncManager *)self abstractObject];
       engineLibrary = [abstractObject engineLibrary];
       transport = [engineLibrary transport];
 
       userInfo = [errorCopy userInfo];
-      v17 = [userInfo objectForKey:NSUnderlyingErrorKey];
+      v19 = [userInfo objectForKey:NSUnderlyingErrorKey];
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v18 = sub_100002F50();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v21 = sub_100002F50(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           if (self->_foreground)
           {
-            v19 = " (foreground)";
+            v22 = " (foreground)";
           }
 
           else
           {
-            v19 = "";
+            v22 = "";
           }
 
-          v20 = [transport bestErrorForUnderlyingError:v17];
-          v21 = 136315650;
-          v22 = v19;
-          v23 = 2112;
-          v24 = errorCopy;
-          v25 = 2112;
-          v26 = v20;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Sync session did fail with error%s: %@, underlying error: %@", &v21, 0x20u);
+          v23 = [transport bestErrorForUnderlyingError:v19];
+          v24 = 136315650;
+          v25 = v22;
+          v26 = 2112;
+          v27 = errorCopy;
+          v28 = 2112;
+          v29 = v23;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Sync session did fail with error%s: %@, underlying error: %@", &v24, 0x20u);
         }
       }
 
@@ -419,13 +422,13 @@ LABEL_17:
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      transport = sub_100002F50();
+      transport = sub_100002F50(v11);
       if (os_log_type_enabled(transport, OS_LOG_TYPE_DEFAULT))
       {
         [errorCopy localizedDescription];
-        v22 = v21 = 138412290;
+        v25 = v24 = 138412290;
         sub_100013984();
-        _os_log_impl(v10, v11, OS_LOG_TYPE_DEFAULT, v12, v13, 0xCu);
+        _os_log_impl(v12, v13, OS_LOG_TYPE_DEFAULT, v14, v15, 0xCu);
       }
 
       goto LABEL_17;
@@ -437,12 +440,11 @@ LABEL_17:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_100002F50();
-    if (sub_10014FD8C(v4))
+    v3 = sub_100002F50(self);
+    if (sub_10014FD8C(v3))
     {
-      self->_foreground;
       sub_10014FD7C();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
     }
   }
 }
@@ -450,57 +452,58 @@ LABEL_17:
 - (void)didProgress:(float)progress userInfo:(id)info forState:(unint64_t)state
 {
   infoCopy = info;
+  v9 = infoCopy;
   self->_currentState = state;
   currentState = state;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v10 = sub_100002F50();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = sub_100002F50(infoCopy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v11 = [CPLEngineSyncManager shortDescriptionForState:state];
+      v12 = [CPLEngineSyncManager shortDescriptionForState:state];
       foreground = self->_foreground;
       *buf = 138412802;
-      *&buf[4] = v11;
+      *&buf[4] = v12;
       if (foreground)
       {
-        v13 = " (foreground)";
+        v14 = " (foreground)";
       }
 
       else
       {
-        v13 = "";
+        v14 = "";
       }
 
-      v21 = 2048;
-      v22 = (progress * 100.0);
-      v23 = 2080;
-      v24 = v13;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Sync session progress: %@/%lu%%%s", buf, 0x20u);
+      v22 = 2048;
+      v23 = (progress * 100.0);
+      v24 = 2080;
+      v25 = v14;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Sync session progress: %@/%lu%%%s", buf, 0x20u);
     }
 
     currentState = self->_currentState;
   }
 
   *buf = 0;
-  v14 = [(CPLBaseSyncManager *)self _baseProgressForState:currentState totalUnits:buf];
-  v15 = 0;
+  v15 = [(CPLBaseSyncManager *)self _baseProgressForState:currentState totalUnits:buf];
+  v16 = 0;
   if (state - 3 <= 0xA)
   {
-    v15 = qword_10024B8F0[state - 3];
+    v16 = qword_10024B8F0[state - 3];
   }
 
-  v16 = (*buf * progress);
+  v17 = (*buf * progress);
   progress = self->_progress;
-  v18 = [NSNumber numberWithUnsignedInteger:v15];
-  [(_CPLProgress *)progress setUserInfoObject:v18 forKey:CPLSyncProgressStateKey];
+  v19 = [NSNumber numberWithUnsignedInteger:v16];
+  [(_CPLProgress *)progress setUserInfoObject:v19 forKey:CPLSyncProgressStateKey];
 
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_10014F790;
-  v19[3] = &unk_10027B3B8;
-  v19[4] = self;
-  [infoCopy enumerateKeysAndObjectsUsingBlock:v19];
-  [(_CPLProgress *)self->_progress setCompletedUnitCount:v14 + v16];
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_10014F790;
+  v20[3] = &unk_10027B3B8;
+  v20[4] = self;
+  [v9 enumerateKeysAndObjectsUsingBlock:v20];
+  [(_CPLProgress *)self->_progress setCompletedUnitCount:v15 + v17];
 }
 
 @end

@@ -105,10 +105,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(_UISpringParameters *)_springAnimationBehavior isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(_springAnimationBehavior, v6, v6);
 
   v8 = v14;
-  if (!v7)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(_UIHyperInProcessPointAnimator *)self willChangeValueForKey:@"_trackingSpringParameters"];
@@ -163,10 +163,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(_UISpringParameters *)_springAnimationBehavior isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(_springAnimationBehavior, v6, v6);
 
   v8 = v14;
-  if (!v7)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(_UIHyperInProcessPointAnimator *)self willChangeValueForKey:@"_nonTrackingSpringParameters"];
@@ -404,9 +404,9 @@ LABEL_21:
         goto LABEL_19;
       }
 
-      v15 = [v9 isEqual:v10];
+      isEqual = objc_msgSend_isEqual_(v9);
 
-      if (!v15)
+      if (!isEqual)
       {
         LOBYTE(v12) = 0;
 LABEL_20:
@@ -433,7 +433,7 @@ LABEL_20:
         goto LABEL_19;
       }
 
-      v12 = [v14 isEqual:v18];
+      v12 = objc_msgSend_isEqual_(v14);
 
       if (!v12)
       {

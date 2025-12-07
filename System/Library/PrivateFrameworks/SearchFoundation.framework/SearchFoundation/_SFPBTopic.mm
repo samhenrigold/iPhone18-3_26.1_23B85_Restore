@@ -538,18 +538,14 @@ LABEL_29:
 
 - (void)setIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  identifier = self->_identifier;
-  self->_identifier = v4;
+  self->_identifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setQuery:(id)query
 {
-  v4 = [query copy];
-  query = self->_query;
-  self->_query = v4;
+  self->_query = [query copy];
 
   MEMORY[0x1EEE66BB8]();
 }

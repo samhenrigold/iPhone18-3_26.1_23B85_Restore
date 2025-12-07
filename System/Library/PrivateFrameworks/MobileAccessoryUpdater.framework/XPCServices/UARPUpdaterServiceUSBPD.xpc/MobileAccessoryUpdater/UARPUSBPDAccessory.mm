@@ -199,7 +199,6 @@
 
 - (id)vuarpHardwareVersion
 {
-  vuarpDelegate = self->_vuarpDelegate;
   if (objc_opt_respondsToSelector())
   {
     hardwareVersion = [(VUARPProtocol *)self->_vuarpDelegate hardwareVersion];
@@ -216,7 +215,6 @@
 
 - (id)vuarpExpectedTag
 {
-  vuarpDelegate = self->_vuarpDelegate;
   if (objc_opt_respondsToSelector())
   {
     expectedTag = [(VUARPProtocol *)self->_vuarpDelegate expectedTag];

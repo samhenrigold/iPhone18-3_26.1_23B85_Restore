@@ -11,6 +11,7 @@
 - (void)loadView;
 - (void)passcodeEntryViewControllerCancelButtonPressed:(id)pressed;
 - (void)passcodeEntryViewControllerEntryCompleted:(id)completed passcode:(id)passcode;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -91,6 +92,15 @@
   v2.receiver = self;
   v2.super_class = PBADataRecoveryViewController;
   [(PBADataRecoveryViewController *)&v2 didReceiveMemoryWarning];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = PBADataRecoveryViewController;
+  [(PBADataRecoveryViewController *)&v5 viewDidAppear:appear];
+  view = [(PBADataRecoveryViewController *)self view];
+  [view becomeFirstResponder];
 }
 
 - (id)_localizedRecoveryStringForHomeButtonType:(int64_t)type

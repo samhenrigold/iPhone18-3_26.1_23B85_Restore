@@ -1,8 +1,12 @@
 @interface AWDMETRICSKCellularPlatformApBbSleepStatsPlatformState
 - (BOOL)isEqual:(id)equal;
+- (id)apAsString:(int)string;
+- (id)bbChipsetAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)nonPsPrefSimAsString:(int)string;
+- (id)psPrefSimAsString:(int)string;
 - (int)StringAsAp:(id)ap;
 - (int)StringAsBbChipset:(id)chipset;
 - (int)StringAsNonPsPrefSim:(id)sim;
@@ -35,6 +39,29 @@
   {
     return 0;
   }
+}
+
+- (id)apAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"SLEEP";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"AWAKE";
+  }
+
+  return v4;
 }
 
 - (int)StringAsAp:(id)ap
@@ -79,6 +106,21 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)psPrefSimAsString:(int)string
+{
+  if (string < 0x33 && ((0x4000040FFFFFFuLL >> string) & 1) != 0)
+  {
+    v4 = off_27825EB98[string];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPsPrefSim:(id)sim
@@ -250,6 +292,21 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)nonPsPrefSimAsString:(int)string
+{
+  if (string < 0x33 && ((0x4000040FFFFFFuLL >> string) & 1) != 0)
+  {
+    v4 = off_27825EB98[string];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsNonPsPrefSim:(id)sim
 {
   simCopy = sim;
@@ -417,6 +474,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)bbChipsetAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825ED30[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsBbChipset:(id)chipset
@@ -620,7 +692,6 @@ LABEL_26:
   has = self->_has;
   if (has)
   {
-    ap = self->_ap;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -640,7 +711,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  psPrefSim = self->_psPrefSim;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -655,7 +725,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  nonPsPrefSim = self->_nonPsPrefSim;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -670,7 +739,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  bbChipset = self->_bbChipset;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -685,12 +753,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  durationMs = self->_durationMs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_7:
-    durationUlpnMs = self->_durationUlpnMs;
     PBDataWriterWriteUint32Field();
   }
 

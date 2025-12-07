@@ -3,16 +3,17 @@
 - (CGRect)auxillaryHostPinningRect;
 - (CGSize)auxillaryHostContentSize;
 - (NSString)description;
+- (_BYTE)_arrangeSolutionItems:(void *)items alongLayoutAxis:(void *)axis forContainer:(double)container additionalLayoutOffset:(double)offset interItemSpacing:;
 - (double)_additionalDimensionForRequiredEdgeSpacingAlongAxis:(void *)axis group:(char)group trailingEdgeOnly:;
 - (double)_frameOffsetForAdditionalFrameOffset:(uint64_t)offset repeatOffset:(double)repeatOffset repeatAxis:(double)axis interSolutionSpacing:(double)spacing;
 - (double)contentFrame;
 - (double)contentSizeForFrameCount:(uint64_t)count layoutAxis:;
 - (double)layoutFrame;
 - (double)offsetForEdgeSpacing;
-- (id)_frameForAbsoluteIndex:(uint64_t)index additionalFrameOffset:(double)offset interSolutionSpacing:(double)spacing repeatAxis:(double)axis;
+- (id)_frameForAbsoluteIndex:(double)index additionalFrameOffset:(double)offset interSolutionSpacing:(double)spacing repeatAxis:(uint64_t)axis;
 - (id)_queryFramesWithQueryRect:(uint64_t)rect additionalFrameOffset:(uint64_t)offset itemIndexOffset:(CGFloat)indexOffset itemLimit:(CGFloat)limit supplementaryRepeatOffset:(CGFloat)repeatOffset;
 - (id)_queryFramesWithQueryRect:(uint64_t)rect additionalFrameOffset:(uint64_t)offset itemIndexOffset:(CGFloat)indexOffset supplementaryOffsets:(CGFloat)offsets itemLimit:(CGFloat)limit;
-- (id)_supplementaryFrameWithKind:(uint64_t)kind absoluteIndex:(uint64_t)index additionalFrameOffset:(double)offset interSolutionSpacing:(double)spacing repeatAxis:(double)axis;
+- (id)_supplementaryFrameWithKind:(uint64_t)kind absoluteIndex:(double)index additionalFrameOffset:(double)offset interSolutionSpacing:(double)spacing repeatAxis:(uint64_t)axis;
 - (id)_supplementaryFrameWithKind:(uint64_t)kind index:(double)index additionalFrameOffset:(double)offset;
 - (id)auxillaryFrames;
 - (id)auxillaryHostAuxillaryItems;
@@ -33,7 +34,6 @@
 - (id)supplementaryFrameWithKind:(uint64_t)kind index:(double)index additionalFrameOffset:(double)offset;
 - (int64_t)auxillaryHostAuxillaryKind;
 - (uint64_t)_layoutAxisForGroup:(uint64_t)group;
-- (unint64_t)_arrangeSolutionItems:(void *)items alongLayoutAxis:(void *)axis forContainer:(double)container additionalLayoutOffset:(double)offset interItemSpacing:;
 - (unint64_t)auxillaryHostLayoutAxis;
 - (void)_enumerateSolutionFramesForQueryRect:(uint64_t)rect itemLimit:(CGFloat)limit withHandler:(CGFloat)handler;
 - (void)_solveForContainer:(uint64_t)container layoutAxis:(void *)axis traitCollection:(uint64_t)collection maxFrameCount:(char)count layoutRTL:(void *)l preferredSizes:(uint64_t)sizes largestKnownItemSize:(double)size solutionRecursionDepth:(double)self0;
@@ -96,7 +96,7 @@
     {
       if ([v2 isGroup])
       {
-        [(_UICollectionPreferredSize *)v6 preferredSizeForOriginalSize:v8 fittingSize:*(v9 + 120) layoutSize:_UICollectionPreferredSize, v3];
+        [_UICollectionPreferredSize preferredSizeForOriginalSize:v3 fittingSize:v6 layoutSize:v8, *(v9 + 120)];
       }
 
       else
@@ -120,7 +120,7 @@
           v12 = 0.0;
         }
 
-        [(_UICollectionPreferredSize *)v6 preferredSizeForOriginalSize:v8 fittingSize:v12 layoutSize:_UICollectionPreferredSize, v3];
+        [_UICollectionPreferredSize preferredSizeForOriginalSize:v3 fittingSize:v6 layoutSize:v8, v12];
       }
     }
 
@@ -1076,7 +1076,7 @@ LABEL_37:
       v107 = obj[6];
       if (v107)
       {
-        v107 = v107[7];
+        v107 = *(v107 + 56);
       }
     }
 
@@ -1216,7 +1216,7 @@ LABEL_37:
 
       *(&v319 + 1) += v268;
       v316 -= v268;
-      *&v317 = v268 + v317;
+      *&v317 = v317 + v268;
       v144 = obj;
       if (obj)
       {
@@ -2238,14 +2238,14 @@ LABEL_9:
 {
   if (self)
   {
-    self = [(_UICollectionLayoutItemSolver *)self _frameForAbsoluteIndex:a2 additionalFrameOffset:index interSolutionSpacing:offset repeatAxis:spacing, axis];
+    self = [(_UICollectionLayoutItemSolver *)self _frameForAbsoluteIndex:a2 additionalFrameOffset:offset interSolutionSpacing:spacing repeatAxis:axis, index];
     v6 = vars8;
   }
 
   return self;
 }
 
-- (id)_frameForAbsoluteIndex:(uint64_t)index additionalFrameOffset:(double)offset interSolutionSpacing:(double)spacing repeatAxis:(double)axis
+- (id)_frameForAbsoluteIndex:(double)index additionalFrameOffset:(double)offset interSolutionSpacing:(double)spacing repeatAxis:(uint64_t)axis
 {
   if (self)
   {
@@ -2255,7 +2255,7 @@ LABEL_9:
       if ((a2 & 0x8000000000000000) == 0)
       {
 LABEL_5:
-        v14 = [(_UICollectionLayoutItemSolver *)self _frameOffsetForAdditionalFrameOffset:index repeatOffset:offset repeatAxis:spacing interSolutionSpacing:axis];
+        v14 = [(_UICollectionLayoutItemSolver *)self _frameOffsetForAdditionalFrameOffset:axis repeatOffset:index repeatAxis:offset interSolutionSpacing:spacing];
         v16 = v15;
         itemFrames = [(_UICollectionLayoutItemSolver *)self itemFrames];
         v18 = [itemFrames objectAtIndexedSubscript:a2 % v13];
@@ -2366,14 +2366,14 @@ LABEL_9:
 {
   if (self)
   {
-    self = [(_UICollectionLayoutItemSolver *)self _supplementaryFrameWithKind:a2 absoluteIndex:kind additionalFrameOffset:index interSolutionSpacing:offset repeatAxis:spacing, axis];
+    self = [(_UICollectionLayoutItemSolver *)self _supplementaryFrameWithKind:a2 absoluteIndex:kind additionalFrameOffset:offset interSolutionSpacing:spacing repeatAxis:axis, index];
     v7 = vars8;
   }
 
   return self;
 }
 
-- (id)_supplementaryFrameWithKind:(uint64_t)kind absoluteIndex:(uint64_t)index additionalFrameOffset:(double)offset interSolutionSpacing:(double)spacing repeatAxis:(double)axis
+- (id)_supplementaryFrameWithKind:(uint64_t)kind absoluteIndex:(double)index additionalFrameOffset:(double)offset interSolutionSpacing:(double)spacing repeatAxis:(uint64_t)axis
 {
   if (self)
   {
@@ -2400,7 +2400,7 @@ LABEL_9:
       if ((kind & 0x8000000000000000) == 0)
       {
 LABEL_8:
-        v18 = [(_UICollectionLayoutItemSolver *)self _frameOffsetForAdditionalFrameOffset:index repeatOffset:offset repeatAxis:spacing interSolutionSpacing:axis];
+        v18 = [(_UICollectionLayoutItemSolver *)self _frameOffsetForAdditionalFrameOffset:axis repeatOffset:index repeatAxis:offset interSolutionSpacing:spacing];
         v20 = v19;
         v21 = [_UICollectionLayoutFramesQueryResult kindIndexKeyForKind:a2 index:kind % v17];
         supplementaryDictByKindIndex = [(_UICollectionLayoutItemSolverState *)*(self + 48) supplementaryDictByKindIndex];
@@ -2519,7 +2519,7 @@ LABEL_11:
     {
       fittingSize = [(_UICollectionPreferredSize *)a2 fittingSize];
       v16 = [*(self + 16) size];
-      v12 = [(_UICollectionPreferredSize *)v12 preferredSizeForOriginalSize:v14 fittingSize:fittingSize layoutSize:_UICollectionPreferredSize, v16];
+      v12 = [_UICollectionPreferredSize preferredSizeForOriginalSize:v16 fittingSize:v12 layoutSize:v14, fittingSize];
       v14 = v17;
     }
 
@@ -2661,7 +2661,7 @@ LABEL_11:
   return groupCopy;
 }
 
-- (unint64_t)_arrangeSolutionItems:(void *)items alongLayoutAxis:(void *)axis forContainer:(double)container additionalLayoutOffset:(double)offset interItemSpacing:
+- (_BYTE)_arrangeSolutionItems:(void *)items alongLayoutAxis:(void *)axis forContainer:(double)container additionalLayoutOffset:(double)offset interItemSpacing:
 {
   if (a2 == 1)
   {

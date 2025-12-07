@@ -1030,7 +1030,8 @@ LABEL_12:
   v27 = ;
   if ([(MTATimerControlsView *)self isRunningTimer]|| (v28 = 0.0, v29 = 0.0, [(MTATimerControlsView *)self timerControlState]== 2))
   {
-    +[MTAUtilities controlButtonAttributesForView:buttonCircleSize:](MTAUtilities, "controlButtonAttributesForView:buttonCircleSize:", self, [v27 buttonCircleSize]);
+    [v27 buttonCircleSize];
+    objc_msgSend_controlButtonAttributesForView_buttonCircleSize_(MTAUtilities);
     v29 = v189;
     v28 = v191;
     [(MTATimerControlsView *)self addLayoutGuide:v21];
@@ -1404,7 +1405,8 @@ LABEL_17:
     [(MTATimerButtonsController *)v26 startStopButton];
   }
   v27 = ;
-  +[MTAUtilities controlButtonAttributesForView:buttonCircleSize:](MTAUtilities, "controlButtonAttributesForView:buttonCircleSize:", self, [v27 buttonCircleSize]);
+  [v27 buttonCircleSize];
+  objc_msgSend_controlButtonAttributesForView_buttonCircleSize_(MTAUtilities);
   [(MTATimerControlsView *)self addLayoutGuide:v21];
   topAnchor3 = [v24 topAnchor];
   topAnchor4 = [v21 topAnchor];
@@ -1670,7 +1672,8 @@ LABEL_17:
     [(MTATimerButtonsController *)v27 startStopButton];
   }
   v28 = ;
-  +[MTAUtilities controlButtonAttributesForView:buttonCircleSize:](MTAUtilities, "controlButtonAttributesForView:buttonCircleSize:", self, [v28 buttonCircleSize]);
+  [v28 buttonCircleSize];
+  objc_msgSend_controlButtonAttributesForView_buttonCircleSize_(MTAUtilities);
   topAnchor3 = [v25 topAnchor];
   topAnchor4 = [v22 topAnchor];
   v31 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
@@ -2257,7 +2260,8 @@ LABEL_17:
     [(MTATimerButtonsController *)v27 startStopButton];
   }
   v28 = ;
-  +[MTAUtilities controlButtonAttributesForView:buttonCircleSize:](MTAUtilities, "controlButtonAttributesForView:buttonCircleSize:", self, [v28 buttonCircleSize]);
+  [v28 buttonCircleSize];
+  objc_msgSend_controlButtonAttributesForView_buttonCircleSize_(MTAUtilities);
   topAnchor3 = [v25 topAnchor];
   topAnchor4 = [v22 topAnchor];
   v31 = [topAnchor3 constraintEqualToAnchor:topAnchor4];

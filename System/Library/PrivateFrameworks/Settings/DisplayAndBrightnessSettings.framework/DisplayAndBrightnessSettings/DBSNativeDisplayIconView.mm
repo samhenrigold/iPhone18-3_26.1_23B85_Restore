@@ -67,7 +67,7 @@
 {
   locationCopy = location;
   v5 = MEMORY[0x277D75348];
-  v6 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v6 = DBS_BundleForDisplayAndBrightnessSettingsFramework(self);
   if (locationCopy)
   {
     v7 = @"CurrentNativeDisplayIconBackground";

@@ -11,6 +11,8 @@
 - (void)scheduleDidChange;
 - (void)setSpecifier:(id)specifier;
 - (void)updateSchedule;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SCLPhoneSettingsViewController
@@ -23,6 +25,37 @@
   v4.receiver = self;
   v4.super_class = SCLPhoneSettingsViewController;
   [(SCLListViewController *)&v4 dealloc];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = SCLPhoneSettingsViewController;
+  [(SCLPhoneSettingsViewController *)&v6 viewDidAppear:appear];
+  schoolMode = [(SCLPhoneSettingsViewController *)self schoolMode];
+  [schoolMode noteSignificantUserInteraction];
+
+  if (![(SCLPhoneSettingsViewController *)self isObservingApplicationLifecycle])
+  {
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter addObserver:self selector:sel_applicationDidBecomeActive_ name:*MEMORY[0x277D76648] object:0];
+
+    [(SCLPhoneSettingsViewController *)self setObservingApplicationLifecycle:1];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = SCLPhoneSettingsViewController;
+  [(SCLPhoneSettingsViewController *)&v5 viewWillDisappear:disappear];
+  if ([(SCLPhoneSettingsViewController *)self isObservingApplicationLifecycle])
+  {
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter removeObserver:self name:*MEMORY[0x277D76648] object:0];
+
+    [(SCLPhoneSettingsViewController *)self setObservingApplicationLifecycle:0];
+  }
 }
 
 - (void)setSpecifier:(id)specifier
@@ -69,7 +102,7 @@
 
 - (void)loadSchoolModeIfNeeded
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!self->_schoolMode)
   {
     device = [(SCLPhoneSettingsViewController *)self device];
@@ -85,14 +118,14 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         specifier = [(SCLPhoneSettingsViewController *)self specifier];
-        v15 = [specifier propertyForKey:@"COSAssociatedDevice"];
-        v16 = 138412802;
-        v17 = device;
-        v18 = 2112;
-        v19 = v15;
-        v20 = 2112;
-        v21 = v7;
-        _os_log_fault_impl(&dword_26486D000, v8, OS_LOG_TYPE_FAULT, "Selected device is not a Tinker device: %@; Specifier Device: %@;\n%@", &v16, 0x20u);
+        v14 = [specifier propertyForKey:@"COSAssociatedDevice"];
+        v15 = 138412802;
+        v16 = device;
+        v17 = 2112;
+        v18 = v14;
+        v19 = 2112;
+        v20 = v7;
+        _os_log_fault_impl(&dword_26486D000, v8, OS_LOG_TYPE_FAULT, "Selected device is not a Tinker device: %@; Specifier Device: %@;\n%@", &v15, 0x20u);
       }
     }
 
@@ -110,13 +143,11 @@
       [(SCLSchoolMode *)self->_schoolMode resume];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadSpecifierSource
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   [(SCLPhoneSettingsViewController *)self loadSchoolModeIfNeeded];
   schoolMode = [(SCLPhoneSettingsViewController *)self schoolMode];
 
@@ -136,20 +167,20 @@
     [(SCLPhoneSettingsViewController *)self setActiveSpecifierSource:v8];
     v9 = [[SCLHistoryDaysDataSource alloc] initWithListController:self viewModel:v6];
     [(SCLSpecifierDataSource *)v9 setActive:1];
-    v20[0] = v8;
-    v20[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[0] = v8;
+    v19[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
     [(SCLSpecifierDataSource *)v7 setChildDataSources:v10];
 
     [(SCLListViewController *)self setSpecifierSource:v7];
     schoolMode3 = [(SCLPhoneSettingsViewController *)self schoolMode];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __53__SCLPhoneSettingsViewController_loadSpecifierSource__block_invoke;
-    v17[3] = &unk_279B6F258;
-    v18 = v6;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __53__SCLPhoneSettingsViewController_loadSpecifierSource__block_invoke;
+    v16[3] = &unk_279B6F258;
+    v17 = v6;
     v12 = v6;
-    [schoolMode3 fetchRecentUnlockHistoryItemsWithCompletion:v17];
+    [schoolMode3 fetchRecentUnlockHistoryItemsWithCompletion:v16];
   }
 
   else
@@ -169,19 +200,17 @@
     }
 
     [(SCLActiveSpecifierDataSource *)v8 setProperty:v9 forKey:*MEMORY[0x277D3FF88]];
-    v19 = v8;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+    v18 = v8;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
     [(SCLSpecifierDataSource *)v7 setSpecifiers:v15];
 
     [(SCLListViewController *)self setSpecifierSource:v7];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __53__SCLPhoneSettingsViewController_loadSpecifierSource__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = scl_framework_log();
@@ -197,22 +226,20 @@ void __53__SCLPhoneSettingsViewController_loadSpecifierSource__block_invoke(uint
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v14 = [v5 count];
+    v13 = [v5 count];
     _os_log_impl(&dword_26486D000, v8, OS_LOG_TYPE_INFO, "Fetched %d history items", buf, 8u);
   }
 
   if ([v5 count])
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __53__SCLPhoneSettingsViewController_loadSpecifierSource__block_invoke_24;
-    v10[3] = &unk_279B6F230;
-    v11 = *(a1 + 32);
-    v12 = v5;
-    dispatch_async(MEMORY[0x277D85CD0], v10);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __53__SCLPhoneSettingsViewController_loadSpecifierSource__block_invoke_24;
+    v9[3] = &unk_279B6F230;
+    v10 = *(a1 + 32);
+    v11 = v5;
+    dispatch_async(MEMORY[0x277D85CD0], v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__SCLPhoneSettingsViewController_loadSpecifierSource__block_invoke_24(uint64_t a1)
@@ -224,7 +251,7 @@ uint64_t __53__SCLPhoneSettingsViewController_loadSpecifierSource__block_invoke_
 
 - (id)viewModelForSettings:(id)settings
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v4 = objc_alloc_init(SCLSettingsViewModel);
   -[SCLSettingsViewModel setEnabled:](v4, "setEnabled:", [settingsCopy isEnabled]);
@@ -236,8 +263,8 @@ uint64_t __53__SCLPhoneSettingsViewController_loadSpecifierSource__block_invoke_
   if (!scheduledDays)
   {
     v13 = +[SCLTimeIntervalModel defaultTimeInterval];
-    v29[0] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+    v28[0] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
 
     currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
     sCL_nonWeekendDays = [currentCalendar SCL_nonWeekendDays];
@@ -260,8 +287,8 @@ uint64_t __53__SCLPhoneSettingsViewController_loadSpecifierSource__block_invoke_
     [(SCLSettingsViewModel *)v4 setCustomSchedule:v20];
 
     v21 = +[SCLTimeIntervalModel defaultTimeInterval];
-    v28 = v21;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+    v27 = v21;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
 
     [(SCLSettingsViewModel *)v4 setTimeIntervals:v22];
     goto LABEL_12;
@@ -299,8 +326,6 @@ LABEL_11:
 
   [(SCLSettingsViewModel *)v4 setTimeIntervals:v8];
 LABEL_12:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -388,7 +413,7 @@ LABEL_12:
 
 - (void)updateSchedule
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = scl_framework_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -416,51 +441,49 @@ LABEL_12:
     [(SCLPhoneSettingsViewController *)self setScheduleSettings:v6];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v18 = 0x2020000000;
-    v19 = *MEMORY[0x277D767B0];
+    v17 = 0x2020000000;
+    v18 = *MEMORY[0x277D767B0];
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __48__SCLPhoneSettingsViewController_updateSchedule__block_invoke;
-    v16[3] = &unk_279B6F280;
-    v16[4] = &buf;
-    v11 = [mEMORY[0x277D75128] beginBackgroundTaskWithName:@"Commit Schooltime Schedule" expirationHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __48__SCLPhoneSettingsViewController_updateSchedule__block_invoke;
+    v15[3] = &unk_279B6F280;
+    v15[4] = &buf;
+    v11 = [mEMORY[0x277D75128] beginBackgroundTaskWithName:@"Commit Schooltime Schedule" expirationHandler:v15];
     *(*(&buf + 1) + 24) = v11;
 
     schoolMode = [(SCLPhoneSettingsViewController *)self schoolMode];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __48__SCLPhoneSettingsViewController_updateSchedule__block_invoke_67;
-    v15[3] = &unk_279B6F2A8;
-    v15[4] = &buf;
-    [schoolMode applyScheduleSettings:v6 completion:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __48__SCLPhoneSettingsViewController_updateSchedule__block_invoke_67;
+    v14[3] = &unk_279B6F2A8;
+    v14[4] = &buf;
+    [schoolMode applyScheduleSettings:v6 completion:v14];
 
     viewModel2 = [(SCLPhoneSettingsViewController *)self viewModel];
-    SCLLogViewModelCommit(viewModel2, v6);
+    SCLLogViewModelCommit(viewModel2, v6, 0);
 
     _Block_object_dispose(&buf, 8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-void __48__SCLPhoneSettingsViewController_updateSchedule__block_invoke(uint64_t a1)
+void __48__SCLPhoneSettingsViewController_updateSchedule__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = scl_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = scl_framework_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __48__SCLPhoneSettingsViewController_updateSchedule__block_invoke_cold_1(v2);
+    __48__SCLPhoneSettingsViewController_updateSchedule__block_invoke_cold_1(v3);
   }
 
-  v3 = [MEMORY[0x277D75128] sharedApplication];
-  [v3 endBackgroundTask:*(*(*(a1 + 32) + 8) + 24)];
+  v4 = [MEMORY[0x277D75128] sharedApplication];
+  [v4 endBackgroundTask:*(*(*(a1 + 32) + 8) + 24)];
 
   *(*(*(a1 + 32) + 8) + 24) = *MEMORY[0x277D767B0];
 }
 
 void __48__SCLPhoneSettingsViewController_updateSchedule__block_invoke_67(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -475,35 +498,31 @@ void __48__SCLPhoneSettingsViewController_updateSchedule__block_invoke_67(uint64
   v7 = scl_framework_log();
   if (os_log_type_enabled(v7, v6))
   {
-    v10[0] = 67109378;
-    v10[1] = a2;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_26486D000, v7, v6, "Applied settings: %{BOOL}u; %@", v10, 0x12u);
+    v9[0] = 67109378;
+    v9[1] = a2;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_26486D000, v7, v6, "Applied settings: %{BOOL}u; %@", v9, 0x12u);
   }
 
   v8 = [MEMORY[0x277D75128] sharedApplication];
   [v8 endBackgroundTask:*(*(*(a1 + 32) + 8) + 24)];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSpecifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_26486D000, a2, OS_LOG_TYPE_FAULT, "Associated device is not an NRDevice: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_26486D000, a2, OS_LOG_TYPE_FAULT, "Associated device is not an NRDevice: %@", &v2, 0xCu);
 }
 
 void __53__SCLPhoneSettingsViewController_loadSpecifierSource__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26486D000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch items with error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26486D000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch items with error %@", &v2, 0xCu);
 }
 
 @end

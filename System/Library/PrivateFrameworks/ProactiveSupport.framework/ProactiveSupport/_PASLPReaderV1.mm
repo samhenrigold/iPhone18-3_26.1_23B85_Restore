@@ -1,8 +1,8 @@
 @interface _PASLPReaderV1
-- (CFTypeRef)_stringForMappedUTF8CString:(CFTypeRef *)string;
 - (_PASLPReaderV1)initWithData:(id)data sourcedFromPath:(id)path needsValidation:(BOOL)validation error:(id *)error;
+- (__CFString)_stringForMappedUTF8CString:(__CFString *)string;
+- (id)_objectForValue:(id *)value errMsg:;
 - (id)_objectForValue:(uint64_t)value;
-- (id)_objectForValue:(void *)value errMsg:;
 - (id)keyAtIndex:(unint64_t)index usingDictionaryContext:(id)context;
 - (id)objectAtIndex:(unint64_t)index usingArrayContext:(id)context;
 - (id)objectAtIndex:(unint64_t)index usingDictionaryContext:(id)context;
@@ -79,7 +79,7 @@
   return v3;
 }
 
-- (id)_objectForValue:(void *)value errMsg:
+- (id)_objectForValue:(id *)value errMsg:
 {
   if (self)
   {
@@ -175,7 +175,7 @@
 
 - (uint64_t)_decodeValue:(void *)value errMsg:(void *)msg handleBoolean:(void *)boolean handleTaggedInt:(void *)int handleBoxedInt:(void *)boxedInt handleTaggedFloat:(void *)float handleBoxedFloat:(void *)boxedFloat handleDate:(void *)self0 handleData:(void *)self1 handleString:(void *)self2 handleDict:(void *)self3 handleArray:
 {
-  v112 = *MEMORY[0x1E69E9840];
+  v111 = *MEMORY[0x1E69E9840];
   msgCopy = msg;
   booleanCopy = boolean;
   intCopy = int;
@@ -201,11 +201,11 @@
         {
           v35 = boxedFloatCopy;
           v40 = dictCopy;
-          v101 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Array pointer 0x%lx at ofs 0x%lx references address outside of mmap range", a2 & 0x1FFFFFFF, HIDWORD(a2), v100, v101];
+          v100 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Array pointer 0x%lx at ofs 0x%lx references address outside of mmap range", a2 & 0x1FFFFFFF, HIDWORD(a2), v99, v100];
           goto LABEL_32;
         }
 
-        v102 = dictCopy;
+        v101 = dictCopy;
         v35 = boxedFloatCopy;
         v79 = *(self + 16);
         v80 = *(v79 + v62);
@@ -218,7 +218,7 @@
             if (dictCopy)
             {
               (*(dictCopy + 2))(dictCopy, v62 + v79 + 4);
-              v26 = v102;
+              v26 = v101;
             }
 
             v60 = 1;
@@ -243,7 +243,7 @@
         v30 = floatCopy;
         v32 = dataCopy;
 LABEL_83:
-        v26 = v102;
+        v26 = v101;
         goto LABEL_84;
       }
 
@@ -260,7 +260,7 @@ LABEL_83:
         if (v48 + 4 + 4 * v74 > v49)
         {
           v45 = dictCopy;
-          v100 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Dictionary pointer 0x%lx at ofs 0x%lx references region with size 0x%lx exceeding mmap range", v48, v47, 4 * v74];
+          v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Dictionary pointer 0x%lx at ofs 0x%lx references region with size 0x%lx exceeding mmap range", v48, v47, 4 * v74];
           goto LABEL_44;
         }
 
@@ -277,12 +277,12 @@ LABEL_83:
           goto LABEL_55;
         }
 
-        v103 = dictCopy;
+        v102 = dictCopy;
         v86 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Dictionary pointer 0x%lx at ofs 0x%lx references region at byte address 0x%lx which is not quad-aligned", v48, v47, v48 + v73 + 4];
         v87 = *value;
         *value = v86;
 
-        v26 = v103;
+        v26 = v102;
         goto LABEL_67;
       }
 
@@ -319,32 +319,32 @@ LABEL_83:
             if ((v38 & 0x1F) != 0)
             {
               v40 = dictCopy;
-              v101 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Byte array pointer 0x%lx at ofs 0x%lx points to byte array at offset 0x%lx which is not %zu-byte aligned", v37, v36, v37 + 4, 32];
+              v100 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Byte array pointer 0x%lx at ofs 0x%lx points to byte array at offset 0x%lx which is not %zu-byte aligned", v37, v36, v37 + 4, 32];
               goto LABEL_32;
             }
 
-            v94 = v38 + v66;
+            v93 = v38 + v66;
             if ((v66 & 0x1F) != 0)
             {
-              v97 = v38 + v66;
-              v98 = dictCopy;
-              v99 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
-              v94 = v97;
-              v26 = v98;
-              if (v99)
+              v96 = v38 + v66;
+              v97 = dictCopy;
+              v98 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+              v93 = v96;
+              v26 = v97;
+              if (v98)
               {
                 *buf = 138412290;
-                v111 = @"Warning: Data region byte offset is not 32-byte aligned, because backing NSData is not 32-byte aligned.";
+                v110 = @"Warning: Data region byte offset is not 32-byte aligned, because backing NSData is not 32-byte aligned.";
                 _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "_PASLazyPlist: %@", buf, 0xCu);
-                v94 = v97;
-                v26 = v98;
+                v93 = v96;
+                v26 = v97;
               }
             }
           }
 
           else
           {
-            v94 = *(self + 16);
+            v93 = *(self + 16);
           }
 
           v33 = intCopy;
@@ -353,10 +353,10 @@ LABEL_83:
           v30 = floatCopy;
           if (dateCopy)
           {
-            v95 = v67;
-            v96 = v26;
-            dateCopy[2](dateCopy, v94, v95);
-            v26 = v96;
+            v94 = v67;
+            v95 = v26;
+            dateCopy[2](dateCopy, v93, v94);
+            v26 = v95;
           }
 
           v60 = 1;
@@ -364,10 +364,10 @@ LABEL_83:
         }
 
         v40 = dictCopy;
-        v101 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Byte array pointer 0x%lx at ofs 0x%lx references address out of mmap range", v37, v36, v100, v101];
+        v100 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Byte array pointer 0x%lx at ofs 0x%lx references address out of mmap range", v37, v36, v99, v100];
 LABEL_32:
         v64 = *value;
-        *value = v101;
+        *value = v100;
 
         v26 = v40;
 LABEL_33:
@@ -395,15 +395,15 @@ LABEL_50:
           v58 = 0;
           v32 = dataCopy;
 LABEL_24:
-          v107 = v58;
-          v102 = dictCopy;
+          v106 = v58;
+          v101 = dictCopy;
           v59 = memchr(v56, 0, v54);
           if (v59)
           {
             v29 = msgCopy;
             if (v32)
             {
-              (v32)[2](v32, v56, v59 - v56, v107);
+              (v32)[2](v32, v56, v59 - v56, v106);
             }
 
             v60 = 1;
@@ -478,10 +478,10 @@ LABEL_73:
       if (v44 > *(self + 24))
       {
         v45 = dictCopy;
-        v100 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Float64 pointer 0x%lx at ofs 0x%lx references address out of mmap range", a2 & 0x1FFFFFFF, HIDWORD(a2), v100];
+        v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Float64 pointer 0x%lx at ofs 0x%lx references address out of mmap range", a2 & 0x1FFFFFFF, HIDWORD(a2), v99];
 LABEL_44:
         v75 = *value;
-        *value = v100;
+        *value = v46;
 
         v26 = v45;
         v60 = 0;
@@ -510,7 +510,7 @@ LABEL_51:
       {
         v35 = boxedFloatCopy;
         v45 = dictCopy;
-        v100 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NSTimeInterval pointer 0x%lx at ofs 0x%lx references address out of mmap range", a2 & 0x1FFFFFFF, HIDWORD(a2), v100];
+        v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"NSTimeInterval pointer 0x%lx at ofs 0x%lx references address out of mmap range", a2 & 0x1FFFFFFF, HIDWORD(a2), v99];
         goto LABEL_44;
       }
 
@@ -522,7 +522,7 @@ LABEL_51:
       }
 
       v25.n128_u64[0] = *(*(self + 16) + v43);
-      v71 = *(boxedFloatCopy + 2);
+      v71 = boxedFloatCopy[2];
       v35 = boxedFloatCopy;
       v72 = boxedFloatCopy;
     }
@@ -542,7 +542,7 @@ LABEL_72:
     v52 = a2 & 0x1FFFFFFF;
     v30 = floatCopy;
     v35 = boxedFloatCopy;
-    if ((v52 + 8) <= *(self + 24))
+    if (v52 + 8 <= *(self + 24))
     {
       v32 = dataCopy;
       v33 = intCopy;
@@ -559,7 +559,7 @@ LABEL_72:
     }
 
     v45 = dictCopy;
-    v100 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Int64 pointer 0x%lx at ofs 0x%lx references address out of mmap range", a2 & 0x1FFFFFFF, HIDWORD(a2), v100];
+    v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Int64 pointer 0x%lx at ofs 0x%lx references address out of mmap range", a2 & 0x1FFFFFFF, HIDWORD(a2), v99];
     goto LABEL_44;
   }
 
@@ -622,20 +622,19 @@ LABEL_79:
   v33 = intCopy;
 LABEL_84:
 
-  v92 = *MEMORY[0x1E69E9840];
   return v60;
 }
 
-- (CFTypeRef)_stringForMappedUTF8CString:(CFTypeRef *)string
+- (__CFString)_stringForMappedUTF8CString:(__CFString *)string
 {
   if (string)
   {
     stringCopy = string;
-    CFRetain(string[1]);
-    string = CFStringCreateWithCStringNoCopy(0, a2, 0x8000100u, stringCopy[4]);
+    CFRetain(string->info);
+    string = CFStringCreateWithCStringNoCopy(0, a2, 0x8000100u, stringCopy[1].isa);
     if (!string)
     {
-      CFAllocatorDeallocate(stringCopy[4], a2);
+      CFAllocatorDeallocate(stringCopy[1].isa, a2);
       string = 0;
     }
 
@@ -731,7 +730,7 @@ LABEL_4:
     v12 = v26[3];
   }
 
-  v13 = [(_PASLPReaderV1 *)&self->super.isa _stringForMappedUTF8CString:v12];
+  v13 = [(_PASLPReaderV1 *)self _stringForMappedUTF8CString:v12];
   if (!v13)
   {
     objc_exception_throw([[_PASLazyPlistCorruptException alloc] initWithName:@"_PASLazyPlistCorruptException" reason:@"String table contains non-UTF-8 content" userInfo:0]);
@@ -782,60 +781,59 @@ LABEL_4:
   msgCopy = msg;
   if (!self)
   {
-    v9 = 0;
+    v8 = 0;
     goto LABEL_11;
   }
 
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
   v14 = 0;
   v15 = &v14;
   v16 = 0x2020000000;
   v17 = 0;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __64___PASLPReaderV1__decodeDictionaryKeyValue_errMsg_handleString___block_invoke;
-  v13[3] = &unk_1E77F1610;
-  v13[4] = &v18;
-  v13[5] = &v14;
-  v13[6] = value;
-  v13[7] = a2;
-  if (([(_PASLPReaderV1 *)self _decodeValue:a2 errMsg:value handleBoolean:0 handleTaggedInt:0 handleBoxedInt:0 handleTaggedFloat:0 handleBoxedFloat:0 handleDate:0 handleData:0 handleString:v13 handleDict:0 handleArray:0]& 1) != 0)
+  v13[0] = 0;
+  v13[1] = v13;
+  v13[2] = 0x2020000000;
+  v13[3] = 0;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __64___PASLPReaderV1__decodeDictionaryKeyValue_errMsg_handleString___block_invoke;
+  v12[3] = &unk_1E77F1610;
+  v12[4] = &v14;
+  v12[5] = v13;
+  v12[6] = value;
+  v12[7] = a2;
+  if (([(_PASLPReaderV1 *)self _decodeValue:a2 errMsg:value handleBoolean:0 handleTaggedInt:0 handleBoxedInt:0 handleTaggedFloat:0 handleBoxedFloat:0 handleDate:0 handleData:0 handleString:v12 handleDict:0 handleArray:0]& 1) != 0)
   {
-    if (v19[3])
+    if (v15[3])
     {
       if (msgCopy)
       {
-        v8 = v15[3];
         msgCopy[2](msgCopy);
       }
 
-      v9 = 1;
+      v8 = 1;
       goto LABEL_10;
     }
 
     if (!*value)
     {
-      v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Dictionary key 0x%lx at ofs 0x%lx is not of string type", a2, HIDWORD(a2)];
-      v11 = *value;
-      *value = v10;
+      v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Dictionary key 0x%lx at ofs 0x%lx is not of string type", a2, HIDWORD(a2)];
+      v10 = *value;
+      *value = v9;
     }
   }
 
-  v9 = 0;
+  v8 = 0;
 LABEL_10:
+  _Block_object_dispose(v13, 8);
   _Block_object_dispose(&v14, 8);
-  _Block_object_dispose(&v18, 8);
 LABEL_11:
 
-  return v9;
+  return v8;
 }
 
 - (id)objectForKey:(id)key usingDictionaryContext:(id)context
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   contextCopy = context;
   v9 = contextCopy;
@@ -877,7 +875,7 @@ LABEL_3:
     goto LABEL_31;
   }
 
-  v33 = a2;
+  v32 = a2;
   enumerationCache = [v9 enumerationCache];
   if (enumerationCache)
   {
@@ -942,20 +940,20 @@ LABEL_22:
     v20 = (v9[1] + 4 * v19);
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v38 = 0x2020000000;
-    v39 = 0;
+    v37 = 0x2020000000;
+    v38 = 0;
     v21 = *v20 | ((v20 - LODWORD(self->_mappedRegion.mmapBase)) << 32);
-    v36[0] = v18;
-    v36[1] = 3221225472;
-    v36[2] = __54___PASLPReaderV1_objectForKey_usingDictionaryContext___block_invoke;
-    v36[3] = &unk_1E77F1598;
-    v36[4] = &buf;
-    [(_PASLPReaderV1 *)self decodeDictionaryKeyForValue:v21 handleString:v36];
+    v35[0] = v18;
+    v35[1] = 3221225472;
+    v35[2] = __54___PASLPReaderV1_objectForKey_usingDictionaryContext___block_invoke;
+    v35[3] = &unk_1E77F1598;
+    v35[4] = &buf;
+    [(_PASLPReaderV1 *)self decodeDictionaryKeyForValue:v21 handleString:v35];
     v22 = *(*(&buf + 1) + 24);
     if (!v22)
     {
       currentHandler4 = [MEMORY[0x1E696AAA8] currentHandler];
-      [currentHandler4 handleFailureInMethod:v33 object:self file:@"_PASLPReaderV1.m" lineNumber:1095 description:{@"Invalid parameter not satisfying: %@", @"midCStr"}];
+      [currentHandler4 handleFailureInMethod:v32 object:self file:@"_PASLPReaderV1.m" lineNumber:1095 description:{@"Invalid parameter not satisfying: %@", @"midCStr"}];
 
       v22 = *(*(&buf + 1) + 24);
     }
@@ -987,7 +985,7 @@ LABEL_18:
   if (v19 >= v24)
   {
     currentHandler5 = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler5 handleFailureInMethod:v33 object:self file:@"_PASLPReaderV1.m" lineNumber:1112 description:{@"Invalid parameter not satisfying: %@", @"keyOfs < context.count"}];
+    [currentHandler5 handleFailureInMethod:v32 object:self file:@"_PASLPReaderV1.m" lineNumber:1112 description:{@"Invalid parameter not satisfying: %@", @"keyOfs < context.count"}];
 
     v24 = v9[2];
   }
@@ -999,15 +997,13 @@ LABEL_23:
 LABEL_32:
   objc_autoreleasePoolPop(context);
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (_PASLPReaderV1)initWithData:(id)data sourcedFromPath:(id)path needsValidation:(BOOL)validation error:(id *)error
 {
   validationCopy = validation;
-  v89 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   pathCopy = path;
   v14 = pathCopy;
@@ -1034,9 +1030,9 @@ LABEL_32:
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"_PASLPReaderV1.m" lineNumber:471 description:{@"Invalid parameter not satisfying: %@", @"path"}];
 
 LABEL_3:
-  v74.receiver = self;
-  v74.super_class = _PASLPReaderV1;
-  v15 = [(_PASLPReaderV1 *)&v74 init];
+  v73.receiver = self;
+  v73.super_class = _PASLPReaderV1;
+  v15 = [(_PASLPReaderV1 *)&v73 init];
   v16 = v15;
   if (v15)
   {
@@ -1061,18 +1057,18 @@ LABEL_3:
       [currentHandler3 handleFailureInMethod:a2 object:v16 file:@"_PASLPReaderV1.m" lineNumber:493 description:@"Failed to create _releaseReaderDeallocator"];
     }
 
-    v73 = 0;
+    v72 = 0;
     if (*(v16 + 24) <= 0xFuLL)
     {
       v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"rejecting file %@ because it is too small.", v14];
       v21 = notPLPlistError(v14, v20);
-      v22 = v73;
-      v73 = v21;
+      v22 = v72;
+      v72 = v21;
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         LODWORD(context) = 138412290;
-        *(&context + 4) = v73;
+        *(&context + 4) = v72;
         _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASLazyPlist: %@", &context, 0xCu);
         if (!error)
         {
@@ -1087,7 +1083,7 @@ LABEL_10:
         goto LABEL_11;
       }
 
-      *error = v73;
+      *error = v72;
       goto LABEL_10;
     }
 
@@ -1101,8 +1097,8 @@ LABEL_10:
         v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"rejecting file %@ because header has bad magic value", v25];
         v29 = notPLPlistError(v26, v28);
 LABEL_36:
-        v43 = v73;
-        v73 = v29;
+        v43 = v72;
+        v72 = v29;
         goto LABEL_37;
       }
 
@@ -1121,8 +1117,8 @@ LABEL_36:
         v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&context forKeys:buf count:3];
 
         v44 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"_PASLazyPlistErrorDomain" code:3 userInfo:v43];
-        v45 = v73;
-        v73 = v44;
+        v45 = v72;
+        v72 = v44;
 
 LABEL_37:
         if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -1131,8 +1127,8 @@ LABEL_37:
         }
 
         LODWORD(context) = 138412290;
-        *(&context + 4) = v73;
-        v49 = MEMORY[0x1E69E9C10];
+        *(&context + 4) = v72;
+        v48 = MEMORY[0x1E69E9C10];
         p_context = &context;
         goto LABEL_43;
       }
@@ -1154,81 +1150,81 @@ LABEL_35:
         goto LABEL_35;
       }
 
-      v51 = *(v24 + 12);
-      if ((v51 & 3) != 0 || v51 + 4 > v39)
+      v50 = *(v24 + 12);
+      if ((v50 & 3) != 0 || v50 + 4 > v39)
       {
         v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"rejecting file %@ because header has bad root object offset 0x%lx", v25, *(v24 + 12)];
         goto LABEL_35;
       }
 
-      v87 = 0u;
-      v88 = 0u;
-      context_64 = 0u;
       v86 = 0u;
+      v87 = 0u;
+      context_64 = 0u;
+      v85 = 0u;
       context_32 = 0u;
       context_48 = 0u;
       context = 0u;
       context_16 = 0u;
-      v52 = v73;
-      v73 = 0;
+      v51 = v72;
+      v72 = 0;
 
-      v72 = v26;
-      v53 = *(v16 + 16);
-      v54 = *(v53 + 4);
-      v55 = *(v53 + 8);
-      if (v55 > v54)
+      v71 = v26;
+      v52 = *(v16 + 16);
+      v53 = *(v52 + 4);
+      v54 = *(v52 + 8);
+      if (v54 > v53)
       {
-        if (*(v53 + v55 - 1))
+        if (*(v52 + v54 - 1))
         {
-          v56 = v72;
-          v57 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"rejecting file %@ because string table is not 0-terminated", v72];
-          corruptionError(v72, v57);
-          v73 = v58 = v73;
+          v55 = v71;
+          v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"rejecting file %@ because string table is not 0-terminated", v71];
+          corruptionError(v71, v56);
+          v72 = v57 = v72;
         }
 
         else
         {
-          v61 = 0;
-          v62 = (v53 + v54);
+          v60 = 0;
+          v61 = (v52 + v53);
           while (1)
           {
             *&context = context + 1;
-            v57 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v62];
-            if (!v57)
+            v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v61];
+            if (!v56)
             {
-              v69 = @"rejecting file %@ because string table contains non-UTF-8 content";
+              v68 = @"rejecting file %@ because string table contains non-UTF-8 content";
               goto LABEL_91;
             }
 
-            if (v61 && (strcmp(v61, v62) & 0x80000000) == 0)
+            if (v60 && (strcmp(v60, v61) & 0x80000000) == 0)
             {
               break;
             }
 
-            v63 = &v62[strlen(v62) + 1];
+            v62 = &v61[strlen(v61) + 1];
 
+            v60 = v61;
             v61 = v62;
-            v62 = v63;
-            if (v63 >= *(v16 + 16) + *(*(v16 + 16) + 8))
+            if (v62 >= *(v16 + 16) + *(*(v16 + 16) + 8))
             {
               goto LABEL_57;
             }
           }
 
-          v69 = @"rejecting file %@ because string table contains non-sorted or duplicate entries";
+          v68 = @"rejecting file %@ because string table contains non-sorted or duplicate entries";
 LABEL_91:
-          v56 = v72;
-          v58 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v69, v72];
-          v70 = corruptionError(v72, v58);
-          v71 = v73;
-          v73 = v70;
+          v55 = v71;
+          v57 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v68, v71];
+          v69 = corruptionError(v71, v57);
+          v70 = v72;
+          v72 = v69;
         }
 
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          *&buf[4] = v73;
-          v49 = MEMORY[0x1E69E9C10];
+          *&buf[4] = v72;
+          v48 = MEMORY[0x1E69E9C10];
           goto LABEL_94;
         }
 
@@ -1237,27 +1233,27 @@ LABEL_91:
 
 LABEL_57:
 
-      v64 = v73;
-      v73 = 0;
+      v63 = v72;
+      v72 = 0;
 
-      if (([(_PASLPReaderV1 *)v16 _validateObjectGraphWithFilename:v72 rootValue:*(*(*(v16 + 16) + 12) + *(v16 + 16)) | (*(*(v16 + 16) + 12) << 32) recursionDepth:0 stats:&context error:&v73]& 1) == 0)
+      if (([(_PASLPReaderV1 *)v16 _validateObjectGraphWithFilename:v71 rootValue:*(*(*(v16 + 16) + 12) + *(v16 + 16)) | (*(*(v16 + 16) + 12) << 32) recursionDepth:0 stats:&context error:&v72]& 1) == 0)
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          *&buf[4] = v73;
-          v49 = MEMORY[0x1E69E9C10];
+          *&buf[4] = v72;
+          v48 = MEMORY[0x1E69E9C10];
 LABEL_94:
           p_context = buf;
 LABEL_43:
-          _os_log_error_impl(&dword_1A7F47000, v49, OS_LOG_TYPE_ERROR, "_PASLazyPlist: %@", p_context, 0xCu);
+          _os_log_error_impl(&dword_1A7F47000, v48, OS_LOG_TYPE_ERROR, "_PASLazyPlist: %@", p_context, 0xCu);
         }
 
 LABEL_38:
         if (error)
         {
           v23 = 0;
-          *error = v73;
+          *error = v72;
           goto LABEL_40;
         }
 
@@ -1271,7 +1267,7 @@ LABEL_40:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        *&buf[4] = v72;
+        *&buf[4] = v71;
         _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "_PASLazyPlist: Successfully traversed object graph for lazy plist %@.  Object statistics:", buf, 0xCu);
       }
 
@@ -1338,67 +1334,67 @@ LABEL_40:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218240;
-        *&buf[4] = v87;
+        *&buf[4] = v86;
         *&buf[12] = 2048;
-        *&buf[14] = *(&v87 + 1);
+        *&buf[14] = *(&v86 + 1);
         _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "_PASLazyPlist: Dictionary:     %tu (%tu total key/value mappings)", buf, 0x16u);
       }
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218240;
-        *&buf[4] = v86;
+        *&buf[4] = v85;
         *&buf[12] = 2048;
-        *&buf[14] = *(&v86 + 1);
+        *&buf[14] = *(&v85 + 1);
         _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "_PASLazyPlist: Array:          %tu (%tu total elements)", buf, 0x16u);
       }
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
         *buf = 134217984;
-        *&buf[4] = v88;
+        *&buf[4] = v87;
         _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "_PASLazyPlist: Object graph maximum depth: %tu", buf, 0xCu);
       }
 
-      v65 = *(&v88 + 1);
-      if (*(&v88 + 1) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
+      v64 = *(&v87 + 1);
+      if (*(&v87 + 1) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218240;
-        *&buf[4] = v65;
+        *&buf[4] = v64;
         *&buf[12] = 2048;
-        *&buf[14] = v87 + v86 + context_64 + *(&context_48 + 1) + context_48 + *(&context_32 + 1) + *(&context_16 + 1);
+        *&buf[14] = v86 + v85 + context_64 + *(&context_48 + 1) + context_48 + *(&context_32 + 1) + *(&context_16 + 1);
         _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "_PASLazyPlist: Boxed allocations: %tu (referenced by %tu total pointers)", buf, 0x16u);
       }
 
-      v66 = +[_PASLazyPlist deserializationStatsHandler];
-      v30 = v66;
-      if (v66)
+      v65 = +[_PASLazyPlist deserializationStatsHandler];
+      v30 = v65;
+      if (v65)
       {
-        v67 = *(v66 + 16);
-        v77 = context_64;
+        v66 = *(v65 + 16);
+        v76 = context_64;
+        v77 = v85;
         v78 = v86;
         v79 = v87;
-        v80 = v88;
         *buf = context;
         *&buf[16] = context_16;
-        *v76 = context_32;
-        *&v76[16] = context_48;
-        v67(v66, buf);
+        *v75 = context_32;
+        *&v75[16] = context_48;
+        v66(v65, buf);
       }
     }
 
     else
     {
-      v87 = 0u;
-      v88 = 0u;
-      context_64 = 0u;
       v86 = 0u;
+      v87 = 0u;
+      context_64 = 0u;
+      v85 = 0u;
       context_32 = 0u;
       context_48 = 0u;
       context = 0u;
       context_16 = 0u;
       v30 = 0;
-      v73 = 0;
+      v72 = 0;
     }
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
@@ -1414,12 +1410,12 @@ LABEL_40:
       *&buf[14] = v31;
       *&buf[22] = 2048;
       *&buf[24] = v32;
-      *v76 = 2048;
-      *&v76[2] = v33;
-      *&v76[10] = 2048;
-      *&v76[12] = v34;
-      *&v76[20] = 2048;
-      *&v76[22] = v35;
+      *v75 = 2048;
+      *&v75[2] = v33;
+      *&v75[10] = 2048;
+      *&v75[12] = v34;
+      *&v75[20] = 2048;
+      *&v75[22] = v35;
       _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "_PASLazyPlist: Loaded %@ (mapping %p, size %zu, string table [0x%lx, 0x%lx), root 0x%lx)", buf, 0x3Eu);
     }
 
@@ -1430,7 +1426,6 @@ LABEL_40:
   v23 = 0;
 LABEL_41:
 
-  v47 = *MEMORY[0x1E69E9840];
   return v23;
 }
 

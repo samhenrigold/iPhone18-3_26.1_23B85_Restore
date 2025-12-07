@@ -7,7 +7,7 @@
 
 - (void)setAudioSessionMXProperties:(id)properties
 {
-  sub_1C5D2AA10(0, &qword_1EC1A93B8);
+  sub_1C5D2AA10(0, &qword_1EC1A93B8, &protocolRef_NSSecureCoding);
   v4 = sub_1C6016860();
   selfCopy = self;
   sub_1C5DCAEBC(v4);

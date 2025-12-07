@@ -23,9 +23,9 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v71 = signatureCopy;
+      v68 = signatureCopy;
       sourceCopy = source;
-      v70[0] = self;
+      v67[0] = self;
       if ((source - 1) > 5)
       {
         v10 = 0;
@@ -37,64 +37,61 @@
       }
 
       StreamCompressor = DDLookupTableCreate();
-      v70[1] = v70;
+      v67[1] = v67;
       MEMORY[0x1EEE9AC00](StreamCompressor);
-      v76 = v70 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v75 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v73 = v67 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v72 = objc_alloc_init(MEMORY[0x1E695DF70]);
       if ([contentCopy count])
       {
         v14 = 0;
         v15 = 0;
-        v73 = *MEMORY[0x1E695E738];
-        v16 = 0x1E695D000uLL;
+        v70 = *MEMORY[0x1E695E738];
         do
         {
           firstObject = [contentCopy firstObject];
           [contentCopy removeObjectAtIndex:0];
           if ([contentCopy count] < v10)
           {
-            *&v76[4 * v14] = 0;
-            v18 = *(v16 + 3872);
+            *&v73[4 * v14] = 0;
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v19 = firstObject;
-              v20 = [v19 objectForKeyedSubscript:@"threshold"];
-              v21 = [v19 objectForKeyedSubscript:@"domain"];
-              v22 = [v19 objectForKeyedSubscript:@"entities"];
-              v23 = [v19 objectForKeyedSubscript:@"keywords"];
-              if (v21)
+              v17 = firstObject;
+              v18 = [v17 objectForKeyedSubscript:@"threshold"];
+              v19 = [v17 objectForKeyedSubscript:@"domain"];
+              v20 = [v17 objectForKeyedSubscript:@"entities"];
+              v21 = [v17 objectForKeyedSubscript:@"keywords"];
+              if (v19)
               {
-                v24 = v21;
+                v22 = v19;
               }
 
               else
               {
-                v24 = v73;
+                v22 = v70;
               }
 
-              [v75 addObject:v24];
+              [v72 addObject:v22];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  DDSourceAddDomainContent(StreamCompressor, sourceCopy, v14, v22, v23);
+                  DDSourceAddDomainContent(StreamCompressor, sourceCopy, v14, v20, v21);
                   objc_opt_class();
                   isKindOfClass = objc_opt_isKindOfClass();
-                  v26 = 0;
+                  v24 = 0;
                   if (isKindOfClass)
                   {
-                    [v20 floatValue];
+                    [v18 floatValue];
                   }
 
-                  *&v76[4 * v14] = v26;
+                  *&v73[4 * v14] = v24;
                 }
               }
 
               v15 = 1;
-              v16 = 0x1E695D000;
             }
 
             else
@@ -115,22 +112,22 @@
         {
           if (v15)
           {
-            DDLookupTableSetContextThresholds(StreamCompressor, sourceCopy, v76, v14);
+            DDLookupTableSetContextThresholds(StreamCompressor, sourceCopy, v73, v14);
           }
 
-          v27 = v71;
-          if (v71)
+          v25 = v68;
+          if (v68)
           {
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v27 = 0;
+              v25 = 0;
             }
           }
 
-          if ([v75 count] || v27)
+          if ([v72 count] || v25)
           {
-            DDSourceAddDomainsNames(StreamCompressor, sourceCopy, v75, v27);
+            DDSourceAddDomainsNames(StreamCompressor, sourceCopy, v72, v25);
           }
         }
       }
@@ -141,53 +138,53 @@
         goto LABEL_67;
       }
 
-      v28 = *(v70[0] + 44);
+      v26 = *(v67[0] + 44);
       FinalizedSourceContent = DDSourceCreateFinalizedSourceContent(StreamCompressor);
       CFRelease(v12);
       if (FinalizedSourceContent)
       {
-        v30 = sourceCopy;
-        if (_DDTriePathForSource(sourceCopy, v79, 0, 1, v28))
+        v28 = sourceCopy;
+        if (_DDTriePathForSource(sourceCopy, v76, 0, 1, v26))
         {
           Length = CFDataGetLength(FinalizedSourceContent);
-          if (_DDTriePathForSource(v30, v78, 0, 0, v28))
+          if (_DDTriePathForSource(v28, v75, 0, 0, v26))
           {
-            v32 = mkstemp(v78);
-            if (v32 != -1)
+            v30 = mkstemp(v75);
+            if (v30 != -1)
             {
-              v33 = v32;
+              v31 = v30;
               BytePtr = CFDataGetBytePtr(FinalizedSourceContent);
               if (Length)
               {
                 if (VolumeSupportsCompression())
                 {
-                  v35 = *MEMORY[0x1E695E480];
-                  v36 = CFArrayCreate(*MEMORY[0x1E695E480], 0, 0, MEMORY[0x1E695E9C0]);
-                  if (v36)
+                  v33 = *MEMORY[0x1E695E480];
+                  v34 = CFArrayCreate(*MEMORY[0x1E695E480], 0, 0, MEMORY[0x1E695E9C0]);
+                  if (v34)
                   {
-                    v37 = v36;
-                    v76 = BytePtr;
-                    v77[0] = *MEMORY[0x1E695E4D0];
-                    v77[1] = v77[0];
-                    v77[2] = v36;
-                    v38 = *MEMORY[0x1E698C1B0];
+                    v35 = v34;
+                    v73 = BytePtr;
+                    v74[0] = *MEMORY[0x1E695E4D0];
+                    v74[1] = v74[0];
+                    v74[2] = v34;
+                    v36 = *MEMORY[0x1E698C1B0];
                     keys[0] = *MEMORY[0x1E698C1B8];
-                    keys[1] = v38;
+                    keys[1] = v36;
                     keys[2] = *MEMORY[0x1E698C1A8];
-                    v39 = CFDictionaryCreate(v35, keys, v77, 3, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-                    if (v39)
+                    v37 = CFDictionaryCreate(v33, keys, v74, 3, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+                    if (v37)
                     {
-                      v40 = v39;
+                      v38 = v37;
                       StreamCompressorQueueWithOptions = CreateStreamCompressorQueueWithOptions();
-                      CFRelease(v40);
-                      CFRelease(v37);
-                      BytePtr = v76;
+                      CFRelease(v38);
+                      CFRelease(v35);
+                      BytePtr = v73;
                       if (StreamCompressorQueueWithOptions)
                       {
                         StreamCompressor = CreateStreamCompressor();
                         if (StreamCompressor)
                         {
-                          v42 = Length;
+                          v40 = Length;
                           if (WriteToStreamCompressor() != Length)
                           {
                             if (DDLogHandle_onceToken != -1)
@@ -195,17 +192,17 @@
                               dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
                             }
 
-                            v43 = DDLogHandle_error_log_handle;
+                            v41 = DDLogHandle_error_log_handle;
                             if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
                             {
-                              v68 = __error();
-                              v69 = strerror(*v68);
-                              LODWORD(v77[0]) = 136315138;
-                              *(v77 + 4) = v69;
-                              _os_log_error_impl(&dword_1BCFDD000, v43, OS_LOG_TYPE_ERROR, "DD Failed writing stream (error: %s)", v77, 0xCu);
+                              v65 = __error();
+                              v66 = strerror(*v65);
+                              LODWORD(v74[0]) = 136315138;
+                              *(v74 + 4) = v66;
+                              _os_log_error_impl(&dword_1BCFDD000, v41, OS_LOG_TYPE_ERROR, "DD Failed writing stream (error: %s)", v74, 0xCu);
                             }
 
-                            v42 = 0;
+                            v40 = 0;
                           }
 
                           if (!CloseStreamCompressor())
@@ -218,20 +215,20 @@ LABEL_57:
                                 dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
                               }
 
-                              v45 = DDLogHandle_error_log_handle;
+                              v43 = DDLogHandle_error_log_handle;
                               if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
                               {
-                                v64 = __error();
-                                v65 = strerror(*v64);
-                                LODWORD(v77[0]) = 136315138;
-                                *(v77 + 4) = v65;
-                                _os_log_error_impl(&dword_1BCFDD000, v45, OS_LOG_TYPE_ERROR, "DD Failed compressing (error: %s)", v77, 0xCu);
+                                v61 = __error();
+                                v62 = strerror(*v61);
+                                LODWORD(v74[0]) = 136315138;
+                                *(v74 + 4) = v62;
+                                _os_log_error_impl(&dword_1BCFDD000, v43, OS_LOG_TYPE_ERROR, "DD Failed compressing (error: %s)", v74, 0xCu);
                               }
 
-                              v42 = 0;
+                              v40 = 0;
                             }
 
-                            BytePtr = v76;
+                            BytePtr = v73;
                             if (StreamCompressor)
                             {
                               goto LABEL_78;
@@ -245,118 +242,118 @@ LABEL_57:
                             dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
                           }
 
-                          v44 = DDLogHandle_error_log_handle;
+                          v42 = DDLogHandle_error_log_handle;
                           if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
                           {
-                            v66 = __error();
-                            v67 = strerror(*v66);
-                            LODWORD(v77[0]) = 136315138;
-                            *(v77 + 4) = v67;
-                            _os_log_error_impl(&dword_1BCFDD000, v44, OS_LOG_TYPE_ERROR, "DD Failed closing stream (error: %s)", v77, 0xCu);
+                            v63 = __error();
+                            v64 = strerror(*v63);
+                            LODWORD(v74[0]) = 136315138;
+                            *(v74 + 4) = v64;
+                            _os_log_error_impl(&dword_1BCFDD000, v42, OS_LOG_TYPE_ERROR, "DD Failed closing stream (error: %s)", v74, 0xCu);
                           }
                         }
 
-                        v42 = 0;
+                        v40 = 0;
                         goto LABEL_57;
                       }
                     }
 
                     else
                     {
-                      CFRelease(v37);
-                      BytePtr = v76;
+                      CFRelease(v35);
+                      BytePtr = v73;
                     }
                   }
                 }
               }
 
 LABEL_77:
-              v42 = write(v33, BytePtr, Length);
+              v40 = write(v31, BytePtr, Length);
 LABEL_78:
-              if ((v30 & 0xFFFFFFFD) != 4)
+              if ((v28 & 0xFFFFFFFD) != 4)
               {
-                fchmod(v33, 0x184u);
+                fchmod(v31, 0x184u);
               }
 
-              close(v33);
-              if (v42 != Length)
+              close(v31);
+              if (v40 != Length)
               {
                 if (DDLogHandle_onceToken != -1)
                 {
                   dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
                 }
 
-                signatureCopy = v71;
-                v58 = DDLogHandle_error_log_handle;
+                signatureCopy = v68;
+                v56 = DDLogHandle_error_log_handle;
                 if (!os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_97;
                 }
 
-                LODWORD(v77[0]) = 136315138;
-                *(v77 + 4) = v78;
-                v55 = "DDCore: Could not write tmp lookup file %s";
-                v56 = v58;
-                v57 = 12;
+                LODWORD(v74[0]) = 136315138;
+                *(v74 + 4) = v75;
+                v53 = "DDCore: Could not write tmp lookup file %s";
+                v54 = v56;
+                v55 = 12;
                 goto LABEL_96;
               }
 
-              if (unlink(v79) && *__error() != 2)
+              if (unlink(v76) && *__error() != 2)
               {
                 if (DDLogHandle_onceToken != -1)
                 {
                   dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
                 }
 
-                signatureCopy = v71;
-                v59 = DDLogHandle_error_log_handle;
+                signatureCopy = v68;
+                v57 = DDLogHandle_error_log_handle;
                 if (!os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_97;
                 }
 
-                v60 = __error();
-                v61 = strerror(*v60);
-                LODWORD(v77[0]) = 136315394;
-                *(v77 + 4) = v61;
-                WORD2(v77[1]) = 2080;
-                *(&v77[1] + 6) = v78;
-                v55 = "DDCore: Could not unlink lookup file (%s) %s";
-                v56 = v59;
-                v57 = 22;
+                v58 = __error();
+                v59 = strerror(*v58);
+                LODWORD(v74[0]) = 136315394;
+                *(v74 + 4) = v59;
+                WORD2(v74[1]) = 2080;
+                *(&v74[1] + 6) = v75;
+                v53 = "DDCore: Could not unlink lookup file (%s) %s";
+                v54 = v57;
+                v55 = 22;
                 goto LABEL_96;
               }
 
-              rename(v78, v79, v50);
-              if (v51)
+              rename(v75, v76, v48);
+              if (v49)
               {
                 if (DDLogHandle_onceToken != -1)
                 {
                   dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
                 }
 
-                signatureCopy = v71;
-                v52 = DDLogHandle_error_log_handle;
+                signatureCopy = v68;
+                v50 = DDLogHandle_error_log_handle;
                 if (!os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_97;
                 }
 
-                v53 = __error();
-                v54 = strerror(*v53);
-                LODWORD(v77[0]) = 136315650;
-                *(v77 + 4) = v78;
-                WORD2(v77[1]) = 2080;
-                *(&v77[1] + 6) = v79;
-                HIWORD(v77[2]) = 2080;
-                v77[3] = v54;
-                v55 = "DDCore: Could not move lookup file from %s to %s (error: %s)";
-                v56 = v52;
-                v57 = 32;
+                v51 = __error();
+                v52 = strerror(*v51);
+                LODWORD(v74[0]) = 136315650;
+                *(v74 + 4) = v75;
+                WORD2(v74[1]) = 2080;
+                *(&v74[1] + 6) = v76;
+                HIWORD(v74[2]) = 2080;
+                v74[3] = v52;
+                v53 = "DDCore: Could not move lookup file from %s to %s (error: %s)";
+                v54 = v50;
+                v55 = 32;
 LABEL_96:
-                _os_log_error_impl(&dword_1BCFDD000, v56, OS_LOG_TYPE_ERROR, v55, v77, v57);
+                _os_log_error_impl(&dword_1BCFDD000, v54, OS_LOG_TYPE_ERROR, v53, v74, v55);
 LABEL_97:
-                unlink(v78);
+                unlink(v75);
 LABEL_98:
                 CFRelease(FinalizedSourceContent);
                 LOBYTE(v12) = 0;
@@ -365,9 +362,9 @@ LABEL_98:
 
               CFRelease(FinalizedSourceContent);
               LOBYTE(v12) = 1;
-              DDSourceRemoveFile(v30, v28, 1);
+              DDSourceRemoveFile(v28, v26, 1);
 LABEL_67:
-              signatureCopy = v71;
+              signatureCopy = v68;
 LABEL_99:
 
               goto LABEL_100;
@@ -381,35 +378,35 @@ LABEL_99:
               dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
             }
 
-            signatureCopy = v71;
-            v46 = DDLogHandle_error_log_handle;
+            signatureCopy = v68;
+            v44 = DDLogHandle_error_log_handle;
             if (!os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_74;
             }
 
-            LODWORD(v77[0]) = 136315138;
-            *(v77 + 4) = v79;
-            _os_log_error_impl(&dword_1BCFDD000, v46, OS_LOG_TYPE_ERROR, "DDCore: Could create tmp path file for %s", v77, 0xCu);
+            LODWORD(v74[0]) = 136315138;
+            *(v74 + 4) = v76;
+            _os_log_error_impl(&dword_1BCFDD000, v44, OS_LOG_TYPE_ERROR, "DDCore: Could create tmp path file for %s", v74, 0xCu);
           }
 
-          signatureCopy = v71;
+          signatureCopy = v68;
           if (DDLogHandle_onceToken != -1)
           {
             dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
           }
 
 LABEL_74:
-          v47 = DDLogHandle_error_log_handle;
+          v45 = DDLogHandle_error_log_handle;
           if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
           {
-            v48 = __error();
-            v49 = strerror(*v48);
-            LODWORD(v77[0]) = 136315394;
-            *(v77 + 4) = v49;
-            WORD2(v77[1]) = 2080;
-            *(&v77[1] + 6) = v78;
-            _os_log_error_impl(&dword_1BCFDD000, v47, OS_LOG_TYPE_ERROR, "DDCore: Could not create tmp lookup file (%s) %s", v77, 0x16u);
+            v46 = __error();
+            v47 = strerror(*v46);
+            LODWORD(v74[0]) = 136315394;
+            *(v74 + 4) = v47;
+            WORD2(v74[1]) = 2080;
+            *(&v74[1] + 6) = v75;
+            _os_log_error_impl(&dword_1BCFDD000, v45, OS_LOG_TYPE_ERROR, "DDCore: Could not create tmp lookup file (%s) %s", v74, 0x16u);
           }
 
           goto LABEL_98;
@@ -435,7 +432,6 @@ LABEL_74:
 
 LABEL_100:
 
-  v62 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -464,7 +460,7 @@ LABEL_100:
 
 - (id)fileHandleForSourceRead:(int)read resourceType:(unint64_t)type
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (altPath)
   {
     v7 = 0;
@@ -475,7 +471,7 @@ LABEL_100:
     v7 = (read & 0xFFFFFFFD) == 4;
   }
 
-  if ((!v7 || [(DataDetectorsSourceAccess *)self privacyUserReadEntitled]) && _DDTriePathForSource(read, v12, type == 1, 1, self->_clientuid) && (v8 = open(v12, 0), v8 >= 3))
+  if ((!v7 || [(DataDetectorsSourceAccess *)self privacyUserReadEntitled]) && _DDTriePathForSource(read, v11, type == 1, 1, self->_clientuid) && (v8 = open(v11, 0), v8 >= 3))
   {
     v9 = [objc_alloc(MEMORY[0x1E696AC00]) initWithFileDescriptor:v8 closeOnDealloc:1];
   }
@@ -485,18 +481,16 @@ LABEL_100:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (BOOL)privacySystemWriteEntitled
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (!self->_privacySystemWriteEntitlementChecked)
   {
-    [(DataDetectorsSourceAccess *)self auditToken];
-    v3 = SecTaskCreateWithAuditToken(0, &v12);
+    objc_msgSend_auditToken(self, a2);
+    v3 = SecTaskCreateWithAuditToken(0, &v11);
     if (v3)
     {
       v4 = v3;
@@ -527,29 +521,27 @@ LABEL_100:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         clientpid = self->_clientpid;
-        v12.val[0] = 67109378;
-        v12.val[1] = clientpid;
-        LOWORD(v12.val[2]) = 2112;
-        *(&v12.val[2] + 2) = @"com.apple.datadetectors.source-write.system";
-        _os_log_error_impl(&dword_1BCFDD000, v8, OS_LOG_TYPE_ERROR, "Client pid %d is missing the %@ entitlement", &v12, 0x12u);
+        v11.val[0] = 67109378;
+        v11.val[1] = clientpid;
+        LOWORD(v11.val[2]) = 2112;
+        *(&v11.val[2] + 2) = @"com.apple.datadetectors.source-write.system";
+        _os_log_error_impl(&dword_1BCFDD000, v8, OS_LOG_TYPE_ERROR, "Client pid %d is missing the %@ entitlement", &v11, 0x12u);
       }
     }
 
     self->_privacySystemWriteEntitlementChecked = 1;
   }
 
-  result = self->_privacySystemWriteEntitled;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return self->_privacySystemWriteEntitled;
 }
 
 - (BOOL)privacyUserWriteEntitled
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (!self->_privacyUserWriteEntitlementChecked)
   {
-    [(DataDetectorsSourceAccess *)self auditToken];
-    v3 = SecTaskCreateWithAuditToken(0, &v12);
+    objc_msgSend_auditToken(self, a2);
+    v3 = SecTaskCreateWithAuditToken(0, &v11);
     if (v3)
     {
       v4 = v3;
@@ -580,20 +572,18 @@ LABEL_100:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         clientpid = self->_clientpid;
-        v12.val[0] = 67109378;
-        v12.val[1] = clientpid;
-        LOWORD(v12.val[2]) = 2112;
-        *(&v12.val[2] + 2) = @"com.apple.datadetectors.source-write.user";
-        _os_log_error_impl(&dword_1BCFDD000, v8, OS_LOG_TYPE_ERROR, "Client pid %d is missing the %@ entitlement", &v12, 0x12u);
+        v11.val[0] = 67109378;
+        v11.val[1] = clientpid;
+        LOWORD(v11.val[2]) = 2112;
+        *(&v11.val[2] + 2) = @"com.apple.datadetectors.source-write.user";
+        _os_log_error_impl(&dword_1BCFDD000, v8, OS_LOG_TYPE_ERROR, "Client pid %d is missing the %@ entitlement", &v11, 0x12u);
       }
     }
 
     self->_privacyUserWriteEntitlementChecked = 1;
   }
 
-  result = self->_privacyUserWriteEntitled;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return self->_privacyUserWriteEntitled;
 }
 
 - (BOOL)privacyUserReadEntitled
@@ -612,59 +602,57 @@ LABEL_100:
   return self->_privacyUserReadEntitled;
 }
 
-void __52__DataDetectorsSourceAccess_privacyUserReadEntitled__block_invoke(uint64_t a1)
+void __52__DataDetectorsSourceAccess_privacyUserReadEntitled__block_invoke(uint64_t a1, const char *a2)
 {
   v13 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  if (!v2[49])
+  v3 = *(a1 + 32);
+  if (!v3[49])
   {
-    [v2 auditToken];
-    v3 = SecTaskCreateWithAuditToken(0, &v12);
-    if (v3)
+    objc_msgSend_auditToken(v3, a2);
+    v4 = SecTaskCreateWithAuditToken(0, &v12);
+    if (v4)
     {
-      v4 = v3;
-      v5 = SecTaskCopyValueForEntitlement(v3, @"com.apple.datadetectors.source-read.user", 0);
-      if (v5)
+      v5 = v4;
+      v6 = SecTaskCopyValueForEntitlement(v4, @"com.apple.datadetectors.source-read.user", 0);
+      if (v6)
       {
-        v6 = v5;
+        v7 = v6;
         TypeID = CFBooleanGetTypeID();
-        if (TypeID == CFGetTypeID(v6) && CFEqual(v6, *MEMORY[0x1E695E4D0]))
+        if (TypeID == CFGetTypeID(v7) && CFEqual(v7, *MEMORY[0x1E695E4D0]))
         {
           *(*(a1 + 32) + 48) = 1;
         }
 
-        CFRelease(v6);
+        CFRelease(v7);
       }
 
-      CFRelease(v4);
+      CFRelease(v5);
     }
 
-    v8 = *(a1 + 32);
-    if ((*(v8 + 48) & 1) == 0)
+    v9 = *(a1 + 32);
+    if ((*(v9 + 48) & 1) == 0)
     {
       if (DDLogHandle_onceToken != -1)
       {
         dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
       }
 
-      v9 = DDLogHandle_error_log_handle;
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = DDLogHandle_error_log_handle;
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = *(*(a1 + 32) + 40);
         v12.val[0] = 67109378;
         v12.val[1] = v11;
         LOWORD(v12.val[2]) = 2112;
         *(&v12.val[2] + 2) = @"com.apple.datadetectors.source-read.user";
-        _os_log_error_impl(&dword_1BCFDD000, v9, OS_LOG_TYPE_ERROR, "Client pid %d is missing the %@ entitlement", &v12, 0x12u);
+        _os_log_error_impl(&dword_1BCFDD000, v10, OS_LOG_TYPE_ERROR, "Client pid %d is missing the %@ entitlement", &v12, 0x12u);
       }
 
-      v8 = *(a1 + 32);
+      v9 = *(a1 + 32);
     }
 
-    *(v8 + 49) = 1;
+    *(v9 + 49) = 1;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeSourceFromJSONFile:(id)file source:(id)source withReply:(id)reply
@@ -689,7 +677,7 @@ void __52__DataDetectorsSourceAccess_privacyUserReadEntitled__block_invoke(uint6
 
 void __70__DataDetectorsSourceAccess_writeSourceFromJSONFile_source_withReply___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) intValue];
   if (*(a1 + 32))
@@ -704,9 +692,9 @@ void __70__DataDetectorsSourceAccess_writeSourceFromJSONFile_source_withReply___
         {
           v6 = objc_autoreleasePoolPush();
           v7 = [*(a1 + 48) readDataToEndOfFile];
-          v21 = 0;
-          v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:1 error:&v21];
-          v9 = v21;
+          v20 = 0;
+          v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:1 error:&v20];
+          v9 = v20;
           if (v9)
           {
             v10 = 0;
@@ -723,13 +711,13 @@ void __70__DataDetectorsSourceAccess_writeSourceFromJSONFile_source_withReply___
                 dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
               }
 
-              v16 = DDLogHandle_error_log_handle;
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+              v15 = DDLogHandle_error_log_handle;
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
               {
-                v19 = objc_opt_class();
+                v18 = objc_opt_class();
                 *buf = 138412290;
-                v23 = v19;
-                _os_log_error_impl(&dword_1BCFDD000, v16, OS_LOG_TYPE_ERROR, "Domains is not a NSMutableDictionary (%@)", buf, 0xCu);
+                v22 = v18;
+                _os_log_error_impl(&dword_1BCFDD000, v15, OS_LOG_TYPE_ERROR, "Domains is not a NSMutableDictionary (%@)", buf, 0xCu);
               }
 
               v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"DataDetectorsCoreSourceAccess" code:2 userInfo:0];
@@ -751,20 +739,20 @@ void __70__DataDetectorsSourceAccess_writeSourceFromJSONFile_source_withReply___
                   dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
                 }
 
-                v17 = DDLogHandle_error_log_handle;
-                if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+                v16 = DDLogHandle_error_log_handle;
+                if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
                 {
-                  v20 = objc_opt_class();
+                  v19 = objc_opt_class();
                   *buf = 138412546;
-                  v23 = v20;
-                  v24 = 2112;
-                  v25 = v10;
-                  _os_log_error_impl(&dword_1BCFDD000, v17, OS_LOG_TYPE_ERROR, "Signature is not a NSString (%@:%@)", buf, 0x16u);
+                  v22 = v19;
+                  v23 = 2112;
+                  v24 = v10;
+                  _os_log_error_impl(&dword_1BCFDD000, v16, OS_LOG_TYPE_ERROR, "Signature is not a NSString (%@:%@)", buf, 0x16u);
                 }
 
-                v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"DataDetectorsCoreSourceAccess" code:1 userInfo:0];
+                v17 = [MEMORY[0x1E696ABC0] errorWithDomain:@"DataDetectorsCoreSourceAccess" code:1 userInfo:0];
 
-                v9 = v18;
+                v9 = v17;
               }
             }
           }
@@ -781,7 +769,7 @@ void __70__DataDetectorsSourceAccess_writeSourceFromJSONFile_source_withReply___
             if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v23 = v9;
+              v22 = v9;
               _os_log_error_impl(&dword_1BCFDD000, v12, OS_LOG_TYPE_ERROR, "Could not read JSON content (%@)", buf, 0xCu);
             }
           }
@@ -795,17 +783,16 @@ void __70__DataDetectorsSourceAccess_writeSourceFromJSONFile_source_withReply___
 
       else
       {
-        v14 = [*(a1 + 32) intValue];
-        v15 = *(*(a1 + 40) + 44);
-        DDSourceRemoveFile(v14, v15, 0);
-        DDSourceRemoveFile(v14, v15, 1);
+        v13 = [*(a1 + 32) intValue];
+        v14 = *(*(a1 + 40) + 44);
+        DDSourceRemoveFile(v13, v14, 0);
+        DDSourceRemoveFile(v13, v14, 1);
       }
     }
   }
 
   (*(*(a1 + 56) + 16))();
   objc_autoreleasePoolPop(v2);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeSourceFromRawData:(id)data source:(id)source signature:(id)signature withReply:(id)reply
@@ -851,31 +838,31 @@ void __79__DataDetectorsSourceAccess_writeSourceFromRawData_source_signature_wit
 
 - (void)filesForSourceRead:(id)read resourceType:(unint64_t)type withReply:(id)reply
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   readCopy = read;
   replyCopy = reply;
   context = objc_autoreleasePoolPush();
   v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(readCopy, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v10 = readCopy;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = -[DataDetectorsSourceAccess fileHandleForSourceRead:resourceType:](self, "fileHandleForSourceRead:resourceType:", [*(*(&v20 + 1) + 8 * i) intValue], type);
+        v15 = -[DataDetectorsSourceAccess fileHandleForSourceRead:resourceType:](self, "fileHandleForSourceRead:resourceType:", [*(*(&v19 + 1) + 8 * i) intValue], type);
         if (v15)
         {
           [v9 addObject:v15];
@@ -888,7 +875,7 @@ void __79__DataDetectorsSourceAccess_writeSourceFromRawData_source_signature_wit
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v12);
@@ -896,8 +883,6 @@ void __79__DataDetectorsSourceAccess_writeSourceFromRawData_source_signature_wit
 
   replyCopy[2](replyCopy, v9);
   objc_autoreleasePoolPop(context);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fileForSourceRead:(id)read resourceType:(unint64_t)type withReply:(id)reply

@@ -12,7 +12,7 @@
   MEMORY[0x1EEE9AC00](v3, v5);
   v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D7D281EC();
-  v8 = _s12NewsArticles31URLPreviewViewControllerFactoryC06createdE03forSo06UIViewE0CSg10Foundation3URLV_tF_0();
+  v8 = _s12NewsArticles31URLPreviewViewControllerFactoryC06createdE03forSo06UIViewE0CSg10Foundation3URLV_tF_0(v7);
   (*(v4 + 8))(v7, v3);
 
   return v8;

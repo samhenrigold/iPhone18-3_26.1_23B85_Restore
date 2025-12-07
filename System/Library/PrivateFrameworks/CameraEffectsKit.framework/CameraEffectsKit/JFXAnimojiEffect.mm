@@ -278,7 +278,7 @@ Class __40__JFXAnimojiEffect_isAvatarKitAvailable__block_invoke()
   return v5;
 }
 
-uint64_t __29__JFXAnimojiEffect_thumbnail__block_invoke()
+uint64_t __29__JFXAnimojiEffect_thumbnail__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [objc_opt_class() isAvatarKitAvailable];
   if (result)

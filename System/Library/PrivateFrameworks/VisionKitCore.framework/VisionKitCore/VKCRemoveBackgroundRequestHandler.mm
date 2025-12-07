@@ -54,48 +54,48 @@
 {
   requestCopy = request;
   completionCopy = completion;
-  if (vk_deviceSupportsRemoveBackground())
+  if (vk_deviceSupportsRemoveBackground(completionCopy, v8))
   {
-    v31 = 0;
-    v8 = [(VKCRemoveBackgroundRequestHandler *)self isValidRequest:requestCopy error:&v31];
-    v9 = v31;
-    if (v8)
+    v32 = 0;
+    v9 = [(VKCRemoveBackgroundRequestHandler *)self isValidRequest:requestCopy error:&v32];
+    v10 = v32;
+    if (v9)
     {
       [(VKCRemoveBackgroundRequestHandler *)self _willBeginForRequest:requestCopy];
-      v23 = self->_service;
+      v24 = self->_service;
       queue = self->_queue;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __63__VKCRemoveBackgroundRequestHandler_performRequest_completion___block_invoke;
       block[3] = &unk_1E7BE6B00;
-      v27 = requestCopy;
+      v28 = requestCopy;
       selfCopy = self;
-      v29 = v23;
-      v30 = completionCopy;
-      v25 = v23;
+      v30 = v24;
+      v31 = completionCopy;
+      v26 = v24;
       dispatch_async(queue, block);
 
       goto LABEL_8;
     }
 
-    v10 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.RemoveBackground");
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.RemoveBackground");
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(VKCRemoveBackgroundRequestHandler *)v9 performRequest:v10 completion:v11, v12, v13, v14, v15, v16];
+      [(VKCRemoveBackgroundRequestHandler *)v10 performRequest:v11 completion:v12, v13, v14, v15, v16, v17];
     }
   }
 
   else
   {
-    v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.VisionKit.RemoveBackground" code:-8 userInfo:0];
-    v10 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.RemoveBackground");
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.VisionKit.RemoveBackground" code:-8 userInfo:0];
+    v11 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit.RemoveBackground");
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(VKCRemoveBackgroundRequestHandler *)v9 performRequest:v10 completion:v17, v18, v19, v20, v21, v22];
+      [(VKCRemoveBackgroundRequestHandler *)v10 performRequest:v11 completion:v18, v19, v20, v21, v22, v23];
     }
   }
 
-  (*(completionCopy + 2))(completionCopy, 0, v9);
+  (*(completionCopy + 2))(completionCopy, 0, v10);
 LABEL_8:
 }
 
@@ -243,19 +243,20 @@ void __63__VKCRemoveBackgroundRequestHandler_performRequest_completion___block_i
   if (request)
   {
     maskOnly = [v3 maskOnly];
-    v6 = _VKSignpostLog();
-    v7 = os_signpost_enabled(v6);
-    if (maskOnly)
+    v6 = maskOnly;
+    v7 = _VKSignpostLog(maskOnly);
+    v8 = os_signpost_enabled(v7);
+    if (v6)
     {
-      if (v7)
+      if (v8)
       {
         OUTLINED_FUNCTION_0_7();
         OUTLINED_FUNCTION_2_4();
-        _os_signpost_emit_with_name_impl(v8, v9, v10, v11, v12, v13, v14, 2u);
+        _os_signpost_emit_with_name_impl(v9, v10, v11, v12, v13, v14, v15, 2u);
       }
 
-      v15 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-      if (!OUTLINED_FUNCTION_3_4(v15))
+      v16 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+      if (!OUTLINED_FUNCTION_3_4(v16))
       {
         goto LABEL_11;
       }
@@ -263,22 +264,22 @@ void __63__VKCRemoveBackgroundRequestHandler_performRequest_completion___block_i
 
     else
     {
-      if (v7)
+      if (v8)
       {
         OUTLINED_FUNCTION_0_7();
         OUTLINED_FUNCTION_2_4();
-        _os_signpost_emit_with_name_impl(v16, v17, v18, v19, v20, v21, v22, 2u);
+        _os_signpost_emit_with_name_impl(v17, v18, v19, v20, v21, v22, v23, 2u);
       }
 
-      v23 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-      if (!OUTLINED_FUNCTION_3_4(v23))
+      v24 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+      if (!OUTLINED_FUNCTION_3_4(v24))
       {
         goto LABEL_11;
       }
     }
 
     OUTLINED_FUNCTION_2_4();
-    _os_log_impl(v24, v25, v26, v27, v28, 2u);
+    _os_log_impl(v25, v26, v27, v28, v29, 2u);
 LABEL_11:
   }
 }
@@ -290,46 +291,68 @@ LABEL_11:
   if (request)
   {
     maskOnly = [v3 maskOnly];
-    v6 = _VKSignpostLog();
-    v7 = os_signpost_enabled(v6);
-    if (maskOnly)
+    v6 = maskOnly;
+    v7 = _VKSignpostLog(maskOnly);
+    v8 = os_signpost_enabled(v7);
+    if (v6)
     {
-      if (v7)
+      if (v8)
       {
         *buf = 0;
         OUTLINED_FUNCTION_0_7();
-        _os_signpost_emit_with_name_impl(v8, v6, OS_SIGNPOST_INTERVAL_END, v9, v10, v11, buf, 2u);
+        _os_signpost_emit_with_name_impl(v9, v7, OS_SIGNPOST_INTERVAL_END, v10, v11, v12, buf, 2u);
       }
 
-      v12 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-      if (!OUTLINED_FUNCTION_3_4(v12))
+      v13 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+      if (!OUTLINED_FUNCTION_3_4(v13))
       {
         goto LABEL_11;
       }
 
-      v24 = 0;
+      v25 = 0;
     }
 
     else
     {
-      if (v7)
+      if (v8)
       {
-        *v23 = 0;
+        *v24 = 0;
         OUTLINED_FUNCTION_0_7();
-        _os_signpost_emit_with_name_impl(v13, v6, OS_SIGNPOST_INTERVAL_END, v14, v15, v16, v23, 2u);
+        _os_signpost_emit_with_name_impl(v14, v7, OS_SIGNPOST_INTERVAL_END, v15, v16, v17, v24, 2u);
       }
 
-      v17 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-      if (!OUTLINED_FUNCTION_3_4(v17))
+      v18 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+      if (!OUTLINED_FUNCTION_3_4(v18))
       {
         goto LABEL_11;
       }
     }
 
     OUTLINED_FUNCTION_2_4();
-    _os_log_impl(v18, v19, v20, v21, v22, 2u);
+    _os_log_impl(v19, v20, v21, v22, v23, 2u);
 LABEL_11:
   }
+}
+
+- (void)performRequest:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_1B4335000, a2, a3, "Request to remove background on an unsupported device. %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)performRequest:(uint64_t)a3 completion:(uint64_t)a4 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_1B4335000, a2, a3, "Request to remove background with an invalid image. %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __63__VKCRemoveBackgroundRequestHandler_performRequest_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_1B4335000, a2, a3, "Could not perform remove background due to nil request or inability to create a MAD request. %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

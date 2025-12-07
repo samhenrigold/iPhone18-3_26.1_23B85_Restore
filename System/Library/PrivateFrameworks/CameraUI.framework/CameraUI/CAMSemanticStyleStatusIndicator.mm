@@ -599,7 +599,7 @@ void __81__CAMSemanticStyleStatusIndicator__generatePlatterImageWithRenderer_col
     memset(&v42, 0, sizeof(v42));
     if (v14)
     {
-      [v14 instanceTransform];
+      objc_msgSend_instanceTransform(v14);
     }
 
     instanceCount = [v14 instanceCount];

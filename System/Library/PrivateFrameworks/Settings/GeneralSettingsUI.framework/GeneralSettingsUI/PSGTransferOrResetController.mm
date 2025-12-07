@@ -1,6 +1,7 @@
 @interface PSGTransferOrResetController
 - (id)createListController;
 - (void)handleURL:(id)l withCompletion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -15,10 +16,10 @@
 
 - (void)viewDidLoad
 {
-  v114[4] = *MEMORY[0x277D85DE8];
-  v112.receiver = self;
-  v112.super_class = PSGTransferOrResetController;
-  [(PSGTransferOrResetController *)&v112 viewDidLoad];
+  v113[4] = *MEMORY[0x277D85DE8];
+  v111.receiver = self;
+  v111.super_class = PSGTransferOrResetController;
+  [(PSGTransferOrResetController *)&v111 viewDidLoad];
   v3 = PSG_LocalizedStringForGeneral(@"TRANSFER_OR_RESET_TITLE");
   [(PSGTransferOrResetController *)self setTitle:v3];
 
@@ -38,12 +39,12 @@
   view3 = [_transferListController3 view];
   [view2 addSubview:view3];
 
-  v111[0] = MEMORY[0x277D85DD0];
-  v111[1] = 3221225472;
-  v111[2] = __43__PSGTransferOrResetController_viewDidLoad__block_invoke;
-  v111[3] = &unk_278324EE0;
-  v111[4] = self;
-  v52 = MEMORY[0x223D38F60](v111);
+  v110[0] = MEMORY[0x277D85DD0];
+  v110[1] = 3221225472;
+  v110[2] = __43__PSGTransferOrResetController_viewDidLoad__block_invoke;
+  v110[3] = &unk_278324EE0;
+  v110[4] = self;
+  v51 = MEMORY[0x223D38F60](v110);
   createListController = [(PSGTransferOrResetController *)self createListController];
   resetOrEraseListController = self->__resetOrEraseListController;
   self->__resetOrEraseListController = createListController;
@@ -60,12 +61,12 @@
   view6 = [_resetOrEraseListController3 view];
   [view5 addSubview:view6];
 
-  v110[0] = MEMORY[0x277D85DD0];
-  v110[1] = 3221225472;
-  v110[2] = __43__PSGTransferOrResetController_viewDidLoad__block_invoke_2;
-  v110[3] = &unk_278324EE0;
-  v110[4] = self;
-  v51 = MEMORY[0x223D38F60](v110);
+  v109[0] = MEMORY[0x277D85DD0];
+  v109[1] = 3221225472;
+  v109[2] = __43__PSGTransferOrResetController_viewDidLoad__block_invoke_2;
+  v109[3] = &unk_278324EE0;
+  v109[4] = self;
+  v50 = MEMORY[0x223D38F60](v109);
   if (+[PSGMigrationController isEnabled])
   {
     _resetOrEraseListController4 = [(PSGTransferOrResetController *)self _resetOrEraseListController];
@@ -88,48 +89,48 @@
     view9 = [_migrationController3 view];
     [view8 addSubview:view9];
 
-    v109[0] = MEMORY[0x277D85DD0];
-    v109[1] = 3221225472;
-    v109[2] = __43__PSGTransferOrResetController_viewDidLoad__block_invoke_3;
-    v109[3] = &unk_278324EE0;
-    v109[4] = self;
-    v73 = MEMORY[0x223D38F60](v109);
-    v71 = MEMORY[0x277CCAAD0];
+    v108[0] = MEMORY[0x277D85DD0];
+    v108[1] = 3221225472;
+    v108[2] = __43__PSGTransferOrResetController_viewDidLoad__block_invoke_3;
+    v108[3] = &unk_278324EE0;
+    v108[4] = self;
+    v72 = MEMORY[0x223D38F60](v108);
+    v70 = MEMORY[0x277CCAAD0];
     _migrationController4 = [(PSGTransferOrResetController *)self _migrationController];
     view10 = [_migrationController4 view];
     topAnchor = [view10 topAnchor];
     _resetOrEraseListController5 = [(PSGTransferOrResetController *)self _resetOrEraseListController];
     view11 = [_resetOrEraseListController5 view];
     bottomAnchor = [view11 bottomAnchor];
-    v95 = [topAnchor constraintEqualToAnchor:bottomAnchor];
-    v114[0] = v95;
+    v94 = [topAnchor constraintEqualToAnchor:bottomAnchor];
+    v113[0] = v94;
     _migrationController5 = [(PSGTransferOrResetController *)self _migrationController];
     view12 = [_migrationController5 view];
     leadingAnchor = [view12 leadingAnchor];
     view13 = [(PSGTransferOrResetController *)self view];
     leadingAnchor2 = [view13 leadingAnchor];
-    v83 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v114[1] = v83;
+    v82 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v113[1] = v82;
     _migrationController6 = [(PSGTransferOrResetController *)self _migrationController];
     view14 = [_migrationController6 view];
     trailingAnchor = [view14 trailingAnchor];
     view15 = [(PSGTransferOrResetController *)self view];
     trailingAnchor2 = [view15 trailingAnchor];
     v31 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v114[2] = v31;
+    v113[2] = v31;
     _migrationController7 = [(PSGTransferOrResetController *)self _migrationController];
     view16 = [_migrationController7 view];
     bottomAnchor2 = [view16 bottomAnchor];
     view17 = [(PSGTransferOrResetController *)self view];
     bottomAnchor3 = [view17 bottomAnchor];
     v37 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-    v114[3] = v37;
-    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v114 count:4];
-    [v71 activateConstraints:v38];
+    v113[3] = v37;
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v113 count:4];
+    [v70 activateConstraints:v38];
 
-    if (v73)
+    if (v72)
     {
-      v73[2](v73);
+      v72[2](v72);
     }
   }
 
@@ -139,44 +140,44 @@
   topAnchor2 = [view18 topAnchor];
   view19 = [(PSGTransferOrResetController *)self view];
   topAnchor3 = [view19 topAnchor];
-  v98 = [topAnchor2 constraintEqualToAnchor:topAnchor3];
-  v113[0] = v98;
+  v97 = [topAnchor2 constraintEqualToAnchor:topAnchor3];
+  v112[0] = v97;
   _transferListController5 = [(PSGTransferOrResetController *)self _transferListController];
   view20 = [_transferListController5 view];
   leadingAnchor3 = [view20 leadingAnchor];
   view21 = [(PSGTransferOrResetController *)self view];
   leadingAnchor4 = [view21 leadingAnchor];
-  v86 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v113[1] = v86;
+  v85 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+  v112[1] = v85;
   _transferListController6 = [(PSGTransferOrResetController *)self _transferListController];
   view22 = [_transferListController6 view];
   trailingAnchor3 = [view22 trailingAnchor];
   view23 = [(PSGTransferOrResetController *)self view];
   trailingAnchor4 = [view23 trailingAnchor];
-  v74 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v113[2] = v74;
+  v73 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+  v112[2] = v73;
   _transferListController7 = [(PSGTransferOrResetController *)self _transferListController];
   view24 = [_transferListController7 view];
   bottomAnchor4 = [view24 bottomAnchor];
   _resetOrEraseListController6 = [(PSGTransferOrResetController *)self _resetOrEraseListController];
   view25 = [_resetOrEraseListController6 view];
   topAnchor4 = [view25 topAnchor];
-  v65 = [bottomAnchor4 constraintEqualToAnchor:topAnchor4];
-  v113[3] = v65;
+  v64 = [bottomAnchor4 constraintEqualToAnchor:topAnchor4];
+  v112[3] = v64;
   _resetOrEraseListController7 = [(PSGTransferOrResetController *)self _resetOrEraseListController];
   view26 = [_resetOrEraseListController7 view];
   leadingAnchor5 = [view26 leadingAnchor];
   view27 = [(PSGTransferOrResetController *)self view];
   leadingAnchor6 = [view27 leadingAnchor];
-  v59 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-  v113[4] = v59;
+  v58 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
+  v112[4] = v58;
   _resetOrEraseListController8 = [(PSGTransferOrResetController *)self _resetOrEraseListController];
   view28 = [_resetOrEraseListController8 view];
   trailingAnchor5 = [view28 trailingAnchor];
   view29 = [(PSGTransferOrResetController *)self view];
   trailingAnchor6 = [view29 trailingAnchor];
-  v53 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-  v113[5] = v53;
+  v52 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
+  v112[5] = v52;
   _resetOrEraseListController9 = [(PSGTransferOrResetController *)self _resetOrEraseListController];
   view30 = [_resetOrEraseListController9 view];
   bottomAnchor5 = [view30 bottomAnchor];
@@ -196,27 +197,25 @@
   }
 
   v47 = [bottomAnchor5 constraintEqualToAnchor:topAnchor5];
-  v113[6] = v47;
-  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v113 count:7];
+  v112[6] = v47;
+  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v112 count:7];
   [v39 activateConstraints:v48];
 
   if (_migrationController8)
   {
   }
 
+  if (v50)
+  {
+    v50[2](v50);
+  }
+
+  v49 = v51;
   if (v51)
   {
-    v51[2](v51);
+    (*(v51 + 2))();
+    v49 = v51;
   }
-
-  v49 = v52;
-  if (v52)
-  {
-    (*(v52 + 2))();
-    v49 = v52;
-  }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PSGTransferOrResetController_viewDidLoad__block_invoke(uint64_t a1)
@@ -235,6 +234,36 @@ void __43__PSGTransferOrResetController_viewDidLoad__block_invoke_3(uint64_t a1)
 {
   v2 = [*(a1 + 32) _migrationController];
   [v2 didMoveToParentViewController:*(a1 + 32)];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v15[1] = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = PSGTransferOrResetController;
+  [(PSGTransferOrResetController *)&v14 viewDidAppear:appear];
+  v4 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.General/Reset"];
+  v5 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v7 = PSG_BundleForGeneralSettingsUIFramework(currentLocale);
+  bundleURL = [v7 bundleURL];
+  v9 = [v5 initWithKey:@"TRANSFER_OR_RESET_TITLE" table:@"General" locale:currentLocale bundleURL:bundleURL];
+
+  currentDevice = [MEMORY[0x277D75418] currentDevice];
+  if ([currentDevice sf_isiPad])
+  {
+    v11 = @"com.apple.graphic-icon.transfer-or-reset-ipad";
+  }
+
+  else
+  {
+    v11 = @"com.apple.graphic-icon.transfer-or-reset-iphone";
+  }
+
+  general_rootPaneComponent = [MEMORY[0x277CCAEB8] general_rootPaneComponent];
+  v15[0] = general_rootPaneComponent;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  [(PSGTransferOrResetController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:v11 title:v9 localizedNavigationComponents:v13 deepLink:v4];
 }
 
 - (void)handleURL:(id)l withCompletion:(id)completion

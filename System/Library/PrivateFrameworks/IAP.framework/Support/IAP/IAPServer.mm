@@ -52,9 +52,9 @@
 - (IAPServer)init
 {
   GSInitialize();
-  v9.receiver = self;
-  v9.super_class = IAPServer;
-  v3 = [(IAPServer *)&v9 init];
+  v13.receiver = self;
+  v13.super_class = IAPServer;
+  v3 = [(IAPServer *)&v13 init];
   if (!v3)
   {
     return 0;
@@ -103,8 +103,8 @@
       {
         v3->_internalListenerQueue = result;
         v6 = CFNotificationCenterGetDarwinNotifyCenter();
-        pthread_mutex_lock(&stru_100129510);
-        result = sub_100025E90();
+        v7 = pthread_mutex_lock(&stru_100129510);
+        result = sub_100025E90(v7, v8);
         if (result)
         {
           if ((result & 7) == 0)
@@ -114,7 +114,7 @@
             CFNotificationCenterAddObserver(v6, 0, sub_10000ABFC, @"IAPDTransportListChangedNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
             CFNotificationCenterAddObserver(v6, 0, sub_10000AC2C, @"IAPDTransportListItemAddedNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
             CFNotificationCenterAddObserver(v6, 0, sub_10000AC6C, @"IAPDEmptyTransportListNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
-            result = sub_1000154F0();
+            result = sub_1000154F0(v9, v10);
             if ((result & 7) == 0 && (&v3->_accessoryEventHander & 7) == 0)
             {
               v3->_accessoryEventHander = result;
@@ -234,14 +234,14 @@ LABEL_57:
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, 0, @"IAPDTransportListChangedNotification", 0);
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, 0, @"IAPDTransportListItemAddedNotification", 0);
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, 0, @"IAPDEmptyTransportListNotification", 0);
-  [+[NSNotificationCenter defaultCenter](NSNotificationCenter removeObserver:"removeObserver:", self];
-  v15 = sub_1000CC7A0();
-  if (!v15)
+  v15 = [+[NSNotificationCenter defaultCenter](NSNotificationCenter removeObserver:"removeObserver:", self];
+  v17 = sub_1000CC7A0(v15, v16);
+  if (!v17)
   {
     goto LABEL_56;
   }
 
-  if ((v15 & 7) != 0)
+  if ((v17 & 7) != 0)
   {
     goto LABEL_56;
   }
@@ -251,33 +251,33 @@ LABEL_57:
     goto LABEL_56;
   }
 
-  (*(*v15 + 24))(v15, self->_accessoryEventHander);
-  v16 = sub_1000D6570();
-  if (!v16)
+  v18 = (*(*v17 + 24))(v17, self->_accessoryEventHander);
+  v20 = sub_1000D6570(v18, v19);
+  if (!v20)
   {
     goto LABEL_56;
   }
 
-  v17 = v16;
-  if ((v16 & 7) != 0)
+  v22 = v20;
+  if ((v20 & 7) != 0)
   {
     goto LABEL_56;
   }
 
-  v18 = sub_1000546D0();
-  if ((v18 & 7) != 0)
+  v23 = sub_1000546D0(v20, v21);
+  if ((v23 & 7) != 0)
   {
     goto LABEL_56;
   }
 
-  (*(*v17 + 24))(v17, v18);
-  v19 = sub_1000CB9FC();
-  if (!v19)
+  v24 = (*(*v22 + 24))(v22, v23);
+  v26 = sub_1000CB9FC(v24, v25);
+  if (!v26)
   {
     goto LABEL_56;
   }
 
-  if ((v19 & 7) != 0)
+  if ((v26 & 7) != 0)
   {
     goto LABEL_56;
   }
@@ -288,9 +288,9 @@ LABEL_57:
     goto LABEL_56;
   }
 
-  (*(*v19 + 24))(v19, *p_accessoryEQEventHandler);
-  v21 = sub_100018DD8();
-  if ((v21 & 7) != 0)
+  v28 = (*(*v26 + 24))(v26, *p_accessoryEQEventHandler);
+  v30 = sub_100018DD8(v28, v29);
+  if ((v30 & 7) != 0)
   {
     goto LABEL_56;
   }
@@ -301,14 +301,14 @@ LABEL_57:
     goto LABEL_56;
   }
 
-  *p_headsetEventHandler = v21;
-  v23 = sub_1000D0360();
-  if (!v23)
+  *p_headsetEventHandler = v30;
+  v33 = sub_1000D0360(v30, v31);
+  if (!v33)
   {
     goto LABEL_56;
   }
 
-  if ((v23 & 7) != 0)
+  if ((v33 & 7) != 0)
   {
     goto LABEL_56;
   }
@@ -318,46 +318,47 @@ LABEL_57:
     goto LABEL_56;
   }
 
-  (*(*v23 + 24))(v23);
-  v24 = sub_1000CE5B4();
-  if (!v24)
+  v34 = (*(*v33 + 24))(v33);
+  v36 = sub_1000CE5B4(v34, v35);
+  if (!v36)
   {
     goto LABEL_56;
   }
 
-  v25 = v24;
-  if ((v24 & 7) != 0)
+  v38 = v36;
+  if ((v36 & 7) != 0)
   {
     goto LABEL_56;
   }
 
-  v26 = sub_1000188A0();
-  if ((v26 & 7) != 0)
+  v39 = sub_1000188A0(v36, v37);
+  if ((v39 & 7) != 0)
   {
     goto LABEL_56;
   }
 
-  (*(*v25 + 24))(v25, v26);
-  v27 = sub_1000D5ED0();
-  if (!v27)
+  v40 = (*(*v38 + 24))(v38, v39);
+  v42 = sub_1000D5ED0(v40, v41);
+  if (!v42)
   {
     goto LABEL_56;
   }
 
-  v28 = v27;
-  if ((v27 & 7) != 0)
+  v44 = v42;
+  if ((v42 & 7) != 0)
   {
     goto LABEL_56;
   }
 
-  v29 = sub_100009DA0();
-  if ((v29 & 7) != 0)
+  v45 = sub_100009DA0(v42, v43);
+  if ((v45 & 7) != 0)
   {
     goto LABEL_56;
   }
 
-  (*(*v28 + 24))(v28, v29);
-  nullsub_9([(IAPServer *)self deleteAllPorts]);
+  (*(*v44 + 24))(v44, v45);
+  [(IAPServer *)self deleteAllPorts];
+  nullsub_9();
   accessoryEventHander = self->_accessoryEventHander;
   if (accessoryEventHander)
   {
@@ -369,37 +370,37 @@ LABEL_57:
     (*(accessoryEventHander->var0 + 1))(accessoryEventHander);
   }
 
-  v31 = *p_accessoryEQEventHandler;
+  v47 = *p_accessoryEQEventHandler;
   if (*p_accessoryEQEventHandler)
   {
-    if ((v31 & 7) != 0)
+    if ((v47 & 7) != 0)
     {
       goto LABEL_56;
     }
 
-    (*(v31->var0 + 1))(v31);
+    (*(v47->var0 + 1))(v47);
   }
 
-  v32 = *p_headsetEventHandler;
+  v48 = *p_headsetEventHandler;
   if (!*p_headsetEventHandler)
   {
     goto LABEL_48;
   }
 
-  if ((v32 & 7) != 0)
+  if ((v48 & 7) != 0)
   {
 LABEL_56:
     __break(0x5516u);
     goto LABEL_57;
   }
 
-  (*(v32->var0 + 1))(v32);
+  (*(v48->var0 + 1))(v48);
 LABEL_48:
   if (!notify_register_check(&kIAPAvailableNotification, &dword_100129508))
   {
-    v34 = 0;
-    notify_get_state(dword_100129508, &v34);
-    if (v34 == 1)
+    v50 = 0;
+    notify_get_state(dword_100129508, &v50);
+    if (v50 == 1)
     {
       notify_set_state(dword_100129508, 0);
       notify_post(&kIAPAvailableNotification);
@@ -486,14 +487,14 @@ LABEL_9:
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, kIAPServerLaunchedNotification, 0, 0, 1u);
-  sub_10004AAD8();
+  sub_10004AAD8(v8, v9);
   p_internalListenerQueue = &self->_internalListenerQueue;
   if ((&self->_internalListenerQueue & 7) != 0)
   {
     goto LABEL_15;
   }
 
-  v9 = *p_internalListenerQueue;
+  v11 = *p_internalListenerQueue;
   if (!*p_internalListenerQueue)
   {
     goto LABEL_16;
@@ -504,16 +505,16 @@ LABEL_9:
   block[2] = sub_10000B67C;
   block[3] = &unk_100111C88;
   block[4] = self;
-  dispatch_async(v9, block);
-  v10 = xpc_dictionary_create(0, 0, 0);
-  if (!v10)
+  dispatch_async(v11, block);
+  v12 = xpc_dictionary_create(0, 0, 0);
+  if (!v12)
   {
     goto LABEL_16;
   }
 
-  v11 = v10;
-  xpc_dictionary_set_string(v10, "requestType", "ping");
-  if (((self + 144) & 7) != 0 || ([(IAPXPCConnection *)self->_iaptransportd_connection sendMessage:v11], xpc_release(v11), p_serverFlags = &self->serverFlags, (&self->serverFlags & 3) != 0))
+  v13 = v12;
+  xpc_dictionary_set_string(v12, "requestType", "ping");
+  if (((self + 144) & 7) != 0 || ([(IAPXPCConnection *)self->_iaptransportd_connection sendMessage:v13], xpc_release(v13), p_serverFlags = &self->serverFlags, (&self->serverFlags & 3) != 0))
   {
 LABEL_15:
     __break(0x5516u);
@@ -524,7 +525,7 @@ LABEL_16:
 
   while ((*p_serverFlags & 1) == 0)
   {
-    v13 = objc_alloc_init(NSAutoreleasePool);
+    v15 = objc_alloc_init(NSAutoreleasePool);
     if (CFRunLoopRunInMode(kCFRunLoopDefaultMode, 1.0e10, 1u) == kCFRunLoopRunFinished)
     {
       *p_serverFlags |= 1u;
@@ -917,9 +918,9 @@ LABEL_11:
 - (void)deleteAllPorts
 {
   v2 = sub_10000C0EC();
-  pthread_mutex_lock(&stru_10012B758);
-  v3 = *(v2 + 8);
-  if (v3 == v2)
+  v3 = pthread_mutex_lock(&stru_10012B758);
+  v5 = *(v2 + 8);
+  if (v5 == v2)
   {
 LABEL_12:
 
@@ -928,24 +929,24 @@ LABEL_12:
 
   else
   {
-    while (v3 && (v3 & 7) == 0)
+    while (v5 && (v5 & 7) == 0)
     {
-      v4 = *(v3 + 16);
-      if (!v4 || (*(v3 + 16) & 7) != 0)
+      v6 = *(v5 + 16);
+      if (!v6 || (*(v5 + 16) & 7) != 0)
       {
         break;
       }
 
-      *(v4 + 72) = 1;
-      v6 = sub_1000C4254();
-      if (!v6 || (v6 & 7) != 0)
+      *(v6 + 72) = 1;
+      v8 = sub_1000C4254(v3, v4);
+      if (!v8 || (v8 & 7) != 0)
       {
         break;
       }
 
-      (*(*v6 + 48))(v6, 8, 0, *(v3 + 16), 0);
-      v3 = *(v3 + 8);
-      if (v3 == v2)
+      v3 = (*(*v8 + 48))(v8, 8, 0, *(v5 + 16), 0);
+      v5 = *(v5 + 8);
+      if (v5 == v2)
       {
         goto LABEL_12;
       }

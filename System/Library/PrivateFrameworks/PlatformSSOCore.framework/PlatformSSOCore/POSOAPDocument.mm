@@ -73,141 +73,139 @@ LABEL_6:
 
 - (void)_XMLAttributesStringWithComplexType:(id)type options:(unint64_t)options appendingToString:(id)string
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   stringCopy = string;
   [POXSDefinitions definitionForType:objc_opt_class()];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v34 = v42 = 0u;
-  obj = [v34 attributes];
-  v7 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
-  v32 = typeCopy;
+  v33 = v41 = 0u;
+  obj = [v33 attributes];
+  v7 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v31 = typeCopy;
   if (v7)
   {
     v8 = v7;
-    v9 = *v40;
+    v9 = *v39;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v40 != v9)
+        if (*v39 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v39 + 1) + 8 * i);
+        v11 = *(*(&v38 + 1) + 8 * i);
         v12 = [typeCopy valueForKey:{v11, stringCopy}];
         if (v12)
         {
-          v13 = [v34 isSpecifiedKeyForAttributeName:v11];
+          v13 = [v33 isSpecifiedKeyForAttributeName:v11];
           if (!v13 || ([typeCopy valueForKey:v13], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "BOOLValue"), v14, v15))
           {
-            v16 = +[POXSDefinitions definitionForType:](POXSDefinitions, "definitionForType:", [v34 typeForName:v11]);
-            v17 = [v34 namespaceForAttributeName:v11];
+            v16 = +[POXSDefinitions definitionForType:](POXSDefinitions, "definitionForType:", [v33 typeForName:v11]);
+            v17 = [v33 namespaceForAttributeName:v11];
             v18 = [v16 stringFromValue:v12];
             if (v18)
             {
               v19 = [POXSNamespaces prefixForNamespaceURI:v17];
               [(POSOAPDocument *)self _XMLAttributeStringWithPrefix:v19 name:v11 value:v18 options:options appendingToString:stringCopy];
 
-              typeCopy = v32;
+              typeCopy = v31;
             }
           }
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v8 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v8);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  namespaces = [v34 namespaces];
-  v21 = [namespaces countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  namespaces = [v33 namespaces];
+  v21 = [namespaces countByEnumeratingWithState:&v34 objects:v42 count:16];
   v22 = stringCopy;
   if (v21)
   {
     v23 = v21;
-    v24 = *v36;
+    v24 = *v35;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v36 != v24)
+        if (*v35 != v24)
         {
           objc_enumerationMutation(namespaces);
         }
 
-        v26 = *(*(&v35 + 1) + 8 * j);
+        v26 = *(*(&v34 + 1) + 8 * j);
         stringCopy = [POXSNamespaces prefixForNamespaceURI:v26, stringCopy];
         [(POSOAPDocument *)self _XMLAttributeStringWithPrefix:@"xmlns" name:stringCopy value:v26 options:options appendingToString:v22];
       }
 
-      v23 = [namespaces countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v23 = [namespaces countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
     while (v23);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_XMLStringWithComplexType:(id)type options:(unint64_t)options appendingToString:(id)string
 {
-  v121 = *MEMORY[0x277D85DE8];
+  v120 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   stringCopy = string;
   v10 = [POXSDefinitions definitionForType:objc_opt_class()];
+  v114 = 0u;
   v115 = 0u;
   v116 = 0u;
   v117 = 0u;
-  v118 = 0u;
   obj = [v10 elements];
-  v98 = [obj countByEnumeratingWithState:&v115 objects:v120 count:16];
-  if (v98)
+  v97 = [obj countByEnumeratingWithState:&v114 objects:v119 count:16];
+  if (v97)
   {
-    v97 = *v116;
-    v92 = typeCopy;
-    v93 = v10;
+    v96 = *v115;
+    v91 = typeCopy;
+    v92 = v10;
     selfCopy = self;
     do
     {
       v11 = 0;
       do
       {
-        if (*v116 != v97)
+        if (*v115 != v96)
         {
           objc_enumerationMutation(obj);
         }
 
-        v100 = v11;
-        v12 = *(*(&v115 + 1) + 8 * v11);
+        v99 = v11;
+        v12 = *(*(&v114 + 1) + 8 * v11);
         elementName = [v12 elementName];
         v14 = [typeCopy valueForKey:elementName];
 
-        v101 = v14;
+        v100 = v14;
         if (v14)
         {
-          v109 = v12;
+          v108 = v12;
           elementName2 = [v12 elementName];
           v16 = [v10 typeForName:elementName2];
-          v105 = [POXSDefinitions definitionForType:v16];
-          v99 = elementName2;
+          v104 = [POXSDefinitions definitionForType:v16];
+          v98 = elementName2;
           v17 = [v10 isSpecifiedKeyForElementName:elementName2];
           if (v17 && ([typeCopy valueForKey:v17], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "BOOLValue"), v18, !v19))
           {
-            v31 = v105;
+            v31 = v104;
           }
 
           else
           {
-            v96 = v17;
+            v95 = v17;
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -215,62 +213,62 @@ LABEL_6:
               isKindOfClass = objc_opt_isKindOfClass();
               if (isKindOfClass)
               {
-                v20 = v101;
-                v21 = v109;
-                if ([v10 flattenMultiValueElementWithName:v99])
+                v20 = v100;
+                v21 = v108;
+                if ([v10 flattenMultiValueElementWithName:v98])
                 {
-                  v94 = 0;
+                  v93 = 0;
                 }
 
                 else
                 {
                   [stringCopy appendString:@"<"];
-                  namespaceURI = [v109 namespaceURI];
-                  elementName3 = [v109 elementName];
+                  namespaceURI = [v108 namespaceURI];
+                  elementName3 = [v108 elementName];
                   [(POSOAPDocument *)self _XMLQualifiedNameForNamespace:namespaceURI elementName:elementName3 options:options appendingToString:stringCopy];
 
                   [stringCopy appendString:@">"];
-                  v94 = 1;
+                  v93 = 1;
                 }
               }
 
               else
               {
-                v94 = 0;
-                v20 = v101;
-                v21 = v109;
+                v93 = 0;
+                v20 = v100;
+                v21 = v108;
               }
 
-              v113 = 0u;
-              v114 = 0u;
-              v111 = 0u;
               v112 = 0u;
-              v106 = v20;
-              v110 = [v106 countByEnumeratingWithState:&v111 objects:v119 count:16];
-              if (!v110)
+              v113 = 0u;
+              v110 = 0u;
+              v111 = 0u;
+              v105 = v20;
+              v109 = [v105 countByEnumeratingWithState:&v110 objects:v118 count:16];
+              if (!v109)
               {
                 goto LABEL_49;
               }
 
-              v107 = *v112;
+              v106 = *v111;
               while (1)
               {
-                for (i = 0; i != v110; ++i)
+                for (i = 0; i != v109; ++i)
                 {
-                  if (*v112 != v107)
+                  if (*v111 != v106)
                   {
-                    objc_enumerationMutation(v106);
+                    objc_enumerationMutation(v105);
                   }
 
-                  v41 = *(*(&v111 + 1) + 8 * i);
+                  v41 = *(*(&v110 + 1) + 8 * i);
                   v42 = v21;
                   v43 = objc_opt_class();
                   if (isKindOfClass)
                   {
-                    v44 = [v105 elementForValue:v41];
+                    v44 = [v104 elementForValue:v41];
 
                     elementName4 = [v44 elementName];
-                    v46 = [v105 typeForName:elementName4];
+                    v46 = [v104 typeForName:elementName4];
 
                     v42 = v44;
                   }
@@ -343,7 +341,7 @@ LABEL_43:
 
                   v58 = [POXSDefinitions definitionForType:v46];
                   contentPropertyName2 = [v58 contentPropertyName];
-                  v104 = v58;
+                  v103 = v58;
                   v60 = [v58 typeForName:contentPropertyName2];
                   v61 = [v41 valueForKey:contentPropertyName2];
                   v62 = [POXSDefinitions definitionForType:v60];
@@ -355,7 +353,7 @@ LABEL_43:
                     [stringCopy appendString:@"</"];
                     namespaceURI4 = [v42 namespaceURI];
                     [v42 elementName];
-                    v102 = contentPropertyName2;
+                    v101 = contentPropertyName2;
                     v65 = v62;
                     v66 = v61;
                     v68 = v67 = options;
@@ -364,7 +362,7 @@ LABEL_43:
                     options = v67;
                     v61 = v66;
                     v62 = v65;
-                    contentPropertyName2 = v102;
+                    contentPropertyName2 = v101;
 
                     self = selfCopy;
                     v69 = @">";
@@ -378,15 +376,15 @@ LABEL_43:
                   [stringCopy appendString:v69];
 
 LABEL_47:
-                  v21 = v109;
+                  v21 = v108;
                 }
 
-                v110 = [v106 countByEnumeratingWithState:&v111 objects:v119 count:16];
-                if (!v110)
+                v109 = [v105 countByEnumeratingWithState:&v110 objects:v118 count:16];
+                if (!v109)
                 {
 LABEL_49:
 
-                  if (v94)
+                  if (v93)
                   {
                     [stringCopy appendString:@"</"];
                     namespaceURI5 = [v21 namespaceURI];
@@ -396,33 +394,33 @@ LABEL_49:
                     [stringCopy appendString:@">"];
                   }
 
-                  v31 = v105;
-                  typeCopy = v92;
+                  v31 = v104;
+                  typeCopy = v91;
                   goto LABEL_52;
                 }
               }
             }
 
             objc_opt_class();
-            v22 = v105;
+            v22 = v104;
             if (objc_opt_isKindOfClass())
             {
               [stringCopy appendString:@"<"];
-              namespaceURI6 = [v109 namespaceURI];
-              elementName8 = [v109 elementName];
+              namespaceURI6 = [v108 namespaceURI];
+              elementName8 = [v108 elementName];
               [(POSOAPDocument *)self _XMLQualifiedNameForNamespace:namespaceURI6 elementName:elementName8 options:options appendingToString:stringCopy];
 
-              [(POSOAPDocument *)self _XMLAttributesStringWithComplexType:v101 options:options appendingToString:stringCopy];
-              elements2 = [v105 elements];
+              [(POSOAPDocument *)self _XMLAttributesStringWithComplexType:v100 options:options appendingToString:stringCopy];
+              elements2 = [v104 elements];
               v26 = [elements2 count];
 
               if (v26)
               {
                 [stringCopy appendString:@">"];
-                [(POSOAPDocument *)self _XMLStringWithComplexType:v101 options:options appendingToString:stringCopy];
+                [(POSOAPDocument *)self _XMLStringWithComplexType:v100 options:options appendingToString:stringCopy];
                 [stringCopy appendString:@"</"];
-                namespaceURI7 = [v109 namespaceURI];
-                elementName9 = [v109 elementName];
+                namespaceURI7 = [v108 namespaceURI];
+                elementName9 = [v108 elementName];
                 [(POSOAPDocument *)self _XMLQualifiedNameForNamespace:namespaceURI7 elementName:elementName9 options:options appendingToString:stringCopy];
 
                 v29 = stringCopy;
@@ -431,26 +429,26 @@ LABEL_49:
 
               else
               {
-                contentPropertyName3 = [v105 contentPropertyName];
+                contentPropertyName3 = [v104 contentPropertyName];
 
                 if (contentPropertyName3)
                 {
-                  contentPropertyName4 = [v105 contentPropertyName];
-                  v80 = [v105 typeForName:contentPropertyName4];
-                  v81 = [v101 valueForKey:contentPropertyName4];
+                  contentPropertyName4 = [v104 contentPropertyName];
+                  v80 = [v104 typeForName:contentPropertyName4];
+                  v81 = [v100 valueForKey:contentPropertyName4];
                   v82 = [POXSDefinitions definitionForType:v80];
                   v83 = [v82 stringFromValue:v81];
-                  typeCopy = v92;
+                  typeCopy = v91;
                   if (v83)
                   {
                     [stringCopy appendString:@">"];
                     [stringCopy appendString:v83];
                     [stringCopy appendString:@"</"];
-                    namespaceURI8 = [v109 namespaceURI];
-                    elementName10 = [v109 elementName];
+                    namespaceURI8 = [v108 namespaceURI];
+                    elementName10 = [v108 elementName];
                     [(POSOAPDocument *)selfCopy _XMLQualifiedNameForNamespace:namespaceURI8 elementName:elementName10 options:options appendingToString:stringCopy];
 
-                    v22 = v105;
+                    v22 = v104;
                     v86 = @">";
                   }
 
@@ -470,21 +468,21 @@ LABEL_49:
               }
 
               [v29 appendString:v30];
-              v31 = v105;
-              v17 = v96;
-              typeCopy = v92;
+              v31 = v104;
+              v17 = v95;
+              typeCopy = v91;
               goto LABEL_54;
             }
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v32 = [v105 elementForValue:v101];
+              v32 = [v104 elementForValue:v100];
               namespaceURI9 = [v32 namespaceURI];
               elementName11 = [v32 elementName];
               [stringCopy appendString:@"<"];
               [(POSOAPDocument *)self _XMLQualifiedNameForNamespace:namespaceURI9 elementName:elementName11 options:options appendingToString:stringCopy];
-              [(POSOAPDocument *)self _XMLAttributesStringWithComplexType:v101 options:options appendingToString:stringCopy];
+              [(POSOAPDocument *)self _XMLAttributesStringWithComplexType:v100 options:options appendingToString:stringCopy];
               v31 = +[POXSDefinitions definitionForType:](POXSDefinitions, "definitionForType:", [v32 type]);
 
               objc_opt_class();
@@ -497,13 +495,13 @@ LABEL_49:
                 {
                   [stringCopy appendString:@">"];
                   v37 = selfCopy;
-                  [(POSOAPDocument *)selfCopy _XMLStringWithComplexType:v101 options:options appendingToString:stringCopy];
+                  [(POSOAPDocument *)selfCopy _XMLStringWithComplexType:v100 options:options appendingToString:stringCopy];
                   goto LABEL_66;
                 }
               }
 
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) != 0 && ([v31 stringFromValue:v101], (v87 = objc_claimAutoreleasedReturnValue()) != 0))
+              if ((objc_opt_isKindOfClass() & 1) != 0 && ([v31 stringFromValue:v100], (v87 = objc_claimAutoreleasedReturnValue()) != 0))
               {
                 v88 = v87;
                 [stringCopy appendString:@">"];
@@ -523,36 +521,36 @@ LABEL_66:
 
               [stringCopy appendString:v89];
 
-              v10 = v93;
+              v10 = v92;
             }
 
             else
             {
               v72 = [POXSDefinitions definitionForType:v16];
-              v73 = [v72 stringFromValue:v101];
+              v73 = [v72 stringFromValue:v100];
               if (v73)
               {
                 [stringCopy appendString:@"<"];
-                namespaceURI10 = [v109 namespaceURI];
-                elementName12 = [v109 elementName];
+                namespaceURI10 = [v108 namespaceURI];
+                elementName12 = [v108 elementName];
                 [(POSOAPDocument *)self _XMLQualifiedNameForNamespace:namespaceURI10 elementName:elementName12 options:options appendingToString:stringCopy];
 
                 [stringCopy appendString:@">"];
                 [stringCopy appendString:v73];
                 [stringCopy appendString:@"</"];
-                namespaceURI11 = [v109 namespaceURI];
-                elementName13 = [v109 elementName];
+                namespaceURI11 = [v108 namespaceURI];
+                elementName13 = [v108 elementName];
                 [(POSOAPDocument *)self _XMLQualifiedNameForNamespace:namespaceURI11 elementName:elementName13 options:options appendingToString:stringCopy];
 
                 [stringCopy appendString:@">"];
               }
 
-              v31 = v105;
+              v31 = v104;
 LABEL_52:
-              v10 = v93;
+              v10 = v92;
             }
 
-            v17 = v96;
+            v17 = v95;
           }
 
 LABEL_54:
@@ -560,18 +558,16 @@ LABEL_54:
           self = selfCopy;
         }
 
-        v11 = v100 + 1;
+        v11 = v99 + 1;
       }
 
-      while (v100 + 1 != v98);
-      v90 = [obj countByEnumeratingWithState:&v115 objects:v120 count:16];
-      v98 = v90;
+      while (v99 + 1 != v97);
+      v90 = [obj countByEnumeratingWithState:&v114 objects:v119 count:16];
+      v97 = v90;
     }
 
     while (v90);
   }
-
-  v91 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_XMLStringWithOptions:(unint64_t)options appendingToString:(id)string

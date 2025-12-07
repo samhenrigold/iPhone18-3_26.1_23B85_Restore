@@ -286,7 +286,6 @@ LABEL_32:
 
 - (void)logBarcodeDetectedEvent:(void *)a1 startTime:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 barcodeDataType];
   [a1 clientType];
   [a1 barcodeSourceType];
@@ -297,12 +296,10 @@ LABEL_32:
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x2Au);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logBarcodeDetectedEvent:(void *)a1 startTime:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 barcodeDataType];
   [a1 clientType];
   [a1 barcodeSourceType];
@@ -314,12 +311,10 @@ LABEL_32:
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x30u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logBarcodeActivatedEventForAction:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 barcodeDataType];
   [a1 clientType];
   [a1 barcodeSourceType];
@@ -328,24 +323,14 @@ LABEL_32:
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)logBarcodePreviewedEventForContentType:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_awdInvalidBarcodeDataTypeFromInvalidData:(void *)a1 .cold.1(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = [a1 invalidDataType];
-  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSAWDLogger: Encountered invalid invalidDataType: %ld", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = [a1 invalidDataType];
+  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSAWDLogger: Encountered invalid invalidDataType: %ld", &v1, 0xCu);
 }
 
 @end

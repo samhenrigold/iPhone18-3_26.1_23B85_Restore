@@ -30,14 +30,10 @@
       dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
     }
 
-    v19 = 694;
-    v20 = unpairCopy;
-    v17 = "";
-    v18 = "[NRBluetoothPairingManager pairingAgent:peerDidUnpair:]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_100228EF0, 0, "%s%.30s:%-4d peerDidUnpair: %@", ", "[NRBluetoothPairingManager pairingAgent:peerDidUnpair:]"", 694, unpairCopy);
   }
 
-  v7 = [(CBPairingAgent *)agentCopy delegate:v17];
+  delegate = [(CBPairingAgent *)agentCopy delegate];
   if (self)
   {
     pairingAgent = self->_pairingAgent;
@@ -49,9 +45,9 @@
   }
 
   v9 = pairingAgent;
-  if (v9 == agentCopy && v7 && self && (v10 = self->_activePairer) != 0)
+  if (v9 == agentCopy && delegate && self && (v10 = self->_activePairer) != 0)
   {
-    v11 = v7[9];
+    v11 = delegate[9];
     activePairer = self->_activePairer;
 
     if (v11 == activePairer)
@@ -84,7 +80,7 @@
             dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
           }
 
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_100228EF0, 17, "unexpected unpairing result for peer %@", unpairCopy);
         }
       }
     }
@@ -112,15 +108,10 @@
       dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
     }
 
-    v22 = pairingCopy;
-    v23 = errorCopy;
-    v21 = 680;
-    v19 = "";
-    v20 = "[NRBluetoothPairingManager pairingAgent:peerDidFailToCompletePairing:error:]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_100228EF0, 0, "%s%.30s:%-4d peerDidFailToCompletePairing: %@ error: %@", ", "[NRBluetoothPairingManager pairingAgent:peerDidFailToCompletePairing:error:]"", 680, pairingCopy, errorCopy);
   }
 
-  v10 = [(CBPairingAgent *)agentCopy delegate:v19];
+  delegate = [(CBPairingAgent *)agentCopy delegate];
   if (self)
   {
     pairingAgent = self->_pairingAgent;
@@ -134,14 +125,14 @@
   identifier = pairingAgent;
   if (identifier == agentCopy)
   {
-    if (v10)
+    if (delegate)
     {
       if (self)
       {
         v13 = self->_activePairer;
         if (v13)
         {
-          v14 = v10[9];
+          v14 = delegate[9];
           activePairer = self->_activePairer;
 
           if (v14 != activePairer)
@@ -183,14 +174,10 @@ LABEL_18:
       dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
     }
 
-    v17 = 661;
-    v18 = pairingCopy;
-    v15 = "";
-    v16 = "[NRBluetoothPairingManager pairingAgent:peerDidCompletePairing:]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_100228EF0, 0, "%s%.30s:%-4d peerDidCompletePairing: %@", ", "[NRBluetoothPairingManager pairingAgent:peerDidCompletePairing:]"", 661, pairingCopy);
   }
 
-  v7 = [(CBPairingAgent *)agentCopy delegate:v15];
+  delegate = [(CBPairingAgent *)agentCopy delegate];
   if (self)
   {
     pairingAgent = self->_pairingAgent;
@@ -202,9 +189,9 @@ LABEL_18:
   }
 
   v9 = pairingAgent;
-  if (v9 == agentCopy && v7 && self && (v10 = self->_activePairer) != 0)
+  if (v9 == agentCopy && delegate && self && (v10 = self->_activePairer) != 0)
   {
-    v11 = v7[9];
+    v11 = delegate[9];
     activePairer = self->_activePairer;
 
     if (v11 == activePairer)
@@ -232,7 +219,7 @@ LABEL_18:
             dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
           }
 
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_100228EF0, 17, "unexpected pairing result for peer %@", pairingCopy);
         }
       }
     }
@@ -260,11 +247,7 @@ LABEL_18:
       dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
     }
 
-    v26 = 624;
-    typeCopy2 = type;
-    v24 = "";
-    v25 = "[NRBluetoothPairingManager pairingAgent:peerDidRequestPairing:type:passkey:]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_100228EF0, 0, "%s%.30s:%-4d peerDidRequestPairing: pairing type: %zd", ", "[NRBluetoothPairingManager pairingAgent:peerDidRequestPairing:type:passkey:]"", 624, type);
   }
 
   if (self && self->_centralManager)
@@ -283,7 +266,7 @@ LABEL_18:
           dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_100228EF0, 16, "%s%.30s:%-4d peerDidRequestPairing: invalid pairing agent", ", "[NRBluetoothPairingManager pairingAgent:peerDidRequestPairing:type:passkey:]"", 631);
       }
 
       goto LABEL_40;
@@ -310,7 +293,7 @@ LABEL_18:
 
         if (v16)
         {
-          v28 = CBPairingAgentPairingDataOOBTKKey;
+          v24 = CBPairingAgentPairingDataOOBTKKey;
           if (v14)
           {
             v17 = v14->_ephemeralBluetoothOutOfBandKey;
@@ -322,8 +305,8 @@ LABEL_18:
           }
 
           v18 = v17;
-          v29 = v18;
-          v19 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+          v25 = v18;
+          v19 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
           [(CBPairingAgent *)agentCopy respondToPairingRequest:pairingCopy type:5 accept:1 data:v19];
         }
 
@@ -340,7 +323,7 @@ LABEL_18:
           }
 
           v18 = sub_100020970();
-          _NRLogWithArgs();
+          _NRLogWithArgs(v18, 16, "%s%.30s:%-4d peerDidRequestPairing: No bluetoothOutofBandKey to complete pairing type: %zd", ", "[NRBluetoothPairingManager pairingAgent:peerDidRequestPairing:type:passkey:]"", 643, 5uLL);
         }
 
 LABEL_39:
@@ -352,10 +335,10 @@ LABEL_39:
     {
       v20 = agentCopy;
       v21 = pairingCopy;
-      typeCopy3 = 0;
+      typeCopy = 0;
       v23 = 1;
 LABEL_33:
-      [(CBPairingAgent *)v20 respondToPairingRequest:v21 type:typeCopy3 accept:v23 data:0, v24, v25, v26, typeCopy2];
+      [(CBPairingAgent *)v20 respondToPairingRequest:v21 type:typeCopy accept:v23 data:0];
       goto LABEL_40;
     }
 
@@ -371,16 +354,12 @@ LABEL_33:
         dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
       }
 
-      v26 = 651;
-      typeCopy2 = type;
-      v24 = "";
-      v25 = "[NRBluetoothPairingManager pairingAgent:peerDidRequestPairing:type:passkey:]";
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228EF0, 16, "%s%.30s:%-4d peerDidRequestPairing: pairing type not supported: %zd", ", "[NRBluetoothPairingManager pairingAgent:peerDidRequestPairing:type:passkey:]"", 651, type);
     }
 
     v20 = agentCopy;
     v21 = pairingCopy;
-    typeCopy3 = type;
+    typeCopy = type;
     v23 = 0;
     goto LABEL_33;
   }
@@ -429,17 +408,17 @@ LABEL_40:
               dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
             }
 
-            _NRLogWithArgs();
+            _NRLogWithArgs(qword_100228EF0, 1, "%s%.30s:%-4d starting advertisement", ", "[NRBluetoothPairingManager peripheralManagerDidUpdateState:]"", 607);
           }
 
           v12 = self->_peripheralManager;
-          v21 = CBAdvertisementDataServiceUUIDsKey;
+          v18 = CBAdvertisementDataServiceUUIDsKey;
           v13 = v12;
           v14 = [CBUUID UUIDWithString:@"fd74"];
-          v20 = v14;
-          v15 = [NSArray arrayWithObjects:&v20 count:1];
-          v22 = v15;
-          v16 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+          v17 = v14;
+          v15 = [NSArray arrayWithObjects:&v17 count:1];
+          v19 = v15;
+          v16 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
           [(CBPeripheralManager *)v13 startAdvertising:v16];
 
           sub_1000218D4(self);
@@ -466,13 +445,10 @@ LABEL_40:
               dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
             }
 
-            v19 = 615;
-            v17 = "";
-            v18 = "[NRBluetoothPairingManager peripheralManagerDidUpdateState:]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(qword_100228EF0, 1, "%s%.30s:%-4d stopping advertisement", ", "[NRBluetoothPairingManager peripheralManagerDidUpdateState:]"", 615);
           }
 
-          [(CBPeripheralManager *)self->_peripheralManager stopAdvertising:v17];
+          [(CBPeripheralManager *)self->_peripheralManager stopAdvertising];
         }
       }
     }
@@ -505,14 +481,10 @@ LABEL_40:
             dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
           }
 
-          v15 = 546;
-          v16 = peripheralCopy;
-          v13 = "";
-          v14 = "[NRBluetoothPairingManager centralManager:didDisconnectPeripheral:error:]";
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_100228EF0, 1, "%s%.30s:%-4d disconnected peripheral %@", ", "[NRBluetoothPairingManager centralManager:didDisconnectPeripheral:error:]"", 546, peripheralCopy);
         }
 
-        [(NSMutableSet *)self->_peripherals removeObject:peripheralCopy, v13, v14, v15, v16];
+        [(NSMutableSet *)self->_peripherals removeObject:peripheralCopy];
         sharedPairingAgent = [(CBCentralManager *)self->_centralManager sharedPairingAgent];
         if (([sharedPairingAgent isPeerPaired:peripheralCopy] & 1) == 0)
         {
@@ -549,7 +521,7 @@ LABEL_40:
             dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
           }
 
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_100228EF0, 1, "%s%.30s:%-4d failed to connect peripheral %@ error %@", ", "[NRBluetoothPairingManager centralManager:didFailToConnectPeripheral:error:]"", 528, peripheralCopy, errorCopy);
         }
 
         if (self->_peripheralReconnectCounter > 4)
@@ -595,11 +567,7 @@ LABEL_40:
             dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
           }
 
-          v20 = 492;
-          v21 = peripheralCopy;
-          v18 = "";
-          v19 = "[NRBluetoothPairingManager centralManager:didConnectPeripheral:]";
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_100228EF0, 1, "%s%.30s:%-4d connected peripheral %@", ", "[NRBluetoothPairingManager centralManager:didConnectPeripheral:]"", 492, peripheralCopy);
         }
 
         v10 = self->_centralManager;
@@ -614,15 +582,15 @@ LABEL_40:
           if (v14 == 5 || !v14 && (_NRIsAppleInternal() & 1) != 0)
           {
             v15 = v14 == 5;
-            [sharedPairingAgent setOOBPairingEnabled:v15 forPeer:{peripheralCopy, v18, v19, v20, v21}];
+            [sharedPairingAgent setOOBPairingEnabled:v15 forPeer:peripheralCopy];
             objc_storeStrong(&self->_pairingAgent, sharedPairingAgent);
             [sharedPairingAgent setDelegate:self];
-            v23[0] = CBPairingOptionsUseMITMAuthentication;
+            v18[0] = CBPairingOptionsUseMITMAuthentication;
             v16 = [NSNumber numberWithBool:v15];
-            v23[1] = CBPairingOptionsDistributeIRK;
-            v24[0] = v16;
-            v24[1] = &__kCFBooleanTrue;
-            v17 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:2];
+            v18[1] = CBPairingOptionsDistributeIRK;
+            v19[0] = v16;
+            v19[1] = &__kCFBooleanTrue;
+            v17 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:2];
             [sharedPairingAgent pairPeer:peripheralCopy options:v17];
 
             if (qword_100228EF8 != -1)
@@ -630,14 +598,14 @@ LABEL_40:
               dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
             }
 
-            if (!_NRLogIsLevelEnabled())
+            if (_NRLogIsLevelEnabled())
             {
-              goto LABEL_31;
-            }
+              if (qword_100228EF8 != -1)
+              {
+                dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
+              }
 
-            if (qword_100228EF8 != -1)
-            {
-              dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
+              _NRLogWithArgs(qword_100228EF0, 1, "%s%.30s:%-4d initiated pairing with peripheral %@", ", "[NRBluetoothPairingManager centralManager:didConnectPeripheral:]"", 517, peripheralCopy);
             }
           }
 
@@ -648,17 +616,15 @@ LABEL_40:
               dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
             }
 
-            if (!_NRLogIsLevelEnabled())
+            if (_NRLogIsLevelEnabled())
             {
-              goto LABEL_31;
-            }
+              if (qword_100228EF8 != -1)
+              {
+                dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
+              }
 
-            if (qword_100228EF8 != -1)
-            {
-              dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
+              _NRLogWithArgs(qword_100228EF0, 16, "%s%.30s:%-4d invalid pairing type: %zd");
             }
-
-            v22 = v13[3];
           }
         }
 
@@ -669,19 +635,16 @@ LABEL_40:
             dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
           }
 
-          if (!_NRLogIsLevelEnabled())
+          if (_NRLogIsLevelEnabled())
           {
-            goto LABEL_31;
-          }
+            if (qword_100228EF8 != -1)
+            {
+              dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
+            }
 
-          if (qword_100228EF8 != -1)
-          {
-            dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
+            _NRLogWithArgs(qword_100228EF0, 0, "%s%.30s:%-4d no pairer found for peripheral :%@", ", "[NRBluetoothPairingManager centralManager:didConnectPeripheral:]"", 497, peripheralCopy);
           }
         }
-
-        _NRLogWithArgs();
-LABEL_31:
       }
     }
   }
@@ -705,11 +668,7 @@ LABEL_31:
       dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
     }
 
-    v18 = 471;
-    v19 = peripheralCopy;
-    v16 = "";
-    v17 = "[NRBluetoothPairingManager centralManager:didDiscoverPeripheral:advertisementData:RSSI:]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_100228EF0, 1, "%s%.30s:%-4d discovered peripheral %@", ", "[NRBluetoothPairingManager centralManager:didDiscoverPeripheral:advertisementData:RSSI:]"", 471, peripheralCopy);
   }
 
   identifier = [peripheralCopy identifier];
@@ -746,7 +705,7 @@ LABEL_31:
         dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100228EF0, 0, "%s%.30s:%-4d no pairer found for peripheral:%@", ", "[NRBluetoothPairingManager centralManager:didDiscoverPeripheral:advertisementData:RSSI:]"", 474, peripheralCopy);
     }
   }
 }
@@ -795,7 +754,7 @@ LABEL_31:
                   dispatch_once(&qword_100228EF8, &stru_1001FA5D8);
                 }
 
-                _NRLogWithArgs();
+                _NRLogWithArgs(qword_100228EF0, 1, "%s%.30s:%-4d started scanning", ", "[NRBluetoothPairingManager centralManagerDidUpdateState:]"", 455);
               }
 
               sub_1000218D4(self);
@@ -814,9 +773,9 @@ LABEL_31:
 
 - (NRBluetoothPairingManager)init
 {
-  v14.receiver = self;
-  v14.super_class = NRBluetoothPairingManager;
-  v2 = [(NRBluetoothPairingManager *)&v14 init];
+  v16.receiver = self;
+  v16.super_class = NRBluetoothPairingManager;
+  v2 = [(NRBluetoothPairingManager *)&v16 init];
   if (!v2)
   {
     v9 = sub_100020970();
@@ -825,14 +784,14 @@ LABEL_31:
     if (IsLevelEnabled)
     {
       v11 = sub_100020970();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v11, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRBluetoothPairingManager init]"", 149);
     }
 
-    _os_log_pack_size();
-    v12 = *__error();
-    v13 = _os_log_pack_fill();
-    *v13 = 136446210;
-    *(v13 + 4) = "[NRBluetoothPairingManager init]";
+    v12 = _os_log_pack_size();
+    v13 = __error();
+    v14 = _os_log_pack_fill(&v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), v12, *v13, &_mh_execute_header, "%{public}s [super init] failed");
+    *v14 = 136446210;
+    *(v14 + 4) = "[NRBluetoothPairingManager init]";
     sub_100020970();
     _NRLogAbortWithPack();
   }

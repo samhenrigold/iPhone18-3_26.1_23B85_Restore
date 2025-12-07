@@ -6,10 +6,9 @@
 
 - (id)rem_notificationPresentingForDataAccess
 {
-  v2 = *self->userNotificationCenter;
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 @end

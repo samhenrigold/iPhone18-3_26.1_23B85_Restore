@@ -32,12 +32,13 @@
   return v2;
 }
 
-uint64_t __28__IKURLBagCache_sharedCache__block_invoke(uint64_t a1)
+uint64_t __28__IKURLBagCache_sharedCache__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  sharedCache_inMemoryBagCache = objc_alloc_init(objc_opt_class());
+  v2 = objc_alloc_init(objc_opt_class());
+  v3 = sharedCache_inMemoryBagCache;
+  sharedCache_inMemoryBagCache = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (IKURLBagCache)init
@@ -243,7 +244,7 @@ void __44__IKURLBagCache_loadValueForKey_completion___block_invoke(uint64_t a1, 
     v7 = ITMLKitGetLogObject(2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __44__IKURLBagCache_loadValueForKey_completion___block_invoke_cold_1((a1 + 32));
+      __44__IKURLBagCache_loadValueForKey_completion___block_invoke_cold_1();
     }
   }
 
@@ -301,7 +302,7 @@ void __51__IKURLBagCache_checkTrustStatusForURL_completion___block_invoke(uint64
     v6 = ITMLKitGetLogObject(2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __51__IKURLBagCache_checkTrustStatusForURL_completion___block_invoke_cold_1(a1);
+      __51__IKURLBagCache_checkTrustStatusForURL_completion___block_invoke_cold_1();
     }
   }
 

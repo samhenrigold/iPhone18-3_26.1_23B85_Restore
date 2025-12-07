@@ -380,13 +380,12 @@ void __83__PPNamedEntityReadWriteClient__doDeletionSyncCallWithError_deletedCoun
 
 void __46__PPNamedEntityReadWriteClient_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_5480;
-  sharedInstance__pasExprOnceResult_5480 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_5480;
+  sharedInstance__pasExprOnceResult_5480 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

@@ -12,11 +12,11 @@
 
 - (BonjourProbe)initWithQueue:(id)queue
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
-  v26.receiver = self;
-  v26.super_class = BonjourProbe;
-  v5 = [(TestProbe *)&v26 initWithQueue:queueCopy];
+  v25.receiver = self;
+  v25.super_class = BonjourProbe;
+  v5 = [(TestProbe *)&v25 initWithQueue:queueCopy];
   v6 = v5;
   if (v5)
   {
@@ -63,9 +63,9 @@
           v23 = debuggabilityLogHandle;
           if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
           {
-            *v27 = 67109120;
-            v28 = v22;
-            _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_ERROR, "DNSServiceSetDispatchQueue failed: %d", v27, 8u);
+            *v26 = 67109120;
+            v27 = v22;
+            _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_ERROR, "DNSServiceSetDispatchQueue failed: %d", v26, 8u);
           }
 
           DNSServiceRefDeallocate(v6->_dnsRef);
@@ -101,7 +101,6 @@ LABEL_16:
 
 LABEL_17:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -117,7 +116,7 @@ LABEL_17:
 
 void __34__BonjourProbe_loadBonjourSymbols__block_invoke()
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v0 = +[TestProbe loadCoreUtils];
   if (v0)
   {
@@ -134,8 +133,8 @@ void __34__BonjourProbe_loadBonjourSymbols__block_invoke()
       v6 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Failed to load BonjourBrowser_Create() in CoreUtils framework.", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Failed to load BonjourBrowser_Create() in CoreUtils framework.", &v15, 2u);
       }
     }
 
@@ -150,8 +149,8 @@ void __34__BonjourProbe_loadBonjourSymbols__block_invoke()
       v8 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Failed to load BonjourBrowser_SetDispatchQueue() in CoreUtils framework.", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Failed to load BonjourBrowser_SetDispatchQueue() in CoreUtils framework.", &v15, 2u);
       }
 
       v3 = 0;
@@ -168,8 +167,8 @@ void __34__BonjourProbe_loadBonjourSymbols__block_invoke()
       v10 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Failed to load BonjourBrowser_SetEventHandler() in CoreUtils framework.", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Failed to load BonjourBrowser_SetEventHandler() in CoreUtils framework.", &v15, 2u);
       }
 
       v3 = 0;
@@ -186,8 +185,8 @@ void __34__BonjourProbe_loadBonjourSymbols__block_invoke()
       v12 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "Failed to load BonjourBrowser_Start() in CoreUtils framework.", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "Failed to load BonjourBrowser_Start() in CoreUtils framework.", &v15, 2u);
       }
 
       v3 = 0;
@@ -204,8 +203,8 @@ void __34__BonjourProbe_loadBonjourSymbols__block_invoke()
       v14 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Failed to load BonjourBrowser_Stop() in CoreUtils framework.", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Failed to load BonjourBrowser_Stop() in CoreUtils framework.", &v15, 2u);
       }
 
       v3 = 0;
@@ -221,18 +220,16 @@ void __34__BonjourProbe_loadBonjourSymbols__block_invoke()
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
       v5 = v4;
-      v16 = 136315138;
-      v17 = dlerror();
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "CoreUtils failed to load due to %s\n", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = dlerror();
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "CoreUtils failed to load due to %s\n", &v15, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startBonjourScanForService:(id)service onInterfaceNamed:(id)named
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   namedCopy = named;
   if (self->_includeAWDL)
   {
@@ -245,7 +242,7 @@ void __34__BonjourProbe_loadBonjourSymbols__block_invoke()
   }
 
   uTF8String = [service UTF8String];
-  v16 = namedCopy;
+  v15 = namedCopy;
   uTF8String2 = [namedCopy UTF8String];
   for (i = 1; i != 31; ++i)
   {
@@ -258,7 +255,7 @@ void __34__BonjourProbe_loadBonjourSymbols__block_invoke()
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v19 = i;
+      v18 = i;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_INFO, "Waiting for bonjour to become ready (%d)\n", buf, 8u);
     }
 
@@ -280,18 +277,16 @@ void __34__BonjourProbe_loadBonjourSymbols__block_invoke()
   [(BonjourProbe *)self setBonjourBrowserTimer:v13];
   dispatch_resume(v13);
   [(TestProbe *)self setRunning:1];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __60__BonjourProbe_startBonjourScanForService_onInterfaceNamed___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Stopping the Bonjour Scan", &v11, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Stopping the Bonjour Scan", &v10, 2u);
   }
 
   v3 = [*(a1 + 32) allDiscoveredServices];
@@ -311,9 +306,9 @@ void __60__BonjourProbe_startBonjourScanForService_onInterfaceNamed___block_invo
   v6 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 134217984;
-    v12 = v4;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Bonjour Scan found %lu items", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = v4;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Bonjour Scan found %lu items", &v10, 0xCu);
   }
 
   if ([*(a1 + 32) isRunning])
@@ -329,8 +324,6 @@ void __60__BonjourProbe_startBonjourScanForService_onInterfaceNamed___block_invo
     v9 = [*(a1 + 32) delegate];
     [v9 bonjourProbeComplete:*(a1 + 32) status:{objc_msgSend(*(a1 + 32), "status")}];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelTest:(id)test
@@ -344,7 +337,7 @@ void __60__BonjourProbe_startBonjourScanForService_onInterfaceNamed___block_invo
   dispatch_async(scanQueue, block);
 }
 
-uint64_t __27__BonjourProbe_cancelTest___block_invoke(uint64_t a1)
+void *__27__BonjourProbe_cancelTest___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isRunning];
   if (result)
@@ -429,7 +422,6 @@ uint64_t __27__BonjourProbe_cancelTest___block_invoke(uint64_t a1)
     block[4] = self;
     dispatch_async(scanQueue, block);
 
-    delegate = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
       [(BonjourProbeDelegate *)self->_delegate bonjourProbeComplete:self status:3];
@@ -437,7 +429,7 @@ uint64_t __27__BonjourProbe_cancelTest___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __48__BonjourProbe_dnsResolver_encounteredDNSError___block_invoke(uint64_t a1)
+void *__48__BonjourProbe_dnsResolver_encounteredDNSError___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isRunning];
   if (result)

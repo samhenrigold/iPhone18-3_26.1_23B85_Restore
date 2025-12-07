@@ -7,71 +7,71 @@
 
 - (SKADatabasePublishedLocalStatusDevice)initWithCoreDataPublishedLocalStatusDevice:(id)device
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   pendingStatuses = [deviceCopy pendingStatuses];
-  v8 = [pendingStatuses countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v8 = [pendingStatuses countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v29;
+    v10 = *v28;
     do
     {
       v11 = 0;
       do
       {
-        if (*v29 != v10)
+        if (*v28 != v10)
         {
           objc_enumerationMutation(pendingStatuses);
         }
 
-        v12 = [[SKADatabasePublishedLocalStatus alloc] initWithCoreDataPublishedLocalStatus:*(*(&v28 + 1) + 8 * v11)];
+        v12 = [[SKADatabasePublishedLocalStatus alloc] initWithCoreDataPublishedLocalStatus:*(*(&v27 + 1) + 8 * v11)];
         [v5 addObject:v12];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [pendingStatuses countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v9 = [pendingStatuses countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v9);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   deliveredStatuses = [deviceCopy deliveredStatuses];
-  v14 = [deliveredStatuses countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v14 = [deliveredStatuses countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v25;
+    v16 = *v24;
     do
     {
       v17 = 0;
       do
       {
-        if (*v25 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(deliveredStatuses);
         }
 
-        v18 = [[SKADatabasePublishedLocalStatus alloc] initWithCoreDataPublishedLocalStatus:*(*(&v24 + 1) + 8 * v17)];
+        v18 = [[SKADatabasePublishedLocalStatus alloc] initWithCoreDataPublishedLocalStatus:*(*(&v23 + 1) + 8 * v17)];
         [v6 addObject:v18];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [deliveredStatuses countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v15 = [deliveredStatuses countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v15);
@@ -81,7 +81,6 @@
   idsIdentifier = [deviceCopy idsIdentifier];
   v21 = [(SKADatabasePublishedLocalStatusDevice *)self initWithIDSIdentifier:idsIdentifier pendingStatuses:v5 deliveredStatuses:v6 discoverySource:v19];
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

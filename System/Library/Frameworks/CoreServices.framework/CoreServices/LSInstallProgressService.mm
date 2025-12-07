@@ -12,16 +12,16 @@ void __43___LSInstallProgressService_sharedInstance__block_invoke()
 
 void __43___LSInstallProgressService_beginListening__block_invoke()
 {
-  v4 = +[_LSInstallProgressService sharedInstance];
-  [v4 performJournalRecovery];
-  [v4 loadProportions];
+  v5 = +[_LSInstallProgressService sharedInstance];
+  [v5 performJournalRecovery];
+  [v5 loadProportions];
   v0 = objc_alloc(MEMORY[0x1E696B0D8]);
-  v1 = [__LSDefaultsGetSharedInstance() serviceNameForConnectionType:5];
-  v2 = [v0 initWithMachServiceName:v1];
-  v3 = beginListening_listener;
-  beginListening_listener = v2;
+  v2 = [__LSDefaultsGetSharedInstance(v0 v1)];
+  v3 = [v0 initWithMachServiceName:v2];
+  v4 = beginListening_listener;
+  beginListening_listener = v3;
 
-  [beginListening_listener setDelegate:v4];
+  [beginListening_listener setDelegate:v5];
   [beginListening_listener resume];
 }
 
@@ -36,14 +36,13 @@ void __59___LSInstallProgressService__LSFindPlaceholderApplications__block_invok
 {
   if (*(a3 + 168) == 2 && (*(a3 + 174) & 4) != 0 && (*(a3 + 336) - 7) >= 3)
   {
-    v4 = *(a3 + 12);
     [(_LSDatabase *)*(a1 + 40) store];
-    v5 = _CSStringCopyCFString();
-    if (v5)
+    v4 = _CSStringCopyCFString();
+    if (v4)
     {
-      v7 = v5;
-      v6 = [LSApplicationProxy applicationProxyForIdentifier:v5 placeholder:1];
-      [*(a1 + 32) addObject:v6];
+      v6 = v4;
+      v5 = [LSApplicationProxy applicationProxyForIdentifier:v4 placeholder:1];
+      [*(a1 + 32) addObject:v5];
     }
   }
 }
@@ -58,33 +57,32 @@ void __52___LSInstallProgressService_restoreInactiveInstalls__block_invoke(uint6
 
 void __52___LSInstallProgressService_restoreInactiveInstalls__block_invoke_217(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3)
+  v2 = a2;
+  v3 = v2;
+  if (v2)
   {
-    v4 = _LSProgressLog();
+    v4 = _LSProgressLog(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __52___LSInstallProgressService_restoreInactiveInstalls__block_invoke_217_cold_1(a1);
+      __52___LSInstallProgressService_restoreInactiveInstalls__block_invoke_217_cold_1();
     }
   }
 }
 
 void __64___LSInstallProgressService_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = _LSProgressLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = _LSProgressLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v6 = 138412290;
-    v7 = WeakRetained;
-    _os_log_impl(&dword_18162D000, v2, OS_LOG_TYPE_DEFAULT, "LSInstallProgress: Connection invalidated or interupted %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = WeakRetained;
+    _os_log_impl(&dword_18162D000, v2, OS_LOG_TYPE_DEFAULT, "LSInstallProgress: Connection invalidated or interupted %@", &v5, 0xCu);
   }
 
   v4 = objc_loadWeakRetained((a1 + 48));
   [v4 removeObserver:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __41___LSInstallProgressService_addObserver___block_invoke(void *a1)
@@ -115,13 +113,13 @@ void __41___LSInstallProgressService_addObserver___block_invoke_2(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void __41___LSInstallProgressService_addObserver___block_invoke_3()
+void __41___LSInstallProgressService_addObserver___block_invoke_3(uint64_t a1)
 {
-  v0 = _LSProgressLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _LSProgressLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEFAULT, "Failed to send catchup callback after adding observer", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_18162D000, v1, OS_LOG_TYPE_DEFAULT, "Failed to send catchup callback after adding observer", v2, 2u);
   }
 }
 
@@ -145,60 +143,61 @@ id __101___LSInstallProgressService_createInstallProgressForApplication_withPhas
   [v3 addObserver:*(a1 + 40) forKeyPath:@"prioritizable" options:3 context:*(a1 + 32)];
   v5 = *(a1 + 40);
   objc_sync_enter(v5);
-  v6 = [*(*(a1 + 40) + 16) progressForBundleID:*(a1 + 48)];
-  if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  isKindOfClass = [*(*(a1 + 40) + 16) progressForBundleID:*(a1 + 48)];
+  v7 = isKindOfClass;
+  if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
-    v7 = [v3 installState];
-    if (v7 != 5)
+    v8 = [v3 installState];
+    if (v8 != 5)
     {
-      [v6 setInstallState:v7];
+      [v7 setInstallState:v8];
     }
 
-    [v6 setPausable:{objc_msgSend(v3, "isPausable", v7)}];
-    [v6 setCancellable:{objc_msgSend(v3, "isCancellable")}];
-    [v6 setPrioritizable:{objc_msgSend(v3, "isPrioritizable")}];
+    [v7 setPausable:{objc_msgSend(v3, "isPausable", v8)}];
+    [v7 setCancellable:{objc_msgSend(v3, "isCancellable")}];
+    [v7 setPrioritizable:{objc_msgSend(v3, "isPrioritizable")}];
   }
 
   else
   {
-    v8 = _LSProgressLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _LSProgressLog(isKindOfClass);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __101___LSInstallProgressService_createInstallProgressForApplication_withPhase_andPublishingString_reply___block_invoke_cold_1((a1 + 32));
+      __101___LSInstallProgressService_createInstallProgressForApplication_withPhase_andPublishingString_reply___block_invoke_cold_1();
     }
   }
 
   objc_sync_exit(v5);
   objc_initWeak(&location, v3);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __101___LSInstallProgressService_createInstallProgressForApplication_withPhase_andPublishingString_reply___block_invoke_269;
-  v13[3] = &unk_1E6A1F2A8;
-  v14 = *(a1 + 32);
-  objc_copyWeak(&v17, &location);
-  v9 = *(a1 + 48);
-  v15 = *(a1 + 40);
-  v16 = v9;
-  v10 = [v13 copy];
-  v11 = MEMORY[0x1865D71B0]();
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __101___LSInstallProgressService_createInstallProgressForApplication_withPhase_andPublishingString_reply___block_invoke_269;
+  v14[3] = &unk_1E6A1F2A8;
+  v15 = *(a1 + 32);
+  objc_copyWeak(&v18, &location);
+  v10 = *(a1 + 48);
+  v16 = *(a1 + 40);
+  v17 = v10;
+  v11 = [v14 copy];
+  v12 = MEMORY[0x1865D71B0]();
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
   objc_autoreleasePoolPop(v4);
 
-  return v11;
+  return v12;
 }
 
 void __101___LSInstallProgressService_createInstallProgressForApplication_withPhase_andPublishingString_reply___block_invoke_269(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = _LSProgressLog();
+  v12 = *MEMORY[0x1E69E9840];
+  v2 = _LSProgressLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v11 = 138412290;
-    v12 = v3;
-    _os_log_impl(&dword_18162D000, v2, OS_LOG_TYPE_DEFAULT, "unsubscribing from %@ as it was unpublished", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v3;
+    _os_log_impl(&dword_18162D000, v2, OS_LOG_TYPE_DEFAULT, "unsubscribing from %@ as it was unpublished", &v10, 0xCu);
   }
 
   v4 = objc_autoreleasePoolPush();
@@ -219,7 +218,6 @@ void __101___LSInstallProgressService_createInstallProgressForApplication_withPh
 
   [*(*(a1 + 40) + 16) removeSubscriberForPublishingKey:*(a1 + 32) andBundleID:*(a1 + 48)];
   objc_autoreleasePoolPop(v4);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __62___LSInstallProgressService_installationFailedForApplication___block_invoke(uint64_t a1)
@@ -264,21 +262,19 @@ void __86___LSInstallProgressService_detachAndSendNotification_forApplicationExt
     while (v5);
   }
 
-  v8 = _LSInstallLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _LSInstallLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 40);
+    v10 = *(a1 + 40);
     *buf = 138412546;
-    v17 = v9;
+    v17 = v10;
     v18 = 2112;
     v19 = v2;
-    _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "posting %@ with %@", buf, 0x16u);
+    _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "posting %@ with %@", buf, 0x16u);
   }
 
   DistributedCenter = CFNotificationCenterGetDistributedCenter();
   CFNotificationCenterPostNotificationWithOptions(DistributedCenter, *(a1 + 40), 0, v2, 2uLL);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __79___LSInstallProgressService_sendNotification_forAppProxies_Plugins_completion___block_invoke(uint64_t a1)
@@ -291,7 +287,7 @@ void __79___LSInstallProgressService_sendNotification_forAppProxies_Plugins_comp
 void __79___LSInstallProgressService_sendNotification_forAppProxies_Plugins_completion___block_invoke_2(uint64_t a1)
 {
   v1 = a1;
-  v138 = *MEMORY[0x1E69E9840];
+  v141 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 96) == 1 && *(v2 + 88) && [_LSInstallNotificationJournaller shouldJournalNotificationType:*(a1 + 80)])
   {
@@ -299,487 +295,488 @@ void __79___LSInstallProgressService_sendNotification_forAppProxies_Plugins_comp
     [*(*(v1 + 32) + 88) addObject:v3];
   }
 
-  v100 = [*(v1 + 32) observerSelectorForNotification:*(v1 + 80)];
+  v103 = [*(v1 + 32) observerSelectorForNotification:*(v1 + 80)];
   v4 = (v1 + 48);
-  v101 = *(v1 + 48);
-  v5 = 0;
+  v5 = *(v1 + 48);
+  v104 = v5;
   v6 = 0;
   v7 = 0;
   v8 = 0;
   v9 = 0;
+  v10 = 0;
   switch(*(v1 + 80))
   {
     case 0:
-      v10 = _LSProgressLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _LSProgressLog(v5);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __79___LSInstallProgressService_sendNotification_forAppProxies_Plugins_completion___block_invoke_2_cold_1((v1 + 48));
+        __79___LSInstallProgressService_sendNotification_forAppProxies_Plugins_completion___block_invoke_2_cold_1();
       }
 
       goto LABEL_23;
     case 1:
-      v29 = _LSProgressLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v30 = _LSProgressLog(v5);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = *v4;
+        v31 = *v4;
         *buf = 138412290;
-        v117 = v30;
-        _os_log_impl(&dword_18162D000, v29, OS_LOG_TYPE_DEFAULT, "Sending applicationInstallsDidStart: for %@", buf, 0xCu);
+        v120 = v31;
+        _os_log_impl(&dword_18162D000, v30, OS_LOG_TYPE_DEFAULT, "Sending applicationInstallsDidStart: for %@", buf, 0xCu);
       }
 
-      v113 = 0u;
+      v116 = 0u;
+      v117 = 0u;
       v114 = 0u;
-      v111 = 0u;
-      v112 = 0u;
-      v31 = *v4;
-      v32 = [v31 countByEnumeratingWithState:&v111 objects:v137 count:16];
-      if (v32)
+      v115 = 0u;
+      v32 = *v4;
+      v33 = [v32 countByEnumeratingWithState:&v114 objects:v140 count:16];
+      if (v33)
       {
-        v33 = v32;
-        v34 = *v112;
+        v34 = v33;
+        v35 = *v115;
         do
         {
-          for (i = 0; i != v33; ++i)
+          for (i = 0; i != v34; ++i)
           {
-            if (*v112 != v34)
+            if (*v115 != v35)
             {
-              objc_enumerationMutation(v31);
+              objc_enumerationMutation(v32);
             }
 
-            v36 = *(*(&v111 + 1) + 8 * i);
-            if ([v36 installType] != 7 && objc_msgSend(v36, "installType") != 8 && objc_msgSend(v36, "installType") != 9)
+            v37 = *(*(&v114 + 1) + 8 * i);
+            if ([v37 installType] != 7 && objc_msgSend(v37, "installType") != 8 && objc_msgSend(v37, "installType") != 9)
             {
-              v37 = [*(v1 + 32) parentProgressForApplication:v36 andPhase:3 isActive:1];
-              [v37 setInstallState:5];
+              v38 = [*(v1 + 32) parentProgressForApplication:v37 andPhase:3 isActive:1];
+              [v38 setInstallState:5];
             }
           }
 
-          v33 = [v31 countByEnumeratingWithState:&v111 objects:v137 count:16];
+          v34 = [v32 countByEnumeratingWithState:&v114 objects:v140 count:16];
         }
 
-        while (v33);
+        while (v34);
       }
 
-      v38 = *(v1 + 56);
-      v135[0] = @"bundleIDs";
-      v135[1] = @"isPlaceholder";
-      v136[0] = v38;
-      v136[1] = MEMORY[0x1E695E118];
-      v22 = MEMORY[0x1E695DF20];
-      v23 = v136;
-      v24 = v135;
+      v39 = *(v1 + 56);
+      v138[0] = @"bundleIDs";
+      v138[1] = @"isPlaceholder";
+      v139[0] = v39;
+      v139[1] = MEMORY[0x1E695E118];
+      v23 = MEMORY[0x1E695DF20];
+      v24 = v139;
+      v25 = v138;
       goto LABEL_48;
     case 2:
-      v17 = _LSProgressLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = _LSProgressLog(v5);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = *v4;
+        v19 = *v4;
         *buf = 138412290;
-        v117 = v18;
-        _os_log_impl(&dword_18162D000, v17, OS_LOG_TYPE_DEFAULT, "Sending applicationInstallsDidUpdateIcon: for %@", buf, 0xCu);
+        v120 = v19;
+        _os_log_impl(&dword_18162D000, v18, OS_LOG_TYPE_DEFAULT, "Sending applicationInstallsDidUpdateIcon: for %@", buf, 0xCu);
       }
 
-      v19 = *(v1 + 32);
-      v20 = [*(v1 + 48) objectAtIndex:0];
-      [v19 _placeholderIconUpdatedForApp:v20];
+      v20 = *(v1 + 32);
+      v21 = [*(v1 + 48) objectAtIndex:0];
+      [v20 _placeholderIconUpdatedForApp:v21];
 
-      v21 = *(v1 + 56);
-      v133[0] = @"bundleIDs";
-      v133[1] = @"isPlaceholder";
-      v134[0] = v21;
-      v134[1] = MEMORY[0x1E695E118];
-      v22 = MEMORY[0x1E695DF20];
-      v23 = v134;
-      v24 = v133;
+      v22 = *(v1 + 56);
+      v136[0] = @"bundleIDs";
+      v136[1] = @"isPlaceholder";
+      v137[0] = v22;
+      v137[1] = MEMORY[0x1E695E118];
+      v23 = MEMORY[0x1E695DF20];
+      v24 = v137;
+      v25 = v136;
       goto LABEL_48;
     case 3:
-      v48 = _LSProgressLog();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+      v49 = _LSProgressLog(v5);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
       {
-        __79___LSInstallProgressService_sendNotification_forAppProxies_Plugins_completion___block_invoke_2_cold_2((v1 + 48));
+        __79___LSInstallProgressService_sendNotification_forAppProxies_Plugins_completion___block_invoke_2_cold_2();
       }
 
-      v49 = sendNotification_forAppProxies_Plugins_completion__sProgressTimer;
-      v50 = [*(*(v1 + 32) + 8) allObjects];
-      [v49 notifyObservers:v50 withApplications:*(v1 + 48)];
+      v50 = sendNotification_forAppProxies_Plugins_completion__sProgressTimer;
+      v51 = [*(*(v1 + 32) + 8) allObjects];
+      [v50 notifyObservers:v51 withApplications:*(v1 + 48)];
 
       goto LABEL_24;
     case 4:
-      v25 = _LSProgressLog();
-      if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v26 = _LSProgressLog(v5);
+      if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_55;
       }
 
-      v51 = *v4;
+      v52 = *v4;
       *buf = 138412290;
-      v117 = v51;
-      v27 = "Sending applicationsWillInstall: for %@";
+      v120 = v52;
+      v28 = "Sending applicationsWillInstall: for %@";
       goto LABEL_54;
     case 5:
-      v25 = _LSProgressLog();
-      if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v26 = _LSProgressLog(v5);
+      if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_55;
       }
 
-      v26 = *v4;
+      v27 = *v4;
       *buf = 138412290;
-      v117 = v26;
-      v27 = "Sending applicationsWillUninstall: for %@";
+      v120 = v27;
+      v28 = "Sending applicationsWillUninstall: for %@";
 LABEL_54:
-      _os_log_impl(&dword_18162D000, v25, OS_LOG_TYPE_DEFAULT, v27, buf, 0xCu);
+      _os_log_impl(&dword_18162D000, v26, OS_LOG_TYPE_DEFAULT, v28, buf, 0xCu);
 LABEL_55:
 
-      v7 = 0;
       v8 = 0;
       v9 = 0;
-      v6 = 1;
-      v5 = @"com.apple.LaunchServices.pluginswillberemoved";
+      v10 = 0;
+      v7 = 1;
+      v6 = @"com.apple.LaunchServices.pluginswillberemoved";
       goto LABEL_63;
     case 7:
-      v39 = _LSProgressLog();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+      v40 = _LSProgressLog(v5);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
-        v40 = *v4;
+        v41 = *v4;
         *buf = 138412290;
-        v117 = v40;
-        _os_log_impl(&dword_18162D000, v39, OS_LOG_TYPE_DEFAULT, "Sending applicationsDidInstall: for %@", buf, 0xCu);
+        v120 = v41;
+        _os_log_impl(&dword_18162D000, v40, OS_LOG_TYPE_DEFAULT, "Sending applicationsDidInstall: for %@", buf, 0xCu);
       }
 
-      v41 = *(v1 + 56);
-      v131[0] = @"bundleIDs";
-      v131[1] = @"isPlaceholder";
-      v132[0] = v41;
-      v132[1] = MEMORY[0x1E695E110];
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v132 forKeys:v131 count:2];
-      v9 = @"com.apple.LaunchServices.applicationRegistered";
-      v6 = 1;
-      v8 = 1;
-      v5 = @"com.apple.LaunchServices.pluginsregistered";
+      v42 = *(v1 + 56);
+      v134[0] = @"bundleIDs";
+      v134[1] = @"isPlaceholder";
+      v135[0] = v42;
+      v135[1] = MEMORY[0x1E695E110];
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v135 forKeys:v134 count:2];
+      v10 = @"com.apple.LaunchServices.applicationRegistered";
+      v7 = 1;
+      v9 = 1;
+      v6 = @"com.apple.LaunchServices.pluginsregistered";
       goto LABEL_63;
     case 8:
-      v42 = _LSProgressLog();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v43 = _LSProgressLog(v5);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
-        v43 = *v4;
+        v44 = *v4;
         *buf = 138412290;
-        v117 = v43;
-        _os_log_impl(&dword_18162D000, v42, OS_LOG_TYPE_DEFAULT, "Sending applicationsDidUninstall: for %@", buf, 0xCu);
+        v120 = v44;
+        _os_log_impl(&dword_18162D000, v43, OS_LOG_TYPE_DEFAULT, "Sending applicationsDidUninstall: for %@", buf, 0xCu);
       }
 
-      v44 = *(v1 + 56);
-      v127[0] = @"bundleIDs";
-      v127[1] = @"isPlaceholder";
-      v128[0] = v44;
-      v128[1] = MEMORY[0x1E695E110];
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v128 forKeys:v127 count:2];
-      v9 = @"com.apple.LaunchServices.applicationUnregistered";
-      v6 = 1;
-      v8 = 1;
-      v5 = @"com.apple.LaunchServices.pluginsunregistered";
+      v45 = *(v1 + 56);
+      v130[0] = @"bundleIDs";
+      v130[1] = @"isPlaceholder";
+      v131[0] = v45;
+      v131[1] = MEMORY[0x1E695E110];
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v131 forKeys:v130 count:2];
+      v10 = @"com.apple.LaunchServices.applicationUnregistered";
+      v7 = 1;
+      v9 = 1;
+      v6 = @"com.apple.LaunchServices.pluginsunregistered";
       goto LABEL_63;
     case 9:
-      v58 = _LSProgressLog();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+      v59 = _LSProgressLog(v5);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
       {
-        v59 = *v4;
+        v60 = *v4;
         *buf = 138412290;
-        v117 = v59;
-        _os_log_impl(&dword_18162D000, v58, OS_LOG_TYPE_DEFAULT, "Sending applicationsDidUninstall: for %@", buf, 0xCu);
+        v120 = v60;
+        _os_log_impl(&dword_18162D000, v59, OS_LOG_TYPE_DEFAULT, "Sending applicationsDidUninstall: for %@", buf, 0xCu);
       }
 
       [*(v1 + 32) _placeholdersUninstalled:*(v1 + 48)];
-      v60 = *(v1 + 56);
-      v125[0] = @"bundleIDs";
-      v125[1] = @"isPlaceholder";
-      v126[0] = v60;
-      v126[1] = MEMORY[0x1E695E118];
-      v55 = MEMORY[0x1E695DF20];
-      v56 = v126;
-      v57 = v125;
+      v61 = *(v1 + 56);
+      v128[0] = @"bundleIDs";
+      v128[1] = @"isPlaceholder";
+      v129[0] = v61;
+      v129[1] = MEMORY[0x1E695E118];
+      v56 = MEMORY[0x1E695DF20];
+      v57 = v129;
+      v58 = v128;
       goto LABEL_62;
     case 0xA:
-      v52 = _LSProgressLog();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+      v53 = _LSProgressLog(v5);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
-        v53 = *v4;
+        v54 = *v4;
         *buf = 138412290;
-        v117 = v53;
-        _os_log_impl(&dword_18162D000, v52, OS_LOG_TYPE_DEFAULT, "Sending applicationsDidInstall: for %@", buf, 0xCu);
+        v120 = v54;
+        _os_log_impl(&dword_18162D000, v53, OS_LOG_TYPE_DEFAULT, "Sending applicationsDidInstall: for %@", buf, 0xCu);
       }
 
       [*(v1 + 32) _placeholdersUninstalled:*(v1 + 48)];
-      v54 = *(v1 + 56);
-      v123[0] = @"bundleIDs";
-      v123[1] = @"isPlaceholder";
-      v124[0] = v54;
-      v124[1] = MEMORY[0x1E695E118];
-      v55 = MEMORY[0x1E695DF20];
-      v56 = v124;
-      v57 = v123;
+      v55 = *(v1 + 56);
+      v126[0] = @"bundleIDs";
+      v126[1] = @"isPlaceholder";
+      v127[0] = v55;
+      v127[1] = MEMORY[0x1E695E118];
+      v56 = MEMORY[0x1E695DF20];
+      v57 = v127;
+      v58 = v126;
 LABEL_62:
-      v7 = [v55 dictionaryWithObjects:v56 forKeys:v57 count:2];
+      v8 = [v56 dictionaryWithObjects:v57 forKeys:v58 count:2];
+      v7 = 0;
       v6 = 0;
-      v5 = 0;
-      v8 = 1;
-      v9 = @"com.apple.LaunchServices.applicationUnregistered";
+      v9 = 1;
+      v10 = @"com.apple.LaunchServices.applicationUnregistered";
       goto LABEL_63;
     case 0xB:
-      v10 = _LSProgressLog();
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = _LSProgressLog(v5);
+      if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_23;
       }
 
-      v13 = *v4;
+      v14 = *v4;
       *buf = 138412290;
-      v117 = v13;
-      v12 = "Sending applicationsDidFailToInstall: for %@";
+      v120 = v14;
+      v13 = "Sending applicationsDidFailToInstall: for %@";
       break;
     case 0xC:
-      v10 = _LSProgressLog();
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = _LSProgressLog(v5);
+      if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_23;
       }
 
-      v28 = *v4;
+      v29 = *v4;
       *buf = 138412290;
-      v117 = v28;
-      v12 = "Sending applicationsDidFailToUninstall: for %@";
+      v120 = v29;
+      v13 = "Sending applicationsDidFailToUninstall: for %@";
       break;
     case 0xD:
-      v14 = _LSProgressLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = _LSProgressLog(v5);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *v4;
+        v16 = *v4;
         *buf = 138412290;
-        v117 = v15;
-        _os_log_impl(&dword_18162D000, v14, OS_LOG_TYPE_DEFAULT, "Sending applicationIconDidChange: for %@", buf, 0xCu);
+        v120 = v16;
+        _os_log_impl(&dword_18162D000, v15, OS_LOG_TYPE_DEFAULT, "Sending applicationIconDidChange: for %@", buf, 0xCu);
       }
 
-      v129 = *MEMORY[0x1E695E4F0];
-      v16 = [*(v1 + 56) objectAtIndex:0];
-      v130 = v16;
-      v8 = 1;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v130 forKeys:&v129 count:1];
+      v132 = *MEMORY[0x1E695E4F0];
+      v17 = [*(v1 + 56) objectAtIndex:0];
+      v133 = v17;
+      v9 = 1;
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v133 forKeys:&v132 count:1];
 
+      v7 = 0;
       v6 = 0;
-      v5 = 0;
-      v9 = @"com.apple.LaunchServices.applicationIconChanged";
+      v10 = @"com.apple.LaunchServices.applicationIconChanged";
       goto LABEL_63;
     case 0xE:
-      v10 = _LSProgressLog();
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = _LSProgressLog(v5);
+      if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_23;
       }
 
-      v11 = *v4;
+      v12 = *v4;
       *buf = 138412290;
-      v117 = v11;
-      v12 = "Sending applicationsDidChangePersonas: for %@";
+      v120 = v12;
+      v13 = "Sending applicationsDidChangePersonas: for %@";
       break;
     case 0xF:
-      v45 = _LSProgressLog();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+      v46 = _LSProgressLog(v5);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
-        v46 = *v4;
+        v47 = *v4;
         *buf = 138412290;
-        v117 = v46;
-        _os_log_impl(&dword_18162D000, v45, OS_LOG_TYPE_DEFAULT, "Sending applicationInstallsDidChange: due to postprocessing ready for %@", buf, 0xCu);
+        v120 = v47;
+        _os_log_impl(&dword_18162D000, v46, OS_LOG_TYPE_DEFAULT, "Sending applicationInstallsDidChange: due to postprocessing ready for %@", buf, 0xCu);
       }
 
-      v47 = *(v1 + 56);
-      v121[0] = @"bundleIDs";
-      v121[1] = @"isPlaceholder";
-      v122[0] = v47;
-      v122[1] = MEMORY[0x1E695E110];
-      v22 = MEMORY[0x1E695DF20];
-      v23 = v122;
-      v24 = v121;
+      v48 = *(v1 + 56);
+      v124[0] = @"bundleIDs";
+      v124[1] = @"isPlaceholder";
+      v125[0] = v48;
+      v125[1] = MEMORY[0x1E695E110];
+      v23 = MEMORY[0x1E695DF20];
+      v24 = v125;
+      v25 = v124;
 LABEL_48:
-      v7 = [v22 dictionaryWithObjects:v23 forKeys:v24 count:2];
+      v8 = [v23 dictionaryWithObjects:v24 forKeys:v25 count:2];
+      v7 = 0;
       v6 = 0;
-      v5 = 0;
-      v8 = 1;
-      v9 = @"com.apple.LaunchServices.applicationRegistered";
+      v9 = 1;
+      v10 = @"com.apple.LaunchServices.applicationRegistered";
       goto LABEL_63;
     default:
       goto LABEL_63;
   }
 
-  _os_log_impl(&dword_18162D000, v10, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
+  _os_log_impl(&dword_18162D000, v11, OS_LOG_TYPE_DEFAULT, v13, buf, 0xCu);
 LABEL_23:
 
 LABEL_24:
-  v6 = 0;
-  v5 = 0;
   v7 = 0;
+  v6 = 0;
   v8 = 0;
   v9 = 0;
+  v10 = 0;
 LABEL_63:
-  cf1 = v5;
-  if (v100)
+  cf1 = v6;
+  if (v103)
   {
-    v92 = v8;
-    v93 = v9;
-    v94 = v6;
-    v95 = v7;
-    v97 = v1;
-    v109 = 0u;
+    v95 = v9;
+    v96 = v10;
+    v97 = v7;
+    v98 = v8;
+    v100 = v1;
+    v112 = 0u;
+    v113 = 0u;
     v110 = 0u;
-    v107 = 0u;
-    v108 = 0u;
-    v61 = *(*(v1 + 32) + 8);
-    v62 = [v61 countByEnumeratingWithState:&v107 objects:v120 count:16];
-    if (v62)
+    v111 = 0u;
+    v62 = *(*(v1 + 32) + 8);
+    v63 = [v62 countByEnumeratingWithState:&v110 objects:v123 count:16];
+    if (v63)
     {
-      v63 = v62;
-      v64 = *v108;
+      v64 = v63;
+      v65 = *v111;
       do
       {
-        for (j = 0; j != v63; ++j)
+        for (j = 0; j != v64; ++j)
         {
-          if (*v108 != v64)
+          if (*v111 != v65)
           {
-            objc_enumerationMutation(v61);
+            objc_enumerationMutation(v62);
           }
 
-          v66 = *(*(&v107 + 1) + 8 * j);
-          v67 = objc_autoreleasePoolPush();
-          v68 = [v66 connection];
-          v106[0] = MEMORY[0x1E69E9820];
-          v106[1] = 3221225472;
-          v106[2] = __79___LSInstallProgressService_sendNotification_forAppProxies_Plugins_completion___block_invoke_320;
-          v106[3] = &unk_1E6A19AC0;
-          v106[4] = v66;
-          v69 = [v68 remoteObjectProxyWithErrorHandler:v106];
+          v67 = *(*(&v110 + 1) + 8 * j);
+          v68 = objc_autoreleasePoolPush();
+          v69 = [v67 connection];
+          v109[0] = MEMORY[0x1E69E9820];
+          v109[1] = 3221225472;
+          v109[2] = __79___LSInstallProgressService_sendNotification_forAppProxies_Plugins_completion___block_invoke_320;
+          v109[3] = &unk_1E6A19AC0;
+          v109[4] = v67;
+          v70 = [v69 remoteObjectProxyWithErrorHandler:v109];
 
-          [v69 v100];
-          objc_autoreleasePoolPop(v67);
+          [v70 v103];
+          objc_autoreleasePoolPop(v68);
         }
 
-        v63 = [v61 countByEnumeratingWithState:&v107 objects:v120 count:16];
+        v64 = [v62 countByEnumeratingWithState:&v110 objects:v123 count:16];
       }
 
-      while (v63);
+      while (v64);
     }
 
-    v7 = v95;
-    v1 = v97;
-    v6 = v94;
-    v9 = v93;
+    v8 = v98;
+    v1 = v100;
+    v7 = v97;
+    v10 = v96;
   }
 
-  if (v7)
+  if (v8)
   {
-    v70 = v8;
+    v71 = v9;
   }
 
   else
   {
-    v70 = 0;
+    v71 = 0;
   }
 
-  if (v70 == 1)
+  if (v71 == 1)
   {
     DistributedCenter = CFNotificationCenterGetDistributedCenter();
-    CFNotificationCenterPostNotificationWithOptions(DistributedCenter, v9, 0, v7, 1uLL);
-    v72 = _LSProgressLog();
-    if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+    CFNotificationCenterPostNotificationWithOptions(DistributedCenter, v10, 0, v8, 1uLL);
+    v74 = _LSProgressLog(v73);
+    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v117 = v9;
-      v118 = 2112;
-      v119 = v7;
-      _os_log_impl(&dword_18162D000, v72, OS_LOG_TYPE_DEFAULT, "Sent distributed notification %@ with payload %@", buf, 0x16u);
+      v120 = v10;
+      v121 = 2112;
+      v122 = v8;
+      _os_log_impl(&dword_18162D000, v74, OS_LOG_TYPE_DEFAULT, "Sent distributed notification %@ with payload %@", buf, 0x16u);
     }
   }
 
-  if ((v6 & *(v1 + 84)) == 1)
+  if ((v7 & *(v1 + 84)) == 1)
   {
-    v73 = *(v1 + 64);
-    if (v73)
+    v75 = *(v1 + 64);
+    if (v75)
     {
-      if ([v73 count])
+      if ([v75 count])
       {
-        v96 = v7;
-        v74 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(*(v1 + 64), "count")}];
-        v102 = 0u;
-        v103 = 0u;
-        v104 = 0u;
+        v99 = v8;
+        v76 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(*(v1 + 64), "count")}];
         v105 = 0u;
-        v98 = v1;
-        v75 = *(v1 + 64);
-        v76 = [v75 countByEnumeratingWithState:&v102 objects:v115 count:16];
-        if (!v76)
+        v106 = 0u;
+        v107 = 0u;
+        v108 = 0u;
+        v101 = v1;
+        v77 = *(v1 + 64);
+        v78 = [v77 countByEnumeratingWithState:&v105 objects:v118 count:16];
+        if (!v78)
         {
           goto LABEL_96;
         }
 
-        v77 = v76;
-        v78 = *v103;
+        v79 = v78;
+        v80 = *v106;
         while (1)
         {
-          for (k = 0; k != v77; ++k)
+          for (k = 0; k != v79; ++k)
           {
-            if (*v103 != v78)
+            if (*v106 != v80)
             {
-              objc_enumerationMutation(v75);
+              objc_enumerationMutation(v77);
             }
 
-            v80 = *(*(&v102 + 1) + 8 * k);
-            if (!CFEqual(cf1, @"com.apple.LaunchServices.pluginsregistered") || ([v80 bundleIdentifier], v81 = objc_claimAutoreleasedReturnValue(), v82 = _LSIsNewsWidgetBundleIdentifier(v81), v81, !v82))
+            v82 = *(*(&v105 + 1) + 8 * k);
+            if (!CFEqual(cf1, @"com.apple.LaunchServices.pluginsregistered") || ([v82 bundleIdentifier], v83 = objc_claimAutoreleasedReturnValue(), v84 = _LSIsNewsWidgetBundleIdentifier(v83), v83, !v84))
             {
 
 LABEL_93:
-              v86 = [v80 correspondingApplicationExtensionRecord];
-              addPluginDataToNotificationDict(v74, v86);
+              v89 = [v82 correspondingApplicationExtensionRecord];
+              addPluginDataToNotificationDict(v76, v89);
               goto LABEL_94;
             }
 
-            v83 = +[LSApplicationRestrictionsManager sharedInstance];
-            v84 = [v80 bundleIdentifier];
-            v85 = [(LSApplicationRestrictionsManager *)v83 isAppExtensionRestricted:v84];
+            v85 = +[LSApplicationRestrictionsManager sharedInstance];
+            v86 = [v82 bundleIdentifier];
+            v87 = [(LSApplicationRestrictionsManager *)v85 isAppExtensionRestricted:v86];
 
-            if (!v85)
+            if (!v87)
             {
               goto LABEL_93;
             }
 
-            v86 = _LSProgressLog();
-            if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
+            v89 = _LSProgressLog(v88);
+            if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
             {
-              v87 = [v80 bundleIdentifier];
+              v90 = [v82 bundleIdentifier];
               *buf = 138412290;
-              v117 = v87;
-              _os_log_impl(&dword_18162D000, v86, OS_LOG_TYPE_DEFAULT, "notification for restricted plugin %@ not being sent", buf, 0xCu);
+              v120 = v90;
+              _os_log_impl(&dword_18162D000, v89, OS_LOG_TYPE_DEFAULT, "notification for restricted plugin %@ not being sent", buf, 0xCu);
             }
 
 LABEL_94:
           }
 
-          v77 = [v75 countByEnumeratingWithState:&v102 objects:v115 count:16];
-          if (!v77)
+          v79 = [v77 countByEnumeratingWithState:&v105 objects:v118 count:16];
+          if (!v79)
           {
 LABEL_96:
 
-            v88 = CFNotificationCenterGetDistributedCenter();
-            CFNotificationCenterPostNotificationWithOptions(v88, cf1, 0, v74, 2uLL);
-            v89 = _LSProgressLog();
-            if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
+            v91 = CFNotificationCenterGetDistributedCenter();
+            CFNotificationCenterPostNotificationWithOptions(v91, cf1, 0, v76, 2uLL);
+            v93 = _LSProgressLog(v92);
+            if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v117 = cf1;
-              v118 = 2112;
-              v119 = v74;
-              _os_log_impl(&dword_18162D000, v89, OS_LOG_TYPE_DEFAULT, "Sent plugin notification %@ with payload %@", buf, 0x16u);
+              v120 = cf1;
+              v121 = 2112;
+              v122 = v76;
+              _os_log_impl(&dword_18162D000, v93, OS_LOG_TYPE_DEFAULT, "Sent plugin notification %@ with payload %@", buf, 0x16u);
             }
 
-            v7 = v96;
-            v1 = v98;
+            v8 = v99;
+            v1 = v101;
             break;
           }
         }
@@ -787,48 +784,44 @@ LABEL_96:
     }
   }
 
-  v90 = *(v1 + 72);
-  if (v90)
+  v94 = *(v1 + 72);
+  if (v94)
   {
-    v90 = (*(v90 + 16))();
+    v94 = (*(v94 + 16))();
   }
 
-  MEMORY[0x1865D7C50](v90);
-
-  v91 = *MEMORY[0x1E69E9840];
+  MEMORY[0x1865D7C50](v94);
 }
 
 void __79___LSInstallProgressService_sendNotification_forAppProxies_Plugins_completion___block_invoke_320(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _LSProgressLog();
+  v4 = _LSProgressLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Error %@ connecting to observer %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Error %@ connecting to observer %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __71___LSInstallProgressService_sendDatabaseRebuiltNotificationToObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = _LSProgressLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = _LSProgressLog(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __71___LSInstallProgressService_sendDatabaseRebuiltNotificationToObserver___block_invoke_cold_1(v3, a1);
+    __71___LSInstallProgressService_sendDatabaseRebuiltNotificationToObserver___block_invoke_cold_1();
   }
 }
 
 void __60___LSInstallProgressService_sendDatabaseRebuiltNotification__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 96) == 1)
   {
@@ -842,62 +835,60 @@ void __60___LSInstallProgressService_sendDatabaseRebuiltNotification__block_invo
     }
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = *(v2 + 8);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(a1 + 32) sendDatabaseRebuiltNotificationToObserver:{*(*(&v11 + 1) + 8 * v9++), v11}];
+        [*(a1 + 32) sendDatabaseRebuiltNotificationToObserver:{*(*(&v10 + 1) + 8 * v9++), v10}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __95___LSInstallProgressService__prepareApplicationProxiesForNotification_identifiers_withPlugins___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         if (*(a1 + 48))
         {
           [LSApplicationProxy applicationProxyForIdentifier:v7 placeholder:1];
@@ -905,7 +896,7 @@ void __95___LSInstallProgressService__prepareApplicationProxiesForNotification_i
 
         else
         {
-          [LSApplicationProxy applicationProxyForIdentifier:v7, v11];
+          [LSApplicationProxy applicationProxyForIdentifier:v7, v10];
         }
         v8 = ;
         if (v8)
@@ -920,13 +911,11 @@ void __95___LSInstallProgressService__prepareApplicationProxiesForNotification_i
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __44___LSInstallProgressService_loadProportions__block_invoke(uint64_t a1)
@@ -957,43 +946,44 @@ void __44___LSInstallProgressService_loadProportions__block_invoke(uint64_t a1)
         v8 = [*(a1 + 32) objectForKeyedSubscript:{v7, v17}];
         v9 = objc_opt_class();
         v10 = objc_opt_class();
-        if (_LSIsDictionaryWithKeysAndValuesOfClass(v8, v9, v10))
+        v11 = _LSIsDictionaryWithKeysAndValuesOfClass(v8, v9, v10);
+        if (v11)
         {
-          v11 = [LSApplicationRecord alloc];
+          v12 = [LSApplicationRecord alloc];
           v19 = 0;
-          v12 = [(LSApplicationRecord *)v11 initForInstallMachineryWithBundleIdentifier:v7 placeholder:1 error:&v19];
-          v13 = v19;
-          v14 = _LSProgressLog();
-          v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-          if (v12)
+          v13 = [(LSApplicationRecord *)v12 initForInstallMachineryWithBundleIdentifier:v7 placeholder:1 error:&v19];
+          v14 = v19;
+          v15 = _LSProgressLog(v14);
+          v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+          if (v13)
           {
-            if (v15)
+            if (v16)
             {
               *buf = v17;
               v25 = v7;
-              _os_log_impl(&dword_18162D000, v14, OS_LOG_TYPE_DEFAULT, "Found placeholder for %@, loading progress proportions", buf, 0xCu);
+              _os_log_impl(&dword_18162D000, v15, OS_LOG_TYPE_DEFAULT, "Found placeholder for %@, loading progress proportions", buf, 0xCu);
             }
 
-            v14 = [*(a1 + 32) objectForKeyedSubscript:v7];
-            [*(*(a1 + 40) + 120) setObject:v14 forKeyedSubscript:v7];
+            v15 = [*(a1 + 32) objectForKeyedSubscript:v7];
+            [*(*(a1 + 40) + 120) setObject:v15 forKeyedSubscript:v7];
           }
 
-          else if (v15)
+          else if (v16)
           {
             *buf = v17;
             v25 = v7;
-            _os_log_impl(&dword_18162D000, v14, OS_LOG_TYPE_DEFAULT, "No placeholder for %@, not loading progress proportions", buf, 0xCu);
+            _os_log_impl(&dword_18162D000, v15, OS_LOG_TYPE_DEFAULT, "No placeholder for %@, not loading progress proportions", buf, 0xCu);
           }
         }
 
         else
         {
-          v13 = _LSProgressLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v14 = _LSProgressLog(v11);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             *buf = v17;
             v25 = v7;
-            _os_log_error_impl(&dword_18162D000, v13, OS_LOG_TYPE_ERROR, "Invalid progress proportion entry for %@!", buf, 0xCu);
+            _os_log_error_impl(&dword_18162D000, v14, OS_LOG_TYPE_ERROR, "Invalid progress proportion entry for %@!", buf, 0xCu);
           }
         }
       }
@@ -1003,8 +993,6 @@ void __44___LSInstallProgressService_loadProportions__block_invoke(uint64_t a1)
 
     while (v4);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __108___LSInstallProgressService_setProgressProportionsByPhase_forInstallOfApplicationWithIdentifier_completion___block_invoke(uint64_t a1)
@@ -1023,16 +1011,14 @@ void __108___LSInstallProgressService_setProgressProportionsByPhase_forInstallOf
 
 void __64___LSInstallProgressService_sendNetworkUsageChangedNotification__block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"usingNetwork";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"usingNetwork";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(*(a1 + 32) + 128)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   DistributedCenter = CFNotificationCenterGetDistributedCenter();
   CFNotificationCenterPostNotification(DistributedCenter, @"com.lsinstallprogress.networkusagechanged", 0, v2, 1u);
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __76___LSInstallProgressService_addSendNotificationFenceWithTimeout_fenceBlock___block_invoke(void *a1)
@@ -1055,46 +1041,47 @@ void __76___LSInstallProgressService_addSendNotificationFenceWithTimeout_fenceBl
     }
 
     v9 = a1[6];
-    v8 = (a1 + 6);
-    if ([*(*(v9 + 8) + 40) count])
+    v8 = a1 + 6;
+    v10 = [*(*(v9 + 8) + 40) count];
+    if (v10)
     {
-      v10 = _LSInstallLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _LSInstallLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __76___LSInstallProgressService_addSendNotificationFenceWithTimeout_fenceBlock___block_invoke_cold_1(v8);
       }
     }
 
-    v11 = *(*v8 + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = 0;
+    v12 = *(*v8 + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = 0;
   }
 }
 
 void __76___LSInstallProgressService_addSendNotificationFenceWithTimeout_fenceBlock___block_invoke_335(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = dispatch_group_create();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = *(*(a1 + 32) + 8);
-  v3 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v3 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v20;
+    v5 = *v19;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v5)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * i);
+        v7 = *(*(&v18 + 1) + 8 * i);
         v8 = [v7 pid];
         v9 = *(*(*(a1 + 48) + 8) + 40);
         v10 = [MEMORY[0x1E696AD98] numberWithInt:v8];
@@ -1102,26 +1089,25 @@ void __76___LSInstallProgressService_addSendNotificationFenceWithTimeout_fenceBl
 
         dispatch_group_enter(v2);
         v11 = [v7 connection];
-        v15[0] = MEMORY[0x1E69E9820];
-        v15[1] = 3221225472;
-        v15[2] = __76___LSInstallProgressService_addSendNotificationFenceWithTimeout_fenceBlock___block_invoke_2;
-        v15[3] = &unk_1E6A1F3C0;
+        v14[0] = MEMORY[0x1E69E9820];
+        v14[1] = 3221225472;
+        v14[2] = __76___LSInstallProgressService_addSendNotificationFenceWithTimeout_fenceBlock___block_invoke_2;
+        v14[3] = &unk_1E6A1F3C0;
         v12 = *(a1 + 48);
-        v15[4] = *(a1 + 32);
-        v17 = v12;
-        v18 = v8;
-        v16 = v2;
-        [v11 addBarrierBlock:v15];
+        v14[4] = *(a1 + 32);
+        v16 = v12;
+        v17 = v8;
+        v15 = v2;
+        [v11 addBarrierBlock:v14];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v4);
   }
 
   dispatch_group_notify(v2, *(*(a1 + 32) + 72), *(a1 + 40));
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __76___LSInstallProgressService_addSendNotificationFenceWithTimeout_fenceBlock___block_invoke_2(uint64_t a1)
@@ -1154,14 +1140,14 @@ uint64_t __64___LSInstallProgressService_loadJournalledNotificationsFromDisk__bl
 
     if (v5 == 2)
     {
-      v6 = _LSInstallLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _LSInstallLog(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "install journal directory does not exist.", v9, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "install journal directory does not exist.", v10, 2u);
       }
 
-      v7 = 0;
+      v8 = 0;
       goto LABEL_10;
     }
   }
@@ -1170,16 +1156,16 @@ uint64_t __64___LSInstallProgressService_loadJournalledNotificationsFromDisk__bl
   {
   }
 
-  v6 = _LSInstallLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = _LSInstallLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     __64___LSInstallProgressService_loadJournalledNotificationsFromDisk__block_invoke_cold_1();
   }
 
-  v7 = 1;
+  v8 = 1;
 LABEL_10:
 
-  return v7;
+  return v8;
 }
 
 uint64_t __64___LSInstallProgressService_loadJournalledNotificationsFromDisk__block_invoke_340(uint64_t a1, void *a2, void *a3)
@@ -1205,7 +1191,7 @@ uint64_t __64___LSInstallProgressService_loadJournalledNotificationsFromDisk__bl
   return v9;
 }
 
-uint64_t __51___LSInstallProgressService_performJournalRecovery__block_invoke(uint64_t a1)
+void *__51___LSInstallProgressService_performJournalRecovery__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) loadJournalledNotificationsFromDisk];
   v3 = *(a1 + 32);
@@ -1232,7 +1218,7 @@ void __51___LSInstallProgressService_performJournalRecovery__block_invoke_2(uint
 
 void __51___LSInstallProgressService_performJournalRecovery__block_invoke_3(uint64_t a1)
 {
-  v2 = _LSInstallLog();
+  v2 = _LSInstallLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -1251,102 +1237,49 @@ void __51___LSInstallProgressService_performJournalRecovery__block_invoke_3(uint
 
 void __77___LSInstallProgressService_directlySendNotification_withProxies_toObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _LSProgressLog();
+  v4 = _LSProgressLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Error %@ connecting to observer %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Error %@ connecting to observer %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __71___LSInstallProgressService_dispatchJournalledNotificationsToObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _LSProgressLog();
+  v4 = _LSProgressLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Error %@ connecting to observer %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Error %@ connecting to observer %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-void __52___LSInstallProgressService_restoreInactiveInstalls__block_invoke_217_cold_1(uint64_t a1)
+void __79___LSInstallProgressService_sendNotification_forAppProxies_Plugins_completion___block_invoke_2_cold_2()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
+  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_1_0(&dword_18162D000, v2, v3, "failure restoring install progress for %@: %@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __101___LSInstallProgressService_createInstallProgressForApplication_withPhase_andPublishingString_reply___block_invoke_cold_1(uint64_t *a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v2, v3, "Parent progress for %@ is invalid, cannot add children to it", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __79___LSInstallProgressService_sendNotification_forAppProxies_Plugins_completion___block_invoke_2_cold_1(uint64_t *a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v2, v3, "Skipping notifications for %@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __79___LSInstallProgressService_sendNotification_forAppProxies_Plugins_completion___block_invoke_2_cold_2(uint64_t *a1)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_5_4(&dword_18162D000, v2, v3, "Sending applicationInstallsDidChange: for %@", v5);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __71___LSInstallProgressService_sendDatabaseRebuiltNotificationToObserver___block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 32);
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_0(&dword_18162D000, v3, v4, "Error %@ connecting to observer %@ for database rebuilt notification");
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_4(&dword_18162D000, v0, v1, "Sending applicationInstallsDidChange: for %@", v2);
 }
 
 void __76___LSInstallProgressService_addSendNotificationFenceWithTimeout_fenceBlock___block_invoke_cold_1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   v1 = [*(*(*a1 + 8) + 40) allObjects];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_20();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __64___LSInstallProgressService_loadJournalledNotificationsFromDisk__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "error enumerating saved journals: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

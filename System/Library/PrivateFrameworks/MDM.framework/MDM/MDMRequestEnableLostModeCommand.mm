@@ -140,21 +140,19 @@ void __77__MDMRequestEnableLostModeCommand_Handler__processRequest_completionHan
 
 - (id)_responseForError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v4 = *(DMCLogObjects() + 8);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = v4;
     dMCVerboseDescription = [errorCopy DMCVerboseDescription];
-    v10 = 138543362;
-    v11 = dMCVerboseDescription;
-    _os_log_impl(&dword_2561F5000, v5, OS_LOG_TYPE_ERROR, "MDMRequestEnableLostModeCommand+Handler failed to enable MDM Lost Mode with error: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = dMCVerboseDescription;
+    _os_log_impl(&dword_2561F5000, v5, OS_LOG_TYPE_ERROR, "MDMRequestEnableLostModeCommand+Handler failed to enable MDM Lost Mode with error: %{public}@", &v9, 0xCu);
   }
 
   v7 = [(MDMAbstractTunnelParser *)MDMParser responseWithError:errorCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

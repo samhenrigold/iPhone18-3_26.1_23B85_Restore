@@ -2,6 +2,7 @@
 + (id)_identifierFromManagedObject:(id)object readMetadata:(BOOL)metadata cache:(id)cache;
 + (id)fromPBCodable:(id)codable;
 + (id)identifierWithString:(id)string type:(id)type;
++ (id)objectFromManagedObject:(id)object readMetadata:(BOOL)metadata excludedMetadataKeys:(id)keys cache:(id)cache;
 - (BOOL)copyToManagedObject:(id)object;
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
@@ -259,6 +260,48 @@ LABEL_17:
   }
 
   return v8;
+}
+
++ (id)objectFromManagedObject:(id)object readMetadata:(BOOL)metadata excludedMetadataKeys:(id)keys cache:(id)cache
+{
+  metadataCopy = metadata;
+  objectCopy = object;
+  cacheCopy = cache;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v11 = objectCopy;
+    v12 = v11;
+    if (cacheCopy)
+    {
+      string = [v11 string];
+      v16 = MEMORY[0x1E696AEC0];
+      v17 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v12, "identifierType")}];
+      v18 = [v16 stringWithFormat:@"id-%@", v17];
+
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __95___DKIdentifier_MOConversion__objectFromManagedObject_readMetadata_excludedMetadataKeys_cache___block_invoke;
+      v19[3] = &unk_1E736A350;
+      selfCopy = self;
+      v20 = v12;
+      v23 = metadataCopy;
+      v21 = cacheCopy;
+      v13 = [(_DKObjectFromMOCache *)v21 objectForKey:string type:v18 setIfMissingWithBlock:v19];
+    }
+
+    else
+    {
+      v13 = [self _identifierFromManagedObject:v11 readMetadata:metadataCopy cache:0];
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
 }
 
 + (id)_identifierFromManagedObject:(id)object readMetadata:(BOOL)metadata cache:(id)cache

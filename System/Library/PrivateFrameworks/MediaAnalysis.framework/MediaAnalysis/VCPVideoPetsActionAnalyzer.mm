@@ -766,9 +766,9 @@ LABEL_65:
 
 - (int)analyzeFrame:(__CVBuffer *)frame timestamp:(id *)timestamp duration:(id *)duration frameStats:(id)stats flags:(unint64_t *)flags
 {
-  v126 = *MEMORY[0x1E69E9840];
+  v129 = *MEMORY[0x1E69E9840];
   statsCopy = stats;
-  v121 = 0;
+  v124 = 0;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   durationCopy = duration;
@@ -784,235 +784,237 @@ LABEL_65:
   CMTimeSubtract(&time, &lhs, &rhs);
   if (CMTimeGetSeconds(&time) >= 0.150000006)
   {
-    v24 = selfCopy;
+    v27 = selfCopy;
     selfCopy->_sampleFlag = 1;
   }
 
   else
   {
-    if (!CGRectIsEmpty(selfCopy->_crop) && selfCopy->_tracker)
+    IsEmpty = CGRectIsEmpty(selfCopy->_crop);
+    if (!IsEmpty && selfCopy->_tracker)
     {
-      v13 = VCPSignPostLog();
-      v14 = os_signpost_id_generate(v13);
+      v14 = VCPSignPostLog(IsEmpty);
+      v15 = os_signpost_id_generate(v14);
 
-      v15 = VCPSignPostLog();
-      v16 = v15;
-      if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+      v17 = VCPSignPostLog(v16);
+      v18 = v17;
+      if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
       {
         LOWORD(lhs.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "VCPVideoPetsActionTracker", "", &lhs, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v15, "VCPVideoPetsActionTracker", "", &lhs, 2u);
       }
 
-      v17 = [(VCPVideoObjectTracker *)selfCopy->_tracker trackObjectInFrame:cf];
-      if (v17)
+      v19 = [(VCPVideoObjectTracker *)selfCopy->_tracker trackObjectInFrame:cf];
+      v20 = v19;
+      if (v19)
       {
         goto LABEL_22;
       }
 
-      v18 = VCPSignPostLog();
-      v19 = v18;
-      if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+      v21 = VCPSignPostLog(v19);
+      v22 = v21;
+      if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
       {
         LOWORD(lhs.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_END, v14, "VCPVideoPetsActionTracker", "", &lhs, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_END, v15, "VCPVideoPetsActionTracker", "", &lhs, 2u);
       }
 
       [(VCPVideoObjectTracker *)selfCopy->_tracker objectBounds];
       [VCPVideoPetsActionAnalyzer scaleRect:selfCopy scaleX:"scaleRect:scaleX:scaleY:" scaleY:?];
-      selfCopy->_crop.origin.x = v20;
-      selfCopy->_crop.origin.y = v21;
-      selfCopy->_crop.size.width = v22;
-      selfCopy->_crop.size.height = v23;
+      selfCopy->_crop.origin.x = v23;
+      selfCopy->_crop.origin.y = v24;
+      selfCopy->_crop.size.width = v25;
+      selfCopy->_crop.size.height = v26;
     }
 
-    v24 = selfCopy;
+    v27 = selfCopy;
     if (!selfCopy->_sampleFlag)
     {
-      v100 = 0;
-      v17 = 0;
+      v103 = 0;
+      v20 = 0;
       goto LABEL_78;
     }
   }
 
-  tracker = v24->_tracker;
-  v24->_tracker = 0;
+  tracker = v27->_tracker;
+  v27->_tracker = 0;
 
-  v26 = *&timestamp->var0;
+  v29 = *&timestamp->var0;
   selfCopy->_timeLastProcess.epoch = timestamp->var3;
-  *&selfCopy->_timeLastProcess.value = v26;
+  *&selfCopy->_timeLastProcess.value = v29;
   selfCopy->_actionScoreAbsolute = 0.0;
   selfCopy->_sampleFlag = 0;
-  v91 = (&selfCopy->_endTime.epoch + 4);
+  v94 = (&selfCopy->_endTime.epoch + 4);
   if ((selfCopy->_startTime.timescale & 1) == 0)
   {
-    v27 = *&timestamp->var0;
+    v30 = *&timestamp->var0;
     *&selfCopy->_startTime.flags = timestamp->var3;
-    *v91 = v27;
+    *v94 = v30;
   }
 
   p_x = &selfCopy->_crop.origin.x;
-  v29 = selfCopy->_crop.size.width;
-  v30 = selfCopy->_crop.size.height;
-  if (fmin(v29, v30) < 0.100000001)
+  v32 = selfCopy->_crop.size.width;
+  v33 = selfCopy->_crop.size.height;
+  if (fmin(v32, v33) < 0.100000001)
   {
-    v31 = *(MEMORY[0x1E695F058] + 16);
+    v34 = *(MEMORY[0x1E695F058] + 16);
     *p_x = *MEMORY[0x1E695F058];
-    selfCopy->_crop.size = v31;
-    v29 = selfCopy->_crop.size.width;
-    v30 = selfCopy->_crop.size.height;
+    selfCopy->_crop.size = v34;
+    v32 = selfCopy->_crop.size.width;
+    v33 = selfCopy->_crop.size.height;
   }
 
-  v32 = *p_x;
+  v35 = *p_x;
   y = selfCopy->_crop.origin.y;
-  if (CGRectIsEmpty(*(&v29 - 2)))
+  if (CGRectIsEmpty(*(&v32 - 2)))
   {
-    v121 = CFRetain(cf);
-    v34 = selfCopy;
+    v124 = CFRetain(cf);
+    v37 = selfCopy;
     goto LABEL_23;
   }
 
-  v127.origin.x = *p_x;
-  v127.size.width = selfCopy->_crop.size.width;
-  v127.size.height = selfCopy->_crop.size.height;
-  v35 = 1.0 - v127.size.height - selfCopy->_crop.origin.y;
-  v127.origin.y = fmaxf(v35, 0.0);
-  v34 = selfCopy;
-  v17 = Scaler::ScaleCropped(&selfCopy->_scaler, v127, cf, &v121, Width, Height, 875704422);
-  if (v17)
+  v130.origin.x = *p_x;
+  v130.size.width = selfCopy->_crop.size.width;
+  v130.size.height = selfCopy->_crop.size.height;
+  v38 = 1.0 - v130.size.height - selfCopy->_crop.origin.y;
+  v130.origin.y = fmaxf(v38, 0.0);
+  v37 = selfCopy;
+  v20 = Scaler::ScaleCropped(&selfCopy->_scaler, v130, cf, &v124, Width, Height, 875704422);
+  if (v20)
   {
 LABEL_22:
-    v100 = 0;
+    v103 = 0;
     goto LABEL_78;
   }
 
 LABEL_23:
-  p_lastPetTimestamp = &v34->_lastPetTimestamp;
-  if (v34->_lastPetTimestamp.flags)
+  p_lastPetTimestamp = &v37->_lastPetTimestamp;
+  if (v37->_lastPetTimestamp.flags)
   {
     lhs = *timestamp;
-    rhs = v34->_lastPetTimestamp;
+    rhs = v37->_lastPetTimestamp;
     CMTimeSubtract(&time, &lhs, &rhs);
     Seconds = CMTimeGetSeconds(&time);
-    v34 = selfCopy;
+    v37 = selfCopy;
     p_tracking = &selfCopy->_tracking;
     selfCopy->_tracking = Seconds < 1.0;
     if (Seconds < 1.0)
     {
       poseAnalyzer = selfCopy->_poseAnalyzer;
-      v119 = 0;
-      v17 = [(VCPImagePetsKeypointsAnalyzer *)poseAnalyzer analyzePixelBuffer:v121 flags:flags results:&v119 cancel:&__block_literal_global_49];
-      v39 = v119;
-      v100 = v39;
-      if (v17)
+      v122 = 0;
+      v20 = [(VCPImagePetsKeypointsAnalyzer *)poseAnalyzer analyzePixelBuffer:v124 flags:flags results:&v122 cancel:&__block_literal_global_49];
+      v42 = v122;
+      v103 = v42;
+      if (v20)
       {
         goto LABEL_76;
       }
 
-      v117 = 0u;
+      v120 = 0u;
+      v121 = 0u;
       v118 = 0u;
-      v115 = 0u;
-      v116 = 0u;
-      obj = [v39 objectForKeyedSubscript:@"PetsKeypointsResults"];
-      v40 = [obj countByEnumeratingWithState:&v115 objects:v125 count:16];
-      if (v40)
+      v119 = 0u;
+      obj = [v42 objectForKeyedSubscript:@"PetsKeypointsResults"];
+      v43 = [obj countByEnumeratingWithState:&v118 objects:v128 count:16];
+      if (v43)
       {
-        v103 = v40;
+        v106 = v43;
+        v107 = 0;
         v104 = 0;
-        v101 = 0;
-        v102 = *v116;
-        v41 = 0.0;
+        v105 = *v119;
+        v44 = 0.0;
         do
         {
-          for (i = 0; i != v103; ++i)
+          for (i = 0; i != v106; ++i)
           {
-            if (*v116 != v102)
+            if (*v119 != v105)
             {
               objc_enumerationMutation(obj);
             }
 
-            v106 = [*(*(&v115 + 1) + 8 * i) objectForKeyedSubscript:@"attributes"];
-            v108 = [v106 objectForKeyedSubscript:@"petsKeypoints"];
-            v42 = [v106 objectForKeyedSubscript:@"petsBounds"];
-            v128 = NSRectFromString(v42);
-            x = v128.origin.x;
-            v44 = v128.origin.y;
-            v45 = v128.size.width;
-            v46 = v128.size.height;
+            v109 = [*(*(&v118 + 1) + 8 * i) objectForKeyedSubscript:@"attributes"];
+            v111 = [v109 objectForKeyedSubscript:@"petsKeypoints"];
+            v45 = [v109 objectForKeyedSubscript:@"petsBounds"];
+            v131 = NSRectFromString(v45);
+            x = v131.origin.x;
+            v47 = v131.origin.y;
+            v48 = v131.size.width;
+            v49 = v131.size.height;
 
-            v47 = fmax(v45, v46);
-            if (v47 >= 0.1 && v47 >= 0.2)
+            v50 = fmax(v48, v49);
+            if (v50 >= 0.1 && v50 >= 0.2)
             {
-              if (v108)
+              if (v111)
               {
-                v129.origin.x = *p_x;
-                v129.origin.y = selfCopy->_crop.origin.y;
-                v129.size.width = selfCopy->_crop.size.width;
-                v129.size.height = selfCopy->_crop.size.height;
-                v48 = 0.0;
-                if (CGRectIsEmpty(v129))
+                v132.origin.x = *p_x;
+                v132.origin.y = selfCopy->_crop.origin.y;
+                v132.size.width = selfCopy->_crop.size.width;
+                v132.size.height = selfCopy->_crop.size.height;
+                v51 = 0.0;
+                if (CGRectIsEmpty(v132))
                 {
-                  array3 = v108;
+                  array3 = v111;
                 }
 
                 else
                 {
                   array3 = [MEMORY[0x1E695DF70] array];
-                  v113 = 0u;
+                  v116 = 0u;
+                  v117 = 0u;
                   v114 = 0u;
-                  v111 = 0u;
-                  v112 = 0u;
-                  v109 = v108;
-                  v50 = [v109 countByEnumeratingWithState:&v111 objects:v124 count:16];
-                  if (v50)
+                  v115 = 0u;
+                  v112 = v111;
+                  v53 = [v112 countByEnumeratingWithState:&v114 objects:v127 count:16];
+                  if (v53)
                   {
-                    v51 = *v112;
+                    v54 = *v115;
                     do
                     {
-                      for (j = 0; j != v50; ++j)
+                      for (j = 0; j != v53; ++j)
                       {
-                        if (*v112 != v51)
+                        if (*v115 != v54)
                         {
-                          objc_enumerationMutation(v109);
+                          objc_enumerationMutation(v112);
                         }
 
-                        v53 = *(*(&v111 + 1) + 8 * j);
-                        v54 = [MEMORY[0x1E695DF70] arrayWithCapacity:3];
-                        v55 = MEMORY[0x1E696AD98];
-                        v56 = *p_x;
-                        v57 = [v53 objectAtIndexedSubscript:0];
-                        [v57 floatValue];
-                        v59 = [v55 numberWithDouble:v56 + v58 * selfCopy->_crop.size.width];
-                        [v54 setObject:v59 atIndexedSubscript:0];
+                        v56 = *(*(&v114 + 1) + 8 * j);
+                        v57 = [MEMORY[0x1E695DF70] arrayWithCapacity:3];
+                        v58 = MEMORY[0x1E696AD98];
+                        v59 = *p_x;
+                        v60 = [v56 objectAtIndexedSubscript:0];
+                        [v60 floatValue];
+                        v62 = [v58 numberWithDouble:v59 + v61 * selfCopy->_crop.size.width];
+                        [v57 setObject:v62 atIndexedSubscript:0];
 
-                        v60 = MEMORY[0x1E696AD98];
-                        v61 = selfCopy->_crop.origin.y;
-                        v62 = [v53 objectAtIndexedSubscript:1];
-                        [v62 floatValue];
-                        v64 = [v60 numberWithDouble:v61 + v63 * selfCopy->_crop.size.height];
-                        [v54 setObject:v64 atIndexedSubscript:1];
-
-                        v65 = [v53 objectAtIndexedSubscript:2];
+                        v63 = MEMORY[0x1E696AD98];
+                        v64 = selfCopy->_crop.origin.y;
+                        v65 = [v56 objectAtIndexedSubscript:1];
                         [v65 floatValue];
-                        LODWORD(v61) = v66;
+                        v67 = [v63 numberWithDouble:v64 + v66 * selfCopy->_crop.size.height];
+                        [v57 setObject:v67 atIndexedSubscript:1];
 
-                        LODWORD(v67) = LODWORD(v61);
-                        v68 = [MEMORY[0x1E696AD98] numberWithFloat:v67];
-                        [v54 setObject:v68 atIndexedSubscript:2];
+                        v68 = [v56 objectAtIndexedSubscript:2];
+                        [v68 floatValue];
+                        LODWORD(v64) = v69;
 
-                        [array3 addObject:v54];
-                        if (*&v61 > 0.15)
+                        LODWORD(v70) = LODWORD(v64);
+                        v71 = [MEMORY[0x1E696AD98] numberWithFloat:v70];
+                        [v57 setObject:v71 atIndexedSubscript:2];
+
+                        [array3 addObject:v57];
+                        if (*&v64 > 0.15)
                         {
-                          v48 = v48 + 1.0;
+                          v51 = v51 + 1.0;
                         }
                       }
 
-                      v50 = [v109 countByEnumeratingWithState:&v111 objects:v124 count:16];
+                      v53 = [v112 countByEnumeratingWithState:&v114 objects:v127 count:16];
                     }
 
-                    while (v50);
+                    while (v53);
                   }
 
-                  v108 = array3;
+                  v111 = array3;
                 }
 
                 [array addObject:array3];
@@ -1020,101 +1022,101 @@ LABEL_23:
 
               else
               {
-                v108 = 0;
-                v48 = 0.0;
+                v111 = 0;
+                v51 = 0.0;
               }
 
-              v130.origin.x = x;
-              v130.origin.y = v44;
-              v130.size.width = v45;
-              v130.size.height = v46;
-              if (!CGRectIsEmpty(v130))
+              v133.origin.x = x;
+              v133.origin.y = v47;
+              v133.size.width = v48;
+              v133.size.height = v49;
+              if (!CGRectIsEmpty(v133))
               {
-                v131.origin.x = *p_x;
-                v131.origin.y = selfCopy->_crop.origin.y;
-                v131.size.width = selfCopy->_crop.size.width;
-                v131.size.height = selfCopy->_crop.size.height;
-                if (!CGRectIsEmpty(v131))
+                v134.origin.x = *p_x;
+                v134.origin.y = selfCopy->_crop.origin.y;
+                v134.size.width = selfCopy->_crop.size.width;
+                v134.size.height = selfCopy->_crop.size.height;
+                if (!CGRectIsEmpty(v134))
                 {
-                  v69 = selfCopy->_crop.size.width;
-                  v70 = selfCopy->_crop.size.height;
-                  x = *p_x + x * v69;
-                  v44 = selfCopy->_crop.origin.y + v44 * v70;
-                  v45 = v45 * v69;
-                  v46 = v46 * v70;
+                  v72 = selfCopy->_crop.size.width;
+                  v73 = selfCopy->_crop.size.height;
+                  x = *p_x + x * v72;
+                  v47 = selfCopy->_crop.origin.y + v47 * v73;
+                  v48 = v48 * v72;
+                  v49 = v49 * v73;
                 }
 
-                v132.origin.x = x;
-                v132.origin.y = v44;
-                v132.size.width = v45;
-                v132.size.height = v46;
-                v71 = NSStringFromRect(v132);
-                [array2 addObject:v71];
+                v135.origin.x = x;
+                v135.origin.y = v47;
+                v135.size.width = v48;
+                v135.size.height = v49;
+                v74 = NSStringFromRect(v135);
+                [array2 addObject:v74];
 
                 if (!CGRectIsEmpty(selfCopy->_petRect))
                 {
-                  [(VCPVideoPetsActionAnalyzer *)selfCopy intersectionOverUnion:selfCopy->_petRect.origin.x rect:selfCopy->_petRect.origin.y, selfCopy->_petRect.size.width, selfCopy->_petRect.size.height, x, v44, v45, v46];
-                  v48 = v72 + 0.1;
+                  [(VCPVideoPetsActionAnalyzer *)selfCopy intersectionOverUnion:selfCopy->_petRect.origin.x rect:selfCopy->_petRect.origin.y, selfCopy->_petRect.size.width, selfCopy->_petRect.size.height, x, v47, v48, v49];
+                  v51 = v75 + 0.1;
                 }
               }
 
-              v73 = v48 <= v41;
-              if (v48 > v41)
+              v76 = v51 <= v44;
+              if (v51 > v44)
               {
-                v41 = v48;
+                v44 = v51;
               }
 
-              v74 = v104;
-              if (!v73)
+              v77 = v107;
+              if (!v76)
               {
-                v74 = v101;
+                v77 = v104;
               }
 
-              v104 = v74;
-              ++v101;
+              v107 = v77;
+              ++v104;
             }
           }
 
-          v103 = [obj countByEnumeratingWithState:&v115 objects:v125 count:16];
+          v106 = [obj countByEnumeratingWithState:&v118 objects:v128 count:16];
         }
 
-        while (v103);
+        while (v106);
       }
 
       else
       {
-        v104 = 0;
+        v107 = 0;
       }
 
-      v88 = [array2 count];
-      if (v88 != [array count])
+      v91 = [array2 count];
+      if (v91 != [array count])
       {
-        v17 = -50;
+        v20 = -50;
         goto LABEL_76;
       }
 
-      v36 = 1;
-      v34 = selfCopy;
+      v39 = 1;
+      v37 = selfCopy;
     }
 
     else
     {
-      v36 = 0;
-      v104 = 0;
-      v100 = 0;
+      v39 = 0;
+      v107 = 0;
+      v103 = 0;
     }
   }
 
   else
   {
-    v36 = 0;
-    v104 = 0;
-    v100 = 0;
-    p_tracking = &v34->_tracking;
-    v34->_tracking = 0;
+    v39 = 0;
+    v107 = 0;
+    v103 = 0;
+    p_tracking = &v37->_tracking;
+    v37->_tracking = 0;
   }
 
-  p_timeLastProcessFullFrame = &v34->_timeLastProcessFullFrame;
+  p_timeLastProcessFullFrame = &v37->_timeLastProcessFullFrame;
   lhs = *timestamp;
   rhs = *p_timeLastProcessFullFrame;
   CMTimeSubtract(&time, &lhs, &rhs);
@@ -1125,76 +1127,76 @@ LABEL_71:
     {
       lhs = *timestamp;
       rhs = *durationCopy;
-      v17 = [(VCPVideoPetsActionAnalyzer *)selfCopy processPets:array petsBounds:array2 dominantPetIdx:v104 frame:cf timestamp:&lhs duration:&rhs frameStats:statsCopy];
+      v20 = [(VCPVideoPetsActionAnalyzer *)selfCopy processPets:array petsBounds:array2 dominantPetIdx:v107 frame:cf timestamp:&lhs duration:&rhs frameStats:statsCopy];
     }
 
     else
     {
-      v83 = MEMORY[0x1E695F058];
-      v84 = *(MEMORY[0x1E695F058] + 16);
+      v86 = MEMORY[0x1E695F058];
+      v87 = *(MEMORY[0x1E695F058] + 16);
       selfCopy->_petRect.origin = *MEMORY[0x1E695F058];
-      selfCopy->_petRect.size = v84;
+      selfCopy->_petRect.size = v87;
       if (!*p_tracking)
       {
-        v85 = v83[1];
-        *p_x = *v83;
-        selfCopy->_crop.size = v85;
+        v88 = v86[1];
+        *p_x = *v86;
+        selfCopy->_crop.size = v88;
       }
 
       [(NSMutableArray *)selfCopy->_bodyArray removeAllObjects];
-      v17 = 0;
-      v86 = *&timestamp->var0;
+      v20 = 0;
+      v89 = *&timestamp->var0;
       *&selfCopy->_startTime.flags = timestamp->var3;
-      *v91 = v86;
+      *v94 = v89;
     }
 
     goto LABEL_76;
   }
 
-  v133.origin.x = *p_x;
-  v133.origin.y = selfCopy->_crop.origin.y;
-  v133.size.width = selfCopy->_crop.size.width;
-  v133.size.height = selfCopy->_crop.size.height;
-  if ((v36 & CGRectIsEmpty(v133)) == 1)
+  v136.origin.x = *p_x;
+  v136.origin.y = selfCopy->_crop.origin.y;
+  v136.size.width = selfCopy->_crop.size.width;
+  v136.size.height = selfCopy->_crop.size.height;
+  if ((v39 & CGRectIsEmpty(v136)) == 1)
   {
-    v76 = v100;
+    v79 = v103;
 LABEL_68:
-    v79 = *&timestamp->var0;
+    v82 = *&timestamp->var0;
     p_timeLastProcessFullFrame->epoch = timestamp->var3;
-    *&p_timeLastProcessFullFrame->value = v79;
-    v80 = [v76 objectForKeyedSubscript:@"PetsKeypointsResults"];
-    v81 = [v80 count] == 0;
+    *&p_timeLastProcessFullFrame->value = v82;
+    v83 = [v79 objectForKeyedSubscript:@"PetsKeypointsResults"];
+    v84 = [v83 count] == 0;
 
-    if (!v81)
+    if (!v84)
     {
-      v82 = *&timestamp->var0;
+      v85 = *&timestamp->var0;
       p_lastPetTimestamp->epoch = timestamp->var3;
-      *&p_lastPetTimestamp->value = v82;
+      *&p_lastPetTimestamp->value = v85;
     }
 
     goto LABEL_71;
   }
 
-  v77 = selfCopy->_poseAnalyzer;
+  v80 = selfCopy->_poseAnalyzer;
   petsDetections = [statsCopy petsDetections];
-  v110 = 0;
-  v17 = [(VCPImagePetsKeypointsAnalyzer *)v77 analyzePixelBuffer:cf flags:flags petsDetections:petsDetections results:&v110 cancel:&__block_literal_global_345_0];
-  v76 = v110;
+  v113 = 0;
+  v20 = [(VCPImagePetsKeypointsAnalyzer *)v80 analyzePixelBuffer:cf flags:flags petsDetections:petsDetections results:&v113 cancel:&__block_literal_global_345_0];
+  v79 = v113;
 
-  if (!v17)
+  if (!v20)
   {
     goto LABEL_68;
   }
 
 LABEL_76:
-  if (v121)
+  if (v124)
   {
-    CFRelease(v121);
+    CFRelease(v124);
   }
 
 LABEL_78:
 
-  return v17;
+  return v20;
 }
 
 - (int)finishAnalysisPass:(id *)pass

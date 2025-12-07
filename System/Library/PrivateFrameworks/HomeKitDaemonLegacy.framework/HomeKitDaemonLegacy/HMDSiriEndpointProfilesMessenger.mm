@@ -20,7 +20,7 @@
 
 - (id)intermediateApplyOnboardingSelectionsRequestMessageForMessage:(id)message error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v7 = objc_alloc(MEMORY[0x277CD1E08]);
   messagePayload = [messageCopy messagePayload];
@@ -32,14 +32,14 @@
     identifier = [messageCopy identifier];
     [v10 setIdentifier:identifier];
 
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __104__HMDSiriEndpointProfilesMessenger_intermediateApplyOnboardingSelectionsRequestMessageForMessage_error___block_invoke;
-    v18[3] = &unk_279730A88;
-    v19 = messageCopy;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __104__HMDSiriEndpointProfilesMessenger_intermediateApplyOnboardingSelectionsRequestMessageForMessage_error___block_invoke;
+    v17[3] = &unk_279730A88;
+    v18 = messageCopy;
     selfCopy = self;
-    v21 = v9;
-    [v10 setResponseHandler:v18];
+    v20 = v9;
+    [v10 setResponseHandler:v17];
   }
 
   else
@@ -51,9 +51,9 @@
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v15;
-      v24 = 2112;
-      v25 = messageCopy;
+      v22 = v15;
+      v23 = 2112;
+      v24 = messageCopy;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to get accessory UUID for intermediate apply onboarding selections message handler using message: %@", buf, 0x16u);
     }
 
@@ -62,14 +62,12 @@
     *error = v10 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 void __104__HMDSiriEndpointProfilesMessenger_intermediateApplyOnboardingSelectionsRequestMessageForMessage_error___block_invoke(id *a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [a1[4] respondWithPayload:v6 error:v5];
@@ -79,14 +77,14 @@ void __104__HMDSiriEndpointProfilesMessenger_intermediateApplyOnboardingSelectio
     if (v7)
     {
       v8 = [MEMORY[0x277CCAB98] defaultCenter];
-      v22[0] = @"accessoryUUID";
+      v21[0] = @"accessoryUUID";
       v9 = a1[5];
       v10 = [a1[6] accessoryUUID];
-      v22[1] = @"HMDSiriEndpointProfileNeedsOnboardingResultCodingKey";
-      v23[0] = v10;
+      v21[1] = @"HMDSiriEndpointProfileNeedsOnboardingResultCodingKey";
+      v22[0] = v10;
       v11 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v7, "onboardingResult")}];
-      v23[1] = v11;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+      v22[1] = v11;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
       [v8 postNotificationName:@"HMDSiriEndpointProfileUpdateNeedsOnboardingNotification" object:v9 userInfo:v12];
     }
 
@@ -99,9 +97,9 @@ void __104__HMDSiriEndpointProfilesMessenger_intermediateApplyOnboardingSelectio
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v25 = v20;
-        v26 = 2112;
-        v27 = v6;
+        v24 = v20;
+        v25 = 2112;
+        v26 = v6;
         _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to get response using apply onboarding intermediate response payload: %@", buf, 0x16u);
       }
 
@@ -118,16 +116,14 @@ void __104__HMDSiriEndpointProfilesMessenger_intermediateApplyOnboardingSelectio
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v16;
-      v26 = 2112;
-      v27 = v5;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v5;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to get response payload for apply onboarding intermediate response with error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)routeSiriEndpointDeleteSiriHistoryMessage:(id)message
@@ -152,7 +148,7 @@ void __78__HMDSiriEndpointProfilesMessenger_routeSiriEndpointDeleteSiriHistoryMe
 
 - (void)routeSiriEndpointApplyOnboardingSelectionsRequestMessage:(id)message
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -161,33 +157,31 @@ void __78__HMDSiriEndpointProfilesMessenger_routeSiriEndpointDeleteSiriHistoryMe
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v16 = v8;
-    v17 = 2112;
-    v18 = messageCopy;
+    v15 = v8;
+    v16 = 2112;
+    v17 = messageCopy;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Routing siri endpoint apply onboarding selections request message: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v14 = 0;
-  v9 = [(HMDSiriEndpointProfilesMessenger *)selfCopy intermediateApplyOnboardingSelectionsRequestMessageForMessage:messageCopy error:&v14];
-  v10 = v14;
+  v13 = 0;
+  v9 = [(HMDSiriEndpointProfilesMessenger *)selfCopy intermediateApplyOnboardingSelectionsRequestMessageForMessage:messageCopy error:&v13];
+  v10 = v13;
   if (v9)
   {
     messageRouter = [(HMDSiriEndpointProfilesMessenger *)selfCopy messageRouter];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __93__HMDSiriEndpointProfilesMessenger_routeSiriEndpointApplyOnboardingSelectionsRequestMessage___block_invoke;
-    v13[3] = &unk_279733FD8;
-    v13[4] = selfCopy;
-    [messageRouter routeMessage:v9 localHandler:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __93__HMDSiriEndpointProfilesMessenger_routeSiriEndpointApplyOnboardingSelectionsRequestMessage___block_invoke;
+    v12[3] = &unk_279733FD8;
+    v12[4] = selfCopy;
+    [messageRouter routeMessage:v9 localHandler:v12];
   }
 
   else
   {
     [messageCopy respondWithError:v10];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __93__HMDSiriEndpointProfilesMessenger_routeSiriEndpointApplyOnboardingSelectionsRequestMessage___block_invoke(uint64_t a1, void *a2)
@@ -200,7 +194,7 @@ void __93__HMDSiriEndpointProfilesMessenger_routeSiriEndpointApplyOnboardingSele
 
 - (void)registerForMessagesWithHome:(id)home
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v5 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
   v6 = [HMDXPCMessagePolicy policyWithEntitlements:5];
@@ -208,21 +202,19 @@ void __93__HMDSiriEndpointProfilesMessenger_routeSiriEndpointApplyOnboardingSele
 
   messageDispatcher = [(HMDSiriEndpointProfilesMessenger *)self messageDispatcher];
   v9 = *MEMORY[0x277CD0FB8];
-  v16[0] = v5;
-  v16[1] = v6;
-  v16[2] = v7;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v15[0] = v5;
+  v15[1] = v6;
+  v15[2] = v7;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
   [messageDispatcher registerForMessage:v9 receiver:self policies:v10 selector:sel_routeSiriEndpointApplyOnboardingSelectionsRequestMessage_];
 
   messageDispatcher2 = [(HMDSiriEndpointProfilesMessenger *)self messageDispatcher];
   messageName = [MEMORY[0x277CD1E18] messageName];
-  v15[0] = v5;
-  v15[1] = v6;
-  v15[2] = v7;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+  v14[0] = v5;
+  v14[1] = v6;
+  v14[2] = v7;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
   [messageDispatcher2 registerForMessage:messageName receiver:self policies:v13 selector:sel_routeSiriEndpointDeleteSiriHistoryMessage_];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDSiriEndpointProfilesMessenger)initWithMessageTargetUUID:(id)d messageDispatcher:(id)dispatcher messageRouter:(id)router messageHandler:(id)handler
@@ -288,12 +280,11 @@ LABEL_11:
 
 uint64_t __47__HMDSiriEndpointProfilesMessenger_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_22954;
-  logCategory__hmf_once_v5_22954 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_22954;
+  logCategory__hmf_once_v5_22954 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -12,9 +12,9 @@
     +[NSXPCInterface(LTUIViewServiceExtension) __LTUI_viewServiceExtensionInterface];
   }
 
-  v1 = __LTUI_viewServiceExtensionInterface_interface;
+  v2 = __LTUI_viewServiceExtensionInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 + (id)__LTUI_viewServiceExtensionHostInterface
@@ -24,9 +24,9 @@
     +[NSXPCInterface(LTUIViewServiceExtension) __LTUI_viewServiceExtensionHostInterface];
   }
 
-  v1 = __LTUI_viewServiceExtensionHostInterface_interface;
+  v2 = __LTUI_viewServiceExtensionHostInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 @end

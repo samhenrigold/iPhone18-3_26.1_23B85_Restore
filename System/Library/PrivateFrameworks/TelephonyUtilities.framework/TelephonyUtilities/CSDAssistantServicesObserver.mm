@@ -8,6 +8,8 @@
 - (void)handleAFPreferencesDidChangeNotification:(id)notification;
 - (void)removeDelegate:(id)delegate;
 - (void)setAnnounceCallsProviderIdentifier:(id)identifier;
+- (void)updateAnnounceCallsVersionForAssistantAvailableWhenLocked:(BOOL)locked;
+- (void)updateAnnounceCallsVersionForAssistantAvailableWhenLocked:(BOOL)locked availableRequestTypes:(unint64_t)types;
 - (void)updateAnnounceCallsVersionForAvailableRequestTypes:(unint64_t)types;
 @end
 
@@ -83,21 +85,20 @@
 {
   identifierCopy = identifier;
   os_unfair_lock_lock(&self->_accessorLock);
-  announceCallsProviderIdentifier = self->_announceCallsProviderIdentifier;
   if ((TUStringsAreEqualOrNil() & 1) == 0)
   {
-    v6 = [identifierCopy copy];
-    v7 = self->_announceCallsProviderIdentifier;
-    self->_announceCallsProviderIdentifier = v6;
+    v5 = [identifierCopy copy];
+    announceCallsProviderIdentifier = self->_announceCallsProviderIdentifier;
+    self->_announceCallsProviderIdentifier = v5;
 
     delegateController = [(CSDAssistantServicesObserver *)self delegateController];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_100219060;
-    v9[3] = &unk_10061EC48;
-    v9[4] = self;
-    v10 = identifierCopy;
-    [delegateController enumerateDelegatesUsingBlock:v9];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100219060;
+    v8[3] = &unk_10061EC48;
+    v8[4] = self;
+    v9 = identifierCopy;
+    [delegateController enumerateDelegatesUsingBlock:v8];
   }
 
   os_unfair_lock_unlock(&self->_accessorLock);
@@ -118,6 +119,14 @@
   [delegateController removeDelegate:delegateCopy];
 }
 
+- (void)updateAnnounceCallsVersionForAssistantAvailableWhenLocked:(BOOL)locked
+{
+  lockedCopy = locked;
+  availableAnnounceCallsRequestTypes = [(CSDAssistantServicesObserver *)self availableAnnounceCallsRequestTypes];
+
+  [(CSDAssistantServicesObserver *)self updateAnnounceCallsVersionForAssistantAvailableWhenLocked:lockedCopy availableRequestTypes:availableAnnounceCallsRequestTypes];
+}
+
 - (void)updateAnnounceCallsVersionForAvailableRequestTypes:(unint64_t)types
 {
   isAssistantAvailableWhenLocked = [(CSDAssistantServicesObserver *)self isAssistantAvailableWhenLocked];
@@ -125,16 +134,61 @@
   [(CSDAssistantServicesObserver *)self updateAnnounceCallsVersionForAssistantAvailableWhenLocked:isAssistantAvailableWhenLocked availableRequestTypes:types];
 }
 
-- (void)availableAnnouncementRequestTypesChanged:(unint64_t)changed onPlatform:(int64_t)platform
+- (void)updateAnnounceCallsVersionForAssistantAvailableWhenLocked:(BOOL)locked availableRequestTypes:(unint64_t)types
 {
-  if ([(CSDAssistantServicesObserver *)self announceCallsPlatform]== platform)
+  lockedCopy = locked;
+  if (!locked)
   {
-    v7 = sub_100004778();
+    v7 = sub_100004778(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 134217984;
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Announce calls with answer prompt is not available; Siri is not available when device is locked.", buf, 2u);
+    }
+  }
+
+  if ((types & 2) == 0)
+  {
+    v8 = sub_100004778(self);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Announce calls with answer prompt is not available; eligible headphones are not connected.", v12, 2u);
+    }
+  }
+
+  [(CSDAssistantServicesObserver *)self setAssistantAvailableWhenLocked:lockedCopy];
+  [(CSDAssistantServicesObserver *)self setAvailableAnnounceCallsRequestTypes:types];
+  if ((types & 2) != 0 && lockedCopy)
+  {
+    featureFlags = [(CSDAssistantServicesObserver *)self featureFlags];
+    announceCalls = [featureFlags announceCalls];
+    v11 = &TUBundleIdentifierCallServicesDaemon;
+    if (!announceCalls)
+    {
+      v11 = &TUBundleIdentifierInCallServiceApplication;
+    }
+
+    [(CSDAssistantServicesObserver *)self setAnnounceCallsProviderIdentifier:*v11];
+  }
+
+  else
+  {
+    [(CSDAssistantServicesObserver *)self setAnnounceCallsProviderIdentifier:TUBundleIdentifierInCallServiceApplication];
+  }
+}
+
+- (void)availableAnnouncementRequestTypesChanged:(unint64_t)changed onPlatform:(int64_t)platform
+{
+  announceCallsPlatform = [(CSDAssistantServicesObserver *)self announceCallsPlatform];
+  if (announceCallsPlatform == platform)
+  {
+    v8 = sub_100004778(announceCallsPlatform);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = 134217984;
       platformCopy = platform;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Available announcement request types changed for platform %ld", &v8, 0xCu);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Available announcement request types changed for platform %ld", &v9, 0xCu);
     }
 
     [(CSDAssistantServicesObserver *)self updateAnnounceCallsVersionForAvailableRequestTypes:changed];
@@ -143,14 +197,15 @@
 
 - (void)eligibleAnnouncementRequestTypesChanged:(unint64_t)changed onPlatform:(int64_t)platform
 {
-  if ([(CSDAssistantServicesObserver *)self announceCallsPlatform]== platform)
+  announceCallsPlatform = [(CSDAssistantServicesObserver *)self announceCallsPlatform];
+  if (announceCallsPlatform == platform)
   {
-    v5 = sub_100004778();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004778(announceCallsPlatform);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 134217984;
+      v7 = 134217984;
       platformCopy = platform;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Eligible announcement request types changed for platform %ld", &v6, 0xCu);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Eligible announcement request types changed for platform %ld", &v7, 0xCu);
     }
   }
 }

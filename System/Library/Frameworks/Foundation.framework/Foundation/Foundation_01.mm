@@ -280,31 +280,31 @@ uint64_t _decodeObjectReference(uint64_t a1, uint64_t a2, uint64_t a3, unsigned 
     goto LABEL_9;
   }
 
-  if (decodingCyclesIsAllowedForCoder(a1))
+  if (decodingCyclesIsAllowedForCoder(a1, v10))
   {
 LABEL_3:
     if (v9 && ([a1 _validateAllowedClassesContainsClass:objc_msgSend(value[0] forKey:{"classForCoder"), a3}] & 1) == 0)
     {
 LABEL_14:
-      v11 = 0;
+      v12 = 0;
       goto LABEL_15;
     }
 
 LABEL_9:
-    v11 = value[0];
+    v12 = value[0];
 LABEL_15:
-    *a5 = v11;
+    *a5 = v12;
     return 1;
   }
 
-  v12 = atomic_load((a1 + 16));
-  if (v12 != *(a1 + 136))
+  v13 = atomic_load((a1 + 16));
+  if (v13 != *(a1 + 136))
   {
     __NSPoisoned();
   }
 
-  v13 = atomic_load((a1 + 16));
-  if ((v13 & 0x20) == 0 && !_os_feature_enabled_impl())
+  v14 = atomic_load((a1 + 16));
+  if ((v14 & 0x20) == 0 && !_os_feature_enabled_impl())
   {
     if (_decodeObjectReference_onceToken != -1)
     {
@@ -380,7 +380,7 @@ LABEL_18:
   return 1;
 }
 
-uint64_t _decodeObject(unint64_t *a1, const void *a2, void *a3)
+uint64_t _decodeObject(unint64_t *a1, __CFString *a2, void *a3)
 {
   v15[1] = *MEMORY[0x1E69E9840];
   v15[0] = 0;
@@ -1070,7 +1070,7 @@ BOOL _coderValidateClassValidToMessageForUnarchiving(objc_class *a1)
   return class_respondsToSelector(a1, sel_forwardInvocation_);
 }
 
-uint64_t _NSCoderCheckPotentiallyMangledClassNameAndWarn(uint64_t result, int a2)
+objc_class *_NSCoderCheckPotentiallyMangledClassNameAndWarn(objc_class *result, int a2)
 {
   if (result)
   {
@@ -1115,15 +1115,15 @@ id coderAllocateClassForUnarchival(void *a1, objc_class *a2, _BYTE *a3)
     v7 = 0;
     while (1)
     {
-      v8 = *&buf[v7];
+      v8 = *&buf[v7 * 4];
       MethodImplementation = class_getMethodImplementation(a2, v8);
-      if (MethodImplementation != *(&_MergedGlobals_43 + v7 + 32))
+      if (MethodImplementation != *&_MergedGlobals_43[v7 + 8]._os_unfair_lock_opaque)
       {
         break;
       }
 
-      v7 += 8;
-      if (v7 == 24)
+      v7 += 2;
+      if (v7 == 6)
       {
         goto LABEL_11;
       }
@@ -1471,7 +1471,7 @@ void *_NSXPCSerializationEndArrayWrite(void *a1)
   a1[1024] = v3;
   v4 = a1[v3];
   v6[0] = v2 - 1;
-  return _replaceBytes(a1, v4, 8, v6);
+  return _replaceBytes(a1, v4, 8uLL, v6);
 }
 
 NSNumber *_NSXPCSerializationNumberForObject(void *a1, unint64_t *a2, double a3)
@@ -1603,7 +1603,7 @@ uint64_t partial apply for closure #1 in static String._unconditionallyBridgeFro
   return result;
 }
 
-atomic_uint *_timerRelease(atomic_uint *result)
+id *_timerRelease(id *result)
 {
   if (atomic_fetch_add_explicit(result, 0xFFFFFFFF, memory_order_relaxed) <= 1)
   {
@@ -1910,7 +1910,7 @@ void _NSXPCSerializationStartDictionaryWrite(uint64_t *a1)
   a1[1025] += 8;
 }
 
-void *_replaceBytes(void *result, uint64_t a2, int64_t a3, void *__src)
+void *_replaceBytes(void *result, uint64_t a2, size_t a3, void *__src)
 {
   v4 = a2 + a3;
   if ((BYTE8(v4) & 1) == 0 && result[1025] >= v4)
@@ -2077,9 +2077,9 @@ uint64_t _NSXPCSerializationCreateObjectInDictionaryForKey(uint64_t *a1, void *a
   return v9 & 1;
 }
 
-void sub_180775C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_180775C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2168,7 +2168,7 @@ LABEL_8:
   }
 }
 
-uint64_t _iterateDictionaryKeysAndValues(uint64_t *a1, void *a2, uint64_t a3)
+BOOL _iterateDictionaryKeysAndValues(uint64_t *a1, void *a2, uint64_t a3)
 {
   v23[1] = *MEMORY[0x1E69E9840];
   v3 = *a2 + 8;
@@ -2588,7 +2588,7 @@ uint64_t _getIntAtMarker(void *a1, void *a2, unint64_t a3, unint64_t *a4)
   return 1;
 }
 
-uint64_t _getLastByteOfValueIncludingMarker(void *a1, unint64_t a2, unint64_t *a3)
+BOOL _getLastByteOfValueIncludingMarker(void *a1, unint64_t a2, unint64_t *a3)
 {
   v21[1] = *MEMORY[0x1E69E9840];
   v3 = a1[1];
@@ -2777,7 +2777,7 @@ uint64_t _NSXPCDistantObjectSimpleMessageSend2(void *a1, uint64_t a2, uint64_t a
   return 0;
 }
 
-void *_NSXPCSerializationAddInvocationWithOnlyObjectArgumentsArray(SEL *a1, uint64_t a2, _BYTE *a3, uint64_t *a4)
+void *_NSXPCSerializationAddInvocationWithOnlyObjectArgumentsArray(SEL *a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   _NSXPCSerializationStartArrayWrite(a4);
   for (; a2; --a2)
@@ -2799,7 +2799,7 @@ void *_NSXPCSerializationAddInvocationWithOnlyObjectArgumentsArray(SEL *a1, uint
   return _NSXPCSerializationEndArrayWrite(a4);
 }
 
-void _NSXPCSerializationAddTypedObjCValuesToArray(_BYTE *a1, uint64_t a2, unsigned __int8 *a3, SEL *a4)
+void _NSXPCSerializationAddTypedObjCValuesToArray(void *a1, uint64_t a2, unsigned __int8 *a3, SEL *a4)
 {
   v8 = _xpc_skipAttributesOfType(a3);
   v9 = *v8;
@@ -3168,7 +3168,7 @@ void *_NSXPCSerializationAddReference(uint64_t a1, unint64_t a2)
   return result;
 }
 
-unint64_t static Set._unconditionallyBridgeFromObjectiveC(_:)(void *a1, uint64_t a2, uint64_t a3)
+uint64_t static Set._unconditionallyBridgeFromObjectiveC(_:)(void *a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
@@ -3777,10 +3777,10 @@ uint64_t _NSSetUsingKeyValueSetter(uint64_t a1, void *a2, uint64_t a3)
 
   if (v4)
   {
-    return (v5)(a1, v4);
+    return (v5)(a1, v4, a3);
   }
 
-  return (v5)(a1, 0);
+  return (v5)(a1, 0, a3);
 }
 
 void protocol witness for _LocaleProtocol.numberingSystem.getter in conformance _LocaleICU(uint64_t *a1@<X8>)
@@ -3792,65 +3792,67 @@ void protocol witness for _LocaleProtocol.numberingSystem.getter in conformance 
   os_unfair_lock_unlock((v3 + 536));
 }
 
-uint64_t closure #1 in _LocaleICU.numberingSystem.getter@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
+void closure #1 in _LocaleICU.numberingSystem.getter(void *a1@<X0>, uint64_t *a3@<X8>)
 {
-  v3 = a1[20];
-  v2 = a1[21];
-  v4 = a1[22];
-  v5 = a1[23];
-  if (v2)
+  v4 = a1[20];
+  v3 = a1[21];
+  v5 = a1[22];
+  v6 = a1[23];
+  if (v3)
   {
-    *a2 = v3;
-    a2[1] = v2;
-    a2[2] = v4;
-    a2[3] = v5;
+    *a3 = v4;
+    a3[1] = v3;
+    a3[2] = v5;
+    a3[3] = v6;
   }
 
   else
   {
-    v20 = a2;
+    v22 = a3;
 
-    Locale.Components.init(identifier:)(v15);
-    v7 = v17;
-    if (v17)
+    Locale.Components.init(identifier:)(v17);
+    v8 = v19;
+    if (v19)
     {
-      v8 = v19;
-      v13 = v16;
-      v14 = v18;
+      v9 = v21;
+      v15 = v18;
+      v16 = v20;
 
-      outlined destroy of Locale.Components(v15);
-      v9 = a1[20];
-      v10 = a1[21];
+      outlined destroy of Locale.Components(v17);
+      v10 = a1[20];
+      v11 = a1[21];
+      v13 = a1[23];
+      v14 = a1[22];
 
-      outlined consume of Locale.LanguageCode?(v9, v10);
-      a1[20] = v13;
-      a1[21] = v7;
-      a1[22] = v14;
-      a1[23] = v8;
-      v11 = v20;
-      *v20 = v13;
-      v11[1] = v7;
-      v11[2] = v14;
-      v11[3] = v8;
+      outlined consume of Locale.LanguageCode?(v10, v11, v14, v13);
+      a1[20] = v15;
+      a1[21] = v8;
+      a1[22] = v16;
+      a1[23] = v9;
+      v12 = v22;
+      *v22 = v15;
+      v12[1] = v8;
+      v12[2] = v16;
+      v12[3] = v9;
     }
 
     else
     {
 
-      Locale.NumberingSystem.init(localeIdentifier:)(v20);
-      outlined destroy of Locale.Components(v15);
+      Locale.NumberingSystem.init(localeIdentifier:)(v22);
+      outlined destroy of Locale.Components(v17);
     }
   }
 
-  return outlined copy of Locale.LanguageCode?(v3, v2);
+  outlined copy of Locale.LanguageCode?(v4, v3, v5, v6);
 }
 
-uint64_t Locale.NumberingSystem.init(localeIdentifier:)@<X0>(uint64_t *a1@<X8>)
+uint64_t Locale.NumberingSystem.init(localeIdentifier:)@<X0>(uint64_t *a2@<X8>)
 {
   String.utf8CString.getter();
-  v2 = unumsys_open();
+  v3 = unumsys_open();
 
-  if (!v2)
+  if (!v3)
   {
 
     if (one-time initialization token for latn != -1)
@@ -3858,29 +3860,29 @@ uint64_t Locale.NumberingSystem.init(localeIdentifier:)@<X0>(uint64_t *a1@<X8>)
       swift_once();
     }
 
-    v4 = static Locale.NumberingSystem.latn;
-    v6 = unk_1EA7AE6E0;
+    v5 = static Locale.NumberingSystem.latn;
+    v7 = unk_1EA7AE6E0;
     object = *(&xmmword_1EA7AE6E8 + 1);
     countAndFlagsBits = xmmword_1EA7AE6E8;
 
     goto LABEL_7;
   }
 
-  result = MEMORY[0x1865D32B0](v2);
+  result = MEMORY[0x1865D32B0](v3);
   if (result)
   {
 
-    v4 = String.init(cString:)();
-    v6 = v5;
-    v7 = String.lowercased()();
-    countAndFlagsBits = v7._countAndFlagsBits;
-    object = v7._object;
+    v5 = String.init(cString:)();
+    v7 = v6;
+    v8 = String.lowercased()();
+    countAndFlagsBits = v8._countAndFlagsBits;
+    object = v8._object;
 LABEL_7:
     result = unumsys_close();
-    *a1 = v4;
-    a1[1] = v6;
-    a1[2] = countAndFlagsBits;
-    a1[3] = object;
+    *a2 = v5;
+    a2[1] = v7;
+    a2[2] = countAndFlagsBits;
+    a2[3] = object;
     return result;
   }
 
@@ -3891,9 +3893,9 @@ LABEL_7:
 uint64_t protocol witness for _LocaleProtocol.languageCode.getter in conformance _LocaleICU()
 {
   v1 = *(v0 + 200);
-  os_unfair_lock_lock((v1 + 536));
-  partial apply for closure #1 in _LocaleICU.languageCode.getter((v1 + 16), &v3);
-  os_unfair_lock_unlock((v1 + 536));
+  os_unfair_lock_lock(v1 + 134);
+  partial apply for closure #1 in _LocaleICU.languageCode.getter(&v1[4], &v3);
+  os_unfair_lock_unlock(v1 + 134);
   return v3;
 }
 
@@ -3984,13 +3986,11 @@ uint64_t get_enum_tag_for_layout_string_10Foundation6LocaleV12LanguageCodeVSg(ui
   return (v1 + 1);
 }
 
-uint64_t outlined consume of Locale.LanguageCode?(uint64_t a1, uint64_t a2)
+void outlined consume of Locale.LanguageCode?(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
   }
-
-  return result;
 }
 
 id _NSGetLongLongValueWithMethod(uint64_t a1, uint64_t a2, objc_method *a3)
@@ -4015,366 +4015,367 @@ id @objc static NSLocale._current.getter()
   return v0;
 }
 
-uint64_t Locale.Components.init(identifier:)@<X0>(uint64_t a1@<X8>)
+uint64_t Locale.Components.init(identifier:)@<X0>(uint64_t a3@<X8>)
 {
-  v153 = *MEMORY[0x1E69E9840];
-  memset(v152, 0, 96);
-  outlined destroy of Locale.Language.Components(v152);
+  v156 = *MEMORY[0x1E69E9840];
+  memset(v155, 0, 96);
+  outlined destroy of Locale.Language.Components(v155);
   String.utf8CString.getter();
   Language = uloc_getLanguage();
 
-  v3 = 0;
-  v4 = 0;
+  v5 = 0;
+  v6 = 0;
   if (Language > 0)
   {
-    v151[Language] = 0;
-    v3 = MEMORY[0x1865CAEB0](v151);
-    v4 = v5;
+    v154[Language] = 0;
+    v5 = MEMORY[0x1865CAEB0](v154);
+    v6 = v7;
   }
 
-  LODWORD(v137) = 0;
+  LODWORD(v140) = 0;
   String.utf8CString.getter();
   Script = uloc_getScript();
 
-  v7 = 0;
-  v8 = 0;
+  v9 = 0;
+  v10 = 0;
   if (Script > 0)
   {
-    v150[Script] = 0;
-    v7 = MEMORY[0x1865CAEB0](v150);
-    v8 = v9;
+    v153[Script] = 0;
+    v9 = MEMORY[0x1865CAEB0](v153);
+    v10 = v11;
   }
 
-  LODWORD(v137) = 0;
+  LODWORD(v140) = 0;
   String.utf8CString.getter();
   Country = uloc_getCountry();
 
-  v11 = 0;
-  v12 = 0;
+  v13 = 0;
+  v14 = 0;
   if (Country > 0)
   {
-    v149[Country] = 0;
-    v11 = MEMORY[0x1865CAEB0](v149, 0);
+    v152[Country] = 0;
+    v13 = MEMORY[0x1865CAEB0](v152, 0);
   }
 
-  v125 = v12;
-  if (!v4)
+  v128 = v14;
+  if (!v6)
   {
-    v3 = 0;
+    v5 = 0;
     object = 0;
     countAndFlagsBits = 0;
-    if (v8)
+    if (v10)
     {
       goto LABEL_9;
     }
 
 LABEL_11:
-    v7 = 0;
-    v121 = 0;
-    v122 = 0;
+    v9 = 0;
+    v124 = 0;
+    v125 = 0;
     goto LABEL_12;
   }
 
-  v13 = String.lowercased()();
-  object = v13._object;
-  countAndFlagsBits = v13._countAndFlagsBits;
-  if (!v8)
+  v15 = String.lowercased()();
+  object = v15._object;
+  countAndFlagsBits = v15._countAndFlagsBits;
+  if (!v10)
   {
     goto LABEL_11;
   }
 
 LABEL_9:
-  v137 = v7;
-  v138 = v8;
+  v140 = v9;
+  v141 = v10;
 
   String.init<A>(_:)();
-  v14 = String._capitalized()();
-  v121 = v14._object;
-  v122 = v14._countAndFlagsBits;
+  v16 = String._capitalized()();
+  v124 = v16._object;
+  v125 = v16._countAndFlagsBits;
 
 LABEL_12:
-  v126 = v3;
-  v127 = v4;
-  if (v125)
+  v129 = v5;
+  v130 = v6;
+  if (v128)
   {
-    v15 = String.uppercased()();
-    v16 = v15._countAndFlagsBits;
-    v17 = v15._object;
+    v17 = String.uppercased()();
+    v18 = v17._countAndFlagsBits;
+    v19 = v17._object;
   }
 
   else
   {
-    v11 = 0;
-    v16 = 0;
-    v17 = 0;
+    v13 = 0;
+    v18 = 0;
+    v19 = 0;
   }
 
-  v109 = v16;
-  outlined consume of Locale.LanguageCode?(0, 0);
-  outlined consume of Locale.LanguageCode?(0, 0);
-  outlined consume of Locale.LanguageCode?(0, 0);
-  v137 = v126;
-  v138 = v127;
-  v139 = countAndFlagsBits;
-  v140 = object;
-  v141 = v7;
-  v142 = v8;
-  v143 = v122;
-  v144 = v121;
-  v145 = v11;
+  v112 = v18;
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
+  v140 = v129;
+  v141 = v130;
+  v142 = countAndFlagsBits;
+  v143 = object;
+  v144 = v9;
+  v145 = v10;
   v146 = v125;
-  v147 = v16;
-  v148 = v17;
-  outlined copy of Locale.LanguageCode?(v126, v127);
-  v114 = v8;
-  outlined copy of Locale.LanguageCode?(v7, v8);
-  v115 = v11;
-  outlined copy of Locale.LanguageCode?(v11, v125);
-  outlined destroy of Locale.Language.Components(&v137);
-  outlined consume of Locale.LanguageCode?(0, 0);
-  outlined consume of Locale.LanguageCode?(0, 0);
-  outlined consume of Locale.LanguageCode?(0, 0);
-  LODWORD(v135._countAndFlagsBits) = 0;
+  v147 = v124;
+  v148 = v13;
+  v149 = v128;
+  v150 = v18;
+  v151 = v19;
+  outlined copy of Locale.LanguageCode?(v129, v130, countAndFlagsBits, object);
+  v117 = v10;
+  outlined copy of Locale.LanguageCode?(v9, v10, v125, v124);
+  v118 = v13;
+  outlined copy of Locale.LanguageCode?(v13, v128, v18, v19);
+  outlined destroy of Locale.Language.Components(&v140);
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
+  LODWORD(v138._countAndFlagsBits) = 0;
   String.utf8CString.getter();
   Variant = uloc_getVariant();
 
-  v113 = v17;
-  if (Variant > 0 && (v136[Variant] = 0, v19 = MEMORY[0x1865CAEB0](v136), v20))
+  v116 = v19;
+  if (Variant > 0 && (v139[Variant] = 0, v21 = MEMORY[0x1865CAEB0](v139), v22))
   {
-    v108 = v19;
-    v112 = v20;
-    v21 = String.lowercased()();
-    v110 = v21._object;
-    v111 = v21._countAndFlagsBits;
-    outlined consume of Locale.LanguageCode?(0, 0);
+    v111 = v21;
+    v115 = v22;
+    v23 = String.lowercased()();
+    v113 = v23._object;
+    v114 = v23._countAndFlagsBits;
+    outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
   }
 
   else
   {
-    v108 = 0;
     v111 = 0;
-    v112 = 0;
-    v110 = 0;
+    v114 = 0;
+    v115 = 0;
+    v113 = 0;
   }
 
   String.utf8CString.getter();
-  v22 = uloc_openKeywords();
+  v24 = uloc_openKeywords();
 
-  v116 = v7;
-  if (!v22)
+  v119 = v9;
+  if (!v24)
   {
 
-    v26 = 0;
-    v27 = 0;
     v28 = 0;
     v29 = 0;
     v30 = 0;
     v31 = 0;
     v32 = 0;
     v33 = 0;
+    v34 = 0;
     v35 = 0;
-    result = 0;
-    v36 = 0;
     v37 = 0;
-    v132 = 0;
-    v128 = 0;
-    v130 = 0;
-    v49 = 0;
+    result = 0;
+    v38 = 0;
     v39 = 0;
-    v40 = 0;
+    v135 = 0;
+    v131 = 0;
+    v133 = 0;
+    v51 = 0;
     v41 = 0;
     v42 = 0;
     v43 = 0;
     v44 = 0;
     v45 = 0;
-    v48 = 0;
     v46 = 0;
-    v25 = 4;
-    v38 = 7;
-    v24 = 27;
+    v47 = 0;
+    v50 = 0;
+    v48 = 0;
+    v27 = 4;
+    v40 = 7;
+    v26 = 27;
     goto LABEL_22;
   }
 
   type metadata accessor for ICU.Enumerator();
-  *(swift_allocObject() + 16) = v22;
-  LODWORD(v135._countAndFlagsBits) = 0;
-  v23 = uenum_next();
-  v46 = 0;
-  v47 = 0;
+  *(swift_allocObject() + 16) = v24;
+  LODWORD(v138._countAndFlagsBits) = 0;
+  v25 = uenum_next();
   v48 = 0;
-  v86 = 0;
-  v87 = 0;
-  v88 = 0;
+  v49 = 0;
+  v50 = 0;
   v89 = 0;
   v90 = 0;
   v91 = 0;
   v92 = 0;
   v93 = 0;
-  v49 = 0;
-  v50 = 0;
-  v51 = 0;
-  v52 = 0;
   v94 = 0;
   v95 = 0;
   v96 = 0;
+  v51 = 0;
+  v52 = 0;
+  v53 = 0;
+  v54 = 0;
   v97 = 0;
   v98 = 0;
   v99 = 0;
   v100 = 0;
+  v101 = 0;
+  v102 = 0;
   v103 = 0;
-  v104 = 0;
-  v105 = 0;
   v106 = 0;
-  v53 = 27;
-  v102 = 7;
-  v54 = 4;
-  while (v23)
+  v107 = 0;
+  v108 = 0;
+  v109 = 0;
+  v55 = 27;
+  v105 = 7;
+  v56 = 4;
+  while (v25)
   {
-    v119 = v54;
-    countAndFlagsBits_low = v53;
-    v133 = v52;
-    v117 = v47;
-    v118 = v48;
-    v55 = String.init(cString:)();
-    static Locale.legacyKey(forKey:)(v55, v56, &v135._countAndFlagsBits);
+    v122 = v56;
+    countAndFlagsBits_low = v55;
+    v136 = v54;
+    v120 = v49;
+    v121 = v50;
+    v57 = String.init(cString:)();
+    static Locale.legacyKey(forKey:)(v57, v58, &v138._countAndFlagsBits);
 
-    v57 = v135._object;
-    if (v135._object)
+    v59 = v138._object;
+    if (v138._object)
     {
-      v107 = v46;
-      v129 = v50;
-      v131 = v51;
-      v58 = v135._countAndFlagsBits;
-      LODWORD(v135._countAndFlagsBits) = 0;
+      v110 = v48;
+      v60 = v51;
+      v132 = v52;
+      v134 = v53;
+      v61 = v138._countAndFlagsBits;
+      LODWORD(v138._countAndFlagsBits) = 0;
       String.utf8CString.getter();
       String.utf8CString.getter();
       KeywordValue = uloc_getKeywordValue();
 
-      if (SLODWORD(v135._countAndFlagsBits) <= 0 && KeywordValue > 0)
+      if (SLODWORD(v138._countAndFlagsBits) <= 0 && KeywordValue > 0)
       {
-        v134[KeywordValue] = 0;
-        v60 = MEMORY[0x1865CAEB0](v134);
-        if (!v61)
+        v137[KeywordValue] = 0;
+        v63 = MEMORY[0x1865CAEB0](v137);
+        if (!v64)
         {
 
-          v52 = v133;
-          v51 = v131;
+          v54 = v136;
+          v53 = v134;
           goto LABEL_39;
         }
 
-        v62 = v61;
-        v101 = v60;
-        v51 = v131;
-        if (v58 == 0x7261646E656C6163 && v57 == 0xE800000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+        v65 = v64;
+        v104 = v63;
+        v53 = v134;
+        if (v61 == 0x7261646E656C6163 && v59 == 0xE800000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
         {
 
-          v63._countAndFlagsBits = v101;
-          v63._object = v62;
-          Calendar.Identifier.init(identifierString:)(v63);
-          countAndFlagsBits_low = LOBYTE(v135._countAndFlagsBits);
+          v66._countAndFlagsBits = v104;
+          v66._object = v65;
+          Calendar.Identifier.init(identifierString:)(v66);
+          countAndFlagsBits_low = LOBYTE(v138._countAndFlagsBits);
           goto LABEL_35;
         }
 
-        if (v58 == 0x6F6974616C6C6F63 && v57 == 0xE90000000000006ELL || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+        if (v61 == 0x6F6974616C6C6F63 && v59 == 0xE90000000000006ELL || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
         {
 
-          v64 = String.lowercased()();
-          outlined consume of Locale.LanguageCode?(v106, v105);
-          v105 = v62;
-          v106 = v101;
-          v103 = v64._object;
-          v104 = v64._countAndFlagsBits;
+          v67 = String.lowercased()();
+          outlined consume of Locale.LanguageCode?(v109, v108, v107, v106);
+          v108 = v65;
+          v109 = v104;
+          v106 = v67._object;
+          v107 = v67._countAndFlagsBits;
           goto LABEL_35;
         }
 
-        if (v58 == 0x79636E6572727563 && v57 == 0xE800000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+        if (v61 == 0x79636E6572727563 && v59 == 0xE800000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
         {
 
-          v65 = String.lowercased()();
-          outlined consume of Locale.LanguageCode?(v100, v99);
-          v99 = v62;
-          v100 = v101;
-          v97 = v65._object;
-          v98 = v65._countAndFlagsBits;
+          v68 = String.lowercased()();
+          outlined consume of Locale.LanguageCode?(v103, v102, v101, v100);
+          v102 = v65;
+          v103 = v104;
+          v100 = v68._object;
+          v101 = v68._countAndFlagsBits;
           goto LABEL_35;
         }
 
-        if (v58 == 0x737265626D756ELL && v57 == 0xE700000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+        if (v61 == 0x737265626D756ELL && v59 == 0xE700000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
         {
 
-          v66 = String.lowercased()();
-          outlined consume of Locale.LanguageCode?(v96, v95);
-          v95 = v62;
-          v96 = v101;
-          v93 = v66._object;
-          v94 = v66._countAndFlagsBits;
+          v69 = String.lowercased()();
+          outlined consume of Locale.LanguageCode?(v99, v98, v97, v96);
+          v98 = v65;
+          v99 = v104;
+          v96 = v69._object;
+          v97 = v69._countAndFlagsBits;
           goto LABEL_35;
         }
 
-        if (v58 == 30566 && v57 == 0xE200000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+        if (v61 == 30566 && v59 == 0xE200000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
         {
 
-          v154._countAndFlagsBits = v101;
-          v154._object = v62;
-          Locale.Weekday.init(rawValue:)(v154, &v135);
-          v102 = v135._countAndFlagsBits;
+          v157._countAndFlagsBits = v104;
+          v157._object = v65;
+          Locale.Weekday.init(rawValue:)(&v138._countAndFlagsBits, v157);
+          v105 = v138._countAndFlagsBits;
           goto LABEL_35;
         }
 
-        if (v58 == 0x7372756F68 && v57 == 0xE500000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+        if (v61 == 0x7372756F68 && v59 == 0xE500000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
         {
 
-          v67._countAndFlagsBits = v101;
-          v67._object = v62;
-          v68 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of Locale.Components.init(identifier:), v67);
+          v70._countAndFlagsBits = v104;
+          v70._object = v65;
+          v71 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of Locale.Components.init(identifier:), v70);
 
-          if (v68 > 1)
+          if (v71 > 1)
           {
-            if (v68 == 2)
+            if (v71 == 2)
             {
-              v119 = 2;
+              v122 = 2;
             }
 
             else
             {
-              if (v68 != 3)
+              if (v71 != 3)
               {
                 goto LABEL_75;
               }
 
-              v119 = 3;
+              v122 = 3;
             }
           }
 
-          else if (v68)
+          else if (v71)
           {
-            if (v68 == 1)
+            if (v71 == 1)
             {
-              v119 = 1;
+              v122 = 1;
               goto LABEL_35;
             }
 
 LABEL_75:
-            v119 = 4;
+            v122 = 4;
           }
 
           else
           {
-            v119 = 0;
+            v122 = 0;
           }
 
 LABEL_35:
-          v52 = v133;
+          v54 = v136;
 LABEL_39:
-          v50 = v129;
-          v46 = v107;
+          v52 = v132;
+          v48 = v110;
           goto LABEL_25;
         }
 
-        if (v58 == 0x6572757361656DLL && v57 == 0xE700000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+        if (v61 == 0x6572757361656DLL && v59 == 0xE700000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
         {
 
-          if (v101 == 0x6C61697265706D69 && v62 == 0xE800000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+          if (v104 == 0x6C61697265706D69 && v65 == 0xE800000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
           {
 
             if (one-time initialization token for uk != -1)
@@ -4382,107 +4383,107 @@ LABEL_39:
               swift_once();
             }
 
-            v70 = static Locale.MeasurementSystem.uk;
-            v69 = *algn_1EA7AFAD8;
-            v71 = *(&xmmword_1EA7AFAE0 + 1);
-            v72 = xmmword_1EA7AFAE0;
+            v73 = static Locale.MeasurementSystem.uk;
+            v72 = *algn_1EA7AFAD8;
+            v74 = *(&xmmword_1EA7AFAE0 + 1);
+            v75 = xmmword_1EA7AFAE0;
 
-            outlined consume of Locale.LanguageCode?(v133, v131);
-            v73 = v69;
-            v52 = v70;
-            v49 = v71;
-            v50 = v72;
-            v51 = v73;
+            outlined consume of Locale.LanguageCode?(v136, v134, v132, v60);
+            v76 = v72;
+            v54 = v73;
+            v51 = v74;
+            v52 = v75;
+            v53 = v76;
           }
 
           else
           {
-            v79 = String.lowercased()();
-            v49 = v79._object;
-            outlined consume of Locale.LanguageCode?(v133, v131);
-            v52 = v101;
-            v50 = v79._countAndFlagsBits;
-            v51 = v62;
+            v82 = String.lowercased()();
+            v51 = v82._object;
+            outlined consume of Locale.LanguageCode?(v136, v134, v132, v60);
+            v54 = v104;
+            v52 = v82._countAndFlagsBits;
+            v53 = v65;
           }
 
-          v46 = v107;
+          v48 = v110;
           goto LABEL_25;
         }
 
-        if (v58 == 26482 && v57 == 0xE200000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+        if (v61 == 26482 && v59 == 0xE200000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
         {
 
           if (String.count.getter() >= 3)
           {
-            specialized Collection.prefix(_:)(2);
+            specialized Collection.prefix(_:)(2, v104, v65);
 
-            v74 = Substring.uppercased()();
+            v77 = Substring.uppercased()();
 
-            v135 = v74;
-            v75 = String.init<A>(_:)();
-            v77 = v76;
-            v78 = String.uppercased()();
-            outlined consume of Locale.LanguageCode?(v92, v91);
-            v91 = v77;
-            v92 = v75;
-            v89 = v78._object;
-            v90 = v78._countAndFlagsBits;
+            v138 = v77;
+            v78 = String.init<A>(_:)();
+            v80 = v79;
+            v81 = String.uppercased()();
+            outlined consume of Locale.LanguageCode?(v95, v94, v93, v92);
+            v94 = v80;
+            v95 = v78;
+            v92 = v81._object;
+            v93 = v81._countAndFlagsBits;
             goto LABEL_37;
           }
         }
 
         else
         {
-          if (v58 == 25715 && v57 == 0xE200000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+          if (v61 == 25715 && v59 == 0xE200000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
           {
 
-            v80 = String.lowercased()();
-            outlined consume of Locale.LanguageCode?(v88, v87);
-            v87 = v62;
-            v88 = v101;
-            v86 = v80._countAndFlagsBits;
-            v118 = v80._object;
+            v83 = String.lowercased()();
+            outlined consume of Locale.LanguageCode?(v91, v90, v89, v121);
+            v90 = v65;
+            v91 = v104;
+            v89 = v83._countAndFlagsBits;
+            v121 = v83._object;
             goto LABEL_37;
           }
 
-          if (v58 == 0x656E6F7A656D6974 && v57 == 0xE800000000000000)
+          if (v61 == 0x656E6F7A656D6974 && v59 == 0xE800000000000000)
           {
 
 LABEL_93:
             if (one-time initialization token for cache != -1)
             {
-              v81 = swift_once();
+              v84 = swift_once();
             }
 
-            v83 = static TimeZoneCache.cache;
-            MEMORY[0x1EEE9AC00](v81);
-            os_unfair_lock_lock(v83 + 30);
-            partial apply for closure #1 in TimeZoneCache.fixed(_:)(&v135._countAndFlagsBits);
-            os_unfair_lock_unlock(v83 + 30);
-            v84 = v135._countAndFlagsBits;
-            v85 = v135._object;
+            v86 = static TimeZoneCache.cache;
+            MEMORY[0x1EEE9AC00](v84);
+            os_unfair_lock_lock(v86 + 30);
+            partial apply for closure #1 in TimeZoneCache.fixed(_:)(&v138._countAndFlagsBits);
+            os_unfair_lock_unlock(v86 + 30);
+            v87 = v138._countAndFlagsBits;
+            v88 = v138._object;
 
-            if (v84)
+            if (v87)
             {
-              v46 = v85;
+              v48 = v88;
             }
 
             else
             {
-              v46 = 0;
+              v48 = 0;
             }
 
             swift_unknownObjectRelease();
-            v117 = v84;
-            v52 = v133;
-            v50 = v129;
-            v51 = v131;
+            v120 = v87;
+            v54 = v136;
+            v52 = v132;
+            v53 = v134;
             goto LABEL_25;
           }
 
-          v82 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          v85 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-          if (v82)
+          if (v85)
           {
             goto LABEL_93;
           }
@@ -4490,188 +4491,187 @@ LABEL_93:
       }
 
 LABEL_37:
-      v52 = v133;
-      v50 = v129;
-      v51 = v131;
-      v46 = v107;
+      v54 = v136;
+      v52 = v132;
+      v53 = v134;
+      v48 = v110;
       goto LABEL_25;
     }
 
-    v52 = v133;
+    v54 = v136;
 LABEL_25:
-    LODWORD(v135._countAndFlagsBits) = 0;
-    v23 = uenum_next();
-    v47 = v117;
-    v48 = v118;
-    v53 = countAndFlagsBits_low;
-    v54 = v119;
-    if (SLODWORD(v135._countAndFlagsBits) > 0)
+    LODWORD(v138._countAndFlagsBits) = 0;
+    v25 = uenum_next();
+    v49 = v120;
+    v50 = v121;
+    v55 = countAndFlagsBits_low;
+    v56 = v122;
+    if (SLODWORD(v138._countAndFlagsBits) > 0)
     {
       break;
     }
   }
 
-  v128 = v50;
-  v130 = v51;
-  v132 = v52;
-  v22 = v47;
-  v24 = v53;
-  v25 = v54;
+  v131 = v52;
+  v133 = v53;
+  v135 = v54;
+  v24 = v49;
+  v26 = v55;
+  v27 = v56;
 
-  v27 = v105;
-  v26 = v106;
-  v29 = v103;
-  v28 = v104;
-  v31 = v99;
-  v30 = v100;
-  v33 = v97;
-  v32 = v98;
-  result = v95;
-  v35 = v96;
-  v37 = v93;
-  v36 = v94;
-  v38 = v102;
-  v40 = v91;
-  v39 = v92;
-  v42 = v89;
-  v41 = v90;
-  v44 = v87;
-  v43 = v88;
-  v45 = v86;
+  v29 = v108;
+  v28 = v109;
+  v31 = v106;
+  v30 = v107;
+  v33 = v102;
+  v32 = v103;
+  v35 = v100;
+  v34 = v101;
+  result = v98;
+  v37 = v99;
+  v39 = v96;
+  v38 = v97;
+  v40 = v105;
+  v42 = v94;
+  v41 = v95;
+  v44 = v92;
+  v43 = v93;
+  v46 = v90;
+  v45 = v91;
+  v47 = v89;
 LABEL_22:
-  *a1 = v126;
-  *(a1 + 8) = v127;
-  *(a1 + 16) = countAndFlagsBits;
-  *(a1 + 24) = object;
-  *(a1 + 32) = v116;
-  *(a1 + 40) = v114;
-  *(a1 + 48) = v122;
-  *(a1 + 56) = v121;
-  *(a1 + 64) = v115;
-  *(a1 + 72) = v125;
-  *(a1 + 80) = v109;
-  *(a1 + 88) = v113;
-  *(a1 + 96) = v24;
-  *(a1 + 104) = v26;
-  *(a1 + 112) = v27;
-  *(a1 + 120) = v28;
-  *(a1 + 128) = v29;
-  *(a1 + 136) = v30;
-  *(a1 + 144) = v31;
-  *(a1 + 152) = v32;
-  *(a1 + 160) = v33;
-  *(a1 + 168) = v35;
-  *(a1 + 176) = result;
-  *(a1 + 184) = v36;
-  *(a1 + 192) = v37;
-  *(a1 + 200) = v38;
-  *(a1 + 201) = v25;
-  *(a1 + 208) = v132;
-  *(a1 + 216) = v130;
-  *(a1 + 224) = v128;
-  *(a1 + 232) = v49;
-  *(a1 + 240) = v39;
-  *(a1 + 248) = v40;
-  *(a1 + 256) = v41;
-  *(a1 + 264) = v42;
-  *(a1 + 272) = v43;
-  *(a1 + 280) = v44;
-  *(a1 + 288) = v45;
-  *(a1 + 296) = v48;
-  *(a1 + 304) = v22;
-  *(a1 + 312) = v46;
-  *(a1 + 320) = v108;
-  *(a1 + 328) = v112;
-  *(a1 + 336) = v111;
-  *(a1 + 344) = v110;
+  *a3 = v129;
+  *(a3 + 8) = v130;
+  *(a3 + 16) = countAndFlagsBits;
+  *(a3 + 24) = object;
+  *(a3 + 32) = v119;
+  *(a3 + 40) = v117;
+  *(a3 + 48) = v125;
+  *(a3 + 56) = v124;
+  *(a3 + 64) = v118;
+  *(a3 + 72) = v128;
+  *(a3 + 80) = v112;
+  *(a3 + 88) = v116;
+  *(a3 + 96) = v26;
+  *(a3 + 104) = v28;
+  *(a3 + 112) = v29;
+  *(a3 + 120) = v30;
+  *(a3 + 128) = v31;
+  *(a3 + 136) = v32;
+  *(a3 + 144) = v33;
+  *(a3 + 152) = v34;
+  *(a3 + 160) = v35;
+  *(a3 + 168) = v37;
+  *(a3 + 176) = result;
+  *(a3 + 184) = v38;
+  *(a3 + 192) = v39;
+  *(a3 + 200) = v40;
+  *(a3 + 201) = v27;
+  *(a3 + 208) = v135;
+  *(a3 + 216) = v133;
+  *(a3 + 224) = v131;
+  *(a3 + 232) = v51;
+  *(a3 + 240) = v41;
+  *(a3 + 248) = v42;
+  *(a3 + 256) = v43;
+  *(a3 + 264) = v44;
+  *(a3 + 272) = v45;
+  *(a3 + 280) = v46;
+  *(a3 + 288) = v47;
+  *(a3 + 296) = v50;
+  *(a3 + 304) = v24;
+  *(a3 + 312) = v48;
+  *(a3 + 320) = v111;
+  *(a3 + 328) = v115;
+  *(a3 + 336) = v114;
+  *(a3 + 344) = v113;
   return result;
 }
 
-uint64_t outlined copy of Locale.LanguageCode?(uint64_t a1, uint64_t a2)
+void outlined copy of Locale.LanguageCode?(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
   }
-
-  return result;
 }
 
-uint64_t *closure #1 in _LocaleICU.languageCode.getter@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X8>)
+void closure #1 in _LocaleICU.languageCode.getter(uint64_t a1@<X0>, uint64_t *a3@<X8>)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v2 = result[1];
-  if (!v2)
+  v50 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 8);
+  if (!v3)
   {
-    *a2 = 0;
-    a2[1] = 0;
-    return result;
+    *a3 = 0;
+    a3[1] = 0;
+    return;
   }
 
-  if (v2 != 1)
+  if (v3 != 1)
   {
-    *a2 = *result;
-    a2[1] = v2;
+    *a3 = *a1;
+    a3[1] = v3;
+
+    return;
   }
 
-  v34 = result;
-  memset(v47, 0, sizeof(v47));
-  outlined destroy of Locale.Language.Components(v47);
-  LODWORD(v43[0]) = 0;
+  memset(v49, 0, sizeof(v49));
+  outlined destroy of Locale.Language.Components(v49);
+  LODWORD(v45[0]) = 0;
   String.utf8CString.getter();
   Language = uloc_getLanguage();
 
-  v4 = 0;
   v5 = 0;
+  v6 = 0;
   if (Language > 0)
   {
-    v46[Language] = 0;
-    v4 = MEMORY[0x1865CAEB0](v46);
-    v5 = v6;
+    v48[Language] = 0;
+    v5 = MEMORY[0x1865CAEB0](v48);
+    v6 = v7;
   }
 
-  LODWORD(v43[0]) = 0;
+  LODWORD(v45[0]) = 0;
   String.utf8CString.getter();
   Script = uloc_getScript();
 
-  v8 = 0;
   v9 = 0;
+  v10 = 0;
   if (Script > 0)
   {
-    v45[Script] = 0;
-    v8 = MEMORY[0x1865CAEB0](v45);
-    v9 = v10;
+    v47[Script] = 0;
+    v9 = MEMORY[0x1865CAEB0](v47);
+    v10 = v11;
   }
 
-  LODWORD(v43[0]) = 0;
+  LODWORD(v45[0]) = 0;
   String.utf8CString.getter();
   Country = uloc_getCountry();
 
-  v12 = 0;
   v13 = 0;
+  v14 = 0;
   if (Country > 0)
   {
-    v44[Country] = 0;
-    v12 = MEMORY[0x1865CAEB0](v44);
-    v13 = v14;
+    v46[Country] = 0;
+    v13 = MEMORY[0x1865CAEB0](v46);
+    v14 = v15;
   }
 
-  if (v5)
+  if (v6)
   {
-    v33 = v4;
-    v15 = String.lowercased()();
-    object = v15._object;
-    countAndFlagsBits = v15._countAndFlagsBits;
-    v16 = v5;
-    if (v9)
+    v35 = v5;
+    v16 = String.lowercased()();
+    object = v16._object;
+    countAndFlagsBits = v16._countAndFlagsBits;
+    v17 = v6;
+    if (v10)
     {
       goto LABEL_11;
     }
 
 LABEL_16:
-    v8 = 0;
-    v18 = 0;
+    v9 = 0;
     v19 = 0;
-    if (v13)
+    v20 = 0;
+    if (v14)
     {
       goto LABEL_12;
     }
@@ -4680,92 +4680,91 @@ LABEL_16:
   }
 
   countAndFlagsBits = 0;
-  v33 = 0;
+  v35 = 0;
   object = 0;
-  v16 = 0;
-  if (!v9)
+  v17 = 0;
+  if (!v10)
   {
     goto LABEL_16;
   }
 
 LABEL_11:
-  *&v43[0] = v8;
-  *(&v43[0] + 1) = v9;
+  *&v45[0] = v9;
+  *(&v45[0] + 1) = v10;
 
   String.init<A>(_:)();
-  v17 = String._capitalized()();
-  v18 = v17._countAndFlagsBits;
-  v19 = v17._object;
+  v18 = String._capitalized()();
+  v19 = v18._countAndFlagsBits;
+  v20 = v18._object;
 
-  if (v13)
+  if (v14)
   {
 LABEL_12:
-    v20 = String.uppercased()();
-    v21 = v20._countAndFlagsBits;
-    v22 = v20._object;
+    v21 = String.uppercased()();
+    v22 = v21._countAndFlagsBits;
+    v23 = v21._object;
     goto LABEL_18;
   }
 
 LABEL_17:
-  v12 = 0;
-  v21 = 0;
+  v13 = 0;
   v22 = 0;
+  v23 = 0;
 LABEL_18:
-  outlined consume of Locale.LanguageCode?(0, 0);
-  outlined consume of Locale.LanguageCode?(0, 0);
-  outlined consume of Locale.LanguageCode?(0, 0);
-  *&v37 = v33;
-  *(&v37 + 1) = v16;
-  *&v38 = countAndFlagsBits;
-  *(&v38 + 1) = object;
-  *&v39 = v8;
-  *(&v39 + 1) = v9;
-  *&v40 = v18;
-  *(&v40 + 1) = v19;
-  *&v41 = v12;
-  *(&v41 + 1) = v13;
-  *&v42 = v21;
-  *(&v42 + 1) = v22;
-  v23 = *(v34 + 3);
-  v43[2] = *(v34 + 2);
-  v43[3] = v23;
-  v24 = *(v34 + 5);
-  v43[4] = *(v34 + 4);
-  v43[5] = v24;
-  v25 = *(v34 + 1);
-  v43[0] = *v34;
-  v43[1] = v25;
-  v26 = v42;
-  *(v34 + 4) = v41;
-  *(v34 + 5) = v26;
-  v27 = v40;
-  *(v34 + 2) = v39;
-  *(v34 + 3) = v27;
-  v28 = v38;
-  *v34 = v37;
-  *(v34 + 1) = v28;
-  outlined init with copy of Locale.Language.Components(&v37, v36);
-  outlined destroy of TermOfAddress?(v43, &_s10Foundation6LocaleV8LanguageV10ComponentsVSgMd);
-  v29 = *(&v37 + 1);
-  if (*(&v37 + 1))
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
+  outlined consume of Locale.LanguageCode?(0, 0, 0, 0);
+  *&v39 = v35;
+  *(&v39 + 1) = v17;
+  *&v40 = countAndFlagsBits;
+  *(&v40 + 1) = object;
+  *&v41 = v9;
+  *(&v41 + 1) = v10;
+  *&v42 = v19;
+  *(&v42 + 1) = v20;
+  *&v43 = v13;
+  *(&v43 + 1) = v14;
+  *&v44 = v22;
+  *(&v44 + 1) = v23;
+  v24 = *(a1 + 48);
+  v45[2] = *(a1 + 32);
+  v45[3] = v24;
+  v25 = *(a1 + 80);
+  v45[4] = *(a1 + 64);
+  v45[5] = v25;
+  v26 = *(a1 + 16);
+  v45[0] = *a1;
+  v45[1] = v26;
+  v27 = v44;
+  *(a1 + 64) = v43;
+  *(a1 + 80) = v27;
+  v28 = v42;
+  *(a1 + 32) = v41;
+  *(a1 + 48) = v28;
+  v29 = v40;
+  *a1 = v39;
+  *(a1 + 16) = v29;
+  outlined init with copy of Locale.Language.Components(&v39, v38);
+  outlined destroy of TermOfAddress?(v45, &_s10Foundation6LocaleV8LanguageV10ComponentsVSgMd, &_s10Foundation6LocaleV8LanguageV10ComponentsVSgMR);
+  v30 = *(&v39 + 1);
+  if (*(&v39 + 1))
   {
-    v30 = v37;
+    v31 = v40;
+    v32 = v39;
 
-    outlined destroy of Locale.Language.Components(&v37);
+    outlined destroy of Locale.Language.Components(&v39);
 
-    result = outlined consume of Locale.LanguageCode?(v30, v29);
-    *a2 = v30;
-    a2[1] = v29;
+    outlined consume of Locale.LanguageCode?(v32, v30, v31, *(&v31 + 1));
+    *a3 = v32;
+    a3[1] = v30;
   }
 
   else
   {
-    result = outlined destroy of Locale.Language.Components(&v37);
-    *a2 = 0;
-    a2[1] = 0;
+    outlined destroy of Locale.Language.Components(&v39);
+    *a3 = 0;
+    a3[1] = 0;
   }
-
-  return result;
 }
 
 NSMapEnumerator *__cdecl NSEnumerateMapTable(NSMapEnumerator *__return_ptr retstr, NSMapTable *table)
@@ -5166,11 +5165,11 @@ LABEL_16:
   return __NSIndexSetEnumerateBitfield(v13, a2, a3, a4, a5);
 }
 
-void sub_18077B804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_18077B804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 128), 8);
+  _Block_object_dispose((v24 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5262,7 +5261,7 @@ LABEL_30:
 
   valuea[0] = 0;
   ValueIfPresent = CFDictionaryGetValueIfPresent(*(a1 + 48), v5, valuea);
-  v17 = valuea[0];
+  v17 = LODWORD(valuea[0]);
   if (ValueIfPresent)
   {
     v18 = LODWORD(valuea[0]) == -1;
@@ -5516,13 +5515,13 @@ LABEL_80:
 LABEL_78:
     v82 = v45;
     valuea[0] = 0;
-    if (!CFDictionaryGetValueIfPresent(*(a1 + 48), v15, valuea) || (v46 = valuea[0], LODWORD(valuea[0]) == -1))
+    if (!CFDictionaryGetValueIfPresent(*(a1 + 48), v15, valuea) || (v46 = LODWORD(valuea[0]), LODWORD(valuea[0]) == -1))
     {
       valuea[0] = 0;
       if (CFDictionaryGetValueIfPresent(*(a1 + 72), v15, valuea))
       {
         CFDictionaryRemoveValue(*(a1 + 72), v15);
-        v48 = valuea[0];
+        v48 = LODWORD(valuea[0]);
       }
 
       else
@@ -5715,13 +5714,14 @@ void addValueToTopContainerE(uint64_t a1, const void *a2, const void *a3)
   }
 }
 
-CFTypeRef __NSKeyedArchiverUIDCreateCached(uint64_t a1, unsigned int a2, uint64_t a3)
+CFTypeRef __NSKeyedArchiverUIDCreateCached(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v5 = *(a3 + 96);
   v6 = *(a3 + 104);
   if (v5)
   {
-    v7 = v6 > a2;
+    v7 = v6 > v4;
   }
 
   else
@@ -5737,9 +5737,9 @@ CFTypeRef __NSKeyedArchiverUIDCreateCached(uint64_t a1, unsigned int a2, uint64_
       LODWORD(v8) = 256;
     }
 
-    if (v8 <= a2)
+    if (v8 <= v4)
     {
-      v8 = a2;
+      v8 = v4;
     }
 
     else
@@ -5754,17 +5754,17 @@ CFTypeRef __NSKeyedArchiverUIDCreateCached(uint64_t a1, unsigned int a2, uint64_
     v5 = *(a3 + 96);
   }
 
-  v10 = *(v5 + 8 * a2);
+  v10 = *(v5 + 8 * v4);
   if (!v10)
   {
     v10 = _CFKeyedArchiverUIDCreate();
-    *(*(a3 + 96) + 8 * a2) = v10;
+    *(*(a3 + 96) + 8 * v4) = v10;
   }
 
   return CFRetain(v10);
 }
 
-uint64_t NSCopyStringFromClass(objc_class *a1)
+NSString *NSCopyStringFromClass(objc_class *a1)
 {
   if (!a1)
   {
@@ -5801,7 +5801,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x1E69E7CC0];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -5810,7 +5810,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
   return result;
 }
 
-uint64_t _NSLogv()
+uint64_t _NSLogv(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   _CFAutoreleasePoolPush();
   _CFLogvEx3();
@@ -6114,219 +6114,219 @@ LABEL_33:
     v23 = yyr2[v22];
     switch(v22)
     {
-      case 2u:
-      case 3u:
+      case 2:
+      case 3:
         SetExpression = *v11;
         v74[0] = *v11;
         break;
-      case 4u:
-      case 5u:
-      case 6u:
-      case 7u:
-      case 8u:
-      case 0xDu:
-      case 0xEu:
-      case 0xFu:
-      case 0x13u:
-      case 0x14u:
-      case 0x15u:
-      case 0x1Bu:
-      case 0x1Cu:
-      case 0x1Du:
-      case 0x2Fu:
-      case 0x30u:
-      case 0x31u:
-      case 0x32u:
-      case 0x33u:
-      case 0x34u:
-      case 0x35u:
-      case 0x36u:
-      case 0x37u:
-      case 0x38u:
-      case 0x39u:
-      case 0x3Au:
-      case 0x43u:
-      case 0x44u:
-      case 0x45u:
-      case 0x46u:
-      case 0x47u:
-      case 0x54u:
-      case 0x55u:
-      case 0x5Du:
-      case 0x6Bu:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 13:
+      case 14:
+      case 15:
+      case 19:
+      case 20:
+      case 21:
+      case 27:
+      case 28:
+      case 29:
+      case 47:
+      case 48:
+      case 49:
+      case 50:
+      case 51:
+      case 52:
+      case 53:
+      case 54:
+      case 55:
+      case 56:
+      case 57:
+      case 58:
+      case 67:
+      case 68:
+      case 69:
+      case 70:
+      case 71:
+      case 84:
+      case 85:
+      case 93:
+      case 107:
         SetExpression = *v11;
         break;
-      case 9u:
+      case 9:
         v37 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{*(v11 - 2), *v11, 0}];
         FunctionExpression = [[NSCompoundPredicate alloc] initWithType:1 subpredicates:v37];
 
         goto LABEL_114;
-      case 0xAu:
+      case 10:
         SetExpression = objc_alloc_init(NSTruePredicate);
         break;
-      case 0xBu:
+      case 11:
         SetExpression = objc_alloc_init(NSFalsePredicate);
         break;
-      case 0xCu:
-      case 0x2Eu:
+      case 12:
+      case 46:
         SetExpression = *(v11 - 1);
         break;
-      case 0x10u:
+      case 16:
         FunctionExpression = buildANDPredicate(*(v11 - 2), *v11);
 
         goto LABEL_114;
-      case 0x11u:
+      case 17:
         FunctionExpression = buildORPredicate(*(v11 - 2), *v11);
 
         goto LABEL_114;
-      case 0x12u:
+      case 18:
         v41 = invertPredicate(*v11);
         goto LABEL_113;
-      case 0x16u:
+      case 22:
         FunctionExpression = [[NSComparisonPredicate alloc] initWithPredicateOperator:*(v11 - 1) leftExpression:*(v11 - 2) rightExpression:*v11];
 
         goto LABEL_114;
-      case 0x17u:
+      case 23:
         v56 = NSStringForLexedIdentifier(*(v11 - 2));
         v57 = CopyBasicOperatorAddOptions(*(v11 - 4), v56);
         FunctionExpression = [[NSComparisonPredicate alloc] initWithPredicateOperator:v57 leftExpression:*(v11 - 5) rightExpression:*v11];
 
         goto LABEL_114;
-      case 0x18u:
+      case 24:
         v40 = objc_alloc_init(NSAnyKeyExpression);
         FunctionExpression = [[NSComparisonPredicate alloc] initWithPredicateOperator:*(v11 - 1) leftExpression:v40 rightExpression:*v11];
 
         goto LABEL_114;
-      case 0x19u:
+      case 25:
         v42 = NSStringForLexedIdentifier(*(v11 - 2));
         v43 = PredicateOperatorForCustomSelector(v42);
         FunctionExpression = [[NSComparisonPredicate alloc] initWithPredicateOperator:v43 leftExpression:*(v11 - 3) rightExpression:*v11];
 
         goto LABEL_114;
-      case 0x1Au:
+      case 26:
         v69 = NSStringForLexedIdentifier(*(v11 - 2));
         v45 = PredicateOperatorForCustomSelector(v69);
         v46 = objc_alloc_init(NSAnyKeyExpression);
         FunctionExpression = [[NSComparisonPredicate alloc] initWithPredicateOperator:v45 leftExpression:v46 rightExpression:*v11];
 
         goto LABEL_114;
-      case 0x1Eu:
+      case 30:
         FunctionExpression = HandleStringAggregatePredicate(*(v11 - 2), *(v11 - 1), 0, *v11);
 
         goto LABEL_114;
-      case 0x1Fu:
+      case 31:
         v62 = objc_alloc_init(NSAnyKeyExpression);
         FunctionExpression = HandleStringAggregatePredicate(v62, *(v11 - 1), 0, *v11);
 
         goto LABEL_114;
-      case 0x20u:
+      case 32:
         v55 = NSStringForLexedIdentifier(*(v11 - 2));
         FunctionExpression = HandleStringAggregatePredicate(*(v11 - 5), *(v11 - 4), v55, *v11);
 
         goto LABEL_114;
-      case 0x21u:
+      case 33:
         v38 = NSStringForLexedIdentifier(*(v11 - 2));
         v39 = objc_alloc_init(NSAnyKeyExpression);
         FunctionExpression = HandleStringAggregatePredicate(v39, *(v11 - 4), v38, *v11);
 
         goto LABEL_114;
-      case 0x22u:
+      case 34:
         SetExpression = 7;
         break;
-      case 0x23u:
+      case 35:
         SetExpression = 6;
         break;
-      case 0x24u:
+      case 36:
         SetExpression = 10;
         break;
-      case 0x25u:
+      case 37:
         SetExpression = 99;
         break;
-      case 0x26u:
+      case 38:
         SetExpression = 8;
         break;
-      case 0x27u:
+      case 39:
         SetExpression = 9;
         break;
-      case 0x28u:
+      case 40:
         SetExpression = 1000;
         break;
-      case 0x29u:
+      case 41:
         FunctionExpression = HandleBetweenPredicate(*(v11 - 2), *v11);
 
         goto LABEL_114;
-      case 0x2Au:
-      case 0x2Bu:
+      case 42:
+      case 43:
         SetExpression = setOperatorModifier(*v11, 2);
         break;
-      case 0x2Cu:
+      case 44:
         SetExpression = setOperatorModifier(*v11, 1);
         break;
-      case 0x2Du:
+      case 45:
         v47 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{setOperatorModifier(*v11, 2), 0}];
         FunctionExpression = [[NSCompoundPredicate alloc] initWithType:0 subpredicates:v47];
 
         goto LABEL_114;
-      case 0x3Bu:
+      case 59:
         SetExpression = PredicateOperatorForName(4, 0);
         break;
-      case 0x3Cu:
+      case 60:
         SetExpression = PredicateOperatorForName(5, 0);
         break;
-      case 0x3Du:
+      case 61:
         SetExpression = PredicateOperatorForName(0, 0);
         break;
-      case 0x3Eu:
+      case 62:
         SetExpression = PredicateOperatorForName(2, 0);
         break;
-      case 0x3Fu:
+      case 63:
         SetExpression = PredicateOperatorForName(1, 0);
         break;
-      case 0x40u:
+      case 64:
         SetExpression = PredicateOperatorForName(3, 0);
         break;
-      case 0x41u:
+      case 65:
         SetExpression = [[NSUTIPredicateOperator alloc] initForVariant:0];
         break;
-      case 0x42u:
+      case 66:
         SetExpression = [[NSUTIPredicateOperator alloc] initForVariant:1];
         break;
-      case 0x48u:
-      case 0x49u:
+      case 72:
+      case 73:
         v41 = [[NSConstantValueExpression alloc] initWithObject:*v11];
         goto LABEL_113;
-      case 0x4Au:
+      case 74:
         SetExpression = [[NSConstantValueExpression alloc] initWithObject:0];
         break;
-      case 0x4Bu:
+      case 75:
         v31 = [NSConstantValueExpression alloc];
         SetExpression = [(NSConstantValueExpression *)v31 initWithObject:_MergedGlobals_136];
         break;
-      case 0x4Cu:
+      case 76:
         v63 = [NSConstantValueExpression alloc];
         SetExpression = [(NSConstantValueExpression *)v63 initWithObject:qword_1ED43FD80];
         break;
-      case 0x4Du:
+      case 77:
         SetExpression = objc_alloc_init(NSSelfExpression);
         break;
-      case 0x4Eu:
+      case 78:
         SetExpression = [[NSSymbolicExpression alloc] initWithString:@"FIRST"];
         break;
-      case 0x4Fu:
+      case 79:
         SetExpression = [[NSSymbolicExpression alloc] initWithString:@"LAST"];
         break;
-      case 0x50u:
+      case 80:
         SetExpression = [[NSSymbolicExpression alloc] initWithString:@"SIZE"];
         break;
-      case 0x51u:
+      case 81:
         UserFunctionExpression = [[NSAggregateExpression alloc] initWithCollection:*(v11 - 1)];
         goto LABEL_129;
-      case 0x52u:
-      case 0x53u:
-      case 0x67u:
+      case 82:
+      case 83:
+      case 103:
         SetExpression = NSStringForLexedIdentifier(*v11);
         break;
-      case 0x56u:
+      case 86:
         v48 = *v11;
         v49 = [NSNumber alloc];
         if (v48 > 0x7FFFFFFF)
@@ -6340,170 +6340,170 @@ LABEL_33:
         }
 
         break;
-      case 0x57u:
+      case 87:
         SetExpression = [[NSNumber alloc] initWithDouble:*v11];
         break;
-      case 0x58u:
+      case 88:
         v30 = NSStringForLexedIdentifier(*v11);
         KVCExpression = [[NSVariableExpression alloc] initWithObject:v30];
         goto LABEL_132;
-      case 0x59u:
+      case 89:
         v30 = NSStringForLexedIdentifier(*v11);
         KVCExpression = ResolvePredicateArgument(v30, v74);
         goto LABEL_132;
-      case 0x5Au:
+      case 90:
         SetExpression = ResolvePredicateArgument(@"@", v74);
         break;
-      case 0x5Bu:
+      case 91:
         SetExpression = ResolvePredicateArgument(@"%", v74);
         break;
-      case 0x5Cu:
-      case 0x6Au:
+      case 92:
+      case 106:
         SetExpression = objc_alloc_init(MEMORY[0x1E695DF70]);
         break;
-      case 0x5Eu:
-      case 0x6Cu:
+      case 94:
+      case 108:
         v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
         [(NSComparisonPredicate *)v32 addObject:*v11];
         FunctionExpression = v32;
         goto LABEL_114;
-      case 0x5Fu:
-      case 0x6Du:
+      case 95:
+      case 109:
         [*(v11 - 2) addObject:*v11];
         FunctionExpression = *(v11 - 2);
         goto LABEL_114;
-      case 0x60u:
+      case 96:
         v30 = NSStringForLexedIdentifier(*v11);
         KVCExpression = CreateKVCExpression(v30);
         goto LABEL_132;
-      case 0x61u:
+      case 97:
         v29 = NSStringForLexedIdentifier(*v11);
         v30 = [[NSString alloc] initWithFormat:@"@%@", v29];
         FunctionExpression = CreateKVCExpression(v30);
 
         goto LABEL_115;
-      case 0x62u:
+      case 98:
         FunctionExpression = ResolveKeyPathsIntoExpressionSequence(*(v11 - 2), *v11);
 
         goto LABEL_114;
-      case 0x63u:
+      case 99:
         FunctionExpression = -[NSVariableAssignmentExpression initWithAssignmentVariable:expression:]([NSVariableAssignmentExpression alloc], "initWithAssignmentVariable:expression:", [*(v11 - 2) variable], *v11);
 
         goto LABEL_114;
-      case 0x64u:
+      case 100:
         FunctionExpression = CreateFunctionExpression(*(v11 - 3), *(v11 - 1));
 
         goto LABEL_135;
-      case 0x65u:
+      case 101:
         UserFunctionExpression = HandleCastingOperation(*(v11 - 1));
         goto LABEL_129;
-      case 0x66u:
+      case 102:
         UserFunctionExpression = CreateUserFunctionExpression(*(v11 - 1));
 LABEL_129:
         FunctionExpression = UserFunctionExpression;
         goto LABEL_135;
-      case 0x68u:
+      case 104:
         v30 = NSStringForLexedIdentifier(*(v11 - 1));
         KVCExpression = [[NSString alloc] initWithFormat:@"%@:", v30];
 LABEL_132:
         FunctionExpression = KVCExpression;
         goto LABEL_115;
-      case 0x69u:
+      case 105:
         v61 = NSStringForLexedIdentifier(*(v11 - 2));
         FunctionExpression = [[NSString alloc] initWithFormat:@"%@:%@", v61, *v11];
 
         goto LABEL_114;
-      case 0x6Eu:
+      case 110:
         v35 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{*(v11 - 3), *(v11 - 1), 0}];
         FunctionExpression = CreateFunctionExpression(@"objectFrom:withIndex:", v35);
 
         goto LABEL_135;
-      case 0x6Fu:
+      case 111:
         v26 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{*(v11 - 2), *v11, 0}];
         FunctionExpression = CreateFunctionExpression(@"add:to:", v26);
 
         goto LABEL_114;
-      case 0x70u:
+      case 112:
         v25 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{*(v11 - 2), *v11, 0}];
         FunctionExpression = CreateFunctionExpression(@"from:subtract:", v25);
 
         goto LABEL_114;
-      case 0x71u:
+      case 113:
         v54 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{*(v11 - 2), *v11, 0}];
         FunctionExpression = CreateFunctionExpression(@"multiply:by:", v54);
 
         goto LABEL_114;
-      case 0x72u:
+      case 114:
         v51 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{*(v11 - 2), *v11, 0}];
         FunctionExpression = CreateFunctionExpression(@"divide:by:", v51);
 
         goto LABEL_114;
-      case 0x73u:
+      case 115:
         v36 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{*(v11 - 2), *v11, 0}];
         FunctionExpression = CreateFunctionExpression(@"raise:toPower:", v36);
 
         goto LABEL_114;
-      case 0x74u:
+      case 116:
         v34 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{*(v11 - 2), *v11, 0}];
         FunctionExpression = CreateFunctionExpression(@"bitwiseAnd:with:", v34);
 
         goto LABEL_114;
-      case 0x75u:
+      case 117:
         v50 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{*(v11 - 2), *v11, 0}];
         FunctionExpression = CreateFunctionExpression(@"bitwiseOr:with:", v50);
 
         goto LABEL_114;
-      case 0x76u:
+      case 118:
         v53 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{*(v11 - 2), *v11, 0}];
         FunctionExpression = CreateFunctionExpression(@"bitwiseXor:with:", v53);
 
         goto LABEL_114;
-      case 0x77u:
+      case 119:
         v44 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{*(v11 - 2), *v11, 0}];
         FunctionExpression = CreateFunctionExpression(@"leftshift:by:", v44);
 
         goto LABEL_114;
-      case 0x78u:
+      case 120:
         v52 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{*(v11 - 2), *v11, 0}];
         FunctionExpression = CreateFunctionExpression(@"rightshift:by:", v52);
 
         goto LABEL_114;
-      case 0x79u:
+      case 121:
         v41 = HandleUnaryMinus(*v11);
 LABEL_113:
         FunctionExpression = v41;
         goto LABEL_114;
-      case 0x7Au:
+      case 122:
         v28 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{*v11, 0}];
         FunctionExpression = CreateFunctionExpression(@"onesComplement:", v28);
 
 LABEL_114:
         v30 = *v11;
         goto LABEL_115;
-      case 0x7Bu:
+      case 123:
         FunctionExpression = -[NSSubqueryExpression initWithExpression:usingIteratorVariable:predicate:]([NSSubqueryExpression alloc], "initWithExpression:usingIteratorVariable:predicate:", *(v11 - 5), [*(v11 - 3) variable], *(v11 - 1));
 
         goto LABEL_135;
-      case 0x7Cu:
+      case 124:
         SetExpression = CreateSetExpression(*(v11 - 2), 5, *v11);
         break;
-      case 0x7Du:
+      case 125:
         SetExpression = CreateSetExpression(*(v11 - 2), 6, *v11);
         break;
-      case 0x7Eu:
+      case 126:
         SetExpression = CreateSetExpression(*(v11 - 2), 7, *v11);
         break;
-      case 0x7Fu:
+      case 127:
         FunctionExpression = CreateFetchExpression(*(v11 - 5), *(v11 - 3), 1);
 
         goto LABEL_88;
-      case 0x80u:
+      case 128:
         FunctionExpression = CreateFetchExpression(*(v11 - 5), *(v11 - 3), 0);
 
 LABEL_88:
         v30 = *(v11 - 3);
         goto LABEL_115;
-      case 0x81u:
+      case 129:
         FunctionExpression = [[NSTernaryExpression alloc] initWithPredicate:*(v11 - 5) trueExpression:*(v11 - 3) falseExpression:*(v11 - 1)];
 
 LABEL_135:
@@ -6539,7 +6539,7 @@ LABEL_115:
   return result;
 }
 
-uint64_t _qfqp2lex(double *a1)
+uint64_t _qfqp2lex(char **a1)
 {
   *&v91[1] = *MEMORY[0x1E69E9840];
   v2 = &_MergedGlobals_143;
@@ -7791,7 +7791,7 @@ LABEL_16:
     }
 
     v27 = v26 & *(v129 + 64);
-    outlined init with copy of FloatingPointRoundingRule?(v126, &v125, &_s10Foundation17LocalePreferencesVSgMd);
+    outlined init with copy of FloatingPointRoundingRule?(v126, &v125, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
     v28 = (v25 + 63) >> 6;
 
     v29 = 0;
@@ -8030,7 +8030,7 @@ LABEL_40:
       }
 
       v106 = result;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
       v49 = static _DictionaryStorage.copy(original:)();
       v38 = v49;
       if (*(v18 + 16))
@@ -8183,7 +8183,7 @@ LABEL_72:
     }
 
     v68 = v67 & *(*(&v129 + 1) + 64);
-    outlined init with copy of FloatingPointRoundingRule?(v126, &v125, &_s10Foundation17LocalePreferencesVSgMd);
+    outlined init with copy of FloatingPointRoundingRule?(v126, &v125, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
     v69 = (v66 + 63) >> 6;
 
     v70 = 0;
@@ -8215,8 +8215,8 @@ LABEL_177:
           {
 LABEL_158:
 
-            *(a3 + 24) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSiGMd);
-            result = outlined destroy of TermOfAddress?(v126, &_s10Foundation17LocalePreferencesVSgMd);
+            *(a3 + 24) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSiGMd, &_sSDySSSiGMR);
+            result = outlined destroy of TermOfAddress?(v126, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
             *a3 = v18;
             return result;
           }
@@ -8375,7 +8375,7 @@ LABEL_185:
       }
 
       v107 = v80;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
       v90 = static _DictionaryStorage.copy(original:)();
       v38 = v90;
       if (*(v18 + 16))
@@ -8553,7 +8553,7 @@ uint64_t _s10Foundation17LocalePreferencesVSgWOg(uint64_t a1)
   return (v2 + 1);
 }
 
-void _NSSwiftLocale.object(forKey:)(void *a1@<X0>, uint64_t a2@<X8>)
+void _NSSwiftLocale.object(forKey:)(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v230[4] = *MEMORY[0x1E69E9840];
   v4 = *MEMORY[0x1E695D9A8];
@@ -8778,9 +8778,9 @@ LABEL_47:
           v40 = v39;
 
 LABEL_130:
-          *(a2 + 24) = MEMORY[0x1E69E6158];
+          a2[3] = MEMORY[0x1E69E6158];
           *a2 = v38;
-          *(a2 + 8) = v40;
+          a2[1] = v40;
           return;
         }
 
@@ -8873,9 +8873,9 @@ LABEL_108:
       v78 = MEMORY[0x1E69E6158];
       swift_dynamicCast();
 
-      *(a2 + 24) = v78;
+      a2[3] = v78;
       *a2 = v227;
-      *(a2 + 8) = v228;
+      a2[1] = v228;
       return;
     }
 
@@ -9180,7 +9180,7 @@ LABEL_239:
 
 LABEL_179:
       *a2 = 0u;
-      *(a2 + 16) = 0u;
+      *(a2 + 1) = 0u;
       return;
     }
 
@@ -9466,9 +9466,9 @@ LABEL_148:
     v104 = static String._unconditionallyBridgeFromObjectiveC(_:)(v102);
     v106 = v105;
 
-    *(a2 + 24) = MEMORY[0x1E69E6158];
+    a2[3] = MEMORY[0x1E69E6158];
     *a2 = v104;
-    *(a2 + 8) = v106;
+    a2[1] = v106;
     return;
   }
 
@@ -9497,7 +9497,7 @@ LABEL_163:
     *(v123 + 16) = v227;
     *(v123 + 24) = 0;
 
-    *(a2 + 24) = &type metadata for CharacterSet;
+    a2[3] = &type metadata for CharacterSet;
     *a2 = v123;
     return;
   }
@@ -9535,7 +9535,7 @@ LABEL_173:
     v134 = &v2[OBJC_IVAR____NSSwiftLocale_locale];
     v136 = *&v2[OBJC_IVAR____NSSwiftLocale_locale];
     v135 = *(v134 + 1);
-    *(a2 + 24) = &type metadata for Calendar;
+    a2[3] = &type metadata for Calendar;
     ObjectType = swift_getObjectType();
     v138 = *(v135 + 192);
     swift_unknownObjectRetain();
@@ -9582,7 +9582,7 @@ LABEL_178:
 
 LABEL_184:
     v149 = [v2 usesMetricSystem];
-    *(a2 + 24) = MEMORY[0x1E69E6370];
+    a2[3] = MEMORY[0x1E69E6370];
     *a2 = v149;
     return;
   }
@@ -9709,9 +9709,9 @@ LABEL_209:
   v160 = MEMORY[0x1E695D9F8];
 LABEL_194:
   v161 = static String._unconditionallyBridgeFromObjectiveC(_:)(*v160);
-  *(a2 + 24) = MEMORY[0x1E69E6158];
+  a2[3] = MEMORY[0x1E69E6158];
   *a2 = v161;
-  *(a2 + 8) = v162;
+  a2[1] = v162;
 }
 
 void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
@@ -9724,9 +9724,9 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }

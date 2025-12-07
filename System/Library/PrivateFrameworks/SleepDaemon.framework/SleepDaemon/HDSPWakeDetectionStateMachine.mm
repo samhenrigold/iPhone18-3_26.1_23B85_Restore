@@ -21,24 +21,24 @@
 
 - (HDSPWakeDetectionStateMachine)initWithIdentifier:(id)identifier persistence:(id)persistence delegate:(id)delegate infoProvider:(id)provider currentDateProvider:(id)dateProvider
 {
-  v37[5] = *MEMORY[0x277D85DE8];
+  v36[5] = *MEMORY[0x277D85DE8];
   v12 = MEMORY[0x277CBEB98];
   dateProviderCopy = dateProvider;
   providerCopy = provider;
   delegateCopy = delegate;
   persistenceCopy = persistence;
   identifierCopy = identifier;
-  v37[0] = objc_opt_class();
-  v37[1] = objc_opt_class();
-  v37[2] = objc_opt_class();
-  v37[3] = objc_opt_class();
-  v37[4] = objc_opt_class();
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:5];
+  v36[0] = objc_opt_class();
+  v36[1] = objc_opt_class();
+  v36[2] = objc_opt_class();
+  v36[3] = objc_opt_class();
+  v36[4] = objc_opt_class();
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:5];
   v19 = [v12 setWithArray:v18];
 
-  v36.receiver = self;
-  v36.super_class = HDSPWakeDetectionStateMachine;
-  v20 = [(HKSPPersistentStateMachine *)&v36 initWithIdentifier:identifierCopy allowedStates:v19 persistence:persistenceCopy delegate:delegateCopy infoProvider:providerCopy currentDateProvider:dateProviderCopy];
+  v35.receiver = self;
+  v35.super_class = HDSPWakeDetectionStateMachine;
+  v20 = [(HKSPPersistentStateMachine *)&v35 initWithIdentifier:identifierCopy allowedStates:v19 persistence:persistenceCopy delegate:delegateCopy infoProvider:providerCopy currentDateProvider:dateProviderCopy];
 
   if (v20)
   {
@@ -74,22 +74,20 @@
     v33 = v20;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (id)allStates
 {
-  v7[5] = *MEMORY[0x277D85DE8];
+  v6[5] = *MEMORY[0x277D85DE8];
   waitingState = self->_waitingState;
-  v7[0] = self->_disabledState;
-  v7[1] = waitingState;
+  v6[0] = self->_disabledState;
+  v6[1] = waitingState;
   activityDetectingState = self->_activityDetectingState;
-  v7[2] = self->_explicitDetectingState;
-  v7[3] = activityDetectingState;
-  v7[4] = self->_notifiedState;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:5];
-  v5 = *MEMORY[0x277D85DE8];
+  v6[2] = self->_explicitDetectingState;
+  v6[3] = activityDetectingState;
+  v6[4] = self->_notifiedState;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:5];
 
   return v4;
 }

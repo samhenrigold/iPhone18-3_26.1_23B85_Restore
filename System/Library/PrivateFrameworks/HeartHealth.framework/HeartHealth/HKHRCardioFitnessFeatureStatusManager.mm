@@ -130,11 +130,42 @@ void __67__HKHRCardioFitnessFeatureStatusManager_onboardingStatusWithError___blo
 
 - (void)resetOnboarding
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_228942000, v3, v4, "[%{public}@] Error while resetting onboarding: %{public}@");
-  v5 = *MEMORY[0x277D85DE8];
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x2020000000;
+  v13 = 0;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy_;
+  v10 = __Block_byref_object_dispose_;
+  v11 = 0;
+  proxyProvider = self->_proxyProvider;
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __56__HKHRCardioFitnessFeatureStatusManager_resetOnboarding__block_invoke;
+  v5[3] = &unk_27860AD20;
+  v5[4] = v12;
+  v5[5] = &v6;
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __56__HKHRCardioFitnessFeatureStatusManager_resetOnboarding__block_invoke_3;
+  v4[3] = &unk_27860AD48;
+  v4[4] = &v6;
+  [(HKProxyProvider *)proxyProvider getSynchronousProxyWithHandler:v5 errorHandler:v4];
+  if (v7[5])
+  {
+    _HKInitializeLogging();
+    v3 = HKLogHeartRateCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      [HKHRCardioFitnessFeatureStatusManager resetOnboarding];
+    }
+  }
+
+  _Block_object_dispose(&v6, 8);
+
+  _Block_object_dispose(v12, 8);
 }
 
 uint64_t __56__HKHRCardioFitnessFeatureStatusManager_resetOnboarding__block_invoke(uint64_t a1, void *a2)
@@ -224,43 +255,43 @@ void __69__HKHRCardioFitnessFeatureStatusManager_notificationStatusWithError___b
 
 - (void)setNotificationsEnabled:(BOOL)enabled
 {
-  v12[0] = 0;
-  v12[1] = v12;
-  v12[2] = 0x2020000000;
+  v14[0] = 0;
+  v14[1] = v14;
+  v14[2] = 0x2020000000;
+  v15 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy_;
+  v12 = __Block_byref_object_dispose_;
   v13 = 0;
-  v9 = 0;
-  v10[0] = &v9;
-  v10[1] = 0x3032000000;
-  v10[2] = __Block_byref_object_copy_;
-  v10[3] = __Block_byref_object_dispose_;
-  v11 = 0;
   proxyProvider = self->_proxyProvider;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __65__HKHRCardioFitnessFeatureStatusManager_setNotificationsEnabled___block_invoke;
-  v7[3] = &unk_27860ADC0;
-  enabledCopy = enabled;
-  v7[4] = v12;
-  v7[5] = &v9;
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
-  v6[2] = __65__HKHRCardioFitnessFeatureStatusManager_setNotificationsEnabled___block_invoke_3;
-  v6[3] = &unk_27860AD48;
-  v6[4] = &v9;
-  [(HKProxyProvider *)proxyProvider getSynchronousProxyWithHandler:v7 errorHandler:v6];
-  if (*(v10[0] + 40))
+  v6[2] = __65__HKHRCardioFitnessFeatureStatusManager_setNotificationsEnabled___block_invoke;
+  v6[3] = &unk_27860ADC0;
+  enabledCopy = enabled;
+  v6[4] = v14;
+  v6[5] = &v8;
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __65__HKHRCardioFitnessFeatureStatusManager_setNotificationsEnabled___block_invoke_3;
+  v5[3] = &unk_27860AD48;
+  v5[4] = &v8;
+  [(HKProxyProvider *)proxyProvider getSynchronousProxyWithHandler:v6 errorHandler:v5];
+  if (v9[5])
   {
     _HKInitializeLogging();
-    v5 = HKLogHeartRateCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = HKLogHeartRateCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      [(HKHRCardioFitnessFeatureStatusManager *)self setNotificationsEnabled:v10];
+      [HKHRCardioFitnessFeatureStatusManager setNotificationsEnabled:];
     }
   }
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(v12, 8);
+  _Block_object_dispose(v14, 8);
 }
 
 uint64_t __65__HKHRCardioFitnessFeatureStatusManager_setNotificationsEnabled___block_invoke(uint64_t a1, void *a2)
@@ -322,12 +353,12 @@ void __59__HKHRCardioFitnessFeatureStatusManager_addObserver_queue___block_invok
 
 void __59__HKHRCardioFitnessFeatureStatusManager_addObserver_queue___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   _HKInitializeLogging();
-  v4 = HKLogHeartRateCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v3 = HKLogHeartRateCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __59__HKHRCardioFitnessFeatureStatusManager_addObserver_queue___block_invoke_4_cold_1(a1);
+    __59__HKHRCardioFitnessFeatureStatusManager_addObserver_queue___block_invoke_4_cold_1();
   }
 }
 
@@ -357,12 +388,12 @@ uint64_t __56__HKHRCardioFitnessFeatureStatusManager_removeObserver___block_invo
 
 void __56__HKHRCardioFitnessFeatureStatusManager_removeObserver___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   _HKInitializeLogging();
-  v4 = HKLogHeartRateCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v3 = HKLogHeartRateCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __56__HKHRCardioFitnessFeatureStatusManager_removeObserver___block_invoke_3_cold_1(a1);
+    __56__HKHRCardioFitnessFeatureStatusManager_removeObserver___block_invoke_3_cold_1();
   }
 }
 
@@ -432,7 +463,7 @@ void __79__HKHRCardioFitnessFeatureStatusManager__synchronouslyStartObservingWit
   v4 = HKLogHeartRateCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __79__HKHRCardioFitnessFeatureStatusManager__synchronouslyStartObservingWithError___block_invoke_3_cold_1(a1);
+    __79__HKHRCardioFitnessFeatureStatusManager__synchronouslyStartObservingWithError___block_invoke_3_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -442,10 +473,9 @@ void __79__HKHRCardioFitnessFeatureStatusManager__synchronouslyStartObservingWit
 
 - (void)_handleAutomaticProxyReconnection
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_228942000, v0, OS_LOG_TYPE_ERROR, "[%{public}@] Received notification of successful server reconnection", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_228942000, v0, OS_LOG_TYPE_ERROR, "[%{public}@] Received notification of successful server reconnection", v1, 0xCu);
 }
 
 - (void)client_didUpdateNotificationStatus:(id)status
@@ -496,10 +526,9 @@ void __74__HKHRCardioFitnessFeatureStatusManager_client_didUpdateOnboardingStatu
 
 - (void)connectionInvalidated
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_228942000, v0, OS_LOG_TYPE_ERROR, "[%{public}@] Connection invalidated", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_228942000, v0, OS_LOG_TYPE_ERROR, "[%{public}@] Connection invalidated", v1, 0xCu);
 }
 
 + (id)taskIdentifier
@@ -509,42 +538,12 @@ void __74__HKHRCardioFitnessFeatureStatusManager_client_didUpdateOnboardingStatu
   return NSStringFromClass(v2);
 }
 
-- (void)setNotificationsEnabled:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
+void __79__HKHRCardioFitnessFeatureStatusManager__synchronouslyStartObservingWithError___block_invoke_3_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_228942000, v3, v4, "[%{public}@] Error while setting notification enabled: %{public}@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __59__HKHRCardioFitnessFeatureStatusManager_addObserver_queue___block_invoke_4_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_1_0(&dword_228942000, v2, v3, "[%{public}@] Failed to communicate with task server for observation start: %{public}@");
   v4 = *MEMORY[0x277D85DE8];
-}
-
-void __56__HKHRCardioFitnessFeatureStatusManager_removeObserver___block_invoke_3_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_1_0(&dword_228942000, v2, v3, "[%{public}@] Failed to communicate with task server for observation stop: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __79__HKHRCardioFitnessFeatureStatusManager__synchronouslyStartObservingWithError___block_invoke_3_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(*(*(a1 + 40) + 8) + 40);
-  OUTLINED_FUNCTION_1_2();
-  v7 = v3;
-  _os_log_error_impl(&dword_228942000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to communicate with task server for observation start: %{public}@", v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_228942000, v1, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to communicate with task server for observation start: %{public}@", v2, 0x16u);
 }
 
 @end

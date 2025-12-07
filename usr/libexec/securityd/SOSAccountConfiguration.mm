@@ -191,33 +191,32 @@ LABEL_7:
 - (void)writeTo:(id)to
 {
   toCopy = to;
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
   v5 = self->_pendingBackupPeers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
-        v9 = v9 + 1;
+        ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -225,7 +224,6 @@ LABEL_7:
 
   if (*&self->_has)
   {
-    ringUpdateFlag = self->_ringUpdateFlag;
     PBDataWriterWriteBOOLField();
   }
 }

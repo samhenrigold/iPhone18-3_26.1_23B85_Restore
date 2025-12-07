@@ -279,15 +279,15 @@
     v10 = v9;
     if (v8 == v9)
     {
-      v11 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v11 = 0;
+      isEqual = 0;
       if (v8 && v9)
       {
-        v11 = [v8 isEqual:v9];
+        isEqual = objc_msgSend_isEqual_(v8);
       }
     }
 
@@ -306,11 +306,11 @@
       v18 = 0;
       if (v15 && v16)
       {
-        v18 = [v15 isEqual:v16];
+        v18 = objc_msgSend_isEqual_(v15);
       }
     }
 
-    v19 = v11 & v18;
+    v19 = isEqual & v18;
     _previewMode = [(UIPreviewParameters *)self _previewMode];
     if (_previewMode == [v5 _previewMode])
     {
@@ -375,7 +375,7 @@
       v47 = 0;
       if (v44 && v45)
       {
-        v47 = [v44 isEqual:v45];
+        v47 = objc_msgSend_isEqual_(v44);
       }
     }
 
@@ -409,7 +409,7 @@
       v67 = 0;
       if (v64 && v65)
       {
-        v67 = [v64 isEqual:v65];
+        v67 = objc_msgSend_isEqual_(v64);
       }
     }
 
@@ -429,7 +429,7 @@
       v74 = 0;
       if (v71 && v72)
       {
-        v74 = [v71 isEqual:v72];
+        v74 = objc_msgSend_isEqual_(v71);
       }
     }
 

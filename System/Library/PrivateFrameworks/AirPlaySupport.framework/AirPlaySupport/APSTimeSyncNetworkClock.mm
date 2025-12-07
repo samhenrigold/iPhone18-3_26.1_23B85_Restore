@@ -1,18 +1,31 @@
 @interface APSTimeSyncNetworkClock
 - (APSTimeSyncNetworkClock)init;
+- (int)addIPv4PortAndGetIdentity:(__CFString *)identity destinationAddress:(unsigned int)address clockIdentity:(unint64_t *)clockIdentity localPortNumber:(unsigned __int16 *)number;
 - (int)addIPv6PortAndGetIdentity:(__CFString *)identity destinationAddress:(in6_addr)address clockIdentity:(unint64_t *)clockIdentity localPortNumber:(unsigned __int16 *)number;
+- (int)disablePort:(unsigned __int16)port;
+- (int)enablePort:(unsigned __int16)port;
+- (int)overridePortReceiveMatching:(unsigned __int16)matching clockIdentity:(unint64_t)identity remotePort:(unsigned __int16)port;
+- (int)removeIPv4Port:(__CFString *)port destinationAddress:(unsigned int)address;
 - (int)removeIPv6Port:(__CFString *)port destinationAddress:(in6_addr)address;
-- (int)setAllPortRemoteSyncMessageIntervals:(id *)intervals;
 - (void)dealloc;
 @end
 
 @implementation APSTimeSyncNetworkClock
 
-- (int)setAllPortRemoteSyncMessageIntervals:(id *)intervals
+- (int)disablePort:(unsigned __int16)port
 {
-  [(APSTimeSyncNetworkClock *)self cm8021ASClock];
-  v5 = *intervals;
-  return CM8021ASClockSetAllPortRemoteSyncMessageIntervals();
+  portCopy = port;
+  cm8021ASClock = [(APSTimeSyncNetworkClock *)self cm8021ASClock];
+
+  return MEMORY[0x2821119E8](cm8021ASClock, portCopy);
+}
+
+- (int)enablePort:(unsigned __int16)port
+{
+  portCopy = port;
+  cm8021ASClock = [(APSTimeSyncNetworkClock *)self cm8021ASClock];
+
+  return MEMORY[0x2821119F0](cm8021ASClock, portCopy);
 }
 
 - (int)removeIPv6Port:(__CFString *)port destinationAddress:(in6_addr)address
@@ -24,6 +37,23 @@
   return MEMORY[0x282111A20](cm8021ASClock, port, v5, v4);
 }
 
+- (int)removeIPv4Port:(__CFString *)port destinationAddress:(unsigned int)address
+{
+  v4 = *&address;
+  cm8021ASClock = [(APSTimeSyncNetworkClock *)self cm8021ASClock];
+
+  return MEMORY[0x282111A18](cm8021ASClock, port, v4);
+}
+
+- (int)overridePortReceiveMatching:(unsigned __int16)matching clockIdentity:(unint64_t)identity remotePort:(unsigned __int16)port
+{
+  portCopy = port;
+  matchingCopy = matching;
+  cm8021ASClock = [(APSTimeSyncNetworkClock *)self cm8021ASClock];
+
+  return MEMORY[0x282111A10](cm8021ASClock, matchingCopy, identity, portCopy);
+}
+
 - (int)addIPv6PortAndGetIdentity:(__CFString *)identity destinationAddress:(in6_addr)address clockIdentity:(unint64_t *)clockIdentity localPortNumber:(unsigned __int16 *)number
 {
   v8 = *&address.__u6_addr32[2];
@@ -31,6 +61,14 @@
   cm8021ASClock = [(APSTimeSyncNetworkClock *)self cm8021ASClock];
 
   return MEMORY[0x2821119D0](cm8021ASClock, identity, v9, v8, clockIdentity, number);
+}
+
+- (int)addIPv4PortAndGetIdentity:(__CFString *)identity destinationAddress:(unsigned int)address clockIdentity:(unint64_t *)clockIdentity localPortNumber:(unsigned __int16 *)number
+{
+  v8 = *&address;
+  cm8021ASClock = [(APSTimeSyncNetworkClock *)self cm8021ASClock];
+
+  return MEMORY[0x2821119C8](cm8021ASClock, identity, v8, clockIdentity, number);
 }
 
 - (void)dealloc

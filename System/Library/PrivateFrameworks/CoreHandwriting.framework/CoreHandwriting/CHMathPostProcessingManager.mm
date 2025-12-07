@@ -335,12 +335,12 @@ LABEL_27:
 
 + (unique_ptr<CoreHandwriting::LaTeXSyntaxHelper,)createLatexHelperFromMathCodemap:(id)codemap
 {
-  v27[19] = *MEMORY[0x1E69E9840];
+  v29[19] = *MEMORY[0x1E69E9840];
   v3 = 0;
-  v27[0] = 0;
-  v27[1] = 0;
+  v29[0] = 0;
+  v29[1] = 0;
   codemapCopy = codemap;
-  v26 = v27;
+  v28 = v29;
   while (objc_msgSend_count(codemapCopy, v4, v5, v6, v7, v8) > v3)
   {
     v13 = objc_msgSend_objectAtIndexedSubscript_(codemapCopy, v9, v3, v10, v11, v12);
@@ -358,15 +358,16 @@ LABEL_27:
       operator new();
     }
 
-    HIBYTE(v25) = v21;
+    HIBYTE(v27) = v21;
     if (v21)
     {
       memmove(__dst, v20, v21);
     }
 
     *(__dst + v22) = 0;
-    *(sub_1836892B0(&v26, __dst) + 14) = v3;
-    if (SHIBYTE(v25) < 0)
+    v24 = __dst;
+    *(sub_1836892B0(&v28, __dst, &unk_1839CD620, &v24) + 14) = v3;
+    if (SHIBYTE(v27) < 0)
     {
       operator delete(__dst[0]);
     }
@@ -376,6 +377,8 @@ LABEL_27:
 
   __dst[0] = 0;
   __dst[1] = 0;
+  v27 = 0;
+  v24 = __dst;
   v25 = 0;
   operator new();
 }

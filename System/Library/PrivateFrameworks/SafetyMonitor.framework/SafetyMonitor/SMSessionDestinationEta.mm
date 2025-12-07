@@ -75,21 +75,7 @@
       [(SMSessionDestinationEta *)self expectedTravelTime];
       v7 = v6;
       [(SMSessionDestinationEta *)v5 expectedTravelTime];
-      if (v7 != v8)
-      {
-        [(SMSessionDestinationEta *)self expectedTravelTime];
-        v10 = v9;
-        [(SMSessionDestinationEta *)v5 expectedTravelTime];
-        if (vabdd_f64(v10, v11) >= 2.22044605e-16)
-        {
-          goto LABEL_10;
-        }
-      }
-
-      [(SMSessionDestinationEta *)self additionalTravelTime];
-      v13 = v12;
-      [(SMSessionDestinationEta *)v5 additionalTravelTime];
-      if (v13 == v14 || ([(SMSessionDestinationEta *)self additionalTravelTime], v16 = v15, [(SMSessionDestinationEta *)v5 additionalTravelTime], vabdd_f64(v16, v17) < 2.22044605e-16))
+      if ((v7 == v8 || ([(SMSessionDestinationEta *)self expectedTravelTime], v10 = v9, [(SMSessionDestinationEta *)v5 expectedTravelTime], vabdd_f64(v10, v11) < 2.22044605e-16)) && (([(SMSessionDestinationEta *)self additionalTravelTime], v13 = v12, [(SMSessionDestinationEta *)v5 additionalTravelTime], v13 == v14) || ([(SMSessionDestinationEta *)self additionalTravelTime], v16 = v15, [(SMSessionDestinationEta *)v5 additionalTravelTime], vabdd_f64(v16, v17) < 2.22044605e-16)))
       {
         transportType = [(SMSessionDestinationEta *)self transportType];
         v19 = transportType == [(SMSessionDestinationEta *)v5 transportType];
@@ -97,7 +83,6 @@
 
       else
       {
-LABEL_10:
         v19 = 0;
       }
     }

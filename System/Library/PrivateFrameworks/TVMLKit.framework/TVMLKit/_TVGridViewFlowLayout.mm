@@ -67,7 +67,7 @@
   v16 = 0u;
   v17 = 0u;
   v15 = 0u;
-  [(_TVGridViewFlowLayout *)self cellMetrics];
+  objc_msgSend_cellMetrics(self, a2);
   TVRowMetricsMakeWithCellMetrics(&v10, &v15);
   if (*(&v15 + 1) <= 0.0)
   {
@@ -100,7 +100,7 @@
   v7 = firstObject;
   if (firstObject)
   {
-    [firstObject tv_rowMetricsValue];
+    objc_msgSend_tv_rowMetricsValue(firstObject);
   }
 
   else

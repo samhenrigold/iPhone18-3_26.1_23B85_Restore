@@ -12,7 +12,7 @@
   selfCopy = self;
   QueryController.suspend()();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for QueryController();
+  v3.super_class = type metadata accessor for QueryController(0);
   [(QueryController *)&v3 dealloc];
 }
 
@@ -29,7 +29,7 @@
   _StringGuts.grow(_:)(21);
 
   type metadata accessor for UUID();
-  _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+  _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695E0]);
   v3 = dispatch thunk of CustomStringConvertible.description.getter();
   MEMORY[0x1865F37A0](v3);
 

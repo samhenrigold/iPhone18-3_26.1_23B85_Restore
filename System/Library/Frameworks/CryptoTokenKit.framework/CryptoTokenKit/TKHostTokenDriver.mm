@@ -6,6 +6,7 @@
 - (TKHostTokenDriverCache)cache;
 - (TKTokenDriverHostContext)context;
 - (id)_contextWithError:(id *)error;
+- (id)acquireTokenWithSlot:(id)slot AID:(id)d proprietaryCardUsage:(BOOL)usage tokenID:(id *)iD error:(id *)error;
 - (id)contextWithError:(id *)error;
 - (id)description;
 - (void)acquireTokenWithTokenID:(id)d completion:(id)completion;
@@ -52,10 +53,11 @@
   v6 = [attributes objectForKeyedSubscript:TKTokenClassDriverClassIDKey];
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v7 = sub_100018CF8();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100018CF8(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100020DA8(v5, self);
     }
@@ -93,7 +95,7 @@
 
 - (void)invalidate
 {
-  v3 = sub_100018CF8();
+  v3 = sub_100018CF8(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100020ED0();
@@ -132,11 +134,11 @@
 - (id)_contextWithError:(id *)error
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v4 = objc_sync_enter(selfCopy);
   if (selfCopy->_invalidated)
   {
-    v4 = sub_100018CF8();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = sub_100018CF8(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       sub_100021008();
     }
@@ -144,121 +146,121 @@
     if (!error)
     {
 LABEL_25:
-      v6 = 0;
+      v7 = 0;
       goto LABEL_31;
     }
 
-    v5 = [NSError errorWithDomain:NSCocoaErrorDomain code:4097 userInfo:0];
-    v6 = 0;
+    v6 = [NSError errorWithDomain:NSCocoaErrorDomain code:4097 userInfo:0];
+    v7 = 0;
     goto LABEL_30;
   }
 
   requestIdentifier = [(TKHostTokenDriver *)selfCopy requestIdentifier];
 
-  v55 = requestIdentifier;
+  v60 = requestIdentifier;
   if (!requestIdentifier)
   {
     classID = [(TKHostTokenDriver *)selfCopy classID];
     objc_initWeak(&location, selfCopy);
-    v62[0] = _NSConcreteStackBlock;
-    v62[1] = 3221225472;
-    v62[2] = sub_100019BD8;
-    v62[3] = &unk_1000390E0;
-    v19 = classID;
-    v63 = v19;
-    objc_copyWeak(&v64, &location);
+    v67[0] = _NSConcreteStackBlock;
+    v67[1] = 3221225472;
+    v67[2] = sub_100019BD8;
+    v67[3] = &unk_1000390E0;
+    v21 = classID;
+    v68 = v21;
+    objc_copyWeak(&v69, &location);
     extension = [(TKHostTokenDriver *)selfCopy extension];
-    [extension setRequestInterruptionBlock:v62];
+    [extension setRequestInterruptionBlock:v67];
 
-    v59[0] = _NSConcreteStackBlock;
-    v59[1] = 3221225472;
-    v59[2] = sub_100019C6C;
-    v59[3] = &unk_100039108;
-    v54 = v19;
-    v60 = v54;
-    objc_copyWeak(&v61, &location);
+    v64[0] = _NSConcreteStackBlock;
+    v64[1] = 3221225472;
+    v64[2] = sub_100019C6C;
+    v64[3] = &unk_100039108;
+    v59 = v21;
+    v65 = v59;
+    objc_copyWeak(&v66, &location);
     extension2 = [(TKHostTokenDriver *)selfCopy extension];
-    [extension2 setRequestCancellationBlock:v59];
+    [extension2 setRequestCancellationBlock:v64];
 
-    v22 = sub_100018CF8();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v25 = sub_100018CF8(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       sub_100020F38();
     }
 
-    v23 = objc_alloc_init(NSExtensionItem);
-    v71[0] = @"idleTimeout";
+    v26 = objc_alloc_init(NSExtensionItem);
+    v76[0] = @"idleTimeout";
     WeakRetained = objc_loadWeakRetained(&selfCopy->_cache);
     [WeakRetained idleTimeout];
-    v25 = [NSNumber numberWithDouble:?];
-    v71[1] = @"avoidInitialKeepAlive";
-    v72[0] = v25;
-    v26 = objc_loadWeakRetained(&selfCopy->_cache);
-    v27 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v26 avoidInitialKeepAlive]);
-    v72[1] = v27;
-    v28 = [NSDictionary dictionaryWithObjects:v72 forKeys:v71 count:2];
-    [v23 setUserInfo:v28];
+    v28 = [NSNumber numberWithDouble:?];
+    v76[1] = @"avoidInitialKeepAlive";
+    v77[0] = v28;
+    v29 = objc_loadWeakRetained(&selfCopy->_cache);
+    v30 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v29 avoidInitialKeepAlive]);
+    v77[1] = v30;
+    v31 = [NSDictionary dictionaryWithObjects:v77 forKeys:v76 count:2];
+    [v26 setUserInfo:v31];
 
     for (i = 0; ; ++i)
     {
       extension3 = [(TKHostTokenDriver *)selfCopy extension];
-      v70 = v23;
-      v31 = [NSArray arrayWithObjects:&v70 count:1];
-      v58 = 0;
-      v32 = [extension3 beginExtensionRequestWithOptions:0 inputItems:v31 error:&v58];
-      v33 = v58;
-      [(TKHostTokenDriver *)selfCopy setRequestIdentifier:v32];
+      v75 = v26;
+      v34 = [NSArray arrayWithObjects:&v75 count:1];
+      v63 = 0;
+      v35 = [extension3 beginExtensionRequestWithOptions:0 inputItems:v34 error:&v63];
+      v36 = v63;
+      [(TKHostTokenDriver *)selfCopy setRequestIdentifier:v35];
 
       requestIdentifier2 = [(TKHostTokenDriver *)selfCopy requestIdentifier];
-      LODWORD(v32) = requestIdentifier2 == 0;
+      LODWORD(v35) = requestIdentifier2 == 0;
 
-      if (!v32)
+      if (!v35)
       {
         break;
       }
 
-      if (i == 8 || [v33 code] != 4099 || (objc_msgSend(v33, "domain"), v35 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(v35, "isEqualToString:", NSCocoaErrorDomain), v35, !v36))
+      if (i == 8 || (v38 = [v36 code], v38 != 4099) || (objc_msgSend(v36, "domain"), v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v39, "isEqualToString:", NSCocoaErrorDomain), v39, !v40))
       {
-        v40 = sub_100018CF8();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v44 = sub_100018CF8(v38);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
           extension4 = [(TKHostTokenDriver *)selfCopy extension];
           identifier = [extension4 identifier];
           *buf = 138543618;
-          v67 = identifier;
-          v68 = 2114;
-          v69 = v33;
-          _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "Token driver extension %{public}@ failed to start: %{public}@", buf, 0x16u);
+          v72 = identifier;
+          v73 = 2114;
+          v74 = v36;
+          _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Token driver extension %{public}@ failed to start: %{public}@", buf, 0x16u);
         }
 
         if (error)
         {
-          v41 = v33;
-          *error = v33;
+          v45 = v36;
+          *error = v36;
         }
 
-        objc_destroyWeak(&v61);
-        objc_destroyWeak(&v64);
+        objc_destroyWeak(&v66);
+        objc_destroyWeak(&v69);
 
         objc_destroyWeak(&location);
         goto LABEL_25;
       }
 
-      v37 = sub_100018CF8();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+      v41 = sub_100018CF8(v38);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
         extension5 = [(TKHostTokenDriver *)selfCopy extension];
         identifier2 = [extension5 identifier];
         *buf = 138543618;
-        v67 = identifier2;
-        v68 = 1024;
-        LODWORD(v69) = i;
-        _os_log_debug_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEBUG, "beginExtensionRequest for %{public}@ failed %d time, retrying", buf, 0x12u);
+        v72 = identifier2;
+        v73 = 1024;
+        LODWORD(v74) = i;
+        _os_log_debug_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEBUG, "beginExtensionRequest for %{public}@ failed %d time, retrying", buf, 0x12u);
       }
     }
 
-    v44 = sub_100018CF8();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+    v49 = sub_100018CF8(v48);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
     {
       sub_100020FA0();
     }
@@ -269,37 +271,37 @@ LABEL_25:
 
     if ((isKindOfClass & 1) == 0)
     {
-      v52 = +[NSAssertionHandler currentHandler];
+      v57 = +[NSAssertionHandler currentHandler];
       requestIdentifier4 = [(TKHostTokenDriver *)selfCopy requestIdentifier];
-      [v52 handleFailureInMethod:a2 object:selfCopy file:@"TKHostTokenDriver.m" lineNumber:228 description:{@"requestIdentifier of unexpected type: %@", requestIdentifier4}];
+      [v57 handleFailureInMethod:a2 object:selfCopy file:@"TKHostTokenDriver.m" lineNumber:228 description:{@"requestIdentifier of unexpected type: %@", requestIdentifier4}];
     }
 
     [(TKHostTokenDriver *)selfCopy keepAlive:1];
 
-    objc_destroyWeak(&v61);
-    objc_destroyWeak(&v64);
+    objc_destroyWeak(&v66);
+    objc_destroyWeak(&v69);
 
     objc_destroyWeak(&location);
   }
 
   extension6 = [(TKHostTokenDriver *)selfCopy extension];
   requestIdentifier5 = [(TKHostTokenDriver *)selfCopy requestIdentifier];
-  v6 = [extension6 _extensionContextForUUID:requestIdentifier5];
+  v7 = [extension6 _extensionContextForUUID:requestIdentifier5];
 
-  if (v6)
+  if (v7)
   {
     cache = [(TKHostTokenDriver *)selfCopy cache];
     registry = [cache registry];
-    [v6 setRegistry:registry];
+    [v7 setRegistry:registry];
 
     cache2 = [(TKHostTokenDriver *)selfCopy cache];
     smartCardTokenRegistrationRegistry = [cache2 smartCardTokenRegistrationRegistry];
-    [v6 setSmartCardRegistrationRegistry:smartCardTokenRegistrationRegistry];
+    [v7 setSmartCardRegistrationRegistry:smartCardTokenRegistrationRegistry];
 
-    if (!v55)
+    if (!v60)
     {
-      tokenDriverProtocol = [v6 tokenDriverProtocol];
-      registry2 = [v6 registry];
+      tokenDriverProtocol = [v7 tokenDriverProtocol];
+      registry2 = [v7 registry];
       listener = [registry2 listener];
       endpoint = [listener endpoint];
       [tokenDriverProtocol setConfigurationEndpoint:endpoint reply:&stru_100039128];
@@ -308,31 +310,31 @@ LABEL_25:
 
   else
   {
-    v42 = sub_100018CF8();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v46 = sub_100018CF8(v11);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
       extension7 = [(TKHostTokenDriver *)selfCopy extension];
       identifier3 = [extension7 identifier];
       requestIdentifier6 = [(TKHostTokenDriver *)selfCopy requestIdentifier];
       *buf = 138543618;
-      v67 = identifier3;
-      v68 = 2114;
-      v69 = requestIdentifier6;
-      _os_log_error_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "%{public}@ failed to resolve requestIdentifier %{public}@ to context", buf, 0x16u);
+      v72 = identifier3;
+      v73 = 2114;
+      v74 = requestIdentifier6;
+      _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "%{public}@ failed to resolve requestIdentifier %{public}@ to context", buf, 0x16u);
     }
 
     if (error)
     {
-      v5 = [NSError errorWithDomain:TKErrorDomain code:-7 userInfo:0];
+      v6 = [NSError errorWithDomain:TKErrorDomain code:-7 userInfo:0];
 LABEL_30:
-      *error = v5;
+      *error = v6;
     }
   }
 
 LABEL_31:
   objc_sync_exit(selfCopy);
 
-  return v6;
+  return v7;
 }
 
 - (TKTokenDriverHostContext)context
@@ -371,80 +373,172 @@ LABEL_31:
     sub_100021148(a2, self, dCopy);
   }
 
-  v12 = sub_100018CF8();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = sub_100018CF8(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     sub_1000211CC();
   }
 
-  v34 = 0;
-  v13 = [(TKHostTokenDriver *)self contextWithError:&v34];
-  v14 = v34;
-  if (v13)
+  v36 = 0;
+  v14 = [(TKHostTokenDriver *)self contextWithError:&v36];
+  v15 = v36;
+  if (v14)
   {
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x3032000000;
-    v31 = sub_10001A134;
-    v32 = sub_10001A144;
-    v33 = 0;
-    tokenDriverProtocol = [v13 tokenDriverProtocol];
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = sub_10001A134;
+    v34 = sub_10001A144;
+    v35 = 0;
+    tokenDriverProtocol = [v14 tokenDriverProtocol];
     instanceID = [dCopy instanceID];
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_10001A14C;
-    v25[3] = &unk_100039150;
-    v27 = &v28;
-    v17 = v13;
-    v26 = v17;
-    [tokenDriverProtocol acquireTokenWithInstanceID:instanceID reply:v25];
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_10001A14C;
+    v27[3] = &unk_100039150;
+    v29 = &v30;
+    v18 = v14;
+    v28 = v18;
+    [tokenDriverProtocol acquireTokenWithInstanceID:instanceID reply:v27];
 
     if (completionCopy)
     {
-      v18 = v29[5];
-      v19 = sub_100018CF8();
-      v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
-      if (v18)
+      v20 = v31[5];
+      v21 = sub_100018CF8(v19);
+      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG);
+      if (v20)
       {
-        if (v20)
+        if (v22)
         {
           sub_100021234();
         }
 
-        completionCopy[2](completionCopy, v29[5], 0);
+        completionCopy[2](completionCopy, v31[5], 0);
       }
 
       else
       {
-        if (v20)
+        if (v22)
         {
           extension = [(TKHostTokenDriver *)self extension];
           identifier = [extension identifier];
-          error = [v17 error];
+          error = [v18 error];
           *buf = 138543618;
-          v36 = identifier;
-          v37 = 2114;
-          v38 = error;
-          _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "failed to acquire token from extension %{public}@, error:%{public}@", buf, 0x16u);
+          v38 = identifier;
+          v39 = 2114;
+          v40 = error;
+          _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "failed to acquire token from extension %{public}@, error:%{public}@", buf, 0x16u);
         }
 
-        error2 = [v17 error];
+        error2 = [v18 error];
         (completionCopy)[2](completionCopy, 0, error2);
       }
     }
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v30, 8);
   }
 
   else if (completionCopy)
   {
-    (completionCopy)[2](completionCopy, 0, v14);
+    (completionCopy)[2](completionCopy, 0, v15);
   }
+}
+
+- (id)acquireTokenWithSlot:(id)slot AID:(id)d proprietaryCardUsage:(BOOL)usage tokenID:(id *)iD error:(id *)error
+{
+  usageCopy = usage;
+  slotCopy = slot;
+  dCopy = d;
+  v14 = sub_100018CF8(dCopy);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10002129C(self, v14);
+  }
+
+  v15 = [(TKHostTokenDriver *)self contextWithError:error];
+  v16 = v15;
+  if (v15)
+  {
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x3032000000;
+    v49 = sub_10001A134;
+    v50 = sub_10001A144;
+    v51 = 0;
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x3032000000;
+    v43 = sub_10001A134;
+    v44 = sub_10001A144;
+    v45 = 0;
+    tokenDriverProtocol = [v15 tokenDriverProtocol];
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_10001A55C;
+    v36[3] = &unk_100039178;
+    v38 = &v46;
+    v39 = &v40;
+    v18 = v16;
+    v37 = v18;
+    [tokenDriverProtocol acquireTokenWithSlot:slotCopy AID:dCopy proprietaryCardUsage:usageCopy reply:v36];
+
+    if (v47[5])
+    {
+      v20 = [TKTokenID alloc];
+      classID = [(TKHostTokenDriver *)self classID];
+      *iD = [v20 initWithClassID:classID instanceID:v41[5]];
+
+      v23 = sub_100018CF8(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      {
+        sub_100021344(iD, v23, v24, v25, v26, v27, v28, v29);
+      }
+
+      v30 = v47[5];
+    }
+
+    else
+    {
+      v31 = sub_100018CF8(v19);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      {
+        extension = [(TKHostTokenDriver *)self extension];
+        identifier = [extension identifier];
+        error = [v18 error];
+        *buf = 138543618;
+        v53 = identifier;
+        v54 = 2114;
+        v55 = error;
+        _os_log_debug_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, "failed to acquire token from extension %{public}@, error:%{public}@", buf, 0x16u);
+      }
+
+      if (error)
+      {
+        [v18 error];
+        *error = v30 = 0;
+      }
+
+      else
+      {
+        v30 = 0;
+      }
+    }
+
+    _Block_object_dispose(&v40, 8);
+    _Block_object_dispose(&v46, 8);
+  }
+
+  else
+  {
+    v30 = 0;
+  }
+
+  return v30;
 }
 
 - (BOOL)configureWithError:(id *)error
 {
-  v5 = sub_100018CF8();
+  v5 = sub_100018CF8(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1000213B4(self, v5);
@@ -489,7 +583,7 @@ LABEL_31:
 - (void)releaseTokenWithTokenID:(id)d
 {
   dCopy = d;
-  v5 = sub_100018CF8();
+  v5 = sub_100018CF8(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_10002145C();
@@ -504,7 +598,7 @@ LABEL_31:
     [tokenDriverProtocol releaseTokenWithInstanceID:instanceID reply:&stru_1000391C0];
   }
 
-  v10 = sub_100018CF8();
+  v10 = sub_100018CF8(context);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_1000214C4();
@@ -513,7 +607,7 @@ LABEL_31:
 
 - (void)dealloc
 {
-  v3 = sub_100018CF8();
+  v3 = sub_100018CF8(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10002152C();

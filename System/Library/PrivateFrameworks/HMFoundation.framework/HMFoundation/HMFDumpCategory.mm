@@ -18,9 +18,11 @@
 
 uint64_t __30__HMFDumpCategory_logCategory__block_invoke()
 {
-  qword_280AFC5D8 = HMFCreateOSLogHandle(@"DumpState", @"com.apple.HMFoundation");
+  v0 = HMFCreateOSLogHandle(@"DumpState", @"com.apple.HMFoundation");
+  v1 = qword_280AFC5D8;
+  qword_280AFC5D8 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

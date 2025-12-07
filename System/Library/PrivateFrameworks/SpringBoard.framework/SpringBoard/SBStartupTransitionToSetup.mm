@@ -51,7 +51,7 @@
 
 - (void)performTransitionWithCompletionBlock:(id)block
 {
-  v27[3] = *MEMORY[0x277D85DE8];
+  v28[3] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
@@ -87,9 +87,9 @@ LABEL_8:
   hasPasscodeSet = [(SBInitialRestartState *)self->_initialRestartState hasPasscodeSet];
   fromUserPowerDown = [context fromUserPowerDown];
   mEMORY[0x277D29520] = [MEMORY[0x277D29520] sharedInstance];
-  v25 = 0;
-  v14 = [mEMORY[0x277D29520] needOwnershipWarning:&v25];
-  v15 = v25;
+  v26 = 0;
+  v14 = [mEMORY[0x277D29520] needOwnershipWarning:&v26];
+  v15 = v26;
 
   if ((isLogin & 1) != 0 || overlay || !((hasPasscodeSet || (fromUserPowerDown & 1) == 0) | v14 & 1))
   {
@@ -98,32 +98,32 @@ LABEL_8:
 
   else
   {
-    v16 = SBLogWorkspace();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = SBLogWorkspace(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_INFO, "Passcode locking if necessary, because we're transitioning at boot to Setup.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_INFO, "Passcode locking if necessary, because we're transitioning at boot to Setup.", buf, 2u);
     }
 
     [(SBFUserAuthenticationController *)self->_authController revokeAuthenticationImmediatelyIfNecessaryForPublicReason:@"StartupTransitionToSetup"];
     lockScreenManager = self->_lockScreenManager;
-    v26[0] = @"SBUILockOptionsLockAutomaticallyKey";
-    v18 = [MEMORY[0x277CCABB0] numberWithBool:1];
-    v27[0] = v18;
-    v26[1] = @"SBUILockOptionsUseScreenOffModeKey";
-    v19 = [MEMORY[0x277CCABB0] numberWithBool:0];
-    v27[1] = v19;
-    v26[2] = @"SBUILockOptionsForceLockKey";
-    v20 = [MEMORY[0x277CCABB0] numberWithBool:1];
-    v27[2] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __67__SBStartupTransitionToSetup_performTransitionWithCompletionBlock___block_invoke;
-    v22[3] = &unk_2783A9C98;
-    v22[4] = self;
-    v23 = blockCopy;
-    [(SBLockScreenManager *)lockScreenManager lockUIFromSource:16 withOptions:v21 completion:v22];
+    v27[0] = @"SBUILockOptionsLockAutomaticallyKey";
+    v19 = [MEMORY[0x277CCABB0] numberWithBool:1];
+    v28[0] = v19;
+    v27[1] = @"SBUILockOptionsUseScreenOffModeKey";
+    v20 = [MEMORY[0x277CCABB0] numberWithBool:0];
+    v28[1] = v20;
+    v27[2] = @"SBUILockOptionsForceLockKey";
+    v21 = [MEMORY[0x277CCABB0] numberWithBool:1];
+    v28[2] = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __67__SBStartupTransitionToSetup_performTransitionWithCompletionBlock___block_invoke;
+    v23[3] = &unk_2783A9C98;
+    v23[4] = self;
+    v24 = blockCopy;
+    [(SBLockScreenManager *)lockScreenManager lockUIFromSource:16 withOptions:v22 completion:v23];
   }
 }
 

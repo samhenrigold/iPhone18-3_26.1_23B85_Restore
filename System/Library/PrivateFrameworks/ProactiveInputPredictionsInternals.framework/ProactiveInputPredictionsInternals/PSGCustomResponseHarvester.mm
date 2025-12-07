@@ -466,7 +466,7 @@ LABEL_15:
 
 - (id)modelForLanguage:(id)language
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   v5 = [MEMORY[0x277D025A0] modelForLanguage:languageCopy mode:1 chunkPath:self->_modelFilePath plistPath:self->_modelConfigPath vocabPath:self->_modelVocabPath];
   v6 = v5;
@@ -488,15 +488,13 @@ LABEL_8:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
     preferredLanguage = self->_preferredLanguage;
-    v13 = 138412290;
-    v14 = preferredLanguage;
-    _os_log_fault_impl(&dword_260D36000, v8, OS_LOG_TYPE_FAULT, "Model missing for preferred language %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = preferredLanguage;
+    _os_log_fault_impl(&dword_260D36000, v8, OS_LOG_TYPE_FAULT, "Model missing for preferred language %@", &v12, 0xCu);
   }
 
   v9 = 0;
 LABEL_9:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -519,25 +517,25 @@ LABEL_9:
 
 - (void)writeCheckpoint
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   [(NSDate *)self->_latestProcessedDate timeIntervalSinceReferenceDate];
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-  v13[0] = v3;
+  v12[0] = v3;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_customResponsesStep];
-  v13[1] = v4;
+  v12[1] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_batchSize];
-  v13[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
+  v12[2] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
 
-  v10 = 0;
-  v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v6 options:0 error:&v10];
-  v8 = v10;
+  v9 = 0;
+  v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v6 options:0 error:&v9];
+  v8 = v9;
   if (v8 || !v7)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v12 = v8;
+      v11 = v8;
       _os_log_fault_impl(&dword_260D36000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Error serializing CustomResponses checkpoint: %@", buf, 0xCu);
     }
   }
@@ -546,25 +544,23 @@ LABEL_9:
   {
     [(NSFileManager *)self->_fManager createFileAtPath:self->_checkpointFullPath contents:v7 attributes:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadCustomResponsesCheckpoint
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([(NSFileManager *)self->_fManager fileExistsAtPath:self->_checkpointFullPath])
   {
     v3 = [(NSFileManager *)self->_fManager contentsAtPath:self->_checkpointFullPath];
     if (v3)
     {
-      v14 = 0;
-      v4 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v3 options:0 error:&v14];
-      v5 = v14;
+      v13 = 0;
+      v4 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v3 options:0 error:&v13];
+      v5 = v13;
       if ((v5 || !v4) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v16 = v5;
+        v15 = v5;
         _os_log_fault_impl(&dword_260D36000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Error deserializing CustomResponses checkpoint: %@", buf, 0xCu);
       }
 
@@ -602,8 +598,6 @@ LABEL_9:
       _os_log_fault_impl(&dword_260D36000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Unable to read CustomResponses data", buf, 2u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)harvestWithActivity:(id)activity
@@ -871,7 +865,7 @@ id __50__PSGCustomResponseHarvester_harvestWithActivity___block_invoke(uint64_t 
 
 - (id)_customResponseParametersWithConfigPath:(id)path
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v5 = [MEMORY[0x277D02588] configWithLanguage:self->_preferredLanguage mode:1 plistPath:pathCopy vocabPath:0];
   customResponsesParameters = [v5 customResponsesParameters];
@@ -887,9 +881,9 @@ id __50__PSGCustomResponseHarvester_harvestWithActivity___block_invoke(uint64_t 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       modelFilePath = self->_modelFilePath;
-      v14 = 138412290;
-      v15 = modelFilePath;
-      _os_log_fault_impl(&dword_260D36000, v9, OS_LOG_TYPE_FAULT, "[CRH] Model file path invalid: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = modelFilePath;
+      _os_log_fault_impl(&dword_260D36000, v9, OS_LOG_TYPE_FAULT, "[CRH] Model file path invalid: %@", &v13, 0xCu);
     }
 
     v10 = self->_modelFilePath;
@@ -901,23 +895,21 @@ id __50__PSGCustomResponseHarvester_harvestWithActivity___block_invoke(uint64_t 
     v8 = psg_default_log_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 138412290;
-      v15 = pathCopy;
-      _os_log_debug_impl(&dword_260D36000, v8, OS_LOG_TYPE_DEBUG, "[CRH] Custom responses not enabled in this config: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = pathCopy;
+      _os_log_debug_impl(&dword_260D36000, v8, OS_LOG_TYPE_DEBUG, "[CRH] Custom responses not enabled in this config: %@", &v13, 0xCu);
     }
   }
 
   v7 = 0;
 LABEL_12:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)_customResponseParametersWithExperiment:(id)experiment
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   experimentCopy = experiment;
   if (([experimentCopy isMLModelEnabled] & 1) == 0)
   {
@@ -925,9 +917,9 @@ LABEL_12:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       preferredLanguage = self->_preferredLanguage;
-      v34 = 138412290;
-      v35 = preferredLanguage;
-      _os_log_debug_impl(&dword_260D36000, v9, OS_LOG_TYPE_DEBUG, "[CRH] ML is not enabled for custom response harvesting (preferred language: %@).", &v34, 0xCu);
+      v33 = 138412290;
+      v34 = preferredLanguage;
+      _os_log_debug_impl(&dword_260D36000, v9, OS_LOG_TYPE_DEBUG, "[CRH] ML is not enabled for custom response harvesting (preferred language: %@).", &v33, 0xCu);
     }
 
     goto LABEL_11;
@@ -950,13 +942,13 @@ LABEL_12:
       experimentId = [experimentIdentifiers experimentId];
       experimentIdentifiers2 = [experimentCopy experimentIdentifiers];
       treatmentId = [experimentIdentifiers2 treatmentId];
-      v34 = 138412802;
-      v35 = treatmentName;
-      v36 = 2112;
-      v37 = experimentId;
-      v38 = 2112;
-      v39 = treatmentId;
-      _os_log_fault_impl(&dword_260D36000, v9, OS_LOG_TYPE_FAULT, "[CRH] Config file invalid while ML is enabled. Name: %@, Exp: %@; Trt: %@", &v34, 0x20u);
+      v33 = 138412802;
+      v34 = treatmentName;
+      v35 = 2112;
+      v36 = experimentId;
+      v37 = 2112;
+      v38 = treatmentId;
+      _os_log_fault_impl(&dword_260D36000, v9, OS_LOG_TYPE_FAULT, "[CRH] Config file invalid while ML is enabled. Name: %@, Exp: %@; Trt: %@", &v33, 0x20u);
     }
 
 LABEL_11:
@@ -981,9 +973,9 @@ LABEL_26:
     }
 
     treatmentName2 = [experimentCopy treatmentName];
-    v34 = 138412290;
-    v35 = treatmentName2;
-    _os_log_debug_impl(&dword_260D36000, modelTypeName, OS_LOG_TYPE_DEBUG, "[CRH] Custom responses not enabled in this treatment (name: %@).", &v34, 0xCu);
+    v33 = 138412290;
+    v34 = treatmentName2;
+    _os_log_debug_impl(&dword_260D36000, modelTypeName, OS_LOG_TYPE_DEBUG, "[CRH] Custom responses not enabled in this treatment (name: %@).", &v33, 0xCu);
     goto LABEL_25;
   }
 
@@ -1010,15 +1002,15 @@ LABEL_26:
         experimentId2 = [experimentIdentifiers3 experimentId];
         experimentIdentifiers4 = [experimentCopy experimentIdentifiers];
         treatmentId2 = [experimentIdentifiers4 treatmentId];
-        v34 = 138413058;
-        v35 = modelTypeName;
-        v36 = 2112;
-        v37 = treatmentName3;
-        v38 = 2112;
-        v39 = experimentId2;
-        v40 = 2112;
-        v41 = treatmentId2;
-        v27 = "[CRH] Unexpected model type %@, and experiment (Name: %@, Exp: %@ Trt: %@).";
+        v33 = 138413058;
+        v34 = modelTypeName;
+        v35 = 2112;
+        v36 = treatmentName3;
+        v37 = 2112;
+        v38 = experimentId2;
+        v39 = 2112;
+        v40 = treatmentId2;
+        v26 = "[CRH] Unexpected model type %@, and experiment (Name: %@, Exp: %@ Trt: %@).";
         goto LABEL_29;
       }
 
@@ -1030,12 +1022,12 @@ LABEL_25:
     inferenceModelFilePath = [experimentCopy espressoBinFilePath];
   }
 
-  v20 = self->_modelFilePath;
+  v19 = self->_modelFilePath;
   self->_modelFilePath = inferenceModelFilePath;
 
   if (![(NSString *)self->_modelFilePath length]|| ![(NSFileManager *)self->_fManager isReadableFileAtPath:self->_modelFilePath])
   {
-    v21 = self->_modelFilePath;
+    v20 = self->_modelFilePath;
     self->_modelFilePath = 0;
 
     treatmentName2 = psg_default_log_handle();
@@ -1046,17 +1038,17 @@ LABEL_25:
       experimentId2 = [experimentIdentifiers3 experimentId];
       experimentIdentifiers4 = [experimentCopy experimentIdentifiers];
       treatmentId2 = [experimentIdentifiers4 treatmentId];
-      v34 = 138413058;
-      v35 = modelTypeName;
-      v36 = 2112;
-      v37 = treatmentName3;
-      v38 = 2112;
-      v39 = experimentId2;
-      v40 = 2112;
-      v41 = treatmentId2;
-      v27 = "[CRH] Model file invalid for ModelType: %@ and Experiment (Name: %@, Exp: %@ Trt: %@).";
+      v33 = 138413058;
+      v34 = modelTypeName;
+      v35 = 2112;
+      v36 = treatmentName3;
+      v37 = 2112;
+      v38 = experimentId2;
+      v39 = 2112;
+      v40 = treatmentId2;
+      v26 = "[CRH] Model file invalid for ModelType: %@ and Experiment (Name: %@, Exp: %@ Trt: %@).";
 LABEL_29:
-      _os_log_fault_impl(&dword_260D36000, treatmentName2, OS_LOG_TYPE_FAULT, v27, &v34, 0x2Au);
+      _os_log_fault_impl(&dword_260D36000, treatmentName2, OS_LOG_TYPE_FAULT, v26, &v33, 0x2Au);
 
       goto LABEL_25;
     }
@@ -1068,7 +1060,6 @@ LABEL_29:
 LABEL_27:
 
 LABEL_12:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

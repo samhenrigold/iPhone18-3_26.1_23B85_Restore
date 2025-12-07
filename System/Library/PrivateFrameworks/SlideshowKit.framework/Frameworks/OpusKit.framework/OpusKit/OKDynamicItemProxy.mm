@@ -113,7 +113,7 @@
   proxiedObject = [(OKDynamicItemProxy *)self proxiedObject];
   if (proxiedObject)
   {
-    [(OKDynamicItemProxiedObject *)proxiedObject dynamicsTransform];
+    objc_msgSend_dynamicsTransform(proxiedObject);
   }
 
   else
@@ -127,7 +127,7 @@
     parentWidgetView3 = parentWidgetView2;
     do
     {
-      [parentWidgetView3 transform];
+      objc_msgSend_transform(parentWidgetView3);
       v18 = v21;
       CGAffineTransformConcat(&v20, &t1, &v18);
       v21 = v20;
@@ -192,7 +192,7 @@
     parentWidgetView2 = parentWidgetView;
     do
     {
-      [parentWidgetView2 transform];
+      objc_msgSend_transform(parentWidgetView2);
       t1 = v15;
       CGAffineTransformConcat(&v15, &t1, &t2);
       parentWidgetView2 = [parentWidgetView2 parentWidgetView];

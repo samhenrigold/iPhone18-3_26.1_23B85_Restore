@@ -7,43 +7,41 @@
 
 - (void)_wp_removeTrackingInformationFromURLs
 {
-  v13 = *MEMORY[0x277D85DE8];
-  checkForURLUsingFastPath(self, v8);
-  v2 = v9;
-  if (v8[0] == 1)
+  v12 = *MEMORY[0x277D85DE8];
+  checkForURLUsingFastPath(&v7, self);
+  v2 = v8;
+  if (v7 == 1)
   {
-    if (v9)
+    if (v8)
     {
       v3 = [(NSString *)self length];
       _wp_urlByRemovingTrackingInformation = [v2 _wp_urlByRemovingTrackingInformation];
       absoluteString = [_wp_urlByRemovingTrackingInformation absoluteString];
-      v11[0] = 0;
-      v11[1] = v3;
-      v12 = absoluteString;
-      memset(v7, 0, sizeof(v7));
-      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__init_with_size[abi:nn200100]<std::pair<_NSRange,NSString * {__strong}>*,std::pair<_NSRange,NSString * {__strong}>*>(v7, v11, &v13, 1uLL);
-      WebPrivacy::applyOrderedReplacementsInPlace<NSMutableString>(self, v7);
-      v10 = v7;
-      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](&v10);
+      v10[0] = 0;
+      v10[1] = v3;
+      v11 = absoluteString;
+      memset(v6, 0, sizeof(v6));
+      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__init_with_size[abi:nn200100]<std::pair<_NSRange,NSString * {__strong}>*,std::pair<_NSRange,NSString * {__strong}>*>(v6, v10, &v12, 1uLL);
+      WebPrivacy::applyOrderedReplacementsInPlace<NSMutableString>(self, v6);
+      v9 = v6;
+      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](&v9);
     }
 
     else
     {
-      WebPrivacy::findOrderedReplacementRanges(self, v7);
-      WebPrivacy::applyOrderedReplacementsInPlace<NSMutableString>(self, v7);
-      v11[0] = v7;
-      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](v11);
+      WebPrivacy::findOrderedReplacementRanges(v6, self);
+      WebPrivacy::applyOrderedReplacementsInPlace<NSMutableString>(self, v6);
+      v10[0] = v6;
+      std::vector<std::pair<_NSRange,NSString * {__strong}>>::__destroy_vector::operator()[abi:nn200100](v10);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_wp_removeTrackingInformationFromURLsInPlace:()WebPrivacyExtras
 {
   v4 = a3;
-  checkForURLUsingFastPath(self, v14);
-  if (v14[0])
+  checkForURLUsingFastPath(&v14, self);
+  if (v14)
   {
     v5 = v15;
     if (!v15)

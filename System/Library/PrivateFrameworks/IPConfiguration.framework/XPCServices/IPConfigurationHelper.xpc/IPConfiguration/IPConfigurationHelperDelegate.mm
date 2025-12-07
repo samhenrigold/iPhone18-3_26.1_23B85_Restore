@@ -24,9 +24,9 @@
   v5 = [connectionCopy valueForEntitlement:@"com.apple.private.IPConfigurationHelper.PvD"];
   if (!v5 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
-LABEL_9:
+LABEL_15:
     v8 = 0;
-    goto LABEL_10;
+    goto LABEL_16;
   }
 
   if (([v5 BOOLValue] & 1) == 0)
@@ -35,17 +35,37 @@ LABEL_9:
     v10 = _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      memset(v13, 0, sizeof(v13));
-      os_log_type_enabled(v9, v10);
-      v11 = _os_log_send_and_compose_impl();
-      __SC_log_send2();
-      if (v11 != v13)
+      memset(v16, 0, sizeof(v16));
+      if (_sc_log <= 0)
       {
-        free(v11);
+        v11 = 2;
+      }
+
+      else
+      {
+        v11 = 3;
+      }
+
+      if (os_log_type_enabled(v9, v10))
+      {
+        v12 = v11;
+      }
+
+      else
+      {
+        v12 = 2;
+      }
+
+      v15[0] = 0;
+      v13 = _os_log_send_and_compose_impl(v12, 0, v16, 256, &_mh_execute_header, v9, v10, "rejecting new connection due to missing entitlement", v15, 2);
+      __SC_log_send2();
+      if (v13 != v16)
+      {
+        free(v13);
       }
     }
 
-    goto LABEL_9;
+    goto LABEL_15;
   }
 
   v6 = objc_opt_new();
@@ -56,7 +76,7 @@ LABEL_9:
 
   [connectionCopy resume];
   v8 = 1;
-LABEL_10:
+LABEL_16:
 
   return v8;
 }

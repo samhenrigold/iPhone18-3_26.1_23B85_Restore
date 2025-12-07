@@ -1,4 +1,7 @@
 @interface QLDismissAction
++ (id)actionWithTitle:(id)title alertStyle:(int64_t)style shouldDismissQuickLookAutomatically:(BOOL)automatically handler:(id)handler;
++ (id)actionWithTitle:(id)title image:(id)image alertStyle:(int64_t)style shouldDismissQuickLookAutomatically:(BOOL)automatically handler:(id)handler;
++ (id)actionWithTitle:(id)title image:(id)image shouldDismissQuickLookAutomatically:(BOOL)automatically handler:(id)handler;
 - (QLDismissAction)initWithTitle:(id)title image:(id)image shouldDismissQuickLookAutomatically:(BOOL)automatically handler:(id)handler;
 @end
 
@@ -26,6 +29,48 @@
   }
 
   return v15;
+}
+
++ (id)actionWithTitle:(id)title image:(id)image shouldDismissQuickLookAutomatically:(BOOL)automatically handler:(id)handler
+{
+  automaticallyCopy = automatically;
+  handlerCopy = handler;
+  imageCopy = image;
+  titleCopy = title;
+  v12 = [[QLDismissAction alloc] initWithTitle:titleCopy image:imageCopy shouldDismissQuickLookAutomatically:automaticallyCopy handler:handlerCopy];
+
+  return v12;
+}
+
++ (id)actionWithTitle:(id)title image:(id)image alertStyle:(int64_t)style shouldDismissQuickLookAutomatically:(BOOL)automatically handler:(id)handler
+{
+  automaticallyCopy = automatically;
+  handlerCopy = handler;
+  imageCopy = image;
+  titleCopy = title;
+  v14 = [[QLDismissAction alloc] initWithTitle:titleCopy image:imageCopy shouldDismissQuickLookAutomatically:automaticallyCopy handler:handlerCopy];
+
+  if (style == 2)
+  {
+    [(QLDismissAction *)v14 setAttributes:2];
+  }
+
+  return v14;
+}
+
++ (id)actionWithTitle:(id)title alertStyle:(int64_t)style shouldDismissQuickLookAutomatically:(BOOL)automatically handler:(id)handler
+{
+  automaticallyCopy = automatically;
+  handlerCopy = handler;
+  titleCopy = title;
+  v11 = [[QLDismissAction alloc] initWithTitle:titleCopy image:0 shouldDismissQuickLookAutomatically:automaticallyCopy handler:handlerCopy];
+
+  if (style == 2)
+  {
+    [(QLDismissAction *)v11 setAttributes:2];
+  }
+
+  return v11;
 }
 
 @end

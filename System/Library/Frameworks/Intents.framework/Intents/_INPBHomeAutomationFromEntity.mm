@@ -3,6 +3,7 @@
 - (_INPBHomeAutomationFromEntity)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -144,19 +145,18 @@ LABEL_12:
   toCopy = to;
   if ([(_INPBHomeAutomationFromEntity *)self hasType])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
   value = [(_INPBHomeAutomationFromEntity *)self value];
 
-  v6 = toCopy;
+  v5 = toCopy;
   if (value)
   {
     value2 = [(_INPBHomeAutomationFromEntity *)self value];
     PBDataWriterWriteSubmessage();
 
-    v6 = toCopy;
+    v5 = toCopy;
   }
 }
 
@@ -186,6 +186,21 @@ LABEL_12:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7288830[string];
   }
 
   return v4;

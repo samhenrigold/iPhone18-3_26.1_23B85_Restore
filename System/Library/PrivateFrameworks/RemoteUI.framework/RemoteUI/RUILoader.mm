@@ -59,30 +59,35 @@
 
 - (void)cancel
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (_isInternalInstall() && _isInternalInstall())
+  v12 = *MEMORY[0x277D85DE8];
+  isInternalInstall = _isInternalInstall(self, a2);
+  if (isInternalInstall)
   {
-    v3 = _RUILoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = _isInternalInstall(isInternalInstall, v4);
+    if (v5)
     {
-      callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
-      *buf = 138412290;
-      v8 = callStackSymbols;
-      _os_log_impl(&dword_21B93D000, v3, OS_LOG_TYPE_DEFAULT, "RemoteUILoader cancel %@", buf, 0xCu);
+      v6 = _RUILoggingFacility(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
+        *buf = 138412290;
+        v11 = callStackSymbols;
+        _os_log_impl(&dword_21B93D000, v6, OS_LOG_TYPE_DEFAULT, "RemoteUILoader cancel %@", buf, 0xCu);
+      }
     }
   }
 
   url = self->_url;
   self->_url = 0;
 
-  v6.receiver = self;
-  v6.super_class = RUILoader;
-  [(RUIHTTPRequest *)&v6 cancel];
+  v9.receiver = self;
+  v9.super_class = RUILoader;
+  [(RUIHTTPRequest *)&v9 cancel];
 }
 
 - (void)loadRequest:(id)request
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = requestCopy;
   if (!self->_url)
@@ -114,27 +119,28 @@
       traitCollection = [mainScreen traitCollection];
       self->_userInterfaceStyle = [traitCollection userInterfaceStyle];
 
-      if (_isInternalInstall())
+      isInternalInstall = _isInternalInstall(v17, v18);
+      if (isInternalInstall)
       {
-        v17 = _RUILoggingFacility();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v20 = _RUILoggingFacility(isInternalInstall);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = [MEMORY[0x277CCABB0] numberWithInteger:self->_userInterfaceStyle];
+          v21 = [MEMORY[0x277CCABB0] numberWithInteger:self->_userInterfaceStyle];
           *buf = 138412290;
-          v23 = v18;
-          _os_log_impl(&dword_21B93D000, v17, OS_LOG_TYPE_DEFAULT, "User interface style unknown, grabbing from mainScreen - %@", buf, 0xCu);
+          v26 = v21;
+          _os_log_impl(&dword_21B93D000, v20, OS_LOG_TYPE_DEFAULT, "User interface style unknown, grabbing from mainScreen - %@", buf, 0xCu);
         }
       }
     }
 
-    v19 = [MEMORY[0x277CCABB0] numberWithInteger:self->_userInterfaceStyle];
-    stringValue = [v19 stringValue];
+    v22 = [MEMORY[0x277CCABB0] numberWithInteger:self->_userInterfaceStyle];
+    stringValue = [v22 stringValue];
     [v13 setValue:stringValue forHTTPHeaderField:@"X-Apple-I-Appearance"];
   }
 
-  v21.receiver = self;
-  v21.super_class = RUILoader;
-  [(RUIHTTPRequest *)&v21 loadRequest:v13];
+  v24.receiver = self;
+  v24.super_class = RUILoader;
+  [(RUIHTTPRequest *)&v24 loadRequest:v13];
 }
 
 - (void)_handleShouldLoadRequestResult:(id)result completionHandler:(id)handler
@@ -432,19 +438,20 @@ void __35__RUILoader__loadResourcesWithURL___block_invoke_2(uint64_t a1)
 
 - (void)_finishLoadWithObjectModel:(id)model url:(id)url actionSignal:(id)signal error:(id)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   urlCopy = url;
   signalCopy = signal;
   errorCopy = error;
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(errorCopy, v14);
+  if (isInternalInstall)
   {
-    v14 = _RUILoggingFacility();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = urlCopy;
-      _os_log_impl(&dword_21B93D000, v14, OS_LOG_TYPE_DEFAULT, "Finished load of %@", &buf, 0xCu);
+      _os_log_impl(&dword_21B93D000, v16, OS_LOG_TYPE_DEFAULT, "Finished load of %@", &buf, 0xCu);
     }
   }
 
@@ -456,7 +463,7 @@ void __35__RUILoader__loadResourcesWithURL___block_invoke_2(uint64_t a1)
     [delegate loader:selfCopy didFinishLoadWithError:errorCopy forRequest:request];
 
 LABEL_9:
-    v18 = 1;
+    v20 = 1;
     goto LABEL_11;
   }
 
@@ -466,18 +473,18 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v18 = 0;
+  v20 = 0;
 LABEL_11:
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy_;
-  v41 = __Block_byref_object_dispose_;
-  v19 = signalCopy;
-  v42 = v19;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy_;
+  v43 = __Block_byref_object_dispose_;
+  v21 = signalCopy;
+  v44 = v21;
   if (*(*(&buf + 1) + 40))
   {
-    v20 = 1;
+    v22 = 1;
   }
 
   else
@@ -485,13 +492,13 @@ LABEL_11:
     primaryAlert = [modelCopy primaryAlert];
     if (primaryAlert)
     {
-      v20 = 1;
+      v22 = 1;
     }
 
     else
     {
       clientInfo = [modelCopy clientInfo];
-      v20 = [clientInfo count] != 0;
+      v22 = [clientInfo count] != 0;
     }
   }
 
@@ -505,21 +512,21 @@ LABEL_11:
   delegate2 = [(RUIHTTPRequest *)selfCopy delegate];
   [modelCopy setDelegate:delegate2];
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __63__RUILoader__finishLoadWithObjectModel_url_actionSignal_error___block_invoke;
-  v30[3] = &unk_2782E8688;
-  v25 = errorCopy;
-  v36 = v20;
-  v31 = v25;
-  p_buf = &buf;
-  v26 = modelCopy;
-  v32 = v26;
-  v27 = delegate;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __63__RUILoader__finishLoadWithObjectModel_url_actionSignal_error___block_invoke;
+  v32[3] = &unk_2782E8688;
+  v27 = errorCopy;
+  v38 = v22;
   v33 = v27;
-  v34 = selfCopy;
-  v37 = v18;
-  [(RUILoader *)selfCopy _showPrimaryAlertForObjectModel:v26 completion:v30];
+  p_buf = &buf;
+  v28 = modelCopy;
+  v34 = v28;
+  v29 = delegate;
+  v35 = v29;
+  v36 = selfCopy;
+  v39 = v20;
+  [(RUILoader *)selfCopy _showPrimaryAlertForObjectModel:v28 completion:v32];
   parser = selfCopy->_parser;
   selfCopy->_parser = 0;
 
@@ -529,17 +536,18 @@ LABEL_11:
   _Block_object_dispose(&buf, 8);
 }
 
-void __63__RUILoader__finishLoadWithObjectModel_url_actionSignal_error___block_invoke(uint64_t a1)
+void __63__RUILoader__finishLoadWithObjectModel_url_actionSignal_error___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32) || *(a1 + 72) != 1)
   {
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(a1, a2);
+    if (isInternalInstall)
     {
-      v10 = _RUILoggingFacility();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(location[0]) = 0;
-        _os_log_impl(&dword_21B93D000, v10, OS_LOG_TYPE_DEFAULT, "No object model in server response", location, 2u);
+        _os_log_impl(&dword_21B93D000, v12, OS_LOG_TYPE_DEFAULT, "No object model in server response", location, 2u);
       }
     }
 
@@ -555,31 +563,31 @@ void __63__RUILoader__finishLoadWithObjectModel_url_actionSignal_error___block_i
   {
     if (!*(*(*(a1 + 64) + 8) + 40))
     {
-      v2 = [*(a1 + 40) primaryAlert];
+      v3 = [*(a1 + 40) primaryAlert];
 
-      if (v2)
+      if (v3)
       {
-        v3 = [RUIActionSignal signalWithType:7];
-        v4 = *(*(a1 + 64) + 8);
-        v5 = *(v4 + 40);
-        *(v4 + 40) = v3;
+        v4 = [RUIActionSignal signalWithType:7];
+        v5 = *(*(a1 + 64) + 8);
+        v6 = *(v5 + 40);
+        *(v5 + 40) = v4;
       }
     }
 
     if (objc_opt_respondsToSelector())
     {
       objc_initWeak(location, *(a1 + 56));
-      v7 = *(a1 + 40);
-      v6 = *(a1 + 48);
-      v8 = *(a1 + 56);
-      v9 = *(*(*(a1 + 64) + 8) + 40);
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __63__RUILoader__finishLoadWithObjectModel_url_actionSignal_error___block_invoke_2;
-      v12[3] = &unk_2782E81C8;
-      objc_copyWeak(&v13, location);
-      [v6 loader:v8 receivedObjectModel:v7 topActionSignal:v9 completion:v12];
-      objc_destroyWeak(&v13);
+      v8 = *(a1 + 40);
+      v7 = *(a1 + 48);
+      v9 = *(a1 + 56);
+      v10 = *(*(*(a1 + 64) + 8) + 40);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __63__RUILoader__finishLoadWithObjectModel_url_actionSignal_error___block_invoke_2;
+      v14[3] = &unk_2782E81C8;
+      objc_copyWeak(&v15, location);
+      [v7 loader:v9 receivedObjectModel:v8 topActionSignal:v10 completion:v14];
+      objc_destroyWeak(&v15);
 LABEL_19:
       objc_destroyWeak(location);
       return;
@@ -594,9 +602,9 @@ LABEL_19:
     }
 
     [*(a1 + 48) loader:*(a1 + 56) receivedObjectModel:*(a1 + 40) actionSignal:{objc_msgSend(*(*(*(a1 + 64) + 8) + 40), "topSignal")}];
-    v11 = *(a1 + 56);
+    v13 = *(a1 + 56);
 
-    [v11 completePendingPageRefresh];
+    [v13 completePendingPageRefresh];
   }
 }
 
@@ -820,26 +828,27 @@ void __25__RUILoader_didParseData__block_invoke(uint64_t a1)
 
 - (void)failWithError:(id)error forRequest:(id)request
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   requestCopy = request;
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(requestCopy, v8);
+  if (isInternalInstall)
   {
-    v8 = _RUILoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = errorCopy;
-      _os_log_impl(&dword_21B93D000, v8, OS_LOG_TYPE_DEFAULT, "RUILoader failed with error %@", &v17, 0xCu);
+      v19 = 138412290;
+      v20 = errorCopy;
+      _os_log_impl(&dword_21B93D000, v10, OS_LOG_TYPE_DEFAULT, "RUILoader failed with error %@", &v19, 0xCu);
     }
   }
 
   delegate = [(RUIHTTPRequest *)self delegate];
-  v10 = objc_opt_respondsToSelector();
+  v12 = objc_opt_respondsToSelector();
 
   delegate2 = [(RUIHTTPRequest *)self delegate];
   delegate4 = delegate2;
-  if (v10)
+  if (v12)
   {
     [delegate2 loader:self didFinishLoadWithError:errorCopy forRequest:requestCopy];
 LABEL_11:
@@ -847,19 +856,19 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v13 = objc_opt_respondsToSelector();
+  v15 = objc_opt_respondsToSelector();
 
   delegate3 = [(RUIHTTPRequest *)self delegate];
   delegate4 = delegate3;
-  if (v13)
+  if (v15)
   {
     [delegate3 loader:self didFinishLoadWithError:errorCopy];
     goto LABEL_11;
   }
 
-  v15 = objc_opt_respondsToSelector();
+  v17 = objc_opt_respondsToSelector();
 
-  if (v15)
+  if (v17)
   {
     delegate4 = [(RUIHTTPRequest *)self delegate];
     [delegate4 loader:self didFailWithError:errorCopy];
@@ -873,45 +882,46 @@ LABEL_12:
 
 - (BOOL)receivedValidResponse:(id)response forRequest:(id)request
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   requestCopy = request;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     allHeaderFields = [responseCopy allHeaderFields];
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(allHeaderFields, v9);
+    if (isInternalInstall)
     {
-      v9 = _RUILoggingFacility();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v20 = allHeaderFields;
-        _os_log_impl(&dword_21B93D000, v9, OS_LOG_TYPE_DEFAULT, "loader receivedValidResponse. headers: %@", buf, 0xCu);
+        v22 = allHeaderFields;
+        _os_log_impl(&dword_21B93D000, v11, OS_LOG_TYPE_DEFAULT, "loader receivedValidResponse. headers: %@", buf, 0xCu);
       }
     }
 
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __46__RUILoader_receivedValidResponse_forRequest___block_invoke;
-    v18[3] = &unk_2782E8700;
-    v18[4] = self;
-    [allHeaderFields enumerateKeysAndObjectsUsingBlock:v18];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __46__RUILoader_receivedValidResponse_forRequest___block_invoke;
+    v20[3] = &unk_2782E8700;
+    v20[4] = self;
+    [allHeaderFields enumerateKeysAndObjectsUsingBlock:v20];
     delegate = [(RUIHTTPRequest *)self delegate];
-    v11 = objc_opt_respondsToSelector();
+    v13 = objc_opt_respondsToSelector();
 
     delegate2 = [(RUIHTTPRequest *)self delegate];
     delegate3 = delegate2;
-    if (v11)
+    if (v13)
     {
       [delegate2 loader:self didReceiveHTTPResponse:responseCopy forRequest:requestCopy];
     }
 
     else
     {
-      v14 = objc_opt_respondsToSelector();
+      v16 = objc_opt_respondsToSelector();
 
-      if ((v14 & 1) == 0)
+      if ((v16 & 1) == 0)
       {
 LABEL_11:
 
@@ -926,59 +936,61 @@ LABEL_11:
   }
 
 LABEL_12:
-  v17.receiver = self;
-  v17.super_class = RUILoader;
-  v15 = [(RUIHTTPRequest *)&v17 receivedValidResponse:responseCopy forRequest:requestCopy];
+  v19.receiver = self;
+  v19.super_class = RUILoader;
+  v17 = [(RUIHTTPRequest *)&v19 receivedValidResponse:responseCopy forRequest:requestCopy];
 
-  return v15;
+  return v17;
 }
 
 void __46__RUILoader_receivedValidResponse_forRequest___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [a2 lowercaseString];
   v7 = [v6 isEqualToString:@"x-apple-i-refresh-page"];
 
   if (v7)
   {
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(v8, v9);
+    if (isInternalInstall)
     {
-      v8 = _RUILoggingFacility();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v11 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = v5;
-        _os_log_impl(&dword_21B93D000, v8, OS_LOG_TYPE_DEFAULT, "Posting RUIPageRefreshRequestedNotification for page: %@", &v12, 0xCu);
+        v15 = 138412290;
+        v16 = v5;
+        _os_log_impl(&dword_21B93D000, v11, OS_LOG_TYPE_DEFAULT, "Posting RUIPageRefreshRequestedNotification for page: %@", &v15, 0xCu);
       }
     }
 
-    v9 = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
-    v10 = [v5 stringByTrimmingCharactersInSet:v9];
+    v12 = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
+    v13 = [v5 stringByTrimmingCharactersInSet:v12];
 
-    v11 = [*(a1 + 32) pendingRefreshPageIDs];
-    [v11 addObject:v10];
+    v14 = [*(a1 + 32) pendingRefreshPageIDs];
+    [v14 addObject:v13];
   }
 }
 
 - (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   redirectionCopy = redirection;
   requestCopy = request;
   handlerCopy = handler;
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(handlerCopy, v13);
+  if (isInternalInstall)
   {
-    v13 = _RUILoggingFacility();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = [redirectionCopy URL];
-      v15 = [requestCopy URL];
+      v16 = [redirectionCopy URL];
+      v17 = [requestCopy URL];
       *buf = 138412546;
-      v25 = v14;
-      v26 = 2112;
-      v27 = v15;
-      _os_log_impl(&dword_21B93D000, v13, OS_LOG_TYPE_DEFAULT, "Loader processing redirect from %@ to %@", buf, 0x16u);
+      v27 = v16;
+      v28 = 2112;
+      v29 = v17;
+      _os_log_impl(&dword_21B93D000, v15, OS_LOG_TYPE_DEFAULT, "Loader processing redirect from %@ to %@", buf, 0x16u);
     }
   }
 
@@ -989,25 +1001,25 @@ void __46__RUILoader_receivedValidResponse_forRequest___block_invoke(uint64_t a1
     aBlock[2] = __85__RUILoader_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke;
     aBlock[3] = &unk_2782E8728;
     aBlock[4] = self;
-    v23 = handlerCopy;
-    v16 = _Block_copy(aBlock);
+    v25 = handlerCopy;
+    v18 = _Block_copy(aBlock);
     delegate = [(RUIHTTPRequest *)self delegate];
-    v18 = objc_opt_respondsToSelector();
+    v20 = objc_opt_respondsToSelector();
 
-    if (v18)
+    if (v20)
     {
       delegate2 = [(RUIHTTPRequest *)self delegate];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __85__RUILoader_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke_2;
-      v20[3] = &unk_2782E8750;
-      v21 = v16;
-      [delegate2 loader:self willLoadRequest:requestCopy redirectResponse:redirectionCopy completionHandler:v20];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __85__RUILoader_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke_2;
+      v22[3] = &unk_2782E8750;
+      v23 = v18;
+      [delegate2 loader:self willLoadRequest:requestCopy redirectResponse:redirectionCopy completionHandler:v22];
     }
 
     else
     {
-      (*(v16 + 2))(v16, requestCopy);
+      (*(v18 + 2))(v18, requestCopy);
     }
   }
 

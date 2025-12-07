@@ -32,7 +32,7 @@
 
 - (void)setNeedsRefresh
 {
-  v3 = sub_1000CE6B8(&unk_10190BA50);
+  v3 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v3 - 8);
   v5 = &v9 - v4;
   if ((*(self + OBJC_IVAR____TtC4Maps24LibraryItemsCountManager_isFetching) & 1) == 0)
@@ -51,7 +51,7 @@
 
 - (void)collectionManager:(id)manager contentDidChange:(id)change
 {
-  v5 = sub_1000CE6B8(&unk_10190BA50);
+  v5 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v5 - 8);
   v7 = &v11 - v6;
   if ((*(self + OBJC_IVAR____TtC4Maps24LibraryItemsCountManager_isFetching) & 1) == 0)
@@ -72,7 +72,7 @@
 {
   swift_beginAccess();
 
-  sub_1000CE6B8(&qword_1019083F0);
+  sub_1000CE6B8(&qword_1019083F0, &qword_1011E2EC0);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -80,7 +80,7 @@
 
 - (void)setStoreSubscriptionTypes:(id)types
 {
-  sub_1000CE6B8(&qword_1019083F0);
+  sub_1000CE6B8(&qword_1019083F0, &qword_1011E2EC0);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC4Maps24LibraryItemsCountManager_storeSubscriptionTypes;
   swift_beginAccess();
@@ -89,7 +89,7 @@
 
 - (void)storeDidChange:(id)change
 {
-  v4 = sub_1000CE6B8(&unk_10190BA50);
+  v4 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v4 - 8);
   v6 = &v10 - v5;
   if ((*(self + OBJC_IVAR____TtC4Maps24LibraryItemsCountManager_isFetching) & 1) == 0)

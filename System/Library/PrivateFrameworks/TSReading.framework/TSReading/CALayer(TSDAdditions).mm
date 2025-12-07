@@ -17,8 +17,6 @@
 - (uint64_t)addPopInAnimation:()TSDAdditions;
 - (uint64_t)addPopOutAnimation:()TSDAdditions;
 - (uint64_t)addPulseAnimation;
-- (uint64_t)addReflectionSubLayerWithHeight:()TSDAdditions startOpacity:;
-- (uint64_t)addResetAnimationWithDelegate:()TSDAdditions;
 - (uint64_t)addRotateInAnimationWithDuration:()TSDAdditions delay:;
 - (uint64_t)addSproingAnimationFromPoint:()TSDAdditions;
 - (uint64_t)addWaveAnimationWithScale:()TSDAdditions offset:zPosition:addPerspectiveProjection:;
@@ -26,10 +24,8 @@
 - (uint64_t)addZoomAnimationFromPoint:()TSDAdditions startingScale:;
 - (uint64_t)addZoomDownAnimation;
 - (uint64_t)addZoomDownAnimationFromPoint:()TSDAdditions endingScale:delay:;
-- (uint64_t)animationDidStop:()TSDAdditions finished:;
 - (uint64_t)pause;
 - (uint64_t)pauseAtTime:()TSDAdditions;
-- (uint64_t)removeAllAnimationsOnLayerTree;
 - (uint64_t)removePulseAnimation;
 - (uint64_t)removeWaveAnimationAnimated:()TSDAdditions;
 - (uint64_t)resume;
@@ -38,8 +34,12 @@
 - (uint64_t)scale:()TSDAdditions aroundBoundsPoint:afterOffset:;
 - (uint64_t)setIfDifferentFrame:()TSDAdditions orTransform:;
 - (void)addDistortAnimationWithVector:()TSDAdditions;
+- (void)addReflectionSubLayerWithHeight:()TSDAdditions startOpacity:;
+- (void)addResetAnimationWithDelegate:()TSDAdditions;
 - (void)addRippleAnimationFromPosition:()TSDAdditions withScale:addPerspectiveProjection:;
+- (void)animationDidStop:()TSDAdditions finished:;
 - (void)bakedLayer;
+- (void)removeAllAnimationsOnLayerTree;
 @end
 
 @implementation CALayer(TSDAdditions)
@@ -80,7 +80,7 @@
 
     if (self)
     {
-      [self affineTransform];
+      objc_msgSend_affineTransform(self);
     }
 
     else
@@ -194,7 +194,7 @@
   }
 }
 
-- (uint64_t)addReflectionSubLayerWithHeight:()TSDAdditions startOpacity:
+- (void)addReflectionSubLayerWithHeight:()TSDAdditions startOpacity:
 {
   v5 = result;
   if (a2 < 0.0 || a2 > 1.0)
@@ -213,89 +213,89 @@
     v15 = v14;
     v17 = v16;
     [v5 contentsRect];
-    v48 = v18;
-    v49 = v19;
-    v51.origin.x = v11;
-    v51.origin.y = v13;
-    v51.size.width = v15;
-    v51.size.height = v17;
-    CGRectGetMinX(v51);
+    v49 = v18;
+    v50 = v19;
     v52.origin.x = v11;
     v52.origin.y = v13;
     v52.size.width = v15;
     v52.size.height = v17;
-    CGRectGetMaxX(v52);
-    TSUMix();
-    v21 = v20;
+    CGRectGetMinX(v52);
     v53.origin.x = v11;
     v53.origin.y = v13;
     v53.size.width = v15;
     v53.size.height = v17;
-    CGRectGetMinY(v53);
+    CGRectGetMaxX(v53);
+    TSUMix();
+    v21 = v20;
     v54.origin.x = v11;
     v54.origin.y = v13;
     v54.size.width = v15;
     v54.size.height = v17;
-    CGRectGetMaxY(v54);
-    TSUMix();
-    v23 = TSDRoundedRect(v21, v22, v15 * v49, v17 * v48 * a2);
-    v25 = v24;
-    v27 = v26;
-    v29 = v28;
-    v30 = v28;
-    v31 = v26;
-    v32 = 4 * v26;
-    v33 = malloc_type_calloc(v32, v28, 0x100004077774924uLL);
+    CGRectGetMinY(v54);
+    v55.origin.x = v11;
+    v55.origin.y = v13;
+    v55.size.width = v15;
+    v55.size.height = v17;
+    CGRectGetMaxY(v55);
+    v22 = TSUMix();
+    v24 = TSDRoundedRect(v22, v21, v23, v15 * v50, v17 * v49 * a2);
+    v26 = v25;
+    v28 = v27;
+    v30 = v29;
+    v31 = v29;
+    v32 = v27;
+    v33 = 4 * v27;
+    v34 = malloc_type_calloc(v33, v29, 0x100004077774924uLL);
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
-    v35 = CGBitmapContextCreate(v33, v31, v30, 8uLL, v32, DeviceRGB, 2u);
+    v36 = CGBitmapContextCreate(v34, v32, v31, 8uLL, v33, DeviceRGB, 2u);
     CGColorSpaceRelease(DeviceRGB);
-    CGContextTranslateCTM(v35, 0.0, v29);
-    CGContextScaleCTM(v35, 1.0, -1.0);
+    CGContextTranslateCTM(v36, 0.0, v30);
+    CGContextScaleCTM(v36, 1.0, -1.0);
     contents = [v5 contents];
     [v5 frame];
-    CGContextDrawImage(v35, v55, contents);
-    if (v30)
+    CGContextDrawImage(v36, v56, contents);
+    if (v31)
     {
-      v37 = 0;
-      v38 = v33;
+      v38 = 0;
+      v39 = v34;
       do
       {
-        v39 = pow((v30 - 1 - v37) / (v30 - 1), 1.8);
-        if (v32)
+        v40 = pow((v31 - 1 - v38) / (v31 - 1), 1.8);
+        if (v33)
         {
-          v41 = v39 * a3;
-          v42 = v38;
-          v43 = v32;
+          v42 = v40 * a3;
+          v43 = v39;
+          v44 = v33;
           do
           {
-            LOBYTE(v40) = *v42;
-            v40 = v41 * *&v40;
-            *v42++ = v40;
-            --v43;
+            LOBYTE(v41) = *v43;
+            v41 = v42 * *&v41;
+            *v43++ = v41;
+            --v44;
           }
 
-          while (v43);
+          while (v44);
         }
 
-        ++v37;
-        v38 += v32;
+        ++v38;
+        v39 += v33;
       }
 
-      while (v37 != v30);
+      while (v38 != v31);
     }
 
-    Image = CGBitmapContextCreateImage(v35);
+    Image = CGBitmapContextCreateImage(v36);
     [layer setContents:Image];
     CGImageRelease(Image);
-    CGContextRelease(v35);
-    free(v33);
-    [layer setFrame:{v23, v25, v27, v29}];
+    CGContextRelease(v36);
+    free(v34);
+    [layer setFrame:{v24, v26, v28, v30}];
     [v5 bounds];
-    MidX = CGRectGetMidX(v56);
+    MidX = CGRectGetMidX(v57);
     [v5 bounds];
-    MaxY = CGRectGetMaxY(v57);
+    MaxY = CGRectGetMaxY(v58);
     [layer frame];
-    [layer setPosition:{MidX, MaxY + v47 * 0.5}];
+    [layer setPosition:{MidX, MaxY + v48 * 0.5}];
     [layer setName:{objc_msgSend(objc_msgSend(v5, "name"), "stringByAppendingString:", @"-reflection"}];
     [v5 addSublayer:layer];
 
@@ -338,7 +338,7 @@
   v13 = 0u;
   if (self)
   {
-    [self transform];
+    objc_msgSend_transform(self);
   }
 
   [self p_perspectiveZDistanceUsingSize:{TSDMultiplySizeScalar(v4, v6, v8)}];
@@ -356,30 +356,30 @@
 
 - (uint64_t)addPerspectiveSublayerProjectionUsingScreenSize:()TSDAdditions
 {
-  v15 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
+  v11 = 0u;
   if (self)
   {
-    [self sublayerTransform];
+    objc_msgSend_sublayerTransform(self, a2);
   }
 
-  [self p_perspectiveZDistanceUsingSize:{a2, a3}];
-  *(&v14 + 1) = -1.0 / v6;
-  v8[4] = v13;
-  v8[5] = v14;
-  v8[6] = v15;
-  v8[7] = v16;
-  v8[0] = v9;
-  v8[1] = v10;
-  v8[2] = v11;
-  v8[3] = v12;
-  return [self setSublayerTransform:v8];
+  [self p_perspectiveZDistanceUsingSize:{a3, a4}];
+  *(&v15 + 1) = -1.0 / v7;
+  v9[4] = v14;
+  v9[5] = v15;
+  v9[6] = v16;
+  v9[7] = v17;
+  v9[0] = v10;
+  v9[1] = v11;
+  v9[2] = v12;
+  v9[3] = v13;
+  return [self setSublayerTransform:v9];
 }
 
 - (double)durationOfAllAnimations
@@ -411,7 +411,7 @@
       v8 = [self animationForKey:*(*(&v14 + 1) + 8 * i)];
       [v8 beginTime];
       v10 = v9;
-      [v8 duration];
+      objc_msgSend_duration(v8);
       v12 = v10 + v11;
       if (v6 <= v12)
       {
@@ -426,7 +426,7 @@
   return v6;
 }
 
-- (uint64_t)removeAllAnimationsOnLayerTree
+- (void)removeAllAnimationsOnLayerTree
 {
   v12 = *MEMORY[0x277D85DE8];
   [self removeAllAnimations];
@@ -453,7 +453,8 @@
             objc_enumerationMutation(sublayers);
           }
 
-          [*(*(&v7 + 1) + 8 * v6++) removeAllAnimationsOnLayerTree];
+          [*(*(&v7 + 1) + 8 * v6) removeAllAnimationsOnLayerTree];
+          v6 = v6 + 1;
         }
 
         while (v4 != v6);
@@ -664,7 +665,7 @@
   {
     if (a3)
     {
-      [a3 transformCachedValueAtTime:self layer:a2 animation:a5];
+      objc_msgSend_transformCachedValueAtTime_layer_animation_(a3, a5);
     }
 
     else
@@ -1268,7 +1269,7 @@
   presentationLayer = [self presentationLayer];
   if (presentationLayer)
   {
-    [presentationLayer transform];
+    objc_msgSend_transform(presentationLayer);
   }
 
   else
@@ -1555,7 +1556,7 @@
     memset(&v19, 0, sizeof(v19));
     if (self)
     {
-      [self transform];
+      objc_msgSend_transform(self);
     }
 
     v17 = v19;
@@ -1757,7 +1758,7 @@
   }
 }
 
-- (uint64_t)addResetAnimationWithDelegate:()TSDAdditions
+- (void)addResetAnimationWithDelegate:()TSDAdditions
 {
   v22 = *MEMORY[0x277D85DE8];
   presentationLayer = [self presentationLayer];
@@ -1950,7 +1951,7 @@
   return [self addAnimation:v35 forKey:@"kTSDZoomDownAnimationKey"];
 }
 
-- (uint64_t)animationDidStop:()TSDAdditions finished:
+- (void)animationDidStop:()TSDAdditions finished:
 {
   result = [a3 valueForKey:@"kTSDLayerToRemove"];
   if (result)
@@ -2059,7 +2060,7 @@
 
       if (selfCopy2)
       {
-        [selfCopy2 transform];
+        objc_msgSend_transform(selfCopy2);
       }
 
       else
@@ -2149,7 +2150,7 @@
   v16 = v15;
   if (selfCopy2)
   {
-    [selfCopy2 transform];
+    objc_msgSend_transform(selfCopy2);
   }
 
   else
@@ -2183,7 +2184,7 @@
     *&v48.m21 = *&transform.tx;
     if (self)
     {
-      [self affineTransform];
+      objc_msgSend_affineTransform(self);
     }
 
     else
@@ -2376,7 +2377,7 @@
   if (self)
   {
 
-    [self transformToScale:a3 aroundBoundsPoint:a4 * v15 afterOffset:{a5 * v16, a6, a7}];
+    objc_msgSend_transformToScale_aroundBoundsPoint_afterOffset_(self, a3, a4 * v15, a5 * v16, a6, a7);
   }
 
   else
@@ -2399,60 +2400,60 @@
 {
   if (self)
   {
-    [self transformToScale:? aroundBoundsPoint:? afterOffset:?];
+    objc_msgSend_transformToScale_aroundBoundsPoint_afterOffset_(self, a2);
   }
 
   else
   {
-    v10 = 0u;
     v11 = 0u;
-    v8 = 0u;
+    v12 = 0u;
     v9 = 0u;
-    v6 = 0u;
+    v10 = 0u;
     v7 = 0u;
-    v4 = 0u;
+    v8 = 0u;
     v5 = 0u;
+    v6 = 0u;
   }
 
-  v3[4] = v8;
-  v3[5] = v9;
-  v3[6] = v10;
-  v3[7] = v11;
-  v3[0] = v4;
-  v3[1] = v5;
-  v3[2] = v6;
-  v3[3] = v7;
-  return [self setTransform:v3];
+  v4[4] = v9;
+  v4[5] = v10;
+  v4[6] = v11;
+  v4[7] = v12;
+  v4[0] = v5;
+  v4[1] = v6;
+  v4[2] = v7;
+  v4[3] = v8;
+  return [self setTransform:v4];
 }
 
 - (uint64_t)scale:()TSDAdditions aroundAnchorPoint:afterOffset:
 {
   if (self)
   {
-    [self transformToScale:? aroundAnchorPoint:? afterOffset:?];
+    objc_msgSend_transformToScale_aroundAnchorPoint_afterOffset_(self, a2);
   }
 
   else
   {
-    v10 = 0u;
     v11 = 0u;
-    v8 = 0u;
+    v12 = 0u;
     v9 = 0u;
-    v6 = 0u;
+    v10 = 0u;
     v7 = 0u;
-    v4 = 0u;
+    v8 = 0u;
     v5 = 0u;
+    v6 = 0u;
   }
 
-  v3[4] = v8;
-  v3[5] = v9;
-  v3[6] = v10;
-  v3[7] = v11;
-  v3[0] = v4;
-  v3[1] = v5;
-  v3[2] = v6;
-  v3[3] = v7;
-  return [self setTransform:v3];
+  v4[4] = v9;
+  v4[5] = v10;
+  v4[6] = v11;
+  v4[7] = v12;
+  v4[0] = v5;
+  v4[1] = v6;
+  v4[2] = v7;
+  v4[3] = v8;
+  return [self setTransform:v4];
 }
 
 - (double)center

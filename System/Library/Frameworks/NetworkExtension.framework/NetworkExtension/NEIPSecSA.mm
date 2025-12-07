@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)createDictionary;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initInboundSA;
 - (id)initInboundSAWithSPI:(unsigned int)i;
 - (id)initOutboundSAWithSPI:(unsigned int)i;
@@ -21,18 +22,125 @@
 
 - (void)invalidate
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "Invalidate %@", &v5, 0xCu);
+    _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "Invalidate %@", &v4, 0xCu);
   }
 
   [(NEIPSecSA *)self setEncryptionKey:0];
   [(NEIPSecSA *)self setAuthenticationKey:0];
-  v4 = *MEMORY[0x1E69E9840];
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  v8 = v7;
+  if (self)
+  {
+    internalSAID = self->_internalSAID;
+  }
+
+  else
+  {
+    internalSAID = 0;
+  }
+
+  [v7 appendPrettyInt:internalSAID withName:@"Internal SAID" andIndent:v5 options:options];
+  v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%08X", bswap32(-[NEIPSecSA spi](self, "spi"))];
+  [v8 appendPrettyObject:v10 withName:@"SPI" andIndent:v5 options:options];
+
+  direction = [(NEIPSecSA *)self direction];
+  if (direction == 1)
+  {
+    v12 = @"Outbound";
+  }
+
+  else if (direction == 2)
+  {
+    v12 = @"Inbound";
+  }
+
+  else
+  {
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unknown[%lld]", direction];
+  }
+
+  [v8 appendPrettyObject:v12 withName:@"Direction" andIndent:v5 options:options];
+
+  mode = [(NEIPSecSA *)self mode];
+  if (mode == 1)
+  {
+    v14 = @"Transport";
+  }
+
+  else if (mode == 2)
+  {
+    v14 = @"Tunnel";
+  }
+
+  else
+  {
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unknown[%lld]", mode];
+  }
+
+  [v8 appendPrettyObject:v14 withName:@"Mode" andIndent:v5 options:options];
+
+  protocol = [(NEIPSecSA *)self protocol];
+  if (protocol == 1)
+  {
+    v16 = @"ESP";
+  }
+
+  else if (protocol == 2)
+  {
+    v16 = @"AH";
+  }
+
+  else
+  {
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unknown[%lld]", protocol];
+  }
+
+  [v8 appendPrettyObject:v16 withName:@"Protocol" andIndent:v5 options:options];
+
+  localAddress = [(NEIPSecSA *)self localAddress];
+  [v8 appendPrettyObject:localAddress withName:@"Local" andIndent:v5 options:options];
+
+  remoteAddress = [(NEIPSecSA *)self remoteAddress];
+  [v8 appendPrettyObject:remoteAddress withName:@"Remote" andIndent:v5 options:options];
+
+  boundInterfaceName = [(NEIPSecSA *)self boundInterfaceName];
+  [v8 appendPrettyObject:boundInterfaceName withName:@"Bound Interface" andIndent:v5 options:options];
+
+  tunnelInterfaceName = [(NEIPSecSA *)self tunnelInterfaceName];
+  [v8 appendPrettyObject:tunnelInterfaceName withName:@"Tunnel Interface" andIndent:v5 options:options];
+
+  [v8 appendPrettyInt:-[NEIPSecSA replayWindowSize](self withName:"replayWindowSize") andIndent:@"Replay Window Size" options:{v5, options}];
+  [v8 appendPrettyInt:-[NEIPSecSA lifetimeSeconds](self withName:"lifetimeSeconds") andIndent:@"Lifetime Seconds" options:{v5, options}];
+  [v8 appendPrettyInt:-[NEIPSecSA encryptionAlgorithm](self withName:"encryptionAlgorithm") andIndent:@"Encryption Algorithm" options:{v5, options}];
+  encryptionKey = [(NEIPSecSA *)self encryptionKey];
+  [v8 appendPrettyInt:objc_msgSend(encryptionKey withName:"length") andIndent:@"Encryption Key Length" options:{v5, options}];
+
+  [v8 appendPrettyInt:-[NEIPSecSA authenticationAlgorithm](self withName:"authenticationAlgorithm") andIndent:@"Authentication Algorithm" options:{v5, options}];
+  authenticationKey = [(NEIPSecSA *)self authenticationKey];
+  [v8 appendPrettyInt:objc_msgSend(authenticationKey withName:"length") andIndent:@"Authentication Key Length" options:{v5, options}];
+
+  [v8 appendPrettyBOOL:-[NEIPSecSA natTraversalEnabled](self withName:"natTraversalEnabled") andIndent:@"NAT Traversal Enabled" options:{v5, options}];
+  [v8 appendPrettyBOOL:-[NEIPSecSA natDetectedOnPeer](self withName:"natDetectedOnPeer") andIndent:@"NAT Detected on Peer" options:{v5, options}];
+  [v8 appendPrettyBOOL:-[NEIPSecSA natKeepaliveEnabled](self withName:"natKeepaliveEnabled") andIndent:@"NAT Keepalive Enabled" options:{v5, options}];
+  [v8 appendPrettyBOOL:-[NEIPSecSA natKeepaliveOffloadEnabled](self withName:"natKeepaliveOffloadEnabled") andIndent:@"NAT Keepalive Offload Enabled" options:{v5, options}];
+  [v8 appendPrettyInt:-[NEIPSecSA natKeepaliveIntervalSeconds](self withName:"natKeepaliveIntervalSeconds") andIndent:@"NAT Keepalive Interval Seconds" options:{v5, options}];
+  [v8 appendPrettyInt:-[NEIPSecSA natKeepaliveOffloadIntervalSeconds](self withName:"natKeepaliveOffloadIntervalSeconds") andIndent:@"NAT Keepalive Offload Interval Seconds" options:{v5, options}];
+  [v8 appendPrettyInt:-[NEIPSecSA natTraversalPort](self withName:"natTraversalPort") andIndent:@"NAT Traversal Port" options:{v5, options}];
+  [v8 appendPrettyInt:-[NEIPSecSA natTraversalSrcPort](self withName:"natTraversalSrcPort") andIndent:@"NAT Traversal Source Port" options:{v5, options}];
+  [v8 appendPrettyBOOL:-[NEIPSecSA sequencePerTrafficClass](self withName:"sequencePerTrafficClass") andIndent:@"Sequence Per Traffic Class" options:{v5, options}];
+
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

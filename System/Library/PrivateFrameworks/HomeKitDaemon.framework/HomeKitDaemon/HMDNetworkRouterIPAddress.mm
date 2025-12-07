@@ -188,37 +188,37 @@ LABEL_15:
 
 - (id)serializeWithError:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
+  v39 = *MEMORY[0x277D85DE8];
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v18 = 0u;
   TLV8BufferInit();
   v5 = [(HMDNetworkRouterIPAddress *)self v4];
 
   if (v5)
   {
     v6 = [(HMDNetworkRouterIPAddress *)self v4];
-    v18 = 0;
-    v7 = [v6 serializeWithError:&v18];
-    v8 = v18;
+    v17 = 0;
+    v7 = [v6 serializeWithError:&v17];
+    v8 = v17;
 
     if (v8)
     {
@@ -250,15 +250,15 @@ LABEL_9:
   if (!v10)
   {
 LABEL_11:
-    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v19 length:?];
+    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v18 length:?];
     v8 = 0;
     goto LABEL_14;
   }
 
   v11 = [(HMDNetworkRouterIPAddress *)self v6];
-  v17 = 0;
-  v7 = [v11 serializeWithError:&v17];
-  v8 = v17;
+  v16 = 0;
+  v7 = [v11 serializeWithError:&v16];
+  v8 = v16;
 
   if (!v8)
   {
@@ -288,8 +288,6 @@ LABEL_13:
   v13 = 0;
 LABEL_14:
   TLV8BufferFree();
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

@@ -123,7 +123,7 @@ LABEL_15:
   {
     v7 = [SBSwitcherTransitionRequest requestForTapAppLayoutEvent:eventCopy];
     v8 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v7 gestureInitiated:0];
-    v9 = SBAppendSwitcherModifierResponse(v8, v5);
+    v9 = SBAppendSwitcherModifierResponse();
 
     v5 = v9;
   }
@@ -152,7 +152,7 @@ LABEL_15:
   v5 = [(SBFloatingFluidSwitcherRootSwitcherModifier *)&v15 appLayoutsToEnsureExistForMainTransitionEvent:eventCopy];
   fromFloatingAppLayout = [eventCopy fromFloatingAppLayout];
   toFloatingAppLayout = [eventCopy toFloatingAppLayout];
-  if (BSEqualObjects() & 1) != 0 || ([eventCopy fromFloatingSwitcherVisible] & 1) != 0 || (objc_msgSend(eventCopy, "isDragAndDropTransition"))
+  if (BSEqualObjects() & 1) != 0 || (objc_msgSend_fromFloatingSwitcherVisible(eventCopy) & 1) != 0 || ([eventCopy isDragAndDropTransition])
   {
     v8 = v5;
   }
@@ -362,7 +362,7 @@ LABEL_19:
   eventCopy = event;
   fromFloatingAppLayout = [eventCopy fromFloatingAppLayout];
   toFloatingAppLayout = [eventCopy toFloatingAppLayout];
-  fromFloatingSwitcherVisible = [eventCopy fromFloatingSwitcherVisible];
+  v7 = objc_msgSend_fromFloatingSwitcherVisible(eventCopy);
   toFloatingSwitcherVisible = [eventCopy toFloatingSwitcherVisible];
   isDragAndDropTransition = [eventCopy isDragAndDropTransition];
   fromFloatingConfiguration = [eventCopy fromFloatingConfiguration];
@@ -387,7 +387,7 @@ LABEL_19:
 
   if (toFloatingSwitcherVisible)
   {
-    if (fromFloatingSwitcherVisible)
+    if (v7)
     {
       v17 = [(SBTransitionSwitcherModifier *)[SBSwitcherSwipeUpToSwitcherFloatingSwitcherModifier alloc] initWithTransitionID:transitionID];
 LABEL_15:
@@ -406,7 +406,7 @@ LABEL_15:
     goto LABEL_11;
   }
 
-  if (fromFloatingSwitcherVisible)
+  if (v7)
   {
     v18 = fromFloatingAppLayout;
     v19 = [SBSwitcherToActiveFloatingSwitcherModifier alloc];

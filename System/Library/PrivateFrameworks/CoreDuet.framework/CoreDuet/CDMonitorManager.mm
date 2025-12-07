@@ -52,18 +52,18 @@
 
 - (CDMonitorManager)initWithEventStreams:(id)streams domain:(unint64_t)domain
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   streamsCopy = streams;
-  v101.receiver = self;
-  v101.super_class = CDMonitorManager;
-  observer = [(CDMonitorManager *)&v101 init];
+  v99.receiver = self;
+  v99.super_class = CDMonitorManager;
+  observer = [(CDMonitorManager *)&v99 init];
   if (!observer)
   {
     goto LABEL_71;
   }
 
   context = objc_autoreleasePoolPush();
-  if (!KnowledgeMonitorLibraryCore())
+  if (!KnowledgeMonitorLibraryCore(0))
   {
     v8 = +[_CDLogging contextChannel];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
@@ -75,7 +75,7 @@
   }
 
   *location = 0;
-  if (!KnowledgeMonitorLibraryCore())
+  if (!KnowledgeMonitorLibraryCore(location))
   {
     goto LABEL_72;
   }
@@ -85,7 +85,7 @@
     free(*location);
   }
 
-  if (!UsageTrackingLibraryCore())
+  if (!UsageTrackingLibraryCore(0))
   {
     contextChannel = +[_CDLogging contextChannel];
     if (os_log_type_enabled(contextChannel, OS_LOG_TYPE_DEBUG))
@@ -97,7 +97,7 @@
   }
 
   *location = 0;
-  v5 = UsageTrackingLibraryCore();
+  v5 = UsageTrackingLibraryCore(location);
   v6 = *location;
   if (v5)
   {
@@ -111,8 +111,7 @@
   else
   {
 LABEL_72:
-    v64 = *location;
-    v6 = abort_report_np();
+    v6 = abort_report_np("%s", *location);
     __break(1u);
   }
 
@@ -134,7 +133,7 @@ LABEL_15:
 
 LABEL_17:
 
-  v70 = _CDDomainAvailabilityDescription(domain);
+  v68 = _CDDomainAvailabilityDescription(domain);
   v9 = +[_CDLogging contextChannel];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
@@ -146,28 +145,28 @@ LABEL_17:
   *(observer + 9) = v10;
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v68 = [MEMORY[0x1E695DFA8] set];
-  v99 = 0u;
-  v100 = 0u;
+  v66 = [MEMORY[0x1E695DFA8] set];
   v97 = 0u;
   v98 = 0u;
+  v95 = 0u;
+  v96 = 0u;
   allEventStreams = [streamsCopy allEventStreams];
   obj = [allEventStreams allValues];
 
-  v13 = [obj countByEnumeratingWithState:&v97 objects:v109 count:16];
+  v13 = [obj countByEnumeratingWithState:&v95 objects:v107 count:16];
   if (v13)
   {
-    v75 = *v98;
+    v73 = *v96;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v98 != v75)
+        if (*v96 != v73)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v97 + 1) + 8 * i);
+        v15 = *(*(&v95 + 1) + 8 * i);
         eventStreamProperties = [v15 eventStreamProperties];
         name = [eventStreamProperties name];
 
@@ -176,7 +175,7 @@ LABEL_17:
           monitorClass = +[_CDLogging contextChannel];
           if (os_log_type_enabled(monitorClass, OS_LOG_TYPE_ERROR))
           {
-            [(CDMonitorManager *)v107 initWithEventStreams:v15 domain:&v108, monitorClass];
+            [(CDMonitorManager *)v105 initWithEventStreams:v15 domain:&v106, monitorClass];
           }
 
           goto LABEL_63;
@@ -226,55 +225,55 @@ LABEL_17:
                     {
                       *location = 138544130;
                       *&location[4] = name;
-                      v103 = 1024;
-                      *v104 = isInstant;
-                      *&v104[4] = 1024;
-                      *&v104[6] = isHistorical;
-                      v105 = 2048;
-                      v106 = pollingPeriod;
+                      v101 = 1024;
+                      *v102 = isInstant;
+                      *&v102[4] = 1024;
+                      *&v102[6] = isHistorical;
+                      v103 = 2048;
+                      v104 = pollingPeriod;
                       _os_log_debug_impl(&dword_191750000, v36, OS_LOG_TYPE_DEBUG, "Monitor %{public}@ IsInstant=%d, IsHistorical=%d, PollingPeriod=%ld", location, 0x22u);
                     }
 
                     if (isInstant && [v28 conformsToProtocol:&unk_1F0624888])
                     {
-                      v93[0] = MEMORY[0x1E69E9820];
-                      v93[1] = 3221225472;
-                      v93[2] = __48__CDMonitorManager_initWithEventStreams_domain___block_invoke;
-                      v93[3] = &unk_1E7369FC8;
-                      v94 = observer;
-                      v95 = name;
-                      v96 = v15;
-                      [v28 setInstantHandler:v93];
+                      v91[0] = MEMORY[0x1E69E9820];
+                      v91[1] = 3221225472;
+                      v91[2] = __48__CDMonitorManager_initWithEventStreams_domain___block_invoke;
+                      v91[3] = &unk_1E7369FC8;
+                      v92 = observer;
+                      v93 = name;
+                      v94 = v15;
+                      [v28 setInstantHandler:v91];
                     }
 
                     if (isHistorical)
                     {
                       if ([v28 conformsToProtocol:&unk_1F06248E8])
                       {
-                        v89[0] = MEMORY[0x1E69E9820];
-                        v89[1] = 3221225472;
-                        v89[2] = __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_85;
-                        v89[3] = &unk_1E7369FF0;
-                        v67 = observer;
-                        v90 = v67;
+                        v87[0] = MEMORY[0x1E69E9820];
+                        v87[1] = 3221225472;
+                        v87[2] = __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_85;
+                        v87[3] = &unk_1E7369FF0;
+                        v65 = observer;
+                        v88 = v65;
                         v37 = name;
-                        v91 = v37;
-                        v92 = v15;
-                        [v28 setHistoricalHandler:v89];
+                        v89 = v37;
+                        v90 = v15;
+                        [v28 setHistoricalHandler:v87];
                         if ((pollingPeriod - 1) <= 6)
                         {
                           v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.coreduetd.monitor.%@", v37];
                           objc_initWeak(location, v28);
-                          v87[0] = MEMORY[0x1E69E9820];
-                          v87[1] = 3221225472;
-                          v87[2] = __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_92;
-                          v87[3] = &unk_1E7367220;
-                          objc_copyWeak(&v88, location);
-                          v39 = [_CDPeriodicSchedulerJob jobWithPeriod:pollingPeriod schedulerJobName:v38 handler:v87];
+                          v85[0] = MEMORY[0x1E69E9820];
+                          v85[1] = 3221225472;
+                          v85[2] = __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_92;
+                          v85[3] = &unk_1E7367220;
+                          objc_copyWeak(&v86, location);
+                          v39 = [_CDPeriodicSchedulerJob jobWithPeriod:pollingPeriod schedulerJobName:v38 handler:v85];
                           v40 = +[_CDPeriodicScheduler sharedInstance];
                           [v40 registerJob:v39];
 
-                          objc_destroyWeak(&v88);
+                          objc_destroyWeak(&v86);
                           objc_destroyWeak(location);
                         }
 
@@ -285,36 +284,36 @@ LABEL_17:
                         {
                           v43 = v28;
                           [*(observer + 9) addObject:v43];
-                          v82[0] = MEMORY[0x1E69E9820];
-                          v82[1] = 3221225472;
-                          v82[2] = __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_2;
-                          v82[3] = &unk_1E736A018;
-                          v83 = v67;
-                          v84 = v37;
-                          v85 = v15;
-                          v86 = v43;
+                          v80[0] = MEMORY[0x1E69E9820];
+                          v80[1] = 3221225472;
+                          v80[2] = __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_2;
+                          v80[3] = &unk_1E736A018;
+                          v81 = v65;
+                          v82 = v37;
+                          v83 = v15;
+                          v84 = v43;
                           v44 = v43;
-                          [v44 setShutdownHandler:v82];
+                          [v44 setShutdownHandler:v80];
                         }
                       }
 
                       if ([v28 conformsToProtocol:&unk_1F0624948])
                       {
-                        v78[0] = MEMORY[0x1E69E9820];
-                        v78[1] = 3221225472;
-                        v78[2] = __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_101;
-                        v78[3] = &unk_1E736A040;
-                        v79 = observer;
-                        v80 = name;
-                        v81 = v15;
-                        [v28 setHistoricalDeletingHandler:v78];
+                        v76[0] = MEMORY[0x1E69E9820];
+                        v76[1] = 3221225472;
+                        v76[2] = __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_101;
+                        v76[3] = &unk_1E736A040;
+                        v77 = observer;
+                        v78 = name;
+                        v79 = v15;
+                        [v28 setHistoricalDeletingHandler:v76];
                       }
                     }
 
                     [dictionary setObject:v28 forKey:name];
                     if (setupOnDemand)
                     {
-                      [v68 addObject:name];
+                      [v66 addObject:name];
                     }
                   }
 
@@ -326,8 +325,8 @@ LABEL_17:
                       v49 = NSStringFromClass(v27);
                       *location = 138543618;
                       *&location[4] = v49;
-                      v103 = 2114;
-                      *v104 = name;
+                      v101 = 2114;
+                      *v102 = name;
                       _os_log_error_impl(&dword_191750000, v48, OS_LOG_TYPE_ERROR, "Unable to initialize monitor %{public}@ for streamName %{public}@", location, 0x16u);
                     }
                   }
@@ -340,8 +339,8 @@ LABEL_17:
                   {
                     *location = 138543618;
                     *&location[4] = monitorClass;
-                    v103 = 2114;
-                    *v104 = name;
+                    v101 = 2114;
+                    *v102 = name;
                     _os_log_error_impl(&dword_191750000, v28, OS_LOG_TYPE_ERROR, "Unable to find monitor class %{public}@ for streamName %{public}@", location, 0x16u);
                   }
                 }
@@ -365,9 +364,9 @@ LABEL_17:
             if (os_log_type_enabled(monitorClass, OS_LOG_TYPE_INFO))
             {
               *location = 138412546;
-              *&location[4] = v70;
-              v103 = 2112;
-              *v104 = name;
+              *&location[4] = v68;
+              v101 = 2112;
+              *v102 = name;
               v45 = monitorClass;
               v46 = "Monitor is not supported in the %@ domain: %@ ";
               v47 = 22;
@@ -394,18 +393,18 @@ LABEL_63:
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v97 objects:v109 count:16];
+      v13 = [obj countByEnumeratingWithState:&v95 objects:v107 count:16];
     }
 
     while (v13);
   }
 
   objc_storeStrong(observer + 1, dictionary);
-  objc_storeStrong(observer + 2, v68);
+  objc_storeStrong(observer + 2, v66);
   v50 = +[_CDLogging knowledgeChannel];
   if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
   {
-    [CDMonitorManager initWithEventStreams:? domain:?];
+    [CDMonitorManager initWithEventStreams:domain:];
   }
 
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
@@ -439,14 +438,13 @@ LABEL_63:
   handler[1] = 3221225472;
   handler[2] = __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_107;
   handler[3] = &unk_1E7367440;
-  v77 = observer;
+  v75 = observer;
   dispatch_source_set_event_handler(v61, handler);
   dispatch_resume(*(observer + 11));
 
   objc_autoreleasePoolPop(context);
 LABEL_71:
 
-  v62 = *MEMORY[0x1E69E9840];
   return observer;
 }
 
@@ -460,7 +458,7 @@ void __48__CDMonitorManager_initWithEventStreams_domain___block_invoke(void *a1,
     v6 = +[_CDLogging knowledgeChannel];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_cold_1(a1 + 5);
+      __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_cold_1();
     }
 
     (v5)[2](v5, a1[6], v3);
@@ -477,7 +475,7 @@ void __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_85(void *
     v6 = +[_CDLogging knowledgeChannel];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_85_cold_1(a1 + 5);
+      __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_85_cold_1();
     }
 
     (v5)[2](v5, a1[6], v3);
@@ -501,12 +499,10 @@ uint64_t __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_2(uin
     v2 = +[_CDLogging knowledgeChannel];
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_2_cold_1(v1);
+      __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_2_cold_1();
     }
 
-    v3 = v1[6];
-    v4 = v1[7];
-    return (*(*(v1[4] + 48) + 16))();
+    return (*(*(*(v1 + 32) + 48) + 16))();
   }
 
   return result;
@@ -520,10 +516,9 @@ void __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_101(uint6
     v4 = +[_CDLogging knowledgeChannel];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_101_cold_1(a1);
+      __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_101_cold_1();
     }
 
-    v5 = *(a1 + 48);
     (*(*(*(a1 + 32) + 40) + 16))();
   }
 }
@@ -746,35 +741,35 @@ uint64_t __57__CDMonitorManager_monitorManagerForEventStreams_domain___block_inv
 
 - (void)start
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   _allStreamNames = [(CDMonitorManager *)self _allStreamNames];
-  v4 = [_allStreamNames countByEnumeratingWithState:&v12 objects:v18 count:16];
+  v4 = [_allStreamNames countByEnumeratingWithState:&v11 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(_allStreamNames);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if (([(NSMutableSet *)self->_lazyMonitorNames containsObject:v8]& 1) != 0)
         {
           v9 = +[_CDLogging knowledgeChannel];
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v17 = v8;
+            v16 = v8;
             _os_log_debug_impl(&dword_191750000, v9, OS_LOG_TYPE_DEBUG, "------> Skipping start for OnDemand monitor : %{public}@", buf, 0xCu);
           }
         }
@@ -785,14 +780,13 @@ uint64_t __57__CDMonitorManager_monitorManagerForEventStreams_domain___block_inv
         }
       }
 
-      v5 = [_allStreamNames countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v5 = [_allStreamNames countByEnumeratingWithState:&v11 objects:v17 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(context);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopMonitorForStreamName:(id)name
@@ -853,35 +847,35 @@ uint64_t __57__CDMonitorManager_monitorManagerForEventStreams_domain___block_inv
 
 - (void)stop
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   _allStreamNames = [(CDMonitorManager *)self _allStreamNames];
-  v4 = [_allStreamNames countByEnumeratingWithState:&v12 objects:v18 count:16];
+  v4 = [_allStreamNames countByEnumeratingWithState:&v11 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(_allStreamNames);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if (([(NSMutableSet *)self->_lazyMonitorNames containsObject:v8]& 1) != 0)
         {
           v9 = +[_CDLogging knowledgeChannel];
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v17 = v8;
+            v16 = v8;
             _os_log_debug_impl(&dword_191750000, v9, OS_LOG_TYPE_DEBUG, "------> Skipping stop for OnDemand monitor : %{public}@", buf, 0xCu);
           }
         }
@@ -892,14 +886,13 @@ uint64_t __57__CDMonitorManager_monitorManagerForEventStreams_domain___block_inv
         }
       }
 
-      v5 = [_allStreamNames countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v5 = [_allStreamNames countByEnumeratingWithState:&v11 objects:v17 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(context);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)populateCurrentValueForStreamName:(id)name
@@ -957,29 +950,29 @@ uint64_t __57__CDMonitorManager_monitorManagerForEventStreams_domain___block_inv
 
 - (id)currentEvent
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   _allStreamNames = [(CDMonitorManager *)self _allStreamNames];
-  v6 = [_allStreamNames countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [_allStreamNames countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(_allStreamNames);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [(CDMonitorManager *)self _currentEventForStreamName:v10];
         if (v11)
         {
@@ -987,7 +980,7 @@ uint64_t __57__CDMonitorManager_monitorManagerForEventStreams_domain___block_inv
         }
       }
 
-      v7 = [_allStreamNames countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [_allStreamNames countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -996,7 +989,6 @@ uint64_t __57__CDMonitorManager_monitorManagerForEventStreams_domain___block_inv
   v12 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary];
 
   objc_autoreleasePoolPop(v3);
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1035,40 +1027,39 @@ uint64_t __57__CDMonitorManager_monitorManagerForEventStreams_domain___block_inv
 
 - (void)update
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   _allStreamNames = [(CDMonitorManager *)self _allStreamNames];
-  v5 = [_allStreamNames countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [_allStreamNames countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(_allStreamNames);
         }
 
-        [(CDMonitorManager *)self _updateForStreamName:*(*(&v10 + 1) + 8 * v8++)];
+        [(CDMonitorManager *)self _updateForStreamName:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [_allStreamNames countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [_allStreamNames countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
 
   objc_autoreleasePoolPop(v3);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_lastUpdateForStreamName:(id)name
@@ -1112,29 +1103,29 @@ uint64_t __57__CDMonitorManager_monitorManagerForEventStreams_domain___block_inv
 
 - (id)lastUpdate
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   _allStreamNames = [(CDMonitorManager *)self _allStreamNames];
-  v6 = [_allStreamNames countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [_allStreamNames countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(_allStreamNames);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [(CDMonitorManager *)self _lastUpdateForStreamName:v10];
         if (v11)
         {
@@ -1142,7 +1133,7 @@ uint64_t __57__CDMonitorManager_monitorManagerForEventStreams_domain___block_inv
         }
       }
 
-      v7 = [_allStreamNames countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [_allStreamNames countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -1151,63 +1142,62 @@ uint64_t __57__CDMonitorManager_monitorManagerForEventStreams_domain___block_inv
   v12 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary];
 
   objc_autoreleasePoolPop(v3);
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (void)deliverNotificationEvent:(id)event
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   eventCopy = event;
-  v17 = os_transaction_create();
+  v16 = os_transaction_create();
   v5 = objc_autoreleasePoolPush();
   if (eventCopy)
   {
     context = v5;
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     obj = [(CDMonitorManager *)self _allMonitors];
-    v6 = [obj countByEnumeratingWithState:&v21 objects:v28 count:16];
+    v6 = [obj countByEnumeratingWithState:&v20 objects:v27 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v22;
+      v8 = *v21;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * i);
+          v10 = *(*(&v20 + 1) + 8 * i);
           if ([v10 conformsToProtocol:&unk_1F06249A8])
           {
             monitorWorkQueue = self->_monitorWorkQueue;
-            v19[0] = MEMORY[0x1E69E9820];
-            v19[1] = 3221225472;
-            v19[2] = __45__CDMonitorManager_deliverNotificationEvent___block_invoke;
-            v19[3] = &unk_1E7367710;
-            v19[4] = v10;
-            v20 = eventCopy;
-            v12 = v17;
-            v13 = v19;
+            v18[0] = MEMORY[0x1E69E9820];
+            v18[1] = 3221225472;
+            v18[2] = __45__CDMonitorManager_deliverNotificationEvent___block_invoke;
+            v18[3] = &unk_1E7367710;
+            v18[4] = v10;
+            v19 = eventCopy;
+            v12 = v16;
+            v13 = v18;
             block[0] = MEMORY[0x1E69E9820];
             block[1] = 3221225472;
             block[2] = __cd_dispatch_async_capture_tx_block_invoke_7;
             block[3] = &unk_1E7367818;
-            v26 = v12;
-            v27 = v13;
+            v25 = v12;
+            v26 = v13;
             v14 = v12;
             dispatch_async(monitorWorkQueue, block);
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v21 objects:v28 count:16];
+        v7 = [obj countByEnumeratingWithState:&v20 objects:v27 count:16];
       }
 
       while (v7);
@@ -1217,45 +1207,43 @@ uint64_t __57__CDMonitorManager_monitorManagerForEventStreams_domain___block_inv
   }
 
   objc_autoreleasePoolPop(v5);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleShutdownNotification
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = self->_shutdownHandlingMonitors;
-  v3 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v3 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v15;
+    v6 = *v14;
     v7 = MEMORY[0x1E69E9C10];
     *&v4 = 138412290;
-    v13 = v4;
+    v12 = v4;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        shutdownHandler = [*(*(&v14 + 1) + 8 * v8) shutdownHandler];
+        shutdownHandler = [*(*(&v13 + 1) + 8 * v8) shutdownHandler];
         if (shutdownHandler)
         {
           if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
           {
             v10 = objc_opt_class();
             v11 = NSStringFromClass(v10);
-            *buf = v13;
-            v19 = v11;
+            *buf = v12;
+            v18 = v11;
             _os_log_impl(&dword_191750000, v7, OS_LOG_TYPE_DEFAULT, "Calling shutdown handler for monitor %@.", buf, 0xCu);
           }
 
@@ -1266,13 +1254,11 @@ uint64_t __57__CDMonitorManager_monitorManagerForEventStreams_domain___block_inv
       }
 
       while (v5 != v8);
-      v5 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v5 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addMonitor:(id)monitor forStreamName:(id)name
@@ -1383,103 +1369,12 @@ uint64_t __57__CDMonitorManager_monitorManagerForEventStreams_domain___block_inv
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)initWithEventStreams:domain:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_191750000, v0, v1, "Initializing monitor manager for domain %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)initWithEventStreams:(void *)a3 domain:(NSObject *)a4 .cold.6(uint8_t *a1, void *a2, void *a3, NSObject *a4)
 {
   v7 = [a2 description];
   *a1 = 138412290;
   *a3 = v7;
   _os_log_error_impl(&dword_191750000, a4, OS_LOG_TYPE_ERROR, "Stream missing name: %@", a1, 0xCu);
-}
-
-- (void)initWithEventStreams:(uint64_t *)a1 domain:.cold.7(uint64_t *a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_6_1();
-  OUTLINED_FUNCTION_2(&dword_191750000, v2, v3, "Lazily initialized Monitors = %{public}@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_cold_1(uint64_t *a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_6_1();
-  OUTLINED_FUNCTION_2(&dword_191750000, v2, v3, "Calling instant handler for %@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_85_cold_1(uint64_t *a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_6_1();
-  OUTLINED_FUNCTION_2(&dword_191750000, v2, v3, "Calling historical handler for %@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_2_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_6_1();
-  OUTLINED_FUNCTION_2(&dword_191750000, v2, v3, "Calling shutdown handler for %@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __48__CDMonitorManager_initWithEventStreams_domain___block_invoke_101_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_6_1();
-  OUTLINED_FUNCTION_2(&dword_191750000, v2, v3, "Calling deletion handler for %@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)startMonitorForStream:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_191750000, v0, v1, "------> -startMonitorForStream: (OnDemand monitor) %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)startMonitorForStream:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2(&dword_191750000, a1, a3, "------>Did NOT -startMonitorForStream: (OnDemand monitor) %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)stopMonitorForStream:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_191750000, v0, v1, "------> -stopMonitorForStream: (OnDemand monitor) %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)stopMonitorForStream:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2(&dword_191750000, a1, a3, "------>Did NOT -stopMonitorForStream: (OnDemand monitor) %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_updateForStreamName:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_191750000, v0, v1, "Updating monitor %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

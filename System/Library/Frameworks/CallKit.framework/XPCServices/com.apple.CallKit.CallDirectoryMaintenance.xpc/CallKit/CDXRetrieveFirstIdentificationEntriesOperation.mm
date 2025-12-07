@@ -63,74 +63,74 @@
 - (id)_storeIdentificationEntryToIdentificationEntriesForDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v26 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [dictionaryCopy count]);
-  v28 = +[NSMutableDictionary dictionary];
-  v30 = 0u;
+  v27 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [dictionaryCopy count]);
+  v29 = +[NSMutableDictionary dictionary];
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
   v4 = dictionaryCopy;
-  v5 = [v4 countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v5)
   {
     v7 = v5;
-    v27 = *v31;
+    v28 = *v32;
     *&v6 = 138412546;
-    v24 = v6;
+    v25 = v6;
     do
     {
       v8 = 0;
       do
       {
-        if (*v31 != v27)
+        if (*v32 != v28)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * v8);
-        v10 = [v4 objectForKeyedSubscript:{v9, v24}];
+        v9 = *(*(&v31 + 1) + 8 * v8);
+        v10 = [v4 objectForKeyedSubscript:{v9, v25}];
         extensionBundleIdentifier = [v10 extensionBundleIdentifier];
-        v12 = [v28 objectForKeyedSubscript:extensionBundleIdentifier];
+        v12 = [v29 objectForKeyedSubscript:extensionBundleIdentifier];
         if (v12)
         {
           v13 = v12;
           v14 = 0;
 LABEL_10:
-          v16 = objc_alloc_init(CXCallDirectoryIdentificationEntry);
+          v17 = objc_alloc_init(CXCallDirectoryIdentificationEntry);
           identifier = [v13 identifier];
-          [v16 setExtensionIdentifier:identifier];
+          [v17 setExtensionIdentifier:identifier];
 
           localizedName = [v13 localizedName];
-          [v16 setLocalizedExtensionName:localizedName];
+          [v17 setLocalizedExtensionName:localizedName];
 
           localizedContainingAppName = [v13 localizedContainingAppName];
-          [v16 setLocalizedExtensionContainingAppName:localizedContainingAppName];
+          [v17 setLocalizedExtensionContainingAppName:localizedContainingAppName];
 
           localizedLabel = [v10 localizedLabel];
-          [v16 setLocalizedLabel:localizedLabel];
+          [v17 setLocalizedLabel:localizedLabel];
 
-          [v26 setObject:v16 forKeyedSubscript:v9];
+          [v27 setObject:v17 forKeyedSubscript:v9];
           goto LABEL_11;
         }
 
         extensionsDataSource = [(CDXRetrieveFirstIdentificationEntriesOperation *)self extensionsDataSource];
-        v29 = 0;
-        v13 = [extensionsDataSource installedExtensionWithIdentifier:extensionBundleIdentifier error:&v29];
-        v14 = v29;
+        v30 = 0;
+        v13 = [extensionsDataSource installedExtensionWithIdentifier:extensionBundleIdentifier error:&v30];
+        v14 = v30;
 
         if (v13)
         {
-          [v28 setObject:v13 forKeyedSubscript:extensionBundleIdentifier];
+          [v29 setObject:v13 forKeyedSubscript:extensionBundleIdentifier];
           goto LABEL_10;
         }
 
-        v13 = sub_100005CC4();
+        v13 = sub_100005CC4(v16);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          *buf = v24;
-          v35 = extensionBundleIdentifier;
-          v36 = 2112;
-          v37 = v14;
+          *buf = v25;
+          v36 = extensionBundleIdentifier;
+          v37 = 2112;
+          v38 = v14;
           _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Error retrieving extension with store identification entry extension bundle identifier %@: %@", buf, 0x16u);
         }
 
@@ -140,45 +140,45 @@ LABEL_11:
       }
 
       while (v7 != v8);
-      v21 = [v4 countByEnumeratingWithState:&v30 objects:v38 count:16];
-      v7 = v21;
+      v22 = [v4 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v7 = v22;
     }
 
-    while (v21);
+    while (v22);
   }
 
-  v22 = [v26 copy];
+  v23 = [v27 copy];
 
-  return v22;
+  return v23;
 }
 
 - (id)_canonicalizedPhoneNumbersToPhoneNumbers:(id)numbers
 {
   numbersCopy = numbers;
   v5 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [numbersCopy count]);
-  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
   v6 = numbersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v20;
+    v10 = *v21;
     *&v8 = 138412290;
-    v18 = v8;
+    v19 = v8;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v20 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
-        v13 = [(CDXRetrieveFirstIdentificationEntriesOperation *)self sanitizer:v18];
+        v12 = *(*(&v20 + 1) + 8 * i);
+        v13 = [(CDXRetrieveFirstIdentificationEntriesOperation *)self sanitizer:v19];
         v14 = [v13 canonicalizedPhoneNumber:v12];
 
         if (v14)
@@ -188,25 +188,25 @@ LABEL_11:
 
         else
         {
-          v15 = sub_100005CC4();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = sub_100005CC4(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v18;
-            v24 = v12;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Unable to canonicalize phone number '%@'", buf, 0xCu);
+            *buf = v19;
+            v25 = v12;
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Unable to canonicalize phone number '%@'", buf, 0xCu);
           }
         }
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v9);
   }
 
-  v16 = [v5 copy];
+  v17 = [v5 copy];
 
-  return v16;
+  return v17;
 }
 
 @end

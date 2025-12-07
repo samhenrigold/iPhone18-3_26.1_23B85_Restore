@@ -53,21 +53,18 @@
   v3 = [[NSMutableString alloc] initWithFormat:@"<%@:%p {\n", objc_opt_class(), self];
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  idsService = selfCopy->_idsService;
-  v6 = MRCreateIndentedDebugDescriptionFromObject();
-  [v3 appendFormat:@" service=%@\n", v6];
+  v5 = MRCreateIndentedDebugDescriptionFromObject();
+  [v3 appendFormat:@" service=%@\n", v5];
 
   devices = [(IDSService *)selfCopy->_idsService devices];
-  v8 = MRCreateIndentedDebugDescriptionFromArray();
-  [v3 appendFormat:@" devices=%@\n", v8];
+  v7 = MRCreateIndentedDebugDescriptionFromArray();
+  [v3 appendFormat:@" devices=%@\n", v7];
 
-  totalMessageHandlers = selfCopy->_totalMessageHandlers;
-  v10 = MRCreateIndentedDebugDescriptionFromObject();
-  [v3 appendFormat:@" messageHandlers = %@\n", v10];
+  v8 = MRCreateIndentedDebugDescriptionFromObject();
+  [v3 appendFormat:@" messageHandlers = %@\n", v8];
 
-  deviceMessageHandlers = selfCopy->_deviceMessageHandlers;
-  v12 = MRCreateIndentedDebugDescriptionFromObject();
-  [v3 appendFormat:@" deviceMessageHandlers = %@\n", v12];
+  v9 = MRCreateIndentedDebugDescriptionFromObject();
+  [v3 appendFormat:@" deviceMessageHandlers = %@\n", v9];
 
   objc_sync_exit(selfCopy);
   [v3 appendFormat:@"}>"];

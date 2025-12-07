@@ -56,6 +56,7 @@
 - (void)setShowMessageListAvatar:(id)avatar withSpecifier:(id)specifier;
 - (void)setShowToCC:(id)c withSpecifier:(id)specifier;
 - (void)signatureDidChange:(id)change;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation MailSettingsPlugin
@@ -120,6 +121,14 @@
   v3.receiver = self;
   v3.super_class = MailSettingsPlugin;
   [(MailSettingsPlugin *)&v3 dealloc];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MailSettingsPlugin;
+  [(MailSettingsPlugin *)&v4 viewDidAppear:appear];
+  [(MailSettingsPlugin *)self emitNavigationEventForRootController];
 }
 
 - (id)selectSpecifier:(id)specifier

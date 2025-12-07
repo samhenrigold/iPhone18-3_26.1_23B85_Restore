@@ -54,45 +54,50 @@
 
 - (BOOL)isTransitionCompleteWithSampleBuffer:(opaqueCMSampleBuffer *)buffer masterCaptureStreamPortType:(id)type activeSlaveStreamPortType:(id)portType
 {
-  v8 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
-  v9 = [v8 objectForKeyedSubscript:*off_1E798B540];
-  v65 = [v8 objectForKeyedSubscript:*off_1E798B710];
-  v66 = v9;
+  v6 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
+  v7 = [v6 objectForKeyedSubscript:*off_1E798B540];
+  v64 = [v6 objectForKeyedSubscript:*off_1E798B710];
+  v65 = v7;
   if (self->_expectedSphereModesByPortType)
   {
-    -[NSMutableDictionary setObject:forKeyedSubscript:](self->_currentSphereModesByPortType, "setObject:forKeyedSubscript:", [v8 objectForKeyedSubscript:*off_1E798B6B0], v9);
-    v99 = 0u;
-    v100 = 0u;
-    v97 = 0u;
+    -[NSMutableDictionary setObject:forKeyedSubscript:](self->_currentSphereModesByPortType, "setObject:forKeyedSubscript:", [v6 objectForKeyedSubscript:*off_1E798B6B0], v7);
     v98 = 0u;
+    v99 = 0u;
+    v96 = 0u;
+    v97 = 0u;
     expectedSphereModesByPortType = self->_expectedSphereModesByPortType;
-    v11 = [(NSDictionary *)expectedSphereModesByPortType countByEnumeratingWithState:&v97 objects:v96 count:16];
-    if (v11)
+    v9 = [(NSDictionary *)expectedSphereModesByPortType countByEnumeratingWithState:&v96 objects:v95 count:16];
+    if (v9)
     {
-      v12 = v11;
-      v13 = *v98;
+      v10 = v9;
+      v11 = *v97;
       while (2)
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v98 != v13)
+          if (*v97 != v11)
           {
             objc_enumerationMutation(expectedSphereModesByPortType);
           }
 
-          v15 = *(*(&v97 + 1) + 8 * i);
-          if ((([v15 isEqualToString:type] & 1) != 0 || objc_msgSend(v15, "isEqualToString:", portType)) && !objc_msgSend(-[NSDictionary objectForKeyedSubscript:](self->_expectedSphereModesByPortType, "objectForKeyedSubscript:", v15), "isEqualToString:", -[NSMutableDictionary objectForKeyedSubscript:](self->_currentSphereModesByPortType, "objectForKeyedSubscript:", v15)))
+          v13 = *(*(&v96 + 1) + 8 * i);
+          if ((objc_msgSend_isEqualToString_(v13) & 1) != 0 || objc_msgSend_isEqualToString_(v13))
           {
-            v16 = 0;
-            v9 = v66;
-            goto LABEL_16;
+            v14 = [(NSDictionary *)self->_expectedSphereModesByPortType objectForKeyedSubscript:v13];
+            [(NSMutableDictionary *)self->_currentSphereModesByPortType objectForKeyedSubscript:v13];
+            if (!objc_msgSend_isEqualToString_(v14))
+            {
+              v15 = 0;
+              v7 = v65;
+              goto LABEL_16;
+            }
           }
         }
 
-        v12 = [(NSDictionary *)expectedSphereModesByPortType countByEnumeratingWithState:&v97 objects:v96 count:16];
-        v16 = 1;
-        v9 = v66;
-        if (v12)
+        v10 = [(NSDictionary *)expectedSphereModesByPortType countByEnumeratingWithState:&v96 objects:v95 count:16];
+        v15 = 1;
+        v7 = v65;
+        if (v10)
         {
           continue;
         }
@@ -103,57 +108,57 @@
 
     else
     {
-      v16 = 1;
+      v15 = 1;
     }
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
 LABEL_16:
-  if (([objc_msgSend(v8 objectForKeyedSubscript:{*off_1E798B068), "BOOLValue"}] & 1) == 0)
+  if (([objc_msgSend(v6 objectForKeyedSubscript:{*off_1E798B068), "BOOLValue"}] & 1) == 0)
   {
-    v17 = off_1E798B210;
+    v16 = off_1E798B210;
     if (self->_expectedMinimumFrameRatesByPortType)
     {
-      -[NSMutableDictionary setObject:forKeyedSubscript:](self->_currentFrameRatesByPortType, "setObject:forKeyedSubscript:", [v8 objectForKeyedSubscript:*off_1E798B210], v9);
-      v94 = 0u;
-      v95 = 0u;
-      v92 = 0u;
+      -[NSMutableDictionary setObject:forKeyedSubscript:](self->_currentFrameRatesByPortType, "setObject:forKeyedSubscript:", [v6 objectForKeyedSubscript:*off_1E798B210], v7);
       v93 = 0u;
+      v94 = 0u;
+      v91 = 0u;
+      v92 = 0u;
       expectedMinimumFrameRatesByPortType = self->_expectedMinimumFrameRatesByPortType;
-      v19 = [(NSDictionary *)expectedMinimumFrameRatesByPortType countByEnumeratingWithState:&v92 objects:v91 count:16];
-      if (v19)
+      v18 = [(NSDictionary *)expectedMinimumFrameRatesByPortType countByEnumeratingWithState:&v91 objects:v90 count:16];
+      if (v18)
       {
-        v20 = v19;
-        v21 = *v93;
+        v19 = v18;
+        v20 = *v92;
         while (2)
         {
-          for (j = 0; j != v20; ++j)
+          for (j = 0; j != v19; ++j)
           {
-            if (*v93 != v21)
+            if (*v92 != v20)
             {
               objc_enumerationMutation(expectedMinimumFrameRatesByPortType);
             }
 
-            v23 = *(*(&v92 + 1) + 8 * j);
-            if (([v23 isEqualToString:type] & 1) != 0 || objc_msgSend(v23, "isEqualToString:", portType))
+            v22 = *(*(&v91 + 1) + 8 * j);
+            if ((objc_msgSend_isEqualToString_(v22) & 1) != 0 || objc_msgSend_isEqualToString_(v22))
             {
-              [-[NSDictionary objectForKeyedSubscript:](self->_expectedMinimumFrameRatesByPortType objectForKeyedSubscript:{v23), "floatValue"}];
-              v25 = v24;
-              [-[NSMutableDictionary objectForKeyedSubscript:](self->_currentFrameRatesByPortType objectForKeyedSubscript:{v23), "floatValue"}];
-              if ((v26 + 0.1) < v25)
+              [-[NSDictionary objectForKeyedSubscript:](self->_expectedMinimumFrameRatesByPortType objectForKeyedSubscript:{v22), "floatValue"}];
+              v24 = v23;
+              [-[NSMutableDictionary objectForKeyedSubscript:](self->_currentFrameRatesByPortType objectForKeyedSubscript:{v22), "floatValue"}];
+              if ((v25 + 0.1) < v24)
               {
-                LOBYTE(v16) = 0;
+                LOBYTE(v15) = 0;
                 goto LABEL_30;
               }
             }
           }
 
-          v20 = [(NSDictionary *)expectedMinimumFrameRatesByPortType countByEnumeratingWithState:&v92 objects:v91 count:16];
-          if (v20)
+          v19 = [(NSDictionary *)expectedMinimumFrameRatesByPortType countByEnumeratingWithState:&v91 objects:v90 count:16];
+          if (v19)
           {
             continue;
           }
@@ -162,54 +167,54 @@ LABEL_16:
         }
 
 LABEL_30:
-        v9 = v66;
-        v17 = off_1E798B210;
+        v7 = v65;
+        v16 = off_1E798B210;
       }
     }
 
     else
     {
-      LOBYTE(v16) = 0;
+      LOBYTE(v15) = 0;
     }
 
     if (self->_expectedMaximumFrameRatesByPortType)
     {
-      -[NSMutableDictionary setObject:forKeyedSubscript:](self->_currentFrameRatesByPortType, "setObject:forKeyedSubscript:", [v8 objectForKeyedSubscript:*v17], v9);
-      v89 = 0u;
-      v90 = 0u;
-      v87 = 0u;
+      -[NSMutableDictionary setObject:forKeyedSubscript:](self->_currentFrameRatesByPortType, "setObject:forKeyedSubscript:", [v6 objectForKeyedSubscript:*v16], v7);
       v88 = 0u;
+      v89 = 0u;
+      v86 = 0u;
+      v87 = 0u;
       expectedMaximumFrameRatesByPortType = self->_expectedMaximumFrameRatesByPortType;
-      v28 = [(NSDictionary *)expectedMaximumFrameRatesByPortType countByEnumeratingWithState:&v87 objects:v86 count:16];
-      if (v28)
+      v27 = [(NSDictionary *)expectedMaximumFrameRatesByPortType countByEnumeratingWithState:&v86 objects:v85 count:16];
+      if (v27)
       {
-        v29 = v28;
-        v30 = *v88;
+        v28 = v27;
+        v29 = *v87;
 LABEL_35:
-        v31 = 0;
+        v30 = 0;
         while (1)
         {
-          if (*v88 != v30)
+          if (*v87 != v29)
           {
             objc_enumerationMutation(expectedMaximumFrameRatesByPortType);
           }
 
-          v32 = *(*(&v87 + 1) + 8 * v31);
-          if (([v32 isEqualToString:type] & 1) != 0 || objc_msgSend(v32, "isEqualToString:", portType))
+          v31 = *(*(&v86 + 1) + 8 * v30);
+          if ((objc_msgSend_isEqualToString_(v31) & 1) != 0 || objc_msgSend_isEqualToString_(v31))
           {
-            [-[NSDictionary objectForKeyedSubscript:](self->_expectedMaximumFrameRatesByPortType objectForKeyedSubscript:{v32), "floatValue"}];
-            v34 = v33;
-            [-[NSMutableDictionary objectForKeyedSubscript:](self->_currentFrameRatesByPortType objectForKeyedSubscript:{v32), "floatValue"}];
-            if ((v35 + 0.1) < v34)
+            [-[NSDictionary objectForKeyedSubscript:](self->_expectedMaximumFrameRatesByPortType objectForKeyedSubscript:{v31), "floatValue"}];
+            v33 = v32;
+            [-[NSMutableDictionary objectForKeyedSubscript:](self->_currentFrameRatesByPortType objectForKeyedSubscript:{v31), "floatValue"}];
+            if ((v34 + 0.1) < v33)
             {
               break;
             }
           }
 
-          if (v29 == ++v31)
+          if (v28 == ++v30)
           {
-            v29 = [(NSDictionary *)expectedMaximumFrameRatesByPortType countByEnumeratingWithState:&v87 objects:v86 count:16];
-            if (v29)
+            v28 = [(NSDictionary *)expectedMaximumFrameRatesByPortType countByEnumeratingWithState:&v86 objects:v85 count:16];
+            if (v28)
             {
               goto LABEL_35;
             }
@@ -222,74 +227,74 @@ LABEL_35:
       else
       {
 LABEL_43:
-        if (v16)
+        if (v15)
         {
-          v16 = 1;
+          v15 = 1;
 LABEL_46:
-          v9 = v66;
+          v7 = v65;
           goto LABEL_48;
         }
       }
 
-      v16 = SHIDWORD(self->_firstFramePTS.epoch) > 10;
+      v15 = SHIDWORD(self->_firstFramePTS.epoch) > 10;
       goto LABEL_46;
     }
 
-    v16 = 0;
+    v15 = 0;
   }
 
 LABEL_48:
   if (!self->_expectedLTMCurvesByPortType)
   {
-    v16 = 0;
+    v15 = 0;
     goto LABEL_64;
   }
 
-  -[NSMutableDictionary setObject:forKeyedSubscript:](self->_currentLTMCurvesByPortType, "setObject:forKeyedSubscript:", [v8 objectForKeyedSubscript:*off_1E798B438], v9);
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
+  -[NSMutableDictionary setObject:forKeyedSubscript:](self->_currentLTMCurvesByPortType, "setObject:forKeyedSubscript:", [v6 objectForKeyedSubscript:*off_1E798B438], v7);
   v83 = 0u;
+  v84 = 0u;
+  v81 = 0u;
+  v82 = 0u;
   expectedLTMCurvesByPortType = self->_expectedLTMCurvesByPortType;
-  v37 = [(NSDictionary *)expectedLTMCurvesByPortType countByEnumeratingWithState:&v82 objects:v81 count:16];
-  if (v37)
+  v36 = [(NSDictionary *)expectedLTMCurvesByPortType countByEnumeratingWithState:&v81 objects:v80 count:16];
+  if (v36)
   {
-    v38 = v37;
-    v67 = v16;
-    v39 = *v83;
+    v37 = v36;
+    v66 = v15;
+    v38 = *v82;
     while (2)
     {
-      for (k = 0; k != v38; ++k)
+      for (k = 0; k != v37; ++k)
       {
-        if (*v83 != v39)
+        if (*v82 != v38)
         {
           objc_enumerationMutation(expectedLTMCurvesByPortType);
         }
 
-        v41 = *(*(&v82 + 1) + 8 * k);
-        if (([v41 isEqualToString:type] & 1) != 0 || objc_msgSend(v41, "isEqualToString:", portType))
+        v40 = *(*(&v81 + 1) + 8 * k);
+        if ((objc_msgSend_isEqualToString_(v40) & 1) != 0 || objc_msgSend_isEqualToString_(v40))
         {
-          v42 = [-[NSDictionary objectForKeyedSubscript:](self->_expectedLTMCurvesByPortType objectForKeyedSubscript:{v41), "intValue"}];
-          if ([-[NSMutableDictionary objectForKeyedSubscript:](self->_currentLTMCurvesByPortType objectForKeyedSubscript:{v41), "intValue"}] != v42)
+          v41 = [-[NSDictionary objectForKeyedSubscript:](self->_expectedLTMCurvesByPortType objectForKeyedSubscript:{v40), "intValue"}];
+          if ([-[NSMutableDictionary objectForKeyedSubscript:](self->_currentLTMCurvesByPortType objectForKeyedSubscript:{v40), "intValue"}] != v41)
           {
             ltmCurvesTransitionFrameCount = self->_ltmCurvesTransitionFrameCount;
             if (ltmCurvesTransitionFrameCount > 0)
             {
-              v44 = 0;
-              v45 = v65;
-              LOBYTE(v16) = v67;
+              v43 = 0;
+              v44 = v64;
+              LOBYTE(v15) = v66;
               goto LABEL_67;
             }
 
-            v45 = v65;
-            v16 = v67;
+            v44 = v64;
+            v15 = v66;
             goto LABEL_69;
           }
         }
       }
 
-      v38 = [(NSDictionary *)expectedLTMCurvesByPortType countByEnumeratingWithState:&v82 objects:v81 count:16];
-      if (v38)
+      v37 = [(NSDictionary *)expectedLTMCurvesByPortType countByEnumeratingWithState:&v81 objects:v80 count:16];
+      if (v37)
       {
         continue;
       }
@@ -298,7 +303,7 @@ LABEL_48:
     }
 
     ltmCurvesTransitionFrameCount = self->_ltmCurvesTransitionFrameCount;
-    v16 = v67;
+    v15 = v66;
     if (ltmCurvesTransitionFrameCount > 0)
     {
       goto LABEL_66;
@@ -311,28 +316,28 @@ LABEL_48:
   if (ltmCurvesTransitionFrameCount < 1)
   {
 LABEL_64:
-    v45 = v65;
+    v44 = v64;
     goto LABEL_69;
   }
 
 LABEL_66:
-  v44 = self->_ltmCurvesTransitionFrameWaitCount + 1;
-  v45 = v65;
+  v43 = self->_ltmCurvesTransitionFrameWaitCount + 1;
+  v44 = v64;
 LABEL_67:
-  self->_ltmCurvesTransitionFrameWaitCount = v44;
-  v16 = (v44 >= ltmCurvesTransitionFrameCount) & v16;
+  self->_ltmCurvesTransitionFrameWaitCount = v43;
+  v15 = (v43 >= ltmCurvesTransitionFrameCount) & v15;
 LABEL_69:
   if (self->_coarseFocusCheckTimeout > 0.0 && (self->_frameWaitCount & 1) == 0)
   {
-    v46 = [objc_msgSend(v8 objectForKeyedSubscript:{*off_1E798B0A8), "intValue"}];
-    LOBYTE(self->_frameWaitCount) = v46 != 2;
-    if (v46 == 2)
+    v45 = [objc_msgSend(v6 objectForKeyedSubscript:{*off_1E798B0A8), "intValue"}];
+    LOBYTE(self->_frameWaitCount) = v45 != 2;
+    if (v45 == 2)
     {
-      memset(v68, 0, 24);
-      CMSampleBufferGetPresentationTimeStamp(v68, buffer);
+      memset(v67, 0, 24);
+      CMSampleBufferGetPresentationTimeStamp(v67, buffer);
       if (self->_firstFramePTS.timescale)
       {
-        lhs = *v68;
+        lhs = *v67;
         rhs = *(&self->_ltmCurvesTransitionFrameWaitCount + 1);
         CMTimeSubtract(&time, &lhs, &rhs);
         if (CMTimeGetSeconds(&time) > self->_coarseFocusCheckTimeout)
@@ -343,22 +348,22 @@ LABEL_69:
           value = rhs.value;
           if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
           {
-            v49 = value;
+            v48 = value;
           }
 
           else
           {
-            v49 = value & 0xFFFFFFFE;
+            v48 = value & 0xFFFFFFFE;
           }
 
-          if (v49)
+          if (v48)
           {
             coarseFocusCheckTimeout = self->_coarseFocusCheckTimeout;
             LODWORD(lhs.value) = 136315394;
             *(&lhs.value + 4) = "[BWImageControlModeTransitionMonitor isTransitionCompleteWithSampleBuffer:masterCaptureStreamPortType:activeSlaveStreamPortType:]";
             LOWORD(lhs.flags) = 2048;
             *(&lhs.flags + 2) = coarseFocusCheckTimeout;
-            LODWORD(v63) = 22;
+            LODWORD(v62) = 22;
             p_lhs = &lhs;
             _os_log_send_and_compose_impl();
           }
@@ -374,84 +379,84 @@ LABEL_69:
         *(&self->_ltmCurvesTransitionFrameWaitCount + 1) = time;
       }
 
-      v16 = (LOBYTE(self->_frameWaitCount) & v16);
+      v15 = (LOBYTE(self->_frameWaitCount) & v15);
     }
   }
 
   if (self->_waitForTorchToRampUp)
   {
-    if (([CMGetAttachment(buffer @"DropFrameWaitingForTorchToRampUp"] ^ 1) & v16)
+    if (([CMGetAttachment(buffer @"DropFrameWaitingForTorchToRampUp"] ^ 1) & v15)
     {
 LABEL_84:
-      v51 = 1;
+      v50 = 1;
       goto LABEL_94;
     }
   }
 
-  else if (v16)
+  else if (v15)
   {
     goto LABEL_84;
   }
 
   if (SHIDWORD(self->_firstFramePTS.epoch) < 45)
   {
-    v51 = 0;
+    v50 = 0;
   }
 
   else
   {
     LODWORD(lhs.value) = 0;
     LOBYTE(rhs.value) = 0;
-    v52 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v53 = lhs.value;
-    if (os_log_type_enabled(v52, rhs.value))
+    v51 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v52 = lhs.value;
+    if (os_log_type_enabled(v51, rhs.value))
     {
-      v54 = v53;
+      v53 = v52;
     }
 
     else
     {
-      v54 = v53 & 0xFFFFFFFE;
+      v53 = v52 & 0xFFFFFFFE;
     }
 
-    if (v54)
+    if (v53)
     {
       epoch_high = HIDWORD(self->_firstFramePTS.epoch);
-      v56 = self->_expectedSphereModesByPortType;
-      v57 = self->_expectedMinimumFrameRatesByPortType;
-      v58 = self->_expectedMaximumFrameRatesByPortType;
+      v55 = self->_expectedSphereModesByPortType;
+      v56 = self->_expectedMinimumFrameRatesByPortType;
+      v57 = self->_expectedMaximumFrameRatesByPortType;
       currentSphereModesByPortType = self->_currentSphereModesByPortType;
       currentFrameRatesByPortType = self->_currentFrameRatesByPortType;
-      *v68 = 136316674;
-      *&v68[4] = "[BWImageControlModeTransitionMonitor isTransitionCompleteWithSampleBuffer:masterCaptureStreamPortType:activeSlaveStreamPortType:]";
-      *&v68[12] = 1024;
-      *&v68[14] = epoch_high;
-      *&v68[18] = 2112;
-      *&v68[20] = v56;
-      v69 = 2112;
-      v70 = currentSphereModesByPortType;
-      v71 = 2112;
-      v72 = v57;
-      v73 = 2112;
-      v74 = v58;
-      v75 = 2112;
-      v76 = currentFrameRatesByPortType;
-      LODWORD(v63) = 68;
-      p_lhs = v68;
+      *v67 = 136316674;
+      *&v67[4] = "[BWImageControlModeTransitionMonitor isTransitionCompleteWithSampleBuffer:masterCaptureStreamPortType:activeSlaveStreamPortType:]";
+      *&v67[12] = 1024;
+      *&v67[14] = epoch_high;
+      *&v67[18] = 2112;
+      *&v67[20] = v55;
+      v68 = 2112;
+      v69 = currentSphereModesByPortType;
+      v70 = 2112;
+      v71 = v56;
+      v72 = 2112;
+      v73 = v57;
+      v74 = 2112;
+      v75 = currentFrameRatesByPortType;
+      LODWORD(v62) = 68;
+      p_lhs = v67;
       _os_log_send_and_compose_impl();
     }
 
-    v51 = 1;
+    v50 = 1;
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
 LABEL_94:
-  if (([v45 BOOLValue] & 1) != 0 || !v45)
+  if (([v44 BOOLValue] & 1) != 0 || !v44)
   {
     ++HIDWORD(self->_firstFramePTS.epoch);
   }
 
-  return v51;
+  return v50;
 }
 
 @end

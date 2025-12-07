@@ -271,8 +271,8 @@ LABEL_15:
     _os_log_impl(&dword_1D825C000, v33, OS_LOG_TYPE_DEFAULT, "Updating existing layout blueprint, task-identifier=%@", v55, 0xCu);
   }
 
-  dOMObjectProvider3 = [(SXLayoutOperation *)self DOMObjectProvider];
-  components3 = [dOMObjectProvider3 components];
+  v36 = [(SXLayoutOperation *)self DOMObjectProvider:*v55];
+  components3 = [v36 components];
   [(SXLayoutOperation *)self updateLayoutBlueprint:v5 components:components3 requiresInvalidation:0];
 
 LABEL_18:

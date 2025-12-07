@@ -15,7 +15,7 @@
   viewCopy = view;
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairStartViewController handleTapOutsideView:]", 30, "Dismissing on tap outside view\n");
   }
 
   [self->super._mainController dismiss:1];
@@ -30,7 +30,7 @@
     BYTE1(self->_startButton) = 1;
     if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BED68, "[RepairStartViewController handleStartButton:]", 30, "Start button\n");
     }
 
     containerView = [(SVSBaseViewController *)self containerView];
@@ -70,7 +70,7 @@ LABEL_12:
   buttonCopy = button;
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairStartViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [self->super._mainController dismiss:5];
@@ -81,9 +81,9 @@ LABEL_12:
   notificationCopy = notification;
   if ((BYTE1(self->_startButton) & 1) == 0)
   {
-    v15 = notificationCopy;
+    v13 = notificationCopy;
     name = [notificationCopy name];
-    userInfo = [v15 userInfo];
+    userInfo = [v13 userInfo];
     if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
     {
       v7 = &stru_100195CA8;
@@ -92,12 +92,10 @@ LABEL_12:
         v7 = userInfo;
       }
 
-      v13 = name;
-      v14 = v7;
-      LogPrintF();
+      LogPrintF(&dword_1001BED68, "[RepairStartViewController handleDeviceSetupNotification:]", 30, "DeviceSetup notification '%@', %##@\n", name, v7);
     }
 
-    name2 = [v15 name];
+    name2 = [v13 name];
     v9 = [name2 isEqual:@"com.apple.sharing.DeviceSetup"];
 
     if (v9 && !CFDictionaryGetInt64())
@@ -112,14 +110,14 @@ LABEL_12:
       {
         if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001BED68, "[RepairStartViewController handleDeviceSetupNotification:]", 30, "Auto-dismissing on setup started\n");
         }
 
         [self->super._mainController dismiss:16];
       }
     }
 
-    notificationCopy = v15;
+    notificationCopy = v13;
   }
 }
 
@@ -143,7 +141,7 @@ LABEL_12:
   disappearCopy = disappear;
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairStartViewController viewDidDisappear:]", 30, "Start ViewDidDisappear\n");
   }
 
   v6.receiver = self;
@@ -158,7 +156,7 @@ LABEL_12:
   appearCopy = appear;
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairStartViewController viewWillAppear:]", 30, "Start ViewWillAppear\n");
   }
 
   v12.receiver = self;

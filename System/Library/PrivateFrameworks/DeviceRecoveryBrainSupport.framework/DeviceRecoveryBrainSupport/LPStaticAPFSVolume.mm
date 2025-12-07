@@ -1,5 +1,6 @@
 @interface LPStaticAPFSVolume
 + (const)roleMetadataForRole:(int)role;
++ (id)defaultMountPointGivenRole:(int)role;
 + (id)defaultVolumeNameGivenRole:(int)role;
 + (id)supportedContentTypes;
 + (void)_loadMountPointTableForMode:(int)mode;
@@ -25,6 +26,7 @@
 - (id)container;
 - (id)mountAtTemporaryPathWithOptions:(id)options error:(id *)error;
 - (id)pairedVolume;
+- (id)pairedVolumeWithRole:(int)role;
 - (id)snapshotInfoWithError:(id *)error;
 - (id)snapshotMountPoints;
 - (id)snapshotsWithError:(id *)error;
@@ -138,6 +140,15 @@ uint64_t __42__LPStaticAPFSVolume_roleMetadataForRole___block_invoke(uint64_t re
   return result;
 }
 
++ (id)defaultMountPointGivenRole:(int)role
+{
+  v3 = sMountPointLookupTable;
+  v4 = [NSNumber numberWithInt:*&role];
+  v5 = [v3 objectForKey:v4];
+
+  return v5;
+}
+
 + (id)defaultVolumeNameGivenRole:(int)role
 {
   v7 = 0;
@@ -211,11 +222,11 @@ uint64_t __40__LPStaticAPFSVolume_setRole_withError___block_invoke(uint64_t resu
 
 - (int)role
 {
-  v22 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
+  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   bSDName = [(LPStaticMedia *)self BSDName];
   v4 = bSDName;
   [bSDName fileSystemRepresentation];
@@ -223,46 +234,47 @@ uint64_t __40__LPStaticAPFSVolume_setRole_withError___block_invoke(uint64_t resu
 
   if (v5)
   {
-    _os_log_pack_size();
-    v6 = _os_log_pack_fill();
-    *v6 = 136315394;
-    *(v6 + 4) = "[LPStaticAPFSVolume role]";
-    *(v6 + 12) = 1024;
-    *(v6 + 14) = v5;
-    _LPLogPack(1);
+    v6 = _os_log_pack_size();
+    v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v8 = _os_log_pack_fill(v7, v6, 0, &dword_0, "%s: failed to get role. Error: %d", v15, v16);
+    *v8 = 136315394;
+    *(v8 + 4) = "[LPStaticAPFSVolume role]";
+    *(v8 + 12) = 1024;
+    *(v8 + 14) = v5;
+    _LPLogPack(1, v7);
   }
 
   else
   {
-    v7 = objc_opt_class();
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3254779904;
-    v16[2] = __26__LPStaticAPFSVolume_role__block_invoke;
-    v16[3] = &__block_descriptor_42_e8_32r_e17_v16__0r____iS___8l;
-    v17 = v22;
-    v16[4] = &v18;
-    [v7 enumerateRoleMetadataUsingBlock:v16];
+    v9 = objc_opt_class();
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3254779904;
+    v21[2] = __26__LPStaticAPFSVolume_role__block_invoke;
+    v21[3] = &__block_descriptor_42_e8_32r_e17_v16__0r____iS___8l;
+    v22 = v27;
+    v21[4] = &v23;
+    [v9 enumerateRoleMetadataUsingBlock:v21];
   }
 
-  v8 = *(v19 + 6);
-  if (!v8)
+  v10 = *(v24 + 6);
+  if (!v10)
   {
     name = [(LPStaticMedia *)self name];
-    v10 = objc_opt_class();
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3254779904;
-    v13[2] = __26__LPStaticAPFSVolume_role__block_invoke_122;
-    v13[3] = &__block_descriptor_48_e8_32s40r_e17_v16__0r____iS___8l;
-    v11 = name;
-    v14 = v11;
-    v15 = &v18;
-    [v10 enumerateRoleMetadataUsingBlock:v13];
+    v12 = objc_opt_class();
+    v15 = _NSConcreteStackBlock;
+    v16 = 3254779904;
+    v17 = __26__LPStaticAPFSVolume_role__block_invoke_122;
+    v18 = &__block_descriptor_48_e8_32s40r_e17_v16__0r____iS___8l;
+    v13 = name;
+    v19 = v13;
+    v20 = &v23;
+    [v12 enumerateRoleMetadataUsingBlock:&v15];
 
-    v8 = *(v19 + 6);
+    v10 = *(v24 + 6);
   }
 
-  _Block_object_dispose(&v18, 8);
-  return v8;
+  _Block_object_dispose(&v23, 8);
+  return v10;
 }
 
 uint64_t __26__LPStaticAPFSVolume_role__block_invoke(uint64_t result, uint64_t a2)
@@ -388,6 +400,24 @@ void __26__LPStaticAPFSVolume_role__block_invoke_122(uint64_t a1, uint64_t a2)
   return 0;
 }
 
+- (id)pairedVolumeWithRole:(int)role
+{
+  v3 = *&role;
+  volumeGroupUUID = [(LPStaticAPFSVolume *)self volumeGroupUUID];
+  if ([volumeGroupUUID length])
+  {
+    container = [(LPStaticAPFSVolume *)self container];
+    v7 = [container volumeWithRole:v3 group:volumeGroupUUID];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
+}
+
 - (id)pairedVolume
 {
   role = [(LPStaticAPFSVolume *)self role];
@@ -417,31 +447,31 @@ LABEL_7:
   if (devNodePath)
   {
     v3 = [NSString stringWithFormat:@"@%@", devNodePath];
-    v21 = 0;
-    v4 = getmntinfo_r_np(&v21, 0);
+    v23 = 0;
+    v4 = getmntinfo_r_np(&v23, 0);
     v5 = [NSMutableArray arrayWithCapacity:13];
     v6 = objc_autoreleasePoolPush();
     if (v4 >= 1)
     {
-      v19 = v6;
-      v20 = devNodePath;
+      v21 = v6;
+      v22 = devNodePath;
       v7 = 0;
       v8 = 0;
       v9 = v4;
       v10 = 1112;
       do
       {
-        v11 = [NSString stringWithUTF8String:v21 + v10, v19, v20];
+        v11 = [NSString stringWithUTF8String:v23 + v10, v21];
         if ([(NSString *)v11 hasSuffix:v3])
         {
           v12 = [(NSString *)v11 substringToIndex:[(NSString *)v11 rangeOfString:@"@" options:4]];
 
-          1024 = [NSString stringWithUTF8String:v21 + v10 - 1024];
-          v22[0] = LPAPFSVolumeSnapshotMountPointKeyName[0];
-          v22[1] = LPAPFSVolumeSnapshotMountPointKeyMountPoint[0];
-          v23[0] = v12;
-          v23[1] = 1024;
-          v14 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:2];
+          1024 = [NSString stringWithUTF8String:v23 + v10 - 1024];
+          v24[0] = LPAPFSVolumeSnapshotMountPointKeyName[0];
+          v24[1] = LPAPFSVolumeSnapshotMountPointKeyMountPoint[0];
+          v25[0] = v12;
+          v25[1] = 1024;
+          v14 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:2];
           [(NSMutableArray *)v5 addObject:v14];
 
           v8 = 1024;
@@ -454,14 +484,14 @@ LABEL_7:
 
       while (v9);
 
-      v6 = v19;
-      devNodePath = v20;
+      v6 = v21;
+      devNodePath = v22;
     }
 
     objc_autoreleasePoolPop(v6);
-    if (v21)
+    if (v23)
     {
-      free(v21);
+      free(v23);
     }
 
     if ([(NSMutableArray *)v5 count])
@@ -479,11 +509,12 @@ LABEL_7:
 
   else
   {
-    _os_log_pack_size();
-    v17 = _os_log_pack_fill();
-    *v17 = 136315138;
-    *(v17 + 4) = "[LPStaticAPFSVolume snapshotMountPoints]";
-    _LPLogPack(1);
+    v17 = _os_log_pack_size();
+    v18 = &v21 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v19 = _os_log_pack_fill(v18, v17, 0, &dword_0, "%s called on device with no dev node", v21);
+    *v19 = 136315138;
+    *(v19 + 4) = "[LPStaticAPFSVolume snapshotMountPoints]";
+    _LPLogPack(1, v18);
     v16 = 0;
   }
 
@@ -529,11 +560,12 @@ LABEL_7:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
     }
 
-    _os_log_pack_size();
-    v8 = _os_log_pack_fill();
-    *v8 = 136315138;
-    *(v8 + 4) = "[LPStaticAPFSVolume eraseVolumeWithError:]";
-    _LPLogPack(1);
+    v8 = _os_log_pack_size();
+    v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v10 = _os_log_pack_fill(v9, v8, 0, &dword_0, "%s : Failed because target volume is not mounted", v12);
+    *v10 = 136315138;
+    *(v10 + 4) = "[LPStaticAPFSVolume eraseVolumeWithError:]";
+    _LPLogPack(1, v9);
     v7 = 0;
   }
 
@@ -606,27 +638,27 @@ LABEL_7:
     +[LPStaticAPFSVolume initialize];
   }
 
-  bzero(v9, 0x400uLL);
+  bzero(v12, 0x400uLL);
   __strlcpy_chk();
-  if (mkdtemp(v9))
+  if (mkdtemp(v12))
   {
-    v4 = [NSString stringWithUTF8String:v9];
+    v4 = [NSString stringWithUTF8String:v12];
   }
 
   else
   {
     _os_log_pack_size();
-    off_30610();
-    v5 = _os_log_pack_fill();
-    *v5 = 136315138;
-    *(v5 + 4) = v9;
-    _LPLogPack(1);
+    v5 = &v12[-((off_30610() + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+    v7 = _os_log_pack_fill(v5, v6, 0, &dword_0, "Couldn't create a temporary mount point %s", v11);
+    *v7 = 136315138;
+    *(v7 + 4) = v12;
+    _LPLogPack(1, v5);
     if (*error)
     {
-      v6 = [NSError errorWithDomain:NSPOSIXErrorDomain code:*__error() userInfo:0];
-      v7 = v6;
+      v8 = [NSError errorWithDomain:NSPOSIXErrorDomain code:*__error() userInfo:0];
+      v9 = v8;
       v4 = 0;
-      *error = v6;
+      *error = v8;
     }
 
     else
@@ -666,217 +698,219 @@ LABEL_7:
     v12 = [mountPoint isEqualToString:pathCopy];
     if (optionsCopy || !v12)
     {
-      if (!mountPoint)
+      if (!mountPoint || (v22 = _os_log_pack_size(), v23 = &v71 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0), v24 = _os_log_pack_fill(v23, v22, 0, &dword_0, "Volume is already mounted at %@, attempting to re-mount at %@"), *v24 = 138412546, *(v24 + 4) = mountPoint, *(v24 + 12) = 2112, *(v24 + 14) = pathCopy, _LPLogPack(2, v23), v16 = 0, [(LPStaticAPFSVolume *)self unmountWithError:error]))
       {
-        goto LABEL_10;
-      }
-
-      _os_log_pack_size();
-      v18 = _os_log_pack_fill();
-      *v18 = 138412546;
-      *(v18 + 4) = mountPoint;
-      *(v18 + 12) = 2112;
-      *(v18 + 14) = pathCopy;
-      _LPLogPack(2);
-      v14 = 0;
-      if ([(LPStaticAPFSVolume *)self unmountWithError:error])
-      {
-LABEL_10:
-        v19 = mkpath_np([pathCopy fileSystemRepresentation], 0x1FFu);
-        if (v19 && v19 != 17)
+        v25 = mkpath_np([pathCopy fileSystemRepresentation], 0x1FFu);
+        if (v25 && v25 != 17)
         {
-          v23 = optionsCopy;
+          v29 = optionsCopy;
           if (error)
           {
-            v24 = v19;
-            v67 = NSFilePathErrorKey;
-            v68 = pathCopy;
-            v25 = [NSDictionary dictionaryWithObjects:&v68 forKeys:&v67 count:1];
-            *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:v24 userInfo:v25];
+            v30 = v25;
+            v88 = NSFilePathErrorKey;
+            v89 = pathCopy;
+            v31 = [NSDictionary dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+            *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:v30 userInfo:v31];
           }
 
-          _os_log_pack_size();
-          v26 = _os_log_pack_fill();
-          v27 = [(LPStaticMedia *)self description];
-          uTF8String = [v27 UTF8String];
+          v32 = _os_log_pack_size();
+          v33 = &v71 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v34 = _os_log_pack_fill(v33, v32, 0, &dword_0, "Can not mount (%{private}s) because we could not create its mount folder (%{private}s).");
+          v35 = [(LPStaticMedia *)self description];
+          uTF8String = [v35 UTF8String];
           fileSystemRepresentation = [pathCopy fileSystemRepresentation];
-          *v26 = 136380931;
-          *(v26 + 4) = uTF8String;
-          *(v26 + 12) = 2081;
-          *(v26 + 14) = fileSystemRepresentation;
+          *v34 = 136380931;
+          *(v34 + 4) = uTF8String;
+          *(v34 + 12) = 2081;
+          *(v34 + 14) = fileSystemRepresentation;
 
-          _LPLogPack(1);
-          v14 = 0;
-          optionsCopy = v23;
+          _LPLogPack(1, v33);
+          v16 = 0;
+          optionsCopy = v29;
         }
 
         else
         {
-          v63 = xmmword_2C9E8;
-          v64 = unk_2C9F8;
-          v65 = xmmword_2CA08;
-          v66 = 0;
-          v61 = off_2C9C8;
-          v62 = unk_2C9D8;
-          v20 = [optionsCopy objectForKeyedSubscript:LPAPFSVolumeMountOptionReadOnly[0]];
-          v21 = v20;
-          if (v20)
+          v84 = xmmword_2C9E8;
+          v85 = unk_2C9F8;
+          v86 = xmmword_2CA08;
+          v87 = 0;
+          v82 = off_2C9C8;
+          v83 = unk_2C9D8;
+          v26 = [optionsCopy objectForKeyedSubscript:LPAPFSVolumeMountOptionReadOnly[0]];
+          v27 = v26;
+          if (v26)
           {
-            v22 = v20;
+            v28 = v26;
           }
 
           else
           {
-            v22 = [NSNumber numberWithBool:0];
+            v28 = [NSNumber numberWithBool:0];
           }
 
-          v30 = v22;
+          v38 = v28;
 
-          if ([(NSNumber *)v30 BOOLValue])
+          if ([(NSNumber *)v38 BOOLValue])
           {
-            *(&v61 + 1) = "-o";
-            *&v62 = "rdonly";
-            v31 = 3;
+            *(&v82 + 1) = "-o";
+            *&v83 = "rdonly";
+            v39 = 3;
           }
 
           else
           {
-            v31 = 1;
+            v39 = 1;
           }
 
-          v32 = [optionsCopy objectForKeyedSubscript:LPAPFSVolumeMountOptionNoBrowse[0]];
-          v33 = v32;
-          if (v32)
+          v40 = [optionsCopy objectForKeyedSubscript:LPAPFSVolumeMountOptionNoBrowse[0]];
+          v41 = v40;
+          if (v40)
           {
-            v34 = v32;
+            v42 = v40;
           }
 
           else
           {
-            v34 = [NSNumber numberWithBool:1];
+            v42 = [NSNumber numberWithBool:1];
           }
 
-          v35 = v34;
+          v43 = v42;
 
-          if ([(NSNumber *)v35 BOOLValue])
+          if ([(NSNumber *)v43 BOOLValue])
           {
-            *(&v61 + v31) = "-o";
-            v36 = v31 + 1;
-            v31 += 2;
-            *(&v61 + v36) = "nobrowse";
+            *(&v82 + v39) = "-o";
+            v44 = v39 + 1;
+            v39 += 2;
+            *(&v82 + v44) = "nobrowse";
           }
 
-          v37 = [optionsCopy objectForKeyedSubscript:LPAPFSVolumeMountOptionNoFirmlinks[0]];
-          v38 = v37;
-          if (v37)
+          v45 = [optionsCopy objectForKeyedSubscript:LPAPFSVolumeMountOptionNoFirmlinks[0]];
+          v46 = v45;
+          if (v45)
           {
-            v39 = v37;
+            v47 = v45;
           }
 
           else
           {
-            v39 = [NSNumber numberWithBool:0];
+            v47 = [NSNumber numberWithBool:0];
           }
 
-          v40 = v39;
+          v48 = v47;
 
-          if ([(NSNumber *)v40 BOOLValue])
+          if ([(NSNumber *)v48 BOOLValue])
           {
-            *(&v61 + v31++) = "-n";
+            *(&v82 + v39++) = "-n";
           }
 
-          v58 = v30;
+          v76 = v38;
           errorCopy = error;
-          v41 = [optionsCopy objectForKeyedSubscript:LPAPFSVolumeMountOptionSnapshotName[0]];
-          v54 = [v41 length];
-          v57 = v35;
-          v56 = v40;
-          if (v54)
+          v77 = mountPoint;
+          v49 = [optionsCopy objectForKeyedSubscript:LPAPFSVolumeMountOptionSnapshotName[0]];
+          v71 = [v49 length];
+          v78 = optionsCopy;
+          v75 = v43;
+          v74 = v48;
+          v73 = v49;
+          if (v71)
           {
-            v42 = v31 + 1;
-            *(&v61 + v31) = "-s";
-            v31 += 2;
-            *(&v61 + v42) = [v41 fileSystemRepresentation];
+            v50 = v39 + 1;
+            *(&v82 + v39) = "-s";
+            v39 += 2;
+            *(&v82 + v50) = [v49 fileSystemRepresentation];
           }
 
-          *(&v61 + v31) = [devNodePath fileSystemRepresentation];
-          *(&v61 + v31 + 1) = [pathCopy fileSystemRepresentation];
-          v43 = _execForLibpartition(&v61);
-          if (v43 == 75)
+          *(&v82 + v39) = [devNodePath fileSystemRepresentation];
+          *(&v82 + v39 + 1) = [pathCopy fileSystemRepresentation];
+          v51 = _execForLibpartition(&v82);
+          if (v51 == 75)
           {
-            _os_log_pack_size();
-            v44 = 0;
+            v52 = _os_log_pack_size();
+            v53 = 0;
+            *&v54 = 138412802;
+            v79 = v54;
             do
             {
-              v45 = _os_log_pack_fill();
-              *v45 = 138412802;
-              *(v45 + 4) = devNodePath;
-              *(v45 + 12) = 1024;
-              *(v45 + 14) = 75;
-              *(v45 + 18) = 1024;
-              *(v45 + 20) = v44;
-              _LPLogPack(1);
+              v55 = _os_log_pack_fill(&v71 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0), v52, 0, &dword_0, "mount_apfs %@ returned %d, retrying (%d)", v71);
+              *v55 = v79;
+              *(v55 + 4) = devNodePath;
+              *(v55 + 12) = 1024;
+              *(v55 + 14) = 75;
+              *(v55 + 18) = 1024;
+              *(v55 + 20) = v53;
+              _LPLogPack(1, &v71 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0));
               sleep(3u);
-              v43 = _execForLibpartition(&v61);
-              if (v43 != 75)
+              v51 = _execForLibpartition(&v82);
+              if (v51 != 75)
               {
                 break;
               }
             }
 
-            while (v44++ < 2);
+            while (v53++ < 2);
           }
 
-          v14 = v43 == 0;
-          if (v43)
+          v16 = v51 == 0;
+          if (v51)
           {
+            mountPoint = v77;
+            v57 = errorCopy;
             if (errorCopy)
             {
-              v47 = [NSString stringWithFormat:@"mount_apfs returned : %d", v43];
-              v59[0] = NSLocalizedFailureReasonErrorKey;
-              v59[1] = NSLocalizedDescriptionKey;
-              v60[0] = @"Mount failed";
-              v60[1] = v47;
-              v48 = [NSDictionary dictionaryWithObjects:v60 forKeys:v59 count:2];
-              *errorCopy = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:v48];
+              v58 = [NSString stringWithFormat:@"mount_apfs returned : %d", v51];
+              v80[0] = NSLocalizedFailureReasonErrorKey;
+              v80[1] = NSLocalizedDescriptionKey;
+              v81[0] = @"Mount failed";
+              v81[1] = v58;
+              v59 = [NSDictionary dictionaryWithObjects:v81 forKeys:v80 count:2];
+              *v57 = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:v59];
             }
 
-            _os_log_pack_size();
-            v49 = _os_log_pack_fill();
-            *v49 = 138412546;
-            *(v49 + 4) = devNodePath;
-            *(v49 + 12) = 1024;
-            *(v49 + 14) = v43;
-            _LPLogPack(1);
-            v50 = v58;
-            v51 = v41;
+            v60 = _os_log_pack_size();
+            v61 = &v71 - ((v60 + 15) & 0xFFFFFFFFFFFFFFF0);
+            v62 = _os_log_pack_fill(v61, v60, 0, &dword_0, "Can not mount (%@) because mount returned %d.");
+            *v62 = 138412546;
+            *(v62 + 4) = devNodePath;
+            *(v62 + 12) = 1024;
+            *(v62 + 14) = v51;
+            _LPLogPack(1, v61);
+            optionsCopy = v78;
+            v63 = v76;
+            v64 = v73;
           }
 
           else
           {
-            v50 = v58;
-            v51 = v41;
-            _os_log_pack_size();
-            v52 = _os_log_pack_fill();
-            if (v54)
+            mountPoint = v77;
+            v63 = v76;
+            v64 = v73;
+            if (v71)
             {
-              *v52 = 138412803;
-              *(v52 + 4) = devNodePath;
-              *(v52 + 12) = 2113;
-              *(v52 + 14) = v41;
-              *(v52 + 22) = 2113;
-              *(v52 + 24) = pathCopy;
+              v65 = _os_log_pack_size();
+              v66 = &v71 - ((v65 + 15) & 0xFFFFFFFFFFFFFFF0);
+              v67 = _os_log_pack_fill(v66, v65, 0, &dword_0, "Mounted %@, Snapshot( %{private}@) at %{private}@");
+              *v67 = 138412803;
+              *(v67 + 4) = devNodePath;
+              *(v67 + 12) = 2113;
+              *(v67 + 14) = v64;
+              *(v67 + 22) = 2113;
+              *(v67 + 24) = pathCopy;
             }
 
             else
             {
-              *v52 = 138412547;
-              *(v52 + 4) = devNodePath;
-              *(v52 + 12) = 2113;
-              *(v52 + 14) = pathCopy;
+              v68 = _os_log_pack_size();
+              v66 = &v71 - ((v68 + 15) & 0xFFFFFFFFFFFFFFF0);
+              v69 = _os_log_pack_fill(v66, v68, 0, &dword_0, "Mounted %@ at %{private}@");
+              *v69 = 138412547;
+              *(v69 + 4) = devNodePath;
+              *(v69 + 12) = 2113;
+              *(v69 + 14) = pathCopy;
             }
 
-            _LPLogPack(2);
+            _LPLogPack(2, v66);
+            optionsCopy = v78;
           }
         }
       }
@@ -884,12 +918,13 @@ LABEL_10:
 
     else
     {
-      _os_log_pack_size();
-      v13 = _os_log_pack_fill();
-      *v13 = 138412290;
-      *(v13 + 4) = pathCopy;
-      _LPLogPack(2);
-      v14 = 1;
+      v13 = _os_log_pack_size();
+      v14 = &v71 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v15 = _os_log_pack_fill(v14, v13, 0, &dword_0, "Volume is already mounted at %@, skipping re-mount");
+      *v15 = 138412290;
+      *(v15 + 4) = pathCopy;
+      _LPLogPack(2, v14);
+      v16 = 1;
     }
   }
 
@@ -900,24 +935,26 @@ LABEL_10:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
     }
 
-    _os_log_pack_size();
-    v15 = _os_log_pack_fill();
-    v16 = [(LPStaticMedia *)self description];
-    uTF8String2 = [v16 UTF8String];
-    *v15 = 136315138;
-    *(v15 + 4) = uTF8String2;
+    v17 = _os_log_pack_size();
+    v18 = &v71 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v19 = _os_log_pack_fill(v18, v17, 0, &dword_0, "Can not mount (%s) because it does not appear to have a device node.", v71);
+    v20 = [(LPStaticMedia *)self description];
+    uTF8String2 = [v20 UTF8String];
+    *v19 = 136315138;
+    *(v19 + 4) = uTF8String2;
 
-    _LPLogPack(1);
-    v14 = 0;
+    _LPLogPack(1, v18);
+    v16 = 0;
   }
 
-  return v14;
+  return v16;
 }
 
 - (BOOL)unmountWithOptions:(id)options error:(id *)error
 {
+  errorCopy = error;
   optionsCopy = options;
-  v61 = [NSMutableArray arrayWithCapacity:1];
+  v83 = [NSMutableArray arrayWithCapacity:1];
   v6 = [optionsCopy objectForKey:LPAPFSVolumeUnmountOptionAll[0]];
   bOOLValue = [v6 BOOLValue];
 
@@ -943,7 +980,7 @@ LABEL_10:
     }
 
     mountPoint2 = [(LPStaticMedia *)self mountPoint];
-    [(NSMutableArray *)v61 addObject:mountPoint2];
+    [(NSMutableArray *)v83 addObject:mountPoint2];
   }
 
   else
@@ -953,34 +990,34 @@ LABEL_10:
     v12 = mountPoint3;
     if (mountPoint2)
     {
-      v66 = mountPoint3;
-      v81 = 0u;
-      v82 = 0u;
-      v79 = 0u;
-      v80 = 0u;
-      v69 = mountPoint2;
-      v72 = mountPoint2;
-      v13 = [v72 countByEnumeratingWithState:&v79 objects:v84 count:16];
+      v93 = mountPoint3;
+      v106 = 0u;
+      v107 = 0u;
+      v104 = 0u;
+      v105 = 0u;
+      *&v95 = mountPoint2;
+      v98 = mountPoint2;
+      v13 = [v98 countByEnumeratingWithState:&v104 objects:v109 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v80;
+        v15 = *v105;
         while (2)
         {
           v16 = 0;
-          v70 = v14;
+          v96 = v14;
           do
           {
-            if (*v80 != v15)
+            if (*v105 != v15)
             {
-              objc_enumerationMutation(v72);
+              objc_enumerationMutation(v98);
             }
 
-            v17 = *(*(&v79 + 1) + 8 * v16);
+            v17 = *(*(&v104 + 1) + 8 * v16);
             if (bOOLValue)
             {
               v18 = [v17 objectForKey:LPAPFSVolumeSnapshotMountPointKeyMountPoint[0]];
-              [(NSMutableArray *)v61 addObject:v18];
+              [(NSMutableArray *)v83 addObject:v18];
             }
 
             else
@@ -995,19 +1032,19 @@ LABEL_10:
               v25 = v22;
               bOOLValue = v21;
               v15 = v20;
-              v14 = v70;
+              v14 = v96;
 
               if (v24)
               {
                 v26 = [v17 objectForKey:LPAPFSVolumeSnapshotMountPointKeyMountPoint[0]];
-                [(NSMutableArray *)v61 addObject:v26];
+                [(NSMutableArray *)v83 addObject:v26];
 
                 if ((bOOLValue & 1) == 0)
                 {
 
                   self = selfCopy;
-                  mountPoint2 = v69;
-                  v12 = v66;
+                  mountPoint2 = v95;
+                  v12 = v93;
                   goto LABEL_26;
                 }
               }
@@ -1017,7 +1054,7 @@ LABEL_10:
           }
 
           while (v14 != v16);
-          v14 = [v72 countByEnumeratingWithState:&v79 objects:v84 count:16];
+          v14 = [v98 countByEnumeratingWithState:&v104 objects:v109 count:16];
           if (v14)
           {
             continue;
@@ -1028,8 +1065,8 @@ LABEL_10:
       }
 
       self = selfCopy;
-      mountPoint2 = v69;
-      v12 = v66;
+      mountPoint2 = v95;
+      v12 = v93;
     }
 
     if (v12)
@@ -1044,216 +1081,245 @@ LABEL_10:
 
     if (v27 == 1)
     {
-      [(NSMutableArray *)v61 addObject:v12];
+      [(NSMutableArray *)v83 addObject:v12];
     }
 
 LABEL_26:
   }
 
 LABEL_28:
-  v64 = optionsCopy;
-  if ([(NSMutableArray *)v61 count])
+  v89 = optionsCopy;
+  if ([(NSMutableArray *)v83 count])
   {
-    [(NSMutableArray *)v61 sortUsingComparator:&__block_literal_global_2];
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v62 = v61;
-    v65 = [(NSMutableArray *)v62 countByEnumeratingWithState:&v75 objects:v83 count:16];
-    if (!v65)
+    [(NSMutableArray *)v83 sortUsingComparator:&__block_literal_global_2];
+    v102 = 0u;
+    v103 = 0u;
+    v100 = 0u;
+    v101 = 0u;
+    v87 = v83;
+    v90 = [(NSMutableArray *)v87 countByEnumeratingWithState:&v100 objects:v108 count:16];
+    if (!v90)
     {
-      v56 = 0;
+      v74 = 0;
       goto LABEL_72;
     }
 
-    v63 = *v76;
+    v88 = *v101;
+    v92 = NSPOSIXErrorDomain;
+    *&v29 = 138412547;
+    v86 = v29;
+    *&v29 = 67109120;
+    v85 = v29;
+    *&v29 = 138412802;
+    v95 = v29;
+    *&v29 = 138412546;
+    v91 = v29;
+    *&v29 = 138412290;
+    v84 = v29;
     while (1)
     {
-      v29 = 0;
+      v30 = 0;
       do
       {
-        if (*v76 != v63)
+        if (*v101 != v88)
         {
-          objc_enumerationMutation(v62);
+          objc_enumerationMutation(v87);
         }
 
-        v67 = v29;
-        v30 = *(*(&v75 + 1) + 8 * v29);
+        v93 = v30;
+        v31 = *(*(&v100 + 1) + 8 * v30);
         if (optionsCopy)
         {
-          v31 = [optionsCopy objectForKey:LPAPFSVolumeUnmountOptionForce[0]];
-          v32 = v31 != 0;
+          v32 = [optionsCopy objectForKey:LPAPFSVolumeUnmountOptionForce[0]];
+          v33 = v32 != 0;
 
-          v73 = v32 << 19;
-          v33 = [optionsCopy objectForKey:LPAPFSVolumeUnmountOptionDoNotLock[0]];
+          LODWORD(v98) = v33 << 19;
+          v34 = [optionsCopy objectForKey:LPAPFSVolumeUnmountOptionDoNotLock[0]];
 
-          if (v33)
+          if (v34)
           {
-            v74 = 1;
-            if (fsctl([v30 fileSystemRepresentation], 0x80014A22uLL, &v74, 0))
+            v99 = 1;
+            if (fsctl([v31 fileSystemRepresentation], 0x80014A22uLL, &v99, 0))
             {
               if (*__error() == 17)
               {
-                _os_log_pack_size();
-                v34 = _os_log_pack_fill();
+                v35 = _os_log_pack_size();
+                v36 = &v82 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+                v37 = _os_log_pack_fill(v36, v35, 0, &dword_0, "Call to APFS_FSCTL_UNMOUNT_CRYPTO_HINT on %@ returned EEXIST\n");
                 devNodePath = [(LPStaticMedia *)self devNodePath];
-                *v34 = 138412290;
-                *(v34 + 4) = devNodePath;
-                v36 = 2;
+                *v37 = v84;
+                *(v37 + 4) = devNodePath;
+                v39 = 2;
+                v40 = v36;
               }
 
               else
               {
-                _os_log_pack_size();
-                v37 = _os_log_pack_fill();
+                v41 = _os_log_pack_size();
+                v42 = &v82 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
+                v43 = _os_log_pack_fill(v42, v41, 0, &dword_0, "Failed to call APFS_FSCTL_UNMOUNT_CRYPTO_HINT on %@ with errno %d\n");
                 devNodePath = [(LPStaticMedia *)self devNodePath];
-                v38 = *__error();
-                *v37 = 138412546;
-                *(v37 + 4) = devNodePath;
-                *(v37 + 12) = 1024;
-                *(v37 + 14) = v38;
-                v36 = 1;
+                v44 = *__error();
+                *v43 = v91;
+                *(v43 + 4) = devNodePath;
+                *(v43 + 12) = 1024;
+                *(v43 + 14) = v44;
+                v39 = 1;
+                v40 = v42;
               }
 
-              _LPLogPack(v36);
+              _LPLogPack(v39, v40);
             }
           }
         }
 
         else
         {
-          v73 = 0;
+          LODWORD(v98) = 0;
         }
 
-        v39 = 0;
-        while (unmount([v30 fileSystemRepresentation], v73))
+        v45 = 0;
+        while (1)
         {
-          v40 = *__error();
-          v41 = selfCopy;
-          if (v40 == 22)
+          fileSystemRepresentation = [v31 fileSystemRepresentation];
+          if (!unmount(fileSystemRepresentation, v98))
           {
-            _os_log_pack_size();
-            *_os_log_pack_fill() = 0;
-            _LPLogPack(1);
-            v42 = 0;
+            break;
           }
 
-          else if (v39 < 3)
+          v47 = *__error();
+          v48 = selfCopy;
+          LODWORD(v96) = v47 == 22;
+          if (v47 == 22)
           {
-            if (v40 != 35 && v40 != 16)
+            v49 = _os_log_pack_size();
+            v50 = &v82 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
+            *_os_log_pack_fill(v50, v49, 0, &dword_0, "Unmount failed with EINVAL, will assume race. Ignoring error.") = 0;
+            _LPLogPack(1, v50);
+            v51 = 0;
+          }
+
+          else if (v45 < 3)
+          {
+            if (v47 != 35 && v47 != 16)
             {
               goto LABEL_55;
             }
 
-            ++v39;
+            ++v45;
             sleep(3u);
-            v42 = 1;
+            v51 = 1;
           }
 
           else
           {
-            if (v39 == 3 && v40 == 16 && [(LPStaticAPFSVolume *)selfCopy role]!= 12)
+            if (v45 == 3 && v47 == 16 && [(LPStaticAPFSVolume *)selfCopy role]!= 12)
             {
-              v73 |= 0x80000u;
+              LODWORD(v98) = v98 | 0x80000;
               sleep(3u);
-              _os_log_pack_size();
-              v47 = _os_log_pack_fill();
-              devNodePath2 = [(LPStaticMedia *)selfCopy devNodePath];
-              *v47 = 138412546;
-              *(v47 + 4) = devNodePath2;
-              *(v47 + 12) = 1024;
-              *(v47 + 14) = 16;
-              v42 = 1;
-              _LPLogPack(1);
-              v49 = devNodePath2;
-              v41 = selfCopy;
+              v59 = _os_log_pack_size();
+              v60 = &v82 - ((v59 + 15) & 0xFFFFFFFFFFFFFFF0);
+              v61 = _os_log_pack_fill(v60, v59, 0, &dword_0, "Failed to unmount %@ **FORCING UNMOUNT** error: %d");
+              devNodePath2 = [(LPStaticMedia *)v48 devNodePath];
+              *v61 = v91;
+              *(v61 + 4) = devNodePath2;
+              *(v61 + 12) = 1024;
+              *(v61 + 14) = 16;
+              v51 = 1;
+              _LPLogPack(1, v60);
+              v63 = devNodePath2;
+              v48 = selfCopy;
 
-              v39 = 4;
+              v45 = 4;
               goto LABEL_56;
             }
 
-            if (!error)
+            v52 = errorCopy;
+            if (!errorCopy)
             {
 LABEL_55:
-              v42 = 0;
+              v51 = 0;
               goto LABEL_56;
             }
 
-            v42 = 0;
-            *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:v40 userInfo:0];
+            v51 = 0;
+            *v52 = [NSError errorWithDomain:v92 code:v47 userInfo:0];
           }
 
 LABEL_56:
-          _os_log_pack_size();
-          v43 = _os_log_pack_fill();
-          devNodePath3 = [(LPStaticMedia *)v41 devNodePath];
-          v45 = devNodePath3;
-          *v43 = 138412802;
-          v46 = "no";
-          if (v42)
+          v53 = _os_log_pack_size();
+          v54 = &v82 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v55 = _os_log_pack_fill(v54, v53, 0, &dword_0, "Failed to unmount %@ retry: %s error: %d");
+          devNodePath3 = [(LPStaticMedia *)v48 devNodePath];
+          v57 = devNodePath3;
+          *v55 = v95;
+          v58 = "no";
+          if (v51)
           {
-            v46 = "yes";
+            v58 = "yes";
           }
 
-          *(v43 + 4) = devNodePath3;
-          *(v43 + 12) = 2080;
-          *(v43 + 14) = v46;
-          *(v43 + 22) = 1024;
-          *(v43 + 24) = v40;
-          _LPLogPack(1);
+          *(v55 + 4) = devNodePath3;
+          *(v55 + 12) = 2080;
+          *(v55 + 14) = v58;
+          *(v55 + 22) = 1024;
+          *(v55 + 24) = v47;
+          _LPLogPack(1, v54);
 
-          if ((v42 & 1) == 0)
+          if ((v51 & 1) == 0)
           {
             self = selfCopy;
-            v55 = v67;
-            v56 = v40 == 22;
+            v73 = v93;
+            v74 = v96;
             goto LABEL_67;
           }
         }
 
-        _os_log_pack_size();
-        v50 = _os_log_pack_fill();
+        v64 = _os_log_pack_size();
+        v65 = &v82 - ((v64 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v66 = _os_log_pack_fill(v65, v64, 0, &dword_0, "Unmounted %@(%{private}@)");
         self = selfCopy;
         devNodePath4 = [(LPStaticMedia *)selfCopy devNodePath];
-        *v50 = 138412547;
-        *(v50 + 4) = devNodePath4;
-        *(v50 + 12) = 2113;
-        *(v50 + 14) = v30;
-        _LPLogPack(2);
+        *v66 = v86;
+        *(v66 + 4) = devNodePath4;
+        *(v66 + 12) = 2113;
+        *(v66 + 14) = v31;
+        _LPLogPack(2, v65);
 
-        if ([(LPStaticAPFSVolume *)selfCopy _pathIsTemporaryMount:v30])
+        if ([(LPStaticAPFSVolume *)self _pathIsTemporaryMount:v31])
         {
-          if (rmdir([v30 fileSystemRepresentation]))
+          if (rmdir([v31 fileSystemRepresentation]))
           {
-            _os_log_pack_size();
-            v52 = _os_log_pack_fill();
-            v53 = *__error();
-            *v52 = 67109120;
-            v52[1] = v53;
-            v54 = 1;
+            v68 = _os_log_pack_size();
+            v69 = &v82 - ((v68 + 15) & 0xFFFFFFFFFFFFFFF0);
+            v70 = _os_log_pack_fill(v69, v68, 0, &dword_0, "Failed to clean up temporary mount point: %d", v82);
+            v71 = *__error();
+            *v70 = v85;
+            v70[1] = v71;
+            v72 = 1;
           }
 
           else
           {
-            _os_log_pack_size();
-            *_os_log_pack_fill() = 0;
-            v54 = 2;
+            v75 = _os_log_pack_size();
+            v69 = &v82 - ((v75 + 15) & 0xFFFFFFFFFFFFFFF0);
+            *_os_log_pack_fill(v69, v75, 0, &dword_0, "Cleaned up temporary mount point") = 0;
+            v72 = 2;
           }
 
-          _LPLogPack(v54);
+          _LPLogPack(v72, v69);
         }
 
-        v56 = 1;
-        v55 = v67;
+        v74 = 1;
+        v73 = v93;
 LABEL_67:
-        v29 = v55 + 1;
-        optionsCopy = v64;
+        v30 = v73 + 1;
+        optionsCopy = v89;
       }
 
-      while (v29 != v65);
-      v65 = [(NSMutableArray *)v62 countByEnumeratingWithState:&v75 objects:v83 count:16];
-      if (!v65)
+      while (v30 != v90);
+      v90 = [(NSMutableArray *)v87 countByEnumeratingWithState:&v100 objects:v108 count:16];
+      if (!v90)
       {
 LABEL_72:
 
@@ -1262,19 +1328,20 @@ LABEL_72:
     }
   }
 
-  _os_log_pack_size();
-  v57 = _os_log_pack_fill();
+  v76 = _os_log_pack_size();
+  v77 = &v82 - ((v76 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v78 = _os_log_pack_fill(v77, v76, 0, &dword_0, "Was asked asked to unmount (%@) but is not mounted.");
   devNodePath5 = [(LPStaticMedia *)self devNodePath];
-  *v57 = 138412290;
-  *(v57 + 4) = devNodePath5;
-  _LPLogPack(2);
-  v59 = devNodePath5;
-  optionsCopy = v64;
+  *v78 = 138412290;
+  *(v78 + 4) = devNodePath5;
+  _LPLogPack(2, v77);
+  v80 = devNodePath5;
+  optionsCopy = v89;
 
-  v56 = 1;
+  v74 = 1;
 LABEL_73:
 
-  return v56;
+  return v74;
 }
 
 - (BOOL)unmountAllWithError:(id *)error
@@ -1293,78 +1360,81 @@ LABEL_73:
   devNodePath = [(LPStaticMedia *)self devNodePath];
   if (devNodePath)
   {
-    _os_log_pack_size();
-    v5 = _os_log_pack_fill();
-    *&v6 = 136315394;
-    v19 = v6;
-    *v5 = 136315394;
-    *(v5 + 4) = "[LPStaticAPFSVolume deleteVolumeWithError:]";
-    *(v5 + 12) = 2112;
-    *(v5 + 14) = devNodePath;
-    _LPLogPack(2);
+    v5 = _os_log_pack_size();
+    v6 = &v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v7 = _os_log_pack_fill(v6, v5, 0, &dword_0, "%s : going to delete apfs volume(%@)");
+    *&v8 = 136315394;
+    v27 = v8;
+    *v7 = 136315394;
+    *(v7 + 4) = "[LPStaticAPFSVolume deleteVolumeWithError:]";
+    *(v7 + 12) = 2112;
+    *(v7 + 14) = devNodePath;
+    _LPLogPack(2, v6);
     [devNodePath fileSystemRepresentation];
-    v7 = APFSVolumeDelete();
-    if (!v7)
+    v9 = APFSVolumeDelete();
+    if (!v9)
     {
-      v13 = 1;
+      v19 = 1;
       goto LABEL_18;
     }
 
-    v8 = v7;
-    if (v7 >> 26 == 56)
+    v10 = v9;
+    if (v9 >> 26 == 56)
     {
-      _os_log_pack_size();
-      v9 = _os_log_pack_fill();
-      v10 = v8 & 0x3FFF;
-      *v9 = v19;
-      *(v9 + 4) = "[LPStaticAPFSVolume deleteVolumeWithError:]";
-      *(v9 + 12) = 1024;
-      *(v9 + 14) = v10;
-      _LPLogPack(1);
+      v11 = _os_log_pack_size();
+      v12 = &v27 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v13 = _os_log_pack_fill(v12, v11, 0, &dword_0, "%s : failed with iokit error: %d", v27, DWORD2(v27));
+      v14 = v10 & 0x3FFF;
+      *v13 = v27;
+      *(v13 + 4) = "[LPStaticAPFSVolume deleteVolumeWithError:]";
+      *(v13 + 12) = 1024;
+      *(v13 + 14) = v14;
+      _LPLogPack(1, v12);
       if (error)
       {
-        v11 = @"com.apple.IOKit";
+        v15 = @"com.apple.IOKit";
 LABEL_14:
-        v16 = v10;
+        v24 = v14;
 LABEL_17:
-        v13 = 0;
-        *error = [NSError errorWithDomain:v11 code:v16 userInfo:0, v19];
+        v19 = 0;
+        *error = [NSError errorWithDomain:v15 code:v24 userInfo:0];
         goto LABEL_18;
       }
     }
 
     else
     {
-      v14 = v7 & 0xFFFFC000;
-      _os_log_pack_size();
-      if (v14 == 49152)
+      v20 = v9 & 0xFFFFC000;
+      v21 = _os_log_pack_size();
+      v22 = &v27 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+      if (v20 == 49152)
       {
-        v15 = _os_log_pack_fill();
-        v10 = v8 & 0x3FFF;
-        *v15 = v19;
-        *(v15 + 4) = "[LPStaticAPFSVolume deleteVolumeWithError:]";
-        *(v15 + 12) = 1024;
-        *(v15 + 14) = v10;
-        _LPLogPack(1);
+        v23 = _os_log_pack_fill(&v27 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0), v21, 0, &dword_0, "%s : failed with posix error: %d", v27, DWORD2(v27));
+        v14 = v10 & 0x3FFF;
+        *v23 = v27;
+        *(v23 + 4) = "[LPStaticAPFSVolume deleteVolumeWithError:]";
+        *(v23 + 12) = 1024;
+        *(v23 + 14) = v14;
+        _LPLogPack(1, v22);
         if (error)
         {
-          v11 = NSPOSIXErrorDomain;
+          v15 = NSPOSIXErrorDomain;
           goto LABEL_14;
         }
       }
 
       else
       {
-        v17 = _os_log_pack_fill();
-        *v17 = v19;
-        *(v17 + 4) = "[LPStaticAPFSVolume deleteVolumeWithError:]";
-        *(v17 + 12) = 1024;
-        *(v17 + 14) = v8;
-        _LPLogPack(1);
+        v25 = _os_log_pack_fill(&v27 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0), v21, 0, &dword_0, "%s : failed with unknown kern_return_t error: %d", v27, DWORD2(v27));
+        *v25 = v27;
+        *(v25 + 4) = "[LPStaticAPFSVolume deleteVolumeWithError:]";
+        *(v25 + 12) = 1024;
+        *(v25 + 14) = v10;
+        _LPLogPack(1, v22);
         if (error)
         {
-          v11 = NSOSStatusErrorDomain;
-          v16 = v8;
+          v15 = NSOSStatusErrorDomain;
+          v24 = v10;
           goto LABEL_17;
         }
       }
@@ -1378,17 +1448,18 @@ LABEL_17:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
     }
 
-    _os_log_pack_size();
-    v12 = _os_log_pack_fill();
-    *v12 = 136315138;
-    *(v12 + 4) = "[LPStaticAPFSVolume deleteVolumeWithError:]";
-    _LPLogPack(1);
+    v16 = _os_log_pack_size();
+    v17 = &v27 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v18 = _os_log_pack_fill(v17, v16, 0, &dword_0, "%s : volume is missing a dev node somehow", v27);
+    *v18 = 136315138;
+    *(v18 + 4) = "[LPStaticAPFSVolume deleteVolumeWithError:]";
+    _LPLogPack(1, v17);
   }
 
-  v13 = 0;
+  v19 = 0;
 LABEL_18:
 
-  return v13;
+  return v19;
 }
 
 - (id)snapshotsWithError:(id *)error
@@ -1444,14 +1515,15 @@ LABEL_18:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
     }
 
-    _os_log_pack_size();
-    v29 = _os_log_pack_fill();
-    v30 = [(LPStaticMedia *)self description];
-    *v29 = 136315395;
-    *(v29 + 4) = "[LPStaticAPFSVolume snapshotInfoWithError:]";
-    *(v29 + 12) = 2113;
-    *(v29 + 14) = v30;
-    _LPLogPack(1);
+    v33 = _os_log_pack_size();
+    v34 = &errorCopy - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v35 = _os_log_pack_fill(v34, v33, 0, &dword_0, "%s called but %{private}@ is not mounted.");
+    v36 = [(LPStaticMedia *)self description];
+    *v35 = 136315395;
+    *(v35 + 4) = "[LPStaticAPFSVolume snapshotInfoWithError:]";
+    *(v35 + 12) = 2113;
+    *(v35 + 14) = v36;
+    _LPLogPack(1, v34);
 
     goto LABEL_36;
   }
@@ -1464,93 +1536,100 @@ LABEL_18:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:*__error() userInfo:0];
     }
 
-    _os_log_pack_size();
-    v31 = _os_log_pack_fill();
-    *v31 = 136315651;
-    *(v31 + 4) = "[LPStaticAPFSVolume snapshotInfoWithError:]";
-    *(v31 + 12) = 2113;
-    *(v31 + 14) = v6;
-    *(v31 + 22) = 1024;
-    *(v31 + 24) = 0;
-    _LPLogPack(1);
+    v37 = _os_log_pack_size();
+    v38 = &errorCopy - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v39 = _os_log_pack_fill(v38, v37, 0, &dword_0, "%s : Unable to open mount point %{private}@: %d");
+    *v39 = 136315651;
+    *(v39 + 4) = "[LPStaticAPFSVolume snapshotInfoWithError:]";
+    *(v39 + 12) = 2113;
+    *(v39 + 14) = v6;
+    *(v39 + 22) = 1024;
+    *(v39 + 24) = 0;
+    _LPLogPack(1, v38);
 LABEL_36:
-    v28 = 0;
+    v32 = 0;
     goto LABEL_40;
   }
 
   v8 = v7;
   errorCopy = error;
-  v35 = v6;
-  v36 = [NSMutableArray arrayWithCapacity:10];
-  *&v38.volattr = 0;
-  *&v38.fileattr = 0;
-  bzero(v39, 0x800uLL);
-  *&v38.bitmapcount = 0xA000002100000005;
-  v9 = fs_snapshot_list(v8, &v38, v39, 0x800uLL, 0);
+  v46 = v6;
+  v48 = [NSMutableArray arrayWithCapacity:10];
+  *&v51.volattr = 0;
+  *&v51.fileattr = 0;
+  bzero(v52, 0x800uLL);
+  *&v51.bitmapcount = 0xA000002100000005;
+  v9 = fs_snapshot_list(v8, &v51, v52, 0x800uLL, 0);
   if (v9 >= 1)
   {
-    v10 = v39;
-    v37 = v8;
+    v11 = v52;
+    *&v10 = 136315395;
+    v47 = v10;
+    *&v10 = 136315394;
+    v49 = v10;
+    v50 = v8;
     while (1)
     {
       while (1)
       {
-        v11 = __OFSUB__(v9--, 1);
-        if (v9 < 0 == v11)
+        v12 = __OFSUB__(v9--, 1);
+        if (v9 < 0 == v12)
         {
           break;
         }
 
 LABEL_27:
-        v10 = v39;
-        v9 = fs_snapshot_list(v8, &v38, v39, 0x800uLL, 0);
+        v11 = v52;
+        v9 = fs_snapshot_list(v8, &v51, v52, 0x800uLL, 0);
         if (v9 <= 0)
         {
           goto LABEL_28;
         }
       }
 
-      v12 = (v10 + 6);
-      v13 = *v10;
-      v14 = v10[1];
-      if ((v14 & 0x20000000) == 0)
+      v13 = (v11 + 6);
+      v14 = *v11;
+      v15 = v11[1];
+      if ((v15 & 0x20000000) == 0)
       {
         break;
       }
 
-      v21 = *v12;
-      _os_log_pack_size();
-      v22 = _os_log_pack_fill();
-      *v22 = 136315394;
-      *(v22 + 4) = "[LPStaticAPFSVolume snapshotInfoWithError:]";
-      *(v22 + 12) = 1024;
-      *(v22 + 14) = v21;
-      _LPLogPack(1);
+      v21 = *v13;
+      v22 = _os_log_pack_size();
+      v23 = &errorCopy - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v24 = _os_log_pack_fill(v23, v22, 0, &dword_0, "%s : Error in reading attributes for directory entry %d", errorCopy, v46);
+      *v24 = v49;
+      *(v24 + 4) = "[LPStaticAPFSVolume snapshotInfoWithError:]";
+      *(v24 + 12) = 1024;
+      *(v24 + 14) = v21;
+      _LPLogPack(1, v23);
 LABEL_26:
-      v10 = (v10 + v13);
-      if ((v14 & 0x20000000) != 0)
+      v11 = (v11 + v14);
+      if ((v15 & 0x20000000) != 0)
       {
         goto LABEL_27;
       }
     }
 
-    if (v14)
+    if (v15)
     {
-      v23 = v12 + *v12;
-      v15 = [NSString stringWithUTF8String:v23];
-      if (!v15)
+      v25 = v13 + *v13;
+      v16 = [NSString stringWithUTF8String:v25];
+      if (!v16)
       {
-        _os_log_pack_size();
-        v24 = _os_log_pack_fill();
-        *v24 = 136315395;
-        *(v24 + 4) = "[LPStaticAPFSVolume snapshotInfoWithError:]";
-        *(v24 + 12) = 2081;
-        *(v24 + 14) = v23;
-        _LPLogPack(2);
+        v26 = _os_log_pack_size();
+        v27 = &errorCopy - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+        v28 = _os_log_pack_fill(v27, v26, 0, &dword_0, "%s : Failed to encode snapshot name %{private}s for some reason.");
+        *v28 = v47;
+        *(v28 + 4) = "[LPStaticAPFSVolume snapshotInfoWithError:]";
+        *(v28 + 12) = 2081;
+        *(v28 + 14) = v25;
+        _LPLogPack(2, v27);
       }
 
-      v12 = (v10 + 8);
-      if ((v10[1] & 0x20) != 0)
+      v13 = (v11 + 8);
+      if ((v11[1] & 0x20) != 0)
       {
         goto LABEL_9;
       }
@@ -1558,44 +1637,43 @@ LABEL_26:
 
     else
     {
-      v15 = 0;
-      v16 = v10[1];
-      if ((v14 & 0x20) != 0)
+      v16 = 0;
+      if ((v15 & 0x20) != 0)
       {
 LABEL_9:
-        v17 = *v12;
-        0x3FFFFFFFFFFFFFFFLL = [NSNumber numberWithUnsignedLongLong:*v12 & 0x3FFFFFFFFFFFFFFFLL];
+        v17 = *v13;
+        0x3FFFFFFFFFFFFFFFLL = [NSNumber numberWithUnsignedLongLong:*v13 & 0x3FFFFFFFFFFFFFFFLL];
         v19 = [NSNumber numberWithBool:(v17 >> 62) & 1];
         v20 = [NSNumber numberWithBool:v17 >> 63];
 LABEL_15:
-        v25 = [NSMutableDictionary dictionaryWithCapacity:4];
-        v26 = v25;
-        if (v15)
+        v29 = [NSMutableDictionary dictionaryWithCapacity:4];
+        v30 = v29;
+        if (v16)
         {
-          [(NSMutableDictionary *)v25 setObject:v15 forKey:LPAPFSSnapshotPropertyKeyName[0]];
+          [(NSMutableDictionary *)v29 setObject:v16 forKey:LPAPFSSnapshotPropertyKeyName[0]];
         }
 
         if (0x3FFFFFFFFFFFFFFFLL)
         {
-          [(NSMutableDictionary *)v26 setObject:0x3FFFFFFFFFFFFFFFLL forKey:LPAPFSSnapshotPropertyKeyXID[0]];
+          [(NSMutableDictionary *)v30 setObject:0x3FFFFFFFFFFFFFFFLL forKey:LPAPFSSnapshotPropertyKeyXID[0]];
         }
 
         if (v19)
         {
-          [(NSMutableDictionary *)v26 setObject:v19 forKey:LPAPFSSnapshotPropertyKeyMarkedForRevert];
+          [(NSMutableDictionary *)v30 setObject:v19 forKey:LPAPFSSnapshotPropertyKeyMarkedForRevert];
         }
 
         if (v20)
         {
-          [(NSMutableDictionary *)v26 setObject:v20 forKey:LPAPFSSnapshotPropertyKeyMarkedForRoot[0]];
+          [(NSMutableDictionary *)v30 setObject:v20 forKey:LPAPFSSnapshotPropertyKeyMarkedForRoot[0]];
         }
 
-        if ([(NSMutableDictionary *)v26 count])
+        if ([(NSMutableDictionary *)v30 count])
         {
-          [(NSMutableArray *)v36 addObject:v26];
+          [(NSMutableArray *)v48 addObject:v30];
         }
 
-        v8 = v37;
+        v8 = v50;
         goto LABEL_26;
       }
     }
@@ -1609,33 +1687,35 @@ LABEL_15:
 LABEL_28:
   if (v9 < 0)
   {
-    _os_log_pack_size();
-    v32 = _os_log_pack_fill();
-    *v32 = 136315394;
-    *(v32 + 4) = "[LPStaticAPFSVolume snapshotInfoWithError:]";
-    *(v32 + 12) = 1024;
-    *(v32 + 14) = v9;
-    _LPLogPack(1);
+    v40 = _os_log_pack_size();
+    v41 = &errorCopy - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v42 = _os_log_pack_fill(v41, v40, 0, &dword_0, "%s : fs_snapshot_list failed with error %d", errorCopy, v46);
+    *v42 = 136315394;
+    *(v42 + 4) = "[LPStaticAPFSVolume snapshotInfoWithError:]";
+    *(v42 + 12) = 1024;
+    *(v42 + 14) = v9;
+    _LPLogPack(1, v41);
     close(v8);
-    v27 = v36;
-    v28 = 0;
+    v43 = errorCopy;
+    v31 = v48;
+    v32 = 0;
     if (errorCopy)
     {
-      *errorCopy = [NSError errorWithDomain:NSPOSIXErrorDomain code:v9 userInfo:0];
+      *v43 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v9 userInfo:0];
     }
   }
 
   else
   {
     close(v8);
-    v27 = v36;
-    v28 = [NSArray arrayWithArray:v36];
+    v31 = v48;
+    v32 = [NSArray arrayWithArray:v48];
   }
 
-  v6 = v35;
+  v6 = v46;
 LABEL_40:
 
-  return v28;
+  return v32;
 }
 
 - (BOOL)createSnapshot:(id)snapshot error:(id *)error
@@ -1649,7 +1729,10 @@ LABEL_40:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
     }
 
-    goto LABEL_12;
+    v17 = _os_log_pack_size();
+    v18 = &v24 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v19 = _os_log_pack_fill(v18, v17, 0, &dword_0, "%s : Need a valid snapshot name.");
+    goto LABEL_13;
   }
 
   if (!mountPoint)
@@ -1659,15 +1742,16 @@ LABEL_40:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
     }
 
-LABEL_12:
-    _os_log_pack_size();
-    v15 = _os_log_pack_fill();
-    *v15 = 136315138;
-    *(v15 + 4) = "[LPStaticAPFSVolume createSnapshot:error:]";
+    v21 = _os_log_pack_size();
+    v18 = &v24 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v19 = _os_log_pack_fill(v18, v21, 0, &dword_0, "%s : Could not open device is not mounted.");
 LABEL_13:
-    _LPLogPack(1);
+    *v19 = 136315138;
+    *(v19 + 4) = "[LPStaticAPFSVolume createSnapshot:error:]";
+LABEL_14:
+    _LPLogPack(1, v18);
     v11 = 0;
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v8 = open([mountPoint fileSystemRepresentation], 0);
@@ -1678,13 +1762,14 @@ LABEL_13:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:*__error() userInfo:0];
     }
 
-    _os_log_pack_size();
-    v17 = _os_log_pack_fill();
-    *v17 = 136315395;
-    *(v17 + 4) = "[LPStaticAPFSVolume createSnapshot:error:]";
-    *(v17 + 12) = 2113;
-    *(v17 + 14) = mountPoint;
-    goto LABEL_13;
+    v22 = _os_log_pack_size();
+    v18 = &v24 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v23 = _os_log_pack_fill(v18, v22, 0, &dword_0, "%s : Could not open device mount %{private}@.");
+    *v23 = 136315395;
+    *(v23 + 4) = "[LPStaticAPFSVolume createSnapshot:error:]";
+    *(v23 + 12) = 2113;
+    *(v23 + 14) = mountPoint;
+    goto LABEL_14;
   }
 
   v9 = v8;
@@ -1698,18 +1783,19 @@ LABEL_13:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:v12 userInfo:0];
     }
 
-    _os_log_pack_size();
-    v13 = _os_log_pack_fill();
-    v14 = strerror(v12);
-    *v13 = 67109378;
-    *(v13 + 4) = v12;
-    *(v13 + 8) = 2080;
-    *(v13 + 10) = v14;
-    _LPLogPack(1);
+    v13 = _os_log_pack_size();
+    v14 = &v24 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v15 = _os_log_pack_fill(v14, v13, 0, &dword_0, "create snapshot operation failed: %d %s", v24, v25);
+    v16 = strerror(v12);
+    *v15 = 67109378;
+    *(v15 + 4) = v12;
+    *(v15 + 8) = 2080;
+    *(v15 + 10) = v16;
+    _LPLogPack(1, v14);
   }
 
   close(v9);
-LABEL_14:
+LABEL_15:
 
   return v11;
 }
@@ -1725,13 +1811,16 @@ LABEL_14:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
     }
 
-    goto LABEL_25;
+    v26 = _os_log_pack_size();
+    v27 = &errorCopy - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v28 = _os_log_pack_fill(v27, v26, 0, &dword_0, "%s : Need a valid snapshot names.");
+    goto LABEL_26;
   }
 
   if (![snapshotsCopy count])
   {
-    v21 = 1;
-    goto LABEL_27;
+    v25 = 1;
+    goto LABEL_28;
   }
 
   if (!mountPoint)
@@ -1741,15 +1830,17 @@ LABEL_14:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
     }
 
-LABEL_25:
-    _os_log_pack_size();
-    v22 = _os_log_pack_fill();
-    *v22 = 136315138;
-    *(v22 + 4) = "[LPStaticAPFSVolume deleteSnapshots:waitForDeletionFor:error:]";
+    v29 = _os_log_pack_size();
+    v27 = &errorCopy - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v28 = _os_log_pack_fill(v27, v29, 0, &dword_0, "%s : Could not open device is not mounted.");
 LABEL_26:
-    _LPLogPack(1);
-    v21 = 0;
-    goto LABEL_27;
+    *v28 = 136315138;
+    *(v28 + 4) = "[LPStaticAPFSVolume deleteSnapshots:waitForDeletionFor:error:]";
+    v30 = v27;
+LABEL_27:
+    _LPLogPack(1, v30);
+    v25 = 0;
+    goto LABEL_28;
   }
 
   v10 = open([mountPoint fileSystemRepresentation], 0);
@@ -1760,110 +1851,120 @@ LABEL_26:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:*__error() userInfo:0];
     }
 
-    _os_log_pack_size();
-    v24 = _os_log_pack_fill();
-    v25 = *__error();
-    *v24 = 136315394;
-    *(v24 + 4) = "[LPStaticAPFSVolume deleteSnapshots:waitForDeletionFor:error:]";
-    *(v24 + 12) = 1024;
-    *(v24 + 14) = v25;
-    goto LABEL_26;
+    v32 = _os_log_pack_size();
+    v33 = &errorCopy - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v34 = _os_log_pack_fill(v33, v32, 0, &dword_0, "%s : Failed to open media for snapshot delete: %d", errorCopy, v40);
+    v35 = *__error();
+    *v34 = 136315394;
+    *(v34 + 4) = "[LPStaticAPFSVolume deleteSnapshots:waitForDeletionFor:error:]";
+    *(v34 + 12) = 1024;
+    *(v34 + 14) = v35;
+    v30 = v33;
+    goto LABEL_27;
   }
 
   v11 = v10;
-  v34 = 0u;
-  v33 = 0u;
-  v32 = 0u;
-  v31 = 0u;
+  v48 = 0u;
+  v47 = 0u;
+  v46 = 0u;
+  v45 = 0u;
   v12 = snapshotsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (v13)
   {
-    v14 = v13;
+    v15 = v13;
     errorCopy = error;
-    v28 = mountPoint;
-    v15 = 0;
-    v29 = 0;
-    v16 = *v32;
+    v40 = mountPoint;
+    v41 = snapshotsCopy;
+    v16 = 0;
+    v42 = 0;
+    v17 = *v46;
+    *&v14 = 136315651;
+    v43 = v14;
     do
     {
-      for (i = 0; i != v14; i = i + 1)
+      for (i = 0; i != v15; i = i + 1)
       {
-        if (*v32 != v16)
+        if (*v46 != v17)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v31 + 1) + 8 * i);
-        if (fs_snapshot_delete(v11, [v18 fileSystemRepresentation], 0))
+        v19 = *(*(&v45 + 1) + 8 * i);
+        if (fs_snapshot_delete(v11, [v19 fileSystemRepresentation], 0))
         {
-          v15 = *__error();
-          _os_log_pack_size();
-          v19 = _os_log_pack_fill();
-          v20 = *__error();
-          *v19 = 136315651;
-          *(v19 + 4) = "[LPStaticAPFSVolume deleteSnapshots:waitForDeletionFor:error:]";
-          *(v19 + 12) = 2113;
-          *(v19 + 14) = v18;
-          *(v19 + 22) = 1024;
-          *(v19 + 24) = v20;
-          _LPLogPack(1);
+          v16 = *__error();
+          v20 = _os_log_pack_size();
+          v21 = &errorCopy - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v22 = _os_log_pack_fill(v21, v20, 0, &dword_0, "%s : Failed to delete snapshot: %{private}@, %d");
+          v23 = *__error();
+          *v22 = v43;
+          *(v22 + 4) = "[LPStaticAPFSVolume deleteSnapshots:waitForDeletionFor:error:]";
+          *(v22 + 12) = 2113;
+          *(v22 + 14) = v19;
+          *(v22 + 22) = 1024;
+          *(v22 + 24) = v23;
+          _LPLogPack(1, v21);
         }
 
         else
         {
-          v29 = 1;
+          v42 = 1;
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v15 = [v12 countByEnumeratingWithState:&v45 objects:v49 count:16];
     }
 
-    while (v14);
+    while (v15);
 
+    v24 = errorCopy;
     if (errorCopy)
     {
-      v21 = v29;
-      if (v15)
+      v25 = v42;
+      if (v16)
       {
-        *errorCopy = [NSError errorWithDomain:NSPOSIXErrorDomain code:v15 userInfo:0];
+        *v24 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v16 userInfo:0];
       }
 
-      mountPoint = v28;
+      snapshotsCopy = v41;
+      mountPoint = v40;
     }
 
     else
     {
-      mountPoint = v28;
-      v21 = v29;
+      snapshotsCopy = v41;
+      mountPoint = v40;
+      v25 = v42;
     }
   }
 
   else
   {
 
-    v21 = 0;
+    v25 = 0;
   }
 
   if (for != 0.0)
   {
-    v30[2] = 0;
-    v30[1] = 0;
-    v30[0] = 15;
-    if (ffsctl(v11, 0x80184A24uLL, v30, 0))
+    v44[2] = 0;
+    v44[1] = 0;
+    v44[0] = 15;
+    if (ffsctl(v11, 0x80184A24uLL, v44, 0))
     {
-      _os_log_pack_size();
-      v26 = _os_log_pack_fill();
-      *v26 = 136315138;
-      *(v26 + 4) = "[LPStaticAPFSVolume deleteSnapshots:waitForDeletionFor:error:]";
-      _LPLogPack(1);
+      v36 = _os_log_pack_size();
+      v37 = &errorCopy - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v38 = _os_log_pack_fill(v37, v36, 0, &dword_0, "%s : Waiting for snapshots to delete timed out", errorCopy);
+      *v38 = 136315138;
+      *(v38 + 4) = "[LPStaticAPFSVolume deleteSnapshots:waitForDeletionFor:error:]";
+      _LPLogPack(1, v37);
     }
   }
 
   close(v11);
-LABEL_27:
+LABEL_28:
 
-  return v21 & 1;
+  return v25 & 1;
 }
 
 - (BOOL)renameSnapshot:(id)snapshot to:(id)to error:(id *)error
@@ -1878,7 +1979,10 @@ LABEL_27:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
     }
 
-    goto LABEL_17;
+    v20 = _os_log_pack_size();
+    v21 = &v28 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v22 = _os_log_pack_fill(v21, v20, 0, &dword_0, "%s : Need a valid snapshot name.");
+    goto LABEL_18;
   }
 
   if (!toCopy || ![toCopy length])
@@ -1888,7 +1992,10 @@ LABEL_27:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
     }
 
-    goto LABEL_17;
+    v23 = _os_log_pack_size();
+    v21 = &v28 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v22 = _os_log_pack_fill(v21, v23, 0, &dword_0, "%s : Need a valid new snapshot name.");
+    goto LABEL_18;
   }
 
   if (!mountPoint)
@@ -1898,15 +2005,16 @@ LABEL_27:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
     }
 
-LABEL_17:
-    _os_log_pack_size();
-    v18 = _os_log_pack_fill();
-    *v18 = 136315138;
-    *(v18 + 4) = "[LPStaticAPFSVolume renameSnapshot:to:error:]";
+    v25 = _os_log_pack_size();
+    v21 = &v28 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v22 = _os_log_pack_fill(v21, v25, 0, &dword_0, "%s : Could not open device is not mounted.");
 LABEL_18:
-    _LPLogPack(1);
+    *v22 = 136315138;
+    *(v22 + 4) = "[LPStaticAPFSVolume renameSnapshot:to:error:]";
+LABEL_19:
+    _LPLogPack(1, v21);
     v14 = 0;
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   v11 = open([mountPoint fileSystemRepresentation], 0);
@@ -1917,13 +2025,14 @@ LABEL_18:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:*__error() userInfo:0];
     }
 
-    _os_log_pack_size();
-    v20 = _os_log_pack_fill();
-    *v20 = 136315395;
-    *(v20 + 4) = "[LPStaticAPFSVolume renameSnapshot:to:error:]";
-    *(v20 + 12) = 2113;
-    *(v20 + 14) = mountPoint;
-    goto LABEL_18;
+    v26 = _os_log_pack_size();
+    v21 = &v28 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v27 = _os_log_pack_fill(v21, v26, 0, &dword_0, "%s : Could not open device mount %{private}@.");
+    *v27 = 136315395;
+    *(v27 + 4) = "[LPStaticAPFSVolume renameSnapshot:to:error:]";
+    *(v27 + 12) = 2113;
+    *(v27 + 14) = mountPoint;
+    goto LABEL_19;
   }
 
   v12 = v11;
@@ -1937,18 +2046,19 @@ LABEL_18:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:v15 userInfo:0];
     }
 
-    _os_log_pack_size();
-    v16 = _os_log_pack_fill();
-    v17 = strerror(v15);
-    *v16 = 67109378;
-    *(v16 + 4) = v15;
-    *(v16 + 8) = 2080;
-    *(v16 + 10) = v17;
-    _LPLogPack(1);
+    v16 = _os_log_pack_size();
+    v17 = &v28 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v18 = _os_log_pack_fill(v17, v16, 0, &dword_0, "rename snapshot operation failed: %d %s", v28, v29);
+    v19 = strerror(v15);
+    *v18 = 67109378;
+    *(v18 + 4) = v15;
+    *(v18 + 8) = 2080;
+    *(v18 + 10) = v19;
+    _LPLogPack(1, v17);
   }
 
   close(v12);
-LABEL_19:
+LABEL_20:
 
   return v14;
 }
@@ -1965,7 +2075,10 @@ LABEL_19:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
     }
 
-    goto LABEL_13;
+    v24 = _os_log_pack_size();
+    v25 = v38 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v26 = _os_log_pack_fill(v25, v24, 0, &dword_0, "%s : Need a valid new snapshot name.");
+    goto LABEL_14;
   }
 
   if (!mountPoint)
@@ -1975,35 +2088,19 @@ LABEL_19:
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
     }
 
-LABEL_13:
-    _os_log_pack_size();
-    v20 = _os_log_pack_fill();
-    *v20 = 136315138;
-    *(v20 + 4) = "[LPStaticAPFSVolume revertToSnapshot:options:error:]";
-    _LPLogPack(1);
+    v28 = _os_log_pack_size();
+    v25 = v38 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v26 = _os_log_pack_fill(v25, v28, 0, &dword_0, "%s : Could not open device is not mounted.");
+LABEL_14:
+    *v26 = 136315138;
+    *(v26 + 4) = "[LPStaticAPFSVolume revertToSnapshot:options:error:]";
+    _LPLogPack(1, v25);
     v14 = 0;
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v11 = open([mountPoint fileSystemRepresentation], 0);
-  if (v11 < 0)
-  {
-    if (error)
-    {
-      *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:*__error() userInfo:0];
-    }
-
-    _os_log_pack_size();
-    v22 = _os_log_pack_fill();
-    *v22 = 136315395;
-    *(v22 + 4) = "[LPStaticAPFSVolume revertToSnapshot:options:error:]";
-    *(v22 + 12) = 2113;
-    *(v22 + 14) = mountPoint;
-    v14 = 1;
-    _LPLogPack(1);
-  }
-
-  else
+  if ((v11 & 0x80000000) == 0)
   {
     v12 = v11;
     v13 = fs_snapshot_revert(v11, [snapshotCopy fileSystemRepresentation], 0);
@@ -2016,50 +2113,80 @@ LABEL_13:
         *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:v15 userInfo:0];
       }
 
-      _os_log_pack_size();
-      v25 = &v25;
-      v16 = _os_log_pack_fill();
-      v17 = strerror(v15);
-      *v16 = 67109378;
-      *(v16 + 4) = v15;
-      *(v16 + 8) = 2080;
-      *(v16 + 10) = v17;
-      _LPLogPack(1);
+      v16 = _os_log_pack_size();
+      v17 = v38 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v18 = _os_log_pack_fill(v17, v16, 0, &dword_0, "revert snapshot operation failed: %d %s", v38, v38[1]);
+      v19 = strerror(v15);
+      *v18 = 67109378;
+      *(v18 + 4) = v15;
+      *(v18 + 8) = 2080;
+      *(v18 + 10) = v19;
+      _LPLogPack(1, v17);
     }
 
     close(v12);
-    v18 = [optionsCopy objectForKeyedSubscript:LPAPFSVolumeRevertOptionSkipRemount[0]];
-    if ([v18 BOOLValue])
+    v20 = [optionsCopy objectForKeyedSubscript:LPAPFSVolumeRevertOptionSkipRemount[0]];
+    if ([v20 BOOLValue])
     {
-      _os_log_pack_size();
-      v19 = _os_log_pack_fill();
-      *v19 = 136315394;
-      *(v19 + 4) = "[LPStaticAPFSVolume revertToSnapshot:options:error:]";
-      *(v19 + 12) = 2112;
-      *(v19 + 14) = mountPoint;
-      _LPLogPack(2);
+      v21 = _os_log_pack_size();
+      v22 = v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v23 = _os_log_pack_fill(v22, v21, 0, &dword_0, "%s: Skipping unmount/remount of %@");
+      *v23 = 136315394;
+      *(v23 + 4) = "[LPStaticAPFSVolume revertToSnapshot:options:error:]";
+      *(v23 + 12) = 2112;
+      *(v23 + 14) = mountPoint;
+      _LPLogPack(2, v22);
+LABEL_28:
+
+      goto LABEL_15;
     }
 
-    else if ([(LPStaticAPFSVolume *)self unmountWithError:error]&& [(LPStaticAPFSVolume *)self mountAtPath:mountPoint options:optionsCopy error:error])
+    if ([(LPStaticAPFSVolume *)self unmountWithError:error])
     {
-      v14 = 1;
+      if ([(LPStaticAPFSVolume *)self mountAtPath:mountPoint options:optionsCopy error:error])
+      {
+        v14 = 1;
+        goto LABEL_28;
+      }
+
+      v35 = _os_log_pack_size();
+      v33 = v38 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v34 = _os_log_pack_fill(v33, v35, 0, &dword_0, "%s: Failed to remount volume with error: %d");
     }
 
     else
     {
-      _os_log_pack_size();
-      v23 = _os_log_pack_fill();
-      v24 = *__error();
-      *v23 = 136315394;
-      *(v23 + 4) = "[LPStaticAPFSVolume revertToSnapshot:options:error:]";
-      *(v23 + 12) = 1024;
-      *(v23 + 14) = v24;
-      _LPLogPack(1);
-      v14 = 0;
+      v32 = _os_log_pack_size();
+      v33 = v38 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v34 = _os_log_pack_fill(v33, v32, 0, &dword_0, "%s: Failed to unmount volume with error: %d");
     }
+
+    v36 = v34;
+    v37 = *__error();
+    *v36 = 136315394;
+    *(v36 + 4) = "[LPStaticAPFSVolume revertToSnapshot:options:error:]";
+    *(v36 + 12) = 1024;
+    *(v36 + 14) = v37;
+    _LPLogPack(1, v33);
+    v14 = 0;
+    goto LABEL_28;
   }
 
-LABEL_14:
+  if (error)
+  {
+    *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:*__error() userInfo:0];
+  }
+
+  v29 = _os_log_pack_size();
+  v30 = v38 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31 = _os_log_pack_fill(v30, v29, 0, &dword_0, "%s : Could not open device mount %{private}@.");
+  *v31 = 136315395;
+  *(v31 + 4) = "[LPStaticAPFSVolume revertToSnapshot:options:error:]";
+  *(v31 + 12) = 2113;
+  *(v31 + 14) = mountPoint;
+  v14 = 1;
+  _LPLogPack(1, v30);
+LABEL_15:
 
   return v14;
 }
@@ -2067,11 +2194,13 @@ LABEL_14:
 - (BOOL)rootToSnapshot:(id)snapshot error:(id *)error
 {
   snapshotCopy = snapshot;
-  _os_log_pack_size();
-  v7 = _os_log_pack_fill();
-  *v7 = 136315138;
-  *(v7 + 4) = "[LPStaticAPFSVolume rootToSnapshot:error:]";
-  _LPLogPack(3);
+  v7 = _os_log_pack_size();
+  v8 = _os_log_pack_fill(&v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v7, 0, &dword_0, "%s: Trying to determine mount point\n", v26);
+  *&v9 = 136315138;
+  v26 = v9;
+  *v8 = 136315138;
+  *(v8 + 4) = "[LPStaticAPFSVolume rootToSnapshot:error:]";
+  _LPLogPack(3, &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   mountPoint = [(LPStaticMedia *)self mountPoint];
   if (snapshotCopy && [snapshotCopy length])
   {
@@ -2084,12 +2213,13 @@ LABEL_4:
         *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
       }
 
-      v9 = _os_log_pack_fill();
-      *v9 = 136315138;
-      *(v9 + 4) = "[LPStaticAPFSVolume rootToSnapshot:error:]";
+      v11 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v12 = _os_log_pack_fill(v11, v7, 0, &dword_0, "%s : Could not open device is not mounted.", v26);
+      *v12 = v26;
+      *(v12 + 4) = "[LPStaticAPFSVolume rootToSnapshot:error:]";
 LABEL_17:
-      _LPLogPack(1);
-      v14 = 0;
+      _LPLogPack(1, v11);
+      v19 = 0;
       goto LABEL_18;
     }
   }
@@ -2099,53 +2229,57 @@ LABEL_17:
     goto LABEL_4;
   }
 
-  _os_log_pack_size();
-  v10 = _os_log_pack_fill();
-  *v10 = 136315395;
-  *(v10 + 4) = "[LPStaticAPFSVolume rootToSnapshot:error:]";
-  *(v10 + 12) = 2113;
-  *(v10 + 14) = mountPoint;
-  _LPLogPack(3);
-  v11 = open([mountPoint fileSystemRepresentation], 0);
-  if (v11 < 0)
+  v13 = _os_log_pack_size();
+  v14 = _os_log_pack_fill(&v26 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), v13, 0, &dword_0, "%s: Mount point is %{private}@\n");
+  *&v15 = 136315395;
+  v26 = v15;
+  *v14 = 136315395;
+  *(v14 + 4) = "[LPStaticAPFSVolume rootToSnapshot:error:]";
+  *(v14 + 12) = 2113;
+  *(v14 + 14) = mountPoint;
+  _LPLogPack(3, &v26 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v16 = open([mountPoint fileSystemRepresentation], 0);
+  if (v16 < 0)
   {
     if (error)
     {
       *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:*__error() userInfo:0];
     }
 
-    v17 = _os_log_pack_fill();
-    *v17 = 136315395;
-    *(v17 + 4) = "[LPStaticAPFSVolume rootToSnapshot:error:]";
-    *(v17 + 12) = 2113;
-    *(v17 + 14) = mountPoint;
+    v11 = &v26 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v24 = _os_log_pack_fill(v11, v13, 0, &dword_0, "%s : Could not open device mount %{private}@.");
+    *v24 = v26;
+    *(v24 + 4) = "[LPStaticAPFSVolume rootToSnapshot:error:]";
+    *(v24 + 12) = 2113;
+    *(v24 + 14) = mountPoint;
     goto LABEL_17;
   }
 
-  v12 = v11;
-  v13 = fs_snapshot_root();
-  v14 = v13 == 0;
-  if (v13)
+  v17 = v16;
+  v18 = fs_snapshot_root();
+  v19 = v18 == 0;
+  if (v18)
   {
-    v15 = *__error();
+    v20 = *__error();
     if (error)
     {
-      *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:v15 userInfo:0];
+      *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:v20 userInfo:0];
     }
 
-    _os_log_pack_size();
-    v16 = _os_log_pack_fill();
-    *v16 = 136315394;
-    *(v16 + 4) = "[LPStaticAPFSVolume rootToSnapshot:error:]";
-    *(v16 + 12) = 1024;
-    *(v16 + 14) = v15;
-    _LPLogPack(1);
+    v21 = _os_log_pack_size();
+    v22 = &v26 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v23 = _os_log_pack_fill(v22, v21, 0, &dword_0, "%s : Could not set root from snapshot. Errno: %d", v26, DWORD2(v26));
+    *v23 = 136315394;
+    *(v23 + 4) = "[LPStaticAPFSVolume rootToSnapshot:error:]";
+    *(v23 + 12) = 1024;
+    *(v23 + 14) = v20;
+    _LPLogPack(1, v22);
   }
 
-  close(v12);
+  close(v17);
 LABEL_18:
 
-  return v14;
+  return v19;
 }
 
 @end

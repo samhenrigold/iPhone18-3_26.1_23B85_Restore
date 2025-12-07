@@ -15,7 +15,7 @@
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC7Journal31MacLargeTitleCollectionViewCell_scrollOffsetObserver) = 0;
   v6 = OBJC_IVAR____TtC7Journal31MacLargeTitleCollectionViewCell_navigationItem;
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC7Journal31MacLargeTitleCollectionViewCell_navigationItem) = 0;
-  sub_100004F84(v4, &qword_100AD13D0);
+  sub_100004F84(v4, &qword_100AD13D0, &unk_100942DB0);
 
   type metadata accessor for MacLargeTitleCollectionViewCell();
   swift_deallocPartialClassInstance();
@@ -38,7 +38,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100109264();
+  sub_100109264(selfCopy);
 }
 
 @end

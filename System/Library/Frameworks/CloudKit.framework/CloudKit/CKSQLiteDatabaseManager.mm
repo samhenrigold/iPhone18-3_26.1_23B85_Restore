@@ -258,7 +258,7 @@ LABEL_11:
 
 - (void)target:(id)target group:(id)group didRunActivity:(id)activity
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   targetCopy = target;
   groupCopy = group;
   activityCopy = activity;
@@ -290,14 +290,14 @@ LABEL_11:
       v30 = ck_log_facility_sql;
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        v62 = objc_msgSend_targetDescription(activityCopy, v31, v32);
-        v63 = 138543874;
-        v64 = v29;
-        v65 = 2114;
-        v66 = v23;
-        v67 = 2114;
-        v68 = v62;
-        _os_log_debug_impl(&dword_1883EA000, v30, OS_LOG_TYPE_DEBUG, "CKSQLiteDatabaseManager rescheduled activity: %{public}@ -> %{public}@ for %{public}@", &v63, 0x20u);
+        v61 = objc_msgSend_targetDescription(activityCopy, v31, v32);
+        v62 = 138543874;
+        v63 = v29;
+        v64 = 2114;
+        v65 = v23;
+        v66 = 2114;
+        v67 = v61;
+        _os_log_debug_impl(&dword_1883EA000, v30, OS_LOG_TYPE_DEBUG, "CKSQLiteDatabaseManager rescheduled activity: %{public}@ -> %{public}@ for %{public}@", &v62, 0x20u);
       }
 
       v35 = objc_msgSend_coalescingInterval(activityCopy, v33, v34);
@@ -328,7 +328,7 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v61 = objc_msgSend_deleteObject_(self->_activities, v52, activityCopy);
+  v60 = objc_msgSend_deleteObject_(self->_activities, v52, activityCopy);
 LABEL_16:
 
   if (v14)
@@ -338,8 +338,6 @@ LABEL_16:
   }
 
 LABEL_18:
-
-  v60 = *MEMORY[0x1E69E9840];
 }
 
 - (id)earliestActivityDate
@@ -359,35 +357,35 @@ LABEL_18:
 
 - (void)runActivities:(id)activities
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   activitiesCopy = activities;
   context = objc_autoreleasePoolPush();
-  v69 = os_transaction_create();
-  v71 = activitiesCopy;
+  v68 = os_transaction_create();
+  v70 = activitiesCopy;
   objc_msgSend_activitiesStartingBeforeDate_(self, v5, activitiesCopy);
+  v77 = 0u;
   v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
-  obj = v77 = 0u;
-  v73 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v76, v86, 16);
-  if (v73)
+  v75 = 0u;
+  obj = v76 = 0u;
+  v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v75, v85, 16);
+  if (v72)
   {
     v7 = 0;
-    v74 = 0;
+    v73 = 0;
     v8 = 0;
     v9 = &unk_1EFA852F0;
-    v72 = *v77;
+    v71 = *v76;
     while (1)
     {
       v10 = 0;
       do
       {
-        if (*v77 != v72)
+        if (*v76 != v71)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v76 + 1) + 8 * v10);
+        v11 = *(*(&v75 + 1) + 8 * v10);
 
         v12 = objc_autoreleasePoolPush();
         v15 = objc_msgSend_databaseID(v11, v13, v14, context);
@@ -420,17 +418,17 @@ LABEL_12:
           }
         }
 
-        if (v74 && (objc_msgSend_groupID(v74, v20, v21), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_groupID(v11, v23, v24), v25 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend_isEqualToNumber_(v22, v26, v25), v25, v22, v27))
+        if (v73 && (objc_msgSend_groupID(v73, v20, v21), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_groupID(v11, v23, v24), v25 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend_isEqualToNumber_(v22, v26, v25), v25, v22, v27))
         {
-          v30 = v74;
+          v30 = v73;
         }
 
         else
         {
           v35 = objc_msgSend_groupID(v11, v20, v21);
-          v75 = 0;
-          v37 = objc_msgSend_tableGroupInDatabase_withID_error_(CKSQLiteTableGroup, v36, v8, v35, &v75);
-          v38 = v75;
+          v74 = 0;
+          v37 = objc_msgSend_tableGroupInDatabase_withID_error_(CKSQLiteTableGroup, v36, v8, v35, &v74);
+          v38 = v74;
 
           if (v38)
           {
@@ -443,7 +441,7 @@ LABEL_12:
             if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v81 = v38;
+              v80 = v38;
               _os_log_error_impl(&dword_1883EA000, v39, OS_LOG_TYPE_ERROR, "Failed to fetch group for activity: %{public}@", buf, 0xCu);
             }
           }
@@ -453,7 +451,7 @@ LABEL_12:
           if (!v30)
           {
             v34 = 0;
-            v74 = 0;
+            v73 = 0;
             objc_msgSend_target_group_willRunActivity_(self, v28, 0, 0, v11);
             goto LABEL_24;
           }
@@ -472,7 +470,7 @@ LABEL_12:
 
         v34 = v42;
 
-        v74 = v30;
+        v73 = v30;
         objc_msgSend_target_group_willRunActivity_(self, v43, v34, v30, v11);
         v7 = LABEL_24:;
 
@@ -489,11 +487,11 @@ LABEL_12:
           if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v81 = v46;
+            v80 = v46;
             _os_log_debug_impl(&dword_1883EA000, v48, OS_LOG_TYPE_DEBUG, "Running database activity on %{public}@", buf, 0xCu);
           }
 
-          objc_msgSend_activityTriggered_(v34, v49, v71);
+          objc_msgSend_activityTriggered_(v34, v49, v70);
           v9 = v47;
         }
 
@@ -508,11 +506,11 @@ LABEL_12:
           if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543874;
-            v81 = v7;
-            v82 = 2114;
-            v83 = v8;
-            v84 = 2114;
-            v85 = v30;
+            v80 = v7;
+            v81 = 2114;
+            v82 = v8;
+            v83 = 2114;
+            v84 = v30;
             _os_log_debug_impl(&dword_1883EA000, v51, OS_LOG_TYPE_DEBUG, "Skipped database activity %{public}@ with no target. (db = %{public}@, group = %{public}@)", buf, 0x20u);
           }
         }
@@ -523,9 +521,9 @@ LABEL_12:
         ++v10;
       }
 
-      while (v73 != v10);
-      v73 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v52, &v76, v86, 16);
-      if (!v73)
+      while (v72 != v10);
+      v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v52, &v75, v85, 16);
+      if (!v72)
       {
 
         goto LABEL_38;
@@ -533,7 +531,7 @@ LABEL_12:
     }
   }
 
-  v74 = 0;
+  v73 = 0;
   v8 = 0;
   v9 = &unk_1EFA852F0;
 LABEL_38:
@@ -565,7 +563,6 @@ LABEL_38:
   }
 
   objc_autoreleasePoolPop(context);
-  v67 = *MEMORY[0x1E69E9840];
 }
 
 - (id)nextActivityDateForTarget:(id)target
@@ -616,12 +613,12 @@ LABEL_38:
 
 - (void)waitForTargetActivityComplete:(id)complete
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   completeCopy = complete;
   if ((byte_1EA919CC8 & 1) == 0)
   {
-    v23 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v5, v6);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v23, v24, a2, self, @"CKSQLiteDatabaseManager.m", 776, @"Only for unit tests");
+    v22 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v5, v6);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v22, v23, a2, self, @"CKSQLiteDatabaseManager.m", 776, @"Only for unit tests");
   }
 
   if (ck_log_initialization_predicate != -1)
@@ -632,12 +629,12 @@ LABEL_38:
   v8 = ck_log_facility_sql;
   if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_DEBUG))
   {
-    v17 = v8;
-    v18 = objc_opt_class();
-    v19 = NSStringFromClass(v18);
-    v25 = 138412290;
-    v26 = v19;
-    _os_log_debug_impl(&dword_1883EA000, v17, OS_LOG_TYPE_DEBUG, "%@ started waiting for complete", &v25, 0xCu);
+    v16 = v8;
+    v17 = objc_opt_class();
+    v18 = NSStringFromClass(v17);
+    v24 = 138412290;
+    v25 = v18;
+    _os_log_debug_impl(&dword_1883EA000, v16, OS_LOG_TYPE_DEBUG, "%@ started waiting for complete", &v24, 0xCu);
   }
 
   v10 = objc_msgSend_nextActivityDateForTarget_(self, v9, completeCopy);
@@ -663,24 +660,22 @@ LABEL_38:
   v15 = ck_log_facility_sql;
   if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_DEBUG))
   {
-    v20 = v15;
-    v21 = objc_opt_class();
-    v22 = NSStringFromClass(v21);
-    v25 = 138412290;
-    v26 = v22;
-    _os_log_debug_impl(&dword_1883EA000, v20, OS_LOG_TYPE_DEBUG, "%@ finished waiting for complete", &v25, 0xCu);
+    v19 = v15;
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
+    v24 = 138412290;
+    v25 = v21;
+    _os_log_debug_impl(&dword_1883EA000, v19, OS_LOG_TYPE_DEBUG, "%@ finished waiting for complete", &v24, 0xCu);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)waitForComplete
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if ((byte_1EA919CC8 & 1) == 0)
   {
-    v27 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, v2);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v27, v28, a2, self, @"CKSQLiteDatabaseManager.m", 789, @"Only for unit tests");
+    v26 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, v2);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v26, v27, a2, self, @"CKSQLiteDatabaseManager.m", 789, @"Only for unit tests");
   }
 
   v4 = objc_msgSend_date(MEMORY[0x1E695DF00], a2, v2);
@@ -692,12 +687,12 @@ LABEL_38:
   v5 = ck_log_facility_sql;
   if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_DEBUG))
   {
-    v16 = v5;
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    v29 = 138412290;
-    v30 = v18;
-    _os_log_debug_impl(&dword_1883EA000, v16, OS_LOG_TYPE_DEBUG, "%@ started waiting for complete", &v29, 0xCu);
+    v15 = v5;
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    v28 = 138412290;
+    v29 = v17;
+    _os_log_debug_impl(&dword_1883EA000, v15, OS_LOG_TYPE_DEBUG, "%@ started waiting for complete", &v28, 0xCu);
   }
 
   v8 = objc_msgSend_earliestActivityDate(self, v6, v7);
@@ -723,28 +718,26 @@ LABEL_38:
   v14 = ck_log_facility_sql;
   if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_DEBUG))
   {
-    v19 = v14;
-    v20 = objc_opt_class();
-    v21 = NSStringFromClass(v20);
-    objc_msgSend_timeIntervalSinceNow(v4, v22, v23);
-    v25 = CKDescriptionForTimeInterval(-v24);
-    v29 = 138412546;
-    v30 = v21;
-    v31 = 2114;
-    v32 = v25;
-    _os_log_debug_impl(&dword_1883EA000, v19, OS_LOG_TYPE_DEBUG, "%@ finished waiting for complete (%{public}@)", &v29, 0x16u);
+    v18 = v14;
+    v19 = objc_opt_class();
+    v20 = NSStringFromClass(v19);
+    objc_msgSend_timeIntervalSinceNow(v4, v21, v22);
+    v24 = CKDescriptionForTimeInterval(-v23);
+    v28 = 138412546;
+    v29 = v20;
+    v30 = 2114;
+    v31 = v24;
+    _os_log_debug_impl(&dword_1883EA000, v18, OS_LOG_TYPE_DEBUG, "%@ finished waiting for complete (%{public}@)", &v28, 0x16u);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)flush
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if ((byte_1EA919CC8 & 1) == 0)
   {
-    v26 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, v2);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v26, v27, a2, self, @"CKSQLiteDatabaseManager.m", 803, @"Only for unit tests");
+    v25 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, v2);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v25, v26, a2, self, @"CKSQLiteDatabaseManager.m", 803, @"Only for unit tests");
   }
 
   if (ck_log_initialization_predicate != -1)
@@ -755,12 +748,12 @@ LABEL_38:
   v5 = ck_log_facility_sql;
   if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_DEBUG))
   {
-    v20 = v5;
-    v21 = objc_opt_class();
-    v22 = NSStringFromClass(v21);
+    v19 = v5;
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
     *buf = 138412290;
-    v33 = v22;
-    _os_log_debug_impl(&dword_1883EA000, v20, OS_LOG_TYPE_DEBUG, "%@ started flush", buf, 0xCu);
+    v32 = v21;
+    _os_log_debug_impl(&dword_1883EA000, v19, OS_LOG_TYPE_DEBUG, "%@ started flush", buf, 0xCu);
   }
 
   v8 = 0;
@@ -791,9 +784,9 @@ LABEL_38:
     }
 
     activities = self->_activities;
-    v30 = v8;
-    hasPendingActivities = objc_msgSend_hasPendingActivities_(activities, v10, &v30);
-    v17 = v30;
+    v29 = v8;
+    hasPendingActivities = objc_msgSend_hasPendingActivities_(activities, v10, &v29);
+    v17 = v29;
 
     v8 = v17;
   }
@@ -801,8 +794,8 @@ LABEL_38:
   while ((hasPendingActivities & 1) != 0);
   if (v17)
   {
-    v28 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v6, v7);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v28, v29, a2, self, @"CKSQLiteDatabaseManager.m", 817, @"Error waiting for complete", v17);
+    v27 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v6, v7);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v27, v28, a2, self, @"CKSQLiteDatabaseManager.m", 817, @"Error waiting for complete", v17);
   }
 
   if (ck_log_initialization_predicate != -1)
@@ -813,15 +806,13 @@ LABEL_38:
   v18 = ck_log_facility_sql;
   if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_DEBUG))
   {
-    v23 = v18;
-    v24 = objc_opt_class();
-    v25 = NSStringFromClass(v24);
+    v22 = v18;
+    v23 = objc_opt_class();
+    v24 = NSStringFromClass(v23);
     *buf = 138412290;
-    v33 = v25;
-    _os_log_debug_impl(&dword_1883EA000, v23, OS_LOG_TYPE_DEBUG, "%@ finished flush", buf, 0xCu);
+    v32 = v24;
+    _os_log_debug_impl(&dword_1883EA000, v22, OS_LOG_TYPE_DEBUG, "%@ finished flush", buf, 0xCu);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

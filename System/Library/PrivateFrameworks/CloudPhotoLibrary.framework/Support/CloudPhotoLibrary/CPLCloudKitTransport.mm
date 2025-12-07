@@ -28,6 +28,7 @@
 - (id)acceptTaskForSharedScope:(id)scope completionHandler:(id)handler;
 - (id)acquireReschedulerTaskWithCompletionHandler:(id)handler;
 - (id)cleanupStagedScope:(id)scope stagingScope:(id)stagingScope destinationScope:(id)destinationScope transportScopeMapping:(id)mapping progressHandler:(id)handler completionHandler:(id)completionHandler;
+- (id)createGroupAllowsCellular:(BOOL)cellular allowsExpensiveNetwork:(BOOL)network foreground:(BOOL)foreground upload:(BOOL)upload metadata:(BOOL)metadata;
 - (id)createGroupForAcceptingLibraryShare;
 - (id)createGroupForAcceptingMomentShare;
 - (id)createGroupForAnalysisDownload;
@@ -93,6 +94,7 @@
 - (id)scopeNameForTransportScope:(id)scope;
 - (id)scopedIdentifierForCKRecordID:(id)d;
 - (id)sendFeedbackTaskForMessages:(id)messages completionHandler:(id)handler;
+- (id)setupTaskUpdateDisabledFeatures:(BOOL)features completionHandler:(id)handler;
 - (id)sharedLibraryServerRampTaskWithCompletionHandler:(id)handler;
 - (id)simpleDescriptionForSyncAnchor:(id)anchor;
 - (id)startExitTaskFromSharedScope:(id)scope transportScope:(id)transportScope share:(id)share retentionPolicy:(int64_t)policy exitSource:(int64_t)source completionHandler:(id)handler;
@@ -117,6 +119,7 @@
 - (void)_updateBudgets;
 - (void)_updateStateWithAccountInfo:(id)info walrusEnabledDefault:(id)default;
 - (void)_updateStateWithAccountStatus:(int64_t)status;
+- (void)_updateWalrusTo:(BOOL)to;
 - (void)_withTempCKAssetForData:(id)data tempFolderURL:(id)l block:(id)block;
 - (void)acquireHelperWithIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)closeAndDeactivate:(BOOL)deactivate completionHandler:(id)handler;
@@ -136,6 +139,7 @@
 - (void)registerHelper:(id)helper withIdentifier:(id)identifier;
 - (void)reschedulerManager:(id)manager didUpdateBlockedState:(id)state;
 - (void)setIsSignificantWorkPending:(BOOL)pending;
+- (void)setShouldOverride:(BOOL)override forSystemBudgets:(unint64_t)budgets;
 - (void)testKey:(id)key value:(id)value completionHandler:(id)handler;
 - (void)updateAccountEPPCapability:(int64_t)capability;
 - (void)upgradeFlags:(id)flags fromTransportScope:(id)scope;
@@ -401,6 +405,18 @@
   v5 = [[CPLCloudKitAcquireReschedulerTask alloc] initWithController:self completionHandler:handlerCopy];
 
   return v5;
+}
+
+- (id)setupTaskUpdateDisabledFeatures:(BOOL)features completionHandler:(id)handler
+{
+  featuresCopy = features;
+  handlerCopy = handler;
+  v7 = [[CPLCloudKitSetupTask alloc] initWithController:self updateDisabledFeatures:featuresCopy completionHandler:handlerCopy];
+
+  createGroupForSetup = [(CPLCloudKitTransport *)self createGroupForSetup];
+  [(CPLCloudKitTransportTask *)v7 setTransportGroup:createGroupForSetup];
+
+  return v7;
 }
 
 - (id)fetchRecordsTaskForRecordsWithScopedIdentifiers:(id)identifiers targetMapping:(id)mapping transportScopeMapping:(id)scopeMapping completionHandler:(id)handler
@@ -1043,6 +1059,13 @@
   }
 }
 
+- (void)setShouldOverride:(BOOL)override forSystemBudgets:(unint64_t)budgets
+{
+  overrideCopy = override;
+  duetTicketProvider = [(CPLCloudKitTransport *)self duetTicketProvider];
+  [duetTicketProvider setShouldOverride:overrideCopy forSystemBudgets:budgets];
+}
+
 - (id)tentativeConcreteScopeForScope:(id)scope
 {
   scopeCopy = scope;
@@ -1154,6 +1177,23 @@ LABEL_7:
   }
 
   return v9;
+}
+
+- (id)createGroupAllowsCellular:(BOOL)cellular allowsExpensiveNetwork:(BOOL)network foreground:(BOOL)foreground upload:(BOOL)upload metadata:(BOOL)metadata
+{
+  metadataCopy = metadata;
+  uploadCopy = upload;
+  foregroundCopy = foreground;
+  networkCopy = network;
+  cellularCopy = cellular;
+  if (foreground && !cellular)
+  {
+    networkCopy = [objc_opt_class() allowsUserInitiatedOperationsOverExpensiveNetwork] | network;
+  }
+
+  coordinator = self->_coordinator;
+
+  return [(CPLCloudKitCoordinator *)coordinator createGroupAllowsCellular:cellularCopy allowsExpensiveNetwork:networkCopy foreground:foregroundCopy upload:uploadCopy metadata:metadataCopy forClient:self];
 }
 
 - (id)createGroupForSendExitStatus
@@ -1528,7 +1568,13 @@ LABEL_7:
     v7 = off_100275DF0[intent - 1];
   }
 
-  if (!self->_mightRejectVideoStreaming || ![(NSIndexSet *)self->_rejectedVideoStreamingIntents containsIndex:intent])
+  if (!self->_mightRejectVideoStreaming)
+  {
+    goto LABEL_17;
+  }
+
+  v8 = [(NSIndexSet *)self->_rejectedVideoStreamingIntents containsIndex:intent];
+  if (!v8)
   {
     goto LABEL_17;
   }
@@ -1537,42 +1583,42 @@ LABEL_7:
   {
     if (_CPLSilentLogging)
     {
-      v9 = @"Content Rejected ";
+      v10 = @"Content Rejected ";
       goto LABEL_16;
     }
 
-    v8 = sub_1000770DC();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000770DC(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Asking server to reject %@ at content level", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Asking server to reject %@ at content level", &v12, 0xCu);
     }
 
-    v9 = @"Content Rejected ";
+    v10 = @"Content Rejected ";
   }
 
   else
   {
     if (_CPLSilentLogging)
     {
-      v9 = @"Rejected ";
+      v10 = @"Rejected ";
       goto LABEL_16;
     }
 
-    v8 = sub_1000770DC();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000770DC(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Asking server to reject %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Asking server to reject %@", &v12, 0xCu);
     }
 
-    v9 = @"Rejected ";
+    v10 = @"Rejected ";
   }
 
 LABEL_16:
-  v7 = [(__CFString *)v9 stringByAppendingString:v7];
+  v7 = [(__CFString *)v10 stringByAppendingString:v7];
 LABEL_17:
   if (self->_operationGroupMapper)
   {
@@ -1880,7 +1926,7 @@ LABEL_17:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = sub_1000770DC();
+      v6 = sub_1000770DC(reschedulerManager);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = self->_reschedulerManager;
@@ -1977,7 +2023,7 @@ LABEL_17:
   {
     if (reasonCopy && (_CPLSilentLogging & 1) == 0)
     {
-      sub_1001A6B04();
+      sub_1001A6B04(reasonCopy);
     }
 
     v10 = +[NSDate date];
@@ -2064,6 +2110,14 @@ LABEL_17:
   }
 
 LABEL_3:
+}
+
+- (void)_updateWalrusTo:(BOOL)to
+{
+  toCopy = to;
+  abstractObject = [(CPLCloudKitTransport *)self abstractObject];
+  engineLibrary = [abstractObject engineLibrary];
+  [engineLibrary setWalrusEnabled:toCopy];
 }
 
 + (id)_betterErrorForRecordId:(id)id recordError:(id)error
@@ -2282,34 +2336,35 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  if ([keyCopy isEqual:@"refresh-cloudkit"])
+  v11 = [keyCopy isEqual:@"refresh-cloudkit"];
+  if (v11)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = sub_1000770DC();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_1000770DC(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Refreshing account info", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Refreshing account info", buf, 2u);
       }
     }
 
     workQueue = self->_workQueue;
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10007DA74;
-    v16[3] = &unk_1002723C8;
-    v16[4] = self;
-    v17 = handlerCopy;
-    v13 = v16;
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10007DA74;
+    v17[3] = &unk_1002723C8;
+    v17[4] = self;
+    v18 = handlerCopy;
+    v14 = v17;
     *buf = _NSConcreteStackBlock;
-    v19 = 3221225472;
-    v20 = sub_100002AD4;
-    v21 = &unk_100271E98;
-    v22 = v13;
-    v14 = workQueue;
-    v15 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
-    dispatch_async(v14, v15);
+    v20 = 3221225472;
+    v21 = sub_100002AD4;
+    v22 = &unk_100271E98;
+    v23 = v14;
+    v15 = workQueue;
+    v16 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
+    dispatch_async(v15, v16);
   }
 
   else
@@ -2572,13 +2627,13 @@ LABEL_6:
   taskCopy = task;
   if (neededCopy)
   {
-    v26 = 0;
     v27 = 0;
-    if ([CPLCloudKitErrors getCloudKitErrorCode:&v27 internalCode:&v26 fromError:neededCopy])
+    v28 = 0;
+    if ([CPLCloudKitErrors getCloudKitErrorCode:&v28 internalCode:&v27 fromError:neededCopy])
     {
-      if (v27 == 18 || v26 == 2039)
+      if (v28 == 18 || v27 == 2039)
       {
-        sub_1001A7A2C(self, v25);
+        sub_1001A7A2C(self, v26);
         goto LABEL_21;
       }
 
@@ -2588,7 +2643,7 @@ LABEL_6:
         goto LABEL_21;
       }
 
-      if (v27 == 114)
+      if (v28 == 114)
       {
         abstractObject = [(CPLCloudKitTransport *)self abstractObject];
         engineLibrary = [abstractObject engineLibrary];
@@ -2598,58 +2653,58 @@ LABEL_6:
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v20 = sub_1000770DC();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+            v21 = sub_1000770DC(v11);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
               LODWORD(buf) = 138412290;
               *(&buf + 4) = taskCopy;
-              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Task %@ failed because Walrus is enabled", &buf, 0xCu);
+              _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Task %@ failed because Walrus is enabled", &buf, 0xCu);
             }
           }
 
           workQueue = self->_workQueue;
-          v24[0] = _NSConcreteStackBlock;
-          v24[1] = 3221225472;
-          v24[2] = sub_10007FC68;
-          v24[3] = &unk_100271F40;
-          v24[4] = self;
-          v22 = v24;
+          v25[0] = _NSConcreteStackBlock;
+          v25[1] = 3221225472;
+          v25[2] = sub_10007FC68;
+          v25[3] = &unk_100271F40;
+          v25[4] = self;
+          v23 = v25;
           *&buf = _NSConcreteStackBlock;
           *(&buf + 1) = 3221225472;
-          v29 = sub_100002AD4;
-          v30 = &unk_100271E98;
-          v31 = v22;
-          v11 = workQueue;
-          v23 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
-          dispatch_async(v11, v23);
+          v30 = sub_100002AD4;
+          v31 = &unk_100271E98;
+          v32 = v23;
+          v12 = workQueue;
+          v24 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
+          dispatch_async(v12, v24);
 
           goto LABEL_20;
         }
 
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v11 = sub_1000770DC();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v12 = sub_1000770DC(v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             LODWORD(buf) = 138412290;
             *(&buf + 4) = taskCopy;
-            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Task %@ failed because Walrus is enabled - this might be a bug", &buf, 0xCu);
+            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Task %@ failed because Walrus is enabled - this might be a bug", &buf, 0xCu);
           }
 
 LABEL_20:
         }
       }
 
-      else if (v26 == 6000)
+      else if (v27 == 6000)
       {
-        v12 = [CPLCloudKitErrors realErrorForError:neededCopy];
-        userInfo = [v12 userInfo];
-        v14 = [userInfo objectForKey:NSUnderlyingErrorKey];
+        v13 = [CPLCloudKitErrors realErrorForError:neededCopy];
+        userInfo = [v13 userInfo];
+        v15 = [userInfo objectForKey:NSUnderlyingErrorKey];
 
-        userInfo2 = [v14 userInfo];
-        v16 = [userInfo2 objectForKey:NSUnderlyingErrorKey];
+        userInfo2 = [v15 userInfo];
+        v17 = [userInfo2 objectForKey:NSUnderlyingErrorKey];
 
-        if ([v16 code] == 11)
+        if ([v17 code] == 11)
         {
           abstractObject2 = [(CPLCloudKitTransport *)self abstractObject];
           engineLibrary2 = [abstractObject2 engineLibrary];
@@ -2684,23 +2739,8 @@ LABEL_21:
   {
     if (-[CPLCloudKitTransport supportsSharedDatabase](self, "supportsSharedDatabase") || ([dCopy ownerName], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToString:", CKCurrentUserDefaultName), v9, v10))
     {
-      if ([(CPLCloudKitTransport *)self isSystemLibrary])
+      if (-[CPLCloudKitTransport isSystemLibrary](self, "isSystemLibrary") && ([dCopy zoneName], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "hasPrefix:", CPLMainScopeIdentifierForAppPrefix), v11, (v12 & 1) != 0) || (-[CPLCloudKitTransport mainScopeIdentifier](self, "mainScopeIdentifier"), v13 = objc_claimAutoreleasedReturnValue(), v14 = +[CPLCloudKitZoneIdentification shouldIgnoreZoneID:forMainScopeIdentifier:](CPLCloudKitLibraryShareZoneIdentification, "shouldIgnoreZoneID:forMainScopeIdentifier:", dCopy, v13), v13, (v14 & 1) != 0) || (-[CPLCloudKitTransport mainScopeIdentifier](self, "mainScopeIdentifier"), v15 = objc_claimAutoreleasedReturnValue(), v16 = +[CPLCloudKitZoneIdentification shouldIgnoreZoneID:forMainScopeIdentifier:](CPLCloudKitCollectionShareZoneIdentification, "shouldIgnoreZoneID:forMainScopeIdentifier:", dCopy, v15), v15, (v16 & 1) != 0))
       {
-        zoneName = [dCopy zoneName];
-        v12 = [zoneName hasPrefix:CPLMainScopeIdentifierForAppPrefix];
-
-        if (v12)
-        {
-          goto LABEL_12;
-        }
-      }
-
-      mainScopeIdentifier = [(CPLCloudKitTransport *)self mainScopeIdentifier];
-      v14 = [(CPLCloudKitZoneIdentification *)CPLCloudKitLibraryShareZoneIdentification shouldIgnoreZoneID:dCopy forMainScopeIdentifier:mainScopeIdentifier];
-
-      if (v14 & 1) != 0 || ([(CPLCloudKitTransport *)self mainScopeIdentifier], v15 = objc_claimAutoreleasedReturnValue(), v16 = [(CPLCloudKitZoneIdentification *)CPLCloudKitCollectionShareZoneIdentification shouldIgnoreZoneID:dCopy forMainScopeIdentifier:v15], v15, (v16))
-      {
-LABEL_12:
         v8 = 1;
         goto LABEL_18;
       }
@@ -2718,9 +2758,9 @@ LABEL_12:
   }
 
   cpl_zoneName = [dCopy cpl_zoneName];
-  mainScopeIdentifier2 = [(CPLCloudKitTransport *)self mainScopeIdentifier];
-  v7 = mainScopeIdentifier2;
-  v8 = (!cpl_zoneName || !mainScopeIdentifier2 || ([cpl_zoneName isEqual:mainScopeIdentifier2] & 1) == 0) && (cpl_zoneName | v7) != 0;
+  mainScopeIdentifier = [(CPLCloudKitTransport *)self mainScopeIdentifier];
+  v7 = mainScopeIdentifier;
+  v8 = (!cpl_zoneName || !mainScopeIdentifier || ([cpl_zoneName isEqual:mainScopeIdentifier] & 1) == 0) && (cpl_zoneName | v7) != 0;
 
 LABEL_18:
   return v8;
@@ -2844,113 +2884,114 @@ LABEL_18:
 {
   allowsSyncOverCellular = [objc_opt_class() allowsSyncOverCellular];
   v8 = -[CPLCloudKitTransport createGroupAllowsCellular:allowsExpensiveNetwork:foreground:upload:metadata:](self, "createGroupAllowsCellular:allowsExpensiveNetwork:foreground:upload:metadata:", allowsSyncOverCellular, [objc_opt_class() allowsSyncOverExpensiveNetwork], +[CPLResourceTransferTaskOptions isForegroundOperationForIntent:priority:](CPLResourceTransferTaskOptions, "isForegroundOperationForIntent:priority:", intent, priority), 0, 0);
-  v9 = @"Non-Derivatives Prefetch";
+  v9 = v8;
+  v10 = @"Non-Derivatives Prefetch";
   switch(intent)
   {
     case 0uLL:
-      v10 = @"Resources Download";
-      v11 = @"Resources Prefetch";
+      v11 = @"Resources Download";
+      v12 = @"Resources Prefetch";
       goto LABEL_19;
     case 1uLL:
       break;
     case 2uLL:
-      v9 = @"Keep-Originals Prefetch";
+      v10 = @"Keep-Originals Prefetch";
       break;
     case 3uLL:
-      v10 = @"Memory Playback Resources Download";
+      v11 = @"Memory Playback Resources Download";
       if (priority == 1)
       {
-        v10 = @"Memory Playback Resources Preload";
+        v11 = @"Memory Playback Resources Preload";
       }
 
-      v11 = @"Memories Prefetch";
+      v12 = @"Memories Prefetch";
       goto LABEL_19;
     case 4uLL:
-      v9 = @"Recovery Download";
+      v10 = @"Recovery Download";
       break;
     case 5uLL:
-      v9 = @"Optimize-Originals Prefetch";
+      v10 = @"Optimize-Originals Prefetch";
       break;
     case 6uLL:
-      v10 = @"Widget Resources Download";
-      v11 = @"Widget Prefetch";
+      v11 = @"Widget Resources Download";
+      v12 = @"Widget Prefetch";
 LABEL_19:
-      v12 = priority == 2;
+      v13 = priority == 2;
       goto LABEL_20;
     case 7uLL:
-      v9 = @"Grid Resources Download";
+      v10 = @"Grid Resources Download";
       break;
     case 8uLL:
-      v9 = @"1Up Resources Download";
+      v10 = @"1Up Resources Download";
       break;
     case 9uLL:
-      v9 = @"Edit Resources Download";
+      v10 = @"Edit Resources Download";
       break;
     case 0xAuLL:
-      v9 = @"Media Analysis Download";
+      v10 = @"Media Analysis Download";
       break;
     case 0xBuLL:
-      v9 = @"Watch Sync Download";
+      v10 = @"Watch Sync Download";
       break;
     case 0xCuLL:
-      v9 = @"Wallpaper Suggestion";
+      v10 = @"Wallpaper Suggestion";
       break;
     case 0xDuLL:
-      v9 = @"Wallpaper Shuffle";
+      v10 = @"Wallpaper Shuffle";
       break;
     case 0xEuLL:
-      v9 = @"Wallpaper Live Photo";
+      v10 = @"Wallpaper Live Photo";
       break;
     case 0xFuLL:
-      v9 = @"Background Edit Suggestion";
+      v10 = @"Background Edit Suggestion";
       break;
     case 0x10uLL:
-      v10 = @"Memory Inline Playback Resources Download";
-      v11 = @"Memory Inline Playback Resources Preload";
-      v12 = priority == 1;
+      v11 = @"Memory Inline Playback Resources Download";
+      v12 = @"Memory Inline Playback Resources Preload";
+      v13 = priority == 1;
 LABEL_20:
-      if (v12)
+      if (v13)
       {
-        v9 = v11;
+        v10 = v12;
       }
 
       else
       {
-        v9 = v10;
+        v10 = v11;
       }
 
       break;
     case 0x11uLL:
-      v9 = @"Background Upload";
+      v10 = @"Background Upload";
       break;
     default:
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v15 = sub_1000770DC();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = sub_1000770DC(v8);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v17 = 134217984;
+          v18 = 134217984;
           intentCopy = intent;
-          sub_1000139CC(&_mh_execute_header, v15, v16, "Invalid download intent: %lu", &v17);
+          sub_1000139CC(&_mh_execute_header, v16, v17, "Invalid download intent: %lu", &v18);
         }
       }
 
-      v9 = @"Resources Download";
+      v10 = @"Resources Download";
       break;
   }
 
   if (self->_operationGroupMapper)
   {
-    v14 = sub_1001A50BC(self, v9);
-    [v8 setName:v14];
+    v15 = sub_1001A50BC(self, v10);
+    [v9 setName:v15];
   }
 
   else
   {
-    [v8 setName:v9];
+    [v9 setName:v10];
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)_updateStateWithAccountInfo:(id)info walrusEnabledDefault:(id)default
@@ -2960,20 +3001,21 @@ LABEL_20:
   if (default)
   {
     bOOLValue = [default BOOLValue];
+    v9 = bOOLValue;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = sub_1000770DC();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_1000770DC(bOOLValue);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         sub_10000343C();
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Forcing walrus to %@", v42, 0xCu);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Forcing walrus to %@", v44, 0xCu);
       }
     }
 
     selfCopy3 = self;
-    v11 = bOOLValue;
+    v12 = v9;
 LABEL_7:
-    [(CPLCloudKitTransport *)selfCopy3 _updateWalrusTo:v11, *v42];
+    [(CPLCloudKitTransport *)selfCopy3 _updateWalrusTo:v12, v44[0]];
     goto LABEL_8;
   }
 
@@ -2988,12 +3030,12 @@ LABEL_7:
 
   if ((engineLibrary & 1) == 0 && (_CPLSilentLogging & 1) == 0)
   {
-    v17 = sub_1000770DC();
-    if (sub_100003424(v17))
+    v19 = sub_1000770DC(v18);
+    if (sub_100003424(v19))
     {
-      *v42 = 0;
+      LOWORD(v44[0]) = 0;
       sub_100013990();
-      _os_log_impl(v18, v19, v20, v21, v22, 2u);
+      _os_log_impl(v20, v21, v22, v23, v24, 2u);
     }
   }
 
@@ -3002,17 +3044,17 @@ LABEL_7:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v36 = sub_1000770DC();
-      if (sub_100003424(v36))
+      v38 = sub_1000770DC(2);
+      if (sub_100003424(v38))
       {
-        *v42 = 0;
+        LOWORD(v44[0]) = 0;
         sub_100013990();
-        _os_log_impl(v37, v38, v39, v40, v41, 2u);
+        _os_log_impl(v39, v40, v41, v42, v43, 2u);
       }
     }
 
     selfCopy3 = self;
-    v11 = 0;
+    v12 = 0;
     goto LABEL_7;
   }
 
@@ -3020,28 +3062,28 @@ LABEL_7:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v30 = sub_1000770DC();
-      if (sub_100003424(v30))
+      v32 = sub_1000770DC(1);
+      if (sub_100003424(v32))
       {
-        *v42 = 0;
+        LOWORD(v44[0]) = 0;
         sub_100013990();
-        _os_log_impl(v31, v32, v33, v34, v35, 2u);
+        _os_log_impl(v33, v34, v35, v36, v37, 2u);
       }
     }
 
     selfCopy3 = self;
-    v11 = 1;
+    v12 = 1;
     goto LABEL_7;
   }
 
   if (!walrusStatus && (_CPLSilentLogging & 1) == 0)
   {
-    v24 = sub_1000770DC();
-    if (sub_100003448(v24))
+    v26 = sub_1000770DC(0);
+    if (sub_100003448(v26))
     {
-      *v42 = 0;
+      LOWORD(v44[0]) = 0;
       sub_100021D44();
-      _os_log_impl(v25, v26, v27, v28, v29, 2u);
+      _os_log_impl(v27, v28, v29, v30, v31, 2u);
     }
   }
 
@@ -3052,7 +3094,7 @@ LABEL_8:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_1000770DC();
+    v6 = sub_1000770DC(self);
     if (sub_100003424(v6))
     {
       CKStringFromAccountStatus();

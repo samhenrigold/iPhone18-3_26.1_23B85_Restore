@@ -391,15 +391,14 @@ LABEL_25:
 
     if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 134218240;
-      v15 = v9;
-      v16 = 2048;
+      v13 = 134218240;
+      v14 = v9;
+      v15 = 2048;
       notificationCopy = notification;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "<Notice> Thermal pressure level %llu thermal level %llu", &v14, 0x16u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "<Notice> Thermal pressure level %llu thermal level %llu", &v13, 0x16u);
     }
 
 LABEL_40:
-    pressureLevel_previous = self->pressureLevel_previous;
     kdebug_trace();
     self->pressureLevel_previous = v9;
     return v9;
@@ -415,7 +414,7 @@ LABEL_40:
 
 - (void)setThermalPressureLevelNotification:(unint64_t)notification
 {
-  if (self->pressureLevel_previous == notification || (pressureLevel_previous = self->pressureLevel_previous, byte_1000A22A0 != 1))
+  if (self->pressureLevel_previous == notification || byte_1000A22A0 != 1)
   {
 LABEL_12:
     kdebug_trace();
@@ -432,15 +431,15 @@ LABEL_12:
     return;
   }
 
-  v6 = notify_post(kOSThermalNotificationPressureLevelName);
-  v7 = qword_1000AB718;
-  if (!v6)
+  v5 = notify_post(kOSThermalNotificationPressureLevelName);
+  v6 = qword_1000AB718;
+  if (!v5)
   {
     if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 134217984;
+      v7 = 134217984;
       notificationCopy = notification;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "<Notice> Thermal pressure level %llu", &v8, 0xCu);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "<Notice> Thermal pressure level %llu", &v7, 0xCu);
     }
 
     self->pressureLevel_previous = notification;

@@ -119,7 +119,7 @@ LABEL_8:
   v18 = dword_100312D88 & unsignedIntValue;
   v19 = dword_100312D90 & unsignedIntValue;
   v20 = dword_100312D98 & unsignedIntValue;
-  v21 = sub_100002880();
+  v21 = sub_100002880(unsignedIntValue);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67110914;
@@ -470,49 +470,49 @@ LABEL_54:
   }
 
   v54 = v28;
-  v29 = [advertisementFields objectForKeyedSubscript:@"hsStatus"];
-  v59 = v29;
-  if (v29)
+  unsignedIntValue = [advertisementFields objectForKeyedSubscript:@"hsStatus"];
+  v59 = unsignedIntValue;
+  if (unsignedIntValue)
   {
-    unsignedIntValue = [v29 unsignedIntValue];
-    v31 = (dword_100312D84 & unsignedIntValue) != 0;
-    v32 = 1;
+    unsignedIntValue = [unsignedIntValue unsignedIntValue];
+    v30 = (dword_100312D84 & unsignedIntValue) != 0;
+    v31 = 1;
     if ((dword_100312D84 & unsignedIntValue) != 0)
     {
-      v32 = 2;
+      v31 = 2;
     }
 
-    v56 = v32;
-    v33 = (dword_100312D88 & unsignedIntValue) != 0;
-    v34 = (dword_100312D9C & unsignedIntValue) != 0;
+    v56 = v31;
+    v32 = (dword_100312D88 & unsignedIntValue) != 0;
+    v33 = (dword_100312D9C & unsignedIntValue) != 0;
   }
 
   else
   {
-    v34 = 0;
     v33 = 0;
-    v31 = 0;
+    v32 = 0;
+    v30 = 0;
     v56 = 0;
   }
 
-  v35 = sub_100002880();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v34 = sub_100002880(unsignedIntValue);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109888;
-    *v68 = v31;
+    *v68 = v30;
     *&v68[4] = 1024;
-    *&v68[6] = v33;
+    *&v68[6] = v32;
     v69 = 0x400000000000400;
-    *v70 = v34;
-    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "StereoPair MainHSSTATUS Case %i Ear %i Neck %i TableTop %i", buf, 0x1Au);
+    *v70 = v33;
+    _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "StereoPair MainHSSTATUS Case %i Ear %i Neck %i TableTop %i", buf, 0x1Au);
   }
 
-  v55 = v31;
-  v57 = v34;
-  v58 = v33;
+  v55 = v30;
+  v57 = v33;
+  v58 = v32;
   v60 = v27;
 
-  v36 = sub_100002880();
+  v36 = sub_100002880(v35);
   if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
     stringValue5 = [v6 stringValue];

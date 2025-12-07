@@ -332,7 +332,7 @@ LABEL_27:
 
 - (MusicKit_SoftLinking_MPModelLibraryRequest)initWithLegacyModelObject:(id)object itemType:(int64_t)type properties:(id)properties relationships:(id)relationships mediaLibrary:(id)library
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   propertiesCopy = properties;
   relationshipsCopy = relationships;
@@ -344,8 +344,8 @@ LABEL_27:
 
   _underlyingModelObject = [objectCopy _underlyingModelObject];
   identifiers = [_underlyingModelObject identifiers];
-  v37[0] = identifiers;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+  v36[0] = identifiers;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
 
   [v16 setAllowedItemIdentifiers:v20];
   v21 = [MusicKit_SoftLinking_MPModelRequest _propertySetForRawProperties:propertiesCopy relationships:relationshipsCopy];
@@ -360,35 +360,34 @@ LABEL_27:
 
   else
   {
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2050000000;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2050000000;
     v25 = getMPMediaLibraryClass_softClass;
-    v36 = getMPMediaLibraryClass_softClass;
+    v35 = getMPMediaLibraryClass_softClass;
     if (!getMPMediaLibraryClass_softClass)
     {
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __getMPMediaLibraryClass_block_invoke;
-      v32[3] = &unk_278229610;
-      v32[4] = &v33;
-      __getMPMediaLibraryClass_block_invoke(v32);
-      v25 = v34[3];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __getMPMediaLibraryClass_block_invoke;
+      v31[3] = &unk_278229610;
+      v31[4] = &v32;
+      __getMPMediaLibraryClass_block_invoke(v31);
+      v25 = v33[3];
     }
 
     v26 = v25;
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v32, 8);
     deviceMediaLibrary = [v25 deviceMediaLibrary];
   }
 
   v27 = deviceMediaLibrary;
 
   [v16 setMediaLibrary:v27];
-  v31.receiver = self;
-  v31.super_class = MusicKit_SoftLinking_MPModelLibraryRequest;
-  v28 = [(MusicKit_SoftLinking_MPModelRequest *)&v31 _initWithUnderlyingRequest:v16];
+  v30.receiver = self;
+  v30.super_class = MusicKit_SoftLinking_MPModelLibraryRequest;
+  v28 = [(MusicKit_SoftLinking_MPModelRequest *)&v30 _initWithUnderlyingRequest:v16];
 
-  v29 = *MEMORY[0x277D85DE8];
   return v28;
 }
 

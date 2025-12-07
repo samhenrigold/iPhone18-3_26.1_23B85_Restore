@@ -274,7 +274,7 @@ LABEL_26:
 
 + (id)userSpecificPlaceTypeSourceToString:(unint64_t)string
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   v6 = array;
   if (!string)
@@ -345,16 +345,16 @@ LABEL_15:
     v8 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = NSStringFromSelector(a2);
-      v13 = 138413058;
-      v14 = v12;
-      v15 = 2048;
+      v11 = NSStringFromSelector(a2);
+      v12 = 138413058;
+      v13 = v11;
+      v14 = 2048;
       stringCopy = string;
-      v17 = 2080;
-      v18 = "+[RTPlaceInference userSpecificPlaceTypeSourceToString:]";
-      v19 = 1024;
-      v20 = 309;
-      _os_log_error_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_ERROR, "%@ does not handle RTPlaceInferenceUserSpecificPlaceTypeSource, %lu (in %s:%d)", &v13, 0x26u);
+      v16 = 2080;
+      v17 = "+[RTPlaceInference userSpecificPlaceTypeSourceToString:]";
+      v18 = 1024;
+      v19 = 309;
+      _os_log_error_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_ERROR, "%@ does not handle RTPlaceInferenceUserSpecificPlaceTypeSource, %lu (in %s:%d)", &v12, 0x26u);
     }
   }
 
@@ -367,8 +367,6 @@ LABEL_15:
   {
     v9 = &stru_1F3DD00E8;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

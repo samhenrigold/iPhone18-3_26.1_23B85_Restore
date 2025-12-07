@@ -10,15 +10,14 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v10.receiver = self;
-  v10.super_class = OrgApacheLuceneSearchFilteredQuery_RandomAccessFilterWrapperQuery;
-  v5 = [(OrgApacheLuceneSearchQuery *)&v10 isEqual:?];
+  v9.receiver = self;
+  v9.super_class = OrgApacheLuceneSearchFilteredQuery_RandomAccessFilterWrapperQuery;
+  v5 = [(OrgApacheLuceneSearchQuery *)&v9 isEqual:?];
   if (v5)
   {
     objc_opt_class();
     if (!equal)
     {
-      v8 = *(&self->super.boost_ + 1);
       JreThrowNullPointerException();
     }
 
@@ -53,14 +52,15 @@ LABEL_9:
 
 - (unint64_t)hash
 {
-  v7.receiver = self;
-  v7.super_class = OrgApacheLuceneSearchFilteredQuery_RandomAccessFilterWrapperQuery;
-  v3 = [(OrgApacheLuceneSearchQuery *)&v7 hash];
-  v4 = *(&self->filter_ + 4);
-  v8[0] = *(&self->super.boost_ + 1);
-  v8[1] = v4;
-  v5 = [IOSObjectArray arrayWithObjects:v8 count:2 type:NSObject_class_()];
-  return (OrgLukhnosPortmobileUtilObjects_hash__WithNSObjectArray_(v5) - v3 + 32 * v3);
+  v10.receiver = self;
+  v10.super_class = OrgApacheLuceneSearchFilteredQuery_RandomAccessFilterWrapperQuery;
+  v3 = [(OrgApacheLuceneSearchQuery *)&v10 hash];
+  v4 = v3;
+  v5 = *(&self->filter_ + 4);
+  v11[0] = *(&self->super.boost_ + 1);
+  v11[1] = v5;
+  v7 = [IOSObjectArray arrayWithObjects:v11 count:2 type:NSObject_class_(v3, v6)];
+  return (OrgLukhnosPortmobileUtilObjects_hash__WithNSObjectArray_(v7, v8) - v4 + 32 * v4);
 }
 
 - (id)toStringWithNSString:(id)string

@@ -43,37 +43,37 @@ uint64_t __56___DPCoreDataStorage_invalidateManagedObjectContextFor___block_invo
 
 void __62___DPCoreDataStorage_invalidatePersistentStoreCoordinatorFor___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) persistentStoreCoordinators];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
 
   if (v3)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v4 = [v3 persistentStores];
-    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v12;
+      v7 = *v11;
       do
       {
         v8 = 0;
         do
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [v3 removePersistentStore:*(*(&v11 + 1) + 8 * v8++) error:0];
+          [v3 removePersistentStore:*(*(&v10 + 1) + 8 * v8++) error:0];
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v6);
@@ -82,210 +82,201 @@ void __62___DPCoreDataStorage_invalidatePersistentStoreCoordinatorFor___block_in
     v9 = [*(a1 + 32) persistentStoreCoordinators];
     [v9 removeObjectForKey:*(a1 + 40)];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke(uint64_t a1)
+void __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke(void *a1)
 {
-  v57[1] = *MEMORY[0x277D85DE8];
-  v2 = a1 + 32;
-  v3 = [*(a1 + 32) persistentStoreCoordinators];
-  v4 = [v3 objectForKeyedSubscript:*(v2 + 8)];
-  v5 = *(*(v2 + 16) + 8);
+  v53[1] = *MEMORY[0x277D85DE8];
+  v2 = (a1 + 4);
+  v3 = [a1[4] persistentStoreCoordinators];
+  v4 = [v3 objectForKeyedSubscript:v2[1]];
+  v5 = *(v2[2] + 1);
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v7 = *(*(*(v2 + 16) + 8) + 40);
-  if (*(v2 + 32))
+  v7 = *(*(v2[2] + 1) + 40);
+  if (v2[4])
   {
-    if (!v7)
+    if (v7)
     {
-      v8 = *v2;
-      v9 = objc_opt_class();
-      v10 = [*v2 databaseDirectory];
-      v55 = 0;
-      LOBYTE(v9) = [v9 createDatabaseDirectory:v10 error:&v55];
-      v11 = v55;
+      return;
+    }
 
-      if ((v9 & 1) == 0 && [v11 code] != 516)
+    v8 = objc_opt_class();
+    v9 = [*v2 databaseDirectory];
+    v51 = 0;
+    LOBYTE(v8) = [v8 createDatabaseDirectory:v9 error:&v51];
+    v10 = v51;
+
+    if ((v8 & 1) == 0 && [v10 code] != 516)
+    {
+      v29 = +[_DPLog framework];
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        v32 = +[_DPLog framework];
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
-        {
-          __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_1(v2, v11, v32);
-        }
-
-        v33 = *(*(a1 + 48) + 8);
-        v12 = *(v33 + 40);
-        *(v33 + 40) = 0;
-        goto LABEL_44;
+        __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_1(v2, v10, v29);
       }
 
-      v12 = [*v2 managedObjectModel];
-      if (!v12)
-      {
-        v31 = +[_DPLog framework];
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-        {
-          __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_5(v2, v31);
-        }
+      v30 = *(a1[6] + 8);
+      v11 = *(v30 + 40);
+      *(v30 + 40) = 0;
+      goto LABEL_44;
+    }
 
-        v19 = +[_DPCoreAnalyticsCollector sharedInstance];
-        v56 = @"nilMOM";
-        v57[0] = MEMORY[0x277CBEC38];
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:&v56 count:1];
-        [v19 reportMetricsForEvent:@"com.apple.DifferentialPrivacy.CoreData" withMetrics:v21];
-        goto LABEL_43;
+    v11 = [*v2 managedObjectModel];
+    if (!v11)
+    {
+      v28 = +[_DPLog framework];
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      {
+        __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_5(v2, v28);
       }
 
-      v13 = [objc_alloc(MEMORY[0x277CBE4D8]) initWithManagedObjectModel:v12];
-      v14 = *(*(a1 + 48) + 8);
-      v15 = *(v14 + 40);
-      *(v14 + 40) = v13;
+      v18 = +[_DPCoreAnalyticsCollector sharedInstance];
+      v52 = @"nilMOM";
+      v53[0] = MEMORY[0x277CBEC38];
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+      [v18 reportMetricsForEvent:@"com.apple.DifferentialPrivacy.CoreData" withMetrics:v19];
+      goto LABEL_43;
+    }
 
-      v16 = MEMORY[0x277CBEBC0];
-      v17 = [*(a1 + 32) paths];
-      v18 = [v17 objectForKeyedSubscript:*(a1 + 40)];
-      v19 = [v16 fileURLWithPath:v18];
+    v12 = [objc_alloc(MEMORY[0x277CBE4D8]) initWithManagedObjectModel:v11];
+    v13 = *(a1[6] + 8);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = v12;
 
-      v20 = *(a1 + 32);
-      v21 = [objc_opt_class() persistentStoreOptionsFor:*(a1 + 40) readOnly:{objc_msgSend(v20, "readOnly")}];
-      v22 = [v21 mutableCopy];
-      [v22 removeObjectForKey:*MEMORY[0x277CBE1D8]];
-      v23 = [v22 copy];
-      v24 = *(*(*(a1 + 48) + 8) + 40);
-      v25 = *MEMORY[0x277CBE2E8];
-      v54 = v11;
-      v26 = [v24 addPersistentStoreWithType:v25 configuration:0 URL:v19 options:v23 error:&v54];
-      v27 = v54;
+    v15 = MEMORY[0x277CBEBC0];
+    v16 = [a1[4] paths];
+    v17 = [v16 objectForKeyedSubscript:a1[5]];
+    v18 = [v15 fileURLWithPath:v17];
 
-      if (v26)
-      {
-        v11 = v27;
+    v19 = [objc_opt_class() persistentStoreOptionsFor:a1[5] readOnly:{objc_msgSend(a1[4], "readOnly")}];
+    v20 = [v19 mutableCopy];
+    [v20 removeObjectForKey:*MEMORY[0x277CBE1D8]];
+    v21 = [v20 copy];
+    v22 = *(*(a1[6] + 8) + 40);
+    v23 = *MEMORY[0x277CBE2E8];
+    v50 = v10;
+    v24 = [v22 addPersistentStoreWithType:v23 configuration:0 URL:v18 options:v21 error:&v50];
+    v25 = v50;
+
+    if (v24)
+    {
+      v10 = v25;
 LABEL_40:
-        v47 = *(*(*(a1 + 48) + 8) + 40);
-        if (v47)
-        {
-          v48 = [*(a1 + 32) persistentStoreCoordinators];
-          [v48 setObject:v47 forKeyedSubscript:*(a1 + 40)];
-        }
+      v44 = *(*(a1[6] + 8) + 40);
+      if (v44)
+      {
+        v45 = [a1[4] persistentStoreCoordinators];
+        [v45 setObject:v44 forKeyedSubscript:a1[5]];
+      }
 
 LABEL_43:
 LABEL_44:
 
-        goto LABEL_45;
-      }
+      return;
+    }
 
-      v34 = [v27 domain];
-      if ([v34 isEqualToString:*MEMORY[0x277CCA050]])
+    v31 = [v25 domain];
+    if ([v31 isEqualToString:*MEMORY[0x277CCA050]])
+    {
+      if ([v25 code] == 134020)
       {
-        if ([v27 code] == 134020)
-        {
 
 LABEL_21:
-          v35 = [v21 mutableCopy];
-          [v35 setObject:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CBE248]];
-          v36 = *(*(*(a1 + 48) + 8) + 40);
-          v53 = 0;
-          v50 = v35;
-          LOBYTE(v35) = [v36 destroyPersistentStoreAtURL:v19 withType:v25 options:v35 error:&v53];
-          v27 = v53;
-          if (v35)
-          {
-            goto LABEL_25;
-          }
-
-          v37 = +[_DPLog framework];
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
-          {
-            __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_2();
-          }
-
-          [v50 setObject:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CBE2A8]];
-          if ([*(*(*(a1 + 48) + 8) + 40) destroyPersistentStoreAtURL:v19 withType:v25 options:v50 error:0])
-          {
-LABEL_25:
-            v38 = +[_DPLog framework];
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 0;
-              _os_log_impl(&dword_22622D000, v38, OS_LOG_TYPE_DEFAULT, "Deleted persistent store with old schema.", buf, 2u);
-            }
-
-            v39 = *(*(*(a1 + 48) + 8) + 40);
-            v51 = v27;
-            v26 = [v39 addPersistentStoreWithType:v25 configuration:0 URL:v19 options:v21 error:&v51];
-            v11 = v51;
-
-            if (v26)
-            {
-              goto LABEL_40;
-            }
-
-            goto LABEL_37;
-          }
-
-          v43 = +[_DPLog framework];
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
-          {
-            __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_3();
-          }
-
-          v34 = v50;
-          goto LABEL_35;
-        }
-
-        if ([v27 code] > 134099)
+        v32 = [v19 mutableCopy];
+        [v32 setObject:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CBE248]];
+        v33 = *(*(a1[6] + 8) + 40);
+        v49 = 0;
+        v46 = v32;
+        LOBYTE(v32) = [v33 destroyPersistentStoreAtURL:v18 withType:v23 options:v32 error:&v49];
+        v25 = v49;
+        if (v32)
         {
-          v40 = [v27 code];
-          v41 = v34;
-          v42 = v40;
+          goto LABEL_25;
+        }
 
-          if (v42 >= 134171)
+        v34 = +[_DPLog framework];
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        {
+          __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_2();
+        }
+
+        [v46 setObject:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CBE2A8]];
+        if ([*(*(a1[6] + 8) + 40) destroyPersistentStoreAtURL:v18 withType:v23 options:v46 error:0])
+        {
+LABEL_25:
+          v35 = +[_DPLog framework];
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
-            goto LABEL_36;
+            *buf = 0;
+            _os_log_impl(&dword_22622D000, v35, OS_LOG_TYPE_DEFAULT, "Deleted persistent store with old schema.", buf, 2u);
           }
 
-          goto LABEL_21;
+          v36 = *(*(a1[6] + 8) + 40);
+          v47 = v25;
+          v24 = [v36 addPersistentStoreWithType:v23 configuration:0 URL:v18 options:v19 error:&v47];
+          v10 = v47;
+
+          if (v24)
+          {
+            goto LABEL_40;
+          }
+
+          goto LABEL_37;
         }
+
+        v40 = +[_DPLog framework];
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        {
+          __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_3();
+        }
+
+        v31 = v46;
+        goto LABEL_35;
       }
+
+      if ([v25 code] > 134099)
+      {
+        v37 = [v25 code];
+        v38 = v31;
+        v39 = v37;
+
+        if (v39 >= 134171)
+        {
+          goto LABEL_36;
+        }
+
+        goto LABEL_21;
+      }
+    }
 
 LABEL_35:
 
 LABEL_36:
-      v11 = v27;
+    v10 = v25;
 LABEL_37:
-      v44 = +[_DPLog framework];
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
-      {
-        __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_4();
-      }
-
-      [*(a1 + 32) handleDatabaseErrors:v11 forPSC:*(*(*(a1 + 48) + 8) + 40) protectionClass:*(a1 + 40)];
-      v45 = *(*(a1 + 48) + 8);
-      v46 = *(v45 + 40);
-      *(v45 + 40) = 0;
-
-      v26 = 0;
-      goto LABEL_40;
+    v41 = +[_DPLog framework];
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    {
+      __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_4();
     }
 
-LABEL_45:
-    v49 = *MEMORY[0x277D85DE8];
-    return;
+    [a1[4] handleDatabaseErrors:v10 forPSC:*(*(a1[6] + 8) + 40) protectionClass:a1[5]];
+    v42 = *(a1[6] + 8);
+    v43 = *(v42 + 40);
+    *(v42 + 40) = 0;
+
+    v24 = 0;
+    goto LABEL_40;
   }
 
-  if (!v7)
+  if (v7)
   {
-    goto LABEL_45;
+    *(*(a1[7] + 8) + 24) = 1;
+    v26 = *(a1[6] + 8);
+    v27 = *(v26 + 40);
+    *(v26 + 40) = 0;
   }
-
-  *(*(*(a1 + 56) + 8) + 24) = 1;
-  v28 = *(*(a1 + 48) + 8);
-  v29 = *(v28 + 40);
-  *(v28 + 40) = 0;
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __44___DPCoreDataStorage_mocForProtectionClass___block_invoke(uint64_t a1)
@@ -394,7 +385,7 @@ void __65___DPCoreDataStorage_countObjectsInContext_entityName_predicate___block
   *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 40) countForFetchRequest:v2 error:0];
 }
 
-uint64_t __50___DPCoreDataStorage_deleteStorageFor_obliterate___block_invoke(uint64_t a1)
+void *__50___DPCoreDataStorage_deleteStorageFor_obliterate___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) invalidateManagedObjectContextFor:*(a1 + 40)];
   result = [*(a1 + 32) deleteDatabaseForPSC:*(a1 + 48) protectionClass:*(a1 + 40) obliterate:*(a1 + 64)];
@@ -404,72 +395,34 @@ uint64_t __50___DPCoreDataStorage_deleteStorageFor_obliterate___block_invoke(uin
 
 void __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_1(id *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = [*a1 databaseDirectory];
   OUTLINED_FUNCTION_1();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_22622D000, a3, OS_LOG_TYPE_ERROR, "%@ : did not exist and could not be created: %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Failed to delete persistent store with old schema, retrying with unlink: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Failed to delete persistent store with old schema: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Failed to add persistent store: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_22622D000, a3, OS_LOG_TYPE_ERROR, "%@ : did not exist and could not be created: %@", v6, 0x16u);
 }
 
 void __52___DPCoreDataStorage_persistentStoreCoordinatorFor___block_invoke_cold_5(id *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [*a1 modelURL];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "Failed to load Managed Object Model from %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "Failed to load Managed Object Model from %@", v4, 0xCu);
 }
 
 void __44___DPCoreDataStorage_mocForProtectionClass___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_22622D000, a2, a3, "NSManagedObjectContext not available for protectionClass=%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_22622D000, a2, a3, "NSManagedObjectContext not available for protectionClass=%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __44___DPCoreDataStorage_mocForProtectionClass___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_22622D000, a2, a3, "NSPersistentStoreCoordinator is nil for protectionClass=%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __65___DPCoreDataStorage_countObjectsInContext_entityName_predicate___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "Caught %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_22622D000, a2, a3, "NSPersistentStoreCoordinator is nil for protectionClass=%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

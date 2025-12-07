@@ -26,12 +26,12 @@
 
 - (AVAudioIONodeSession)initWithDescription:(id)description server:(id)server
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   serverCopy = server;
-  v14.receiver = self;
-  v14.super_class = AVAudioIONodeSession;
-  v8 = [(AVAudioIONodeSession *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = AVAudioIONodeSession;
+  v8 = [(AVAudioIONodeSession *)&v13 init];
   v9 = v8;
   if (v8)
   {
@@ -43,9 +43,9 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v16 = "AVAudioIONodeSession.mm";
-        v17 = 1024;
-        v18 = 94;
+        v15 = "AVAudioIONodeSession.mm";
+        v16 = 1024;
+        v17 = 94;
         _os_log_impl(&dword_1AC8A4000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create IONodeSession on the server", buf, 0x12u);
       }
 
@@ -53,7 +53,6 @@
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -89,16 +88,16 @@
 
 - (void)invalidate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ((atomic_exchange(&self->_invalidated._Value, 1u) & 1) == 0)
   {
     ptr = self->_impl.__ptr_;
     os_unfair_lock_lock(ptr);
     v3 = ptr[6];
     v4 = *(ptr + 1);
-    v10 = 0;
-    v5 = [v4 invalidateIONode:v3 error:&v10];
-    v6 = v10;
+    v9 = 0;
+    v5 = [v4 invalidateIONode:v3 error:&v9];
+    v6 = v9;
 
     if ((v5 & 1) == 0)
     {
@@ -106,13 +105,13 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315906;
-        v12 = "AVAudioIONodeSession.mm";
-        v13 = 1024;
-        v14 = 156;
-        v15 = 1024;
-        v16 = v3;
-        v17 = 2112;
-        v18 = v6;
+        v11 = "AVAudioIONodeSession.mm";
+        v12 = 1024;
+        v13 = 156;
+        v14 = 1024;
+        v15 = v3;
+        v16 = 2112;
+        v17 = v6;
         _os_log_impl(&dword_1AC8A4000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d failed to invalidate AVAudioIONodeSession 0x%x: %@", buf, 0x22u);
       }
     }
@@ -121,8 +120,6 @@
 
     os_unfair_lock_unlock(ptr);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)reconfigure:(id)reconfigure error:(id *)error
@@ -204,34 +201,30 @@ LABEL_4:
 
 - (void)setInputMuted:(BOOL)muted
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *avas::client::gSessionClientLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "AVAudioIONodeSession.mm";
-    v7 = 1024;
-    v8 = 226;
-    _os_log_impl(&dword_1AC8A4000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Unimplemented!", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "AVAudioIONodeSession.mm";
+    v6 = 1024;
+    v7 = 226;
+    _os_log_impl(&dword_1AC8A4000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Unimplemented!", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setOutputMuted:(BOOL)muted
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *avas::client::gSessionClientLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "AVAudioIONodeSession.mm";
-    v7 = 1024;
-    v8 = 237;
-    _os_log_impl(&dword_1AC8A4000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Unimplemented!", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "AVAudioIONodeSession.mm";
+    v6 = 1024;
+    v7 = 237;
+    _os_log_impl(&dword_1AC8A4000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Unimplemented!", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (AVAudioIONodePlayState)playState
@@ -243,7 +236,7 @@ LABEL_4:
 
 - (void)setPlayState:(id)state
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   if (![(AVAudioIONodePlayState *)self->_playState isEqual:stateCopy])
   {
@@ -251,9 +244,9 @@ LABEL_4:
     os_unfair_lock_lock(ptr);
     v6 = *(ptr + 1);
     v7 = ptr[6];
-    v16 = 0;
-    v8 = [v6 setIONode:v7 playState:objc_msgSend(stateCopy modes:"playState") error:{objc_msgSend(stateCopy, "ioMode"), &v16}];
-    v9 = v16;
+    v15 = 0;
+    v8 = [v6 setIONode:v7 playState:objc_msgSend(stateCopy modes:"playState") error:{objc_msgSend(stateCopy, "ioMode"), &v15}];
+    v9 = v15;
 
     if (v8)
     {
@@ -269,59 +262,54 @@ LABEL_4:
       {
         v14 = ptr[6];
         *buf = 136315906;
-        v18 = "AVAudioIONodeSession.mm";
-        v19 = 1024;
-        v20 = 260;
-        v21 = 1024;
-        v22 = v14;
-        v23 = 2112;
-        v24 = v9;
+        v17 = "AVAudioIONodeSession.mm";
+        v18 = 1024;
+        v19 = 260;
+        v20 = 1024;
+        v21 = v14;
+        v22 = 2112;
+        v23 = v9;
         _os_log_impl(&dword_1AC8A4000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to set play state for 0x%x: %@", buf, 0x22u);
       }
     }
 
     os_unfair_lock_unlock(ptr);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getMXSessionProperty:(id)property error:(id *)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   propertyCopy = property;
-  v12[0] = propertyCopy;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = propertyCopy;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v8 = [(AVAudioIONodeSession *)self getMXProperties:v7 propertyErrors:error];
 
   v9 = [v8 objectForKeyedSubscript:propertyCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (BOOL)setMXSessionProperty:(id)property value:(id)value error:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   propertyCopy = property;
   valueCopy = value;
-  v15 = propertyCopy;
+  v14 = propertyCopy;
   null = valueCopy;
   if (!valueCopy)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[0] = null;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = null;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v12 = [(AVAudioIONodeSession *)self setMXProperties:v11 error:error];
 
   if (!valueCopy)
   {
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -344,15 +332,15 @@ LABEL_4:
 
 - (BOOL)_setMXProperties:(void *)properties properties:(id)a4 error:(id *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v7 = **(properties + 1);
   v8 = *(*(properties + 1) + 16);
-  v43 = 0;
-  v31 = [v7 setPropertiesIONode:v8 values:a4 error:&v43];
-  v32 = v43;
+  v42 = 0;
+  v30 = [v7 setPropertiesIONode:v8 values:a4 error:&v42];
+  v31 = v42;
 
-  v9 = v32;
-  if (!v32)
+  v9 = v31;
+  if (!v31)
   {
     v25 = 0;
     v24 = 0;
@@ -365,50 +353,50 @@ LABEL_4:
     goto LABEL_25;
   }
 
-  if ([v31 count])
+  if ([v30 count])
   {
     v10 = MEMORY[0x1E695DF90];
-    userInfo = [v32 userInfo];
+    userInfo = [v31 userInfo];
     v12 = [v10 dictionaryWithDictionary:userInfo];
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
-    obj = v31;
-    v13 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    obj = v30;
+    v13 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
     if (v13)
     {
-      v34 = *v40;
+      v33 = *v39;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v40 != v34)
+          if (*v39 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v39 + 1) + 8 * i);
+          v15 = *(*(&v38 + 1) + 8 * i);
+          v34 = 0u;
           v35 = 0u;
           v36 = 0u;
           v37 = 0u;
-          v38 = 0u;
           v16 = v15;
-          v17 = [v16 countByEnumeratingWithState:&v35 objects:v44 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v34 objects:v43 count:16];
           if (v17)
           {
-            v18 = *v36;
+            v18 = *v35;
             do
             {
               for (j = 0; j != v17; ++j)
               {
-                if (*v36 != v18)
+                if (*v35 != v18)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                v20 = *(*(&v35 + 1) + 8 * j);
+                v20 = *(*(&v34 + 1) + 8 * j);
                 v21 = [v16 objectForKeyedSubscript:v20];
                 if (([v21 isEqual:&unk_1F2163260] & 1) == 0)
                 {
@@ -416,36 +404,36 @@ LABEL_4:
                 }
               }
 
-              v17 = [v16 countByEnumeratingWithState:&v35 objects:v44 count:16];
+              v17 = [v16 countByEnumeratingWithState:&v34 objects:v43 count:16];
             }
 
             while (v17);
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+        v13 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
       }
 
       while (v13);
     }
 
     v22 = MEMORY[0x1E696ABC0];
-    domain = [v32 domain];
-    v24 = [v22 errorWithDomain:domain code:objc_msgSend(v32 userInfo:{"code"), v12}];
+    domain = [v31 domain];
+    v24 = [v22 errorWithDomain:domain code:objc_msgSend(v31 userInfo:{"code"), v12}];
 
-    v9 = v32;
+    v9 = v31;
   }
 
   else
   {
-    v24 = v32;
+    v24 = v31;
   }
 
   if (error)
   {
     v27 = v24;
     v25 = v24;
-    v9 = v32;
+    v9 = v31;
     errorCopy2 = error;
 LABEL_25:
     *errorCopy2 = v25;
@@ -454,24 +442,23 @@ LABEL_25:
 
 LABEL_26:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v9 == 0;
 }
 
 - (id)getMXProperties:(id)properties propertyErrors:(id *)errors
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   ptr = self->_impl.__ptr_;
   os_unfair_lock_lock(ptr);
   v7 = *(ptr + 1);
   v8 = ptr[6];
+  v36 = 0;
   v37 = 0;
-  v38 = 0;
-  v29 = propertiesCopy;
-  v30 = [v7 getPropertiesIONode:v8 properties:propertiesCopy status:&v38 error:&v37];
-  v32 = v38;
-  v9 = v37;
+  v28 = propertiesCopy;
+  v29 = [v7 getPropertiesIONode:v8 properties:propertiesCopy status:&v37 error:&v36];
+  v31 = v37;
+  v9 = v36;
 
   if (!v9)
   {
@@ -485,7 +472,7 @@ LABEL_26:
     goto LABEL_16;
   }
 
-  v10 = [v32 count];
+  v10 = [v31 count];
   errorsCopy3 = errors;
   if (v10)
   {
@@ -493,25 +480,25 @@ LABEL_26:
     userInfo = [v9 userInfo];
     v14 = [v12 dictionaryWithDictionary:userInfo];
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
-    v15 = v32;
-    v16 = [v15 countByEnumeratingWithState:&v33 objects:v39 count:16];
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v15 = v31;
+    v16 = [v15 countByEnumeratingWithState:&v32 objects:v38 count:16];
     if (v16)
     {
-      v17 = *v34;
+      v17 = *v33;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v34 != v17)
+          if (*v33 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v33 + 1) + 8 * i);
+          v19 = *(*(&v32 + 1) + 8 * i);
           v20 = [v15 objectForKeyedSubscript:v19];
           if (([v20 isEqual:&unk_1F2163260] & 1) == 0)
           {
@@ -519,7 +506,7 @@ LABEL_26:
           }
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v33 objects:v39 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v32 objects:v38 count:16];
       }
 
       while (v16);
@@ -550,9 +537,7 @@ LABEL_17:
     os_unfair_lock_unlock(ptr);
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
-  return v30;
+  return v29;
 }
 
 - (id).cxx_construct

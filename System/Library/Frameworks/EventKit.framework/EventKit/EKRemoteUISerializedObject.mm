@@ -7,11 +7,10 @@
 
 - (NSDictionary)serializedObjectIDDictionary
 {
-  v2 = *(self + OBJC_IVAR____TtC8EventKit26EKRemoteUISerializedObject_serializedObjectIDDictionary);
 
-  v3 = sub_1A81ACC74();
+  v2 = sub_1A81ACC74();
 
-  return v3;
+  return v2;
 }
 
 - (_TtC8EventKit26EKRemoteUISerializedObject)init

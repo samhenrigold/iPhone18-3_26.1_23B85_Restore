@@ -219,7 +219,7 @@
                     goto LABEL_19;
                   }
 
-                  axElement4 = fontSizesToIgnore();
+                  axElement4 = fontSizesToIgnore(3002);
                   longDescExtraInfo = [v29 longDescExtraInfo];
                   v69 = [NSMutableSet setWithArray:longDescExtraInfo];
 

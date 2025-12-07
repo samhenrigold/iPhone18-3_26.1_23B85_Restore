@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)hoProcAsString:(int)string;
 - (int)StringAsHoProc:(id)proc;
 - (int)hoProc;
 - (unint64_t)hash;
@@ -38,6 +39,21 @@
   {
     return 0;
   }
+}
+
+- (id)hoProcAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100318EC8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsHoProc:(id)proc
@@ -194,14 +210,12 @@
   has = self->_has;
   if (has)
   {
-    hoProc = self->_hoProc;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    startCount = self->_startCount;
     PBDataWriterWriteUint32Field();
   }
 
@@ -210,15 +224,14 @@
     PBDataWriterPlaceMark();
     if (self->_failureCounts.count)
     {
-      v8 = 0;
+      v6 = 0;
       do
       {
-        v9 = self->_failureCounts.list[v8];
         PBDataWriterWriteUint32Field();
-        ++v8;
+        ++v6;
       }
 
-      while (v8 < self->_failureCounts.count);
+      while (v6 < self->_failureCounts.count);
     }
 
     PBDataWriterRecallMark();
@@ -226,7 +239,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    startCountAp = self->_startCountAp;
     PBDataWriterWriteUint32Field();
   }
 
@@ -236,15 +248,14 @@
     PBDataWriterPlaceMark();
     if (p_failureCountAps->count)
     {
-      v12 = 0;
+      v8 = 0;
       do
       {
-        v13 = p_failureCountAps->list[v12];
         PBDataWriterWriteUint32Field();
-        ++v12;
+        ++v8;
       }
 
-      while (v12 < p_failureCountAps->count);
+      while (v8 < p_failureCountAps->count);
     }
 
     PBDataWriterRecallMark();
@@ -341,7 +352,6 @@
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 68);
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0 || self->_hoProc != *(equalCopy + 14))
@@ -375,7 +385,6 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v6 = *(equalCopy + 68);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 68) & 4) == 0 || self->_startCountAp != *(equalCopy + 16))

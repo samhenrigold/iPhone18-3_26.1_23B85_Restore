@@ -36,14 +36,14 @@ void __40___DASWidgetRefreshScheduler_setBudget___block_invoke(uint64_t a1)
 
 void __61___DASWidgetRefreshScheduler_setOverridesForWidgetBudgetIDs___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_1B6E2F000, v2, OS_LOG_TYPE_DEFAULT, "Setting overrides widget refresh entries: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_1B6E2F000, v2, OS_LOG_TYPE_DEFAULT, "Setting overrides widget refresh entries: %@", &v8, 0xCu);
   }
 
   v4 = *(a1 + 32);
@@ -60,20 +60,18 @@ void __61___DASWidgetRefreshScheduler_setOverridesForWidgetBudgetIDs___block_inv
   v6 = [v4 context];
   v7 = [MEMORY[0x1E6997A78] keyPathWithKey:@"/dasd/widgetOverride"];
   [v6 setObject:v5 forKeyedSubscript:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __60___DASWidgetRefreshScheduler_setSystemAddedWidgetBudgetIDs___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_1B6E2F000, v2, OS_LOG_TYPE_DEFAULT, "Setting system added widget refresh entries: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_1B6E2F000, v2, OS_LOG_TYPE_DEFAULT, "Setting system added widget refresh entries: %@", &v8, 0xCu);
   }
 
   v4 = *(a1 + 32);
@@ -90,8 +88,6 @@ void __60___DASWidgetRefreshScheduler_setSystemAddedWidgetBudgetIDs___block_invo
   v6 = [v4 context];
   v7 = [MEMORY[0x1E6997A78] keyPathWithKey:@"/dasd/widgetSystemAdded"];
   [v6 setObject:v5 forKeyedSubscript:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __138___DASWidgetRefreshScheduler_createRefreshActivityForWidgetBudgetID_containingAppID_refreshAfter_refreshBefore_widgetInfo_refreshHandler___block_invoke(uint64_t a1, void *a2)
@@ -103,7 +99,6 @@ void __138___DASWidgetRefreshScheduler_createRefreshActivityForWidgetBudgetID_co
     __138___DASWidgetRefreshScheduler_createRefreshActivityForWidgetBudgetID_containingAppID_refreshAfter_refreshBefore_widgetInfo_refreshHandler___block_invoke_cold_1();
   }
 
-  v5 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
 }
 
@@ -186,30 +181,11 @@ void __91___DASWidgetRefreshScheduler_createRefreshActivityWithWidgetParameters_
   (*(*(a1 + 40) + 16))();
 }
 
-void __138___DASWidgetRefreshScheduler_createRefreshActivityForWidgetBudgetID_containingAppID_refreshAfter_refreshBefore_widgetInfo_refreshHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1B6E2F000, v0, v1, "Start handler called on Widget Refresh activity %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __138___DASWidgetRefreshScheduler_createRefreshActivityForWidgetBudgetID_containingAppID_refreshAfter_refreshBefore_widgetInfo_refreshHandler___block_invoke_311_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1B6E2F000, v0, v1, "Suspend handler called on Widget Refresh activity %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __188___DASWidgetRefreshScheduler_createRefreshActivityWithRateLimitConfigurationName_forWidgetBudgetID_withRemoteDeviceID_containingAppID_refreshAfter_refreshBefore_widgetInfo_refreshHandler___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 debugDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B6E2F000, v2, v3, "Start handler called on Widget Refresh activity %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1B6E2F000, v2, v3, "Start handler called on Widget Refresh activity %@", v4, v5, v6, v7);
 }
 
 @end

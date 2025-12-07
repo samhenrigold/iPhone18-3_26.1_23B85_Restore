@@ -20,7 +20,6 @@
 - (void)handleTapWithGestureRecognizer:(id)recognizer
 {
   v3 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC6MapsUI21MUPlaceNotePromptView_tapHandler);
-  v4 = *(&self->super.super.super._responderFlags + OBJC_IVAR____TtC6MapsUI21MUPlaceNotePromptView_tapHandler);
   selfCopy = self;
   v3();
 }

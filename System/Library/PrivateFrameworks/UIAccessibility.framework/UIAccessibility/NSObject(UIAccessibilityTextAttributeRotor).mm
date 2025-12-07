@@ -231,8 +231,8 @@ LABEL_23:
 
       v28 = mEMORY[0x1E69DCBF0];
       v29 = v10;
-      v20 = a4 + a5;
-      if (a4 >= a4 + a5)
+      v20 = &a4[a5];
+      if (a4 >= &a4[a5])
       {
         v21 = 0x7FFFFFFFFFFFFFFFLL;
       }
@@ -251,10 +251,10 @@ LABEL_23:
             break;
           }
 
-          a4 = v23 + v25;
+          a4 = (v23 + v25);
           v21 = v23;
           v26 = v20 >= v23 + v25;
-          a5 = v20 - (v23 + v25);
+          a5 = &v20[-v23 - v25];
         }
 
         while (a5 != 0 && v26);

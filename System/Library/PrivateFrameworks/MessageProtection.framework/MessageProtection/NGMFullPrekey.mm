@@ -127,7 +127,7 @@ LABEL_19:
 
     else
     {
-      v22 = MessageProtectionLog();
+      v22 = MessageProtectionLog(0);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [NGMFullPrekey initWithPrekeySignedBy:error error:v22];
@@ -265,11 +265,11 @@ LABEL_12:
 
   tetraPrivateKey = [(NGMFullPrekey *)self tetraPrivateKey];
 
-  tetraRegistration2 = MessageProtectionLog();
-  v11 = os_log_type_enabled(tetraRegistration2, OS_LOG_TYPE_DEBUG);
+  tetraRegistration2 = MessageProtectionLog(v10);
+  v12 = os_log_type_enabled(tetraRegistration2, OS_LOG_TYPE_DEBUG);
   if (tetraPrivateKey)
   {
-    if (v11)
+    if (v12)
     {
       [(NGMFullPrekey *)tetraRegistration2 pbDevicePrekey];
     }
@@ -286,7 +286,7 @@ LABEL_12:
     [(NGMPBDevicePreKey *)v3 setTetraVersion:[tetraRegistration2 tetraVersion]];
   }
 
-  else if (v11)
+  else if (v12)
   {
     [(NGMFullPrekey *)tetraRegistration2 pbDevicePrekey];
   }
@@ -313,8 +313,8 @@ LABEL_12:
 
   if ((v4 & 1) == 0)
   {
-    v5 = MessageProtectionLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = MessageProtectionLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(NGMFullPrekey *)self delete];
     }
@@ -325,28 +325,24 @@ LABEL_12:
 
 - (void)initWithPrekeySignedBy:(id *)a1 error:(NSObject *)a2 .cold.1(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [*a1 description];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_22B404000, a2, OS_LOG_TYPE_ERROR, "Failed to sign a new prekey with error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_22B404000, a2, OS_LOG_TYPE_ERROR, "Failed to sign a new prekey with error: %@", &v4, 0xCu);
 }
 
 - (void)delete
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dhKey = [self dhKey];
   v4 = [dhKey description];
   v5 = [0 description];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_22B404000, a2, OS_LOG_TYPE_ERROR, "Failed to delete prekey ephemeral key (%@) with error: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_22B404000, a2, OS_LOG_TYPE_ERROR, "Failed to delete prekey ephemeral key (%@) with error: %@", &v6, 0x16u);
 }
 
 @end

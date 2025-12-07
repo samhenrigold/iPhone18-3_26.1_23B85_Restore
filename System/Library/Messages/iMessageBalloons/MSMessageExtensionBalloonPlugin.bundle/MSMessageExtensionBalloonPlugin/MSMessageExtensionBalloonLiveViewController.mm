@@ -1761,23 +1761,23 @@ LABEL_32:
 
 - (void)startListeningForSnapshotRemovalStatus
 {
-  sub_25640(&qword_570B0);
-  __chkstk_darwin();
-  v4 = &v10 - v3;
-  v5 = sub_2DCD8();
-  (*(*(v5 - 8) + 56))(v4, 1, 1, v5);
-  v6 = swift_allocObject();
+  v3 = sub_25640(&qword_570B0, &qword_37F28);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = sub_2DCD8();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  v7 = swift_allocObject();
   swift_unknownObjectWeakInit();
   sub_2DCB8();
   selfCopy = self;
 
-  v8 = sub_2DCA8();
-  v9 = swift_allocObject();
-  v9[2] = v8;
-  v9[3] = &protocol witness table for MainActor;
-  v9[4] = v6;
+  v9 = sub_2DCA8();
+  v10 = swift_allocObject();
+  v10[2] = v9;
+  v10[3] = &protocol witness table for MainActor;
+  v10[4] = v7;
 
-  sub_270C0(0, 0, v4, &unk_37F38, v9);
+  sub_270C0(0, 0, v5, &unk_37F38, v10);
 }
 
 @end

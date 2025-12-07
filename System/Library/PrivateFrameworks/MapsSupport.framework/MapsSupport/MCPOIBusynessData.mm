@@ -80,20 +80,8 @@ LABEL_8:
   v12.receiver = self;
   v12.super_class = MCPOIBusynessData;
   v5 = [(MCPOIBusynessData *)&v12 init];
-  if (!v5)
+  if (!v5 || (([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"loc"], v6 = objc_claimAutoreleasedReturnValue(), leechedLocation = v5->_leechedLocation, v5->_leechedLocation = v6, leechedLocation, objc_msgSend(coderCopy, "decodeDoubleForKey:", @"ts"), v5->_uploadedTimestamp = v8, v5->_leechedLocation) ? (v9 = v8 > 1.0) : (v9 = 0), v9))
   {
-    goto LABEL_7;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"loc"];
-  leechedLocation = v5->_leechedLocation;
-  v5->_leechedLocation = v6;
-
-  [coderCopy decodeDoubleForKey:@"ts"];
-  v5->_uploadedTimestamp = v8;
-  if (v5->_leechedLocation && v8 > 1.0)
-  {
-LABEL_7:
     v10 = v5;
   }
 

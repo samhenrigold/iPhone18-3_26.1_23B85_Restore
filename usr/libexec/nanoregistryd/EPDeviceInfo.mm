@@ -141,20 +141,19 @@
 {
   if (!self->_peripheralFactory)
   {
-    peer = self->_peer;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v4 = self->_peer;
-      v5 = [[EPPeripheralObserverFactory alloc] initWithPeripheral:v4];
+      v3 = self->_peer;
+      v4 = [[EPPeripheralObserverFactory alloc] initWithPeripheral:v3];
       peripheralFactory = self->_peripheralFactory;
-      self->_peripheralFactory = v5;
+      self->_peripheralFactory = v4;
     }
   }
 
-  v7 = self->_peripheralFactory;
+  v6 = self->_peripheralFactory;
 
-  return v7;
+  return v6;
 }
 
 - (id)newConnectorWithDelegate:(id)delegate
@@ -166,7 +165,6 @@
   {
     if (!self->_connectors)
     {
-      peer = self->_peer;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -176,24 +174,24 @@
 
       else
       {
-        v10 = [EPNullResourceManager alloc];
+        v9 = [EPNullResourceManager alloc];
         peripheralFactory = +[EPFactory queue];
-        connectorManager = [(EPResourceManager *)v10 initWithQueue:peripheralFactory];
+        connectorManager = [(EPResourceManager *)v9 initWithQueue:peripheralFactory];
       }
 
       connectors = self->_connectors;
       self->_connectors = connectorManager;
     }
 
-    v9 = [(EPResourceManagerProtocol *)self->_connectors newResourceWithDelegate:delegateCopy];
+    v8 = [(EPResourceManagerProtocol *)self->_connectors newResourceWithDelegate:delegateCopy];
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (EPDeviceInfoDelegate)delegate

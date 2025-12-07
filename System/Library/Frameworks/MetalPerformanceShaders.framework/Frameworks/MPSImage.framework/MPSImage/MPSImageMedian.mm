@@ -11,9 +11,9 @@
 
 - (MPSImageMedian)initWithDevice:(id)device kernelDiameter:(NSUInteger)kernelDiameter
 {
-  v13.receiver = self;
-  v13.super_class = MPSImageMedian;
-  result = [(MPSUnaryImageKernel *)&v13 initWithDevice:device];
+  v10.receiver = self;
+  v10.super_class = MPSImageMedian;
+  result = [(MPSUnaryImageKernel *)&v10 initWithDevice:device];
   if (result)
   {
     if (kernelDiameter)
@@ -23,12 +23,12 @@
         if (kernelDiameter < 0x80)
         {
           result->_filterDiameter = kernelDiameter;
-          v11 = result;
-          objc_msgSend_initEncoder(result, v6, v7, v8, v9, v10);
-          return v11;
+          v8 = result;
+          objc_msgSend_initEncoder(result, v6, v7);
+          return v8;
         }
 
-        v12 = result;
+        v9 = result;
         if (MTLReportFailureTypeEnabled())
         {
           goto LABEL_12;
@@ -39,7 +39,7 @@ LABEL_13:
         return 0;
       }
 
-      v12 = result;
+      v9 = result;
       if (!MTLReportFailureTypeEnabled())
       {
         goto LABEL_13;
@@ -48,7 +48,7 @@ LABEL_13:
 
     else
     {
-      v12 = result;
+      v9 = result;
       if (!MTLReportFailureTypeEnabled())
       {
         goto LABEL_13;
@@ -70,31 +70,31 @@ LABEL_12:
     MTLReportFailure();
   }
 
-  return MEMORY[0x2821F9670](self, sel_initWithDevice_kernelDiameter_, device, 3, v5, v6);
+  return MEMORY[0x2821F9670](self, sel_initWithDevice_kernelDiameter_, device);
 }
 
 - (MPSImageMedian)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v18.receiver = self;
-  v18.super_class = MPSImageMedian;
-  v5 = [(MPSUnaryImageKernel *)&v18 initWithCoder:aDecoder device:device];
-  v10 = v5;
+  v12.receiver = self;
+  v12.super_class = MPSImageMedian;
+  v5 = [(MPSUnaryImageKernel *)&v12 initWithCoder:aDecoder device:device];
+  v7 = v5;
   if (!v5)
   {
-    return v10;
+    return v7;
   }
 
   if (*(&v5->super.super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 == 0x10000)
   {
-    v5->_filterDiameter = objc_msgSend_decodeInt64ForKey_(aDecoder, v6, @"MPSImageMedian.kernelDiameter", v7, v8, v9);
-    objc_msgSend_initEncoder(v10, v11, v12, v13, v14, v15);
-    return v10;
+    v5->_filterDiameter = objc_msgSend_decodeInt64ForKey_(aDecoder, v6, @"MPSImageMedian.kernelDiameter");
+    objc_msgSend_initEncoder(v7, v8, v9);
+    return v7;
   }
 
   if (MTLReportFailureTypeEnabled())
   {
-    v17 = objc_opt_class();
-    NSStringFromClass(v17);
+    v11 = objc_opt_class();
+    NSStringFromClass(v11);
     MTLReportFailure();
   }
 
@@ -104,23 +104,23 @@ LABEL_12:
 - (void)encodeWithCoder:(id)coder
 {
   *(&self->super.super.super.isa + *MEMORY[0x277CD7358] + 2) = 1;
-  v8.receiver = self;
-  v8.super_class = MPSImageMedian;
-  [(MPSUnaryImageKernel *)&v8 encodeWithCoder:?];
-  objc_msgSend_encodeInt64_forKey_(coder, v5, self->_filterDiameter, @"MPSImageMedian.kernelDiameter", v6, v7);
+  v6.receiver = self;
+  v6.super_class = MPSImageMedian;
+  [(MPSUnaryImageKernel *)&v6 encodeWithCoder:?];
+  objc_msgSend_encodeInt64_forKey_(coder, v5, self->_filterDiameter, @"MPSImageMedian.kernelDiameter");
 }
 
 - (id)copyWithZone:(_NSZone *)zone device:(id)device
 {
-  v12.receiver = self;
-  v12.super_class = MPSImageMedian;
-  result = [(MPSUnaryImageKernel *)&v12 copyWithZone:zone device:device];
+  v9.receiver = self;
+  v9.super_class = MPSImageMedian;
+  result = [(MPSUnaryImageKernel *)&v9 copyWithZone:zone device:device];
   if (result)
   {
     *(result + 26) = self->_filterDiameter;
-    v11 = result;
-    objc_msgSend_initEncoder(self, v6, v7, v8, v9, v10);
-    return v11;
+    v8 = result;
+    objc_msgSend_initEncoder(self, v6, v7);
+    return v8;
   }
 
   return result;

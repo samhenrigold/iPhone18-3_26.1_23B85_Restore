@@ -159,7 +159,7 @@
       v14 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
     }
 
-    v18 = PRSLogArchiver();
+    v18 = PRSLogArchiver(v13);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [PRSPosterArchiver unarchiveConfigurationAtURL:v14 format:v18 error:?];
@@ -219,7 +219,7 @@
       v14 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
     }
 
-    v18 = PRSLogArchiver();
+    v18 = PRSLogArchiver(v13);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [PRSPosterArchiver unarchiveConfigurationFromData:v14 format:v18 error:?];
@@ -239,20 +239,18 @@
 
 - (void)unarchiveConfigurationAtURL:(uint64_t)a1 format:(NSObject *)a2 error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C26FF000, a2, OS_LOG_TYPE_ERROR, "Unable to create incoming poster configuration from URL: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C26FF000, a2, OS_LOG_TYPE_ERROR, "Unable to create incoming poster configuration from URL: %@", &v2, 0xCu);
 }
 
 - (void)unarchiveConfigurationFromData:(uint64_t)a1 format:(NSObject *)a2 error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C26FF000, a2, OS_LOG_TYPE_ERROR, "Unable to create incoming poster configuration from archiveData: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C26FF000, a2, OS_LOG_TYPE_ERROR, "Unable to create incoming poster configuration from archiveData: %@", &v2, 0xCu);
 }
 
 @end

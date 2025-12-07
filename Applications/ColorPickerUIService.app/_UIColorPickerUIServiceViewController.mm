@@ -2,6 +2,7 @@
 - (void)_pickerDidDismissEyedropper;
 - (void)_pickerDidFinish;
 - (void)_pickerDidFloatEyedropper;
+- (void)_pickerDidSelectColor:(id)color colorSpace:(id)space isVolatile:(BOOL)volatile;
 - (void)_pickerDidShowEyedropper;
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id)container;
 - (void)viewDidLoad;
@@ -69,6 +70,13 @@
   v4 = +[_UIColorPickerActionClientToHost actionForColorPickerDidFinish];
   _hostedWindowScene = [(_UIColorPickerUIServiceViewController *)self _hostedWindowScene];
   [_hostedWindowScene sendAction:v4];
+}
+
+- (void)_pickerDidSelectColor:(id)color colorSpace:(id)space isVolatile:(BOOL)volatile
+{
+  v7 = [_UIColorPickerActionClientToHost actionForColorPickerDidSelectColor:color colorSpace:space isVolatile:volatile];
+  _hostedWindowScene = [(_UIColorPickerUIServiceViewController *)self _hostedWindowScene];
+  [_hostedWindowScene sendAction:v7];
 }
 
 - (void)_pickerDidShowEyedropper

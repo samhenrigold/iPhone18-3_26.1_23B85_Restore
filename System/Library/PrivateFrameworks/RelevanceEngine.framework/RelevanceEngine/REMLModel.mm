@@ -294,9 +294,9 @@ LABEL_15:
   return v11;
 }
 
-uint64_t __34__REMLModel_saveModelToURL_error___block_invoke()
+uint64_t __34__REMLModel_saveModelToURL_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = _REGetIsInternalBuild();
+  result = _REGetIsInternalBuild(a1, a2);
   _isInternalDevice_12 = result;
   return result;
 }
@@ -331,11 +331,10 @@ uint64_t __34__REMLModel_saveModelToURL_error___block_invoke()
 
 - (void)saveModelToURL:(uint64_t)a1 error:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_22859F000, a2, OS_LOG_TYPE_DEBUG, "Unable to save debug model: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_22859F000, a2, OS_LOG_TYPE_DEBUG, "Unable to save debug model: %@", &v2, 0xCu);
 }
 
 @end

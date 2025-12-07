@@ -68,9 +68,11 @@
     objc_claimAutoreleasedReturnValue();
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
+    LODWORD(v10) = 138544642;
+    *(&v10 + 4) = self;
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
 
   [v2 UTF8String];

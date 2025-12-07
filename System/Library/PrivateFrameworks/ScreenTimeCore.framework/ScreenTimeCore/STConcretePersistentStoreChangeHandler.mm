@@ -49,7 +49,7 @@
 
 void __89__STConcretePersistentStoreChangeHandler_handleRemotePersistentStoreDidChange_inContext___block_invoke(uint64_t a1)
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) persistentContainer];
   v3 = [v2 persistentStoreCoordinator];
   v4 = [v3 persistentStoreForIdentifier:*(a1 + 40)];
@@ -58,43 +58,43 @@ void __89__STConcretePersistentStoreChangeHandler_handleRemotePersistentStoreDid
   {
     v5 = [*(a1 + 32) persistentHistoryTokenForStore:v4];
     v6 = [MEMORY[0x1E695D698] fetchHistoryAfterToken:v5];
-    v37[0] = v4;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
+    v36[0] = v4;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
     [v6 setAffectedStores:v7];
 
     [v6 setResultType:5];
     v8 = *(a1 + 48);
-    v34 = 0;
-    v9 = [v8 executeRequest:v6 error:&v34];
-    v10 = v34;
+    v33 = 0;
+    v9 = [v8 executeRequest:v6 error:&v33];
+    v10 = v33;
     v11 = v10;
     if (v9)
     {
-      v23 = v10;
-      v24 = v9;
-      v25 = v6;
-      v26 = v4;
+      v22 = v10;
+      v23 = v9;
+      v24 = v6;
+      v25 = v4;
       [v9 result];
+      v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
-      obj = v33 = 0u;
-      v29 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
-      if (v29)
+      obj = v32 = 0u;
+      v28 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+      if (v28)
       {
-        v28 = *v31;
+        v27 = *v30;
         do
         {
           v12 = 0;
           v13 = v5;
           do
           {
-            if (*v31 != v28)
+            if (*v30 != v27)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = *(*(&v30 + 1) + 8 * v12);
+            v14 = *(*(&v29 + 1) + 8 * v12);
             v15 = objc_autoreleasePoolPush();
             v5 = [v14 token];
 
@@ -103,8 +103,8 @@ void __89__STConcretePersistentStoreChangeHandler_handleRemotePersistentStoreDid
             v18 = [v17 userInfo];
             v19 = [*(a1 + 32) persistentContainer];
             v20 = [v19 viewContext];
-            v35 = v20;
-            v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+            v34 = v20;
+            v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
             [v16 mergeChangesFromRemoteContextSave:v18 intoContexts:v21];
 
             objc_autoreleasePoolPop(v15);
@@ -112,28 +112,26 @@ void __89__STConcretePersistentStoreChangeHandler_handleRemotePersistentStoreDid
             v13 = v5;
           }
 
-          while (v29 != v12);
-          v29 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+          while (v28 != v12);
+          v28 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
         }
 
-        while (v29);
+        while (v28);
       }
 
-      v6 = v25;
-      v4 = v26;
-      v11 = v23;
-      v9 = v24;
+      v6 = v24;
+      v4 = v25;
+      v11 = v22;
+      v9 = v23;
     }
 
     [*(a1 + 32) savePersistentHistoryToken:v5 forStore:v4];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handlePersistentStoreCoordinatorStoresDidChange:(id)change
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   persistentContainer = [(STConcretePersistentStoreChangeHandler *)self persistentContainer];
   persistentStoreCoordinator = [persistentContainer persistentStoreCoordinator];
@@ -142,27 +140,27 @@ void __89__STConcretePersistentStoreChangeHandler_handleRemotePersistentStoreDid
   lastPersistentHistoryTokenByStoreIdentifier = [(STConcretePersistentStoreChangeHandler *)self lastPersistentHistoryTokenByStoreIdentifier];
   userInfo = [changeCopy userInfo];
   [userInfo objectForKeyedSubscript:*MEMORY[0x1E695D2C8]];
+  v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v6 = v36 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v34 = 0u;
+  v6 = v35 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v34 objects:v40 count:16];
   if (v7)
   {
-    v8 = *v36;
+    v8 = *v35;
     do
     {
       v9 = 0;
       do
       {
-        if (*v36 != v8)
+        if (*v35 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v40 = *(*(&v35 + 1) + 8 * v9);
-        v10 = v40;
-        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:{1, obj}];
+        v39 = *(*(&v34 + 1) + 8 * v9);
+        v10 = v39;
+        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:{1, obj}];
         v12 = [persistentStoreCoordinator currentPersistentHistoryTokenFromStores:v11];
 
         identifier = [v10 identifier];
@@ -172,39 +170,39 @@ void __89__STConcretePersistentStoreChangeHandler_handleRemotePersistentStoreDid
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
     while (v7);
   }
 
   [userInfo objectForKeyedSubscript:*MEMORY[0x1E695D478]];
+  v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v14 = v32 = 0u;
-  v15 = [v14 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v30 = 0u;
+  v14 = v31 = 0u;
+  v15 = [v14 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v15)
   {
-    v16 = *v32;
+    v16 = *v31;
     do
     {
       v17 = 0;
       do
       {
-        if (*v32 != v16)
+        if (*v31 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        identifier2 = [*(*(&v31 + 1) + 8 * v17) identifier];
+        identifier2 = [*(*(&v30 + 1) + 8 * v17) identifier];
         [lastPersistentHistoryTokenByStoreIdentifier removeObjectForKey:identifier2];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [v14 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v15);
@@ -225,7 +223,6 @@ void __89__STConcretePersistentStoreChangeHandler_handleRemotePersistentStoreDid
   }
 
   objc_sync_exit(obj);
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (id)persistentHistoryTokenForStore:(id)store

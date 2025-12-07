@@ -93,7 +93,7 @@ void __40__SFContinuityScanManager_sharedManager__block_invoke()
     [(NSHashTable *)self->_observers removeObject:observerCopy];
     if (![(NSHashTable *)self->_observers count])
     {
-      v5 = handoff_log();
+      v5 = handoff_log(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *v6 = 0;
@@ -107,30 +107,27 @@ void __40__SFContinuityScanManager_sharedManager__block_invoke()
 
 - (void)scanForTypes:(unint64_t)types
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = _os_activity_create(&dword_1A9662000, "Sharing/SFActivityScanner/scanForTypes", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  [(SFContinuityScanManager *)self setScanTypes:types];
-  v6 = handoff_log();
+  v6 = handoff_log([(SFContinuityScanManager *)self setScanTypes:types]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = SFActivityScanTypesToString(types);
     *buf = 138412290;
-    v12 = v7;
+    v11 = v7;
     _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "client process changing types to scan for to %@", buf, 0xCu);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __40__SFContinuityScanManager_scanForTypes___block_invoke;
-  v9[3] = &__block_descriptor_40_e47_v16__0__NSObject_SFContinuityScannerProtocol__8l;
-  v9[4] = types;
-  [(SFContinuityScanManager *)self _getRemoteObjectProxyOnQueue:v9];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __40__SFContinuityScanManager_scanForTypes___block_invoke;
+  v8[3] = &__block_descriptor_40_e47_v16__0__NSObject_SFContinuityScannerProtocol__8l;
+  v8[4] = types;
+  [(SFContinuityScanManager *)self _getRemoteObjectProxyOnQueue:v8];
   os_activity_scope_leave(&state);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activityPayloadFromDeviceUniqueID:(id)d forAdvertisementPayload:(id)payload command:(id)command timeout:(int64_t)timeout withCompletionHandler:(id)handler
@@ -144,56 +141,53 @@ void __40__SFContinuityScanManager_sharedManager__block_invoke()
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v16, &state);
-  v17 = handoff_log();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = handoff_log(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = objc_opt_class();
-    v19 = NSStringFromClass(v18);
-    v20 = SFHexStringForData(payloadCopy);
+    v19 = objc_opt_class();
+    v20 = NSStringFromClass(v19);
+    v21 = SFHexStringForData(payloadCopy);
     *buf = 138412802;
-    v34 = v19;
+    v34 = v20;
     v35 = 2112;
     v36 = dCopy;
     v37 = 2112;
-    v38 = v20;
-    _os_log_impl(&dword_1A9662000, v17, OS_LOG_TYPE_DEFAULT, "[%@] Dispatching payload request to %@ for %@", buf, 0x20u);
+    v38 = v21;
+    _os_log_impl(&dword_1A9662000, v18, OS_LOG_TYPE_DEFAULT, "[%@] Dispatching payload request to %@ for %@", buf, 0x20u);
   }
 
   v26[0] = MEMORY[0x1E69E9820];
   v26[1] = 3221225472;
   v26[2] = __123__SFContinuityScanManager_activityPayloadFromDeviceUniqueID_forAdvertisementPayload_command_timeout_withCompletionHandler___block_invoke;
   v26[3] = &unk_1E788C910;
-  v21 = dCopy;
-  v27 = v21;
-  v22 = payloadCopy;
-  v28 = v22;
-  v23 = commandCopy;
-  v29 = v23;
+  v22 = dCopy;
+  v27 = v22;
+  v23 = payloadCopy;
+  v28 = v23;
+  v24 = commandCopy;
+  v29 = v24;
   timeoutCopy = timeout;
-  v24 = handlerCopy;
-  v30 = v24;
+  v25 = handlerCopy;
+  v30 = v25;
   [(SFContinuityScanManager *)self _getRemoteObjectProxyOnQueue:v26];
 
   os_activity_scope_leave(&state);
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onqueue_connectionEstablished
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[SFContinuityScanManager onqueue_connectionEstablished]";
-  _os_log_error_impl(&dword_1A9662000, log, OS_LOG_TYPE_ERROR, "[%s]", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[SFContinuityScanManager onqueue_connectionEstablished]";
+  _os_log_error_impl(&dword_1A9662000, log, OS_LOG_TYPE_ERROR, "[%s]", &v1, 0xCu);
 }
 
 - (void)onqueue_connectionInterrupted
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[SFContinuityScanManager onqueue_connectionInterrupted]";
-  _os_log_error_impl(&dword_1A9662000, log, OS_LOG_TYPE_ERROR, "[%s]", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[SFContinuityScanManager onqueue_connectionInterrupted]";
+  _os_log_error_impl(&dword_1A9662000, log, OS_LOG_TYPE_ERROR, "[%s]", &v1, 0xCu);
 }
 
 - (void)receivedAdvertisement:(id)advertisement
@@ -237,22 +231,20 @@ void __40__SFContinuityScanManager_sharedManager__block_invoke()
     v11 = @"NO";
   }
 
-  v13 = handoff_log();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = handoff_log(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
-    v16 = [advertisementCopy debugDescription];
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
+    v17 = [advertisementCopy debugDescription];
     *buf = 138412802;
-    v23 = v15;
+    v23 = v16;
     v24 = 2112;
-    v25 = v16;
+    v25 = v17;
     v26 = 2112;
     v27 = v11;
-    _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "[%@] Received advertisement %@. Handled:%@", buf, 0x20u);
+    _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "[%@] Received advertisement %@. Handled:%@", buf, 0x20u);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)foundDeviceWithDevice:(id)device
@@ -297,21 +289,19 @@ void __40__SFContinuityScanManager_sharedManager__block_invoke()
     v11 = @"NO";
   }
 
-  v13 = handoff_log();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = handoff_log(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
     *buf = 138412802;
-    v22 = v15;
+    v22 = v16;
     v23 = 2112;
     v24 = deviceCopy;
     v25 = 2112;
     v26 = v11;
-    _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "[%@] Found device %@. Handled:%@", buf, 0x20u);
+    _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "[%@] Found device %@. Handled:%@", buf, 0x20u);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)lostDeviceWithDevice:(id)device
@@ -356,78 +346,72 @@ void __40__SFContinuityScanManager_sharedManager__block_invoke()
     v11 = @"NO";
   }
 
-  v13 = handoff_log();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = handoff_log(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
     *buf = 138412802;
-    v22 = v15;
+    v22 = v16;
     v23 = 2112;
     v24 = deviceCopy;
     v25 = 2112;
     v26 = v11;
-    _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "[%@] Lost device %@. Handled:%@", buf, 0x20u);
+    _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "[%@] Lost device %@. Handled:%@", buf, 0x20u);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pairedDevicesChanged:(id)changed
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   observers = [(SFContinuityScanManager *)self observers];
   v6 = [observers copy];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) scanManager:self pairedDevicesChanged:{changedCopy, v13}];
+        [*(*(&v12 + 1) + 8 * v11++) scanManager:self pairedDevicesChanged:{changedCopy, v12}];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)exportedInterface
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F1D89550];
   [v2 setClass:objc_opt_class() forSelector:sel_receivedAdvertisement_ argumentIndex:0 ofReply:0];
   [v2 setClass:objc_opt_class() forSelector:sel_foundDeviceWithDevice_ argumentIndex:0 ofReply:0];
   [v2 setClass:objc_opt_class() forSelector:sel_lostDeviceWithDevice_ argumentIndex:0 ofReply:0];
   v3 = MEMORY[0x1E695DFD8];
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_pairedDevicesChanged_ argumentIndex:0 ofReply:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

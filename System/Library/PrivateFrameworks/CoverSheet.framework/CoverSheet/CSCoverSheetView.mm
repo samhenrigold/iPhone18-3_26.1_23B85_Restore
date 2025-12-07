@@ -194,9 +194,9 @@
   v15 = 0u;
   v16 = 0u;
   scrollView = self->_scrollView;
-  if (scrollView && ([(SBFPagedScrollView *)scrollView currentScrollInterval], v5 = 0uLL, (v7 = self->_scrollView) != 0))
+  if (scrollView && (objc_msgSend_currentScrollInterval(scrollView, a3), v5 = 0uLL, (v7 = self->_scrollView) != 0))
   {
-    [(SBFPagedScrollView *)v7 currentScrollContext];
+    objc_msgSend_currentScrollContext(v7, 0.0);
     v8 = v12;
     v9 = self->_scrollView;
   }
@@ -852,7 +852,7 @@ LABEL_76:
   dateViewScale = self->_dateViewScale;
   _effectiveContentsContainerView = [(CSCoverSheetView *)self _effectiveContentsContainerView];
   [_effectiveContentsContainerView center];
-  [(CSCoverSheetView *)self _transformScaling:v20 byScale:dateViewScale aboutPointInSelf:v23, v24];
+  objc_msgSend__transformScaling_byScale_aboutPointInSelf_(self, dateViewScale, v23, v24);
   [(SBFLockScreenDateView *)v20 setTransform:v29];
 
   if (self->_dateViewStretch)
@@ -916,7 +916,7 @@ LABEL_76:
     complicationContainerViewScale = self->_complicationContainerViewScale;
     _effectiveContentsContainerView = [(CSCoverSheetView *)self _effectiveContentsContainerView];
     [_effectiveContentsContainerView center];
-    [(CSCoverSheetView *)self _transformScaling:v9 byScale:complicationContainerViewScale aboutPointInSelf:v12, v13];
+    objc_msgSend__transformScaling_byScale_aboutPointInSelf_(self, complicationContainerViewScale, v12, v13);
     [(UIView *)v9 setTransform:&v14];
   }
 }
@@ -989,7 +989,7 @@ LABEL_76:
       v21.size.height = v11;
       [(CSWallpaperView *)v13 setCenter:MidX, CGRectGetMidY(v21)];
       v15 = self->_wallpaperEffectView;
-      [(CSCoverSheetView *)self _portraitEnforcingTransform];
+      objc_msgSend__portraitEnforcingTransform(self);
       [(CSWallpaperView *)v15 setTransform:v18];
     }
 
@@ -1063,7 +1063,7 @@ LABEL_76:
       }
 
       memset(&v28, 0, sizeof(v28));
-      [(CSCoverSheetView *)self _transformScaling:self->_proudLockContainerWrapperView byScale:v19 aboutPointInSelf:MidX, v12];
+      objc_msgSend__transformScaling_byScale_aboutPointInSelf_(self, v19, MidX, v12);
       v20 = self->_proudLockContainerWrapperView;
       t1 = v29;
       v25 = v28;
@@ -1281,7 +1281,7 @@ LABEL_76:
     }
 
     v18 = self->_wallpaperFloatingLayerContainerView;
-    [(CSCoverSheetView *)self _portraitEnforcingTransform];
+    objc_msgSend__portraitEnforcingTransform(self);
     t1 = v32;
     CGAffineTransformConcat(&v31, &t1, &t2);
     p_t2 = &v31;
@@ -1376,7 +1376,7 @@ LABEL_76:
     v7 = scrollView3;
     if (scrollView3)
     {
-      [scrollView3 currentScrollContext];
+      objc_msgSend_currentScrollContext(scrollView3);
       v8 = *(&v11 + 1);
       v9 = v12;
     }
@@ -3001,7 +3001,7 @@ uint64_t __64__CSCoverSheetView_scrollToPageAtIndex_animated_withCompletion___bl
   }
 
   self->_scrollViewStartingXOffset = v11;
-  [(CSCoverSheetView *)self _currentTransitionContext];
+  objc_msgSend__currentTransitionContext(self);
   *&self->_transitionContext.value = v13;
   *&self->_transitionContext.interval.start.inclusive = v14;
   *&self->_transitionContext.interval.end.inclusive = v15;
@@ -3012,19 +3012,18 @@ uint64_t __64__CSCoverSheetView_scrollToPageAtIndex_animated_withCompletion___bl
 
 - (void)scrollViewDidScroll:(id)scroll withContext:(id *)context
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(CSFixedFooterView *)self->_fixedFooterView updatePageControl:scroll];
-  p_transitionContext = &self->_transitionContext;
   value = self->_transitionContext.interval.start.value;
-  v7 = self->_transitionContext.value;
-  v23 = *&self->_transitionContext.interval.start.inclusive;
+  v6 = self->_transitionContext.value;
+  v16 = *&self->_transitionContext.interval.start.inclusive;
   mode = self->_transitionContext.mode;
-  v24 = *&self->_transitionContext.interval.end.inclusive;
-  [(CSCoverSheetView *)self _currentTransitionContext];
-  v9 = *&buf[16];
+  v17 = *&self->_transitionContext.interval.end.inclusive;
+  objc_msgSend__currentTransitionContext(self);
+  v8 = *&buf[16];
   *&self->_transitionContext.value = *buf;
-  *&self->_transitionContext.interval.start.inclusive = v9;
-  *&self->_transitionContext.interval.end.inclusive = v22;
+  *&self->_transitionContext.interval.start.inclusive = v8;
+  *&self->_transitionContext.interval.end.inclusive = v15;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (mode)
   {
@@ -3033,8 +3032,8 @@ uint64_t __64__CSCoverSheetView_scrollToPageAtIndex_animated_withCompletion___bl
       if ((BSFloatEqualToFloat() & 1) == 0)
       {
         *buf = value;
-        *&buf[8] = v23;
-        *&buf[24] = v24;
+        *&buf[8] = v16;
+        *&buf[24] = v17;
         if (BSIntervalOrder())
         {
           end = self->_transitionContext.interval.end;
@@ -3042,25 +3041,16 @@ uint64_t __64__CSCoverSheetView_scrollToPageAtIndex_animated_withCompletion___bl
           *&buf[16] = end;
           if (BSIntervalOrder())
           {
-            *v17 = v7;
-            *&v17[1] = value;
-            v18 = v23;
-            v19 = v24;
-            v20 = mode;
-            v12 = *&self->_transitionContext.interval.start.inclusive;
-            v16[0] = *&p_transitionContext->value;
-            v16[1] = v12;
-            v16[2] = *&self->_transitionContext.interval.end.inclusive;
-            [(CSCoverSheetView *)self _completedTransitionContextForPreviousTransitionContext:v17 newTransitionContext:v16];
+            objc_msgSend__completedTransitionContextForPreviousTransitionContext_newTransitionContext_(self, *&self->_transitionContext.value, *&self->_transitionContext.interval.start.value, *&self->_transitionContext.interval.start.inclusive, *&self->_transitionContext.interval.end.value, *&self->_transitionContext.interval.end.inclusive, self->_transitionContext.mode, *&v6, *&value, v16, v17, mode);
             [WeakRetained transitionSource:self didEndWithContext:buf];
             [WeakRetained transitionSource:self willBeginWithType:2];
-            v13 = SBLogDashBoard();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v11 = SBLogDashBoard();
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
             {
-              v14 = self->_transitionContext.mode;
+              v12 = self->_transitionContext.mode;
               *buf = 134217984;
-              *&buf[4] = v14;
-              _os_log_impl(&dword_21EB05000, v13, OS_LOG_TYPE_DEFAULT, "Scroll context did change to transitionContext.mode: %ld", buf, 0xCu);
+              *&buf[4] = v12;
+              _os_log_impl(&dword_21EB05000, v11, OS_LOG_TYPE_DEFAULT, "Scroll context did change to transitionContext.mode: %ld", buf, 0xCu);
             }
           }
         }
@@ -3068,10 +3058,10 @@ uint64_t __64__CSCoverSheetView_scrollToPageAtIndex_animated_withCompletion___bl
     }
   }
 
-  v15 = *&self->_transitionContext.interval.start.inclusive;
-  *buf = *&p_transitionContext->value;
-  *&buf[16] = v15;
-  v22 = *&self->_transitionContext.interval.end.inclusive;
+  v13 = *&self->_transitionContext.interval.start.inclusive;
+  *buf = *&self->_transitionContext.value;
+  *&buf[16] = v13;
+  v15 = *&self->_transitionContext.interval.end.inclusive;
   [WeakRetained transitionSource:self didUpdateTransitionWithContext:buf];
   [(CSCoverSheetView *)self _layoutQuickActionsView];
   [(CSCoverSheetView *)self _layoutDateView];
@@ -3141,7 +3131,7 @@ uint64_t __64__CSCoverSheetView_scrollToPageAtIndex_animated_withCompletion___bl
 {
   kdebug_trace();
   [(CSFixedFooterView *)self->_fixedFooterView updatePageControl];
-  [(CSCoverSheetView *)self _currentTransitionContext];
+  objc_msgSend__currentTransitionContext(self);
   v4 = v10;
   *&self->_transitionContext.value = v9;
   *&self->_transitionContext.interval.start.inclusive = v4;

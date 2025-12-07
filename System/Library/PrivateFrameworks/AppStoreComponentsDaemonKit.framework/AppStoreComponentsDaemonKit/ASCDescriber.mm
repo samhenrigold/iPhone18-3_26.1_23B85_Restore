@@ -124,33 +124,33 @@
 
 - (id)describeProperties
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   properties = [(ASCDescriber *)self properties];
   v4 = [properties count];
 
   if (v4)
   {
     v5 = objc_alloc_init(MEMORY[0x277CCAB68]);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     properties2 = [(ASCDescriber *)self properties];
-    v7 = [properties2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [properties2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(properties2);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           if ([v5 length])
           {
             [v5 appendString:@"; "];
@@ -161,7 +161,7 @@
           [v5 appendFormat:@"%@ = %@", first, second];
         }
 
-        v8 = [properties2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [properties2 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -174,8 +174,6 @@
   {
     v14 = &stru_2835CD1E8;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

@@ -140,7 +140,7 @@ void __48__WeatherPressureFormatter_convenienceFormatter__block_invoke()
 
 - (id)formatStringForPressure:(float)pressure inUnit:(int)unit
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   pErrorCode = U_ZERO_ERROR;
   locale = [(WeatherPressureFormatter *)self locale];
   localeIdentifier = [locale localeIdentifier];
@@ -167,7 +167,7 @@ void __48__WeatherPressureFormatter_convenienceFormatter__block_invoke()
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v15 = pErrorCode;
+        v14 = pErrorCode;
         _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, "#Formatter Something went wrong - returning nil. Error %i", buf, 8u);
       }
 
@@ -179,8 +179,6 @@ void __48__WeatherPressureFormatter_convenienceFormatter__block_invoke()
   {
     v8 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

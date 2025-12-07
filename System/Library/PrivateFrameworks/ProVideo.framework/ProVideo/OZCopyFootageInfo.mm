@@ -143,7 +143,7 @@
 
 uint64_t __38__OZCopyFootageInfo_updateSize_error___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  result = [*(a1 + 32) OZ_sizeOfItemAtPath:objc_msgSend(a2 error:{"path"), *(a1 + 56)}];
+  result = [*(a1 + 32) OZ_sizeOfItemAtPath:objc_msgSend(a2 error:{"path", a3), *(a1 + 56)}];
   if (result)
   {
     result = [result unsignedIntegerValue];
@@ -282,7 +282,8 @@ uint64_t __38__OZCopyFootageInfo_updateSize_error___block_invoke(uint64_t a1, vo
       v8 = v82;
       while (v9 != v8)
       {
-        std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v79, v9++);
+        std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v79, v9, v9);
+        ++v9;
       }
 
       while (v89[0] != v83)
@@ -380,7 +381,7 @@ LABEL_16:
                           }
 
                           PCURL::~PCURL(&v93);
-                          v26 = (v26 + 8);
+                          ++v26;
                         }
 
                         v93 = &v58;
@@ -543,7 +544,7 @@ LABEL_16:
   return v56;
 }
 
-uint64_t __71__OZCopyFootageInfo_fileURLToFootageInfoMap_includeUnused_destination___block_invoke(uint64_t a1, void *a2)
+void *__71__OZCopyFootageInfo_fileURLToFootageInfoMap_includeUnused_destination___block_invoke(uint64_t a1, void *a2)
 {
   if (*(*(*(a1 + 48) + 8) + 24))
   {
@@ -773,7 +774,7 @@ void __44__OZCopyFootageInfo_reconnectFootage_scene___block_invoke(uint64_t a1, 
         PCURL::PCURL(&v23, &v22, 0);
         PCString::~PCString(&v22);
         (*(*v12 + 1400))(v12, &v23);
-        PCURL::~PCURL(&v23);
+        PCURL::~PCURL(&v23.var0);
       }
     }
 
@@ -803,14 +804,14 @@ void __44__OZCopyFootageInfo_reconnectFootage_scene___block_invoke(uint64_t a1, 
           OZFootage::setClipMinimal(v16, v21.var0);
         }
 
-        PCURL::~PCURL(&v22);
+        PCURL::~PCURL(&v22.var0);
       }
 
       PCString::~PCString(&v23);
     }
   }
 
-  PCURL::~PCURL(v24);
+  PCURL::~PCURL(&v24[0].var0);
 }
 
 @end

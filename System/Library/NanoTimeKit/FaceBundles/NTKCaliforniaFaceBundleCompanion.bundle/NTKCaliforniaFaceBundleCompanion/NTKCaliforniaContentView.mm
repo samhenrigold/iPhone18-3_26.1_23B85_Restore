@@ -112,7 +112,7 @@
 
 - (CGPoint)hourMarkersCenterPointConstantsForStyle:(unint64_t)style dial:(unint64_t)dial
 {
-  v4 = __chkstk_darwin(self, a2, style, dial);
+  v4 = __chkstk_darwin(self, a2);
   v6 = v5;
   v8 = v7;
   v9 = v4;
@@ -528,17 +528,17 @@ LABEL_13:
   v11 = v10;
   v12 = v5;
   sub_792C(*(v5 + 48), v23);
-  v13 = 4520;
+  v13 = 565;
   if (v11 > 10)
   {
-    v13 = 4536;
+    v13 = 567;
   }
 
   v14 = &v23[v13];
-  v15 = 4512;
+  v15 = 564;
   if (v11 > 10)
   {
-    v15 = 4528;
+    v15 = 566;
   }
 
   v16 = &v23[v15];
@@ -821,7 +821,7 @@ LABEL_16:
       {
         v11 = &v22;
         v12 = &v24;
-        v13 = 6296;
+        v13 = 787;
         goto LABEL_11;
       }
 
@@ -837,7 +837,7 @@ LABEL_12:
       {
         v11 = &v23;
         v12 = &v25;
-        v13 = 6312;
+        v13 = 789;
 LABEL_11:
         v16 = [NTKCaliforniaTriangleFactory triangleWithSize:*&v21[v13] radius:*v11, *v12];
         v17 = [v16 imageWithRenderingMode:2];
@@ -856,10 +856,10 @@ LABEL_11:
   else
   {
     sub_792C(v4[6], v21);
-    v14 = 4560;
+    v14 = 570;
     if (v6 == 1)
     {
-      v14 = 4544;
+      v14 = 568;
     }
 
     v20 = *&v21[v14];
@@ -1340,33 +1340,29 @@ LABEL_9:
         v18 = [(NSArray *)*p_temporaryHourMarkers objectAtIndex:v13];
         [v18 setAlpha:v14];
         [v16 setAlpha:v15];
-        v19 = [(NTKCaliforniaContentView *)self hourMarkersCenterPointConstantsForStyle:self->_style dial:0];
-        x = v19[v12].x;
-        y = v19[v12].y;
-        v22 = [(NTKCaliforniaContentView *)self hourMarkersCenterPointConstantsForStyle:self->_style dial:1];
-        v23 = v22[v12].x;
-        v24 = v22[v12].y;
+        [(NTKCaliforniaContentView *)self hourMarkersCenterPointConstantsForStyle:self->_style dial:0];
+        [(NTKCaliforniaContentView *)self hourMarkersCenterPointConstantsForStyle:self->_style dial:1];
         CLKInterpolateBetweenFloatsClipped();
+        v20 = v19;
+        CLKInterpolateBetweenFloatsClipped();
+        v22 = v21;
+        [v18 setCenter:{v20, v21}];
+        [v16 setCenter:{v20, v22}];
+        [v18 bounds];
+        [v16 bounds];
+        CLKInterpolateBetweenFloatsClipped();
+        CGAffineTransformMakeScale(&v27, v23, v23);
+        v26 = v27;
+        [v16 setTransform:&v26];
+        [v16 bounds];
+        [v18 bounds];
+        CLKInterpolateBetweenFloatsClipped();
+        CGAffineTransformMakeScale(&v25, v24, v24);
         v26 = v25;
-        CLKInterpolateBetweenFloatsClipped();
-        v28 = v27;
-        [v18 setCenter:{v26, v27}];
-        [v16 setCenter:{v26, v28}];
-        [v18 bounds];
-        [v16 bounds];
-        CLKInterpolateBetweenFloatsClipped();
-        CGAffineTransformMakeScale(&v33, v29, v29);
-        v32 = v33;
-        [v16 setTransform:&v32];
-        [v16 bounds];
-        [v18 bounds];
-        CLKInterpolateBetweenFloatsClipped();
-        CGAffineTransformMakeScale(&v31, v30, v30);
-        v32 = v31;
-        [v18 setTransform:&v32];
+        [v18 setTransform:&v26];
 
         ++v13;
-        ++v12;
+        v12 += 16;
       }
 
       while (v13 < [(NSArray *)*p_hourMarkers count]);
@@ -1442,7 +1438,7 @@ LABEL_9:
         v22 = styleTransitionHandler8;
         if (styleTransitionHandler8)
         {
-          [styleTransitionHandler8 transformForMarkerAtIndex:i markerType:0];
+          objc_msgSend_transformForMarkerAtIndex_markerType_(styleTransitionHandler8);
         }
 
         else
@@ -1473,7 +1469,7 @@ LABEL_9:
         v27 = styleTransitionHandler11;
         if (styleTransitionHandler11)
         {
-          [styleTransitionHandler11 transformForMarkerAtIndex:i markerType:1];
+          objc_msgSend_transformForMarkerAtIndex_markerType_(styleTransitionHandler11);
         }
 
         else

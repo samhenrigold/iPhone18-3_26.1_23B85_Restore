@@ -574,11 +574,11 @@ void __83__HUClipScrubberViewController_viewWillTransitionToSize_withTransitionC
   dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
-uint64_t __70__HUClipScrubberViewController_playbackEngine_didUpdatePlaybackError___block_invoke(uint64_t result)
+id *__70__HUClipScrubberViewController_playbackEngine_didUpdatePlaybackError___block_invoke(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(result + 40) removeLiveButtonHighlighting];
+    return [result[5] removeLiveButtonHighlighting];
   }
 
   return result;

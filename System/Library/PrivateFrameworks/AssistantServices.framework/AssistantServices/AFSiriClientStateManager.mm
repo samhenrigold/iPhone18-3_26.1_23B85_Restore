@@ -35,7 +35,7 @@
 
 - (void)_aggregateStatesAndPublishIfNeeded
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   transactionDepth = self->_transactionDepth;
   if (transactionDepth < 1)
   {
@@ -44,25 +44,25 @@
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316162;
-      v11 = "[AFSiriClientStateManager _aggregateStatesAndPublishIfNeeded]";
-      v12 = 1024;
-      *v13 = (_aggregatedState >> 1) & 1;
-      *&v13[4] = 1024;
-      *&v13[6] = _aggregatedState & 1;
-      v14 = 1024;
-      v15 = (_aggregatedState >> 2) & 1;
-      v16 = 1024;
-      v17 = (_aggregatedState >> 3) & 1;
+      v10 = "[AFSiriClientStateManager _aggregateStatesAndPublishIfNeeded]";
+      v11 = 1024;
+      *v12 = (_aggregatedState >> 1) & 1;
+      *&v12[4] = 1024;
+      *&v12[6] = _aggregatedState & 1;
+      v13 = 1024;
+      v14 = (_aggregatedState >> 2) & 1;
+      v15 = 1024;
+      v16 = (_aggregatedState >> 3) & 1;
       _os_log_debug_impl(&dword_1912FE000, v6, OS_LOG_TYPE_DEBUG, "%s hasActiveSession = %d, hasActiveRequest = %d, isListening = %d, isSpeaking = %d", buf, 0x24u);
     }
 
     publisher = self->_publisher;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __62__AFSiriClientStateManager__aggregateStatesAndPublishIfNeeded__block_invoke;
-    v9[3] = &__block_descriptor_40_e8_Q16__0Q8l;
-    v9[4] = _aggregatedState;
-    [(AFNotifyStatePublisher *)publisher publishStateWithBlock:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __62__AFSiriClientStateManager__aggregateStatesAndPublishIfNeeded__block_invoke;
+    v8[3] = &__block_descriptor_40_e8_Q16__0Q8l;
+    v8[4] = _aggregatedState;
+    [(AFNotifyStatePublisher *)publisher publishStateWithBlock:v8];
   }
 
   else
@@ -71,43 +71,41 @@
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v11 = "[AFSiriClientStateManager _aggregateStatesAndPublishIfNeeded]";
-      v12 = 2048;
-      *v13 = transactionDepth;
+      v10 = "[AFSiriClientStateManager _aggregateStatesAndPublishIfNeeded]";
+      v11 = 2048;
+      *v12 = transactionDepth;
       _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s Skipped because transaction depth is %ld", buf, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)_aggregatedState
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   objectEnumerator = [(NSMapTable *)self->_statesByClient objectEnumerator];
-  v3 = [objectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v5 |= [*(*(&v10 + 1) + 8 * i) notifyState];
+        v5 |= [*(*(&v9 + 1) + 8 * i) notifyState];
       }
 
-      v4 = [objectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -118,29 +116,26 @@
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 uint64_t __62__AFSiriClientStateManager__aggregateStatesAndPublishIfNeeded__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v8 = 136315650;
-    v9 = "[AFSiriClientStateManager _aggregateStatesAndPublishIfNeeded]_block_invoke";
-    v10 = 2048;
-    v11 = a2;
-    v12 = 2048;
-    v13 = v5;
-    _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s state: %llu -> %llu", &v8, 0x20u);
+    v7 = 136315650;
+    v8 = "[AFSiriClientStateManager _aggregateStatesAndPublishIfNeeded]_block_invoke";
+    v9 = 2048;
+    v10 = a2;
+    v11 = 2048;
+    v12 = v5;
+    _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s state: %llu -> %llu", &v7, 0x20u);
   }
 
-  result = *(a1 + 32);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return *(a1 + 32);
 }
 
 + (id)sharedManager
@@ -157,7 +152,7 @@ uint64_t __62__AFSiriClientStateManager__aggregateStatesAndPublishIfNeeded__bloc
 
 void __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dispatch_group_leave(*(*(a1 + 32) + 56));
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
@@ -169,16 +164,14 @@ void __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke(u
       dispatch_once(&_AFMachAbsoluteTimeRate_onceToken, &__block_literal_global_1033);
     }
 
-    v8 = 136315650;
-    v9 = "[AFSiriClientStateManager _beginPresentationTransition]_block_invoke";
-    v10 = 2048;
-    v11 = a2;
-    v12 = 2048;
-    v13 = *&_AFMachAbsoluteTimeRate_rate * v6 / 1000000000.0;
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Relinquished presentation transition assertion. (signal = %ld, duration = %f)", &v8, 0x20u);
+    v7 = 136315650;
+    v8 = "[AFSiriClientStateManager _beginPresentationTransition]_block_invoke";
+    v9 = 2048;
+    v10 = a2;
+    v11 = 2048;
+    v12 = *&_AFMachAbsoluteTimeRate_rate * v6 / 1000000000.0;
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Relinquished presentation transition assertion. (signal = %ld, duration = %f)", &v7, 0x20u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endPresentationTransition
@@ -205,12 +198,12 @@ void __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke(u
 
 - (void)_beginPresentationTransition
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v21 = "[AFSiriClientStateManager _beginPresentationTransition]";
+    v20 = "[AFSiriClientStateManager _beginPresentationTransition]";
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -228,7 +221,7 @@ void __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke(u
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v21 = "[AFSiriClientStateManager _beginPresentationTransition]";
+      v20 = "[AFSiriClientStateManager _beginPresentationTransition]";
       _os_log_error_impl(&dword_1912FE000, v6, OS_LOG_TYPE_ERROR, "%s Attempted to begin a presentation transition when there's already a current presentation transition.", buf, 0xCu);
     }
   }
@@ -240,19 +233,19 @@ void __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke(u
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v21 = "[AFSiriClientStateManager _beginPresentationTransition]";
+      v20 = "[AFSiriClientStateManager _beginPresentationTransition]";
       _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s Acquired presentation transition assertion.", buf, 0xCu);
     }
 
     dispatch_group_enter(self->_presentationTransitionGroup);
     v9 = [AFSafetyBlock alloc];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke;
-    v19[3] = &unk_1E7348530;
-    v19[4] = self;
-    v19[5] = v7;
-    v10 = [(AFSafetyBlock *)v9 initWithBlock:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke;
+    v18[3] = &unk_1E7348530;
+    v18[4] = self;
+    v18[5] = v7;
+    v10 = [(AFSafetyBlock *)v9 initWithBlock:v18];
     presentationTransitionAssertion = self->_presentationTransitionAssertion;
     self->_presentationTransitionAssertion = v10;
   }
@@ -260,32 +253,31 @@ void __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke(u
   objc_initWeak(buf, self);
   v12 = [AFWatchdogTimer alloc];
   queue = self->_queue;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke_12;
-  v17[3] = &unk_1E7348A80;
-  objc_copyWeak(&v18, buf);
-  v14 = [(AFWatchdogTimer *)v12 initWithTimeoutInterval:queue onQueue:v17 timeoutHandler:4.0];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke_12;
+  v16[3] = &unk_1E7348A80;
+  objc_copyWeak(&v17, buf);
+  v14 = [(AFWatchdogTimer *)v12 initWithTimeoutInterval:queue onQueue:v16 timeoutHandler:4.0];
   v15 = self->_presentationTransitionWatchdogTimer;
   self->_presentationTransitionWatchdogTimer = v14;
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(buf);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_endPresentationTransitionForReason:(id)reason
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315394;
-    v13 = "[AFSiriClientStateManager _endPresentationTransitionForReason:]";
-    v14 = 2112;
-    v15 = reasonCopy;
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s reason = %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[AFSiriClientStateManager _endPresentationTransitionForReason:]";
+    v13 = 2112;
+    v14 = reasonCopy;
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s reason = %@", &v11, 0x16u);
   }
 
   presentationTransitionWatchdogTimer = self->_presentationTransitionWatchdogTimer;
@@ -309,13 +301,11 @@ void __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke(u
     v10 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[AFSiriClientStateManager _endPresentationTransitionForReason:]";
-      _os_log_error_impl(&dword_1912FE000, v10, OS_LOG_TYPE_ERROR, "%s Attempted to end a presentation transition when there's no current presentation transition.", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[AFSiriClientStateManager _endPresentationTransitionForReason:]";
+      _os_log_error_impl(&dword_1912FE000, v10, OS_LOG_TYPE_ERROR, "%s Attempted to end a presentation transition when there's no current presentation transition.", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke_12(uint64_t a1)
@@ -386,16 +376,16 @@ void __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke_1
 
 - (void)_removeStateForClient:(void *)client
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   NSMapRemove(self->_statesByClient, client);
   if (![(NSMapTable *)self->_statesByClient count])
   {
     v4 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v7 = 136315138;
-      v8 = "[AFSiriClientStateManager _removeStateForClient:]";
-      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Resetting transaction depth since last client has been invalidated", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[AFSiriClientStateManager _removeStateForClient:]";
+      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Resetting transaction depth since last client has been invalidated", &v6, 0xCu);
     }
 
     if (self->_transactionDepth >= 1)
@@ -403,9 +393,9 @@ void __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke_1
       v5 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
       {
-        v7 = 136315138;
-        v8 = "[AFSiriClientStateManager _removeStateForClient:]";
-        _os_log_error_impl(&dword_1912FE000, v5, OS_LOG_TYPE_ERROR, "%s last client was removed before all transactions ended", &v7, 0xCu);
+        v6 = 136315138;
+        v7 = "[AFSiriClientStateManager _removeStateForClient:]";
+        _os_log_error_impl(&dword_1912FE000, v5, OS_LOG_TYPE_ERROR, "%s last client was removed before all transactions ended", &v6, 0xCu);
       }
     }
 
@@ -413,7 +403,6 @@ void __56__AFSiriClientStateManager__beginPresentationTransition__block_invoke_1
   }
 
   [(AFSiriClientStateManager *)self _aggregateStatesAndPublishIfNeeded];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_stateForClient:(void *)client createIfAbsent:(BOOL)absent
@@ -476,7 +465,7 @@ void __58__AFSiriClientStateManager_getCurrentStateWithCompletion___block_invoke
 
 uint64_t __58__AFSiriClientStateManager_getCurrentStateWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
@@ -487,16 +476,14 @@ uint64_t __58__AFSiriClientStateManager_getCurrentStateWithCompletion___block_in
       dispatch_once(&_AFMachAbsoluteTimeRate_onceToken, &__block_literal_global_1033);
     }
 
-    v7 = 136315394;
-    v8 = "[AFSiriClientStateManager getCurrentStateWithCompletion:]_block_invoke_2";
-    v9 = 2048;
-    v10 = *&_AFMachAbsoluteTimeRate_rate * v4 / 1000000000.0;
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Took %f seconds to access current state.", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[AFSiriClientStateManager getCurrentStateWithCompletion:]_block_invoke_2";
+    v8 = 2048;
+    v9 = *&_AFMachAbsoluteTimeRate_rate * v4 / 1000000000.0;
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Took %f seconds to access current state.", &v6, 0x16u);
   }
 
-  result = (*(*(a1 + 40) + 16))(*(a1 + 40), [*(a1 + 32) _aggregatedState]);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))(*(a1 + 40), [*(a1 + 32) _aggregatedState]);
 }
 
 - (void)endTransactionForReason:(int64_t)reason
@@ -513,7 +500,7 @@ uint64_t __58__AFSiriClientStateManager_getCurrentStateWithCompletion___block_in
 
 uint64_t __52__AFSiriClientStateManager_endTransactionForReason___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 32);
   v4 = AFSiriLogContextConnection;
@@ -521,9 +508,9 @@ uint64_t __52__AFSiriClientStateManager_endTransactionForReason___block_invoke(u
   {
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[AFSiriClientStateManager endTransactionForReason:]_block_invoke";
-      _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Attempting to decrement transaction depth below 0", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[AFSiriClientStateManager endTransactionForReason:]_block_invoke";
+      _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Attempting to decrement transaction depth below 0", &v10, 0xCu);
     }
   }
 
@@ -531,24 +518,24 @@ uint64_t __52__AFSiriClientStateManager_endTransactionForReason___block_invoke(u
   {
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
-      v7 = *(a1 + 40);
-      v8 = v4;
-      if (v7 > 4)
+      v6 = *(a1 + 40);
+      v7 = v4;
+      if (v6 > 4)
       {
-        v9 = @"(unknown)";
+        v8 = @"(unknown)";
       }
 
       else
       {
-        v9 = off_1E7344A80[v7];
+        v8 = off_1E7344A80[v6];
       }
 
-      v10 = v9;
-      v11 = 136315394;
-      v12 = "[AFSiriClientStateManager endTransactionForReason:]_block_invoke";
-      v13 = 2112;
-      v14 = v10;
-      _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s Ending transaction for reason: %@", &v11, 0x16u);
+      v9 = v8;
+      v10 = 136315394;
+      v11 = "[AFSiriClientStateManager endTransactionForReason:]_block_invoke";
+      v12 = 2112;
+      v13 = v9;
+      _os_log_debug_impl(&dword_1912FE000, v7, OS_LOG_TYPE_DEBUG, "%s Ending transaction for reason: %@", &v10, 0x16u);
 
       v2 = *(a1 + 32);
       v3 = *(v2 + 32);
@@ -557,9 +544,7 @@ uint64_t __52__AFSiriClientStateManager_endTransactionForReason___block_invoke(u
     *(v2 + 32) = v3 - 1;
   }
 
-  result = [*(a1 + 32) _aggregateStatesAndPublishIfNeeded];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _aggregateStatesAndPublishIfNeeded];
 }
 
 - (void)beginTransactionForReason:(int64_t)reason
@@ -576,31 +561,31 @@ uint64_t __52__AFSiriClientStateManager_endTransactionForReason___block_invoke(u
 
 void __54__AFSiriClientStateManager_beginTransactionForReason___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 24) count];
   v3 = AFSiriLogContextConnection;
   if (v2)
   {
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
-      v5 = *(a1 + 40);
-      v6 = v3;
-      if (v5 > 4)
+      v4 = *(a1 + 40);
+      v5 = v3;
+      if (v4 > 4)
       {
-        v7 = @"(unknown)";
+        v6 = @"(unknown)";
       }
 
       else
       {
-        v7 = off_1E7344A80[v5];
+        v6 = off_1E7344A80[v4];
       }
 
-      v11 = v7;
-      v13 = 136315394;
-      v14 = "[AFSiriClientStateManager beginTransactionForReason:]_block_invoke";
-      v15 = 2112;
-      v16 = v11;
-      _os_log_debug_impl(&dword_1912FE000, v6, OS_LOG_TYPE_DEBUG, "%s Started transaction for reason: %@", &v13, 0x16u);
+      v10 = v6;
+      v12 = 136315394;
+      v13 = "[AFSiriClientStateManager beginTransactionForReason:]_block_invoke";
+      v14 = 2112;
+      v15 = v10;
+      _os_log_debug_impl(&dword_1912FE000, v5, OS_LOG_TYPE_DEBUG, "%s Started transaction for reason: %@", &v12, 0x16u);
     }
 
     ++*(*(a1 + 32) + 32);
@@ -608,27 +593,25 @@ void __54__AFSiriClientStateManager_beginTransactionForReason___block_invoke(uin
 
   else if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 40);
-    v9 = v3;
-    if (v8 > 4)
+    v7 = *(a1 + 40);
+    v8 = v3;
+    if (v7 > 4)
     {
-      v10 = @"(unknown)";
+      v9 = @"(unknown)";
     }
 
     else
     {
-      v10 = off_1E7344A80[v8];
+      v9 = off_1E7344A80[v7];
     }
 
-    v12 = v10;
-    v13 = 136315394;
-    v14 = "[AFSiriClientStateManager beginTransactionForReason:]_block_invoke";
-    v15 = 2112;
-    v16 = v12;
-    _os_log_error_impl(&dword_1912FE000, v9, OS_LOG_TYPE_ERROR, "%s Not begining transaction for reason: %@", &v13, 0x16u);
+    v11 = v9;
+    v12 = 136315394;
+    v13 = "[AFSiriClientStateManager beginTransactionForReason:]_block_invoke";
+    v14 = 2112;
+    v15 = v11;
+    _os_log_error_impl(&dword_1912FE000, v8, OS_LOG_TYPE_ERROR, "%s Not begining transaction for reason: %@", &v12, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endSpeakingForClient:(id)client
@@ -778,11 +761,11 @@ void __54__AFSiriClientStateManager_beginTransactionForReason___block_invoke(uin
 
 - (AFSiriClientStateManager)initWithInstanceContext:(id)context
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  v20.receiver = self;
-  v20.super_class = AFSiriClientStateManager;
-  v5 = [(AFSiriClientStateManager *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = AFSiriClientStateManager;
+  v5 = [(AFSiriClientStateManager *)&v19 init];
   if (v5)
   {
     v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -804,11 +787,11 @@ void __54__AFSiriClientStateManager_beginTransactionForReason___block_invoke(uin
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v22 = "[AFSiriClientStateManager initWithInstanceContext:]";
-      v23 = 2048;
-      v24 = v5;
-      v25 = 2112;
-      v26 = v12;
+      v21 = "[AFSiriClientStateManager initWithInstanceContext:]";
+      v22 = 2048;
+      v23 = v5;
+      v24 = 2112;
+      v25 = v12;
       _os_log_debug_impl(&dword_1912FE000, v13, OS_LOG_TYPE_DEBUG, "%s %p %@", buf, 0x20u);
     }
 
@@ -821,7 +804,6 @@ void __54__AFSiriClientStateManager_beginTransactionForReason___block_invoke(uin
     v5->_presentationTransitionGroup = v16;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

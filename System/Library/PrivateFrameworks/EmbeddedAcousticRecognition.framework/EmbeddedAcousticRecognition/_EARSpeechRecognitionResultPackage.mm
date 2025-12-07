@@ -173,10 +173,10 @@
     else
     {
       *v45 = 0;
-      *(v9 + 8) = 0;
-      *(v9 + 16) = 0;
+      v9[1] = 0;
+      v9[2] = 0;
       std::vector<quasar::Token>::__init_with_size[abi:ne200100]<quasar::Token*,quasar::Token*>(v9, *result, *(result + 1), 0x6DB6DB6DB6DB6DB7 * ((*(result + 1) - *result) >> 5));
-      v10 = v9 + 24;
+      v10 = v9 + 3;
     }
 
     v45 = v10;

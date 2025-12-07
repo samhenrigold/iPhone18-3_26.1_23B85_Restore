@@ -270,7 +270,7 @@ LABEL_42:
               {
               }
 
-              v54 = sub_1003649C8();
+              v54 = sub_1003649C8(ProgressCache);
               sub_100364E78(v54, v50, @"TestFlight");
 
               v3 = v88;
@@ -310,7 +310,7 @@ LABEL_42:
   v61 = v90;
   if (self->_reportRemoteProgress)
   {
-    v62 = sub_1002B0154();
+    v62 = sub_1002B0154(XDCDeviceManager);
     v63 = sub_1002B0280(v62);
 
     v96 = v63;
@@ -365,7 +365,7 @@ LABEL_42:
                 sub_10023E51C(v68, @"item_id");
               }
 
-              v76 = sub_1003649C8();
+              v76 = sub_1003649C8(ProgressCache);
               sub_100364E78(v76, v73, @"TestFlight");
             }
 
@@ -382,7 +382,7 @@ LABEL_42:
 
       if (v96[18])
       {
-        v78 = sub_1002EB36C();
+        v78 = sub_1002EB36C(XDCService);
         sub_1002EB928(v78, v92, 5, v96);
       }
 
@@ -391,7 +391,7 @@ LABEL_42:
     }
   }
 
-  v79 = sub_1002C0D84();
+  v79 = sub_1002C0D84(AppInstallScheduler);
   sub_1002C13BC(v79, 64);
 
   [(Task *)self lock];

@@ -45,14 +45,15 @@ LABEL_8:
 LABEL_4:
   representativeItem = [collectionCopy representativeItem];
   v12 = [VUIMPMediaEntityIdentifier showIdentifierWithMediaItem:representativeItem];
+  v13 = v12;
   if (v12)
   {
-    v13 = VUIMPShowMediaCollectionKind();
-    v17.receiver = self;
-    v17.super_class = VUIMPShowMediaCollection;
-    v14 = [(VUIMPMediaCollection *)&v17 initWithMediaLibrary:libraryCopy mediaItemCollection:collectionCopy identifier:v12 requestedProperties:propertiesCopy kind:v13];
+    v14 = VUIMPShowMediaCollectionKind(v12);
+    v18.receiver = self;
+    v18.super_class = VUIMPShowMediaCollection;
+    v15 = [(VUIMPMediaCollection *)&v18 initWithMediaLibrary:libraryCopy mediaItemCollection:collectionCopy identifier:v13 requestedProperties:propertiesCopy kind:v14];
 
-    self = v14;
+    self = v15;
     selfCopy = self;
   }
 

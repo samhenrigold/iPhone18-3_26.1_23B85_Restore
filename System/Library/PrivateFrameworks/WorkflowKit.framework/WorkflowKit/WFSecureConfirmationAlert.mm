@@ -85,14 +85,12 @@ void __51__WFSecureConfirmationAlert_configuredCancelButton__block_invoke(uint64
 
 - (id)buttons
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   cancelButton = [(WFSecureConfirmationAlert *)self cancelButton];
-  v8[0] = cancelButton;
+  v7[0] = cancelButton;
   continueButton = [(WFSecureConfirmationAlert *)self continueButton];
-  v8[1] = continueButton;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[1] = continueButton;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
 
   return v5;
 }

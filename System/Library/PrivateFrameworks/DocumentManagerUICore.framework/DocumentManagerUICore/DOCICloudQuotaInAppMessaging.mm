@@ -71,7 +71,7 @@ uint64_t __38__DOCICloudQuotaInAppMessaging_shared__block_invoke()
 
 - (id)fetchMessageFromNotification:(id)notification
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   userInfo = [notification userInfo];
   Helper_x8__ICQInAppMessageKey = gotLoadHelper_x8__ICQInAppMessageKey(v4);
   v8 = [v7 objectForKeyedSubscript:{**(v6 + 1128), Helper_x8__ICQInAppMessageKey}];
@@ -99,11 +99,11 @@ uint64_t __38__DOCICloudQuotaInAppMessaging_shared__block_invoke()
         v13 = v12;
         contentType = [v8 contentType];
         title = [v8 title];
-        v18[0] = 67109378;
-        v18[1] = contentType;
-        v19 = 2114;
-        v20 = title;
-        _os_log_impl(&dword_249CE0000, v13, OS_LOG_TYPE_DEFAULT, "DOCICQ: Ignoring unknown content type(%d) for message %{public}@", v18, 0x12u);
+        v17[0] = 67109378;
+        v17[1] = contentType;
+        v18 = 2114;
+        v19 = title;
+        _os_log_impl(&dword_249CE0000, v13, OS_LOG_TYPE_DEFAULT, "DOCICQ: Ignoring unknown content type(%d) for message %{public}@", v17, 0x12u);
       }
 
       v10 = 0;
@@ -114,8 +114,6 @@ uint64_t __38__DOCICloudQuotaInAppMessaging_shared__block_invoke()
   {
     v10 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

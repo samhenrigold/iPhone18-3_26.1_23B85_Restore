@@ -47,17 +47,17 @@ VCPCNNModelEspressoV2 *__99__VCPImageBackboneAnalyzer_sharedModel_identifier_out
 - (VCPImageBackboneAnalyzer)initWithRequestedAnalyses:(unint64_t)analyses andRevision:(id)revision useSharedModel:(BOOL)model
 {
   modelCopy = model;
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   revisionCopy = revision;
-  v8 = VCPSignPostLog();
+  v8 = VCPSignPostLog(revisionCopy);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = VCPSignPostLog();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = VCPSignPostLog(v10);
+  v12 = v11;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPPhotoAnalyzer_Image_VCPImageBackboneInit", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPPhotoAnalyzer_Image_VCPImageBackboneInit", "", buf, 2u);
   }
 
   self->_isFP16 = 0;
@@ -72,95 +72,101 @@ VCPCNNModelEspressoV2 *__99__VCPImageBackboneAnalyzer_sharedModel_identifier_out
   {
     self->_revision = [revisionCopy intValue];
 LABEL_9:
-    v33.receiver = self;
-    v33.super_class = VCPImageBackboneAnalyzer;
-    v12 = [(VCPImageBackboneAnalyzer *)&v33 init];
-    if (v12)
+    v35.receiver = self;
+    v35.super_class = VCPImageBackboneAnalyzer;
+    v13 = [(VCPImageBackboneAnalyzer *)&v35 init];
+    v14 = v13;
+    if (v13)
     {
-      v12->_inputWidth = [VCPVideoTransformerBackbone idealInputWidthWithRevision:v12->_revision];
-      v12->_inputHeight = [VCPVideoTransformerBackbone idealInputHeightWithRevision:v12->_revision];
-      inputData = v12->_inputData;
-      v12->_inputData = 0;
+      *(v13 + 56) = [VCPVideoTransformerBackbone idealInputWidthWithRevision:*(v13 + 72)];
+      v14->_inputHeight = [VCPVideoTransformerBackbone idealInputHeightWithRevision:v14->_revision];
+      inputData = v14->_inputData;
+      v14->_inputData = 0;
 
-      v14 = [[VCPTransforms alloc] initImageTransform:128 transformedImageWidth:v12->_inputWidth transformedImageHeight:v12->_inputHeight];
-      transformImage = v12->_transformImage;
-      v12->_transformImage = v14;
+      v16 = [[VCPTransforms alloc] initImageTransform:128 transformedImageWidth:v14->_inputWidth transformedImageHeight:v14->_inputHeight];
+      transformImage = v14->_transformImage;
+      v14->_transformImage = v16;
 
       vcp_mediaAnalysisBundle = [MEMORY[0x1E696AAE8] vcp_mediaAnalysisBundle];
       resourceURL = [vcp_mediaAnalysisBundle resourceURL];
 
-      v18 = [MEMORY[0x1E695DFF8] URLWithString:@"mubb_md7" relativeToURL:resourceURL];
-      v19 = MEMORY[0x1E696AEC0];
-      v20 = [MEMORY[0x1E696AD98] numberWithInteger:v12->_revision];
-      stringValue = [v20 stringValue];
-      v22 = [v19 stringWithFormat:@"%@_%@", @"image_backbone", stringValue];
+      v20 = [MEMORY[0x1E695DFF8] URLWithString:@"mubb_md7" relativeToURL:resourceURL];
+      v21 = MEMORY[0x1E696AEC0];
+      v22 = [MEMORY[0x1E696AD98] numberWithInteger:v14->_revision];
+      stringValue = [v22 stringValue];
+      v24 = [v21 stringWithFormat:@"%@_%@", @"image_backbone", stringValue];
 
       if (modelCopy)
       {
-        v23 = [objc_opt_class() sharedModel:v18 identifier:v22 outputNames:&unk_1F49BE938 inputNames:&unk_1F49BE950 functionName:@"main_image" precompiled:1];
+        v25 = [objc_opt_class() sharedModel:v20 identifier:v24 outputNames:&unk_1F49BE938 inputNames:&unk_1F49BE950 functionName:@"main_image" precompiled:1];
       }
 
       else
       {
-        v23 = [[VCPCNNModelEspressoV2 alloc] initWithParameters:v18 outputNames:&unk_1F49BE938 inputNames:&unk_1F49BE968 functionName:@"main_image" precompiled:1];
+        v25 = [[VCPCNNModelEspressoV2 alloc] initWithParameters:v20 outputNames:&unk_1F49BE938 inputNames:&unk_1F49BE968 functionName:@"main_image" precompiled:1];
       }
 
-      modelEspressoV2 = v12->_modelEspressoV2;
-      v12->_modelEspressoV2 = v23;
+      modelEspressoV2 = v14->_modelEspressoV2;
+      v14->_modelEspressoV2 = v25;
 
-      if (v12->_modelEspressoV2)
+      if (v14->_modelEspressoV2)
       {
-        LODWORD(v26) = 1.0;
-        v27 = [(VCPImageBackboneAnalyzer *)v12 configForAspectRatio:v26];
+        LODWORD(v28) = 1.0;
+        v29 = [(VCPImageBackboneAnalyzer *)v14 configForAspectRatio:v28];
       }
 
       else
       {
-        v27 = -108;
+        v29 = -108;
       }
 
-      if (v27)
+      if (v29)
       {
-        v24 = 0;
+        v26 = 0;
       }
 
       else
       {
-        v24 = v12;
+        v26 = v14;
       }
 
-      self = v12;
+      self = v14;
     }
 
     else
     {
-      v24 = 0;
+      v26 = 0;
       self = 0;
     }
 
     goto LABEL_21;
   }
 
-  if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  v13 = MediaAnalysisLogLevel();
+  if (v13 >= 3)
   {
-    intValue = [revisionCopy intValue];
-    *buf = 67109120;
-    v35 = intValue;
-    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPImageBackboneAnalyzer] revision %d is not supported", buf, 8u);
+    v13 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    if (v13)
+    {
+      intValue = [revisionCopy intValue];
+      *buf = 67109120;
+      v37 = intValue;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPImageBackboneAnalyzer] revision %d is not supported", buf, 8u);
+    }
   }
 
-  v24 = 0;
+  v26 = 0;
 LABEL_21:
-  v28 = VCPSignPostLog();
-  v29 = v28;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
+  v30 = VCPSignPostLog(v13);
+  v31 = v30;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_END, v9, "VCPPhotoAnalyzer_Image_VCPImageBackboneInit", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v31, OS_SIGNPOST_INTERVAL_END, v9, "VCPPhotoAnalyzer_Image_VCPImageBackboneInit", "", buf, 2u);
   }
 
-  v30 = v24;
-  return v30;
+  v32 = v26;
+  return v32;
 }
 
 + (BOOL)isBridgeVersion:(unint64_t)version compatibleWithEmbeddingVersion:(unint64_t)embeddingVersion
@@ -344,35 +350,36 @@ LABEL_6:
 
 - (int)analyzePixelBuffer:(__CVBuffer *)buffer flags:(unint64_t *)flags results:(id *)results cancel:(id)cancel
 {
-  v51[2] = *MEMORY[0x1E69E9840];
-  v9 = VCPSignPostLog();
+  v53[2] = *MEMORY[0x1E69E9840];
+  v9 = VCPSignPostLog(self);
   v10 = os_signpost_id_generate(v9);
 
-  v11 = VCPSignPostLog();
-  v12 = v11;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v12 = VCPSignPostLog(v11);
+  v13 = v12;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    LOWORD(v43.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "VCPPhotoAnalyzer_Image_VCPImageBackbonePreProcess", "", &v43, 2u);
+    LOWORD(v45.value) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "VCPPhotoAnalyzer_Image_VCPImageBackbonePreProcess", "", &v45, 2u);
   }
 
-  v13 = [(VCPImageBackboneAnalyzer *)self prepareInput:buffer withChannels:3 settling:0];
-  if (!v13)
+  v14 = [(VCPImageBackboneAnalyzer *)self prepareInput:buffer withChannels:3 settling:0];
+  v15 = v14;
+  if (!v14)
   {
-    v14 = VCPSignPostLog();
-    v15 = v14;
-    if (v10 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v14))
+    v16 = VCPSignPostLog(v14);
+    v17 = v16;
+    if (v10 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v16))
     {
-      LOWORD(v43.value) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_END, v10, "VCPPhotoAnalyzer_Image_VCPImageBackbonePreProcess", "", &v43, 2u);
+      LOWORD(v45.value) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_END, v10, "VCPPhotoAnalyzer_Image_VCPImageBackbonePreProcess", "", &v45, 2u);
     }
 
     inputsType = [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 inputsType];
-    v17 = [inputsType objectAtIndexedSubscript:0];
-    unsignedIntValue = [v17 unsignedIntValue];
+    v19 = [inputsType objectAtIndexedSubscript:0];
+    unsignedIntValue = [v19 unsignedIntValue];
 
-    v13 = [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 espressoForward:[(VCPEspressoV2Data *)self->_inputData getData:unsignedIntValue]];
-    if (!v13)
+    v15 = [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 espressoForward:[(VCPEspressoV2Data *)self->_inputData getData:unsignedIntValue]];
+    if (!v15)
     {
       outputsSize = [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 outputsSize];
       if ([outputsSize count])
@@ -383,65 +390,65 @@ LABEL_6:
           goto LABEL_18;
         }
 
-        [(VCPCNNModelEspressoV2 *)modelEspressoV2 outputs];
-        v21 = *&v43.value;
-        v44 = &v43;
-        std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v44);
-        if (*(&v21 + 1) == v21)
+        objc_msgSend_outputs(modelEspressoV2);
+        v23 = *&v45.value;
+        v46 = &v45;
+        std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v46);
+        if (*(&v23 + 1) == v23)
         {
           goto LABEL_19;
         }
 
-        [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 outputs];
-        v22 = [VCPVideoTransformerBackbone getNSDataFromOuput:*v43.value isFP16:0];
+        objc_msgSend_outputs(self->_modelEspressoV2);
+        v24 = [VCPVideoTransformerBackbone getNSDataFromOuput:*v45.value isFP16:0];
         embedding = self->_embedding;
-        self->_embedding = v22;
+        self->_embedding = v24;
 
-        v44 = &v43;
-        std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v44);
+        v46 = &v45;
+        std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v46);
         if ([outputsSize count] < 3)
         {
           goto LABEL_19;
         }
 
-        v24 = self->_modelEspressoV2;
-        if (v24)
+        v26 = self->_modelEspressoV2;
+        if (v26)
         {
-          [(VCPCNNModelEspressoV2 *)v24 outputs];
-          v25 = *&v43.timescale - v43.value;
-          v44 = &v43;
-          std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v44);
-          if (v25 >= 0x11)
+          objc_msgSend_outputs(v26);
+          v27 = *&v45.timescale - v45.value;
+          v46 = &v45;
+          std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v46);
+          if (v27 >= 0x11)
           {
-            [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 outputs];
-            v26 = [VCPVideoTransformerBackbone getNSDataFromOuput:*(v43.value + 8) isFP16:0];
+            objc_msgSend_outputs(self->_modelEspressoV2);
+            v28 = [VCPVideoTransformerBackbone getNSDataFromOuput:*(v45.value + 8) isFP16:0];
             spatialEmbedding = self->_spatialEmbedding;
-            self->_spatialEmbedding = v26;
+            self->_spatialEmbedding = v28;
 
-            v44 = &v43;
-            std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v44);
-            [(VCPCNNModelEspressoV2 *)self->_modelEspressoV2 outputs];
-            v28 = [VCPVideoTransformerBackbone getNSDataFromOuput:*(v43.value + 16) isFP16:0];
+            v46 = &v45;
+            std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v46);
+            objc_msgSend_outputs(self->_modelEspressoV2);
+            v30 = [VCPVideoTransformerBackbone getNSDataFromOuput:*(v45.value + 16) isFP16:0];
             hiddenEmbedding = self->_hiddenEmbedding;
-            self->_hiddenEmbedding = v28;
+            self->_hiddenEmbedding = v30;
 
-            v44 = &v43;
-            std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v44);
-            v30 = MediaAnalysisConvertFloat32ToFloat16(self->_embedding);
-            v51[0] = v30;
-            v50[0] = @"embeddings";
-            v50[1] = @"embeddingVersion";
-            v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{+[VCPVideoTransformerBackbone embeddingVersionForRevision:](VCPVideoTransformerBackbone, "embeddingVersionForRevision:", self->_revision)}];
-            v51[1] = v31;
-            v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:2];
-            v33 = [v32 mutableCopy];
+            v46 = &v45;
+            std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v46);
+            v32 = MediaAnalysisConvertFloat32ToFloat16(self->_embedding);
+            v53[0] = v32;
+            v52[0] = @"embeddings";
+            v52[1] = @"embeddingVersion";
+            v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{+[VCPVideoTransformerBackbone embeddingVersionForRevision:](VCPVideoTransformerBackbone, "embeddingVersionForRevision:", self->_revision)}];
+            v53[1] = v33;
+            v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:2];
+            v35 = [v34 mutableCopy];
 
             if ([(VCPImageBackboneAnalyzer *)self bridgeEmbeddingType]== 1)
             {
-              v13 = [(VCPImageBackboneAnalyzer *)self computeBridgeEmbedding:self->_embedding forType:1];
-              if (!v13)
+              v15 = [(VCPImageBackboneAnalyzer *)self computeBridgeEmbedding:self->_embedding forType:1];
+              if (!v15)
               {
-                [v33 setObject:self->_bridgeEmbedding forKey:@"bridgeEmbeddings"];
+                [v35 setObject:self->_bridgeEmbedding forKey:@"bridgeEmbeddings"];
                 goto LABEL_29;
               }
             }
@@ -453,21 +460,21 @@ LABEL_6:
                 goto LABEL_29;
               }
 
-              v35 = self->_spatialEmbedding;
-              if (v35)
+              v37 = self->_spatialEmbedding;
+              if (v37)
               {
-                v36 = MediaAnalysisConvertFloat32ToFloat16(v35);
-                if ([v36 length] != 187392)
+                v38 = MediaAnalysisConvertFloat32ToFloat16(v37);
+                if ([v38 length] != 187392)
                 {
-                  v13 = -18;
+                  v15 = -18;
                   goto LABEL_33;
                 }
 
-                v37 = v36;
-                bytes = [v36 bytes];
-                v39 = [MEMORY[0x1E695DEF0] dataWithBytes:bytes + 1536 length:185856];
-                v13 = [(VCPImageBackboneAnalyzer *)self computeBridgeEmbedding:v39 forType:[(VCPImageBackboneAnalyzer *)self bridgeEmbeddingType]];
-                if (v13)
+                v39 = v38;
+                bytes = [v38 bytes];
+                v41 = [MEMORY[0x1E695DEF0] dataWithBytes:bytes + 1536 length:185856];
+                v15 = [(VCPImageBackboneAnalyzer *)self computeBridgeEmbedding:v41 forType:[(VCPImageBackboneAnalyzer *)self bridgeEmbeddingType]];
+                if (v15)
                 {
 LABEL_30:
 
@@ -475,32 +482,32 @@ LABEL_33:
                   goto LABEL_34;
                 }
 
-                [v33 setObject:self->_bridgeEmbedding forKey:@"bridgeEmbeddings"];
+                [v35 setObject:self->_bridgeEmbedding forKey:@"bridgeEmbeddings"];
 
 LABEL_29:
-                v48 = @"ImageEmbeddingResults";
-                v45[0] = @"start";
-                v40 = MEMORY[0x1E6960CC0];
-                v43 = **&MEMORY[0x1E6960CC0];
-                v36 = CMTimeToNSDictionary(&v43);
-                v46[0] = v36;
-                v45[1] = @"duration";
-                v43 = *v40;
-                v39 = CMTimeToNSDictionary(&v43);
-                v45[2] = @"attributes";
-                v46[1] = v39;
-                v46[2] = v33;
-                v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:3];
-                v47 = v41;
-                v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
-                v49 = v42;
-                *results = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+                v50 = @"ImageEmbeddingResults";
+                v47[0] = @"start";
+                v42 = MEMORY[0x1E6960CC0];
+                v45 = **&MEMORY[0x1E6960CC0];
+                v38 = CMTimeToNSDictionary(&v45);
+                v48[0] = v38;
+                v47[1] = @"duration";
+                v45 = *v42;
+                v41 = CMTimeToNSDictionary(&v45);
+                v47[2] = @"attributes";
+                v48[1] = v41;
+                v48[2] = v35;
+                v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:3];
+                v49 = v43;
+                v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
+                v51 = v44;
+                *results = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
 
-                v13 = 0;
+                v15 = 0;
                 goto LABEL_30;
               }
 
-              v13 = -18;
+              v15 = -18;
             }
 
 LABEL_34:
@@ -512,19 +519,19 @@ LABEL_34:
         else
         {
 LABEL_18:
-          memset(&v43, 0, sizeof(v43));
-          v44 = &v43;
-          std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v44);
+          memset(&v45, 0, sizeof(v45));
+          v46 = &v45;
+          std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v46);
         }
       }
 
 LABEL_19:
-      v13 = 1;
+      v15 = 1;
 LABEL_20:
     }
   }
 
-  return v13;
+  return v15;
 }
 
 - (int)computeBridgeEmbedding:(id)embedding forType:(int64_t)type
@@ -667,14 +674,14 @@ LABEL_18:
       v12 = self->_mLLMbridge;
       if (v12)
       {
-        [(VCPCNNModelEspressoV2 *)v12 outputs];
+        objc_msgSend_outputs(v12);
         v14 = *buf;
         v13 = *&buf[8];
         v42 = buf;
         std::vector<VCPEspressoV2Data * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v42);
         if (v13 != v14)
         {
-          [(VCPCNNModelEspressoV2 *)self->_mLLMbridge outputs];
+          objc_msgSend_outputs(self->_mLLMbridge);
           v15 = [VCPVideoTransformerBackbone getNSDataFromOuput:**buf isFP16:1];
           bridgeEmbedding = self->_bridgeEmbedding;
           self->_bridgeEmbedding = v15;

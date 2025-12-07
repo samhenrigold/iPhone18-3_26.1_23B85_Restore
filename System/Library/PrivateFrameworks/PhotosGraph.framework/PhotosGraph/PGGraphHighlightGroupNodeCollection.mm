@@ -61,52 +61,46 @@
 
 + (MARelation)momentsOfHighlightGroup
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphHighlightGroupNode highlightOfHighlightGroup];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = +[PGGraphHighlightNode momentInDayHighlight];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   v6 = [v2 chain:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (MARelation)areaFeatureOfHighlightGroup
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphTripFeatureEdge filter];
   outRelation = [v3 outRelation];
-  v11[0] = outRelation;
+  v10[0] = outRelation;
   v5 = +[PGGraphAreaNode filter];
   relation = [v5 relation];
-  v11[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v2 chain:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (MARelation)locationFeatureOfHighlightGroup
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphTripFeatureEdge filter];
   outRelation = [v3 outRelation];
-  v11[0] = outRelation;
+  v10[0] = outRelation;
   v5 = +[PGGraphNamedLocationNode filter];
   relation = [v5 relation];
-  v11[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v2 chain:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

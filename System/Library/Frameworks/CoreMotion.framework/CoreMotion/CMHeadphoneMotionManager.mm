@@ -226,7 +226,6 @@
       }
 
       CFAbsoluteTimeGetCurrent();
-      v12 = self->_internal->_firstValidDeviceMotionTimestamp - self->_internal->_deviceConnectionTimestamp;
       AnalyticsSendEventLazy();
     }
   }
@@ -307,19 +306,19 @@
       v39 = self->_internal->_firstValidDeviceMotionTimestamp - self->_internal->_deviceConnectionTimestamp;
       v49 = 134349056;
       v50 = v39;
-      v40 = _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "[CMHeadphoneMotionManager] Initial reference attitude is set after %{public}.3f sec from connection", &v49, 12);
+      v41 = v40;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHeadphoneMotionManager applyInitialReferencePrivate:]", "CoreLocation: %s\n", v40);
-      if (v40 != buf)
+      if (v41 != buf)
       {
-        free(v40);
+        free(v41);
       }
     }
   }
 
-  v41 = objc_msgSend_attitude(private, v7, v8);
-  v44 = objc_msgSend_initialReferenceAttitude(self->_internal, v42, v43);
-  objc_msgSend_multiplyByInverseOfAttitude_(v41, v45, v44);
-  v46 = *MEMORY[0x1E69E9840];
+  v42 = objc_msgSend_attitude(private, v7, v8);
+  v45 = objc_msgSend_initialReferenceAttitude(self->_internal, v43, v44);
+  objc_msgSend_multiplyByInverseOfAttitude_(v42, v46, v45);
 }
 
 - (void)startStatusUpdatesPrivate
@@ -407,7 +406,6 @@
   {
     objc_msgSend_setInitialReferenceAttitude_(self->_internal, v6, 0);
     self->_internal->_deviceConnectionTimestamp = CFAbsoluteTimeGetCurrent();
-    v8 = *MEMORY[0x1E69E9840];
 
     MEMORY[0x1EEE66B58](self, sel_notifyDeviceConnectedEventToClientPrivate, v7);
   }
@@ -415,9 +413,8 @@
   else if (objc_msgSend_isEqualToString_(v4, v6, @"Disconnect"))
   {
     self->_internal->_deviceConnectionTimestamp = 0.0;
-    v11 = *MEMORY[0x1E69E9840];
 
-    objc_msgSend_notifyDeviceDisconnectedEventToClientPrivate(self, v9, v10);
+    objc_msgSend_notifyDeviceDisconnectedEventToClientPrivate(self, v8, v9);
   }
 
   else
@@ -427,16 +424,16 @@
       dispatch_once(&qword_1ED71C800, &unk_1F0E3B408);
     }
 
-    v12 = off_1ED71C808;
+    v10 = off_1ED71C808;
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
       v17 = v4;
-      _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_ERROR, "[CMHeadphoneMotionManager] Unknown eventType: %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_ERROR, "[CMHeadphoneMotionManager] Unknown eventType: %{public}@", buf, 0xCu);
     }
 
-    v13 = sub_19B420058();
-    if ((*(v13 + 160) & 0x80000000) == 0 || (*(v13 + 164) & 0x80000000) == 0 || (*(v13 + 168) & 0x80000000) == 0 || *(v13 + 152))
+    v11 = sub_19B420058();
+    if ((*(v11 + 160) & 0x80000000) == 0 || (*(v11 + 164) & 0x80000000) == 0 || (*(v11 + 168) & 0x80000000) == 0 || *(v11 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C800 != -1)
@@ -444,15 +441,16 @@
         dispatch_once(&qword_1ED71C800, &unk_1F0E3B408);
       }
 
-      v14 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHeadphoneMotionManager onStatusEventPrivate:]", "CoreLocation: %s\n", v14);
-      if (v14 != buf)
+      v14 = 138543362;
+      v15 = v4;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 16, "[CMHeadphoneMotionManager] Unknown eventType: %{public}@", &v14, 12);
+      v13 = v12;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHeadphoneMotionManager onStatusEventPrivate:]", "CoreLocation: %s\n", v12);
+      if (v13 != buf)
       {
-        free(v14);
+        free(v13);
       }
     }
-
-    v15 = *MEMORY[0x1E69E9840];
   }
 }
 

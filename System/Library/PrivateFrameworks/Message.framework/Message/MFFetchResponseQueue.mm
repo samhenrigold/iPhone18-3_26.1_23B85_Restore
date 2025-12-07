@@ -30,7 +30,7 @@
 
 - (BOOL)handleItems:(id)items
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v5 = [(MFFetchResponseQueue *)self insertMessages:itemsCopy];
   v6 = +[MFActivityMonitor currentMonitor];
@@ -41,26 +41,26 @@
     v9 = v8;
 
     gotNewMessagesState = [v6 gotNewMessagesState];
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v11 = v5;
-    v22 = v5;
-    v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v21 = v5;
+    v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v12)
     {
-      v13 = *v24;
+      v13 = *v23;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v23 + 1) + 8 * i);
+          v15 = *(*(&v22 + 1) + 8 * i);
           messageFlags = [v15 messageFlags];
           if ((messageFlags & 1) == 0)
           {
@@ -91,7 +91,7 @@
           }
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v12)
         {
           continue;
@@ -103,20 +103,19 @@
 
 LABEL_19:
 
-    v5 = v22;
+    v5 = v21;
     [v6 setGotNewMessagesState:gotNewMessagesState];
   }
 
   v19 = [v5 count];
   LOBYTE(v19) = [itemsCopy count] == v19;
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (BOOL)addItem:(id)item
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   if ([itemCopy responseType] != 17)
   {
@@ -127,17 +126,17 @@ LABEL_19:
   context = objc_autoreleasePoolPush();
   fetchResults = [itemCopy fetchResults];
   selfCopy = self;
-  v60 = [(MFIMAPConnection *)self->_connection _isFetchResponseValid:itemCopy];
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
+  v59 = [(MFIMAPConnection *)self->_connection _isFetchResponseValid:itemCopy];
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   obj = fetchResults;
-  v5 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
+  v5 = [obj countByEnumeratingWithState:&v63 objects:v69 count:16];
   if (!v5)
   {
+    v57 = 0;
     v58 = 0;
-    v59 = 0;
     v24 = 1;
     firstObject = obj;
     goto LABEL_60;
@@ -147,23 +146,23 @@ LABEL_19:
   messageSize = 0;
   uniqueRemoteId = 0;
   v9 = 0;
-  v54 = 0;
+  v53 = 0;
   messageFlags = 0;
+  v57 = 0;
   v58 = 0;
-  v59 = 0;
-  v56 = 0;
-  v10 = *v65;
+  v55 = 0;
+  v10 = *v64;
   encoding = 0xFFFFFFFFLL;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v65 != v10)
+      if (*v64 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v64 + 1) + 8 * i);
+      v13 = *(*(&v63 + 1) + 8 * i);
       type = [v13 type];
       if (type > 7)
       {
@@ -173,7 +172,7 @@ LABEL_19:
           {
             messageFlags = [v13 messageFlags];
             encoding = [v13 encoding];
-            v56 = 1;
+            v55 = 1;
           }
 
           else if (type == 11)
@@ -185,7 +184,7 @@ LABEL_19:
         else if (type == 8)
         {
           v9 = [v13 uid];
-          v54 = 1;
+          v53 = 1;
         }
 
         else
@@ -196,15 +195,15 @@ LABEL_19:
 
       else if (type > 3)
       {
-        if ((type == 4 || type == 7) && v60)
+        if ((type == 4 || type == 7) && v59)
         {
           fetchData = [v13 fetchData];
           v18 = [fetchData mutableCopy];
 
           [v18 mf_convertNetworkLineEndingsToUnix];
           [v18 mf_makeImmutable];
-          v19 = v58;
-          v58 = v18;
+          v19 = v57;
+          v57 = v18;
 LABEL_27:
 
           continue;
@@ -216,8 +215,8 @@ LABEL_27:
         if (type == 2)
         {
           internalDate = [v13 internalDate];
-          v19 = v59;
-          v59 = internalDate;
+          v19 = v58;
+          v58 = internalDate;
           goto LABEL_27;
         }
 
@@ -228,19 +227,19 @@ LABEL_27:
       }
     }
 
-    v5 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
+    v5 = [obj countByEnumeratingWithState:&v63 objects:v69 count:16];
   }
 
   while (v5);
 
-  if ((v56 & 1) == 0)
+  if ((v55 & 1) == 0)
   {
     goto LABEL_53;
   }
 
-  if ((([v58 length] != 0) & v54 & v60) != 1 || !-[MFFetchResponseQueue shouldAddUID:](selfCopy, "shouldAddUID:", v9))
+  if ((([v57 length] != 0) & v53 & v59) != 1 || !-[MFFetchResponseQueue shouldAddUID:](selfCopy, "shouldAddUID:", v9))
   {
-    if (v54 & v60)
+    if (v53 & v59)
     {
       serverMessagePersistence = [(MFLibraryIMAPStore *)selfCopy->_store serverMessagePersistence];
       v32 = [objc_alloc(MEMORY[0x1E696AC90]) initWithIndex:v9];
@@ -254,7 +253,7 @@ LABEL_27:
       }
 
       v34 = MFFlagsObjectForFlags(messageFlags);
-      v61 = selfCopy->_store;
+      v60 = selfCopy->_store;
       v35 = firstObject;
       v22 = v34;
       v36 = MEMORY[0x1E699B300];
@@ -264,13 +263,13 @@ LABEL_27:
 
       if ([v38 hasChanges])
       {
-        library = [(MFLibraryStore *)v61 library];
+        library = [(MFLibraryStore *)v60 library];
         persistence = [library persistence];
         messageChangeManager = [persistence messageChangeManager];
         remoteID = [v21 remoteID];
         *buf = remoteID;
         v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:buf count:1];
-        mailbox = [(MFLibraryStore *)v61 mailbox];
+        mailbox = [(MFLibraryStore *)v60 mailbox];
         v43 = [mailbox URL];
         [messageChangeManager reflectFlagChanges:v38 forMessagesWithRemoteIDs:v41 mailboxURL:v43];
       }
@@ -285,8 +284,8 @@ LABEL_27:
       v44 = MEMORY[0x1E696AD98];
       messagePersistentID = [v21 messagePersistentID];
       v46 = [v44 numberWithLongLong:{objc_msgSend(messagePersistentID, "longLongValue")}];
-      v68 = v46;
-      v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v68 count:1];
+      v67 = v46;
+      v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
       [library2 clearServerSearchFlagsForMessagesWithLibraryIDs:v47];
 
       v24 = 1;
@@ -300,9 +299,9 @@ LABEL_53:
     goto LABEL_61;
   }
 
-  v21 = [objc_alloc(MEMORY[0x1E69AD6F8]) initWithHeaderData:v58 encoding:encoding];
+  v21 = [objc_alloc(MEMORY[0x1E69AD6F8]) initWithHeaderData:v57 encoding:encoding];
   v22 = [[MFIMAPMessageWithCache alloc] initWithFlags:messageFlags size:messageSize uid:v9];
-  [v59 timeIntervalSince1970];
+  [v58 timeIntervalSince1970];
   [(MFIMAPMessageWithCache *)v22 setDateReceivedAsTimeIntervalSince1970:?];
   if (encoding != -1)
   {
@@ -324,9 +323,9 @@ LABEL_53:
   }
 
   [(MFMailMessage *)v22 setModSequenceNumber:highestModSequence];
-  v63.receiver = selfCopy;
-  v63.super_class = MFFetchResponseQueue;
-  v24 = [(MFBufferedQueue *)&v63 addItem:v22];
+  v62.receiver = selfCopy;
+  v62.super_class = MFFetchResponseQueue;
+  v24 = [(MFBufferedQueue *)&v62 addItem:v22];
   v25 = MFLogGeneral();
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
@@ -367,7 +366,6 @@ LABEL_61:
   objc_autoreleasePoolPop(context);
 LABEL_62:
 
-  v48 = *MEMORY[0x1E69E9840];
   return v24;
 }
 

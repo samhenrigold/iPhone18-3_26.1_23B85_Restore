@@ -253,18 +253,18 @@
 
   if (verboseLoggingEnabled)
   {
-    v7 = sub_10000DB80();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_10000DB80(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = @"NO";
+      v9 = @"NO";
       if (syncCopy)
       {
-        v8 = @"YES";
+        v9 = @"YES";
       }
 
-      v15 = 138412290;
-      v16 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "\\BCCloudAssetReviewManager #enableCloudSync setEnableCloudSync %@\\"", &v15, 0xCu);
+      v16 = 138412290;
+      v17 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "\\BCCloudAssetReviewManager #enableCloudSync setEnableCloudSync %@\", &v16, 0xCu);
     }
   }
 
@@ -340,7 +340,7 @@
 
   else
   {
-    dataManager = sub_100002660();
+    dataManager = sub_100002660(0);
     if (os_log_type_enabled(dataManager, OS_LOG_TYPE_ERROR))
     {
       sub_1001C2BB4(dataManager);

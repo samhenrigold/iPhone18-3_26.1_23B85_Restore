@@ -67,7 +67,7 @@ LABEL_9:
 
 + (id)keyPathsAndValuesForPredicate:(id)predicate
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -97,33 +97,33 @@ LABEL_16:
   {
     v4 = predicateCopy;
     v9 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     leftExpression = [v4 subpredicates];
-    v10 = [leftExpression countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [leftExpression countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(leftExpression);
           }
 
-          v14 = [objc_opt_class() keyPathsAndValuesForPredicate:*(*(&v17 + 1) + 8 * i)];
+          v14 = [objc_opt_class() keyPathsAndValuesForPredicate:*(*(&v16 + 1) + 8 * i)];
           if (v14)
           {
             [v9 addEntriesFromDictionary:v14];
           }
         }
 
-        v11 = [leftExpression countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [leftExpression countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v11);
@@ -135,14 +135,12 @@ LABEL_16:
   v9 = 0;
 LABEL_18:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (id)predicateByReplacingNilWithEmptyString:(id)string
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (!stringCopy)
   {
@@ -164,30 +162,30 @@ LABEL_18:
 
     compoundPredicateType = [v10 compoundPredicateType];
     array = [MEMORY[0x277CBEB18] array];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     subpredicates = [v8 subpredicates];
-    v14 = [subpredicates countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v14 = [subpredicates countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v27;
+      v16 = *v26;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v27 != v16)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(subpredicates);
           }
 
-          v18 = [objc_opt_class() predicateByReplacingNilWithEmptyString:*(*(&v26 + 1) + 8 * i)];
+          v18 = [objc_opt_class() predicateByReplacingNilWithEmptyString:*(*(&v25 + 1) + 8 * i)];
           [array addObject:v18];
         }
 
-        v15 = [subpredicates countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v15 = [subpredicates countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v15);
@@ -251,14 +249,13 @@ LABEL_27:
   }
 
 LABEL_28:
-  v24 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)predicateByReplacingUnsignedIntegerWithSignedInteger:(id)integer legalMetricNames:(id)names
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   integerCopy = integer;
   namesCopy = names;
   if (!integerCopy)
@@ -282,30 +279,30 @@ LABEL_28:
   {
     compoundPredicateType = [v9 compoundPredicateType];
     array = [MEMORY[0x277CBEB18] array];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     subpredicates = [v7 subpredicates];
-    v12 = [subpredicates countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v12 = [subpredicates countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v25;
+      v14 = *v24;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v25 != v14)
+          if (*v24 != v14)
           {
             objc_enumerationMutation(subpredicates);
           }
 
-          v16 = [objc_opt_class() predicateByReplacingUnsignedIntegerWithSignedInteger:*(*(&v24 + 1) + 8 * i) legalMetricNames:namesCopy];
+          v16 = [objc_opt_class() predicateByReplacingUnsignedIntegerWithSignedInteger:*(*(&v23 + 1) + 8 * i) legalMetricNames:namesCopy];
           [array addObject:v16];
         }
 
-        v13 = [subpredicates countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v13 = [subpredicates countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v13);
@@ -346,14 +343,12 @@ LABEL_21:
 
 LABEL_22:
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (id)predicateByReplacingUint64bit:(id)uint64bit legalMetricNames:(id)names
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   uint64bitCopy = uint64bit;
   namesCopy = names;
   objc_opt_class();
@@ -383,35 +378,35 @@ LABEL_37:
         goto LABEL_38;
       }
 
-      v67 = leftExpression;
-      v66 = v12;
+      v66 = leftExpression;
+      v65 = v12;
       if ([v12 conformsToProtocol:&unk_28702FB30])
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
-          v63 = v7;
+          v62 = v7;
           array = [MEMORY[0x277CBEB18] array];
+          v67 = 0u;
           v68 = 0u;
           v69 = 0u;
           v70 = 0u;
-          v71 = 0u;
           v14 = v12;
-          v15 = [v14 countByEnumeratingWithState:&v68 objects:v76 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v67 objects:v75 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v69;
+            v17 = *v68;
             do
             {
               for (i = 0; i != v16; ++i)
               {
-                if (*v69 != v17)
+                if (*v68 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                v19 = *(*(&v68 + 1) + 8 * i);
+                v19 = *(*(&v67 + 1) + 8 * i);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) != 0 && ![v19 expressionType])
                 {
@@ -427,7 +422,7 @@ LABEL_37:
                 [array addObject:v24];
               }
 
-              v16 = [v14 countByEnumeratingWithState:&v68 objects:v76 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v67 objects:v75 count:16];
             }
 
             while (v16);
@@ -435,10 +430,10 @@ LABEL_37:
 
           v25 = objc_alloc(MEMORY[0x277CCA918]);
           v26 = [MEMORY[0x277CCA9C0] expressionForAggregate:array];
-          v7 = v63;
-          leftExpression = v67;
-          v27 = [v25 initWithLeftExpression:v67 rightExpression:v26 modifier:objc_msgSend(v63 type:"comparisonPredicateModifier") options:{objc_msgSend(v63, "predicateOperatorType"), objc_msgSend(v63, "options")}];
-          v12 = v66;
+          v7 = v62;
+          leftExpression = v66;
+          v27 = [v25 initWithLeftExpression:v66 rightExpression:v26 modifier:objc_msgSend(v62 type:"comparisonPredicateModifier") options:{objc_msgSend(v62, "predicateOperatorType"), objc_msgSend(v62, "options")}];
+          v12 = v65;
           goto LABEL_36;
         }
       }
@@ -450,22 +445,22 @@ LABEL_37:
       v26 = [v30 expressionForConstantValue:v31];
 
       v32 = [MEMORY[0x277CCA9C0] expressionForConstantValue:&unk_287017EC8];
-      v64 = unsignedLongLongValue2;
-      v65 = v26;
+      v63 = unsignedLongLongValue2;
+      v64 = v26;
       if ([v7 predicateOperatorType] && objc_msgSend(v7, "predicateOperatorType") != 1)
       {
         if ([v7 predicateOperatorType] != 2 && objc_msgSend(v7, "predicateOperatorType") != 3)
         {
           if ([v7 predicateOperatorType] == 4 || objc_msgSend(v7, "predicateOperatorType") == 5)
           {
-            v57 = v32;
-            v58 = objc_alloc(MEMORY[0x277CCA918]);
+            v56 = v32;
+            v57 = objc_alloc(MEMORY[0x277CCA918]);
             comparisonPredicateModifier = [v7 comparisonPredicateModifier];
             predicateOperatorType = [v7 predicateOperatorType];
             options = [v7 options];
-            v62 = v58;
-            v32 = v57;
-            v54 = [v62 initWithLeftExpression:leftExpression rightExpression:v26 modifier:comparisonPredicateModifier type:predicateOperatorType options:options];
+            v61 = v57;
+            v32 = v56;
+            v54 = [v61 initWithLeftExpression:leftExpression rightExpression:v26 modifier:comparisonPredicateModifier type:predicateOperatorType options:options];
           }
 
           else
@@ -486,19 +481,19 @@ LABEL_37:
         v51 = [v50 initWithLeftExpression:leftExpression rightExpression:v46 modifier:comparisonPredicateModifier2 type:0 options:options2];
         v40 = v51;
         v41 = MEMORY[0x277CCA920];
-        if (v64 < 0)
+        if (v63 < 0)
         {
-          v72[0] = v34;
-          v72[1] = v51;
+          v71[0] = v34;
+          v71[1] = v51;
           v42 = MEMORY[0x277CBEA60];
-          v43 = v72;
+          v43 = v71;
           goto LABEL_26;
         }
 
-        v73[0] = v34;
-        v73[1] = v51;
+        v72[0] = v34;
+        v72[1] = v51;
         v52 = MEMORY[0x277CBEA60];
-        v53 = v73;
+        v53 = v72;
       }
 
       else
@@ -513,20 +508,20 @@ LABEL_37:
         v39 = [v38 initWithLeftExpression:leftExpression rightExpression:v33 modifier:comparisonPredicateModifier3 type:2 options:options3];
         v40 = v39;
         v41 = MEMORY[0x277CCA920];
-        if ((v64 & 0x8000000000000000) == 0)
+        if ((v63 & 0x8000000000000000) == 0)
         {
-          v75[0] = v34;
-          v75[1] = v39;
+          v74[0] = v34;
+          v74[1] = v39;
           v42 = MEMORY[0x277CBEA60];
-          v43 = v75;
+          v43 = v74;
 LABEL_26:
           v44 = [v42 arrayWithObjects:v43 count:2];
           v45 = [v41 andPredicateWithSubpredicates:v44];
 LABEL_34:
           v54 = v45;
 
-          v26 = v65;
-          v12 = v66;
+          v26 = v64;
+          v12 = v65;
 LABEL_35:
           array = v54;
 
@@ -536,10 +531,10 @@ LABEL_36:
           goto LABEL_37;
         }
 
-        v74[0] = v34;
-        v74[1] = v39;
+        v73[0] = v34;
+        v73[1] = v39;
         v52 = MEMORY[0x277CBEA60];
-        v53 = v74;
+        v53 = v73;
       }
 
       v44 = [v52 arrayWithObjects:v53 count:2];
@@ -558,14 +553,13 @@ LABEL_36:
 LABEL_38:
 
 LABEL_39:
-  v55 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
 
 + (id)predicateByRemovingSubpredicateWithLeftExpression:(id)expression fromPredicate:(id)predicate
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   expressionCopy = expression;
   predicateCopy = predicate;
   objc_opt_class();
@@ -593,33 +587,33 @@ LABEL_39:
     {
       v11 = predicateCopy;
       array = [MEMORY[0x277CBEB18] array];
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       subpredicates = [v11 subpredicates];
-      v14 = [subpredicates countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [subpredicates countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v22;
+        v16 = *v21;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v22 != v16)
+            if (*v21 != v16)
             {
               objc_enumerationMutation(subpredicates);
             }
 
-            v18 = [objc_opt_class() predicateByRemovingSubpredicateWithLeftExpression:expressionCopy fromPredicate:*(*(&v21 + 1) + 8 * i)];
+            v18 = [objc_opt_class() predicateByRemovingSubpredicateWithLeftExpression:expressionCopy fromPredicate:*(*(&v20 + 1) + 8 * i)];
             if (v18)
             {
               [array addObject:v18];
             }
           }
 
-          v15 = [subpredicates countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v15 = [subpredicates countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v15);
@@ -642,8 +636,6 @@ LABEL_39:
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
@@ -661,19 +653,17 @@ LABEL_39:
 
 + (id)predicateForStartTimestamp:(double)timestamp endTimestamp:(double)endTimestamp withKeyPath:(id)path
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CCAC30];
   pathCopy = path;
   v9 = [v7 predicateWithFormat:@"(%K >= %lf)", pathCopy, *&timestamp];
   v10 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K <= %lf)", pathCopy, *&endTimestamp];
 
   v11 = MEMORY[0x277CCA920];
-  v16[0] = v9;
-  v16[1] = v10;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = v9;
+  v15[1] = v10;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v13 = [v11 andPredicateWithSubpredicates:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -711,7 +701,7 @@ LABEL_39:
 
 + (id)subpredicatesForPredicate:(id)predicate withLeftExpression:(id)expression
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   expressionCopy = expression;
   objc_opt_class();
@@ -740,30 +730,30 @@ LABEL_39:
     {
       v12 = predicateCopy;
       array = [MEMORY[0x277CBEB18] array];
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       subpredicates = [v12 subpredicates];
-      v14 = [subpredicates countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [subpredicates countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v22;
+        v16 = *v21;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v22 != v16)
+            if (*v21 != v16)
             {
               objc_enumerationMutation(subpredicates);
             }
 
-            v18 = [objc_opt_class() subpredicatesForPredicate:*(*(&v21 + 1) + 8 * i) withLeftExpression:expressionCopy];
+            v18 = [objc_opt_class() subpredicatesForPredicate:*(*(&v20 + 1) + 8 * i) withLeftExpression:expressionCopy];
             [array addObjectsFromArray:v18];
           }
 
-          v15 = [subpredicates countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v15 = [subpredicates countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v15);
@@ -775,8 +765,6 @@ LABEL_39:
       array = 0;
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return array;
 }

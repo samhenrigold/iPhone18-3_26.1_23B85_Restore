@@ -18,20 +18,20 @@ uint64_t __78__HDSampleEntity_HKMenstrualCycles__hdmc_analysisSampleInfo_forProf
   return v7;
 }
 
-id __78__HDSampleEntity_HKMenstrualCycles__hdmc_analysisSampleInfo_forProfile_error___block_invoke_2()
+id __78__HDSampleEntity_HKMenstrualCycles__hdmc_analysisSampleInfo_forProfile_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v0 = HKMCCycleTrackingSampleTypes();
-  v1 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCB90]];
-  v2 = [v0 arrayByAddingObject:v1];
+  v2 = HKMCCycleTrackingSampleTypes();
+  v3 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCB90]];
+  v4 = [v2 arrayByAddingObject:v3];
 
-  v3 = [v2 hk_map:&__block_literal_global_301];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = [v3 componentsJoinedByString:{@", "}];
-  v6 = [v4 stringWithFormat:@"WHERE (samples.data_type IN (%@))", v5];
+  v5 = [v4 hk_map:&__block_literal_global_301];
+  v6 = MEMORY[0x277CCACA8];
+  v7 = [v5 componentsJoinedByString:{@", "}];
+  v8 = [v6 stringWithFormat:@"WHERE (samples.data_type IN (%@))", v7];
 
-  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT MAX(samples.data_id), objects.uuid, samples.data_type, objects.type FROM samples INNER JOIN objects USING(data_id) %@", v6];
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT MAX(samples.data_id), objects.uuid, samples.data_type, objects.type FROM samples INNER JOIN objects USING(data_id) %@", v8];
 
-  return v7;
+  return v9;
 }
 
 uint64_t __78__HDSampleEntity_HKMenstrualCycles__hdmc_analysisSampleInfo_forProfile_error___block_invoke_3(uint64_t a1, void *a2)

@@ -55,43 +55,43 @@
     {
       content2 = [(UNNotificationRequest *)self content];
       userInfo2 = [content2 userInfo];
-      v9 = [userInfo2 objectForKeyedSubscript:keyCopy];
+      v10 = [userInfo2 objectForKeyedSubscript:keyCopy];
 
       goto LABEL_10;
     }
 
-    v10 = sub_10000D420();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = sub_10000D420(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 138412290;
-      v17 = keyCopy;
-      v11 = "Request userInfo empty - no value for key %@";
-      v12 = v10;
-      v13 = OS_LOG_TYPE_DEBUG;
-      v14 = 12;
+      v17 = 138412290;
+      v18 = keyCopy;
+      v12 = "Request userInfo empty - no value for key %@";
+      v13 = v11;
+      v14 = OS_LOG_TYPE_DEBUG;
+      v15 = 12;
       goto LABEL_8;
     }
   }
 
   else
   {
-    v10 = sub_10000D420();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_10000D420(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v16) = 0;
-      v11 = "Requested userInfo for nil key";
-      v12 = v10;
-      v13 = OS_LOG_TYPE_ERROR;
-      v14 = 2;
+      LOWORD(v17) = 0;
+      v12 = "Requested userInfo for nil key";
+      v13 = v11;
+      v14 = OS_LOG_TYPE_ERROR;
+      v15 = 2;
 LABEL_8:
-      _os_log_impl(&_mh_execute_header, v12, v13, v11, &v16, v14);
+      _os_log_impl(&_mh_execute_header, v13, v14, v12, &v17, v15);
     }
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_10:
 
-  return v9;
+  return v10;
 }
 
 - (int64_t)type
@@ -1114,48 +1114,47 @@ LABEL_9:
   etaInfo = [stateCopy etaInfo];
   [etaInfo etaTimestamp];
   v17 = v16;
-  v18 = GEOConfigMSPDefaultTripClosedExpiryInterval[1];
   GEOConfigGetDouble();
-  v20 = [NSDate dateWithTimeIntervalSinceReferenceDate:v19 + v17];
+  v19 = [NSDate dateWithTimeIntervalSinceReferenceDate:v18 + v17];
 
   data = [stateCopy data];
-  v21 = [data base64EncodedStringWithOptions:0];
-  v22 = [NSString stringWithFormat:@"%@://?%@=%@&%@=%@", @"x-maps-bulletin", @"MapsPushNotificationType", @"MapsPushNotificationTypeSharedTrip", @"MapsPushNotificationPushData", v21];
-  v23 = [NSURL URLWithString:v22];
+  v20 = [data base64EncodedStringWithOptions:0];
+  v21 = [NSString stringWithFormat:@"%@://?%@=%@&%@=%@", @"x-maps-bulletin", @"MapsPushNotificationType", @"MapsPushNotificationTypeSharedTrip", @"MapsPushNotificationPushData", v20];
+  v22 = [NSURL URLWithString:v21];
 
-  v37[0] = off_10004AB80[0];
-  v37[1] = @"MapsNotificationType";
-  v38[0] = identifierCopy;
-  v38[1] = &off_100040558;
-  v24 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:2];
-  v25 = [v24 mutableCopy];
+  v36[0] = off_10004AB80[0];
+  v36[1] = @"MapsNotificationType";
+  v37[0] = identifierCopy;
+  v37[1] = &off_100040558;
+  v23 = [NSDictionary dictionaryWithObjects:v37 forKeys:v36 count:2];
+  v24 = [v23 mutableCopy];
 
   if ([stateCopy hasTransportType])
   {
     transportType = [stateCopy transportType];
     if (transportType >= 7)
     {
-      v27 = [NSString stringWithFormat:@"(unknown: %i)", transportType];
+      v26 = [NSString stringWithFormat:@"(unknown: %i)", transportType];
     }
 
     else
     {
-      v27 = off_10003D4B8[transportType];
+      v26 = off_10003D4B8[transportType];
     }
 
-    [v25 setObject:v27 forKeyedSubscript:off_10004AB88[0]];
+    [v24 setObject:v26 forKeyedSubscript:off_10004AB88[0]];
   }
 
-  v28 = off_10004ABB0;
+  v27 = off_10004ABB0;
   if (!updateCopy)
   {
-    v28 = off_10004ABA8;
+    v27 = off_10004ABA8;
   }
 
-  LOBYTE(v31) = 0;
-  v29 = [self requestWithTitle:titleCopy subtitle:subtitleCopy message:messageCopy userInfo:v25 destinations:7 url:v23 expirationDate:v20 categoryIdentifier:*v28 threadIdentifier:identifierCopy interruptionLevel:2 shouldIgnoreDoNotDisturb:v31];
+  LOBYTE(v30) = 0;
+  v28 = [self requestWithTitle:titleCopy subtitle:subtitleCopy message:messageCopy userInfo:v24 destinations:7 url:v22 expirationDate:v19 categoryIdentifier:*v27 threadIdentifier:identifierCopy interruptionLevel:2 shouldIgnoreDoNotDisturb:v30];
 
-  return v29;
+  return v28;
 }
 
 + (id)requestForDownloadedOfflineMapWithIdentifier:(id)identifier displayName:(id)name

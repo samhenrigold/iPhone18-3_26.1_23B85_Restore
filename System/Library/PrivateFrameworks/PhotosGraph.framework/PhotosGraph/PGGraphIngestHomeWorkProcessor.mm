@@ -11,7 +11,7 @@
 
 - (void)_deleteLocationEdgesOfPersonNodes:(id)nodes inGraph:(id)graph
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   homeOrWorkNodes = [nodes homeOrWorkNodes];
   v8 = [MEMORY[0x277D22C20] any];
@@ -22,11 +22,11 @@
   {
     v11 = [v9 count];
     v12 = [homeOrWorkNodes description];
-    v15 = 134218242;
-    v16 = v11;
-    v17 = 2112;
-    v18 = v12;
-    _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[PGGraphIngestHomeWorkProcessor] Deleted %lu edges that are connected to HomeWork nodes [%@]", &v15, 0x16u);
+    v14 = 134218242;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v12;
+    _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[PGGraphIngestHomeWorkProcessor] Deleted %lu edges that are connected to HomeWork nodes [%@]", &v14, 0x16u);
   }
 
   if ([v9 count])
@@ -35,13 +35,11 @@
     [v13 removeEdges:v9];
     [graphCopy executeGraphChangeRequest:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deleteEdgelessHomeWorkNodesInGraph:(id)graph
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v5 = +[PGGraphHomeWorkNode filter];
   [v5 setWhereNoInAndOutEdges:1];
@@ -49,9 +47,9 @@
   loggingConnection = [(PGGraphBuilder *)self->_graphBuilder loggingConnection];
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
   {
-    v10 = 134217984;
-    v11 = [v6 count];
-    _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[PGGraphIngestHomeWorkProcessor] Deleted %lu homeWork nodes from the graph", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = [v6 count];
+    _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[PGGraphIngestHomeWorkProcessor] Deleted %lu homeWork nodes from the graph", &v9, 0xCu);
   }
 
   if ([v6 count])
@@ -60,8 +58,6 @@
     [v8 removeNodesForIdentifiers:v6];
     [graphCopy executeGraphChangeRequest:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)inferHomeWorkAddressesOfPersonNodes:(id)nodes andCLSPersonByContactIdentifier:(id)identifier inGraph:(id)graph
@@ -116,19 +112,19 @@ void __110__PGGraphIngestHomeWorkProcessor_inferHomeWorkAddressesOfPersonNodes_a
 
 - (void)runWithGraphUpdate:(id)update progressBlock:(id)block
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   aBlock = block;
   graph = [(PGGraphBuilder *)self->_graphBuilder graph];
-  v27 = _Block_copy(aBlock);
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0;
-  v36[0] = 0;
-  v36[1] = v36;
-  v36[2] = 0x2020000000;
-  v36[3] = 0;
+  v26 = _Block_copy(aBlock);
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x2020000000;
+  v35[3] = 0;
   loggingConnection = [(PGGraphBuilder *)self->_graphBuilder loggingConnection];
   v8 = os_signpost_id_generate(loggingConnection);
   v9 = loggingConnection;
@@ -143,7 +139,7 @@ void __110__PGGraphIngestHomeWorkProcessor_inferHomeWorkAddressesOfPersonNodes_a
 
   info = 0;
   mach_timebase_info(&info);
-  v25 = mach_absolute_time();
+  v24 = mach_absolute_time();
   updatedPersonNodesUnrelatedToMomentChange = [updateCopy updatedPersonNodesUnrelatedToMomentChange];
   if (![updatedPersonNodesUnrelatedToMomentChange count])
   {
@@ -154,25 +150,25 @@ void __110__PGGraphIngestHomeWorkProcessor_inferHomeWorkAddressesOfPersonNodes_a
   [(PGGraphIngestHomeWorkProcessor *)self _deleteLocationEdgesOfPersonNodes:v13 inGraph:graph];
   serviceManager = [(PGGraphBuilder *)self->_graphBuilder serviceManager];
   contactIdentifiers = [(PGGraphPersonNodeCollection *)v13 contactIdentifiers];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __67__PGGraphIngestHomeWorkProcessor_runWithGraphUpdate_progressBlock___block_invoke;
-  v30[3] = &unk_27888A188;
-  v31 = v27;
-  v32 = v36;
-  v33 = &v37;
-  v34 = 0x3F847AE147AE147BLL;
-  v16 = [serviceManager personsInContactStoreForContactIdentifiers:contactIdentifiers needsRefetching:0 progressBlock:v30];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __67__PGGraphIngestHomeWorkProcessor_runWithGraphUpdate_progressBlock___block_invoke;
+  v29[3] = &unk_27888A188;
+  v30 = v26;
+  v31 = v35;
+  v32 = &v36;
+  v33 = 0x3F847AE147AE147BLL;
+  v16 = [serviceManager personsInContactStoreForContactIdentifiers:contactIdentifiers needsRefetching:0 progressBlock:v29];
 
-  v17 = *(v38 + 24);
+  v17 = *(v37 + 24);
   if (v17 == 1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v42 = 66;
-      *&v42[4] = 2080;
-      *&v42[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestHomeWorkProcessor.m";
+      *v41 = 66;
+      *&v41[4] = 2080;
+      *&v41[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestHomeWorkProcessor.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
   }
@@ -202,17 +198,15 @@ LABEL_10:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      *v42 = "PGGraphIngestHomeWorkProcessor";
-      *&v42[8] = 2048;
-      *&v42[10] = ((((v19 - v25) * numer) / denom) / 1000000.0);
+      *v41 = "PGGraphIngestHomeWorkProcessor";
+      *&v41[8] = 2048;
+      *&v41[10] = ((((v19 - v24) * numer) / denom) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v23, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
   }
 
-  _Block_object_dispose(v36, 8);
-  _Block_object_dispose(&v37, 8);
-
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v35, 8);
+  _Block_object_dispose(&v36, 8);
 }
 
 void __67__PGGraphIngestHomeWorkProcessor_runWithGraphUpdate_progressBlock___block_invoke(uint64_t a1, _BYTE *a2, double a3)

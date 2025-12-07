@@ -887,7 +887,6 @@ LABEL_37:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 2) == 0)
@@ -907,7 +906,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  wifiRssi = self->_wifiRssi;
   PBDataWriterWriteSint64Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -922,7 +920,6 @@ LABEL_4:
   }
 
 LABEL_40:
-  wifiTxPER = self->_wifiTxPER;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -937,7 +934,6 @@ LABEL_5:
   }
 
 LABEL_41:
-  wifiSNR = self->_wifiSNR;
   PBDataWriterWriteSint64Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -952,7 +948,6 @@ LABEL_6:
   }
 
 LABEL_42:
-  captiveNetworks = self->_captiveNetworks;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -967,7 +962,6 @@ LABEL_7:
   }
 
 LABEL_43:
-  wifiRxRetry = self->_wifiRxRetry;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -982,7 +976,6 @@ LABEL_8:
   }
 
 LABEL_44:
-  wifiEstimatedBandwitdh = self->_wifiEstimatedBandwitdh;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -997,7 +990,6 @@ LABEL_9:
   }
 
 LABEL_45:
-  wifiTxPhyRate = self->_wifiTxPhyRate;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1012,7 +1004,6 @@ LABEL_10:
   }
 
 LABEL_46:
-  wifiRxPhyRate = self->_wifiRxPhyRate;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1027,7 +1018,6 @@ LABEL_11:
   }
 
 LABEL_47:
-  qbssLoad = self->_qbssLoad;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1042,7 +1032,6 @@ LABEL_12:
   }
 
 LABEL_48:
-  cca = self->_cca;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1057,7 +1046,6 @@ LABEL_13:
   }
 
 LABEL_49:
-  stationCount = self->_stationCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1072,7 +1060,6 @@ LABEL_14:
   }
 
 LABEL_50:
-  dataLQM = self->_dataLQM;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1087,7 +1074,6 @@ LABEL_15:
   }
 
 LABEL_51:
-  bssLoad = self->_bssLoad;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1102,12 +1088,10 @@ LABEL_16:
   }
 
 LABEL_52:
-  voiceLQM = self->_voiceLQM;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x8000) != 0)
   {
 LABEL_17:
-    signalBar = self->_signalBar;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1127,16 +1111,15 @@ LABEL_18:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((*&v6 & 0x1000) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x1000) != 0)
   {
-    facetimePacketLoss = self->_facetimePacketLoss;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
-    if ((*&v6 & 0x800) == 0)
+    v5 = self->_has;
+    if ((*&v5 & 0x800) == 0)
     {
 LABEL_26:
-      if ((*&v6 & 0x2000) == 0)
+      if ((*&v5 & 0x2000) == 0)
       {
         goto LABEL_27;
       }
@@ -1145,18 +1128,17 @@ LABEL_26:
     }
   }
 
-  else if ((*&v6 & 0x800) == 0)
+  else if ((*&v5 & 0x800) == 0)
   {
     goto LABEL_26;
   }
 
-  facetimeAction = self->_facetimeAction;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x2000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x2000) == 0)
   {
 LABEL_27:
-    if ((*&v6 & 0x200) == 0)
+    if ((*&v5 & 0x200) == 0)
     {
       goto LABEL_28;
     }
@@ -1165,13 +1147,12 @@ LABEL_27:
   }
 
 LABEL_56:
-  facetimeTimeDelay = self->_facetimeTimeDelay;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x200) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x200) == 0)
   {
 LABEL_28:
-    if ((*&v6 & 0x1000000) == 0)
+    if ((*&v5 & 0x1000000) == 0)
     {
       goto LABEL_29;
     }
@@ -1180,13 +1161,12 @@ LABEL_28:
   }
 
 LABEL_57:
-  counter = self->_counter;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x1000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x1000000) == 0)
   {
 LABEL_29:
-    if ((*&v6 & 0x10000000) == 0)
+    if ((*&v5 & 0x10000000) == 0)
     {
       goto LABEL_30;
     }
@@ -1195,13 +1175,12 @@ LABEL_29:
   }
 
 LABEL_58:
-  alertedMode = self->_alertedMode;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((*&v6 & 0x10000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x10000000) == 0)
   {
 LABEL_30:
-    if ((*&v6 & 0x8000000) == 0)
+    if ((*&v5 & 0x8000000) == 0)
     {
       goto LABEL_31;
     }
@@ -1210,13 +1189,12 @@ LABEL_30:
   }
 
 LABEL_59:
-  isStallDetected = self->_isStallDetected;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((*&v6 & 0x8000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x8000000) == 0)
   {
 LABEL_31:
-    if ((*&v6 & 0x20000) == 0)
+    if ((*&v5 & 0x20000) == 0)
     {
       goto LABEL_32;
     }
@@ -1225,13 +1203,12 @@ LABEL_31:
   }
 
 LABEL_60:
-  isPCDetected = self->_isPCDetected;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((*&v6 & 0x20000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x20000) == 0)
   {
 LABEL_32:
-    if ((*&v6 & 8) == 0)
+    if ((*&v5 & 8) == 0)
     {
       goto LABEL_33;
     }
@@ -1240,13 +1217,12 @@ LABEL_32:
   }
 
 LABEL_61:
-  videoErasure = self->_videoErasure;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 8) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 8) == 0)
   {
 LABEL_33:
-    if ((*&v6 & 0x40) == 0)
+    if ((*&v5 & 0x40) == 0)
     {
       goto LABEL_34;
     }
@@ -1255,13 +1231,12 @@ LABEL_33:
   }
 
 LABEL_62:
-  audioErasure = self->_audioErasure;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x40) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x40) == 0)
   {
 LABEL_34:
-    if ((*&v6 & 0x80) == 0)
+    if ((*&v5 & 0x80) == 0)
     {
       goto LABEL_35;
     }
@@ -1270,19 +1245,17 @@ LABEL_34:
   }
 
 LABEL_63:
-  cellRsrp = self->_cellRsrp;
   PBDataWriterWriteSint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x80) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x80) == 0)
   {
 LABEL_35:
-    if ((*&v6 & 0x100) == 0)
+    if ((*&v5 & 0x100) == 0)
     {
       goto LABEL_36;
     }
 
 LABEL_65:
-    cellSnr = self->_cellSnr;
     PBDataWriterWriteSint32Field();
     if ((*&self->_has & 0x4000000) == 0)
     {
@@ -1293,22 +1266,20 @@ LABEL_65:
   }
 
 LABEL_64:
-  cellRsrq = self->_cellRsrq;
   PBDataWriterWriteSint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x100) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x100) != 0)
   {
     goto LABEL_65;
   }
 
 LABEL_36:
-  if ((*&v6 & 0x4000000) == 0)
+  if ((*&v5 & 0x4000000) == 0)
   {
     return;
   }
 
 LABEL_66:
-  cellMode = self->_cellMode;
 
   PBDataWriterWriteBOOLField();
 }
@@ -2234,7 +2205,6 @@ LABEL_31:
       goto LABEL_162;
     }
 
-    v8 = *(equal + 149);
     if (self->_captiveNetworks)
     {
       if ((*(equal + 149) & 1) == 0)
@@ -2427,68 +2397,67 @@ LABEL_31:
     }
   }
 
-  v12 = self->_has;
-  v13 = *(equal + 39);
-  if ((*&v12 & 0x1000) != 0)
+  v11 = self->_has;
+  v12 = *(equal + 39);
+  if ((*&v11 & 0x1000) != 0)
   {
-    if ((v13 & 0x1000) == 0 || self->_facetimePacketLoss != *(equal + 17))
+    if ((v12 & 0x1000) == 0 || self->_facetimePacketLoss != *(equal + 17))
     {
       goto LABEL_162;
     }
   }
 
-  else if ((v13 & 0x1000) != 0)
+  else if ((v12 & 0x1000) != 0)
   {
     goto LABEL_162;
   }
 
-  if ((*&v12 & 0x800) != 0)
+  if ((*&v11 & 0x800) != 0)
   {
-    if ((v13 & 0x800) == 0 || self->_facetimeAction != *(equal + 16))
+    if ((v12 & 0x800) == 0 || self->_facetimeAction != *(equal + 16))
     {
       goto LABEL_162;
     }
   }
 
-  else if ((v13 & 0x800) != 0)
+  else if ((v12 & 0x800) != 0)
   {
     goto LABEL_162;
   }
 
-  if ((*&v12 & 0x2000) != 0)
+  if ((*&v11 & 0x2000) != 0)
   {
-    if ((v13 & 0x2000) == 0 || self->_facetimeTimeDelay != *(equal + 18))
+    if ((v12 & 0x2000) == 0 || self->_facetimeTimeDelay != *(equal + 18))
     {
       goto LABEL_162;
     }
   }
 
-  else if ((v13 & 0x2000) != 0)
+  else if ((v12 & 0x2000) != 0)
   {
     goto LABEL_162;
   }
 
-  if ((*&v12 & 0x200) != 0)
+  if ((*&v11 & 0x200) != 0)
   {
-    if ((v13 & 0x200) == 0 || self->_counter != *(equal + 14))
+    if ((v12 & 0x200) == 0 || self->_counter != *(equal + 14))
     {
       goto LABEL_162;
     }
   }
 
-  else if ((v13 & 0x200) != 0)
+  else if ((v12 & 0x200) != 0)
   {
     goto LABEL_162;
   }
 
-  if ((*&v12 & 0x1000000) != 0)
+  if ((*&v11 & 0x1000000) != 0)
   {
-    if ((v13 & 0x1000000) == 0)
+    if ((v12 & 0x1000000) == 0)
     {
       goto LABEL_162;
     }
 
-    v14 = *(equal + 148);
     if (self->_alertedMode)
     {
       if ((*(equal + 148) & 1) == 0)
@@ -2503,19 +2472,18 @@ LABEL_31:
     }
   }
 
-  else if ((v13 & 0x1000000) != 0)
+  else if ((v12 & 0x1000000) != 0)
   {
     goto LABEL_162;
   }
 
-  if ((*&v12 & 0x10000000) != 0)
+  if ((*&v11 & 0x10000000) != 0)
   {
-    if ((v13 & 0x10000000) == 0)
+    if ((v12 & 0x10000000) == 0)
     {
       goto LABEL_162;
     }
 
-    v15 = *(equal + 152);
     if (self->_isStallDetected)
     {
       if ((*(equal + 152) & 1) == 0)
@@ -2530,16 +2498,15 @@ LABEL_31:
     }
   }
 
-  else if ((v13 & 0x10000000) != 0)
+  else if ((v12 & 0x10000000) != 0)
   {
     goto LABEL_162;
   }
 
-  if ((*&v12 & 0x8000000) != 0)
+  if ((*&v11 & 0x8000000) != 0)
   {
-    if ((v13 & 0x8000000) != 0)
+    if ((v12 & 0x8000000) != 0)
     {
-      v16 = *(equal + 151);
       if (self->_isPCDetected)
       {
         if ((*(equal + 151) & 1) == 0)
@@ -2561,81 +2528,81 @@ LABEL_162:
     return v5;
   }
 
-  if ((v13 & 0x8000000) != 0)
+  if ((v12 & 0x8000000) != 0)
   {
     goto LABEL_162;
   }
 
 LABEL_135:
-  if ((*&v12 & 0x20000) != 0)
+  if ((*&v11 & 0x20000) != 0)
   {
-    if ((v13 & 0x20000) == 0 || self->_videoErasure != *(equal + 30))
+    if ((v12 & 0x20000) == 0 || self->_videoErasure != *(equal + 30))
     {
       goto LABEL_162;
     }
   }
 
-  else if ((v13 & 0x20000) != 0)
+  else if ((v12 & 0x20000) != 0)
   {
     goto LABEL_162;
   }
 
-  if ((*&v12 & 8) != 0)
+  if ((*&v11 & 8) != 0)
   {
-    if ((v13 & 8) == 0 || self->_audioErasure != *(equal + 8))
+    if ((v12 & 8) == 0 || self->_audioErasure != *(equal + 8))
     {
       goto LABEL_162;
     }
   }
 
-  else if ((v13 & 8) != 0)
+  else if ((v12 & 8) != 0)
   {
     goto LABEL_162;
   }
 
-  if ((*&v12 & 0x40) != 0)
+  if ((*&v11 & 0x40) != 0)
   {
-    if ((v13 & 0x40) == 0 || self->_cellRsrp != *(equal + 11))
+    if ((v12 & 0x40) == 0 || self->_cellRsrp != *(equal + 11))
     {
       goto LABEL_162;
     }
   }
 
-  else if ((v13 & 0x40) != 0)
+  else if ((v12 & 0x40) != 0)
   {
     goto LABEL_162;
   }
 
-  if ((*&v12 & 0x80) != 0)
+  if ((*&v11 & 0x80) != 0)
   {
-    if ((v13 & 0x80) == 0 || self->_cellRsrq != *(equal + 12))
+    if ((v12 & 0x80) == 0 || self->_cellRsrq != *(equal + 12))
     {
       goto LABEL_162;
     }
   }
 
-  else if ((v13 & 0x80) != 0)
+  else if ((v12 & 0x80) != 0)
   {
     goto LABEL_162;
   }
 
-  if ((*&v12 & 0x100) != 0)
+  if ((*&v11 & 0x100) != 0)
   {
-    if ((v13 & 0x100) == 0 || self->_cellSnr != *(equal + 13))
+    if ((v12 & 0x100) == 0 || self->_cellSnr != *(equal + 13))
     {
       goto LABEL_162;
     }
   }
 
-  else if ((v13 & 0x100) != 0)
+  else if ((v12 & 0x100) != 0)
   {
     goto LABEL_162;
   }
 
-  LOBYTE(v5) = (v13 & 0x4000000) == 0;
-  if ((*&v12 & 0x4000000) != 0)
+  LOBYTE(v5) = (v12 & 0x4000000) == 0;
+  if ((*&v11 & 0x4000000) != 0)
   {
-    if ((v13 & 0x4000000) == 0)
+    if ((v12 & 0x4000000) == 0)
     {
       goto LABEL_162;
     }

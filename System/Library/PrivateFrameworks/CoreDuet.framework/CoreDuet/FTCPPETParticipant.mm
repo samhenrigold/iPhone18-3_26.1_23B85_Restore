@@ -34,10 +34,8 @@
 
 - (void)writeTo:(id)to
 {
-  hashedId = self->_hashedId;
   toCopy = to;
   PBDataWriterWriteUint64Field();
-  isContact = self->_isContact;
   PBDataWriterWriteBOOLField();
 }
 

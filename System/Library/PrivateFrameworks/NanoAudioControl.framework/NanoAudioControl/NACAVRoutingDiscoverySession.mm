@@ -21,7 +21,7 @@ void __37___NACAVRoutingDiscoverySession_init__block_invoke(uint64_t a1)
 
 void __37___NACAVRoutingDiscoverySession_init__block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 40) & 1) == 0)
   {
@@ -30,63 +30,57 @@ void __37___NACAVRoutingDiscoverySession_init__block_invoke_2(uint64_t a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(*(a1 + 32) + 8);
-      v10 = 138412290;
-      v11 = v4;
-      _os_log_impl(&dword_25AEBF000, v3, OS_LOG_TYPE_DEFAULT, "[NACEndpointObserver] Got initial updates for MRAVEndpoints in session %@!", &v10, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_25AEBF000, v3, OS_LOG_TYPE_DEFAULT, "[NACEndpointObserver] Got initial updates for MRAVEndpoints in session %@!", &v6, 0xCu);
     }
 
     dispatch_group_leave(*(*(a1 + 32) + 24));
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 8);
-    v7 = *(v5 + 16);
     MRAVRoutingDiscoverySessionRemoveEndpointsChangedCallback();
-    v8 = *(*(a1 + 32) + 16);
-    if (v8)
+    v5 = *(*(a1 + 32) + 16);
+    if (v5)
     {
-      CFRelease(v8);
+      CFRelease(v5);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __74___NACAVRoutingDiscoverySession_fetchRouteForOriginIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v2 = *(*(a1 + 32) + 8);
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v3 = MRAVRoutingDiscoverySessionCopyAvailableEndpoints();
-  v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v4)
+  v2 = MRAVRoutingDiscoverySessionCopyAvailableEndpoints();
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v3)
   {
-    v5 = v4;
-    v6 = *v19;
+    v4 = v3;
+    v5 = *v17;
     do
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        if (*v19 != v6)
+        if (*v17 != v5)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * v7);
+        v7 = *(*(&v16 + 1) + 8 * v6);
         if (MRAVEndpointGetExternalDevice())
         {
-          v9 = MRExternalDeviceCopyCustomOrigin();
-          if (v9)
+          v8 = MRExternalDeviceCopyCustomOrigin();
+          if (v8)
           {
-            v10 = v9;
+            v9 = v8;
             UniqueIdentifier = MROriginGetUniqueIdentifier();
             if (UniqueIdentifier == [*(a1 + 40) intValue])
             {
-              v12 = [objc_alloc(MEMORY[0x277CD5D20]) initWithEndpoint:v8];
-              CFRelease(v10);
-              if (v12)
+              v11 = [objc_alloc(MEMORY[0x277CD5D20]) initWithEndpoint:v7];
+              CFRelease(v9);
+              if (v11)
               {
                 goto LABEL_15;
               }
@@ -94,39 +88,37 @@ void __74___NACAVRoutingDiscoverySession_fetchRouteForOriginIdentifier_completio
 
             else
             {
-              CFRelease(v10);
+              CFRelease(v9);
             }
           }
         }
 
-        ++v7;
+        ++v6;
       }
 
-      while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      while (v4 != v6);
+      v4 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v5);
+    while (v4);
   }
 
-  v12 = 0;
+  v11 = 0;
 LABEL_15:
 
-  v13 = *(a1 + 56);
-  if (v13)
+  v12 = *(a1 + 56);
+  if (v12)
   {
-    (*(v13 + 16))(v13, v12);
+    (*(v12 + 16))(v12, v11);
   }
 
-  v14 = *(*(a1 + 32) + 32);
+  v13 = *(*(a1 + 32) + 32);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __74___NACAVRoutingDiscoverySession_fetchRouteForOriginIdentifier_completion___block_invoke_2;
   block[3] = &unk_27992B4E8;
-  v17 = *(a1 + 48);
-  dispatch_async(v14, block);
-
-  v15 = *MEMORY[0x277D85DE8];
+  v15 = *(a1 + 48);
+  dispatch_async(v13, block);
 }
 
 @end

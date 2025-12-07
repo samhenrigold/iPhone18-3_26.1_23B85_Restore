@@ -446,12 +446,12 @@ LABEL_7:
   if ([(CNContactNavigationController *)self shouldShowMailButton])
   {
     originalDataSource = [(CNContactListViewController *)self->_contactListViewController originalDataSource];
-    contacts = [originalDataSource contacts];
-    if ([contacts count])
+    v3 = objc_msgSend_contacts(originalDataSource);
+    if ([v3 count])
     {
       originalDataSource2 = [(CNContactListViewController *)self->_contactListViewController originalDataSource];
-      contacts2 = [originalDataSource2 contacts];
-      -[UIBarButtonItem setEnabled:](self->_mailButtonItem, "setEnabled:", [contacts2 count] < 0x65);
+      v5 = objc_msgSend_contacts(originalDataSource2);
+      -[UIBarButtonItem setEnabled:](self->_mailButtonItem, "setEnabled:", [v5 count] < 0x65);
     }
 
     else
@@ -1082,7 +1082,7 @@ LABEL_4:
     v33 = 0u;
     v30 = 0u;
     v31 = 0u;
-    obj = [nonServerDataSource2 contacts];
+    obj = objc_msgSend_contacts(nonServerDataSource2);
     v8 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
     if (v8)
     {
@@ -1957,8 +1957,8 @@ LABEL_7:
 
       v11 = [selectionCopy count];
       originalDataSource = [(CNContactListViewController *)self->_contactListViewController originalDataSource];
-      contacts = [originalDataSource contacts];
-      [v10 setEnabled:{v11 != objc_msgSend(contacts, "count")}];
+      v13 = objc_msgSend_contacts(originalDataSource);
+      [v10 setEnabled:{v11 != objc_msgSend(v13, "count")}];
     }
   }
 }
@@ -2517,14 +2517,14 @@ LABEL_10:
     v9 = v8 || pathCopy == 0;
     v10 = v9 ? 0 : v7 - 1;
     dataSource = [(CNContactNavigationController *)self dataSource];
-    contacts = [dataSource contacts];
-    v13 = [contacts count];
+    v12 = objc_msgSend_contacts(dataSource);
+    v13 = [v12 count];
 
     if (v10 < v13)
     {
       dataSource2 = [(CNContactNavigationController *)self dataSource];
-      contacts2 = [dataSource2 contacts];
-      v15 = [contacts2 objectAtIndexedSubscript:v10];
+      v14 = objc_msgSend_contacts(dataSource2);
+      v15 = [v14 objectAtIndexedSubscript:v10];
       [(CNContactNavigationController *)self showCardForContactIfPossible:v15];
     }
   }
@@ -2548,14 +2548,14 @@ LABEL_10:
   }
 
   dataSource = [(CNContactNavigationController *)self dataSource];
-  contacts = [dataSource contacts];
-  v12 = [contacts count];
+  v11 = objc_msgSend_contacts(dataSource);
+  v12 = [v11 count];
 
   if (v9 < v12)
   {
     dataSource2 = [(CNContactNavigationController *)self dataSource];
-    contacts2 = [dataSource2 contacts];
-    v14 = [contacts2 objectAtIndexedSubscript:v9];
+    v13 = objc_msgSend_contacts(dataSource2);
+    v14 = [v13 objectAtIndexedSubscript:v9];
     [(CNContactNavigationController *)self showCardForContactIfPossible:v14];
   }
 }
@@ -2757,8 +2757,8 @@ LABEL_11:
   if (!contactCopy && firstContactCopy)
   {
     dataSource3 = [(CNContactListViewController *)self->_contactListViewController dataSource];
-    contacts = [dataSource3 contacts];
-    contactCopy = [contacts firstObject];
+    v22 = objc_msgSend_contacts(dataSource3);
+    contactCopy = [v22 firstObject];
 
     if (contactCopy)
     {
@@ -2816,8 +2816,8 @@ LABEL_17:
     }
 
     originalDataSource = [(CNContactListViewController *)self->_contactListViewController originalDataSource];
-    contacts2 = [originalDataSource contacts];
-    contactCopy = [contacts2 firstObject];
+    v24 = objc_msgSend_contacts(originalDataSource);
+    contactCopy = [v24 firstObject];
   }
 
   if (contactCopy)
@@ -2836,26 +2836,26 @@ uint64_t __184__CNContactNavigationController_showCardForContact_resetFilter_res
     {
       if ([*(a1 + 40) isSuggestedMe])
       {
-        v10 = 1;
+        v11 = 1;
       }
 
       else
       {
-        v10 = 2;
+        v11 = 2;
       }
     }
 
     else
     {
-      v10 = 1;
+      v11 = 1;
     }
 
-    v11 = [*(a1 + 32) delegate];
-    v12 = objc_opt_respondsToSelector();
+    v12 = [*(a1 + 32) delegate];
+    v13 = objc_opt_respondsToSelector();
 
-    if ((v12 & 1) == 0 || ([*(a1 + 32) delegate], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "contactNavigationController:contactViewControllerForContact:preferredMode:", *(a1 + 32), *(a1 + 40), v10), v3 = objc_claimAutoreleasedReturnValue(), v13, !v3))
+    if ((v13 & 1) == 0 || ([*(a1 + 32) delegate], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "contactNavigationController:contactViewControllerForContact:preferredMode:", *(a1 + 32), *(a1 + 40), v11), v3 = objc_claimAutoreleasedReturnValue(), v14, !v3))
     {
-      v3 = [*(a1 + 32) reuseableContactViewControllerConfiguredForContact:*(a1 + 40) mode:v10];
+      v3 = [*(a1 + 32) reuseableContactViewControllerConfiguredForContact:*(a1 + 40) mode:v11];
     }
 
     if ([MEMORY[0x1E695CD58] quickActionsEnabled])
@@ -2864,19 +2864,19 @@ uint64_t __184__CNContactNavigationController_showCardForContact_resetFilter_res
     }
 
     [v3 setDelegate:*(a1 + 32)];
-    v14 = [*(a1 + 32) contactStore];
-    [v3 setContactStore:v14];
+    v15 = [*(a1 + 32) contactStore];
+    [v3 setContactStore:v15];
 
     [v3 setShouldShowLinkedContacts:1];
     [v3 setAllowsEditing:{objc_msgSend(*(a1 + 32), "allowsCardEditing")}];
-    v15 = [*(*(a1 + 32) + 1472) contactFormatter];
-    [v3 setContactFormatter:v15];
+    v16 = [*(*(a1 + 32) + 1472) contactFormatter];
+    [v3 setContactFormatter:v16];
 
-    v16 = [*(a1 + 32) dataSource];
-    v6 = [v16 preferredForNameMeContactIdentifier];
+    v17 = [*(a1 + 32) dataSource];
+    v7 = [v17 preferredForNameMeContactIdentifier];
 
-    v17 = [*(a1 + 40) allLinkedIdentifiers];
-    [v3 setShowingMeContact:{objc_msgSend(v17, "containsObject:", v6)}];
+    v18 = [*(a1 + 40) allLinkedIdentifiers];
+    [v3 setShowingMeContact:{objc_msgSend(v18, "containsObject:", v7)}];
 
     [v3 setContact:*(a1 + 40)];
     if ([*(a1 + 32) allowsCardDeletion])
@@ -2901,25 +2901,25 @@ uint64_t __184__CNContactNavigationController_showCardForContact_resetFilter_res
   {
     v3 = objc_alloc_init(getMUPlaceViewControllerConfigurationClass());
     [v3 setOptions:16];
-    [v3 setContactsNavigationController:*(a1 + 32)];
-    v4 = [objc_alloc(getMUPlaceViewControllerClass()) initWithConfiguration:v3];
-    v5 = [v4 navigationItem];
-    [v5 setLargeTitleDisplayMode:2];
+    v4 = [v3 setContactsNavigationController:*(a1 + 32)];
+    v5 = [objc_alloc(getMUPlaceViewControllerClass(v4)) initWithConfiguration:v3];
+    v6 = [v5 navigationItem];
+    [v6 setLargeTitleDisplayMode:2];
 
-    v6 = objc_alloc_init(getMKLocalSearchRequestClass());
-    v7 = [*(a1 + 40) mapsData];
-    [v6 _setContactsDataString:v7];
+    v7 = objc_alloc_init(getMKLocalSearchRequestClass());
+    v8 = [*(a1 + 40) mapsData];
+    [v7 _setContactsDataString:v8];
 
-    v8 = [objc_alloc(getMKLocalSearchClass()) initWithRequest:v6];
-    v19 = MEMORY[0x1E69E9820];
-    v20 = 3221225472;
-    v21 = __184__CNContactNavigationController_showCardForContact_resetFilter_resetSearch_fallbackToFirstContact_scrollToContact_animated_dismissingPresentedController_shouldHideContactListIfNeeded___block_invoke_2;
-    v22 = &unk_1E74E3428;
-    v23 = v4;
-    v24 = *(a1 + 40);
-    v9 = v4;
-    [v8 startWithCompletionHandler:&v19];
-    [*(a1 + 32) _cnui_presentViewController:v9 animated:*(a1 + 48) dismissingPresentedController:*(a1 + 49) shouldHideContactListIfNeeded:{*(a1 + 50), v19, v20, v21, v22}];
+    v9 = [objc_alloc(getMKLocalSearchClass()) initWithRequest:v7];
+    v20 = MEMORY[0x1E69E9820];
+    v21 = 3221225472;
+    v22 = __184__CNContactNavigationController_showCardForContact_resetFilter_resetSearch_fallbackToFirstContact_scrollToContact_animated_dismissingPresentedController_shouldHideContactListIfNeeded___block_invoke_2;
+    v23 = &unk_1E74E3428;
+    v24 = v5;
+    v25 = *(a1 + 40);
+    v10 = v5;
+    [v9 startWithCompletionHandler:&v20];
+    [*(a1 + 32) _cnui_presentViewController:v10 animated:*(a1 + 48) dismissingPresentedController:*(a1 + 49) shouldHideContactListIfNeeded:{*(a1 + 50), v20, v21, v22, v23}];
   }
 
   return [*(a1 + 32) setHasPendingShowCard:0];
@@ -3326,8 +3326,8 @@ LABEL_24:
     [(UIBarButtonItem *)self->_mailButtonItem setAccessibilityLabel:v8];
 
     dataSource = [(CNContactNavigationController *)self dataSource];
-    contacts = [dataSource contacts];
-    -[UIBarButtonItem setEnabled:](self->_mailButtonItem, "setEnabled:", [contacts count] != 0);
+    v10 = objc_msgSend_contacts(dataSource);
+    -[UIBarButtonItem setEnabled:](self->_mailButtonItem, "setEnabled:", [v10 count] != 0);
   }
 
   v11 = self->_mailButtonItem;
@@ -3794,8 +3794,8 @@ void __67__CNContactNavigationController_contactStyleCurrentStyleDidChange___blo
 - (id)firstVisibleContact
 {
   dataSource = [(CNContactNavigationController *)self dataSource];
-  contacts = [dataSource contacts];
-  v5 = [contacts count];
+  v4 = objc_msgSend_contacts(dataSource);
+  v5 = [v4 count];
 
   if (v5)
   {
@@ -3833,7 +3833,7 @@ void __67__CNContactNavigationController_contactStyleCurrentStyleDidChange___blo
       contactListViewController3 = [(CNContactNavigationController *)self contactListViewController];
       v32 = [contactListViewController3 globalIndexForCollectionViewIndexPath:v30];
 
-      if (v32 == 0x7FFFFFFFFFFFFFFFLL || (-[CNContactNavigationController dataSource](self, "dataSource"), v33 = objc_claimAutoreleasedReturnValue(), [v33 contacts], v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "count"), v34, v33, v32 >= v35))
+      if (v32 == 0x7FFFFFFFFFFFFFFFLL || (-[CNContactNavigationController dataSource](self, "dataSource"), v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend_contacts(v33), v34 = objc_claimAutoreleasedReturnValue(), v35 = [v34 count], v34, v33, v32 >= v35))
       {
         v29 = 0;
       }
@@ -3841,8 +3841,8 @@ void __67__CNContactNavigationController_contactStyleCurrentStyleDidChange___blo
       else
       {
         dataSource2 = [(CNContactNavigationController *)self dataSource];
-        contacts2 = [dataSource2 contacts];
-        v29 = [contacts2 objectAtIndexedSubscript:v32];
+        v37 = objc_msgSend_contacts(dataSource2);
+        v29 = [v37 objectAtIndexedSubscript:v32];
       }
     }
   }

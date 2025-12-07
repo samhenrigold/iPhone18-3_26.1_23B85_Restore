@@ -6,12 +6,12 @@
 
 + (BOOL)setError:(id *)error withCode:(int)code format:(id)format
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   formatCopy = format;
   if (formatCopy)
   {
-    v20[0] = &v21;
-    v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:formatCopy arguments:&v21];
+    v19[0] = &v20;
+    v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:formatCopy arguments:&v20];
   }
 
   else
@@ -41,19 +41,19 @@
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v20[0]) = 138412290;
-      *(v20 + 4) = v12;
+      LODWORD(v19[0]) = 138412290;
+      *(v19 + 4) = v12;
       v15 = MEMORY[0x277D86220];
       v16 = "NSError variable was previously assigned.  New unsaved error: %@";
 LABEL_15:
-      _os_log_error_impl(&dword_2454AA000, v15, OS_LOG_TYPE_ERROR, v16, v20, 0xCu);
+      _os_log_error_impl(&dword_2454AA000, v15, OS_LOG_TYPE_ERROR, v16, v19, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    LODWORD(v20[0]) = 138412290;
-    *(v20 + 4) = v12;
+    LODWORD(v19[0]) = 138412290;
+    *(v19 + 4) = v12;
     v15 = MEMORY[0x277D86220];
     v16 = "NSError variable was nil.  New unsaved error: %@";
     goto LABEL_15;
@@ -62,7 +62,6 @@ LABEL_15:
   v17 = 0;
 LABEL_13:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

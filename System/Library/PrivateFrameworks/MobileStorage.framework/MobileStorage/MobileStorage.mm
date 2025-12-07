@@ -204,9 +204,9 @@ uint64_t determine_filesystem_type()
 {
   v0 = MEMORY[0x28223BE20]();
   v2 = v1;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = v0;
-  bzero(v29, 0x1000uLL);
+  bzero(v28, 0x1000uLL);
   if (!v3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -322,8 +322,8 @@ LABEL_21:
       v21 = *__error();
       *entry = 138412546;
       *&entry[4] = v3;
-      v27 = 1024;
-      v28 = v21;
+      v26 = 1024;
+      v27 = v21;
       _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to open %@: %{errno}d", entry, 0x12u);
     }
 
@@ -333,16 +333,16 @@ LABEL_34:
   }
 
   v19 = v18;
-  if (read(v18, v29, 0x1000uLL) == 4096)
+  if (read(v18, v28, 0x1000uLL) == 4096)
   {
-    if (v29[0] == 233 || v29[0] == 235 && v29[2] == 144)
+    if (v28[0] == 233 || v28[0] == 235 && v28[2] == 144)
     {
-      if (v30 == 0x202020205346544ELL)
+      if (v29 == 0x202020205346544ELL)
       {
         v20 = 5;
       }
 
-      else if (v30 == 0x2020205441465845)
+      else if (v29 == 0x2020205441465845)
       {
         v20 = 4;
       }
@@ -353,12 +353,12 @@ LABEL_34:
       }
     }
 
-    else if (v31 == 11080)
+    else if (v30 == 11080)
     {
-      v20 = 2 * (v32 == 4);
+      v20 = 2 * (v31 == 4);
     }
 
-    else if (v32 == 5 && v31 == 22600)
+    else if (v31 == 5 && v30 == 22600)
     {
       v20 = 3;
     }
@@ -377,8 +377,8 @@ LABEL_34:
       v22 = *__error();
       *entry = 138412546;
       *&entry[4] = v3;
-      v27 = 1024;
-      v28 = v22;
+      v26 = 1024;
+      v27 = v22;
       _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to read %@ volume header: %{errno}d", entry, 0x12u);
       v20 = 0;
     }
@@ -387,53 +387,48 @@ LABEL_34:
   close(v19);
 LABEL_53:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 BOOL isDeveloperModeEnabled()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5 = 8;
-  v6 = 0;
-  if (sysctlbyname("security.mac.amfi.developer_mode_status", &v6, &v5, 0, 0))
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = 8;
+  v5 = 0;
+  if (!sysctlbyname("security.mac.amfi.developer_mode_status", &v5, &v4, 0, 0))
   {
-    v0 = __error();
-    v1 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-    result = 0;
-    if (v1)
-    {
-      v3 = *v0;
-      *buf = 67109120;
-      v8 = v3;
-      _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to read developer mode status: %{darwin.errno}d", buf, 8u);
-      result = 0;
-    }
+    return v5 == 1;
   }
 
-  else
+  v0 = __error();
+  v1 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+  result = 0;
+  if (v1)
   {
-    result = v6 == 1;
+    v3 = *v0;
+    *buf = 67109120;
+    v7 = v3;
+    _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to read developer mode status: %{darwin.errno}d", buf, 8u);
+    return 0;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 BOOL systemSupportsRestrictedExecutionMode(BOOL *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v12 = 4;
-  if (sysctlbyname("security.codesigning.config", &v13, &v12, 0, 0))
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v11 = 4;
+  if (sysctlbyname("security.codesigning.config", &v12, &v11, 0, 0))
   {
     v4 = *__error();
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "security.codesigning.config";
-      v16 = 1024;
-      v17 = v4;
+      v14 = "security.codesigning.config";
+      v15 = 1024;
+      v16 = v4;
       _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to read sysctl (%s): %{darwin.errno}d", buf, 0x12u);
     }
 
@@ -450,13 +445,12 @@ BOOL systemSupportsRestrictedExecutionMode(BOOL *a1, void *a2)
     v8 = 0;
     if (a1)
     {
-      *a1 = (v13 & 0x2000000) != 0;
+      *a1 = (v12 & 0x2000000) != 0;
     }
   }
 
   v9 = v8 == 0;
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -501,17 +495,17 @@ id createMobileStorageError(uint64_t a1, uint64_t a2, int a3, void *a4, void *a5
 
 uint64_t allowInvalidatingAttestations()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_parse_boot_arg_int())
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v6 = " not";
-      v7 = 2080;
-      v8 = "allow_msm_to_invalidate_attestations";
-      v9 = 2048;
-      v10 = 0;
+      v5 = " not";
+      v6 = 2080;
+      v7 = "allow_msm_to_invalidate_attestations";
+      v8 = 2048;
+      v9 = 0;
       v0 = MEMORY[0x277D86220];
       v1 = "Invalidating system attestation is%s allowed per boot-arg %s=%lld";
       v2 = 32;
@@ -523,16 +517,14 @@ LABEL_6:
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v6 = "allow_msm_to_invalidate_attestations";
+    v5 = "allow_msm_to_invalidate_attestations";
     v0 = MEMORY[0x277D86220];
     v1 = "You can set the boot-arg %s=1 to allow invalidating the system's attestation.";
     v2 = 12;
     goto LABEL_6;
   }
 
-  result = 0;
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 const __CFString *is_disk_image(io_registry_entry_t a1)
@@ -564,99 +556,99 @@ const __CFString *is_disk_image(io_registry_entry_t a1)
   return v4;
 }
 
-id get_mounted_media_entries()
+id get_mounted_media_entries(int a1)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v53 = 0;
   v54 = 0;
   v46 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if (v46)
   {
-    v0 = getfsstat(0, 0, 2);
-    if (v0 < 0)
+    v1 = getfsstat(0, 0, 2);
+    if (v1 < 0)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *__error();
+        v10 = *__error();
         *buf = 67109120;
-        *&buf[4] = v9;
+        *&buf[4] = v10;
         _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to get mount information: %{errno}d", buf, 8u);
       }
 
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v1 = v0;
-      v2 = 0;
+      v2 = v1;
       v3 = 0;
+      v4 = 0;
       while (1)
       {
-        v4 = 2168 * v1;
-        if (v2 > v4)
+        v5 = 2168 * v2;
+        if (v3 > v5)
         {
           goto LABEL_11;
         }
 
-        if (v3)
+        if (v4)
         {
-          free(v3);
+          free(v4);
         }
 
-        v2 = v4 + 2168;
-        v5 = malloc_type_malloc(v4 + 2168, 0x100004087E0324AuLL);
-        if (!v5)
+        v3 = v5 + 2168;
+        v6 = malloc_type_malloc(v5 + 2168, 0x100004087E0324AuLL);
+        if (!v6)
         {
           break;
         }
 
-        v3 = v5;
-        v1 = getfsstat(v5, v4 + 2168, 2);
-        if (v1 < 0)
+        v4 = v6;
+        v2 = getfsstat(v6, v5 + 2168, 2);
+        if (v2 < 0)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            v6 = *__error();
+            v7 = *__error();
             *buf = 67109120;
-            *&buf[4] = v6;
+            *&buf[4] = v7;
             _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to get mount information: %{errno}d", buf, 8u);
           }
 
 LABEL_11:
-          v7 = v3;
+          v8 = v4;
           goto LABEL_21;
         }
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *__error();
+        v11 = *__error();
         *buf = 67109120;
-        *&buf[4] = v10;
+        *&buf[4] = v11;
         _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to allocate memory: %{errno}d", buf, 8u);
       }
 
-      v7 = 0;
+      v8 = 0;
 LABEL_21:
-      if (v1 > 0)
+      if (v2 > 0)
       {
-        v45 = v7;
-        v11 = MGCopyAnswer();
-        v12 = [v11 BOOLValue];
+        v45 = v8;
+        v12 = MGCopyAnswer();
+        v13 = [v12 BOOLValue];
 
-        if (((v12 | os_variant_is_recovery()) & 1) == 0)
+        if (((v13 | os_variant_is_recovery()) & 1) == 0)
         {
-          v14 = cryptex_copy_list_4MSM();
-          if ((v14 & 0xFFFFFFFD) != 0)
+          v15 = cryptex_copy_list_4MSM();
+          if ((v15 & 0xFFFFFFFD) != 0)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
-              v15 = strerror(v14);
+              v16 = strerror(v15);
               *buf = 67109378;
-              *&buf[4] = v14;
-              LOWORD(v60) = 2080;
-              *(&v60 + 2) = v15;
+              *&buf[4] = v15;
+              LOWORD(v59) = 2080;
+              *(&v59 + 2) = v16;
               _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to copy cryptex list (%d (%s)), non-fatal.", buf, 0x12u);
             }
 
@@ -664,50 +656,50 @@ LABEL_21:
           }
         }
 
-        v16 = 0;
-        v17 = v1;
-        v18 = v45;
+        v17 = 0;
+        v18 = v2;
+        v19 = v45;
         f_mntonname = v45->f_mntonname;
-        *&v13 = 136315138;
-        v44 = v13;
+        *&v14 = 136315138;
+        v44 = v14;
         while (1)
         {
           *buf = 0;
-          *&v60 = buf;
-          *(&v60 + 1) = 0x2020000000;
-          v61 = 0;
-          v20 = create_map_entry(v18, v54, v53);
-          v21 = v20;
-          if (!v20)
+          *&v59 = buf;
+          *(&v59 + 1) = 0x2020000000;
+          v60 = 0;
+          v21 = create_map_entry(v19, v54, v53);
+          v22 = v21;
+          if (!v21)
           {
             break;
           }
 
-          v22 = [v20 objectForKeyedSubscript:@"MountPath"];
-          if (!v22)
+          v23 = [v21 objectForKeyedSubscript:@"MountPath"];
+          if (!v23)
           {
-            v29 = MEMORY[0x277D86220];
+            v30 = MEMORY[0x277D86220];
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
-              *v57 = 138412290;
-              v58 = @"MountPath";
-              v26 = v29;
-              v27 = "Map entry missing value for key %@.";
-              v28 = 12;
+              *v56 = 138412290;
+              v57 = @"MountPath";
+              v27 = v30;
+              v28 = "Map entry missing value for key %@.";
+              v29 = 12;
 LABEL_36:
-              _os_log_impl(&dword_259B65000, v26, OS_LOG_TYPE_DEFAULT, v27, v57, v28);
+              _os_log_impl(&dword_259B65000, v27, OS_LOG_TYPE_DEFAULT, v28, v56, v29);
             }
 
             goto LABEL_37;
           }
 
-          v48 = v22;
-          v23 = [v21 objectForKeyedSubscript:@"DiskImageType"];
-          v24 = [v23 isEqualToString:@"Cryptex"];
+          v48 = v23;
+          v24 = [v22 objectForKeyedSubscript:@"DiskImageType"];
+          v25 = [v24 isEqualToString:@"Cryptex"];
 
-          if (v24)
+          if (v25)
           {
-            *(v60 + 24) = 1;
+            *(v59 + 24) = 1;
           }
 
           else
@@ -716,104 +708,104 @@ LABEL_36:
             v49[1] = 3221225472;
             v49[2] = __get_mounted_media_entries_block_invoke;
             v49[3] = &unk_2798EE598;
-            v32 = v48;
-            v50 = v32;
-            v51 = v21;
+            v33 = v48;
+            v50 = v33;
+            v51 = v22;
             v52 = buf;
             [&unk_286AD8590 enumerateObjectsUsingBlock:v49];
 
-            if ((*(v60 + 24) & 1) == 0)
+            if ((*(v59 + 24) & 1) == 0)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
               {
-                get_mounted_media_entries_cold_1(v55, v32, &v56);
+                get_mounted_media_entries_cold_1(v55, v33, &v55[4]);
               }
 
-              v30 = 0;
               v31 = 0;
-              v35 = 0;
-              v33 = 0;
-              v47 = v16;
-              v48 = v32;
+              v32 = 0;
+              v36 = 0;
+              v34 = 0;
+              v47 = v17;
+              v48 = v33;
               goto LABEL_55;
             }
           }
 
-          v47 = [v21 objectForKeyedSubscript:{@"DeviceNode", v44}];
+          v47 = [v22 objectForKeyedSubscript:{@"DeviceNode", v44}];
 
           if (v47)
           {
-            v33 = [v21 objectForKeyedSubscript:@"DeviceType"];
-            if (v33)
+            v34 = [v22 objectForKeyedSubscript:@"DeviceType"];
+            if (v34)
             {
-              if ([@"DiskImage" isEqualToString:v33])
+              if ([@"DiskImage" isEqualToString:v34])
               {
-                v34 = image_file_path_name(v18 + 1112);
-                if (v34)
+                v35 = image_file_path_name(v19 + 1112);
+                if (v35)
                 {
-                  [v21 setObject:v34 forKeyedSubscript:@"BackingImage"];
-                  v30 = [v21 objectForKeyedSubscript:@"ImageSignature"];
-                  if (v30)
+                  [v22 setObject:v35 forKeyedSubscript:@"BackingImage"];
+                  v31 = [v22 objectForKeyedSubscript:@"ImageSignature"];
+                  if (v31)
                   {
-                    v35 = 0;
-                    v31 = v34;
+                    v36 = 0;
+                    v32 = v35;
 LABEL_61:
-                    [v46 setObject:v21 forKeyedSubscript:v47];
+                    [v46 setObject:v22 forKeyedSubscript:v47];
                     goto LABEL_55;
                   }
 
-                  v31 = image_file_path_name(v18 + 1112);
+                  v32 = image_file_path_name(v19 + 1112);
 
-                  if (v31)
+                  if (v32)
                   {
-                    v35 = signatureFromPath(v31);
-                    if (v35)
+                    v36 = signatureFromPath(v32);
+                    if (v36)
                     {
-                      v30 = [objc_alloc(MEMORY[0x277CBEB28]) initDataWithHexString:v35];
-                      if (v30)
+                      v31 = [objc_alloc(MEMORY[0x277CBEB28]) initDataWithHexString:v36];
+                      if (v31)
                       {
-                        [v21 setObject:v30 forKeyedSubscript:@"ImageSignature"];
+                        [v22 setObject:v31 forKeyedSubscript:@"ImageSignature"];
                         goto LABEL_61;
                       }
 
-                      v40 = MEMORY[0x277D86220];
+                      v41 = MEMORY[0x277D86220];
                       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                       {
-                        *v57 = 138412290;
-                        v58 = v31;
-                        _os_log_impl(&dword_259B65000, v40, OS_LOG_TYPE_DEFAULT, "Failed to convert signature from %@", v57, 0xCu);
+                        *v56 = 138412290;
+                        v57 = v32;
+                        _os_log_impl(&dword_259B65000, v41, OS_LOG_TYPE_DEFAULT, "Failed to convert signature from %@", v56, 0xCu);
                       }
                     }
 
                     else
                     {
-                      v39 = MEMORY[0x277D86220];
+                      v40 = MEMORY[0x277D86220];
                       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                       {
-                        *v57 = 138412290;
-                        v58 = v31;
-                        _os_log_impl(&dword_259B65000, v39, OS_LOG_TYPE_DEFAULT, "Failed to recover signature from %@", v57, 0xCu);
+                        *v56 = 138412290;
+                        v57 = v32;
+                        _os_log_impl(&dword_259B65000, v40, OS_LOG_TYPE_DEFAULT, "Failed to recover signature from %@", v56, 0xCu);
                       }
 
-                      v35 = 0;
+                      v36 = 0;
                     }
 
                     goto LABEL_60;
                   }
 
-                  v38 = MEMORY[0x277D86220];
+                  v39 = MEMORY[0x277D86220];
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                   {
 LABEL_58:
-                    *v57 = v44;
-                    v58 = f_mntonname;
-                    _os_log_impl(&dword_259B65000, v38, OS_LOG_TYPE_DEFAULT, "Failed to get backing image path for %s", v57, 0xCu);
+                    *v56 = v44;
+                    v57 = f_mntonname;
+                    _os_log_impl(&dword_259B65000, v39, OS_LOG_TYPE_DEFAULT, "Failed to get backing image path for %s", v56, 0xCu);
                   }
                 }
 
                 else
                 {
-                  v38 = MEMORY[0x277D86220];
+                  v39 = MEMORY[0x277D86220];
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                   {
                     goto LABEL_58;
@@ -821,75 +813,75 @@ LABEL_58:
                 }
               }
 
-              v35 = 0;
-              v31 = 0;
+              v36 = 0;
+              v32 = 0;
 LABEL_60:
-              v30 = 0;
+              v31 = 0;
               goto LABEL_61;
             }
 
-            v37 = MEMORY[0x277D86220];
+            v38 = MEMORY[0x277D86220];
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
-              *v57 = 138412290;
-              v58 = @"DeviceType";
-              _os_log_impl(&dword_259B65000, v37, OS_LOG_TYPE_DEFAULT, "Map entry missing %@.", v57, 0xCu);
+              *v56 = 138412290;
+              v57 = @"DeviceType";
+              _os_log_impl(&dword_259B65000, v38, OS_LOG_TYPE_DEFAULT, "Map entry missing %@.", v56, 0xCu);
             }
           }
 
           else
           {
-            v36 = MEMORY[0x277D86220];
+            v37 = MEMORY[0x277D86220];
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
-              *v57 = 138412290;
-              v58 = @"DeviceNode";
-              _os_log_impl(&dword_259B65000, v36, OS_LOG_TYPE_DEFAULT, "Map entry missing %@.", v57, 0xCu);
+              *v56 = 138412290;
+              v57 = @"DeviceNode";
+              _os_log_impl(&dword_259B65000, v37, OS_LOG_TYPE_DEFAULT, "Map entry missing %@.", v56, 0xCu);
             }
 
             v47 = 0;
           }
 
-          v30 = 0;
           v31 = 0;
+          v32 = 0;
 LABEL_54:
-          v35 = 0;
-          v33 = 0;
+          v36 = 0;
+          v34 = 0;
 LABEL_55:
           _Block_object_dispose(buf, 8);
 
-          v18 += 2168;
+          v19 += 2168;
           f_mntonname = (f_mntonname + 2168);
-          v8 = v47;
-          v16 = v47;
-          if (!--v17)
+          v9 = v47;
+          v17 = v47;
+          if (!--v18)
           {
-            v7 = v45;
+            v8 = v45;
             if (!v45)
             {
               goto LABEL_77;
             }
 
 LABEL_76:
-            free(v7);
+            free(v8);
             goto LABEL_77;
           }
         }
 
-        v25 = MEMORY[0x277D86220];
+        v26 = MEMORY[0x277D86220];
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          *v57 = 0;
-          v26 = v25;
-          v27 = "Failed to create map entry.";
-          v28 = 2;
+          *v56 = 0;
+          v27 = v26;
+          v28 = "Failed to create map entry.";
+          v29 = 2;
           goto LABEL_36;
         }
 
 LABEL_37:
-        v30 = 0;
         v31 = 0;
-        v47 = v16;
+        v32 = 0;
+        v47 = v17;
         v48 = 0;
         goto LABEL_54;
       }
@@ -897,14 +889,14 @@ LABEL_37:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v41 = *__error();
+      v42 = *__error();
       *buf = 67109120;
-      *&buf[4] = v41;
+      *&buf[4] = v42;
       _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to get mount information: %{errno}d", buf, 8u);
     }
 
-    v8 = 0;
-    if (v7)
+    v9 = 0;
+    if (v8)
     {
       goto LABEL_76;
     }
@@ -918,7 +910,7 @@ LABEL_37:
       _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to create dictionary.", buf, 2u);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
 LABEL_77:
@@ -927,14 +919,12 @@ LABEL_77:
     cryptex_msm_array_destroy();
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-
   return v46;
 }
 
-id create_map_entry(uint64_t a1, uint64_t *a2, uint64_t a3)
+id create_map_entry(uint64_t a1, void *a2, uint64_t a3)
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   if (!a1 || (v3 = a3, (v4 = a2) == 0) && a3)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -962,8 +952,8 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:a1 + 1112 encoding:4];
-  if (!v19)
+  v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:a1 + 1112 encoding:4];
+  if (!v18)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
@@ -976,9 +966,9 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v15 = v19;
-  v20 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:a1 + 88 encoding:4];
-  if (!v20)
+  v15 = v18;
+  v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:a1 + 88 encoding:4];
+  if (!v19)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
@@ -997,17 +987,17 @@ LABEL_6:
     goto LABEL_8;
   }
 
-  v14 = v20;
-  v21 = [v14 UTF8String];
-  if (!v21)
+  v14 = v19;
+  v20 = [v14 UTF8String];
+  if (!v20)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v40 = MEMORY[0x277D86220];
-      v41 = "Failed to get C string.";
+      v38 = MEMORY[0x277D86220];
+      v39 = "Failed to get C string.";
 LABEL_53:
-      _os_log_impl(&dword_259B65000, v40, OS_LOG_TYPE_DEFAULT, v41, buf, 2u);
+      _os_log_impl(&dword_259B65000, v38, OS_LOG_TYPE_DEFAULT, v39, buf, 2u);
     }
 
 LABEL_54:
@@ -1021,24 +1011,24 @@ LABEL_54:
     goto LABEL_8;
   }
 
-  v22 = v21;
-  v23 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:a1 + 72 encoding:4];
-  if (!v23)
+  v21 = v20;
+  v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:a1 + 72 encoding:4];
+  if (!v22)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v40 = MEMORY[0x277D86220];
-      v41 = "Failed to create string.";
+      v38 = MEMORY[0x277D86220];
+      v39 = "Failed to create string.";
       goto LABEL_53;
     }
 
     goto LABEL_54;
   }
 
-  v13 = v23;
-  v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  if (!v24)
+  v13 = v22;
+  v23 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  if (!v23)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
@@ -1055,21 +1045,21 @@ LABEL_54:
     goto LABEL_8;
   }
 
-  v16 = v24;
-  [v24 setObject:@"MassStorage" forKeyedSubscript:?];
+  v16 = v23;
+  [v23 setObject:@"MassStorage" forKeyedSubscript:?];
   [v16 setObject:v15 forKeyedSubscript:@"DeviceNode"];
   [v16 setObject:v14 forKeyedSubscript:@"MountPath"];
   [v16 setObject:v13 forKeyedSubscript:@"FilesystemType"];
   [v16 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"IsMounted"];
-  v25 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:v15];
-  if (!v25)
+  v24 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:v15];
+  if (!v24)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v66 = v15;
-      v67 = 2080;
-      v68 = (a1 + 88);
+      v64 = v15;
+      v65 = 2080;
+      v66 = (a1 + 88);
       _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to create URL (%@ / %s).", buf, 0x16u);
     }
 
@@ -1080,20 +1070,20 @@ LABEL_54:
     goto LABEL_64;
   }
 
-  v10 = v25;
-  __s2 = v22;
-  v26 = *MEMORY[0x277CD28A0];
-  v27 = [v25 lastPathComponent];
-  mainPort = v26;
-  v28 = IOBSDNameMatching(v26, 0, [v27 UTF8String]);
+  v10 = v24;
+  __s2 = v21;
+  v25 = *MEMORY[0x277CD28A0];
+  v26 = [v24 lastPathComponent];
+  mainPort = v25;
+  v27 = IOBSDNameMatching(v25, 0, [v26 UTF8String]);
 
-  if (!v28)
+  if (!v27)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v42 = [v10 lastPathComponent];
+      v40 = [v10 lastPathComponent];
       *buf = 138412290;
-      v66 = v42;
+      v64 = v40;
       _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to create a BSD matching dictionary for %@.", buf, 0xCu);
     }
 
@@ -1106,14 +1096,14 @@ LABEL_64:
     goto LABEL_9;
   }
 
-  MatchingService = IOServiceGetMatchingService(mainPort, v28);
+  MatchingService = IOServiceGetMatchingService(mainPort, v27);
   mainPorta = MatchingService;
   if (!MatchingService)
   {
     if (([v15 isEqualToString:@"devfs"] & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v66 = v15;
+      v64 = v15;
       _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to retrieve the IO service matching the device node for %@.", buf, 0xCu);
     }
 
@@ -1135,34 +1125,34 @@ LABEL_105:
   [v16 setObject:@"DiskImage" forKeyedSubscript:@"DeviceType"];
   if (!strcmp("/Developer", __s2))
   {
-    v43 = @"Developer";
-    v44 = kMSMDiskImageTypeKey;
+    v41 = @"Developer";
+    v42 = kMSMDiskImageTypeKey;
 LABEL_103:
-    [v16 setObject:v43 forKeyedSubscript:*v44];
+    [v16 setObject:v41 forKeyedSubscript:*v42];
     goto LABEL_104;
   }
 
   if (__s2 == strnstr(__s2, "/private/var/personalized_automation", 0x24uLL))
   {
     [v16 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-    v45 = kMSMDiskImageTypePersonalizedAutomation;
+    v43 = kMSMDiskImageTypePersonalizedAutomation;
 LABEL_102:
-    v43 = *v45;
-    v44 = kMSMDiskImagePersonalizedImageType;
+    v41 = *v43;
+    v42 = kMSMDiskImagePersonalizedImageType;
     goto LABEL_103;
   }
 
   if (__s2 == strnstr(__s2, "/private/var/personalized_demo", 0x1EuLL))
   {
     [v16 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-    v45 = kMSMDiskImageTypePersonalizedDemo;
+    v43 = kMSMDiskImageTypePersonalizedDemo;
     goto LABEL_102;
   }
 
   if (__s2 == strnstr(__s2, "/private/var/personalized_debug", 0x1FuLL))
   {
     [v16 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-    v45 = kMSMDiskImageTypePersonalizedDebug;
+    v43 = kMSMDiskImageTypePersonalizedDebug;
     goto LABEL_102;
   }
 
@@ -1171,31 +1161,31 @@ LABEL_102:
     if (__s2 == strnstr(__s2, "/private/var/personalized_factory", 0x21uLL))
     {
       [v16 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-      v45 = kMSMDiskImageTypePersonalizedFactory;
+      v43 = kMSMDiskImageTypePersonalizedFactory;
     }
 
     else if (__s2 == strnstr(__s2, "/System/Volumes/FieldService", 0x1CuLL))
     {
       [v16 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-      v45 = kMSMDiskImageTypePersonalizedFieldService;
+      v43 = kMSMDiskImageTypePersonalizedFieldService;
     }
 
     else if (__s2 == strnstr(__s2, "/System/Volumes/FieldServiceDiagnostic", 0x26uLL))
     {
       [v16 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-      v45 = kMSMDiskImageTypePersonalizedFieldServiceDiagnostic;
+      v43 = kMSMDiskImageTypePersonalizedFieldServiceDiagnostic;
     }
 
     else if (__s2 == strnstr(__s2, "/System/Volumes/FieldServiceRepair", 0x22uLL))
     {
       [v16 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-      v45 = kMSMDiskImageTypePersonalizedFieldServiceRepair;
+      v43 = kMSMDiskImageTypePersonalizedFieldServiceRepair;
     }
 
     else if (__s2 == strnstr(__s2, "/private/var/personalized_quality", 0x21uLL))
     {
       [v16 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-      v45 = kMSMDiskImageTypePersonalizedQuality;
+      v43 = kMSMDiskImageTypePersonalizedQuality;
     }
 
     else
@@ -1214,20 +1204,19 @@ LABEL_102:
         {
           while (1)
           {
-            v30 = *v4;
             string = cryptex_msm_get_string();
             if (string)
             {
-              v32 = string;
-              v33 = strlen((a1 + 1112));
-              if (strnstr(v32, (a1 + 1112), v33))
+              v30 = string;
+              v31 = strlen((a1 + 1112));
+              if (strnstr(v30, (a1 + 1112), v31))
               {
-                v34 = cryptex_msm_get_string();
-                if (v34)
+                v32 = cryptex_msm_get_string();
+                if (v32)
                 {
-                  v35 = v34;
-                  v36 = cryptex_msm_get_string();
-                  if (v36)
+                  v33 = v32;
+                  v34 = cryptex_msm_get_string();
+                  if (v34)
                   {
                     break;
                   }
@@ -1242,23 +1231,23 @@ LABEL_102:
             }
           }
 
-          v58 = [MEMORY[0x277CCACA8] stringWithUTF8String:v36];
-          [v16 setObject:v58 forKeyedSubscript:@"CryptexName"];
+          v56 = [MEMORY[0x277CCACA8] stringWithUTF8String:v34];
+          [v16 setObject:v56 forKeyedSubscript:@"CryptexName"];
 
-          v59 = [MEMORY[0x277CCACA8] stringWithUTF8String:v35];
-          [v16 setObject:v59 forKeyedSubscript:@"CryptexVersion"];
+          v57 = [MEMORY[0x277CCACA8] stringWithUTF8String:v33];
+          [v16 setObject:v57 forKeyedSubscript:@"CryptexVersion"];
         }
 
 LABEL_39:
-        v37 = [v16 objectForKeyedSubscript:@"CryptexName"];
-        if (!v37 || (v38 = v37, [v16 objectForKeyedSubscript:@"CryptexVersion"], v39 = objc_claimAutoreleasedReturnValue(), v39, v38, !v39))
+        v35 = [v16 objectForKeyedSubscript:@"CryptexName"];
+        if (!v35 || (v36 = v35, [v16 objectForKeyedSubscript:@"CryptexVersion"], v37 = objc_claimAutoreleasedReturnValue(), v37, v36, !v37))
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v66 = v15;
-            v67 = 2112;
-            v68 = v14;
+            v64 = v15;
+            v65 = 2112;
+            v66 = v14;
             _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Mount (%@ / %@) is not a cryptex or personalized image (not fatal).", buf, 0x16u);
           }
 
@@ -1269,7 +1258,7 @@ LABEL_39:
           v11 = 0;
           v12 = 0;
 LABEL_113:
-          v55 = mainPorta;
+          v53 = mainPorta;
           if (!mainPorta)
           {
             goto LABEL_115;
@@ -1282,33 +1271,33 @@ LABEL_113:
       }
 
       [v16 setObject:@"Personalized" forKeyedSubscript:@"DiskImageType"];
-      v45 = kMSMDiskImageTypePersonalizedRepair;
+      v43 = kMSMDiskImageTypePersonalizedRepair;
     }
 
     goto LABEL_102;
   }
 
-  v46 = [v14 stringByAppendingPathComponent:@"Library/Frameworks/DTRemoteServices.framework"];
-  if (v46)
+  v44 = [v14 stringByAppendingPathComponent:@"Library/Frameworks/DTRemoteServices.framework"];
+  if (v44)
   {
-    v11 = v46;
-    [MEMORY[0x277CBEBC0] fileURLWithPath:v46 isDirectory:0];
+    v11 = v44;
+    [MEMORY[0x277CBEBC0] fileURLWithPath:v44 isDirectory:0];
     Unique = _CFBundleCreateUnique();
     if (Unique)
     {
-      v48 = *MEMORY[0x277CBED58];
+      v46 = *MEMORY[0x277CBED58];
       cf = Unique;
       v12 = CFBundleGetValueForInfoDictionaryKey(Unique, *MEMORY[0x277CBED58]);
-      v49 = isNSString(v12);
+      v47 = isNSString(v12);
 
-      if (v49)
+      if (v47)
       {
-        v50 = [v14 stringByAppendingPathComponent:@"version.plist"];
-        if (v50)
+        v48 = [v14 stringByAppendingPathComponent:@"version.plist"];
+        if (v48)
         {
-          v9 = v50;
-          v51 = [MEMORY[0x277CCAA00] defaultManager];
-          __s2a = [v51 fileExistsAtPath:v9];
+          v9 = v48;
+          v49 = [MEMORY[0x277CCAA00] defaultManager];
+          __s2a = [v49 fileExistsAtPath:v9];
 
           if (__s2a)
           {
@@ -1323,26 +1312,26 @@ LABEL_81:
 LABEL_106:
               if (*(a1 + 64))
               {
-                v56 = MEMORY[0x277CBEC38];
+                v54 = MEMORY[0x277CBEC38];
               }
 
               else
               {
-                v56 = MEMORY[0x277CBEC28];
+                v54 = MEMORY[0x277CBEC28];
               }
 
-              [v16 setObject:v56 forKeyedSubscript:@"IsReadOnly"];
+              [v16 setObject:v54 forKeyedSubscript:@"IsReadOnly"];
               if ((*(a1 + 64) & 0x80) != 0)
               {
-                v57 = MEMORY[0x277CBEC38];
+                v55 = MEMORY[0x277CBEC38];
               }
 
               else
               {
-                v57 = MEMORY[0x277CBEC28];
+                v55 = MEMORY[0x277CBEC28];
               }
 
-              [v16 setObject:v57 forKeyedSubscript:@"SupportsContentProtection"];
+              [v16 setObject:v55 forKeyedSubscript:@"SupportsContentProtection"];
               v8 = v16;
               goto LABEL_113;
             }
@@ -1363,9 +1352,9 @@ LABEL_106:
         }
 
         *buf = 0;
-        v52 = MEMORY[0x277D86220];
-        v53 = "Failed to create path.";
-        v54 = 2;
+        v50 = MEMORY[0x277D86220];
+        v51 = "Failed to create path.";
+        v52 = 2;
       }
 
       else
@@ -1379,13 +1368,13 @@ LABEL_99:
         }
 
         *buf = 138412290;
-        v66 = v48;
-        v52 = MEMORY[0x277D86220];
-        v53 = "Failed to query bundle key %@.";
-        v54 = 12;
+        v64 = v46;
+        v50 = MEMORY[0x277D86220];
+        v51 = "Failed to query bundle key %@.";
+        v52 = 12;
       }
 
-      _os_log_impl(&dword_259B65000, v52, OS_LOG_TYPE_DEFAULT, v53, buf, v54);
+      _os_log_impl(&dword_259B65000, v50, OS_LOG_TYPE_DEFAULT, v51, buf, v52);
       goto LABEL_99;
     }
 
@@ -1415,9 +1404,9 @@ LABEL_99:
   cf = 0;
 LABEL_100:
   v8 = 0;
-  v55 = mainPorta;
+  v53 = mainPorta;
 LABEL_114:
-  IOObjectRelease(v55);
+  IOObjectRelease(v53);
 LABEL_115:
   if (cf)
   {
@@ -1425,8 +1414,6 @@ LABEL_115:
   }
 
 LABEL_9:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1442,7 +1429,7 @@ void __get_mounted_media_entries_block_invoke(uint64_t a1, uint64_t a2, uint64_t
 
 id image_file_path_name(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1476,9 +1463,9 @@ LABEL_10:
   }
 
   v2 = v1;
-  v10 = 0;
-  v3 = [MEMORY[0x277D055E0] imageURLFromDevice:v1 error:&v10];
-  v4 = v10;
+  v9 = 0;
+  v3 = [MEMORY[0x277D055E0] imageURLFromDevice:v1 error:&v9];
+  v4 = v9;
   if (v3)
   {
     v5 = [v3 path];
@@ -1488,7 +1475,7 @@ LABEL_10:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = v4;
+    v11 = v4;
     _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to retrieve image URL: %@", buf, 0xCu);
   }
 
@@ -1496,8 +1483,6 @@ LABEL_10:
 LABEL_11:
   v3 = 0;
 LABEL_12:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1523,30 +1508,30 @@ id signatureFromPath(void *a1)
 
 id get_attached_ptp_entries()
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   properties = 0;
   existing = 0;
   v0 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if (v0)
   {
     v1 = IOServiceMatching("IOUSBInterface");
-    if (v1 && (v2 = v1, [(__CFDictionary *)v1 setObject:&unk_286AD85A8 forKeyedSubscript:@"bInterfaceClass"], [(__CFDictionary *)v2 setObject:&unk_286AD85C0 forKeyedSubscript:@"bInterfaceSubClass"], [(__CFDictionary *)v2 setObject:&unk_286AD85C0 forKeyedSubscript:@"bInterfaceProtocol"], !IOServiceGetMatchingServices(*MEMORY[0x277CD28A0], v2, &existing)) && (v7 = IOIteratorNext(existing)) != 0)
+    if (v1 && (v2 = v1, [(__CFDictionary *)v1 setObject:&unk_286AD85A8 forKeyedSubscript:@"bInterfaceClass"], [(__CFDictionary *)v2 setObject:&unk_286AD85C0 forKeyedSubscript:@"bInterfaceSubClass"], [(__CFDictionary *)v2 setObject:&unk_286AD85C0 forKeyedSubscript:@"bInterfaceProtocol"], !IOServiceGetMatchingServices(*MEMORY[0x277CD28A0], v2, &existing)) && (v6 = IOIteratorNext(existing)) != 0)
     {
-      v8 = v7;
+      v7 = v6;
       v4 = 0;
       v3 = 0;
-      v9 = MEMORY[0x277D86220];
+      v8 = MEMORY[0x277D86220];
       do
       {
-        v10 = IORegistryEntryCreateCFProperties(v8, &properties, 0, 0);
-        if (v10)
+        v9 = IORegistryEntryCreateCFProperties(v7, &properties, 0, 0);
+        if (v9)
         {
-          v11 = v10;
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+          v10 = v9;
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            LODWORD(v18) = v11 & 0x3FFF;
-            _os_log_impl(&dword_259B65000, v9, OS_LOG_TYPE_DEFAULT, "IORegistryEntryCreateCFProperties failed: 0x%04x", buf, 8u);
+            LODWORD(v17) = v10 & 0x3FFF;
+            _os_log_impl(&dword_259B65000, v8, OS_LOG_TYPE_DEFAULT, "IORegistryEntryCreateCFProperties failed: 0x%04x", buf, 8u);
           }
         }
 
@@ -1554,37 +1539,37 @@ id get_attached_ptp_entries()
         {
           Value = CFDictionaryGetValue(properties, @"locationID");
 
-          v13 = isNSNumber(Value);
+          v12 = isNSNumber(Value);
 
-          if (v13)
+          if (v12)
           {
-            v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+            v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
 
-            if (v14)
+            if (v13)
             {
-              [v14 setObject:Value forKeyedSubscript:@"LocationID"];
-              [v14 setObject:@"PTPCamera" forKeyedSubscript:@"DeviceType"];
-              [v0 setObject:v14 forKeyedSubscript:@"PTPNode"];
-              v3 = v14;
+              [v13 setObject:Value forKeyedSubscript:@"LocationID"];
+              [v13 setObject:@"PTPCamera" forKeyedSubscript:@"DeviceType"];
+              [v0 setObject:v13 forKeyedSubscript:@"PTPNode"];
+              v3 = v13;
             }
 
             else
             {
-              if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_259B65000, v9, OS_LOG_TYPE_DEFAULT, "Failed to create dictionary.", buf, 2u);
+                _os_log_impl(&dword_259B65000, v8, OS_LOG_TYPE_DEFAULT, "Failed to create dictionary.", buf, 2u);
               }
 
               v3 = 0;
             }
           }
 
-          else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+          else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v18 = "locationID";
-            _os_log_impl(&dword_259B65000, v9, OS_LOG_TYPE_DEFAULT, "Failed to retrieve %s.", buf, 0xCu);
+            v17 = "locationID";
+            _os_log_impl(&dword_259B65000, v8, OS_LOG_TYPE_DEFAULT, "Failed to retrieve %s.", buf, 0xCu);
           }
 
           v4 = Value;
@@ -1596,11 +1581,11 @@ id get_attached_ptp_entries()
         }
 
         properties = 0;
-        IOObjectRelease(v8);
-        v8 = IOIteratorNext(existing);
+        IOObjectRelease(v7);
+        v7 = IOIteratorNext(existing);
       }
 
-      while (v8);
+      while (v7);
     }
 
     else
@@ -1621,17 +1606,15 @@ id get_attached_ptp_entries()
     v3 = 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v0;
 }
 
 id get_attached_media_entries()
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   properties = 0;
   existing = 0;
-  bzero(v69, 0x878uLL);
+  bzero(v66, 0x878uLL);
   v0 = *MEMORY[0x277CD28A0];
   v1 = IOServiceMatching("IOMedia");
   if (IOServiceGetMatchingServices(v0, v1, &existing))
@@ -1649,8 +1632,8 @@ LABEL_3:
     goto LABEL_4;
   }
 
-  v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  if (!v12)
+  v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  if (!v11)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
@@ -1661,198 +1644,198 @@ LABEL_3:
     goto LABEL_2;
   }
 
-  v2 = v12;
-  v13 = IOIteratorNext(existing);
-  if (!v13)
+  v2 = v11;
+  v12 = IOIteratorNext(existing);
+  if (!v12)
   {
     goto LABEL_3;
   }
 
-  v14 = v13;
+  v13 = v12;
   v9 = 0;
   v8 = 0;
   v7 = 0;
   v6 = 0;
   v5 = 0;
   v4 = 0;
-  v54 = 0;
-  v53 = 1;
+  v53 = 0;
+  v52 = 1;
   do
   {
-    if (is_disk_image(v14))
+    if (is_disk_image(v13))
     {
       goto LABEL_40;
     }
 
-    v15 = IORegistryEntryCreateCFProperties(v14, &properties, 0, 0);
-    if (v15)
+    v14 = IORegistryEntryCreateCFProperties(v13, &properties, 0, 0);
+    if (v14)
     {
-      v16 = v15;
-      v17 = MEMORY[0x277D86220];
+      v15 = v14;
+      v16 = MEMORY[0x277D86220];
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_40;
       }
 
       *buf = 67109120;
-      LODWORD(v66) = v16 & 0x3FFF;
-      v18 = v17;
-      v19 = "IORegistryEntryCreateCFProperties failed: 0x%04x";
-      v20 = 8;
+      LODWORD(v63) = v15 & 0x3FFF;
+      v17 = v16;
+      v18 = "IORegistryEntryCreateCFProperties failed: 0x%04x";
+      v19 = 8;
       goto LABEL_16;
     }
 
     if (properties)
     {
-      v21 = CFDictionaryGetValue(properties, @"BSD Name");
+      v20 = CFDictionaryGetValue(properties, @"BSD Name");
 
-      v22 = isNSString(v21);
+      v21 = isNSString(v20);
+
+      if (!v21)
+      {
+        v27 = MEMORY[0x277D86220];
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315138;
+          v63 = "BSD Name";
+          _os_log_impl(&dword_259B65000, v27, OS_LOG_TYPE_DEFAULT, "Failed to retrieve %s.", buf, 0xCu);
+        }
+
+        goto LABEL_39;
+      }
+
+      v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"/dev/%@", v20];
 
       if (!v22)
       {
         v28 = MEMORY[0x277D86220];
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          *buf = 136315138;
-          v66 = "BSD Name";
-          _os_log_impl(&dword_259B65000, v28, OS_LOG_TYPE_DEFAULT, "Failed to retrieve %s.", buf, 0xCu);
-        }
-
-        goto LABEL_39;
-      }
-
-      v23 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"/dev/%@", v21];
-
-      if (!v23)
-      {
-        v29 = MEMORY[0x277D86220];
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-        {
           *buf = 0;
-          _os_log_impl(&dword_259B65000, v29, OS_LOG_TYPE_DEFAULT, "Failed to create string.", buf, 2u);
+          _os_log_impl(&dword_259B65000, v28, OS_LOG_TYPE_DEFAULT, "Failed to create string.", buf, 2u);
         }
 
         v4 = 0;
         goto LABEL_39;
       }
 
-      v24 = CFDictionaryGetValue(properties, @"Content");
+      v23 = CFDictionaryGetValue(properties, @"Content");
 
-      v25 = isNSString(v24);
+      v24 = isNSString(v23);
 
-      if (v25)
+      if (v24)
       {
-        if ([@"C12A7328-F81F-11D2-BA4B-00A0C93EC93B" isEqualToString:v24])
+        if ([@"C12A7328-F81F-11D2-BA4B-00A0C93EC93B" isEqualToString:v23])
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
           {
-            get_attached_media_entries_cold_4(&v57, v58, v26);
+            get_attached_media_entries_cold_4(&v56, v57, v25);
           }
 
           goto LABEL_38;
         }
 
-        if ([@"Apple_partition_map" isEqualToString:v24])
+        if ([@"Apple_partition_map" isEqualToString:v23])
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
           {
-            get_attached_media_entries_cold_3(&v55, v56, v34);
+            get_attached_media_entries_cold_3(&v54, v55, v33);
           }
 
           goto LABEL_38;
         }
 
-        v35 = CFDictionaryGetValue(properties, @"Removable");
+        v34 = CFDictionaryGetValue(properties, @"Removable");
 
-        v9 = v35;
-        v36 = isNSNumber(v35);
+        v9 = v34;
+        v35 = isNSNumber(v34);
 
-        if (v36)
+        if (v35)
         {
-          if (([v35 BOOLValue] & 1) == 0 && (serviceIsAttachedToRemovableDevice(v14) & 1) == 0)
+          if (([v34 BOOLValue] & 1) == 0 && (serviceIsAttachedToRemovableDevice(v13) & 1) == 0)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
             {
-              get_attached_media_entries_cold_1(v63, v21, &v64);
+              get_attached_media_entries_cold_1(v61, v20, &v61[4]);
             }
 
             goto LABEL_38;
           }
 
-          v37 = CFDictionaryGetValue(properties, @"Leaf");
+          v36 = CFDictionaryGetValue(properties, @"Leaf");
 
-          v8 = v37;
-          v38 = isNSNumber(v37);
+          v8 = v36;
+          v37 = isNSNumber(v36);
 
-          if (v38)
+          if (v37)
           {
-            if (([v37 BOOLValue] & 1) == 0)
+            if (([v36 BOOLValue] & 1) == 0)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
               {
-                get_attached_media_entries_cold_2(v61, v21, &v62);
+                get_attached_media_entries_cold_2(v60, v20, &v60[4]);
               }
 
               goto LABEL_38;
             }
 
-            v39 = CFDictionaryGetValue(properties, @"Writable");
+            v38 = CFDictionaryGetValue(properties, @"Writable");
 
-            v5 = v39;
-            v40 = isNSNumber(v39);
-            if (v40)
+            v5 = v38;
+            v39 = isNSNumber(v38);
+            if (v39)
             {
-              v41 = v40;
-              v42 = [v39 BOOLValue];
+              v40 = v39;
+              v41 = [v38 BOOLValue];
 
-              v53 &= v42 ^ 1;
+              v52 &= v41 ^ 1;
             }
 
-            v43 = determine_filesystem_type();
-            if (v43 != 4 && (v43 & 3) != 1)
+            v42 = determine_filesystem_type();
+            if (v42 != 4 && (v42 & 3) != 1)
             {
-              v44 = objc_alloc_init(MEMORY[0x277CBEB38]);
+              v43 = objc_alloc_init(MEMORY[0x277CBEB38]);
 
-              if (v44)
+              if (v43)
               {
-                [v44 setObject:@"MassStorage" forKeyedSubscript:@"DeviceType"];
-                [v44 setObject:v23 forKeyedSubscript:@"DeviceNode"];
-                [v44 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"IsMounted"];
-                v45 = [MEMORY[0x277CCABB0] numberWithBool:v53 & 1];
-                [v44 setObject:v45 forKeyedSubscript:@"IsReadOnly"];
+                [v43 setObject:@"MassStorage" forKeyedSubscript:@"DeviceType"];
+                [v43 setObject:v22 forKeyedSubscript:@"DeviceNode"];
+                [v43 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"IsMounted"];
+                v44 = [MEMORY[0x277CCABB0] numberWithBool:v52 & 1];
+                [v43 setObject:v44 forKeyedSubscript:@"IsReadOnly"];
 
 LABEL_55:
-                [v2 setObject:v44 forKeyedSubscript:v23];
-                v54 = v44;
+                [v2 setObject:v43 forKeyedSubscript:v22];
+                v53 = v43;
                 goto LABEL_38;
               }
 
-              v49 = MEMORY[0x277D86220];
+              v48 = MEMORY[0x277D86220];
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                v50 = v49;
-                v51 = "Failed to create dictionary.";
-                v52 = 2;
+                v49 = v48;
+                v50 = "Failed to create dictionary.";
+                v51 = 2;
 LABEL_72:
-                _os_log_impl(&dword_259B65000, v50, OS_LOG_TYPE_DEFAULT, v51, buf, v52);
+                _os_log_impl(&dword_259B65000, v49, OS_LOG_TYPE_DEFAULT, v50, buf, v51);
                 goto LABEL_73;
               }
 
               goto LABEL_73;
             }
 
-            [v23 UTF8String];
+            [v22 UTF8String];
             if (__strlcpy_chk() < 0x400)
             {
-              [v23 UTF8String];
+              [v22 UTF8String];
               if (__strlcpy_chk() < 0x400)
               {
                 if (__strlcpy_chk() < 0x10)
                 {
-                  v44 = create_map_entry(v69, 0, 0);
+                  v43 = create_map_entry(v66, 0, 0);
 
-                  if (v44)
+                  if (v43)
                   {
                     goto LABEL_55;
                   }
@@ -1860,19 +1843,19 @@ LABEL_72:
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v66 = v23;
-                    v50 = MEMORY[0x277D86220];
-                    v51 = "Failed to create map entry for %@.";
-                    v52 = 12;
+                    v63 = v22;
+                    v49 = MEMORY[0x277D86220];
+                    v50 = "Failed to create map entry for %@.";
+                    v51 = 12;
                     goto LABEL_72;
                   }
 
 LABEL_73:
-                  v54 = 0;
+                  v53 = 0;
                   goto LABEL_38;
                 }
 
-                v48 = MEMORY[0x277D86220];
+                v47 = MEMORY[0x277D86220];
                 if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
                   goto LABEL_38;
@@ -1881,7 +1864,7 @@ LABEL_73:
 
               else
               {
-                v48 = MEMORY[0x277D86220];
+                v47 = MEMORY[0x277D86220];
                 if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
                   goto LABEL_38;
@@ -1891,7 +1874,7 @@ LABEL_73:
 
             else
             {
-              v48 = MEMORY[0x277D86220];
+              v47 = MEMORY[0x277D86220];
               if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
                 goto LABEL_38;
@@ -1899,28 +1882,12 @@ LABEL_73:
             }
 
             *buf = 0;
-            v31 = v48;
-            v32 = "Invalid string size.";
-            v33 = 2;
+            v30 = v47;
+            v31 = "Invalid string size.";
+            v32 = 2;
             goto LABEL_34;
           }
 
-          v47 = MEMORY[0x277D86220];
-          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-          {
-            goto LABEL_38;
-          }
-
-          *buf = 138412546;
-          v66 = v21;
-          v67 = 2080;
-          v68 = "Leaf";
-          v31 = v47;
-          v32 = "The attached media object %@ does not have a '%s' flag.";
-        }
-
-        else
-        {
           v46 = MEMORY[0x277D86220];
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
@@ -1928,95 +1895,109 @@ LABEL_73:
           }
 
           *buf = 138412546;
-          v66 = v21;
-          v67 = 2080;
-          v68 = "Removable";
-          v31 = v46;
-          v32 = "The attached media object %@ does not have a '%s' flag.";
+          v63 = v20;
+          v64 = 2080;
+          v65 = "Leaf";
+          v30 = v46;
+          v31 = "The attached media object %@ does not have a '%s' flag.";
+        }
+
+        else
+        {
+          v45 = MEMORY[0x277D86220];
+          if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_38;
+          }
+
+          *buf = 138412546;
+          v63 = v20;
+          v64 = 2080;
+          v65 = "Removable";
+          v30 = v45;
+          v31 = "The attached media object %@ does not have a '%s' flag.";
         }
       }
 
       else
       {
-        v30 = MEMORY[0x277D86220];
+        v29 = MEMORY[0x277D86220];
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
 LABEL_38:
-          v4 = v23;
-          v6 = v24;
+          v4 = v22;
+          v6 = v23;
 LABEL_39:
-          v7 = v21;
+          v7 = v20;
           goto LABEL_40;
         }
 
         *buf = 138412546;
-        v66 = v21;
-        v67 = 2080;
-        v68 = "Content";
-        v31 = v30;
-        v32 = "The attached media object %@ does not have a '%s' flag.";
+        v63 = v20;
+        v64 = 2080;
+        v65 = "Content";
+        v30 = v29;
+        v31 = "The attached media object %@ does not have a '%s' flag.";
       }
 
-      v33 = 22;
+      v32 = 22;
 LABEL_34:
-      _os_log_impl(&dword_259B65000, v31, OS_LOG_TYPE_DEFAULT, v32, buf, v33);
+      _os_log_impl(&dword_259B65000, v30, OS_LOG_TYPE_DEFAULT, v31, buf, v32);
       goto LABEL_38;
     }
 
-    v27 = MEMORY[0x277D86220];
+    v26 = MEMORY[0x277D86220];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v18 = v27;
-      v19 = "Failed to retrieve any properties for the matched service.";
-      v20 = 2;
+      v17 = v26;
+      v18 = "Failed to retrieve any properties for the matched service.";
+      v19 = 2;
 LABEL_16:
-      _os_log_impl(&dword_259B65000, v18, OS_LOG_TYPE_DEFAULT, v19, buf, v20);
+      _os_log_impl(&dword_259B65000, v17, OS_LOG_TYPE_DEFAULT, v18, buf, v19);
     }
 
 LABEL_40:
-    IOObjectRelease(v14);
+    IOObjectRelease(v13);
     if (properties)
     {
       CFRelease(properties);
     }
 
     properties = 0;
-    v14 = IOIteratorNext(existing);
+    v13 = IOIteratorNext(existing);
   }
 
-  while (v14);
-  v3 = v54;
+  while (v13);
+  v3 = v53;
 LABEL_4:
   if (existing)
   {
     IOObjectRelease(existing);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 uint64_t serviceIsAttachedToRemovableDevice(io_object_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v10 = __serviceIsAttachedToRemovableDevice_block_invoke;
-  v11 = &unk_2798EE5C0;
-  v12 = &v13;
-  v2 = v9;
-  v18 = 0;
-  v10();
-  if ((v18 & 1) == 0)
+  v20 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v9 = __serviceIsAttachedToRemovableDevice_block_invoke;
+  v10 = &unk_2798EE5C0;
+  v11 = &v12;
+  v2 = v8;
+  v17 = 0;
+  v9();
+  if ((v17 & 1) == 0)
   {
     IOObjectRetain(a1);
-    if ((v18 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
       while (1)
       {
@@ -2034,8 +2015,8 @@ uint64_t serviceIsAttachedToRemovableDevice(io_object_t a1)
           goto LABEL_13;
         }
 
-        (v10)(v2, parent, &v18);
-        if (v18 == 1)
+        (v9)(v2, parent, &v17);
+        if (v17 == 1)
         {
           IOObjectRelease(a1);
           goto LABEL_13;
@@ -2045,7 +2026,7 @@ uint64_t serviceIsAttachedToRemovableDevice(io_object_t a1)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v20 = ParentEntry & 0x3FFF;
+        v19 = ParentEntry & 0x3FFF;
         _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "IORegistryEntryGetParentEntry failed: 0x%04x", buf, 8u);
       }
     }
@@ -2053,44 +2034,43 @@ uint64_t serviceIsAttachedToRemovableDevice(io_object_t a1)
 
 LABEL_13:
 
-  v6 = *(v14 + 24);
-  _Block_object_dispose(&v13, 8);
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *(v13 + 24);
+  _Block_object_dispose(&v12, 8);
   return v6;
 }
 
-id get_attached_entries()
+id get_attached_entries(int a1)
 {
-  v0 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  if (v0)
+  v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  if (v2)
   {
-    v1 = get_attached_ptp_entries();
-    if (v1)
-    {
-      [v0 addEntriesFromDictionary:v1];
-    }
-
-    v2 = get_attached_media_entries();
-
-    if (v2)
-    {
-      [v0 addEntriesFromDictionary:v2];
-    }
-
-    v3 = get_mounted_media_entries();
-
+    v3 = get_attached_ptp_entries();
     if (v3)
     {
-      [v0 addEntriesFromDictionary:v3];
+      [v2 addEntriesFromDictionary:v3];
+    }
+
+    v4 = get_attached_media_entries();
+
+    if (v4)
+    {
+      [v2 addEntriesFromDictionary:v4];
+    }
+
+    v5 = get_mounted_media_entries(a1);
+
+    if (v5)
+    {
+      [v2 addEntriesFromDictionary:v5];
     }
   }
 
-  return v0;
+  return v2;
 }
 
 id lookup_mass_storage_entry(void *a1)
 {
-  v1 = lookup_map_entries(@"MassStorage", @"DeviceNode", a1);
+  v1 = lookup_map_entries(@"MassStorage", @"DeviceNode", a1, 0);
   v2 = v1;
   if (v1 && [v1 count] && (objc_msgSend(v2, "objectAtIndex:", 0), v3 = objc_claimAutoreleasedReturnValue(), isNSDictionary(v3), v4 = objc_claimAutoreleasedReturnValue(), v4, v3, v4))
   {
@@ -2105,13 +2085,13 @@ id lookup_mass_storage_entry(void *a1)
   return v5;
 }
 
-id lookup_map_entries(void *a1, void *a2, void *a3)
+id lookup_map_entries(void *a1, void *a2, void *a3, int a4)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v5 = a1;
-  v31 = a2;
-  v30 = a3;
-  if (!v5 || !v31 || !v30)
+  v42 = *MEMORY[0x277D85DE8];
+  v7 = a1;
+  v32 = a2;
+  v31 = a3;
+  if (!v7 || !v32 || !v31)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
@@ -2122,108 +2102,108 @@ id lookup_map_entries(void *a1, void *a2, void *a3)
     goto LABEL_26;
   }
 
-  v6 = get_attached_entries();
-  if (!v6)
+  v8 = get_attached_entries(a4);
+  if (!v8)
   {
-    v23 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
-    if (v23)
+    v25 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
+    if (v25)
     {
-      lookup_map_entries_cold_1(v23, v24, v25);
+      lookup_map_entries_cold_1(v25, v26, v27);
     }
 
 LABEL_26:
-    v29 = 0;
-    v26 = 0;
-    v10 = 0;
-    v7 = 0;
+    v30 = 0;
+    v28 = 0;
+    v12 = 0;
+    v9 = 0;
     goto LABEL_32;
   }
 
-  v7 = v6;
-  v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  if (v29)
+  v9 = v8;
+  v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  if (v30)
   {
-    v36 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
-    v7 = v7;
-    v8 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
-    if (v8)
+    v36 = 0u;
+    v9 = v9;
+    v10 = [v9 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    if (v10)
     {
-      v9 = v8;
-      v33 = 0;
-      v10 = 0;
-      v11 = *v35;
-      v12 = MEMORY[0x277D86220];
+      v11 = v10;
+      v34 = 0;
+      v12 = 0;
+      v13 = *v36;
+      v14 = MEMORY[0x277D86220];
       do
       {
-        v13 = 0;
-        v32 = v9;
+        v15 = 0;
+        v33 = v11;
         do
         {
-          v14 = v10;
-          if (*v35 != v11)
+          v16 = v12;
+          if (*v36 != v13)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v9);
           }
 
-          v15 = [v7 objectForKey:*(*(&v34 + 1) + 8 * v13)];
-          v10 = [v15 objectForKeyedSubscript:@"DeviceType"];
+          v17 = [v9 objectForKey:*(*(&v35 + 1) + 8 * v15)];
+          v12 = [v17 objectForKeyedSubscript:@"DeviceType"];
 
-          if (v10)
+          if (v12)
           {
-            if ([v10 isEqual:v5])
+            if ([v12 isEqual:v7])
             {
-              v16 = v11;
-              v17 = v7;
-              v18 = v5;
-              v19 = [v15 objectForKeyedSubscript:v31];
+              v18 = v13;
+              v19 = v9;
+              v20 = v7;
+              v21 = [v17 objectForKeyedSubscript:v32];
 
-              v20 = isNSString(v19);
-              if (v20)
+              v22 = isNSString(v21);
+              if (v22)
               {
-                v21 = v20;
-                v22 = [v19 isEqual:v30];
+                v23 = v22;
+                v24 = [v21 isEqual:v31];
 
-                if (v22)
+                if (v24)
                 {
-                  [v29 addObject:v15];
+                  [v30 addObject:v17];
                 }
               }
 
-              v33 = v19;
-              v5 = v18;
-              v7 = v17;
-              v11 = v16;
-              v9 = v32;
+              v34 = v21;
+              v7 = v20;
+              v9 = v19;
+              v13 = v18;
+              v11 = v33;
             }
           }
 
-          else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          else if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v39 = @"DeviceType";
-            _os_log_impl(&dword_259B65000, v12, OS_LOG_TYPE_DEFAULT, "Invalid value for %@.", buf, 0xCu);
+            v40 = @"DeviceType";
+            _os_log_impl(&dword_259B65000, v14, OS_LOG_TYPE_DEFAULT, "Invalid value for %@.", buf, 0xCu);
           }
 
-          ++v13;
+          ++v15;
         }
 
-        while (v9 != v13);
-        v9 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
+        while (v11 != v15);
+        v11 = [v9 countByEnumeratingWithState:&v35 objects:v41 count:16];
       }
 
-      while (v9);
+      while (v11);
     }
 
     else
     {
-      v33 = 0;
-      v10 = 0;
+      v34 = 0;
+      v12 = 0;
     }
 
-    v26 = v33;
+    v28 = v34;
   }
 
   else
@@ -2234,107 +2214,103 @@ LABEL_26:
       _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to create array.", buf, 2u);
     }
 
-    v29 = 0;
-    v26 = 0;
-    v10 = 0;
+    v30 = 0;
+    v28 = 0;
+    v12 = 0;
   }
 
 LABEL_32:
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v29;
+  return v30;
 }
 
-id lookup_mount_entry(void *a1)
+id lookup_mount_entry(void *a1, int a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = get_attached_entries();
-  v3 = v2;
-  if (v2)
+  v28 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = get_attached_entries(a2);
+  v5 = v4;
+  if (v4)
   {
-    v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v5)
+    v24 = 0u;
+    v6 = v4;
+    v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v7)
     {
-      v6 = v5;
-      v21 = v3;
-      v7 = 0;
-      v8 = *v23;
-LABEL_4:
+      v8 = v7;
+      v22 = v5;
       v9 = 0;
+      v10 = *v24;
+LABEL_4:
+      v11 = 0;
       while (1)
       {
-        if (*v23 != v8)
+        if (*v24 != v10)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v6);
         }
 
-        v10 = [v4 objectForKey:*(*(&v22 + 1) + 8 * v9)];
-        v11 = isNSDictionary(v10);
+        v12 = [v6 objectForKey:*(*(&v23 + 1) + 8 * v11)];
+        v13 = isNSDictionary(v12);
 
-        if (v11)
-        {
-          v12 = [v10 objectForKeyedSubscript:@"MountPath"];
-
-          v7 = v12;
-        }
-
-        v13 = isNSString(v7);
         if (v13)
         {
-          v14 = v13;
-          v15 = [v7 isEqualToString:v1];
+          v14 = [v12 objectForKeyedSubscript:@"MountPath"];
 
-          if (v15)
+          v9 = v14;
+        }
+
+        v15 = isNSString(v9);
+        if (v15)
+        {
+          v16 = v15;
+          v17 = [v9 isEqualToString:v3];
+
+          if (v17)
           {
             break;
           }
         }
 
-        if (v6 == ++v9)
+        if (v8 == ++v11)
         {
-          v6 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
-          if (v6)
+          v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          if (v8)
           {
             goto LABEL_4;
           }
 
-          v10 = 0;
+          v12 = 0;
           break;
         }
       }
 
-      v3 = v21;
+      v5 = v22;
     }
 
     else
     {
-      v7 = 0;
-      v10 = 0;
+      v9 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v16 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
-    if (v16)
+    v18 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
+    if (v18)
     {
-      lookup_map_entries_cold_1(v16, v17, v18);
+      lookup_map_entries_cold_1(v18, v19, v20);
     }
 
-    v7 = 0;
-    v10 = 0;
+    v9 = 0;
+    v12 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v12;
 }
 
 void __serviceIsAttachedToRemovableDevice_block_invoke(uint64_t a1, io_registry_entry_t entry, _BYTE *a3)
@@ -2355,7 +2331,7 @@ void __serviceIsAttachedToRemovableDevice_block_invoke(uint64_t a1, io_registry_
 
 void *makePathWithSignature(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [objc_alloc(MEMORY[0x277CCACA8]) initHexStringWithData:v3];
@@ -2388,9 +2364,9 @@ LABEL_8:
     }
 
     *buf = 67109378;
-    v17 = [v6 length];
-    v18 = 2112;
-    v19 = v3;
+    v16 = [v6 length];
+    v17 = 2112;
+    v18 = v3;
     v10 = MEMORY[0x277D86220];
     v11 = "Unsupported signature length: %d characters (%@)";
     v12 = 18;
@@ -2403,30 +2379,29 @@ LABEL_8:
 LABEL_10:
   v13 = v9;
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t path_is_bad(const char *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   bzero(__s1, 0x400uLL);
   if (strlen(a1) > 0x400)
   {
-    goto LABEL_19;
+    goto LABEL_18;
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v22 = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v16 = __path_contains_links_block_invoke;
-  v17 = &unk_2798EE608;
-  v18 = buf;
-  v19 = a1;
-  v2 = v15;
+  v21 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v15 = __path_contains_links_block_invoke;
+  v16 = &unk_2798EE608;
+  v17 = buf;
+  v18 = a1;
+  v2 = v14;
   v3 = [MEMORY[0x277CCAA00] defaultManager];
   v4 = [v3 stringWithFileSystemRepresentation:a1 length:strlen(a1)];
 
@@ -2446,7 +2421,7 @@ uint64_t path_is_bad(const char *a1)
         {
           v10 = v8;
           v11 = [v9 fileSystemRepresentation];
-          if (!(v16)(v2, v11))
+          if (!(v15)(v2, v11))
           {
 
             break;
@@ -2464,7 +2439,7 @@ uint64_t path_is_bad(const char *a1)
   _Block_object_dispose(buf, 8);
   if ((v12 & 1) != 0 || !realpath_DARWIN_EXTSN(a1, __s1) || (result = strcmp(__s1, a1), result))
   {
-LABEL_19:
+LABEL_18:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
@@ -2474,16 +2449,15 @@ LABEL_19:
       _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Paths don't match: (%s/%s)", buf, 0x16u);
     }
 
-    result = 1;
+    return 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t remove_item_at_path(const char *a1, removefile_flags_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   value = 0;
   v4 = removefile_state_alloc();
   if (v4)
@@ -2495,9 +2469,9 @@ uint64_t remove_item_at_path(const char *a1, removefile_flags_t a2)
       v7 = __error();
       v8 = strerror(*v7);
       *buf = 67109378;
-      v20 = v6;
-      v21 = 2080;
-      v22 = v8;
+      v19 = v6;
+      v20 = 2080;
+      v21 = v8;
       _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "removefile_state_set failed: %d (%s)", buf, 0x12u);
     }
 
@@ -2507,9 +2481,9 @@ uint64_t remove_item_at_path(const char *a1, removefile_flags_t a2)
       v10 = __error();
       v11 = strerror(*v10);
       *buf = 67109378;
-      v20 = v9;
-      v21 = 2080;
-      v22 = v11;
+      v19 = v9;
+      v20 = 2080;
+      v21 = v11;
       _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "removefile_state_set failed: %d (%s)", buf, 0x12u);
     }
 
@@ -2527,7 +2501,7 @@ uint64_t remove_item_at_path(const char *a1, removefile_flags_t a2)
       v12 = 0;
 LABEL_17:
       removefile_state_free(v5);
-      goto LABEL_18;
+      return v12;
     }
 
     v12 = 1;
@@ -2541,30 +2515,28 @@ LABEL_17:
     v14 = __error();
     v15 = strerror(*v14);
     *buf = 67109378;
-    v20 = v13;
-    v21 = 2080;
-    v22 = v15;
+    v19 = v13;
+    v20 = 2080;
+    v21 = v15;
     _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "removefile_state_alloc failed: %d (%s)", buf, 0x12u);
-    v12 = 0;
+    return 0;
   }
 
-LABEL_18:
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 uint64_t removefile_error_callback(_removefile_state *a1, const char *a2, int *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dst = 0;
-  memset(&v19, 0, sizeof(v19));
+  memset(&v18, 0, sizeof(v18));
   if (removefile_state_get(a1, 5u, &dst))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       v5 = *__error();
       *buf = 67109120;
-      LODWORD(v22) = v5;
+      LODWORD(v21) = v5;
       _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "removefile_state_get failed: %{errno}d", buf, 8u);
     }
 
@@ -2574,7 +2546,7 @@ uint64_t removefile_error_callback(_removefile_state *a1, const char *a2, int *a
 
   if (dst == 1)
   {
-    if (lstat(a2, &v19))
+    if (lstat(a2, &v18))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
@@ -2582,11 +2554,11 @@ uint64_t removefile_error_callback(_removefile_state *a1, const char *a2, int *a
         v7 = __error();
         v8 = strerror(*v7);
         *buf = 136315650;
-        v22 = a2;
-        v23 = 1024;
-        v24 = v6;
-        v25 = 2080;
-        v26 = v8;
+        v21 = a2;
+        v22 = 1024;
+        v23 = v6;
+        v24 = 2080;
+        v25 = v8;
         v9 = MEMORY[0x277D86220];
         v10 = "lstat failed for %s: %d (%s)";
 LABEL_9:
@@ -2596,12 +2568,12 @@ LABEL_9:
 
     else
     {
-      if ((v19.st_flags & 2) == 0)
+      if ((v18.st_flags & 2) == 0)
       {
         goto LABEL_17;
       }
 
-      if (lchflags(a2, v19.st_flags & 0xFFFFFFFD))
+      if (lchflags(a2, v18.st_flags & 0xFFFFFFFD))
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
@@ -2612,11 +2584,11 @@ LABEL_9:
         v12 = __error();
         v13 = strerror(*v12);
         *buf = 136315650;
-        v22 = a2;
-        v23 = 1024;
-        v24 = v11;
-        v25 = 2080;
-        v26 = v13;
+        v21 = a2;
+        v22 = 1024;
+        v23 = v11;
+        v24 = 2080;
+        v25 = v13;
         v9 = MEMORY[0x277D86220];
         v10 = "lchflags failed for %s: %d (%s)";
         goto LABEL_9;
@@ -2624,7 +2596,7 @@ LABEL_9:
 
       if (!unlink(a2))
       {
-        goto LABEL_20;
+        return 0;
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -2633,11 +2605,11 @@ LABEL_9:
         v15 = __error();
         v16 = strerror(*v15);
         *buf = 136315650;
-        v22 = a2;
-        v23 = 1024;
-        v24 = v14;
-        v25 = 2080;
-        v26 = v16;
+        v21 = a2;
+        v22 = 1024;
+        v23 = v14;
+        v24 = 2080;
+        v25 = v16;
         v9 = MEMORY[0x277D86220];
         v10 = "Failed to unlink %s: %d (%s)";
         goto LABEL_9;
@@ -2651,14 +2623,12 @@ LABEL_17:
     *a3 = dst;
   }
 
-LABEL_20:
-  v17 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 id copyGroupContainerPath(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = v1;
   if (v1)
@@ -2676,9 +2646,9 @@ id copyGroupContainerPath(void *a1)
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v12 = v2;
-      v13 = 1024;
-      v14 = 1;
+      v11 = v2;
+      v12 = 1024;
+      v13 = 1;
       v6 = MEMORY[0x277D86220];
       v7 = "Failed to copy system group container (%@): %d";
       v8 = 18;
@@ -2699,21 +2669,19 @@ LABEL_8:
   v5 = 0;
 LABEL_10:
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
-id copyWorkingDirectory()
+id copyWorkingDirectory(uint64_t a1)
 {
   if (copyWorkingDirectory_onceToken != -1)
   {
     copyWorkingDirectory_cold_1();
   }
 
-  v1 = copyWorkingDirectory_retval;
+  v2 = copyWorkingDirectory_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copyWorkingDirectory_block_invoke()
@@ -2724,7 +2692,7 @@ void __copyWorkingDirectory_block_invoke()
   copyWorkingDirectory_retval = v0;
 }
 
-uint64_t mobileStorageErrorHasDomainAndErrorCode(void *a1, void *a2, uint64_t a3)
+uint64_t mobileStorageErrorHasDomainAndErrorCode(void *a1, void *a2, void *a3)
 {
   v5 = a1;
   v6 = a2;
@@ -2871,48 +2839,43 @@ uint64_t exchange_with_first_child_of_class(io_object_t *a1, const char *a2)
 
 uint64_t __path_contains_links_block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  memset(&v9, 0, sizeof(v9));
-  if (!lstat(*(a1 + 40), &v9))
+  v15 = *MEMORY[0x277D85DE8];
+  memset(&v8, 0, sizeof(v8));
+  if (!lstat(*(a1 + 40), &v8))
   {
     result = 1;
-    if ((v9.st_mode & 0xF000) != 0xA000)
+    if ((v8.st_mode & 0xF000) != 0xA000)
     {
-      goto LABEL_9;
+      return result;
     }
 
     *(*(*(a1 + 32) + 8) + 24) = 1;
-LABEL_8:
-    result = 0;
-    goto LABEL_9;
+    return 0;
   }
 
-  if (*__error() != 2)
+  if (*__error() == 2)
   {
-    v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-    result = 0;
-    if (!v3)
-    {
-      goto LABEL_9;
-    }
+    return 1;
+  }
 
+  v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+  result = 0;
+  if (v3)
+  {
     v4 = *(a1 + 40);
     v5 = *__error();
     v6 = __error();
     v7 = strerror(*v6);
     *buf = 136315650;
-    v11 = v4;
-    v12 = 1024;
-    v13 = v5;
-    v14 = 2080;
-    v15 = v7;
+    v10 = v4;
+    v11 = 1024;
+    v12 = v5;
+    v13 = 2080;
+    v14 = v7;
     _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "lstat failed for %s: %d (%s)", buf, 0x1Cu);
-    goto LABEL_8;
+    return 0;
   }
 
-  result = 1;
-LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2941,8 +2904,7 @@ id MobileStorageCopyDevicesWithError(const __CFDictionary *a1, void *a2)
     v4 = MEMORY[0x277CBEC28];
   }
 
-  [v4 BOOLValue];
-  v9 = get_attached_entries();
+  v9 = get_attached_entries([v4 BOOLValue]);
   if (v9)
   {
     v13 = v9;
@@ -5308,7 +5270,7 @@ LABEL_15:
 
 void *MobileStorageRemoteCopyPersonalizationManifestWithError(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v8 = a1;
   if (!v8 || !a2 || !a3)
   {
@@ -5337,7 +5299,7 @@ void *MobileStorageRemoteCopyPersonalizationManifestWithError(void *a1, uint64_t
     v24 = 866;
     v25 = -2;
 LABEL_17:
-    v18 = createMobileStorageError("MobileStorageRemoteCopyPersonalizationManifestWithError", v24, v25, 0, v23, v20, v21, v22, v36);
+    v18 = createMobileStorageError("MobileStorageRemoteCopyPersonalizationManifestWithError", v24, v25, 0, v23, v20, v21, v22, v35);
     v13 = 0;
     v19 = 0;
     v12 = 0;
@@ -5361,7 +5323,7 @@ LABEL_17:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v38 = v13;
+        v37 = v13;
         _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "An error occured while sending message: %@", buf, 0xCu);
       }
 
@@ -5371,9 +5333,9 @@ LABEL_17:
     else
     {
       v19 = [v12 objectForKeyedSubscript:@"ImageSignature"];
-      v32 = isNSData(v19);
+      v31 = isNSData(v19);
 
-      if (v32)
+      if (v31)
       {
         v18 = 0;
         goto LABEL_18;
@@ -5385,7 +5347,7 @@ LABEL_17:
         _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Invalid response message.", buf, 2u);
       }
 
-      v18 = createMobileStorageError("MobileStorageRemoteCopyPersonalizationManifestWithError", 891, -2, 0, @"Invalid response message.", v33, v34, v35, v36);
+      v18 = createMobileStorageError("MobileStorageRemoteCopyPersonalizationManifestWithError", 891, -2, 0, @"Invalid response message.", v32, v33, v34, v35);
     }
 
     v19 = 0;
@@ -5393,15 +5355,15 @@ LABEL_17:
 
   else
   {
-    v28 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to send/receive XPC message."];
+    v27 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to send/receive XPC message."];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v38 = v28;
+      v37 = v27;
       _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
 
-    v18 = createMobileStorageError("MobileStorageRemoteCopyPersonalizationManifestWithError", 878, -2, 0, @"Failed to send/receive XPC message.", v29, v30, v31, v36);
+    v18 = createMobileStorageError("MobileStorageRemoteCopyPersonalizationManifestWithError", 878, -2, 0, @"Failed to send/receive XPC message.", v28, v29, v30, v35);
 
     v13 = 0;
     v19 = 0;
@@ -5414,7 +5376,6 @@ LABEL_18:
     *a5 = v18;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -5500,7 +5461,7 @@ LABEL_15:
 
 void lib_auth_install_log_handler(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:a2];
   if (!v4)
@@ -5521,7 +5482,7 @@ LABEL_10:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = v5;
+    v16 = v5;
     _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
@@ -5532,9 +5493,9 @@ LABEL_10:
   {
     v10 = [MEMORY[0x277CCAA00] defaultManager];
     v11 = [v5 dataUsingEncoding:4];
-    v14 = *MEMORY[0x277CCA180];
-    v15 = &unk_286AD85D8;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA180];
+    v14 = &unk_286AD85D8;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
     [v10 createFileAtPath:@"/tmp/libauthinstall_logs.txt" contents:v11 attributes:v12];
 
     goto LABEL_10;
@@ -5554,7 +5515,6 @@ LABEL_10:
 LABEL_11:
 
   objc_autoreleasePoolPop(v3);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 const char *convertLibAuthInstallError(int a1)
@@ -5833,7 +5793,7 @@ id normalizePrivateVar(void *a1)
 
 id copyProgramArgs(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 objectForKeyedSubscript:@"ProgramArguments"];
   if (!v2)
@@ -5855,7 +5815,7 @@ id copyProgramArgs(void *a1)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v11 = v2;
+        v10 = v2;
         _os_log_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unexpected object: %@", buf, 0xCu);
       }
 
@@ -5885,8 +5845,6 @@ id copyProgramArgs(void *a1)
 
   v7 = v6;
 LABEL_11:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -6050,11 +6008,11 @@ void __call_and_response_block_invoke(uint64_t a1, void *a2)
 void *call_and_response_remote()
 {
   v0 = MEMORY[0x28223BE20]();
-  v79 = v1;
+  v77 = v1;
   v3 = v2;
   v5 = v4;
   v7 = v6;
-  v82 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v11 = v0;
   if (v3)
   {
@@ -6062,7 +6020,7 @@ void *call_and_response_remote()
     if (v15)
     {
       bzero(buffer, 0x1000uLL);
-      memset(v80, 0, sizeof(v80));
+      memset(v78, 0, sizeof(v78));
       v16 = getpid();
       proc_pidpath(v16, buffer, 0x1000u);
       v17 = strlen(buffer);
@@ -6080,17 +6038,17 @@ void *call_and_response_remote()
       }
 
       __strlcpy_chk();
-      v76 = v80;
+      v74 = v78;
       v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s"];
       if (v19)
       {
-        v78 = v19;
+        v76 = v19;
         [v15 setObject:? forKeyedSubscript:?];
         v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
         v21 = v11;
         v22 = v20;
         v26 = dispatch_semaphore_create(0);
-        v77 = v11;
+        v75 = v11;
         if (v26)
         {
           if (remote_device_get_state() == 2)
@@ -6110,19 +6068,19 @@ void *call_and_response_remote()
                 goto LABEL_25;
               }
 
-              createMobileStorageError("copyRemoteServiceConnection", 70, -2, 0, @"Failed to create remote connection.", v30, v31, v32, v80);
+              createMobileStorageError("copyRemoteServiceConnection", 70, -2, 0, @"Failed to create remote connection.", v30, v31, v32, v78);
             }
 
             else
             {
-              v44 = *__error();
-              v45 = __error();
-              strerror(*v45);
-              createMobileStorageError("copyRemoteServiceConnection", 64, -2, 0, @"Failed to connect to remote service %@: %d (%s)", v46, v47, v48, v22);
+              __error();
+              v44 = __error();
+              strerror(*v44);
+              createMobileStorageError("copyRemoteServiceConnection", 64, -2, 0, @"Failed to connect to remote service %@: %d (%s)", v45, v46, v47, v22);
             }
             v33 = ;
 LABEL_24:
-            v49 = v33;
+            v48 = v33;
 
             v29 = 0;
 LABEL_25:
@@ -6141,7 +6099,7 @@ LABEL_25:
                     v41 = xpc_file_transfer_create_with_path();
                     if (!v41)
                     {
-                      v62 = createMobileStorageError("call_and_response_remote", 253, -2, 0, @"Failed to create xpc file transfer for %s.", v59, v60, v61, v5);
+                      v61 = createMobileStorageError("call_and_response_remote", 253, -2, 0, @"Failed to create xpc file transfer for %s.", v58, v59, v60, v5);
 
                       v35 = 0;
                       v3 = 0;
@@ -6158,21 +6116,21 @@ LABEL_25:
                   }
 
                   xpc_dictionary_set_value(v38, "XPCRequestDictionary", v40);
-                  v65 = xpc_remote_connection_send_message_with_reply_sync();
-                  v39 = v65;
-                  if (!v65)
+                  v63 = xpc_remote_connection_send_message_with_reply_sync();
+                  v39 = v63;
+                  if (!v63)
                   {
-                    v62 = createMobileStorageError("call_and_response_remote", 264, -2, 0, @"Failed to receive XPC reply.", v66, v67, v68, v76);
+                    v61 = createMobileStorageError("call_and_response_remote", 264, -2, 0, @"Failed to receive XPC reply.", v64, v65, v66, v74);
 
                     goto LABEL_49;
                   }
 
-                  if (MEMORY[0x259CAFF70](v65) != MEMORY[0x277D86468])
+                  if (MEMORY[0x259CAFF70](v63) != MEMORY[0x277D86468])
                   {
-                    v69 = MEMORY[0x259CAFF00](v39);
-                    v62 = createMobileStorageError("call_and_response_remote", 270, -2, 0, @"Unexpected message: %s", v70, v71, v72, v69);
+                    v67 = MEMORY[0x259CAFF00](v39);
+                    v61 = createMobileStorageError("call_and_response_remote", 270, -2, 0, @"Unexpected message: %s", v68, v69, v70, v67);
 
-                    free(v69);
+                    free(v67);
 LABEL_49:
                     v35 = 0;
                     v3 = 0;
@@ -6189,16 +6147,16 @@ LABEL_49:
                     goto LABEL_37;
                   }
 
-                  v62 = createMobileStorageError("call_and_response_remote", 277, -2, 0, @"Failed to create dictionary from XPC message.", v73, v74, v75, v76);
+                  v61 = createMobileStorageError("call_and_response_remote", 277, -2, 0, @"Failed to create dictionary from XPC message.", v71, v72, v73, v74);
 
 LABEL_36:
-                  v34 = v62;
+                  v34 = v61;
 LABEL_37:
-                  v11 = v77;
+                  v11 = v75;
                   goto LABEL_38;
                 }
 
-                v62 = createMobileStorageError("call_and_response_remote", 243, -2, 0, @"Failed to create xpc dictionary.", v56, v57, v58, v76);
+                v61 = createMobileStorageError("call_and_response_remote", 243, -2, 0, @"Failed to create xpc dictionary.", v55, v56, v57, v74);
 
                 v35 = 0;
                 v3 = 0;
@@ -6206,7 +6164,7 @@ LABEL_37:
 
               else
               {
-                v62 = createMobileStorageError("call_and_response_remote", 237, -2, v34, @"Failed to create XPC dictionary (%@).", v53, v54, v55, v15);
+                v61 = createMobileStorageError("call_and_response_remote", 237, -2, v34, @"Failed to create XPC dictionary (%@).", v52, v53, v54, v15);
 
                 v35 = 0;
                 v3 = 0;
@@ -6218,7 +6176,7 @@ LABEL_37:
 
             else
             {
-              v62 = createMobileStorageError("call_and_response_remote", 231, -2, v34, @"Failed to create remote connection to %s.", v50, v51, v52, v7);
+              v61 = createMobileStorageError("call_and_response_remote", 231, -2, v34, @"Failed to create remote connection to %s.", v49, v50, v51, v7);
 
               v35 = 0;
               v3 = 0;
@@ -6232,7 +6190,7 @@ LABEL_37:
           }
 
           v42 = @"Remote device not connected after %u seconds.";
-          v76 = 60;
+          v74 = 60;
           v43 = 58;
         }
 
@@ -6242,7 +6200,7 @@ LABEL_37:
           v43 = 53;
         }
 
-        v33 = createMobileStorageError("copyRemoteServiceConnection", v43, -2, 0, v42, v23, v24, v25, v76);
+        v33 = createMobileStorageError("copyRemoteServiceConnection", v43, -2, 0, v42, v23, v24, v25, v74);
         v27 = 0;
         goto LABEL_24;
       }
@@ -6257,18 +6215,18 @@ LABEL_37:
       v37 = 217;
     }
 
-    v34 = createMobileStorageError("call_and_response_remote", v37, -2, 0, v36, v12, v13, v14, v76);
+    v34 = createMobileStorageError("call_and_response_remote", v37, -2, 0, v36, v12, v13, v14, v74);
     v35 = 0;
-    v78 = 0;
+    v76 = 0;
     v3 = 0;
   }
 
   else
   {
-    v34 = createMobileStorageError("call_and_response_remote", 211, -3, 0, @"Invalid input.", v8, v9, v10, v76);
+    v34 = createMobileStorageError("call_and_response_remote", 211, -3, 0, @"Invalid input.", v8, v9, v10, v74);
     v35 = 0;
     v15 = 0;
-    v78 = 0;
+    v76 = 0;
   }
 
   v38 = 0;
@@ -6277,9 +6235,9 @@ LABEL_37:
   v29 = 0;
   v41 = 0;
 LABEL_38:
-  if (v79 && !v3)
+  if (v77 && !v3)
   {
-    *v79 = v34;
+    *v77 = v34;
   }
 
   if (v29)
@@ -6287,15 +6245,15 @@ LABEL_38:
     xpc_remote_connection_cancel();
   }
 
-  v63 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-void __call_and_response_remote_block_invoke(uint64_t a1, int a2)
+void __call_and_response_remote_block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    __call_and_response_remote_block_invoke_cold_1(a2);
+    __call_and_response_remote_block_invoke_cold_1(v2);
   }
 }
 
@@ -6335,13 +6293,12 @@ void get_mounted_media_entries_cold_1(uint8_t *buf, uint64_t a2, void *a3)
 
 void create_map_entry_cold_1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2112;
-  v6 = a2;
-  _os_log_fault_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Failed to load version dictionary at %@ (image version: %@).", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2112;
+  v5 = a2;
+  _os_log_fault_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Failed to load version dictionary at %@ (image version: %@).", &v2, 0x16u);
 }
 
 void get_attached_media_entries_cold_1(uint8_t *buf, uint64_t a2, void *a3)
@@ -6374,27 +6331,24 @@ void get_attached_media_entries_cold_4(uint8_t *a1, _BYTE *a2, uint64_t a3)
 
 void __call_and_response_block_invoke_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = a1;
-  _os_log_debug_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Client error: %s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = a1;
+  _os_log_debug_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Client error: %s", &v1, 0xCu);
 }
 
 void __call_and_response_block_invoke_cold_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = a1;
-  _os_log_debug_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Unexpected message: %s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = a1;
+  _os_log_debug_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Unexpected message: %s", &v1, 0xCu);
 }
 
 void __call_and_response_remote_block_invoke_cold_1(int a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_debug_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "xpc_file_transfer_create_with_path completed with error: %d", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_debug_impl(&dword_259B65000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "xpc_file_transfer_create_with_path completed with error: %d", v1, 8u);
 }

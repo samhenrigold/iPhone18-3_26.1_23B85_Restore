@@ -626,19 +626,19 @@ id __101__VNGenerateSemanticSegmentationCompoundRequest_newDefaultDetectorOption
   return v3;
 }
 
-void __91__VNGenerateSemanticSegmentationCompoundRequest_detectorTypeForSemanticSegmentationRequest__block_invoke()
+void __91__VNGenerateSemanticSegmentationCompoundRequest_detectorTypeForSemanticSegmentationRequest__block_invoke(uint64_t a1)
 {
   if (VisionCoreHasANE())
   {
-    v0 = @"VNE5RTSegmentationMultiGeneratorType";
+    v1 = @"VNE5RTSegmentationMultiGeneratorType";
   }
 
   else
   {
-    v0 = @"VNPersonSegmentationGeneratorSemanticsType";
+    v1 = @"VNPersonSegmentationGeneratorSemanticsType";
   }
 
-  objc_storeStrong(&+[VNGenerateSemanticSegmentationCompoundRequest detectorTypeForSemanticSegmentationRequest]::semanticSegmentationDetectorType, v0);
+  objc_storeStrong(&+[VNGenerateSemanticSegmentationCompoundRequest detectorTypeForSemanticSegmentationRequest]::semanticSegmentationDetectorType, v1);
 }
 
 + (Class)detectorForPersonInstanceRequestAndReturnError:(id *)error
@@ -672,19 +672,19 @@ void __91__VNGenerateSemanticSegmentationCompoundRequest_detectorTypeForSemantic
   return v3;
 }
 
-void __85__VNGenerateSemanticSegmentationCompoundRequest_detectorTypeForPersonInstanceRequest__block_invoke()
+void __85__VNGenerateSemanticSegmentationCompoundRequest_detectorTypeForPersonInstanceRequest__block_invoke(uint64_t a1)
 {
   if (VisionCoreCurrentANEGeneration() <= 12)
   {
-    v0 = @"VNPersonSegmentationGeneratorInstanceBased4PeopleType";
+    v1 = @"VNPersonSegmentationGeneratorInstanceBased4PeopleType";
   }
 
   else
   {
-    v0 = @"VNE5RTSegmentationMultiGeneratorType";
+    v1 = @"VNE5RTSegmentationMultiGeneratorType";
   }
 
-  objc_storeStrong(&+[VNGenerateSemanticSegmentationCompoundRequest detectorTypeForPersonInstanceRequest]::personInstanceDetectorType, v0);
+  objc_storeStrong(&+[VNGenerateSemanticSegmentationCompoundRequest detectorTypeForPersonInstanceRequest]::personInstanceDetectorType, v1);
 }
 
 + (BOOL)warmUpSession:(id)session error:(id *)error

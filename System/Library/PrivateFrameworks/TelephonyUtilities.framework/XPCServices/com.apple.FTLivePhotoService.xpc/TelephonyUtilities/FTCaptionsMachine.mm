@@ -64,7 +64,7 @@
     *time = *&time->var0;
     *&time[16] = time->var3;
     v18 = CMTimeCopyDescription(kCFAllocatorDefault, time);
-    v19 = FTDefaultLog();
+    v19 = FTDefaultLog(v18);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *time = 67109634;
@@ -93,7 +93,7 @@ LABEL_8:
     *time = *&time->var0;
     *&time[16] = time->var3;
     v23 = CMTimeCopyDescription(kCFAllocatorDefault, time);
-    v24 = FTDefaultLog();
+    v24 = FTDefaultLog(v23);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *time = 67109634;

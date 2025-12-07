@@ -20,9 +20,9 @@
 
 - (id)_initWithDevice:(id)device action:(id)action
 {
-  v9.receiver = self;
-  v9.super_class = AVCaptureSystemZoomSlider;
-  initSubclass = [(AVCaptureControl *)&v9 initSubclass];
+  v11.receiver = self;
+  v11.super_class = AVCaptureSystemZoomSlider;
+  initSubclass = [(AVCaptureControl *)&v11 initSubclass];
   if (initSubclass)
   {
     if ([device hasMediaType:*MEMORY[0x1E6987608]])
@@ -38,7 +38,7 @@
     {
       v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, objc_msgSend(device, "localizedName")}];
 
-      if (AVCaptureShouldThrowForAPIViolations())
+      if (AVCaptureShouldThrowForAPIViolations(v8, v9))
       {
         objc_exception_throw(v7);
       }
@@ -229,7 +229,7 @@
   os_unfair_lock_unlock(&self->_actionLock);
   if (AVCaptureSystemZoomSliderDeviceVideoZoomFactorChangedContext == context && self->_device == object)
   {
-    v11 = [change objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
+    v11 = objc_msgSend_objectForKeyedSubscript_(change);
     if (observingDeviceVideoZoomFactor && v11 != 0)
     {
       overlayControl = self->_overlayControl;

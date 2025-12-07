@@ -20,7 +20,7 @@
   {
     if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController uiOperationEnd]", 30, "Dismiss on final operation end\n");
     }
 
     self->_dismissPending = 0;
@@ -43,7 +43,7 @@
 {
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController nfcTagScannedCount:]", 30, "nfcTagScannedCount: %ld, appeared: %d\n", count, self->_appeared);
   }
 
   if (count)
@@ -99,7 +99,7 @@
         {
           if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController handleButtonActions:]", 30, "Home button\n");
           }
 
           [(NFCTagReaderMainController *)self dismiss:4];
@@ -120,29 +120,41 @@
     if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
     {
 
-      LogPrintF();
+      LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController dismissIfIdle]", 30, "Ignoring dismissIfIdle because already dismissing\n");
     }
+
+    return;
   }
 
-  else if (self->_operationCount < 1)
+  operationCount = self->_operationCount;
+  if (operationCount >= 1)
   {
-    if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
+    if (dword_1001BE808 <= 30)
     {
-      LogPrintF();
+      if (dword_1001BE808 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_17;
+        }
+
+        operationCount = self->_operationCount;
+      }
+
+      LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController dismissIfIdle]", 30, "Deferring dismiss with outstanding operations (%d)\n", operationCount);
     }
 
-    [(NFCTagReaderMainController *)self dismiss:8];
-  }
-
-  else
-  {
-    if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
-    {
-      LogPrintF();
-    }
-
+LABEL_17:
     self->_dismissPending = 1;
+    return;
   }
+
+  if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController dismissIfIdle]", 30, "dismissIfIdle: is idle\n");
+  }
+
+  [(NFCTagReaderMainController *)self dismiss:8];
 }
 
 - (void)dismissAnimated:(BOOL)animated
@@ -176,7 +188,7 @@
   disappearCopy = disappear;
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController viewDidDisappear:]", 30, "Main ViewDidDisappear\n");
   }
 
   _remoteViewControllerProxy = [(NFCTagReaderMainController *)self _remoteViewControllerProxy];
@@ -186,7 +198,7 @@
   {
     if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController viewDidDisappear:]", 30, "Main disappeared without dismiss (device locked?)...dismissing UI\n");
     }
 
     [(NFCTagReaderMainController *)self dismiss:21];
@@ -194,7 +206,7 @@
 
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController viewDidDisappear:]", 30, "XPC agent UI invalidate\n");
   }
 
   v6 = self->_xpcAgent;
@@ -236,7 +248,7 @@
   appearCopy = appear;
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController viewDidAppear:]", 30, "Main ViewDidAppear\n");
   }
 
   v12.receiver = self;
@@ -269,7 +281,7 @@
 
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController configureWithContext:completion:]", 30, "Main configuration: %@\n", self->super._userInfo);
   }
 
   CFStringGetTypeID();
@@ -283,7 +295,7 @@
   {
     if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController configureWithContext:completion:]", 30, "XPC agent starting\n");
     }
 
     v15 = objc_alloc_init(CUXPCAgent);
@@ -325,7 +337,7 @@
 
   else if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController configureWithContext:completion:]", 30, "No XPC endpoint (not starting XPC agent)\n");
   }
 
   if (completionCopy)

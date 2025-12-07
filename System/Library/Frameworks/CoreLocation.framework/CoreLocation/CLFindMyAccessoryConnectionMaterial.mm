@@ -5,6 +5,7 @@
 - (CLFindMyAccessoryConnectionMaterial)initWithAddress:(id)address ltk:(id)ltk primaryIndex:(id)index secondaryIndex:(id)secondaryIndex;
 - (CLFindMyAccessoryConnectionMaterial)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)debugDescription;
 - (id)dictionaryDescription;
 - (unint64_t)hash;
 - (void)dealloc;
@@ -15,25 +16,25 @@
 
 - (CLFindMyAccessoryConnectionMaterial)init
 {
-  [(CLFindMyAccessoryConnectionMaterial *)self doesNotRecognizeSelector:a2];
+  objc_msgSend_doesNotRecognizeSelector_(self, a2, a2, v2);
 
   return 0;
 }
 
 - (CLFindMyAccessoryConnectionMaterial)initWithAddress:(id)address ltk:(id)ltk primaryIndex:(id)index secondaryIndex:(id)secondaryIndex
 {
-  v12.receiver = self;
-  v12.super_class = CLFindMyAccessoryConnectionMaterial;
-  v10 = [(CLFindMyAccessoryConnectionMaterial *)&v12 init];
-  if (v10)
+  v24.receiver = self;
+  v24.super_class = CLFindMyAccessoryConnectionMaterial;
+  v13 = [(CLFindMyAccessoryConnectionMaterial *)&v24 init];
+  if (v13)
   {
-    v10->_address = [address copy];
-    v10->_ltk = [ltk copy];
-    v10->_primaryIndex = [index copy];
-    v10->_secondaryIndex = [secondaryIndex copy];
+    v13->_address = objc_msgSend_copy(address, v10, v11, v12);
+    v13->_ltk = objc_msgSend_copy(ltk, v14, v15, v16);
+    v13->_primaryIndex = objc_msgSend_copy(index, v17, v18, v19);
+    v13->_secondaryIndex = objc_msgSend_copy(secondaryIndex, v20, v21, v22);
   }
 
-  return v10;
+  return v13;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -49,7 +50,7 @@
     return 0;
   }
 
-  return MEMORY[0x1EEE66B58](self, sel_isEqualToMaterial_);
+  return MEMORY[0x1EEE66B58](self, sel_isEqualToMaterial_, equal, v5);
 }
 
 - (BOOL)isEqualToMaterial:(id)material
@@ -57,153 +58,177 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v53 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v6, v7, v8);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v53, v54, a2, self, @"CLFindMyAccessoryConnectionMaterial.m", 83, @"Invalid parameter not satisfying: %@", @"[otherMaterial isKindOfClass:[CLFindMyAccessoryConnectionMaterial class]]");
   }
 
-  address = [material address];
-  address2 = [(CLFindMyAccessoryConnectionMaterial *)self address];
-  if (address)
+  v9 = objc_msgSend_address(material, v6, v7, v8);
+  v13 = objc_msgSend_address(self, v10, v11, v12);
+  v17 = v13;
+  if (v9)
   {
-    v8 = -[NSData isEqualToData:](address2, "isEqualToData:", [material address]);
+    v18 = objc_msgSend_address(material, v14, v15, v16);
+    isEqualToData = objc_msgSend_isEqualToData_(v17, v19, v18, v20);
   }
 
   else
   {
-    v8 = address2 == 0;
+    isEqualToData = v13 == 0;
   }
 
-  if ([material ltk])
+  if (objc_msgSend_ltk(material, v14, v15, v16))
   {
-    if (v8)
+    if (isEqualToData)
     {
-      v8 = -[NSData isEqualToData:](-[CLFindMyAccessoryConnectionMaterial ltk](self, "ltk"), "isEqualToData:", [material ltk]);
+      v25 = objc_msgSend_ltk(self, v22, v23, v24);
+      v29 = objc_msgSend_ltk(material, v26, v27, v28);
+      isEqualToData = objc_msgSend_isEqualToData_(v25, v30, v29, v31);
     }
   }
 
-  else if (v8)
+  else if (isEqualToData)
   {
-    v8 = [(CLFindMyAccessoryConnectionMaterial *)self ltk]== 0;
+    isEqualToData = objc_msgSend_ltk(self, v22, v23, v24) == 0;
   }
 
-  if ([material primaryIndex])
+  if (objc_msgSend_primaryIndex(material, v22, v23, v24))
   {
-    if (v8)
+    if (isEqualToData)
     {
-      v8 = -[NSNumber isEqualToNumber:](-[CLFindMyAccessoryConnectionMaterial primaryIndex](self, "primaryIndex"), "isEqualToNumber:", [material primaryIndex]);
+      v35 = objc_msgSend_primaryIndex(self, v32, v33, v34);
+      v39 = objc_msgSend_primaryIndex(material, v36, v37, v38);
+      isEqualToData = objc_msgSend_isEqualToNumber_(v35, v40, v39, v41);
     }
   }
 
-  else if (v8)
+  else if (isEqualToData)
   {
-    v8 = [(CLFindMyAccessoryConnectionMaterial *)self primaryIndex]== 0;
+    isEqualToData = objc_msgSend_primaryIndex(self, v32, v33, v34) == 0;
   }
 
-  if (![material secondaryIndex])
+  if (!objc_msgSend_secondaryIndex(material, v32, v33, v34))
   {
-    if (v8)
+    if (isEqualToData)
     {
-      return [(CLFindMyAccessoryConnectionMaterial *)self secondaryIndex]== 0;
+      return objc_msgSend_secondaryIndex(self, v42, v43, v44) == 0;
     }
 
     return 0;
   }
 
-  if (!v8)
+  if (!isEqualToData)
   {
     return 0;
   }
 
-  secondaryIndex = [(CLFindMyAccessoryConnectionMaterial *)self secondaryIndex];
-  secondaryIndex2 = [material secondaryIndex];
+  v45 = objc_msgSend_secondaryIndex(self, v42, v43, v44);
+  v50 = objc_msgSend_secondaryIndex(material, v46, v47, v48);
 
-  return [(NSNumber *)secondaryIndex isEqualToNumber:secondaryIndex2];
+  return objc_msgSend_isEqualToNumber_(v45, v49, v50, v51);
 }
 
 - (unint64_t)hash
 {
-  v3 = [(NSData *)[(CLFindMyAccessoryConnectionMaterial *)self address] hash];
-  v4 = [(NSData *)[(CLFindMyAccessoryConnectionMaterial *)self ltk] hash]^ v3;
-  v5 = [(NSNumber *)[(CLFindMyAccessoryConnectionMaterial *)self primaryIndex] hash];
-  return v4 ^ v5 ^ [(NSNumber *)[(CLFindMyAccessoryConnectionMaterial *)self secondaryIndex] hash];
+  v5 = objc_msgSend_address(self, a2, v2, v3);
+  v9 = objc_msgSend_hash(v5, v6, v7, v8);
+  v13 = objc_msgSend_ltk(self, v10, v11, v12);
+  v17 = objc_msgSend_hash(v13, v14, v15, v16) ^ v9;
+  v21 = objc_msgSend_primaryIndex(self, v18, v19, v20);
+  v25 = objc_msgSend_hash(v21, v22, v23, v24);
+  v29 = objc_msgSend_secondaryIndex(self, v26, v27, v28);
+  return v17 ^ v25 ^ objc_msgSend_hash(v29, v30, v31, v32);
+}
+
+- (id)debugDescription
+{
+  v5 = MEMORY[0x1E696AEC0];
+  v6 = objc_msgSend_primaryIndex(self, a2, v2, v3);
+  v10 = objc_msgSend_secondaryIndex(self, v7, v8, v9);
+  v14 = objc_msgSend_address(self, v11, v12, v13);
+  v18 = objc_msgSend_ltk(self, v15, v16, v17);
+  return objc_msgSend_stringWithFormat_(v5, v19, @"CLFindMyAccessoryConnectionMaterial <%p>, PrimaryIndex: %@, SecondaryIndex:%@, Address:%@, LTK:%@", v20, self, v6, v10, v14, v18);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v5 = [(NSData *)self->_address copy];
-  v6 = [(NSData *)self->_ltk copy];
-  v7 = [(NSNumber *)self->_primaryIndex copy];
-  v8 = [(NSNumber *)self->_secondaryIndex copy];
+  v8 = objc_msgSend_copy(self->_address, v5, v6, v7);
+  v12 = objc_msgSend_copy(self->_ltk, v9, v10, v11);
+  v16 = objc_msgSend_copy(self->_primaryIndex, v13, v14, v15);
+  v20 = objc_msgSend_copy(self->_secondaryIndex, v17, v18, v19);
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithAddress_ltk_primaryIndex_secondaryIndex_);
+  return MEMORY[0x1EEE66B58](v4, sel_initWithAddress_ltk_primaryIndex_secondaryIndex_, v8, v12);
 }
 
 - (CLFindMyAccessoryConnectionMaterial)initWithCoder:(id)coder
 {
-  [coder decodeObjectOfClass:objc_opt_class() forKey:@"address"];
-  [coder decodeObjectOfClass:objc_opt_class() forKey:@"ltk"];
-  [coder decodeObjectOfClass:objc_opt_class() forKey:@"primaryIndex"];
-  [coder decodeObjectOfClass:objc_opt_class() forKey:@"secondaryIndex"];
+  v5 = objc_opt_class();
+  v7 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v6, v5, @"address");
+  v8 = objc_opt_class();
+  v10 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v9, v8, @"ltk");
+  v11 = objc_opt_class();
+  objc_msgSend_decodeObjectOfClass_forKey_(coder, v12, v11, @"primaryIndex");
+  v13 = objc_opt_class();
+  objc_msgSend_decodeObjectOfClass_forKey_(coder, v14, v13, @"secondaryIndex");
 
-  return MEMORY[0x1EEE66B58](self, sel_initWithAddress_ltk_primaryIndex_secondaryIndex_);
+  return MEMORY[0x1EEE66B58](self, sel_initWithAddress_ltk_primaryIndex_secondaryIndex_, v7, v10);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeObject:self->_address forKey:@"address"];
-  [coder encodeObject:self->_ltk forKey:@"ltk"];
-  [coder encodeObject:self->_primaryIndex forKey:@"primaryIndex"];
+  objc_msgSend_encodeObject_forKey_(coder, a2, self->_address, @"address");
+  objc_msgSend_encodeObject_forKey_(coder, v5, self->_ltk, @"ltk");
+  objc_msgSend_encodeObject_forKey_(coder, v6, self->_primaryIndex, @"primaryIndex");
   secondaryIndex = self->_secondaryIndex;
 
-  [coder encodeObject:secondaryIndex forKey:@"secondaryIndex"];
+  objc_msgSend_encodeObject_forKey_(coder, v7, secondaryIndex, @"secondaryIndex");
 }
 
 - (id)dictionaryDescription
 {
-  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v5 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], a2, v2, v3);
   address = self->_address;
-  if ([(NSData *)address length]== 6)
+  if (objc_msgSend_length(address, v7, v8, v9) == 6)
   {
-    bytes = [(NSData *)address bytes];
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%02X:%02X:%02X:%02X:%02X:%02X", *bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
+    v13 = objc_msgSend_bytes(address, v10, v11, v12);
+    v16 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v14, @"%02X:%02X:%02X:%02X:%02X:%02X", v15, *v13, v13[1], v13[2], v13[3], v13[4], v13[5]);
+    objc_msgSend_setObject_forKey_(v5, v17, v16, @"address");
   }
 
   else
   {
-    v6 = 0;
+    objc_msgSend_setObject_forKey_(v5, v10, 0, @"address");
   }
 
-  [dictionary setObject:v6 forKey:@"address"];
   ltk = self->_ltk;
   if (ltk)
   {
-    if ([(NSData *)self->_ltk length]>= 0x10)
+    if (objc_msgSend_length(self->_ltk, v18, v19, v20) >= 0x10)
     {
-      bytes2 = [(NSData *)ltk bytes];
-      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X", *bytes2, bytes2[1], bytes2[2], bytes2[3], bytes2[4], bytes2[5], bytes2[6], bytes2[7], bytes2[8], bytes2[9], bytes2[10], bytes2[11], bytes2[12], bytes2[13], bytes2[14], bytes2[15]];
+      v25 = objc_msgSend_bytes(ltk, v22, v23, v24);
+      v26 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v25[9], @"%02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X", v25[11], *v25, v25[1], v25[2], v25[3], v25[4], v25[5], v25[6], v25[7], v25[8], v25[9], v25[10], v25[11], v25[12], v25[13], v25[14], v25[15]);
+      objc_msgSend_setObject_forKey_(v5, v27, v26, @"ltk");
     }
 
     else
     {
-      v8 = 0;
+      objc_msgSend_setObject_forKey_(v5, v22, 0, @"ltk");
     }
-
-    [dictionary setObject:v8 forKey:@"ltk"];
   }
 
   primaryIndex = self->_primaryIndex;
   if (primaryIndex)
   {
-    [dictionary setObject:primaryIndex forKey:@"primaryIndex"];
+    objc_msgSend_setObject_forKey_(v5, v18, primaryIndex, @"primaryIndex");
   }
 
   secondaryIndex = self->_secondaryIndex;
   if (secondaryIndex)
   {
-    [dictionary setObject:secondaryIndex forKey:@"secondaryIndex"];
+    objc_msgSend_setObject_forKey_(v5, v18, secondaryIndex, @"secondaryIndex");
   }
 
-  return dictionary;
+  return v5;
 }
 
 - (void)dealloc

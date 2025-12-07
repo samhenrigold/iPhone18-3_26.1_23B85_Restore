@@ -39,31 +39,31 @@
 
 - (NSArray)viewControllers
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   os_unfair_lock_lock(&self->_lock);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = self->_lock_viewControllers;
-  v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        [array addObject:{*(*(&v11 + 1) + 8 * i), v11}];
+        [array addObject:{*(*(&v10 + 1) + 8 * i), v10}];
       }
 
-      v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -71,8 +71,6 @@
 
   os_unfair_lock_unlock(&self->_lock);
   v8 = [array copy];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

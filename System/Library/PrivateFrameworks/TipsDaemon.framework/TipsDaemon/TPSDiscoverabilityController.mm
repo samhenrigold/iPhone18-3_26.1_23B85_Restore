@@ -134,15 +134,12 @@
   return v4;
 }
 
-uint64_t __49__TPSDiscoverabilityController_contextualInfoMap__block_invoke(uint64_t a1)
+void *__49__TPSDiscoverabilityController_contextualInfoMap__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) count];
   if (result)
   {
-    v3 = [*(*(a1 + 32) + 24) copy];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 24) copy];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -175,10 +172,7 @@ uint64_t __49__TPSDiscoverabilityController_contextualInfoMap__block_invoke(uint
 
 uint64_t __57__TPSDiscoverabilityController_contextualInfoIdentifiers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 24) allKeys];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 24) allKeys];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -283,10 +277,7 @@ void __56__TPSDiscoverabilityController_removeAllContextualInfos__block_invoke(u
 
 uint64_t __60__TPSDiscoverabilityController_contextualInfoForIdentifier___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 24) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 24) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -319,7 +310,7 @@ uint64_t __60__TPSDiscoverabilityController_contextualInfoForIdentifier___block_
 
 void __57__TPSDiscoverabilityController__cleanupContextualInfoMap__block_invoke(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 48);
   if (([v4 isPreconditionMatchedForIdentifier:v3] & 1) == 0)
@@ -349,56 +340,52 @@ void __57__TPSDiscoverabilityController__cleanupContextualInfoMap__block_invoke(
 LABEL_9:
     v8 = [v4 lastDisplayContextForIdentifier:v3];
     v9 = *(a1 + 32);
-    v12[0] = v3;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = v3;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     [v9 markHintIneligibleForIdentifiers:v10 context:v8 reason:v6];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restartTriggerTrackingIfNotDisplayedForIdentifiers:(id)identifiers
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [identifiersCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [identifiersCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(identifiersCopy);
         }
 
-        [(TPSDiscoverabilityController *)self restartTriggerTrackingIfNotDisplayedForIdentifier:*(*(&v10 + 1) + 8 * v8++) updateCache:0];
+        [(TPSDiscoverabilityController *)self restartTriggerTrackingIfNotDisplayedForIdentifier:*(*(&v9 + 1) + 8 * v8++) updateCache:0];
       }
 
       while (v6 != v8);
-      v6 = [identifiersCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [identifiersCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
 
   [(TPSDiscoverabilityController *)self _updateCacheData];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restartTriggerTrackingIfNotDisplayedForIdentifier:(id)identifier updateCache:(BOOL)cache
 {
   cacheCopy = cache;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (([(TPSTipStatusController *)self->_tipStatusController isHintDisplayedForIdentifier:identifierCopy]& 1) == 0)
   {
@@ -424,11 +411,11 @@ LABEL_9:
         discoverability = [MEMORY[0x277D71778] discoverability];
         if (os_log_type_enabled(discoverability, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = 138412546;
-          v15 = identifierCopy;
-          v16 = 2112;
-          v17 = v10;
-          _os_log_impl(&dword_232D6F000, discoverability, OS_LOG_TYPE_DEFAULT, "Restart trigger tracking for %@ on %@", &v14, 0x16u);
+          v13 = 138412546;
+          v14 = identifierCopy;
+          v15 = 2112;
+          v16 = v10;
+          _os_log_impl(&dword_232D6F000, discoverability, OS_LOG_TYPE_DEFAULT, "Restart trigger tracking for %@ on %@", &v13, 0x16u);
         }
 
         if (cacheCopy)
@@ -438,14 +425,12 @@ LABEL_9:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contextualEligibilityWithTipIdentifiers:(id)identifiers tipsDeliveryInfoMap:(id)map deliveryInfoMap:(id)infoMap experimentCampChangesToAll:(BOOL)all
 {
   allCopy = all;
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   mapCopy = map;
   infoMapCopy = infoMap;
@@ -459,16 +444,16 @@ LABEL_9:
   [(TPSDiscoverabilityController *)self _cleanupContextualInfoMap];
   if (identifiersCopy)
   {
-    v54 = mapCopy;
+    v53 = mapCopy;
     v14 = MEMORY[0x277CBEB58];
     p_tipStatusController = &self->_tipStatusController;
     reenrollPreconditionChangeContent = [(TPSTipStatusController *)self->_tipStatusController reenrollPreconditionChangeContent];
-    v52 = [v14 setWithSet:reenrollPreconditionChangeContent];
+    v51 = [v14 setWithSet:reenrollPreconditionChangeContent];
 
     if (allCopy)
     {
       reenrollHoldoutContent = [(TPSTipStatusController *)*p_tipStatusController reenrollHoldoutContent];
-      [v52 unionSet:reenrollHoldoutContent];
+      [v51 unionSet:reenrollHoldoutContent];
     }
 
     discoverability2 = [MEMORY[0x277D71778] discoverability];
@@ -486,39 +471,39 @@ LABEL_9:
       v20 = v19;
       v21 = MEMORY[0x277CBEB58];
       contextualInfoIdentifiers = [(TPSDiscoverabilityController *)self contextualInfoIdentifiers];
-      v49 = [v21 setWithArray:contextualInfoIdentifiers];
+      v48 = [v21 setWithArray:contextualInfoIdentifiers];
 
-      v56 = [MEMORY[0x277CBEB58] setWithCapacity:v20];
-      v51 = [MEMORY[0x277CBEB18] arrayWithCapacity:v20];
+      v55 = [MEMORY[0x277CBEB58] setWithCapacity:v20];
+      v50 = [MEMORY[0x277CBEB18] arrayWithCapacity:v20];
+      v63 = 0u;
       v64 = 0u;
       v65 = 0u;
       v66 = 0u;
-      v67 = 0u;
-      v50 = identifiersCopy;
+      v49 = identifiersCopy;
       obj = identifiersCopy;
-      v61 = [obj countByEnumeratingWithState:&v64 objects:v73 count:16];
-      if (!v61)
+      v60 = [obj countByEnumeratingWithState:&v63 objects:v72 count:16];
+      if (!v60)
       {
-        v53 = 0;
+        v52 = 0;
         goto LABEL_71;
       }
 
-      v53 = 0;
-      v60 = *v65;
+      v52 = 0;
+      v59 = *v64;
       selfCopy = self;
-      v57 = infoMapCopy;
+      v56 = infoMapCopy;
       while (1)
       {
         v23 = 0;
         do
         {
-          if (*v65 != v60)
+          if (*v64 != v59)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v64 + 1) + 8 * v23);
-          v25 = [mapCopy objectForKeyedSubscript:{v24, v49}];
+          v24 = *(*(&v63 + 1) + 8 * v23);
+          v25 = [mapCopy objectForKeyedSubscript:{v24, v48}];
           v26 = [TPSContextualInfo contentDictionaryWithTipDeliveryInfoId:v25 deliveryInfoMap:infoMapCopy];
 
           if (v26)
@@ -550,7 +535,7 @@ LABEL_20:
           {
             if (![v29 hasChangesFromDictionary:v26])
             {
-              if (!v30 && (([v52 containsObject:v24] ^ 1) & 1) != 0)
+              if (!v30 && (([v51 containsObject:v24] ^ 1) & 1) != 0)
               {
                 goto LABEL_45;
               }
@@ -559,12 +544,12 @@ LABEL_20:
             }
 
             eventsHistoryController = self->_eventsHistoryController;
-            v72 = v24;
-            v53 = 1;
-            v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
+            v71 = v24;
+            v52 = 1;
+            v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v71 count:1];
             [(TPSEventsHistoryController *)eventsHistoryController removeObserverIdentifiers:v32];
 
-            mapCopy = v54;
+            mapCopy = v53;
             [(TPSDiscoverabilityController *)self updateIdentifier:v24 withContextualInfo:0];
           }
 
@@ -599,7 +584,7 @@ LABEL_31:
 
               if (!v42)
               {
-                [v51 addObject:v24];
+                [v50 addObject:v24];
               }
 
               v27 = 0;
@@ -611,7 +596,7 @@ LABEL_31:
 
             if (v27)
             {
-              v36 = &v63;
+              v36 = &v62;
             }
 
             else
@@ -621,12 +606,12 @@ LABEL_31:
 
             if (v27)
             {
-              v63 = 0;
+              v62 = 0;
             }
 
             if (v28)
             {
-              v37 = &v62;
+              v37 = &v61;
             }
 
             else
@@ -636,20 +621,20 @@ LABEL_31:
 
             if (v28)
             {
-              v62 = 0;
+              v61 = 0;
             }
 
             [TPSContextualInfo eventsInfoArrayForContextualInfoDictionary:v26 triggerEvents:v36 desiredOutcomeEvents:v37];
             if (v27)
             {
-              v38 = v63;
+              v38 = v62;
               if (!v28)
               {
                 goto LABEL_44;
               }
 
 LABEL_47:
-              v39 = v62;
+              v39 = v61;
             }
 
             else
@@ -674,17 +659,17 @@ LABEL_44:
                 if (os_log_type_enabled(discoverability3, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412546;
-                  v69 = v24;
-                  v70 = 2112;
-                  *v71 = v30;
+                  v68 = v24;
+                  v69 = 2112;
+                  *v70 = v30;
                   _os_log_debug_impl(&dword_232D6F000, discoverability3, OS_LOG_TYPE_DEBUG, "Restarted trigger tracking for %@ on %@", buf, 0x16u);
                 }
               }
 
               [(TPSDiscoverabilityController *)selfCopy updateIdentifier:v24 withContextualInfo:v29];
               [(TPSEventsHistoryController *)selfCopy->_eventsHistoryController addEventsFromTriggerEvents:v38 desiredOutcomeEvents:v39 contentIdentifier:v24 eventSinceDate:v30];
-              [v56 addObject:v24];
-              v53 = 1;
+              [v55 addObject:v24];
+              v52 = 1;
             }
 
             else
@@ -693,60 +678,60 @@ LABEL_44:
               if (os_log_type_enabled(discoverability4, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v69 = v24;
+                v68 = v24;
                 _os_log_impl(&dword_232D6F000, discoverability4, OS_LOG_TYPE_DEFAULT, "Tips %@ eligible for tracking but not events found in delivery info", buf, 0xCu);
               }
             }
 
-            mapCopy = v54;
+            mapCopy = v53;
             self = selfCopy;
             goto LABEL_56;
           }
 
 LABEL_45:
-          [v56 addObject:v24];
+          [v55 addObject:v24];
 LABEL_56:
 
-          infoMapCopy = v57;
+          infoMapCopy = v56;
 LABEL_57:
           discoverability5 = [MEMORY[0x277D71778] discoverability];
           if (os_log_type_enabled(discoverability5, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v69 = v24;
-            v70 = 1024;
-            *v71 = v27;
-            *&v71[4] = 1024;
-            *&v71[6] = v28;
+            v68 = v24;
+            v69 = 1024;
+            *v70 = v27;
+            *&v70[4] = 1024;
+            *&v70[6] = v28;
             _os_log_impl(&dword_232D6F000, discoverability5, OS_LOG_TYPE_DEFAULT, "Tips %@ is eligible for trigger tracking: %d, desired outcome tracking: %d", buf, 0x18u);
           }
 
           ++v23;
         }
 
-        while (v61 != v23);
-        v44 = [obj countByEnumeratingWithState:&v64 objects:v73 count:16];
-        v61 = v44;
+        while (v60 != v23);
+        v44 = [obj countByEnumeratingWithState:&v63 objects:v72 count:16];
+        v60 = v44;
         if (!v44)
         {
 LABEL_71:
 
-          v45 = v49;
-          [v49 minusSet:v56];
-          v46 = v53;
-          if ([v49 count])
+          v45 = v48;
+          [v48 minusSet:v55];
+          v46 = v52;
+          if ([v48 count])
           {
-            allObjects = [v49 allObjects];
+            allObjects = [v48 allObjects];
             [(TPSEventsHistoryController *)self->_eventsHistoryController removeObserverIdentifiers:allObjects];
             [(TPSDiscoverabilityController *)self removeContextualInfoForIdentifiers:allObjects];
 
             v46 = 1;
           }
 
-          identifiersCopy = v50;
-          if ([v51 count])
+          identifiersCopy = v49;
+          if ([v50 count])
           {
-            [(TPSDiscoverabilityController *)self _updateTriggerConditionForObserverIdentifiers:v51];
+            [(TPSDiscoverabilityController *)self _updateTriggerConditionForObserverIdentifiers:v50];
           }
 
           if (v46)
@@ -759,12 +744,10 @@ LABEL_71:
       }
     }
 
-    mapCopy = v54;
+    mapCopy = v53;
   }
 
   [(TPSDiscoverabilityController *)self queryCurrentEvents];
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void __135__TPSDiscoverabilityController_contextualEligibilityWithTipIdentifiers_tipsDeliveryInfoMap_deliveryInfoMap_experimentCampChangesToAll___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -780,7 +763,7 @@ void __135__TPSDiscoverabilityController_contextualEligibilityWithTipIdentifiers
 
 - (void)queryCurrentEvents
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   contextualEventsBySourceMap = [(TPSEventsHistoryController *)self->_eventsHistoryController contextualEventsBySourceMap];
   discoverability = [MEMORY[0x277D71778] discoverability];
   if (os_log_type_enabled(discoverability, OS_LOG_TYPE_DEFAULT))
@@ -788,22 +771,20 @@ void __135__TPSDiscoverabilityController_contextualEligibilityWithTipIdentifiers
     allValues = [contextualEventsBySourceMap allValues];
     v6 = [allValues description];
     *buf = 138412290;
-    v15 = v6;
+    v14 = v6;
     _os_log_impl(&dword_232D6F000, discoverability, OS_LOG_TYPE_DEFAULT, "Query events: %@", buf, 0xCu);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
   v8 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(eventSinceDate = nil) || (eventSinceDate <= %@)", date];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __50__TPSDiscoverabilityController_queryCurrentEvents__block_invoke;
-  v11[3] = &unk_2789B12F8;
-  v12 = v8;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __50__TPSDiscoverabilityController_queryCurrentEvents__block_invoke;
+  v10[3] = &unk_2789B12F8;
+  v11 = v8;
   selfCopy = self;
   v9 = v8;
-  [contextualEventsBySourceMap enumerateKeysAndObjectsUsingBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [contextualEventsBySourceMap enumerateKeysAndObjectsUsingBlock:v10];
 }
 
 void __50__TPSDiscoverabilityController_queryCurrentEvents__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -841,34 +822,8 @@ void __70__TPSDiscoverabilityController_processEventProviderQueryResults_type___
     [*(a1 + 32) removeContextualInfoForIdentifiers:v6];
   }
 
-  if ([v5 count])
+  if ([v5 count] && ((v14[0] = MEMORY[0x277D85DD0], v14[1] = 3221225472, v14[2] = __70__TPSDiscoverabilityController_processEventProviderQueryResults_type___block_invoke_2, v14[3] = &unk_2789B1320, v14[4] = *(a1 + 32), objc_msgSend(MEMORY[0x277CCAC30], "predicateWithBlock:", v14), v7 = objc_claimAutoreleasedReturnValue(), v13[0] = MEMORY[0x277D85DD0], v13[1] = 3221225472, v13[2] = __70__TPSDiscoverabilityController_processEventProviderQueryResults_type___block_invoke_3, v13[3] = &unk_2789B1320, v13[4] = *(a1 + 32), objc_msgSend(MEMORY[0x277CCAC30], "predicateWithBlock:", v13), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "filteredArrayUsingPredicate:", v7), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(*(a1 + 32), "updateDesiredOutcomeConditionForObserverIdentifiers:", v9), objc_msgSend(v5, "filteredArrayUsingPredicate:", v8), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(*(a1 + 32), "_updateTriggerConditionForObserverIdentifiers:", v11), v11, v9, v8, v7, (v10 & 1) != 0) || (v12 & 1) != 0) || objc_msgSend(v6, "count"))
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __70__TPSDiscoverabilityController_processEventProviderQueryResults_type___block_invoke_2;
-    v14[3] = &unk_2789B1320;
-    v14[4] = *(a1 + 32);
-    v7 = [MEMORY[0x277CCAC30] predicateWithBlock:v14];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __70__TPSDiscoverabilityController_processEventProviderQueryResults_type___block_invoke_3;
-    v13[3] = &unk_2789B1320;
-    v13[4] = *(a1 + 32);
-    v8 = [MEMORY[0x277CCAC30] predicateWithBlock:v13];
-    v9 = [v5 filteredArrayUsingPredicate:v7];
-    v10 = [*(a1 + 32) updateDesiredOutcomeConditionForObserverIdentifiers:v9];
-    v11 = [v5 filteredArrayUsingPredicate:v8];
-    v12 = [*(a1 + 32) _updateTriggerConditionForObserverIdentifiers:v11];
-
-    if (v10 & 1) != 0 || (v12)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  if ([v6 count])
-  {
-LABEL_7:
     [*(a1 + 32) _updateCacheData];
   }
 }
@@ -926,7 +881,7 @@ void __61__TPSDiscoverabilityController__updateContextualInfoMapCache__block_inv
 
 - (void)markHintIneligibleForIdentifiers:(id)identifiers bundleID:(id)d context:(id)context reason:(int64_t)reason
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   dCopy = d;
   contextCopy = context;
@@ -935,32 +890,32 @@ void __61__TPSDiscoverabilityController__updateContextualInfoMapCache__block_inv
   {
     v13 = [MEMORY[0x277D715E8] ineligibleReasonStringForReason:reason];
     *buf = 138412546;
-    v32 = identifiersCopy;
-    v33 = 2112;
-    v34 = v13;
+    v31 = identifiersCopy;
+    v32 = 2112;
+    v33 = v13;
     _os_log_impl(&dword_232D6F000, discoverability, OS_LOG_TYPE_DEFAULT, "Marking content as ineligible for content identifiers: %@. Ineligible reason: %@", buf, 0x16u);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = identifiersCopy;
-  v14 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v14 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v27;
+    v16 = *v26;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v27 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v26 + 1) + 8 * i);
+        v18 = *(*(&v25 + 1) + 8 * i);
         v19 = [(TPSTipStatusController *)self->_tipStatusController displayTypeForIdentifier:v18];
         if (!contextCopy)
         {
@@ -975,14 +930,13 @@ void __61__TPSDiscoverabilityController__updateContextualInfoMapCache__block_inv
         [(TPSTipStatusController *)self->_tipStatusController updateHintIneligibleForIdentifier:v18 value:reason];
       }
 
-      v15 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v15 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v15);
   }
 
   [(TPSTipStatusController *)self->_tipStatusController updateCacheData];
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)updateDesiredOutcomeConditionForObserverIdentifiers:(id)identifiers
@@ -1003,14 +957,14 @@ void __61__TPSDiscoverabilityController__updateContextualInfoMapCache__block_inv
 
 void __84__TPSDiscoverabilityController_updateDesiredOutcomeConditionForObserverIdentifiers___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277D71778] discoverability];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = v5;
+    v26 = v5;
     _os_log_impl(&dword_232D6F000, v7, OS_LOG_TYPE_DEFAULT, "Desired outcome condition met for %@", buf, 0xCu);
   }
 
@@ -1039,30 +993,28 @@ void __84__TPSDiscoverabilityController_updateDesiredOutcomeConditionForObserver
     if (([*(*(a1 + 32) + 48) isHintIneligibleForIdentifier:v5] & 1) == 0)
     {
       v14 = *(a1 + 32);
-      v25 = v5;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+      v24 = v5;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
       [v14 markHintIneligibleForIdentifiers:v15 context:0 reason:6];
     }
 
     v16 = *(a1 + 32);
-    v24 = v5;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+    v23 = v5;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
     [v16 removeContextualInfoForIdentifiers:v17];
 
     v18 = *(*(a1 + 32) + 16);
-    v23 = v5;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+    v22 = v5;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
     [v18 removeObserverIdentifiers:v19];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_updateTriggerConditionForObserverIdentifiers:(id)identifiers
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v4 = [(TPSDiscoverabilityController *)self _matchingIdentifiersForConditionWithType:0 forObserverIdentifiers:identifiers hasUpdates:&v15];
+  v17 = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v4 = [(TPSDiscoverabilityController *)self _matchingIdentifiersForConditionWithType:0 forObserverIdentifiers:identifiers hasUpdates:&v14];
   if ([v4 count])
   {
     discoverability = [MEMORY[0x277D71778] discoverability];
@@ -1071,29 +1023,28 @@ void __84__TPSDiscoverabilityController_updateDesiredOutcomeConditionForObserver
       allValues = [v4 allValues];
       v7 = [allValues debugDescription];
       *buf = 138412290;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&dword_232D6F000, discoverability, OS_LOG_TYPE_DEFAULT, "Trigger condition met for tips %@", buf, 0xCu);
     }
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __78__TPSDiscoverabilityController__updateTriggerConditionForObserverIdentifiers___block_invoke;
-    v13[3] = &unk_2789B1398;
-    v13[4] = self;
-    v8 = v4;
-    v14 = v8;
-    [v8 enumerateKeysAndObjectsUsingBlock:v13];
     v12[0] = MEMORY[0x277D85DD0];
     v12[1] = 3221225472;
-    v12[2] = __78__TPSDiscoverabilityController__updateTriggerConditionForObserverIdentifiers___block_invoke_2;
-    v12[3] = &unk_2789B1370;
+    v12[2] = __78__TPSDiscoverabilityController__updateTriggerConditionForObserverIdentifiers___block_invoke;
+    v12[3] = &unk_2789B1398;
     v12[4] = self;
+    v8 = v4;
+    v13 = v8;
     [v8 enumerateKeysAndObjectsUsingBlock:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __78__TPSDiscoverabilityController__updateTriggerConditionForObserverIdentifiers___block_invoke_2;
+    v11[3] = &unk_2789B1370;
+    v11[4] = self;
+    [v8 enumerateKeysAndObjectsUsingBlock:v11];
   }
 
-  v9 = v15;
+  v9 = v14;
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1114,7 +1065,7 @@ void __78__TPSDiscoverabilityController__updateTriggerConditionForObserverIdenti
 
 - (id)_matchingIdentifiersForConditionWithType:(unint64_t)type forObserverIdentifiers:(id)identifiers hasUpdates:(BOOL *)updates
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   if ([identifiersCopy count])
   {
@@ -1126,30 +1077,30 @@ void __78__TPSDiscoverabilityController__updateTriggerConditionForObserverIdenti
     v8 = 0;
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v9 = identifiersCopy;
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (!v10)
   {
     goto LABEL_19;
   }
 
   v11 = v10;
-  v12 = *v25;
+  v12 = *v24;
   do
   {
     v13 = 0;
     do
     {
-      if (*v25 != v12)
+      if (*v24 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v24 + 1) + 8 * v13);
+      v14 = *(*(&v23 + 1) + 8 * v13);
       v15 = [(TPSDiscoverabilityController *)self contextualInfoForIdentifier:v14];
       v16 = [v15 conditionForType:type];
       v17 = v16;
@@ -1183,7 +1134,7 @@ LABEL_14:
     }
 
     while (v11 != v13);
-    v19 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v19 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     v11 = v19;
   }
 
@@ -1200,45 +1151,43 @@ LABEL_19:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (BOOL)_isConditionMet:(id)met hasUpdates:(BOOL *)updates forIdentifier:(id)identifier
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   metCopy = met;
   identifierCopy = identifier;
   rules = [metCopy rules];
-  v41 = metCopy;
+  v40 = metCopy;
   joinType = [metCopy joinType];
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   obj = rules;
-  v10 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
+  v10 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
     v13 = 0;
-    v14 = *v58;
-    v43 = *v58;
-    v44 = joinType;
+    v14 = *v57;
+    v42 = *v57;
+    v43 = joinType;
     while (2)
     {
       v15 = 0;
-      v45 = v11;
+      v44 = v11;
       do
       {
-        if (*v58 != v14)
+        if (*v57 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v57 + 1) + 8 * v15);
+        v16 = *(*(&v56 + 1) + 8 * v15);
         matchedDate = [v16 matchedDate];
         if (matchedDate)
         {
@@ -1254,34 +1203,34 @@ LABEL_19:
 
         else
         {
-          v51 = v12;
-          v52 = v13;
-          v46 = v16;
+          v50 = v12;
+          v51 = v13;
+          v45 = v16;
           eventIdentifiers = [v16 eventIdentifiers];
           v19 = [(TPSEventsHistoryController *)self->_eventsHistoryController contextualEventsForIdentifiers:?];
+          v52 = 0u;
           v53 = 0u;
           v54 = 0u;
           v55 = 0u;
-          v56 = 0u;
           v20 = v19;
-          v21 = [v20 countByEnumeratingWithState:&v53 objects:v61 count:16];
+          v21 = [v20 countByEnumeratingWithState:&v52 objects:v60 count:16];
           if (v21)
           {
             v22 = v21;
             v23 = 0;
             v24 = 0;
-            v25 = *v54;
+            v25 = *v53;
 LABEL_11:
             v26 = 0;
-            v48 = v24 + v22;
+            v47 = v24 + v22;
             while (1)
             {
-              if (*v54 != v25)
+              if (*v53 != v25)
               {
                 objc_enumerationMutation(v20);
               }
 
-              matchedDate2 = [*(*(&v53 + 1) + 8 * v26) matchedDate];
+              matchedDate2 = [*(*(&v52 + 1) + 8 * v26) matchedDate];
               if (!matchedDate2)
               {
                 break;
@@ -1300,8 +1249,8 @@ LABEL_11:
 
               if (v22 == ++v26)
               {
-                v22 = [v20 countByEnumeratingWithState:&v53 objects:v61 count:16];
-                v24 = v48;
+                v22 = [v20 countByEnumeratingWithState:&v52 objects:v60 count:16];
+                v24 = v47;
                 if (v22)
                 {
                   goto LABEL_11;
@@ -1320,24 +1269,24 @@ LABEL_11:
 
           if (v24 == [v20 count] && objc_msgSend(eventIdentifiers, "count") == v24)
           {
-            [v46 setMatchedDate:v23];
+            [v45 setMatchedDate:v23];
             v30 = MEMORY[0x277D71650];
             v31 = [(TPSTipStatusController *)self->_tipStatusController correlationIdentifierForIdentifier:identifierCopy];
-            identifier = [v46 identifier];
+            identifier = [v45 identifier];
             v33 = [v30 eventWithTipID:identifierCopy correlationID:v31 ruleID:identifier];
             [v33 log];
 
-            v12 = v51;
-            if (!v51 || [v23 compare:v51] == 1)
+            v12 = v50;
+            if (!v50 || [v23 compare:v50] == 1)
             {
               v34 = v23;
 
               v12 = v34;
             }
 
-            joinType = v44;
-            v13 = v52 + 1;
-            if (v44 == 1)
+            joinType = v43;
+            v13 = v51 + 1;
+            if (v43 == 1)
             {
 LABEL_35:
 
@@ -1348,24 +1297,24 @@ LABEL_35:
 
           else
           {
-            joinType = v44;
-            v12 = v51;
-            v13 = v52;
-            if (!v44)
+            joinType = v43;
+            v12 = v50;
+            v13 = v51;
+            if (!v43)
             {
               goto LABEL_35;
             }
           }
 
-          v14 = v43;
-          v11 = v45;
+          v14 = v42;
+          v11 = v44;
         }
 
         ++v15;
       }
 
       while (v15 != v11);
-      v11 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
+      v11 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
       v18 = v12;
       if (v11)
       {
@@ -1387,51 +1336,48 @@ LABEL_36:
   v35 = [obj count];
   if (joinType == 1 && v13 || (v13 == v35 ? (v38 = joinType == 0) : (v38 = 0), v38 || !v35))
   {
-    v36 = v41;
-    [v41 setMatchedDate:v18];
+    v36 = v40;
+    [v40 setMatchedDate:v18];
     v37 = 1;
   }
 
   else
   {
     v37 = 0;
-    v36 = v41;
+    v36 = v40;
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
 - (void)updateContentViewedForIdentifier:(id)identifier
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   discoverability = [MEMORY[0x277D71778] discoverability];
   if (os_log_type_enabled(discoverability, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = identifierCopy;
-    _os_log_impl(&dword_232D6F000, discoverability, OS_LOG_TYPE_DEFAULT, "update content viewed for %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = identifierCopy;
+    _os_log_impl(&dword_232D6F000, discoverability, OS_LOG_TYPE_DEFAULT, "update content viewed for %@", &v6, 0xCu);
   }
 
   [(TPSTipStatusController *)self->_tipStatusController updateContentViewedForIdentifier:identifierCopy value:1];
   [(TPSTipStatusController *)self->_tipStatusController updateCacheData];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addHintDisplayedForIdentifier:(id)identifier context:(id)context
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   contextCopy = context;
   discoverability = [MEMORY[0x277D71778] discoverability];
   if (os_log_type_enabled(discoverability, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v22 = identifierCopy;
-    v23 = 2112;
-    v24 = contextCopy;
+    v21 = identifierCopy;
+    v22 = 2112;
+    v23 = contextCopy;
     _os_log_impl(&dword_232D6F000, discoverability, OS_LOG_TYPE_DEFAULT, "update hint displayed for %@, context %@", buf, 0x16u);
   }
 
@@ -1449,26 +1395,24 @@ LABEL_36:
     v15 = MEMORY[0x277D71668];
     v16 = [(TPSTipStatusController *)self->_tipStatusController correlationIdentifierForIdentifier:identifierCopy];
     clientBundleIdentifier = [MEMORY[0x277D716E8] clientBundleIdentifier];
-    LOBYTE(v20) = v14;
-    v18 = [v15 eventWithTipID:identifierCopy correlationID:v16 bundleID:clientBundleIdentifier context:contextCopy displayType:v12 usageFlags:v13 experiment:v11 overrideHoldout:v20 date:0];
+    LOBYTE(v19) = v14;
+    v18 = [v15 eventWithTipID:identifierCopy correlationID:v16 bundleID:clientBundleIdentifier context:contextCopy displayType:v12 usageFlags:v13 experiment:v11 overrideHoldout:v19 date:0];
     [v18 log];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateHintWouldHaveBeenDisplayedForIdentifier:(id)identifier context:(id)context
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   contextCopy = context;
   discoverability = [MEMORY[0x277D71778] discoverability];
   if (os_log_type_enabled(discoverability, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v22 = identifierCopy;
-    v23 = 2112;
-    v24 = contextCopy;
+    v21 = identifierCopy;
+    v22 = 2112;
+    v23 = contextCopy;
     _os_log_impl(&dword_232D6F000, discoverability, OS_LOG_TYPE_DEFAULT, "update hint would have been displayed for %@, context %@", buf, 0x16u);
   }
 
@@ -1486,12 +1430,10 @@ LABEL_36:
     v15 = MEMORY[0x277D71668];
     v16 = [(TPSTipStatusController *)self->_tipStatusController correlationIdentifierForIdentifier:identifierCopy];
     clientBundleIdentifier = [MEMORY[0x277D716E8] clientBundleIdentifier];
-    LOBYTE(v20) = v14;
-    v18 = [v15 eventWithTipID:identifierCopy correlationID:v16 bundleID:clientBundleIdentifier context:contextCopy displayType:v12 usageFlags:v13 experiment:v11 overrideHoldout:v20 date:0];
+    LOBYTE(v19) = v14;
+    v18 = [v15 eventWithTipID:identifierCopy correlationID:v16 bundleID:clientBundleIdentifier context:contextCopy displayType:v12 usageFlags:v13 experiment:v11 overrideHoldout:v19 date:0];
     [v18 log];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataProviderManager:(id)manager didFinishQueryWithResults:(id)results type:(int64_t)type
@@ -1530,7 +1472,7 @@ LABEL_36:
 
 void __86__TPSDiscoverabilityController_dataProviderManager_didReceiveCallbackWithResult_type___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1549,9 +1491,9 @@ void __86__TPSDiscoverabilityController_dataProviderManager_didReceiveCallbackWi
       v12 = [MEMORY[0x277D71778] discoverability];
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412290;
-        v17 = v5;
-        _os_log_impl(&dword_232D6F000, v12, OS_LOG_TYPE_DEFAULT, "Hint already marked as ineligible for %@", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = v5;
+        _os_log_impl(&dword_232D6F000, v12, OS_LOG_TYPE_DEFAULT, "Hint already marked as ineligible for %@", &v15, 0xCu);
       }
     }
 
@@ -1560,13 +1502,11 @@ void __86__TPSDiscoverabilityController_dataProviderManager_didReceiveCallbackWi
       v13 = [WeakRetained tipStatusController];
       v12 = [v13 lastDisplayContextForIdentifier:v5];
 
-      v18[0] = v5;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+      v17[0] = v5;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
       [WeakRetained markHintIneligibleForIdentifiers:v14 context:v12 reason:4];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (TPSDiscoverabilityControllerDelegate)delegate
@@ -1578,53 +1518,42 @@ void __86__TPSDiscoverabilityController_dataProviderManager_didReceiveCallbackWi
 
 void __57__TPSDiscoverabilityController__cleanupContextualInfoMap__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "Content %@ became invalid due to precondition changed", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "Content %@ became invalid due to precondition changed", &v2, 0xCu);
 }
 
 void __57__TPSDiscoverabilityController__cleanupContextualInfoMap__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "Content %@ became invalid due to delivery info lifetime expiration", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "Content %@ became invalid due to delivery info lifetime expiration", &v2, 0xCu);
 }
 
 - (void)contextualEligibilityWithTipIdentifiers:(id *)a1 tipsDeliveryInfoMap:deliveryInfoMap:experimentCampChangesToAll:.cold.1(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 tipStatusMap];
   [v1 count];
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __135__TPSDiscoverabilityController_contextualEligibilityWithTipIdentifiers_tipsDeliveryInfoMap_deliveryInfoMap_experimentCampChangesToAll___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a2 debugDescription];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __50__TPSDiscoverabilityController_queryCurrentEvents__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a2 description];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

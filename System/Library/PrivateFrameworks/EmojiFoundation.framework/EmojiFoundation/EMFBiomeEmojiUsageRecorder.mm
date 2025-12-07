@@ -71,7 +71,7 @@
 
 - (BOOL)report
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   localeIdentifier = [(EMFBiomeEmojiUsageRecorder *)self localeIdentifier];
 
   if (localeIdentifier)
@@ -80,23 +80,23 @@
 
     if (!biomeStream)
     {
-      _createEngagementEvent = emf_logging_get_default_log();
+      _createEngagementEvent = emf_logging_get_default_log(v5);
       if (os_log_type_enabled(_createEngagementEvent, OS_LOG_TYPE_DEBUG))
       {
         [(EMFBiomeEmojiUsageRecorder *)_createEngagementEvent report];
       }
 
-      v6 = 0;
+      v7 = 0;
       goto LABEL_16;
     }
 
     _createEngagementEvent = [(EMFBiomeEmojiUsageRecorder *)self _createEngagementEvent];
-    v6 = _createEngagementEvent != 0;
-    v7 = emf_logging_get_default_log();
-    delegate2 = v7;
+    v7 = _createEngagementEvent != 0;
+    v8 = emf_logging_get_default_log(_createEngagementEvent);
+    delegate2 = v8;
     if (_createEngagementEvent)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [(EMFBiomeEmojiUsageRecorder *)_createEngagementEvent report];
       }
@@ -108,24 +108,24 @@
 
       if (!delegate)
       {
-        v6 = 1;
+        v7 = 1;
         goto LABEL_16;
       }
 
       delegate2 = [(EMFBiomeEmojiUsageRecorder *)self delegate];
       emoji = [_createEngagementEvent emoji];
-      v14[0] = emoji;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
-      [delegate2 record:v12];
+      v15[0] = emoji;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+      [delegate2 record:v13];
     }
 
-    else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(EMFBiomeEmojiUsageRecorder *)self report];
     }
 
 LABEL_16:
-    return v6;
+    return v7;
   }
 
   return 0;
@@ -138,8 +138,8 @@ LABEL_16:
 
   if (!string)
   {
-    v7 = emf_logging_get_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = emf_logging_get_default_log(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(EMFBiomeEmojiUsageRecorder *)self _createEngagementEvent];
     }
@@ -154,17 +154,17 @@ LABEL_16:
     {
       if (usageSource == 2)
       {
-        v6 = 2;
+        v7 = 2;
       }
 
       else if (usageSource == 3)
       {
-        v6 = 3;
+        v7 = 3;
       }
 
       else
       {
-        v6 = 4;
+        v7 = 4;
       }
 
       goto LABEL_28;
@@ -174,7 +174,7 @@ LABEL_16:
     {
       if (usageSource == 1)
       {
-        v6 = 1;
+        v7 = 1;
         goto LABEL_28;
       }
 
@@ -183,7 +183,7 @@ LABEL_32:
     }
 
 LABEL_10:
-    v8 = 0;
+    v9 = 0;
     goto LABEL_29;
   }
 
@@ -191,17 +191,17 @@ LABEL_10:
   {
     if (usageSource == 5)
     {
-      v6 = 5;
+      v7 = 5;
     }
 
     else if (usageSource == 6)
     {
-      v6 = 6;
+      v7 = 6;
     }
 
     else
     {
-      v6 = 7;
+      v7 = 7;
     }
 
     goto LABEL_28;
@@ -209,13 +209,13 @@ LABEL_10:
 
   if (usageSource == 8)
   {
-    v6 = 8;
+    v7 = 8;
     goto LABEL_28;
   }
 
   if (usageSource == 9)
   {
-    v6 = 9;
+    v7 = 9;
     goto LABEL_28;
   }
 
@@ -224,20 +224,20 @@ LABEL_10:
     goto LABEL_32;
   }
 
-  v6 = 10;
+  v7 = 10;
 LABEL_28:
-  v9 = objc_alloc(MEMORY[0x1E698EBC8]);
-  v10 = [MEMORY[0x1E696AD98] numberWithBool:{-[EMFBiomeEmojiUsageRecorder wasPositiveEngagement](self, "wasPositiveEngagement")}];
+  v10 = objc_alloc(MEMORY[0x1E698EBC8]);
+  v11 = [MEMORY[0x1E696AD98] numberWithBool:{-[EMFBiomeEmojiUsageRecorder wasPositiveEngagement](self, "wasPositiveEngagement")}];
   localeIdentifier = [(EMFBiomeEmojiUsageRecorder *)self localeIdentifier];
   replacementContext = [(EMFBiomeEmojiUsageRecorder *)self replacementContext];
   resultPosition = [(EMFBiomeEmojiUsageRecorder *)self resultPosition];
   numberSearchQueriesRun = [(EMFBiomeEmojiUsageRecorder *)self numberSearchQueriesRun];
   searchQuery = [(EMFBiomeEmojiUsageRecorder *)self searchQuery];
-  v8 = [v9 initWithEmoji:string wasPositiveEngagement:v10 localeIdentifier:localeIdentifier inputMode:v6 replacementContext:replacementContext resultPosition:resultPosition numberSearchQueriesRun:numberSearchQueriesRun finalSearchQuery:searchQuery];
+  v9 = [v10 initWithEmoji:string wasPositiveEngagement:v11 localeIdentifier:localeIdentifier inputMode:v7 replacementContext:replacementContext resultPosition:resultPosition numberSearchQueriesRun:numberSearchQueriesRun finalSearchQuery:searchQuery];
 
 LABEL_29:
 
-  return v8;
+  return v9;
 }
 
 - (void)report

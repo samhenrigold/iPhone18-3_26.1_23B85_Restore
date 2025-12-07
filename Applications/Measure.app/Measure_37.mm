@@ -1,3 +1,3029 @@
+atomic_uint **sub_100282298(atomic_uint **a1)
+{
+  v2 = *a1;
+  if (v2 && atomic_fetch_add(v2, 0xFFFFFFFF) == 1 && (byte_1004D54B8 & 1) == 0)
+  {
+    sub_100282584(v2);
+    operator delete();
+  }
+
+  return a1;
+}
+
+void sub_100282308(uint64_t a1, _DWORD *a2)
+{
+  v4 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (v4 < v3)
+  {
+    *v4 = *a2;
+    v5 = (v4 + 1);
+LABEL_3:
+    *(a1 + 8) = v5;
+    return;
+  }
+
+  v6 = *a1;
+  v7 = v4 - *a1;
+  v8 = v7 >> 2;
+  v9 = (v7 >> 2) + 1;
+  if (v9 >> 62)
+  {
+    sub_10000918C();
+  }
+
+  v10 = v3 - v6;
+  if (v10 >> 1 > v9)
+  {
+    v9 = v10 >> 1;
+  }
+
+  if (v10 >= 0x7FFFFFFFFFFFFFFCLL)
+  {
+    v11 = 0x3FFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v11 = v9;
+  }
+
+  if (v11)
+  {
+    if (!(v11 >> 62))
+    {
+      operator new();
+    }
+
+    sub_10000927C();
+  }
+
+  *(4 * v8) = *a2;
+  v5 = 4 * v8 + 4;
+  memcpy(0, v6, v7);
+  *a1 = 0;
+  *(a1 + 8) = v5;
+  *(a1 + 16) = 0;
+  if (!v6)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(v6);
+  *(a1 + 8) = v5;
+}
+
+void sub_100282438(const char *a1)
+{
+  exception = __cxa_allocate_exception(0x10uLL);
+  sub_100282494(exception, a1);
+}
+
+std::logic_error *sub_100282494(std::logic_error *a1, const char *a2)
+{
+  result = std::logic_error::logic_error(a1, a2);
+  return result;
+}
+
+void *sub_1002824C8(_BYTE *a1, const void *a2, unint64_t a3)
+{
+  if (a3 > 0x16)
+  {
+    if (a3 < 0x7FFFFFFFFFFFFFF8)
+    {
+      operator new();
+    }
+
+    sub_100241528();
+  }
+
+  a1[23] = a3;
+  v3 = a3 + 1;
+
+  return memmove(a1, a2, v3);
+}
+
+uint64_t sub_100282584(uint64_t result)
+{
+  if (*(result + 8))
+  {
+    *(result + 8) = 0;
+  }
+
+  v1 = *(result + 24);
+  if (v1 && atomic_fetch_add(v1, 0xFFFFFFFF) == 1 && byte_1004D54B8 != 1)
+  {
+    sub_100282584(v1);
+    operator delete();
+  }
+
+  return result;
+}
+
+uint64_t sub_1002825FC(uint64_t a1)
+{
+  *(a1 + 160) = 0;
+  *a1 = v3;
+  *(a1 + *(v3 - 24)) = v2;
+  v4 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v4, (a1 + 8));
+  v4[1].__vftable = 0;
+  v4[1].__fmtflags_ = -1;
+  std::locale::locale((a1 + 16));
+  *(a1 + 72) = 0;
+  v5 = a1 + 72;
+  *(a1 + 40) = 0u;
+  *(a1 + 56) = 0u;
+  *(a1 + 24) = 0u;
+  *(a1 + 80) = 0;
+  *(a1 + 88) = 0;
+  *(a1 + 104) = 16;
+  *(a1 + 96) = a1 + 72;
+  std::string::resize((a1 + 72), 0x16uLL, 0);
+  v6 = *(a1 + 95);
+  if (v6 < 0)
+  {
+    v6 = *(a1 + 80);
+  }
+
+  *(a1 + 48) = v5;
+  *(a1 + 56) = v5;
+  *(a1 + 64) = v5 + v6;
+  return a1;
+}
+
+void sub_1002827C8(_Unwind_Exception *a1)
+{
+  if (*(v1 + 95) < 0)
+  {
+    operator delete(*v3);
+  }
+
+  *(v1 + 8) = v2;
+  std::locale::~locale((v1 + 16));
+  std::ostream::~ostream();
+  std::ios::~ios();
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100282818(uint64_t a1)
+{
+  if (*(a1 + 95) < 0)
+  {
+    operator delete(*(a1 + 72));
+  }
+
+  std::locale::~locale((a1 + 16));
+  std::ostream::~ostream();
+  std::ios::~ios();
+  return a1;
+}
+
+void sub_100282938()
+{
+  v0[0] = 0;
+  v0[1] = 0;
+  qmemcpy(sub_1002A80E0(v0, 46), "The library is compiled without OpenGL support", 46);
+  sub_1002A8980(-218, v0, "throw_no_ogl", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/opengl.cpp", 60);
+}
+
+void sub_1002829C8(int *a1, uint64_t a2, double a3)
+{
+  sub_1002ACE7C(&v17, &off_1004751E0);
+  if (v17)
+  {
+    sub_1002ADCFC(&off_100475200);
+    if (v17)
+    {
+      sub_1002ADCFC(&off_100475218);
+      if (v17)
+      {
+        sub_1002ADCFC(&off_100475230);
+      }
+    }
+  }
+
+  if (*a1 == a1[1])
+  {
+LABEL_9:
+    if (!v18)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  if (dword_1004BD620 || atomic_fetch_add(&dword_1004BD620, 1u))
+  {
+    (*(*a2 + 16))(a2, a1);
+    goto LABEL_9;
+  }
+
+  if (dword_1004B0240 < 2 || a1[1] - *a1 < 2)
+  {
+    (*(*a2 + 16))(a2, a1);
+  }
+
+  else
+  {
+    v23 = 0;
+    v6 = *a1;
+    v7 = (HIDWORD(*a1) - *a1);
+    v20[0] = a2;
+    v20[1] = v6;
+    v8 = 1.0;
+    if (a3 >= 1.0)
+    {
+      v8 = a3;
+    }
+
+    if (v8 > v7)
+    {
+      v8 = v7;
+    }
+
+    if (a3 > 0.0)
+    {
+      v7 = v8;
+    }
+
+    v9 = rint(v7);
+    v21 = v9;
+    v22 = *sub_10029D30C();
+    v10 = sub_1002ABC0C();
+    v11 = sub_1002A9C00((v10 + 16));
+    v12 = v11[8];
+    if (v12)
+    {
+      v13 = (*(v11[4] + 8 * ((v12 + v11[7] - 1) / 0xAAuLL)) + 24 * ((v12 + v11[7] - 1) % 0xAAuLL));
+    }
+
+    else
+    {
+      v13 = v11 + 13;
+    }
+
+    v24 = *v13;
+    v14 = sub_1002ABC0C();
+    v25 = sub_1002A9C00((v14 + 16));
+    context[0] = off_100475268;
+    context[1] = v20;
+    if (v9 == 1)
+    {
+      (*(*a2 + 16))(a2, a1);
+    }
+
+    else
+    {
+      global_queue = dispatch_get_global_queue(0, 0);
+      dispatch_apply_f(v9, global_queue, context, sub_100282E84);
+    }
+
+    if (v23 == 1)
+    {
+      *sub_10029D30C() = v22;
+      v16 = sub_10029D30C();
+      *v16 = HIDWORD(*v16) + 4164903690 * *v16;
+    }
+
+    if (v24)
+    {
+      sub_1002ADA50(v24);
+    }
+  }
+
+  dword_1004BD620 = 0;
+  if (v18)
+  {
+LABEL_10:
+    sub_1002ACC1C(&v17);
+  }
+}
+
+void sub_100282CA8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  sub_100282ED4(va);
+  __cxa_begin_catch(a1);
+  *(v11 + 1568) = 0;
+  __cxa_rethrow();
+}
+
+void sub_100282CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  __cxa_end_catch();
+  sub_1001D8BF4(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100282D00()
+{
+  if (!dword_1004B0240)
+  {
+    return 1;
+  }
+
+  v2 = 0;
+  v1 = 4;
+  *v3 = 0x1900000006;
+  sysctl(v3, 2u, &v2, &v1, 0, 0);
+  result = v2;
+  if (v2 <= 0)
+  {
+    v3[1] = 3;
+    sysctl(v3, 2u, &v2, &v1, 0, 0);
+    if (v2 <= 1)
+    {
+      return 1;
+    }
+
+    else
+    {
+      return v2;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_100282DCC()
+{
+  v2 = 0;
+  v1 = 4;
+  *v3 = 0x1900000006;
+  sysctl(v3, 2u, &v2, &v1, 0, 0);
+  result = v2;
+  if (v2 <= 0)
+  {
+    v3[1] = 3;
+    sysctl(v3, 2u, &v2, &v1, 0, 0);
+    if (v2 <= 1)
+    {
+      return 1;
+    }
+
+    else
+    {
+      return v2;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_100282E84(uint64_t a1, int a2)
+{
+  v3[0] = a2;
+  v3[1] = a2 + 1;
+  return (*(*a1 + 16))(a1, v3);
+}
+
+uint64_t sub_100282ED4(uint64_t a1)
+{
+  if (*(a1 + 32) == 1)
+  {
+    *sub_10029D30C() = *(a1 + 24);
+    v2 = sub_10029D30C();
+    *v2 = HIDWORD(*v2) + 4164903690 * *v2;
+  }
+
+  v3 = *(a1 + 40);
+  if (v3)
+  {
+    sub_1002ADA50(v3);
+  }
+
+  return a1;
+}
+
+void sub_100282F54(uint64_t a1, int *a2)
+{
+  v4 = *(a1 + 8);
+  v5 = *(v4 + 40);
+  if (v5)
+  {
+    v6 = *(v4 + 48);
+    if (v6)
+    {
+      sub_1002AD7AC(v5, v6);
+    }
+  }
+
+  sub_1002ACE7C(&v20, &off_100475298);
+  v7 = *(a1 + 8);
+  if (*(v7 + 40))
+  {
+    sub_1002AD9B8();
+    v7 = *(a1 + 8);
+  }
+
+  *sub_10029D30C() = *(v7 + 24);
+  v8 = *(a1 + 8);
+  v9 = v8[2];
+  v10 = v8[3];
+  v11 = v8[4];
+  v12 = (v11 + (v11 >> 31)) >> 1;
+  v13 = a2[1];
+  v14 = v9 + (v12 + *a2 * (v10 - v9)) / v11;
+  v15 = v9 + (v12 + v13 * (v10 - v9)) / v11;
+  if (v13 < v11)
+  {
+    v16 = v15;
+  }
+
+  else
+  {
+    v16 = v10;
+  }
+
+  v19[0] = v14;
+  v19[1] = v16;
+  if (v20)
+  {
+    sub_1002ADCFC(&off_1004752B8);
+    if (v20)
+    {
+      sub_1002ADCFC(&off_1004752D0);
+    }
+  }
+
+  (*(***(a1 + 8) + 16))(**(a1 + 8), v19);
+  if ((*(*(a1 + 8) + 32) & 1) == 0)
+  {
+    v17 = sub_10029D30C();
+    v18 = *(a1 + 8);
+    if (*v17 != *(v18 + 24))
+    {
+      *(v18 + 32) = 1;
+    }
+  }
+
+  if (v21)
+  {
+    sub_1002ACC1C(&v20);
+  }
+}
+
+void sub_1002830B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  sub_1001D8BF4(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1002830C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  sub_1001D8BF4(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1002830D8(void **a1)
+{
+  if (!a1)
+  {
+    v4[0] = 0;
+    v4[1] = 0;
+    qmemcpy(sub_1002A80E0(v4, 35), "NULL double pointer to file storage", 35);
+    sub_1002A8980(-27, v4, "cvReleaseFileStorage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 700);
+  }
+
+  v1 = *a1;
+  if (*a1)
+  {
+    *a1 = 0;
+    sub_100283290(v1, 0);
+    sub_100231874((v1 + 32));
+    j__free(*(v1 + 128));
+    *(v1 + 128) = 0;
+    sub_100231874((v1 + 16));
+    v2 = *(v1 + 376);
+    if (v2)
+    {
+      sub_10029CDD4(v2);
+      operator delete();
+    }
+
+    v3 = *(v1 + 384);
+    if (v3)
+    {
+      if (*v3)
+      {
+        sub_10029C070(*v3);
+        operator delete();
+      }
+
+      if (*(v3 + 31) < 0)
+      {
+        operator delete(*(v3 + 8));
+      }
+
+      operator delete();
+    }
+
+    if (*(v1 + 408))
+    {
+      operator delete[]();
+    }
+
+    if (*(v1 + 424))
+    {
+      operator delete[]();
+    }
+
+    *(v1 + 432) = 0;
+    *(v1 + 400) = 0u;
+    *(v1 + 416) = 0u;
+    *(v1 + 368) = 0u;
+    *(v1 + 384) = 0u;
+    *(v1 + 336) = 0u;
+    *(v1 + 352) = 0u;
+    *(v1 + 304) = 0u;
+    *(v1 + 320) = 0u;
+    *(v1 + 272) = 0u;
+    *(v1 + 288) = 0u;
+    *(v1 + 240) = 0u;
+    *(v1 + 256) = 0u;
+    *(v1 + 208) = 0u;
+    *(v1 + 224) = 0u;
+    *(v1 + 176) = 0u;
+    *(v1 + 192) = 0u;
+    *(v1 + 144) = 0u;
+    *(v1 + 160) = 0u;
+    *(v1 + 112) = 0u;
+    *(v1 + 128) = 0u;
+    *(v1 + 80) = 0u;
+    *(v1 + 96) = 0u;
+    *(v1 + 48) = 0u;
+    *(v1 + 64) = 0u;
+    *(v1 + 16) = 0u;
+    *(v1 + 32) = 0u;
+    *v1 = 0u;
+    j__free(v1);
+  }
+}
+
+void sub_100283290(uint64_t result, uint64_t *a2)
+{
+  if (a2)
+  {
+    sub_1002A8124(a2);
+  }
+
+  if (!result)
+  {
+    v29 = 0;
+    v30 = 0;
+    qmemcpy(sub_1002A80E0(&v29, 35), "NULL double pointer to file storage", 35);
+    sub_1002A8980(-27, &v29, "icvClose", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 667);
+  }
+
+  if (*(result + 432) == 1)
+  {
+    if (!*(result + 8) || !*(result + 104) && !*(result + 112) && !*(result + 376))
+    {
+      goto LABEL_22;
+    }
+
+    v4 = *(result + 56);
+    if (v4 && *(v4 + 40) >= 1)
+    {
+      do
+      {
+        sub_10028984C(result);
+      }
+
+      while (*(*(result + 56) + 40) > 0);
+    }
+
+    v6 = *(result + 120);
+    v5 = *(result + 128);
+    v7 = *(result + 88);
+    if (v6 > &v5[v7])
+    {
+      *v6 = 10;
+      sub_10028614C(result, *(result + 128));
+      v5 = *(result + 128);
+      LODWORD(v7) = *(result + 88);
+    }
+
+    v8 = *(result + 64);
+    if (v7 == v8)
+    {
+      *(result + 120) = &v5[v7];
+      v9 = *(result + 4);
+      if (v9 != 8)
+      {
+LABEL_17:
+        if (v9 != 24)
+        {
+LABEL_22:
+          v11 = *(result + 104);
+          if (v11)
+          {
+            fclose(v11);
+          }
+
+          else
+          {
+            v12 = *(result + 112);
+            if (v12)
+            {
+              gzclose(v12);
+            }
+          }
+
+          *(result + 352) = 0;
+          *(result + 368) = 0;
+          *(result + 432) = 0;
+          *(result + 104) = 0;
+          *(result + 112) = 0;
+          goto LABEL_27;
+        }
+
+        v10 = "}\n";
+LABEL_21:
+        sub_10028614C(result, v10);
+        goto LABEL_22;
+      }
+    }
+
+    else
+    {
+      memset(v5, 32, v8);
+      *(result + 88) = v8;
+      *(result + 120) = *(result + 128) + v8;
+      v9 = *(result + 4);
+      if (v9 != 8)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    v10 = "</opencv_storage>\n";
+    goto LABEL_21;
+  }
+
+LABEL_27:
+  if (a2)
+  {
+    v13 = *(result + 376);
+    if (v13)
+    {
+      v14 = v13[1];
+      if (v13[2] == v14)
+      {
+        v29 = 0;
+        v30 = 0;
+      }
+
+      else
+      {
+        v15 = v13[4];
+        v16 = (v15 >> 9) & 0x7FFFFFFFFFFFF8;
+        v17 = (v14 + v16);
+        v18 = v15 & 0xFFF;
+        v19 = v13[5] + v15;
+        v20 = (v19 >> 9) & 0x7FFFFFFFFFFFF8;
+        v21 = (*(v14 + v16) + v18);
+        v22 = (*(v14 + v20) + (v19 & 0xFFF));
+        v29 = 0;
+        v30 = 0;
+        if (v22 != v21)
+        {
+          v23 = (v19 & 0xFFF) + ((v20 - v16) << 9) - v18;
+          if (v23)
+          {
+            v24 = sub_1002A80E0(&v29, v23);
+            do
+            {
+              v25 = *v21++;
+              *v24++ = v25;
+              if (&v21[-*v17] == 4096)
+              {
+                v26 = v17[1];
+                ++v17;
+                v21 = v26;
+              }
+            }
+
+            while (v21 != v22);
+          }
+        }
+      }
+
+      if (&v29 != a2)
+      {
+        sub_1002A8124(a2);
+        v27 = v29;
+        if (v29)
+        {
+          atomic_fetch_add((v29 - 4), 1u);
+          v27 = v29;
+        }
+
+        v28 = v30;
+        *a2 = v27;
+        a2[1] = v28;
+      }
+
+      sub_1002A8124(&v29);
+    }
+  }
+}
+
+uint64_t sub_10028356C(uint64_t a1, char *__s, size_t __n, int a4)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  LODWORD(v5) = __n;
+  v7 = *(a1 + 40);
+  if ((__n & 0x80000000) != 0)
+  {
+    v12 = *__s;
+    if (*__s)
+    {
+      v5 = 0;
+      v8 = 0;
+      do
+      {
+        v8 = 33 * v8 + v12;
+        v12 = __s[++v5];
+      }
+
+      while (v12);
+    }
+
+    else
+    {
+      v8 = 0;
+      LODWORD(v5) = 0;
+    }
+  }
+
+  else
+  {
+    v8 = 0;
+    if (__n)
+    {
+      v9 = __n;
+      v10 = __s;
+      do
+      {
+        v11 = *v10++;
+        v8 = 33 * v8 + v11;
+        --v9;
+      }
+
+      while (v9);
+    }
+  }
+
+  v13 = v8 & 0x7FFFFFFF;
+  v14 = *(v7 + 108);
+  if ((v14 & (v14 - 1)) != 0)
+  {
+    v15 = v13 % v14;
+  }
+
+  else
+  {
+    v15 = (v14 - 1) & v13;
+  }
+
+  v16 = *(*(v7 + 112) + 8 * v15);
+  if (!v16)
+  {
+LABEL_22:
+    if (a4)
+    {
+      v16 = *(v7 + 96);
+      v20 = v16;
+      if (v16)
+      {
+        *(v7 + 96) = *(v16 + 8);
+        *v16 &= 0x3FFFFFFu;
+        ++*(v7 + 104);
+      }
+
+      else
+      {
+        sub_100236464(v7, 0, &v20);
+        v16 = v20;
+      }
+
+      *v16 = v13;
+      *(v16 + 8) = sub_100231F7C(*(v7 + 72), __s, v5);
+      *(v16 + 16) = v17;
+      v18 = *(v7 + 112);
+      *(v16 + 24) = *(v18 + 8 * v15);
+      *(v18 + 8 * v15) = v16;
+      return v16;
+    }
+
+    return 0;
+  }
+
+  while (*v16 != v13 || *(v16 + 8) != v5 || memcmp(*(v16 + 16), __s, v5))
+  {
+    v16 = *(v16 + 24);
+    if (!v16)
+    {
+      goto LABEL_22;
+    }
+  }
+
+  return v16;
+}
+
+uint64_t sub_100283704(uint64_t a1, uint64_t a2, _DWORD *a3, int a4)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  if (*a1 != 1280131417)
+  {
+    *v23 = 0;
+    v24 = 0;
+    qmemcpy(sub_1002A80E0(v23, 31), "Invalid pointer to file storage", 31);
+    sub_1002A8980(-5, v23, "cvGetFileNode", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 786);
+  }
+
+  if (!a3)
+  {
+    *v23 = 0;
+    v24 = 0;
+    *sub_1002A80E0(v23, 16) = *"Null key element";
+    sub_1002A8980(-27, v23, "cvGetFileNode", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 789);
+  }
+
+  if (!a2)
+  {
+    v7 = 1;
+LABEL_11:
+    v8 = 0;
+    v9 = 0;
+    v20 = v7;
+    v19 = v7 - 1;
+    while (1)
+    {
+      v11 = a2;
+      if (!a2)
+      {
+        v11 = sub_100232368(*(a1 + 48), v8);
+        if (!v11)
+        {
+          *v23 = 0;
+          v24 = 0;
+          v12 = sub_1002A80E0(v23, 18);
+          *(v12 + 16) = 27756;
+          *v12 = *"map_node != __null";
+          sub_1002A8980(-215, v23, "cvGetFileNode", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 807);
+        }
+      }
+
+      v13 = *v11 & 7;
+      if (v13 != 6)
+      {
+        if (!v13)
+        {
+          return 0;
+        }
+
+        if (v13 != 5 || *(*(v11 + 16) + 40))
+        {
+          *v23 = 0;
+          v24 = 0;
+          qmemcpy(sub_1002A80E0(v23, 49), "The node is neither a map nor an empty collection", 49);
+          sub_1002A8980(-2, v23, "cvGetFileNode", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 812);
+        }
+
+        return 0;
+      }
+
+      v14 = *(v11 + 16);
+      v15 = *(v14 + 108);
+      if ((v15 & (v15 - 1)) != 0)
+      {
+        v16 = *a3 % v15;
+        v17 = *(*(v14 + 112) + 8 * v16);
+        if (!v17)
+        {
+          goto LABEL_26;
+        }
+      }
+
+      else
+      {
+        v16 = *a3 & (v15 - 1);
+        v17 = *(*(v14 + 112) + 8 * v16);
+        if (!v17)
+        {
+          goto LABEL_26;
+        }
+      }
+
+      if (!a4)
+      {
+        while (*(v17 + 32) != a3)
+        {
+          v17 = *(v17 + 40);
+          if (!v17)
+          {
+            goto LABEL_26;
+          }
+        }
+
+        return v17;
+      }
+
+      do
+      {
+        if (*(v17 + 32) == a3)
+        {
+          sprintf(v23, "%s(%d): %s", *(a1 + 96), *(a1 + 148), "Duplicated key");
+          sub_1002A9248(-212, "cvGetFileNode", v23, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 832);
+        }
+
+        v17 = *(v17 + 40);
+      }
+
+      while (v17);
+LABEL_26:
+      if (a4 && v8 == v19)
+      {
+        v9 = *(v14 + 96);
+        *v23 = v9;
+        if (v9)
+        {
+          *(v14 + 96) = *(v9 + 8);
+          *v9 &= 0x3FFFFFFu;
+          ++*(v14 + 104);
+        }
+
+        else
+        {
+          sub_100236464(v14, 0, v23);
+          v9 = *v23;
+        }
+
+        *(v9 + 32) = a3;
+        v10 = *(v14 + 112);
+        *(v9 + 40) = *(v10 + 8 * v16);
+        *(v10 + 8 * v16) = v9;
+      }
+
+      if (++v8 == v20)
+      {
+        return v9;
+      }
+    }
+  }
+
+  v6 = *(a1 + 48);
+  if (v6)
+  {
+    v7 = *(v6 + 40);
+    if (v7 >= 1)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  return 0;
+}
+
+void sub_100283AE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+{
+  if (a2)
+  {
+    sub_100008E3C(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_100283BF4(uint64_t a1, uint64_t a2, _BYTE *__s2)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  v4 = a2;
+  if (*a1 != 1280131417)
+  {
+    v30 = 0;
+    v31 = 0;
+    qmemcpy(sub_1002A80E0(&v30, 31), "Invalid pointer to file storage", 31);
+    sub_1002A8980(-5, &v30, "cvGetFileNodeByName", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 861);
+  }
+
+  if (!__s2)
+  {
+    v30 = 0;
+    v31 = 0;
+    v6 = sub_1002A80E0(&v30, 17);
+    *(v6 + 16) = 101;
+    *v6 = *"Null element name";
+    sub_1002A8980(-27, &v30, "cvGetFileNodeByName", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 864);
+  }
+
+  v7 = *__s2;
+  if (*__s2)
+  {
+    v8 = 0;
+    v9 = 0;
+    do
+    {
+      v9 = 33 * v9 + v7;
+      v7 = __s2[++v8];
+    }
+
+    while (v7);
+    v10 = v9 & 0x7FFFFFFF;
+    v11 = v8;
+    if (a2)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+    v10 = 0;
+    v8 = 0;
+    if (a2)
+    {
+LABEL_10:
+      v12 = *a2 & 7;
+      if (!v12)
+      {
+        return 0;
+      }
+
+      if (v12 != 5)
+      {
+        if (v12 == 6)
+        {
+          v13 = *(a2 + 16);
+          v14 = *(v13 + 108);
+          v15 = *(v13 + 112);
+          if ((v14 & (v14 - 1)) != 0)
+          {
+            v16 = *(v15 + 8 * (v10 % v14));
+            if (!v16)
+            {
+              return 0;
+            }
+
+            while (1)
+            {
+              v28 = *(v16 + 32);
+              if (*v28 == v10 && *(v28 + 8) == v11 && !memcmp(*(v28 + 16), __s2, v8))
+              {
+                break;
+              }
+
+              v17 = 0;
+              v16 = *(v16 + 40);
+              if (!v16)
+              {
+                return v17;
+              }
+            }
+          }
+
+          else
+          {
+            v16 = *(v15 + 8 * ((v14 - 1) & v10));
+            if (!v16)
+            {
+              return 0;
+            }
+
+            while (1)
+            {
+              v18 = *(v16 + 32);
+              if (*v18 == v10 && *(v18 + 8) == v11 && !memcmp(*(v18 + 16), __s2, v8))
+              {
+                break;
+              }
+
+              v17 = 0;
+              v16 = *(v16 + 40);
+              if (!v16)
+              {
+                return v17;
+              }
+            }
+          }
+
+          return v16;
+        }
+
+LABEL_47:
+        v30 = 0;
+        v31 = 0;
+        qmemcpy(sub_1002A80E0(&v30, 49), "The node is neither a map nor an empty collection", 49);
+        sub_1002A8980(-2, &v30, "cvGetFileNodeByName", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 891);
+      }
+
+LABEL_46:
+      if (*(*(v4 + 16) + 40))
+      {
+        goto LABEL_47;
+      }
+
+      return 0;
+    }
+  }
+
+  v19 = *(a1 + 48);
+  if (!v19)
+  {
+    return 0;
+  }
+
+  v20 = *(v19 + 40);
+  if (v20 < 1)
+  {
+    return 0;
+  }
+
+  v21 = 0;
+  while (1)
+  {
+    v22 = sub_100232368(*(a1 + 48), v21);
+    v4 = v22;
+    v23 = *v22 & 7;
+    if (v23 != 6)
+    {
+      if (!v23)
+      {
+        return 0;
+      }
+
+      if (v23 != 5)
+      {
+        goto LABEL_47;
+      }
+
+      goto LABEL_46;
+    }
+
+    v24 = *(v22 + 16);
+    v25 = *(v24 + 108);
+    v26 = (v25 & (v25 - 1)) != 0 ? v10 % v25 : (v25 - 1) & v10;
+    v17 = *(*(v24 + 112) + 8 * v26);
+    if (v17)
+    {
+      break;
+    }
+
+LABEL_25:
+    v17 = 0;
+    if (++v21 == v20)
+    {
+      return v17;
+    }
+  }
+
+  while (1)
+  {
+    v27 = *(v17 + 32);
+    if (*v27 == v10 && *(v27 + 8) == v11 && !memcmp(*(v27 + 16), __s2, v8))
+    {
+      return v17;
+    }
+
+    v17 = *(v17 + 40);
+    if (!v17)
+    {
+      goto LABEL_25;
+    }
+  }
+}
+
+uint64_t sub_100283F94(char *__s, uint64_t a2, unsigned int a3, const char *a4)
+{
+  v5 = a3;
+  v7 = __s;
+  v207 = 0;
+  *v208 = 0;
+  v8 = a3 & 3;
+  if ((a3 & 3) != 0)
+  {
+    v9 = (a3 >> 6) & 1;
+  }
+
+  else
+  {
+    LOBYTE(v9) = 0;
+  }
+
+  __p = 0;
+  v206 = 0;
+  if ((a3 & 4) == 0)
+  {
+    v10 = strlen(__s);
+    if (v10 > 0x7FFFFFFFFFFFFFF7)
+    {
+      sub_100241528();
+    }
+
+    v11 = v10;
+    v203 = a4;
+    v201 = v9;
+    v202 = v8;
+    v200 = v5;
+    v199 = a2;
+    if (v10 >= 0x17)
+    {
+      operator new();
+    }
+
+    *(&__dst.__r_.__value_.__s + 23) = v10;
+    if (v10)
+    {
+      memcpy(&__dst, v7, v10);
+    }
+
+    __dst.__r_.__value_.__s.__data_[v11] = 0;
+    *v214 = 0;
+    v215 = 0;
+    v216 = 0;
+    v12 = 0;
+    v13 = 0;
+    if (std::string::find(&__dst, 10, 0) != -1)
+    {
+LABEL_12:
+      v14 = __p;
+      v5 = v200;
+      if (__p)
+      {
+        v15 = v206;
+        while (v15 != v14)
+        {
+          v16 = *(v15 - 1);
+          v15 -= 3;
+          if (v16 < 0)
+          {
+            operator delete(*v15);
+          }
+        }
+
+        v206 = v14;
+        operator delete(v14);
+      }
+
+      v17 = *v214;
+      __p = *v214;
+      v206 = v13;
+      v207 = v12;
+      if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__dst.__r_.__value_.__l.__data_);
+        a2 = v199;
+        if (v17 == v13)
+        {
+          goto LABEL_32;
+        }
+      }
+
+      else
+      {
+        a2 = v199;
+        if (*v214 == v13)
+        {
+          goto LABEL_32;
+        }
+      }
+
+      v7 = v17;
+      if (v17[23] < 0)
+      {
+        v7 = *v17;
+        if (v201)
+        {
+          goto LABEL_33;
+        }
+
+        goto LABEL_35;
+      }
+
+LABEL_32:
+      if (v201)
+      {
+LABEL_33:
+        LOBYTE(v9) = 1;
+LABEL_41:
+        a4 = v203;
+        v8 = v202;
+        goto LABEL_42;
+      }
+
+LABEL_35:
+      HIBYTE(v213) = 6;
+      qmemcpy(__sa, "base64", 6);
+      if (0xAAAAAAAAAAAAAAABLL * ((v13 - v17) >> 3) >= 2 && v17 != v13)
+      {
+        while (1)
+        {
+          v27 = v17[23];
+          v28 = v27;
+          if ((v27 & 0x80u) != 0)
+          {
+            v27 = *(v17 + 1);
+          }
+
+          if (v27 == 6)
+          {
+            v29 = v28 >= 0 ? v17 : *v17;
+            v30 = *v29;
+            v31 = *(v29 + 2);
+            if (v30 == *__sa && v31 == *&__sa[4])
+            {
+              break;
+            }
+          }
+
+          v17 += 24;
+          if (v17 == v13)
+          {
+            goto LABEL_40;
+          }
+        }
+
+        v8 = v202;
+        LOBYTE(v9) = v17 != v13 && v202 != 0;
+        a4 = v203;
+        if (!v7)
+        {
+          goto LABEL_65;
+        }
+
+        goto LABEL_43;
+      }
+
+LABEL_40:
+      LOBYTE(v9) = 0;
+      goto LABEL_41;
+    }
+
+    v18 = std::string::rfind(&__dst, 63, 0xFFFFFFFFFFFFFFFFLL);
+    v19 = v18;
+    size = SHIBYTE(__dst.__r_.__value_.__r.__words[2]);
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+    {
+      size = __dst.__r_.__value_.__l.__size_;
+      v21 = __dst.__r_.__value_.__r.__words[0];
+      if (__dst.__r_.__value_.__l.__size_ >= v18)
+      {
+        v22 = v18;
+      }
+
+      else
+      {
+        v22 = __dst.__r_.__value_.__l.__size_;
+      }
+
+      if (v22 <= 0x7FFFFFFFFFFFFFF7)
+      {
+LABEL_26:
+        if (v22 >= 0x17)
+        {
+          operator new();
+        }
+
+        HIBYTE(v213) = v22;
+        if (v22)
+        {
+          memmove(__sa, v21, v22);
+          __sa[v22] = 0;
+          v23 = v215;
+          v12 = v216;
+          if (v215 < v216)
+          {
+            goto LABEL_29;
+          }
+        }
+
+        else
+        {
+          __sa[0] = 0;
+          v23 = v215;
+          v12 = v216;
+          if (v215 < v216)
+          {
+LABEL_29:
+            *v23 = *__sa;
+            *(v23 + 16) = v213;
+            v13 = v23 + 24;
+            goto LABEL_229;
+          }
+        }
+
+        v72 = *v214;
+        v73 = v23 - *v214;
+        v74 = 0xAAAAAAAAAAAAAAABLL * ((v23 - *v214) >> 3);
+        v75 = v74 + 1;
+        if (v74 + 1 > 0xAAAAAAAAAAAAAAALL)
+        {
+          sub_10000918C();
+        }
+
+        if (0x5555555555555556 * ((v12 - *v214) >> 3) > v75)
+        {
+          v75 = 0x5555555555555556 * ((v12 - *v214) >> 3);
+        }
+
+        if (0xAAAAAAAAAAAAAAABLL * ((v12 - *v214) >> 3) >= 0x555555555555555)
+        {
+          v76 = 0xAAAAAAAAAAAAAAALL;
+        }
+
+        else
+        {
+          v76 = v75;
+        }
+
+        if (v76)
+        {
+          if (v76 <= 0xAAAAAAAAAAAAAAALL)
+          {
+            operator new();
+          }
+
+          sub_10000927C();
+        }
+
+        v116 = 24 * v74;
+        v12 = 0;
+        *v116 = *__sa;
+        *(v116 + 16) = v213;
+        v13 = 24 * v74 + 24;
+        memcpy((24 * v74 - v73), v72, v73);
+        *v214 = 24 * v74 - v73;
+        v216 = 0;
+        if (v72)
+        {
+          operator delete(v72);
+        }
+
+LABEL_229:
+        v215 = v13;
+        if (v19 == -1)
+        {
+          goto LABEL_12;
+        }
+
+        v117 = v19 + 1;
+        if (v19 + 1 >= size)
+        {
+          goto LABEL_12;
+        }
+
+        while (1)
+        {
+          v118 = std::string::find(&__dst, 38, v117);
+          v119 = v118;
+          v121 = v118 == -1 || v118 != v117;
+          if (v117 + 1 >= size || !v121)
+          {
+            goto LABEL_234;
+          }
+
+          v122 = SHIBYTE(__dst.__r_.__value_.__r.__words[2]);
+          if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+          {
+            v122 = __dst.__r_.__value_.__l.__size_;
+            if (__dst.__r_.__value_.__l.__size_ < v117)
+            {
+LABEL_419:
+              sub_100282420();
+            }
+
+            p_dst = __dst.__r_.__value_.__r.__words[0];
+          }
+
+          else
+          {
+            if (v117 > SHIBYTE(__dst.__r_.__value_.__r.__words[2]))
+            {
+              goto LABEL_419;
+            }
+
+            p_dst = &__dst;
+          }
+
+          v124 = v122 - v117;
+          if (v124 >= v118 - v117)
+          {
+            v125 = v118 - v117;
+          }
+
+          else
+          {
+            v125 = v124;
+          }
+
+          if (v125 > 0x7FFFFFFFFFFFFFF7)
+          {
+            sub_100241528();
+          }
+
+          if (v125 >= 0x17)
+          {
+            operator new();
+          }
+
+          HIBYTE(v213) = v125;
+          if (v125)
+          {
+            memmove(__sa, p_dst + v117, v125);
+            __sa[v125] = 0;
+            v126 = v215;
+            v12 = v216;
+            if (v215 >= v216)
+            {
+LABEL_258:
+              v127 = *v214;
+              v128 = v126 - *v214;
+              v129 = 0xAAAAAAAAAAAAAAABLL * ((v126 - *v214) >> 3);
+              v130 = v129 + 1;
+              if (v129 + 1 > 0xAAAAAAAAAAAAAAALL)
+              {
+                sub_10000918C();
+              }
+
+              if (0x5555555555555556 * ((v12 - *v214) >> 3) > v130)
+              {
+                v130 = 0x5555555555555556 * ((v12 - *v214) >> 3);
+              }
+
+              if (0xAAAAAAAAAAAAAAABLL * ((v12 - *v214) >> 3) >= 0x555555555555555)
+              {
+                v131 = 0xAAAAAAAAAAAAAAALL;
+              }
+
+              else
+              {
+                v131 = v130;
+              }
+
+              if (v131)
+              {
+                if (v131 <= 0xAAAAAAAAAAAAAAALL)
+                {
+                  operator new();
+                }
+
+                sub_10000927C();
+              }
+
+              v132 = 24 * v129;
+              v12 = 0;
+              *v132 = *__sa;
+              *(v132 + 16) = v213;
+              v13 = 24 * v129 + 24;
+              memcpy((24 * v129 - v128), v127, v128);
+              *v214 = 24 * v129 - v128;
+              v216 = 0;
+              if (v127)
+              {
+                operator delete(v127);
+              }
+
+              goto LABEL_233;
+            }
+          }
+
+          else
+          {
+            __sa[0] = 0;
+            v126 = v215;
+            v12 = v216;
+            if (v215 >= v216)
+            {
+              goto LABEL_258;
+            }
+          }
+
+          *v126 = *__sa;
+          *(v126 + 16) = v213;
+          v13 = v126 + 24;
+LABEL_233:
+          v215 = v13;
+LABEL_234:
+          v117 = v119 + 1;
+          if (v119 >= size)
+          {
+            goto LABEL_12;
+          }
+        }
+      }
+    }
+
+    else
+    {
+      v21 = &__dst;
+      if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) >= v18)
+      {
+        v22 = v18;
+      }
+
+      else
+      {
+        v22 = SHIBYTE(__dst.__r_.__value_.__r.__words[2]);
+      }
+
+      if (v22 <= 0x7FFFFFFFFFFFFFF7)
+      {
+        goto LABEL_26;
+      }
+    }
+
+    sub_100241528();
+  }
+
+LABEL_42:
+  if (!v7)
+  {
+    goto LABEL_65;
+  }
+
+LABEL_43:
+  if (*v7)
+  {
+    v25 = strlen(v7);
+    v26 = (v5 >> 2) & 1;
+    if (v8 != 2)
+    {
+      goto LABEL_76;
+    }
+
+    goto LABEL_67;
+  }
+
+LABEL_65:
+  if (!v8)
+  {
+    memset(__sa, 0, sizeof(__sa));
+    if ((v5 & 4) != 0)
+    {
+      v34 = 22;
+    }
+
+    else
+    {
+      v34 = 20;
+    }
+
+    v35 = sub_1002A80E0(__sa, v34);
+    if ((v5 & 4) != 0)
+    {
+      v36 = "NULL or empty filename";
+    }
+
+    else
+    {
+      v36 = "NULL or empty buffer";
+    }
+
+    memcpy(v35, v36, v34);
+    sub_1002A8980(-27, __sa, "cvOpenFileStorage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 4198);
+  }
+
+  v25 = 0;
+  v26 = 1;
+  if (v8 == 2)
+  {
+LABEL_67:
+    if (v26)
+    {
+      memset(__sa, 0, sizeof(__sa));
+      qmemcpy(sub_1002A80E0(__sa, 68), "CV_STORAGE_APPEND and CV_STORAGE_MEMORY are not currently compatible", 68);
+      sub_1002A8980(-206, __sa, "cvOpenFileStorage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 4205);
+    }
+  }
+
+LABEL_76:
+  v37 = sub_1001D90AC(0x1B8uLL);
+  *v208 = v37;
+  if (!v37)
+  {
+    memset(__sa, 0, sizeof(__sa));
+    *sub_1002A80E0(__sa, 2) = 29542;
+    sub_1002A8980(-215, __sa, "cvOpenFileStorage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 4208);
+  }
+
+  v37[54] = 0;
+  *(v37 + 25) = 0u;
+  *(v37 + 26) = 0u;
+  *(v37 + 23) = 0u;
+  *(v37 + 24) = 0u;
+  *(v37 + 21) = 0u;
+  *(v37 + 22) = 0u;
+  *(v37 + 19) = 0u;
+  *(v37 + 20) = 0u;
+  *(v37 + 17) = 0u;
+  *(v37 + 18) = 0u;
+  *(v37 + 15) = 0u;
+  *(v37 + 16) = 0u;
+  *(v37 + 13) = 0u;
+  *(v37 + 14) = 0u;
+  *(v37 + 11) = 0u;
+  *(v37 + 12) = 0u;
+  *(v37 + 9) = 0u;
+  *(v37 + 10) = 0u;
+  *(v37 + 7) = 0u;
+  *(v37 + 8) = 0u;
+  *(v37 + 5) = 0u;
+  *(v37 + 6) = 0u;
+  *(v37 + 3) = 0u;
+  *(v37 + 4) = 0u;
+  *(v37 + 1) = 0u;
+  *(v37 + 2) = 0u;
+  *v37 = 0u;
+  sub_100231744(0x40000);
+  v39 = v38;
+  v40 = *v208;
+  if (a2)
+  {
+    v41 = a2;
+  }
+
+  else
+  {
+    v41 = v39;
+  }
+
+  *(*v208 + 16) = v39;
+  *(v40 + 24) = v41;
+  *v40 = 1280131417;
+  *(v40 + 8) = v8 != 0;
+  if (v26)
+  {
+    *(v40 + 48) = 0;
+    *(v40 + 64) = 0;
+    *(v40 + 144) = 71;
+    if (*(v40 + 8))
+    {
+LABEL_98:
+      operator new();
+    }
+
+    v50 = 0;
+LABEL_287:
+    *(v40 + 352) = v7;
+    *(v40 + 360) = v25;
+LABEL_288:
+    sub_1002862DC(v40, v214, 0xE);
+    if (v214[2] == 191 && v214[1] == 187 && v214[0] == 239)
+    {
+      v142 = 3;
+    }
+
+    else
+    {
+      v142 = 0;
+    }
+
+    if (!strncmp(&v214[v142], "%YAML", 5uLL))
+    {
+      v143 = *v208;
+      v144 = 16;
+    }
+
+    else if (v214[v142] == 123)
+    {
+      v143 = *v208;
+      v144 = 24;
+    }
+
+    else
+    {
+      v145 = strncmp(&v214[v142], "<?xml", 5uLL);
+      v143 = *v208;
+      if (v145)
+      {
+        if (*(*v208 + 360) == v142)
+        {
+          memset(__sa, 0, sizeof(__sa));
+          v146 = sub_1002A80E0(__sa, 19);
+          *(v146 + 15) = 2037674093;
+          *v146 = *"Input file is empty";
+          sub_1002A8980(-49, __sa, "cvOpenFileStorage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 4484);
+        }
+
+        memset(__sa, 0, sizeof(__sa));
+        qmemcpy(sub_1002A80E0(__sa, 31), "Unsupported file storage format", 31);
+        sub_1002A8980(-49, __sa, "cvOpenFileStorage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 4486);
+      }
+
+      v144 = 8;
+    }
+
+    *(v143 + 4) = v144;
+    if (v50)
+    {
+      v147 = 0x100000;
+      v148 = *v208;
+      v149 = *(*v208 + 104);
+      if (v149)
+      {
+LABEL_307:
+        rewind(v149);
+LABEL_319:
+        *(v148 + 368) = 0;
+        v153 = *v208;
+        *(*v208 + 368) = v142;
+        v154 = *(v153 + 16);
+        v155 = sub_100236364(0, 120, 32, v154);
+        v155[27] = 256;
+        v156 = sub_100231C8C(v154, 0x800uLL);
+        *(v155 + 14) = v156;
+        bzero(v156, 0x800uLL);
+        v157 = *v208;
+        *(*v208 + 40) = v155;
+        v158 = sub_100231FEC(0, 0x60uLL, 0x20uLL, *(v157 + 16));
+        *(*v208 + 48) = v158;
+        v159 = sub_1001D90AC(v147 + 256);
+        v160 = *v208;
+        *(*v208 + 120) = v159;
+        *(v160 + 128) = v159;
+        *(v160 + 136) = &v159[v147];
+        *v159 = 10;
+        *(*(*v208 + 120) + 1) = 0;
+        v161 = *v208;
+        v162 = *(*v208 + 4);
+        if (v162 == 24)
+        {
+          v183 = sub_100298CEC(*v208, *(*v208 + 128));
+          if (v183 && !*(v161 + 152))
+          {
+            v184 = *v183;
+            if (v184 == 91)
+            {
+              v189 = v183;
+              v190 = sub_100233314(*(v161 + 48), 0);
+              sub_100299338(v161, v189, v190);
+            }
+
+            else
+            {
+              if (v184 != 123)
+              {
+                sprintf(__sa, "%s(%d): %s", *(v161 + 96), *(v161 + 148), "left-brace of top level is missing");
+                sub_1002A9248(-212, "icvJSONParse", __sa, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 3831);
+              }
+
+              v185 = v183;
+              v186 = sub_100233314(*(v161 + 48), 0);
+              sub_100298F80(v161, v185, v186);
+            }
+
+            if (*(v161 + 152))
+            {
+              sprintf(__sa, "%s(%d): %s", *(v161 + 96), *(v161 + 148), "Unexpected End-Of-File");
+              sub_1002A9248(-212, "icvJSONParse", __sa, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 3835);
+            }
+          }
+
+          goto LABEL_398;
+        }
+
+        if (v162 != 16)
+        {
+          if (v162 == 8)
+          {
+            v163 = *(*v208 + 128);
+            __dst.__r_.__value_.__r.__words[0] = 0;
+            v211 = 0;
+            v209 = 0;
+            v164 = sub_100294910(*v208, v163, 2);
+            if (*v164 != 1836597052 || v164[4] != 108)
+            {
+              sprintf(__sa, "%s(%d): %s", *(v161 + 96), *(v161 + 148), "Valid XML should start with '<?xml ...?>'");
+              sub_1002A9248(-212, "icvXMLParse", __sa, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2825);
+            }
+
+            for (i = sub_100294C4C(v161, v164, &__dst, &v210, &v209); *i; i = sub_100294910(v161, v171, 0))
+            {
+              v167 = sub_100294910(v161, i, 0);
+              if (!*v167)
+              {
+                break;
+              }
+
+              sub_100294C4C(v161, v167, &__dst, &v210, &v209);
+              v168 = __dst.__r_.__value_.__r.__words[0];
+              v169 = v209 != 1 || __dst.__r_.__value_.__r.__words[0] == 0;
+              if (v169 || strcmp(*(__dst.__r_.__value_.__r.__words[0] + 16), "opencv_storage"))
+              {
+                sprintf(__sa, "%s(%d): %s", *(v161 + 96), *(v161 + 148), "<opencv_storage> tag is missing");
+                sub_1002A9248(-212, "icvXMLParse", __sa, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2855);
+              }
+
+              sub_100233314(*(v161 + 48), 0);
+              v170 = sub_100295364(v161);
+              v171 = sub_100294C4C(v161, v170, &v211, &v210, &v209);
+              if (v209 != 2 || v168 != v211)
+              {
+                sprintf(__sa, "%s(%d): %s", *(v161 + 96), *(v161 + 148), "</opencv_storage> tag is missing");
+                sub_1002A9248(-212, "icvXMLParse", __sa, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2861);
+              }
+            }
+          }
+
+          goto LABEL_398;
+        }
+
+        v172 = sub_100296FFC(*v208, *(*v208 + 128), 0);
+        if (!v172)
+        {
+LABEL_398:
+          j__free(*(*v208 + 128));
+          v70 = *v208;
+          *(*v208 + 128) = 0;
+          *(v70 + 136) = 0;
+          *(v70 + 120) = 0;
+          goto LABEL_399;
+        }
+
+        v173 = 0;
+        while (1)
+        {
+          while (1)
+          {
+            v174 = *v172;
+            if (v174 == 45)
+            {
+              break;
+            }
+
+            if (v174 == 37)
+            {
+              v175 = *v172 == 1296128293 && v172[4] == 76;
+              if (v175 && *v172 != 0x2E313A4C4D415925 && *v172 != 0x2E31204C4D415925)
+              {
+                sprintf(__sa, "%s(%d): %s", *(v161 + 96), *(v161 + 148), "Unsupported YAML version (it must be 1.x)");
+                sub_1002A9248(-212, "icvYMLParse", __sa, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 1836);
+              }
+
+              *v172 = 0;
+              goto LABEL_365;
+            }
+
+            if (v174 != 95 && (v174 - 48) >= 0xA && (v174 & 0xFFFFFFDF) - 65 > 0x19)
+            {
+              if (!*(v161 + 152))
+              {
+                sprintf(__sa, "%s(%d): %s", *(v161 + 96), *(v161 + 148), "Invalid or unsupported syntax");
+                sub_1002A9248(-212, "icvYMLParse", __sa, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 1858);
+              }
+            }
+
+            else if (v173)
+            {
+              sprintf(__sa, "%s(%d): %s", *(v161 + 96), *(v161 + 148), "The YAML streams must start with '---', except the first one");
+              sub_1002A9248(-212, "icvYMLParse", __sa, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 1852);
+            }
+
+LABEL_373:
+            v179 = sub_100296FFC(v161, v172, 0);
+            if (*v179 == 11822 && v179[2] == 46)
+            {
+              goto LABEL_428;
+            }
+
+            v181 = sub_100233314(*(v161 + 48), 0);
+            v182 = sub_100297288(v161);
+            if ((*v181 & 7u) <= 4)
+            {
+              sprintf(__sa, "%s(%d): %s", *(v161 + 96), *(v161 + 148), "Only collections as YAML streams are supported by this parser");
+              sub_1002A9248(-212, "icvYMLParse", __sa, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 1869);
+            }
+
+            v179 = sub_100296FFC(v161, v182, 0);
+            if (v179)
+            {
+LABEL_428:
+              if (!*(v161 + 152))
+              {
+                v172 = sub_100296FFC(v161, v179 + 3, 0);
+                v173 = 1;
+                if (v172)
+                {
+                  continue;
+                }
+              }
+            }
+
+            goto LABEL_398;
+          }
+
+          if (*v172 == 11565 && v172[2] == 45)
+          {
+            v172 += 3;
+            goto LABEL_373;
+          }
+
+          if ((v173 & 1) == 0)
+          {
+            goto LABEL_373;
+          }
+
+LABEL_365:
+          v172 = sub_100296FFC(v161, v172, 0);
+          if (!v172)
+          {
+            goto LABEL_398;
+          }
+        }
+      }
+    }
+
+    else
+    {
+      if (v26)
+      {
+        v150 = *(*v208 + 360);
+      }
+
+      else
+      {
+        fseek(*(*v208 + 104), 0, 2);
+        v150 = ftell(*(*v208 + 104));
+      }
+
+      v151 = 0x100000;
+      if (v150 < 0x100000)
+      {
+        v151 = v150;
+      }
+
+      if (v151 <= 0x2400)
+      {
+        v147 = 9216;
+      }
+
+      else
+      {
+        v147 = v151;
+      }
+
+      v148 = *v208;
+      v149 = *(*v208 + 104);
+      if (v149)
+      {
+        goto LABEL_307;
+      }
+    }
+
+    v152 = *(v148 + 112);
+    if (v152)
+    {
+      gzrewind(v152);
+    }
+
+    goto LABEL_319;
+  }
+
+  v42 = sub_100231C8C(v39, v25 + 1);
+  *(*v208 + 96) = v42;
+  strcpy(v42, v7);
+  v43 = *v208;
+  v44 = *(*v208 + 96);
+  v45 = strrchr(v44, 46);
+  if (v45)
+  {
+    if (v45[1] == 103 && v45[2] == 122)
+    {
+      v46 = v45[3];
+      if (!v45[3] || (v46 - 48) <= 9 && !v45[4])
+      {
+        if (v8 == 2)
+        {
+          sub_1002830D8(v208);
+          sub_1001FA81C(__sa, "Appending data to compressed file is not implemented");
+          sub_1002A8980(-213, __sa, "cvOpenFileStorage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 4231);
+        }
+
+        if (v45[3])
+        {
+          v45[3] = 0;
+          --v25;
+        }
+
+        else
+        {
+          LOBYTE(v46) = 51;
+        }
+
+        if (*(*v208 + 8))
+        {
+          v138 = 119;
+        }
+
+        else
+        {
+          v138 = 114;
+        }
+
+        __sa[0] = v138;
+        __sa[1] = 98;
+        __sa[2] = v46;
+        __sa[3] = 0;
+        v139 = gzopen(*(*v208 + 96), __sa);
+        v40 = *v208;
+        *(*v208 + 112) = v139;
+        if (!v139)
+        {
+          goto LABEL_400;
+        }
+
+        v50 = 1;
+        *(v40 + 48) = 0;
+        *(v40 + 64) = 0;
+        *(v40 + 144) = 71;
+        if (*(v40 + 8))
+        {
+          goto LABEL_97;
+        }
+
+LABEL_286:
+        if (!v26)
+        {
+          goto LABEL_288;
+        }
+
+        goto LABEL_287;
+      }
+    }
+  }
+
+  v47 = "a+t";
+  if (v8 != 2)
+  {
+    v47 = "wt";
+  }
+
+  if (*(v43 + 8))
+  {
+    v48 = v47;
+  }
+
+  else
+  {
+    v48 = "rt";
+  }
+
+  v49 = fopen(v44, v48);
+  v40 = *v208;
+  *(*v208 + 104) = v49;
+  if (!v49)
+  {
+    goto LABEL_400;
+  }
+
+  v50 = 0;
+  *(v40 + 48) = 0;
+  *(v40 + 64) = 0;
+  *(v40 + 144) = 71;
+  if (!*(v40 + 8))
+  {
+    goto LABEL_286;
+  }
+
+LABEL_97:
+  v51 = v5 & 0x38;
+  if (v26)
+  {
+    goto LABEL_98;
+  }
+
+  if ((v5 & 0x38) != 0 || !v7)
+  {
+    if ((v5 & 0x38) == 0)
+    {
+      *(v40 + 4) = 8;
+      v61 = 25600;
+      v51 = 8;
+      if (v8 != 2)
+      {
+        goto LABEL_119;
+      }
+
+LABEL_118:
+      fseek(*(v40 + 104), 0, 2);
+      v40 = *v208;
+      v51 = *(*v208 + 4);
+      goto LABEL_119;
+    }
+
+    *(v40 + 4) = v51;
+    if (v51 != 8)
+    {
+      goto LABEL_193;
+    }
+
+LABEL_117:
+    v61 = 25600;
+    v51 = 8;
+    if (v8 != 2)
+    {
+      goto LABEL_119;
+    }
+
+    goto LABEL_118;
+  }
+
+  v52 = 0;
+  v53 = 0;
+  while (1)
+  {
+    if (*v7 == 46)
+    {
+      v53 = v52;
+      v52 = v7;
+      goto LABEL_103;
+    }
+
+    if (!*v7)
+    {
+      break;
+    }
+
+LABEL_103:
+    ++v7;
+  }
+
+  if (!v52)
+  {
+    v56 = 0;
+LABEL_136:
+    if (v56 && v53 != 0)
+    {
+      v60 = v53;
+    }
+
+    else
+    {
+      v60 = v52;
+    }
+
+    if (v60)
+    {
+      goto LABEL_159;
+    }
+
+LABEL_191:
+    v51 = 16;
+    goto LABEL_192;
+  }
+
+  if (strlen(v52) != 3)
+  {
+    v60 = v52;
+    goto LABEL_159;
+  }
+
+  v54 = __tolower(*v52);
+  v55 = __tolower(46);
+  v56 = v54 == v55;
+  if (v54 != v55)
+  {
+    goto LABEL_136;
+  }
+
+  v57 = __tolower(v52[1]);
+  v58 = __tolower(103);
+  v56 = v57 == v58;
+  if (v57 != v58)
+  {
+    goto LABEL_136;
+  }
+
+  v59 = __tolower(v52[2]);
+  if (v59 == __tolower(122) && v53 != 0)
+  {
+    v60 = v53;
+  }
+
+  else
+  {
+    v60 = v52;
+  }
+
+  if (!v60)
+  {
+    goto LABEL_191;
+  }
+
+LABEL_159:
+  if (strlen(v60) == 4 && (v78 = __tolower(*v60), v78 == __tolower(46)) && (v79 = __tolower(v60[1]), v79 == __tolower(120)) && (v80 = __tolower(v60[2]), v80 == __tolower(109)) && (v81 = __tolower(v60[3]), v81 == __tolower(108)) || strlen(v60) == 7 && (v82 = __tolower(*v60), v82 == __tolower(46)) && (v83 = __tolower(v60[1]), v83 == __tolower(120)) && (v84 = __tolower(v60[2]), v84 == __tolower(109)) && (v85 = __tolower(v60[3]), v85 == __tolower(108)) && (v86 = __tolower(v60[4]), v86 == __tolower(46)) && (v87 = __tolower(v60[5]), v87 == __tolower(103)) && (v88 = __tolower(v60[6]), v88 == __tolower(122)))
+  {
+    v51 = 8;
+  }
+
+  else if (strlen(v60) == 5 && (v89 = __tolower(*v60), v89 == __tolower(46)) && (v90 = __tolower(v60[1]), v90 == __tolower(106)) && (v91 = __tolower(v60[2]), v91 == __tolower(115)) && (v92 = __tolower(v60[3]), v92 == __tolower(111)) && (v93 = __tolower(v60[4]), v93 == __tolower(110)))
+  {
+    v51 = 24;
+  }
+
+  else
+  {
+    if (strlen(v60) != 8)
+    {
+      goto LABEL_191;
+    }
+
+    v94 = __tolower(*v60);
+    if (v94 != __tolower(46))
+    {
+      goto LABEL_191;
+    }
+
+    v95 = __tolower(v60[1]);
+    if (v95 != __tolower(106))
+    {
+      goto LABEL_191;
+    }
+
+    v96 = __tolower(v60[2]);
+    if (v96 != __tolower(115))
+    {
+      goto LABEL_191;
+    }
+
+    v97 = __tolower(v60[3]);
+    if (v97 != __tolower(111))
+    {
+      goto LABEL_191;
+    }
+
+    v98 = __tolower(v60[4]);
+    if (v98 != __tolower(110))
+    {
+      goto LABEL_191;
+    }
+
+    v99 = __tolower(v60[5]);
+    if (v99 != __tolower(46))
+    {
+      goto LABEL_191;
+    }
+
+    v100 = __tolower(v60[6]);
+    if (v100 != __tolower(103))
+    {
+      goto LABEL_191;
+    }
+
+    v101 = __tolower(v60[7]);
+    if (v101 == __tolower(122))
+    {
+      v51 = 24;
+    }
+
+    else
+    {
+      v51 = 16;
+    }
+  }
+
+LABEL_192:
+  v40 = *v208;
+  *(*v208 + 4) = v51;
+  if (v51 == 8)
+  {
+    goto LABEL_117;
+  }
+
+LABEL_193:
+  v61 = 17408;
+  if (v8 == 2)
+  {
+    goto LABEL_118;
+  }
+
+LABEL_119:
+  if (v51 == 8)
+  {
+    v62 = 40;
+  }
+
+  else
+  {
+    v62 = 4;
+  }
+
+  v63 = sub_100231FEC(0, 0x60uLL, v62, *(v40 + 16));
+  v64 = *v208;
+  *(*v208 + 56) = v63;
+  *(v64 + 12) = 1;
+  *(v64 + 64) = 0x2000000000;
+  v65 = sub_1001D90AC(v61 + 1024);
+  v66 = *v208;
+  *(*v208 + 120) = v65;
+  *(v66 + 128) = v65;
+  *(v66 + 136) = &v65[v61];
+  *(v66 + 384) = 0;
+  *(v66 + 392) = v9;
+  *(v66 + 396) = 0;
+  *(v66 + 400) = 0;
+  *(v66 + 408) = 0;
+  *(v66 + 416) = 0;
+  *(v66 + 424) = 0;
+  v67 = *(v66 + 4);
+  if (v67 == 16)
+  {
+    if (v8 == 2)
+    {
+      v69 = "...\n---\n";
+    }
+
+    else
+    {
+      v69 = "%YAML:1.0\n---\n";
+    }
+
+    sub_10028614C(v66, v69);
+    v70 = *v208;
+    *(*v208 + 296) = sub_100287444;
+    *(v70 + 304) = sub_1002876AC;
+    *(v70 + 312) = sub_100287880;
+    *(v70 + 320) = sub_100287924;
+    *(v70 + 328) = sub_100287A94;
+    *(v70 + 336) = sub_100287E18;
+    v71 = sub_1002881B0;
+  }
+
+  else if (v67 == 8)
+  {
+    if (*(v66 + 104))
+    {
+      v68 = ftell(*(v66 + 104));
+      v66 = *v208;
+    }
+
+    else
+    {
+      v68 = 0;
+    }
+
+    sub_1002317F4(*(v66 + 16));
+    v103 = v102;
+    v104 = *v208;
+    *(*v208 + 32) = v103;
+    if (v8 == 2 && v68)
+    {
+      if (v68 >= 1024)
+      {
+        v105 = 1024;
+      }
+
+      else
+      {
+        v105 = v68;
+      }
+
+      fseek(*(v104 + 104), -v105, 2);
+      v106 = sub_1001D90AC(v105 + 2);
+      v107 = -1;
+      while (1)
+      {
+        v108 = ftell(*(*v208 + 104));
+        v109 = sub_1002862DC(*v208, v106, v105);
+        v110 = v109;
+        if (!v109)
+        {
+          break;
+        }
+
+        v111 = strstr(v109, "</opencv_storage>");
+        if (v111)
+        {
+          do
+          {
+            v112 = v111;
+            v111 = strstr(v111 + 17, "</opencv_storage>");
+          }
+
+          while (v111);
+          v107 = v112 - v110 + v108;
+        }
+      }
+
+      j__free(v106);
+      if (v107 < 0)
+      {
+        sub_1002830D8(v208);
+        memset(__sa, 0, sizeof(__sa));
+        qmemcpy(sub_1002A80E0(__sa, 53), "Could not find </opencv_storage> in the end of file.\n", 53);
+        sub_1002A8980(-2, __sa, "cvOpenFileStorage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 4383);
+      }
+
+      v113 = *v208;
+      v115 = (*v208 + 104);
+      v114 = *(*v208 + 104);
+      if (v114)
+      {
+        fclose(v114);
+      }
+
+      else
+      {
+        v133 = *(*v208 + 112);
+        if (v133)
+        {
+          gzclose(v133);
+        }
+      }
+
+      *(v113 + 352) = 0;
+      *(v113 + 368) = 0;
+      *(v113 + 432) = 0;
+      *v115 = 0;
+      v115[1] = 0;
+      v134 = fopen(*(*v208 + 96), "r+t");
+      *(*v208 + 104) = v134;
+      if (!v134)
+      {
+        memset(__sa, 0, sizeof(__sa));
+        *sub_1002A80E0(__sa, 8) = 0x656C69663E2D7366;
+        sub_1002A8980(-215, __sa, "cvOpenFileStorage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 4387);
+      }
+
+      fseek(v134, v107, 0);
+      sub_10028614C(*v208, " <!-- resumed -->");
+      fseek(*(*v208 + 104), 0, 2);
+      sub_10028614C(*v208, "\n");
+    }
+
+    else
+    {
+      if (a4)
+      {
+        if (!strcmp(a4, "UTF-16") || !strcmp(a4, "utf-16") || !strcmp(a4, "Utf-16"))
+        {
+          sub_1002830D8(v208);
+          memset(__sa, 0, sizeof(__sa));
+          qmemcpy(sub_1002A80E0(__sa, 57), "UTF-16 XML encoding is not supported! Use 8-bit encoding\n", 57);
+          sub_1002A8980(-5, __sa, "cvOpenFileStorage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 4342);
+        }
+
+        if (strlen(a4) >= 0x3E8)
+        {
+          memset(__sa, 0, sizeof(__sa));
+          qmemcpy(sub_1002A80E0(__sa, 23), "strlen(encoding) < 1000", 23);
+          sub_1002A8980(-215, __sa, "cvOpenFileStorage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 4345);
+        }
+
+        sprintf(__sa, "<?xml version=1.0 encoding=%s?>\n", a4);
+        sub_10028614C(*v208, __sa);
+      }
+
+      else
+      {
+        sub_10028614C(v104, "<?xml version=1.0?>\n");
+      }
+
+      sub_10028614C(*v208, "<opencv_storage>\n");
+    }
+
+    v70 = *v208;
+    *(*v208 + 296) = sub_100286448;
+    *(v70 + 304) = sub_100286674;
+    *(v70 + 312) = sub_100286758;
+    *(v70 + 320) = sub_100286828;
+    *(v70 + 328) = sub_100286988;
+    *(v70 + 336) = sub_100286DB0;
+    v71 = sub_100287358;
+  }
+
+  else
+  {
+    if (v8 == 2)
+    {
+      if (fseek(*(v66 + 104), 0, 2))
+      {
+LABEL_156:
+        memset(__sa, 0, sizeof(__sa));
+        qmemcpy(sub_1002A80E0(__sa, 39), "Could not find '}' in the end of file.\n", 39);
+        sub_1002A8980(-2, __sa, "cvOpenFileStorage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 4447);
+      }
+
+      v77 = 0;
+      while (fgetc(*(*v208 + 104)) != 125)
+      {
+        if (fseek(*(*v208 + 104), --v77, 2))
+        {
+          goto LABEL_156;
+        }
+      }
+
+      fseek(*(*v208 + 104), v77, 2);
+      v135 = *v208;
+      v137 = (*v208 + 104);
+      v136 = *(*v208 + 104);
+      if (v136)
+      {
+        fclose(v136);
+      }
+
+      else
+      {
+        v187 = *(*v208 + 112);
+        if (v187)
+        {
+          gzclose(v187);
+        }
+      }
+
+      *(v135 + 352) = 0;
+      *(v135 + 368) = 0;
+      *(v135 + 432) = 0;
+      *v137 = 0;
+      v137[1] = 0;
+      v188 = fopen(*(*v208 + 96), "r+t");
+      *(*v208 + 104) = v188;
+      if (!v188)
+      {
+        sub_1001FA81C(__sa, "fs->file");
+        sub_1002A8980(-215, __sa, "cvOpenFileStorage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 4441);
+      }
+
+      fseek(v188, v77, 2);
+      fputs(",", *(*v208 + 104));
+    }
+
+    else
+    {
+      sub_10028614C(v66, "{\n");
+    }
+
+    v70 = *v208;
+    *(*v208 + 64) = 4;
+    *(v70 + 296) = sub_1002882AC;
+    *(v70 + 304) = sub_1002884A0;
+    *(v70 + 312) = sub_10028868C;
+    *(v70 + 320) = sub_100288730;
+    *(v70 + 328) = sub_1002888B0;
+    *(v70 + 336) = sub_100288B60;
+    v71 = sub_100288F04;
+  }
+
+  *(v70 + 344) = v71;
+LABEL_399:
+  *(v70 + 432) = 1;
+LABEL_400:
+  if ((variable initialization expression of PointTrail.isStarted() & 0x80000000) != 0)
+  {
+    goto LABEL_411;
+  }
+
+  v191 = *v208;
+  v193 = (*v208 + 104);
+  v192 = *(*v208 + 104);
+  if (!v192)
+  {
+    v194 = *(*v208 + 112);
+    if (v194)
+    {
+      if (*(*v208 + 8))
+      {
+        goto LABEL_412;
+      }
+
+      gzclose(v194);
+LABEL_410:
+      *(v191 + 352) = 0;
+      *(v191 + 368) = 0;
+      *(v191 + 432) = 0;
+      *v193 = 0;
+      v193[1] = 0;
+      v191 = *v208;
+      *(*v208 + 432) = 1;
+      goto LABEL_412;
+    }
+
+    if (*(*v208 + 376) || *(*v208 + 352))
+    {
+      if (*(*v208 + 8))
+      {
+        goto LABEL_412;
+      }
+
+      goto LABEL_410;
+    }
+
+LABEL_411:
+    sub_1002830D8(v208);
+    v191 = *v208;
+    goto LABEL_412;
+  }
+
+  if (!*(*v208 + 8))
+  {
+    fclose(v192);
+    goto LABEL_410;
+  }
+
+LABEL_412:
+  v195 = __p;
+  if (__p)
+  {
+    v196 = v206;
+    while (v196 != v195)
+    {
+      v197 = *(v196 - 1);
+      v196 -= 3;
+      if (v197 < 0)
+      {
+        operator delete(*v196);
+      }
+    }
+
+    operator delete(v195);
+  }
+
+  return v191;
+}
+
+void sub_100285E98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
+{
+  sub_1002A8124(&__p);
+  sub_1002860D8(&a22);
+  _Unwind_Resume(a1);
+}
+
+void sub_1002860C8(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2)
+  {
+    sub_100008E3C(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void ***sub_1002860D8(void ***a1)
+{
+  v2 = *a1;
+  if (*a1)
+  {
+    v3 = a1[1];
+    v4 = *a1;
+    if (v3 != v2)
+    {
+      do
+      {
+        v5 = *(v3 - 1);
+        v3 -= 3;
+        if (v5 < 0)
+        {
+          operator delete(*v3);
+        }
+      }
+
+      while (v3 != v2);
+      v4 = *a1;
+    }
+
+    a1[1] = v2;
+    operator delete(v4);
+  }
+
+  return a1;
+}
+
+void sub_10028614C(void *a1, char *__s)
+{
+  v2 = __s;
+  v3 = a1[47];
+  if (v3)
+  {
+    v4 = strlen(__s);
+    if (v4)
+    {
+      v5 = v4;
+      v6 = *(v3 + 40);
+      do
+      {
+        v8 = *(v3 + 16);
+        v9 = *(v3 + 8);
+        if (v8 == v9)
+        {
+          v10 = 0;
+        }
+
+        else
+        {
+          v10 = ((v8 - v9) << 9) - 1;
+        }
+
+        v11 = *(v3 + 32) + v6;
+        if (v10 == v11)
+        {
+          sub_100293C50(v3);
+          v9 = *(v3 + 8);
+          v11 = *(v3 + 40) + *(v3 + 32);
+        }
+
+        v7 = *v2++;
+        *(*(v9 + ((v11 >> 9) & 0x7FFFFFFFFFFFF8)) + (v11 & 0xFFF)) = v7;
+        v6 = *(v3 + 40) + 1;
+        *(v3 + 40) = v6;
+        --v5;
+      }
+
+      while (v5);
+    }
+  }
+
+  else
+  {
+    v12 = a1[13];
+    if (v12)
+    {
+
+      fputs(v2, v12);
+    }
+
+    else
+    {
+      v13 = a1[14];
+      if (!v13)
+      {
+        v14[0] = 0;
+        v14[1] = 0;
+        qmemcpy(sub_1002A80E0(v14, 25), "The storage is not opened", 25);
+        sub_1002A8980(-2, v14, "icvPuts", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 405);
+      }
+
+      gzputs(v13, v2);
+    }
+  }
+}
+
+char *sub_1002862DC(void *a1, char *a2, char *buf)
+{
+  v3 = a1[44];
+  if (v3)
+  {
+    v4 = 0;
+    v6 = a1[45];
+    v5 = a1[46];
+    v7 = v3 + v5;
+    while (1)
+    {
+      v8 = v4;
+      v9 = v5 + v4;
+      if (v5 + v4 >= v6 || v4 >= buf - 1)
+      {
+        break;
+      }
+
+      v11 = *(v7 + v4);
+      if (*(v7 + v4))
+      {
+        ++v4;
+        a2[v8] = v11;
+        if (v11 != 10)
+        {
+          continue;
+        }
+      }
+
+      v9 = v5 + v8 + 1;
+      LODWORD(v8) = v4;
+      break;
+    }
+
+    a2[v8] = 0;
+    a1[46] = v9;
+    if (v8 <= 0)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return a2;
+    }
+  }
+
+  else
+  {
+    v12 = a1[13];
+    if (v12)
+    {
+
+      return fgets(a2, buf, v12);
+    }
+
+    else
+    {
+      v14 = a1[14];
+      if (!v14)
+      {
+        v15[0] = 0;
+        v15[1] = 0;
+        qmemcpy(sub_1002A80E0(v15, 25), "The storage is not opened", 25);
+        sub_1002A8980(-2, v15, "icvGets", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 434);
+      }
+
+      return gzgets(v14, a2, buf);
+    }
+  }
+}
+
+char *sub_100286448(uint64_t a1, char *a2, char a3, _BYTE *a4)
+{
+  memset(v20, 0, sizeof(v20));
+  v19 = 0u;
+  if ((a3 & 7u) <= 4)
+  {
+    v14[0] = 0;
+    v14[1] = 0;
+    qmemcpy(sub_1002A80E0(v14, 66), "Some collection type: CV_NODE_SEQ or CV_NODE_MAP must be specified", 66);
+    sub_1002A8980(-5, v14, "icvXMLStartWriteStruct", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2974);
+  }
+
+  if (a4 && *a4)
+  {
+    v7 = v20;
+    *&v19 = "type_id";
+    *(&v19 + 1) = a4;
+  }
+
+  else
+  {
+    v7 = &v19;
+  }
+
+  *v7 = 0;
+  sub_10029433C(a1, a2, 1, &v19, 0);
+  v8 = *(a1 + 68) & 0xFFFFFFDF;
+  v17 = *(a1 + 64);
+  v18 = v8;
+  v16 = *(a1 + 72);
+  sub_100231AF4(*(a1 + 32), __src);
+  result = sub_100233314(*(a1 + 56), __src);
+  v10 = *(a1 + 64) + 2;
+  *(a1 + 64) = v10;
+  if ((a3 & 8) == 0)
+  {
+    v11 = *(a1 + 120);
+    result = *(a1 + 128);
+    v12 = *(a1 + 88);
+    if (v11 > &result[v12])
+    {
+      *v11 = 10;
+      sub_10028614C(a1, *(a1 + 128));
+      result = *(a1 + 128);
+      LODWORD(v12) = *(a1 + 88);
+      v10 = *(a1 + 64);
+    }
+
+    if (v12 != v10)
+    {
+      memset(result, 32, v10);
+      *(a1 + 88) = v10;
+      result = *(a1 + 128);
+    }
+
+    *(a1 + 120) = &result[v10];
+  }
+
+  *(a1 + 68) = a3 & 0xF | 0x20;
+  if (a2)
+  {
+    result = sub_100231F7C(*(a1 + 32), a2, -1);
+    *(a1 + 72) = result;
+  }
+
+  else
+  {
+    v13 = 0;
+    *(a1 + 72) = 0;
+  }
+
+  *(a1 + 80) = v13;
+  return result;
+}
+
 void sub_100286644(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
 {
   if (a2)
@@ -27,9 +3053,9 @@ uint64_t sub_100286674(uint64_t a1)
   return sub_100231B80(*(a1 + 32), __dst);
 }
 
-void sub_100286740(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100286740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1002A8124(va);
   _Unwind_Resume(a1);
 }
@@ -350,25 +3376,25 @@ void sub_100286D68(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *sub_100286DB0(uint64_t a1, char *__s1, int a3)
+void sub_100286DB0(uint64_t a1, char *__s1, int a3)
 {
   v4 = __s1;
   if (!__s1)
   {
-    v56 = 0;
-    v57 = 0;
-    v6 = sub_1002A80E0(&v56, 12);
+    v58 = 0;
+    v59 = 0;
+    v6 = sub_1002A80E0(&v58, 12);
     *(v6 + 8) = 1953391981;
     *v6 = *"Null comment";
-    sub_1002A8980(-27, &v56, "icvXMLWriteComment", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 3205);
+    sub_1002A8980(-27, &v58, "icvXMLWriteComment", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 3205);
   }
 
   if (strstr(__s1, "--"))
   {
-    v56 = 0;
-    v57 = 0;
-    qmemcpy(sub_1002A80E0(&v56, 49), "Double hyphen '--' is not allowed in the comments", 49);
-    sub_1002A8980(-5, &v56, "icvXMLWriteComment", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 3208);
+    v58 = 0;
+    v59 = 0;
+    qmemcpy(sub_1002A80E0(&v58, 49), "Double hyphen '--' is not allowed in the comments", 49);
+    sub_1002A8980(-5, &v58, "icvXMLWriteComment", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 3208);
   }
 
   v7 = strlen(v4);
@@ -385,20 +3411,20 @@ char *sub_100286DB0(uint64_t a1, char *__s1, int a3)
     goto LABEL_18;
   }
 
-  result = *(a1 + 128);
+  v11 = *(a1 + 128);
   v12 = *(a1 + 88);
-  if (v10 > &result[v12])
+  if (v10 > &v11[v12])
   {
     *v10 = 10;
     sub_10028614C(a1, *(a1 + 128));
-    result = *(a1 + 128);
+    v11 = *(a1 + 128);
     LODWORD(v12) = *(a1 + 88);
   }
 
   v13 = *(a1 + 64);
   if (v12 == v13)
   {
-    v10 = &result[v12];
+    v10 = &v11[v12];
     *(a1 + 120) = v10;
     if (!v9)
     {
@@ -407,91 +3433,90 @@ char *sub_100286DB0(uint64_t a1, char *__s1, int a3)
 
 LABEL_15:
     strcpy(v10, "<!--");
-    v15 = 4;
+    v16 = 4;
     goto LABEL_26;
   }
 
   v14 = v13;
-  memset(result, 32, v13);
+  memset(v11, 32, v13);
   *(a1 + 88) = v13;
-  result = *(a1 + 128);
-  v10 = &result[v13];
-  *(a1 + 120) = &result[v14];
+  v15 = *(a1 + 128);
+  v10 = (v15 + v13);
+  *(a1 + 120) = v15 + v14;
   if (v9)
   {
     goto LABEL_15;
   }
 
 LABEL_18:
-  v16 = v7 + 9;
-  v17 = *(a1 + 136);
-  if (&v10[v7 + 9] >= v17)
+  v17 = v7 + 9;
+  v18 = *(a1 + 136);
+  if (&v10[v7 + 9] >= v18)
   {
-    v18 = *(a1 + 128);
-    v19 = v10 - v18;
-    v20 = (3 * (v17 - v18) + ((3 * (v17 - v18)) >> 63)) >> 1;
-    v21 = v16 + v10 - v18;
-    if (v21 <= v20)
+    v19 = *(a1 + 128);
+    v20 = v10 - v19;
+    v21 = (3 * (v18 - v19) + ((3 * (v18 - v19)) >> 63)) >> 1;
+    v22 = v17 + v10 - v19;
+    if (v22 <= v21)
     {
-      v22 = v20;
+      v23 = v21;
     }
 
     else
     {
-      v22 = v21;
+      v23 = v22;
     }
 
-    v23 = sub_1001D90AC(v22 + 256);
-    v24 = v23;
-    v25 = *(a1 + 128);
-    *(a1 + 120) = &v23[*(a1 + 120) - v25];
-    if (v19 >= 1)
+    v24 = sub_1001D90AC(v23 + 256);
+    v25 = v24;
+    v26 = *(a1 + 128);
+    *(a1 + 120) = &v24[*(a1 + 120) - v26];
+    if (v20 >= 1)
     {
-      memcpy(v23, v25, v19 & 0x7FFFFFFF);
+      memcpy(v24, v26, v20 & 0x7FFFFFFF);
     }
 
-    *(a1 + 128) = v24;
-    *(a1 + 136) = &v24[v22];
-    v10 = &v24[v19];
+    *(a1 + 128) = v25;
+    *(a1 + 136) = &v25[v23];
+    v10 = &v25[v20];
   }
 
   sprintf(v10, "<!-- %s -->", v4);
-  result = strlen(v10);
-  v15 = result;
+  v16 = strlen(v10);
 LABEL_26:
-  v26 = &v10[v15];
-  *(a1 + 120) = &v10[v15];
-  v27 = *(a1 + 128);
-  v28 = *(a1 + 88);
-  if (v26 > &v27[v28])
+  v27 = &v10[v16];
+  *(a1 + 120) = &v10[v16];
+  v28 = *(a1 + 128);
+  v29 = *(a1 + 88);
+  if (v27 > &v28[v29])
   {
-    *v26 = 10;
-    result = sub_10028614C(a1, *(a1 + 128));
-    v27 = *(a1 + 128);
-    LODWORD(v28) = *(a1 + 88);
+    *v27 = 10;
+    sub_10028614C(a1, *(a1 + 128));
+    v28 = *(a1 + 128);
+    LODWORD(v29) = *(a1 + 88);
   }
 
-  v29 = *(a1 + 64);
-  if (v28 == v29)
+  v30 = *(a1 + 64);
+  if (v29 == v30)
   {
-    v30 = &v27[v28];
-    *(a1 + 120) = v30;
+    v31 = &v28[v29];
+    *(a1 + 120) = v31;
     if (!v9)
     {
-      return result;
+      return;
     }
   }
 
   else
   {
-    result = memset(v27, 32, v29);
-    *(a1 + 88) = v29;
-    v27 = *(a1 + 128);
-    v30 = &v27[v29];
-    *(a1 + 120) = v30;
+    memset(v28, 32, v30);
+    *(a1 + 88) = v30;
+    v28 = *(a1 + 128);
+    v31 = &v28[v30];
+    *(a1 + 120) = v31;
     if (!v9)
     {
-      return result;
+      return;
     }
   }
 
@@ -501,46 +3526,46 @@ LABEL_26:
     {
       if (v9)
       {
-        v31 = v9 - v4;
-        v32 = v9 - v4 + 1;
-        v33 = *(a1 + 136);
-        if (&v30[v32] >= v33)
+        v32 = v9 - v4;
+        v33 = v9 - v4 + 1;
+        v34 = *(a1 + 136);
+        if (&v31[v33] >= v34)
         {
-          v34 = v30 - v27;
-          v35 = (3 * (v33 - v27) + ((3 * (v33 - v27)) >> 63)) >> 1;
-          v36 = v32 + v34;
-          if (v36 <= v35)
+          v35 = v31 - v28;
+          v36 = (3 * (v34 - v28) + ((3 * (v34 - v28)) >> 63)) >> 1;
+          v37 = v33 + v35;
+          if (v37 <= v36)
           {
-            v37 = v35;
+            v38 = v36;
           }
 
           else
           {
-            v37 = v36;
+            v38 = v37;
           }
 
-          v38 = sub_1001D90AC(v37 + 256);
-          v39 = v38;
-          v40 = *(a1 + 128);
-          *(a1 + 120) = &v38[*(a1 + 120) - v40];
-          if (v34 >= 1)
+          v39 = sub_1001D90AC(v38 + 256);
+          v40 = v39;
+          v41 = *(a1 + 128);
+          *(a1 + 120) = &v39[*(a1 + 120) - v41];
+          if (v35 >= 1)
           {
-            memcpy(v38, v40, v34 & 0x7FFFFFFF);
+            memcpy(v39, v41, v35 & 0x7FFFFFFF);
           }
 
-          *(a1 + 128) = v39;
-          *(a1 + 136) = &v39[v37];
-          v30 = &v39[v34];
+          *(a1 + 128) = v40;
+          *(a1 + 136) = &v40[v38];
+          v31 = &v40[v35];
         }
 
-        memcpy(v30, v4, v31 + 1);
-        v41 = &v30[v31];
+        memcpy(v31, v4, v32 + 1);
+        v42 = &v31[v32];
         v4 = v9 + 1;
         v9 = strchr(v9 + 1, 10);
-        *(a1 + 120) = v41;
-        v27 = *(a1 + 128);
-        v42 = *(a1 + 88);
-        if (v41 <= &v27[v42])
+        *(a1 + 120) = v42;
+        v28 = *(a1 + 128);
+        v43 = *(a1 + 88);
+        if (v42 <= &v28[v43])
         {
           goto LABEL_45;
         }
@@ -548,60 +3573,60 @@ LABEL_26:
 
       else
       {
-        v44 = strlen(v4);
-        v45 = v44;
-        v46 = *(a1 + 136);
-        if (&v30[v44] >= v46)
+        v45 = strlen(v4);
+        v46 = v45;
+        v47 = *(a1 + 136);
+        if (&v31[v45] >= v47)
         {
-          v47 = v30 - v27;
-          v48 = (3 * (v46 - v27) + ((3 * (v46 - v27)) >> 63)) >> 1;
-          if (v47 + v44 <= v48)
+          v48 = v31 - v28;
+          v49 = (3 * (v47 - v28) + ((3 * (v47 - v28)) >> 63)) >> 1;
+          if (v48 + v45 <= v49)
           {
-            v49 = v48;
+            v50 = v49;
           }
 
           else
           {
-            v49 = v47 + v44;
+            v50 = v48 + v45;
           }
 
-          v50 = sub_1001D90AC(v49 + 256);
-          v51 = v50;
-          v52 = *(a1 + 128);
-          *(a1 + 120) = &v50[*(a1 + 120) - v52];
-          if (v47 >= 1)
+          v51 = sub_1001D90AC(v50 + 256);
+          v52 = v51;
+          v53 = *(a1 + 128);
+          *(a1 + 120) = &v51[*(a1 + 120) - v53];
+          if (v48 >= 1)
           {
-            memcpy(v50, v52, v47 & 0x7FFFFFFF);
+            memcpy(v51, v53, v48 & 0x7FFFFFFF);
           }
 
-          *(a1 + 128) = v51;
-          *(a1 + 136) = &v51[v49];
-          v30 = &v51[v47];
+          *(a1 + 128) = v52;
+          *(a1 + 136) = &v52[v50];
+          v31 = &v52[v48];
         }
 
-        memcpy(v30, v4, v45);
+        memcpy(v31, v4, v46);
         v4 = 0;
         v9 = 0;
-        v41 = &v30[v45];
-        *(a1 + 120) = v41;
-        v27 = *(a1 + 128);
-        v42 = *(a1 + 88);
-        if (v41 <= &v27[v42])
+        v42 = &v31[v46];
+        *(a1 + 120) = v42;
+        v28 = *(a1 + 128);
+        v43 = *(a1 + 88);
+        if (v42 <= &v28[v43])
         {
           goto LABEL_45;
         }
       }
 
-      *v41 = 10;
+      *v42 = 10;
       sub_10028614C(a1, *(a1 + 128));
-      v27 = *(a1 + 128);
-      LODWORD(v42) = *(a1 + 88);
+      v28 = *(a1 + 128);
+      LODWORD(v43) = *(a1 + 88);
 LABEL_45:
-      v43 = *(a1 + 64);
-      if (v42 == v43)
+      v44 = *(a1 + 64);
+      if (v43 == v44)
       {
-        v30 = &v27[v42];
-        *(a1 + 120) = v30;
+        v31 = &v28[v43];
+        *(a1 + 120) = v31;
         if (!v4)
         {
           break;
@@ -610,11 +3635,11 @@ LABEL_45:
 
       else
       {
-        memset(v27, 32, v43);
-        *(a1 + 88) = v43;
-        v27 = *(a1 + 128);
-        v30 = &v27[v43];
-        *(a1 + 120) = v30;
+        memset(v28, 32, v44);
+        *(a1 + 88) = v44;
+        v28 = *(a1 + 128);
+        v31 = &v28[v44];
+        *(a1 + 120) = v31;
         if (!v4)
         {
           break;
@@ -623,62 +3648,60 @@ LABEL_45:
     }
   }
 
-  *v30 = 4074797;
-  *(a1 + 120) = v30 + 3;
-  result = *(a1 + 128);
-  v53 = *(a1 + 88);
-  if (v30 + 3 > &result[v53])
+  *v31 = 4074797;
+  *(a1 + 120) = v31 + 3;
+  v54 = *(a1 + 128);
+  v55 = *(a1 + 88);
+  if (v31 + 3 > &v54[v55])
   {
-    *(v30 + 3) = 10;
+    *(v31 + 3) = 10;
     sub_10028614C(a1, *(a1 + 128));
-    result = *(a1 + 128);
-    LODWORD(v53) = *(a1 + 88);
+    v54 = *(a1 + 128);
+    LODWORD(v55) = *(a1 + 88);
   }
 
-  v54 = *(a1 + 64);
-  if (v53 == v54)
+  v56 = *(a1 + 64);
+  if (v55 == v56)
   {
-    v55 = v53;
+    v57 = v55;
   }
 
   else
   {
-    v55 = v54;
-    memset(result, 32, v54);
-    *(a1 + 88) = v54;
-    result = *(a1 + 128);
+    v57 = v56;
+    memset(v54, 32, v56);
+    *(a1 + 88) = v56;
+    v54 = *(a1 + 128);
   }
 
-  *(a1 + 120) = &result[v55];
-  return result;
+  *(a1 + 120) = &v54[v57];
 }
 
-void sub_100287328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100287328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_1002A8124(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100287358(uint64_t result)
+void sub_100287358(uint64_t result)
 {
   if (!*(result + 12))
   {
-    v1 = result;
     if (*(*(result + 56) + 40) >= 1)
     {
       do
       {
-        sub_100286674(v1);
+        sub_100286674(result);
       }
 
-      while (*(*(v1 + 56) + 40) > 0);
+      while (*(*(result + 56) + 40) > 0);
     }
 
-    *(v1 + 64) = 0;
-    v3 = *(v1 + 120);
-    v2 = *(v1 + 128);
-    v4 = *(v1 + 88);
+    *(result + 64) = 0;
+    v3 = *(result + 120);
+    v2 = *(result + 128);
+    v4 = *(result + 88);
     if (v3 <= &v2[v4])
     {
       v5 = 0;
@@ -686,33 +3709,31 @@ uint64_t sub_100287358(uint64_t result)
       if (!v4)
       {
 LABEL_9:
-        *(v1 + 120) = &v2[v6];
-        result = sub_10028614C(v1, "\n<!-- next stream -->\n");
-        *(v1 + 120) = *(v1 + 128);
-        return result;
+        *(result + 120) = &v2[v6];
+        sub_10028614C(result, "\n<!-- next stream -->\n");
+        *(result + 120) = *(result + 128);
+        return;
       }
     }
 
     else
     {
       *v3 = 10;
-      sub_10028614C(v1, *(v1 + 128));
-      v2 = *(v1 + 128);
-      v5 = *(v1 + 64);
+      sub_10028614C(result, *(result + 128));
+      v2 = *(result + 128);
+      v5 = *(result + 64);
       v6 = v5;
-      if (*(v1 + 88) == v5)
+      if (*(result + 88) == v5)
       {
         goto LABEL_9;
       }
     }
 
     memset(v2, 32, v6);
-    *(v1 + 88) = v5;
-    v2 = *(v1 + 128);
+    *(result + 88) = v5;
+    v2 = *(result + 128);
     goto LABEL_9;
   }
-
-  return result;
 }
 
 char *sub_100287444(uint64_t a1)
@@ -938,56 +3959,56 @@ LABEL_5:
   return result;
 }
 
-void sub_100287868(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100287868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1002A8124(va);
   _Unwind_Resume(a1);
 }
 
-char *sub_100287880(uint64_t a1, const char *a2, int a3)
+char *sub_100287880(uint64_t a1, const char *a2, int a3, __n128 a4)
 {
   if (a3 >= 0)
   {
-    v4 = a3;
+    v5 = a3;
   }
 
   else
   {
-    v4 = -a3;
+    v5 = -a3;
   }
 
-  v8[1] = 0;
-  v5 = v8;
+  v9[1] = 0;
+  v6 = v9;
   do
   {
-    *v5-- = v4 % 0xA + 48;
-    v6 = v4 > 9;
-    v4 /= 0xAu;
+    *v6-- = v5 % 0xA + 48;
+    v7 = v5 > 9;
+    v5 /= 0xAu;
   }
 
-  while (v6);
+  while (v7);
   if (a3 < 0)
   {
-    *v5 = 45;
+    *v6 = 45;
   }
 
   else
   {
-    ++v5;
+    ++v6;
   }
 
-  return sub_10028ADF4(a1, a2, v5);
+  return sub_10028ADF4(a1, a2, v6);
 }
 
-char *sub_100287924(uint64_t a1, const char *a2, double a3)
+char *sub_100287924(uint64_t a1, const char *a2, __n128 a3)
 {
-  if ((~HIDWORD(a3) & 0x7FF00000) != 0)
+  if ((~a3.n128_u32[1] & 0x7FF00000) != 0)
   {
     v4 = a1;
     v5 = a2;
-    v6 = rint(a3);
-    if (v6 == a3)
+    v6 = rint(a3.n128_f64[0]);
+    if (v6 == a3.n128_f64[0])
     {
       sprintf(__dst, "%d.", v6);
       a2 = v5;
@@ -997,7 +4018,7 @@ char *sub_100287924(uint64_t a1, const char *a2, double a3)
     else
     {
       v10 = __dst;
-      sprintf(__dst, "%.16e", a3);
+      sprintf(__dst, "%.16e", a3.n128_f64[0]);
       if (__dst[0] == 45 || __dst[0] == 43)
       {
         v10 = &__dst[1];
@@ -1021,15 +4042,15 @@ char *sub_100287924(uint64_t a1, const char *a2, double a3)
 
   else
   {
-    v3 = HIDWORD(a3) & 0x7FFFFFFF;
-    if (LODWORD(a3))
+    v3 = a3.n128_u32[1] & 0x7FFFFFFF;
+    if (a3.n128_u32[0])
     {
       ++v3;
     }
 
     if (v3 < 0x7FF00001)
     {
-      if (a3 >= 0.0)
+      if (a3.n128_i64[0] >= 0)
       {
         v7 = ".Inf";
       }
@@ -1375,25 +4396,24 @@ LABEL_28:
   return result;
 }
 
-uint64_t sub_1002881B0(uint64_t result)
+void sub_1002881B0(uint64_t result)
 {
   if (!*(result + 12))
   {
-    v1 = result;
     if (*(*(result + 56) + 40) >= 1)
     {
       do
       {
-        sub_1002876AC(v1);
+        sub_1002876AC(result);
       }
 
-      while (*(*(v1 + 56) + 40) > 0);
+      while (*(*(result + 56) + 40) > 0);
     }
 
-    *(v1 + 64) = 0;
-    v3 = *(v1 + 120);
-    v2 = *(v1 + 128);
-    v4 = *(v1 + 88);
+    *(result + 64) = 0;
+    v3 = *(result + 120);
+    v2 = *(result + 128);
+    v4 = *(result + 88);
     if (v3 <= &v2[v4])
     {
       v5 = 0;
@@ -1401,34 +4421,32 @@ uint64_t sub_1002881B0(uint64_t result)
       if (!v4)
       {
 LABEL_9:
-        *(v1 + 120) = &v2[v6];
-        sub_10028614C(v1, "...\n");
-        result = sub_10028614C(v1, "---\n");
-        *(v1 + 120) = *(v1 + 128);
-        return result;
+        *(result + 120) = &v2[v6];
+        sub_10028614C(result, "...\n");
+        sub_10028614C(result, "---\n");
+        *(result + 120) = *(result + 128);
+        return;
       }
     }
 
     else
     {
       *v3 = 10;
-      sub_10028614C(v1, *(v1 + 128));
-      v2 = *(v1 + 128);
-      v5 = *(v1 + 64);
+      sub_10028614C(result, *(result + 128));
+      v2 = *(result + 128);
+      v5 = *(result + 64);
       v6 = v5;
-      if (*(v1 + 88) == v5)
+      if (*(result + 88) == v5)
       {
         goto LABEL_9;
       }
     }
 
     memset(v2, 32, v6);
-    *(v1 + 88) = v5;
-    v2 = *(v1 + 128);
+    *(result + 88) = v5;
+    v2 = *(result + 128);
     goto LABEL_9;
   }
-
-  return result;
 }
 
 char *sub_1002882AC(uint64_t a1)
@@ -1530,9 +4548,10 @@ int *sub_1002884A0(uint64_t a1)
     if ((v3 & 8) != 0)
     {
 LABEL_13:
-      if (v7 > result + v5 && (v3 & 0x20) == 0)
+      if (v7 > (result + v5) && (v3 & 0x20) == 0)
       {
-        *v7++ = 32;
+        *v7 = 32;
+        v7 = (v7 + 1);
       }
 
       if ((v3 & 7) == 6)
@@ -1550,7 +4569,7 @@ LABEL_13:
       return result;
     }
 
-    if (v7 <= result + *(a1 + 88) && (*(a1 + 120) = v7 + 1, *v7 = 10, v10 = *(a1 + 120), *(a1 + 120) = v10 + 1, *v10 = 0, sub_10028614C(a1, *(a1 + 128)), result = *(a1 + 128), *(a1 + 120) = result, v5 = *(a1 + 88), v7 = result, result <= (result + v5)))
+    if (v7 <= (result + *(a1 + 88)) && (*(a1 + 120) = v7 + 1, *v7 = 10, v10 = *(a1 + 120), *(a1 + 120) = v10 + 1, *v10 = 0, sub_10028614C(a1, *(a1 + 128)), result = *(a1 + 128), *(a1 + 120) = result, v5 = *(a1 + 88), v7 = result, result <= (result + v5)))
     {
       v8 = *(a1 + 64);
       if (v5 != v8)
@@ -1580,7 +4599,7 @@ LABEL_11:
 
     v9 = v5;
 LABEL_12:
-    v7 = result + v9;
+    v7 = (result + v9);
     *(a1 + 120) = result + v9;
     goto LABEL_13;
   }
@@ -1588,39 +4607,39 @@ LABEL_12:
   return result;
 }
 
-char *sub_10028868C(uint64_t a1, const char *a2, int a3)
+char *sub_10028868C(uint64_t a1, const char *a2, int a3, __n128 a4)
 {
   if (a3 >= 0)
   {
-    v4 = a3;
+    v5 = a3;
   }
 
   else
   {
-    v4 = -a3;
+    v5 = -a3;
   }
 
-  v8[1] = 0;
-  v5 = v8;
+  v9[1] = 0;
+  v6 = v9;
   do
   {
-    *v5-- = v4 % 0xA + 48;
-    v6 = v4 > 9;
-    v4 /= 0xAu;
+    *v6-- = v5 % 0xA + 48;
+    v7 = v5 > 9;
+    v5 /= 0xAu;
   }
 
-  while (v6);
+  while (v7);
   if (a3 < 0)
   {
-    *v5 = 45;
+    *v6 = 45;
   }
 
   else
   {
-    ++v5;
+    ++v6;
   }
 
-  return sub_10028B4EC(a1, a2, v5);
+  return sub_10028B4EC(a1, a2, v6);
 }
 
 char *sub_100288730(uint64_t a1, const char *a2, double a3)
@@ -2438,7 +5457,7 @@ LABEL_5:
   return (*(a1 + 328))(a1, a2, a3, a4);
 }
 
-void *sub_100289C48(uint64_t a1, uint64_t a2, int a3, char *a4)
+void *sub_100289C48(uint64_t a1, uint64_t a2, unsigned int a3, char *a4)
 {
   v49 = a3;
   if (*(a1 + 392))
@@ -2480,7 +5499,7 @@ LABEL_4:
     sub_1002A8980(-2, &v53, "cvWriteRawData", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 4812);
   }
 
-  if (v49 < 0)
+  if ((v49 & 0x80000000) != 0)
   {
     v53 = 0;
     v54 = 0;
@@ -2503,7 +5522,7 @@ LABEL_4:
 
     if (result == 1)
     {
-      v57[0] *= v49;
+      LODWORD(v57[0]) *= v49;
       v49 = 1;
 LABEL_20:
       v9 = 0;
@@ -2515,7 +5534,7 @@ LABEL_20:
         v11 = a2;
         do
         {
-          v12 = &v57[2 * v10];
+          v12 = &v57[v10];
           v13 = *v12;
           v14 = v12[1];
           LODWORD(v12) = (((v14 >> 3) & 0x1FF) + 1) << ((0xFA50u >> (2 * (v14 & 7))) & 3);
@@ -2915,8 +5934,9 @@ void sub_10028A4D8(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_10028A580(uint64_t a1, uint64_t a2, int a3, char *a4)
+void sub_10028A580(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
 {
+  v5 = a3;
   if (a1)
   {
     if (*a1 != 1280131417)
@@ -2952,8 +5972,8 @@ void sub_10028A580(uint64_t a1, uint64_t a2, int a3, char *a4)
 
     v9 = *(a1 + 384);
     sub_1002934B8(v9, a4);
-    sub_10029B70C(&v10, a2, a3, (v9 + 1));
-    sub_10029371C();
+    sub_10029B70C(&v10, a2, v5, (v9 + 1));
+    sub_10029371C(*v9, &v10);
   }
 
   v10 = 0;
@@ -3549,9 +6569,9 @@ LABEL_79:
   return result;
 }
 
-void sub_10028B45C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10028B45C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_1002A8124(va);
   _Unwind_Resume(a1);
 }
@@ -3808,7 +6828,7 @@ LABEL_44:
   }
 
   *v23 = 34;
-  v33 = (v23 + 1);
+  v33 = v23 + 1;
   if (v8)
   {
     v34 = v33;
@@ -3889,9 +6909,9 @@ LABEL_66:
   return result;
 }
 
-void sub_10028BB2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10028BB2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_1002A8124(va);
   _Unwind_Resume(a1);
 }
@@ -3959,7 +6979,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_10028BDD8(_DWORD *a1, void *a2, int a3, uint64_t a4, const char *a5)
+void *sub_10028BDD8(_DWORD *a1, void *a2, int a3, uint64_t a4, const char *a5)
 {
   v27 = a4;
   v28 = a3;
@@ -4005,7 +7025,7 @@ LABEL_13:
   v13 = v27;
   while (1)
   {
-    v14 = &v31[2 * v11];
+    v14 = &v31[v11];
     v15 = *v14;
     v16 = v14[1];
     LODWORD(v14) = (((v16 >> 3) & 0x1FF) + 1) << ((0xFA50u >> (2 * (v16 & 7))) & 3);
@@ -4408,7 +7428,7 @@ LABEL_43:
   return (((v6 + v14) & -v14) + v7 - 1) & -v7;
 }
 
-uint64_t sub_10028C630(_DWORD *a1, uint64_t a2, uint64_t a3, const char *a4)
+void *sub_10028C630(_DWORD *a1, uint64_t a2, uint64_t a3, const char *a4)
 {
   if (!a2 || !a3)
   {
@@ -4492,17 +7512,17 @@ void *sub_10028C72C(uint64_t a1)
   v13 = *(a1 + 32);
   v12 = *(a1 + 48);
   v14 = *(a1 + 64);
-  *(v11 + 16) = *(a1 + 16);
+  v11[1] = *(a1 + 16);
   *v11 = *a1;
-  *(v11 + 64) = v14;
-  *(v11 + 32) = v13;
-  *(v11 + 48) = v12;
-  *(v11 + 24) = v11 + 72;
-  result = memcpy((v11 + 72), *(a1 + 24), v7 + 1);
+  *(v11 + 8) = v14;
+  v11[2] = v13;
+  v11[3] = v12;
+  *(v11 + 3) = v11 + 72;
+  result = memcpy(v11 + 72, *(a1 + 24), v7 + 1);
   *v11 = 0;
   v16 = qword_1004D5468;
-  *(v11 + 8) = 0;
-  *(v11 + 16) = v16;
+  *(v11 + 1) = 0;
+  *(v11 + 2) = v16;
   if (v16)
   {
     v17 = (v16 + 8);
@@ -5185,7 +8205,7 @@ void sub_10028D780(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10028D858(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_10028D858(uint64_t a1, const char *a2, unsigned int *a3, const char **a4, uint64_t a5)
 {
   v21 = a5;
   if (!a4)
@@ -5399,9 +8419,9 @@ LABEL_15:
   return 0;
 }
 
-void sub_10028DD20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10028DD20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_1002A8124(va);
   _Unwind_Resume(a1);
 }
@@ -6199,7 +9219,7 @@ void sub_10028EE38(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64
       v13 = v61;
       if ((*v61 & 0x80000000) == 0)
       {
-        *(v10 + 4 * v12) = *v61;
+        v10[v12] = *v61;
         *v13 = v12++;
       }
 
@@ -6499,7 +9519,7 @@ BOOL sub_10028F414(_BOOL8 result)
   return result;
 }
 
-uint64_t sub_10028F42C(uint64_t a1)
+_DWORD *sub_10028F42C(uint64_t a1)
 {
   __chkstk_darwin(a1);
   v2 = v1;
@@ -6776,7 +9796,7 @@ LABEL_16:
       }
 
 LABEL_18:
-      sub_100289C48(a1, v18 + a3[11] - a3[12], 1, &v35);
+      sub_100289C48(a1, v18 + a3[11] - a3[12], 1u, &v35);
       ++v16;
       v17 = v18;
       if (v16 >= v10[10])
@@ -6824,3227 +9844,4 @@ LABEL_32:
   sub_10028984C(a1);
   sub_10028984C(a1);
   sub_100231874(&v34);
-}
-
-_DWORD *sub_10028FCE8(_DWORD *result)
-{
-  if (result)
-  {
-    return (*result == 144);
-  }
-
-  return result;
-}
-
-uint64_t sub_10028FCFC(_DWORD *a1, uint64_t a2)
-{
-  v4 = sub_100283BF4(a1, a2, "width");
-  if (v4)
-  {
-    if ((*v4 & 7) == 2)
-    {
-      v5 = rint(*(v4 + 16));
-      v6 = sub_100283BF4(a1, a2, "height");
-      if (v6)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    else
-    {
-      if ((*v4 & 7) == 1)
-      {
-        LODWORD(v5) = *(v4 + 16);
-        v6 = sub_100283BF4(a1, a2, "height");
-        if (!v6)
-        {
-          goto LABEL_5;
-        }
-
-LABEL_8:
-        if ((*v6 & 7) == 2)
-        {
-          v7 = rint(*(v6 + 16));
-          v8 = sub_100283BF4(a1, a2, "dt");
-          if (v8)
-          {
-            goto LABEL_19;
-          }
-        }
-
-        else
-        {
-          if ((*v6 & 7) != 1)
-          {
-            v7 = 0x7FFFFFFFLL;
-            v8 = sub_100283BF4(a1, a2, "dt");
-            if (!v8)
-            {
-              goto LABEL_22;
-            }
-
-            goto LABEL_19;
-          }
-
-          v7 = *(v6 + 16);
-          v8 = sub_100283BF4(a1, a2, "dt");
-          if (v8)
-          {
-            goto LABEL_19;
-          }
-        }
-
-LABEL_22:
-        v9 = 0;
-        v10 = sub_100283BF4(a1, a2, "origin");
-        if (!v10)
-        {
-          goto LABEL_28;
-        }
-
-        goto LABEL_23;
-      }
-
-      LODWORD(v5) = 0x7FFFFFFF;
-      v6 = sub_100283BF4(a1, a2, "height");
-      if (v6)
-      {
-        goto LABEL_8;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v5) = 0;
-    v6 = sub_100283BF4(a1, a2, "height");
-    if (v6)
-    {
-      goto LABEL_8;
-    }
-  }
-
-LABEL_5:
-  v7 = 0;
-  v8 = sub_100283BF4(a1, a2, "dt");
-  if (!v8)
-  {
-    goto LABEL_22;
-  }
-
-LABEL_19:
-  if ((*v8 & 7) != 3)
-  {
-    goto LABEL_22;
-  }
-
-  v9 = *(v8 + 24);
-  v10 = sub_100283BF4(a1, a2, "origin");
-  if (!v10)
-  {
-    goto LABEL_28;
-  }
-
-LABEL_23:
-  if ((*v10 & 7) != 3 || !v5 || !v7 || !v9 || !*(v10 + 24))
-  {
-LABEL_28:
-    v44 = 0;
-    v45 = 0;
-    qmemcpy(sub_1002A80E0(&v44, 45), "Some of essential image attributes are absent", 45);
-    sub_1002A8980(-2, &v44, "icvReadImage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 5666);
-  }
-
-  v11 = sub_10029A8E0(v9);
-  v12 = sub_100283BF4(a1, a2, "layout");
-  if (!v12)
-  {
-    if (!strcmp("interleaved", "interleaved"))
-    {
-      goto LABEL_36;
-    }
-
-LABEL_35:
-    v44 = 0;
-    v45 = 0;
-    qmemcpy(sub_1002A80E0(&v44, 35), "Only interleaved images can be read", 35);
-    sub_1002A8980(-2, &v44, "icvReadImage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 5671);
-  }
-
-  if ((*v12 & 7) != 3)
-  {
-    goto LABEL_35;
-  }
-
-  v13 = *(v12 + 24);
-  if (!v13 || strcmp(v13, "interleaved"))
-  {
-    goto LABEL_35;
-  }
-
-LABEL_36:
-  v14 = sub_100283BF4(a1, a2, "data");
-  if (!v14)
-  {
-    v44 = 0;
-    v45 = 0;
-    qmemcpy(sub_1002A80E0(&v44, 43), "The image data is not found in file storage", 43);
-    sub_1002A8980(-2, &v44, "icvReadImage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 5675);
-  }
-
-  v15 = v14;
-  if ((*v14 & 7u) < 5)
-  {
-    v16 = v7 * v5;
-    v17 = ((v11 >> 3) & 0x1FF) + 1;
-    if (((*v14 & 7) != 0) == v17 * v7 * v5)
-    {
-      goto LABEL_42;
-    }
-
-LABEL_41:
-    v44 = 0;
-    v45 = 0;
-    qmemcpy(sub_1002A80E0(&v44, 63), "The matrix size does not match to the number of stored elements", 63);
-    sub_1002A8980(-209, &v44, "icvReadImage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 5679);
-  }
-
-  v16 = v7 * v5;
-  v17 = ((v11 >> 3) & 0x1FF) + 1;
-  if (*(*(v14 + 16) + 40) != v17 * v7 * v5)
-  {
-    goto LABEL_41;
-  }
-
-LABEL_42:
-  if ((v11 & 7) == 4 || (v11 & 5) == 1)
-  {
-    v19 = 0x80000000;
-  }
-
-  else
-  {
-    v19 = 0;
-  }
-
-  v20 = sub_1001FEF3C(v5 | (v7 << 32), (0x442211088uLL >> (4 * (v11 & 7))) & 0x78 | v19, v17);
-  v21 = sub_100283BF4(a1, a2, "roi");
-  if (v21)
-  {
-    v22 = v21;
-    v23 = sub_100283BF4(a1, v21, "x");
-    v43 = v5;
-    if (v23)
-    {
-      if ((*v23 & 7) == 2)
-      {
-        v24 = rint(*(v23 + 16));
-      }
-
-      else if ((*v23 & 7) == 1)
-      {
-        LODWORD(v24) = *(v23 + 16);
-      }
-
-      else
-      {
-        LODWORD(v24) = 0x7FFFFFFF;
-      }
-    }
-
-    else
-    {
-      LODWORD(v24) = 0;
-    }
-
-    v25 = v24;
-    v26 = sub_100283BF4(a1, v22, "y");
-    v42 = v7;
-    if (v26)
-    {
-      if ((*v26 & 7) == 2)
-      {
-        v27 = rint(*(v26 + 16));
-        v28 = sub_100283BF4(a1, v22, "width");
-        if (!v28)
-        {
-          goto LABEL_60;
-        }
-      }
-
-      else if ((*v26 & 7) == 1)
-      {
-        v27 = *(v26 + 16);
-        v28 = sub_100283BF4(a1, v22, "width");
-        if (!v28)
-        {
-LABEL_60:
-          LODWORD(v29) = 0;
-          goto LABEL_71;
-        }
-      }
-
-      else
-      {
-        v27 = 0x7FFFFFFFLL;
-        v28 = sub_100283BF4(a1, v22, "width");
-        if (!v28)
-        {
-          goto LABEL_60;
-        }
-      }
-    }
-
-    else
-    {
-      v27 = 0;
-      v28 = sub_100283BF4(a1, v22, "width");
-      if (!v28)
-      {
-        goto LABEL_60;
-      }
-    }
-
-    if ((*v28 & 7) == 2)
-    {
-      v29 = rint(*(v28 + 16));
-    }
-
-    else if ((*v28 & 7) == 1)
-    {
-      LODWORD(v29) = *(v28 + 16);
-    }
-
-    else
-    {
-      LODWORD(v29) = 0x7FFFFFFF;
-    }
-
-LABEL_71:
-    v5 = v25 | (v27 << 32);
-    v30 = v29;
-    v31 = sub_100283BF4(a1, v22, "height");
-    if (v31)
-    {
-      if ((*v31 & 7) == 2)
-      {
-        v32 = rint(*(v31 + 16));
-      }
-
-      else if ((*v31 & 7) == 1)
-      {
-        v32 = *(v31 + 16);
-      }
-
-      else
-      {
-        v32 = 0x7FFFFFFFLL;
-      }
-    }
-
-    else
-    {
-      v32 = 0;
-    }
-
-    v7 = v30 | (v32 << 32);
-    v33 = sub_100283BF4(a1, v22, "coi");
-    if (v33)
-    {
-      if ((*v33 & 7) == 2)
-      {
-        v34 = rint(*(v33 + 16));
-      }
-
-      else if ((*v33 & 7) == 1)
-      {
-        v34 = *(v33 + 16);
-      }
-
-      else
-      {
-        v34 = 0x7FFFFFFFLL;
-      }
-    }
-
-    else
-    {
-      v34 = 0;
-    }
-
-    sub_1001FF0D8(v20, v5, v7);
-    sub_1001FF2D8(v20, v34);
-    LODWORD(v7) = v42;
-    LODWORD(v5) = v43;
-  }
-
-  v35 = (v17 << ((0xFA50u >> (2 * (v11 & 7))) & 3)) * v5;
-  v36 = *(v20 + 96);
-  if (v35 == v36)
-  {
-    v37 = v16;
-  }
-
-  else
-  {
-    v37 = v5;
-  }
-
-  if (v35 == v36)
-  {
-    v38 = 1;
-  }
-
-  else
-  {
-    v38 = v7;
-  }
-
-  sub_10028BBBC(a1, v15, v46);
-  if (v38 >= 1)
-  {
-    v39 = 0;
-    v40 = v37 * v17;
-    do
-    {
-      sub_10028BDD8(a1, v46, v40, *(v20 + 88) + *(v20 + 96) * v39++, v9);
-    }
-
-    while (v38 != v39);
-  }
-
-  return v20;
-}
-
-void sub_10029041C(uint64_t a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_1002A8124(va);
-  __break(1u);
-}
-
-void sub_10029042C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  sub_1002A8124(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_10029048C(uint64_t a1, const char *a2, uint64_t a3)
-{
-  if (*(a3 + 28) == 1)
-  {
-    v18[0] = 0;
-    v18[1] = 0;
-    qmemcpy(sub_1002A80E0(v18, 48), "Images with planar data layout are not supported", 48);
-    sub_1002A8980(-210, v18, "icvWriteImage", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 5606);
-  }
-
-  sub_100288FB8(a1, a2, 6, "opencv-image");
-  sub_1002899A0(a1, "width", *(a3 + 40));
-  sub_1002899A0(a1, "height", *(a3 + 44));
-  if (*(a3 + 32))
-  {
-    v5 = "bottom-left";
-  }
-
-  else
-  {
-    v5 = "top-left";
-  }
-
-  sub_100289AEC(a1, "origin", v5, 0);
-  if (*(a3 + 28) == 1)
-  {
-    v6 = "planar";
-  }
-
-  else
-  {
-    v6 = "interleaved";
-  }
-
-  sub_100289AEC(a1, "layout", v6, 0);
-  if (*(a3 + 48))
-  {
-    sub_100288FB8(a1, "roi", 14, 0);
-    sub_1002899A0(a1, "x", *(*(a3 + 48) + 4));
-    sub_1002899A0(a1, "y", *(*(a3 + 48) + 8));
-    sub_1002899A0(a1, "width", *(*(a3 + 48) + 12));
-    sub_1002899A0(a1, "height", *(*(a3 + 48) + 16));
-    sub_1002899A0(a1, "coi", **(a3 + 48));
-    sub_10028984C(a1);
-  }
-
-  v7 = (0x43160520u >> (((*(a3 + 16) >> 2) & 0x3C) + ((*(a3 + 16) >> 31) & 0x14))) & 7;
-  v8 = &v19;
-  sprintf(&v19, "%d%c", *(a3 + 8), aUcwsifdr[v7]);
-  if (v20[1])
-  {
-    v9 = 0;
-  }
-
-  else
-  {
-    v9 = v19 == 49;
-  }
-
-  if (v9)
-  {
-    v8 = v20;
-  }
-
-  sub_100289AEC(a1, "dt", v8, 0);
-  v10 = *(a3 + 40);
-  v11 = (*(a3 + 8) * v10) << ((0xFA50u >> (2 * v7)) & 3);
-  v12 = *(a3 + 96);
-  if (v11 == v12)
-  {
-    v13 = 1;
-  }
-
-  else
-  {
-    v13 = *(a3 + 44);
-  }
-
-  if (v11 == v12)
-  {
-    v14 = *(a3 + 44);
-  }
-
-  else
-  {
-    v14 = 1;
-  }
-
-  sub_100288FB8(a1, "data", 13, 0);
-  if (v13 >= 1)
-  {
-    v15 = 0;
-    v16 = v14 * v10;
-    do
-    {
-      sub_100289C48(a1, *(a3 + 88) + *(a3 + 96) * v15++, v16, v8);
-    }
-
-    while (v13 != v15);
-  }
-
-  sub_10028984C(a1);
-  return sub_10028984C(a1);
-}
-
-void sub_1002907B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
-{
-  if (a2)
-  {
-    sub_100008E3C(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-BOOL sub_1002907E8(_BOOL8 result)
-{
-  if (result)
-  {
-    return *(result + 2) == 16962 && (*(result + 36) & 0x80000000) == 0 && *(result + 32) >= 0;
-  }
-
-  return result;
-}
-
-uint64_t sub_10029081C(_DWORD *a1, uint64_t a2)
-{
-  v4 = sub_100283BF4(a1, a2, "rows");
-  if (!v4)
-  {
-    LODWORD(v5) = -1;
-    v6 = sub_100283BF4(a1, a2, "cols");
-    if (v6)
-    {
-      goto LABEL_8;
-    }
-
-    goto LABEL_5;
-  }
-
-  if ((*v4 & 7) == 2)
-  {
-    v5 = rint(*(v4 + 16));
-    v6 = sub_100283BF4(a1, a2, "cols");
-    if (v6)
-    {
-      goto LABEL_8;
-    }
-
-    goto LABEL_5;
-  }
-
-  if ((*v4 & 7) != 1)
-  {
-    LODWORD(v5) = 0x7FFFFFFF;
-    v6 = sub_100283BF4(a1, a2, "cols");
-    if (v6)
-    {
-      goto LABEL_8;
-    }
-
-LABEL_5:
-    LODWORD(v7) = -1;
-    v8 = sub_100283BF4(a1, a2, "dt");
-    if (!v8)
-    {
-      goto LABEL_23;
-    }
-
-    goto LABEL_19;
-  }
-
-  LODWORD(v5) = *(v4 + 16);
-  v6 = sub_100283BF4(a1, a2, "cols");
-  if (!v6)
-  {
-    goto LABEL_5;
-  }
-
-LABEL_8:
-  if ((*v6 & 7) == 2)
-  {
-    v7 = rint(*(v6 + 16));
-    v8 = sub_100283BF4(a1, a2, "dt");
-    if (!v8)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  else if ((*v6 & 7) == 1)
-  {
-    LODWORD(v7) = *(v6 + 16);
-    v8 = sub_100283BF4(a1, a2, "dt");
-    if (!v8)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  else
-  {
-    LODWORD(v7) = 0x7FFFFFFF;
-    v8 = sub_100283BF4(a1, a2, "dt");
-    if (!v8)
-    {
-      goto LABEL_23;
-    }
-  }
-
-LABEL_19:
-  if ((*v8 & 7) != 3 || (v9 = *(v8 + 24), (v5 & 0x80000000) != 0) || (v7 & 0x80000000) != 0 || !v9)
-  {
-LABEL_23:
-    v16 = 0;
-    v17 = 0;
-    qmemcpy(sub_1002A80E0(&v16, 46), "Some of essential matrix attributes are absent", 46);
-    sub_1002A8980(-2, &v16, "icvReadMat", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 5286);
-  }
-
-  v10 = sub_10029A8E0(*(v8 + 24));
-  v11 = sub_100283BF4(a1, a2, "data");
-  if (!v11)
-  {
-    v16 = 0;
-    v17 = 0;
-    qmemcpy(sub_1002A80E0(&v16, 44), "The matrix data is not found in file storage", 44);
-    sub_1002A8980(-2, &v16, "icvReadMat", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 5292);
-  }
-
-  v12 = v11;
-  if ((*v11 & 7u) < 5)
-  {
-    v13 = (*v11 & 7) != 0;
-    if ((*v11 & 7) == 0)
-    {
-      return sub_1001FA8A8(v5, v7, v10);
-    }
-  }
-
-  else
-  {
-    v13 = *(*(v11 + 16) + 40);
-    if (v13 < 1)
-    {
-      return sub_1001FA8A8(v5, v7, v10);
-    }
-  }
-
-  if (v13 != v7 * v5 + v7 * v5 * ((v10 >> 3) & 0x1FF))
-  {
-    v16 = 0;
-    v17 = 0;
-    qmemcpy(sub_1002A80E0(&v16, 63), "The matrix size does not match to the number of stored elements", 63);
-    sub_1002A8980(-209, &v16, "icvReadMat", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 5297);
-  }
-
-  v15 = sub_1001FA87C(v5, v7, v10);
-  sub_10028C630(a1, v12, *(v15 + 24), v9);
-  return v15;
-}
-
-uint64_t sub_100290BCC(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_100288FB8(a1, a2, 6, "opencv-matrix");
-  sub_1002899A0(a1, "rows", *(a3 + 32));
-  sub_1002899A0(a1, "cols", *(a3 + 36));
-  sprintf(&v14, "%d%c", ((*a3 >> 3) & 0x1FF) + 1, aUcwsifdr[*a3 & 7]);
-  if (v15[1])
-  {
-    v5 = 0;
-  }
-
-  else
-  {
-    v5 = v14 == 49;
-  }
-
-  if (v5)
-  {
-    v6 = v15;
-  }
-
-  else
-  {
-    v6 = &v14;
-  }
-
-  sub_100289AEC(a1, "dt", v6, 0);
-  sub_100288FB8(a1, "data", 13, 0);
-  v7 = sub_1001FD8C8(a3);
-  if (v7 >= 1)
-  {
-    v8 = HIDWORD(v7);
-    if (SHIDWORD(v7) >= 1)
-    {
-      if (*(a3 + 24))
-      {
-        v9 = 0;
-        v10 = *a3;
-        if ((*a3 & 0x4000) != 0)
-        {
-          v11 = HIDWORD(v7);
-        }
-
-        else
-        {
-          v11 = 1;
-        }
-
-        v12 = v11 * v7;
-        do
-        {
-          sub_100289C48(a1, *(a3 + 24) + v9 * *(a3 + 4), v12, &v14);
-          if ((v10 & 0x4000) != 0)
-          {
-            break;
-          }
-
-          ++v9;
-        }
-
-        while (v9 < v8);
-      }
-    }
-  }
-
-  sub_10028984C(a1);
-  return sub_10028984C(a1);
-}
-
-BOOL sub_100290D5C(_BOOL8 result)
-{
-  if (result)
-  {
-    return *(result + 2) == 16963;
-  }
-
-  return result;
-}
-
-uint64_t sub_100290D78(_DWORD *a1, uint64_t a2)
-{
-  memset(v22, 0, sizeof(v22));
-  v4 = sub_100283BF4(a1, a2, "sizes");
-  v5 = sub_100283BF4(a1, a2, "dt");
-  if (!v5 || (*v5 & 7) != 3 || !v4 || !*(v5 + 24))
-  {
-    v20 = 0;
-    v21 = 0;
-    qmemcpy(sub_1002A80E0(&v20, 46), "Some of essential matrix attributes are absent", 46);
-    sub_1002A8980(-2, &v20, "icvReadMatND", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 5369);
-  }
-
-  v19 = *(v5 + 24);
-  if ((*v4 & 7) == 5)
-  {
-    v6 = *(*(v4 + 16) + 40);
-    if ((v6 - 33) > 0xFFFFFFDF)
-    {
-      goto LABEL_14;
-    }
-
-LABEL_13:
-    v20 = 0;
-    v21 = 0;
-    qmemcpy(sub_1002A80E0(&v20, 45), "Could not determine the matrix dimensionality", 45);
-    sub_1002A8980(-212, &v20, "icvReadMatND", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 5375);
-  }
-
-  if ((*v4 & 7) == 1)
-  {
-    v6 = 1;
-  }
-
-  else
-  {
-    v6 = -1;
-  }
-
-  if ((v6 - 33) <= 0xFFFFFFDF)
-  {
-    goto LABEL_13;
-  }
-
-LABEL_14:
-  sub_10028BBBC(a1, v4, &v20);
-  if ((*v4 & 7) == 5)
-  {
-    v7 = *(*(v4 + 16) + 40);
-  }
-
-  else
-  {
-    v7 = 1;
-  }
-
-  sub_10028BDD8(a1, &v20, v7, v22, "i");
-  v8 = sub_10029A8E0(v19);
-  v9 = sub_100283BF4(a1, a2, "data");
-  v10 = v9;
-  if (!v9)
-  {
-    v20 = 0;
-    v21 = 0;
-    qmemcpy(sub_1002A80E0(&v20, 44), "The matrix data is not found in file storage", 44);
-    sub_1002A8980(-2, &v20, "icvReadMatND", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 5382);
-  }
-
-  v11 = ((v8 >> 3) & 0x1FF) + 1;
-  if (v6 >= 1)
-  {
-    v12 = v6;
-    v13 = v22;
-    do
-    {
-      if (!*v13)
-      {
-        v20 = 0;
-        v21 = 0;
-        *sub_1002A80E0(&v20, 8) = 0x5D695B73657A6973;
-        sub_1002A8980(-215, &v20, "icvReadMatND", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 5388);
-      }
-
-      v11 *= *v13++;
-      --v12;
-    }
-
-    while (v12);
-  }
-
-  if ((*v9 & 7u) < 5)
-  {
-    v14 = (*v9 & 7) != 0;
-    if ((*v9 & 7) != 0 && v14 != v11)
-    {
-LABEL_29:
-      v20 = 0;
-      v21 = 0;
-      qmemcpy(sub_1002A80E0(&v20, 63), "The matrix size does not match to the number of stored elements", 63);
-      sub_1002A8980(-209, &v20, "icvReadMatND", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 5396);
-    }
-  }
-
-  else
-  {
-    v14 = *(*(v9 + 16) + 40);
-    if (v14 >= 1 && v14 != v11)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  if (v14 < 1)
-  {
-    return sub_1001FB644(v6, v22, v8);
-  }
-
-  v17 = sub_1001FB618(v6, v22, v8);
-  sub_10028C630(a1, v10, *(v17 + 24), v19);
-  return v17;
-}
-
-void sub_100291174(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
-{
-  if (a2)
-  {
-    sub_100008E3C(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_100291204(uint64_t a1, const char *a2, uint64_t a3)
-{
-  v14 = a3;
-  v11 = 0;
-  sub_100288FB8(a1, a2, 6, "opencv-nd-matrix");
-  v5 = sub_1001FD6A4(a3, __dst);
-  sub_100288FB8(a1, "sizes", 13, 0);
-  sub_100289C48(a1, __dst, v5, "i");
-  sub_10028984C(a1);
-  v6 = sub_1001FD564(a3);
-  sprintf(&v15, "%d%c", ((v6 >> 3) & 0x1FF) + 1, aUcwsifdr[v6 & 7]);
-  if (v16[1])
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = v15 == 49;
-  }
-
-  if (v7)
-  {
-    v8 = v16;
-  }
-
-  else
-  {
-    v8 = &v15;
-  }
-
-  sub_100289AEC(a1, "dt", v8, 0);
-  sub_100288FB8(a1, "data", 13, 0);
-  if (*(a3 + 32) >= 1 && *(a3 + 24))
-  {
-    sub_1001FBB14(1u, &v14, 0, v13, &v10, 0);
-    do
-    {
-      sub_100289C48(a1, v12, v11, &v15);
-    }
-
-    while (sub_1001FC684(&v10));
-  }
-
-  sub_10028984C(a1);
-  return sub_10028984C(a1);
-}
-
-uint64_t sub_1002913A4(_DWORD *a1, uint64_t a2, void *a3)
-{
-  if (!a1)
-  {
-    v4 = -27;
-LABEL_5:
-    v7 = 0;
-    v8 = 0;
-    qmemcpy(sub_1002A80E0(&v7, 31), "Invalid pointer to file storage", 31);
-    sub_1002A8980(v4, &v7, "cvRead", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 6708);
-  }
-
-  if (*a1 != 1280131417)
-  {
-    v4 = -5;
-    goto LABEL_5;
-  }
-
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if ((*a2 & 0x10) == 0 || (v5 = *(a2 + 8)) == 0)
-  {
-    v7 = 0;
-    v8 = 0;
-    qmemcpy(sub_1002A80E0(&v7, 57), "The node does not represent a user object (unknown type?)", 57);
-    sub_1002A8980(-2, &v7, "cvRead", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 6714);
-  }
-
-  result = (*(v5 + 48))(a1, a2);
-  if (a3)
-  {
-    *a3 = 0;
-    a3[1] = 0;
-  }
-
-  return result;
-}
-
-uint64_t sub_100291524(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  if (!a1)
-  {
-    v10 = -27;
-LABEL_5:
-    v14 = 0;
-    v15 = 0;
-    qmemcpy(sub_1002A80E0(&v14, 31), "Invalid pointer to file storage", 31);
-    sub_1002A8980(v10, &v14, "cvWrite", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 6731);
-  }
-
-  if (*a1 != 1280131417)
-  {
-    v10 = -5;
-    goto LABEL_5;
-  }
-
-  if (!a1[2])
-  {
-    v14 = 0;
-    v15 = 0;
-    qmemcpy(sub_1002A80E0(&v14, 38), "The file storage is opened for reading", 38);
-    sub_1002A8980(-2, &v14, "cvWrite", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 6731);
-  }
-
-  if (!a3)
-  {
-    v14 = 0;
-    v15 = 0;
-    qmemcpy(sub_1002A80E0(&v14, 34), "Null pointer to the written object", 34);
-    sub_1002A8980(-27, &v14, "cvWrite", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 6734);
-  }
-
-  v11 = qword_1004D5468;
-  if (!qword_1004D5468)
-  {
-LABEL_12:
-    v14 = 0;
-    v15 = 0;
-    qmemcpy(sub_1002A80E0(&v14, 14), "Unknown object", 14);
-    sub_1002A8980(-5, &v14, "cvWrite", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 6738);
-  }
-
-  while (!(*(v11 + 32))(a3))
-  {
-    v11 = *(v11 + 16);
-    if (!v11)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  v12 = *(v11 + 56);
-  if (!v12)
-  {
-    v14 = 0;
-    v15 = 0;
-    qmemcpy(sub_1002A80E0(&v14, 39), "The object does not have write function", 39);
-    sub_1002A8980(-5, &v14, "cvWrite", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 6741);
-  }
-
-  return v12(a1, a2, a3, a4, a5);
-}
-
-uint64_t sub_1002917F8(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    LOBYTE(v1) = *(v1 + 432);
-  }
-
-  return v1 & 1;
-}
-
-uint64_t sub_100291810(uint64_t result)
-{
-  v1 = *result;
-  if (*result && atomic_fetch_add(v1 + 2, 0xFFFFFFFF) == 1)
-  {
-    v2 = result;
-    (*(*v1 + 16))(v1);
-    result = v2;
-  }
-
-  *result = 0;
-  *(result + 8) = 0;
-  return result;
-}
-
-uint64_t sub_100291880(uint64_t a1, char **a2, unsigned int a3, uint64_t a4)
-{
-  *(a1 + 8) = 0u;
-  *a1 = off_1004752F8;
-  *(a1 + 24) = 0u;
-  *(a1 + 40) = 0u;
-  *(a1 + 52) = 0u;
-  sub_100291A20(a1, a2, a3, a4);
-  return a1;
-}
-
-void sub_1002918E8(_Unwind_Exception *a1)
-{
-  v5 = *(v2 + 40);
-  if (v5)
-  {
-    *(v2 + 48) = v5;
-    operator delete(v5);
-  }
-
-  sub_1002A8124(v3);
-  sub_100291810(v1);
-  _Unwind_Resume(a1);
-}
-
-void *sub_100291918(void *a1)
-{
-  *a1 = off_1004752F8;
-  v3 = a1 + 5;
-  v2 = a1[5];
-  if (v3[1] != v2)
-  {
-    do
-    {
-      sub_10028984C(a1[2]);
-      v2 = a1[5];
-      v4 = a1[6] - 1;
-      a1[6] = v4;
-    }
-
-    while (v4 != v2);
-  }
-
-  if (v2)
-  {
-    a1[6] = v2;
-    operator delete(v2);
-  }
-
-  sub_1002A8124(a1 + 3);
-  v5 = a1[1];
-  if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
-  {
-    (*(*v5 + 16))(v5);
-  }
-
-  a1[1] = 0;
-  a1[2] = 0;
-  return a1;
-}
-
-void sub_1002919E8(void *a1)
-{
-  sub_100291918(a1);
-
-  operator delete();
-}
-
-uint64_t sub_100291A20(void *a1, char **a2, unsigned int a3, uint64_t a4)
-{
-  sub_1002ACE7C(v15, &off_100475328);
-  (*(*a1 + 32))(a1);
-  v8 = "";
-  if (*a2)
-  {
-    v9 = *a2;
-  }
-
-  else
-  {
-    v9 = "";
-  }
-
-  if (*a4)
-  {
-    v8 = *a4;
-  }
-
-  if (*(a4 + 8))
-  {
-    v10 = v8;
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  if (sub_100283F94(v9, 0, a3, v10))
-  {
-    operator new();
-  }
-
-  v11 = a1[1];
-  a1[1] = 0;
-  a1[2] = 0;
-  if (v11 && atomic_fetch_add(v11 + 2, 0xFFFFFFFF) == 1)
-  {
-    (*(*v11 + 16))(v11);
-  }
-
-  v12 = (*(*a1 + 24))(a1);
-  if (v12)
-  {
-    v13 = 6;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  *(a1 + 16) = v13;
-  if (v16)
-  {
-    sub_1002ACC1C(v15);
-  }
-
-  return v12;
-}
-
-uint64_t sub_100291BEC(uint64_t result)
-{
-  v2 = (result + 8);
-  v1 = *(result + 8);
-  if (v1 && atomic_fetch_add(v1 + 2, 0xFFFFFFFF) == 1)
-  {
-    v3 = result;
-    (*(*v1 + 16))(v1);
-    result = v3;
-  }
-
-  *v2 = 0;
-  v2[1] = 0;
-  *(result + 48) = *(result + 40);
-  *(result + 64) = 0;
-  return result;
-}
-
-uint64_t sub_100291C68@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
-{
-  *a2 = 0;
-  a2[1] = 0;
-  v3 = a1[2];
-  if (v3 && *(v3 + 376))
-  {
-    sub_100283290(v3, a2);
-  }
-
-  return (*(*a1 + 32))(a1);
-}
-
-uint64_t sub_100291CE8(uint64_t a1, uint64_t a2)
-{
-  if (*a2)
-  {
-    v4 = *a2;
-  }
-
-  else
-  {
-    v4 = "";
-  }
-
-  if ((*(*a1 + 24))(a1))
-  {
-    v5 = *v4;
-    if ((v5 | 0x20) == 0x7D)
-    {
-      v6 = *(a1 + 48);
-      if (*(a1 + 40) == v6)
-      {
-        sub_1002A8688(&v44, "Extra closing '%c'", *v4);
-        sub_1002A8980(-2, &v44, "operator<<", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 6957);
-      }
-
-      if (v5 == 93)
-      {
-        v7 = 91;
-      }
-
-      else
-      {
-        v7 = 123;
-      }
-
-      v8 = *(v6 - 1);
-      if (v7 != v8)
-      {
-        sub_1002A8688(&v44, "The closing '%c' does not match the opening '%c'", v5, v8);
-        sub_1002A8980(-2, &v44, "operator<<", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 6960);
-      }
-
-      *(a1 + 48) = v6 - 1;
-      v9 = 6;
-      if (*(a1 + 40) != v6 - 1)
-      {
-        if (*(v6 - 2) == 123)
-        {
-          v9 = 6;
-        }
-
-        else
-        {
-          v9 = 1;
-        }
-      }
-
-      *(a1 + 64) = v9;
-      sub_10028984C(*(a1 + 16));
-      v44 = 0;
-      v45 = 0;
-      if (&v44 != (a1 + 24))
-      {
-        sub_1002A8124((a1 + 24));
-        v10 = v44;
-        if (v44)
-        {
-          atomic_fetch_add(v44 - 1, 1u);
-          v10 = v44;
-        }
-
-        v11 = v45;
-        *(a1 + 24) = v10;
-        *(a1 + 32) = v11;
-      }
-
-LABEL_83:
-      sub_1002A8124(&v44);
-      return a1;
-    }
-
-    if (*(a1 + 64) == 6)
-    {
-      v22 = v5 == 95;
-      v12 = ((v5 & 0xDF) - 65);
-      if (!v22 && v12 >= 0x1A)
-      {
-        sub_1002A8688(&v44, "Incorrect element name %s", v4);
-        sub_1002A8980(-2, &v44, "operator<<", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 6970);
-      }
-
-      if (a1 + 24 != a2)
-      {
-        sub_1002A8124((a1 + 24));
-        v14 = *a2;
-        if (*a2)
-        {
-          atomic_fetch_add(v14 - 1, 1u);
-          v14 = *a2;
-        }
-
-        *(a1 + 24) = v14;
-        *(a1 + 32) = *(a2 + 8);
-      }
-
-      v15 = 5;
-      goto LABEL_34;
-    }
-
-    if ((*(a1 + 64) & 3) != 1)
-    {
-      v44 = 0;
-      v45 = 0;
-      *sub_1002A80E0(&v44, 16) = *"Invalid fs.state";
-      sub_1002A8980(-2, &v44, "operator<<", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 7000);
-    }
-
-    if ((v5 | 0x20) == 0x7B)
-    {
-      v17 = *(a1 + 48);
-      v16 = *(a1 + 56);
-      if (v17 >= v16)
-      {
-        v23 = *(a1 + 40);
-        v24 = (v17 - v23);
-        v25 = v17 - v23 + 1;
-        if (v25 < 0)
-        {
-          sub_10000918C();
-        }
-
-        v26 = v16 - v23;
-        if (2 * v26 > v25)
-        {
-          v25 = 2 * v26;
-        }
-
-        if (v26 >= 0x3FFFFFFFFFFFFFFFLL)
-        {
-          v27 = 0x7FFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v27 = v25;
-        }
-
-        if (v27)
-        {
-          operator new();
-        }
-
-        v30 = v17 - v23;
-        *v24 = v5;
-        v18 = v24 + 1;
-        memcpy(0, v23, v30);
-        *(a1 + 40) = 0;
-        *(a1 + 48) = v24 + 1;
-        *(a1 + 56) = 0;
-        if (v23)
-        {
-          operator delete(v23);
-        }
-      }
-
-      else
-      {
-        *v17 = v5;
-        v18 = v17 + 1;
-      }
-
-      v31 = *(a1 + 24);
-      *(a1 + 48) = v18;
-      v32 = *v4 == 123;
-      if (*v4 == 123)
-      {
-        v33 = 6;
-      }
-
-      else
-      {
-        v33 = 1;
-      }
-
-      *(a1 + 64) = v33;
-      v34 = v4 + 1;
-      v35 = v4[1];
-      if (v32)
-      {
-        v36 = 6;
-      }
-
-      else
-      {
-        v36 = 5;
-      }
-
-      if (v35 == 58)
-      {
-        v37 = v36 | 8;
-      }
-
-      else
-      {
-        v37 = v36;
-      }
-
-      v38 = 1;
-      if (v35 == 58)
-      {
-        v38 = 2;
-        v34 = v4 + 2;
-      }
-
-      if (!v31)
-      {
-        v31 = "";
-      }
-
-      if (*(a1 + 32))
-      {
-        v39 = v31;
-      }
-
-      else
-      {
-        v39 = 0;
-      }
-
-      if (v4[v38])
-      {
-        v40 = v34;
-      }
-
-      else
-      {
-        v40 = 0;
-      }
-
-      sub_100288FB8(*(a1 + 16), v39, v37, v40);
-      v44 = 0;
-      v45 = 0;
-      if (&v44 != (a1 + 24))
-      {
-        sub_1002A8124((a1 + 24));
-        v41 = v44;
-        if (v44)
-        {
-          atomic_fetch_add(v44 - 1, 1u);
-          v41 = v44;
-        }
-
-        v42 = v45;
-        *(a1 + 24) = v41;
-        *(a1 + 32) = v42;
-      }
-
-      goto LABEL_83;
-    }
-
-    if (v5 != 92 || ((v20 = v4[1], v19 = (v4 + 1), v21 = (1 << (v20 - 91)) & 0x500000005, (v20 - 91) <= 0x22) ? (v22 = v21 == 0) : (v22 = 1), v22))
-    {
-      v28 = *a2;
-      v29 = *(a2 + 8);
-      v44 = v28;
-      v45 = v29;
-      if (v28)
-      {
-        atomic_fetch_add(v28 - 1, 1u);
-      }
-    }
-
-    else
-    {
-      sub_1001FA81C(&v44, v19);
-    }
-
-    sub_10029223C(a1, a1 + 24, &v44);
-    sub_1002A8124(&v44);
-    if (*(a1 + 64) == 5)
-    {
-      v15 = 6;
-LABEL_34:
-      *(a1 + 64) = v15;
-    }
-  }
-
-  return a1;
-}
-
-void sub_100292194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  sub_1002A8124(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_10029223C(uint64_t a1, uint64_t a2, const char **a3)
-{
-  v3 = *(a1 + 16);
-  v4 = *a2;
-  if (!*a2)
-  {
-    v4 = "";
-  }
-
-  if (*(a2 + 8))
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (*a3)
-  {
-    v6 = *a3;
-  }
-
-  else
-  {
-    v6 = "";
-  }
-
-  return sub_100289AEC(v3, v5, v6, 0);
-}
-
-_BYTE *sub_100292270(uint64_t a1, _BYTE *a2, uint64_t a3, unint64_t a4)
-{
-  result = 0;
-  if (a1 && a2 && a4)
-  {
-    v6 = (a1 + a3);
-    v7 = 3 * (a4 / 3);
-    if (v7 < 1)
-    {
-      v13 = v6;
-      v9 = a2;
-      v15 = a4;
-      if (a4 != 2)
-      {
-LABEL_8:
-        if (v15 != 1)
-        {
-LABEL_13:
-          *v9 = 0;
-          return (v9 - a2);
-        }
-
-        v16 = *v13;
-        *v9 = aAbcdefghijklmn[v16 >> 2];
-        v9[1] = aAbcdefghijklmn[16 * (v16 & 3)];
-        v17 = 61;
-LABEL_12:
-        v9[2] = v17;
-        v9[3] = 61;
-        v9 += 4;
-        goto LABEL_13;
-      }
-    }
-
-    else
-    {
-      v8 = &v6[v7];
-      v9 = a2;
-      v10 = v6;
-      do
-      {
-        v11 = *v10;
-        v12 = v10[1];
-        v13 = v10 + 3;
-        v14 = v10[2];
-        *v9 = aAbcdefghijklmn[v11 >> 2];
-        v9[1] = aAbcdefghijklmn[(v12 >> 4) & 0xFFFFFFFFFFFFFFCFLL | (16 * (v11 & 3))];
-        v9[2] = aAbcdefghijklmn[(v14 >> 6) & 0xFFFFFFFFFFFFFFC3 | (4 * (v12 & 0xF))];
-        v9[3] = aAbcdefghijklmn[v14 & 0x3F];
-        v9 += 4;
-        v10 = v13;
-      }
-
-      while (v13 < v8);
-      v15 = &v6[a4] - v13;
-      if (v15 != 2)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    v18 = *v13;
-    v19 = v13[1];
-    *v9 = aAbcdefghijklmn[v18 >> 2];
-    v9[1] = aAbcdefghijklmn[(v19 >> 4) & 0xFFFFFFFFFFFFFFCFLL | (16 * (v18 & 3))];
-    v17 = aAbcdefghijklmn[4 * (v19 & 0xF)];
-    goto LABEL_12;
-  }
-
-  return result;
-}
-
-uint64_t sub_1002923BC@<X0>(const char *a1@<X0>, uint64_t a2@<X8>)
-{
-  sub_1002825FC(&v10);
-  v4 = strlen(a1);
-  v5 = sub_100241184(&v10, a1, v4);
-  LOBYTE(v9[0]) = 32;
-  sub_100241184(v5, v9, 1);
-  std::stringbuf::str();
-  v6 = *(a2 + 23);
-  if ((v6 & 0x80u) != 0)
-  {
-    v6 = *(a2 + 8);
-  }
-
-  if (v6 >= 0x18)
-  {
-    v9[0] = 0;
-    v9[1] = 0;
-    qmemcpy(sub_1002A80E0(v9, 27), "buffer.size() < HEADER_SIZE", 27);
-    sub_1002A8980(-215, v9, "make_base64_header", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 7785);
-  }
-
-  std::string::reserve(a2, 0x18uLL);
-  while (1)
-  {
-    v7 = *(a2 + 23);
-    if ((v7 & 0x80u) != 0)
-    {
-      v7 = *(a2 + 8);
-    }
-
-    if (v7 > 0x17)
-    {
-      break;
-    }
-
-    std::string::push_back(a2, 32);
-  }
-
-  if (v13 < 0)
-  {
-    operator delete(v12[7].__locale_);
-  }
-
-  std::locale::~locale(v12);
-  std::ostream::~ostream();
-  return std::ios::~ios();
-}
-
-void sub_1002925D4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  sub_1002A8124(va);
-  if (*(v2 + 23) < 0)
-  {
-    operator delete(*v2);
-  }
-
-  sub_100282818(va1);
-  _Unwind_Resume(a1);
-}
-
-BOOL sub_100292628(const char **a1, uint64_t a2)
-{
-  v3 = *a1;
-  v4 = strlen(*a1);
-  if (v4 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    sub_100241528();
-  }
-
-  v5 = v4;
-  if (v4 >= 0x17)
-  {
-    operator new();
-  }
-
-  v10 = v4;
-  if (v4)
-  {
-    memmove(&__dst, v3, v4);
-  }
-
-  *(&__dst + v5) = 0;
-  sub_100292868(v11, &__dst, 8);
-  if (v10 < 0)
-  {
-    operator delete(__dst);
-  }
-
-  v6 = sub_100292A78(v11, a2);
-  v7 = *(v6 + *(*v6 - 24) + 32);
-  if (v14 < 0)
-  {
-    operator delete(v13[7].__locale_);
-  }
-
-  std::locale::~locale(v13);
-  std::istream::~istream();
-  std::ios::~ios();
-  return (v7 & 5) == 0;
-}
-
-void sub_100292838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-  sub_100292DB8(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_10029284C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_100292868(uint64_t a1, uint64_t a2, int a3)
-{
-  *(a1 + 168) = 0;
-  *a1 = v6;
-  *(a1 + *(v6 - 24)) = v5;
-  *(a1 + 8) = 0;
-  v7 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v7, (a1 + 16));
-  v7[1].__vftable = 0;
-  v7[1].__fmtflags_ = -1;
-  std::locale::locale((a1 + 24));
-  *(a1 + 80) = 0u;
-  *(a1 + 48) = 0u;
-  *(a1 + 64) = 0u;
-  *(a1 + 32) = 0u;
-  *(a1 + 96) = 0u;
-  *(a1 + 112) = a3 | 8;
-  std::stringbuf::str();
-  return a1;
-}
-
-void sub_100292A28(_Unwind_Exception *a1)
-{
-  if (*(v1 + 103) < 0)
-  {
-    operator delete(*v3);
-  }
-
-  *(v1 + 16) = v2;
-  std::locale::~locale((v1 + 24));
-  std::istream::~istream();
-  std::ios::~ios();
-  _Unwind_Resume(a1);
-}
-
-uint64_t *sub_100292A78(uint64_t *a1, uint64_t a2)
-{
-  std::istream::sentry::sentry();
-  if (v20 != 1)
-  {
-    return a1;
-  }
-
-  if (*(a2 + 23) < 0)
-  {
-    **a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  else
-  {
-    *a2 = 0;
-    *(a2 + 23) = 0;
-  }
-
-  v4 = (a1 + *(*a1 - 24));
-  width = v4->__width_;
-  if (width >= 0x7FFFFFFFFFFFFFF7)
-  {
-    v6 = 0x7FFFFFFFFFFFFFF7;
-  }
-
-  else
-  {
-    v6 = v4->__width_;
-  }
-
-  if (width >= 1)
-  {
-    v7 = v6;
-  }
-
-  else
-  {
-    v7 = 0x7FFFFFFFFFFFFFF7;
-  }
-
-  std::ios_base::getloc(v4);
-  v8 = std::locale::use_facet(&v19, &std::ctype<char>::id);
-  std::locale::~locale(&v19);
-  if (!v7)
-  {
-    v16 = *a1;
-    *(a1 + *(*a1 - 24) + 24) = 0;
-    v17 = 4;
-    goto LABEL_28;
-  }
-
-  v9 = 0;
-  v10 = a1 + 5;
-  while (1)
-  {
-    v11 = *(v10 + *(*a1 - 24));
-    v12 = v11[3];
-    if (v12 == v11[4])
-    {
-      break;
-    }
-
-    LOBYTE(v13) = *v12;
-LABEL_18:
-    if ((v13 & 0x80) == 0 && (*(&v8[1].~facet + (v13 & 0x7F)) & 0x4000) != 0)
-    {
-      v17 = 0;
-      v16 = *a1;
-      *(a1 + *(*a1 - 24) + 24) = 0;
-      if (v9)
-      {
-        goto LABEL_28;
-      }
-
-      goto LABEL_27;
-    }
-
-    std::string::push_back(a2, v13);
-    v14 = *(v10 + *(*a1 - 24));
-    v15 = v14[3];
-    if (v15 == v14[4])
-    {
-      (*(*v14 + 80))(v14);
-    }
-
-    else
-    {
-      v14[3] = v15 + 1;
-    }
-
-    if (v7 == ++v9)
-    {
-      v17 = 0;
-      v16 = *a1;
-      *(a1 + *(*a1 - 24) + 24) = 0;
-      goto LABEL_28;
-    }
-  }
-
-  v13 = (*(*v11 + 72))(v11);
-  if (v13 != -1)
-  {
-    goto LABEL_18;
-  }
-
-  v17 = 2;
-  v16 = *a1;
-  *(a1 + *(*a1 - 24) + 24) = 0;
-  if (v9)
-  {
-    goto LABEL_28;
-  }
-
-LABEL_27:
-  v17 |= 4u;
-LABEL_28:
-  std::ios_base::clear((a1 + *(v16 - 24)), *(a1 + *(v16 - 24) + 32) | v17);
-  return a1;
-}
-
-void sub_100292D08(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::locale a9)
-{
-  std::locale::~locale(&a9);
-  __cxa_begin_catch(a1);
-  v11 = *v9;
-  *(v9 + *(*v9 - 24) + 32) |= 1u;
-  if ((*(v9 + *(v11 - 24) + 36) & 1) == 0)
-  {
-    __cxa_end_catch();
-    JUMPOUT(0x100292CC8);
-  }
-
-  __cxa_rethrow();
-}
-
-uint64_t sub_100292DB8(uint64_t a1)
-{
-  if (*(a1 + 103) < 0)
-  {
-    operator delete(*(a1 + 80));
-  }
-
-  std::locale::~locale((a1 + 24));
-  std::istream::~istream();
-  std::ios::~ios();
-  return a1;
-}
-
-uint64_t sub_100292ED8(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  if (!v1)
-  {
-    return 0;
-  }
-
-  v3 = *(a1 + 48);
-  v4 = v3 - v1;
-  v5 = v3 - v1;
-  if (v3 != v1)
-  {
-    if ((v5 & 3) == 0)
-    {
-      goto LABEL_10;
-    }
-
-    return 0;
-  }
-
-  v5 = strlen(v1);
-  if (v5)
-  {
-    v6 = (v5 & 3) == 0;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if (!v6)
-  {
-    return 0;
-  }
-
-LABEL_10:
-  v8 = &v1[v5];
-  if (v1[v5 - 1] == 61)
-  {
-    v9 = *(v8 - 2);
-    v8 -= 2;
-    if (v9 != 61)
-    {
-      v8 = &v1[v5 - 1];
-    }
-  }
-
-  if (v1 < v8)
-  {
-    v10 = v1;
-    do
-    {
-      v11 = *v10;
-      if (v11 > 0x7E)
-      {
-        return 0;
-      }
-
-      if (v11 != 65 && byte_1003E3C2A[*v10] == 0)
-      {
-        return 0;
-      }
-    }
-
-    while (++v10 != v8);
-  }
-
-  if (v3 != v1)
-  {
-    v13 = *(a1 + 64);
-    if ((v4 & 3) == 0 && v4 && v13)
-    {
-      v14 = *(a1 + 64);
-      if (v4 >= 1)
-      {
-        v15 = *(a1 + 64);
-        do
-        {
-          v16 = byte_1003E3C2A[*(v1 + 1)];
-          v17 = byte_1003E3C2A[*(v1 + 2)];
-          v18 = byte_1003E3C2A[*(v1 + 3)];
-          *v15 = (4 * byte_1003E3C2A[*v1]) | (v16 >> 4) & 3;
-          v15[1] = (16 * v16) | (v17 >> 2) & 0xF;
-          v14 = v15 + 3;
-          v15[2] = v18 | (v17 << 6);
-          v1 += 4;
-          v15 += 3;
-        }
-
-        while (v1 < v3);
-      }
-
-      *v14 = 0;
-      *(a1 + 48) = *(a1 + 40);
-      v19 = v14 - v13;
-      if (v14 != v13)
-      {
-        if ((*a1 + v19) >= *(a1 + 8))
-        {
-          v20 = 0;
-          v21 = 0;
-          qmemcpy(sub_1002A80E0(&v20, 23), "dst_cur + len < dst_end", 23);
-          sub_1002A8980(-215, &v20, "flush", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 7865);
-        }
-
-        memcpy(*a1, v13, v14 - v13);
-        *a1 += v19;
-        return 1;
-      }
-    }
-
-    else
-    {
-      *(a1 + 48) = v1;
-    }
-
-    v20 = 0;
-    v21 = 0;
-    *sub_1002A80E0(&v20, 8) = 0x30203D21206E656CLL;
-    sub_1002A8980(-215, &v20, "flush", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 7862);
-  }
-
-  return 1;
-}
-
-void sub_10029314C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  sub_1002A8124(&a9);
-  if ((*v9 + v10) < v9[1])
-  {
-    JUMPOUT(0x10029306CLL);
-  }
-
-  JUMPOUT(0x100293084);
-}
-
-void *sub_10029319C(void *a1)
-{
-  if (a1[6] != a1[5])
-  {
-    sub_100292ED8(a1);
-  }
-
-  v2 = a1[8];
-  if (v2)
-  {
-    a1[9] = v2;
-    operator delete(v2);
-  }
-
-  v3 = a1[2];
-  if (v3)
-  {
-    a1[3] = v3;
-    operator delete(v3);
-  }
-
-  return a1;
-}
-
-uint64_t sub_1002931F8(uint64_t a1, unint64_t __src, unint64_t a3)
-{
-  if (__src < a3)
-  {
-    v5 = __src;
-    do
-    {
-      v6 = *(a1 + 48);
-      if (*(a1 + 56) - v6 >= (a3 - v5))
-      {
-        v7 = a3 - v5;
-      }
-
-      else
-      {
-        v7 = *(a1 + 56) - v6;
-      }
-
-      memcpy(v6, v5, v7);
-      v8 = *(a1 + 56);
-      v9 = *(a1 + 48) + v7;
-      *(a1 + 48) = v9;
-      if (v9 >= v8 && (sub_100292ED8(a1) & 1) == 0)
-      {
-        v12[0] = 0;
-        v12[1] = 0;
-        v10 = sub_1002A80E0(v12, 7);
-        *v10 = 1937075302;
-        *(v10 + 3) = 690514035;
-        sub_1002A8980(-215, v12, "read", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 7842);
-      }
-
-      v5 += v7;
-    }
-
-    while (v5 < a3);
-  }
-
-  return a1;
-}
-
-void sub_100293454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  sub_1002A8124(&a9);
-  if (*(v9 + 31) < 0)
-  {
-    operator delete(*v10);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1002934B8(uint64_t *a1, char *__s)
-{
-  if (!__s)
-  {
-    __p = 0;
-    v20 = 0;
-    qmemcpy(sub_1002A80E0(&__p, 13), "Invalid 'dt'.", 13);
-    sub_1002A8980(-5, &__p, "check_dt", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 8359);
-  }
-
-  v3 = *(a1 + 31);
-  if (v3 < 0)
-  {
-    v4 = (a1 + 1);
-    if (a1[2])
-    {
-      goto LABEL_4;
-    }
-
-LABEL_10:
-    v7 = v4;
-    std::string::assign(v7, __s);
-    sub_1002923BC(__s, &__p);
-    v9 = v21;
-    v10 = v21;
-    if ((v21 & 0x80u) == 0)
-    {
-      p_p = &__p;
-    }
-
-    else
-    {
-      p_p = __p;
-    }
-
-    if ((v21 & 0x80u) != 0)
-    {
-      v9 = v20;
-    }
-
-    if (v9 >= 1)
-    {
-      v12 = &p_p[v9];
-      v13 = *a1;
-      do
-      {
-        v14 = *(v13 + 64);
-        if (*(v13 + 72) - v14 >= v12 - p_p)
-        {
-          v15 = v12 - p_p;
-        }
-
-        else
-        {
-          v15 = *(v13 + 72) - v14;
-        }
-
-        memcpy(v14, p_p, v15);
-        v16 = *(v13 + 72);
-        v17 = *(v13 + 64) + v15;
-        *(v13 + 64) = v17;
-        if (v17 >= v16)
-        {
-          sub_10029C17C(v13);
-        }
-
-        p_p += v15;
-      }
-
-      while (p_p < v12);
-      v10 = v21;
-    }
-
-    if ((v10 & 0x80) != 0)
-    {
-      operator delete(__p);
-    }
-
-    return;
-  }
-
-  v4 = (a1 + 1);
-  if (!*(a1 + 31))
-  {
-    goto LABEL_10;
-  }
-
-LABEL_4:
-  v6 = strlen(__s);
-  if ((v3 & 0x80000000) == 0)
-  {
-    if (v6 == v3 && !memcmp(v4, __s, v6))
-    {
-      return;
-    }
-
-LABEL_26:
-    __p = 0;
-    v20 = 0;
-    v18 = sub_1002A80E0(&__p, 20);
-    *(v18 + 16) = 778593140;
-    *v18 = *"'dt' does not match.";
-    sub_1002A8980(-5, &__p, "check_dt", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 8370);
-  }
-
-  if (v6 != a1[2])
-  {
-    goto LABEL_26;
-  }
-
-  if (v6 == -1)
-  {
-    sub_100282420();
-  }
-
-  if (memcmp(*v4, __s, v6))
-  {
-    goto LABEL_26;
-  }
-}
-
-void sub_100293AD4(uint64_t a1, int a2, char *a3, uint64_t a4)
-{
-  v14 = 0;
-  sub_10029C2DC(v9, a1, a2, a3);
-  while (v9[0] < v9[2])
-  {
-    v16 = 0.0;
-    (*(v12 + 2))(v9[0] + *(v12 + 1), &v16);
-    v5 = v12;
-    v6 = *v12;
-    if (*v12 <= 2)
-    {
-      if (v6)
-      {
-        if (v6 == 1)
-        {
-          v7 = SLOBYTE(v16);
-        }
-
-        else
-        {
-          if (v6 != 2)
-          {
-            goto LABEL_25;
-          }
-
-          v7 = LOWORD(v16);
-        }
-      }
-
-      else
-      {
-        v7 = LOBYTE(v16);
-      }
-
-      goto LABEL_23;
-    }
-
-    if (v6 <= 4)
-    {
-      if (v6 == 3)
-      {
-        v7 = SLOWORD(v16);
-      }
-
-      else
-      {
-        if (v6 != 4)
-        {
-          goto LABEL_25;
-        }
-
-        v7 = LODWORD(v16);
-      }
-
-LABEL_23:
-      LODWORD(v15) = v7;
-      goto LABEL_24;
-    }
-
-    if (v6 == 5)
-    {
-      v8 = *&v16;
-    }
-
-    else
-    {
-      if (v6 != 6)
-      {
-        goto LABEL_25;
-      }
-
-      v8 = v16;
-    }
-
-    v15 = v8;
-LABEL_24:
-    v6 = *v12;
-LABEL_25:
-    if (v6 <= 6)
-    {
-      __src = dword_1003E3D0C[v6];
-    }
-
-    v12 += 24;
-    if (v5 + 24 == v11)
-    {
-      v12 = __p;
-      v9[0] += v9[3];
-    }
-
-    sub_100233314(a4, &__src);
-  }
-
-  if (__p)
-  {
-    v11 = __p;
-    operator delete(__p);
-  }
-}
-
-void sub_100293C34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *sub_100293C50(void *a1)
-{
-  v1 = a1[4];
-  v2 = v1 >= 0x1000;
-  v3 = v1 - 4096;
-  if (!v2)
-  {
-    v7 = a1[2];
-    v6 = a1[3];
-    v8 = v6 - *a1;
-    if (v7 - a1[1] < v8)
-    {
-      if (v6 != v7)
-      {
-        operator new();
-      }
-
-      operator new();
-    }
-
-    v9 = v8 >> 2;
-    if (v6 == *a1)
-    {
-      v10 = 1;
-    }
-
-    else
-    {
-      v10 = v9;
-    }
-
-    if (!(v10 >> 61))
-    {
-      operator new();
-    }
-
-    sub_10000927C();
-  }
-
-  a1[4] = v3;
-  v4 = a1[1];
-  v11 = *v4;
-  a1[1] = v4 + 1;
-  return sub_100294018(a1, &v11);
-}
-
-void sub_100293FC0(_Unwind_Exception *a1)
-{
-  operator delete(v2);
-  operator delete(v1);
-  _Unwind_Resume(a1);
-}
-
-void *sub_100294018(void *result, void *a2)
-{
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
-  {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
-    {
-      v11 = &v4[-*result] >> 2;
-      if (v4 == *result)
-      {
-        v11 = 1;
-      }
-
-      if (!(v11 >> 61))
-      {
-        operator new();
-      }
-
-      sub_10000927C();
-    }
-
-    v7 = ((v6 >> 3) + 1) / 2;
-    v8 = ((v6 >> 3) + 1) / -2;
-    v9 = &v5[-8 * v7];
-    v10 = v4 - v5;
-    if (v4 != v5)
-    {
-      result = memmove(&v5[-8 * v7], v5, v4 - v5);
-      v5 = v3[1];
-    }
-
-    v4 = &v9[v10];
-    v3[1] = &v5[8 * v8];
-  }
-
-  *v4 = *a2;
-  v3[2] = v4 + 8;
-  return result;
-}
-
-const void **sub_1002941A4(const void **result, void *a2)
-{
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
-  {
-    v6 = result[2];
-    v7 = result[3];
-    if (v6 >= v7)
-    {
-      v9 = (v7 - v4) >> 2;
-      if (v7 == v4)
-      {
-        v9 = 1;
-      }
-
-      if (!(v9 >> 61))
-      {
-        operator new();
-      }
-
-      sub_10000927C();
-    }
-
-    v8 = (((v7 - v6) >> 3) + 1) / 2;
-    v5 = &v4[8 * v8];
-    if (v6 != v4)
-    {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
-    }
-
-    v3[2] = &v6[8 * v8];
-  }
-
-  else
-  {
-    v5 = result[1];
-  }
-
-  *(v5 - 1) = *a2;
-  v3[1] = v5 - 8;
-  return result;
-}
-
-uint64_t sub_10029433C(uint64_t a1, const char *a2, int a3, void **a4, uint64_t a5)
-{
-  v9 = *(a1 + 120);
-  v10 = *(a1 + 68);
-  if (a2)
-  {
-    if (*a2)
-    {
-      v11 = a2;
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
-    if (a3 != 1)
-    {
-      goto LABEL_22;
-    }
-  }
-
-  else
-  {
-    v11 = 0;
-    if (a3 != 1)
-    {
-      goto LABEL_22;
-    }
-  }
-
-  if ((*(a1 + 68) & 7u) < 5)
-  {
-    if (v11)
-    {
-      v10 = 38;
-    }
-
-    else
-    {
-      v10 = 37;
-    }
-
-    *(a1 + 12) = 0;
-  }
-
-  else if (((*(a1 + 68) & 7) == 6) != (v11 != 0))
-  {
-    v54 = 0;
-    v55 = 0;
-    qmemcpy(sub_1002A80E0(&v54, 85), "An attempt to add element without a key to a map, or add element with key to sequence", 85);
-    sub_1002A8980(-5, &v54, "icvXMLWriteTag", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2892);
-  }
-
-  if ((v10 & 0x20) == 0)
-  {
-    v13 = *(a1 + 120);
-    v12 = *(a1 + 128);
-    v14 = *(a1 + 88);
-    if (v13 > &v12[v14])
-    {
-      *v13 = 10;
-      sub_10028614C(a1, *(a1 + 128));
-      v12 = *(a1 + 128);
-      LODWORD(v14) = *(a1 + 88);
-    }
-
-    v15 = *(a1 + 64);
-    if (v14 == v15)
-    {
-      v16 = v14;
-    }
-
-    else
-    {
-      v16 = v15;
-      memset(v12, 32, v15);
-      *(a1 + 88) = v15;
-      v12 = *(a1 + 128);
-    }
-
-    v9 = &v12[v16];
-    *(a1 + 120) = &v12[v16];
-  }
-
-LABEL_22:
-  v52 = v10;
-  if (v11)
-  {
-    if (*v11 == 95 && !v11[1])
-    {
-      v54 = 0;
-      v55 = 0;
-      qmemcpy(sub_1002A80E0(&v54, 33), "A single _ is a reserved tag name", 33);
-      sub_1002A8980(-5, &v54, "icvXMLWriteTag", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2907);
-    }
-  }
-
-  else
-  {
-    v11 = "_";
-  }
-
-  result = strlen(v11);
-  v18 = result;
-  *v9 = 60;
-  v19 = v9 + 1;
-  if (a3 == 2)
-  {
-    if (a4)
-    {
-      v54 = 0;
-      v55 = 0;
-      qmemcpy(sub_1002A80E0(&v54, 45), "Closing tag should not include any attributes", 45);
-      sub_1002A8980(-5, &v54, "icvXMLWriteTag", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2914);
-    }
-
-    v19 = v9 + 2;
-    v9[1] = 47;
-  }
-
-  v20 = *v11;
-  if (v20 != 95 && (v20 & 0xFFFFFFDF) - 65 >= 0x1A)
-  {
-    v54 = 0;
-    v55 = 0;
-    qmemcpy(sub_1002A80E0(&v54, 35), "Key should start with a letter or _", 35);
-    sub_1002A8980(-5, &v54, "icvXMLWriteTag", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2919);
-  }
-
-  v22 = result;
-  v23 = *(a1 + 136);
-  v53 = a5;
-  if (&v19[result] >= v23)
-  {
-    v24 = *(a1 + 128);
-    v25 = v19 - v24;
-    v26 = (3 * (v23 - v24) + ((3 * (v23 - v24)) >> 63)) >> 1;
-    v27 = v19 - v24 + result;
-    if (v27 <= v26)
-    {
-      v28 = v26;
-    }
-
-    else
-    {
-      v28 = v27;
-    }
-
-    result = sub_1001D90AC(v28 + 256);
-    v29 = result;
-    v30 = *(a1 + 128);
-    *(a1 + 120) = result + *(a1 + 120) - v30;
-    if (v25 >= 1)
-    {
-      result = memcpy(result, v30, v25 & 0x7FFFFFFF);
-    }
-
-    *(a1 + 128) = v29;
-    *(a1 + 136) = &v29[v28];
-    v19 = &v29[v25];
-  }
-
-  if (v18 >= 1)
-  {
-    v31 = v18 & 0x7FFFFFFF;
-    v32 = v19;
-    do
-    {
-      v34 = *v11++;
-      v33 = v34;
-      if ((v34 - 58) <= 0xF5u && ((v33 & 0xDF) - 91) <= 0xE5u && v33 != 45 && v33 != 95)
-      {
-        v54 = 0;
-        v55 = 0;
-        qmemcpy(sub_1002A80E0(&v54, 74), "Key name may only contain alphanumeric characters [a-zA-Z0-9], '-' and '_'", 74);
-        sub_1002A8980(-5, &v54, "icvXMLWriteTag", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2926);
-      }
-
-      *v32++ = v33;
-      --v31;
-    }
-
-    while (v31);
-  }
-
-  v35 = &v19[v22];
-  if (a4)
-  {
-LABEL_53:
-    result = *a4;
-    if (*a4)
-    {
-      v36 = a4 + 1;
-      do
-      {
-        v40 = strlen(result);
-        v41 = strlen(*v36);
-        v42 = v40 + v41 + 4;
-        v43 = *(a1 + 136);
-        if (&v35[v42] >= v43)
-        {
-          v44 = *(a1 + 128);
-          v45 = v35 - v44;
-          v46 = (3 * (v43 - v44) + ((3 * (v43 - v44)) >> 63)) >> 1;
-          v47 = v42 + v35 - v44;
-          if (v47 <= v46)
-          {
-            v48 = v46;
-          }
-
-          else
-          {
-            v48 = v47;
-          }
-
-          v49 = sub_1001D90AC(v48 + 256);
-          v50 = v49;
-          v51 = *(a1 + 128);
-          *(a1 + 120) = &v49[*(a1 + 120) - v51];
-          if (v45 >= 1)
-          {
-            memcpy(v49, v51, v45 & 0x7FFFFFFF);
-          }
-
-          *(a1 + 128) = v50;
-          *(a1 + 136) = &v50[v48];
-          v35 = &v50[v45];
-        }
-
-        *v35 = 32;
-        v37 = v35 + 1;
-        memcpy(v37, *(v36 - 1), v40);
-        v38 = &v37[v40];
-        *v38 = 8765;
-        v38 += 2;
-        memcpy(v38, *v36, v41);
-        v39 = &v38[v41];
-        *v39 = 34;
-        v35 = v39 + 1;
-        result = v36[1];
-        v36 += 2;
-      }
-
-      while (result);
-    }
-  }
-
-  while (v53)
-  {
-    a4 = *v53;
-    v53 = *(v53 + 8);
-    if (a4)
-    {
-      goto LABEL_53;
-    }
-  }
-
-  *v35 = 62;
-  *(a1 + 120) = v35 + 1;
-  *(a1 + 68) = v52 & 0xFFFFFFDF;
-  return result;
-}
-
-void sub_100294898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  sub_1002A8124(va);
-  _Unwind_Resume(a1);
-}
-
-char *sub_100294910(uint64_t a1, char *a2, int a3)
-{
-  v6 = 0;
-  while (1)
-  {
-    do
-    {
-      while (1)
-      {
-        while (a3 == 1)
-        {
-          v11 = *a2;
-          if (v11 <= 0x1F && v11 != 9)
-          {
-LABEL_43:
-            a3 = 1;
-            goto LABEL_45;
-          }
-
-          a2 += 3;
-          while (v11 != 45 || *(a2 - 2) != 45 || *(a2 - 1) != 62)
-          {
-            v11 = *(a2 - 2);
-            ++a2;
-            if (v11 <= 0x1F && v11 != 9)
-            {
-              goto LABEL_43;
-            }
-          }
-
-          a3 = 0;
-          v11 = *a2;
-          if (v11 <= 0x1F)
-          {
-            goto LABEL_45;
-          }
-        }
-
-        if (a3 != 3)
-        {
-          break;
-        }
-
-        do
-        {
-          v7 = *a2;
-          v8 = v7 == 62;
-          if (v7 == 60)
-          {
-            v9 = v6 + 1;
-          }
-
-          else
-          {
-            v9 = v6;
-          }
-
-          v6 = v9 - v8;
-          if (v9 - v8 < 0)
-          {
-            return a2;
-          }
-
-          ++a2;
-        }
-
-        while (v7 > 0x1F || v7 == 9);
-        a3 = 3;
-        v12 = *--a2;
-        v11 = v12;
-        if (v12 <= 0x1F)
-        {
-          goto LABEL_45;
-        }
-      }
-
-      while (1)
-      {
-        v11 = *a2;
-        if (v11 != 9 && v11 != 32)
-        {
-          break;
-        }
-
-        ++a2;
-      }
-
-      if (v11 != 60)
-      {
-        if (v11 > 0x1F)
-        {
-          return a2;
-        }
-
-        break;
-      }
-
-      if (a2[1] != 33 || a2[2] != 45 || a2[3] != 45)
-      {
-        return a2;
-      }
-
-      if (a3)
-      {
-        sprintf(v25, "%s(%d): %s", *(a1 + 96), *(a1 + 148), "Comments are not allowed here");
-        sub_1002A9248(-212, "icvXMLSkipSpaces", v25, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2278);
-      }
-
-      a3 = 1;
-      v13 = a2[4];
-      a2 += 4;
-      v11 = v13;
-    }
-
-    while (v13 > 0x1F);
-LABEL_45:
-    v16 = v11 > 0xD;
-    v17 = (1 << v11) & 0x2401;
-    if (v16 || v17 == 0)
-    {
-      sprintf(v25, "%s(%d): %s", *(a1 + 96), *(a1 + 148), "Invalid character in the stream");
-      sub_1002A9248(-212, "icvXMLSkipSpaces", v25, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2290);
-    }
-
-    v19 = sub_1002862DC(a1, *(a1 + 128), (*(a1 + 136) - *(a1 + 128)));
-    if (!v19)
-    {
-      break;
-    }
-
-    a2 = v19;
-    v20 = v19[(strlen(v19) - 1)];
-    if (v20 != 10 && v20 != 13)
-    {
-      if (*(a1 + 352))
-      {
-        if (*(a1 + 368) < *(a1 + 360))
-        {
-          goto LABEL_2;
-        }
-      }
-
-      else
-      {
-        v22 = *(a1 + 104);
-        if (v22)
-        {
-          if (!feof(v22))
-          {
-            goto LABEL_2;
-          }
-        }
-
-        else
-        {
-          v23 = *(a1 + 112);
-          if (!v23 || !gzeof(v23))
-          {
-LABEL_2:
-            sprintf(v25, "%s(%d): %s", *(a1 + 96), *(a1 + 148), "Too long string or a last string w/o newline");
-            sub_1002A9248(-212, "icvXMLSkipSpaces", v25, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2303);
-          }
-        }
-      }
-    }
-
-    ++*(a1 + 148);
-  }
-
-  a2 = *(a1 + 128);
-  *a2 = 0;
-  *(a1 + 152) = 1;
-  return a2;
-}
-
-char *sub_100294C4C(uint64_t a1, char *__s, uint64_t *a3, uint64_t *a4, int *a5)
-{
-  if (!*__s)
-  {
-    sprintf(v43, "%s(%d): %s", *(a1 + 96), *(a1 + 148), "Preliminary end of the stream");
-    sub_1002A9248(-212, "icvXMLParseTag", v43, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2681);
-  }
-
-  if (*__s != 60)
-  {
-    sprintf(v43, "%s(%d): %s", *(a1 + 96), *(a1 + 148), "Tag should start with '<'");
-    sub_1002A9248(-212, "icvXMLParseTag", v43, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2684);
-  }
-
-  v7 = __s + 1;
-  v6 = __s[1];
-  if ((v6 - 48) >= 0xA && (v6 & 0xFFFFFFDF) - 65 >= 0x1A)
-  {
-    if (__s[1] > 0x3Eu)
-    {
-      if (v6 == 63)
-      {
-        v42 = 0;
-        v10 = 0;
-        v7 = __s + 2;
-        v36 = 4;
-        v9 = 1;
-        goto LABEL_12;
-      }
-
-      if (v6 == 95)
-      {
-        goto LABEL_10;
-      }
-    }
-
-    else
-    {
-      if (v6 == 33)
-      {
-        v42 = 0;
-        v9 = 0;
-        v10 = 0;
-        v7 = __s + 2;
-        v11 = 5;
-        goto LABEL_11;
-      }
-
-      if (v6 == 47)
-      {
-        v9 = 0;
-        v10 = 0;
-        v7 = __s + 2;
-        v36 = 2;
-        v42 = 1;
-        goto LABEL_12;
-      }
-    }
-
-    sprintf(v43, "%s(%d): %s", *(a1 + 96), *(a1 + 148), "Unknown tag type");
-    sub_1002A9248(-212, "icvXMLParseTag", v43, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2706);
-  }
-
-LABEL_10:
-  v42 = 0;
-  v9 = 0;
-  v10 = 1;
-  v11 = 1;
-LABEL_11:
-  v36 = v11;
-LABEL_12:
-  v12 = 0;
-  v13 = 0;
-  v40 = 0;
-  v14 = 0;
-  v41 = v10 ^ 1;
-  while (1)
-  {
-    v15 = *v7;
-    if (v15 != 95 && (v15 & 0xFFFFFFDF) - 65 >= 0x1A)
-    {
-      sprintf(v43, "%s(%d): %s", *(a1 + 96), *(a1 + 148), "Name should start with a letter or underscore");
-      sub_1002A9248(-212, "icvXMLParseTag", v43, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2713);
-    }
-
-    for (i = 0; ; ++i)
-    {
-      v18 = v7[i];
-      if ((v18 - 48) >= 0xAu && ((v18 & 0xDF) - 65) >= 0x1Au)
-      {
-        v20 = v7[i];
-        if (v20 != 95 && v20 != 45)
-        {
-          break;
-        }
-      }
-    }
-
-    v21 = sub_10028356C(a1, v7, i, 1);
-    v22 = v21;
-    if (!v21)
-    {
-      *v43 = 0;
-      v44 = 0;
-      *sub_1002A80E0(v43, 8) = 0x656D616E72747461;
-      sub_1002A8980(-215, v43, "icvXMLParseTag", "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2720);
-    }
-
-    v7 += i;
-    if (v14)
-    {
-      if (v42)
-      {
-        sprintf(v43, "%s(%d): %s", *(a1 + 96), *(a1 + 148), "Closing tag should not contain any attributes");
-        sub_1002A9248(-212, "icvXMLParseTag", v43, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2728);
-      }
-
-      if (v12 && v13 <= 3)
-      {
-        v23 = *v12;
-      }
-
-      else
-      {
-        v24 = sub_100231C8C(*(a1 + 16), 0x58uLL);
-        *(v24 + 72) = 0u;
-        *(v24 + 56) = 0u;
-        *(v24 + 40) = 0u;
-        *(v24 + 24) = 0u;
-        *(v24 + 8) = 0u;
-        v23 = v24 + 16;
-        *v24 = v24 + 16;
-        v13 = 0;
-        if (v12)
-        {
-          v12[1] = v24;
-          v12 = v24;
-        }
-
-        else
-        {
-          v12 = v24;
-          v40 = v24;
-        }
-      }
-
-      *(v23 + 16 * v13) = *(v22 + 16);
-      if (*v7 == 61)
-      {
-        goto LABEL_45;
-      }
-
-LABEL_43:
-      v7 = sub_100294910(a1, v7, 2);
-      if (*v7 != 61)
-      {
-        sprintf(v43, "%s(%d): %s", *(a1 + 96), *(a1 + 148), "Attribute name should be followed by '='");
-        sub_1002A9248(-212, "icvXMLParseTag", v43, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2754);
-      }
-
-      goto LABEL_45;
-    }
-
-    v14 = v21;
-    if (!v12)
-    {
-      goto LABEL_51;
-    }
-
-    if (*v7 != 61)
-    {
-      goto LABEL_43;
-    }
-
-LABEL_45:
-    v27 = v7[1];
-    v26 = v7 + 1;
-    v25 = v27;
-    if (v27 != 34 && v25 != 39)
-    {
-      v28 = *sub_100294910(a1, v26, 2);
-      if (v28 != 34 && v28 != 39)
-      {
-        sprintf(v43, "%s(%d): %s", *(a1 + 96), *(a1 + 148), "Attribute value should be put into single or double quotes");
-        sub_1002A9248(-212, "icvXMLParseTag", v43, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2762);
-      }
-    }
-
-    v7 = sub_100295364(a1);
-    *(*v12 + 8 * ((2 * v13++) | 1)) = v45;
-LABEL_51:
-    v29 = *v7;
-    if (v29 == 62)
-    {
-      break;
-    }
-
-    v30 = sub_100294910(a1, v7, 2);
-    v7 = v30;
-    v31 = *v30;
-    if (v31 == 62)
-    {
-      break;
-    }
-
-    v32 = v9 ^ 1;
-    if (v31 != 63)
-    {
-      v32 = 1;
-    }
-
-    if ((v32 & 1) == 0)
-    {
-      if (v30[1] != 62)
-      {
-        sprintf(v43, "%s(%d): %s", *(a1 + 96), *(a1 + 148), "Invalid closing tag for <?xml ...");
-        sub_1002A9248(-212, "icvXMLParseTag", v43, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2790);
-      }
-
-      result = v30 + 2;
-      v35 = 4;
-      goto LABEL_77;
-    }
-
-    if (v31 == 47)
-    {
-      v33 = v41;
-      if (v30[1] != 62)
-      {
-        v33 = 1;
-      }
-
-      if ((v33 & 1) == 0)
-      {
-        result = v30 + 2;
-        v35 = 3;
-        goto LABEL_77;
-      }
-    }
-
-    if (v29 > 0x20 || ((1 << v29) & 0x100003E01) == 0)
-    {
-      sprintf(v43, "%s(%d): %s", *(a1 + 96), *(a1 + 148), "There should be space between attributes");
-      sub_1002A9248(-212, "icvXMLParseTag", v43, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2802);
-    }
-  }
-
-  if (v9)
-  {
-    sprintf(v43, "%s(%d): %s", *(a1 + 96), *(a1 + 148), "Invalid closing tag for <?xml ...");
-    sub_1002A9248(-212, "icvXMLParseTag", v43, "/Library/Caches/com.apple.xbs/Sources/Measure/externals/OpenCV/modules/core/src/persistence.cpp", 2783);
-  }
-
-  result = v7 + 1;
-  v35 = v36;
-LABEL_77:
-  *a3 = v14;
-  *a5 = v35;
-  *a4 = v40;
-  return result;
 }

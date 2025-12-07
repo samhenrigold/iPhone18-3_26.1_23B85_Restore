@@ -6,22 +6,21 @@
 
 - (void)pathname
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (result)
   {
     fileDescriptor = [result fileDescriptor];
-    if (fileDescriptor < 0 || fcntl(fileDescriptor, 50, v3) < 0)
+    if (fileDescriptor < 0 || fcntl(fileDescriptor, 50, v2) < 0)
     {
-      result = 0;
+      return 0;
     }
 
     else
     {
-      result = [MEMORY[0x1E696AEC0] stringWithUTF8String:v3];
+      return [MEMORY[0x1E696AEC0] stringWithUTF8String:v2];
     }
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 

@@ -178,7 +178,7 @@
 
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    OUTLINED_FUNCTION_2_50();
+    OUTLINED_FUNCTION_2_50(0x48Du, target, self[7]);
   }
 
   v10 = CMGetAttachment(target, @"FusionTrackerInput", 0);

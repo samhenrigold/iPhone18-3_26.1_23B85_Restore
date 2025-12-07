@@ -15,6 +15,7 @@
 - (void)groupSessionDidConnectUnderlyingLinks:(id)links;
 - (void)groupSessionDidDisconnectUnderlyingLinks:(id)links;
 - (void)groupSessionDidTerminate:(id)terminate;
+- (void)groupSessionEnded:(id)ended withReason:(unsigned int)reason error:(id)error;
 - (void)joinWithOptions:(id)options;
 - (void)kickParticipants:(id)participants;
 - (void)leave;
@@ -28,18 +29,31 @@
 - (void)requestEncryptionKeyForParticipants:(id)participants topic:(id)topic;
 - (void)restart;
 - (void)sendParticipantData:(id)data withContext:(id)context;
+- (void)session:(id)session didReceiveActiveLightweightParticipants:(id)participants success:(BOOL)success;
+- (void)session:(id)session didReceiveActiveParticipants:(id)participants success:(BOOL)success;
+- (void)session:(id)session didReceiveBlockedParticipantIDs:(id)ds withCode:(unsigned int)code withType:(unsigned __int16)type isTruncated:(BOOL)truncated;
+- (void)session:(id)session didReceiveData:(id)data dataType:(unsigned __int16)type forParticipant:(id)participant;
 - (void)session:(id)session didReceiveDataBlob:(id)blob forParticipant:(id)participant;
 - (void)session:(id)session didReceiveJoinedParticipantID:(unint64_t)d withContext:(id)context;
 - (void)session:(id)session didReceiveLeftParticipantID:(unint64_t)d withContext:(id)context;
+- (void)session:(id)session didReceiveParticipantIDs:(id)ds withCode:(unsigned int)code managementType:(unsigned __int16)type;
 - (void)session:(id)session didReceiveParticipantUpdateParticipantID:(unint64_t)d withContext:(id)context;
 - (void)session:(id)session didReceiveReport:(id)report;
+- (void)session:(id)session didReceiveServerErrorCode:(unsigned int)code;
 - (void)session:(id)session didRegisterPluginAllocationInfo:(id)info;
 - (void)session:(id)session didUnregisterPluginAllocationInfo:(id)info;
 - (void)sessionDidJoinGroup:(id)group participantUpdate:(id)update error:(id)error;
 - (void)sessionDidLeaveGroup:(id)group error:(id)error;
+- (void)sessionDidReceiveParticipantUpgrade:(id)upgrade participantType:(unsigned __int16)type error:(id)error;
+- (void)sessionDidReceiveParticipantUpgrade:(id)upgrade participantType:(unsigned __int16)type requestIdentifier:(unint64_t)identifier error:(id)error;
 - (void)sessiondidReceiveKeyUpdate:(id)update;
+- (void)setLocalParticipantType:(unsigned __int16)type memberDestinations:(id)destinations withContext:(id)context timestamp:(id)timestamp identifier:(unint64_t)identifier;
+- (void)setParticipantType:(unsigned __int16)type forRemoteMemberDestinations:(id)destinations;
 - (void)setPreferences:(id)preferences;
+- (void)setScreening:(BOOL)screening;
 - (void)setUpSession;
+- (void)updateParticipantDestinationIDs:(id)ds withContextData:(id)data requiredCapabilities:(id)capabilities requiredLackOfCapabilities:(id)ofCapabilities triggeredLocally:(BOOL)locally;
+- (void)updateParticipantDestinationIDs:(id)ds withContextData:(id)data triggeredLocally:(BOOL)locally;
 - (void)updateParticipantInfo:(id)info;
 @end
 
@@ -102,8 +116,7 @@
     }
 
     v24->_isInitiator = initiator;
-    [(CSDIDSGroupSessionProvider *)v24 setUpSession];
-    v39 = sub_100004778();
+    v39 = sub_100004778([(CSDIDSGroupSessionProvider *)v24 setUpSession]);
     if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       v40 = @"NO";
@@ -142,15 +155,14 @@
 
 - (void)dealloc
 {
-  session = self->_session;
   if (objc_opt_respondsToSelector())
   {
     [(IDSGroupSession *)self->_session invalidate];
   }
 
-  v4.receiver = self;
-  v4.super_class = CSDIDSGroupSessionProvider;
-  [(CSDIDSGroupSessionProvider *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = CSDIDSGroupSessionProvider;
+  [(CSDIDSGroupSessionProvider *)&v3 dealloc];
 }
 
 - (NSString)description
@@ -163,20 +175,20 @@
 
 - (void)setUpSession
 {
-  v33[0] = IDSSessionTransportTypeKey;
-  v33[1] = IDSSessionAlwaysSkipSelfKey;
-  v34[0] = &off_10063EC18;
-  v34[1] = &__kCFBooleanTrue;
-  v33[2] = IDSGroupSessionMessagesGroupIDKey;
+  v34[0] = IDSSessionTransportTypeKey;
+  v34[1] = IDSSessionAlwaysSkipSelfKey;
+  v35[0] = &off_10063EC18;
+  v35[1] = &__kCFBooleanTrue;
+  v34[2] = IDSGroupSessionMessagesGroupIDKey;
   groupID = [(CSDIDSGroupSessionProvider *)self groupID];
-  v34[2] = groupID;
-  v33[3] = IDSGroupSessionMessagesGroupMembersKey;
+  v35[2] = groupID;
+  v34[3] = IDSGroupSessionMessagesGroupMembersKey;
   participantDestinationIDs = [(CSDIDSGroupSessionProvider *)self participantDestinationIDs];
-  v34[3] = participantDestinationIDs;
-  v33[4] = IDSGroupSessionMessagesCallerIDKey;
+  v35[3] = participantDestinationIDs;
+  v34[4] = IDSGroupSessionMessagesCallerIDKey;
   callerID = [(CSDIDSGroupSessionProvider *)self callerID];
-  v34[4] = callerID;
-  v33[5] = IDSGroupSessionStartedAsUPlusOneKey;
+  v35[4] = callerID;
+  v34[5] = IDSGroupSessionStartedAsUPlusOneKey;
   if ([(CSDIDSGroupSessionProvider *)self isOneToOneModeEnabled])
   {
     v6 = &__kCFBooleanTrue;
@@ -187,13 +199,13 @@
     v6 = &__kCFBooleanFalse;
   }
 
-  v34[5] = v6;
-  v33[6] = IDSGroupSessionIsLightweightParticipantKey;
+  v35[5] = v6;
+  v34[6] = IDSGroupSessionIsLightweightParticipantKey;
   isLightweightMember = [(CSDIDSGroupSessionProvider *)self isLightweightMember];
   v8 = &__kCFBooleanTrue;
   if ((isLightweightMember & 1) == 0)
   {
-    if ([(CSDIDSGroupSessionProvider *)self isAVLess])
+    if (objc_msgSend_isAVLess(self))
     {
       v8 = &__kCFBooleanTrue;
     }
@@ -204,11 +216,11 @@
     }
   }
 
-  v34[6] = v8;
-  v33[7] = IDSSessionClientUUIDKey;
+  v35[6] = v8;
+  v34[7] = IDSSessionClientUUIDKey;
   clientUUIDString = [(CSDIDSGroupSessionProvider *)self clientUUIDString];
-  v34[7] = clientUUIDString;
-  v33[8] = IDSGroupSessionShortMKIEnabledKey;
+  v35[7] = clientUUIDString;
+  v34[8] = IDSGroupSessionShortMKIEnabledKey;
   testConfiguration = [(CSDIDSGroupSessionProvider *)self testConfiguration];
   if ([testConfiguration isShortMKIEnabled])
   {
@@ -220,8 +232,8 @@
     v11 = &__kCFBooleanFalse;
   }
 
-  v34[8] = v11;
-  v33[9] = IDSGroupSessionTLEEnabledKey;
+  v35[8] = v11;
+  v34[9] = IDSGroupSessionTLEEnabledKey;
   testConfiguration2 = [(CSDIDSGroupSessionProvider *)self testConfiguration];
   if ([testConfiguration2 isTLEEnabled])
   {
@@ -233,8 +245,8 @@
     v13 = &__kCFBooleanFalse;
   }
 
-  v34[9] = v13;
-  v33[10] = IDSGroupSessionPartialTLEUPlusOneEnabledKey;
+  v35[9] = v13;
+  v34[10] = IDSGroupSessionPartialTLEUPlusOneEnabledKey;
   testConfiguration3 = [(CSDIDSGroupSessionProvider *)self testConfiguration];
   if ([testConfiguration3 isTLEUPlusOneEnabled])
   {
@@ -246,30 +258,31 @@
     v15 = &__kCFBooleanFalse;
   }
 
-  v34[10] = v15;
-  v16 = [NSDictionary dictionaryWithObjects:v34 forKeys:v33 count:11];
+  v35[10] = v15;
+  v16 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:11];
   v17 = [v16 mutableCopy];
 
-  if ([(CSDIDSGroupSessionProvider *)self isOneToOneModeEnabled])
+  isOneToOneModeEnabled = [(CSDIDSGroupSessionProvider *)self isOneToOneModeEnabled];
+  if (isOneToOneModeEnabled)
   {
-    v18 = [NSNumber numberWithBool:[(CSDIDSGroupSessionProvider *)self isInitiator]];
-    [v17 setObject:v18 forKeyedSubscript:IDSGroupSessionIsInitiatorKey];
+    v19 = [NSNumber numberWithBool:[(CSDIDSGroupSessionProvider *)self isInitiator]];
+    [v17 setObject:v19 forKeyedSubscript:IDSGroupSessionIsInitiatorKey];
   }
 
-  v19 = sub_100004778();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = sub_100004778(isOneToOneModeEnabled);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = TULoggableStringForObject();
-    v31 = 138412290;
-    v32 = v20;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Creating IDSGroupSession with options %@", &v31, 0xCu);
+    v21 = TULoggableStringForObject();
+    v32 = 138412290;
+    v33 = v21;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Creating IDSGroupSession with options %@", &v32, 0xCu);
   }
 
-  v21 = [IDSGroupSession alloc];
+  v22 = [IDSGroupSession alloc];
   account = [(CSDIDSGroupSessionProvider *)self account];
-  v23 = [v17 copy];
-  v24 = [v21 initWithAccount:account options:v23];
-  [(CSDIDSGroupSessionProvider *)self setSession:v24];
+  v24 = [v17 copy];
+  v25 = [v22 initWithAccount:account options:v24];
+  [(CSDIDSGroupSessionProvider *)self setSession:v25];
 
   if ([(CSDIDSGroupSessionProvider *)self isOneToOneModeEnabled])
   {
@@ -286,8 +299,8 @@ LABEL_26:
 
     if (isUPlusOneSessionCapabilitiesEnabled)
     {
-      v28 = [NSSet setWithObject:IDSRegistrationPropertySupportsModernGFT];
-      [(CSDIDSGroupSessionProvider *)self addRequiredCapabilities:v28 requiredLackOfCapabilities:0];
+      v29 = [NSSet setWithObject:IDSRegistrationPropertySupportsModernGFT];
+      [(CSDIDSGroupSessionProvider *)self addRequiredCapabilities:v29 requiredLackOfCapabilities:0];
 
       if ([(CSDIDSGroupSessionProvider *)self isScreenSharingRequest])
       {
@@ -331,7 +344,7 @@ LABEL_27:
 - (void)setPreferences:(id)preferences
 {
   preferencesCopy = preferences;
-  v5 = sub_100004778();
+  v5 = sub_100004778(preferencesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -346,7 +359,7 @@ LABEL_27:
 - (void)joinWithOptions:(id)options
 {
   optionsCopy = options;
-  v5 = sub_100004778();
+  v5 = sub_100004778(optionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = TULoggableStringForObject();
@@ -396,11 +409,68 @@ LABEL_10:
   [session joinWithOptions:optionsCopy];
 }
 
+- (void)updateParticipantDestinationIDs:(id)ds withContextData:(id)data triggeredLocally:(BOOL)locally
+{
+  locallyCopy = locally;
+  dsCopy = ds;
+  dataCopy = data;
+  v10 = sub_100004778(dataCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = TULoggableStringForHandles();
+    v13 = 138412802;
+    v14 = v11;
+    v15 = 2112;
+    v16 = dataCopy;
+    v17 = 1024;
+    v18 = locallyCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "participantDestinationIDs: %@ contextData: %@ triggeredLocally: %d", &v13, 0x1Cu);
+  }
+
+  [(CSDIDSGroupSessionProvider *)self setParticipantDestinationIDs:dsCopy];
+  session = [(CSDIDSGroupSessionProvider *)self session];
+  [session updateMembers:dsCopy withContext:dataCopy triggeredLocally:locallyCopy];
+}
+
+- (void)updateParticipantDestinationIDs:(id)ds withContextData:(id)data requiredCapabilities:(id)capabilities requiredLackOfCapabilities:(id)ofCapabilities triggeredLocally:(BOOL)locally
+{
+  locallyCopy = locally;
+  dsCopy = ds;
+  dataCopy = data;
+  capabilitiesCopy = capabilities;
+  ofCapabilitiesCopy = ofCapabilities;
+  v16 = sub_100004778(ofCapabilitiesCopy);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = TULoggableStringForHandles();
+    v23 = 138413314;
+    v24 = v17;
+    v25 = 2112;
+    v26 = dataCopy;
+    v27 = 2112;
+    v28 = capabilitiesCopy;
+    v29 = 2112;
+    v30 = ofCapabilitiesCopy;
+    v31 = 1024;
+    v32 = locallyCopy;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "participantDestinationIDs: %@ contextData: %@ requiredCapabilities: %@ requiredLackOfCapabilities: %@ triggeredLocally: %d", &v23, 0x30u);
+  }
+
+  v18 = [IDSMessagingCapabilities alloc];
+  v19 = [NSSet setWithArray:capabilitiesCopy];
+  v20 = [NSSet setWithArray:ofCapabilitiesCopy];
+  v21 = [v18 initWithRequiredCapabilities:v19 requiredMissingCapabilities:v20];
+
+  [(CSDIDSGroupSessionProvider *)self setParticipantDestinationIDs:dsCopy];
+  session = [(CSDIDSGroupSessionProvider *)self session];
+  [session updateMembers:dsCopy withContext:dataCopy messagingCapabilities:v21 triggeredLocally:locallyCopy];
+}
+
 - (void)sendParticipantData:(id)data withContext:(id)context
 {
   dataCopy = data;
   contextCopy = context;
-  v8 = sub_100004778();
+  v8 = sub_100004778(contextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412546;
@@ -423,7 +493,7 @@ LABEL_10:
 - (void)updateParticipantInfo:(id)info
 {
   infoCopy = info;
-  v5 = sub_100004778();
+  v5 = sub_100004778(infoCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -443,7 +513,7 @@ LABEL_10:
 
 - (void)leave
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -457,7 +527,7 @@ LABEL_10:
 - (void)leaveWithOptions:(id)options
 {
   optionsCopy = options;
-  v5 = sub_100004778();
+  v5 = sub_100004778(optionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412290;
@@ -483,7 +553,7 @@ LABEL_10:
 
 - (void)restart
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -504,7 +574,7 @@ LABEL_10:
 
 - (void)requestActiveParticipants
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     session = [(CSDIDSGroupSessionProvider *)self session];
@@ -519,7 +589,7 @@ LABEL_10:
 
 - (void)reconnect
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     session = [(CSDIDSGroupSessionProvider *)self session];
@@ -555,7 +625,7 @@ LABEL_10:
 - (void)registerPluginWithOptions:(id)options
 {
   optionsCopy = options;
-  v5 = sub_100004778();
+  v5 = sub_100004778(optionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     session = [(CSDIDSGroupSessionProvider *)self session];
@@ -580,7 +650,7 @@ LABEL_10:
 {
   topicCopy = topic;
   handlerCopy = handler;
-  v8 = sub_100004778();
+  v8 = sub_100004778(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     session = [(CSDIDSGroupSessionProvider *)self session];
@@ -599,7 +669,7 @@ LABEL_10:
 {
   participantsCopy = participants;
   topicCopy = topic;
-  v8 = sub_100004778();
+  v8 = sub_100004778(topicCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     session = [(CSDIDSGroupSessionProvider *)self session];
@@ -625,51 +695,51 @@ LABEL_10:
 
   if (v9)
   {
-    v10 = sub_100004778();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100004778(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       session2 = [(CSDIDSGroupSessionProvider *)self session];
-      v21 = 138412802;
-      v22 = session2;
-      v23 = 2112;
-      v24 = capabilitiesCopy;
-      v25 = 2112;
-      v26 = ofCapabilitiesCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "session: %@, setRequiredCapabilities: %@ requiredLackOfCapabilities: %@", &v21, 0x20u);
+      v22 = 138412802;
+      v23 = session2;
+      v24 = 2112;
+      v25 = capabilitiesCopy;
+      v26 = 2112;
+      v27 = ofCapabilitiesCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "session: %@, setRequiredCapabilities: %@ requiredLackOfCapabilities: %@", &v22, 0x20u);
     }
 
     session3 = [(CSDIDSGroupSessionProvider *)self session];
     requiredCapabilities = [session3 requiredCapabilities];
-    v14 = [requiredCapabilities mutableCopy];
+    v15 = [requiredCapabilities mutableCopy];
 
     if ([capabilitiesCopy count])
     {
-      if (!v14)
+      if (!v15)
       {
-        v14 = +[NSMutableSet set];
+        v15 = +[NSMutableSet set];
       }
 
       allObjects = [capabilitiesCopy allObjects];
-      [v14 addObjectsFromArray:allObjects];
+      [v15 addObjectsFromArray:allObjects];
     }
 
     session4 = [(CSDIDSGroupSessionProvider *)self session];
     requiredLackOfCapabilities = [session4 requiredLackOfCapabilities];
-    v18 = [requiredLackOfCapabilities mutableCopy];
+    v19 = [requiredLackOfCapabilities mutableCopy];
 
     if ([ofCapabilitiesCopy count])
     {
-      if (!v18)
+      if (!v19)
       {
-        v18 = +[NSMutableSet set];
+        v19 = +[NSMutableSet set];
       }
 
       allObjects2 = [ofCapabilitiesCopy allObjects];
-      [v18 addObjectsFromArray:allObjects2];
+      [v19 addObjectsFromArray:allObjects2];
     }
 
     session5 = [(CSDIDSGroupSessionProvider *)self session];
-    [session5 setRequiredCapabilities:v14 requiredLackOfCapabilities:v18];
+    [session5 setRequiredCapabilities:v15 requiredLackOfCapabilities:v19];
   }
 }
 
@@ -677,7 +747,7 @@ LABEL_10:
 {
   capabilitiesCopy = capabilities;
   ofCapabilitiesCopy = ofCapabilities;
-  v8 = sub_100004778();
+  v8 = sub_100004778(ofCapabilitiesCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     session = [(CSDIDSGroupSessionProvider *)self session];
@@ -732,7 +802,7 @@ LABEL_10:
 {
   containerCopy = container;
   saltCopy = salt;
-  v8 = sub_100004778();
+  v8 = sub_100004778(saltCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     session = [(CSDIDSGroupSessionProvider *)self session];
@@ -806,7 +876,7 @@ LABEL_10:
 - (unint64_t)aliasForParticipantID:(unint64_t)d salt:(id)salt
 {
   saltCopy = salt;
-  v7 = sub_100004778();
+  v7 = sub_100004778(saltCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     session = [(CSDIDSGroupSessionProvider *)self session];
@@ -832,7 +902,7 @@ LABEL_10:
 {
   saltCopy = salt;
   completionCopy = completion;
-  v10 = sub_100004778();
+  v10 = sub_100004778(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     session = [(CSDIDSGroupSessionProvider *)self session];
@@ -857,6 +927,92 @@ LABEL_10:
   }
 }
 
+- (void)setLocalParticipantType:(unsigned __int16)type memberDestinations:(id)destinations withContext:(id)context timestamp:(id)timestamp identifier:(unint64_t)identifier
+{
+  typeCopy = type;
+  destinationsCopy = destinations;
+  contextCopy = context;
+  timestampCopy = timestamp;
+  v15 = timestampCopy;
+  if (typeCopy == 1)
+  {
+    v16 = [NSSet setWithObject:IDSRegistrationPropertySupportsAVLess];
+    [(CSDIDSGroupSessionProvider *)self removeRequiredCapabilities:v16 requiredLackOfCapabilities:0];
+  }
+
+  v17 = sub_100004778(timestampCopy);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    session = [(CSDIDSGroupSessionProvider *)self session];
+    v19 = TULoggableStringForHandles();
+    v21 = 138413314;
+    v22 = session;
+    v23 = 1024;
+    v24 = typeCopy;
+    v25 = 2112;
+    v26 = v19;
+    v27 = 2112;
+    v28 = v15;
+    v29 = 2048;
+    identifierCopy = identifier;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "session: %@ updating local participant type: %hu destinations: %@, timestamp: %@, identifier: %llu", &v21, 0x30u);
+  }
+
+  [(CSDIDSGroupSessionProvider *)self setParticipantDestinationIDs:destinationsCopy];
+  self->_avLess = typeCopy == 0;
+  session2 = [(CSDIDSGroupSessionProvider *)self session];
+  [v15 doubleValue];
+  [session2 updateParticipantType:typeCopy members:destinationsCopy withContext:contextCopy triggeredLocally:1 timestamp:identifier identifier:?];
+}
+
+- (void)setParticipantType:(unsigned __int16)type forRemoteMemberDestinations:(id)destinations
+{
+  typeCopy = type;
+  destinationsCopy = destinations;
+  v7 = sub_100004778(destinationsCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    session = [(CSDIDSGroupSessionProvider *)self session];
+    v9 = TULoggableStringForHandles();
+    v11 = 138412802;
+    v12 = session;
+    v13 = 1024;
+    v14 = typeCopy;
+    v15 = 2112;
+    v16 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "session: %@ updating remote participant type: %hu destinations: %@", &v11, 0x1Cu);
+  }
+
+  [(CSDIDSGroupSessionProvider *)self setParticipantDestinationIDs:destinationsCopy];
+  session2 = [(CSDIDSGroupSessionProvider *)self session];
+  [session2 updateParticipantType:typeCopy members:destinationsCopy withContext:0 triggeredLocally:0];
+}
+
+- (void)setScreening:(BOOL)screening
+{
+  screeningCopy = screening;
+  v5 = sub_100004778(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    session = [(CSDIDSGroupSessionProvider *)self session];
+    v7 = session;
+    v8 = @"NO";
+    if (screeningCopy)
+    {
+      v8 = @"YES";
+    }
+
+    v10 = 138412546;
+    v11 = session;
+    v12 = 2112;
+    v13 = v8;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "session: %@ setScreening: %@", &v10, 0x16u);
+  }
+
+  session2 = [(CSDIDSGroupSessionProvider *)self session];
+  [session2 setCallScreeningMode:screeningCopy];
+}
+
 - (void)groupSessionDidTerminate:(id)terminate
 {
   delegate = [(CSDIDSGroupSessionProvider *)self delegate];
@@ -866,7 +1022,7 @@ LABEL_10:
 - (void)groupSessionDidDisconnectUnderlyingLinks:(id)links
 {
   linksCopy = links;
-  v5 = sub_100004778();
+  v5 = sub_100004778(linksCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -881,7 +1037,7 @@ LABEL_10:
 - (void)groupSessionDidConnectUnderlyingLinks:(id)links
 {
   linksCopy = links;
-  v5 = sub_100004778();
+  v5 = sub_100004778(linksCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -891,6 +1047,14 @@ LABEL_10:
 
   delegate = [(CSDIDSGroupSessionProvider *)self delegate];
   [delegate sessionProvider:self didReceiveUnderlyingLinksStatus:1];
+}
+
+- (void)groupSessionEnded:(id)ended withReason:(unsigned int)reason error:(id)error
+{
+  v5 = *&reason;
+  errorCopy = error;
+  delegate = [(CSDIDSGroupSessionProvider *)self delegate];
+  [delegate sessionProvider:self endedWithReason:v5 error:errorCopy];
 }
 
 - (void)sessionDidJoinGroup:(id)group participantUpdate:(id)update error:(id)error
@@ -909,6 +1073,22 @@ LABEL_10:
   errorCopy = error;
   delegate = [(CSDIDSGroupSessionProvider *)self delegate];
   [delegate sessionProvider:self didLeaveGroupWithError:errorCopy];
+}
+
+- (void)session:(id)session didReceiveActiveParticipants:(id)participants success:(BOOL)success
+{
+  successCopy = success;
+  participantsCopy = participants;
+  delegate = [(CSDIDSGroupSessionProvider *)self delegate];
+  [delegate sessionProvider:self didReceiveActiveParticipants:participantsCopy success:successCopy];
+}
+
+- (void)session:(id)session didReceiveActiveLightweightParticipants:(id)participants success:(BOOL)success
+{
+  successCopy = success;
+  participantsCopy = participants;
+  delegate = [(CSDIDSGroupSessionProvider *)self delegate];
+  [delegate sessionProvider:self didReceiveActiveLightweightParticipants:participantsCopy success:successCopy];
 }
 
 - (void)session:(id)session didReceiveLeftParticipantID:(unint64_t)d withContext:(id)context
@@ -939,6 +1119,40 @@ LABEL_10:
   [delegate sessionProvider:self didReceiveReport:reportCopy];
 }
 
+- (void)session:(id)session didReceiveBlockedParticipantIDs:(id)ds withCode:(unsigned int)code withType:(unsigned __int16)type isTruncated:(BOOL)truncated
+{
+  truncatedCopy = truncated;
+  typeCopy = type;
+  v9 = *&code;
+  dsCopy = ds;
+  delegate = [(CSDIDSGroupSessionProvider *)self delegate];
+  [delegate sessionProvider:self didReceiveKickedParticipantIDs:dsCopy withCode:v9 withType:typeCopy isTruncated:truncatedCopy];
+}
+
+- (void)session:(id)session didReceiveParticipantIDs:(id)ds withCode:(unsigned int)code managementType:(unsigned __int16)type
+{
+  if (type <= 3u)
+  {
+    [CSDIDSGroupSessionProvider session:"session:didReceiveBlockedParticipantIDs:withCode:withType:isTruncated:" didReceiveBlockedParticipantIDs:session withCode:ds withType:*&code isTruncated:?];
+  }
+}
+
+- (void)sessionDidReceiveParticipantUpgrade:(id)upgrade participantType:(unsigned __int16)type error:(id)error
+{
+  typeCopy = type;
+  errorCopy = error;
+  delegate = [(CSDIDSGroupSessionProvider *)self delegate];
+  [delegate sessionProvider:self didReceiveLocalParticipantType:typeCopy requestIdentifier:0 error:errorCopy];
+}
+
+- (void)sessionDidReceiveParticipantUpgrade:(id)upgrade participantType:(unsigned __int16)type requestIdentifier:(unint64_t)identifier error:(id)error
+{
+  typeCopy = type;
+  errorCopy = error;
+  delegate = [(CSDIDSGroupSessionProvider *)self delegate];
+  [delegate sessionProvider:self didReceiveLocalParticipantType:typeCopy requestIdentifier:identifier error:errorCopy];
+}
+
 - (void)session:(id)session didRegisterPluginAllocationInfo:(id)info
 {
   infoCopy = info;
@@ -965,6 +1179,22 @@ LABEL_10:
   blobCopy = blob;
   delegate = [(CSDIDSGroupSessionProvider *)self delegate];
   [delegate sessionProvider:self didReceiveDataBlob:blobCopy forParticipant:participantCopy];
+}
+
+- (void)session:(id)session didReceiveData:(id)data dataType:(unsigned __int16)type forParticipant:(id)participant
+{
+  typeCopy = type;
+  participantCopy = participant;
+  dataCopy = data;
+  delegate = [(CSDIDSGroupSessionProvider *)self delegate];
+  [delegate sessionProvider:self didReceiveData:dataCopy dataType:typeCopy forParticipant:participantCopy];
+}
+
+- (void)session:(id)session didReceiveServerErrorCode:(unsigned int)code
+{
+  v4 = *&code;
+  delegate = [(CSDIDSGroupSessionProvider *)self delegate];
+  [delegate sessionProvider:self didReceiveServerErrorCode:v4];
 }
 
 - (CSDIDSGroupSessionProviderDelegate)delegate

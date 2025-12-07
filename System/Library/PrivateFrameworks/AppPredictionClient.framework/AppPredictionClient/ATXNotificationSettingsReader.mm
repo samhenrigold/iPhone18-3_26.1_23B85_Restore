@@ -138,7 +138,7 @@
 
     else
     {
-      v8 = __atxlog_handle_notification_management();
+      v8 = __atxlog_handle_notification_management(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [(ATXNotificationSettingsReader *)configurationCopy modeConfiguration:v8];

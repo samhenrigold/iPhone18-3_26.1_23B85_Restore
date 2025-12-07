@@ -1,2190 +1,198 @@
-re::FrameMemoryStats *re::FrameMemoryStats::FrameMemoryStats(re::FrameMemoryStats *this)
+void skinnedMeshTraverseNode(char *a1, void *a2, uint64_t a3, uint64_t a4, _anonymous_namespace_ *a5)
 {
-  *(this + 2) = 10;
-  *(this + 1) = 0u;
-  *(this + 2) = 0u;
-  *(this + 12) = 0;
-  *(this + 52) = 0x7FFFFFFFLL;
-  *(this + 64) = 0;
-  *this = &unk_1F5D0E010;
-  *(this + 9) = 0;
-  getpid();
-  memorystatus_control();
-  *(this + 9) = 0;
-  return this;
-}
-
-uint64_t re::FrameMemoryStats::dumpStatisticsInternal(uint64_t a1, uint64_t a2)
-{
-  task_info_out[0] = 0;
-  v3 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, task_info_out);
-  v4 = v3;
-  if (v3[1])
+  v9 = a2;
+  if (v9)
   {
-    v3[1] = 1;
-    v5 = v3[2];
-  }
-
-  else
-  {
-    *(v3 + 8) = 0;
-    v5 = v3 + 9;
-  }
-
-  *v5 = 0;
-  re::DynamicString::append(v3, "Process Memory Usage [MB]\n", 0x1AuLL);
-  task_info_outCnt = 93;
-  task_info(*MEMORY[0x1E69E9A60], 0x16u, task_info_out, &task_info_outCnt);
-  re::DynamicString::appendf(v4, "Dirty Memory Footprint : %.2f\n", (vcvts_n_f32_u64(v9, 0xAuLL) * 0.00097656));
-  re::DynamicString::appendf(v4, "Peak Dirty Memory Footprint : %.2f\n", (vcvts_n_f32_s64(v10, 0xAuLL) * 0.00097656));
-  result = re::DynamicString::appendf(v4, "Memory Limit : %.2f\n", (vcvts_n_f32_u64(*(a1 + 72), 0xAuLL) * 0.00097656));
-  *(v4 + 10) = 512;
-  return result;
-}
-
-uint64_t re::FrameThermalStats::dumpStatisticsInternal(uint64_t a1, uint64_t a2)
-{
-  info.numer = 0;
-  v3 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, &info);
-  v4 = v3;
-  if (v3[1])
-  {
-    v3[1] = 1;
-    v5 = v3[2];
-  }
-
-  else
-  {
-    *(v3 + 8) = 0;
-    v5 = v3 + 9;
-  }
-
-  *v5 = 0;
-  re::DynamicString::append(v3, "App Thermal Info\n", 0x11uLL);
-  v6 = [MEMORY[0x1E696AE30] processInfo];
-  v7 = [v6 thermalState];
-
-  switch(v7)
-  {
-    case 2:
-      re::DynamicString::appendf(v4, "Thermal State : Serious\n");
-      if (*(a1 + 90) > 2u)
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      processForMeshData(v21, v9, a3, a4, a5);
+      if (v21[0] == 1)
       {
-LABEL_30:
-        v29 = 3;
-        goto LABEL_39;
-      }
-
-      v18 = mach_absolute_time();
-      v19 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-      {
-        if (mach_timebase_info(&info))
+        v10 = [v9 name];
+        v11 = v10;
+        if (v10)
         {
-          v22 = NAN;
-LABEL_29:
-          v30 = v22 / 1000000.0;
-          *(a1 + 76) = v30;
-          ++*(a1 + 88);
-          goto LABEL_30;
-        }
-
-        LODWORD(v20) = info.numer;
-        LODWORD(v21) = info.denom;
-        v19 = v20 / v21;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v19;
-      }
-
-      v22 = v19 * v18;
-      goto LABEL_29;
-    case 1:
-      re::DynamicString::appendf(v4, "Thermal State : Fair\n");
-      if (*(a1 + 90) < 3u)
-      {
-LABEL_26:
-        v29 = 2;
-        goto LABEL_39;
-      }
-
-      v13 = mach_absolute_time();
-      v14 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-      {
-        if (mach_timebase_info(&info))
-        {
-          v17 = NAN;
-LABEL_25:
-          v28 = v17 / 1000000.0;
-          *(a1 + 80) = v28;
-          goto LABEL_26;
-        }
-
-        LODWORD(v15) = info.numer;
-        LODWORD(v16) = info.denom;
-        v14 = v15 / v16;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v14;
-      }
-
-      v17 = v14 * v13;
-      goto LABEL_25;
-    case 0:
-      re::DynamicString::appendf(v4, "Thermal State : Nominal\n");
-      if (*(a1 + 90) < 3u)
-      {
-LABEL_34:
-        v29 = 1;
-        goto LABEL_39;
-      }
-
-      v8 = mach_absolute_time();
-      v9 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-      {
-        if (mach_timebase_info(&info))
-        {
-          v12 = NAN;
-LABEL_33:
-          v31 = v12 / 1000000.0;
-          *(a1 + 80) = v31;
-          goto LABEL_34;
-        }
-
-        LODWORD(v10) = info.numer;
-        LODWORD(v11) = info.denom;
-        v9 = v10 / v11;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v9;
-      }
-
-      v12 = v9 * v8;
-      goto LABEL_33;
-  }
-
-  re::DynamicString::appendf(v4, "Thermal State : Critical\n");
-  if (*(a1 + 90) <= 2u)
-  {
-    v23 = mach_absolute_time();
-    v24 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-    {
-      if (mach_timebase_info(&info))
-      {
-        v27 = NAN;
-LABEL_37:
-        v32 = v27 / 1000000.0;
-        *(a1 + 76) = v32;
-        ++*(a1 + 88);
-        goto LABEL_38;
-      }
-
-      LODWORD(v25) = info.numer;
-      LODWORD(v26) = info.denom;
-      v24 = v25 / v26;
-      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v24;
-    }
-
-    v27 = v24 * v23;
-    goto LABEL_37;
-  }
-
-LABEL_38:
-  v29 = 4;
-LABEL_39:
-  *(a1 + 90) = v29;
-  v33 = mach_absolute_time();
-  v34 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v37 = NAN;
-      goto LABEL_44;
-    }
-
-    LODWORD(v35) = info.numer;
-    LODWORD(v36) = info.denom;
-    v34 = v35 / v36;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v34;
-  }
-
-  v37 = v34 * v33;
-LABEL_44:
-  v38 = v37 / 1000000.0 - *(a1 + 84);
-  *(a1 + 68) = v38;
-  re::DynamicString::appendf(v4, "Time Since App Launch : %.2f sec\n", (v38 / 1000.0));
-  if (*(a1 + 90) > 2u)
-  {
-    result = re::DynamicString::appendf(v4, "Thermally Throttled in %.2f sec\n");
-  }
-
-  else
-  {
-    result = re::DynamicString::appendf(v4, "Not Thermally Throttled\n");
-  }
-
-  *(v4 + 10) = 1024;
-  return result;
-}
-
-double re::FrameSceneUnderstandingStats::dumpStatisticsInternal(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  info[0].numer = 0;
-  v6 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, info);
-  v7 = v6;
-  if (v6[1])
-  {
-    v6[1] = 1;
-    v8 = v6[2];
-  }
-
-  else
-  {
-    *(v6 + 8) = 0;
-    v8 = v6 + 9;
-  }
-
-  *v8 = 0;
-  re::DynamicString::appendf(v6, "Scene Understanding Metrics (Profiler Pass)\n");
-  v9 = 0x7FFFFFFFLL;
-  if (*a3)
-  {
-    v10 = *(*(a3 + 8) + 4 * (0xAF26563F2EC4C8E6 % *(a3 + 24)));
-    if (v10 != 0x7FFFFFFF)
-    {
-      v11 = *(a3 + 16);
-      v9 = 0x7FFFFFFFLL;
-      while (*(v11 + 80 * v10 + 4) != 128)
-      {
-        v10 = *(v11 + 80 * v10) & 0x7FFFFFFF;
-        if (v10 == 0x7FFFFFFF)
-        {
-          goto LABEL_11;
-        }
-      }
-
-      v9 = v10;
-    }
-  }
-
-LABEL_11:
-  v12 = *(*(a3 + 16) + 80 * v9 + 40);
-  v13 = *(a1 + 8);
-  v14 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(info))
-    {
-      v17 = NAN;
-      goto LABEL_16;
-    }
-
-    LODWORD(v15) = info[0].numer;
-    LODWORD(v16) = info[0].denom;
-    v14 = v15 / v16;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v14;
-  }
-
-  v17 = v14 * (v12 / v13);
-LABEL_16:
-  re::DynamicString::appendf(v7, "SUProcessingSystem Update (ms): %.2f\n", v17 / 1000000.0);
-  if (!*a3)
-  {
-    v18 = *(a3 + 16);
-    goto LABEL_22;
-  }
-
-  v18 = *(a3 + 16);
-  v19 = *(*(a3 + 8) + 4 * (0x89607B27DA843F55 % *(a3 + 24)));
-  if (v19 == 0x7FFFFFFF)
-  {
-LABEL_22:
-    v19 = 0x7FFFFFFFLL;
-    goto LABEL_23;
-  }
-
-  while (*(v18 + 80 * v19 + 4) != 129)
-  {
-    v19 = *(v18 + 80 * v19) & 0x7FFFFFFF;
-    if (v19 == 0x7FFFFFFF)
-    {
-      goto LABEL_22;
-    }
-  }
-
-LABEL_23:
-  v20 = *(v18 + 80 * v19 + 40);
-  v21 = *(a1 + 8);
-  v22 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(info))
-    {
-      v25 = NAN;
-      goto LABEL_28;
-    }
-
-    LODWORD(v23) = info[0].numer;
-    LODWORD(v24) = info[0].denom;
-    v22 = v23 / v24;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v22;
-  }
-
-  v25 = v22 * (v20 / v21);
-LABEL_28:
-  re::DynamicString::appendf(v7, "SUMeshSystem Update (ms): %.2f\n", v25 / 1000000.0);
-  re::DynamicString::appendf(v7, "Physics Chunk Creation (ms)\n");
-  if (!*a3)
-  {
-    v26 = *(a3 + 16);
-    goto LABEL_34;
-  }
-
-  v26 = *(a3 + 16);
-  v27 = *(*(a3 + 8) + 4 * (0x629BE6C3EEC6E119uLL % *(a3 + 24)));
-  if (v27 == 0x7FFFFFFF)
-  {
-LABEL_34:
-    v27 = 0x7FFFFFFFLL;
-    goto LABEL_35;
-  }
-
-  while (*(v26 + 80 * v27 + 4) != 133)
-  {
-    v27 = *(v26 + 80 * v27) & 0x7FFFFFFF;
-    if (v27 == 0x7FFFFFFF)
-    {
-      goto LABEL_34;
-    }
-  }
-
-LABEL_35:
-  v28 = *(v26 + 80 * v27 + 48);
-  v29 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(info))
-    {
-      v32 = NAN;
-      goto LABEL_40;
-    }
-
-    LODWORD(v30) = info[0].numer;
-    LODWORD(v31) = info[0].denom;
-    v29 = v30 / v31;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v29;
-  }
-
-  v32 = v29 * v28;
-LABEL_40:
-  if (!*a3)
-  {
-    v33 = *(a3 + 16);
-    goto LABEL_46;
-  }
-
-  v33 = *(a3 + 16);
-  v34 = *(*(a3 + 8) + 4 * (0x629BE6C3EEC6E119uLL % *(a3 + 24)));
-  if (v34 == 0x7FFFFFFF)
-  {
-LABEL_46:
-    v34 = 0x7FFFFFFFLL;
-    goto LABEL_47;
-  }
-
-  while (*(v33 + 80 * v34 + 4) != 133)
-  {
-    v34 = *(v33 + 80 * v34) & 0x7FFFFFFF;
-    if (v34 == 0x7FFFFFFF)
-    {
-      goto LABEL_46;
-    }
-  }
-
-LABEL_47:
-  v35 = *(v33 + 80 * v34 + 36);
-  v36 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  v37 = v32 / 1000000.0;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(info))
-    {
-      v40 = NAN;
-      goto LABEL_52;
-    }
-
-    LODWORD(v38) = info[0].numer;
-    LODWORD(v39) = info[0].denom;
-    v36 = v38 / v39;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v36;
-  }
-
-  v40 = v36 * v35;
-LABEL_52:
-  re::DynamicString::appendf(v7, "Avg : %.3f, Max : %.3f\n", v37, v40 / 1000000.0);
-  re::DynamicString::appendf(v7, "Physics Chunk Update (ms)\n");
-  if (!*a3)
-  {
-    v41 = *(a3 + 16);
-    goto LABEL_58;
-  }
-
-  v41 = *(a3 + 16);
-  v42 = *(*(a3 + 8) + 4 * (0xDDA64E04828F136DLL % *(a3 + 24)));
-  if (v42 == 0x7FFFFFFF)
-  {
-LABEL_58:
-    v42 = 0x7FFFFFFFLL;
-    goto LABEL_59;
-  }
-
-  while (*(v41 + 80 * v42 + 4) != 134)
-  {
-    v42 = *(v41 + 80 * v42) & 0x7FFFFFFF;
-    if (v42 == 0x7FFFFFFF)
-    {
-      goto LABEL_58;
-    }
-  }
-
-LABEL_59:
-  v43 = *(v41 + 80 * v42 + 48);
-  v44 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(info))
-    {
-      v47 = NAN;
-      goto LABEL_64;
-    }
-
-    LODWORD(v45) = info[0].numer;
-    LODWORD(v46) = info[0].denom;
-    v44 = v45 / v46;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v44;
-  }
-
-  v47 = v44 * v43;
-LABEL_64:
-  if (!*a3)
-  {
-    v48 = *(a3 + 16);
-    goto LABEL_70;
-  }
-
-  v48 = *(a3 + 16);
-  v49 = *(*(a3 + 8) + 4 * (0xDDA64E04828F136DLL % *(a3 + 24)));
-  if (v49 == 0x7FFFFFFF)
-  {
-LABEL_70:
-    v49 = 0x7FFFFFFFLL;
-    goto LABEL_71;
-  }
-
-  while (*(v48 + 80 * v49 + 4) != 134)
-  {
-    v49 = *(v48 + 80 * v49) & 0x7FFFFFFF;
-    if (v49 == 0x7FFFFFFF)
-    {
-      goto LABEL_70;
-    }
-  }
-
-LABEL_71:
-  v50 = *(v48 + 80 * v49 + 36);
-  v51 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  v52 = v47 / 1000000.0;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(info))
-    {
-      v55 = NAN;
-      goto LABEL_76;
-    }
-
-    LODWORD(v53) = info[0].numer;
-    LODWORD(v54) = info[0].denom;
-    v51 = v53 / v54;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v51;
-  }
-
-  v55 = v51 * v50;
-LABEL_76:
-  re::DynamicString::appendf(v7, "Avg : %.3f, Max : %.3f\n", v52, v55 / 1000000.0);
-  if (!*a3)
-  {
-    v57 = *(a3 + 16);
-    v61 = *(v57 + 0x27FFFFFFD8);
-    v62 = v61 - v61;
-LABEL_105:
-    v72 = 0x7FFFFFFFLL;
-    goto LABEL_106;
-  }
-
-  v56 = *(a3 + 24);
-  v58 = *(a3 + 8);
-  v57 = *(a3 + 16);
-  v59 = *(v58 + 4 * (0x3E784199B71EA792 % v56));
-  if (v59 == 0x7FFFFFFF)
-  {
-    v60 = (v57 + 0x27FFFFFFD8);
-  }
-
-  else
-  {
-    v63 = 0x7FFFFFFFLL;
-    while (*(v57 + 80 * v59 + 4) != 136)
-    {
-      v59 = *(v57 + 80 * v59) & 0x7FFFFFFF;
-      if (v59 == 0x7FFFFFFF)
-      {
-        goto LABEL_85;
-      }
-    }
-
-    v63 = v59;
-LABEL_85:
-    v60 = (v57 + 80 * v63 + 40);
-  }
-
-  v64 = *(v58 + 4 * (0x1D08970C8BCEA7C1 % v56));
-  if (v64 == 0x7FFFFFFF)
-  {
-    v65 = (v57 + 0x27FFFFFFD8);
-  }
-
-  else
-  {
-    v66 = 0x7FFFFFFFLL;
-    while (*(v57 + 80 * v64 + 4) != 138)
-    {
-      v64 = *(v57 + 80 * v64) & 0x7FFFFFFF;
-      if (v64 == 0x7FFFFFFF)
-      {
-        goto LABEL_93;
-      }
-    }
-
-    v66 = v64;
-LABEL_93:
-    v65 = (v57 + 80 * v66 + 40);
-  }
-
-  v67 = *v60;
-  v68 = *v65;
-  v69 = *(v58 + 4 * (0x72025A4FB5A542DBLL % v56));
-  if (v69 == 0x7FFFFFFF)
-  {
-    v70 = (v57 + 0x27FFFFFFD8);
-  }
-
-  else
-  {
-    v71 = 0x7FFFFFFFLL;
-    while (*(v57 + 80 * v69 + 4) != 137)
-    {
-      v69 = *(v57 + 80 * v69) & 0x7FFFFFFF;
-      if (v69 == 0x7FFFFFFF)
-      {
-        goto LABEL_101;
-      }
-    }
-
-    v71 = v69;
-LABEL_101:
-    v70 = (v57 + 80 * v71 + 40);
-  }
-
-  v62 = v67 - v68;
-  v61 = *v70;
-  v72 = *(v58 + 4 * (0x5CB85FD265949FD2 % v56));
-  if (v72 == 0x7FFFFFFF)
-  {
-    goto LABEL_105;
-  }
-
-  while (*(v57 + 80 * v72 + 4) != 139)
-  {
-    v72 = *(v57 + 80 * v72) & 0x7FFFFFFF;
-    if (v72 == 0x7FFFFFFF)
-    {
-      goto LABEL_105;
-    }
-  }
-
-LABEL_106:
-  v73 = v61 - *(v57 + 80 * v72 + 40);
-  v74 = v62;
-  if (v74 < 0.0)
-  {
-    v74 = 0.0;
-  }
-
-  v75 = v73;
-  if (v75 < 0.0)
-  {
-    v75 = 0.0;
-  }
-
-  v76 = re::DynamicString::appendf(v7, "SU Vertices: %.2f, SU Triangles: %.2f\n", v74, v75);
-  *(v7 + 10) = 2048;
-  *(v7 + 4) = 0x2D00000008;
-  if (!*a2 || (v77 = *(*(a2 + 8) + 4 * (0x5692161D100B05E5uLL % *(a2 + 24))), v77 == 0x7FFFFFFF))
-  {
-LABEL_115:
-    *&info[0].numer = 0u;
-    v161 = 0u;
-    re::DynamicString::setCapacity(info, 0);
-    v162 = 0x2800000006;
-    v163 = 1;
-    v159 = 1;
-    re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::add(a2, &v159, info);
-    if (*info && (info[1].numer & 1) != 0)
-    {
-      (*(**info + 40))();
-    }
-  }
-
-  else
-  {
-    v78 = *(a2 + 16);
-    while (*(v78 + (v77 << 6) + 4) != 1)
-    {
-      v77 = *(v78 + (v77 << 6)) & 0x7FFFFFFF;
-      if (v77 == 0x7FFFFFFF)
-      {
-        goto LABEL_115;
-      }
-    }
-  }
-
-  info[0].numer = 1;
-  v79 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, info);
-  v80 = v79;
-  if (v79[1])
-  {
-    v79[1] = 1;
-    v81 = v79[2];
-  }
-
-  else
-  {
-    *(v79 + 8) = 0;
-    v81 = v79 + 9;
-  }
-
-  *v81 = 0;
-  re::DynamicString::appendf(v79, "Scene Understanding Metrics (App Lifetime)\n");
-  re::DynamicString::appendf(v80, "SUProcessingSystem Update (s)\n");
-  if (!*a3)
-  {
-    v82 = *(a3 + 16);
-    goto LABEL_127;
-  }
-
-  v82 = *(a3 + 16);
-  v83 = *(*(a3 + 8) + 4 * (0xAF26563F2EC4C8E6 % *(a3 + 24)));
-  if (v83 == 0x7FFFFFFF)
-  {
-LABEL_127:
-    v83 = 0x7FFFFFFFLL;
-    goto LABEL_128;
-  }
-
-  while (*(v82 + 80 * v83 + 4) != 128)
-  {
-    v83 = *(v82 + 80 * v83) & 0x7FFFFFFF;
-    if (v83 == 0x7FFFFFFF)
-    {
-      goto LABEL_127;
-    }
-  }
-
-LABEL_128:
-  v84 = *(v82 + 80 * v83 + 68);
-  v85 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(info))
-    {
-      v88 = NAN;
-      goto LABEL_133;
-    }
-
-    LODWORD(v86) = info[0].numer;
-    LODWORD(v87) = info[0].denom;
-    v85 = v86 / v87;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v85;
-  }
-
-  v88 = v85 * (v84 / 1000.0);
-LABEL_133:
-  if (!*a3)
-  {
-    v89 = *(a3 + 16);
-    goto LABEL_139;
-  }
-
-  v89 = *(a3 + 16);
-  v90 = *(*(a3 + 8) + 4 * (0xAF26563F2EC4C8E6 % *(a3 + 24)));
-  if (v90 == 0x7FFFFFFF)
-  {
-LABEL_139:
-    v90 = 0x7FFFFFFFLL;
-    goto LABEL_140;
-  }
-
-  while (*(v89 + 80 * v90 + 4) != 128)
-  {
-    v90 = *(v89 + 80 * v90) & 0x7FFFFFFF;
-    if (v90 == 0x7FFFFFFF)
-    {
-      goto LABEL_139;
-    }
-  }
-
-LABEL_140:
-  v91 = *(v89 + 80 * v90 + 56);
-  v92 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  v93 = v88 / 1000000.0;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(info))
-    {
-      v96 = NAN;
-      goto LABEL_145;
-    }
-
-    LODWORD(v94) = info[0].numer;
-    LODWORD(v95) = info[0].denom;
-    v92 = v94 / v95;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v92;
-  }
-
-  v96 = v92 * (v91 / 1000.0);
-LABEL_145:
-  re::DynamicString::appendf(v80, "Avg : %.3f, Max : %.3f\n", v93, v96 / 1000000.0);
-  re::DynamicString::appendf(v80, "SUMeshSystem Update (s)\n");
-  if (!*a3)
-  {
-    v97 = *(a3 + 16);
-    goto LABEL_151;
-  }
-
-  v97 = *(a3 + 16);
-  v98 = *(*(a3 + 8) + 4 * (0x89607B27DA843F55 % *(a3 + 24)));
-  if (v98 == 0x7FFFFFFF)
-  {
-LABEL_151:
-    v98 = 0x7FFFFFFFLL;
-    goto LABEL_152;
-  }
-
-  while (*(v97 + 80 * v98 + 4) != 129)
-  {
-    v98 = *(v97 + 80 * v98) & 0x7FFFFFFF;
-    if (v98 == 0x7FFFFFFF)
-    {
-      goto LABEL_151;
-    }
-  }
-
-LABEL_152:
-  v99 = *(v97 + 80 * v98 + 68);
-  v100 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(info))
-    {
-      v103 = NAN;
-      goto LABEL_157;
-    }
-
-    LODWORD(v101) = info[0].numer;
-    LODWORD(v102) = info[0].denom;
-    v100 = v101 / v102;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v100;
-  }
-
-  v103 = v100 * (v99 / 1000.0);
-LABEL_157:
-  if (!*a3)
-  {
-    v104 = *(a3 + 16);
-    goto LABEL_163;
-  }
-
-  v104 = *(a3 + 16);
-  v105 = *(*(a3 + 8) + 4 * (0x89607B27DA843F55 % *(a3 + 24)));
-  if (v105 == 0x7FFFFFFF)
-  {
-LABEL_163:
-    v105 = 0x7FFFFFFFLL;
-    goto LABEL_164;
-  }
-
-  while (*(v104 + 80 * v105 + 4) != 129)
-  {
-    v105 = *(v104 + 80 * v105) & 0x7FFFFFFF;
-    if (v105 == 0x7FFFFFFF)
-    {
-      goto LABEL_163;
-    }
-  }
-
-LABEL_164:
-  v106 = *(v104 + 80 * v105 + 56);
-  v107 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  v108 = v103 / 1000000.0;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(info))
-    {
-      v111 = NAN;
-      goto LABEL_169;
-    }
-
-    LODWORD(v109) = info[0].numer;
-    LODWORD(v110) = info[0].denom;
-    v107 = v109 / v110;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v107;
-  }
-
-  v111 = v107 * (v106 / 1000.0);
-LABEL_169:
-  re::DynamicString::appendf(v80, "Avg : %.3f, Max : %.3f\n", v108, v111 / 1000000.0);
-  re::DynamicString::appendf(v80, "Physics Chunk Creation (s)\n");
-  if (!*a3)
-  {
-    v112 = *(a3 + 16);
-    goto LABEL_175;
-  }
-
-  v112 = *(a3 + 16);
-  v113 = *(*(a3 + 8) + 4 * (0x629BE6C3EEC6E119uLL % *(a3 + 24)));
-  if (v113 == 0x7FFFFFFF)
-  {
-LABEL_175:
-    v113 = 0x7FFFFFFFLL;
-    goto LABEL_176;
-  }
-
-  while (*(v112 + 80 * v113 + 4) != 133)
-  {
-    v113 = *(v112 + 80 * v113) & 0x7FFFFFFF;
-    if (v113 == 0x7FFFFFFF)
-    {
-      goto LABEL_175;
-    }
-  }
-
-LABEL_176:
-  v114 = *(v112 + 80 * v113 + 68);
-  v115 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(info))
-    {
-      v118 = NAN;
-      goto LABEL_181;
-    }
-
-    LODWORD(v116) = info[0].numer;
-    LODWORD(v117) = info[0].denom;
-    v115 = v116 / v117;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v115;
-  }
-
-  v118 = v115 * (v114 / 1000.0);
-LABEL_181:
-  if (!*a3)
-  {
-    v119 = *(a3 + 16);
-    goto LABEL_187;
-  }
-
-  v119 = *(a3 + 16);
-  v120 = *(*(a3 + 8) + 4 * (0x629BE6C3EEC6E119uLL % *(a3 + 24)));
-  if (v120 == 0x7FFFFFFF)
-  {
-LABEL_187:
-    v120 = 0x7FFFFFFFLL;
-    goto LABEL_188;
-  }
-
-  while (*(v119 + 80 * v120 + 4) != 133)
-  {
-    v120 = *(v119 + 80 * v120) & 0x7FFFFFFF;
-    if (v120 == 0x7FFFFFFF)
-    {
-      goto LABEL_187;
-    }
-  }
-
-LABEL_188:
-  v121 = *(v119 + 80 * v120 + 56);
-  v122 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  v123 = v118 / 1000000.0;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(info))
-    {
-      v126 = NAN;
-      goto LABEL_193;
-    }
-
-    LODWORD(v124) = info[0].numer;
-    LODWORD(v125) = info[0].denom;
-    v122 = v124 / v125;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v122;
-  }
-
-  v126 = v122 * (v121 / 1000.0);
-LABEL_193:
-  re::DynamicString::appendf(v80, "Avg : %.3f, Max : %.3f\n", v123, v126 / 1000000.0);
-  re::DynamicString::appendf(v80, "Physics Chunk Update (s)\n");
-  if (!*a3)
-  {
-    v127 = *(a3 + 16);
-    goto LABEL_199;
-  }
-
-  v127 = *(a3 + 16);
-  v128 = *(*(a3 + 8) + 4 * (0xDDA64E04828F136DLL % *(a3 + 24)));
-  if (v128 == 0x7FFFFFFF)
-  {
-LABEL_199:
-    v128 = 0x7FFFFFFFLL;
-    goto LABEL_200;
-  }
-
-  while (*(v127 + 80 * v128 + 4) != 134)
-  {
-    v128 = *(v127 + 80 * v128) & 0x7FFFFFFF;
-    if (v128 == 0x7FFFFFFF)
-    {
-      goto LABEL_199;
-    }
-  }
-
-LABEL_200:
-  v129 = *(v127 + 80 * v128 + 68);
-  v130 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(info))
-    {
-      v133 = NAN;
-      goto LABEL_205;
-    }
-
-    LODWORD(v131) = info[0].numer;
-    LODWORD(v132) = info[0].denom;
-    v130 = v131 / v132;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v130;
-  }
-
-  v133 = v130 * (v129 / 1000.0);
-LABEL_205:
-  if (!*a3)
-  {
-    v134 = *(a3 + 16);
-    goto LABEL_211;
-  }
-
-  v134 = *(a3 + 16);
-  v135 = *(*(a3 + 8) + 4 * (0xDDA64E04828F136DLL % *(a3 + 24)));
-  if (v135 == 0x7FFFFFFF)
-  {
-LABEL_211:
-    v135 = 0x7FFFFFFFLL;
-    goto LABEL_212;
-  }
-
-  while (*(v134 + 80 * v135 + 4) != 134)
-  {
-    v135 = *(v134 + 80 * v135) & 0x7FFFFFFF;
-    if (v135 == 0x7FFFFFFF)
-    {
-      goto LABEL_211;
-    }
-  }
-
-LABEL_212:
-  v136 = *(v134 + 80 * v135 + 56);
-  v137 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  v138 = v133 / 1000000.0;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(info))
-    {
-      v141 = NAN;
-      goto LABEL_217;
-    }
-
-    LODWORD(v139) = info[0].numer;
-    LODWORD(v140) = info[0].denom;
-    v137 = v139 / v140;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v137;
-  }
-
-  v141 = v137 * (v136 / 1000.0);
-LABEL_217:
-  re::DynamicString::appendf(v80, "Avg : %.3f, Max : %.3f\n", v138, v141 / 1000000.0);
-  if (!*a3)
-  {
-    v143 = *(a3 + 16);
-    v147 = *(v143 + 0x27FFFFFFECLL);
-    v148 = v147 - v147;
-LABEL_246:
-    v157 = 0x7FFFFFFFLL;
-    goto LABEL_247;
-  }
-
-  v142 = *(a3 + 24);
-  v144 = *(a3 + 8);
-  v143 = *(a3 + 16);
-  v145 = *(v144 + 4 * (0x3E784199B71EA792 % v142));
-  if (v145 == 0x7FFFFFFF)
-  {
-    v146 = (v143 + 0x27FFFFFFECLL);
-  }
-
-  else
-  {
-    v149 = 0x7FFFFFFFLL;
-    while (*(v143 + 80 * v145 + 4) != 136)
-    {
-      v145 = *(v143 + 80 * v145) & 0x7FFFFFFF;
-      if (v145 == 0x7FFFFFFF)
-      {
-        goto LABEL_226;
-      }
-    }
-
-    v149 = v145;
-LABEL_226:
-    v146 = (v143 + 80 * v149 + 60);
-  }
-
-  v150 = *(v144 + 4 * (0x1D08970C8BCEA7C1 % v142));
-  if (v150 == 0x7FFFFFFF)
-  {
-    v151 = (v143 + 0x27FFFFFFECLL);
-  }
-
-  else
-  {
-    v152 = 0x7FFFFFFFLL;
-    while (*(v143 + 80 * v150 + 4) != 138)
-    {
-      v150 = *(v143 + 80 * v150) & 0x7FFFFFFF;
-      if (v150 == 0x7FFFFFFF)
-      {
-        goto LABEL_234;
-      }
-    }
-
-    v152 = v150;
-LABEL_234:
-    v151 = (v143 + 80 * v152 + 60);
-  }
-
-  v153 = *v146;
-  v154 = *(v144 + 4 * (0x72025A4FB5A542DBLL % v142));
-  if (v154 == 0x7FFFFFFF)
-  {
-    v155 = (v143 + 0x27FFFFFFECLL);
-  }
-
-  else
-  {
-    v156 = 0x7FFFFFFFLL;
-    while (*(v143 + 80 * v154 + 4) != 137)
-    {
-      v154 = *(v143 + 80 * v154) & 0x7FFFFFFF;
-      if (v154 == 0x7FFFFFFF)
-      {
-        goto LABEL_242;
-      }
-    }
-
-    v156 = v154;
-LABEL_242:
-    v155 = (v143 + 80 * v156 + 60);
-  }
-
-  v148 = v153 - *v151;
-  v147 = *v155;
-  v157 = *(v144 + 4 * (0x5CB85FD265949FD2 % v142));
-  if (v157 == 0x7FFFFFFF)
-  {
-    goto LABEL_246;
-  }
-
-  while (*(v143 + 80 * v157 + 4) != 139)
-  {
-    v157 = *(v143 + 80 * v157) & 0x7FFFFFFF;
-    if (v157 == 0x7FFFFFFF)
-    {
-      goto LABEL_246;
-    }
-  }
-
-LABEL_247:
-  re::DynamicString::appendf(v80, "SU Vertices : %.2f, SU Triangles: %.2f\n", v148, (v147 - *(v143 + 80 * v157 + 60)));
-  *(v80 + 10) = 2048;
-  *&result = 0x2D0000000ALL;
-  *(v80 + 4) = 0x2D0000000ALL;
-  return result;
-}
-
-re::FrameCustomStats *re::FrameCustomStats::FrameCustomStats(re::FrameCustomStats *this)
-{
-  *(this + 2) = 10;
-  *(this + 1) = 0u;
-  *(this + 2) = 0u;
-  *(this + 12) = 0;
-  *(this + 52) = 0x7FFFFFFFLL;
-  *(this + 64) = 0;
-  *this = &unk_1F5D0E040;
-  *(this + 88) = 0u;
-  *(this + 26) = 0;
-  *(this + 72) = 0u;
-  v2 = this + 72;
-  *(this + 108) = 0x7FFFFFFFLL;
-  *(this + 19) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  *(this + 36) = 0;
-  *(this + 15) = 0;
-  v3 = this + 120;
-  *(this + 160) = 1;
-  LODWORD(v8[0]) = 0;
-  v6 = 0u;
-  v7 = 0u;
-  *(v8 + 4) = 0x7FFFFFFFLL;
-  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::operator=(v2, &v6);
-  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(&v6);
-  v8[0] = 0;
-  *(&v6 + 1) = 0;
-  *&v7 = 0;
-  DWORD2(v7) = 0;
-  re::DynamicArray<re::CustomStatsLineInfo>::setCapacity(&v6, 0xFuLL);
-  ++DWORD2(v7);
-  re::DynamicArray<re::DataArray<re::RigGraphNode>::ElementBlock>::operator=(v3, &v6);
-  re::DynamicArray<re::TechniqueFunctionConstant>::deinit(&v6);
-  return this;
-}
-
-void re::FrameCustomStats::~FrameCustomStats(re::FrameCustomStats *this)
-{
-  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 9);
-  re::DynamicArray<re::TechniqueFunctionConstant>::deinit(this + 120);
-  re::DynamicArray<re::TechniqueFunctionConstant>::deinit(this + 120);
-  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 9);
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  re::FrameCustomStats::~FrameCustomStats(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t re::FrameCustomStats::addOrGetStat(re::FrameCustomStats *this, char *a2)
-{
-  v4 = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet(this + 72, &v7);
-  v5 = v7;
-  if (v7 && (v8 & 1) != 0)
-  {
-    v5 = (*(*v7 + 40))();
-  }
-
-  if (v4)
-  {
-    return *v4;
-  }
-
-  v9 = 257;
-  v10 = 0xFF7FFFFF7F7FFFFFLL;
-  v12 = 0;
-  v11 = 0;
-  v13 = xmmword_1E3100EC0;
-  v14 = xmmword_1E3100ED0;
-  v15 = 0;
-  v16 = 0;
-  re::DynamicArray<re::CustomStatsLineInfo>::add((this + 120), &v7);
-  if (v7)
-  {
-    if (v8)
-    {
-      (*(*v7 + 40))();
-    }
-  }
-
-  v7 = *(this + 17) - 1;
-  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(this + 72, a2, &v7);
-  return *(this + 17) - 1;
-}
-
-void re::DynamicArray<re::CustomStatsLineInfo>::add(_anonymous_namespace_ *this, uint64_t a2)
-{
-  v4 = *(this + 2);
-  if (v4 >= *(this + 1))
-  {
-    re::DynamicArray<re::CustomStatsLineInfo>::growCapacity(this, v4 + 1);
-    v4 = *(this + 2);
-  }
-
-  v5 = *(this + 4) + 104 * v4;
-  *v5 = 0u;
-  *(v5 + 16) = 0u;
-  *(v5 + 24) = *(a2 + 24);
-  v6 = *(a2 + 8);
-  *v5 = *a2;
-  *a2 = 0;
-  v7 = *(a2 + 16);
-  *(a2 + 24) = 0;
-  v9 = *(v5 + 8);
-  v8 = *(v5 + 16);
-  *(v5 + 8) = v6;
-  *(v5 + 16) = v7;
-  *(a2 + 8) = v9;
-  *(a2 + 16) = v8;
-  *(v5 + 32) = *(a2 + 32);
-  re::FrameStats::CollectedStatistics::CollectedStatistics((v5 + 36), (a2 + 36));
-  ++*(this + 2);
-  ++*(this + 6);
-}
-
-uint64_t re::FrameCustomStats::addOrGetLine(re::FrameCustomStats *this, char *a2)
-{
-  v4 = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet(this + 72, &v7);
-  v5 = v7;
-  if (v7 && (v8 & 1) != 0)
-  {
-    v5 = (*(*v7 + 40))();
-  }
-
-  if (v4)
-  {
-    return *v4;
-  }
-
-  v9 = 1;
-  v10 = 0xFF7FFFFF7F7FFFFFLL;
-  v12 = 0;
-  v11 = 0;
-  v13 = xmmword_1E3100EC0;
-  v14 = xmmword_1E3100ED0;
-  v15 = 0;
-  v16 = 0;
-  re::DynamicArray<re::CustomStatsLineInfo>::add((this + 120), &v7);
-  if (v7)
-  {
-    if (v8)
-    {
-      (*(*v7 + 40))();
-    }
-  }
-
-  v7 = *(this + 17) - 1;
-  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add<void>(this + 72, a2, &v7);
-  return *(this + 17) - 1;
-}
-
-void *re::FrameCustomStats::updateText(void *this, unint64_t a2, const char *a3)
-{
-  v23 = *MEMORY[0x1E69E9840];
-  if (this[17] > a2)
-  {
-    v5 = this;
-    v6 = v5[17];
-    if (v6 <= a2)
-    {
-      v9 = 0;
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
-      v20 = 0u;
-      v18 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v10 = 136315906;
-      v11 = "operator[]";
-      v12 = 1024;
-      v13 = 789;
-      v14 = 2048;
-      v15 = a2;
-      v16 = 2048;
-      v17 = v6;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    re::DynamicString::operator=((v5[19] + 104 * a2), &v7);
-    this = v7;
-    if (v7)
-    {
-      if (v8)
-      {
-        return (*(*v7 + 40))();
-      }
-    }
-  }
-
-  return this;
-}
-
-unint64_t re::FrameCustomStats::dumpStatisticsInternal(uint64_t a1, uint64_t a2)
-{
-  v12 = 0;
-  result = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, &v12);
-  v4 = result;
-  if (*(result + 8))
-  {
-    *(result + 8) = 1;
-    v5 = *(result + 16);
-  }
-
-  else
-  {
-    *(result + 8) = 0;
-    v5 = (result + 9);
-  }
-
-  *v5 = 0;
-  v6 = *(a1 + 136);
-  if (v6)
-  {
-    v7 = 0;
-    v8 = *(a1 + 152);
-    do
-    {
-      v9 = v8 + v7;
-      *(v9 + 60) = *(v8 + v7 + 36);
-      *(v9 + 76) = *(v8 + v7 + 52);
-      *(v9 + 36) = xmmword_1E3100EE0;
-      *(v9 + 52) = 0;
-      if (*(v8 + v7 + 32) == 1)
-      {
-        if (*(v9 + 33) == 1)
-        {
-          if (*(v9 + 8))
-          {
-            v10 = *(v8 + v7 + 16);
-          }
-
-          else
-          {
-            v10 = (v8 + v7 + 9);
-          }
-
-          result = re::DynamicString::appendf(v4, "\n%.15s: ", v10);
-          if (*(v9 + 72) != 0.0)
-          {
-            result = re::DynamicString::appendf(v4, "%.2f, Min/Max[%.2f-%.2f],", *(v9 + 76), *(v9 + 60), *(v9 + 64));
-          }
-
-          if (*(v8 + v7 + 92) != 0.0)
-          {
-            result = re::DynamicString::appendf(v4, "LT Min/Max[%.2f-%.2f]");
-          }
+          v10 = [v10 UTF8String];
+          v12 = v10;
         }
 
         else
         {
-          result = re::DynamicString::appendf(v4, "\n%.70s");
+          v12 = "(unnamed)";
         }
-      }
 
-      v7 += 104;
-    }
-
-    while (104 * v6 != v7);
-  }
-
-  *(v4 + 36) = 0x20000000003CLL;
-  if (v6 <= 0xB)
-  {
-    v11 = 11;
-  }
-
-  else
-  {
-    v11 = v6;
-  }
-
-  *(v4 + 32) = v11;
-  return result;
-}
-
-uint64_t re::FrameAttributionStats::dumpStatisticsInternal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  info.numer = 0;
-  v6 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, &info);
-  v7 = v6;
-  if (v6[1])
-  {
-    v6[1] = 1;
-    v8 = v6[2];
-  }
-
-  else
-  {
-    *(v6 + 8) = 0;
-    v8 = v6 + 9;
-  }
-
-  *v8 = 0;
-  re::DynamicString::appendf(v6, "Attribution Statistics\n");
-  v9 = 0x7FFFFFFFLL;
-  if (*a4)
-  {
-    v10 = *(*(a4 + 8) + 4 * (0x8AEB093D93E71BBFLL % *(a4 + 24)));
-    if (v10 != 0x7FFFFFFF)
-    {
-      v11 = *(a4 + 16);
-      v9 = 0x7FFFFFFFLL;
-      while (*(v11 + 80 * v10 + 4) != 122)
-      {
-        v10 = *(v11 + 80 * v10) & 0x7FFFFFFF;
-        if (v10 == 0x7FFFFFFF)
+        v13 = re::DynamicArray<re::DynamicString>::add(a5, &v24);
+        if (v24)
         {
-          goto LABEL_11;
+          if (BYTE8(v24))
+          {
+            (*(*v24 + 40))(v13);
+          }
+
+          v24 = 0u;
+          v25 = 0u;
         }
       }
-
-      v9 = v10;
     }
-  }
 
-LABEL_11:
-  v12 = *(*(a4 + 16) + 80 * v9 + 40);
-  v13 = *(a1 + 8);
-  v14 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
+    else
     {
-      v17 = NAN;
-      goto LABEL_16;
+      v21[0] = 1;
     }
-
-    LODWORD(v15) = info.numer;
-    LODWORD(v16) = info.denom;
-    v14 = v15 / v16;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v14;
-  }
-
-  v17 = v14 * (v12 / v13);
-LABEL_16:
-  if (!*a4)
-  {
-    v18 = *(a4 + 16);
-    goto LABEL_22;
-  }
-
-  v18 = *(a4 + 16);
-  v19 = *(*(a4 + 8) + 4 * (0x178631649EA56D8AuLL % *(a4 + 24)));
-  if (v19 == 0x7FFFFFFF)
-  {
-LABEL_22:
-    v19 = 0x7FFFFFFFLL;
-    goto LABEL_23;
-  }
-
-  while (*(v18 + 80 * v19 + 4) != 120)
-  {
-    v19 = *(v18 + 80 * v19) & 0x7FFFFFFF;
-    if (v19 == 0x7FFFFFFF)
-    {
-      goto LABEL_22;
-    }
-  }
-
-LABEL_23:
-  v20 = *(v18 + 80 * v19 + 40);
-  v21 = *(a1 + 8);
-  v22 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v25 = NAN;
-      goto LABEL_28;
-    }
-
-    LODWORD(v23) = info.numer;
-    LODWORD(v24) = info.denom;
-    v22 = v23 / v24;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v22;
-  }
-
-  v25 = v22 * (v20 / v21);
-LABEL_28:
-  if (!*a4)
-  {
-    v26 = *(a4 + 16);
-    goto LABEL_34;
-  }
-
-  v26 = *(a4 + 16);
-  v27 = *(*(a4 + 8) + 4 * (0x2D2898CE1F8CEF8EuLL % *(a4 + 24)));
-  if (v27 == 0x7FFFFFFF)
-  {
-LABEL_34:
-    v27 = 0x7FFFFFFFLL;
-    goto LABEL_35;
-  }
-
-  while (*(v26 + 80 * v27 + 4) != 125)
-  {
-    v27 = *(v26 + 80 * v27) & 0x7FFFFFFF;
-    if (v27 == 0x7FFFFFFF)
-    {
-      goto LABEL_34;
-    }
-  }
-
-LABEL_35:
-  v28 = *(v26 + 80 * v27 + 40);
-  v29 = *(a1 + 8);
-  v30 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v33 = NAN;
-      goto LABEL_40;
-    }
-
-    LODWORD(v31) = info.numer;
-    LODWORD(v32) = info.denom;
-    v30 = v31 / v32;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v30;
-  }
-
-  v33 = v30 * (v28 / v29);
-LABEL_40:
-  if (!*a4)
-  {
-    v34 = *(a4 + 16);
-    goto LABEL_46;
-  }
-
-  v34 = *(a4 + 16);
-  v35 = *(*(a4 + 8) + 4 * (0x8BC946409C88CB8FLL % *(a4 + 24)));
-  if (v35 == 0x7FFFFFFF)
-  {
-LABEL_46:
-    v35 = 0x7FFFFFFFLL;
-    goto LABEL_47;
-  }
-
-  while (*(v34 + 80 * v35 + 4) != 121)
-  {
-    v35 = *(v34 + 80 * v35) & 0x7FFFFFFF;
-    if (v35 == 0x7FFFFFFF)
-    {
-      goto LABEL_46;
-    }
-  }
-
-LABEL_47:
-  v36 = *(v34 + 80 * v35 + 40);
-  v37 = *(a1 + 8);
-  v38 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v41 = NAN;
-      goto LABEL_52;
-    }
-
-    LODWORD(v39) = info.numer;
-    LODWORD(v40) = info.denom;
-    v38 = v39 / v40;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v38;
-  }
-
-  v41 = v38 * (v36 / v37);
-LABEL_52:
-  if (!*a4)
-  {
-    v42 = *(a4 + 16);
-    goto LABEL_58;
-  }
-
-  v42 = *(a4 + 16);
-  v43 = *(*(a4 + 8) + 4 * (0xEAD39EBF60CC176uLL % *(a4 + 24)));
-  if (v43 == 0x7FFFFFFF)
-  {
-LABEL_58:
-    v43 = 0x7FFFFFFFLL;
-    goto LABEL_59;
-  }
-
-  while (*(v42 + 80 * v43 + 4) != 124)
-  {
-    v43 = *(v42 + 80 * v43) & 0x7FFFFFFF;
-    if (v43 == 0x7FFFFFFF)
-    {
-      goto LABEL_58;
-    }
-  }
-
-LABEL_59:
-  v44 = *(v42 + 80 * v43 + 40);
-  v45 = *(a1 + 8);
-  v46 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v49 = NAN;
-      goto LABEL_64;
-    }
-
-    LODWORD(v47) = info.numer;
-    LODWORD(v48) = info.denom;
-    v46 = v47 / v48;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v46;
-  }
-
-  v49 = v46 * (v44 / v45);
-LABEL_64:
-  if (!*a4)
-  {
-    v50 = *(a4 + 16);
-    goto LABEL_70;
-  }
-
-  v50 = *(a4 + 16);
-  v51 = *(*(a4 + 8) + 4 * (0xE2E7890052504D85 % *(a4 + 24)));
-  if (v51 == 0x7FFFFFFF)
-  {
-LABEL_70:
-    v51 = 0x7FFFFFFFLL;
-    goto LABEL_71;
-  }
-
-  while (*(v50 + 80 * v51 + 4) != 131)
-  {
-    v51 = *(v50 + 80 * v51) & 0x7FFFFFFF;
-    if (v51 == 0x7FFFFFFF)
-    {
-      goto LABEL_70;
-    }
-  }
-
-LABEL_71:
-  v52 = *(v50 + 80 * v51 + 40);
-  v53 = *(a1 + 8);
-  v54 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale >= 0.0)
-  {
-LABEL_75:
-    v57 = v54 * (v52 / v53);
-    goto LABEL_76;
-  }
-
-  if (!mach_timebase_info(&info))
-  {
-    LODWORD(v55) = info.numer;
-    LODWORD(v56) = info.denom;
-    v54 = v55 / v56;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v54;
-    goto LABEL_75;
-  }
-
-  v57 = NAN;
-LABEL_76:
-  v58 = v49 / 1000000.0;
-  v59 = v41 / 1000000.0;
-  v60 = v33 / 1000000.0;
-  v61 = v25 / 1000000.0;
-  v62 = v17 / 1000000.0;
-  v63 = v57 / 1000000.0;
-  re::DynamicString::appendf(v7, "CPU Time %.2f\n", (((((v62 + v61) + v60) + v59) + v58) + v63));
-  re::DynamicString::appendf(v7, "Animation %.2f\n", v60);
-  re::DynamicString::appendf(v7, "Audio %.2f\n", v61);
-  re::DynamicString::appendf(v7, "Rendering %.2f\n", v62);
-  re::DynamicString::appendf(v7, "Network %.2f\n", v58);
-  re::DynamicString::appendf(v7, "Physics %.2f\n", v59);
-  result = re::DynamicString::appendf(v7, "Misc %.2f\n", v63);
-  *(v7 + 8) = 8;
-  return result;
-}
-
-double re::FrameVFXStats::dumpStatisticsInternal(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  info.numer = 0;
-  v5 = re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](a2, &info);
-  v6 = v5;
-  if (v5[1])
-  {
-    v5[1] = 1;
-    v7 = v5[2];
   }
 
   else
   {
-    *(v5 + 8) = 0;
-    v7 = v5 + 9;
+    v21[0] = 0;
+    *&v22 = 1024;
+    *(&v22 + 1) = &re::AnimationErrorCategory(void)::instance;
+    v23[0] = v24;
+    v23[1] = v25;
   }
 
-  *v7 = 0;
-  re::DynamicString::append(v5, "VFX Stats\n", 0xAuLL);
-  v8 = 0x7FFFFFFFLL;
-  if (*a3)
+  if (v21[0] != 1)
   {
-    v9 = *(*(a3 + 8) + 4 * (0xD12374540570B1A6 % *(a3 + 24)));
-    if (v9 != 0x7FFFFFFF)
+    *a1 = v21[0];
+    *(a1 + 8) = v22;
+    *(a1 + 3) = *&v23[0];
+    *(a1 + 6) = *(&v23[1] + 1);
+    *(a1 + 2) = *(v23 + 8);
+    memset(v23, 0, sizeof(v23));
+LABEL_24:
+    if (*&v23[0] && (BYTE8(v23[0]) & 1) != 0)
     {
-      v10 = *(a3 + 16);
-      v8 = 0x7FFFFFFFLL;
-      while (*(v10 + 80 * v9 + 4) != 130)
+      (*(**&v23[0] + 40))();
+    }
+
+    goto LABEL_27;
+  }
+
+  v14 = [v9 children];
+  v15 = [v14 count];
+  if (v15)
+  {
+    v16 = v15;
+    v17 = 0;
+    while (1)
+    {
+      v18 = [v14 objects];
+      v19 = [v18 objectAtIndexedSubscript:v17];
+
+      skinnedMeshTraverseNode(a1, v19, a3, a4, a5);
+      LODWORD(v18) = *a1;
+
+      if (v18 != 1)
       {
-        v9 = *(v10 + 80 * v9) & 0x7FFFFFFF;
-        if (v9 == 0x7FFFFFFF)
-        {
-          goto LABEL_11;
-        }
+        break;
       }
 
-      v8 = v9;
+      if (v16 == ++v17)
+      {
+        goto LABEL_19;
+      }
     }
-  }
-
-LABEL_11:
-  v11 = *(*(a3 + 16) + 80 * v8 + 40);
-  v12 = *(a1 + 8);
-  v13 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v16 = NAN;
-      goto LABEL_16;
-    }
-
-    LODWORD(v14) = info.numer;
-    LODWORD(v15) = info.denom;
-    v13 = v14 / v15;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v13;
-  }
-
-  v16 = v13 * (v11 / v12);
-LABEL_16:
-  v17 = v16 / 1000000.0;
-  if (!*a3)
-  {
-    v18 = *(a3 + 16);
-    goto LABEL_22;
-  }
-
-  v18 = *(a3 + 16);
-  v19 = *(*(a3 + 8) + 4 * (0xD732B4173198B1FuLL % *(a3 + 24)));
-  if (v19 == 0x7FFFFFFF)
-  {
-LABEL_22:
-    v19 = 0x7FFFFFFFLL;
-    goto LABEL_23;
-  }
-
-  while (*(v18 + 80 * v19 + 4) != 149)
-  {
-    v19 = *(v18 + 80 * v19) & 0x7FFFFFFF;
-    if (v19 == 0x7FFFFFFF)
-    {
-      goto LABEL_22;
-    }
-  }
-
-LABEL_23:
-  re::DynamicString::appendf(v6, "VFX ECS (ms): %.2f    VFX Scene Components: %.0f\n", v17, (*(v18 + 80 * v19 + 40) / *(a1 + 8)));
-  if (!*a3)
-  {
-    v20 = *(a3 + 16);
-    goto LABEL_29;
-  }
-
-  v20 = *(a3 + 16);
-  v21 = *(*(a3 + 8) + 4 * (0x3465840D39B46BB3uLL % *(a3 + 24)));
-  if (v21 == 0x7FFFFFFF)
-  {
-LABEL_29:
-    v21 = 0x7FFFFFFFLL;
-    goto LABEL_30;
-  }
-
-  while (*(v20 + 80 * v21 + 4) != 150)
-  {
-    v21 = *(v20 + 80 * v21) & 0x7FFFFFFF;
-    if (v21 == 0x7FFFFFFF)
-    {
-      goto LABEL_29;
-    }
-  }
-
-LABEL_30:
-  v22 = *(v20 + 80 * v21 + 40);
-  v23 = *(a1 + 8);
-  v24 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v27 = NAN;
-      goto LABEL_35;
-    }
-
-    LODWORD(v25) = info.numer;
-    LODWORD(v26) = info.denom;
-    v24 = v25 / v26;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v24;
-  }
-
-  v27 = v24 * (v22 / v23);
-LABEL_35:
-  v28 = v27 / 1000000.0;
-  if (!*a3)
-  {
-    v29 = *(a3 + 16);
-    goto LABEL_41;
-  }
-
-  v29 = *(a3 + 16);
-  v30 = *(*(a3 + 8) + 4 * (0xB3CC71E5DDF6EBC3 % *(a3 + 24)));
-  if (v30 == 0x7FFFFFFF)
-  {
-LABEL_41:
-    v30 = 0x7FFFFFFFLL;
-    goto LABEL_42;
-  }
-
-  while (*(v29 + 80 * v30 + 4) != 151)
-  {
-    v30 = *(v29 + 80 * v30) & 0x7FFFFFFF;
-    if (v30 == 0x7FFFFFFF)
-    {
-      goto LABEL_41;
-    }
-  }
-
-LABEL_42:
-  re::DynamicString::appendf(v6, "VFX Render Node (ms): %.2f    VFX Draw Calls : %.0f\n", v28, (*(v29 + 80 * v30 + 40) / *(a1 + 8)));
-  if (!*a3)
-  {
-    v32 = *(a3 + 16);
-    v36 = *(v32 + 0x27FFFFFFD8);
-    v37 = *(a1 + 8);
-LABEL_55:
-    v39 = 0x7FFFFFFFLL;
-    goto LABEL_56;
-  }
-
-  v31 = *(a3 + 24);
-  v33 = *(a3 + 8);
-  v32 = *(a3 + 16);
-  v34 = *(v33 + 4 * (0x76FE0174DADB77ALL % v31));
-  if (v34 == 0x7FFFFFFF)
-  {
-    v35 = (v32 + 0x27FFFFFFD8);
   }
 
   else
   {
-    v38 = 0x7FFFFFFFLL;
-    while (*(v32 + 80 * v34 + 4) != 152)
+LABEL_19:
+    v20 = v21[0];
+    *a1 = v21[0];
+    if ((v20 & 1) == 0)
     {
-      v34 = *(v32 + 80 * v34) & 0x7FFFFFFF;
-      if (v34 == 0x7FFFFFFF)
+      *(a1 + 8) = v22;
+      *(a1 + 3) = *&v23[0];
+      *(a1 + 6) = *(&v23[1] + 1);
+      *(a1 + 2) = *(v23 + 8);
+      memset(v23, 0, sizeof(v23));
+    }
+  }
+
+  if ((v21[0] & 1) == 0)
+  {
+    goto LABEL_24;
+  }
+
+LABEL_27:
+}
+
+uint64_t re::isSkinnedMesh(re *this, const MDLMesh *a2)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = this;
+  v3 = v2;
+  if (v2)
+  {
+    v11 = 0u;
+    v12 = 0u;
+    v10 = 0u;
+    v4 = [(re *)v2 components:0];
+    v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    if (v5)
+    {
+      v6 = *v10;
+      while (2)
       {
-        goto LABEL_51;
-      }
-    }
-
-    v38 = v34;
-LABEL_51:
-    v35 = (v32 + 80 * v38 + 40);
-  }
-
-  v36 = *v35;
-  v37 = *(a1 + 8);
-  v39 = *(v33 + 4 * (0x4B73DAB7CD5C5CDDLL % v31));
-  if (v39 == 0x7FFFFFFF)
-  {
-    goto LABEL_55;
-  }
-
-  while (*(v32 + 80 * v39 + 4) != 153)
-  {
-    v39 = *(v32 + 80 * v39) & 0x7FFFFFFF;
-    if (v39 == 0x7FFFFFFF)
-    {
-      goto LABEL_55;
-    }
-  }
-
-LABEL_56:
-  re::DynamicString::appendf(v6, "VFX Vert Count: %.0f    VFX Tri Count : %.0f\n", (v36 / v37), (*(v32 + 80 * v39 + 40) / v37));
-  *&result = 0x2000000000032;
-  *(v6 + 36) = 0x2000000000032;
-  return result;
-}
-
-void re::FrameTimeStats::~FrameTimeStats(re::FrameTimeStats *this)
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::FrameAnimationStats::~FrameAnimationStats(re::FrameAnimationStats *this)
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::FrameAssetStats::~FrameAssetStats(re::FrameAssetStats *this)
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::FrameAudioStats::~FrameAudioStats(re::FrameAudioStats *this)
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::FrameECSStats::~FrameECSStats(re::FrameECSStats *this)
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::FrameMeshStats::~FrameMeshStats(re::FrameMeshStats *this)
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::FrameNetworkStats::~FrameNetworkStats(re::FrameNetworkStats *this)
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::FramePhysicsStats::~FramePhysicsStats(re::FramePhysicsStats *this)
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::FrameRenderingStats::~FrameRenderingStats(re::FrameRenderingStats *this)
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::FrameMemoryStats::~FrameMemoryStats(re::FrameMemoryStats *this)
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::FrameThermalStats::~FrameThermalStats(re::FrameThermalStats *this)
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::FrameSceneUnderstandingStats::~FrameSceneUnderstandingStats(re::FrameSceneUnderstandingStats *this)
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::FrameAttributionStats::~FrameAttributionStats(re::FrameAttributionStats *this)
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::FrameVFXStats::~FrameVFXStats(re::FrameVFXStats *this)
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-}
-
-{
-  *this = &unk_1F5D0DFE0;
-  *(this + 64) = 0;
-  re::HashTable<re::DynamicString,re::ConstantDataEntry,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(this + 2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::HashTable<unsigned int,re::FrameStatisticsOutput,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::clear(uint64_t a1)
-{
-  if (*(a1 + 28))
-  {
-    v2 = *(a1 + 24);
-    if (v2)
-    {
-      memset_pattern16(*(a1 + 8), &memset_pattern_165_0, 4 * v2);
-    }
-
-    v3 = *(a1 + 32);
-    if (v3)
-    {
-      v4 = 0;
-      for (i = 0; i < v3; ++i)
-      {
-        v6 = *(a1 + 16);
-        v7 = *(v6 + v4);
-        if (v7 < 0)
+        for (i = 0; i != v5; ++i)
         {
-          *(v6 + v4) = v7 & 0x7FFFFFFF;
-          re::DynamicString::deinit((v6 + v4 + 8));
-          v3 = *(a1 + 32);
+          if (*v10 != v6)
+          {
+            objc_enumerationMutation(v4);
+          }
+
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v5 = 1;
+            goto LABEL_12;
+          }
         }
 
-        v4 += 64;
+        v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        if (v5)
+        {
+          continue;
+        }
+
+        break;
       }
     }
 
-    *(a1 + 28) = 0;
-    *(a1 + 32) = 0;
-    v8 = *(a1 + 40) + 1;
-    *(a1 + 36) = 0x7FFFFFFF;
-    *(a1 + 40) = v8;
+LABEL_12:
   }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5;
 }
 
-void *re::DynamicArray<re::CustomStatsLineInfo>::setCapacity(void *result, unint64_t a2)
+void re::ModelIOSkinningData::~ModelIOSkinningData(re::ModelIOSkinningData *this)
+{
+  re::FixedArray<CoreIKTransform>::deinit(this + 25);
+  re::FixedArray<CoreIKTransform>::deinit(this + 22);
+  re::FixedArray<CoreIKTransform>::deinit(this + 19);
+  re::FixedArray<CoreIKTransform>::deinit(this + 16);
+  re::FixedArray<CoreIKTransform>::deinit(this + 13);
+  re::DynamicString::deinit((this + 72));
+}
+
+void *re::types::Ok<re::SkeletalPoseSampledAnimationAssetData>::~Ok(void *a1)
+{
+  re::DynamicArray<re::StringID>::deinit((a1 + 19));
+  re::AssetHandle::~AssetHandle((a1 + 16));
+  *a1 = &unk_1F5CC08A8;
+  re::DynamicArray<re::EvaluationSkeletalPoseInputHandle>::deinit((a1 + 11));
+  *a1 = &unk_1F5CC3608;
+  re::DynamicString::deinit((a1 + 5));
+  re::StringID::destroyString((a1 + 3));
+  return a1;
+}
+
+void *re::DynamicArray<re::ModelIOSkeleton>::setCapacity(void *result, unint64_t a2)
 {
   v3 = result[1];
   if (v3 != a2)
@@ -2195,17 +203,17 @@ void *re::DynamicArray<re::CustomStatsLineInfo>::setCapacity(void *result, unint
       result = *result;
       if (!*v5)
       {
-        result = re::DynamicArray<re::CustomStatsLineInfo>::setCapacity(v5, a2);
+        result = re::DynamicArray<re::ModelIOSkeleton>::setCapacity(v5, a2);
         ++*(v5 + 6);
         return result;
       }
 
       if (a2)
       {
-        if (is_mul_ok(a2, 0x68uLL))
+        if (is_mul_ok(a2, 0xA8uLL))
         {
-          v2 = 104 * a2;
-          result = (*(*result + 32))(result, 104 * a2, 8);
+          v2 = 168 * a2;
+          result = (*(*result + 32))(result, 168 * a2, 8);
           if (result)
           {
             v7 = result;
@@ -2220,13 +228,13 @@ void *re::DynamicArray<re::CustomStatsLineInfo>::setCapacity(void *result, unint
 
         else
         {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 104, a2);
-          _os_crash();
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 168, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v22, v24);
           __break(1u);
         }
 
         re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v23, v25);
         __break(1u);
         return result;
       }
@@ -2245,32 +253,428 @@ LABEL_11:
       v9 = v5[2];
       if (v9)
       {
-        v10 = (v8 + 104 * v9);
-        v11 = (v7 + 36);
-        v12 = (v8 + 36);
+        v10 = &v8[21 * v9];
+        v26 = v7;
         do
         {
-          *(v11 - 20) = 0u;
-          *(v11 - 36) = 0u;
-          *(v11 - 36) = *(v12 - 36);
-          *(v12 - 36) = 0;
-          v13 = *(v11 - 20);
-          *(v11 - 20) = *(v12 - 20);
-          *(v12 - 20) = v13;
-          *(v11 - 12) = *(v12 - 12);
-          *(v12 - 12) = 0;
-          v14 = *(v11 - 28);
-          *(v11 - 28) = *(v12 - 28);
-          *(v12 - 28) = v14;
-          *(v11 - 2) = *(v12 - 2);
-          re::FrameStats::CollectedStatistics::CollectedStatistics(v11, v12);
-          re::DynamicString::deinit((v12 - 36));
-          v11 = (v11 + 104);
-          v15 = v12 + 68;
-          v12 = (v12 + 104);
+          v11 = *v8;
+          *v7 = *v7 & 0xFFFFFFFFFFFFFFFELL | *v8 & 1;
+          *v7 = *v8 & 0xFFFFFFFFFFFFFFFELL | v11 & 1;
+          v7[1] = v8[1];
+          *v8 = 0;
+          v8[1] = &str_67;
+          LODWORD(v11) = *(v8 + 4);
+          v7[4] = 0;
+          v7[5] = 0;
+          v7[3] = 0;
+          v7[3] = v8[3];
+          v8[3] = 0;
+          v12 = v7[5];
+          v13 = v8[5];
+          v7[4] = v8[4];
+          v7[5] = v13;
+          v8[4] = 0;
+          v8[5] = v12;
+          v7[7] = 0;
+          v7[8] = 0;
+          v7[6] = 0;
+          v7[6] = v8[6];
+          v8[6] = 0;
+          v14 = v7[8];
+          v15 = v8[8];
+          v7[7] = v8[7];
+          v7[8] = v15;
+          v8[7] = 0;
+          v8[8] = v14;
+          v7[9] = 0;
+          v7[10] = 0;
+          v7[11] = 0;
+          v16 = v8[9];
+          *(v7 + 4) = v11;
+          v7[9] = v16;
+          v8[9] = 0;
+          v17 = v7[11];
+          v18 = v8[11];
+          v7[10] = v8[10];
+          v7[11] = v18;
+          v8[10] = 0;
+          v8[11] = v17;
+          v7[12] = 0;
+          v7[13] = 0;
+          v7[14] = 0;
+          v7[12] = v8[12];
+          v8[12] = 0;
+          v19 = v7[14];
+          v20 = v8[14];
+          v7[13] = v8[13];
+          v7[14] = v20;
+          v8[13] = 0;
+          v8[14] = v19;
+          *(v7 + 15) = 0u;
+          v21 = v7 + 15;
+          *(v21 + 8) = 0;
+          *(v21 + 1) = 0u;
+          *(v21 + 36) = 0x7FFFFFFFLL;
+          re::HashTable<re::StringID,re::DynamicString,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::swap(v21, v8 + 15);
+          re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(v8 + 15);
+          re::FixedArray<CoreIKTransform>::deinit(v8 + 12);
+          re::FixedArray<re::StringID>::deinit(v8 + 9);
+          re::FixedArray<CoreIKTransform>::deinit(v8 + 6);
+          re::FixedArray<CoreIKTransform>::deinit(v8 + 3);
+          re::StringID::destroyString(v8);
+          v8 += 21;
+          v7 = v21 + 6;
         }
 
-        while (v15 != v10);
+        while (v8 != v10);
+        v8 = v5[4];
+        v7 = v26;
+      }
+
+      result = (*(**v5 + 40))(*v5, v8);
+      goto LABEL_16;
+    }
+  }
+
+  return result;
+}
+
+void re::FixedArray<simd_double4x4>::init<>(uint64_t *a1, uint64_t a2, unint64_t a3)
+{
+  *a1 = a2;
+  a1[1] = a3;
+  if (!a3)
+  {
+    return;
+  }
+
+  if (a3 >> 57)
+  {
+    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in FixedArray<T>::init(). Element size = %zu, count = %zu", "!overflow", "init", 324, 128, a3);
+    _os_crash("assertion failure: (!overflow) Size overflow in FixedArray<T>::init(). Element size = %zu, count = %zu", v9, v10);
+    __break(1u);
+    goto LABEL_9;
+  }
+
+  v5 = a3 << 7;
+  v6 = (*(*a2 + 32))(a2, a3 << 7, 16);
+  a1[2] = v6;
+  if (!v6)
+  {
+LABEL_9:
+    re::internal::assertLog(4, v7, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
+    _os_crash("assertion failure: (m_data) Out of memory.");
+    __break(1u);
+    return;
+  }
+
+  v8 = v6;
+  if (a3 != 1)
+  {
+    bzero(v6, v5 - 128);
+    v8 = (v8 + v5 - 128);
+  }
+
+  v8[6] = 0u;
+  v8[7] = 0u;
+  v8[4] = 0u;
+  v8[5] = 0u;
+  v8[2] = 0u;
+  v8[3] = 0u;
+  *v8 = 0u;
+  v8[1] = 0u;
+}
+
+void *re::DynamicArray<re::ModelIOSkinningData>::setCapacity(void *result, unint64_t a2)
+{
+  v3 = result[1];
+  if (v3 != a2)
+  {
+    v5 = result;
+    if (result[2] <= a2)
+    {
+      result = *result;
+      if (!*v5)
+      {
+        result = re::DynamicArray<re::ModelIOSkinningData>::setCapacity(v5, a2);
+        ++*(v5 + 6);
+        return result;
+      }
+
+      if (a2)
+      {
+        if (is_mul_ok(a2, 0xE0uLL))
+        {
+          v2 = 224 * a2;
+          result = (*(*result + 32))(result, 224 * a2, 16);
+          if (result)
+          {
+            v7 = result;
+            if (!v5[1])
+            {
+              goto LABEL_16;
+            }
+
+            goto LABEL_11;
+          }
+        }
+
+        else
+        {
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 224, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v34, v36);
+          __break(1u);
+        }
+
+        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v35, v37);
+        __break(1u);
+        return result;
+      }
+
+      v7 = 0;
+      if (!v3)
+      {
+LABEL_16:
+        v5[4] = v7;
+        v5[1] = a2;
+        return result;
+      }
+
+LABEL_11:
+      v8 = v5[4];
+      v9 = v5[2];
+      if (v9)
+      {
+        v10 = &v8[28 * v9];
+        v38 = v7;
+        do
+        {
+          *v7 = *v8;
+          v11 = *(v8 + 1);
+          v12 = *(v8 + 2);
+          v13 = *(v8 + 3);
+          *(v7 + 16) = *(v8 + 16);
+          *(v7 + 2) = v12;
+          *(v7 + 3) = v13;
+          *(v7 + 1) = v11;
+          *(v7 + 9) = 0u;
+          *(v7 + 11) = 0u;
+          v14 = (v8 + 9);
+          v7[9] = v8[9];
+          v8[9] = 0;
+          v7[12] = v8[12];
+          v8[12] = 0;
+          v16 = v7[10];
+          v15 = v7[11];
+          v17 = v8[11];
+          v7[10] = v8[10];
+          v7[11] = v17;
+          v8[10] = v16;
+          v8[11] = v15;
+          v7[13] = 0;
+          v7[14] = 0;
+          v7[15] = 0;
+          v18 = v8 + 13;
+          v7[13] = v8[13];
+          v8[13] = 0;
+          v19 = v7[15];
+          v20 = v8[15];
+          v7[14] = v8[14];
+          v7[15] = v20;
+          v8[14] = 0;
+          v8[15] = v19;
+          v7[16] = 0;
+          v7[17] = 0;
+          v7[18] = 0;
+          v21 = v8 + 16;
+          v7[16] = v8[16];
+          v8[16] = 0;
+          v22 = v7[18];
+          v23 = v8[18];
+          v7[17] = v8[17];
+          v7[18] = v23;
+          v8[17] = 0;
+          v8[18] = v22;
+          v7[19] = 0;
+          v7[20] = 0;
+          v7[21] = 0;
+          v24 = v8 + 19;
+          v7[19] = v8[19];
+          v8[19] = 0;
+          v25 = v7[21];
+          v26 = v8[21];
+          v7[20] = v8[20];
+          v7[21] = v26;
+          v8[20] = 0;
+          v8[21] = v25;
+          v7[22] = 0;
+          v7[23] = 0;
+          v7[24] = 0;
+          v27 = v8 + 22;
+          v7[22] = v8[22];
+          v8[22] = 0;
+          v28 = v7[24];
+          v29 = v8[24];
+          v7[23] = v8[23];
+          v7[24] = v29;
+          v8[23] = 0;
+          v8[24] = v28;
+          v7[25] = 0;
+          v7[26] = 0;
+          v7[27] = 0;
+          v31 = v8[25];
+          v30 = v8 + 25;
+          v7[25] = v31;
+          *v30 = 0;
+          v32 = v7[27];
+          v33 = v30[2];
+          v7[26] = v30[1];
+          v7[27] = v33;
+          v30[1] = 0;
+          v30[2] = v32;
+          re::FixedArray<CoreIKTransform>::deinit(v30);
+          re::FixedArray<CoreIKTransform>::deinit(v27);
+          re::FixedArray<CoreIKTransform>::deinit(v24);
+          re::FixedArray<CoreIKTransform>::deinit(v21);
+          re::FixedArray<CoreIKTransform>::deinit(v18);
+          re::DynamicString::deinit(v14);
+          v7 += 28;
+          v8 = v30 + 3;
+        }
+
+        while (v8 != v10);
+        v8 = v5[4];
+        v7 = v38;
+      }
+
+      result = (*(**v5 + 40))(*v5, v8);
+      goto LABEL_16;
+    }
+  }
+
+  return result;
+}
+
+void re::SkeletalPoseSampledAnimationAssetData::SkeletalPoseSampledAnimationAssetData(uint64_t a1, uint64_t a2)
+{
+  re::SampledAnimationAssetData<re::SkeletalPoseAssetData>::SampledAnimationAssetData(a1, a2);
+  *v3 = &unk_1F5CC0838;
+  *(v3 + 136) = 0;
+  *(v3 + 144) = 0;
+  *(v3 + 128) = 0;
+  *(v3 + 136) = *(a2 + 136);
+  *(a2 + 136) = 0;
+  v4 = *(v3 + 128);
+  *(v3 + 128) = 0;
+  *(v3 + 128) = *(a2 + 128);
+  *(a2 + 128) = v4;
+  v5 = *(v3 + 144);
+  *(v3 + 144) = *(a2 + 144);
+  *(a2 + 144) = v5;
+  *(v3 + 184) = 0;
+  *(v3 + 160) = 0;
+  *(v3 + 168) = 0;
+  *(v3 + 152) = 0;
+  *(v3 + 176) = 0;
+  v6 = *(a2 + 160);
+  *(v3 + 152) = *(a2 + 152);
+  *(v3 + 160) = v6;
+  *(a2 + 152) = 0;
+  *(a2 + 160) = 0;
+  v7 = *(v3 + 168);
+  *(v3 + 168) = *(a2 + 168);
+  *(a2 + 168) = v7;
+  v8 = *(v3 + 184);
+  *(v3 + 184) = *(a2 + 184);
+  *(a2 + 184) = v8;
+  ++*(a2 + 176);
+  ++*(v3 + 176);
+  LOWORD(v8) = *(a2 + 192);
+  *(v3 + 194) = *(a2 + 194);
+  *(v3 + 192) = v8;
+}
+
+void *re::DynamicArray<re::SkeletalPoseSampledAnimation>::setCapacity(void *result, unint64_t a2)
+{
+  v3 = result[1];
+  if (v3 != a2)
+  {
+    v5 = result;
+    if (result[2] <= a2)
+    {
+      result = *result;
+      if (!*v5)
+      {
+        result = re::DynamicArray<re::SkeletalPoseSampledAnimation>::setCapacity(v5, a2);
+        ++*(v5 + 6);
+        return result;
+      }
+
+      if (a2)
+      {
+        if (is_mul_ok(a2, 0x78uLL))
+        {
+          v2 = 120 * a2;
+          result = (*(*result + 32))(result, 120 * a2, 8);
+          if (result)
+          {
+            v7 = result;
+            if (!v5[1])
+            {
+              goto LABEL_16;
+            }
+
+            goto LABEL_11;
+          }
+        }
+
+        else
+        {
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 120, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v15, v17);
+          __break(1u);
+        }
+
+        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v16, v18);
+        __break(1u);
+        return result;
+      }
+
+      v7 = 0;
+      if (!v3)
+      {
+LABEL_16:
+        v5[4] = v7;
+        v5[1] = a2;
+        return result;
+      }
+
+LABEL_11:
+      v8 = v5[4];
+      v9 = v5[2];
+      if (v9)
+      {
+        v10 = 0;
+        v11 = 120 * v9;
+        do
+        {
+          v12 = (v8 + v10);
+          re::SampledAnimation<re::SkeletalPose>::SampledAnimation(&v7[v10 / 8], v8 + v10);
+          *v13 = &unk_1F5CAF198;
+          v14 = *(v8 + v10 + 112);
+          *(v13 + 114) = *(v8 + v10 + 114);
+          *(v13 + 112) = v14;
+          *v12 = &unk_1F5CAEFA8;
+          re::FixedArray<re::SkeletalPose>::deinit((v8 + v10 + 88));
+          *v12 = &unk_1F5CAD3A8;
+          re::DynamicString::deinit((v8 + v10 + 40));
+          re::StringID::destroyString((v8 + v10 + 24));
+          v10 += 120;
+        }
+
+        while (v11 != v10);
         v8 = v5[4];
       }
 
@@ -2282,9 +686,5939 @@ LABEL_11:
   return result;
 }
 
-void *re::DynamicArray<re::CustomStatsLineInfo>::growCapacity(void *this, unint64_t a2)
+uint64_t re::internal::DataPayload::DataPayload(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8, uint64_t a9)
 {
-  v2 = this[1];
+  ArcSharedObject::ArcSharedObject(a1, 0);
+  *(a1 + 24) = a2;
+  *a1 = &unk_1F5D0BCD8;
+  *(a1 + 32) = a7;
+  *(a1 + 33) = a3;
+  *(a1 + 40) = a4;
+  *(a1 + 48) = a5;
+  if (a8)
+  {
+    v17 = a8;
+  }
+
+  else
+  {
+    v17 = a2;
+  }
+
+  *(a1 + 56) = a6;
+  *(a1 + 64) = v17;
+  *(a1 + 96) = 0;
+  if (a9)
+  {
+    *(a1 + 72) = &unk_1F5D0BD20;
+    *(a1 + 80) = a9;
+    *(a1 + 96) = a1 + 72;
+  }
+
+  return a1;
+}
+
+void re::internal::DataPayload::~DataPayload(re::internal::DataPayload *this)
+{
+  v8[3] = *MEMORY[0x1E69E9840];
+  *this = &unk_1F5D0BCD8;
+  v2 = *(this + 8);
+  v3 = *(this + 12);
+  v6[0] = v2;
+  if (!v3)
+  {
+    std::__throw_bad_function_call[abi:nn200100]();
+  }
+
+  v4 = this + 72;
+  (*(*v3 + 48))(v3, v6);
+  v6[0] = &unk_1F5D0BD20;
+  v6[1] = re::internal::DataPayload::defaultFreeFunction;
+  v7 = v6;
+  if ((this + 72) != v6)
+  {
+    v5 = *(this + 12);
+    if (v5 == v4)
+    {
+      v7 = 0;
+      v8[0] = &unk_1F5D0BD20;
+      v8[1] = re::internal::DataPayload::defaultFreeFunction;
+      (*(*v5 + 24))(v5, v6);
+      (*(**(this + 12) + 32))(*(this + 12));
+      *(this + 12) = 0;
+      v7 = v6;
+      (*(v8[0] + 24))(v8, this + 72);
+      (*(v8[0] + 32))(v8);
+    }
+
+    else
+    {
+      *(this + 9) = &unk_1F5D0BD20;
+      *(this + 10) = re::internal::DataPayload::defaultFreeFunction;
+      v7 = v5;
+    }
+
+    *(this + 12) = v4;
+  }
+
+  std::__function::__value_func<void ()(void const*)>::~__value_func[abi:nn200100](v6);
+  *(this + 3) = 0;
+  *(this + 8) = 0;
+  std::__function::__value_func<void ()(void const*)>::~__value_func[abi:nn200100](this + 72);
+  *this = &unk_1F5CCF868;
+  objc_destructInstance(this + 8);
+}
+
+{
+  re::internal::DataPayload::~DataPayload(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t re::GeomModelDescriptor::makeCFDataPayload(uint64_t *a1, uint64_t a2)
+{
+  v4 = *a2;
+  CFRetain(*a2);
+  v6 = *(a2 + 8);
+  if (v6 > 6)
+  {
+    if (*(a2 + 8) > 9u)
+    {
+      if (v6 != 10)
+      {
+        if (v6 == 11)
+        {
+          goto LABEL_16;
+        }
+
+        result = 0;
+        if (v6 == 255)
+        {
+LABEL_20:
+          *a1 = result;
+          return result;
+        }
+
+        goto LABEL_21;
+      }
+    }
+
+    else
+    {
+      if (v6 == 7 || v6 == 8)
+      {
+        v7 = 7;
+        goto LABEL_19;
+      }
+
+      if (v6 != 9)
+      {
+        goto LABEL_21;
+      }
+    }
+
+    v7 = 15;
+    goto LABEL_19;
+  }
+
+  if (*(a2 + 8) <= 3u)
+  {
+    v7 = v6 >= 2;
+LABEL_19:
+    BytePtr = CFDataGetBytePtr(v4);
+    v10 = (&BytePtr[*(a2 + 24)] & v7 | (*(a2 + 24) + BytePtr + *(a2 + 32)) & v7) == 0;
+    v11 = CFDataGetBytePtr(v4);
+    v12 = re::globalAllocators(v11);
+    v13 = (*(*v12[2] + 32))(v12[2], 104, 8);
+    result = re::internal::DataPayload::DataPayload(v13, v11, *(a2 + 8), *(a2 + 16), *(a2 + 32), *(a2 + 24), v10, v4, re::internal::freeCoreFoundationData);
+    goto LABEL_20;
+  }
+
+  if (v6 == 4 || v6 == 5 || v6 == 6)
+  {
+LABEL_16:
+    v7 = 3;
+    goto LABEL_19;
+  }
+
+LABEL_21:
+  re::internal::assertLog(4, v5, "assertion failure: '%s' (%s:line %i) Unsupported type", "!Unreachable code", "alignOfGeomModelValueType", 110);
+  result = _os_crash("assertion failure: (!Unreachable code) Unsupported type");
+  __break(1u);
+  return result;
+}
+
+_anonymous_namespace_ *re::GeomModelDescriptor::validateIndexType@<X0>(_anonymous_namespace_ *result@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+{
+  if (a2 < 6)
+  {
+    *a3 = 1;
+  }
+
+  else
+  {
+    v4 = v7;
+    v5 = v8;
+    v6 = v9;
+    *a3 = 0;
+    *(a3 + 8) = 100;
+    *(a3 + 16) = re::AssetErrorCategory(void)::instance;
+    *(a3 + 24) = v4;
+    *(a3 + 40) = v5;
+    *(a3 + 48) = v6;
+  }
+
+  return result;
+}
+
+__n128 re::GeomModelDescriptor::validateIfCoreAttribute@<Q0>(uint64_t a1@<X1>, int a2@<W2>, int a3@<W3>, uint64_t a4@<X8>)
+{
+  if (*(a1 + 8))
+  {
+    v7 = *(a1 + 16);
+  }
+
+  else
+  {
+    v7 = (a1 + 9);
+  }
+
+  v8 = strcmp(v7, "vertexPosition");
+  if (!v8)
+  {
+    if ((a3 & 0xFFFFFFFD) != 9)
+    {
+      v15 = "Only float[3] supported for positions.";
+      goto LABEL_35;
+    }
+
+    if (a2 != 1)
+    {
+      v15 = "Position must be at the vertex rate.";
+      goto LABEL_35;
+    }
+
+LABEL_30:
+    *a4 = 1;
+    return result;
+  }
+
+  v10 = strcmp(v7, "vertexUV");
+  if (!v10)
+  {
+    if (a3 != 8)
+    {
+      v15 = "Only float[2] supported for uvs.";
+      goto LABEL_35;
+    }
+
+    if ((a2 & 0xFFFFFFFD) != 1)
+    {
+      v15 = "Uvs must be at either the vertex or face-varying rate.";
+      goto LABEL_35;
+    }
+
+    goto LABEL_30;
+  }
+
+  v11 = strcmp(v7, "vertexNormal");
+  if (!v11)
+  {
+    if ((a3 & 0xFFFFFFFD) != 9)
+    {
+      v15 = "Only float[3] supported for normals.";
+      goto LABEL_35;
+    }
+
+    if ((a2 - 4) <= 0xFFFFFFFC)
+    {
+      v15 = "Normals must be at the vertex, face, or face-varying rate.";
+      goto LABEL_35;
+    }
+
+    goto LABEL_30;
+  }
+
+  v12 = strcmp(v7, "vertexTangent");
+  if (!v12)
+  {
+    if ((a3 & 0xFFFFFFFD) != 9)
+    {
+      v15 = "Only float[3] supported for tangents.";
+      goto LABEL_35;
+    }
+
+    if ((a2 & 0xFFFFFFFD) != 1)
+    {
+      v15 = "Tangents must be at the vertex or face-varying rate.";
+      goto LABEL_35;
+    }
+
+    goto LABEL_30;
+  }
+
+  v13 = strcmp(v7, "vertexBitangent");
+  if (!v13)
+  {
+    if ((a3 & 0xFFFFFFFD) != 9)
+    {
+      v15 = "Only float[3] supported for bitangents.";
+      goto LABEL_35;
+    }
+
+    if ((a2 & 0xFFFFFFFD) != 1)
+    {
+      v15 = "Bitangents must be at the vertex or face-varying rate.";
+      goto LABEL_35;
+    }
+
+    goto LABEL_30;
+  }
+
+  v14 = strcmp(v7, "vertexColor");
+  if (v14)
+  {
+    goto LABEL_30;
+  }
+
+  if (a3 != 10)
+  {
+    v15 = "Only float[4] supported for colors.";
+    goto LABEL_35;
+  }
+
+  if (a2 != 4)
+  {
+    goto LABEL_30;
+  }
+
+  v15 = "Colors cannot be at the user-managed rate.";
+LABEL_35:
+  result = v18;
+  v16 = v19;
+  v17 = v20;
+  *a4 = 0;
+  *(a4 + 8) = 100;
+  *(a4 + 16) = re::AssetErrorCategory(void)::instance;
+  *(a4 + 24) = result;
+  *(a4 + 40) = v16;
+  *(a4 + 48) = v17;
+  return result;
+}
+
+void re::GeomModelDescriptor::setSurfaceTopology(_anonymous_namespace_ *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+{
+  if (!*a3)
+  {
+    v15 = *v26;
+    v16 = *&v26[16];
+    v17 = v27;
+    *a5 = 0;
+    *(a5 + 8) = 100;
+    *(a5 + 16) = re::AssetErrorCategory(void)::instance;
+    *(a5 + 24) = v15;
+    *(a5 + 40) = v16;
+    *(a5 + 48) = v17;
+    return;
+  }
+
+  v10 = re::GeomModelDescriptor::validateIndexType(a1, *(a3 + 8), v26);
+  v11 = v26[0];
+  if (v26[0])
+  {
+    if (!*a4)
+    {
+      v18 = "Null vertex indices per face buffer.";
+LABEL_20:
+      v19 = v22;
+      v20 = v23;
+      v21 = v24;
+      *a5 = 0;
+      *(a5 + 8) = 100;
+      *(a5 + 16) = re::AssetErrorCategory(void)::instance;
+      *(a5 + 24) = v19;
+      *(a5 + 40) = v20;
+      *(a5 + 48) = v21;
+      goto LABEL_21;
+    }
+
+    re::GeomModelDescriptor::validateIndexType(v10, *(a4 + 8), &v22);
+    v12 = re::Result<re::Unit,re::DetailedError>::operator=(v26, &v22);
+    if ((v22 & 1) == 0)
+    {
+      v12 = v24;
+      if (v24)
+      {
+        if (v25)
+        {
+          v12 = (*(*v24 + 40))();
+        }
+      }
+    }
+
+    v11 = v26[0];
+    if (v26[0])
+    {
+      if (*(a3 + 32) && *(a4 + 32))
+      {
+        *(a1 + 2) = a2;
+        *(a1 + 3) = *(a3 + 16);
+        re::GeomModelDescriptor::makeCFDataPayload(&v22, a3);
+        v13 = *(a1 + 4);
+        *(a1 + 4) = v22;
+        if (v13)
+        {
+        }
+
+        re::GeomModelDescriptor::makeCFDataPayload(&v22, a4);
+        v14 = *(a1 + 5);
+        *(a1 + 5) = v22;
+        if (v14)
+        {
+        }
+
+        *a5 = 1;
+        goto LABEL_21;
+      }
+
+      v18 = "Zero stride provided.";
+      goto LABEL_20;
+    }
+  }
+
+  *a5 = v11;
+  *(a5 + 8) = *&v26[8];
+  *(a5 + 24) = v27;
+  *(a5 + 48) = v29;
+  *(a5 + 32) = v28;
+  v29 = 0;
+  v27 = 0;
+  v28 = 0uLL;
+LABEL_21:
+  if (v26[0] & 1) == 0 && v27 && (v28)
+  {
+    (*(*v27 + 40))();
+  }
+}
+
+void re::GeomModelDescriptor::makeFromGeomMeshes(_anonymous_namespace_ *a1@<X0>, char *a2@<X8>)
+{
+  v5 = a1;
+  __src[1] = *MEMORY[0x1E69E9840];
+  v465 = 0;
+  v7 = &v465;
+  v466 = 0;
+  v467 = 0u;
+  memset(v468, 0, sizeof(v468));
+  v469 = 0u;
+  v470 = 0u;
+  v471 = 0x7FFFFFFFLL;
+  memset(v472, 0, sizeof(v472));
+  v473 = 0;
+  memset(v474, 0, sizeof(v474));
+  v475 = 0x7FFFFFFFLL;
+  *(&v476 + 1) = 0;
+  v477 = 0uLL;
+  v8 = re::DynamicString::setCapacity(&v476, 0);
+  if (!*(v5 + 16))
+  {
+    re::Ok<re::GeomModelDescriptor,re::GeomModelDescriptor>(&v483, &v465);
+    re::Result<re::GeomModelDescriptor,re::DetailedError>::Result(a2, &v483);
+    if (v490)
+    {
+      if (BYTE8(v490))
+      {
+        (*(*v490 + 40))();
+      }
+
+      v491 = 0u;
+      v490 = 0u;
+    }
+
+    re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(v489);
+    re::DynamicArray<re::GeomModelDescriptor::AttributeData>::deinit(v488);
+    v214.n128_f64[0] = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(&v486);
+    if (*(&v485 + 1))
+    {
+
+      *(&v485 + 1) = 0;
+    }
+
+    if (v485)
+    {
+
+      *&v485 = 0;
+    }
+
+    if (v483.n128_u64[1])
+    {
+    }
+
+    goto LABEL_461;
+  }
+
+  v9 = *(v5 + 32);
+  v10 = *(v9 + 40);
+  v464 = 0;
+  v462[2] = 0;
+  v462[1] = 0;
+  v463 = 0;
+  re::DynamicArray<int>::setCapacity(v462, v10);
+  ++v463;
+  v461 = 0;
+  v12 = *(v9 + 40);
+  if (v12)
+  {
+    v13 = 0;
+    do
+    {
+      re::DynamicArray<int>::add(v462, &v461);
+      ++v13;
+      v12 = *(v9 + 40);
+    }
+
+    while (v13 < v12);
+  }
+
+  v14 = *(v5 + 16);
+  if (v14 >= 2)
+  {
+    v12 = 1;
+    while (1)
+    {
+      ++v461;
+      if (v14 <= v12)
+      {
+        break;
+      }
+
+      v15 = -1;
+      while (1)
+      {
+        v16 = (*(v5 + 32) + 736 * v12);
+        if (++v15 >= *(v16 + 10))
+        {
+          break;
+        }
+
+        re::DynamicArray<int>::add(v462, &v461);
+        v14 = *(v5 + 16);
+        if (v14 <= v12)
+        {
+          goto LABEL_427;
+        }
+      }
+
+      canAppendGeomMeshToGeomMesh = re::internal::canAppendGeomMeshToGeomMesh(v16, v9, v11);
+      if ((canAppendGeomMeshToGeomMesh & 1) == 0)
+      {
+        v214 = v483;
+        v215 = v484;
+        *a2 = 0;
+        *(a2 + 1) = 100;
+        *(a2 + 2) = re::AssetErrorCategory(void)::instance;
+        *(a2 + 24) = v214;
+        *(a2 + 40) = v215;
+        goto LABEL_458;
+      }
+
+      v2 = *(v5 + 16);
+      if (v2 <= v12)
+      {
+        goto LABEL_476;
+      }
+
+      re::internal::appendGeomMeshToGeomMesh((*(v5 + 32) + 736 * v12), v9);
+      v12 = (v12 + 1);
+      v14 = *(v5 + 16);
+      if (v14 <= v12)
+      {
+        v12 = *(v9 + 40);
+        goto LABEL_16;
+      }
+    }
+
+LABEL_427:
+    v492[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v216 = MEMORY[0x1E69E9C10];
+    v217 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(location[0]) = 136315906;
+    *(location + 4) = "operator[]";
+    WORD2(location[1]) = 1024;
+    if (v217)
+    {
+      v218 = 3;
+    }
+
+    else
+    {
+      v218 = 2;
+    }
+
+    *(&location[1] + 6) = 789;
+    WORD1(location[2]) = 2048;
+    *(&location[2] + 4) = v12;
+    WORD2(location[3]) = 2048;
+    *(&location[3] + 6) = v14;
+    _os_log_send_and_compose_impl(v218, v492, &v483, 80, &dword_1E1C61000, v216, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", location, 38, v434, v437);
+    v211 = _os_crash_msg();
+    __break(1u);
+    goto LABEL_431;
+  }
+
+LABEL_16:
+  v460 = 0;
+  v457 = 0;
+  memset(v458, 0, sizeof(v458));
+  v459 = 0;
+  v454[1] = 0;
+  v455 = 0;
+  v454[0] = 0;
+  v456 = 0;
+  if (v12)
+  {
+    v18 = 0;
+    v5 = 0;
+    v2 = v481;
+    while (v12 > v5)
+    {
+      v19 = 0;
+      v20 = *(v9 + 56) + v18;
+      do
+      {
+        *&v481[v19] = *(v20 + v19);
+        v19 += 4;
+      }
+
+      while (v19 != 16);
+      if (v482 == -1)
+      {
+        v21 = 3;
+      }
+
+      else
+      {
+        v21 = 4;
+      }
+
+      v483.n128_u8[0] = v21;
+      re::DynamicArray<unsigned char>::add(v458, &v483);
+      re::DynamicArray<float>::copy(v454, v455, v481, v483.n128_u8[0]);
+      ++v5;
+      v12 = *(v9 + 40);
+      v18 += 16;
+      if (v5 >= v12)
+      {
+        goto LABEL_25;
+      }
+    }
+
+    v492[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v220 = MEMORY[0x1E69E9C10];
+    v221 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(location[0]) = 136315906;
+    *(location + 4) = "operator[]";
+    WORD2(location[1]) = 1024;
+    if (v221)
+    {
+      v222 = 3;
+    }
+
+    else
+    {
+      v222 = 2;
+    }
+
+    *(&location[1] + 6) = 797;
+    WORD1(location[2]) = 2048;
+    *(&location[2] + 4) = v5;
+    WORD2(location[3]) = 2048;
+    *(&location[3] + 6) = v12;
+    _os_log_send_and_compose_impl(v222, v492, &v483, 80, &dword_1E1C61000, v220, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", location, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_476:
+    v492[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v223 = MEMORY[0x1E69E9C10];
+    v224 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(location[0]) = 136315906;
+    *(location + 4) = "operator[]";
+    WORD2(location[1]) = 1024;
+    if (v224)
+    {
+      v225 = 3;
+    }
+
+    else
+    {
+      v225 = 2;
+    }
+
+    *(&location[1] + 6) = 789;
+    WORD1(location[2]) = 2048;
+    *(&location[2] + 4) = v12;
+    WORD2(location[3]) = 2048;
+    *(&location[3] + 6) = v2;
+    _os_log_send_and_compose_impl(v225, v492, &v483, 80, &dword_1E1C61000, v223, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", location, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_480:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v226 = MEMORY[0x1E69E9C10];
+    v227 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v227)
+    {
+      v228 = 3;
+    }
+
+    else
+    {
+      v228 = 2;
+    }
+
+    LODWORD(v480[0]) = 797;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v9;
+    _os_log_send_and_compose_impl(v228, __src, &v483, 80, &dword_1E1C61000, v226, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_484:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v229 = MEMORY[0x1E69E9C10];
+    v230 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v495 = 136315906;
+    *&v495[4] = "operator[]";
+    *&v495[12] = 1024;
+    if (v230)
+    {
+      v231 = 3;
+    }
+
+    else
+    {
+      v231 = 2;
+    }
+
+    *&v495[14] = 797;
+    *&v495[18] = 2048;
+    *&v495[20] = v2;
+    *&v495[28] = 2048;
+    *&v495[30] = v9;
+    _os_log_send_and_compose_impl(v231, __src, &v483, 80, &dword_1E1C61000, v229, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v495, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_488:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v232 = MEMORY[0x1E69E9C10];
+    v233 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v233)
+    {
+      v234 = 3;
+    }
+
+    else
+    {
+      v234 = 2;
+    }
+
+    LODWORD(v480[0]) = 797;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v9;
+    _os_log_send_and_compose_impl(v234, __src, &v483, 80, &dword_1E1C61000, v232, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_492:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v235 = MEMORY[0x1E69E9C10];
+    v236 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v236)
+    {
+      v237 = 3;
+    }
+
+    else
+    {
+      v237 = 2;
+    }
+
+    LODWORD(v480[0]) = 797;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v9;
+    _os_log_send_and_compose_impl(v237, __src, &v483, 80, &dword_1E1C61000, v235, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_496:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v238 = MEMORY[0x1E69E9C10];
+    v239 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v239)
+    {
+      v240 = 3;
+    }
+
+    else
+    {
+      v240 = 2;
+    }
+
+    LODWORD(v480[0]) = 797;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v9;
+    _os_log_send_and_compose_impl(v240, v495, &v483, 80, &dword_1E1C61000, v238, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_500:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v241 = MEMORY[0x1E69E9C10];
+    v242 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v242)
+    {
+      v243 = 3;
+    }
+
+    else
+    {
+      v243 = 2;
+    }
+
+    LODWORD(v480[0]) = 797;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v9;
+    _os_log_send_and_compose_impl(v243, __src, &v483, 80, &dword_1E1C61000, v241, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_504:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v244 = MEMORY[0x1E69E9C10];
+    v245 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v245)
+    {
+      v246 = 3;
+    }
+
+    else
+    {
+      v246 = 2;
+    }
+
+    LODWORD(v480[0]) = 797;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v9;
+    _os_log_send_and_compose_impl(v246, __src, &v483, 80, &dword_1E1C61000, v244, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_508:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v247 = MEMORY[0x1E69E9C10];
+    v248 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v248)
+    {
+      v249 = 3;
+    }
+
+    else
+    {
+      v249 = 2;
+    }
+
+    LODWORD(v480[0]) = 797;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v9;
+    _os_log_send_and_compose_impl(v249, v495, &v483, 80, &dword_1E1C61000, v247, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_512:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v250 = MEMORY[0x1E69E9C10];
+    v251 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v495 = 136315906;
+    *&v495[4] = "operator[]";
+    *&v495[12] = 1024;
+    if (v251)
+    {
+      v252 = 3;
+    }
+
+    else
+    {
+      v252 = 2;
+    }
+
+    *&v495[14] = 797;
+    *&v495[18] = 2048;
+    *&v495[20] = v2;
+    *&v495[28] = 2048;
+    *&v495[30] = v9;
+    _os_log_send_and_compose_impl(v252, __src, &v483, 80, &dword_1E1C61000, v250, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v495, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_516:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v253 = MEMORY[0x1E69E9C10];
+    v254 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v254)
+    {
+      v255 = 3;
+    }
+
+    else
+    {
+      v255 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v4;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v255, __src, &v483, 80, &dword_1E1C61000, v253, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_520:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v256 = MEMORY[0x1E69E9C10];
+    v257 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v495 = 136315906;
+    *&v495[4] = "operator[]";
+    *&v495[12] = 1024;
+    if (v257)
+    {
+      v258 = 3;
+    }
+
+    else
+    {
+      v258 = 2;
+    }
+
+    *&v495[14] = 613;
+    *&v495[18] = 2048;
+    *&v495[20] = v4;
+    *&v495[28] = 2048;
+    *&v495[30] = v7;
+    _os_log_send_and_compose_impl(v258, __src, &v483, 80, &dword_1E1C61000, v256, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v495, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_524:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v259 = MEMORY[0x1E69E9C10];
+    v260 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v260)
+    {
+      v261 = 3;
+    }
+
+    else
+    {
+      v261 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v4;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v261, __src, &v483, 80, &dword_1E1C61000, v259, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_528:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v262 = MEMORY[0x1E69E9C10];
+    v263 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v263)
+    {
+      v264 = 3;
+    }
+
+    else
+    {
+      v264 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v4;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v264, v495, &v483, 80, &dword_1E1C61000, v262, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_532:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v265 = MEMORY[0x1E69E9C10];
+    v266 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v266)
+    {
+      v267 = 3;
+    }
+
+    else
+    {
+      v267 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v4;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v267, __src, &v483, 80, &dword_1E1C61000, v265, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_536:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v268 = MEMORY[0x1E69E9C10];
+    v269 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v269)
+    {
+      v270 = 3;
+    }
+
+    else
+    {
+      v270 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v4;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v270, __src, &v483, 80, &dword_1E1C61000, v268, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_540:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v271 = MEMORY[0x1E69E9C10];
+    v272 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v272)
+    {
+      v273 = 3;
+    }
+
+    else
+    {
+      v273 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v4;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v273, __src, &v483, 80, &dword_1E1C61000, v271, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_544:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v274 = MEMORY[0x1E69E9C10];
+    v275 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v495 = 136315906;
+    *&v495[4] = "operator[]";
+    *&v495[12] = 1024;
+    if (v275)
+    {
+      v276 = 3;
+    }
+
+    else
+    {
+      v276 = 2;
+    }
+
+    *&v495[14] = 613;
+    *&v495[18] = 2048;
+    *&v495[20] = v4;
+    *&v495[28] = 2048;
+    *&v495[30] = v7;
+    _os_log_send_and_compose_impl(v276, __src, &v483, 80, &dword_1E1C61000, v274, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v495, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_548:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v277 = MEMORY[0x1E69E9C10];
+    v278 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v278)
+    {
+      v279 = 3;
+    }
+
+    else
+    {
+      v279 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v4;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v279, v495, &v483, 80, &dword_1E1C61000, v277, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_552:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v280 = MEMORY[0x1E69E9C10];
+    v281 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v495 = 136315906;
+    *&v495[4] = "operator[]";
+    *&v495[12] = 1024;
+    if (v281)
+    {
+      v282 = 3;
+    }
+
+    else
+    {
+      v282 = 2;
+    }
+
+    *&v495[14] = 613;
+    *&v495[18] = 2048;
+    *&v495[20] = v3;
+    *&v495[28] = 2048;
+    *&v495[30] = v7;
+    _os_log_send_and_compose_impl(v282, __src, &v483, 80, &dword_1E1C61000, v280, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v495, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_556:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v283 = MEMORY[0x1E69E9C10];
+    v284 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v284)
+    {
+      v285 = 3;
+    }
+
+    else
+    {
+      v285 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v3;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v285, __src, &v483, 80, &dword_1E1C61000, v283, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_560:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v286 = MEMORY[0x1E69E9C10];
+    v287 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v495 = 136315906;
+    *&v495[4] = "operator[]";
+    *&v495[12] = 1024;
+    if (v287)
+    {
+      v288 = 3;
+    }
+
+    else
+    {
+      v288 = 2;
+    }
+
+    *&v495[14] = 613;
+    *&v495[18] = 2048;
+    *&v495[20] = v3;
+    *&v495[28] = 2048;
+    *&v495[30] = v7;
+    _os_log_send_and_compose_impl(v288, __src, &v483, 80, &dword_1E1C61000, v286, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v495, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_564:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v289 = MEMORY[0x1E69E9C10];
+    v290 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v290)
+    {
+      v291 = 3;
+    }
+
+    else
+    {
+      v291 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v3;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v291, v495, &v483, 80, &dword_1E1C61000, v289, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_568:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v292 = MEMORY[0x1E69E9C10];
+    v293 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v293)
+    {
+      v294 = 3;
+    }
+
+    else
+    {
+      v294 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v3;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v294, __src, &v483, 80, &dword_1E1C61000, v292, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_572:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v295 = MEMORY[0x1E69E9C10];
+    v296 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v296)
+    {
+      v297 = 3;
+    }
+
+    else
+    {
+      v297 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v3;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v297, __src, &v483, 80, &dword_1E1C61000, v295, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_576:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v298 = MEMORY[0x1E69E9C10];
+    v299 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v299)
+    {
+      v300 = 3;
+    }
+
+    else
+    {
+      v300 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v3;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v300, __src, &v483, 80, &dword_1E1C61000, v298, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_580:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v301 = MEMORY[0x1E69E9C10];
+    v302 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v302)
+    {
+      v303 = 3;
+    }
+
+    else
+    {
+      v303 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v3;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v303, __src, &v483, 80, &dword_1E1C61000, v301, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_584:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v304 = MEMORY[0x1E69E9C10];
+    v305 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v305)
+    {
+      v306 = 3;
+    }
+
+    else
+    {
+      v306 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v3;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v306, v495, &v483, 80, &dword_1E1C61000, v304, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_588:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v307 = MEMORY[0x1E69E9C10];
+    v308 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v495 = 136315906;
+    *&v495[4] = "operator[]";
+    *&v495[12] = 1024;
+    if (v308)
+    {
+      v309 = 3;
+    }
+
+    else
+    {
+      v309 = 2;
+    }
+
+    *&v495[14] = 613;
+    *&v495[18] = 2048;
+    *&v495[20] = v9;
+    *&v495[28] = 2048;
+    *&v495[30] = v7;
+    _os_log_send_and_compose_impl(v309, __src, &v483, 80, &dword_1E1C61000, v307, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v495, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_592:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v310 = MEMORY[0x1E69E9C10];
+    v311 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v311)
+    {
+      v312 = 3;
+    }
+
+    else
+    {
+      v312 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v9;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v312, __src, &v483, 80, &dword_1E1C61000, v310, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_596:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v313 = MEMORY[0x1E69E9C10];
+    v314 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v314)
+    {
+      v315 = 3;
+    }
+
+    else
+    {
+      v315 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v9;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v315, __src, &v483, 80, &dword_1E1C61000, v313, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_600:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v316 = MEMORY[0x1E69E9C10];
+    v317 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v317)
+    {
+      v318 = 3;
+    }
+
+    else
+    {
+      v318 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v9;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v318, v495, &v483, 80, &dword_1E1C61000, v316, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_604:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v319 = MEMORY[0x1E69E9C10];
+    v320 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v320)
+    {
+      v321 = 3;
+    }
+
+    else
+    {
+      v321 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v9;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v321, v495, &v483, 80, &dword_1E1C61000, v319, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_608:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v322 = MEMORY[0x1E69E9C10];
+    v323 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v323)
+    {
+      v324 = 3;
+    }
+
+    else
+    {
+      v324 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v9;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v324, __src, &v483, 80, &dword_1E1C61000, v322, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_612:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v325 = MEMORY[0x1E69E9C10];
+    v326 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v495 = 136315906;
+    *&v495[4] = "operator[]";
+    *&v495[12] = 1024;
+    if (v326)
+    {
+      v327 = 3;
+    }
+
+    else
+    {
+      v327 = 2;
+    }
+
+    *&v495[14] = 613;
+    *&v495[18] = 2048;
+    *&v495[20] = v9;
+    *&v495[28] = 2048;
+    *&v495[30] = v7;
+    _os_log_send_and_compose_impl(v327, __src, &v483, 80, &dword_1E1C61000, v325, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v495, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_616:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v328 = MEMORY[0x1E69E9C10];
+    v329 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v329)
+    {
+      v330 = 3;
+    }
+
+    else
+    {
+      v330 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v9;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v330, __src, &v483, 80, &dword_1E1C61000, v328, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_620:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v331 = MEMORY[0x1E69E9C10];
+    v332 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v332)
+    {
+      v333 = 3;
+    }
+
+    else
+    {
+      v333 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v9;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v333, __src, &v483, 80, &dword_1E1C61000, v331, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_624:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v334 = MEMORY[0x1E69E9C10];
+    v335 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v335)
+    {
+      v336 = 3;
+    }
+
+    else
+    {
+      v336 = 2;
+    }
+
+    LODWORD(v480[0]) = 797;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v9;
+    _os_log_send_and_compose_impl(v336, v495, &v483, 80, &dword_1E1C61000, v334, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_628:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v337 = MEMORY[0x1E69E9C10];
+    v338 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v338)
+    {
+      v339 = 3;
+    }
+
+    else
+    {
+      v339 = 2;
+    }
+
+    LODWORD(v480[0]) = 797;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v9;
+    _os_log_send_and_compose_impl(v339, v495, &v483, 80, &dword_1E1C61000, v337, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_632:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v340 = MEMORY[0x1E69E9C10];
+    v341 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v341)
+    {
+      v342 = 3;
+    }
+
+    else
+    {
+      v342 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v4;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v342, v495, &v483, 80, &dword_1E1C61000, v340, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_636:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v343 = MEMORY[0x1E69E9C10];
+    v344 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v344)
+    {
+      v345 = 3;
+    }
+
+    else
+    {
+      v345 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v4;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v345, v495, &v483, 80, &dword_1E1C61000, v343, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_640:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v346 = MEMORY[0x1E69E9C10];
+    v347 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v347)
+    {
+      v348 = 3;
+    }
+
+    else
+    {
+      v348 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v3;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v348, v495, &v483, 80, &dword_1E1C61000, v346, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_644:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v349 = MEMORY[0x1E69E9C10];
+    v350 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v350)
+    {
+      v351 = 3;
+    }
+
+    else
+    {
+      v351 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v3;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v351, v495, &v483, 80, &dword_1E1C61000, v349, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_648:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v352 = MEMORY[0x1E69E9C10];
+    v353 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v353)
+    {
+      v354 = 3;
+    }
+
+    else
+    {
+      v354 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v9;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v354, v495, &v483, 80, &dword_1E1C61000, v352, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_652:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v355 = MEMORY[0x1E69E9C10];
+    v356 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v356)
+    {
+      v357 = 3;
+    }
+
+    else
+    {
+      v357 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v9;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v357, v495, &v483, 80, &dword_1E1C61000, v355, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_656:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v358 = MEMORY[0x1E69E9C10];
+    v359 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "copy";
+    v479 = 1024;
+    if (v359)
+    {
+      v360 = 3;
+    }
+
+    else
+    {
+      v360 = 2;
+    }
+
+    LODWORD(v480[0]) = 643;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = -1;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = 0;
+    _os_log_send_and_compose_impl(v360, v495, &v483, 80, &dword_1E1C61000, v358, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_660:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v361 = MEMORY[0x1E69E9C10];
+    v362 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "copy";
+    v479 = 1024;
+    if (v362)
+    {
+      v363 = 3;
+    }
+
+    else
+    {
+      v363 = 2;
+    }
+
+    LODWORD(v480[0]) = 643;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = -1;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = 0;
+    _os_log_send_and_compose_impl(v363, v495, &v483, 80, &dword_1E1C61000, v361, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_664:
+    re::internal::assertLog(7, v62, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::copy(). size = %zu, pos = %zu, count = %zu", "!overflow", "copy", 647, v2, v2, v9);
+    _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::copy(). size = %zu, pos = %zu, count = %zu", v430, v432, v435);
+    __break(1u);
+LABEL_665:
+    re::internal::assertLog(7, v79, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::copy(). size = %zu, pos = %zu, count = %zu", "!overflow", "copy", 647, v3, v3, v2);
+    _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::copy(). size = %zu, pos = %zu, count = %zu", v431, v433, v436);
+    __break(1u);
+LABEL_666:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v364 = MEMORY[0x1E69E9C10];
+    v365 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v365)
+    {
+      v366 = 3;
+    }
+
+    else
+    {
+      v366 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v366, v495, &v483, 80, &dword_1E1C61000, v364, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_670:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v367 = MEMORY[0x1E69E9C10];
+    v368 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v495 = 136315906;
+    *&v495[4] = "operator[]";
+    *&v495[12] = 1024;
+    if (v368)
+    {
+      v369 = 3;
+    }
+
+    else
+    {
+      v369 = 2;
+    }
+
+    *&v495[14] = 613;
+    *&v495[18] = 2048;
+    *&v495[20] = v2;
+    *&v495[28] = 2048;
+    *&v495[30] = v7;
+    _os_log_send_and_compose_impl(v369, __src, &v483, 80, &dword_1E1C61000, v367, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v495, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_674:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v370 = MEMORY[0x1E69E9C10];
+    v371 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v371)
+    {
+      v372 = 3;
+    }
+
+    else
+    {
+      v372 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v372, __src, &v483, 80, &dword_1E1C61000, v370, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_678:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v373 = MEMORY[0x1E69E9C10];
+    v374 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v495 = 136315906;
+    *&v495[4] = "operator[]";
+    *&v495[12] = 1024;
+    if (v374)
+    {
+      v375 = 3;
+    }
+
+    else
+    {
+      v375 = 2;
+    }
+
+    *&v495[14] = 613;
+    *&v495[18] = 2048;
+    *&v495[20] = v2;
+    *&v495[28] = 2048;
+    *&v495[30] = v7;
+    _os_log_send_and_compose_impl(v375, __src, &v483, 80, &dword_1E1C61000, v373, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v495, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_682:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v376 = MEMORY[0x1E69E9C10];
+    v377 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v377)
+    {
+      v378 = 3;
+    }
+
+    else
+    {
+      v378 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v378, __src, &v483, 80, &dword_1E1C61000, v376, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_686:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v379 = MEMORY[0x1E69E9C10];
+    v380 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v380)
+    {
+      v381 = 3;
+    }
+
+    else
+    {
+      v381 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v381, v495, &v483, 80, &dword_1E1C61000, v379, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_690:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v382 = MEMORY[0x1E69E9C10];
+    v383 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v383)
+    {
+      v384 = 3;
+    }
+
+    else
+    {
+      v384 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v384, __src, &v483, 80, &dword_1E1C61000, v382, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_694:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v385 = MEMORY[0x1E69E9C10];
+    v386 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v386)
+    {
+      v387 = 3;
+    }
+
+    else
+    {
+      v387 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v387, __src, &v483, 80, &dword_1E1C61000, v385, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_698:
+    __src[0] = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v388 = MEMORY[0x1E69E9C10];
+    v389 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v389)
+    {
+      v390 = 3;
+    }
+
+    else
+    {
+      v390 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v390, __src, &v483, 80, &dword_1E1C61000, v388, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_702:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v391 = MEMORY[0x1E69E9C10];
+    v392 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v392)
+    {
+      v393 = 3;
+    }
+
+    else
+    {
+      v393 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v393, v495, &v483, 80, &dword_1E1C61000, v391, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_706:
+    *v495 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v394 = MEMORY[0x1E69E9C10];
+    v395 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v478 = 136315906;
+    *&v478[4] = "operator[]";
+    v479 = 1024;
+    if (v395)
+    {
+      v396 = 3;
+    }
+
+    else
+    {
+      v396 = 2;
+    }
+
+    LODWORD(v480[0]) = 613;
+    WORD2(v480[0]) = 2048;
+    *(v480 + 6) = v2;
+    HIWORD(v480[1]) = 2048;
+    v480[2] = v7;
+    _os_log_send_and_compose_impl(v396, v495, &v483, 80, &dword_1E1C61000, v394, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v478, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_710:
+    *v478 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v397 = MEMORY[0x1E69E9C10];
+    v398 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(v492[0]) = 136315906;
+    *(v492 + 4) = "operator[]";
+    WORD2(v492[1]) = 1024;
+    if (v398)
+    {
+      v399 = 3;
+    }
+
+    else
+    {
+      v399 = 2;
+    }
+
+    *(&v492[1] + 6) = 613;
+    WORD1(v492[2]) = 2048;
+    *(&v492[2] + 4) = 0;
+    WORD2(v492[3]) = 2048;
+    *(&v492[3] + 6) = 0;
+    _os_log_send_and_compose_impl(v399, v478, &v483, 80, &dword_1E1C61000, v397, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v492, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_714:
+    *v478 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v400 = MEMORY[0x1E69E9C10];
+    v401 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(v492[0]) = 136315906;
+    *(v492 + 4) = "operator[]";
+    WORD2(v492[1]) = 1024;
+    if (v401)
+    {
+      v402 = 3;
+    }
+
+    else
+    {
+      v402 = 2;
+    }
+
+    *(&v492[1] + 6) = 613;
+    WORD1(v492[2]) = 2048;
+    *(&v492[2] + 4) = 0;
+    WORD2(v492[3]) = 2048;
+    *(&v492[3] + 6) = 0;
+    _os_log_send_and_compose_impl(v402, v478, &v483, 80, &dword_1E1C61000, v400, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v492, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_718:
+    *v478 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v403 = MEMORY[0x1E69E9C10];
+    v404 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(v492[0]) = 136315906;
+    *(v492 + 4) = "operator[]";
+    WORD2(v492[1]) = 1024;
+    if (v404)
+    {
+      v405 = 3;
+    }
+
+    else
+    {
+      v405 = 2;
+    }
+
+    *(&v492[1] + 6) = 613;
+    WORD1(v492[2]) = 2048;
+    *(&v492[2] + 4) = 0;
+    WORD2(v492[3]) = 2048;
+    *(&v492[3] + 6) = 0;
+    _os_log_send_and_compose_impl(v405, v478, &v483, 80, &dword_1E1C61000, v403, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v492, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_722:
+    *v478 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v406 = MEMORY[0x1E69E9C10];
+    v407 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(v492[0]) = 136315906;
+    *(v492 + 4) = "operator[]";
+    WORD2(v492[1]) = 1024;
+    if (v407)
+    {
+      v408 = 3;
+    }
+
+    else
+    {
+      v408 = 2;
+    }
+
+    *(&v492[1] + 6) = 613;
+    WORD1(v492[2]) = 2048;
+    *(&v492[2] + 4) = 0;
+    WORD2(v492[3]) = 2048;
+    *(&v492[3] + 6) = 0;
+    _os_log_send_and_compose_impl(v408, v478, &v483, 80, &dword_1E1C61000, v406, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v492, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_726:
+    *v478 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v409 = MEMORY[0x1E69E9C10];
+    v410 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(v492[0]) = 136315906;
+    *(v492 + 4) = "operator[]";
+    WORD2(v492[1]) = 1024;
+    if (v410)
+    {
+      v411 = 3;
+    }
+
+    else
+    {
+      v411 = 2;
+    }
+
+    *(&v492[1] + 6) = 613;
+    WORD1(v492[2]) = 2048;
+    *(&v492[2] + 4) = 0;
+    WORD2(v492[3]) = 2048;
+    *(&v492[3] + 6) = 0;
+    _os_log_send_and_compose_impl(v411, v478, &v483, 80, &dword_1E1C61000, v409, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v492, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_730:
+    *v478 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v412 = MEMORY[0x1E69E9C10];
+    v413 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(v492[0]) = 136315906;
+    *(v492 + 4) = "operator[]";
+    WORD2(v492[1]) = 1024;
+    if (v413)
+    {
+      v414 = 3;
+    }
+
+    else
+    {
+      v414 = 2;
+    }
+
+    *(&v492[1] + 6) = 613;
+    WORD1(v492[2]) = 2048;
+    *(&v492[2] + 4) = 0;
+    WORD2(v492[3]) = 2048;
+    *(&v492[3] + 6) = 0;
+    _os_log_send_and_compose_impl(v414, v478, &v483, 80, &dword_1E1C61000, v412, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v492, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_734:
+    *v478 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v415 = MEMORY[0x1E69E9C10];
+    v416 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(v492[0]) = 136315906;
+    *(v492 + 4) = "operator[]";
+    WORD2(v492[1]) = 1024;
+    if (v416)
+    {
+      v417 = 3;
+    }
+
+    else
+    {
+      v417 = 2;
+    }
+
+    *(&v492[1] + 6) = 613;
+    WORD1(v492[2]) = 2048;
+    *(&v492[2] + 4) = 0;
+    WORD2(v492[3]) = 2048;
+    *(&v492[3] + 6) = 0;
+    _os_log_send_and_compose_impl(v417, v478, &v483, 80, &dword_1E1C61000, v415, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v492, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_738:
+    *v478 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v418 = MEMORY[0x1E69E9C10];
+    v419 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(v492[0]) = 136315906;
+    *(v492 + 4) = "operator[]";
+    WORD2(v492[1]) = 1024;
+    if (v419)
+    {
+      v420 = 3;
+    }
+
+    else
+    {
+      v420 = 2;
+    }
+
+    *(&v492[1] + 6) = 613;
+    WORD1(v492[2]) = 2048;
+    *(&v492[2] + 4) = 0;
+    WORD2(v492[3]) = 2048;
+    *(&v492[3] + 6) = 0;
+    _os_log_send_and_compose_impl(v420, v478, &v483, 80, &dword_1E1C61000, v418, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v492, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_742:
+    *v478 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v421 = MEMORY[0x1E69E9C10];
+    v422 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(v492[0]) = 136315906;
+    *(v492 + 4) = "operator[]";
+    WORD2(v492[1]) = 1024;
+    if (v422)
+    {
+      v423 = 3;
+    }
+
+    else
+    {
+      v423 = 2;
+    }
+
+    *(&v492[1] + 6) = 613;
+    WORD1(v492[2]) = 2048;
+    *(&v492[2] + 4) = 0;
+    WORD2(v492[3]) = 2048;
+    *(&v492[3] + 6) = 0;
+    _os_log_send_and_compose_impl(v423, v478, &v483, 80, &dword_1E1C61000, v421, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v492, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_746:
+    *v478 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v424 = MEMORY[0x1E69E9C10];
+    v425 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(v492[0]) = 136315906;
+    *(v492 + 4) = "operator[]";
+    WORD2(v492[1]) = 1024;
+    if (v425)
+    {
+      v426 = 3;
+    }
+
+    else
+    {
+      v426 = 2;
+    }
+
+    *(&v492[1] + 6) = 613;
+    WORD1(v492[2]) = 2048;
+    *(&v492[2] + 4) = 0;
+    WORD2(v492[3]) = 2048;
+    *(&v492[3] + 6) = 0;
+    _os_log_send_and_compose_impl(v426, v478, &v483, 80, &dword_1E1C61000, v424, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v492, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_750:
+    *v478 = 0;
+    v486 = 0u;
+    v487 = 0u;
+    v484 = 0u;
+    v485 = 0u;
+    v483 = 0u;
+    v427 = MEMORY[0x1E69E9C10];
+    v428 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(v492[0]) = 136315906;
+    *(v492 + 4) = "operator[]";
+    WORD2(v492[1]) = 1024;
+    if (v428)
+    {
+      v429 = 3;
+    }
+
+    else
+    {
+      v429 = 2;
+    }
+
+    *(&v492[1] + 6) = 613;
+    WORD1(v492[2]) = 2048;
+    *(&v492[2] + 4) = 0;
+    WORD2(v492[3]) = 2048;
+    *(&v492[3] + 6) = 0;
+    _os_log_send_and_compose_impl(v429, v478, &v483, 80, &dword_1E1C61000, v427, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v492, 38, v434, v437);
+    _os_crash_msg();
+    __break(1u);
+LABEL_754:
+    re::internal::assertLog(4, v188, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "value", 680);
+    _os_crash("assertion failure: (!Unreachable code) Invalid mapping type -- indicative of a use after free or memory corruption");
+    __break(1u);
+LABEL_755:
+    re::internal::assertLog(4, v45, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "value", 680);
+    _os_crash("assertion failure: (!Unreachable code) Invalid mapping type -- indicative of a use after free or memory corruption");
+    __break(1u);
+LABEL_756:
+    re::internal::assertLog(4, v95, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "value", 680);
+    _os_crash("assertion failure: (!Unreachable code) Invalid mapping type -- indicative of a use after free or memory corruption");
+    __break(1u);
+LABEL_757:
+    re::internal::assertLog(4, v126, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "value", 680);
+    _os_crash("assertion failure: (!Unreachable code) Invalid mapping type -- indicative of a use after free or memory corruption");
+    __break(1u);
+LABEL_758:
+    re::internal::assertLog(4, v156, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "value", 680);
+    _os_crash("assertion failure: (!Unreachable code) Invalid mapping type -- indicative of a use after free or memory corruption");
+    __break(1u);
+LABEL_759:
+    re::internal::assertLog(4, v112, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "value", 680);
+    _os_crash("assertion failure: (!Unreachable code) Invalid mapping type -- indicative of a use after free or memory corruption");
+    __break(1u);
+LABEL_760:
+    re::internal::assertLog(4, v28, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "value", 680);
+    _os_crash("assertion failure: (!Unreachable code) Invalid mapping type -- indicative of a use after free or memory corruption");
+    __break(1u);
+LABEL_761:
+    re::internal::assertLog(4, v172, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "value", 680);
+    _os_crash("assertion failure: (!Unreachable code) Invalid mapping type -- indicative of a use after free or memory corruption");
+    __break(1u);
+LABEL_762:
+    re::internal::assertLog(4, v142, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "value", 680);
+    _os_crash("assertion failure: (!Unreachable code) Invalid mapping type -- indicative of a use after free or memory corruption");
+    __break(1u);
+LABEL_763:
+    re::internal::assertLog(4, v79, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "value", 680);
+    _os_crash("assertion failure: (!Unreachable code) Invalid mapping type -- indicative of a use after free or memory corruption");
+    __break(1u);
+LABEL_764:
+    re::internal::assertLog(4, v62, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "value", 680);
+    _os_crash("assertion failure: (!Unreachable code) Invalid mapping type -- indicative of a use after free or memory corruption");
+    __break(1u);
+  }
+
+LABEL_25:
+  re::makeNSDataFromGeomArray<unsigned char>(v453, v458);
+  re::makeNSDataFromGeomArray<unsigned int>(v452, v454);
+  re::GeomModelDescriptor::setSurfaceTopology(&v465, *(v9 + 16), v453, v452, v449);
+  if ((v449[0] & 1) == 0 && v450)
+  {
+    if (BYTE8(v450))
+    {
+      (*(*v450 + 40))();
+    }
+
+    v451 = 0u;
+    v450 = 0u;
+  }
+
+  v438 = a2;
+  if (*(v9 + 640))
+  {
+    LODWORD(v5) = 0;
+    v439 = v9;
+    while (1)
+    {
+      v23 = re::internal::GeomAttributeManager::attributeByIndex((v9 + 64), v5);
+      v24 = v23;
+      v446 = 0;
+      LOBYTE(v447) = -1;
+      v448 = 0uLL;
+      *(&v447 + 1) = 0;
+      v25 = *(v23 + 17);
+      if (*(v23 + 16) != 3)
+      {
+        break;
+      }
+
+      v26 = 0;
+      if (*(v23 + 17) <= 4u)
+      {
+        if (*(v23 + 17) > 1u)
+        {
+          if (v25 != 2)
+          {
+            if (v25 != 3)
+            {
+              v44 = re::GeomAttribute::accessValues<int>(v23);
+              v46 = *(v24 + 88);
+              location[4] = 0;
+              memset(location, 0, 28);
+              if (v46)
+              {
+                v47 = v44;
+                LODWORD(v7) = v45;
+                v48 = 0;
+                while (1)
+                {
+                  v483.n128_u32[0] = v48;
+                  v49 = *(v24 + 204);
+                  if (v49 == 2)
+                  {
+                    break;
+                  }
+
+                  if (v49 == 1)
+                  {
+                    if (*(v24 + 224) <= v48)
+                    {
+                      goto LABEL_81;
+                    }
+
+                    v50 = (*(v24 + 240) + 4 * v48);
+                    goto LABEL_80;
+                  }
+
+                  if (*(v24 + 204))
+                  {
+                    goto LABEL_755;
+                  }
+
+                  if (v48 < *(v24 + 208))
+                  {
+                    v2 = v48;
+LABEL_82:
+                    v9 = *(v24 + 88);
+                    if (v9 <= v2)
+                    {
+                      goto LABEL_480;
+                    }
+
+                    v53 = (*(v24 + 104) + 16 * v2);
+                    v4 = *v53;
+                    if (v4 >= v7)
+                    {
+                      goto LABEL_536;
+                    }
+
+                    v3 = v53[1];
+                    v9 = v53[2];
+                    v2 = v53[3];
+                    *v495 = *(v47 + 4 * v4);
+                    if (v3 >= v7)
+                    {
+                      goto LABEL_556;
+                    }
+
+                    *&v495[4] = *(v47 + 4 * v3);
+                    if (v9 >= v7)
+                    {
+                      goto LABEL_620;
+                    }
+
+                    *&v495[8] = *(v47 + 4 * v9);
+                    if (v2 == -1)
+                    {
+                      v52 = 3;
+                      v9 = v439;
+                    }
+
+                    else
+                    {
+                      v9 = v439;
+                      if (v2 >= v7)
+                      {
+                        goto LABEL_698;
+                      }
+
+                      *&v495[12] = *(v47 + 4 * v2);
+                      v52 = 4;
+                    }
+
+                    goto LABEL_90;
+                  }
+
+LABEL_81:
+                  v52 = 0;
+LABEL_90:
+                  re::DynamicArray<float>::copy(location, location[2], v495, v52);
+                  if (++v48 == v46)
+                  {
+                    v54 = location[4];
+                    v55 = (4 * location[2]);
+                    goto LABEL_377;
+                  }
+                }
+
+                v51 = re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::find((v24 + 208), &v483);
+                if (v51 == -1)
+                {
+                  goto LABEL_81;
+                }
+
+                v50 = (*(v24 + 216) + 8 * v51 + 4);
+LABEL_80:
+                v2 = *v50;
+                if (v2 != -1)
+                {
+                  goto LABEL_82;
+                }
+
+                goto LABEL_81;
+              }
+
+              v55 = 0;
+              v54 = 0;
+LABEL_377:
+              re::Data::makeDataWithBytes(&v483, v54, v55);
+              v492[0] = 0;
+              LOBYTE(v492[1]) = -1;
+              memset(&v492[2], 0, 24);
+              re::ObjCObject::operator=(v492, &v483);
+              LOBYTE(v492[1]) = 6;
+LABEL_380:
+              v492[2] = location[2];
+              v205 = xmmword_1E3068150;
+              goto LABEL_389;
+            }
+
+            v111 = re::GeomAttribute::accessValues<int>(v23);
+            v113 = *(v24 + 88);
+            location[4] = 0;
+            memset(location, 0, 28);
+            if (!v113)
+            {
+LABEL_226:
+              re::makeNSDataFromGeomArray<unsigned int>(v492, location);
+              goto LABEL_278;
+            }
+
+            v114 = v111;
+            LODWORD(v7) = v112;
+            v115 = 0;
+            while (2)
+            {
+              v483.n128_u32[0] = v115;
+              v116 = *(v24 + 204);
+              if (v116 == 2)
+              {
+                v118 = re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::find((v24 + 208), &v483);
+                if (v118 == -1)
+                {
+                  goto LABEL_216;
+                }
+
+                v117 = (*(v24 + 216) + 8 * v118 + 4);
+              }
+
+              else
+              {
+                if (v116 != 1)
+                {
+                  if (*(v24 + 204))
+                  {
+                    goto LABEL_759;
+                  }
+
+                  if (v115 < *(v24 + 208))
+                  {
+                    v2 = v115;
+                    goto LABEL_217;
+                  }
+
+LABEL_216:
+                  v119 = 0;
+                  goto LABEL_225;
+                }
+
+                if (*(v24 + 224) <= v115)
+                {
+                  goto LABEL_216;
+                }
+
+                v117 = (*(v24 + 240) + 4 * v115);
+              }
+
+              v2 = *v117;
+              if (v2 == -1)
+              {
+                goto LABEL_216;
+              }
+
+LABEL_217:
+              v9 = *(v24 + 88);
+              if (v9 <= v2)
+              {
+                goto LABEL_492;
+              }
+
+              v120 = (*(v24 + 104) + 16 * v2);
+              v4 = *v120;
+              if (v4 >= v7)
+              {
+                goto LABEL_524;
+              }
+
+              v3 = v120[1];
+              v9 = v120[2];
+              v2 = v120[3];
+              *v495 = *(v114 + 4 * v4);
+              if (v3 >= v7)
+              {
+                goto LABEL_576;
+              }
+
+              *&v495[4] = *(v114 + 4 * v3);
+              if (v9 >= v7)
+              {
+                goto LABEL_592;
+              }
+
+              *&v495[8] = *(v114 + 4 * v9);
+              if (v2 == -1)
+              {
+                v119 = 3;
+                v9 = v439;
+              }
+
+              else
+              {
+                v9 = v439;
+                if (v2 >= v7)
+                {
+                  goto LABEL_690;
+                }
+
+                *&v495[12] = *(v114 + 4 * v2);
+                v119 = 4;
+              }
+
+LABEL_225:
+              re::DynamicArray<float>::copy(location, location[2], v495, v119);
+              if (++v115 == v113)
+              {
+                goto LABEL_226;
+              }
+
+              continue;
+            }
+          }
+
+          v155 = re::GeomAttribute::accessValues<int>(v23);
+          v157 = *(v24 + 88);
+          location[4] = 0;
+          memset(location, 0, 28);
+          if (!v157)
+          {
+            v166 = 0;
+            v165 = 0;
+LABEL_379:
+            re::Data::makeDataWithBytes(&v483, v165, v166);
+            v492[0] = 0;
+            LOBYTE(v492[1]) = -1;
+            memset(&v492[2], 0, 24);
+            re::ObjCObject::operator=(v492, &v483);
+            LOBYTE(v492[1]) = 4;
+            goto LABEL_380;
+          }
+
+          v158 = v155;
+          LODWORD(v7) = v156;
+          v159 = 0;
+          while (2)
+          {
+            v483.n128_u32[0] = v159;
+            v160 = *(v24 + 204);
+            if (v160 == 2)
+            {
+              v162 = re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::find((v24 + 208), &v483);
+              if (v162 == -1)
+              {
+                goto LABEL_297;
+              }
+
+              v161 = (*(v24 + 216) + 8 * v162 + 4);
+            }
+
+            else
+            {
+              if (v160 != 1)
+              {
+                if (*(v24 + 204))
+                {
+                  goto LABEL_758;
+                }
+
+                if (v159 < *(v24 + 208))
+                {
+                  v2 = v159;
+                  goto LABEL_298;
+                }
+
+LABEL_297:
+                v163 = 0;
+                goto LABEL_306;
+              }
+
+              if (*(v24 + 224) <= v159)
+              {
+                goto LABEL_297;
+              }
+
+              v161 = (*(v24 + 240) + 4 * v159);
+            }
+
+            v2 = *v161;
+            if (v2 == -1)
+            {
+              goto LABEL_297;
+            }
+
+LABEL_298:
+            v9 = *(v24 + 88);
+            if (v9 <= v2)
+            {
+              goto LABEL_500;
+            }
+
+            v164 = (*(v24 + 104) + 16 * v2);
+            v4 = *v164;
+            if (v4 >= v7)
+            {
+              goto LABEL_516;
+            }
+
+            v3 = v164[1];
+            v9 = v164[2];
+            v2 = v164[3];
+            *v495 = *(v158 + 4 * v4);
+            if (v3 >= v7)
+            {
+              goto LABEL_580;
+            }
+
+            *&v495[4] = *(v158 + 4 * v3);
+            if (v9 >= v7)
+            {
+              goto LABEL_616;
+            }
+
+            *&v495[8] = *(v158 + 4 * v9);
+            if (v2 == -1)
+            {
+              v163 = 3;
+              v9 = v439;
+            }
+
+            else
+            {
+              v9 = v439;
+              if (v2 >= v7)
+              {
+                goto LABEL_682;
+              }
+
+              *&v495[12] = *(v158 + 4 * v2);
+              v163 = 4;
+            }
+
+LABEL_306:
+            re::DynamicArray<float>::copy(location, location[2], v495, v163);
+            if (++v159 == v157)
+            {
+              v165 = location[4];
+              v166 = (4 * location[2]);
+              goto LABEL_379;
+            }
+
+            continue;
+          }
+        }
+
+        if (*(v23 + 17))
+        {
+          v78 = re::GeomAttribute::accessValues<int>(v23);
+          v80 = *(v24 + 88);
+          location[4] = 0;
+          memset(location, 0, 28);
+          if (v80)
+          {
+            v81 = v78;
+            LODWORD(v7) = v79;
+            v82 = 0;
+            while (1)
+            {
+              v483.n128_u32[0] = v82;
+              v83 = *(v24 + 204);
+              if (v83 == 2)
+              {
+                break;
+              }
+
+              if (v83 == 1)
+              {
+                if (*(v24 + 224) <= v82)
+                {
+                  goto LABEL_173;
+                }
+
+                v84 = (*(v24 + 240) + 4 * v82);
+                goto LABEL_156;
+              }
+
+              if (*(v24 + 204))
+              {
+                goto LABEL_763;
+              }
+
+              if (v82 < *(v24 + 208))
+              {
+                v2 = v82;
+LABEL_157:
+                v9 = *(v24 + 88);
+                if (v9 <= v2)
+                {
+                  goto LABEL_624;
+                }
+
+                v86 = (*(v24 + 104) + 16 * v2);
+                v4 = *v86;
+                if (v4 >= v7)
+                {
+                  goto LABEL_636;
+                }
+
+                v3 = v86[1];
+                v9 = v86[2];
+                v2 = v86[3];
+                LOWORD(__src[0]) = *(v81 + 2 * v4);
+                if (v3 >= v7)
+                {
+                  goto LABEL_640;
+                }
+
+                WORD1(__src[0]) = *(v81 + 2 * v3);
+                if (v9 >= v7)
+                {
+                  goto LABEL_652;
+                }
+
+                WORD2(__src[0]) = *(v81 + 2 * v9);
+                if (v2 == -1)
+                {
+                  v2 = 3;
+                }
+
+                else
+                {
+                  if (v2 >= v7)
+                  {
+                    goto LABEL_706;
+                  }
+
+                  HIWORD(__src[0]) = *(v81 + 2 * v2);
+                  v2 = 4;
+                }
+
+                v3 = location[2];
+                if (location[2] == -1)
+                {
+                  goto LABEL_656;
+                }
+
+                v87 = location[2] + v2;
+                if (__CFADD__(location[2], v2))
+                {
+                  goto LABEL_665;
+                }
+
+                if (location[2] >= v87)
+                {
+                  memcpy(location[4] + 2 * location[2], __src, 2 * v2);
+                }
+
+                else
+                {
+                  re::DynamicArray<unsigned short>::growCapacity(location, location[2] + v2);
+                  v4 = location[2] - v3;
+                  if (location[2] != v3)
+                  {
+                    memcpy(location[4] + 2 * v3, __src, 2 * v4);
+                    v3 = location[2];
+                  }
+
+                  memcpy(location[4] + 2 * v3, __src + 2 * v4, 2 * (v2 - v4));
+                  location[2] = v87;
+                }
+
+                ++LODWORD(location[3]);
+                v9 = v439;
+              }
+
+LABEL_173:
+              if (++v82 == v80)
+              {
+                v88 = location[4];
+                v89 = (2 * location[2]);
+                goto LABEL_372;
+              }
+            }
+
+            v85 = re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::find((v24 + 208), &v483);
+            if (v85 == -1)
+            {
+              goto LABEL_173;
+            }
+
+            v84 = (*(v24 + 216) + 8 * v85 + 4);
+LABEL_156:
+            v2 = *v84;
+            if (v2 != -1)
+            {
+              goto LABEL_157;
+            }
+
+            goto LABEL_173;
+          }
+
+          v89 = 0;
+          v88 = 0;
+LABEL_372:
+          re::Data::makeDataWithBytes(&v483, v88, v89);
+          v492[0] = 0;
+          LOBYTE(v492[1]) = -1;
+          memset(&v492[2], 0, 24);
+          re::ObjCObject::operator=(v492, &v483);
+          LOBYTE(v492[1]) = 3;
+LABEL_373:
+          v492[2] = location[2];
+          v205 = xmmword_1E3054780;
+          goto LABEL_389;
+        }
+
+        v94 = re::GeomAttribute::accessValues<int>(v23);
+        v96 = *(v24 + 88);
+        location[4] = 0;
+        memset(location, 0, 28);
+        if (!v96)
+        {
+          v105 = 0;
+          v104 = 0;
+LABEL_370:
+          re::Data::makeDataWithBytes(&v483, v104, v105);
+          v492[0] = 0;
+          LOBYTE(v492[1]) = -1;
+          memset(&v492[2], 0, 24);
+          re::ObjCObject::operator=(v492, &v483);
+          LOBYTE(v492[1]) = 2;
+          goto LABEL_373;
+        }
+
+        v97 = v94;
+        LODWORD(v7) = v95;
+        v98 = 0;
+        while (2)
+        {
+          v483.n128_u32[0] = v98;
+          v99 = *(v24 + 204);
+          if (v99 == 2)
+          {
+            v101 = re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::find((v24 + 208), &v483);
+            if (v101 == -1)
+            {
+              goto LABEL_190;
+            }
+
+            v100 = (*(v24 + 216) + 8 * v101 + 4);
+          }
+
+          else
+          {
+            if (v99 != 1)
+            {
+              if (*(v24 + 204))
+              {
+                goto LABEL_756;
+              }
+
+              if (v98 < *(v24 + 208))
+              {
+                v2 = v98;
+                goto LABEL_191;
+              }
+
+LABEL_190:
+              v102 = 0;
+              goto LABEL_199;
+            }
+
+            if (*(v24 + 224) <= v98)
+            {
+              goto LABEL_190;
+            }
+
+            v100 = (*(v24 + 240) + 4 * v98);
+          }
+
+          v2 = *v100;
+          if (v2 == -1)
+          {
+            goto LABEL_190;
+          }
+
+LABEL_191:
+          v9 = *(v24 + 88);
+          if (v9 <= v2)
+          {
+            goto LABEL_496;
+          }
+
+          v103 = (*(v24 + 104) + 16 * v2);
+          v4 = *v103;
+          if (v4 >= v7)
+          {
+            goto LABEL_528;
+          }
+
+          v3 = v103[1];
+          v9 = v103[2];
+          v2 = v103[3];
+          LOWORD(__src[0]) = *(v97 + 2 * v4);
+          if (v3 >= v7)
+          {
+            goto LABEL_564;
+          }
+
+          WORD1(__src[0]) = *(v97 + 2 * v3);
+          if (v9 >= v7)
+          {
+            goto LABEL_604;
+          }
+
+          WORD2(__src[0]) = *(v97 + 2 * v9);
+          if (v2 == -1)
+          {
+            v102 = 3;
+            v9 = v439;
+          }
+
+          else
+          {
+            v9 = v439;
+            if (v2 >= v7)
+            {
+              goto LABEL_686;
+            }
+
+            HIWORD(__src[0]) = *(v97 + 2 * v2);
+            v102 = 4;
+          }
+
+LABEL_199:
+          re::DynamicArray<short>::copy(location, location[2], __src, v102);
+          if (++v98 == v96)
+          {
+            v104 = location[4];
+            v105 = (2 * location[2]);
+            goto LABEL_370;
+          }
+
+          continue;
+        }
+      }
+
+      if (*(v23 + 17) > 7u)
+      {
+        if (v25 != 8)
+        {
+          if (v25 != 9)
+          {
+            if (v25 != 10)
+            {
+              goto LABEL_400;
+            }
+
+            v61 = re::GeomAttribute::accessValues<int>(v23);
+            v63 = *(v24 + 88);
+            location[4] = 0;
+            memset(location, 0, 28);
+            if (!v63)
+            {
+              v73 = 0;
+              v72 = 0;
+LABEL_384:
+              re::Data::makeDataWithBytes(&v483, v72, v73);
+              v492[0] = 0;
+              LOBYTE(v492[1]) = -1;
+              memset(&v492[2], 0, 24);
+              re::ObjCObject::operator=(v492, &v483);
+              LOBYTE(v492[1]) = 0;
+              v492[2] = location[2];
+              *&v492[3] = xmmword_1E3049620;
+
+              v207 = location[0];
+              if (!location[0])
+              {
+                goto LABEL_392;
+              }
+
+LABEL_390:
+              if (location[4])
+              {
+                (*(*v207 + 40))(v207);
+              }
+
+              goto LABEL_392;
+            }
+
+            v64 = v61;
+            LODWORD(v7) = v62;
+            v65 = 0;
+            while (2)
+            {
+              v483.n128_u32[0] = v65;
+              v66 = *(v24 + 204);
+              if (v66 == 2)
+              {
+                v61 = re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::find((v24 + 208), &v483);
+                if (v61 == -1)
+                {
+                  goto LABEL_137;
+                }
+
+                v67 = (*(v24 + 216) + 8 * v61 + 4);
+              }
+
+              else
+              {
+                if (v66 != 1)
+                {
+                  if (*(v24 + 204))
+                  {
+                    goto LABEL_764;
+                  }
+
+                  if (v65 < *(v24 + 208))
+                  {
+                    v2 = v65;
+                    goto LABEL_112;
+                  }
+
+                  goto LABEL_137;
+                }
+
+                if (*(v24 + 224) <= v65)
+                {
+                  goto LABEL_137;
+                }
+
+                v67 = (*(v24 + 240) + 4 * v65);
+              }
+
+              v2 = *v67;
+              if (v2 != -1)
+              {
+LABEL_112:
+                v9 = *(v24 + 88);
+                if (v9 <= v2)
+                {
+                  goto LABEL_628;
+                }
+
+                v68 = (*(v24 + 104) + 16 * v2);
+                v4 = *v68;
+                if (v4 >= v7)
+                {
+                  goto LABEL_632;
+                }
+
+                v3 = v68[1];
+                v9 = v68[2];
+                v2 = v68[3];
+                LOBYTE(__src[0]) = *(v64 + v4);
+                if (v3 >= v7)
+                {
+                  goto LABEL_644;
+                }
+
+                BYTE1(__src[0]) = *(v64 + v3);
+                if (v9 >= v7)
+                {
+                  goto LABEL_648;
+                }
+
+                BYTE2(__src[0]) = *(v64 + v9);
+                if (v2 == -1)
+                {
+                  v9 = 3;
+                }
+
+                else
+                {
+                  if (v2 >= v7)
+                  {
+                    goto LABEL_702;
+                  }
+
+                  BYTE3(__src[0]) = *(v64 + v2);
+                  v9 = 4;
+                }
+
+                v2 = location[2];
+                if (location[2] == -1)
+                {
+                  goto LABEL_660;
+                }
+
+                v3 = location[2] + v9;
+                if (__CFADD__(location[2], v9))
+                {
+                  goto LABEL_664;
+                }
+
+                if (location[2] >= v3)
+                {
+                  v61 = memcpy(location[4] + location[2], __src, v9);
+                }
+
+                else
+                {
+                  if (location[1] < v3)
+                  {
+                    if (location[0])
+                    {
+                      v69 = 8;
+                      if (location[1])
+                      {
+                        v69 = 2 * location[1];
+                      }
+
+                      if (v69 <= v3)
+                      {
+                        v70 = location[2] + v9;
+                      }
+
+                      else
+                      {
+                        v70 = v69;
+                      }
+
+                      re::DynamicArray<BOOL>::setCapacity(location, v70);
+                    }
+
+                    else
+                    {
+                      re::DynamicArray<BOOL>::setCapacity(location, v2 + v9);
+                      ++LODWORD(location[3]);
+                    }
+                  }
+
+                  v71 = location[4];
+                  v4 = location[2] - v2;
+                  if (location[2] != v2)
+                  {
+                    memcpy(location[4] + v2, __src, location[2] - v2);
+                    v2 = location[2];
+                    v71 = location[4];
+                  }
+
+                  v61 = memcpy(&v71[v2], __src + v4, v9 - v4);
+                  location[2] = v3;
+                }
+
+                ++LODWORD(location[3]);
+                v9 = v439;
+              }
+
+LABEL_137:
+              if (++v65 == v63)
+              {
+                v72 = location[4];
+                v73 = location[2];
+                goto LABEL_384;
+              }
+
+              continue;
+            }
+          }
+
+          v141 = re::GeomAttribute::accessValues<int>(v23);
+          v143 = *(v24 + 88);
+          location[4] = 0;
+          memset(location, 0, 28);
+          if (v143)
+          {
+            v144 = v141;
+            LODWORD(v7) = v142;
+            v145 = 0;
+            while (1)
+            {
+              v483.n128_u32[0] = v145;
+              v146 = *(v24 + 204);
+              if (v146 == 2)
+              {
+                break;
+              }
+
+              if (v146 == 1)
+              {
+                if (*(v24 + 224) <= v145)
+                {
+                  goto LABEL_267;
+                }
+
+                v147 = (*(v24 + 240) + 4 * v145);
+                goto LABEL_266;
+              }
+
+              if (*(v24 + 204))
+              {
+                goto LABEL_762;
+              }
+
+              if (v145 >= *(v24 + 208))
+              {
+LABEL_267:
+                v149 = 0;
+                goto LABEL_276;
+              }
+
+              v2 = v145;
+LABEL_268:
+              v9 = *(v24 + 88);
+              if (v9 <= v2)
+              {
+                goto LABEL_508;
+              }
+
+              v150 = (*(v24 + 104) + 16 * v2);
+              v4 = *v150;
+              if (v4 >= v7)
+              {
+                goto LABEL_548;
+              }
+
+              v3 = v150[1];
+              v9 = v150[2];
+              v2 = v150[3];
+              LOBYTE(__src[0]) = *(v144 + v4);
+              if (v3 >= v7)
+              {
+                goto LABEL_584;
+              }
+
+              BYTE1(__src[0]) = *(v144 + v3);
+              if (v9 >= v7)
+              {
+                goto LABEL_600;
+              }
+
+              BYTE2(__src[0]) = *(v144 + v9);
+              if (v2 == -1)
+              {
+                v149 = 3;
+                v9 = v439;
+              }
+
+              else
+              {
+                v9 = v439;
+                if (v2 >= v7)
+                {
+                  goto LABEL_666;
+                }
+
+                BYTE3(__src[0]) = *(v144 + v2);
+                v149 = 4;
+              }
+
+LABEL_276:
+              re::DynamicArray<REFrameAnalysisBottleneck>::copy(location, location[2], __src, v149);
+              if (++v145 == v143)
+              {
+                goto LABEL_277;
+              }
+            }
+
+            v148 = re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::find((v24 + 208), &v483);
+            if (v148 == -1)
+            {
+              goto LABEL_267;
+            }
+
+            v147 = (*(v24 + 216) + 8 * v148 + 4);
+LABEL_266:
+            v2 = *v147;
+            if (v2 == -1)
+            {
+              goto LABEL_267;
+            }
+
+            goto LABEL_268;
+          }
+
+LABEL_277:
+          re::makeNSDataFromGeomArray<unsigned char>(v492, location);
+LABEL_278:
+          if (location[0] && location[4])
+          {
+            (*(*location[0] + 40))();
+          }
+
+          v26 = v492[0];
+          v492[0] = 0;
+          v446 = v26;
+          v447 = *&v492[1];
+          v448 = *&v492[3];
+
+          goto LABEL_400;
+        }
+
+        v187 = re::GeomAttribute::accessValues<int>(v23);
+        v189 = *(v24 + 88);
+        v494 = 0u;
+        memset(location, 0, sizeof(location));
+        v492[4] = 0;
+        memset(v492, 0, 28);
+        if (!v189)
+        {
+          v198 = 0;
+          v197 = 0;
+LABEL_394:
+          re::Data::makeDataWithBytes(&v483, v197, v198);
+          *v478 = 0;
+          v478[8] = -1;
+          memset(v480 + 2, 0, 24);
+          re::ObjCObject::operator=(v478, &v483);
+          v206 = 10;
+LABEL_395:
+          v478[8] = v206;
+          *(v480 + 2) = v492[2];
+          *(&v480[1] + 2) = xmmword_1E30B4E30;
+
+          if (v492[0] && v492[4])
+          {
+            (*(*v492[0] + 40))();
+          }
+
+          v26 = *v478;
+          *v478 = 0;
+          v446 = v26;
+          v208 = v478;
+          goto LABEL_399;
+        }
+
+        v190 = v187;
+        LODWORD(v7) = v188;
+        v191 = 0;
+        while (2)
+        {
+          v483.n128_u32[0] = v191;
+          v192 = *(v24 + 204);
+          if (v192 == 2)
+          {
+            v194 = re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::find((v24 + 208), &v483);
+            if (v194 == -1)
+            {
+              goto LABEL_349;
+            }
+
+            v193 = (*(v24 + 216) + 8 * v194 + 4);
+          }
+
+          else
+          {
+            if (v192 != 1)
+            {
+              if (*(v24 + 204))
+              {
+                goto LABEL_754;
+              }
+
+              if (v191 < *(v24 + 208))
+              {
+                v2 = v191;
+                goto LABEL_350;
+              }
+
+LABEL_349:
+              v195 = 0;
+              goto LABEL_358;
+            }
+
+            if (*(v24 + 224) <= v191)
+            {
+              goto LABEL_349;
+            }
+
+            v193 = (*(v24 + 240) + 4 * v191);
+          }
+
+          v2 = *v193;
+          if (v2 == -1)
+          {
+            goto LABEL_349;
+          }
+
+LABEL_350:
+          v9 = *(v24 + 88);
+          if (v9 <= v2)
+          {
+            goto LABEL_484;
+          }
+
+          v196 = (*(v24 + 104) + 16 * v2);
+          v4 = *v196;
+          if (v4 >= v7)
+          {
+            goto LABEL_520;
+          }
+
+          v3 = v196[1];
+          v9 = v196[2];
+          v2 = v196[3];
+          *location = *(v190 + 16 * v4);
+          if (v3 >= v7)
+          {
+            goto LABEL_560;
+          }
+
+          *&location[2] = *(v190 + 16 * v3);
+          if (v9 >= v7)
+          {
+            goto LABEL_612;
+          }
+
+          *&location[4] = *(v190 + 16 * v9);
+          if (v2 == -1)
+          {
+            v195 = 3;
+            v9 = v439;
+          }
+
+          else
+          {
+            v9 = v439;
+            if (v2 >= v7)
+            {
+              goto LABEL_670;
+            }
+
+            v494 = *(v190 + 16 * v2);
+            v195 = 4;
+          }
+
+LABEL_358:
+          re::DynamicArray<re::Vector4<float>>::copy(v492, v492[2], location, v195);
+          if (++v191 == v189)
+          {
+            v197 = v492[4];
+            v198 = (16 * v492[2]);
+            goto LABEL_394;
+          }
+
+          continue;
+        }
+      }
+
+      if (v25 != 5)
+      {
+        if (v25 != 6)
+        {
+          v27 = re::GeomAttribute::accessValues<int>(v23);
+          v29 = *(v24 + 88);
+          v494 = 0u;
+          memset(location, 0, sizeof(location));
+          v492[4] = 0;
+          memset(v492, 0, 28);
+          if (v29)
+          {
+            v30 = v27;
+            LODWORD(v7) = v28;
+            v31 = 0;
+            while (1)
+            {
+              v483.n128_u32[0] = v31;
+              v32 = *(v24 + 204);
+              if (v32 == 2)
+              {
+                break;
+              }
+
+              if (v32 == 1)
+              {
+                if (*(v24 + 224) <= v31)
+                {
+                  goto LABEL_49;
+                }
+
+                v33 = (*(v24 + 240) + 4 * v31);
+                goto LABEL_48;
+              }
+
+              if (*(v24 + 204))
+              {
+                goto LABEL_760;
+              }
+
+              if (v31 < *(v24 + 208))
+              {
+                v2 = v31;
+LABEL_50:
+                v9 = *(v24 + 88);
+                if (v9 <= v2)
+                {
+                  goto LABEL_512;
+                }
+
+                v36 = (*(v24 + 104) + 16 * v2);
+                v4 = *v36;
+                if (v4 >= v7)
+                {
+                  goto LABEL_544;
+                }
+
+                v3 = v36[1];
+                v9 = v36[2];
+                v2 = v36[3];
+                *location = *(v30 + 16 * v4);
+                if (v3 >= v7)
+                {
+                  goto LABEL_552;
+                }
+
+                *&location[2] = *(v30 + 16 * v3);
+                if (v9 >= v7)
+                {
+                  goto LABEL_588;
+                }
+
+                *&location[4] = *(v30 + 16 * v9);
+                if (v2 == -1)
+                {
+                  v35 = 3;
+                  v9 = v439;
+                }
+
+                else
+                {
+                  v9 = v439;
+                  if (v2 >= v7)
+                  {
+                    goto LABEL_678;
+                  }
+
+                  v494 = *(v30 + 16 * v2);
+                  v35 = 4;
+                }
+
+                goto LABEL_58;
+              }
+
+LABEL_49:
+              v35 = 0;
+LABEL_58:
+              re::DynamicArray<re::Vector3<float>>::copy(v492, v492[2], location, v35);
+              if (++v31 == v29)
+              {
+                v37 = v492[4];
+                v38 = (16 * v492[2]);
+                goto LABEL_382;
+              }
+            }
+
+            v34 = re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::find((v24 + 208), &v483);
+            if (v34 == -1)
+            {
+              goto LABEL_49;
+            }
+
+            v33 = (*(v24 + 216) + 8 * v34 + 4);
+LABEL_48:
+            v2 = *v33;
+            if (v2 != -1)
+            {
+              goto LABEL_50;
+            }
+
+            goto LABEL_49;
+          }
+
+          v38 = 0;
+          v37 = 0;
+LABEL_382:
+          re::Data::makeDataWithBytes(&v483, v37, v38);
+          *v478 = 0;
+          v478[8] = -1;
+          memset(v480 + 2, 0, 24);
+          re::ObjCObject::operator=(v478, &v483);
+          v206 = 9;
+          goto LABEL_395;
+        }
+
+        v125 = re::GeomAttribute::accessValues<int>(v23);
+        v127 = *(v24 + 88);
+        memset(v495, 0, 32);
+        location[4] = 0;
+        memset(location, 0, 28);
+        if (v127)
+        {
+          v128 = v125;
+          LODWORD(v7) = v126;
+          v129 = 0;
+          while (1)
+          {
+            v483.n128_u32[0] = v129;
+            v130 = *(v24 + 204);
+            if (v130 == 2)
+            {
+              break;
+            }
+
+            if (v130 == 1)
+            {
+              if (*(v24 + 224) <= v129)
+              {
+                goto LABEL_242;
+              }
+
+              v131 = (*(v24 + 240) + 4 * v129);
+              goto LABEL_241;
+            }
+
+            if (*(v24 + 204))
+            {
+              goto LABEL_757;
+            }
+
+            if (v129 < *(v24 + 208))
+            {
+              v2 = v129;
+LABEL_243:
+              v9 = *(v24 + 88);
+              if (v9 <= v2)
+              {
+                goto LABEL_488;
+              }
+
+              v134 = (*(v24 + 104) + 16 * v2);
+              v4 = *v134;
+              if (v4 >= v7)
+              {
+                goto LABEL_532;
+              }
+
+              v3 = v134[1];
+              v9 = v134[2];
+              v2 = v134[3];
+              *v495 = *(v128 + 8 * v4);
+              if (v3 >= v7)
+              {
+                goto LABEL_568;
+              }
+
+              *&v495[8] = *(v128 + 8 * v3);
+              if (v9 >= v7)
+              {
+                goto LABEL_596;
+              }
+
+              *&v495[16] = *(v128 + 8 * v9);
+              if (v2 == -1)
+              {
+                v133 = 3;
+                v9 = v439;
+              }
+
+              else
+              {
+                v9 = v439;
+                if (v2 >= v7)
+                {
+                  goto LABEL_674;
+                }
+
+                *&v495[24] = *(v128 + 8 * v2);
+                v133 = 4;
+              }
+
+              goto LABEL_251;
+            }
+
+LABEL_242:
+            v133 = 0;
+LABEL_251:
+            re::DynamicArray<re::Vector2<float>>::copy(location, location[2], v495, v133);
+            if (++v129 == v127)
+            {
+              v135 = location[4];
+              v136 = (8 * location[2]);
+              goto LABEL_375;
+            }
+          }
+
+          v132 = re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::find((v24 + 208), &v483);
+          if (v132 == -1)
+          {
+            goto LABEL_242;
+          }
+
+          v131 = (*(v24 + 216) + 8 * v132 + 4);
+LABEL_241:
+          v2 = *v131;
+          if (v2 != -1)
+          {
+            goto LABEL_243;
+          }
+
+          goto LABEL_242;
+        }
+
+        v136 = 0;
+        v135 = 0;
+LABEL_375:
+        re::Data::makeDataWithBytes(&v483, v135, v136);
+        v492[0] = 0;
+        LOBYTE(v492[1]) = -1;
+        memset(&v492[2], 0, 24);
+        re::ObjCObject::operator=(v492, &v483);
+        LOBYTE(v492[1]) = 8;
+        goto LABEL_388;
+      }
+
+      v171 = re::GeomAttribute::accessValues<int>(v23);
+      v173 = *(v24 + 88);
+      location[4] = 0;
+      memset(location, 0, 28);
+      if (v173)
+      {
+        v174 = v171;
+        LODWORD(v7) = v172;
+        v175 = 0;
+        while (1)
+        {
+          v483.n128_u32[0] = v175;
+          v176 = *(v24 + 204);
+          if (v176 == 2)
+          {
+            break;
+          }
+
+          if (v176 == 1)
+          {
+            if (*(v24 + 224) <= v175)
+            {
+              goto LABEL_323;
+            }
+
+            v177 = (*(v24 + 240) + 4 * v175);
+            goto LABEL_322;
+          }
+
+          if (*(v24 + 204))
+          {
+            goto LABEL_761;
+          }
+
+          if (v175 < *(v24 + 208))
+          {
+            v2 = v175;
+LABEL_324:
+            v9 = *(v24 + 88);
+            if (v9 <= v2)
+            {
+              goto LABEL_504;
+            }
+
+            v180 = (*(v24 + 104) + 16 * v2);
+            v4 = *v180;
+            if (v4 >= v7)
+            {
+              goto LABEL_540;
+            }
+
+            v3 = v180[1];
+            v9 = v180[2];
+            v2 = v180[3];
+            *v495 = *(v174 + 8 * v4);
+            if (v3 >= v7)
+            {
+              goto LABEL_572;
+            }
+
+            *&v495[8] = *(v174 + 8 * v3);
+            if (v9 >= v7)
+            {
+              goto LABEL_608;
+            }
+
+            *&v495[16] = *(v174 + 8 * v9);
+            if (v2 == -1)
+            {
+              v179 = 3;
+              v9 = v439;
+            }
+
+            else
+            {
+              v9 = v439;
+              if (v2 >= v7)
+              {
+                goto LABEL_694;
+              }
+
+              *&v495[24] = *(v174 + 8 * v2);
+              v179 = 4;
+            }
+
+            goto LABEL_332;
+          }
+
+LABEL_323:
+          v179 = 0;
+LABEL_332:
+          re::DynamicArray<double>::copy(location, location[2], v495, v179);
+          if (++v175 == v173)
+          {
+            v181 = location[4];
+            v182 = (8 * location[2]);
+            goto LABEL_387;
+          }
+        }
+
+        v178 = re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::find((v24 + 208), &v483);
+        if (v178 == -1)
+        {
+          goto LABEL_323;
+        }
+
+        v177 = (*(v24 + 216) + 8 * v178 + 4);
+LABEL_322:
+        v2 = *v177;
+        if (v2 != -1)
+        {
+          goto LABEL_324;
+        }
+
+        goto LABEL_323;
+      }
+
+      v182 = 0;
+      v181 = 0;
+LABEL_387:
+      re::Data::makeDataWithBytes(&v483, v181, v182);
+      v492[0] = 0;
+      LOBYTE(v492[1]) = -1;
+      memset(&v492[2], 0, 24);
+      re::ObjCObject::operator=(v492, &v483);
+      LOBYTE(v492[1]) = 7;
+LABEL_388:
+      v492[2] = location[2];
+      v205 = xmmword_1E30B5C10;
+LABEL_389:
+      *&v492[3] = v205;
+
+      v207 = location[0];
+      if (location[0])
+      {
+        goto LABEL_390;
+      }
+
+LABEL_392:
+      v26 = v492[0];
+      v492[0] = 0;
+      v446 = v26;
+      v208 = v492;
+LABEL_399:
+      v447 = *(v208 + 1);
+      v448 = *(v208 + 3);
+
+LABEL_400:
+      v209 = *(v24 + 8);
+      re::GeomModelDescriptor::setAttribute(&v465, &v483, *(v24 + 16), &v446, 0, v443);
+      if ((v443[0] & 1) != 0 || !v444)
+      {
+        goto LABEL_406;
+      }
+
+      if (v445)
+      {
+        (*(*v444 + 40))();
+      }
+
+      v204 = v443;
+LABEL_405:
+      *(v204 + 5) = 0u;
+      *(v204 + 3) = 0u;
+LABEL_406:
+      if (v483.n128_u64[0] && (v483.n128_u8[8] & 1) != 0)
+      {
+        (*(*v483.n128_u64[0] + 40))();
+      }
+
+      LODWORD(v5) = v5 + 1;
+      if (v5 >= *(v9 + 640))
+      {
+        goto LABEL_410;
+      }
+    }
+
+    v26 = 0;
+    if (*(v23 + 17) <= 4u)
+    {
+      if (*(v23 + 17) <= 1u)
+      {
+        if (*(v23 + 17))
+        {
+          v90 = re::GeomAttribute::accessValues<int>(v23);
+          if (!v91)
+          {
+            goto LABEL_734;
+          }
+
+          v92 = v90;
+          v93 = (*(*v24 + 16))(v24);
+          re::Data::makeDataWithBytes(&v483, v92, (2 * v93));
+          location[0] = 0;
+          LOBYTE(location[1]) = -1;
+          v2 = location;
+          memset(&location[2], 0, 24);
+          re::ObjCObject::operator=(location, &v483);
+          LOBYTE(location[1]) = 3;
+        }
+
+        else
+        {
+          v106 = re::GeomAttribute::accessValues<int>(v23);
+          if (!v107)
+          {
+            goto LABEL_714;
+          }
+
+          v108 = v106;
+          v109 = (*(*v24 + 16))(v24);
+          re::Data::makeDataWithBytes(&v483, v108, (2 * v109));
+          location[0] = 0;
+          LOBYTE(location[1]) = -1;
+          v2 = location;
+          memset(&location[2], 0, 24);
+          re::ObjCObject::operator=(location, &v483);
+          LOBYTE(location[1]) = 2;
+        }
+
+        location[2] = (*(*v24 + 16))(v24);
+        v110 = xmmword_1E3054780;
+      }
+
+      else
+      {
+        if (v25 == 2)
+        {
+          v167 = re::GeomAttribute::accessValues<int>(v23);
+          if (!v168)
+          {
+            goto LABEL_750;
+          }
+
+          v169 = v167;
+          v170 = (*(*v24 + 16))(v24);
+          re::Data::makeDataWithBytes(&v483, v169, (4 * v170));
+          location[0] = 0;
+          LOBYTE(location[1]) = -1;
+          v2 = location;
+          memset(&location[2], 0, 24);
+          re::ObjCObject::operator=(location, &v483);
+          LOBYTE(location[1]) = 4;
+        }
+
+        else
+        {
+          if (v25 == 3)
+          {
+            v121 = re::GeomAttribute::accessValues<int>(v23);
+            if (!v122)
+            {
+              goto LABEL_738;
+            }
+
+            v123 = v121;
+            v124 = (*(*v24 + 16))(v24);
+            re::Data::makeDataWithBytes(&v483, v123, (4 * v124));
+            location[0] = 0;
+            LOBYTE(location[1]) = -1;
+            v2 = location;
+            memset(&location[2], 0, 24);
+            re::ObjCObject::operator=(location, &v483);
+            v60 = 5;
+          }
+
+          else
+          {
+            v56 = re::GeomAttribute::accessValues<int>(v23);
+            if (!v57)
+            {
+              goto LABEL_718;
+            }
+
+            v58 = v56;
+            v59 = (*(*v24 + 16))(v24);
+            re::Data::makeDataWithBytes(&v483, v58, (4 * v59));
+            location[0] = 0;
+            LOBYTE(location[1]) = -1;
+            v2 = location;
+            memset(&location[2], 0, 24);
+            re::ObjCObject::operator=(location, &v483);
+            v60 = 6;
+          }
+
+          LOBYTE(location[1]) = v60;
+        }
+
+        location[2] = (*(*v24 + 16))(v24);
+        v110 = xmmword_1E3068150;
+      }
+
+      goto LABEL_363;
+    }
+
+    if (*(v23 + 17) > 7u)
+    {
+      switch(v25)
+      {
+        case 8:
+          v199 = re::GeomAttribute::accessValues<int>(v23);
+          if (!v200)
+          {
+            goto LABEL_746;
+          }
+
+          v201 = v199;
+          v202 = (*(*v24 + 16))(v24);
+          re::Data::makeDataWithBytes(&v483, v201, (16 * v202));
+          location[0] = 0;
+          LOBYTE(location[1]) = -1;
+          v2 = location;
+          memset(&location[2], 0, 24);
+          re::ObjCObject::operator=(location, &v483);
+          v43 = 10;
+          goto LABEL_362;
+        case 9:
+          v151 = re::GeomAttribute::accessValues<int>(v23);
+          if (!v152)
+          {
+            goto LABEL_730;
+          }
+
+          v153 = v151;
+          v154 = (*(*v24 + 16))(v24);
+          re::Data::makeDataWithBytes(&v483, v153, v154);
+          location[0] = 0;
+          LOBYTE(location[1]) = -1;
+          v2 = location;
+          memset(&location[2], 0, 24);
+          re::ObjCObject::operator=(location, &v483);
+          LOBYTE(location[1]) = 1;
+          break;
+        case 10:
+          v74 = re::GeomAttribute::accessValues<int>(v23);
+          if (!v75)
+          {
+            goto LABEL_710;
+          }
+
+          v76 = v74;
+          v77 = (*(*v24 + 16))(v24);
+          re::Data::makeDataWithBytes(&v483, v76, v77);
+          location[0] = 0;
+          LOBYTE(location[1]) = -1;
+          v2 = location;
+          memset(&location[2], 0, 24);
+          re::ObjCObject::operator=(location, &v483);
+          LOBYTE(location[1]) = 0;
+          break;
+        default:
+          goto LABEL_364;
+      }
+
+      location[2] = (*(*v24 + 16))(v24);
+      v110 = xmmword_1E3049620;
+    }
+
+    else
+    {
+      if (v25 == 5)
+      {
+        v183 = re::GeomAttribute::accessValues<int>(v23);
+        if (!v184)
+        {
+          goto LABEL_726;
+        }
+
+        v185 = v183;
+        v186 = (*(*v24 + 16))(v24);
+        re::Data::makeDataWithBytes(&v483, v185, (8 * v186));
+        location[0] = 0;
+        LOBYTE(location[1]) = -1;
+        v2 = location;
+        memset(&location[2], 0, 24);
+        re::ObjCObject::operator=(location, &v483);
+        LOBYTE(location[1]) = 7;
+      }
+
+      else
+      {
+        if (v25 != 6)
+        {
+          v39 = re::GeomAttribute::accessValues<int>(v23);
+          if (!v40)
+          {
+            goto LABEL_742;
+          }
+
+          v41 = v39;
+          v42 = (*(*v24 + 16))(v24);
+          re::Data::makeDataWithBytes(&v483, v41, (16 * v42));
+          location[0] = 0;
+          LOBYTE(location[1]) = -1;
+          v2 = location;
+          memset(&location[2], 0, 24);
+          re::ObjCObject::operator=(location, &v483);
+          v43 = 9;
+LABEL_362:
+          LOBYTE(location[1]) = v43;
+          location[2] = (*(*v24 + 16))(v24);
+          v110 = xmmword_1E30B4E30;
+          goto LABEL_363;
+        }
+
+        v137 = re::GeomAttribute::accessValues<int>(v23);
+        if (!v138)
+        {
+          goto LABEL_722;
+        }
+
+        v139 = v137;
+        v140 = (*(*v24 + 16))(v24);
+        re::Data::makeDataWithBytes(&v483, v139, (8 * v140));
+        location[0] = 0;
+        LOBYTE(location[1]) = -1;
+        v2 = location;
+        memset(&location[2], 0, 24);
+        re::ObjCObject::operator=(location, &v483);
+        LOBYTE(location[1]) = 8;
+      }
+
+      location[2] = (*(*v24 + 16))(v24);
+      v110 = xmmword_1E30B5C10;
+    }
+
+LABEL_363:
+    *&location[3] = v110;
+
+    v26 = location[0];
+    location[0] = 0;
+    v446 = v26;
+    v447 = *&location[1];
+    v448 = *&location[3];
+
+LABEL_364:
+    v203 = *(v24 + 8);
+    re::GeomModelDescriptor::setAttribute(&v465, &v483, *(v24 + 16), &v446, 0, v440);
+    if ((v440[0] & 1) != 0 || !v441)
+    {
+      goto LABEL_406;
+    }
+
+    if (v442)
+    {
+      (*(*v441 + 40))();
+    }
+
+    v204 = v440;
+    goto LABEL_405;
+  }
+
+LABEL_410:
+  re::makeNSDataFromGeomArray<unsigned int>(location, v462);
+  v211 = re::GeomModelDescriptor::validateIndexType(v210, LOBYTE(location[1]), &v483);
+  if (location[0])
+  {
+    v14 = v438;
+    if (!location[4])
+    {
+LABEL_431:
+      v213 = 0;
+      v22 = v492[2];
+      v2 = v492[0];
+      LOBYTE(v5) = v492[1];
+      goto LABEL_432;
+    }
+
+    re::GeomModelDescriptor::makeCFDataPayload(v492, location);
+    v212 = *(&v467 + 4);
+    *(&v467 + 4) = v492[0];
+    if (v212)
+    {
+    }
+
+    v213 = 1;
+  }
+
+  else
+  {
+    v213 = 0;
+    v22 = v492[2];
+    v2 = v492[0];
+    LOBYTE(v5) = v492[1];
+    v14 = v438;
+  }
+
+LABEL_432:
+  if (v483.n128_u8[0] & 1) == 0 && *(&v484 + 1) && (v485)
+  {
+    (*(**(&v484 + 1) + 40))();
+  }
+
+  if (v2)
+  {
+    v219 = v213;
+  }
+
+  else
+  {
+    v219 = 1;
+  }
+
+  if (v219 & 1) == 0 && (v5)
+  {
+    (*(*v2 + 40))(v2, v22);
+  }
+
+  re::Ok<re::GeomModelDescriptor,re::GeomModelDescriptor>(&v483, &v465);
+  re::Result<re::GeomModelDescriptor,re::DetailedError>::Result(v14, &v483);
+  if (v490)
+  {
+    if (BYTE8(v490))
+    {
+      (*(*v490 + 40))();
+    }
+
+    v491 = 0u;
+    v490 = 0u;
+  }
+
+  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(v489);
+  re::DynamicArray<re::GeomModelDescriptor::AttributeData>::deinit(v488);
+  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(&v486);
+  if (*(&v485 + 1))
+  {
+
+    *(&v485 + 1) = 0;
+  }
+
+  if (v485)
+  {
+
+    *&v485 = 0;
+  }
+
+  if (v483.n128_u64[1])
+  {
+  }
+
+  if (v454[0] && v457)
+  {
+    (*(*v454[0] + 40))();
+  }
+
+  if (v458[0] && v460)
+  {
+    (*(*v458[0] + 40))();
+  }
+
+LABEL_458:
+  if (v462[0] && v464)
+  {
+    (*(*v462[0] + 40))();
+  }
+
+LABEL_461:
+  if (v476)
+  {
+    if (BYTE8(v476))
+    {
+      (*(*v476 + 40))(v214);
+    }
+
+    v477 = 0u;
+    v476 = 0u;
+  }
+
+  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(&v474[8]);
+  re::DynamicArray<re::GeomModelDescriptor::AttributeData>::deinit(v472);
+  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(&v468[7]);
+  if (*&v468[5])
+  {
+
+    *&v468[5] = 0;
+  }
+
+  if (*&v468[3])
+  {
+
+    *&v468[3] = 0;
+  }
+
+  if (*(&v467 + 4))
+  {
+  }
+}
+
+re::DynamicString *re::Ok<re::GeomModelDescriptor,re::GeomModelDescriptor>(uint64_t a1, uint64_t a2)
+{
+  v3 = a1;
+  *a1 = *a2;
+  *(a1 + 1) = *(a2 + 1);
+  *(a1 + 4) = *(a2 + 4);
+  *(a1 + 8) = *(a2 + 8);
+  *(a2 + 8) = 0;
+  v4 = *(a2 + 32);
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 32) = v4;
+  *(a2 + 32) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 80) = 0;
+  *(a1 + 48) = 0u;
+  *(a1 + 84) = 0x7FFFFFFFLL;
+  re::HashTable<re::StringID,re::DynamicString,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::swap((a1 + 48), (a2 + 48));
+  v5 = *(a2 + 96);
+  *(v3 + 136) = 0u;
+  v3 += 136;
+  *(v3 - 40) = v5;
+  *(a2 + 96) = 0;
+  *(v3 - 32) = *(a2 + 104);
+  *(a2 + 104) = 0u;
+  *(v3 - 8) = *(a2 + 128);
+  *(a2 + 128) = 0;
+  ++*(a2 + 120);
+  *(v3 - 16) = 1;
+  *(v3 + 16) = 0u;
+  *(v3 + 32) = 0;
+  *(v3 + 36) = 0x7FFFFFFFLL;
+  re::HashTable<re::StringID,re::DynamicString,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::swap(v3, (a2 + 136));
+  *(v3 + 48) = *(a2 + 184);
+  *(a2 + 184) = 0;
+  *(v3 + 72) = *(a2 + 208);
+  *(a2 + 208) = 0;
+  *(v3 + 56) = *(a2 + 192);
+  *(a2 + 192) = 0u;
+
+  return re::GeomModelDescriptor::reset(a2);
+}
+
+uint64_t re::Result<re::GeomModelDescriptor,re::DetailedError>::Result(uint64_t a1, uint64_t a2)
+{
+  *a1 = 1;
+  *(a1 + 8) = *a2;
+  *(a1 + 10) = *(a2 + 2);
+  *(a1 + 12) = *(a2 + 4);
+  v4 = *(a2 + 16);
+  *(a1 + 16) = *(a2 + 8);
+  *(a2 + 8) = 0;
+  *(a1 + 24) = v4;
+  v5 = *(a2 + 32);
+  *(a1 + 32) = *(a2 + 24);
+  *(a1 + 40) = v5;
+  *(a2 + 32) = 0;
+  *(a1 + 48) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  *(a1 + 72) = 0u;
+  *(a1 + 88) = 0;
+  *(a1 + 56) = 0u;
+  *(a1 + 92) = 0x7FFFFFFFLL;
+  re::HashTable<re::StringID,re::DynamicString,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::swap((a1 + 56), (a2 + 48));
+  *(a1 + 136) = 0;
+  *(a1 + 128) = 0;
+  *(a1 + 112) = 0;
+  *(a1 + 120) = 0;
+  *(a1 + 104) = 0;
+  v6 = *(a2 + 104);
+  *(a1 + 104) = *(a2 + 96);
+  *(a1 + 112) = v6;
+  *(a2 + 96) = 0;
+  *(a2 + 104) = 0;
+  v7 = *(a1 + 120);
+  *(a1 + 120) = *(a2 + 112);
+  *(a2 + 112) = v7;
+  v8 = *(a1 + 136);
+  *(a1 + 136) = *(a2 + 128);
+  *(a2 + 128) = v8;
+  ++*(a2 + 120);
+  ++*(a1 + 128);
+  *(a1 + 160) = 0u;
+  *(a1 + 176) = 0;
+  *(a1 + 144) = 0u;
+  *(a1 + 180) = 0x7FFFFFFFLL;
+  re::HashTable<re::StringID,re::DynamicString,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::swap((a1 + 144), (a2 + 136));
+  *(a1 + 192) = 0u;
+  *(a1 + 208) = 0u;
+  *(a1 + 216) = *(a2 + 208);
+  v9 = *(a2 + 192);
+  *(a1 + 192) = *(a2 + 184);
+  *(a2 + 184) = 0;
+  v10 = *(a2 + 200);
+  *(a2 + 208) = 0;
+  v12 = *(a1 + 200);
+  v11 = *(a1 + 208);
+  *(a1 + 200) = v9;
+  *(a1 + 208) = v10;
+  *(a2 + 192) = v12;
+  *(a2 + 200) = v11;
+  re::GeomModelDescriptor::reset(a2);
+  return a1;
+}
+
+void re::makeNSDataFromGeomArray<unsigned char>(uint64_t a1, uint64_t a2)
+{
+  re::Data::makeDataWithBytes(&v4, *(a2 + 32), *(a2 + 16));
+  *a1 = 0;
+  *(a1 + 8) = -1;
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 16) = 0;
+  re::ObjCObject::operator=(a1, &v4);
+  *(a1 + 8) = 1;
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = xmmword_1E3049620;
+}
+
+void re::makeNSDataFromGeomArray<unsigned int>(uint64_t a1, uint64_t a2)
+{
+  re::Data::makeDataWithBytes(&v4, *(a2 + 32), (4 * *(a2 + 16)));
+  *a1 = 0;
+  *(a1 + 8) = -1;
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 16) = 0;
+  re::ObjCObject::operator=(a1, &v4);
+  *(a1 + 8) = 5;
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = xmmword_1E3068150;
+}
+
+re::DynamicString *re::GeomModelDescriptor::setAttribute@<X0>(void *a1@<X0>, const re::DynamicString *a2@<X1>, int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  v60 = *MEMORY[0x1E69E9840];
+  if (*(a4 + 8) == 255)
+  {
+    v25 = v55;
+    v26 = v56;
+    *a6 = 0;
+    *(a6 + 8) = 100;
+    *(a6 + 16) = re::AssetErrorCategory(void)::instance;
+    *(a6 + 24) = v25;
+    *(a6 + 40) = v26;
+    return result;
+  }
+
+  v12 = re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet((a1 + 17), a2);
+  if (v12)
+  {
+    v13 = v12;
+  }
+
+  else
+  {
+    v13 = a2;
+  }
+
+  re::DynamicString::DynamicString(&v44, v13);
+  re::GeomModelDescriptor::validateIfCoreAttribute(&v44, a3, *(a4 + 8), v39);
+  if (v39[0] == 1)
+  {
+    v36 = 4;
+    v37 = 0;
+    v38 = 0;
+    CFDataPayload = re::DynamicString::operator=(&v34, &v44);
+    v36 = a3;
+    if (*a4)
+    {
+      if (*(a4 + 32))
+      {
+        CFDataPayload = re::GeomModelDescriptor::makeCFDataPayload(&v55, a4);
+        v16 = v37;
+        v37 = v55;
+        if (v16)
+        {
+        }
+
+        if (!a5)
+        {
+LABEL_16:
+          v18 = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet((a1 + 6), &v44);
+          if (v18)
+          {
+            v19 = *v18;
+            v20 = a1[14];
+            if (v20 <= *v18)
+            {
+              v46 = 0;
+              v58 = 0u;
+              v59 = 0u;
+              v56 = 0u;
+              v57 = 0u;
+              v55 = 0u;
+              v30 = MEMORY[0x1E69E9C10];
+              v31 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+              v47 = 136315906;
+              v48 = "operator[]";
+              v49 = 1024;
+              if (v31)
+              {
+                v32 = 3;
+              }
+
+              else
+              {
+                v32 = 2;
+              }
+
+              v50 = 789;
+              v51 = 2048;
+              v52 = v19;
+              v53 = 2048;
+              v54 = v20;
+              _os_log_send_and_compose_impl(v32, &v46, &v55, 80, &dword_1E1C61000, v30, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v47, 38, v33, v34);
+              _os_crash_msg();
+              __break(1u);
+            }
+
+            v21 = re::DynamicString::operator=((a1[16] + 56 * v19), &v34);
+            *(v21 + 32) = v36;
+            v22 = *(v21 + 5);
+            *(v21 + 5) = v37;
+            v37 = v22;
+            v23 = *(v21 + 6);
+            *(v21 + 6) = v38;
+            v38 = v23;
+          }
+
+          else
+          {
+            *&v55 = a1[14];
+            re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add((a1 + 6), &v44, &v55);
+            re::DynamicArray<re::GeomModelDescriptor::AttributeData>::add((a1 + 12), &v34);
+          }
+
+          *a6 = 1;
+LABEL_27:
+          if (v38)
+          {
+
+            v38 = 0;
+          }
+
+          if (v37)
+          {
+
+            v37 = 0;
+          }
+
+          if (v34 && (v35 & 1) != 0)
+          {
+            (*(*v34 + 40))();
+          }
+
+          if (v39[0])
+          {
+            goto LABEL_38;
+          }
+
+          goto LABEL_35;
+        }
+
+        if (!*a5)
+        {
+          v27 = "Null indices value buffer.";
+          goto LABEL_24;
+        }
+
+        if (*(a5 + 32))
+        {
+          re::GeomModelDescriptor::validateIndexType(CFDataPayload, *(a5 + 8), a6);
+          if (*a6 != 1)
+          {
+            goto LABEL_27;
+          }
+
+          re::GeomModelDescriptor::makeCFDataPayload(&v55, a5);
+          v17 = v38;
+          v38 = v55;
+          if (v17)
+          {
+          }
+
+          goto LABEL_16;
+        }
+      }
+
+      v27 = "Zero stride provided.";
+    }
+
+    else
+    {
+      v27 = "Null values buffer.";
+    }
+
+LABEL_24:
+    v28 = v55;
+    v29 = v56;
+    *a6 = 0;
+    *(a6 + 8) = 100;
+    *(a6 + 16) = re::AssetErrorCategory(void)::instance;
+    *(a6 + 24) = v28;
+    *(a6 + 40) = v29;
+    goto LABEL_27;
+  }
+
+  *a6 = v39[0];
+  *(a6 + 8) = v40;
+  *(a6 + 24) = v41;
+  *(a6 + 48) = v43;
+  *(a6 + 32) = v42;
+  v43 = 0;
+  v41 = 0;
+  v42 = 0uLL;
+LABEL_35:
+  if (v41 && (v42 & 1) != 0)
+  {
+    (*(*v41 + 40))();
+  }
+
+LABEL_38:
+  result = v44;
+  if (v44)
+  {
+    if (v45)
+    {
+      return (*(*v44 + 40))();
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::add(uint64_t a1, const re::DynamicString *a2, void *a3)
+{
+  v10 = 0;
+  v11 = 0;
+  v12 = 0;
+  v6 = re::Hash<re::DynamicString>::operator()(&v13, a2);
+  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<re::DynamicString>(a1, v6, &v10, a2);
+  if (HIDWORD(v11) != 0x7FFFFFFF)
+  {
+    return *(a1 + 16) + 56 * HIDWORD(v11) + 40;
+  }
+
+  v7 = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(a1, v11, v10);
+  re::DynamicString::DynamicString((v7 + 8), a2);
+  *(v7 + 40) = *a3;
+  v8 = v7 + 40;
+  ++*(a1 + 40);
+  return v8;
+}
+
+double re::DynamicArray<re::GeomModelDescriptor::AttributeData>::add(_anonymous_namespace_ *this, uint64_t a2)
+{
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
+  {
+    re::DynamicArray<re::GeomModelDescriptor::AttributeData>::growCapacity(this, v4 + 1);
+    v4 = *(this + 2);
+  }
+
+  v5 = *(this + 4) + 56 * v4;
+  result = 0.0;
+  *v5 = 0u;
+  *(v5 + 16) = 0u;
+  *(v5 + 24) = *(a2 + 24);
+  v7 = *(a2 + 8);
+  *v5 = *a2;
+  *a2 = 0;
+  v8 = *(a2 + 16);
+  *(a2 + 24) = 0;
+  v10 = *(v5 + 8);
+  v9 = *(v5 + 16);
+  *(v5 + 8) = v7;
+  *(v5 + 16) = v8;
+  *(a2 + 8) = v10;
+  *(a2 + 16) = v9;
+  *(v5 + 32) = *(a2 + 32);
+  *(v5 + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  *(v5 + 48) = *(a2 + 48);
+  *(a2 + 48) = 0;
+  ++*(this + 2);
+  ++*(this + 6);
+  return result;
+}
+
+__n128 re::GeomModelDescriptor::addAttributeAlias@<Q0>(re::GeomModelDescriptor *this@<X0>, const re::DynamicString *a2@<X1>, const re::DynamicString *a3@<X2>, uint64_t a4@<X8>)
+{
+  v8 = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet(this + 48, a2);
+  if (v8)
+  {
+    v9 = v8;
+    v10 = re::Hash<re::DynamicString>::operator()(&v19, a3);
+    re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<re::DynamicString>(this + 48, v10, &v19, a3);
+    if (v19.n128_u32[3] == 0x7FFFFFFF || (v11 = re::Hash<re::DynamicString>::operator()(&v19, a3), v12 = re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<re::DynamicString>(this + 136, v11, &v19, a3), v19.n128_u32[3] != 0x7FFFFFFF))
+    {
+      if (*(a3 + 1))
+      {
+        v14 = *(a3 + 2);
+      }
+
+      else
+      {
+        v14 = a3 + 9;
+      }
+
+      v15 = strcmp(v14, "vertexPosition");
+      if (v15)
+      {
+        v15 = strcmp(v14, "vertexUV");
+        if (v15)
+        {
+          v15 = strcmp(v14, "vertexNormal");
+          if (v15)
+          {
+            v15 = strcmp(v14, "vertexTangent");
+            if (v15)
+            {
+              v15 = strcmp(v14, "vertexBitangent");
+              if (v15)
+              {
+                v15 = strcmp(v14, "vertexColor");
+                if (v15)
+                {
+                  re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addOrReplace(this + 136, a3, a2);
+                  v19.n128_u64[0] = *v9;
+                  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addOrReplace(this + 48, a3, &v19);
+                  *a4 = 1;
+                  return result;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      v13 = "Alias with core attribute name";
+    }
+
+    else
+    {
+      v13 = "Alias with same name as existing attribute";
+    }
+  }
+
+  else
+  {
+    v13 = "Alias for missing attribute";
+  }
+
+  result = v19;
+  v17 = v20;
+  v18 = v21;
+  *a4 = 0;
+  *(a4 + 8) = 100;
+  *(a4 + 16) = re::AssetErrorCategory(void)::instance;
+  *(a4 + 24) = result;
+  *(a4 + 40) = v17;
+  *(a4 + 48) = v18;
+  return result;
+}
+
+uint64_t re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addOrReplace(uint64_t a1, const re::DynamicString *a2, void *a3)
+{
+  v10 = 0;
+  v11 = 0;
+  v12 = 0;
+  v6 = re::Hash<re::DynamicString>::operator()(&v13, a2);
+  result = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<re::DynamicString>(a1, v6, &v10, a2);
+  v8 = HIDWORD(v11);
+  if (HIDWORD(v11) == 0x7FFFFFFF)
+  {
+    v9 = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(a1, v11, v10);
+    result = re::DynamicString::DynamicString((v9 + 8), a2);
+    *(v9 + 40) = *a3;
+    ++*(a1 + 40);
+  }
+
+  else
+  {
+    ++*(a1 + 40);
+    *(*(a1 + 16) + 56 * v8 + 40) = *a3;
+  }
+
+  return result;
+}
+
+uint64_t re::GeomModelDescriptor::removeAttributeAlias@<X0>(re::GeomModelDescriptor *this@<X0>, const re::DynamicString *a2@<X1>, _BYTE *a3@<X8>)
+{
+  v6 = re::Hash<re::DynamicString>::operator()(v8, a2);
+  result = re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<re::DynamicString>(this + 136, v6, v8, a2);
+  if (v9 != 0x7FFFFFFF)
+  {
+    re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::remove(this + 136, a2);
+    result = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::remove(this + 48, a2);
+  }
+
+  *a3 = 1;
+  return result;
+}
+
+__n128 re::GeomModelDescriptor::setMaterialAssignmentsPerFace@<Q0>(_anonymous_namespace_ *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v14[0] = a2;
+  v14[1] = a3;
+  if (a3)
+  {
+    re::GeomModelDescriptor::makeSlicePayload<unsigned int>(v14, &v11);
+    v7 = v11.n128_u64[0];
+    v11.n128_u64[0] = 0;
+    v8 = *(a1 + 1);
+    *(a1 + 1) = v7;
+    if (v8)
+    {
+
+      if (v11.n128_u64[0])
+      {
+      }
+    }
+
+    *a4 = 1;
+  }
+
+  else
+  {
+    result = v11;
+    v9 = v12;
+    v10 = v13;
+    *a4 = 0;
+    *(a4 + 8) = 100;
+    *(a4 + 16) = re::AssetErrorCategory(void)::instance;
+    *(a4 + 24) = result;
+    *(a4 + 40) = v9;
+    *(a4 + 48) = v10;
+  }
+
+  return result;
+}
+
+uint64_t re::GeomModelDescriptor::makeSlicePayload<unsigned int>@<X0>(re *a1@<X0>, uint64_t *a2@<X8>)
+{
+  v4 = re::globalAllocators(a1);
+  v6 = *(a1 + 1);
+  if (!v6)
+  {
+    v9 = 0;
+    v8 = 0;
+    goto LABEL_6;
+  }
+
+  if (!(v6 >> 62) && 4 * v6 < 0xFFFFFFFFFFFFFFF0)
+  {
+    v7 = (*(*v4[2] + 32))(v4[2], (4 * v6 + 16) | 3, 0);
+    v8 = ((v7 + 19) & 0xFFFFFFFFFFFFFFFCLL);
+    *(v8 - 2) = v6;
+    *(v8 - 1) = v7;
+    bzero(v8, 4 * v6);
+    v9 = 4 * *(a1 + 1);
+LABEL_6:
+    v18 = v8;
+    memcpy(v8, *a1, v9);
+    v10 = *(a1 + 1);
+    v16 = 4;
+    v17 = v10;
+    v15 = 0;
+    v14 = 1;
+    return re::make::shared::object<re::internal::DataPayload,unsigned char *&,re::GeomModelValueType const&,unsigned long,unsigned long,int,BOOL,unsigned char *&,void (&)(void const*)>(&v18, re::ConvertToGeomModelValueType<unsigned int>::kValueType, &v17, &v16, &v15, &v14, &v18, re::GeomModelDescriptor::freeReNewedArrayData<unsigned int>, a2);
+  }
+
+  re::internal::assertLog(6, v5, "assertion failure: '%s' (%s:line %i) Size overflow in allocateArray. Element size = %zu, count = %zu", "!overflow", "allocateArray", 61, 4, v6);
+  result = _os_crash("assertion failure: (!overflow) Size overflow in allocateArray. Element size = %zu, count = %zu", v12, v13);
+  __break(1u);
+  return result;
+}
+
+unint64_t *re::GeomModelDescriptor::deleteAttribute@<X0>(re::GeomModelDescriptor *this@<X0>, const re::DynamicString *a2@<X1>, _BYTE *a3@<X8>)
+{
+  v76 = *MEMORY[0x1E69E9840];
+  result = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet(this + 48, a2);
+  if (!result)
+  {
+    *a3 = 1;
+    return result;
+  }
+
+  v7 = result;
+  v8 = &v71;
+  v9 = *result;
+  v10 = *(this + 14);
+  if (v10 <= *result)
+  {
+LABEL_71:
+    v60 = 0;
+    v8[3] = 0u;
+    v8[4] = 0u;
+    v72 = 0u;
+    v73 = 0u;
+    v71 = 0u;
+    v44 = MEMORY[0x1E69E9C10];
+    v45 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v63 = 136315906;
+    v64 = "operator[]";
+    v65 = 1024;
+    if (v45)
+    {
+      v46 = 3;
+    }
+
+    else
+    {
+      v46 = 2;
+    }
+
+    v66 = 789;
+    v67 = 2048;
+    v68 = v9;
+    v69 = 2048;
+    v70 = v10;
+    _os_log_send_and_compose_impl(v46, &v60, &v71, 80, &dword_1E1C61000, v44, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v63, 38, v56, v57);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_75;
+  }
+
+  v58 = a3;
+  re::DynamicString::DynamicString(&v60, (*(this + 16) + 56 * v9));
+  v59 = *(this + 14);
+  v9 = v59 - 1;
+  v3 = *v7;
+  if (v59 - 1 != *v7)
+  {
+    v10 = *(this + 14);
+    if (!v59)
+    {
+LABEL_75:
+      v62 = 0;
+      v74 = 0u;
+      v75 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      v71 = 0u;
+      v47 = MEMORY[0x1E69E9C10];
+      v48 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v63 = 136315906;
+      v64 = "operator[]";
+      v65 = 1024;
+      if (v48)
+      {
+        v49 = 3;
+      }
+
+      else
+      {
+        v49 = 2;
+      }
+
+      v66 = 789;
+      v67 = 2048;
+      v68 = v9;
+      v69 = 2048;
+      v70 = 0;
+      _os_log_send_and_compose_impl(v49, &v62, &v71, 80, &dword_1E1C61000, v47, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v63, 38, v56, v58);
+      _os_crash_msg();
+      __break(1u);
+      goto LABEL_79;
+    }
+
+    if (v59 <= v3)
+    {
+LABEL_79:
+      v62 = 0;
+      v74 = 0u;
+      v75 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      v71 = 0u;
+      v50 = MEMORY[0x1E69E9C10];
+      v51 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v63 = 136315906;
+      v64 = "operator[]";
+      v65 = 1024;
+      if (v51)
+      {
+        v52 = 3;
+      }
+
+      else
+      {
+        v52 = 2;
+      }
+
+      v66 = 789;
+      v67 = 2048;
+      v68 = v3;
+      v69 = 2048;
+      v70 = v10;
+      _os_log_send_and_compose_impl(v52, &v62, &v71, 80, &dword_1E1C61000, v50, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v63, 38, v56, v58);
+      _os_crash_msg();
+      __break(1u);
+LABEL_83:
+      v62 = 0;
+      v74 = 0u;
+      v75 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      v71 = 0u;
+      v53 = MEMORY[0x1E69E9C10];
+      v54 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v63 = 136315906;
+      v64 = "operator[]";
+      v65 = 1024;
+      if (v54)
+      {
+        v55 = 3;
+      }
+
+      else
+      {
+        v55 = 2;
+      }
+
+      v66 = 789;
+      v67 = 2048;
+      v68 = v10;
+      v69 = 2048;
+      v70 = v3;
+      _os_log_send_and_compose_impl(v55, &v62, &v71, 80, &dword_1E1C61000, v53, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v63, 38, v56, v58);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    v11 = *(this + 16);
+    v12 = v11 + 56 * v9;
+    v13 = v11 + 56 * v3;
+    re::DynamicString::operator=(v13, v12);
+    *(v13 + 32) = *(v12 + 32);
+    re::SharedPtr<re::SkeletalPoseJointDefinition>::reset((v13 + 40), *(v12 + 40));
+    re::SharedPtr<re::SkeletalPoseJointDefinition>::reset((v13 + 48), *(v12 + 48));
+    v10 = *v7;
+    v3 = *(this + 14);
+    if (v3 <= *v7)
+    {
+      goto LABEL_83;
+    }
+
+    re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addOrReplace(this + 48, (*(this + 16) + 56 * v10), v7);
+    v10 = *(this + 42);
+    if (v10)
+    {
+      v3 = 0;
+      v14 = *(this + 19);
+      while (1)
+      {
+        v15 = *v14;
+        v14 += 20;
+        if (v15 < 0)
+        {
+          break;
+        }
+
+        if (v10 == ++v3)
+        {
+          v3 = *(this + 42);
+          break;
+        }
+      }
+    }
+
+    else
+    {
+      v3 = 0;
+    }
+
+    if (v3 != v10)
+    {
+      v16 = *(this + 42);
+      while (1)
+      {
+        v17 = *v7;
+        v18 = *(this + 14);
+        if (v18 <= *v7)
+        {
+          break;
+        }
+
+        v19 = *(this + 19);
+        if (re::DynamicString::operator==(v19 + 80 * v3 + 40, *(this + 16) + 56 * v17))
+        {
+          re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addOrReplace(this + 48, (v19 + 80 * v3 + 8), v7);
+          v16 = *(this + 42);
+        }
+
+        if (v16 <= v3 + 1)
+        {
+          v20 = (v3 + 1);
+        }
+
+        else
+        {
+          v20 = v16;
+        }
+
+        while (v20 - 1 != v3)
+        {
+          v3 = (v3 + 1);
+          if ((*(*(this + 19) + 80 * v3) & 0x80000000) != 0)
+          {
+            goto LABEL_26;
+          }
+        }
+
+        v3 = v20;
+LABEL_26:
+        if (v3 == v10)
+        {
+          goto LABEL_27;
+        }
+      }
+
+      v62 = 0;
+      v74 = 0u;
+      v75 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      v71 = 0u;
+      v41 = MEMORY[0x1E69E9C10];
+      v42 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v63 = 136315906;
+      v64 = "operator[]";
+      v65 = 1024;
+      if (v42)
+      {
+        v43 = 3;
+      }
+
+      else
+      {
+        v43 = 2;
+      }
+
+      v66 = 789;
+      v67 = 2048;
+      v68 = v17;
+      v69 = 2048;
+      v70 = v18;
+      _os_log_send_and_compose_impl(v43, &v62, &v71, 80, &dword_1E1C61000, v41, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v63, 38, v56, v58);
+      _os_crash_msg();
+      __break(1u);
+      goto LABEL_71;
+    }
+  }
+
+LABEL_27:
+  v21 = re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::remove(this + 48, &v60);
+  v22 = *(this + 14);
+  if (v22 < v9)
+  {
+    if (*(this + 13) < v9)
+    {
+      v21 = re::DynamicArray<re::GeomModelDescriptor::AttributeData>::setCapacity(this + 12, v9);
+      v22 = *(this + 14);
+    }
+
+    if (v22 < v9)
+    {
+      v23 = ~v22 + v59;
+      v24 = 56 * v22;
+      do
+      {
+        v25 = *(this + 16) + v24;
+        *(v25 + 32) = 4;
+        v24 += 56;
+        *(v25 + 40) = 0;
+        *(v25 + 48) = 0;
+        --v23;
+      }
+
+      while (v23);
+    }
+
+LABEL_41:
+    *(this + 14) = v9;
+    ++*(this + 30);
+    goto LABEL_42;
+  }
+
+  if (v22 > v9)
+  {
+    v26 = 56 * v59;
+    v27 = v59 - 1;
+    do
+    {
+      v28 = *(this + 16) + v26;
+      v29 = *(v28 - 8);
+      if (v29)
+      {
+
+        *(v28 - 8) = 0;
+      }
+
+      v30 = *(v28 - 16);
+      if (v30)
+      {
+
+        *(v28 - 16) = 0;
+      }
+
+      re::DynamicString::deinit((v28 - 56));
+      ++v27;
+      v26 += 56;
+    }
+
+    while (v27 < *(this + 14));
+    goto LABEL_41;
+  }
+
+LABEL_42:
+  *&v73 = 0;
+  *&v72 = 0;
+  v71 = 0uLL;
+  DWORD2(v72) = 0;
+  v31 = *(this + 42);
+  if (v31)
+  {
+    v32 = 0;
+    v33 = *(this + 19);
+    v34 = v58;
+    while (1)
+    {
+      v35 = *v33;
+      v33 += 20;
+      if (v35 < 0)
+      {
+        break;
+      }
+
+      if (v31 == ++v32)
+      {
+        LODWORD(v32) = *(this + 42);
+        break;
+      }
+    }
+  }
+
+  else
+  {
+    LODWORD(v32) = 0;
+    v34 = v58;
+  }
+
+  if (v32 != v31)
+  {
+    v36 = *(this + 42);
+    do
+    {
+      v37 = *(this + 19);
+      if (re::DynamicString::operator==(v37 + 80 * v32 + 40, &v60))
+      {
+        re::DynamicArray<re::DynamicString>::add(&v71, (v37 + 80 * v32 + 8));
+        v36 = *(this + 42);
+      }
+
+      if (v36 <= v32 + 1)
+      {
+        v38 = v32 + 1;
+      }
+
+      else
+      {
+        v38 = v36;
+      }
+
+      while (v38 - 1 != v32)
+      {
+        LODWORD(v32) = v32 + 1;
+        if ((*(*(this + 19) + 80 * v32) & 0x80000000) != 0)
+        {
+          goto LABEL_59;
+        }
+      }
+
+      LODWORD(v32) = v38;
+LABEL_59:
+      ;
+    }
+
+    while (v32 != v31);
+    if (v72)
+    {
+      v39 = v73;
+      v40 = 32 * v72;
+      do
+      {
+        re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::remove(this + 136, v39);
+        re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::remove(this + 48, v39);
+        v39 += 4;
+        v40 -= 32;
+      }
+
+      while (v40);
+    }
+  }
+
+  *v34 = 1;
+  re::DynamicArray<re::DynamicString>::deinit(&v71);
+  result = v60;
+  if (v60)
+  {
+    if (v61)
+    {
+      return (*(*v60 + 40))();
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::GeomModelDescriptor::emptyAttribute(re::GeomModelDescriptor *this)
+{
+  v1 = &re::introspect_StateTransitionInterruptionType(BOOL)::isInitialized;
+  {
+    v1 = &re::introspect_StateTransitionInterruptionType(BOOL)::isInitialized;
+    if (v3)
+    {
+      operator new();
+    }
+  }
+
+  return *(v1 + 413);
+}
+
+re::DynamicString *re::GeomModelDescriptor::AttributeData::AttributeData(re::GeomModelDescriptor::AttributeData *this)
+{
+  *(this + 32) = 4;
+  *(this + 5) = 0;
+  *(this + 6) = 0;
+  return result;
+}
+
+uint64_t std::__function::__func<void (*)(void const*),std::allocator<void (*)(void const*)>,void ()(void const*)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_1F5D0BD20;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t std::__function::__func<void (*)(void const*),std::allocator<void (*)(void const*)>,void ()(void const*)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__value_func<void ()(void const*)>::~__value_func[abi:nn200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+_anonymous_namespace_ *re::DynamicArray<re::GeomModelDescriptor::AttributeData>::growCapacity(_anonymous_namespace_ *this, unint64_t a2)
+{
+  v2 = *(this + 1);
   if (v2 < a2)
   {
     v3 = a2;
@@ -2304,12 +6638,12 @@ void *re::DynamicArray<re::CustomStatsLineInfo>::growCapacity(void *this, unint6
         a2 = v7;
       }
 
-      return re::DynamicArray<re::CustomStatsLineInfo>::setCapacity(this, a2);
+      return re::DynamicArray<re::GeomModelDescriptor::AttributeData>::setCapacity(this, a2);
     }
 
     else
     {
-      this = re::DynamicArray<re::CustomStatsLineInfo>::setCapacity(v4, v3);
+      this = re::DynamicArray<re::GeomModelDescriptor::AttributeData>::setCapacity(v4, v3);
       ++*(v4 + 6);
     }
   }
@@ -2317,8414 +6651,3353 @@ void *re::DynamicArray<re::CustomStatsLineInfo>::growCapacity(void *this, unint6
   return this;
 }
 
-uint64_t re::profilerThreadContext(re *this)
+void *re::DynamicArray<re::GeomModelDescriptor::AttributeData>::setCapacity(void *result, unint64_t a2)
 {
-  if ((*v2 & 1) == 0)
+  v3 = result[1];
+  if (v3 != a2)
   {
-    re::ProfilerThreadContext::ProfilerThreadContext(v2);
-    v4 = re::profilerThreadContext(void)::context(&re::profilerThreadContext(void)::context);
-    _tlv_atexit(re::ProfilerThreadContext::~ProfilerThreadContext, v4);
-  }
-
-  return re::profilerThreadContext(void)::context(&re::profilerThreadContext(void)::context);
-}
-
-void re::ProfilerThreadContext::~ProfilerThreadContext(re::ProfilerThreadContext *this)
-{
-  v2 = *(this + 15);
-  if (v2)
-  {
-    *(this + 16) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(this + 12);
-  if (v3)
-  {
-    *(this + 13) = v3;
-    operator delete(v3);
-  }
-
-  v4 = *(this + 9);
-  if (v4)
-  {
-    *(this + 10) = v4;
-    operator delete(v4);
-  }
-}
-
-__n128 re::ProfilerThreadContext::ProfilerThreadContext(re::ProfilerThreadContext *this)
-{
-  v1 = re::profilerThreadContext(void)::context;
-  v2 = re::profilerThreadContext(void)::context(&re::profilerThreadContext(void)::context);
-  *v2 = 0;
-  *(v2 + 64) = atomic_fetch_add(&re::ProfilerThreadContext::s_threadId, 1uLL);
-  *(v2 + 72) = 0u;
-  *(v2 + 88) = 0u;
-  *(v2 + 104) = 0u;
-  *(v2 + 120) = 0u;
-  *(v2 + 136) = 0u;
-  *(v2 + 152) = 0u;
-  *(v2 + 168) = 0u;
-  *(v2 + 184) = 0;
-  v3 = pthread_self();
-  if (pthread_getname_np(v3, v2, 0x40uLL))
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = *v2 == 0;
-  }
-
-  if (v4)
-  {
-    v8 = pthread_self();
-    v5 = v1(&re::profilerThreadContext(void)::context);
-    snprintf(v5, 0x40uLL, "Thread %p", v8);
-  }
-
-  v6 = v1(&re::profilerThreadContext(void)::context);
-  *(v6 + 176) = 0;
-  result = 0uLL;
-  *(v6 + 144) = 0u;
-  *(v6 + 160) = 0u;
-  if (*(v6 + 112) - *(v6 + 96) <= 0x1FuLL)
-  {
-    v1(&re::profilerThreadContext(void)::context);
-    operator new();
-  }
-
-  return result;
-}
-
-void re::ProfilerThreadContext::begin(re::ProfilerThreadContext *this, re::ProfilerManager *a2, uint64_t a3, int a4)
-{
-  *(this + 184) = 1;
-  v8 = re::ProfilerManager::acquireEventStream(a2, a4);
-  v9 = re::ProfilerManager::acquireStatistics(a2, a4);
-  v10 = re::ProfilerManager::acquireAttributions(a2, a4);
-  v11 = re::ProfilerManager::acquireVisualizer(a2);
-  v12 = re::ProfilerManager::acquireMemoryStatistics(a2, a4);
-  v13 = v12;
-  v14 = *(this + 10);
-  v15 = *(this + 11);
-  if (v14 >= v15)
-  {
-    v25 = a3;
-    v17 = *(this + 9);
-    v18 = v14 - v17;
-    v19 = 0x6DB6DB6DB6DB6DB7 * ((v14 - v17) >> 3);
-    v20 = v19 + 1;
-    if ((v19 + 1) > 0x492492492492492)
+    v5 = result;
+    if (result[2] <= a2)
     {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v21 = 0x6DB6DB6DB6DB6DB7 * ((v15 - v17) >> 3);
-    if (2 * v21 > v20)
-    {
-      v20 = 2 * v21;
-    }
-
-    if (v21 >= 0x249249249249249)
-    {
-      v22 = 0x492492492492492;
-    }
-
-    else
-    {
-      v22 = v20;
-    }
-
-    if (v22)
-    {
-      if (v22 <= 0x492492492492492)
+      result = *result;
+      if (!*v5)
       {
-        operator new();
+        result = re::DynamicArray<re::GeomModelDescriptor::AttributeData>::setCapacity(v5, a2);
+        ++*(v5 + 6);
+        return result;
       }
 
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v23 = 56 * v19;
-    *v23 = v25;
-    *(v23 + 8) = a2;
-    *(v23 + 16) = v8;
-    *(v23 + 24) = v9;
-    *(v23 + 32) = v10;
-    *(v23 + 40) = v11;
-    *(v23 + 48) = v12;
-    v16 = 56 * v19 + 56;
-    v24 = (56 * v19 - v18);
-    memcpy(v24, v17, v18);
-    *(this + 9) = v24;
-    *(this + 10) = v16;
-    *(this + 11) = 0;
-    if (v17)
-    {
-      operator delete(v17);
-    }
-
-    a3 = v25;
-  }
-
-  else
-  {
-    *v14 = a3;
-    *(v14 + 1) = a2;
-    *(v14 + 2) = v8;
-    *(v14 + 3) = v9;
-    *(v14 + 4) = v10;
-    *(v14 + 5) = v11;
-    v16 = (v14 + 56);
-    *(v14 + 6) = v12;
-  }
-
-  *(this + 10) = v16;
-  *(this + 18) = v8;
-  *(this + 19) = v9;
-  *(this + 20) = v10;
-  *(this + 21) = v11;
-  *(this + 22) = v13;
-  if (v9)
-  {
-    *(v9 + 8) = a3;
-  }
-
-  *(this + 184) = 0;
-}
-
-void re::ProfilerThreadContext::end(re::ProfilerThreadContext *this)
-{
-  *(this + 184) = 1;
-  v2 = *(this + 10);
-  if (*(this + 9) == v2)
-  {
-    v10 = *re::foundationProfilingLogObjects(this);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      *v11 = 0;
-      _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Unbalanced calls to ProfilerThreadContext begin and end.", v11, 2u);
-    }
-
-    goto LABEL_16;
-  }
-
-  v3 = *(v2 - 40);
-  if (v3)
-  {
-    re::ProfilerManager::submit(*(v2 - 48), v3);
-  }
-
-  v4 = *(v2 - 32);
-  if (v4)
-  {
-    re::ProfilerManager::submit(*(v2 - 48), v4);
-  }
-
-  v5 = *(v2 - 24);
-  if (v5)
-  {
-    re::ProfilerManager::submit(*(v2 - 48), v5);
-  }
-
-  v6 = *(v2 - 16);
-  if (v6)
-  {
-    re::ProfilerManager::submit(*(v2 - 48), v6);
-  }
-
-  v7 = *(v2 - 8);
-  if (v7)
-  {
-    re::ProfilerManager::submit(*(v2 - 48), v7);
-  }
-
-  v9 = *(this + 9);
-  v8 = *(this + 10);
-  *(this + 10) = v8 - 56;
-  if (v9 == v8 - 56)
-  {
-LABEL_16:
-    *(this + 22) = 0;
-    *(this + 9) = 0u;
-    *(this + 10) = 0u;
-    goto LABEL_17;
-  }
-
-  *(this + 9) = *(v8 - 96);
-  *(this + 10) = *(v8 - 80);
-  *(this + 22) = *(v8 - 64);
-LABEL_17:
-  *(this + 184) = 0;
-}
-
-uint64_t re::ProfilerConfig::isStatisticCollectionEnabled(re::ProfilerConfig *this)
-{
-  v3 = &re::introspect_BOOL(BOOL)::info;
-  {
-    v9 = v1;
-    v10 = v2;
-    v3 = &re::introspect_BOOL(BOOL)::info;
-    if (v5)
-    {
-      re::Defaults::BOOLValue("profiler.statisticcollection.enable", v6, v8);
-      v7 = v8[1];
-      if (!v8[0])
-      {
-        v7 = 1;
-      }
-
-      re::ProfilerConfig::isStatisticCollectionEnabled(void)::enabled = v7;
-      v3 = &re::introspect_BOOL(BOOL)::info;
-    }
-  }
-
-  return v3[208];
-}
-
-uint64_t re::internal::PerfStats::beginStatisticsCollection(integer_t *this)
-{
-  if (*(this + 929) == 1)
-  {
-
-    return puts("Starting perf stats already collected");
-  }
-
-  else
-  {
-    v11 = v1;
-    v12 = v2;
-    re::internal::enableMemoryStatsCollection(this);
-    v5 = getpid();
-    this[233] = proc_pid_rusage(v5, 4, this) == 0;
-    v6 = this[237];
-    if (v6 == 31 || v6 == 4)
-    {
-      host_info64_outCnt = 40;
-      v8 = MEMORY[0x1E69071F0]();
-      if (host_statistics64(v8, 4, this + 148, &host_info64_outCnt))
-      {
-        printf("failed to get statistics. error %d", 1);
-        v9 = 0;
-      }
-
-      else
-      {
-        v9 = 1;
-      }
-
-      this[235] = v9;
-    }
-
-    result = mach_absolute_time();
-    *(this + 114) = result;
-    *(this + 929) = 1;
-  }
-
-  return result;
-}
-
-void re::internal::PerfStats::endStatisticsCollection(re::internal::PerfStats *this, int a2)
-{
-  if (*(this + 930) == 1)
-  {
-
-    puts("Ending perf stats already collected");
-  }
-
-  else
-  {
-    v23 = v2;
-    v24 = v3;
-    *(this + 115) = mach_absolute_time();
-    v6 = getpid();
-    v7 = proc_pid_rusage(v6, 4, this + 37);
-    *(this + 234) = v7 == 0;
-    v8 = *(this + 237);
-    if (v8 == 31 || v8 == 4)
-    {
-      host_info64_outCnt = 40;
-      v10 = MEMORY[0x1E69071F0]();
-      v7 = host_statistics64(v10, 4, this + 188, &host_info64_outCnt);
-      if (v7)
-      {
-        v7 = printf("failed to get statistics. error %d", 1);
-        v11 = 0;
-      }
-
-      else
-      {
-        v11 = 1;
-      }
-
-      *(this + 236) = v11;
-    }
-
-    re::internal::disableMemoryStatsCollection(v7);
-    *(this + 122) = v12;
-    *(this + 123) = v13;
-    *(this + 124) = v14;
-    *(this + 125) = v15;
-    *(this + 126) = v16;
-    *(this + 127) = v17;
-    *(this + 128) = v18;
-    *(this + 129) = v19;
-    *(this + 130) = v20;
-    *(this + 131) = v21;
-    *(this + 930) = 1;
-    if (*(this + 233) && *(this + 234))
-    {
       if (a2)
       {
-        re::internal::PerfStats::printStatistics(this, *(this + 237));
-      }
-
-      if (*(this + 928) == 1)
-      {
-        re::internal::PerfStats::dumpToJson(this, *(this + 237));
-      }
-    }
-  }
-}
-
-re::internal::PerfStats *re::internal::PerfStats::printStatistics(re::internal::PerfStats *this, int a2)
-{
-  v2 = this;
-  if (a2 <= 3)
-  {
-    if (a2 == 1)
-    {
-
-      return re::internal::PerfStats::printCPUStatistics(this);
-    }
-
-    else
-    {
-      if (a2 != 2)
-      {
-        if (a2 != 3)
+        if (is_mul_ok(a2, 0x38uLL))
         {
-          return this;
+          v2 = 56 * a2;
+          result = (*(*result + 32))(result, 56 * a2, 8);
+          if (result)
+          {
+            v7 = result;
+            if (!v5[1])
+            {
+              goto LABEL_18;
+            }
+
+            goto LABEL_11;
+          }
         }
 
-        re::internal::PerfStats::printCPUStatistics(this);
+        else
+        {
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 56, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v17, v19);
+          __break(1u);
+        }
+
+        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v18, v20);
+        __break(1u);
+        return result;
       }
 
-      return re::internal::PerfStats::printMemoryStatistics(v2);
-    }
-  }
-
-  else if (a2 > 15)
-  {
-    if (a2 != 16)
-    {
-      if (a2 != 31)
+      v7 = 0;
+      if (!v3)
       {
-        return this;
+LABEL_18:
+        v5[4] = v7;
+        v5[1] = a2;
+        return result;
       }
 
-      re::internal::PerfStats::printCPUStatistics(this);
-      re::internal::PerfStats::printQoSStatistics(v2);
-      re::internal::PerfStats::printMemoryStatistics(v2);
-      re::internal::PerfStats::printVMPagingStatistics(v2);
-    }
-
-    return re::internal::PerfStats::printDiskStatistics(v2);
-  }
-
-  else if (a2 == 4)
-  {
-
-    return re::internal::PerfStats::printVMPagingStatistics(this);
-  }
-
-  else if (a2 == 8)
-  {
-
-    return re::internal::PerfStats::printQoSStatistics(this);
-  }
-
-  return this;
-}
-
-uint64_t re::internal::PerfStats::dumpToJson(uint64_t a1, int a2)
-{
-  v28[19] = *MEMORY[0x1E69E9840];
-  v28[6] = 0;
-  v4 = MEMORY[0x1E69E5530] + 24;
-  v5 = MEMORY[0x1E69E5530] + 64;
-  v28[0] = MEMORY[0x1E69E5530] + 64;
-  v6 = MEMORY[0x1E69E54D0];
-  v7 = *(MEMORY[0x1E69E54D0] + 16);
-  v26 = *(MEMORY[0x1E69E54D0] + 8);
-  *(&v27[-1] + *(v26 - 24)) = v7;
-  v8 = (&v27[-1] + *(v26 - 24));
-  std::ios_base::init(v8, v27);
-  v8[1].__vftable = 0;
-  v8[1].__fmtflags_ = -1;
-  v26 = v4;
-  v28[0] = v5;
-  MEMORY[0x1E6906010](v27);
-  if (!std::filebuf::open())
-  {
-    std::ios_base::clear((&v27[-1] + *(v26 - 24)), *(&v27[3] + *(v26 - 24)) | 4);
-  }
-
-  if (!v27[15])
-  {
-    puts("\nError in opening results file....");
-    goto LABEL_28;
-  }
-
-  puts("\nResults file opened....");
-  v25[6] = 0;
-  v9 = MEMORY[0x1E69E5528] + 24;
-  v10 = MEMORY[0x1E69E5528] + 64;
-  v25[0] = MEMORY[0x1E69E5528] + 64;
-  v11 = *(MEMORY[0x1E69E54C8] + 16);
-  v23[0] = *(MEMORY[0x1E69E54C8] + 8);
-  *(v23 + *(v23[0] - 24)) = v11;
-  v23[1] = 0;
-  v12 = (v23 + *(v23[0] - 24));
-  std::ios_base::init(v12, v24);
-  v12[1].__vftable = 0;
-  v12[1].__fmtflags_ = -1;
-  v23[0] = v9;
-  v25[0] = v10;
-  MEMORY[0x1E6906010](v24);
-  if (!std::filebuf::open())
-  {
-    std::ios_base::clear((v23 + *(v23[0] - 24)), *&v24[*(v23[0] - 24) + 16] | 4);
-  }
-
-  std::istream::get();
-  if ((*&v24[*(v23[0] - 24) + 16] & 2) != 0)
-  {
-    v13 = "[\n";
-  }
-
-  else
-  {
-    v13 = ",\n";
-  }
-
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, v13, 2);
-  if (!std::filebuf::close())
-  {
-    std::ios_base::clear((v23 + *(v23[0] - 24)), *&v24[*(v23[0] - 24) + 16] | 4);
-  }
-
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, "{\n", 2);
-  v14 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, "\tModuleName : ", 17);
-  v15 = strlen(*(a1 + 952));
-  v16 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v14, *(a1 + 952), v15);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v16, ",\n", 3);
-  v17 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, "\tTestName : ", 15);
-  v18 = strlen(*(a1 + 960));
-  v19 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, *(a1 + 960), v18);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, ",\n", 3);
-  if (a2 > 7)
-  {
-    if (a2 == 8)
-    {
-      re::internal::PerfStats::addQoSStatisticsToJson(a1, &v26);
-      goto LABEL_25;
-    }
-
-    if (a2 != 16)
-    {
-      if (a2 != 31)
-      {
-        goto LABEL_25;
-      }
-
-      re::internal::PerfStats::addCPUStatisticsToJson(a1, &v26);
-      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, ",\n", 2);
-      re::internal::PerfStats::addMemoryStatisticsToJson(a1, &v26);
-      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, ",\n", 2);
-      re::internal::PerfStats::addQoSStatisticsToJson(a1, &v26);
-      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, ",\n", 2);
-    }
-
-    re::internal::PerfStats::addDiskStatisticsToJson(a1, &v26);
-    goto LABEL_25;
-  }
-
-  switch(a2)
-  {
-    case 1:
-      re::internal::PerfStats::addCPUStatisticsToJson(a1, &v26);
-      break;
-    case 2:
-      goto LABEL_16;
-    case 3:
-      re::internal::PerfStats::addCPUStatisticsToJson(a1, &v26);
-      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, ",\n", 2);
-LABEL_16:
-      re::internal::PerfStats::addMemoryStatisticsToJson(a1, &v26);
-      break;
-  }
-
-LABEL_25:
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v26, "\n}", 2);
-  v20 = getcwd(v22, 0x400uLL);
-  printf("\nTrace file output in current working dir: %s\n", v20);
-  if (!std::filebuf::close())
-  {
-    std::ios_base::clear((&v27[-1] + *(v26 - 24)), *(&v27[3] + *(v26 - 24)) | 4);
-  }
-
-  v23[0] = *MEMORY[0x1E69E54C8];
-  *(v23 + *(v23[0] - 24)) = *(MEMORY[0x1E69E54C8] + 24);
-  MEMORY[0x1E6906020](v24);
-  std::istream::~istream();
-  MEMORY[0x1E6906460](v25);
-LABEL_28:
-  v26 = *v6;
-  *(&v27[-1] + *(v26 - 24)) = v6[3];
-  MEMORY[0x1E6906020](v27);
-  std::ostream::~ostream();
-  return MEMORY[0x1E6906460](v28);
-}
-
-uint64_t re::internal::PerfStats::printCPUStatistics(re::internal::PerfStats *this)
-{
-  v2 = *(this + 39);
-  v3 = *(this + 40);
-  v4 = *(this + 2);
-  v5 = *(this + 3);
-  v6 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v6 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      v9 = NAN;
-      goto LABEL_6;
-    }
-
-    LODWORD(v7) = info.numer;
-    LODWORD(v8) = info.denom;
-    v6 = v7 / v8;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v6;
-  }
-
-  v9 = v6 * (v3 + v2 - (v4 + v5));
-LABEL_6:
-  v10 = *(this + 115);
-  v11 = *(this + 114);
-  if (v6 < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v14 = NAN;
-      goto LABEL_11;
-    }
-
-    LODWORD(v12) = info.numer;
-    LODWORD(v13) = info.denom;
-    v6 = v12 / v13;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v6;
-  }
-
-  v14 = v6 * (v10 - v11);
 LABEL_11:
-  v15 = v9 / 1000000.0;
-  v16 = v14 / 1000000.0;
-  {
-  }
-
-  else
-  {
-    v17 = 100.0;
-  }
-
-  printf("\n-------------------\nModule : %s\n%s CPU Perf Stats\n-------------------\n", *(this + 119), *(this + 120));
-  return puts("-------------------");
-}
-
-uint64_t re::internal::PerfStats::printQoSStatistics(const char **this)
-{
-  printf("\n-------------------\nModule : %s\n%s QoS Perf Stats\n-------------------\n", this[119], this[120]);
-  v2 = this[57];
-  v3 = this[20];
-  v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      v7 = NAN;
-      goto LABEL_6;
-    }
-
-    LODWORD(v5) = info.numer;
-    LODWORD(v6) = info.denom;
-    v4 = v5 / v6;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
-  }
-
-  v7 = v4 * (v2 - v3);
-LABEL_6:
-  v8 = this[58];
-  v9 = this[21];
-  if (v4 < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      v12 = NAN;
-      goto LABEL_11;
-    }
-
-    LODWORD(v10) = info.numer;
-    LODWORD(v11) = info.denom;
-    v4 = v10 / v11;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
-  }
-
-  v12 = v4 * (v8 - v9);
-LABEL_11:
-  v13 = this[59];
-  v14 = this[22];
-  if (v4 < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      v17 = NAN;
-      goto LABEL_16;
-    }
-
-    LODWORD(v15) = info.numer;
-    LODWORD(v16) = info.denom;
-    v4 = v15 / v16;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
-  }
-
-  v17 = v4 * (v13 - v14);
-LABEL_16:
-  v18 = this[60];
-  v19 = this[23];
-  if (v4 < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      v22 = NAN;
-      goto LABEL_21;
-    }
-
-    LODWORD(v20) = info.numer;
-    LODWORD(v21) = info.denom;
-    v4 = v20 / v21;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
-  }
-
-  v22 = v4 * (v18 - v19);
-LABEL_21:
-  v23 = this[61];
-  v24 = this[24];
-  if (v4 < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      v27 = NAN;
-      goto LABEL_26;
-    }
-
-    LODWORD(v25) = info.numer;
-    LODWORD(v26) = info.denom;
-    v4 = v25 / v26;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
-  }
-
-  v27 = v4 * (v23 - v24);
-LABEL_26:
-  v28 = this[62];
-  v29 = this[25];
-  if (v4 < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      v32 = NAN;
-      goto LABEL_31;
-    }
-
-    LODWORD(v30) = info.numer;
-    LODWORD(v31) = info.denom;
-    v4 = v30 / v31;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
-  }
-
-  v32 = v4 * (v28 - v29);
-LABEL_31:
-  v33 = this[63];
-  v34 = this[26];
-  if (v4 >= 0.0)
-  {
-LABEL_35:
-    v37 = v4 * (v33 - v34);
-    goto LABEL_36;
-  }
-
-  if (!mach_timebase_info(&info))
-  {
-    LODWORD(v35) = info.numer;
-    LODWORD(v36) = info.denom;
-    v4 = v35 / v36;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
-    goto LABEL_35;
-  }
-
-  v37 = NAN;
-LABEL_36:
-  printf("QoS Threads CPU Scheduled Time\nDefault QoS Time [ms] : %f\nMaintenance QoS Time [ms] : %f\nBackground QoS Time [ms] : %f\nUtility QoS Time [ms] : %f\nLegacy QoS Time [ms] : %f\nUser Initiated QoS Time [ms] : %f\nUser Interactive QoS Time [ms] : %f\n", v7 / 1000000.0, v12 / 1000000.0, v17 / 1000000.0, v22 / 1000000.0, v27 / 1000000.0, v32 / 1000000.0, v37 / 1000000.0);
-  return puts("-------------------");
-}
-
-uint64_t re::internal::PerfStats::printMemoryStatistics(re::internal::PerfStats *this)
-{
-  v2 = *(this + 46);
-  v3 = *(this + 9);
-  v4 = v3 - v2;
-  v5 = v2 >= v3;
-  v6 = v2 - v3;
-  if (v5)
-  {
-    v7 = "Increase";
-  }
-
-  else
-  {
-    v7 = "Decrease";
-  }
-
-  if (!v5)
-  {
-    v6 = v4;
-  }
-
-  v8 = vcvtd_n_f64_u64(v6, 0xAuLL);
-  v9 = vcvtd_n_f64_u64(*(this + 45) - *(this + 8), 0xAuLL);
-  v10 = vcvtd_n_f64_u64(*(this + 44) - *(this + 7), 0xAuLL);
-  printf("\n-------------------\nModule : %s\n%s Memory Perf Stats\n-------------------\n", *(this + 119), *(this + 120));
-  printf("%s in Current Dirty Memory Footprint [kb] : %f\nPeak Dirty Memory Footprint [kb] : %f\n", v7, v8, *(this + 67) * 0.0009765625);
-  printf("Increase in Current Resident Memory Footprint [kb] : %f\nIncrease in Current Wired Memory Footprint [kb] : %f\n", v9, v10);
-  puts("\n-------- Malloc Allocation Stats --------");
-  printf("Total Heap Allocations [kb] : %f\nTotal Heap Deallocations [kb] : %f\nPeak Heap Allocations [kb] : %f\n", *(this + 125) * 0.0009765625, *(this + 126) * 0.0009765625, *(this + 127) * 0.0009765625);
-  printf("Total Heap Node Allocations: %llu\nTotal Heap Node Deallocations: %llu\n", *(this + 122), *(this + 123));
-  printf("Total VM Allocations [kb] : %f\nTotal VM Deallocations [kb] : %f\nPeak VM Allocations [kb] : %f\n", *(this + 129) * 0.0009765625, *(this + 130) * 0.0009765625, *(this + 131) * 0.0009765625);
-
-  return puts("-------------------");
-}
-
-uint64_t re::internal::PerfStats::printVMPagingStatistics(const char **this)
-{
-  printf("\n-------------------\nModule : %s\n%s Mach Virtual Memory Paging Stats : (page size of %llu bytes)\n-------------------\n", this[119], this[120], *MEMORY[0x1E69E9AB0]);
-  printf("-----\nPages free at start : %u\nPages free at end : %u\nChange in free pages : %u\n-----\n", *(this + 148) - *(this + 171), *(this + 188) - *(this + 211), *(this + 171) - *(this + 211));
-  printf("-----\nPages active at start : %u\nPages active at end : %u\nChange in active pages : %u\n-----\n", *(this + 149), *(this + 189), *(this + 189) - *(this + 149));
-  printf("-----\nPages inactive at start : %u\nPages inactive at end : %u\nChange in inactive page s: %u\n-----\n", *(this + 150), *(this + 190), *(this + 190) - *(this + 150));
-  printf("-----\nPages speculative at start : %u\nPages speculative at end : %u\nChange in speculative pages : %u\n-----\n", *(this + 171), *(this + 211), *(this + 211) - *(this + 171));
-  printf("-----\nPages uncompressed in compressor at start : %llu\nPages uncompressed in compressor  at end : %llu\nChange in uncompressed pages in compressor  : %llu\n-----\n", this[92], this[112], this[112] - this[92]);
-  printf("-----\nPages compressed in compressor at start : %u\nPages compressed in compressor at end : %u\nChange in compressed pages in compressor : %u\n-----\n", *(this + 180), *(this + 220), *(this + 220) - *(this + 180));
-  printf("-----\nPages file backed at start : %u\nPages file backed at end : %u\nChange in pages file backed : %u\n-----\n", *(this + 182), *(this + 222), *(this + 222) - *(this + 182));
-  printf("-----\nPages anonymous at start : %u\nPages anonymous at end : %u\nChange in anonymous pages : %u\n-----\n", *(this + 183), *(this + 223), *(this + 223) - *(this + 183));
-  printf("-----\nPages throttled at start : %u\nPages throttled at end : %u\nChange in throttled pages : %u\n-----\n", *(this + 181), *(this + 221), *(this + 221) - *(this + 181));
-  printf("-----\nPages wired down at start : %u\nPages wired down at end : %u\nChange in wired down pages : %u\n-----\n", *(this + 151), *(this + 191), *(this + 191) - *(this + 151));
-  printf("-----\nPages purgeable at start : %u\nPages purgeable at end : %u\nChange in purgeable pages : %u\n-----\n", *(this + 170), *(this + 210), *(this + 210) - *(this + 170));
-  printf("-----\nPage Faults : %llu\n-----\n", this[100] - this[80]);
-  printf("-----\nPage CoW faults : %llu\n-----\n", this[101] - this[81]);
-  printf("-----\nPages Zero Filled: %llu\n-----\n", this[96] - this[76]);
-  printf("-----\nPages Reactivated : %llu\n-----\n", this[97] - this[77]);
-  printf("-----\nPages Purged : %llu\n-----\n", this[104] - this[84]);
-  printf("-----\nPages Decompressed : %llu\n-----\n", this[106] - this[86]);
-  printf("-----\nPages Compressed : %llu\n-----\n", this[107] - this[87]);
-  printf("-----\nPage Ins : %llu\n-----\n", this[98] - this[78]);
-  printf("-----\nPage Outs : %llu\n-----\n", this[99] - this[79]);
-  printf("-----\nPage Swap Ins : %llu\n-----\n", this[108] - this[88]);
-  printf("-----\nPage Swap Outs : %llu\n-----\n", this[109] - this[89]);
-
-  return puts("-------------------");
-}
-
-uint64_t re::internal::PerfStats::printDiskStatistics(const char **this)
-{
-  printf("\n-------------------\nModule : %s\n%s Disk Perf Stats\n-------------------\n", this[119], this[120]);
-  printf("Total Bytes Read From Disk : %llu\nTotal Bytes Written To Disk : %llu\n", this[55] - this[18], this[56] - this[19]);
-
-  return puts("-------------------");
-}
-
-uint64_t re::internal::PerfStats::addCPUStatisticsToJson(void *a1, void *a2)
-{
-  v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-    }
-
-    else
-    {
-      LODWORD(v5) = info.numer;
-      LODWORD(v6) = info.denom;
-      v4 = v5 / v6;
-      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
-    }
-  }
-
-  if (v4 < 0.0 && !mach_timebase_info(&info))
-  {
-    LODWORD(v7) = info.numer;
-    LODWORD(v8) = info.denom;
-    *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = v7 / v8;
-  }
-
-  v9 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalCPUCoresAvailable : ", 28);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v10, ",\n", 2);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tCPUUtil[%] : ", 16);
-  v11 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v11, ",\n", 2);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalAbsoluteTime[ms] : ", 27);
-  v12 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v12, ",\n", 2);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalCPUScheduledTime[ms] : ", 31);
-  v13 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v13, ",\n", 2);
-  v14 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalCPUInstructions : ", 26);
-  v15 = MEMORY[0x1E6906120](v14, a1[68] - a1[31]);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, ",\n", 2);
-  v16 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalCPUCycles : ", 20);
-  return MEMORY[0x1E6906120](v16, a1[69] - a1[32]);
-}
-
-void re::internal::PerfStats::addMemoryStatisticsToJson(void *a1, void *a2)
-{
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tPeakDirtyMemoryFootprint[kb] : ", 34);
-  v4 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v4, ",\n", 2);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tDirtyMemoryIncrease[kb] : ", 29);
-  v5 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v5, ",\n", 2);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tResidentMemoryIncrease[kb] : ", 32);
-  v6 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v6, ",\n", 2);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tWiredMemoryIncrease[kb] : ", 29);
-  v7 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v7, ",\n", 2);
-  v8 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalHeapAllocations[kb] : ", 30);
-  v9 = MEMORY[0x1E69060B0](v8, a1[125] * 0.0009765625);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v9, ",\n", 2);
-  v10 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalHeapDeallocations[kb] : ", 32);
-  v11 = MEMORY[0x1E69060B0](v10, a1[126] * 0.0009765625);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v11, ",\n", 2);
-  v12 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tPeakHeapAllocations[kb] : ", 29);
-  v13 = MEMORY[0x1E69060B0](v12, a1[127] * 0.0009765625);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v13, ",\n", 2);
-  v14 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalHeapNodeAllocations : ", 30);
-  v15 = MEMORY[0x1E6906110](v14, a1[122]);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, ",\n", 2);
-  v16 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalHeapNodeDeallocations : ", 32);
-  v17 = MEMORY[0x1E6906110](v16, a1[123]);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, ",\n", 2);
-  v18 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalVMAllocations[kb] : ", 28);
-  v19 = MEMORY[0x1E69060B0](v18, a1[129] * 0.0009765625);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, ",\n", 2);
-  v20 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalVMDeallocations[kb] : ", 30);
-  v21 = MEMORY[0x1E69060B0](v20, a1[130] * 0.0009765625);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v21, ",\n", 2);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tPeakVMAllocations[kb] : ", 27);
-
-  JUMPOUT(0x1E69060B0);
-}
-
-uint64_t re::internal::PerfStats::addQoSStatisticsToJson(void *a1, void *a2)
-{
-  v4 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tQoS-UserInitiated-CPUTime[ms] : ", 35);
-  v5 = a1[62];
-  v6 = a1[25];
-  v7 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v10 = NAN;
-      goto LABEL_6;
-    }
-
-    LODWORD(v8) = info.numer;
-    LODWORD(v9) = info.denom;
-    v7 = v8 / v9;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v7;
-  }
-
-  v10 = v7 * (v5 - v6);
-LABEL_6:
-  v11 = MEMORY[0x1E69060B0](v4, v10 / 1000000.0);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v11, ",\n", 2);
-  v12 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tQoS-UserInteractive-CPUTime[ms] : ", 37);
-  v13 = a1[63];
-  v14 = a1[26];
-  v15 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v18 = NAN;
-      goto LABEL_11;
-    }
-
-    LODWORD(v16) = info.numer;
-    LODWORD(v17) = info.denom;
-    v15 = v16 / v17;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v15;
-  }
-
-  v18 = v15 * (v13 - v14);
-LABEL_11:
-  v19 = MEMORY[0x1E69060B0](v12, v18 / 1000000.0);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, ",\n", 2);
-  v20 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tQoS-Default-CPUTime[ms] : ", 29);
-  v21 = a1[57];
-  v22 = a1[20];
-  v23 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v26 = NAN;
-      goto LABEL_16;
-    }
-
-    LODWORD(v24) = info.numer;
-    LODWORD(v25) = info.denom;
-    v23 = v24 / v25;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v23;
-  }
-
-  v26 = v23 * (v21 - v22);
-LABEL_16:
-  v27 = MEMORY[0x1E69060B0](v20, v26 / 1000000.0);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v27, ",\n", 2);
-  v28 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tQoS-Background-CPUTime[ms] : ", 32);
-  v29 = a1[59];
-  v30 = a1[22];
-  v31 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v34 = NAN;
-      goto LABEL_21;
-    }
-
-    LODWORD(v32) = info.numer;
-    LODWORD(v33) = info.denom;
-    v31 = v32 / v33;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v31;
-  }
-
-  v34 = v31 * (v29 - v30);
-LABEL_21:
-  v35 = MEMORY[0x1E69060B0](v28, v34 / 1000000.0);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v35, ",\n", 2);
-  v36 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tQoS-Utility-CPUTime[ms] : ", 29);
-  v37 = a1[60];
-  v38 = a1[23];
-  v39 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v42 = NAN;
-      goto LABEL_26;
-    }
-
-    LODWORD(v40) = info.numer;
-    LODWORD(v41) = info.denom;
-    v39 = v40 / v41;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v39;
-  }
-
-  v42 = v39 * (v37 - v38);
-LABEL_26:
-  v43 = MEMORY[0x1E69060B0](v36, v42 / 1000000.0);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v43, ",\n", 2);
-  v44 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tQoS-Maintenance-CPUTime[ms] : ", 33);
-  v45 = a1[58];
-  v46 = a1[21];
-  v47 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
-    {
-      v50 = NAN;
-      goto LABEL_31;
-    }
-
-    LODWORD(v48) = info.numer;
-    LODWORD(v49) = info.denom;
-    v47 = v48 / v49;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v47;
-  }
-
-  v50 = v47 * (v45 - v46);
-LABEL_31:
-  v51 = MEMORY[0x1E69060B0](v44, v50 / 1000000.0);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v51, ",\n", 2);
-  v52 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tQoS-Legacy-CPUTime[ms] : ", 28);
-  v53 = a1[61];
-  v54 = a1[24];
-  v55 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale >= 0.0)
-  {
-LABEL_35:
-    v58 = v55 * (v53 - v54);
-    return MEMORY[0x1E69060B0](v52, v58 / 1000000.0);
-  }
-
-  if (!mach_timebase_info(&info))
-  {
-    LODWORD(v56) = info.numer;
-    LODWORD(v57) = info.denom;
-    v55 = v56 / v57;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v55;
-    goto LABEL_35;
-  }
-
-  v58 = NAN;
-  return MEMORY[0x1E69060B0](v52, v58 / 1000000.0);
-}
-
-void re::internal::PerfStats::addDiskStatisticsToJson(uint64_t a1, void *a2)
-{
-  v4 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalBytesReadFromDisk[kb] : ", 32);
-  v5 = MEMORY[0x1E6906120](v4, *(a1 + 440) - *(a1 + 144));
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v5, ",\n", 2);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\tTotalBytesWrittenToDisk[kb] : ", 33);
-
-  JUMPOUT(0x1E6906120);
-}
-
-void re::ProfilerManager::~ProfilerManager(_BOOL8 this)
-{
-  v1 = this;
-  if (*(this + 136) != *(this + 144))
-  {
-    v2 = *re::foundationProfilingLogObjects(this);
-    this = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
-    if (this)
-    {
-      *buf = 0;
-      _os_log_impl(&dword_1E1C61000, v2, OS_LOG_TYPE_DEFAULT, "ProfilerEventStreams submitted but never processed.", buf, 2u);
-    }
-  }
-
-  if (v1[28] != v1[29])
-  {
-    v3 = *re::foundationProfilingLogObjects(this);
-    this = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-    if (this)
-    {
-      *v54 = 0;
-      _os_log_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEFAULT, "ProfilerStatistics submitted but never processed.", v54, 2u);
-    }
-  }
-
-  if (v1[39] != v1[40])
-  {
-    v4 = *re::foundationProfilingLogObjects(this);
-    this = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    if (this)
-    {
-      *v53 = 0;
-      _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEFAULT, "ProfilerAttributions submitted but never processed.", v53, 2u);
-    }
-  }
-
-  if (v1[48] != v1[49])
-  {
-    v5 = *re::foundationProfilingLogObjects(this);
-    this = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-    if (this)
-    {
-      *v52 = 0;
-      _os_log_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_DEFAULT, "ProfilerVisualizers submitted but never processed.", v52, 2u);
-    }
-  }
-
-  if (v1[57] != v1[58])
-  {
-    v6 = *re::foundationProfilingLogObjects(this);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      *v51 = 0;
-      _os_log_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_DEFAULT, "ProfilerMemoryStatistics submitted but never processed.", v51, 2u);
-    }
-  }
-
-  for (i = v1[11]; i; i = *i)
-  {
-    v8 = i[2];
-    if (v8)
-    {
-      v9 = v8[9];
+      v8 = v5[4];
+      v9 = v5[2];
       if (v9)
       {
-        v8[10] = v9;
-        MEMORY[0x1E6906510]();
-      }
-
-      v10 = v8[5];
-      v11 = v8[6];
-      if (v10 != v11)
-      {
+        v10 = 56 * v9;
+        v11 = v7;
         do
         {
-          if (*v10)
+          *v11 = 0u;
+          *(v11 + 1) = 0u;
+          v11[3] = *(v8 + 24);
+          v12 = *(v8 + 8);
+          *v11 = *v8;
+          *v8 = 0;
+          v13 = *(v8 + 16);
+          *(v8 + 24) = 0;
+          v15 = v11[1];
+          v14 = v11[2];
+          v11[1] = v12;
+          v11[2] = v13;
+          *(v8 + 8) = v15;
+          *(v8 + 16) = v14;
+          *(v11 + 32) = *(v8 + 32);
+          v11[5] = *(v8 + 40);
+          *(v8 + 40) = 0;
+          v11[6] = *(v8 + 48);
+          *(v8 + 48) = 0;
+          v16 = *(v8 + 40);
+          if (v16)
           {
-            MEMORY[0x1E6906510](*v10, 128);
+
+            *(v8 + 40) = 0;
           }
 
-          ++v10;
+          re::DynamicString::deinit(v8);
+          v8 += 56;
+          v11 += 7;
+          v10 -= 56;
         }
 
-        while (v10 != v11);
-        v10 = v8[5];
+        while (v10);
+        v8 = v5[4];
       }
 
-      if (v10)
-      {
-        v8[6] = v10;
-        operator delete(v10);
-      }
-
-      v12 = v8[1];
-      v13 = v8[2];
-      if (v12 != v13)
-      {
-        do
-        {
-          if (*v12)
-          {
-            MEMORY[0x1E6906510](*v12, 128);
-          }
-
-          ++v12;
-        }
-
-        while (v12 != v13);
-        v12 = v8[1];
-      }
-
-      if (v12)
-      {
-        v8[2] = v12;
-        operator delete(v12);
-      }
-
-      MEMORY[0x1E6906520](v8, 0x10A0C40A52C3342);
+      result = (*(**v5 + 40))(*v5, v8);
+      goto LABEL_18;
     }
   }
 
-  for (j = v1[22]; j; j = *j)
+  return result;
+}
+
+uint64_t *re::GeomModelDescriptor::freeReNewedArrayData<unsigned int>(re *a1)
+{
+  result = re::globalAllocators(a1);
+  if (a1)
   {
-    v15 = j[2];
-    if (v15)
+    v3 = *(*result[2] + 40);
+
+    return v3();
+  }
+
+  return result;
+}
+
+uint64_t re::make::shared::object<re::internal::DataPayload,unsigned char *&,re::GeomModelValueType const&,unsigned long,unsigned long,int,BOOL,unsigned char *&,void (&)(void const*)>@<X0>(re *a1@<X0>, char *a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, int *a5@<X4>, char *a6@<X5>, uint64_t *a7@<X6>, uint64_t a8@<X7>, uint64_t *a9@<X8>)
+{
+  v18 = re::globalAllocators(a1);
+  v19 = (*(*v18[2] + 32))(v18[2], 104, 8);
+  result = re::internal::DataPayload::DataPayload(v19, *a1, *a2, *a3, *a4, *a5, *a6, *a7, a8);
+  *a9 = result;
+  return result;
+}
+
+void re::internal::createGeomMeshFromMDLSubmesh(uint64_t a1@<X8>, re::internal *this@<X0>, MDLMesh *a3@<X1>)
+{
+  v113 = *MEMORY[0x1E69E9840];
+  v6 = this;
+  v7 = a3;
+  v75 = a1;
+  re::GeomMesh::GeomMesh(a1, 0);
+  v86 = 0;
+  v83[1] = 0;
+  v84 = 0;
+  v83[0] = 0;
+  v85 = 0;
+  v9 = v84;
+  if (!v84)
+  {
+LABEL_63:
+    re::internal::assertLog(4, v8, "assertion failure: '%s' (%s:line %i) ", "topologies.size() > 0", "createGeomMeshFromMDLSubmesh", 655, v71);
+    _os_crash("assertion failure: (topologies.size() > 0) ");
+    __break(1u);
+LABEL_64:
+    *v101 = 0;
+    memset(v92, 0, 32);
+    v90 = 0u;
+    v91 = 0u;
+    *v89 = 0u;
+    v66 = MEMORY[0x1E69E9C10];
+    v67 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    LODWORD(v108) = 136315906;
+    *(v3 + 52) = "operator[]";
+    WORD6(v108) = 1024;
+    if (v67)
     {
-      MEMORY[0x1E6906510](v15, 128);
+      v68 = 3;
     }
-  }
 
-  for (k = v1[33]; k; k = *k)
-  {
-    v17 = k[2];
-    if (v17)
+    else
     {
-      re::ProfilerAttributions::~ProfilerAttributions(v17);
-      MEMORY[0x1E6906510]();
+      v68 = 2;
     }
+
+    *(v3 + 62) = 789;
+    WORD1(v109) = 2048;
+    *(v3 + 68) = a1;
+    WORD6(v109) = 2048;
+    *(v3 + 78) = v9;
+    _os_log_send_and_compose_impl(v68, v101, v89, 80, &dword_1E1C61000, v66, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v108, 38, v69, v70);
+    _os_crash_msg();
+    __break(1u);
   }
 
-  v18 = v1[42];
-  for (m = v1[43]; v18 != m; ++v18)
+  v3 = v101;
+  v72 = [(re::internal *)v6 vertexDescriptor];
+  v10 = [v72 attributeNamed:@"position"];
+  v11 = [v10 bufferIndex];
+  a1 = [(MDLMesh *)v7 faceIndexing];
+
+  v71 = v10;
+  if (a1)
   {
-    v20 = *v18;
-    if (*v18)
+    v12 = [(MDLMesh *)v7 faceIndexing];
+    v13 = [v12 objectAtIndexedSubscript:v11];
+    v14 = [v13 unsignedIntValue];
+
+    a1 = v14;
+    if (v9 <= v14)
     {
-      v21 = *(v20 + 8);
-      v22 = *(v20 + 16);
-      if (v21 != v22)
-      {
-        do
-        {
-          if (*v21)
-          {
-            MEMORY[0x1E6906520](*v21, 0x1000C40CABF92ADLL);
-          }
-
-          ++v21;
-        }
-
-        while (v21 != v22);
-        v21 = *(v20 + 8);
-      }
-
-      if (v21)
-      {
-        *(v20 + 16) = v21;
-        operator delete(v21);
-      }
-
-      MEMORY[0x1E6906520](v20, 0x1080C401FB89069);
+      goto LABEL_64;
     }
   }
 
-  v23 = v1[51];
-  v24 = v1[52];
-  while (v23 != v24)
+  v15 = v86 + 80 * a1;
+  v16 = *(v15 + 16);
+  v76 = v15;
+  v17 = *(v15 + 56);
+  v9 = v17;
+  a1 = v89;
+  re::GeomMeshBuilder::GeomMeshBuilder(v89, v75);
+  LODWORD(v89[1]) = v16;
+  v93 = v16;
+  if (v94)
   {
-    if (*v23)
-    {
-      MEMORY[0x1E6906510](*v23, 128);
-    }
-
-    ++v23;
-  }
-
-  v25 = v1[62];
-  if (v25)
-  {
+    v18 = v95;
+    v19 = 8 * v94;
     do
     {
-      v26 = v25[3];
-      if (v26)
-      {
-        (*(*v26 + 8))(v26);
-      }
-
-      v25 = *v25;
+      v20 = *v18++;
+      (*(*v20 + 80))(v20, v93);
+      v19 -= 8;
     }
 
-    while (v25);
-    v27 = v1[62];
-    if (v27)
+    while (v19);
+  }
+
+  if (v91 > v17)
+  {
+    v21 = v100;
+    if (v100)
     {
+      v22 = 0;
       do
       {
-        v28 = *v27;
-        operator delete(v27);
-        v27 = v28;
+        v23 = re::internal::GeomAttributeContainer::attributeByIndex(v99, v22);
+        re::internal::accessFaceVaryingAttributeSubmesh(v23, v24);
+        ++v22;
       }
 
-      while (v28);
+      while (v21 != v22);
     }
   }
 
-  v29 = v1[60];
-  v1[60] = 0;
-  if (v29)
+  re::DynamicArray<re::GeomCell4>::resize(&v90, v17);
+  v96 = v17;
+  if (v97)
   {
-    operator delete(v29);
-  }
-
-  v30 = v1[57];
-  if (v30)
-  {
-    v1[58] = v30;
-    operator delete(v30);
-  }
-
-  v31 = v1[54];
-  if (v31)
-  {
-    v1[55] = v31;
-    operator delete(v31);
-  }
-
-  v32 = v1[51];
-  if (v32)
-  {
-    v1[52] = v32;
-    operator delete(v32);
-  }
-
-  v33 = v1[48];
-  if (v33)
-  {
-    v1[49] = v33;
-    operator delete(v33);
-  }
-
-  v34 = v1[45];
-  if (v34)
-  {
-    v1[46] = v34;
-    operator delete(v34);
-  }
-
-  v35 = v1[42];
-  if (v35)
-  {
-    v1[43] = v35;
-    operator delete(v35);
-  }
-
-  v36 = v1[39];
-  if (v36)
-  {
-    v1[40] = v36;
-    operator delete(v36);
-  }
-
-  v37 = v1[36];
-  if (v37)
-  {
-    v1[37] = v37;
-    operator delete(v37);
-  }
-
-  v38 = v1[33];
-  if (v38)
-  {
+    v25 = v98;
+    v26 = 8 * v97;
     do
     {
-      v39 = *v38;
-      operator delete(v38);
-      v38 = v39;
+      v27 = *v25++;
+      (*(*v27 + 80))(v27, v96);
+      v26 -= 8;
     }
 
-    while (v39);
+    while (v26);
   }
 
-  v40 = v1[31];
-  v1[31] = 0;
-  if (v40)
-  {
-    operator delete(v40);
-  }
-
-  v41 = v1[28];
-  if (v41)
-  {
-    v1[29] = v41;
-    operator delete(v41);
-  }
-
-  v42 = v1[25];
-  if (v42)
-  {
-    v1[26] = v42;
-    operator delete(v42);
-  }
-
-  v43 = v1[22];
-  if (v43)
-  {
-    do
-    {
-      v44 = *v43;
-      operator delete(v43);
-      v43 = v44;
-    }
-
-    while (v44);
-  }
-
-  v45 = v1[20];
-  v1[20] = 0;
-  if (v45)
-  {
-    operator delete(v45);
-  }
-
-  v46 = v1[17];
-  if (v46)
-  {
-    v1[18] = v46;
-    operator delete(v46);
-  }
-
-  v47 = v1[14];
-  if (v47)
-  {
-    v1[15] = v47;
-    operator delete(v47);
-  }
-
-  v48 = v1[11];
-  if (v48)
-  {
-    do
-    {
-      v49 = *v48;
-      operator delete(v48);
-      v48 = v49;
-    }
-
-    while (v49);
-  }
-
-  v50 = v1[9];
-  v1[9] = 0;
-  if (v50)
-  {
-    operator delete(v50);
-  }
-}
-
-uint64_t re::ProfilerManager::acquireEventStream(re::ProfilerManager *this, int a2)
-{
-  os_unfair_lock_lock(this + 4);
-  v4 = *(this + 532);
-  os_unfair_lock_unlock(this + 4);
-  if (v4 != 1)
-  {
-    return 0;
-  }
-
-  if (a2)
-  {
-    os_unfair_lock_lock(this + 3);
-    v5 = *(this + 18);
-    if (*(this + 17) == v5)
-    {
-      os_unfair_lock_unlock(this + 3);
-    }
-
-    else
-    {
-      v6 = *(v5 - 8);
-      *(this + 18) = v5 - 8;
-      os_unfair_lock_unlock(this + 3);
-      if (v6)
-      {
-        return v6;
-      }
-    }
-  }
-
-  os_unfair_lock_lock(this + 2);
-  v7 = *(this + 15);
-  if (*(this + 14) == v7)
-  {
-    if (*(this + 12) < *(this + 3))
-    {
-      operator new();
-    }
-
-    if (atomic_load_explicit(this + 4, memory_order_acquire) != -1)
-    {
-      v11[0] = &v9;
-      v11[1] = this;
-      v11[2] = this + 24;
-      v10 = v11;
-      std::__call_once(this + 4, &v10, std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireEventStream(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>);
-    }
-
-    v6 = 0;
-  }
-
-  else
-  {
-    v6 = *(v7 - 8);
-    *(this + 15) = v7 - 8;
-  }
-
-  os_unfair_lock_unlock(this + 2);
-  return v6;
-}
-
-unint64_t re::ProfilerManager::acquireStatistics(re::ProfilerManager *this, int a2)
-{
-  os_unfair_lock_lock(this + 4);
-  v4 = *(this + 533);
-  os_unfair_lock_unlock(this + 4);
-  if (v4 != 1)
-  {
-    return 0;
-  }
-
-  if (a2)
-  {
-    os_unfair_lock_lock(this + 3);
-    v5 = *(this + 29);
-    if (*(this + 28) == v5)
-    {
-      os_unfair_lock_unlock(this + 3);
-    }
-
-    else
-    {
-      v6 = *(v5 - 8);
-      *(this + 29) = v5 - 8;
-      os_unfair_lock_unlock(this + 3);
-      if (v6)
-      {
-        return v6;
-      }
-    }
-  }
-
-  os_unfair_lock_lock(this + 2);
-  v7 = *(this + 26);
-  if (*(this + 25) == v7)
-  {
-    if (*(this + 23) < *(this + 3))
-    {
-      v8 = operator new(0x4F00uLL, 0x80uLL);
-      v6 = v8;
-      *v8 = *this;
-      *(v8 + 8) = -1;
-      v9 = -20096;
-      do
-      {
-        v10 = (v8 + v9);
-        v10[2528] = -1;
-        v10[2529] = 0;
-        v10[2531] = 0;
-        v10[2530] = 0;
-        v9 += 128;
-      }
-
-      while (v9);
-      v11 = 0x9DDFEA08EB382D69 * (((((v8 >> 7) & 0x3FFFFF) << 10) | 8) ^ HIDWORD(v8));
-      v12 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (HIDWORD(v8) ^ (v11 >> 47) ^ v11)) ^ ((0x9DDFEA08EB382D69 * (HIDWORD(v8) ^ (v11 >> 47) ^ v11)) >> 47));
-      v13 = *(this + 168);
-      if (v13)
-      {
-        v14 = vcnt_s8(v13);
-        v14.i16[0] = vaddlv_u8(v14);
-        if (v14.u32[0] > 1uLL)
-        {
-          v15 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (HIDWORD(v8) ^ (v11 >> 47) ^ v11)) ^ ((0x9DDFEA08EB382D69 * (HIDWORD(v8) ^ (v11 >> 47) ^ v11)) >> 47));
-          if (v12 >= *&v13)
-          {
-            v15 = v12 % *&v13;
-          }
-        }
-
-        else
-        {
-          v15 = (*&v13 - 1) & v12;
-        }
-
-        v16 = *(*(this + 20) + 8 * v15);
-        if (v16)
-        {
-          for (i = *v16; i; i = *i)
-          {
-            v18 = i[1];
-            if (v18 == v12)
-            {
-              if (i[2] == v8)
-              {
-                goto LABEL_34;
-              }
-            }
-
-            else
-            {
-              if (v14.u32[0] > 1uLL)
-              {
-                if (v18 >= *&v13)
-                {
-                  v18 %= *&v13;
-                }
-              }
-
-              else
-              {
-                v18 &= *&v13 - 1;
-              }
-
-              if (v18 != v15)
-              {
-                break;
-              }
-            }
-          }
-        }
-      }
-
-      operator new();
-    }
-
-    if (atomic_load_explicit(this + 5, memory_order_acquire) != -1)
-    {
-      v22[0] = &v20;
-      v22[1] = this;
-      v22[2] = this + 24;
-      v21 = v22;
-      std::__call_once(this + 5, &v21, std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireStatistics(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>);
-    }
-
-    v6 = 0;
-  }
-
-  else
-  {
-    v6 = *(v7 - 8);
-    *(this + 26) = v7 - 8;
-  }
-
-LABEL_34:
-  os_unfair_lock_unlock(this + 2);
-  return v6;
-}
-
-re::ProfilerAttributions *re::ProfilerManager::acquireAttributions(re::ProfilerManager *this, int a2)
-{
-  os_unfair_lock_lock(this + 4);
-  v4 = *(this + 534);
-  os_unfair_lock_unlock(this + 4);
-  if (v4 != 1)
-  {
-    return 0;
-  }
-
-  if (a2)
-  {
-    os_unfair_lock_lock(this + 3);
-    v5 = *(this + 40);
-    if (*(this + 39) == v5)
-    {
-      os_unfair_lock_unlock(this + 3);
-    }
-
-    else
-    {
-      v6 = *(v5 - 8);
-      *(this + 40) = v5 - 8;
-      os_unfair_lock_unlock(this + 3);
-      if (v6)
-      {
-        return v6;
-      }
-    }
-  }
-
-  os_unfair_lock_lock(this + 2);
-  v7 = *(this + 37);
-  if (*(this + 36) == v7)
-  {
-    if (*(this + 34) < *(this + 3))
-    {
-      v6 = operator new(0x180uLL, 0x80uLL);
-      v8 = re::ProfilerAttributions::ProfilerAttributions(v6, *this);
-      v9 = 0x9DDFEA08EB382D69 * (((((v6 >> 7) & 0x3FFFFF) << 10) | 8) ^ (v8 >> 32));
-      v10 = 0x9DDFEA08EB382D69 * ((v8 >> 32) ^ (v9 >> 47) ^ v9);
-      v11 = 0x9DDFEA08EB382D69 * (v10 ^ (v10 >> 47));
-      v12 = *(this + 256);
-      if (v12)
-      {
-        v13 = vcnt_s8(v12);
-        v13.i16[0] = vaddlv_u8(v13);
-        if (v13.u32[0] > 1uLL)
-        {
-          v14 = 0x9DDFEA08EB382D69 * (v10 ^ (v10 >> 47));
-          if (v11 >= *&v12)
-          {
-            v14 = v11 % *&v12;
-          }
-        }
-
-        else
-        {
-          v14 = v11 & (*&v12 - 1);
-        }
-
-        v15 = *(*(this + 31) + 8 * v14);
-        if (v15)
-        {
-          for (i = *v15; i; i = *i)
-          {
-            v17 = i[1];
-            if (v17 == v11)
-            {
-              if (i[2] == v6)
-              {
-                goto LABEL_32;
-              }
-            }
-
-            else
-            {
-              if (v13.u32[0] > 1uLL)
-              {
-                if (v17 >= *&v12)
-                {
-                  v17 %= *&v12;
-                }
-              }
-
-              else
-              {
-                v17 &= *&v12 - 1;
-              }
-
-              if (v17 != v14)
-              {
-                break;
-              }
-            }
-          }
-        }
-      }
-
-      operator new();
-    }
-
-    if (atomic_load_explicit(this + 6, memory_order_acquire) != -1)
-    {
-      v21[0] = &v19;
-      v21[1] = this;
-      v21[2] = this + 24;
-      v20 = v21;
-      std::__call_once(this + 6, &v20, std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireAttributions(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>);
-    }
-
-    v6 = 0;
-  }
-
-  else
-  {
-    v6 = *(v7 - 8);
-    *(this + 37) = v7 - 8;
-  }
-
-LABEL_32:
-  os_unfair_lock_unlock(this + 2);
-  return v6;
-}
-
-void *re::ProfilerManager::acquireMemoryStatistics(re::ProfilerManager *this, int a2)
-{
-  os_unfair_lock_lock(this + 4);
-  v4 = *(this + 535);
-  os_unfair_lock_unlock(this + 4);
-  if (v4 != 1)
-  {
-    return 0;
-  }
-
-  if (a2)
-  {
-    os_unfair_lock_lock(this + 3);
-    v5 = *(this + 58);
-    if (*(this + 57) == v5)
-    {
-      os_unfair_lock_unlock(this + 3);
-    }
-
-    else
-    {
-      v6 = *(v5 - 8);
-      *(this + 58) = v5 - 8;
-      os_unfair_lock_unlock(this + 3);
-      if (v6)
-      {
-        return v6;
-      }
-    }
-  }
-
-  os_unfair_lock_lock(this + 2);
-  v7 = *(this + 55);
-  if (*(this + 54) == v7)
-  {
-    v9 = *(this + 51);
-    v8 = *(this + 52);
-    v10 = (v8 - v9) >> 3;
-    if (v10 >= *(this + 3))
-    {
-      if (atomic_load_explicit(this + 8, memory_order_acquire) != -1)
-      {
-        v26[0] = &v24;
-        v26[1] = this;
-        v26[2] = this + 24;
-        v25 = v26;
-        std::__call_once(this + 8, &v25, std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireMemoryStatistics(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>);
-      }
-
-      v6 = 0;
-    }
-
-    else
-    {
-      v11 = operator new(0xB00uLL, 0x80uLL);
-      v6 = v11;
-      v12 = 0;
-      *v11 = *this;
-      do
-      {
-        v13 = &v11[v12];
-        v13[16] = -1;
-        *(v13 + 17) = 0uLL;
-        *(v13 + 19) = 0uLL;
-        *(v13 + 21) = 0uLL;
-        v12 += 16;
-      }
-
-      while (v12 != 320);
-      v11[336] = 0;
-      v14 = *(this + 53);
-      if (v8 >= v14)
-      {
-        v16 = v10 + 1;
-        if ((v10 + 1) >> 61)
-        {
-          std::string::__throw_length_error[abi:nn200100]();
-        }
-
-        v17 = v14 - v9;
-        if (v17 >> 2 > v16)
-        {
-          v16 = v17 >> 2;
-        }
-
-        if (v17 >= 0x7FFFFFFFFFFFFFF8)
-        {
-          v18 = 0x1FFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v18 = v16;
-        }
-
-        if (v18)
-        {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(this + 408, v18);
-        }
-
-        *(8 * v10) = v11;
-        v15 = 8 * v10 + 8;
-        v19 = *(this + 51);
-        v20 = *(this + 52) - v19;
-        v21 = (8 * v10 - v20);
-        memcpy(v21, v19, v20);
-        v22 = *(this + 51);
-        *(this + 51) = v21;
-        *(this + 52) = v15;
-        *(this + 53) = 0;
-        if (v22)
-        {
-          operator delete(v22);
-        }
-      }
-
-      else
-      {
-        *v8 = v11;
-        v15 = (v8 + 1);
-      }
-
-      *(this + 52) = v15;
-    }
-  }
-
-  else
-  {
-    v6 = *(v7 - 8);
-    *(this + 55) = v7 - 8;
-  }
-
-  os_unfair_lock_unlock(this + 2);
-  return v6;
-}
-
-void re::ProfilerManager::submit(uint64_t a1, void *a2)
-{
-  os_unfair_lock_lock((a1 + 12));
-  if (!a2)
-  {
-    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "stream", "submit", 308);
-    _os_crash();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (*a2 != *a1)
-  {
-LABEL_19:
-    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "stream->ownerId() == m_identifier", "submit", 309);
-    _os_crash();
-    __break(1u);
-    goto LABEL_20;
-  }
-
-  v6 = *(a1 + 144);
-  v5 = *(a1 + 152);
-  if (v6 < v5)
-  {
-    *v6 = a2;
-    v7 = (v6 + 1);
-    goto LABEL_15;
-  }
-
-  v8 = *(a1 + 136);
-  v9 = (v6 - v8) >> 3;
-  if ((v9 + 1) >> 61)
-  {
-LABEL_20:
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  v10 = v5 - v8;
-  v11 = v10 >> 2;
-  if (v10 >> 2 <= (v9 + 1))
-  {
-    v11 = v9 + 1;
-  }
-
-  if (v10 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    v12 = 0x1FFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  if (v12)
-  {
-    std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 136, v12);
-  }
-
-  v13 = (8 * v9);
-  *v13 = a2;
-  v7 = 8 * v9 + 8;
-  v14 = *(a1 + 136);
-  v15 = *(a1 + 144) - v14;
-  v16 = v13 - v15;
-  memcpy(v13 - v15, v14, v15);
-  v17 = *(a1 + 136);
-  *(a1 + 136) = v16;
-  *(a1 + 144) = v7;
-  *(a1 + 152) = 0;
+  v28 = v76;
   if (v17)
   {
-    operator delete(v17);
-  }
-
-LABEL_15:
-  *(a1 + 144) = v7;
-
-  os_unfair_lock_unlock((a1 + 12));
-}
-
-{
-  os_unfair_lock_lock((a1 + 12));
-  if (!a2)
-  {
-    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "statistics", "submit", 317);
-    _os_crash();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (*a2 != *a1)
-  {
-LABEL_19:
-    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "statistics->ownerId() == m_identifier", "submit", 318);
-    _os_crash();
-    __break(1u);
-    goto LABEL_20;
-  }
-
-  v6 = *(a1 + 232);
-  v5 = *(a1 + 240);
-  if (v6 < v5)
-  {
-    *v6 = a2;
-    v7 = (v6 + 1);
-    goto LABEL_15;
-  }
-
-  v8 = *(a1 + 224);
-  v9 = (v6 - v8) >> 3;
-  if ((v9 + 1) >> 61)
-  {
-LABEL_20:
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  v10 = v5 - v8;
-  v11 = v10 >> 2;
-  if (v10 >> 2 <= (v9 + 1))
-  {
-    v11 = v9 + 1;
-  }
-
-  if (v10 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    v12 = 0x1FFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  if (v12)
-  {
-    std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 224, v12);
-  }
-
-  v13 = (8 * v9);
-  *v13 = a2;
-  v7 = 8 * v9 + 8;
-  v14 = *(a1 + 224);
-  v15 = *(a1 + 232) - v14;
-  v16 = v13 - v15;
-  memcpy(v13 - v15, v14, v15);
-  v17 = *(a1 + 224);
-  *(a1 + 224) = v16;
-  *(a1 + 232) = v7;
-  *(a1 + 240) = 0;
-  if (v17)
-  {
-    operator delete(v17);
-  }
-
-LABEL_15:
-  *(a1 + 232) = v7;
-
-  os_unfair_lock_unlock((a1 + 12));
-}
-
-{
-  os_unfair_lock_lock((a1 + 12));
-  if (!a2)
-  {
-    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "memoryStatistics", "submit", 335);
-    _os_crash();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (*a2 != *a1)
-  {
-LABEL_19:
-    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "memoryStatistics->ownerId() == m_identifier", "submit", 336);
-    _os_crash();
-    __break(1u);
-    goto LABEL_20;
-  }
-
-  v6 = *(a1 + 464);
-  v5 = *(a1 + 472);
-  if (v6 < v5)
-  {
-    *v6 = a2;
-    v7 = (v6 + 1);
-    goto LABEL_15;
-  }
-
-  v8 = *(a1 + 456);
-  v9 = (v6 - v8) >> 3;
-  if ((v9 + 1) >> 61)
-  {
-LABEL_20:
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  v10 = v5 - v8;
-  v11 = v10 >> 2;
-  if (v10 >> 2 <= (v9 + 1))
-  {
-    v11 = v9 + 1;
-  }
-
-  if (v10 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    v12 = 0x1FFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  if (v12)
-  {
-    std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 456, v12);
-  }
-
-  v13 = (8 * v9);
-  *v13 = a2;
-  v7 = 8 * v9 + 8;
-  v14 = *(a1 + 456);
-  v15 = *(a1 + 464) - v14;
-  v16 = v13 - v15;
-  memcpy(v13 - v15, v14, v15);
-  v17 = *(a1 + 456);
-  *(a1 + 456) = v16;
-  *(a1 + 464) = v7;
-  *(a1 + 472) = 0;
-  if (v17)
-  {
-    operator delete(v17);
-  }
-
-LABEL_15:
-  *(a1 + 464) = v7;
-
-  os_unfair_lock_unlock((a1 + 12));
-}
-
-{
-  os_unfair_lock_lock((a1 + 12));
-  if (!a2)
-  {
-    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "renderer", "submit", 344);
-    _os_crash();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (*a2 != *a1)
-  {
-LABEL_19:
-    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "renderer->ownerId() == m_identifier", "submit", 345);
-    _os_crash();
-    __break(1u);
-    goto LABEL_20;
-  }
-
-  v6 = *(a1 + 392);
-  v5 = *(a1 + 400);
-  if (v6 < v5)
-  {
-    *v6 = a2;
-    v7 = (v6 + 1);
-    goto LABEL_15;
-  }
-
-  v8 = *(a1 + 384);
-  v9 = (v6 - v8) >> 3;
-  if ((v9 + 1) >> 61)
-  {
-LABEL_20:
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  v10 = v5 - v8;
-  v11 = v10 >> 2;
-  if (v10 >> 2 <= (v9 + 1))
-  {
-    v11 = v9 + 1;
-  }
-
-  if (v10 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    v12 = 0x1FFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  if (v12)
-  {
-    std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 384, v12);
-  }
-
-  v13 = (8 * v9);
-  *v13 = a2;
-  v7 = 8 * v9 + 8;
-  v14 = *(a1 + 384);
-  v15 = *(a1 + 392) - v14;
-  v16 = v13 - v15;
-  memcpy(v13 - v15, v14, v15);
-  v17 = *(a1 + 384);
-  *(a1 + 384) = v16;
-  *(a1 + 392) = v7;
-  *(a1 + 400) = 0;
-  if (v17)
-  {
-    operator delete(v17);
-  }
-
-LABEL_15:
-  *(a1 + 392) = v7;
-
-  os_unfair_lock_unlock((a1 + 12));
-}
-
-void re::ProfilerManager::submit(os_unfair_lock_s *this, re::ProfilerAttributions *a2)
-{
-  os_unfair_lock_lock(this + 3);
-  if (!a2)
-  {
-    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "attributions", "submit", 326);
-    _os_crash();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (*(a2 + 32) != *&this->_os_unfair_lock_opaque)
-  {
-LABEL_19:
-    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "attributions->ownerId() == m_identifier", "submit", 327);
-    _os_crash();
-    __break(1u);
-    goto LABEL_20;
-  }
-
-  v6 = *&this[80]._os_unfair_lock_opaque;
-  v5 = *&this[82]._os_unfair_lock_opaque;
-  if (v6 < v5)
-  {
-    *v6 = a2;
-    v7 = (v6 + 1);
-    goto LABEL_15;
-  }
-
-  v8 = *&this[78]._os_unfair_lock_opaque;
-  v9 = (v6 - v8) >> 3;
-  if ((v9 + 1) >> 61)
-  {
-LABEL_20:
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  v10 = v5 - v8;
-  v11 = v10 >> 2;
-  if (v10 >> 2 <= (v9 + 1))
-  {
-    v11 = v9 + 1;
-  }
-
-  if (v10 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    v12 = 0x1FFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  if (v12)
-  {
-    std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(&this[78], v12);
-  }
-
-  v13 = (8 * v9);
-  *v13 = a2;
-  v7 = 8 * v9 + 8;
-  v14 = *&this[78]._os_unfair_lock_opaque;
-  v15 = *&this[80]._os_unfair_lock_opaque - v14;
-  v16 = v13 - v15;
-  memcpy(v13 - v15, v14, v15);
-  v17 = *&this[78]._os_unfair_lock_opaque;
-  *&this[78]._os_unfair_lock_opaque = v16;
-  *&this[80]._os_unfair_lock_opaque = v7;
-  *&this[82]._os_unfair_lock_opaque = 0;
-  if (v17)
-  {
-    operator delete(v17);
-  }
-
-LABEL_15:
-  *&this[80]._os_unfair_lock_opaque = v7;
-
-  os_unfair_lock_unlock(this + 3);
-}
-
-void re::ProfilerManager::process(uint64_t a1, void *a2)
-{
-  os_unfair_lock_lock((a1 + 12));
-  v106 = 0;
-  v107 = 0;
-  v108 = 0;
-  v5 = *(a1 + 136);
-  v4 = *(a1 + 144);
-  v6 = v4 - v5;
-  if (v4 != v5)
-  {
-    if (!((v6 >> 3) >> 61))
+    v29 = 0;
+    while (1)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(&v106, v6 >> 3);
-    }
-
-LABEL_106:
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  v103 = 0;
-  v104 = 0;
-  v105 = 0;
-  v8 = *(a1 + 224);
-  v7 = *(a1 + 232);
-  v9 = v7 - v8;
-  if (v7 != v8)
-  {
-    if (!((v9 >> 3) >> 61))
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(&v103, v9 >> 3);
-    }
-
-LABEL_107:
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  v100 = 0;
-  v101 = 0;
-  v102 = 0;
-  v11 = *(a1 + 312);
-  v10 = *(a1 + 320);
-  v12 = v10 - v11;
-  if (v10 != v11)
-  {
-    if (!((v12 >> 3) >> 61))
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(&v100, v12 >> 3);
-    }
-
-LABEL_108:
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  __p = 0;
-  v98 = 0;
-  v99 = 0;
-  v14 = *(a1 + 456);
-  v13 = *(a1 + 464);
-  v15 = v13 - v14;
-  if (v13 != v14)
-  {
-    if (!((v15 >> 3) >> 61))
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(&__p, v15 >> 3);
-    }
-
-LABEL_109:
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  *(a1 + 144) = *(a1 + 136);
-  *(a1 + 232) = *(a1 + 224);
-  *(a1 + 320) = *(a1 + 312);
-  *(a1 + 464) = v14;
-  os_unfair_lock_unlock((a1 + 12));
-  if (a2[3])
-  {
-    for (i = v100; i != v101; ++i)
-    {
-      v17 = *i;
-      re::ProfilerAttributions::resolveDeferred(v17, a2);
-    }
-  }
-
-  os_unfair_lock_lock((a1 + 16));
-  ++*(a1 + 528);
-  for (j = *(a1 + 496); j; j = *j)
-  {
-    v19 = j[3];
-    if (v19[8] == 1)
-    {
-      v20 = *(a1 + 528);
-      if (!(v20 % (*(*v19 + 56))(j[3])))
+      v30 = *(v28 + 56);
+      if (v30 <= v29)
       {
-        (*(*v19 + 16))(v19, *(a1 + 520), &v106, &v103, &v100, &__p);
-      }
-    }
-  }
-
-  os_unfair_lock_unlock((a1 + 16));
-  v21 = v106;
-  v22 = v107;
-  while (v21 != v22)
-  {
-    v23 = *v21++;
-    *(v23 + 32) = 0;
-    *(v23 + 64) = 0;
-    *(v23 + 80) = *(v23 + 72);
-  }
-
-  v24 = v103;
-  v25 = v104;
-  if (v103 != v104)
-  {
-    do
-    {
-      v26 = (*v24 + 128);
-      v27 = -157;
-      do
-      {
-        *v26 = re::kProfilerCounterEmpty;
-        v26[1] = *algn_1E3101110;
-        v26 += 8;
+        break;
       }
 
-      while (!__CFADD__(v27++, 1));
-      ++v24;
-    }
-
-    while (v24 != v25);
-  }
-
-  v29 = v100;
-  v30 = v101;
-  while (v29 != v30)
-  {
-    v31 = *v29++;
-    re::ProfilerAttributions::clear(v31);
-  }
-
-  v32 = __p;
-  v33 = v98;
-  if (__p != v98)
-  {
-    do
-    {
-      v34 = *v32;
-      for (k = 128; k != 2688; k += 128)
+      v30 = v91;
+      if (v91 <= v29)
       {
-        v36 = v34 + k;
-        *v36 = re::kProfilerMemoryCounterEmpty;
-        *(v36 + 16) = *algn_1E3101190;
-        *(v36 + 32) = xmmword_1E31011A0;
-        *(v36 + 48) = 0;
+        goto LABEL_55;
       }
 
-      *(v34 + 2688) = 0;
-      ++v32;
-    }
-
-    while (v32 != v33);
-  }
-
-  os_unfair_lock_lock((a1 + 8));
-  v37 = v106;
-  v38 = v107;
-  if (v106 != v107)
-  {
-    v39 = *(a1 + 120);
-    do
-    {
-      v40 = *v37;
-      v41 = *(a1 + 128);
-      if (v39 >= v41)
+      v31 = *(*(v28 + 72) + 16 * v29);
+      v32 = (*&v92[0] + 16 * v29);
+      v33 = *v32;
+      v34 = v32[3];
+      if (v33 != -1 && v34 != -1)
       {
-        v42 = *(a1 + 112);
-        v43 = (v39 - v42) >> 3;
-        if ((v43 + 1) >> 61)
+        v36 = v100;
+        if (v100)
         {
-          goto LABEL_106;
-        }
-
-        v44 = v41 - v42;
-        v45 = v44 >> 2;
-        if (v44 >> 2 <= (v43 + 1))
-        {
-          v45 = v43 + 1;
-        }
-
-        if (v44 >= 0x7FFFFFFFFFFFFFF8)
-        {
-          v46 = 0x1FFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v46 = v45;
-        }
-
-        if (v46)
-        {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 112, v46);
-        }
-
-        v47 = (8 * v43);
-        *v47 = v40;
-        v39 = (8 * v43 + 8);
-        v48 = *(a1 + 112);
-        v49 = *(a1 + 120) - v48;
-        v50 = v47 - v49;
-        memcpy(v47 - v49, v48, v49);
-        v51 = *(a1 + 112);
-        *(a1 + 112) = v50;
-        *(a1 + 120) = v39;
-        *(a1 + 128) = 0;
-        if (v51)
-        {
-          operator delete(v51);
-        }
-      }
-
-      else
-      {
-        *v39++ = v40;
-      }
-
-      *(a1 + 120) = v39;
-      ++v37;
-    }
-
-    while (v37 != v38);
-  }
-
-  v52 = v103;
-  v53 = v104;
-  if (v103 != v104)
-  {
-    v54 = *(a1 + 208);
-    do
-    {
-      v55 = *v52;
-      v56 = *(a1 + 216);
-      if (v54 >= v56)
-      {
-        v57 = *(a1 + 200);
-        v58 = (v54 - v57) >> 3;
-        if ((v58 + 1) >> 61)
-        {
-          goto LABEL_107;
-        }
-
-        v59 = v56 - v57;
-        v60 = v59 >> 2;
-        if (v59 >> 2 <= (v58 + 1))
-        {
-          v60 = v58 + 1;
-        }
-
-        if (v59 >= 0x7FFFFFFFFFFFFFF8)
-        {
-          v61 = 0x1FFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v61 = v60;
-        }
-
-        if (v61)
-        {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 200, v61);
-        }
-
-        v62 = (8 * v58);
-        *v62 = v55;
-        v54 = (8 * v58 + 8);
-        v63 = *(a1 + 200);
-        v64 = *(a1 + 208) - v63;
-        v65 = v62 - v64;
-        memcpy(v62 - v64, v63, v64);
-        v66 = *(a1 + 200);
-        *(a1 + 200) = v65;
-        *(a1 + 208) = v54;
-        *(a1 + 216) = 0;
-        if (v66)
-        {
-          operator delete(v66);
-        }
-      }
-
-      else
-      {
-        *v54++ = v55;
-      }
-
-      *(a1 + 208) = v54;
-      ++v52;
-    }
-
-    while (v52 != v53);
-  }
-
-  v67 = v100;
-  v68 = v101;
-  if (v100 != v101)
-  {
-    v69 = *(a1 + 296);
-    do
-    {
-      v70 = *v67;
-      v71 = *(a1 + 304);
-      if (v69 >= v71)
-      {
-        v72 = *(a1 + 288);
-        v73 = (v69 - v72) >> 3;
-        if ((v73 + 1) >> 61)
-        {
-          goto LABEL_108;
-        }
-
-        v74 = v71 - v72;
-        v75 = v74 >> 2;
-        if (v74 >> 2 <= (v73 + 1))
-        {
-          v75 = v73 + 1;
-        }
-
-        if (v74 >= 0x7FFFFFFFFFFFFFF8)
-        {
-          v76 = 0x1FFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v76 = v75;
-        }
-
-        if (v76)
-        {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 288, v76);
-        }
-
-        v77 = (8 * v73);
-        *v77 = v70;
-        v69 = (8 * v73 + 8);
-        v78 = *(a1 + 288);
-        v79 = *(a1 + 296) - v78;
-        v80 = v77 - v79;
-        memcpy(v77 - v79, v78, v79);
-        v81 = *(a1 + 288);
-        *(a1 + 288) = v80;
-        *(a1 + 296) = v69;
-        *(a1 + 304) = 0;
-        if (v81)
-        {
-          operator delete(v81);
-        }
-      }
-
-      else
-      {
-        *v69++ = v70;
-      }
-
-      *(a1 + 296) = v69;
-      ++v67;
-    }
-
-    while (v67 != v68);
-  }
-
-  v82 = __p;
-  v83 = v98;
-  if (__p != v98)
-  {
-    v84 = *(a1 + 440);
-    do
-    {
-      v85 = *v82;
-      v86 = *(a1 + 448);
-      if (v84 >= v86)
-      {
-        v87 = *(a1 + 432);
-        v88 = (v84 - v87) >> 3;
-        if ((v88 + 1) >> 61)
-        {
-          goto LABEL_109;
-        }
-
-        v89 = v86 - v87;
-        v90 = v89 >> 2;
-        if (v89 >> 2 <= (v88 + 1))
-        {
-          v90 = v88 + 1;
-        }
-
-        if (v89 >= 0x7FFFFFFFFFFFFFF8)
-        {
-          v91 = 0x1FFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v91 = v90;
-        }
-
-        if (v91)
-        {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1 + 432, v91);
-        }
-
-        v92 = (8 * v88);
-        *v92 = v85;
-        v84 = (8 * v88 + 8);
-        v93 = *(a1 + 432);
-        v94 = *(a1 + 440) - v93;
-        v95 = v92 - v94;
-        memcpy(v92 - v94, v93, v94);
-        v96 = *(a1 + 432);
-        *(a1 + 432) = v95;
-        *(a1 + 440) = v84;
-        *(a1 + 448) = 0;
-        if (v96)
-        {
-          operator delete(v96);
-        }
-      }
-
-      else
-      {
-        *v84++ = v85;
-      }
-
-      *(a1 + 440) = v84;
-      ++v82;
-    }
-
-    while (v82 != v83);
-  }
-
-  os_unfair_lock_unlock((a1 + 8));
-  if (__p)
-  {
-    v98 = __p;
-    operator delete(__p);
-  }
-
-  if (v100)
-  {
-    v101 = v100;
-    operator delete(v100);
-  }
-
-  if (v103)
-  {
-    v104 = v103;
-    operator delete(v103);
-  }
-
-  if (v106)
-  {
-    v107 = v106;
-    operator delete(v106);
-  }
-}
-
-void *re::allocInfo_ProfilerManager(re *this)
-{
-  if ((atomic_load_explicit(&_MergedGlobals_498, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_498))
-  {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BD6F0, "ProfilerManager");
-    __cxa_guard_release(&_MergedGlobals_498);
-  }
-
-  return &unk_1EE1BD6F0;
-}
-
-void re::initInfo_ProfilerManager(re *this, re::IntrospectionBase *a2)
-{
-  v6[0] = 0x2B0128137FA56C8;
-  v6[1] = "ProfilerManager";
-  if (v6[0])
-  {
-    if (v6[0])
-    {
-    }
-  }
-
-  *(this + 2) = v7;
-  *(this + 2) = 0x21800000008;
-  *(this + 6) = 8;
-  *(this + 14) = 0;
-  *(this + 14) = 0;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 8) = &re::initInfo_ProfilerManager(re::IntrospectionBase *)::structureAttributes;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  *(this + 15) = 0;
-  re::internal::prepare(this, v4);
-  v5 = v7;
-}
-
-void std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireEventStream(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>(re *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = **(*a1 + 8);
-  v2 = **(*a1 + 16);
-  v3 = *re::foundationProfilingLogObjects(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    v4 = 134218240;
-    v5 = v2;
-    v6 = 2048;
-    v7 = v1;
-    _os_log_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEFAULT, "ProfilerEventStream limit of %lu for ProfilerManager %llu reached. Consider increasing this value.", &v4, 0x16u);
-  }
-}
-
-void std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireStatistics(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>(re *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = **(*a1 + 8);
-  v2 = **(*a1 + 16);
-  v3 = *re::foundationProfilingLogObjects(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    v4 = 134218240;
-    v5 = v2;
-    v6 = 2048;
-    v7 = v1;
-    _os_log_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEFAULT, "ProfilerStatistics limit of %lu for ProfilerManager %llu reached. Consider increasing this value.", &v4, 0x16u);
-  }
-}
-
-void std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireAttributions(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>(re *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = **(*a1 + 8);
-  v2 = **(*a1 + 16);
-  v3 = *re::foundationProfilingLogObjects(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    v4 = 134218240;
-    v5 = v2;
-    v6 = 2048;
-    v7 = v1;
-    _os_log_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEFAULT, "ProfilerAttributions limit of %lu for ProfilerManager %llu reached. Consider increasing this value.", &v4, 0x16u);
-  }
-}
-
-void std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(uint64_t a1, unint64_t a2)
-{
-  if (!(a2 >> 61))
-  {
-    operator new();
-  }
-
-  std::string::__throw_length_error[abi:nn200100]();
-}
-
-void std::__call_once_proxy[abi:nn200100]<std::tuple<re::ProfilerManager::acquireMemoryStatistics(BOOL)::$_0 &&,unsigned long long &,unsigned long &>>(re *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = **(*a1 + 8);
-  v2 = **(*a1 + 16);
-  v3 = *re::foundationProfilingLogObjects(a1);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    v4 = 134218240;
-    v5 = v2;
-    v6 = 2048;
-    v7 = v1;
-    _os_log_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEFAULT, "ProfilerMemoryStatistics limit of %lu for ProfilerManager %llu reached. Consider increasing this value.", &v4, 0x16u);
-  }
-}
-
-void re::ProfilerFrameStatisticsProcessor::process(uint64_t a1, uint64_t a2, uint64_t a3, int64x2_t ***a4)
-{
-  v4 = *a4;
-  v5 = a4[1];
-  if (*a4 != v5)
-  {
-    v6 = a1 + 128;
-    v7 = a1 + 256;
-    do
-    {
-      v8 = *v4;
-      v9 = (*v4)->i64[1];
-      if (v9 != -1)
-      {
-        v10 = (v6 + 20224 * ((*v4)->i64[1] & 0x3F));
-        if (v10->i64[1] != v9)
-        {
-          v11 = (v7 + 20224 * ((*v4)->i64[1] & 0x3F));
-          v12 = -157;
+          v77 = *(*(v28 + 72) + 16 * v29);
+          v37 = 0;
           do
           {
-            *v11 = re::kProfilerCounterEmpty;
-            v11[1] = *algn_1E3101290;
-            v11 += 8;
+            v38 = re::internal::GeomAttributeContainer::attributeByIndex(v99, v37);
+            re::internal::accessFaceVaryingAttributeSubmesh(v38, v39);
+            ++v37;
           }
 
-          while (!__CFADD__(v12++, 1));
-          v10->i64[1] = v9;
+          while (v36 != v37);
+          v30 = v91;
+          v28 = v76;
+          v31 = v77;
         }
-
-        re::ProfilerStatistics::operator+=(v10, v8);
       }
 
-      ++v4;
+      if (v30 <= v29)
+      {
+        goto LABEL_59;
+      }
+
+      *(*&v92[0] + 16 * v29++) = v31;
+      if (v29 == v9)
+      {
+        goto LABEL_28;
+      }
+    }
+
+    v87 = 0;
+    v111 = 0u;
+    v112 = 0u;
+    v109 = 0u;
+    v110 = 0u;
+    v108 = 0u;
+    v57 = MEMORY[0x1E69E9C10];
+    v58 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v101 = 136315906;
+    *&v101[4] = "operator[]";
+    v102 = 1024;
+    if (v58)
+    {
+      v59 = 3;
+    }
+
+    else
+    {
+      v59 = 2;
+    }
+
+    v103 = 797;
+    v104 = 2048;
+    v105 = v29;
+    v106 = 2048;
+    v107 = v30;
+    _os_log_send_and_compose_impl(v59, &v87, &v108, 80, &dword_1E1C61000, v57, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v101, 38, v69, v70);
+    _os_crash_msg();
+    __break(1u);
+LABEL_55:
+    v87 = 0;
+    v111 = 0u;
+    v112 = 0u;
+    v109 = 0u;
+    v110 = 0u;
+    v108 = 0u;
+    v60 = MEMORY[0x1E69E9C10];
+    v61 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v101 = 136315906;
+    *&v101[4] = "operator[]";
+    v102 = 1024;
+    if (v61)
+    {
+      v62 = 3;
+    }
+
+    else
+    {
+      v62 = 2;
+    }
+
+    v103 = 797;
+    v104 = 2048;
+    v105 = v29;
+    v106 = 2048;
+    v107 = v30;
+    _os_log_send_and_compose_impl(v62, &v87, &v108, 80, &dword_1E1C61000, v60, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v101, 38, v69, v70);
+    _os_crash_msg();
+    __break(1u);
+LABEL_59:
+    v87 = 0;
+    v111 = 0u;
+    v112 = 0u;
+    v109 = 0u;
+    v110 = 0u;
+    v108 = 0u;
+    v63 = MEMORY[0x1E69E9C10];
+    v64 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v101 = 136315906;
+    *&v101[4] = "operator[]";
+    v102 = 1024;
+    if (v64)
+    {
+      v65 = 3;
+    }
+
+    else
+    {
+      v65 = 2;
+    }
+
+    v103 = 789;
+    v104 = 2048;
+    v105 = v29;
+    v106 = 2048;
+    v107 = v30;
+    _os_log_send_and_compose_impl(v65, &v87, &v108, 80, &dword_1E1C61000, v63, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v101, 38, v69, v70);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_63;
+  }
+
+LABEL_28:
+  v40 = re::GeomMesh::operator=(v75, &v89[1]);
+  re::GeomMesh::setName(v40, v89[0]);
+  re::GeomMesh::freeName(v89);
+  re::GeomMesh::freeName(v89);
+  re::internal::GeomAttributeManager::~GeomAttributeManager((v92 + 8));
+  if (v90 && *&v92[0])
+  {
+    (*(*v90 + 40))();
+  }
+
+  v41 = *MEMORY[0x1E6974B28];
+  {
+    *&v108 = re::GeomMesh::modifyVertexPositions(v75);
+    DWORD2(v108) = v42;
+  }
+
+  v44 = *MEMORY[0x1E6974B18];
+  v45 = v28;
+  v46 = v6;
+  v47 = *MEMORY[0x1E6974B30];
+  v48 = v7;
+  v49 = *MEMORY[0x1E6974AF0];
+  v78 = *MEMORY[0x1E6974B38];
+  v73 = v48;
+  v74 = v46;
+  v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
+  v50 = [v72 attributes];
+  v51 = [v50 countByEnumeratingWithState:&v79 objects:v88 count:16];
+  if (v51)
+  {
+    v52 = v51;
+    v53 = *v80;
+    while (2)
+    {
+      for (i = 0; i != v52; ++i)
+      {
+        if (*v80 != v53)
+        {
+          objc_enumerationMutation(v50);
+        }
+
+        v55 = *(*(&v79 + 1) + 8 * i);
+        v56 = [v55 name];
+        if (([v56 isEqualToString:v41] & 1) == 0 && (objc_msgSend(v56, "isEqualToString:", v44) & 1) == 0 && (objc_msgSend(v56, "isEqualToString:", v47) & 1) == 0 && (objc_msgSend(v56, "isEqualToString:", v49) & 1) == 0 && (objc_msgSend(v56, "isEqualToString:", v78) & 1) == 0)
+        {
+          if (!*[v56 UTF8String])
+          {
+
+            goto LABEL_50;
+          }
+
+          if (([v55 format] - 786437) >= 0xFFFFFFFFFFFFFFFDLL)
+          {
+          }
+        }
+      }
+
+      v52 = [v50 countByEnumeratingWithState:&v79 objects:v88 count:16];
+      if (v52)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_50:
+}
+
+void re::internal::anonymous namespace::extractMDLAttributeTopologies(void *a1, uint64_t a2)
+{
+  v225 = *MEMORY[0x1E69E9840];
+  v4 = a1;
+  v5 = *(a2 + 16);
+  *(a2 + 16) = 0;
+  if (v5)
+  {
+    v6 = *(a2 + 32);
+    v7 = 80 * v5;
+    do
+    {
+      re::DynamicArray<unsigned long>::deinit(v6 + 40);
+      re::DynamicArray<unsigned long>::deinit(v6);
+      v6 += 80;
+      v7 -= 80;
+    }
+
+    while (v7);
+  }
+
+  v194 = a2;
+  ++*(a2 + 24);
+  if (!v4)
+  {
+    goto LABEL_182;
+  }
+
+  v8 = [v4 indexBuffer];
+  v9 = [v8 map];
+
+  if (!v9)
+  {
+    goto LABEL_182;
+  }
+
+  v10 = [v4 indexBuffer];
+  v11 = [v10 map];
+  v12 = [v11 bytes];
+
+  if (!v12)
+  {
+    goto LABEL_182;
+  }
+
+  v13 = [v4 geometryType];
+  v14 = [v4 indexBuffer];
+  v15 = [v14 length];
+  [v4 indexBuffer];
+  v17 = v16 = v4;
+  v18 = [v17 map];
+  v19 = [v18 bytes];
+  v195 = v16;
+  v20 = [v16 indexType];
+  v22 = v20;
+  v205 = v19;
+  v206 = v20;
+  if (v20 != 8)
+  {
+    if (v20 == 32)
+    {
+      v15 >>= 2;
+    }
+
+    else
+    {
+      if (v20 != 16)
+      {
+        goto LABEL_232;
+      }
+
+      v15 >>= 1;
+    }
+  }
+
+  v204 = v15;
+
+  v4 = v16;
+  if (v13 != 2)
+  {
+    if (v13 == 5)
+    {
+      v44 = v16;
+      v45 = [v44 topology];
+      v46 = [v45 faceTopology];
+      v189 = [v46 length];
+      v184 = v46;
+      v47 = [v46 map];
+      v191 = [v47 bytes];
+
+      v48 = [v44 faceIndexing];
+      v185 = v45;
+      v190 = [v45 faceCount];
+      v183 = v48;
+      v49 = [v48 count];
+      v50 = v49;
+      if (v49)
+      {
+        v51 = 0;
+        v52 = 0;
+        do
+        {
+          v53 = [v44 faceIndexing];
+          v54 = [v53 objectAtIndexedSubscript:v52];
+          v55 = [v54 intValue];
+
+          if (v55 > v51)
+          {
+            v56 = [v44 faceIndexing];
+            v57 = [v56 objectAtIndexedSubscript:v52];
+            v51 = [v57 intValue];
+          }
+
+          ++v52;
+        }
+
+        while (v50 != v52);
+        v28 = v51 + 1;
+        v4 = v195;
+      }
+
+      else
+      {
+        v28 = 1;
+      }
+
+      v186 = v44;
+      v188 = [v44 indexCount] / v28;
+      v81 = v194;
+      v82 = 0;
+      v83 = v189;
+      v193 = 0;
+      if (v28 <= 1)
+      {
+        v84 = 1;
+      }
+
+      else
+      {
+        v84 = v28;
+      }
+
+      v187 = v84;
+      v85 = v191;
+      while (1)
+      {
+        v24 = *(v81 + 16);
+        if (v24 <= v82)
+        {
+          goto LABEL_221;
+        }
+
+        v24 = *(v81 + 32) + 80 * v82;
+        memset(v213, 0, 36);
+        *&v213[36] = 0x7FFFFFFFLL;
+        v196 = v82;
+        v199 = v24;
+        re::DynamicArray<re::GeomCell4>::resize((v24 + 40), v190);
+        if (!v190)
+        {
+          goto LABEL_160;
+        }
+
+        v87 = 0;
+        v88 = 0;
+        do
+        {
+          if (v87 == v83)
+          {
+            goto LABEL_204;
+          }
+
+          v89 = *(v85 + v87);
+          if (v89 <= 2)
+          {
+            v138 = *(v194 + 16);
+            *(v194 + 16) = 0;
+            if (v138)
+            {
+              v139 = *(v194 + 32);
+              v140 = 80 * v138;
+              do
+              {
+                re::DynamicArray<unsigned long>::deinit(v139 + 40);
+                re::DynamicArray<unsigned long>::deinit(v139);
+                v139 += 80;
+                v140 -= 80;
+              }
+
+              while (v140);
+            }
+
+            goto LABEL_179;
+          }
+
+          v90 = (v196 + v88 * v28);
+          v13 = v204;
+          if (v204 <= v90)
+          {
+            goto LABEL_205;
+          }
+
+          v24 = v206;
+          switch(v206)
+          {
+            case 0x20uLL:
+              v91 = v205;
+              v92 = *(v205 + 4 * v90);
+              break;
+            case 0x10uLL:
+              v91 = v205;
+              v92 = *(v205 + 2 * v90);
+              break;
+            case 8uLL:
+              v91 = v205;
+              v92 = *(v205 + v90);
+              break;
+            default:
+              goto LABEL_231;
+          }
+
+          v211 = v92;
+          v93 = (v28 + v28 * v88 + v196);
+          if (v204 <= v93)
+          {
+            goto LABEL_206;
+          }
+
+          if (v206 == 32)
+          {
+            v2 = v87;
+            v94 = *(v91 + 4 * v93);
+          }
+
+          else
+          {
+            v2 = v87;
+            if (v206 == 16)
+            {
+              v94 = *(v91 + 2 * v93);
+            }
+
+            else
+            {
+              v94 = *(v91 + v93);
+            }
+          }
+
+          v210 = v94;
+          v87 = (v88 + 2);
+          v95 = (v196 + v87 * v28);
+          if (v204 <= v95)
+          {
+            goto LABEL_207;
+          }
+
+          v197 = v88;
+          v198 = v89;
+          v200 = v91;
+          if (v206 == 32)
+          {
+            v96 = *(v91 + 4 * v95);
+          }
+
+          else if (v206 == 16)
+          {
+            v96 = *(v91 + 2 * v95);
+          }
+
+          else
+          {
+            v96 = *(v91 + v95);
+          }
+
+          v209 = v96;
+          v97 = re::HashTable<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::tryGet(v213, &v211);
+          v98 = re::HashTable<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::tryGet(v213, &v210);
+          v99 = re::HashTable<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::tryGet(v213, &v209);
+          v203 = v97;
+          if (!v97 || !v98 || (v100 = v99) == 0)
+          {
+            v141 = *(v194 + 16);
+            *(v194 + 16) = 0;
+            if (v141)
+            {
+              v142 = *(v194 + 32);
+              v143 = 80 * v141;
+              do
+              {
+                re::DynamicArray<unsigned long>::deinit(v142 + 40);
+                re::DynamicArray<unsigned long>::deinit(v142);
+                v142 += 80;
+                v143 -= 80;
+              }
+
+              while (v143);
+            }
+
+            v144 = v194;
+            goto LABEL_175;
+          }
+
+          v101 = v198;
+          if (v198 == 4)
+          {
+            v106 = (v196 + (v197 + 3) * v28);
+            if (v13 > v106)
+            {
+              if (v24 == 32)
+              {
+                v107 = *(v200 + 4 * v106);
+                v87 = v2;
+              }
+
+              else
+              {
+                v87 = v2;
+                if (v24 == 16)
+                {
+                  v107 = *(v200 + 2 * v106);
+                }
+
+                else
+                {
+                  v107 = *(v200 + v106);
+                }
+              }
+
+              v208 = v107;
+              v127 = re::HashTable<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::tryGet(v213, &v208);
+              if (v127)
+              {
+                v24 = v199[7];
+                if (v24 > v87)
+                {
+                  v128 = (v199[9] + 16 * v87);
+                  v129 = *v98;
+                  v130 = *v100;
+                  v131 = *v127;
+                  *v128 = *v97;
+                  v128[1] = v129;
+                  v128[2] = v130;
+                  v128[3] = v131;
+                  v4 = v195;
+                  v105 = v197;
+                  v101 = v198;
+                  goto LABEL_159;
+                }
+
+LABEL_217:
+                v212 = 0;
+                v163 = v87;
+                v82 = v214;
+                v223 = 0u;
+                v224 = 0u;
+                v222 = 0u;
+                memset(buf, 0, sizeof(buf));
+                v164 = MEMORY[0x1E69E9C10];
+                v165 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                *v214 = 136315906;
+                *&v214[4] = "operator[]";
+                v215 = 1024;
+                if (v165)
+                {
+                  v166 = 3;
+                }
+
+                else
+                {
+                  v166 = 2;
+                }
+
+                v216 = 789;
+                v217 = 2048;
+                v218 = v163;
+                v219 = 2048;
+                v220 = v24;
+                _os_log_send_and_compose_impl(v166, &v212, buf, 80, &dword_1E1C61000, v164, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v214, 38, v181, v182);
+                _os_crash_msg();
+                __break(1u);
+LABEL_221:
+                *v214 = 0;
+                v223 = 0u;
+                v224 = 0u;
+                v222 = 0u;
+                memset(buf, 0, sizeof(buf));
+                v167 = MEMORY[0x1E69E9C10];
+                v168 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                *v213 = 136315906;
+                *&v213[4] = "operator[]";
+                *&v213[12] = 1024;
+                if (v168)
+                {
+                  v169 = 3;
+                }
+
+                else
+                {
+                  v169 = 2;
+                }
+
+                *&v213[14] = 789;
+                *&v213[18] = 2048;
+                *&v213[20] = v82;
+                *&v213[28] = 2048;
+                *&v213[30] = v24;
+                _os_log_send_and_compose_impl(v169, v214, buf, 80, &dword_1E1C61000, v167, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v213, 38, v181, v182);
+                _os_crash_msg();
+                __break(1u);
+LABEL_225:
+                *v214 = 0;
+                v223 = 0u;
+                v224 = 0u;
+                v222 = 0u;
+                memset(buf, 0, sizeof(buf));
+                v170 = MEMORY[0x1E69E9C10];
+                v171 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                *v213 = 136315906;
+                *&v213[4] = "operator[]";
+                *&v213[12] = 1024;
+                if (v171)
+                {
+                  v172 = 3;
+                }
+
+                else
+                {
+                  v172 = 2;
+                }
+
+                *&v213[14] = 789;
+                *&v213[18] = 2048;
+                *&v213[20] = 0;
+                *&v213[28] = 2048;
+                *&v213[30] = 0;
+                _os_log_send_and_compose_impl(v172, v214, buf, 80, &dword_1E1C61000, v170, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v213, 38, v181, v182);
+                _os_crash_msg();
+                __break(1u);
+              }
+
+              v144 = v194;
+              v145 = *(v194 + 16);
+              *(v194 + 16) = 0;
+              if (!v145)
+              {
+LABEL_175:
+                ++*(v144 + 24);
+                v4 = v195;
+                goto LABEL_180;
+              }
+
+              v146 = *(v194 + 32);
+              v147 = 80 * v145;
+              v4 = v195;
+              do
+              {
+                re::DynamicArray<unsigned long>::deinit(v146 + 40);
+                re::DynamicArray<unsigned long>::deinit(v146);
+                v146 += 80;
+                v147 -= 80;
+              }
+
+              while (v147);
+LABEL_179:
+              ++*(v194 + 24);
+              goto LABEL_180;
+            }
+
+LABEL_216:
+            re::internal::assertLog(4, v86, "assertion failure: '%s' (%s:line %i) ", "index < m_max_index", "operator[]", 79);
+            _os_crash("assertion failure: (index < m_max_index) ");
+            __break(1u);
+            goto LABEL_217;
+          }
+
+          if (v198 == 3)
+          {
+            v24 = v199[7];
+            v87 = v2;
+            if (v24 > v2)
+            {
+              v102 = (v199[9] + 16 * v2);
+              v103 = *v98;
+              v104 = *v99;
+              *v102 = *v97;
+              v102[1] = v103;
+              v105 = v197;
+              v102[2] = v104;
+              v102[3] = -1;
+              v4 = v195;
+              goto LABEL_159;
+            }
+
+LABEL_208:
+            v212 = 0;
+            v108 = v87;
+            v87 = v214;
+            v223 = 0u;
+            v224 = 0u;
+            v222 = 0u;
+            memset(buf, 0, sizeof(buf));
+            v157 = MEMORY[0x1E69E9C10];
+            v158 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v214 = 136315906;
+            *&v214[4] = "operator[]";
+            v215 = 1024;
+            if (v158)
+            {
+              v159 = 3;
+            }
+
+            else
+            {
+              v159 = 2;
+            }
+
+            v216 = 789;
+            v217 = 2048;
+            v218 = v108;
+            v219 = 2048;
+            v220 = v24;
+            _os_log_send_and_compose_impl(v159, &v212, buf, 80, &dword_1E1C61000, v157, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v214, 38, v181, v182);
+            _os_crash_msg();
+            __break(1u);
+LABEL_212:
+            v212 = 0;
+            v24 = v214;
+            v223 = 0u;
+            v224 = 0u;
+            v222 = 0u;
+            memset(buf, 0, sizeof(buf));
+            v160 = MEMORY[0x1E69E9C10];
+            v161 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v214 = 136315906;
+            *&v214[4] = "operator[]";
+            v215 = 1024;
+            if (v161)
+            {
+              v162 = 3;
+            }
+
+            else
+            {
+              v162 = 2;
+            }
+
+            v216 = 789;
+            v217 = 2048;
+            v218 = v2;
+            v219 = 2048;
+            v220 = v108;
+            _os_log_send_and_compose_impl(v162, &v212, buf, 80, &dword_1E1C61000, v160, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v214, 38, v181, v182);
+            _os_crash_msg();
+            __break(1u);
+            goto LABEL_216;
+          }
+
+          v108 = v199[7];
+          if (v108 <= v2)
+          {
+            goto LABEL_212;
+          }
+
+          v192 = v2;
+          v109 = (v199[9] + 16 * v2);
+          v110 = *v98;
+          v111 = *v99;
+          *v109 = *v97;
+          v109[1] = v110;
+          v109[2] = v111;
+          v109[3] = -1;
+          v112 = v198 + v108 - 3;
+          re::DynamicArray<re::GeomCell4>::resize(v199 + 5, v112);
+          if (v112 <= v108)
+          {
+            v126 = v193;
+            if (v193 <= v198)
+            {
+              v126 = v198;
+            }
+
+            LODWORD(v193) = v126;
+            v4 = v195;
+            v85 = v191;
+            v87 = v2;
+            v101 = v198;
+            goto LABEL_158;
+          }
+
+          v113 = 0;
+          v108 = v108;
+          v114 = 16 * v108;
+          v115 = v196 + v28 * v87;
+          v116 = v196 + v28 * (v197 + 3);
+          while (1)
+          {
+            if (v13 <= v115)
+            {
+              re::internal::assertLog(4, v86, "assertion failure: '%s' (%s:line %i) ", "index < m_max_index", "operator[]", 79);
+              _os_crash("assertion failure: (index < m_max_index) ");
+              __break(1u);
+LABEL_184:
+              re::internal::assertLog(4, v86, "assertion failure: '%s' (%s:line %i) ", "index < m_max_index", "operator[]", 79);
+              _os_crash("assertion failure: (index < m_max_index) ");
+              __break(1u);
+LABEL_185:
+              v212 = 0;
+              v223 = 0u;
+              v224 = 0u;
+              v222 = 0u;
+              memset(buf, 0, sizeof(buf));
+              v148 = MEMORY[0x1E69E9C10];
+              v149 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+              *v214 = 136315906;
+              *&v214[4] = "operator[]";
+              v215 = 1024;
+              if (v149)
+              {
+                v150 = 3;
+              }
+
+              else
+              {
+                v150 = 2;
+              }
+
+              v216 = 789;
+              v217 = 2048;
+              v218 = v108;
+              v219 = 2048;
+              v220 = v113;
+              _os_log_send_and_compose_impl(v150, &v212, buf, 80, &dword_1E1C61000, v148, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v214, 38, v181, v182);
+              _os_crash_msg();
+              __break(1u);
+LABEL_189:
+              re::internal::assertLog(4, v27, "assertion failure: '%s' (%s:line %i) ", "index < m_max_index", "operator[]", 79);
+              _os_crash("assertion failure: (index < m_max_index) ");
+              __break(1u);
+LABEL_190:
+              re::internal::assertLog(4, v34, "assertion failure: '%s' (%s:line %i) ", "index < m_max_index", "operator[]", 79);
+              _os_crash("assertion failure: (index < m_max_index) ");
+              __break(1u);
+LABEL_191:
+              re::internal::assertLog(4, v38, "assertion failure: '%s' (%s:line %i) ", "index < m_max_index", "operator[]", 79);
+              _os_crash("assertion failure: (index < m_max_index) ");
+              __break(1u);
+LABEL_192:
+              v212 = 0;
+              v24 = v214;
+              v223 = 0u;
+              v224 = 0u;
+              v222 = 0u;
+              memset(buf, 0, sizeof(buf));
+              v151 = MEMORY[0x1E69E9C10];
+              v152 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+              *v214 = 136315906;
+              *&v214[4] = "operator[]";
+              v215 = 1024;
+              if (v152)
+              {
+                v153 = 3;
+              }
+
+              else
+              {
+                v153 = 2;
+              }
+
+              v216 = 789;
+              v217 = 2048;
+              v218 = v28;
+              v219 = 2048;
+              v220 = v13;
+              _os_log_send_and_compose_impl(v153, &v212, buf, 80, &dword_1E1C61000, v151, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v214, 38, v181, v182);
+              _os_crash_msg();
+              __break(1u);
+LABEL_196:
+              re::internal::assertLog(4, v58, "assertion failure: '%s' (%s:line %i) ", "index < m_max_index", "operator[]", 79);
+              _os_crash("assertion failure: (index < m_max_index) ");
+              __break(1u);
+LABEL_197:
+              re::internal::assertLog(4, v64, "assertion failure: '%s' (%s:line %i) ", "index < m_max_index", "operator[]", 79);
+              _os_crash("assertion failure: (index < m_max_index) ");
+              __break(1u);
+LABEL_198:
+              re::internal::assertLog(4, v69, "assertion failure: '%s' (%s:line %i) ", "index < m_max_index", "operator[]", 79);
+              _os_crash("assertion failure: (index < m_max_index) ");
+              __break(1u);
+LABEL_199:
+              re::internal::assertLog(4, v73, "assertion failure: '%s' (%s:line %i) ", "index < m_max_index", "operator[]", 79);
+              _os_crash("assertion failure: (index < m_max_index) ");
+              __break(1u);
+LABEL_200:
+              v212 = 0;
+              v87 = v214;
+              v223 = 0u;
+              v224 = 0u;
+              v222 = 0u;
+              memset(buf, 0, sizeof(buf));
+              v154 = MEMORY[0x1E69E9C10];
+              v155 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+              *v214 = 136315906;
+              *&v214[4] = "operator[]";
+              v215 = 1024;
+              if (v155)
+              {
+                v156 = 3;
+              }
+
+              else
+              {
+                v156 = 2;
+              }
+
+              v216 = 789;
+              v217 = 2048;
+              v218 = v28;
+              v219 = 2048;
+              v220 = v24;
+              _os_log_send_and_compose_impl(v156, &v212, buf, 80, &dword_1E1C61000, v154, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v214, 38, v181, v182);
+              _os_crash_msg();
+              __break(1u);
+LABEL_204:
+              re::internal::assertLog(4, v86, "assertion failure: '%s' (%s:line %i) ", "index < m_max_index", "operator[]", 79);
+              _os_crash("assertion failure: (index < m_max_index) ");
+              __break(1u);
+LABEL_205:
+              re::internal::assertLog(4, v86, "assertion failure: '%s' (%s:line %i) ", "index < m_max_index", "operator[]", 79);
+              _os_crash("assertion failure: (index < m_max_index) ");
+              __break(1u);
+LABEL_206:
+              re::internal::assertLog(4, v86, "assertion failure: '%s' (%s:line %i) ", "index < m_max_index", "operator[]", 79);
+              _os_crash("assertion failure: (index < m_max_index) ");
+              __break(1u);
+LABEL_207:
+              re::internal::assertLog(4, v86, "assertion failure: '%s' (%s:line %i) ", "index < m_max_index", "operator[]", 79);
+              _os_crash("assertion failure: (index < m_max_index) ");
+              __break(1u);
+              goto LABEL_208;
+            }
+
+            v2 = v28;
+            v28 = v115;
+            if (v24 == 32)
+            {
+              v117 = v200;
+              v118 = *(v200 + 4 * v115);
+            }
+
+            else
+            {
+              v117 = v200;
+              if (v24 == 16)
+              {
+                v118 = *(v200 + 2 * v115);
+              }
+
+              else
+              {
+                v118 = *(v200 + v115);
+              }
+            }
+
+            v208 = v118;
+            if (v13 <= v116)
+            {
+              goto LABEL_184;
+            }
+
+            if (v24 == 32)
+            {
+              v119 = *(v117 + 4 * v116);
+            }
+
+            else
+            {
+              v119 = v24 == 16 ? *(v117 + 2 * v116) : *(v117 + v116);
+            }
+
+            v207 = v119;
+            v120 = re::HashTable<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::tryGet(v213, &v208);
+            v121 = re::HashTable<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::tryGet(v213, &v207);
+            if (!v120 || !v121)
+            {
+              break;
+            }
+
+            v113 = v199[7];
+            if (v113 <= v108)
+            {
+              goto LABEL_185;
+            }
+
+            v122 = (v199[9] + v114);
+            v123 = *v120;
+            v124 = *v121;
+            *v122 = *v203;
+            v122[1] = v123;
+            v113 = ++v108 >= v112;
+            v122[2] = v124;
+            v122[3] = -1;
+            v114 += 16;
+            v115 = v28 + v2;
+            v28 = v2;
+            v116 += v2;
+            if (v112 == v108)
+            {
+              v125 = v193;
+              v101 = v198;
+              if (v193 <= v198)
+              {
+                v125 = v198;
+              }
+
+              LODWORD(v193) = v125;
+              v4 = v195;
+              v83 = v189;
+              v85 = v191;
+              v87 = v192;
+              goto LABEL_158;
+            }
+          }
+
+          v132 = *(v194 + 16);
+          *(v194 + 16) = 0;
+          if (!v132)
+          {
+            ++*(v194 + 24);
+            v134 = v193;
+            v101 = v198;
+            if (v193 <= v198)
+            {
+              v134 = v198;
+            }
+
+            v4 = v195;
+            v85 = v191;
+            v87 = v192;
+            if (v113)
+            {
+              goto LABEL_157;
+            }
+
+LABEL_180:
+            re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::deinit(v213);
+LABEL_181:
+
+LABEL_182:
+            return;
+          }
+
+          v133 = *(v194 + 32);
+          v24 = 80 * v132;
+          v4 = v195;
+          v85 = v191;
+          v87 = v192;
+          do
+          {
+            re::DynamicArray<unsigned long>::deinit(v133 + 40);
+            re::DynamicArray<unsigned long>::deinit(v133);
+            v133 += 80;
+            v24 -= 80;
+          }
+
+          while (v24);
+          ++*(v194 + 24);
+          v134 = v193;
+          v101 = v198;
+          if (v193 <= v198)
+          {
+            v134 = v198;
+          }
+
+          if ((v113 & 1) == 0)
+          {
+            goto LABEL_180;
+          }
+
+LABEL_157:
+          LODWORD(v193) = v134;
+          v83 = v189;
+          v28 = v2;
+LABEL_158:
+          ++HIDWORD(v193);
+          v105 = v197;
+LABEL_159:
+          v88 = v105 + v101;
+          ++v87;
+        }
+
+        while (v87 != v190);
+LABEL_160:
+        re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::deinit(v213);
+        v82 = v196 + 1;
+        v81 = v194;
+        if (v196 + 1 == v187)
+        {
+          if (HIDWORD(v193))
+          {
+            v136 = *re::pipelineLogObjects(v135);
+            if (os_log_type_enabled(v136, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 67109890;
+              *&buf[8] = 2080;
+              *&buf[4] = HIDWORD(v193) / v28;
+              if (HIDWORD(v193) / v28 == 1)
+              {
+                v137 = "";
+              }
+
+              else
+              {
+                v137 = "s";
+              }
+
+              *&buf[10] = v137;
+              *&buf[18] = 1024;
+              *&buf[20] = v193;
+              *&buf[24] = 1024;
+              *&buf[26] = v190;
+              _os_log_debug_impl(&dword_1E1C61000, v136, OS_LOG_TYPE_DEBUG, "Mesh contains %d polygon%s with edge count greater than 4 (max edge count %d) out of total face count %d.  The nGons have been triangulated.", buf, 0x1Eu);
+            }
+          }
+
+          goto LABEL_181;
+        }
+      }
+    }
+
+    if (v13 != 4)
+    {
+      goto LABEL_233;
+    }
+  }
+
+  if (!*(a2 + 16))
+  {
+    goto LABEL_225;
+  }
+
+  v24 = *(a2 + 32);
+  memset(v213, 0, 36);
+  *&v213[36] = 0x7FFFFFFFLL;
+  v25 = [v16 indexCount];
+  v26 = v25;
+  if (v13 != 2)
+  {
+    v202 = (v25 >> 2);
+    re::DynamicArray<re::GeomCell4>::resize((v24 + 40), v202);
+    if ((v26 & 0x3FFFFFFFCLL) != 0)
+    {
+      v59 = 0;
+      v28 = 0;
+      v60 = 0;
+      while (v15 > v60)
+      {
+        v61 = v60;
+        switch(v22)
+        {
+          case 32:
+            v62 = *(v19 + 4 * v60);
+            break;
+          case 16:
+            v62 = *(v19 + 2 * v60);
+            break;
+          case 8:
+            v62 = *(v19 + v60);
+            break;
+          default:
+            goto LABEL_230;
+        }
+
+        *buf = v62;
+        v63 = re::HashTable<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](v213, buf);
+        v65 = v61 + 1;
+        if (v15 <= v65)
+        {
+          goto LABEL_197;
+        }
+
+        v66 = *v63;
+        if (v22 == 32)
+        {
+          v67 = *(v19 + 4 * v65);
+        }
+
+        else if (v22 == 16)
+        {
+          v67 = *(v19 + 2 * v65);
+        }
+
+        else
+        {
+          v67 = *(v19 + v65);
+        }
+
+        *buf = v67;
+        v68 = re::HashTable<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](v213, buf);
+        v70 = v61 + 2;
+        if (v15 <= v70)
+        {
+          goto LABEL_198;
+        }
+
+        v2 = *v68;
+        if (v22 == 32)
+        {
+          v71 = *(v19 + 4 * v70);
+        }
+
+        else if (v22 == 16)
+        {
+          v71 = *(v19 + 2 * v70);
+        }
+
+        else
+        {
+          v71 = *(v19 + v70);
+        }
+
+        *buf = v71;
+        v72 = re::HashTable<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](v213, buf);
+        v74 = v61 + 3;
+        if (v15 <= v74)
+        {
+          goto LABEL_199;
+        }
+
+        v75 = *v72;
+        if (v22 == 32)
+        {
+          v76 = *(v19 + 4 * v74);
+        }
+
+        else if (v22 == 16)
+        {
+          v76 = *(v19 + 2 * v74);
+        }
+
+        else
+        {
+          v76 = *(v19 + v74);
+        }
+
+        *buf = v76;
+        v77 = re::HashTable<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](v213, buf);
+        v78 = v24;
+        v24 = *(v24 + 56);
+        if (v24 <= v28)
+        {
+          goto LABEL_200;
+        }
+
+        v79 = *v77;
+        v80 = (*(v78 + 72) + v59);
+        *v80 = v66;
+        v80[1] = v2;
+        v80[2] = v75;
+        v80[3] = v79;
+        ++v28;
+        v60 = v61 + 4;
+        v59 += 16;
+        v24 = v78;
+        if (v202 == v28)
+        {
+          goto LABEL_76;
+        }
+      }
+
+      goto LABEL_196;
+    }
+
+LABEL_76:
+    re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::deinit(v213);
+    v4 = v195;
+    goto LABEL_182;
+  }
+
+  re::DynamicArray<re::GeomCell4>::resize((v24 + 40), (v25 / 3));
+  v201 = (v26 / 3);
+  if (!(v26 / 3))
+  {
+    goto LABEL_76;
+  }
+
+  v28 = 0;
+  v29 = 2;
+  v30 = 8;
+  while (1)
+  {
+    v31 = v29 - 2;
+    if (v15 <= v31)
+    {
+      goto LABEL_189;
+    }
+
+    if (v22 != 32)
+    {
+      break;
+    }
+
+    v32 = *(v19 + 4 * v31);
+LABEL_26:
+    *buf = v32;
+    v33 = re::HashTable<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](v213, buf);
+    v35 = v29 - 1;
+    if (v15 <= v35)
+    {
+      goto LABEL_190;
+    }
+
+    v2 = *v33;
+    if (v22 == 32)
+    {
+      v36 = *(v19 + 4 * v35);
+    }
+
+    else if (v22 == 16)
+    {
+      v36 = *(v19 + 2 * v35);
+    }
+
+    else
+    {
+      v36 = *(v19 + v35);
+    }
+
+    *buf = v36;
+    v37 = re::HashTable<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](v213, buf);
+    if (v15 <= v29)
+    {
+      goto LABEL_191;
+    }
+
+    v39 = *v37;
+    if (v22 == 32)
+    {
+      v40 = *(v19 + 4 * v29);
+    }
+
+    else if (v22 == 16)
+    {
+      v40 = *(v19 + 2 * v29);
+    }
+
+    else
+    {
+      v40 = *(v19 + v29);
+    }
+
+    *buf = v40;
+    v41 = re::HashTable<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::operator[](v213, buf);
+    v13 = *(v24 + 56);
+    if (v13 <= v28)
+    {
+      goto LABEL_192;
+    }
+
+    v42 = *v41;
+    v43 = (*(v24 + 72) + v30);
+    *(v43 - 2) = v2;
+    *(v43 - 1) = v39;
+    *v43 = v42;
+    v43[1] = -1;
+    ++v28;
+    v30 += 16;
+    v29 += 3;
+    if (v201 == v28)
+    {
+      goto LABEL_76;
+    }
+  }
+
+  if (v22 == 16)
+  {
+    v32 = *(v19 + 2 * v31);
+    goto LABEL_26;
+  }
+
+  if (v22 == 8)
+  {
+    v32 = *(v19 + v31);
+    goto LABEL_26;
+  }
+
+  re::internal::assertLog(4, v27, "assertion failure: '%s' (%s:line %i) Unsupported or invalid MDLIndexBitDepth detected.", "!Unreachable code", "operator[]", 93);
+  _os_crash("assertion failure: (!Unreachable code) Unsupported or invalid MDLIndexBitDepth detected.");
+  __break(1u);
+  re::internal::assertLog(4, v173, "assertion failure: '%s' (%s:line %i) Unsupported or invalid MDLIndexBitDepth detected.", "!Unreachable code", "operator[]", 93);
+  _os_crash("assertion failure: (!Unreachable code) Unsupported or invalid MDLIndexBitDepth detected.");
+  __break(1u);
+  re::internal::assertLog(4, v174, "assertion failure: '%s' (%s:line %i) Unsupported or invalid MDLIndexBitDepth detected.", "!Unreachable code", "operator[]", 93);
+  _os_crash("assertion failure: (!Unreachable code) Unsupported or invalid MDLIndexBitDepth detected.");
+  __break(1u);
+LABEL_230:
+  re::internal::assertLog(4, v58, "assertion failure: '%s' (%s:line %i) Unsupported or invalid MDLIndexBitDepth detected.", "!Unreachable code", "operator[]", 93);
+  _os_crash("assertion failure: (!Unreachable code) Unsupported or invalid MDLIndexBitDepth detected.");
+  __break(1u);
+  re::internal::assertLog(4, v175, "assertion failure: '%s' (%s:line %i) Unsupported or invalid MDLIndexBitDepth detected.", "!Unreachable code", "operator[]", 93);
+  _os_crash("assertion failure: (!Unreachable code) Unsupported or invalid MDLIndexBitDepth detected.");
+  __break(1u);
+  re::internal::assertLog(4, v176, "assertion failure: '%s' (%s:line %i) Unsupported or invalid MDLIndexBitDepth detected.", "!Unreachable code", "operator[]", 93);
+  _os_crash("assertion failure: (!Unreachable code) Unsupported or invalid MDLIndexBitDepth detected.");
+  __break(1u);
+  re::internal::assertLog(4, v177, "assertion failure: '%s' (%s:line %i) Unsupported or invalid MDLIndexBitDepth detected.", "!Unreachable code", "operator[]", 93);
+  _os_crash("assertion failure: (!Unreachable code) Unsupported or invalid MDLIndexBitDepth detected.");
+  __break(1u);
+LABEL_231:
+  re::internal::assertLog(4, v86, "assertion failure: '%s' (%s:line %i) Unsupported or invalid MDLIndexBitDepth detected.", "!Unreachable code", "operator[]", 93);
+  _os_crash("assertion failure: (!Unreachable code) Unsupported or invalid MDLIndexBitDepth detected.");
+  __break(1u);
+  re::internal::assertLog(4, v178, "assertion failure: '%s' (%s:line %i) Unsupported or invalid MDLIndexBitDepth detected.", "!Unreachable code", "operator[]", 93);
+  _os_crash("assertion failure: (!Unreachable code) Unsupported or invalid MDLIndexBitDepth detected.");
+  __break(1u);
+  re::internal::assertLog(4, v179, "assertion failure: '%s' (%s:line %i) Unsupported or invalid MDLIndexBitDepth detected.", "!Unreachable code", "operator[]", 93);
+  _os_crash("assertion failure: (!Unreachable code) Unsupported or invalid MDLIndexBitDepth detected.");
+  __break(1u);
+  re::internal::assertLog(4, v180, "assertion failure: '%s' (%s:line %i) Unsupported or invalid MDLIndexBitDepth detected.", "!Unreachable code", "operator[]", 93);
+  _os_crash("assertion failure: (!Unreachable code) Unsupported or invalid MDLIndexBitDepth detected.");
+  __break(1u);
+LABEL_232:
+  re::internal::assertLog(4, v21, "assertion failure: '%s' (%s:line %i) Unsupported or invalid MDLIndexBitDepth detected.", "!Unreachable code", "MDLIndexBuffer", 65);
+  _os_crash("assertion failure: (!Unreachable code) Unsupported or invalid MDLIndexBitDepth detected.");
+  __break(1u);
+LABEL_233:
+  re::internal::assertLog(4, v23, "assertion failure: '%s' (%s:line %i) Unsupported Geometry type", "!Unreachable code", "extractMDLAttributeTopologies", 475);
+  _os_crash("assertion failure: (!Unreachable code) Unsupported Geometry type");
+  __break(1u);
+}
+
+uint64_t re::internal::anonymous namespace::modelGetVertexAttributeBuffer(void *a1, void *a2, void *a3, uint64_t a4)
+{
+  v7 = a1;
+  v8 = a2;
+  v9 = [v7 vertexDescriptor];
+  v10 = [v9 attributeNamed:v8];
+
+  if (v10)
+  {
+    *(a4 + 32) = [v10 bufferIndex];
+    v11 = [v7 vertexAttributeDataForAttributeNamed:v8];
+    if (v11)
+    {
+      if ([v10 format] == a3)
+      {
+        v12 = [v10 offset];
+        v13 = [v10 bufferIndex];
+        v14 = [v11 stride];
+        if ((v12 & 3) != 0)
+        {
+          NSLog(&cfstr_Modelconverter_1.isa);
+        }
+
+        else
+        {
+          v17 = v14;
+          if ((v14 & 3) == 0)
+          {
+            v18 = [v7 vertexBuffers];
+            v19 = [v18 objectAtIndexedSubscript:v13];
+
+            *(a4 + 8) = [v19 length];
+            v20 = [v19 map];
+            *a4 = [v20 bytes];
+
+            *(a4 + 16) = v12 >> 2;
+            *(a4 + 24) = v17 >> 2;
+
+            v15 = 1;
+            goto LABEL_9;
+          }
+
+          NSLog(&cfstr_Modelconverter_2.isa);
+        }
+      }
+
+      else
+      {
+        NSLog(&cfstr_Modelconverter_0.isa);
+      }
+    }
+
+    v15 = 0;
+LABEL_9:
+
+    goto LABEL_10;
+  }
+
+  v15 = 0;
+LABEL_10:
+
+  return v15;
+}
+
+void *re::internal::anonymous namespace::copyVertex3FValues(void *result, uint64_t a2, uint64_t a3, __n128 a4)
+{
+  v29 = *MEMORY[0x1E69E9840];
+  v4 = *(a3 + 8);
+  if (v4)
+  {
+    v5 = 0;
+    v6 = *result + (result[1] & 0xFFFFFFFFFFFFFFFCLL) - 12;
+    do
+    {
+      v7 = *(a2 + 16);
+      if (v7 <= v5)
+      {
+        v15 = 0;
+        v27 = 0u;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
+        v24 = 0u;
+        v9 = MEMORY[0x1E69E9C10];
+        v16 = 136315906;
+        v17 = "operator[]";
+        v18 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v10 = 3;
+        }
+
+        else
+        {
+          v10 = 2;
+        }
+
+        v19 = 797;
+        v20 = 2048;
+        v21 = v5;
+        v22 = 2048;
+        v23 = v7;
+        _os_log_send_and_compose_impl(v10, &v15, &v24, 80, &dword_1E1C61000, v9, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v16, 38, v14);
+        _os_crash_msg();
+        __break(1u);
+LABEL_13:
+        v15 = 0;
+        v27 = 0u;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
+        v24 = 0u;
+        v11 = MEMORY[0x1E69E9C10];
+        v12 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        v16 = 136315906;
+        v17 = "operator[]";
+        v18 = 1024;
+        if (v12)
+        {
+          v13 = 3;
+        }
+
+        else
+        {
+          v13 = 2;
+        }
+
+        v19 = 621;
+        v20 = 2048;
+        v21 = v5;
+        v22 = 2048;
+        v23 = v7;
+        _os_log_send_and_compose_impl(v13, &v15, &v24, 80, &dword_1E1C61000, v11, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v16, 38, v14);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      v8 = *result + 4 * result[2] + 4 * result[3] * *(*(a2 + 32) + 4 * v5);
+      if (v8 <= v6)
+      {
+        v7 = *(a3 + 8);
+        if (v5 >= v7)
+        {
+          goto LABEL_13;
+        }
+
+        a4.n128_u64[0] = *v8;
+        a4.n128_u32[2] = *(v8 + 8);
+        *(*a3 + 16 * v5) = a4;
+      }
+
+      ++v5;
     }
 
     while (v4 != v5);
   }
-}
-
-int64x2_t re::ProfilerStatistics::operator+=(int64x2_t *a1, int64x2_t *a2)
-{
-  v2 = a1 + 9;
-  v3 = a2 + 9;
-  v4 = 157;
-  do
-  {
-    v5 = v3[-1].u64[0];
-    v6 = v2[-1].u64[1];
-    if (v5 >= v2[-1].i64[0])
-    {
-      v5 = v2[-1].u64[0];
-    }
-
-    v2[-1].i64[0] = v5;
-    v7 = v3[-1].u64[1];
-    if (v6 > v7)
-    {
-      v7 = v6;
-    }
-
-    v2[-1].i64[1] = v7;
-    v8 = *v3;
-    v3 += 8;
-    result = vaddq_s64(*v2, v8);
-    *v2 = result;
-    v2 += 8;
-    --v4;
-  }
-
-  while (v4);
-  return result;
-}
-
-uint64_t re::ProfilerFrameStatisticsProcessor::cpuActiveFrameTime(uint64_t this, uint64_t a2)
-{
-  if (*(this + 20224 * (a2 & 0x3F) + 136) == a2)
-  {
-    v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v3) = info.numer;
-        LODWORD(v4) = info.denom;
-        v2 = v3 / v4;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
-      }
-    }
-
-    if (v2 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v5) = info.numer;
-        LODWORD(v6) = info.denom;
-        v2 = v5 / v6;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
-      }
-    }
-
-    if (v2 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v7) = info.numer;
-        LODWORD(v8) = info.denom;
-        v2 = v7 / v8;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
-      }
-    }
-
-    if (v2 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v9) = info.numer;
-        LODWORD(v10) = info.denom;
-        v2 = v9 / v10;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
-      }
-    }
-
-    if (v2 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v11) = info.numer;
-        LODWORD(v12) = info.denom;
-        v2 = v11 / v12;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
-      }
-    }
-
-    if (v2 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v13) = info.numer;
-        LODWORD(v14) = info.denom;
-        v2 = v13 / v14;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
-      }
-    }
-
-    if (v2 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v15) = info.numer;
-        LODWORD(v16) = info.denom;
-        v2 = v15 / v16;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
-      }
-    }
-
-    if (v2 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v17) = info.numer;
-        LODWORD(v18) = info.denom;
-        v2 = v17 / v18;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
-      }
-    }
-
-    if (v2 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v19) = info.numer;
-        LODWORD(v20) = info.denom;
-        v2 = v19 / v20;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
-      }
-    }
-
-    if (v2 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v21) = info.numer;
-        LODWORD(v22) = info.denom;
-        v2 = v21 / v22;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
-      }
-    }
-
-    if (v2 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v23) = info.numer;
-        LODWORD(v24) = info.denom;
-        v2 = v23 / v24;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
-      }
-    }
-
-    if (v2 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (!this)
-      {
-        LODWORD(v25) = info.numer;
-        LODWORD(v26) = info.denom;
-        *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = v25 / v26;
-      }
-    }
-  }
-
-  else
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempting to get statistics for a frame older than the allowed number of frames in flight", "!Unreachable code", "cpuActiveFrameTime", 39);
-    this = _os_crash();
-    __break(1u);
-  }
-
-  return this;
-}
-
-uint64_t re::ProfilerFrameStatisticsProcessor::cpuRenderThreadActiveFrameTime(uint64_t this, uint64_t a2)
-{
-  if (*(this + 20224 * (a2 & 0x3F) + 136) == a2)
-  {
-    v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v3) = info.numer;
-        LODWORD(v4) = info.denom;
-        v2 = v3 / v4;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
-      }
-    }
-
-    if (v2 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v2 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v5) = info.numer;
-        LODWORD(v6) = info.denom;
-        v2 = v5 / v6;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v2;
-      }
-    }
-
-    if (v2 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (!this)
-      {
-        LODWORD(v7) = info.numer;
-        LODWORD(v8) = info.denom;
-        *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = v7 / v8;
-      }
-    }
-  }
-
-  else
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempting to get statistics for a frame older than the allowed number of frames in flight", "!Unreachable code", "cpuRenderThreadActiveFrameTime", 74);
-    this = _os_crash();
-    __break(1u);
-  }
-
-  return this;
-}
-
-uint64_t re::ProfilerFrameStatisticsProcessor::cpuMainThreadLatency(uint64_t this, uint64_t a2)
-{
-  v2 = this + 20224 * (a2 & 0x3F);
-  if (*(v2 + 136) != a2)
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempting to get statistics for a frame older than the allowed number of frames in flight", "!Unreachable code", "cpuMainThreadLatency", 94);
-    this = _os_crash();
-    __break(1u);
-    return this;
-  }
-
-  v3 = *(v2 + 1552);
-  v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    this = mach_timebase_info(&info);
-    if (this)
-    {
-      v7 = NAN;
-      goto LABEL_7;
-    }
-
-    LODWORD(v5) = info.numer;
-    LODWORD(v6) = info.denom;
-    v4 = v5 / v6;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
-  }
-
-  v7 = v4 * v3;
-LABEL_7:
-  if (v7 / 1000000.0 <= 0.0)
-  {
-    v8 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v8 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v9) = info.numer;
-        LODWORD(v10) = info.denom;
-        v8 = v9 / v10;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v8;
-      }
-    }
-
-    if (v8 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (!this)
-      {
-        LODWORD(v11) = info.numer;
-        LODWORD(v12) = info.denom;
-        *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = v11 / v12;
-      }
-    }
-  }
-
-  return this;
-}
-
-uint64_t re::ProfilerFrameStatisticsProcessor::cpuRenderThreadLatency(uint64_t this, uint64_t a2)
-{
-  v2 = this + 20224 * (a2 & 0x3F);
-  if (*(v2 + 136) != a2)
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempting to get statistics for a frame older than the allowed number of frames in flight", "!Unreachable code", "cpuRenderThreadLatency", 112);
-    this = _os_crash();
-    __break(1u);
-    return this;
-  }
-
-  v3 = *(v2 + 1552);
-  v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    this = mach_timebase_info(&info);
-    if (this)
-    {
-      v7 = NAN;
-      goto LABEL_7;
-    }
-
-    LODWORD(v5) = info.numer;
-    LODWORD(v6) = info.denom;
-    v4 = v5 / v6;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
-  }
-
-  v7 = v4 * v3;
-LABEL_7:
-  if (v7 / 1000000.0 > 0.0)
-  {
-    v8 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (this)
-      {
-        v8 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      }
-
-      else
-      {
-        LODWORD(v9) = info.numer;
-        LODWORD(v10) = info.denom;
-        v8 = v9 / v10;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v8;
-      }
-    }
-
-    if (v8 < 0.0)
-    {
-      this = mach_timebase_info(&info);
-      if (!this)
-      {
-        LODWORD(v11) = info.numer;
-        LODWORD(v12) = info.denom;
-        *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = v11 / v12;
-      }
-    }
-  }
-
-  return this;
-}
-
-uint64_t re::ProfilerFrameStatisticsProcessor::durationStatistic(uint64_t result, uint64_t a2, uint64_t a3)
-{
-  if (*(result + 20224 * (a3 & 0x3F) + 136) == a3)
-  {
-    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-    {
-      result = mach_timebase_info(&info);
-      if (!result)
-      {
-        LODWORD(v3) = info.numer;
-        LODWORD(v4) = info.denom;
-        *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = v3 / v4;
-      }
-    }
-  }
-
-  else
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempting to get statistics for a frame older than the allowed number of frames in flight", "!Unreachable code", "durationStatistic", 130);
-    result = _os_crash();
-    __break(1u);
-  }
 
   return result;
 }
 
-uint64_t re::ProfilerFrameStatisticsProcessor::counterStatistic(uint64_t a1, uint64_t a2, uint64_t a3)
+void re::internal::anonymous namespace::addAttributeIfItExistsToGeomMesh(void *a1, void *a2, void *a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v5 = a1 + 20224 * (a3 & 0x3F);
-  if (*(v5 + 136) == a3)
+  v99 = *MEMORY[0x1E69E9840];
+  v13 = a1;
+  v14 = a2;
+  v15 = a3;
+  v16 = [v13 vertexDescriptor];
+  v17 = [v16 attributeNamed:v15];
+
+  v18 = [v17 format];
+  if (v18 > 786434)
   {
-    return *(v5 + 128 + (a2 << 7) + 144);
+    if (v18 == 786436)
+    {
+      v20 = 0;
+      v21 = 8;
+      v77 = 1;
+    }
+
+    else
+    {
+      if (v18 != 786435)
+      {
+        goto LABEL_83;
+      }
+
+      v77 = 0;
+      v21 = 7;
+      v20 = 1;
+    }
+
+LABEL_9:
+    {
+      v76 = v20;
+      v75 = v14;
+      v22 = [v14 faceIndexing];
+      v74 = v22;
+      if (v22)
+      {
+        v23 = [v22 objectAtIndexedSubscript:v82];
+        LODWORD(v24) = [v23 unsignedIntValue];
+
+        v24 = v24;
+      }
+
+      else
+      {
+        v24 = 0;
+      }
+
+      v25 = *(a6 + 16);
+      if (v25 <= v24)
+      {
+        goto LABEL_63;
+      }
+
+      v25 = *(a6 + 32) + 80 * v24;
+      if (v25 == a5 || (v26 = *(v25 + 16), v26 == *(a5 + 16)) && !memcmp(*(v25 + 32), *(a5 + 32), 4 * v26) && re::DynamicArray<re::GeomCell4>::operator==(v25 + 40, a5 + 40))
+      {
+        v27 = re::GeomMesh::addAttribute(a7, a4, 1, v21);
+      }
+
+      else
+      {
+        *&v86[2] = 0;
+        memset(v84, 0, sizeof(v84));
+        re::DynamicArray<float>::resize(v84, *(a7 + 40));
+        v28 = *(a7 + 40);
+        if (*(a7 + 40))
+        {
+          v29 = 0;
+          v30 = *&v84[16];
+          v31 = *&v86[2];
+          while (v30 != v29)
+          {
+            *(v31 + 4 * v29) = v29;
+            if (v28 == ++v29)
+            {
+              goto LABEL_23;
+            }
+          }
+
+          v83 = 0;
+          v97 = 0u;
+          v98 = 0u;
+          v95 = 0u;
+          v96 = 0u;
+          v94 = 0u;
+          v48 = MEMORY[0x1E69E9C10];
+          v49 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          *v87 = 136315906;
+          *&v87[4] = "operator[]";
+          v88 = 1024;
+          if (v49)
+          {
+            v50 = 3;
+          }
+
+          else
+          {
+            v50 = 2;
+          }
+
+          v89 = 789;
+          v90 = 2048;
+          v91 = v30;
+          v92 = 2048;
+          v93 = v30;
+          _os_log_send_and_compose_impl(v50, &v83, &v94, 80, &dword_1E1C61000, v48, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v87, 38, v72, v73);
+          _os_crash_msg();
+          __break(1u);
+          goto LABEL_55;
+        }
+
+LABEL_23:
+        v27 = re::GeomMesh::addFaceVaryingAttribute(a7, a4, v21, *(v25 + 16), (v25 + 40), v84);
+        if (*v84 && *&v86[2])
+        {
+          (*(**v84 + 40))();
+        }
+      }
+
+      if (v77)
+      {
+        v32 = re::GeomAttribute::modifyValues<re::Vector3<float>>(v27);
+        v25 = *(a6 + 16);
+        if (v25 <= v24)
+        {
+LABEL_67:
+          *v87 = 0;
+          v97 = 0u;
+          v98 = 0u;
+          v95 = 0u;
+          v96 = 0u;
+          v94 = 0u;
+          v60 = MEMORY[0x1E69E9C10];
+          v61 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          *v84 = 136315906;
+          *&v84[4] = "operator[]";
+          *&v84[12] = 1024;
+          if (v61)
+          {
+            v62 = 3;
+          }
+
+          else
+          {
+            v62 = 2;
+          }
+
+          *&v84[14] = 789;
+          *&v84[18] = 2048;
+          *&v84[20] = v24;
+          v85 = 2048;
+          *v86 = v25;
+          _os_log_send_and_compose_impl(v62, v87, &v94, 80, &dword_1E1C61000, v60, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v84, 38, v72, v73);
+          _os_crash_msg();
+          __break(1u);
+          goto LABEL_71;
+        }
+
+        if (v33)
+        {
+          v25 = 0;
+          v34 = v78 + (v79 & 0xFFFFFFFFFFFFFFFCLL) - 16;
+          v35 = *(a6 + 32) + 80 * v24;
+          v36 = v81;
+          v37 = v78 + 4 * v80;
+          while (1)
+          {
+            v24 = *(v35 + 16);
+            if (v24 <= v25)
+            {
+              break;
+            }
+
+            v38 = (v37 + 4 * v36 * *(*(v35 + 32) + 4 * v25));
+            if (v38 <= v34)
+            {
+              *(v32 + 16 * v25) = *v38;
+            }
+
+            if (v33 == ++v25)
+            {
+              goto LABEL_49;
+            }
+          }
+
+LABEL_55:
+          *v87 = 0;
+          v97 = 0u;
+          v98 = 0u;
+          v95 = 0u;
+          v96 = 0u;
+          v94 = 0u;
+          v51 = MEMORY[0x1E69E9C10];
+          v52 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          *v84 = 136315906;
+          *&v84[4] = "operator[]";
+          *&v84[12] = 1024;
+          if (v52)
+          {
+            v53 = 3;
+          }
+
+          else
+          {
+            v53 = 2;
+          }
+
+          *&v84[14] = 797;
+          *&v84[18] = 2048;
+          *&v84[20] = v25;
+          v85 = 2048;
+          *v86 = v24;
+          _os_log_send_and_compose_impl(v53, v87, &v94, 80, &dword_1E1C61000, v51, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v84, 38, v72, v73);
+          _os_crash_msg();
+          __break(1u);
+LABEL_59:
+          *v87 = 0;
+          v97 = 0u;
+          v98 = 0u;
+          v95 = 0u;
+          v96 = 0u;
+          v94 = 0u;
+          v54 = MEMORY[0x1E69E9C10];
+          v55 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          *v84 = 136315906;
+          *&v84[4] = "operator[]";
+          *&v84[12] = 1024;
+          if (v55)
+          {
+            v56 = 3;
+          }
+
+          else
+          {
+            v56 = 2;
+          }
+
+          *&v84[14] = 797;
+          *&v84[18] = 2048;
+          *&v84[20] = v25;
+          v85 = 2048;
+          *v86 = v24;
+          _os_log_send_and_compose_impl(v56, v87, &v94, 80, &dword_1E1C61000, v54, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v84, 38, v72, v73);
+          _os_crash_msg();
+          __break(1u);
+LABEL_63:
+          *v87 = 0;
+          v97 = 0u;
+          v98 = 0u;
+          v95 = 0u;
+          v96 = 0u;
+          v94 = 0u;
+          v57 = MEMORY[0x1E69E9C10];
+          v58 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          *v84 = 136315906;
+          *&v84[4] = "operator[]";
+          *&v84[12] = 1024;
+          if (v58)
+          {
+            v59 = 3;
+          }
+
+          else
+          {
+            v59 = 2;
+          }
+
+          *&v84[14] = 789;
+          *&v84[18] = 2048;
+          *&v84[20] = v24;
+          v85 = 2048;
+          *v86 = v25;
+          _os_log_send_and_compose_impl(v59, v87, &v94, 80, &dword_1E1C61000, v57, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v84, 38, v72, v73);
+          _os_crash_msg();
+          __break(1u);
+          goto LABEL_67;
+        }
+
+        goto LABEL_49;
+      }
+
+      if (v76)
+      {
+        *v87 = re::GeomAttribute::modifyValues<re::Vector3<float>>(v27);
+        *&v87[8] = v40;
+        v25 = *(a6 + 16);
+        if (v25 <= v24)
+        {
+LABEL_71:
+          v83 = 0;
+          v97 = 0u;
+          v98 = 0u;
+          v95 = 0u;
+          v96 = 0u;
+          v94 = 0u;
+          v63 = MEMORY[0x1E69E9C10];
+          v64 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          *v84 = 136315906;
+          *&v84[4] = "operator[]";
+          *&v84[12] = 1024;
+          if (v64)
+          {
+            v65 = 3;
+          }
+
+          else
+          {
+            v65 = 2;
+          }
+
+          *&v84[14] = 789;
+          *&v84[18] = 2048;
+          *&v84[20] = v24;
+          v85 = 2048;
+          *v86 = v25;
+          _os_log_send_and_compose_impl(v65, &v83, &v94, 80, &dword_1E1C61000, v63, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v84, 38, v72, v73);
+          _os_crash_msg();
+          __break(1u);
+          goto LABEL_75;
+        }
+
+        goto LABEL_49;
+      }
+
+      if ((*(*v27 + 16))(v27))
+      {
+        if (!*(v27 + 5))
+        {
+          goto LABEL_79;
+        }
+
+        v41 = *(v27 + 7);
+        v42 = (*(*v27 + 16))(v27);
+        v25 = *(a6 + 16);
+        if (v25 > v24)
+        {
+          if (v42)
+          {
+            v25 = 0;
+            v43 = v78 + (v79 & 0xFFFFFFFFFFFFFFFCLL) - 8;
+            v44 = *(a6 + 32) + 80 * v24;
+            v45 = v81;
+            v46 = v78 + 4 * v80;
+            while (1)
+            {
+              v24 = *(v44 + 16);
+              if (v24 <= v25)
+              {
+                goto LABEL_59;
+              }
+
+              v47 = (v46 + 4 * v45 * *(*(v44 + 32) + 4 * v25));
+              if (v47 <= v43)
+              {
+                *(v41 + 8 * v25) = *v47;
+              }
+
+              if (v42 == ++v25)
+              {
+                goto LABEL_49;
+              }
+            }
+          }
+
+          goto LABEL_49;
+        }
+      }
+
+      else
+      {
+        v25 = *(a6 + 16);
+        if (v25 > v24)
+        {
+LABEL_49:
+
+          v14 = v75;
+          goto LABEL_50;
+        }
+      }
+
+LABEL_75:
+      *v87 = 0;
+      v97 = 0u;
+      v98 = 0u;
+      v95 = 0u;
+      v96 = 0u;
+      v94 = 0u;
+      v66 = MEMORY[0x1E69E9C10];
+      v67 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      *v84 = 136315906;
+      *&v84[4] = "operator[]";
+      *&v84[12] = 1024;
+      if (v67)
+      {
+        v68 = 3;
+      }
+
+      else
+      {
+        v68 = 2;
+      }
+
+      *&v84[14] = 789;
+      *&v84[18] = 2048;
+      *&v84[20] = v24;
+      v85 = 2048;
+      *v86 = v25;
+      _os_log_send_and_compose_impl(v68, v87, &v94, 80, &dword_1E1C61000, v66, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v84, 38, v72, v73);
+      _os_crash_msg();
+      __break(1u);
+LABEL_79:
+      *v87 = 0;
+      v97 = 0u;
+      v98 = 0u;
+      v95 = 0u;
+      v96 = 0u;
+      v94 = 0u;
+      v69 = MEMORY[0x1E69E9C10];
+      v70 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      *v84 = 136315906;
+      *&v84[4] = "operator[]";
+      *&v84[12] = 1024;
+      if (v70)
+      {
+        v71 = 3;
+      }
+
+      else
+      {
+        v71 = 2;
+      }
+
+      *&v84[14] = 789;
+      *&v84[18] = 2048;
+      *&v84[20] = 0;
+      v85 = 2048;
+      *v86 = 0;
+      _os_log_send_and_compose_impl(v71, v87, &v94, 80, &dword_1E1C61000, v69, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v84, 38, v72, v73);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+LABEL_50:
+
+    return;
   }
 
-  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Attempting to get statistics for a frame older than the allowed number of frames in flight", "!Unreachable code", "counterStatistic", 141, v3, v4);
-  result = _os_crash();
+  if (!v18)
+  {
+    goto LABEL_50;
+  }
+
+  if (v18 == 786434)
+  {
+    v77 = 0;
+    v20 = 0;
+    v21 = 6;
+    goto LABEL_9;
+  }
+
+LABEL_83:
+  re::internal::assertLog(4, v19, v18, "assertion failure: '%s' (%s:line %i) unsupported MDLVertexFormat", "!Unreachable code", "addAttributeIfItExistsToGeomMesh", 580);
+  _os_crash("assertion failure: (!Unreachable code) unsupported MDLVertexFormat");
   __break(1u);
-  return result;
 }
 
-re::ProfilerAttributions *re::ProfilerAttributions::ProfilerAttributions(re::ProfilerAttributions *this, uint64_t a2)
+uint64_t *re::DynamicArray<re::internal::anonymous namespace::MDLAttrTopologyMap>::~DynamicArray(uint64_t *a1)
 {
-  *(this + 264) = 0u;
-  *(this + 280) = 0u;
-  *(this + 74) = 1065353216;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  *(this + 40) = 0u;
-  *(this + 56) = 0u;
-  *(this + 72) = 0u;
-  *(this + 88) = 0u;
-  *(this + 104) = 0u;
-  *(this + 120) = 0u;
-  *(this + 136) = 0u;
-  *(this + 152) = 0u;
-  *(this + 168) = 0u;
-  *(this + 184) = 0u;
-  *(this + 200) = 0u;
-  *(this + 216) = 0u;
-  *(this + 232) = 0u;
-  *(this + 31) = 0;
-  *(this + 32) = a2;
-  *(this + 38) = 0;
-  *(this + 39) = 0;
-  *(this + 327) = 0;
-  *(this + 40) = 0;
-  v4 = operator new(0x4F00uLL, 0x80uLL);
-  *v4 = a2;
-  v4[1] = -1;
-  v5 = 0x1FFFFFFFFFFFF630;
-  do
-  {
-    v6 = &v4[v5];
-    v6[2528] = -1;
-    v6[2529] = 0;
-    v6[2531] = 0;
-    v6[2530] = 0;
-    v5 += 16;
-  }
-
-  while (v5 * 8);
-  *this = v4;
-  return this;
-}
-
-void re::ProfilerAttributions::~ProfilerAttributions(re::ProfilerAttributions *this)
-{
-  for (i = 0; i != 256; i += 8)
-  {
-    v3 = *(this + i);
-    if (v3)
-    {
-      MEMORY[0x1E6906510](v3, 128);
-    }
-  }
-
-  v4 = *(this + 38);
-  if (v4)
-  {
-    *(this + 39) = v4;
-    MEMORY[0x1E6906510]();
-  }
-
-  std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::~__hash_table(this + 264);
-}
-
-void re::ProfilerAttributions::clear(re::ProfilerAttributions *this)
-{
-  for (i = 0; i != 256; i += 8)
-  {
-    v3 = *(this + i);
-    if (v3)
-    {
-      v4 = (v3 + 128);
-      v5 = -157;
-      do
-      {
-        *v4 = re::kProfilerCounterEmpty;
-        v4[1] = *algn_1E3101310;
-        v4 += 8;
-      }
-
-      while (!__CFADD__(v5++, 1));
-    }
-  }
-
-  std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::clear(this + 264);
-  *(this + 39) = *(this + 38);
-  *(this + 164) = 0;
-  *(this + 330) = 0;
-}
-
-void re::ProfilerAttributions::resolveDeferred(re::ProfilerAttributions *a1, void *a2)
-{
-  v3 = *(a1 + 35);
-  if (v3)
-  {
-    v17 = vdupq_n_s64(1uLL);
-    do
-    {
-      v5 = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(a2, v3 + 2);
-      if (v5)
-      {
-        if (*(v5 + 12) >= 0x20u)
-        {
-          v6 = 0;
-        }
-
-        else
-        {
-          v6 = *(v5 + 12);
-        }
-      }
-
-      else
-      {
-        v6 = 0;
-      }
-
-      Statistics = *(a1 + v6);
-      v8 = v17.i64[1];
-      if (!Statistics)
-      {
-        Statistics = re::ProfilerAttributions::createStatistics(a1, v6);
-        v8 = v17.i64[1];
-      }
-
-      v9 = v3[3];
-      for (i = v3[4]; v9 != i; v13[1] = vaddq_s64(v13[1], v16))
-      {
-        v11 = *(v9 + 1);
-        v12 = *v9;
-        v9 += 16;
-        v13 = &Statistics[16 * v12 + 16];
-        v14 = v13->i64[0];
-        v15 = v13->u64[1];
-        if (v13->i64[0] >= v11)
-        {
-          v14 = v11;
-        }
-
-        if (v15 <= v11)
-        {
-          v15 = v11;
-        }
-
-        v13->i64[0] = v14;
-        v13->i64[1] = v15;
-        v16.i64[1] = v8;
-        v16.i64[0] = v11;
-      }
-
-      v3 = *v3;
-    }
-
-    while (v3);
-  }
-
-  std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::clear(a1 + 264);
-}
-
-void *re::ProfilerAttributions::createStatistics(re::ProfilerAttributions *this, unsigned int a2)
-{
-  result = operator new(0x4F00uLL, 0x80uLL);
-  *result = *(this + 32);
-  result[1] = -1;
-  v5 = 0x1FFFFFFFFFFFF630;
-  do
-  {
-    v6 = &result[v5];
-    v6[2528] = -1;
-    v6[2529] = 0;
-    v6[2531] = 0;
-    v6[2530] = 0;
-    v5 += 16;
-  }
-
-  while (v5 * 8);
-  *(this + a2) = result;
-  return result;
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::~__hash_table(uint64_t a1)
-{
-  std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::__deallocate_node(a1, *(a1 + 16));
   v2 = *a1;
-  *a1 = 0;
   if (v2)
   {
-    operator delete(v2);
+    v3 = a1[4];
+    if (v3)
+    {
+      v4 = a1[2];
+      if (v4)
+      {
+        v5 = 80 * v4;
+        do
+        {
+          re::DynamicArray<unsigned long>::deinit(v3 + 40);
+          re::DynamicArray<unsigned long>::deinit(v3);
+          v3 += 80;
+          v5 -= 80;
+        }
+
+        while (v5);
+        v2 = *a1;
+        v3 = a1[4];
+      }
+
+      (*(*v2 + 40))(v2, v3);
+    }
+
+    a1[4] = 0;
+    a1[1] = 0;
+    a1[2] = 0;
+    *a1 = 0;
+    ++*(a1 + 6);
   }
 
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::__deallocate_node(int a1, void *__p)
+void re::internal::attachBlendShapeDataIfItExistsToGeomMesh(re::internal *this, const MDLMesh *a2, re::GeomMesh *a3)
 {
-  if (__p)
+  v59 = *MEMORY[0x1E69E9840];
+  v4 = this;
+  v5 = [(re::internal *)v4 submeshes];
+  if (v5)
   {
-    v2 = __p;
-    do
+    v6 = v5;
+    v7 = [(re::internal *)v4 submeshes];
+    v8 = [v7 count];
+
+    if (v8 == 1)
     {
-      v3 = *v2;
-      v4 = v2[3];
-      if (v4)
+      v9 = [(re::internal *)v4 componentConformingToProtocol:&unk_1F5D590E0];
+      if (v9)
       {
-        v2[4] = v4;
-        operator delete(v4);
-      }
+        v10 = [(re::internal *)v4 submeshes];
+        v11 = [v10 objectAtIndexedSubscript:0];
 
-      operator delete(v2);
-      v2 = v3;
-    }
-
-    while (v3);
-  }
-}
-
-void std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::clear(uint64_t a1)
-{
-  if (*(a1 + 24))
-  {
-    std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<re::ProfilerDeferredStatisticCount>>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
-    if (v2)
-    {
-      for (i = 0; i != v2; ++i)
-      {
-        *(*a1 + 8 * i) = 0;
-      }
-    }
-
-    *(a1 + 24) = 0;
-  }
-}
-
-uint64_t *re::foundationProfilingLogObjects(re *this)
-{
-  {
-    re::foundationProfilingLogObjects(void)::logObjects = os_log_create("com.apple.re", "Foundation.Profiling");
-  }
-
-  return &re::foundationProfilingLogObjects(void)::logObjects;
-}
-
-void re::internal::enableMemoryStatsCollection(re::internal *this)
-{
-  if (_MergedGlobals_499 == 1)
-  {
-    v1 = *re::foundationProfilingLogObjects(this);
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
-    {
-      *v4 = 0;
-      _os_log_impl(&dword_1E1C61000, v1, OS_LOG_TYPE_DEFAULT, "Malloc allocation statistics already being collected", v4, 2u);
-    }
-  }
-
-  else
-  {
-    v2 = MEMORY[0x1E69E99E8];
-    v3 = *MEMORY[0x1E69E99E8];
-    off_1EE1BD788 = *MEMORY[0x1E69E9B48];
-    unk_1EE1BD790 = v3;
-    *MEMORY[0x1E69E9B48] = _objectalloc_logger;
-    *v2 = _objectalloc_logger;
-    _MergedGlobals_499 = 1;
-  }
-}
-
-size_t _objectalloc_logger(size_t result, uint64_t a2, char *ptr, unint64_t a4, uint64_t a5, int a6)
-{
-  v10 = result;
-  if (off_1EE1BD788)
-  {
-    result = off_1EE1BD788(result, a2, ptr, a4, a5, (a6 + 1));
-  }
-
-  if ((~v10 & 6) != 0)
-  {
-    if ((v10 & 2) != 0)
-    {
-      if (a5)
-      {
-        do
+        v48 = 0;
+        v45[1] = 0;
+        v46 = 0;
+        v45[0] = 0;
+        v47 = 0;
+        v38 = v46;
+        if (v46)
         {
-          if (v18 <= v19)
+          v37 = [(re::internal *)v4 vertexDescriptor];
+          v36 = [v37 attributeNamed:@"position"];
+          v12 = [v36 bufferIndex];
+          v13 = [v11 faceIndexing];
+
+          if (v13)
           {
-            break;
-          }
-
-          v20 = v19;
-        }
-
-        while (v20 != v19);
-      }
-    }
-
-    else if ((v10 & 4) != 0)
-    {
-      if (ptr)
-      {
-        result = malloc_size(ptr);
-        do
-        {
-          if (v21 <= v22)
-          {
-            break;
-          }
-
-          v23 = v22;
-        }
-
-        while (v23 != v22);
-      }
-    }
-
-    else if ((v10 & 0x10) != 0)
-    {
-      if (a5 && *MEMORY[0x1E69E9A60] == a2)
-      {
-        v24 = ~*MEMORY[0x1E69E9AB8] & &ptr[*MEMORY[0x1E69E9AB8]];
-        do
-        {
-          if (v25 <= v26)
-          {
-            break;
-          }
-
-          v27 = v26;
-        }
-
-        while (v27 != v26);
-      }
-    }
-
-    else if ((v10 & 0x20) != 0 && ptr && *MEMORY[0x1E69E9A60] == a2)
-    {
-      v14 = ~*MEMORY[0x1E69E9AB8] & (*MEMORY[0x1E69E9AB8] + a4);
-      do
-      {
-        if (v15 <= v16)
-        {
-          break;
-        }
-
-        v17 = v16;
-      }
-
-      while (v17 != v16);
-    }
-  }
-
-  else if (a5)
-  {
-    result = malloc_size(ptr);
-    do
-    {
-      if (v11 <= v12)
-      {
-        break;
-      }
-
-      v13 = v12;
-    }
-
-    while (v13 != v12);
-  }
-
-  return result;
-}
-
-void re::internal::disableMemoryStatsCollection(re::internal *this)
-{
-  if (_MergedGlobals_499)
-  {
-    v3 = unk_1EE1BD790;
-    *MEMORY[0x1E69E9B48] = off_1EE1BD788;
-    *MEMORY[0x1E69E99E8] = v3;
-    _MergedGlobals_499 = 0;
-  }
-
-  else
-  {
-    v6 = v1;
-    v7 = v2;
-    v4 = *re::foundationProfilingLogObjects(this);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      *v5 = 0;
-      _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEFAULT, "Malloc allocation statistics already disabled", v5, 2u);
-    }
-  }
-}
-
-re::ProfilerFlameChartProcessor *re::ProfilerFlameChartProcessor::ProfilerFlameChartProcessor(re::ProfilerFlameChartProcessor *this)
-{
-  *(this + 8) = 0;
-  *this = &unk_1F5D0E4C8;
-  *(this + 28) = 0u;
-  *(this + 44) = 0u;
-  *(this + 60) = 0u;
-  *(this + 76) = 0u;
-  *(this + 92) = 0u;
-  *(this + 108) = 0u;
-  *(this + 124) = 0u;
-  *(this + 140) = 0u;
-  *(this + 156) = 0u;
-  *(this + 172) = 0u;
-  *(this + 188) = 0u;
-  *(this + 204) = 0u;
-  *(this + 220) = 0u;
-  *(this + 236) = 0u;
-  *(this + 252) = 0u;
-  *(this + 95) = 0;
-  *(this + 12) = 0u;
-  *(this + 268) = 0u;
-  *(this + 284) = 0u;
-  *(this + 300) = 0u;
-  *(this + 316) = 0u;
-  *(this + 332) = 0u;
-  *(this + 348) = 0u;
-  *(this + 364) = 0u;
-  *(this + 48) = 0x10000001ELL;
-  *(this + 98) = 1;
-  *(this + 25) = xmmword_1E3062D70;
-  *(this + 416) = 1;
-  std::vector<re::ProfilerFlameChartBlock>::resize(this + 2, 0x80uLL);
-  std::vector<re::ProfilerFlameChartBlock>::resize(this + 5, 0x80uLL);
-  re::ProfilerFlameChartProcessor::mapColorsToCategories(this);
-  return this;
-}
-
-void std::vector<re::ProfilerFlameChartBlock>::resize(void *a1, unint64_t a2)
-{
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 7);
-  v3 = a2 >= v2;
-  v4 = a2 - v2;
-  if (v4 != 0 && v3)
-  {
-    std::vector<re::ProfilerFlameChartBlock>::__append(a1, v4);
-  }
-
-  else if (!v3)
-  {
-    a1[1] = *a1 + 384 * a2;
-  }
-}
-
-double re::ProfilerFlameChartProcessor::mapColorsToCategories(re::ProfilerFlameChartProcessor *this)
-{
-  for (i = 64; i != 384; i += 64)
-  {
-    v2 = (this + i);
-    v2[2] = xmmword_1E3101390;
-    v2[3] = xmmword_1E3101390;
-    *v2 = xmmword_1E3101390;
-    v2[1] = xmmword_1E3101390;
-  }
-
-  *(this + 5) = xmmword_1E31013A0;
-  *(this + 6) = xmmword_1E31013D0;
-  *(this + 21) = xmmword_1E31013F0;
-  *(this + 22) = xmmword_1E31013B0;
-  *(this + 7) = xmmword_1E31013C0;
-  *(this + 8) = xmmword_1E3101400;
-  *(this + 9) = xmmword_1E3101410;
-  *(this + 10) = xmmword_1E3101420;
-  *(this + 11) = xmmword_1E3101400;
-  *(this + 12) = xmmword_1E3101430;
-  *(this + 15) = xmmword_1E3101440;
-  *(this + 16) = xmmword_1E3101400;
-  *(this + 13) = xmmword_1E3101450;
-  *(this + 14) = xmmword_1E31013C0;
-  *(this + 17) = xmmword_1E3101460;
-  *(this + 18) = xmmword_1E3101470;
-  *(this + 19) = xmmword_1E3101480;
-  *(this + 20) = xmmword_1E31013E0;
-  result = 0.0065870108;
-  *(this + 23) = xmmword_1E3101490;
-  return result;
-}
-
-char *re::ProfilerFlameChartProcessor::ProcessBlock(char *result, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char __dst, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, __int128 a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, __int128 a40, __int128 a41, __int128 a42, __int128 a43, __int128 a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
-{
-  a66 = *MEMORY[0x1E69E9840];
-  if (a3)
-  {
-    v67 = result;
-    v68 = 0;
-    v96 = result + 64;
-    v69 = a3;
-    do
-    {
-      v70 = a2 + (v68 << 7);
-      *&a31 = 0.0;
-      a40 = 0u;
-      a41 = 0u;
-      a42 = 0u;
-      a43 = 0u;
-      a44 = 0u;
-      a45 = 0;
-      *&a27 = 0.0;
-      *&a28 = 0.0;
-      a26 = *v70;
-      v71 = *&v96[16 * *(v70 + 16)];
-      LOWORD(a29) = *(v70 + 18);
-      *(&a29 + 4) = v71;
-      v73 = *(v70 + 24);
-      v72 = *(v70 + 32);
-      v74 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-      if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-      {
-        if (mach_timebase_info(&info))
-        {
-          v77 = NAN;
-          goto LABEL_8;
-        }
-
-        LODWORD(v76) = HIDWORD(info.__r_.__value_.__r.__words[0]);
-        LODWORD(v75) = info.__r_.__value_.__l.__data_;
-        v74 = v75 / v76;
-        re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v74;
-      }
-
-      v77 = v74 * (v72 - v73);
-LABEL_8:
-      v78 = v77 / 1000000.0;
-      *&a31 = v77 / 1000000.0;
-      v79 = *(v70 + 24);
-      if (*(v67 + 50) > v79 && *(v67 + 98) == 1)
-      {
-        *(v67 + 50) = v79;
-      }
-
-      v80 = *(v70 + 32);
-      if (*(v67 + 51) < v80)
-      {
-        *(v67 + 51) = v80;
-      }
-
-      v81 = 0;
-      *&a27 = v79;
-      *&a28 = v80;
-      v82 = *(v70 + 8);
-LABEL_14:
-      v83 = 0;
-      v84 = v82 + v81;
-      while (1)
-      {
-        v85 = *(v84 + v83);
-        if (!*(v84 + v83))
-        {
-          break;
-        }
-
-        if (v85 == 32)
-        {
-          v81 += v83 + 1;
-          goto LABEL_14;
-        }
-
-        if (v85 == 40)
-        {
-          break;
-        }
-
-        ++v83;
-      }
-
-      memset(&info, 0, sizeof(info));
-      std::string::reserve(&info, 0x78uLL);
-      std::string::append(&info, "(");
-      std::to_string(&v97, v78);
-      if ((v97.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v86 = &v97;
-      }
-
-      else
-      {
-        v86 = v97.__r_.__value_.__r.__words[0];
-      }
-
-      if ((v97.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        size = HIBYTE(v97.__r_.__value_.__r.__words[2]);
-      }
-
-      else
-      {
-        size = v97.__r_.__value_.__l.__size_;
-      }
-
-      std::string::append(&info, v86, size);
-      if (SHIBYTE(v97.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v97.__r_.__value_.__l.__data_);
-      }
-
-      v88 = (v78 * 100.0) - 100 * v78;
-      if (v88 >= 10)
-      {
-        v89 = ".";
-      }
-
-      else
-      {
-        v89 = ".0";
-      }
-
-      std::string::append(&info, v89);
-      std::to_string(&v97, v88);
-      if ((v97.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v90 = &v97;
-      }
-
-      else
-      {
-        v90 = v97.__r_.__value_.__r.__words[0];
-      }
-
-      if ((v97.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v91 = HIBYTE(v97.__r_.__value_.__r.__words[2]);
-      }
-
-      else
-      {
-        v91 = v97.__r_.__value_.__l.__size_;
-      }
-
-      std::string::append(&info, v90, v91);
-      if (SHIBYTE(v97.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v97.__r_.__value_.__l.__data_);
-      }
-
-      std::string::append(&info, ")");
-      if (v83 >= 0x78)
-      {
-        v92 = 120;
-      }
-
-      else
-      {
-        v92 = v83;
-      }
-
-      strncpy(&__dst, (v82 + v81), v92);
-      if (SHIBYTE(info.__r_.__value_.__r.__words[2]) < 0)
-      {
-        v94 = info.__r_.__value_.__r.__words[0];
-        v95 = 127 - info.__r_.__value_.__l.__size_;
-        if (127 - info.__r_.__value_.__l.__size_ >= v92)
-        {
-          v95 = v92;
-        }
-
-        strncpy(&__dst + v95, info.__r_.__value_.__l.__data_, info.__r_.__value_.__l.__size_ + 1);
-        operator delete(v94);
-      }
-
-      else
-      {
-        v93 = HIBYTE(info.__r_.__value_.__r.__words[2]) ^ 0x7FLL;
-        if (v92 < v93)
-        {
-          v93 = v92;
-        }
-
-        strncpy(&__dst + v93, &info, (*(&info.__r_.__value_.__s + 23) + 1));
-      }
-
-      result = std::vector<re::ProfilerFlameChartBlock>::push_back[abi:nn200100]((v67 + 16), &__dst);
-      ++v68;
-    }
-
-    while (v68 != v69);
-  }
-
-  return result;
-}
-
-void *std::vector<re::ProfilerFlameChartBlock>::push_back[abi:nn200100](uint64_t a1, void *__src)
-{
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (v5 >= v4)
-  {
-    v8 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 7);
-    if (v8 + 1 > 0xAAAAAAAAAAAAAALL)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v9 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 7);
-    v10 = 2 * v9;
-    if (2 * v9 <= v8 + 1)
-    {
-      v10 = v8 + 1;
-    }
-
-    if (v9 >= 0x55555555555555)
-    {
-      v11 = 0xAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v11 = v10;
-    }
-
-    if (v11)
-    {
-      v12 = std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerFlameChartBlock>>(a1, v11);
-    }
-
-    else
-    {
-      v12 = 0;
-    }
-
-    v13 = &v12[384 * v8];
-    v14 = &v12[384 * v11];
-    memcpy(v13, __src, 0x180uLL);
-    v7 = v13 + 384;
-    v15 = *(a1 + 8) - *a1;
-    v16 = &v13[-v15];
-    memcpy(&v13[-v15], *a1, v15);
-    result = *a1;
-    *a1 = v16;
-    *(a1 + 8) = v13 + 384;
-    *(a1 + 16) = v14;
-    if (result)
-    {
-      result = MEMORY[0x1E6906510](result, 128);
-    }
-  }
-
-  else
-  {
-    result = memcpy(*(a1 + 8), __src, 0x180uLL);
-    v7 = (v5 + 384);
-  }
-
-  *(a1 + 8) = v7;
-  return result;
-}
-
-const void **std::vector<re::ProfilerFlameChartBlock>::reserve(const void **result, unint64_t a2)
-{
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 7) < a2)
-  {
-    if (a2 >= 0xAAAAAAAAAAAAABLL)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v2 = result;
-    v3 = result[1] - *result;
-    v4 = std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerFlameChartBlock>>(result, a2);
-    v5 = &v4[v3];
-    v7 = &v4[384 * v6];
-    v8 = v2[1] - *v2;
-    v9 = &v4[v3 - v8];
-    memcpy(v9, *v2, v8);
-    result = *v2;
-    *v2 = v9;
-    v2[1] = v5;
-    v2[2] = v7;
-    if (result)
-    {
-
-      JUMPOUT(0x1E6906510);
-    }
-  }
-
-  return result;
-}
-
-void re::ProfilerFlameChartProcessor::~ProfilerFlameChartProcessor(re::ProfilerFlameChartProcessor *this)
-{
-  *this = &unk_1F5D0E4C8;
-  v2 = *(this + 5);
-  if (v2)
-  {
-    *(this + 6) = v2;
-    MEMORY[0x1E6906510]();
-  }
-
-  v3 = *(this + 2);
-  if (v3)
-  {
-    *(this + 3) = v3;
-    MEMORY[0x1E6906510]();
-  }
-}
-
-{
-  *this = &unk_1F5D0E4C8;
-  v2 = *(this + 5);
-  if (v2)
-  {
-    *(this + 6) = v2;
-    MEMORY[0x1E6906510]();
-  }
-
-  v3 = *(this + 2);
-  if (v3)
-  {
-    *(this + 3) = v3;
-    MEMORY[0x1E6906510]();
-  }
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerFlameChartBlock>>(uint64_t a1, unint64_t a2)
-{
-  if (a2 >= 0xAAAAAAAAAAAAABLL)
-  {
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  return operator new(384 * a2, 0x80uLL);
-}
-
-void std::vector<re::ProfilerFlameChartBlock>::__append(uint64_t a1, unint64_t a2)
-{
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (0xAAAAAAAAAAAAAAABLL * ((v4 - v5) >> 7) >= a2)
-  {
-    if (a2)
-    {
-      v11 = 384 * ((384 * a2 - 384) / 0x180) + 384;
-      bzero(*(a1 + 8), v11);
-      v5 += v11;
-    }
-
-    *(a1 + 8) = v5;
-  }
-
-  else
-  {
-    v6 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 7);
-    v7 = v6 + a2;
-    if (v6 + a2 > 0xAAAAAAAAAAAAAALL)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v8 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 7);
-    if (2 * v8 > v7)
-    {
-      v7 = 2 * v8;
-    }
-
-    if (v8 >= 0x55555555555555)
-    {
-      v9 = 0xAAAAAAAAAAAAAALL;
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    if (v9)
-    {
-      v10 = std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerFlameChartBlock>>(a1, v9);
-    }
-
-    else
-    {
-      v10 = 0;
-    }
-
-    v12 = &v10[384 * v6];
-    v13 = &v10[384 * v9];
-    v14 = 384 * ((384 * a2 - 384) / 0x180) + 384;
-    bzero(v12, v14);
-    v15 = &v12[v14];
-    v16 = *(a1 + 8) - *a1;
-    v17 = &v12[-v16];
-    memcpy(&v12[-v16], *a1, v16);
-    v18 = *a1;
-    *a1 = v17;
-    *(a1 + 8) = v15;
-    *(a1 + 16) = v13;
-    if (v18)
-    {
-
-      JUMPOUT(0x1E6906510);
-    }
-  }
-}
-
-re::ProfilerMiniHUDProcessor *re::ProfilerMiniHUDProcessor::ProfilerMiniHUDProcessor(re::ProfilerMiniHUDProcessor *this)
-{
-  *(this + 8) = 0;
-  *this = &unk_1F5D0E538;
-  *(this + 12) = 0u;
-  *(this + 28) = 0u;
-  *(this + 44) = 0u;
-  *(this + 60) = 0u;
-  *(this + 76) = 0u;
-  *(this + 88) = 0u;
-  v2 = re::DynamicString::setCapacity(this + 9, 0);
-  *(this + 120) = 0u;
-  *(this + 104) = 0u;
-  v3 = re::DynamicString::setCapacity(this + 13, 0);
-  *(this + 152) = 0u;
-  *(this + 136) = 0u;
-  v4 = re::DynamicString::setCapacity(this + 17, 0);
-  *(this + 184) = 0u;
-  *(this + 168) = 0u;
-  v5 = re::DynamicString::setCapacity(this + 21, 0);
-  *(this + 216) = 0u;
-  *(this + 200) = 0u;
-  v6 = re::DynamicString::setCapacity(this + 25, 0);
-  *(this + 248) = 0u;
-  *(this + 232) = 0u;
-  v7 = re::DynamicString::setCapacity(this + 29, 0);
-  *(this + 264) = 0u;
-  *(this + 280) = 0u;
-  v8 = re::DynamicString::setCapacity(this + 33, 0);
-  *(this + 296) = 0u;
-  *(this + 312) = 0u;
-  v9 = re::DynamicString::setCapacity(this + 37, 0);
-  *(this + 328) = 0u;
-  *(this + 344) = 0u;
-  v10 = re::DynamicString::setCapacity(this + 41, 0);
-  *(this + 360) = 0u;
-  *(this + 376) = 0u;
-  v11 = re::DynamicString::setCapacity(this + 45, 0);
-  *(this + 392) = 0u;
-  *(this + 408) = 0u;
-  v12 = re::DynamicString::setCapacity(this + 49, 0);
-  *(this + 63) = 0;
-  *(this + 472) = 0u;
-  *(this + 488) = 0u;
-  *(this + 440) = 0u;
-  *(this + 456) = 0u;
-  *(this + 424) = 0u;
-  v13 = re::DynamicString::setCapacity(this + 60, 0);
-  *(this + 32) = 0u;
-  *(this + 33) = 0u;
-  v14 = re::DynamicString::setCapacity(this + 64, 0);
-  *(this + 34) = 0u;
-  *(this + 35) = 0u;
-  v15 = re::DynamicString::setCapacity(this + 68, 0);
-  *(this + 36) = 0u;
-  *(this + 37) = 0u;
-  v16 = re::DynamicString::setCapacity(this + 72, 0);
-  *(this + 38) = 0u;
-  *(this + 39) = 0u;
-  v17 = re::DynamicString::setCapacity(this + 76, 0);
-  *(this + 40) = 0u;
-  *(this + 41) = 0u;
-  v18 = re::DynamicString::setCapacity(this + 80, 0);
-  *(this + 42) = 0u;
-  *(this + 43) = 0u;
-  v19 = re::DynamicString::setCapacity(this + 84, 0);
-  *(this + 44) = 0u;
-  *(this + 45) = 0u;
-  v20 = re::DynamicString::setCapacity(this + 88, 0);
-  *(this + 46) = 0u;
-  *(this + 47) = 0u;
-  v21 = re::DynamicString::setCapacity(this + 92, 0);
-  *(this + 48) = 0u;
-  *(this + 49) = 0u;
-  v22 = re::DynamicString::setCapacity(this + 96, 0);
-  *(this + 50) = 0u;
-  *(this + 51) = 0u;
-  re::DynamicString::setCapacity(this + 100, 0);
-  *(this + 52) = xmmword_1E31014D0;
-  *(this + 53) = xmmword_1E3060D30;
-  *(this + 54) = xmmword_1E31014E0;
-  *(this + 55) = 0u;
-  *(this + 56) = 0u;
-  getpid();
-  memorystatus_control();
-  *(this + 113) = 0;
-  return this;
-}
-
-void re::ProfilerMiniHUDProcessor::process(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
-{
-  v7 = *(a1 + 840) + 1;
-  *(a1 + 840) = v7;
-  v8 = 0.0;
-  v9 = 0.0;
-  v10 = 0.0;
-  v11 = 0.0;
-  v12 = *a4;
-  v13 = *(a4 + 8);
-  v14 = 0.0;
-  v15 = 0.0;
-  v16 = 0.0;
-  v17.i32[0] = 0;
-  v18 = 0.0;
-  v19 = 0.0;
-  if (*a4 != v13)
-  {
-    v17.i32[0] = 0;
-    v20 = 0.0;
-    v21 = 0.0;
-    v22 = 0.0;
-    v23 = 0.0;
-    v24 = 0.0;
-    v25 = 0.0;
-    v26 = 0.0;
-    do
-    {
-      v27 = 0;
-      v28 = (*v12 + 152);
-      do
-      {
-        if (*v28)
-        {
-          v29 = *(v28 - 1);
-          if (v29)
-          {
-            if (v27 > 0x5Au)
-            {
-              switch(v27)
-              {
-                case '[':
-                  v24 = v24 + v29;
-                  break;
-                case '\\':
-                  v25 = v25 + v29;
-                  break;
-                case ']':
-                  v26 = v26 + v29;
-                  break;
-              }
-            }
-
-            else
-            {
-              switch(v27)
-              {
-                case 1:
-                  v17.f32[0] = v17.f32[0] + v29;
-                  break;
-                case 2:
-                  v18 = v18 + v29;
-                  break;
-                case 3:
-                  v20 = v20 + v29;
-                  break;
-                case 4:
-                  v21 = v21 + v29;
-                  break;
-                case 5:
-                  v22 = v22 + v29;
-                  break;
-                case 6:
-                  v23 = v23 + v29;
-                  break;
-                case 7:
-                  v19 = v19 + v29;
-                  break;
-                case 8:
-                  v14 = v14 + v29;
-                  break;
-                case 9:
-                  v16 = v16 + v29;
-                  break;
-                case 10:
-                  v15 = v15 + v29;
-                  break;
-                case 11:
-                  v11 = v11 + v29;
-                  break;
-                case 12:
-                  v10 = v10 + v29;
-                  break;
-                case 23:
-                  v9 = v9 + v29;
-                  break;
-                case 24:
-                  v8 = v8 + v29;
-                  break;
-                default:
-                  break;
-              }
-            }
-          }
-        }
-
-        ++v27;
-        v28 += 16;
-      }
-
-      while (v27 != 157);
-      ++v12;
-    }
-
-    while (v12 != v13);
-    v18 = v19 + (v23 + (v22 + (v21 + (v20 + v18))));
-    v19 = v26 + (v25 + v24);
-  }
-
-  v30 = ((v14 - v11) - v10) - v9;
-  v31 = (v16 - v15) + v19;
-  v32 = v18 + v19;
-  v33 = v9 + (v10 + v11);
-  v34 = v14 <= 0.0;
-  if (v14 <= 0.0)
-  {
-    v35 = v31 - v33;
-  }
-
-  else
-  {
-    v35 = v31;
-  }
-
-  if (v34)
-  {
-    v15 = v33;
-  }
-
-  v17.f32[1] = (v32 - v15) - v35;
-  v17.i64[1] = __PAIR64__(COERCE_UNSIGNED_INT(fmaxf(v30, 0.0)), LODWORD(v35));
-  *(a1 + 20) = vaddq_f32(v17, *(a1 + 20));
-  *(a1 + 36) = v8 + *(a1 + 36);
-  v36 = *a6;
-  v37 = a6[1];
-  if (*a6 == v37)
-  {
-    v43 = 0;
-    v42 = 0;
-    v41 = 0;
-    v40 = 0;
-    v39 = 0;
-    v38 = 0;
-  }
-
-  else
-  {
-    v38 = 0;
-    v39 = 0;
-    v40 = 0;
-    v41 = 0;
-    v42 = 0;
-    v43 = 0;
-    do
-    {
-      v44 = (*v36 + 176);
-      v45 = 20;
-      do
-      {
-        v43 += *(v44 - 4);
-        v42 += *(v44 - 3);
-        v41 += *(v44 - 2);
-        v40 += *(v44 - 1);
-        v46 = *v44;
-        v44 += 16;
-        v39 += v46;
-        --v45;
-      }
-
-      while (v45);
-      v38 += *(*v36 + 2688);
-      v36 += 8;
-    }
-
-    while (v36 != v37);
-  }
-
-  if (!(v7 % *(a1 + 832)))
-  {
-    os_unfair_lock_lock((a1 + 12));
-    v47 = *(a1 + 20);
-    v48 = *(a1 + 832);
-    v49 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-    {
-      if (mach_timebase_info(&info))
-      {
-        v49 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-        v52 = NAN;
-        goto LABEL_50;
-      }
-
-      LODWORD(v50) = info.numer;
-      LODWORD(v51) = info.denom;
-      v49 = v50 / v51;
-      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v49;
-    }
-
-    v52 = v49 * (v47 / v48);
-LABEL_50:
-    v53 = v52 / 1000000.0;
-    *(a1 + 428) = v53;
-    v54 = 1000.0 / v53;
-    v34 = v53 <= 0.0;
-    v55 = 0.0;
-    if (!v34)
-    {
-      v55 = v54;
-    }
-
-    *(a1 + 424) = v55;
-    v56 = *(a1 + 24);
-    v57 = *(a1 + 832);
-    if (v49 < 0.0)
-    {
-      if (mach_timebase_info(&info))
-      {
-        v49 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-        v60 = NAN;
-        goto LABEL_57;
-      }
-
-      LODWORD(v58) = info.numer;
-      LODWORD(v59) = info.denom;
-      v49 = v58 / v59;
-      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v49;
-    }
-
-    v60 = v49 * (v56 / v57);
-LABEL_57:
-    v61 = v60 / 1000000.0;
-    *(a1 + 432) = v61;
-    v62 = *(a1 + 28);
-    v63 = *(a1 + 832);
-    if (v49 < 0.0)
-    {
-      if (mach_timebase_info(&info))
-      {
-        v49 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-        v66 = NAN;
-        goto LABEL_62;
-      }
-
-      LODWORD(v64) = info.numer;
-      LODWORD(v65) = info.denom;
-      v49 = v64 / v65;
-      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v49;
-    }
-
-    v66 = v49 * (v62 / v63);
-LABEL_62:
-    v67 = v66 / 1000000.0;
-    *(a1 + 436) = v67;
-    v68 = *(a1 + 32);
-    v69 = *(a1 + 832);
-    if (v49 < 0.0)
-    {
-      if (mach_timebase_info(&info))
-      {
-        v72 = NAN;
-        goto LABEL_67;
-      }
-
-      LODWORD(v70) = info.numer;
-      LODWORD(v71) = info.denom;
-      v49 = v70 / v71;
-      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v49;
-    }
-
-    v72 = v49 * (v68 / v69);
-LABEL_67:
-    v73 = v72 / 1000000.0;
-    *(a1 + 440) = v73;
-    *(a1 + 444) = *(a1 + 36) / *(a1 + 832);
-    *(a1 + 64) = 0;
-    *(a1 + 48) = 0;
-    *(a1 + 16) = 0u;
-    *(a1 + 32) = 0u;
-    v74 = qword_1ECF19148;
-    task_info_outCnt = 93;
-    task_info(*MEMORY[0x1E69E9A60], 0x16u, re::ProfilerMiniHUDProcessor::process(unsigned long long,std::vector<re::ProfilerEventStream *> const&,std::vector<re::ProfilerStatistics *> const&,std::vector<re::ProfilerAttributions *> const&,std::vector<re::ProfilerMemoryStatistics *> const&)::vmInfo, &task_info_outCnt);
-    v75 = qword_1ECF19148;
-    *(a1 + 448) = qword_1ECF19148;
-    *(a1 + 456) = v75 - v74;
-    *(a1 + 472) = *(a1 + 904);
-    if (*(a1 + 488))
-    {
-      *(a1 + 488) = 1;
-      v76 = *(a1 + 496);
-    }
-
-    else
-    {
-      *(a1 + 488) = 0;
-      v76 = (a1 + 489);
-    }
-
-    *v76 = 0;
-    if (*(a1 + 520))
-    {
-      *(a1 + 520) = 1;
-      v77 = *(a1 + 528);
-    }
-
-    else
-    {
-      *(a1 + 520) = 0;
-      v77 = (a1 + 521);
-    }
-
-    *v77 = 0;
-    if (*(a1 + 552))
-    {
-      *(a1 + 552) = 1;
-      v78 = *(a1 + 560);
-    }
-
-    else
-    {
-      *(a1 + 552) = 0;
-      v78 = (a1 + 553);
-    }
-
-    *v78 = 0;
-    if (*(a1 + 584))
-    {
-      *(a1 + 584) = 1;
-      v79 = *(a1 + 592);
-    }
-
-    else
-    {
-      *(a1 + 584) = 0;
-      v79 = (a1 + 585);
-    }
-
-    *v79 = 0;
-    if (*(a1 + 616))
-    {
-      *(a1 + 616) = 1;
-      v80 = *(a1 + 624);
-    }
-
-    else
-    {
-      *(a1 + 616) = 0;
-      v80 = (a1 + 617);
-    }
-
-    *v80 = 0;
-    if (*(a1 + 648))
-    {
-      *(a1 + 648) = 1;
-      v81 = *(a1 + 656);
-    }
-
-    else
-    {
-      *(a1 + 648) = 0;
-      v81 = (a1 + 649);
-    }
-
-    *v81 = 0;
-    if (*(a1 + 680))
-    {
-      *(a1 + 680) = 1;
-      v82 = *(a1 + 688);
-    }
-
-    else
-    {
-      *(a1 + 680) = 0;
-      v82 = (a1 + 681);
-    }
-
-    *v82 = 0;
-    if (*(a1 + 712))
-    {
-      *(a1 + 712) = 1;
-      v83 = *(a1 + 720);
-    }
-
-    else
-    {
-      *(a1 + 712) = 0;
-      v83 = (a1 + 713);
-    }
-
-    *v83 = 0;
-    if (*(a1 + 744))
-    {
-      *(a1 + 744) = 1;
-      v84 = *(a1 + 752);
-    }
-
-    else
-    {
-      *(a1 + 744) = 0;
-      v84 = (a1 + 745);
-    }
-
-    *v84 = 0;
-    if (*(a1 + 776))
-    {
-      *(a1 + 776) = 1;
-      v85 = *(a1 + 784);
-    }
-
-    else
-    {
-      *(a1 + 776) = 0;
-      v85 = (a1 + 777);
-    }
-
-    v86 = (a1 + 436);
-    *v85 = 0;
-    v87 = *(a1 + 432);
-    if (*(a1 + 440) > 0.0)
-    {
-      v88 = *v86;
-      v86 = (a1 + 440);
-      v87 = v87 + v88;
-    }
-
-    re::DynamicString::appendf((a1 + 480), "Sim: %.2f", v87);
-    re::DynamicString::appendf((a1 + 512), "Ren: %.2f", *v86);
-    if (*(a1 + 444) == 0.0)
-    {
-      re::DynamicString::appendf((a1 + 544), "GPU: Off");
-    }
-
-    else
-    {
-      re::DynamicString::appendf((a1 + 544), "GPU: %.2f");
-    }
-
-    re::DynamicString::appendf((a1 + 576), "FPS: %2.2f", *(a1 + 424));
-    re::DynamicString::appendf((a1 + 608), "Mem [MB]: %.2f", *(a1 + 448) * 0.0009765625 * 0.0009765625);
-    if (!(v42 | v38))
-    {
-      goto LABEL_115;
-    }
-
-    re::DynamicString::appendf((a1 + 640), "Allocs: +%llu/-%llu", v42, v38);
-    *(a1 + 880) += v42 - v38;
-    v89 = mach_absolute_time();
-    v90 = v89;
-    v91 = *(a1 + 896);
-    if (!v91)
-    {
-      *(a1 + 896) = v89;
-      v91 = v89;
-    }
-
-    v92 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-    {
-      if (mach_timebase_info(&info))
-      {
-        v95 = NAN;
-        goto LABEL_110;
-      }
-
-      LODWORD(v93) = info.numer;
-      LODWORD(v94) = info.denom;
-      v92 = v93 / v94;
-      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v92;
-    }
-
-    v95 = v92 * (v90 - v91);
-LABEL_110:
-    if (v95 / 1000000000.0 >= 1.0)
-    {
-      if (*(a1 + 808))
-      {
-        *(a1 + 808) = 1;
-        v96 = *(a1 + 816);
-      }
-
-      else
-      {
-        *(a1 + 808) = 0;
-        v96 = (a1 + 809);
-      }
-
-      *v96 = 0;
-      *(a1 + 896) = v90;
-      v97 = *(a1 + 880);
-      *(a1 + 888) = v97;
-      *(a1 + 880) = 0;
-      *(a1 + 464) = v97;
-      re::DynamicString::appendf((a1 + 800), "%+lld allocs/sec", v97);
-    }
-
-LABEL_115:
-    if (v41)
-    {
-      re::DynamicString::appendf((a1 + 704), "   (S): %llu", v41);
-    }
-
-    if (v40)
-    {
-      re::DynamicString::appendf((a1 + 736), "   (M): %llu", v40);
-    }
-
-    if (v39)
-    {
-      re::DynamicString::appendf((a1 + 768), "   (L): %llu", v39);
-    }
-
-    if (v43)
-    {
-      v98 = vcvtd_n_f64_u64(v43, 0xAuLL);
-      re::DynamicString::appendf((a1 + 672), "  Size: %.2fKB", v98);
-    }
-
-    os_unfair_lock_unlock((a1 + 12));
-  }
-}
-
-void re::ProfilerMiniHUDProcessor::~ProfilerMiniHUDProcessor(re::ProfilerMiniHUDProcessor *this)
-{
-  re::ProfilerMiniHUDProcessor::~ProfilerMiniHUDProcessor(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-{
-  *this = &unk_1F5D0E538;
-  v2 = (this + 72);
-  re::DynamicString::deinit((this + 800));
-  re::DynamicString::deinit((this + 768));
-  re::DynamicString::deinit((this + 736));
-  re::DynamicString::deinit((this + 704));
-  re::DynamicString::deinit((this + 672));
-  re::DynamicString::deinit((this + 640));
-  re::DynamicString::deinit((this + 608));
-  re::DynamicString::deinit((this + 576));
-  re::DynamicString::deinit((this + 544));
-  re::DynamicString::deinit((this + 512));
-  re::DynamicString::deinit((this + 480));
-  re::DynamicString::deinit((this + 392));
-  re::DynamicString::deinit((this + 360));
-  re::DynamicString::deinit((this + 328));
-  re::DynamicString::deinit((this + 296));
-  re::DynamicString::deinit((this + 264));
-  re::DynamicString::deinit((this + 232));
-  re::DynamicString::deinit((this + 200));
-  re::DynamicString::deinit((this + 168));
-  re::DynamicString::deinit((this + 136));
-  re::DynamicString::deinit((this + 104));
-  re::DynamicString::deinit(v2);
-}
-
-float ___ZN2re13ProfilerUtils8timeBaseEv_block_invoke()
-{
-  mach_timebase_info(&info);
-  *&v0 = info.numer;
-  *(&v0 + 1) = info.denom;
-  result = *&info.numer;
-  re::ProfilerUtils::s_timeBase = v0;
-  return result;
-}
-
-re::ProfilerDetailedHUDProcessor *re::ProfilerDetailedHUDProcessor::ProfilerDetailedHUDProcessor(re::ProfilerDetailedHUDProcessor *this)
-{
-  *(this + 8) = 0;
-  *this = &unk_1F5D0E5C8;
-  *(this + 12) = 0u;
-  *(this + 28) = 0u;
-  *(this + 44) = 0;
-  *(this + 52) = 0x7FFFFFFFLL;
-  *(this + 5) = 0u;
-  *(this + 4) = 0u;
-  v2 = (this + 64);
-  v3 = re::DynamicString::setCapacity(v2, 0);
-  *(this + 7) = 0u;
-  *(this + 6) = 0u;
-  v4 = re::DynamicString::setCapacity(this + 12, 0);
-  *(this + 9) = 0u;
-  *(this + 8) = 0u;
-  v5 = re::DynamicString::setCapacity(this + 16, 0);
-  *(this + 11) = 0u;
-  *(this + 10) = 0u;
-  v6 = re::DynamicString::setCapacity(this + 20, 0);
-  *(this + 13) = 0u;
-  *(this + 12) = 0u;
-  v7 = re::DynamicString::setCapacity(this + 24, 0);
-  *(this + 15) = 0u;
-  *(this + 14) = 0u;
-  re::DynamicString::setCapacity(this + 28, 0);
-  *(this + 33) = 0;
-  *(this + 34) = 0;
-  *(this + 32) = 5;
-  *(this + 280) = 0;
-  getpid();
-  memorystatus_control();
-  *(this + 34) = 0;
-  return this;
-}
-
-void re::ProfilerDetailedHUDProcessor::process(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  ++*(a1 + 264);
-  if ((*(a1 + 280) & 1) == 0)
-  {
-    *&info[0].numer = 0u;
-    memset(v612, 0, 20);
-    *&v612[20] = 0x7FFFFFFFLL;
-    re::HashTable<re::ProfilerStatistic,re::FrameStats::CollectedStatistics,re::Hash<re::ProfilerStatistic>,re::EqualTo<re::ProfilerStatistic>,true,false>::operator=(a1 + 16, info);
-    re::HashTable<unsigned long long,re::ecs2::RenderPassGroupBoundsInfo,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(info);
-    v6 = 0;
-    do
-    {
-      v614 = v6;
-      info[0] = 0xFF7FFFFF7F7FFFFFLL;
-      info[1] = 0;
-      *v612 = 0;
-      *&v612[8] = xmmword_1E3100EC0;
-      *&v612[24] = xmmword_1E3100ED0;
-      v613 = 0;
-      re::HashTable<re::ProfilerStatistic,re::FrameStats::CollectedStatistics,re::Hash<re::ProfilerStatistic>,re::EqualTo<re::ProfilerStatistic>,true,false>::addNew(a1 + 16, &v614, info);
-    }
-
-    while (v6++ < 0x9C);
-    *(a1 + 280) = 1;
-  }
-
-  v9 = *a4;
-  for (i = *(a4 + 8); v9 != i; ++v9)
-  {
-    v10 = 0;
-    v11 = *v9 + 128;
-    do
-    {
-      v12 = (v11 + (v10 << 7));
-      v13 = v12[3];
-      if (v13)
-      {
-        v14 = v12[2];
-        if (v14)
-        {
-          if (*(a1 + 16))
-          {
-            v15 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * v10) ^ ((0xBF58476D1CE4E5B9 * v10) >> 27));
-            v16 = (v15 ^ (v15 >> 31)) % *(a1 + 40);
-            v17 = *(a1 + 32);
-            v18 = *(*(a1 + 24) + 4 * v16);
-            if (v18 != 0x7FFFFFFF)
-            {
-              while (v10 != *(v17 + 80 * v18 + 4))
-              {
-                v18 = *(v17 + 80 * v18) & 0x7FFFFFFF;
-                if (v18 == 0x7FFFFFFF)
-                {
-                  goto LABEL_16;
-                }
-              }
-
-              goto LABEL_17;
-            }
+            v14 = [v11 faceIndexing];
+            v15 = [v14 objectAtIndexedSubscript:v12];
+            LODWORD(v16) = [v15 unsignedIntValue];
+
+            v16 = v16;
           }
 
           else
           {
-            v17 = *(a1 + 32);
+            v16 = 0;
           }
 
-LABEL_16:
-          v18 = 0x7FFFFFFFLL;
-LABEL_17:
-          re::FrameStats::CollectedStatistics::addGroupValues((v17 + 80 * v18 + 8), v14, v13, *v12, v12[1]);
-        }
-      }
+          v17 = [v9 targetShapes];
+          v18 = [v17 count];
 
-      ++v10;
-    }
-
-    while (v10 != 157);
-  }
-
-  if (!(*(a1 + 264) % *(a1 + 256)))
-  {
-    os_unfair_lock_lock((a1 + 12));
-    v19 = *(a1 + 48);
-    if (v19)
-    {
-      v20 = 0;
-      v21 = *(a1 + 32);
-      while (1)
-      {
-        v22 = *v21;
-        v21 += 20;
-        if (v22 < 0)
-        {
-          break;
-        }
-
-        if (v19 == ++v20)
-        {
-          LODWORD(v20) = *(a1 + 48);
-          break;
-        }
-      }
-    }
-
-    else
-    {
-      LODWORD(v20) = 0;
-    }
-
-    if (v20 != v19)
-    {
-      v23 = *(a1 + 32);
-      do
-      {
-        v24 = v23 + 80 * v20;
-        *(v24 + 32) = *(v24 + 8);
-        *(v24 + 48) = *(v24 + 24);
-        *(v24 + 8) = xmmword_1E3100EE0;
-        *(v24 + 24) = 0;
-        if (v19 <= v20 + 1)
-        {
-          v25 = v20 + 1;
-        }
-
-        else
-        {
-          v25 = v19;
-        }
-
-        while (v25 - 1 != v20)
-        {
-          LODWORD(v20) = v20 + 1;
-          if ((*(v23 + 80 * v20) & 0x80000000) != 0)
+          if (v18)
           {
-            goto LABEL_36;
-          }
-        }
-
-        LODWORD(v20) = v25;
-LABEL_36:
-        ;
-      }
-
-      while (v20 != v19);
-    }
-
-    if (*(a1 + 72))
-    {
-      *(a1 + 72) = 1;
-      v26 = *(a1 + 80);
-    }
-
-    else
-    {
-      *(a1 + 72) = 0;
-      v26 = (a1 + 73);
-    }
-
-    *v26 = 0;
-    if (*(a1 + 104))
-    {
-      *(a1 + 104) = 1;
-      v27 = *(a1 + 112);
-    }
-
-    else
-    {
-      *(a1 + 104) = 0;
-      v27 = (a1 + 105);
-    }
-
-    *v27 = 0;
-    v28 = 0x7FFFFFFFLL;
-    if (*(a1 + 16))
-    {
-      v29 = *(*(a1 + 24) + 4 * (0x5692161D100B05E5uLL % *(a1 + 40)));
-      if (v29 != 0x7FFFFFFF)
-      {
-        v30 = *(a1 + 32);
-        v28 = 0x7FFFFFFFLL;
-        while (*(v30 + 80 * v29 + 4) != 1)
-        {
-          v29 = *(v30 + 80 * v29) & 0x7FFFFFFF;
-          if (v29 == 0x7FFFFFFF)
-          {
-            goto LABEL_50;
-          }
-        }
-
-        v28 = v29;
-      }
-    }
-
-LABEL_50:
-    v31 = *(*(a1 + 32) + 80 * v28 + 40);
-    v32 = *(a1 + 256);
-    v33 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-    {
-      if (mach_timebase_info(info))
-      {
-        v36 = NAN;
-        goto LABEL_55;
-      }
-
-      LODWORD(v34) = info[0].numer;
-      LODWORD(v35) = info[0].denom;
-      v33 = v34 / v35;
-      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v33;
-    }
-
-    v36 = v33 * (v31 / v32);
-LABEL_55:
-    v599 = v36;
-    if (*(a1 + 16))
-    {
-      v37 = *(a1 + 32);
-      v38 = *(*(a1 + 24) + 4 * (0xDBD238973A2B148ALL % *(a1 + 40)));
-      if (v38 != 0x7FFFFFFF)
-      {
-        while (*(v37 + 80 * v38 + 4) != 2)
-        {
-          v38 = *(v37 + 80 * v38) & 0x7FFFFFFF;
-          if (v38 == 0x7FFFFFFF)
-          {
-            goto LABEL_61;
-          }
-        }
-
-LABEL_62:
-        v39 = *(v37 + 80 * v38 + 40);
-        v40 = *(a1 + 256);
-        v41 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-        {
-          if (mach_timebase_info(info))
-          {
-            v44 = NAN;
-            goto LABEL_67;
-          }
-
-          LODWORD(v42) = info[0].numer;
-          LODWORD(v43) = info[0].denom;
-          v41 = v42 / v43;
-          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v41;
-        }
-
-        v44 = v41 * (v39 / v40);
-LABEL_67:
-        if (*(a1 + 16))
-        {
-          v45 = *(a1 + 32);
-          v46 = *(*(a1 + 24) + 4 * (0x1E535EEDE31428F0uLL % *(a1 + 40)));
-          if (v46 != 0x7FFFFFFF)
-          {
-            while (*(v45 + 80 * v46 + 4) != 3)
+            v19 = 0;
+            do
             {
-              v46 = *(v45 + 80 * v46) & 0x7FFFFFFF;
-              if (v46 == 0x7FFFFFFF)
-              {
-                goto LABEL_73;
-              }
-            }
+              v20 = [v9 targetShapes];
+              v21 = [v20 objectAtIndexedSubscript:v19];
 
-LABEL_74:
-            v47 = *(v45 + 80 * v46 + 40);
-            v48 = *(a1 + 256);
-            v49 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-            {
-              if (mach_timebase_info(info))
               {
-                v52 = NAN;
-                goto LABEL_79;
-              }
+                v22 = [v21 name];
+                v23 = [v22 UTF8String];
 
-              LODWORD(v50) = info[0].numer;
-              LODWORD(v51) = info[0].denom;
-              v49 = v50 / v51;
-              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v49;
-            }
-
-            v52 = v49 * (v47 / v48);
-LABEL_79:
-            if (*(a1 + 16))
-            {
-              v53 = *(a1 + 32);
-              v54 = *(*(a1 + 24) + 4 * (0xB7A4712C74562914 % *(a1 + 40)));
-              if (v54 != 0x7FFFFFFF)
-              {
-                while (*(v53 + 80 * v54 + 4) != 4)
+                v25 = "";
+                if (v23)
                 {
-                  v54 = *(v53 + 80 * v54) & 0x7FFFFFFF;
-                  if (v54 == 0x7FFFFFFF)
-                  {
-                    goto LABEL_85;
-                  }
+                  v25 = v23;
                 }
 
-LABEL_86:
-                v55 = *(v53 + 80 * v54 + 40);
-                v56 = *(a1 + 256);
-                v57 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+                re::DynamicString::format(&v41, "%s|blendTargetPosDeltas", v24, v25);
+                if (v42)
                 {
-                  if (mach_timebase_info(info))
-                  {
-                    v60 = NAN;
-                    goto LABEL_91;
-                  }
-
-                  LODWORD(v58) = info[0].numer;
-                  LODWORD(v59) = info[0].denom;
-                  v57 = v58 / v59;
-                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v57;
-                }
-
-                v60 = v57 * (v55 / v56);
-LABEL_91:
-                if (*(a1 + 16))
-                {
-                  v61 = *(a1 + 32);
-                  v62 = *(*(a1 + 24) + 4 * (0xB6BF613DBEBB45DCLL % *(a1 + 40)));
-                  if (v62 != 0x7FFFFFFF)
-                  {
-                    while (*(v61 + 80 * v62 + 4) != 5)
-                    {
-                      v62 = *(v61 + 80 * v62) & 0x7FFFFFFF;
-                      if (v62 == 0x7FFFFFFF)
-                      {
-                        goto LABEL_97;
-                      }
-                    }
-
-LABEL_98:
-                    v63 = *(v61 + 80 * v62 + 40);
-                    v64 = *(a1 + 256);
-                    v65 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                    {
-                      if (mach_timebase_info(info))
-                      {
-                        v68 = NAN;
-                        goto LABEL_103;
-                      }
-
-                      LODWORD(v66) = info[0].numer;
-                      LODWORD(v67) = info[0].denom;
-                      v65 = v66 / v67;
-                      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v65;
-                    }
-
-                    v68 = v65 * (v63 / v64);
-LABEL_103:
-                    v609 = v68;
-                    if (*(a1 + 16))
-                    {
-                      v69 = *(a1 + 32);
-                      v70 = *(*(a1 + 24) + 4 * (0xD17707977078336CLL % *(a1 + 40)));
-                      if (v70 != 0x7FFFFFFF)
-                      {
-                        while (*(v69 + 80 * v70 + 4) != 6)
-                        {
-                          v70 = *(v69 + 80 * v70) & 0x7FFFFFFF;
-                          if (v70 == 0x7FFFFFFF)
-                          {
-                            goto LABEL_109;
-                          }
-                        }
-
-LABEL_110:
-                        v71 = *(v69 + 80 * v70 + 40);
-                        v72 = *(a1 + 256);
-                        v73 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                        {
-                          if (mach_timebase_info(info))
-                          {
-                            v76 = NAN;
-                            goto LABEL_115;
-                          }
-
-                          LODWORD(v74) = info[0].numer;
-                          LODWORD(v75) = info[0].denom;
-                          v73 = v74 / v75;
-                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v73;
-                        }
-
-                        v76 = v73 * (v71 / v72);
-LABEL_115:
-                        if (*(a1 + 16))
-                        {
-                          v77 = *(a1 + 32);
-                          v78 = *(*(a1 + 24) + 4 * (0x12AE30237B17DF14uLL % *(a1 + 40)));
-                          if (v78 != 0x7FFFFFFF)
-                          {
-                            while (*(v77 + 80 * v78 + 4) != 7)
-                            {
-                              v78 = *(v77 + 80 * v78) & 0x7FFFFFFF;
-                              if (v78 == 0x7FFFFFFF)
-                              {
-                                goto LABEL_121;
-                              }
-                            }
-
-LABEL_122:
-                            v79 = *(v77 + 80 * v78 + 40);
-                            v80 = *(a1 + 256);
-                            v81 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                            {
-                              if (mach_timebase_info(info))
-                              {
-                                v84 = NAN;
-                                goto LABEL_127;
-                              }
-
-                              LODWORD(v82) = info[0].numer;
-                              LODWORD(v83) = info[0].denom;
-                              v81 = v82 / v83;
-                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v81;
-                            }
-
-                            v84 = v81 * (v79 / v80);
-LABEL_127:
-                            v592 = v84;
-                            if (*(a1 + 16))
-                            {
-                              v85 = *(a1 + 32);
-                              v86 = *(*(a1 + 24) + 4 * (0x826C6ABF7FDD5AD7 % *(a1 + 40)));
-                              if (v86 != 0x7FFFFFFF)
-                              {
-                                while (*(v85 + 80 * v86 + 4) != 9)
-                                {
-                                  v86 = *(v85 + 80 * v86) & 0x7FFFFFFF;
-                                  if (v86 == 0x7FFFFFFF)
-                                  {
-                                    goto LABEL_133;
-                                  }
-                                }
-
-LABEL_134:
-                                v87 = *(v85 + 80 * v86 + 40);
-                                v88 = *(a1 + 256);
-                                v89 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                {
-                                  if (mach_timebase_info(info))
-                                  {
-                                    v92 = NAN;
-                                    goto LABEL_139;
-                                  }
-
-                                  LODWORD(v90) = info[0].numer;
-                                  LODWORD(v91) = info[0].denom;
-                                  v89 = v90 / v91;
-                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v89;
-                                }
-
-                                v92 = v89 * (v87 / v88);
-LABEL_139:
-                                v594 = v76;
-                                if (*(a1 + 16))
-                                {
-                                  v93 = *(a1 + 32);
-                                  v94 = *(*(a1 + 24) + 4 * (0x75C8519A9320579uLL % *(a1 + 40)));
-                                  if (v94 != 0x7FFFFFFF)
-                                  {
-                                    while (*(v93 + 80 * v94 + 4) != 10)
-                                    {
-                                      v94 = *(v93 + 80 * v94) & 0x7FFFFFFF;
-                                      if (v94 == 0x7FFFFFFF)
-                                      {
-                                        goto LABEL_145;
-                                      }
-                                    }
-
-LABEL_146:
-                                    v95 = *(v93 + 80 * v94 + 40);
-                                    v96 = *(a1 + 256);
-                                    v97 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                    {
-                                      if (mach_timebase_info(info))
-                                      {
-                                        v100 = NAN;
-                                        goto LABEL_151;
-                                      }
-
-                                      LODWORD(v98) = info[0].numer;
-                                      LODWORD(v99) = info[0].denom;
-                                      v97 = v98 / v99;
-                                      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v97;
-                                    }
-
-                                    v100 = v97 * (v95 / v96);
-LABEL_151:
-                                    v607 = v100;
-                                    if (*(a1 + 16))
-                                    {
-                                      v101 = *(a1 + 32);
-                                      v102 = *(*(a1 + 24) + 4 * (0xD56B1FBB9CEBA9E8 % *(a1 + 40)));
-                                      if (v102 != 0x7FFFFFFF)
-                                      {
-                                        while (*(v101 + 80 * v102 + 4) != 8)
-                                        {
-                                          v102 = *(v101 + 80 * v102) & 0x7FFFFFFF;
-                                          if (v102 == 0x7FFFFFFF)
-                                          {
-                                            goto LABEL_157;
-                                          }
-                                        }
-
-LABEL_158:
-                                        v103 = *(v101 + 80 * v102 + 40);
-                                        v104 = *(a1 + 256);
-                                        v105 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                        {
-                                          if (mach_timebase_info(info))
-                                          {
-                                            v108 = NAN;
-                                            goto LABEL_163;
-                                          }
-
-                                          LODWORD(v106) = info[0].numer;
-                                          LODWORD(v107) = info[0].denom;
-                                          v105 = v106 / v107;
-                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v105;
-                                        }
-
-                                        v108 = v105 * (v103 / v104);
-LABEL_163:
-                                        v604 = v108;
-                                        if (*(a1 + 16))
-                                        {
-                                          v109 = *(a1 + 32);
-                                          v110 = *(*(a1 + 24) + 4 * (0x3462D848F53ABB6DuLL % *(a1 + 40)));
-                                          if (v110 != 0x7FFFFFFF)
-                                          {
-                                            while (*(v109 + 80 * v110 + 4) != 11)
-                                            {
-                                              v110 = *(v109 + 80 * v110) & 0x7FFFFFFF;
-                                              if (v110 == 0x7FFFFFFF)
-                                              {
-                                                goto LABEL_169;
-                                              }
-                                            }
-
-LABEL_170:
-                                            v111 = *(v109 + 80 * v110 + 40);
-                                            v112 = *(a1 + 256);
-                                            v113 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                            {
-                                              if (mach_timebase_info(info))
-                                              {
-                                                v116 = NAN;
-                                                goto LABEL_175;
-                                              }
-
-                                              LODWORD(v114) = info[0].numer;
-                                              LODWORD(v115) = info[0].denom;
-                                              v113 = v114 / v115;
-                                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v113;
-                                            }
-
-                                            v116 = v113 * (v111 / v112);
-LABEL_175:
-                                            v596 = v116;
-                                            if (*(a1 + 16))
-                                            {
-                                              v117 = *(a1 + 32);
-                                              v118 = *(*(a1 + 24) + 4 * (0x37BE58E8D7213BBCuLL % *(a1 + 40)));
-                                              if (v118 != 0x7FFFFFFF)
-                                              {
-                                                while (*(v117 + 80 * v118 + 4) != 12)
-                                                {
-                                                  v118 = *(v117 + 80 * v118) & 0x7FFFFFFF;
-                                                  if (v118 == 0x7FFFFFFF)
-                                                  {
-                                                    goto LABEL_181;
-                                                  }
-                                                }
-
-LABEL_182:
-                                                v119 = *(v117 + 80 * v118 + 40);
-                                                v120 = *(a1 + 256);
-                                                v121 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                {
-                                                  if (mach_timebase_info(info))
-                                                  {
-                                                    v124 = NAN;
-                                                    goto LABEL_187;
-                                                  }
-
-                                                  LODWORD(v122) = info[0].numer;
-                                                  LODWORD(v123) = info[0].denom;
-                                                  v121 = v122 / v123;
-                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v121;
-                                                }
-
-                                                v124 = v121 * (v119 / v120);
-LABEL_187:
-                                                v584 = v124;
-                                                if (*(a1 + 16))
-                                                {
-                                                  v125 = *(a1 + 32);
-                                                  v126 = *(*(a1 + 24) + 4 * (0xDCFA9555B5F881D1 % *(a1 + 40)));
-                                                  if (v126 != 0x7FFFFFFF)
-                                                  {
-                                                    while (*(v125 + 80 * v126 + 4) != 13)
-                                                    {
-                                                      v126 = *(v125 + 80 * v126) & 0x7FFFFFFF;
-                                                      if (v126 == 0x7FFFFFFF)
-                                                      {
-                                                        goto LABEL_193;
-                                                      }
-                                                    }
-
-LABEL_194:
-                                                    v127 = *(v125 + 80 * v126 + 40);
-                                                    v128 = *(a1 + 256);
-                                                    v129 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                    {
-                                                      if (mach_timebase_info(info))
-                                                      {
-                                                        v132 = NAN;
-                                                        goto LABEL_199;
-                                                      }
-
-                                                      LODWORD(v130) = info[0].numer;
-                                                      LODWORD(v131) = info[0].denom;
-                                                      v129 = v130 / v131;
-                                                      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v129;
-                                                    }
-
-                                                    v132 = v129 * (v127 / v128);
-LABEL_199:
-                                                    if (*(a1 + 16))
-                                                    {
-                                                      v133 = *(a1 + 32);
-                                                      v134 = *(*(a1 + 24) + 4 * (0x255C6046F62FBE29uLL % *(a1 + 40)));
-                                                      if (v134 != 0x7FFFFFFF)
-                                                      {
-                                                        while (*(v133 + 80 * v134 + 4) != 14)
-                                                        {
-                                                          v134 = *(v133 + 80 * v134) & 0x7FFFFFFF;
-                                                          if (v134 == 0x7FFFFFFF)
-                                                          {
-                                                            goto LABEL_205;
-                                                          }
-                                                        }
-
-LABEL_206:
-                                                        v135 = *(v133 + 80 * v134 + 40);
-                                                        v136 = *(a1 + 256);
-                                                        v137 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                        {
-                                                          if (mach_timebase_info(info))
-                                                          {
-                                                            v140 = NAN;
-                                                            goto LABEL_211;
-                                                          }
-
-                                                          LODWORD(v138) = info[0].numer;
-                                                          LODWORD(v139) = info[0].denom;
-                                                          v137 = v138 / v139;
-                                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v137;
-                                                        }
-
-                                                        v140 = v137 * (v135 / v136);
-LABEL_211:
-                                                        v602 = v140;
-                                                        if (*(a1 + 16))
-                                                        {
-                                                          v141 = *(a1 + 32);
-                                                          v142 = *(*(a1 + 24) + 4 * (0x392754934EA1539uLL % *(a1 + 40)));
-                                                          if (v142 != 0x7FFFFFFF)
-                                                          {
-                                                            while (*(v141 + 80 * v142 + 4) != 15)
-                                                            {
-                                                              v142 = *(v141 + 80 * v142) & 0x7FFFFFFF;
-                                                              if (v142 == 0x7FFFFFFF)
-                                                              {
-                                                                goto LABEL_217;
-                                                              }
-                                                            }
-
-LABEL_218:
-                                                            v143 = *(v141 + 80 * v142 + 40);
-                                                            v144 = *(a1 + 256);
-                                                            v145 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                            {
-                                                              if (mach_timebase_info(info))
-                                                              {
-                                                                v148 = NAN;
-                                                                goto LABEL_223;
-                                                              }
-
-                                                              LODWORD(v146) = info[0].numer;
-                                                              LODWORD(v147) = info[0].denom;
-                                                              v145 = v146 / v147;
-                                                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v145;
-                                                            }
-
-                                                            v148 = v145 * (v143 / v144);
-LABEL_223:
-                                                            v601 = v148;
-                                                            if (*(a1 + 16))
-                                                            {
-                                                              v149 = *(a1 + 32);
-                                                              v150 = *(*(a1 + 24) + 4 * (0xD9844BCECCA4A8BDLL % *(a1 + 40)));
-                                                              if (v150 != 0x7FFFFFFF)
-                                                              {
-                                                                while (*(v149 + 80 * v150 + 4) != 16)
-                                                                {
-                                                                  v150 = *(v149 + 80 * v150) & 0x7FFFFFFF;
-                                                                  if (v150 == 0x7FFFFFFF)
-                                                                  {
-                                                                    goto LABEL_229;
-                                                                  }
-                                                                }
-
-LABEL_230:
-                                                                v151 = *(v149 + 80 * v150 + 40);
-                                                                v152 = *(a1 + 256);
-                                                                v153 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                {
-                                                                  if (mach_timebase_info(info))
-                                                                  {
-                                                                    v156 = NAN;
-                                                                    goto LABEL_235;
-                                                                  }
-
-                                                                  LODWORD(v154) = info[0].numer;
-                                                                  LODWORD(v155) = info[0].denom;
-                                                                  v153 = v154 / v155;
-                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v153;
-                                                                }
-
-                                                                v156 = v153 * (v151 / v152);
-LABEL_235:
-                                                                v589 = v156;
-                                                                if (*(a1 + 16))
-                                                                {
-                                                                  v157 = *(a1 + 32);
-                                                                  v158 = *(*(a1 + 24) + 4 * (0x302B8631721C51BEuLL % *(a1 + 40)));
-                                                                  if (v158 != 0x7FFFFFFF)
-                                                                  {
-                                                                    while (*(v157 + 80 * v158 + 4) != 17)
-                                                                    {
-                                                                      v158 = *(v157 + 80 * v158) & 0x7FFFFFFF;
-                                                                      if (v158 == 0x7FFFFFFF)
-                                                                      {
-                                                                        goto LABEL_241;
-                                                                      }
-                                                                    }
-
-LABEL_242:
-                                                                    v159 = *(v157 + 80 * v158 + 40);
-                                                                    v160 = *(a1 + 256);
-                                                                    v161 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                    {
-                                                                      if (mach_timebase_info(info))
-                                                                      {
-                                                                        v164 = NAN;
-                                                                        goto LABEL_247;
-                                                                      }
-
-                                                                      LODWORD(v162) = info[0].numer;
-                                                                      LODWORD(v163) = info[0].denom;
-                                                                      v161 = v162 / v163;
-                                                                      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v161;
-                                                                    }
-
-                                                                    v164 = v161 * (v159 / v160);
-LABEL_247:
-                                                                    v590 = v164;
-                                                                    if (*(a1 + 16))
-                                                                    {
-                                                                      v165 = *(a1 + 32);
-                                                                      v166 = *(*(a1 + 24) + 4 * (0xE34A1ED09841F857 % *(a1 + 40)));
-                                                                      if (v166 != 0x7FFFFFFF)
-                                                                      {
-                                                                        while (*(v165 + 80 * v166 + 4) != 19)
-                                                                        {
-                                                                          v166 = *(v165 + 80 * v166) & 0x7FFFFFFF;
-                                                                          if (v166 == 0x7FFFFFFF)
-                                                                          {
-                                                                            goto LABEL_253;
-                                                                          }
-                                                                        }
-
-LABEL_254:
-                                                                        v167 = *(v165 + 80 * v166 + 40);
-                                                                        v168 = *(a1 + 256);
-                                                                        v169 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                        {
-                                                                          if (mach_timebase_info(info))
-                                                                          {
-                                                                            v172 = NAN;
-                                                                            goto LABEL_259;
-                                                                          }
-
-                                                                          LODWORD(v170) = info[0].numer;
-                                                                          LODWORD(v171) = info[0].denom;
-                                                                          v169 = v170 / v171;
-                                                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v169;
-                                                                        }
-
-                                                                        v172 = v169 * (v167 / v168);
-LABEL_259:
-                                                                        v591 = v172;
-                                                                        if (*(a1 + 16))
-                                                                        {
-                                                                          v173 = *(a1 + 32);
-                                                                          v174 = *(*(a1 + 24) + 4 * (0xEB90A3352640AF2uLL % *(a1 + 40)));
-                                                                          if (v174 != 0x7FFFFFFF)
-                                                                          {
-                                                                            while (*(v173 + 80 * v174 + 4) != 20)
-                                                                            {
-                                                                              v174 = *(v173 + 80 * v174) & 0x7FFFFFFF;
-                                                                              if (v174 == 0x7FFFFFFF)
-                                                                              {
-                                                                                goto LABEL_265;
-                                                                              }
-                                                                            }
-
-LABEL_266:
-                                                                            v175 = *(v173 + 80 * v174 + 40);
-                                                                            v176 = *(a1 + 256);
-                                                                            v177 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                            {
-                                                                              if (mach_timebase_info(info))
-                                                                              {
-                                                                                v180 = NAN;
-                                                                                goto LABEL_271;
-                                                                              }
-
-                                                                              LODWORD(v178) = info[0].numer;
-                                                                              LODWORD(v179) = info[0].denom;
-                                                                              v177 = v178 / v179;
-                                                                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v177;
-                                                                            }
-
-                                                                            v180 = v177 * (v175 / v176);
-LABEL_271:
-                                                                            v587 = v180;
-                                                                            if (*(a1 + 16))
-                                                                            {
-                                                                              v181 = *(a1 + 32);
-                                                                              v182 = *(*(a1 + 24) + 4 * (0xD633B1846FAF2B49 % *(a1 + 40)));
-                                                                              if (v182 != 0x7FFFFFFF)
-                                                                              {
-                                                                                while (*(v181 + 80 * v182 + 4) != 21)
-                                                                                {
-                                                                                  v182 = *(v181 + 80 * v182) & 0x7FFFFFFF;
-                                                                                  if (v182 == 0x7FFFFFFF)
-                                                                                  {
-                                                                                    goto LABEL_277;
-                                                                                  }
-                                                                                }
-
-LABEL_278:
-                                                                                v183 = *(v181 + 80 * v182 + 40);
-                                                                                v184 = *(a1 + 256);
-                                                                                v185 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                {
-                                                                                  if (mach_timebase_info(info))
-                                                                                  {
-                                                                                    v188 = NAN;
-                                                                                    goto LABEL_283;
-                                                                                  }
-
-                                                                                  LODWORD(v186) = info[0].numer;
-                                                                                  LODWORD(v187) = info[0].denom;
-                                                                                  v185 = v186 / v187;
-                                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v185;
-                                                                                }
-
-                                                                                v188 = v185 * (v183 / v184);
-LABEL_283:
-                                                                                v598 = v188;
-                                                                                if (*(a1 + 16))
-                                                                                {
-                                                                                  v189 = *(a1 + 32);
-                                                                                  v190 = *(*(a1 + 24) + 4 * (0x378A5760BE593CA5uLL % *(a1 + 40)));
-                                                                                  if (v190 != 0x7FFFFFFF)
-                                                                                  {
-                                                                                    while (*(v189 + 80 * v190 + 4) != 23)
-                                                                                    {
-                                                                                      v190 = *(v189 + 80 * v190) & 0x7FFFFFFF;
-                                                                                      if (v190 == 0x7FFFFFFF)
-                                                                                      {
-                                                                                        goto LABEL_289;
-                                                                                      }
-                                                                                    }
-
-LABEL_290:
-                                                                                    v191 = *(v189 + 80 * v190 + 40);
-                                                                                    v192 = *(a1 + 256);
-                                                                                    v193 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                    {
-                                                                                      if (mach_timebase_info(info))
-                                                                                      {
-                                                                                        v196 = NAN;
-                                                                                        goto LABEL_295;
-                                                                                      }
-
-                                                                                      LODWORD(v194) = info[0].numer;
-                                                                                      LODWORD(v195) = info[0].denom;
-                                                                                      v193 = v194 / v195;
-                                                                                      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v193;
-                                                                                    }
-
-                                                                                    v196 = v193 * (v191 / v192);
-LABEL_295:
-                                                                                    v583 = v196;
-                                                                                    if (*(a1 + 16))
-                                                                                    {
-                                                                                      v197 = *(a1 + 32);
-                                                                                      v198 = *(*(a1 + 24) + 4 * (0xFD95FA4DB404DD7BLL % *(a1 + 40)));
-                                                                                      if (v198 != 0x7FFFFFFF)
-                                                                                      {
-                                                                                        while (*(v197 + 80 * v198 + 4) != 22)
-                                                                                        {
-                                                                                          v198 = *(v197 + 80 * v198) & 0x7FFFFFFF;
-                                                                                          if (v198 == 0x7FFFFFFF)
-                                                                                          {
-                                                                                            goto LABEL_301;
-                                                                                          }
-                                                                                        }
-
-LABEL_302:
-                                                                                        v199 = *(v197 + 80 * v198 + 40);
-                                                                                        v200 = *(a1 + 256);
-                                                                                        v201 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                        {
-                                                                                          if (mach_timebase_info(info))
-                                                                                          {
-                                                                                            v204 = NAN;
-                                                                                            goto LABEL_307;
-                                                                                          }
-
-                                                                                          LODWORD(v202) = info[0].numer;
-                                                                                          LODWORD(v203) = info[0].denom;
-                                                                                          v201 = v202 / v203;
-                                                                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v201;
-                                                                                        }
-
-                                                                                        v204 = v201 * (v199 / v200);
-LABEL_307:
-                                                                                        v588 = v204;
-                                                                                        if (*(a1 + 16))
-                                                                                        {
-                                                                                          v205 = *(a1 + 32);
-                                                                                          v206 = *(*(a1 + 24) + 4 * (0x968A5BA23473FAFFLL % *(a1 + 40)));
-                                                                                          if (v206 != 0x7FFFFFFF)
-                                                                                          {
-                                                                                            while (*(v205 + 80 * v206 + 4) != 91)
-                                                                                            {
-                                                                                              v206 = *(v205 + 80 * v206) & 0x7FFFFFFF;
-                                                                                              if (v206 == 0x7FFFFFFF)
-                                                                                              {
-                                                                                                goto LABEL_313;
-                                                                                              }
-                                                                                            }
-
-LABEL_314:
-                                                                                            v207 = *(v205 + 80 * v206 + 40);
-                                                                                            v208 = *(a1 + 256);
-                                                                                            v209 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                            {
-                                                                                              if (mach_timebase_info(info))
-                                                                                              {
-                                                                                                v212 = NAN;
-                                                                                                goto LABEL_319;
-                                                                                              }
-
-                                                                                              LODWORD(v210) = info[0].numer;
-                                                                                              LODWORD(v211) = info[0].denom;
-                                                                                              v209 = v210 / v211;
-                                                                                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v209;
-                                                                                            }
-
-                                                                                            v212 = v209 * (v207 / v208);
-LABEL_319:
-                                                                                            v603 = v132;
-                                                                                            if (*(a1 + 16))
-                                                                                            {
-                                                                                              v213 = *(a1 + 32);
-                                                                                              v214 = *(*(a1 + 24) + 4 * (0xDE295D82F964F296 % *(a1 + 40)));
-                                                                                              if (v214 != 0x7FFFFFFF)
-                                                                                              {
-                                                                                                while (*(v213 + 80 * v214 + 4) != 92)
-                                                                                                {
-                                                                                                  v214 = *(v213 + 80 * v214) & 0x7FFFFFFF;
-                                                                                                  if (v214 == 0x7FFFFFFF)
-                                                                                                  {
-                                                                                                    goto LABEL_325;
-                                                                                                  }
-                                                                                                }
-
-LABEL_326:
-                                                                                                v215 = v60 / 1000000.0;
-                                                                                                v216 = v44 / 1000000.0;
-                                                                                                v217 = v52 / 1000000.0;
-                                                                                                v218 = v92 / 1000000.0;
-                                                                                                v219 = *(v213 + 80 * v214 + 40);
-                                                                                                v220 = *(a1 + 256);
-                                                                                                v221 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                {
-                                                                                                  if (mach_timebase_info(info))
-                                                                                                  {
-                                                                                                    v224 = NAN;
-                                                                                                    goto LABEL_331;
-                                                                                                  }
-
-                                                                                                  LODWORD(v222) = info[0].numer;
-                                                                                                  LODWORD(v223) = info[0].denom;
-                                                                                                  v221 = v222 / v223;
-                                                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v221;
-                                                                                                }
-
-                                                                                                v224 = v221 * (v219 / v220);
-LABEL_331:
-                                                                                                v226 = v218;
-                                                                                                v227 = v607 / 1000000.0;
-                                                                                                v228 = v212 / 1000000.0;
-                                                                                                v229 = v224 / 1000000.0;
-                                                                                                if (*(a1 + 16))
-                                                                                                {
-                                                                                                  v230 = *(a1 + 32);
-                                                                                                  v231 = *(*(a1 + 24) + 4 * (0xFEBD6A4FBD0A7802 % *(a1 + 40)));
-                                                                                                  v232 = v594;
-                                                                                                  if (v231 == 0x7FFFFFFF)
-                                                                                                  {
-LABEL_335:
-                                                                                                    v231 = 0x7FFFFFFFLL;
-                                                                                                  }
-
-                                                                                                  else
-                                                                                                  {
-                                                                                                    while (*(v230 + 80 * v231 + 4) != 93)
-                                                                                                    {
-                                                                                                      v231 = *(v230 + 80 * v231) & 0x7FFFFFFF;
-                                                                                                      if (v231 == 0x7FFFFFFF)
-                                                                                                      {
-                                                                                                        goto LABEL_335;
-                                                                                                      }
-                                                                                                    }
-                                                                                                  }
-                                                                                                }
-
-                                                                                                else
-                                                                                                {
-                                                                                                  v230 = *(a1 + 32);
-                                                                                                  v231 = 0x7FFFFFFFLL;
-                                                                                                  v232 = v594;
-                                                                                                }
-
-                                                                                                v233 = v609 / 1000000.0;
-                                                                                                v225 = v215;
-                                                                                                v234 = (v216 + v217) + v225;
-                                                                                                v235 = v604 / 1000000.0;
-                                                                                                v610 = v235;
-                                                                                                v236 = v596 / 1000000.0;
-                                                                                                v605 = v236;
-                                                                                                v237 = v584 / 1000000.0;
-                                                                                                v238 = v583 / 1000000.0;
-                                                                                                v608 = v238;
-                                                                                                v597 = v226;
-                                                                                                v239 = v226 - v227;
-                                                                                                v240 = v228;
-                                                                                                v241 = v229;
-                                                                                                v242 = *(v230 + 80 * v231 + 40);
-                                                                                                v243 = *(a1 + 256);
-                                                                                                v244 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                v245 = v232 / 1000000.0;
-                                                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                {
-                                                                                                  v585 = v227;
-                                                                                                  v246 = v237;
-                                                                                                  if (mach_timebase_info(info))
-                                                                                                  {
-                                                                                                    v249 = NAN;
-                                                                                                    v237 = v246;
-                                                                                                    v227 = v585;
-                                                                                                    goto LABEL_342;
-                                                                                                  }
-
-                                                                                                  LODWORD(v247) = info[0].numer;
-                                                                                                  LODWORD(v248) = info[0].denom;
-                                                                                                  v244 = v247 / v248;
-                                                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v244;
-                                                                                                  v237 = v246;
-                                                                                                  v227 = v585;
-                                                                                                }
-
-                                                                                                v249 = v244 * (v242 / v243);
-LABEL_342:
-                                                                                                v251 = v592 / 1000000.0;
-                                                                                                v252 = v234 + v233;
-                                                                                                v253 = v249 / 1000000.0;
-                                                                                                v254 = (v240 + v241) + v253;
-                                                                                                v586 = v237;
-                                                                                                if (v610 <= 0.0)
-                                                                                                {
-                                                                                                  v255 = (v605 + v237) + v608;
-                                                                                                }
-
-                                                                                                else
-                                                                                                {
-                                                                                                  v255 = v227;
-                                                                                                }
-
-                                                                                                if (v610 <= 0.0)
-                                                                                                {
-                                                                                                  v256 = (v239 + v254) - ((v605 + v237) + v608);
-                                                                                                }
-
-                                                                                                else
-                                                                                                {
-                                                                                                  v256 = v239 + v254;
-                                                                                                }
-
-                                                                                                v593 = v256;
-                                                                                                if (*(a1 + 16))
-                                                                                                {
-                                                                                                  v257 = *(a1 + 32);
-                                                                                                  v258 = *(*(a1 + 24) + 4 * (0xFFCB5C99F6AA8871 % *(a1 + 40)));
-                                                                                                  v259 = v599;
-                                                                                                  if (v258 == 0x7FFFFFFF)
-                                                                                                  {
-LABEL_352:
-                                                                                                    v258 = 0x7FFFFFFFLL;
-                                                                                                  }
-
-                                                                                                  else
-                                                                                                  {
-                                                                                                    while (*(v257 + 80 * v258 + 4) != 18)
-                                                                                                    {
-                                                                                                      v258 = *(v257 + 80 * v258) & 0x7FFFFFFF;
-                                                                                                      if (v258 == 0x7FFFFFFF)
-                                                                                                      {
-                                                                                                        goto LABEL_352;
-                                                                                                      }
-                                                                                                    }
-                                                                                                  }
-                                                                                                }
-
-                                                                                                else
-                                                                                                {
-                                                                                                  v257 = *(a1 + 32);
-                                                                                                  v258 = 0x7FFFFFFFLL;
-                                                                                                  v259 = v599;
-                                                                                                }
-
-                                                                                                v260 = v251;
-                                                                                                v250 = v245;
-                                                                                                v261 = v252 + v250;
-                                                                                                v262 = *(v257 + 80 * v258 + 40);
-                                                                                                v263 = *(a1 + 256);
-                                                                                                v264 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                v265 = v259 / 1000000.0;
-                                                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                {
-                                                                                                  if (mach_timebase_info(info))
-                                                                                                  {
-                                                                                                    v268 = NAN;
-                                                                                                    goto LABEL_359;
-                                                                                                  }
-
-                                                                                                  LODWORD(v266) = info[0].numer;
-                                                                                                  LODWORD(v267) = info[0].denom;
-                                                                                                  v264 = v266 / v267;
-                                                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v264;
-                                                                                                }
-
-                                                                                                v268 = v264 * (v262 / v263);
-LABEL_359:
-                                                                                                v269 = v265;
-                                                                                                v270 = *(a1 + 16);
-                                                                                                v595 = v268;
-                                                                                                if (v270)
-                                                                                                {
-                                                                                                  v271 = *(a1 + 32);
-                                                                                                  v272 = *(*(a1 + 24) + 4 * (0xD59EEF30DB86CAB8 % *(a1 + 40)));
-                                                                                                  if (v272 != 0x7FFFFFFF)
-                                                                                                  {
-                                                                                                    while (*(v271 + 80 * v272 + 4) != 24)
-                                                                                                    {
-                                                                                                      v272 = *(v271 + 80 * v272) & 0x7FFFFFFF;
-                                                                                                      if (v272 == 0x7FFFFFFF)
-                                                                                                      {
-                                                                                                        goto LABEL_365;
-                                                                                                      }
-                                                                                                    }
-
-LABEL_366:
-                                                                                                    v273 = (v261 + v260) + v254;
-                                                                                                    v274 = v271 + 80 * v272;
-                                                                                                    v275 = 0.0;
-                                                                                                    if (v269 > 0.0)
-                                                                                                    {
-                                                                                                      v275 = (1000.0 / v269);
-                                                                                                    }
-
-                                                                                                    v276 = v273 - v255;
-                                                                                                    v277 = *(v274 + 40);
-                                                                                                    v278 = *(a1 + 256);
-                                                                                                    v600 = v261 + v260;
-                                                                                                    if (v270)
-                                                                                                    {
-                                                                                                      v279 = *(a1 + 40);
-                                                                                                      v280 = *(a1 + 24);
-                                                                                                      v281 = *(v280 + 4 * (0x4F7ABB7627B74F52 % v279));
-                                                                                                      if (v281 == 0x7FFFFFFF)
-                                                                                                      {
-                                                                                                        v282 = (v271 + 0x27FFFFFFD8);
-                                                                                                      }
-
-                                                                                                      else
-                                                                                                      {
-                                                                                                        v287 = 0x7FFFFFFFLL;
-                                                                                                        while (*(v271 + 80 * v281 + 4) != 29)
-                                                                                                        {
-                                                                                                          v281 = *(v271 + 80 * v281) & 0x7FFFFFFF;
-                                                                                                          if (v281 == 0x7FFFFFFF)
-                                                                                                          {
-                                                                                                            goto LABEL_377;
-                                                                                                          }
-                                                                                                        }
-
-                                                                                                        v287 = v281;
-LABEL_377:
-                                                                                                        v282 = (v271 + 80 * v287 + 40);
-                                                                                                      }
-
-                                                                                                      v288 = *(v280 + 4 * (0x724EA9269D42A72 % v279));
-                                                                                                      if (v288 == 0x7FFFFFFF)
-                                                                                                      {
-                                                                                                        v289 = (v271 + 0x27FFFFFFD8);
-                                                                                                      }
-
-                                                                                                      else
-                                                                                                      {
-                                                                                                        v290 = 0x7FFFFFFFLL;
-                                                                                                        while (*(v271 + 80 * v288 + 4) != 30)
-                                                                                                        {
-                                                                                                          v288 = *(v271 + 80 * v288) & 0x7FFFFFFF;
-                                                                                                          if (v288 == 0x7FFFFFFF)
-                                                                                                          {
-                                                                                                            goto LABEL_385;
-                                                                                                          }
-                                                                                                        }
-
-                                                                                                        v290 = v288;
-LABEL_385:
-                                                                                                        v289 = (v271 + 80 * v290 + 40);
-                                                                                                      }
-
-                                                                                                      v291 = *(v280 + 4 * (0x540F172E046EF165 % v279));
-                                                                                                      if (v291 == 0x7FFFFFFF)
-                                                                                                      {
-                                                                                                        v292 = (v271 + 0x27FFFFFFD8);
-                                                                                                      }
-
-                                                                                                      else
-                                                                                                      {
-                                                                                                        v293 = 0x7FFFFFFFLL;
-                                                                                                        while (*(v271 + 80 * v291 + 4) != 31)
-                                                                                                        {
-                                                                                                          v291 = *(v271 + 80 * v291) & 0x7FFFFFFF;
-                                                                                                          if (v291 == 0x7FFFFFFF)
-                                                                                                          {
-                                                                                                            goto LABEL_393;
-                                                                                                          }
-                                                                                                        }
-
-                                                                                                        v293 = v291;
-LABEL_393:
-                                                                                                        v292 = (v271 + 80 * v293 + 40);
-                                                                                                      }
-
-                                                                                                      v285 = *v282;
-                                                                                                      v286 = *v289;
-                                                                                                      v283 = *v292;
-                                                                                                      v284 = *(v280 + 4 * (0xADFB1EBB497FAD45 % v279));
-                                                                                                      if (v284 == 0x7FFFFFFF)
-                                                                                                      {
-LABEL_397:
-                                                                                                        v284 = 0x7FFFFFFFLL;
-                                                                                                      }
-
-                                                                                                      else
-                                                                                                      {
-                                                                                                        while (*(v271 + 80 * v284 + 4) != 32)
-                                                                                                        {
-                                                                                                          v284 = *(v271 + 80 * v284) & 0x7FFFFFFF;
-                                                                                                          if (v284 == 0x7FFFFFFF)
-                                                                                                          {
-                                                                                                            goto LABEL_397;
-                                                                                                          }
-                                                                                                        }
-                                                                                                      }
-                                                                                                    }
-
-                                                                                                    else
-                                                                                                    {
-                                                                                                      v283 = *(v271 + 0x27FFFFFFD8);
-                                                                                                      v284 = 0x7FFFFFFFLL;
-                                                                                                      v285 = v283;
-                                                                                                      v286 = v283;
-                                                                                                    }
-
-                                                                                                    v294 = *(v271 + 80 * v284 + 40);
-                                                                                                    re::DynamicString::appendf((a1 + 64), "Frame Times (ms)\n");
-                                                                                                    re::DynamicString::appendf((a1 + 64), "FPS: %.2f    Main Thread: %.2f\n", v275, v276);
-                                                                                                    if (v610 > 0.0)
-                                                                                                    {
-                                                                                                      re::DynamicString::appendf((a1 + 64), "Render Thread: %.2f\n", (((v610 - v605) - v586) - v608));
-                                                                                                    }
-
-                                                                                                    re::DynamicString::appendf((a1 + 64), "GPU: %.2f\n", ((v277 / v278) / 1000000.0));
-                                                                                                    re::DynamicString::appendf((a1 + 64), "Vtx: %.2f    Frg: %.2f\nRender Compute: %0.2f\nDeformer Compute: %0.2f\n", ((v285 / v278) / 1000000.0) / 1000000.0, ((v286 / v278) / 1000000.0) / 1000000.0, ((v283 / v278) / 1000000.0) / 1000000.0, ((v294 / v278) / 1000000.0) / 1000000.0);
-                                                                                                    re::DynamicString::appendf((a1 + 96), "Engine CPU Breakdown (ms)\n");
-                                                                                                    if (*(a1 + 16))
-                                                                                                    {
-                                                                                                      v295 = *(a1 + 32);
-                                                                                                      v296 = *(*(a1 + 24) + 4 * (0x8AEB093D93E71BBFLL % *(a1 + 40)));
-                                                                                                      if (v296 != 0x7FFFFFFF)
-                                                                                                      {
-                                                                                                        while (*(v295 + 80 * v296 + 4) != 122)
-                                                                                                        {
-                                                                                                          v296 = *(v295 + 80 * v296) & 0x7FFFFFFF;
-                                                                                                          if (v296 == 0x7FFFFFFF)
-                                                                                                          {
-                                                                                                            goto LABEL_406;
-                                                                                                          }
-                                                                                                        }
-
-LABEL_407:
-                                                                                                        v297 = *(v295 + 80 * v296 + 40);
-                                                                                                        v298 = *(a1 + 256);
-                                                                                                        v299 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                        {
-                                                                                                          if (mach_timebase_info(info))
-                                                                                                          {
-                                                                                                            v302 = NAN;
-                                                                                                            goto LABEL_412;
-                                                                                                          }
-
-                                                                                                          LODWORD(v300) = info[0].numer;
-                                                                                                          LODWORD(v301) = info[0].denom;
-                                                                                                          v299 = v300 / v301;
-                                                                                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v299;
-                                                                                                        }
-
-                                                                                                        v302 = v299 * (v297 / v298);
-LABEL_412:
-                                                                                                        re::DynamicString::appendf((a1 + 96), "RenderGraph: %.2f    Render ECS: %.2f\n", (v593 + v610), v302 / 1000000.0);
-                                                                                                        if (*(a1 + 16))
-                                                                                                        {
-                                                                                                          v303 = *(a1 + 32);
-                                                                                                          v304 = *(*(a1 + 24) + 4 * (0x786DD0AB972D849AuLL % *(a1 + 40)));
-                                                                                                          if (v304 != 0x7FFFFFFF)
-                                                                                                          {
-                                                                                                            while (*(v303 + 80 * v304 + 4) != 115)
-                                                                                                            {
-                                                                                                              v304 = *(v303 + 80 * v304) & 0x7FFFFFFF;
-                                                                                                              if (v304 == 0x7FFFFFFF)
-                                                                                                              {
-                                                                                                                goto LABEL_418;
-                                                                                                              }
-                                                                                                            }
-
-LABEL_419:
-                                                                                                            v305 = *(v303 + 80 * v304 + 40);
-                                                                                                            v306 = *(a1 + 256);
-                                                                                                            v307 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                            {
-                                                                                                              if (mach_timebase_info(info))
-                                                                                                              {
-                                                                                                                v310 = NAN;
-                                                                                                                goto LABEL_424;
-                                                                                                              }
-
-                                                                                                              LODWORD(v308) = info[0].numer;
-                                                                                                              LODWORD(v309) = info[0].denom;
-                                                                                                              v307 = v308 / v309;
-                                                                                                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v307;
-                                                                                                            }
-
-                                                                                                            v310 = v307 * (v305 / v306);
-LABEL_424:
-                                                                                                            re::DynamicString::appendf((a1 + 96), "Deformations: %.2f\n", v310 / 1000000.0);
-                                                                                                            if (*(a1 + 16))
-                                                                                                            {
-                                                                                                              v311 = *(a1 + 32);
-                                                                                                              v312 = *(*(a1 + 24) + 4 * (0x3465840D39B46BB3uLL % *(a1 + 40)));
-                                                                                                              if (v312 != 0x7FFFFFFF)
-                                                                                                              {
-                                                                                                                while (*(v311 + 80 * v312 + 4) != 150)
-                                                                                                                {
-                                                                                                                  v312 = *(v311 + 80 * v312) & 0x7FFFFFFF;
-                                                                                                                  if (v312 == 0x7FFFFFFF)
-                                                                                                                  {
-                                                                                                                    goto LABEL_430;
-                                                                                                                  }
-                                                                                                                }
-
-LABEL_431:
-                                                                                                                v313 = *(v311 + 80 * v312 + 40);
-                                                                                                                v314 = *(a1 + 256);
-                                                                                                                v315 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                                {
-                                                                                                                  if (mach_timebase_info(info))
-                                                                                                                  {
-                                                                                                                    v318 = NAN;
-                                                                                                                    goto LABEL_436;
-                                                                                                                  }
-
-                                                                                                                  LODWORD(v316) = info[0].numer;
-                                                                                                                  LODWORD(v317) = info[0].denom;
-                                                                                                                  v315 = v316 / v317;
-                                                                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v315;
-                                                                                                                }
-
-                                                                                                                v318 = v315 * (v313 / v314);
-LABEL_436:
-                                                                                                                if (*(a1 + 16))
-                                                                                                                {
-                                                                                                                  v319 = *(a1 + 32);
-                                                                                                                  v320 = *(*(a1 + 24) + 4 * (0xD12374540570B1A6 % *(a1 + 40)));
-                                                                                                                  if (v320 != 0x7FFFFFFF)
-                                                                                                                  {
-                                                                                                                    while (*(v319 + 80 * v320 + 4) != 130)
-                                                                                                                    {
-                                                                                                                      v320 = *(v319 + 80 * v320) & 0x7FFFFFFF;
-                                                                                                                      if (v320 == 0x7FFFFFFF)
-                                                                                                                      {
-                                                                                                                        goto LABEL_442;
-                                                                                                                      }
-                                                                                                                    }
-
-LABEL_443:
-                                                                                                                    v322 = *(v319 + 80 * v320 + 40);
-                                                                                                                    v323 = *(a1 + 256);
-                                                                                                                    v324 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                                    v325 = v318 / 1000000.0;
-                                                                                                                    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                                    {
-                                                                                                                      if (mach_timebase_info(info))
-                                                                                                                      {
-                                                                                                                        v328 = NAN;
-                                                                                                                        goto LABEL_448;
-                                                                                                                      }
-
-                                                                                                                      LODWORD(v326) = info[0].numer;
-                                                                                                                      LODWORD(v327) = info[0].denom;
-                                                                                                                      v324 = v326 / v327;
-                                                                                                                      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v324;
-                                                                                                                    }
-
-                                                                                                                    v328 = v324 * (v322 / v323);
-LABEL_448:
-                                                                                                                    v321 = v589 / 1000000.0;
-                                                                                                                    v329 = v321;
-                                                                                                                    re::DynamicString::appendf((a1 + 96), "VFX RenderNode: %.2f    VFX ECS: %.2f\n", v325, v328 / 1000000.0);
-                                                                                                                    if (*(a1 + 16))
-                                                                                                                    {
-                                                                                                                      v331 = *(a1 + 32);
-                                                                                                                      v332 = *(*(a1 + 24) + 4 * (0x2D2898CE1F8CEF8EuLL % *(a1 + 40)));
-                                                                                                                      if (v332 != 0x7FFFFFFF)
-                                                                                                                      {
-                                                                                                                        while (*(v331 + 80 * v332 + 4) != 125)
-                                                                                                                        {
-                                                                                                                          v332 = *(v331 + 80 * v332) & 0x7FFFFFFF;
-                                                                                                                          if (v332 == 0x7FFFFFFF)
-                                                                                                                          {
-                                                                                                                            goto LABEL_454;
-                                                                                                                          }
-                                                                                                                        }
-
-LABEL_455:
-                                                                                                                        v333 = *(v331 + 80 * v332 + 40);
-                                                                                                                        v334 = *(a1 + 256);
-                                                                                                                        v335 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                                        {
-                                                                                                                          if (mach_timebase_info(info))
-                                                                                                                          {
-                                                                                                                            v338 = NAN;
-                                                                                                                            goto LABEL_460;
-                                                                                                                          }
-
-                                                                                                                          LODWORD(v336) = info[0].numer;
-                                                                                                                          LODWORD(v337) = info[0].denom;
-                                                                                                                          v335 = v336 / v337;
-                                                                                                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v335;
-                                                                                                                        }
-
-                                                                                                                        v338 = v335 * (v333 / v334);
-LABEL_460:
-                                                                                                                        v339 = v590 / 1000000.0 + v329;
-                                                                                                                        v330 = v587 / 1000000.0;
-                                                                                                                        re::DynamicString::appendf((a1 + 96), "Animation Update: %.2f    Animation ECS: %.2f\n", v330, v338 / 1000000.0);
-                                                                                                                        if (*(a1 + 16))
-                                                                                                                        {
-                                                                                                                          v340 = *(a1 + 32);
-                                                                                                                          v341 = *(*(a1 + 24) + 4 * (0xD94FA4A9067DC0C4 % *(a1 + 40)));
-                                                                                                                          v342 = v591;
-                                                                                                                          if (v341 == 0x7FFFFFFF)
-                                                                                                                          {
-LABEL_464:
-                                                                                                                            v341 = 0x7FFFFFFFLL;
-                                                                                                                          }
-
-                                                                                                                          else
-                                                                                                                          {
-                                                                                                                            while (*(v340 + 80 * v341 + 4) != 123)
-                                                                                                                            {
-                                                                                                                              v341 = *(v340 + 80 * v341) & 0x7FFFFFFF;
-                                                                                                                              if (v341 == 0x7FFFFFFF)
-                                                                                                                              {
-                                                                                                                                goto LABEL_464;
-                                                                                                                              }
-                                                                                                                            }
-                                                                                                                          }
-                                                                                                                        }
-
-                                                                                                                        else
-                                                                                                                        {
-                                                                                                                          v340 = *(a1 + 32);
-                                                                                                                          v341 = 0x7FFFFFFFLL;
-                                                                                                                          v342 = v591;
-                                                                                                                        }
-
-                                                                                                                        v343 = *(v340 + 80 * v341 + 40);
-                                                                                                                        v344 = *(a1 + 256);
-                                                                                                                        v345 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                                        v346 = v342 / 1000000.0;
-                                                                                                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                                        {
-                                                                                                                          if (mach_timebase_info(info))
-                                                                                                                          {
-                                                                                                                            v349 = NAN;
-                                                                                                                            goto LABEL_471;
-                                                                                                                          }
-
-                                                                                                                          LODWORD(v347) = info[0].numer;
-                                                                                                                          LODWORD(v348) = info[0].denom;
-                                                                                                                          v345 = v347 / v348;
-                                                                                                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v345;
-                                                                                                                        }
-
-                                                                                                                        v349 = v345 * (v343 / v344);
-LABEL_471:
-                                                                                                                        v350 = v346;
-                                                                                                                        re::DynamicString::appendf((a1 + 96), "Network Update: %.2f    Network ECS: %.2f\n", v339, v349 / 1000000.0);
-                                                                                                                        if (*(a1 + 16))
-                                                                                                                        {
-                                                                                                                          v351 = *(a1 + 32);
-                                                                                                                          v352 = *(*(a1 + 24) + 4 * (0x8BC946409C88CB8FLL % *(a1 + 40)));
-                                                                                                                          v353 = v588;
-                                                                                                                          if (v352 == 0x7FFFFFFF)
-                                                                                                                          {
-LABEL_475:
-                                                                                                                            v352 = 0x7FFFFFFFLL;
-                                                                                                                          }
-
-                                                                                                                          else
-                                                                                                                          {
-                                                                                                                            while (*(v351 + 80 * v352 + 4) != 121)
-                                                                                                                            {
-                                                                                                                              v352 = *(v351 + 80 * v352) & 0x7FFFFFFF;
-                                                                                                                              if (v352 == 0x7FFFFFFF)
-                                                                                                                              {
-                                                                                                                                goto LABEL_475;
-                                                                                                                              }
-                                                                                                                            }
-                                                                                                                          }
-                                                                                                                        }
-
-                                                                                                                        else
-                                                                                                                        {
-                                                                                                                          v351 = *(a1 + 32);
-                                                                                                                          v352 = 0x7FFFFFFFLL;
-                                                                                                                          v353 = v588;
-                                                                                                                        }
-
-                                                                                                                        v354 = *(v351 + 80 * v352 + 40);
-                                                                                                                        v355 = *(a1 + 256);
-                                                                                                                        v356 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                                        v357 = v353 / 1000000.0;
-                                                                                                                        if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                                        {
-                                                                                                                          if (mach_timebase_info(info))
-                                                                                                                          {
-                                                                                                                            v360 = NAN;
-                                                                                                                            goto LABEL_482;
-                                                                                                                          }
-
-                                                                                                                          LODWORD(v358) = info[0].numer;
-                                                                                                                          LODWORD(v359) = info[0].denom;
-                                                                                                                          v356 = v358 / v359;
-                                                                                                                          re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v356;
-                                                                                                                        }
-
-                                                                                                                        v360 = v356 * (v354 / v355);
-LABEL_482:
-                                                                                                                        v361 = v357;
-                                                                                                                        re::DynamicString::appendf((a1 + 96), "Physics Engine: %.2f    Physics ECS: %.2f\n", v350, v360 / 1000000.0);
-                                                                                                                        if (*(a1 + 16))
-                                                                                                                        {
-                                                                                                                          v362 = *(a1 + 32);
-                                                                                                                          v363 = *(*(a1 + 24) + 4 * (0x178631649EA56D8AuLL % *(a1 + 40)));
-                                                                                                                          if (v363 != 0x7FFFFFFF)
-                                                                                                                          {
-                                                                                                                            while (*(v362 + 80 * v363 + 4) != 120)
-                                                                                                                            {
-                                                                                                                              v363 = *(v362 + 80 * v363) & 0x7FFFFFFF;
-                                                                                                                              if (v363 == 0x7FFFFFFF)
-                                                                                                                              {
-                                                                                                                                goto LABEL_488;
-                                                                                                                              }
-                                                                                                                            }
-
-LABEL_489:
-                                                                                                                            v364 = *(v362 + 80 * v363 + 40);
-                                                                                                                            v365 = *(a1 + 256);
-                                                                                                                            v366 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                                            {
-                                                                                                                              if (mach_timebase_info(info))
-                                                                                                                              {
-                                                                                                                                v369 = NAN;
-                                                                                                                                goto LABEL_494;
-                                                                                                                              }
-
-                                                                                                                              LODWORD(v367) = info[0].numer;
-                                                                                                                              LODWORD(v368) = info[0].denom;
-                                                                                                                              v366 = v367 / v368;
-                                                                                                                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v366;
-                                                                                                                            }
-
-                                                                                                                            v369 = v366 * (v364 / v365);
-LABEL_494:
-                                                                                                                            re::DynamicString::appendf((a1 + 96), "Audio Update: %.2f    Audio ECS: %.2f\n", v361, v369 / 1000000.0);
-                                                                                                                            if (*(a1 + 16))
-                                                                                                                            {
-                                                                                                                              v370 = *(a1 + 32);
-                                                                                                                              v371 = *(*(a1 + 24) + 4 * (0x89607B27DA843F55 % *(a1 + 40)));
-                                                                                                                              v372 = v598;
-                                                                                                                              if (v371 == 0x7FFFFFFF)
-                                                                                                                              {
-LABEL_498:
-                                                                                                                                v371 = 0x7FFFFFFFLL;
-                                                                                                                              }
-
-                                                                                                                              else
-                                                                                                                              {
-                                                                                                                                while (*(v370 + 80 * v371 + 4) != 129)
-                                                                                                                                {
-                                                                                                                                  v371 = *(v370 + 80 * v371) & 0x7FFFFFFF;
-                                                                                                                                  if (v371 == 0x7FFFFFFF)
-                                                                                                                                  {
-                                                                                                                                    goto LABEL_498;
-                                                                                                                                  }
-                                                                                                                                }
-                                                                                                                              }
-                                                                                                                            }
-
-                                                                                                                            else
-                                                                                                                            {
-                                                                                                                              v370 = *(a1 + 32);
-                                                                                                                              v371 = 0x7FFFFFFFLL;
-                                                                                                                              v372 = v598;
-                                                                                                                            }
-
-                                                                                                                            v373 = *(v370 + 80 * v371 + 40);
-                                                                                                                            v374 = *(a1 + 256);
-                                                                                                                            v375 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                                            v376 = v372 / 1000000.0;
-                                                                                                                            if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                                            {
-                                                                                                                              if (mach_timebase_info(info))
-                                                                                                                              {
-                                                                                                                                v379 = NAN;
-                                                                                                                                goto LABEL_505;
-                                                                                                                              }
-
-                                                                                                                              LODWORD(v377) = info[0].numer;
-                                                                                                                              LODWORD(v378) = info[0].denom;
-                                                                                                                              v375 = v377 / v378;
-                                                                                                                              re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v375;
-                                                                                                                            }
-
-                                                                                                                            v379 = v375 * (v373 / v374);
-LABEL_505:
-                                                                                                                            v380 = v376;
-                                                                                                                            if (*(a1 + 16))
-                                                                                                                            {
-                                                                                                                              v381 = *(a1 + 32);
-                                                                                                                              v382 = *(*(a1 + 24) + 4 * (0xAF26563F2EC4C8E6 % *(a1 + 40)));
-                                                                                                                              if (v382 != 0x7FFFFFFF)
-                                                                                                                              {
-                                                                                                                                while (*(v381 + 80 * v382 + 4) != 128)
-                                                                                                                                {
-                                                                                                                                  v382 = *(v381 + 80 * v382) & 0x7FFFFFFF;
-                                                                                                                                  if (v382 == 0x7FFFFFFF)
-                                                                                                                                  {
-                                                                                                                                    goto LABEL_511;
-                                                                                                                                  }
-                                                                                                                                }
-
-LABEL_512:
-                                                                                                                                v383 = *(v381 + 80 * v382 + 40);
-                                                                                                                                v384 = *(a1 + 256);
-                                                                                                                                v385 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                                                v386 = v379 / 1000000.0;
-                                                                                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                                                {
-                                                                                                                                  if (mach_timebase_info(info))
-                                                                                                                                  {
-                                                                                                                                    v389 = NAN;
-                                                                                                                                    goto LABEL_517;
-                                                                                                                                  }
-
-                                                                                                                                  LODWORD(v387) = info[0].numer;
-                                                                                                                                  LODWORD(v388) = info[0].denom;
-                                                                                                                                  v385 = v387 / v388;
-                                                                                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v385;
-                                                                                                                                }
-
-                                                                                                                                v389 = v385 * (v383 / v384);
-LABEL_517:
-                                                                                                                                re::DynamicString::appendf((a1 + 96), "Asset Update: %.2f    SU ECS: %.2f\n", v380, v386 + v389 / 1000000.0);
-                                                                                                                                if (*(a1 + 16))
-                                                                                                                                {
-                                                                                                                                  v390 = *(a1 + 32);
-                                                                                                                                  v391 = *(*(a1 + 24) + 4 * (0x584592B4271786AAuLL % *(a1 + 40)));
-                                                                                                                                  v392 = v603;
-                                                                                                                                  if (v391 == 0x7FFFFFFF)
-                                                                                                                                  {
-LABEL_521:
-                                                                                                                                    v391 = 0x7FFFFFFFLL;
-                                                                                                                                  }
-
-                                                                                                                                  else
-                                                                                                                                  {
-                                                                                                                                    while (*(v390 + 80 * v391 + 4) != 126)
-                                                                                                                                    {
-                                                                                                                                      v391 = *(v390 + 80 * v391) & 0x7FFFFFFF;
-                                                                                                                                      if (v391 == 0x7FFFFFFF)
-                                                                                                                                      {
-                                                                                                                                        goto LABEL_521;
-                                                                                                                                      }
-                                                                                                                                    }
-                                                                                                                                  }
-                                                                                                                                }
-
-                                                                                                                                else
-                                                                                                                                {
-                                                                                                                                  v390 = *(a1 + 32);
-                                                                                                                                  v391 = 0x7FFFFFFFLL;
-                                                                                                                                  v392 = v603;
-                                                                                                                                }
-
-                                                                                                                                v393 = *(v390 + 80 * v391 + 40);
-                                                                                                                                v394 = *(a1 + 256);
-                                                                                                                                v395 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                                                if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                                                {
-                                                                                                                                  if (mach_timebase_info(info))
-                                                                                                                                  {
-                                                                                                                                    v398 = NAN;
-                                                                                                                                    goto LABEL_528;
-                                                                                                                                  }
-
-                                                                                                                                  LODWORD(v396) = info[0].numer;
-                                                                                                                                  LODWORD(v397) = info[0].denom;
-                                                                                                                                  v395 = v396 / v397;
-                                                                                                                                  re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v395;
-                                                                                                                                }
-
-                                                                                                                                v398 = v395 * (v393 / v394);
-LABEL_528:
-                                                                                                                                if (*(a1 + 16))
-                                                                                                                                {
-                                                                                                                                  v399 = *(a1 + 32);
-                                                                                                                                  v400 = *(*(a1 + 24) + 4 * (0xA09D66D4686AD125 % *(a1 + 40)));
-                                                                                                                                  if (v400 != 0x7FFFFFFF)
-                                                                                                                                  {
-                                                                                                                                    while (*(v399 + 80 * v400 + 4) != 127)
-                                                                                                                                    {
-                                                                                                                                      v400 = *(v399 + 80 * v400) & 0x7FFFFFFF;
-                                                                                                                                      if (v400 == 0x7FFFFFFF)
-                                                                                                                                      {
-                                                                                                                                        goto LABEL_534;
-                                                                                                                                      }
-                                                                                                                                    }
-
-LABEL_535:
-                                                                                                                                    v401 = *(v399 + 80 * v400 + 40);
-                                                                                                                                    v402 = *(a1 + 256);
-                                                                                                                                    v403 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-                                                                                                                                    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-                                                                                                                                    {
-                                                                                                                                      if (mach_timebase_info(info))
-                                                                                                                                      {
-                                                                                                                                        v406 = NAN;
-                                                                                                                                        goto LABEL_540;
-                                                                                                                                      }
-
-                                                                                                                                      LODWORD(v404) = info[0].numer;
-                                                                                                                                      LODWORD(v405) = info[0].denom;
-                                                                                                                                      v403 = v404 / v405;
-                                                                                                                                      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v403;
-                                                                                                                                    }
-
-                                                                                                                                    v406 = v403 * (v401 / v402);
-LABEL_540:
-                                                                                                                                    v408 = v392 / 1000000.0;
-                                                                                                                                    v409 = v602 / 1000000.0;
-                                                                                                                                    v410 = v408 + v409;
-                                                                                                                                    v411 = v601 / 1000000.0;
-                                                                                                                                    v606 = v587 / 1000000.0;
-                                                                                                                                    v412 = ((((((v600 - (v410 + v411)) - v339) - v350) - v606) - v380) - v361) - v597;
-                                                                                                                                    if (v610 <= 0.0)
-                                                                                                                                    {
-                                                                                                                                      v413 = v412 - v608;
-                                                                                                                                    }
-
-                                                                                                                                    else
-                                                                                                                                    {
-                                                                                                                                      v413 = v412;
-                                                                                                                                    }
-
-                                                                                                                                    re::DynamicString::appendf((a1 + 96), "Custom ECS: %.2f    Callback ECS: %.2f\n", v398 / 1000000.0, v406 / 1000000.0);
-                                                                                                                                    v407 = v595 / 1000000.0;
-                                                                                                                                    re::DynamicString::appendf((a1 + 96), "Update Callback: %.2f    Others: %.2f\n", v407, (v413 - v407));
-                                                                                                                                    if (*(a1 + 136))
-                                                                                                                                    {
-                                                                                                                                      *(a1 + 136) = 1;
-                                                                                                                                      v414 = *(a1 + 144);
-                                                                                                                                    }
-
-                                                                                                                                    else
-                                                                                                                                    {
-                                                                                                                                      *(a1 + 136) = 0;
-                                                                                                                                      v414 = (a1 + 137);
-                                                                                                                                    }
-
-                                                                                                                                    *v414 = 0;
-                                                                                                                                    if (*(a1 + 168))
-                                                                                                                                    {
-                                                                                                                                      *(a1 + 168) = 1;
-                                                                                                                                      v415 = *(a1 + 176);
-                                                                                                                                    }
-
-                                                                                                                                    else
-                                                                                                                                    {
-                                                                                                                                      *(a1 + 168) = 0;
-                                                                                                                                      v415 = (a1 + 169);
-                                                                                                                                    }
-
-                                                                                                                                    *v415 = 0;
-                                                                                                                                    re::DynamicString::appendf((a1 + 128), "Scene Draw Stats\n");
-                                                                                                                                    if (*(a1 + 16))
-                                                                                                                                    {
-                                                                                                                                      v416 = *(a1 + 32);
-                                                                                                                                      v417 = *(*(a1 + 24) + 4 * (0xC67949C3A864283CLL % *(a1 + 40)));
-                                                                                                                                      if (v417 == 0x7FFFFFFF)
-                                                                                                                                      {
-                                                                                                                                        v418 = (v416 + 0x27FFFFFFD8);
-                                                                                                                                      }
-
-                                                                                                                                      else
-                                                                                                                                      {
-                                                                                                                                        v421 = 0x7FFFFFFFLL;
-                                                                                                                                        while (*(v416 + 80 * v417 + 4) != 34)
-                                                                                                                                        {
-                                                                                                                                          v417 = *(v416 + 80 * v417) & 0x7FFFFFFF;
-                                                                                                                                          if (v417 == 0x7FFFFFFF)
-                                                                                                                                          {
-                                                                                                                                            goto LABEL_558;
-                                                                                                                                          }
-                                                                                                                                        }
-
-                                                                                                                                        v421 = v417;
-LABEL_558:
-                                                                                                                                        v418 = (v416 + 80 * v421 + 40);
-                                                                                                                                      }
-
-                                                                                                                                      v419 = *(a1 + 256);
-                                                                                                                                      v420 = *v418 / v419;
-                                                                                                                                      v422 = *(*(a1 + 24) + 4 * (0x43E7CEFC06C022BEuLL % *(a1 + 40)));
-                                                                                                                                      if (v422 != 0x7FFFFFFF)
-                                                                                                                                      {
-                                                                                                                                        while (*(v416 + 80 * v422 + 4) != 35)
-                                                                                                                                        {
-                                                                                                                                          v422 = *(v416 + 80 * v422) & 0x7FFFFFFF;
-                                                                                                                                          if (v422 == 0x7FFFFFFF)
-                                                                                                                                          {
-                                                                                                                                            goto LABEL_562;
-                                                                                                                                          }
-                                                                                                                                        }
-
-LABEL_563:
-                                                                                                                                        re::DynamicString::appendf((a1 + 128), "Meshes: %.0f    Draw Calls: %.0f\n", v420, (*(v416 + 80 * v422 + 40) / v419));
-                                                                                                                                        if (*(a1 + 16))
-                                                                                                                                        {
-                                                                                                                                          v423 = *(a1 + 32);
-                                                                                                                                          v424 = *(*(a1 + 24) + 4 * (0xFF96B931ED5510E2 % *(a1 + 40)));
-                                                                                                                                          if (v424 != 0x7FFFFFFF)
-                                                                                                                                          {
-                                                                                                                                            while (*(v423 + 80 * v424 + 4) != 36)
-                                                                                                                                            {
-                                                                                                                                              v424 = *(v423 + 80 * v424) & 0x7FFFFFFF;
-                                                                                                                                              if (v424 == 0x7FFFFFFF)
-                                                                                                                                              {
-                                                                                                                                                goto LABEL_569;
-                                                                                                                                              }
-                                                                                                                                            }
-
-LABEL_570:
-                                                                                                                                            re::DynamicString::appendf((a1 + 128), "Triangles Submitted: %.0f\n", (*(v423 + 80 * v424 + 40) / *(a1 + 256)));
-                                                                                                                                            if (*(a1 + 16))
-                                                                                                                                            {
-                                                                                                                                              v425 = *(a1 + 32);
-                                                                                                                                              v426 = *(*(a1 + 24) + 4 * (0x499EF488EF760E18uLL % *(a1 + 40)));
-                                                                                                                                              if (v426 != 0x7FFFFFFF)
-                                                                                                                                              {
-                                                                                                                                                while (*(v425 + 80 * v426 + 4) != 37)
-                                                                                                                                                {
-                                                                                                                                                  v426 = *(v425 + 80 * v426) & 0x7FFFFFFF;
-                                                                                                                                                  if (v426 == 0x7FFFFFFF)
-                                                                                                                                                  {
-                                                                                                                                                    goto LABEL_576;
-                                                                                                                                                  }
-                                                                                                                                                }
-
-LABEL_577:
-                                                                                                                                                re::DynamicString::appendf((a1 + 128), "Vertices Submitted: %.0f\n", (*(v425 + 80 * v426 + 40) / *(a1 + 256)));
-                                                                                                                                                re::DynamicString::appendf((a1 + 128), "Lighting Stats \n");
-                                                                                                                                                if (*(a1 + 16))
-                                                                                                                                                {
-                                                                                                                                                  v427 = *(a1 + 40);
-                                                                                                                                                  v429 = *(a1 + 24);
-                                                                                                                                                  v428 = *(a1 + 32);
-                                                                                                                                                  v430 = *(v429 + 4 * (0xD1F31274AB1CEA5ALL % v427));
-                                                                                                                                                  if (v430 == 0x7FFFFFFF)
-                                                                                                                                                  {
-                                                                                                                                                    v431 = (v428 + 0x27FFFFFFD8);
-                                                                                                                                                  }
-
-                                                                                                                                                  else
-                                                                                                                                                  {
-                                                                                                                                                    v434 = 0x7FFFFFFFLL;
-                                                                                                                                                    while (*(v428 + 80 * v430 + 4) != 95)
-                                                                                                                                                    {
-                                                                                                                                                      v430 = *(v428 + 80 * v430) & 0x7FFFFFFF;
-                                                                                                                                                      if (v430 == 0x7FFFFFFF)
-                                                                                                                                                      {
-                                                                                                                                                        goto LABEL_586;
-                                                                                                                                                      }
-                                                                                                                                                    }
-
-                                                                                                                                                    v434 = v430;
-LABEL_586:
-                                                                                                                                                    v431 = (v428 + 80 * v434 + 40);
-                                                                                                                                                  }
-
-                                                                                                                                                  v432 = *(a1 + 256);
-                                                                                                                                                  v433 = *v431 / v432;
-                                                                                                                                                  v435 = *(v429 + 4 * (0xB283085A8C486789 % v427));
-                                                                                                                                                  if (v435 != 0x7FFFFFFF)
-                                                                                                                                                  {
-                                                                                                                                                    while (*(v428 + 80 * v435 + 4) != 96)
-                                                                                                                                                    {
-                                                                                                                                                      v435 = *(v428 + 80 * v435) & 0x7FFFFFFF;
-                                                                                                                                                      if (v435 == 0x7FFFFFFF)
-                                                                                                                                                      {
-                                                                                                                                                        goto LABEL_590;
-                                                                                                                                                      }
-                                                                                                                                                    }
-
-LABEL_591:
-                                                                                                                                                    re::DynamicString::appendf((a1 + 128), "Total : %.0f (culled %.0f)\n", v433, (*(v428 + 80 * v435 + 40) / v432));
-                                                                                                                                                    if (*(a1 + 16))
-                                                                                                                                                    {
-                                                                                                                                                      v436 = *(a1 + 40);
-                                                                                                                                                      v438 = *(a1 + 24);
-                                                                                                                                                      v437 = *(a1 + 32);
-                                                                                                                                                      v439 = *(v438 + 4 * (0xAEFF7D4B5B72EC99 % v436));
-                                                                                                                                                      if (v439 == 0x7FFFFFFF)
-                                                                                                                                                      {
-                                                                                                                                                        v440 = (v437 + 0x27FFFFFFD8);
-                                                                                                                                                      }
-
-                                                                                                                                                      else
-                                                                                                                                                      {
-                                                                                                                                                        v444 = 0x7FFFFFFFLL;
-                                                                                                                                                        while (*(v437 + 80 * v439 + 4) != 97)
-                                                                                                                                                        {
-                                                                                                                                                          v439 = *(v437 + 80 * v439) & 0x7FFFFFFF;
-                                                                                                                                                          if (v439 == 0x7FFFFFFF)
-                                                                                                                                                          {
-                                                                                                                                                            goto LABEL_600;
-                                                                                                                                                          }
-                                                                                                                                                        }
-
-                                                                                                                                                        v444 = v439;
-LABEL_600:
-                                                                                                                                                        v440 = (v437 + 80 * v444 + 40);
-                                                                                                                                                      }
-
-                                                                                                                                                      v445 = *v440;
-                                                                                                                                                      v442 = *(a1 + 256);
-                                                                                                                                                      v446 = *(v438 + 4 * (0x51B6E610EB969D89 % v436));
-                                                                                                                                                      if (v446 == 0x7FFFFFFF)
-                                                                                                                                                      {
-                                                                                                                                                        v447 = (v437 + 0x27FFFFFFD8);
-                                                                                                                                                      }
-
-                                                                                                                                                      else
-                                                                                                                                                      {
-                                                                                                                                                        v448 = 0x7FFFFFFFLL;
-                                                                                                                                                        while (*(v437 + 80 * v446 + 4) != 103)
-                                                                                                                                                        {
-                                                                                                                                                          v446 = *(v437 + 80 * v446) & 0x7FFFFFFF;
-                                                                                                                                                          if (v446 == 0x7FFFFFFF)
-                                                                                                                                                          {
-                                                                                                                                                            goto LABEL_608;
-                                                                                                                                                          }
-                                                                                                                                                        }
-
-                                                                                                                                                        v448 = v446;
-LABEL_608:
-                                                                                                                                                        v447 = (v437 + 80 * v448 + 40);
-                                                                                                                                                      }
-
-                                                                                                                                                      v443 = v445 / v442;
-                                                                                                                                                      v441 = *v447;
-                                                                                                                                                      v449 = *(v438 + 4 * (0xFADB7BDC13722E8ELL % v436));
-                                                                                                                                                      if (v449 != 0x7FFFFFFF)
-                                                                                                                                                      {
-                                                                                                                                                        while (*(v437 + 80 * v449 + 4) != 104)
-                                                                                                                                                        {
-                                                                                                                                                          v449 = *(v437 + 80 * v449) & 0x7FFFFFFF;
-                                                                                                                                                          if (v449 == 0x7FFFFFFF)
-                                                                                                                                                          {
-                                                                                                                                                            goto LABEL_612;
-                                                                                                                                                          }
-                                                                                                                                                        }
-
-LABEL_613:
-                                                                                                                                                        re::DynamicString::appendf((a1 + 128), "Ambient : %.0f, Proxy : %.0f (culled %.0f)\n", v443, (v441 / v442), (*(v437 + 80 * v449 + 40) / v442));
-                                                                                                                                                        if (*(a1 + 16))
-                                                                                                                                                        {
-                                                                                                                                                          v450 = *(a1 + 40);
-                                                                                                                                                          v452 = *(a1 + 24);
-                                                                                                                                                          v451 = *(a1 + 32);
-                                                                                                                                                          v453 = *(v452 + 4 * (0x79CE5DC97509C089 % v450));
-                                                                                                                                                          if (v453 == 0x7FFFFFFF)
-                                                                                                                                                          {
-                                                                                                                                                            v454 = (v451 + 0x27FFFFFFD8);
-                                                                                                                                                          }
-
-                                                                                                                                                          else
-                                                                                                                                                          {
-                                                                                                                                                            v458 = 0x7FFFFFFFLL;
-                                                                                                                                                            while (*(v451 + 80 * v453 + 4) != 99)
-                                                                                                                                                            {
-                                                                                                                                                              v453 = *(v451 + 80 * v453) & 0x7FFFFFFF;
-                                                                                                                                                              if (v453 == 0x7FFFFFFF)
-                                                                                                                                                              {
-                                                                                                                                                                goto LABEL_622;
-                                                                                                                                                              }
-                                                                                                                                                            }
-
-                                                                                                                                                            v458 = v453;
-LABEL_622:
-                                                                                                                                                            v454 = (v451 + 80 * v458 + 40);
-                                                                                                                                                          }
-
-                                                                                                                                                          v459 = *v454;
-                                                                                                                                                          v456 = *(a1 + 256);
-                                                                                                                                                          v460 = *(v452 + 4 * (0x2731D9FDF756B334 % v450));
-                                                                                                                                                          if (v460 == 0x7FFFFFFF)
-                                                                                                                                                          {
-                                                                                                                                                            v461 = (v451 + 0x27FFFFFFD8);
-                                                                                                                                                          }
-
-                                                                                                                                                          else
-                                                                                                                                                          {
-                                                                                                                                                            v462 = 0x7FFFFFFFLL;
-                                                                                                                                                            while (*(v451 + 80 * v460 + 4) != 100)
-                                                                                                                                                            {
-                                                                                                                                                              v460 = *(v451 + 80 * v460) & 0x7FFFFFFF;
-                                                                                                                                                              if (v460 == 0x7FFFFFFF)
-                                                                                                                                                              {
-                                                                                                                                                                goto LABEL_630;
-                                                                                                                                                              }
-                                                                                                                                                            }
-
-                                                                                                                                                            v462 = v460;
-LABEL_630:
-                                                                                                                                                            v461 = (v451 + 80 * v462 + 40);
-                                                                                                                                                          }
-
-                                                                                                                                                          v457 = v459 / v456;
-                                                                                                                                                          v455 = *v461;
-                                                                                                                                                          v463 = *(v452 + 4 * (0xF2F8EDE6FA70BF5FLL % v450));
-                                                                                                                                                          if (v463 != 0x7FFFFFFF)
-                                                                                                                                                          {
-                                                                                                                                                            while (*(v451 + 80 * v463 + 4) != 98)
-                                                                                                                                                            {
-                                                                                                                                                              v463 = *(v451 + 80 * v463) & 0x7FFFFFFF;
-                                                                                                                                                              if (v463 == 0x7FFFFFFF)
-                                                                                                                                                              {
-                                                                                                                                                                goto LABEL_634;
-                                                                                                                                                              }
-                                                                                                                                                            }
-
-LABEL_635:
-                                                                                                                                                            re::DynamicString::appendf((a1 + 128), "Point : %.0f (culled %.0f), Directional : %.0f\n", v457, (v455 / v456), (*(v451 + 80 * v463 + 40) / v456));
-                                                                                                                                                            if (*(a1 + 16))
-                                                                                                                                                            {
-                                                                                                                                                              v464 = *(a1 + 40);
-                                                                                                                                                              v466 = *(a1 + 24);
-                                                                                                                                                              v465 = *(a1 + 32);
-                                                                                                                                                              v467 = *(v466 + 4 * (0xA7D485D747130317 % v464));
-                                                                                                                                                              if (v467 == 0x7FFFFFFF)
-                                                                                                                                                              {
-                                                                                                                                                                v468 = (v465 + 0x27FFFFFFD8);
-                                                                                                                                                              }
-
-                                                                                                                                                              else
-                                                                                                                                                              {
-                                                                                                                                                                v472 = 0x7FFFFFFFLL;
-                                                                                                                                                                while (*(v465 + 80 * v467 + 4) != 101)
-                                                                                                                                                                {
-                                                                                                                                                                  v467 = *(v465 + 80 * v467) & 0x7FFFFFFF;
-                                                                                                                                                                  if (v467 == 0x7FFFFFFF)
-                                                                                                                                                                  {
-                                                                                                                                                                    goto LABEL_644;
-                                                                                                                                                                  }
-                                                                                                                                                                }
-
-                                                                                                                                                                v472 = v467;
-LABEL_644:
-                                                                                                                                                                v468 = (v465 + 80 * v472 + 40);
-                                                                                                                                                              }
-
-                                                                                                                                                              v473 = *v468;
-                                                                                                                                                              v470 = *(a1 + 256);
-                                                                                                                                                              v474 = *(v466 + 4 * (0x973D7F79FC81E7F3 % v464));
-                                                                                                                                                              if (v474 == 0x7FFFFFFF)
-                                                                                                                                                              {
-                                                                                                                                                                v475 = (v465 + 0x27FFFFFFD8);
-                                                                                                                                                              }
-
-                                                                                                                                                              else
-                                                                                                                                                              {
-                                                                                                                                                                v476 = 0x7FFFFFFFLL;
-                                                                                                                                                                while (*(v465 + 80 * v474 + 4) != 102)
-                                                                                                                                                                {
-                                                                                                                                                                  v474 = *(v465 + 80 * v474) & 0x7FFFFFFF;
-                                                                                                                                                                  if (v474 == 0x7FFFFFFF)
-                                                                                                                                                                  {
-                                                                                                                                                                    goto LABEL_652;
-                                                                                                                                                                  }
-                                                                                                                                                                }
-
-                                                                                                                                                                v476 = v474;
-LABEL_652:
-                                                                                                                                                                v475 = (v465 + 80 * v476 + 40);
-                                                                                                                                                              }
-
-                                                                                                                                                              v471 = v473 / v470;
-                                                                                                                                                              v469 = *v475;
-                                                                                                                                                              v477 = *(v466 + 4 * (0x168B5740BA2991FFLL % v464));
-                                                                                                                                                              if (v477 != 0x7FFFFFFF)
-                                                                                                                                                              {
-                                                                                                                                                                while (*(v465 + 80 * v477 + 4) != 105)
-                                                                                                                                                                {
-                                                                                                                                                                  v477 = *(v465 + 80 * v477) & 0x7FFFFFFF;
-                                                                                                                                                                  if (v477 == 0x7FFFFFFF)
-                                                                                                                                                                  {
-                                                                                                                                                                    goto LABEL_656;
-                                                                                                                                                                  }
-                                                                                                                                                                }
-
-LABEL_657:
-                                                                                                                                                                re::DynamicString::appendf((a1 + 128), "Spot : %.0f (culled %.0f), Area : %.0f\n", v471, (v469 / v470), (*(v465 + 80 * v477 + 40) / v470));
-                                                                                                                                                                if (*(a1 + 16))
-                                                                                                                                                                {
-                                                                                                                                                                  v478 = *(a1 + 32);
-                                                                                                                                                                  v479 = *(*(a1 + 24) + 4 * (0x17B1332CD96C043DuLL % *(a1 + 40)));
-                                                                                                                                                                  if (v479 != 0x7FFFFFFF)
-                                                                                                                                                                  {
-                                                                                                                                                                    while (*(v478 + 80 * v479 + 4) != 118)
-                                                                                                                                                                    {
-                                                                                                                                                                      v479 = *(v478 + 80 * v479) & 0x7FFFFFFF;
-                                                                                                                                                                      if (v479 == 0x7FFFFFFF)
-                                                                                                                                                                      {
-                                                                                                                                                                        goto LABEL_663;
-                                                                                                                                                                      }
-                                                                                                                                                                    }
-
-LABEL_664:
-                                                                                                                                                                    re::DynamicString::appendf((a1 + 160), "Entities: %.0f\n", (*(v478 + 80 * v479 + 40) / *(a1 + 256)));
-                                                                                                                                                                    re::DynamicString::appendf((a1 + 160), "Component Counts\n");
-                                                                                                                                                                    if (*(a1 + 16))
-                                                                                                                                                                    {
-                                                                                                                                                                      v480 = *(a1 + 40);
-                                                                                                                                                                      v482 = *(a1 + 24);
-                                                                                                                                                                      v481 = *(a1 + 32);
-                                                                                                                                                                      v483 = *(v482 + 4 * (0x4A1033F1AB1B19DDLL % v480));
-                                                                                                                                                                      if (v483 == 0x7FFFFFFF)
-                                                                                                                                                                      {
-                                                                                                                                                                        v484 = (v481 + 0x27FFFFFFD8);
-                                                                                                                                                                      }
-
-                                                                                                                                                                      else
-                                                                                                                                                                      {
-                                                                                                                                                                        v487 = 0x7FFFFFFFLL;
-                                                                                                                                                                        while (*(v481 + 80 * v483 + 4) != 94)
-                                                                                                                                                                        {
-                                                                                                                                                                          v483 = *(v481 + 80 * v483) & 0x7FFFFFFF;
-                                                                                                                                                                          if (v483 == 0x7FFFFFFF)
-                                                                                                                                                                          {
-                                                                                                                                                                            goto LABEL_673;
-                                                                                                                                                                          }
-                                                                                                                                                                        }
-
-                                                                                                                                                                        v487 = v483;
-LABEL_673:
-                                                                                                                                                                        v484 = (v481 + 80 * v487 + 40);
-                                                                                                                                                                      }
-
-                                                                                                                                                                      v485 = *(a1 + 256);
-                                                                                                                                                                      v486 = *v484 / v485;
-                                                                                                                                                                      v488 = *(v482 + 4 * (0x2C81EA329AEABA69 % v480));
-                                                                                                                                                                      if (v488 != 0x7FFFFFFF)
-                                                                                                                                                                      {
-                                                                                                                                                                        while (*(v481 + 80 * v488 + 4) != 106)
-                                                                                                                                                                        {
-                                                                                                                                                                          v488 = *(v481 + 80 * v488) & 0x7FFFFFFF;
-                                                                                                                                                                          if (v488 == 0x7FFFFFFF)
-                                                                                                                                                                          {
-                                                                                                                                                                            goto LABEL_677;
-                                                                                                                                                                          }
-                                                                                                                                                                        }
-
-LABEL_678:
-                                                                                                                                                                        re::DynamicString::appendf((a1 + 160), "Meshes: %.0f, Shadows: %.0f\n", v486, (*(v481 + 80 * v488 + 40) / v485));
-                                                                                                                                                                        if (*(a1 + 16))
-                                                                                                                                                                        {
-                                                                                                                                                                          v489 = *(a1 + 32);
-                                                                                                                                                                          v490 = *(*(a1 + 24) + 4 * (0xD1F31274AB1CEA5ALL % *(a1 + 40)));
-                                                                                                                                                                          if (v490 != 0x7FFFFFFF)
-                                                                                                                                                                          {
-                                                                                                                                                                            while (*(v489 + 80 * v490 + 4) != 95)
-                                                                                                                                                                            {
-                                                                                                                                                                              v490 = *(v489 + 80 * v490) & 0x7FFFFFFF;
-                                                                                                                                                                              if (v490 == 0x7FFFFFFF)
-                                                                                                                                                                              {
-                                                                                                                                                                                goto LABEL_684;
-                                                                                                                                                                              }
-                                                                                                                                                                            }
-
-LABEL_685:
-                                                                                                                                                                            re::DynamicString::appendf((a1 + 160), "Lights: %.0f\n", (*(v489 + 80 * v490 + 40) / *(a1 + 256)));
-                                                                                                                                                                            if (*(a1 + 16))
-                                                                                                                                                                            {
-                                                                                                                                                                              v491 = *(a1 + 40);
-                                                                                                                                                                              v493 = *(a1 + 24);
-                                                                                                                                                                              v492 = *(a1 + 32);
-                                                                                                                                                                              v494 = *(v493 + 4 * (0xD732B4173198B1FLL % v491));
-                                                                                                                                                                              if (v494 == 0x7FFFFFFF)
-                                                                                                                                                                              {
-                                                                                                                                                                                v495 = (v492 + 0x27FFFFFFD8);
-                                                                                                                                                                              }
-
-                                                                                                                                                                              else
-                                                                                                                                                                              {
-                                                                                                                                                                                v498 = 0x7FFFFFFFLL;
-                                                                                                                                                                                while (*(v492 + 80 * v494 + 4) != 149)
-                                                                                                                                                                                {
-                                                                                                                                                                                  v494 = *(v492 + 80 * v494) & 0x7FFFFFFF;
-                                                                                                                                                                                  if (v494 == 0x7FFFFFFF)
-                                                                                                                                                                                  {
-                                                                                                                                                                                    goto LABEL_694;
-                                                                                                                                                                                  }
-                                                                                                                                                                                }
-
-                                                                                                                                                                                v498 = v494;
-LABEL_694:
-                                                                                                                                                                                v495 = (v492 + 80 * v498 + 40);
-                                                                                                                                                                              }
-
-                                                                                                                                                                              v496 = *(a1 + 256);
-                                                                                                                                                                              v497 = *v495 / v496;
-                                                                                                                                                                              v499 = *(v493 + 4 * (0xB3CC71E5DDF6EBC3 % v491));
-                                                                                                                                                                              if (v499 != 0x7FFFFFFF)
-                                                                                                                                                                              {
-                                                                                                                                                                                while (*(v492 + 80 * v499 + 4) != 151)
-                                                                                                                                                                                {
-                                                                                                                                                                                  v499 = *(v492 + 80 * v499) & 0x7FFFFFFF;
-                                                                                                                                                                                  if (v499 == 0x7FFFFFFF)
-                                                                                                                                                                                  {
-                                                                                                                                                                                    goto LABEL_698;
-                                                                                                                                                                                  }
-                                                                                                                                                                                }
-
-LABEL_699:
-                                                                                                                                                                                re::DynamicString::appendf((a1 + 160), "VFX Scenes: %.0f, VFX Draw Calls: %.0f\n", v497, (*(v492 + 80 * v499 + 40) / v496));
-                                                                                                                                                                                if (*(a1 + 16))
-                                                                                                                                                                                {
-                                                                                                                                                                                  v500 = *(a1 + 40);
-                                                                                                                                                                                  v502 = *(a1 + 24);
-                                                                                                                                                                                  v501 = *(a1 + 32);
-                                                                                                                                                                                  v503 = *(v502 + 4 * (0x2427CEE8D2E4A800 % v500));
-                                                                                                                                                                                  if (v503 == 0x7FFFFFFF)
-                                                                                                                                                                                  {
-                                                                                                                                                                                    v504 = (v501 + 0x27FFFFFFD8);
-                                                                                                                                                                                  }
-
-                                                                                                                                                                                  else
-                                                                                                                                                                                  {
-                                                                                                                                                                                    v507 = 0x7FFFFFFFLL;
-                                                                                                                                                                                    while (*(v501 + 80 * v503 + 4) != 143)
-                                                                                                                                                                                    {
-                                                                                                                                                                                      v503 = *(v501 + 80 * v503) & 0x7FFFFFFF;
-                                                                                                                                                                                      if (v503 == 0x7FFFFFFF)
-                                                                                                                                                                                      {
-                                                                                                                                                                                        goto LABEL_708;
-                                                                                                                                                                                      }
-                                                                                                                                                                                    }
-
-                                                                                                                                                                                    v507 = v503;
-LABEL_708:
-                                                                                                                                                                                    v504 = (v501 + 80 * v507 + 40);
-                                                                                                                                                                                  }
-
-                                                                                                                                                                                  v505 = *(a1 + 256);
-                                                                                                                                                                                  v506 = *v504 / v505;
-                                                                                                                                                                                  v508 = *(v502 + 4 * (0xA630657CB8C7F164 % v500));
-                                                                                                                                                                                  if (v508 != 0x7FFFFFFF)
-                                                                                                                                                                                  {
-                                                                                                                                                                                    while (*(v501 + 80 * v508 + 4) != 48)
-                                                                                                                                                                                    {
-                                                                                                                                                                                      v508 = *(v501 + 80 * v508) & 0x7FFFFFFF;
-                                                                                                                                                                                      if (v508 == 0x7FFFFFFF)
-                                                                                                                                                                                      {
-                                                                                                                                                                                        goto LABEL_712;
-                                                                                                                                                                                      }
-                                                                                                                                                                                    }
-
-LABEL_713:
-                                                                                                                                                                                    re::DynamicString::appendf((a1 + 160), "AudioPlayers: %.0f, Network: %.0f\n", v506, (*(v501 + 80 * v508 + 40) / v505));
-                                                                                                                                                                                    if (*(a1 + 16))
-                                                                                                                                                                                    {
-                                                                                                                                                                                      v509 = *(a1 + 40);
-                                                                                                                                                                                      v511 = *(a1 + 24);
-                                                                                                                                                                                      v510 = *(a1 + 32);
-                                                                                                                                                                                      v512 = *(v511 + 4 * (0xCF4A7B3C48D45C4FLL % v509));
-                                                                                                                                                                                      if (v512 == 0x7FFFFFFF)
-                                                                                                                                                                                      {
-                                                                                                                                                                                        v513 = (v510 + 0x27FFFFFFD8);
-                                                                                                                                                                                      }
-
-                                                                                                                                                                                      else
-                                                                                                                                                                                      {
-                                                                                                                                                                                        v516 = 0x7FFFFFFFLL;
-                                                                                                                                                                                        while (*(v510 + 80 * v512 + 4) != 66)
-                                                                                                                                                                                        {
-                                                                                                                                                                                          v512 = *(v510 + 80 * v512) & 0x7FFFFFFF;
-                                                                                                                                                                                          if (v512 == 0x7FFFFFFF)
-                                                                                                                                                                                          {
-                                                                                                                                                                                            goto LABEL_722;
-                                                                                                                                                                                          }
-                                                                                                                                                                                        }
-
-                                                                                                                                                                                        v516 = v512;
-LABEL_722:
-                                                                                                                                                                                        v513 = (v510 + 80 * v516 + 40);
-                                                                                                                                                                                      }
-
-                                                                                                                                                                                      v514 = *(a1 + 256);
-                                                                                                                                                                                      v515 = *v513 / v514;
-                                                                                                                                                                                      v517 = *(v511 + 4 * (0xA46B02245B9F3AF4 % v509));
-                                                                                                                                                                                      if (v517 != 0x7FFFFFFF)
-                                                                                                                                                                                      {
-                                                                                                                                                                                        while (*(v510 + 80 * v517 + 4) != 67)
-                                                                                                                                                                                        {
-                                                                                                                                                                                          v517 = *(v510 + 80 * v517) & 0x7FFFFFFF;
-                                                                                                                                                                                          if (v517 == 0x7FFFFFFF)
-                                                                                                                                                                                          {
-                                                                                                                                                                                            goto LABEL_726;
-                                                                                                                                                                                          }
-                                                                                                                                                                                        }
-
-LABEL_727:
-                                                                                                                                                                                        re::DynamicString::appendf((a1 + 160), "RigidBodies: %.0f    Active: %.0f\n", v515, (*(v510 + 80 * v517 + 40) / v514));
-                                                                                                                                                                                        if (*(a1 + 16))
-                                                                                                                                                                                        {
-                                                                                                                                                                                          v518 = *(a1 + 40);
-                                                                                                                                                                                          v520 = *(a1 + 24);
-                                                                                                                                                                                          v519 = *(a1 + 32);
-                                                                                                                                                                                          v521 = *(v520 + 4 * (0x21C2DD3F1FDB3325 % v518));
-                                                                                                                                                                                          if (v521 == 0x7FFFFFFF)
-                                                                                                                                                                                          {
-                                                                                                                                                                                            v522 = (v519 + 0x27FFFFFFD8);
-                                                                                                                                                                                          }
-
-                                                                                                                                                                                          else
-                                                                                                                                                                                          {
-                                                                                                                                                                                            v525 = 0x7FFFFFFFLL;
-                                                                                                                                                                                            while (*(v519 + 80 * v521 + 4) != 68)
-                                                                                                                                                                                            {
-                                                                                                                                                                                              v521 = *(v519 + 80 * v521) & 0x7FFFFFFF;
-                                                                                                                                                                                              if (v521 == 0x7FFFFFFF)
-                                                                                                                                                                                              {
-                                                                                                                                                                                                goto LABEL_736;
-                                                                                                                                                                                              }
-                                                                                                                                                                                            }
-
-                                                                                                                                                                                            v525 = v521;
-LABEL_736:
-                                                                                                                                                                                            v522 = (v519 + 80 * v525 + 40);
-                                                                                                                                                                                          }
-
-                                                                                                                                                                                          v523 = *(a1 + 256);
-                                                                                                                                                                                          v524 = *v522 / v523;
-                                                                                                                                                                                          v526 = *(v520 + 4 * (0x41956A36DBC51080 % v518));
-                                                                                                                                                                                          if (v526 != 0x7FFFFFFF)
-                                                                                                                                                                                          {
-                                                                                                                                                                                            while (*(v519 + 80 * v526 + 4) != 69)
-                                                                                                                                                                                            {
-                                                                                                                                                                                              v526 = *(v519 + 80 * v526) & 0x7FFFFFFF;
-                                                                                                                                                                                              if (v526 == 0x7FFFFFFF)
-                                                                                                                                                                                              {
-                                                                                                                                                                                                goto LABEL_740;
-                                                                                                                                                                                              }
-                                                                                                                                                                                            }
-
-LABEL_741:
-                                                                                                                                                                                            re::DynamicString::appendf((a1 + 160), "Colliders: %.0f    Contacts: %.0f\n", v524, (*(v519 + 80 * v526 + 40) / v523));
-                                                                                                                                                                                            if (*(a1 + 16))
-                                                                                                                                                                                            {
-                                                                                                                                                                                              v527 = *(a1 + 40);
-                                                                                                                                                                                              v529 = *(a1 + 24);
-                                                                                                                                                                                              v528 = *(a1 + 32);
-                                                                                                                                                                                              v530 = *(v529 + 4 * (0xCA4B25A23588FF96 % v527));
-                                                                                                                                                                                              if (v530 == 0x7FFFFFFF)
-                                                                                                                                                                                              {
-                                                                                                                                                                                                v531 = (v528 + 0x27FFFFFFD8);
-                                                                                                                                                                                              }
-
-                                                                                                                                                                                              else
-                                                                                                                                                                                              {
-                                                                                                                                                                                                v534 = 0x7FFFFFFFLL;
-                                                                                                                                                                                                while (*(v528 + 80 * v530 + 4) != 110)
-                                                                                                                                                                                                {
-                                                                                                                                                                                                  v530 = *(v528 + 80 * v530) & 0x7FFFFFFF;
-                                                                                                                                                                                                  if (v530 == 0x7FFFFFFF)
-                                                                                                                                                                                                  {
-                                                                                                                                                                                                    goto LABEL_750;
-                                                                                                                                                                                                  }
-                                                                                                                                                                                                }
-
-                                                                                                                                                                                                v534 = v530;
-LABEL_750:
-                                                                                                                                                                                                v531 = (v528 + 80 * v534 + 40);
-                                                                                                                                                                                              }
-
-                                                                                                                                                                                              v532 = *(a1 + 256);
-                                                                                                                                                                                              v533 = *v531 / v532;
-                                                                                                                                                                                              v535 = *(v529 + 4 * (0xF2BAED4A618B76B9 % v527));
-                                                                                                                                                                                              if (v535 != 0x7FFFFFFF)
-                                                                                                                                                                                              {
-                                                                                                                                                                                                while (*(v528 + 80 * v535 + 4) != 108)
-                                                                                                                                                                                                {
-                                                                                                                                                                                                  v535 = *(v528 + 80 * v535) & 0x7FFFFFFF;
-                                                                                                                                                                                                  if (v535 == 0x7FFFFFFF)
-                                                                                                                                                                                                  {
-                                                                                                                                                                                                    goto LABEL_754;
-                                                                                                                                                                                                  }
-                                                                                                                                                                                                }
-
-LABEL_755:
-                                                                                                                                                                                                re::DynamicString::appendf((a1 + 160), "MeshDeformations: %.0f, SkeletalPoses: %.0f\n", v533, (*(v528 + 80 * v535 + 40) / v532));
-                                                                                                                                                                                                if (*(a1 + 16))
-                                                                                                                                                                                                {
-                                                                                                                                                                                                  v536 = *(a1 + 40);
-                                                                                                                                                                                                  v538 = *(a1 + 24);
-                                                                                                                                                                                                  v537 = *(a1 + 32);
-                                                                                                                                                                                                  v539 = *(v538 + 4 * (0x33CFFC116CF4F2F0 % v536));
-                                                                                                                                                                                                  if (v539 == 0x7FFFFFFF)
-                                                                                                                                                                                                  {
-                                                                                                                                                                                                    v540 = (v537 + 0x27FFFFFFD8);
-                                                                                                                                                                                                  }
-
-                                                                                                                                                                                                  else
-                                                                                                                                                                                                  {
-                                                                                                                                                                                                    v543 = 0x7FFFFFFFLL;
-                                                                                                                                                                                                    while (*(v537 + 80 * v539 + 4) != 116)
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                      v539 = *(v537 + 80 * v539) & 0x7FFFFFFF;
-                                                                                                                                                                                                      if (v539 == 0x7FFFFFFF)
-                                                                                                                                                                                                      {
-                                                                                                                                                                                                        goto LABEL_764;
-                                                                                                                                                                                                      }
-                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                    v543 = v539;
-LABEL_764:
-                                                                                                                                                                                                    v540 = (v537 + 80 * v543 + 40);
-                                                                                                                                                                                                  }
-
-                                                                                                                                                                                                  v541 = *v540;
-                                                                                                                                                                                                  v542 = *(a1 + 256);
-                                                                                                                                                                                                  v544 = *(v538 + 4 * (0xEF08A61A384AADEELL % v536));
-                                                                                                                                                                                                  if (v544 != 0x7FFFFFFF)
-                                                                                                                                                                                                  {
-                                                                                                                                                                                                    while (*(v537 + 80 * v544 + 4) != 117)
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                      v544 = *(v537 + 80 * v544) & 0x7FFFFFFF;
-                                                                                                                                                                                                      if (v544 == 0x7FFFFFFF)
-                                                                                                                                                                                                      {
-                                                                                                                                                                                                        goto LABEL_768;
-                                                                                                                                                                                                      }
-                                                                                                                                                                                                    }
-
-LABEL_769:
-                                                                                                                                                                                                    re::DynamicString::appendf((a1 + 160), "ActiveDeformations: %.0f, Joints: %.0f\n", (v541 / v542), (*(v537 + 80 * v544 + 40) / v542));
-                                                                                                                                                                                                    info[0].numer = 93;
-                                                                                                                                                                                                    task_info(*MEMORY[0x1E69E9A60], 0x16u, re::ProfilerDetailedHUDProcessor::setMemoryPowerStatisticsData(void)::vmInfo, info);
-                                                                                                                                                                                                    if (*(a1 + 200))
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                      *(a1 + 200) = 1;
-                                                                                                                                                                                                      v545 = *(a1 + 208);
-                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                    else
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                      *(a1 + 200) = 0;
-                                                                                                                                                                                                      v545 = (a1 + 201);
-                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                    *v545 = 0;
-                                                                                                                                                                                                    re::DynamicString::append((a1 + 192), "System Memory and Thermal Info\n", 0x1FuLL);
-                                                                                                                                                                                                    re::DynamicString::appendf((a1 + 192), "Engine Dirty Memory : %.2f\n", (vcvts_n_f32_u64(qword_1ECF192BC, 0xAuLL) * 0.00097656));
-                                                                                                                                                                                                    re::DynamicString::appendf((a1 + 192), "Engine Peak Dirty Memory : %.2f\n", (vcvts_n_f32_s64(qword_1ECF192D4, 0xAuLL) * 0.00097656));
-                                                                                                                                                                                                    re::DynamicString::appendf((a1 + 192), "Process Memory Limit : %.2f\n", (vcvts_n_f32_u64(*(a1 + 272), 0xAuLL) * 0.00097656));
-                                                                                                                                                                                                    v546 = [MEMORY[0x1E696AE30] processInfo];
-                                                                                                                                                                                                    v547 = [v546 thermalState];
-
-                                                                                                                                                                                                    if (v547 > 2)
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                      re::DynamicString::appendf((a1 + 192), "Thermal State: Critical\n");
-                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                    else
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                      re::DynamicString::appendf((a1 + 192), off_1E8721778[v547]);
-                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                    if (*(a1 + 232))
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                      *(a1 + 232) = 1;
-                                                                                                                                                                                                      v548 = *(a1 + 240);
-                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                    else
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                      *(a1 + 232) = 0;
-                                                                                                                                                                                                      v548 = (a1 + 233);
-                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                    *v548 = 0;
-                                                                                                                                                                                                    re::DynamicString::append((a1 + 224), "Network Session Stats\n", 0x16uLL);
-                                                                                                                                                                                                    re::DynamicString::append((a1 + 224), "Sent/Recevived\n", 0xFuLL);
-                                                                                                                                                                                                    v549 = *(a1 + 16);
-                                                                                                                                                                                                    if (v549)
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                      v550 = *(a1 + 32);
-                                                                                                                                                                                                      v551 = *(*(a1 + 24) + 4 * (0xB74FD707F0B39325 % *(a1 + 40)));
-                                                                                                                                                                                                      if (v551 != 0x7FFFFFFF)
-                                                                                                                                                                                                      {
-                                                                                                                                                                                                        while (*(v550 + 80 * v551 + 4) != 40)
-                                                                                                                                                                                                        {
-                                                                                                                                                                                                          v551 = *(v550 + 80 * v551) & 0x7FFFFFFF;
-                                                                                                                                                                                                          if (v551 == 0x7FFFFFFF)
-                                                                                                                                                                                                          {
-                                                                                                                                                                                                            goto LABEL_784;
-                                                                                                                                                                                                          }
-                                                                                                                                                                                                        }
-
-LABEL_785:
-                                                                                                                                                                                                        v552 = *(a1 + 256);
-                                                                                                                                                                                                        v553 = (*(v550 + 80 * v551 + 40) / v552) * 0.0009765625;
-                                                                                                                                                                                                        v554 = 0x7FFFFFFFLL;
-                                                                                                                                                                                                        if (v549)
-                                                                                                                                                                                                        {
-                                                                                                                                                                                                          v555 = *(*(a1 + 24) + 4 * (0x66D1ECF1BBB89D25uLL % *(a1 + 40)));
-                                                                                                                                                                                                          if (v555 != 0x7FFFFFFF)
-                                                                                                                                                                                                          {
-                                                                                                                                                                                                            v554 = 0x7FFFFFFFLL;
-                                                                                                                                                                                                            while (*(v550 + 80 * v555 + 4) != 41)
-                                                                                                                                                                                                            {
-                                                                                                                                                                                                              v555 = *(v550 + 80 * v555) & 0x7FFFFFFF;
-                                                                                                                                                                                                              if (v555 == 0x7FFFFFFF)
-                                                                                                                                                                                                              {
-                                                                                                                                                                                                                goto LABEL_792;
-                                                                                                                                                                                                              }
-                                                                                                                                                                                                            }
-
-                                                                                                                                                                                                            v554 = v555;
-                                                                                                                                                                                                          }
-                                                                                                                                                                                                        }
-
-LABEL_792:
-                                                                                                                                                                                                        re::DynamicString::appendf((a1 + 224), "Bytes [KB]: %.2f/%.2f\n", v553, (*(v550 + 80 * v554 + 40) / v552) * 0.0009765625);
-                                                                                                                                                                                                        if (*(a1 + 16))
-                                                                                                                                                                                                        {
-                                                                                                                                                                                                          v556 = *(a1 + 40);
-                                                                                                                                                                                                          v558 = *(a1 + 24);
-                                                                                                                                                                                                          v557 = *(a1 + 32);
-                                                                                                                                                                                                          v559 = *(v558 + 4 * (0xA759EA27D4727622 % v556));
-                                                                                                                                                                                                          if (v559 == 0x7FFFFFFF)
-                                                                                                                                                                                                          {
-                                                                                                                                                                                                            v560 = (v557 + 0x27FFFFFFD8);
-                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                          else
-                                                                                                                                                                                                          {
-                                                                                                                                                                                                            v563 = 0x7FFFFFFFLL;
-                                                                                                                                                                                                            while (*(v557 + 80 * v559 + 4) != 42)
-                                                                                                                                                                                                            {
-                                                                                                                                                                                                              v559 = *(v557 + 80 * v559) & 0x7FFFFFFF;
-                                                                                                                                                                                                              if (v559 == 0x7FFFFFFF)
-                                                                                                                                                                                                              {
-                                                                                                                                                                                                                goto LABEL_801;
-                                                                                                                                                                                                              }
-                                                                                                                                                                                                            }
-
-                                                                                                                                                                                                            v563 = v559;
-LABEL_801:
-                                                                                                                                                                                                            v560 = (v557 + 80 * v563 + 40);
-                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                          v561 = *(a1 + 256);
-                                                                                                                                                                                                          v562 = *v560 / v561;
-                                                                                                                                                                                                          v564 = *(v558 + 4 * (0x4F0A61D9C798D8CALL % v556));
-                                                                                                                                                                                                          if (v564 != 0x7FFFFFFF)
-                                                                                                                                                                                                          {
-                                                                                                                                                                                                            while (*(v557 + 80 * v564 + 4) != 43)
-                                                                                                                                                                                                            {
-                                                                                                                                                                                                              v564 = *(v557 + 80 * v564) & 0x7FFFFFFF;
-                                                                                                                                                                                                              if (v564 == 0x7FFFFFFF)
-                                                                                                                                                                                                              {
-                                                                                                                                                                                                                goto LABEL_805;
-                                                                                                                                                                                                              }
-                                                                                                                                                                                                            }
-
-LABEL_806:
-                                                                                                                                                                                                            re::DynamicString::appendf((a1 + 224), "Packets: %.0f/%.0f\n", v562, (*(v557 + 80 * v564 + 40) / v561));
-                                                                                                                                                                                                            if (*(a1 + 16))
-                                                                                                                                                                                                            {
-                                                                                                                                                                                                              v565 = *(a1 + 40);
-                                                                                                                                                                                                              v567 = *(a1 + 24);
-                                                                                                                                                                                                              v566 = *(a1 + 32);
-                                                                                                                                                                                                              v568 = *(v567 + 4 * (0xFB2BF4996809BAF7 % v565));
-                                                                                                                                                                                                              if (v568 == 0x7FFFFFFF)
-                                                                                                                                                                                                              {
-                                                                                                                                                                                                                v569 = (v566 + 0x27FFFFFFD8);
-                                                                                                                                                                                                              }
-
-                                                                                                                                                                                                              else
-                                                                                                                                                                                                              {
-                                                                                                                                                                                                                v572 = 0x7FFFFFFFLL;
-                                                                                                                                                                                                                while (*(v566 + 80 * v568 + 4) != 44)
-                                                                                                                                                                                                                {
-                                                                                                                                                                                                                  v568 = *(v566 + 80 * v568) & 0x7FFFFFFF;
-                                                                                                                                                                                                                  if (v568 == 0x7FFFFFFF)
-                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                    goto LABEL_815;
-                                                                                                                                                                                                                  }
-                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                v572 = v568;
-LABEL_815:
-                                                                                                                                                                                                                v569 = (v566 + 80 * v572 + 40);
-                                                                                                                                                                                                              }
-
-                                                                                                                                                                                                              v570 = *(a1 + 256);
-                                                                                                                                                                                                              v571 = *v569 / v570;
-                                                                                                                                                                                                              v573 = *(v567 + 4 * (0xBDBFB556329AEE83 % v565));
-                                                                                                                                                                                                              if (v573 != 0x7FFFFFFF)
-                                                                                                                                                                                                              {
-                                                                                                                                                                                                                while (*(v566 + 80 * v573 + 4) != 45)
-                                                                                                                                                                                                                {
-                                                                                                                                                                                                                  v573 = *(v566 + 80 * v573) & 0x7FFFFFFF;
-                                                                                                                                                                                                                  if (v573 == 0x7FFFFFFF)
-                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                    goto LABEL_819;
-                                                                                                                                                                                                                  }
-                                                                                                                                                                                                                }
-
-LABEL_820:
-                                                                                                                                                                                                                re::DynamicString::appendf((a1 + 224), "Components: %.0f/%.0f\n", v571, (*(v566 + 80 * v573 + 40) / v570));
-                                                                                                                                                                                                                if (*(a1 + 16))
-                                                                                                                                                                                                                {
-                                                                                                                                                                                                                  v574 = *(a1 + 40);
-                                                                                                                                                                                                                  v576 = *(a1 + 24);
-                                                                                                                                                                                                                  v575 = *(a1 + 32);
-                                                                                                                                                                                                                  v577 = *(v576 + 4 * (0x6F14AEC17CB2794BLL % v574));
-                                                                                                                                                                                                                  if (v577 == 0x7FFFFFFF)
-                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                    v578 = (v575 + 0x27FFFFFFD8);
-                                                                                                                                                                                                                  }
-
-                                                                                                                                                                                                                  else
-                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                    v581 = 0x7FFFFFFFLL;
-                                                                                                                                                                                                                    while (*(v575 + 80 * v577 + 4) != 46)
-                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                      v577 = *(v575 + 80 * v577) & 0x7FFFFFFF;
-                                                                                                                                                                                                                      if (v577 == 0x7FFFFFFF)
-                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                        goto LABEL_829;
-                                                                                                                                                                                                                      }
-                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                    v581 = v577;
-LABEL_829:
-                                                                                                                                                                                                                    v578 = (v575 + 80 * v581 + 40);
-                                                                                                                                                                                                                  }
-
-                                                                                                                                                                                                                  v579 = *v578;
-                                                                                                                                                                                                                  v580 = *(a1 + 256);
-                                                                                                                                                                                                                  v582 = *(v576 + 4 * (0x5A9FF51BA33ADC1CLL % v574));
-                                                                                                                                                                                                                  if (v582 != 0x7FFFFFFF)
-                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                    while (*(v575 + 80 * v582 + 4) != 47)
-                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                      v582 = *(v575 + 80 * v582) & 0x7FFFFFFF;
-                                                                                                                                                                                                                      if (v582 == 0x7FFFFFFF)
-                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                        goto LABEL_833;
-                                                                                                                                                                                                                      }
-                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                    goto LABEL_834;
-                                                                                                                                                                                                                  }
-                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                else
-                                                                                                                                                                                                                {
-                                                                                                                                                                                                                  v575 = *(a1 + 32);
-                                                                                                                                                                                                                  v579 = *(v575 + 0x27FFFFFFD8);
-                                                                                                                                                                                                                  v580 = *(a1 + 256);
-                                                                                                                                                                                                                }
-
-LABEL_833:
-                                                                                                                                                                                                                v582 = 0x7FFFFFFFLL;
-LABEL_834:
-                                                                                                                                                                                                                re::DynamicString::appendf((a1 + 224), "Entities: %.0f/%.0f\n", (v579 / v580), (*(v575 + 80 * v582 + 40) / v580));
-                                                                                                                                                                                                                os_unfair_lock_unlock((a1 + 12));
-                                                                                                                                                                                                                return;
-                                                                                                                                                                                                              }
-                                                                                                                                                                                                            }
-
-                                                                                                                                                                                                            else
-                                                                                                                                                                                                            {
-                                                                                                                                                                                                              v566 = *(a1 + 32);
-                                                                                                                                                                                                              v570 = *(a1 + 256);
-                                                                                                                                                                                                              v571 = *(v566 + 0x27FFFFFFD8) / v570;
-                                                                                                                                                                                                            }
-
-LABEL_819:
-                                                                                                                                                                                                            v573 = 0x7FFFFFFFLL;
-                                                                                                                                                                                                            goto LABEL_820;
-                                                                                                                                                                                                          }
-                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                        else
-                                                                                                                                                                                                        {
-                                                                                                                                                                                                          v557 = *(a1 + 32);
-                                                                                                                                                                                                          v561 = *(a1 + 256);
-                                                                                                                                                                                                          v562 = *(v557 + 0x27FFFFFFD8) / v561;
-                                                                                                                                                                                                        }
-
-LABEL_805:
-                                                                                                                                                                                                        v564 = 0x7FFFFFFFLL;
-                                                                                                                                                                                                        goto LABEL_806;
-                                                                                                                                                                                                      }
-                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                    else
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                      v550 = *(a1 + 32);
-                                                                                                                                                                                                    }
-
-LABEL_784:
-                                                                                                                                                                                                    v551 = 0x7FFFFFFFLL;
-                                                                                                                                                                                                    goto LABEL_785;
-                                                                                                                                                                                                  }
-                                                                                                                                                                                                }
-
-                                                                                                                                                                                                else
-                                                                                                                                                                                                {
-                                                                                                                                                                                                  v537 = *(a1 + 32);
-                                                                                                                                                                                                  v541 = *(v537 + 0x27FFFFFFD8);
-                                                                                                                                                                                                  v542 = *(a1 + 256);
-                                                                                                                                                                                                }
-
-LABEL_768:
-                                                                                                                                                                                                v544 = 0x7FFFFFFFLL;
-                                                                                                                                                                                                goto LABEL_769;
-                                                                                                                                                                                              }
-                                                                                                                                                                                            }
-
-                                                                                                                                                                                            else
-                                                                                                                                                                                            {
-                                                                                                                                                                                              v528 = *(a1 + 32);
-                                                                                                                                                                                              v532 = *(a1 + 256);
-                                                                                                                                                                                              v533 = *(v528 + 0x27FFFFFFD8) / v532;
-                                                                                                                                                                                            }
-
-LABEL_754:
-                                                                                                                                                                                            v535 = 0x7FFFFFFFLL;
-                                                                                                                                                                                            goto LABEL_755;
-                                                                                                                                                                                          }
-                                                                                                                                                                                        }
-
-                                                                                                                                                                                        else
-                                                                                                                                                                                        {
-                                                                                                                                                                                          v519 = *(a1 + 32);
-                                                                                                                                                                                          v523 = *(a1 + 256);
-                                                                                                                                                                                          v524 = *(v519 + 0x27FFFFFFD8) / v523;
-                                                                                                                                                                                        }
-
-LABEL_740:
-                                                                                                                                                                                        v526 = 0x7FFFFFFFLL;
-                                                                                                                                                                                        goto LABEL_741;
-                                                                                                                                                                                      }
-                                                                                                                                                                                    }
-
-                                                                                                                                                                                    else
-                                                                                                                                                                                    {
-                                                                                                                                                                                      v510 = *(a1 + 32);
-                                                                                                                                                                                      v514 = *(a1 + 256);
-                                                                                                                                                                                      v515 = *(v510 + 0x27FFFFFFD8) / v514;
-                                                                                                                                                                                    }
-
-LABEL_726:
-                                                                                                                                                                                    v517 = 0x7FFFFFFFLL;
-                                                                                                                                                                                    goto LABEL_727;
-                                                                                                                                                                                  }
-                                                                                                                                                                                }
-
-                                                                                                                                                                                else
-                                                                                                                                                                                {
-                                                                                                                                                                                  v501 = *(a1 + 32);
-                                                                                                                                                                                  v505 = *(a1 + 256);
-                                                                                                                                                                                  v506 = *(v501 + 0x27FFFFFFD8) / v505;
-                                                                                                                                                                                }
-
-LABEL_712:
-                                                                                                                                                                                v508 = 0x7FFFFFFFLL;
-                                                                                                                                                                                goto LABEL_713;
-                                                                                                                                                                              }
-                                                                                                                                                                            }
-
-                                                                                                                                                                            else
-                                                                                                                                                                            {
-                                                                                                                                                                              v492 = *(a1 + 32);
-                                                                                                                                                                              v496 = *(a1 + 256);
-                                                                                                                                                                              v497 = *(v492 + 0x27FFFFFFD8) / v496;
-                                                                                                                                                                            }
-
-LABEL_698:
-                                                                                                                                                                            v499 = 0x7FFFFFFFLL;
-                                                                                                                                                                            goto LABEL_699;
-                                                                                                                                                                          }
-                                                                                                                                                                        }
-
-                                                                                                                                                                        else
-                                                                                                                                                                        {
-                                                                                                                                                                          v489 = *(a1 + 32);
-                                                                                                                                                                        }
-
-LABEL_684:
-                                                                                                                                                                        v490 = 0x7FFFFFFFLL;
-                                                                                                                                                                        goto LABEL_685;
-                                                                                                                                                                      }
-                                                                                                                                                                    }
-
-                                                                                                                                                                    else
-                                                                                                                                                                    {
-                                                                                                                                                                      v481 = *(a1 + 32);
-                                                                                                                                                                      v485 = *(a1 + 256);
-                                                                                                                                                                      v486 = *(v481 + 0x27FFFFFFD8) / v485;
-                                                                                                                                                                    }
-
-LABEL_677:
-                                                                                                                                                                    v488 = 0x7FFFFFFFLL;
-                                                                                                                                                                    goto LABEL_678;
-                                                                                                                                                                  }
-                                                                                                                                                                }
-
-                                                                                                                                                                else
-                                                                                                                                                                {
-                                                                                                                                                                  v478 = *(a1 + 32);
-                                                                                                                                                                }
-
-LABEL_663:
-                                                                                                                                                                v479 = 0x7FFFFFFFLL;
-                                                                                                                                                                goto LABEL_664;
-                                                                                                                                                              }
-                                                                                                                                                            }
-
-                                                                                                                                                            else
-                                                                                                                                                            {
-                                                                                                                                                              v465 = *(a1 + 32);
-                                                                                                                                                              v469 = *(v465 + 0x27FFFFFFD8);
-                                                                                                                                                              v470 = *(a1 + 256);
-                                                                                                                                                              v471 = v469 / v470;
-                                                                                                                                                            }
-
-LABEL_656:
-                                                                                                                                                            v477 = 0x7FFFFFFFLL;
-                                                                                                                                                            goto LABEL_657;
-                                                                                                                                                          }
-                                                                                                                                                        }
-
-                                                                                                                                                        else
-                                                                                                                                                        {
-                                                                                                                                                          v451 = *(a1 + 32);
-                                                                                                                                                          v455 = *(v451 + 0x27FFFFFFD8);
-                                                                                                                                                          v456 = *(a1 + 256);
-                                                                                                                                                          v457 = v455 / v456;
-                                                                                                                                                        }
-
-LABEL_634:
-                                                                                                                                                        v463 = 0x7FFFFFFFLL;
-                                                                                                                                                        goto LABEL_635;
-                                                                                                                                                      }
-                                                                                                                                                    }
-
-                                                                                                                                                    else
-                                                                                                                                                    {
-                                                                                                                                                      v437 = *(a1 + 32);
-                                                                                                                                                      v441 = *(v437 + 0x27FFFFFFD8);
-                                                                                                                                                      v442 = *(a1 + 256);
-                                                                                                                                                      v443 = v441 / v442;
-                                                                                                                                                    }
-
-LABEL_612:
-                                                                                                                                                    v449 = 0x7FFFFFFFLL;
-                                                                                                                                                    goto LABEL_613;
-                                                                                                                                                  }
-                                                                                                                                                }
-
-                                                                                                                                                else
-                                                                                                                                                {
-                                                                                                                                                  v428 = *(a1 + 32);
-                                                                                                                                                  v432 = *(a1 + 256);
-                                                                                                                                                  v433 = *(v428 + 0x27FFFFFFD8) / v432;
-                                                                                                                                                }
-
-LABEL_590:
-                                                                                                                                                v435 = 0x7FFFFFFFLL;
-                                                                                                                                                goto LABEL_591;
-                                                                                                                                              }
-                                                                                                                                            }
-
-                                                                                                                                            else
-                                                                                                                                            {
-                                                                                                                                              v425 = *(a1 + 32);
-                                                                                                                                            }
-
-LABEL_576:
-                                                                                                                                            v426 = 0x7FFFFFFFLL;
-                                                                                                                                            goto LABEL_577;
-                                                                                                                                          }
-                                                                                                                                        }
-
-                                                                                                                                        else
-                                                                                                                                        {
-                                                                                                                                          v423 = *(a1 + 32);
-                                                                                                                                        }
-
-LABEL_569:
-                                                                                                                                        v424 = 0x7FFFFFFFLL;
-                                                                                                                                        goto LABEL_570;
-                                                                                                                                      }
-                                                                                                                                    }
-
-                                                                                                                                    else
-                                                                                                                                    {
-                                                                                                                                      v416 = *(a1 + 32);
-                                                                                                                                      v419 = *(a1 + 256);
-                                                                                                                                      v420 = *(v416 + 0x27FFFFFFD8) / v419;
-                                                                                                                                    }
-
-LABEL_562:
-                                                                                                                                    v422 = 0x7FFFFFFFLL;
-                                                                                                                                    goto LABEL_563;
-                                                                                                                                  }
-                                                                                                                                }
-
-                                                                                                                                else
-                                                                                                                                {
-                                                                                                                                  v399 = *(a1 + 32);
-                                                                                                                                }
-
-LABEL_534:
-                                                                                                                                v400 = 0x7FFFFFFFLL;
-                                                                                                                                goto LABEL_535;
-                                                                                                                              }
-                                                                                                                            }
-
-                                                                                                                            else
-                                                                                                                            {
-                                                                                                                              v381 = *(a1 + 32);
-                                                                                                                            }
-
-LABEL_511:
-                                                                                                                            v382 = 0x7FFFFFFFLL;
-                                                                                                                            goto LABEL_512;
-                                                                                                                          }
-                                                                                                                        }
-
-                                                                                                                        else
-                                                                                                                        {
-                                                                                                                          v362 = *(a1 + 32);
-                                                                                                                        }
-
-LABEL_488:
-                                                                                                                        v363 = 0x7FFFFFFFLL;
-                                                                                                                        goto LABEL_489;
-                                                                                                                      }
-                                                                                                                    }
-
-                                                                                                                    else
-                                                                                                                    {
-                                                                                                                      v331 = *(a1 + 32);
-                                                                                                                    }
-
-LABEL_454:
-                                                                                                                    v332 = 0x7FFFFFFFLL;
-                                                                                                                    goto LABEL_455;
-                                                                                                                  }
-                                                                                                                }
-
-                                                                                                                else
-                                                                                                                {
-                                                                                                                  v319 = *(a1 + 32);
-                                                                                                                }
-
-LABEL_442:
-                                                                                                                v320 = 0x7FFFFFFFLL;
-                                                                                                                goto LABEL_443;
-                                                                                                              }
-                                                                                                            }
-
-                                                                                                            else
-                                                                                                            {
-                                                                                                              v311 = *(a1 + 32);
-                                                                                                            }
-
-LABEL_430:
-                                                                                                            v312 = 0x7FFFFFFFLL;
-                                                                                                            goto LABEL_431;
-                                                                                                          }
-                                                                                                        }
-
-                                                                                                        else
-                                                                                                        {
-                                                                                                          v303 = *(a1 + 32);
-                                                                                                        }
-
-LABEL_418:
-                                                                                                        v304 = 0x7FFFFFFFLL;
-                                                                                                        goto LABEL_419;
-                                                                                                      }
-                                                                                                    }
-
-                                                                                                    else
-                                                                                                    {
-                                                                                                      v295 = *(a1 + 32);
-                                                                                                    }
-
-LABEL_406:
-                                                                                                    v296 = 0x7FFFFFFFLL;
-                                                                                                    goto LABEL_407;
-                                                                                                  }
-                                                                                                }
-
-                                                                                                else
-                                                                                                {
-                                                                                                  v271 = *(a1 + 32);
-                                                                                                }
-
-LABEL_365:
-                                                                                                v272 = 0x7FFFFFFFLL;
-                                                                                                goto LABEL_366;
-                                                                                              }
-                                                                                            }
-
-                                                                                            else
-                                                                                            {
-                                                                                              v213 = *(a1 + 32);
-                                                                                            }
-
-LABEL_325:
-                                                                                            v214 = 0x7FFFFFFFLL;
-                                                                                            goto LABEL_326;
-                                                                                          }
-                                                                                        }
-
-                                                                                        else
-                                                                                        {
-                                                                                          v205 = *(a1 + 32);
-                                                                                        }
-
-LABEL_313:
-                                                                                        v206 = 0x7FFFFFFFLL;
-                                                                                        goto LABEL_314;
-                                                                                      }
-                                                                                    }
-
-                                                                                    else
-                                                                                    {
-                                                                                      v197 = *(a1 + 32);
-                                                                                    }
-
-LABEL_301:
-                                                                                    v198 = 0x7FFFFFFFLL;
-                                                                                    goto LABEL_302;
-                                                                                  }
-                                                                                }
-
-                                                                                else
-                                                                                {
-                                                                                  v189 = *(a1 + 32);
-                                                                                }
-
-LABEL_289:
-                                                                                v190 = 0x7FFFFFFFLL;
-                                                                                goto LABEL_290;
-                                                                              }
-                                                                            }
-
-                                                                            else
-                                                                            {
-                                                                              v181 = *(a1 + 32);
-                                                                            }
-
-LABEL_277:
-                                                                            v182 = 0x7FFFFFFFLL;
-                                                                            goto LABEL_278;
-                                                                          }
-                                                                        }
-
-                                                                        else
-                                                                        {
-                                                                          v173 = *(a1 + 32);
-                                                                        }
-
-LABEL_265:
-                                                                        v174 = 0x7FFFFFFFLL;
-                                                                        goto LABEL_266;
-                                                                      }
-                                                                    }
-
-                                                                    else
-                                                                    {
-                                                                      v165 = *(a1 + 32);
-                                                                    }
-
-LABEL_253:
-                                                                    v166 = 0x7FFFFFFFLL;
-                                                                    goto LABEL_254;
-                                                                  }
-                                                                }
-
-                                                                else
-                                                                {
-                                                                  v157 = *(a1 + 32);
-                                                                }
-
-LABEL_241:
-                                                                v158 = 0x7FFFFFFFLL;
-                                                                goto LABEL_242;
-                                                              }
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v149 = *(a1 + 32);
-                                                            }
-
-LABEL_229:
-                                                            v150 = 0x7FFFFFFFLL;
-                                                            goto LABEL_230;
-                                                          }
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v141 = *(a1 + 32);
-                                                        }
-
-LABEL_217:
-                                                        v142 = 0x7FFFFFFFLL;
-                                                        goto LABEL_218;
-                                                      }
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v133 = *(a1 + 32);
-                                                    }
-
-LABEL_205:
-                                                    v134 = 0x7FFFFFFFLL;
-                                                    goto LABEL_206;
-                                                  }
-                                                }
-
-                                                else
-                                                {
-                                                  v125 = *(a1 + 32);
-                                                }
-
-LABEL_193:
-                                                v126 = 0x7FFFFFFFLL;
-                                                goto LABEL_194;
-                                              }
-                                            }
-
-                                            else
-                                            {
-                                              v117 = *(a1 + 32);
-                                            }
-
-LABEL_181:
-                                            v118 = 0x7FFFFFFFLL;
-                                            goto LABEL_182;
-                                          }
-                                        }
-
-                                        else
-                                        {
-                                          v109 = *(a1 + 32);
-                                        }
-
-LABEL_169:
-                                        v110 = 0x7FFFFFFFLL;
-                                        goto LABEL_170;
-                                      }
-                                    }
-
-                                    else
-                                    {
-                                      v101 = *(a1 + 32);
-                                    }
-
-LABEL_157:
-                                    v102 = 0x7FFFFFFFLL;
-                                    goto LABEL_158;
-                                  }
-                                }
-
-                                else
-                                {
-                                  v93 = *(a1 + 32);
-                                }
-
-LABEL_145:
-                                v94 = 0x7FFFFFFFLL;
-                                goto LABEL_146;
-                              }
-                            }
-
-                            else
-                            {
-                              v85 = *(a1 + 32);
-                            }
-
-LABEL_133:
-                            v86 = 0x7FFFFFFFLL;
-                            goto LABEL_134;
-                          }
-                        }
-
-                        else
-                        {
-                          v77 = *(a1 + 32);
-                        }
-
-LABEL_121:
-                        v78 = 0x7FFFFFFFLL;
-                        goto LABEL_122;
-                      }
-                    }
-
-                    else
-                    {
-                      v69 = *(a1 + 32);
-                    }
-
-LABEL_109:
-                    v70 = 0x7FFFFFFFLL;
-                    goto LABEL_110;
-                  }
+                  v26 = *&v43[7];
                 }
 
                 else
                 {
-                  v61 = *(a1 + 32);
+                  v26 = v43;
                 }
 
-LABEL_97:
-                v62 = 0x7FFFFFFFLL;
-                goto LABEL_98;
+                v27 = re::GeomMesh::addAttribute(a2, v26, 1, 7);
+                v39 = re::GeomAttribute::modifyValues<re::Vector3<float>>(v27);
+                v40 = v29;
+                if (v38 <= v16)
+                {
+                  v49 = 0;
+                  memset(v58, 0, 80);
+                  v32 = MEMORY[0x1E69E9C10];
+                  v33 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                  v50 = 136315906;
+                  v51 = "operator[]";
+                  v52 = 1024;
+                  if (v33)
+                  {
+                    v34 = 3;
+                  }
+
+                  else
+                  {
+                    v34 = 2;
+                  }
+
+                  v53 = 789;
+                  v54 = 2048;
+                  v55 = v16;
+                  v56 = 2048;
+                  v57 = v38;
+                  _os_log_send_and_compose_impl(v34, &v49, v58, 80, &dword_1E1C61000, v32, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v50, 38, v35, v36);
+                  _os_crash_msg();
+                  __break(1u);
+                }
+
+                if (v41 && (v42 & 1) != 0)
+                {
+                  (*(*v41 + 40))();
+                }
               }
+
+              ++v19;
+              v30 = [v9 targetShapes];
+              v31 = [v30 count];
             }
 
-            else
-            {
-              v53 = *(a1 + 32);
-            }
-
-LABEL_85:
-            v54 = 0x7FFFFFFFLL;
-            goto LABEL_86;
+            while (v31 > v19);
           }
+        }
+      }
+    }
+  }
+}
+
+void re::internal::attachNewBlendShapeDataIfItExistsToGeomMesh(re::internal *this, MDLMesh *a2, const MDLObject *a3, uint64_t a4, re::GeomMesh *a5)
+{
+  v66 = *MEMORY[0x1E69E9840];
+  v7 = this;
+  v8 = a2;
+  v9 = [(re::internal *)v7 submeshes];
+  v48 = a3;
+  v10 = [v9 objectAtIndexedSubscript:a3];
+
+  v49 = v8;
+  v11 = [(MDLMesh *)v8 children];
+  v12 = [v11 count];
+
+  memset(v50, 0, sizeof(v50));
+  v51 = 0;
+  v55 = 0;
+  v52 = 0u;
+  v53 = 0u;
+  v54 = 0;
+  v13 = v7;
+  v14 = v10;
+  v58 = 0;
+  *&v57 = 0;
+  v56 = 0uLL;
+  DWORD2(v57) = 0;
+  v15 = v57;
+  if (v57)
+  {
+    v16 = [(re::internal *)v13 vertexDescriptor];
+    v17 = [v16 attributeNamed:@"position"];
+    v18 = [v17 bufferIndex];
+    v19 = [v14 faceIndexing];
+
+    if (v19)
+    {
+      v20 = v14;
+      v21 = [v14 faceIndexing];
+      v22 = [v21 objectAtIndexedSubscript:v18];
+      v23 = [v22 unsignedIntValue];
+
+      v24 = v23;
+      if (v15 <= v23)
+      {
+        v59 = 0;
+        v64 = 0u;
+        v65 = 0u;
+        v62 = 0u;
+        v63 = 0u;
+        v61 = 0u;
+        v40 = MEMORY[0x1E69E9C10];
+        v41 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        *v60 = 136315906;
+        *&v60[4] = "operator[]";
+        *&v60[12] = 1024;
+        if (v41)
+        {
+          v42 = 3;
         }
 
         else
         {
-          v45 = *(a1 + 32);
+          v42 = 2;
         }
 
-LABEL_73:
-        v46 = 0x7FFFFFFFLL;
-        goto LABEL_74;
+        *&v60[14] = 789;
+        *&v60[18] = 2048;
+        *&v60[20] = v23;
+        *&v60[28] = 2048;
+        *&v60[30] = v15;
+        _os_log_send_and_compose_impl(v42, &v59, &v61, 80, &dword_1E1C61000, v40, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v60, 38, v43, v44);
+        _os_crash_msg();
+        __break(1u);
       }
+
+      v14 = v20;
     }
 
     else
     {
-      v37 = *(a1 + 32);
+      v24 = 0;
     }
 
-LABEL_61:
-    v38 = 0x7FFFFFFFLL;
-    goto LABEL_62;
+    v25 = (v58 + 80 * v24);
+    re::DynamicArray<re::RigComponentConstraint>::operator=(v50, v25);
+    re::DynamicArray<re::GeomCell4>::operator=(&v52 + 1, v25 + 5);
   }
+
+  v45 = v14;
+
+  v46 = v13;
+  if (v12)
+  {
+    v26 = 0;
+    v27 = *MEMORY[0x1E6974B28];
+    do
+    {
+      v28 = [(MDLMesh *)v49 children];
+      v29 = [v28 objectAtIndexedSubscript:v26];
+
+      v30 = [v29 submeshes];
+      v31 = [v30 objectAtIndexedSubscript:v48];
+
+      *&v63 = 0;
+      *&v62 = 0;
+      v61 = 0uLL;
+      DWORD2(v62) = 0;
+      if (v62)
+      {
+        v32 = [v29 vertexDescriptor];
+        v33 = [v32 attributeNamed:@"offsets"];
+        [v33 bufferIndex];
+        v34 = [v31 faceIndexing];
+
+        if (v34)
+        {
+          v35 = [v31 faceIndexing];
+          v36 = [v35 objectAtIndexedSubscript:0];
+          [v36 unsignedIntValue];
+        }
+
+        v37 = [v29 name];
+        v38 = [v37 UTF8String];
+        re::DynamicString::operator+(&v56, v60, "|blendTargetPosDeltas");
+        if (BYTE8(v56))
+        {
+          v39 = v57;
+        }
+
+        else
+        {
+          v39 = &v56 + 9;
+        }
+
+        if (v56)
+        {
+          if (BYTE8(v56))
+          {
+            (*(*v56 + 40))();
+          }
+
+          v56 = 0u;
+          v57 = 0u;
+        }
+
+        if (*v60)
+        {
+          if (v60[8])
+          {
+            (*(**v60 + 40))();
+          }
+
+          memset(v60, 0, 32);
+        }
+      }
+
+      ++v26;
+    }
+
+    while (v12 != v26);
+  }
+
+  if (*(&v52 + 1))
+  {
+    if (v55)
+    {
+      (*(**(&v52 + 1) + 40))();
+    }
+
+    v55 = 0;
+    v53 = 0uLL;
+    *(&v52 + 1) = 0;
+    ++v54;
+  }
+
+  if (v50[0] && v52)
+  {
+    (*(*v50[0] + 40))();
+  }
+}
+
+void re::internal::attachSkinningDataToMesh(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v10 = &v105;
+  v110 = *MEMORY[0x1E69E9840];
+  v11 = a1;
+  v12 = a2;
+  v13 = re::GeomMesh::addAttribute(a6, "skeletonPath", 0, 1);
+  if (!*(v13 + 5))
+  {
+LABEL_82:
+    *v98 = 0;
+    *(v10 + 48) = 0u;
+    *(v10 + 64) = 0u;
+    *(v10 + 32) = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v75 = MEMORY[0x1E69E9C10];
+    v76 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v95 = 136315906;
+    *&v95[4] = "operator[]";
+    *&v95[12] = 1024;
+    if (v76)
+    {
+      v77 = 3;
+    }
+
+    else
+    {
+      v77 = 2;
+    }
+
+    *&v95[14] = 789;
+    *&v95[18] = 2048;
+    *&v95[20] = 0;
+    v96 = 2048;
+    *v97 = 0;
+    _os_log_send_and_compose_impl(v77, v98, &v105, 80, &dword_1E1C61000, v75, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v95, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_86;
+  }
+
+  **(v13 + 7) = 0;
+  v6 = re::GeomMesh::addAttribute(a6, "skinnedAnimationGeometryBindTransform", 4, 8);
+  (*(*v6 + 24))(v6, 4);
+  v14 = re::GeomAttribute::modifyValues<re::Vector3<float>>(v6);
+  LOBYTE(v6) = v15;
+  if (!v15)
+  {
+LABEL_86:
+    *v98 = 0;
+    *(v10 + 48) = 0u;
+    *(v10 + 64) = 0u;
+    *(v10 + 32) = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v78 = MEMORY[0x1E69E9C10];
+    v79 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v95 = 136315906;
+    *&v95[4] = "operator[]";
+    *&v95[12] = 1024;
+    if (v79)
+    {
+      v80 = 3;
+    }
+
+    else
+    {
+      v80 = 2;
+    }
+
+    *&v95[14] = 621;
+    *&v95[18] = 2048;
+    *&v95[20] = 0;
+    v96 = 2048;
+    *v97 = 0;
+    _os_log_send_and_compose_impl(v80, v98, &v105, 80, &dword_1E1C61000, v78, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v95, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_90;
+  }
+
+  *v14 = *a5;
+  if (v15 == 1)
+  {
+LABEL_90:
+    *v98 = 0;
+    *(v10 + 48) = 0u;
+    *(v10 + 64) = 0u;
+    *(v10 + 32) = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v81 = MEMORY[0x1E69E9C10];
+    v82 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v95 = 136315906;
+    *&v95[4] = "operator[]";
+    *&v95[12] = 1024;
+    if (v82)
+    {
+      v83 = 3;
+    }
+
+    else
+    {
+      v83 = 2;
+    }
+
+    *&v95[14] = 621;
+    *&v95[18] = 2048;
+    *&v95[20] = 1;
+    v96 = 2048;
+    *v97 = 1;
+    _os_log_send_and_compose_impl(v83, v98, &v105, 80, &dword_1E1C61000, v81, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v95, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_94;
+  }
+
+  v14[1] = *(a5 + 16);
+  if (v15 <= 2)
+  {
+LABEL_94:
+    *v98 = 0;
+    *(v10 + 48) = 0u;
+    *(v10 + 64) = 0u;
+    *(v10 + 32) = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v84 = MEMORY[0x1E69E9C10];
+    v85 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v95 = 136315906;
+    *&v95[4] = "operator[]";
+    *&v95[12] = 1024;
+    if (v85)
+    {
+      v86 = 3;
+    }
+
+    else
+    {
+      v86 = 2;
+    }
+
+    *&v95[14] = 621;
+    *&v95[18] = 2048;
+    *&v95[20] = 2;
+    v96 = 2048;
+    *v97 = v6 & 3;
+    _os_log_send_and_compose_impl(v86, v98, &v105, 80, &dword_1E1C61000, v84, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v95, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_98;
+  }
+
+  v14[2] = *(a5 + 32);
+  if (v15 == 3)
+  {
+LABEL_98:
+    *v98 = 0;
+    *(v10 + 48) = 0u;
+    *(v10 + 64) = 0u;
+    *(v10 + 32) = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v87 = MEMORY[0x1E69E9C10];
+    v88 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v95 = 136315906;
+    *&v95[4] = "operator[]";
+    *&v95[12] = 1024;
+    if (v88)
+    {
+      v89 = 3;
+    }
+
+    else
+    {
+      v89 = 2;
+    }
+
+    *&v95[14] = 621;
+    *&v95[18] = 2048;
+    *&v95[20] = 3;
+    v96 = 2048;
+    *v97 = 3;
+    _os_log_send_and_compose_impl(v89, v98, &v105, 80, &dword_1E1C61000, v87, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v95, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+LABEL_102:
+    re::internal::assertLog(4, v16, "assertion failure: '%s' (%s:line %i) ", "topologies.size() > 0", "attachSkinningDataToMesh", 971);
+    _os_crash("assertion failure: (topologies.size() > 0) ");
+    __break(1u);
+  }
+
+  v14[3] = *(a5 + 48);
+  v6 = *(a6 + 16);
+  *&v97[2] = 0;
+  memset(v95, 0, sizeof(v95));
+  if (!*&v95[16])
+  {
+    goto LABEL_102;
+  }
+
+  v92 = v12;
+  v93 = v11;
+  v17 = re::GeomMesh::addAttribute(a6, "skinnedAnimationWeights", 4, 4);
+  v18 = re::GeomMesh::addAttribute(a6, "skinnedAnimationJointIndices", 4, 2);
+  v19 = re::GeomMesh::addAttribute(a6, "skinnedAnimationInfluenceEndIndices", 4, 2);
+  (*(*v19 + 24))(v19, v6);
+  v20 = *&v97[2];
+  v21 = re::GeomAttribute::modifyValues<re::Vector3<float>>(v19);
+  if (v6)
+  {
+    v23 = 0;
+    LODWORD(v24) = 0;
+    v25 = *(v20 + 16);
+    v26 = v22;
+    while (v25 != v23)
+    {
+      v10 = *(*(v20 + 32) + 4 * v23);
+      if (v10)
+      {
+        v12 = *(a5 + 160);
+        if (v12 <= v10)
+        {
+          goto LABEL_66;
+        }
+
+        v27 = *(*(a5 + 168) + 4 * v10) - *(*(a5 + 168) + 4 * (v10 - 1));
+      }
+
+      else
+      {
+        if (!*(a5 + 160))
+        {
+          goto LABEL_78;
+        }
+
+        v27 = **(a5 + 168);
+      }
+
+      if (v22 == v23)
+      {
+        goto LABEL_62;
+      }
+
+      v24 = (v27 + v24);
+      *(v21 + 4 * v23) = v24;
+      v23 = (v23 + 1);
+      if (v6 == v23)
+      {
+        goto LABEL_19;
+      }
+    }
+
+    goto LABEL_58;
+  }
+
+  v24 = 0;
+LABEL_19:
+  (*(*v18 + 24))(v18, v24);
+  (*(*v17 + 24))(v17, v24);
+  v12 = re::GeomAttribute::modifyValues<re::Vector3<float>>(v17);
+  v10 = v28;
+  v29 = re::GeomAttribute::modifyValues<re::Vector3<float>>(v18);
+  if (v6)
+  {
+    v31 = v12;
+    v32 = v30;
+    v33 = v10;
+    v34 = 0;
+    v35 = 0;
+    v25 = *(v20 + 16);
+    while (1)
+    {
+      if (v34 == v25)
+      {
+        goto LABEL_70;
+      }
+
+      v10 = *(*(v20 + 32) + 4 * v34);
+      v12 = *(a5 + 160);
+      if (v12 <= v10)
+      {
+        goto LABEL_74;
+      }
+
+      v36 = *(a5 + 168);
+      v37 = v10 ? *(v36 + 4 * (v10 - 1)) : 0;
+      v38 = *(v36 + 4 * v10);
+      v39 = v38 - v37;
+      if (v38 != v37)
+      {
+        break;
+      }
+
+LABEL_40:
+      v34 = (v34 + 1);
+      if (v34 == v6)
+      {
+        goto LABEL_41;
+      }
+    }
+
+    v40 = 0;
+    v26 = *(a5 + 112);
+    v41 = v35;
+    if (v35 <= v33)
+    {
+      v10 = v33;
+    }
+
+    else
+    {
+      v10 = v35;
+    }
+
+    v42 = v29 + 4 * v35;
+    if (v35 <= v32)
+    {
+      v43 = v32;
+    }
+
+    else
+    {
+      v43 = v35;
+    }
+
+    v44 = v31 + 4 * v35;
+    while (1)
+    {
+      v12 = (v37 + v40);
+      if (v26 <= v12)
+      {
+        break;
+      }
+
+      if (!(v41 - v10 + v40))
+      {
+        goto LABEL_46;
+      }
+
+      *(v44 + 4 * v40) = *(*(a5 + 120) + 4 * v12);
+      v17 = *(a5 + 136);
+      if (v17 <= v12)
+      {
+        goto LABEL_50;
+      }
+
+      if (!(v41 - v43 + v40))
+      {
+        goto LABEL_54;
+      }
+
+      *(v42 + 4 * v40++) = *(*(a5 + 144) + 4 * v12);
+      if (v39 == v40)
+      {
+        v35 = v41 + v40;
+        goto LABEL_40;
+      }
+    }
+
+    v94 = 0;
+    v108 = 0u;
+    v109 = 0u;
+    v107 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v45 = MEMORY[0x1E69E9C10];
+    v46 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v98 = 136315906;
+    *&v98[4] = "operator[]";
+    v99 = 1024;
+    if (v46)
+    {
+      v47 = 3;
+    }
+
+    else
+    {
+      v47 = 2;
+    }
+
+    v100 = 476;
+    v101 = 2048;
+    v102 = v12;
+    v103 = 2048;
+    v104 = v26;
+    _os_log_send_and_compose_impl(v47, &v94, &v105, 80, &dword_1E1C61000, v45, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v98, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+LABEL_46:
+    v94 = 0;
+    v108 = 0u;
+    v109 = 0u;
+    v107 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v48 = MEMORY[0x1E69E9C10];
+    v12 = v33;
+    v49 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v98 = 136315906;
+    *&v98[4] = "operator[]";
+    v99 = 1024;
+    if (v49)
+    {
+      v50 = 3;
+    }
+
+    else
+    {
+      v50 = 2;
+    }
+
+    v100 = 621;
+    v101 = 2048;
+    v102 = v10;
+    v103 = 2048;
+    v104 = v12;
+    _os_log_send_and_compose_impl(v50, &v94, &v105, 80, &dword_1E1C61000, v48, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v98, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+LABEL_50:
+    v94 = 0;
+    v108 = 0u;
+    v109 = 0u;
+    v107 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v51 = MEMORY[0x1E69E9C10];
+    v52 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v98 = 136315906;
+    *&v98[4] = "operator[]";
+    v99 = 1024;
+    if (v52)
+    {
+      v53 = 3;
+    }
+
+    else
+    {
+      v53 = 2;
+    }
+
+    v100 = 476;
+    v101 = 2048;
+    v102 = v12;
+    v103 = 2048;
+    v104 = v17;
+    _os_log_send_and_compose_impl(v53, &v94, &v105, 80, &dword_1E1C61000, v51, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v98, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+LABEL_54:
+    v94 = 0;
+    v108 = 0u;
+    v109 = 0u;
+    v107 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v54 = MEMORY[0x1E69E9C10];
+    v55 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v98 = 136315906;
+    *&v98[4] = "operator[]";
+    v99 = 1024;
+    if (v55)
+    {
+      v56 = 3;
+    }
+
+    else
+    {
+      v56 = 2;
+    }
+
+    v100 = 621;
+    v101 = 2048;
+    v102 = v43;
+    v103 = 2048;
+    v104 = v32;
+    _os_log_send_and_compose_impl(v56, &v94, &v105, 80, &dword_1E1C61000, v54, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v98, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+LABEL_58:
+    v94 = 0;
+    v108 = 0u;
+    v109 = 0u;
+    v107 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v57 = MEMORY[0x1E69E9C10];
+    v58 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v98 = 136315906;
+    *&v98[4] = "operator[]";
+    v99 = 1024;
+    if (v58)
+    {
+      v59 = 3;
+    }
+
+    else
+    {
+      v59 = 2;
+    }
+
+    v100 = 789;
+    v101 = 2048;
+    v102 = v25;
+    v103 = 2048;
+    v104 = v25;
+    _os_log_send_and_compose_impl(v59, &v94, &v105, 80, &dword_1E1C61000, v57, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v98, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+LABEL_62:
+    v94 = 0;
+    v108 = 0u;
+    v109 = 0u;
+    v107 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v60 = MEMORY[0x1E69E9C10];
+    v61 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v98 = 136315906;
+    *&v98[4] = "operator[]";
+    v99 = 1024;
+    if (v61)
+    {
+      v62 = 3;
+    }
+
+    else
+    {
+      v62 = 2;
+    }
+
+    v100 = 621;
+    v101 = 2048;
+    v102 = v26;
+    v103 = 2048;
+    v104 = v26;
+    _os_log_send_and_compose_impl(v62, &v94, &v105, 80, &dword_1E1C61000, v60, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v98, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+LABEL_66:
+    v94 = 0;
+    v108 = 0u;
+    v109 = 0u;
+    v107 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v63 = MEMORY[0x1E69E9C10];
+    v64 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v98 = 136315906;
+    *&v98[4] = "operator[]";
+    v99 = 1024;
+    if (v64)
+    {
+      v65 = 3;
+    }
+
+    else
+    {
+      v65 = 2;
+    }
+
+    v100 = 476;
+    v101 = 2048;
+    v102 = v10;
+    v103 = 2048;
+    v104 = v12;
+    _os_log_send_and_compose_impl(v65, &v94, &v105, 80, &dword_1E1C61000, v63, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v98, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+LABEL_70:
+    v94 = 0;
+    v108 = 0u;
+    v109 = 0u;
+    v107 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v66 = MEMORY[0x1E69E9C10];
+    v67 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v98 = 136315906;
+    *&v98[4] = "operator[]";
+    v99 = 1024;
+    if (v67)
+    {
+      v68 = 3;
+    }
+
+    else
+    {
+      v68 = 2;
+    }
+
+    v100 = 789;
+    v101 = 2048;
+    v102 = v25;
+    v103 = 2048;
+    v104 = v25;
+    _os_log_send_and_compose_impl(v68, &v94, &v105, 80, &dword_1E1C61000, v66, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v98, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+LABEL_74:
+    v94 = 0;
+    v108 = 0u;
+    v109 = 0u;
+    v107 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v69 = MEMORY[0x1E69E9C10];
+    v70 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v98 = 136315906;
+    *&v98[4] = "operator[]";
+    v99 = 1024;
+    if (v70)
+    {
+      v71 = 3;
+    }
+
+    else
+    {
+      v71 = 2;
+    }
+
+    v100 = 476;
+    v101 = 2048;
+    v102 = v10;
+    v103 = 2048;
+    v104 = v12;
+    _os_log_send_and_compose_impl(v71, &v94, &v105, 80, &dword_1E1C61000, v69, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v98, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+LABEL_78:
+    v94 = 0;
+    v108 = 0u;
+    v109 = 0u;
+    v107 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v72 = MEMORY[0x1E69E9C10];
+    v73 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    *v98 = 136315906;
+    *&v98[4] = "operator[]";
+    v99 = 1024;
+    if (v73)
+    {
+      v74 = 3;
+    }
+
+    else
+    {
+      v74 = 2;
+    }
+
+    v100 = 476;
+    v101 = 2048;
+    v102 = 0;
+    v103 = 2048;
+    v104 = 0;
+    _os_log_send_and_compose_impl(v74, &v94, &v105, 80, &dword_1E1C61000, v72, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v98, 38, v90, v91);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_82;
+  }
+
+LABEL_41:
 }

@@ -23,7 +23,7 @@
   }
 }
 
-uint64_t __54__MTLTelemetryBuffer_accumBufferDistribution_options___block_invoke(uint64_t a1)
+void *__54__MTLTelemetryBuffer_accumBufferDistribution_options___block_invoke(uint64_t a1)
 {
   v1 = *(*(a1 + 32) + 216);
   result = [*(a1 + 40) length];

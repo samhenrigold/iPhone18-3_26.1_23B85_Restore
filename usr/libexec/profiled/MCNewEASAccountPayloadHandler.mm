@@ -441,60 +441,60 @@ LABEL_28:
       -[ASAccount setEnabled:forDADataclass:](self->_account, "setEnabled:forDADataclass:", [payload enableNotes], 32);
     }
 
-    backingAccountInfo = [(ASAccount *)self->_account backingAccountInfo];
+    v44 = objc_msgSend_backingAccountInfo(self->_account);
     payload2 = [(MCNewPayloadHandler *)self payload];
     uUID = [payload2 UUID];
-    [backingAccountInfo setMcPayloadUUID:uUID];
+    [v44 setMcPayloadUUID:uUID];
 
-    backingAccountInfo2 = [(ASAccount *)self->_account backingAccountInfo];
+    v47 = objc_msgSend_backingAccountInfo(self->_account);
     payload3 = [(MCNewPayloadHandler *)self payload];
     profile = [payload3 profile];
     uUID2 = [profile UUID];
-    [backingAccountInfo2 setMcProfileUUID:uUID2];
+    [v47 setMcProfileUUID:uUID2];
 
-    backingAccountInfo3 = [(ASAccount *)self->_account backingAccountInfo];
+    v51 = objc_msgSend_backingAccountInfo(self->_account);
     communicationServiceRules = [payload communicationServiceRules];
-    [backingAccountInfo3 setCommunicationServiceRules:communicationServiceRules];
+    [v51 setCommunicationServiceRules:communicationServiceRules];
 
-    backingAccountInfo4 = [(ASAccount *)self->_account backingAccountInfo];
+    v53 = objc_msgSend_backingAccountInfo(self->_account);
     identifier4 = [payload identifier];
-    [backingAccountInfo4 setMcAccountIdentifier:identifier4];
+    [v53 setMcAccountIdentifier:identifier4];
 
     if (([payload enableNotes] & 1) == 0)
     {
-      backingAccountInfo5 = [(ASAccount *)self->_account backingAccountInfo];
-      [backingAccountInfo5 setMcEASAccountEnableNotes:&__kCFBooleanFalse];
+      v55 = objc_msgSend_backingAccountInfo(self->_account);
+      [v55 setMcEASAccountEnableNotes:&__kCFBooleanFalse];
     }
 
     if (([payload enableMailUserOverridable] & 1) == 0)
     {
-      backingAccountInfo6 = [(ASAccount *)self->_account backingAccountInfo];
-      [backingAccountInfo6 setMcEnableMailUserOverridable:&__kCFBooleanFalse];
+      v56 = objc_msgSend_backingAccountInfo(self->_account);
+      [v56 setMcEnableMailUserOverridable:&__kCFBooleanFalse];
     }
 
     if (([payload enableContactsUserOverridable] & 1) == 0)
     {
-      backingAccountInfo7 = [(ASAccount *)self->_account backingAccountInfo];
-      [backingAccountInfo7 setMcEnableContactsUserOverridable:&__kCFBooleanFalse];
+      v57 = objc_msgSend_backingAccountInfo(self->_account);
+      [v57 setMcEnableContactsUserOverridable:&__kCFBooleanFalse];
     }
 
     if (([payload enableCalendarsUserOverridable] & 1) == 0)
     {
-      backingAccountInfo8 = [(ASAccount *)self->_account backingAccountInfo];
-      [backingAccountInfo8 setMcEnableCalendarsUserOverridable:&__kCFBooleanFalse];
+      v58 = objc_msgSend_backingAccountInfo(self->_account);
+      [v58 setMcEnableCalendarsUserOverridable:&__kCFBooleanFalse];
     }
 
     if (([payload enableRemindersUserOverridable] & 1) == 0)
     {
-      backingAccountInfo9 = [(ASAccount *)self->_account backingAccountInfo];
-      [backingAccountInfo9 setMcEnableRemindersUserOverridable:&__kCFBooleanFalse];
+      v59 = objc_msgSend_backingAccountInfo(self->_account);
+      [v59 setMcEnableRemindersUserOverridable:&__kCFBooleanFalse];
     }
 
     v147 = dCopy;
     if (([payload enableNotesUserOverridable] & 1) == 0)
     {
-      backingAccountInfo10 = [(ASAccount *)self->_account backingAccountInfo];
-      [backingAccountInfo10 setMcEnableNotesUserOverridable:&__kCFBooleanFalse];
+      v60 = objc_msgSend_backingAccountInfo(self->_account);
+      [v60 setMcEnableNotesUserOverridable:&__kCFBooleanFalse];
     }
 
     payload4 = [(MCNewPayloadHandler *)self payload];
@@ -503,8 +503,8 @@ LABEL_28:
 
     if (identifier5)
     {
-      backingAccountInfo11 = [(ASAccount *)self->_account backingAccountInfo];
-      [backingAccountInfo11 setMcConfigurationProfileIdentifier:identifier5];
+      v64 = objc_msgSend_backingAccountInfo(self->_account);
+      [v64 setMcConfigurationProfileIdentifier:identifier5];
     }
 
     else
@@ -548,9 +548,9 @@ LABEL_28:
     [(ASAccount *)v77 setEmailAddress:emailAddress];
 
     v79 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [payload mustNotUseSynchronizableCredential]);
-    backingAccountInfo12 = [(ASAccount *)self->_account backingAccountInfo];
+    v80 = objc_msgSend_backingAccountInfo(self->_account);
     v153 = v79;
-    [backingAccountInfo12 setAccountProperty:v79 forKey:ACAccountPropertyShouldNeverUseSyncableCredential];
+    [v80 setAccountProperty:v79 forKey:ACAccountPropertyShouldNeverUseSyncableCredential];
 
     useOAuth = [payload useOAuth];
     bOOLValue = [useOAuth BOOLValue];
@@ -561,8 +561,8 @@ LABEL_28:
       [(ASAccount *)self->_account setAccountBoolProperty:1 forKey:kDAExchangeOAuthSupportedKey];
       v84 = [[ACAccountCredential alloc] initWithOAuth2Token:&stru_10011E740 refreshToken:0 expiryDate:0];
       selfCopy2 = self;
-      backingAccountInfo13 = [(ASAccount *)self->_account backingAccountInfo];
-      [backingAccountInfo13 setCredential:v84];
+      v86 = objc_msgSend_backingAccountInfo(self->_account);
+      [v86 setCredential:v84];
 
       oAuthSignInURL = [payload OAuthSignInURL];
 
@@ -1172,27 +1172,20 @@ LABEL_4:
   payload = [(MCNewPayloadHandler *)self payload];
   certificateUUID = [payload certificateUUID];
 
-  if (!certificateUUID)
+  v7 = 0;
+  if (certificateUUID)
   {
-    goto LABEL_4;
-  }
+    profile = [payload profile];
+    certificateUUID2 = [payload certificateUUID];
+    v6 = [profile payloadWithUUID:certificateUUID2];
 
-  profile = [payload profile];
-  certificateUUID2 = [payload certificateUUID];
-  v6 = [profile payloadWithUUID:certificateUUID2];
+    objc_opt_class();
+    LOBYTE(profile) = objc_opt_isKindOfClass();
 
-  objc_opt_class();
-  LOBYTE(profile) = objc_opt_isKindOfClass();
-
-  if (profile)
-  {
-    v7 = 1;
-  }
-
-  else
-  {
-LABEL_4:
-    v7 = 0;
+    if (profile)
+    {
+      v7 = 1;
+    }
   }
 
   return v7;
@@ -1749,8 +1742,8 @@ LABEL_50:
 
       if ([payload overridePreviousPassword])
       {
-        backingAccountInfo = [v35 backingAccountInfo];
-        [backingAccountInfo setAccountProperty:&__kCFBooleanFalse forKey:@"EASPayloadShouldPreserveOldPassword"];
+        v36 = objc_msgSend_backingAccountInfo(v35);
+        [v36 setAccountProperty:&__kCFBooleanFalse forKey:@"EASPayloadShouldPreserveOldPassword"];
 
         v37 = _MCLogObjects[0];
         if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEFAULT))
@@ -1762,8 +1755,8 @@ LABEL_50:
 
       else
       {
-        backingAccountInfo2 = [v35 backingAccountInfo];
-        [backingAccountInfo2 setAccountProperty:&__kCFBooleanTrue forKey:@"EASPayloadShouldPreserveOldPassword"];
+        v41 = objc_msgSend_backingAccountInfo(v35);
+        [v41 setAccountProperty:&__kCFBooleanTrue forKey:@"EASPayloadShouldPreserveOldPassword"];
       }
 
       v71 = +[MDMConfiguration sharedConfiguration];
@@ -1781,8 +1774,8 @@ LABEL_50:
         [v35 setObject:&__kCFBooleanTrue forKeyedSubscript:v47];
       }
 
-      backingAccountInfo3 = [v35 backingAccountInfo];
-      [(MCACAccountPayloadHandler *)self markIfUpdatingOverInstalledAccount:backingAccountInfo3];
+      v48 = objc_msgSend_backingAccountInfo(v35);
+      [(MCACAccountPayloadHandler *)self markIfUpdatingOverInstalledAccount:v48];
 
       *buf = 0;
       v87 = buf;
@@ -1797,26 +1790,26 @@ LABEL_50:
       v49 = [installerCopy setAsideAccountIdentifiersForPayloadClass:objc_opt_class()];
       if ([v49 count])
       {
-        backingAccountInfo4 = [v35 backingAccountInfo];
+        v50 = objc_msgSend_backingAccountInfo(v35);
         v51 = +[DASharedAccountProperties DAAccountIdentifiersToIgnoreForUniquenessCheck];
-        [backingAccountInfo4 setAccountProperty:v49 forKey:v51];
+        [v50 setAccountProperty:v49 forKey:v51];
       }
 
       v52 = sharedDAAccountStore();
-      backingAccountInfo5 = [v35 backingAccountInfo];
+      v53 = objc_msgSend_backingAccountInfo(v35);
       v81[0] = _NSConcreteStackBlock;
       v81[1] = 3221225472;
       v81[2] = sub_100074868;
       v81[3] = &unk_10011C8E0;
       v81[4] = &v82;
       v81[5] = buf;
-      [v52 canSaveAccount:backingAccountInfo5 withCompletionHandler:v81];
+      [v52 canSaveAccount:v53 withCompletionHandler:v81];
 
       dispatch_semaphore_wait(*(v87 + 5), 0xFFFFFFFFFFFFFFFFLL);
       if (*(v83 + 24) == 1)
       {
-        backingAccountInfo6 = [v35 backingAccountInfo];
-        [backingAccountInfo6 setAuthenticated:1];
+        v54 = objc_msgSend_backingAccountInfo(v35);
+        [v54 setAuthenticated:1];
 
         v77[0] = _NSConcreteStackBlock;
         v77[1] = 3221225472;
@@ -1843,9 +1836,9 @@ LABEL_50:
       {
         v57 = MCErrorArray();
         v58 = [NSError MCErrorWithDomain:MCEASErrorDomain code:21005 descriptionArray:v57 errorType:MCErrorTypeFatal, 0];
-        mCCopyAsPrimaryError = [v58 MCCopyAsPrimaryError];
+        v59 = objc_msgSend_MCCopyAsPrimaryError(v58);
         v60 = v94[5];
-        v94[5] = mCCopyAsPrimaryError;
+        v94[5] = v59;
       }
 
       _Block_object_dispose(&v82, 8);
@@ -1861,8 +1854,8 @@ LABEL_50:
       v94[5] = v39;
     }
 
-    backingAccountInfo7 = [v35 backingAccountInfo];
-    identifier2 = [backingAccountInfo7 identifier];
+    v61 = objc_msgSend_backingAccountInfo(v35);
+    identifier2 = [v61 identifier];
     [payload setAcAccountIdentifier:identifier2];
 
     if (v24)
@@ -1957,16 +1950,16 @@ LABEL_60:
   v6 = _installedDAAccount;
   if (_installedDAAccount)
   {
-    backingAccountInfo = [_installedDAAccount backingAccountInfo];
-    [(MCACAccountPayloadHandler *)self setSetAsideAccount:backingAccountInfo];
+    v7 = objc_msgSend_backingAccountInfo(_installedDAAccount);
+    [(MCACAccountPayloadHandler *)self setSetAsideAccount:v7];
 
-    backingAccountInfo2 = [v6 backingAccountInfo];
-    credential = [backingAccountInfo2 credential];
+    v8 = objc_msgSend_backingAccountInfo(v6);
+    credential = [v8 credential];
     [(MCNewEASAccountPayloadHandler *)self setSetAsideAccountCredential:credential];
 
     [(MCNewEASAccountPayloadHandler *)self setSetAsideDAAccount:v6];
-    backingAccountInfo3 = [v6 backingAccountInfo];
-    identifier = [backingAccountInfo3 identifier];
+    v10 = objc_msgSend_backingAccountInfo(v6);
+    identifier = [v10 identifier];
     [installerCopy addSetAsideAccountIdentifier:identifier forPayloadClass:objc_opt_class()];
   }
 }
@@ -1984,8 +1977,8 @@ LABEL_60:
       setAsideAccount2 = [(MCACAccountPayloadHandler *)self setAsideAccount];
       v6 = [setAsideAccount2 accountPropertyForKey:@"MCAccountIdentifer"];
 
-      backingAccountInfo = [_installedDAAccount backingAccountInfo];
-      v8 = [backingAccountInfo accountPropertyForKey:@"MCAccountIdentifer"];
+      v7 = objc_msgSend_backingAccountInfo(_installedDAAccount);
+      v8 = [v7 accountPropertyForKey:@"MCAccountIdentifer"];
 
       if (v6 && (!v8 || ([v6 isEqualToString:v8] & 1) == 0))
       {
@@ -2038,7 +2031,7 @@ LABEL_60:
 
       if (v11)
       {
-        backingAccountInfo = _installedSetAsideACAccount;
+        v52 = _installedSetAsideACAccount;
       }
 
       else
@@ -2051,7 +2044,7 @@ LABEL_60:
           _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s On Shared iPad, and current payload doesn't own any ACAccount.", buf, 0xCu);
         }
 
-        backingAccountInfo = 0;
+        v52 = 0;
       }
 
       v13 = v11 ^ 1;
@@ -2059,7 +2052,7 @@ LABEL_60:
 
     else
     {
-      backingAccountInfo = [setAsideDAAccount backingAccountInfo];
+      v52 = objc_msgSend_backingAccountInfo(setAsideDAAccount);
       v13 = 0;
     }
   }
@@ -2071,13 +2064,13 @@ LABEL_60:
     if (updatedOverInstalledAccount)
     {
       v13 = 0;
-      backingAccountInfo = 0;
+      v52 = 0;
       setAsideAccountCredential = 0;
     }
 
     else
     {
-      backingAccountInfo = [setAsideDAAccount backingAccountInfo];
+      v52 = objc_msgSend_backingAccountInfo(setAsideDAAccount);
       v13 = 0;
       setAsideAccountCredential = 0;
     }
@@ -2099,8 +2092,8 @@ LABEL_60:
       v15 = ;
       v16 = [DAAccount daAccountSubclassWithBackingAccountInfo:v15];
       credential = [v15 credential];
-      backingAccountInfo2 = [v16 backingAccountInfo];
-      v19 = [backingAccountInfo2 accountPropertyForKey:@"EASPayloadShouldPreserveOldPassword"];
+      v18 = objc_msgSend_backingAccountInfo(v16);
+      v19 = [v18 accountPropertyForKey:@"EASPayloadShouldPreserveOldPassword"];
       bOOLValue = [v19 BOOLValue];
 
       v21 = _MCLogObjects[0];
@@ -2108,7 +2101,7 @@ LABEL_60:
       {
         v22 = v21;
         setAsideDAAccount2 = [(MCNewEASAccountPayloadHandler *)self setAsideDAAccount];
-        backingAccountInfo3 = [setAsideDAAccount2 backingAccountInfo];
+        v24 = objc_msgSend_backingAccountInfo(setAsideDAAccount2);
         *buf = 134219522;
         selfCopy2 = self;
         v64 = 2080;
@@ -2120,7 +2113,7 @@ LABEL_60:
         v70 = 1024;
         v71 = bOOLValue;
         v72 = 2112;
-        v73 = backingAccountInfo3;
+        v73 = v24;
         v74 = 1024;
         v75 = v13;
         _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "%p %s - accountCredential %@, installedAccount %@ shouldPreservePassword %d setAsideDAAccount %@ lostAccountOwnership %d", buf, 0x40u);
@@ -2178,10 +2171,10 @@ LABEL_60:
       [(MCNewPayloadHandler *)self _releaseDependencyBetweenPersistentID:sMIMEEncryptionIdentityPersistentID andUUID:uUID3];
     }
 
-    if (backingAccountInfo)
+    if (v52)
     {
       [MCFeatureOverrides accountRemovalTimeoutWithDefaultValue:600.0];
-      [(MCACAccountPayloadHandler *)self _synchronouslyDeleteAccountAndAssociatedData:backingAccountInfo timeout:v51 completion:?];
+      [(MCACAccountPayloadHandler *)self _synchronouslyDeleteAccountAndAssociatedData:v52 timeout:v51 completion:?];
     }
 
     else if (v51)

@@ -22,10 +22,8 @@
 
 + (id)profileRequestForPlayerIDs:(id)ds pieces:(unsigned __int8)pieces
 {
-  v10 = @"player-ids";
   dsCopy = ds;
-  dsCopy2 = ds;
-  v6 = [NSDictionary dictionaryWithObjects:&dsCopy forKeys:&v10 count:1];
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v7 = [NSMutableDictionary dictionaryWithDictionary:v6];
 
   [v7 setObject:&__kCFBooleanTrue forKeyedSubscript:@"show-details"];

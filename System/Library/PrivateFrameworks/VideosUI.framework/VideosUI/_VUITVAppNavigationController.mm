@@ -53,7 +53,7 @@
   v7 = *MEMORY[0x1E69E9840];
   if (depth < 3)
   {
-    v4 = VUIDefaultLogObject();
+    v4 = VUIDefaultLogObject(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = 134217984;
@@ -92,17 +92,18 @@
 
   else
   {
-    objc_storeWeak(&self->_externalDelegate, delegateCopy);
+    v5 = objc_storeWeak(&self->_externalDelegate, delegateCopy);
     if (delegateCopy)
     {
       self->_externalDelegateImplementsDidShow = objc_opt_respondsToSelector() & 1;
-      self->_externalDelegateImplementsAnimationController = objc_opt_respondsToSelector() & 1;
+      v5 = objc_opt_respondsToSelector();
+      self->_externalDelegateImplementsAnimationController = v5 & 1;
     }
 
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [_VUITVAppNavigationController setDelegate:v5];
+      [_VUITVAppNavigationController setDelegate:v6];
     }
   }
 }

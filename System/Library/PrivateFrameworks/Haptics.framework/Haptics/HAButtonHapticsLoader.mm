@@ -32,7 +32,7 @@
 
 void __39__HAButtonHapticsLoader_sharedInstance__block_invoke()
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(HAButtonHapticsLoader);
   v1 = gHapticsWaveLoader;
   gHapticsWaveLoader = v0;
@@ -43,7 +43,7 @@ void __39__HAButtonHapticsLoader_sharedInstance__block_invoke()
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_25;
+      return;
     }
 
     *buf = 0;
@@ -51,7 +51,9 @@ void __39__HAButtonHapticsLoader_sharedInstance__block_invoke()
     v11 = "Haptics IONotificationPortGetRunLoopSource returned NULL";
 LABEL_22:
     v12 = 2;
-    goto LABEL_23;
+LABEL_23:
+    _os_log_impl(&dword_2510D3000, v10, OS_LOG_TYPE_ERROR, v11, buf, v12);
+    return;
   }
 
   v3 = RunLoopSource;
@@ -60,7 +62,7 @@ LABEL_22:
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_25;
+      return;
     }
 
     *buf = 0;
@@ -71,40 +73,40 @@ LABEL_22:
 
   CFRunLoopAddSource(Current, v3, *MEMORY[0x277CBF058]);
   v5 = gNotificationPort;
-  v14 = 1;
-  applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[31],int>(&v16, "Button Haptics Asset Interface", &v14);
-  *buf = &v16;
-  v19 = 1;
+  v13 = 1;
+  applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[31],int>(&v15, "Button Haptics Asset Interface", &v13);
+  *buf = &v15;
+  v18 = 1;
   CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(buf);
-  v15 = CFDictionaryRef;
+  v14 = CFDictionaryRef;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v16)
+  if (v15)
   {
-    CFRelease(v16);
+    CFRelease(v15);
   }
 
-  applesauce::CF::TypeRef::TypeRef(&v16, "IOPropertyMatch");
+  applesauce::CF::TypeRef::TypeRef(&v15, "IOPropertyMatch");
   if (CFDictionaryRef)
   {
     CFRetain(CFDictionaryRef);
   }
 
   cf = CFDictionaryRef;
-  *buf = &v16;
-  v19 = 1;
+  *buf = &v15;
+  v18 = 1;
   v7 = applesauce::CF::details::make_CFDictionaryRef(buf);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v16)
+  if (v15)
   {
-    CFRelease(v16);
+    CFRelease(v15);
   }
 
   if (CFDictionaryRef)
@@ -114,31 +116,28 @@ LABEL_22:
 
   v8 = IOServiceAddMatchingNotification(v5, "IOServiceMatched", v7, MatchingNotificationHandler, 0, &gIOIterator);
   v9 = v8;
-  if (!v8)
+  if (v8)
   {
-    MatchingNotificationHandler(v8, gIOIterator);
-    goto LABEL_25;
-  }
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
 
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
     *buf = 67109120;
     *&buf[4] = v9;
     v10 = MEMORY[0x277D86220];
     v11 = "Haptics IOServiceAddMatchingNotification err %d";
     v12 = 8;
-LABEL_23:
-    _os_log_impl(&dword_2510D3000, v10, OS_LOG_TYPE_ERROR, v11, buf, v12);
+    goto LABEL_23;
   }
 
-LABEL_25:
-  v13 = *MEMORY[0x277D85DE8];
+  MatchingNotificationHandler(v8, gIOIterator);
 }
 
 - (BOOL)loadButtonHapticOfType:(int64_t)type withParameters:(id)parameters atSlot:(int64_t)slot error:(id *)error
 {
   slotCopy = slot;
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   v10 = *MEMORY[0x277CCA590];
   if (error)
@@ -151,17 +150,17 @@ LABEL_25:
     v11 = _sharedMemoryPtr;
     bzero(_sharedMemoryPtr, _sharedMemorySize);
     *v11 = slotCopy;
-    v42 = 0;
-    Property = dictForType(type, &v42);
+    v41 = 0;
+    Property = dictForType(type, &v41);
     if (Property)
     {
       [HAButtonHapticsLoader loadButtonHapticOfType:withParameters:atSlot:error:];
       goto LABEL_40;
     }
 
-    v13 = v42;
-    v41 = v42;
-    String = getString(v42, @"AudioFilePath");
+    v13 = v41;
+    v40 = v41;
+    String = getString(v41, @"AudioFilePath");
     if (String)
     {
       v15 = CFURLCreateWithFileSystemPath(0, String, kCFURLPOSIXPathStyle, 0);
@@ -186,15 +185,15 @@ LABEL_25:
 
         *buf = 136316162;
         *&buf[4] = "HAButtonHapticsLoader.mm";
-        v44 = 1024;
-        v45 = 376;
-        v46 = 2080;
-        v47 = "result = AudioFileGetProperty(afid, kAudioFilePropertyAudioDataByteCount, &propSize, &numBytes64)";
-        v48 = 1024;
-        v49 = Property;
-        v50 = 2080;
-        v51 = "FAIL";
-        v35 = MEMORY[0x277D86220];
+        v43 = 1024;
+        v44 = 376;
+        v45 = 2080;
+        v46 = "result = AudioFileGetProperty(afid, kAudioFilePropertyAudioDataByteCount, &propSize, &numBytes64)";
+        v47 = 1024;
+        v48 = Property;
+        v49 = 2080;
+        v50 = "FAIL";
+        v34 = MEMORY[0x277D86220];
         goto LABEL_61;
       }
 
@@ -215,20 +214,20 @@ LABEL_25:
 
         *buf = 136316162;
         *&buf[4] = "HAButtonHapticsLoader.mm";
-        v44 = 1024;
-        v45 = 379;
-        v46 = 2080;
-        v47 = "result = AudioFileReadBytes(afid, true, 0, &numBytes, buttonInfo.audioWaveformBuffer)";
-        v48 = 1024;
-        v49 = Property;
-        v50 = 2080;
-        v51 = "FAIL";
-        v35 = MEMORY[0x277D86220];
+        v43 = 1024;
+        v44 = 379;
+        v45 = 2080;
+        v46 = "result = AudioFileReadBytes(afid, true, 0, &numBytes, buttonInfo.audioWaveformBuffer)";
+        v47 = 1024;
+        v48 = Property;
+        v49 = 2080;
+        v50 = "FAIL";
+        v34 = MEMORY[0x277D86220];
         goto LABEL_61;
       }
 
       ioDataSize = 40;
-      Property = AudioFileGetProperty(outAudioFile, 0x64666D74u, &ioDataSize, v36);
+      Property = AudioFileGetProperty(outAudioFile, 0x64666D74u, &ioDataSize, v35);
       if (Property)
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -238,19 +237,19 @@ LABEL_25:
 
         *buf = 136316162;
         *&buf[4] = "HAButtonHapticsLoader.mm";
-        v44 = 1024;
-        v45 = 383;
-        v46 = 2080;
-        v47 = "result = AudioFileGetProperty(afid, kAudioFilePropertyDataFormat, &propSize, &fmt)";
-        v48 = 1024;
-        v49 = Property;
-        v50 = 2080;
-        v51 = "FAIL";
-        v35 = MEMORY[0x277D86220];
+        v43 = 1024;
+        v44 = 383;
+        v45 = 2080;
+        v46 = "result = AudioFileGetProperty(afid, kAudioFilePropertyDataFormat, &propSize, &fmt)";
+        v47 = 1024;
+        v48 = Property;
+        v49 = 2080;
+        v50 = "FAIL";
+        v34 = MEMORY[0x277D86220];
         goto LABEL_61;
       }
 
-      v17 = v36[0];
+      v17 = v35[0];
       AudioFileClose(outAudioFile);
       v11[1029] = ioNumBytes >> 1;
     }
@@ -295,15 +294,15 @@ LABEL_25:
 
       *buf = 136316162;
       *&buf[4] = "HAButtonHapticsLoader.mm";
-      v44 = 1024;
-      v45 = 412;
-      v46 = 2080;
-      v47 = "result = AudioFileGetProperty(afid, kAudioFilePropertyAudioDataByteCount, &propSize, &numBytes64)";
-      v48 = 1024;
-      v49 = Property;
-      v50 = 2080;
-      v51 = "FAIL";
-      v35 = MEMORY[0x277D86220];
+      v43 = 1024;
+      v44 = 412;
+      v45 = 2080;
+      v46 = "result = AudioFileGetProperty(afid, kAudioFilePropertyAudioDataByteCount, &propSize, &numBytes64)";
+      v47 = 1024;
+      v48 = Property;
+      v49 = 2080;
+      v50 = "FAIL";
+      v34 = MEMORY[0x277D86220];
     }
 
     else
@@ -319,10 +318,10 @@ LABEL_25:
       if (!Property)
       {
         ioDataSize = 40;
-        Property = AudioFileGetProperty(outAudioFile, 0x64666D74u, &ioDataSize, v36);
+        Property = AudioFileGetProperty(outAudioFile, 0x64666D74u, &ioDataSize, v35);
         if (!Property)
         {
-          v22 = v36[0];
+          v22 = v35[0];
           AudioFileClose(outAudioFile);
           v11[4] = ioNumBytes >> 1;
           if (v11[1029])
@@ -340,10 +339,10 @@ LABEL_25:
           *buf = 0x3F847AE147AE147BLL;
           getFloat64(v13, @"HapticPreSilence", buf);
           v24 = *buf;
-          v36[0] = 0.01;
-          getFloat64(v13, @"PostSilence", v36);
+          v35[0] = 0.01;
+          getFloat64(v13, @"PostSilence", v35);
           v25 = vcvtmd_s64_f64(v24 * v22 + 0.5);
-          v26 = vcvtmd_s64_f64(v36[0] * v22 + 0.5);
+          v26 = vcvtmd_s64_f64(v35[0] * v22 + 0.5);
           if (parametersCopy)
           {
             *buf = 0;
@@ -352,9 +351,9 @@ LABEL_25:
               v23 = vcvtmd_s64_f64(*buf * v17 + 0.5);
             }
 
-            v36[0] = 0.0;
-            Float64 = getFloat64(parametersCopy, @"HapticPreSilence", v36);
-            v28 = v36[0];
+            v35[0] = 0.0;
+            Float64 = getFloat64(parametersCopy, @"HapticPreSilence", v35);
+            v28 = v35[0];
             *&outAudioFile = 0.0;
             v29 = getFloat64(parametersCopy, @"PostSilence", &outAudioFile);
             v30 = vcvtmd_s64_f64(v28 * v22 + 0.5);
@@ -390,7 +389,7 @@ LABEL_25:
           }
 
 LABEL_44:
-          CFDictionaryReleaser::~CFDictionaryReleaser(&v41);
+          CFDictionaryReleaser::~CFDictionaryReleaser(&v40);
           goto LABEL_45;
         }
 
@@ -398,20 +397,20 @@ LABEL_44:
         {
           *buf = 136316162;
           *&buf[4] = "HAButtonHapticsLoader.mm";
-          v44 = 1024;
-          v45 = 419;
-          v46 = 2080;
-          v47 = "result = AudioFileGetProperty(afid, kAudioFilePropertyDataFormat, &propSize, &fmt)";
-          v48 = 1024;
-          v49 = Property;
-          v50 = 2080;
-          v51 = "FAIL";
-          v35 = MEMORY[0x277D86220];
+          v43 = 1024;
+          v44 = 419;
+          v45 = 2080;
+          v46 = "result = AudioFileGetProperty(afid, kAudioFilePropertyDataFormat, &propSize, &fmt)";
+          v47 = 1024;
+          v48 = Property;
+          v49 = 2080;
+          v50 = "FAIL";
+          v34 = MEMORY[0x277D86220];
           goto LABEL_61;
         }
 
 LABEL_39:
-        CFDictionaryReleaser::~CFDictionaryReleaser(&v41);
+        CFDictionaryReleaser::~CFDictionaryReleaser(&v40);
         goto LABEL_40;
       }
 
@@ -422,19 +421,19 @@ LABEL_39:
 
       *buf = 136316162;
       *&buf[4] = "HAButtonHapticsLoader.mm";
-      v44 = 1024;
-      v45 = 415;
-      v46 = 2080;
-      v47 = "result = AudioFileReadBytes(afid, true, 0, &numBytes, buttonInfo.hapticWaveformBuffer)";
-      v48 = 1024;
-      v49 = Property;
-      v50 = 2080;
-      v51 = "FAIL";
-      v35 = MEMORY[0x277D86220];
+      v43 = 1024;
+      v44 = 415;
+      v45 = 2080;
+      v46 = "result = AudioFileReadBytes(afid, true, 0, &numBytes, buttonInfo.hapticWaveformBuffer)";
+      v47 = 1024;
+      v48 = Property;
+      v49 = 2080;
+      v50 = "FAIL";
+      v34 = MEMORY[0x277D86220];
     }
 
 LABEL_61:
-    _os_log_impl(&dword_2510D3000, v35, OS_LOG_TYPE_ERROR, "%25s:%-5d  ca_require_noerr: [%s, %d] (goto %s;)", buf, 0x2Cu);
+    _os_log_impl(&dword_2510D3000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d  ca_require_noerr: [%s, %d] (goto %s;)", buf, 0x2Cu);
     goto LABEL_39;
   }
 
@@ -455,35 +454,34 @@ LABEL_40:
 
 LABEL_45:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)hapticAssetType:(int64_t)type hasAudio:(BOOL *)audio hasHaptic:(BOOL *)haptic error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v10 = *MEMORY[0x277CCA590];
   if (error)
   {
     *error = 0;
   }
 
-  v15 = 0;
-  v11 = dictForType(type, &v15);
+  v14 = 0;
+  v11 = dictForType(type, &v14);
   if (v11)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
       *&buf[4] = "HAButtonHapticsLoader.mm";
-      v17 = 1024;
-      v18 = 527;
-      v19 = 2080;
-      v20 = "result = dictForType(type, typeDictionary)";
-      v21 = 1024;
-      v22 = v11;
-      v23 = 2080;
-      v24 = "FAIL";
+      v16 = 1024;
+      v17 = 527;
+      v18 = 2080;
+      v19 = "result = dictForType(type, typeDictionary)";
+      v20 = 1024;
+      v21 = v11;
+      v22 = 2080;
+      v23 = "FAIL";
       _os_log_impl(&dword_2510D3000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%25s:%-5d  ca_require_noerr: [%s, %d] (goto %s;)", buf, 0x2Cu);
     }
 
@@ -502,11 +500,11 @@ LABEL_45:
 
   else
   {
-    v12 = v15;
-    *buf = v15;
+    v12 = v14;
+    *buf = v14;
     if (audio)
     {
-      *audio = getString(v15, @"AudioFilePath") != 0;
+      *audio = getString(v14, @"AudioFilePath") != 0;
     }
 
     if (haptic)
@@ -517,7 +515,6 @@ LABEL_45:
     CFDictionaryReleaser::~CFDictionaryReleaser(buf);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11 == 0;
 }
 
@@ -591,44 +588,38 @@ LABEL_45:
 
 - (void)loadButtonHapticOfType:withParameters:atSlot:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_2510D3000, MEMORY[0x277D86220], v0, "%25s:%-5d  ca_require_noerr: [%s, %d] (goto %s;)", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_3(&dword_2510D3000, MEMORY[0x277D86220], v0, "%25s:%-5d  ca_require_noerr: [%s, %d] (goto %s;)", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadButtonHapticOfType:withParameters:atSlot:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_2510D3000, MEMORY[0x277D86220], v0, "%25s:%-5d  ca_require_noerr: [%s, %d] (goto %s;)", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_3(&dword_2510D3000, MEMORY[0x277D86220], v0, "%25s:%-5d  ca_require_noerr: [%s, %d] (goto %s;)", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadButtonHapticOfType:withParameters:atSlot:error:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_2510D3000, MEMORY[0x277D86220], v0, "%25s:%-5d  ca_require_noerr: [%s, %d] (goto %s;)", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_3(&dword_2510D3000, MEMORY[0x277D86220], v0, "%25s:%-5d  ca_require_noerr: [%s, %d] (goto %s;)", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -13,7 +13,7 @@
 {
   formatterCopy = formatter;
   policies = [(_BKSCombinedTouchDeliveryPolicy *)self policies];
-  v5 = [formatterCopy appendObject:policies withName:@"combination"];
+  v5 = [formatterCopy appendObject:? withName:?];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -25,9 +25,14 @@
     v6 = 1;
   }
 
+  else if (equalCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v6 = [(NSArray *)self->_policies isEqualToArray:?];
+  }
+
   else
   {
-    v6 = equalCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [(NSArray *)self->_policies isEqualToArray:v5->_policies];
+    v6 = 0;
   }
 
   return v6;
@@ -37,7 +42,7 @@
 {
   builder = [MEMORY[0x1E698E6B8] builder];
   policies = [(_BKSCombinedTouchDeliveryPolicy *)self policies];
-  v5 = [builder appendObject:policies];
+  v5 = [builder appendObject:?];
 
   v6 = [builder hash];
   return v6;
@@ -49,36 +54,34 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"<%@: %p> may only be encoded by an NSXPCCoder.", objc_opt_class(), self}];
+    [MEMORY[0x1E695DF30] raise:objc_opt_class() format:self];
   }
 
   policies = [(_BKSCombinedTouchDeliveryPolicy *)self policies];
-  v5 = [@"BKSTouchDeliveryPolicy" stringByAppendingString:@"Policies"];
-  [coderCopy encodeObject:policies forKey:v5];
+  v5 = [@"BKSTouchDeliveryPolicy" stringByAppendingString:?];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (_BKSCombinedTouchDeliveryPolicy)initWithCoder:(id)coder
 {
-  v13[4] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"<%@: %p> may only be decoded by an NSXPCCoder.", objc_opt_class(), self}];
+    [MEMORY[0x1E695DF30] raise:objc_opt_class() format:self];
   }
 
   v5 = MEMORY[0x1E695DFD8];
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v13[2] = objc_opt_class();
-  v13[3] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:4];
-  v7 = [v5 setWithArray:v6];
-  v8 = [@"BKSTouchDeliveryPolicy" stringByAppendingString:@"Policies"];
-  v9 = [coderCopy decodeObjectOfClasses:v7 forKey:v8];
+  objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
+  objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
+  v7 = [v5 setWithArray:?];
+  v8 = [@"BKSTouchDeliveryPolicy" stringByAppendingString:?];
+  v9 = [coderCopy decodeObjectOfClasses:? forKey:?];
 
-  v10 = [(_BKSCombinedTouchDeliveryPolicy *)self initWithPolicies:v9];
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = [(_BKSCombinedTouchDeliveryPolicy *)self initWithPolicies:?];
   return v10;
 }
 

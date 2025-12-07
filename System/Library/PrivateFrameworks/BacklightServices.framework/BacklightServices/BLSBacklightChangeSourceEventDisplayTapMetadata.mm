@@ -87,8 +87,6 @@
 {
   dictionaryCopy = dictionary;
   [@"position" UTF8String];
-  x = self->_position.x;
-  y = self->_position.y;
   BSSerializeCGPointToXPCDictionaryWithKey();
 }
 

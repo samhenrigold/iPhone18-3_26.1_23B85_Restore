@@ -84,7 +84,7 @@
   v17 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   completionCopy = completion;
-  v9 = _AAUILogSystem();
+  v9 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -107,45 +107,46 @@
 void __117__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowController_disableFindMyDeviceForAccount_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if ((a2 & 1) == 0)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Account Conversion - Device is restoring from iCloud but allowing account removal anyways", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Account Conversion - Device is restoring from iCloud but allowing account removal anyways", buf, 2u);
     }
   }
 
-  v7 = _AAUILogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _AAUILogSystem(v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Account Conversion - Starting to refresh current FMIP state...", buf, 2u);
+    _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Account Conversion - Starting to refresh current FMIP state...", buf, 2u);
   }
 
-  v8 = +[AAUIDeviceLocatorService sharedInstance];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __117__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowController_disableFindMyDeviceForAccount_completion___block_invoke_44;
-  v12[3] = &unk_1E820C5A8;
-  v9 = *(a1 + 48);
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 40);
-  v14 = v9;
-  v12[4] = v10;
-  v13 = v11;
-  [v8 refreshCurrentState:v12];
+  v9 = +[AAUIDeviceLocatorService sharedInstance];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __117__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowController_disableFindMyDeviceForAccount_completion___block_invoke_44;
+  v13[3] = &unk_1E820C5A8;
+  v10 = *(a1 + 48);
+  v11 = *(a1 + 32);
+  v12 = *(a1 + 40);
+  v15 = v10;
+  v13[4] = v11;
+  v14 = v12;
+  [v9 refreshCurrentState:v13];
 }
 
 void __117__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowController_disableFindMyDeviceForAccount_completion___block_invoke_44(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v4 = _AAUILogSystem();
+  v24 = *MEMORY[0x1E69E9840];
+  v4 = _AAUILogSystem(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v21 = a2;
+    v23 = a2;
     _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "Account Conversion - FMIP state came back as %lu", buf, 0xCu);
   }
 
@@ -154,61 +155,61 @@ void __117__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowContro
 
   if ((v6 & 1) == 0)
   {
-    v13 = _AAUILogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = _AAUILogSystem(v7);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "Account Conversion - FMiP state is unknown, stopping converison.", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "Account Conversion - FMiP state is unknown, stopping converison.", buf, 2u);
     }
 
-    v14 = *(a1 + 48);
+    v16 = *(a1 + 48);
     WeakRetained = [MEMORY[0x1E696ABC0] aa_errorWithCode:-11];
-    (*(v14 + 16))(v14, 0, WeakRetained);
+    (*(v16 + 16))(v16, 0, WeakRetained);
     goto LABEL_17;
   }
 
-  v7 = +[AAUIDeviceLocatorService sharedInstance];
-  v8 = [v7 isEnabled];
+  v8 = +[AAUIDeviceLocatorService sharedInstance];
+  v9 = [v8 isEnabled];
 
-  if (v8)
+  if (v9)
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
     if (WeakRetained)
     {
-      v10 = *(a1 + 32);
-      v11 = *(a1 + 40);
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __117__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowController_disableFindMyDeviceForAccount_completion___block_invoke_46;
-      v18[3] = &unk_1E820C308;
-      v19 = *(a1 + 48);
-      [v10 _disableDeviceLocatorForAccount:v11 inViewController:WeakRetained completion:v18];
-      v12 = v19;
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 40);
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __117__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowController_disableFindMyDeviceForAccount_completion___block_invoke_46;
+      v20[3] = &unk_1E820C308;
+      v21 = *(a1 + 48);
+      [v12 _disableDeviceLocatorForAccount:v13 inViewController:WeakRetained completion:v20];
+      v14 = v21;
     }
 
     else
     {
-      v16 = _AAUILogSystem();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = _AAUILogSystem(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "Account Conversion - No view controller provided for sign out, unable to disable FMiP.", buf, 2u);
+        _os_log_impl(&dword_1C5355000, v18, OS_LOG_TYPE_DEFAULT, "Account Conversion - No view controller provided for sign out, unable to disable FMiP.", buf, 2u);
       }
 
-      v17 = *(a1 + 48);
-      v12 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-11];
-      (*(v17 + 16))(v17, 0, v12);
+      v19 = *(a1 + 48);
+      v14 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-11];
+      (*(v19 + 16))(v19, 0, v14);
     }
 
 LABEL_17:
     return;
   }
 
-  v15 = _AAUILogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = _AAUILogSystem(v10);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "Account Conversion - Device locator not enabled, allowing account removal.", buf, 2u);
+    _os_log_impl(&dword_1C5355000, v17, OS_LOG_TYPE_DEFAULT, "Account Conversion - Device locator not enabled, allowing account removal.", buf, 2u);
   }
 
   (*(*(a1 + 48) + 16))();
@@ -218,7 +219,7 @@ void __117__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowContro
 {
   v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -252,13 +253,14 @@ void __117__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowContro
 void __114__AAUIAccountConversionSignOutFlowControllerDelegate__disableDeviceLocatorForAccount_inViewController_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Account Conversion - User canceled FMiP password prompt.", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Account Conversion - User canceled FMiP password prompt.", buf, 2u);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -266,21 +268,22 @@ void __114__AAUIAccountConversionSignOutFlowControllerDelegate__disableDeviceLoc
 
   else
   {
-    v7 = +[AAUIDeviceLocatorService sharedInstance];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __114__AAUIAccountConversionSignOutFlowControllerDelegate__disableDeviceLocatorForAccount_inViewController_completion___block_invoke_56;
-    v8[3] = &unk_1E820C5F8;
-    v9 = *(a1 + 32);
-    [v7 disableInContext:2 withWipeToken:v5 completion:v8];
+    v8 = +[AAUIDeviceLocatorService sharedInstance];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __114__AAUIAccountConversionSignOutFlowControllerDelegate__disableDeviceLocatorForAccount_inViewController_completion___block_invoke_56;
+    v9[3] = &unk_1E820C5F8;
+    v10 = *(a1 + 32);
+    [v8 disableInContext:2 withWipeToken:v6 completion:v9];
   }
 }
 
-void __114__AAUIAccountConversionSignOutFlowControllerDelegate__disableDeviceLocatorForAccount_inViewController_completion___block_invoke_56(uint64_t a1, int a2)
+void __114__AAUIAccountConversionSignOutFlowControllerDelegate__disableDeviceLocatorForAccount_inViewController_completion___block_invoke_56(uint64_t a1, uint64_t a2)
 {
-  v4 = _AAUILogSystem();
+  v2 = a2;
+  v4 = _AAUILogSystem(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (a2)
+  if (v2)
   {
     if (v5)
     {
@@ -310,7 +313,7 @@ void __114__AAUIAccountConversionSignOutFlowControllerDelegate__disableDeviceLoc
   accountCopy = account;
   completionCopy = completion;
   shouldRemoveAppleAccount = self->_shouldRemoveAppleAccount;
-  v10 = _AAUILogSystem();
+  v10 = _AAUILogSystem(completionCopy);
   v11 = v10;
   if (shouldRemoveAppleAccount)
   {
@@ -362,34 +365,34 @@ void __102__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowContro
   dispatch_async(v4, block);
 }
 
-void __102__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowController_signOutAccount_completion___block_invoke_2(uint64_t a1)
+void __102__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowController_signOutAccount_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_1C5355000, v2, OS_LOG_TYPE_DEFAULT, "Account Conversion - Attempting to sign out account %@ with no dataclass actions.", buf, 0xCu);
+    v11 = v4;
+    _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "Account Conversion - Attempting to sign out account %@ with no dataclass actions.", buf, 0xCu);
   }
 
-  v4 = *(a1 + 32);
-  v5 = *(*(a1 + 40) + 16);
-  v6 = [MEMORY[0x1E695DF20] dictionary];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __102__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowController_signOutAccount_completion___block_invoke_61;
-  v7[3] = &unk_1E820C308;
-  v8 = *(a1 + 48);
-  [v5 removeAccount:v4 withDataclassActions:v6 completion:v7];
+  v5 = *(a1 + 32);
+  v6 = *(*(a1 + 40) + 16);
+  v7 = [MEMORY[0x1E695DF20] dictionary];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __102__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowController_signOutAccount_completion___block_invoke_61;
+  v8[3] = &unk_1E820C308;
+  v9 = *(a1 + 48);
+  [v6 removeAccount:v5 withDataclassActions:v7 completion:v8];
 }
 
 void __102__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowController_signOutAccount_completion___block_invoke_61(uint64_t a1, int a2, void *a3)
 {
   v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -411,7 +414,7 @@ void __102__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowContro
 - (void)signOutFlowController:(id)controller performWalrusValidationForAccount:(id)account completion:(id)completion
 {
   completionCopy = completion;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [AAUIAccountConversionSignOutFlowControllerDelegate signOutFlowController:v6 performWalrusValidationForAccount:? completion:?];
@@ -446,72 +449,72 @@ void __102__AAUIAccountConversionSignOutFlowControllerDelegate_signOutFlowContro
 
 - (void)_completedRestoreFromiCloud:(id)cloud
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   cloudCopy = cloud;
-  v4 = _AAUISignpostLogSystem();
+  v4 = _AAUISignpostLogSystem(cloudCopy);
   v5 = _AAUISignpostCreate(v4);
   v7 = v6;
 
-  v8 = _AAUISignpostLogSystem();
-  v9 = v8;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v9 = _AAUISignpostLogSystem(v8);
+  v10 = v9;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C5355000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v5, "SignOutRestoreBackupCheck", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C5355000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v5, "SignOutRestoreBackupCheck", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v10 = _AAUISignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = _AAUISignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v18 = v5;
-    _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SignOutRestoreBackupCheck  enableTelemetry=YES ", buf, 0xCu);
+    v20 = v5;
+    _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SignOutRestoreBackupCheck  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  v11 = objc_alloc_init(MEMORY[0x1E69B1968]);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __82__AAUIAccountConversionSignOutFlowControllerDelegate__completedRestoreFromiCloud___block_invoke;
-  v13[3] = &unk_1E820C648;
-  v15 = v5;
-  v16 = v7;
+  v13 = objc_alloc_init(MEMORY[0x1E69B1968]);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __82__AAUIAccountConversionSignOutFlowControllerDelegate__completedRestoreFromiCloud___block_invoke;
+  v15[3] = &unk_1E820C648;
+  v17 = v5;
+  v18 = v7;
+  v16 = cloudCopy;
   v14 = cloudCopy;
-  v12 = cloudCopy;
-  [v11 fetchiCloudRestoreIsCompleteWithCompletion:v13];
+  [v13 fetchiCloudRestoreIsCompleteWithCompletion:v15];
 }
 
 void __82__AAUIAccountConversionSignOutFlowControllerDelegate__completedRestoreFromiCloud___block_invoke(void *a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   Nanoseconds = _AAUISignpostGetNanoseconds(a1[5], a1[6]);
-  v7 = _AAUISignpostLogSystem();
+  v7 = _AAUISignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[5];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v14 = 67240448;
-    *v15 = a2;
-    *&v15[4] = 1026;
-    *&v15[6] = [v5 code];
-    _os_signpost_emit_with_name_impl(&dword_1C5355000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SignOutRestoreBackupCheck", " RestoreIsComplete=%{public,signpost.telemetry:number1,name=RestoreIsComplete}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v14, 0xEu);
+    v15 = 67240448;
+    *v16 = a2;
+    *&v16[4] = 1026;
+    *&v16[6] = [v5 code];
+    _os_signpost_emit_with_name_impl(&dword_1C5355000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SignOutRestoreBackupCheck", " RestoreIsComplete=%{public,signpost.telemetry:number1,name=RestoreIsComplete}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v15, 0xEu);
   }
 
-  v10 = _AAUISignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _AAUISignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = Nanoseconds / 1000000000.0;
-    v12 = a1[5];
-    v13 = [v5 code];
-    v14 = 134218752;
-    *v15 = v12;
-    *&v15[8] = 2048;
-    v16 = v11;
-    v17 = 1026;
-    v18 = a2;
-    v19 = 1026;
-    v20 = v13;
-    _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SignOutRestoreBackupCheck  RestoreIsComplete=%{public,signpost.telemetry:number1,name=RestoreIsComplete}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v14, 0x22u);
+    v12 = Nanoseconds / 1000000000.0;
+    v13 = a1[5];
+    v14 = [v5 code];
+    v15 = 134218752;
+    *v16 = v13;
+    *&v16[8] = 2048;
+    v17 = v12;
+    v18 = 1026;
+    v19 = a2;
+    v20 = 1026;
+    v21 = v14;
+    _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SignOutRestoreBackupCheck  RestoreIsComplete=%{public,signpost.telemetry:number1,name=RestoreIsComplete}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v15, 0x22u);
   }
 
   (*(a1[4] + 16))();

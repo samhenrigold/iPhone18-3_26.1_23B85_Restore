@@ -67,10 +67,9 @@
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = [PRLikenessChange descriptionForChangeType:self->_type];
-  changedLikenessID = self->_changedLikenessID;
-  v6 = [v3 stringWithFormat:@"PRLikenessChange {type: %@, changed-version: %@, changed-id: %@, dirty-props: %@}", v4, self->_changedLikenessVersion, changedLikenessID, self->_dirtyLikenessProperties];
+  v5 = [v3 stringWithFormat:@"PRLikenessChange {type: %@, changed-version: %@, changed-id: %@, dirty-props: %@}", v4, self->_changedLikenessVersion, self->_changedLikenessID, self->_dirtyLikenessProperties];
 
-  return v6;
+  return v5;
 }
 
 @end

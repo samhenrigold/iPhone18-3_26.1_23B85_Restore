@@ -196,45 +196,46 @@
 - (void)setVoicemailMessage:(id)message
 {
   messageCopy = message;
+  v6 = messageCopy;
   if (self->_voicemailMessage != messageCopy)
   {
-    v6 = PHDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PHDefaultLog(messageCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = messageCopy;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Setting voicemail message (%@).", buf, 0xCu);
+      v18 = v6;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Setting voicemail message (%@).", buf, 0xCu);
     }
 
     [(VMMessageViewController *)self setShouldHandleVoicemailChanges:0];
     objc_storeStrong(&self->_voicemailMessage, message);
-    if (messageCopy)
+    if (v6)
     {
       [(VMMessageViewController *)self setShouldHandleVoicemailChanges:1];
       playerControlsViewController2 = [CNContactFormatter descriptorForRequiredKeysForStyle:0];
       contactStore = [(VMMessageViewController *)self contactStore];
-      v15[0] = playerControlsViewController2;
-      v15[1] = CNContactPhoneNumbersKey;
-      v9 = [NSArray arrayWithObjects:v15 count:2];
-      v10 = [(MPMessage *)messageCopy contactUsingContactStore:contactStore withKeysToFetch:v9];
+      v16[0] = playerControlsViewController2;
+      v16[1] = CNContactPhoneNumbersKey;
+      v10 = [NSArray arrayWithObjects:v16 count:2];
+      v11 = [(MPMessage *)v6 contactUsingContactStore:contactStore withKeysToFetch:v10];
 
-      dataURL = [(MPMessage *)messageCopy dataURL];
+      dataURL = [(MPMessage *)v6 dataURL];
       playerControlsViewController = [(VMMessageViewController *)self playerControlsViewController];
       [playerControlsViewController setURL:dataURL];
 
-      v14 = messageCopy;
-      v13 = [NSArray arrayWithObjects:&v14 count:1];
-      [(VMMessageViewController *)self fetchMetadataForMessages:v13];
+      v15 = v6;
+      v14 = [NSArray arrayWithObjects:&v15 count:1];
+      [(VMMessageViewController *)self fetchMetadataForMessages:v14];
     }
 
     else
     {
       playerControlsViewController2 = [(VMMessageViewController *)self playerControlsViewController];
       [playerControlsViewController2 setURL:0];
-      v10 = 0;
+      v11 = 0;
     }
 
-    [(VMMessageViewController *)self setContact:v10];
+    [(VMMessageViewController *)self setContact:v11];
   }
 }
 
@@ -297,7 +298,7 @@
   if (metadataCache)
   {
     v6 = [TUMetadataDestinationID metadataDestinationIDsForVMVoicemails:messagesCopy];
-    v7 = PHDefaultLog();
+    v7 = PHDefaultLog(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 134218240;
@@ -413,7 +414,7 @@
 - (void)handleContactStoreDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -439,7 +440,7 @@
 - (void)handleContentSizeCategoryDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 138412290;
@@ -453,7 +454,7 @@
 - (void)handleCurrentLocaleDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v7 = 138412290;
@@ -470,7 +471,7 @@
 - (void)handleSystemTimeZoneDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v8 = 138412290;
@@ -489,7 +490,7 @@
 
 - (void)handleVoicemailManagerVoicemailsDidChange
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -521,8 +522,7 @@
   contactStore = [(VMMessageViewController *)self contactStore];
   messageView = [(VMMessageViewController *)self messageView];
   voicemailMessage = [(VMMessageViewController *)self voicemailMessage];
-  [(VMMessageViewController *)self setMarkedVoicemailAsRead:0];
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog([(VMMessageViewController *)self setMarkedVoicemailAsRead:0]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v16 = 138412546;

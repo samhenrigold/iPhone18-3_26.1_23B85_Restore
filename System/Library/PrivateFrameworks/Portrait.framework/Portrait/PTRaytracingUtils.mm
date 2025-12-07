@@ -15,9 +15,9 @@
 - (PTRaytracingUtils)initWithMetalContext:(id)context
 {
   contextCopy = context;
-  v65.receiver = self;
-  v65.super_class = PTRaytracingUtils;
-  v6 = [(PTRaytracingUtils *)&v65 init];
+  v71.receiver = self;
+  v71.super_class = PTRaytracingUtils;
+  v6 = [(PTRaytracingUtils *)&v71 init];
   v7 = v6;
   if (!v6)
   {
@@ -31,98 +31,98 @@
 
   if (!v7->_disparityApplyPostModifier)
   {
-    v21 = _PTLogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v27 = _PTLogSystem(v10);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [(PTRaytracingUtils *)v21 initWithMetalContext:v22, v23, v24, v25, v26, v27, v28];
+      [(PTRaytracingUtils *)v27 initWithMetalContext:v28, v29, v30, v31, v32, v33, v34];
     }
 
     goto LABEL_21;
   }
 
-  v10 = [contextCopy computePipelineStateFor:@"disparityPortraitPreviewDeadzone" withConstants:0];
+  v11 = [contextCopy computePipelineStateFor:@"disparityPortraitPreviewDeadzone" withConstants:0];
   disparityPortraitPreviewDeadzone = v7->_disparityPortraitPreviewDeadzone;
-  v7->_disparityPortraitPreviewDeadzone = v10;
+  v7->_disparityPortraitPreviewDeadzone = v11;
 
   if (!v7->_disparityPortraitPreviewDeadzone)
   {
-    v21 = _PTLogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v27 = _PTLogSystem(v13);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [(PTRaytracingUtils *)v21 initWithMetalContext:v29, v30, v31, v32, v33, v34, v35];
+      [(PTRaytracingUtils *)v27 initWithMetalContext:v35, v36, v37, v38, v39, v40, v41];
     }
 
     goto LABEL_21;
   }
 
-  v12 = [contextCopy computePipelineStateFor:@"disparityMinMaxApplyPostModifier" withConstants:0];
+  v14 = [contextCopy computePipelineStateFor:@"disparityMinMaxApplyPostModifier" withConstants:0];
   disparityMinMaxApplyPostModifier = v7->_disparityMinMaxApplyPostModifier;
-  v7->_disparityMinMaxApplyPostModifier = v12;
+  v7->_disparityMinMaxApplyPostModifier = v14;
 
   if (!v7->_disparityMinMaxApplyPostModifier)
   {
-    v21 = _PTLogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v27 = _PTLogSystem(v16);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [(PTRaytracingUtils *)v21 initWithMetalContext:v36, v37, v38, v39, v40, v41, v42];
+      [(PTRaytracingUtils *)v27 initWithMetalContext:v42, v43, v44, v45, v46, v47, v48];
     }
 
     goto LABEL_21;
   }
 
-  v14 = [contextCopy computePipelineStateFor:@"sobelEdgeDetector" withConstants:0];
+  v17 = [contextCopy computePipelineStateFor:@"sobelEdgeDetector" withConstants:0];
   sobelEdgeDetector = v7->_sobelEdgeDetector;
-  v7->_sobelEdgeDetector = v14;
+  v7->_sobelEdgeDetector = v17;
 
   if (!v7->_sobelEdgeDetector)
   {
-    v21 = _PTLogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v27 = _PTLogSystem(v19);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [(PTRaytracingUtils *)v21 initWithMetalContext:v43, v44, v45, v46, v47, v48, v49];
+      [(PTRaytracingUtils *)v27 initWithMetalContext:v49, v50, v51, v52, v53, v54, v55];
     }
 
     goto LABEL_21;
   }
 
-  v16 = [contextCopy computePipelineStateFor:@"edgeDilation" withConstants:0];
+  v20 = [contextCopy computePipelineStateFor:@"edgeDilation" withConstants:0];
   edgeDilation = v7->_edgeDilation;
-  v7->_edgeDilation = v16;
+  v7->_edgeDilation = v20;
 
   if (!v7->_edgeDilation)
   {
-    v21 = _PTLogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v27 = _PTLogSystem(v22);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [(PTRaytracingUtils *)v21 initWithMetalContext:v50, v51, v52, v53, v54, v55, v56];
+      [(PTRaytracingUtils *)v27 initWithMetalContext:v56, v57, v58, v59, v60, v61, v62];
     }
 
     goto LABEL_21;
   }
 
-  v18 = [contextCopy computePipelineStateFor:@"focusEdgeMask" withConstants:0];
+  v23 = [contextCopy computePipelineStateFor:@"focusEdgeMask" withConstants:0];
   focusEdgeMask = v7->_focusEdgeMask;
-  v7->_focusEdgeMask = v18;
+  v7->_focusEdgeMask = v23;
 
   if (!v7->_focusEdgeMask)
   {
-    v21 = _PTLogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v27 = _PTLogSystem(v25);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [(PTRaytracingUtils *)v21 initWithMetalContext:v57, v58, v59, v60, v61, v62, v63];
+      [(PTRaytracingUtils *)v27 initWithMetalContext:v63, v64, v65, v66, v67, v68, v69];
     }
 
 LABEL_21:
 
 LABEL_22:
-    v20 = 0;
+    v26 = 0;
     goto LABEL_23;
   }
 
-  v20 = v7;
+  v26 = v7;
 LABEL_23:
 
-  return v20;
+  return v26;
 }
 
 - (void)focusEdgeMask:(id)mask inDisparityDiff:(id)diff focusEdge:(PTFocusEdge)edge outFocusEdgeMask:(id)edgeMask
@@ -156,7 +156,7 @@ LABEL_23:
   computeCommandEncoder = [modifier computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v12 = _PTLogSystem();
+    v12 = _PTLogSystem(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v12 disparityApplyPostModifier:v13 inDisparity:v14 outDisparity:v15 postModifier:v16, v17, v18, v19];
@@ -192,7 +192,7 @@ LABEL_23:
   computeCommandEncoder = [deadzone computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v14 = _PTLogSystem();
+    v14 = _PTLogSystem(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v14 disparityApplyPostModifier:v15 inDisparity:v16 outDisparity:v17 postModifier:v18, v19, v20, v21];
@@ -225,7 +225,7 @@ LABEL_23:
   computeCommandEncoder = [modifier computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v9 = _PTLogSystem();
+    v9 = _PTLogSystem(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v9 disparityApplyPostModifier:v10 inDisparity:v11 outDisparity:v12 postModifier:v13, v14, v15, v16];
@@ -252,7 +252,7 @@ LABEL_23:
   computeCommandEncoder = [detection computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v12 = _PTLogSystem();
+    v12 = _PTLogSystem(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v12 disparityApplyPostModifier:v13 inDisparity:v14 outDisparity:v15 postModifier:v16, v17, v18, v19];
@@ -291,43 +291,43 @@ LABEL_23:
 
   if (!computeCommandEncoder)
   {
-    v23 = _PTLogSystem();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = _PTLogSystem(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [(PTRaytracingUtils *)v23 disparityApplyPostModifier:v24 inDisparity:v25 outDisparity:v26 postModifier:v27, v28, v29, v30];
+      [(PTRaytracingUtils *)v24 disparityApplyPostModifier:v25 inDisparity:v26 outDisparity:v27 postModifier:v28, v29, v30, v31];
     }
   }
 
   var3 = object->var3;
-  v41 = var3 * [disparityCopy width];
-  v40 = 1;
+  v42 = var3 * [disparityCopy width];
+  v41 = 1;
   [computeCommandEncoder setComputePipelineState:self->_edgeDilation];
   [computeCommandEncoder setTexture:outEdgesCopy atIndex:0];
   [computeCommandEncoder setTexture:tempEdgesCopy atIndex:1];
-  [computeCommandEncoder setBytes:&v40 length:1 atIndex:0];
-  [computeCommandEncoder setBytes:&v41 length:4 atIndex:1];
+  [computeCommandEncoder setBytes:&v41 length:1 atIndex:0];
+  [computeCommandEncoder setBytes:&v42 length:4 atIndex:1];
   [computeCommandEncoder setBuffer:maxCopy offset:0 atIndex:2];
 
   width = [outEdgesCopy width];
   height = [outEdgesCopy height];
-  v39 = 1;
-  v35 = xmmword_2244A5230;
-  v36 = 1;
-  [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:&v35];
-  v40 = 0;
+  v40 = 1;
+  v36 = xmmword_2244A5230;
+  v37 = 1;
+  [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:&v36];
+  v41 = 0;
   [computeCommandEncoder setTexture:tempEdgesCopy atIndex:0];
 
   [computeCommandEncoder setTexture:outEdgesCopy atIndex:1];
-  [computeCommandEncoder setBytes:&v40 length:1 atIndex:0];
+  [computeCommandEncoder setBytes:&v41 length:1 atIndex:0];
   width2 = [outEdgesCopy width];
   height2 = [outEdgesCopy height];
 
   width = width2;
   height = height2;
-  v39 = 1;
-  v35 = xmmword_2244A5230;
-  v36 = 1;
-  [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:&v35];
+  v40 = 1;
+  v36 = xmmword_2244A5230;
+  v37 = 1;
+  [computeCommandEncoder dispatchThreads:&width threadsPerThreadgroup:&v36];
   [computeCommandEncoder endEncoding];
 
   return 0;
@@ -452,6 +452,55 @@ LABEL_23:
   result.gradientThreshold = v4;
   result.width = v3;
   return result;
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_focusEdgeMask";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_edgeDilation";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_sobelEdgeDetector";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_disparityMinMaxApplyPostModifier";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_disparityPortraitPreviewDeadzone";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_disparityApplyPostModifier";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)disparityApplyPostModifier:(uint64_t)a3 inDisparity:(uint64_t)a4 outDisparity:(uint64_t)a5 postModifier:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "computeEncoder";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -106,32 +106,31 @@
 
 - (unint64_t)clientCount
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  clientsLock = self->_clientsLock;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   geo_isolate_sync();
-  v3 = v6[3];
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = v5[3];
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (void)_updateConnection
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   clientCount = [(MNNavigationServiceRemoteProxy *)self clientCount];
   connection = self->_connection;
   v5 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109632;
-    v7[1] = clientCount != 0;
-    v8 = 1024;
-    v9 = connection != 0;
-    v10 = 1024;
-    v11 = clientCount;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "Updating connection for new client list. shouldConnect: %d, isConnected: %d, clientCount: %d", v7, 0x14u);
+    v6[0] = 67109632;
+    v6[1] = clientCount != 0;
+    v7 = 1024;
+    v8 = connection != 0;
+    v9 = 1024;
+    v10 = clientCount;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "Updating connection for new client list. shouldConnect: %d, isConnected: %d, clientCount: %d", v6, 0x14u);
   }
 
   if ((clientCount != 0) != (connection != 0))
@@ -146,8 +145,6 @@
       [(MNNavigationServiceRemoteProxy *)self _closeConnection];
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __45__MNNavigationServiceRemoteProxy_clientCount__block_invoke(uint64_t a1)
@@ -168,27 +165,27 @@ void __45__MNNavigationServiceRemoteProxy_clientCount__block_invoke(uint64_t a1)
 
 - (void)_openConnection
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!self->_connection)
   {
     goto LABEL_2;
   }
 
-  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Calling _openConnection when XPC connection has already been created"];
-  v7 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Calling _openConnection when XPC connection has already been created"];
+  v6 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     *buf = 136316162;
-    v10 = "[MNNavigationServiceRemoteProxy _openConnection]";
-    v11 = 2080;
-    v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationServiceRemoteProxy.m";
-    v13 = 1024;
-    v14 = 165;
-    v15 = 2080;
-    v16 = "_connection == nil";
-    v17 = 2112;
-    v18 = v6;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
+    v9 = "[MNNavigationServiceRemoteProxy _openConnection]";
+    v10 = 2080;
+    v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationServiceRemoteProxy.m";
+    v12 = 1024;
+    v13 = 165;
+    v14 = 2080;
+    v15 = "_connection == nil";
+    v16 = 2112;
+    v17 = v5;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
   }
 
   if (!self->_connection)
@@ -209,13 +206,11 @@ LABEL_2:
     block[4] = self;
     dispatch_async(serialQueue, block);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) _hasNavigationServiceEntitlement])
   {
     v2 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.navigationService" options:0];
@@ -230,18 +225,18 @@ void __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke(uint64_t
     [*(*(a1 + 32) + 16) setExportedInterface:v5];
     [*(*(a1 + 32) + 16) setExportedObject:?];
     objc_initWeak(location, *(a1 + 32));
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke_253;
-    v20[3] = &unk_1E8430EA0;
-    objc_copyWeak(&v21, location);
-    [*(*(a1 + 32) + 16) setInterruptionHandler:v20];
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
-    v18[2] = __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke_2;
+    v18[2] = __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke_253;
     v18[3] = &unk_1E8430EA0;
     objc_copyWeak(&v19, location);
-    [*(*(a1 + 32) + 16) setInvalidationHandler:v18];
+    [*(*(a1 + 32) + 16) setInterruptionHandler:v18];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke_2;
+    v16[3] = &unk_1E8430EA0;
+    objc_copyWeak(&v17, location);
+    [*(*(a1 + 32) + 16) setInvalidationHandler:v16];
     [*(*(a1 + 32) + 16) resume];
     v7 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -251,31 +246,30 @@ void __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke(uint64_t
     }
 
     [*(a1 + 32) checkinForNavigationService:0];
-    v8 = *(*(a1 + 32) + 56);
     geo_isolate_sync();
+    objc_destroyWeak(&v17);
     objc_destroyWeak(&v19);
-    objc_destroyWeak(&v21);
     objc_destroyWeak(location);
   }
 
   else
   {
-    v9 = MEMORY[0x1E696AEC0];
-    v10 = [MEMORY[0x1E696AE30] processInfo];
-    v11 = [v10 processName];
-    v12 = [v9 stringWithFormat:@"Process '%@' is trying to use the MNNavigationService SPI without the proper entitlement.", v11];
+    v8 = MEMORY[0x1E696AEC0];
+    v9 = [MEMORY[0x1E696AE30] processInfo];
+    v10 = [v9 processName];
+    v11 = [v8 stringWithFormat:@"Process '%@' is trying to use the MNNavigationService SPI without the proper entitlement.", v10];
 
     if (([*(a1 + 32) _hasNavigationServiceEntitlement] & 1) == 0)
     {
-      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@", v12];
-      v16 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@", v11];
+      v14 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *location = 136315394;
         *&location[4] = "[self _hasNavigationServiceEntitlement]";
-        v25 = 2112;
-        v26 = v15;
-        _os_log_impl(&dword_1D311E000, v16, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", location, 0x16u);
+        v23 = 2112;
+        v24 = v13;
+        _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_ERROR, "Assertion failed: (%s) '%@'", location, 0x16u);
       }
     }
 
@@ -283,18 +277,16 @@ void __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke(uint64_t
     block[1] = 3221225472;
     block[2] = __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke_31;
     block[3] = &unk_1E8430ED8;
-    v23 = v12;
-    v13 = MNNavigationServiceXPCMachPort_block_invoke_onceToken;
-    v5 = v12;
-    if (v13 != -1)
+    v21 = v11;
+    v12 = MNNavigationServiceXPCMachPort_block_invoke_onceToken;
+    v5 = v11;
+    if (v12 != -1)
     {
       dispatch_once(&MNNavigationServiceXPCMachPort_block_invoke_onceToken, block);
     }
 
-    v6 = v23;
+    v6 = v21;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke_254(uint64_t a1)
@@ -307,7 +299,7 @@ void __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke_254(uint
 
 - (id)_remoteObjectProxy
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   connection = self->_connection;
   if (!connection)
   {
@@ -315,38 +307,38 @@ void __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke_254(uint
     v5 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136316162;
-      v12 = "[MNNavigationServiceRemoteProxy _remoteObjectProxy]";
-      v13 = 2080;
-      v14 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationServiceRemoteProxy.m";
-      v15 = 1024;
-      v16 = 456;
-      v17 = 2080;
-      v18 = "NO";
-      v19 = 2112;
-      v20 = v4;
-      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v11, 0x30u);
+      v10 = 136316162;
+      v11 = "[MNNavigationServiceRemoteProxy _remoteObjectProxy]";
+      v12 = 2080;
+      v13 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationServiceRemoteProxy.m";
+      v14 = 1024;
+      v15 = 456;
+      v16 = 2080;
+      v17 = "NO";
+      v18 = 2112;
+      v19 = v4;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v10, 0x30u);
     }
 
     [(MNNavigationServiceRemoteProxy *)self _openConnection];
     connection = self->_connection;
     if (!connection)
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"XPC connection must be created before calling remoteObjectProxy"];
-      v10 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"XPC connection must be created before calling remoteObjectProxy"];
+      v9 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v11 = 136316162;
-        v12 = "[MNNavigationServiceRemoteProxy _remoteObjectProxy]";
-        v13 = 2080;
-        v14 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationServiceRemoteProxy.m";
-        v15 = 1024;
-        v16 = 460;
-        v17 = 2080;
-        v18 = "_connection != nil";
-        v19 = 2112;
-        v20 = v9;
-        _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v11, 0x30u);
+        v10 = 136316162;
+        v11 = "[MNNavigationServiceRemoteProxy _remoteObjectProxy]";
+        v12 = 2080;
+        v13 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationServiceRemoteProxy.m";
+        v14 = 1024;
+        v15 = 460;
+        v16 = 2080;
+        v17 = "_connection != nil";
+        v18 = 2112;
+        v19 = v8;
+        _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v10, 0x30u);
       }
 
       connection = self->_connection;
@@ -354,14 +346,13 @@ void __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke_254(uint
   }
 
   remoteObjectProxy = [(NSXPCConnection *)connection remoteObjectProxy];
-  v7 = *MEMORY[0x1E69E9840];
 
   return remoteObjectProxy;
 }
 
 void __66__MNNavigationServiceRemoteProxy__hasNavigationServiceEntitlement__block_invoke()
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v0 = SecTaskCreateFromSelf(0);
   if (v0)
   {
@@ -393,7 +384,7 @@ void __66__MNNavigationServiceRemoteProxy__hasNavigationServiceEntitlement__bloc
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v12 = error;
+        v11 = error;
         _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "Error getting entitlement value from security task: %@", buf, 0xCu);
       }
 
@@ -412,8 +403,6 @@ void __66__MNNavigationServiceRemoteProxy__hasNavigationServiceEntitlement__bloc
       _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Error creating security task", buf, 2u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_closeConnection
@@ -484,7 +473,7 @@ void __84__MNNavigationServiceRemoteProxy_navigationServiceProxy_didUpdateNaviga
 
 - (void)navigationServiceProxy:(id)proxy didChangeFromState:(unint64_t)state toState:(unint64_t)toState
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v8 = MNGetMNNavigationXPCLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -513,11 +502,11 @@ void __84__MNNavigationServiceRemoteProxy_navigationServiceProxy_didUpdateNaviga
 
     v14 = v13;
     *buf = 138412802;
-    v18 = processName;
-    v19 = 2112;
-    v20 = v12;
-    v21 = 2112;
-    v22 = v14;
+    v17 = processName;
+    v18 = 2112;
+    v19 = v12;
+    v20 = 2112;
+    v21 = v14;
     _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "navd => %@ didChangeFromState: '%@' toState: '%@'", buf, 0x20u);
   }
 
@@ -529,7 +518,6 @@ void __84__MNNavigationServiceRemoteProxy_navigationServiceProxy_didUpdateNaviga
   block[5] = state;
   block[6] = toState;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __84__MNNavigationServiceRemoteProxy_navigationServiceProxy_didChangeFromState_toState___block_invoke(uint64_t a1)
@@ -560,7 +548,6 @@ void __84__MNNavigationServiceRemoteProxy_navigationServiceProxy_didChangeFromSt
 
     if (!*(a1 + 48))
     {
-      v9 = *(*(a1 + 32) + 56);
       geo_isolate_sync();
     }
 
@@ -570,33 +557,33 @@ void __84__MNNavigationServiceRemoteProxy_navigationServiceProxy_didChangeFromSt
 
 void __84__MNNavigationServiceRemoteProxy_navigationServiceProxy_didChangeFromState_toState___block_invoke_300(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 64) count])
   {
     v2 = objc_alloc_init(MEMORY[0x1E696AB78]);
     [v2 setDateFormat:@"yyyy-MM-dd HH:mm:ssZ"];
     v3 = [MEMORY[0x1E696AD60] string];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v4 = *(*(a1 + 32) + 64);
-    v5 = [v4 countByEnumeratingWithState:&v15 objects:v23 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v14 objects:v22 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v16;
+      v7 = *v15;
       do
       {
         v8 = 0;
         do
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * v8);
+          v9 = *(*(&v14 + 1) + 8 * v8);
           v10 = [*(*(a1 + 32) + 64) firstObject];
 
           if (v9 != v10)
@@ -611,7 +598,7 @@ void __84__MNNavigationServiceRemoteProxy_navigationServiceProxy_didChangeFromSt
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v15 objects:v23 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v14 objects:v22 count:16];
       }
 
       while (v6);
@@ -622,21 +609,19 @@ void __84__MNNavigationServiceRemoteProxy_navigationServiceProxy_didChangeFromSt
     {
       v13 = [*(*(a1 + 32) + 64) count];
       *buf = 67109378;
-      v20 = v13;
-      v21 = 2112;
-      v22 = v3;
+      v19 = v13;
+      v20 = 2112;
+      v21 = v3;
       _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_ERROR, "navd state changed to stopped and %d interruptions were detected at: %@", buf, 0x12u);
     }
 
     [*(*(a1 + 32) + 64) removeAllObjects];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationServiceProxy:(id)proxy willChangeFromState:(unint64_t)state toState:(unint64_t)toState
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v8 = MNGetMNNavigationXPCLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -665,11 +650,11 @@ void __84__MNNavigationServiceRemoteProxy_navigationServiceProxy_didChangeFromSt
 
     v14 = v13;
     *buf = 138412802;
-    v18 = processName;
-    v19 = 2112;
-    v20 = v12;
-    v21 = 2112;
-    v22 = v14;
+    v17 = processName;
+    v18 = 2112;
+    v19 = v12;
+    v20 = 2112;
+    v21 = v14;
     _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "navd => %@ willChangeFromState: '%@' toState: '%@'", buf, 0x20u);
   }
 
@@ -681,7 +666,6 @@ void __84__MNNavigationServiceRemoteProxy_navigationServiceProxy_didChangeFromSt
   block[5] = state;
   block[6] = toState;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __85__MNNavigationServiceRemoteProxy_navigationServiceProxy_willChangeFromState_toState___block_invoke(void *a1)
@@ -1536,7 +1520,7 @@ void __55__MNNavigationServiceRemoteProxy_rerouteWithWaypoints___block_invoke(ui
 
 - (void)stopNavigationWithReason:(unint64_t)reason
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -1554,9 +1538,9 @@ void __55__MNNavigationServiceRemoteProxy_rerouteWithWaypoints___block_invoke(ui
     }
 
     *buf = 138412546;
-    v16 = processName;
-    v17 = 2112;
-    v18 = v9;
+    v15 = processName;
+    v16 = 2112;
+    v17 = v9;
     _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "%@ => navd stopNavigationWithReason: %@", buf, 0x16u);
   }
 
@@ -1567,14 +1551,13 @@ void __55__MNNavigationServiceRemoteProxy_rerouteWithWaypoints___block_invoke(ui
   self->_startNavigationDetails = 0;
 
   serialQueue = self->_serialQueue;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __59__MNNavigationServiceRemoteProxy_stopNavigationWithReason___block_invoke;
-  v14[3] = &unk_1E8430A10;
-  v14[4] = self;
-  v14[5] = reason;
-  dispatch_async(serialQueue, v14);
-  v13 = *MEMORY[0x1E69E9840];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __59__MNNavigationServiceRemoteProxy_stopNavigationWithReason___block_invoke;
+  v13[3] = &unk_1E8430A10;
+  v13[4] = self;
+  v13[5] = reason;
+  dispatch_async(serialQueue, v13);
 }
 
 void __59__MNNavigationServiceRemoteProxy_stopNavigationWithReason___block_invoke(uint64_t a1)
@@ -1586,16 +1569,15 @@ void __59__MNNavigationServiceRemoteProxy_stopNavigationWithReason___block_invok
 - (void)startNavigationWithDetails:(id)details activeBlock:(id)block
 {
   detailsCopy = details;
-  interruptionDatesLock = self->_interruptionDatesLock;
   geo_isolate_sync();
   reconnectionDetails = self->_reconnectionDetails;
   self->_reconnectionDetails = 0;
 
   startNavigationDetails = self->_startNavigationDetails;
   self->_startNavigationDetails = detailsCopy;
-  v9 = detailsCopy;
+  v8 = detailsCopy;
 
-  [(MNNavigationServiceRemoteProxy *)self _startNavigationWithDetails:v9];
+  [(MNNavigationServiceRemoteProxy *)self _startNavigationWithDetails:v8];
 }
 
 - (void)setRoutesForPreview:(id)preview selectedRouteIndex:(unint64_t)index
@@ -1706,7 +1688,7 @@ void __52__MNNavigationServiceRemoteProxy_forwardInvocation___block_invoke(uint6
 
 - (void)_releaseSandboxExtension
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (self->_sandboxHandle)
   {
     v3 = sandbox_extension_release();
@@ -1717,8 +1699,8 @@ void __52__MNNavigationServiceRemoteProxy_forwardInvocation___block_invoke(uint6
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         v10 = *__error();
-        v12[0] = 67109120;
-        v12[1] = v10;
+        v11[0] = 67109120;
+        v11[1] = v10;
         v6 = "Error releasing sandbox extension: %d";
         v7 = v5;
         v8 = OS_LOG_TYPE_ERROR;
@@ -1729,24 +1711,22 @@ void __52__MNNavigationServiceRemoteProxy_forwardInvocation___block_invoke(uint6
 
     else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12[0]) = 0;
+      LOWORD(v11[0]) = 0;
       v6 = "Sandbox extension released.";
       v7 = v5;
       v8 = OS_LOG_TYPE_DEFAULT;
       v9 = 2;
 LABEL_7:
-      _os_log_impl(&dword_1D311E000, v7, v8, v6, v12, v9);
+      _os_log_impl(&dword_1D311E000, v7, v8, v6, v11, v9);
     }
 
     self->_sandboxHandle = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_consumeSandboxExtension:(char *)extension
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (extension && *extension)
   {
     v5 = sandbox_extension_consume();
@@ -1756,10 +1736,10 @@ LABEL_7:
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         v11 = *__error();
-        v13 = 136380931;
+        v12 = 136380931;
         extensionCopy2 = extension;
-        v15 = 1024;
-        v16 = v11;
+        v14 = 1024;
+        v15 = v11;
         v7 = "Error consuming (%{private}s) sandbox extension: %d";
         v8 = v6;
         v9 = OS_LOG_TYPE_ERROR;
@@ -1774,24 +1754,22 @@ LABEL_7:
       v6 = MNGetMNNavigationServiceLog();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 136380675;
+        v12 = 136380675;
         extensionCopy2 = extension;
         v7 = "Sandbox extension (%{private}s) consumed.";
         v8 = v6;
         v9 = OS_LOG_TYPE_DEFAULT;
         v10 = 12;
 LABEL_8:
-        _os_log_impl(&dword_1D311E000, v8, v9, v7, &v13, v10);
+        _os_log_impl(&dword_1D311E000, v8, v9, v7, &v12, v10);
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startNavigationWithDetails:(id)details
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   detailsCopy = details;
   v5 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1799,21 +1777,19 @@ LABEL_8:
     processInfo = [MEMORY[0x1E696AE30] processInfo];
     processName = [processInfo processName];
     *buf = 138412290;
-    v14 = processName;
+    v13 = processName;
     _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "%@ => navd _startNavigationWithDetails", buf, 0xCu);
   }
 
   serialQueue = self->_serialQueue;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __62__MNNavigationServiceRemoteProxy__startNavigationWithDetails___block_invoke;
-  v11[3] = &unk_1E8430D50;
-  v11[4] = self;
-  v12 = detailsCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __62__MNNavigationServiceRemoteProxy__startNavigationWithDetails___block_invoke;
+  v10[3] = &unk_1E8430D50;
+  v10[4] = self;
+  v11 = detailsCopy;
   v9 = detailsCopy;
-  dispatch_async(serialQueue, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  dispatch_async(serialQueue, v10);
 }
 
 void __62__MNNavigationServiceRemoteProxy__startNavigationWithDetails___block_invoke(uint64_t a1)
@@ -1824,19 +1800,18 @@ void __62__MNNavigationServiceRemoteProxy__startNavigationWithDetails___block_in
 
 void __50__MNNavigationServiceRemoteProxy__closeConnection__block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 56);
   geo_isolate_sync();
   [*(*(a1 + 32) + 16) setInvalidationHandler:0];
   [*(*(a1 + 32) + 16) setInterruptionHandler:0];
   [*(*(a1 + 32) + 16) invalidate];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  *(v3 + 16) = 0;
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 16);
+  *(v2 + 16) = 0;
 
   [*(a1 + 32) _releaseSandboxExtension];
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 72);
-  *(v5 + 72) = 0;
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 72);
+  *(v4 + 72) = 0;
 }
 
 void __50__MNNavigationServiceRemoteProxy__closeConnection__block_invoke_2(uint64_t a1)
@@ -1852,27 +1827,26 @@ void __50__MNNavigationServiceRemoteProxy__closeConnection__block_invoke_2(uint6
   UInteger = GEOConfigGetUInteger();
   if ([(MNNavigationServiceRemoteProxy *)self interruptionCount]<= UInteger)
   {
-    v10 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x3032000000;
-    v15 = __Block_byref_object_copy__12729;
-    v16 = __Block_byref_object_dispose__12730;
-    v17 = 0;
-    interruptionDatesLock = self->_interruptionDatesLock;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x3032000000;
+    v14 = __Block_byref_object_copy__12729;
+    v15 = __Block_byref_object_dispose__12730;
+    v16 = 0;
     geo_isolate_sync();
     GEOConfigGetDouble();
-    v8 = v7;
-    [dateCopy timeIntervalSinceDate:v13[5]];
-    v10 = v9 >= v8;
-    _Block_object_dispose(&v12, 8);
+    v7 = v6;
+    [dateCopy timeIntervalSinceDate:v12[5]];
+    v9 = v8 >= v7;
+    _Block_object_dispose(&v11, 8);
   }
 
-  return v10;
+  return v9;
 }
 
 void __73__MNNavigationServiceRemoteProxy__shouldReconnectWithInterruptionOnDate___block_invoke(void *a1)
@@ -1885,7 +1859,7 @@ void __73__MNNavigationServiceRemoteProxy__shouldReconnectWithInterruptionOnDate
 
 - (void)_restoreIdleConnection
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -1895,21 +1869,19 @@ void __73__MNNavigationServiceRemoteProxy__shouldReconnectWithInterruptionOnDate
   }
 
   [(MNNavigationServiceRemoteProxy *)self _releaseSandboxExtension];
-  interruptionDatesLock = self->_interruptionDatesLock;
   geo_isolate_sync();
   [(MNNavigationServiceRemoteProxy *)self checkinForNavigationService:0];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_restoreNavigationSession
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v27[0] = 67109120;
-    v27[1] = [(MNNavigationServiceRemoteProxy *)self interruptionCount];
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_INFO, "Attempting to restart navigation after interruption (%d interruptions overall)", v27, 8u);
+    v26[0] = 67109120;
+    v26[1] = [(MNNavigationServiceRemoteProxy *)self interruptionCount];
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_INFO, "Attempting to restart navigation after interruption (%d interruptions overall)", v26, 8u);
   }
 
   v4 = +[MNNavigationService sharedService];
@@ -1973,20 +1945,18 @@ void __73__MNNavigationServiceRemoteProxy__shouldReconnectWithInterruptionOnDate
     v25 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v27[0]) = 0;
-      _os_log_impl(&dword_1D311E000, v25, OS_LOG_TYPE_ERROR, "Restoring navigation session failed because no active route was found.", v27, 2u);
+      LOWORD(v26[0]) = 0;
+      _os_log_impl(&dword_1D311E000, v25, OS_LOG_TYPE_ERROR, "Restoring navigation session failed because no active route was found.", v26, 2u);
     }
 
     v9 = self->_reconnectionDetails;
     self->_reconnectionDetails = 0;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleDisconnect
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if ([(MNStartNavigationReconnectionDetails *)self->_reconnectionDetails isReconnecting])
   {
     v3 = GEOFindOrCreateLog();
@@ -1999,15 +1969,14 @@ void __73__MNNavigationServiceRemoteProxy__shouldReconnectWithInterruptionOnDate
 
   date = [MEMORY[0x1E695DF00] date];
   v5 = [(MNNavigationServiceRemoteProxy *)self _shouldReconnectWithInterruptionOnDate:date];
-  interruptionDatesLock = self->_interruptionDatesLock;
-  v24 = MEMORY[0x1E69E9820];
-  v7 = date;
-  v25 = v7;
+  v22 = MEMORY[0x1E69E9820];
+  v6 = date;
+  v23 = v6;
   geo_isolate_sync();
   if (v5)
   {
-    v8 = +[MNNavigationService sharedService];
-    if ([v8 state] >= 3 && (objc_msgSend(v8, "route"), (v9 = objc_claimAutoreleasedReturnValue()) != 0) && (startNavigationDetails = self->_startNavigationDetails, v9, startNavigationDetails))
+    v7 = +[MNNavigationService sharedService];
+    if ([v7 state] >= 3 && (objc_msgSend(v7, "route"), (v8 = objc_claimAutoreleasedReturnValue()) != 0) && (startNavigationDetails = self->_startNavigationDetails, v8, startNavigationDetails))
     {
       [(MNNavigationServiceRemoteProxy *)self _restoreNavigationSession];
     }
@@ -2025,43 +1994,41 @@ void __73__MNNavigationServiceRemoteProxy__shouldReconnectWithInterruptionOnDate
 
     UInteger = GEOConfigGetUInteger();
     GEOConfigGetDouble();
-    v14 = v13;
-    v15 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v13 = v12;
+    v14 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       interruptionCount = [(MNNavigationServiceRemoteProxy *)self interruptionCount];
       *buf = 67109632;
-      v29 = UInteger;
-      v30 = 1024;
-      v31 = interruptionCount;
-      v32 = 2048;
-      v33 = v14;
-      _os_log_impl(&dword_1D311E000, v15, OS_LOG_TYPE_ERROR, "navd connection interrupted over %d times (%d overall) in %g seconds. No longer attempting to reconnect.", buf, 0x18u);
+      v27 = UInteger;
+      v28 = 1024;
+      v29 = interruptionCount;
+      v30 = 2048;
+      v31 = v13;
+      _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_ERROR, "navd connection interrupted over %d times (%d overall) in %g seconds. No longer attempting to reconnect.", buf, 0x18u);
     }
 
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Connection to the navigation service was interrupted over %d times in %g seconds. Please file a Radar with a sysdiagnose.", UInteger, v14, v24, 3221225472, __51__MNNavigationServiceRemoteProxy__handleDisconnect__block_invoke, &unk_1E8430D50, self, v7];
-    v26[0] = @"MNErrorInternalDescriptionKey";
-    v26[1] = @"MNErrorInterruptionDatesKey";
-    v27[0] = v8;
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Connection to the navigation service was interrupted over %d times in %g seconds. Please file a Radar with a sysdiagnose.", UInteger, v13, v22, 3221225472, __51__MNNavigationServiceRemoteProxy__handleDisconnect__block_invoke, &unk_1E8430D50, self, v6];
+    v24[0] = @"MNErrorInternalDescriptionKey";
+    v24[1] = @"MNErrorInterruptionDatesKey";
+    v25[0] = v7;
     interruptionDates = [(MNNavigationServiceRemoteProxy *)self interruptionDates];
-    v27[1] = interruptionDates;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v25[1] = interruptionDates;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
 
-    v19 = [MEMORY[0x1E696ABC0] _navigation_errorWithCode:10 userInfo:v18];
+    v18 = [MEMORY[0x1E696ABC0] _navigation_errorWithCode:10 userInfo:v17];
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    [WeakRetained navigationServiceProxy:self didFailWithError:v19];
+    [WeakRetained navigationServiceProxy:self didFailWithError:v18];
 
-    v21 = +[MNNavigationService sharedService];
-    v22 = objc_loadWeakRetained(&self->_delegate);
-    [v22 navigationServiceProxy:self didChangeFromState:objc_msgSend(v21 toState:{"state"), 0}];
+    v20 = +[MNNavigationService sharedService];
+    v21 = objc_loadWeakRetained(&self->_delegate);
+    [v21 navigationServiceProxy:self didChangeFromState:objc_msgSend(v20 toState:{"state"), 0}];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleInvalidation
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
@@ -2079,7 +2046,7 @@ void __73__MNNavigationServiceRemoteProxy__shouldReconnectWithInterruptionOnDate
 
     v7 = v6;
     *buf = 138412290;
-    v12 = v7;
+    v11 = v7;
     _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, "navd connection invalidated while in state '%@'. See logs with 'category=xpc.exceptions' for more information on the invalidation.", buf, 0xCu);
   }
 
@@ -2091,7 +2058,6 @@ void __73__MNNavigationServiceRemoteProxy__shouldReconnectWithInterruptionOnDate
   block[3] = &unk_1E8430ED8;
   block[4] = self;
   dispatch_async(serialQueue, block);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __53__MNNavigationServiceRemoteProxy__handleInvalidation__block_invoke(uint64_t a1)
@@ -2104,7 +2070,7 @@ uint64_t __53__MNNavigationServiceRemoteProxy__handleInvalidation__block_invoke(
 
 - (void)_handleInterruption
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
@@ -2122,7 +2088,7 @@ uint64_t __53__MNNavigationServiceRemoteProxy__handleInvalidation__block_invoke(
 
     v7 = v6;
     *buf = 138412290;
-    v12 = v7;
+    v11 = v7;
     _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, "navd connection interrupted while in state '%@'.", buf, 0xCu);
   }
 
@@ -2133,7 +2099,6 @@ uint64_t __53__MNNavigationServiceRemoteProxy__handleInvalidation__block_invoke(
   block[3] = &unk_1E8430ED8;
   block[4] = self;
   dispatch_async(serialQueue, block);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setExpectedClassesForClientInterface:(id)interface
@@ -2191,17 +2156,15 @@ uint64_t __53__MNNavigationServiceRemoteProxy__handleInvalidation__block_invoke(
 
 void __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke_31(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_FAULT, "%@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_FAULT, "%@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke_253(uint64_t a1)
@@ -2218,18 +2181,17 @@ void __49__MNNavigationServiceRemoteProxy__openConnection__block_invoke_2(uint64
 
 - (unint64_t)interruptionCount
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  interruptionDatesLock = self->_interruptionDatesLock;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   geo_isolate_sync();
-  v3 = v6[3];
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = v5[3];
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
-uint64_t __51__MNNavigationServiceRemoteProxy_interruptionCount__block_invoke(uint64_t a1)
+void *__51__MNNavigationServiceRemoteProxy_interruptionCount__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 64) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2238,18 +2200,17 @@ uint64_t __51__MNNavigationServiceRemoteProxy_interruptionCount__block_invoke(ui
 
 - (NSArray)interruptionDates
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__12729;
-  v9 = __Block_byref_object_dispose__12730;
-  v10 = 0;
-  interruptionDatesLock = self->_interruptionDatesLock;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__12729;
+  v8 = __Block_byref_object_dispose__12730;
+  v9 = 0;
   geo_isolate_sync();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __51__MNNavigationServiceRemoteProxy_interruptionDates__block_invoke(uint64_t a1)
@@ -2262,21 +2223,19 @@ void __51__MNNavigationServiceRemoteProxy_interruptionDates__block_invoke(uint64
 
 - (BOOL)isOpenForClient:(id)client
 {
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v9 = 0;
   clientCopy = client;
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = 0;
-  clientsLock = self->_clientsLock;
-  v7 = clientCopy;
   geo_isolate_sync();
-  LOBYTE(clientsLock) = *(v9 + 24);
+  v3 = *(v7 + 24);
 
-  _Block_object_dispose(&v8, 8);
-  return clientsLock;
+  _Block_object_dispose(&v6, 8);
+  return v3;
 }
 
-uint64_t __50__MNNavigationServiceRemoteProxy_isOpenForClient___block_invoke(void *a1)
+void *__50__MNNavigationServiceRemoteProxy_isOpenForClient___block_invoke(void *a1)
 {
   result = [*(a1[4] + 40) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -2286,17 +2245,16 @@ uint64_t __50__MNNavigationServiceRemoteProxy_isOpenForClient___block_invoke(voi
 - (void)closeForClient:(id)client
 {
   clientCopy = client;
-  clientsLock = self->_clientsLock;
-  v7 = MEMORY[0x1E69E9820];
-  v8 = clientCopy;
-  v6 = clientCopy;
+  v6 = MEMORY[0x1E69E9820];
+  v7 = clientCopy;
+  v5 = clientCopy;
   geo_isolate_sync();
-  [(MNNavigationServiceRemoteProxy *)self _updateConnection:v7];
+  [(MNNavigationServiceRemoteProxy *)self _updateConnection:v6];
 }
 
 - (void)openForClient:(id)client
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   if ([(MNNavigationServiceRemoteProxy *)self isOpenForClient:clientCopy])
   {
@@ -2305,29 +2263,26 @@ uint64_t __50__MNNavigationServiceRemoteProxy_isOpenForClient___block_invoke(voi
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v12 = "[MNNavigationServiceRemoteProxy openForClient:]";
-      v13 = 2080;
-      v14 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationServiceRemoteProxy.m";
-      v15 = 1024;
-      v16 = 90;
-      v17 = 2080;
-      v18 = "NO";
-      v19 = 2112;
-      v20 = v5;
+      v10 = "[MNNavigationServiceRemoteProxy openForClient:]";
+      v11 = 2080;
+      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationServiceRemoteProxy.m";
+      v13 = 1024;
+      v14 = 90;
+      v15 = 2080;
+      v16 = "NO";
+      v17 = 2112;
+      v18 = v5;
       _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
     }
   }
 
   else
   {
-    clientsLock = self->_clientsLock;
-    v9 = MEMORY[0x1E69E9820];
-    v10 = clientCopy;
+    v7 = MEMORY[0x1E69E9820];
+    v8 = clientCopy;
     geo_isolate_sync();
-    [(MNNavigationServiceRemoteProxy *)self _updateConnection:v9];
+    [(MNNavigationServiceRemoteProxy *)self _updateConnection:v7];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

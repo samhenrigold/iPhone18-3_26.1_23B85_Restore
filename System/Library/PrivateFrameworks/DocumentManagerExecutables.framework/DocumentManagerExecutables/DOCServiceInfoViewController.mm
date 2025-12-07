@@ -16,7 +16,7 @@
 
 - (_TtC26DocumentManagerExecutables28DOCServiceInfoViewController)initWithConfiguration:(id)configuration actionReporting:(id)reporting nodes:(id)nodes showTagsOnly:(BOOL)only
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
   v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   configurationCopy = configuration;
   swift_unknownObjectRetain();

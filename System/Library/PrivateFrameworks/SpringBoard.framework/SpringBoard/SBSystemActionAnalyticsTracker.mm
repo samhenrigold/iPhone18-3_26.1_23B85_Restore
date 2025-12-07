@@ -2,12 +2,12 @@
 + (id)sharedTracker;
 - (SBSystemActionAnalyticsTracker)init;
 - (id)_openCameraActionIdentifier;
-- (uint64_t)trackPressDownForLatencyMeasurement:(uint64_t)result;
 - (void)_logSignificantTimeChanged;
 - (void)_sendEventToPowerLog:(id)log payload:(id)payload;
 - (void)trackInteractionWithType:(void *)type forAction:(void *)action suppressionStatus:;
 - (void)trackPerformedAction:(double)action executionTime:;
 - (void)trackPocketStateQueryWithExecutionTime:(double)time error:;
+- (void)trackPressDownForLatencyMeasurement:(double)measurement;
 - (void)trackPressUpForLatencyMeasurement:(int)measurement cancelled:(int)cancelled longPressTriggered:(void *)triggered selectedActionIdentifier:;
 - (void)trackSelectedActionChanged:(void *)changed;
 - (void)trackSuppressionStatusUpdate:(uint64_t)update;
@@ -17,20 +17,20 @@
 
 + (id)sharedTracker
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __47__SBSystemActionAnalyticsTracker_sharedTracker__block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v0;
+  block[4] = v1;
   if (sharedTracker_onceToken != -1)
   {
     dispatch_once(&sharedTracker_onceToken, block);
   }
 
-  v1 = sharedTracker_tracker;
+  v2 = sharedTracker_tracker;
 
-  return v1;
+  return v2;
 }
 
 void __47__SBSystemActionAnalyticsTracker_sharedTracker__block_invoke(uint64_t a1)
@@ -73,7 +73,7 @@ void __38__SBSystemActionAnalyticsTracker_init__block_invoke()
   {
     if (!typeCopy)
     {
-      [SBSystemActionAnalyticsTracker trackInteractionWithType:? forAction:? suppressionStatus:?];
+      [SBSystemActionAnalyticsTracker trackInteractionWithType:self forAction:? suppressionStatus:?];
     }
 
     analyticsData = [typeCopy analyticsData];
@@ -169,7 +169,7 @@ void __38__SBSystemActionAnalyticsTracker_init__block_invoke()
   {
     if (!v3)
     {
-      [SBSystemActionAnalyticsTracker trackSuppressionStatusUpdate:?];
+      [(SBSystemActionAnalyticsTracker *)sel_trackSuppressionStatusUpdate_ trackSuppressionStatusUpdate:update];
     }
 
     v5 = v3;
@@ -298,7 +298,7 @@ id __122__SBSystemActionAnalyticsTracker_trackPressUpForLatencyMeasurement_cance
   dispatch_async(powerLogSendQueue, v11);
 }
 
-uint64_t __63__SBSystemActionAnalyticsTracker__sendEventToPowerLog_payload___block_invoke()
+uint64_t __63__SBSystemActionAnalyticsTracker__sendEventToPowerLog_payload___block_invoke(uint64_t a1)
 {
   result = PLShouldLogRegisteredEvent();
   if (result)
@@ -352,17 +352,14 @@ void __61__SBSystemActionAnalyticsTracker__openCameraActionIdentifier__block_inv
   }
 }
 
-- (uint64_t)trackPressDownForLatencyMeasurement:(uint64_t)result
+- (void)trackPressDownForLatencyMeasurement:(double)measurement
 {
-  if (result)
+  if (self)
   {
-    v2 = result;
-    *(result + 40) = a2;
-    result = BSAbsoluteMachTimeNow();
-    *(v2 + 48) = v3;
+    *(self + 40) = measurement;
+    BSAbsoluteMachTimeNow();
+    *(self + 48) = v4;
   }
-
-  return result;
 }
 
 - (void)trackPressUpForLatencyMeasurement:(int)measurement cancelled:(int)cancelled longPressTriggered:(void *)triggered selectedActionIdentifier:
@@ -404,53 +401,53 @@ void __61__SBSystemActionAnalyticsTracker__openCameraActionIdentifier__block_inv
       }
     }
 
-    *v14 = 0;
-    v14[1] = 0;
+    *v14 = 0.0;
+    v14[1] = 0.0;
   }
 }
 
-- (void)trackInteractionWithType:(const char *)a1 forAction:suppressionStatus:.cold.1(const char *a1)
+- (void)trackInteractionWithType:(const char *)a1 forAction:(uint64_t)a2 suppressionStatus:.cold.1(const char *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"action != ((void *)0)"];
+  v15 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"action != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v9 = @"SBSystemActionAnalyticsTracker.m";
-    v10 = 1024;
-    v11 = 80;
-    v12 = v6;
-    v13 = v2;
+    v10 = @"SBSystemActionAnalyticsTracker.m";
+    v11 = 1024;
+    v12 = 80;
+    v13 = v7;
+    v14 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  v7 = v2;
-  [v2 UTF8String];
+  v8 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)trackSuppressionStatusUpdate:(const char *)a1 .cold.1(const char *a1)
+- (void)trackSuppressionStatusUpdate:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"status != ((void *)0)"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"status != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"SBSystemActionAnalyticsTracker.m";
-    v9 = 1024;
-    v10 = 113;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBSystemActionAnalyticsTracker.m";
+    v10 = 1024;
+    v11 = 113;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

@@ -131,7 +131,7 @@
 
 - (id)setupObjectDescriptorForClass:(Class)class expectedObjectDescriptor:(id)descriptor error:(id *)error
 {
-  v52[1] = *MEMORY[0x1E69E9840];
+  v51[1] = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   v9 = self->_classToObjectMap;
   objc_sync_enter(v9);
@@ -167,21 +167,21 @@ LABEL_13:
             if (v18)
             {
               v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PRAGMA table_info('%@')", tableName];
-              v37 = 0;
-              v38 = &v37;
-              v39 = 0x2020000000;
-              v40 = 0;
-              v33[0] = MEMORY[0x1E69E9820];
-              v33[1] = 3221225472;
-              v33[2] = __100___PFSQLiteArchiveReadonlyTransaction_setupObjectDescriptorForClass_expectedObjectDescriptor_error___block_invoke;
-              v33[3] = &unk_1E8189360;
+              v36 = 0;
+              v37 = &v36;
+              v38 = 0x2020000000;
+              v39 = 0;
+              v32[0] = MEMORY[0x1E69E9820];
+              v32[1] = 3221225472;
+              v32[2] = __100___PFSQLiteArchiveReadonlyTransaction_setupObjectDescriptorForClass_expectedObjectDescriptor_error___block_invoke;
+              v32[3] = &unk_1E8189360;
               pf_sqliteCodingDescriptor = pf_sqliteCodingDescriptor;
-              v34 = pf_sqliteCodingDescriptor;
+              v33 = pf_sqliteCodingDescriptor;
               v14 = v19;
-              v35 = v14;
-              v36 = &v37;
-              [(_PFSQLiteArchiveReadonlyTransaction *)self _accessDatabase:v33 error:error];
-              if (*(v38 + 24) == 1)
+              v34 = v14;
+              v35 = &v36;
+              [(_PFSQLiteArchiveReadonlyTransaction *)self _accessDatabase:v32 error:error];
+              if (*(v37 + 24) == 1)
               {
                 [(NSMapTable *)self->_classToObjectMap setObject:pf_sqliteCodingDescriptor forKey:class];
                 v16 = pf_sqliteCodingDescriptor;
@@ -192,16 +192,16 @@ LABEL_13:
                 v16 = 0;
               }
 
-              _Block_object_dispose(&v37, 8);
+              _Block_object_dispose(&v36, 8);
               goto LABEL_7;
             }
 
             if (error)
             {
               v27 = MEMORY[0x1E696ABC0];
-              v41 = *MEMORY[0x1E696A588];
-              v42 = @"Configuration does not specify any columns";
-              v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+              v40 = *MEMORY[0x1E696A588];
+              v41 = @"Configuration does not specify any columns";
+              v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
               v15 = [v27 errorWithDomain:@"PFSQLiteArchiver" code:-2 userInfo:v14];
               goto LABEL_6;
             }
@@ -210,9 +210,9 @@ LABEL_13:
           else if (error)
           {
             v23 = MEMORY[0x1E696ABC0];
-            v43 = *MEMORY[0x1E696A588];
-            v44 = @"Table name is not valid for configuration";
-            v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+            v42 = *MEMORY[0x1E696A588];
+            v43 = @"Table name is not valid for configuration";
+            v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
             v15 = [v23 errorWithDomain:@"PFSQLiteArchiver" code:-2 userInfo:v14];
             goto LABEL_6;
           }
@@ -224,12 +224,12 @@ LABEL_13:
         if (error)
         {
           v20 = MEMORY[0x1E696ABC0];
-          v45 = *MEMORY[0x1E696A588];
+          v44 = *MEMORY[0x1E696A588];
           v21 = MEMORY[0x1E696AEC0];
           tableName = NSStringFromClass(class);
           v14 = [v21 stringWithFormat:@"%@ returned nil for sqliteCodingDescriptor", tableName];
-          v46 = v14;
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+          v45 = v14;
+          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
           *error = [v20 errorWithDomain:@"PFSQLiteArchiver" code:-1 userInfo:v22];
 
 LABEL_33:
@@ -242,12 +242,12 @@ LABEL_33:
       else if (error)
       {
         v28 = MEMORY[0x1E696ABC0];
-        v47 = *MEMORY[0x1E696A588];
+        v46 = *MEMORY[0x1E696A588];
         v29 = MEMORY[0x1E696AEC0];
         tableName = NSStringFromClass(class);
         v14 = [v29 stringWithFormat:@"%@ does not respond to PFSQLiteCoding protocol", tableName];
-        v48 = v14;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+        v47 = v14;
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
         *error = [v28 errorWithDomain:@"PFSQLiteArchiver" code:-1 userInfo:v30];
 
         goto LABEL_33;
@@ -257,12 +257,12 @@ LABEL_33:
     else if (error)
     {
       v24 = MEMORY[0x1E696ABC0];
-      v49 = *MEMORY[0x1E696A588];
+      v48 = *MEMORY[0x1E696A588];
       v25 = MEMORY[0x1E696AEC0];
       tableName = NSStringFromClass(class);
       v14 = [v25 stringWithFormat:@"%@ does not support PFSQLiteCoding", tableName];
-      v50 = v14;
-      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+      v49 = v14;
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
       *error = [v24 errorWithDomain:@"PFSQLiteArchiver" code:-1 userInfo:v26];
 
       goto LABEL_33;
@@ -290,10 +290,10 @@ LABEL_35:
   }
 
   v12 = MEMORY[0x1E696ABC0];
-  v51 = *MEMORY[0x1E696A588];
+  v50 = *MEMORY[0x1E696A588];
   tableName = [MEMORY[0x1E696AEC0] stringWithFormat:@"expectedObjectDescriptor did not match objectDescriptor. Bailing."];
-  v52[0] = tableName;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+  v51[0] = tableName;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
   v15 = [v12 errorWithDomain:@"PFSQLiteArchiver" code:-1 userInfo:v14];
 LABEL_6:
   v16 = 0;
@@ -305,7 +305,6 @@ LABEL_36:
   objc_sync_exit(v9);
 
 LABEL_37:
-  v31 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

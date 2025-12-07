@@ -31,9 +31,9 @@
 {
   nameCopy = name;
   transformerCopy = transformer;
-  v25.receiver = self;
-  v25.super_class = PFSQLiteColumn;
-  v13 = [(PFSQLiteColumn *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = PFSQLiteColumn;
+  v13 = [(PFSQLiteColumn *)&v24 init];
   if (v13)
   {
     v14 = [nameCopy copy];
@@ -43,23 +43,22 @@
     v13->_type = type;
     v13->_attributes = attributes;
     objc_storeStrong(&v13->_valueTransformer, transformer);
-    valueTransformer = v13->_valueTransformer;
     transformedValueClass = [objc_opt_class() transformedValueClass];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __70__PFSQLiteColumn_initWithColumnName_type_attributes_valueTransformer___block_invoke;
-    v24[3] = &__block_descriptor_40_e5__8__0l;
-    v24[4] = type;
-    if (transformedValueClass != __70__PFSQLiteColumn_initWithColumnName_type_attributes_valueTransformer___block_invoke(v24))
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __70__PFSQLiteColumn_initWithColumnName_type_attributes_valueTransformer___block_invoke;
+    v23[3] = &__block_descriptor_40_e5__8__0l;
+    v23[4] = type;
+    if (transformedValueClass != __70__PFSQLiteColumn_initWithColumnName_type_attributes_valueTransformer___block_invoke(v23))
     {
       [PFSQLiteColumn initWithColumnName:a2 type:v13 attributes:? valueTransformer:?];
     }
 
     builder = [MEMORY[0x1E698E6B8] builder];
-    v19 = [builder appendInteger:v13->_attributes];
-    v20 = [builder appendInteger:v13->_type];
-    v21 = [builder appendString:v13->_name];
-    v22 = [builder appendPointer:transformerCopy];
+    v18 = [builder appendInteger:v13->_attributes];
+    v19 = [builder appendInteger:v13->_type];
+    v20 = [builder appendString:v13->_name];
+    v21 = [builder appendPointer:transformerCopy];
     v13->_cachedHash = [builder hash];
   }
 
@@ -68,10 +67,8 @@
 
 void *__70__PFSQLiteColumn_initWithColumnName_type_attributes_valueTransformer___block_invoke(void *a1)
 {
-  v2 = a1[4];
-  if (v2 <= 5)
+  if (a1[4] <= 5uLL)
   {
-    v3 = **(&unk_1E81896E8 + v2);
     a1 = objc_opt_class();
   }
 
@@ -397,44 +394,39 @@ __CFString *__39__PFSQLiteColumn_pf_toSQLWithBindings___block_invoke(uint64_t a1
 
 - (void)description
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *NSStringFromPFSQliteColumnType(PFSQLiteColumnType)"];
-  v4 = 138544130;
-  v5 = v2;
-  v6 = 2114;
-  v7 = @"PFSQLiteColumn.m";
-  v8 = 1024;
-  v9 = 28;
-  v10 = 2114;
+  v3 = 138544130;
+  v4 = v2;
+  v5 = 2114;
+  v6 = @"PFSQLiteColumn.m";
+  v7 = 1024;
+  v8 = 28;
+  v9 = 2114;
   selfCopy = self;
-  _os_log_error_impl(&dword_1C269D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", &v4, 0x26u);
-
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C269D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", &v3, 0x26u);
 }
 
 void __39__PFSQLiteColumn_pf_toSQLWithBindings___block_invoke_cold_1(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = NSStringFromSelector(*(a1 + 40));
-  v6 = *a2;
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v9 = *a2;
-  v11 = 138544642;
-  v12 = v5;
-  v13 = 2114;
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = *a2;
+  v9 = 138544642;
+  v10 = v5;
+  v11 = 2114;
+  v12 = v7;
+  v13 = 2048;
   v14 = v8;
-  v15 = 2048;
-  v16 = v9;
-  v17 = 2114;
-  v18 = @"PFSQLiteColumn.m";
-  v19 = 1024;
-  v20 = 174;
-  v21 = 2114;
-  v22 = a3;
-  _os_log_error_impl(&dword_1C269D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v11, 0x3Au);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v15 = 2114;
+  v16 = @"PFSQLiteColumn.m";
+  v17 = 1024;
+  v18 = 174;
+  v19 = 2114;
+  v20 = a3;
+  _os_log_error_impl(&dword_1C269D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9, 0x3Au);
 }
 
 @end

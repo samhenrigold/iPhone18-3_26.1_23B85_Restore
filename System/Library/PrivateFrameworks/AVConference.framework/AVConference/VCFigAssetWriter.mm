@@ -1180,7 +1180,7 @@ LABEL_39:
   return result;
 }
 
-void __48__VCFigAssetWriter_encodeAndAppendSampleBuffer___block_invoke(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+void __48__VCFigAssetWriter_encodeAndAppendSampleBuffer___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v20 = *MEMORY[0x1E69E9840];
   if (a2)
@@ -2531,21 +2531,21 @@ void __48__VCFigAssetWriter_encodeAndAppendSampleBuffer___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VTCompressionSession not ready", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VTCompressionSession not ready", v2, v3, v4, v5);
 }
 
 - (void)appendVideoSampleBuffer:cameraStatus:mediaType:.cold.5()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d video track ID was invalid", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d video track ID was invalid", v2, v3, v4, v5);
 }
 
 - (void)appendVideoSampleBuffer:cameraStatus:mediaType:.cold.6()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d could not create 3x3 matrix array", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d could not create 3x3 matrix array", v2, v3, v4, v5);
 }
 
 - (void)appendVideoSampleBuffer:cameraStatus:mediaType:.cold.7()
@@ -2561,7 +2561,7 @@ void __48__VCFigAssetWriter_encodeAndAppendSampleBuffer___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VTCompressionSession not created", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VTCompressionSession not created", v2, v3, v4, v5);
 }
 
 - (void)appendVideoSampleBuffer:(void *)a1 cameraStatus:mediaType:.cold.9(void *a1)
@@ -2594,14 +2594,14 @@ void __48__VCFigAssetWriter_encodeAndAppendSampleBuffer___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d fail to append audio sample buffer. sample buffer is NULL", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d fail to append audio sample buffer. sample buffer is NULL", v2, v3, v4, v5);
 }
 
 - (void)appendAudioSampleBuffer:mediaType:.cold.3()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d fail to append audio sample buffer. asset writer is NULL", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d fail to append audio sample buffer. asset writer is NULL", v2, v3, v4, v5);
 }
 
 - (void)writeIdentifierMetadata:.cold.1()

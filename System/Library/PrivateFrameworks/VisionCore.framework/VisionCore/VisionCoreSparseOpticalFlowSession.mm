@@ -47,7 +47,7 @@
   p_groupingMemoryQuadPointsCounts = &self->_groupingMemoryQuadPointsCounts;
   if (p_groupingMemoryQuadPointsCounts != counts)
   {
-    std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(p_groupingMemoryQuadPointsCounts, *counts, *(counts + 1), (*(counts + 1) - *counts) >> 3);
+    std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&p_groupingMemoryQuadPointsCounts->__begin_, *counts, *(counts + 1), (*(counts + 1) - *counts) >> 3);
   }
 }
 
@@ -74,7 +74,7 @@
   p_quadPointCounts = &self->_quadPointCounts;
   if (p_quadPointCounts != counts)
   {
-    std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(p_quadPointCounts, *counts, *(counts + 1), (*(counts + 1) - *counts) >> 3);
+    std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&p_quadPointCounts->__begin_, *counts, *(counts + 1), (*(counts + 1) - *counts) >> 3);
   }
 }
 

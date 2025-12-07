@@ -52,30 +52,30 @@
 
 - (id)fixDoubleValuesInDictionary:(id)dictionary
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = [dictionaryCopy mutableCopy];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = dictionaryCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
-        v11 = [v5 objectForKey:{v10, v17}];
+        v10 = *(*(&v16 + 1) + 8 * i);
+        v11 = [v5 objectForKey:{v10, v16}];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -88,14 +88,13 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
 
   v14 = [v4 copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

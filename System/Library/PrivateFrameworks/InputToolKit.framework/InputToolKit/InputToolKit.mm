@@ -137,14 +137,14 @@ BOOL ITKNearlyEqualRects(double a1, double a2, double a3, double a4, double a5, 
 
 BOOL ITKNearlyEqualRectsWithThreshold(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
 {
-  v17 = vabdd_f64(a2, a6);
-  if (vabdd_f64(a1, a5) >= a9 || v17 >= a9)
+  v9 = vabdd_f64(a2, a6);
+  if (vabdd_f64(a1, a5) >= a9 || v9 >= a9)
   {
     return 0;
   }
 
-  v20 = vabdd_f64(a3, a7) < a9;
-  return vabdd_f64(a4, a8) < a9 && v20;
+  v12 = vabdd_f64(a3, a7) < a9;
+  return vabdd_f64(a4, a8) < a9 && v12;
 }
 
 BOOL ITKNearlyContainsRect(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8)
@@ -237,7 +237,7 @@ uint64_t ITKLineIntersectsRect(CGFloat a1, CGFloat a2, double a3, double a4, CGF
 
     v19 = (v13 + a1) * 0.5;
     v20 = (v12 + a2) * 0.5;
-    v21 = ITKLineIntersectsRect(1, a1, a2, v19, v20, a5, a6, a7, a8);
+    v21 = ITKLineIntersectsRect(a1, a2, v19, v20, a5, a6, a7, a8);
     a1 = v19;
     a2 = v20;
     v13 = a3;
@@ -376,7 +376,7 @@ uint64_t ITKIntersectionOfLines(double *a1, double *a2, double *a3, double *a4, 
   return 1;
 }
 
-uint64_t ITKSizeIsEmptyOrHasNanOrInf(double a1, double a2)
+BOOL ITKSizeIsEmptyOrHasNanOrInf(double a1, double a2)
 {
   result = 1;
   if (a1 != 0.0)
@@ -902,32 +902,32 @@ void ITKRectDivide(CGRect *a1, CGRect *a2, CGRectEdge a3, double a4, double a5, 
   CGRectDivide(*&a4, a1, a2, a8, a3);
 }
 
-uint64_t ITKGetCanvasSpaceCorners(uint64_t a1, _OWORD *a2, _OWORD *a3, _OWORD *a4, _OWORD *a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9)
+uint64_t ITKGetCanvasSpaceCorners(double *a1, _OWORD *a2, _OWORD *a3, _OWORD *a4, _OWORD *a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9)
 {
-  v54[2] = *MEMORY[0x277D85DE8];
-  v18 = *(a1 + 16);
+  v51 = *MEMORY[0x277D85DE8];
+  v18 = *(a1 + 1);
   v47 = *a1;
   v48 = v18;
-  v49 = *(a1 + 32);
-  ITKTransformedCornersOfRect(&v47, &v50, &v52, &v53, v54, a6, a7, a8, a9);
-  v55.origin.x = a6;
-  v55.origin.y = a7;
-  v55.size.width = a8;
-  v55.size.height = a9;
-  MidX = CGRectGetMidX(v55);
-  v56.origin.x = a6;
-  v56.origin.y = a7;
-  v56.size.width = a8;
-  v56.size.height = a9;
-  MidY = CGRectGetMidY(v56);
+  v49 = *(a1 + 2);
+  ITKTransformedCornersOfRect(&v47, v50, &v50[1], &v50[2], &v50[3], a6, a7, a8, a9);
+  v52.origin.x = a6;
+  v52.origin.y = a7;
+  v52.size.width = a8;
+  v52.size.height = a9;
+  MidX = CGRectGetMidX(v52);
+  v53.origin.x = a6;
+  v53.origin.y = a7;
+  v53.size.width = a8;
+  v53.size.height = a9;
+  MidY = CGRectGetMidY(v53);
   v21 = 0;
   v22 = 0;
-  v23 = MidY * *(a1 + 16) + *a1 * MidX;
+  v23 = MidY * a1[2] + *a1 * MidX;
   v24 = 1000000.0;
-  v25 = MidY * *(a1 + 24) + *(a1 + 8) * MidX;
-  v26 = *(a1 + 32) + v23;
-  v27 = *(a1 + 40) + v25;
-  v28 = &v51;
+  v25 = MidY * a1[3] + a1[1] * MidX;
+  v26 = a1[4] + v23;
+  v27 = a1[5] + v25;
+  v28 = v50 + 1;
   do
   {
     v29 = atan2(*v28 - v27, *(v28 - 1) - v26);
@@ -954,18 +954,18 @@ uint64_t ITKGetCanvasSpaceCorners(uint64_t a1, _OWORD *a2, _OWORD *a3, _OWORD *a
   }
 
   while (v22 != 4);
-  *a2 = *(&v50 + v21);
+  *a2 = v50[v21];
   v32 = (v21 + 2) & 3;
   if (v21 + 2 <= 0)
   {
     v32 = -(-(v21 + 2) & 3);
   }
 
-  *a4 = *(&v50 + v32);
-  v33 = *(a1 + 16);
+  *a4 = v50[v32];
+  v33 = *(a1 + 1);
   v47 = *a1;
   v48 = v33;
-  v49 = *(a1 + 32);
+  v49 = *(a1 + 2);
   v34 = ITKIsTransformFlipped(v47.f64);
   v35 = v21 + 3;
   if (v34)
@@ -997,7 +997,7 @@ uint64_t ITKGetCanvasSpaceCorners(uint64_t a1, _OWORD *a2, _OWORD *a3, _OWORD *a
     v41 = -v40;
   }
 
-  *a5 = *(&v50 + v41);
+  *a5 = v50[v41];
   v42 = v35 & 3;
   v43 = -v35;
   v38 = v43 < 0;
@@ -1012,7 +1012,7 @@ uint64_t ITKGetCanvasSpaceCorners(uint64_t a1, _OWORD *a2, _OWORD *a3, _OWORD *a
     v45 = -v44;
   }
 
-  *a3 = *(&v50 + v45);
+  *a3 = v50[v45];
   return v21;
 }
 
@@ -1287,7 +1287,7 @@ double ITKOriginRotate(double *a1, double a2, double a3)
   return result;
 }
 
-double ITKNiceAngleFromDelta(long double a1, long double a2)
+long double ITKNiceAngleFromDelta(long double a1, long double a2)
 {
   if (a2 != 0.0)
   {
@@ -1358,7 +1358,7 @@ double ITKNormalizeAngleAboutZeroInRadians(double a1)
   return v1 + -3.14159265;
 }
 
-double ITKNormalizedAngleBetweenPoints(double a1, double a2, double a3, double a4, double a5, double a6)
+long double ITKNormalizedAngleBetweenPoints(double a1, double a2, double a3, double a4, double a5, double a6)
 {
   v6 = a3 - a1;
   v7 = a4 - a2;
@@ -1785,57 +1785,57 @@ void ITKVisibleUnscaledRectForNewScale(CGFloat a1, CGFloat a2, CGFloat a3, CGFlo
 
 double ITKRectByExpandingBoundingRectToContentRect(double a1, double a2, double a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9, double a10, double a11, double a12)
 {
-  v25 = a1 + a5 * a3;
-  v36.origin.x = a5;
-  v36.origin.y = a6;
-  v36.size.width = a7;
-  v36.size.height = a8;
-  MaxX = CGRectGetMaxX(v36);
-  v37.origin.x = a5;
-  v37.origin.y = a6;
-  v37.size.width = a7;
-  v37.size.height = a8;
-  CGRectGetMaxY(v37);
-  v26 = a1 + MaxX * a3;
-  if (v25 >= v26)
+  v17 = a1 + a5 * a3;
+  v28.origin.x = a5;
+  v28.origin.y = a6;
+  v28.size.width = a7;
+  v28.size.height = a8;
+  MaxX = CGRectGetMaxX(v28);
+  v29.origin.x = a5;
+  v29.origin.y = a6;
+  v29.size.width = a7;
+  v29.size.height = a8;
+  CGRectGetMaxY(v29);
+  v18 = a1 + MaxX * a3;
+  if (v17 >= v18)
   {
-    v27 = a1 + MaxX * a3;
+    v19 = a1 + MaxX * a3;
   }
 
   else
   {
-    v27 = v25;
+    v19 = v17;
   }
 
-  if (v25 >= v26)
+  if (v17 >= v18)
   {
-    v26 = v25;
+    v18 = v17;
   }
 
-  v35 = v27;
-  v28 = v26 - v27;
-  v29 = -a9 / a11 * (v26 - v27);
-  v38.origin.x = -a9 / a11;
-  v38.origin.y = -a10 / a12;
-  v38.size.width = 1.0 / a11;
-  v38.size.height = 1.0 / a12;
-  v30 = CGRectGetMaxX(v38);
-  v39.origin.x = -a9 / a11;
-  v39.origin.y = -a10 / a12;
-  v39.size.width = 1.0 / a11;
-  v39.size.height = 1.0 / a12;
-  CGRectGetMaxY(v39);
-  if (v29 >= v30 * v28)
+  v27 = v19;
+  v20 = v18 - v19;
+  v21 = -a9 / a11 * (v18 - v19);
+  v30.origin.x = -a9 / a11;
+  v30.origin.y = -a10 / a12;
+  v30.size.width = 1.0 / a11;
+  v30.size.height = 1.0 / a12;
+  v22 = CGRectGetMaxX(v30);
+  v31.origin.x = -a9 / a11;
+  v31.origin.y = -a10 / a12;
+  v31.size.width = 1.0 / a11;
+  v31.size.height = 1.0 / a12;
+  CGRectGetMaxY(v31);
+  if (v21 >= v22 * v20)
   {
-    v31 = v30 * v28;
+    v23 = v22 * v20;
   }
 
   else
   {
-    v31 = v29;
+    v23 = v21;
   }
 
-  return v35 + v31;
+  return v27 + v23;
 }
 
 double ITKClampRectToRect(double a1, double a2, CGFloat a3, CGFloat a4, double a5, double a6, double a7, double a8)
@@ -2116,7 +2116,7 @@ double ITKClampSizeToMaxLength(double result, double a2, double a3)
   return result;
 }
 
-uint64_t ITKRectHasInfComponents(double a1, double a2, double a3, double a4)
+BOOL ITKRectHasInfComponents(double a1, double a2, double a3, double a4)
 {
   v4 = fabs(a3) == INFINITY;
   result = 1;
@@ -2323,7 +2323,7 @@ uint64_t itk_requestDeviceUnlockIfNecessaryWithCompletion(uint64_t result)
   return result;
 }
 
-uint64_t itk_processHasUnlockEntitlement()
+uint64_t itk_processHasUnlockEntitlement(uint64_t a1, uint64_t a2)
 {
   if (itk_processHasUnlockEntitlement_onceToken != -1)
   {
@@ -2383,7 +2383,7 @@ void __itk_processHasUnlockEntitlement_block_invoke()
   }
 }
 
-uint64_t itk_deviceSupportsASTC()
+uint64_t itk_deviceSupportsASTC(uint64_t a1, uint64_t a2)
 {
   if (itk_deviceSupportsASTC_onceToken != -1)
   {
@@ -2400,16 +2400,16 @@ uint64_t __itk_deviceSupportsASTC_block_invoke()
   return result;
 }
 
-void sub_254BF844C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_254BF844C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_254BF86B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_254BF86B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2421,9 +2421,16 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_254BF9334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_254BF9140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a7);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_254BF9334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2661,17 +2668,17 @@ void ___ZL47_isStringEntirelyPunctuationWhitespaceOrNumericP8NSString_block_invo
   _isStringEntirelyPunctuationWhitespaceOrNumeric(NSString *)::__characterSet = v1;
 }
 
-void *std::vector<unsigned int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_254BFB1C8(_Unwind_Exception *exception_object)
@@ -2686,7 +2693,7 @@ void sub_254BFB1C8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -3444,9 +3451,9 @@ BOOL ITKTransform3DNearlyEqualToTransform(_OWORD *a1, _OWORD *a2)
   return ITKTransform3DNearlyEqualToTransformWithTolerance(v12, v11, 0.01);
 }
 
-void sub_254BFCB34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_254BFCB34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3634,7 +3641,7 @@ uint64_t ITKClampInt(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t ITKClampRange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+unint64_t ITKClampRange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = a1 + a2;
   if (a1 >= a3 + a4)
@@ -3897,10 +3904,11 @@ CGColorRef ITKCGColorCopyInverse(CGColor *a1)
   return CGColorCreate(ColorSpace, v5);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void __itk_processHasUnlockEntitlement_block_invoke_cold_1(uint64_t *a1, NSObject *a2)

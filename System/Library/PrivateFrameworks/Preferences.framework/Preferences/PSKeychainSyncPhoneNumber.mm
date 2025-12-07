@@ -50,20 +50,20 @@
   {
     lowercaseString = [countryCode lowercaseString];
     digits2 = [(PSKeychainSyncPhoneNumber *)self digits];
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
     v8 = getCFPhoneNumberCreateSymbolLoc_ptr;
-    v20 = getCFPhoneNumberCreateSymbolLoc_ptr;
+    v21 = getCFPhoneNumberCreateSymbolLoc_ptr;
     if (!getCFPhoneNumberCreateSymbolLoc_ptr)
     {
       v9 = PhoneNumbersLibrary_0();
-      v18[3] = dlsym(v9, "CFPhoneNumberCreate");
-      getCFPhoneNumberCreateSymbolLoc_ptr = v18[3];
-      v8 = v18[3];
+      v19[3] = dlsym(v9, "CFPhoneNumberCreate");
+      getCFPhoneNumberCreateSymbolLoc_ptr = v19[3];
+      v8 = v19[3];
     }
 
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v18, 8);
     if (v8)
     {
       v10 = v8(0, digits2, lowercaseString);
@@ -73,20 +73,20 @@
       }
 
       v11 = v10;
-      v17 = 0;
-      v18 = &v17;
-      v19 = 0x2020000000;
+      v18 = 0;
+      v19 = &v18;
+      v20 = 0x2020000000;
       v12 = getCFPhoneNumberCreateStringSymbolLoc_ptr;
-      v20 = getCFPhoneNumberCreateStringSymbolLoc_ptr;
+      v21 = getCFPhoneNumberCreateStringSymbolLoc_ptr;
       if (!getCFPhoneNumberCreateStringSymbolLoc_ptr)
       {
         v13 = PhoneNumbersLibrary_0();
-        v18[3] = dlsym(v13, "CFPhoneNumberCreateString");
-        getCFPhoneNumberCreateStringSymbolLoc_ptr = v18[3];
-        v12 = v18[3];
+        v19[3] = dlsym(v13, "CFPhoneNumberCreateString");
+        getCFPhoneNumberCreateStringSymbolLoc_ptr = v19[3];
+        v12 = v19[3];
       }
 
-      _Block_object_dispose(&v17, 8);
+      _Block_object_dispose(&v18, 8);
       if (v12)
       {
         v14 = v12(0, v11, 1);
@@ -102,9 +102,10 @@
       [PSContactsAuthorizationLevelController dealloc];
     }
 
-    v16 = [PSContactsAuthorizationLevelController dealloc];
-    _Block_object_dispose(&v17, 8);
-    _Unwind_Resume(v16);
+    [PSContactsAuthorizationLevelController dealloc];
+    v17 = v16;
+    _Block_object_dispose(&v18, 8);
+    _Unwind_Resume(v17);
   }
 
 LABEL_10:

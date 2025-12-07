@@ -1,14 +1,18 @@
 @interface ATXAnchorModelDataStoreWrapper
++ (id)actionCandidateFeaturesFromActionEvent:(id)event actionMetadata:(id)metadata actionOccurred:(BOOL)occurred actionEngaged:(BOOL)engaged;
 + (id)actionDetailsFromActionCandidateId:(id)id;
 + (id)actionKeyFromActionCandidateId:(id)id;
 + (id)anchorFeaturesForAnchorOccurrence:(id)occurrence anchor:(id)anchor anchorMetadata:(id)metadata;
++ (id)appCandidateFeaturesFromAppLaunchEvent:(id)event appMetadata:(id)metadata appWasLaunched:(BOOL)launched appEngaged:(BOOL)engaged;
 + (id)candidateIdFromAppIntentDuetEvent:(id)event;
 + (id)candidateIdFromAppLaunchBiomeEvent:(id)event;
 + (id)candidateIdFromAppLaunchDuetEvent:(id)event;
 + (id)candidateIdFromBiomeEvent:(id)event;
 + (id)candidateIdFromLinkActionBiomeEvent:(id)event;
 + (id)candidateIdFromModeBiomeEvent:(id)event;
++ (id)linkActionCandidateFeaturesFromLinkActionEvent:(id)event actionMetadata:(id)metadata actionOccurred:(BOOL)occurred actionEngaged:(BOOL)engaged;
 + (id)linkActionDetailsFromLinkActionCandidateId:(id)id;
++ (id)modeCandidateFeaturesFromModeEvent:(id)event modeMetadata:(id)metadata modeOccurred:(BOOL)occurred modeEngaged:(BOOL)engaged;
 + (id)modeDetailsFromModeCandidateId:(id)id;
 + (id)populateCandidateOccurrencesForFeatures:(id)features withLaunchHistoryMetadata:(id)metadata;
 + (int64_t)dayOfWeekIntegerFromATXAnchorModelPBDayOfWeek:(int)week;
@@ -59,12 +63,15 @@
 - (void)insertAnchorOccurrence:(id)occurrence anchor:(id)anchor featureMetadata:(id)metadata;
 - (void)insertAnchorSuggestionOutcome:(unint64_t)outcome date:(id)date anchorType:(id)type anchorEventIdentifier:(id)identifier candidateId:(id)id;
 - (void)populateCachedCountsForCandidateIds:(id)ids;
+- (void)updateOrInsertActionTrainingSample:(id)sample featurizedAction:(id)action actionOccurred:(BOOL)occurred actionEngaged:(BOOL)engaged anchorEvent:(id)event anchor:(id)anchor;
 - (void)updateOrInsertAnchorEvent:(id)event anchor:(id)anchor featureMetadata:(id)metadata;
 - (void)updateOrInsertAnchorModelTrainingResults:(id)results anchor:(id)anchor;
 - (void)updateOrInsertAnchorType:(id)type;
+- (void)updateOrInsertAppTrainingSample:(id)sample featurizedApp:(id)app appWasLaunched:(BOOL)launched appEngaged:(BOOL)engaged anchorEvent:(id)event anchor:(id)anchor;
 - (void)updateOrInsertCandidateEventToDatabaseWithCandidateFeatures:(id)features anchor:(id)anchor anchorEvent:(id)event;
 - (void)updateOrInsertLinkActionTrainingSample:(id)sample featurizedAction:(id)action actionOccurred:(BOOL)occurred actionEngaged:(BOOL)engaged anchorEvent:(id)event anchor:(id)anchor;
 - (void)updateOrInsertLocation:(id)location;
+- (void)updateOrInsertModeTrainingSample:(id)sample featurizedMode:(id)mode modeOccurred:(BOOL)occurred modeEngaged:(BOOL)engaged anchorEvent:(id)event anchor:(id)anchor;
 @end
 
 @implementation ATXAnchorModelDataStoreWrapper
@@ -109,7 +116,7 @@
 - (double)timestampOfMostRecentRecordedAnchorOccurrenceForAnchor:(id)anchor
 {
   anchorCopy = anchor;
-  v5 = __atxlog_handle_anchor();
+  v5 = __atxlog_handle_anchor(anchorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [ATXAnchorModelDataStoreWrapper timestampOfMostRecentRecordedAnchorOccurrenceForAnchor:];
@@ -175,22 +182,65 @@ uint64_t __89__ATXAnchorModelDataStoreWrapper_timestampOfMostRecentRecordedAncho
 
 uint64_t __89__ATXAnchorModelDataStoreWrapper_timestampOfMostRecentRecordedAnchorOccurrenceForAnchor___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __89__ATXAnchorModelDataStoreWrapper_timestampOfMostRecentRecordedAnchorOccurrenceForAnchor___block_invoke_4_cold_1(a1);
+    __89__ATXAnchorModelDataStoreWrapper_timestampOfMostRecentRecordedAnchorOccurrenceForAnchor___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
+}
+
+- (void)updateOrInsertActionTrainingSample:(id)sample featurizedAction:(id)action actionOccurred:(BOOL)occurred actionEngaged:(BOOL)engaged anchorEvent:(id)event anchor:(id)anchor
+{
+  engagedCopy = engaged;
+  occurredCopy = occurred;
+  sampleCopy = sample;
+  actionCopy = action;
+  anchorCopy = anchor;
+  eventCopy = event;
+  alogId = [sampleCopy alogId];
+
+  if (!alogId)
+  {
+    v20 = __atxlog_handle_anchor(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    {
+      [ATXAnchorModelDataStoreWrapper updateOrInsertActionTrainingSample:featurizedAction:actionOccurred:actionEngaged:anchorEvent:anchor:];
+    }
+  }
+
+  v21 = [ATXAnchorModelDataStoreWrapper actionCandidateFeaturesFromActionEvent:sampleCopy actionMetadata:actionCopy actionOccurred:occurredCopy actionEngaged:engagedCopy];
+  [(ATXAnchorModelDataStoreWrapper *)self updateOrInsertCandidateEventToDatabaseWithCandidateFeatures:v21 anchor:anchorCopy anchorEvent:eventCopy];
+}
+
+- (void)updateOrInsertAppTrainingSample:(id)sample featurizedApp:(id)app appWasLaunched:(BOOL)launched appEngaged:(BOOL)engaged anchorEvent:(id)event anchor:(id)anchor
+{
+  engagedCopy = engaged;
+  launchedCopy = launched;
+  anchorCopy = anchor;
+  eventCopy = event;
+  v16 = [ATXAnchorModelDataStoreWrapper appCandidateFeaturesFromAppLaunchEvent:sample appMetadata:app appWasLaunched:launchedCopy appEngaged:engagedCopy];
+  [(ATXAnchorModelDataStoreWrapper *)self updateOrInsertCandidateEventToDatabaseWithCandidateFeatures:v16 anchor:anchorCopy anchorEvent:eventCopy];
+}
+
+- (void)updateOrInsertModeTrainingSample:(id)sample featurizedMode:(id)mode modeOccurred:(BOOL)occurred modeEngaged:(BOOL)engaged anchorEvent:(id)event anchor:(id)anchor
+{
+  engagedCopy = engaged;
+  occurredCopy = occurred;
+  anchorCopy = anchor;
+  eventCopy = event;
+  v16 = [ATXAnchorModelDataStoreWrapper modeCandidateFeaturesFromModeEvent:sample modeMetadata:mode modeOccurred:occurredCopy modeEngaged:engagedCopy];
+  [(ATXAnchorModelDataStoreWrapper *)self updateOrInsertCandidateEventToDatabaseWithCandidateFeatures:v16 anchor:anchorCopy anchorEvent:eventCopy];
 }
 
 - (void)updateOrInsertLinkActionTrainingSample:(id)sample featurizedAction:(id)action actionOccurred:(BOOL)occurred actionEngaged:(BOOL)engaged anchorEvent:(id)event anchor:(id)anchor
 {
   sampleCopy = sample;
   anchorCopy = anchor;
-  v11 = __atxlog_handle_anchor();
+  v11 = __atxlog_handle_anchor(anchorCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
     [ATXAnchorModelDataStoreWrapper updateOrInsertLinkActionTrainingSample:featurizedAction:actionOccurred:actionEngaged:anchorEvent:anchor:];
@@ -219,28 +269,28 @@ uint64_t __89__ATXAnchorModelDataStoreWrapper_timestampOfMostRecentRecordedAncho
 
 void __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_anchor();
+  v2 = __atxlog_handle_anchor(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_cold_1(a1);
+    __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_cold_1();
   }
 
   v3 = [*(*(a1 + 40) + 8) db];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_46;
-  v13[3] = &unk_278599DB8;
-  v14 = *(a1 + 48);
-  v15 = *(a1 + 56);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_46;
+  v14[3] = &unk_278599DB8;
+  v15 = *(a1 + 48);
+  v16 = *(a1 + 56);
   v5 = *(a1 + 32);
   v4 = (a1 + 32);
-  v16 = v5;
-  [v3 prepAndRunQuery:@"INSERT INTO anchorModelTrainingData (anchorType onPrep:anchorDate onRow:candidateType onError:{candidateId, candidateOccurrencesInLast12Hours, candidateOccurrencesInLast24Hours, candidateOccurrencesInLast48Hours, candidateOccurrencesInLast7Days, candidateOccurrencesInLast14Days, candidateOccurrencesInLast28Days, candidatePerformed, candidateEngaged, secondsSinceAnchor, candidateLocation, candidateOccurrenceId) VALUES (:anchorType, :anchorDate, :candidateType, :candidateId, :candidateOccurrencesInLast12Hours, :candidateOccurrencesInLast24Hours, :candidateOccurrencesInLast48Hours, :candidateOccurrencesInLast7Days, :candidateOccurrencesInLast14Days, :candidateOccurrencesInLast28Days, :candidatePerformed, :candidateEngaged, :secondsSinceAnchor, :candidateLocation, :candidateOccurrenceId)", v13, 0, &__block_literal_global_206}];
+  v17 = v5;
+  [v3 prepAndRunQuery:@"INSERT INTO anchorModelTrainingData (anchorType onPrep:anchorDate onRow:candidateType onError:{candidateId, candidateOccurrencesInLast12Hours, candidateOccurrencesInLast24Hours, candidateOccurrencesInLast48Hours, candidateOccurrencesInLast7Days, candidateOccurrencesInLast14Days, candidateOccurrencesInLast28Days, candidatePerformed, candidateEngaged, secondsSinceAnchor, candidateLocation, candidateOccurrenceId) VALUES (:anchorType, :anchorDate, :candidateType, :candidateId, :candidateOccurrencesInLast12Hours, :candidateOccurrencesInLast24Hours, :candidateOccurrencesInLast48Hours, :candidateOccurrencesInLast7Days, :candidateOccurrencesInLast14Days, :candidateOccurrencesInLast28Days, :candidatePerformed, :candidateEngaged, :secondsSinceAnchor, :candidateLocation, :candidateOccurrenceId)", v14, 0, &__block_literal_global_206}];
 
-  v6 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = __atxlog_handle_anchor(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_cold_2(v4, v6, v7, v8, v9, v10, v11, v12);
+    __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_cold_2(v4, v7, v8, v9, v10, v11, v12, v13);
   }
 }
 
@@ -251,54 +301,53 @@ void __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabas
   v5 = [*(a1 + 32) anchorTypeString];
   [v3 bindNamedParam:":anchorType" toNSString:v5];
 
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() anchorOccurenceDateFromDuetEvent:*(a1 + 40)];
-  [v7 timeIntervalSince1970];
-  [v3 bindNamedParam:":anchorDate" toInt64:v8];
-  v10 = *(a1 + 48);
-  v9 = (a1 + 48);
-  v11 = [v10 objectForKeyedSubscript:@"candidateType"];
-  [v3 bindNamedParam:":candidateType" toNSString:v11];
+  v6 = [objc_opt_class() anchorOccurenceDateFromDuetEvent:*(a1 + 40)];
+  [v6 timeIntervalSince1970];
+  [v3 bindNamedParam:":anchorDate" toInt64:v7];
+  v9 = *(a1 + 48);
+  v8 = (a1 + 48);
+  v10 = [v9 objectForKeyedSubscript:@"candidateType"];
+  [v3 bindNamedParam:":candidateType" toNSString:v10];
 
-  v12 = [*v9 objectForKeyedSubscript:@"candidateId"];
-  [v3 bindNamedParam:":candidateId" toNSString:v12];
+  v11 = [*v8 objectForKeyedSubscript:@"candidateId"];
+  [v3 bindNamedParam:":candidateId" toNSString:v11];
 
-  v13 = [*v9 objectForKey:@"candidateOccurrenceId"];
-  v14 = v13;
-  if (v13)
+  v12 = [*v8 objectForKey:@"candidateOccurrenceId"];
+  v13 = v12;
+  if (v12)
   {
-    [v3 bindNamedParam:":candidateOccurrenceId" toInt64:{objc_msgSend(v13, "longLongValue")}];
-    v15 = [*v9 objectForKeyedSubscript:@"candidateOccurrencesInLast12Hours"];
-    [v3 bindNamedParam:":candidateOccurrencesInLast12Hours" toInteger:{objc_msgSend(v15, "integerValue")}];
+    [v3 bindNamedParam:":candidateOccurrenceId" toInt64:{objc_msgSend(v12, "longLongValue")}];
+    v14 = [*v8 objectForKeyedSubscript:@"candidateOccurrencesInLast12Hours"];
+    [v3 bindNamedParam:":candidateOccurrencesInLast12Hours" toInteger:{objc_msgSend(v14, "integerValue")}];
 
-    v16 = [*v9 objectForKeyedSubscript:@"candidateOccurrencesInLast24Hours"];
-    [v3 bindNamedParam:":candidateOccurrencesInLast24Hours" toInteger:{objc_msgSend(v16, "integerValue")}];
+    v15 = [*v8 objectForKeyedSubscript:@"candidateOccurrencesInLast24Hours"];
+    [v3 bindNamedParam:":candidateOccurrencesInLast24Hours" toInteger:{objc_msgSend(v15, "integerValue")}];
 
-    v17 = [*v9 objectForKeyedSubscript:@"candidateOccurrencesInLast48Hours"];
-    [v3 bindNamedParam:":candidateOccurrencesInLast48Hours" toInteger:{objc_msgSend(v17, "integerValue")}];
+    v16 = [*v8 objectForKeyedSubscript:@"candidateOccurrencesInLast48Hours"];
+    [v3 bindNamedParam:":candidateOccurrencesInLast48Hours" toInteger:{objc_msgSend(v16, "integerValue")}];
 
-    v18 = [*v9 objectForKeyedSubscript:@"candidateOccurrencesInLast7Days"];
-    [v3 bindNamedParam:":candidateOccurrencesInLast7Days" toInteger:{objc_msgSend(v18, "integerValue")}];
+    v17 = [*v8 objectForKeyedSubscript:@"candidateOccurrencesInLast7Days"];
+    [v3 bindNamedParam:":candidateOccurrencesInLast7Days" toInteger:{objc_msgSend(v17, "integerValue")}];
 
-    v19 = [*v9 objectForKeyedSubscript:@"candidateOccurrencesInLast14Days"];
-    [v3 bindNamedParam:":candidateOccurrencesInLast14Days" toInteger:{objc_msgSend(v19, "integerValue")}];
+    v18 = [*v8 objectForKeyedSubscript:@"candidateOccurrencesInLast14Days"];
+    [v3 bindNamedParam:":candidateOccurrencesInLast14Days" toInteger:{objc_msgSend(v18, "integerValue")}];
 
-    v20 = [*v9 objectForKeyedSubscript:@"candidateOccurrencesInLast28Days"];
-    [v3 bindNamedParam:":candidateOccurrencesInLast28Days" toInteger:{objc_msgSend(v20, "integerValue")}];
+    v19 = [*v8 objectForKeyedSubscript:@"candidateOccurrencesInLast28Days"];
+    [v3 bindNamedParam:":candidateOccurrencesInLast28Days" toInteger:{objc_msgSend(v19, "integerValue")}];
 
-    v21 = [*v9 objectForKeyedSubscript:@"candidatePerformed"];
-    [v3 bindNamedParam:":candidatePerformed" toInteger:{objc_msgSend(v21, "integerValue")}];
+    v20 = [*v8 objectForKeyedSubscript:@"candidatePerformed"];
+    [v3 bindNamedParam:":candidatePerformed" toInteger:{objc_msgSend(v20, "integerValue")}];
 
-    v22 = [*v9 objectForKeyedSubscript:@"candidateEngaged"];
-    [v3 bindNamedParam:":candidateEngaged" toInteger:{objc_msgSend(v22, "integerValue")}];
+    v21 = [*v8 objectForKeyedSubscript:@"candidateEngaged"];
+    [v3 bindNamedParam:":candidateEngaged" toInteger:{objc_msgSend(v21, "integerValue")}];
 
-    v23 = [*v9 objectForKeyedSubscript:@"secondsSinceAnchor"];
-    [v3 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v23, "integerValue")}];
+    v22 = [*v8 objectForKeyedSubscript:@"secondsSinceAnchor"];
+    [v3 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v22, "integerValue")}];
 
-    v24 = [*v9 objectForKey:@"candidateLocation"];
-    if (v24)
+    v23 = [*v8 objectForKey:@"candidateLocation"];
+    if (v23)
     {
-      [v3 bindNamedParam:":candidateLocation" toNSString:v24];
+      [v3 bindNamedParam:":candidateLocation" toNSString:v23];
     }
 
     else
@@ -309,10 +358,10 @@ void __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabas
 
   else
   {
-    v25 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v24 = __atxlog_handle_anchor(0);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
-      __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_46_cold_1(v9, v4);
+      __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_46_cold_1(v8, v4);
     }
   }
 }
@@ -320,7 +369,7 @@ void __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabas
 uint64_t __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_101(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_101_cold_1();
@@ -363,59 +412,57 @@ void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResul
 
 void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResults_anchor___block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) db];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResults_anchor___block_invoke_3;
-  v19[3] = &unk_278598768;
-  v20 = *(a1 + 40);
-  [v2 prepAndRunQuery:@"DELETE FROM anchorModelTrainingResults WHERE anchorType LIKE :anchorType" onPrep:v19 onRow:0 onError:&__block_literal_global_106_0];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResults_anchor___block_invoke_3;
+  v18[3] = &unk_278598768;
+  v19 = *(a1 + 40);
+  [v2 prepAndRunQuery:@"DELETE FROM anchorModelTrainingResults WHERE anchorType LIKE :anchorType" onPrep:v18 onRow:0 onError:&__block_literal_global_106_0];
 
   v3 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   obj = *(a1 + 48);
-  v4 = [obj countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v4 = [obj countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * v7);
+        v8 = *(*(&v14 + 1) + 8 * v7);
         v9 = objc_autoreleasePoolPush();
         v10 = [*(*(a1 + 32) + 8) db];
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResults_anchor___block_invoke_110;
-        v13[3] = &unk_278598718;
-        v13[4] = v8;
-        v14 = v3;
-        [v10 prepAndRunQuery:@"INSERT INTO anchorModelTrainingResults (trainingDate onPrep:anchorType onRow:anchorEventIdentifier onError:{candidateType, candidateId, numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence, posteriorProbability, classConditionalProbability, classifierType, trainedClassifier, classifierDescription, startSecondsAfterAnchor, endSecondsAfterAnchor, standardDeviationOfOffsetFromAnchor, launchesInLast28Days, launchesInLast14Days, launchesInLast7Days, launchesInLast48Hours, launchesInLast24Hours, launchesInLast12Hours, launchesInLast2Hours, anchorPopularity, globalPopularity) VALUES (:trainingDate, :anchorType, :anchorEventIdentifier, :candidateType, :candidateId, :numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence, :posteriorProbability, :classConditionalProbability, :classifierType, :trainedClassifier, :classifierDescription, :startSecondsAfterAnchor, :endSecondsAfterAnchor, :standardDeviationOfOffsetFromAnchor, :launchesInLast28Days, :launchesInLast14Days, :launchesInLast7Days, :launchesInLast48Hours, :launchesInLast24Hours, :launchesInLast12Hours, :launchesInLast2Hours, :anchorPopularity, :globalPopularity)", v13, 0, &__block_literal_global_135_0}];
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResults_anchor___block_invoke_110;
+        v12[3] = &unk_278598718;
+        v12[4] = v8;
+        v13 = v3;
+        [v10 prepAndRunQuery:@"INSERT INTO anchorModelTrainingResults (trainingDate onPrep:anchorType onRow:anchorEventIdentifier onError:{candidateType, candidateId, numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence, posteriorProbability, classConditionalProbability, classifierType, trainedClassifier, classifierDescription, startSecondsAfterAnchor, endSecondsAfterAnchor, standardDeviationOfOffsetFromAnchor, launchesInLast28Days, launchesInLast14Days, launchesInLast7Days, launchesInLast48Hours, launchesInLast24Hours, launchesInLast12Hours, launchesInLast2Hours, anchorPopularity, globalPopularity) VALUES (:trainingDate, :anchorType, :anchorEventIdentifier, :candidateType, :candidateId, :numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence, :posteriorProbability, :classConditionalProbability, :classifierType, :trainedClassifier, :classifierDescription, :startSecondsAfterAnchor, :endSecondsAfterAnchor, :standardDeviationOfOffsetFromAnchor, :launchesInLast28Days, :launchesInLast14Days, :launchesInLast7Days, :launchesInLast48Hours, :launchesInLast24Hours, :launchesInLast12Hours, :launchesInLast2Hours, :anchorPopularity, :globalPopularity)", v12, 0, &__block_literal_global_135_0}];
 
         objc_autoreleasePoolPop(v9);
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v5 = [obj countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResults_anchor___block_invoke_3(uint64_t a1, void *a2)
@@ -429,7 +476,7 @@ void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResul
 uint64_t __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResults_anchor___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_101_cold_1();
@@ -458,19 +505,19 @@ void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResul
   {
     [v3 bindNamedParam:":trainedClassifier" toNSData:v8];
     [*(a1 + 40) timeIntervalSince1970];
-    [v3 bindNamedParam:":trainingDate" toInt64:v10];
-    v11 = [*(a1 + 32) anchor];
-    v12 = [v11 anchorTypeString];
-    [v3 bindNamedParam:":anchorType" toNSString:v12];
+    [v3 bindNamedParam:":trainingDate" toInt64:v11];
+    v12 = [*(a1 + 32) anchor];
+    v13 = [v12 anchorTypeString];
+    [v3 bindNamedParam:":anchorType" toNSString:v13];
 
-    v13 = [*(a1 + 32) anchor];
-    v14 = [v13 anchorEventIdentifier];
+    v14 = [*(a1 + 32) anchor];
+    v15 = [v14 anchorEventIdentifier];
 
-    if (v14)
+    if (v15)
     {
-      v15 = [*v6 anchor];
-      v16 = [v15 anchorEventIdentifier];
-      [v3 bindNamedParam:":anchorEventIdentifier" toNSString:v16];
+      v16 = [*v6 anchor];
+      v17 = [v16 anchorEventIdentifier];
+      [v3 bindNamedParam:":anchorEventIdentifier" toNSString:v17];
     }
 
     else
@@ -478,46 +525,46 @@ void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResul
       [v3 bindNamedParamToNull:":anchorEventIdentifier"];
     }
 
-    v18 = [*v6 candidateType];
-    [v3 bindNamedParam:":candidateType" toNSString:v18];
+    v19 = [*v6 candidateType];
+    [v3 bindNamedParam:":candidateType" toNSString:v19];
 
-    v19 = [*v6 candidateId];
-    [v3 bindNamedParam:":candidateId" toNSString:v19];
-
-    v20 = [*v6 phase1TrainingResult];
-    [v3 bindNamedParam:":numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence" toInteger:{objc_msgSend(v20, "numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence")}];
+    v20 = [*v6 candidateId];
+    [v3 bindNamedParam:":candidateId" toNSString:v20];
 
     v21 = [*v6 phase1TrainingResult];
-    [v21 posteriorProbability];
-    [v3 bindNamedParam:":posteriorProbability" toDouble:?];
+    [v3 bindNamedParam:":numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence" toInteger:{objc_msgSend(v21, "numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence")}];
 
     v22 = [*v6 phase1TrainingResult];
-    [v22 classConditionalProbability];
+    [v22 posteriorProbability];
+    [v3 bindNamedParam:":posteriorProbability" toDouble:?];
+
+    v23 = [*v6 phase1TrainingResult];
+    [v23 classConditionalProbability];
     [v3 bindNamedParam:":classConditionalProbability" toDouble:?];
 
     [v3 bindNamedParam:":classifierType" toInteger:{objc_msgSend(*v6, "candidateClassifierType")}];
-    v23 = [*v6 candidateClassifier];
-    v24 = [v23 description];
-    [v3 bindNamedParam:":classifierDescription" toNSString:v24];
-
-    v25 = [*v6 offsetFromAnchorToShowPrediction];
-    [v25 startSecondsAfterAnchor];
-    [v3 bindNamedParam:":startSecondsAfterAnchor" toDouble:?];
+    v24 = [*v6 candidateClassifier];
+    v25 = [v24 description];
+    [v3 bindNamedParam:":classifierDescription" toNSString:v25];
 
     v26 = [*v6 offsetFromAnchorToShowPrediction];
-    [v26 endSecondsAfterAnchor];
+    [v26 startSecondsAfterAnchor];
+    [v3 bindNamedParam:":startSecondsAfterAnchor" toDouble:?];
+
+    v27 = [*v6 offsetFromAnchorToShowPrediction];
+    [v27 endSecondsAfterAnchor];
     [v3 bindNamedParam:":endSecondsAfterAnchor" toDouble:?];
 
-    v27 = [*v6 phase1TrainingResult];
-    [v27 standardDeviationOfOffsetFromAnchor];
+    v28 = [*v6 phase1TrainingResult];
+    [v28 standardDeviationOfOffsetFromAnchor];
     [v3 bindNamedParam:":standardDeviationOfOffsetFromAnchor" toDouble:?];
 
-    v28 = [*v6 phase1TrainingResult];
-    v17 = [v28 launchHistory];
+    v29 = [*v6 phase1TrainingResult];
+    v18 = [v29 launchHistory];
 
-    if ([v17 hasLaunchesInLast28Days])
+    if ([v18 hasLaunchesInLast28Days])
     {
-      [v3 bindNamedParam:":launchesInLast28Days" toInteger:{-[NSObject launchesInLast28Days](v17, "launchesInLast28Days")}];
+      [v3 bindNamedParam:":launchesInLast28Days" toInteger:{-[NSObject launchesInLast28Days](v18, "launchesInLast28Days")}];
     }
 
     else
@@ -525,9 +572,9 @@ void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResul
       [v3 bindNamedParamToNull:":launchesInLast28Days"];
     }
 
-    if ([v17 hasLaunchesInLast14Days])
+    if ([v18 hasLaunchesInLast14Days])
     {
-      [v3 bindNamedParam:":launchesInLast14Days" toInteger:{-[NSObject launchesInLast14Days](v17, "launchesInLast14Days")}];
+      [v3 bindNamedParam:":launchesInLast14Days" toInteger:{-[NSObject launchesInLast14Days](v18, "launchesInLast14Days")}];
     }
 
     else
@@ -535,9 +582,9 @@ void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResul
       [v3 bindNamedParamToNull:":launchesInLast14Days"];
     }
 
-    if ([v17 hasLaunchesInLast7Days])
+    if ([v18 hasLaunchesInLast7Days])
     {
-      [v3 bindNamedParam:":launchesInLast7Days" toInteger:{-[NSObject launchesInLast7Days](v17, "launchesInLast7Days")}];
+      [v3 bindNamedParam:":launchesInLast7Days" toInteger:{-[NSObject launchesInLast7Days](v18, "launchesInLast7Days")}];
     }
 
     else
@@ -545,9 +592,9 @@ void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResul
       [v3 bindNamedParamToNull:":launchesInLast7Days"];
     }
 
-    if ([v17 hasLaunchesInLast48Hours])
+    if ([v18 hasLaunchesInLast48Hours])
     {
-      [v3 bindNamedParam:":launchesInLast48Hours" toInteger:{-[NSObject launchesInLast48Hours](v17, "launchesInLast48Hours")}];
+      [v3 bindNamedParam:":launchesInLast48Hours" toInteger:{-[NSObject launchesInLast48Hours](v18, "launchesInLast48Hours")}];
     }
 
     else
@@ -555,9 +602,9 @@ void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResul
       [v3 bindNamedParamToNull:":launchesInLast48Hours"];
     }
 
-    if ([v17 hasLaunchesInLast24Hours])
+    if ([v18 hasLaunchesInLast24Hours])
     {
-      [v3 bindNamedParam:":launchesInLast24Hours" toInteger:{-[NSObject launchesInLast24Hours](v17, "launchesInLast24Hours")}];
+      [v3 bindNamedParam:":launchesInLast24Hours" toInteger:{-[NSObject launchesInLast24Hours](v18, "launchesInLast24Hours")}];
     }
 
     else
@@ -565,9 +612,9 @@ void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResul
       [v3 bindNamedParamToNull:":launchesInLast12Hours"];
     }
 
-    if ([v17 hasLaunchesInLast12Hours])
+    if ([v18 hasLaunchesInLast12Hours])
     {
-      [v3 bindNamedParam:":launchesInLast12Hours" toInteger:{-[NSObject launchesInLast12Hours](v17, "launchesInLast12Hours")}];
+      [v3 bindNamedParam:":launchesInLast12Hours" toInteger:{-[NSObject launchesInLast12Hours](v18, "launchesInLast12Hours")}];
     }
 
     else
@@ -575,9 +622,9 @@ void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResul
       [v3 bindNamedParamToNull:":launchesInLast24Hours"];
     }
 
-    if ([v17 hasLaunchesInLast2Hours])
+    if ([v18 hasLaunchesInLast2Hours])
     {
-      [v3 bindNamedParam:":launchesInLast2Hours" toInteger:{-[NSObject launchesInLast2Hours](v17, "launchesInLast2Hours")}];
+      [v3 bindNamedParam:":launchesInLast2Hours" toInteger:{-[NSObject launchesInLast2Hours](v18, "launchesInLast2Hours")}];
     }
 
     else
@@ -585,21 +632,21 @@ void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResul
       [v3 bindNamedParamToNull:":launchesInLast2Hours"];
     }
 
-    v29 = [*v6 phase1TrainingResult];
-    [v29 anchorPopularity];
+    v30 = [*v6 phase1TrainingResult];
+    [v30 anchorPopularity];
     [v3 bindNamedParam:":anchorPopularity" toDouble:?];
 
-    v30 = [*v6 phase1TrainingResult];
-    [v30 globalPopularity];
+    v31 = [*v6 phase1TrainingResult];
+    [v31 globalPopularity];
     [v3 bindNamedParam:":globalPopularity" toDouble:?];
   }
 
   else
   {
-    v17 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v18 = __atxlog_handle_anchor(v10);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResults_anchor___block_invoke_110_cold_1(v6, v9, v17);
+      __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResults_anchor___block_invoke_110_cold_1(v6, v9, v18);
     }
   }
 }
@@ -607,7 +654,7 @@ void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResul
 uint64_t __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResults_anchor___block_invoke_133(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_101_cold_1();
@@ -626,7 +673,7 @@ uint64_t __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingR
   v16 = idCopy;
   if (!typeCopy)
   {
-    v18 = __atxlog_handle_anchor();
+    v18 = __atxlog_handle_anchor(idCopy);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       [ATXAnchorModelDataStoreWrapper insertAnchorSuggestionOutcome:date:anchorType:anchorEventIdentifier:candidateId:];
@@ -637,7 +684,7 @@ uint64_t __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingR
 
   if (!idCopy)
   {
-    v18 = __atxlog_handle_anchor();
+    v18 = __atxlog_handle_anchor(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       [ATXAnchorModelDataStoreWrapper insertAnchorSuggestionOutcome:date:anchorType:anchorEventIdentifier:candidateId:];
@@ -708,7 +755,7 @@ void __114__ATXAnchorModelDataStoreWrapper_insertAnchorSuggestionOutcome_date_an
 uint64_t __114__ATXAnchorModelDataStoreWrapper_insertAnchorSuggestionOutcome_date_anchorType_anchorEventIdentifier_candidateId___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __114__ATXAnchorModelDataStoreWrapper_insertAnchorSuggestionOutcome_date_anchorType_anchorEventIdentifier_candidateId___block_invoke_3_cold_1();
@@ -727,7 +774,7 @@ uint64_t __114__ATXAnchorModelDataStoreWrapper_insertAnchorSuggestionOutcome_dat
   v14 = idCopy;
   if (!typeCopy)
   {
-    v17 = __atxlog_handle_anchor();
+    v17 = __atxlog_handle_anchor(idCopy);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       [ATXAnchorModelDataStoreWrapper insertAnchorSuggestionOutcome:date:anchorType:anchorEventIdentifier:candidateId:];
@@ -738,7 +785,7 @@ uint64_t __114__ATXAnchorModelDataStoreWrapper_insertAnchorSuggestionOutcome_dat
 
   if (!idCopy)
   {
-    v17 = __atxlog_handle_anchor();
+    v17 = __atxlog_handle_anchor(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       [ATXAnchorModelDataStoreWrapper insertAnchorSuggestionOutcome:date:anchorType:anchorEventIdentifier:candidateId:];
@@ -811,7 +858,7 @@ uint64_t __110__ATXAnchorModelDataStoreWrapper_assignMetricsForTrainingResult_an
   v4 = [v3 getIntegerForColumn:1];
   if (v4 < 0)
   {
-    v7 = __atxlog_handle_anchor();
+    v7 = __atxlog_handle_anchor(v4);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       __110__ATXAnchorModelDataStoreWrapper_assignMetricsForTrainingResult_anchorType_anchorEventIdentifier_candidateId___block_invoke_3_cold_2();
@@ -828,7 +875,7 @@ uint64_t __110__ATXAnchorModelDataStoreWrapper_assignMetricsForTrainingResult_an
       goto LABEL_9;
     }
 
-    v7 = __atxlog_handle_anchor();
+    v7 = __atxlog_handle_anchor(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       __110__ATXAnchorModelDataStoreWrapper_assignMetricsForTrainingResult_anchorType_anchorEventIdentifier_candidateId___block_invoke_3_cold_1();
@@ -844,7 +891,7 @@ LABEL_9:
 uint64_t __110__ATXAnchorModelDataStoreWrapper_assignMetricsForTrainingResult_anchorType_anchorEventIdentifier_candidateId___block_invoke_147(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __110__ATXAnchorModelDataStoreWrapper_assignMetricsForTrainingResult_anchorType_anchorEventIdentifier_candidateId___block_invoke_147_cold_1();
@@ -913,21 +960,20 @@ uint64_t __110__ATXAnchorModelDataStoreWrapper_assignMetricsForTrainingResult_an
     while (v14);
   }
 
-  v22 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = __atxlog_handle_anchor(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = [v12 count];
+    v24 = [v12 count];
     *buf = 134218242;
-    v37 = v23;
+    v37 = v24;
     v38 = 2112;
     v39 = v10;
-    _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "Recovered %lu training results for anchor %@", buf, 0x16u);
+    _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, "Recovered %lu training results for anchor %@", buf, 0x16u);
   }
 
-  v24 = v35;
-  v25 = v12;
+  v25 = v35;
+  v26 = v12;
 
-  v26 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -976,14 +1022,14 @@ void __59__ATXAnchorModelDataStoreWrapper_trainingResultsForAnchor___block_invok
 
 uint64_t __59__ATXAnchorModelDataStoreWrapper_trainingResultsForAnchor___block_invoke_3(uint64_t a1, void *a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v36 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:{objc_msgSend(v2, "getInt64ForColumnName:table:", "trainingDate", "anchorModelTrainingResults")}];
-  v35 = [v2 getNSStringForColumnName:"anchorType" table:"anchorModelTrainingResults"];
-  v34 = [v2 getNSStringForColumnName:"candidateType" table:"anchorModelTrainingResults"];
+  v37 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:{objc_msgSend(v2, "getInt64ForColumnName:table:", "trainingDate", "anchorModelTrainingResults")}];
+  v36 = [v2 getNSStringForColumnName:"anchorType" table:"anchorModelTrainingResults"];
+  v35 = [v2 getNSStringForColumnName:"candidateType" table:"anchorModelTrainingResults"];
   v3 = [v2 getNSStringForColumnName:"candidateId" table:"anchorModelTrainingResults"];
   v4 = objc_opt_new();
-  v38 = v3;
+  v39 = v3;
   [v4 setCandidateId:v3];
   [v4 setNumUniqueAnchorOccurrencesWithUniqueCandidateOccurrence:{objc_msgSend(v2, "getIntegerForColumnName:table:", "numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence", "anchorModelTrainingResults")}];
   [v2 getDoubleForColumnName:"posteriorProbability" table:"anchorModelTrainingResults"];
@@ -1005,13 +1051,13 @@ uint64_t __59__ATXAnchorModelDataStoreWrapper_trainingResultsForAnchor___block_i
     [v4 setLaunchHistory:v5];
   }
 
-  v32 = [v2 getIntegerForColumnName:"classifierType" table:"anchorModelTrainingResults"];
+  v33 = [v2 getIntegerForColumnName:"classifierType" table:"anchorModelTrainingResults"];
   v6 = [v2 getNSDataForColumnName:"trainedClassifier" table:"anchorModelTrainingResults"];
   v7 = objc_autoreleasePoolPush();
-  v39 = 0;
-  v33 = v6;
-  v8 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v6 error:&v39];
-  v9 = v39;
+  v40 = 0;
+  v34 = v6;
+  v8 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v6 error:&v40];
+  v9 = v40;
   [v8 setRequiresSecureCoding:1];
   [v8 setDecodingFailurePolicy:1];
   [ATXGamePlayKitDecisionTreeAnchorModelCandidateClassifier configureKeyedUnarchiver:v8];
@@ -1029,83 +1075,82 @@ uint64_t __59__ATXAnchorModelDataStoreWrapper_trainingResultsForAnchor___block_i
   objc_autoreleasePoolPop(v7);
   if (!v15 || v9 || v16)
   {
-    v28 = __atxlog_handle_anchor();
-    v27 = v35;
-    v24 = v36;
-    v21 = v34;
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+    v30 = __atxlog_handle_anchor(v17);
+    v29 = v36;
+    v25 = v37;
+    v22 = v35;
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
     {
       if (v9)
       {
-        v31 = v9;
+        v32 = v9;
       }
 
       else
       {
-        v31 = v16;
+        v32 = v16;
       }
 
       *buf = 138544130;
-      v41 = v31;
-      v42 = 2112;
-      v43 = v35;
-      v44 = 2112;
-      v45 = v36;
-      v46 = 2112;
-      v47 = v38;
-      _os_log_fault_impl(&dword_2263AA000, v28, OS_LOG_TYPE_FAULT, "Failed to unarchive trained classifier from anchorModelTrainingResults with error: %{public}@. Anchor: %@, trainingDate: %@, candidateId: %@", buf, 0x2Au);
+      v42 = v32;
+      v43 = 2112;
+      v44 = v36;
+      v45 = 2112;
+      v46 = v37;
+      v47 = 2112;
+      v48 = v39;
+      _os_log_fault_impl(&dword_2263AA000, v30, OS_LOG_TYPE_FAULT, "Failed to unarchive trained classifier from anchorModelTrainingResults with error: %{public}@. Anchor: %@, trainingDate: %@, candidateId: %@", buf, 0x2Au);
     }
 
     [*(a1 + 32) removeAllObjects];
-    v26 = *MEMORY[0x277D42698];
+    v28 = *MEMORY[0x277D42698];
   }
 
   else
   {
     [v2 getDoubleForColumnName:"startSecondsAfterAnchor" table:"anchorModelTrainingResults"];
-    v18 = v17;
+    v19 = v18;
     [v2 getDoubleForColumnName:"endSecondsAfterAnchor" table:"anchorModelTrainingResults"];
-    v20 = [[ATXAnchorModelPredictionOffsetFromAnchorOccurrence alloc] initWithStartSecondsAfterAnchor:v18 endSecondsAfterAnchor:v19];
-    v21 = v34;
-    v22 = [[ATXAnchorModelTrainingResult alloc] initWithAnchor:*(a1 + 40) candidateId:v38 candidateType:v34 phase1TrainingResult:v4 candidateClassifier:v15 candidateClassifierType:v32 offsetFromAnchorToShowPrediction:v20];
-    v23 = __atxlog_handle_anchor();
-    v24 = v36;
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v21 = [[ATXAnchorModelPredictionOffsetFromAnchorOccurrence alloc] initWithStartSecondsAfterAnchor:v19 endSecondsAfterAnchor:v20];
+    v22 = v35;
+    v23 = [[ATXAnchorModelTrainingResult alloc] initWithAnchor:*(a1 + 40) candidateId:v39 candidateType:v35 phase1TrainingResult:v4 candidateClassifier:v15 candidateClassifierType:v33 offsetFromAnchorToShowPrediction:v21];
+    v24 = __atxlog_handle_anchor(v23);
+    v25 = v37;
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v41 = v36;
-      _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, "Recovered training result that was added on %@", buf, 0xCu);
+      v42 = v37;
+      _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "Recovered training result that was added on %@", buf, 0xCu);
     }
 
-    v25 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v27 = __atxlog_handle_anchor(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v41 = v22;
-      _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, "Training result: %@", buf, 0xCu);
+      v42 = v23;
+      _os_log_impl(&dword_2263AA000, v27, OS_LOG_TYPE_DEFAULT, "Training result: %@", buf, 0xCu);
     }
 
-    [*(a1 + 32) addObject:v22];
-    v26 = *MEMORY[0x277D42690];
+    [*(a1 + 32) addObject:v23];
+    v28 = *MEMORY[0x277D42690];
 
-    v27 = v35;
+    v29 = v36;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-  return v26;
+  return v28;
 }
 
 uint64_t __59__ATXAnchorModelDataStoreWrapper_trainingResultsForAnchor___block_invoke_185(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __59__ATXAnchorModelDataStoreWrapper_trainingResultsForAnchor___block_invoke_185_cold_1(a1);
+    __59__ATXAnchorModelDataStoreWrapper_trainingResultsForAnchor___block_invoke_185_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (id)dateAnchorModelWasLastTrainedForAnchor:(id)anchor
@@ -1113,18 +1158,19 @@ uint64_t __59__ATXAnchorModelDataStoreWrapper_trainingResultsForAnchor___block_i
   anchorCopy = anchor;
   v5 = objc_opt_new();
   store = self->_store;
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3221225472;
-  v15 = __73__ATXAnchorModelDataStoreWrapper_dateAnchorModelWasLastTrainedForAnchor___block_invoke;
-  v16 = &unk_2785978C0;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __73__ATXAnchorModelDataStoreWrapper_dateAnchorModelWasLastTrainedForAnchor___block_invoke;
+  v17 = &unk_2785978C0;
   selfCopy = self;
-  v18 = @"SELECT trainingDate FROM anchorModelTrainingResults WHERE anchorType=:anchorType";
+  v19 = @"SELECT trainingDate FROM anchorModelTrainingResults WHERE anchorType=:anchorType";
   v7 = anchorCopy;
-  v19 = v7;
+  v20 = v7;
   v8 = v5;
-  v20 = v8;
-  [(_ATXDataStore *)store _doSync:&v13];
-  if ([v8 count] < 2)
+  v21 = v8;
+  [(_ATXDataStore *)store _doSync:&v14];
+  v9 = [v8 count];
+  if (v9 < 2)
   {
     if ([v8 count])
     {
@@ -1135,8 +1181,8 @@ uint64_t __59__ATXAnchorModelDataStoreWrapper_trainingResultsForAnchor___block_i
 
   else
   {
-    v9 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_anchor(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [ATXAnchorModelDataStoreWrapper dateAnchorModelWasLastTrainedForAnchor:];
     }
@@ -1144,9 +1190,9 @@ uint64_t __59__ATXAnchorModelDataStoreWrapper_trainingResultsForAnchor___block_i
 
   anyObject = [MEMORY[0x277CBEAA8] distantPast];
 LABEL_8:
-  v11 = anyObject;
+  v12 = anyObject;
 
-  return v11;
+  return v12;
 }
 
 void __73__ATXAnchorModelDataStoreWrapper_dateAnchorModelWasLastTrainedForAnchor___block_invoke(uint64_t a1)
@@ -1190,15 +1236,180 @@ uint64_t __73__ATXAnchorModelDataStoreWrapper_dateAnchorModelWasLastTrainedForAn
 
 uint64_t __73__ATXAnchorModelDataStoreWrapper_dateAnchorModelWasLastTrainedForAnchor___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __59__ATXAnchorModelDataStoreWrapper_trainingResultsForAnchor___block_invoke_185_cold_1(a1);
+    __59__ATXAnchorModelDataStoreWrapper_trainingResultsForAnchor___block_invoke_185_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
+}
+
++ (id)actionCandidateFeaturesFromActionEvent:(id)event actionMetadata:(id)metadata actionOccurred:(BOOL)occurred actionEngaged:(BOOL)engaged
+{
+  engagedCopy = engaged;
+  occurredCopy = occurred;
+  eventCopy = event;
+  metadataCopy = metadata;
+  v12 = objc_opt_new();
+  v13 = [ATXAnchorModelDataStoreWrapper candidateIdFromAppIntentDuetEvent:eventCopy];
+  [v12 setObject:v13 forKeyedSubscript:@"candidateId"];
+
+  alogId = [eventCopy alogId];
+
+  if (alogId)
+  {
+    alogId2 = [eventCopy alogId];
+    [v12 setObject:alogId2 forKeyedSubscript:@"candidateOccurrenceId"];
+  }
+
+  else
+  {
+    [v12 setObject:&unk_283A573F8 forKeyedSubscript:@"candidateOccurrenceId"];
+  }
+
+  [v12 setObject:@"action" forKeyedSubscript:@"candidateType"];
+  v16 = [MEMORY[0x277CCABB0] numberWithBool:occurredCopy];
+  [v12 setObject:v16 forKeyedSubscript:@"candidatePerformed"];
+
+  v17 = [MEMORY[0x277CCABB0] numberWithBool:engagedCopy];
+  [v12 setObject:v17 forKeyedSubscript:@"candidateEngaged"];
+
+  v18 = MEMORY[0x277CCABB0];
+  appLaunchMetadata = [metadataCopy appLaunchMetadata];
+  v20 = [v18 numberWithInt:{objc_msgSend(appLaunchMetadata, "relativeTimeSinceAnchorInSeconds")}];
+  [v12 setObject:v20 forKeyedSubscript:@"secondsSinceAnchor"];
+
+  actionUUIDMetadatas = [metadataCopy actionUUIDMetadatas];
+
+  v22 = [actionUUIDMetadatas objectAtIndexedSubscript:0];
+  actionUUIDLaunchHistory = [v22 actionUUIDLaunchHistory];
+  v24 = [self populateCandidateOccurrencesForFeatures:v12 withLaunchHistoryMetadata:actionUUIDLaunchHistory];
+
+  return v24;
+}
+
++ (id)appCandidateFeaturesFromAppLaunchEvent:(id)event appMetadata:(id)metadata appWasLaunched:(BOOL)launched appEngaged:(BOOL)engaged
+{
+  engagedCopy = engaged;
+  launchedCopy = launched;
+  metadataCopy = metadata;
+  eventCopy = event;
+  v12 = objc_opt_new();
+  v13 = [ATXAnchorModelDataStoreWrapper candidateIdFromAppLaunchDuetEvent:eventCopy];
+  [v12 setObject:v13 forKeyedSubscript:@"candidateId"];
+
+  v14 = MEMORY[0x277CCABB0];
+  startDate = [eventCopy startDate];
+
+  [startDate timeIntervalSince1970];
+  v16 = [v14 numberWithDouble:?];
+  [v12 setObject:v16 forKeyedSubscript:@"candidateOccurrenceId"];
+
+  [v12 setObject:@"app" forKeyedSubscript:@"candidateType"];
+  v17 = [MEMORY[0x277CCABB0] numberWithBool:launchedCopy];
+  [v12 setObject:v17 forKeyedSubscript:@"candidatePerformed"];
+
+  v18 = [MEMORY[0x277CCABB0] numberWithBool:engagedCopy];
+  [v12 setObject:v18 forKeyedSubscript:@"candidateEngaged"];
+
+  v19 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(metadataCopy, "relativeTimeSinceAnchorInSeconds")}];
+  [v12 setObject:v19 forKeyedSubscript:@"secondsSinceAnchor"];
+
+  appLaunchHistory = [metadataCopy appLaunchHistory];
+
+  v21 = [self populateCandidateOccurrencesForFeatures:v12 withLaunchHistoryMetadata:appLaunchHistory];
+
+  return v21;
+}
+
++ (id)modeCandidateFeaturesFromModeEvent:(id)event modeMetadata:(id)metadata modeOccurred:(BOOL)occurred modeEngaged:(BOOL)engaged
+{
+  engagedCopy = engaged;
+  occurredCopy = occurred;
+  metadataCopy = metadata;
+  eventCopy = event;
+  v12 = objc_opt_new();
+  v13 = [self candidateIdFromModeBiomeEvent:eventCopy];
+  [v12 setObject:v13 forKeyedSubscript:@"candidateId"];
+
+  v14 = MEMORY[0x277CCABB0];
+  v15 = objc_alloc(MEMORY[0x277CBEAA8]);
+  [eventCopy timestamp];
+  v17 = v16;
+
+  v18 = [v15 initWithTimeIntervalSinceReferenceDate:v17];
+  [v18 timeIntervalSince1970];
+  v19 = [v14 numberWithDouble:?];
+  [v12 setObject:v19 forKeyedSubscript:@"candidateOccurrenceId"];
+
+  [v12 setObject:@"mode" forKeyedSubscript:@"candidateType"];
+  v20 = [MEMORY[0x277CCABB0] numberWithBool:occurredCopy];
+  [v12 setObject:v20 forKeyedSubscript:@"candidatePerformed"];
+
+  v21 = [MEMORY[0x277CCABB0] numberWithBool:engagedCopy];
+  [v12 setObject:v21 forKeyedSubscript:@"candidateEngaged"];
+
+  v22 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(metadataCopy, "relativeTimeSinceAnchorInSeconds")}];
+  [v12 setObject:v22 forKeyedSubscript:@"secondsSinceAnchor"];
+
+  modeHistory = [metadataCopy modeHistory];
+
+  v24 = [self populateCandidateOccurrencesForFeatures:v12 withLaunchHistoryMetadata:modeHistory];
+
+  return v24;
+}
+
++ (id)linkActionCandidateFeaturesFromLinkActionEvent:(id)event actionMetadata:(id)metadata actionOccurred:(BOOL)occurred actionEngaged:(BOOL)engaged
+{
+  engagedCopy = engaged;
+  occurredCopy = occurred;
+  eventCopy = event;
+  metadataCopy = metadata;
+  v12 = objc_opt_new();
+  v13 = [self candidateIdFromLinkActionBiomeEvent:eventCopy];
+  if (v13)
+  {
+    [v12 setObject:v13 forKeyedSubscript:@"candidateId"];
+    v14 = MEMORY[0x277CCABB0];
+    v15 = objc_alloc(MEMORY[0x277CBEAA8]);
+    [eventCopy timestamp];
+    v16 = [v15 initWithTimeIntervalSinceReferenceDate:?];
+    [v16 timeIntervalSince1970];
+    v17 = [v14 numberWithDouble:?];
+    [v12 setObject:v17 forKeyedSubscript:@"candidateOccurrenceId"];
+
+    [v12 setObject:@"linkaction" forKeyedSubscript:@"candidateType"];
+    v18 = [MEMORY[0x277CCABB0] numberWithBool:occurredCopy];
+    [v12 setObject:v18 forKeyedSubscript:@"candidatePerformed"];
+
+    v19 = [MEMORY[0x277CCABB0] numberWithBool:engagedCopy];
+    [v12 setObject:v19 forKeyedSubscript:@"candidateEngaged"];
+
+    v20 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(metadataCopy, "relativeTimeSinceAnchorInSeconds")}];
+    [v12 setObject:v20 forKeyedSubscript:@"secondsSinceAnchor"];
+
+    actionHistory = [metadataCopy actionHistory];
+    v22 = [self populateCandidateOccurrencesForFeatures:v12 withLaunchHistoryMetadata:actionHistory];
+
+    v12 = v22;
+    v23 = v12;
+  }
+
+  else
+  {
+    v24 = __atxlog_handle_anchor(0);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    {
+      +[ATXAnchorModelDataStoreWrapper linkActionCandidateFeaturesFromLinkActionEvent:actionMetadata:actionOccurred:actionEngaged:];
+    }
+
+    v23 = 0;
+  }
+
+  return v23;
 }
 
 + (id)populateCandidateOccurrencesForFeatures:(id)features withLaunchHistoryMetadata:(id)metadata
@@ -1313,27 +1524,25 @@ uint64_t __73__ATXAnchorModelDataStoreWrapper_dateAnchorModelWasLastTrainedForAn
 
 - (void)updateOrInsertAnchorEvent:(id)event anchor:(id)anchor featureMetadata:(id)metadata
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   anchorCopy = anchor;
   metadataCopy = metadata;
-  v11 = __atxlog_handle_anchor();
+  v11 = __atxlog_handle_anchor(metadataCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138412802;
-    v14 = eventCopy;
-    v15 = 2112;
-    v16 = anchorCopy;
-    v17 = 2112;
-    v18 = metadataCopy;
-    _os_log_debug_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEBUG, "AnchorModel: ATXDATASTORE. Adding anchor event to database %@ for anchor %@, featureMetadata: %@", &v13, 0x20u);
+    v12 = 138412802;
+    v13 = eventCopy;
+    v14 = 2112;
+    v15 = anchorCopy;
+    v16 = 2112;
+    v17 = metadataCopy;
+    _os_log_debug_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEBUG, "AnchorModel: ATXDATASTORE. Adding anchor event to database %@ for anchor %@, featureMetadata: %@", &v12, 0x20u);
   }
 
   [(ATXAnchorModelDataStoreWrapper *)self updateOrInsertAnchorType:anchorCopy];
   [(ATXAnchorModelDataStoreWrapper *)self updateOrInsertLocation:metadataCopy];
   [(ATXAnchorModelDataStoreWrapper *)self insertAnchorOccurrence:eventCopy anchor:anchorCopy featureMetadata:metadataCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateOrInsertAnchorType:(id)type
@@ -1379,7 +1588,7 @@ void __59__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorType___block_invok
 uint64_t __59__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorType___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __59__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorType___block_invoke_3_cold_1();
@@ -1445,7 +1654,7 @@ void __57__ATXAnchorModelDataStoreWrapper_updateOrInsertLocation___block_invoke_
 uint64_t __57__ATXAnchorModelDataStoreWrapper_updateOrInsertLocation___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __57__ATXAnchorModelDataStoreWrapper_updateOrInsertLocation___block_invoke_3_cold_1();
@@ -1495,35 +1704,34 @@ void __80__ATXAnchorModelDataStoreWrapper_insertAnchorOccurrence_anchor_featureM
 
 void __80__ATXAnchorModelDataStoreWrapper_insertAnchorOccurrence_anchor_featureMetadata___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v12 = [objc_opt_class() anchorFeaturesForAnchorOccurrence:*(a1 + 40) anchor:*(a1 + 48) anchorMetadata:*(a1 + 56)];
-  v5 = [v12 objectForKeyedSubscript:@"anchorType"];
-  [v4 bindNamedParam:":anchorType" toNSString:v5];
+  v3 = a2;
+  v11 = [objc_opt_class() anchorFeaturesForAnchorOccurrence:*(a1 + 40) anchor:*(a1 + 48) anchorMetadata:*(a1 + 56)];
+  v4 = [v11 objectForKeyedSubscript:@"anchorType"];
+  [v3 bindNamedParam:":anchorType" toNSString:v4];
 
-  v6 = [v12 objectForKeyedSubscript:@"anchorDate"];
-  [v4 bindNamedParam:":anchorDate" toInt64:{objc_msgSend(v6, "longLongValue")}];
+  v5 = [v11 objectForKeyedSubscript:@"anchorDate"];
+  [v3 bindNamedParam:":anchorDate" toInt64:{objc_msgSend(v5, "longLongValue")}];
 
-  v7 = [v12 objectForKeyedSubscript:@"anchorLocalHour"];
-  [v4 bindNamedParam:":anchorLocalHour" toInteger:{objc_msgSend(v7, "integerValue")}];
+  v6 = [v11 objectForKeyedSubscript:@"anchorLocalHour"];
+  [v3 bindNamedParam:":anchorLocalHour" toInteger:{objc_msgSend(v6, "integerValue")}];
 
-  v8 = [v12 objectForKeyedSubscript:@"anchorLocalDoW"];
-  [v4 bindNamedParam:":anchorLocalDoW" toInteger:{objc_msgSend(v8, "integerValue")}];
+  v7 = [v11 objectForKeyedSubscript:@"anchorLocalDoW"];
+  [v3 bindNamedParam:":anchorLocalDoW" toInteger:{objc_msgSend(v7, "integerValue")}];
 
-  v9 = [v12 objectForKeyedSubscript:@"anchorLocalIsWeekend"];
-  [v4 bindNamedParam:":anchorLocalIsWeekend" toInteger:{objc_msgSend(v9, "integerValue")}];
+  v8 = [v11 objectForKeyedSubscript:@"anchorLocalIsWeekend"];
+  [v3 bindNamedParam:":anchorLocalIsWeekend" toInteger:{objc_msgSend(v8, "integerValue")}];
 
-  v10 = [v12 objectForKeyedSubscript:@"anchorLocation"];
-  [v4 bindNamedParam:":anchorLocation" toNSString:v10];
+  v9 = [v11 objectForKeyedSubscript:@"anchorLocation"];
+  [v3 bindNamedParam:":anchorLocation" toNSString:v9];
 
-  v11 = [*(a1 + 40) identifier];
-  [v4 bindNamedParam:":anchorEventIdentifier" toNSString:v11];
+  v10 = [*(a1 + 40) identifier];
+  [v3 bindNamedParam:":anchorEventIdentifier" toNSString:v10];
 }
 
 uint64_t __80__ATXAnchorModelDataStoreWrapper_insertAnchorOccurrence_anchor_featureMetadata___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __80__ATXAnchorModelDataStoreWrapper_insertAnchorOccurrence_anchor_featureMetadata___block_invoke_3_cold_1();
@@ -1535,7 +1743,7 @@ uint64_t __80__ATXAnchorModelDataStoreWrapper_insertAnchorOccurrence_anchor_feat
 
 - (unint64_t)deleteSamplesThatAreMoreThan28DaysOld
 {
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1668,24 +1876,24 @@ void __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld_
 uint64_t __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_4(uint64_t a1, void *a2)
 {
   v9 = *MEMORY[0x277D85DE8];
-  *(*(*(a1 + 32) + 8) + 24) = [a2 getIntegerForColumn:0];
-  v3 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = [a2 getIntegerForColumn:0];
+  *(*(*(a1 + 32) + 8) + 24) = v3;
+  v4 = __atxlog_handle_anchor(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(*(*(a1 + 32) + 8) + 24);
+    v5 = *(*(*(a1 + 32) + 8) + 24);
     v7 = 134217984;
-    v8 = v4;
-    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "Removing %lu samples from anchorOccurrence table because the samples are more than 28 days old.", &v7, 0xCu);
+    v8 = v5;
+    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "Removing %lu samples from anchorOccurrence table because the samples are more than 28 days old.", &v7, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
 uint64_t __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_256(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_256_cold_1();
@@ -1706,7 +1914,7 @@ void __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld_
 uint64_t __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_2_263(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_2_263_cold_1();
@@ -1727,24 +1935,24 @@ void __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld_
 uint64_t __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_2_270(uint64_t a1, void *a2)
 {
   v9 = *MEMORY[0x277D85DE8];
-  *(*(*(a1 + 32) + 8) + 24) = [a2 getIntegerForColumn:0];
-  v3 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = [a2 getIntegerForColumn:0];
+  *(*(*(a1 + 32) + 8) + 24) = v3;
+  v4 = __atxlog_handle_anchor(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(*(*(a1 + 32) + 8) + 24);
+    v5 = *(*(*(a1 + 32) + 8) + 24);
     v7 = 134217984;
-    v8 = v4;
-    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "Removing %lu samples from anchorModelTrainingData table because the samples are more than 28 days old.", &v7, 0xCu);
+    v8 = v5;
+    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "Removing %lu samples from anchorModelTrainingData table because the samples are more than 28 days old.", &v7, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
 uint64_t __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_271(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_271_cold_1();
@@ -1765,7 +1973,7 @@ void __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld_
 uint64_t __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_2_278(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_2_278_cold_1();
@@ -1786,24 +1994,24 @@ void __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld_
 uint64_t __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_2_286(uint64_t a1, void *a2)
 {
   v9 = *MEMORY[0x277D85DE8];
-  *(*(*(a1 + 32) + 8) + 24) = [a2 getIntegerForColumn:0];
-  v3 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = [a2 getIntegerForColumn:0];
+  *(*(*(a1 + 32) + 8) + 24) = v3;
+  v4 = __atxlog_handle_anchor(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(*(*(a1 + 32) + 8) + 24);
+    v5 = *(*(*(a1 + 32) + 8) + 24);
     v7 = 134217984;
-    v8 = v4;
-    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "Removing %lu outcomes from anchorModelSuggestionOutcomes table because the samples are more than 28 days old.", &v7, 0xCu);
+    v8 = v5;
+    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "Removing %lu outcomes from anchorModelSuggestionOutcomes table because the samples are more than 28 days old.", &v7, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
 uint64_t __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_287(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_287_cold_1();
@@ -1824,7 +2032,7 @@ void __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld_
 uint64_t __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_2_294(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_2_294_cold_1();
@@ -1837,7 +2045,7 @@ uint64_t __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28Days
 - (unint64_t)deleteSamplesForBundleIdsNotInList:(id)list
 {
   listCopy = list;
-  v5 = __atxlog_handle_anchor();
+  v5 = __atxlog_handle_anchor(listCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1903,7 +2111,7 @@ void __69__ATXAnchorModelDataStoreWrapper_deleteSamplesForBundleIdsNotInList___b
 uint64_t __69__ATXAnchorModelDataStoreWrapper_deleteSamplesForBundleIdsNotInList___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __69__ATXAnchorModelDataStoreWrapper_deleteSamplesForBundleIdsNotInList___block_invoke_4_cold_1();
@@ -1916,24 +2124,24 @@ uint64_t __69__ATXAnchorModelDataStoreWrapper_deleteSamplesForBundleIdsNotInList
 uint64_t __69__ATXAnchorModelDataStoreWrapper_deleteSamplesForBundleIdsNotInList___block_invoke_306(uint64_t a1, void *a2)
 {
   v9 = *MEMORY[0x277D85DE8];
-  *(*(*(a1 + 32) + 8) + 24) = [a2 getIntegerForColumn:0];
-  v3 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = [a2 getIntegerForColumn:0];
+  *(*(*(a1 + 32) + 8) + 24) = v3;
+  v4 = __atxlog_handle_anchor(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(*(*(a1 + 32) + 8) + 24);
+    v5 = *(*(*(a1 + 32) + 8) + 24);
     v7 = 134217984;
-    v8 = v4;
-    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "Removed %ld samples from anchorModelTrainingData because the associated apps were uninstalled.", &v7, 0xCu);
+    v8 = v5;
+    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "Removed %ld samples from anchorModelTrainingData because the associated apps were uninstalled.", &v7, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
 uint64_t __69__ATXAnchorModelDataStoreWrapper_deleteSamplesForBundleIdsNotInList___block_invoke_307(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_anchor();
+  v3 = __atxlog_handle_anchor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __69__ATXAnchorModelDataStoreWrapper_deleteSamplesForBundleIdsNotInList___block_invoke_307_cold_1();
@@ -2066,15 +2274,15 @@ uint64_t __75__ATXAnchorModelDataStoreWrapper_historicalAnchorOccurrenceDatesFor
 
 uint64_t __75__ATXAnchorModelDataStoreWrapper_historicalAnchorOccurrenceDatesForAnchor___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __75__ATXAnchorModelDataStoreWrapper_historicalAnchorOccurrenceDatesForAnchor___block_invoke_4_cold_1(a1);
+    __75__ATXAnchorModelDataStoreWrapper_historicalAnchorOccurrenceDatesForAnchor___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (id)uniqueAnchorEventIdentifiersForAnchor:(id)anchor
@@ -2148,7 +2356,7 @@ uint64_t __72__ATXAnchorModelDataStoreWrapper_uniqueAnchorEventIdentifiersForAnc
 
   else
   {
-    v4 = __atxlog_handle_anchor();
+    v4 = __atxlog_handle_anchor(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __72__ATXAnchorModelDataStoreWrapper_uniqueAnchorEventIdentifiersForAnchor___block_invoke_3_cold_1();
@@ -2162,15 +2370,15 @@ uint64_t __72__ATXAnchorModelDataStoreWrapper_uniqueAnchorEventIdentifiersForAnc
 
 uint64_t __72__ATXAnchorModelDataStoreWrapper_uniqueAnchorEventIdentifiersForAnchor___block_invoke_323(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __72__ATXAnchorModelDataStoreWrapper_uniqueAnchorEventIdentifiersForAnchor___block_invoke_323_cold_1(a1);
+    __72__ATXAnchorModelDataStoreWrapper_uniqueAnchorEventIdentifiersForAnchor___block_invoke_323_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (int64_t)numUniqueAnchorOccurrencesForAnchor:(id)anchor candidateId:(id)id
@@ -2249,15 +2457,15 @@ void __82__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesForAnchor_ca
 
 uint64_t __82__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesForAnchor_candidateId___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __82__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesForAnchor_candidateId___block_invoke_4_cold_1(a1);
+    __82__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesForAnchor_candidateId___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (int64_t)numUniqueAnchorOccurrencesWithUniqueCandidateOccurrenceForGenericCandidateId:(id)id anchor:(id)anchor
@@ -2314,7 +2522,7 @@ void __118__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesWithUniqueC
 void __118__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesWithUniqueCandidateOccurrenceForGenericCandidateId_anchor___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
-  v13 = a2;
+  v12 = a2;
   v4 = [v3 anchorEventIdentifier];
   v5 = v4;
   v6 = @"%";
@@ -2325,32 +2533,31 @@ void __118__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesWithUniqueC
 
   v7 = v6;
 
-  [v13 bindNamedParam:":candidateId" toNSString:*(a1 + 40)];
+  [v12 bindNamedParam:":candidateId" toNSString:*(a1 + 40)];
   v8 = [*(a1 + 32) anchorTypeString];
-  [v13 bindNamedParam:":anchorType" toNSString:v8];
+  [v12 bindNamedParam:":anchorType" toNSString:v8];
 
-  [v13 bindNamedParam:":anchorEventIdentifier" toNSString:v7];
+  [v12 bindNamedParam:":anchorEventIdentifier" toNSString:v7];
   v9 = MEMORY[0x277CCABB0];
-  v10 = *(a1 + 32);
   [objc_opt_class() secondsOfInfluence];
-  v11 = [v9 numberWithDouble:?];
-  [v13 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v11, "integerValue")}];
+  v10 = [v9 numberWithDouble:?];
+  [v12 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v10, "integerValue")}];
 
   [*(*(a1 + 48) + 16) timeIntervalSince1970];
-  [v13 bindNamedParam:":oldestAllowedAnchorDate" toInt64:v12];
+  [v12 bindNamedParam:":oldestAllowedAnchorDate" toInt64:v11];
 }
 
 uint64_t __118__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesWithUniqueCandidateOccurrenceForGenericCandidateId_anchor___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __118__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesWithUniqueCandidateOccurrenceForGenericCandidateId_anchor___block_invoke_4_cold_1(a1);
+    __118__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesWithUniqueCandidateOccurrenceForGenericCandidateId_anchor___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (int64_t)numUniqueAnchorOccurrencesForGenericCandidateId:(id)id anchor:(id)anchor
@@ -2407,7 +2614,7 @@ void __89__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesForGenericCa
 void __89__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesForGenericCandidateId_anchor___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
-  v13 = a2;
+  v12 = a2;
   v4 = [v3 anchorEventIdentifier];
   v5 = v4;
   v6 = @"%";
@@ -2418,70 +2625,70 @@ void __89__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesForGenericCa
 
   v7 = v6;
 
-  [v13 bindNamedParam:":candidateId" toNSString:*(a1 + 40)];
+  [v12 bindNamedParam:":candidateId" toNSString:*(a1 + 40)];
   v8 = [*(a1 + 32) anchorTypeString];
-  [v13 bindNamedParam:":anchorType" toNSString:v8];
+  [v12 bindNamedParam:":anchorType" toNSString:v8];
 
-  [v13 bindNamedParam:":anchorEventIdentifier" toNSString:v7];
+  [v12 bindNamedParam:":anchorEventIdentifier" toNSString:v7];
   v9 = MEMORY[0x277CCABB0];
-  v10 = *(a1 + 32);
   [objc_opt_class() secondsOfInfluence];
-  v11 = [v9 numberWithDouble:?];
-  [v13 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v11, "integerValue")}];
+  v10 = [v9 numberWithDouble:?];
+  [v12 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v10, "integerValue")}];
 
   [*(*(a1 + 48) + 16) timeIntervalSince1970];
-  [v13 bindNamedParam:":oldestAllowedAnchorDate" toInt64:v12];
+  [v12 bindNamedParam:":oldestAllowedAnchorDate" toInt64:v11];
 }
 
 uint64_t __89__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesForGenericCandidateId_anchor___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __118__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesWithUniqueCandidateOccurrenceForGenericCandidateId_anchor___block_invoke_4_cold_1(a1);
+    __118__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesWithUniqueCandidateOccurrenceForGenericCandidateId_anchor___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (id)candidateTypeForCandidateId:(id)id
 {
   idCopy = id;
-  v13 = 0;
-  v14[0] = &v13;
-  v14[1] = 0x3032000000;
-  v14[2] = __Block_byref_object_copy__93;
-  v14[3] = __Block_byref_object_dispose__93;
-  v15 = objc_opt_new();
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__93;
+  v18 = __Block_byref_object_dispose__93;
+  v19 = objc_opt_new();
   store = self->_store;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __62__ATXAnchorModelDataStoreWrapper_candidateTypeForCandidateId___block_invoke;
-  v10[3] = &unk_2785987E0;
-  v10[4] = self;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __62__ATXAnchorModelDataStoreWrapper_candidateTypeForCandidateId___block_invoke;
+  v11[3] = &unk_2785987E0;
+  v11[4] = self;
   v6 = idCopy;
-  v11 = v6;
-  v12 = &v13;
-  [(_ATXDataStore *)store _doSync:v10];
-  if ([*(v14[0] + 40) count] < 2)
+  v12 = v6;
+  v13 = &v14;
+  [(_ATXDataStore *)store _doSync:v11];
+  v7 = [v15[5] count];
+  if (v7 < 2)
   {
-    firstObject = [*(v14[0] + 40) firstObject];
+    firstObject = [v15[5] firstObject];
   }
 
   else
   {
-    v7 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_anchor(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [(ATXAnchorModelDataStoreWrapper *)v6 candidateTypeForCandidateId:v14];
+      [ATXAnchorModelDataStoreWrapper candidateTypeForCandidateId:];
     }
 
     firstObject = 0;
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
 
   return firstObject;
 }
@@ -2518,15 +2725,15 @@ uint64_t __62__ATXAnchorModelDataStoreWrapper_candidateTypeForCandidateId___bloc
 
 uint64_t __62__ATXAnchorModelDataStoreWrapper_candidateTypeForCandidateId___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __62__ATXAnchorModelDataStoreWrapper_candidateTypeForCandidateId___block_invoke_4_cold_1(a1);
+    __62__ATXAnchorModelDataStoreWrapper_candidateTypeForCandidateId___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (void)populateCachedCountsForCandidateIds:(id)ids
@@ -2579,59 +2786,63 @@ uint64_t __62__ATXAnchorModelDataStoreWrapper_candidateTypeForCandidateId___bloc
   v6 = v5;
   if (v5)
   {
-    if ([v5 isEqualToString:@"action"])
+    v7 = [v5 isEqualToString:@"action"];
+    if (v7)
     {
-      v7 = __atxlog_handle_anchor();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = __atxlog_handle_anchor(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [ATXAnchorModelDataStoreWrapper numCandidateOccurrencesInAllContextsForCandidate:];
       }
 
-      v8 = [(ATXAnchorModelDataStoreWrapper *)self numActionOccurrencesInAllContextsForActionId:candidateCopy];
+      v9 = [(ATXAnchorModelDataStoreWrapper *)self numActionOccurrencesInAllContextsForActionId:candidateCopy];
 LABEL_22:
-      v10 = v8;
+      v11 = v9;
       goto LABEL_23;
     }
 
-    if ([v6 isEqualToString:@"app"])
+    v12 = [v6 isEqualToString:@"app"];
+    if (v12)
     {
-      v11 = __atxlog_handle_anchor();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v13 = __atxlog_handle_anchor(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [ATXAnchorModelDataStoreWrapper numCandidateOccurrencesInAllContextsForCandidate:];
       }
 
-      v8 = [(ATXAnchorModelDataStoreWrapper *)self numAppLaunchOccurrencesInAllContextsForAppLaunchCandidateId:candidateCopy];
+      v9 = [(ATXAnchorModelDataStoreWrapper *)self numAppLaunchOccurrencesInAllContextsForAppLaunchCandidateId:candidateCopy];
       goto LABEL_22;
     }
 
-    if ([v6 isEqualToString:@"mode"])
+    v14 = [v6 isEqualToString:@"mode"];
+    if (v14)
     {
-      v12 = __atxlog_handle_anchor();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v15 = __atxlog_handle_anchor(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         [ATXAnchorModelDataStoreWrapper numCandidateOccurrencesInAllContextsForCandidate:];
       }
 
-      v8 = [(ATXAnchorModelDataStoreWrapper *)self numModeOccurrencesInAllContextsForModeId:candidateCopy];
+      v9 = [(ATXAnchorModelDataStoreWrapper *)self numModeOccurrencesInAllContextsForModeId:candidateCopy];
       goto LABEL_22;
     }
 
-    v13 = [v6 isEqualToString:@"linkaction"];
-    v14 = __atxlog_handle_anchor();
-    v15 = v14;
-    if (v13)
+    v16 = [v6 isEqualToString:@"linkaction"];
+    v17 = v16;
+    v18 = __atxlog_handle_anchor(v16);
+    v19 = v18;
+    if (v17)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         [ATXAnchorModelDataStoreWrapper numCandidateOccurrencesInAllContextsForCandidate:];
       }
 
-      v8 = [(ATXAnchorModelDataStoreWrapper *)self numLinkActionOccurrencesInAllContextsForCandidateId:candidateCopy];
+      v9 = [(ATXAnchorModelDataStoreWrapper *)self numLinkActionOccurrencesInAllContextsForCandidateId:candidateCopy];
       goto LABEL_22;
     }
 
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ATXAnchorModelDataStoreWrapper numCandidateOccurrencesInAllContextsForCandidate:];
     }
@@ -2639,40 +2850,42 @@ LABEL_22:
 
   else
   {
-    v9 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_anchor(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ATXAnchorModelDataStoreWrapper numCandidateOccurrencesInAllContextsForCandidate:];
     }
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_23:
 
-  return v10;
+  return v11;
 }
 
 - (int64_t)numCandidateOccurrencesInAllContextsForCandidateType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"action"])
+  v5 = [typeCopy isEqualToString:@"action"];
+  if (v5)
   {
-    v5 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = __atxlog_handle_anchor(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [ATXAnchorModelDataStoreWrapper numCandidateOccurrencesInAllContextsForCandidate:];
     }
 
     numActionOccurrencesInAllContexts = [(ATXAnchorModelDataStoreWrapper *)self numActionOccurrencesInAllContexts];
 LABEL_17:
-    v12 = numActionOccurrencesInAllContexts;
+    v16 = numActionOccurrencesInAllContexts;
     goto LABEL_18;
   }
 
-  if ([typeCopy isEqualToString:@"app"])
+  v8 = [typeCopy isEqualToString:@"app"];
+  if (v8)
   {
-    v7 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v9 = __atxlog_handle_anchor(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [ATXAnchorModelDataStoreWrapper numCandidateOccurrencesInAllContextsForCandidate:];
     }
@@ -2681,10 +2894,11 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  if ([typeCopy isEqualToString:@"mode"])
+  v10 = [typeCopy isEqualToString:@"mode"];
+  if (v10)
   {
-    v8 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v11 = __atxlog_handle_anchor(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [ATXAnchorModelDataStoreWrapper numCandidateOccurrencesInAllContextsForCandidate:];
     }
@@ -2693,12 +2907,13 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v9 = [typeCopy isEqualToString:@"linkaction"];
-  v10 = __atxlog_handle_anchor();
-  v11 = v10;
-  if (v9)
+  v12 = [typeCopy isEqualToString:@"linkaction"];
+  v13 = v12;
+  v14 = __atxlog_handle_anchor(v12);
+  v15 = v14;
+  if (v13)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [ATXAnchorModelDataStoreWrapper numCandidateOccurrencesInAllContextsForCandidate:];
     }
@@ -2707,15 +2922,15 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [ATXAnchorModelDataStoreWrapper numCandidateOccurrencesInAllContextsForCandidateType:];
   }
 
-  v12 = 0;
+  v16 = 0;
 LABEL_18:
 
-  return v12;
+  return v16;
 }
 
 - (int64_t)numActionOccurrencesInAllContextsForActionId:(id)id
@@ -2736,7 +2951,7 @@ LABEL_18:
 
   else
   {
-    v14 = __atxlog_handle_anchor();
+    v14 = __atxlog_handle_anchor(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       [ATXAnchorModelDataStoreWrapper numActionOccurrencesInAllContextsForActionId:];
@@ -2750,7 +2965,7 @@ LABEL_18:
 
 - (int64_t)numActionOccurrencesInAllContexts
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableDictionary *)self->_numCandidateOccurrencesInAllContextsForCandidateTypeCache objectForKeyedSubscript:@"action"];
   v4 = v3;
   if (v3)
@@ -2763,30 +2978,30 @@ LABEL_18:
     v6 = objc_opt_new();
     v7 = [v6 dateByAddingTimeInterval:-1814400.0];
     v8 = [(_ATXDataStore *)self->_store numActionKeyOccurrencesBetweenStartDate:v7 endDate:v6];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
       integerValue = 0;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [v8 objectForKeyedSubscript:*(*(&v17 + 1) + 8 * i)];
+          v13 = [v8 objectForKeyedSubscript:*(*(&v16 + 1) + 8 * i)];
           integerValue += [v13 integerValue];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -2801,7 +3016,6 @@ LABEL_18:
     [(NSMutableDictionary *)self->_numCandidateOccurrencesInAllContextsForCandidateTypeCache setObject:v14 forKeyedSubscript:@"action"];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 
@@ -2809,28 +3023,29 @@ LABEL_18:
 {
   cachedAppLaunchCounter = self->_cachedAppLaunchCounter;
   idCopy = id;
+  v5 = idCopy;
   if (cachedAppLaunchCounter)
   {
-    v5 = [(ATXCachedCandidateCounter *)cachedAppLaunchCounter countForCandidate:idCopy];
+    v6 = [(ATXCachedCandidateCounter *)cachedAppLaunchCounter countForCandidate:idCopy];
   }
 
   else
   {
-    v6 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = __atxlog_handle_anchor(idCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [ATXAnchorModelDataStoreWrapper numAppLaunchOccurrencesInAllContextsForAppLaunchCandidateId:];
     }
 
-    v7 = objc_opt_new();
-    v8 = [v7 dateByAddingTimeInterval:-1814400.0];
-    v9 = objc_opt_new();
-    v5 = [v9 numberOfAppLaunchSessionsBetweenStartDate:v8 endDate:v7 forBundleID:idCopy];
+    v8 = objc_opt_new();
+    v9 = [v8 dateByAddingTimeInterval:-1814400.0];
+    v10 = objc_opt_new();
+    v6 = [v10 numberOfAppLaunchSessionsBetweenStartDate:v9 endDate:v8 forBundleID:v5];
 
-    idCopy = v7;
+    v5 = v8;
   }
 
-  return v5;
+  return v6;
 }
 
 - (int64_t)numAppLaunchOccurrencesInAllContexts
@@ -2867,7 +3082,7 @@ LABEL_18:
 
   else
   {
-    v7 = __atxlog_handle_anchor();
+    v7 = __atxlog_handle_anchor(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [ATXAnchorModelDataStoreWrapper numModeOccurrencesInAllContextsForModeId:];
@@ -2967,44 +3182,45 @@ uint64_t __75__ATXAnchorModelDataStoreWrapper_numModeOccurrencesInAllContextsFor
   idCopy = id;
   v4 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-1814400.0];
   v5 = [ATXAnchorModelDataStoreWrapper linkActionDetailsFromLinkActionCandidateId:idCopy];
-  v20 = 0;
-  v6 = [ATXLinkTranscriptUtil systemLinkTranscriptPublisherFromDate:v4 toDate:0 error:&v20];
-  v7 = v20;
+  v21 = 0;
+  v6 = [ATXLinkTranscriptUtil systemLinkTranscriptPublisherFromDate:v4 toDate:0 error:&v21];
+  v7 = v21;
+  v8 = v7;
   if (v7)
   {
-    v8 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_anchor(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ATXAnchorModelDataStoreWrapper numLinkActionOccurrencesInAllContextsForCandidateId:];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2020000000;
-    v19 = 0;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
+    v20 = 0;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __86__ATXAnchorModelDataStoreWrapper_numLinkActionOccurrencesInAllContextsForCandidateId___block_invoke;
+    v15[3] = &unk_27859A798;
+    v16 = v5;
+    v11 = [v6 filterWithIsIncluded:v15];
     v14[0] = MEMORY[0x277D85DD0];
     v14[1] = 3221225472;
-    v14[2] = __86__ATXAnchorModelDataStoreWrapper_numLinkActionOccurrencesInAllContextsForCandidateId___block_invoke;
-    v14[3] = &unk_27859A798;
-    v15 = v5;
-    v10 = [v6 filterWithIsIncluded:v14];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __86__ATXAnchorModelDataStoreWrapper_numLinkActionOccurrencesInAllContextsForCandidateId___block_invoke_3;
-    v13[3] = &unk_278597BA8;
-    v13[4] = &v16;
-    v11 = [v10 sinkWithCompletion:&__block_literal_global_360 receiveInput:v13];
+    v14[2] = __86__ATXAnchorModelDataStoreWrapper_numLinkActionOccurrencesInAllContextsForCandidateId___block_invoke_3;
+    v14[3] = &unk_278597BA8;
+    v14[4] = &v17;
+    v12 = [v11 sinkWithCompletion:&__block_literal_global_360 receiveInput:v14];
 
-    v9 = v17[3];
-    _Block_object_dispose(&v16, 8);
+    v10 = v18[3];
+    _Block_object_dispose(&v17, 8);
   }
 
-  return v9;
+  return v10;
 }
 
 uint64_t __86__ATXAnchorModelDataStoreWrapper_numLinkActionOccurrencesInAllContextsForCandidateId___block_invoke(uint64_t a1, void *a2)
@@ -3045,13 +3261,14 @@ uint64_t __86__ATXAnchorModelDataStoreWrapper_numLinkActionOccurrencesInAllConte
   else
   {
     v6 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-1814400.0];
-    v18 = 0;
-    v7 = [ATXLinkTranscriptUtil systemLinkTranscriptPublisherFromDate:v6 toDate:0 error:&v18];
-    v8 = v18;
+    v19 = 0;
+    v7 = [ATXLinkTranscriptUtil systemLinkTranscriptPublisherFromDate:v6 toDate:0 error:&v19];
+    v8 = v19;
+    v9 = v8;
     if (v8)
     {
-      v9 = __atxlog_handle_anchor();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = __atxlog_handle_anchor(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [ATXAnchorModelDataStoreWrapper numLinkActionOccurrencesInAllContextsForCandidateId:];
       }
@@ -3061,21 +3278,21 @@ uint64_t __86__ATXAnchorModelDataStoreWrapper_numLinkActionOccurrencesInAllConte
 
     else
     {
-      v14 = 0;
-      v15 = &v14;
-      v16 = 0x2020000000;
-      v17 = 0;
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __71__ATXAnchorModelDataStoreWrapper_numLinkActionOccurrencesInAllContexts__block_invoke_2;
-      v13[3] = &unk_278597BA8;
-      v13[4] = &v14;
-      v10 = [v7 sinkWithCompletion:&__block_literal_global_362 receiveInput:v13];
-      v11 = [MEMORY[0x277CCABB0] numberWithInteger:v15[3]];
-      [(NSMutableDictionary *)self->_numCandidateOccurrencesInAllContextsForCandidateTypeCache setObject:v11 forKeyedSubscript:@"mode"];
+      v15 = 0;
+      v16 = &v15;
+      v17 = 0x2020000000;
+      v18 = 0;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __71__ATXAnchorModelDataStoreWrapper_numLinkActionOccurrencesInAllContexts__block_invoke_2;
+      v14[3] = &unk_278597BA8;
+      v14[4] = &v15;
+      v11 = [v7 sinkWithCompletion:&__block_literal_global_362 receiveInput:v14];
+      v12 = [MEMORY[0x277CCABB0] numberWithInteger:v16[3]];
+      [(NSMutableDictionary *)self->_numCandidateOccurrencesInAllContextsForCandidateTypeCache setObject:v12 forKeyedSubscript:@"mode"];
 
-      integerValue = v15[3];
-      _Block_object_dispose(&v14, 8);
+      integerValue = v16[3];
+      _Block_object_dispose(&v15, 8);
     }
   }
 
@@ -3136,10 +3353,10 @@ void __92__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContext
 void __92__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContextForCandidate_anchor___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
-  v12 = a2;
-  [v12 bindNamedParam:":candidateId" toNSString:v3];
+  v11 = a2;
+  [v11 bindNamedParam:":candidateId" toNSString:v3];
   v4 = [*(a1 + 40) anchorTypeString];
-  [v12 bindNamedParam:":anchorType" toNSString:v4];
+  [v11 bindNamedParam:":anchorType" toNSString:v4];
 
   v5 = [*(a1 + 40) anchorEventIdentifier];
   v6 = v5;
@@ -3153,29 +3370,28 @@ void __92__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContext
     v7 = @"%";
   }
 
-  [v12 bindNamedParam:":anchorEventIdentifier" toNSString:v7];
+  [v11 bindNamedParam:":anchorEventIdentifier" toNSString:v7];
 
   v8 = MEMORY[0x277CCABB0];
-  v9 = *(a1 + 40);
   [objc_opt_class() secondsOfInfluence];
-  v10 = [v8 numberWithDouble:?];
-  [v12 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v10, "integerValue")}];
+  v9 = [v8 numberWithDouble:?];
+  [v11 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v9, "integerValue")}];
 
   [*(*(a1 + 48) + 16) timeIntervalSince1970];
-  [v12 bindNamedParam:":oldestAllowedAnchorDate" toInt64:v11];
+  [v11 bindNamedParam:":oldestAllowedAnchorDate" toInt64:v10];
 }
 
 uint64_t __92__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContextForCandidate_anchor___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __92__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContextForCandidate_anchor___block_invoke_4_cold_1(a1);
+    __92__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContextForCandidate_anchor___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (int64_t)numCandidateOccurrencesInAnchorContextForCandidateType:(id)type anchor:(id)anchor
@@ -3232,10 +3448,10 @@ void __96__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContext
 void __96__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContextForCandidateType_anchor___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
-  v12 = a2;
-  [v12 bindNamedParam:":candidateType" toNSString:v3];
+  v11 = a2;
+  [v11 bindNamedParam:":candidateType" toNSString:v3];
   v4 = [*(a1 + 40) anchorTypeString];
-  [v12 bindNamedParam:":anchorType" toNSString:v4];
+  [v11 bindNamedParam:":anchorType" toNSString:v4];
 
   v5 = [*(a1 + 40) anchorEventIdentifier];
   v6 = v5;
@@ -3249,29 +3465,28 @@ void __96__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContext
     v7 = @"%";
   }
 
-  [v12 bindNamedParam:":anchorEventIdentifier" toNSString:v7];
+  [v11 bindNamedParam:":anchorEventIdentifier" toNSString:v7];
 
   v8 = MEMORY[0x277CCABB0];
-  v9 = *(a1 + 40);
   [objc_opt_class() secondsOfInfluence];
-  v10 = [v8 numberWithDouble:?];
-  [v12 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v10, "integerValue")}];
+  v9 = [v8 numberWithDouble:?];
+  [v11 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v9, "integerValue")}];
 
   [*(*(a1 + 48) + 16) timeIntervalSince1970];
-  [v12 bindNamedParam:":oldestAllowedAnchorDate" toInt64:v11];
+  [v11 bindNamedParam:":oldestAllowedAnchorDate" toInt64:v10];
 }
 
 uint64_t __96__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContextForCandidateType_anchor___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __96__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContextForCandidateType_anchor___block_invoke_4_cold_1(a1);
+    __96__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContextForCandidateType_anchor___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (id)uniqueCandidateIdsThatOccurredAfterAnchor:(id)anchor
@@ -3359,9 +3574,9 @@ void __105__ATXAnchorModelDataStoreWrapper_uniqueCandidateIdsThatOccurredAfterAn
 void __105__ATXAnchorModelDataStoreWrapper_uniqueCandidateIdsThatOccurredAfterAnchor_candidateType_minOccurrences___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
-  v12 = a2;
+  v11 = a2;
   v4 = [v3 anchorTypeString];
-  [v12 bindNamedParam:":anchorType" toNSString:v4];
+  [v11 bindNamedParam:":anchorType" toNSString:v4];
 
   v5 = [*(a1 + 32) anchorEventIdentifier];
   v6 = v5;
@@ -3375,18 +3590,17 @@ void __105__ATXAnchorModelDataStoreWrapper_uniqueCandidateIdsThatOccurredAfterAn
     v7 = @"%";
   }
 
-  [v12 bindNamedParam:":anchorEventIdentifier" toNSString:v7];
+  [v11 bindNamedParam:":anchorEventIdentifier" toNSString:v7];
 
   v8 = MEMORY[0x277CCABB0];
-  v9 = *(a1 + 32);
   [objc_opt_class() secondsOfInfluence];
-  v10 = [v8 numberWithDouble:?];
-  [v12 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v10, "integerValue")}];
+  v9 = [v8 numberWithDouble:?];
+  [v11 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v9, "integerValue")}];
 
-  [v12 bindNamedParam:":candidateType" toNSString:*(a1 + 40)];
+  [v11 bindNamedParam:":candidateType" toNSString:*(a1 + 40)];
   [*(*(a1 + 48) + 24) timeIntervalSince1970];
-  [v12 bindNamedParam:":anchorDate" toInt64:v11];
-  [v12 bindNamedParam:":minOccurrences" toInteger:*(a1 + 56)];
+  [v11 bindNamedParam:":anchorDate" toInt64:v10];
+  [v11 bindNamedParam:":minOccurrences" toInteger:*(a1 + 56)];
 }
 
 uint64_t __105__ATXAnchorModelDataStoreWrapper_uniqueCandidateIdsThatOccurredAfterAnchor_candidateType_minOccurrences___block_invoke_3(uint64_t a1, void *a2)
@@ -3400,15 +3614,15 @@ uint64_t __105__ATXAnchorModelDataStoreWrapper_uniqueCandidateIdsThatOccurredAft
 
 uint64_t __105__ATXAnchorModelDataStoreWrapper_uniqueCandidateIdsThatOccurredAfterAnchor_candidateType_minOccurrences___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __105__ATXAnchorModelDataStoreWrapper_uniqueCandidateIdsThatOccurredAfterAnchor_candidateType_minOccurrences___block_invoke_4_cold_1(a1);
+    __105__ATXAnchorModelDataStoreWrapper_uniqueCandidateIdsThatOccurredAfterAnchor_candidateType_minOccurrences___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (id)secondsAfterAnchorWhenCandidateOccurredForAnchor:(id)anchor candidateId:(id)id onlyConsiderFirstOccurrencePerAnchor:(BOOL)perAnchor
@@ -3478,10 +3692,10 @@ void __132__ATXAnchorModelDataStoreWrapper_secondsAfterAnchorWhenCandidateOccurr
 void __132__ATXAnchorModelDataStoreWrapper_secondsAfterAnchorWhenCandidateOccurredForAnchor_candidateId_onlyConsiderFirstOccurrencePerAnchor___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
-  v12 = a2;
-  [v12 bindNamedParam:":candidateId" toNSString:v3];
+  v11 = a2;
+  [v11 bindNamedParam:":candidateId" toNSString:v3];
   v4 = [*(a1 + 40) anchorTypeString];
-  [v12 bindNamedParam:":anchorType" toNSString:v4];
+  [v11 bindNamedParam:":anchorType" toNSString:v4];
 
   v5 = [*(a1 + 40) anchorEventIdentifier];
   v6 = v5;
@@ -3495,16 +3709,15 @@ void __132__ATXAnchorModelDataStoreWrapper_secondsAfterAnchorWhenCandidateOccurr
     v7 = @"%";
   }
 
-  [v12 bindNamedParam:":anchorEventIdentifier" toNSString:v7];
+  [v11 bindNamedParam:":anchorEventIdentifier" toNSString:v7];
 
   v8 = MEMORY[0x277CCABB0];
-  v9 = *(a1 + 40);
   [objc_opt_class() secondsOfInfluence];
-  v10 = [v8 numberWithDouble:?];
-  [v12 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v10, "integerValue")}];
+  v9 = [v8 numberWithDouble:?];
+  [v11 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v9, "integerValue")}];
 
   [*(*(a1 + 48) + 16) timeIntervalSince1970];
-  [v12 bindNamedParam:":oldestAllowedAnchorDate" toInt64:v11];
+  [v11 bindNamedParam:":oldestAllowedAnchorDate" toInt64:v10];
 }
 
 uint64_t __132__ATXAnchorModelDataStoreWrapper_secondsAfterAnchorWhenCandidateOccurredForAnchor_candidateId_onlyConsiderFirstOccurrencePerAnchor___block_invoke_3(uint64_t a1, void *a2)
@@ -3519,15 +3732,15 @@ uint64_t __132__ATXAnchorModelDataStoreWrapper_secondsAfterAnchorWhenCandidateOc
 
 uint64_t __132__ATXAnchorModelDataStoreWrapper_secondsAfterAnchorWhenCandidateOccurredForAnchor_candidateId_onlyConsiderFirstOccurrencePerAnchor___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __132__ATXAnchorModelDataStoreWrapper_secondsAfterAnchorWhenCandidateOccurredForAnchor_candidateId_onlyConsiderFirstOccurrencePerAnchor___block_invoke_4_cold_1(a1);
+    __132__ATXAnchorModelDataStoreWrapper_secondsAfterAnchorWhenCandidateOccurredForAnchor_candidateId_onlyConsiderFirstOccurrencePerAnchor___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (id)scoredActionFromAnchorModelPrediction:(id)prediction
@@ -3549,27 +3762,27 @@ uint64_t __132__ATXAnchorModelDataStoreWrapper_secondsAfterAnchorWhenCandidateOc
   {
     paramHash = [v8 paramHash];
     candidateId2 = [predictionCopy candidateId];
-    v11 = [(ATXAnchorModelDataStoreWrapper *)self latestAlogIdForCandidateId:candidateId2];
+    v12 = [(ATXAnchorModelDataStoreWrapper *)self latestAlogIdForCandidateId:candidateId2];
 
-    v12 = [(ATXAnchorModelDataStoreWrapper *)self minSlotResolutionParametersFromALogId:v11 paramHash:paramHash];
-    if (v12)
+    v13 = [(ATXAnchorModelDataStoreWrapper *)self minSlotResolutionParametersFromALogId:v12 paramHash:paramHash];
+    if (v13)
     {
       candidateId3 = [predictionCopy candidateId];
-      v14 = [ATXAnchorModelDataStoreWrapper actionKeyFromActionCandidateId:candidateId3];
+      v15 = [ATXAnchorModelDataStoreWrapper actionKeyFromActionCandidateId:candidateId3];
 
-      if (v14)
+      if (v15)
       {
-        v15 = [ATXActionPredictionContainer alloc];
+        v17 = [ATXActionPredictionContainer alloc];
         [predictionCopy score];
-        *&v16 = v16;
-        v17 = [(ATXActionPredictionContainer *)v15 initWithMinimalSlotResolutionParameters:v12 score:v14 actionKey:v16];
-        scoredAction = [(ATXActionPredictionContainer *)v17 scoredAction];
+        *&v18 = v18;
+        v19 = [(ATXActionPredictionContainer *)v17 initWithMinimalSlotResolutionParameters:v13 score:v15 actionKey:v18];
+        scoredAction = [(ATXActionPredictionContainer *)v19 scoredAction];
       }
 
       else
       {
-        v19 = __atxlog_handle_anchor();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+        v21 = __atxlog_handle_anchor(v16);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
         {
           [ATXAnchorModelDataStoreWrapper scoredActionFromAnchorModelPrediction:predictionCopy];
         }
@@ -3583,8 +3796,8 @@ uint64_t __132__ATXAnchorModelDataStoreWrapper_secondsAfterAnchorWhenCandidateOc
 
   else
   {
-    v12 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = __atxlog_handle_anchor(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       [ATXAnchorModelDataStoreWrapper scoredActionFromAnchorModelPrediction:predictionCopy];
     }
@@ -3644,15 +3857,15 @@ void __61__ATXAnchorModelDataStoreWrapper_latestAlogIdForCandidateId___block_inv
 
 uint64_t __61__ATXAnchorModelDataStoreWrapper_latestAlogIdForCandidateId___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __61__ATXAnchorModelDataStoreWrapper_latestAlogIdForCandidateId___block_invoke_4_cold_1(a1);
+    __61__ATXAnchorModelDataStoreWrapper_latestAlogIdForCandidateId___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (id)minSlotResolutionParametersFromALogId:(int64_t)id paramHash:(int64_t)hash
@@ -3716,47 +3929,48 @@ uint64_t __82__ATXAnchorModelDataStoreWrapper_minSlotResolutionParametersFromALo
 {
   v3 = a2;
   v4 = [v3 getNSDataForColumn:0];
-  if ([v4 length] == 16)
+  v5 = [v4 length];
+  if (v5 == 16)
   {
-    v5 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:{objc_msgSend(v4, "bytes")}];
-    v6 = [v3 getInt64ForColumn:1];
-    v7 = [v3 getInt64ForColumn:2];
-    v24 = [ATXMinimalSlotResolutionParameters alloc];
-    v8 = [MEMORY[0x277CCABB0] numberWithLongLong:*(a1 + 48)];
-    v9 = [v8 unsignedIntegerValue];
-    v10 = [MEMORY[0x277CCABB0] numberWithLongLong:v6];
-    v11 = [v10 unsignedIntegerValue];
-    v12 = [MEMORY[0x277CCABB0] numberWithLongLong:v7];
-    v13 = -[ATXMinimalSlotResolutionParameters initWithParameterHash:slotHash:uuid:paramCount:](v24, "initWithParameterHash:slotHash:uuid:paramCount:", v9, v11, v5, [v12 unsignedIntegerValue]);
-    v14 = *(*(a1 + 32) + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
+    v6 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:{objc_msgSend(v4, "bytes")}];
+    v7 = [v3 getInt64ForColumn:1];
+    v8 = [v3 getInt64ForColumn:2];
+    v25 = [ATXMinimalSlotResolutionParameters alloc];
+    v9 = [MEMORY[0x277CCABB0] numberWithLongLong:*(a1 + 48)];
+    v10 = [v9 unsignedIntegerValue];
+    v11 = [MEMORY[0x277CCABB0] numberWithLongLong:v7];
+    v12 = [v11 unsignedIntegerValue];
+    v13 = [MEMORY[0x277CCABB0] numberWithLongLong:v8];
+    v14 = -[ATXMinimalSlotResolutionParameters initWithParameterHash:slotHash:uuid:paramCount:](v25, "initWithParameterHash:slotHash:uuid:paramCount:", v10, v12, v6, [v13 unsignedIntegerValue]);
+    v15 = *(*(a1 + 32) + 8);
+    v16 = *(v15 + 40);
+    *(v15 + 40) = v14;
   }
 
   else
   {
-    v5 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = __atxlog_handle_anchor(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      __82__ATXAnchorModelDataStoreWrapper_minSlotResolutionParametersFromALogId_paramHash___block_invoke_3_cold_1(a1, v5, v16, v17, v18, v19, v20, v21);
+      __82__ATXAnchorModelDataStoreWrapper_minSlotResolutionParametersFromALogId_paramHash___block_invoke_3_cold_1(a1, v6, v17, v18, v19, v20, v21, v22);
     }
   }
 
-  v22 = MEMORY[0x277D42698];
-  return *v22;
+  v23 = MEMORY[0x277D42698];
+  return *v23;
 }
 
 uint64_t __82__ATXAnchorModelDataStoreWrapper_minSlotResolutionParametersFromALogId_paramHash___block_invoke_389(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __82__ATXAnchorModelDataStoreWrapper_minSlotResolutionParametersFromALogId_paramHash___block_invoke_389_cold_1(a1);
+    __82__ATXAnchorModelDataStoreWrapper_minSlotResolutionParametersFromALogId_paramHash___block_invoke_389_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (int64_t)numCandidateIdOccurrencesInJointAnchorContext:(id)context anchor:(id)anchor anchorMetadata:(id)metadata
@@ -3828,10 +4042,10 @@ void __102__ATXAnchorModelDataStoreWrapper_numCandidateIdOccurrencesInJointAncho
 
 void __102__ATXAnchorModelDataStoreWrapper_numCandidateIdOccurrencesInJointAnchorContext_anchor_anchorMetadata___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = a2;
-  [v14 bindNamedParam:":candidateId" toNSString:*(a1 + 32)];
+  v12 = a2;
+  [v12 bindNamedParam:":candidateId" toNSString:*(a1 + 32)];
   v3 = [*(a1 + 40) anchorTypeString];
-  [v14 bindNamedParam:":anchorType" toNSString:v3];
+  [v12 bindNamedParam:":anchorType" toNSString:v3];
 
   v4 = [*(a1 + 40) anchorEventIdentifier];
   v5 = v4;
@@ -3845,39 +4059,37 @@ void __102__ATXAnchorModelDataStoreWrapper_numCandidateIdOccurrencesInJointAncho
     v6 = @"%";
   }
 
-  [v14 bindNamedParam:":anchorEventIdentifier" toNSString:v6];
+  [v12 bindNamedParam:":anchorEventIdentifier" toNSString:v6];
 
   v7 = MEMORY[0x277CCABB0];
-  v8 = *(a1 + 40);
   [objc_opt_class() secondsOfInfluence];
-  v9 = [v7 numberWithDouble:?];
-  [v14 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v9, "integerValue")}];
+  v8 = [v7 numberWithDouble:?];
+  [v12 bindNamedParam:":secondsSinceAnchor" toInteger:{objc_msgSend(v8, "integerValue")}];
 
   [*(*(a1 + 48) + 16) timeIntervalSince1970];
-  [v14 bindNamedParam:":oldestAllowedAnchorDate" toInt64:v10];
-  [v14 bindNamedParam:":anchorLocalHour" toInteger:{objc_msgSend(*(a1 + 56), "hourOfDay")}];
-  v11 = *(a1 + 48);
-  [v14 bindNamedParam:":anchorLocalDoW" toInteger:{objc_msgSend(objc_opt_class(), "dayOfWeekIntegerFromATXAnchorModelPBDayOfWeek:", objc_msgSend(*(a1 + 56), "dayOfWeek"))}];
-  v12 = [*(a1 + 56) locationIdentifier];
+  [v12 bindNamedParam:":oldestAllowedAnchorDate" toInt64:v9];
+  [v12 bindNamedParam:":anchorLocalHour" toInteger:{objc_msgSend(*(a1 + 56), "hourOfDay")}];
+  [v12 bindNamedParam:":anchorLocalDoW" toInteger:{objc_msgSend(objc_opt_class(), "dayOfWeekIntegerFromATXAnchorModelPBDayOfWeek:", objc_msgSend(*(a1 + 56), "dayOfWeek"))}];
+  v10 = [*(a1 + 56) locationIdentifier];
 
-  if (v12)
+  if (v10)
   {
-    v13 = [*(a1 + 56) locationIdentifier];
-    [v14 bindNamedParam:":anchorLocation" toNSString:v13];
+    v11 = [*(a1 + 56) locationIdentifier];
+    [v12 bindNamedParam:":anchorLocation" toNSString:v11];
   }
 }
 
 uint64_t __102__ATXAnchorModelDataStoreWrapper_numCandidateIdOccurrencesInJointAnchorContext_anchor_anchorMetadata___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __102__ATXAnchorModelDataStoreWrapper_numCandidateIdOccurrencesInJointAnchorContext_anchor_anchorMetadata___block_invoke_4_cold_1(a1);
+    __102__ATXAnchorModelDataStoreWrapper_numCandidateIdOccurrencesInJointAnchorContext_anchor_anchorMetadata___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (id)trainingDataForCandidate:(id)candidate anchor:(id)anchor replacementStringForNilStringValues:(id)values
@@ -4093,15 +4305,15 @@ uint64_t __102__ATXAnchorModelDataStoreWrapper_trainingDataForCandidate_anchor_r
 
 uint64_t __102__ATXAnchorModelDataStoreWrapper_trainingDataForCandidate_anchor_replacementStringForNilStringValues___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __102__ATXAnchorModelDataStoreWrapper_trainingDataForCandidate_anchor_replacementStringForNilStringValues___block_invoke_4_cold_1(a1);
+    __102__ATXAnchorModelDataStoreWrapper_trainingDataForCandidate_anchor_replacementStringForNilStringValues___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (id)dateOfFirstPositiveCandidateOccurrence:(id)occurrence anchor:(id)anchor startDate:(id)date limit:(unint64_t)limit
@@ -4212,45 +4424,43 @@ uint64_t __96__ATXAnchorModelDataStoreWrapper_dateOfFirstPositiveCandidateOccurr
 
 uint64_t __96__ATXAnchorModelDataStoreWrapper_dateOfFirstPositiveCandidateOccurrence_anchor_startDate_limit___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v2 = a2;
+  v3 = __atxlog_handle_anchor(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    __102__ATXAnchorModelDataStoreWrapper_numCandidateIdOccurrencesInJointAnchorContext_anchor_anchorMetadata___block_invoke_4_cold_1(a1);
+    __102__ATXAnchorModelDataStoreWrapper_numCandidateIdOccurrencesInJointAnchorContext_anchor_anchorMetadata___block_invoke_4_cold_1();
   }
 
-  v5 = MEMORY[0x277D42698];
-  return *v5;
+  v4 = MEMORY[0x277D42698];
+  return *v4;
 }
 
 - (id)appIntentDuetEventFromCandidateId:(id)id date:(id)date
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   dateCopy = date;
   v8 = [ATXAnchorModelDataStoreWrapper actionDetailsFromActionCandidateId:idCopy];
   if (v8)
   {
     v9 = -[ATXAnchorModelDataStoreWrapper minSlotResolutionParametersFromALogId:paramHash:](self, "minSlotResolutionParametersFromALogId:paramHash:", -[ATXAnchorModelDataStoreWrapper latestAlogIdForCandidateId:](self, "latestAlogIdForCandidateId:", idCopy), [v8 paramHash]);
-    v19 = [ATXAppIntentDuetEvent alloc];
+    v18 = [ATXAppIntentDuetEvent alloc];
     bundleId = [v8 bundleId];
     actionType = [v8 actionType];
-    v20 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v8, "paramHash")}];
-    v22[0] = v20;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v19 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v8, "paramHash")}];
+    v21[0] = v19;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "slotHash")}];
-    v21 = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+    v20 = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
     v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "paramCount")}];
-    v14 = [(ATXAppIntentDuetEvent *)v19 initWithBundleId:bundleId actionType:actionType parameterHashes:v10 slotSetHashes:v12 paramCount:v13 startDate:dateCopy endDate:dateCopy alogId:&unk_283A573F8];
+    v14 = [(ATXAppIntentDuetEvent *)v18 initWithBundleId:bundleId actionType:actionType parameterHashes:v10 slotSetHashes:v12 paramCount:v13 startDate:dateCopy endDate:dateCopy alogId:&unk_283A573F8];
   }
 
   else
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -4320,163 +4530,155 @@ uint64_t __96__ATXAnchorModelDataStoreWrapper_dateOfFirstPositiveCandidateOccurr
 
 - (id)appIntentDuetEventsFromCandidateIds:(id)ids date:(id)date
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   dateCopy = date;
   v8 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = idsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [(ATXAnchorModelDataStoreWrapper *)self appIntentDuetEventFromCandidateId:*(*(&v17 + 1) + 8 * i) date:dateCopy, v17];
+        v14 = [(ATXAnchorModelDataStoreWrapper *)self appIntentDuetEventFromCandidateId:*(*(&v16 + 1) + 8 * i) date:dateCopy, v16];
         if (v14)
         {
           [v8 addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)appLaunchDuetEventsFromCandidateIds:(id)ids date:(id)date
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   dateCopy = date;
   v8 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = idsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [(ATXAnchorModelDataStoreWrapper *)self appLaunchDuetEventFromCandidateId:*(*(&v17 + 1) + 8 * i) date:dateCopy, v17];
+        v14 = [(ATXAnchorModelDataStoreWrapper *)self appLaunchDuetEventFromCandidateId:*(*(&v16 + 1) + 8 * i) date:dateCopy, v16];
         [v8 addObject:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)modeBiomeEventsFromCandidateIds:(id)ids date:(id)date
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   dateCopy = date;
   v8 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = idsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [(ATXAnchorModelDataStoreWrapper *)self modeBiomeEventFromCandidateId:*(*(&v17 + 1) + 8 * i) date:dateCopy, v17];
+        v14 = [(ATXAnchorModelDataStoreWrapper *)self modeBiomeEventFromCandidateId:*(*(&v16 + 1) + 8 * i) date:dateCopy, v16];
         [v8 addObject:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)linkActionBiomeEventsFromCandidateIds:(id)ids date:(id)date
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   dateCopy = date;
   v8 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = idsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [(ATXAnchorModelDataStoreWrapper *)self linkActionBiomeEventFromCandidateId:*(*(&v17 + 1) + 8 * i) date:dateCopy, v17];
+        v14 = [(ATXAnchorModelDataStoreWrapper *)self linkActionBiomeEventFromCandidateId:*(*(&v16 + 1) + 8 * i) date:dateCopy, v16];
         [v8 addObject:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -4485,107 +4687,111 @@ uint64_t __96__ATXAnchorModelDataStoreWrapper_dateOfFirstPositiveCandidateOccurr
 {
   idCopy = id;
   v4 = [idCopy componentsSeparatedByString:@":"];
-  if ([v4 count] == 3)
+  v5 = [v4 count];
+  if (v5 == 3)
   {
-    v5 = objc_alloc(MEMORY[0x277CCACA8]);
-    v6 = [v4 objectAtIndexedSubscript:0];
-    v7 = [v4 objectAtIndexedSubscript:1];
-    v8 = [v5 initWithFormat:@"%@:%@", v6, v7];
+    v6 = objc_alloc(MEMORY[0x277CCACA8]);
+    v7 = [v4 objectAtIndexedSubscript:0];
+    v8 = [v4 objectAtIndexedSubscript:1];
+    v9 = [v6 initWithFormat:@"%@:%@", v7, v8];
   }
 
   else
   {
-    v9 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_anchor(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       +[ATXAnchorModelDataStoreWrapper actionKeyFromActionCandidateId:];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 + (id)actionDetailsFromActionCandidateId:(id)id
 {
   idCopy = id;
   v4 = [idCopy componentsSeparatedByString:@":"];
-  if ([v4 count] == 3)
+  v5 = [v4 count];
+  if (v5 == 3)
   {
-    v5 = [ATXAnchorModelActionDetails alloc];
-    v6 = [v4 objectAtIndexedSubscript:0];
-    v7 = [v4 objectAtIndexedSubscript:1];
-    v8 = [v4 objectAtIndexedSubscript:2];
-    v9 = -[ATXAnchorModelActionDetails initWithBundleId:actionType:paramHash:](v5, "initWithBundleId:actionType:paramHash:", v6, v7, [v8 longLongValue]);
+    v6 = [ATXAnchorModelActionDetails alloc];
+    v7 = [v4 objectAtIndexedSubscript:0];
+    v8 = [v4 objectAtIndexedSubscript:1];
+    v9 = [v4 objectAtIndexedSubscript:2];
+    v10 = -[ATXAnchorModelActionDetails initWithBundleId:actionType:paramHash:](v6, "initWithBundleId:actionType:paramHash:", v7, v8, [v9 longLongValue]);
   }
 
   else
   {
-    v10 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = __atxlog_handle_anchor(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       +[ATXAnchorModelDataStoreWrapper actionDetailsFromActionCandidateId:];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 + (id)modeDetailsFromModeCandidateId:(id)id
 {
   idCopy = id;
   v4 = [idCopy componentsSeparatedByString:@":"];
-  if ([v4 count] == 2)
+  v5 = [v4 count];
+  if (v5 == 2)
   {
-    v5 = [v4 objectAtIndexedSubscript:0];
-    v6 = [v4 objectAtIndexedSubscript:1];
-    bOOLValue = [v6 BOOLValue];
-
-    v8 = [[ATXAnchorModelModeDetails alloc] initWithModeUUID:v5 isStart:bOOLValue];
-  }
-
-  else
-  {
-    v9 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
-    {
-      +[ATXAnchorModelDataStoreWrapper modeDetailsFromModeCandidateId:];
-    }
-
-    v8 = 0;
-  }
-
-  return v8;
-}
-
-+ (id)linkActionDetailsFromLinkActionCandidateId:(id)id
-{
-  idCopy = id;
-  v4 = [idCopy componentsSeparatedByString:@":"];
-  if ([v4 count] == 3)
-  {
-    v5 = [ATXAnchorModelLinkActionDetails alloc];
     v6 = [v4 objectAtIndexedSubscript:0];
     v7 = [v4 objectAtIndexedSubscript:1];
-    v8 = [v4 objectAtIndexedSubscript:2];
-    v9 = [(ATXAnchorModelLinkActionDetails *)v5 initWithBundleID:v6 actionId:v7 linkActionEncodedString:v8];
+    bOOLValue = [v7 BOOLValue];
+
+    v9 = [[ATXAnchorModelModeDetails alloc] initWithModeUUID:v6 isStart:bOOLValue];
   }
 
   else
   {
-    v10 = __atxlog_handle_anchor();
+    v10 = __atxlog_handle_anchor(v5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      +[ATXAnchorModelDataStoreWrapper linkActionDetailsFromLinkActionCandidateId:];
+      +[ATXAnchorModelDataStoreWrapper modeDetailsFromModeCandidateId:];
     }
 
     v9 = 0;
   }
 
   return v9;
+}
+
++ (id)linkActionDetailsFromLinkActionCandidateId:(id)id
+{
+  idCopy = id;
+  v4 = [idCopy componentsSeparatedByString:@":"];
+  v5 = [v4 count];
+  if (v5 == 3)
+  {
+    v6 = [ATXAnchorModelLinkActionDetails alloc];
+    v7 = [v4 objectAtIndexedSubscript:0];
+    v8 = [v4 objectAtIndexedSubscript:1];
+    v9 = [v4 objectAtIndexedSubscript:2];
+    v10 = [(ATXAnchorModelLinkActionDetails *)v6 initWithBundleID:v7 actionId:v8 linkActionEncodedString:v9];
+  }
+
+  else
+  {
+    v11 = __atxlog_handle_anchor(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    {
+      +[ATXAnchorModelDataStoreWrapper linkActionDetailsFromLinkActionCandidateId:];
+    }
+
+    v10 = 0;
+  }
+
+  return v10;
 }
 
 + (id)candidateIdFromAppIntentDuetEvent:(id)event
@@ -4724,8 +4930,8 @@ LABEL_3:
       goto LABEL_3;
     }
 
-    v14 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = __atxlog_handle_blending(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       +[ATXAnchorModelDataStoreWrapper candidateIdFromBiomeEvent:];
     }
@@ -4738,92 +4944,60 @@ LABEL_11:
   return bundleID;
 }
 
-- (void)timestampOfMostRecentRecordedAnchorOccurrenceForAnchor:.cold.1()
+void __89__ATXAnchorModelDataStoreWrapper_timestampOfMostRecentRecordedAnchorOccurrenceForAnchor___block_invoke_4_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_4(&dword_2263AA000, v0, v1, "AnchorModel: ATXDATASTORE. Fetching the most recent recorded anchor event for the following anchor: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __89__ATXAnchorModelDataStoreWrapper_timestampOfMostRecentRecordedAnchorOccurrenceForAnchor___block_invoke_4_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Error fetching the most recent recorded event for the following anchor: %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateOrInsertActionTrainingSample:featurizedAction:actionOccurred:actionEngaged:anchorEvent:anchor:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "AnchorModel: Trying to add action event to anchorModelTrainingData table with an actionEvent that doesn't have an associated alogId. actionEvent: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Error fetching the most recent recorded event for the following anchor: %@. Error: %@");
 }
 
 - (void)updateOrInsertLinkActionTrainingSample:featurizedAction:actionOccurred:actionEngaged:anchorEvent:anchor:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Unexpectedly executing separate path for LinkActions for Anchor training: %@ : %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-void __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_cold_1(uint64_t a1)
+void __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_2_4(&dword_2263AA000, v1, v2, "AnchorModel: ATXDATASTORE. Running insertion query! candidateFeatures:%@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_2_4(&dword_2263AA000, v1, v2, "AnchorModel: ATXDATASTORE. Running insertion query! candidateFeatures:%@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_2_4(&dword_2263AA000, a2, a3, "AnchorModel: ATXDATASTORE. DONE running insertion query! candidateFeatures:%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_2_4(&dword_2263AA000, a2, a3, "AnchorModel: ATXDATASTORE. DONE running insertion query! candidateFeatures:%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_46_cold_1(id *a1, id *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [*a1 objectForKeyedSubscript:@"candidateId"];
   v4 = [*a2 anchorTypeString];
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_4();
   _os_log_fault_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-void __113__ATXAnchorModelDataStoreWrapper_updateOrInsertCandidateEventToDatabaseWithCandidateFeatures_anchor_anchorEvent___block_invoke_101_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "error inserting training sample record: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResults_anchor___block_invoke_110_cold_1(id *a1, uint64_t a2, NSObject *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = [*a1 anchor];
   v7 = [v6 anchorTypeString];
   v8 = [*a1 candidateId];
   [*a1 candidateClassifierType];
-  v12 = 138413058;
-  v13 = v7;
+  v11 = 138413058;
+  v12 = v7;
   OUTLINED_FUNCTION_2_8();
-  v14 = v8;
-  v15 = 2048;
-  v16 = v9;
-  v17 = v10;
-  v18 = a2;
-  _os_log_fault_impl(&dword_2263AA000, a3, OS_LOG_TYPE_FAULT, "Skipping writing Anchor Model training result to ATXDataStore because of error while archiving candidate classifier. Anchor: %@, CandidateId: %@, Classifier Type: %ld. Error: %@", &v12, 0x2Au);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = v8;
+  v14 = 2048;
+  v15 = v9;
+  v16 = v10;
+  v17 = a2;
+  _os_log_fault_impl(&dword_2263AA000, a3, OS_LOG_TYPE_FAULT, "Skipping writing Anchor Model training result to ATXDataStore because of error while archiving candidate classifier. Anchor: %@, CandidateId: %@, Classifier Type: %ld. Error: %@", &v11, 0x2Au);
 }
 
 - (void)insertAnchorSuggestionOutcome:date:anchorType:anchorEventIdentifier:candidateId:.cold.1()
@@ -4840,14 +5014,6 @@ void __82__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorModelTrainingResul
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __114__ATXAnchorModelDataStoreWrapper_insertAnchorSuggestionOutcome_date_anchorType_anchorEventIdentifier_candidateId___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "error inserting anchorModelSuggestionOutcomes record: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __110__ATXAnchorModelDataStoreWrapper_assignMetricsForTrainingResult_anchorType_anchorEventIdentifier_candidateId___block_invoke_3_cold_1()
 {
   OUTLINED_FUNCTION_3();
@@ -4862,199 +5028,55 @@ void __110__ATXAnchorModelDataStoreWrapper_assignMetricsForTrainingResult_anchor
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __110__ATXAnchorModelDataStoreWrapper_assignMetricsForTrainingResult_anchorType_anchorEventIdentifier_candidateId___block_invoke_147_cold_1()
+void __59__ATXAnchorModelDataStoreWrapper_trainingResultsForAnchor___block_invoke_185_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "error fetching anchorModelSuggestionOutcomes: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __59__ATXAnchorModelDataStoreWrapper_trainingResultsForAnchor___block_invoke_185_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Error fetching the trainingResultsForAnchor: %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Error fetching the trainingResultsForAnchor: %@. Error: %@");
 }
 
-- (void)dateAnchorModelWasLastTrainedForAnchor:.cold.1()
+void __75__ATXAnchorModelDataStoreWrapper_historicalAnchorOccurrenceDatesForAnchor___block_invoke_4_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "Recovered more than 1 unique training date from the training results for the following anchor: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __59__ATXAnchorModelDataStoreWrapper_updateOrInsertAnchorType___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "error inserting anchor event record: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __57__ATXAnchorModelDataStoreWrapper_updateOrInsertLocation___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "error inserting location record: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __80__ATXAnchorModelDataStoreWrapper_insertAnchorOccurrence_anchor_featureMetadata___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "error inserting anchor occurrence record: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_256_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "error fetching how many samples we're going to delete the anchorOccurrence table: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_2_263_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "error deleting samples from the anchorOccurrence table: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_271_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "error fetching how many samples we're going to delete the anchorModelTrainingData table: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_2_278_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "error deleting samples from the anchorModelTrainingData table: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_287_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "error fetching how many outcomes we're going to delete the anchorModelSuggestionOutcomes table: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __71__ATXAnchorModelDataStoreWrapper_deleteSamplesThatAreMoreThan28DaysOld__block_invoke_2_294_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "error deleting suggestion outcomes from the anchorModelSuggestionOutcomes table: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __69__ATXAnchorModelDataStoreWrapper_deleteSamplesForBundleIdsNotInList___block_invoke_4_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "error deleting bundleIds from anchorModelTrainingData: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __69__ATXAnchorModelDataStoreWrapper_deleteSamplesForBundleIdsNotInList___block_invoke_307_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "error fetching how many samples were deleted due to uninstalled apps: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __75__ATXAnchorModelDataStoreWrapper_historicalAnchorOccurrenceDatesForAnchor___block_invoke_4_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Error fetching the historicalAnchorOccurrenceDatesForAnchor: %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Error fetching the historicalAnchorOccurrenceDatesForAnchor: %@. Error: %@");
 }
 
-void __72__ATXAnchorModelDataStoreWrapper_uniqueAnchorEventIdentifiersForAnchor___block_invoke_323_cold_1(uint64_t a1)
+void __72__ATXAnchorModelDataStoreWrapper_uniqueAnchorEventIdentifiersForAnchor___block_invoke_323_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Error fetching the uniqueAnchorEventIdentifiersForAnchor: %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Error fetching the uniqueAnchorEventIdentifiersForAnchor: %@. Error: %@");
 }
 
-void __82__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesForAnchor_candidateId___block_invoke_4_cold_1(uint64_t a1)
+void __82__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesForAnchor_candidateId___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Error fetching the numUniqueAnchorOccurrencesForAnchor: %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Error fetching the numUniqueAnchorOccurrencesForAnchor: %@. Error: %@");
 }
 
-void __118__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesWithUniqueCandidateOccurrenceForGenericCandidateId_anchor___block_invoke_4_cold_1(uint64_t a1)
+void __118__ATXAnchorModelDataStoreWrapper_numUniqueAnchorOccurrencesWithUniqueCandidateOccurrenceForGenericCandidateId_anchor___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Error fetching the numUniqueAnchorOccurrencesForCandidate: %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Error fetching the numUniqueAnchorOccurrencesForCandidate: %@. Error: %@");
 }
 
-- (void)candidateTypeForCandidateId:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
+void __62__ATXAnchorModelDataStoreWrapper_candidateTypeForCandidateId___block_invoke_4_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v3, v4, "Encountered candidateId that is associated with multiple candidate types. candidateId: %@, candidateTypes: %@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __62__ATXAnchorModelDataStoreWrapper_candidateTypeForCandidateId___block_invoke_4_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Error fetching the candidateTypeForCandidateId: %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Error fetching the candidateTypeForCandidateId: %@. Error: %@");
 }
 
 - (void)numCandidateOccurrencesInAllContextsForCandidate:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_8();
-  v4 = v0;
-  _os_log_error_impl(&dword_2263AA000, v1, OS_LOG_TYPE_ERROR, "Returning 0 for numCandidateOccurrencesInAllContextsForCandidate: %@ because the candidateType was not a known value. candidateType: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)numCandidateOccurrencesInAllContextsForCandidate:.cold.6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Unable to determine candidateType for candidate: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)numCandidateOccurrencesInAllContextsForCandidateType:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Returning 0 for numCandidateOccurrencesInAllContextsForCandidateType because the candidateType was not a known value. candidateType: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)numActionOccurrencesInAllContextsForActionId:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "Unable to get actionDetails for candidateId: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_2263AA000, v1, OS_LOG_TYPE_ERROR, "Returning 0 for numCandidateOccurrencesInAllContextsForCandidate: %@ because the candidateType was not a known value. candidateType: %@", v2, 0x16u);
 }
 
 - (void)numAppLaunchOccurrencesInAllContextsForAppLaunchCandidateId:.cold.1()
@@ -5071,138 +5093,83 @@ void __62__ATXAnchorModelDataStoreWrapper_candidateTypeForCandidateId___block_in
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)numLinkActionOccurrencesInAllContextsForCandidateId:.cold.1()
+void __92__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContextForCandidate_anchor___block_invoke_4_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error when fetching Link transcript publisher: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_21();
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Error fetching the numCandidateOccurrencesInAnchorContextForCandidate: %@. Error: %@");
 }
 
-void __92__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContextForCandidate_anchor___block_invoke_4_cold_1(uint64_t a1)
+void __96__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContextForCandidateType_anchor___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Error fetching the numCandidateOccurrencesInAnchorContextForCandidate: %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Error fetching the numCandidateOccurrencesInAnchorContextForCandidateType: %@. Error: %@");
 }
 
-void __96__ATXAnchorModelDataStoreWrapper_numCandidateOccurrencesInAnchorContextForCandidateType_anchor___block_invoke_4_cold_1(uint64_t a1)
+void __105__ATXAnchorModelDataStoreWrapper_uniqueCandidateIdsThatOccurredAfterAnchor_candidateType_minOccurrences___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Error fetching the numCandidateOccurrencesInAnchorContextForCandidateType: %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Error fetching the uniqueCandidateIdsThatOccurredAfterAnchor: %@. Error: %@");
 }
 
-void __105__ATXAnchorModelDataStoreWrapper_uniqueCandidateIdsThatOccurredAfterAnchor_candidateType_minOccurrences___block_invoke_4_cold_1(uint64_t a1)
+void __132__ATXAnchorModelDataStoreWrapper_secondsAfterAnchorWhenCandidateOccurredForAnchor_candidateId_onlyConsiderFirstOccurrencePerAnchor___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Error fetching the uniqueCandidateIdsThatOccurredAfterAnchor: %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __132__ATXAnchorModelDataStoreWrapper_secondsAfterAnchorWhenCandidateOccurredForAnchor_candidateId_onlyConsiderFirstOccurrencePerAnchor___block_invoke_4_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Error fetching the secondsAfterAnchorWhenCandidateOccurredForAnchor: %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Error fetching the secondsAfterAnchorWhenCandidateOccurredForAnchor: %@. Error: %@");
 }
 
 - (void)scoredActionFromAnchorModelPrediction:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 candidateId];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_4();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scoredActionFromAnchorModelPrediction:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 candidateId];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_4();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __61__ATXAnchorModelDataStoreWrapper_latestAlogIdForCandidateId___block_invoke_4_cold_1(uint64_t a1)
+void __61__ATXAnchorModelDataStoreWrapper_latestAlogIdForCandidateId___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Error fetching the latestAlogIdForCandidateId: %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Error fetching the latestAlogIdForCandidateId: %@. Error: %@");
 }
 
 void __82__ATXAnchorModelDataStoreWrapper_minSlotResolutionParametersFromALogId_paramHash___block_invoke_3_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 40));
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, a2, a3, "Error obtaining slotset UUID for action row: %lld", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_0_8(&dword_2263AA000, a2, a3, "Error obtaining slotset UUID for action row: %lld", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void __82__ATXAnchorModelDataStoreWrapper_minSlotResolutionParametersFromALogId_paramHash___block_invoke_389_cold_1(uint64_t a1)
+void __82__ATXAnchorModelDataStoreWrapper_minSlotResolutionParametersFromALogId_paramHash___block_invoke_389_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Unable to fetch minimalSlotResolutionParametersFromALogId %lld. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Unable to fetch minimalSlotResolutionParametersFromALogId %lld. Error: %@");
 }
 
-void __102__ATXAnchorModelDataStoreWrapper_numCandidateIdOccurrencesInJointAnchorContext_anchor_anchorMetadata___block_invoke_4_cold_1(uint64_t a1)
+void __102__ATXAnchorModelDataStoreWrapper_numCandidateIdOccurrencesInJointAnchorContext_anchor_anchorMetadata___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Error fetching the numCandidateIdOccurrencesInJointAnchorContext: %@. Error %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Error fetching the numCandidateIdOccurrencesInJointAnchorContext: %@. Error %@");
 }
 
-void __102__ATXAnchorModelDataStoreWrapper_trainingDataForCandidate_anchor_replacementStringForNilStringValues___block_invoke_4_cold_1(uint64_t a1)
+void __102__ATXAnchorModelDataStoreWrapper_trainingDataForCandidate_anchor_replacementStringForNilStringValues___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_12_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_12_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v1, v2, "Error fetching the trainingDataForCandidate: %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)actionKeyFromActionCandidateId:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "Anchor Model Data Store Wrapper: Attempted to get ActionKey from candidateId that didn't have 3 components. CandidateId: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)actionDetailsFromActionCandidateId:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "Anchor Model Data Store Wrapper: Attempted to get actionDetails from candidateId that didn't have 3 components. CandidateId: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)modeDetailsFromModeCandidateId:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "Anchor Model Data Store Wrapper: Attempted to get modeDetails from candidateId that didn't have 3 components. CandidateId: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)linkActionDetailsFromLinkActionCandidateId:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_2263AA000, v0, v1, "Anchor Model Data Store Wrapper: Attempted to get linkActionDetails from candidateId that didn't have 3 components. CandidateId: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_2263AA000, v0, v1, "Error fetching the trainingDataForCandidate: %@. Error: %@");
 }
 
 + (void)candidateIdFromBiomeEvent:.cold.1()

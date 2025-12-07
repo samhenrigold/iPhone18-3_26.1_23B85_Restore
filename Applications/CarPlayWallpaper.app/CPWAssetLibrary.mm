@@ -7,21 +7,20 @@
 
 - (NSString)wallpaperOverlayPath
 {
-  v2 = (self + OBJC_IVAR____TtC16CarPlayWallpaper15CPWAssetLibrary_wallpaperOverlayPath);
+  v2 = self + OBJC_IVAR____TtC16CarPlayWallpaper15CPWAssetLibrary_wallpaperOverlayPath;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = String._bridgeToObjectiveC()();
+    v3 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setWallpaperOverlayPath:(id)path
@@ -42,7 +41,6 @@
   sub_1000096A0(v4, v6);
   v8 = (selfCopy + OBJC_IVAR____TtC16CarPlayWallpaper15CPWAssetLibrary_wallpaperOverlayPath);
   swift_beginAccess();
-  v9 = v8[1];
   *v8 = v4;
   v8[1] = v6;
 

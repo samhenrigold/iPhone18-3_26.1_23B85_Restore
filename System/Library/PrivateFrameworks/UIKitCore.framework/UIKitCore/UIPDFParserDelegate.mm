@@ -31,13 +31,13 @@
 
 - (void)parser:(id)parser didStartElement:(id)element namespaceURI:(id)i qualifiedName:(id)name attributes:(id)attributes
 {
-  if ([element isEqualToString:@"UIPDFSelection"])
+  if (objc_msgSend_isEqualToString_(element, a2, @"UIPDFSelection"))
   {
     self->_path = CGPathCreateMutable();
     return;
   }
 
-  if ([element isEqualToString:@"Rectangle"])
+  if (objc_msgSend_isEqualToString_(element))
   {
     v10 = *MEMORY[0x1E695EFF8];
     self->_p[3] = *MEMORY[0x1E695EFF8];
@@ -47,7 +47,7 @@
     return;
   }
 
-  if ([element isEqualToString:@"Point"])
+  if (objc_msgSend_isEqualToString_(element))
   {
     v11 = [attributes valueForKey:@"id"];
     v12 = [attributes valueForKey:@"x"];
@@ -63,19 +63,19 @@
           v16 = v15;
           [v14 floatValue];
           v18 = v17;
-          if ([v11 isEqualToString:@"bottomLeft"])
+          if (objc_msgSend_isEqualToString_(v11))
           {
             v19 = 8;
             p = self->_p;
           }
 
-          else if ([v11 isEqualToString:@"topLeft"])
+          else if (objc_msgSend_isEqualToString_(v11))
           {
             p = &self->_p[1];
             v19 = 24;
           }
 
-          else if ([v11 isEqualToString:@"topRight"])
+          else if (objc_msgSend_isEqualToString_(v11))
           {
             p = &self->_p[2];
             v19 = 40;
@@ -83,7 +83,7 @@
 
           else
           {
-            if (![v11 isEqualToString:@"bottomRight"])
+            if (!objc_msgSend_isEqualToString_(v11))
             {
               return;
             }
@@ -102,9 +102,9 @@
 
 - (void)parser:(id)parser didEndElement:(id)element namespaceURI:(id)i qualifiedName:(id)name
 {
-  if (([element isEqualToString:@"UIPDFSelection"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(element, a2, @"UIPDFSelection") & 1) == 0)
   {
-    if ([element isEqualToString:@"Rectangle"])
+    if (objc_msgSend_isEqualToString_(element))
     {
       CGPathAddLines(self->_path, 0, self->_p, 4uLL);
       path = self->_path;
@@ -115,7 +115,7 @@
     else
     {
 
-      [element isEqualToString:@"Point"];
+      objc_msgSend_isEqualToString_(element);
     }
   }
 }

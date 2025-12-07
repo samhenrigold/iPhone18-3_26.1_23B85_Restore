@@ -11,7 +11,7 @@
 
 - (HMCameraActivityZone)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = MEMORY[0x1E695DFD8];
   v6 = objc_opt_class();
@@ -33,9 +33,9 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v8;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v8;
       _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded points:%@", buf, 0x16u);
     }
 
@@ -43,7 +43,6 @@
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -94,31 +93,31 @@
 
 - (id)description
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"<%@", objc_opt_class()];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   points = [(HMCameraActivityZone *)self points];
-  v5 = [points countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [points countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(points);
         }
 
-        [v3 appendFormat:@" %@", *(*(&v12 + 1) + 8 * i)];
+        [v3 appendFormat:@" %@", *(*(&v11 + 1) + 8 * i)];
       }
 
-      v6 = [points countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [points countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -126,8 +125,6 @@
 
   [v3 appendString:@">"];
   v9 = [v3 copy];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

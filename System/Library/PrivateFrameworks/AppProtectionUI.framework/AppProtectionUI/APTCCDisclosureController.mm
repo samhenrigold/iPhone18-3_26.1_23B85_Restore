@@ -3,6 +3,7 @@
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section;
 - (void)setScrollContentInsets;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 @end
@@ -12,18 +13,18 @@
 - (APTCCDisclosureController)initWithApplication:(id)application users:(id)users includeDoneButton:(BOOL)button scrollViewAssistant:(id)assistant
 {
   buttonCopy = button;
-  v60[2] = *MEMORY[0x1E69E9840];
+  v59[2] = *MEMORY[0x1E69E9840];
   applicationCopy = application;
   usersCopy = users;
   usersCopy2 = users;
   assistantCopy = assistant;
   assistantCopy2 = assistant;
-  v54 = [applicationCopy findApplicationRecordWithError:0];
-  localizedName = [v54 localizedName];
-  v11 = APGetPreferredAuthenticationMechanism() - 1;
-  if (v11 >= 3)
+  v53 = [applicationCopy findApplicationRecordWithError:0];
+  localizedName = [v53 localizedName];
+  v11 = APGetPreferredAuthenticationMechanism();
+  if ((v11 - 1) >= 3)
   {
-    v13 = APUIDefaultFrameworkLog();
+    v13 = APUIDefaultFrameworkLog(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [APTCCDisclosureController initWithApplication:v13 users:? includeDoneButton:? scrollViewAssistant:?];
@@ -34,13 +35,13 @@
 
   else
   {
-    v12 = off_1E7A42008[v11];
+    v12 = off_1E7A42008[v11 - 1];
   }
 
   v14 = APUIFrameworkBundle();
   v15 = [v14 localizedStringForKey:v12 value:&stru_1F2485CF8 table:@"Localizable"];
 
-  v53 = localizedName;
+  v52 = localizedName;
   v16 = [MEMORY[0x1E696AEC0] stringWithFormat:v15, localizedName];
 
   v17 = MEMORY[0x1E696AEC0];
@@ -48,14 +49,14 @@
   v19 = [v17 stringWithFormat:@"TCC_ACCESS_DETAIL_FMT_%@", v18];
   v20 = APUILocStr(v19);
 
-  v59.receiver = self;
-  v59.super_class = APTCCDisclosureController;
-  v21 = [(OBTableWelcomeController *)&v59 initWithTitle:v16 detailText:v20 icon:0 adoptTableViewScrollView:1];
+  v58.receiver = self;
+  v58.super_class = APTCCDisclosureController;
+  v21 = [(OBTableWelcomeController *)&v58 initWithTitle:v16 detailText:v20 icon:0 adoptTableViewScrollView:1];
 
   v22 = [APSymbolBadgedAppIconView alloc];
-  +[APSymbolBadgedAppIconView metricsForEducation];
-  v57 = applicationCopy;
-  v23 = [(APSymbolBadgedAppIconView *)v22 initWithApplication:applicationCopy symbolType:@"com.apple.appprotection.lock.education" metrics:v58];
+  objc_msgSend_metricsForEducation(APSymbolBadgedAppIconView);
+  v56 = applicationCopy;
+  v23 = [(APSymbolBadgedAppIconView *)v22 initWithApplication:applicationCopy symbolType:@"com.apple.appprotection.lock.education" metrics:v57];
   [(APSymbolBadgedAppIconView *)v23 setTranslatesAutoresizingMaskIntoConstraints:0];
   headerView = [(APTCCDisclosureController *)v21 headerView];
   customIconContainerView = [headerView customIconContainerView];
@@ -65,22 +66,22 @@
   customIconContainerView2 = [headerView2 customIconContainerView];
   [customIconContainerView2 addSubview:v23];
 
-  v49 = MEMORY[0x1E696ACD8];
+  v48 = MEMORY[0x1E696ACD8];
   centerXAnchor = [(APSymbolBadgedAppIconView *)v23 centerXAnchor];
   headerView3 = [(APTCCDisclosureController *)v21 headerView];
   customIconContainerView3 = [headerView3 customIconContainerView];
   centerXAnchor2 = [customIconContainerView3 centerXAnchor];
   v30 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v60[0] = v30;
-  v52 = v23;
+  v59[0] = v30;
+  v51 = v23;
   centerYAnchor = [(APSymbolBadgedAppIconView *)v23 centerYAnchor];
   headerView4 = [(APTCCDisclosureController *)v21 headerView];
   customIconContainerView4 = [headerView4 customIconContainerView];
   centerYAnchor2 = [customIconContainerView4 centerYAnchor];
   v35 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v60[1] = v35;
-  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:2];
-  [v49 activateConstraints:v36];
+  v59[1] = v35;
+  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:2];
+  [v48 activateConstraints:v36];
 
   if (v21)
   {
@@ -103,7 +104,6 @@
     }
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -169,6 +169,14 @@
   scrollViewAssistant = self->_scrollViewAssistant;
   scrollView = [(OBTableWelcomeController *)self scrollView];
   [(APButtonTrayScrollViewAssistant *)scrollViewAssistant performAdjustmentsForScrollView:scrollView];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = APTCCDisclosureController;
+  [(OBBaseWelcomeController *)&v4 viewDidAppear:appear];
+  [(APTCCDisclosureController *)self setScrollContentInsets];
 }
 
 - (void)viewDidLayoutSubviews

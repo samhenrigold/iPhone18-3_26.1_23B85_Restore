@@ -94,7 +94,7 @@
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v50[2] = *MEMORY[0x1E69E9840];
+  v49[2] = *MEMORY[0x1E69E9840];
   localizerCopy = localizer;
   _codableAttribute = [(INCodableAttributeDialog *)self _codableAttribute];
   if ([(INCodableAttributeDialog *)self isDefaultDialog])
@@ -110,9 +110,9 @@
 
   formatStringID = [(INCodableAttributeDialog *)self formatStringID];
   formatString = [(INCodableAttributeDialog *)self formatString];
-  v46 = 0;
-  v10 = INLocalizedStringFromCodable(formatStringID, formatString, _localizationTable, localizerCopy, &v46);
-  v11 = v46;
+  v45 = 0;
+  v10 = INLocalizedStringFromCodable(formatStringID, formatString, _localizationTable, localizerCopy, &v45);
+  v11 = v45;
 
   if ([(INCodableAttributeDialog *)self isDefaultDialog])
   {
@@ -122,20 +122,20 @@
     v10 = v13;
   }
 
-  v42 = v11;
-  v43 = _localizationTable;
+  v41 = v11;
+  v42 = _localizationTable;
   __INCodableDescriptionFormatStringKey = [(INCodableAttributeDialog *)self __INCodableDescriptionFormatStringKey];
-  v49[0] = __INCodableDescriptionFormatStringKey;
+  v48[0] = __INCodableDescriptionFormatStringKey;
   null = v10;
   if (!v10)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v41 = _codableAttribute;
-  v50[0] = null;
+  v40 = _codableAttribute;
+  v49[0] = null;
   __INCodableDescriptionFormatStringIDKey = [(INCodableAttributeDialog *)self __INCodableDescriptionFormatStringIDKey];
-  v49[1] = __INCodableDescriptionFormatStringIDKey;
+  v48[1] = __INCodableDescriptionFormatStringIDKey;
   formatStringID2 = [(INCodableAttributeDialog *)self formatStringID];
   null2 = formatStringID2;
   if (!formatStringID2)
@@ -143,8 +143,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v50[1] = null2;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:2];
+  v49[1] = null2;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:2];
   v20 = [v19 mutableCopy];
 
   if (!formatStringID2)
@@ -156,26 +156,26 @@
   }
 
   __INCodableDescriptionFormatStringLanguageCodeKey = [(INCodableAttributeDialog *)self __INCodableDescriptionFormatStringLanguageCodeKey];
-  v22 = v42;
-  [v20 setObject:v42 forKeyedSubscript:__INCodableDescriptionFormatStringLanguageCodeKey];
+  v22 = v41;
+  [v20 setObject:v41 forKeyedSubscript:__INCodableDescriptionFormatStringLanguageCodeKey];
 
   languageCode = [localizerCopy languageCode];
   v24 = [languageCode length];
 
-  v25 = v43;
+  v25 = v42;
   if (v24 && [v10 length])
   {
     formatString2 = [(INCodableAttributeDialog *)self formatString];
     formatStringID3 = [(INCodableAttributeDialog *)self formatStringID];
-    v44 = 0;
-    v45 = formatString2;
-    v28 = INStringsDictEntryForKeyInTable(formatStringID3, &v45, v43, localizerCopy, &v44);
-    v29 = v45;
+    v43 = 0;
+    v44 = formatString2;
+    v28 = INStringsDictEntryForKeyInTable(formatStringID3, &v44, v42, localizerCopy, &v43);
+    v29 = v44;
 
-    v40 = v44;
+    v39 = v43;
     if ([(INCodableAttributeDialog *)self isDefaultDialog])
     {
-      propertyName2 = [v41 propertyName];
+      propertyName2 = [v40 propertyName];
       v31 = [v29 stringByReplacingOccurrencesOfString:@"__PARAMETER_NAME__" withString:propertyName2];
 
       v29 = v31;
@@ -184,18 +184,18 @@
     if (v28)
     {
       __INCodableDescriptionFormatStringKey2 = [(INCodableAttributeDialog *)self __INCodableDescriptionFormatStringKey];
-      v47[0] = __INCodableDescriptionFormatStringKey2;
+      v46[0] = __INCodableDescriptionFormatStringKey2;
       null3 = v29;
       if (!v29)
       {
         null3 = [MEMORY[0x1E695DFB0] null];
       }
 
-      v48[0] = null3;
+      v47[0] = null3;
       __INCodableDescriptionFormatStringDictionaryKey = [(INCodableAttributeDialog *)self __INCodableDescriptionFormatStringDictionaryKey];
-      v47[1] = __INCodableDescriptionFormatStringDictionaryKey;
-      v48[1] = v28;
-      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
+      v46[1] = __INCodableDescriptionFormatStringDictionaryKey;
+      v47[1] = v28;
+      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:2];
       [v20 addEntriesFromDictionary:v35];
 
       if (!v29)
@@ -203,16 +203,14 @@
       }
 
       __INCodableDescriptionFormatStringDictionaryLanguageCodeKey = [(INCodableAttributeDialog *)self __INCodableDescriptionFormatStringDictionaryLanguageCodeKey];
-      [v20 setObject:v40 forKeyedSubscript:__INCodableDescriptionFormatStringDictionaryLanguageCodeKey];
+      [v20 setObject:v39 forKeyedSubscript:__INCodableDescriptionFormatStringDictionaryLanguageCodeKey];
 
-      v22 = v42;
-      v25 = v43;
+      v22 = v41;
+      v25 = v42;
     }
   }
 
   if_dictionaryWithNonEmptyValues = [v20 if_dictionaryWithNonEmptyValues];
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }
@@ -242,7 +240,7 @@
 
 - (id)localizedDialogWithIntent:(id)intent tokens:(id)tokens localizer:(id)localizer
 {
-  v52[1] = *MEMORY[0x1E69E9840];
+  v51[1] = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   tokensCopy = tokens;
   localizerCopy = localizer;
@@ -269,7 +267,7 @@
   v13 = v12;
 
   _codableAttribute = [(INCodableAttributeDialog *)self _codableAttribute];
-  v51 = @"displayName";
+  v50 = @"displayName";
   v15 = [_codableAttribute localizedDisplayNameWithLocalizer:localizerCopy];
   v16 = v15;
   v17 = &stru_1F01E0850;
@@ -278,8 +276,8 @@
     v17 = v15;
   }
 
-  v52[0] = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+  v51[0] = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
   v19 = [v18 mutableCopy];
 
   metadata = [_codableAttribute metadata];
@@ -295,8 +293,8 @@
     [v19 addEntriesFromDictionary:tokensCopy];
   }
 
-  v48 = v21;
-  v49 = v19;
+  v47 = v21;
+  v48 = v19;
   if ([(INCodableAttributeDialog *)self isDefaultDialog])
   {
     _localizationTable = [[INCodableLocalizationTable alloc] initWithBundleIdentifier:@"com.apple.Intents" tableName:@"Localizable"];
@@ -312,13 +310,13 @@
   bundleIdentifier = [(INCodableLocalizationTable *)_localizationTable bundleIdentifier];
   v26 = [localizerCopy bundleWithIdentifier:bundleIdentifier fileURL:0];
 
-  v47 = _localizationTable;
+  v46 = _localizationTable;
   if (v26)
   {
-    v45 = v13;
-    v46 = localizerCopy;
-    v43 = _codableAttribute;
-    v44 = tokensCopy;
+    v44 = v13;
+    v45 = localizerCopy;
+    v42 = _codableAttribute;
+    v43 = tokensCopy;
     v27 = intentCopy;
     _type = [intentCopy _type];
     formatStringID = [(INCodableAttributeDialog *)self formatStringID];
@@ -327,24 +325,24 @@
     if (_type == 2)
     {
       v32 = v27;
-      v33 = INLocalizedFormatStringFromCodable(formatStringID, formatString2, tableName, v26, v46, v45, v49, 0, 0);
+      v33 = INLocalizedFormatStringFromCodable(formatStringID, formatString2, tableName, v26, v45, v44, v48, 0, 0);
       v26 = 0;
     }
 
     else
     {
-      v50 = 0;
+      v49 = 0;
       v32 = v27;
-      v33 = INLocalizedFormatStringFromSlotComposing(formatStringID, formatString2, tableName, v26, v46, v27, v49, &v50);
-      v26 = v50;
+      v33 = INLocalizedFormatStringFromSlotComposing(formatStringID, formatString2, tableName, v26, v45, v27, v48, &v49);
+      v26 = v49;
     }
 
     formatString = v33;
     intentCopy = v32;
-    tokensCopy = v44;
-    v13 = v45;
-    _codableAttribute = v43;
-    localizerCopy = v46;
+    tokensCopy = v43;
+    v13 = v44;
+    _codableAttribute = v42;
+    localizerCopy = v45;
   }
 
   if ([(INCodableAttributeDialog *)self isDefaultDialog])
@@ -357,8 +355,8 @@
 
   if ([intentCopy _type] == 2)
   {
-    v36 = v49;
-    v37 = INReplaceVariablesInFormatStringFromCodable(formatString, localizerCopy, v13, v49, 0);
+    v36 = v48;
+    v37 = INReplaceVariablesInFormatStringFromCodable(formatString, localizerCopy, v13, v48, 0);
   }
 
   else
@@ -378,10 +376,8 @@
 
     v37 = INReplaceVariablesInFormatStringFromSlotComposing(formatString, v40, intentCopy);
 
-    v36 = v49;
+    v36 = v48;
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return v37;
 }

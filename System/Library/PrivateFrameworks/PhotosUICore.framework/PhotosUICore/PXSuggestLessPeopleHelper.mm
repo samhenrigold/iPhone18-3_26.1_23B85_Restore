@@ -92,7 +92,7 @@
   [(PXAction *)v15 executeWithUndoManager:managerCopy completionHandler:v17];
 }
 
-void __100__PXSuggestLessPeopleHelper__suggestLessPeople_withSuggestLessOption_undoManager_completionHandler___block_invoke(uint64_t a1, int a2, void *a3)
+void __100__PXSuggestLessPeopleHelper__suggestLessPeople_withSuggestLessOption_undoManager_completionHandler___block_invoke(void *a1, int a2, void *a3)
 {
   v14[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -101,7 +101,7 @@ void __100__PXSuggestLessPeopleHelper__suggestLessPeople_withSuggestLessOption_u
     goto LABEL_11;
   }
 
-  v6 = *(a1 + 48);
+  v6 = a1[6];
   if (v6 == 2)
   {
     v7 = PXAnalyticsEventUserFeedbackDislikePerson;
@@ -132,7 +132,7 @@ LABEL_8:
   }
 
 LABEL_11:
-  (*(*(a1 + 40) + 16))();
+  (*(a1[5] + 16))();
 }
 
 - (void)_showSuggestLessOptionForPerson:(id)person completionHandler:(id)handler

@@ -16,7 +16,7 @@
 
 + (id)remoteResponseWithError:(id)error
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   domain = [errorCopy domain];
   v6 = [domain isEqualToString:*MEMORY[0x277CCA738]];
@@ -80,16 +80,14 @@ LABEL_15:
 
 LABEL_17:
   v13 = *MEMORY[0x277CCA7E8];
-  v20[0] = *MEMORY[0x277CCA450];
-  v20[1] = v13;
-  v21[0] = v8;
-  v21[1] = errorCopy;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v19[0] = *MEMORY[0x277CCA450];
+  v19[1] = v13;
+  v20[0] = v8;
+  v20[1] = errorCopy;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
   v15 = [self alloc];
   v16 = [[TBError alloc] initWithType:v7 userInfo:v14];
   v17 = [v15 initWithError:v16];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

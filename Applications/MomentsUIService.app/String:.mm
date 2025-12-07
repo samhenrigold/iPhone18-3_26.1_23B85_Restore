@@ -12,7 +12,7 @@
 
   if (v3)
   {
-    type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for UIApplication(0, &lazy cache variable for type metadata for NSObject, NSObject_ptr);
     v4.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 

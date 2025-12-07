@@ -815,7 +815,7 @@ uint64_t __74__EKEventTravelTimeEditViewController__travelTimeActivationSwitchCh
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __90__EKEventTravelTimeEditViewController_routeEstimationControllerDidFinishTravelTimeLookup___block_invoke(uint64_t a1)
+void *__90__EKEventTravelTimeEditViewController_routeEstimationControllerDidFinishTravelTimeLookup___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _handleEstimationControllerTravelTimeLookupErrors];
   [*(a1 + 32) _updateTableView];
@@ -1211,8 +1211,8 @@ LABEL_9:
   if (EKUICatalyst())
   {
     backgroundColor = [viewCopy backgroundColor];
-    contentView = [footerViewCopy contentView];
-    [contentView setBackgroundColor:backgroundColor];
+    v8 = objc_msgSend_contentView(footerViewCopy);
+    [v8 setBackgroundColor:backgroundColor];
   }
 }
 

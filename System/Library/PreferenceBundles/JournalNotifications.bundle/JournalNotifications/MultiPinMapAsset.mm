@@ -22,7 +22,7 @@
 
   v6 = sub_5054C(v8);
 
-  sub_C060(v8, &qword_104818);
+  sub_C060(v8, &qword_104818, &qword_CEAF0);
   return v6 & 1;
 }
 

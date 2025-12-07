@@ -14,6 +14,7 @@
 - (void)updateAppleCareState:(int)state value:(int)value;
 - (void)updateLiteModePowerLogDictionaryForSensors;
 - (void)updatePowerLogDictionaryForSensors;
+- (void)updatePowerLogLiteHiP:(char)p client:(int)client;
 - (void)updatePowerlogLiteMode:(int64_t)mode pressureLevel:(int64_t)level;
 - (void)updatePowerlogMiscState:(int)state value:(int)value;
 - (void)updateSubkeyController:(id)controller forControlList:(id)list;
@@ -60,7 +61,7 @@
       v6 = 0;
       do
       {
-        sub_10001E044(v4, @"%f", dbl_1000ABC40[v6++]);
+        sub_10001E044(v4, @"%f", *&qword_1000ABC40[v6++]);
       }
 
       while (v6 < [(CommonProduct *)self->productObj powerSensors]);
@@ -849,6 +850,26 @@ LABEL_16:
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10001E36C;
+    block[3] = &unk_100085A80;
+    block[4] = self;
+    block[5] = v7;
+    dispatch_async(powerlogQueue, block);
+  }
+}
+
+- (void)updatePowerLogLiteHiP:(char)p client:(int)client
+{
+  v4 = *&client;
+  pCopy = p;
+  v10.tv_sec = 0;
+  *&v10.tv_usec = 0;
+  if (!gettimeofday(&v10, 0))
+  {
+    v7 = [NSArray arrayWithObjects:[NSNumber numberWithDouble:v10.tv_usec / 1000000.0 + v10.tv_sec], [NSNumber numberWithChar:pCopy], [NSNumber numberWithInt:v4], 0];
+    powerlogQueue = self->_powerlogQueue;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10001E4C0;
     block[3] = &unk_100085A80;
     block[4] = self;
     block[5] = v7;

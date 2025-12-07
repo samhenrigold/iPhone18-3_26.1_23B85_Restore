@@ -25,27 +25,28 @@
 + (id)localizedStringReply:(id)reply
 {
   replyCopy = reply;
+  v4 = replyCopy;
   if (replyCopy)
   {
-    v4 = MEMORY[0x277CCACA8];
-    v5 = _SYBundle();
-    v6 = [v5 localizedStringForKey:@"Reply to %@" value:@"Reply to %@" table:@"Localizable"];
-    preferredFormattedName = [replyCopy preferredFormattedName];
-    v8 = [v4 stringWithFormat:v6, preferredFormattedName];
+    v5 = MEMORY[0x277CCACA8];
+    v6 = _SYBundle(replyCopy);
+    v7 = [v6 localizedStringForKey:@"Reply to %@" value:@"Reply to %@" table:@"Localizable"];
+    preferredFormattedName = [v4 preferredFormattedName];
+    v9 = [v5 stringWithFormat:v7, preferredFormattedName];
   }
 
   else
   {
-    v5 = _SYBundle();
-    v8 = [v5 localizedStringForKey:@"Reply" value:@"Reply" table:@"Localizable"];
+    v6 = _SYBundle(0);
+    v9 = [v6 localizedStringForKey:@"Reply" value:@"Reply" table:@"Localizable"];
   }
 
-  return v8;
+  return v9;
 }
 
 + (id)localizedStringShowInMail
 {
-  v2 = _SYBundle();
+  v2 = _SYBundle(self);
   v3 = [v2 localizedStringForKey:@"Show in Mail" value:@"Show in Mail" table:@"Localizable"];
 
   return v3;
@@ -61,7 +62,7 @@
   {
     localizedName = [v6 localizedName];
     v9 = MEMORY[0x277CCACA8];
-    v10 = _SYBundle();
+    v10 = _SYBundle(localizedName);
     v11 = [v10 localizedStringForKey:@"Show in %@" value:@"Show in %@" table:@"Localizable"];
     v12 = [v9 stringWithFormat:v11, localizedName];
   }
@@ -92,7 +93,7 @@
 
 + (id)localizedStringRemove
 {
-  v2 = _SYBundle();
+  v2 = _SYBundle(self);
   v3 = [v2 localizedStringForKey:@"Remove" value:@"Remove" table:@"Localizable"];
 
   return v3;
@@ -100,13 +101,12 @@
 
 + (void)localizedStringShowInAppWithBundleIdentifier:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_225901000, log, OS_LOG_TYPE_ERROR, "Unable to find record for bundle identifier: %@, error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_225901000, log, OS_LOG_TYPE_ERROR, "Unable to find record for bundle identifier: %@, error: %@", &v3, 0x16u);
 }
 
 @end

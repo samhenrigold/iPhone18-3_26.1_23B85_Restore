@@ -170,7 +170,7 @@ void __58__SBHAddWidgetDetailsSheetPageViewController__createViews__block_invoke
   {
     view = [(SBHAddWidgetDetailsSheetPageViewController *)self view];
     view2 = [(SBHWidgetWrapperViewController *)self->_widgetWrapperViewController view];
-    [view bounds];
+    objc_msgSend_bounds(view);
     [viewCopy convertRect:view fromView:?];
     v10 = (v8 + v9 + v8 + v9) / (v9 + v9) + -1.0;
     addWidgetSheetStyle = [(SBHAddWidgetDetailsSheetPageViewController *)self addWidgetSheetStyle];
@@ -182,7 +182,7 @@ void __58__SBHAddWidgetDetailsSheetPageViewController__createViews__block_invoke
 
     memset(&v22, 0, sizeof(v22));
     CGAffineTransformMakeScale(&v22, scale, scale);
-    [view2 bounds];
+    objc_msgSend_bounds(view2);
     v21 = v22;
     v24 = CGRectApplyAffineTransform(v23, &v21);
     width = v24.size.width;
@@ -212,7 +212,7 @@ void __58__SBHAddWidgetDetailsSheetPageViewController__createViews__block_invoke
   if (view)
   {
     v6 = view;
-    [view transform];
+    objc_msgSend_transform(view);
     view = v6;
   }
 
@@ -239,7 +239,7 @@ void __58__SBHAddWidgetDetailsSheetPageViewController__createViews__block_invoke
 {
   if ([(SBHAddWidgetDetailsSheetPageViewController *)self addWidgetSheetStyle]== 1)
   {
-    [(SBHAddWidgetDetailsSheetPageViewController *)self addWidgetSheetMetrics];
+    objc_msgSend_addWidgetSheetMetrics(self);
     v3 = v5;
     v4 = v6;
   }
@@ -273,11 +273,11 @@ void __58__SBHAddWidgetDetailsSheetPageViewController__createViews__block_invoke
   v7 = v6;
   [(UILayoutGuide *)self->_layoutGuide layoutFrame];
   v9 = v8 + v7 * -2.0;
-  [view bounds];
+  objc_msgSend_bounds(view);
   v11 = v9 / v10;
   [(UILayoutGuide *)self->_layoutGuide layoutFrame];
   v13 = v12 + v5 * -2.0;
-  [view bounds];
+  objc_msgSend_bounds(view);
   v15 = v13 / v14;
   if (v11 < v13 / v14)
   {

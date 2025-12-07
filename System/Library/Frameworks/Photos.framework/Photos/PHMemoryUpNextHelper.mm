@@ -124,9 +124,11 @@
 
 uint64_t __50__PHMemoryUpNextHelper__memoryTriggerTypesToAvoid__block_invoke()
 {
-  _memoryTriggerTypesToAvoid_triggerTypesToAvoid = [MEMORY[0x1E695DFD8] setWithObjects:{&unk_1F102C638, &unk_1F102C650, &unk_1F102C668, 0}];
+  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{&unk_1F102C638, &unk_1F102C650, &unk_1F102C668, 0}];
+  v1 = _memoryTriggerTypesToAvoid_triggerTypesToAvoid;
+  _memoryTriggerTypesToAvoid_triggerTypesToAvoid = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)_hasInvalidMemoryTriggerForMemory:(id)memory

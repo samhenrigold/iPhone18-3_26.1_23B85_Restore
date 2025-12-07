@@ -109,7 +109,7 @@ void __26__ELSManager_beginUpdates__block_invoke(uint64_t a1)
 
 void __26__ELSManager_beginUpdates__block_invoke_2(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
   v3 = [*(a1 + 32) snapshot];
@@ -126,15 +126,13 @@ void __26__ELSManager_beginUpdates__block_invoke_2(uint64_t a1)
   {
     v8 = [MEMORY[0x277CCAB98] defaultCenter];
     v9 = *(a1 + 32);
-    v14 = @"ELSUserInfo";
+    v13 = @"ELSUserInfo";
     v10 = [v9 snapshot];
     v11 = [v10 copy];
-    v15[0] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     [v8 postNotificationName:@"ELSDidUpdateStatus" object:v9 userInfo:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionWithBlock:(id)block completion:(id)completion
@@ -156,7 +154,7 @@ void __26__ELSManager_beginUpdates__block_invoke_2(uint64_t a1)
 
 void __46__ELSManager_transactionWithBlock_completion___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = dispatch_semaphore_create(0);
   v3 = [*(a1 + 32) snapshot];
   v4 = [v3 status];
@@ -178,7 +176,7 @@ void __46__ELSManager_transactionWithBlock_completion___block_invoke(uint64_t a1
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v7;
+    v17 = v7;
     _os_log_impl(&dword_24A07C000, v9, OS_LOG_TYPE_DEFAULT, "Snapshot updated: %@", buf, 0xCu);
   }
 
@@ -186,9 +184,9 @@ void __46__ELSManager_transactionWithBlock_completion___block_invoke(uint64_t a1
   {
     v10 = [MEMORY[0x277CCAB98] defaultCenter];
     v11 = *(a1 + 32);
-    v15 = @"ELSUserInfo";
-    v16 = v7;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v14 = @"ELSUserInfo";
+    v15 = v7;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
     [v10 postNotificationName:@"ELSDidUpdateStatus" object:v11 userInfo:v12];
   }
 
@@ -197,8 +195,6 @@ void __46__ELSManager_transactionWithBlock_completion___block_invoke(uint64_t a1
   {
     (*(v13 + 16))(v13, v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __37__ELSManager_finishWithFailureBlock___block_invoke(uint64_t a1, void *a2)
@@ -1052,7 +1048,7 @@ LABEL_9:
 
 - (void)refreshWithCompletion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = ELSLogHandleForCategory(11);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1061,59 +1057,58 @@ LABEL_9:
     _os_log_impl(&dword_24A07C000, v5, OS_LOG_TYPE_DEFAULT, "Performing refresh of enhanced logging state...", buf, 2u);
   }
 
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0x2020000000;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x2020000000;
   snapshot = [(ELSManager *)self snapshot];
   status = [snapshot status];
 
-  v24[3] = status;
+  v23[3] = status;
   *buf = 0;
-  v19 = buf;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy_;
-  v22 = __Block_byref_object_dispose_;
+  v18 = buf;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy_;
+  v21 = __Block_byref_object_dispose_;
   snapshot2 = [(ELSManager *)self snapshot];
   dedSessionIdentifier = [snapshot2 dedSessionIdentifier];
 
   v9 = ELSLogHandleForCategory(11);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(v19 + 5);
-    *v25 = 138412290;
-    v26 = v10;
-    _os_log_impl(&dword_24A07C000, v9, OS_LOG_TYPE_DEFAULT, "Refreshing %@ bug session...", v25, 0xCu);
+    v10 = *(v18 + 5);
+    *v24 = 138412290;
+    v25 = v10;
+    _os_log_impl(&dword_24A07C000, v9, OS_LOG_TYPE_DEFAULT, "Refreshing %@ bug session...", v24, 0xCu);
   }
 
-  objc_initWeak(v25, self);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __36__ELSManager_refreshWithCompletion___block_invoke;
-  v13[3] = &unk_278FC49F0;
-  v15 = buf;
-  v16 = v24;
-  objc_copyWeak(&v17, v25);
+  objc_initWeak(v24, self);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __36__ELSManager_refreshWithCompletion___block_invoke;
+  v12[3] = &unk_278FC49F0;
+  v14 = buf;
+  v15 = v23;
+  objc_copyWeak(&v16, v24);
   v11 = completionCopy;
-  v14 = v11;
-  [(ELSManager *)self getBugSessionActivityWithCompletion:v13];
+  v13 = v11;
+  [(ELSManager *)self getBugSessionActivityWithCompletion:v12];
 
-  objc_destroyWeak(&v17);
-  objc_destroyWeak(v25);
+  objc_destroyWeak(&v16);
+  objc_destroyWeak(v24);
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(v24, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v23, 8);
 }
 
 void __36__ELSManager_refreshWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v4 = ELSLogHandleForCategory(11);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(*(a1 + 40) + 8) + 40);
     *buf = 138412290;
-    v31 = v5;
+    v30 = v5;
     _os_log_impl(&dword_24A07C000, v4, OS_LOG_TYPE_DEFAULT, "Successfully retrieved %@ bug session activity...", buf, 0xCu);
   }
 
@@ -1126,22 +1121,22 @@ void __36__ELSManager_refreshWithCompletion___block_invoke(uint64_t a1, uint64_t
       v8 = [ELSSnapshot statusToString:*(*(*(a1 + 48) + 8) + 24)];
       v9 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 138412546;
-      v31 = v8;
-      v32 = 2112;
-      v33 = v9;
+      v30 = v8;
+      v31 = 2112;
+      v32 = v9;
       _os_log_impl(&dword_24A07C000, v7, OS_LOG_TYPE_DEFAULT, "ELS is at [%@] but no %@ session exists: marking ELS failed...", buf, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 56));
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __36__ELSManager_refreshWithCompletion___block_invoke_28;
-    v27[3] = &unk_278FC49C8;
-    v28 = *(a1 + 32);
-    v29 = a2;
-    [WeakRetained finishWithFailureBlock:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __36__ELSManager_refreshWithCompletion___block_invoke_28;
+    v26[3] = &unk_278FC49C8;
+    v27 = *(a1 + 32);
+    v28 = a2;
+    [WeakRetained finishWithFailureBlock:v26];
 
-    v11 = v28;
+    v11 = v27;
     goto LABEL_19;
   }
 
@@ -1154,22 +1149,22 @@ void __36__ELSManager_refreshWithCompletion___block_invoke(uint64_t a1, uint64_t
       v14 = [ELSSnapshot statusToString:*(*(*(a1 + 48) + 8) + 24)];
       v15 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 138412546;
-      v31 = v14;
-      v32 = 2112;
-      v33 = v15;
+      v30 = v14;
+      v31 = 2112;
+      v32 = v15;
       _os_log_impl(&dword_24A07C000, v12, OS_LOG_TYPE_DEFAULT, "ELS is at [%@] but no %@ session exists: marking ELS finished...", buf, 0x16u);
     }
 
     v16 = objc_loadWeakRetained((a1 + 56));
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __36__ELSManager_refreshWithCompletion___block_invoke_29;
-    v24[3] = &unk_278FC49C8;
-    v25 = *(a1 + 32);
-    v26 = a2;
-    [v16 finishWithCompletion:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __36__ELSManager_refreshWithCompletion___block_invoke_29;
+    v23[3] = &unk_278FC49C8;
+    v24 = *(a1 + 32);
+    v25 = a2;
+    [v16 finishWithCompletion:v23];
 
-    v11 = v25;
+    v11 = v24;
     goto LABEL_19;
   }
 
@@ -1188,11 +1183,11 @@ void __36__ELSManager_refreshWithCompletion___block_invoke(uint64_t a1, uint64_t
 
     v19 = [ELSSnapshot statusToString:*(*(*(a1 + 48) + 8) + 24)];
     *buf = 138412802;
-    v31 = v17;
-    v32 = 2112;
-    v33 = v18;
-    v34 = 2112;
-    v35 = v19;
+    v30 = v17;
+    v31 = 2112;
+    v32 = v18;
+    v33 = 2112;
+    v34 = v19;
     _os_log_impl(&dword_24A07C000, v12, OS_LOG_TYPE_DEFAULT, "%@ bug session is %@, and ELS is at [%@]: no change needed.", buf, 0x20u);
   }
 
@@ -1206,8 +1201,6 @@ void __36__ELSManager_refreshWithCompletion___block_invoke(uint64_t a1, uint64_t
 
 LABEL_19:
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __36__ELSManager_refreshWithCompletion___block_invoke_28(uint64_t a1, void *a2)
@@ -1246,16 +1239,16 @@ void __36__ELSManager_refreshWithCompletion___block_invoke_29(uint64_t a1, void 
 
 - (void)getBugSessionActivityWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = ELSLogHandleForCategory(11);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     snapshot = [(ELSManager *)self snapshot];
     dedSessionIdentifier = [snapshot dedSessionIdentifier];
-    v17 = 138412290;
-    v18 = dedSessionIdentifier;
-    _os_log_impl(&dword_24A07C000, v5, OS_LOG_TYPE_DEFAULT, "Checking %@ bug session activity (defaults scan)...", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = dedSessionIdentifier;
+    _os_log_impl(&dword_24A07C000, v5, OS_LOG_TYPE_DEFAULT, "Checking %@ bug session activity (defaults scan)...", &v16, 0xCu);
   }
 
   snapshot2 = [(ELSManager *)self snapshot];
@@ -1293,8 +1286,6 @@ void __36__ELSManager_refreshWithCompletion___block_invoke_29(uint64_t a1, void 
   }
 
   completionCopy[2](completionCopy, v10);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

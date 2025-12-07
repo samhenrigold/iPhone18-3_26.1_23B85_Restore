@@ -171,50 +171,50 @@ LABEL_4:
 
 - (id)producingExecutionSessionForResourceKey:(id)key
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   pthread_rwlock_rdlock(&self->_lock);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   selfCopy = self;
   obj = self->_resourceStreamsByExecutionSession;
-  v5 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v5 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v5)
   {
     v6 = v5;
-    v20 = *v27;
+    v19 = *v26;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v20)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         v9 = [(NSMutableDictionary *)selfCopy->_resourceStreamsByExecutionSession objectForKeyedSubscript:v8];
-        v10 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v23;
+          v12 = *v22;
 LABEL_8:
           v13 = 0;
           while (1)
           {
-            if (*v23 != v12)
+            if (*v22 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = [*(*(&v22 + 1) + 8 * v13) key];
+            v14 = [*(*(&v21 + 1) + 8 * v13) key];
             v15 = [v14 isEqualToString:keyCopy];
 
             if (v15)
@@ -224,7 +224,7 @@ LABEL_8:
 
             if (v11 == ++v13)
             {
-              v11 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+              v11 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
               if (v11)
               {
                 goto LABEL_8;
@@ -248,7 +248,7 @@ LABEL_14:
         }
       }
 
-      v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v6);
@@ -258,7 +258,6 @@ LABEL_14:
 LABEL_19:
 
   pthread_rwlock_unlock(&selfCopy->_lock);
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -274,8 +273,50 @@ LABEL_19:
 
 - (id)streamsForType:(unint64_t)type
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  pthread_rwlock_rdlock(&self->_lock);
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  allValues = [(NSMutableDictionary *)self->_resourceStream allValues];
+  v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v14;
+    do
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v14 != v9)
+        {
+          objc_enumerationMutation(allValues);
+        }
+
+        v11 = *(*(&v13 + 1) + 8 * i);
+        if ([v11 type] == type)
+        {
+          [array addObject:v11];
+        }
+      }
+
+      v8 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v8);
+  }
+
+  pthread_rwlock_unlock(&self->_lock);
+
+  return array;
+}
+
+- (id)resourceKeysForCategory:(unint64_t)category
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v5 = [MEMORY[0x277CBEB58] set];
   pthread_rwlock_rdlock(&self->_lock);
   v14 = 0u;
   v15 = 0u;
@@ -297,9 +338,10 @@ LABEL_19:
         }
 
         v11 = *(*(&v14 + 1) + 8 * i);
-        if ([v11 type] == type)
+        if ([v11 category] == category)
         {
-          [array addObject:v11];
+          v12 = [v11 key];
+          [v5 addObject:v12];
         }
       }
 
@@ -310,51 +352,6 @@ LABEL_19:
   }
 
   pthread_rwlock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
-
-  return array;
-}
-
-- (id)resourceKeysForCategory:(unint64_t)category
-{
-  v20 = *MEMORY[0x277D85DE8];
-  v5 = [MEMORY[0x277CBEB58] set];
-  pthread_rwlock_rdlock(&self->_lock);
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  allValues = [(NSMutableDictionary *)self->_resourceStream allValues];
-  v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = *v16;
-    do
-    {
-      for (i = 0; i != v8; ++i)
-      {
-        if (*v16 != v9)
-        {
-          objc_enumerationMutation(allValues);
-        }
-
-        v11 = *(*(&v15 + 1) + 8 * i);
-        if ([v11 category] == category)
-        {
-          v12 = [v11 key];
-          [v5 addObject:v12];
-        }
-      }
-
-      v8 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
-    }
-
-    while (v8);
-  }
-
-  pthread_rwlock_unlock(&self->_lock);
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -383,12 +380,12 @@ LABEL_19:
 
 - (void)addEncodedResourceStreams:(id)streams forExecutionSession:(id)session
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   streamsCopy = streams;
   sessionCopy = session;
-  v29 = 0;
-  v8 = [MEMORY[0x277CCAAC8] unarchivedArrayOfObjectsOfClass:objc_opt_class() fromData:streamsCopy error:&v29];
-  v9 = v29;
+  v28 = 0;
+  v8 = [MEMORY[0x277CCAAC8] unarchivedArrayOfObjectsOfClass:objc_opt_class() fromData:streamsCopy error:&v28];
+  v9 = v28;
   v10 = [MEMORY[0x277CBEB58] set];
   if (PSLogInstance_onceToken != -1)
   {
@@ -401,38 +398,38 @@ LABEL_19:
     v12 = v11;
     v13 = [streamsCopy length];
     *buf = 134218498;
-    v32 = v13;
-    v33 = 2112;
-    v34 = sessionCopy;
-    v35 = 2112;
-    v36 = v9;
+    v31 = v13;
+    v32 = 2112;
+    v33 = sessionCopy;
+    v34 = 2112;
+    v35 = v9;
     _os_log_impl(&dword_25EC85000, v12, OS_LOG_TYPE_INFO, "Created streams from encoded data of size %lu for session %@ error: %@", buf, 0x20u);
   }
 
-  v23 = v9;
-  v24 = streamsCopy;
+  v22 = v9;
+  v23 = streamsCopy;
   pthread_rwlock_wrlock(&self->_lock);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v14 = v8;
-  v15 = [v14 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v26;
+    v17 = *v25;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v26 != v17)
+        if (*v25 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v25 + 1) + 8 * i);
-        [(PSContext *)self enforceLocalStreamStorageMode:v19, v23, v24, v25];
+        v19 = *(*(&v24 + 1) + 8 * i);
+        [(PSContext *)self enforceLocalStreamStorageMode:v19, v22, v23, v24];
         resourceStream = self->_resourceStream;
         v21 = [v19 key];
         [(NSMutableDictionary *)resourceStream setObject:v19 forKeyedSubscript:v21];
@@ -440,7 +437,7 @@ LABEL_19:
         [v10 addObject:v19];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v16);
@@ -448,8 +445,6 @@ LABEL_19:
 
   [(NSMutableDictionary *)self->_resourceStreamsByExecutionSession setObject:v10 forKeyedSubscript:sessionCopy];
   pthread_rwlock_unlock(&self->_lock);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resourceStreamsForExecutionSession:(id)session
@@ -466,33 +461,33 @@ LABEL_19:
 
 - (id)allExternalStreams
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v4 = [(NSMutableDictionary *)self->_resourceStreamsByExecutionSession objectForKeyedSubscript:self->_executionSession];
   pthread_rwlock_rdlock(&self->_lock);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_resourceStream;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       v11 = v8;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v8 = [(NSMutableDictionary *)self->_resourceStream objectForKeyedSubscript:*(*(&v14 + 1) + 8 * v10), v14];
+        v8 = [(NSMutableDictionary *)self->_resourceStream objectForKeyedSubscript:*(*(&v13 + 1) + 8 * v10), v13];
 
         if (([v4 containsObject:v8] & 1) == 0)
         {
@@ -504,14 +499,13 @@ LABEL_19:
       }
 
       while (v7 != v10);
-      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   pthread_rwlock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -529,41 +523,40 @@ LABEL_19:
 
 - (void)updateResourceAvailability:(id)availability
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   availabilityCopy = availability;
   pthread_rwlock_rdlock(&self->_lock);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allKeys = [availabilityCopy allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         v11 = [availabilityCopy objectForKeyedSubscript:v10];
         [(NSMutableDictionary *)self->_resourceAvailability setObject:v11 forKeyedSubscript:v10];
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   pthread_rwlock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

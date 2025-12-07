@@ -24,12 +24,11 @@
 
 NLSearchParserManager *__39__NLSearchParserManager_defaultManager__block_invoke()
 {
-  v3[1] = *MEMORY[0x277D85DE8];
-  v2 = @"contextIdentifier";
-  v3[0] = @"com.apple.NLP";
-  result = -[NLSearchParserManager initWithOptions:]([NLSearchParserManager alloc], "initWithOptions:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1]);
+  v2[1] = *MEMORY[0x277D85DE8];
+  v1 = @"contextIdentifier";
+  v2[0] = @"com.apple.NLP";
+  result = -[NLSearchParserManager initWithOptions:]([NLSearchParserManager alloc], "initWithOptions:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v2 forKeys:&v1 count:1]);
   defaultManager___DefaultManager = result;
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -42,11 +41,11 @@ NLSearchParserManager *__39__NLSearchParserManager_defaultManager__block_invoke(
 
 - (NLSearchParserManager)initWithOptions:(id)options
 {
-  v4.receiver = self;
-  v4.super_class = NLSearchParserManager;
-  if ([(NLSearchParserManager *)&v4 init])
+  v5.receiver = self;
+  v5.super_class = NLSearchParserManager;
+  if ([(NLSearchParserManager *)&v5 init])
   {
-    NLSearchParserCreate();
+    NLSearchParserCreate(options);
   }
 
   return 0;
@@ -124,23 +123,22 @@ void __79__NLSearchParserManager_enumerateDateRangeAttributedParseForOptions_wit
 
 void __79__NLSearchParserManager_enumerateDateRangeAttributedParseForOptions_withBlock___block_invoke_87(void *a1, void *a2, _BYTE *a3)
 {
-  v9[0] = 0;
-  v9[1] = v9;
-  v9[2] = 0x2020000000;
-  v10 = 0;
+  v8[0] = 0;
+  v8[1] = v8;
+  v8[2] = 0x2020000000;
+  v9 = 0;
   v6 = [a2 length];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __79__NLSearchParserManager_enumerateDateRangeAttributedParseForOptions_withBlock___block_invoke_2;
-  v8[3] = &unk_2787406B0;
-  v8[4] = a1[4];
-  v8[5] = v9;
-  v8[6] = a1[6];
-  v8[7] = a3;
-  [a2 enumerateAttributesInRange:0 options:v6 usingBlock:{0, v8}];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __79__NLSearchParserManager_enumerateDateRangeAttributedParseForOptions_withBlock___block_invoke_2;
+  v7[3] = &unk_2787406B0;
+  v7[4] = a1[4];
+  v7[5] = v8;
+  v7[6] = a1[6];
+  v7[7] = a3;
+  [a2 enumerateAttributesInRange:0 options:v6 usingBlock:{0, v7}];
   if (![objc_msgSend(*(*(a1[6] + 8) + 40) stringByTrimmingCharactersInSet:{objc_msgSend(MEMORY[0x277CCA900], "whitespaceCharacterSet")), "length"}])
   {
-    v7 = *(a1[7] + 8);
     (*(a1[5] + 16))();
     if (*(*(a1[7] + 8) + 24) == 1)
     {
@@ -148,10 +146,10 @@ void __79__NLSearchParserManager_enumerateDateRangeAttributedParseForOptions_wit
     }
   }
 
-  _Block_object_dispose(v9, 8);
+  _Block_object_dispose(v8, 8);
 }
 
-uint64_t __79__NLSearchParserManager_enumerateDateRangeAttributedParseForOptions_withBlock___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__79__NLSearchParserManager_enumerateDateRangeAttributedParseForOptions_withBlock___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [a2 count];
   if (result)
@@ -170,7 +168,6 @@ uint64_t __79__NLSearchParserManager_enumerateDateRangeAttributedParseForOptions
 
 - (void)enumerateAttributedParsesForQuery:(id)query options:(id)options withBlock:(id)block
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (options)
   {
     if ([options objectForKeyedSubscript:@"locale"])
@@ -195,11 +192,10 @@ uint64_t __79__NLSearchParserManager_enumerateDateRangeAttributedParseForOptions
   }
 
   NLSearchParserSetString(self->_parser, query);
-  parser = self->_parser;
-  NLSearchParserCopyParseWithOptions();
+  NLSearchParserCopyParseWithOptions(self->_parser, 0, 4);
 }
 
-uint64_t __77__NLSearchParserManager_enumerateAttributedParsesForQuery_options_withBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__77__NLSearchParserManager_enumerateAttributedParsesForQuery_options_withBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v7 = [a2 valueForKey:@"kNLDateComponents"];
   v8 = [a2 valueForKey:@"kNLStartDateComponents"];
@@ -349,7 +345,6 @@ LABEL_24:
 
 uint64_t __70__NLSearchParserManager_enumerateSearchSuggestions_options_withBlock___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v5 = *(*(a1 + 40) + 8);
   result = (*(*(a1 + 32) + 16))();
   *a3 = *(*(*(a1 + 40) + 8) + 24);
   return result;

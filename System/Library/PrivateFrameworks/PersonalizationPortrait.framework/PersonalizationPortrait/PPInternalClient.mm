@@ -1,5 +1,6 @@
 @interface PPInternalClient
 + (id)sharedInstance;
+- (BOOL)setTrialUseDefaultFiles:(BOOL)files error:(id *)error;
 - (BOOL)trialOverridePath:(id)path namespaceName:(id)name factorName:(id)factorName error:(id *)error;
 - (PPInternalClient)init;
 - (id)sysdiagnoseInformationWithError:(id *)error;
@@ -62,6 +63,48 @@ void __52__PPInternalClient_sysdiagnoseInformationWithError___block_invoke_2(uin
   v9 = *(*(a1 + 40) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v6;
+}
+
+- (BOOL)setTrialUseDefaultFiles:(BOOL)files error:(id *)error
+{
+  filesCopy = files;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__347;
+  v22 = __Block_byref_object_dispose__348;
+  v23 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __50__PPInternalClient_setTrialUseDefaultFiles_error___block_invoke;
+  v13[3] = &unk_1E77F7B20;
+  v13[4] = &v18;
+  v7 = MEMORY[0x1AC568040](v13, a2);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __50__PPInternalClient_setTrialUseDefaultFiles_error___block_invoke_2;
+  v12[3] = &unk_1E77F7B48;
+  v12[4] = &v14;
+  v12[5] = &v18;
+  v8 = MEMORY[0x1AC568040](v12);
+  v9 = [(PPInternalClient *)self _synchronousRemoteObjectProxyWithErrorHandler:v7];
+  [v9 setTrialUseDefaultFiles:filesCopy completion:v8];
+
+  if (error)
+  {
+    *error = v19[5];
+  }
+
+  v10 = *(v15 + 24);
+
+  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v18, 8);
+
+  return v10;
 }
 
 - (BOOL)trialOverridePath:(id)path namespaceName:(id)name factorName:(id)factorName error:(id *)error
@@ -167,13 +210,12 @@ LABEL_3:
 
 void __34__PPInternalClient_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_392;
-  sharedInstance__pasExprOnceResult_392 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_392;
+  sharedInstance__pasExprOnceResult_392 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

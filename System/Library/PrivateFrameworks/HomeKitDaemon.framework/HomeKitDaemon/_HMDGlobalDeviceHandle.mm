@@ -35,14 +35,14 @@
 
 - (_HMDGlobalDeviceHandle)initWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HM.token"];
   if (v5)
   {
-    v17.receiver = self;
-    v17.super_class = _HMDGlobalDeviceHandle;
-    v6 = [(_HMDDeviceHandle *)&v17 initWithCoder:coderCopy];
+    v16.receiver = self;
+    v16.super_class = _HMDGlobalDeviceHandle;
+    v6 = [(_HMDDeviceHandle *)&v16 initWithCoder:coderCopy];
     v7 = v6;
     if (v6)
     {
@@ -65,9 +65,9 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v19 = v14;
-      v20 = 2112;
-      v21 = @"HM.token";
+      v18 = v14;
+      v19 = 2112;
+      v20 = @"HM.token";
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Missing required object for key '%@'", buf, 0x16u);
     }
 
@@ -75,7 +75,6 @@
     v11 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -147,32 +146,32 @@
 
 - (_HMDGlobalDeviceHandle)initWithDestination:(id)destination
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   v5 = destinationCopy;
   if (destinationCopy)
   {
-    v29 = 0;
-    v30 = 0;
-    v27 = 0;
     v28 = 0;
-    v6 = __parseGlobalDestination(destinationCopy, &v30, &v29, &v28, &v27);
-    v7 = v30;
-    v8 = v29;
-    v9 = v28;
-    v10 = v27;
+    v29 = 0;
+    v26 = 0;
+    v27 = 0;
+    v6 = __parseGlobalDestination(destinationCopy, &v29, &v28, &v27, &v26);
+    v7 = v29;
+    v8 = v28;
+    v9 = v27;
+    v10 = v26;
     if (v6)
     {
-      v26.receiver = self;
-      v26.super_class = _HMDGlobalDeviceHandle;
-      v11 = [(_HMDDeviceHandle *)&v26 initWithIdentifier:v7];
+      v25.receiver = self;
+      v25.super_class = _HMDGlobalDeviceHandle;
+      v11 = [(_HMDDeviceHandle *)&v25 initWithIdentifier:v7];
       if (v11)
       {
-        v12 = [v8 copy];
+        v12 = objc_msgSend_copy(v8);
         pushToken = v11->_pushToken;
         v11->_pushToken = v12;
 
-        v14 = [v9 copy];
+        v14 = objc_msgSend_copy(v9);
         accountHandle = v11->_accountHandle;
         v11->_accountHandle = v14;
       }
@@ -190,11 +189,11 @@
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v32 = v23;
-        v33 = 2112;
-        v34 = v5;
-        v35 = 2112;
-        v36 = v10;
+        v31 = v23;
+        v32 = 2112;
+        v33 = v5;
+        v34 = 2112;
+        v35 = v10;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to parse destination, %@, with error: %@", buf, 0x20u);
       }
 
@@ -212,7 +211,7 @@
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v20;
+      v31 = v20;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Missing destination parameter", buf, 0xCu);
     }
 
@@ -220,13 +219,12 @@
     v17 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (_HMDGlobalDeviceHandle)initWithPushToken:(id)token accountHandle:(id)handle
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   handleCopy = handle;
   v8 = handleCopy;
@@ -248,16 +246,15 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v16;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Missing push token parameter", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v16;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Missing push token parameter", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
     v13 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

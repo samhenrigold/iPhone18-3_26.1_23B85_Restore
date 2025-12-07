@@ -37,9 +37,8 @@
 
 - (void)setShowsHideButton:(BOOL)button
 {
-  buttonCopy = button;
   selfCopy = self;
-  sub_18BBE55C0(buttonCopy);
+  sub_18BBE55C0(button);
 }
 
 - (UIView)effectiveHideButtonView
@@ -96,7 +95,7 @@
 
   selfCopy = self;
   sub_18BBE750C(v7, v6);
-  sub_18B7E0A10(v7);
+  sub_18B7E0A10(v7, v6);
 }
 
 @end

@@ -98,13 +98,13 @@ LABEL_11:
   [v6 setDelegate:self];
   if (!v6)
   {
-    v17 = 0;
+    v18 = 0;
     if (!error)
     {
-      return v17;
+      return v18;
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   v7 = objc_alloc_init(DaemonProtocolDataProvider);
@@ -122,65 +122,69 @@ LABEL_11:
   shouldLog = [v9 shouldLog];
   if ([v9 shouldLogToDisk])
   {
-    v11 = shouldLog | 2;
+    LODWORD(v11) = shouldLog | 2;
   }
 
   else
   {
-    v11 = shouldLog;
+    LODWORD(v11) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v9 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v11 = v11;
+  }
+
+  else
   {
     v11 &= 2u;
   }
 
   if (v11)
   {
-    v12 = objc_opt_class();
+    v13 = objc_opt_class();
     uRLBagKey = [(LoadMicroPaymentQueuePaymentsOperation *)self URLBagKey];
     v22 = 138412802;
-    v23 = v12;
+    v23 = v13;
     v24 = 2112;
     v25 = uRLBagKey;
     v26 = 2112;
     v27 = request;
-    LODWORD(v20) = 32;
-    v19 = &v22;
-    v14 = _os_log_send_and_compose_impl();
-    if (v14)
+    v15 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Running %@ request: %@", &v22, 32);
+    if (v15)
     {
-      v15 = v14;
-      v16 = [NSString stringWithCString:v14 encoding:4, &v22, v20];
-      free(v15);
-      v19 = v16;
+      v16 = v15;
+      v17 = [NSString stringWithCString:v15 encoding:4];
+      free(v16);
+      v20 = v17;
       SSFileLog();
     }
   }
 
-  if ([(LoadMicroPaymentQueuePaymentsOperation *)self runSubOperation:v6 returningError:&v21, v19])
+  if ([(LoadMicroPaymentQueuePaymentsOperation *)self runSubOperation:v6 returningError:&v21, v20])
   {
-    v17 = [(LoadMicroPaymentQueuePaymentsOperation *)self _parsePropertyList:[(DaemonProtocolDataProvider *)v7 output] error:&v21];
+    v18 = [(LoadMicroPaymentQueuePaymentsOperation *)self _parsePropertyList:[(DaemonProtocolDataProvider *)v7 output] error:&v21];
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
   [v6 setDelegate:0];
   if (error)
   {
-LABEL_18:
+LABEL_19:
     *error = v21;
   }
 
-  return v17;
+  return v18;
 }
 
 - (BOOL)_parsePropertyList:(id)list error:(id *)error
 {
-  v34 = 0;
+  v37 = 0;
   v7 = objc_alloc_init(MicroPaymentQueueResponse);
   [(MicroPaymentQueueResponse *)v7 setUserIdentifier:[(MicroPaymentQueueRequest *)[(LoadMicroPaymentQueuePaymentsOperation *)self request] userIdentifier]];
   v8 = [(MicroPaymentQueueResponse *)v7 loadFromPropertyList:list];
@@ -196,84 +200,93 @@ LABEL_18:
     shouldLog = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v12) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v12) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v10 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
 
     if (v12)
     {
-      v35 = 138412802;
-      v36 = objc_opt_class();
-      v37 = 2048;
-      *v38 = [(NSArray *)[(MicroPaymentQueueResponse *)v7 payments] count];
-      *&v38[8] = 2112;
-      *&v38[10] = [(LoadMicroPaymentQueuePaymentsOperation *)self request];
-      LODWORD(v33) = 32;
-      v31 = &v35;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      v38 = 138412802;
+      v39 = objc_opt_class();
+      v40 = 2048;
+      *v41 = [(NSArray *)[(MicroPaymentQueueResponse *)v7 payments] count];
+      *&v41[8] = 2112;
+      *&v41[10] = [(LoadMicroPaymentQueuePaymentsOperation *)self request];
+      v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Fetched %lu payments for %@", &v38, 32);
+      if (v14)
       {
-        v14 = v13;
-        v15 = [NSString stringWithCString:v13 encoding:4, &v35, v33];
-        free(v14);
-        v31 = v15;
+        v15 = v14;
+        v16 = [NSString stringWithCString:v14 encoding:4];
+        free(v15);
+        v34 = v16;
         SSFileLog();
       }
     }
 
-    if ([(LoadMicroPaymentQueuePaymentsOperation *)self _appendRangeRequestsToResponse:v7 error:&v34, v31])
+    if ([(LoadMicroPaymentQueuePaymentsOperation *)self _appendRangeRequestsToResponse:v7 error:&v37, v34])
     {
-      v16 = +[SSLogConfig sharedDaemonConfig];
-      if (!v16)
+      v17 = +[SSLogConfig sharedDaemonConfig];
+      if (!v17)
       {
-        v16 = +[SSLogConfig sharedConfig];
+        v17 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v16 shouldLog];
-      if ([v16 shouldLogToDisk])
+      shouldLog2 = [v17 shouldLog];
+      if ([v17 shouldLogToDisk])
       {
-        v18 = shouldLog2 | 2;
+        LODWORD(v19) = shouldLog2 | 2;
       }
 
       else
       {
-        v18 = shouldLog2;
+        LODWORD(v19) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v16 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [v17 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v18 &= 2u;
+        v19 = v19;
       }
 
-      if (v18)
+      else
       {
-        v19 = objc_opt_class();
-        v20 = [(NSData *)[(MicroPaymentQueueResponse *)v7 appReceipt] length];
+        v19 &= 2u;
+      }
+
+      if (v19)
+      {
+        v21 = objc_opt_class();
+        v22 = [(NSData *)[(MicroPaymentQueueResponse *)v7 appReceipt] length];
         bundleIdentifier = [(StoreKitClientIdentity *)[(MicroPaymentQueueRequest *)[(LoadMicroPaymentQueuePaymentsOperation *)self request] clientIdentity] bundleIdentifier];
-        v35 = 138412802;
-        v36 = v19;
-        v37 = 1024;
-        *v38 = v20;
-        *&v38[4] = 2112;
-        *&v38[6] = bundleIdentifier;
-        LODWORD(v33) = 28;
-        v32 = &v35;
-        v22 = _os_log_send_and_compose_impl();
-        if (v22)
+        v38 = 138412802;
+        v39 = v21;
+        v40 = 1024;
+        *v41 = v22;
+        *&v41[4] = 2112;
+        *&v41[6] = bundleIdentifier;
+        LODWORD(v36) = 28;
+        v24 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[%@] Deciding to write receipt: %d bytes -- %@", &v38, v36);
+        if (v24)
         {
-          v23 = v22;
-          v24 = [NSString stringWithCString:v22 encoding:4, &v35, v33];
-          free(v23);
-          v32 = v24;
+          v25 = v24;
+          v26 = [NSString stringWithCString:v24 encoding:4];
+          free(v25);
+          v35 = v26;
           SSFileLog();
         }
       }
@@ -284,12 +297,12 @@ LABEL_18:
       }
 
       [(LoadMicroPaymentQueuePaymentsOperation *)self setResponse:v7];
-      v25 = 1;
+      v27 = 1;
     }
 
     else
     {
-      v25 = 0;
+      v27 = 0;
     }
   }
 
@@ -303,44 +316,49 @@ LABEL_18:
     shouldLog3 = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v27 = shouldLog3 | 2;
+      LODWORD(v29) = shouldLog3 | 2;
     }
 
     else
     {
-      v27 = shouldLog3;
+      LODWORD(v29) = shouldLog3;
     }
 
-    if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject3 = [v10 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v27 &= 2u;
+      v29 = v29;
     }
 
-    if (v27)
+    else
     {
-      v35 = 138412290;
-      v36 = objc_opt_class();
-      LODWORD(v33) = 12;
-      v28 = _os_log_send_and_compose_impl();
-      if (v28)
+      v29 &= 2u;
+    }
+
+    if (v29)
+    {
+      v38 = 138412290;
+      v39 = objc_opt_class();
+      v31 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Received invalid response", &v38, 12);
+      if (v31)
       {
-        v29 = v28;
-        [NSString stringWithCString:v28 encoding:4, &v35, v33];
-        free(v29);
+        v32 = v31;
+        [NSString stringWithCString:v31 encoding:4];
+        free(v32);
         SSFileLog();
       }
     }
 
-    v25 = 0;
-    v34 = ISError();
+    v27 = 0;
+    v37 = ISError();
   }
 
   if (error)
   {
-    *error = v34;
+    *error = v37;
   }
 
-  return v25;
+  return v27;
 }
 
 @end

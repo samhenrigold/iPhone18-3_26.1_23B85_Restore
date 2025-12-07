@@ -130,13 +130,12 @@
 {
   queryCopy = query;
   v5 = si_tracing_current_span();
-  v46 = *v5;
-  v48 = *(v5 + 16);
-  v50 = *(v5 + 32);
+  v39 = *v5;
+  v41 = *(v5 + 16);
+  v43 = *(v5 + 32);
   v6 = *v5;
   spanid = si_tracing_calc_next_spanid();
   v8 = *(v5 + 8);
-  v9 = *(v5 + 24);
   *v5 = v6;
   *(v5 + 8) = spanid;
   *(v5 + 16) = v8;
@@ -147,48 +146,48 @@
   {
     if ([queryCopy isPeopleSearch])
     {
-      v10 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-      v11 = "people";
+      v9 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+      v10 = "people";
     }
 
     else
     {
-      v10 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-      v11 = "appscoped";
+      v9 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+      v10 = "appscoped";
     }
 
-    sub_100017E38(queryCopy, v11, "parsec", v10);
-    v12 = 0;
+    sub_100017E38(queryCopy, v10, "parsec", v9);
+    v11 = 0;
     goto LABEL_40;
   }
 
   [queryCopy externalID];
   kdebug_trace();
-  v13 = SPLogForSPLogCategoryTelemetry();
+  v12 = SPLogForSPLogCategoryTelemetry();
   externalID = [queryCopy externalID];
-  if (externalID && os_signpost_enabled(v13))
+  if (externalID && os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_INTERVAL_BEGIN, externalID, "parsecLatency", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_INTERVAL_BEGIN, externalID, "parsecLatency", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v15 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-  v16 = SPLogForSPLogCategoryDefault();
-  v17 = v16;
+  v14 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
+  v15 = SPLogForSPLogCategoryDefault();
+  v16 = v15;
   if (gSPLogDebugAsDefault)
   {
-    v18 = OS_LOG_TYPE_DEFAULT;
+    v17 = OS_LOG_TYPE_DEFAULT;
   }
 
   else
   {
-    v18 = OS_LOG_TYPE_DEBUG;
+    v17 = OS_LOG_TYPE_DEBUG;
   }
 
-  if (os_log_type_enabled(v16, v18))
+  if (os_log_type_enabled(v15, v17))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v17, v18, "#query parsec start", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v16, v17, "#query parsec start", buf, 2u);
   }
 
   if (!atomic_fetch_add(dword_1000A8900, 1u))
@@ -197,43 +196,43 @@
   }
 
   queryContext = [queryCopy queryContext];
-  v20 = PRSLogCategoryDefault();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v19 = PRSLogCategoryDefault();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
-    v21 = objc_opt_class();
+    v20 = objc_opt_class();
     searchString = [queryContext searchString];
     *buf = 138412546;
-    v53 = v21;
-    v54 = 2112;
-    v55 = searchString;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%@ Perform query %@", buf, 0x16u);
+    v46 = v20;
+    v47 = 2112;
+    v48 = searchString;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "%@ Perform query %@", buf, 0x16u);
   }
 
   disabledDomains = [queryContext disabledDomains];
-  v24 = [disabledDomains containsObject:&off_100098AF8];
+  v23 = [disabledDomains containsObject:&off_100098AF8];
 
-  if (v24)
+  if (v23)
   {
-    v25 = 0;
+    v24 = 0;
   }
 
   else
   {
-    v25 = [[SPParsecQueryTask alloc] initWithStore:self resultPipe:queryCopy queue:self->_queue visibleApps:self->_setOfVisibleApps hiddenApps:self->_setOfHiddenApps];
-    [(SPParsecQueryTask *)v25 setStartTime:v15];
-    pthread_mutex_lock(&v25->_mutex);
+    v24 = [[SPParsecQueryTask alloc] initWithStore:self resultPipe:queryCopy queue:self->_queue visibleApps:self->_setOfVisibleApps hiddenApps:self->_setOfHiddenApps];
+    [(SPParsecQueryTask *)v24 setStartTime:v14];
+    pthread_mutex_lock(&v24->_mutex);
     if (byte_1000A8938 == 1)
     {
-      pthread_mutex_unlock(&v25->_mutex);
+      pthread_mutex_unlock(&v24->_mutex);
       searchString2 = [queryContext searchString];
-      v43 = [(SPParsecQueryTask *)v25 unarchiveWithQuery:searchString2];
-      v44 = qword_1000A8940;
-      qword_1000A8940 = v43;
+      v36 = [(SPParsecQueryTask *)v24 unarchiveWithQuery:searchString2];
+      v37 = qword_1000A8940;
+      qword_1000A8940 = v36;
 
       query = [qword_1000A8940 query];
-      [(SPParsecQueryTask *)v25 setParsecQuery:query];
+      [(SPParsecQueryTask *)v24 setParsecQuery:query];
 
-      [(SPParsecQueryTask *)v25 resumeWithArchive:qword_1000A8940];
+      [(SPParsecQueryTask *)v24 resumeWithArchive:qword_1000A8940];
       goto LABEL_39;
     }
 
@@ -244,7 +243,7 @@
         [(SPParsecDatastore *)self setupSearchSession];
         if (!self->_session)
         {
-          sub_100017E38(queryCopy, "failed", "parsec", v15);
+          sub_100017E38(queryCopy, "failed", "parsec", v14);
         }
       }
 
@@ -261,56 +260,50 @@
         currentSearchString = [queryContext searchString];
       }
 
-      v30 = -[PRSSearchSession queryTaskWithString:externalId:handler:queryContext:queryIdent:](self->_session, "queryTaskWithString:externalId:handler:queryContext:queryIdent:", currentSearchString, [queryCopy externalID], v25, queryContext, objc_msgSend(queryCopy, "queryIdent"));
-      if (v30)
+      v29 = -[PRSSearchSession queryTaskWithString:externalId:handler:queryContext:queryIdent:](self->_session, "queryTaskWithString:externalId:handler:queryContext:queryIdent:", currentSearchString, [queryCopy externalID], v24, queryContext, objc_msgSend(queryCopy, "queryIdent"));
+      if (v29)
       {
-        v31 = SPLogForSPLogCategoryDefault();
-        v32 = v31;
+        v30 = SPLogForSPLogCategoryDefault();
+        v31 = v30;
         if (gSPLogDebugAsDefault)
         {
-          v33 = OS_LOG_TYPE_DEFAULT;
+          v32 = OS_LOG_TYPE_DEFAULT;
         }
 
         else
         {
-          v33 = OS_LOG_TYPE_DEBUG;
+          v32 = OS_LOG_TYPE_DEBUG;
         }
 
-        if (os_log_type_enabled(v31, v33))
+        if (os_log_type_enabled(v30, v32))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v32, v33, "#query parsec start - parsec", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v31, v32, "#query parsec start - parsec", buf, 2u);
         }
 
-        [v30 setParsecState:self->_parsecEnabled];
-        [(SPParsecQueryTask *)v25 setParsecQuery:v30];
-        [v30 setRepresentedObject:queryCopy];
+        [v29 setParsecState:self->_parsecEnabled];
+        [(SPParsecQueryTask *)v24 setParsecQuery:v29];
+        [v29 setRepresentedObject:queryCopy];
       }
     }
 
-    pthread_mutex_unlock(&v25->_mutex);
+    pthread_mutex_unlock(&v24->_mutex);
   }
 
   session = [(SPParsecDatastore *)self session];
   [session searchRenderTimeout];
-  [(SPParsecQueryTask *)v25 resumeWithTimeout:?];
+  [(SPParsecQueryTask *)v24 resumeWithTimeout:?];
 
 LABEL_39:
-  v12 = v25;
+  v11 = v24;
 
 LABEL_40:
-  v35 = *v5;
-  v36 = *(v5 + 8);
-  v37 = *(v5 + 16);
-  v38 = *(v5 + 24);
-  v39 = *(v5 + 28);
-  v40 = *(v5 + 32);
   si_tracing_log_span_end();
-  *v5 = v47;
-  *(v5 + 16) = v49;
-  *(v5 + 32) = v51;
+  *v5 = v40;
+  *(v5 + 16) = v42;
+  *(v5 + 32) = v44;
 
-  return v12;
+  return v11;
 }
 
 - (void)activate

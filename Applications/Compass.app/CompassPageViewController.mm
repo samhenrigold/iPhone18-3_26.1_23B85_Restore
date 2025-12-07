@@ -9,6 +9,7 @@
 - (void)_updateCoordinateLabel;
 - (void)_updateDegreesLabel:(BOOL)label;
 - (void)_updateDirectionLabel:(BOOL)label;
+- (void)_updateHeadingLabels:(BOOL)labels;
 - (void)_updatePlaceLabelLayout;
 - (void)_updatePlaceLabels;
 - (void)activateConstraintSetForFontSize:(double)size;
@@ -18,6 +19,7 @@
 - (void)localeDidChange:(id)change;
 - (void)locationAuthorizationDidChange:(int)change;
 - (void)preferredFontSizeDidChange:(id)change;
+- (void)setCompassToAngle:(double)angle force:(BOOL)force;
 - (void)setSharedLocationManager:(id)manager;
 - (void)setUserLocation:(id)location;
 - (void)startMotionManager;
@@ -25,7 +27,11 @@
 - (void)updateConsole;
 - (void)updateDisplay:(id)display;
 - (void)userDefaultsChanged:(id)changed;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CompassPageViewController
@@ -594,11 +600,11 @@ LABEL_7:
     [(CLLocation *)self->_userLocation coordinate];
     v5 = v4;
     v7 = v6;
-    v23 = CreateCoordinateComponentString(0, v4, v6);
+    v25 = CreateCoordinateComponentString(0, v4, v6);
     v8 = CreateCoordinateComponentString(1, v5, v7);
     v9 = [NSString alloc];
-    v10 = WebLocalizedString();
-    v11 = [v9 initWithFormat:v10, v23, v8, 0];
+    v10 = WebLocalizedString(0, "%@  %@");
+    v11 = [v9 initWithFormat:v10, v25, v8, 0];
 
     [(CompassCopyableLabel *)self->_coordinatesLabel setText:v11];
     [(CompassCopyableLabel *)self->_coordinatesLabel setHidden:0];
@@ -625,12 +631,23 @@ LABEL_7:
           v18 = v13;
         }
 
-        v19 = [NSNumber numberWithInteger:10 * llround(v18 / 10.0)];
-        v20 = [NSNumberFormatter localizedStringFromNumber:v19 numberStyle:0];
+        v19 = 10 * llround(v18 / 10.0);
+        if (bOOLValue)
+        {
+          v20 = "%@ m Elevation";
+        }
 
-        v21 = WebLocalizedString();
-        v22 = [NSString stringWithFormat:v21, v20];
-        [(UILabel *)self->_altitudeLabel setText:v22];
+        else
+        {
+          v20 = "%@ ft Elevation";
+        }
+
+        v21 = [NSNumber numberWithInteger:v19];
+        v22 = [NSNumberFormatter localizedStringFromNumber:v21 numberStyle:0];
+
+        v23 = WebLocalizedString(0, v20);
+        v24 = [NSString stringWithFormat:v23, v22];
+        [(UILabel *)self->_altitudeLabel setText:v24];
       }
     }
   }
@@ -697,7 +714,7 @@ LABEL_13:
     v15 = deviceMotion2;
     if (deviceMotion2)
     {
-      [deviceMotion2 magneticField];
+      objc_msgSend_magneticField(deviceMotion2);
     }
 
     else
@@ -727,21 +744,8 @@ LABEL_14:
 
 - (void)_geocodeIfNecessary
 {
-  if (!self->_lastGeocodeLocation)
+  if (!self->_lastGeocodeLocation || (-[CLLocation distanceFromLocation:](self->_userLocation, "distanceFromLocation:"), v4 = v3, -[CLLocation timestamp](self->_userLocation, "timestamp"), v5 = objc_claimAutoreleasedReturnValue(), -[CLLocation timestamp](self->_lastGeocodeLocation, "timestamp"), v6 = objc_claimAutoreleasedReturnValue(), [v5 timeIntervalSinceDate:v6], v8 = fabs(v7), v6, v5, v8 > 60.0) || v4 > 1000.0)
   {
-    goto LABEL_4;
-  }
-
-  [(CLLocation *)self->_userLocation distanceFromLocation:?];
-  v4 = v3;
-  timestamp = [(CLLocation *)self->_userLocation timestamp];
-  timestamp2 = [(CLLocation *)self->_lastGeocodeLocation timestamp];
-  [timestamp timeIntervalSinceDate:timestamp2];
-  v8 = fabs(v7);
-
-  if (v8 > 60.0 || v4 > 1000.0)
-  {
-LABEL_4:
 
     [(CompassPageViewController *)self _updatePlaceLabels];
   }
@@ -826,6 +830,59 @@ LABEL_6:
   self->_headingFilter = v5;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = CompassPageViewController;
+  [(CompassPageViewController *)&v7 viewWillAppear:appear];
+  [(CompassPageViewController *)self startMotionManager];
+  [(CLLocationManager *)self->_sharedLocationManager startUpdatingHeading];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 addObserver:self selector:"userDefaultsChanged:" name:NSUserDefaultsDidChangeNotification object:0];
+
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 addObserver:self selector:"localeDidChange:" name:NSCurrentLocaleDidChangeNotification object:0];
+
+  v6 = +[NSNotificationCenter defaultCenter];
+  [v6 addObserver:self selector:"preferredFontSizeDidChange:" name:UIContentSizeCategoryDidChangeNotification object:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CompassPageViewController;
+  [(CompassPageViewController *)&v4 viewDidAppear:appear];
+  self->_enableHaptics = 1;
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = CompassPageViewController;
+  [(CompassPageViewController *)&v6 viewWillDisappear:disappear];
+  self->_enableHaptics = 0;
+  heavyImpact = self->_heavyImpact;
+  self->_heavyImpact = 0;
+
+  lightImpact = self->_lightImpact;
+  self->_lightImpact = 0;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = CompassPageViewController;
+  [(CompassPageViewController *)&v6 viewDidDisappear:disappear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 removeObserver:self];
+
+  v5 = +[UIApplication sharedApplication];
+  [v5 setIdleTimerDisabled:0];
+
+  [(CLLocationManager *)self->_sharedLocationManager stopUpdatingHeading];
+  [(CLLocationManager *)self->_sharedLocationManager stopUpdatingLocation];
+}
+
 - (void)updateDisplay:(id)display
 {
   deviceMotion = [(CompassMotionManager *)self->_manager deviceMotion];
@@ -874,6 +931,126 @@ LABEL_6:
   [v2 setIdleTimerDisabled:0];
 }
 
+- (void)setCompassToAngle:(double)angle force:(BOOL)force
+{
+  forceCopy = force;
+  v6 = sub_100005BD0(self->_currentCompassAngle * 3.14159265 / 180.0, angle * 3.14159265 / 180.0) * 180.0 / 3.14159265;
+  compassIdleTimer = self->_compassIdleTimer;
+  if (vabdd_f64(v6, self->_currentCompassAngle) >= 2.0)
+  {
+    [(NSTimer *)compassIdleTimer invalidate];
+    v10 = self->_compassIdleTimer;
+    self->_compassIdleTimer = 0;
+
+    v9 = +[UIApplication sharedApplication];
+    [v9 setIdleTimerDisabled:1];
+  }
+
+  else
+  {
+    if (compassIdleTimer)
+    {
+      goto LABEL_6;
+    }
+
+    v8 = [NSTimer scheduledTimerWithTimeInterval:self target:"_enableIdleTimer" selector:0 userInfo:0 repeats:60.0];
+    v9 = self->_compassIdleTimer;
+    self->_compassIdleTimer = v8;
+  }
+
+LABEL_6:
+  currentCompassAngle = self->_currentCompassAngle;
+  if (vabdd_f64(v6, currentCompassAngle) >= 0.100000001 || forceCopy)
+  {
+    self->_previousCompassAngle = currentCompassAngle;
+    v13 = fmod(v6 * (1.0 - self->_headingFilter) + self->_currentCompassAngle * self->_headingFilter + 360.0, 360.0);
+    self->_currentCompassAngle = v13;
+    if (self->_enableHaptics)
+    {
+      previousCompassAngle = self->_previousCompassAngle;
+      if (previousCompassAngle >= v13)
+      {
+        v15 = v13;
+      }
+
+      else
+      {
+        v15 = self->_previousCompassAngle;
+      }
+
+      if (previousCompassAngle >= v13)
+      {
+        v16 = self->_previousCompassAngle;
+      }
+
+      else
+      {
+        v16 = v13;
+      }
+
+      if (v16 - v15 <= 180.0 && (v15 >= 180.0 || v16 <= 180.0))
+      {
+        goto LABEL_28;
+      }
+
+      if (v13 >= previousCompassAngle)
+      {
+        v17 = v13;
+      }
+
+      else
+      {
+        v17 = self->_previousCompassAngle;
+      }
+
+      if (v13 >= previousCompassAngle)
+      {
+        v13 = self->_previousCompassAngle;
+      }
+
+      if (v17 - v13 <= 180.0)
+      {
+LABEL_28:
+        if (v16 - v15 <= 30.0)
+        {
+          v19 = 0;
+          v18 = &OBJC_IVAR___CompassPageViewController__lightImpact;
+          while (1)
+          {
+            v19 += 30;
+            if (v15 < v19 && v16 > v19)
+            {
+              break;
+            }
+
+            if (v19 >= 0x14A)
+            {
+              goto LABEL_31;
+            }
+          }
+        }
+
+        else
+        {
+          v18 = &OBJC_IVAR___CompassPageViewController__lightImpact;
+        }
+      }
+
+      else
+      {
+        v18 = &OBJC_IVAR___CompassPageViewController__heavyImpact;
+      }
+
+      [*(&self->super.super.super.isa + *v18) impactOccurred];
+    }
+
+LABEL_31:
+    [(CompassView *)self->_compassView setCompassHeading:self->_currentCompassAngle];
+
+    [(CompassPageViewController *)self _updateHeadingLabels:forceCopy];
+  }
+}
+
 - (void)setUserLocation:(id)location
 {
   locationCopy = location;
@@ -898,6 +1075,14 @@ LABEL_6:
 
     locationCopy = v7;
   }
+}
+
+- (void)_updateHeadingLabels:(BOOL)labels
+{
+  labelsCopy = labels;
+  [(CompassPageViewController *)self _updateDegreesLabel:?];
+
+  [(CompassPageViewController *)self _updateDirectionLabel:labelsCopy];
 }
 
 - (void)_updateDegreesLabel:(BOOL)label

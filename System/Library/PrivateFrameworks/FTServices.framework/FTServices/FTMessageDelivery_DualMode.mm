@@ -19,7 +19,7 @@
 
 - (BOOL)_shouldUseDualDeliveryForMessage:(id)message
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   if ((IMGetDomainBoolForKey() & 1) == 0)
   {
@@ -33,9 +33,9 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v37 = topic;
-        v38 = 2112;
-        v39 = v8;
+        v36 = topic;
+        v37 = 2112;
+        v38 = v8;
         _os_log_impl(&dword_195925000, v9, OS_LOG_TYPE_DEFAULT, "Message topic (%@) is in the list of blocklisted topics (%@)", buf, 0x16u);
       }
 
@@ -58,13 +58,13 @@
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v37) = intValue;
+        LODWORD(v36) = intValue;
         _os_log_impl(&dword_195925000, v14, OS_LOG_TYPE_DEFAULT, "Server Bag provided us with %d Web Tunnel Version", buf, 8u);
       }
 
       if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
       {
-        v35 = intValue;
+        v34 = intValue;
         _IDSLogV();
       }
 
@@ -77,13 +77,13 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v37 = 0x4000000000000000;
+        v36 = 0x4000000000000000;
         _os_log_impl(&dword_195925000, v15, OS_LOG_TYPE_DEFAULT, "Server Bag has no value for Min Version, using the default: %f", buf, 0xCu);
       }
 
       if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
       {
-        v35 = 0x4000000000000000;
+        v34 = 0x4000000000000000;
         _IDSLogV();
       }
 
@@ -140,13 +140,13 @@
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v37) = intValue2;
+          LODWORD(v36) = intValue2;
           _os_log_impl(&dword_195925000, v25, OS_LOG_TYPE_DEFAULT, "Server Bag provided us with %d Web Tunnel Percentage", buf, 8u);
         }
 
         if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
         {
-          v35 = intValue2;
+          v34 = intValue2;
           _IDSLogV();
         }
 
@@ -176,13 +176,13 @@
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v37 = 0x4059000000000000;
+          v36 = 0x4059000000000000;
           _os_log_impl(&dword_195925000, v27, OS_LOG_TYPE_DEFAULT, "Server Bag has no value for percentage, using the default: %f percentage", buf, 0xCu);
         }
 
         if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
         {
-          v35 = 0x4059000000000000;
+          v34 = 0x4059000000000000;
           _IDSLogV();
         }
 
@@ -194,7 +194,7 @@
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v37 = _randomPercentageChanceForDualDelivery;
+        v36 = _randomPercentageChanceForDualDelivery;
         _os_log_impl(&dword_195925000, v29, OS_LOG_TYPE_DEFAULT, "Diceroll Was %ld", buf, 0xCu);
       }
 
@@ -261,89 +261,84 @@ LABEL_77:
   v5 = 1;
 LABEL_80:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)_isInBackoffMode
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = IMGetAppIntForKey();
   if (v2 < 1)
   {
-    v11 = 0;
+    return 0;
+  }
+
+  v3 = v2;
+  v4 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_195925000, v4, OS_LOG_TYPE_DEFAULT, "We have a cached vale for server backoff mode", buf, 2u);
+  }
+
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  {
+    _IDSLogV();
+  }
+
+  date = [MEMORY[0x1E695DF00] date];
+  v6 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:v3];
+  v7 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v17 = v6;
+    _os_log_impl(&dword_195925000, v7, OS_LOG_TYPE_DEFAULT, "Back off End Date is %@", buf, 0xCu);
+  }
+
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  {
+    v15 = v6;
+    _IDSLogV();
+  }
+
+  v8 = [date dateByAddingTimeInterval:{3600.0, v15}];
+  v9 = [v6 earlierDate:v8];
+
+  [v9 timeIntervalSinceNow];
+  v11 = v10 >= 0.0;
+  if (v10 < 0.0)
+  {
+    v13 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_195925000, v13, OS_LOG_TYPE_DEFAULT, "Back off Interval is in the past, we are good to go", buf, 2u);
+    }
+
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    {
+      _IDSLogV();
+    }
+
+    IMRemoveAppValueForKey();
   }
 
   else
   {
-    v3 = v2;
-    v4 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v12 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_195925000, v4, OS_LOG_TYPE_DEFAULT, "We have a cached vale for server backoff mode", buf, 2u);
+      _os_log_impl(&dword_195925000, v12, OS_LOG_TYPE_DEFAULT, "Back off Interval is in the future, we are in backoff", buf, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
     {
       _IDSLogV();
-    }
-
-    date = [MEMORY[0x1E695DF00] date];
-    v6 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:v3];
-    v7 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412290;
-      v18 = v6;
-      _os_log_impl(&dword_195925000, v7, OS_LOG_TYPE_DEFAULT, "Back off End Date is %@", buf, 0xCu);
-    }
-
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
-    {
-      v16 = v6;
-      _IDSLogV();
-    }
-
-    v8 = [date dateByAddingTimeInterval:{3600.0, v16}];
-    v9 = [v6 earlierDate:v8];
-
-    [v9 timeIntervalSinceNow];
-    v11 = v10 >= 0.0;
-    if (v10 < 0.0)
-    {
-      v13 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_195925000, v13, OS_LOG_TYPE_DEFAULT, "Back off Interval is in the past, we are good to go", buf, 2u);
-      }
-
-      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
-      {
-        _IDSLogV();
-      }
-
-      IMRemoveAppValueForKey();
-    }
-
-    else
-    {
-      v12 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_195925000, v12, OS_LOG_TYPE_DEFAULT, "Back off Interval is in the future, we are in backoff", buf, 2u);
-      }
-
-      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
-      {
-        _IDSLogV();
-      }
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -404,26 +399,24 @@ LABEL_80:
 
 - (void)sendMessage:(id)message
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v9 = messageCopy;
+    v8 = messageCopy;
     _os_log_impl(&dword_195925000, v5, OS_LOG_TYPE_DEFAULT, "Incoming request to send a dualMode message %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
   {
-    v7 = messageCopy;
+    v6 = messageCopy;
     _IDSLogV();
   }
 
-  [(FTMessageQueue *)self->_dualModeQueue addMessage:messageCopy, v7];
+  [(FTMessageQueue *)self->_dualModeQueue addMessage:messageCopy, v6];
   [(FTMessageDelivery_DualMode *)self dequeueMessageIfNeeded];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelMessage:(id)message
@@ -526,7 +519,7 @@ LABEL_25:
 
 - (void)handleTranslationAndDeliveryOnAPS:(id)s
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   sCopy = s;
   v5 = [[IDSWebTunnelRequestMessage alloc] initWithMessage:sCopy];
   mEMORY[0x1E69A53F0] = [MEMORY[0x1E69A53F0] sharedInstance];
@@ -541,13 +534,13 @@ LABEL_25:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v49 = *&v10;
+      v48 = *&v10;
       _os_log_impl(&dword_195925000, v11, OS_LOG_TYPE_DEFAULT, "Server Bag provided us with a wait time interval of %f ", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
     {
-      v40 = *&v10;
+      v39 = *&v10;
       _IDSLogV();
     }
   }
@@ -558,14 +551,14 @@ LABEL_25:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v49 = 0x4024000000000000;
+      v48 = 0x4024000000000000;
       _os_log_impl(&dword_195925000, v12, OS_LOG_TYPE_DEFAULT, "Server Bag has no value for wait time interval , using the default: %f interval", buf, 0xCu);
     }
 
     v10 = 10.0;
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
     {
-      v40 = 0x4024000000000000;
+      v39 = 0x4024000000000000;
       _IDSLogV();
     }
   }
@@ -584,9 +577,9 @@ LABEL_25:
   else
   {
     messageBodyDataOverride2 = [sCopy messageBodyUsingCache];
-    v47 = 0;
-    v16 = [MEMORY[0x1E696AE40] dataWithPropertyList:messageBodyDataOverride2 format:100 options:0 error:&v47];
-    v17 = v47;
+    v46 = 0;
+    v16 = [MEMORY[0x1E696AE40] dataWithPropertyList:messageBodyDataOverride2 format:100 options:0 error:&v46];
+    v17 = v46;
     _FTCopyGzippedData = [v16 _FTCopyGzippedData];
     [(IDSWebTunnelRequestMessage *)v5 setMessageRequestBodyData:_FTCopyGzippedData];
   }
@@ -611,13 +604,13 @@ LABEL_25:
   if (!v25)
   {
     additionalQueryStringParameters2 = [sCopy additionalQueryStringParameters];
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = sub_1959332A8;
-    v45[3] = &unk_1E7435060;
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = sub_1959332A8;
+    v44[3] = &unk_1E7435060;
     v27 = v23;
-    v46 = v27;
-    [additionalQueryStringParameters2 enumerateKeysAndObjectsUsingBlock:v45];
+    v45 = v27;
+    [additionalQueryStringParameters2 enumerateKeysAndObjectsUsingBlock:v44];
 
     if ([v27 length])
     {
@@ -644,16 +637,16 @@ LABEL_25:
     [(IDSWebTunnelRequestMessage *)v5 setUserAgentOverride:self->_userAgentString];
   }
 
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = sub_195933358;
-  v41[3] = &unk_1E74350D8;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = sub_195933358;
+  v40[3] = &unk_1E74350D8;
   v34 = sCopy;
-  v42 = v34;
+  v41 = v34;
   v35 = v5;
-  v43 = v35;
+  v42 = v35;
   selfCopy = self;
-  v36 = MEMORY[0x19A8B8CC0](v41);
+  v36 = MEMORY[0x19A8B8CC0](v40);
   if ([v34 wantsIDSSignatures])
   {
     apsDelivery = self->_apsDelivery;
@@ -674,13 +667,11 @@ LABEL_25:
   {
     v36[2](v36, 0);
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleWebTunnelResponse:(id)response error:(id)error resultCode:(int64_t)code resultDictionary:(id)dictionary originalMessage:(id)message
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   errorCopy = error;
   dictionaryCopy = dictionary;
@@ -796,7 +787,6 @@ LABEL_21:
   (completionBlock2)[2](completionBlock2, messageCopy, errorCopy, 0, dictionaryCopy);
 
 LABEL_30:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deliverOnHTTP:(id)p

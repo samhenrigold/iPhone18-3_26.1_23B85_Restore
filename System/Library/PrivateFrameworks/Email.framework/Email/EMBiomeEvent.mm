@@ -152,11 +152,11 @@ void __19__EMBiomeEvent_log__block_invoke(uint64_t a1)
 
 - (id)json
 {
-  v23[3] = *MEMORY[0x1E69E9840];
-  v22[0] = @"eventName";
+  v22[3] = *MEMORY[0x1E69E9840];
+  v21[0] = @"eventName";
   eventName = [(EMBiomeEvent *)self eventName];
-  v23[0] = eventName;
-  v22[1] = @"messageId";
+  v22[0] = eventName;
+  v21[1] = @"messageId";
   messageId = [(EMBiomeEvent *)self messageId];
   null = messageId;
   if (!messageId)
@@ -164,8 +164,8 @@ void __19__EMBiomeEvent_log__block_invoke(uint64_t a1)
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[1] = null;
-  v22[2] = @"payload";
+  v22[1] = null;
+  v21[2] = @"payload";
   payload = [(EMBiomeEvent *)self payload];
   null2 = payload;
   if (!payload)
@@ -173,8 +173,8 @@ void __19__EMBiomeEvent_log__block_invoke(uint64_t a1)
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null2;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
+  v22[2] = null2;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
   if (!payload)
   {
   }
@@ -183,9 +183,9 @@ void __19__EMBiomeEvent_log__block_invoke(uint64_t a1)
   {
   }
 
-  v21 = 0;
-  v9 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v8 options:1 error:&v21];
-  v10 = v21;
+  v20 = 0;
+  v9 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v8 options:1 error:&v20];
+  v10 = v20;
   if (v9)
   {
     v11 = v9;
@@ -200,30 +200,28 @@ void __19__EMBiomeEvent_log__block_invoke(uint64_t a1)
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (void)eventWithData:(uint64_t)a3 dataVersion:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C6655000, a2, a3, "ERROR unarchiving Biome event: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_1C6655000, a2, a3, "ERROR unarchiving Biome event: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)serialize
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C6655000, a2, a3, "ERROR serializing Biome event: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_1C6655000, a2, a3, "ERROR serializing Biome event: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)json
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C6655000, a2, a3, "ERROR extracting json: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_1C6655000, a2, a3, "ERROR extracting json: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

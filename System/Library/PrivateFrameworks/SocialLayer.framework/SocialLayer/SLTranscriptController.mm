@@ -2,6 +2,7 @@
 - (BOOL)deviceIsiPad;
 - (void)dealloc;
 - (void)presentTranscriptForMessageGUID:(id)d attachmentGUID:(id)iD presentingViewController:(id)controller;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SLTranscriptController
@@ -11,8 +12,7 @@
   sIsPresenting = 0;
   if (self->_requestUUID)
   {
-    [(NSExtension *)self->_extension cancelExtensionRequestWithIdentifier:?];
-    v3 = SLFrameworkLogHandle();
+    v3 = SLFrameworkLogHandle([(NSExtension *)self->_extension cancelExtensionRequestWithIdentifier:?]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       [SLTranscriptController dealloc];
@@ -22,6 +22,17 @@
   v4.receiver = self;
   v4.super_class = SLTranscriptController;
   [(SLTranscriptController *)&v4 dealloc];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = SLTranscriptController;
+  [(SLTranscriptController *)&v4 viewWillDisappear:disappear];
+  if ([(SLTranscriptController *)self isBeingDismissed])
+  {
+    sIsPresenting = 0;
+  }
 }
 
 - (BOOL)deviceIsiPad
@@ -34,13 +45,14 @@
 
 - (void)presentTranscriptForMessageGUID:(id)d attachmentGUID:(id)iD presentingViewController:(id)controller
 {
-  v46[3] = *MEMORY[0x277D85DE8];
+  v47[3] = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   controllerCopy = controller;
+  v11 = controllerCopy;
   if (sIsPresenting == 1)
   {
-    dCopy = SLFrameworkLogHandle();
+    dCopy = SLFrameworkLogHandle(controllerCopy);
     if (os_log_type_enabled(dCopy, OS_LOG_TYPE_DEBUG))
     {
       [SLTranscriptController presentTranscriptForMessageGUID:attachmentGUID:presentingViewController:];
@@ -55,69 +67,69 @@
     sIsPresenting = 1;
     if (![(SLTranscriptController *)self deviceIsiPad]|| (HasPublicEntitlement & 1) != 0)
     {
-      v41 = 0;
-      v21 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:@"com.apple.MobileSMS.MessagesTranscriptExtension" error:&v41];
-      dCopy = v41;
-      [(SLTranscriptController *)self setExtension:v21];
-      if (v21)
+      v42 = 0;
+      v22 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:@"com.apple.MobileSMS.MessagesTranscriptExtension" error:&v42];
+      dCopy = v42;
+      v23 = [(SLTranscriptController *)self setExtension:v22];
+      if (v22)
       {
         objc_initWeak(&location, self);
-        v37[0] = MEMORY[0x277D85DD0];
-        v37[1] = 3221225472;
-        v37[2] = __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_27;
-        v37[3] = &unk_278925C28;
-        objc_copyWeak(&v39, &location);
-        v22 = dCopy;
-        v38 = v22;
-        [v21 setRequestInterruptionBlock:v37];
-        v23 = objc_alloc_init(MEMORY[0x277CCA9D8]);
-        if (v22)
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_27;
+        v38[3] = &unk_278925C28;
+        objc_copyWeak(&v40, &location);
+        v24 = dCopy;
+        v39 = v24;
+        [v22 setRequestInterruptionBlock:v38];
+        v25 = objc_alloc_init(MEMORY[0x277CCA9D8]);
+        if (v24)
         {
-          v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
-          [v24 setObject:v22 forKey:@"messageGUID"];
+          v26 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          [v26 setObject:v24 forKey:@"messageGUID"];
           if (iDCopy)
           {
-            [v24 setObject:iDCopy forKey:@"attachmentGUID"];
+            [v26 setObject:iDCopy forKey:@"attachmentGUID"];
           }
 
-          [v23 setUserInfo:v24];
+          [v25 setUserInfo:v26];
         }
 
-        objc_initWeak(&from, controllerCopy);
-        objc_initWeak(&v35, v21);
-        v33[0] = 0;
-        v33[1] = v33;
-        v33[2] = 0x3032000000;
-        v33[3] = __Block_byref_object_copy_;
-        v33[4] = __Block_byref_object_dispose_;
+        objc_initWeak(&from, v11);
+        objc_initWeak(&v36, v22);
+        v34[0] = 0;
+        v34[1] = v34;
+        v34[2] = 0x3032000000;
+        v34[3] = __Block_byref_object_copy_;
+        v34[4] = __Block_byref_object_dispose_;
         selfCopy = self;
-        v44 = v23;
-        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_33;
-        v28[3] = &unk_278925CA0;
-        objc_copyWeak(&v31, &from);
-        objc_copyWeak(&v32, &v35);
-        v30 = v33;
-        v29 = v22;
-        [v21 instantiateViewControllerWithInputItems:v25 connectionHandler:v28];
+        v45 = v25;
+        v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_33;
+        v29[3] = &unk_278925CA0;
+        objc_copyWeak(&v32, &from);
+        objc_copyWeak(&v33, &v36);
+        v31 = v34;
+        v30 = v24;
+        [v22 instantiateViewControllerWithInputItems:v27 connectionHandler:v29];
 
+        objc_destroyWeak(&v33);
         objc_destroyWeak(&v32);
-        objc_destroyWeak(&v31);
-        _Block_object_dispose(v33, 8);
+        _Block_object_dispose(v34, 8);
 
-        objc_destroyWeak(&v35);
+        objc_destroyWeak(&v36);
         objc_destroyWeak(&from);
 
-        objc_destroyWeak(&v39);
+        objc_destroyWeak(&v40);
         objc_destroyWeak(&location);
       }
 
       else
       {
-        v26 = SLFrameworkLogHandle();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v28 = SLFrameworkLogHandle(v23);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           [SLTranscriptController presentTranscriptForMessageGUID:attachmentGUID:presentingViewController:];
         }
@@ -129,45 +141,44 @@
     else
     {
       dCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"messages://open?message-guid=%@&overlay=1", dCopy];
-      v14 = [MEMORY[0x277CBEBC0] URLWithString:dCopy];
+      v15 = [MEMORY[0x277CBEBC0] URLWithString:dCopy];
       serviceWithDefaultShellEndpoint = [MEMORY[0x277D0AD78] serviceWithDefaultShellEndpoint];
-      v16 = MEMORY[0x277D0AD60];
-      v17 = *MEMORY[0x277D0AC40];
-      v45[0] = *MEMORY[0x277D67120];
-      v45[1] = v17;
-      v46[0] = *MEMORY[0x277D67090];
-      v46[1] = v14;
-      v45[2] = *MEMORY[0x277D0AC80];
-      v46[2] = MEMORY[0x277CBEC38];
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:3];
-      v19 = [v16 optionsWithDictionary:v18];
+      v17 = MEMORY[0x277D0AD60];
+      v18 = *MEMORY[0x277D0AC40];
+      v46[0] = *MEMORY[0x277D67120];
+      v46[1] = v18;
+      v47[0] = *MEMORY[0x277D67090];
+      v47[1] = v15;
+      v46[2] = *MEMORY[0x277D0AC80];
+      v47[2] = MEMORY[0x277CBEC38];
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:3];
+      v20 = [v17 optionsWithDictionary:v19];
 
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke;
-      v42[3] = &unk_278925BD8;
-      v43 = v14;
-      v20 = v14;
-      [serviceWithDefaultShellEndpoint openApplication:@"com.apple.MobileSMS" withOptions:v19 completion:v42];
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke;
+      v43[3] = &unk_278925BD8;
+      v44 = v15;
+      v21 = v15;
+      [serviceWithDefaultShellEndpoint openApplication:@"com.apple.MobileSMS" withOptions:v20 completion:v43];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SLFrameworkLogHandle(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_cold_1();
     }
 
-    v6 = [MEMORY[0x277D75128] sharedApplication];
-    [v6 openURL:*(a1 + 32) options:MEMORY[0x277CBEC10] completionHandler:0];
+    v7 = [MEMORY[0x277D75128] sharedApplication];
+    [v7 openURL:*(a1 + 32) options:MEMORY[0x277CBEC10] completionHandler:0];
 
     sIsPresenting = 0;
   }
@@ -191,16 +202,16 @@ void __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained dismissViewControllerAnimated:0 completion:0];
 
-  v3 = SLFrameworkLogHandle();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = SLFrameworkLogHandle(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_2_cold_1();
   }
 
-  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"messages://open?message-guid=%@&overlay=1", *(a1 + 32)];
-  v5 = [MEMORY[0x277CBEBC0] URLWithString:v4];
-  v6 = [MEMORY[0x277D75128] sharedApplication];
-  [v6 openURL:v5 options:MEMORY[0x277CBEC10] completionHandler:0];
+  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"messages://open?message-guid=%@&overlay=1", *(a1 + 32)];
+  v6 = [MEMORY[0x277CBEBC0] URLWithString:v5];
+  v7 = [MEMORY[0x277D75128] sharedApplication];
+  [v7 openURL:v6 options:MEMORY[0x277CBEC10] completionHandler:0];
 
   sIsPresenting = 0;
 }
@@ -233,13 +244,12 @@ void __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID
 
 void __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_2_34(uint64_t a1)
 {
-  v1 = (a1 + 32);
   if (*(a1 + 32))
   {
-    WeakRetained = SLFrameworkLogHandle();
+    WeakRetained = SLFrameworkLogHandle(a1);
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
     {
-      __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_2_34_cold_1(v1);
+      __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_2_34_cold_1();
     }
   }
 
@@ -250,48 +260,47 @@ void __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID
     {
       [*(*(*(a1 + 64) + 8) + 40) setRequestUUID:*(a1 + 40)];
       [*(*(*(a1 + 64) + 8) + 40) setRemoteViewController:*(a1 + 48)];
-      v4 = [*(a1 + 48) view];
-      [v4 setAutoresizingMask:18];
+      v3 = [*(a1 + 48) view];
+      [v3 setAutoresizingMask:18];
 
-      v5 = [*(*(*(a1 + 64) + 8) + 40) view];
-      [v5 bounds];
-      v7 = v6;
-      v9 = v8;
-      v11 = v10;
-      v13 = v12;
-      v14 = [*(a1 + 48) view];
-      [v14 setFrame:{v7, v9, v11, v13}];
+      v4 = [*(*(*(a1 + 64) + 8) + 40) view];
+      [v4 bounds];
+      v6 = v5;
+      v8 = v7;
+      v10 = v9;
+      v12 = v11;
+      v13 = [*(a1 + 48) view];
+      [v13 setFrame:{v6, v8, v10, v12}];
 
       [*(*(*(a1 + 64) + 8) + 40) addChildViewController:*(a1 + 48)];
-      v15 = [*(*(*(a1 + 64) + 8) + 40) view];
-      v16 = [*(a1 + 48) view];
-      [v15 addSubview:v16];
+      v14 = [*(*(*(a1 + 64) + 8) + 40) view];
+      v15 = [*(a1 + 48) view];
+      [v14 addSubview:v15];
 
       [*(a1 + 48) didMoveToParentViewController:*(*(*(a1 + 64) + 8) + 40)];
-      v17 = objc_loadWeakRetained((a1 + 80));
-      v18 = [*(*(*(a1 + 64) + 8) + 40) requestUUID];
-      v19 = [v17 _extensionContextForUUID:v18];
+      v16 = objc_loadWeakRetained((a1 + 80));
+      v17 = [*(*(*(a1 + 64) + 8) + 40) requestUUID];
+      v18 = [v16 _extensionContextForUUID:v17];
 
-      [v19 setMessageGUID:*(a1 + 56)];
+      [v18 setMessageGUID:*(a1 + 56)];
       objc_initWeak(&location, *(*(*(a1 + 64) + 8) + 40));
       v25 = MEMORY[0x277D85DD0];
       v26 = 3221225472;
       v27 = __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_35;
       v28 = &unk_278925C50;
       objc_copyWeak(&v29, &location);
-      [v19 setDismissalRequestHandler:&v25];
-      v20 = SLFrameworkLogHandle();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v19 = SLFrameworkLogHandle([v18 setDismissalRequestHandler:&v25]);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_2_34_cold_2();
       }
 
-      v21 = objc_loadWeakRetained(&location);
-      [WeakRetained presentViewController:v21 animated:1 completion:0, v25, v26, v27, v28];
+      v20 = objc_loadWeakRetained(&location);
+      [WeakRetained presentViewController:v20 animated:1 completion:0, v25, v26, v27, v28];
 
-      v22 = *(*(a1 + 64) + 8);
-      v23 = *(v22 + 40);
-      *(v22 + 40) = 0;
+      v21 = *(*(a1 + 64) + 8);
+      v22 = *(v21 + 40);
+      *(v21 + 40) = 0;
 
       objc_destroyWeak(&v29);
       objc_destroyWeak(&location);
@@ -299,12 +308,12 @@ void __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID
 
     else
     {
-      v24 = objc_loadWeakRetained((a1 + 80));
-      [v24 cancelExtensionRequestWithIdentifier:*(a1 + 40)];
+      v23 = objc_loadWeakRetained((a1 + 80));
+      [v23 cancelExtensionRequestWithIdentifier:*(a1 + 40)];
 
       sIsPresenting = 0;
-      v19 = SLFrameworkLogHandle();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v18 = SLFrameworkLogHandle(v24);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_2_34_cold_3();
       }
@@ -323,7 +332,7 @@ void __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID
 
   else
   {
-    v3 = SLFrameworkLogHandle();
+    v3 = SLFrameworkLogHandle(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_35_cold_1();
@@ -331,36 +340,11 @@ void __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID
   }
 }
 
-- (void)presentTranscriptForMessageGUID:attachmentGUID:presentingViewController:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_2_34_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __98__SLTranscriptController_presentTranscriptForMessageGUID_attachmentGUID_presentingViewController___block_invoke_2_34_cold_3()

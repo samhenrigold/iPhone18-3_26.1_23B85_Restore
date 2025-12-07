@@ -20,6 +20,7 @@
 - (void)peripheral:(id)peripheral didUpdateValueForCharacteristic:(id)characteristic error:(id)error;
 - (void)peripheral:(id)peripheral didWriteValueForCharacteristic:(id)characteristic error:(id)error;
 - (void)retrieveLastStoredObservation;
+- (void)retrieveStoredObservationsAfterRecordNumber:(unsigned int)number;
 - (void)start;
 - (void)startLiveHealthObservation;
 - (void)stop;
@@ -2147,7 +2148,7 @@ LABEL_28:
       v23 = qword_1000DDBC8;
       if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
       {
-        sub_100073DEC(v23, self, &v32 + 1);
+        sub_100073DEC(v23, self);
       }
 
       goto LABEL_32;
@@ -2155,8 +2156,8 @@ LABEL_28:
 
     self->_currentRACPOpCode = -1;
     self->_isRACPInProgress = 0;
-    *v31 = 0;
-    if ([v5 readUint32:v31])
+    v31 = 0;
+    if ([v5 readUint32:&v31])
     {
       v19 = qword_1000DDBC8;
       if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
@@ -2169,7 +2170,7 @@ LABEL_28:
         v35 = 2113;
         v36 = name2;
         v37 = 1024;
-        v38 = *v31;
+        v38 = v31;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "RACP response for peripheral %{private, mask.hash}@: numOfRecord %d", buf, 0x1Cu);
       }
     }
@@ -2183,8 +2184,8 @@ LABEL_28:
       {
         self->_currentRACPOpCode = -1;
         self->_isRACPInProgress = 0;
-        *v31 = 0;
-        if ([v5 readUint32:v31])
+        v31 = 0;
+        if ([v5 readUint32:&v31])
         {
           v9 = qword_1000DDBC8;
           if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
@@ -2197,7 +2198,7 @@ LABEL_28:
             v35 = 2113;
             v36 = name3;
             v37 = 1024;
-            v38 = *v31;
+            v38 = v31;
             _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "RACP response for peripheral %{private, mask.hash}@: retrieved numOfRecord %d", buf, 0x1Cu);
           }
         }
@@ -2212,9 +2213,9 @@ LABEL_28:
       goto LABEL_28;
     }
 
-    v31[0] = 0;
+    LOBYTE(v31) = 0;
     v30 = 0;
-    if ([v5 readUint8:v31] && v31[0] == self->_currentRACPOpCode)
+    if ([v5 readUint8:&v31] && v31 == self->_currentRACPOpCode)
     {
       if ([v5 readUint8:&v30])
       {
@@ -2231,7 +2232,7 @@ LABEL_28:
             v35 = 2113;
             v36 = name4;
             v37 = 1024;
-            v38 = v31[0];
+            v38 = v31;
             v39 = 1024;
             v40 = v30;
             _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "RACP for peripheral %{private, mask.hash}@ failed: opCode %d responseCode %d", buf, 0x22u);
@@ -2255,12 +2256,87 @@ LABEL_28:
       v24 = qword_1000DDBC8;
       if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
       {
-        sub_100073DEC(v24, self, v31);
+        sub_100073DEC(v24, self);
       }
     }
   }
 
 LABEL_32:
+}
+
+- (void)retrieveStoredObservationsAfterRecordNumber:(unsigned int)number
+{
+  v4 = qword_1000DDBC8;
+  if (self->_isRACPInProgress)
+  {
+    if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
+    {
+      sub_100073EB4(v4);
+    }
+  }
+
+  else
+  {
+    v5 = *&number;
+    if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = v4;
+      peripheral = [(ClientService *)self peripheral];
+      name = [peripheral name];
+      v20 = 141558275;
+      v21 = 1752392040;
+      v22 = 2113;
+      v23 = name;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Request stored observation for peripheral %{private, mask.hash}@", &v20, 0x16u);
+    }
+
+    self->_isRACPInProgress = 1;
+    self->_currentRACPOpCode = 7;
+    if (v5)
+    {
+      v9 = 3;
+    }
+
+    else
+    {
+      v9 = 1;
+    }
+
+    v10 = [DataOutputStream outputStreamWithByteOrder:1];
+    [v10 writeUint8:self->_currentRACPOpCode];
+    [v10 writeUint8:v9];
+    if (v5)
+    {
+      [v10 writeUint8:1];
+      [v10 writeUint32:v5];
+    }
+
+    v11 = qword_1000DDBC8;
+    if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = v11;
+      peripheral2 = [(ClientService *)self peripheral];
+      name2 = [peripheral2 name];
+      data = [v10 data];
+      v16 = [data length];
+      v20 = 141559043;
+      v21 = 1752392040;
+      v22 = 2113;
+      v23 = name2;
+      v24 = 1024;
+      v25 = v9;
+      v26 = 1024;
+      v27 = v5;
+      v28 = 2048;
+      v29 = v16;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "RACP Retrieve for peripheral %{private, mask.hash}@ operator: %d | recordNum: %d | total len: %lu", &v20, 0x2Cu);
+    }
+
+    peripheral3 = [(ClientService *)self peripheral];
+    data2 = [v10 data];
+    racpCharacteristic = [(GHSService *)self racpCharacteristic];
+    [peripheral3 writeValue:data2 forCharacteristic:racpCharacteristic type:0];
+  }
 }
 
 - (void)retrieveLastStoredObservation

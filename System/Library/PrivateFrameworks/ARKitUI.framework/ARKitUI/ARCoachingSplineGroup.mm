@@ -49,35 +49,35 @@
 
 - (ARCoachingSplineGroup)initWithSplines:(id)splines
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   splinesCopy = splines;
-  v24.receiver = self;
-  v24.super_class = ARCoachingSplineGroup;
-  v5 = [(ARCoachingSplineGroup *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = ARCoachingSplineGroup;
+  v5 = [(ARCoachingSplineGroup *)&v23 init];
   if (v5)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v6 = splinesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v7)
     {
-      v8 = *v21;
+      v8 = *v20;
       do
       {
         v9 = 0;
         do
         {
-          if (*v21 != v8)
+          if (*v20 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
           v10 = 0;
           v11 = 0;
-          v12 = *(*(&v20 + 1) + 8 * v9);
+          v12 = *(*(&v19 + 1) + 8 * v9);
           v13 = v5->_controlPoints.__end_ - v5->_controlPoints.__begin_;
           while (v11 < [v12 numControlPoints])
           {
@@ -95,22 +95,21 @@
 
           for (j = 0; j < [v12 numIndices]; ++j)
           {
-            v19 = *([v12 indices] + 2 * j) + (v13 >> 5);
-            std::vector<unsigned short>::push_back[abi:ne200100](&v5->_indices.__begin_, &v19);
+            v18 = *([v12 indices] + 2 * j) + (v13 >> 5);
+            std::vector<unsigned short>::push_back[abi:ne200100](&v5->_indices.__begin_, &v18);
           }
 
           ++v9;
         }
 
         while (v9 != v7);
-        v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v7);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

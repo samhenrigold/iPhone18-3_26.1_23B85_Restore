@@ -55,7 +55,7 @@ void __95__CSDarwinVoiceTriggerEventInfoProvider_getMachTimeAdjustedVoiceTrigger
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v3, v5);
   }
 }
 
@@ -291,9 +291,11 @@ LABEL_26:
 
 uint64_t __55__CSDarwinVoiceTriggerEventInfoProvider_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_4969 = objc_alloc_init(CSDarwinVoiceTriggerEventInfoProvider);
+  v0 = objc_alloc_init(CSDarwinVoiceTriggerEventInfoProvider);
+  v1 = sharedInstance_sharedInstance_4969;
+  sharedInstance_sharedInstance_4969 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

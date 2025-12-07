@@ -2,6 +2,11 @@
 + (id)newFromRemoteMessage:(id)message device:(id)device transportType:(int)type sending:(BOOL)sending;
 + (id)peerInformationForDevice:(id)device;
 + (id)peerInformationForRemoteMessage:(id)message;
++ (id)receivedRemoteMessage:(id)message transportType:(int)type;
++ (id)receivedRemoteMessageName:(id)name identifier:(id)identifier transactionIdentifier:(id)transactionIdentifier messageType:(int64_t)type peerInformation:(id)information secure:(BOOL)secure transportType:(int)transportType messageQoS:(int64_t)self0;
++ (id)sentRemoteMessage:(id)message device:(id)device transportType:(int)type;
++ (id)sentRemoteMessage:(id)message transportType:(int)type;
++ (id)sentRemoteMessageName:(id)name identifier:(id)identifier transactionIdentifier:(id)transactionIdentifier messageType:(int64_t)type peerInformation:(id)information secure:(BOOL)secure transportType:(int)transportType messageQoS:(int64_t)self0;
 - (HMDRemoteMessageLogEvent)initWithMessageName:(id)name identifier:(id)identifier transactionIdentifier:(id)transactionIdentifier messageType:(int64_t)type peerInformation:(id)information secure:(BOOL)secure transportType:(int)transportType sending:(BOOL)self0 messageQoS:(int64_t)self1;
 @end
 
@@ -37,6 +42,55 @@
   }
 
   return v23;
+}
+
++ (id)receivedRemoteMessageName:(id)name identifier:(id)identifier transactionIdentifier:(id)transactionIdentifier messageType:(int64_t)type peerInformation:(id)information secure:(BOOL)secure transportType:(int)transportType messageQoS:(int64_t)self0
+{
+  secureCopy = secure;
+  informationCopy = information;
+  transactionIdentifierCopy = transactionIdentifier;
+  identifierCopy = identifier;
+  nameCopy = name;
+  BYTE4(v22) = 0;
+  LODWORD(v22) = transportType;
+  v20 = [[self alloc] initWithMessageName:nameCopy identifier:identifierCopy transactionIdentifier:transactionIdentifierCopy messageType:type peerInformation:informationCopy secure:secureCopy transportType:v22 sending:s messageQoS:?];
+
+  return v20;
+}
+
++ (id)sentRemoteMessageName:(id)name identifier:(id)identifier transactionIdentifier:(id)transactionIdentifier messageType:(int64_t)type peerInformation:(id)information secure:(BOOL)secure transportType:(int)transportType messageQoS:(int64_t)self0
+{
+  secureCopy = secure;
+  informationCopy = information;
+  transactionIdentifierCopy = transactionIdentifier;
+  identifierCopy = identifier;
+  nameCopy = name;
+  BYTE4(v22) = 1;
+  LODWORD(v22) = transportType;
+  v20 = [[self alloc] initWithMessageName:nameCopy identifier:identifierCopy transactionIdentifier:transactionIdentifierCopy messageType:type peerInformation:informationCopy secure:secureCopy transportType:v22 sending:s messageQoS:?];
+
+  return v20;
+}
+
++ (id)sentRemoteMessage:(id)message transportType:(int)type
+{
+  v4 = [self newFromRemoteMessage:message device:0 transportType:*&type sending:1];
+
+  return v4;
+}
+
++ (id)sentRemoteMessage:(id)message device:(id)device transportType:(int)type
+{
+  v5 = [self newFromRemoteMessage:message device:device transportType:*&type sending:1];
+
+  return v5;
+}
+
++ (id)receivedRemoteMessage:(id)message transportType:(int)type
+{
+  v4 = [self newFromRemoteMessage:message device:0 transportType:*&type sending:0];
+
+  return v4;
 }
 
 + (id)newFromRemoteMessage:(id)message device:(id)device transportType:(int)type sending:(BOOL)sending
@@ -149,7 +203,7 @@
 
 + (id)peerInformationForDevice:(id)device
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   productInfo = [deviceCopy productInfo];
   [productInfo productClass];
@@ -162,17 +216,15 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = deviceCopy;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unable to map productClass for device %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = deviceCopy;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unable to map productClass for device %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

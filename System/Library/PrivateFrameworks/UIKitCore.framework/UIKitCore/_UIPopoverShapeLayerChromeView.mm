@@ -311,7 +311,7 @@
   v10 = 0u;
   v11 = 0u;
   v9 = 0u;
-  [(_UIPopoverShapeLayerChromeView *)self _pathParameters];
+  objc_msgSend__pathParameters(self);
   v7[6] = v15;
   v7[7] = v16;
   v7[8] = v17;

@@ -1,8 +1,6 @@
 @interface AVTFaceTracker
 - (AVTFaceTracker)init;
 - (CGSize)cameraImageResolution;
-- (__n128)cameraIntrinsics;
-- (__n128)rawTransform;
 - (double)projectionMatrixForViewportSize:(uint64_t)size zNear:zFar:;
 - (void)_setupARKitForDebugging:(BOOL)debugging;
 - (void)addDelegate:(id)delegate;
@@ -21,12 +19,15 @@
 - (void)sessionInterruptionEnded:(id)ended;
 - (void)sessionWasInterrupted:(id)interrupted;
 - (void)setFaceTrackingRecordingURL:(id)l;
+- (void)setShouldUseAudioData:(BOOL)data;
 - (void)setWantsPersonSegmentation:(BOOL)segmentation;
 - (void)setupARKit;
 - (void)setupARKitForDebugging;
 - (void)startRecording;
 - (void)stop;
 - (void)stopRecording;
+- (void)updateWithARFrame:(id)frame captureOrientation:(int64_t)orientation interfaceOrientation:(int64_t)interfaceOrientation constrainHeadPose:(BOOL)pose mirroredDepthData:(BOOL)data;
+- (void)updateWithARFrame:(id)frame worldAlignment:(int64_t)alignment fallBackDepthData:(id)data captureOrientation:(int64_t)orientation interfaceOrientation:(int64_t)interfaceOrientation constrainHeadPose:(BOOL)pose mirroredDepthData:(BOOL)depthData;
 @end
 
 @implementation AVTFaceTracker
@@ -48,7 +49,7 @@
     v3->_arSessionLock._os_unfair_lock_opaque = 0;
     v3->_trackingDataLock._os_unfair_lock_opaque = 0;
     v3->_shouldConstrainHeadPose = 0;
-    v6 = [objc_alloc(MEMORY[0x1E696AE08]) initWithOptions:5];
+    v6 = [objc_alloc(MEMORY[0x1E696AE08]) initWithOptions:?];
     delegates = v3->_delegates;
     v3->_delegates = v6;
   }
@@ -63,11 +64,11 @@
   {
     v7 = delegateCopy;
     allObjects = [(NSPointerArray *)self->_delegates allObjects];
-    v6 = [allObjects containsObject:v7];
+    v6 = [allObjects containsObject:?];
 
     if ((v6 & 1) == 0)
     {
-      [(NSPointerArray *)self->_delegates addPointer:v7];
+      [(NSPointerArray *)self->_delegates addPointer:?];
     }
 
     [(NSPointerArray *)self->_delegates compact];
@@ -83,7 +84,7 @@
     v4 = 0;
     while (1)
     {
-      v5 = [(NSPointerArray *)self->_delegates pointerAtIndex:v4];
+      v5 = [(NSPointerArray *)self->_delegates pointerAtIndex:?];
       if (v5 == delegateCopy)
       {
         break;
@@ -95,7 +96,7 @@
       }
     }
 
-    [(NSPointerArray *)self->_delegates removePointerAtIndex:v4];
+    [(NSPointerArray *)self->_delegates removePointerAtIndex:?];
   }
 
 LABEL_7:
@@ -104,40 +105,31 @@ LABEL_7:
 
 - (void)enumerateDelegates:(id)delegates
 {
-  v16 = *MEMORY[0x1E69E9840];
   delegatesCopy = delegates;
   [(NSPointerArray *)self->_delegates compact];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
   v5 = self->_delegates;
-  v6 = [(NSPointerArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [NSPointerArray countByEnumeratingWithState:v5 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = MEMORY[0];
     do
     {
-      v9 = 0;
-      do
+      for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v12 != v8)
+        if (MEMORY[0] != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        delegatesCopy[2](delegatesCopy, *(*(&v11 + 1) + 8 * v9++));
+        delegatesCopy[2](delegatesCopy, *(8 * i));
       }
 
-      while (v7 != v9);
-      v7 = [(NSPointerArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [NSPointerArray countByEnumeratingWithState:v5 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)run
@@ -149,7 +141,7 @@ LABEL_7:
   {
     if (currentState == 2)
     {
-      v4 = avt_default_log();
+      v4 = avt_default_log(self);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         arSession = self->_arSession;
@@ -165,38 +157,36 @@ LABEL_7:
     {
       os_unfair_lock_lock(&self->_arSessionLock);
       v6 = self->_arSession;
-      v7 = avt_default_log();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+      v8 = avt_default_log(v7);
+      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
       if (v6)
       {
-        if (v8)
+        if (v9)
         {
-          v9 = self->_arSession;
+          v10 = self->_arSession;
           v11 = 134217984;
-          v12 = v9;
-          _os_log_impl(&dword_1BB472000, v7, OS_LOG_TYPE_DEFAULT, "[Face tracker] Resuming face tracking ; calling [ARSession runWithConfiguration:] on session %p", &v11, 0xCu);
+          v12 = v10;
+          _os_log_impl(&dword_1BB472000, v8, OS_LOG_TYPE_DEFAULT, "[Face tracker] Resuming face tracking ; calling [ARSession runWithConfiguration:] on session %p", &v11, 0xCu);
         }
 
         self->_currentState = 0;
-        [(ARSession *)self->_arSession runWithConfiguration:self->_arConfiguration];
+        [(ARSession *)self->_arSession runWithConfiguration:?];
       }
 
       else
       {
-        if (v8)
+        if (v9)
         {
           LOWORD(v11) = 0;
-          _os_log_impl(&dword_1BB472000, v7, OS_LOG_TYPE_DEFAULT, "[Face tracker] Running face tracking", &v11, 2u);
+          _os_log_impl(&dword_1BB472000, v8, OS_LOG_TYPE_DEFAULT, "[Face tracker] Running face tracking", &v11, 2u);
         }
 
-        [(AVTFaceTracker *)self _setupARKitForDebugging:0];
+        [(AVTFaceTracker *)self _setupARKitForDebugging:?];
       }
 
       os_unfair_lock_unlock(&self->_arSessionLock);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pauseByPausingARSession
@@ -206,21 +196,19 @@ LABEL_7:
   if ((self->_currentState | 2) != 3)
   {
     os_unfair_lock_lock(&self->_arSessionLock);
-    v3 = avt_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = avt_default_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       arSession = self->_arSession;
       v6 = 134217984;
       v7 = arSession;
-      _os_log_impl(&dword_1BB472000, v3, OS_LOG_TYPE_DEFAULT, "[Face tracker] Pausing face tracking ; calling [ARSession pause] on session %p", &v6, 0xCu);
+      _os_log_impl(&dword_1BB472000, v4, OS_LOG_TYPE_DEFAULT, "[Face tracker] Pausing face tracking ; calling [ARSession pause] on session %p", &v6, 0xCu);
     }
 
     self->_currentState = 1;
     [(ARSession *)self->_arSession pause];
     os_unfair_lock_unlock(&self->_arSessionLock);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pauseBySkippingARFrames
@@ -230,20 +218,18 @@ LABEL_7:
   if (self->_currentState - 1 >= 3)
   {
     os_unfair_lock_lock(&self->_arSessionLock);
-    v3 = avt_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = avt_default_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       arSession = self->_arSession;
       v6 = 134217984;
       v7 = arSession;
-      _os_log_impl(&dword_1BB472000, v3, OS_LOG_TYPE_DEFAULT, "[Face tracker] Pausing face tracking ; will skip new frames from session %p", &v6, 0xCu);
+      _os_log_impl(&dword_1BB472000, v4, OS_LOG_TYPE_DEFAULT, "[Face tracker] Pausing face tracking ; will skip new frames from session %p", &v6, 0xCu);
     }
 
     self->_currentState = 2;
     os_unfair_lock_unlock(&self->_arSessionLock);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stop
@@ -253,66 +239,148 @@ LABEL_7:
   if (self->_currentState != 3)
   {
     os_unfair_lock_lock(&self->_arSessionLock);
-    v3 = avt_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = avt_default_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       arSession = self->_arSession;
       v7 = 134217984;
       v8 = arSession;
-      _os_log_impl(&dword_1BB472000, v3, OS_LOG_TYPE_DEFAULT, "[Face tracker] Stopping face tracking ; calling [ARSession pause] on session %p before release", &v7, 0xCu);
+      _os_log_impl(&dword_1BB472000, v4, OS_LOG_TYPE_DEFAULT, "[Face tracker] Stopping face tracking ; calling [ARSession pause] on session %p before release", &v7, 0xCu);
     }
 
     self->_currentState = 3;
     [(ARSession *)self->_arSession pause];
-    v5 = self->_arSession;
+    v6 = self->_arSession;
     self->_arSession = 0;
 
     os_unfair_lock_unlock(&self->_arSessionLock);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (double)projectionMatrixForViewportSize:(uint64_t)size zNear:zFar:
 {
-  v2 = COERCE_FLOAT(*(size + 96)) + 0.5;
-  v3 = *(size + 120) - (COERCE_FLOAT(HIDWORD(*(size + 96))) + 0.5);
-  v4 = *(size + 224);
-  v20 = *(size + 80);
-  v19 = *(size + 64);
-  v5 = ARCameraToDisplayRotation();
-  v6 = *(size + 112);
-  v7 = *(size + 120);
+  ARCameraToDisplayRotation();
   ARAdjustIntrincisForOrientation();
-  v9 = *(size + 112);
-  v8 = *(size + 120);
-  if (v5 == 90 || v5 == -90)
-  {
-    v10 = *(size + 112);
-  }
-
-  else
-  {
-    v11 = *(size + 120);
-    v12 = *(size + 112);
-  }
-
   ARAdjustIntrinsicsForViewportSize();
   ARMatrixMakeFrustum();
-  v13 = 0;
-  v21[0] = v14;
-  v21[1] = v15;
-  v21[2] = v16;
-  v21[3] = v17;
-  memset(v22, 0, sizeof(v22));
+  v1 = 0;
+  v7[0] = v2;
+  v7[1] = v3;
+  v7[2] = v4;
+  v7[3] = v5;
+  memset(v8, 0, sizeof(v8));
   do
   {
-    v22[v13] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_1BB4F05D0, COERCE_FLOAT(v21[v13])), xmmword_1BB4F05E0, *&v21[v13], 1), xmmword_1BB4F05F0, v21[v13], 2), xmmword_1BB4F0600, v21[v13], 3);
-    ++v13;
+    v8[v1] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_1BB4F05D0, COERCE_FLOAT(v7[v1])), xmmword_1BB4F05E0, *&v7[v1], 1), xmmword_1BB4F05F0, v7[v1], 2), xmmword_1BB4F0600, v7[v1], 3);
+    ++v1;
   }
 
-  while (v13 != 4);
-  return *v22;
+  while (v1 != 4);
+  return *v8;
+}
+
+- (void)updateWithARFrame:(id)frame captureOrientation:(int64_t)orientation interfaceOrientation:(int64_t)interfaceOrientation constrainHeadPose:(BOOL)pose mirroredDepthData:(BOOL)data
+{
+  frameCopy = frame;
+  [frameCopy timestamp];
+  v13 = v12;
+  self->_lastUpdateTimestamp = v12;
+  [frameCopy worldAlignment];
+  v14 = [AVTFaceTrackingInfo trackingInfoWithARFrame:"trackingInfoWithARFrame:worldAlignment:captureOrientation:interfaceOrientation:constrainHeadPose:" worldAlignment:? captureOrientation:? interfaceOrientation:? constrainHeadPose:?];
+  if (v14)
+  {
+    objc_storeStrong(&self->_trackingInfo, v14);
+    fallBackDepthData = self->_fallBackDepthData;
+    self->_fallBackDepthData = 0;
+
+    self->_faceIsTracked = 1;
+    camera = [frameCopy camera];
+    [camera intrinsics];
+    *&self->_anon_40[8] = v17;
+    *&self->_anon_40[24] = v18;
+    *self->_anon_40 = v19;
+    *&self->_anon_40[16] = v20;
+    *&self->_anon_40[40] = v21;
+    *&self->_anon_40[32] = v22;
+
+    camera2 = [frameCopy camera];
+    [camera2 imageResolution];
+    self->_cameraImageResolution.width = v24;
+    self->_cameraImageResolution.height = v25;
+
+    self->_captureVideoOrientation = orientation;
+    self->_interfaceOrientation = interfaceOrientation;
+    p_lastUpdateWithTrackedFaceTimestamp = &self->_lastUpdateWithTrackedFaceTimestamp;
+    self->_mirroredDepthData = data;
+LABEL_4:
+    *p_lastUpdateWithTrackedFaceTimestamp = v13;
+    goto LABEL_5;
+  }
+
+  p_lastUpdateWithTrackedFaceTimestamp = &self->_lastUpdateWithTrackedFaceTimestamp;
+  lastUpdateWithTrackedFaceTimestamp = self->_lastUpdateWithTrackedFaceTimestamp;
+  self->_faceIsTracked = 0;
+  if (lastUpdateWithTrackedFaceTimestamp == 0.0)
+  {
+    goto LABEL_4;
+  }
+
+LABEL_5:
+  v29 = MEMORY[0x1E69E9820];
+  v30 = frameCopy;
+  v28 = frameCopy;
+  [(AVTFaceTracker *)self enumerateDelegates:v29, 3221225472, __112__AVTFaceTracker_updateWithARFrame_captureOrientation_interfaceOrientation_constrainHeadPose_mirroredDepthData___block_invoke, &unk_1E7F47EF0, self];
+}
+
+- (void)updateWithARFrame:(id)frame worldAlignment:(int64_t)alignment fallBackDepthData:(id)data captureOrientation:(int64_t)orientation interfaceOrientation:(int64_t)interfaceOrientation constrainHeadPose:(BOOL)pose mirroredDepthData:(BOOL)depthData
+{
+  frameCopy = frame;
+  dataCopy = data;
+  [frameCopy timestamp];
+  v16 = v15;
+  self->_lastUpdateTimestamp = v15;
+  v17 = [AVTFaceTrackingInfo trackingInfoWithARFrame:"trackingInfoWithARFrame:worldAlignment:captureOrientation:interfaceOrientation:constrainHeadPose:" worldAlignment:? captureOrientation:? interfaceOrientation:? constrainHeadPose:?];
+  if (v17)
+  {
+    objc_storeStrong(&self->_trackingInfo, v17);
+    objc_storeStrong(&self->_fallBackDepthData, data);
+    self->_faceIsTracked = 1;
+    camera = [frameCopy camera];
+    [camera intrinsics];
+    *&self->_anon_40[8] = v19;
+    *&self->_anon_40[24] = v20;
+    *self->_anon_40 = v21;
+    *&self->_anon_40[16] = v22;
+    *&self->_anon_40[40] = v23;
+    *&self->_anon_40[32] = v24;
+
+    camera2 = [frameCopy camera];
+    [camera2 imageResolution];
+    self->_cameraImageResolution.width = v26;
+    self->_cameraImageResolution.height = v27;
+
+    self->_captureVideoOrientation = orientation;
+    self->_interfaceOrientation = interfaceOrientation;
+    p_lastUpdateWithTrackedFaceTimestamp = &self->_lastUpdateWithTrackedFaceTimestamp;
+    self->_mirroredDepthData = depthData;
+LABEL_4:
+    *p_lastUpdateWithTrackedFaceTimestamp = v16;
+    goto LABEL_5;
+  }
+
+  p_lastUpdateWithTrackedFaceTimestamp = &self->_lastUpdateWithTrackedFaceTimestamp;
+  lastUpdateWithTrackedFaceTimestamp = self->_lastUpdateWithTrackedFaceTimestamp;
+  self->_faceIsTracked = 0;
+  if (lastUpdateWithTrackedFaceTimestamp == 0.0)
+  {
+    goto LABEL_4;
+  }
+
+LABEL_5:
+  v31 = MEMORY[0x1E69E9820];
+  v32 = frameCopy;
+  v30 = frameCopy;
+  [(AVTFaceTracker *)self enumerateDelegates:v31, 3221225472, __145__AVTFaceTracker_updateWithARFrame_worldAlignment_fallBackDepthData_captureOrientation_interfaceOrientation_constrainHeadPose_mirroredDepthData___block_invoke, &unk_1E7F47EF0, self];
 }
 
 - (void)discardARFrameData
@@ -336,111 +404,124 @@ LABEL_7:
   }
 }
 
-- (void)setWantsPersonSegmentation:(BOOL)segmentation
+- (void)setShouldUseAudioData:(BOOL)data
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (self->_wantsPersonSegmentation != segmentation)
+  v9 = *MEMORY[0x1E69E9840];
+  if (self->_shouldUseAudioData != data)
   {
-    self->_wantsPersonSegmentation = segmentation;
+    self->_shouldUseAudioData = data;
     os_unfair_lock_lock(&self->_arSessionLock);
-    if (self->_wantsPersonSegmentation && (v4 = self->_arConfiguration, [objc_opt_class() supportsFrameSemantics:1]))
-    {
-      arConfiguration = self->_arConfiguration;
-      v6 = [(ARConfiguration *)arConfiguration frameSemantics]| 1;
-    }
-
-    else
-    {
-      arConfiguration = self->_arConfiguration;
-      v6 = [(ARConfiguration *)arConfiguration frameSemantics]& 0xFFFFFFFFFFFFFFFELL;
-    }
-
-    [(ARConfiguration *)arConfiguration setFrameSemantics:v6];
+    v4 = [(ARConfiguration *)self->_arConfiguration setProvidesAudioData:?];
     if (!self->_requestedState)
     {
-      v7 = avt_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v5 = avt_default_log(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         arSession = self->_arSession;
-        v10 = 134217984;
-        v11 = arSession;
-        _os_log_impl(&dword_1BB472000, v7, OS_LOG_TYPE_DEFAULT, "[Face tracker] Person segmentation status did change ; calling [ARSession runWithConfiguration:] on session %p", &v10, 0xCu);
+        v7 = 134217984;
+        v8 = arSession;
+        _os_log_impl(&dword_1BB472000, v5, OS_LOG_TYPE_DEFAULT, "[Face tracker] Audio data status did change ; calling [ARSession runWithConfiguration:] on session %p", &v7, 0xCu);
       }
 
       self->_currentState = 0;
-      [(ARSession *)self->_arSession runWithConfiguration:self->_arConfiguration];
+      [(ARSession *)self->_arSession runWithConfiguration:?];
     }
 
     os_unfair_lock_unlock(&self->_arSessionLock);
   }
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (void)setWantsPersonSegmentation:(BOOL)segmentation
+{
+  v10 = *MEMORY[0x1E69E9840];
+  if (self->_wantsPersonSegmentation != segmentation)
+  {
+    self->_wantsPersonSegmentation = segmentation;
+    os_unfair_lock_lock(&self->_arSessionLock);
+    if (self->_wantsPersonSegmentation)
+    {
+      [objc_opt_class() supportsFrameSemantics:?];
+    }
+
+    arConfiguration = self->_arConfiguration;
+    [(ARConfiguration *)arConfiguration frameSemantics];
+    v5 = [(ARConfiguration *)arConfiguration setFrameSemantics:?];
+    if (!self->_requestedState)
+    {
+      v6 = avt_default_log(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        arSession = self->_arSession;
+        v8 = 134217984;
+        v9 = arSession;
+        _os_log_impl(&dword_1BB472000, v6, OS_LOG_TYPE_DEFAULT, "[Face tracker] Person segmentation status did change ; calling [ARSession runWithConfiguration:] on session %p", &v8, 0xCu);
+      }
+
+      self->_currentState = 0;
+      [(ARSession *)self->_arSession runWithConfiguration:?];
+    }
+
+    os_unfair_lock_unlock(&self->_arSessionLock);
+  }
 }
 
 - (void)decreaseFrameRate
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_arSessionLock);
-  arConfiguration = self->_arConfiguration;
   supportedVideoFormats = [objc_opt_class() supportedVideoFormats];
-  v5 = [supportedVideoFormats sortedArrayUsingComparator:&__block_literal_global_2];
+  v4 = [supportedVideoFormats sortedArrayUsingComparator:?];
 
   videoFormat = [(ARConfiguration *)self->_arConfiguration videoFormat];
-  v7 = [v5 indexOfObject:videoFormat];
+  v6 = [v4 indexOfObject:?];
 
-  if (v7 && v7 < [v5 count])
+  if (v6 && v6 < [v4 count])
   {
-    v8 = [v5 objectAtIndexedSubscript:v7 - 1];
-    [(ARConfiguration *)self->_arConfiguration setVideoFormat:v8];
-    [(AVTFaceTracker *)self configurationVideoFormatDidChange:self->_arConfiguration];
+    v7 = [v4 objectAtIndexedSubscript:?];
+    [(ARConfiguration *)self->_arConfiguration setVideoFormat:?];
+    v8 = [(AVTFaceTracker *)self configurationVideoFormatDidChange:?];
     if (!self->_requestedState)
     {
-      v9 = avt_default_log();
+      v9 = avt_default_log(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         arSession = self->_arSession;
-        v12 = 134217984;
-        v13 = arSession;
-        _os_log_impl(&dword_1BB472000, v9, OS_LOG_TYPE_DEFAULT, "[Face tracker] Video format did change ; calling [ARSession runWithConfiguration:] on session %p", &v12, 0xCu);
+        v11 = 134217984;
+        v12 = arSession;
+        _os_log_impl(&dword_1BB472000, v9, OS_LOG_TYPE_DEFAULT, "[Face tracker] Video format did change ; calling [ARSession runWithConfiguration:] on session %p", &v11, 0xCu);
       }
 
       self->_currentState = 0;
-      [(ARSession *)self->_arSession runWithConfiguration:self->_arConfiguration];
+      [(ARSession *)self->_arSession runWithConfiguration:?];
     }
   }
 
   os_unfair_lock_unlock(&self->_arSessionLock);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)increaseFrameRateToMaximum
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_arSessionLock);
   v3 = self->_arConfiguration;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   supportedVideoFormats = [objc_opt_class() supportedVideoFormats];
-  v5 = [supportedVideoFormats countByEnumeratingWithState:&v18 objects:buf count:16];
+  v5 = [supportedVideoFormats countByEnumeratingWithState:? objects:? count:?];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
     framesPerSecond = 0;
-    v9 = *v19;
+    v9 = MEMORY[0];
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v6; i = (i + 1))
       {
-        if (*v19 != v9)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(supportedVideoFormats);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(8 * i);
         if ([v11 framesPerSecond] > framesPerSecond)
         {
           framesPerSecond = [v11 framesPerSecond];
@@ -450,7 +531,7 @@ LABEL_7:
         }
       }
 
-      v6 = [supportedVideoFormats countByEnumeratingWithState:&v18 objects:buf count:16];
+      v6 = [supportedVideoFormats countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v6);
@@ -462,37 +543,35 @@ LABEL_7:
   }
 
   videoFormat = [(ARConfiguration *)self->_arConfiguration videoFormat];
-  v14 = [v7 isEqual:videoFormat];
+  v14 = [v7 isEqual:?];
 
   if ((v14 & 1) == 0)
   {
-    [(ARConfiguration *)self->_arConfiguration setVideoFormat:v7];
-    [(AVTFaceTracker *)self configurationVideoFormatDidChange:self->_arConfiguration];
+    [(ARConfiguration *)self->_arConfiguration setVideoFormat:?];
+    v15 = [(AVTFaceTracker *)self configurationVideoFormatDidChange:?];
     if (!self->_requestedState)
     {
-      v15 = avt_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = avt_default_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         arSession = self->_arSession;
         *buf = 134217984;
-        v23 = arSession;
-        _os_log_impl(&dword_1BB472000, v15, OS_LOG_TYPE_DEFAULT, "[Face tracker] Video format did change ; calling [ARSession runWithConfiguration:] on session %p", buf, 0xCu);
+        v19 = arSession;
+        _os_log_impl(&dword_1BB472000, v16, OS_LOG_TYPE_DEFAULT, "[Face tracker] Video format did change ; calling [ARSession runWithConfiguration:] on session %p", buf, 0xCu);
       }
 
       self->_currentState = 0;
-      [(ARSession *)self->_arSession runWithConfiguration:self->_arConfiguration];
+      [(ARSession *)self->_arSession runWithConfiguration:?];
     }
   }
 
   os_unfair_lock_unlock(&self->_arSessionLock);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupARKit
 {
   os_unfair_lock_lock(&self->_arSessionLock);
-  [(AVTFaceTracker *)self _setupARKitForDebugging:0];
+  [(AVTFaceTracker *)self _setupARKitForDebugging:?];
 
   os_unfair_lock_unlock(&self->_arSessionLock);
 }
@@ -500,7 +579,7 @@ LABEL_7:
 - (void)setupARKitForDebugging
 {
   os_unfair_lock_lock(&self->_arSessionLock);
-  [(AVTFaceTracker *)self _setupARKitForDebugging:1];
+  [(AVTFaceTracker *)self _setupARKitForDebugging:?];
 
   os_unfair_lock_unlock(&self->_arSessionLock);
 }
@@ -509,15 +588,16 @@ LABEL_7:
 {
   debuggingCopy = debugging;
   v19 = *MEMORY[0x1E69E9840];
-  if ([MEMORY[0x1E6986460] isSupported])
+  isSupported = [MEMORY[0x1E6986460] isSupported];
+  if (isSupported)
   {
     if (!self->_arSession)
     {
-      v5 = objc_opt_new();
+      v6 = objc_opt_new();
       arSession = self->_arSession;
-      self->_arSession = v5;
+      self->_arSession = v6;
 
-      [(ARSession *)self->_arSession setDelegate:self];
+      [(ARSession *)self->_arSession setDelegate:?];
     }
 
     arConfiguration = self->_arConfiguration;
@@ -525,105 +605,95 @@ LABEL_7:
 
     if (+[AVTRecordView usesInternalTrackingPipeline])
     {
-      v8 = objc_opt_new();
+      v9 = objc_opt_new();
     }
 
     else
     {
-      v8 = objc_opt_new();
-      [(ARConfiguration *)v8 setMaximumNumberOfTrackedFaces:1];
+      v9 = objc_opt_new();
+      [(ARConfiguration *)v9 setMaximumNumberOfTrackedFaces:?];
     }
 
-    v10 = self->_arConfiguration;
-    self->_arConfiguration = v8;
+    v11 = self->_arConfiguration;
+    self->_arConfiguration = v9;
 
-    [(ARConfiguration *)self->_arConfiguration setProvidesAudioData:self->_shouldUseAudioData];
-    [(ARConfiguration *)self->_arConfiguration setLightEstimationEnabled:0];
-    [(ARConfiguration *)self->_arConfiguration setWorldAlignment:2];
-    if (self->_wantsPersonSegmentation)
+    [(ARConfiguration *)self->_arConfiguration setProvidesAudioData:?];
+    [(ARConfiguration *)self->_arConfiguration setLightEstimationEnabled:?];
+    [(ARConfiguration *)self->_arConfiguration setWorldAlignment:?];
+    if (self->_wantsPersonSegmentation && [objc_opt_class() supportsFrameSemantics:?])
     {
-      v11 = self->_arConfiguration;
-      if ([objc_opt_class() supportsFrameSemantics:1])
-      {
-        [(ARConfiguration *)self->_arConfiguration setFrameSemantics:[(ARConfiguration *)self->_arConfiguration frameSemantics]| 1];
-      }
+      v12 = self->_arConfiguration;
+      [(ARConfiguration *)v12 frameSemantics];
+      [(ARConfiguration *)v12 setFrameSemantics:?];
     }
 
-    [(ARConfiguration *)self->_arConfiguration setAllowCameraInMultipleForegroundAppLayout:1];
+    [(ARConfiguration *)self->_arConfiguration setAllowCameraInMultipleForegroundAppLayout:?];
     if (debuggingCopy && self->_debugRecordingURL)
     {
-      v12 = [objc_alloc(MEMORY[0x1E69864B8]) initWithBaseConfiguration:self->_arConfiguration fileURL:self->_debugRecordingURL];
-      v13 = self->_arConfiguration;
-      self->_arConfiguration = v12;
+      v13 = [objc_alloc(MEMORY[0x1E69864B8]) initWithBaseConfiguration:? fileURL:?];
+      v14 = self->_arConfiguration;
+      self->_arConfiguration = v13;
     }
 
-    [(AVTFaceTracker *)self configurationVideoFormatDidChange:self->_arConfiguration];
-    v14 = avt_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = avt_default_log([(AVTFaceTracker *)self configurationVideoFormatDidChange:?]);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = self->_arSession;
+      v16 = self->_arSession;
       v17 = 134217984;
-      v18 = v15;
-      _os_log_impl(&dword_1BB472000, v14, OS_LOG_TYPE_DEFAULT, "[Face tracker] ARKit setup ; calling [ARSession runWithConfiguration:] on session %p", &v17, 0xCu);
+      v18 = v16;
+      _os_log_impl(&dword_1BB472000, v15, OS_LOG_TYPE_DEFAULT, "[Face tracker] ARKit setup ; calling [ARSession runWithConfiguration:] on session %p", &v17, 0xCu);
     }
 
     self->_currentState = 0;
-    [(ARSession *)self->_arSession runWithConfiguration:self->_arConfiguration];
+    [(ARSession *)self->_arSession runWithConfiguration:?];
   }
 
   else
   {
-    v9 = avt_default_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = avt_default_log(isSupported);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v17) = 0;
-      _os_log_impl(&dword_1BB472000, v9, OS_LOG_TYPE_DEFAULT, "[Face tracker] Face tracking is not supported by this device", &v17, 2u);
+      _os_log_impl(&dword_1BB472000, v10, OS_LOG_TYPE_DEFAULT, "[Face tracker] Face tracking is not supported by this device", &v17, 2u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopRecording
 {
-  arConfiguration = self->_arConfiguration;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = dispatch_semaphore_create(0);
-    v5 = self->_arConfiguration;
-    v9 = MEMORY[0x1E69E9820];
-    v10 = 3221225472;
-    v11 = __31__AVTFaceTracker_stopRecording__block_invoke;
-    v12 = &unk_1E7F47F18;
-    v13 = v5;
-    v14 = v4;
+    v3 = dispatch_semaphore_create(0);
+    v4 = self->_arConfiguration;
+    v8 = MEMORY[0x1E69E9820];
+    v9 = v4;
+    v10 = v3;
+    v5 = v3;
     v6 = v4;
-    v7 = v5;
-    [(ARConfiguration *)v7 finishRecordingWithHandler:&v9];
-    v8 = dispatch_time(0, 15000000000);
-    dispatch_semaphore_wait(v6, v8);
-    [(AVTFaceTracker *)self setupARKit:v9];
+    [(ARConfiguration *)v6 finishRecordingWithHandler:v8, 3221225472, __31__AVTFaceTracker_stopRecording__block_invoke, &unk_1E7F47F18];
+    v7 = dispatch_time(0, 15000000000);
+    dispatch_semaphore_wait(v5, v7);
+    [(AVTFaceTracker *)self setupARKit];
   }
 }
 
 void __31__AVTFaceTracker_stopRecording__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = avt_default_log();
+  v4 = avt_default_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) fileURL];
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1BB472000, v4, OS_LOG_TYPE_DEFAULT, "[Face tracker] Finished recording to %@, error: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1BB472000, v4, OS_LOG_TYPE_DEFAULT, "[Face tracker] Finished recording to %@, error: %@", &v6, 0x16u);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startRecording
@@ -631,110 +701,97 @@ void __31__AVTFaceTracker_stopRecording__block_invoke(uint64_t a1, void *a2)
   if (self->_debugRecordingURL)
   {
     [(AVTFaceTracker *)self setupARKitForDebugging];
-    arConfiguration = self->_arConfiguration;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v4 = self->_arConfiguration;
+      arConfiguration = self->_arConfiguration;
 
-      [(ARConfiguration *)v4 startRecording];
+      [(ARConfiguration *)arConfiguration startRecording];
     }
   }
 }
 
 - (void)sessionWasInterrupted:(id)interrupted
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   interruptedCopy = interrupted;
-  v5 = avt_default_log();
+  v5 = avt_default_log(interruptedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = interruptedCopy;
+    v10 = interruptedCopy;
     _os_log_impl(&dword_1BB472000, v5, OS_LOG_TYPE_DEFAULT, "[Face tracker] Session was interrupted: %@", buf, 0xCu);
   }
 
   self->_faceIsTracked = 0;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __40__AVTFaceTracker_sessionWasInterrupted___block_invoke;
-  v8[3] = &unk_1E7F47EF0;
-  v8[4] = self;
-  v9 = interruptedCopy;
+  v7 = MEMORY[0x1E69E9820];
+  v8 = interruptedCopy;
   v6 = interruptedCopy;
-  [(AVTFaceTracker *)self enumerateDelegates:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  [(AVTFaceTracker *)self enumerateDelegates:v7, 3221225472, __40__AVTFaceTracker_sessionWasInterrupted___block_invoke, &unk_1E7F47EF0, self];
 }
 
 void __40__AVTFaceTracker_sessionWasInterrupted___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   if (objc_opt_respondsToSelector())
   {
-    [v3 faceTracker:*(a1 + 32) sessionWasInterrupted:*(a1 + 40)];
+    [v2 faceTracker:? sessionWasInterrupted:?];
   }
 }
 
 - (void)sessionInterruptionEnded:(id)ended
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   endedCopy = ended;
-  v5 = avt_default_log();
+  v5 = avt_default_log(endedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = endedCopy;
+    v10 = endedCopy;
     _os_log_impl(&dword_1BB472000, v5, OS_LOG_TYPE_DEFAULT, "[Face tracker] Session interruption ended: %@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __43__AVTFaceTracker_sessionInterruptionEnded___block_invoke;
-  v8[3] = &unk_1E7F47EF0;
-  v8[4] = self;
-  v9 = endedCopy;
+  v7 = MEMORY[0x1E69E9820];
+  v8 = endedCopy;
   v6 = endedCopy;
-  [(AVTFaceTracker *)self enumerateDelegates:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  [(AVTFaceTracker *)self enumerateDelegates:v7, 3221225472, __43__AVTFaceTracker_sessionInterruptionEnded___block_invoke, &unk_1E7F47EF0, self];
 }
 
 void __43__AVTFaceTracker_sessionInterruptionEnded___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   if (objc_opt_respondsToSelector())
   {
-    [v3 faceTracker:*(a1 + 32) sessionInterruptionEnded:*(a1 + 40)];
+    [v2 faceTracker:? sessionInterruptionEnded:?];
   }
 }
 
 - (void)session:(id)session didOutputAudioSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
   sessionCopy = session;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __53__AVTFaceTracker_session_didOutputAudioSampleBuffer___block_invoke;
-  v8[3] = &unk_1E7F47F40;
-  v8[4] = self;
-  v9 = sessionCopy;
+  v8 = MEMORY[0x1E69E9820];
+  v9 = 3221225472;
+  v10 = __53__AVTFaceTracker_session_didOutputAudioSampleBuffer___block_invoke;
+  v11 = &unk_1E7F47F40;
+  selfCopy = self;
+  v13 = sessionCopy;
   bufferCopy = buffer;
   v7 = sessionCopy;
-  [(AVTFaceTracker *)self enumerateDelegates:v8];
+  [(AVTFaceTracker *)self enumerateDelegates:?];
 }
 
 void __53__AVTFaceTracker_session_didOutputAudioSampleBuffer___block_invoke(void *a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   if (objc_opt_respondsToSelector())
   {
-    [v3 faceTracker:a1[4] session:a1[5] didOutputAudioSampleBuffer:a1[6]];
+    [v2 faceTracker:? session:? didOutputAudioSampleBuffer:?];
   }
 }
 
 - (void)session:(id)session didUpdateFrame:(id)frame
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   frameCopy = frame;
   if (self->_currentState == 2)
@@ -742,51 +799,48 @@ void __53__AVTFaceTracker_session_didOutputAudioSampleBuffer___block_invoke(void
     goto LABEL_26;
   }
 
-  v58 = sessionCopy;
+  v54 = sessionCopy;
   context = objc_autoreleasePoolPush();
   [frameCopy timestamp];
   v9 = v8;
   os_unfair_lock_lock(&self->_trackingDataLock);
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
-  v70 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   anchors = [frameCopy anchors];
-  v11 = [anchors countByEnumeratingWithState:&v69 objects:v73 count:16];
+  v11 = [anchors countByEnumeratingWithState:? objects:? count:?];
   if (v11)
   {
     v12 = v11;
-    v61 = 0;
-    v13 = *v70;
-    v14 = 0x1E6986000uLL;
-    v59 = *v70;
-    v60 = anchors;
+    v57 = 0;
+    v13 = *v65;
+    v55 = *v65;
+    v56 = anchors;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v12; i = (i + 1))
       {
-        if (*v70 != v13)
+        if (*v65 != v13)
         {
           objc_enumerationMutation(anchors);
         }
 
-        v16 = *(*(&v69 + 1) + 8 * i);
-        v17 = *(v14 + 1112);
+        v15 = *(*(&v64 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v18 = v16;
-          if ([v18 isTracked])
+          v16 = v15;
+          if ([v16 isTracked])
           {
             directRetargetingMode = [(AVTFaceTracker *)self directRetargetingMode];
             *&self->_frame_id = v9;
             kdebug_trace();
-            frame_id = self->_frame_id;
             kdebug_trace();
-            v21 = frameCopy;
+            v18 = frameCopy;
             captureDate = [frameCopy captureDate];
             [captureDate timeIntervalSinceReferenceDate];
-            self->_perfPacket.refTimestamp = v23;
+            self->_perfPacket.refTimestamp = v20;
 
             lastARFrameTime = self->_lastARFrameTime;
             refTimestamp = self->_perfPacket.refTimestamp;
@@ -797,51 +851,50 @@ void __53__AVTFaceTracker_session_didOutputAudioSampleBuffer___block_invoke(void
 
             self->_lastARFrameTime = refTimestamp;
             [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-            self->_perfPacket.arDelegateTimestamp = v26;
-            v27 = self->_trackingInfo;
-            [v18 _avt_rawTransform];
-            v64 = v29;
-            v65 = v28;
-            v62 = v31;
-            v63 = v30;
+            self->_perfPacket.arDelegateTimestamp = v23;
+            v24 = self->_trackingInfo;
+            [v16 _avt_rawTransform];
+            v60 = v26;
+            v61 = v25;
+            v58 = v28;
+            v59 = v27;
             captureVideoOrientation = self->_captureVideoOrientation;
             interfaceOrientation = self->_interfaceOrientation;
             shouldConstrainHeadPose = self->_shouldConstrainHeadPose;
-            worldAlignment = [v21 worldAlignment];
-            v36 = shouldConstrainHeadPose;
-            frameCopy = v21;
-            *&v27[1].super.isa = _convertARFaceAnchorTransformToSceneKitTransform(captureVideoOrientation, interfaceOrientation, v36, v21, worldAlignment, v65, v64, v63, v62);
-            *&v27[1]._trackingData.timestamp = v37;
-            *&v27[1]._anon_18[8] = v38;
-            *&v27[1]._anon_18[24] = v39;
-            v68 = 0.0;
-            AVTTrackingDataFromARFrame(&v27->_trackingData, v21, [v21 worldAlignment], v18, self->_captureVideoOrientation, self->_interfaceOrientation, self->_shouldConstrainHeadPose, directRetargetingMode, &v68);
+            worldAlignment = [v18 worldAlignment];
+            v33 = shouldConstrainHeadPose;
+            frameCopy = v18;
+            *&v24[1].super.isa = _convertARFaceAnchorTransformToSceneKitTransform(captureVideoOrientation, interfaceOrientation, v33, v18, worldAlignment, v61, v60, v59, v58);
+            *&v24[1]._trackingData.timestamp = v34;
+            *&v24[1]._anon_18[8] = v35;
+            *&v24[1]._anon_18[24] = v36;
+            v63 = 0.0;
+            AVTTrackingDataFromARFrame(&v24->_trackingData, v18, [v18 worldAlignment], v16, self->_captureVideoOrientation, self->_interfaceOrientation, self->_shouldConstrainHeadPose, directRetargetingMode, &v63);
             LODWORD(interfaceOrientation) = [(AVTFaceTracker *)self limitRoll];
 
-            if (!interfaceOrientation || v68 < 1.25663706)
+            if (!interfaceOrientation || v63 < 1.25663706)
             {
-              ++v61;
+              ++v57;
             }
 
-            v13 = v59;
-            anchors = v60;
-            v14 = 0x1E6986000;
+            v13 = v55;
+            anchors = v56;
           }
         }
       }
 
-      v12 = [anchors countByEnumeratingWithState:&v69 objects:v73 count:16];
+      v12 = [anchors countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v12);
 
     self->_lastUpdateTimestamp = v9;
-    if (v61)
+    if (v57)
     {
-      v40 = 1;
+      v37 = 1;
 LABEL_22:
       self->_lastUpdateWithTrackedFaceTimestamp = v9;
-      v41 = v40;
+      v38 = v37;
       goto LABEL_23;
     }
   }
@@ -852,8 +905,8 @@ LABEL_22:
     self->_lastUpdateTimestamp = v9;
   }
 
-  v40 = 0;
-  v41 = 0;
+  v37 = 0;
+  v38 = 0;
   if (self->_lastUpdateWithTrackedFaceTimestamp == 0.0)
   {
     goto LABEL_22;
@@ -861,71 +914,66 @@ LABEL_22:
 
 LABEL_23:
   os_unfair_lock_unlock(&self->_trackingDataLock);
-  self->_faceIsTracked = v41;
+  self->_faceIsTracked = v38;
   faceData = [frameCopy faceData];
   faceMeshPayload = [faceData faceMeshPayload];
-  v44 = [faceMeshPayload objectForKeyedSubscript:*MEMORY[0x1E698BFE0]];
+  v41 = [faceMeshPayload objectForKeyedSubscript:?];
 
-  if (v44)
+  if (v41)
   {
-    v45 = [v44 objectForKeyedSubscript:*MEMORY[0x1E698BFE8]];
-    -[AVTFaceTracker setLowLight:](self, "setLowLight:", [v45 BOOLValue]);
-    v46 = [v44 objectForKeyedSubscript:*MEMORY[0x1E698BFF0]];
-    -[AVTFaceTracker setSensorCovered:](self, "setSensorCovered:", [v46 BOOLValue]);
+    v42 = [v41 objectForKeyedSubscript:?];
+    [v42 BOOLValue];
+    [(AVTFaceTracker *)self setLowLight:?];
+    v43 = [v41 objectForKeyedSubscript:?];
+    [v43 BOOLValue];
+    [(AVTFaceTracker *)self setSensorCovered:?];
   }
 
   camera = [frameCopy camera];
   [camera intrinsics];
-  *&self->_anon_40[8] = v48;
-  *&self->_anon_40[24] = v49;
-  *self->_anon_40 = v50;
-  *&self->_anon_40[16] = v51;
-  *&self->_anon_40[40] = v52;
-  *&self->_anon_40[32] = v53;
+  *&self->_anon_40[8] = v45;
+  *&self->_anon_40[24] = v46;
+  *self->_anon_40 = v47;
+  *&self->_anon_40[16] = v48;
+  *&self->_anon_40[40] = v49;
+  *&self->_anon_40[32] = v50;
   [camera imageResolution];
-  self->_cameraImageResolution.width = v54;
-  self->_cameraImageResolution.height = v55;
-  v66[0] = MEMORY[0x1E69E9820];
-  v66[1] = 3221225472;
-  v66[2] = __41__AVTFaceTracker_session_didUpdateFrame___block_invoke;
-  v66[3] = &unk_1E7F47EF0;
-  v66[4] = self;
-  v67 = frameCopy;
-  [(AVTFaceTracker *)self enumerateDelegates:v66];
+  self->_cameraImageResolution.width = v51;
+  self->_cameraImageResolution.height = v52;
+  v62 = frameCopy;
+  [(AVTFaceTracker *)self enumerateDelegates:?];
 
   objc_autoreleasePoolPop(context);
-  sessionCopy = v58;
+  sessionCopy = v54;
 LABEL_26:
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 - (void)session:(id)session didFailWithError:(id)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   errorCopy = error;
-  v8 = avt_default_log();
+  v8 = avt_default_log(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v19 = sessionCopy;
-    v20 = 2112;
-    v21 = errorCopy;
+    v17 = sessionCopy;
+    v18 = 2112;
+    v19 = errorCopy;
     _os_log_impl(&dword_1BB472000, v8, OS_LOG_TYPE_DEFAULT, "[Face tracker] Session %p failed with error: %@", buf, 0x16u);
   }
 
   self->_faceIsTracked = 0;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __43__AVTFaceTracker_session_didFailWithError___block_invoke;
-  v15[3] = &unk_1E7F47F68;
-  v15[4] = self;
-  v16 = sessionCopy;
-  v17 = errorCopy;
+  v13[5] = MEMORY[0x1E69E9820];
+  v13[6] = 3221225472;
+  v13[7] = __43__AVTFaceTracker_session_didFailWithError___block_invoke;
+  v13[8] = &unk_1E7F47F68;
+  v13[9] = self;
+  v14 = sessionCopy;
+  v15 = errorCopy;
   v9 = errorCopy;
   v10 = sessionCopy;
-  [(AVTFaceTracker *)self enumerateDelegates:v15];
+  [(AVTFaceTracker *)self enumerateDelegates:?];
   os_unfair_lock_lock(&self->_arSessionLock);
   self->_currentState = 3;
   [(ARSession *)self->_arSession pause];
@@ -934,22 +982,20 @@ LABEL_26:
 
   os_unfair_lock_unlock(&self->_arSessionLock);
   v12 = dispatch_time(0, 1000000000);
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __43__AVTFaceTracker_session_didFailWithError___block_invoke_2;
-  v14[3] = &unk_1E7F47F90;
-  v14[4] = self;
-  dispatch_after(v12, MEMORY[0x1E69E96A0], v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __43__AVTFaceTracker_session_didFailWithError___block_invoke_2;
+  v13[3] = &unk_1E7F47F90;
+  v13[4] = self;
+  dispatch_after(v12, MEMORY[0x1E69E96A0], v13);
 }
 
 void __43__AVTFaceTracker_session_didFailWithError___block_invoke(void *a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   if (objc_opt_respondsToSelector())
   {
-    [v3 faceTracker:a1[4] session:a1[5] didFailWithError:a1[6]];
+    [v2 faceTracker:? session:? didFailWithError:?];
   }
 }
 
@@ -969,24 +1015,6 @@ void *__43__AVTFaceTracker_session_didFailWithError___block_invoke_2(uint64_t a1
   trackingData = [(AVTFaceTrackingInfo *)self->_trackingInfo trackingData];
 
   memcpy(data, trackingData, 0x1E0uLL);
-}
-
-- (__n128)rawTransform
-{
-  v1 = *(self + 136);
-  result = *(v1 + 496);
-  v3 = *(v1 + 512);
-  v4 = *(v1 + 528);
-  v5 = *(v1 + 544);
-  return result;
-}
-
-- (__n128)cameraIntrinsics
-{
-  result = *(self + 64);
-  v2 = *(self + 80);
-  v3 = *(self + 96);
-  return result;
 }
 
 - (CGSize)cameraImageResolution

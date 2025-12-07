@@ -76,33 +76,31 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_operationId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_operationType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    operationTriggered = self->_operationTriggered;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    operationGroupIndex = self->_operationGroupIndex;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -198,7 +196,6 @@
       goto LABEL_13;
     }
 
-    v9 = *(equalCopy + 32);
     if (self->_operationTriggered)
     {
       if ((*(equalCopy + 32) & 1) == 0)

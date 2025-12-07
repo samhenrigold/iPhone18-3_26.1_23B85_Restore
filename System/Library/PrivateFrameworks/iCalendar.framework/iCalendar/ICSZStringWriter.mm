@@ -73,7 +73,7 @@ LABEL_4:
 
 - (void)_appendBytes:(const void *)bytes length:(unint64_t)length andFlush:(BOOL)flush
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (bytes && length)
   {
     self->_strm.next_in = bytes;
@@ -92,19 +92,17 @@ LABEL_4:
     do
     {
       self->_strm.avail_out = 0x4000;
-      self->_strm.next_out = v10;
+      self->_strm.next_out = v9;
       if (deflate(p_strm, v8) == -2)
       {
         [ICSZStringWriter _appendBytes:a2 length:self andFlush:?];
       }
 
-      [(NSMutableData *)self->_result appendBytes:v10 length:0x4000 - self->_strm.avail_out];
+      [(NSMutableData *)self->_result appendBytes:v9 length:0x4000 - self->_strm.avail_out];
     }
 
     while (!self->_strm.avail_out);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description

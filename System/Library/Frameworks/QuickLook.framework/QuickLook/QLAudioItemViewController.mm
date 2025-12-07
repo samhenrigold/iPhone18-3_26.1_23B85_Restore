@@ -6,8 +6,11 @@
 - (void)didChangePlayingStatus;
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)previewDidDisappear:(BOOL)disappear;
 - (void)setPlayControlsHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)setupConstraints;
+- (void)transitionDidFinish:(BOOL)finish didComplete:(BOOL)complete;
 - (void)transitionDidStart:(BOOL)start;
 @end
 
@@ -33,7 +36,7 @@
 
 void __89__QLAudioItemViewController_loadPreviewControllerWithContents_context_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -50,11 +53,11 @@ void __89__QLAudioItemViewController_loadPreviewControllerWithContents_context_c
       v6 = *(a1 + 32);
       v7 = v5;
       v8 = [v6 previewTitle];
-      v32 = 138412546;
-      v33 = v8;
-      v34 = 2112;
-      v35 = v3;
-      _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_ERROR, "Error while loading preview controller with preview item with name: %@: %@ #Generic", &v32, 0x16u);
+      v31 = 138412546;
+      v32 = v8;
+      v33 = 2112;
+      v34 = v3;
+      _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_ERROR, "Error while loading preview controller with preview item with name: %@: %@ #Generic", &v31, 0x16u);
     }
 
     v9 = *(a1 + 48);
@@ -125,8 +128,6 @@ void __89__QLAudioItemViewController_loadPreviewControllerWithContents_context_c
       (*(v30 + 16))(v30, 0);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -184,102 +185,121 @@ void __89__QLAudioItemViewController_loadPreviewControllerWithContents_context_c
   }
 }
 
-uint64_t __52__QLAudioItemViewController_addScrubberWithDeferral__block_invoke(uint64_t result)
+void *__52__QLAudioItemViewController_addScrubberWithDeferral__block_invoke(void *result)
 {
-  v48[1] = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
-  if (!*(v1 + 1416) && *(v1 + 1432))
+  v47[1] = *MEMORY[0x277D85DE8];
+  v1 = result[4];
+  if (!*(v1 + 1416))
   {
-    v2 = result;
-    v3 = objc_opt_new();
-    v4 = *(v2 + 32);
-    v5 = *(v4 + 1408);
-    *(v4 + 1408) = v3;
+    if (*(v1 + 1432))
+    {
+      v2 = result;
+      v3 = objc_opt_new();
+      v4 = v2[4];
+      v5 = *(v4 + 1408);
+      *(v4 + 1408) = v3;
 
-    [*(*(v2 + 32) + 1408) setTranslatesAutoresizingMaskIntoConstraints:0];
-    [*(*(v2 + 32) + 1408) setShowsHorizontalScrollIndicator:0];
-    [*(*(v2 + 32) + 1408) setBounces:0];
-    v6 = objc_opt_new();
-    v7 = *(v2 + 32);
-    v8 = *(v7 + 1416);
-    *(v7 + 1416) = v6;
+      [*(v2[4] + 1408) setTranslatesAutoresizingMaskIntoConstraints:0];
+      [*(v2[4] + 1408) setShowsHorizontalScrollIndicator:0];
+      [*(v2[4] + 1408) setBounces:0];
+      v6 = objc_opt_new();
+      v7 = v2[4];
+      v8 = *(v7 + 1416);
+      *(v7 + 1416) = v6;
 
-    v9 = objc_alloc_init(QLWaveformScrubberViewProvider);
-    v10 = *(v2 + 32);
-    v11 = *(v10 + 1424);
-    *(v10 + 1424) = v9;
+      v9 = objc_alloc_init(QLWaveformScrubberViewProvider);
+      v10 = v2[4];
+      v11 = *(v10 + 1424);
+      *(v10 + 1424) = v9;
 
-    v12 = [*(v2 + 32) player];
-    v13 = [*(*(v2 + 32) + 1416) photosScrubber];
-    [v13 setPlayer:v12];
+      v12 = [v2[4] player];
+      v13 = [*(v2[4] + 1416) photosScrubber];
+      [v13 setPlayer:v12];
 
-    v14 = *(v2 + 32);
-    v15 = *(v14 + 1424);
-    v16 = [*(v14 + 1416) photosScrubber];
-    [v16 setFilmstripViewProvider:v15];
+      v14 = v2[4];
+      v15 = *(v14 + 1424);
+      v16 = [*(v14 + 1416) photosScrubber];
+      [v16 setFilmstripViewProvider:v15];
 
-    [*(*(v2 + 32) + 1416) setTranslatesAutoresizingMaskIntoConstraints:0];
-    [*(v2 + 32) mediaDuration];
-    v18 = v17;
-    v19 = [*(*(v2 + 32) + 1416) photosScrubber];
-    [v19 setEstimatedDuration:v18];
+      [*(v2[4] + 1416) setTranslatesAutoresizingMaskIntoConstraints:0];
+      [v2[4] mediaDuration];
+      v18 = v17;
+      v19 = [*(v2[4] + 1416) photosScrubber];
+      [v19 setEstimatedDuration:v18];
 
-    [*(*(v2 + 32) + 1416) addObserver:*(v2 + 32) forKeyPath:@"userInteractingWithScrubber" options:1 context:0];
-    v20 = [*(*(v2 + 32) + 1416) scrollView];
-    [v20 setContentInsetAdjustmentBehavior:2];
+      [*(v2[4] + 1416) addObserver:v2[4] forKeyPath:@"userInteractingWithScrubber" options:1 context:0];
+      v20 = [*(v2[4] + 1416) scrollView];
+      [v20 setContentInsetAdjustmentBehavior:2];
 
-    [*(*(v2 + 32) + 1416) setAlpha:0.0];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __52__QLAudioItemViewController_addScrubberWithDeferral__block_invoke_2;
-    v44[3] = &unk_278B57190;
-    v44[4] = *(v2 + 32);
-    [MEMORY[0x277D75D18] animateWithDuration:v44 animations:0.2];
-    [*(*(v2 + 32) + 1408) addSubview:*(*(v2 + 32) + 1416)];
-    [*(*(v2 + 32) + 1400) addSubview:*(*(v2 + 32) + 1408)];
-    v21 = [*(*(v2 + 32) + 1400) leadingAnchor];
-    v22 = [*(*(v2 + 32) + 1416) leadingAnchor];
-    v23 = [v21 constraintEqualToAnchor:v22];
-    [v23 setActive:1];
+      [*(v2[4] + 1416) setAlpha:0.0];
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __52__QLAudioItemViewController_addScrubberWithDeferral__block_invoke_2;
+      v43[3] = &unk_278B57190;
+      v43[4] = v2[4];
+      [MEMORY[0x277D75D18] animateWithDuration:v43 animations:0.2];
+      [*(v2[4] + 1408) addSubview:*(v2[4] + 1416)];
+      [*(v2[4] + 1400) addSubview:*(v2[4] + 1408)];
+      v21 = [*(v2[4] + 1400) leadingAnchor];
+      v22 = [*(v2[4] + 1416) leadingAnchor];
+      v23 = [v21 constraintEqualToAnchor:v22];
+      [v23 setActive:1];
 
-    v24 = [*(*(v2 + 32) + 1400) trailingAnchor];
-    v25 = [*(*(v2 + 32) + 1416) trailingAnchor];
-    v26 = [v24 constraintEqualToAnchor:v25];
-    [v26 setActive:1];
+      v24 = [*(v2[4] + 1400) trailingAnchor];
+      v25 = [*(v2[4] + 1416) trailingAnchor];
+      v26 = [v24 constraintEqualToAnchor:v25];
+      [v26 setActive:1];
 
-    v27 = [*(*(v2 + 32) + 1400) topAnchor];
-    v28 = [*(*(v2 + 32) + 1416) topAnchor];
-    v29 = [v27 constraintEqualToAnchor:v28 constant:-4.0];
-    [v29 setActive:1];
+      v27 = [*(v2[4] + 1400) topAnchor];
+      v28 = [*(v2[4] + 1416) topAnchor];
+      v29 = [v27 constraintEqualToAnchor:v28 constant:-4.0];
+      [v29 setActive:1];
 
-    v30 = [*(*(v2 + 32) + 1400) bottomAnchor];
-    v31 = [*(*(v2 + 32) + 1416) bottomAnchor];
-    v32 = [v30 constraintEqualToAnchor:v31 constant:4.0];
-    [v32 setActive:1];
+      v30 = [*(v2[4] + 1400) bottomAnchor];
+      v31 = [*(v2[4] + 1416) bottomAnchor];
+      v32 = [v30 constraintEqualToAnchor:v31 constant:4.0];
+      [v32 setActive:1];
 
-    v33 = *(v2 + 32);
-    v34 = *(v33 + 1400);
-    v35 = MEMORY[0x277CCAAD0];
-    v47 = @"scrubberContainerScrollView";
-    v48[0] = *(v33 + 1408);
-    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
-    v37 = [v35 constraintsWithVisualFormat:@"H:|[scrubberContainerScrollView]|" options:0 metrics:0 views:v36];
-    [v34 addConstraints:v37];
+      v33 = v2[4];
+      v34 = *(v33 + 1400);
+      v35 = MEMORY[0x277CCAAD0];
+      v46 = @"scrubberContainerScrollView";
+      v47[0] = *(v33 + 1408);
+      v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+      v37 = [v35 constraintsWithVisualFormat:@"H:|[scrubberContainerScrollView]|" options:0 metrics:0 views:v36];
+      [v34 addConstraints:v37];
 
-    v38 = *(v2 + 32);
-    v39 = *(v38 + 1400);
-    v40 = MEMORY[0x277CCAAD0];
-    v45 = @"scrubberContainerScrollView";
-    v46 = *(v38 + 1408);
-    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-    v42 = [v40 constraintsWithVisualFormat:@"V:|[scrubberContainerScrollView]|" options:0 metrics:0 views:v41];
-    [v39 addConstraints:v42];
+      v38 = v2[4];
+      v39 = *(v38 + 1400);
+      v40 = MEMORY[0x277CCAAD0];
+      v44 = @"scrubberContainerScrollView";
+      v45 = *(v38 + 1408);
+      v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+      v42 = [v40 constraintsWithVisualFormat:@"V:|[scrubberContainerScrollView]|" options:0 metrics:0 views:v41];
+      [v39 addConstraints:v42];
 
-    result = [*(v2 + 32) showTimeLabelIfNeeded];
+      return [v2[4] showTimeLabelIfNeeded];
+    }
   }
 
-  v43 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = QLAudioItemViewController;
+  [(QLMediaItemViewController *)&v4 previewDidAppear:appear];
+  self->_previewIsVisisble = 1;
+  [(QLAudioItemViewController *)self addScrubberWithDeferral];
+}
+
+- (void)previewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = QLAudioItemViewController;
+  [(QLMediaItemViewController *)&v4 previewDidDisappear:disappear];
+  self->_previewIsVisisble = 0;
 }
 
 - (void)buttonPressedWithIdentifier:(id)identifier completionHandler:(id)handler
@@ -343,6 +363,15 @@ uint64_t __52__QLAudioItemViewController_addScrubberWithDeferral__block_invoke(u
   {
 
     [(QLAudioItemViewController *)self setPlayControlsHidden:!startCopy animated:1];
+  }
+}
+
+- (void)transitionDidFinish:(BOOL)finish didComplete:(BOOL)complete
+{
+  if (!complete && [(QLMediaItemBaseViewController *)self playingStatus]!= 1)
+  {
+
+    [(QLAudioItemViewController *)self setPlayControlsHidden:0 animated:1];
   }
 }
 

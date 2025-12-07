@@ -99,7 +99,7 @@
 
 - (HMDHouseholdMetricsManager)initWithCountersManager:(id)manager dataSource:(id)source accessoryDetailsManager:(id)detailsManager dailyScheduler:(id)scheduler logEventSubmitter:(id)submitter dateProvider:(id)provider activityContributors:(id)contributors logEventFactories:(id)self0
 {
-  v51[7] = *MEMORY[0x277D85DE8];
+  v50[7] = *MEMORY[0x277D85DE8];
   factoriesCopy = factories;
   contributorsCopy = contributors;
   providerCopy = provider;
@@ -108,51 +108,50 @@
   detailsManagerCopy = detailsManager;
   sourceCopy = source;
   managerCopy = manager;
-  v43 = [[HMDHouseholdMetricsRequestContributor alloc] initWithCountersManager:managerCopy dateProvider:providerCopy];
+  v42 = [[HMDHouseholdMetricsRequestContributor alloc] initWithCountersManager:managerCopy dateProvider:providerCopy];
   v20 = [MEMORY[0x277CBEB18] arrayWithArray:contributorsCopy];
 
-  v44 = v20;
-  [v20 addObject:v43];
+  v43 = v20;
+  [v20 addObject:v42];
   v21 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:factoriesCopy];
 
-  v50[0] = @"householdData";
+  v49[0] = @"householdData";
   v22 = [HMDHouseholdActivityLogEventFactory alloc];
-  v42 = [v20 copy];
-  v41 = [(HMDHouseholdActivityLogEventFactory *)v22 initWithContributors:v42];
-  v51[0] = v41;
-  v50[1] = @"siriEndpointEnablement";
-  v40 = [[HMDSiriEndpointEnablementLogEventFactory alloc] initWithDataSource:sourceCopy];
-  v51[1] = v40;
-  v50[2] = @"networkStability";
+  v41 = objc_msgSend_copy(v20);
+  v40 = [(HMDHouseholdActivityLogEventFactory *)v22 initWithContributors:v41];
+  v50[0] = v40;
+  v49[1] = @"siriEndpointEnablement";
+  v39 = [[HMDSiriEndpointEnablementLogEventFactory alloc] initWithDataSource:sourceCopy];
+  v50[1] = v39;
+  v49[2] = @"networkStability";
   v23 = [HMDHouseholdNetworkStabilityLogEventFactory alloc];
   networkObserver = [sourceCopy networkObserver];
   v24 = [(HMDHouseholdNetworkStabilityLogEventFactory *)v23 initWithNetworkObserver:networkObserver];
-  v51[2] = v24;
-  v50[3] = @"threadNetworkStability";
+  v50[2] = v24;
+  v49[3] = @"threadNetworkStability";
   v25 = [HMDHouseholdThreadNetworkStabilityLogEventFactory alloc];
   threadNetworkObserver = [sourceCopy threadNetworkObserver];
   v27 = [(HMDHouseholdThreadNetworkStabilityLogEventFactory *)v25 initWithThreadNetworkObserver:threadNetworkObserver];
-  v51[3] = v27;
-  v50[4] = @"accessoryCategoriesKey";
+  v50[3] = v27;
+  v49[4] = @"accessoryCategoriesKey";
   householdMetricsLogEventFactory = [detailsManagerCopy householdMetricsLogEventFactory];
 
-  v51[4] = householdMetricsLogEventFactory;
-  v50[5] = @"matterV2KeyCount";
+  v50[4] = householdMetricsLogEventFactory;
+  v49[5] = @"matterV2KeyCount";
   v29 = [[HMDMatterV2KeyCountLogEventFactory alloc] initWithDataSource:sourceCopy];
-  v51[5] = v29;
-  v50[6] = @"cameraRecordingDailySummary";
+  v50[5] = v29;
+  v49[6] = @"cameraRecordingDailySummary";
   v30 = [HMDCameraRecordingEventDailySummaryHouseholdLogEventFactory alloc];
   cameraRecordingEventObserver = [sourceCopy cameraRecordingEventObserver];
   v32 = [(HMDCameraRecordingEventDailySummaryHouseholdLogEventFactory *)v30 initWithCameraRecordingEventObserver:cameraRecordingEventObserver];
-  v51[6] = v32;
-  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:7];
+  v50[6] = v32;
+  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:7];
   [v21 addEntriesFromDictionary:v33];
 
   v34 = v21;
-  v35 = [v21 copy];
-  v36 = [(HMDHouseholdMetricsManager *)self initWithCountersManager:managerCopy dataSource:sourceCopy dailyScheduler:schedulerCopy logEventSubmitter:submitterCopy dateProvider:providerCopy requestCountProvider:v43 logEventFactories:v35];
+  v35 = objc_msgSend_copy(v21);
+  v36 = [(HMDHouseholdMetricsManager *)self initWithCountersManager:managerCopy dataSource:sourceCopy dailyScheduler:schedulerCopy logEventSubmitter:submitterCopy dateProvider:providerCopy requestCountProvider:v42 logEventFactories:v35];
 
-  v37 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
@@ -170,12 +169,11 @@
 
 uint64_t __41__HMDHouseholdMetricsManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_95323;
-  logCategory__hmf_once_v1_95323 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_95323;
+  logCategory__hmf_once_v1_95323 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

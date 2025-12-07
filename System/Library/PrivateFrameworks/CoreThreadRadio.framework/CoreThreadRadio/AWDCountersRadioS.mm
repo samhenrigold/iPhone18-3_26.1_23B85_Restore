@@ -1611,7 +1611,6 @@ LABEL_61:
   has = self->_has;
   if (*&has)
   {
-    ccaFailedAttempts = self->_ccaFailedAttempts;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((*&has & 0x10) == 0)
@@ -1631,7 +1630,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  radioReceivedFrames = self->_radioReceivedFrames;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1646,7 +1644,6 @@ LABEL_4:
   }
 
 LABEL_65:
-  receivedEnergyEvents = self->_receivedEnergyEvents;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x100) == 0)
   {
@@ -1660,7 +1657,6 @@ LABEL_5:
   }
 
 LABEL_66:
-  receivedPreambles = self->_receivedPreambles;
   PBDataWriterWriteUint32Field();
   if (self->_sRadioStats)
   {
@@ -1672,7 +1668,6 @@ LABEL_7:
   v5 = self->_has;
   if ((*&v5 & 0x20000) != 0)
   {
-    rttMinVal = self->_rttMinVal;
     PBDataWriterWriteUint32Field();
     v5 = self->_has;
     if ((*&v5 & 0x10000) == 0)
@@ -1692,7 +1687,6 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  rttMaxVal = self->_rttMaxVal;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x8000) == 0)
@@ -1707,7 +1701,6 @@ LABEL_10:
   }
 
 LABEL_70:
-  rttAvgVal = self->_rttAvgVal;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x4000) == 0)
@@ -1722,7 +1715,6 @@ LABEL_11:
   }
 
 LABEL_71:
-  rtt90perc = self->_rtt90perc;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x2000) == 0)
@@ -1737,7 +1729,6 @@ LABEL_12:
   }
 
 LABEL_72:
-  retryIntervalMin = self->_retryIntervalMin;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x1000) == 0)
@@ -1752,7 +1743,6 @@ LABEL_13:
   }
 
 LABEL_73:
-  retryIntervalMax = self->_retryIntervalMax;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x800) == 0)
@@ -1767,7 +1757,6 @@ LABEL_14:
   }
 
 LABEL_74:
-  retryIntervalAvg = self->_retryIntervalAvg;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x400) == 0)
@@ -1782,7 +1771,6 @@ LABEL_15:
   }
 
 LABEL_75:
-  retryInterval90perc = self->_retryInterval90perc;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x8000000000) == 0)
@@ -1797,7 +1785,6 @@ LABEL_16:
   }
 
 LABEL_76:
-  txDelayMin = self->_txDelayMin;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x4000000000) == 0)
@@ -1812,7 +1799,6 @@ LABEL_17:
   }
 
 LABEL_77:
-  txDelayMax = self->_txDelayMax;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x2000000000) == 0)
@@ -1827,7 +1813,6 @@ LABEL_18:
   }
 
 LABEL_78:
-  txDelayAvg = self->_txDelayAvg;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x1000000000) == 0)
@@ -1842,7 +1827,6 @@ LABEL_19:
   }
 
 LABEL_79:
-  txDelay90perc = self->_txDelay90perc;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 8) == 0)
@@ -1857,7 +1841,6 @@ LABEL_20:
   }
 
 LABEL_80:
-  listeningTime = self->_listeningTime;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x200) == 0)
@@ -1872,7 +1855,6 @@ LABEL_21:
   }
 
 LABEL_81:
-  receivingTime = self->_receivingTime;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x800000000) == 0)
@@ -1887,7 +1869,6 @@ LABEL_22:
   }
 
 LABEL_82:
-  transmittingTime = self->_transmittingTime;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x400000000) == 0)
@@ -1902,7 +1883,6 @@ LABEL_23:
   }
 
 LABEL_83:
-  transmittedFrames = self->_transmittedFrames;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x1000000000000) == 0)
@@ -1917,7 +1897,6 @@ LABEL_24:
   }
 
 LABEL_84:
-  txErrorTimeslotEnded = self->_txErrorTimeslotEnded;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x800000000000) == 0)
@@ -1932,7 +1911,6 @@ LABEL_25:
   }
 
 LABEL_85:
-  txErrorTimeslotDenied = self->_txErrorTimeslotDenied;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x20000000000) == 0)
@@ -1947,7 +1925,6 @@ LABEL_26:
   }
 
 LABEL_86:
-  txErrorBusyChannelCcaNotStarted = self->_txErrorBusyChannelCcaNotStarted;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x40000000000) == 0)
@@ -1962,7 +1939,6 @@ LABEL_27:
   }
 
 LABEL_87:
-  txErrorChannelAccessCcaBusy = self->_txErrorChannelAccessCcaBusy;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x80000000000) == 0)
@@ -1977,7 +1953,6 @@ LABEL_28:
   }
 
 LABEL_88:
-  txErrorChannelAccessFailure = self->_txErrorChannelAccessFailure;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x2000000000000) == 0)
@@ -1992,7 +1967,6 @@ LABEL_29:
   }
 
 LABEL_89:
-  txErrorTxAborted = self->_txErrorTxAborted;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x10000000000000) == 0)
@@ -2007,7 +1981,6 @@ LABEL_30:
   }
 
 LABEL_90:
-  txErrorTxAbortedCsmaCfgBackoff = self->_txErrorTxAbortedCsmaCfgBackoff;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x8000000000000) == 0)
@@ -2022,7 +1995,6 @@ LABEL_31:
   }
 
 LABEL_91:
-  txErrorTxAbortedCsmaBackoff = self->_txErrorTxAbortedCsmaBackoff;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x20000000000000) == 0)
@@ -2037,7 +2009,6 @@ LABEL_32:
   }
 
 LABEL_92:
-  txErrorTxAbortedCsmaPrepare = self->_txErrorTxAbortedCsmaPrepare;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x40000000000000) == 0)
@@ -2052,7 +2023,6 @@ LABEL_33:
   }
 
 LABEL_93:
-  txErrorTxAbortedIfs = self->_txErrorTxAbortedIfs;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x80000000000000) == 0)
@@ -2067,7 +2037,6 @@ LABEL_34:
   }
 
 LABEL_94:
-  txErrorTxAbortedRxAck = self->_txErrorTxAbortedRxAck;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x4000000000000) == 0)
@@ -2082,7 +2051,6 @@ LABEL_35:
   }
 
 LABEL_95:
-  txErrorTxAbortedCcaTx = self->_txErrorTxAbortedCcaTx;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x100000000000000) == 0)
@@ -2097,7 +2065,6 @@ LABEL_36:
   }
 
 LABEL_96:
-  txErrorTxAbortedTx = self->_txErrorTxAbortedTx;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x400000000000) == 0)
@@ -2112,7 +2079,6 @@ LABEL_37:
   }
 
 LABEL_97:
-  txErrorNotGranted = self->_txErrorNotGranted;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x100000000000) == 0)
@@ -2127,7 +2093,6 @@ LABEL_38:
   }
 
 LABEL_98:
-  txErrorInvalidAck = self->_txErrorInvalidAck;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x200000000000) == 0)
@@ -2142,7 +2107,6 @@ LABEL_39:
   }
 
 LABEL_99:
-  txErrorNoAck = self->_txErrorNoAck;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x10000000000) == 0)
@@ -2157,7 +2121,6 @@ LABEL_40:
   }
 
 LABEL_100:
-  txErrorAckNoMem = self->_txErrorAckNoMem;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x80) == 0)
@@ -2172,7 +2135,6 @@ LABEL_41:
   }
 
 LABEL_101:
-  receivedFrames = self->_receivedFrames;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x40000000) == 0)
@@ -2187,7 +2149,6 @@ LABEL_42:
   }
 
 LABEL_102:
-  rxErrorReceiveFailed = self->_rxErrorReceiveFailed;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x10000000) == 0)
@@ -2202,7 +2163,6 @@ LABEL_43:
   }
 
 LABEL_103:
-  rxErrorInvalidFrame = self->_rxErrorInvalidFrame;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x800000) == 0)
@@ -2217,7 +2177,6 @@ LABEL_44:
   }
 
 LABEL_104:
-  rxErrorDelayedTimeout = self->_rxErrorDelayedTimeout;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x8000000) == 0)
@@ -2232,7 +2191,6 @@ LABEL_45:
   }
 
 LABEL_105:
-  rxErrorInvalidFcs = self->_rxErrorInvalidFcs;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x2000000) == 0)
@@ -2247,7 +2205,6 @@ LABEL_46:
   }
 
 LABEL_106:
-  rxErrorDestAddrFiltered = self->_rxErrorDestAddrFiltered;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x80000000) == 0)
@@ -2262,7 +2219,6 @@ LABEL_47:
   }
 
 LABEL_107:
-  rxErrorRuntimeDelay = self->_rxErrorRuntimeDelay;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x100000000) == 0)
@@ -2277,7 +2233,6 @@ LABEL_48:
   }
 
 LABEL_108:
-  rxErrorTimeslotEnded = self->_rxErrorTimeslotEnded;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x40000) == 0)
@@ -2292,7 +2247,6 @@ LABEL_49:
   }
 
 LABEL_109:
-  rxErrorAborted = self->_rxErrorAborted;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x1000000) == 0)
@@ -2307,7 +2261,6 @@ LABEL_50:
   }
 
 LABEL_110:
-  rxErrorDelayedTimeslotEnded = self->_rxErrorDelayedTimeslotEnded;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x20000000) == 0)
@@ -2322,7 +2275,6 @@ LABEL_51:
   }
 
 LABEL_111:
-  rxErrorInvalidLength = self->_rxErrorInvalidLength;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x4000000) == 0)
@@ -2337,7 +2289,6 @@ LABEL_52:
   }
 
 LABEL_112:
-  rxErrorInvalidData = self->_rxErrorInvalidData;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x400000) == 0)
@@ -2352,7 +2303,6 @@ LABEL_53:
   }
 
 LABEL_113:
-  rxErrorAckFailedRadioState = self->_rxErrorAckFailedRadioState;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x200000) == 0)
@@ -2367,7 +2317,6 @@ LABEL_54:
   }
 
 LABEL_114:
-  rxErrorAckFailedRadioDelay = self->_rxErrorAckFailedRadioDelay;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x100000) == 0)
@@ -2382,7 +2331,6 @@ LABEL_55:
   }
 
 LABEL_115:
-  rxErrorAckDenied = self->_rxErrorAckDenied;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x80000) == 0)
@@ -2397,7 +2345,6 @@ LABEL_56:
   }
 
 LABEL_116:
-  rxErrorAckAborted = self->_rxErrorAckAborted;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 0x200000000) == 0)
@@ -2412,7 +2359,6 @@ LABEL_57:
   }
 
 LABEL_117:
-  sleepState = self->_sleepState;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 4) == 0)
@@ -2427,7 +2373,6 @@ LABEL_58:
   }
 
 LABEL_118:
-  energyDetectedRequests = self->_energyDetectedRequests;
   PBDataWriterWriteUint32Field();
   v5 = self->_has;
   if ((*&v5 & 2) == 0)
@@ -2442,7 +2387,6 @@ LABEL_59:
   }
 
 LABEL_119:
-  energyDetectedEvents = self->_energyDetectedEvents;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) == 0)
   {
@@ -2453,7 +2397,6 @@ LABEL_60:
   }
 
 LABEL_120:
-  radioStatusDoubleNotification = self->_radioStatusDoubleNotification;
   PBDataWriterWriteUint32Field();
   v6 = toCopy;
 

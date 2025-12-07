@@ -21,30 +21,30 @@
 
 - (id)accessibilityCustomActions
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   array = [MEMORY[0x29EDB8DE8] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = [(NavAudioControlViewAccessibility *)self safeArrayForKey:@"availableAudioTypes"];
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       v7 = 0;
-      v14 = sel__accessibilitySetNavTypeToNone;
+      v13 = sel__accessibilitySetNavTypeToNone;
       do
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        intValue = [*(*(&v16 + 1) + 8 * v7) intValue];
+        intValue = [*(*(&v15 + 1) + 8 * v7) intValue];
         v9 = [(NavAudioControlViewAccessibility *)self _accessibilityTextForAudioType:intValue];
         if (v9)
         {
@@ -56,7 +56,7 @@
 
           if (intValue == 2)
           {
-            v10 = v14;
+            v10 = v13;
 LABEL_12:
             v11 = [objc_alloc(MEMORY[0x29EDC78E0]) initWithName:v9 target:self selector:v10];
             [array addObject:v11];
@@ -77,13 +77,11 @@ LABEL_13:
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 
   return array;
 }

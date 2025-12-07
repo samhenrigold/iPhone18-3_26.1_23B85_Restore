@@ -94,8 +94,8 @@
 
 - (void)downArrowPressed:(id)pressed
 {
-  configuration = [(HomeOutlineRootController *)self configuration];
-  collectionView = [configuration collectionView];
+  v4 = objc_msgSend_configuration(self, a2, pressed);
+  collectionView = [v4 collectionView];
 
   indexPathsForSelectedItems = [collectionView indexPathsForSelectedItems];
   firstObject = [indexPathsForSelectedItems firstObject];
@@ -149,8 +149,8 @@ LABEL_9:
 
 - (void)upArrowPressed:(id)pressed
 {
-  configuration = [(HomeOutlineRootController *)self configuration];
-  collectionView = [configuration collectionView];
+  v4 = objc_msgSend_configuration(self, a2, pressed);
+  collectionView = [v4 collectionView];
 
   indexPathsForSelectedItems = [collectionView indexPathsForSelectedItems];
   firstObject = [indexPathsForSelectedItems firstObject];
@@ -233,8 +233,8 @@ LABEL_9:
 
 - (UIScrollView)hoverScrollView
 {
-  configuration = [(HomeOutlineRootController *)self configuration];
-  collectionView = [configuration collectionView];
+  v2 = objc_msgSend_configuration(self, a2);
+  collectionView = [v2 collectionView];
 
   return collectionView;
 }
@@ -351,8 +351,8 @@ LABEL_9:
       goto LABEL_21;
     }
 
-    configuration = [(HomeOutlineRootController *)self configuration];
-    collectionView = [configuration collectionView];
+    v15 = objc_msgSend_configuration(self);
+    collectionView = [v15 collectionView];
     v17 = [collectionView cellForItemAtIndexPath:v13];
 
     if (!v17)
@@ -457,8 +457,8 @@ LABEL_11:
     v8 = objc_opt_class();
     v18 = v8;
     v9 = NSStringFromSelector(a2);
-    configuration = [(HomeOutlineRootController *)self configuration];
-    collectionView = [configuration collectionView];
+    v17 = objc_msgSend_configuration(self);
+    collectionView = [v17 collectionView];
     indexPathsForSelectedItems = [collectionView indexPathsForSelectedItems];
     v12 = [indexPathsForSelectedItems componentsJoinedByString:{@", "}];
     allObjects = [_selectedIdentifierPaths allObjects];
@@ -506,15 +506,15 @@ LABEL_11:
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%@ %@ index path = %@, identifier path = %@", &v17, 0x2Au);
   }
 
-  configuration = [(HomeOutlineRootController *)self configuration];
-  collectionView = [configuration collectionView];
+  v11 = objc_msgSend_configuration(self);
+  collectionView = [v11 collectionView];
   indexPathsForSelectedItems = [collectionView indexPathsForSelectedItems];
   v14 = [indexPathsForSelectedItems containsObject:pathCopy];
 
   if (v14)
   {
-    configuration2 = [(HomeOutlineRootController *)self configuration];
-    collectionView2 = [configuration2 collectionView];
+    v15 = objc_msgSend_configuration(self);
+    collectionView2 = [v15 collectionView];
     [collectionView2 deselectItemAtIndexPath:pathCopy animated:1];
 
     [(HomeOutlineRootController *)self _updateContentInjectionWithSelectedIndexPath:0];
@@ -547,8 +547,8 @@ LABEL_11:
 
   if (pathCopy && v11)
   {
-    configuration = [(HomeOutlineRootController *)self configuration];
-    collectionView = [configuration collectionView];
+    v16 = objc_msgSend_configuration(self);
+    collectionView = [v16 collectionView];
 
     indexPathsForVisibleItems = [collectionView indexPathsForVisibleItems];
     v19 = [indexPathsForVisibleItems containsObject:v11];
@@ -601,8 +601,8 @@ LABEL_11:
 
 - (id)_selectedIdentifierPaths
 {
-  configuration = [(HomeOutlineRootController *)self configuration];
-  collectionView = [configuration collectionView];
+  v3 = objc_msgSend_configuration(self, a2);
+  collectionView = [v3 collectionView];
   indexPathsForSelectedItems = [collectionView indexPathsForSelectedItems];
 
   v9[0] = _NSConcreteStackBlock;
@@ -633,14 +633,14 @@ LABEL_11:
 - (void)scrollViewDidScroll:(id)scroll
 {
   scrollCopy = scroll;
-  configuration = [(HomeOutlineRootController *)self configuration];
-  homeUpdateDelegate = [configuration homeUpdateDelegate];
+  v4 = objc_msgSend_configuration(self);
+  homeUpdateDelegate = [v4 homeUpdateDelegate];
   v6 = objc_opt_respondsToSelector();
 
   if (v6)
   {
-    configuration2 = [(HomeOutlineRootController *)self configuration];
-    homeUpdateDelegate2 = [configuration2 homeUpdateDelegate];
+    v7 = objc_msgSend_configuration(self);
+    homeUpdateDelegate2 = [v7 homeUpdateDelegate];
     [homeUpdateDelegate2 scrollViewDidScroll:scrollCopy];
   }
 
@@ -973,7 +973,7 @@ LABEL_11:
 
 - (void)collectionView:(id)view willEndContextMenuInteractionWithConfiguration:(id)configuration animator:(id)animator
 {
-  v6 = [(HomeOutlineRootController *)self configuration:view];
+  v6 = objc_msgSend_configuration(self, a2, view, configuration, animator);
   collectionView = [v6 collectionView];
   [collectionView setActivityItemsConfiguration:0];
 }
@@ -1022,8 +1022,8 @@ LABEL_11:
     v14 = 0;
   }
 
-  configuration = [(HomeOutlineRootController *)self configuration];
-  collectionView = [configuration collectionView];
+  v16 = objc_msgSend_configuration(self);
+  collectionView = [v16 collectionView];
   [collectionView setActivityItemsConfiguration:v14];
 }
 
@@ -1380,8 +1380,8 @@ LABEL_11:
     v12 = 0;
   }
 
-  configuration = [(HomeOutlineRootController *)self configuration];
-  actionCoordinator = [configuration actionCoordinator];
+  v8 = objc_msgSend_configuration(self, a2);
+  actionCoordinator = [v8 actionCoordinator];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1490,13 +1490,13 @@ LABEL_11:
   v127 = viewCopy;
   if (viewCopy)
   {
-    configuration = [(HomeOutlineRootController *)self configuration];
-    collectionView = [configuration collectionView];
+    v18 = objc_msgSend_configuration(self);
+    collectionView = [v18 collectionView];
     [collectionView alpha];
     v21 = v20;
 
-    configuration2 = [(HomeOutlineRootController *)self configuration];
-    collectionView2 = [configuration2 collectionView];
+    v22 = objc_msgSend_configuration(self);
+    collectionView2 = [v22 collectionView];
     [collectionView2 setAlpha:0.0];
 
     v155[0] = _NSConcreteStackBlock;
@@ -1622,8 +1622,8 @@ LABEL_11:
           }
         }
 
-        configuration3 = [(HomeOutlineRootController *)selfCopy configuration];
-        actionCoordinator = [configuration3 actionCoordinator];
+        v55 = objc_msgSend_configuration(selfCopy);
+        actionCoordinator = [v55 actionCoordinator];
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -1686,8 +1686,8 @@ LABEL_11:
 
         if (v70)
         {
-          configuration4 = [(HomeOutlineRootController *)v61 configuration];
-          collectionView3 = [configuration4 collectionView];
+          v71 = objc_msgSend_configuration(v61);
+          collectionView3 = [v71 collectionView];
           v73 = [collectionView3 cellForItemAtIndexPath:v70];
 
           if (v73)
@@ -1908,7 +1908,7 @@ LABEL_11:
     v21 = !appliedInitialUpdate;
     objc_copyWeak(&v20, buf);
     [(HomeOutlineRootController *)self _applySnapshotUpdatesInSectionControllers:v4 animateCells:animateNextUpdate animateCollectionView:v5 completion:&v16];
-    v14 = [(HomeOutlineRootController *)self configuration:v16];
+    v14 = objc_msgSend_configuration(self, v16, v17, v18, v19);
     homeUpdateDelegate = [v14 homeUpdateDelegate];
     [homeUpdateDelegate homeDidUpdateAnimated:animateNextUpdate || v5];
 
@@ -2014,8 +2014,8 @@ LABEL_11:
 
       self->_animateNextUpdate = animatedCopy;
       [(NSMutableSet *)self->_sectionControllersToUpdate addObjectsFromArray:controllersCopy];
-      configuration = [(HomeOutlineRootController *)self configuration];
-      homeUpdateDelegate = [configuration homeUpdateDelegate];
+      v17 = objc_msgSend_configuration(self);
+      homeUpdateDelegate = [v17 homeUpdateDelegate];
       [homeUpdateDelegate homeSetNeedsUpdate];
       goto LABEL_16;
     }
@@ -2037,14 +2037,14 @@ LABEL_11:
     {
       _loadingDataProviders = [(HomeOutlineRootController *)self _loadingDataProviders];
       v16 = sub_100021DB0(_loadingDataProviders, &stru_101630C98);
-      configuration = [NSSet setWithArray:v16];
+      v17 = [NSSet setWithArray:v16];
 
       homeUpdateDelegate = sub_1000410AC();
       if (os_log_type_enabled(homeUpdateDelegate, OS_LOG_TYPE_INFO))
       {
         v19 = objc_opt_class();
         v20 = NSStringFromClass(v19);
-        allObjects = [configuration allObjects];
+        allObjects = [v17 allObjects];
         v22 = [allObjects componentsJoinedByString:{@", "}];
         v23 = 138412546;
         v24 = v20;
@@ -2373,8 +2373,8 @@ LABEL_16:
   if (!diffableDataSource)
   {
     v4 = [UICollectionViewDiffableDataSource alloc];
-    configuration = [(HomeOutlineRootController *)self configuration];
-    collectionView = [configuration collectionView];
+    v5 = objc_msgSend_configuration(self);
+    collectionView = [v5 collectionView];
     v7 = sub_1007CDFC8(self);
     v8 = [v4 initWithCollectionView:collectionView cellProvider:v7];
     v9 = self->_diffableDataSource;
@@ -2510,8 +2510,8 @@ LABEL_16:
         }
 
         v36 = *(*(&v42 + 1) + 8 * i);
-        configuration = [v36 configuration];
-        sectionIdentifier = [configuration sectionIdentifier];
+        v37 = objc_msgSend_configuration(v36);
+        sectionIdentifier = [v37 sectionIdentifier];
         [v30 setObject:v36 forKeyedSubscript:sectionIdentifier];
       }
 
@@ -2572,8 +2572,8 @@ LABEL_16:
     hoverGestureRecognizer = v7->_hoverGestureRecognizer;
     v7->_hoverGestureRecognizer = v23;
 
-    configuration = [(HomeOutlineRootController *)v7 configuration];
-    collectionView = [configuration collectionView];
+    v25 = objc_msgSend_configuration(v7);
+    collectionView = [v25 collectionView];
     [collectionView addGestureRecognizer:v7->_hoverGestureRecognizer];
 
     v27 = [[GEOObserverHashTable alloc] initWithProtocol:&OBJC_PROTOCOL___SidebarOutlineCellHoverObserver queue:0];

@@ -28,7 +28,7 @@
   if (v9)
   {
     v10 = v9;
-    type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for UIButton);
+    type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for UIButton, 0x277D75220);
     isKindOfClass_ = [v10 isKindOfClass_];
 
     if (isKindOfClass_)

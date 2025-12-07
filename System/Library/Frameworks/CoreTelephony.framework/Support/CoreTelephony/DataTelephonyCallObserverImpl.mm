@@ -49,7 +49,7 @@
   v36 = 0;
 
   *buf = v35;
-  v9 = sub_1000B31D4(&self->_sliceCallStatus, v35);
+  v9 = sub_1000B31D4(&self->_sliceCallStatus, v35, &unk_101802C98, buf, &__p);
   __p = 0;
   v33 = 0;
   v34 = 0;
@@ -138,7 +138,7 @@
     }
   }
 
-  else if ((*(v9 + 56) & 1) == 0)
+  else if ((v9[7] & 1) == 0)
   {
     v22 = 1;
 LABEL_24:

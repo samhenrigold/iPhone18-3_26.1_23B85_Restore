@@ -1,13 +1,13 @@
-id ITLogIdleTimer()
+id ITLogIdleTimer(uint64_t a1)
 {
   if (ITLogIdleTimer_onceToken != -1)
   {
     ITLogIdleTimer_cold_1();
   }
 
-  v1 = ITLogIdleTimer___logObj;
+  v2 = ITLogIdleTimer___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ITLogIdleTimer_block_invoke()

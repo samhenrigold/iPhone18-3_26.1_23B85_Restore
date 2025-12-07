@@ -35,45 +35,47 @@
 {
   handlerCopy = handler;
   host = [l host];
-  v10 = WBS_LOG_CHANNEL_PREFIXHideMyEmail();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = WBS_LOG_CHANNEL_PREFIXHideMyEmail(host, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    [(WBSHideMyEmailManager *)v10 _performOperation:v11 withURL:v12 completionHandler:v13, v14, v15, v16, v17];
+    [(WBSHideMyEmailManager *)v11 _performOperation:v12 withURL:v13 completionHandler:v14, v15, v16, v17, v18];
   }
 
   accountObserver = self->_accountObserver;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke;
-  v21[3] = &unk_1E8285628;
-  v24 = handlerCopy;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke;
+  v22[3] = &unk_1E8285628;
+  v25 = handlerCopy;
   operationCopy = operation;
-  v22 = host;
+  v23 = host;
   selfCopy = self;
-  v19 = handlerCopy;
-  v20 = host;
-  [(WBSPrimaryAppleAccountObserver *)accountObserver getPrimaryAppleAccountAltDSIDWithCompletionHandler:v21];
+  v20 = handlerCopy;
+  v21 = host;
+  [(WBSPrimaryAppleAccountObserver *)accountObserver getPrimaryAppleAccountAltDSIDWithCompletionHandler:v22];
 }
 
 void __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([v3 length])
+  v4 = [v3 length];
+  if (v4)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXHideMyEmail();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v6 = WBS_LOG_CHANNEL_PREFIXHideMyEmail(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
     }
 
-    v12 = [*(a1 + 32) safari_highLevelDomainFromHost];
-    if ([v12 isEqualToString:@"icloud.com"])
+    v14 = [*(a1 + 32) safari_highLevelDomainFromHost];
+    v15 = [v14 isEqualToString:@"icloud.com"];
+    if (v15)
     {
-      v13 = [objc_alloc(MEMORY[0x1E69C8F58]) initWithDomain:*(a1 + 32) state:2 privateEmailAddress:0];
-      v14 = WBS_LOG_CHANNEL_PREFIXHideMyEmail();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v17 = [objc_alloc(MEMORY[0x1E69C8F58]) initWithDomain:*(a1 + 32) state:2 privateEmailAddress:0];
+      v19 = WBS_LOG_CHANNEL_PREFIXHideMyEmail(v17, v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_cold_3(v14);
+        __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_cold_3(v19);
       }
 
       (*(*(a1 + 48) + 16))();
@@ -81,41 +83,41 @@ void __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___b
 
     else
     {
-      v16 = WBS_LOG_CHANNEL_PREFIXHideMyEmail();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v22 = WBS_LOG_CHANNEL_PREFIXHideMyEmail(v15, v16);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_cold_2(a1, v16);
+        __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_cold_2(a1, v22);
       }
 
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 3221225472;
       aBlock[2] = __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_4;
       aBlock[3] = &unk_1E8285600;
-      v20 = *(a1 + 32);
-      v17 = v20.i64[0];
-      v22 = vextq_s8(v20, v20, 8uLL);
-      v23 = *(a1 + 48);
-      v18 = _Block_copy(aBlock);
-      v19 = *(a1 + 56);
-      if (v19 == 1)
+      v26 = *(a1 + 32);
+      v23 = v26.i64[0];
+      v28 = vextq_s8(v26, v26, 8uLL);
+      v29 = *(a1 + 48);
+      v24 = _Block_copy(aBlock);
+      v25 = *(a1 + 56);
+      if (v25 == 1)
       {
-        [*(*(a1 + 40) + 24) fetchPrivateEmailForAltDSID:v3 withKey:*(a1 + 32) completion:v18];
+        [*(*(a1 + 40) + 24) fetchPrivateEmailForAltDSID:v3 withKey:*(a1 + 32) completion:v24];
       }
 
-      else if (!v19)
+      else if (!v25)
       {
-        [*(*(a1 + 40) + 24) lookupPrivateEmailForAltDSID:v3 withKey:*(a1 + 32) completion:v18];
+        [*(*(a1 + 40) + 24) lookupPrivateEmailForAltDSID:v3 withKey:*(a1 + 32) completion:v24];
       }
     }
   }
 
   else
   {
-    v12 = [objc_alloc(MEMORY[0x1E69C8F58]) initWithDomain:*(a1 + 32) state:3 privateEmailAddress:0];
-    v15 = WBS_LOG_CHANNEL_PREFIXHideMyEmail();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v14 = [objc_alloc(MEMORY[0x1E69C8F58]) initWithDomain:*(a1 + 32) state:3 privateEmailAddress:0];
+    v21 = WBS_LOG_CHANNEL_PREFIXHideMyEmail(v14, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_cold_4(v15);
+      __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_cold_4(v21);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -130,30 +132,31 @@ void __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___b
   if (v6)
   {
     v8 = [v6 safari_matchesErrorDomain:*MEMORY[0x1E698DC20] andCode:-6003];
-    v9 = WBS_LOG_CHANNEL_PREFIXHideMyEmail();
-    v10 = v9;
-    if (v8)
+    v9 = v8;
+    v11 = WBS_LOG_CHANNEL_PREFIXHideMyEmail(v8, v10);
+    v12 = v11;
+    if (v9)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_4_cold_2(v10, v11, v12, v13, v14, v15, v16, v17);
+        __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_4_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
       }
 
-      v18 = *(*(a1 + 32) + 16);
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_5;
-      v22[3] = &unk_1E82838F8;
-      v23 = *(a1 + 40);
-      v24 = *(a1 + 48);
-      [v18 getFeatureAvailabilityWithCompletionHandler:v22];
+      v20 = *(*(a1 + 32) + 16);
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_5;
+      v25[3] = &unk_1E82838F8;
+      v26 = *(a1 + 40);
+      v27 = *(a1 + 48);
+      [v20 getFeatureAvailabilityWithCompletionHandler:v25];
     }
 
     else
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_4_cold_1(v10);
+        __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_4_cold_1(v12);
       }
 
       (*(*(a1 + 48) + 16))();
@@ -162,22 +165,23 @@ void __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___b
 
   else
   {
-    v19 = [v5 privateEmailAddress];
-    v20 = [objc_alloc(MEMORY[0x1E69C8F58]) initWithDomain:*(a1 + 40) state:0 privateEmailAddress:v19];
-    v21 = WBS_LOG_CHANNEL_PREFIXHideMyEmail();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v21 = [v5 privateEmailAddress];
+    v22 = [objc_alloc(MEMORY[0x1E69C8F58]) initWithDomain:*(a1 + 40) state:0 privateEmailAddress:v21];
+    v24 = WBS_LOG_CHANNEL_PREFIXHideMyEmail(v22, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
-      __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_4_cold_3(v21);
+      __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_4_cold_3(v24);
     }
 
     (*(*(a1 + 48) + 16))();
   }
 }
 
-void __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_5(uint64_t a1, int a2)
+void __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_5(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = objc_alloc(MEMORY[0x1E69C8F58]);
-  if (a2)
+  if (v2)
   {
     v5 = 1;
   }
@@ -188,10 +192,10 @@ void __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___b
   }
 
   v6 = [v4 initWithDomain:*(a1 + 32) state:v5 privateEmailAddress:0];
-  v7 = WBS_LOG_CHANNEL_PREFIXHideMyEmail();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = WBS_LOG_CHANNEL_PREFIXHideMyEmail(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_5_cold_1(a2, v7);
+    __69__WBSHideMyEmailManager__performOperation_withURL_completionHandler___block_invoke_5_cold_1(v2, v8);
   }
 
   (*(*(a1 + 40) + 16))();

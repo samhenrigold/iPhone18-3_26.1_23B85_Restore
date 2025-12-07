@@ -28,7 +28,7 @@
     _internalData2 = [MEMORY[0x1E695DEF0] _ISMutableStoreIndex_mappedDataWithURL:indexFileURL];
     if (([_internalData2 _ISStoreIndex_isValid] & 1) == 0)
     {
-      v7 = [MEMORY[0x1E695DEF0] _ISMutableStoreIndex_mappedDataWithCapacity:self->_initialCapacity additionalSize:116 * self->_initialCapacity];
+      v7 = objc_msgSend__ISMutableStoreIndex_mappedDataWithCapacity_additionalSize_(MEMORY[0x1E695DEF0]);
 
       [v7 _ISMutableStoreIndex_makeBackedByFileAtURL:indexFileURL];
       _internalData2 = v7;
@@ -93,17 +93,18 @@
     [(ISMutableStoreIndex *)self removeAll];
     data4 = [(ISMutableStoreIndex *)self data];
 
-    if ([data4 _ISMutableStoreIndex_addValue:value])
+    v12 = [data4 _ISMutableStoreIndex_addValue:value];
+    if (v12)
     {
       v10 = 1;
     }
 
     else
     {
-      v12 = _ISDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = _ISDefaultLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        [ISStoreMapTable setBytes:v12 size:? forUUID:?];
+        [ISStoreMapTable setBytes:v13 size:? forUUID:?];
       }
 
       v10 = 0;
@@ -193,22 +194,16 @@ uint64_t __54__ISMutableStoreIndex_removeValueForUUID_passingTest___block_invoke
 {
   _internalData = [(ISStoreIndex *)self _internalData];
   _ISStoreIndex_hashTableHeader = [_internalData _ISStoreIndex_hashTableHeader];
-  v4 = _ISStoreIndex_hashTableHeader;
-  if (!_ISStoreIndex_hashTableHeader || (v5 = *(_ISStoreIndex_hashTableHeader + 12)) == 0)
-  {
-    v5 = 10000;
-  }
-
-  v6 = [MEMORY[0x1E695DEF0] _ISMutableStoreIndex_mappedDataWithCapacity:v5 additionalSize:116 * v5];
+  v4 = objc_msgSend__ISMutableStoreIndex_mappedDataWithCapacity_additionalSize_(MEMORY[0x1E695DEF0]);
   indexFileURL = [(ISStoreIndex *)self indexFileURL];
-  [v6 _ISMutableStoreIndex_makeBackedByFileAtURL:indexFileURL];
+  [v4 _ISMutableStoreIndex_makeBackedByFileAtURL:indexFileURL];
 
   os_unfair_lock_lock([(ISStoreIndex *)self dataLock]);
-  [(ISStoreIndex *)self _internalSetData:v6];
+  [(ISStoreIndex *)self _internalSetData:v4];
   os_unfair_lock_unlock([(ISStoreIndex *)self dataLock]);
-  if (v4)
+  if (_ISStoreIndex_hashTableHeader)
   {
-    *(v4 + 4) = 0;
+    *(_ISStoreIndex_hashTableHeader + 4) = 0;
   }
 }
 
@@ -216,36 +211,29 @@ uint64_t __54__ISMutableStoreIndex_removeValueForUUID_passingTest___block_invoke
 {
   _internalData = [(ISStoreIndex *)self _internalData];
   _ISStoreIndex_hashTableHeader = [_internalData _ISStoreIndex_hashTableHeader];
-  v5 = _ISStoreIndex_hashTableHeader;
-  if (!_ISStoreIndex_hashTableHeader || (v6 = *(_ISStoreIndex_hashTableHeader + 12)) == 0)
-  {
-    v6 = 10000;
-  }
-
-  v7 = (v6 * 1.5);
-  v8 = [_internalData length];
-  _ISStoreIndex_nodesOffset = [_internalData _ISStoreIndex_nodesOffset];
-  v10 = [MEMORY[0x1E695DEF0] _ISMutableStoreIndex_mappedDataWithCapacity:v7 additionalSize:((v8 - _ISStoreIndex_nodesOffset) * 1.5)];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __30__ISMutableStoreIndex__extend__block_invoke;
-  v13[3] = &unk_1E77C67C8;
-  v14 = v10;
-  v11 = v10;
-  [_internalData _ISStoreIndex_enumerateValuesWithBock:v13];
+  [_internalData length];
+  [_internalData _ISStoreIndex_nodesOffset];
+  v5 = objc_msgSend__ISMutableStoreIndex_mappedDataWithCapacity_additionalSize_(MEMORY[0x1E695DEF0]);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __30__ISMutableStoreIndex__extend__block_invoke;
+  v8[3] = &unk_1E77C67C8;
+  v9 = v5;
+  v6 = v5;
+  [_internalData _ISStoreIndex_enumerateValuesWithBock:v8];
   indexFileURL = [(ISStoreIndex *)self indexFileURL];
-  [v11 _ISMutableStoreIndex_makeBackedByFileAtURL:indexFileURL];
+  [v6 _ISMutableStoreIndex_makeBackedByFileAtURL:indexFileURL];
 
   os_unfair_lock_lock([(ISStoreIndex *)self dataLock]);
-  [(ISStoreIndex *)self _internalSetData:v11];
+  [(ISStoreIndex *)self _internalSetData:v6];
   os_unfair_lock_unlock([(ISStoreIndex *)self dataLock]);
-  if (v5)
+  if (_ISStoreIndex_hashTableHeader)
   {
-    *(v5 + 4) = 0;
+    *(_ISStoreIndex_hashTableHeader + 4) = 0;
   }
 }
 
-uint64_t __30__ISMutableStoreIndex__extend__block_invoke(uint64_t a1, uint64_t a2)
+void *__30__ISMutableStoreIndex__extend__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = NodeStructGetDataSize(a2);
   if (result == 116)
@@ -262,35 +250,30 @@ uint64_t __30__ISMutableStoreIndex__extend__block_invoke(uint64_t a1, uint64_t a
 {
   _internalData = [(ISStoreIndex *)self _internalData];
   _ISStoreIndex_hashTableHeader = [_internalData _ISStoreIndex_hashTableHeader];
-  v5 = _ISStoreIndex_hashTableHeader;
-  if (!_ISStoreIndex_hashTableHeader || (v6 = *(_ISStoreIndex_hashTableHeader + 12)) == 0)
+  [_internalData length];
+  [_internalData _ISStoreIndex_nodesOffset];
+  v5 = objc_msgSend__ISMutableStoreIndex_mappedDataWithCapacity_additionalSize_(MEMORY[0x1E695DEF0]);
+  v6 = vm_copy(*MEMORY[0x1E69E9A60], [_internalData bytes], objc_msgSend(_internalData, "length"), objc_msgSend(v5, "bytes"));
+  if (v6)
   {
-    v6 = 10000;
-  }
-
-  v7 = [_internalData length];
-  _ISStoreIndex_nodesOffset = [_internalData _ISStoreIndex_nodesOffset];
-  v9 = [MEMORY[0x1E695DEF0] _ISMutableStoreIndex_mappedDataWithCapacity:v6 additionalSize:((v7 - _ISStoreIndex_nodesOffset) * 1.5)];
-  if (vm_copy(*MEMORY[0x1E69E9A60], [_internalData bytes], objc_msgSend(_internalData, "length"), objc_msgSend(v9, "bytes")))
-  {
-    v10 = _ISDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v7 = _ISDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(ISStoreMapTable *)v10 _extendData];
+      [(ISStoreMapTable *)v7 _extendData];
     }
   }
 
   else
   {
     indexFileURL = [(ISStoreIndex *)self indexFileURL];
-    [v9 _ISMutableStoreIndex_makeBackedByFileAtURL:indexFileURL];
+    [v5 _ISMutableStoreIndex_makeBackedByFileAtURL:indexFileURL];
 
     os_unfair_lock_lock([(ISStoreIndex *)self dataLock]);
-    [(ISStoreIndex *)self _internalSetData:v9];
+    [(ISStoreIndex *)self _internalSetData:v5];
     os_unfair_lock_unlock([(ISStoreIndex *)self dataLock]);
-    if (v5)
+    if (_ISStoreIndex_hashTableHeader)
     {
-      *(v5 + 4) = 0;
+      *(_ISStoreIndex_hashTableHeader + 4) = 0;
     }
   }
 }

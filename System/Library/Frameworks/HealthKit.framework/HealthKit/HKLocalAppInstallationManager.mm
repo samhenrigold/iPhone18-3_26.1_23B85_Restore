@@ -28,64 +28,60 @@
 
 - (void)startObserving
 {
-  v8 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
-  v3 = HKLogInfrastructure();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
+  v5 = HKLogInfrastructure(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Starting observation", &v6, 0xCu);
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Starting observation", &v7, 0xCu);
   }
 
   defaultWorkspace = [MEMORY[0x1E6963608] defaultWorkspace];
   [defaultWorkspace addObserver:self];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopObserving
 {
-  v8 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
-  v3 = HKLogInfrastructure();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
+  v5 = HKLogInfrastructure(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Stopping observation", &v6, 0xCu);
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Stopping observation", &v7, 0xCu);
   }
 
   defaultWorkspace = [MEMORY[0x1E6963608] defaultWorkspace];
   [defaultWorkspace removeObserver:self];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applicationsDidInstall:(id)install
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   installCopy = install;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [installCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [installCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       v8 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(installCopy);
         }
 
-        bundleIdentifier = [*(*(&v15 + 1) + 8 * v8) bundleIdentifier];
+        bundleIdentifier = [*(*(&v14 + 1) + 8 * v8) bundleIdentifier];
         bundleIdentifier2 = [(HKWatchAppInstallationManager *)self bundleIdentifier];
         v11 = [bundleIdentifier isEqualToString:bundleIdentifier2];
 
@@ -104,39 +100,37 @@
       }
 
       while (v6 != v8);
-      v6 = [installCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [installCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applicationsDidUninstall:(id)uninstall
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   uninstallCopy = uninstall;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [uninstallCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [uninstallCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       v8 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(uninstallCopy);
         }
 
-        bundleIdentifier = [*(*(&v15 + 1) + 8 * v8) bundleIdentifier];
+        bundleIdentifier = [*(*(&v14 + 1) + 8 * v8) bundleIdentifier];
         bundleIdentifier2 = [(HKWatchAppInstallationManager *)self bundleIdentifier];
         v11 = [bundleIdentifier isEqualToString:bundleIdentifier2];
 
@@ -155,13 +149,11 @@
       }
 
       while (v6 != v8);
-      v6 = [uninstallCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [uninstallCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

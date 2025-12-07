@@ -66,7 +66,7 @@
     return 0;
   }
 
-  [(PKDetectionItem *)self drawingToItemTransform];
+  objc_msgSend_drawingToItemTransform(self);
   itemSpaceBoundsPath = [(PKDetectionItem *)self itemSpaceBoundsPath];
   v7 = [itemSpaceBoundsPath containsPoint:{v13 + y * v11 + v9 * x, v14 + y * v12 + v10 * x}];
 
@@ -225,7 +225,7 @@
     v46 = 0u;
     v47 = 0u;
     v45 = 0u;
-    [(PKDetectionItem *)self drawingToItemTransform];
+    objc_msgSend_drawingToItemTransform(self);
     v37 = self->_itemSpaceBoundsPath;
     v42 = v45;
     v43 = v46;

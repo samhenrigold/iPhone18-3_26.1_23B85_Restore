@@ -110,54 +110,55 @@
   {
     extension = [(CDXExtensionDataRequest *)self extension];
 
-    v9 = sub_100005CC4();
-    v15 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v9 = sub_100005CC4(v16);
+    v17 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
     if (extension)
     {
-      if (!v15)
+      if (!v17)
       {
         goto LABEL_13;
       }
 
       *buf = 138412290;
       selfCopy2 = self;
-      v16 = "Requested to cancel data request %@ which has not yet begun";
+      v18 = "Requested to cancel data request %@ which has not yet begun";
     }
 
     else
     {
-      if (!v15)
+      if (!v17)
       {
         goto LABEL_13;
       }
 
       *buf = 138412290;
       selfCopy2 = self;
-      v16 = "Requested to cancel data request %@ which has already been completed or cancelled";
+      v18 = "Requested to cancel data request %@ which has already been completed or cancelled";
     }
 
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v16, buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v18, buf, 0xCu);
     goto LABEL_13;
   }
 
   v7 = dispatch_semaphore_create(0);
   context = [(CDXExtensionDataRequest *)self context];
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_1000041AC;
-  v17[3] = &unk_100034B58;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_1000041AC;
+  v19[3] = &unk_100034B58;
   v9 = v7;
-  v18 = v9;
-  [context requestFailedWithError:errorCopy completion:v17];
+  v20 = v9;
+  [context requestFailedWithError:errorCopy completion:v19];
 
   v10 = dispatch_time(0, 10000000000);
-  if (dispatch_semaphore_wait(v9, v10))
+  v11 = dispatch_semaphore_wait(v9, v10);
+  if (v11)
   {
-    v11 = sub_100005CC4();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100005CC4(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Timed out while notifying extension about request failure, proceeding to cancel extension request", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Timed out while notifying extension about request failure, proceeding to cancel extension request", buf, 2u);
     }
   }
 

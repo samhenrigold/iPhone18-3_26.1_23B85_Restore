@@ -11,29 +11,29 @@ void __141__SAIntentGroupLaunchAppWithUserActivity_INSExtensionService__ins_laun
   if (v6)
   {
     v8 = [v6 domain];
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
     v9 = getFBSOpenApplicationErrorDomainSymbolLoc_ptr_272;
-    v20 = getFBSOpenApplicationErrorDomainSymbolLoc_ptr_272;
+    v21 = getFBSOpenApplicationErrorDomainSymbolLoc_ptr_272;
     if (!getFBSOpenApplicationErrorDomainSymbolLoc_ptr_272)
     {
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __getFBSOpenApplicationErrorDomainSymbolLoc_block_invoke_273;
-      v16[3] = &unk_2797EA9A0;
-      v16[4] = &v17;
-      __getFBSOpenApplicationErrorDomainSymbolLoc_block_invoke_273(v16);
-      v9 = v18[3];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __getFBSOpenApplicationErrorDomainSymbolLoc_block_invoke_273;
+      v17[3] = &unk_2797EA9A0;
+      v17[4] = &v18;
+      __getFBSOpenApplicationErrorDomainSymbolLoc_block_invoke_273(v17);
+      v9 = v19[3];
     }
 
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v18, 8);
     if (!v9)
     {
-      dlerror();
-      v15 = abort_report_np();
-      _Block_object_dispose(&v17, 8);
-      _Unwind_Resume(v15);
+      v15 = dlerror();
+      v16 = abort_report_np("%s", v15);
+      _Block_object_dispose(&v18, 8);
+      _Unwind_Resume(v16);
     }
 
     if ([v8 isEqualToString:*v9])

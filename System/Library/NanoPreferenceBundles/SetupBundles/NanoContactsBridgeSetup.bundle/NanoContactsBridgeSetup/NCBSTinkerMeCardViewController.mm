@@ -16,6 +16,7 @@
 - (void)_visitMeCard;
 - (void)alternateButtonPressed:(id)pressed;
 - (void)contactViewController:(id)controller didCompleteWithContact:(id)contact;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NCBSTinkerMeCardViewController
@@ -34,29 +35,37 @@
   return v3;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = NCBSTinkerMeCardViewController;
+  [(NCBSTinkerMeCardViewController *)&v3 viewWillAppear:appear];
+}
+
 - (id)titleString
 {
   selfCopy = self;
   miniFlowDelegate = [(NCBSTinkerMeCardViewController *)self miniFlowDelegate];
   familyMemberFirstName = [miniFlowDelegate familyMemberFirstName];
 
-  LODWORD(selfCopy) = [(NCBSTinkerMeCardViewController *)selfCopy hasMeCard];
-  v5 = NanoContactsBridgeSetupBundle();
-  v6 = v5;
+  hasMeCard = [(NCBSTinkerMeCardViewController *)selfCopy hasMeCard];
+  LODWORD(selfCopy) = hasMeCard;
+  v6 = NanoContactsBridgeSetupBundle(hasMeCard);
+  v7 = v6;
   if (selfCopy)
   {
-    v7 = @"TK_CONTACTS_TINKERUSER_ME_TITLE_UPDATE";
+    v8 = @"TK_CONTACTS_TINKERUSER_ME_TITLE_UPDATE";
   }
 
   else
   {
-    v7 = @"TK_CONTACTS_TINKERUSER_ME_TITLE_CREATE";
+    v8 = @"TK_CONTACTS_TINKERUSER_ME_TITLE_CREATE";
   }
 
-  v8 = [v5 localizedStringForKey:v7 value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
-  v9 = [NSString stringWithFormat:v8, familyMemberFirstName];
+  v9 = [v6 localizedStringForKey:v8 value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v10 = [NSString stringWithFormat:v9, familyMemberFirstName];
 
-  return v9;
+  return v10;
 }
 
 - (id)detailString
@@ -64,36 +73,37 @@
   miniFlowDelegate = [(NCBSTinkerMeCardViewController *)self miniFlowDelegate];
   familyMemberFirstName = [miniFlowDelegate familyMemberFirstName];
 
-  v4 = NanoContactsBridgeSetupBundle();
-  v5 = [v4 localizedStringForKey:@"TK_CONTACTS_TINKERUSER_ME_DETAIL" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
-  v6 = [NSString stringWithFormat:v5, familyMemberFirstName];
+  v5 = NanoContactsBridgeSetupBundle(v4);
+  v6 = [v5 localizedStringForKey:@"TK_CONTACTS_TINKERUSER_ME_DETAIL" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v7 = [NSString stringWithFormat:v6, familyMemberFirstName];
 
-  return v6;
+  return v7;
 }
 
 - (id)suggestedButtonTitle
 {
   hasMeCard = [(NCBSTinkerMeCardViewController *)self hasMeCard];
-  v3 = NanoContactsBridgeSetupBundle();
-  v4 = v3;
-  if (hasMeCard)
+  v3 = hasMeCard;
+  v4 = NanoContactsBridgeSetupBundle(hasMeCard);
+  v5 = v4;
+  if (v3)
   {
-    v5 = @"TK_CONTACTS_TINKERUSER_ME_BUTTON_UPDATE";
+    v6 = @"TK_CONTACTS_TINKERUSER_ME_BUTTON_UPDATE";
   }
 
   else
   {
-    v5 = @"TK_CONTACTS_TINKERUSER_ME_BUTTON_CREATE";
+    v6 = @"TK_CONTACTS_TINKERUSER_ME_BUTTON_CREATE";
   }
 
-  v6 = [v3 localizedStringForKey:v5 value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
+  v7 = [v4 localizedStringForKey:v6 value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
 
-  return v6;
+  return v7;
 }
 
 - (id)alternateButtonTitle
 {
-  v2 = NanoContactsBridgeSetupBundle();
+  v2 = NanoContactsBridgeSetupBundle(self);
   v3 = [v2 localizedStringForKey:@"TK_CONTACTS_TINKERUSER_ME_BUTTON_LATER" value:&stru_1C900 table:@"NanoContactsBridgeSetup"];
 
   return v3;
@@ -107,14 +117,14 @@
 
 - (id)familyMemberScopedContactStore
 {
-  v3 = NCBS_Tinker_log();
+  v3 = NCBS_Tinker_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     familyMemberScopedContactStore = self->_familyMemberScopedContactStore;
     *buf = 136446466;
-    v20 = "[NCBSTinkerMeCardViewController familyMemberScopedContactStore]";
-    v21 = 2112;
-    v22 = familyMemberScopedContactStore;
+    v21 = "[NCBSTinkerMeCardViewController familyMemberScopedContactStore]";
+    v22 = 2112;
+    v23 = familyMemberScopedContactStore;
     _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "%{public}s - _familyMemberScopedContactStore: %@", buf, 0x16u);
   }
 
@@ -130,35 +140,35 @@
       v9 = self->_familyMemberScopedContactStore;
       self->_familyMemberScopedContactStore = v8;
 
-      v10 = self->_familyMemberScopedContactStore;
-      if (v10)
+      v11 = self->_familyMemberScopedContactStore;
+      if (v11)
       {
-        v11 = +[CNContactViewController descriptorForRequiredKeys];
-        v29 = v11;
-        v12 = [NSArray arrayWithObjects:&v29 count:1];
-        v18 = 0;
-        v13 = [(CNContactStore *)v10 _ios_meContactWithKeysToFetch:v12 error:&v18];
-        v10 = v18;
+        v12 = +[CNContactViewController descriptorForRequiredKeys];
+        v30 = v12;
+        v13 = [NSArray arrayWithObjects:&v30 count:1];
+        v19 = 0;
+        v14 = [(CNContactStore *)v11 _ios_meContactWithKeysToFetch:v13 error:&v19];
+        v11 = v19;
 
-        self->_hasMeCard = v13 != 0;
+        self->_hasMeCard = v14 != 0;
       }
 
-      v14 = NCBS_Tinker_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = NCBS_Tinker_log(v10);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = self->_familyMemberScopedContactStore;
+        v16 = self->_familyMemberScopedContactStore;
         hasMeCard = self->_hasMeCard;
         *buf = 136447234;
-        v20 = "[NCBSTinkerMeCardViewController familyMemberScopedContactStore]";
-        v21 = 2112;
-        v22 = familyMember;
-        v23 = 2112;
-        v24 = v15;
-        v25 = 1024;
-        v26 = hasMeCard;
-        v27 = 2114;
-        v28 = v10;
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "%{public}s - familyMember: %@; OPENED familyMemberScopedContactStore: %@, hasMeCard: %d (error: %{public}@)", buf, 0x30u);
+        v21 = "[NCBSTinkerMeCardViewController familyMemberScopedContactStore]";
+        v22 = 2112;
+        v23 = familyMember;
+        v24 = 2112;
+        v25 = v16;
+        v26 = 1024;
+        v27 = hasMeCard;
+        v28 = 2114;
+        v29 = v11;
+        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "%{public}s - familyMember: %@; OPENED familyMemberScopedContactStore: %@, hasMeCard: %d (error: %{public}@)", buf, 0x30u);
       }
     }
 
@@ -227,101 +237,101 @@
   miniFlowDelegate = [(NCBSTinkerMeCardViewController *)self miniFlowDelegate];
   familyMember = [miniFlowDelegate familyMember];
 
-  v5 = NCBS_Tinker_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = NCBS_Tinker_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     familyMemberScopedContactStore = [(NCBSTinkerMeCardViewController *)self familyMemberScopedContactStore];
     *buf = 136446722;
-    v26 = "[NCBSTinkerMeCardViewController _visitMeCard]";
-    v27 = 2112;
-    v28 = familyMemberScopedContactStore;
-    v29 = 2112;
-    v30 = familyMember;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%{public}s - familyMemberScopedContactStore: %@, familyMember: %@", buf, 0x20u);
+    v29 = "[NCBSTinkerMeCardViewController _visitMeCard]";
+    v30 = 2112;
+    v31 = familyMemberScopedContactStore;
+    v32 = 2112;
+    v33 = familyMember;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%{public}s - familyMemberScopedContactStore: %@, familyMember: %@", buf, 0x20u);
   }
 
   familyMemberScopedContactStore2 = [(NCBSTinkerMeCardViewController *)self familyMemberScopedContactStore];
-  v8 = +[CNContactViewController descriptorForRequiredKeys];
-  v24 = v8;
-  v9 = [NSArray arrayWithObjects:&v24 count:1];
-  v23 = 0;
-  v10 = [familyMemberScopedContactStore2 _ios_meContactWithKeysToFetch:v9 error:&v23];
-  v11 = v23;
+  v9 = +[CNContactViewController descriptorForRequiredKeys];
+  v27 = v9;
+  v10 = [NSArray arrayWithObjects:&v27 count:1];
+  v26 = 0;
+  v11 = [familyMemberScopedContactStore2 _ios_meContactWithKeysToFetch:v10 error:&v26];
+  v12 = v26;
 
-  v12 = NCBS_Tinker_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = NCBS_Tinker_log(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v26 = "[NCBSTinkerMeCardViewController _visitMeCard]";
-    v27 = 2112;
-    v28 = v10;
-    v29 = 2114;
-    v30 = v11;
-    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}s - _ios_meContactWithKeysToFetch result: %@, error: %{public}@", buf, 0x20u);
+    v29 = "[NCBSTinkerMeCardViewController _visitMeCard]";
+    v30 = 2112;
+    v31 = v11;
+    v32 = 2114;
+    v33 = v12;
+    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "%{public}s - _ios_meContactWithKeysToFetch result: %@, error: %{public}@", buf, 0x20u);
   }
 
-  if (v10)
+  if (v11)
   {
-    v13 = [(NCBSTinkerMeCardViewController *)self _updatedContactForFamilyMember:familyMember originalContact:v10];
-    [CNContactViewController viewControllerForUpdatingContact:v13 withPropertiesFromContact:0];
+    v15 = [(NCBSTinkerMeCardViewController *)self _updatedContactForFamilyMember:familyMember originalContact:v11];
+    [CNContactViewController viewControllerForUpdatingContact:v15 withPropertiesFromContact:0];
   }
 
   else
   {
-    v13 = [(NCBSTinkerMeCardViewController *)self _newMeContactForFamilyMember:familyMember];
-    [CNContactViewController viewControllerForNewContact:v13];
+    v15 = [(NCBSTinkerMeCardViewController *)self _newMeContactForFamilyMember:familyMember];
+    [CNContactViewController viewControllerForNewContact:v15];
   }
-  v14 = ;
+  v16 = ;
 
   familyMemberScopedContactStore3 = [(NCBSTinkerMeCardViewController *)self familyMemberScopedContactStore];
-  [v14 setContactStore:familyMemberScopedContactStore3];
+  [v16 setContactStore:familyMemberScopedContactStore3];
 
-  [v14 setDisplayMode:2];
-  [v14 setDelegate:self];
-  v16 = +[CNUICoreFamilyMemberContactsController propertyKeysContainingSenstiveData];
-  [v14 setProhibitedPropertyKeys:v16];
+  [v16 setDisplayMode:2];
+  [v16 setDelegate:self];
+  v18 = +[CNUICoreFamilyMemberContactsController propertyKeysContainingSenstiveData];
+  [v16 setProhibitedPropertyKeys:v18];
 
-  v17 = NCBS_Tinker_log();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v20 = NCBS_Tinker_log(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    prohibitedPropertyKeys = [v14 prohibitedPropertyKeys];
+    prohibitedPropertyKeys = [v16 prohibitedPropertyKeys];
     *buf = 136446466;
-    v26 = "[NCBSTinkerMeCardViewController _visitMeCard]";
-    v27 = 2114;
-    v28 = prohibitedPropertyKeys;
-    _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "%{public}s - prohibitedPropertyKeys: %{public}@", buf, 0x16u);
+    v29 = "[NCBSTinkerMeCardViewController _visitMeCard]";
+    v30 = 2114;
+    v31 = prohibitedPropertyKeys;
+    _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "%{public}s - prohibitedPropertyKeys: %{public}@", buf, 0x16u);
   }
 
-  v19 = [[UINavigationController alloc] initWithRootViewController:v14];
+  v22 = [[UINavigationController alloc] initWithRootViewController:v16];
   view = [(NCBSTinkerMeCardViewController *)self view];
   tintColor = [view tintColor];
-  view2 = [v19 view];
+  view2 = [v22 view];
   [view2 setTintColor:tintColor];
 
-  [(NCBSTinkerMeCardViewController *)self presentViewController:v19 animated:1 completion:0];
+  [(NCBSTinkerMeCardViewController *)self presentViewController:v22 animated:1 completion:0];
 }
 
 - (void)_setFamilyMemberMeContact:(id)contact
 {
   contactCopy = contact;
   familyMemberScopedContactStore = [(NCBSTinkerMeCardViewController *)self familyMemberScopedContactStore];
-  v9 = 0;
-  v6 = [familyMemberScopedContactStore setMeContact:contactCopy error:&v9];
-  v7 = v9;
+  v10 = 0;
+  v6 = [familyMemberScopedContactStore setMeContact:contactCopy error:&v10];
+  v7 = v10;
 
   self->_hasMeCard |= v6;
-  v8 = NCBS_Tinker_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = NCBS_Tinker_log(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446978;
-    v11 = "[NCBSTinkerMeCardViewController _setFamilyMemberMeContact:]";
-    v12 = 1024;
-    v13 = v6;
-    v14 = 2114;
-    v15 = v7;
-    v16 = 2112;
-    v17 = contactCopy;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%{public}s - setMeContact result: %d, error: %{public}@, contact: %@", buf, 0x26u);
+    v12 = "[NCBSTinkerMeCardViewController _setFamilyMemberMeContact:]";
+    v13 = 1024;
+    v14 = v6;
+    v15 = 2114;
+    v16 = v7;
+    v17 = 2112;
+    v18 = contactCopy;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%{public}s - setMeContact result: %d, error: %{public}@, contact: %@", buf, 0x26u);
   }
 }
 
@@ -337,7 +347,7 @@
   v12 = 0;
   v8 = [v7 executeSaveRequest:v5 error:&v12];
   v9 = v12;
-  v10 = NCBS_Tinker_log();
+  v10 = NCBS_Tinker_log(v9);
   v11 = v10;
   if (v8)
   {
@@ -371,14 +381,14 @@
   selectedCellularPlan = [v2 selectedCellularPlan];
   phoneNumber = [selectedCellularPlan phoneNumber];
 
-  v5 = NCBS_Tinker_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = NCBS_Tinker_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[NCBSTinkerMeCardViewController _activeSatellitePhoneNumber]";
-    v9 = 2112;
-    v10 = phoneNumber;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%{public}s - phoneNumber:%@", &v7, 0x16u);
+    v8 = 136446466;
+    v9 = "[NCBSTinkerMeCardViewController _activeSatellitePhoneNumber]";
+    v10 = 2112;
+    v11 = phoneNumber;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%{public}s - phoneNumber:%@", &v8, 0x16u);
   }
 
   return phoneNumber;
@@ -391,49 +401,49 @@
   if ([_activeSatellitePhoneNumber length])
   {
     v6 = [CNPhoneNumber phoneNumberWithStringValue:_activeSatellitePhoneNumber];
-    v22 = 0u;
-    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     phoneNumbers = [presentCopy phoneNumbers];
-    v8 = [phoneNumbers countByEnumeratingWithState:&v22 objects:v32 count:16];
+    v8 = [phoneNumbers countByEnumeratingWithState:&v24 objects:v34 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v25;
       while (2)
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v23 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(phoneNumbers);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v24 + 1) + 8 * i);
           value = [v12 value];
           v14 = [value isLikePhoneNumber:v6];
 
           if (v14)
           {
-            v17 = NCBS_Tinker_log();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            v18 = NCBS_Tinker_log(v15);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
               value2 = [v12 value];
               *buf = 136446722;
-              v27 = "[NCBSTinkerMeCardViewController _addSatellitePhoneNumberToContactIfNotPresent:]";
-              v28 = 2112;
-              v29 = value2;
+              v29 = "[NCBSTinkerMeCardViewController _addSatellitePhoneNumberToContactIfNotPresent:]";
               v30 = 2112;
-              v31 = presentCopy;
-              _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "%{public}s - contact already has device number:%@; contact: %@", buf, 0x20u);
+              v31 = value2;
+              v32 = 2112;
+              v33 = presentCopy;
+              _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "%{public}s - contact already has device number:%@; contact: %@", buf, 0x20u);
             }
 
             goto LABEL_17;
           }
         }
 
-        v9 = [phoneNumbers countByEnumeratingWithState:&v22 objects:v32 count:16];
+        v9 = [phoneNumbers countByEnumeratingWithState:&v24 objects:v34 count:16];
         if (v9)
         {
           continue;
@@ -455,22 +465,22 @@
       phoneNumbers = +[NSMutableArray array];
     }
 
-    v19 = [CNLabeledValue labeledValueWithLabel:CNLabelPhoneNumberAppleWatch value:v6];
-    [phoneNumbers addObject:v19];
+    v20 = [CNLabeledValue labeledValueWithLabel:CNLabelPhoneNumberAppleWatch value:v6];
+    [phoneNumbers addObject:v20];
 
-    v20 = [phoneNumbers copy];
-    [presentCopy setPhoneNumbers:v20];
+    v21 = [phoneNumbers copy];
+    [presentCopy setPhoneNumbers:v21];
 
-    v17 = NCBS_Tinker_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = NCBS_Tinker_log(v22);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
-      v27 = "[NCBSTinkerMeCardViewController _addSatellitePhoneNumberToContactIfNotPresent:]";
-      v28 = 2112;
-      v29 = v6;
+      v29 = "[NCBSTinkerMeCardViewController _addSatellitePhoneNumberToContactIfNotPresent:]";
       v30 = 2112;
-      v31 = presentCopy;
-      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "%{public}s - added device number:%@; contact: %@", buf, 0x20u);
+      v31 = v6;
+      v32 = 2112;
+      v33 = presentCopy;
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "%{public}s - added device number:%@; contact: %@", buf, 0x20u);
     }
 
 LABEL_17:
@@ -482,7 +492,7 @@ LABEL_17:
 - (void)contactViewController:(id)controller didCompleteWithContact:(id)contact
 {
   contactCopy = contact;
-  [(NCBSTinkerMeCardViewController *)self dismissViewControllerAnimated:1 completion:0];
+  v6 = [(NCBSTinkerMeCardViewController *)self dismissViewControllerAnimated:1 completion:0];
   if (contactCopy)
   {
     [(NCBSTinkerMeCardViewController *)self _setFamilyMemberMeContact:contactCopy];
@@ -493,12 +503,12 @@ LABEL_17:
 
   else
   {
-    v7 = NCBS_Tinker_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = NCBS_Tinker_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136446210;
-      v9 = "[NCBSTinkerMeCardViewController contactViewController:didCompleteWithContact:]";
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "%{public}s - setMeContact canceled (no contact)", &v8, 0xCu);
+      v9 = 136446210;
+      v10 = "[NCBSTinkerMeCardViewController contactViewController:didCompleteWithContact:]";
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%{public}s - setMeContact canceled (no contact)", &v9, 0xCu);
     }
   }
 }

@@ -1481,7 +1481,7 @@ LABEL_3:
   {
     if (v14)
     {
-      [v14 transform];
+      objc_msgSend_transform(v14);
     }
 
     else
@@ -1505,7 +1505,7 @@ LABEL_3:
   {
     if (v14)
     {
-      [v14 _inkTransform];
+      objc_msgSend__inkTransform(v14);
     }
 
     else
@@ -1684,7 +1684,7 @@ id __30__PKDrawing_setStroke_hidden___block_invoke(uint64_t a1, void *a2)
     v12 = v11;
     if (v11)
     {
-      [v11 CGAffineTransformValue];
+      objc_msgSend_CGAffineTransformValue(v11);
     }
 
     else
@@ -1795,7 +1795,7 @@ id __30__PKDrawing_setStroke_hidden___block_invoke(uint64_t a1, void *a2)
         v18 = [v12 ink];
         if (v12)
         {
-          [v12 transform];
+          objc_msgSend_transform(v12);
         }
 
         else
@@ -2076,7 +2076,7 @@ id __33__PKDrawing_setStrokeSubstrokes___block_invoke(uint64_t a1, void *a2)
   return v3;
 }
 
-uint64_t __22__PKDrawing_CHDrawing__block_invoke(uint64_t a1)
+void *__22__PKDrawing_CHDrawing__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) addPoint:?];
   *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -2752,7 +2752,7 @@ LABEL_10:
 
 - (id)sliceWithEraseStroke:(id)stroke
 {
-  v174 = *MEMORY[0x1E69E9840];
+  v176 = *MEMORY[0x1E69E9840];
   strokeCopy = stroke;
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
   v102 = v3;
@@ -2782,31 +2782,31 @@ LABEL_10:
   }
 
   [strokeCopy _bounds];
-  v177 = CGRectInset(v176, -1.0, -1.0);
-  x = v177.origin.x;
-  y = v177.origin.y;
-  width = v177.size.width;
-  height = v177.size.height;
+  v179 = CGRectInset(v178, -1.0, -1.0);
+  x = v179.origin.x;
+  y = v179.origin.y;
+  width = v179.size.width;
+  height = v179.size.height;
   strokes = [(PKDrawing *)self strokes];
   v106 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(strokes, "count")}];
-  v166 = 0;
-  v165 = 0;
+  v168 = 0;
   v167 = 0;
-  v157 = 0;
-  v158 = &v157;
-  v159 = 0x4812000000;
-  v160 = __Block_byref_object_copy__75;
-  v161 = __Block_byref_object_dispose__76;
-  v162 = "";
-  v164 = 0;
-  v163[0] = 0;
-  v163[1] = 0;
+  v169 = 0;
+  v159 = 0;
+  v160 = &v159;
+  v161 = 0x4812000000;
+  v162 = __Block_byref_object_copy__75;
+  v163 = __Block_byref_object_dispose__76;
+  v164 = "";
+  v166 = 0;
+  v165[0] = 0;
+  v165[1] = 0;
   v19 = [strokes count];
-  if (v19 > (v164 - v163[0]) >> 3)
+  if (v19 > (v166 - v165[0]) >> 3)
   {
     if (!(v19 >> 61))
     {
-      *(&v134 + 1) = v163;
+      *(&v136 + 1) = v165;
       std::__allocate_at_least[abi:ne200100]<std::allocator<PKStroke * {__strong}>>(v19);
     }
 
@@ -2814,33 +2814,33 @@ LABEL_10:
   }
 
   v107 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(strokes, "count")}];
-  v156 = 0;
-  v152 = 0u;
-  v153 = 0u;
+  v158 = 0;
   v154 = 0u;
   v155 = 0u;
+  v156 = 0u;
+  v157 = 0u;
   obj = [(PKDrawing *)self _rootStrokes];
-  v20 = [obj countByEnumeratingWithState:&v152 objects:v173 count:16];
+  v20 = [obj countByEnumeratingWithState:&v154 objects:v175 count:16];
   if (v20)
   {
     v21 = 0;
-    v22 = *v153;
+    v22 = *v155;
 LABEL_12:
     v23 = 0;
     while (1)
     {
-      if (*v153 != v22)
+      if (*v155 != v22)
       {
         objc_enumerationMutation(obj);
       }
 
-      v24 = *(*(&v152 + 1) + 8 * v23);
+      v24 = *(*(&v154 + 1) + 8 * v23);
       if (v24 == strokeCopy)
       {
         break;
       }
 
-      v25 = [*(*(&v152 + 1) + 8 * v23) ink];
+      v25 = [*(*(&v154 + 1) + 8 * v23) ink];
       identifier = [v25 identifier];
       v27 = [identifier isEqualToString:@"com.apple.ink.eraser"];
 
@@ -2848,33 +2848,33 @@ LABEL_12:
       {
         __p = 0;
         p_p = &__p;
-        v133 = 0x2020000000;
-        LOBYTE(v134) = 0;
-        v144[0] = MEMORY[0x1E69E9820];
-        v144[1] = 3221225472;
-        v144[2] = __43__PKDrawing_Slicing__sliceWithEraseStroke___block_invoke;
-        v144[3] = &unk_1E82D9A90;
-        v148 = x;
-        v149 = y;
-        v150 = width;
-        v151 = height;
-        v145 = v107;
-        v146 = &v157;
-        v147 = &__p;
-        [v24 _visitVisibleSubstrokes:v144 inDrawing:self];
+        v135 = 0x2020000000;
+        LOBYTE(v136) = 0;
+        v146[0] = MEMORY[0x1E69E9820];
+        v146[1] = 3221225472;
+        v146[2] = __43__PKDrawing_Slicing__sliceWithEraseStroke___block_invoke;
+        v146[3] = &unk_1E82D9A90;
+        v150 = x;
+        v151 = y;
+        v152 = width;
+        v153 = height;
+        v147 = v107;
+        v148 = &v159;
+        v149 = &__p;
+        [v24 _visitVisibleSubstrokes:v146 inDrawing:self];
         if (*(p_p + 24) == 1)
         {
           [v106 addObject:v24];
-          std::vector<long>::push_back[abi:ne200100](&v165, &v156);
+          std::vector<long>::push_back[abi:ne200100](&v167, &v158);
         }
 
         _Block_object_dispose(&__p, 8);
       }
 
-      v156 = ++v21;
+      v158 = ++v21;
       if (v20 == ++v23)
       {
-        v20 = [obj countByEnumeratingWithState:&v152 objects:v173 count:16];
+        v20 = [obj countByEnumeratingWithState:&v154 objects:v175 count:16];
         if (v20)
         {
           goto LABEL_12;
@@ -2885,19 +2885,19 @@ LABEL_12:
     }
   }
 
-  v28 = (v158[7] - v158[6]) >> 3;
+  v28 = (v160[7] - v160[6]) >> 3;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __43__PKDrawing_Slicing__sliceWithEraseStroke___block_invoke_2;
   block[3] = &unk_1E82D9AB8;
-  block[4] = &v157;
+  block[4] = &v159;
   dispatch_apply(v28, 0, block);
-  v140 = 0;
-  v141 = 0;
   v142 = 0;
-  v29 = v158;
+  v143 = 0;
+  v144 = 0;
+  v29 = v160;
   v30 = *v104;
-  v31 = *(v104 + 8);
+  v31 = v104[1];
   if (*v104 == v31)
   {
     v35 = 0.0;
@@ -2910,8 +2910,8 @@ LABEL_12:
     {
       __p = 0;
       p_p = 0;
-      v133 = 0;
-      std::vector<ClipperLib::IntPoint>::__init_with_size[abi:ne200100]<ClipperLib::IntPoint*,ClipperLib::IntPoint*>(&__p, *v30, v30[1], 0xAAAAAAAAAAAAAAABLL * ((v30[1] - *v30) >> 3));
+      v135 = 0;
+      std::vector<ClipperLib::IntPoint>::__init_with_size[abi:ne200100]<ClipperLib::IntPoint*,ClipperLib::IntPoint*>(&__p, *v30, *(v30 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(v30 + 8) - *v30) >> 3));
       v33 = __p;
       v34 = p_p;
       if (__p)
@@ -2921,7 +2921,7 @@ LABEL_12:
       }
 
       v32 -= 0x5555555555555555 * ((v34 - v33) >> 3);
-      v30 += 3;
+      v30 += 24;
     }
 
     while (v30 != v31);
@@ -2939,7 +2939,7 @@ LABEL_12:
       maskPaths = [_strokeMask maskPaths];
 
       v40 = *maskPaths;
-      v41 = *(maskPaths + 8);
+      v41 = maskPaths[1];
       if (*maskPaths == v41)
       {
         v42 = 0;
@@ -2952,8 +2952,8 @@ LABEL_12:
         {
           __p = 0;
           p_p = 0;
-          v133 = 0;
-          std::vector<ClipperLib::IntPoint>::__init_with_size[abi:ne200100]<ClipperLib::IntPoint*,ClipperLib::IntPoint*>(&__p, *v40, v40[1], 0xAAAAAAAAAAAAAAABLL * ((v40[1] - *v40) >> 3));
+          v135 = 0;
+          std::vector<ClipperLib::IntPoint>::__init_with_size[abi:ne200100]<ClipperLib::IntPoint*,ClipperLib::IntPoint*>(&__p, *v40, *(v40 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(v40 + 8) - *v40) >> 3));
           v43 = __p;
           v44 = p_p;
           if (__p)
@@ -2963,7 +2963,7 @@ LABEL_12:
           }
 
           v42 -= 0x5555555555555555 * ((v44 - v43) >> 3);
-          v40 += 3;
+          v40 += 24;
         }
 
         while (v40 != v41);
@@ -2974,33 +2974,33 @@ LABEL_12:
       v48 = v47;
       v50 = v49;
       v52 = v51;
-      v53 = v140;
-      v54 = (v141 - v140) >> 6;
+      v53 = v142;
+      v54 = (v143 - v142) >> 6;
       if (v54 <= 100)
       {
         v54 = 100;
       }
 
       v55 = v54 - 100;
-      if (v54 - 100 >= ((v141 - v140) >> 6))
+      if (v54 - 100 >= ((v143 - v142) >> 6))
       {
 LABEL_44:
         __p = 0;
         p_p = 0;
         v61 = *(MEMORY[0x1E695F050] + 16);
-        v134 = *MEMORY[0x1E695F050];
-        v135 = v61;
-        v133 = 0;
-        v136 = 0;
-        std::vector<Bucket>::push_back[abi:ne200100](&v140, &__p);
+        v136 = *MEMORY[0x1E695F050];
+        v137 = v61;
+        v135 = 0;
+        v138 = 0;
+        std::vector<Bucket>::push_back[abi:ne200100](&v142, &__p);
         if (__p)
         {
           operator delete(__p);
         }
 
-        std::vector<long>::push_back[abi:ne200100]((v141 - 64), buf);
-        v62 = v141;
-        *(v141 - 8) = v42;
+        std::vector<long>::push_back[abi:ne200100]((v143 - 64), buf);
+        v62 = v143;
+        *(v143 - 8) = v42;
         *(v62 - 40) = v46;
         *(v62 - 32) = v48;
         *(v62 - 24) = v50;
@@ -3016,24 +3016,24 @@ LABEL_44:
           v58 = *(v53 + v56 + 32);
           v60 = *(v53 + v56 + 40);
           v59 = *(v53 + v56 + 48);
-          v178.origin.x = v46;
-          v178.origin.y = v48;
-          v178.size.width = v50;
-          v178.size.height = v52;
-          v180 = CGRectInset(v178, -2.0, -2.0);
-          v179.origin.x = v57;
-          v179.origin.y = v58;
-          v179.size.width = v60;
-          v179.size.height = v59;
-          if (!CGRectIntersectsRect(v179, v180))
+          v180.origin.x = v46;
+          v180.origin.y = v48;
+          v180.size.width = v50;
+          v180.size.height = v52;
+          v182 = CGRectInset(v180, -2.0, -2.0);
+          v181.origin.x = v57;
+          v181.origin.y = v58;
+          v181.size.width = v60;
+          v181.size.height = v59;
+          if (!CGRectIntersectsRect(v181, v182))
           {
             break;
           }
 
           ++v55;
-          v53 = v140;
+          v53 = v142;
           v56 += 64;
-          if (v55 >= (v141 - v140) >> 6)
+          if (v55 >= (v143 - v142) >> 6)
           {
             goto LABEL_44;
           }
@@ -3042,11 +3042,11 @@ LABEL_44:
         v63 = v53 + v56;
         std::vector<long>::push_back[abi:ne200100](v63, buf);
         *(v63 + 7) += v42;
-        v181.origin.x = v46;
-        v181.origin.y = v48;
-        v181.size.width = v50;
-        v181.size.height = v52;
-        *(v63 + 24) = CGRectUnion(*(v63 + 24), v181);
+        v183.origin.x = v46;
+        v183.origin.y = v48;
+        v183.size.width = v50;
+        v183.size.height = v52;
+        *(v63 + 24) = CGRectUnion(*(v63 + 24), v183);
         i = *buf;
       }
 
@@ -3054,12 +3054,12 @@ LABEL_44:
     }
   }
 
-  v109 = (v141 - v140) >> 6;
+  v109 = (v143 - v142) >> 6;
   if (v109 >= 1)
   {
     for (j = 0; j != v109; ++j)
     {
-      v65 = &v140[8 * j];
+      v65 = &v142[8 * j];
       obja = vcvtpd_s64_f64(v65[7] / v103);
       if (obja >= 2)
       {
@@ -3076,7 +3076,7 @@ LABEL_44:
         v69 = (8 * v67) >> 3;
         do
         {
-          if (v112 >= (v140[8 * j + 1] - v140[8 * j]) >> 3)
+          if (v112 >= (v142[8 * j + 1] - v142[8 * j]) >> 3)
           {
             break;
           }
@@ -3084,32 +3084,32 @@ LABEL_44:
           __p = 0;
           p_p = 0;
           v70 = *(MEMORY[0x1E695F050] + 16);
-          v134 = *MEMORY[0x1E695F050];
-          v135 = v70;
-          v133 = 0;
-          v136 = 0;
-          std::vector<Bucket>::push_back[abi:ne200100](&v140, &__p);
+          v136 = *MEMORY[0x1E695F050];
+          v137 = v70;
+          v135 = 0;
+          v138 = 0;
+          std::vector<Bucket>::push_back[abi:ne200100](&v142, &__p);
           if (__p)
           {
             operator delete(__p);
           }
 
-          v71 = &v140[8 * j];
+          v71 = &v142[8 * j];
           if (v69 >= 1)
           {
-            v72 = v141;
+            v72 = v143;
             v73 = (v71[1] - v68);
-            v75 = *(v141 - 56);
-            v74 = *(v141 - 48);
+            v75 = *(v143 - 56);
+            v74 = *(v143 - 48);
             if (v74 - v75 >= v68)
             {
-              memmove(*(v141 - 56), v71[1] - v68, v68);
+              memmove(*(v143 - 56), v71[1] - v68, v68);
               *(v72 - 56) = &v75[v68];
             }
 
             else
             {
-              v76 = *(v141 - 64);
+              v76 = *(v143 - 64);
               v77 = v69 + (&v75[-v76] >> 3);
               if (v77 >> 61)
               {
@@ -3134,7 +3134,7 @@ LABEL_44:
 
               if (v79)
               {
-                std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(v141 - 64, v79);
+                std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(v143 - 64, v79);
               }
 
               v80 = 8 * (&v75[-v76] >> 3);
@@ -3174,33 +3174,34 @@ LABEL_44:
     }
   }
 
-  v89 = (v158[7] - v158[6]) >> 3;
-  v137 = 0;
-  std::vector<NSArray<PKStroke *> * {__strong},std::allocator<NSArray<PKStroke *> * {__strong}>>::vector[abi:ne200100](&v138, v89);
+  v89 = (v160[7] - v160[6]) >> 3;
+  v139 = 0;
+  std::vector<NSArray<PKStroke *> * {__strong},std::allocator<NSArray<PKStroke *> * {__strong}>>::vector[abi:ne200100](&v140, v89, &v139);
   __p = MEMORY[0x1E69E9820];
   p_p = 3221225472;
-  v133 = ___ZL12sliceBucketsPNSt3__16vectorINS0_IN10ClipperLib8IntPointENS_9allocatorIS2_EEEENS3_IS5_EEEERNS0_IU8__strongP8PKStrokeNS3_ISB_EEEERNS0_I6BucketNS3_ISF_EEEERNS0_IU8__strongP7NSArrayISA_ENS3_ISM_EEEE_block_invoke;
-  *&v134 = &__block_descriptor_64_e8_v16__0Q8l;
-  *(&v134 + 1) = &v140;
-  *&v135 = v158 + 6;
-  *(&v135 + 1) = v104;
-  v136 = &v138;
-  dispatch_apply((v141 - v140) >> 6, 0, &__p);
+  v135 = ___ZL12sliceBucketsPNSt3__16vectorINS0_IN10ClipperLib8IntPointENS_9allocatorIS2_EEEENS3_IS5_EEEERNS0_IU8__strongP8PKStrokeNS3_ISB_EEEERNS0_I6BucketNS3_ISF_EEEERNS0_IU8__strongP7NSArrayISA_ENS3_ISM_EEEE_block_invoke;
+  *&v136 = &__block_descriptor_64_e8_v16__0Q8l;
+  *(&v136 + 1) = &v142;
+  *&v137 = v160 + 6;
+  *(&v137 + 1) = v104;
+  v138 = &v140;
+  dispatch_apply((v143 - v142) >> 6, 0, &__p);
   __p = 0;
   p_p = &__p;
-  v133 = 0x4812000000;
-  *&v134 = __Block_byref_object_copy__75;
-  *(&v134 + 1) = __Block_byref_object_dispose__76;
-  *&v135 = "";
-  v130[3] = 0;
-  std::vector<PKStroke * {__strong}>::vector[abi:ne200100](&v135 + 1, [v106 count]);
+  v135 = 0x4812000000;
+  *&v136 = __Block_byref_object_copy__75;
+  *(&v136 + 1) = __Block_byref_object_dispose__76;
+  *&v137 = "";
+  v132 = 0;
+  std::vector<PKStroke * {__strong}>::vector[abi:ne200100](&v137 + 1, [v106 count], &v132);
+  v125 = 0;
+  v126 = &v125;
+  v127 = 0x4812000000;
+  v128 = __Block_byref_object_copy__82;
+  v129 = __Block_byref_object_dispose__83;
+  v130 = "";
   v124 = 0;
-  v125 = &v124;
-  v126 = 0x4812000000;
-  v127 = __Block_byref_object_copy__82;
-  v128 = __Block_byref_object_dispose__83;
-  v129 = "";
-  std::vector<NSArray<PKStroke *> * {__strong},std::allocator<NSArray<PKStroke *> * {__strong}>>::vector[abi:ne200100](v130, [v106 count]);
+  std::vector<NSArray<PKStroke *> * {__strong},std::allocator<NSArray<PKStroke *> * {__strong}>>::vector[abi:ne200100](v131, [v106 count], &v124);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3321888768;
   aBlock[2] = __43__PKDrawing_Slicing__sliceWithEraseStroke___block_invoke_85;
@@ -3208,7 +3209,7 @@ LABEL_44:
   v90 = v107;
   v122 = v90;
   memset(v123, 0, sizeof(v123));
-  std::vector<NSArray<PKStroke *> * {__strong},std::allocator<NSArray<PKStroke *> * {__strong}>>::__init_with_size[abi:ne200100]<NSArray<PKStroke *> * {__strong}*,NSArray<PKStroke *> * {__strong}*>(v123, v138, v139, (v139 - v138) >> 3);
+  std::vector<NSArray<PKStroke *> * {__strong},std::allocator<NSArray<PKStroke *> * {__strong}>>::__init_with_size[abi:ne200100]<NSArray<PKStroke *> * {__strong}*,NSArray<PKStroke *> * {__strong}*>(v123, v140, v141, v141 - v140);
   v91 = _Block_copy(aBlock);
   v92 = [v106 count];
   v115[0] = MEMORY[0x1E69E9820];
@@ -3218,7 +3219,7 @@ LABEL_44:
   v93 = v106;
   v116 = v93;
   v119 = &__p;
-  v120 = &v124;
+  v120 = &v125;
   v94 = v91;
   selfCopy = self;
   v118 = v94;
@@ -3229,20 +3230,20 @@ LABEL_44:
   v95 = os_log_create("com.apple.pencilkit", "Sketching");
   if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
   {
-    v96 = v166;
-    v97 = v165;
+    v96 = v168;
+    v97 = v167;
     v98 = [strokes count];
     [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
     *buf = 134218496;
     *&buf[4] = (v96 - v97) >> 3;
-    v169 = 2048;
-    v170 = v98;
     v171 = 2048;
-    v172 = v99 - v102;
+    v172 = v98;
+    v173 = 2048;
+    v174 = v99 - v102;
     _os_log_impl(&dword_1C7CCA000, v95, OS_LOG_TYPE_DEFAULT, "Sliced %ld/%ld strokes in %fs.", buf, 0x20u);
   }
 
-  if (v166 == v165 || *(p_p + 56) == *(p_p + 48) || v125[7] == v125[6])
+  if (v168 == v167 || *(p_p + 56) == *(p_p + 48) || v126[7] == v126[6])
   {
     v100 = 0;
   }
@@ -3255,24 +3256,24 @@ LABEL_44:
   *buf = v123;
   std::vector<PKStroke * {__strong}>::__destroy_vector::operator()[abi:ne200100](buf);
 
-  _Block_object_dispose(&v124, 8);
-  *buf = v130;
+  _Block_object_dispose(&v125, 8);
+  *buf = v131;
   std::vector<PKStroke * {__strong}>::__destroy_vector::operator()[abi:ne200100](buf);
   _Block_object_dispose(&__p, 8);
-  v124 = &v135 + 1;
-  std::vector<PKStroke * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v124);
-  __p = &v138;
-  std::vector<PKStroke * {__strong}>::__destroy_vector::operator()[abi:ne200100](&__p);
+  v125 = &v137 + 1;
+  std::vector<PKStroke * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v125);
   __p = &v140;
+  std::vector<PKStroke * {__strong}>::__destroy_vector::operator()[abi:ne200100](&__p);
+  __p = &v142;
   std::vector<Bucket>::__destroy_vector::operator()[abi:ne200100](&__p);
 
-  _Block_object_dispose(&v157, 8);
-  __p = v163;
+  _Block_object_dispose(&v159, 8);
+  __p = v165;
   std::vector<PKStroke * {__strong}>::__destroy_vector::operator()[abi:ne200100](&__p);
-  if (v165)
+  if (v167)
   {
-    v166 = v165;
-    operator delete(v165);
+    v168 = v167;
+    operator delete(v167);
   }
 
   return v100;
@@ -3505,15 +3506,15 @@ LABEL_14:
 
 void __60__PKDrawing_Slicing__clipStrokesIfNeededOnQueue_completion___block_invoke(uint64_t a1)
 {
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x4812000000;
-  v21[3] = __Block_byref_object_copy__75;
-  v21[4] = __Block_byref_object_dispose__76;
-  v21[5] = "";
+  v22[0] = 0;
+  v22[1] = v22;
+  v22[2] = 0x4812000000;
+  v22[3] = __Block_byref_object_copy__75;
+  v22[4] = __Block_byref_object_dispose__76;
+  v22[5] = "";
   v2 = (*(*(*(a1 + 56) + 8) + 56) - *(*(*(a1 + 56) + 8) + 48)) >> 3;
-  v20[3] = 0;
-  std::vector<PKStroke * {__strong}>::vector[abi:ne200100](v22, v2);
+  v21 = 0;
+  std::vector<PKStroke * {__strong}>::vector[abi:ne200100](v23, v2, &v21);
   v19[0] = 0;
   v19[1] = v19;
   v19[2] = 0x4812000000;
@@ -3522,7 +3523,7 @@ void __60__PKDrawing_Slicing__clipStrokesIfNeededOnQueue_completion___block_invo
   v19[5] = "";
   v3 = (*(*(*(a1 + 56) + 8) + 56) - *(*(*(a1 + 56) + 8) + 48)) >> 3;
   v18 = 0;
-  std::vector<NSArray<PKStroke *> * {__strong},std::allocator<NSArray<PKStroke *> * {__strong}>>::vector[abi:ne200100](v20, v3);
+  std::vector<NSArray<PKStroke *> * {__strong},std::allocator<NSArray<PKStroke *> * {__strong}>>::vector[abi:ne200100](v20, v3, &v18);
   v4 = *(a1 + 56);
   v5 = (*(*(v4 + 8) + 56) - *(*(v4 + 8) + 48)) >> 3;
   v9 = MEMORY[0x1E69E9820];
@@ -3530,7 +3531,7 @@ void __60__PKDrawing_Slicing__clipStrokesIfNeededOnQueue_completion___block_invo
   v11 = __60__PKDrawing_Slicing__clipStrokesIfNeededOnQueue_completion___block_invoke_2;
   v12 = &unk_1E82D9B08;
   v15 = v4;
-  v16 = v21;
+  v16 = v22;
   v6 = *(a1 + 32);
   v17 = v19;
   v7 = *(a1 + 40);
@@ -3541,10 +3542,10 @@ void __60__PKDrawing_Slicing__clipStrokesIfNeededOnQueue_completion___block_invo
   (*(*(a1 + 48) + 16))();
 
   _Block_object_dispose(v19, 8);
-  v23 = v20;
-  std::vector<PKStroke * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v23);
-  _Block_object_dispose(v21, 8);
-  v19[0] = v22;
+  v24 = v20;
+  std::vector<PKStroke * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v24);
+  _Block_object_dispose(v22, 8);
+  v19[0] = v23;
   std::vector<PKStroke * {__strong}>::__destroy_vector::operator()[abi:ne200100](v19);
 }
 
@@ -4605,7 +4606,7 @@ LABEL_17:
         }
 
         v13 = [v7 ink];
-        if ([v13 version] == 2)
+        if (objc_msgSend_version(v13) == 2)
         {
           v5 = +[PKDrawing _currentSerializationVersion];
 

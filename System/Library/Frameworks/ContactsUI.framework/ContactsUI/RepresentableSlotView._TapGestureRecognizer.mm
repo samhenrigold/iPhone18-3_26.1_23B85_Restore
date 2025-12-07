@@ -8,7 +8,7 @@
 - (void)touchesEnded:(id)ended withEvent:(id)event
 {
   sub_199B23B64();
-  sub_199B23B1C(&qword_1EAF74CC8, sub_199B23B64);
+  sub_199B23B1C(&qword_1EAF74CC8, sub_199B23B64, MEMORY[0x1E69E81B8]);
   v6 = sub_199DFA24C();
   eventCopy = event;
   selfCopy = self;

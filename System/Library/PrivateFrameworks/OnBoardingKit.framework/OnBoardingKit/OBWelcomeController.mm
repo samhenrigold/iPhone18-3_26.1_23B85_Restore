@@ -43,17 +43,24 @@
 - (void)applicationDidBecomeActive:(id)active;
 - (void)loadView;
 - (void)restoreNavigationBarAppearance;
+- (void)scrollRectToVisible:(CGRect)visible animated:(BOOL)animated;
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)setBackgroundColor:(id)color;
 - (void)setCallbackForLifeCyclePhase:(unint64_t)phase callback:(id)callback;
+- (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated;
 - (void)setScrollingDisabled:(BOOL)disabled;
 - (void)setTemplateType:(unint64_t)type;
 - (void)setupBulletedListIfNeeded;
 - (void)traitCollectionDidChange:(id)change;
 - (void)triggerCallbackForLifeCyclePhase:(unint64_t)phase;
 - (void)updateDirectionalLayoutMargins;
+- (void)updateNavigationBarAnimated:(BOOL)animated;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
@@ -90,6 +97,26 @@
     (*(v8 + 16))(v8, self);
     v7 = v8;
   }
+}
+
+- (void)setContentOffset:(CGPoint)offset animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  y = offset.y;
+  x = offset.x;
+  scrollView = [(OBWelcomeController *)self scrollView];
+  [scrollView setContentOffset:animatedCopy animated:{x, y}];
+}
+
+- (void)scrollRectToVisible:(CGRect)visible animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  height = visible.size.height;
+  width = visible.size.width;
+  y = visible.origin.y;
+  x = visible.origin.x;
+  scrollView = [(OBWelcomeController *)self scrollView];
+  [scrollView scrollRectToVisible:animatedCopy animated:{x, y, width, height}];
 }
 
 - (void)addBulletedListItemWithTitle:(id)title description:(id)description image:(id)image tintColor:(id)color linkButton:(id)button
@@ -132,7 +159,7 @@
 
 - (void)_animatePushTransitionForViews:(id)views transitionSubtype:(id)subtype
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   viewsCopy = views;
   subtypeCopy = subtype;
   animation = [MEMORY[0x1E6979538] animation];
@@ -156,27 +183,27 @@
   }
 
   [animation setSubtype:subtypeCopy];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v12 = viewsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v23;
+    v15 = *v22;
     v16 = *MEMORY[0x1E697A028];
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v22 + 1) + 8 * i);
+        v18 = *(*(&v21 + 1) + 8 * i);
         layer = [v18 layer];
         [layer removeAllAnimations];
 
@@ -184,13 +211,11 @@
         [layer2 addAnimation:animation forKey:v16];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v14);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (OBWelcomeController)initWithTitle:(id)title detailText:(id)text appName:(id)name icon:(id)icon
@@ -386,6 +411,110 @@
   [(OBWelcomeController *)self triggerCallbackForLifeCyclePhase:0];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v14.receiver = self;
+  v14.super_class = OBWelcomeController;
+  [(OBWelcomeController *)&v14 viewWillAppear:appear];
+  [(OBWelcomeController *)self _registerForKeyboardNotifications];
+  navigationController = [(OBWelcomeController *)self navigationController];
+  [(OBWelcomeController *)self setRetainedNavigationController:navigationController];
+
+  cachedBarState = [(OBWelcomeController *)self cachedBarState];
+
+  if (!cachedBarState)
+  {
+    navigationController2 = [(OBWelcomeController *)self navigationController];
+    navigationBar = [navigationController2 navigationBar];
+    v8 = [OBNavigationBarDisplayState displayStateForNavigationBar:navigationBar];
+    [(OBWelcomeController *)self setCachedBarState:v8];
+  }
+
+  [(OBWelcomeController *)self updateDirectionalLayoutMargins];
+  view = [(OBWelcomeController *)self view];
+  [view setNeedsUpdateConstraints];
+
+  [(OBWelcomeController *)self _layoutButtonTray];
+  if (+[OBViewUtilities shouldUseAccessibilityLayout])
+  {
+    view2 = [(OBWelcomeController *)self view];
+    [view2 layoutIfNeeded];
+  }
+
+  if ([(OBWelcomeController *)self disableButtonsUntilAllContentWasVisable])
+  {
+    buttonTray = [(OBWelcomeController *)self buttonTray];
+    buttons = [buttonTray buttons];
+    [buttons enumerateObjectsUsingBlock:&__block_literal_global_7];
+  }
+
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __38__OBWelcomeController_viewWillAppear___block_invoke_2;
+  block[3] = &unk_1E7C15590;
+  block[4] = self;
+  dispatch_async(MEMORY[0x1E69E96A0], block);
+  [(OBWelcomeController *)self triggerCallbackForLifeCyclePhase:1];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v13.receiver = self;
+  v13.super_class = OBWelcomeController;
+  [(OBBaseWelcomeController *)&v13 viewDidAppear:appear];
+  if ([(OBWelcomeController *)self _scrollViewContentIsUnderTray])
+  {
+    scrollView = [(OBWelcomeController *)self scrollView];
+    [scrollView flashScrollIndicators];
+  }
+
+  [(OBWelcomeController *)self contentViewsTopPaddingFromBottomOfHeader];
+  v6 = v5;
+  contentViewTopOffsetConstraint = [(OBWelcomeController *)self contentViewTopOffsetConstraint];
+  [contentViewTopOffsetConstraint setConstant:v6];
+
+  scrollView2 = [(OBWelcomeController *)self scrollView];
+  [(OBWelcomeController *)self _enableTrayButtonsForScrollToBottom:scrollView2];
+
+  mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
+  applicationState = [mEMORY[0x1E69DC668] applicationState];
+
+  if (applicationState)
+  {
+    v11 = 1;
+  }
+
+  else
+  {
+    headerView = [(OBWelcomeController *)self headerView];
+    [headerView startSymbolAnimation];
+
+    v11 = 0;
+  }
+
+  self->_symbolNeedsAnimation = v11;
+  [(OBWelcomeController *)self triggerCallbackForLifeCyclePhase:2];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = OBWelcomeController;
+  [(OBBaseWelcomeController *)&v4 viewWillDisappear:disappear];
+  [(OBWelcomeController *)self _unregisterForKeyboardNotifications];
+  [(OBWelcomeController *)self triggerCallbackForLifeCyclePhase:3];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = OBWelcomeController;
+  [(OBBaseWelcomeController *)&v4 viewDidDisappear:disappear];
+  [(OBWelcomeController *)self setKeyboardFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  [(OBWelcomeController *)self restoreNavigationBarAppearance];
+  [(OBWelcomeController *)self triggerCallbackForLifeCyclePhase:4];
+}
+
 - (void)applicationDidBecomeActive:(id)active
 {
   if (self->_symbolNeedsAnimation)
@@ -492,25 +621,29 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
     v11 = [MEMORY[0x1E69DC938] currentDevice];
     v12 = [v11 userInterfaceIdiom];
 
-    if ((v12 & 0xFFFFFFFFFFFFFFFBLL) != 1 && [*v2 contentViewLayout] != 2)
+    if ((v12 & 0xFFFFFFFFFFFFFFFBLL) != 1)
     {
-      v13 = _OBLoggingFacility();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v13 = [*v2 contentViewLayout];
+      if (v13 != 2)
       {
-        __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_cold_1(v2, v13);
+        v14 = _OBLoggingFacility(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+        {
+          __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_cold_1(v2, v14);
+        }
       }
     }
   }
 
-  v14 = [*(a1 + 32) view];
-  [v14 frame];
-  v20.origin.x = v15;
-  v20.origin.y = v16;
-  v20.size.width = v17;
-  v20.size.height = v18;
-  v19 = CGRectEqualToRect(*(a1 + 48), v20);
+  v15 = [*(a1 + 32) view];
+  [v15 frame];
+  v21.origin.x = v16;
+  v21.origin.y = v17;
+  v21.size.width = v18;
+  v21.size.height = v19;
+  v20 = CGRectEqualToRect(*(a1 + 48), v21);
 
-  if (!v19)
+  if (!v20)
   {
     [*v2 _layoutButtonTray];
   }
@@ -577,7 +710,7 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
 
 - (void)_setupNavigationBarBleed
 {
-  v34[4] = *MEMORY[0x1E69E9840];
+  v33[4] = *MEMORY[0x1E69E9840];
   navigationItem = [(OBBaseWelcomeController *)self navigationItem];
   [navigationItem _setBackgroundHidden:1];
 
@@ -596,35 +729,33 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
   bleedView3 = [(OBWelcomeController *)self bleedView];
   [view insertSubview:bleedView3 atIndex:0];
 
-  v24 = MEMORY[0x1E696ACD8];
+  v23 = MEMORY[0x1E696ACD8];
   bleedView4 = [(OBWelcomeController *)self bleedView];
   topAnchor = [bleedView4 topAnchor];
   view2 = [(OBWelcomeController *)self view];
   topAnchor2 = [view2 topAnchor];
-  v29 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v34[0] = v29;
+  v28 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v33[0] = v28;
   bleedView5 = [(OBWelcomeController *)self bleedView];
   leftAnchor = [bleedView5 leftAnchor];
   scrollContentView = [(OBWelcomeController *)self scrollContentView];
   leftAnchor2 = [scrollContentView leftAnchor];
-  v23 = [leftAnchor constraintEqualToAnchor:leftAnchor2 constant:0.0];
-  v34[1] = v23;
+  v22 = [leftAnchor constraintEqualToAnchor:leftAnchor2 constant:0.0];
+  v33[1] = v22;
   bleedView6 = [(OBWelcomeController *)self bleedView];
   widthAnchor = [bleedView6 widthAnchor];
   scrollContentView2 = [(OBWelcomeController *)self scrollContentView];
   widthAnchor2 = [scrollContentView2 widthAnchor];
   v14 = [widthAnchor constraintEqualToAnchor:widthAnchor2 multiplier:1.0];
-  v34[2] = v14;
+  v33[2] = v14;
   bleedView7 = [(OBWelcomeController *)self bleedView];
   bottomAnchor = [bleedView7 bottomAnchor];
   contentView2 = [(OBWelcomeController *)self contentView];
   bottomAnchor2 = [contentView2 bottomAnchor];
   v19 = [bottomAnchor constraintGreaterThanOrEqualToAnchor:bottomAnchor2];
-  v34[3] = v19;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:4];
-  [v24 activateConstraints:v20];
-
-  v21 = *MEMORY[0x1E69E9840];
+  v33[3] = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:4];
+  [v23 activateConstraints:v20];
 }
 
 - (void)_safelyAddConstraint:(id)constraint to:(id)to
@@ -643,7 +774,7 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
 
 - (void)_setupScrollView
 {
-  v235[2] = *MEMORY[0x1E69E9840];
+  v234[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69DCEF8]);
   v4 = *MEMORY[0x1E695F058];
   v5 = *(MEMORY[0x1E695F058] + 8);
@@ -786,7 +917,7 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
   [(OBWelcomeController *)self _safelyAddConstraint:v80 to:array];
 
   buttonTrayScrollContainerHeightConstraint = [(OBWelcomeController *)self buttonTrayScrollContainerHeightConstraint];
-  v228 = array;
+  v227 = array;
   [(OBWelcomeController *)self _safelyAddConstraint:buttonTrayScrollContainerHeightConstraint to:array];
 
   scrollContentView12 = [(OBWelcomeController *)self scrollContentView];
@@ -804,16 +935,16 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
       headerView4 = [(OBWelcomeController *)self headerView];
       leadingAnchor2 = [headerView4 leadingAnchor];
       v87 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-      v235[0] = v87;
+      v234[0] = v87;
       scrollContentView14 = [(OBWelcomeController *)self scrollContentView];
       layoutMarginsGuide2 = [scrollContentView14 layoutMarginsGuide];
       trailingAnchor = [layoutMarginsGuide2 trailingAnchor];
       headerView5 = [(OBWelcomeController *)self headerView];
       trailingAnchor2 = [headerView5 trailingAnchor];
       v93 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-      v235[1] = v93;
-      v94 = [MEMORY[0x1E695DEC8] arrayWithObjects:v235 count:2];
-      [v228 addObjectsFromArray:v94];
+      v234[1] = v93;
+      v94 = [MEMORY[0x1E695DEC8] arrayWithObjects:v234 count:2];
+      [v227 addObjectsFromArray:v94];
 
       v83 = 0x1E695D000uLL;
     }
@@ -824,15 +955,15 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
   view4 = [(OBWelcomeController *)self view];
   leftAnchor4 = [view4 leftAnchor];
   v97 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4 constant:0.0];
-  v234[0] = v97;
+  v233[0] = v97;
   scrollView17 = [(OBWelcomeController *)self scrollView];
   rightAnchor3 = [scrollView17 rightAnchor];
   view5 = [(OBWelcomeController *)self view];
   rightAnchor4 = [view5 rightAnchor];
   v102 = [rightAnchor3 constraintEqualToAnchor:rightAnchor4 constant:0.0];
-  v234[1] = v102;
-  v103 = [*(v83 + 3784) arrayWithObjects:v234 count:2];
-  [v228 addObjectsFromArray:v103];
+  v233[1] = v102;
+  v103 = [*(v83 + 3784) arrayWithObjects:v233 count:2];
+  [v227 addObjectsFromArray:v103];
 
   LODWORD(scrollView17) = +[OBFeatureFlags isNaturalUIEnabled];
   scrollView18 = [(OBWelcomeController *)self scrollView];
@@ -843,8 +974,8 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
   {
     topAnchor4 = [view6 topAnchor];
     v108TopAnchor = [topAnchor3 constraintEqualToAnchor:topAnchor4 constant:0.0];
-    v110 = v228;
-    [v228 addObject:v108TopAnchor];
+    v110 = v227;
+    [v227 addObject:v108TopAnchor];
   }
 
   else
@@ -852,9 +983,9 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
     topAnchor4 = [view6 safeAreaLayoutGuide];
     v108TopAnchor = [topAnchor4 topAnchor];
     v111 = [topAnchor3 constraintEqualToAnchor:v108TopAnchor constant:0.0];
-    [v228 addObject:v111];
+    [v227 addObject:v111];
 
-    v110 = v228;
+    v110 = v227;
   }
 
   [MEMORY[0x1E696ACD8] activateConstraints:v110];
@@ -876,25 +1007,25 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
       v140 = [heightAnchor2 constraintEqualToConstant:?];
       [(OBWelcomeController *)self setContentViewHeightConstraint:v140];
 
-      v203 = MEMORY[0x1E696ACD8];
+      v202 = MEMORY[0x1E696ACD8];
       contentViewTopOffsetConstraint = [(OBWelcomeController *)self contentViewTopOffsetConstraint];
-      v233[0] = contentViewTopOffsetConstraint;
+      v232[0] = contentViewTopOffsetConstraint;
       contentView4 = [(OBWelcomeController *)self contentView];
       leftAnchor5 = [contentView4 leftAnchor];
       scrollContentView16 = [(OBWelcomeController *)self scrollContentView];
       leftAnchor6 = [scrollContentView16 leftAnchor];
       v142 = [leftAnchor5 constraintEqualToAnchor:leftAnchor6 constant:0.0];
-      v233[1] = v142;
+      v232[1] = v142;
       contentView5 = [(OBWelcomeController *)self contentView];
       widthAnchor5 = [contentView5 widthAnchor];
       scrollContentView17 = [(OBWelcomeController *)self scrollContentView];
       widthAnchor6 = [scrollContentView17 widthAnchor];
       v147 = [widthAnchor5 constraintEqualToAnchor:widthAnchor6 multiplier:1.0];
-      v233[2] = v147;
+      v232[2] = v147;
       contentViewHeightConstraint = [(OBWelcomeController *)self contentViewHeightConstraint];
-      v233[3] = contentViewHeightConstraint;
-      v149 = [MEMORY[0x1E695DEC8] arrayWithObjects:v233 count:4];
-      [v203 activateConstraints:v149];
+      v232[3] = contentViewHeightConstraint;
+      v149 = [MEMORY[0x1E695DEC8] arrayWithObjects:v232 count:4];
+      [v202 activateConstraints:v149];
 
       [(OBWelcomeController *)self _setupNavigationBarBleed];
       if ([(OBWelcomeController *)self contentViewLayout]!= 4)
@@ -905,8 +1036,8 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
         headerView6 = [(OBWelcomeController *)self headerView];
         bottomAnchor7 = [headerView6 bottomAnchor];
         v129 = [topAnchor7 constraintEqualToAnchor:bottomAnchor7 constant:0.0];
-        v231 = v129;
-        v128 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v231 count:1];
+        v230 = v129;
+        v128 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v230 count:1];
         [v182 activateConstraints:v128];
         goto LABEL_26;
       }
@@ -926,36 +1057,36 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
       v157 = [topAnchor8 constraintEqualToAnchor:bottomAnchor8 constant:?];
       [(OBWelcomeController *)self setSecondaryContentViewTopOffsetConstraint:v157];
 
-      v194 = MEMORY[0x1E696ACD8];
+      v193 = MEMORY[0x1E696ACD8];
       secondaryContentViewTopOffsetConstraint = [(OBWelcomeController *)self secondaryContentViewTopOffsetConstraint];
-      v232[0] = secondaryContentViewTopOffsetConstraint;
+      v231[0] = secondaryContentViewTopOffsetConstraint;
       secondaryContentView4 = [(OBWelcomeController *)self secondaryContentView];
       leftAnchor7 = [secondaryContentView4 leftAnchor];
       scrollContentView19 = [(OBWelcomeController *)self scrollContentView];
       layoutMarginsGuide3 = [scrollContentView19 layoutMarginsGuide];
       leftAnchor8 = [layoutMarginsGuide3 leftAnchor];
       contentView8 = [leftAnchor7 constraintEqualToAnchor:leftAnchor8 constant:0.0];
-      v232[1] = contentView8;
+      v231[1] = contentView8;
       secondaryContentView5 = [(OBWelcomeController *)self secondaryContentView];
       widthAnchor7 = [secondaryContentView5 widthAnchor];
       headerView8 = [(OBWelcomeController *)self headerView];
       widthAnchor8 = [headerView8 widthAnchor];
-      v188 = [widthAnchor7 constraintEqualToAnchor:widthAnchor8 multiplier:1.0];
-      v232[2] = v188;
+      v187 = [widthAnchor7 constraintEqualToAnchor:widthAnchor8 multiplier:1.0];
+      v231[2] = v187;
       secondaryContentView6 = [(OBWelcomeController *)self secondaryContentView];
       bottomAnchor9 = [secondaryContentView6 bottomAnchor];
       buttonTrayScrollContainerView7 = [(OBWelcomeController *)self buttonTrayScrollContainerView];
       topAnchor9 = [buttonTrayScrollContainerView7 topAnchor];
       v160 = [bottomAnchor9 constraintEqualToAnchor:topAnchor9 constant:0.0];
-      v232[3] = v160;
+      v231[3] = v160;
       buttonTrayScrollContainerView8 = [(OBWelcomeController *)self buttonTrayScrollContainerView];
       topAnchor10 = [buttonTrayScrollContainerView8 topAnchor];
       secondaryContentView7 = [(OBWelcomeController *)self secondaryContentView];
       bottomAnchor10 = [secondaryContentView7 bottomAnchor];
       v165 = [topAnchor10 constraintEqualToAnchor:bottomAnchor10 constant:0.0];
-      v232[4] = v165;
-      v166 = [MEMORY[0x1E695DEC8] arrayWithObjects:v232 count:5];
-      [v194 activateConstraints:v166];
+      v231[4] = v165;
+      v166 = [MEMORY[0x1E695DEC8] arrayWithObjects:v231 count:5];
+      [v193 activateConstraints:v166];
 
       v128 = leftAnchor8;
       v129 = layoutMarginsGuide3;
@@ -981,29 +1112,29 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
         v117 = [topAnchor11 constraintEqualToAnchor:bottomAnchor11 constant:?];
         [(OBWelcomeController *)self setContentViewTopOffsetConstraint:v117];
 
-        v199 = MEMORY[0x1E696ACD8];
+        v198 = MEMORY[0x1E696ACD8];
         contentViewTopOffsetConstraint2 = [(OBWelcomeController *)self contentViewTopOffsetConstraint];
-        v229[0] = contentViewTopOffsetConstraint2;
+        v228[0] = contentViewTopOffsetConstraint2;
         contentView7 = [(OBWelcomeController *)self contentView];
         leftAnchor9 = [contentView7 leftAnchor];
         scrollContentView20 = [(OBWelcomeController *)self scrollContentView];
         leftAnchor10 = [scrollContentView20 leftAnchor];
         v118 = [leftAnchor9 constraintEqualToAnchor:leftAnchor10 constant:0.0];
-        v229[1] = v118;
+        v228[1] = v118;
         contentView8 = [(OBWelcomeController *)self contentView];
         widthAnchor9 = [contentView8 widthAnchor];
         scrollContentView21 = [(OBWelcomeController *)self scrollContentView];
         widthAnchor10 = [scrollContentView21 widthAnchor];
         v120 = [widthAnchor9 constraintEqualToAnchor:widthAnchor10 multiplier:1.0];
-        v229[2] = v120;
+        v228[2] = v120;
         contentView9 = [(OBWelcomeController *)self contentView];
         bottomAnchor12 = [contentView9 bottomAnchor];
         buttonTrayScrollContainerView9 = [(OBWelcomeController *)self buttonTrayScrollContainerView];
         topAnchor12 = [buttonTrayScrollContainerView9 topAnchor];
         v125 = [bottomAnchor12 constraintEqualToAnchor:topAnchor12 constant:0.0];
-        v229[3] = v125;
-        v126 = [MEMORY[0x1E695DEC8] arrayWithObjects:v229 count:4];
-        [v199 activateConstraints:v126];
+        v228[3] = v125;
+        v126 = [MEMORY[0x1E695DEC8] arrayWithObjects:v228 count:4];
+        [v198 activateConstraints:v126];
 
         buttonTrayScrollContainerView6 = contentViewTopOffsetConstraint2;
         v128 = v118;
@@ -1030,30 +1161,30 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
         v172 = [topAnchor13 constraintEqualToAnchor:bottomAnchor13 constant:?];
         [(OBWelcomeController *)self setContentViewTopOffsetConstraint:v172];
 
-        v197 = MEMORY[0x1E696ACD8];
+        v196 = MEMORY[0x1E696ACD8];
         contentViewTopOffsetConstraint3 = [(OBWelcomeController *)self contentViewTopOffsetConstraint];
-        v230[0] = contentViewTopOffsetConstraint3;
+        v229[0] = contentViewTopOffsetConstraint3;
         contentView11 = [(OBWelcomeController *)self contentView];
         leftAnchor11 = [contentView11 leftAnchor];
         scrollContentView22 = [(OBWelcomeController *)self scrollContentView];
         layoutMarginsGuide4 = [scrollContentView22 layoutMarginsGuide];
         leftAnchor12 = [layoutMarginsGuide4 leftAnchor];
         contentView8 = [leftAnchor11 constraintEqualToAnchor:leftAnchor12 constant:0.0];
-        v230[1] = contentView8;
+        v229[1] = contentView8;
         widthAnchor9 = [(OBWelcomeController *)self contentView];
-        v193WidthAnchor = [widthAnchor9 widthAnchor];
+        v192WidthAnchor = [widthAnchor9 widthAnchor];
         headerView11 = [(OBWelcomeController *)self headerView];
         widthAnchor11 = [headerView11 widthAnchor];
-        v175 = [v193WidthAnchor constraintEqualToAnchor:widthAnchor11 multiplier:1.0];
-        v230[2] = v175;
+        v175 = [v192WidthAnchor constraintEqualToAnchor:widthAnchor11 multiplier:1.0];
+        v229[2] = v175;
         contentView12 = [(OBWelcomeController *)self contentView];
         bottomAnchor14 = [contentView12 bottomAnchor];
         buttonTrayScrollContainerView10 = [(OBWelcomeController *)self buttonTrayScrollContainerView];
         topAnchor14 = [buttonTrayScrollContainerView10 topAnchor];
         v180 = [bottomAnchor14 constraintEqualToAnchor:topAnchor14 constant:0.0];
-        v230[3] = v180;
-        v181 = [MEMORY[0x1E695DEC8] arrayWithObjects:v230 count:4];
-        [v197 activateConstraints:v181];
+        v229[3] = v180;
+        v181 = [MEMORY[0x1E695DEC8] arrayWithObjects:v229 count:4];
+        [v196 activateConstraints:v181];
 
         buttonTrayScrollContainerView6 = contentViewTopOffsetConstraint3;
         v128 = leftAnchor12;
@@ -1069,7 +1200,7 @@ void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinato
     }
 
 LABEL_26:
-    v110 = v228;
+    v110 = v227;
   }
 
 LABEL_27:
@@ -1082,13 +1213,11 @@ LABEL_27:
     scrollView19 = [(OBWelcomeController *)self scrollView];
     [(OBWelcomeController *)self setContentScrollView:scrollView19 forEdge:4];
   }
-
-  v185 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupBulletedListIfNeeded
 {
-  v48[4] = *MEMORY[0x1E69E9840];
+  v47[4] = *MEMORY[0x1E69E9840];
   bulletedList = [(OBWelcomeController *)self bulletedList];
 
   if (!bulletedList)
@@ -1138,30 +1267,28 @@ LABEL_27:
     bulletedList8 = [(OBWelcomeController *)self bulletedList];
     [bulletedList8 setTrailingConstraint:v29];
 
-    v42 = MEMORY[0x1E696ACD8];
+    v41 = MEMORY[0x1E696ACD8];
     bulletedList9 = [(OBWelcomeController *)self bulletedList];
     leadingConstraint = [bulletedList9 leadingConstraint];
-    v48[0] = leadingConstraint;
+    v47[0] = leadingConstraint;
     bulletedList10 = [(OBWelcomeController *)self bulletedList];
     trailingConstraint = [bulletedList10 trailingConstraint];
-    v48[1] = trailingConstraint;
+    v47[1] = trailingConstraint;
     contentView5 = [(OBWelcomeController *)self contentView];
     topAnchor2 = [contentView5 topAnchor];
     bulletedList11 = [(OBWelcomeController *)self bulletedList];
     topAnchor3 = [bulletedList11 topAnchor];
     v34 = [topAnchor2 constraintEqualToAnchor:topAnchor3];
-    v48[2] = v34;
+    v47[2] = v34;
     contentView6 = [(OBWelcomeController *)self contentView];
     bottomAnchor2 = [contentView6 bottomAnchor];
     bulletedList12 = [(OBWelcomeController *)self bulletedList];
     bottomAnchor3 = [bulletedList12 bottomAnchor];
     v39 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-    v48[3] = v39;
-    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:4];
-    [v42 activateConstraints:v40];
+    v47[3] = v39;
+    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:4];
+    [v41 activateConstraints:v40];
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (double)contentViewsTopPaddingFromBottomOfHeader
@@ -1291,23 +1418,7 @@ LABEL_6:
 - (double)_contentViewHeight
 {
   parentViewController = [(OBWelcomeController *)self parentViewController];
-  if (!parentViewController)
-  {
-    goto LABEL_24;
-  }
-
-  v4 = parentViewController;
-  contentViewHeightConstraintsBlock = [(OBWelcomeController *)self contentViewHeightConstraintsBlock];
-
-  if (!contentViewHeightConstraintsBlock)
-  {
-    goto LABEL_24;
-  }
-
-  contentViewHeightConstraintsBlock2 = [(OBWelcomeController *)self contentViewHeightConstraintsBlock];
-  v7 = contentViewHeightConstraintsBlock2[2]();
-
-  if (v7)
+  if (parentViewController && (v4 = parentViewController, [(OBWelcomeController *)self contentViewHeightConstraintsBlock], v5 = objc_claimAutoreleasedReturnValue(), v5, v4, v5) && ([(OBWelcomeController *)self contentViewHeightConstraintsBlock], v6 = objc_claimAutoreleasedReturnValue(), v6[2](), v7 = objc_claimAutoreleasedReturnValue(), v6, v7))
   {
     if (([v7 isActive] & 1) == 0)
     {
@@ -1322,81 +1433,66 @@ LABEL_6:
     v11 = v10;
   }
 
-  else
+  else if ([(OBWelcomeController *)self _usesAboveHeaderFullWidthLayout]|| (v11 = 0.0, [(OBWelcomeController *)self contentViewLayout]== 4))
   {
-LABEL_24:
-    if ([(OBWelcomeController *)self _usesAboveHeaderFullWidthLayout]|| (v11 = 0.0, [(OBWelcomeController *)self contentViewLayout]== 4))
+    v12 = +[OBDevice currentDevice];
+    type = [v12 type];
+
+    if (type == 2)
     {
-      v12 = +[OBDevice currentDevice];
-      type = [v12 type];
-
-      if (type == 2)
+      presentingViewController = [(OBWelcomeController *)self presentingViewController];
+      if (presentingViewController && (v15 = presentingViewController, -[OBWelcomeController presentingViewController](self, "presentingViewController"), v16 = objc_claimAutoreleasedReturnValue(), [v16 presentedViewController], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "modalPresentationStyle"), v17, v16, v15, v18))
       {
-        presentingViewController = [(OBWelcomeController *)self presentingViewController];
-        if (!presentingViewController)
-        {
-          goto LABEL_17;
-        }
-
-        v15 = presentingViewController;
-        presentingViewController2 = [(OBWelcomeController *)self presentingViewController];
-        presentedViewController = [presentingViewController2 presentedViewController];
-        modalPresentationStyle = [presentedViewController modalPresentationStyle];
-
-        if (modalPresentationStyle)
-        {
-          v34.receiver = self;
-          v34.super_class = OBWelcomeController;
-          [(OBBaseWelcomeController *)&v34 preferredContentSize];
-        }
-
-        else
-        {
-LABEL_17:
-          v27 = +[OBUtilities mainScreen];
-          [v27 bounds];
-          v29 = v28;
-
-          v30 = +[OBUtilities mainScreen];
-          [v30 bounds];
-          v32 = v31;
-
-          if (v29 >= v32)
-          {
-            v19 = v29;
-          }
-
-          else
-          {
-            v19 = v32;
-          }
-        }
-
-        return v19 * 0.36;
+        v34.receiver = self;
+        v34.super_class = OBWelcomeController;
+        [(OBBaseWelcomeController *)&v34 preferredContentSize];
       }
 
       else
       {
-        v20 = +[OBUtilities mainScreen];
-        [v20 bounds];
-        v22 = v21;
+        v27 = +[OBUtilities mainScreen];
+        [v27 bounds];
+        v29 = v28;
 
-        v23 = +[OBUtilities mainScreen];
-        [v23 bounds];
-        v25 = v24;
+        v30 = +[OBUtilities mainScreen];
+        [v30 bounds];
+        v32 = v31;
 
-        if (v22 >= v25)
+        if (v29 >= v32)
         {
-          v26 = v22;
+          v19 = v29;
         }
 
         else
         {
-          v26 = v25;
+          v19 = v32;
         }
-
-        return v26 * 0.36;
       }
+
+      return v19 * 0.36;
+    }
+
+    else
+    {
+      v20 = +[OBUtilities mainScreen];
+      [v20 bounds];
+      v22 = v21;
+
+      v23 = +[OBUtilities mainScreen];
+      [v23 bounds];
+      v25 = v24;
+
+      if (v22 >= v25)
+      {
+        v26 = v22;
+      }
+
+      else
+      {
+        v26 = v25;
+      }
+
+      return v26 * 0.36;
     }
   }
 
@@ -2043,7 +2139,7 @@ LABEL_37:
 
 - (void)_layoutButtonTray
 {
-  v65[5] = *MEMORY[0x1E69E9840];
+  v64[5] = *MEMORY[0x1E69E9840];
   buttonTray = [(OBWelcomeController *)self buttonTray];
   [buttonTray removeFromSuperview];
 
@@ -2100,47 +2196,47 @@ LABEL_37:
         buttonTray8 = [(OBWelcomeController *)self buttonTray];
         buttonLayoutGuide5 = [buttonTray8 buttonLayoutGuide];
         widthAnchor2 = [buttonLayoutGuide5 widthAnchor];
-        v54 = [widthAnchor2 constraintLessThanOrEqualToConstant:360.0];
+        v53 = [widthAnchor2 constraintLessThanOrEqualToConstant:360.0];
 
-        v55 = MEMORY[0x1E696ACD8];
+        v54 = MEMORY[0x1E696ACD8];
         buttonTray9 = [(OBWelcomeController *)self buttonTray];
         buttonLayoutGuide6 = [buttonTray9 buttonLayoutGuide];
         widthConstraint3 = [buttonLayoutGuide6 widthConstraint];
-        v65[0] = widthConstraint3;
-        v65[1] = v54;
+        v64[0] = widthConstraint3;
+        v64[1] = v53;
         buttonTray10 = [(OBWelcomeController *)self buttonTray];
         buttonLayoutGuide7 = [buttonTray10 buttonLayoutGuide];
         leadingAnchor = [buttonLayoutGuide7 leadingAnchor];
         view2 = [(OBWelcomeController *)self view];
         leadingAnchor2 = [view2 leadingAnchor];
         [(OBBaseWelcomeController *)self directionalLayoutMargins];
-        v62 = leadingAnchor;
+        v61 = leadingAnchor;
         buttonLayoutGuide11 = leadingAnchor2;
-        v59 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:leadingAnchor2 constant:v40];
-        v65[2] = v59;
+        v58 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:leadingAnchor2 constant:v40];
+        v64[2] = v58;
         buttonTray11 = [(OBWelcomeController *)self buttonTray];
         buttonLayoutGuide8 = [buttonTray11 buttonLayoutGuide];
         trailingAnchor = [buttonLayoutGuide8 trailingAnchor];
         view3 = [(OBWelcomeController *)self view];
         trailingAnchor2 = [view3 trailingAnchor];
         [(OBBaseWelcomeController *)self directionalLayoutMargins];
-        v50 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2 constant:-v41];
-        v65[3] = v50;
+        v49 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2 constant:-v41];
+        v64[3] = v49;
         buttonTray12 = [(OBWelcomeController *)self buttonTray];
         buttonLayoutGuide9 = [buttonTray12 buttonLayoutGuide];
         centerXAnchor = [buttonLayoutGuide9 centerXAnchor];
         view4 = [(OBWelcomeController *)self view];
         centerXAnchor2 = [view4 centerXAnchor];
         v46 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-        v65[4] = v46;
-        v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:5];
-        [v55 activateConstraints:v47];
+        v64[4] = v46;
+        v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:5];
+        [v54 activateConstraints:v47];
 
         leadingAnchor3 = buttonLayoutGuide6;
         buttonLayoutGuide10 = buttonTray9;
 
         view5 = widthConstraint3;
-        buttonTray13 = v54;
+        buttonTray13 = v53;
 
         layoutMarginsGuide = buttonTray10;
         goto LABEL_14;
@@ -2158,25 +2254,23 @@ LABEL_37:
     view5 = [(OBWelcomeController *)self view];
     layoutMarginsGuide = [view5 layoutMarginsGuide];
     buttonLayoutGuide7 = [layoutMarginsGuide leadingAnchor];
-    v62 = [leadingAnchor3 constraintEqualToAnchor:?];
-    v64[0] = v62;
+    v61 = [leadingAnchor3 constraintEqualToAnchor:?];
+    v63[0] = v61;
     view2 = [(OBWelcomeController *)self buttonTray];
     buttonLayoutGuide11 = [view2 buttonLayoutGuide];
     trailingAnchor3 = [buttonLayoutGuide11 trailingAnchor];
     buttonTray11 = [(OBWelcomeController *)self view];
     buttonLayoutGuide8 = [buttonTray11 layoutMarginsGuide];
     trailingAnchor = [buttonLayoutGuide8 trailingAnchor];
-    v59 = trailingAnchor3;
+    v58 = trailingAnchor3;
     view3 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor];
-    v64[1] = view3;
-    trailingAnchor2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:2];
+    v63[1] = view3;
+    trailingAnchor2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:2];
     [v15 activateConstraints:trailingAnchor2];
 LABEL_14:
 
     [(OBWelcomeController *)self _updateScrollViewInsets];
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_buttonTrayInlined
@@ -2207,6 +2301,28 @@ LABEL_14:
   [(OBBaseWelcomeController *)&v3 updateDirectionalLayoutMargins];
   [(OBWelcomeController *)self _updateScrollContentViewLayoutMargins];
   [(OBWelcomeController *)self _updateScrollViewInsets];
+}
+
+- (void)updateNavigationBarAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  if (![(OBWelcomeController *)self _usesAboveHeaderFullWidthLayout])
+  {
+    if ([(OBWelcomeController *)self shouldMoveHeaderViewTitleToNavigationTitleWhenScrolledOffScreen])
+    {
+      navigationController = [(OBWelcomeController *)self navigationController];
+      topViewController = [navigationController topViewController];
+      v7 = [topViewController conformsToProtocol:&unk_1F2D0F560];
+
+      if (v7)
+      {
+        navigationItem = [(OBBaseWelcomeController *)self navigationItem];
+        headerView = [(OBWelcomeController *)self headerView];
+        scrollView = [(OBWelcomeController *)self scrollView];
+        [OBViewUtilities updateNavigationBarWithNavigationItem:navigationItem forHeaderView:headerView inScrollView:scrollView animated:animatedCopy];
+      }
+    }
+  }
 }
 
 - (void)_enableTrayButtonsForScrollToBottom:(id)bottom
@@ -2541,12 +2657,11 @@ void __53__OBWelcomeController_restoreNavigationBarAppearance__block_invoke_2(ui
 
 void __74__OBWelcomeController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_cold_1(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [*a1 contentViewLayout];
-  v5 = 134217984;
-  v6 = v3;
-  _os_log_fault_impl(&dword_1B4FB6000, a2, OS_LOG_TYPE_FAULT, "The contentLayoutType currently in use does not support landscape rotation layout:%li", &v5, 0xCu);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134217984;
+  v5 = v3;
+  _os_log_fault_impl(&dword_1B4FB6000, a2, OS_LOG_TYPE_FAULT, "The contentLayoutType currently in use does not support landscape rotation layout:%li", &v4, 0xCu);
 }
 
 @end

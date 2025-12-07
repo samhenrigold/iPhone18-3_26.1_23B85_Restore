@@ -21,10 +21,11 @@
     JreThrowNullPointerException();
   }
 
+  v4 = *&int;
   pattern = self->pattern_;
   v7 = [sequence description];
 
-  return JavaUtilRegexSplitter_splitWithJavaUtilRegexPattern_withNSString_withNSString_withInt_(self, pattern, v7, int);
+  return JavaUtilRegexSplitter_splitWithJavaUtilRegexPattern_withNSString_withNSString_withInt_(self, pattern, v7, v4);
 }
 
 - (void)dealloc

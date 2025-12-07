@@ -10,16 +10,16 @@
 {
   v4 = sub_269D97580();
   v5 = *(v4 - 8);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4, v6);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_269D97540();
   selfCopy = self;
-  sub_269D14ACC(v7);
+  sub_269D14ACC(v8);
 
-  (*(v5 + 8))(v7, v4);
-  v9 = sub_269D9A5F0();
+  (*(v5 + 8))(v8, v4);
+  v10 = sub_269D9A5F0();
 
-  return v9;
+  return v10;
 }
 
 - (_TtC13SleepHealthUI24RelativeWeekdayFormatter)init

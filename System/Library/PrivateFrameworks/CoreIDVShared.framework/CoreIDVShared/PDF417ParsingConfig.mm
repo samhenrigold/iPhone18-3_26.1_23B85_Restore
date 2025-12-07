@@ -9,7 +9,7 @@
 - (_TtC13CoreIDVShared19PDF417ParsingConfig)initWithCoder:(id)coder
 {
   ObjectType = swift_getObjectType();
-  sub_2259D8718(0, &qword_281059A60);
+  sub_2259D8718(0, &qword_281059A60, 0x277CCACA8);
   coderCopy = coder;
   result = sub_225CCEF14();
   if (result)

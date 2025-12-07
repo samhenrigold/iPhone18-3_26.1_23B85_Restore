@@ -395,9 +395,9 @@ LABEL_39:
   return v12;
 }
 
-uint64_t __79__ICGalleryAttachmentUtilities_requiredWidthForAttachment_viewHeight_maxWidth___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__79__ICGalleryAttachmentUtilities_requiredWidthForAttachment_viewHeight_maxWidth___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  result = [*(a1 + 40) sizeOfSubAttachment:a2 forHeight:*(a1 + 48)];
+  result = [*(a1 + 40) sizeOfSubAttachment:a2 forHeight:{a4, *(a1 + 48)}];
   *(*(*(a1 + 32) + 8) + 24) = ceil(v8) + *(*(*(a1 + 32) + 8) + 24);
   *(*(*(a1 + 32) + 8) + 24) = *(*(*(a1 + 32) + 8) + 24) + 12.0;
   v9 = *(*(a1 + 32) + 8);

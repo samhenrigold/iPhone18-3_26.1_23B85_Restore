@@ -197,28 +197,28 @@ void __89__PKPeerPaymentTermsController__presentRemoteUIControllerWithUpdatedTer
   objc_destroyWeak(&v13);
 }
 
-void __89__PKPeerPaymentTermsController__presentRemoteUIControllerWithUpdatedTermsViewController___block_invoke_2(uint64_t a1)
+void __89__PKPeerPaymentTermsController__presentRemoteUIControllerWithUpdatedTermsViewController___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v25 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     if (*(a1 + 64))
     {
-      v4 = @"YES";
+      v5 = @"YES";
     }
 
     else
     {
-      v4 = @"NO";
+      v5 = @"NO";
     }
 
     *buf = 138412546;
-    v21 = v4;
-    v22 = 2112;
-    v23 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Presented terms with success: %@, error %@.", buf, 0x16u);
+    v22 = v5;
+    v23 = 2112;
+    v24 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Presented terms with success: %@, error %@.", buf, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -227,63 +227,63 @@ void __89__PKPeerPaymentTermsController__presentRemoteUIControllerWithUpdatedTer
     [*(a1 + 40) showSpinner:0];
     if (*(a1 + 64) == 1)
     {
-      v6 = *(WeakRetained + 8);
-      v7 = objc_loadWeakRetained(WeakRetained + 9);
-      if (v6)
+      v7 = *(WeakRetained + 8);
+      v8 = objc_loadWeakRetained(WeakRetained + 9);
+      if (v7)
       {
-        (*(v6 + 16))(v6, v7, *(WeakRetained + 10));
+        (*(v7 + 16))(v7, v8, *(WeakRetained + 10));
       }
 
       else
       {
-        [v7 presentViewController:*(WeakRetained + 10) animated:1 completion:0];
+        [v8 presentViewController:*(WeakRetained + 10) animated:1 completion:0];
       }
 
-      v11 = *(WeakRetained + 6);
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __89__PKPeerPaymentTermsController__presentRemoteUIControllerWithUpdatedTermsViewController___block_invoke_27;
-      v18[3] = &unk_1E801D640;
-      objc_copyWeak(&v19, (a1 + 56));
-      v18[4] = *(a1 + 48);
-      [v11 setHandlerForElementName:@"agree" handler:v18];
       v12 = *(WeakRetained + 6);
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __89__PKPeerPaymentTermsController__presentRemoteUIControllerWithUpdatedTermsViewController___block_invoke_38;
-      v16[3] = &unk_1E801D668;
-      v16[4] = *(a1 + 48);
-      v17 = *(a1 + 32);
-      [v12 setHandlerForElementName:@"disagree" handler:v16];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __89__PKPeerPaymentTermsController__presentRemoteUIControllerWithUpdatedTermsViewController___block_invoke_27;
+      v19[3] = &unk_1E801D640;
+      objc_copyWeak(&v20, (a1 + 56));
+      v19[4] = *(a1 + 48);
+      [v12 setHandlerForElementName:@"agree" handler:v19];
       v13 = *(WeakRetained + 6);
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __89__PKPeerPaymentTermsController__presentRemoteUIControllerWithUpdatedTermsViewController___block_invoke_2_42;
-      v14[3] = &unk_1E801D690;
-      objc_copyWeak(&v15, (a1 + 56));
-      [v13 setHandlerForElementName:@"emailTerms" handler:v14];
-      objc_destroyWeak(&v15);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __89__PKPeerPaymentTermsController__presentRemoteUIControllerWithUpdatedTermsViewController___block_invoke_38;
+      v17[3] = &unk_1E801D668;
+      v17[4] = *(a1 + 48);
+      v18 = *(a1 + 32);
+      [v13 setHandlerForElementName:@"disagree" handler:v17];
+      v14 = *(WeakRetained + 6);
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __89__PKPeerPaymentTermsController__presentRemoteUIControllerWithUpdatedTermsViewController___block_invoke_2_42;
+      v15[3] = &unk_1E801D690;
+      objc_copyWeak(&v16, (a1 + 56));
+      [v14 setHandlerForElementName:@"emailTerms" handler:v15];
+      objc_destroyWeak(&v16);
 
-      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v20);
     }
 
     else
     {
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(*(a1 + 48) + 16);
-        v9 = *(a1 + 32);
+        v9 = *(*(a1 + 48) + 16);
+        v10 = *(a1 + 32);
         *buf = 138412546;
-        v21 = v8;
-        v22 = 2112;
-        v23 = v9;
-        _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Error Failed to load termsURL %@ with error %@", buf, 0x16u);
+        v22 = v9;
+        v23 = 2112;
+        v24 = v10;
+        _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Error Failed to load termsURL %@ with error %@", buf, 0x16u);
       }
 
-      v10 = *(*(a1 + 48) + 8);
-      if (v10)
+      v11 = *(*(a1 + 48) + 8);
+      if (v11)
       {
-        (*(v10 + 16))(v10, 0, *(a1 + 32));
+        (*(v11 + 16))(v11, 0, *(a1 + 32));
       }
     }
   }

@@ -17,6 +17,7 @@
 - (void)toggleManager:(id)manager didToggleToState:(int64_t)state;
 - (void)updateStatusMessage;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SHShazamMenuModuleViewController
@@ -49,6 +50,14 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SHShazamMenuModuleViewController;
+  [(CCUIMenuModuleViewController *)&v4 viewWillAppear:appear];
+  [(SHShazamMenuModuleViewController *)self refreshState];
 }
 
 - (void)viewDidLoad
@@ -226,10 +235,10 @@
 
 - (BOOL)isShazamAppInstalled
 {
-  v13 = *MEMORY[0x29EDCA608];
-  v8 = 0;
-  v2 = [objc_alloc(MEMORY[0x29EDB93F8]) initWithBundleIdentifier:@"com.shazam.Shazam" allowPlaceholder:0 error:&v8];
-  v3 = v8;
+  v12 = *MEMORY[0x29EDCA608];
+  v7 = 0;
+  v2 = [objc_alloc(MEMORY[0x29EDB93F8]) initWithBundleIdentifier:@"com.shazam.Shazam" allowPlaceholder:0 error:&v7];
+  v3 = v7;
   if (!v2)
   {
     v4 = shcore_log_object();
@@ -237,28 +246,25 @@
     {
       bundleIdentifier = [0 bundleIdentifier];
       *buf = 138412546;
-      v10 = bundleIdentifier;
-      v11 = 2112;
-      v12 = v3;
+      v9 = bundleIdentifier;
+      v10 = 2112;
+      v11 = v3;
       _os_log_impl(&dword_29C9E7000, v4, OS_LOG_TYPE_ERROR, "No application record for %@ found with error: %@", buf, 0x16u);
     }
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return v2 != 0;
 }
 
 - (void)configureMenuItems
 {
-  v7[2] = *MEMORY[0x29EDCA608];
+  v6[2] = *MEMORY[0x29EDCA608];
   recognizeMusicMenuItem = [(SHShazamMenuModuleViewController *)self recognizeMusicMenuItem];
   historyMenuItem = [(SHShazamMenuModuleViewController *)self historyMenuItem];
-  v7[0] = recognizeMusicMenuItem;
-  v7[1] = historyMenuItem;
-  v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v7 count:2];
+  v6[0] = recognizeMusicMenuItem;
+  v6[1] = historyMenuItem;
+  v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v6 count:2];
   [(CCUIMenuModuleViewController *)self setMenuItems:v5];
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 - (id)recognizeMusicMenuItem

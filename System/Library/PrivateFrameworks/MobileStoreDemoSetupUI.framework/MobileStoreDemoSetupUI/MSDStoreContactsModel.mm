@@ -27,73 +27,73 @@ uint64_t __39__MSDStoreContactsModel_sharedInstance__block_invoke()
 
 - (MSDStoreContactsModel)init
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v45.receiver = self;
-  v45.super_class = MSDStoreContactsModel;
-  v36 = [(MSDStoreContactsModel *)&v45 init];
-  if (v36)
+  v47 = *MEMORY[0x277D85DE8];
+  v44.receiver = self;
+  v44.super_class = MSDStoreContactsModel;
+  v35 = [(MSDStoreContactsModel *)&v44 init];
+  if (v35)
   {
     v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v3 = [v2 URLForResource:@"contact" withExtension:@"json"];
 
-    v29 = v3;
-    v28 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v3];
-    v27 = [MEMORY[0x277CCAAA0] JSONObjectWithData:? options:? error:?];
-    v4 = [v27 objectForKey:@"area_ar"];
+    v28 = v3;
+    v27 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v3];
+    v26 = [MEMORY[0x277CCAAA0] JSONObjectWithData:? options:? error:?];
+    v4 = [v26 objectForKey:@"area_ar"];
     v5 = objc_opt_new();
-    [(MSDStoreContactsModel *)v36 setCountryCodeToNumbers:v5];
+    [(MSDStoreContactsModel *)v35 setCountryCodeToNumbers:v5];
 
     v6 = objc_opt_new();
-    regionToCountryCode = v36->_regionToCountryCode;
-    v36->_regionToCountryCode = v6;
+    regionToCountryCode = v35->_regionToCountryCode;
+    v35->_regionToCountryCode = v6;
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     obj = v4;
-    v32 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
-    if (!v32)
+    v31 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+    if (!v31)
     {
       goto LABEL_23;
     }
 
-    v31 = *v42;
+    v30 = *v41;
     while (1)
     {
       v8 = 0;
       do
       {
-        if (*v42 != v31)
+        if (*v41 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = v8;
-        v9 = *(*(&v41 + 1) + 8 * v8);
+        v33 = v8;
+        v9 = *(*(&v40 + 1) + 8 * v8);
         v10 = objc_opt_new();
-        v33 = [v9 objectForKey:@"label"];
+        v32 = [v9 objectForKey:@"label"];
         v11 = [v9 objectForKey:@"phone_ar"];
+        v36 = 0u;
         v37 = 0u;
         v38 = 0u;
         v39 = 0u;
-        v40 = 0u;
-        v35 = v11;
-        v12 = [v11 countByEnumeratingWithState:&v37 objects:v46 count:16];
+        v34 = v11;
+        v12 = [v11 countByEnumeratingWithState:&v36 objects:v45 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v38;
+          v14 = *v37;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v38 != v14)
+              if (*v37 != v14)
               {
-                objc_enumerationMutation(v35);
+                objc_enumerationMutation(v34);
               }
 
-              v16 = *(*(&v37 + 1) + 8 * i);
+              v16 = *(*(&v36 + 1) + 8 * i);
               v17 = [v16 objectForKey:@"country_code"];
               v18 = [v16 objectForKey:@"phone"];
               v19 = [v16 objectForKey:@"toll_free"];
@@ -102,13 +102,13 @@ uint64_t __39__MSDStoreContactsModel_sharedInstance__block_invoke()
                 [v10 addObject:v17];
               }
 
-              countryCodeToNumbers = [(MSDStoreContactsModel *)v36 countryCodeToNumbers];
+              countryCodeToNumbers = [(MSDStoreContactsModel *)v35 countryCodeToNumbers];
               v21 = [countryCodeToNumbers objectForKey:v17];
               if (!v21)
               {
 
 LABEL_18:
-                countryCodeToNumbers2 = [(MSDStoreContactsModel *)v36 countryCodeToNumbers];
+                countryCodeToNumbers2 = [(MSDStoreContactsModel *)v35 countryCodeToNumbers];
                 [countryCodeToNumbers2 setObject:v18 forKey:v17];
 
                 goto LABEL_19;
@@ -125,30 +125,29 @@ LABEL_18:
 LABEL_19:
             }
 
-            v13 = [v35 countByEnumeratingWithState:&v37 objects:v46 count:16];
+            v13 = [v34 countByEnumeratingWithState:&v36 objects:v45 count:16];
           }
 
           while (v13);
         }
 
-        [(NSDictionary *)v36->_regionToCountryCode setValue:v10 forKey:v33];
+        [(NSDictionary *)v35->_regionToCountryCode setValue:v10 forKey:v32];
 
-        v8 = v34 + 1;
+        v8 = v33 + 1;
       }
 
-      while (v34 + 1 != v32);
-      v32 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
-      if (!v32)
+      while (v33 + 1 != v31);
+      v31 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+      if (!v31)
       {
 LABEL_23:
 
-        break;
+        return v35;
       }
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-  return v36;
+  return v35;
 }
 
 - (id)contactNumberForCountryCode:(id)code

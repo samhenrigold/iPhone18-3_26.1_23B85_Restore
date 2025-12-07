@@ -32,9 +32,9 @@
 
 - (BOOL)registerFontWithURL:(id)l error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v7 = NUSharedLog();
+  v7 = NUSharedLog(lCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138543362;
@@ -44,33 +44,34 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v18 = 0x2020000000;
-  v19 = 1;
+  v17 = 0x2020000000;
+  v18 = 1;
   registrationQueue = [(NUFontManager *)self registrationQueue];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __43__NUFontManager_registerFontWithURL_error___block_invoke;
-  v13[3] = &unk_2799A3418;
-  v13[4] = self;
-  v14 = lCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __43__NUFontManager_registerFontWithURL_error___block_invoke;
+  v12[3] = &unk_2799A3418;
+  v12[4] = self;
+  v13 = lCopy;
   p_buf = &buf;
   errorCopy = error;
   v9 = lCopy;
-  dispatch_sync(registrationQueue, v13);
+  dispatch_sync(registrationQueue, v12);
 
   v10 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
-  v11 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
 void __43__NUFontManager_registerFontWithURL_error___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (![*(a1 + 32) referenceCountForFontWithURL:*(a1 + 40)])
+  v13 = *MEMORY[0x277D85DE8];
+  Code = [*(a1 + 32) referenceCountForFontWithURL:*(a1 + 40)];
+  if (!Code)
   {
     error = 0;
-    if (!CTFontManagerRegisterFontsForURL(*(a1 + 40), kCTFontManagerScopeProcess, &error))
+    Code = CTFontManagerRegisterFontsForURL(*(a1 + 40), kCTFontManagerScopeProcess, &error);
+    if ((Code & 1) == 0)
     {
       Code = CFErrorGetCode(error);
       if (Code == 105 || (v3 = Code, Code == 305))
@@ -82,18 +83,19 @@ void __43__NUFontManager_registerFontWithURL_error___block_invoke(uint64_t a1)
       {
         if (*(a1 + 56))
         {
-          **(a1 + 56) = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC4900] code:Code userInfo:0];
+          Code = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC4900] code:Code userInfo:0];
+          **(a1 + 56) = Code;
         }
 
         *(*(*(a1 + 48) + 8) + 24) = 0;
-        v4 = NUSharedLog();
+        v4 = NUSharedLog(Code);
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
           v5 = *(a1 + 40);
           *buf = 138543618;
-          v11 = v5;
-          v12 = 2048;
-          v13 = v3;
+          v10 = v5;
+          v11 = 2048;
+          v12 = v3;
           _os_log_impl(&dword_25C2D6000, v4, OS_LOG_TYPE_DEFAULT, "Font registration failed for font at URL %{public}@ with error code %lu", buf, 0x16u);
         }
       }
@@ -102,19 +104,17 @@ void __43__NUFontManager_registerFontWithURL_error___block_invoke(uint64_t a1)
 
   if (*(*(*(a1 + 48) + 8) + 24) == 1)
   {
-    v6 = NUSharedLog();
+    v6 = NUSharedLog(Code);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 40);
       *buf = 138543362;
-      v11 = v7;
+      v10 = v7;
       _os_log_impl(&dword_25C2D6000, v6, OS_LOG_TYPE_DEFAULT, "Font registration succeeded for font at URL %{public}@", buf, 0xCu);
     }
 
     [*(a1 + 32) increaseReferenceCountForFontWithURL:*(a1 + 40)];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterFontWithURL:(id)l
@@ -133,13 +133,13 @@ void __43__NUFontManager_registerFontWithURL_error___block_invoke(uint64_t a1)
 
 - (BOOL)unregisterFontAtURL:(id)l error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v6 = NUSharedLog();
+  v6 = NUSharedLog(lCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = lCopy;
+    v14 = lCopy;
     _os_log_impl(&dword_25C2D6000, v6, OS_LOG_TYPE_DEFAULT, "Unregister font at URL %{public}@", buf, 0xCu);
   }
 
@@ -156,52 +156,50 @@ void __43__NUFontManager_registerFontWithURL_error___block_invoke(uint64_t a1)
 
     else
     {
-      [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC4900] code:Code userInfo:0];
-      *error = v7 = 0;
+      Code = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC4900] code:Code userInfo:0];
+      v7 = 0;
+      *error = Code;
     }
 
-    v10 = NUSharedLog();
+    v10 = NUSharedLog(Code);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v15 = lCopy;
-      v16 = 2048;
-      v17 = v9;
+      v14 = lCopy;
+      v15 = 2048;
+      v16 = v9;
       _os_log_impl(&dword_25C2D6000, v10, OS_LOG_TYPE_DEFAULT, "Unable to unregister font at URL %{public}@ with error %lu", buf, 0x16u);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)increaseReferenceCountForFontWithURL:(id)l
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v5 = NUSharedLog();
+  v5 = NUSharedLog(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = lCopy;
-    _os_log_impl(&dword_25C2D6000, v5, OS_LOG_TYPE_DEFAULT, "Increase reference count for font at URL %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = lCopy;
+    _os_log_impl(&dword_25C2D6000, v5, OS_LOG_TYPE_DEFAULT, "Increase reference count for font at URL %{public}@", &v7, 0xCu);
   }
 
   referenceCounts = [(NUFontManager *)self referenceCounts];
   [referenceCounts addObject:lCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)decreaseReferenceCountForFontWithURL:(id)l
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v5 = NUSharedLog();
+  v5 = NUSharedLog(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v10 = lCopy;
+    v9 = lCopy;
     _os_log_impl(&dword_25C2D6000, v5, OS_LOG_TYPE_DEFAULT, "Decrease reference count for font at URL %{public}@", buf, 0xCu);
   }
 
@@ -210,11 +208,9 @@ void __43__NUFontManager_registerFontWithURL_error___block_invoke(uint64_t a1)
 
   if ([(NUFontManager *)self shouldUnregisterFontWithURL:lCopy])
   {
-    v8 = 0;
-    [(NUFontManager *)self unregisterFontAtURL:lCopy error:&v8];
+    v7 = 0;
+    [(NUFontManager *)self unregisterFontAtURL:lCopy error:&v7];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)referenceCountForFontWithURL:(id)l

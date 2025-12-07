@@ -20,27 +20,25 @@
 {
   v5 = sub_2589921C4();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20]();
-  v9 = &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v8 = &v9 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2589921B4();
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 }
 
 - (void)generateObjectsForDemoPerson:(id)person fromTime:(double)time toTime:(double)toTime currentDate:(id)date objectCollection:(id)collection
 {
   v11 = sub_2589921C4();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
   MEMORY[0x28223BE20](v11);
-  v15 = &v19 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2589921B4();
   personCopy = person;
   collectionCopy = collection;
   selfCopy = self;
-  sub_25898D8BC(v15, collectionCopy, toTime);
+  sub_25898D8BC(v14, collectionCopy, v18, v19, v20, toTime);
 
-  (*(v12 + 8))(v15, v11);
+  (*(v12 + 8))(v14, v11);
 }
 
 - (void)encodeWithCoder:(id)coder

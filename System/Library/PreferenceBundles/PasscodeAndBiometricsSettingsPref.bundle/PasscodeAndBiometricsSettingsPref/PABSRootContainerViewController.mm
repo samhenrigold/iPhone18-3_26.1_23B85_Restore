@@ -67,7 +67,7 @@
   }
 
   v16.receiver = self;
-  v16.super_class = type metadata accessor for PABSRootContainerViewController();
+  v16.super_class = type metadata accessor for PABSRootContainerViewController(0);
   v14 = [(PABSRootContainerViewController *)&v16 initWithNibName:v10 bundle:bundle];
 
   return v14;
@@ -88,7 +88,7 @@
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   *(self + OBJC_IVAR____TtC33PasscodeAndBiometricsSettingsPref31PABSRootContainerViewController____lazy_storage___contentViewController) = 0;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for PABSRootContainerViewController();
+  v10.super_class = type metadata accessor for PABSRootContainerViewController(0);
   coderCopy = coder;
   v8 = [(PABSRootContainerViewController *)&v10 initWithCoder:coderCopy];
 

@@ -33,7 +33,7 @@
 
   selfCopy = self;
   sub_14DC(v7, v6);
-  sub_28A0(v7);
+  sub_28A0(v7, v6);
 }
 
 @end

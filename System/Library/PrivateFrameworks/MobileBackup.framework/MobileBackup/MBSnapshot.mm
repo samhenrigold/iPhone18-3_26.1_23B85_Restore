@@ -172,24 +172,21 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [objc_opt_class() allocWithZone:zone];
-  backupPolicy = self->_backupPolicy;
-  BYTE4(v9) = self->_isCompatible;
-  LODWORD(v9) = self->_state;
-  v6 = [v4 initWithSnapshotID:self->_snapshotID backupUUID:self->_backupUUID snapshotUUID:self->_snapshotUUID commitID:self->_commitID format:self->_format deviceName:self->_deviceName date:self->_date created:self->_created modified:self->_modified state:v9 isCompatible:self->_systemVersion systemVersion:self->_buildVersion buildVersion:self->_quotaReserved quotaReserved:self->_type type:backupPolicy backupPolicy:self->_accountType accountType:?];
+  BYTE4(v8) = self->_isCompatible;
+  LODWORD(v8) = self->_state;
+  v5 = [v4 initWithSnapshotID:self->_snapshotID backupUUID:self->_backupUUID snapshotUUID:self->_snapshotUUID commitID:self->_commitID format:self->_format deviceName:self->_deviceName date:self->_date created:self->_created modified:self->_modified state:v8 isCompatible:self->_systemVersion systemVersion:self->_buildVersion buildVersion:self->_quotaReserved quotaReserved:self->_type type:self->_backupPolicy backupPolicy:self->_accountType accountType:?];
   requiredProductVersion = [(MBSnapshot *)self requiredProductVersion];
-  [v6 setRequiredProductVersion:requiredProductVersion];
+  [v5 setRequiredProductVersion:requiredProductVersion];
 
-  [v6 setEstimatedRestoreSize:{-[MBSnapshot estimatedRestoreSize](self, "estimatedRestoreSize")}];
-  return v6;
+  [v5 setEstimatedRestoreSize:{-[MBSnapshot estimatedRestoreSize](self, "estimatedRestoreSize")}];
+  return v5;
 }
 
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  Name = class_getName(v4);
-  estimatedRestoreSize = self->_estimatedRestoreSize;
-  return [v3 stringWithFormat:@"<%s: %p; snapshotID=%lu, snapshotUUID=%@, commitID=%@, format=%lld, state=%d, type=%ld, backupPolicy=%ld, deviceName=%@, date=%@, systemVersion=%@, buildVersion=%@, isCompatible=%d/%@, quotaReserved=%llu, estimatedRestoreSize=%lld, accountType=%ld>", Name, self, self->_snapshotID, self->_snapshotUUID, self->_commitID, self->_format, self->_state, self->_type, self->_backupPolicy, self->_deviceName, self->_date, self->_systemVersion, self->_buildVersion, self->_isCompatible, self->_requiredProductVersion, self->_quotaReserved, estimatedRestoreSize, self->_accountType];
+  return [v3 stringWithFormat:@"<%s: %p; snapshotID=%lu, snapshotUUID=%@, commitID=%@, format=%lld, state=%d, type=%ld, backupPolicy=%ld, deviceName=%@, date=%@, systemVersion=%@, buildVersion=%@, isCompatible=%d/%@, quotaReserved=%llu, estimatedRestoreSize=%lld, accountType=%ld>", class_getName(v4), self, self->_snapshotID, self->_snapshotUUID, self->_commitID, self->_format, self->_state, self->_type, self->_backupPolicy, self->_deviceName, self->_date, self->_systemVersion, self->_buildVersion, self->_isCompatible, self->_requiredProductVersion, self->_quotaReserved, self->_estimatedRestoreSize, self->_accountType];
 }
 
 - (id)dictionaryRepresentation

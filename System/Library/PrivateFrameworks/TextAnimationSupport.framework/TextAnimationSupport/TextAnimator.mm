@@ -29,47 +29,48 @@
 - (void)start
 {
   selfCopy = self;
-  TextAnimator.start()();
+  TextAnimator.start()(v2);
 }
 
 - (void)startWithDuration:(double)duration
 {
   selfCopy = self;
-  TextAnimator.start(duration:)(duration);
+  v4.n128_f64[0] = duration;
+  TextAnimator.start(duration:)(v4);
 }
 
 - (void)pause
 {
   selfCopy = self;
-  TextAnimator.pause()();
+  TextAnimator.pause()(v2);
 }
 
 - (void)resume
 {
   selfCopy = self;
-  TextAnimator.resume()();
+  TextAnimator.resume()(v2);
 }
 
 - (void)invalidate
 {
   selfCopy = self;
-  TextAnimator.invalidate()();
+  TextAnimator.invalidate()(v2);
 }
 
 - (double)duration
 {
   selfCopy = self;
-  v3 = TextAnimator.duration.getter();
+  v4 = TextAnimator.duration.getter(v3);
 
-  return v3;
+  return v4;
 }
 
 - (NSString)toPhase
 {
   selfCopy = self;
-  v3 = TextAnimator.toPhase.getter();
+  v4 = TextAnimator.toPhase.getter(v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setToPhase:(id)phase
@@ -93,9 +94,9 @@
 - (NSString)fromPhase
 {
   selfCopy = self;
-  v3 = TextAnimator.fromPhase.getter();
+  v4 = TextAnimator.fromPhase.getter(v3);
 
-  return v3;
+  return v4;
 }
 
 - (NSDictionary)configuration

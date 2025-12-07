@@ -1,9 +1,38 @@
 @interface SPBeaconAdvertisement
+- (SPBeaconAdvertisement)initWithAddress:(id)address publicKey:(id)key deviceType:(id)type batteryState:(id)state rawStatus:(unsigned __int8)status rssi:(int64_t)rssi scanDate:(id)date recordIdentifier:(id)self0;
 - (SPBeaconAdvertisement)initWithCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation SPBeaconAdvertisement
+
+- (SPBeaconAdvertisement)initWithAddress:(id)address publicKey:(id)key deviceType:(id)type batteryState:(id)state rawStatus:(unsigned __int8)status rssi:(int64_t)rssi scanDate:(id)date recordIdentifier:(id)self0
+{
+  statusCopy = status;
+  addressCopy = address;
+  keyCopy = key;
+  typeCopy = type;
+  stateCopy = state;
+  dateCopy = date;
+  identifierCopy = identifier;
+  v25.receiver = self;
+  v25.super_class = SPBeaconAdvertisement;
+  v22 = [(SPBeaconAdvertisement *)&v25 init];
+  v23 = v22;
+  if (v22)
+  {
+    [(SPBeaconAdvertisement *)v22 setAddress:addressCopy];
+    [(SPBeaconAdvertisement *)v23 setPublicKey:keyCopy];
+    [(SPBeaconAdvertisement *)v23 setDeviceType:typeCopy];
+    [(SPBeaconAdvertisement *)v23 setBatteryState:stateCopy];
+    [(SPBeaconAdvertisement *)v23 setRawStatus:statusCopy];
+    [(SPBeaconAdvertisement *)v23 setRssi:rssi];
+    [(SPBeaconAdvertisement *)v23 setScanDate:dateCopy];
+    [(SPBeaconAdvertisement *)v23 setRecordIdentifier:identifierCopy];
+  }
+
+  return v23;
+}
 
 - (SPBeaconAdvertisement)initWithCoder:(id)coder
 {

@@ -9,13 +9,13 @@
 
 - (_MFNewcastleAuthenticator)initWithAuthenticationScheme:(id)scheme account:(id)account connection:(id)connection
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   schemeCopy = scheme;
   accountCopy = account;
   connectionCopy = connection;
-  v19.receiver = self;
-  v19.super_class = _MFNewcastleAuthenticator;
-  v11 = [(ECSASLAuthenticator *)&v19 initWithAuthenticationScheme:schemeCopy account:accountCopy connection:connectionCopy];
+  v18.receiver = self;
+  v18.super_class = _MFNewcastleAuthenticator;
+  v11 = [(ECSASLAuthenticator *)&v18 initWithAuthenticationScheme:schemeCopy account:accountCopy connection:connectionCopy];
   if (!v11)
   {
     goto LABEL_12;
@@ -43,7 +43,7 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = accountCopy;
+      v20 = accountCopy;
       _os_log_impl(&dword_1B0389000, v16, OS_LOG_TYPE_DEFAULT, "#Warning couldn't find our CastleAccount for our sending account: %@", buf, 0xCu);
     }
 
@@ -61,7 +61,6 @@ LABEL_8:
   v15 = v11;
 LABEL_13:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -240,11 +239,10 @@ LABEL_18:
 
 - (void)responseForServerDataATOKEN2:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Error getting auth details - %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Error getting auth details - %@", &v2, 0xCu);
 }
 
 @end

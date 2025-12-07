@@ -67,20 +67,16 @@
 
 + (void)toChar:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_4_0();
   _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x12u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (void)toBRFileObjectIDType:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_4_0();
   _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x12u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

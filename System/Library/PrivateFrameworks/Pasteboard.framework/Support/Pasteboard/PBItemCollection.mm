@@ -2,6 +2,7 @@
 + (id)unserializeCollectionFromBaseURL:(id)l persistenceName:(id)name outError:(id *)error;
 + (id)unserializeCollectionFromPasteboardURL:(id)l baseURL:(id)rL outError:(id *)error;
 - (id)directoryName;
+- (id)serializeToBaseURL:(id)l isServerToServerCopy:(BOOL)copy allowedToCopyOnPaste:(BOOL)paste;
 - (unint64_t)authorizationDecisionForAuditTokenInfo:(id)info timestamp:(unint64_t)timestamp;
 - (void)recordUserAuthorizationDecision:(BOOL)decision auditTokenInfo:(id)info;
 - (void)setStorageBaseURL:(id)l;
@@ -77,6 +78,121 @@ LABEL_7:
   v3 = PBSHA1HashOfString();
 
   return v3;
+}
+
+- (id)serializeToBaseURL:(id)l isServerToServerCopy:(BOOL)copy allowedToCopyOnPaste:(BOOL)paste
+{
+  pasteCopy = paste;
+  lCopy = l;
+  directoryName = [(PBItemCollection *)self directoryName];
+  v10 = [lCopy URLByAppendingPathComponent:directoryName isDirectory:1];
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = sub_10001A3C8;
+  v46 = sub_10001A3D8;
+  v47 = 0;
+  v11 = +[NSFileManager defaultManager];
+  path = [v10 path];
+  v13 = [v11 fileExistsAtPath:path];
+
+  if ((v13 & 1) == 0)
+  {
+    if ([(PBItemCollection *)self isDeviceLockedPasteboard])
+    {
+      v52 = NSFileProtectionKey;
+      v53 = NSFileProtectionNone;
+      v14 = [NSDictionary dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    path2 = [v10 path];
+    v16 = (v43 + 5);
+    obj = v43[5];
+    [v11 createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:v14 error:&obj];
+    objc_storeStrong(v16, obj);
+  }
+
+  if (v43[5])
+  {
+    name = [(PBItemCollection *)self name];
+    v18 = PBCannotSerializePasteboardError();
+    v19 = v43[5];
+    v43[5] = v18;
+  }
+
+  else
+  {
+    v20 = dispatch_semaphore_create(0);
+    isDeviceLockedPasteboard = [(PBItemCollection *)self isDeviceLockedPasteboard];
+    v22 = &NSFileProtectionNone;
+    if (!isDeviceLockedPasteboard)
+    {
+      v22 = &NSFileProtectionCompleteUntilFirstUserAuthentication;
+    }
+
+    v19 = *v22;
+    items = [(PBItemCollection *)self items];
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_10001A710;
+    v38[3] = &unk_100031D00;
+    v40 = &v42;
+    name = v20;
+    v39 = name;
+    sub_10001A3E0(v10, items, v19, copy, pasteCopy, v38);
+
+    dispatch_semaphore_wait(name, 0xFFFFFFFFFFFFFFFFLL);
+    if (!v43[5])
+    {
+      v35 = [v10 URLByAppendingPathComponent:@"Manifest.plist" isDirectory:0];
+      v37 = 0;
+      v24 = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:1 error:&v37];
+      v25 = v37;
+      if (v24)
+      {
+        v26 = _PBLog();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        {
+          name2 = [(PBItemCollection *)self name];
+          *buf = 138412546;
+          v49 = name2;
+          v50 = 2112;
+          v51 = v35;
+          v34 = name2;
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Writing manifest for pasteboard %@ to URL: %@", buf, 0x16u);
+        }
+
+        v36 = v25;
+        [v24 writeToURL:v35 options:0 error:&v36];
+        v28 = v36;
+
+        v25 = v28;
+      }
+
+      if (v25)
+      {
+        name3 = [(PBItemCollection *)self name];
+        v30 = PBCannotSerializePasteboardError();
+        v31 = v43[5];
+        v43[5] = v30;
+      }
+
+      else
+      {
+        [(PBItemCollection *)self setIsRemote:0];
+      }
+    }
+  }
+
+  v32 = v43[5];
+  _Block_object_dispose(&v42, 8);
+
+  return v32;
 }
 
 - (void)setStorageBaseURL:(id)l

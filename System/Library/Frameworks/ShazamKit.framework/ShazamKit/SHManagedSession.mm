@@ -94,11 +94,11 @@
 
   if (inflightRequest)
   {
-    v4 = sh_log_object();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sh_log_object(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_230F52000, v4, OS_LOG_TYPE_DEFAULT, "Can't start a new match attempt when there is an existing attempt already running.", buf, 2u);
+      _os_log_impl(&dword_230F52000, v5, OS_LOG_TYPE_DEFAULT, "Can't start a new match attempt when there is an existing attempt already running.", buf, 2u);
     }
   }
 
@@ -106,12 +106,12 @@
   {
     session = [(SHManagedSession *)self session];
     catalog = [session catalog];
-    v7 = [(SHManagedSession *)self isUsingCustomCatalog:catalog];
+    v8 = [(SHManagedSession *)self isUsingCustomCatalog:catalog];
 
-    if (v7)
+    if (v8)
     {
       sharedRequestID = [(SHManagedSession *)self sharedRequestID];
-      v9 = [SHMatcherRequest requestSignatureGenerationOnceForRequestID:sharedRequestID];
+      v10 = [SHMatcherRequest requestSignatureGenerationOnceForRequestID:sharedRequestID];
     }
 
     else
@@ -128,11 +128,11 @@
         sharedRequestID = [(SHManagedSession *)self sharedRequestID];
         [SHMatcherRequest requestOnceWithNotifications:sendNotifications forRequestID:sharedRequestID];
       }
-      v9 = ;
+      v10 = ;
     }
 
-    v11 = v9;
-    [(SHManagedSession *)self setInflightRequest:v9];
+    v12 = v10;
+    [(SHManagedSession *)self setInflightRequest:v10];
 
     shazamServiceConnection = [(SHManagedSession *)self shazamServiceConnection];
     inflightRequest2 = [(SHManagedSession *)self inflightRequest];
@@ -147,11 +147,11 @@
 
   if (inflightRequest)
   {
-    v6 = sh_log_object();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sh_log_object(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_230F52000, v6, OS_LOG_TYPE_DEFAULT, "Can't start a new match attempt when there is an existing attempt already running.", v17, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_230F52000, v7, OS_LOG_TYPE_DEFAULT, "Can't start a new match attempt when there is an existing attempt already running.", v18, 2u);
     }
   }
 
@@ -159,21 +159,21 @@
   {
     session = [(SHManagedSession *)self session];
     catalog = [session catalog];
-    v9 = [(SHManagedSession *)self isUsingCustomCatalog:catalog];
+    v10 = [(SHManagedSession *)self isUsingCustomCatalog:catalog];
 
-    if (v9)
+    if (v10)
     {
       sharedRequestID = [(SHManagedSession *)self sharedRequestID];
-      v11 = [SHMatcherRequest requestSignatureGenerationUntilDeadline:deadlineCopy forRequestID:sharedRequestID];
-      [(SHManagedSession *)self setInflightRequest:v11];
+      v12 = [SHMatcherRequest requestSignatureGenerationUntilDeadline:deadlineCopy forRequestID:sharedRequestID];
+      [(SHManagedSession *)self setInflightRequest:v12];
     }
 
     else
     {
       sendNotifications = [(SHManagedSession *)self sendNotifications];
       sharedRequestID2 = [(SHManagedSession *)self sharedRequestID];
-      v14 = [SHMatcherRequest requestToMatchUntilDeadline:deadlineCopy sendNotifications:sendNotifications forRequestID:sharedRequestID2];
-      [(SHManagedSession *)self setInflightRequest:v14];
+      v15 = [SHMatcherRequest requestToMatchUntilDeadline:deadlineCopy sendNotifications:sendNotifications forRequestID:sharedRequestID2];
+      [(SHManagedSession *)self setInflightRequest:v15];
     }
 
     shazamServiceConnection = [(SHManagedSession *)self shazamServiceConnection];
@@ -228,22 +228,22 @@
   [(SHManagedSession *)self ensureCallerHasRecordTCCWithCompletionHandler:v6];
 }
 
-void __49__SHManagedSession_prepareWithCompletionHandler___block_invoke(uint64_t a1, int a2)
+void __49__SHManagedSession_prepareWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
-    v5 = [*(a1 + 32) shazamServiceConnection];
-    v3 = [*(a1 + 32) sharedRequestID];
-    [v5 prepareMatcherForRequestID:v3 completionHandler:*(a1 + 40)];
+    v6 = [*(a1 + 32) shazamServiceConnection];
+    v4 = [*(a1 + 32) sharedRequestID];
+    [v6 prepareMatcherForRequestID:v4 completionHandler:*(a1 + 40)];
   }
 
   else
   {
-    v4 = sh_log_object();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sh_log_object(a1);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_230F52000, v4, OS_LOG_TYPE_ERROR, "Prepare call ignored, the caller does not have record permission", buf, 2u);
+      _os_log_impl(&dword_230F52000, v5, OS_LOG_TYPE_ERROR, "Prepare call ignored, the caller does not have record permission", buf, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -253,7 +253,7 @@ void __49__SHManagedSession_prepareWithCompletionHandler___block_invoke(uint64_t
 - (void)singleMatchWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = sh_log_object();
+  v5 = sh_log_object(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     LOWORD(buf[0]) = 0;
@@ -306,39 +306,39 @@ void __38__SHManagedSession_matchWithCallback___block_invoke(uint64_t a1)
 
   if (inflightRequest)
   {
-    v9 = sh_log_object();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sh_log_object(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_230F52000, v9, OS_LOG_TYPE_DEBUG, "Cancelling this new attempt as there's an attempt already running", buf, 2u);
+      _os_log_impl(&dword_230F52000, v10, OS_LOG_TYPE_DEBUG, "Cancelling this new attempt as there's an attempt already running", buf, 2u);
     }
 
-    v10 = objc_opt_new();
-    v11 = [SHError errorWithCode:202 underlyingError:0];
-    handlerCopy[2](handlerCopy, 0, v10, v11);
+    v11 = objc_opt_new();
+    v12 = [SHError errorWithCode:202 underlyingError:0];
+    handlerCopy[2](handlerCopy, 0, v11, v12);
   }
 
   else
   {
     objc_initWeak(buf, self);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __75__SHManagedSession_prepareMatchWithPreparedCallback_withCompletionHandler___block_invoke;
-    v12[3] = &unk_2788F80F0;
-    v12[4] = self;
-    v13 = handlerCopy;
-    objc_copyWeak(&v15, buf);
-    v14 = callbackCopy;
-    [(SHManagedSession *)self ensureCallerHasRecordTCCWithCompletionHandler:v12];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __75__SHManagedSession_prepareMatchWithPreparedCallback_withCompletionHandler___block_invoke;
+    v13[3] = &unk_2788F80F0;
+    v13[4] = self;
+    v14 = handlerCopy;
+    objc_copyWeak(&v16, buf);
+    v15 = callbackCopy;
+    [(SHManagedSession *)self ensureCallerHasRecordTCCWithCompletionHandler:v13];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(buf);
   }
 }
 
 void __75__SHManagedSession_prepareMatchWithPreparedCallback_withCompletionHandler___block_invoke(uint64_t a1, char a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 40);
   if (a2)
   {
@@ -346,25 +346,22 @@ void __75__SHManagedSession_prepareMatchWithPreparedCallback_withCompletionHandl
     [WeakRetained setCompletionHandler:v3];
 
     v5 = *(*(a1 + 48) + 16);
-    v6 = *MEMORY[0x277D85DE8];
 
     v5();
   }
 
   else
   {
-    v7 = objc_opt_new();
-    v13 = *MEMORY[0x277CCA068];
-    v14[0] = @"Record permission is required";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-    v9 = [SHError errorWithCode:202 underlyingError:0 keyOverrides:v8];
-    (*(v3 + 16))(v3, 0, v7, v9);
+    v6 = objc_opt_new();
+    v11 = *MEMORY[0x277CCA068];
+    v12[0] = @"Record permission is required";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v8 = [SHError errorWithCode:202 underlyingError:0 keyOverrides:v7];
+    (*(v3 + 16))(v3, 0, v6, v8);
 
-    v10 = *(a1 + 32);
-    v11 = [v10 session];
-    [v10 finishedSession:v11];
-
-    v12 = *MEMORY[0x277D85DE8];
+    v9 = *(a1 + 32);
+    v10 = [v9 session];
+    [v9 finishedSession:v10];
   }
 }
 

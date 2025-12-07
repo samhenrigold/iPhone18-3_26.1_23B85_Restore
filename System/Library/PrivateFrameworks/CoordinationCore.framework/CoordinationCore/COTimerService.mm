@@ -10,6 +10,7 @@
 - (void)_completeDispatchabilityStallActivity:(id)activity;
 - (void)_configureServiceInterfacesOnConnection:(id)connection;
 - (void)_didStopCanDispatchUpdate:(id)update;
+- (void)_postCanDispatchChanged:(BOOL)changed forAccessory:(id)accessory toObserver:(id)observer;
 - (void)_postCanDispatchChangedAddOn:(id)on;
 - (void)_postNotificationName:(id)name connection:(id)connection userInfo:(id)info;
 - (void)_postNotificationName:(id)name forAccessory:(id)accessory toAddOn:(id)on;
@@ -108,53 +109,51 @@
 
 - (void)_clientLost:(id)lost
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   lostCopy = lost;
-  v20.receiver = self;
-  v20.super_class = COTimerService;
-  [(COService *)&v20 _clientLost:lostCopy];
+  v19.receiver = self;
+  v19.super_class = COTimerService;
+  [(COService *)&v19 _clientLost:lostCopy];
   observers = [(COTimerService *)self observers];
   connection = [lostCopy connection];
   v7 = [observers clientObserversForXPCConnection:connection];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
-        [observers removeClientObserver:v13 forNotificationName:{0, v16}];
+        v13 = *(*(&v15 + 1) + 8 * i);
+        [observers removeClientObserver:v13 forNotificationName:{0, v15}];
         [(COTimerService *)self _didStopCanDispatchUpdate:v13];
         cluster = [v13 cluster];
         [(COService *)self _releaseAssertionForCluster:cluster];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addOnAdded:(id)added
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   [addedCopy setDelegate:self];
   homekit = [addedCopy homekit];
@@ -169,8 +168,8 @@
       {
         *buf = 134218242;
         selfCopy = self;
-        v13 = 2112;
-        v14 = currentAccessory;
+        v12 = 2112;
+        v13 = currentAccessory;
         _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%p TimerService added secondary cluster for accessory %@", buf, 0x16u);
       }
 
@@ -178,11 +177,9 @@
     }
   }
 
-  v10.receiver = self;
-  v10.super_class = COTimerService;
-  [(COService *)&v10 _addOnAdded:addedCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = COTimerService;
+  [(COService *)&v9 _addOnAdded:addedCopy];
 }
 
 - (void)_addOnRemoved:(id)removed
@@ -229,23 +226,23 @@
 
 void __60__COTimerService__postNotificationName_connection_userInfo___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = COCoreLogForCategory(3);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = COCoreLogForCategory(3);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __60__COAlarmService__postNotificationName_connection_userInfo___block_invoke_cold_1(a1);
+    __60__COAlarmService__postNotificationName_connection_userInfo___block_invoke_cold_1();
   }
 }
 
-void __60__COTimerService__postNotificationName_connection_userInfo___block_invoke_82(void *a1, void *a2)
+void __60__COTimerService__postNotificationName_connection_userInfo___block_invoke_82(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3)
+  v2 = a2;
+  if (v2)
   {
-    v4 = COCoreLogForCategory(3);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = COCoreLogForCategory(3);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __60__COAlarmService__postNotificationName_connection_userInfo___block_invoke_82_cold_1(a1);
+      __60__COAlarmService__postNotificationName_connection_userInfo___block_invoke_82_cold_1();
     }
   }
 }
@@ -253,53 +250,53 @@ void __60__COTimerService__postNotificationName_connection_userInfo___block_invo
 - (void)_postNotificationName:(id)name forTimers:(id)timers toAddOn:(id)on requiresUserInfo:(BOOL)info
 {
   infoCopy = info;
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   timersCopy = timers;
   onCopy = on;
   homekit = [onCopy homekit];
   homehub = [onCopy homehub];
-  v33 = homekit;
+  v32 = homekit;
   currentAccessory = [homekit currentAccessory];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   selfCopy = self;
   observers = [(COTimerService *)self observers];
-  v35 = nameCopy;
+  v34 = nameCopy;
   v14 = [observers clientObserversForNotificationName:nameCopy];
 
   obj = v14;
-  v15 = [v14 countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v46;
-    v37 = *MEMORY[0x277D296B0];
+    v17 = *v45;
+    v36 = *MEMORY[0x277D296B0];
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v46 != v17)
+        if (*v45 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v45 + 1) + 8 * i);
+        v19 = *(*(&v44 + 1) + 8 * i);
         connection = [v19 connection];
         constraints = [v19 constraints];
         if (constraints)
         {
-          v39[0] = MEMORY[0x277D85DD0];
-          v39[1] = 3221225472;
-          v39[2] = __75__COTimerService__postNotificationName_forTimers_toAddOn_requiresUserInfo___block_invoke_2;
-          v39[3] = &unk_278E16C88;
-          v40 = onCopy;
-          v41 = constraints;
-          v22 = [timersCopy indexesOfObjectsPassingTest:v39];
+          v38[0] = MEMORY[0x277D85DD0];
+          v38[1] = 3221225472;
+          v38[2] = __75__COTimerService__postNotificationName_forTimers_toAddOn_requiresUserInfo___block_invoke_2;
+          v38[3] = &unk_278E16C88;
+          v39 = onCopy;
+          v40 = constraints;
+          v22 = [timersCopy indexesOfObjectsPassingTest:v38];
 
-          co_PeerInstance = v40;
+          co_PeerInstance = v39;
         }
 
         else
@@ -307,7 +304,7 @@ void __60__COTimerService__postNotificationName_connection_userInfo___block_invo
           co_PeerInstance = [connection co_PeerInstance];
           if (co_PeerInstance)
           {
-            v24 = [homehub accessoryForPeerInstance:co_PeerInstance usingHomeKitAdapter:v33];
+            v24 = [homehub accessoryForPeerInstance:co_PeerInstance usingHomeKitAdapter:v32];
           }
 
           else
@@ -316,21 +313,21 @@ void __60__COTimerService__postNotificationName_connection_userInfo___block_invo
           }
 
           v25 = v24;
-          v42[0] = MEMORY[0x277D85DD0];
-          v42[1] = 3221225472;
-          v42[2] = __75__COTimerService__postNotificationName_forTimers_toAddOn_requiresUserInfo___block_invoke;
-          v42[3] = &unk_278E16C88;
-          v43 = onCopy;
-          v44 = v25;
+          v41[0] = MEMORY[0x277D85DD0];
+          v41[1] = 3221225472;
+          v41[2] = __75__COTimerService__postNotificationName_forTimers_toAddOn_requiresUserInfo___block_invoke;
+          v41[3] = &unk_278E16C88;
+          v42 = onCopy;
+          v43 = v25;
           v26 = v25;
-          v22 = [timersCopy indexesOfObjectsPassingTest:v42];
+          v22 = [timersCopy indexesOfObjectsPassingTest:v41];
         }
 
         if ([v22 count])
         {
           v27 = MEMORY[0x277CBEAC0];
           v28 = [timersCopy objectsAtIndexes:v22];
-          v29 = [v27 dictionaryWithObject:v28 forKey:v37];
+          v29 = [v27 dictionaryWithObject:v28 forKey:v36];
         }
 
         else
@@ -340,17 +337,15 @@ void __60__COTimerService__postNotificationName_connection_userInfo___block_invo
 
         if (!infoCopy || v29)
         {
-          [(COTimerService *)selfCopy _postNotificationName:v35 connection:connection userInfo:v29];
+          [(COTimerService *)selfCopy _postNotificationName:v34 connection:connection userInfo:v29];
         }
       }
 
-      v16 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v16 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
     }
 
     while (v16);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __75__COTimerService__postNotificationName_forTimers_toAddOn_requiresUserInfo___block_invoke_2(uint64_t a1, void *a2)
@@ -366,33 +361,33 @@ uint64_t __75__COTimerService__postNotificationName_forTimers_toAddOn_requiresUs
 
 - (void)_postNotificationName:(id)name forAccessory:(id)accessory toAddOn:(id)on
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   accessoryCopy = accessory;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   selfCopy = self;
   observers = [(COTimerService *)self observers];
-  v23 = nameCopy;
+  v22 = nameCopy;
   v11 = [observers clientObserversForNotificationName:nameCopy];
 
-  v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v25;
+    v14 = *v24;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v25 != v14)
+        if (*v24 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v24 + 1) + 8 * i);
+        v16 = *(*(&v23 + 1) + 8 * i);
         accessory = [v16 accessory];
         v18 = accessory;
         if (accessoryCopy)
@@ -403,78 +398,128 @@ uint64_t __75__COTimerService__postNotificationName_forTimers_toAddOn_requiresUs
           if (v20)
           {
             connection = [v16 connection];
-            [(COTimerService *)selfCopy _postNotificationName:v23 connection:connection userInfo:0];
+            [(COTimerService *)selfCopy _postNotificationName:v22 connection:connection userInfo:0];
           }
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v13);
   }
+}
 
-  v22 = *MEMORY[0x277D85DE8];
+- (void)_postCanDispatchChanged:(BOOL)changed forAccessory:(id)accessory toObserver:(id)observer
+{
+  changedCopy = changed;
+  v22[1] = *MEMORY[0x277D85DE8];
+  accessoryCopy = accessory;
+  observerCopy = observer;
+  if ([observerCopy canDispatch] != changedCopy)
+  {
+    connection = [observerCopy connection];
+    [observerCopy setCanDispatch:changedCopy];
+    v21 = *MEMORY[0x277CFCE40];
+    v19 = accessoryCopy;
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:changedCopy];
+    v20 = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v22[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+
+    if (changedCopy)
+    {
+      [(COTimerService *)self _completeDispatchabilityStallActivity:observerCopy];
+    }
+
+    else
+    {
+      dispatchabilityStallActivity = [observerCopy dispatchabilityStallActivity];
+      if (dispatchabilityStallActivity)
+      {
+      }
+
+      else if ([observerCopy dispatchabilityStallCount])
+      {
+        v15 = [(COService *)self clientForConnection:connection];
+        v16 = v15;
+        if (v15)
+        {
+          clientLifetimeActivity = [v15 clientLifetimeActivity];
+        }
+
+        else
+        {
+          clientLifetimeActivity = 0;
+        }
+
+        v18 = [CONetworkActivityFactory activityWithLabel:7 parentActivity:clientLifetimeActivity];
+        [observerCopy setDispatchabilityStallActivity:v18];
+        nw_activity_activate();
+      }
+    }
+
+    [(COTimerService *)self _postNotificationName:*MEMORY[0x277CFCFE0] connection:connection userInfo:v13];
+  }
 }
 
 - (void)_postCanDispatchChangedAddOn:(id)on
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   onCopy = on;
   observers = [(COTimerService *)self observers];
-  v15 = *MEMORY[0x277CFCFE0];
+  v14 = *MEMORY[0x277CFCFE0];
   v6 = [observers clientObserversForNotificationName:?];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         accessory = [v11 accessory];
         if (accessory)
         {
           objc_initWeak(&location, self);
-          v16[0] = MEMORY[0x277D85DD0];
-          v16[1] = 3221225472;
-          v16[2] = __47__COTimerService__postCanDispatchChangedAddOn___block_invoke;
-          v16[3] = &unk_278E17E98;
-          objc_copyWeak(&v19, &location);
-          v17 = accessory;
-          v18 = v11;
-          [onCopy canDispatchAsAccessory:v17 asInstance:0 reply:v16];
+          v15[0] = MEMORY[0x277D85DD0];
+          v15[1] = 3221225472;
+          v15[2] = __47__COTimerService__postCanDispatchChangedAddOn___block_invoke;
+          v15[3] = &unk_278E17E98;
+          objc_copyWeak(&v18, &location);
+          v16 = accessory;
+          v17 = v11;
+          [onCopy canDispatchAsAccessory:v16 asInstance:0 reply:v15];
 
-          objc_destroyWeak(&v19);
+          objc_destroyWeak(&v18);
           objc_destroyWeak(&location);
         }
 
         else
         {
           connection = [v11 connection];
-          [(COTimerService *)self _postNotificationName:v15 connection:connection userInfo:0];
+          [(COTimerService *)self _postNotificationName:v14 connection:connection userInfo:0];
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __47__COTimerService__postCanDispatchChangedAddOn___block_invoke(uint64_t a1, uint64_t a2)
@@ -931,7 +976,7 @@ void __70__COTimerService_dismissTimerWithIdentifier_asAccessory_withCallback___
 
 - (void)addObserverForNotificationName:(id)name asAccessory:(id)accessory asInstance:(id)instance constraints:(id)constraints withCallback:(id)callback
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   accessoryCopy = accessory;
   constraintsCopy = constraints;
@@ -947,9 +992,9 @@ void __70__COTimerService_dismissTimerWithIdentifier_asAccessory_withCallback___
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v44 = currentClient;
-    v45 = 2112;
-    v46 = nameCopy;
+    v43 = currentClient;
+    v44 = 2112;
+    v45 = nameCopy;
     _os_log_impl(&dword_244378000, v20, OS_LOG_TYPE_DEFAULT, "%p serving request to observe %@", buf, 0x16u);
   }
 
@@ -983,10 +1028,10 @@ void __70__COTimerService_dismissTimerWithIdentifier_asAccessory_withCallback___
       }
 
       [currentClient clientLifetimeActivity];
-      v26 = v38 = observers;
+      v26 = v37 = observers;
       dispatchabilityStallActivity = [CONetworkActivityFactory activityWithLabel:7 parentActivity:v26];
 
-      observers = v38;
+      observers = v37;
       [(COSignalsClientObserver *)v24 setDispatchabilityStallActivity:dispatchabilityStallActivity];
       nw_activity_activate();
     }
@@ -995,13 +1040,13 @@ void __70__COTimerService_dismissTimerWithIdentifier_asAccessory_withCallback___
 LABEL_13:
   if ([constraintsCopy count])
   {
-    v39 = observers;
+    v38 = observers;
     constraints = [observers constraints];
     v28 = [constraintsCopy mutableCopy];
     [v28 minusSet:constraints];
     if ([v28 count])
     {
-      v36 = v19;
+      v35 = v19;
       v29 = connection;
       v30 = callbackCopy;
       v31 = currentClient;
@@ -1009,29 +1054,27 @@ LABEL_13:
       v33 = [constraints mutableCopy];
 
       [v33 unionSet:constraintsCopy];
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __97__COTimerService_addObserverForNotificationName_asAccessory_asInstance_constraints_withCallback___block_invoke;
-      v40[3] = &unk_278E17F88;
-      v41 = accessoryCopy;
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __97__COTimerService_addObserverForNotificationName_asAccessory_asInstance_constraints_withCallback___block_invoke;
+      v39[3] = &unk_278E17F88;
+      v40 = accessoryCopy;
       v34 = v33;
       nameCopy = v32;
       currentClient = v31;
       callbackCopy = v30;
       connection = v29;
       v28 = v34;
-      v42 = v34;
-      v19 = v36;
-      [(COService *)selfCopy _addOnForCluster:v36 completion:v40];
+      v41 = v34;
+      v19 = v35;
+      [(COService *)selfCopy _addOnForCluster:v35 completion:v39];
     }
 
-    observers = v39;
+    observers = v38;
   }
 
   [observers addClientObserver:v24 forNotificationName:nameCopy];
   callbackCopy[2](callbackCopy, 0);
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __97__COTimerService_addObserverForNotificationName_asAccessory_asInstance_constraints_withCallback___block_invoke(uint64_t a1, void *a2)
@@ -1047,7 +1090,7 @@ void __97__COTimerService_addObserverForNotificationName_asAccessory_asInstance_
 
 - (void)removeObserverForNotificationName:(id)name asAccessory:(id)accessory withCallback:(id)callback
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   accessoryCopy = accessory;
   callbackCopy = callback;
@@ -1057,38 +1100,38 @@ void __97__COTimerService_addObserverForNotificationName_asAccessory_asInstance_
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v45 = currentClient;
-    v46 = 2112;
-    v47 = nameCopy;
+    v44 = currentClient;
+    v45 = 2112;
+    v46 = nameCopy;
     _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p serving request to stop observing %@", buf, 0x16u);
   }
 
-  v31 = currentClient;
+  v30 = currentClient;
 
   observers = [(COTimerService *)self observers];
   constraints = [observers constraints];
-  v30 = connection;
+  v29 = connection;
   v14 = [observers clientObserversForXPCConnection:connection];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v15 = [v14 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v40;
+    v17 = *v39;
     v18 = *MEMORY[0x277CFCFE0];
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v40 != v17)
+        if (*v39 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v20 = *(*(&v39 + 1) + 8 * i);
+        v20 = *(*(&v38 + 1) + 8 * i);
         [observers removeClientObserver:v20 forNotificationName:nameCopy];
         if ([nameCopy isEqualToString:v18])
         {
@@ -1096,7 +1139,7 @@ void __97__COTimerService_addObserverForNotificationName_asAccessory_asInstance_
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v16);
@@ -1108,31 +1151,29 @@ void __97__COTimerService_addObserverForNotificationName_asAccessory_asInstance_
   if (([constraints2 isEqual:constraints] & 1) == 0)
   {
     [(COService *)self _takeAssertionForCluster:v21];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __77__COTimerService_removeObserverForNotificationName_asAccessory_withCallback___block_invoke;
-    v37[3] = &unk_278E156B0;
-    v37[4] = self;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __77__COTimerService_removeObserverForNotificationName_asAccessory_withCallback___block_invoke;
+    v36[3] = &unk_278E156B0;
+    v36[4] = self;
     v24 = v21;
-    v38 = v24;
-    v25 = MEMORY[0x245D5FF10](v37);
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __77__COTimerService_removeObserverForNotificationName_asAccessory_withCallback___block_invoke_3;
-    v33[3] = &unk_278E17EE8;
-    v34 = accessoryCopy;
-    v35 = constraints2;
-    v36 = v25;
+    v37 = v24;
+    v25 = MEMORY[0x245D5FF10](v36);
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __77__COTimerService_removeObserverForNotificationName_asAccessory_withCallback___block_invoke_3;
+    v32[3] = &unk_278E17EE8;
+    v33 = accessoryCopy;
+    v34 = constraints2;
+    v35 = v25;
     v26 = v25;
     v27 = v24;
     v23 = constraints;
-    [(COService *)self _addOnForCluster:v27 completion:v33];
+    [(COService *)self _addOnForCluster:v27 completion:v32];
   }
 
   callbackCopy[2](callbackCopy, 0);
   [(COService *)self _releaseAssertionForCluster:v21];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __77__COTimerService_removeObserverForNotificationName_asAccessory_withCallback___block_invoke(uint64_t a1)
@@ -1368,11 +1409,10 @@ void __58__COTimerService_canDispatchAsAccessory_asInstance_reply___block_invoke
 
 + (void)_isAllowedClient:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_244378000, a2, OS_LOG_TYPE_DEBUG, "timers service allowing %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_244378000, a2, OS_LOG_TYPE_DEBUG, "timers service allowing %@", &v2, 0xCu);
 }
 
 @end

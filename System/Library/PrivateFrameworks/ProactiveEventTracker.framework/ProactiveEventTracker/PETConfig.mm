@@ -201,38 +201,37 @@ LABEL_8:
 
 - (id)bucketsForMessageName:(id)name
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = [(PETConfig *)self _configForMessageName:name];
   [v3 pet_arrayForKey:@"hist_buckets"];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v4 = v16 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = v14 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 
-          v10 = 0;
+          v9 = 0;
           goto LABEL_11;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -242,12 +241,10 @@ LABEL_8:
     }
   }
 
-  v10 = v4;
+  v9 = v4;
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v9;
 }
 
 - (double)messageSamplingForMessageName:(id)name isSeed:(BOOL)seed
@@ -638,11 +635,11 @@ LABEL_8:
 
 - (PETConfig)initWithFile:(id)file
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   fileCopy = file;
-  v16.receiver = self;
-  v16.super_class = PETConfig;
-  v5 = [(PETConfig *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = PETConfig;
+  v5 = [(PETConfig *)&v15 init];
   if (v5)
   {
     v6 = v5;
@@ -651,16 +648,16 @@ LABEL_8:
 
     if (v8)
     {
-      v15 = 0;
-      v9 = [MEMORY[0x1E69C5D40] propertyListWithPath:fileCopy error:&v15];
-      v10 = v15;
+      v14 = 0;
+      v9 = [MEMORY[0x1E69C5D40] propertyListWithPath:fileCopy error:&v14];
+      v10 = v14;
       if (v10)
       {
         v11 = v10;
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v18 = v11;
+          v17 = v11;
           _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error loading pet config lazy plist: %@", buf, 0xCu);
         }
 
@@ -688,7 +685,7 @@ LABEL_15:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = fileCopy;
+      v17 = fileCopy;
       _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error loading pet config. File is missing or corrupted: %@", buf, 0xCu);
     }
 
@@ -701,7 +698,6 @@ LABEL_14:
   v12 = 0;
 LABEL_16:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

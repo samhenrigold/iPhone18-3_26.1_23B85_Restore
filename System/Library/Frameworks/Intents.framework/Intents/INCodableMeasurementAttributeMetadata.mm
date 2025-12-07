@@ -168,36 +168,36 @@ __CFString *__91__INCodableMeasurementAttributeMetadata_widgetPlistableRepresent
 
 - (id)_defaultUnitWithNames:(id)names
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   namesCopy = names;
   v5 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithCapacity:{objc_msgSend(namesCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = namesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(INCodableMeasurementAttributeMetadata *)self _unitWithUnitName:*(*(&v15 + 1) + 8 * i), v15];
+        v11 = [(INCodableMeasurementAttributeMetadata *)self _unitWithUnitName:*(*(&v14 + 1) + 8 * i), v14];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -212,8 +212,6 @@ __CFString *__91__INCodableMeasurementAttributeMetadata_widgetPlistableRepresent
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -255,7 +253,7 @@ __CFString *__91__INCodableMeasurementAttributeMetadata_widgetPlistableRepresent
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   name = [(INCodableAttributeMetadata *)self name];
-  v6 = [v4 stringByAppendingString:name];
+  v6 = objc_msgSend_stringByAppendingString_(v4);
   v7 = objc_opt_class();
   v8 = NSClassFromString(v6);
   v9 = v8;
@@ -299,36 +297,36 @@ LABEL_5:
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v30[4] = *MEMORY[0x1E69E9840];
-  v28.receiver = self;
-  v28.super_class = INCodableMeasurementAttributeMetadata;
-  v22 = [(INCodableAttributeMetadata *)&v28 dictionaryRepresentationWithLocalizer:localizer];
+  v29[4] = *MEMORY[0x1E69E9840];
+  v27.receiver = self;
+  v27.super_class = INCodableMeasurementAttributeMetadata;
+  v21 = [(INCodableAttributeMetadata *)&v27 dictionaryRepresentationWithLocalizer:localizer];
   __INCodableDescriptionUnitKey = [(INCodableMeasurementAttributeMetadata *)self __INCodableDescriptionUnitKey];
-  v29[0] = __INCodableDescriptionUnitKey;
+  v28[0] = __INCodableDescriptionUnitKey;
   unit = [(INCodableMeasurementAttributeMetadata *)self unit];
   _intents_stringRepresentation = [unit _intents_stringRepresentation];
   v5 = @"Any";
-  v21 = _intents_stringRepresentation;
+  v20 = _intents_stringRepresentation;
   if (_intents_stringRepresentation)
   {
     v5 = _intents_stringRepresentation;
   }
 
-  v30[0] = v5;
+  v29[0] = v5;
   __INCodableDescriptionDefaultUnitKey = [(INCodableMeasurementAttributeMetadata *)self __INCodableDescriptionDefaultUnitKey];
-  v29[1] = __INCodableDescriptionDefaultUnitKey;
+  v28[1] = __INCodableDescriptionDefaultUnitKey;
   array = [(NSOrderedSet *)self->_defaultUnits array];
-  v23 = [array if_map:&__block_literal_global_77369];
-  null = [v23 componentsJoinedByString:@"/"];
+  v22 = [array if_map:&__block_literal_global_77369];
+  null = [v22 componentsJoinedByString:@"/"];
   v7 = null;
   if (!null)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[1] = null;
+  v29[1] = null;
   __INCodableDescriptionSupportsNegativeNumbersKey = [(INCodableMeasurementAttributeMetadata *)self __INCodableDescriptionSupportsNegativeNumbersKey];
-  v29[2] = __INCodableDescriptionSupportsNegativeNumbersKey;
+  v28[2] = __INCodableDescriptionSupportsNegativeNumbersKey;
   v9 = [MEMORY[0x1E696AD98] numberWithBool:{-[INCodableMeasurementAttributeMetadata supportsNegativeNumbers](self, "supportsNegativeNumbers")}];
   null2 = v9;
   if (!v9)
@@ -336,9 +334,9 @@ LABEL_5:
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[2] = null2;
+  v29[2] = null2;
   __INCodableDescriptionDefaultValueKey = [(INCodableMeasurementAttributeMetadata *)self __INCodableDescriptionDefaultValueKey];
-  v29[3] = __INCodableDescriptionDefaultValueKey;
+  v28[3] = __INCodableDescriptionDefaultValueKey;
   v12 = MEMORY[0x1E696AD98];
   [(INCodableMeasurementAttributeMetadata *)self defaultValue];
   v13 = [v12 numberWithDouble:?];
@@ -348,9 +346,9 @@ LABEL_5:
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[3] = null3;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:4];
-  v16 = [v22 if_dictionaryByAddingEntriesFromDictionary:v15];
+  v29[3] = null3;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:4];
+  v16 = [v21 if_dictionaryByAddingEntriesFromDictionary:v15];
 
   if (!v13)
   {
@@ -365,8 +363,6 @@ LABEL_5:
   }
 
   if_dictionaryWithNonEmptyValues = [v16 if_dictionaryWithNonEmptyValues];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }

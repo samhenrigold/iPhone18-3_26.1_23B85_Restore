@@ -10,166 +10,166 @@
 
 + (id)_attributesWithClass:(Class)class
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   if (![(objc_class *)class isSubclassOfClass:objc_opt_class()])
   {
     return 0;
   }
 
-  CustomAttributes = getCustomAttributes(class);
+  CustomAttributes = getCustomAttributes(class, v4);
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v37 = NSStringFromClass(class);
-  v6 = bundleForCIFilter();
-  v35 = [MEMORY[0x1E696AAE8] bundleForClass:class];
-  IsBuiltinFilter = classIsBuiltinFilter(class);
-  if (IsBuiltinFilter)
-  {
-    IsSystemFilter = 1;
-  }
-
-  else
-  {
-    IsSystemFilter = classIsSystemFilter(class);
-  }
-
-  v8 = [CustomAttributes valueForKey:@"CIAttributeFilterName"];
-  if (v8)
-  {
-    v9 = v8;
-  }
-
-  else
-  {
-    v9 = v37;
-  }
-
-  [dictionary setValue:v9 forKey:@"CIAttributeFilterName"];
-  v10 = [CustomAttributes valueForKey:@"CIAttributeFilterDisplayName"];
-  v11 = IsBuiltinFilter ^ 1;
+  v40 = NSStringFromClass(class);
+  v7 = bundleForCIFilter();
+  v38 = [MEMORY[0x1E696AAE8] bundleForClass:class];
+  v10 = classIsBuiltinFilter(class, v8);
   if (v10)
   {
-    v11 = 1;
-  }
-
-  if ((v11 & 1) == 0)
-  {
-    v10 = [v6 localizedStringForKey:v37 value:0 table:@"Filters"];
-  }
-
-  if (!v10)
-  {
-    v10 = [v35 localizedStringForKey:v37 value:0 table:@"Filters"];
-  }
-
-  if (v10)
-  {
-    v12 = v10;
+    v39 = 1;
   }
 
   else
   {
-    v12 = v37;
+    v39 = classIsSystemFilter(class, v9);
   }
 
-  [dictionary setValue:v12 forKey:@"CIAttributeFilterDisplayName"];
-  v13 = [CustomAttributes valueForKey:?];
+  v11 = [(NSMutableDictionary *)CustomAttributes valueForKey:@"CIAttributeFilterName"];
+  if (v11)
+  {
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = v40;
+  }
+
+  [dictionary setValue:v12 forKey:@"CIAttributeFilterName"];
+  v13 = [(NSMutableDictionary *)CustomAttributes valueForKey:@"CIAttributeFilterDisplayName"];
+  v14 = v10 ^ 1;
   if (v13)
   {
-    [dictionary setValue:v13 forKey:@"CIAttributeDescription"];
+    v14 = 1;
   }
 
-  v14 = [CIFilterClassCategories classCategoriesForClass:class];
-  if (v14)
+  if ((v14 & 1) == 0)
   {
-    [dictionary setValue:v14 forKey:@"CIAttributeFilterCategories"];
+    v13 = [v7 localizedStringForKey:v40 value:0 table:@"Filters"];
   }
 
-  v15 = [CustomAttributes valueForKey:@"CIAttributeFilterAvailable_iOS"];
-  if (((v15 != 0) & IsSystemFilter) == 1)
+  if (!v13)
   {
-    [dictionary setValue:v15 forKey:@"CIAttributeFilterAvailable_iOS"];
+    v13 = [v38 localizedStringForKey:v40 value:0 table:@"Filters"];
   }
 
-  v16 = [CustomAttributes valueForKey:@"CIAttributeFilterAvailable_Mac"];
-  if (((v16 != 0) & IsSystemFilter) == 1)
+  if (v13)
   {
-    [dictionary setValue:v16 forKey:@"CIAttributeFilterAvailable_Mac"];
+    v15 = v13;
   }
 
-  v17 = [CustomAttributes valueForKey:@"CIAttributeReferenceDocumentation"];
-  if (((v17 == 0) & IsSystemFilter) == 1)
+  else
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"http://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html#//apple_ref/doc/filter/ci/%@", v37];
-    v17 = [MEMORY[0x1E695DFF8] URLWithString:v18];
+    v15 = v40;
   }
 
+  [dictionary setValue:v15 forKey:@"CIAttributeFilterDisplayName"];
+  v16 = [(NSMutableDictionary *)CustomAttributes valueForKey:?];
+  if (v16)
+  {
+    [dictionary setValue:v16 forKey:@"CIAttributeDescription"];
+  }
+
+  v17 = [CIFilterClassCategories classCategoriesForClass:class];
   if (v17)
   {
-    [dictionary setValue:v17 forKey:@"CIAttributeReferenceDocumentation"];
+    [dictionary setValue:v17 forKey:@"CIAttributeFilterCategories"];
   }
 
-  v19 = [CIFilterClassInfo classInfoForClass:class];
-  if ([objc_msgSend(v19 "inputKeys")])
+  v18 = [(NSMutableDictionary *)CustomAttributes valueForKey:@"CIAttributeFilterAvailable_iOS"];
+  if (((v18 != 0) & v39) == 1)
   {
-    v20 = 0;
-    v38 = v19;
-    v34 = IsBuiltinFilter;
+    [dictionary setValue:v18 forKey:@"CIAttributeFilterAvailable_iOS"];
+  }
+
+  v19 = [(NSMutableDictionary *)CustomAttributes valueForKey:@"CIAttributeFilterAvailable_Mac"];
+  if (((v19 != 0) & v39) == 1)
+  {
+    [dictionary setValue:v19 forKey:@"CIAttributeFilterAvailable_Mac"];
+  }
+
+  v20 = [(NSMutableDictionary *)CustomAttributes valueForKey:@"CIAttributeReferenceDocumentation"];
+  if (((v20 == 0) & v39) == 1)
+  {
+    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"http://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html#//apple_ref/doc/filter/ci/%@", v40];
+    v20 = [MEMORY[0x1E695DFF8] URLWithString:v21];
+  }
+
+  if (v20)
+  {
+    [dictionary setValue:v20 forKey:@"CIAttributeReferenceDocumentation"];
+  }
+
+  v22 = [CIFilterClassInfo classInfoForClass:class];
+  if ([objc_msgSend(v22 "inputKeys")])
+  {
+    v23 = 0;
+    v41 = v22;
+    v37 = v10;
     while (1)
     {
-      v21 = [objc_msgSend(v19 "inputKeys")];
+      v24 = [objc_msgSend(v22 "inputKeys")];
       dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-      StdAttrsForKey = getStdAttrsForKey(v21);
+      StdAttrsForKey = getStdAttrsForKey(v24);
       if (StdAttrsForKey)
       {
         [dictionary2 addEntriesFromDictionary:StdAttrsForKey];
       }
 
-      v24 = [objc_msgSend(v19 "inputClasses")];
-      if ([(__CFString *)v24 length])
+      v27 = [objc_msgSend(v22 "inputClasses")];
+      if ([(__CFString *)v27 length])
       {
-        if ([(__CFString *)v24 isEqualToString:@"__WrappedNSNumber"])
+        if ([(__CFString *)v27 isEqualToString:@"__WrappedNSNumber"])
         {
-          v24 = @"NSNumber";
+          v27 = @"NSNumber";
         }
 
-        [dictionary2 setValue:v24 forKey:@"CIAttributeClass"];
+        [dictionary2 setValue:v27 forKey:@"CIAttributeClass"];
       }
 
-      if (IsBuiltinFilter)
+      if (v10)
       {
         break;
       }
 
-      v29 = [(NSString *)v21 substringFromIndex:5];
-      if ((IsSystemFilter & 1) == 0)
+      v32 = [(NSString *)v24 substringFromIndex:5];
+      if ((v39 & 1) == 0)
       {
-        v27 = dictionary2;
-        v28 = v29;
-        v31 = @"CIAttributeDisplayName";
+        v30 = dictionary2;
+        v31 = v32;
+        v34 = @"CIAttributeDisplayName";
         goto LABEL_51;
       }
 
-      [dictionary2 setValue:objc_msgSend(v35 forKey:{"localizedStringForKey:value:table:", objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@.%@", v37, v21), v29, @"Filters", @"CIAttributeDisplayName"}];
-      IsBuiltinFilter = v34;
-      v30 = [v35 localizedStringForKey:objc_msgSend(MEMORY[0x1E696AEC0] value:"stringWithFormat:" table:{@"%@.%@.description", v37, v21), 0, @"Filters"}];
-      if (v30)
+      [dictionary2 setValue:objc_msgSend(v38 forKey:{"localizedStringForKey:value:table:", objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@.%@", v40, v24), v32, @"Filters", @"CIAttributeDisplayName"}];
+      v10 = v37;
+      v33 = [v38 localizedStringForKey:objc_msgSend(MEMORY[0x1E696AEC0] value:"stringWithFormat:" table:{@"%@.%@.description", v40, v24), 0, @"Filters"}];
+      if (v33)
       {
-        v28 = v30;
-        v27 = dictionary2;
+        v31 = v33;
+        v30 = dictionary2;
         goto LABEL_49;
       }
 
 LABEL_52:
-      v32 = [CustomAttributes valueForKey:v21];
-      if (v32)
+      v35 = [(NSMutableDictionary *)CustomAttributes valueForKey:v24];
+      if (v35)
       {
-        [dictionary2 addEntriesFromDictionary:v32];
+        [dictionary2 addEntriesFromDictionary:v35];
       }
 
-      [dictionary setValue:dictionary2 forKey:v21];
-      ++v20;
-      v19 = v38;
-      if ([objc_msgSend(v38 "inputKeys")] <= v20)
+      [dictionary setValue:dictionary2 forKey:v24];
+      ++v23;
+      v22 = v41;
+      if ([objc_msgSend(v41 "inputKeys")] <= v23)
       {
         goto LABEL_55;
       }
@@ -177,39 +177,39 @@ LABEL_52:
 
     if (![dictionary2 objectForKey:@"CIAttributeType"])
     {
-      if ([(__CFString *)v24 isEqual:@"CIColor"])
+      if ([(__CFString *)v27 isEqual:@"CIColor"])
       {
         [dictionary2 setValue:@"CIAttributeTypeColor" forKey:@"CIAttributeType"];
       }
 
-      if ([(__CFString *)v24 isEqual:@"CIImage"])
+      if ([(__CFString *)v27 isEqual:@"CIImage"])
       {
         [dictionary2 setValue:@"CIAttributeTypeImage" forKey:@"CIAttributeType"];
       }
     }
 
-    [dictionary2 setValue:objc_msgSend(v6 forKey:{"localizedStringForKey:value:table:", v21, -[NSString substringFromIndex:](v21, "substringFromIndex:", 5), @"Keys", @"CIAttributeDisplayName"}];
-    v25 = [v6 localizedStringForKey:v21 value:@"<none>" table:@"Descriptions"];
-    v26 = [v6 localizedStringForKey:objc_msgSend(MEMORY[0x1E696AEC0] value:"stringWithFormat:" table:{@"%@.%@", v37, v21), v25, @"Descriptions"}];
-    if ([v26 isEqual:@"<none>"])
+    [dictionary2 setValue:objc_msgSend(v7 forKey:{"localizedStringForKey:value:table:", v24, -[NSString substringFromIndex:](v24, "substringFromIndex:", 5), @"Keys", @"CIAttributeDisplayName"}];
+    v28 = [v7 localizedStringForKey:v24 value:@"<none>" table:@"Descriptions"];
+    v29 = [v7 localizedStringForKey:objc_msgSend(MEMORY[0x1E696AEC0] value:"stringWithFormat:" table:{@"%@.%@", v40, v24), v28, @"Descriptions"}];
+    if ([v29 isEqual:@"<none>"])
     {
       goto LABEL_52;
     }
 
-    v27 = dictionary2;
-    v28 = v26;
+    v30 = dictionary2;
+    v31 = v29;
 LABEL_49:
-    v31 = @"CIAttributeDescription";
+    v34 = @"CIAttributeDescription";
 LABEL_51:
-    [v27 setValue:v28 forKey:v31];
+    [v30 setValue:v31 forKey:v34];
     goto LABEL_52;
   }
 
 LABEL_55:
-  if ((IsSystemFilter & 1) != 0 && ![dictionary valueForKey:@"CIAttributeFilterCategories"])
+  if ((v39 & 1) != 0 && ![dictionary valueForKey:@"CIAttributeFilterCategories"])
   {
-    v39[0] = @"CICategoryApplePrivate";
-    [dictionary setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v39, 1), @"CIAttributeFilterCategories"}];
+    v42[0] = @"CICategoryApplePrivate";
+    [dictionary setValue:objc_msgSend(MEMORY[0x1E695DEC8] forKey:{"arrayWithObjects:count:", v42, 1), @"CIAttributeFilterCategories"}];
   }
 
   return dictionary;

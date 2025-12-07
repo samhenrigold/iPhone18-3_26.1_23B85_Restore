@@ -21,7 +21,7 @@
 
 - (id)getOrGenerateChildBasehashSaltingKey
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = [(BRCClientZone *)self->_parentClientZone childBaseSaltForItemID:self->_parentItemID];
   if (v3)
   {
@@ -30,9 +30,9 @@
 
     if (v5)
     {
-      v12 = @"br_bougusSaltingKey";
-      v13[0] = MEMORY[0x277CBEC38];
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v11 = @"br_bougusSaltingKey";
+      v12[0] = MEMORY[0x277CBEC38];
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
       parentPluginFields = self->_parentPluginFields;
       self->_parentPluginFields = v6;
     }
@@ -46,8 +46,6 @@
   }
 
   v9 = brc_generateSaltingKey;
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -148,7 +146,7 @@ LABEL_12:
 
 void __68__BRCSaltingBatchOperation__createCKOperationForRecords_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -158,19 +156,17 @@ void __68__BRCSaltingBatchOperation__createCKOperationForRecords_completion___bl
     v9 = brc_default_log();
     if (os_log_type_enabled(v9, 0x90u))
     {
-      v11 = 138412802;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_error_impl(&dword_223E7A000, v9, 0x90u, "[ERROR] Salting operation for recordID %@ with error %@%@", &v11, 0x20u);
+      v10 = 138412802;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v8;
+      _os_log_error_impl(&dword_223E7A000, v9, 0x90u, "[ERROR] Salting operation for recordID %@ with error %@%@", &v10, 0x20u);
     }
   }
 
   [*(*(a1 + 32) + 512) handleSaltingErrorIfNeeded:v7 record:v5];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendRecordBatch:(id)batch completion:(id)completion
@@ -234,7 +230,7 @@ void __68__BRCSaltingBatchOperation__createCKOperationForRecords_completion___bl
 
 - (void)_saltChildRecordFields:(id)fields serverItem:(id)item basehashSalt:(id)salt
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   fieldsCopy = fields;
   itemCopy = item;
   saltCopy = salt;
@@ -261,13 +257,13 @@ void __68__BRCSaltingBatchOperation__createCKOperationForRecords_completion___bl
   logicalName = [v16 logicalName];
 
   [fieldsCopy serializeFilename:logicalName forCreation:0 basehashSalt:saltCopy parentIDIsCloudDocsRoot:isCloudDocsAppLibrary parentIDIsDocumentsFolder:isDocumentsFolder];
-  v29 = 0;
-  v18 = [logicalName br_stringByDeletingPathBounceNo:0 andPathExtension:&v29];
-  v19 = v29;
-  v30 = @"br_saltingUpdate";
+  v28 = 0;
+  v18 = [logicalName br_stringByDeletingPathBounceNo:0 andPathExtension:&v28];
+  v19 = v28;
+  v29 = @"br_saltingUpdate";
   brc_SHA256 = [v18 brc_SHA256];
-  v31[0] = brc_SHA256;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v30[0] = brc_SHA256;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
   [fieldsCopy setPluginFields:v21];
 
   v22 = [itemCopy st];
@@ -281,8 +277,6 @@ void __68__BRCSaltingBatchOperation__createCKOperationForRecords_completion___bl
   serverZone = [itemCopy serverZone];
   v27 = [parentItemIDOnServer validatingDirectoryReferenceInZone:serverZone];
   [fieldsCopy setObject:v27 forKeyedSubscript:@"parent"];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createStructureRecordForServerItem:(id)item salt:(id)salt
@@ -420,7 +414,7 @@ void __68__BRCSaltingBatchOperation__createCKOperationForRecords_completion___bl
 
 void __56__BRCSaltingBatchOperation__buildRecordsWithCompletion___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v2 = [BRCFlatLevelSaltingEnumerator newEnumeratorForItemID:*(*(a1 + 32) + 520) clientZone:*(*(a1 + 32) + 512)];
   v3 = [*(a1 + 32) getOrGenerateChildBasehashSaltingKey];
   v4 = *(a1 + 32);
@@ -439,23 +433,23 @@ void __56__BRCSaltingBatchOperation__buildRecordsWithCompletion___block_invoke(u
     v11 = brc_default_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      v30 = [*(a1 + 32) operationID];
-      v31 = v30;
-      v32 = *(*(a1 + 32) + 528);
-      v33 = @"fully salted";
+      v29 = [*(a1 + 32) operationID];
+      v30 = v29;
+      v31 = *(*(a1 + 32) + 528);
+      v32 = @"fully salted";
       if (v9 == -1)
       {
-        v33 = @"no server item";
+        v32 = @"no server item";
       }
 
       *buf = 138413058;
-      v40 = v30;
-      v41 = 2112;
-      v42 = v32;
-      v43 = 2112;
-      v44 = v33;
-      v45 = 2112;
-      v46 = v10;
+      v39 = v29;
+      v40 = 2112;
+      v41 = v31;
+      v42 = 2112;
+      v43 = v32;
+      v44 = 2112;
+      v45 = v10;
       _os_log_fault_impl(&dword_223E7A000, v11, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: operation %@ is trying to salt record %@ while it is in %@ state%@", buf, 0x2Au);
     }
 
@@ -471,7 +465,7 @@ void __56__BRCSaltingBatchOperation__buildRecordsWithCompletion___block_invoke(u
   v18 = [v2 nextObject];
   if (v18)
   {
-    v38 = v9;
+    v37 = v9;
     v19 = 0;
     while (1)
     {
@@ -502,7 +496,7 @@ void __56__BRCSaltingBatchOperation__buildRecordsWithCompletion___block_invoke(u
 LABEL_14:
     *(*(a1 + 32) + 536) = v24;
     v25 = *(a1 + 32);
-    if (*(v25 + 536) == v38)
+    if (*(v25 + 536) == v37)
     {
       if (v21 > v19)
       {
@@ -519,7 +513,7 @@ LABEL_14:
       goto LABEL_25;
     }
 
-    LODWORD(v9) = v38;
+    LODWORD(v9) = v37;
   }
 
   else
@@ -537,34 +531,34 @@ LABEL_14:
   {
     if (v9 > 3)
     {
-      v34 = @"no server item";
+      v33 = @"no server item";
     }
 
     else
     {
-      v34 = off_278507FC8[v9];
+      v33 = off_278507FC8[v9];
     }
 
-    v35 = *(*(a1 + 32) + 528);
-    v36 = *(*(a1 + 32) + 536);
-    if (v36 > 3)
+    v34 = *(*(a1 + 32) + 528);
+    v35 = *(*(a1 + 32) + 536);
+    if (v35 > 3)
     {
-      v37 = @"no server item";
+      v36 = @"no server item";
     }
 
     else
     {
-      v37 = off_278507FC8[v36];
+      v36 = off_278507FC8[v35];
     }
 
     *buf = 138413058;
-    v40 = v35;
-    v41 = 2112;
-    v42 = v34;
-    v43 = 2112;
-    v44 = v37;
-    v45 = 2112;
-    v46 = v26;
+    v39 = v34;
+    v40 = 2112;
+    v41 = v33;
+    v42 = 2112;
+    v43 = v36;
+    v44 = 2112;
+    v45 = v26;
     _os_log_debug_impl(&dword_223E7A000, v27, OS_LOG_TYPE_DEBUG, "[DEBUG] Moving salting parent record ID %@ from %@ to %@%@", buf, 0x2Au);
   }
 
@@ -579,8 +573,6 @@ LABEL_25:
 
 LABEL_26:
   (*(*(a1 + 40) + 16))();
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithResult:(id)result error:(id)error
@@ -617,28 +609,28 @@ LABEL_26:
 
 uint64_t __68__BRCSaltingBatchOperation__updateSaltingInfoInServerDBWithRecords___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v17;
+    v5 = *v16;
     do
     {
       v6 = 0;
       do
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * v6);
+        v7 = *(*(&v15 + 1) + 8 * v6);
         v8 = [v7 recordID];
         v9 = [*(*(a1 + 40) + 256) zoneAppRetriever];
         v10 = [v8 brc_itemIDWithZoneAppRetriever:v9];
@@ -671,14 +663,13 @@ LABEL_12:
       }
 
       while (v4 != v6);
-      v13 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v13 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
       v4 = v13;
     }
 
     while (v13);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

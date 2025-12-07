@@ -18,7 +18,6 @@
 
 - (void)invalidate
 {
-  pid = self->_pid;
   invalid = self->_invalid;
   self->_invalid = invalid + 1;
   if (!invalid)
@@ -29,31 +28,31 @@
     self->_invalidHandlers = 0;
     [(_NSDNXPCConnection *)client invalidate];
 
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
-    v7 = [(NSMutableArray *)invalidHandlers countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v7)
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    v6 = [(NSMutableArray *)invalidHandlers countByEnumeratingWithState:&v10 objects:v14 count:16];
+    if (v6)
     {
-      v8 = v7;
-      v9 = *v12;
+      v7 = v6;
+      v8 = *v11;
       do
       {
-        for (i = 0; i != v8; i = i + 1)
+        for (i = 0; i != v7; i = i + 1)
         {
-          if (*v12 != v9)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(invalidHandlers);
           }
 
-          (*(*(*(&v11 + 1) + 8 * i) + 16))();
+          (*(*(*(&v10 + 1) + 8 * i) + 16))();
         }
 
-        v8 = [(NSMutableArray *)invalidHandlers countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [(NSMutableArray *)invalidHandlers countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
-      while (v8);
+      while (v7);
     }
 
     getpid();
@@ -128,54 +127,53 @@
   if (![(_NSDNXPCConnection *)self->_client euid])
   {
     v3 = xpc_array_create(0, 0);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     selfCopy = self;
     obj = [(_NSDNXPCServer *)self->_parent allClients];
-    v4 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
+    v4 = [obj countByEnumeratingWithState:&v15 objects:v21 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v17;
+      v6 = *v16;
       do
       {
         for (i = 0; i != v5; i = i + 1)
         {
-          if (*v17 != v6)
+          if (*v16 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v16 + 1) + 8 * i);
+          v8 = *(*(&v15 + 1) + 8 * i);
           v9 = xpc_dictionary_create(0, 0, 0);
           xpc_dictionary_set_string(v9, "process", [objc_msgSend(v8 "processName")]);
-          xpc_dictionary_set_int64(v9, "pid", *(v8 + 72));
-          v10 = xpc_array_create(0, 0);
-          v11 = *(v8 + 24);
+          xpc_dictionary_set_int64(v9, "pid", v8[18]);
+          v14 = xpc_array_create(0, 0);
           CFXNotificationRegistrarEnumerate();
-          xpc_dictionary_set_value(v9, "registrations", v10);
-          xpc_release(v10);
+          xpc_dictionary_set_value(v9, "registrations", v14);
+          xpc_release(v14);
           xpc_array_append_value(v3, v9);
           xpc_release(v9);
         }
 
-        v5 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
+        v5 = [obj countByEnumeratingWithState:&v15 objects:v21 count:16];
       }
 
       while (v5);
     }
 
-    v12 = xpc_string_create("dump");
+    v10 = xpc_string_create("dump");
     *keys = off_100008408;
-    values[0] = v12;
+    values[0] = v10;
     values[1] = v3;
-    v13 = xpc_dictionary_create(keys, values, 2uLL);
-    xpc_release(v12);
+    v11 = xpc_dictionary_create(keys, values, 2uLL);
+    xpc_release(v10);
     xpc_release(v3);
-    [(_NSDNXPCConnection *)selfCopy->_client sendMessage:v13];
-    xpc_release(v13);
+    [(_NSDNXPCConnection *)selfCopy->_client sendMessage:v11];
+    xpc_release(v11);
   }
 }
 
@@ -189,8 +187,7 @@
   v13 = 0u;
   v14 = 0u;
   xpc_connection_get_audit_token();
-  buffer = 0u;
-  v17 = 0u;
+  memset(buffer, 0, 32);
   v7 = sandbox_reference_retain_by_audit_token();
   *&v6->_started = 0;
   v6->_sandboxReference = v7;
@@ -209,7 +206,7 @@
   v12[4] = v6;
   [(_NSDNXPCConnection *)client addInvalidationHandler:v12];
   [(_NSDNXPCConnection *)v6->_client addTerminationImminentHandler:&stru_100008460];
-  snprintf(v18, 0x100uLL, "ClientOfLocalNoteServer.0x%016lx.dq", v6);
+  snprintf(v17, 0x100uLL, "ClientOfLocalNoteServer.0x%016lx.dq", v6);
   v11[0] = _NSConcreteStackBlock;
   v11[1] = 3221225472;
   v11[2] = sub_100002714;
@@ -246,7 +243,6 @@
   xpc_array_append_value(self->_queue, post);
   if (xpc_array_get_count(self->_queue) >= 0x1F4)
   {
-    pid = self->_pid;
 
     [(ClientOfLocalNoteServer *)self flushQueue];
   }
@@ -347,38 +343,37 @@ LABEL_24:
 - (void)handlePost:(id)post userInfo:(id)info
 {
   xpc_dictionary_get_value(post, "name");
-  v6 = _CFXPCCreateCFObjectFromXPCObject();
+  v5 = _CFXPCCreateCFObjectFromXPCObject();
   xpc_dictionary_get_value(post, "object");
-  v7 = _CFXPCCreateCFObjectFromXPCObject();
-  v8 = v7;
-  if (v6)
+  v6 = _CFXPCCreateCFObjectFromXPCObject();
+  v7 = v6;
+  if (v5)
   {
-    v9 = v7 == 0;
+    v8 = v6 == 0;
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
-  if (!v9)
+  if (!v8)
   {
     [+[ClientOfLocalNoteServer monitor](ClientOfLocalNoteServer forward:"forward:", post];
-    bzero(v11, 0x810uLL);
-    v11[1] = &v12;
-    registrar = self->_registrar;
+    bzero(v9, 0x810uLL);
+    v9[1] = &v10;
     CFXNotificationRegistrarFind();
     _CFXNotificationRegistrationBufferDestroy();
   }
 
-  if (v6)
+  if (v5)
   {
-    CFRelease(v6);
+    CFRelease(v5);
   }
 
-  if (v8)
+  if (v7)
   {
-    CFRelease(v8);
+    CFRelease(v7);
   }
 }
 

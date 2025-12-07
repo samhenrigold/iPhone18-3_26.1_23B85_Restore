@@ -11,6 +11,7 @@
 + (id)itemTypesRequiringImmediateUpdate;
 + (void)disableOverrideAcceptAllSets;
 + (void)enableOverrideAcceptAllSets;
+- (BOOL)isSupportedSet:(id)set instanceOptions:(unsigned __int8)options;
 - (id)_initWithAssistantLocale:(id)locale dictationLocales:(id)locales;
 - (id)speechProfileConfig;
 - (void)enumerateRequiredInstances:(id)instances;
@@ -34,9 +35,224 @@
   return speechProfileConfig;
 }
 
+- (BOOL)isSupportedSet:(id)set instanceOptions:(unsigned __int8)options
+{
+  optionsCopy = options;
+  v25 = *MEMORY[0x277D85DE8];
+  setCopy = set;
+  itemType = [setCopy itemType];
+  if (+[CESRUtilities isCustomerInstall])
+  {
+LABEL_2:
+    if (itemType <= 25882)
+    {
+      if (itemType > 14705)
+      {
+        if (itemType <= 16250)
+        {
+          if (itemType != 14706 && itemType != 14816)
+          {
+            v14 = 15572;
+            goto LABEL_54;
+          }
+        }
+
+        else if (itemType > 18539)
+        {
+          if (itemType != 18540)
+          {
+            v14 = 19668;
+            goto LABEL_54;
+          }
+        }
+
+        else if (itemType != 16251)
+        {
+          v14 = 17034;
+          goto LABEL_54;
+        }
+      }
+
+      else if (itemType <= 7718)
+      {
+        if (itemType != 800 && itemType != 5595)
+        {
+          v14 = 7690;
+          goto LABEL_54;
+        }
+      }
+
+      else
+      {
+        if (itemType > 12995)
+        {
+          if (itemType != 12996)
+          {
+            v14 = 13884;
+            goto LABEL_54;
+          }
+
+          goto LABEL_51;
+        }
+
+        if (itemType != 7719)
+        {
+          if (itemType != 12010)
+          {
+            goto LABEL_60;
+          }
+
+          goto LABEL_51;
+        }
+      }
+    }
+
+    else if (itemType <= 44934)
+    {
+      if (itemType <= 32964)
+      {
+        if (itemType != 25883 && itemType != 26512)
+        {
+          v14 = 30598;
+          goto LABEL_54;
+        }
+      }
+
+      else if (itemType > 38250)
+      {
+        if (itemType != 38251)
+        {
+          v14 = 42184;
+          goto LABEL_54;
+        }
+      }
+
+      else if (itemType != 32965)
+      {
+        v14 = 36434;
+        goto LABEL_54;
+      }
+    }
+
+    else
+    {
+      if (itemType <= 54384)
+      {
+        if (itemType <= 49065)
+        {
+          if (itemType != 44935)
+          {
+            if (itemType == 47341)
+            {
+              if (+[CESRSpeechProfileBuilder appEntityFeatureFlagEnabled](CESRSpeechProfileBuilder, "appEntityFeatureFlagEnabled") && [objc_opt_class() _instanceSupportsAssistant:optionsCopy])
+              {
+                speechProfileConfig = [(CESRSpeechProfileSettings *)self speechProfileConfig];
+                bOOLValue = [CESRSpeechProfileSettings _isSupportedAppIntentsIndexedEntityPartition:setCopy speechProfileConfig:speechProfileConfig];
+
+                goto LABEL_59;
+              }
+
+LABEL_63:
+              bOOLValue = 0;
+              goto LABEL_59;
+            }
+
+LABEL_60:
+            v17 = [MEMORY[0x277D21178] descriptionForTypeIdentifier:itemType];
+            v18 = *MEMORY[0x277CEF0E8];
+            if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
+            {
+              *buf = 136315394;
+              v20 = "[CESRSpeechProfileSettings isSupportedSet:instanceOptions:]";
+              v21 = 2112;
+              v22 = v17;
+              _os_log_impl(&dword_225EEB000, v18, OS_LOG_TYPE_INFO, "%s Set itemType: %@ ignored on this OS platform", buf, 0x16u);
+            }
+
+            goto LABEL_63;
+          }
+
+          goto LABEL_55;
+        }
+
+        if (itemType != 49066)
+        {
+          v14 = 53482;
+          goto LABEL_54;
+        }
+
+LABEL_51:
+        v15 = [objc_opt_class() _instanceSupportsAssistant:optionsCopy];
+        goto LABEL_58;
+      }
+
+      if (itemType > 61508)
+      {
+        if (itemType != 63369)
+        {
+          v14 = 61509;
+LABEL_54:
+          if (itemType != v14)
+          {
+            goto LABEL_60;
+          }
+        }
+      }
+
+      else if (itemType != 54385)
+      {
+        v14 = 61352;
+        goto LABEL_54;
+      }
+    }
+
+LABEL_55:
+    if ([objc_opt_class() _instanceSupportsAssistant:optionsCopy])
+    {
+      bOOLValue = 1;
+      goto LABEL_59;
+    }
+
+    v15 = [objc_opt_class() _instanceSupportsDictation:optionsCopy];
+LABEL_58:
+    bOOLValue = v15;
+    goto LABEL_59;
+  }
+
+  v10 = [MEMORY[0x277D21178] descriptionForTypeIdentifier:itemType];
+  v11 = _BOOLValueForKey([MEMORY[0x277CCACA8] stringWithFormat:@"Accept %@", @"*"]);
+  if (!v11)
+  {
+    v11 = _BOOLValueForKey([MEMORY[0x277CCACA8] stringWithFormat:@"Accept %@", v10]);
+    if (!v11)
+    {
+
+      goto LABEL_2;
+    }
+  }
+
+  v12 = v11;
+  v13 = *MEMORY[0x277CEF0E8];
+  if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315650;
+    v20 = "[CESRSpeechProfileSettings isSupportedSet:instanceOptions:]";
+    v21 = 2112;
+    v22 = v12;
+    v23 = 2112;
+    v24 = setCopy;
+    _os_log_impl(&dword_225EEB000, v13, OS_LOG_TYPE_INFO, "%s Using settings override: (%@) for set: %@", buf, 0x20u);
+  }
+
+  bOOLValue = [v12 BOOLValue];
+
+LABEL_59:
+  return bOOLValue;
+}
+
 - (void)enumerateRequiredInstances:(id)instances
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   instancesCopy = instances;
   if (self->_assistantLocale)
   {
@@ -53,50 +269,48 @@
     instancesCopy[2](instancesCopy, self->_assistantLocale, v5);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   allObjects = [(NSSet *)self->_dictationLocales allObjects];
-  v7 = [allObjects countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [allObjects countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
+        v11 = *(*(&v12 + 1) + 8 * i);
         if (([(NSLocale *)v11 isEqual:self->_assistantLocale]& 1) == 0)
         {
           instancesCopy[2](instancesCopy, v11, 2);
         }
       }
 
-      v8 = [allObjects countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [allObjects countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateRequiredLocales
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CEF0E8];
   v4 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v30 = "[CESRSpeechProfileSettings updateRequiredLocales]";
+    v29 = "[CESRSpeechProfileSettings updateRequiredLocales]";
     _os_log_impl(&dword_225EEB000, v4, OS_LOG_TYPE_DEFAULT, "%s Updating required locales...", buf, 0xCu);
   }
 
@@ -114,9 +328,9 @@
       v10 = v8;
       localeIdentifier = [(NSLocale *)v7 localeIdentifier];
       *buf = 136315394;
-      v30 = "[CESRSpeechProfileSettings updateRequiredLocales]";
-      v31 = 2112;
-      v32 = localeIdentifier;
+      v29 = "[CESRSpeechProfileSettings updateRequiredLocales]";
+      v30 = 2112;
+      v31 = localeIdentifier;
       _os_log_impl(&dword_225EEB000, v10, OS_LOG_TYPE_DEFAULT, "%s Required Assistant locale: %@", buf, 0x16u);
     }
   }
@@ -124,7 +338,7 @@
   else if (v9)
   {
     *buf = 136315138;
-    v30 = "[CESRSpeechProfileSettings updateRequiredLocales]";
+    v29 = "[CESRSpeechProfileSettings updateRequiredLocales]";
     _os_log_impl(&dword_225EEB000, v8, OS_LOG_TYPE_DEFAULT, "%s No required Assistant locale.", buf, 0xCu);
   }
 
@@ -135,34 +349,34 @@
   if (self->_dictationLocales)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v15 = self->_dictationLocales;
-    v16 = [(NSSet *)v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v16 = [(NSSet *)v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v25;
+      v18 = *v24;
       do
       {
         v19 = 0;
         do
         {
-          if (*v25 != v18)
+          if (*v24 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          localeIdentifier2 = [*(*(&v24 + 1) + 8 * v19) localeIdentifier];
+          localeIdentifier2 = [*(*(&v23 + 1) + 8 * v19) localeIdentifier];
           [array addObject:localeIdentifier2];
 
           ++v19;
         }
 
         while (v17 != v19);
-        v17 = [(NSSet *)v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v17 = [(NSSet *)v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v17);
@@ -173,9 +387,9 @@
     if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v30 = "[CESRSpeechProfileSettings updateRequiredLocales]";
-      v31 = 2112;
-      v32 = array;
+      v29 = "[CESRSpeechProfileSettings updateRequiredLocales]";
+      v30 = 2112;
+      v31 = array;
       _os_log_impl(&dword_225EEB000, v21, OS_LOG_TYPE_DEFAULT, "%s Required Dictation locales: %@", buf, 0x16u);
     }
   }
@@ -186,12 +400,10 @@
     if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v30 = "[CESRSpeechProfileSettings updateRequiredLocales]";
+      v29 = "[CESRSpeechProfileSettings updateRequiredLocales]";
       _os_log_impl(&dword_225EEB000, v22, OS_LOG_TYPE_DEFAULT, "%s No required Dictation locales.", buf, 0xCu);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_initWithAssistantLocale:(id)locale dictationLocales:(id)locales
@@ -215,7 +427,7 @@
 
 + (BOOL)_isSupportedAppIntentsIndexedEntityPartition:(id)partition speechProfileConfig:(id)config
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CF9498];
   configCopy = config;
   v7 = [partition descriptorWithKey:v5];
@@ -233,13 +445,13 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    v18 = 136315138;
-    v19 = "+[CESRSpeechProfileSettings _isSupportedAppIntentsIndexedEntityPartition:speechProfileConfig:]";
+    v17 = 136315138;
+    v18 = "+[CESRSpeechProfileSettings _isSupportedAppIntentsIndexedEntityPartition:speechProfileConfig:]";
     v12 = "%s App Entity ingestion is disabled in config, AppIntentsIndexedEntity sets will be ignored.";
     v13 = v11;
     v14 = 12;
 LABEL_10:
-    _os_log_debug_impl(&dword_225EEB000, v13, OS_LOG_TYPE_DEBUG, v12, &v18, v14);
+    _os_log_debug_impl(&dword_225EEB000, v13, OS_LOG_TYPE_DEBUG, v12, &v17, v14);
     goto LABEL_7;
   }
 
@@ -251,10 +463,10 @@ LABEL_10:
       goto LABEL_7;
     }
 
-    v18 = 136315394;
-    v19 = "+[CESRSpeechProfileSettings _isSupportedAppIntentsIndexedEntityPartition:speechProfileConfig:]";
-    v20 = 2112;
-    v21 = value;
+    v17 = 136315394;
+    v18 = "+[CESRSpeechProfileSettings _isSupportedAppIntentsIndexedEntityPartition:speechProfileConfig:]";
+    v19 = 2112;
+    v20 = value;
     v12 = "%s AppIntentsIndexedEntity partition from app=%@ is either not supported or explicitly deny-listed";
     v13 = v15;
     v14 = 22;
@@ -264,7 +476,6 @@ LABEL_10:
   v10 = 1;
 LABEL_8:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -315,23 +526,23 @@ LABEL_8:
 
 + (BOOL)_isDictationRequired
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (!+[CESRUtilities isOfflineDictationSupported])
   {
     v3 = *MEMORY[0x277CEF0E8];
     v2 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO);
     if (!v2)
     {
-      goto LABEL_9;
+      return v2;
     }
 
-    v7 = 136315138;
-    v8 = "+[CESRSpeechProfileSettings _isDictationRequired]";
+    v6 = 136315138;
+    v7 = "+[CESRSpeechProfileSettings _isDictationRequired]";
     v4 = "%s Offline Dictation is not supported.";
 LABEL_8:
-    _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, v4, &v7, 0xCu);
+    _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, v4, &v6, 0xCu);
     LOBYTE(v2) = 0;
-    goto LABEL_9;
+    return v2;
   }
 
   if (!+[CESRUtilities isDictationEnabled])
@@ -340,24 +551,22 @@ LABEL_8:
     v2 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO);
     if (!v2)
     {
-      goto LABEL_9;
+      return v2;
     }
 
-    v7 = 136315138;
-    v8 = "+[CESRSpeechProfileSettings _isDictationRequired]";
+    v6 = 136315138;
+    v7 = "+[CESRSpeechProfileSettings _isDictationRequired]";
     v4 = "%s Dictation is disabled in Settings.";
     goto LABEL_8;
   }
 
   LOBYTE(v2) = 1;
-LABEL_9:
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 + (BOOL)_isAssistantRequired
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (+[CESRUtilities isSiriUODSupported])
   {
     if (!+[CESRUtilities isSiriUODWithASROnServerSupported])
@@ -365,18 +574,18 @@ LABEL_9:
       if (+[CESRUtilities isAssistantEnabled])
       {
         LOBYTE(v3) = 1;
-        goto LABEL_12;
+        return v3;
       }
 
       v2 = *MEMORY[0x277CEF0E8];
       v3 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO);
       if (!v3)
       {
-        goto LABEL_12;
+        return v3;
       }
 
-      v7 = 136315138;
-      v8 = "+[CESRSpeechProfileSettings _isAssistantRequired]";
+      v6 = 136315138;
+      v7 = "+[CESRSpeechProfileSettings _isAssistantRequired]";
       v4 = "%s Siri is disabled in Settings.";
       goto LABEL_7;
     }
@@ -385,11 +594,11 @@ LABEL_9:
     v3 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO);
     if (v3)
     {
-      v7 = 136315138;
-      v8 = "+[CESRSpeechProfileSettings _isAssistantRequired]";
+      v6 = 136315138;
+      v7 = "+[CESRSpeechProfileSettings _isAssistantRequired]";
       v4 = "%s Siri UOD with ASR on server is supported.";
 LABEL_7:
-      _os_log_impl(&dword_225EEB000, v2, OS_LOG_TYPE_INFO, v4, &v7, 0xCu);
+      _os_log_impl(&dword_225EEB000, v2, OS_LOG_TYPE_INFO, v4, &v6, 0xCu);
       LOBYTE(v3) = 0;
     }
   }
@@ -400,15 +609,13 @@ LABEL_7:
     v3 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO);
     if (v3)
     {
-      v7 = 136315138;
-      v8 = "+[CESRSpeechProfileSettings _isAssistantRequired]";
+      v6 = 136315138;
+      v7 = "+[CESRSpeechProfileSettings _isAssistantRequired]";
       v4 = "%s Siri UOD is not supported.";
       goto LABEL_7;
     }
   }
 
-LABEL_12:
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -426,36 +633,37 @@ LABEL_12:
 
 uint64_t __62__CESRSpeechProfileSettings_itemTypesRequiringImmediateUpdate__block_invoke()
 {
-  itemTypesRequiringImmediateUpdate_highPriorityItemTypes = [MEMORY[0x277CBEB98] setWithObjects:{&unk_2839523A8, &unk_2839523F0, &unk_283952408, &unk_2839523D8, &unk_283952420, &unk_283952438, &unk_283952450, 0}];
+  v0 = [MEMORY[0x277CBEB98] setWithObjects:{&unk_2839523A8, &unk_2839523F0, &unk_283952408, &unk_2839523D8, &unk_283952420, &unk_283952438, &unk_283952450, 0}];
+  v1 = itemTypesRequiringImmediateUpdate_highPriorityItemTypes;
+  itemTypesRequiringImmediateUpdate_highPriorityItemTypes = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (BOOL)_isDevicePowerConstrained
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   processInfo = [MEMORY[0x277CCAC38] processInfo];
   thermalState = [processInfo thermalState];
   isLowPowerModeEnabled = [processInfo isLowPowerModeEnabled];
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
   {
-    v8 = @"NO";
-    v10 = "+[CESRSpeechProfileSettings _isDevicePowerConstrained]";
-    v9 = 136315650;
+    v7 = @"NO";
+    v9 = "+[CESRSpeechProfileSettings _isDevicePowerConstrained]";
+    v8 = 136315650;
     if (isLowPowerModeEnabled)
     {
-      v8 = @"YES";
+      v7 = @"YES";
     }
 
-    v11 = 2048;
-    v12 = thermalState;
-    v13 = 2112;
-    v14 = v8;
-    _os_log_debug_impl(&dword_225EEB000, v5, OS_LOG_TYPE_DEBUG, "%s thermalState=%ld, isLowPowerModeEnabled=%@", &v9, 0x20u);
+    v10 = 2048;
+    v11 = thermalState;
+    v12 = 2112;
+    v13 = v7;
+    _os_log_debug_impl(&dword_225EEB000, v5, OS_LOG_TYPE_DEBUG, "%s thermalState=%ld, isLowPowerModeEnabled=%@", &v8, 0x20u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return (thermalState > 1) | isLowPowerModeEnabled & 1;
 }
 
@@ -471,33 +679,33 @@ uint64_t __62__CESRSpeechProfileSettings_itemTypesRequiringImmediateUpdate__bloc
 
 + (BOOL)_shouldUpdateOnM11WatchForSets:(id)sets
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   setsCopy = sets;
   if (_shouldUpdateOnM11WatchForSets__onceToken != -1)
   {
     dispatch_once(&_shouldUpdateOnM11WatchForSets__onceToken, &__block_literal_global_369);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = setsCopy;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
         v8 = _shouldUpdateOnM11WatchForSets__watchUpdatableItemTypes;
-        v9 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "itemType", v12)}];
+        v9 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(*(*(&v11 + 1) + 8 * i), "itemType", v11)}];
         LOBYTE(v8) = [v8 containsObject:v9];
 
         if (v8)
@@ -507,7 +715,7 @@ uint64_t __62__CESRSpeechProfileSettings_itemTypesRequiringImmediateUpdate__bloc
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -519,15 +727,16 @@ uint64_t __62__CESRSpeechProfileSettings_itemTypesRequiringImmediateUpdate__bloc
 
 LABEL_13:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t __60__CESRSpeechProfileSettings__shouldUpdateOnM11WatchForSets___block_invoke()
 {
-  _shouldUpdateOnM11WatchForSets__watchUpdatableItemTypes = [MEMORY[0x277CBEB98] setWithObjects:{&unk_2839523A8, &unk_2839523C0, &unk_2839523D8, 0}];
+  v0 = [MEMORY[0x277CBEB98] setWithObjects:{&unk_2839523A8, &unk_2839523C0, &unk_2839523D8, 0}];
+  v1 = _shouldUpdateOnM11WatchForSets__watchUpdatableItemTypes;
+  _shouldUpdateOnM11WatchForSets__watchUpdatableItemTypes = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)defaultSettings

@@ -134,9 +134,9 @@
 - (id)visualStylingProviderForCategory:(int64_t)category
 {
   selfCopy = self;
-  v5 = CCUIOverlayBackgroundView.visualStylingProvider(for:)(category);
+  v6 = CCUIOverlayBackgroundView.visualStylingProvider(for:)(category, v5);
 
-  return v5;
+  return v6;
 }
 
 @end

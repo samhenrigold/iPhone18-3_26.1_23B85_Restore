@@ -179,7 +179,7 @@
   return v8;
 }
 
-uint64_t __46__BSSettingsDiff_diffFromSettings_toSettings___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__46__BSSettingsDiff_diffFromSettings_toSettings___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v6 = *(a1 + 32);
   if (!v6 || (result = [v6 flagForSetting:a2], result != a3))

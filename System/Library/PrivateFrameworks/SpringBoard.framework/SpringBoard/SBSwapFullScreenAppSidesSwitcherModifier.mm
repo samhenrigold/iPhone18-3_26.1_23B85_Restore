@@ -42,7 +42,7 @@
     v7 = v6;
 
     v8 = [[SBTimerEventSwitcherEventResponse alloc] initWithDelay:0 validator:@"SBSwapFullScreenAppSidesSwitcherModifierTimerEventReason" reason:v7];
-    v9 = SBAppendSwitcherModifierResponse(v8, transitionWillBegin);
+    v9 = SBAppendSwitcherModifierResponse();
 
     transitionWillBegin = v9;
   }
@@ -63,7 +63,7 @@
   {
     self->_animationPhase = 1;
     v7 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:30 updateMode:3];
-    v8 = SBAppendSwitcherModifierResponse(v7, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v5 = v8;
   }

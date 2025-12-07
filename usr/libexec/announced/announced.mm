@@ -2,20 +2,19 @@ int main(int argc, const char **argv, const char **envp)
 {
   v3 = type metadata accessor for Feature();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin();
-  v7 = v54 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for Logger();
-  sub_100001C64(v8, qword_100008050);
-  sub_100001CC8(v8, qword_100008050);
+  v6 = v50 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for Logger();
+  sub_100001C64(v7, qword_100008050);
+  sub_100001CC8(v7, qword_100008050);
   Logger.init(subsystem:category:)();
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v9, v10))
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v8, v9))
   {
-    v11 = swift_slowAlloc();
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v9, v10, "announced launching", v11, 2u);
+    v10 = swift_slowAlloc();
+    *v10 = 0;
+    _os_log_impl(&_mh_execute_header, v8, v9, "announced launching", v10, 2u);
   }
 
   byte_100008068 = 1;
@@ -23,21 +22,21 @@ int main(int argc, const char **argv, const char **envp)
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.utf8CString.getter();
 
-  v12 = _set_user_dir_suffix();
+  v11 = _set_user_dir_suffix();
 
-  if ((v12 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
-    v13 = Logger.logObject.getter();
-    v14 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v13, v14))
+    v12 = Logger.logObject.getter();
+    v13 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v12, v13))
     {
-      v15 = swift_slowAlloc();
-      *v15 = 0;
-      _os_log_impl(&_mh_execute_header, v13, v14, "_set_user_dir_suffix failed!", v15, 2u);
+      v14 = swift_slowAlloc();
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v12, v13, "_set_user_dir_suffix failed!", v14, 2u);
     }
   }
 
-  v16 = &selRef_addAnnounceRapportServiceType;
+  v15 = &selRef_addAnnounceRapportServiceType;
   if ((byte_100008068 & 1) == 0 && (byte_100008069 & 1) == 0)
   {
     qword_100008070 = 0;
@@ -53,68 +52,66 @@ LABEL_14:
   }
 
   qword_100008078 = [objc_allocWithZone(type metadata accessor for AnnounceServer()) init];
-  v17 = Logger.logObject.getter();
-  v18 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v17, v18))
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v16, v17))
   {
+    v18 = swift_slowAlloc();
     v19 = swift_slowAlloc();
-    v20 = swift_slowAlloc();
-    *v19 = 138412290;
-    v21 = qword_100008078;
-    *(v19 + 4) = qword_100008078;
-    *v20 = v21;
-    v22 = v21;
-    _os_log_impl(&_mh_execute_header, v17, v18, "XPC server started: %@", v19, 0xCu);
-    sub_100001E78(v20);
+    *v18 = 138412290;
+    v20 = qword_100008078;
+    *(v18 + 4) = qword_100008078;
+    *v19 = v20;
+    v21 = v20;
+    _os_log_impl(&_mh_execute_header, v16, v17, "XPC server started: %@", v18, 0xCu);
+    sub_100001E78(v19);
   }
 
-  v16 = &selRef_addAnnounceRapportServiceType;
+  v15 = &selRef_addAnnounceRapportServiceType;
 LABEL_15:
-  (*(v4 + 104))(v7, enum case for Feature.server(_:), v3);
-  v23 = Feature.isEnabled.getter();
-  (*(v4 + 8))(v7, v3);
-  if ((v23 & 1) != 0 && byte_100008068 == 1)
+  (*(v4 + 104))(v6, enum case for Feature.server(_:), v3);
+  v22 = Feature.isEnabled.getter();
+  (*(v4 + 8))(v6, v3);
+  if ((v22 & 1) != 0 && byte_100008068 == 1)
   {
-    v24 = [objc_opt_self() shared];
-    v25 = type metadata accessor for DropInCoreService();
-    v26 = *(v25 + 48);
-    v27 = *(v25 + 52);
+    v23 = [objc_opt_self() shared];
+    type metadata accessor for DropInCoreService();
     swift_allocObject();
     qword_100008080 = DropInCoreService.init(homeManagerProvider:)();
-    v28 = Logger.logObject.getter();
-    v29 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v28, v29))
+    v24 = Logger.logObject.getter();
+    v25 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v24, v25))
     {
-      v30 = swift_slowAlloc();
-      v31 = swift_slowAlloc();
-      aBlock[0] = v31;
-      *v30 = 136315138;
-      v54[1] = qword_100008080;
+      v26 = swift_slowAlloc();
+      v27 = swift_slowAlloc();
+      aBlock[0] = v27;
+      *v26 = 136315138;
+      v50[1] = qword_100008080;
 
       sub_100001D18(&qword_100008038, &qword_1000027E0);
-      v32 = String.init<A>(describing:)();
-      v34 = sub_100001D60(v32, v33, aBlock);
+      v28 = String.init<A>(describing:)();
+      v30 = sub_100001D60(v28, v29, aBlock);
 
-      *(v30 + 4) = v34;
-      _os_log_impl(&_mh_execute_header, v28, v29, "Drop In Core Service started: %s", v30, 0xCu);
-      sub_100001E2C(v31);
+      *(v26 + 4) = v30;
+      _os_log_impl(&_mh_execute_header, v24, v25, "Drop In Core Service started: %s", v26, 0xCu);
+      sub_100001E2C(v27);
     }
 
-    v35 = Logger.logObject.getter();
-    v36 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v35, v36))
+    v31 = Logger.logObject.getter();
+    v32 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v31, v32))
     {
-      v37 = swift_slowAlloc();
-      *v37 = 0;
-      _os_log_impl(&_mh_execute_header, v35, v36, "Adding Drop In Service to Rapport event stream handler", v37, 2u);
+      v33 = swift_slowAlloc();
+      *v33 = 0;
+      _os_log_impl(&_mh_execute_header, v31, v32, "Adding Drop In Service to Rapport event stream handler", v33, 2u);
     }
 
-    v38 = v16[14];
-    if (v38)
+    v34 = v15[14];
+    if (v34)
     {
-      v39 = v38;
+      v35 = v34;
       static Constants.Rapport.dropInServiceType.getter();
-      v40 = String._bridgeToObjectiveC()();
+      v36 = String._bridgeToObjectiveC()();
 
       aBlock[4] = sub_100001B40;
       aBlock[5] = 0;
@@ -122,48 +119,48 @@ LABEL_15:
       aBlock[1] = 1107296256;
       aBlock[2] = sub_100001B6C;
       aBlock[3] = &unk_100004300;
-      v41 = _Block_copy(aBlock);
-      [v39 addRapportServiceType:v40 activationBlock:v41];
-      _Block_release(v41);
+      v37 = _Block_copy(aBlock);
+      [v35 addRapportServiceType:v36 activationBlock:v37];
+      _Block_release(v37);
     }
   }
 
-  v42 = Logger.logObject.getter();
-  v43 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v42, v43))
+  v38 = Logger.logObject.getter();
+  v39 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v38, v39))
   {
-    v44 = swift_slowAlloc();
-    *v44 = 0;
-    _os_log_impl(&_mh_execute_header, v42, v43, "Adding Announce Service to Rapport event stream handler", v44, 2u);
+    v40 = swift_slowAlloc();
+    *v40 = 0;
+    _os_log_impl(&_mh_execute_header, v38, v39, "Adding Announce Service to Rapport event stream handler", v40, 2u);
   }
 
-  [v16[14] addAnnounceRapportServiceType];
-  v45 = Logger.logObject.getter();
-  v46 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v45, v46))
+  [v15[14] addAnnounceRapportServiceType];
+  v41 = Logger.logObject.getter();
+  v42 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v41, v42))
   {
-    v47 = swift_slowAlloc();
-    *v47 = 0;
-    _os_log_impl(&_mh_execute_header, v45, v46, "Rapport event stream handler set", v47, 2u);
+    v43 = swift_slowAlloc();
+    *v43 = 0;
+    _os_log_impl(&_mh_execute_header, v41, v42, "Rapport event stream handler set", v43, 2u);
   }
 
-  [v16[14] setEventStreamHandler];
-  v48 = Logger.logObject.getter();
-  v49 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v48, v49))
+  [v15[14] setEventStreamHandler];
+  v44 = Logger.logObject.getter();
+  v45 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v44, v45))
   {
-    v50 = swift_slowAlloc();
-    *v50 = 0;
-    _os_log_impl(&_mh_execute_header, v48, v49, "announced finished launching", v50, 2u);
+    v46 = swift_slowAlloc();
+    *v46 = 0;
+    _os_log_impl(&_mh_execute_header, v44, v45, "announced finished launching", v46, 2u);
   }
 
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v51 = String.utf8CString.getter();
+  v47 = String.utf8CString.getter();
 
-  notify_post((v51 + 32));
+  notify_post((v47 + 32));
 
-  v52 = [objc_opt_self() mainRunLoop];
-  [v52 run];
+  v48 = [objc_opt_self() mainRunLoop];
+  [v48 run];
 
   return 0;
 }
@@ -180,13 +177,12 @@ uint64_t sub_100001B40()
 
 uint64_t sub_100001B6C(uint64_t a1, void *aBlock)
 {
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v4 = _Block_copy(aBlock);
-  v5 = swift_allocObject();
-  *(v5 + 16) = v4;
+  v2 = *(a1 + 32);
+  v3 = _Block_copy(aBlock);
+  v4 = swift_allocObject();
+  *(v4 + 16) = v3;
 
-  v3(sub_100002454, v5);
+  v2(sub_100002454, v4);
 }
 
 void sub_100001C00(uint64_t a1, uint64_t a2)
@@ -207,14 +203,11 @@ void sub_100001C00(uint64_t a1, uint64_t a2)
 
 uint64_t *sub_100001C64(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -242,7 +235,6 @@ uint64_t sub_100001D18(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -250,7 +242,7 @@ uint64_t sub_100001D18(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_100001D60(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_100001D60(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_100001EE0(v11, 0, 0, 1, a1, a2);
@@ -286,15 +278,17 @@ LABEL_4:
   return v7;
 }
 
-uint64_t sub_100001E2C(uint64_t *a1)
+uint64_t sub_100001E2C(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_100001E78(uint64_t a1)
@@ -376,11 +370,9 @@ uint64_t sub_100001FEC(uint64_t a1, uint64_t a2)
 
 char *sub_100002048(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100002094(a1, a2);
+  v3 = sub_100002094(a1, a2);
   sub_1000021C4(&off_1000042D8);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100002094(uint64_t a1, unint64_t a2)
@@ -480,7 +472,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -494,15 +485,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_100002324(result, v12, 1, v3);
+  result = sub_100002324(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -517,15 +508,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -534,12 +525,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 

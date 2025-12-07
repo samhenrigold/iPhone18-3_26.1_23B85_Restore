@@ -358,9 +358,7 @@ LABEL_21:
 
 - (void)setLastLookupIdentifer:(id)identifer
 {
-  v4 = [identifer copy];
-  lastLookupIdentifer = self->_lastLookupIdentifer;
-  self->_lastLookupIdentifer = v4;
+  self->_lastLookupIdentifer = [identifer copy];
 
   _objc_release_x1();
 }

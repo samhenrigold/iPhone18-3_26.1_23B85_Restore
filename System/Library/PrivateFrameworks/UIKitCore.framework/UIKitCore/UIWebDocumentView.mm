@@ -851,7 +851,7 @@
   [(UIWebDocumentView *)self _runLoadBlock:load];
 }
 
-uint64_t __47__UIWebDocumentView__cleanUpFrameStateAndLoad___block_invoke(uint64_t a1)
+void *__47__UIWebDocumentView__cleanUpFrameStateAndLoad___block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 432) mainFrame];
   result = [*(a1 + 32) _dataDetectionIsActivated];
@@ -965,7 +965,7 @@ uint64_t __64__UIWebDocumentView_loadData_MIMEType_textEncodingName_baseURL___bl
 {
   WebThreadLock();
   _groupName = [(UIWebDocumentView *)self _groupName];
-  if (![(NSString *)[(WebView *)self->_webView groupName] isEqualToString:_groupName])
+  if ((objc_msgSend_isEqualToString_([(WebView *)self->_webView groupName]) & 1) == 0)
   {
     [(WebView *)self->_webView setGroupName:_groupName];
   }
@@ -1337,26 +1337,26 @@ uint64_t __64__UIWebDocumentView_loadData_MIMEType_textEncodingName_baseURL___bl
   [(_UIWebViewportHandler *)viewportHandler update:v6];
 }
 
-uint64_t __85__UIWebDocumentView__setDocumentType_overrideCustomConfigurations_viewportArguments___block_invoke(uint64_t a1)
+uint64_t __85__UIWebDocumentView__setDocumentType_overrideCustomConfigurations_viewportArguments___block_invoke(uint64_t a1, const char *a2)
 {
   *(*(a1 + 32) + 888) = *(a1 + 48);
-  v2 = *(a1 + 32);
-  v3 = v2 + 1152 + 32 * *(v2 + 888);
+  v3 = *(a1 + 32);
+  v4 = v3 + 1152 + 32 * *(v3 + 888);
   if (*(a1 + 52) != 1)
   {
-    v9 = 0u;
     v10 = 0u;
-    v6 = *(v2 + 880);
-    if (v6)
+    v11 = 0u;
+    v7 = *(v3 + 880);
+    if (v7)
     {
-      [v6 rawViewConfiguration];
-      v6 = *(*(a1 + 32) + 880);
+      objc_msgSend_rawViewConfiguration(v7, a2, v10, v11);
+      v7 = *(*(a1 + 32) + 880);
     }
 
-    v7 = [v6 webkitDefinedConfigurationFlags];
-    if ((v7 & 2) != 0)
+    v8 = [v7 webkitDefinedConfigurationFlags];
+    if ((v8 & 2) != 0)
     {
-      if ((v7 & 4) != 0)
+      if ((v8 & 4) != 0)
       {
         goto LABEL_7;
       }
@@ -1364,11 +1364,11 @@ uint64_t __85__UIWebDocumentView__setDocumentType_overrideCustomConfigurations_v
 
     else
     {
-      LODWORD(v10) = *(v3 + 16);
-      if ((v7 & 4) != 0)
+      LODWORD(v11) = *(v4 + 16);
+      if ((v8 & 4) != 0)
       {
 LABEL_7:
-        if ((v7 & 8) != 0)
+        if ((v8 & 8) != 0)
         {
           goto LABEL_8;
         }
@@ -1377,11 +1377,11 @@ LABEL_7:
       }
     }
 
-    DWORD1(v10) = *(v3 + 20);
-    if ((v7 & 8) != 0)
+    DWORD1(v11) = *(v4 + 20);
+    if ((v8 & 8) != 0)
     {
 LABEL_8:
-      if ((v7 & 0x10) != 0)
+      if ((v8 & 0x10) != 0)
       {
         goto LABEL_9;
       }
@@ -1390,11 +1390,11 @@ LABEL_8:
     }
 
 LABEL_18:
-    DWORD2(v10) = *(v3 + 24);
-    if ((v7 & 0x10) != 0)
+    DWORD2(v11) = *(v4 + 24);
+    if ((v8 & 0x10) != 0)
     {
 LABEL_9:
-      if ((v7 & 0x20) != 0)
+      if ((v8 & 0x20) != 0)
       {
         goto LABEL_10;
       }
@@ -1403,11 +1403,11 @@ LABEL_9:
     }
 
 LABEL_19:
-    *&v9 = *v3;
-    if ((v7 & 0x20) != 0)
+    *&v10 = *v4;
+    if ((v8 & 0x20) != 0)
     {
 LABEL_10:
-      if ((v7 & 0x40) != 0)
+      if ((v8 & 0x40) != 0)
       {
         goto LABEL_11;
       }
@@ -1416,11 +1416,11 @@ LABEL_10:
     }
 
 LABEL_20:
-    *(&v9 + 1) = *(v3 + 8);
-    if ((v7 & 0x40) != 0)
+    *(&v10 + 1) = *(v4 + 8);
+    if ((v8 & 0x40) != 0)
     {
 LABEL_11:
-      if ((v7 & 0x80) != 0)
+      if ((v8 & 0x80) != 0)
       {
         goto LABEL_12;
       }
@@ -1429,26 +1429,26 @@ LABEL_11:
     }
 
 LABEL_21:
-    BYTE12(v10) = *(v3 + 28);
-    if ((v7 & 0x80) != 0)
+    BYTE12(v11) = *(v4 + 28);
+    if ((v8 & 0x80) != 0)
     {
 LABEL_12:
-      if ((v7 & 0x100) != 0)
+      if ((v8 & 0x100) != 0)
       {
 LABEL_14:
-        v4 = *(*(a1 + 32) + 880);
-        v5 = &v9;
+        v5 = *(*(a1 + 32) + 880);
+        v6 = &v10;
         goto LABEL_15;
       }
 
 LABEL_13:
-      BYTE14(v10) = *(v3 + 30);
+      BYTE14(v11) = *(v4 + 30);
       goto LABEL_14;
     }
 
 LABEL_22:
-    BYTE13(v10) = *(v3 + 29);
-    if ((v7 & 0x100) != 0)
+    BYTE13(v11) = *(v4 + 29);
+    if ((v8 & 0x100) != 0)
     {
       goto LABEL_14;
     }
@@ -1456,11 +1456,11 @@ LABEL_22:
     goto LABEL_13;
   }
 
-  [*(v2 + 880) clearWebKitViewportConfigurationFlags];
-  v4 = *(*(a1 + 32) + 880);
-  v5 = v3;
+  [*(v3 + 880) clearWebKitViewportConfigurationFlags];
+  v5 = *(*(a1 + 32) + 880);
+  v6 = v4;
 LABEL_15:
-  [v4 resetViewportConfiguration:{v5, v9, v10}];
+  [v5 resetViewportConfiguration:{v6, v10, v11}];
   return [*(a1 + 32) _applyViewportArguments:*(a1 + 40)];
 }
 
@@ -1922,7 +1922,7 @@ uint64_t __61__UIWebDocumentView_sendScrollEventIfNecessaryWasUserScroll___block
   }
 }
 
-uint64_t __59__UIWebDocumentView_webThreadWebViewDidLayout_byScrolling___block_invoke_2(uint64_t a1)
+void *__59__UIWebDocumentView_webThreadWebViewDidLayout_byScrolling___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _selectionLayoutChangedByScrolling:*(a1 + 40)];
   result = [*(a1 + 32) hasEditableSelection];
@@ -2051,7 +2051,7 @@ uint64_t __59__UIWebDocumentView_webThreadWebViewDidLayout_byScrolling___block_i
       v13 = 0;
     }
 
-    else if ([[(NSString *)[(NSURLResponse *)[(WebDataSource *)dataSource response] MIMEType] lowercaseString] isEqualToString:@"text/plain"])
+    else if (objc_msgSend_isEqualToString_([(NSString *)[(NSURLResponse *)[(WebDataSource *)dataSource response] MIMEType] lowercaseString]))
     {
       v13 = 1;
     }
@@ -2156,37 +2156,37 @@ uint64_t __59__UIWebDocumentView_webThreadWebViewDidLayout_byScrolling___block_i
   [(_UIWebViewportHandler *)viewportHandler update:v5];
 }
 
-uint64_t __75__UIWebDocumentView_setMinimumSize_updateCurrentViewportConfigurationSize___block_invoke(uint64_t a1)
+uint64_t __75__UIWebDocumentView_setMinimumSize_updateCurrentViewportConfigurationSize___block_invoke(uint64_t a1, const char *a2)
 {
-  v7 = 0u;
   v8 = 0u;
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 880);
-  if (v3)
+  v9 = 0u;
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 880);
+  if (v4)
   {
-    [v3 rawViewConfiguration];
-    v2 = *(a1 + 32);
+    objc_msgSend_rawViewConfiguration(v4, a2);
+    v3 = *(a1 + 32);
   }
 
-  if (*(a1 + 56) != 1 || (v4 = [*(v2 + 880) webkitDefinedConfigurationFlags], v2 = *(a1 + 32), (v4 & 0x10) != 0))
+  if (*(a1 + 56) != 1 || (v5 = [*(v3 + 880) webkitDefinedConfigurationFlags], v3 = *(a1 + 32), (v5 & 0x10) != 0))
   {
-    v5 = 1;
+    v6 = 1;
   }
 
-  else if (*&v7 == *(v2 + 1152 + 32 * *(v2 + 888)))
+  else if (*&v8 == *(v3 + 1152 + 32 * *(v3 + 888)))
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    *&v7 = *(v2 + 1152 + 32 * *(v2 + 888));
-    [*(v2 + 880) overrideViewportConfiguration:&v7];
-    v5 = 0;
-    v2 = *(a1 + 32);
+    *&v8 = *(v3 + 1152 + 32 * *(v3 + 888));
+    [*(v3 + 880) overrideViewportConfiguration:&v8];
+    v6 = 0;
+    v3 = *(a1 + 32);
   }
 
-  return [*(v2 + 880) setAvailableViewSize:v5 updateConfigurationSize:{round(*(a1 + 40)), round(*(a1 + 48)), v7, v8}];
+  return [*(v3 + 880) setAvailableViewSize:v6 updateConfigurationSize:{round(*(a1 + 40)), round(*(a1 + 48)), v8, v9}];
 }
 
 - (void)setViewportSize:(CGSize)size forDocumentTypes:(int)types
@@ -2497,7 +2497,7 @@ uint64_t __75__UIWebDocumentView_setMinimumSize_updateCurrentViewportConfigurati
       viewportHandler = self->_viewportHandler;
       if (viewportHandler)
       {
-        [(_UIWebViewportHandler *)viewportHandler rawViewConfiguration];
+        objc_msgSend_rawViewConfiguration(viewportHandler);
         LODWORD(v11) = 0;
       }
 
@@ -3069,8 +3069,8 @@ LABEL_5:
   plugInViews = self->_plugInViews;
   if (plugInViews && CFDictionaryGetCount(plugInViews))
   {
-    [(UIView *)self transform];
-    v4 = v15;
+    objc_msgSend_transform(self);
+    v4 = v15[0];
     v5 = [(__CFDictionary *)self->_plugInViews copy];
     v11 = 0u;
     v12 = 0u;
@@ -3710,7 +3710,8 @@ LABEL_5:
 - (id)readDataFromPasteboard:(id)pasteboard withIndex:(int64_t)index
 {
   v5 = [MEMORY[0x1E696AC90] indexSetWithIndex:index];
-  if (([pasteboard isEqualToString:{objc_msgSend(*MEMORY[0x1E6983030], "identifier")}] & 1) != 0 || objc_msgSend(UIPasteboardTypeListString, "containsObject:", pasteboard))
+  [*MEMORY[0x1E6983030] identifier];
+  if ((objc_msgSend_isEqualToString_(pasteboard) & 1) != 0 || [UIPasteboardTypeListString containsObject:pasteboard])
   {
     v6 = +[UIPasteboard generalPasteboard];
 
@@ -3991,7 +3992,7 @@ uint64_t __56__UIWebDocumentView__webthread_webView_attachRootLayer___block_invo
   contentLayersHostingLayer = self->_contentLayersHostingLayer;
   if (contentLayersHostingLayer)
   {
-    [(CALayer *)contentLayersHostingLayer transform];
+    objc_msgSend_transform(contentLayersHostingLayer);
   }
 
   else
@@ -4885,7 +4886,7 @@ LABEL_6:
   isCaretInEmptyParagraph = [(UIWebDocumentView *)self isCaretInEmptyParagraph];
   v4 = [-[UIWebDocumentView _focusedOrMainFrame](self "_focusedOrMainFrame")];
   v5 = [objc_msgSend(v4 getComputedStyle:objc_msgSend(v4 pseudoElement:{"body"), &stru_1EFB14550), "getPropertyValue:", @"line-height"}];
-  if ([v5 isEqualToString:@"normal"])
+  if (objc_msgSend_isEqualToString_(v5))
   {
     [-[UIWebDocumentView fontForCaretSelection](self "fontForCaretSelection")];
   }
@@ -4966,15 +4967,15 @@ LABEL_6:
   return v6;
 }
 
-uint64_t __52__UIWebDocumentView__insertTextPlaceholderWithSize___block_invoke(uint64_t a1)
+void *__52__UIWebDocumentView__insertTextPlaceholderWithSize___block_invoke(uint64_t a1, uint64_t a2)
 {
   WebThreadLock();
   result = [*(a1 + 32) _textPlaceholderHasBeenRemoved];
   if (result)
   {
-    v3 = +[UIDictationController sharedInstance];
+    v4 = +[UIDictationController sharedInstance];
 
-    return [(UIDictationController *)v3 cancelDictation];
+    return [(UIDictationController *)v4 cancelDictation];
   }
 
   return result;
@@ -5208,7 +5209,7 @@ uint64_t __52__UIWebDocumentView__insertTextPlaceholderWithSize___block_invoke(u
 
   else
   {
-    return +[UIColor blackColor];
+    return objc_msgSend_blackColor(UIColor, a2);
   }
 }
 
@@ -5601,7 +5602,7 @@ uint64_t __52__UIWebDocumentView__insertTextPlaceholderWithSize___block_invoke(u
   [(WebFrame *)mainFrame _handleKeyEvent:event];
 }
 
-uint64_t __42__UIWebDocumentView_setPaused_withEvents___block_invoke(uint64_t a1)
+void *__42__UIWebDocumentView_setPaused_withEvents___block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 432) mainFrame];
   v3 = v2;
@@ -5650,9 +5651,9 @@ uint64_t __42__UIWebDocumentView_setPaused_withEvents___block_invoke(uint64_t a1
   if (v13)
   {
     v14 = [objc_msgSend(package "bundle")];
-    -[UIWebPlugInView setIsQuickTimePlugIn:](v13, "setIsQuickTimePlugIn:", [v14 isEqualToString:@"com.apple.quicktime.plugin"]);
-    -[UIWebPlugInView setIsMapViewPlugIn:](v13, "setIsMapViewPlugIn:", [v14 isEqualToString:@"com.apple.mapview.plugin"]);
-    -[UIWebPlugInView setIsiAdPlugIn:](v13, "setIsiAdPlugIn:", [v14 isEqualToString:@"com.apple.iad.plugin"]);
+    [(UIWebPlugInView *)v13 setIsQuickTimePlugIn:objc_msgSend_isEqualToString_(v14)];
+    [(UIWebPlugInView *)v13 setIsMapViewPlugIn:objc_msgSend_isEqualToString_(v14)];
+    [(UIWebPlugInView *)v13 setIsiAdPlugIn:objc_msgSend_isEqualToString_(v14)];
     plugInViews = self->_plugInViews;
     if (!plugInViews)
     {
@@ -5894,7 +5895,7 @@ uint64_t __42__UIWebDocumentView_setPaused_withEvents___block_invoke(uint64_t a1
     v14 = 0u;
     v11 = 0u;
     v12 = 0u;
-    [v4 innerFrameQuad];
+    objc_msgSend_innerFrameQuad(v4);
     v5 = [objc_msgSend(objc_msgSend(v4 "ownerDocument")];
     v10[0] = v11;
     v10[1] = v12;
@@ -6588,7 +6589,7 @@ LABEL_40:
   return v10;
 }
 
-uint64_t __49__UIWebDocumentView_canPerformAction_withSender___block_invoke()
+void *__49__UIWebDocumentView_canPerformAction_withSender___block_invoke()
 {
   v0 = [MEMORY[0x1E696AD48] whitespaceAndNewlineCharacterSet];
   [v0 formUnionWithCharacterSet:{objc_msgSend(MEMORY[0x1E696AB08], "controlCharacterSet")}];
@@ -7155,8 +7156,8 @@ uint64_t __49__UIWebDocumentView_canPerformAction_withSender___block_invoke()
   downstreamCopy = downstream;
   WebThreadLock();
   webVisiblePosition = [position webVisiblePosition];
-  v12 = signpost_c2_entryLock_start(v10, v11);
-  result = [webVisiblePosition positionByMovingInDirection:v13 amount:offset withAffinityDownstream:{downstreamCopy, v12}];
+  signpost_c2_entryLock_start();
+  result = [webVisiblePosition positionByMovingInDirection:v10 amount:offset withAffinityDownstream:downstreamCopy];
   if (result)
   {
 
@@ -7176,21 +7177,21 @@ uint64_t __49__UIWebDocumentView_canPerformAction_withSender___block_invoke()
   }
 
   webVisiblePosition = [position webVisiblePosition];
-  v10 = signpost_c2_entryLock_start(v8, v9);
-  v12 = v11;
-  v15 = signpost_c2_entryLock_start(v10, v13);
+  signpost_c2_entryLock_start();
+  v9 = v8;
+  signpost_c2_entryLock_start();
 
-  return [webVisiblePosition atBoundaryOfGranularity:v12 inDirection:{v14, v15}];
+  return [webVisiblePosition atBoundaryOfGranularity:v9 inDirection:v10];
 }
 
 - (id)positionFromPosition:(id)position toBoundary:(int64_t)boundary inDirection:(int64_t)direction
 {
   WebThreadLock();
   webVisiblePosition = [position webVisiblePosition];
-  v9 = signpost_c2_entryLock_start(v7, v8);
-  v11 = v10;
-  v13 = signpost_c2_entryLock_start(v9, v12);
-  result = [webVisiblePosition positionOfNextBoundaryOfGranularity:v11 inDirection:{v14, v13}];
+  signpost_c2_entryLock_start();
+  v8 = v7;
+  signpost_c2_entryLock_start();
+  result = [webVisiblePosition positionOfNextBoundaryOfGranularity:v8 inDirection:v9];
   if (result)
   {
 
@@ -7204,11 +7205,11 @@ uint64_t __49__UIWebDocumentView_canPerformAction_withSender___block_invoke()
 {
   WebThreadLock();
   webVisiblePosition = [position webVisiblePosition];
-  v9 = signpost_c2_entryLock_start(v7, v8);
-  v11 = v10;
-  v14 = signpost_c2_entryLock_start(v9, v12);
+  signpost_c2_entryLock_start();
+  v8 = v7;
+  signpost_c2_entryLock_start();
 
-  return [webVisiblePosition withinTextUnitOfGranularity:v11 inDirectionIfAtBoundary:{v13, v14}];
+  return [webVisiblePosition withinTextUnitOfGranularity:v8 inDirectionIfAtBoundary:v9];
 }
 
 - (void)_scrollRectToVisible:(CGRect)visible animated:(BOOL)animated
@@ -7230,17 +7231,17 @@ uint64_t __49__UIWebDocumentView_canPerformAction_withSender___block_invoke()
 {
   WebThreadLock();
   webVisiblePosition = [position webVisiblePosition];
-  v9 = signpost_c2_entryLock_start(v7, v8);
-  v11 = v10;
-  v13 = signpost_c2_entryLock_start(v9, v12);
-  v15 = [webVisiblePosition enclosingTextUnitOfGranularity:v11 inDirectionIfAtBoundary:{v14, v13}];
-  v16 = [objc_msgSend(position "webVisiblePosition")];
-  if (!v15)
+  signpost_c2_entryLock_start();
+  v8 = v7;
+  signpost_c2_entryLock_start();
+  v10 = [webVisiblePosition enclosingTextUnitOfGranularity:v8 inDirectionIfAtBoundary:v9];
+  v11 = [objc_msgSend(position "webVisiblePosition")];
+  if (!v10)
   {
     return 0;
   }
 
-  return [UITextRangeImpl wrapDOMRange:v15 withAffinity:v16 != 1];
+  return [UITextRangeImpl wrapDOMRange:v10 withAffinity:v11 != 1];
 }
 
 - (CGRect)firstRectForRange:(id)range
@@ -7344,7 +7345,7 @@ uint64_t __49__UIWebDocumentView_canPerformAction_withSender___block_invoke()
             parentNode = [(DOMElement *)[(UIWebTextPlaceholder *)self->_textPlaceholder element] parentNode];
             [(DOMRange *)createRange setStart:parentNode offset:i];
             [(DOMRange *)createRange setEnd:parentNode offset:i];
-            if ([-[DOMRange startPosition](createRange "startPosition")])
+            if (objc_msgSend_isEqual_([(DOMRange *)createRange startPosition]))
             {
               v24 = 3.0;
               if (dictatingIntoEmptyDocument)
@@ -7526,8 +7527,8 @@ LABEL_3:
 {
   WebThreadLock();
   _focusedOrMainFrame = [(UIWebDocumentView *)self _focusedOrMainFrame];
-  v8 = signpost_c2_entryLock_start(v6, v7);
-  [_focusedOrMainFrame setSelectionGranularity:{v9, v8}];
+  signpost_c2_entryLock_start();
+  [_focusedOrMainFrame setSelectionGranularity:v6];
   self->m_selectionGranularity = granularity;
 }
 
@@ -8059,7 +8060,7 @@ LABEL_6:
       v25 = *(*(&v161 + 1) + 8 * v24);
       if (v25)
       {
-        [v25 quad];
+        objc_msgSend_quad(v25);
         v26 = v153;
         v27 = v154;
         v29 = v155;
@@ -8195,7 +8196,7 @@ LABEL_35:
           v81 = *(*(&v149 + 1) + 8 * i);
           if (v81)
           {
-            [v81 quad];
+            objc_msgSend_quad(v81);
             v83 = v153;
             v82 = v154;
             v85 = v155;
@@ -8707,7 +8708,7 @@ LABEL_65:
   WebThreadLock();
   v4 = [(UIWebDocumentView *)self approximateNodeAtViewportLocation:&locationCopy];
   v5 = [(UIWebDocumentView *)self formElement:*&locationCopy.x];
-  result = (!-[UIWebDocumentView _parentTextView](self, "_parentTextView") || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0)) && v4 && ![v5 isEqual:v4];
+  result = (![(UIWebDocumentView *)self _parentTextView]|| (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0)) && v4 && !objc_msgSend_isEqual_(v5);
   return result;
 }
 
@@ -9426,7 +9427,7 @@ LABEL_30:
       }
     }
 
-    if (!v5 || [formElement isEqual:v5])
+    if (!v5 || objc_msgSend_isEqual_(formElement))
     {
       goto LABEL_8;
     }
@@ -9570,7 +9571,7 @@ LABEL_21:
     element = self->_interaction.element;
     if (element)
     {
-      [(DOMNode *)element absoluteQuad];
+      objc_msgSend_absoluteQuad(element, a2);
       v13.origin.x = quadBoundingBox(v12);
       if (!CGRectIsEmpty(v13))
       {
@@ -10553,7 +10554,7 @@ uint64_t __64__UIWebDocumentView_InteractionPrivate___showDataDetectorsSheet__bl
 {
   WebThreadLock();
   superviewForSheet = [(UIWebDocumentView *)self superviewForSheet];
-  if (superviewForSheet && ((v5 = superviewForSheet, (element = self->_interaction.element) == 0) ? (v7 = 0, v31 = 0u, v32 = 0u, v29 = 0u, v30 = 0u) : ([(DOMNode *)element absoluteQuad], v7 = self->_interaction.element), (v8 = quadBoundingBox(&v29), v10 = v9, v12 = v11, v14 = v13, v15 = [(DOMDocument *)[(DOMNode *)v7 ownerDocument] webFrame], v34.origin.x = v8, v34.origin.y = v10, v34.size.width = v12, v34.size.height = v14, !CGRectIsEmpty(v34)) && v15))
+  if (superviewForSheet && ((v5 = superviewForSheet, (element = self->_interaction.element) == 0) ? (v7 = 0, v31 = 0u, v32 = 0u, v29 = 0u, v30 = 0u) : (objc_msgSend_absoluteQuad(element), v7 = self->_interaction.element), (v8 = quadBoundingBox(&v29), v10 = v9, v12 = v11, v14 = v13, v15 = [(DOMDocument *)[(DOMNode *)v7 ownerDocument] webFrame], v34.origin.x = v8, v34.origin.y = v10, v34.size.width = v12, v34.size.height = v14, !CGRectIsEmpty(v34)) && v15))
   {
     x = self->_interaction.location.x;
     y = self->_interaction.location.y;
@@ -11033,7 +11034,7 @@ uint64_t __69__UIWebDocumentView_InteractionPrivate__dropInteraction_performDrop
   return [(UIWebDraggingDelegate *)webDraggingDelegate _webView:self dataOwnerForDropSession:session];
 }
 
-uint64_t __64__UIWebDocumentView_InteractionPrivate___selectPositionAtPoint___block_invoke(uint64_t a1)
+void *__64__UIWebDocumentView_InteractionPrivate___selectPositionAtPoint___block_invoke(uint64_t a1)
 {
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -11168,7 +11169,7 @@ uint64_t __122__UIWebDocumentView_InteractionPrivate___scribbleInteraction_focus
     WebThreadLock();
     if (element)
     {
-      [element innerFrameQuad];
+      objc_msgSend_innerFrameQuad(element);
     }
 
     else

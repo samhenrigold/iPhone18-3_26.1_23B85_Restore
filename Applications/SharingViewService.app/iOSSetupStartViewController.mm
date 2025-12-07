@@ -15,7 +15,7 @@
   viewCopy = view;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupStartViewController handleTapOutsideView:]", 30, "Dismissing on tap outside view\n");
   }
 
   [self->super.super._mainController dismiss:1];
@@ -51,8 +51,7 @@
       v9 = "off";
     }
 
-    v15 = v9;
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupStartViewController handleStartButton:]", 30, "Start: WiFi %s\n", v9);
   }
 
   if (!v8)
@@ -63,7 +62,7 @@ LABEL_13:
       BYTE1(self->_startButton) = 1;
       if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001BE6C8, "[iOSSetupStartViewController handleStartButton:]", 30, "Start button\n");
       }
 
       containerView = [(SVSBaseViewController *)self containerView];
@@ -73,15 +72,15 @@ LABEL_13:
       {
         if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001BE6C8, "[iOSSetupStartViewController handleStartButton:]", 30, "Start button requesting unlock\n");
         }
 
-        v19 = _NSConcreteStackBlock;
-        v20 = 3221225472;
-        v21 = sub_1000F36C0;
-        v22 = &unk_100194E40;
+        v18 = _NSConcreteStackBlock;
+        v19 = 3221225472;
+        v20 = sub_1000F36C0;
+        v21 = &unk_100194E40;
         selfCopy = self;
-        v24 = [UIApp beginBackgroundTaskWithExpirationHandler:&stru_100194DF0];
+        v23 = [UIApp beginBackgroundTaskWithExpirationHandler:&stru_100194DF0];
         SBSRequestPasscodeUnlockUI();
       }
 
@@ -97,9 +96,9 @@ LABEL_13:
           handler[1] = 3221225472;
           handler[2] = sub_1000F385C;
           handler[3] = &unk_100195A70;
-          v17 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, &_dispatch_main_q);
+          v16 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, &_dispatch_main_q);
           selfCopy2 = self;
-          v11 = v17;
+          v11 = v16;
           dispatch_source_set_event_handler(v11, handler);
           SFDispatchTimerSet();
           dispatch_resume(v11);
@@ -131,9 +130,9 @@ LABEL_13:
   notificationCopy = notification;
   if ((BYTE1(self->_startButton) & 1) == 0)
   {
-    v15 = notificationCopy;
+    v13 = notificationCopy;
     name = [notificationCopy name];
-    userInfo = [v15 userInfo];
+    userInfo = [v13 userInfo];
     if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
     {
       v7 = &stru_100195CA8;
@@ -142,12 +141,10 @@ LABEL_13:
         v7 = userInfo;
       }
 
-      v13 = name;
-      v14 = v7;
-      LogPrintF();
+      LogPrintF(&dword_1001BE6C8, "[iOSSetupStartViewController handleDeviceSetupNotification:]", 30, "DeviceSetup notification '%@', %##@\n", name, v7);
     }
 
-    name2 = [v15 name];
+    name2 = [v13 name];
     v9 = [name2 isEqual:@"com.apple.sharing.DeviceSetup"];
 
     if (v9 && !CFDictionaryGetInt64())
@@ -162,14 +159,14 @@ LABEL_13:
       {
         if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001BE6C8, "[iOSSetupStartViewController handleDeviceSetupNotification:]", 30, "Auto-dismissing on setup started\n");
         }
 
         [self->super.super._mainController dismiss:16];
       }
     }
 
-    notificationCopy = v15;
+    notificationCopy = v13;
   }
 }
 
@@ -178,7 +175,7 @@ LABEL_13:
   buttonCopy = button;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupStartViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [self->super.super._mainController dismiss:5];
@@ -204,7 +201,7 @@ LABEL_13:
   disappearCopy = disappear;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupStartViewController viewDidDisappear:]", 30, "Start ViewDidDisappear\n");
   }
 
   v6.receiver = self;
@@ -219,7 +216,7 @@ LABEL_13:
   appearCopy = appear;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupStartViewController viewWillAppear:]", 30, "Start ViewWillAppear\n");
   }
 
   v60.receiver = self;

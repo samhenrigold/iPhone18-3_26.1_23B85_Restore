@@ -50,39 +50,37 @@
 
 - (void)_enumerateIndexFiles:(id)files
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   filesCopy = files;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_fileRefs;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        filesCopy[2](filesCopy, *(*(&v11 + 1) + 8 * v9++));
+        filesCopy[2](filesCopy, *(*(&v10 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -96,12 +94,12 @@
 
 - (OSLogEventSource)initWithCollection:(id)collection metadata:(id)metadata timesync:(_os_timesync_db_s *)timesync
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   metadataCopy = metadata;
-  v18.receiver = self;
-  v18.super_class = OSLogEventSource;
-  v11 = [(OSLogEventSource *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = OSLogEventSource;
+  v11 = [(OSLogEventSource *)&v17 init];
   v12 = v11;
   if (v11)
   {
@@ -115,11 +113,10 @@
     if (metadataCopy)
     {
       v15 = metadataCopy;
-      _timesync_range_create_impl();
+      _timesync_range_create_impl(timesync, 0, 0xFFFFFFFFFFFFFFFFLL, 0);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

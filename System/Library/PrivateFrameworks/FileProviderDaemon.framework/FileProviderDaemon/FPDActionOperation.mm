@@ -163,42 +163,40 @@ uint64_t __49__FPDActionOperation_progressForRoot_completion___block_invoke_3(ui
 
 - (void)forAllClients:(id)clients
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   clientsCopy = clients;
   callbackQueue = [(FPOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = self->_clients;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        clientsCopy[2](clientsCopy, *(*(&v12 + 1) + 8 * v10++));
+        clientsCopy[2](clientsCopy, *(*(&v11 + 1) + 8 * v10++));
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishWithResult:(id)result error:(id)error
@@ -234,12 +232,12 @@ uint64_t __49__FPDActionOperation_progressForRoot_completion___block_invoke_3(ui
   dispatch_sync(callbackQueue, block);
 }
 
-void __33__FPDActionOperation_cancelRoot___block_invoke(uint64_t a1)
+void __33__FPDActionOperation_cancelRoot___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __33__FPDActionOperation_cancelRoot___block_invoke_cold_1(a1, v2);
+    __33__FPDActionOperation_cancelRoot___block_invoke_cold_1(a1, v3);
   }
 }
 
@@ -354,24 +352,22 @@ uint64_t __34__FPDActionOperation_dumpStateTo___block_invoke(uint64_t a1)
 
 - (void)finishWithResult:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 368);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_1CEFC7000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] action operation finished with errors-by-root:%@; %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_1CEFC7000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] action operation finished with errors-by-root:%@; %@", &v4, 0x16u);
 }
 
 void __33__FPDActionOperation_cancelRoot___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] cancelling root: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] cancelling root: %@", &v3, 0xCu);
 }
 
 @end

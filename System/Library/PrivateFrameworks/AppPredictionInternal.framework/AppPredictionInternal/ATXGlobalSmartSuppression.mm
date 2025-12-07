@@ -86,7 +86,7 @@
 
   else
   {
-    v8 = __atxlog_handle_app_prediction();
+    v8 = __atxlog_handle_app_prediction(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ATXGlobalSmartSuppression decodeAssociationScoreForContext:v8 forEncodedScore:?];

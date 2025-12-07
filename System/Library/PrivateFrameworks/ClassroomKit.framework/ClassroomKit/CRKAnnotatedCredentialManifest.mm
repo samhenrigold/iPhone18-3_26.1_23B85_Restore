@@ -19,15 +19,16 @@
   dataCopy = data;
   if (dataCopy)
   {
-    v8 = 0;
-    v4 = [MEMORY[0x277CCAAC8] cat_unarchiveObjectOfClass:objc_opt_class() withData:dataCopy error:&v8];
-    v5 = v8;
+    v9 = 0;
+    v4 = [MEMORY[0x277CCAAC8] cat_unarchiveObjectOfClass:objc_opt_class() withData:dataCopy error:&v9];
+    v5 = v9;
+    v6 = v5;
     if (!v4)
     {
-      v6 = _CRKLogASM_19();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = _CRKLogASM_19(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        [CRKAnnotatedCredentialManifest manifestWithData:v5];
+        [CRKAnnotatedCredentialManifest manifestWithData:v6];
       }
     }
   }
@@ -64,20 +65,21 @@
 
   else
   {
-    v8 = 0;
-    v3 = [MEMORY[0x277CCAAB0] cat_archivedDataWithRootObject:self error:&v8];
-    v4 = v8;
+    v9 = 0;
+    v3 = [MEMORY[0x277CCAAB0] cat_archivedDataWithRootObject:self error:&v9];
+    v4 = v9;
+    v5 = v4;
     if (v3)
     {
-      v5 = v3;
+      v6 = v3;
     }
 
     else
     {
-      v6 = _CRKLogASM_19();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = _CRKLogASM_19(v4);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        [(CRKAnnotatedCredentialManifest *)v4 dataRepresentation];
+        [(CRKAnnotatedCredentialManifest *)v5 dataRepresentation];
       }
     }
   }
@@ -212,13 +214,17 @@ LABEL_7:
 + (void)manifestWithData:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 verboseDescription];
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Failed to deserialize credential store manifest: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Failed to deserialize credential store manifest: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)dataRepresentation
 {
   verboseDescription = [self verboseDescription];
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Failed to serialize credential store manifest: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = verboseDescription;
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Failed to serialize credential store manifest: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

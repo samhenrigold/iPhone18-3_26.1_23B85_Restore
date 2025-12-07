@@ -47,25 +47,24 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v12[9] = *MEMORY[0x1E69E9840];
+  v11[9] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v5 = newStringFromConstantValue(self->_data, self->_dataType);
   v6 = MEMORY[0x1E696AEC0];
-  v11.receiver = self;
-  v11.super_class = MTLIndexedConstantValue;
-  v7 = [(MTLIndexedConstantValue *)&v11 description];
-  v12[0] = v4;
-  v12[1] = @"Index =";
-  v12[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_index];
-  v12[3] = v4;
-  v12[4] = @"Type =";
-  v12[5] = MTLDataTypeString(self->_dataType);
-  v12[6] = v4;
-  v12[7] = @"Value =";
-  v12[8] = v5;
-  v8 = [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v12, 9), "componentsJoinedByString:", @" "];
+  v10.receiver = self;
+  v10.super_class = MTLIndexedConstantValue;
+  v7 = [(MTLIndexedConstantValue *)&v10 description];
+  v11[0] = v4;
+  v11[1] = @"Index =";
+  v11[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_index];
+  v11[3] = v4;
+  v11[4] = @"Type =";
+  v11[5] = MTLDataTypeString(self->_dataType);
+  v11[6] = v4;
+  v11[7] = @"Value =";
+  v11[8] = v5;
+  v8 = [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v11, 9), "componentsJoinedByString:", @" "];
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

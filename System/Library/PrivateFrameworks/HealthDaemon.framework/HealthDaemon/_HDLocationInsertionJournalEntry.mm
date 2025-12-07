@@ -19,11 +19,11 @@
     self = objc_msgSendSuper2(&v12, sel_init);
     if (self)
     {
-      v7 = [v5 copy];
+      v7 = objc_msgSend_copy(v5);
       v8 = self[1];
       self[1] = v7;
 
-      v9 = [dCopy copy];
+      v9 = objc_msgSend_copy(dCopy);
       v10 = self[2];
       self[2] = v9;
     }
@@ -44,29 +44,29 @@
 
 + (void)applyEntries:(id)entries withProfile:(id)profile
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   profileCopy = profile;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = entriesCopy;
-  v7 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v7 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v7)
   {
-    v8 = *v31;
+    v8 = *v30;
     do
     {
       v9 = 0;
       do
       {
-        if (*v31 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v30 + 1) + 8 * v9);
+        v10 = *(*(&v29 + 1) + 8 * v9);
         if (v10)
         {
           v11 = *(v10 + 16);
@@ -80,9 +80,9 @@
         }
 
         v13 = v12;
-        v29 = 0;
-        v14 = [HDLocationSeriesSampleEntity insertLocationData:v11 seriesIdentifier:v13 assertion:0 profile:profileCopy error:&v29];
-        v15 = v29;
+        v28 = 0;
+        v14 = [HDLocationSeriesSampleEntity insertLocationData:v11 seriesIdentifier:v13 assertion:0 profile:profileCopy error:&v28];
+        v15 = v28;
 
         if (!v14)
         {
@@ -101,9 +101,9 @@
             }
 
             *buf = 138412546;
-            v35 = v24;
-            v36 = 2114;
-            v37 = v15;
+            v34 = v24;
+            v35 = 2114;
+            v36 = v15;
             v25 = v16;
             _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "Failed to insert journaled location series data: %@ %{public}@", buf, 0x16u);
           }
@@ -138,7 +138,7 @@
       }
 
       while (v7 != v9);
-      v26 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v26 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
       v7 = v26;
     }
 
@@ -146,24 +146,21 @@
   }
 
 LABEL_25:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (_HDLocationInsertionJournalEntry)initWithCoder:(id)coder
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sid"];
   v6 = MEMORY[0x277CBEB98];
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"data"];
 
   v10 = [(_HDLocationInsertionJournalEntry *)self initWithSeriesPersistentID:v5 locationData:v9];
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

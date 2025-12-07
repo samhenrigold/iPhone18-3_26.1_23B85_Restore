@@ -26,8 +26,9 @@
 
 - (void)setNeedsAuthentication:(BOOL)authentication
 {
+  authenticationCopy = authentication;
   selfCopy = self;
-  sub_1000596A8(authentication);
+  sub_1000596A8(authenticationCopy);
 }
 
 @end

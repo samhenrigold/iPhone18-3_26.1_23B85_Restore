@@ -7,9 +7,7 @@
 
 - (void)loadData:(id)data
 {
-  v4 = [data mutableCopy];
-  bvData = self->_bvData;
-  self->_bvData = v4;
+  self->_bvData = [data mutableCopy];
 
   MEMORY[0x2821F96F8]();
 }

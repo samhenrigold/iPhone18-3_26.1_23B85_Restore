@@ -60,7 +60,7 @@
 
   animation = [MEMORY[0x277CD9E00] animation];
   [animation setAnimations:array];
-  [(TSDContentAnimationGroup *)selfCopy duration];
+  objc_msgSend_duration(selfCopy);
   [animation setDuration:?];
   [animation setTimingFunction:{-[TSDContentAnimationGroup timingFunction](selfCopy, "timingFunction")}];
   return animation;

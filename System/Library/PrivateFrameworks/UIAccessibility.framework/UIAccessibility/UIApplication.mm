@@ -131,7 +131,7 @@ BOOL __117__UIApplication_UIAccessibilityElementTraversal___accessibilityElement
   return v17 == v19 && v15 == v18;
 }
 
-uint64_t __68__UIApplication_UIAccessibility___accessibilityIsAppReadyToBeProbed__block_invoke(uint64_t a1)
+void *__68__UIApplication_UIAccessibility___accessibilityIsAppReadyToBeProbed__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) safeBoolForKey:@"_isActivating"];
   *(*(*(a1 + 40) + 8) + 24) = result ^ 1;

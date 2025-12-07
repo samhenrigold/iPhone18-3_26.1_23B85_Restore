@@ -1,3 +1,23 @@
+uint64_t sub_10002DDD0()
+{
+  result = sub_100019B78("device -D", 0);
+  if (!result)
+  {
+    result = sub_100019B78("hci reset", 0);
+    if (!result)
+    {
+      result = sub_100019B78("bcm -s 0x0f,0x00,0x02,0x00,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00", 0);
+      if (!result)
+      {
+
+        return sub_100019B78("quit", 0);
+      }
+    }
+  }
+
+  return result;
+}
+
 uint64_t sub_10002DE44()
 {
   result = sub_100019B78("power off", 0);
@@ -8547,46 +8567,6 @@ uint64_t sub_100039ADC()
       {
 
         return sub_100019B78("quit", 0);
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_100039B50()
-{
-  result = sub_100019B78("power off", 0);
-  if (!result)
-  {
-    result = sub_100019B78("device -D", 0);
-    if (!result)
-    {
-      result = sub_100019B78("bcm -W", 0);
-      if (!result)
-      {
-        result = sub_100019B78("bcm -A", 0);
-        if (!result)
-        {
-          result = sub_100019B78("bcm -N", 0);
-          if (!result)
-          {
-            result = sub_100019B78("bcm -Q", 0);
-            if (!result)
-            {
-              result = sub_100019B78("bcm -x", 0);
-              if (!result)
-              {
-                result = sub_100019B78("bcm -s 0x0f,0x00,0x02,0x00,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00", 0);
-                if (!result)
-                {
-
-                  return sub_100019B78("quit", 0);
-                }
-              }
-            }
-          }
-        }
       }
     }
   }

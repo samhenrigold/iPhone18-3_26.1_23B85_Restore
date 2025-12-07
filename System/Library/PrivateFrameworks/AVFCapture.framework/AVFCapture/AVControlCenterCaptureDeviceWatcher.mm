@@ -55,7 +55,7 @@
 
   v37 = v6;
   v38 = v7;
-  v8 = [change objectForKeyedSubscript:{*MEMORY[0x1E696A4F0], object}];
+  v8 = objc_msgSend_objectForKeyedSubscript_(change, a2, *MEMORY[0x1E696A4F0], object);
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;

@@ -1,39 +1,3 @@
-void sub_1DE2714C4(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    operator delete(v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<unsigned short>>(uint64_t a1, void *a2)
-{
-  if (!a2)
-  {
-    __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
-  }
-
-  v3 = a2[1];
-  v4 = v3 - *a2;
-  if (v3 != *a2)
-  {
-    if (((v4 >> 3) & 0x8000000000000000) == 0)
-    {
-      std::allocator<short>::allocate_at_least[abi:ne200100](v4 >> 3);
-    }
-
-    std::vector<void *>::__throw_length_error[abi:ne200100]();
-  }
-
-  *(a1 + 32) = 0;
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
-}
-
 void sub_1DE2715C0(_Unwind_Exception *exception_object)
 {
   if (v1)
@@ -44,7 +8,7 @@ void sub_1DE2715C0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<int>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<int>>(uint64_t a1, uint64_t **a2)
 {
   if (!a2)
   {
@@ -80,7 +44,7 @@ void sub_1DE2716C0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<unsigned int>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<unsigned int>>(void *a1, uint64_t **a2)
 {
   if (!a2)
   {
@@ -99,11 +63,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
 }
 
 void sub_1DE2717C0(_Unwind_Exception *exception_object)
@@ -116,45 +80,45 @@ void sub_1DE2717C0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<long>>(uint64_t a1, uint64_t *a2)
+uint64_t *AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<long>>(void *a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  result = std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1, *a2, a2[1], (a2[1] - *a2) >> 3);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
+  *(a1 + 1) = 0u;
+  result = std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
   return result;
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<unsigned long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<unsigned long>>(void *a1, uint64_t **a2, __n128 a3)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
-  v4 = v3 - *a2;
-  if (v3 != *a2)
+  v4 = a2[1];
+  v5 = v4 - *a2;
+  if (v4 != *a2)
   {
-    if (!((v4 >> 3) >> 61))
+    if (!((v5 >> 3) >> 61))
     {
-      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](v4 >> 3);
+      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](v5 >> 3);
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
 }
 
 void sub_1DE271934(_Unwind_Exception *exception_object)
@@ -167,30 +131,30 @@ void sub_1DE271934(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<long long>>(void *a1, uint64_t **a2, __n128 a3)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
-  v4 = v3 - *a2;
-  if (v3 != *a2)
+  v4 = a2[1];
+  v5 = v4 - *a2;
+  if (v4 != *a2)
   {
-    if (!((v4 >> 3) >> 61))
+    if (!((v5 >> 3) >> 61))
     {
-      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](v4 >> 3);
+      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](v5 >> 3);
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
 }
 
 void sub_1DE271A34(_Unwind_Exception *exception_object)
@@ -203,30 +167,30 @@ void sub_1DE271A34(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<unsigned long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<unsigned long long>>(void *a1, uint64_t **a2, __n128 a3)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
-  v4 = v3 - *a2;
-  if (v3 != *a2)
+  v4 = a2[1];
+  v5 = v4 - *a2;
+  if (v4 != *a2)
   {
-    if (!((v4 >> 3) >> 61))
+    if (!((v5 >> 3) >> 61))
     {
-      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](v4 >> 3);
+      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](v5 >> 3);
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
 }
 
 void sub_1DE271B34(_Unwind_Exception *exception_object)
@@ -239,7 +203,7 @@ void sub_1DE271B34(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<float>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<float>>(uint64_t a1, uint64_t **a2)
 {
   if (!a2)
   {
@@ -275,30 +239,30 @@ void sub_1DE271C38(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<double>>(void *a1, uint64_t **a2, __n128 a3)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
-  v4 = v3 - *a2;
-  if (v3 != *a2)
+  v4 = a2[1];
+  v5 = v4 - *a2;
+  if (v4 != *a2)
   {
-    if (!((v4 >> 3) >> 61))
+    if (!((v5 >> 3) >> 61))
     {
-      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](v4 >> 3);
+      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](v5 >> 3);
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
 }
 
 void sub_1DE271D3C(_Unwind_Exception *exception_object)
@@ -311,30 +275,30 @@ void sub_1DE271D3C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<long double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,std::vector<long double>>(void *a1, uint64_t **a2, __n128 a3)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
-  v4 = v3 - *a2;
-  if (v3 != *a2)
+  v4 = a2[1];
+  v5 = v4 - *a2;
+  if (v4 != *a2)
   {
-    if (!((v4 >> 3) >> 61))
+    if (!((v5 >> 3) >> 61))
     {
-      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](v4 >> 3);
+      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](v5 >> 3);
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long double>::__init_with_size[abi:ne200100]<long double *,long double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
 }
 
 void sub_1DE271E40(_Unwind_Exception *exception_object)
@@ -347,7 +311,7 @@ void sub_1DE271E40(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,applesauce::CF::ArrayRef>(void *a1, uint64_t **a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,applesauce::CF::ArrayRef>(uint64_t *a1, uint64_t **a2)
 {
   if (!a2)
   {
@@ -385,11 +349,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<long>,apple
   }
 }
 
-void sub_1DE271F94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE271F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   mcp_applesauce::CF::Array_Builder::~Array_Builder(va1);
   _Unwind_Resume(a1);
@@ -405,7 +369,7 @@ void std::allocator<unsigned long>::allocate_at_least[abi:ne200100](unint64_t a1
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (result > 2)
   {
@@ -434,7 +398,7 @@ uint64_t AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::disp
     if (result == 5)
     {
       v12 = AMCP::Implementation::get_type_marker<std::vector<unsigned int>>();
-      v13 = a2[4];
+      v13 = *(a2 + 32);
       *&v27 = 0;
       if (v13)
       {
@@ -457,10 +421,10 @@ uint64_t AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::disp
 
       if (v14 == v12)
       {
-        if (a2[4])
+        if (*(a2 + 32))
         {
           *&v27 = AMCP::Implementation::get_type_marker<std::vector<unsigned int>>();
-          v15 = (a2[4])(4, a2, 0, &v27);
+          v15 = (*(a2 + 32))(4, a2, 0, &v27);
         }
 
         else
@@ -514,10 +478,10 @@ LABEL_30:
       goto LABEL_95;
     }
 
-    if (a2[4])
+    if (*(a2 + 32))
     {
       *&v27 = AMCP::Implementation::get_type_marker<std::vector<unsigned int>>();
-      v9 = (a2[4])(4, a2, 0, &v27);
+      v9 = (*(a2 + 32))(4, a2, 0, &v27);
     }
 
     else
@@ -530,13 +494,13 @@ LABEL_30:
       if (v9)
       {
         v19 = *v9;
-        v20 = v9[1];
+        v20 = *(v9 + 8);
         v31 = 0;
         v32 = 0;
         v30 = 0;
         if (v20 != v19)
         {
-          std::vector<BOOL>::__vallocate[abi:ne200100](&v30, (v20 - v19) >> 2);
+          std::vector<BOOL>::__vallocate[abi:ne200100](&v30, v20 - v19);
         }
 
         v29 = 0;
@@ -563,7 +527,7 @@ LABEL_86:
         goto LABEL_86;
       }
 
-      v21 = v9[1];
+      v21 = *(v9 + 8);
       if (v21 != *v9)
       {
         if ((((v21 - *v9) >> 2) & 0x8000000000000000) == 0)
@@ -591,7 +555,7 @@ LABEL_72:
         goto LABEL_86;
       }
 
-      v22 = v9[1];
+      v22 = *(v9 + 8);
       if (v22 != *v9)
       {
         if ((((v22 - *v9) >> 2) & 0x8000000000000000) == 0)
@@ -617,7 +581,7 @@ LABEL_72:
         goto LABEL_86;
       }
 
-      v25 = v9[1];
+      v25 = *(v9 + 8);
       if (v25 != *v9)
       {
         if ((((v25 - *v9) >> 2) & 0x8000000000000000) == 0)
@@ -731,18 +695,18 @@ LABEL_96:
       v10 = *a2;
       if (*a2)
       {
-        a2[1] = v10;
+        *(a2 + 8) = v10;
         operator delete(v10);
       }
 
       result = 0;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
       v7 = 0uLL;
       goto LABEL_19;
     case 1:
       *a3 = 0u;
       *(a3 + 16) = 0u;
-      std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a3, *a2, a2[1], (a2[1] - *a2) >> 2);
+      std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a3, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
       result = 0;
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
       return result;
@@ -752,12 +716,12 @@ LABEL_96:
       *a3 = 0u;
       *(a3 + 16) = 0u;
       *a3 = *a2;
-      *(a3 + 16) = a2[2];
+      *(a3 + 16) = *(a2 + 16);
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
 LABEL_19:
       *a2 = v7;
-      *(a2 + 1) = v7;
+      *(a2 + 16) = v7;
       break;
   }
 
@@ -774,7 +738,7 @@ void sub_1DE27277C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   __clang_call_terminate(a1);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<short>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<short>>(uint64_t a1, int **a2)
 {
   if (!a2)
   {
@@ -810,7 +774,7 @@ void sub_1DE2728E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<unsigned short>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<unsigned short>>(uint64_t a1, int **a2)
 {
   if (!a2)
   {
@@ -846,7 +810,7 @@ void sub_1DE2729E4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<int>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<int>>(uint64_t a1, int **a2)
 {
   if (!a2)
   {
@@ -882,22 +846,22 @@ void sub_1DE272AE4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<unsigned int>>(uint64_t a1, uint64_t *a2)
+uint64_t *AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<unsigned int>>(void *a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  result = std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1, *a2, a2[1], (a2[1] - *a2) >> 2);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
+  *(a1 + 1) = 0u;
+  result = std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
   return result;
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<long>>(void *a1, unsigned int **a2)
 {
   if (!a2)
   {
@@ -916,11 +880,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned in
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
 }
 
 void sub_1DE272C58(_Unwind_Exception *exception_object)
@@ -933,7 +897,7 @@ void sub_1DE272C58(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<unsigned long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<unsigned long>>(void *a1, unsigned int **a2)
 {
   if (!a2)
   {
@@ -952,11 +916,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned in
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
 }
 
 void sub_1DE272D58(_Unwind_Exception *exception_object)
@@ -969,7 +933,7 @@ void sub_1DE272D58(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<long long>>(void *a1, unsigned int **a2)
 {
   if (!a2)
   {
@@ -988,11 +952,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned in
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
 }
 
 void sub_1DE272E58(_Unwind_Exception *exception_object)
@@ -1005,7 +969,7 @@ void sub_1DE272E58(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<unsigned long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<unsigned long long>>(void *a1, unsigned int **a2)
 {
   if (!a2)
   {
@@ -1024,11 +988,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned in
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
 }
 
 void sub_1DE272F58(_Unwind_Exception *exception_object)
@@ -1041,7 +1005,7 @@ void sub_1DE272F58(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<float>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<float>>(uint64_t a1, unsigned int **a2)
 {
   if (!a2)
   {
@@ -1077,7 +1041,7 @@ void sub_1DE27305C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<double>>(void *a1, unsigned int **a2)
 {
   if (!a2)
   {
@@ -1096,11 +1060,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned in
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
 }
 
 void sub_1DE273160(_Unwind_Exception *exception_object)
@@ -1113,7 +1077,7 @@ void sub_1DE273160(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<long double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned int>,std::vector<long double>>(void *a1, unsigned int **a2)
 {
   if (!a2)
   {
@@ -1132,11 +1096,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned in
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long double>::__init_with_size[abi:ne200100]<long double *,long double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
 }
 
 void sub_1DE273264(_Unwind_Exception *exception_object)
@@ -1189,17 +1153,17 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned in
   }
 }
 
-void sub_1DE2733B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE2733B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   mcp_applesauce::CF::Array_Builder::~Array_Builder(va1);
   _Unwind_Resume(a1);
 }
 
-void std::vector<long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<long>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1209,7 +1173,7 @@ void std::vector<long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<void *>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1231,7 +1195,7 @@ void sub_1DE273490(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AMCP::Implementation::In_Place_Storage<std::vector<int>>::dispatch(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::In_Place_Storage<std::vector<int>>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (result > 2)
   {
@@ -1260,7 +1224,7 @@ uint64_t AMCP::Implementation::In_Place_Storage<std::vector<int>>::dispatch(uint
     if (result == 5)
     {
       v12 = AMCP::Implementation::get_type_marker<std::vector<int>>();
-      v13 = a2[4];
+      v13 = *(a2 + 32);
       *&v27 = 0;
       if (v13)
       {
@@ -1283,10 +1247,10 @@ uint64_t AMCP::Implementation::In_Place_Storage<std::vector<int>>::dispatch(uint
 
       if (v14 == v12)
       {
-        if (a2[4])
+        if (*(a2 + 32))
         {
           *&v27 = AMCP::Implementation::get_type_marker<std::vector<int>>();
-          v15 = (a2[4])(4, a2, 0, &v27);
+          v15 = (*(a2 + 32))(4, a2, 0, &v27);
         }
 
         else
@@ -1340,10 +1304,10 @@ LABEL_30:
       goto LABEL_95;
     }
 
-    if (a2[4])
+    if (*(a2 + 32))
     {
       *&v27 = AMCP::Implementation::get_type_marker<std::vector<int>>();
-      v9 = (a2[4])(4, a2, 0, &v27);
+      v9 = (*(a2 + 32))(4, a2, 0, &v27);
     }
 
     else
@@ -1356,13 +1320,13 @@ LABEL_30:
       if (v9)
       {
         v19 = *v9;
-        v20 = v9[1];
+        v20 = *(v9 + 8);
         v31 = 0;
         v32 = 0;
         v30 = 0;
         if (v20 != v19)
         {
-          std::vector<BOOL>::__vallocate[abi:ne200100](&v30, (v20 - v19) >> 2);
+          std::vector<BOOL>::__vallocate[abi:ne200100](&v30, v20 - v19);
         }
 
         v29 = 0;
@@ -1389,7 +1353,7 @@ LABEL_86:
         goto LABEL_86;
       }
 
-      v21 = v9[1];
+      v21 = *(v9 + 8);
       if (v21 != *v9)
       {
         if ((((v21 - *v9) >> 2) & 0x8000000000000000) == 0)
@@ -1417,7 +1381,7 @@ LABEL_72:
         goto LABEL_86;
       }
 
-      v22 = v9[1];
+      v22 = *(v9 + 8);
       if (v22 != *v9)
       {
         if ((((v22 - *v9) >> 2) & 0x8000000000000000) == 0)
@@ -1443,7 +1407,7 @@ LABEL_72:
         goto LABEL_86;
       }
 
-      v25 = v9[1];
+      v25 = *(v9 + 8);
       if (v25 != *v9)
       {
         if ((((v25 - *v9) >> 2) & 0x8000000000000000) == 0)
@@ -1557,18 +1521,18 @@ LABEL_96:
       v10 = *a2;
       if (*a2)
       {
-        a2[1] = v10;
+        *(a2 + 8) = v10;
         operator delete(v10);
       }
 
       result = 0;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
       v7 = 0uLL;
       goto LABEL_19;
     case 1:
       *a3 = 0u;
       *(a3 + 16) = 0u;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a3, *a2, a2[1], (a2[1] - *a2) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a3, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
       result = 0;
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<int>>::dispatch;
       return result;
@@ -1578,12 +1542,12 @@ LABEL_96:
       *a3 = 0u;
       *(a3 + 16) = 0u;
       *a3 = *a2;
-      *(a3 + 16) = a2[2];
+      *(a3 + 16) = *(a2 + 16);
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<int>>::dispatch;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
 LABEL_19:
       *a2 = v7;
-      *(a2 + 1) = v7;
+      *(a2 + 16) = v7;
       break;
   }
 
@@ -1600,7 +1564,7 @@ void sub_1DE273C14(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   __clang_call_terminate(a1);
 }
 
-uint64_t AMCP::Thing::convert_to<std::vector<int>>(void *a1, uint64_t a2)
+uint64_t *AMCP::Thing::convert_to<std::vector<int>>(uint64_t *a1, uint64_t a2)
 {
   if (!*(a2 + 32))
   {
@@ -1625,7 +1589,7 @@ uint64_t AMCP::Thing::convert_to<std::vector<int>>(void *a1, uint64_t a2)
       *a1 = 0;
       a1[1] = 0;
       a1[2] = 0;
-      return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1, *v6, v6[1], (v6[1] - *v6) >> 2);
+      return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 2);
     }
 
 LABEL_12:
@@ -1657,7 +1621,7 @@ LABEL_12:
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1, *v8, v8[1], (v8[1] - *v8) >> 2);
+  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1, *v8, *(v8 + 8), (*(v8 + 8) - *v8) >> 2);
   if (v17)
   {
     return v17(0, v16, 0, 0);
@@ -1666,14 +1630,14 @@ LABEL_12:
   return result;
 }
 
-void sub_1DE273E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE273E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<short>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<short>>(uint64_t a1, int **a2)
 {
   if (!a2)
   {
@@ -1709,7 +1673,7 @@ void sub_1DE273F5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<unsigned short>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<unsigned short>>(uint64_t a1, int **a2)
 {
   if (!a2)
   {
@@ -1745,7 +1709,7 @@ void sub_1DE274058(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<int>>(uint64_t a1, uint64_t *a2)
+uint64_t *AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<int>>(uint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -1755,12 +1719,12 @@ uint64_t AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,st
   *(a1 + 32) = 0;
   *a1 = 0u;
   *(a1 + 16) = 0u;
-  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1, *a2, a2[1], (a2[1] - *a2) >> 2);
+  result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<int>>::dispatch;
   return result;
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<unsigned int>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<unsigned int>>(void *a1, int **a2)
 {
   if (!a2)
   {
@@ -1779,11 +1743,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::v
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
 }
 
 void sub_1DE2741CC(_Unwind_Exception *exception_object)
@@ -1796,7 +1760,7 @@ void sub_1DE2741CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<long>>(void *a1, int **a2)
 {
   if (!a2)
   {
@@ -1815,11 +1779,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::v
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
 }
 
 void sub_1DE2742CC(_Unwind_Exception *exception_object)
@@ -1832,7 +1796,7 @@ void sub_1DE2742CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<unsigned long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<unsigned long>>(void *a1, int **a2)
 {
   if (!a2)
   {
@@ -1851,11 +1815,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::v
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
 }
 
 void sub_1DE2743CC(_Unwind_Exception *exception_object)
@@ -1868,7 +1832,7 @@ void sub_1DE2743CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<long long>>(void *a1, int **a2)
 {
   if (!a2)
   {
@@ -1887,11 +1851,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::v
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
 }
 
 void sub_1DE2744CC(_Unwind_Exception *exception_object)
@@ -1904,7 +1868,7 @@ void sub_1DE2744CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<unsigned long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<unsigned long long>>(void *a1, int **a2)
 {
   if (!a2)
   {
@@ -1923,11 +1887,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::v
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
 }
 
 void sub_1DE2745CC(_Unwind_Exception *exception_object)
@@ -1940,7 +1904,7 @@ void sub_1DE2745CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<float>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<float>>(uint64_t a1, int **a2)
 {
   if (!a2)
   {
@@ -1976,7 +1940,7 @@ void sub_1DE2746D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<double>>(void *a1, int **a2)
 {
   if (!a2)
   {
@@ -1995,11 +1959,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::v
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
 }
 
 void sub_1DE2747D4(_Unwind_Exception *exception_object)
@@ -2012,7 +1976,7 @@ void sub_1DE2747D4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<long double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::vector<long double>>(void *a1, int **a2)
 {
   if (!a2)
   {
@@ -2031,11 +1995,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,std::v
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long double>::__init_with_size[abi:ne200100]<long double *,long double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
 }
 
 void sub_1DE2748D8(_Unwind_Exception *exception_object)
@@ -2088,17 +2052,17 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<int>,apples
   }
 }
 
-void sub_1DE274A2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE274A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   mcp_applesauce::CF::Array_Builder::~Array_Builder(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -2120,7 +2084,7 @@ void sub_1DE274AC4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (result > 2)
   {
@@ -2149,7 +2113,7 @@ uint64_t AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::di
     if (result == 5)
     {
       v12 = AMCP::Implementation::get_type_marker<std::vector<unsigned short>>();
-      v13 = a2[4];
+      v13 = *(a2 + 32);
       *&v27 = 0;
       if (v13)
       {
@@ -2172,10 +2136,10 @@ uint64_t AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::di
 
       if (v14 == v12)
       {
-        if (a2[4])
+        if (*(a2 + 32))
         {
           *&v27 = AMCP::Implementation::get_type_marker<std::vector<unsigned short>>();
-          v15 = (a2[4])(4, a2, 0, &v27);
+          v15 = (*(a2 + 32))(4, a2, 0, &v27);
         }
 
         else
@@ -2229,10 +2193,10 @@ LABEL_30:
       goto LABEL_95;
     }
 
-    if (a2[4])
+    if (*(a2 + 32))
     {
       *&v27 = AMCP::Implementation::get_type_marker<std::vector<unsigned short>>();
-      v9 = (a2[4])(4, a2, 0, &v27);
+      v9 = (*(a2 + 32))(4, a2, 0, &v27);
     }
 
     else
@@ -2245,13 +2209,13 @@ LABEL_30:
       if (v9)
       {
         v19 = *v9;
-        v20 = v9[1];
+        v20 = *(v9 + 8);
         v31 = 0;
         v32 = 0;
         v30 = 0;
         if (v20 != v19)
         {
-          std::vector<BOOL>::__vallocate[abi:ne200100](&v30, (v20 - v19) >> 1);
+          std::vector<BOOL>::__vallocate[abi:ne200100](&v30, v20 - v19);
         }
 
         v29 = 0;
@@ -2278,7 +2242,7 @@ LABEL_86:
         goto LABEL_86;
       }
 
-      v21 = v9[1];
+      v21 = *(v9 + 8);
       if (v21 != *v9)
       {
         if ((((v21 - *v9) >> 1) & 0x8000000000000000) == 0)
@@ -2306,7 +2270,7 @@ LABEL_72:
         goto LABEL_86;
       }
 
-      v22 = v9[1];
+      v22 = *(v9 + 8);
       if (v22 != *v9)
       {
         if ((((v22 - *v9) >> 1) & 0x8000000000000000) == 0)
@@ -2332,7 +2296,7 @@ LABEL_72:
         goto LABEL_86;
       }
 
-      v25 = v9[1];
+      v25 = *(v9 + 8);
       if (v25 != *v9)
       {
         if ((((v25 - *v9) >> 1) & 0x8000000000000000) == 0)
@@ -2446,18 +2410,18 @@ LABEL_96:
       v10 = *a2;
       if (*a2)
       {
-        a2[1] = v10;
+        *(a2 + 8) = v10;
         operator delete(v10);
       }
 
       result = 0;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
       v7 = 0uLL;
       goto LABEL_19;
     case 1:
       *a3 = 0u;
       *(a3 + 16) = 0u;
-      std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a3, *a2, a2[1], (a2[1] - *a2) >> 1);
+      std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a3, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 1);
       result = 0;
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
       return result;
@@ -2467,12 +2431,12 @@ LABEL_96:
       *a3 = 0u;
       *(a3 + 16) = 0u;
       *a3 = *a2;
-      *(a3 + 16) = a2[2];
+      *(a3 + 16) = *(a2 + 16);
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
 LABEL_19:
       *a2 = v7;
-      *(a2 + 1) = v7;
+      *(a2 + 16) = v7;
       break;
   }
 
@@ -2489,7 +2453,7 @@ void sub_1DE275248(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   __clang_call_terminate(a1);
 }
 
-uint64_t AMCP::Thing::convert_to<std::vector<unsigned short>>(void *a1, uint64_t a2)
+uint64_t *AMCP::Thing::convert_to<std::vector<unsigned short>>(uint64_t *a1, uint64_t a2)
 {
   if (!*(a2 + 32))
   {
@@ -2514,7 +2478,7 @@ uint64_t AMCP::Thing::convert_to<std::vector<unsigned short>>(void *a1, uint64_t
       *a1 = 0;
       a1[1] = 0;
       a1[2] = 0;
-      return std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, *v6, v6[1], (v6[1] - *v6) >> 1);
+      return std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 1);
     }
 
 LABEL_12:
@@ -2546,7 +2510,7 @@ LABEL_12:
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  result = std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, *v8, v8[1], (v8[1] - *v8) >> 1);
+  result = std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, *v8, *(v8 + 8), (*(v8 + 8) - *v8) >> 1);
   if (v17)
   {
     return v17(0, v16, 0, 0);
@@ -2555,14 +2519,14 @@ LABEL_12:
   return result;
 }
 
-void sub_1DE27548C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE27548C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<short>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<short>>(uint64_t a1, __int16 **a2)
 {
   if (!a2)
   {
@@ -2598,22 +2562,22 @@ void sub_1DE275590(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<unsigned short>>(uint64_t a1, uint64_t *a2)
+uint64_t *AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<unsigned short>>(void *a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  result = std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, *a2, a2[1], (a2[1] - *a2) >> 1);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
+  *(a1 + 1) = 0u;
+  result = std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 1);
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
   return result;
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<int>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<int>>(uint64_t a1, unsigned __int16 **a2)
 {
   if (!a2)
   {
@@ -2649,7 +2613,7 @@ void sub_1DE275704(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<unsigned int>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<unsigned int>>(void *a1, unsigned __int16 **a2)
 {
   if (!a2)
   {
@@ -2668,11 +2632,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned sh
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
 }
 
 void sub_1DE275804(_Unwind_Exception *exception_object)
@@ -2685,7 +2649,7 @@ void sub_1DE275804(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<long>>(void *a1, unsigned __int16 **a2)
 {
   if (!a2)
   {
@@ -2704,11 +2668,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned sh
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
 }
 
 void sub_1DE275904(_Unwind_Exception *exception_object)
@@ -2721,7 +2685,7 @@ void sub_1DE275904(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<unsigned long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<unsigned long>>(void *a1, unsigned __int16 **a2)
 {
   if (!a2)
   {
@@ -2740,11 +2704,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned sh
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
 }
 
 void sub_1DE275A04(_Unwind_Exception *exception_object)
@@ -2757,7 +2721,7 @@ void sub_1DE275A04(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<long long>>(void *a1, unsigned __int16 **a2)
 {
   if (!a2)
   {
@@ -2776,11 +2740,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned sh
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
 }
 
 void sub_1DE275B04(_Unwind_Exception *exception_object)
@@ -2793,7 +2757,7 @@ void sub_1DE275B04(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<unsigned long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<unsigned long long>>(void *a1, unsigned __int16 **a2)
 {
   if (!a2)
   {
@@ -2812,11 +2776,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned sh
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
 }
 
 void sub_1DE275C04(_Unwind_Exception *exception_object)
@@ -2829,7 +2793,7 @@ void sub_1DE275C04(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<float>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<float>>(uint64_t a1, unsigned __int16 **a2)
 {
   if (!a2)
   {
@@ -2865,7 +2829,7 @@ void sub_1DE275D08(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<double>>(void *a1, unsigned __int16 **a2)
 {
   if (!a2)
   {
@@ -2884,11 +2848,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned sh
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
 }
 
 void sub_1DE275E0C(_Unwind_Exception *exception_object)
@@ -2901,7 +2865,7 @@ void sub_1DE275E0C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<long double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned short>,std::vector<long double>>(void *a1, unsigned __int16 **a2)
 {
   if (!a2)
   {
@@ -2920,11 +2884,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned sh
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long double>::__init_with_size[abi:ne200100]<long double *,long double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
 }
 
 void sub_1DE275F10(_Unwind_Exception *exception_object)
@@ -2977,17 +2941,17 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned sh
   }
 }
 
-void sub_1DE276064(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE276064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   mcp_applesauce::CF::Array_Builder::~Array_Builder(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -3009,7 +2973,7 @@ void sub_1DE2760FC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (result > 2)
   {
@@ -3038,7 +3002,7 @@ uint64_t AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch(ui
     if (result == 5)
     {
       v12 = AMCP::Implementation::get_type_marker<std::vector<short>>();
-      v13 = a2[4];
+      v13 = *(a2 + 32);
       *&v27 = 0;
       if (v13)
       {
@@ -3061,10 +3025,10 @@ uint64_t AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch(ui
 
       if (v14 == v12)
       {
-        if (a2[4])
+        if (*(a2 + 32))
         {
           *&v27 = AMCP::Implementation::get_type_marker<std::vector<short>>();
-          v15 = (a2[4])(4, a2, 0, &v27);
+          v15 = (*(a2 + 32))(4, a2, 0, &v27);
         }
 
         else
@@ -3118,10 +3082,10 @@ LABEL_30:
       goto LABEL_95;
     }
 
-    if (a2[4])
+    if (*(a2 + 32))
     {
       *&v27 = AMCP::Implementation::get_type_marker<std::vector<short>>();
-      v9 = (a2[4])(4, a2, 0, &v27);
+      v9 = (*(a2 + 32))(4, a2, 0, &v27);
     }
 
     else
@@ -3134,13 +3098,13 @@ LABEL_30:
       if (v9)
       {
         v19 = *v9;
-        v20 = v9[1];
+        v20 = *(v9 + 8);
         v31 = 0;
         v32 = 0;
         v30 = 0;
         if (v20 != v19)
         {
-          std::vector<BOOL>::__vallocate[abi:ne200100](&v30, (v20 - v19) >> 1);
+          std::vector<BOOL>::__vallocate[abi:ne200100](&v30, v20 - v19);
         }
 
         v29 = 0;
@@ -3167,7 +3131,7 @@ LABEL_86:
         goto LABEL_86;
       }
 
-      v21 = v9[1];
+      v21 = *(v9 + 8);
       if (v21 != *v9)
       {
         if ((((v21 - *v9) >> 1) & 0x8000000000000000) == 0)
@@ -3195,7 +3159,7 @@ LABEL_72:
         goto LABEL_86;
       }
 
-      v22 = v9[1];
+      v22 = *(v9 + 8);
       if (v22 != *v9)
       {
         if ((((v22 - *v9) >> 1) & 0x8000000000000000) == 0)
@@ -3221,7 +3185,7 @@ LABEL_72:
         goto LABEL_86;
       }
 
-      v25 = v9[1];
+      v25 = *(v9 + 8);
       if (v25 != *v9)
       {
         if ((((v25 - *v9) >> 1) & 0x8000000000000000) == 0)
@@ -3335,18 +3299,18 @@ LABEL_96:
       v10 = *a2;
       if (*a2)
       {
-        a2[1] = v10;
+        *(a2 + 8) = v10;
         operator delete(v10);
       }
 
       result = 0;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
       v7 = 0uLL;
       goto LABEL_19;
     case 1:
       *a3 = 0u;
       *(a3 + 16) = 0u;
-      std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a3, *a2, a2[1], (a2[1] - *a2) >> 1);
+      std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a3, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 1);
       result = 0;
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch;
       return result;
@@ -3356,12 +3320,12 @@ LABEL_96:
       *a3 = 0u;
       *(a3 + 16) = 0u;
       *a3 = *a2;
-      *(a3 + 16) = a2[2];
+      *(a3 + 16) = *(a2 + 16);
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
 LABEL_19:
       *a2 = v7;
-      *(a2 + 1) = v7;
+      *(a2 + 16) = v7;
       break;
   }
 
@@ -3378,7 +3342,7 @@ void sub_1DE276880(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   __clang_call_terminate(a1);
 }
 
-uint64_t AMCP::Thing::convert_to<std::vector<short>>(void *a1, uint64_t a2)
+uint64_t *AMCP::Thing::convert_to<std::vector<short>>(uint64_t *a1, uint64_t a2)
 {
   if (!*(a2 + 32))
   {
@@ -3403,7 +3367,7 @@ uint64_t AMCP::Thing::convert_to<std::vector<short>>(void *a1, uint64_t a2)
       *a1 = 0;
       a1[1] = 0;
       a1[2] = 0;
-      return std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a1, *v6, v6[1], (v6[1] - *v6) >> 1);
+      return std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a1, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 1);
     }
 
 LABEL_12:
@@ -3435,7 +3399,7 @@ LABEL_12:
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  result = std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a1, *v8, v8[1], (v8[1] - *v8) >> 1);
+  result = std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a1, *v8, *(v8 + 8), (*(v8 + 8) - *v8) >> 1);
   if (v17)
   {
     return v17(0, v16, 0, 0);
@@ -3444,29 +3408,29 @@ LABEL_12:
   return result;
 }
 
-void sub_1DE276AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE276AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<short>>(uint64_t a1, uint64_t *a2)
+uint64_t *AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<short>>(void *a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  result = std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a1, *a2, a2[1], (a2[1] - *a2) >> 1);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch;
+  *(a1 + 1) = 0u;
+  result = std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 1);
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch;
   return result;
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<unsigned short>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<unsigned short>>(void *a1, __int16 **a2)
 {
   if (!a2)
   {
@@ -3485,11 +3449,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std:
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
 }
 
 void sub_1DE276C3C(_Unwind_Exception *exception_object)
@@ -3502,7 +3466,7 @@ void sub_1DE276C3C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<int>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<int>>(uint64_t a1, __int16 **a2)
 {
   if (!a2)
   {
@@ -3538,7 +3502,7 @@ void sub_1DE276D3C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<unsigned int>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<unsigned int>>(void *a1, __int16 **a2)
 {
   if (!a2)
   {
@@ -3557,11 +3521,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std:
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
 }
 
 void sub_1DE276E3C(_Unwind_Exception *exception_object)
@@ -3574,7 +3538,7 @@ void sub_1DE276E3C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<long>>(void *a1, __int16 **a2)
 {
   if (!a2)
   {
@@ -3593,11 +3557,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std:
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
 }
 
 void sub_1DE276F3C(_Unwind_Exception *exception_object)
@@ -3610,7 +3574,7 @@ void sub_1DE276F3C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<unsigned long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<unsigned long>>(void *a1, __int16 **a2)
 {
   if (!a2)
   {
@@ -3629,11 +3593,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std:
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
 }
 
 void sub_1DE27703C(_Unwind_Exception *exception_object)
@@ -3646,7 +3610,7 @@ void sub_1DE27703C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<long long>>(void *a1, __int16 **a2)
 {
   if (!a2)
   {
@@ -3665,11 +3629,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std:
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
 }
 
 void sub_1DE27713C(_Unwind_Exception *exception_object)
@@ -3682,7 +3646,7 @@ void sub_1DE27713C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<unsigned long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<unsigned long long>>(void *a1, __int16 **a2)
 {
   if (!a2)
   {
@@ -3701,11 +3665,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std:
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
 }
 
 void sub_1DE27723C(_Unwind_Exception *exception_object)
@@ -3718,7 +3682,7 @@ void sub_1DE27723C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<float>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<float>>(uint64_t a1, __int16 **a2)
 {
   if (!a2)
   {
@@ -3754,7 +3718,7 @@ void sub_1DE277340(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<double>>(void *a1, __int16 **a2)
 {
   if (!a2)
   {
@@ -3773,11 +3737,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std:
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
 }
 
 void sub_1DE277444(_Unwind_Exception *exception_object)
@@ -3790,7 +3754,7 @@ void sub_1DE277444(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<long double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std::vector<long double>>(void *a1, __int16 **a2)
 {
   if (!a2)
   {
@@ -3809,11 +3773,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,std:
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long double>::__init_with_size[abi:ne200100]<long double *,long double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
 }
 
 void sub_1DE277548(_Unwind_Exception *exception_object)
@@ -3866,17 +3830,17 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<short>,appl
   }
 }
 
-void sub_1DE27769C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE27769C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   mcp_applesauce::CF::Array_Builder::~Array_Builder(va1);
   _Unwind_Resume(a1);
 }
 
-void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -3896,7 +3860,7 @@ void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
   std::vector<void *>::__throw_length_error[abi:ne200100]();
 }
 
-void std::vector<short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -3916,7 +3880,7 @@ void std::allocator<short>::allocate_at_least[abi:ne200100](uint64_t a1)
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t AMCP::Implementation::In_Place_Storage<std::vector<unsigned char>>::dispatch(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::In_Place_Storage<std::vector<unsigned char>>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (result > 2)
   {
@@ -3945,7 +3909,7 @@ uint64_t AMCP::Implementation::In_Place_Storage<std::vector<unsigned char>>::dis
     if (result == 5)
     {
       v12 = AMCP::Implementation::get_type_marker<std::vector<unsigned char>>();
-      v13 = a2[4];
+      v13 = *(a2 + 32);
       *&v26 = 0;
       if (v13)
       {
@@ -3968,10 +3932,10 @@ uint64_t AMCP::Implementation::In_Place_Storage<std::vector<unsigned char>>::dis
 
       if (v14 == v12)
       {
-        if (a2[4])
+        if (*(a2 + 32))
         {
           *&v26 = AMCP::Implementation::get_type_marker<std::vector<unsigned char>>();
-          v15 = (a2[4])(4, a2, 0, &v26);
+          v15 = (*(a2 + 32))(4, a2, 0, &v26);
         }
 
         else
@@ -4022,10 +3986,10 @@ LABEL_30:
 
     if (AMCP::is_one_of<std::vector<BOOL>,std::vector<char>,std::vector<signed char>,std::vector<unsigned char>,std::vector<short>,std::vector<unsigned short>,std::vector<int>,std::vector<unsigned int>,std::vector<long>,std::vector<unsigned long>,std::vector<long long>,std::vector<unsigned long long>,std::vector<float>,std::vector<double>,std::vector<long double>,applesauce::CF::ArrayRef>(a4))
     {
-      if (a2[4])
+      if (*(a2 + 32))
       {
         *&v26 = AMCP::Implementation::get_type_marker<std::vector<unsigned char>>();
-        v9 = (a2[4])(4, a2, 0, &v26);
+        v9 = (*(a2 + 32))(4, a2, 0, &v26);
       }
 
       else
@@ -4038,7 +4002,7 @@ LABEL_30:
         if (v9)
         {
           v19 = *v9;
-          v20 = v9[1];
+          v20 = *(v9 + 8);
           v30 = 0;
           v31 = 0;
           v29 = 0;
@@ -4071,7 +4035,7 @@ LABEL_83:
           goto LABEL_83;
         }
 
-        v21 = v9[1];
+        v21 = *(v9 + 8);
         if (v21 != *v9)
         {
           if (((v21 - *v9) & 0x8000000000000000) == 0)
@@ -4099,7 +4063,7 @@ LABEL_67:
           goto LABEL_83;
         }
 
-        v22 = v9[1];
+        v22 = *(v9 + 8);
         if (v22 != *v9)
         {
           if (((v22 - *v9) & 0x8000000000000000) == 0)
@@ -4128,7 +4092,7 @@ LABEL_67:
         v28 = 0;
         v26 = 0u;
         v27 = 0u;
-        std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v26, *v9, v9[1], v9[1] - *v9);
+        std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v26, *v9, *(v9 + 8), *(v9 + 8) - *v9);
         v28 = AMCP::Implementation::In_Place_Storage<std::vector<unsigned char>>::dispatch;
 LABEL_93:
         AMCP::swap(&v26, a3, v8);
@@ -4225,18 +4189,18 @@ LABEL_93:
       v10 = *a2;
       if (*a2)
       {
-        a2[1] = v10;
+        *(a2 + 8) = v10;
         operator delete(v10);
       }
 
       result = 0;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
       v7 = 0uLL;
       goto LABEL_19;
     case 1:
       *a3 = 0u;
       *(a3 + 16) = 0u;
-      std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a3, *a2, a2[1], a2[1] - *a2);
+      std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a3, *a2, *(a2 + 8), *(a2 + 8) - *a2);
       result = 0;
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned char>>::dispatch;
       return result;
@@ -4246,12 +4210,12 @@ LABEL_93:
       *a3 = 0u;
       *(a3 + 16) = 0u;
       *a3 = *a2;
-      *(a3 + 16) = a2[2];
+      *(a3 + 16) = *(a2 + 16);
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned char>>::dispatch;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
 LABEL_19:
       *a2 = v7;
-      *(a2 + 1) = v7;
+      *(a2 + 16) = v7;
       break;
   }
 
@@ -4268,7 +4232,7 @@ void sub_1DE277EA0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   __clang_call_terminate(a1);
 }
 
-uint64_t AMCP::Thing::convert_to<std::vector<unsigned char>>(void *a1, uint64_t a2)
+uint64_t *AMCP::Thing::convert_to<std::vector<unsigned char>>(uint64_t *a1, uint64_t a2)
 {
   if (!*(a2 + 32))
   {
@@ -4293,7 +4257,7 @@ uint64_t AMCP::Thing::convert_to<std::vector<unsigned char>>(void *a1, uint64_t 
       *a1 = 0;
       a1[1] = 0;
       a1[2] = 0;
-      return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1, *v6, v6[1], v6[1] - *v6);
+      return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1, *v6, *(v6 + 8), *(v6 + 8) - *v6);
     }
 
 LABEL_12:
@@ -4325,7 +4289,7 @@ LABEL_12:
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  result = std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1, *v8, v8[1], v8[1] - *v8);
+  result = std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1, *v8, *(v8 + 8), *(v8 + 8) - *v8);
   if (v17)
   {
     return v17(0, v16, 0, 0);
@@ -4334,14 +4298,14 @@ LABEL_12:
   return result;
 }
 
-void sub_1DE2780D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE2780D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<short>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<short>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -4360,11 +4324,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned ch
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch;
 }
 
 void sub_1DE2781D4(_Unwind_Exception *exception_object)
@@ -4377,7 +4341,7 @@ void sub_1DE2781D4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<unsigned short>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<unsigned short>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -4396,11 +4360,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned ch
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
 }
 
 void sub_1DE2782CC(_Unwind_Exception *exception_object)
@@ -4449,7 +4413,7 @@ void sub_1DE2783C8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<unsigned int>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<unsigned int>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -4468,11 +4432,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned ch
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
 }
 
 void sub_1DE2784C4(_Unwind_Exception *exception_object)
@@ -4485,7 +4449,7 @@ void sub_1DE2784C4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<long>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -4504,11 +4468,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned ch
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
 }
 
 void sub_1DE2785C0(_Unwind_Exception *exception_object)
@@ -4521,7 +4485,7 @@ void sub_1DE2785C0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<unsigned long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<unsigned long>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -4540,11 +4504,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned ch
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
 }
 
 void sub_1DE2786BC(_Unwind_Exception *exception_object)
@@ -4557,7 +4521,7 @@ void sub_1DE2786BC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<long long>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -4576,11 +4540,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned ch
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
 }
 
 void sub_1DE2787B8(_Unwind_Exception *exception_object)
@@ -4593,7 +4557,7 @@ void sub_1DE2787B8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<unsigned long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<unsigned long long>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -4612,11 +4576,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned ch
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
 }
 
 void sub_1DE2788B4(_Unwind_Exception *exception_object)
@@ -4665,7 +4629,7 @@ void sub_1DE2789B4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<double>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -4684,11 +4648,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned ch
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
 }
 
 void sub_1DE278AB4(_Unwind_Exception *exception_object)
@@ -4701,7 +4665,7 @@ void sub_1DE278AB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<long double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned char>,std::vector<long double>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -4720,11 +4684,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned ch
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long double>::__init_with_size[abi:ne200100]<long double *,long double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
 }
 
 void sub_1DE278BB4(_Unwind_Exception *exception_object)
@@ -4777,17 +4741,17 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<unsigned ch
   }
 }
 
-void sub_1DE278D08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE278D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   mcp_applesauce::CF::Array_Builder::~Array_Builder(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t AMCP::Implementation::In_Place_Storage<std::vector<signed char>>::dispatch(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::In_Place_Storage<std::vector<signed char>>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (result > 2)
   {
@@ -4816,7 +4780,7 @@ uint64_t AMCP::Implementation::In_Place_Storage<std::vector<signed char>>::dispa
     if (result == 5)
     {
       v12 = AMCP::Implementation::get_type_marker<std::vector<signed char>>();
-      v13 = a2[4];
+      v13 = *(a2 + 32);
       *&v26 = 0;
       if (v13)
       {
@@ -4839,10 +4803,10 @@ uint64_t AMCP::Implementation::In_Place_Storage<std::vector<signed char>>::dispa
 
       if (v14 == v12)
       {
-        if (a2[4])
+        if (*(a2 + 32))
         {
           *&v26 = AMCP::Implementation::get_type_marker<std::vector<signed char>>();
-          v15 = (a2[4])(4, a2, 0, &v26);
+          v15 = (*(a2 + 32))(4, a2, 0, &v26);
         }
 
         else
@@ -4893,10 +4857,10 @@ LABEL_30:
 
     if (AMCP::is_one_of<std::vector<BOOL>,std::vector<char>,std::vector<signed char>,std::vector<unsigned char>,std::vector<short>,std::vector<unsigned short>,std::vector<int>,std::vector<unsigned int>,std::vector<long>,std::vector<unsigned long>,std::vector<long long>,std::vector<unsigned long long>,std::vector<float>,std::vector<double>,std::vector<long double>,applesauce::CF::ArrayRef>(a4))
     {
-      if (a2[4])
+      if (*(a2 + 32))
       {
         *&v26 = AMCP::Implementation::get_type_marker<std::vector<signed char>>();
-        v9 = (a2[4])(4, a2, 0, &v26);
+        v9 = (*(a2 + 32))(4, a2, 0, &v26);
       }
 
       else
@@ -4909,7 +4873,7 @@ LABEL_30:
         if (v9)
         {
           v19 = *v9;
-          v20 = v9[1];
+          v20 = *(v9 + 8);
           v30 = 0;
           v31 = 0;
           v29 = 0;
@@ -4942,7 +4906,7 @@ LABEL_83:
           goto LABEL_83;
         }
 
-        v21 = v9[1];
+        v21 = *(v9 + 8);
         if (v21 != *v9)
         {
           if (((v21 - *v9) & 0x8000000000000000) == 0)
@@ -4973,7 +4937,7 @@ LABEL_64:
         v28 = 0;
         v26 = 0u;
         v27 = 0u;
-        std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(&v26, *v9, v9[1], v9[1] - *v9);
+        std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(&v26, *v9, *(v9 + 8), *(v9 + 8) - *v9);
         v28 = AMCP::Implementation::In_Place_Storage<std::vector<signed char>>::dispatch;
 LABEL_93:
         AMCP::swap(&v26, a3, v8);
@@ -4992,7 +4956,7 @@ LABEL_93:
           goto LABEL_83;
         }
 
-        v24 = v9[1];
+        v24 = *(v9 + 8);
         if (v24 != *v9)
         {
           if (((v24 - *v9) & 0x8000000000000000) == 0)
@@ -5096,18 +5060,18 @@ LABEL_93:
       v10 = *a2;
       if (*a2)
       {
-        a2[1] = v10;
+        *(a2 + 8) = v10;
         operator delete(v10);
       }
 
       result = 0;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
       v7 = 0uLL;
       goto LABEL_19;
     case 1:
       *a3 = 0u;
       *(a3 + 16) = 0u;
-      std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(a3, *a2, a2[1], a2[1] - *a2);
+      std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(a3, *a2, *(a2 + 8), *(a2 + 8) - *a2);
       result = 0;
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<signed char>>::dispatch;
       return result;
@@ -5117,12 +5081,12 @@ LABEL_93:
       *a3 = 0u;
       *(a3 + 16) = 0u;
       *a3 = *a2;
-      *(a3 + 16) = a2[2];
+      *(a3 + 16) = *(a2 + 16);
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<signed char>>::dispatch;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
 LABEL_19:
       *a2 = v7;
-      *(a2 + 1) = v7;
+      *(a2 + 16) = v7;
       break;
   }
 
@@ -5139,7 +5103,7 @@ void sub_1DE279448(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   __clang_call_terminate(a1);
 }
 
-uint64_t AMCP::Thing::convert_to<std::vector<signed char>>(void *a1, uint64_t a2)
+uint64_t *AMCP::Thing::convert_to<std::vector<signed char>>(uint64_t *a1, uint64_t a2)
 {
   if (!*(a2 + 32))
   {
@@ -5164,7 +5128,7 @@ uint64_t AMCP::Thing::convert_to<std::vector<signed char>>(void *a1, uint64_t a2
       *a1 = 0;
       a1[1] = 0;
       a1[2] = 0;
-      return std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(a1, *v6, v6[1], v6[1] - *v6);
+      return std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(a1, *v6, *(v6 + 8), *(v6 + 8) - *v6);
     }
 
 LABEL_12:
@@ -5196,7 +5160,7 @@ LABEL_12:
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  result = std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(a1, *v8, v8[1], v8[1] - *v8);
+  result = std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(a1, *v8, *(v8 + 8), *(v8 + 8) - *v8);
   if (v17)
   {
     return v17(0, v16, 0, 0);
@@ -5205,14 +5169,14 @@ LABEL_12:
   return result;
 }
 
-void sub_1DE27967C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE27967C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<short>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<short>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -5231,11 +5195,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch;
 }
 
 void sub_1DE27977C(_Unwind_Exception *exception_object)
@@ -5248,7 +5212,7 @@ void sub_1DE27977C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<unsigned short>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<unsigned short>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -5267,11 +5231,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
 }
 
 void sub_1DE279874(_Unwind_Exception *exception_object)
@@ -5320,7 +5284,7 @@ void sub_1DE279970(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<unsigned int>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<unsigned int>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -5339,11 +5303,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
 }
 
 void sub_1DE279A6C(_Unwind_Exception *exception_object)
@@ -5356,7 +5320,7 @@ void sub_1DE279A6C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<long>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -5375,11 +5339,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
 }
 
 void sub_1DE279B68(_Unwind_Exception *exception_object)
@@ -5392,7 +5356,7 @@ void sub_1DE279B68(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<unsigned long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<unsigned long>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -5411,11 +5375,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
 }
 
 void sub_1DE279C64(_Unwind_Exception *exception_object)
@@ -5428,7 +5392,7 @@ void sub_1DE279C64(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<long long>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -5447,11 +5411,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
 }
 
 void sub_1DE279D60(_Unwind_Exception *exception_object)
@@ -5464,7 +5428,7 @@ void sub_1DE279D60(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<unsigned long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<unsigned long long>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -5483,11 +5447,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
 }
 
 void sub_1DE279E5C(_Unwind_Exception *exception_object)
@@ -5536,7 +5500,7 @@ void sub_1DE279F5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<double>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -5555,11 +5519,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
 }
 
 void sub_1DE27A05C(_Unwind_Exception *exception_object)
@@ -5572,7 +5536,7 @@ void sub_1DE27A05C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<long double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char>,std::vector<long double>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -5591,11 +5555,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long double>::__init_with_size[abi:ne200100]<long double *,long double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
 }
 
 void sub_1DE27A15C(_Unwind_Exception *exception_object)
@@ -5648,17 +5612,17 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<signed char
   }
 }
 
-void sub_1DE27A2B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE27A2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   mcp_applesauce::CF::Array_Builder::~Array_Builder(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t AMCP::Implementation::In_Place_Storage<std::vector<char>>::dispatch(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::In_Place_Storage<std::vector<char>>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (result > 2)
   {
@@ -5687,7 +5651,7 @@ uint64_t AMCP::Implementation::In_Place_Storage<std::vector<char>>::dispatch(uin
     if (result == 5)
     {
       v12 = AMCP::Implementation::get_type_marker<std::vector<char>>();
-      v13 = a2[4];
+      v13 = *(a2 + 32);
       *&v26 = 0;
       if (v13)
       {
@@ -5710,10 +5674,10 @@ uint64_t AMCP::Implementation::In_Place_Storage<std::vector<char>>::dispatch(uin
 
       if (v14 == v12)
       {
-        if (a2[4])
+        if (*(a2 + 32))
         {
           *&v26 = AMCP::Implementation::get_type_marker<std::vector<char>>();
-          v15 = (a2[4])(4, a2, 0, &v26);
+          v15 = (*(a2 + 32))(4, a2, 0, &v26);
         }
 
         else
@@ -5764,10 +5728,10 @@ LABEL_30:
 
     if (AMCP::is_one_of<std::vector<BOOL>,std::vector<char>,std::vector<signed char>,std::vector<unsigned char>,std::vector<short>,std::vector<unsigned short>,std::vector<int>,std::vector<unsigned int>,std::vector<long>,std::vector<unsigned long>,std::vector<long long>,std::vector<unsigned long long>,std::vector<float>,std::vector<double>,std::vector<long double>,applesauce::CF::ArrayRef>(a4))
     {
-      if (a2[4])
+      if (*(a2 + 32))
       {
         *&v26 = AMCP::Implementation::get_type_marker<std::vector<char>>();
-        v9 = (a2[4])(4, a2, 0, &v26);
+        v9 = (*(a2 + 32))(4, a2, 0, &v26);
       }
 
       else
@@ -5780,7 +5744,7 @@ LABEL_30:
         if (v9)
         {
           v19 = *v9;
-          v20 = v9[1];
+          v20 = *(v9 + 8);
           v30 = 0;
           v31 = 0;
           v29 = 0;
@@ -5816,7 +5780,7 @@ LABEL_83:
         v28 = 0;
         v26 = 0u;
         v27 = 0u;
-        std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(&v26, *v9, v9[1], v9[1] - *v9);
+        std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(&v26, *v9, *(v9 + 8), *(v9 + 8) - *v9);
         v28 = AMCP::Implementation::In_Place_Storage<std::vector<char>>::dispatch;
 LABEL_93:
         AMCP::swap(&v26, a3, v8);
@@ -5835,7 +5799,7 @@ LABEL_93:
           goto LABEL_83;
         }
 
-        v21 = v9[1];
+        v21 = *(v9 + 8);
         if (v21 != *v9)
         {
           if (((v21 - *v9) & 0x8000000000000000) == 0)
@@ -5863,7 +5827,7 @@ LABEL_69:
           goto LABEL_83;
         }
 
-        v24 = v9[1];
+        v24 = *(v9 + 8);
         if (v24 != *v9)
         {
           if (((v24 - *v9) & 0x8000000000000000) == 0)
@@ -5967,18 +5931,18 @@ LABEL_69:
       v10 = *a2;
       if (*a2)
       {
-        a2[1] = v10;
+        *(a2 + 8) = v10;
         operator delete(v10);
       }
 
       result = 0;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
       v7 = 0uLL;
       goto LABEL_19;
     case 1:
       *a3 = 0u;
       *(a3 + 16) = 0u;
-      std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(a3, *a2, a2[1], a2[1] - *a2);
+      std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(a3, *a2, *(a2 + 8), *(a2 + 8) - *a2);
       result = 0;
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<char>>::dispatch;
       return result;
@@ -5988,12 +5952,12 @@ LABEL_69:
       *a3 = 0u;
       *(a3 + 16) = 0u;
       *a3 = *a2;
-      *(a3 + 16) = a2[2];
+      *(a3 + 16) = *(a2 + 16);
       *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<char>>::dispatch;
-      a2[4] = 0;
+      *(a2 + 32) = 0;
 LABEL_19:
       *a2 = v7;
-      *(a2 + 1) = v7;
+      *(a2 + 16) = v7;
       break;
   }
 
@@ -6010,7 +5974,7 @@ void sub_1DE27A9F0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   __clang_call_terminate(a1);
 }
 
-uint64_t AMCP::Thing::convert_to<std::vector<char>>(void *a1, uint64_t a2)
+uint64_t *AMCP::Thing::convert_to<std::vector<char>>(uint64_t *a1, uint64_t a2)
 {
   if (!*(a2 + 32))
   {
@@ -6035,7 +5999,7 @@ uint64_t AMCP::Thing::convert_to<std::vector<char>>(void *a1, uint64_t a2)
       *a1 = 0;
       a1[1] = 0;
       a1[2] = 0;
-      return std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(a1, *v6, v6[1], v6[1] - *v6);
+      return std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(a1, *v6, *(v6 + 8), *(v6 + 8) - *v6);
     }
 
 LABEL_12:
@@ -6067,7 +6031,7 @@ LABEL_12:
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  result = std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(a1, *v8, v8[1], v8[1] - *v8);
+  result = std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(a1, *v8, *(v8 + 8), *(v8 + 8) - *v8);
   if (v17)
   {
     return v17(0, v16, 0, 0);
@@ -6076,14 +6040,14 @@ LABEL_12:
   return result;
 }
 
-void sub_1DE27AC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE27AC24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<short>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<short>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -6102,11 +6066,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch;
 }
 
 void sub_1DE27AD24(_Unwind_Exception *exception_object)
@@ -6119,7 +6083,7 @@ void sub_1DE27AD24(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<unsigned short>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<unsigned short>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -6138,11 +6102,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
 }
 
 void sub_1DE27AE1C(_Unwind_Exception *exception_object)
@@ -6191,7 +6155,7 @@ void sub_1DE27AF18(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<unsigned int>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<unsigned int>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -6210,11 +6174,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
 }
 
 void sub_1DE27B014(_Unwind_Exception *exception_object)
@@ -6227,7 +6191,7 @@ void sub_1DE27B014(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<long>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -6246,11 +6210,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
 }
 
 void sub_1DE27B110(_Unwind_Exception *exception_object)
@@ -6263,7 +6227,7 @@ void sub_1DE27B110(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<unsigned long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<unsigned long>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -6282,11 +6246,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
 }
 
 void sub_1DE27B20C(_Unwind_Exception *exception_object)
@@ -6299,7 +6263,7 @@ void sub_1DE27B20C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<long long>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -6318,11 +6282,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
 }
 
 void sub_1DE27B308(_Unwind_Exception *exception_object)
@@ -6335,7 +6299,7 @@ void sub_1DE27B308(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<unsigned long long>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<unsigned long long>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -6354,11 +6318,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
 }
 
 void sub_1DE27B404(_Unwind_Exception *exception_object)
@@ -6407,7 +6371,7 @@ void sub_1DE27B504(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<double>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -6426,11 +6390,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
 }
 
 void sub_1DE27B604(_Unwind_Exception *exception_object)
@@ -6443,7 +6407,7 @@ void sub_1DE27B604(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<long double>>(uint64_t a1, void *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::vector<long double>>(void *a1, void *a2)
 {
   if (!a2)
   {
@@ -6462,11 +6426,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,std::
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long double>::__init_with_size[abi:ne200100]<long double *,long double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
 }
 
 void sub_1DE27B704(_Unwind_Exception *exception_object)
@@ -6519,17 +6483,17 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<char>,apple
   }
 }
 
-void sub_1DE27B858(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE27B858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   mcp_applesauce::CF::Array_Builder::~Array_Builder(va1);
   _Unwind_Resume(a1);
 }
 
-BOOL AMCP::Implementation::In_Place_Storage<std::vector<BOOL>>::dispatch(_BOOL8 result, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::In_Place_Storage<std::vector<BOOL>>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (result > 2)
   {
@@ -6569,8 +6533,8 @@ BOOL AMCP::Implementation::In_Place_Storage<std::vector<BOOL>>::dispatch(_BOOL8 
 
       if (*(a2 + 32))
       {
-        v41[0] = AMCP::Implementation::get_type_marker<std::vector<BOOL>>();
-        v9 = (*(a2 + 32))(4, a2, 0, v41);
+        v35[0] = AMCP::Implementation::get_type_marker<std::vector<BOOL>>();
+        v9 = (*(a2 + 32))(4, a2, 0, v35);
       }
 
       else
@@ -6582,11 +6546,11 @@ BOOL AMCP::Implementation::In_Place_Storage<std::vector<BOOL>>::dispatch(_BOOL8 
       {
         if (v9)
         {
-          v43 = 0;
-          *v41 = 0u;
-          v42 = 0u;
-          std::vector<BOOL>::vector(v41, v9);
-          v43 = AMCP::Implementation::In_Place_Storage<std::vector<BOOL>>::dispatch;
+          v37 = 0;
+          *v35 = 0u;
+          v36 = 0u;
+          std::vector<BOOL>::vector(v35, v9);
+          v37 = AMCP::Implementation::In_Place_Storage<std::vector<BOOL>>::dispatch;
           goto LABEL_120;
         }
 
@@ -6601,26 +6565,24 @@ LABEL_110:
           goto LABEL_110;
         }
 
-        v23 = v9[1];
+        v23 = *(v9 + 8);
         if (v23)
         {
           if ((v23 & 0x8000000000000000) == 0)
           {
-            v24 = *v9;
-            v25 = v9[1];
             operator new();
           }
 
           std::vector<void *>::__throw_length_error[abi:ne200100]();
         }
 
-        v43 = 0;
-        *v41 = 0u;
-        v42 = 0u;
-        std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(v41, 0, 0, 0);
-        v40 = AMCP::Implementation::In_Place_Storage<std::vector<char>>::dispatch;
+        v37 = 0;
+        *v35 = 0u;
+        v36 = 0u;
+        std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(v35, 0, 0, 0);
+        v34 = AMCP::Implementation::In_Place_Storage<std::vector<char>>::dispatch;
 LABEL_97:
-        v43 = v40;
+        v37 = v34;
         goto LABEL_120;
       }
 
@@ -6631,24 +6593,22 @@ LABEL_97:
           goto LABEL_110;
         }
 
-        v26 = v9[1];
-        if (v26)
+        v24 = *(v9 + 8);
+        if (v24)
         {
-          if ((v26 & 0x8000000000000000) == 0)
+          if ((v24 & 0x8000000000000000) == 0)
           {
-            v27 = *v9;
-            v28 = v9[1];
             operator new();
           }
 
           std::vector<void *>::__throw_length_error[abi:ne200100]();
         }
 
-        v43 = 0;
-        *v41 = 0u;
-        v42 = 0u;
-        std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(v41, 0, 0, 0);
-        v40 = AMCP::Implementation::In_Place_Storage<std::vector<signed char>>::dispatch;
+        v37 = 0;
+        *v35 = 0u;
+        v36 = 0u;
+        std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(v35, 0, 0, 0);
+        v34 = AMCP::Implementation::In_Place_Storage<std::vector<signed char>>::dispatch;
         goto LABEL_97;
       }
 
@@ -6659,111 +6619,109 @@ LABEL_97:
           goto LABEL_110;
         }
 
-        v37 = v9[1];
-        if (v37)
+        v33 = *(v9 + 8);
+        if (v33)
         {
-          if ((v37 & 0x8000000000000000) == 0)
+          if ((v33 & 0x8000000000000000) == 0)
           {
-            v38 = *v9;
-            v39 = v9[1];
             operator new();
           }
 
           std::vector<void *>::__throw_length_error[abi:ne200100]();
         }
 
-        v43 = 0;
-        *v41 = 0u;
-        v42 = 0u;
-        std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v41, 0, 0, 0);
-        v40 = AMCP::Implementation::In_Place_Storage<std::vector<unsigned char>>::dispatch;
+        v37 = 0;
+        *v35 = 0u;
+        v36 = 0u;
+        std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v35, 0, 0, 0);
+        v34 = AMCP::Implementation::In_Place_Storage<std::vector<unsigned char>>::dispatch;
         goto LABEL_97;
       }
 
       if (*a4 == AMCP::Implementation::get_type_marker<std::vector<short>>())
       {
-        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<short>>(v41, v9);
+        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<short>>(v35, v9);
         goto LABEL_120;
       }
 
       if (*a4 == AMCP::Implementation::get_type_marker<std::vector<unsigned short>>())
       {
-        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned short>>(v41, v9);
+        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned short>>(v35, v9);
         goto LABEL_120;
       }
 
       if (*a4 == AMCP::Implementation::get_type_marker<std::vector<int>>())
       {
-        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<int>>(v41, v9);
+        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<int>>(v35, v9);
         goto LABEL_120;
       }
 
       if (*a4 == AMCP::Implementation::get_type_marker<std::vector<unsigned int>>())
       {
-        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned int>>(v41, v9);
+        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned int>>(v35, v9);
         goto LABEL_120;
       }
 
       if (*a4 == AMCP::Implementation::get_type_marker<std::vector<long>>())
       {
-        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<long>>(v41, v9);
+        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<long>>(v35, v9);
         goto LABEL_120;
       }
 
       if (*a4 == AMCP::Implementation::get_type_marker<std::vector<unsigned long>>())
       {
-        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned long>>(v41, v9);
+        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned long>>(v35, v9);
         goto LABEL_120;
       }
 
       if (*a4 == AMCP::Implementation::get_type_marker<std::vector<long long>>())
       {
-        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<long long>>(v41, v9);
+        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<long long>>(v35, v9);
         goto LABEL_120;
       }
 
       if (*a4 == AMCP::Implementation::get_type_marker<std::vector<unsigned long long>>())
       {
-        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned long long>>(v41, v9);
+        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned long long>>(v35, v9);
         goto LABEL_120;
       }
 
       if (*a4 == AMCP::Implementation::get_type_marker<std::vector<float>>())
       {
-        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<float>>(v41, v9);
+        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<float>>(v35, v9);
         goto LABEL_120;
       }
 
       if (*a4 == AMCP::Implementation::get_type_marker<std::vector<double>>())
       {
-        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<double>>(v41, v9);
+        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<double>>(v35, v9);
         goto LABEL_120;
       }
 
       if (*a4 == AMCP::Implementation::get_type_marker<std::vector<long double>>())
       {
-        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<long double>>(v41, v9);
+        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<long double>>(v35, v9);
         goto LABEL_120;
       }
 
       if (*a4 == AMCP::Implementation::get_type_marker<applesauce::CF::ArrayRef>())
       {
-        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,applesauce::CF::ArrayRef>(v41, v9);
+        AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,applesauce::CF::ArrayRef>(v35, v9);
       }
 
       else
       {
 LABEL_119:
-        v43 = 0;
-        *v41 = 0u;
-        v42 = 0u;
+        v37 = 0;
+        *v35 = 0u;
+        v36 = 0u;
       }
 
 LABEL_120:
-      AMCP::swap(v41, a3, v8);
-      if (v43)
+      AMCP::swap(v35, a3, v8);
+      if (v37)
       {
-        (v43)(0, v41, 0, 0);
+        v37(0, v35, 0, 0);
       }
 
       return 0;
@@ -6771,11 +6729,11 @@ LABEL_120:
 
     v11 = AMCP::Implementation::get_type_marker<std::vector<BOOL>>();
     v12 = *(a2 + 32);
-    v41[0] = 0;
+    v35[0] = 0;
     if (v12)
     {
-      v12(3, a2, 0, v41);
-      v12 = v41[0];
+      v12(3, a2, 0, v35);
+      v12 = v35[0];
     }
 
     if (v12 == v11)
@@ -6792,8 +6750,8 @@ LABEL_120:
       {
         if (*(a2 + 32))
         {
-          v41[0] = AMCP::Implementation::get_type_marker<std::vector<BOOL>>();
-          v14 = (*(a2 + 32))(4, a2, 0, v41);
+          v35[0] = AMCP::Implementation::get_type_marker<std::vector<BOOL>>();
+          v14 = (*(a2 + 32))(4, a2, 0, v35);
         }
 
         else
@@ -6803,54 +6761,54 @@ LABEL_120:
 
         if (*(a3 + 32))
         {
-          v41[0] = AMCP::Implementation::get_type_marker<std::vector<BOOL>>();
-          v29 = (*(a3 + 32))(4, a3, 0, v41);
+          v35[0] = AMCP::Implementation::get_type_marker<std::vector<BOOL>>();
+          v25 = (*(a3 + 32))(4, a3, 0, v35);
         }
 
         else
         {
-          v29 = 0;
+          v25 = 0;
         }
 
-        v30 = *(v14 + 8);
-        if (v30 != *(v29 + 8))
+        v26 = *(v14 + 8);
+        if (v26 != *(v25 + 8))
         {
           return 0;
         }
 
-        v31 = *v14;
-        v32 = *(v14 + 8) & 0x3FLL;
-        if (v30 > 0x3F || v32)
+        v27 = *v14;
+        v28 = *(v14 + 8) & 0x3FLL;
+        if (v26 > 0x3F || v28)
         {
-          v33 = 0;
-          v34 = 0;
-          v35 = &v31[v30 >> 6];
-          v36 = *v29;
-          while (((*v31 >> v33) & 1) != (((*v36 >> v34) & 1) == 0))
+          v29 = 0;
+          v30 = 0;
+          v31 = &v27[v26 >> 6];
+          v32 = *v25;
+          while (((*v27 >> v29) & 1) != (((*v32 >> v30) & 1) == 0))
           {
-            v31 += v33 == 63;
-            if (v33 == 63)
+            v27 += v29 == 63;
+            if (v29 == 63)
             {
-              v33 = 0;
+              v29 = 0;
             }
 
             else
             {
-              ++v33;
+              ++v29;
             }
 
-            v36 += v34 == 63;
-            if (v34 == 63)
+            v32 += v30 == 63;
+            if (v30 == 63)
             {
-              v34 = 0;
+              v30 = 0;
             }
 
             else
             {
-              ++v34;
+              ++v30;
             }
 
-            if (v33 == v32 && v31 == v35)
+            if (v29 == v28 && v27 == v31)
             {
               return 1;
             }
@@ -6863,13 +6821,13 @@ LABEL_120:
       }
     }
 
-    AMCP::Thing::convert_to<std::vector<BOOL>>(v41, a2);
+    AMCP::Thing::convert_to<std::vector<BOOL>>(v35, a2);
     AMCP::Thing::convert_to<std::vector<BOOL>>(__p, a3);
-    if (v41[1] == __p[1])
+    if (v35[1] == __p[1])
     {
-      v15 = v41[0];
+      v15 = v35[0];
       v16 = __p[0];
-      if (v41[1] > 0x3F || (v41[1] & 0x3F) != 0)
+      if (v35[1] > 0x3F || (v35[1] & 0x3F) != 0)
       {
         v17 = 0;
         v18 = 0;
@@ -6905,7 +6863,7 @@ LABEL_120:
             ++v18;
           }
 
-          if (v17 == (v41[1] & 0x3F) && v15 == (v41[0] + 8 * (v41[1] >> 6)))
+          if (v17 == (v35[1] & 0x3F) && v15 == (v35[0] + 8 * (v35[1] >> 6)))
           {
             goto LABEL_43;
           }
@@ -6915,9 +6873,9 @@ LABEL_120:
         if (!__p[0])
         {
 LABEL_47:
-          if (v41[0])
+          if (v35[0])
           {
-            operator delete(v41[0]);
+            operator delete(v35[0]);
           }
 
           return (v22 & 1) != 0;
@@ -6949,42 +6907,38 @@ LABEL_43:
     goto LABEL_47;
   }
 
-  if (!result)
+  switch(result)
   {
-    if (*a2)
-    {
-      operator delete(*a2);
-    }
+    case 0:
+      if (*a2)
+      {
+        operator delete(*a2);
+      }
 
-    result = 0;
-    *(a2 + 32) = 0;
-    v7 = 0uLL;
-    goto LABEL_19;
-  }
-
-  if (result)
-  {
-    *a3 = 0u;
-    *(a3 + 16) = 0u;
-    std::vector<BOOL>::vector(a3, a2);
-    result = 0;
-    *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<BOOL>>::dispatch;
-    return result;
-  }
-
-  if (result == 2)
-  {
-    result = 0;
-    v7 = 0uLL;
-    *a3 = 0u;
-    *(a3 + 16) = 0u;
-    *a3 = *a2;
-    *(a3 + 8) = *(a2 + 8);
-    *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<BOOL>>::dispatch;
-    *(a2 + 32) = 0;
+      result = 0;
+      *(a2 + 32) = 0;
+      v7 = 0uLL;
+      goto LABEL_19;
+    case 1:
+      *a3 = 0u;
+      *(a3 + 16) = 0u;
+      std::vector<BOOL>::vector(a3, a2);
+      result = 0;
+      *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<BOOL>>::dispatch;
+      return result;
+    case 2:
+      result = 0;
+      v7 = 0uLL;
+      *a3 = 0u;
+      *(a3 + 16) = 0u;
+      *a3 = *a2;
+      *(a3 + 8) = *(a2 + 8);
+      *(a3 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<BOOL>>::dispatch;
+      *(a2 + 32) = 0;
 LABEL_19:
-    *a2 = v7;
-    *(a2 + 16) = v7;
+      *a2 = v7;
+      *(a2 + 16) = v7;
+      break;
   }
 
   return result;
@@ -7000,7 +6954,7 @@ void sub_1DE27C0D0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   __clang_call_terminate(a1);
 }
 
-void *AMCP::Thing::convert_to<std::vector<BOOL>>(void *a1, uint64_t a2)
+uint64_t *AMCP::Thing::convert_to<std::vector<BOOL>>(uint64_t *a1, uint64_t a2)
 {
   if (!*(a2 + 32))
   {
@@ -7060,37 +7014,36 @@ LABEL_12:
   return result;
 }
 
-void sub_1DE27C2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE27C2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<short>>(uint64_t a1, uint64_t *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<short>>(void *a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
+  v3 = *(a2 + 8);
   if (v3)
   {
     if ((v3 & 0x8000000000000000) == 0)
     {
-      v4 = *a2;
-      std::allocator<short>::allocate_at_least[abi:ne200100](a2[1]);
+      std::allocator<short>::allocate_at_least[abi:ne200100](*(a2 + 8));
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<short>::__init_with_size[abi:ne200100]<short *,short *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<short>>::dispatch;
 }
 
 void sub_1DE27C420(_Unwind_Exception *exception_object)
@@ -7103,30 +7056,29 @@ void sub_1DE27C420(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned short>>(uint64_t a1, uint64_t *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned short>>(void *a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
+  v3 = *(a2 + 8);
   if (v3)
   {
     if ((v3 & 0x8000000000000000) == 0)
     {
-      v4 = *a2;
-      std::allocator<short>::allocate_at_least[abi:ne200100](a2[1]);
+      std::allocator<short>::allocate_at_least[abi:ne200100](*(a2 + 8));
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned short>::__init_with_size[abi:ne200100]<unsigned short *,unsigned short *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned short>>::dispatch;
 }
 
 void sub_1DE27C558(_Unwind_Exception *exception_object)
@@ -7139,20 +7091,19 @@ void sub_1DE27C558(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<int>>(uint64_t a1, uint64_t *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<int>>(uint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
+  v3 = *(a2 + 8);
   if (v3)
   {
     if (!(v3 >> 62))
     {
-      v4 = *a2;
-      std::allocator<unsigned int>::allocate_at_least[abi:ne200100](a2[1]);
+      std::allocator<unsigned int>::allocate_at_least[abi:ne200100](*(a2 + 8));
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
@@ -7175,30 +7126,29 @@ void sub_1DE27C694(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned int>>(uint64_t a1, uint64_t *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned int>>(void *a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
+  v3 = *(a2 + 8);
   if (v3)
   {
     if (!(v3 >> 62))
     {
-      v4 = *a2;
-      std::allocator<unsigned int>::allocate_at_least[abi:ne200100](a2[1]);
+      std::allocator<unsigned int>::allocate_at_least[abi:ne200100](*(a2 + 8));
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
 }
 
 void sub_1DE27C7D0(_Unwind_Exception *exception_object)
@@ -7211,30 +7161,29 @@ void sub_1DE27C7D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<long>>(uint64_t a1, uint64_t *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<long>>(void *a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
+  v3 = *(a2 + 8);
   if (v3)
   {
     if (!(v3 >> 61))
     {
-      v4 = *a2;
-      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](a2[1]);
+      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](*(a2 + 8));
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long>>::dispatch;
 }
 
 void sub_1DE27C90C(_Unwind_Exception *exception_object)
@@ -7247,30 +7196,29 @@ void sub_1DE27C90C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned long>>(uint64_t a1, uint64_t *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned long>>(void *a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
+  v3 = *(a2 + 8);
   if (v3)
   {
     if (!(v3 >> 61))
     {
-      v4 = *a2;
-      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](a2[1]);
+      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](*(a2 + 8));
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long>>::dispatch;
 }
 
 void sub_1DE27CA48(_Unwind_Exception *exception_object)
@@ -7283,30 +7231,29 @@ void sub_1DE27CA48(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<long long>>(uint64_t a1, uint64_t *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<long long>>(void *a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
+  v3 = *(a2 + 8);
   if (v3)
   {
     if (!(v3 >> 61))
     {
-      v4 = *a2;
-      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](a2[1]);
+      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](*(a2 + 8));
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long long>>::dispatch;
 }
 
 void sub_1DE27CB84(_Unwind_Exception *exception_object)
@@ -7319,30 +7266,29 @@ void sub_1DE27CB84(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned long long>>(uint64_t a1, uint64_t *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<unsigned long long>>(void *a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
+  v3 = *(a2 + 8);
   if (v3)
   {
     if (!(v3 >> 61))
     {
-      v4 = *a2;
-      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](a2[1]);
+      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](*(a2 + 8));
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<unsigned long long>>::dispatch;
 }
 
 void sub_1DE27CCC0(_Unwind_Exception *exception_object)
@@ -7355,20 +7301,19 @@ void sub_1DE27CCC0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<float>>(uint64_t a1, uint64_t *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<float>>(uint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
+  v3 = *(a2 + 8);
   if (v3)
   {
     if (!(v3 >> 62))
     {
-      v4 = *a2;
-      std::allocator<unsigned int>::allocate_at_least[abi:ne200100](a2[1]);
+      std::allocator<unsigned int>::allocate_at_least[abi:ne200100](*(a2 + 8));
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
@@ -7391,30 +7336,29 @@ void sub_1DE27CE08(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<double>>(uint64_t a1, uint64_t *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<double>>(void *a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
+  v3 = *(a2 + 8);
   if (v3)
   {
     if (!(v3 >> 61))
     {
-      v4 = *a2;
-      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](a2[1]);
+      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](*(a2 + 8));
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<double>>::dispatch;
 }
 
 void sub_1DE27CF50(_Unwind_Exception *exception_object)
@@ -7427,30 +7371,29 @@ void sub_1DE27CF50(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<long double>>(uint64_t a1, uint64_t *a2)
+void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,std::vector<long double>>(void *a1, uint64_t a2)
 {
   if (!a2)
   {
     __assert_rtn("create_vector_of_numbers_from", "Thing.h", 1155, "in_value_ptr != nullptr");
   }
 
-  v3 = a2[1];
+  v3 = *(a2 + 8);
   if (v3)
   {
     if (!(v3 >> 61))
     {
-      v4 = *a2;
-      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](a2[1]);
+      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](*(a2 + 8));
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
 
-  *(a1 + 32) = 0;
+  a1[4] = 0;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
+  *(a1 + 1) = 0u;
   std::vector<long double>::__init_with_size[abi:ne200100]<long double *,long double *>(a1, 0, 0, 0);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
+  a1[4] = AMCP::Implementation::In_Place_Storage<std::vector<long double>>::dispatch;
 }
 
 void sub_1DE27D098(_Unwind_Exception *exception_object)
@@ -7520,11 +7463,11 @@ void AMCP::Implementation::create_vector_of_numbers_from<std::vector<BOOL>,apple
   }
 }
 
-void sub_1DE27D22C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE27D22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   mcp_applesauce::CF::Array_Builder::~Array_Builder(va1);
   _Unwind_Resume(a1);
@@ -8200,7 +8143,6 @@ void std::vector<unsigned int>::reserve(std::vector<unsigned int> *this, std::ve
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::allocator<unsigned int>::allocate_at_least[abi:ne200100](__n);
     }
 
@@ -8627,9 +8569,9 @@ LABEL_32:
   return v8;
 }
 
-uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
+void std::vector<BOOL>::reserve(uint64_t *a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > a1[2] << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -8640,8 +8582,6 @@ uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_1DE27E89C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p)
@@ -8654,11 +8594,10 @@ void sub_1DE27E89C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
+void std::vector<BOOL>::push_back(uint64_t *a1, _BYTE *a2)
 {
-  v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = a1[1];
+  v5 = a1[2];
   if (v4 == v5 << 6)
   {
     if ((v4 + 1) < 0)
@@ -8682,12 +8621,12 @@ uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
       v7 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    result = std::vector<BOOL>::reserve(result, v7);
-    v4 = v3[1];
+    std::vector<BOOL>::reserve(a1, v7);
+    v4 = a1[1];
   }
 
-  v3[1] = v4 + 1;
-  v8 = *v3;
+  a1[1] = v4 + 1;
+  v8 = *a1;
   v9 = v4 >> 6;
   v10 = 1 << v4;
   if (*a2 == 1)
@@ -8701,10 +8640,9 @@ uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
   }
 
   *(v8 + 8 * v9) = v11;
-  return result;
 }
 
-BOOL AMCP::Implementation::In_Place_Storage<applesauce::CF::DateRef>::dispatch(_BOOL8 result, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::In_Place_Storage<applesauce::CF::DateRef>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (result > 2)
   {
@@ -8901,7 +8839,7 @@ LABEL_11:
     return 0;
   }
 
-  if (!result)
+  if (result != 1)
   {
     if (result != 2)
     {
@@ -8930,7 +8868,7 @@ LABEL_11:
   return result;
 }
 
-void sub_1DE27EE74(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
+void sub_1DE27EE74(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   applesauce::CF::DateRef::~DateRef(&a9);
   __cxa_begin_catch(a1);
@@ -9026,9 +8964,9 @@ LABEL_16:
   return result;
 }
 
-void sub_1DE27F08C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE27F08C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -9064,7 +9002,7 @@ const void **applesauce::CF::ObjectRef<__CFBoolean const*>::~ObjectRef(const voi
   return a1;
 }
 
-uint64_t AMCP::Implementation::In_Place_Storage<applesauce::CF::DataRef>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::In_Place_Storage<applesauce::CF::DataRef>::dispatch(uint64_t result, CFTypeRef *a2, uint64_t a3, uint64_t *a4)
 {
   if (result <= 2)
   {
@@ -9097,7 +9035,7 @@ uint64_t AMCP::Implementation::In_Place_Storage<applesauce::CF::DataRef>::dispat
     if (result == 5)
     {
       v9 = AMCP::Implementation::get_type_marker<applesauce::CF::DataRef>();
-      v10 = *(a2 + 32);
+      v10 = a2[4];
       v27[0] = 0;
       if (v10)
       {
@@ -9120,10 +9058,10 @@ uint64_t AMCP::Implementation::In_Place_Storage<applesauce::CF::DataRef>::dispat
 
       if (v11 == v9)
       {
-        if (*(a2 + 32))
+        if (a2[4])
         {
           v27[0] = AMCP::Implementation::get_type_marker<applesauce::CF::DataRef>();
-          v12 = (*(a2 + 32))(4, a2, 0, v27);
+          v12 = (a2[4])(4, a2, 0, v27);
         }
 
         else
@@ -9171,10 +9109,10 @@ LABEL_35:
 
     if ((*a4 == AMCP::Implementation::get_type_marker<mcp_applesauce::CF::PropertyListRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::StringRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::DataRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::NumberRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::BooleanRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::DateRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::ArrayRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::DictionaryRef>()) && *a4 == AMCP::Implementation::get_type_marker<mcp_applesauce::CF::PropertyListRef>())
     {
-      if (*(a2 + 32))
+      if (a2[4])
       {
         v27[0] = AMCP::Implementation::get_type_marker<applesauce::CF::DataRef>();
-        v7 = (*(a2 + 32))(4, a2, 0, v27);
+        v7 = (a2[4])(4, a2, 0, v27);
       }
 
       else
@@ -9223,10 +9161,10 @@ LABEL_81:
     }
 
 LABEL_57:
-    if (*(a2 + 32))
+    if (a2[4])
     {
       v27[0] = AMCP::Implementation::get_type_marker<applesauce::CF::DataRef>();
-      v16 = (*(a2 + 32))(4, a2, 0, v27);
+      v16 = (a2[4])(4, a2, 0, v27);
     }
 
     else
@@ -9247,7 +9185,7 @@ LABEL_57:
 
         Length = CFDataGetLength(*v16);
         LOBYTE(v27[0]) = 0;
-        std::vector<std::byte>::vector[abi:ne200100](&v30, Length);
+        std::vector<std::byte>::vector[abi:ne200100](&v30, Length, v27);
         v18 = *v16;
         if (!*v16)
         {
@@ -9499,9 +9437,9 @@ LABEL_16:
   return result;
 }
 
-void sub_1DE27FAC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE27FAC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -9537,29 +9475,17 @@ uint64_t AMCP::Implementation::get_type_marker<AMCP::Bag_O_Bytes>()
   return v0[401];
 }
 
-void *std::vector<std::byte>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<std::byte>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<char>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_1DE27FBEC(_Unwind_Exception *exception_object)
@@ -9574,7 +9500,7 @@ void sub_1DE27FBEC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::byte>::__init_with_size[abi:ne200100]<std::byte*,std::byte*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<std::byte>::__init_with_size[abi:ne200100]<std::byte*,std::byte*>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9596,7 +9522,7 @@ void sub_1DE27FC68(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-BOOL AMCP::Implementation::In_Place_Storage<AMCP::Bag_O_Bytes>::dispatch(_BOOL8 result, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t AMCP::Implementation::In_Place_Storage<AMCP::Bag_O_Bytes>::dispatch(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (result > 2)
   {
@@ -9649,7 +9575,7 @@ BOOL AMCP::Implementation::In_Place_Storage<AMCP::Bag_O_Bytes>::dispatch(_BOOL8 
             v28 = 0;
             v26 = 0u;
             v27 = 0u;
-            std::vector<std::byte>::__init_with_size[abi:ne200100]<std::byte*,std::byte*>(&v26, *v9, v9[1], v9[1] - *v9);
+            std::vector<std::byte>::__init_with_size[abi:ne200100]<std::byte*,std::byte*>(&v26, *v9, *(v9 + 8), *(v9 + 8) - *v9);
             v28 = AMCP::Implementation::In_Place_Storage<AMCP::Bag_O_Bytes>::dispatch;
             goto LABEL_56;
           }
@@ -9662,7 +9588,7 @@ LABEL_67:
         {
           if (v9)
           {
-            AMCP::CF::create_data(cf, *v9, v9[1] - *v9);
+            AMCP::CF::create_data(cf, *v9, *(v9 + 8) - *v9);
             v28 = 0;
             v26 = 0u;
             v27 = 0u;
@@ -9686,7 +9612,7 @@ LABEL_56:
       AMCP::swap(&v26, a3, v8);
       if (v28)
       {
-        (v28)(0, &v26, 0, 0);
+        v28(0, &v26, 0, 0);
       }
 
       return 0;
@@ -9799,44 +9725,40 @@ LABEL_42:
     goto LABEL_42;
   }
 
-  if (!result)
+  switch(result)
   {
-    v10 = *a2;
-    if (*a2)
-    {
-      *(a2 + 8) = v10;
-      operator delete(v10);
-    }
+    case 0:
+      v10 = *a2;
+      if (*a2)
+      {
+        *(a2 + 8) = v10;
+        operator delete(v10);
+      }
 
-    result = 0;
-    *(a2 + 32) = 0;
-    v7 = 0uLL;
-    goto LABEL_20;
-  }
-
-  if (result)
-  {
-    *a3 = 0u;
-    *(a3 + 16) = 0u;
-    std::vector<std::byte>::__init_with_size[abi:ne200100]<std::byte*,std::byte*>(a3, *a2, *(a2 + 8), *(a2 + 8) - *a2);
-    result = 0;
-    *(a3 + 32) = AMCP::Implementation::In_Place_Storage<AMCP::Bag_O_Bytes>::dispatch;
-    return result;
-  }
-
-  if (result == 2)
-  {
-    result = 0;
-    v7 = 0uLL;
-    *a3 = 0u;
-    *(a3 + 16) = 0u;
-    *a3 = *a2;
-    *(a3 + 16) = *(a2 + 16);
-    *(a3 + 32) = AMCP::Implementation::In_Place_Storage<AMCP::Bag_O_Bytes>::dispatch;
-    *(a2 + 32) = 0;
+      result = 0;
+      *(a2 + 32) = 0;
+      v7 = 0uLL;
+      goto LABEL_20;
+    case 1:
+      *a3 = 0u;
+      *(a3 + 16) = 0u;
+      std::vector<std::byte>::__init_with_size[abi:ne200100]<std::byte*,std::byte*>(a3, *a2, *(a2 + 8), *(a2 + 8) - *a2);
+      result = 0;
+      *(a3 + 32) = AMCP::Implementation::In_Place_Storage<AMCP::Bag_O_Bytes>::dispatch;
+      return result;
+    case 2:
+      result = 0;
+      v7 = 0uLL;
+      *a3 = 0u;
+      *(a3 + 16) = 0u;
+      *a3 = *a2;
+      *(a3 + 16) = *(a2 + 16);
+      *(a3 + 32) = AMCP::Implementation::In_Place_Storage<AMCP::Bag_O_Bytes>::dispatch;
+      *(a2 + 32) = 0;
 LABEL_20:
-    *a2 = v7;
-    *(a2 + 16) = v7;
+      *a2 = v7;
+      *(a2 + 16) = v7;
+      break;
   }
 
   return result;
@@ -9854,7 +9776,7 @@ void sub_1DE280090(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x1DE27FFCCLL);
 }
 
-uint64_t AMCP::Thing::convert_to<AMCP::Bag_O_Bytes>(void *a1, uint64_t a2)
+uint64_t *AMCP::Thing::convert_to<AMCP::Bag_O_Bytes>(uint64_t *a1, uint64_t a2)
 {
   if (!*(a2 + 32))
   {
@@ -9879,7 +9801,7 @@ uint64_t AMCP::Thing::convert_to<AMCP::Bag_O_Bytes>(void *a1, uint64_t a2)
       *a1 = 0;
       a1[1] = 0;
       a1[2] = 0;
-      return std::vector<std::byte>::__init_with_size[abi:ne200100]<std::byte*,std::byte*>(a1, *v6, v6[1], v6[1] - *v6);
+      return std::vector<std::byte>::__init_with_size[abi:ne200100]<std::byte*,std::byte*>(a1, *v6, *(v6 + 8), *(v6 + 8) - *v6);
     }
 
 LABEL_12:
@@ -9911,7 +9833,7 @@ LABEL_12:
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  result = std::vector<std::byte>::__init_with_size[abi:ne200100]<std::byte*,std::byte*>(a1, *v8, v8[1], v8[1] - *v8);
+  result = std::vector<std::byte>::__init_with_size[abi:ne200100]<std::byte*,std::byte*>(a1, *v8, *(v8 + 8), *(v8 + 8) - *v8);
   if (v17)
   {
     return v17(0, v16, 0, 0);
@@ -9920,9 +9842,9 @@ LABEL_12:
   return result;
 }
 
-void sub_1DE280270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE280270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -9941,6 +9863,287 @@ const void *AMCP::CF::create_data(AMCP::CF *this, const UInt8 *a2, CFIndex a3)
       std::runtime_error::runtime_error(exception, "Could not construct");
       __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
+  }
+
+  return result;
+}
+
+void sub_1DE280318(_Unwind_Exception *a1)
+{
+  __cxa_free_exception(v2);
+  applesauce::CF::ObjectRef<__CFData const*>::~ObjectRef(v1);
+  _Unwind_Resume(a1);
+}
+
+const void **applesauce::CF::ObjectRef<__CFData const*>::~ObjectRef(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+uint64_t AMCP::Implementation::In_Place_Storage<applesauce::CF::StringRef>::dispatch(uint64_t result, CFTypeRef *a2, uint64_t a3, uint64_t *a4)
+{
+  if (result <= 2)
+  {
+    if (result)
+    {
+      if (result == 1)
+      {
+        AMCP::Implementation::In_Place_Storage<applesauce::CF::StringRef>::construct<applesauce::CF::StringRef const&>(a3, a2);
+        return 0;
+      }
+
+      if (result != 2)
+      {
+        return result;
+      }
+
+      *a3 = 0u;
+      *(a3 + 16) = 0u;
+      *a3 = *a2;
+      *a2 = 0;
+      *(a3 + 32) = AMCP::Implementation::In_Place_Storage<applesauce::CF::StringRef>::dispatch;
+    }
+
+    AMCP::Implementation::In_Place_Storage<applesauce::CF::StringRef>::destruct(a2);
+    return 0;
+  }
+
+  if (result > 4)
+  {
+    if (result == 5)
+    {
+      v9 = AMCP::Implementation::get_type_marker<applesauce::CF::StringRef>();
+      v10 = a2[4];
+      v25[0] = 0;
+      if (v10)
+      {
+        v10(3, a2, 0, v25);
+        v10 = v25[0];
+      }
+
+      if (v10 != v9)
+      {
+        goto LABEL_35;
+      }
+
+      v11 = *(a3 + 32);
+      cf[0] = 0;
+      if (v11)
+      {
+        v11(3, a3, 0, cf);
+        v11 = cf[0];
+      }
+
+      if (v11 == v9)
+      {
+        if (a2[4])
+        {
+          v25[0] = AMCP::Implementation::get_type_marker<applesauce::CF::StringRef>();
+          v12 = (a2[4])(4, a2, 0, v25);
+        }
+
+        else
+        {
+          v12 = 0;
+        }
+
+        v25[0] = AMCP::Implementation::get_type_marker<applesauce::CF::StringRef>();
+        v20 = (*(a3 + 32))(4, a3, 0, v25);
+        if (applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(*v12, v20))
+        {
+          return 0;
+        }
+      }
+
+      else
+      {
+LABEL_35:
+        AMCP::Thing::convert_to<applesauce::CF::StringRef>(v25, a2);
+        AMCP::Thing::convert_to<applesauce::CF::StringRef>(cf, a3);
+        v13 = v25[0];
+        v14 = applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(v25[0], cf);
+        if (cf[0])
+        {
+          CFRelease(cf[0]);
+        }
+
+        if (v13)
+        {
+          CFRelease(v13);
+        }
+
+        if (v14)
+        {
+          return 0;
+        }
+      }
+
+      return 1;
+    }
+
+    if (result != 6)
+    {
+      return result;
+    }
+
+    if ((*a4 == AMCP::Implementation::get_type_marker<mcp_applesauce::CF::PropertyListRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::StringRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::DataRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::NumberRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::BooleanRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::DateRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::ArrayRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::DictionaryRef>()) && *a4 == AMCP::Implementation::get_type_marker<mcp_applesauce::CF::PropertyListRef>())
+    {
+      if (a2[4])
+      {
+        v25[0] = AMCP::Implementation::get_type_marker<applesauce::CF::StringRef>();
+        v7 = (a2[4])(4, a2, 0, v25);
+      }
+
+      else
+      {
+        v7 = 0;
+      }
+
+      if (*a4 == AMCP::Implementation::get_type_marker<mcp_applesauce::CF::PropertyListRef>())
+      {
+        if (v7)
+        {
+          mcp_applesauce::CF::PropertyListRef::from_get(v25, *v7);
+          v24 = 0;
+          *cf = 0u;
+          v23 = 0u;
+          AMCP::Implementation::In_Place_Storage<mcp_applesauce::CF::PropertyListRef>::construct<mcp_applesauce::CF::PropertyListRef&>(cf, v25);
+          if (v25[0])
+          {
+            CFRelease(v25[0]);
+          }
+
+          if (v24)
+          {
+            goto LABEL_75;
+          }
+
+LABEL_57:
+          if (*a4 == AMCP::Implementation::get_type_marker<std::string>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::StringRef>())
+          {
+            if (a2[4])
+            {
+              v25[0] = AMCP::Implementation::get_type_marker<applesauce::CF::StringRef>();
+              v17 = (a2[4])(4, a2, 0, v25);
+            }
+
+            else
+            {
+              v17 = 0;
+            }
+
+            if (*a4 == AMCP::Implementation::get_type_marker<std::string>())
+            {
+              if (v17)
+              {
+                if (!*v17)
+                {
+                  exception = __cxa_allocate_exception(0x10uLL);
+                  std::runtime_error::runtime_error(exception, "Could not construct");
+                  __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                }
+
+                applesauce::CF::convert_to<std::string,0>(&v28, *v17);
+                *v25 = v28;
+                v26 = v29;
+                v18 = AMCP::Implementation::In_Place_Storage<std::string>::dispatch;
+LABEL_71:
+                v27 = v18;
+                goto LABEL_73;
+              }
+
+              goto LABEL_83;
+            }
+
+            if (*a4 == AMCP::Implementation::get_type_marker<applesauce::CF::StringRef>())
+            {
+              if (v17)
+              {
+                v19 = *v17;
+                if (v19)
+                {
+                  CFRetain(v19);
+                }
+
+                v26 = 0uLL;
+                v25[0] = v19;
+                v25[1] = 0;
+                v18 = AMCP::Implementation::In_Place_Storage<applesauce::CF::StringRef>::dispatch;
+                goto LABEL_71;
+              }
+
+LABEL_83:
+              __assert_rtn("create_string_from", "Thing.h", 1254, "in_value_ptr != nullptr");
+            }
+          }
+
+          v27 = 0;
+          *v25 = 0u;
+          v26 = 0u;
+LABEL_73:
+          AMCP::swap(v25, cf, v16);
+          if (v27)
+          {
+            v27(0, v25, 0, 0);
+          }
+
+LABEL_75:
+          AMCP::swap(cf, a3, v15);
+          if (v24)
+          {
+            v24(0, cf, 0, 0);
+          }
+
+          return 0;
+        }
+
+LABEL_82:
+        __assert_rtn("create_cf_plist_from", "Thing.h", 2434, "in_value_ptr != nullptr");
+      }
+
+      if ((*a4 == AMCP::Implementation::get_type_marker<applesauce::CF::StringRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::DataRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::NumberRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::BooleanRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::DateRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::ArrayRef>() || *a4 == AMCP::Implementation::get_type_marker<applesauce::CF::DictionaryRef>()) && !v7)
+      {
+        goto LABEL_82;
+      }
+    }
+
+    v24 = 0;
+    *cf = 0u;
+    v23 = 0u;
+    goto LABEL_57;
+  }
+
+  if (result == 3)
+  {
+    v8 = AMCP::Implementation::get_type_marker<applesauce::CF::StringRef>();
+    result = 0;
+    *a4 = v8;
+  }
+
+  else if (*a4 == AMCP::Implementation::get_type_marker<applesauce::CF::StringRef>())
+  {
+    return a2;
+  }
+
+  else
+  {
+    return 0;
   }
 
   return result;

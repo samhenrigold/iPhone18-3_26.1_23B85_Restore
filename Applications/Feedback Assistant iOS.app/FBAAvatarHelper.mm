@@ -8,7 +8,7 @@
 - (_TtC18Feedback_Assistant15FBAAvatarHelper)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FBAAvatarHelper();
+  v3.super_class = type metadata accessor for FBAAvatarHelper(self, a2);
   return [(FBAAvatarHelper *)&v3 init];
 }
 

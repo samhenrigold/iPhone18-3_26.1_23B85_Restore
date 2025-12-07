@@ -16,9 +16,9 @@
 
 + (uint64_t)widgetEffectForVibrancyStyle:()NCWidgetAdditions
 {
-  v2 = _MTInternalVibrancyEffectStyleForPublicStyle();
+  v4 = _MTInternalVibrancyEffectStyleForPublicStyle();
 
-  return [self _widgetEffectForPrivateVibrancyStyle:v2];
+  return [self _widgetEffectForPrivateVibrancyStyle:v4];
 }
 
 @end

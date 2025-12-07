@@ -44,7 +44,7 @@
 
 - (void)startMslLogging
 {
-  v3 = sub_10000E778();
+  v3 = sub_10000E778(self);
   v5 = [NSString stringWithFormat:@"%@/HeadphoneActivity/MSL/", v3];
 
   activityManager = [(RMHeadphoneActivityManager *)self activityManager];

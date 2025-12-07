@@ -57,14 +57,13 @@
 
 - (id)description
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *&self->_asbd.mBytesPerPacket;
-  *&v7.var0 = *&self->_asbd.mSampleRate;
-  *&v7.var3 = v3;
-  *&v7.var7 = *&self->_asbd.mBitsPerChannel;
-  CAStreamBasicDescription::AsString(&v7, v8, 0x80uLL, v7.var0, *&v3);
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<AVAudioFormat %p: %s>", self, v8];
-  v5 = *MEMORY[0x1E69E9840];
+  *&v6.var0 = *&self->_asbd.mSampleRate;
+  *&v6.var3 = v3;
+  *&v6.var7 = *&self->_asbd.mBitsPerChannel;
+  CAStreamBasicDescription::AsString(&v6, v7, 0x80uLL, v6.var0, *&v3);
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<AVAudioFormat %p: %s>", self, v7];
 
   return v4;
 }

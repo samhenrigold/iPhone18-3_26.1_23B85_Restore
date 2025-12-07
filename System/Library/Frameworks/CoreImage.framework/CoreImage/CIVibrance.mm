@@ -105,9 +105,9 @@
     return 0;
   }
 
-  v5[0] = metadataPropertyWithBool();
-  v5[1] = metadataPropertyWithDouble(v3 * 50.0);
-  v5[2] = metadataPropertyWithDouble(v3);
+  v5[0] = metadataPropertyWithBool(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"AlreadyApplied", 0);
+  v5[1] = metadataPropertyWithDouble(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"Vibrance", v3 * 50.0);
+  v5[2] = metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"Vibrance", v3);
   return [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:3];
 }
 

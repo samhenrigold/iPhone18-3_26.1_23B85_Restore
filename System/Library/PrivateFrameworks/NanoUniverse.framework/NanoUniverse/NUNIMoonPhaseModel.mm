@@ -6,12 +6,12 @@
 
 - (NUNIMoonPhaseModel)initWithDate:(id)date location:(id)location
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   locationCopy = location;
-  v44.receiver = self;
-  v44.super_class = NUNIMoonPhaseModel;
-  v9 = [(NUNIMoonPhaseModel *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = NUNIMoonPhaseModel;
+  v9 = [(NUNIMoonPhaseModel *)&v43 init];
   v10 = v9;
   if (v9)
   {
@@ -64,11 +64,11 @@
       }
 
       rise = [MEMORY[0x277CBEA80] currentCalendar];
-      v41 = objc_alloc(MEMORY[0x277D0EAE0]);
-      v42 = [rise dateByAddingUnit:16 value:1 toDate:dateCopy options:0];
-      v43 = [v41 initWithLocation:v42 date:4 body:{v13, v15}];
+      v40 = objc_alloc(MEMORY[0x277D0EAE0]);
+      v41 = [rise dateByAddingUnit:16 value:1 toDate:dateCopy options:0];
+      v42 = [v40 initWithLocation:v41 date:4 body:{v13, v15}];
 
-      eventDate = v43;
+      eventDate = v42;
     }
 
 LABEL_9:
@@ -83,9 +83,9 @@ LABEL_9:
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v46 = v32;
-      v47 = 2112;
-      v48 = v31;
+      v45 = v32;
+      v46 = 2112;
+      v47 = v31;
       _os_log_impl(&dword_25B6D4000, v33, OS_LOG_TYPE_DEFAULT, "NTKMoonPhaseUtilities index:%ld times:[%@]", buf, 0x16u);
     }
 
@@ -132,7 +132,6 @@ LABEL_9:
 LABEL_21:
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

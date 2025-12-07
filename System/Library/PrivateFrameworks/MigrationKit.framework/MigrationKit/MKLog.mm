@@ -29,7 +29,7 @@
   return v3;
 }
 
-void __12__MKLog_log__block_invoke()
+void __12__MKLog_log__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_onceToken != -1)
   {
@@ -56,7 +56,7 @@ uint64_t __12__MKLog_log__block_invoke_2()
   return v3;
 }
 
-void __22__MKLog_logForNetwork__block_invoke()
+void __22__MKLog_logForNetwork__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_2_onceToken != -1)
   {
@@ -83,7 +83,7 @@ uint64_t __22__MKLog_logForNetwork__block_invoke_2()
   return v3;
 }
 
-void __23__MKLog_logForMessages__block_invoke()
+void __23__MKLog_logForMessages__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_3_onceToken != -1)
   {
@@ -110,7 +110,7 @@ uint64_t __23__MKLog_logForMessages__block_invoke_2()
   return v3;
 }
 
-void __23__MKLog_logForContacts__block_invoke()
+void __23__MKLog_logForContacts__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_4_onceToken != -1)
   {
@@ -137,7 +137,7 @@ uint64_t __23__MKLog_logForContacts__block_invoke_2()
   return v3;
 }
 
-void __26__MKLog_logForCallHistory__block_invoke()
+void __26__MKLog_logForCallHistory__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_5_onceToken != -1)
   {
@@ -164,7 +164,7 @@ uint64_t __26__MKLog_logForCallHistory__block_invoke_2()
   return v3;
 }
 
-void __23__MKLog_logForCalendar__block_invoke()
+void __23__MKLog_logForCalendar__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_6_onceToken != -1)
   {
@@ -191,7 +191,7 @@ uint64_t __23__MKLog_logForCalendar__block_invoke_2()
   return v3;
 }
 
-void __24__MKLog_logForBookmarks__block_invoke()
+void __24__MKLog_logForBookmarks__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_7_onceToken != -1)
   {
@@ -218,7 +218,7 @@ uint64_t __24__MKLog_logForBookmarks__block_invoke_2()
   return v3;
 }
 
-void __27__MKLog_logForPhotoLibrary__block_invoke()
+void __27__MKLog_logForPhotoLibrary__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_8_onceToken != -1)
   {
@@ -245,7 +245,7 @@ uint64_t __27__MKLog_logForPhotoLibrary__block_invoke_2()
   return v3;
 }
 
-void __25__MKLog_logForVoiceMemos__block_invoke()
+void __25__MKLog_logForVoiceMemos__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_9_onceToken != -1)
   {
@@ -272,7 +272,7 @@ uint64_t __25__MKLog_logForVoiceMemos__block_invoke_2()
   return v3;
 }
 
-void __23__MKLog_logForAccounts__block_invoke()
+void __23__MKLog_logForAccounts__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_10_onceToken != -1)
   {
@@ -299,7 +299,7 @@ uint64_t __23__MKLog_logForAccounts__block_invoke_2()
   return v3;
 }
 
-void __20__MKLog_logForFiles__block_invoke()
+void __20__MKLog_logForFiles__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_11_onceToken != -1)
   {
@@ -326,7 +326,7 @@ uint64_t __20__MKLog_logForFiles__block_invoke_2()
   return v3;
 }
 
-void __23__MKLog_logForSettings__block_invoke()
+void __23__MKLog_logForSettings__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_12_onceToken != -1)
   {
@@ -353,7 +353,7 @@ uint64_t __23__MKLog_logForSettings__block_invoke_2()
   return v3;
 }
 
-void __19__MKLog_logForApps__block_invoke()
+void __19__MKLog_logForApps__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_13_onceToken != -1)
   {
@@ -380,7 +380,7 @@ uint64_t __19__MKLog_logForApps__block_invoke_2()
   return v3;
 }
 
-void __17__MKLog_logForUI__block_invoke()
+void __17__MKLog_logForUI__block_invoke(uint64_t result, uint64_t a2)
 {
   if (_block_invoke_14_onceToken != -1)
   {

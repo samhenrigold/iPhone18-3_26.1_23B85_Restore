@@ -3,7 +3,7 @@
 
 @implementation AXSMonoAudioEnabled
 
-uint64_t ___AXSMonoAudioEnabled_block_invoke()
+void *___AXSMonoAudioEnabled_block_invoke()
 {
   v1 = 1;
   result = _getBooleanPreference(kAXSMonoAudioEnabledPreference, &v1);

@@ -57,14 +57,14 @@
   v9 = [(PROAPIAccessing *)self->super.super._apiManager apiForProtocol:&unk_28735E258];
   if (v9)
   {
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
+    objc_msgSend_getPixelTransformForImage_(self);
     v27 = 0;
     v25 = 0u;
     v26 = 0u;
     memset(&v24[2], 0, 32);
     if (output)
     {
-      [output imageInfo];
+      objc_msgSend_imageInfo(output);
       v10 = *(&v25 + 1) == 0;
     }
 
@@ -73,12 +73,12 @@
       v10 = 1;
     }
 
-    [(PAESharedDefaultBase *)self getScaleForImage:input];
+    objc_msgSend_getScaleForImage_(self);
     __asm { FMOV            V0.2D, #0.5 }
 
     v24[0] = _Q0;
     [v9 getXValue:v24 YValue:v24 + 8 fromParm:1 atFxTime:info->var0.var1];
-    [(PAESharedDefaultBase *)self convertRelativeToPixelCoordinates:v24 withImage:input];
+    objc_msgSend_convertRelativeToPixelCoordinates_withImage_(self);
     v24[0] = v23;
     *&v23 = 0;
     [v9 getFloatValue:&v23 fromParm:2 atFxTime:info->var0.var1];
@@ -123,7 +123,7 @@
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
       }
 
       v19 = HGObject::operator new(0x1B0uLL);

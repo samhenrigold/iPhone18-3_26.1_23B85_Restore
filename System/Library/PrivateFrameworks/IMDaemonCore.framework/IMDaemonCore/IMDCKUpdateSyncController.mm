@@ -91,15 +91,15 @@
 - (void)clearLocalSyncState:(unint64_t)state
 {
   stateCopy = state;
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7[0] = 67109120;
-      v7[1] = stateCopy;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Clearing local updates sync state, flags 0x%x", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = stateCopy;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Clearing local updates sync state, flags 0x%x", v6, 8u);
     }
   }
 
@@ -107,8 +107,6 @@
   {
     [(IMDCKUpdateSyncController *)self deleteUpdateSyncToken];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteUpdateSyncToken
@@ -158,71 +156,69 @@
 
 - (void)_readRecordsWithType:(int64_t)type attemptCount:(unint64_t)count activity:(id)activity completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   completionCopy = completion;
   v11 = [(IMDCKUpdateSyncController *)self _fetchRecordsOperationWithActivity:activityCopy];
   v12 = v11;
   if (v11)
   {
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = sub_22B6BE220;
-    v26[3] = &unk_2787046E0;
-    v26[4] = self;
-    [v11 setRecordChangedBlock:v26];
     v25[0] = MEMORY[0x277D85DD0];
     v25[1] = 3221225472;
-    v25[2] = sub_22B6BE22C;
-    v25[3] = &unk_278704728;
+    v25[2] = sub_22B6BE220;
+    v25[3] = &unk_2787046E0;
     v25[4] = self;
-    [v12 setRecordWithIDWasDeletedBlock:v25];
+    [v11 setRecordChangedBlock:v25];
     v24[0] = MEMORY[0x277D85DD0];
     v24[1] = 3221225472;
-    v24[2] = sub_22B6BE23C;
-    v24[3] = &unk_278706FE8;
+    v24[2] = sub_22B6BE22C;
+    v24[3] = &unk_278704728;
     v24[4] = self;
-    [v12 setRecordZoneChangeTokensUpdatedBlock:v24];
+    [v12 setRecordWithIDWasDeletedBlock:v24];
     v23[0] = MEMORY[0x277D85DD0];
     v23[1] = 3221225472;
-    v23[2] = sub_22B6BE250;
-    v23[3] = &unk_278707010;
+    v23[2] = sub_22B6BE23C;
+    v23[3] = &unk_278706FE8;
     v23[4] = self;
-    [v12 setRecordZoneFetchCompletionBlock:v23];
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = sub_22B6BE26C;
-    v18 = &unk_278707038;
+    [v12 setRecordZoneChangeTokensUpdatedBlock:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = sub_22B6BE250;
+    v22[3] = &unk_278707010;
+    v22[4] = self;
+    [v12 setRecordZoneFetchCompletionBlock:v22];
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = sub_22B6BE26C;
+    v17 = &unk_278707038;
     selfCopy = self;
     typeCopy = type;
-    v20 = activityCopy;
-    v21 = completionCopy;
-    [v12 setFetchRecordZoneChangesCompletionBlock:&v15];
+    v19 = activityCopy;
+    v20 = completionCopy;
+    [v12 setFetchRecordZoneChangesCompletionBlock:&v14];
     if (IMOSLoggingEnabled())
     {
       v13 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v28 = v12;
+        v27 = v12;
         _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Scheduling a fetch update zone changes operation %@", buf, 0xCu);
       }
     }
 
-    [(IMDCKUpdateSyncController *)self _scheduleOperation:v12, v15, v16, v17, v18, selfCopy];
+    [(IMDCKUpdateSyncController *)self _scheduleOperation:v12, v14, v15, v16, v17, selfCopy];
   }
 
   else if (completionCopy)
   {
     (*(completionCopy + 2))(completionCopy, 0, 0);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onRecordRead:(id)read
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   readCopy = read;
   if (IMOSLoggingEnabled())
   {
@@ -231,7 +227,7 @@
     {
       v5 = [readCopy _stringForKey:@"ut"];
       *buf = 138412290;
-      v11 = v5;
+      v10 = v5;
       _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Fetched update record with type %@", buf, 0xCu);
     }
   }
@@ -248,12 +244,10 @@
     block[1] = 3221225472;
     block[2] = sub_22B6BE410;
     block[3] = &unk_278702FF0;
-    v9 = readCopy;
+    v8 = readCopy;
     dispatch_sync(MEMORY[0x277D85CD0], block);
-    v6 = v9;
+    v6 = v8;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onRecordDeleted:(id)deleted type:(id)type
@@ -273,7 +267,7 @@
 
 - (void)_onChangeTokenUpdated:(id)updated token:(id)token data:(id)data
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   tokenCopy = token;
   dataCopy = data;
@@ -283,32 +277,30 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412802;
-      v18 = updatedCopy;
-      v19 = 2112;
-      v20 = tokenCopy;
-      v21 = 2112;
-      v22 = dataCopy;
+      v17 = updatedCopy;
+      v18 = 2112;
+      v19 = tokenCopy;
+      v20 = 2112;
+      v21 = dataCopy;
       _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "recordZoneChangeTokensUpdatedBlock recordZoneID %@ serverChangeToken %@ clientChangeToken %@", buf, 0x20u);
     }
   }
 
   ckQueue = [(IMDCKUpdateSyncController *)self ckQueue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = sub_22B6BE6B0;
-  v15[3] = &unk_278702FA0;
-  v15[4] = self;
-  v16 = tokenCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = sub_22B6BE6B0;
+  v14[3] = &unk_278702FA0;
+  v14[4] = self;
+  v15 = tokenCopy;
   v13 = tokenCopy;
-  dispatch_sync(ckQueue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_sync(ckQueue, v14);
 }
 
 - (void)_onRecordZoneFetchComplete:(id)complete token:(id)token tokenData:(id)data moreComing:(BOOL)coming error:(id)error
 {
   comingCopy = coming;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   tokenCopy = token;
   dataCopy = data;
@@ -318,43 +310,41 @@
     v16 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v18 = 138413314;
-      v19 = completeCopy;
-      v20 = 2112;
-      v21 = tokenCopy;
-      v22 = 2112;
-      v23 = dataCopy;
-      v24 = 1024;
-      v25 = comingCopy;
-      v26 = 2112;
-      v27 = errorCopy;
-      _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Record Zone fetch complete zoneID %@ changeToken %@ tokenData %@ moreComing %d error %@", &v18, 0x30u);
+      v17 = 138413314;
+      v18 = completeCopy;
+      v19 = 2112;
+      v20 = tokenCopy;
+      v21 = 2112;
+      v22 = dataCopy;
+      v23 = 1024;
+      v24 = comingCopy;
+      v25 = 2112;
+      v26 = errorCopy;
+      _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Record Zone fetch complete zoneID %@ changeToken %@ tokenData %@ moreComing %d error %@", &v17, 0x30u);
     }
   }
 
   [(IMDCKUpdateSyncController *)self _onChangeTokenUpdated:completeCopy token:tokenCopy data:dataCopy];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onReadComplete:(int64_t)complete error:(id)error activity:(id)activity completion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   activityCopy = activity;
   completionCopy = completion;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = sub_22B4D7820;
-  v34 = sub_22B4D7978;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = sub_22B4D7820;
+  v33 = sub_22B4D7978;
   v13 = errorCopy;
-  v35 = v13;
+  v34 = v13;
   errorAnalyzer = [(IMDCKAbstractSyncController *)self errorAnalyzer];
-  v15 = [errorAnalyzer errorIndicatesZoneNotCreated:v31[5]];
+  v15 = [errorAnalyzer errorIndicatesZoneNotCreated:v30[5]];
 
   errorAnalyzer2 = [(IMDCKAbstractSyncController *)self errorAnalyzer];
-  v17 = [errorAnalyzer2 errorIndicatesUserDeletedZone:v31[5]];
+  v17 = [errorAnalyzer2 errorIndicatesUserDeletedZone:v30[5]];
 
   if ((v15 | v17))
   {
@@ -370,27 +360,27 @@
         }
 
         *buf = 138412546;
-        v37 = v19;
-        v38 = 2112;
-        v39 = v13;
+        v36 = v19;
+        v37 = 2112;
+        v38 = v13;
         _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "We got a %@ error while fetching updates. %@", buf, 0x16u);
       }
     }
 
     ckQueue = [(IMDCKUpdateSyncController *)self ckQueue];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = sub_22B6BEC90;
-    v29[3] = &unk_278707088;
-    v29[4] = self;
-    v29[5] = &v30;
-    dispatch_sync(ckQueue, v29);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = sub_22B6BEC90;
+    v28[3] = &unk_278707088;
+    v28[4] = self;
+    v28[5] = &v29;
+    dispatch_sync(ckQueue, v28);
   }
 
-  if (v31[5])
+  if (v30[5])
   {
     errorAnalyzer3 = [(IMDCKAbstractSyncController *)self errorAnalyzer];
-    v22 = [errorAnalyzer3 CKPartialError:v31[5] hasErrorCode:&unk_283F4ED50];
+    v22 = [errorAnalyzer3 CKPartialError:v30[5] hasErrorCode:&unk_283F4ED50];
 
     if (v22)
     {
@@ -399,9 +389,9 @@
         v23 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v24 = v31[5];
+          v24 = v30[5];
           *buf = 138412290;
-          v37 = v24;
+          v36 = v24;
           _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "We got an expired server change token back so resetting local sync state, and fetching the updates again %@", buf, 0xCu);
         }
       }
@@ -414,16 +404,16 @@
       v26 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        v27 = v31[5];
+        v27 = v30[5];
         *buf = 138412290;
-        v37 = v27;
+        v36 = v27;
         _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "********* We got an error fetching changes from update zone %@", buf, 0xCu);
       }
     }
 
     if (completionCopy)
     {
-      completionCopy[2](completionCopy, 0, v31[5]);
+      completionCopy[2](completionCopy, 0, v30[5]);
     }
   }
 
@@ -442,9 +432,7 @@
     [(IMDCKUpdateSyncController *)self _writeRecordsWithType:complete activity:activityCopy completion:completionCopy];
   }
 
-  _Block_object_dispose(&v30, 8);
-
-  v28 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v29, 8);
 }
 
 - (BOOL)_zoneCreated
@@ -550,43 +538,43 @@ LABEL_8:
 
 - (void)_writeT1RecordUpdatesWithType:(int64_t)type activity:(id)activity completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   completionCopy = completion;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = sub_22B4D7820;
-  v24 = sub_22B4D7978;
-  v25 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v10 = [(IMDCKUpdateSyncController *)self _saveRecordsT1OperationWithMap:v21[5] activity:activityCopy];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_22B4D7820;
+  v23 = sub_22B4D7978;
+  v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v10 = [(IMDCKUpdateSyncController *)self _saveRecordsT1OperationWithMap:v20[5] activity:activityCopy];
   v11 = v10;
   if (v10)
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = sub_22B6BF550;
-    v19[3] = &unk_2787070B0;
-    v19[4] = self;
-    v19[5] = &v20;
-    [v10 setPerRecordCompletionBlock:v19];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = sub_22B6BF630;
-    v14[3] = &unk_2787070D8;
-    v17 = &v20;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = sub_22B6BF550;
+    v18[3] = &unk_2787070B0;
+    v18[4] = self;
+    v18[5] = &v19;
+    [v10 setPerRecordCompletionBlock:v18];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = sub_22B6BF630;
+    v13[3] = &unk_2787070D8;
+    v16 = &v19;
     typeCopy = type;
-    v14[4] = self;
-    v15 = activityCopy;
-    v16 = completionCopy;
-    [v11 setModifyRecordsCompletionBlock:v14];
+    v13[4] = self;
+    v14 = activityCopy;
+    v15 = completionCopy;
+    [v11 setModifyRecordsCompletionBlock:v13];
     if (IMOSLoggingEnabled())
     {
       v12 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v27 = v11;
+        v26 = v11;
         _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Scheduling write updates T1 operation %@", buf, 0xCu);
       }
     }
@@ -599,13 +587,12 @@ LABEL_8:
     (*(completionCopy + 2))(completionCopy, 1, 0);
   }
 
-  _Block_object_dispose(&v20, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
 }
 
 - (void)_onRecordT1Write:(id)write error:(id)error recordNameToRowIDMap:(id)map
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   writeCopy = write;
   errorCopy = error;
   mapCopy = map;
@@ -614,11 +601,11 @@ LABEL_8:
     v11 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v26 = 138412546;
-      v27 = writeCopy;
-      v28 = 2112;
-      v29 = errorCopy;
-      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Wrote T1 update record %@ with error %@", &v26, 0x16u);
+      v25 = 138412546;
+      v26 = writeCopy;
+      v27 = 2112;
+      v28 = errorCopy;
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Wrote T1 update record %@ with error %@", &v25, 0x16u);
     }
   }
 
@@ -634,16 +621,200 @@ LABEL_8:
       v24 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
-        v26 = 134218242;
-        v27 = longLongValue;
-        v28 = 2112;
-        v29 = recordName;
-        _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Marking row %lld for %@ as clean", &v26, 0x16u);
+        v25 = 134218242;
+        v26 = longLongValue;
+        v27 = 2112;
+        v28 = recordName;
+        _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Marking row %lld for %@ as clean", &v25, 0x16u);
       }
     }
 
     v21 = +[IMDMessageStore sharedInstance];
     [v21 markMessageAsCleanWithROWID:longLongValue];
+    goto LABEL_21;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      v25 = 138412546;
+      v26 = errorCopy;
+      v27 = 2112;
+      v28 = writeCopy;
+      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Error %@ while writing up record %@ ", &v25, 0x16u);
+    }
+  }
+
+  ckUtilities = [(IMDCKAbstractSyncController *)self ckUtilities];
+  recordName = [ckUtilities extractServerRecordFromCKServerErrorRecordChanged:errorCopy];
+
+  recordID2 = [recordName recordID];
+  recordName2 = [recordID2 recordName];
+  v17 = [mapCopy objectForKey:recordName2];
+
+  longLongValue2 = [v17 longLongValue];
+  if (recordName)
+  {
+    v19 = longLongValue2;
+    if (IMOSLoggingEnabled())
+    {
+      v20 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      {
+        v25 = 138412290;
+        v26 = recordName;
+        _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Extracted record from server error%@ ", &v25, 0xCu);
+      }
+    }
+
+    v21 = +[IMDChatRegistry sharedInstance];
+    [v21 handleMessageUpdateConflictType:@"UT1" serverRecord:recordName localRowID:v19];
+LABEL_21:
+  }
+}
+
+- (void)_onWriteT1Complete:(int64_t)complete error:(id)error shouldWriteMore:(BOOL)more activity:(id)activity completion:(id)completion
+{
+  moreCopy = more;
+  v21 = *MEMORY[0x277D85DE8];
+  errorCopy = error;
+  activityCopy = activity;
+  completionCopy = completion;
+  if (IMOSLoggingEnabled())
+  {
+    v15 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      v16 = @"NO";
+      if (!errorCopy)
+      {
+        v16 = @"YES";
+      }
+
+      v17 = 138412546;
+      v18 = v16;
+      v19 = 2112;
+      v20 = errorCopy;
+      _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Update T1 writes completed sucess: %@ error %@", &v17, 0x16u);
+    }
+  }
+
+  if (errorCopy)
+  {
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy, 0, errorCopy);
+    }
+  }
+
+  else if (moreCopy)
+  {
+    [(IMDCKUpdateSyncController *)self _writeRecordsWithType:complete activity:activityCopy completion:completionCopy];
+  }
+
+  else if (completionCopy)
+  {
+    completionCopy[2](completionCopy, 1, 0);
+  }
+}
+
+- (void)_writeT2RecordUpdatesWithType:(int64_t)type activity:(id)activity completion:(id)completion
+{
+  v27 = *MEMORY[0x277D85DE8];
+  activityCopy = activity;
+  completionCopy = completion;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_22B4D7820;
+  v23 = sub_22B4D7978;
+  v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v10 = [(IMDCKUpdateSyncController *)self _saveRecordsT2OperationWithMap:v20[5] activity:activityCopy];
+  v11 = v10;
+  if (v10)
+  {
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = sub_22B6BFF30;
+    v18[3] = &unk_2787070B0;
+    v18[4] = self;
+    v18[5] = &v19;
+    [v10 setPerRecordCompletionBlock:v18];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = sub_22B6C0010;
+    v13[3] = &unk_2787070D8;
+    v16 = &v19;
+    typeCopy = type;
+    v13[4] = self;
+    v14 = activityCopy;
+    v15 = completionCopy;
+    [v11 setModifyRecordsCompletionBlock:v13];
+    if (IMOSLoggingEnabled())
+    {
+      v12 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        v26 = v11;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Scheduling write updates T2 operation %@", buf, 0xCu);
+      }
+    }
+
+    [(IMDCKUpdateSyncController *)self _scheduleOperation:v11];
+  }
+
+  else if (completionCopy)
+  {
+    (*(completionCopy + 2))(completionCopy, 1, 0);
+  }
+
+  _Block_object_dispose(&v19, 8);
+}
+
+- (void)_onRecordT2Write:(id)write error:(id)error recordNameToItemMap:(id)map
+{
+  v30 = *MEMORY[0x277D85DE8];
+  writeCopy = write;
+  errorCopy = error;
+  mapCopy = map;
+  if (IMOSLoggingEnabled())
+  {
+    v11 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      v26 = 138412546;
+      v27 = writeCopy;
+      v28 = 2112;
+      v29 = errorCopy;
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Wrote T2 update record %@ with error %@", &v26, 0x16u);
+    }
+  }
+
+  if (!errorCopy)
+  {
+    recordID = [writeCopy recordID];
+    recordName = [recordID recordName];
+
+    v17 = [mapCopy objectForKey:recordName];
+    v18 = [v17 objectForKey:@"MID"];
+    v22 = [v17 objectForKey:@"SR"];
+    if (IMOSLoggingEnabled())
+    {
+      v24 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      {
+        v26 = 138412290;
+        v27 = v18;
+        _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Successful write of T2 update to the server, updating syncedSyndicationRanges for message guid %@ ", &v26, 0xCu);
+      }
+    }
+
+    v25 = +[IMDChatRegistry sharedInstance];
+    [v25 updateSyncedSyndicationRanges:v22 forGUID:v18];
+
     goto LABEL_21;
   }
 
@@ -667,195 +838,6 @@ LABEL_8:
   recordName2 = [recordID2 recordName];
   v17 = [mapCopy objectForKey:recordName2];
 
-  longLongValue2 = [v17 longLongValue];
-  if (recordName)
-  {
-    v19 = longLongValue2;
-    if (IMOSLoggingEnabled())
-    {
-      v20 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
-      {
-        v26 = 138412290;
-        v27 = recordName;
-        _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Extracted record from server error%@ ", &v26, 0xCu);
-      }
-    }
-
-    v21 = +[IMDChatRegistry sharedInstance];
-    [v21 handleMessageUpdateConflictType:@"UT1" serverRecord:recordName localRowID:v19];
-LABEL_21:
-  }
-
-  v25 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_onWriteT1Complete:(int64_t)complete error:(id)error shouldWriteMore:(BOOL)more activity:(id)activity completion:(id)completion
-{
-  moreCopy = more;
-  v22 = *MEMORY[0x277D85DE8];
-  errorCopy = error;
-  activityCopy = activity;
-  completionCopy = completion;
-  if (IMOSLoggingEnabled())
-  {
-    v15 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
-    {
-      v16 = @"NO";
-      if (!errorCopy)
-      {
-        v16 = @"YES";
-      }
-
-      v18 = 138412546;
-      v19 = v16;
-      v20 = 2112;
-      v21 = errorCopy;
-      _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Update T1 writes completed sucess: %@ error %@", &v18, 0x16u);
-    }
-  }
-
-  if (errorCopy)
-  {
-    if (completionCopy)
-    {
-      completionCopy[2](completionCopy, 0, errorCopy);
-    }
-  }
-
-  else if (moreCopy)
-  {
-    [(IMDCKUpdateSyncController *)self _writeRecordsWithType:complete activity:activityCopy completion:completionCopy];
-  }
-
-  else if (completionCopy)
-  {
-    completionCopy[2](completionCopy, 1, 0);
-  }
-
-  v17 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_writeT2RecordUpdatesWithType:(int64_t)type activity:(id)activity completion:(id)completion
-{
-  v28 = *MEMORY[0x277D85DE8];
-  activityCopy = activity;
-  completionCopy = completion;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = sub_22B4D7820;
-  v24 = sub_22B4D7978;
-  v25 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v10 = [(IMDCKUpdateSyncController *)self _saveRecordsT2OperationWithMap:v21[5] activity:activityCopy];
-  v11 = v10;
-  if (v10)
-  {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = sub_22B6BFF30;
-    v19[3] = &unk_2787070B0;
-    v19[4] = self;
-    v19[5] = &v20;
-    [v10 setPerRecordCompletionBlock:v19];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = sub_22B6C0010;
-    v14[3] = &unk_2787070D8;
-    v17 = &v20;
-    typeCopy = type;
-    v14[4] = self;
-    v15 = activityCopy;
-    v16 = completionCopy;
-    [v11 setModifyRecordsCompletionBlock:v14];
-    if (IMOSLoggingEnabled())
-    {
-      v12 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
-      {
-        *buf = 138412290;
-        v27 = v11;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Scheduling write updates T2 operation %@", buf, 0xCu);
-      }
-    }
-
-    [(IMDCKUpdateSyncController *)self _scheduleOperation:v11];
-  }
-
-  else if (completionCopy)
-  {
-    (*(completionCopy + 2))(completionCopy, 1, 0);
-  }
-
-  _Block_object_dispose(&v20, 8);
-  v13 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_onRecordT2Write:(id)write error:(id)error recordNameToItemMap:(id)map
-{
-  v31 = *MEMORY[0x277D85DE8];
-  writeCopy = write;
-  errorCopy = error;
-  mapCopy = map;
-  if (IMOSLoggingEnabled())
-  {
-    v11 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
-    {
-      v27 = 138412546;
-      v28 = writeCopy;
-      v29 = 2112;
-      v30 = errorCopy;
-      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Wrote T2 update record %@ with error %@", &v27, 0x16u);
-    }
-  }
-
-  if (!errorCopy)
-  {
-    recordID = [writeCopy recordID];
-    recordName = [recordID recordName];
-
-    v17 = [mapCopy objectForKey:recordName];
-    v18 = [v17 objectForKey:@"MID"];
-    v22 = [v17 objectForKey:@"SR"];
-    if (IMOSLoggingEnabled())
-    {
-      v24 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
-      {
-        v27 = 138412290;
-        v28 = v18;
-        _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Successful write of T2 update to the server, updating syncedSyndicationRanges for message guid %@ ", &v27, 0xCu);
-      }
-    }
-
-    v25 = +[IMDChatRegistry sharedInstance];
-    [v25 updateSyncedSyndicationRanges:v22 forGUID:v18];
-
-    goto LABEL_21;
-  }
-
-  if (IMOSLoggingEnabled())
-  {
-    v12 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
-    {
-      v27 = 138412546;
-      v28 = errorCopy;
-      v29 = 2112;
-      v30 = writeCopy;
-      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Error %@ while writing up record %@ ", &v27, 0x16u);
-    }
-  }
-
-  ckUtilities = [(IMDCKAbstractSyncController *)self ckUtilities];
-  recordName = [ckUtilities extractServerRecordFromCKServerErrorRecordChanged:errorCopy];
-
-  recordID2 = [recordName recordID];
-  recordName2 = [recordID2 recordName];
-  v17 = [mapCopy objectForKey:recordName2];
-
   v18 = [v17 objectForKey:@"ROWID"];
   longLongValue = [v18 longLongValue];
   if (recordName)
@@ -866,9 +848,9 @@ LABEL_21:
       v21 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        v27 = 138412290;
-        v28 = recordName;
-        _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Extracted record from server error%@ ", &v27, 0xCu);
+        v26 = 138412290;
+        v27 = recordName;
+        _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Extracted record from server error%@ ", &v26, 0xCu);
       }
     }
 
@@ -876,14 +858,12 @@ LABEL_21:
     [v22 handleMessageUpdateConflictType:@"UT2" serverRecord:recordName localRowID:v20];
 LABEL_21:
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onWriteT2Complete:(int64_t)complete error:(id)error shouldWriteMore:(BOOL)more activity:(id)activity completion:(id)completion
 {
   moreCopy = more;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   activityCopy = activity;
   completionCopy = completion;
@@ -898,11 +878,11 @@ LABEL_21:
         v16 = @"YES";
       }
 
-      v18 = 138412546;
-      v19 = v16;
-      v20 = 2112;
-      v21 = errorCopy;
-      _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Update T2 writes completed sucess: %@ error %@", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = v16;
+      v19 = 2112;
+      v20 = errorCopy;
+      _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Update T2 writes completed sucess: %@ error %@", &v17, 0x16u);
     }
   }
 
@@ -923,8 +903,6 @@ LABEL_21:
   {
     completionCopy[2](completionCopy, 1, 0);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchRecordsOperationWithActivity:(id)activity
@@ -1041,7 +1019,7 @@ LABEL_21:
 - (id)saveT1UpdatesOperationFactory:(id)factory token:(id)token batchSize:(unint64_t)size recordNameToRowIDMap:(id)map activity:(id)activity
 {
   sizeCopy = size;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   factoryCopy = factory;
   tokenCopy = token;
   mapCopy = map;
@@ -1054,9 +1032,9 @@ LABEL_21:
     aBlock[2] = sub_22B6C0F10;
     aBlock[3] = &unk_2787038F8;
     aBlock[4] = self;
-    v29 = mapCopy;
+    v28 = mapCopy;
     v17 = v16;
-    v30 = v17;
+    v29 = v17;
     v18 = _Block_copy(aBlock);
     if ([MEMORY[0x277CCACC8] isMainThread])
     {
@@ -1078,9 +1056,9 @@ LABEL_21:
       {
         v24 = [v22 count];
         *buf = 134218240;
-        v32 = v24;
-        v33 = 1024;
-        v34 = sizeCopy;
+        v31 = v24;
+        v32 = 1024;
+        v33 = sizeCopy;
         _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Found %lu of %u max T1 updates to write up", buf, 0x12u);
       }
     }
@@ -1114,15 +1092,13 @@ LABEL_21:
     v20 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (id)saveT2UpdatesOperationFactory:(id)factory token:(id)token batchSize:(unint64_t)size recordNameToRowIDMap:(id)map activity:(id)activity
 {
   sizeCopy = size;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   factoryCopy = factory;
   tokenCopy = token;
   mapCopy = map;
@@ -1135,9 +1111,9 @@ LABEL_21:
     aBlock[2] = sub_22B6C14FC;
     aBlock[3] = &unk_2787038F8;
     aBlock[4] = self;
-    v29 = mapCopy;
+    v28 = mapCopy;
     v17 = v16;
-    v30 = v17;
+    v29 = v17;
     v18 = _Block_copy(aBlock);
     if ([MEMORY[0x277CCACC8] isMainThread])
     {
@@ -1159,9 +1135,9 @@ LABEL_21:
       {
         v24 = [v22 count];
         *buf = 134218240;
-        v32 = v24;
-        v33 = 1024;
-        v34 = sizeCopy;
+        v31 = v24;
+        v32 = 1024;
+        v33 = sizeCopy;
         _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Found %lu of %u max T2 updates to write up", buf, 0x12u);
       }
     }
@@ -1194,8 +1170,6 @@ LABEL_21:
 
     v20 = 0;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

@@ -10,6 +10,7 @@
 - (void)_fetchUpdatedSubscriptionURL;
 - (void)_handleCalendarSearchResults:(id)results;
 - (void)_localeDidChange:(id)change;
+- (void)_reallyRefresh:(BOOL)refresh;
 - (void)_reallyRemoveHolidaySubscribedCalendar;
 - (void)_refresh:(BOOL)_refresh;
 - (void)_refreshTimerFired:(id)fired;
@@ -20,6 +21,7 @@
 - (void)_tearDownRefreshTimer;
 - (void)_unregisterForNotifications;
 - (void)dealloc;
+- (void)setHolidayCalendarURLVersion:(int)version;
 - (void)stopMonitoringFolders;
 - (void)subCalRefreshTask:(id)task finishedWithError:(id)error;
 @end
@@ -153,6 +155,12 @@
   }
 
   return intValue;
+}
+
+- (void)setHolidayCalendarURLVersion:(int)version
+{
+  v4 = [NSNumber numberWithInt:*&version];
+  [(HolidayCalDaemonAccount *)self setObject:v4 forKeyedSubscript:@"HolidayCalURLVersion"];
 }
 
 - (void)_reallyRemoveHolidaySubscribedCalendar
@@ -535,6 +543,68 @@ LABEL_48:
   objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
   objc_destroyWeak(buf);
+}
+
+- (void)_reallyRefresh:(BOOL)refresh
+{
+  refreshCopy = refresh;
+  changeTrackingID = [(SubCalDaemonAccount *)self changeTrackingID];
+  v6 = [SubCalLocalDBHelper eventStoreWithClientId:changeTrackingID];
+
+  v7 = [(HolidayCalDaemonAccount *)self _holidayCalendarInEventStore:v6];
+  v8 = [(HolidayCalDaemonAccount *)self _lastRefreshDateInCalendar:v7];
+  v9 = [(HolidayCalDaemonAccount *)self _hasCorrectLocaleInCalendar:v7];
+  v10 = [(SubCalDaemonAccount *)self shouldRefreshSubCalForCalendar:v7];
+  shouldForceRefreshSubCalURL = [(HolidayCalDaemonAccount *)self shouldForceRefreshSubCalURL];
+  syncError = [v7 syncError];
+
+  v13 = v9 ^ 1;
+  if (!v7 || refreshCopy || (v13 & 1) != 0 || (v10 & 1) != 0 || (shouldForceRefreshSubCalURL & 1) != 0 || syncError || (+[NSDate date](NSDate, "date"), v14 = objc_claimAutoreleasedReturnValue(), [v14 timeIntervalSinceDate:v8], v16 = v15, +[DABehaviorOptions holidayCalendarRefreshInterval](DABehaviorOptions, "holidayCalendarRefreshInterval"), v18 = v17, v14, v16 >= v18))
+  {
+    [(HolidayCalDaemonAccount *)self _tearDownRefreshTimer];
+    if ((v7 == 0) | v13 & 1 | shouldForceRefreshSubCalURL & 1 || ([(HolidayCalDaemonAccount *)self subscriptionURL], v24 = objc_claimAutoreleasedReturnValue(), v24, !v24))
+    {
+      [(HolidayCalDaemonAccount *)self _fetchUpdatedSubscriptionURL];
+    }
+
+    else
+    {
+      v25 = DALoggingwithCategory();
+      v26 = _CPLog_to_os_log_type[5];
+      if (os_log_type_enabled(v25, v26))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_0, v25, v26, "The existing calendar has the correct locale. Continuing with our refresh", buf, 2u);
+      }
+
+      v27.receiver = self;
+      v27.super_class = HolidayCalDaemonAccount;
+      [(SubCalDaemonAccount *)&v27 _refresh:refreshCopy];
+    }
+  }
+
+  else
+  {
+    v19 = DALoggingwithCategory();
+    v20 = _CPLog_to_os_log_type[6];
+    if (os_log_type_enabled(v19, v20))
+    {
+      +[DABehaviorOptions holidayCalendarRefreshInterval];
+      *buf = 138543618;
+      v29 = v8;
+      v30 = 2048;
+      v31 = v21;
+      _os_log_impl(&dword_0, v19, v20, "Skipping holiday calendar refresh because we last refreshed it at %{public}@, less than our refresh interval of %f", buf, 0x16u);
+    }
+
+    delegate = [(SubCalDaemonAccount *)self delegate];
+
+    if (delegate)
+    {
+      delegate2 = [(SubCalDaemonAccount *)self delegate];
+      [delegate2 accountDidCompleteRefresh:self withError:0];
+    }
+  }
 }
 
 - (void)_refresh:(BOOL)_refresh

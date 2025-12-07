@@ -41,7 +41,7 @@
 
 - (id)_aceContextObjectValue
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E69C7930]);
   initiatorAddress = [(STCall *)self initiatorAddress];
   if ([initiatorAddress type] == 2)
@@ -50,8 +50,8 @@
     stringValue = [initiatorAddress stringValue];
     [v5 setEmailAddress:stringValue];
 
-    v12[0] = v5;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = v5;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     [v3 setEmails:v7];
   }
 
@@ -61,12 +61,10 @@
     stringValue2 = [initiatorAddress stringValue];
     [v5 setNumber:stringValue2];
 
-    v11 = v5;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
+    v10 = v5;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:1];
     [v3 setPhones:v7];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

@@ -407,7 +407,7 @@ void __88__CSWidgetGridViewController_willTransitionToTraitCollection_withTransi
   [coordinatorCopy animateAlongsideTransition:v16 completion:v13];
 }
 
-uint64_t __81__CSWidgetGridViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
+void *__81__CSWidgetGridViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
 {
   result = [(CSComplicationPresentationState *)*(a1 + 32) shouldPresentLandscapeComplications];
   if (result)
@@ -748,14 +748,14 @@ uint64_t __81__CSWidgetGridViewController_viewWillTransitionToSize_withTransitio
   }
 }
 
-uint64_t __74__CSWidgetGridViewController__updateComplicationPresentationState_reason___block_invoke()
+uint64_t __74__CSWidgetGridViewController__updateComplicationPresentationState_reason___block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v2 = _updateComplicationPresentationState_reason__className;
-  _updateComplicationPresentationState_reason__className = v1;
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v3 = _updateComplicationPresentationState_reason__className;
+  _updateComplicationPresentationState_reason__className = v2;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 void __74__CSWidgetGridViewController__updateComplicationPresentationState_reason___block_invoke_50(uint64_t a1)

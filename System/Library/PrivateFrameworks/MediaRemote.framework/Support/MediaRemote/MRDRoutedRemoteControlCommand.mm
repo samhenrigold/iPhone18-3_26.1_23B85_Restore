@@ -30,11 +30,10 @@
 
 - (id)description
 {
-  commandType = self->super._commandType;
-  v4 = MRMediaRemoteCopyCommandDescription();
-  v5 = [NSString stringWithFormat:@"<%@ %p, command = %@, routedToApp = %@>", objc_opt_class(), self, v4, self->_routedAppDisplayID];
+  v3 = MRMediaRemoteCopyCommandDescription();
+  v4 = [NSString stringWithFormat:@"<%@ %p, command = %@, routedToApp = %@>", objc_opt_class(), self, v3, self->_routedAppDisplayID];
 
-  return v5;
+  return v4;
 }
 
 @end

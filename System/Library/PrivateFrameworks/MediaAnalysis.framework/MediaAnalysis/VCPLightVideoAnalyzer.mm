@@ -28,7 +28,7 @@
     v11 = v10;
     if (v10)
     {
-      [v10 preferredTransform];
+      objc_msgSend_preferredTransform(v10);
     }
 
     else
@@ -319,7 +319,7 @@ LABEL_36:
   {
     memset(v20, 0, sizeof(v20));
     v19 = 0u;
-    [v3 timeRange];
+    objc_msgSend_timeRange(v3);
     memset(&v18, 0, sizeof(v18));
     CMTimeRangeMakeFromDictionary(&v18, [v5 firstObject]);
     memset(&v17, 0, sizeof(v17));

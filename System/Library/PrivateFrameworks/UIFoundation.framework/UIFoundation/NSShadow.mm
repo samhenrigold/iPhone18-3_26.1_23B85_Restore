@@ -364,7 +364,7 @@ LABEL_23:
   return self;
 }
 
-uint64_t __26__NSShadow_initWithCoder___block_invoke()
+void *__26__NSShadow_initWithCoder___block_invoke()
 {
   v0 = NSClassFromString(@"UIColor");
   result = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{v0, getNSColorClass_2[0](), 0}];

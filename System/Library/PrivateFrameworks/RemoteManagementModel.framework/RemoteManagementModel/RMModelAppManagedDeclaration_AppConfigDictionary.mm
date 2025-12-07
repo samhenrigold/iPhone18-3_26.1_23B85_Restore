@@ -11,16 +11,14 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"DataAssetReference";
-  v7[1] = @"Passwords";
-  v7[2] = @"Identities";
-  v7[3] = @"Certificates";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
+  v6[0] = @"DataAssetReference";
+  v6[1] = @"Passwords";
+  v6[2] = @"Identities";
+  v6[3] = @"Certificates";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

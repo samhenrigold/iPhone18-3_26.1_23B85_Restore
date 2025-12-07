@@ -40,7 +40,7 @@ void __43__PAAccessoryManager_sendUpdateToAccessory__block_invoke(uint64_t a1, v
 
 void __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = [a2 firstObject];
   if ([v3 length] && *(a1 + 32))
   {
@@ -54,15 +54,13 @@ void __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_2(ui
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
-      v7 = 138412546;
-      v8 = v3;
-      v9 = 2112;
-      v10 = v5;
-      _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "Media settings nil or identifier can't be found [%@]. Config is %@", &v7, 0x16u);
+      v6 = 138412546;
+      v7 = v3;
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "Media settings nil or identifier can't be found [%@]. Config is %@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance
@@ -178,8 +176,8 @@ uint64_t __36__PAAccessoryManager_sharedInstance__block_invoke()
     _Block_object_dispose(&v44, 8);
     if (!v17)
     {
-      dlerror();
-      abort_report_np();
+      v22 = dlerror();
+      abort_report_np("%s", v22);
       __break(1u);
     }
 
@@ -194,28 +192,25 @@ uint64_t __36__PAAccessoryManager_sharedInstance__block_invoke()
     objc_destroyWeak(&location);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void __26__PAAccessoryManager_init__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = +[PASettings sharedInstance];
   v3 = [v2 shouldUpdateAccessory];
 
   v4 = HCLogAudioAccommodations();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = v3;
-    _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "Should send %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = v3;
+    _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "Should send %d", v6, 8u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained setShouldSendUpdate:v3];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendPMEConfigurationToAccessory
@@ -340,7 +335,7 @@ void __26__PAAccessoryManager_init__block_invoke_14(uint64_t a1)
 
 void __26__PAAccessoryManager_init__block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -377,24 +372,24 @@ void __26__PAAccessoryManager_init__block_invoke_2(uint64_t a1, void *a2, void *
 
       if (v9)
       {
-        v27 = 0;
-        v28 = &v27;
-        v29 = 0x2050000000;
+        v26 = 0;
+        v27 = &v26;
+        v28 = 0x2050000000;
         v16 = getAXHeardControllerClass_softClass;
-        v30 = getAXHeardControllerClass_softClass;
+        v29 = getAXHeardControllerClass_softClass;
         if (!getAXHeardControllerClass_softClass)
         {
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __getAXHeardControllerClass_block_invoke;
-          v32 = &unk_279A1D238;
-          v33 = &v27;
+          v31 = &unk_279A1D238;
+          v32 = &v26;
           __getAXHeardControllerClass_block_invoke(buf);
-          v16 = v28[3];
+          v16 = v27[3];
         }
 
         v17 = v16;
-        _Block_object_dispose(&v27, 8);
+        _Block_object_dispose(&v26, 8);
         v18 = [v16 sharedServer];
         v19 = [v18 isTransparencyUpdatePending];
 
@@ -412,14 +407,14 @@ void __26__PAAccessoryManager_init__block_invoke_2(uint64_t a1, void *a2, void *
         else
         {
           v21 = *(a1 + 40);
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = __26__PAAccessoryManager_init__block_invoke_18;
-          v23[3] = &unk_279A1D090;
-          v24 = v9;
-          v25 = v7;
-          v26 = *(a1 + 40);
-          [v21 getPSEVersionForAddress:v25 withCompletion:v23];
+          v22[0] = MEMORY[0x277D85DD0];
+          v22[1] = 3221225472;
+          v22[2] = __26__PAAccessoryManager_init__block_invoke_18;
+          v22[3] = &unk_279A1D090;
+          v23 = v9;
+          v24 = v7;
+          v25 = *(a1 + 40);
+          [v21 getPSEVersionForAddress:v24 withCompletion:v22];
         }
       }
 
@@ -429,35 +424,33 @@ void __26__PAAccessoryManager_init__block_invoke_2(uint64_t a1, void *a2, void *
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __26__PAAccessoryManager_init__block_invoke_18(uint64_t a1, unint64_t a2)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = v4;
   if (a2 < 4)
   {
-    LODWORD(v61) = 0;
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
+    LODWORD(v60) = 0;
     v58 = 0u;
-    v55 = 0u;
+    v59 = 0u;
     v56 = 0u;
-    [v4 getBytes:&v55 length:100];
-    v21 = fabs(*&v55 + -1.0);
-    v22 = fmaxf(fminf(*(&v57 + 1), 2.0), -1.0);
-    v23 = fmaxf(fminf(*(&v60 + 1), 2.0), -1.0);
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    [v4 getBytes:&v54 length:100];
+    v21 = fabs(*&v54 + -1.0);
+    v22 = fmaxf(fminf(*(&v56 + 1), 2.0), -1.0);
+    v23 = fmaxf(fminf(*(&v59 + 1), 2.0), -1.0);
     v24 = ((v23 - fmaxf(v23 - v22, 0.0)) + 1.0) * 0.5;
     v25 = ((v23 - v22) + 1.0) * 0.5;
-    v26 = (fmaxf(fminf(*(&v60 + 2), 1.0), -1.0) + 1.0) * 0.5;
+    v26 = (fmaxf(fminf(*(&v59 + 2), 1.0), -1.0) + 1.0) * 0.5;
     v27 = HCLogAudioAccommodations();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = *&v55;
+      v28 = *&v54;
       v29 = [MEMORY[0x277CCABB0] numberWithBool:v21 < 0.001];
       v30 = v22;
       v31 = v23;
@@ -466,27 +459,27 @@ void __26__PAAccessoryManager_init__block_invoke_18(uint64_t a1, unint64_t a2)
       v34 = *(a1 + 40);
       v35 = v25;
       *buf = 134220546;
-      v63 = v28;
-      v64 = 2112;
-      v65 = v29;
-      v66 = 2048;
-      v67 = v30;
-      v68 = 2048;
-      v69 = v31;
-      v70 = 2048;
-      v71 = v26;
-      v72 = 2048;
-      v73 = v24;
-      v74 = 2048;
-      v75 = v35;
-      v76 = 2048;
-      v77 = v26;
-      v78 = 2048;
-      v79 = *&v58;
-      v80 = 2048;
-      v81 = *(&v57 + 3);
-      v82 = 2112;
-      v83 = v34;
+      v62 = v28;
+      v63 = 2112;
+      v64 = v29;
+      v65 = 2048;
+      v66 = v30;
+      v67 = 2048;
+      v68 = v31;
+      v69 = 2048;
+      v70 = v26;
+      v71 = 2048;
+      v72 = v24;
+      v73 = 2048;
+      v74 = v35;
+      v75 = 2048;
+      v76 = v26;
+      v77 = 2048;
+      v78 = *&v57;
+      v79 = 2048;
+      v80 = *(&v56 + 3);
+      v81 = 2112;
+      v82 = v34;
       _os_log_impl(&dword_25E445000, v27, OS_LOG_TYPE_DEFAULT, "Reading transparency settings %lf (%@), %lf, %lf, %lf = %lf, %lf, %lf, %lf, %lf = %@", buf, 0x70u);
     }
 
@@ -512,33 +505,33 @@ void __26__PAAccessoryManager_init__block_invoke_18(uint64_t a1, unint64_t a2)
     [v48 setTransparencyAmplification:*(a1 + 40) forAddress:v33];
 
     v49 = +[PASettings sharedInstance];
-    LODWORD(v50) = HIDWORD(v57);
-    [v49 setTransparencyBeamforming:*(&v57 + 3) != 0.0 forAddress:{*(a1 + 40), v50}];
+    LODWORD(v50) = HIDWORD(v56);
+    [v49 setTransparencyBeamforming:*(&v56 + 3) != 0.0 forAddress:{*(a1 + 40), v50}];
 
     v44 = +[PASettings sharedInstance];
-    [v44 setTransparencyNoiseSupressor:*(a1 + 40) forAddress:*&v58];
+    [v44 setTransparencyNoiseSupressor:*(a1 + 40) forAddress:*&v57];
   }
 
   else
   {
-    v61 = 0;
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
+    v60 = 0;
     v58 = 0u;
-    v55 = 0u;
+    v59 = 0u;
     v56 = 0u;
-    [v4 getBytes:&v55 length:104];
-    v6 = fabs(*&v55 + -1.0);
-    v7 = fmaxf(fminf(*(&v57 + 1), 2.0), -1.0);
-    v8 = fmaxf(fminf(*(&v60 + 1), 2.0), -1.0);
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    [v4 getBytes:&v54 length:104];
+    v6 = fabs(*&v54 + -1.0);
+    v7 = fmaxf(fminf(*(&v56 + 1), 2.0), -1.0);
+    v8 = fmaxf(fminf(*(&v59 + 1), 2.0), -1.0);
     v9 = ((v8 - fmaxf(v8 - v7, 0.0)) + 1.0) * 0.5;
     v10 = ((v8 - v7) + 1.0) * 0.5;
-    v11 = (fmaxf(fminf(*(&v60 + 2), 1.0), -1.0) + 1.0) * 0.5;
+    v11 = (fmaxf(fminf(*(&v59 + 2), 1.0), -1.0) + 1.0) * 0.5;
     v12 = HCLogAudioAccommodations();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *&v55;
+      v13 = *&v54;
       v14 = [MEMORY[0x277CCABB0] numberWithBool:v6 < 0.001];
       v15 = v7;
       v16 = v8;
@@ -547,27 +540,27 @@ void __26__PAAccessoryManager_init__block_invoke_18(uint64_t a1, unint64_t a2)
       v19 = *(a1 + 40);
       v20 = v10;
       *buf = 134220546;
-      v63 = v13;
-      v64 = 2112;
-      v65 = v14;
-      v66 = 2048;
-      v67 = v15;
-      v68 = 2048;
-      v69 = v16;
-      v70 = 2048;
-      v71 = v11;
-      v72 = 2048;
-      v73 = v9;
-      v74 = 2048;
-      v75 = v20;
-      v76 = 2048;
-      v77 = v11;
-      v78 = 2048;
-      v79 = *&v58;
-      v80 = 2048;
-      v81 = *(&v57 + 3);
-      v82 = 2112;
-      v83 = v19;
+      v62 = v13;
+      v63 = 2112;
+      v64 = v14;
+      v65 = 2048;
+      v66 = v15;
+      v67 = 2048;
+      v68 = v16;
+      v69 = 2048;
+      v70 = v11;
+      v71 = 2048;
+      v72 = v9;
+      v73 = 2048;
+      v74 = v20;
+      v75 = 2048;
+      v76 = v11;
+      v77 = 2048;
+      v78 = *&v57;
+      v79 = 2048;
+      v80 = *(&v56 + 3);
+      v81 = 2112;
+      v82 = v19;
       _os_log_impl(&dword_25E445000, v12, OS_LOG_TYPE_DEFAULT, "Reading transparency settings %lf (%@), %lf, %lf, %lf = %lf, %lf, %lf, %lf, %lf = %@", buf, 0x70u);
     }
 
@@ -593,14 +586,14 @@ void __26__PAAccessoryManager_init__block_invoke_18(uint64_t a1, unint64_t a2)
     [v40 setTransparencyAmplification:*(a1 + 40) forAddress:v18];
 
     v41 = +[PASettings sharedInstance];
-    LODWORD(v42) = HIDWORD(v57);
-    [v41 setTransparencyBeamforming:*(&v57 + 3) != 0.0 forAddress:{*(a1 + 40), v42}];
+    LODWORD(v42) = HIDWORD(v56);
+    [v41 setTransparencyBeamforming:*(&v56 + 3) != 0.0 forAddress:{*(a1 + 40), v42}];
 
     v43 = +[PASettings sharedInstance];
-    [v43 setTransparencyNoiseSupressor:*(a1 + 40) forAddress:*&v58];
+    [v43 setTransparencyNoiseSupressor:*(a1 + 40) forAddress:*&v57];
 
     v44 = +[PASettings sharedInstance];
-    [v44 setTransparencyOwnVoice:*(a1 + 40) forAddress:*(&v61 + 1)];
+    [v44 setTransparencyOwnVoice:*(a1 + 40) forAddress:*(&v60 + 1)];
   }
 
   v51 = +[PASettings sharedInstance];
@@ -609,8 +602,6 @@ void __26__PAAccessoryManager_init__block_invoke_18(uint64_t a1, unint64_t a2)
   v52 = dispatch_time(0, 100000000);
   v53 = [*(a1 + 48) sharedQueue];
   dispatch_after(v52, v53, &__block_literal_global_22);
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 void __26__PAAccessoryManager_init__block_invoke_20()
@@ -621,35 +612,31 @@ void __26__PAAccessoryManager_init__block_invoke_20()
 
 void __26__PAAccessoryManager_init__block_invoke_26(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = HCLogAudioAccommodations();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_25E445000, v3, OS_LOG_TYPE_DEFAULT, "%@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_25E445000, v3, OS_LOG_TYPE_DEFAULT, "%@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)routesDidChange:(id)change
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = HCLogAudioAccommodations();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = changeCopy;
-    _os_log_impl(&dword_25E445000, v5, OS_LOG_TYPE_DEFAULT, "Routes changes: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = changeCopy;
+    _os_log_impl(&dword_25E445000, v5, OS_LOG_TYPE_DEFAULT, "Routes changes: %@", &v6, 0xCu);
   }
 
   [(PAAccessoryManager *)self sendPMEConfigurationToAccessory];
   [(PAAccessoryManager *)self sendUpdateToAccessory];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PAAccessoryManager_sendUpdateToAccessory__block_invoke_2(uint64_t a1, void *a2)
@@ -673,22 +660,22 @@ void __43__PAAccessoryManager_sendUpdateToAccessory__block_invoke_2(uint64_t a1,
 
 void __43__PAAccessoryManager_sendUpdateToAccessory__block_invoke_3(uint64_t a1, int a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = *(a1 + 32);
     v3 = *(a1 + 40);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __43__PAAccessoryManager_sendUpdateToAccessory__block_invoke_4;
-    v8[3] = &unk_279A1D100;
-    v12 = *(a1 + 56);
-    v9 = v3;
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 48);
-    [v4 getPSEVersionForAddress:v9 withCompletion:v8];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __43__PAAccessoryManager_sendUpdateToAccessory__block_invoke_4;
+    v7[3] = &unk_279A1D100;
+    v11 = *(a1 + 56);
+    v8 = v3;
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 48);
+    [v4 getPSEVersionForAddress:v8 withCompletion:v7];
 
-    v5 = v9;
+    v5 = v8;
   }
 
   else
@@ -698,30 +685,28 @@ void __43__PAAccessoryManager_sendUpdateToAccessory__block_invoke_3(uint64_t a1,
     {
       v6 = *(a1 + 40);
       *buf = 138412290;
-      v14 = v6;
+      v13 = v6;
       _os_log_impl(&dword_25E445000, v5, OS_LOG_TYPE_DEFAULT, "Skipping custom transparency update because buds are owned by another device %@", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PAAccessoryManager_sendUpdateToAccessory__block_invoke_4(uint64_t a1, unint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (*(a1 + 56))
   {
     v3 = HCLogAudioAccommodations();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 32);
-      v19 = 138412290;
-      v20 = v4;
+      v18 = 138412290;
+      v19 = v4;
       v5 = "Skipping update to unsupported device %@";
       v6 = v3;
       v7 = 12;
 LABEL_13:
-      _os_log_impl(&dword_25E445000, v6, OS_LOG_TYPE_DEFAULT, v5, &v19, v7);
+      _os_log_impl(&dword_25E445000, v6, OS_LOG_TYPE_DEFAULT, v5, &v18, v7);
     }
   }
 
@@ -751,13 +736,13 @@ LABEL_13:
       {
         v16 = *(a1 + 32);
         v17 = *(a1 + 40);
-        v19 = 138412802;
-        v20 = v16;
-        v21 = 2112;
-        v22 = v3;
-        v23 = 2112;
-        v24 = v17;
-        _os_log_impl(&dword_25E445000, v15, OS_LOG_TYPE_DEFAULT, "Sending update to %@ - %@ - %@", &v19, 0x20u);
+        v18 = 138412802;
+        v19 = v16;
+        v20 = 2112;
+        v21 = v3;
+        v22 = 2112;
+        v23 = v17;
+        _os_log_impl(&dword_25E445000, v15, OS_LOG_TYPE_DEFAULT, "Sending update to %@ - %@ - %@", &v18, 0x20u);
       }
 
       [*(a1 + 40) writeValue:v3 forCharacteristicUUID:*(a1 + 48) andAddress:*(a1 + 32)];
@@ -769,7 +754,7 @@ LABEL_13:
       v3 = HCLogAudioAccommodations();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v19) = 0;
+        LOWORD(v18) = 0;
         v5 = "Not updating accessory. There is no configuration";
         v6 = v3;
         v7 = 2;
@@ -777,46 +762,42 @@ LABEL_13:
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_41(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   v8 = HCLogAudioAccommodations();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v6;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v6;
     _os_log_impl(&dword_25E445000, v8, OS_LOG_TYPE_DEFAULT, "Found route %@ - %@", buf, 0x16u);
   }
 
   v9 = *(a1 + 32);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_42;
-  v12[3] = &unk_279A1D1E8;
-  v13 = v7;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_42;
+  v11[3] = &unk_279A1D1E8;
+  v12 = v7;
   v10 = v7;
-  [v9 getPMEEverywhereSupportStateForAddress:v10 withCompletion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [v9 getPMEEverywhereSupportStateForAddress:v10 withCompletion:v11];
 }
 
 void __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_42(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = HCLogAudioAccommodations();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithBool:a2];
     *buf = 138412290;
-    v18 = v5;
+    v17 = v5;
     _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "Found PME supported %@", buf, 0xCu);
   }
 
@@ -825,41 +806,39 @@ void __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_42(u
 
   v8 = [getHUAccessoryManagerClass() sharedInstance];
   v9 = *(a1 + 32);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_43;
-  v12[3] = &unk_279A1D1C0;
-  v15 = a2;
-  v16 = v7;
-  v13 = v9;
-  v14 = v8;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_43;
+  v11[3] = &unk_279A1D1C0;
+  v14 = a2;
+  v15 = v7;
+  v12 = v9;
+  v13 = v8;
   v10 = v8;
-  [v10 getAudioOwnershipForAddress:v13 withCompletion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [v10 getAudioOwnershipForAddress:v12 withCompletion:v11];
 }
 
-void __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_43(uint64_t a1, int a2)
+void __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_43(id *a1, int a2)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
-  if (a2 && *(a1 + 48) == 1 && (*(a1 + 49) & 1) == 0 && [*(a1 + 32) length])
+  v25[1] = *MEMORY[0x277D85DE8];
+  if (a2 && *(a1 + 48) == 1 && (*(a1 + 49) & 1) == 0 && [a1[4] length])
   {
     v4 = +[PASettings sharedInstance];
     v5 = [v4 personalMediaConfiguration];
 
-    v6 = [v5 onBudsMediaSettingsForRoute:*(a1 + 32)];
-    v7 = *(a1 + 40);
-    v26[0] = *(a1 + 32);
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_2;
-    v15[3] = &unk_279A1D178;
-    v16 = v6;
-    v17 = v5;
+    v6 = [v5 onBudsMediaSettingsForRoute:a1[4]];
+    v7 = a1[5];
+    v25[0] = a1[4];
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_2;
+    v14[3] = &unk_279A1D178;
+    v15 = v6;
+    v16 = v5;
     v9 = v5;
     v10 = v6;
-    [v7 getIdentifiersFromAddresses:v8 withCompletion:v15];
+    [v7 getIdentifiersFromAddresses:v8 withCompletion:v14];
   }
 
   else
@@ -869,35 +848,31 @@ void __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_43(u
     {
       v11 = *(a1 + 48);
       v12 = *(a1 + 49);
-      v13 = *(a1 + 32);
+      v13 = a1[4];
       *buf = 67109890;
-      v19 = a2;
-      v20 = 1024;
-      v21 = v11;
-      v22 = 1024;
-      v23 = v12;
-      v24 = 2112;
-      v25 = v13;
+      v18 = a2;
+      v19 = 1024;
+      v20 = v11;
+      v21 = 1024;
+      v22 = v12;
+      v23 = 2112;
+      v24 = v13;
       _os_log_impl(&dword_25E445000, v10, OS_LOG_TYPE_DEFAULT, "Device isn't supported [%d, %d, %d] %@", buf, 0x1Eu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __53__PAAccessoryManager_sendPMEConfigurationToAccessory__block_invoke_3(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = HCLogAudioAccommodations();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_25E445000, v3, OS_LOG_TYPE_DEFAULT, "Sent updates to buds with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_25E445000, v3, OS_LOG_TYPE_DEFAULT, "Sent updates to buds with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

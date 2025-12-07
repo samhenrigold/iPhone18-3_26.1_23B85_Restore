@@ -40,41 +40,42 @@ void __68___KSUserWordsSynchroniser_initForTestingWithManager_enablePushing___bl
   v3[2]();
 }
 
-void __45___KSUserWordsSynchroniser_accountDidChange___block_invoke(uint64_t a1)
+void __45___KSUserWordsSynchroniser_accountDidChange___block_invoke(void *a1)
 {
-  *(*(a1 + 32) + 40) = 0;
+  v1 = a1;
+  *(a1[4] + 40) = 0;
   if (*(a1 + 48) == 1)
   {
-    v2 = KSCategory();
+    v2 = KSCategory(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __45___KSUserWordsSynchroniser_accountDidChange___block_invoke_cold_1(a1);
+      __45___KSUserWordsSynchroniser_accountDidChange___block_invoke_cold_1();
     }
 
-    [*(a1 + 32) disable];
+    a1 = [v1[4] disable];
   }
 
-  if (*(a1 + 40) == 1)
+  if (v1[5] == 1)
   {
-    if (*(a1 + 49))
+    if (*(v1 + 49))
     {
-      if (*(a1 + 50))
+      if (*(v1 + 50))
       {
-        [*(a1 + 32) checkConfiguration];
-        *(*(a1 + 32) + 40) = 1;
-        if (*(*(a1 + 32) + 32))
+        [v1[4] checkConfiguration];
+        *(v1[4] + 40) = 1;
+        if (*(v1[4] + 32))
         {
-          if (*(a1 + 48) == 1)
+          if (*(v1 + 48) == 1)
           {
             v3 = +[_KSTaskScheduler sharedInstance];
-            [v3 registerTask:*(*(a1 + 32) + 32)];
+            [v3 registerTask:*(v1[4] + 32)];
           }
         }
 
         return;
       }
 
-      v4 = KSCategory();
+      v4 = KSCategory(a1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         __45___KSUserWordsSynchroniser_accountDidChange___block_invoke_cold_4();
@@ -83,7 +84,7 @@ void __45___KSUserWordsSynchroniser_accountDidChange___block_invoke(uint64_t a1)
 
     else
     {
-      v4 = KSCategory();
+      v4 = KSCategory(a1);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         __45___KSUserWordsSynchroniser_accountDidChange___block_invoke_cold_3();
@@ -93,16 +94,16 @@ void __45___KSUserWordsSynchroniser_accountDidChange___block_invoke(uint64_t a1)
 
   else
   {
-    v4 = KSCategory();
+    v4 = KSCategory(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __45___KSUserWordsSynchroniser_accountDidChange___block_invoke_cold_2();
     }
   }
 
-  if ([*(*(a1 + 32) + 24) checkIfExists])
+  if ([*(v1[4] + 24) checkIfExists])
   {
-    [*(a1 + 32) disable];
+    [v1[4] disable];
   }
 }
 
@@ -123,10 +124,10 @@ void __48___KSUserWordsSynchroniser_identitiesDidChange___block_invoke(uint64_t 
 
 uint64_t __48___KSUserWordsSynchroniser_identitiesDidChange___block_invoke_2(uint64_t a1)
 {
-  v2 = KSCategory();
+  v2 = KSCategory(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __48___KSUserWordsSynchroniser_identitiesDidChange___block_invoke_2_cold_1(a1);
+    __48___KSUserWordsSynchroniser_identitiesDidChange___block_invoke_2_cold_1();
   }
 
   *(*(a1 + 32) + 57) = 0;
@@ -178,49 +179,48 @@ void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___bloc
       v5 = 1;
     }
 
-    v6 = a1[6];
-    v7 = [objc_opt_class() infoClass];
-    v8 = a1[6];
-    v9 = a1[7];
-    v10 = v2;
-    v11 = v9;
-    v12 = v11;
-    v13 = v11;
-    if (v10 && (v13 = v10, v11))
+    v6 = [objc_opt_class() infoClass];
+    v7 = a1[6];
+    v8 = a1[7];
+    v9 = v2;
+    v10 = v8;
+    v11 = v10;
+    v12 = v10;
+    if (v9 && (v12 = v9, v10))
     {
-      v14 = [v10 arrayByAddingObjectsFromArray:v11];
+      v13 = [v9 arrayByAddingObjectsFromArray:v10];
     }
 
     else
     {
-      v14 = v13;
+      v13 = v12;
     }
 
-    v15 = v14;
+    v14 = v13;
 
-    v16 = [v8 generateRecordListForLanguages:v15];
+    v15 = [v7 generateRecordListForLanguages:v14];
 
-    v17 = a1[6];
-    v18 = [v16 allKeys];
-    v19 = +[_KSUserWordsInfo keyNamesExcludingData];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_5;
-    v23[3] = &unk_2797F77A0;
-    v20 = a1[6];
-    v21 = a1[7];
-    v24 = v16;
+    v16 = a1[6];
+    v17 = [v15 allKeys];
+    v18 = +[_KSUserWordsInfo keyNamesExcludingData];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_5;
+    v22[3] = &unk_2797F77A0;
+    v19 = a1[6];
+    v20 = a1[7];
+    v23 = v15;
+    v24 = v19;
+    v29 = v6;
     v25 = v20;
-    v30 = v7;
-    v26 = v21;
-    v2 = v10;
-    v27 = v2;
-    v31 = v5;
-    v29 = a1[8];
+    v2 = v9;
+    v26 = v2;
+    v30 = v5;
+    v28 = a1[8];
     v3 = v3;
-    v28 = v3;
-    v22 = v16;
-    [v17 readFilesWithRecordIDs:v18 forColumns:v19 priority:v5 withCompletionHandler:v23];
+    v27 = v3;
+    v21 = v15;
+    [v16 readFilesWithRecordIDs:v17 forColumns:v18 priority:v5 withCompletionHandler:v22];
   }
 
   else
@@ -234,80 +234,81 @@ void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___bloc
   v106 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = KSCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = KSCategory(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_5_cold_1();
     }
   }
 
-  v8 = [MEMORY[0x277CBEB18] array];
+  v9 = [MEMORY[0x277CBEB18] array];
   v92 = 0u;
   v93 = 0u;
   v94 = 0u;
   v95 = 0u;
-  v9 = v5;
-  v10 = [v9 countByEnumeratingWithState:&v92 objects:v105 count:16];
-  if (v10)
+  v10 = v5;
+  v11 = [v10 countByEnumeratingWithState:&v92 objects:v105 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v93;
+    v12 = v11;
+    v13 = *v93;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v93 != v12)
+        if (*v93 != v13)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        v14 = [*(a1 + 32) objectForKeyedSubscript:*(*(&v92 + 1) + 8 * i)];
-        [v8 addObject:v14];
+        v15 = [*(a1 + 32) objectForKeyedSubscript:*(*(&v92 + 1) + 8 * i)];
+        [v9 addObject:v15];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v92 objects:v105 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v92 objects:v105 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
-  v15 = *(a1 + 40);
-  v68 = v8;
-  v69 = v6;
-  if (v6)
+  v16 = *(a1 + 40);
+  v68 = v9;
+  v69 = v7;
+  if (v7)
   {
     v103[0] = @"Error";
     v103[1] = @"Languages";
-    v104[0] = v6;
-    v104[1] = v8;
-    v16 = MEMORY[0x277CBEAC0];
-    v17 = v104;
-    v18 = v103;
-    v19 = 2;
+    v104[0] = v7;
+    v104[1] = v9;
+    v17 = MEMORY[0x277CBEAC0];
+    v18 = v104;
+    v19 = v103;
+    v20 = 2;
   }
 
   else
   {
     v101 = @"Languages";
-    v102 = v8;
-    v16 = MEMORY[0x277CBEAC0];
-    v17 = &v102;
-    v18 = &v101;
-    v19 = 1;
+    v102 = v9;
+    v17 = MEMORY[0x277CBEAC0];
+    v18 = &v102;
+    v19 = &v101;
+    v20 = 1;
   }
 
-  v20 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:v19];
-  [v15 checkProgress:1 withInfo:v20];
+  v21 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:v20];
+  [v16 checkProgress:1 withInfo:v21];
 
-  v21 = MEMORY[0x277CBEB18];
-  v22 = [*(a1 + 32) allKeys];
-  v23 = [v21 arrayWithArray:v22];
+  v22 = MEMORY[0x277CBEB18];
+  v23 = [*(a1 + 32) allKeys];
+  v24 = [v22 arrayWithArray:v23];
 
-  v24 = [v9 allKeys];
-  v71 = v23;
-  [v23 removeObjectsInArray:v24];
+  v25 = [v10 allKeys];
+  v71 = v24;
+  [v24 removeObjectsInArray:v25];
 
   v73 = [MEMORY[0x277CBEB18] array];
   v72 = [MEMORY[0x277CBEB38] dictionary];
@@ -316,11 +317,11 @@ void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___bloc
   v89 = 0u;
   v90 = 0u;
   v91 = 0u;
-  v25 = v9;
-  v76 = [v25 countByEnumeratingWithState:&v88 objects:v100 count:16];
+  v26 = v10;
+  v76 = [v26 countByEnumeratingWithState:&v88 objects:v100 count:16];
   if (v76)
   {
-    v74 = v25;
+    v74 = v26;
     v75 = *v89;
     do
     {
@@ -328,196 +329,194 @@ void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___bloc
       {
         if (*v89 != v75)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v26);
         }
 
-        v27 = *(*(&v88 + 1) + 8 * j);
-        v28 = *(a1 + 80);
-        v29 = [v25 objectForKeyedSubscript:v27];
-        v30 = [v28 infoWithRecord:v29];
+        v28 = *(*(&v88 + 1) + 8 * j);
+        v29 = *(a1 + 80);
+        v30 = [v26 objectForKeyedSubscript:v28];
+        v31 = [v29 infoWithRecord:v30];
 
-        v31 = *(a1 + 80);
-        v32 = [*(a1 + 32) objectForKeyedSubscript:v27];
-        v33 = [v31 filesForLanguage:v32];
+        v32 = *(a1 + 80);
+        v33 = [*(a1 + 32) objectForKeyedSubscript:v28];
+        v34 = [v32 filesForLanguage:v33];
 
-        v34 = [*(a1 + 80) infoWithFiles:v33];
-        v35 = v34;
-        if (v33)
+        v35 = [*(a1 + 80) infoWithFiles:v34];
+        v36 = v35;
+        if (v34)
         {
-          v36 = v34 == 0;
+          v37 = v35 == 0;
         }
 
         else
         {
-          v36 = 1;
+          v37 = 1;
         }
 
-        if (!v36)
+        if (!v37)
         {
-          if ([v34 isBetterThan:v30])
+          if ([v35 isBetterThan:v31])
           {
-            v44 = *(a1 + 56);
-            v45 = [*(a1 + 32) objectForKeyedSubscript:v27];
-            LODWORD(v44) = [v44 containsObject:v45];
+            v45 = *(a1 + 56);
+            v46 = [*(a1 + 32) objectForKeyedSubscript:v28];
+            LODWORD(v45) = [v45 containsObject:v46];
 
-            if (v44)
+            if (v45)
             {
-              [v71 addObject:v27];
-              [v72 setObject:v35 forKey:v71];
-              [v70 setObject:v33 forKey:v71];
-              v46 = @"Ours is better";
+              [v71 addObject:v28];
+              [v72 setObject:v36 forKey:v71];
+              [v70 setObject:v34 forKey:v71];
+              v47 = @"Ours is better";
 LABEL_38:
-              v51 = [(__CFString *)v46 stringByAppendingFormat:@" (ours = %@ theirs = %@)", v35, v30];;
+              v52 = [(__CFString *)v47 stringByAppendingFormat:@" (ours = %@ theirs = %@)", v36, v31];;
 
-              v52 = *(a1 + 40);
+              v53 = *(a1 + 40);
               v96[0] = @"RecordID";
-              v53 = [v27 recordName];
-              v97[0] = v53;
+              v54 = [v28 recordName];
+              v97[0] = v54;
               v96[1] = @"Language";
-              v54 = [*(a1 + 32) objectForKeyedSubscript:v27];
-              v55 = v54;
-              v56 = @"LANGUAGE MISSING";
-              if (v54)
+              v55 = [*(a1 + 32) objectForKeyedSubscript:v28];
+              v56 = v55;
+              v57 = @"LANGUAGE MISSING";
+              if (v55)
               {
-                v56 = v54;
+                v57 = v55;
               }
 
               v96[2] = @"Disposition";
-              v97[1] = v56;
-              v97[2] = v51;
-              v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:v96 count:3];
-              [v52 checkProgress:2 withInfo:v57];
+              v97[1] = v57;
+              v97[2] = v52;
+              v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:v96 count:3];
+              [v53 checkProgress:2 withInfo:v58];
 
-              v25 = v74;
+              v26 = v74;
               goto LABEL_41;
             }
 
-            v49 = @"Ours is better";
-            v50 = @" [upload disabled]";
+            v50 = @"Ours is better";
+            v51 = @" [upload disabled]";
           }
 
           else
           {
-            v46 = @"Equal!";
-            if (![v30 isBetterThan:v35])
+            v47 = @"Equal!";
+            if (![v31 isBetterThan:v36])
             {
               goto LABEL_38;
             }
 
-            v47 = *(a1 + 48);
-            v48 = [*(a1 + 32) objectForKeyedSubscript:v27];
-            LODWORD(v47) = [v47 containsObject:v48];
+            v48 = *(a1 + 48);
+            v49 = [*(a1 + 32) objectForKeyedSubscript:v28];
+            LODWORD(v48) = [v48 containsObject:v49];
 
-            if (v47)
+            if (v48)
             {
-              [v73 addObject:v27];
-              [v72 setObject:v35 forKey:v73];
-              v46 = @"Server is better";
+              [v73 addObject:v28];
+              [v72 setObject:v36 forKey:v73];
+              v47 = @"Server is better";
               goto LABEL_38;
             }
 
-            v49 = @"Server is better";
-            v50 = @" [download disabled]";
+            v50 = @"Server is better";
+            v51 = @" [download disabled]";
           }
 
-          v46 = [(__CFString *)v49 stringByAppendingString:v50];
+          v47 = [(__CFString *)v50 stringByAppendingString:v51];
           goto LABEL_38;
         }
 
         v98[0] = @"Language";
-        v37 = *(a1 + 40);
-        v38 = [*(a1 + 32) objectForKeyedSubscript:v27];
-        v39 = v38;
-        v40 = @"LANGUAGE MISSING";
-        if (v38)
+        v38 = *(a1 + 40);
+        v39 = [*(a1 + 32) objectForKeyedSubscript:v28];
+        v40 = v39;
+        v41 = @"LANGUAGE MISSING";
+        if (v39)
         {
-          v40 = v38;
+          v41 = v39;
         }
 
         v98[1] = @"Disposition";
-        v99[0] = v40;
+        v99[0] = v41;
         v99[1] = @"No local copy";
-        v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v99 forKeys:v98 count:2];
-        [v37 checkProgress:2 withInfo:v41];
+        v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v99 forKeys:v98 count:2];
+        [v38 checkProgress:2 withInfo:v42];
 
-        v42 = *(a1 + 48);
-        v43 = [*(a1 + 32) objectForKeyedSubscript:v27];
-        LODWORD(v42) = [v42 containsObject:v43];
+        v43 = *(a1 + 48);
+        v44 = [*(a1 + 32) objectForKeyedSubscript:v28];
+        LODWORD(v43) = [v43 containsObject:v44];
 
-        if (v42)
+        if (v43)
         {
-          [v73 addObject:v27];
+          [v73 addObject:v28];
         }
 
 LABEL_41:
       }
 
-      v76 = [v25 countByEnumeratingWithState:&v88 objects:v100 count:16];
+      v76 = [v26 countByEnumeratingWithState:&v88 objects:v100 count:16];
     }
 
     while (v76);
   }
 
-  v58 = *(*(a1 + 40) + 8);
+  v59 = *(*(a1 + 40) + 8);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_131;
   block[3] = &unk_2797F7778;
   v78 = v71;
   v79 = v72;
-  v59 = *(a1 + 80);
+  v60 = *(a1 + 80);
   v80 = v70;
-  v86 = v59;
-  v60 = *(a1 + 32);
-  v61 = *(a1 + 40);
-  v81 = v60;
-  v82 = v61;
-  v62 = *(a1 + 88);
+  v86 = v60;
+  v61 = *(a1 + 32);
+  v62 = *(a1 + 40);
+  v81 = v61;
+  v82 = v62;
+  v63 = *(a1 + 88);
   v83 = v73;
-  v87 = v62;
+  v87 = v63;
   v85 = *(a1 + 72);
   v84 = *(a1 + 64);
-  v63 = v73;
-  v64 = v70;
-  v65 = v72;
-  v66 = v71;
-  dispatch_async(v58, block);
-
-  v67 = *MEMORY[0x277D85DE8];
+  v64 = v73;
+  v65 = v70;
+  v66 = v72;
+  v67 = v71;
+  dispatch_async(v59, block);
 }
 
 void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_131(uint64_t a1)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   group = dispatch_group_create();
-  v42 = [MEMORY[0x277CBEB38] dictionary];
-  v45 = [MEMORY[0x277CBEB18] array];
-  v44 = [MEMORY[0x277CBEB18] array];
+  v40 = [MEMORY[0x277CBEB38] dictionary];
+  v43 = [MEMORY[0x277CBEB18] array];
+  v42 = [MEMORY[0x277CBEB18] array];
+  v60 = 0u;
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
-  v65 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
+  v2 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
   if (!v2)
   {
     goto LABEL_22;
   }
 
   v3 = v2;
-  v48 = *v63;
+  v46 = *v61;
   do
   {
     v4 = 0;
-    v46 = v3;
+    v44 = v3;
     do
     {
-      if (*v63 != v48)
+      if (*v61 != v46)
       {
         objc_enumerationMutation(obj);
       }
 
-      v5 = *(*(&v62 + 1) + 8 * v4);
+      v5 = *(*(&v60 + 1) + 8 * v4);
       v6 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithRecordType:@"UserWordFile" recordID:v5];
       v7 = [*(a1 + 40) objectForKey:v5];
       v8 = [*(a1 + 48) objectForKey:v5];
@@ -557,7 +556,7 @@ LABEL_8:
 
       if (v9)
       {
-        v67[0] = @"Language";
+        v65[0] = @"Language";
         v10 = v6;
         v11 = *(a1 + 64);
         v12 = [*(a1 + 56) objectForKeyedSubscript:v5];
@@ -572,10 +571,10 @@ LABEL_8:
           v13 = @"LANGUAGE MISSING";
         }
 
-        v67[1] = @"Disposition";
-        v68[0] = v13;
-        v68[1] = @"No local copy for initial push";
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:2];
+        v65[1] = @"Disposition";
+        v66[0] = v13;
+        v66[1] = @"No local copy for initial push";
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:2];
         v14 = v11;
         v19 = v10;
         [v14 checkProgress:2 withInfo:v20];
@@ -590,44 +589,44 @@ LABEL_8:
         v18 = [*(a1 + 96) keyForData];
         [v16 setObject:v17 forKeyedSubscript:v18];
 
-        v3 = v46;
+        v3 = v44;
         v19 = v16;
-        [v45 addObject:v16];
+        [v43 addObject:v16];
         v20 = [*(a1 + 56) objectForKeyedSubscript:v5];
-        [v44 addObject:v20];
+        [v42 addObject:v20];
       }
 
       ++v4;
     }
 
     while (v3 != v4);
-    v24 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
+    v24 = [obj countByEnumeratingWithState:&v60 objects:v67 count:16];
     v3 = v24;
   }
 
   while (v24);
 LABEL_22:
 
-  if ([v45 count])
+  if ([v43 count])
   {
     v25 = group;
     dispatch_group_enter(group);
-    [*(a1 + 64) checkProgress:3 withInfo:v44];
+    [*(a1 + 64) checkProgress:3 withInfo:v42];
     v26 = *(a1 + 64);
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_2_137;
-    v59[3] = &unk_2797F7700;
-    v27 = v42;
-    v60 = v42;
-    v61 = group;
-    [v26 overwriteFilesWithRecords:v45 withCompletionHandler:v59];
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_2_137;
+    v57[3] = &unk_2797F7700;
+    v27 = v40;
+    v58 = v40;
+    v59 = group;
+    [v26 overwriteFilesWithRecords:v43 withCompletionHandler:v57];
   }
 
   else
   {
-    v27 = v42;
-    [v42 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"push"];
+    v27 = v40;
+    [v40 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"push"];
     v25 = group;
   }
 
@@ -637,50 +636,47 @@ LABEL_22:
     v28 = *(a1 + 64);
     v29 = *(a1 + 72);
     v30 = [*(a1 + 96) keyForData];
-    v66 = v30;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+    v64 = v30;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
     v32 = *(a1 + 104);
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_142;
-    v51[3] = &unk_2797F7750;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_142;
+    v49[3] = &unk_2797F7750;
     v33 = *(a1 + 56);
-    v58 = *(a1 + 96);
+    v56 = *(a1 + 96);
     v34 = *(a1 + 40);
     *&v35 = *(a1 + 48);
     *(&v35 + 1) = *(a1 + 64);
     *&v36 = v33;
     *(&v36 + 1) = v34;
-    v27 = v42;
+    v27 = v40;
     v25 = group;
-    v52 = v36;
-    v53 = v35;
-    v54 = v42;
-    v57 = *(a1 + 88);
-    v55 = *(a1 + 80);
-    v56 = group;
-    [v28 readFilesWithRecordIDs:v29 forColumns:v31 priority:v32 withCompletionHandler:v51];
+    v50 = v36;
+    v51 = v35;
+    v52 = v40;
+    v55 = *(a1 + 88);
+    v53 = *(a1 + 80);
+    v54 = group;
+    [v28 readFilesWithRecordIDs:v29 forColumns:v31 priority:v32 withCompletionHandler:v49];
   }
 
   else
   {
-    v37 = *(a1 + 80);
     (*(*(a1 + 88) + 16))();
     [v27 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"pull"];
   }
 
-  v38 = *(a1 + 64);
-  v39 = *(v38 + 8);
+  v37 = *(a1 + 64);
+  v38 = *(v37 + 8);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_3_151;
   block[3] = &unk_2797F71B8;
-  block[4] = v38;
-  v50 = v27;
-  v40 = v27;
-  dispatch_group_notify(v25, v39, block);
-
-  v41 = *MEMORY[0x277D85DE8];
+  block[4] = v37;
+  v48 = v27;
+  v39 = v27;
+  dispatch_group_notify(v25, v38, block);
 }
 
 void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_2_137(uint64_t a1, void *a2)
@@ -697,11 +693,11 @@ void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___bloc
     v5 = MEMORY[0x277CBEC38];
   }
 
-  [*(a1 + 32) setObject:v5 forKeyedSubscript:@"push"];
+  v6 = [*(a1 + 32) setObject:v5 forKeyedSubscript:@"push"];
   if (v4)
   {
-    v6 = KSCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = KSCategory(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_2_137_cold_1();
     }
@@ -712,89 +708,90 @@ void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___bloc
 
 void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_142(id *a1, void *a2, void *a3)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v33 = a3;
-  if (v33)
+  v6 = a3;
+  v36 = v6;
+  if (v6)
   {
-    v6 = KSCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = KSCategory(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_142_cold_1();
     }
   }
 
-  v34 = [MEMORY[0x277CBEB18] array];
-  v46 = 0u;
+  v37 = [MEMORY[0x277CBEB18] array];
+  v49 = 0u;
+  v50 = 0u;
+  v48 = 0u;
   v47 = 0u;
-  v45 = 0u;
-  v44 = 0u;
   obj = v5;
-  v7 = [obj countByEnumeratingWithState:&v44 objects:v56 count:16];
-  if (v7)
+  v8 = [obj countByEnumeratingWithState:&v47 objects:v59 count:16];
+  if (v8)
   {
-    v9 = *v45;
-    *&v8 = 136316162;
-    v32 = v8;
+    v10 = *v48;
+    *&v9 = 136316162;
+    v35 = v9;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v45 != v9)
+        if (*v48 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v44 + 1) + 8 * i);
-        v12 = [a1[4] objectForKeyedSubscript:{v11, v32}];
-        v13 = v12 == 0;
+        v12 = *(*(&v47 + 1) + 8 * i);
+        v13 = [a1[4] objectForKeyedSubscript:{v12, v35}];
+        v14 = v13 == 0;
 
-        if (!v13)
+        if (!v14)
         {
-          v14 = [obj objectForKeyedSubscript:v11];
-          if (v14)
+          v16 = [obj objectForKeyedSubscript:v12];
+          if (v16)
           {
-            v15 = [a1[12] keyForData];
-            v16 = [v14 objectForKeyedSubscript:v15];
+            v17 = [a1[12] keyForData];
+            v18 = [v16 objectForKeyedSubscript:v17];
 
-            if (v16)
+            if (v18)
             {
-              v17 = [v16 fileURL];
-              v18 = [_KSFileEntry entryWithSerialisedDataAtURL:v17];
+              v20 = [v18 fileURL];
+              v21 = [_KSFileEntry entryWithSerialisedDataAtURL:v20];
 
-              if (v18)
+              if (v21)
               {
-                v19 = [a1[5] objectForKey:v11];
-                if (v19)
+                v22 = [a1[5] objectForKey:v12];
+                if (v22)
                 {
                   goto LABEL_18;
                 }
 
-                v20 = [a1[6] objectForKey:v11];
-                if (!v20)
+                v23 = [a1[6] objectForKey:v12];
+                if (!v23)
                 {
-                  v21 = a1[12];
-                  v22 = [a1[4] objectForKeyedSubscript:v11];
-                  v20 = [v21 filesForLanguage:v22];
+                  v24 = a1[12];
+                  v25 = [a1[4] objectForKeyedSubscript:v12];
+                  v23 = [v24 filesForLanguage:v25];
                 }
 
-                v19 = [a1[12] infoWithFiles:v20];
+                v22 = [a1[12] infoWithFiles:v23];
 
-                if (v19)
+                if (v22)
                 {
 LABEL_18:
-                  v23 = [a1[12] infoWithFiles:v18];
-                  v24 = v23;
-                  if (!v23 || ([v23 isBetterThan:v19] & 1) != 0)
+                  v26 = [a1[12] infoWithFiles:v21];
+                  v27 = v26;
+                  if (!v26 || (v28 = [v26 isBetterThan:v22], (v28 & 1) != 0))
                   {
 
                     goto LABEL_21;
                   }
 
-                  v28 = KSCategory();
-                  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+                  v32 = KSCategory(v28);
+                  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
                   {
-                    __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_142_cold_2(v48, &v49, v28);
+                    __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_142_cold_2(v51, &v52, v32);
                   }
                 }
 
@@ -806,109 +803,104 @@ LABEL_21:
                   block[2] = __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_144;
                   block[3] = &unk_2797F7728;
                   block[4] = a1[7];
-                  v41 = a1[4];
-                  v42 = v11;
-                  v43 = v18;
+                  v44 = a1[4];
+                  v45 = v12;
+                  v46 = v21;
                   dispatch_async(MEMORY[0x277D85CD0], block);
-                  v25 = [a1[4] objectForKeyedSubscript:v11];
-                  [v34 addObject:v25];
+                  v29 = [a1[4] objectForKeyedSubscript:v12];
+                  [v37 addObject:v29];
                 }
               }
             }
 
             else
             {
-              v27 = KSCategory();
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+              v31 = KSCategory(v19);
+              if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
               {
-                v29 = [a1[4] objectForKeyedSubscript:v11];
+                v33 = [a1[4] objectForKeyedSubscript:v12];
                 *buf = 136315650;
-                v51 = "[_KSUserWordsSynchroniser checkForDownload:uploads:allLanguages:]_block_invoke";
-                v52 = 2112;
-                v53 = v11;
-                v54 = 2112;
-                v55 = v29;
-                _os_log_error_impl(&dword_2557E2000, v27, OS_LOG_TYPE_ERROR, "%s  No CKAsset associated with record (%@/%@)", buf, 0x20u);
+                v54 = "[_KSUserWordsSynchroniser checkForDownload:uploads:allLanguages:]_block_invoke";
+                v55 = 2112;
+                v56 = v12;
+                v57 = 2112;
+                v58 = v33;
+                _os_log_error_impl(&dword_2557E2000, v31, OS_LOG_TYPE_ERROR, "%s  No CKAsset associated with record (%@/%@)", buf, 0x20u);
               }
             }
           }
 
           else
           {
-            v16 = KSCategory();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v18 = KSCategory(0);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              v26 = [a1[4] objectForKeyedSubscript:v11];
+              v30 = [a1[4] objectForKeyedSubscript:v12];
               *buf = 136315650;
-              v51 = "[_KSUserWordsSynchroniser checkForDownload:uploads:allLanguages:]_block_invoke";
-              v52 = 2112;
-              v53 = v11;
-              v54 = 2112;
-              v55 = v26;
-              _os_log_error_impl(&dword_2557E2000, v16, OS_LOG_TYPE_ERROR, "%s  Results inconsistency error - no record for %@ (%@)", buf, 0x20u);
+              v54 = "[_KSUserWordsSynchroniser checkForDownload:uploads:allLanguages:]_block_invoke";
+              v55 = 2112;
+              v56 = v12;
+              v57 = 2112;
+              v58 = v30;
+              _os_log_error_impl(&dword_2557E2000, v18, OS_LOG_TYPE_ERROR, "%s  Results inconsistency error - no record for %@ (%@)", buf, 0x20u);
             }
           }
 
           goto LABEL_34;
         }
 
-        v14 = KSCategory();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v16 = KSCategory(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v51 = "[_KSUserWordsSynchroniser checkForDownload:uploads:allLanguages:]_block_invoke";
-          v52 = 2112;
-          v53 = v11;
-          _os_log_error_impl(&dword_2557E2000, v14, OS_LOG_TYPE_ERROR, "%s  Unexpected result - record ID %@ not in request map", buf, 0x16u);
+          v54 = "[_KSUserWordsSynchroniser checkForDownload:uploads:allLanguages:]_block_invoke";
+          v55 = 2112;
+          v56 = v12;
+          _os_log_error_impl(&dword_2557E2000, v16, OS_LOG_TYPE_ERROR, "%s  Unexpected result - record ID %@ not in request map", buf, 0x16u);
         }
 
 LABEL_34:
       }
 
-      v7 = [obj countByEnumeratingWithState:&v44 objects:v56 count:16];
+      v8 = [obj countByEnumeratingWithState:&v47 objects:v59 count:16];
     }
 
-    while (v7);
+    while (v8);
   }
 
-  [a1[7] checkProgress:4 withInfo:v34];
-  [a1[8] setObject:v34 forKeyedSubscript:@"pull"];
-  v30 = *(a1[7] + 1);
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_2_148;
-  v36[3] = &unk_2797F6520;
-  v39 = a1[11];
-  v37 = a1[9];
-  v38 = a1[10];
-  dispatch_async(v30, v36);
-
-  v31 = *MEMORY[0x277D85DE8];
+  [a1[7] checkProgress:4 withInfo:v37];
+  [a1[8] setObject:v37 forKeyedSubscript:@"pull"];
+  v34 = *(a1[7] + 1);
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_2_148;
+  v39[3] = &unk_2797F6520;
+  v42 = a1[11];
+  v40 = a1[9];
+  v41 = a1[10];
+  dispatch_async(v34, v39);
 }
 
 void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_144(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB98] defaultCenter];
-  v7[0] = @"_KSUserWordsWereDownloadedLanguageKey";
+  v6[0] = @"_KSUserWordsWereDownloadedLanguageKey";
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) objectForKeyedSubscript:*(a1 + 48)];
-  v7[1] = @"_KSUserWordsWereDownloadedFilesKey";
-  v8[0] = v4;
-  v8[1] = *(a1 + 56);
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v6[1] = @"_KSUserWordsWereDownloadedFilesKey";
+  v7[0] = v4;
+  v7[1] = *(a1 + 56);
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
   [v2 postNotificationName:@"_KSUserWordsWereDownloadedNotification" object:v3 userInfo:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_2_148(void *a1)
+void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_2_148(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  dispatch_group_leave(v3);
+  dispatch_group_leave(v2);
 }
 
 void __40___KSUserWordsSynchroniser_keyboardUsed__block_invoke(uint64_t a1)
@@ -931,18 +923,18 @@ void __40___KSUserWordsSynchroniser_keyboardUsed__block_invoke(uint64_t a1)
     v4 = v2;
     v12 = v4;
     v13 = &v14;
-    [v3 modifyInformationWithOperations:&v8];
+    v5 = [v3 modifyInformationWithOperations:&v8];
     if (v15[5])
     {
-      v5 = KSCategory();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v6 = KSCategory(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v6 = v15[5];
+        v7 = v15[5];
         *buf = 136315394;
         v21 = "[_KSUserWordsSynchroniser keyboardUsed]_block_invoke";
         v22 = 2112;
-        v23 = v6;
-        _os_log_impl(&dword_2557E2000, v5, OS_LOG_TYPE_INFO, "%s  Re-setting languages for massive inactivity: %@", buf, 0x16u);
+        v23 = v7;
+        _os_log_impl(&dword_2557E2000, v6, OS_LOG_TYPE_INFO, "%s  Re-setting languages for massive inactivity: %@", buf, 0x16u);
       }
 
       [*(a1 + 32) checkForDownload:v15[5] uploads:v15[5] allLanguages:{v15[5], v8, v9, v10, v11}];
@@ -950,8 +942,6 @@ void __40___KSUserWordsSynchroniser_keyboardUsed__block_invoke(uint64_t a1)
 
     _Block_object_dispose(&v14, 8);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __40___KSUserWordsSynchroniser_keyboardUsed__block_invoke_154(uint64_t a1, uint64_t a2, void *a3)
@@ -1009,7 +999,7 @@ uint64_t __61___KSUserWordsSynchroniser_generateKeyWithCompletionHandler___block
 void __61___KSUserWordsSynchroniser_generateKeyWithCompletionHandler___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = KSCategory();
+  v6 = KSCategory(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     __61___KSUserWordsSynchroniser_generateKeyWithCompletionHandler___block_invoke_3_cold_1(a2, v5, v6);
@@ -1055,13 +1045,13 @@ void __61___KSUserWordsSynchroniser_generateKeyWithCompletionHandler___block_inv
   *(*(a1 + 32) + 58) = 0;
 }
 
-uint64_t __61___KSUserWordsSynchroniser_generateKeyWithCompletionHandler___block_invoke_2_159(uint64_t result)
+void *__61___KSUserWordsSynchroniser_generateKeyWithCompletionHandler___block_invoke_2_159(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (*(v1 + 57) == 1)
   {
     *(v1 + 57) = 0;
-    return [*(result + 32) generateKeyWithCompletionHandler:*(result + 40)];
+    return [*(result + 4) generateKeyWithCompletionHandler:*(result + 5)];
   }
 
   return result;
@@ -1071,7 +1061,7 @@ void __61___KSUserWordsSynchroniser_generateKeyWithCompletionHandler___block_inv
 {
   v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = KSCategory();
+  v4 = KSCategory(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -1083,10 +1073,9 @@ void __61___KSUserWordsSynchroniser_generateKeyWithCompletionHandler___block_inv
 
   if (!v3)
   {
-    v10 = *(a1 + 32);
-    v9 = *(*(a1 + 48) + 16);
+    v10 = *(*(a1 + 48) + 16);
 LABEL_10:
-    v9();
+    v10();
     goto LABEL_19;
   }
 
@@ -1098,15 +1087,15 @@ LABEL_10:
 
     if (v7 == 5006)
     {
-      v8 = KSCategory();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = KSCategory(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
         v20 = "[_KSUserWordsSynchroniser generateKeyWithCompletionHandler:]_block_invoke";
-        _os_log_impl(&dword_2557E2000, v8, OS_LOG_TYPE_INFO, "%s  Account not supported", buf, 0xCu);
+        _os_log_impl(&dword_2557E2000, v9, OS_LOG_TYPE_INFO, "%s  Account not supported", buf, 0xCu);
       }
 
-      v9 = *(*(a1 + 48) + 16);
+      v10 = *(*(a1 + 48) + 16);
       goto LABEL_10;
     }
   }
@@ -1131,40 +1120,39 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v13 = KSCategory();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = KSCategory(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
     v20 = "[_KSUserWordsSynchroniser generateKeyWithCompletionHandler:]_block_invoke";
-    _os_log_impl(&dword_2557E2000, v13, OS_LOG_TYPE_INFO, "%s  Record changed - key exists. Loading from server...", buf, 0xCu);
+    _os_log_impl(&dword_2557E2000, v14, OS_LOG_TYPE_INFO, "%s  Record changed - key exists. Loading from server...", buf, 0xCu);
   }
 
   v16[0] = MEMORY[0x277D85DD0];
   v16[1] = 3221225472;
   v16[2] = __61___KSUserWordsSynchroniser_generateKeyWithCompletionHandler___block_invoke_162;
   v16[3] = &unk_2797F7868;
-  v14 = *(a1 + 40);
+  v15 = *(a1 + 40);
   v17 = *(a1 + 48);
   v18 = *(a1 + 56);
-  [v14 loadKeyWithCompletion:v16];
+  [v15 loadKeyWithCompletion:v16];
 
 LABEL_19:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __61___KSUserWordsSynchroniser_generateKeyWithCompletionHandler___block_invoke_162(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = KSCategory();
+  v7 = KSCategory(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v9 = 136315394;
-    v10 = "[_KSUserWordsSynchroniser generateKeyWithCompletionHandler:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_2557E2000, v7, OS_LOG_TYPE_INFO, "%s  Key load state: %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[_KSUserWordsSynchroniser generateKeyWithCompletionHandler:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_2557E2000, v7, OS_LOG_TYPE_INFO, "%s  Key load state: %@", &v8, 0x16u);
   }
 
   if (v5)
@@ -1176,15 +1164,13 @@ void __61___KSUserWordsSynchroniser_generateKeyWithCompletionHandler___block_inv
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __46___KSUserWordsSynchroniser_checkConfiguration__block_invoke(uint64_t result, uint64_t a2)
+id *__46___KSUserWordsSynchroniser_checkConfiguration__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) firstTimeDownloadWithKey:a2];
+    return [result[4] firstTimeDownloadWithKey:a2];
   }
 
   return result;
@@ -1224,7 +1210,7 @@ uint64_t __53___KSUserWordsSynchroniser_firstTimeDownloadWithKey___block_invoke_
   v6 = v5;
   if (a2)
   {
-    v7 = KSCategory();
+    v7 = KSCategory(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __53___KSUserWordsSynchroniser_firstTimeDownloadWithKey___block_invoke_2_cold_1(a1, v6);
@@ -1265,76 +1251,77 @@ void __54___KSUserWordsSynchroniser_deltaDownloadForLanguages___block_invoke(uin
 
 void __59___KSUserWordsSynchroniser_generateRecordListForLanguages___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = KSCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = KSCategory(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v18 = "[_KSUserWordsSynchroniser generateRecordListForLanguages:]_block_invoke_2";
-      v19 = 2112;
-      v20 = v5;
-      v8 = "%s  Failed to load remote key, error: %@";
-      v9 = v7;
-      v10 = 22;
+      v19 = "[_KSUserWordsSynchroniser generateRecordListForLanguages:]_block_invoke_2";
+      v20 = 2112;
+      v21 = v5;
+      v9 = "%s  Failed to load remote key, error: %@";
+      v10 = v8;
+      v11 = 22;
 LABEL_7:
-      _os_log_impl(&dword_2557E2000, v9, OS_LOG_TYPE_INFO, v8, buf, v10);
+      _os_log_impl(&dword_2557E2000, v10, OS_LOG_TYPE_INFO, v9, buf, v11);
     }
   }
 
   else
   {
-    v11 = [*(a1 + 32) isEqualToData:v6];
-    v7 = KSCategory();
-    v12 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
-    if (v11)
+    v12 = [*(a1 + 32) isEqualToData:v6];
+    v13 = v12;
+    v8 = KSCategory(v12);
+    v14 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
+    if (v13)
     {
-      if (v12)
+      if (v14)
       {
         *buf = 136315138;
-        v18 = "[_KSUserWordsSynchroniser generateRecordListForLanguages:]_block_invoke";
-        v8 = "%s  Local key is up to date";
-        v9 = v7;
-        v10 = 12;
+        v19 = "[_KSUserWordsSynchroniser generateRecordListForLanguages:]_block_invoke";
+        v9 = "%s  Local key is up to date";
+        v10 = v8;
+        v11 = 12;
         goto LABEL_7;
       }
     }
 
     else
     {
-      if (v12)
+      if (v14)
       {
         *buf = 136315138;
-        v18 = "[_KSUserWordsSynchroniser generateRecordListForLanguages:]_block_invoke";
-        _os_log_impl(&dword_2557E2000, v7, OS_LOG_TYPE_INFO, "%s  Local key is outdated; replacing it with the current remote key", buf, 0xCu);
+        v19 = "[_KSUserWordsSynchroniser generateRecordListForLanguages:]_block_invoke";
+        _os_log_impl(&dword_2557E2000, v8, OS_LOG_TYPE_INFO, "%s  Local key is outdated; replacing it with the current remote key", buf, 0xCu);
       }
 
-      v13 = *(a1 + 40);
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __59___KSUserWordsSynchroniser_generateRecordListForLanguages___block_invoke_167;
-      v15[3] = &unk_2797F76B0;
-      v16 = v6;
-      [v13 modifyInformationWithOperations:v15];
-      v7 = v16;
+      v15 = *(a1 + 40);
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __59___KSUserWordsSynchroniser_generateRecordListForLanguages___block_invoke_167;
+      v16[3] = &unk_2797F76B0;
+      v17 = v7;
+      [v15 modifyInformationWithOperations:v16];
+      v8 = v17;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __40___KSUserWordsSynchroniser_checkErrors___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = KSCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = KSCategory(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __40___KSUserWordsSynchroniser_checkErrors___block_invoke_cold_1(a1, v3, v4);
+      __40___KSUserWordsSynchroniser_checkErrors___block_invoke_cold_1(a1, v4, v5);
     }
 
     [*(*(a1 + 32) + 24) reset];
@@ -1342,14 +1329,14 @@ void __40___KSUserWordsSynchroniser_checkErrors___block_invoke(uint64_t a1, void
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 8);
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 8);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __40___KSUserWordsSynchroniser_checkErrors___block_invoke_2;
     block[3] = &unk_2797F6310;
-    block[4] = v5;
-    dispatch_async(v6, block);
+    block[4] = v6;
+    dispatch_async(v7, block);
   }
 }
 
@@ -1479,79 +1466,30 @@ uint64_t __64___KSUserWordsSynchroniser_dumpAllRecordsWithCompletionHandler___bl
     [*(a1 + 32) setObject:a2 forKey:@"Error"];
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
-}
-
-void __45___KSUserWordsSynchroniser_accountDidChange___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 40);
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __45___KSUserWordsSynchroniser_accountDidChange___block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __45___KSUserWordsSynchroniser_accountDidChange___block_invoke_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __45___KSUserWordsSynchroniser_accountDidChange___block_invoke_cold_4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __48___KSUserWordsSynchroniser_identitiesDidChange___block_invoke_2_cold_1(uint64_t a1)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  *(*(a1 + 32) + 57);
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  return v3();
 }
 
 void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_5_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_2_137_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_142_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___block_invoke_142_cold_2(uint8_t *buf, void *a2, os_log_t log)
@@ -1563,43 +1501,35 @@ void __66___KSUserWordsSynchroniser_checkForDownload_uploads_allLanguages___bloc
 
 void __61___KSUserWordsSynchroniser_generateKeyWithCompletionHandler___block_invoke_3_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  *v4 = 136315650;
-  *&v4[4] = "[_KSUserWordsSynchroniser generateKeyWithCompletionHandler:]_block_invoke_3";
-  *&v4[12] = 2080;
-  *&v4[14] = a1;
-  *&v4[22] = 2112;
-  OUTLINED_FUNCTION_3_0(&dword_2557E2000, a2, a3, "%s  Failed to %s (%@), trying again later", *v4, *&v4[8], *&v4[16], a2);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 136315650;
+  *&v3[4] = "[_KSUserWordsSynchroniser generateKeyWithCompletionHandler:]_block_invoke_3";
+  *&v3[12] = 2080;
+  *&v3[14] = a1;
+  *&v3[22] = 2112;
+  OUTLINED_FUNCTION_3_0(&dword_2557E2000, a2, a3, "%s  Failed to %s (%@), trying again later", *v3, *&v3[8], *&v3[16], a2);
 }
 
 void __53___KSUserWordsSynchroniser_firstTimeDownloadWithKey___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v9 = [a2 objectForKey:@"Key"];
+  v7 = [a2 objectForKey:@"Key"];
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void __40___KSUserWordsSynchroniser_checkErrors___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
   v3 = @"YES";
-  *&v5[4] = "[_KSUserWordsSynchroniser checkErrors:]_block_invoke";
-  *v5 = 136315650;
-  *&v5[12] = 2112;
+  *&v4[4] = "[_KSUserWordsSynchroniser checkErrors:]_block_invoke";
+  *v4 = 136315650;
+  *&v4[12] = 2112;
   if (!*(a1 + 40))
   {
     v3 = @"NO";
   }
 
-  *&v5[14] = v3;
-  *&v5[22] = 2112;
-  OUTLINED_FUNCTION_3_0(&dword_2557E2000, a2, a3, "%s  Failed to reset zone (delete=%@; error=%@)", *v5, *&v5[8], *&v5[16], a2);
-  v4 = *MEMORY[0x277D85DE8];
+  *&v4[14] = v3;
+  *&v4[22] = 2112;
+  OUTLINED_FUNCTION_3_0(&dword_2557E2000, a2, a3, "%s  Failed to reset zone (delete=%@; error=%@)", *v4, *&v4[8], *&v4[16], a2);
 }
 
 @end

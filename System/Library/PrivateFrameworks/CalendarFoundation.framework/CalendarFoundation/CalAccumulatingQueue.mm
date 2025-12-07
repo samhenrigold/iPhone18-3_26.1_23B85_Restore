@@ -200,7 +200,7 @@ void __54__CalAccumulatingQueue__executeBlockWithThrottleBlock__block_invoke(uin
 
 - (void)updateTags:(id)tags withContext:(id)context
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   tagsCopy = tags;
   contextCopy = context;
   selfCopy = self;
@@ -210,31 +210,31 @@ void __54__CalAccumulatingQueue__executeBlockWithThrottleBlock__block_invoke(uin
     [(NSMutableSet *)selfCopy->_tags addObjectsFromArray:tagsCopy];
   }
 
-  v17 = tagsCopy;
+  v16 = tagsCopy;
   if (contextCopy)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v8 = contextCopy;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:{16, tagsCopy}];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:{16, tagsCopy}];
     if (!v9)
     {
       goto LABEL_20;
     }
 
-    v10 = *v20;
+    v10 = *v19;
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         v13 = [(NSMutableDictionary *)selfCopy->_context objectForKeyedSubscript:v12];
         v14 = [v8 objectForKeyedSubscript:v12];
         if (v13)
@@ -270,7 +270,7 @@ LABEL_16:
 LABEL_18:
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (!v9)
       {
 LABEL_20:
@@ -281,8 +281,6 @@ LABEL_20:
   }
 
   objc_sync_exit(selfCopy);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateTagsAndExecuteBlock:(id)block withContext:(id)context

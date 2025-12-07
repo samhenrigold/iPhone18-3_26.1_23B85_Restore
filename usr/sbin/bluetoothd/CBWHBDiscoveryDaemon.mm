@@ -17,78 +17,80 @@
 - (id)descriptionWithLevel:(int)level
 {
   levelCopy = level;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = sub_100042204;
-  v33 = sub_100042594;
-  v34 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = sub_100042204;
+  v35 = sub_100042594;
+  v36 = 0;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = [(NSMutableDictionary *)selfCopy->_aggregateDeviceMap count];
-  v6 = v30;
-  v28 = v30[5];
+  v6 = v32;
+  v30 = v32[5];
   v7 = [objc_opt_class() description];
-  v16 = [(NSMutableDictionary *)selfCopy->_remoteControllerMap count];
-  NSAppendPrintF_safe();
-  objc_storeStrong(v6 + 5, v28);
+  NSAppendPrintF_safe(&v30, "== %@: Controllers %d, Devices %d ==", v7, [(NSMutableDictionary *)selfCopy->_remoteControllerMap count], v5);
+  objc_storeStrong(v6 + 5, v30);
 
-  v8 = v30 + 5;
+  v8 = v32 + 5;
   if (levelCopy > 0x14u)
   {
-    v17 = v30[5];
-    NSAppendPrintF_safe();
-    objc_storeStrong(v8, v17);
+    v19 = v32[5];
+    NSAppendPrintF_safe(&v19, "\n== %@ ==", selfCopy->_whbRouter);
+    objc_storeStrong(v8, v19);
   }
 
   else
   {
-    v27 = v30[5];
-    NSAppendPrintF_safe();
-    objc_storeStrong(v8, v27);
+    v29 = v32[5];
+    NSAppendPrintF_safe(&v29, "\n");
+    objc_storeStrong(v8, v29);
     remoteControllerMap = selfCopy->_remoteControllerMap;
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_100117A98;
-    v26[3] = &unk_100AE0CA0;
-    v26[4] = &v29;
-    [(NSMutableDictionary *)remoteControllerMap enumerateKeysAndObjectsUsingBlock:v26, v7, v16, v5];
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
-    v25 = 0;
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_100117A98;
+    v28[3] = &unk_100AE0CA0;
+    v28[4] = &v31;
+    [(NSMutableDictionary *)remoteControllerMap enumerateKeysAndObjectsUsingBlock:v28];
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2020000000;
+    v27 = 0;
     aggregateDeviceMap = selfCopy->_aggregateDeviceMap;
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_100117AE8;
-    v20[3] = &unk_100AE0CC8;
-    v20[4] = &v29;
-    v20[5] = &v22;
-    v21 = levelCopy;
-    [(NSMutableDictionary *)aggregateDeviceMap enumerateKeysAndObjectsUsingBlock:v20];
-    if (v5 > v23[3])
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_100117AE8;
+    v22[3] = &unk_100AE0CC8;
+    v22[4] = &v31;
+    v22[5] = &v24;
+    v23 = levelCopy;
+    [(NSMutableDictionary *)aggregateDeviceMap enumerateKeysAndObjectsUsingBlock:v22];
+    v11 = v25[3];
+    v12 = v5 >= v11;
+    v13 = &v5[-v11];
+    if (v13 != 0 && v12)
     {
-      v11 = v30;
-      obj = v30[5];
-      NSAppendPrintF_safe();
-      objc_storeStrong(v11 + 5, obj);
+      v14 = v32;
+      obj = v32[5];
+      NSAppendPrintF_safe(&obj, "... %d more, %d total\n", v13, v5);
+      objc_storeStrong(v14 + 5, obj);
     }
 
-    v12 = v30;
-    v18 = v30[5];
-    v15 = CUDescriptionWithLevel();
-    NSAppendPrintF_safe();
-    objc_storeStrong(v12 + 5, v18);
+    v15 = v32;
+    v20 = v32[5];
+    v16 = CUDescriptionWithLevel();
+    NSAppendPrintF_safe(&v20, "\n%@", v16);
+    objc_storeStrong(v15 + 5, v20);
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v24, 8);
   }
 
   objc_sync_exit(selfCopy);
 
-  v13 = v30[5];
-  _Block_object_dispose(&v29, 8);
+  v17 = v32[5];
+  _Block_object_dispose(&v31, 8);
 
-  return v13;
+  return v17;
 }
 
 - (void)activate
@@ -127,7 +129,7 @@
 
   if (dword_100B50DC0 <= 30 && (dword_100B50DC0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100806BE4();
+    sub_100806BE4(&self->_aggregateDiscoveryFlags);
   }
 
   v10 = self->_whbRouter;
@@ -199,9 +201,12 @@
 - (void)invalidate
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_100B50DC0 <= 30 && (dword_100B50DC0 != -1 || _LogCategory_Initialize()))
+  if (dword_100B50DC0 <= 30)
   {
-    sub_100806CD8();
+    if (dword_100B50DC0 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_100806CD8(v3, v4, v5);
+    }
   }
 
   [(CBDiscovery *)self->_localDiscovery invalidate];
@@ -276,26 +281,26 @@
 - (void)remoteControllersChanged
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v31 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
+  v33 = 0u;
   activeDevices = [(RPCompanionLinkClient *)self->_remoteClient activeDevices];
   v4 = 0;
-  v5 = [activeDevices countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v5 = [activeDevices countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v5)
   {
-    v6 = *v30;
+    v6 = *v33;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v30 != v6)
+        if (*v33 != v6)
         {
           objc_enumerationMutation(activeDevices);
         }
 
-        v8 = *(*(&v29 + 1) + 8 * i);
+        v8 = *(*(&v32 + 1) + 8 * i);
         serviceTypes = [v8 serviceTypes];
         v10 = [serviceTypes containsObject:@"com.apple.bluetooth.remote"];
 
@@ -314,32 +319,32 @@
         }
       }
 
-      v5 = [activeDevices countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v5 = [activeDevices countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v5);
   }
 
-  v27 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v29 = 0u;
   v28 = 0u;
-  v26 = 0u;
-  v25 = 0u;
   allKeys = [(NSMutableDictionary *)self->_remoteControllerMap allKeys];
   v13 = 0;
-  v14 = [allKeys countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v14 = [allKeys countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v14)
   {
-    v15 = *v26;
+    v15 = *v29;
     do
     {
       for (j = 0; j != v14; j = j + 1)
       {
-        if (*v26 != v15)
+        if (*v29 != v15)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v17 = *(*(&v25 + 1) + 8 * j);
+        v17 = *(*(&v28 + 1) + 8 * j);
         v18 = [v4 objectForKeyedSubscript:v17];
 
         if (!v18)
@@ -354,37 +359,37 @@
         }
       }
 
-      v14 = [allKeys countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v14 = [allKeys countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v14);
   }
 
   remoteControllerMap = self->_remoteControllerMap;
-  v24[0] = _NSConcreteStackBlock;
-  v24[1] = 3221225472;
-  v24[2] = sub_10011878C;
-  v24[3] = &unk_100AE0D58;
-  v24[4] = self;
-  [(NSMutableDictionary *)remoteControllerMap enumerateKeysAndObjectsUsingBlock:v24];
-  v22[0] = 0;
-  v22[1] = v22;
-  v22[2] = 0x2020000000;
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_10011878C;
+  v27[3] = &unk_100AE0D58;
+  v27[4] = self;
+  [(NSMutableDictionary *)remoteControllerMap enumerateKeysAndObjectsUsingBlock:v27];
   v23 = 0;
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_1001187A0;
-  v21[3] = &unk_100AE0D80;
-  v21[4] = self;
-  v21[5] = v22;
-  [v4 enumerateKeysAndObjectsUsingBlock:v21];
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_1001187A0;
+  v22[3] = &unk_100AE0D80;
+  v22[4] = self;
+  v22[5] = &v23;
+  [v4 enumerateKeysAndObjectsUsingBlock:v22];
   if (dword_100B50DC0 <= 30 && (dword_100B50DC0 != -1 || _LogCategory_Initialize()))
   {
-    [(NSMutableDictionary *)self->_remoteControllerMap count];
-    LogPrintF_safe();
+    v21 = [(NSMutableDictionary *)self->_remoteControllerMap count];
+    LogPrintF_safe(&dword_100B50DC0, "[CBWHBDiscoveryDaemon remoteControllersChanged]", 30, "Remote controllers updated: %d total, %d started, %d stopped", v21, *(v24 + 6), v13);
   }
 
-  _Block_object_dispose(v22, 8);
+  _Block_object_dispose(&v23, 8);
 }
 
 - (void)deviceFound:(id)found remoteController:(id)controller
@@ -403,9 +408,7 @@
 
   if (dword_100B50DC0 <= 30 && (dword_100B50DC0 != -1 || _LogCategory_Initialize()))
   {
-    v20 = foundCopy;
-    v21 = v10;
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_100B50DC0, "[CBWHBDiscoveryDaemon deviceFound:remoteController:]", 30, "Device found: %@, CtID %@", foundCopy, v10);
   }
 
   stableIdentifier = [foundCopy stableIdentifier];
@@ -471,9 +474,7 @@
 
   if (dword_100B50DC0 <= 30 && (dword_100B50DC0 != -1 || _LogCategory_Initialize()))
   {
-    v20 = lostCopy;
-    v22 = v11;
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_100B50DC0, "[CBWHBDiscoveryDaemon deviceLost:remoteController:]", 30, "Device lost: %@, CtID %@", lostCopy, v11);
   }
 
   stableIdentifier = [lostCopy stableIdentifier];
@@ -499,33 +500,31 @@
 
       if ([deviceControllerMap count])
       {
-        v26 = 0;
-        v27 = &v26;
-        v28 = 0x3032000000;
-        v29 = sub_100042204;
-        v30 = sub_100042594;
-        v31 = 0;
-        v25[0] = 0;
-        v25[1] = v25;
-        v25[2] = 0x2020000000;
-        v25[3] = 0;
-        v24[0] = _NSConcreteStackBlock;
-        v24[1] = 3221225472;
-        v24[2] = sub_100118E9C;
-        v24[3] = &unk_100AE0DA8;
-        v24[4] = &v26;
-        v24[5] = v25;
-        [deviceControllerMap enumerateKeysAndObjectsUsingBlock:v24];
-        if (!v27[5] && dword_100B50DC0 <= 115 && (dword_100B50DC0 != -1 || _LogCategory_Initialize()))
+        v22 = 0;
+        v23 = &v22;
+        v24 = 0x3032000000;
+        v25 = sub_100042204;
+        v26 = sub_100042594;
+        v27 = 0;
+        v21[0] = 0;
+        v21[1] = v21;
+        v21[2] = 0x2020000000;
+        v21[3] = 0;
+        v20[0] = _NSConcreteStackBlock;
+        v20[1] = 3221225472;
+        v20[2] = sub_100118E9C;
+        v20[3] = &unk_100AE0DA8;
+        v20[4] = &v22;
+        v20[5] = v21;
+        [deviceControllerMap enumerateKeysAndObjectsUsingBlock:v20];
+        if (!v23[5] && dword_100B50DC0 <= 115 && (dword_100B50DC0 != -1 || _LogCategory_Initialize()))
         {
-          v21 = lostCopy;
-          v23 = v11;
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_100B50DC0, "[CBWHBDiscoveryDaemon deviceLost:remoteController:]", 115, "### No latest device: %@, CtID %@", lostCopy, v11);
         }
 
-        [v15 setLatestDevice:{v27[5], v21, v23}];
-        _Block_object_dispose(v25, 8);
-        _Block_object_dispose(&v26, 8);
+        [v15 setLatestDevice:v23[5]];
+        _Block_object_dispose(v21, 8);
+        _Block_object_dispose(&v22, 8);
       }
 
       else
@@ -580,26 +579,26 @@
 
   if (v7)
   {
-    v8 = self->_whbRouter;
-    if (v8)
+    v12 = self->_whbRouter;
+    if (v12)
     {
       if (dword_100B50DC0 <= 30 && (dword_100B50DC0 != -1 || _LogCategory_Initialize()))
       {
-        sub_100806D74();
+        sub_100806D74(eventCopy, v7);
       }
 
-      [(CBWHBRouter *)v8 receivedUpdateEvent:eventCopy hostID:v7];
+      [(CBWHBRouter *)v12 receivedUpdateEvent:eventCopy hostID:v7];
     }
 
     else
     {
-      sub_100806DE0(dword_100B50DC0 < 31, dword_100B50DC0);
+      sub_100806DE0(dword_100B50DC0 < 31, dword_100B50DC0, v11);
     }
   }
 
   else
   {
-    sub_100806E34();
+    sub_100806E34(v8, v9, v10);
   }
 }
 

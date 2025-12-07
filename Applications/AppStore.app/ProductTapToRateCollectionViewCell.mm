@@ -9,7 +9,7 @@
 - (_TtC8AppStore34ProductTapToRateCollectionViewCell)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC8AppStore34ProductTapToRateCollectionViewCell_productTapToRateView;
-  type metadata accessor for ProductTapToRateView();
+  type metadata accessor for ProductTapToRateView(0);
   *(&self->super.super.super.super.super.isa + v4) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);

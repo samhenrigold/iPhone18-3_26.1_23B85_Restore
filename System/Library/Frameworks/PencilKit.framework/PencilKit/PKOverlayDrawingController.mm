@@ -7,9 +7,9 @@
 - (id)drawingViewAtLocation:(double)location;
 - (id)existingViewForUUID:(id *)d;
 - (id)initForView:(void *)view delegate:;
+- (id)removeAllTokens;
+- (id)removedFromView;
 - (id)tokenAtLocation:(CGFloat)location;
-- (uint64_t)removeAllTokens;
-- (uint64_t)removedFromView;
 - (void)_removeActiveTokensForItem:(uint64_t)item;
 - (void)_removeOldTokenViewsExcludeItems:(uint64_t)items;
 - (void)_updateDrawingViews;
@@ -178,7 +178,7 @@
   }
 }
 
-- (uint64_t)removedFromView
+- (id)removedFromView
 {
   v33 = *MEMORY[0x1E69E9840];
   if (result)
@@ -188,7 +188,7 @@
     v29 = 0u;
     v26 = 0u;
     v27 = 0u;
-    allValues = [*(result + 56) allValues];
+    allValues = [result[7] allValues];
     v3 = [allValues countByEnumeratingWithState:&v26 objects:v32 count:16];
     if (v3)
     {
@@ -410,7 +410,7 @@
                 v27 = WeakRetained;
                 if (WeakRetained)
                 {
-                  [WeakRetained overlayControllerDrawingTransform:selfCopy];
+                  objc_msgSend_overlayControllerDrawingTransform_(WeakRetained);
                 }
 
                 else
@@ -849,7 +849,7 @@ LABEL_7:
             v18 = v17;
             if (v17)
             {
-              [v17 overlayControllerDrawingTransform:self];
+              objc_msgSend_overlayControllerDrawingTransform_(v17);
             }
 
             else
@@ -1042,7 +1042,7 @@ LABEL_17:
   }
 }
 
-- (uint64_t)removeAllTokens
+- (id)removeAllTokens
 {
   v23 = *MEMORY[0x1E69E9840];
   if (result)
@@ -1052,7 +1052,7 @@ LABEL_17:
     v20 = 0u;
     v17 = 0u;
     v18 = 0u;
-    allValues = [*(result + 56) allValues];
+    allValues = [result[7] allValues];
     v3 = [allValues countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v3)
     {
@@ -1109,7 +1109,7 @@ LABEL_17:
       while (v4);
     }
 
-    return [*(v1 + 56) removeAllObjects];
+    return [v1[7] removeAllObjects];
   }
 
   return result;

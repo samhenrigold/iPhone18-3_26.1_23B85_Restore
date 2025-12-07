@@ -65,7 +65,7 @@
   v8 = objc_opt_self();
   v9 = String._bridgeToObjectiveC()();
   _s8Freeform23CRLAnalyticsFeatureUsedC14featurePayload3forSDySSSo8NSObjectCGAA0bC4NameO_tFZ_0(11);
-  sub_100006370(0, &qword_1019F54D0);
+  sub_100006370(0, &qword_1019F54D0, NSObject_ptr);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   [v8 sendEventInDomain:v9 lazily:1 eventPayload:{isa, v11.receiver, v11.super_class}];

@@ -19,26 +19,26 @@
 
 - (BRCPeriodicSyncScheduler)initWithContainerScheduler:(id)scheduler session:(id)session
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   schedulerCopy = scheduler;
   sessionCopy = session;
-  v32.receiver = self;
-  v32.super_class = BRCPeriodicSyncScheduler;
-  v9 = [(BRCPeriodicSyncScheduler *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = BRCPeriodicSyncScheduler;
+  v9 = [(BRCPeriodicSyncScheduler *)&v31 init];
   if (v9)
   {
-    memset(v31, 0, sizeof(v31));
-    __brc_create_section(0, "[BRCPeriodicSyncScheduler initWithContainerScheduler:session:]", 84, 0, v31);
+    memset(v30, 0, sizeof(v30));
+    __brc_create_section(0, "[BRCPeriodicSyncScheduler initWithContainerScheduler:session:]", 84, 0, v30);
     v10 = brc_bread_crumbs();
     v11 = brc_default_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218498;
-      v34 = v31[0];
-      v35 = 2112;
-      v36 = v9;
-      v37 = 2112;
-      v38 = v10;
+      v33 = v30[0];
+      v34 = 2112;
+      v35 = v9;
+      v36 = 2112;
+      v37 = v10;
       _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Creating %@%@", buf, 0x20u);
     }
 
@@ -80,10 +80,9 @@
     appLibrariesLastBoostTime = v9->_appLibrariesLastBoostTime;
     v9->_appLibrariesLastBoostTime = v27;
 
-    __brc_leave_section(v31);
+    __brc_leave_section(v30);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -197,20 +196,19 @@ void __34__BRCPeriodicSyncScheduler_resume__block_invoke(uint64_t a1)
   v11 = brc_default_log();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    __34__BRCPeriodicSyncScheduler_resume__block_invoke_cold_1(v1);
+    __34__BRCPeriodicSyncScheduler_resume__block_invoke_cold_1();
   }
 }
 
 uint64_t __34__BRCPeriodicSyncScheduler_resume__block_invoke_9(uint64_t a1)
 {
-  v2 = brc_bread_crumbs();
-  v3 = brc_default_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v1 = brc_bread_crumbs();
+  v2 = brc_default_log();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __34__BRCPeriodicSyncScheduler_resume__block_invoke_9_cold_1(a1);
+    __34__BRCPeriodicSyncScheduler_resume__block_invoke_9_cold_1();
   }
 
-  v4 = *(*(a1 + 32) + 24);
   return BRPerformWithPersonaAndError();
 }
 
@@ -251,12 +249,8 @@ void __34__BRCPeriodicSyncScheduler_resume__block_invoke_10(uint64_t a1, void *a
 
 uint64_t __55__BRCPeriodicSyncScheduler_networkReachabilityChanged___block_invoke(uint64_t result)
 {
-  v1 = *(result + 32);
-  if ((*(v1 + 34) & 1) == 0)
+  if ((*(*(result + 32) + 34) & 1) == 0)
   {
-    v2 = *(v1 + 24);
-    v3 = *(result + 32);
-    v4 = *(result + 40);
     return BRPerformWithPersonaAndError();
   }
 
@@ -265,7 +259,7 @@ uint64_t __55__BRCPeriodicSyncScheduler_networkReachabilityChanged___block_invok
 
 void __55__BRCPeriodicSyncScheduler_networkReachabilityChanged___block_invoke_2(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -281,10 +275,10 @@ void __55__BRCPeriodicSyncScheduler_networkReachabilityChanged___block_invoke_2(
   {
     if ((*(a1 + 40) & 1) == 0)
     {
-      v7 = [MEMORY[0x277CBEAA8] now];
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 56);
-      *(v8 + 56) = v7;
+      v6 = [MEMORY[0x277CBEAA8] now];
+      v7 = *(a1 + 32);
+      v8 = *(v7 + 56);
+      *(v7 + 56) = v6;
 
       *(*(a1 + 32) + 35) = *(a1 + 40);
       [*(a1 + 32) _cancelPeriodicSyncRequestScheduler];
@@ -293,29 +287,29 @@ void __55__BRCPeriodicSyncScheduler_networkReachabilityChanged___block_invoke_2(
 
   else if (*(a1 + 40))
   {
-    v10 = [MEMORY[0x277CBEAA8] now];
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 48);
-    *(v11 + 48) = v10;
+    v9 = [MEMORY[0x277CBEAA8] now];
+    v10 = *(a1 + 32);
+    v11 = *(v10 + 48);
+    *(v10 + 48) = v9;
 
     *(*(a1 + 32) + 35) = *(a1 + 40);
     [*(*(a1 + 32) + 48) timeIntervalSinceDate:*(*(a1 + 32) + 56)];
-    v14 = v13;
+    v13 = v12;
     [*(*(a1 + 32) + 96) periodicSyncNetworkUnreachableMinThreshold];
-    if (v14 >= v15)
+    if (v13 >= v14)
     {
-      v16 = brc_bread_crumbs();
-      v17 = brc_default_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v15 = brc_bread_crumbs();
+      v16 = brc_default_log();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        v18 = *(a1 + 32);
-        v19 = 138412802;
-        v20 = v18;
-        v21 = 2048;
-        v22 = v14 / 60.0;
-        v23 = 2112;
-        v24 = v16;
-        _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - Network disconnected for %.1f mins --> Assume missing push%@", &v19, 0x20u);
+        v17 = *(a1 + 32);
+        v18 = 138412802;
+        v19 = v17;
+        v20 = 2048;
+        v21 = v13 / 60.0;
+        v22 = 2112;
+        v23 = v15;
+        _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - Network disconnected for %.1f mins --> Assume missing push%@", &v18, 0x20u);
       }
 
       [*(a1 + 32) _markNeedPeriodicSync];
@@ -323,8 +317,6 @@ void __55__BRCPeriodicSyncScheduler_networkReachabilityChanged___block_invoke_2(
 
     [*(a1 + 32) _schedulePeriodicSyncRequest];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)screenLockChanged:(BOOL)changed
@@ -344,12 +336,8 @@ void __55__BRCPeriodicSyncScheduler_networkReachabilityChanged___block_invoke_2(
 
 uint64_t __46__BRCPeriodicSyncScheduler_screenLockChanged___block_invoke(uint64_t result)
 {
-  v1 = *(result + 32);
-  if ((*(v1 + 34) & 1) == 0)
+  if ((*(*(result + 32) + 34) & 1) == 0)
   {
-    v2 = *(v1 + 24);
-    v3 = *(result + 32);
-    v4 = *(result + 40);
     return BRPerformWithPersonaAndError();
   }
 
@@ -410,7 +398,7 @@ void __46__BRCPeriodicSyncScheduler_screenLockChanged___block_invoke_2(uint64_t 
 
 void __79__BRCPeriodicSyncScheduler__appLibraryDidBoostForPresenterNotificationHandler___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v1 = *(a1 + 32);
   if ((*(v1 + 34) & 1) == 0 && (*(v1 + 36) & 1) == 0)
@@ -428,7 +416,7 @@ void __79__BRCPeriodicSyncScheduler__appLibraryDidBoostForPresenterNotificationH
       v11 = brc_default_log();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        __79__BRCPeriodicSyncScheduler__appLibraryDidBoostForPresenterNotificationHandler___block_invoke_cold_1(v2);
+        __79__BRCPeriodicSyncScheduler__appLibraryDidBoostForPresenterNotificationHandler___block_invoke_cold_1();
       }
     }
 
@@ -439,7 +427,7 @@ void __79__BRCPeriodicSyncScheduler__appLibraryDidBoostForPresenterNotificationH
       {
 LABEL_10:
 
-        goto LABEL_11;
+        return;
       }
 
       v10 = brc_bread_crumbs();
@@ -448,22 +436,18 @@ LABEL_10:
       {
         v12 = *v2;
         *buf = 138412802;
-        v16 = v12;
-        v17 = 2048;
-        v18 = v5 / 60.0;
-        v19 = 2112;
-        v20 = v10;
+        v14 = v12;
+        v15 = 2048;
+        v16 = v5 / 60.0;
+        v17 = 2112;
+        v18 = v10;
         _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - User did not use iCloud Drive for %.1f mins --> trigger periodic sync%@", buf, 0x20u);
       }
     }
 
-    v13 = *(*v2 + 3);
     BRPerformWithPersonaAndError();
     goto LABEL_10;
   }
-
-LABEL_11:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __79__BRCPeriodicSyncScheduler__appLibraryDidBoostForPresenterNotificationHandler___block_invoke_12(uint64_t a1, void *a2)
@@ -507,7 +491,7 @@ void __79__BRCPeriodicSyncScheduler__appLibraryDidBoostForPresenterNotificationH
 
 - (void)_schedulePeriodicSyncRequest
 {
-  v47[3] = *MEMORY[0x277D85DE8];
+  v46[3] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_syncQueue);
   if (!self->_closed && self->_shouldTriggerPeriodicSync && !self->_isScreenLocked && self->_isNetworkReachable && !self->_periodicSyncInProgress && !self->_periodicSyncRequestTimer)
   {
@@ -525,12 +509,12 @@ void __79__BRCPeriodicSyncScheduler__appLibraryDidBoostForPresenterNotificationH
     [v3 timeIntervalSinceDate:self->_lastPeriodicSyncDate];
     v15 = v13 - v14;
     v16 = [MEMORY[0x277CCABB0] numberWithDouble:v7];
-    v47[0] = v16;
+    v46[0] = v16;
     v17 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
-    v47[1] = v17;
+    v46[1] = v17;
     v18 = [MEMORY[0x277CCABB0] numberWithDouble:v15];
-    v47[2] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:3];
+    v46[2] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:3];
 
     v20 = [v19 br_maxWithComparator:*MEMORY[0x277CFB008]];
     [v20 doubleValue];
@@ -552,13 +536,13 @@ void __79__BRCPeriodicSyncScheduler__appLibraryDidBoostForPresenterNotificationH
       v27 = dispatch_time(0, v25);
       dispatch_source_set_timer(v26, v27, 0xFFFFFFFFFFFFFFFFLL, v25 / 10);
       v28 = self->_periodicSyncRequestTimer;
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = __56__BRCPeriodicSyncScheduler__schedulePeriodicSyncRequest__block_invoke;
-      v38[3] = &unk_2784FF450;
-      v38[4] = self;
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = __56__BRCPeriodicSyncScheduler__schedulePeriodicSyncRequest__block_invoke;
+      v37[3] = &unk_2784FF450;
+      v37[4] = self;
       v29 = v28;
-      v30 = v38;
+      v30 = v37;
       v31 = v30;
       v32 = v30;
       if (*MEMORY[0x277CFB010])
@@ -574,26 +558,24 @@ void __79__BRCPeriodicSyncScheduler__appLibraryDidBoostForPresenterNotificationH
       v35 = brc_default_log();
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
       {
-        v37 = self->_periodicSyncRequestTimer;
+        v36 = self->_periodicSyncRequestTimer;
         *buf = 138413058;
         selfCopy = self;
-        v41 = 2112;
-        v42 = v37;
-        v43 = 2048;
-        v44 = v25 / 0x3B9ACA00uLL;
-        v45 = 2112;
-        v46 = v34;
+        v40 = 2112;
+        v41 = v36;
+        v42 = 2048;
+        v43 = v25 / 0x3B9ACA00uLL;
+        v44 = 2112;
+        v45 = v34;
         _os_log_debug_impl(&dword_223E7A000, v35, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - scheduled _periodicSyncRequestTimer %@ in %llu sec%@", buf, 0x2Au);
       }
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelPeriodicSyncRequestScheduler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_syncQueue);
   if (self->_periodicSyncRequestTimer)
   {
@@ -602,30 +584,26 @@ void __79__BRCPeriodicSyncScheduler__appLibraryDidBoostForPresenterNotificationH
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       periodicSyncRequestTimer = self->_periodicSyncRequestTimer;
-      v8 = 138412802;
+      v7 = 138412802;
       selfCopy = self;
-      v10 = 2112;
-      v11 = periodicSyncRequestTimer;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_debug_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - cancelling periodicSyncRequestTimer %@%@", &v8, 0x20u);
+      v9 = 2112;
+      v10 = periodicSyncRequestTimer;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_debug_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - cancelling periodicSyncRequestTimer %@%@", &v7, 0x20u);
     }
 
     dispatch_source_cancel(self->_periodicSyncRequestTimer);
     v5 = self->_periodicSyncRequestTimer;
     self->_periodicSyncRequestTimer = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tiggerPeriodicSync
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __47__BRCPeriodicSyncScheduler__tiggerPeriodicSync__block_invoke(uint64_t a1)
@@ -642,7 +620,7 @@ void __47__BRCPeriodicSyncScheduler__tiggerPeriodicSync__block_invoke(uint64_t a
 
 - (void)_periodicSyncCompletionWithError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   clientDB = [(BRCAccountSession *)self->_session clientDB];
   [clientDB assertOnQueue];
@@ -664,10 +642,10 @@ void __47__BRCPeriodicSyncScheduler__tiggerPeriodicSync__block_invoke(uint64_t a
   {
     *buf = 138412802;
     selfCopy = self;
-    v19 = 2112;
-    v20 = v8;
-    v21 = 2112;
-    v22 = v9;
+    v18 = 2112;
+    v19 = v8;
+    v20 = 2112;
+    v21 = v9;
     _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ - persist last periodic sync date: %@%@", buf, 0x20u);
   }
 
@@ -675,22 +653,19 @@ void __47__BRCPeriodicSyncScheduler__tiggerPeriodicSync__block_invoke(uint64_t a
   [clientState setObjectAndScheduleFlush:v8 forKey:@"periodicSyncDate"];
 
   syncQueue = self->_syncQueue;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __61__BRCPeriodicSyncScheduler__periodicSyncCompletionWithError___block_invoke;
-  v15[3] = &unk_2784FF478;
-  v15[4] = self;
-  v16 = v8;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __61__BRCPeriodicSyncScheduler__periodicSyncCompletionWithError___block_invoke;
+  v14[3] = &unk_2784FF478;
+  v14[4] = self;
+  v15 = v8;
   v13 = v8;
-  dispatch_async(syncQueue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(syncQueue, v14);
 }
 
 void __61__BRCPeriodicSyncScheduler__periodicSyncCompletionWithError___block_invoke(uint64_t a1)
 {
-  v1 = *(*(a1 + 32) + 24);
-  v2 = *(a1 + 40);
+  v1 = *(a1 + 40);
   BRPerformWithPersonaAndError();
 }
 
@@ -715,50 +690,25 @@ void __61__BRCPeriodicSyncScheduler__periodicSyncCompletionWithError___block_inv
   }
 }
 
-void __33__BRCPeriodicSyncScheduler_close__block_invoke_2_cold_1()
+void __34__BRCPeriodicSyncScheduler_resume__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_223E7A000, v0, v1, "[ERROR] Failed to adopt persona: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __34__BRCPeriodicSyncScheduler_resume__block_invoke_cold_1(uint64_t a1)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *(*a1 + 40);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_9();
-  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
 }
 
-void __34__BRCPeriodicSyncScheduler_resume__block_invoke_9_cold_1(uint64_t a1)
+void __34__BRCPeriodicSyncScheduler_resume__block_invoke_9_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *(a1 + 32);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_9();
-  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
 }
 
-void __79__BRCPeriodicSyncScheduler__appLibraryDidBoostForPresenterNotificationHandler___block_invoke_cold_1(uint64_t *a1)
+void __79__BRCPeriodicSyncScheduler__appLibraryDidBoostForPresenterNotificationHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *a1;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_9();
-  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_periodicSyncCompletionWithError:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_223E7A000, v0, v1, "[ERROR] Periodic sync failed with: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
 }
 
 @end

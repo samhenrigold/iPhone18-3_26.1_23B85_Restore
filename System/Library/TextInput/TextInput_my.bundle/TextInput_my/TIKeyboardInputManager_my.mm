@@ -77,7 +77,7 @@
 
 - (id)deleteFromInput:(unint64_t *)input
 {
-  v25[4] = *MEMORY[0x29EDCA608];
+  v22[4] = *MEMORY[0x29EDCA608];
   if (input)
   {
     *input = 1;
@@ -90,16 +90,14 @@
     if (inputIndex >= 3 && (v7 = inputIndex, v8 = *MEMORY[0x29EDC7288], [*(&self->super.super.super.isa + v8) length] >= inputIndex))
     {
       v10 = v7;
-      TIInputManager::input_string(v25, *(&self->super.super.super.isa + v5));
-      v12 = KB::ns_string(v25, v11);
-      KB::String::~String(v25);
-      v13 = [v12 hasSuffix:@"င်္"];
-      v15 = *(&self->super.super.super.isa + v5);
-      if (v13)
+      TIInputManager::input_string(v22, *(&self->super.super.super.isa + v5));
+      v12 = KB::ns_string(v22, v11);
+      KB::String::~String(v22);
+      if ([v12 hasSuffix:@"င်္"])
       {
-        KB::utf8_string(v25, @"င်္", v14);
+        KB::utf8_string(v22, @"င်္", v13);
         TIInputManager::delete_suffix_from_input();
-        KB::String::~String(v25);
+        KB::String::~String(v22);
       }
 
       else
@@ -107,18 +105,18 @@
         TIInputManager::delete_from_input(*(&self->super.super.super.isa + v5));
       }
 
-      TIInputManager::input_string(v25, *(&self->super.super.super.isa + v5));
-      v17 = KB::ns_string(v25, v16);
-      v18 = [(TIKeyboardInputManager_my *)self internalStringToExternal:v17];
+      TIInputManager::input_string(v22, *(&self->super.super.super.isa + v5));
+      v15 = KB::ns_string(v22, v14);
+      v16 = [(TIKeyboardInputManager_my *)self internalStringToExternal:v15];
 
-      KB::String::~String(v25);
-      TIInputManager::input_stem(v25, *(&self->super.super.super.isa + v5));
-      v20 = KB::ns_string(v25, v19);
-      v21 = [(TIKeyboardInputManager_my *)self internalStringToExternal:v20];
+      KB::String::~String(v22);
+      TIInputManager::input_stem(v22, *(&self->super.super.super.isa + v5));
+      v18 = KB::ns_string(v22, v17);
+      v19 = [(TIKeyboardInputManager_my *)self internalStringToExternal:v18];
 
-      KB::String::~String(v25);
-      v9 = [(TIKeyboardInputManager_my *)self suffixOfDesiredString:v21 toAppendToInputString:*(&self->super.super.super.isa + v8) withInputIndex:v10 afterDeletionCount:input];
-      [*(&self->super.super.super.isa + v8) setString:v18];
+      KB::String::~String(v22);
+      v9 = [(TIKeyboardInputManager_my *)self suffixOfDesiredString:v19 toAppendToInputString:*(&self->super.super.super.isa + v8) withInputIndex:v10 afterDeletionCount:input];
+      [*(&self->super.super.super.isa + v8) setString:v16];
       if (![v9 length])
       {
 
@@ -128,9 +126,9 @@
 
     else
     {
-      v24.receiver = self;
-      v24.super_class = TIKeyboardInputManager_my;
-      v9 = [(TIKeyboardInputManager_my *)&v24 deleteFromInput:input];
+      v21.receiver = self;
+      v21.super_class = TIKeyboardInputManager_my;
+      v9 = [(TIKeyboardInputManager_my *)&v21 deleteFromInput:input];
     }
   }
 
@@ -138,8 +136,6 @@
   {
     v9 = 0;
   }
-
-  v22 = *MEMORY[0x29EDCA608];
 
   return v9;
 }

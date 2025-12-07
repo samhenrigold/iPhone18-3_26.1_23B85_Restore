@@ -1,26 +1,26 @@
-uint64_t sub_100000798(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100000798(uint64_t a1, uint64_t *a2)
 {
-  sub_100003AB4(2, "%s:-->", a3, a4, a5, a6, a7, a8, "get_nat_packets");
+  sub_100003AB4(2, "%s:-->", "get_nat_packets");
   if (a2)
   {
     *a2 = 0;
-    v9 = PFUserCopyRules_S();
-    if (v9)
+    v3 = PFUserCopyRules_S();
+    if (v3)
     {
-      v10 = v9;
-      count = xpc_array_get_count(v9);
+      v4 = v3;
+      count = xpc_array_get_count(v3);
       if (!count)
       {
 LABEL_9:
-        xpc_release(v10);
+        xpc_release(v4);
         return 0;
       }
 
-      v12 = count;
-      v13 = 0;
+      v6 = count;
+      v7 = 0;
       while (1)
       {
-        value = xpc_array_get_value(v10, v13);
+        value = xpc_array_get_value(v4, v7);
         if (xpc_get_type(value) != &_xpc_type_dictionary)
         {
           break;
@@ -31,19 +31,19 @@ LABEL_9:
         {
           *a2 = xpc_dictionary_get_uint64(value, kPFPacketsIn);
           *a2 += xpc_dictionary_get_uint64(value, kPFPacketsOut);
-          xpc_dictionary_get_uint64(value, kPFPacketsIn);
-          xpc_dictionary_get_uint64(value, kPFPacketsOut);
-          sub_100003AB4(2, "%s:packets in %llu packets out %llu", v16, v17, v18, v19, v20, v21, "get_nat_packets");
+          v10 = xpc_dictionary_get_uint64(value, kPFPacketsIn);
+          v11 = xpc_dictionary_get_uint64(value, kPFPacketsOut);
+          sub_100003AB4(2, "%s:packets in %llu packets out %llu", "get_nat_packets", v10, v11);
         }
 
-        if (v12 == ++v13)
+        if (v6 == ++v7)
         {
           goto LABEL_9;
         }
       }
 
       warn("xpc rule is not of type dictionary");
-      xpc_release(v10);
+      xpc_release(v4);
     }
 
     else
@@ -429,7 +429,7 @@ void sub_100001308(const char *a1, int a2)
 
 uint64_t sub_100001404(int a1, uint64_t a2, uint64_t a3)
 {
-  v31 = 0;
+  v17 = 0;
   if (dword_10000C008 != -1)
   {
     close(dword_10000C008);
@@ -446,20 +446,20 @@ uint64_t sub_100001404(int a1, uint64_t a2, uint64_t a3)
   sub_10000172C();
   if (!a1)
   {
-    sub_100003AB4(1, "new_dataconn(client)", v6, v7, v8, v9, v10, v11, v30);
+    sub_100003AB4(1, "new_dataconn(client)");
     unk_10000C050 = 0;
     *algn_10000C058 = 0;
-    v16 = sub_1000040E8(1, dword_10000C000, dword_10000C004, -1, 1, &unk_10000C050);
-    dword_10000C008 = v16;
-    if (v16 == -1)
+    v10 = sub_1000040E8(1, dword_10000C000, dword_10000C004, -1, 1, &unk_10000C050);
+    dword_10000C008 = v10;
+    if (v10 == -1)
     {
-      v21 = "cannot get client listen socket (%m)";
+      v15 = "cannot get client listen socket (%m)";
       goto LABEL_29;
     }
 
-    if (listen(v16, 5))
+    if (listen(v10, 5))
     {
-      v21 = "cannot listen on client socket (%m)";
+      v15 = "cannot listen on client socket (%m)";
       goto LABEL_29;
     }
 
@@ -468,18 +468,18 @@ uint64_t sub_100001404(int a1, uint64_t a2, uint64_t a3)
       return 0;
     }
 
-    v17 = PFUserCreate();
-    if (v17)
+    v11 = PFUserCreate();
+    if (v11)
     {
-      if (sub_100000920(v17, 1u, (a2 + 40), (a3 + 40), word_10000C052, &v31) != -1)
+      if (sub_100000920(v11, 1u, (a2 + 40), (a3 + 40), word_10000C052, &v17) != -1)
       {
-        v18 = malloc_type_malloc(0x10uLL, 0x1020040EDED9539uLL);
-        v19 = v31;
-        if (v18)
+        v12 = malloc_type_malloc(0x10uLL, 0x1020040EDED9539uLL);
+        v13 = v17;
+        if (v12)
         {
-          *v18 = qword_10000C078;
-          v18[1] = v19;
-          qword_10000C078 = v18;
+          *v12 = qword_10000C078;
+          v12[1] = v13;
+          qword_10000C078 = v12;
           PFUserRelease();
           return 0;
         }
@@ -493,46 +493,46 @@ LABEL_25:
     }
 
 LABEL_26:
-    v21 = "pf operation failed (%m)";
+    v15 = "pf operation failed (%m)";
 LABEL_29:
-    v22 = 5;
+    v16 = 5;
 LABEL_30:
-    syslog(v22, v21);
-    sub_10000176C(71, v23, v24, v25, v26, v27, v28, v29);
+    syslog(v16, v15);
+    sub_10000176C(71);
   }
 
   qword_10000C040 = 0;
   *algn_10000C048 = 0;
-  v12 = sub_1000040E8(1, dword_10000C000, dword_10000C004, -1, 1, &qword_10000C040);
-  dword_10000C010 = v12;
-  if (v12 == -1)
+  v6 = sub_1000040E8(1, dword_10000C000, dword_10000C004, -1, 1, &qword_10000C040);
+  dword_10000C010 = v6;
+  if (v6 == -1)
   {
-    v21 = "server socket bind() failed (%m)";
+    v15 = "server socket bind() failed (%m)";
 LABEL_23:
-    v22 = 6;
+    v16 = 6;
     goto LABEL_30;
   }
 
-  if (listen(v12, 5))
+  if (listen(v6, 5))
   {
-    v21 = "server socket listen() failed (%m)";
+    v15 = "server socket listen() failed (%m)";
     goto LABEL_23;
   }
 
   if (!dword_10000C060)
   {
-    v13 = PFUserCreate();
-    if (v13)
+    v7 = PFUserCreate();
+    if (v7)
     {
-      if (sub_100000C5C(v13, &xmmword_10000C064, (a3 + 40), bswap32(WORD1(qword_10000C040)) >> 16, (a2 + 40), bswap32(word_10000C052) >> 16, &v31) != -1)
+      if (sub_100000C5C(v7, &xmmword_10000C064, (a3 + 40), bswap32(WORD1(qword_10000C040)) >> 16, (a2 + 40), bswap32(word_10000C052) >> 16, &v17) != -1)
       {
-        v14 = malloc_type_malloc(0x10uLL, 0x1020040EDED9539uLL);
-        v15 = v31;
-        if (v14)
+        v8 = malloc_type_malloc(0x10uLL, 0x1020040EDED9539uLL);
+        v9 = v17;
+        if (v8)
         {
-          *v14 = qword_10000C078;
-          v14[1] = v15;
-          qword_10000C078 = v14;
+          *v8 = qword_10000C078;
+          v8[1] = v9;
+          qword_10000C078 = v8;
           PFUserRelease();
           qword_10000CCB8 = 0;
           return 0;
@@ -576,12 +576,11 @@ uint64_t sub_10000172C()
   return result;
 }
 
-void sub_10000176C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_10000176C(int a1)
 {
-  v8 = a1;
-  sub_1000035EC(a1, a2, a3, a4, a5, a6, a7, a8);
-  sub_100003AB4(1, "exit: %d", v9, v10, v11, v12, v13, v14, v8);
-  exit(v8);
+  sub_1000035EC();
+  sub_100003AB4(1, "exit: %d", a1);
+  exit(a1);
 }
 
 void sub_1000017A4(uint64_t a1, uint64_t a2)
@@ -602,12 +601,12 @@ void sub_1000017A4(uint64_t a1, uint64_t a2)
     }
 
     strcpy(__str, "500 Only anonymous FTP is allowed\r\n");
-    v48 = strlen(__str);
-    v49 = 0;
+    v18 = strlen(__str);
+    v19 = 0;
     while (1)
     {
-      v50 = send(*a1, &__str[v49], v48 - v49, 0);
-      if (v50 == -1)
+      v20 = send(*a1, &__str[v19], v18 - v19, 0);
+      if (v20 == -1)
       {
         if (*__error() != 35 && *__error() != 4)
         {
@@ -617,10 +616,10 @@ void sub_1000017A4(uint64_t a1, uint64_t a2)
 
       else
       {
-        v49 += v50;
+        v19 += v20;
       }
 
-      if ((v49 & 0x80000000) != 0 || v48 <= v49)
+      if ((v19 & 0x80000000) != 0 || v18 <= v19)
       {
         return;
       }
@@ -632,13 +631,13 @@ void sub_1000017A4(uint64_t a1, uint64_t a2)
     if (!dword_10000C088 && !strncasecmp(v4, "epsv", 4uLL))
     {
       strcpy(__str, "500 EPSV command not understood\r\n");
-      sub_100003AB4(1, "to client (modified): %s", v5, v6, v7, v8, v9, v10, __str);
-      v63 = strlen(__str);
-      v64 = 0;
+      sub_100003AB4(1, "to client (modified): %s", __str);
+      v27 = strlen(__str);
+      v28 = 0;
       while (1)
       {
-        v65 = send(*a1, &__str[v64], v63 - v64, 0);
-        if (v65 == -1)
+        v29 = send(*a1, &__str[v28], v27 - v28, 0);
+        if (v29 == -1)
         {
           if (*__error() != 35 && *__error() != 4)
           {
@@ -648,10 +647,10 @@ void sub_1000017A4(uint64_t a1, uint64_t a2)
 
         else
         {
-          v64 += v65;
+          v28 += v29;
         }
 
-        if ((v64 & 0x80000000) != 0 || v63 <= v64)
+        if ((v28 & 0x80000000) != 0 || v27 <= v28)
         {
           return;
         }
@@ -663,79 +662,78 @@ void sub_1000017A4(uint64_t a1, uint64_t a2)
       goto LABEL_44;
     }
 
-    sub_100003AB4(1, "Got a PORT command", v11, v12, v13, v14, v15, v16, v106);
-    v17 = *(a1 + 32);
-    v109.ai_flags = 0;
-    if (sscanf((v17 + 5), "%u,%u,%u,%u,%u,%u", &v109, &v109.ai_family, &v109.ai_socktype, &v109.ai_protocol, &v109.ai_addrlen, &v109.ai_addrlen + 1) == 6)
+    sub_100003AB4(1, "Got a PORT command");
+    v5 = *(a1 + 32);
+    v38.ai_flags = 0;
+    if (sscanf((v5 + 5), "%u,%u,%u,%u,%u,%u", &v38, &v38.ai_family, &v38.ai_socktype, &v38.ai_protocol, &v38.ai_addrlen, &v38.ai_addrlen + 1) == 6)
     {
       for (i = 0; i != 24; i += 4)
       {
-        if (*(&v109.ai_flags + i) >= 0x100u)
+        if (*(&v38.ai_flags + i) >= 0x100u)
         {
           goto LABEL_68;
         }
       }
 
       byte_10000C051 = 2;
-      dword_10000C054 = bswap32((v109.ai_family << 16) | (v109.ai_flags << 24) | (v109.ai_socktype << 8) | v109.ai_protocol);
-      word_10000C052 = bswap32(*(&v109.ai_addrlen + 1) | (v109.ai_addrlen << 8)) >> 16;
-      sub_100003AB4(1, "client wants us to use %u.%u.%u.%u:%u", v18, v19, v20, v21, v22, v23, v109.ai_flags);
+      dword_10000C054 = bswap32((v38.ai_family << 16) | (v38.ai_flags << 24) | (v38.ai_socktype << 8) | v38.ai_protocol);
+      word_10000C052 = bswap32(*(&v38.ai_addrlen + 1) | (v38.ai_addrlen << 8)) >> 16;
+      sub_100003AB4(1, "client wants us to use %u.%u.%u.%u:%u", v38.ai_flags, v38.ai_family, v38.ai_socktype, v38.ai_protocol, *(&v38.ai_addrlen + 1) | (v38.ai_addrlen << 8));
       sub_100001404(1, a1, a2);
       dword_10000C084 = 1;
-      v25.s_addr = *(a2 + 44);
-      v26 = inet_ntoa(v25);
-      sub_100003AB4(1, "we want server to use %s:%u", v27, v28, v29, v30, v31, v32, v26);
+      v7.s_addr = *(a2 + 44);
+      v8 = inet_ntoa(v7);
+      sub_100003AB4(1, "we want server to use %s:%u", v8, bswap32(WORD1(qword_10000C040)) >> 16);
       v4 = __str;
       snprintf(__str, 0x64uLL, "PORT %u,%u,%u,%u,%u,%u\r\n", *(a2 + 44), *(a2 + 45), *(a2 + 46), *(a2 + 47), BYTE2(qword_10000C040), BYTE3(qword_10000C040));
-      sub_100003AB4(1, "to server (modified): %s", v33, v34, v35, v36, v37, v38, __str);
+      sub_100003AB4(1, "to server (modified): %s", __str);
       goto LABEL_45;
     }
 
 LABEL_68:
-    v91 = *(a1 + 32);
     syslog(6, "malformed PORT command (%s)");
 LABEL_69:
-    sub_10000176C(65, v92, v93, v94, v95, v96, v97, v98);
+    sub_10000176C(65);
   }
 
-  memset(&v109, 0, sizeof(v109));
-  v107 = 0;
-  v39 = strdup(v4 + 5);
-  if (!v39)
+  memset(&v38, 0, sizeof(v38));
+  v36 = 0;
+  v9 = strdup(v4 + 5);
+  if (!v9)
   {
     syslog(3, "insufficient memory");
-    sub_10000176C(69, v99, v100, v101, v102, v103, v104, v105);
+    sub_10000176C(69);
   }
 
-  v40 = v39;
+  v10 = v9;
+  v11 = 0;
+  v13 = v9 + 1;
+  v12 = *v9;
+  v40 = 0;
   v41 = 0;
-  v43 = v39 + 1;
-  v42 = *v39;
-  v111 = 0;
-  v112 = 0;
-  v110 = 0;
+  v39 = 0;
   do
   {
-    v44 = strchr(v43, v42);
-    if (!v44 || *v44 != v42)
+    v14 = strchr(v13, v12);
+    if (!v14 || *v14 != v12)
     {
-      __endptr = v43;
+      __endptr = v13;
       goto LABEL_33;
     }
 
-    *v44 = 0;
-    v45 = v44 + 1;
-    (&v110)[v41++] = v43;
-    v43 = v45;
+    *v14 = 0;
+    v15 = v14 + 1;
+    (&v39)[v11++] = v13;
+    v13 = v15;
   }
 
-  while (v41 != 3);
-  __endptr = v45;
-  v46 = v110;
-  v47 = strtoul(v110, &__endptr, 10);
-  if (!*v46 || *__endptr)
+  while (v11 != 3);
+  __endptr = v15;
+  v16 = v39;
+  v17 = strtoul(v39, &__endptr, 10);
+  if (!*v16 || *__endptr)
   {
-    if (v47 == 2)
+    if (v17 == 2)
     {
 LABEL_21:
       v4 = 0;
@@ -746,13 +744,13 @@ LABEL_21:
     goto LABEL_67;
   }
 
-  memset(&v109, 0, sizeof(v109));
-  if (v47 == 2)
+  memset(&v38, 0, sizeof(v38));
+  if (v17 == 2)
   {
     goto LABEL_21;
   }
 
-  if (v47 != 1)
+  if (v17 != 1)
   {
 LABEL_67:
     v4 = 0;
@@ -760,9 +758,9 @@ LABEL_67:
     goto LABEL_34;
   }
 
-  v109.ai_socktype = 1;
-  *&v109.ai_flags = 0x200000004;
-  if (getaddrinfo(v111, v112, &v109, &v107) || v107->ai_next || v107->ai_addrlen > 0x10)
+  v38.ai_socktype = 1;
+  *&v38.ai_flags = 0x200000004;
+  if (getaddrinfo(v40, v41, &v38, &v36) || v36->ai_next || v36->ai_addrlen > 0x10)
   {
 LABEL_33:
     v4 = 0;
@@ -770,37 +768,36 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  ai_addr = v107->ai_addr;
   __memcpy_chk();
-  v67.s_addr = dword_10000C054;
-  v68 = inet_ntoa(v67);
-  sub_100003AB4(1, "client wants us to use %s:%u", v69, v70, v71, v72, v73, v74, v68);
+  v30.s_addr = dword_10000C054;
+  v31 = inet_ntoa(v30);
+  sub_100003AB4(1, "client wants us to use %s:%u", v31, bswap32(word_10000C052) >> 16);
   sub_100001404(1, a1, a2);
   dword_10000C084 = 3;
-  v75.s_addr = *(a2 + 44);
-  v76 = inet_ntoa(v75);
-  sub_100003AB4(1, "we want server to use %s:%u", v77, v78, v79, v80, v81, v82, v76);
-  v83.s_addr = *(a2 + 44);
-  v84 = inet_ntoa(v83);
+  v32.s_addr = *(a2 + 44);
+  v33 = inet_ntoa(v32);
+  sub_100003AB4(1, "we want server to use %s:%u", v33, bswap32(WORD1(qword_10000C040)) >> 16);
+  v34.s_addr = *(a2 + 44);
+  v35 = inet_ntoa(v34);
   v4 = __str;
-  snprintf(__str, 0x64uLL, "EPRT |%d|%s|%u|\r\n", 1, v84, bswap32(WORD1(qword_10000C040)) >> 16);
-  sub_100003AB4(1, "to server (modified): %s", v85, v86, v87, v88, v89, v90, __str);
+  snprintf(__str, 0x64uLL, "EPRT |%d|%s|%u|\r\n", 1, v35, bswap32(WORD1(qword_10000C040)) >> 16);
+  sub_100003AB4(1, "to server (modified): %s", __str);
 LABEL_34:
-  free(v40);
-  if (v107)
+  free(v10);
+  if (v36)
   {
-    freeaddrinfo(v107);
+    freeaddrinfo(v36);
   }
 
   if (!v4)
   {
-    sub_100003AB4(1, "to client (modified): %s", v51, v52, v53, v54, v55, v56, __str);
-    v57 = strlen(__str);
-    v58 = 0;
+    sub_100003AB4(1, "to client (modified): %s", __str);
+    v21 = strlen(__str);
+    v22 = 0;
     do
     {
-      v59 = send(*a1, &__str[v58], v57 - v58, 0);
-      if (v59 == -1)
+      v23 = send(*a1, &__str[v22], v21 - v22, 0);
+      if (v23 == -1)
       {
         if (*__error() != 35 && *__error() != 4)
         {
@@ -810,23 +807,23 @@ LABEL_34:
 
       else
       {
-        v58 += v59;
+        v22 += v23;
       }
     }
 
-    while ((v58 & 0x80000000) == 0 && v57 > v58);
+    while ((v22 & 0x80000000) == 0 && v21 > v22);
   }
 
 LABEL_44:
   if (v4)
   {
 LABEL_45:
-    v60 = strlen(v4);
-    v61 = 0;
+    v24 = strlen(v4);
+    v25 = 0;
     do
     {
-      v62 = send(*a2, &v4[v61], v60 - v61, 0);
-      if (v62 == -1)
+      v26 = send(*a2, &v4[v25], v24 - v25, 0);
+      if (v26 == -1)
       {
         if (*__error() != 35 && *__error() != 4)
         {
@@ -836,11 +833,11 @@ LABEL_45:
 
       else
       {
-        v61 += v62;
+        v25 += v26;
       }
     }
 
-    while ((v61 & 0x80000000) == 0 && v60 > v61);
+    while ((v25 & 0x80000000) == 0 && v24 > v25);
   }
 }
 
@@ -850,78 +847,78 @@ ssize_t sub_100001ED8(uint64_t a1, uint64_t a2)
   v4 = *(a1 + 32);
   if (strlen(v4) >= 0x401)
   {
-    v17 = "long FTP control reply";
+    v11 = "long FTP control reply";
 LABEL_46:
-    v67 = 5;
+    v24 = 5;
 LABEL_44:
-    syslog(v67, v17, v75);
-    sub_10000176C(65, v68, v69, v70, v71, v72, v73, v74);
+    syslog(v24, v11, v25);
+    sub_10000176C(65);
   }
 
   __endptr = 0;
-  v11 = strtol(v4, &__endptr, 10);
-  v12 = *(a1 + 32);
-  v13 = *v12;
-  if ((v13 & 0x80) != 0)
+  v5 = strtol(v4, &__endptr, 10);
+  v6 = *(a1 + 32);
+  v7 = *v6;
+  if ((v7 & 0x80) != 0)
   {
-    v14 = __maskrune(v13, 0x4000uLL);
-    v12 = *(a1 + 32);
-    LODWORD(v13) = *v12;
+    v8 = __maskrune(v7, 0x4000uLL);
+    v6 = *(a1 + 32);
+    LODWORD(v7) = *v6;
   }
 
   else
   {
-    v14 = _DefaultRuneLocale.__runetype[v13] & 0x4000;
+    v8 = _DefaultRuneLocale.__runetype[v7] & 0x4000;
   }
 
-  if (v14)
+  if (v8)
   {
-    v15 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v15 = v11;
+    v9 = v5;
   }
 
-  if (!v13 || (v16 = *__endptr, v16 != 32) && v16 != 45)
+  if (!v7 || (v10 = *__endptr, v10 != 32) && v10 != 45)
   {
     if (byte_10000CCC0)
     {
       goto LABEL_15;
     }
 
-    v17 = "malformed control reply";
+    v11 = "malformed control reply";
     goto LABEL_43;
   }
 
-  if ((v15 - 1000) <= 0xFFFFFFFFFFFFFC18)
+  if ((v9 - 1000) <= 0xFFFFFFFFFFFFFC18)
   {
     if (byte_10000CCC0)
     {
       goto LABEL_15;
     }
 
-    v75 = v15;
-    v17 = "invalid server reply code %ld";
+    v25 = v9;
+    v11 = "invalid server reply code %ld";
     goto LABEL_43;
   }
 
-  byte_10000CCC0 = v16 == 45;
-  if (v15 != 227 || dword_10000C088 != 0)
+  byte_10000CCC0 = v10 == 45;
+  if (v9 != 227 || dword_10000C088 != 0)
   {
     if (dword_10000C088)
     {
-      if (v15 == 234)
+      if (v9 == 234)
       {
-        sub_100003AB4(1, "Got 'authentication exchange complete' reply", v5, v6, v7, v8, v9, v10, v75);
-        sub_100003AB4(1, "{%s}", v22, v23, v24, v25, v26, v27, *(a1 + 32));
+        sub_100003AB4(1, "Got 'authentication exchange complete' reply");
+        sub_100003AB4(1, "{%s}", *(a1 + 32));
         dword_10000C084 = 5;
-        v12 = *(a1 + 32);
+        v6 = *(a1 + 32);
         if (fcntl(*a2, 4, 4) == -1 || fcntl(*a1, 4, 4) == -1)
         {
           syslog(3, "fcntl F_SETFL O_NONBLOCK error");
-          sub_10000176C(71, v28, v29, v30, v31, v32, v33, v34);
+          sub_10000176C(71);
         }
       }
     }
@@ -929,73 +926,73 @@ LABEL_44:
     goto LABEL_15;
   }
 
-  sub_100003AB4(1, "Got a PASV reply", v5, v6, v7, v8, v9, v10, v75);
-  sub_100003AB4(1, "{%s}", v35, v36, v37, v38, v39, v40, *(a1 + 32));
-  v41 = *(a1 + 32);
-  v42 = strchr(v41, 40);
-  if (!v42)
+  sub_100003AB4(1, "Got a PASV reply");
+  sub_100003AB4(1, "{%s}", *(a1 + 32));
+  v16 = *(a1 + 32);
+  v17 = strchr(v16, 40);
+  if (!v17)
   {
-    v42 = strrchr(v41, 32);
-    if (!v42)
+    v17 = strrchr(v16, 32);
+    if (!v17)
     {
-      v17 = "malformed 227 reply";
+      v11 = "malformed 227 reply";
       goto LABEL_46;
     }
   }
 
-  v77 = 0;
-  if (sscanf(v42 + 1, "%u,%u,%u,%u,%u,%u", &v77, &v78, &v79, &v80, &v81, &v82) != 6)
+  v27 = 0;
+  if (sscanf(v17 + 1, "%u,%u,%u,%u,%u,%u", &v27, &v28, &v29, &v30, &v31, &v32) != 6)
   {
-    v75 = *(a2 + 32);
-    v17 = "malformed PASV reply (%s)";
+    v25 = *(a2 + 32);
+    v11 = "malformed PASV reply (%s)";
     goto LABEL_43;
   }
 
   for (i = 0; i != 24; i += 4)
   {
-    if (*(&v77 + i) >= 0x100)
+    if (*(&v27 + i) >= 0x100)
     {
-      v75 = *(a2 + 32);
-      v17 = "malformed PASV reply(%s)";
+      v25 = *(a2 + 32);
+      v11 = "malformed PASV reply(%s)";
 LABEL_43:
-      v67 = 6;
+      v24 = 6;
       goto LABEL_44;
     }
   }
 
   BYTE1(qword_10000C040) = 2;
-  v44.s_addr = bswap32((v78 << 16) | (v77 << 24) | (v79 << 8) | v80);
-  HIDWORD(qword_10000C040) = v44;
-  WORD1(qword_10000C040) = bswap32(v82 | (v81 << 8)) >> 16;
-  v45 = inet_ntoa(v44);
-  sub_100003AB4(1, "server wants us to use %s:%u", v46, v47, v48, v49, v50, v51, v45);
+  v19.s_addr = bswap32((v28 << 16) | (v27 << 24) | (v29 << 8) | v30);
+  HIDWORD(qword_10000C040) = v19;
+  WORD1(qword_10000C040) = bswap32(v32 | (v31 << 8)) >> 16;
+  v20 = inet_ntoa(v19);
+  sub_100003AB4(1, "server wants us to use %s:%u", v20, v32 | (v31 << 8));
   sub_100001404(0, a2, a1);
   dword_10000C084 = 2;
   if (dword_10000C060)
   {
-    v52 = &unk_10000C090;
+    v21 = &unk_10000C090;
   }
 
   else
   {
-    v52 = (a1 + 44);
+    v21 = (a1 + 44);
   }
 
-  v53.s_addr = *v52;
-  v54 = inet_ntoa(v53);
-  sub_100003AB4(1, "we want client to use %s:%u", v55, v56, v57, v58, v59, v60, v54);
-  v12 = __str;
-  snprintf(__str, 0x64uLL, "227 Entering Passive Mode (%u,%u,%u,%u,%u,%u)\r\n", *v52, v52[1], v52[2], v52[3], word_10000C052, HIBYTE(word_10000C052));
-  sub_100003AB4(1, "to client (modified): %s", v61, v62, v63, v64, v65, v66, __str);
+  v22.s_addr = *v21;
+  v23 = inet_ntoa(v22);
+  sub_100003AB4(1, "we want client to use %s:%u", v23, bswap32(word_10000C052) >> 16);
+  v6 = __str;
+  snprintf(__str, 0x64uLL, "227 Entering Passive Mode (%u,%u,%u,%u,%u,%u)\r\n", *v21, v21[1], v21[2], v21[3], word_10000C052, HIBYTE(word_10000C052));
+  sub_100003AB4(1, "to client (modified): %s", __str);
 LABEL_15:
-  v18 = strlen(v12);
-  v19 = 0;
+  v12 = strlen(v6);
+  v13 = 0;
   while (2)
   {
-    result = send(*a2, &v12[v19], v18 - v19, 0);
+    result = send(*a2, &v6[v13], v12 - v13, 0);
     if (result != -1)
     {
-      v19 += result;
+      v13 += result;
       goto LABEL_20;
     }
 
@@ -1003,7 +1000,7 @@ LABEL_15:
     if (*result == 35 || (result = __error(), *result == 4))
     {
 LABEL_20:
-      if ((v19 & 0x80000000) != 0 || v18 <= v19)
+      if ((v13 & 0x80000000) != 0 || v12 <= v13)
       {
         return result;
       }
@@ -1037,21 +1034,21 @@ uint64_t sub_10000233C(uint64_t a1)
 
 void start(int a1, char *const *a2)
 {
-  v174 = 0;
-  memset(v173, 0, sizeof(v173));
-  memset(v172, 0, sizeof(v172));
-  v171 = 0;
-  memset(v170, 0, sizeof(v170));
-  v169 = 0u;
-  memset(v168, 0, sizeof(v168));
-  v167.__sigaction_u.__sa_handler = 0;
-  *&v167.sa_mask = 0;
-  v166.__sigaction_u.__sa_handler = 0;
-  *&v166.sa_mask = 0;
-  v164 = 1;
-  v165 = 0;
-  v162 = 0;
-  v163 = 0;
+  v70 = 0;
+  memset(v69, 0, sizeof(v69));
+  memset(v68, 0, sizeof(v68));
+  v67 = 0;
+  memset(v66, 0, sizeof(v66));
+  v65 = 0u;
+  memset(v64, 0, sizeof(v64));
+  v63.__sigaction_u.__sa_handler = 0;
+  *&v63.sa_mask = 0;
+  v62.__sigaction_u.__sa_handler = 0;
+  *&v62.sa_mask = 0;
+  v60 = 1;
+  v61 = 0;
+  v58 = 0;
+  v59 = 0;
   errorbuf = 0;
   if (sandbox_init("ftp-proxy-embedded", 1uLL, &errorbuf) == -1)
   {
@@ -1257,561 +1254,554 @@ LABEL_57:
         openlog(__progname, 9, 24);
         setlinebuf(__stdoutp);
         setlinebuf(__stderrp);
-        memset(v172, 0, sizeof(v172));
-        memset(v173, 0, sizeof(v173));
-        v174 = 0;
-        memset(v168, 0, sizeof(v168));
-        v169 = 0u;
-        memset(v170, 0, sizeof(v170));
-        v171 = 0;
-        if (sub_100003AF4(0, &xmmword_10000C064, &v173[0].sa_data[6], &unk_10000C08C) == -1)
+        memset(v68, 0, sizeof(v68));
+        memset(v69, 0, sizeof(v69));
+        v70 = 0;
+        memset(v64, 0, sizeof(v64));
+        v65 = 0u;
+        memset(v66, 0, sizeof(v66));
+        v67 = 0;
+        if (sub_100003AF4(0, &xmmword_10000C064, &v69[0].sa_data[6], &unk_10000C08C) == -1)
         {
-          sub_10000176C(76, v14, v15, v16, v17, v18, v19, v20);
+          sub_10000176C(76);
         }
 
         if (dword_10000CCB4)
         {
-          v21 = 0;
+          v14 = 0;
         }
 
         else
         {
-          v21 = 10;
+          v14 = 10;
         }
 
-        v22 = getnameinfo(&v173[0].sa_data[6], 0x10u, byte_10000C0AC, 0x401u, 0, 0, v21);
-        if (v22 <= 8 && ((1 << v22) & 0x105) != 0)
+        v15 = getnameinfo(&v69[0].sa_data[6], 0x10u, byte_10000C0AC, 0x401u, 0, 0, v14);
+        if (v15 > 8 || ((1 << v15) & 0x105) == 0)
         {
-          v29 = getnameinfo(&xmmword_10000C064, 0x10u, byte_10000C4AD, 0x401u, 0, 0, v21);
-          if (v29 <= 8 && ((1 << v29) & 0x105) != 0)
-          {
-            v172[0] = 0;
-            syslog(6, "accepted connection from %s:%u to %s:%u", byte_10000C0AC, bswap32(*&v173[0].sa_data[8]) >> 16, byte_10000C4AD, bswap32(WORD1(xmmword_10000C064)) >> 16);
-            v168[0] = sub_1000040E8(1, dword_10000C000, dword_10000C004, -1, 1, &v169 + 8);
-            if (connect(v168[0], &xmmword_10000C064, 0x10u))
-            {
-              syslog(6, "cannot connect to %s:%u (%m)");
-              goto LABEL_78;
-            }
+          sub_100003AB4(2, "name resolution failure (client)");
+          goto LABEL_215;
+        }
 
-            v165 = 16;
-            getsockname(v168[0], (&v169 + 8), &v165);
-            v30 = getnameinfo((&v169 + 8), 0x10u, byte_10000C8AE, 0x401u, 0, 0, v21);
-            if (v30 <= 8 && ((1 << v30) & 0x105) != 0)
-            {
-              sub_100003AB4(1, "local socket is %s:%u", v23, v24, v25, v26, v27, v28, byte_10000C8AE);
-              v167.__sigaction_u.__sa_handler = 1;
-              *&v167.sa_mask = 0x200000000;
-              if (sigaction(13, &v167, &v166))
-              {
-                syslog(3, "sigaction() failed (%m)");
-                goto LABEL_216;
-              }
+        v16 = getnameinfo(&xmmword_10000C064, 0x10u, byte_10000C4AD, 0x401u, 0, 0, v14);
+        if (v16 > 8 || ((1 << v16) & 0x105) == 0)
+        {
+          sub_100003AB4(2, "name resolution failure (server)");
+          goto LABEL_215;
+        }
 
-              v167.__sigaction_u.__sa_handler = sub_1000035BC;
-              *&v167.sa_mask = 0;
-              sigaction(2, &v167, 0);
-              sigaction(15, &v167, 0);
-              if (setsockopt(v172[0], 0xFFFF, 256, &v164, 4u) == -1)
-              {
-                syslog(5, "cannot set SO_OOBINLINE (%m)");
-                goto LABEL_216;
-              }
+        v68[0] = 0;
+        syslog(6, "accepted connection from %s:%u to %s:%u", byte_10000C0AC, bswap32(*&v69[0].sa_data[8]) >> 16, byte_10000C4AD, bswap32(WORD1(xmmword_10000C064)) >> 16);
+        v64[0] = sub_1000040E8(1, dword_10000C000, dword_10000C004, -1, 1, &v65 + 8);
+        if (connect(v64[0], &xmmword_10000C064, 0x10u))
+        {
+          syslog(6, "cannot connect to %s:%u (%m)");
+          goto LABEL_78;
+        }
 
-              v172[1] = 1024;
-              *&v173[0].sa_len = malloc_type_malloc(0x400uLL, 0x84E86415uLL);
-              v172[2] = 1024;
-              v53 = malloc_type_malloc(0x400uLL, 0x817C1E62uLL);
-              *&v172[3] = 0;
-              LOBYTE(v174) = 1;
-              *&v172[6] = v53;
-              *&v173[2].sa_data[6] = "client";
-              HIDWORD(v174) = 0;
-              *&v173[1].sa_data[6] = *&v173[0].sa_data[6];
-              v168[1] = 1024;
-              *&v169 = malloc_type_malloc(0x400uLL, 0x99F340EAuLL);
-              v168[2] = 1024;
-              *&v168[6] = malloc_type_malloc(0x400uLL, 0x57E3E601uLL);
-              *&v168[3] = 0;
-              LOBYTE(v171) = 1;
-              *(&v170[1] + 1) = "server";
-              HIDWORD(v171) = 1;
-              *(v170 + 8) = xmmword_10000C064;
-              if (!*&v168[6] || !*&v173[0].sa_len || !*&v172[6] || !v169)
-              {
-LABEL_214:
-                syslog(5, "insufficient memory");
+        v61 = 16;
+        getsockname(v64[0], (&v65 + 8), &v61);
+        v17 = getnameinfo((&v65 + 8), 0x10u, byte_10000C8AE, 0x401u, 0, 0, v14);
+        if (v17 > 8 || ((1 << v17) & 0x105) == 0)
+        {
+          sub_100003AB4(2, "name resolution failure (local)");
+          goto LABEL_215;
+        }
+
+        sub_100003AB4(1, "local socket is %s:%u", byte_10000C8AE, bswap32(WORD5(v65)) >> 16);
+        v63.__sigaction_u.__sa_handler = 1;
+        *&v63.sa_mask = 0x200000000;
+        if (sigaction(13, &v63, &v62))
+        {
+          syslog(3, "sigaction() failed (%m)");
+          goto LABEL_215;
+        }
+
+        v63.__sigaction_u.__sa_handler = sub_1000035BC;
+        *&v63.sa_mask = 0;
+        sigaction(2, &v63, 0);
+        sigaction(15, &v63, 0);
+        if (setsockopt(v68[0], 0xFFFF, 256, &v60, 4u) == -1)
+        {
+          syslog(5, "cannot set SO_OOBINLINE (%m)");
+          goto LABEL_215;
+        }
+
+        v68[1] = 1024;
+        *&v69[0].sa_len = malloc_type_malloc(0x400uLL, 0x84E86415uLL);
+        v68[2] = 1024;
+        v18 = malloc_type_malloc(0x400uLL, 0x817C1E62uLL);
+        *&v68[3] = 0;
+        LOBYTE(v70) = 1;
+        *&v68[6] = v18;
+        *&v69[2].sa_data[6] = "client";
+        HIDWORD(v70) = 0;
+        *&v69[1].sa_data[6] = *&v69[0].sa_data[6];
+        v64[1] = 1024;
+        *&v65 = malloc_type_malloc(0x400uLL, 0x99F340EAuLL);
+        v64[2] = 1024;
+        *&v64[6] = malloc_type_malloc(0x400uLL, 0x57E3E601uLL);
+        *&v64[3] = 0;
+        LOBYTE(v67) = 1;
+        *(&v66[1] + 1) = "server";
+        HIDWORD(v67) = 1;
+        *(v66 + 8) = xmmword_10000C064;
+        if (!*&v64[6] || !*&v69[0].sa_len || !*&v68[6] || !v65)
+        {
+LABEL_213:
+          syslog(5, "insufficient memory");
 LABEL_76:
-                sub_10000176C(69, v38, v39, v40, v41, v42, v43, v44);
-              }
+          sub_10000176C(69);
+        }
 
-              v60 = v174;
-              v61 = 1;
-              while (2)
-              {
-                v62 = v172[0];
-                if (v172[0] <= dword_10000C008)
-                {
-                  v62 = dword_10000C008;
-                }
+        v19 = v70;
+        v20 = 1;
+        while (2)
+        {
+          v21 = v68[0];
+          if (v68[0] <= dword_10000C008)
+          {
+            v21 = dword_10000C008;
+          }
 
-                if (v62 <= dword_10000C00C)
-                {
-                  v62 = dword_10000C00C;
-                }
+          if (v21 <= dword_10000C00C)
+          {
+            v21 = dword_10000C00C;
+          }
 
-                if (v62 <= v168[0])
-                {
-                  v62 = v168[0];
-                }
+          if (v21 <= v64[0])
+          {
+            v21 = v64[0];
+          }
 
-                if (v62 <= dword_10000C010)
-                {
-                  v62 = dword_10000C010;
-                }
+          if (v21 <= dword_10000C010)
+          {
+            v21 = dword_10000C010;
+          }
 
-                if (v62 <= dword_10000C014)
-                {
-                  v62 = dword_10000C014;
-                }
+          if (v21 <= dword_10000C014)
+          {
+            v21 = dword_10000C014;
+          }
 
-                v63 = v62 & ~(v62 >> 31);
-                if (v60)
-                {
-                  v64 = "alive";
-                }
-
-                else
-                {
-                  v64 = "dead";
-                }
-
-                if (v61)
-                {
-                  v65 = "alive";
-                }
-
-                else
-                {
-                  v65 = "dead";
-                }
-
-                v160 = v65;
-                sub_100003AB4(3, "client is %s; server is %s", v54, v55, v56, v57, v58, v59, v64);
-                v66 = (v63 + 1);
-                if (((v63 + 1) & 0x1F) != 0)
-                {
-                  v67 = (v66 >> 5) + 1;
-                }
-
-                else
-                {
-                  v67 = v66 >> 5;
-                }
-
-                v68 = malloc_type_calloc(v67, 4uLL, 0x100004052888210uLL);
-                if (!v68)
-                {
-                  goto LABEL_214;
-                }
-
-                v69 = v68;
-                if (dword_10000C084 == 5)
-                {
-                  if (!v174)
-                  {
-                    goto LABEL_122;
-                  }
-
-                  v70 = v172[0];
-                  if (__darwin_check_fd_set_overflow(v172[0], v68, 0))
-                  {
-                    *(v69->fds_bits + ((v70 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v70;
-                  }
-
-                  v77 = "ready";
-                  if (!BYTE2(v174))
-                  {
-                    v77 = "waiting";
-                  }
-
-                  sub_100003AB4(3, "client is %s", v71, v72, v73, v74, v75, v76, v77);
-                  if (BYTE2(v174))
-                  {
-                    if (sub_100003E6C() < 1)
-                    {
-                      v78 = 1;
-                    }
-
-                    else
-                    {
-                      v78 = 0;
-                      BYTE2(v174) = 0;
-                    }
-                  }
-
-                  else
-                  {
-LABEL_122:
-                    v78 = 0;
-                  }
-
-                  if (v171)
-                  {
-                    v85 = v168[0];
-                    if (__darwin_check_fd_set_overflow(v168[0], v69, 0))
-                    {
-                      *(v69->fds_bits + ((v85 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v85;
-                    }
-
-                    v92 = "ready";
-                    if (!BYTE2(v171))
-                    {
-                      v92 = "waiting";
-                    }
-
-                    sub_100003AB4(3, "server is %s", v86, v87, v88, v89, v90, v91, v92);
-                    if (BYTE2(v171))
-                    {
-                      if (sub_100003E6C() < 1)
-                      {
-                        goto LABEL_218;
-                      }
-
-                      BYTE2(v171) = 0;
-                    }
-                  }
-
-                  if (v78)
-                  {
-LABEL_218:
-                    close(v172[0]);
-                    close(v168[0]);
-                    free(v69);
-LABEL_219:
-                    if (dword_10000C028)
-                    {
-                      syslog(6, "session ended");
-                    }
-
-LABEL_221:
-                    sub_10000176C(0, v156, v54, v55, v56, v57, v58, v59);
-                  }
-
-LABEL_132:
-                  v162 = v5;
-                  LODWORD(v163) = 0;
-                  for (i = v5; ; i = v162)
-                  {
-                    v94 = i ? &v162 : 0;
-                    v95 = select(v66, v69, 0, 0, v94);
-                    if (v95 != -1)
-                    {
-                      break;
-                    }
-
-                    if (*__error() != 4 && *__error() != 35)
-                    {
-                      syslog(5, "select() failed (%m)");
-                      goto LABEL_216;
-                    }
-                  }
-
-                  if (!v95)
-                  {
-                    __endptr[0].tv_sec = 0;
-                    v96 = PFUserCreate();
-                    if (!v96 || (v103 = sub_100000798(v96, __endptr, v97, v98, v99, v100, v101, v102), PFUserRelease(), v103 < 0) || __endptr[0].tv_sec == qword_10000CCB8)
-                    {
-                      syslog(6, "timeout: no data for %ld seconds");
-                      goto LABEL_221;
-                    }
-
-                    sub_100003AB4(3, "transfer: server to client %llu packets", v104, v105, v106, v107, v108, v109, __endptr[0].tv_sec);
-                    qword_10000CCB8 = __endptr[0].tv_sec;
-                  }
-
-                  v110 = dword_10000C00C;
-                  if (dword_10000C00C & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C00C, v69, 0) && ((*(v69->fds_bits + ((v110 >> 3) & 0x1FFFFFFC)) >> v110))
-                  {
-                    sub_100003AB4(3, "transfer: client to server", v111, v112, v113, v114, v115, v116, v158);
-                    v117 = sub_100003E6C();
-                    if (v117 <= 0)
-                    {
-                      sub_1000016EC();
-                      sub_10000172C();
-                      sub_100001044();
-                    }
-
-                    else
-                    {
-                      LODWORD(qword_10000C038) = qword_10000C038 + v117;
-                    }
-                  }
-
-                  v130 = dword_10000C014;
-                  if (dword_10000C014 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C014, v69, 0) && ((*(v69->fds_bits + ((v130 >> 3) & 0x1FFFFFFC)) >> v130))
-                  {
-                    sub_100003AB4(3, "transfer: server to client", v131, v132, v133, v134, v135, v136, v158);
-                    v137 = sub_100003E6C();
-                    if (v137 <= 0)
-                    {
-                      sub_1000016EC();
-                      sub_10000172C();
-                      sub_100001044();
-                    }
-
-                    else
-                    {
-                      HIDWORD(qword_10000C038) += v137;
-                    }
-                  }
-
-                  v138 = dword_10000C010;
-                  if (dword_10000C010 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C010, v69, 0) && ((*(v69->fds_bits + ((v138 >> 3) & 0x1FFFFFFC)) >> v138))
-                  {
-                    *&v176.sa_len = 0;
-                    *&v176.sa_data[6] = 0;
-                    sub_100003AB4(2, "server listen socket ready", v139, v140, v141, v142, v143, v144, v158);
-                    sub_10000172C();
-                    sub_1000016EC();
-                    v175 = 16;
-                    dword_10000C014 = accept(dword_10000C010, &v176, &v175);
-                    if (dword_10000C014 < 0)
-                    {
-                      goto LABEL_222;
-                    }
-
-                    close(dword_10000C010);
-                    dword_10000C010 = -1;
-                    if (getuid())
-                    {
-                      *&v176.sa_data[2] = dword_10000C0A8;
-                      v145 = sub_1000040E8(1, dword_10000C000, dword_10000C004, -1, 1, &v176);
-                      dword_10000C00C = v145;
-                      if (v145 < 0)
-                      {
-                        goto LABEL_223;
-                      }
-                    }
-
-                    else
-                    {
-                      dword_10000C00C = socket(2, 1, 0);
-                      v175 = 1;
-                      v176.sa_family = 2;
-                      *&v176.sa_data[2] = dword_10000C0A8;
-                      *v176.sa_data = 5120;
-                      if (setsockopt(dword_10000C00C, 0xFFFF, 4, &v175, 4u) == -1)
-                      {
-                        syslog(5, "setsockopt() failed (%m)");
-                        goto LABEL_216;
-                      }
-
-                      if (bind(dword_10000C00C, &v176, 0x10u) == -1)
-                      {
-                        syslog(5, "data channel bind() failed (%m)");
-LABEL_216:
-                        sub_10000176C(71, v31, v32, v33, v34, v35, v36, v37);
-                      }
-
-                      v145 = dword_10000C00C;
-                    }
-
-                    if (connect(v145, &unk_10000C050, 0x10u))
-                    {
-                      syslog(6, "cannot connect data channel (%m)");
-                      goto LABEL_78;
-                    }
-
-                    qword_10000C038 = 0;
-                    __endptr[0].tv_sec = 0;
-                    *&__endptr[0].tv_usec = 0;
-                    gettimeofday(__endptr, 0);
-                    *&qword_10000C030 = __endptr[0].tv_usec / 1000000.0 + __endptr[0].tv_sec;
-                  }
-
-                  v146 = dword_10000C008;
-                  if (dword_10000C008 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C008, v69, 0) && ((*(v69->fds_bits + ((v146 >> 3) & 0x1FFFFFFC)) >> v146))
-                  {
-                    *&v176.sa_len = 0;
-                    *&v176.sa_data[6] = 0;
-                    sub_100003AB4(2, "client listen socket ready", v147, v148, v149, v150, v151, v152, v158);
-                    sub_10000172C();
-                    sub_1000016EC();
-                    v175 = 16;
-                    dword_10000C00C = accept(dword_10000C008, &v176, &v175);
-                    if (dword_10000C00C < 0)
-                    {
-LABEL_222:
-                      syslog(5, "accept() failed (%m)");
-                      goto LABEL_216;
-                    }
-
-                    close(dword_10000C008);
-                    dword_10000C008 = -1;
-                    *&v176.sa_len = 0;
-                    *&v176.sa_data[6] = 0;
-                    v153 = sub_1000040E8(1, dword_10000C000, dword_10000C004, -1, 1, &v176);
-                    dword_10000C014 = v153;
-                    if (v153 < 0)
-                    {
-LABEL_223:
-                      syslog(5, "get_backchannel_socket() failed (%m)");
-                      goto LABEL_216;
-                    }
-
-                    if (connect(v153, &qword_10000C040, 0x10u))
-                    {
-                      syslog(5, "connect() failed (%m)", v159, v160);
-LABEL_78:
-                      sub_10000176C(68, v45, v46, v47, v48, v49, v50, v51);
-                    }
-
-                    qword_10000C038 = 0;
-                    __endptr[0].tv_sec = 0;
-                    *&__endptr[0].tv_usec = 0;
-                    gettimeofday(__endptr, 0);
-                    *&qword_10000C030 = __endptr[0].tv_usec / 1000000.0 + __endptr[0].tv_sec;
-                  }
-
-                  if (v174)
-                  {
-                    v154 = v172[0];
-                    if (__darwin_check_fd_set_overflow(v172[0], v69, 0))
-                    {
-                      if ((*(v69->fds_bits + ((v154 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v154))
-                      {
-                        BYTE2(v174) = 1;
-                      }
-                    }
-                  }
-
-                  if (v171)
-                  {
-                    v155 = v168[0];
-                    if (__darwin_check_fd_set_overflow(v168[0], v69, 0))
-                    {
-                      if ((*(v69->fds_bits + ((v155 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v155))
-                      {
-                        BYTE2(v171) = 1;
-                      }
-                    }
-                  }
-                }
-
-                else if (v174 && sub_100003874(v172, v168))
-                {
-                  sub_100003AB4(3, "client line buffer is %s", v79, v80, v81, v82, v83, v84, v173[0].sa_len);
-                  if (**&v173[0].sa_len)
-                  {
-                    sub_1000017A4(v172, v168);
-                  }
-                }
-
-                else
-                {
-                  if (!v171 || !sub_100003874(v168, v172))
-                  {
-                    if (v174)
-                    {
-                      v124 = v172[0];
-                      if (__darwin_check_fd_set_overflow(v172[0], v69, 0))
-                      {
-                        *(v69->fds_bits + ((v124 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v124;
-                      }
-
-                      v125 = dword_10000C008;
-                      if ((dword_10000C008 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C008, v69, 0))
-                      {
-                        *(v69->fds_bits + ((v125 >> 3) & 0x1FFFFFFC)) |= 1 << v125;
-                      }
-
-                      v126 = dword_10000C00C;
-                      if ((dword_10000C00C & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C00C, v69, 0))
-                      {
-                        *(v69->fds_bits + ((v126 >> 3) & 0x1FFFFFFC)) |= 1 << v126;
-                      }
-                    }
-
-                    if (v171)
-                    {
-                      v127 = v168[0];
-                      if (__darwin_check_fd_set_overflow(v168[0], v69, 0))
-                      {
-                        *(v69->fds_bits + ((v127 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v127;
-                      }
-
-                      v128 = dword_10000C010;
-                      if ((dword_10000C010 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C010, v69, 0))
-                      {
-                        *(v69->fds_bits + ((v128 >> 3) & 0x1FFFFFFC)) |= 1 << v128;
-                      }
-
-                      v129 = dword_10000C014;
-                      if ((dword_10000C014 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C014, v69, 0))
-                      {
-                        *(v69->fds_bits + ((v129 >> 3) & 0x1FFFFFFC)) |= 1 << v129;
-                      }
-                    }
-
-                    goto LABEL_132;
-                  }
-
-                  sub_100003AB4(3, "server line buffer is %s", v118, v119, v120, v121, v122, v123, v169);
-                  if (*v169)
-                  {
-                    sub_100001ED8(v168, v172);
-                  }
-                }
-
-                free(v69);
-                if (BYTE1(v174))
-                {
-                  shutdown(v168[0], 1);
-                  shutdown(v172[0], 0);
-                  LOWORD(v174) = 0;
-                }
-
-                if (BYTE1(v171))
-                {
-                  shutdown(v172[0], 1);
-                  shutdown(v168[0], 0);
-                  v61 = 0;
-                  LOWORD(v171) = 0;
-                }
-
-                else
-                {
-                  v61 = v171;
-                }
-
-                v60 = v174;
-                if (!(v174 | v61))
-                {
-                  goto LABEL_219;
-                }
-
-                continue;
-              }
-            }
-
-            v52 = "name resolution failure (local)";
+          v22 = v21 & ~(v21 >> 31);
+          if (v19)
+          {
+            v23 = "alive";
           }
 
           else
           {
-            v52 = "name resolution failure (server)";
+            v23 = "dead";
           }
-        }
 
-        else
-        {
-          v52 = "name resolution failure (client)";
-        }
+          if (v20)
+          {
+            v24 = "alive";
+          }
 
-        sub_100003AB4(2, v52, v23, v24, v25, v26, v27, v28, v157);
-        goto LABEL_216;
+          else
+          {
+            v24 = "dead";
+          }
+
+          sub_100003AB4(3, "client is %s; server is %s", v23, v24);
+          v25 = (v22 + 1);
+          if (((v22 + 1) & 0x1F) != 0)
+          {
+            v26 = (v25 >> 5) + 1;
+          }
+
+          else
+          {
+            v26 = v25 >> 5;
+          }
+
+          v27 = malloc_type_calloc(v26, 4uLL, 0x100004052888210uLL);
+          if (!v27)
+          {
+            goto LABEL_213;
+          }
+
+          v28 = v27;
+          if (dword_10000C084 == 5)
+          {
+            if (!v70)
+            {
+              goto LABEL_121;
+            }
+
+            v29 = v68[0];
+            if (__darwin_check_fd_set_overflow(v68[0], v27, 0))
+            {
+              *(v28->fds_bits + ((v29 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v29;
+            }
+
+            v30 = "ready";
+            if (!BYTE2(v70))
+            {
+              v30 = "waiting";
+            }
+
+            sub_100003AB4(3, "client is %s", v30);
+            if (BYTE2(v70))
+            {
+              if (sub_100003E6C() < 1)
+              {
+                v31 = 1;
+              }
+
+              else
+              {
+                v31 = 0;
+                BYTE2(v70) = 0;
+              }
+            }
+
+            else
+            {
+LABEL_121:
+              v31 = 0;
+            }
+
+            if (v67)
+            {
+              v32 = v64[0];
+              if (__darwin_check_fd_set_overflow(v64[0], v28, 0))
+              {
+                *(v28->fds_bits + ((v32 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v32;
+              }
+
+              v33 = "ready";
+              if (!BYTE2(v67))
+              {
+                v33 = "waiting";
+              }
+
+              sub_100003AB4(3, "server is %s", v33);
+              if (BYTE2(v67))
+              {
+                if (sub_100003E6C() < 1)
+                {
+                  goto LABEL_217;
+                }
+
+                BYTE2(v67) = 0;
+              }
+            }
+
+            if (v31)
+            {
+LABEL_217:
+              close(v68[0]);
+              close(v64[0]);
+              free(v28);
+LABEL_218:
+              if (dword_10000C028)
+              {
+                syslog(6, "session ended");
+              }
+
+LABEL_220:
+              sub_10000176C(0);
+            }
+
+LABEL_131:
+            v58 = v5;
+            LODWORD(v59) = 0;
+            for (i = v5; ; i = v58)
+            {
+              v35 = i ? &v58 : 0;
+              v36 = select(v25, v28, 0, 0, v35);
+              if (v36 != -1)
+              {
+                break;
+              }
+
+              if (*__error() != 4 && *__error() != 35)
+              {
+                syslog(5, "select() failed (%m)");
+                goto LABEL_215;
+              }
+            }
+
+            if (!v36)
+            {
+              __endptr[0].tv_sec = 0;
+              v37 = PFUserCreate();
+              if (!v37 || (v38 = sub_100000798(v37, __endptr), PFUserRelease(), v38 < 0) || __endptr[0].tv_sec == qword_10000CCB8)
+              {
+                syslog(6, "timeout: no data for %ld seconds");
+                goto LABEL_220;
+              }
+
+              sub_100003AB4(3, "transfer: server to client %llu packets", __endptr[0].tv_sec);
+              qword_10000CCB8 = __endptr[0].tv_sec;
+            }
+
+            v39 = dword_10000C00C;
+            if (dword_10000C00C & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C00C, v28, 0) && ((*(v28->fds_bits + ((v39 >> 3) & 0x1FFFFFFC)) >> v39))
+            {
+              sub_100003AB4(3, "transfer: client to server");
+              v40 = sub_100003E6C();
+              if (v40 <= 0)
+              {
+                sub_1000016EC();
+                sub_10000172C();
+                sub_100001044();
+              }
+
+              else
+              {
+                LODWORD(qword_10000C038) = qword_10000C038 + v40;
+              }
+            }
+
+            v47 = dword_10000C014;
+            if (dword_10000C014 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C014, v28, 0) && ((*(v28->fds_bits + ((v47 >> 3) & 0x1FFFFFFC)) >> v47))
+            {
+              sub_100003AB4(3, "transfer: server to client");
+              v48 = sub_100003E6C();
+              if (v48 <= 0)
+              {
+                sub_1000016EC();
+                sub_10000172C();
+                sub_100001044();
+              }
+
+              else
+              {
+                HIDWORD(qword_10000C038) += v48;
+              }
+            }
+
+            v49 = dword_10000C010;
+            if (dword_10000C010 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C010, v28, 0) && ((*(v28->fds_bits + ((v49 >> 3) & 0x1FFFFFFC)) >> v49))
+            {
+              *&v72.sa_len = 0;
+              *&v72.sa_data[6] = 0;
+              sub_100003AB4(2, "server listen socket ready");
+              sub_10000172C();
+              sub_1000016EC();
+              v71 = 16;
+              dword_10000C014 = accept(dword_10000C010, &v72, &v71);
+              if (dword_10000C014 < 0)
+              {
+                goto LABEL_221;
+              }
+
+              close(dword_10000C010);
+              dword_10000C010 = -1;
+              if (getuid())
+              {
+                *&v72.sa_data[2] = dword_10000C0A8;
+                v50 = sub_1000040E8(1, dword_10000C000, dword_10000C004, -1, 1, &v72);
+                dword_10000C00C = v50;
+                if (v50 < 0)
+                {
+                  goto LABEL_222;
+                }
+              }
+
+              else
+              {
+                dword_10000C00C = socket(2, 1, 0);
+                v71 = 1;
+                v72.sa_family = 2;
+                *&v72.sa_data[2] = dword_10000C0A8;
+                *v72.sa_data = 5120;
+                if (setsockopt(dword_10000C00C, 0xFFFF, 4, &v71, 4u) == -1)
+                {
+                  syslog(5, "setsockopt() failed (%m)");
+                  goto LABEL_215;
+                }
+
+                if (bind(dword_10000C00C, &v72, 0x10u) == -1)
+                {
+                  syslog(5, "data channel bind() failed (%m)");
+LABEL_215:
+                  sub_10000176C(71);
+                }
+
+                v50 = dword_10000C00C;
+              }
+
+              if (connect(v50, &unk_10000C050, 0x10u))
+              {
+                syslog(6, "cannot connect data channel (%m)");
+                goto LABEL_78;
+              }
+
+              qword_10000C038 = 0;
+              __endptr[0].tv_sec = 0;
+              *&__endptr[0].tv_usec = 0;
+              gettimeofday(__endptr, 0);
+              *&qword_10000C030 = __endptr[0].tv_usec / 1000000.0 + __endptr[0].tv_sec;
+            }
+
+            v51 = dword_10000C008;
+            if (dword_10000C008 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C008, v28, 0) && ((*(v28->fds_bits + ((v51 >> 3) & 0x1FFFFFFC)) >> v51))
+            {
+              *&v72.sa_len = 0;
+              *&v72.sa_data[6] = 0;
+              sub_100003AB4(2, "client listen socket ready");
+              sub_10000172C();
+              sub_1000016EC();
+              v71 = 16;
+              dword_10000C00C = accept(dword_10000C008, &v72, &v71);
+              if (dword_10000C00C < 0)
+              {
+LABEL_221:
+                syslog(5, "accept() failed (%m)");
+                goto LABEL_215;
+              }
+
+              close(dword_10000C008);
+              dword_10000C008 = -1;
+              *&v72.sa_len = 0;
+              *&v72.sa_data[6] = 0;
+              v52 = sub_1000040E8(1, dword_10000C000, dword_10000C004, -1, 1, &v72);
+              dword_10000C014 = v52;
+              if (v52 < 0)
+              {
+LABEL_222:
+                syslog(5, "get_backchannel_socket() failed (%m)");
+                goto LABEL_215;
+              }
+
+              if (connect(v52, &qword_10000C040, 0x10u))
+              {
+                syslog(5, "connect() failed (%m)", v55, v56);
+LABEL_78:
+                sub_10000176C(68);
+              }
+
+              qword_10000C038 = 0;
+              __endptr[0].tv_sec = 0;
+              *&__endptr[0].tv_usec = 0;
+              gettimeofday(__endptr, 0);
+              *&qword_10000C030 = __endptr[0].tv_usec / 1000000.0 + __endptr[0].tv_sec;
+            }
+
+            if (v70)
+            {
+              v53 = v68[0];
+              if (__darwin_check_fd_set_overflow(v68[0], v28, 0))
+              {
+                if ((*(v28->fds_bits + ((v53 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v53))
+                {
+                  BYTE2(v70) = 1;
+                }
+              }
+            }
+
+            if (v67)
+            {
+              v54 = v64[0];
+              if (__darwin_check_fd_set_overflow(v64[0], v28, 0))
+              {
+                if ((*(v28->fds_bits + ((v54 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v54))
+                {
+                  BYTE2(v67) = 1;
+                }
+              }
+            }
+          }
+
+          else if (v70 && sub_100003874(v68, v64))
+          {
+            sub_100003AB4(3, "client line buffer is %s", *&v69[0].sa_len);
+            if (**&v69[0].sa_len)
+            {
+              sub_1000017A4(v68, v64);
+            }
+          }
+
+          else
+          {
+            if (!v67 || !sub_100003874(v64, v68))
+            {
+              if (v70)
+              {
+                v41 = v68[0];
+                if (__darwin_check_fd_set_overflow(v68[0], v28, 0))
+                {
+                  *(v28->fds_bits + ((v41 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v41;
+                }
+
+                v42 = dword_10000C008;
+                if ((dword_10000C008 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C008, v28, 0))
+                {
+                  *(v28->fds_bits + ((v42 >> 3) & 0x1FFFFFFC)) |= 1 << v42;
+                }
+
+                v43 = dword_10000C00C;
+                if ((dword_10000C00C & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C00C, v28, 0))
+                {
+                  *(v28->fds_bits + ((v43 >> 3) & 0x1FFFFFFC)) |= 1 << v43;
+                }
+              }
+
+              if (v67)
+              {
+                v44 = v64[0];
+                if (__darwin_check_fd_set_overflow(v64[0], v28, 0))
+                {
+                  *(v28->fds_bits + ((v44 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v44;
+                }
+
+                v45 = dword_10000C010;
+                if ((dword_10000C010 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C010, v28, 0))
+                {
+                  *(v28->fds_bits + ((v45 >> 3) & 0x1FFFFFFC)) |= 1 << v45;
+                }
+
+                v46 = dword_10000C014;
+                if ((dword_10000C014 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C014, v28, 0))
+                {
+                  *(v28->fds_bits + ((v46 >> 3) & 0x1FFFFFFC)) |= 1 << v46;
+                }
+              }
+
+              goto LABEL_131;
+            }
+
+            sub_100003AB4(3, "server line buffer is %s", v65);
+            if (*v65)
+            {
+              sub_100001ED8(v64, v68);
+            }
+          }
+
+          free(v28);
+          if (BYTE1(v70))
+          {
+            shutdown(v64[0], 1);
+            shutdown(v68[0], 0);
+            LOWORD(v70) = 0;
+          }
+
+          if (BYTE1(v67))
+          {
+            shutdown(v68[0], 1);
+            shutdown(v64[0], 0);
+            v20 = 0;
+            LOWORD(v67) = 0;
+          }
+
+          else
+          {
+            v20 = v67;
+          }
+
+          v19 = v70;
+          if (!(v70 | v20))
+          {
+            goto LABEL_218;
+          }
+
+          continue;
+        }
       }
 
 LABEL_4:
@@ -1824,55 +1814,55 @@ void sub_100003568()
 {
   syslog(5, "usage: %s -i [-AnrVw] [-a address] [-D debuglevel] [-g group] [-M maxport] [-m minport] [-R address[:port]] [-S address] [-t timeout] [-u user]", __progname);
   syslog(5, "usage: %s -p [-AnrVw] [-a address] [-D debuglevel] [-g group] [-M maxport] [-m minport] [-R address[:port]] [-S address] [-t timeout] [-u user]", __progname);
-  sub_10000176C(64, v0, v1, v2, v3, v4, v5, v6);
+  sub_10000176C(64);
 }
 
-void sub_1000035BC(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_1000035BC(int a1)
 {
-  sub_100003AB4(1, "exiting on signal %d\n", a3, a4, a5, a6, a7, a8, a1);
-  sub_1000035EC(v8, v9, v10, v11, v12, v13, v14, v15);
-  sub_10000176C(0, v16, v17, v18, v19, v20, v21, v22);
+  sub_100003AB4(1, "exiting on signal %d\n", a1);
+  sub_1000035EC();
+  sub_10000176C(0);
 }
 
-void sub_1000035EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_1000035EC()
 {
-  sub_100003AB4(1, "pf: remove rulesets", a3, a4, a5, a6, a7, a8, v12);
+  sub_100003AB4(1, "pf: remove rulesets");
   if (qword_10000C078 && PFUserCreate())
   {
-    v8 = qword_10000C078;
+    v0 = qword_10000C078;
     if (qword_10000C078)
     {
       do
       {
-        v9 = *v8;
-        if (v8[1])
+        v1 = *v0;
+        if (v0[1])
         {
           PFUserDeleteRule();
         }
 
-        v10 = qword_10000C078;
-        if (qword_10000C078 == v8)
+        v2 = qword_10000C078;
+        if (qword_10000C078 == v0)
         {
-          v11 = &qword_10000C078;
+          v3 = &qword_10000C078;
         }
 
         else
         {
           do
           {
-            v11 = v10;
-            v10 = *v10;
+            v3 = v2;
+            v2 = *v2;
           }
 
-          while (v10 != v8);
+          while (v2 != v0);
         }
 
-        *v11 = *v10;
-        free(v8);
-        v8 = v9;
+        *v3 = *v2;
+        free(v0);
+        v0 = v1;
       }
 
-      while (v9);
+      while (v1);
     }
 
     PFUserRelease();
@@ -2071,11 +2061,12 @@ LABEL_12:
   return sub_1000036E4(a1);
 }
 
-void sub_100003AB4(int a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100003AB4(int a1, const char *a2, ...)
 {
+  va_start(va, a2);
   if (dword_10000CCB0 >= a1)
   {
-    vsyslog(7, a2, &a9);
+    vsyslog(7, a2, va);
   }
 }
 
@@ -2170,25 +2161,25 @@ uint64_t sub_100003E6C()
   v2 = v1;
   v4 = v3;
   v5 = v0;
-  v31 = 0;
-  if (ioctl(v3, 0x40047307uLL) < 0)
+  v19 = 0;
+  if (ioctl(v3, 0x40047307uLL, &v19) < 0)
   {
-    v15 = *__error();
-    v29 = v5;
-    v16 = "cannot ioctl(SIOCATMARK) socket from %s (%m)";
+    v9 = *__error();
+    v17 = v5;
+    v10 = "cannot ioctl(SIOCATMARK) socket from %s (%m)";
 LABEL_16:
-    v17 = 3;
+    v11 = 3;
 LABEL_28:
-    syslog(v17, v16, v29, v30);
-    *__error() = v15;
+    syslog(v11, v10, v17, v18);
+    *__error() = v9;
     return 0xFFFFFFFFLL;
   }
 
-  v6 = v31 != 0;
+  v6 = v19 != 0;
   while (1)
   {
-    v7 = recv(v4, v32, 0x1000uLL, v6);
-    v14 = v7;
+    v7 = recv(v4, v20, 0x1000uLL, v6);
+    v8 = v7;
     if (!v6 || v7 != -1)
     {
       break;
@@ -2196,7 +2187,7 @@ LABEL_28:
 
     if (*__error() == 22)
     {
-      v14 = recv(v4, v32, 0x1000uLL, 0);
+      v8 = recv(v4, v20, 0x1000uLL, 0);
       v6 = 0;
       break;
     }
@@ -2205,63 +2196,63 @@ LABEL_28:
 LABEL_10:
     if (*__error() != 35 && *__error() != 4)
     {
-      v15 = *__error();
-      v29 = v5;
-      v30 = v6;
-      v16 = "xfer_data (%s): failed (%m) with flags 0%o";
+      v9 = *__error();
+      v17 = v5;
+      v18 = v6;
+      v10 = "xfer_data (%s): failed (%m) with flags 0%o";
       goto LABEL_16;
     }
   }
 
-  if (v14 == -1)
+  if (v8 == -1)
   {
     goto LABEL_10;
   }
 
-  if (!v14)
+  if (!v8)
   {
-    sub_100003AB4(3, "EOF on read socket", v8, v9, v10, v11, v12, v13, &v31);
+    sub_100003AB4(3, "EOF on read socket");
     return 0;
   }
 
-  sub_100003AB4(3, "got %d bytes from socket", v8, v9, v10, v11, v12, v13, v14);
-  if (v14 >= 1)
+  sub_100003AB4(3, "got %d bytes from socket", v8);
+  if (v8 >= 1)
   {
-    v18 = 0;
-    LODWORD(v19) = 0;
+    v12 = 0;
+    LODWORD(v13) = 0;
     do
     {
       while (1)
       {
-        v20 = send(v2, &v32[v18], v14 - v18, v6);
-        if (v20 == -1)
+        v14 = send(v2, &v20[v12], v8 - v12, v6);
+        if (v14 == -1)
         {
           break;
         }
 
-        v27 = v20;
-        if (v20)
+        v15 = v14;
+        if (v14)
         {
-          sub_100003AB4(3, "wrote %d bytes to socket", v21, v22, v23, v24, v25, v26, v20);
-          v19 = (v19 + v27);
-          v18 = v19;
-          if (v14 <= v19)
+          sub_100003AB4(3, "wrote %d bytes to socket", v14);
+          v13 = (v13 + v15);
+          v12 = v13;
+          if (v8 <= v13)
           {
-            return v19;
+            return v13;
           }
         }
 
         else
         {
-          sub_100003AB4(3, "zero-length write", v21, v22, v23, v24, v25, v26, v29);
+          sub_100003AB4(3, "zero-length write");
         }
       }
     }
 
     while (*__error() == 35 || *__error() == 4);
-    v15 = *__error();
-    v16 = "write failed (%m)";
-    v17 = 6;
+    v9 = *__error();
+    v10 = "write failed (%m)";
+    v11 = 6;
     goto LABEL_28;
   }
 
@@ -2303,21 +2294,21 @@ LABEL_6:
   }
 
   *__s1 = 0;
-  v58 = 0;
-  v55 = 0;
+  v26 = 0;
+  v23 = 0;
   if (!_NETRBClientCreate())
   {
-    v23 = strerror(12);
-    sub_100003AB4(1, "_NETRBClientCreate: %s\n", v24, v25, v26, v27, v28, v29, v23);
+    v17 = strerror(12);
+    sub_100003AB4(1, "_NETRBClientCreate: %s\n", v17);
     *__error() = 22;
-    v52 = strerror(12);
-    sub_100003AB4(1, "unable to attach to server: %s\n", v30, v31, v32, v33, v34, v35, v52);
+    strerror(12);
+    sub_100003AB4(1, "unable to attach to server: %s\n");
     return 0xFFFFFFFFLL;
   }
 
-  sub_100003AB4(1, "_NETRBClientCreate: %s\n", v17, v18, v19, v20, v21, v22, "OK");
+  sub_100003AB4(1, "_NETRBClientCreate: %s\n", "OK");
   _NETRBClientGetExtName();
-  sub_100003AB4(1, "unable to get external interface used by MIS", v36, v37, v38, v39, v40, v41, v53);
+  sub_100003AB4(1, "unable to get external interface used by MIS");
   _NETRBClientDestroy();
   if (v7 > 0x7FFFFFFE)
   {
@@ -2327,17 +2318,17 @@ LABEL_32:
     goto LABEL_6;
   }
 
-  v42 = v7 + 1;
+  v18 = v7 + 1;
   while (1)
   {
-    *&v56.sa_len = 0;
-    *&v56.sa_data[6] = 0;
-    v54 = 0;
-    v43 = socket(2, a1, 0);
-    v10 = v43;
-    *&v56.sa_len = 512;
-    *&v56.sa_data[6] = 0;
-    v44 = dword_10000C020;
+    *&v24.sa_len = 0;
+    *&v24.sa_data[6] = 0;
+    v22 = 0;
+    v19 = socket(2, a1, 0);
+    v10 = v19;
+    *&v24.sa_len = 512;
+    *&v24.sa_data[6] = 0;
+    v20 = dword_10000C020;
     if (dword_10000C020 == -1)
     {
       if (!a6)
@@ -2345,20 +2336,20 @@ LABEL_32:
         goto LABEL_22;
       }
 
-      v44 = *(a6 + 4);
+      v20 = *(a6 + 4);
     }
 
-    *&v56.sa_data[2] = v44;
+    *&v24.sa_data[2] = v20;
 LABEL_22:
-    v54 = 1;
-    if (setsockopt(v43, 0xFFFF, 4, &v54, 4u) == -1)
+    v22 = 1;
+    if (setsockopt(v19, 0xFFFF, 4, &v22, 4u) == -1)
     {
-      sub_100003AB4(1, "failed to set SO_REUSEADDR %s(%d)", v45, v46, v47, v48, v49, v50, __s1);
+      sub_100003AB4(1, "failed to set SO_REUSEADDR %s(%d)");
       return 0xFFFFFFFFLL;
     }
 
-    *v56.sa_data = bswap32(v13) >> 16;
-    if (!bind(v10, &v56, 0x10u))
+    *v24.sa_data = bswap32(v13) >> 16;
+    if (!bind(v10, &v24, 0x10u))
     {
       break;
     }
@@ -2371,17 +2362,17 @@ LABEL_22:
     close(v10);
     if (v13 + v6 <= a3)
     {
-      v51 = v13 + v6;
+      v21 = v13 + v6;
     }
 
     else
     {
-      v51 = a2;
+      v21 = a2;
     }
 
     if (v13 + v6 >= a2)
     {
-      v13 = v51;
+      v13 = v21;
     }
 
     else
@@ -2389,7 +2380,7 @@ LABEL_22:
       v13 = a3;
     }
 
-    if (--v42 <= 0)
+    if (--v18 <= 0)
     {
       goto LABEL_32;
     }
@@ -2397,7 +2388,7 @@ LABEL_22:
 
   if (a6)
   {
-    *a6 = v56;
+    *a6 = v24;
   }
 
   return v10;

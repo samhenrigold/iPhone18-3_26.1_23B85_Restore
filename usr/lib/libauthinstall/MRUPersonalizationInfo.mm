@@ -100,11 +100,11 @@
 
 - (MRUPersonalizationInfo)initWithOptions:(id)options error:(id *)error
 {
-  v47[1] = *MEMORY[0x29EDCA608];
+  v46[1] = *MEMORY[0x29EDCA608];
   optionsCopy = options;
-  v37.receiver = self;
-  v37.super_class = MRUPersonalizationInfo;
-  v7 = [(MRUPersonalizationInfo *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = MRUPersonalizationInfo;
+  v7 = [(MRUPersonalizationInfo *)&v36 init];
   if (!v7)
   {
     goto LABEL_24;
@@ -116,10 +116,10 @@
     if (*error)
     {
       v19 = MEMORY[0x29EDB9FA0];
-      v46 = *MEMORY[0x29EDB9ED8];
+      v45 = *MEMORY[0x29EDB9ED8];
       v20 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No hardwareInfo in options dict"];
-      v47[0] = v20;
-      v21 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+      v46[0] = v20;
+      v21 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
       *error = [v19 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:2 userInfo:v21];
     }
 
@@ -127,20 +127,20 @@
   }
 
   v9 = v8;
-  v36 = 0;
-  v10 = [[MRUHardwareInfo alloc] initWithOptions:v8 error:&v36];
-  v11 = v36;
+  v35 = 0;
+  v10 = [[MRUHardwareInfo alloc] initWithOptions:v8 error:&v35];
+  v11 = v35;
   if (!v10)
   {
     if (*error)
     {
       v22 = MEMORY[0x29EDB9FA0];
-      v44[0] = *MEMORY[0x29EDB9ED8];
+      v43[0] = *MEMORY[0x29EDB9ED8];
       v23 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"Failed to create hardwareInfo, options: %@", v9];
-      v44[1] = *MEMORY[0x29EDB9F18];
-      v45[0] = v23;
-      v45[1] = v11;
-      v24 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
+      v43[1] = *MEMORY[0x29EDB9F18];
+      v44[0] = v23;
+      v44[1] = v11;
+      v24 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
       *error = [v22 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:3 userInfo:v24];
     }
 
@@ -154,10 +154,10 @@
     if (*error)
     {
       v25 = MEMORY[0x29EDB9FA0];
-      v42 = *MEMORY[0x29EDB9ED8];
+      v41 = *MEMORY[0x29EDB9ED8];
       v26 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No component name in options dict"];
-      v43 = v26;
-      v27 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+      v42 = v26;
+      v27 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
       *error = [v25 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:2 userInfo:v27];
     }
 
@@ -171,12 +171,12 @@
   {
     if (*error)
     {
-      v34 = MEMORY[0x29EDB9FA0];
-      v40 = *MEMORY[0x29EDB9ED8];
+      v33 = MEMORY[0x29EDB9FA0];
+      v39 = *MEMORY[0x29EDB9ED8];
       v28 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No object name in options dict"];
-      v41 = v28;
-      v29 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-      *error = [v34 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:2 userInfo:v29];
+      v40 = v28;
+      v29 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      *error = [v33 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:2 userInfo:v29];
     }
 
 LABEL_17:
@@ -203,12 +203,12 @@ LABEL_18:
       goto LABEL_23;
     }
 
-    v35 = MEMORY[0x29EDB9FA0];
-    v38 = *MEMORY[0x29EDB9ED8];
+    v34 = MEMORY[0x29EDB9FA0];
+    v37 = *MEMORY[0x29EDB9ED8];
     tagNumber = [MEMORY[0x29EDBA0F8] stringWithFormat:@"No nonce in options dict"];
-    v39 = tagNumber;
-    v33 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-    *error = [v35 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:2 userInfo:v33];
+    v38 = tagNumber;
+    v32 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    *error = [v34 errorWithDomain:@"com.apple.Manta.MantaRestoreUtils" code:2 userInfo:v32];
   }
 
 LABEL_23:
@@ -223,7 +223,6 @@ LABEL_19:
   v30 = 0;
 LABEL_25:
 
-  v31 = *MEMORY[0x29EDCA608];
   return v30;
 }
 
@@ -243,16 +242,16 @@ LABEL_25:
 
 - (NSDictionary)asDictionary
 {
-  v14 = *MEMORY[0x29EDCA608];
-  v10[0] = @"HardwareInfo";
+  v13 = *MEMORY[0x29EDCA608];
+  v9[0] = @"HardwareInfo";
   asDictionary = [(MRUHardwareInfo *)self->_hardwareInfo asDictionary];
-  v11 = asDictionary;
-  v12 = *&self->_componentName;
-  v10[1] = @"ComponentName";
-  v10[2] = @"ObjectName";
-  v10[3] = @"Nonce";
+  v10 = asDictionary;
+  v11 = *&self->_componentName;
+  v9[1] = @"ComponentName";
+  v9[2] = @"ObjectName";
+  v9[3] = @"Nonce";
   nonce = self->_nonce;
-  v4 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v11 forKeys:v10 count:4];
+  v4 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v10 forKeys:v9 count:4];
   v5 = [v4 mutableCopy];
 
   tagNumber = self->_tagNumber;
@@ -262,8 +261,6 @@ LABEL_25:
   }
 
   v7 = [MEMORY[0x29EDB8DC0] dictionaryWithDictionary:v5];
-
-  v8 = *MEMORY[0x29EDCA608];
 
   return v7;
 }

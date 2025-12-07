@@ -69,7 +69,7 @@ LABEL_7:
 
 - (int64_t)_gatherAndSendDailyAnalyticsAndReturnError:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CBEAA8] now];
   if (AnalyticsIsEventUsed())
   {
@@ -80,10 +80,10 @@ LABEL_7:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v35 = objc_opt_class();
-      v36 = 1024;
-      LODWORD(v37) = v6;
-      v8 = v35;
+      v34 = objc_opt_class();
+      v35 = 1024;
+      LODWORD(v36) = v6;
+      v8 = v34;
       _os_log_impl(&dword_262086000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Collecting daily analytics isHealthDataSubmissionAllowed = %d", buf, 0x12u);
     }
 
@@ -94,12 +94,12 @@ LABEL_7:
     profile = [(HDRPRespiratoryDailyAnalytics *)self profile];
     v14 = [(HDRPRespiratoryDailyAnalytics *)self _settingsWithProfile:profile];
     v15 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.ControlCenter"];
-    LOBYTE(v31) = v6;
-    v16 = [(HDRPDailyAnalyticsReport *)v10 initWithDate:v5 profile:WeakRetained pairedDeviceRegistry:mEMORY[0x277D2BCF8] featureAvailabilityProvider:featureAvailabilityProvider oxygenSaturationSettings:v14 controlCenterUserDefaults:v15 healthDataCollectionAllowed:v31];
+    LOBYTE(v30) = v6;
+    v16 = [(HDRPDailyAnalyticsReport *)v10 initWithDate:v5 profile:WeakRetained pairedDeviceRegistry:mEMORY[0x277D2BCF8] featureAvailabilityProvider:featureAvailabilityProvider oxygenSaturationSettings:v14 controlCenterUserDefaults:v15 healthDataCollectionAllowed:v30];
 
-    v33 = 0;
-    v17 = [(HDRPDailyAnalyticsReport *)v16 generatePayloadAndReturnError:&v33];
-    v18 = v33;
+    v32 = 0;
+    v17 = [(HDRPDailyAnalyticsReport *)v16 generatePayloadAndReturnError:&v32];
+    v18 = v32;
     _HKInitializeLogging();
     v19 = HKLogRespiratoryCategory();
     v20 = v19;
@@ -111,11 +111,11 @@ LABEL_7:
         v22 = v21;
         allKeys = [v17 allKeys];
         *buf = 138543874;
-        v35 = v21;
-        v36 = 2114;
-        v37 = @"com.apple.health.respiratory.Daily";
-        v38 = 2114;
-        v39 = allKeys;
+        v34 = v21;
+        v35 = 2114;
+        v36 = @"com.apple.health.respiratory.Daily";
+        v37 = 2114;
+        v38 = allKeys;
         _os_log_impl(&dword_262086000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Sending %{public}@: %{public}@", buf, 0x20u);
       }
 
@@ -157,17 +157,16 @@ LABEL_7:
     if (os_log_type_enabled(mEMORY[0x277D2BCF8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v35 = objc_opt_class();
-      v36 = 2114;
-      v37 = @"com.apple.health.respiratory.Daily";
-      v25 = v35;
+      v34 = objc_opt_class();
+      v35 = 2114;
+      v36 = @"com.apple.health.respiratory.Daily";
+      v25 = v34;
       _os_log_impl(&dword_262086000, mEMORY[0x277D2BCF8], OS_LOG_TYPE_DEFAULT, "[%{public}@] Analytics is disabled for %{public}@, skipping.", buf, 0x16u);
     }
 
     v24 = 2;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -196,15 +195,13 @@ LABEL_7:
 
 - (void)_gatherAndSendDailyAnalyticsAndReturnError:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7 = 138543618;
-  v8 = objc_opt_class();
-  v9 = 2114;
-  v10 = a2;
-  v5 = v8;
-  _os_log_error_impl(&dword_262086000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] Could not generate analytics report: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a2;
+  v5 = v7;
+  _os_log_error_impl(&dword_262086000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] Could not generate analytics report: %{public}@", &v6, 0x16u);
 }
 
 @end

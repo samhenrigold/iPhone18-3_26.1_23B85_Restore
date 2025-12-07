@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (ADJingleRequestManager)init;
 - (BOOL)canMakeJingleRequest;
+- (id)makeSegmentRequest:(id)request forceSegments:(BOOL)segments withCompletion:(id)completion;
 - (void)authenticateUser:(id)user;
 - (void)jingleRequestCompleted:(id)completed;
 - (void)startJingleRequest:(id)request;
@@ -28,7 +29,6 @@
 
 uint64_t __40__ADJingleRequestManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__instance_5 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -66,6 +66,50 @@ uint64_t __40__ADJingleRequestManager_sharedInstance__block_invoke(uint64_t a1)
   [workQueue addOperationWithBlock:v9];
 }
 
+- (id)makeSegmentRequest:(id)request forceSegments:(BOOL)segments withCompletion:(id)completion
+{
+  segmentsCopy = segments;
+  requestCopy = request;
+  completionCopy = completion;
+  if (requestCopy && [(ADJingleRequestManager *)self canMakeJingleRequest])
+  {
+    v10 = [ADJingleSegmentRequest alloc];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __74__ADJingleRequestManager_makeSegmentRequest_forceSegments_withCompletion___block_invoke;
+    v19[3] = &unk_278C58818;
+    v19[4] = self;
+    v20 = completionCopy;
+    v11 = [(ADJingleSegmentRequest *)v10 init:requestCopy forceSegments:segmentsCopy withCompletion:v19];
+    [(ADJingleRequestManager *)self startJingleRequest:v11];
+    token = [v11 token];
+    v13 = [token copy];
+  }
+
+  else
+  {
+    v14 = MEMORY[0x277CCACA8];
+    canMakeJingleRequest = [(ADJingleRequestManager *)self canMakeJingleRequest];
+    v16 = @"NO";
+    if (canMakeJingleRequest)
+    {
+      v16 = @"YES";
+    }
+
+    v17 = [v14 stringWithFormat:@"Unable to make Segment Request for DSID %@. Has activeDSIDRecord and Network Connection: %@", requestCopy, v16];
+    _ADLog();
+
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, 0);
+    }
+
+    v13 = 0;
+  }
+
+  return v13;
+}
+
 void __74__ADJingleRequestManager_makeSegmentRequest_forceSegments_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -88,10 +132,9 @@ uint64_t __74__ADJingleRequestManager_makeSegmentRequest_forceSegments_withCompl
   result = *(a1 + 48);
   if (result)
   {
-    v3 = *(a1 + 40);
-    v4 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;
@@ -196,56 +239,54 @@ LABEL_7:
   }
 
   v9 = [MEMORY[0x277CE9638] sharedInstance];
-  v27 = [v9 iTunesStoreAccount];
+  v25 = [v9 iTunesStoreAccount];
 
   v10 = MEMORY[0x277CCACA8];
-  v11 = *(a1 + 32);
-  v12 = objc_opt_class();
-  if (v27)
+  v11 = objc_opt_class();
+  if (v25)
   {
-    v13 = [v10 stringWithFormat:@"[%@]: Initiating Jingle authentication request.", v12];
+    v12 = [v10 stringWithFormat:@"[%@]: Initiating Jingle authentication request.", v11];
     _ADLog();
 
-    v14 = +[ADAMSBagManager sharedInstance];
-    v15 = [v14 authenticateAccountThroughAMSOperation:v27];
+    v13 = +[ADAMSBagManager sharedInstance];
+    v14 = [v13 authenticateAccountThroughAMSOperation:v25];
 
-    v16 = MEMORY[0x277CCACA8];
-    v17 = *(a1 + 32);
-    v18 = objc_opt_class();
-    v19 = v18;
-    if (v15)
+    v15 = MEMORY[0x277CCACA8];
+    v16 = objc_opt_class();
+    v17 = v16;
+    if (v14)
     {
-      v20 = [v27 ams_DSID];
-      v21 = [v20 stringValue];
-      v22 = [v16 stringWithFormat:@"[%@]: Successfully authenticated account. The account is: %@", v19, v21];
+      v18 = [v25 ams_DSID];
+      v19 = [v18 stringValue];
+      v20 = [v15 stringWithFormat:@"[%@]: Successfully authenticated account. The account is: %@", v17, v19];
       _ADLog();
 
-      v23 = *(a1 + 40);
-      if (v23)
+      v21 = *(a1 + 40);
+      if (v21)
       {
-        v24 = *(v23 + 16);
+        v22 = *(v21 + 16);
 LABEL_21:
-        v24();
+        v22();
         goto LABEL_22;
       }
 
       goto LABEL_22;
     }
 
-    [v16 stringWithFormat:@"[%@]: FILE A RADAR IMMEDIATELY: We have an active account but could not authenticate it.", v18];
+    [v15 stringWithFormat:@"[%@]: FILE A RADAR IMMEDIATELY: We have an active account but could not authenticate it.", v16];
   }
 
   else
   {
-    [v10 stringWithFormat:@"[%@]: Jingle authentication request failed, ACAccount is (null).", v12];
+    [v10 stringWithFormat:@"[%@]: Jingle authentication request failed, ACAccount is (null).", v11];
   }
-  v25 = ;
+  v23 = ;
   _ADLog();
 
-  v26 = *(a1 + 40);
-  if (v26)
+  v24 = *(a1 + 40);
+  if (v24)
   {
-    v24 = *(v26 + 16);
+    v22 = *(v24 + 16);
     goto LABEL_21;
   }
 

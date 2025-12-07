@@ -13,84 +13,83 @@
 
 - (REHTMLContainerElement)initWithElements:(id)elements
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   elementsCopy = elements;
-  v32.receiver = self;
-  v32.super_class = REHTMLContainerElement;
-  v5 = [(REHTMLElement *)&v32 init];
+  v30.receiver = self;
+  v30.super_class = REHTMLContainerElement;
+  v5 = [(REHTMLElement *)&v30 init];
   if (v5)
   {
-    v30 = 0u;
-    v31 = 0u;
     v28 = 0u;
     v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v6 = elementsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v28 objects:v34 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v26 objects:v32 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v29;
+      v9 = *v27;
       while (2)
       {
         v10 = 0;
         do
         {
-          if (*v29 != v9)
+          if (*v27 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v28 + 1) + 8 * v10);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
 
             array = [MEMORY[0x277CBEB18] array];
+            v22 = 0u;
+            v23 = 0u;
             v24 = 0u;
             v25 = 0u;
-            v26 = 0u;
-            v27 = 0u;
-            v14 = v6;
-            v15 = [v14 countByEnumeratingWithState:&v24 objects:v33 count:16];
-            if (v15)
+            v13 = v6;
+            v14 = [v13 countByEnumeratingWithState:&v22 objects:v31 count:16];
+            if (v14)
             {
-              v16 = v15;
-              v17 = *v25;
+              v15 = v14;
+              v16 = *v23;
               do
               {
-                v18 = 0;
+                v17 = 0;
                 do
                 {
-                  if (*v25 != v17)
+                  if (*v23 != v16)
                   {
-                    objc_enumerationMutation(v14);
+                    objc_enumerationMutation(v13);
                   }
 
-                  v19 = *(*(&v24 + 1) + 8 * v18);
+                  v18 = *(*(&v22 + 1) + 8 * v17);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    [array addObjectsFromArray:*(v19 + 16)];
+                    [array addObjectsFromArray:*(v18 + 16)];
                   }
 
                   else
                   {
-                    [array addObject:{v19, v24}];
+                    [array addObject:{v18, v22}];
                   }
 
-                  ++v18;
+                  ++v17;
                 }
 
-                while (v16 != v18);
-                v16 = [v14 countByEnumeratingWithState:&v24 objects:v33 count:16];
+                while (v15 != v17);
+                v15 = [v13 countByEnumeratingWithState:&v22 objects:v31 count:16];
               }
 
-              while (v16);
+              while (v15);
             }
 
-            v20 = [array copy];
+            v19 = [array copy];
             elements = v5->_elements;
-            v5->_elements = v20;
+            v5->_elements = v19;
 
             goto LABEL_22;
           }
@@ -99,7 +98,7 @@
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v28 objects:v34 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v26 objects:v32 count:16];
         if (v8)
         {
           continue;
@@ -109,40 +108,39 @@
       }
     }
 
-    v12 = [v6 copy];
+    v11 = [v6 copy];
     array = v5->_elements;
-    v5->_elements = v12;
+    v5->_elements = v11;
 LABEL_22:
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)_encodedData
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   data = [MEMORY[0x277CBEB28] data];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v4 = self->_elements;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = objc_alloc(MEMORY[0x277CCACA8]);
         encodedData = [v9 encodedData];
         v12 = [v10 initWithData:encodedData encoding:4];
@@ -152,7 +150,7 @@ LABEL_22:
         [data appendData:encodedData2];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
@@ -161,8 +159,6 @@ LABEL_22:
   v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:data encoding:4];
   [v14 length];
   v15 = [data copy];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -189,15 +185,15 @@ LABEL_22:
 
 - (id)elementBySettingClasses:(id)classes
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   classesCopy = classes;
   if ([(NSArray *)self->_elements count])
   {
     firstObject = [(NSArray *)self->_elements firstObject];
     v6 = [firstObject elementBySettingClasses:classesCopy];
 
-    v13[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v8 = [(NSArray *)self->_elements subarrayWithRange:1, [(NSArray *)self->_elements count]- 1];
     v9 = [v7 arrayByAddingObjectsFromArray:v8];
 
@@ -208,8 +204,6 @@ LABEL_22:
   {
     selfCopy = self;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -236,15 +230,15 @@ LABEL_22:
 
 - (id)elementBySettingAtttibutes:(id)atttibutes
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   atttibutesCopy = atttibutes;
   if ([(NSArray *)self->_elements count])
   {
     firstObject = [(NSArray *)self->_elements firstObject];
     v6 = [firstObject elementBySettingAtttibutes:atttibutesCopy];
 
-    v13[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v8 = [(NSArray *)self->_elements subarrayWithRange:1, [(NSArray *)self->_elements count]- 1];
     v9 = [v7 arrayByAddingObjectsFromArray:v8];
 
@@ -255,8 +249,6 @@ LABEL_22:
   {
     selfCopy = self;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }

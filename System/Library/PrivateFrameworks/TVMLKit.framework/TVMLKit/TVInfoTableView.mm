@@ -3,7 +3,7 @@
 
 @implementation TVInfoTableView
 
-void __33___TVInfoTableView_sizeThatFits___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __33___TVInfoTableView_sizeThatFits___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v9 = a2;
   v5 = *(a1 + 56);

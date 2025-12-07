@@ -1,4 +1,4 @@
-uint64_t DecodeBlockIntra(unsigned int a1, uint64_t a2, uint64_t a3)
+uint64_t DecodeBlockIntra(int a1, uint64_t a2, uint64_t a3)
 {
   v7 = *(a2 + 112);
   v6 = *(a2 + 120);
@@ -209,7 +209,7 @@ uint64_t GrabBlockAndIQuantise(uint64_t a1, int a2, int a3, uint64_t a4)
     if (v7)
     {
       v15 = 0;
-      v65 = &lmaxIntraTab;
+      v65 = lmaxIntraTab;
       v63 = 28;
       v66 = 21;
     }
@@ -223,14 +223,14 @@ uint64_t GrabBlockAndIQuantise(uint64_t a1, int a2, int a3, uint64_t a4)
       }
 
       v75 = HuffmanDecQCoefFastIntra;
-      v65 = &lmaxIntraTab;
+      v65 = lmaxIntraTab;
       v14 = 1;
       v63 = 28;
       v66 = 21;
       v15 = 1;
     }
 
-    v16 = &rmaxIntraTab;
+    v16 = rmaxIntraTab;
   }
 
   else
@@ -245,13 +245,13 @@ uint64_t GrabBlockAndIQuantise(uint64_t a1, int a2, int a3, uint64_t a4)
     v73 = &scan2RowZZTable;
     *(v10 + 32) = 0u;
     *(v10 + 48) = 0u;
-    v65 = &lmaxInterTab;
+    v65 = lmaxInterTab;
     *v10 = 0u;
     *(v10 + 16) = 0u;
     v75 = HuffmanDecQCoefFastInter;
     v63 = 13;
     v66 = 41;
-    v16 = &rmaxInterTab;
+    v16 = rmaxInterTab;
   }
 
   v62 = v16;
@@ -593,8 +593,9 @@ CIntraDcDecoder *GrabDcFromBitStream(__int16 *a1, int a2, CIntraDcDecoder *this,
   }
 }
 
-uint64_t DecodeBlockIntraDataPartitioned(void *a1, __int16 *a2, uint64_t a3, unsigned __int8 *a4, unsigned int a5, int a6, int a7, int a8, int a9, char a10, int a11, uint64_t a12, CBitStreamDeco *a13)
+uint64_t DecodeBlockIntraDataPartitioned(void *a1, __int16 *a2, uint64_t a3, unsigned __int8 *a4, unsigned int a5, int a6, uint64_t a7, int a8, int a9, char a10, int a11, uint64_t a12, CBitStreamDeco *a13)
 {
+  v13 = a7;
   v18 = DetermineIntraPredictionMode(*(a12 + 584), a6, a7);
   v19 = v18;
   v20 = *(a12 + 968);
@@ -649,20 +650,20 @@ LABEL_9:
   }
 
   ScanConvertWhatever2Raster(a2, a3, v21);
-  ReconAndUpdate(*(a12 + 584), a2, v19, a6, a7, a9, a8);
+  ReconAndUpdate(*(a12 + 584), a2, v19, a6, v13, a9, a8);
   v24 = *(a12 + 24);
   if (*(v24 + 137) == 1)
   {
-    IQuantizeBlockMPEG(a2, a8, 1, a7, a12 + 262);
+    IQuantizeBlockMPEG(a2, a8, 1, v13, a12 + 262);
   }
 
   else
   {
-    IQuantizeBlockH263Opt(a2, a8, 1, *(v24 + 21), a7);
+    IQuantizeBlockH263Opt(a2, a8, 1, *(v24 + 21), v13);
   }
 
   IDct8x8Yoyo(a4, a2, 7u, *(a12 + 960));
-  v25 = (a4 + 8);
+  v25 = a4 + 8;
   v26 = -2;
   do
   {
@@ -671,7 +672,7 @@ LABEL_9:
     *(a1 + (a5 & 0xFFFFFFFC)) = v27;
     v26 += 2;
     a1 = (a1 + 4 * (a5 >> 1));
-    v25 += 2;
+    v25 += 16;
   }
 
   while (v26 < 6);
@@ -1754,14 +1755,14 @@ LABEL_119:
   return 4294965299;
 }
 
-uint64_t InitInstanceGlobalsDecoGenenral(uint64_t *a1, int a2, int a3, uint64_t a4)
+uint64_t InitInstanceGlobalsDecoGenenral(uint64_t **a1, int a2, int a3, uint64_t a4)
 {
   v5 = a3;
   v6 = a2;
   v8 = *a1;
   if (*a1)
   {
-    if (*(v8 + 96) == a2 && *(v8 + 98) == a3)
+    if (*(v8 + 48) == a2 && *(v8 + 49) == a3)
     {
       return 0;
     }
@@ -1779,94 +1780,94 @@ uint64_t InitInstanceGlobalsDecoGenenral(uint64_t *a1, int a2, int a3, uint64_t 
   {
     v10[76] = a4;
     v11 = *a1;
-    *(v11 + 96) = v6;
-    *(v11 + 98) = v5;
-    if (!InitSourceInfo((v11 + 16), v6, v5) && !InitGobHeader(*a1 + 32))
+    *(v11 + 48) = v6;
+    *(v11 + 49) = v5;
+    if (!InitSourceInfo(v11 + 2, v6, v5) && !InitGobHeader((*a1 + 4)))
     {
       v12 = *a1;
       v13 = v5 + 15;
       v14 = (v6 + 15) & 0xFFF0;
       *v12 = v14;
       v15 = v13 & 0xFFF0;
-      *(v12 + 6) = v13 & 0xFFF0;
+      *(v12 + 3) = v13 & 0xFFF0;
+      *(v12 + 1) = v14 >> 1;
+      *(v12 + 4) = (v13 & 0xFFF0) >> 1;
       *(v12 + 2) = v14 >> 1;
-      *(v12 + 8) = (v13 & 0xFFF0) >> 1;
-      *(v12 + 4) = v14 >> 1;
-      *(v12 + 10) = (v13 & 0xFFF0) >> 1;
-      if (!NewMB((v12 + 104)))
+      *(v12 + 5) = (v13 & 0xFFF0) >> 1;
+      if (!NewMB(v12 + 13))
       {
-        *(*a1 + 112) = MEM_New(v14 >> 2);
-        if (*(*a1 + 112))
+        (*a1)[14] = MEM_New(v14 >> 2);
+        if ((*a1)[14])
         {
-          *(*a1 + 120) = MEM_New(v14 >> 2);
-          if (*(*a1 + 120))
+          (*a1)[15] = MEM_New(v14 >> 2);
+          if ((*a1)[15])
           {
-            *(*a1 + 128) = MEM_New(v14 >> 2);
-            if (*(*a1 + 128))
+            (*a1)[16] = MEM_New(v14 >> 2);
+            if ((*a1)[16])
             {
-              *(*a1 + 136) = MEM_New(v14 >> 2);
-              if (*(*a1 + 136))
+              (*a1)[17] = MEM_New(v14 >> 2);
+              if ((*a1)[17])
               {
-                *(*a1 + 144) = MEM_New(v14 >> 2);
-                if (*(*a1 + 144))
+                (*a1)[18] = MEM_New(v14 >> 2);
+                if ((*a1)[18])
                 {
-                  *(*a1 + 152) = MEM_New(v14 >> 2);
-                  if (*(*a1 + 152))
+                  (*a1)[19] = MEM_New(v14 >> 2);
+                  if ((*a1)[19])
                   {
-                    *(*a1 + 160) = MEM_New(v14 >> 2);
-                    if (*(*a1 + 160))
+                    (*a1)[20] = MEM_New(v14 >> 2);
+                    if ((*a1)[20])
                     {
-                      *(*a1 + 168) = MEM_New(v14 >> 2);
-                      if (*(*a1 + 168))
+                      (*a1)[21] = MEM_New(v14 >> 2);
+                      if ((*a1)[21])
                       {
-                        *(*a1 + 176) = MEM_New(v14 >> 2);
-                        if (*(*a1 + 176))
+                        (*a1)[22] = MEM_New(v14 >> 2);
+                        if ((*a1)[22])
                         {
-                          *(*a1 + 184) = MEM_New(v14 >> 2);
-                          if (*(*a1 + 184))
+                          (*a1)[23] = MEM_New(v14 >> 2);
+                          if ((*a1)[23])
                           {
-                            *(*a1 + 192) = MEM_New(v14 >> 2);
-                            if (*(*a1 + 192))
+                            (*a1)[24] = MEM_New(v14 >> 2);
+                            if ((*a1)[24])
                             {
-                              *(*a1 + 200) = MEM_New(v14 >> 2);
+                              (*a1)[25] = MEM_New(v14 >> 2);
                               v16 = *a1;
-                              if (*(*a1 + 200))
+                              if ((*a1)[25])
                               {
                                 *(v16 + 208) = 0;
-                                *(*a1 + 216) = MEM_New(*(*(v16 + 16) + 4));
-                                if (*(*a1 + 216))
+                                (*a1)[27] = MEM_New(*(v16[2] + 4));
+                                if ((*a1)[27])
                                 {
-                                  InitMotionVectorArray((*a1 + 224), v14, v15);
-                                  InitMotionVectorArray((*a1 + 232), v14, v15);
+                                  InitMotionVectorArray(*a1 + 28, v14, v15);
+                                  InitMotionVectorArray(*a1 + 29, v14, v15);
                                   v17 = *a1;
                                   *(v17 + 254) = 0;
-                                  *(v17 + 240) = 0;
-                                  *(v17 + 248) = 0;
-                                  if (*(v17 + 896) || (*(*a1 + 896) = MEM_New(256), v17 = *a1, *(*a1 + 896)))
+                                  v17[30] = 0;
+                                  v17[31] = 0;
+                                  if (v17[112] || ((*a1)[112] = MEM_New(256), v17 = *a1, (*a1)[112]))
                                   {
-                                    if (*(v17 + 904) || (*(*a1 + 904) = MEM_New(256), v17 = *a1, *(*a1 + 904)))
+                                    if (v17[113] || ((*a1)[113] = MEM_New(256), v17 = *a1, (*a1)[113]))
                                     {
-                                      if (!InitFrame((v17 + 40), v14, v15, 0x10u, 0x10u) && !InitFrame((*a1 + 48), v14, v15, 0x10u, 0x10u) && !InitFrame((*a1 + 56), v14, v15, 0x10u, 0x10u) && !InitFrame((*a1 + 64), v14, v15, 0x10u, 0x10u))
+                                      if (!InitFrame(v17 + 5, v14, v15, 0x10u, 0x10u) && !InitFrame(*a1 + 6, v14, v15, 0x10u, 0x10u) && !InitFrame(*a1 + 7, v14, v15, 0x10u, 0x10u) && !InitFrame(*a1 + 8, v14, v15, 0x10u, 0x10u))
                                       {
-                                        *(*a1 + 552) = MEM_New(4 * *(*(*a1 + 16) + 4));
-                                        if (*(*a1 + 552))
+                                        (*a1)[69] = MEM_New(4 * *((*a1)[2] + 4));
+                                        if ((*a1)[69])
                                         {
-                                          *(*a1 + 560) = MEM_New(*(*(*a1 + 16) + 4));
-                                          if (*(*a1 + 560))
+                                          (*a1)[70] = MEM_New(*((*a1)[2] + 4));
+                                          if ((*a1)[70])
                                           {
-                                            *(*a1 + 568) = MEM_New(*(*(*a1 + 16) + 4));
-                                            if (*(*a1 + 568))
+                                            (*a1)[71] = MEM_New(*((*a1)[2] + 4));
+                                            if ((*a1)[71])
                                             {
-                                              *(*a1 + 72) = *(*a1 + 40);
-                                              if (!InitPictureInfo((*a1 + 24)))
+                                              (*a1)[9] = (*a1)[5];
+                                              if (!InitPictureInfo(*a1 + 3))
                                               {
                                                 v18 = *a1;
-                                                *(*(*a1 + 24) + 149) = 0;
-                                                if (!InitVopComplexityEstimation((v18 + 872)))
+                                                *((*a1)[3] + 149) = 0;
+                                                if (!InitVopComplexityEstimation(v18 + 109))
                                                 {
                                                   v19 = *a1;
-                                                  *(*(v19 + 24) + 200) = vcvtps_s32_f32(logf(*(*(*a1 + 16) + 4)) / 0.69315);
-                                                  InitBitStreamDeco((v19 + 80));
+                                                  *(v19[3] + 200) = vcvtps_s32_f32(logf(*((*a1)[2] + 4)) / 0.69315);
+                                                  InitBitStreamDeco(v19 + 10);
                                                 }
                                               }
                                             }
@@ -1895,25 +1896,25 @@ uint64_t InitInstanceGlobalsDecoGenenral(uint64_t *a1, int a2, int a3, uint64_t 
   return 4294967188;
 }
 
-uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
+uint64_t KillInstanceGlobalsDeco(uint64_t **a1)
 {
   if (!*a1)
   {
     return 0;
   }
 
-  if (KillSourceInfo((*a1 + 16)) || KillGobHeader((*a1 + 32)))
+  if (KillSourceInfo(*a1 + 2) || KillGobHeader(*a1 + 4))
   {
     return 4294958336;
   }
 
-  DelMB((*a1 + 104));
+  DelMB(*a1 + 13);
   v2 = *a1;
-  v3 = *(*a1 + 112);
+  v3 = (*a1)[14];
   if (v3)
   {
     MEM_Dispose(v3);
-    *(*a1 + 112) = 0;
+    (*a1)[14] = 0;
     v2 = *a1;
   }
 
@@ -1921,7 +1922,7 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v4)
   {
     MEM_Dispose(v4);
-    *(*a1 + 120) = 0;
+    (*a1)[15] = 0;
     v2 = *a1;
   }
 
@@ -1929,7 +1930,7 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v5)
   {
     MEM_Dispose(v5);
-    *(*a1 + 128) = 0;
+    (*a1)[16] = 0;
     v2 = *a1;
   }
 
@@ -1937,7 +1938,7 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v6)
   {
     MEM_Dispose(v6);
-    *(*a1 + 136) = 0;
+    (*a1)[17] = 0;
     v2 = *a1;
   }
 
@@ -1945,7 +1946,7 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v7)
   {
     MEM_Dispose(v7);
-    *(*a1 + 144) = 0;
+    (*a1)[18] = 0;
     v2 = *a1;
   }
 
@@ -1953,7 +1954,7 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v8)
   {
     MEM_Dispose(v8);
-    *(*a1 + 152) = 0;
+    (*a1)[19] = 0;
     v2 = *a1;
   }
 
@@ -1961,7 +1962,7 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v9)
   {
     MEM_Dispose(v9);
-    *(*a1 + 160) = 0;
+    (*a1)[20] = 0;
     v2 = *a1;
   }
 
@@ -1969,7 +1970,7 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v10)
   {
     MEM_Dispose(v10);
-    *(*a1 + 168) = 0;
+    (*a1)[21] = 0;
     v2 = *a1;
   }
 
@@ -1977,7 +1978,7 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v11)
   {
     MEM_Dispose(v11);
-    *(*a1 + 176) = 0;
+    (*a1)[22] = 0;
     v2 = *a1;
   }
 
@@ -1985,7 +1986,7 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v12)
   {
     MEM_Dispose(v12);
-    *(*a1 + 184) = 0;
+    (*a1)[23] = 0;
     v2 = *a1;
   }
 
@@ -1993,7 +1994,7 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v13)
   {
     MEM_Dispose(v13);
-    *(*a1 + 192) = 0;
+    (*a1)[24] = 0;
     v2 = *a1;
   }
 
@@ -2001,7 +2002,7 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v14)
   {
     MEM_Dispose(v14);
-    *(*a1 + 200) = 0;
+    (*a1)[25] = 0;
     v2 = *a1;
   }
 
@@ -2009,21 +2010,21 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v15)
   {
     MEM_Dispose(v15);
-    *(*a1 + 216) = 0;
+    (*a1)[27] = 0;
     v2 = *a1;
   }
 
-  if (KillMotionVectorArray((v2 + 224)) || KillMotionVectorArray((*a1 + 232)) || KillFrame((*a1 + 40)) || KillFrame((*a1 + 48)) || KillFrame((*a1 + 56)))
+  if (KillMotionVectorArray((v2 + 224)) || KillMotionVectorArray(*a1 + 29) || KillFrame(*a1 + 5) || KillFrame(*a1 + 6) || KillFrame(*a1 + 7))
   {
     return 4294958336;
   }
 
   v16 = *a1;
-  v17 = *(*a1 + 896);
+  v17 = (*a1)[112];
   if (v17)
   {
     MEM_Dispose(v17);
-    *(*a1 + 896) = 0;
+    (*a1)[112] = 0;
     v16 = *a1;
   }
 
@@ -2031,7 +2032,7 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v18)
   {
     MEM_Dispose(v18);
-    *(*a1 + 904) = 0;
+    (*a1)[113] = 0;
     v16 = *a1;
   }
 
@@ -2041,11 +2042,11 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   }
 
   v19 = *a1;
-  v20 = *(*a1 + 552);
+  v20 = (*a1)[69];
   if (v20)
   {
     MEM_Dispose(v20);
-    *(*a1 + 552) = 0;
+    (*a1)[69] = 0;
     v19 = *a1;
   }
 
@@ -2053,7 +2054,7 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v21)
   {
     MEM_Dispose(v21);
-    *(*a1 + 560) = 0;
+    (*a1)[70] = 0;
     v19 = *a1;
   }
 
@@ -2061,17 +2062,17 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v22)
   {
     MEM_Dispose(v22);
-    *(*a1 + 568) = 0;
+    (*a1)[71] = 0;
     v19 = *a1;
   }
 
-  if (KillSourceInfo((v19 + 24)) || KillSourceInfo((*a1 + 872)) || KillBitStreamDeco((*a1 + 80)))
+  if (KillSourceInfo((v19 + 24)) || KillSourceInfo(*a1 + 109) || KillBitStreamDeco(*a1 + 10))
   {
     return 4294958336;
   }
 
   v24 = *a1;
-  v25 = *(*a1 + 88);
+  v25 = (*a1)[11];
   if (v25)
   {
     MEMORY[0x277CB0F50](v25, 0x1000C40FA0F61DDLL);
@@ -2080,11 +2081,11 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
 
   *(v24 + 88) = 0;
   v26 = *a1;
-  v27 = *(*a1 + 576);
+  v27 = (*a1)[72];
   if (v27)
   {
     MEM_Dispose(v27);
-    *(*a1 + 576) = 0;
+    (*a1)[72] = 0;
     v26 = *a1;
   }
 
@@ -2098,12 +2099,12 @@ uint64_t KillInstanceGlobalsDeco(uint64_t *a1)
   if (v28)
   {
     MEM_Dispose(v28);
-    *(*a1 + 616) = 0;
+    (*a1)[77] = 0;
     v26 = *a1;
   }
 
   MEM_Dispose(*(v26 + 880));
-  *(*a1 + 880) = 0;
+  (*a1)[110] = 0;
   v29 = *a1;
   v29[111] = 0;
   MEM_Dispose(v29);
@@ -3151,7 +3152,7 @@ uint64_t HuffmanDecQCoefInter(CBitStreamDeco *a1)
     }
 
     *(a1 + 39) = v17 - v25;
-    v16 = &coefDecodeInterSubTab + 2 * v24;
+    v16 = &coefDecodeInterSubTab[v24];
   }
 
   else
@@ -3173,7 +3174,7 @@ uint64_t HuffmanDecQCoefInter(CBitStreamDeco *a1)
     }
 
     *(a1 + 39) = v2 - v12;
-    v16 = &coefDecodeInterTab + 2 * v11;
+    v16 = &coefDecodeInterTab[v11];
   }
 
   return *v16;
@@ -3266,7 +3267,7 @@ uint64_t HuffmanDecQCoefIntra(CBitStreamDeco *a1)
     }
 
     *(a1 + 39) = v17 - v25;
-    v16 = &coefDecodeIntraSubTab + 2 * v24;
+    v16 = &coefDecodeIntraSubTab[v24];
   }
 
   else
@@ -3288,7 +3289,7 @@ uint64_t HuffmanDecQCoefIntra(CBitStreamDeco *a1)
     }
 
     *(a1 + 39) = v2 - v12;
-    v16 = &coefDecodeIntraTab + 2 * v11;
+    v16 = &coefDecodeIntraTab[v11];
   }
 
   return *v16;
@@ -4440,11 +4441,11 @@ int8x8_t *MC_2H_2V_Vec(int8x8_t *result, int a2, uint8x8_t *a3, int a4, int16x8_
 unsigned __int8 *Reconstruct_8x8Vec(unsigned __int8 *result, int a2, unsigned __int8 *a3, int a4, int16x8_t *a5, int a6, int a7, int a8, int a9, unsigned __int8 *a10)
 {
   v12 = result;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (a8)
   {
-    Get_QuarterPel(a3, a4, a6, a7, a9, a10, 8, v32);
-    result = AddResidueTo_8x8(a5, v32, v12, a2, a10);
+    Get_QuarterPel(a3, a4, a6, a7, a9, a10, 8, v31);
+    return AddResidueTo_8x8(a5, v31, v12, a2, a10);
   }
 
   else if (a7 | a6)
@@ -4455,48 +4456,48 @@ unsigned __int8 *Reconstruct_8x8Vec(unsigned __int8 *result, int a2, unsigned __
       {
         if (a6 == 1 && a7 == 1)
         {
-          v26 = vdupq_n_s16(2 - a9);
-          v27 = vaddl_u8(*a3, *&vextq_s8(*a3, *a3, 1uLL));
-          v28 = &a3[a4];
+          v25 = vdupq_n_s16(2 - a9);
+          v26 = vaddl_u8(*a3, *&vextq_s8(*a3, *a3, 1uLL));
+          v27 = &a3[a4];
           for (i = 9; i > 1; --i)
           {
-            v30 = vaddl_u8(*v28, *&vextq_s8(*v28->i8, *v28->i8, 1uLL));
-            v31 = *a5++;
-            *v12 = vqmovun_s16(vqaddq_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(v27, v26), v30), 2uLL), v31));
+            v29 = vaddl_u8(*v27, *&vextq_s8(*v27->i8, *v27->i8, 1uLL));
+            v30 = *a5++;
+            *v12 = vqmovun_s16(vqaddq_s16(vshrq_n_s16(vaddq_s16(vaddq_s16(v26, v25), v29), 2uLL), v30));
             v12 += a2;
-            v28 = (v28 + a4);
-            v27 = v30;
+            v27 = (v27 + a4);
+            v26 = v29;
           }
         }
       }
 
       else
       {
-        v20 = vdupq_n_s16(1 - a9);
-        v21 = vmovl_u8(*a3);
-        v22 = &a3[a4];
+        v19 = vdupq_n_s16(1 - a9);
+        v20 = vmovl_u8(*a3);
+        v21 = &a3[a4];
         for (j = 9; j > 1; --j)
         {
-          v24 = vmovl_u8(*v22);
-          v25 = *a5++;
-          *v12 = vqmovun_s16(vqaddq_s16(vhaddq_s16(vaddw_u8(v21, *v22), v20), v25));
+          v23 = vmovl_u8(*v21);
+          v24 = *a5++;
+          *v12 = vqmovun_s16(vqaddq_s16(vhaddq_s16(vaddw_u8(v20, *v21), v19), v24));
           v12 += a2;
-          v22 = (v22 + a4);
-          v21 = v24;
+          v21 = (v21 + a4);
+          v20 = v23;
         }
       }
     }
 
     else
     {
-      v14 = vdupq_n_s16(1 - a9);
-      v15 = (a3 + 1);
+      v13 = vdupq_n_s16(1 - a9);
+      v14 = (a3 + 1);
       for (k = 9; k > 1; --k)
       {
-        v17 = *a5++;
-        *v12 = vqmovun_s16(vqaddq_s16(vhaddq_s16(vaddl_u8(*v15, *(v15 - 1)), v14), v17));
+        v16 = *a5++;
+        *v12 = vqmovun_s16(vqaddq_s16(vhaddq_s16(vaddl_u8(*v14, *(v14 - 1)), v13), v16));
         v12 += a2;
-        v15 = (v15 + a4);
+        v14 = (v14 + a4);
       }
     }
   }
@@ -4505,14 +4506,13 @@ unsigned __int8 *Reconstruct_8x8Vec(unsigned __int8 *result, int a2, unsigned __
   {
     for (m = 9; m > 1; --m)
     {
-      v19 = *a5++;
-      *v12 = vqmovun_s16(vqaddq_s16(vmovl_u8(*a3), v19));
+      v18 = *a5++;
+      *v12 = vqmovun_s16(vqaddq_s16(vmovl_u8(*a3), v18));
       a3 += a4;
       v12 += a2;
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4549,7 +4549,6 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<VCPMP4VRegister::$_0 &&>>()
   v1 = CFDictionaryCreate(v0, keys, &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   VTRegisterVideoDecoderWithInfo();
   CFRelease(v1);
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void std::__call_once_proxy[abi:ne200100]<std::tuple<VCPMP4VRegisterInternal::$_0 &&>>()
@@ -4568,7 +4567,6 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<VCPMP4VRegisterInternal::$_
   VTRegisterVideoDecoderWithInfo();
   CFRelease(v4);
   CFRelease(v1);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t SetBufferInfo(uint64_t result, char a2, __int16 a3, __int16 a4, __int16 a5, __int16 a6)
@@ -4654,39 +4652,39 @@ _WORD *NewBuffer_S16(_WORD *result, __int16 a2, __int16 a3, __int16 a4, __int16 
   return result;
 }
 
-uint64_t InitFrame(void **a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5)
+uint64_t InitFrame(void ***a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5)
 {
   v10 = MEM_NewClear(168);
   *a1 = v10;
   if (v10)
   {
     v11 = NewBuffer_U8(v10, a2, a3, a4, a5);
-    v12 = NewBuffer_U8(*a1 + 8, a2 >> 1, a3 >> 1, a4 >> 1, a5 >> 1) + v11;
-    v13 = v12 + NewBuffer_U8(*a1 + 16, a2 >> 1, a3 >> 1, a4 >> 1, a5 >> 1);
+    v12 = NewBuffer_U8((*a1 + 1), a2 >> 1, a3 >> 1, a4 >> 1, a5 >> 1) + v11;
+    v13 = v12 + NewBuffer_U8((*a1 + 2), a2 >> 1, a3 >> 1, a4 >> 1, a5 >> 1);
     v14 = *a1;
     if (v13 == (a3 + 2 * a5) * (a2 + 2 * a4) + (((a3 + 2 * a5) * (a2 + 2 * a4)) >> 1) + 48)
     {
       v15 = 0;
       v14[3] = **v14;
-      *(*a1 + 4) = ***a1 + 8;
-      *(*a1 + 5) = ***a1 + 8 * *(**a1 + 24);
-      *(*a1 + 6) = ***a1 + 8 * *(**a1 + 24) + 8;
+      (*a1)[4] = (***a1 + 8);
+      (*a1)[5] = (***a1 + 8 * *(**a1 + 12));
+      (*a1)[6] = (***a1 + 8 * *(**a1 + 12) + 8);
       v16 = *a1;
       v17 = **a1;
-      *(v16 + 120) = vdupq_n_s32(*(v17 + 24));
-      *(v16 + 9) = v17;
-      *(*a1 + 10) = **a1;
-      *(*a1 + 11) = **a1;
-      *(*a1 + 12) = **a1;
-      *(*a1 + 7) = **(*a1 + 1);
-      *(*a1 + 8) = **(*a1 + 2);
+      *(v16 + 15) = vdupq_n_s32(v17[12]);
+      v16[9] = v17;
+      (*a1)[10] = **a1;
+      (*a1)[11] = **a1;
+      (*a1)[12] = **a1;
+      (*a1)[7] = *(*a1)[1];
+      (*a1)[8] = *(*a1)[2];
       v18 = *a1;
-      v19 = *(*a1 + 1);
-      v20 = *(*(*a1 + 2) + 24);
-      v18[34] = *(v19 + 24);
-      v18[35] = v20;
-      *(v18 + 13) = v19;
-      *(*a1 + 14) = *(*a1 + 2);
+      v19 = (*a1)[1];
+      v20 = *((*a1)[2] + 12);
+      *(v18 + 34) = v19[12];
+      *(v18 + 35) = v20;
+      v18[13] = v19;
+      (*a1)[14] = (*a1)[2];
       v21 = *a1;
       v21[20] = 0x800000008;
       *&v22 = 0x1000000010;
@@ -4721,8 +4719,8 @@ uint64_t DelBuffer_U8(void **a1)
     return 0;
   }
 
-  v3 = (v1[7] + 16);
-  v4 = *(v1 + 1);
+  v3 = (*(v1 + 7) + 16);
+  v4 = v1[1];
   if (v4)
   {
     MEM_Dispose(v4);
@@ -4759,7 +4757,7 @@ uint64_t DelBuffer_S16(void **a1)
   return v3;
 }
 
-uint64_t KillFrame(void **a1)
+uint64_t KillFrame(void ***a1)
 {
   v2 = *a1;
   if (v2)
@@ -4767,18 +4765,17 @@ uint64_t KillFrame(void **a1)
     DelBuffer_U8(v2);
     DelBuffer_U8(*a1 + 1);
     DelBuffer_U8(*a1 + 2);
-    for (i = 24; i != 72; i += 8)
+    for (i = 3; i != 9; ++i)
     {
-      *(*a1 + i) = 0;
+      (*a1)[i] = 0;
     }
 
     do
     {
-      *(*a1 + i) = 0;
-      i += 8;
+      (*a1)[i++] = 0;
     }
 
-    while (i != 120);
+    while (i != 15);
     MEM_Dispose(*a1);
     *a1 = 0;
   }
@@ -5427,7 +5424,7 @@ float GetFrameYChannelMAD(uint64_t **a1)
   {
     v4 = 0;
     v5 = 0;
-    v6 = *(v1 + 12);
+    v6 = v1[12];
     v7 = *v1;
     do
     {
@@ -5459,11 +5456,11 @@ float GetFrameYChannelMAD(uint64_t **a1)
   return v9 / (v3 * v2);
 }
 
-float GetFramesYChannelDiffMAD(uint64_t a1, uint64_t **a2, uint64_t a3, double a4, double a5, uint32x4_t a6, uint32x4_t a7)
+float GetFramesYChannelDiffMAD(uint64_t a1, unsigned __int16 **a2, uint64_t a3, double a4, double a5, uint32x4_t a6, uint32x4_t a7)
 {
   v7 = *a2;
-  v8 = *(*a2 + 8);
-  v9 = *(*a2 + 9);
+  v8 = (*a2)[8];
+  v9 = (*a2)[9];
   v10 = 0.0;
   if (v9 >= 0x10)
   {
@@ -5471,7 +5468,7 @@ float GetFramesYChannelDiffMAD(uint64_t a1, uint64_t **a2, uint64_t a3, double a
     v12 = 0;
     v13 = 0;
     v14 = *v7;
-    v15 = *(v7 + 12);
+    v15 = v7[12];
     v16 = *(*a1 + 24);
     v17 = (v14 + 7);
     v18 = **a1 + 7;
@@ -5969,43 +5966,43 @@ uint64_t Line_Frame(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, char
 
 uint64_t View_MV(uint64_t result, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v48[4] = *MEMORY[0x277D85DE8];
-  v40 = result;
+  v47[4] = *MEMORY[0x277D85DE8];
+  v39 = result;
   if (result >= 1)
   {
-    v41 = 0;
-    v42 = a2;
-    v38 = 2 * a2;
+    v40 = 0;
+    v41 = a2;
+    v37 = 2 * a2;
     do
     {
       if (a2 >= 1)
       {
         v9 = 0;
-        v45 = a6 + v41 * a2;
-        v46 = v38 * v41;
+        v44 = a6 + v40 * a2;
+        v45 = v37 * v40;
         do
         {
-          v10 = 4 * (v9 + v46);
+          v10 = 4 * (v9 + v45);
           v11 = *(a4 + v10);
           v12 = *(a5 + v10);
-          v13 = (4 * (v9 + v46)) | 2;
+          v13 = (4 * (v9 + v45)) | 2;
           v14 = *(a4 + v13);
-          v48[0] = v11;
-          v48[1] = v14;
+          v47[0] = v11;
+          v47[1] = v14;
           v15 = *(a5 + v13);
-          v47[0] = v12;
-          v47[1] = v15;
-          v16 = v9 + v46 + a2;
+          v46[0] = v12;
+          v46[1] = v15;
+          v16 = v9 + v45 + a2;
           v17 = *(a4 + 4 * v16);
           v18 = *(a5 + 4 * v16);
           v19 = (4 * v16) | 2;
           v20 = *(a4 + v19);
-          v48[2] = v17;
-          v48[3] = v20;
+          v47[2] = v17;
+          v47[3] = v20;
           v21 = *(a5 + v19);
-          v47[2] = v18;
-          v47[3] = v21;
-          v22 = *(v45 + v9);
+          v46[2] = v18;
+          v46[3] = v21;
+          v22 = *(v44 + v9);
           if (v22 - 3 >= 2)
           {
             v23 = 0;
@@ -6013,13 +6010,13 @@ uint64_t View_MV(uint64_t result, uint64_t a2, int a3, uint64_t a4, uint64_t a5,
             v25 = 0;
             do
             {
-              v26 = v48[v25];
-              v27 = v47[v25];
+              v26 = v47[v25];
+              v27 = v46[v25];
               if (a3)
               {
                 if (v26 >= 0)
                 {
-                  v28 = v48[v25];
+                  v28 = v47[v25];
                 }
 
                 else
@@ -6050,7 +6047,7 @@ uint64_t View_MV(uint64_t result, uint64_t a2, int a3, uint64_t a4, uint64_t a5,
 
                 if (v27 >= 0)
                 {
-                  v31 = v47[v25];
+                  v31 = v46[v25];
                 }
 
                 else
@@ -6093,7 +6090,7 @@ uint64_t View_MV(uint64_t result, uint64_t a2, int a3, uint64_t a4, uint64_t a5,
                 }
               }
 
-              result = Line_Frame(v24 & 8 | (16 * v9), v23 & 8 | (16 * v41), (v26 + (v24 & 8 | (16 * v9))) & ~((v26 + (v24 & 8 | (16 * v9))) >> 63), (v27 + (v23 & 8 | (16 * v41))) & ~((v27 + (v23 & 8 | (16 * v41))) >> 63), 255, a7);
+              result = Line_Frame(v24 & 8 | (16 * v9), v23 & 8 | (16 * v40), (v26 + (v24 & 8 | (16 * v9))) & ~((v26 + (v24 & 8 | (16 * v9))) >> 63), (v27 + (v23 & 8 | (16 * v40))) & ~((v27 + (v23 & 8 | (16 * v40))) >> 63), 255, a7);
               if (v22 < 2)
               {
                 break;
@@ -6107,23 +6104,22 @@ uint64_t View_MV(uint64_t result, uint64_t a2, int a3, uint64_t a4, uint64_t a5,
           }
 
           ++v9;
-          a2 = v42;
+          a2 = v41;
         }
 
-        while (v9 != v42);
+        while (v9 != v41);
       }
 
-      ++v41;
+      ++v40;
     }
 
-    while (v41 != v40);
+    while (v40 != v39);
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t CloneFrame(void *a1, void **a2)
+uint64_t CloneFrame(void *a1, void ***a2)
 {
   InitFrame(a2, *(*a1 + 16), *(*a1 + 18), *(*a1 + 20), *(*a1 + 22));
   CopyFrame(a1, *a2);
@@ -6541,25 +6537,25 @@ void CBitStream::CBitStream(CBitStream *this)
 
 uint64_t MPEG4VideoDecoder_StartSession(_WORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }

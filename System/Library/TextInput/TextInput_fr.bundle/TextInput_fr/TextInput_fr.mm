@@ -6,7 +6,7 @@ void KB::LikelihoodInfo::~LikelihoodInfo(void **this)
   }
 }
 
-uint64_t TIInputManager::set_input_manager_specialization(TIInputManager *a1, uint64_t *a2)
+atomic_uint *TIInputManager::set_input_manager_specialization(TIInputManager *a1, uint64_t *a2)
 {
   v4 = *a2;
   v3 = a2[1];
@@ -118,7 +118,7 @@ unsigned int *WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(unsigned int 
     std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy((v1 + 44), *(v1 + 23));
     std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy((v1 + 38), *(v1 + 20));
     std::__hash_table<std::__hash_value_type<KB::ByteString,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<KB::ByteString,std::__hash_value_type<KB::ByteString,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<KB::ByteString>,std::equal_to<KB::ByteString>,true>,std::__unordered_map_equal<KB::ByteString,std::__hash_value_type<KB::ByteString,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<KB::ByteString>,std::hash<KB::ByteString>,true>,std::allocator<std::__hash_value_type<KB::ByteString,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table((v1 + 18));
-    std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table((v1 + 8));
+    std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table(v1 + 4);
     v3 = (v1 + 2);
     std::vector<WTF::RefPtr<TI::Favonius::LayoutKey>>::__destroy_vector::operator()[abi:nn200100](&v3);
     return MEMORY[0x29EDA31E0](v1, 0x10B0C409EA53459);
@@ -197,9 +197,9 @@ uint64_t WTF::RefCounted<TI::Favonius::Key>::deref(uint64_t result)
   return result;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -256,20 +256,20 @@ void std::__shared_ptr_emplace<KB::InputManagerSpecialization_fr>::~__shared_ptr
   JUMPOUT(0x29EDA31E0);
 }
 
-void *std::vector<unsigned int>::vector[abi:nn200100](void *result, uint64_t a2, unint64_t a3)
+uint64_t *std::vector<unsigned int>::vector[abi:nn200100](uint64_t *a1, int *a2, unint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
-    std::vector<unsigned int>::__vallocate[abi:nn200100](result, a3);
+    std::vector<unsigned int>::__vallocate[abi:nn200100](a1, a3);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<unsigned int>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned int>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -366,7 +366,7 @@ void std::__shared_ptr_emplace<KB::CandidateFilter_fr>::~__shared_ptr_emplace(st
   JUMPOUT(0x29EDA31E0);
 }
 
-void KB::CandidateFilter_fr::filter_candidates(int a1, uint64_t a2, KB::Candidate *this, uint64_t a4)
+void KB::CandidateFilter_fr::filter_candidates(int a1, uint64_t **a2, KB::Candidate *this, uint64_t a4)
 {
   v6 = *(this + 792);
   if ((v6 - 3) < 4 || v6 == 1)
@@ -376,7 +376,7 @@ void KB::CandidateFilter_fr::filter_candidates(int a1, uint64_t a2, KB::Candidat
     v10 = KB::Candidate::string(this);
     v11 = KB::String::count(v10);
     v13 = *a2;
-    v12 = *(a2 + 8);
+    v12 = a2[1];
     v15[0] = MEMORY[0x29EDCA5F8];
     v15[1] = 0x40000000;
     v15[2] = ___ZNK2KB18CandidateFilter_fr17filter_candidatesERNS_19CandidateCollectionERKNS_28CandidateFilterLookupContextERKNS_24CandidateFilterResourcesE_block_invoke;
@@ -384,7 +384,7 @@ void KB::CandidateFilter_fr::filter_candidates(int a1, uint64_t a2, KB::Candidat
     v16 = v11;
     v15[4] = a4;
     v14 = std::remove_if[abi:nn200100]<std::__wrap_iter<KB::Candidate *>,BOOL({block_pointer})(KB::Candidate const&)>(v13, v12, v15);
-    std::vector<KB::Candidate>::erase(a2, v14, *(a2 + 8));
+    std::vector<KB::Candidate>::erase(a2, v14, a2[1]);
   }
 }
 
@@ -422,21 +422,21 @@ uint64_t *std::remove_if[abi:nn200100]<std::__wrap_iter<KB::Candidate *>,BOOL({b
 
 BOOL ___ZNK2KB18CandidateFilter_fr17filter_candidatesERNS_19CandidateCollectionERKNS_28CandidateFilterLookupContextERKNS_24CandidateFilterResourcesE_block_invoke(uint64_t a1, KB::Candidate *this)
 {
-  v15[2] = *MEMORY[0x29EDCA608];
+  v14[2] = *MEMORY[0x29EDCA608];
   v4 = KB::Candidate::string(this);
   v5 = KB::String::count(v4);
   v6 = *(a1 + 40);
   if (v5 > v6 && KB::CandidateFilterResources::debug_stream(*(a1 + 32)))
   {
     v7 = KB::CandidateFilterResources::debug_stream(*(a1 + 32));
-    KB::Candidate::capitalized_string(&v13, this);
-    v9 = v14;
-    if (!v14)
+    KB::Candidate::capitalized_string(&v12, this);
+    v9 = v13;
+    if (!v13)
     {
-      v9 = v15;
+      v9 = v14;
     }
 
-    if (v13)
+    if (v12)
     {
       v10 = v9;
     }
@@ -447,12 +447,10 @@ BOOL ___ZNK2KB18CandidateFilter_fr17filter_candidatesERNS_19CandidateCollectionE
     }
 
     KB::append_format(v7, "[%s] removed by %s\n", v8, v10, "virtual void KB::CandidateFilter_fr::filter_candidates(CandidateCollection &, const CandidateFilterLookupContext &, const CandidateFilterResources &) const_block_invoke");
-    KB::String::~String(&v13);
+    KB::String::~String(&v12);
   }
 
-  result = v5 > v6;
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return v5 > v6;
 }
 
 uint64_t *std::vector<KB::Candidate>::erase(uint64_t a1, uint64_t *a2, __int128 *a3)
@@ -540,8 +538,7 @@ uint64_t *KB::Candidate::operator=(uint64_t *a1, __int128 *a2)
 uint64_t KB::LanguageModelContext::operator=(uint64_t a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v5 = *(a1 + 8);
   *a1 = v4;
   if (v5)
@@ -732,7 +729,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favon
   while (v2);
 }
 
-unsigned int *KB::InputManagerSpecialization_fr::create_input_segment_filter@<X0>(uint64_t a1@<X0>, TI::Favonius::KeyboardLayout **a2@<X1>, void *a3@<X8>)
+unsigned int *KB::InputManagerSpecialization_fr::create_input_segment_filter@<X0>(uint64_t a1@<X0>, TI::Favonius::KeyboardLayout **a2@<X1>, uint64_t *a3@<X8>)
 {
   v6 = (a1 + 16);
   v5 = *(a1 + 16);
@@ -765,7 +762,7 @@ unsigned int *KB::InputManagerSpecialization_fr::create_input_segment_filter@<X0
   v11 = v16;
   while (DWORD2(v21) != v11)
   {
-    TI::Favonius::KeyboardLayout::key_for_char(*a2);
+    TI::Favonius::KeyboardLayout::key_for_char(&v23, *a2);
     if (v23)
     {
       WTF::RefCounted<TI::Favonius::Key>::deref(v23);

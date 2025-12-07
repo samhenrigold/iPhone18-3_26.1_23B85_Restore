@@ -16,6 +16,7 @@
 - (void)setupViewForIdentityProvider:(id)provider;
 - (void)testSystemTrustPressed:(id)pressed;
 - (void)textFieldDidChangeNotification:(id)notification;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VSDeveloperIdentityProviderViewController_iOS
@@ -45,6 +46,93 @@
   }
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v29.receiver = self;
+  v29.super_class = VSDeveloperIdentityProviderViewController_iOS;
+  [(VSDeveloperIdentityProviderViewController_iOS *)&v29 viewWillAppear:appear];
+  identityProvider = [(VSDeveloperIdentityProviderViewController_iOS *)self identityProvider];
+
+  if (!identityProvider)
+  {
+    specifier = [(VSDeveloperIdentityProviderViewController_iOS *)self specifier];
+    v6 = specifier;
+    if (specifier)
+    {
+      identifier = [specifier identifier];
+      v25 = 0u;
+      v26 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      settingsFacade = [(VSDeveloperIdentityProviderViewController_iOS *)self settingsFacade];
+      providers = [settingsFacade providers];
+
+      v10 = [providers countByEnumeratingWithState:&v25 objects:v30 count:16];
+      if (v10)
+      {
+        v24 = v6;
+        v11 = *v26;
+        while (2)
+        {
+          for (i = 0; i != v10; i = i + 1)
+          {
+            if (*v26 != v11)
+            {
+              objc_enumerationMutation(providers);
+            }
+
+            v13 = *(*(&v25 + 1) + 8 * i);
+            uniqueID = [v13 uniqueID];
+            forceUnwrapObject = [uniqueID forceUnwrapObject];
+            v16 = [forceUnwrapObject isEqualToString:identifier];
+
+            if (v16)
+            {
+              v10 = v13;
+              goto LABEL_13;
+            }
+          }
+
+          v10 = [providers countByEnumeratingWithState:&v25 objects:v30 count:16];
+          if (v10)
+          {
+            continue;
+          }
+
+          break;
+        }
+
+LABEL_13:
+        v6 = v24;
+      }
+
+      v17 = [v10 copy];
+      identityProvider = self->_identityProvider;
+      self->_identityProvider = v17;
+    }
+  }
+
+  identityProvider2 = [(VSDeveloperIdentityProviderViewController_iOS *)self identityProvider];
+  if (identityProvider2)
+  {
+    [(VSDeveloperIdentityProviderViewController_iOS *)self setupViewForIdentityProvider:identityProvider2];
+    [(VSDeveloperIdentityProviderViewController_iOS *)self reloadSpecifiers];
+    v20 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0 target:self action:"saveSelected:"];
+  }
+
+  else
+  {
+    v20 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:3 target:self action:"saveSelected:"];
+    [v20 setEnabled:0];
+    v21 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:1 target:self action:"cancelSelected:"];
+    navigationItem = [(VSDeveloperIdentityProviderViewController_iOS *)self navigationItem];
+    [navigationItem setLeftBarButtonItem:v21];
+  }
+
+  navigationItem2 = [(VSDeveloperIdentityProviderViewController_iOS *)self navigationItem];
+  [navigationItem2 setRightBarButtonItem:v20];
 }
 
 - (void)setupViewForIdentityProvider:(id)provider

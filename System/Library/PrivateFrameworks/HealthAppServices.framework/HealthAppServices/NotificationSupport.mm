@@ -15,28 +15,27 @@
 
 + (id)createNotificationUserInfoFor:(int64_t)for with:(id)with
 {
-  sub_251307374();
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8, v8);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_251307374(0);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (with)
   {
     sub_25130EE64();
-    v11 = sub_25130EEC4();
-    (*(*(v11 - 8) + 56))(v10, 0, 1, v11);
+    v9 = sub_25130EEC4();
+    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
   }
 
   else
   {
-    v12 = sub_25130EEC4();
-    (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
+    v10 = sub_25130EEC4();
+    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
   }
 
-  _s17HealthAppServices19NotificationSupportC06createD8UserInfo3for4withSDys11AnyHashableVypGSo20HKNotificationDomainV_10Foundation3URLVSgtFZ_0(for, v10);
-  sub_251307430(v10, sub_251307374);
-  v13 = sub_25130EF64();
+  _s17HealthAppServices19NotificationSupportC06createD8UserInfo3for4withSDys11AnyHashableVypGSo20HKNotificationDomainV_10Foundation3URLVSgtFZ_0(for, v8);
+  sub_251307430(v8, sub_251307374);
+  v11 = sub_25130EF64();
 
-  return v13;
+  return v11;
 }
 
 - (_TtC17HealthAppServices19NotificationSupport)init

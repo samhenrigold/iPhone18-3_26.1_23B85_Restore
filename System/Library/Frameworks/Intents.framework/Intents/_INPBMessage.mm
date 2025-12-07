@@ -1,8 +1,11 @@
 @interface _INPBMessage
 - (BOOL)isEqual:(id)equal;
 - (_INPBMessage)initWithCoder:(id)coder;
+- (id)attributesAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)effectAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsAttributes:(id)attributes;
 - (int)StringAsEffect:(id)effect;
 - (int)StringAsType:(id)type;
@@ -42,35 +45,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_attachmentFiles count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v82 = 0u;
     v83 = 0u;
     v84 = 0u;
     v85 = 0u;
-    v86 = 0u;
     v5 = self->_attachmentFiles;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v83 objects:v89 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v82 objects:v88 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v84;
+      v8 = *v83;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v84 != v8)
+          if (*v83 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v83 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v82 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v83 objects:v89 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v82 objects:v88 count:16];
       }
 
       while (v7);
@@ -175,30 +178,30 @@
   if ([(NSArray *)self->_inlineGlyphContents count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v78 = 0u;
     v79 = 0u;
     v80 = 0u;
     v81 = 0u;
-    v82 = 0u;
     v34 = self->_inlineGlyphContents;
-    v35 = [(NSArray *)v34 countByEnumeratingWithState:&v79 objects:v88 count:16];
+    v35 = [(NSArray *)v34 countByEnumeratingWithState:&v78 objects:v87 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v80;
+      v37 = *v79;
       do
       {
         for (j = 0; j != v36; ++j)
         {
-          if (*v80 != v37)
+          if (*v79 != v37)
           {
             objc_enumerationMutation(v34);
           }
 
-          dictionaryRepresentation5 = [*(*(&v79 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation5 = [*(*(&v78 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation5];
         }
 
-        v36 = [(NSArray *)v34 countByEnumeratingWithState:&v79 objects:v88 count:16];
+        v36 = [(NSArray *)v34 countByEnumeratingWithState:&v78 objects:v87 count:16];
       }
 
       while (v36);
@@ -237,30 +240,30 @@
   if ([(NSArray *)self->_recipients count])
   {
     array3 = [MEMORY[0x1E695DF70] array];
+    v74 = 0u;
     v75 = 0u;
     v76 = 0u;
     v77 = 0u;
-    v78 = 0u;
     v53 = self->_recipients;
-    v54 = [(NSArray *)v53 countByEnumeratingWithState:&v75 objects:v87 count:16];
+    v54 = [(NSArray *)v53 countByEnumeratingWithState:&v74 objects:v86 count:16];
     if (v54)
     {
       v55 = v54;
-      v56 = *v76;
+      v56 = *v75;
       do
       {
         for (k = 0; k != v55; ++k)
         {
-          if (*v76 != v56)
+          if (*v75 != v56)
           {
             objc_enumerationMutation(v53);
           }
 
-          dictionaryRepresentation11 = [*(*(&v75 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation11 = [*(*(&v74 + 1) + 8 * k) dictionaryRepresentation];
           [array3 addObject:dictionaryRepresentation11];
         }
 
-        v55 = [(NSArray *)v53 countByEnumeratingWithState:&v75 objects:v87 count:16];
+        v55 = [(NSArray *)v53 countByEnumeratingWithState:&v74 objects:v86 count:16];
       }
 
       while (v55);
@@ -314,8 +317,6 @@
 
     [dictionary setObject:v72 forKeyedSubscript:@"type"];
   }
-
-  v73 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -1106,32 +1107,34 @@ LABEL_123:
 
 - (void)writeTo:(id)to
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v76 = 0u;
-  v77 = 0u;
-  v78 = 0u;
-  v79 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   v5 = self->_attachmentFiles;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v76 objects:v82 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v61 objects:v67 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v77;
+    v8 = *v62;
     do
     {
-      for (i = 0; i != v7; ++i)
+      v9 = 0;
+      do
       {
-        if (*v77 != v8)
+        if (*v62 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v76 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
+        ++v9;
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v76 objects:v82 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v61 objects:v67 count:16];
     }
 
     while (v7);
@@ -1139,15 +1142,14 @@ LABEL_123:
 
   if (self->_attributes.count)
   {
-    v11 = 0;
+    v10 = 0;
     do
     {
-      v12 = self->_attributes.list[v11];
       PBDataWriterWriteInt32Field();
-      ++v11;
+      ++v10;
     }
 
-    while (v11 < self->_attributes.count);
+    while (v10 < self->_attributes.count);
   }
 
   audioMessageFile = [(_INPBMessage *)self audioMessageFile];
@@ -1162,7 +1164,6 @@ LABEL_123:
 
   if (content)
   {
-    content = self->_content;
     PBDataWriterWriteStringField();
   }
 
@@ -1170,7 +1171,6 @@ LABEL_123:
 
   if (conversationIdentifier)
   {
-    conversationIdentifier = self->_conversationIdentifier;
     PBDataWriterWriteStringField();
   }
 
@@ -1192,7 +1192,6 @@ LABEL_123:
 
   if ([(_INPBMessage *)self hasEffect])
   {
-    effect = self->_effect;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1200,7 +1199,6 @@ LABEL_123:
 
   if (fileExtension)
   {
-    fileExtension = self->_fileExtension;
     PBDataWriterWriteStringField();
   }
 
@@ -1208,7 +1206,6 @@ LABEL_123:
 
   if (groupName)
   {
-    groupName = self->_groupName;
     PBDataWriterWriteStringField();
   }
 
@@ -1216,37 +1213,38 @@ LABEL_123:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
-  v30 = self->_inlineGlyphContents;
-  v31 = [(NSArray *)v30 countByEnumeratingWithState:&v72 objects:v81 count:16];
-  if (v31)
+  v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v22 = self->_inlineGlyphContents;
+  v23 = [(NSArray *)v22 countByEnumeratingWithState:&v57 objects:v66 count:16];
+  if (v23)
   {
-    v32 = v31;
-    v33 = *v73;
+    v24 = v23;
+    v25 = *v58;
     do
     {
-      for (j = 0; j != v32; ++j)
+      v26 = 0;
+      do
       {
-        if (*v73 != v33)
+        if (*v58 != v25)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v22);
         }
 
-        v35 = *(*(&v72 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
+        ++v26;
       }
 
-      v32 = [(NSArray *)v30 countByEnumeratingWithState:&v72 objects:v81 count:16];
+      while (v24 != v26);
+      v24 = [(NSArray *)v22 countByEnumeratingWithState:&v57 objects:v66 count:16];
     }
 
-    while (v32);
+    while (v24);
   }
 
   linkMetadata = [(_INPBMessage *)self linkMetadata];
@@ -1269,7 +1267,6 @@ LABEL_123:
 
   if (locationName)
   {
-    locationName = self->_locationName;
     PBDataWriterWriteStringField();
   }
 
@@ -1297,33 +1294,35 @@ LABEL_123:
     PBDataWriterWriteSubmessage();
   }
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
-  v69 = 0u;
-  v48 = self->_recipients;
-  v49 = [(NSArray *)v48 countByEnumeratingWithState:&v68 objects:v80 count:16];
-  if (v49)
+  v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v38 = self->_recipients;
+  v39 = [(NSArray *)v38 countByEnumeratingWithState:&v53 objects:v65 count:16];
+  if (v39)
   {
-    v50 = v49;
-    v51 = *v69;
+    v40 = v39;
+    v41 = *v54;
     do
     {
-      for (k = 0; k != v50; ++k)
+      v42 = 0;
+      do
       {
-        if (*v69 != v51)
+        if (*v54 != v41)
         {
-          objc_enumerationMutation(v48);
+          objc_enumerationMutation(v38);
         }
 
-        v53 = *(*(&v68 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
+        ++v42;
       }
 
-      v50 = [(NSArray *)v48 countByEnumeratingWithState:&v68 objects:v80 count:16];
+      while (v40 != v42);
+      v40 = [(NSArray *)v38 countByEnumeratingWithState:&v53 objects:v65 count:16];
     }
 
-    while (v50);
+    while (v40);
   }
 
   referencedMessage = [(_INPBMessage *)self referencedMessage];
@@ -1346,7 +1345,6 @@ LABEL_123:
 
   if (serviceName)
   {
-    serviceName = self->_serviceName;
     PBDataWriterWriteStringField();
   }
 
@@ -1370,17 +1368,13 @@ LABEL_123:
 
   if (translatedToLanguage)
   {
-    translatedToLanguage = self->_translatedToLanguage;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBMessage *)self hasType])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
-
-  v67 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsType:(id)type
@@ -1564,6 +1558,21 @@ LABEL_123:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if ((string - 1) >= 0x23)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E727E838 + (string - 1));
   }
 
   return v4;
@@ -1783,6 +1792,21 @@ LABEL_123:
   return v4;
 }
 
+- (id)effectAsString:(int)string
+{
+  if ((string - 1) >= 0xD)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E727E7D0 + (string - 1));
+  }
+
+  return v4;
+}
+
 - (void)setEffect:(int)effect
 {
   has = self->_has;
@@ -1847,6 +1871,21 @@ LABEL_123:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)attributesAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E727E7A8 + (string - 1));
   }
 
   return v4;

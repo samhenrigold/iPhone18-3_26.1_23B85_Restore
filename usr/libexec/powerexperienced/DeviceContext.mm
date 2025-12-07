@@ -15,6 +15,7 @@
 - (void)handleTestDefaultsUpdate;
 - (void)handleThermalWarning;
 - (void)handleXPCEvent:(id)event;
+- (void)inPocketStateHasChanged:(BOOL)changed;
 - (void)initCSPNNotifications;
 - (void)initClamshellStateChange;
 - (void)initEarlyThermalWarning;
@@ -47,7 +48,7 @@
 
 - (void)handleLockStateChange
 {
-  v3 = sub_100001600();
+  v3 = sub_100001600(self);
   dispatch_assert_queue_V2(v3);
 
   state64 = 0;
@@ -78,32 +79,33 @@
 
 - (DeviceContext)init
 {
-  v13.receiver = self;
-  v13.super_class = DeviceContext;
-  v2 = [(DeviceContext *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = DeviceContext;
+  v2 = [(DeviceContext *)&v14 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100001600();
-    [(DeviceContext *)v2 setQueue:v3];
+    v4 = sub_100001600(v2);
+    [(DeviceContext *)v3 setQueue:v4];
 
-    v4 = os_log_create("com.apple.powerexperienced", "contextmonitor");
-    log = v2->_log;
-    v2->_log = v4;
+    v5 = os_log_create("com.apple.powerexperienced", "contextmonitor");
+    log = v3->_log;
+    v3->_log = v5;
 
-    v6 = objc_alloc_init(NSMutableDictionary);
-    currentContext = v2->_currentContext;
-    v2->_currentContext = v6;
+    v7 = objc_alloc_init(NSMutableDictionary);
+    currentContext = v3->_currentContext;
+    v3->_currentContext = v7;
 
-    v8 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.powerexperienced.test.devicecontext"];
-    testDefaults = v2->_testDefaults;
-    v2->_testDefaults = v8;
+    v9 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.powerexperienced.test.devicecontext"];
+    testDefaults = v3->_testDefaults;
+    v3->_testDefaults = v9;
 
-    v10 = +[NSMutableSet set];
-    overridenKeys = v2->_overridenKeys;
-    v2->_overridenKeys = v10;
+    v11 = +[NSMutableSet set];
+    overridenKeys = v3->_overridenKeys;
+    v3->_overridenKeys = v11;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)start
@@ -182,7 +184,7 @@ LABEL_9:
 - (void)handleXPCEvent:(id)event
 {
   eventCopy = event;
-  v5 = sub_100001600();
+  v5 = sub_100001600(eventCopy);
   dispatch_assert_queue_V2(v5);
 
   string = xpc_dictionary_get_string(eventCopy, _xpc_event_key_name);
@@ -494,7 +496,7 @@ LABEL_19:
 - (void)initCSPNNotifications
 {
   v3 = objc_alloc_init(_PMCoreSmartPowerNap);
-  v4 = sub_100001600();
+  v4 = sub_100001600(v3);
   v5[0] = _NSConcreteStackBlock;
   v5[1] = 3221225472;
   v5[2] = sub_100009A24;
@@ -505,7 +507,7 @@ LABEL_19:
 
 - (void)handleEarlyThermalWarning
 {
-  v3 = sub_100001600();
+  v3 = sub_100001600(self);
   dispatch_assert_queue_V2(v3);
 
   state64 = 0;
@@ -518,7 +520,7 @@ LABEL_19:
 
 - (void)handleThermalWarning
 {
-  v3 = sub_100001600();
+  v3 = sub_100001600(self);
   dispatch_assert_queue_V2(v3);
 
   state64 = 0;
@@ -555,7 +557,7 @@ LABEL_19:
 
 - (void)handleLPMStateChange
 {
-  v3 = sub_100001600();
+  v3 = sub_100001600(self);
   dispatch_assert_queue_V2(v3);
 
   state64 = 0;
@@ -582,7 +584,7 @@ LABEL_19:
 
 - (void)startInPocketDetection
 {
-  v3 = sub_100001600();
+  v3 = sub_100001600(self);
   v4 = [InPocketMonitor initWithQueue:v3];
   [(DeviceContext *)self setInPocketMonitor:v4];
 
@@ -739,6 +741,12 @@ LABEL_19:
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ is now : %@", &v10, 0x16u);
     }
   }
+}
+
+- (void)inPocketStateHasChanged:(BOOL)changed
+{
+  v4 = [NSNumber numberWithBool:changed];
+  [(DeviceContext *)self setObject:v4 forKeyedSubscript:@"kInPocketContext"];
 }
 
 @end

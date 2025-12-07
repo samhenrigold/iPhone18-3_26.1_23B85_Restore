@@ -56,7 +56,7 @@
 
 - (id)synchronousRemoteObjectProxyWithErrorHandler:(id)handler
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   _connection = [(NFCSession *)self _connection];
   v6 = _connection;
@@ -69,24 +69,22 @@
   {
     v8 = objc_alloc(MEMORY[0x277CCA9B8]);
     v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"nfcd"];
-    v15 = *MEMORY[0x277CCA450];
+    v14 = *MEMORY[0x277CCA450];
     v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"XPC Error"];
-    v16[0] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v15[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v12 = [v8 initWithDomain:v9 code:7 userInfo:v11];
     handlerCopy[2](handlerCopy, v12);
 
     v7 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)remoteObjectProxyWithErrorHandler:(id)handler
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   _connection = [(NFCSession *)self _connection];
   v6 = _connection;
@@ -99,17 +97,15 @@
   {
     v8 = objc_alloc(MEMORY[0x277CCA9B8]);
     v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"nfcd"];
-    v15 = *MEMORY[0x277CCA450];
+    v14 = *MEMORY[0x277CCA450];
     v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"XPC Error"];
-    v16[0] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v15[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v12 = [v8 initWithDomain:v9 code:7 userInfo:v11];
     handlerCopy[2](handlerCopy, v12);
 
     v7 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -130,7 +126,7 @@
 
 - (id)_connectIfNeeded
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_connectionLock lock];
   connection = self->_connection;
   if (connection)
@@ -157,32 +153,32 @@
     aBlock[1] = 3221225472;
     aBlock[2] = sub_2372B27B8;
     aBlock[3] = &unk_278A29CD0;
-    objc_copyWeak(v35, &location);
-    v35[1] = v8;
-    v35[2] = a2;
+    objc_copyWeak(v34, &location);
+    v34[1] = v8;
+    v34[2] = a2;
     aBlock[4] = self;
     v10 = _Block_copy(aBlock);
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = sub_2372B29E0;
-    v31[3] = &unk_278A29CF8;
-    v33 = v8;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = sub_2372B29E0;
+    v30[3] = &unk_278A29CF8;
+    v32 = v8;
     v11 = v10;
-    v32 = v11;
-    [(NSXPCConnection *)self->_connection setInvalidationHandler:v31];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = sub_2372B2B08;
-    v28[3] = &unk_278A29CF8;
-    v29 = v11;
-    v30 = v8;
+    v31 = v11;
+    [(NSXPCConnection *)self->_connection setInvalidationHandler:v30];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = sub_2372B2B08;
+    v27[3] = &unk_278A29CF8;
+    v28 = v11;
+    v29 = v8;
     v12 = self->_connection;
     v13 = v11;
-    [(NSXPCConnection *)v12 setInterruptionHandler:v28];
+    [(NSXPCConnection *)v12 setInterruptionHandler:v27];
     [(NSXPCConnection *)self->_connection _setQueue:self->_xpcQueue];
     [(NSXPCConnection *)self->_connection resume];
 
-    objc_destroyWeak(v35);
+    objc_destroyWeak(v34);
     objc_destroyWeak(&location);
     connection = self->_connection;
 LABEL_4:
@@ -190,55 +186,54 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v17 = MEMORY[0x277D82BB0];
+  v16 = MEMORY[0x277D82BB0];
   dispatch_get_specific(*MEMORY[0x277D82BB0]);
   Logger = NFLogGetLogger();
   if (Logger)
   {
-    v19 = Logger;
+    v18 = Logger;
     Class = object_getClass(self);
     isMetaClass = class_isMetaClass(Class);
     ClassName = object_getClassName(self);
     Name = sel_getName(a2);
-    v23 = 45;
+    v22 = 45;
     if (isMetaClass)
     {
-      v23 = 43;
+      v22 = 43;
     }
 
-    v19(3, "%c[%{public}s %{public}s]:%i Failed to connect to NFCD", v23, ClassName, Name, 111);
+    v18(3, "%c[%{public}s %{public}s]:%i Failed to connect to NFCD", v22, ClassName, Name, 111);
   }
 
-  dispatch_get_specific(*v17);
-  v24 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  dispatch_get_specific(*v16);
+  v23 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    v25 = object_getClass(self);
-    if (class_isMetaClass(v25))
+    v24 = object_getClass(self);
+    if (class_isMetaClass(v24))
     {
-      v26 = 43;
+      v25 = 43;
     }
 
     else
     {
-      v26 = 45;
+      v25 = 45;
     }
 
     LODWORD(location) = 67109890;
-    HIDWORD(location) = v26;
-    v37 = 2082;
-    v38 = object_getClassName(self);
-    v39 = 2082;
-    v40 = sel_getName(a2);
-    v41 = 1024;
-    v42 = 111;
-    _os_log_impl(&dword_23728C000, v24, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to connect to NFCD", &location, 0x22u);
+    HIDWORD(location) = v25;
+    v36 = 2082;
+    v37 = object_getClassName(self);
+    v38 = 2082;
+    v39 = sel_getName(a2);
+    v40 = 1024;
+    v41 = 111;
+    _os_log_impl(&dword_23728C000, v23, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to connect to NFCD", &location, 0x22u);
   }
 
   v14 = 0;
 LABEL_5:
   [(NSLock *)self->_connectionLock unlock];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

@@ -37,7 +37,7 @@
 
 - (void)_writeThrottleStateLocked
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = *(self + 72);
@@ -59,20 +59,18 @@
       v4 = *(self + 72);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v6 = v4;
-        v7 = *__error();
-        v8 = __error();
-        v9 = strerror(*v8);
+        v5 = v4;
+        v6 = *__error();
+        v7 = __error();
+        v8 = strerror(*v7);
         *buf = 67109378;
-        v12 = v7;
-        v13 = 2080;
-        v14 = v9;
-        _os_log_error_impl(&dword_2321EC000, v6, OS_LOG_TYPE_ERROR, "Throttle state write truncated [%i] %s", buf, 0x12u);
+        v11 = v6;
+        v12 = 2080;
+        v13 = v8;
+        _os_log_error_impl(&dword_2321EC000, v5, OS_LOG_TYPE_ERROR, "Throttle state write truncated [%i] %s", buf, 0x12u);
       }
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startWork
@@ -152,7 +150,7 @@
 
 - (void)endWork
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&self->_lock);
   if (self->_hasClassCUnlock && self->_opInProgress)
   {
@@ -196,19 +194,19 @@
       }
 
       v12 = self->_state.opsLeft;
-      v14 = 134219266;
-      v15 = v9;
-      v16 = 2048;
-      v17 = v8 * 0.000001;
-      v18 = 2080;
-      v19 = v11;
-      v20 = 2080;
-      v21 = v10;
-      v22 = 1024;
-      v23 = v12;
-      v24 = 2048;
-      v25 = v8;
-      _os_log_impl(&dword_2321EC000, log, OS_LOG_TYPE_DEFAULT, "Ending throttled work; duration was %f ms (%f ms left), wasOnBattery %s, wasEnabled %s, Throttle Budget: %d ops left, %lld ns left", &v14, 0x3Au);
+      v13 = 134219266;
+      v14 = v9;
+      v15 = 2048;
+      v16 = v8 * 0.000001;
+      v17 = 2080;
+      v18 = v11;
+      v19 = 2080;
+      v20 = v10;
+      v21 = 1024;
+      v22 = v12;
+      v23 = 2048;
+      v24 = v8;
+      _os_log_impl(&dword_2321EC000, log, OS_LOG_TYPE_DEFAULT, "Ending throttled work; duration was %f ms (%f ms left), wasOnBattery %s, wasEnabled %s, Throttle Budget: %d ops left, %lld ns left", &v13, 0x3Au);
     }
 
     self->_opInProgress = 0;
@@ -217,16 +215,14 @@
   }
 
   pthread_mutex_unlock(&self->_lock);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateState:(unsigned int)state
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&self->_lock);
   if (!self->_hasClassCUnlock || self->_state.magic == -1804290770 && self->_state.budgetState == state)
   {
-    v5 = *MEMORY[0x277D85DE8];
 
     pthread_mutex_unlock(&self->_lock);
   }
@@ -235,51 +231,50 @@
   {
     date = [MEMORY[0x277CBEAA8] date];
     [date timeIntervalSinceReferenceDate];
-    v8 = v7;
+    v7 = v6;
 
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = log;
+      v9 = log;
       if (state > 7)
       {
-        v11 = @"Unknown reason";
+        v10 = @"Unknown reason";
       }
 
       else
       {
-        v11 = off_278968BB0[state];
+        v10 = off_278968BB0[state];
       }
 
-      v12 = v11;
+      v11 = v10;
       budgetState = self->_state.budgetState;
       if (budgetState > 7)
       {
-        v14 = @"Unknown reason";
+        v13 = @"Unknown reason";
       }
 
       else
       {
-        v14 = off_278968BB0[budgetState];
+        v13 = off_278968BB0[budgetState];
       }
 
-      v15 = v14;
-      v16 = v8 - self->_state.timeOfLastChange;
-      v18 = 138412802;
-      v19 = v12;
-      v20 = 2112;
+      v14 = v13;
+      v15 = v7 - self->_state.timeOfLastChange;
+      v16 = 138412802;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v14;
+      v20 = 2048;
       v21 = v15;
-      v22 = 2048;
-      v23 = v16;
-      _os_log_impl(&dword_2321EC000, v10, OS_LOG_TYPE_DEFAULT, "Budget Status Changed to %@ from %@ after %llu seconds", &v18, 0x20u);
+      _os_log_impl(&dword_2321EC000, v9, OS_LOG_TYPE_DEFAULT, "Budget Status Changed to %@ from %@ after %llu seconds", &v16, 0x20u);
     }
 
     self->_state.magic = -1804290770;
     self->_state.budgetState = state;
-    self->_state.timeOfLastChange = v8;
+    self->_state.timeOfLastChange = v7;
     [(HVPowerBudgetThrottlingState *)self _writeThrottleStateLocked];
     pthread_mutex_unlock(&self->_lock);
-    v17 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -328,7 +323,7 @@
 
 - (id)state
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&self->_lock);
   if (self->_hasClassCUnlock)
   {
@@ -350,28 +345,28 @@
       wasEnabled = self->_wasEnabled;
       timeSinceOpStart = self->_timeSinceOpStart;
       *buf = 67110144;
-      v21 = opsLeft;
-      v22 = 2048;
-      v23 = nsecLeft;
-      v24 = 1024;
-      v25 = wasOnBattery;
-      v26 = 1024;
-      v27 = wasEnabled;
-      v28 = 2048;
-      v29 = timeSinceOpStart;
+      v20 = opsLeft;
+      v21 = 2048;
+      v22 = nsecLeft;
+      v23 = 1024;
+      v24 = wasOnBattery;
+      v25 = 1024;
+      v26 = wasEnabled;
+      v27 = 2048;
+      v28 = timeSinceOpStart;
       _os_log_impl(&dword_2321EC000, log, OS_LOG_TYPE_DEFAULT, "Throttle check: %i ops left, %lli ns left, onBattery %d, disabled %d, timeSinceOpStart %lld", buf, 0x28u);
     }
 
-    v18[0] = @"opsLeft";
+    v17[0] = @"opsLeft";
     v9 = [MEMORY[0x277CCABB0] numberWithInt:self->_state.opsLeft];
-    v19[0] = v9;
-    v18[1] = @"nsecLeft";
+    v18[0] = v9;
+    v17[1] = @"nsecLeft";
     v10 = [MEMORY[0x277CCABB0] numberWithLongLong:nsecLeft];
-    v19[1] = v10;
-    v18[2] = @"extraOpsLeft";
+    v18[1] = v10;
+    v17[2] = @"extraOpsLeft";
     v11 = [MEMORY[0x277CCABB0] numberWithInt:self->_state.extraOpsLeft];
-    v19[2] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+    v18[2] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
   }
 
   else
@@ -383,24 +378,23 @@
       _os_log_impl(&dword_2321EC000, v13, OS_LOG_TYPE_DEFAULT, "Throttle check: disabled due to class C lock, returning all 0's for state", buf, 2u);
     }
 
-    v16[0] = @"opsLeft";
-    v16[1] = @"nsecLeft";
-    v17[0] = &unk_284752A48;
-    v17[1] = &unk_284752A78;
-    v16[2] = @"extraOpsLeft";
-    v17[2] = &unk_284752A48;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    v15[0] = @"opsLeft";
+    v15[1] = @"nsecLeft";
+    v16[0] = &unk_284752A48;
+    v16[1] = &unk_284752A78;
+    v15[2] = @"extraOpsLeft";
+    v16[2] = &unk_284752A48;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
   }
 
   pthread_mutex_unlock(&self->_lock);
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (unsigned)canDoExtraDiscretionaryWork
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&self->_lock);
   if (self->_hasClassCUnlock)
   {
@@ -418,12 +412,12 @@
       }
 
       v10 = v9;
-      v14[0] = 67109378;
-      v14[1] = v8;
-      v15 = 2114;
-      v16 = v10;
+      v13[0] = 67109378;
+      v13[1] = v8;
+      v14 = 2114;
+      v15 = v10;
       v11 = log;
-      _os_log_impl(&dword_2321EC000, v11, OS_LOG_TYPE_DEFAULT, "Extra budgeted operations check: %i extra ops left (%{public}@)", v14, 0x12u);
+      _os_log_impl(&dword_2321EC000, v11, OS_LOG_TYPE_DEFAULT, "Extra budgeted operations check: %i extra ops left (%{public}@)", v13, 0x12u);
     }
   }
 
@@ -433,20 +427,19 @@
     LOBYTE(v5) = 0;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14[0]) = 0;
-      _os_log_impl(&dword_2321EC000, v6, OS_LOG_TYPE_DEFAULT, "Extra budgeted operations check: disabled due to class C lock", v14, 2u);
+      LOWORD(v13[0]) = 0;
+      _os_log_impl(&dword_2321EC000, v6, OS_LOG_TYPE_DEFAULT, "Extra budgeted operations check: disabled due to class C lock", v13, 2u);
       LOBYTE(v5) = 0;
     }
   }
 
   pthread_mutex_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (unsigned)canDoDiscretionaryWork:(unsigned int *)work
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&self->_lock);
   if (self->_hasClassCUnlock)
   {
@@ -538,29 +531,29 @@
       wasOnBattery = self->_wasOnBattery;
       wasEnabled = self->_wasEnabled;
       timeSinceOpStart = self->_timeSinceOpStart;
-      v36[0] = 67111682;
-      v36[1] = v23;
-      v37 = 2114;
-      v38 = v24;
-      v39 = 2048;
-      v40 = v25;
-      v41 = 2114;
-      v42 = v26;
-      v43 = 1024;
-      v44 = v18 & 1;
-      v45 = 1024;
-      v46 = v19;
-      v47 = 2114;
-      v48 = v27;
-      v49 = 1024;
-      v50 = opInProgress;
-      v51 = 1024;
-      v52 = wasOnBattery;
-      v53 = 1024;
-      v54 = wasEnabled;
-      v55 = 2048;
-      v56 = timeSinceOpStart;
-      _os_log_impl(&dword_2321EC000, v22, OS_LOG_TYPE_DEFAULT, "Throttle check: %i ops left (%{public}@), %lli ns left (%{public}@), connectedToPower %d, disabled %d, canProcess %{public}@, opInProgress %d :(wasOnBattery %d, wasEnabled %d, timeSinceOpStart %lld)", v36, 0x58u);
+      v35[0] = 67111682;
+      v35[1] = v23;
+      v36 = 2114;
+      v37 = v24;
+      v38 = 2048;
+      v39 = v25;
+      v40 = 2114;
+      v41 = v26;
+      v42 = 1024;
+      v43 = v18 & 1;
+      v44 = 1024;
+      v45 = v19;
+      v46 = 2114;
+      v47 = v27;
+      v48 = 1024;
+      v49 = opInProgress;
+      v50 = 1024;
+      v51 = wasOnBattery;
+      v52 = 1024;
+      v53 = wasEnabled;
+      v54 = 2048;
+      v55 = timeSinceOpStart;
+      _os_log_impl(&dword_2321EC000, v22, OS_LOG_TYPE_DEFAULT, "Throttle check: %i ops left (%{public}@), %lli ns left (%{public}@), connectedToPower %d, disabled %d, canProcess %{public}@, opInProgress %d :(wasOnBattery %d, wasEnabled %d, timeSinceOpStart %lld)", v35, 0x58u);
     }
 
     if (work)
@@ -594,8 +587,8 @@
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v36[0]) = 0;
-      _os_log_impl(&dword_2321EC000, log, OS_LOG_TYPE_DEFAULT, "Throttle check: disabled due to class C lock", v36, 2u);
+      LOWORD(v35[0]) = 0;
+      _os_log_impl(&dword_2321EC000, log, OS_LOG_TYPE_DEFAULT, "Throttle check: disabled due to class C lock", v35, 2u);
     }
 
     LOBYTE(v21) = 0;
@@ -608,7 +601,6 @@ LABEL_41:
   }
 
   pthread_mutex_unlock(&self->_lock);
-  v34 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -632,12 +624,12 @@ LABEL_41:
 
 - (HVPowerBudgetThrottlingState)initWithPath:(id)path log:(id)log
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   logCopy = log;
-  v26.receiver = self;
-  v26.super_class = HVPowerBudgetThrottlingState;
-  v8 = [(HVPowerBudgetThrottlingState *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = HVPowerBudgetThrottlingState;
+  v8 = [(HVPowerBudgetThrottlingState *)&v25 init];
   v9 = v8;
   if (v8)
   {
@@ -654,44 +646,43 @@ LABEL_41:
 
     objc_storeStrong(&v9->_log, v10);
     objc_initWeak(&location, v9);
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2810000000;
-    v23 = &unk_23223ABC1;
-    v24 = 0;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2810000000;
+    v22 = &unk_23223ABC1;
+    v23 = 0;
     v11 = MEMORY[0x277D42598];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __49__HVPowerBudgetThrottlingState_initWithPath_log___block_invoke;
-    v16[3] = &unk_278968B90;
-    objc_copyWeak(&v19, &location);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __49__HVPowerBudgetThrottlingState_initWithPath_log___block_invoke;
+    v15[3] = &unk_278968B90;
+    objc_copyWeak(&v18, &location);
     v12 = pathCopy;
-    v17 = v12;
-    v18 = &v20;
-    [v11 runBlockWhenDeviceIsClassCUnlocked:v16];
-    if ((atomic_exchange(v21 + 32, 1u) & 1) == 0)
+    v16 = v12;
+    v17 = &v19;
+    [v11 runBlockWhenDeviceIsClassCUnlocked:v15];
+    if ((atomic_exchange(v20 + 32, 1u) & 1) == 0)
     {
       log = v9->_log;
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v28 = v12;
+        v27 = v12;
         _os_log_impl(&dword_2321EC000, log, OS_LOG_TYPE_DEFAULT, "HVPowerBudgetThrottlingState initializing before class C unlock with path %@. Budget state will be 0 until class C unlock occurs.", buf, 0xCu);
       }
     }
 
-    objc_destroyWeak(&v19);
-    _Block_object_dispose(&v20, 8);
+    objc_destroyWeak(&v18);
+    _Block_object_dispose(&v19, 8);
     objc_destroyWeak(&location);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 void __49__HVPowerBudgetThrottlingState_initWithPath_log___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -707,15 +698,15 @@ void __49__HVPowerBudgetThrottlingState_initWithPath_log___block_invoke(uint64_t
       v6 = *(WeakRetained + 9);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v12 = v6;
-        v13 = *__error();
-        v14 = __error();
-        v15 = strerror(*v14);
+        v11 = v6;
+        v12 = *__error();
+        v13 = __error();
+        v14 = strerror(*v13);
         *buf = 67109378;
-        *&buf[4] = v13;
+        *&buf[4] = v12;
         *&buf[8] = 2080;
-        *&buf[10] = v15;
-        _os_log_error_impl(&dword_2321EC000, v12, OS_LOG_TYPE_ERROR, "Error opening throttle state [%i]: %s", buf, 0x12u);
+        *&buf[10] = v14;
+        _os_log_error_impl(&dword_2321EC000, v11, OS_LOG_TYPE_ERROR, "Error opening throttle state [%i]: %s", buf, 0x12u);
       }
     }
 
@@ -728,8 +719,8 @@ void __49__HVPowerBudgetThrottlingState_initWithPath_log___block_invoke(uint64_t
 
     if ((WeakRetained[136] & 1) == 0)
     {
-      v16 = [MEMORY[0x277CCA890] currentHandler];
-      [v16 handleFailureInMethod:sel__readThrottleStateLocked object:WeakRetained file:@"HVPowerBudget.m" lineNumber:516 description:{@"Invalid parameter not satisfying: %@", @"_hasClassCUnlock"}];
+      v15 = [MEMORY[0x277CCA890] currentHandler];
+      [v15 handleFailureInMethod:sel__readThrottleStateLocked object:WeakRetained file:@"HVPowerBudget.m" lineNumber:516 description:{@"Invalid parameter not satisfying: %@", @"_hasClassCUnlock"}];
     }
 
     v8 = *(WeakRetained + 32);
@@ -757,8 +748,6 @@ void __49__HVPowerBudgetThrottlingState_initWithPath_log___block_invoke(uint64_t
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

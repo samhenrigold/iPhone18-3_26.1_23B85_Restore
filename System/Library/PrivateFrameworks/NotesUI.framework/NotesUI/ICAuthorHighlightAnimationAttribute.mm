@@ -30,7 +30,7 @@
   v5 = NSStringFromClass(v4);
   startDate = [(ICAuthorHighlightAnimationAttribute *)self startDate];
   v7 = MEMORY[0x1E696AD98];
-  [(ICAuthorHighlightAnimationAttribute *)self duration];
+  objc_msgSend_duration(self);
   v8 = [v7 numberWithDouble:?];
   v9 = MEMORY[0x1E696AD98];
   [(ICAuthorHighlightAnimationAttribute *)self fromValue];
@@ -62,9 +62,9 @@
   startDate2 = [(ICAuthorHighlightAnimationAttribute *)self startDate];
   if ([startDate isEqual:startDate2])
   {
-    [v5 duration];
+    objc_msgSend_duration(v5);
     v9 = v8;
-    [(ICAuthorHighlightAnimationAttribute *)self duration];
+    objc_msgSend_duration(self);
     if (v9 == v10)
     {
       [v5 fromValue];
@@ -149,7 +149,7 @@ LABEL_19:
   startDate = [(ICAuthorHighlightAnimationAttribute *)self startDate];
   v21 = [startDate hash];
   v3 = MEMORY[0x1E696AD98];
-  [(ICAuthorHighlightAnimationAttribute *)self duration];
+  objc_msgSend_duration(self);
   v22 = [v3 numberWithDouble:?];
   v20 = [v22 hash];
   v4 = MEMORY[0x1E696AD98];
@@ -177,7 +177,7 @@ LABEL_19:
   startDate = [(ICAuthorHighlightAnimationAttribute *)self startDate];
   [(ICAuthorHighlightAnimationAttribute *)v4 setStartDate:startDate];
 
-  [(ICAuthorHighlightAnimationAttribute *)self duration];
+  objc_msgSend_duration(self);
   [(ICAuthorHighlightAnimationAttribute *)v4 setDuration:?];
   [(ICAuthorHighlightAnimationAttribute *)self fromValue];
   [(ICAuthorHighlightAnimationAttribute *)v4 setFromValue:?];

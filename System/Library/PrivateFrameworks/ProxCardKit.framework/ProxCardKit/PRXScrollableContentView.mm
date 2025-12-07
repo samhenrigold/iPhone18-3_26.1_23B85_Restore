@@ -98,7 +98,7 @@
 {
   if (PRXScrollableContentViewObserverContentSizeContext == context)
   {
-    v7 = PRXDefaultLog();
+    v7 = PRXDefaultLog(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [PRXScrollableContentView observeValueForKeyPath:v7 ofObject:? change:? context:?];

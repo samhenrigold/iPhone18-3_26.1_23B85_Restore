@@ -73,27 +73,27 @@
 - (void)addWorkItemWithPriority:(id)priority description:(id)description block:(id)block
 {
   [BICWorkItem workItemWithPriority:priority description:description block:block];
-  v10 = _NSConcreteStackBlock;
-  v11 = 3221225472;
-  v12 = sub_7ADF0;
-  v13 = &unk_2C7BE8;
-  v6 = v14 = self;
-  v15 = v6;
+  v11 = _NSConcreteStackBlock;
+  v12 = 3221225472;
+  v13 = sub_7ADF0;
+  v14 = &unk_2C7BE8;
+  v6 = v15 = self;
+  v16 = v6;
   os_unfair_lock_lock_with_options();
-  sub_7ADF0(&v10);
+  sub_7ADF0(&v11);
   os_unfair_lock_unlock(&self->_accessLock);
-  v7 = BCImageCacheLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = BCImageCacheLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v8 = [(BICWorkQueue *)self identifier:v10];
+    v9 = [(BICWorkQueue *)self identifier:v11];
     _statsString = [(BICWorkQueue *)self _statsString];
     *buf = 138543874;
-    v17 = v6;
-    v18 = 2112;
-    v19 = v8;
-    v20 = 2114;
-    v21 = _statsString;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "BICWorkQueue: Adding %{public}@ to queue %@. %{public}@", buf, 0x20u);
+    v18 = v6;
+    v19 = 2112;
+    v20 = v9;
+    v21 = 2114;
+    v22 = _statsString;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "BICWorkQueue: Adding %{public}@ to queue %@. %{public}@", buf, 0x20u);
   }
 
   [(BICWorkQueue *)self _startNextWorkItem];
@@ -131,7 +131,7 @@
       [(BICWorkQueue *)self highPriorityWorkQ];
     }
     v5 = ;
-    v6 = BCImageCacheLog();
+    v6 = BCImageCacheLog(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = v20[5];
@@ -162,37 +162,37 @@
 
 - (void)workComplete:(id)complete
 {
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v12 = sub_7B8F4;
-  v13 = &unk_2C7BC0;
-  v16 = &v17;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v13 = sub_7B8F4;
+  v14 = &unk_2C7BC0;
+  v17 = &v18;
   selfCopy = self;
   completeCopy = complete;
-  v15 = completeCopy;
-  v5 = v11;
+  v16 = completeCopy;
+  v5 = v12;
   os_unfair_lock_lock_with_options();
-  v12(v5);
+  v13(v5);
   os_unfair_lock_unlock(&self->_accessLock);
 
-  if (*(v18 + 24) == 1)
+  if (*(v19 + 24) == 1)
   {
-    v6 = BCImageCacheLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = BCImageCacheLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       identifier = [(BICWorkQueue *)self identifier];
       _statsString = [(BICWorkQueue *)self _statsString];
       *buf = 138543874;
-      v22 = completeCopy;
-      v23 = 2112;
-      v24 = identifier;
-      v25 = 2114;
-      v26 = _statsString;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "BICWorkQueue: Finished %{public}@ on queue %@. %{public}@", buf, 0x20u);
+      v23 = completeCopy;
+      v24 = 2112;
+      v25 = identifier;
+      v26 = 2114;
+      v27 = _statsString;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "BICWorkQueue: Finished %{public}@ on queue %@. %{public}@", buf, 0x20u);
     }
 
     [(BICWorkQueue *)self _startNextWorkItem];
@@ -200,19 +200,19 @@
 
   else
   {
-    v9 = BCImageCacheLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = BCImageCacheLog(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       identifier2 = [(BICWorkQueue *)self identifier];
       *buf = 138543618;
-      v22 = completeCopy;
-      v23 = 2112;
-      v24 = identifier2;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "BICWorkQueue: Already timed-out %{public}@ now completed on queue %@", buf, 0x16u);
+      v23 = completeCopy;
+      v24 = 2112;
+      v25 = identifier2;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "BICWorkQueue: Already timed-out %{public}@ now completed on queue %@", buf, 0x16u);
     }
   }
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v18, 8);
 }
 
 - (id)_statsString

@@ -3,6 +3,7 @@
 - (PCSMTTPoint)initWithCoder:(id)coder;
 - (PCSMTTPoint)initWithMTT:(id)t name:(id)name;
 - (id)jsonDict;
+- (void)complete:(BOOL)complete;
 - (void)complete:(BOOL)complete time:(double)time;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -33,23 +34,31 @@
 
 - (id)jsonDict
 {
-  v11[3] = *MEMORY[0x1E69E9840];
-  v10[0] = @"name";
+  v10[3] = *MEMORY[0x1E69E9840];
+  v9[0] = @"name";
   name = [(PCSMTTPoint *)self name];
-  v11[0] = name;
-  v10[1] = @"success";
+  v10[0] = name;
+  v9[1] = @"success";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:{-[PCSMTTPoint success](self, "success")}];
-  v11[1] = v4;
-  v10[2] = @"time";
+  v10[1] = v4;
+  v9[2] = @"time";
   v5 = MEMORY[0x1E696AD98];
   [(PCSMTTPoint *)self time];
   v6 = [v5 numberWithDouble:?];
-  v11[2] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[2] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   return v7;
+}
+
+- (void)complete:(BOOL)complete
+{
+  completeCopy = complete;
+  date = [MEMORY[0x1E695DF00] date];
+  [date timeIntervalSinceDate:self->_start];
+  v7 = v6;
+
+  [(PCSMTTPoint *)self complete:completeCopy time:v7];
 }
 
 - (void)complete:(BOOL)complete time:(double)time

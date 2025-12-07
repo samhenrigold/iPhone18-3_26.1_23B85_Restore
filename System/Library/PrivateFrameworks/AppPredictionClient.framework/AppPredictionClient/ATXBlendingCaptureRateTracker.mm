@@ -24,8 +24,8 @@
   [v4 setExecutableType:v6];
 
   [trackerCopy trackScalarForMessage:v4];
-  v7 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = __atxlog_handle_metrics(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     +[ATXBlendingCaptureRateTracker logAppDirectoryCaptureWithTracker:];
   }
@@ -45,8 +45,8 @@
   [v6 setExecutableType:v8];
 
   [trackerCopy trackScalarForMessage:v6];
-  v9 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = __atxlog_handle_metrics(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     +[ATXBlendingCaptureRateTracker logAppDirectoryDiversionWithCaptureType:tracker:];
   }
@@ -65,8 +65,8 @@
   [v4 setExecutableType:v6];
 
   [trackerCopy trackScalarForMessage:v4];
-  v7 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = __atxlog_handle_metrics(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     +[ATXBlendingCaptureRateTracker logHomeScreenCaptureWithTracker:];
   }
@@ -86,8 +86,8 @@
   [v6 setExecutableType:v8];
 
   [trackerCopy trackScalarForMessage:v6];
-  v9 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = __atxlog_handle_metrics(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     +[ATXBlendingCaptureRateTracker logHomeScreenDiversionWithCaptureType:tracker:];
   }
@@ -106,8 +106,8 @@
   [v4 setExecutableType:v6];
 
   [trackerCopy trackScalarForMessage:v4];
-  v7 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = __atxlog_handle_metrics(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     +[ATXBlendingCaptureRateTracker logSpotlightAppCaptureWithTracker:];
   }
@@ -127,8 +127,8 @@
   [v6 setExecutableType:v8];
 
   [trackerCopy trackScalarForMessage:v6];
-  v9 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = __atxlog_handle_metrics(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     +[ATXBlendingCaptureRateTracker logSpotlightAppDiversionWithCaptureType:tracker:];
   }
@@ -147,8 +147,8 @@
   [v4 setExecutableType:v6];
 
   [trackerCopy trackScalarForMessage:v4];
-  v7 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = __atxlog_handle_metrics(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     +[ATXBlendingCaptureRateTracker logSpotlightActionCaptureWithTracker:];
   }
@@ -168,8 +168,8 @@
   [v6 setExecutableType:v8];
 
   [trackerCopy trackScalarForMessage:v6];
-  v9 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = __atxlog_handle_metrics(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     +[ATXBlendingCaptureRateTracker logSpotlightActionDiversionWithCaptureType:tracker:];
   }
@@ -236,8 +236,7 @@
             v8 = @"Diverted";
             break;
           default:
-            v15 = v4;
-            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)"];
+            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v4];
             break;
         }
 
@@ -282,7 +281,7 @@
   }
 
   OUTLINED_FUNCTION_0_23();
-  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16, v17);
+  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16);
 }
 
 + (void)logAppDirectoryDiversionWithCaptureType:tracker:.cold.1()
@@ -346,8 +345,7 @@
             v8 = @"Diverted";
             break;
           default:
-            v15 = v4;
-            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)"];
+            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v4];
             break;
         }
 
@@ -392,7 +390,7 @@
   }
 
   OUTLINED_FUNCTION_0_23();
-  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16, v17);
+  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16);
 }
 
 + (void)logHomeScreenCaptureWithTracker:.cold.1()
@@ -456,8 +454,7 @@
             v8 = @"Diverted";
             break;
           default:
-            v15 = v4;
-            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)"];
+            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v4];
             break;
         }
 
@@ -502,7 +499,7 @@
   }
 
   OUTLINED_FUNCTION_0_23();
-  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16, v17);
+  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16);
 }
 
 + (void)logHomeScreenDiversionWithCaptureType:tracker:.cold.1()
@@ -566,8 +563,7 @@
             v8 = @"Diverted";
             break;
           default:
-            v15 = v4;
-            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)"];
+            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v4];
             break;
         }
 
@@ -612,7 +608,7 @@
   }
 
   OUTLINED_FUNCTION_0_23();
-  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16, v17);
+  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16);
 }
 
 + (void)logSpotlightAppCaptureWithTracker:.cold.1()
@@ -676,8 +672,7 @@
             v8 = @"Diverted";
             break;
           default:
-            v15 = v4;
-            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)"];
+            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v4];
             break;
         }
 
@@ -722,7 +717,7 @@
   }
 
   OUTLINED_FUNCTION_0_23();
-  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16, v17);
+  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16);
 }
 
 + (void)logSpotlightAppDiversionWithCaptureType:tracker:.cold.1()
@@ -786,8 +781,7 @@
             v8 = @"Diverted";
             break;
           default:
-            v15 = v4;
-            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)"];
+            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v4];
             break;
         }
 
@@ -832,7 +826,7 @@
   }
 
   OUTLINED_FUNCTION_0_23();
-  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16, v17);
+  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16);
 }
 
 + (void)logSpotlightActionCaptureWithTracker:.cold.1()
@@ -896,8 +890,7 @@
             v8 = @"Diverted";
             break;
           default:
-            v15 = v4;
-            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)"];
+            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v4];
             break;
         }
 
@@ -942,7 +935,7 @@
   }
 
   OUTLINED_FUNCTION_0_23();
-  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16, v17);
+  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16);
 }
 
 + (void)logSpotlightActionDiversionWithCaptureType:tracker:.cold.1()
@@ -1006,8 +999,7 @@
             v8 = @"Diverted";
             break;
           default:
-            v15 = v4;
-            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)"];
+            v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v4];
             break;
         }
 
@@ -1052,7 +1044,7 @@
   }
 
   OUTLINED_FUNCTION_0_23();
-  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16, v17);
+  OUTLINED_FUNCTION_1_19(&dword_1BF549000, v9, v10, "LOGGED: %@ - ATXMPBBlendingCaptureRateTracker with consumerSubType: %@ captureType: %@", v11, v12, v13, v14, v15, v16);
 }
 
 @end

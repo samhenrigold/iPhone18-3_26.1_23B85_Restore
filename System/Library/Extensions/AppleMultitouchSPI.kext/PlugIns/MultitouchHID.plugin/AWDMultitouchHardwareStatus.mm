@@ -56,22 +56,20 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   p_openRows = &self->_openRows;
   if (p_openRows->count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = p_openRows->list[v6];
       PBDataWriterWriteUint32Field();
-      ++v6;
+      ++v5;
     }
 
-    while (v6 < p_openRows->count);
+    while (v5 < p_openRows->count);
   }
 }
 
@@ -119,7 +117,6 @@
     return 0;
   }
 
-  v5 = *(equal + 40);
   if (*&self->_has)
   {
     if ((*(equal + 40) & 1) == 0 || self->_timestamp != *(equal + 4))

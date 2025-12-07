@@ -212,7 +212,7 @@
 - (void)viewDidLayoutSubviews
 {
   v7 = *MEMORY[0x277D85DE8];
-  v3 = _TVRUIKeyboardLog();
+  v3 = _TVRUIKeyboardLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -256,7 +256,7 @@
 {
   v14 = *MEMORY[0x277D85DE8];
   textCopy = text;
-  v6 = _TVRUIKeyboardLog();
+  v6 = _TVRUIKeyboardLog(textCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     text = self->_text;
@@ -293,7 +293,7 @@
 {
   v15 = *MEMORY[0x277D85DE8];
   textCopy = text;
-  v7 = _TVRUIKeyboardLog();
+  v7 = _TVRUIKeyboardLog(textCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 136315394;
@@ -461,7 +461,7 @@
 {
   v12 = *MEMORY[0x277D85DE8];
   hideCopy = hide;
-  v5 = _TVRUIKeyboardLog();
+  v5 = _TVRUIKeyboardLog(hideCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -524,16 +524,16 @@ void __36__TVRAlertController__keyboardHide___block_invoke_2(uint64_t a1)
 
 - (void)_keyboardChanged:(id)changed completion:(id)completion
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   completionCopy = completion;
-  v8 = _TVRUIKeyboardLog();
+  v8 = _TVRUIKeyboardLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v51 = "[TVRAlertController _keyboardChanged:completion:]";
-    v52 = 2114;
-    v53 = changedCopy;
+    v52 = "[TVRAlertController _keyboardChanged:completion:]";
+    v53 = 2114;
+    v54 = changedCopy;
     _os_log_impl(&dword_26CFEB000, v8, OS_LOG_TYPE_DEFAULT, "%s note:%{public}@", buf, 0x16u);
   }
 
@@ -556,88 +556,88 @@ void __36__TVRAlertController__keyboardHide___block_invoke_2(uint64_t a1)
   userInfo3 = [changedCopy userInfo];
   v30 = [userInfo3 valueForKey:*MEMORY[0x277D76B78]];
   [v30 floatValue];
-  v42 = v31;
+  v43 = v31;
 
   userInfo4 = [changedCopy userInfo];
   v33 = [userInfo4 valueForKey:*MEMORY[0x277D76B70]];
   integerValue = [v33 integerValue];
 
-  v35 = _TVRUIKeyboardLog();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v36 = _TVRUIKeyboardLog(v35);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
-    v55.origin.x = v12;
-    v55.origin.y = v14;
-    v55.size.width = v16;
-    v55.size.height = v18;
-    v36 = NSStringFromCGRect(v55);
-    v56.origin.x = v22;
-    v56.origin.y = v24;
-    v56.size.width = v26;
-    v56.size.height = v28;
+    v56.origin.x = v12;
+    v56.origin.y = v14;
+    v56.size.width = v16;
+    v56.size.height = v18;
     v37 = NSStringFromCGRect(v56);
+    v57.origin.x = v22;
+    v57.origin.y = v24;
+    v57.size.width = v26;
+    v57.size.height = v28;
+    v38 = NSStringFromCGRect(v57);
     *buf = 138543618;
-    v51 = v36;
-    v52 = 2112;
-    v53 = v37;
-    _os_log_impl(&dword_26CFEB000, v35, OS_LOG_TYPE_DEFAULT, "beginFrame:%{public}@  endFrame:%@", buf, 0x16u);
+    v52 = v37;
+    v53 = 2112;
+    v54 = v38;
+    _os_log_impl(&dword_26CFEB000, v36, OS_LOG_TYPE_DEFAULT, "beginFrame:%{public}@  endFrame:%@", buf, 0x16u);
   }
 
-  v57.origin.x = v12;
-  v57.origin.y = v14;
-  v57.size.width = v16;
-  v57.size.height = v18;
-  v58.origin.x = v22;
-  v58.origin.y = v24;
-  v58.size.width = v26;
-  v58.size.height = v28;
-  v38 = CGRectEqualToRect(v57, v58);
+  v58.origin.x = v12;
+  v58.origin.y = v14;
+  v58.size.width = v16;
+  v58.size.height = v18;
+  v59.origin.x = v22;
+  v59.origin.y = v24;
+  v59.size.width = v26;
+  v59.size.height = v28;
+  v39 = CGRectEqualToRect(v58, v59);
   name = [changedCopy name];
-  v40 = [name isEqualToString:*MEMORY[0x277D76C50]];
+  v41 = [name isEqualToString:*MEMORY[0x277D76C50]];
 
-  if (v38)
+  if (v39)
   {
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __50__TVRAlertController__keyboardChanged_completion___block_invoke_4;
-    v43[3] = &unk_279D87B58;
-    v43[4] = self;
-    *&v43[5] = v22;
-    *&v43[6] = v24;
-    *&v43[7] = v26;
-    *&v43[8] = v28;
-    [MEMORY[0x277D75D18] performWithoutAnimation:v43];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __50__TVRAlertController__keyboardChanged_completion___block_invoke_4;
+    v44[3] = &unk_279D87B58;
+    v44[4] = self;
+    *&v44[5] = v22;
+    *&v44[6] = v24;
+    *&v44[7] = v26;
+    *&v44[8] = v28;
+    [MEMORY[0x277D75D18] performWithoutAnimation:v44];
   }
 
   else
   {
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __50__TVRAlertController__keyboardChanged_completion___block_invoke;
-    v48[3] = &unk_279D87B08;
-    v48[4] = self;
-    v49 = v40;
-    *&v48[5] = v12;
-    *&v48[6] = v14;
-    *&v48[7] = v16;
-    *&v48[8] = v18;
-    [MEMORY[0x277D75D18] performWithoutAnimation:v48];
-    v41 = MEMORY[0x277D75D18];
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __50__TVRAlertController__keyboardChanged_completion___block_invoke_2;
-    v46[3] = &unk_279D87B08;
-    v46[4] = self;
-    *&v46[5] = v22;
-    *&v46[6] = v24;
-    *&v46[7] = v26;
-    *&v46[8] = v28;
-    v47 = v40;
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __50__TVRAlertController__keyboardChanged_completion___block_invoke_3;
-    v44[3] = &unk_279D87B30;
-    v45 = completionCopy;
-    [v41 animateWithDuration:integerValue << 16 delay:v46 options:v44 animations:v42 completion:0.0];
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __50__TVRAlertController__keyboardChanged_completion___block_invoke;
+    v49[3] = &unk_279D87B08;
+    v49[4] = self;
+    v50 = v41;
+    *&v49[5] = v12;
+    *&v49[6] = v14;
+    *&v49[7] = v16;
+    *&v49[8] = v18;
+    [MEMORY[0x277D75D18] performWithoutAnimation:v49];
+    v42 = MEMORY[0x277D75D18];
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __50__TVRAlertController__keyboardChanged_completion___block_invoke_2;
+    v47[3] = &unk_279D87B08;
+    v47[4] = self;
+    *&v47[5] = v22;
+    *&v47[6] = v24;
+    *&v47[7] = v26;
+    *&v47[8] = v28;
+    v48 = v41;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __50__TVRAlertController__keyboardChanged_completion___block_invoke_3;
+    v45[3] = &unk_279D87B30;
+    v46 = completionCopy;
+    [v42 animateWithDuration:integerValue << 16 delay:v47 options:v45 animations:v43 completion:0.0];
   }
 
   self->_previousKeyboardFrame.origin.x = v22;
@@ -716,7 +716,7 @@ uint64_t __50__TVRAlertController__keyboardChanged_completion___block_invoke_3(u
 {
   v10 = *MEMORY[0x277D85DE8];
   showCopy = show;
-  v5 = _TVRUIKeyboardLog();
+  v5 = _TVRUIKeyboardLog(showCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315394;
@@ -735,7 +735,7 @@ uint64_t __50__TVRAlertController__keyboardChanged_completion___block_invoke_3(u
   height = frame.size.height;
   y = frame.origin.y;
   x = frame.origin.x;
-  v40 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   _contentViewBasedOnType = [(TVRAlertController *)self _contentViewBasedOnType];
   [_contentViewBasedOnType sizeThatFits:{270.0, 0.0}];
   v8 = v7;
@@ -747,114 +747,114 @@ uint64_t __50__TVRAlertController__keyboardChanged_completion___block_invoke_3(u
   v17 = v16;
   v19 = v18;
 
-  v34 = v8;
-  v35 = v10;
+  v35 = v8;
+  v36 = v10;
   UIRectCenteredIntegralRect();
   if (self->_type)
   {
-    v41.origin.x = x;
-    v41.origin.y = y;
-    v41.size.width = width;
-    v41.size.height = height;
-    if (CGRectIsEmpty(v41))
+    v42.origin.x = x;
+    v42.origin.y = y;
+    v42.size.width = width;
+    v42.size.height = height;
+    if (CGRectIsEmpty(v42))
     {
-      v42.origin.x = v13;
-      v42.origin.y = v15;
-      v42.size.width = v17;
-      v42.size.height = v19;
+      v43.origin.x = v13;
+      v43.origin.y = v15;
+      v43.size.width = v17;
+      v43.size.height = v19;
       v20 = v10;
-      v21 = CGRectGetHeight(v42) + -8.0 - v10;
+      v22 = CGRectGetHeight(v43) + -8.0 - v10;
     }
 
     else
     {
-      v45.origin.x = x;
-      v45.origin.y = y;
-      v45.size.width = width;
-      v45.size.height = height;
-      v52.origin.x = v13;
-      v52.origin.y = v15;
-      v52.size.width = v17;
-      v52.size.height = v19;
-      v26 = CGRectIntersectsRect(v45, v52);
       v46.origin.x = x;
       v46.origin.y = y;
       v46.size.width = width;
       v46.size.height = height;
-      MinY = CGRectGetMinY(v46);
+      v53.origin.x = v13;
+      v53.origin.y = v15;
+      v53.size.width = v17;
+      v53.size.height = v19;
+      v27 = CGRectIntersectsRect(v46, v53);
+      v47.origin.x = x;
+      v47.origin.y = y;
+      v47.size.width = width;
+      v47.size.height = height;
+      MinY = CGRectGetMinY(v47);
       v20 = v10;
-      if (v26)
+      if (v27)
       {
-        v21 = MinY + -8.0 - v10;
+        v22 = MinY + -8.0 - v10;
       }
 
       else
       {
-        v21 = MinY;
+        v22 = MinY;
       }
     }
 
-    v28 = _TVRUIKeyboardLog();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v29 = _TVRUIKeyboardLog(v21);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       [_contentViewBasedOnType frame];
-      v29 = NSStringFromCGRect(v47);
-      v30 = 16.0;
-      v48.origin.x = 16.0;
-      v48.origin.y = v21;
-      v48.size.width = v8 + -32.0;
-      v48.size.height = v20;
-      v31 = NSStringFromCGRect(v48);
+      v30 = NSStringFromCGRect(v48);
+      v31 = 16.0;
+      v49.origin.x = 16.0;
+      v49.origin.y = v22;
+      v49.size.width = v8 + -32.0;
+      v49.size.height = v20;
+      v32 = NSStringFromCGRect(v49);
       *buf = 138543618;
-      v37 = v29;
-      v38 = 2114;
-      v39 = v31;
-      _os_log_impl(&dword_26CFEB000, v28, OS_LOG_TYPE_DEFAULT, "oldFrame:%{public}@ - newFrame:%{public}@", buf, 0x16u);
+      v38 = v30;
+      v39 = 2114;
+      v40 = v32;
+      _os_log_impl(&dword_26CFEB000, v29, OS_LOG_TYPE_DEFAULT, "oldFrame:%{public}@ - newFrame:%{public}@", buf, 0x16u);
     }
 
     else
     {
-      v30 = 16.0;
+      v31 = 16.0;
     }
 
-    [_contentViewBasedOnType setFrame:{v30, v21, v8 + -32.0, v20}];
+    [_contentViewBasedOnType setFrame:{v31, v22, v8 + -32.0, v20}];
   }
 
   else
   {
-    v43.origin.x = v13;
-    v43.origin.y = v15;
-    v43.size.width = v17;
-    v43.size.height = v19;
-    v51.origin.x = x;
-    v51.origin.y = y;
-    v51.size.width = width;
-    v51.size.height = height;
-    v44 = CGRectIntersection(v43, v51);
-    v22 = v44.origin.x;
-    v23 = v44.origin.y;
-    v24 = v44.size.width;
-    v25 = v44.size.height;
-    if (!CGRectIsNull(v44))
+    v44.origin.x = v13;
+    v44.origin.y = v15;
+    v44.size.width = v17;
+    v44.size.height = v19;
+    v52.origin.x = x;
+    v52.origin.y = y;
+    v52.size.width = width;
+    v52.size.height = height;
+    v45 = CGRectIntersection(v44, v52);
+    v23 = v45.origin.x;
+    v24 = v45.origin.y;
+    v25 = v45.size.width;
+    v26 = v45.size.height;
+    if (!CGRectIsNull(v45))
     {
-      v49.origin.x = v22;
-      v49.origin.y = v23;
-      v49.size.width = v24;
-      v49.size.height = v25;
-      if (!CGRectIsEmpty(v49))
+      v50.origin.x = v23;
+      v50.origin.y = v24;
+      v50.size.width = v25;
+      v50.size.height = v26;
+      if (!CGRectIsEmpty(v50))
       {
-        v50.origin.x = v22;
-        v50.origin.y = v23;
-        v50.size.width = v24;
-        v50.size.height = v25;
-        CGRectGetHeight(v50);
+        v51.origin.x = v23;
+        v51.origin.y = v24;
+        v51.size.width = v25;
+        v51.size.height = v26;
+        CGRectGetHeight(v51);
         UIRectCenteredIntegralRect();
       }
     }
 
     UIRectGetCenter();
     [_contentViewBasedOnType setCenter:?];
-    [_contentViewBasedOnType setBounds:{0.0, 0.0, v34, v35}];
+    [_contentViewBasedOnType setBounds:{0.0, 0.0, v35, v36}];
   }
 }
 
@@ -883,7 +883,7 @@ uint64_t __50__TVRAlertController__keyboardChanged_completion___block_invoke_3(u
 - (void)_cancel
 {
   v7 = *MEMORY[0x277D85DE8];
-  v3 = _TVRUIKeyboardLog();
+  v3 = _TVRUIKeyboardLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;

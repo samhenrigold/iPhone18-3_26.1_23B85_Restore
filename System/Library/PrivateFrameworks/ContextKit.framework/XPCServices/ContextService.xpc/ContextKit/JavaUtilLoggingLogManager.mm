@@ -90,13 +90,13 @@
 
 - (void)readConfiguration
 {
-  PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"java.util.logging.config.class");
-  if (!PropertyWithNSString || !JavaUtilLoggingLogManager_getInstanceByClassWithNSString_(PropertyWithNSString))
+  PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"java.util.logging.config.class", a2);
+  if (!PropertyWithNSString || !JavaUtilLoggingLogManager_getInstanceByClassWithNSString_(PropertyWithNSString, v4))
   {
-    v4 = JavaLangSystem_getPropertyWithNSString_(@"java.util.logging.config.file");
-    if (!v4)
+    v6 = JavaLangSystem_getPropertyWithNSString_(@"java.util.logging.config.file", v4);
+    if (!v6)
     {
-      v12 = JavaLangSystem_getPropertyWithNSString_(@"java.home");
+      v14 = JavaLangSystem_getPropertyWithNSString_(@"java.home", v5);
       if ((atomic_load_explicit(JavaIoFile__initialized, memory_order_acquire) & 1) == 0)
       {
         sub_10018A8E4();
@@ -107,22 +107,23 @@
         sub_10018A8E4();
       }
 
-      v4 = JreStrcat("$$$$$", v5, v6, v7, v8, v9, v10, v11, v12);
+      v6 = JreStrcat("$$$$$", v7, v8, v9, v10, v11, v12, v13, v14);
     }
 
-    if ([new_JavaIoFile_initWithNSString_(v4) exists])
+    exists = [new_JavaIoFile_initWithNSString_(v6) exists];
+    if (exists)
     {
-      v13 = new_JavaIoFileInputStream_initWithNSString_(v4);
+      v17 = new_JavaIoFileInputStream_initWithNSString_(v6);
     }
 
     else
     {
-      v14 = [JavaUtilLoggingLogManager_class_() getResourceAsStream:@"logging.properties"];
-      if (v14)
+      v18 = [JavaUtilLoggingLogManager_class_(exists v16)];
+      if (v18)
       {
 LABEL_15:
-        [(JavaUtilLoggingLogManager *)self readConfigurationWithJavaIoInputStream:new_JavaIoBufferedInputStream_initWithJavaIoInputStream_(v14)];
-        LibcoreIoIoUtils_closeQuietlyWithJavaLangAutoCloseable_(v14);
+        [(JavaUtilLoggingLogManager *)self readConfigurationWithJavaIoInputStream:new_JavaIoBufferedInputStream_initWithJavaIoInputStream_(v18)];
+        LibcoreIoIoUtils_closeQuietlyWithJavaLangAutoCloseable_(v18);
         return;
       }
 
@@ -131,10 +132,10 @@ LABEL_15:
         JreThrowNullPointerException();
       }
 
-      v13 = new_JavaIoByteArrayInputStream_initWithByteArray_([JavaUtilLoggingIOSLogHandler_IOS_LOG_MANAGER_DEFAULTS_ getBytes]);
+      v17 = new_JavaIoByteArrayInputStream_initWithByteArray_([JavaUtilLoggingIOSLogHandler_IOS_LOG_MANAGER_DEFAULTS_ getBytes]);
     }
 
-    v14 = v13;
+    v18 = v17;
     goto LABEL_15;
   }
 }
@@ -354,52 +355,52 @@ LABEL_23:
   {
     v2 = new_JavaUtilLoggingLoggingPermission_initWithNSString_withNSString_();
     JreStrongAssignAndConsume(&qword_100554C28, v2);
-    PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"java.util.logging.manager");
+    PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"java.util.logging.manager", v3);
     if (PropertyWithNSString)
     {
-      InstanceByClassWithNSString = JavaUtilLoggingLogManager_getInstanceByClassWithNSString_(PropertyWithNSString);
+      InstanceByClassWithNSString = JavaUtilLoggingLogManager_getInstanceByClassWithNSString_(PropertyWithNSString, v5);
       objc_opt_class();
       if (InstanceByClassWithNSString && (objc_opt_isKindOfClass() & 1) == 0)
       {
         JreThrowClassCastException();
       }
 
-      JreStrongAssign(&JavaUtilLoggingLogManager_manager_, InstanceByClassWithNSString);
+      PropertyWithNSString = JreStrongAssign(&JavaUtilLoggingLogManager_manager_, InstanceByClassWithNSString);
     }
 
     if (!JavaUtilLoggingLogManager_manager_)
     {
-      v5 = [JavaUtilLoggingLogManager alloc];
-      JavaUtilLoggingLogManager_init(&v5->super.isa);
-      JreStrongAssignAndConsume(&JavaUtilLoggingLogManager_manager_, v5);
+      v7 = [JavaUtilLoggingLogManager alloc];
+      JavaUtilLoggingLogManager_init(&v7->super.isa);
+      PropertyWithNSString = JreStrongAssignAndConsume(&JavaUtilLoggingLogManager_manager_, v7);
     }
 
-    +[JavaUtilLoggingLogManager checkConfiguration]_0();
-    v6 = new_JavaUtilLoggingLogger_initWithNSString_withNSString_(&stru_100484358, 0);
+    +[JavaUtilLoggingLogManager checkConfiguration]_0(PropertyWithNSString, v5);
+    v8 = new_JavaUtilLoggingLogger_initWithNSString_withNSString_(&stru_100484358, 0);
     if ((atomic_load_explicit(JavaUtilLoggingLevel__initialized, memory_order_acquire) & 1) == 0)
     {
       sub_10019B6E8();
     }
 
-    [(JavaUtilLoggingLogger *)v6 setLevelWithJavaUtilLoggingLevel:JavaUtilLoggingLevel_INFO_];
+    [(JavaUtilLoggingLogger *)v8 setLevelWithJavaUtilLoggingLevel:JavaUtilLoggingLevel_INFO_];
     if ((atomic_load_explicit(JavaUtilLoggingLogger__initialized, memory_order_acquire) & 1) == 0)
     {
       sub_1001A47D8();
     }
 
-    if (!JavaUtilLoggingLogger_global_ || ([JavaUtilLoggingLogger_global_ setParentWithJavaUtilLoggingLogger:v6], !JavaUtilLoggingLogManager_manager_))
+    if (!JavaUtilLoggingLogger_global_ || ([JavaUtilLoggingLogger_global_ setParentWithJavaUtilLoggingLogger:v8], !JavaUtilLoggingLogManager_manager_))
     {
       JreThrowNullPointerException();
     }
 
-    [JavaUtilLoggingLogManager_manager_ addLoggerWithJavaUtilLoggingLogger:v6];
-    v7 = JavaUtilLoggingLogManager_manager_;
+    [JavaUtilLoggingLogManager_manager_ addLoggerWithJavaUtilLoggingLogger:v8];
+    v9 = JavaUtilLoggingLogManager_manager_;
     if ((atomic_load_explicit(JavaUtilLoggingLogger__initialized, memory_order_acquire) & 1) == 0)
     {
       sub_1001A47D8();
     }
 
-    [v7 addLoggerWithJavaUtilLoggingLogger:JavaUtilLoggingLogger_global_];
+    [v9 addLoggerWithJavaUtilLoggingLogger:JavaUtilLoggingLogger_global_];
     atomic_store(1u, JavaUtilLoggingLogManager__initialized);
   }
 }

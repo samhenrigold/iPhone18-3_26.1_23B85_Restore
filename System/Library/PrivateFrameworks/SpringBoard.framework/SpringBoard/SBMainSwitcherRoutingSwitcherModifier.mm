@@ -226,10 +226,10 @@
   if (!SBOcclusionStateIsOccluded(v7) && self->_floatingAppLayout && self->_currentEnvironmentMode == 3 && (self->_floatingConfiguration - 1) <= 1)
   {
     appLayouts = [(SBMainSwitcherRoutingSwitcherModifier *)self appLayouts];
-    if ([appLayouts containsObject:layoutCopy])
+    if (objc_msgSend_containsObject_(appLayouts))
     {
       appLayouts2 = [(SBMainSwitcherRoutingSwitcherModifier *)self appLayouts];
-      v10 = [appLayouts2 containsObject:self->_floatingAppLayout];
+      v10 = objc_msgSend_containsObject_(appLayouts2);
 
       if (v10)
       {
@@ -464,7 +464,7 @@ BOOL __94__SBMainSwitcherRoutingSwitcherModifier_canPerformKeyboardShortcutActio
   return SBCenterConfigurationIsValid(v2);
 }
 
-uint64_t __94__SBMainSwitcherRoutingSwitcherModifier_canPerformKeyboardShortcutAction_forBundleIdentifier___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__94__SBMainSwitcherRoutingSwitcherModifier_canPerformKeyboardShortcutAction_forBundleIdentifier___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 environment];
   if (result == 2)
@@ -505,9 +505,9 @@ BOOL __94__SBMainSwitcherRoutingSwitcherModifier_canPerformKeyboardShortcutActio
   v6 = &OBJC_IVAR___SBMainSwitcherRoutingSwitcherModifier__floatingModifierSubtree;
   if ((toFloatingSwitcherVisible & 1) == 0)
   {
-    fromFloatingSwitcherVisible = [eventCopy fromFloatingSwitcherVisible];
+    v7 = objc_msgSend_fromFloatingSwitcherVisible(eventCopy);
     v6 = &OBJC_IVAR___SBMainSwitcherRoutingSwitcherModifier__mainModifierSubtree;
-    if (fromFloatingSwitcherVisible)
+    if (v7)
     {
       v6 = &OBJC_IVAR___SBMainSwitcherRoutingSwitcherModifier__floatingModifierSubtree;
     }

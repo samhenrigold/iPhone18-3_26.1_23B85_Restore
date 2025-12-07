@@ -4,6 +4,7 @@
 - (BOOL)isTaskConfigValidWithError:(id *)error;
 - (_DPTaskProv)init;
 - (_DPTaskProv)initWithDonation:(id)donation leaderURL:(id)l helperURL:(id)rL error:(id *)error;
+- (id)derivedMaxBatchSizeFromDonationMetadata:(id)metadata minBatchSize:(unsigned int)size error:(id *)error;
 - (id)taskIDWithError:(id *)error;
 - (id)taskInfoWithError:(id *)error;
 - (unint64_t)derivedTaskExpiration;
@@ -94,32 +95,8 @@ LABEL_7:
     objc_storeStrong(&v15->_collectionID, v16);
     v18 = [objc_opt_class() vdafTypeFromDonation:donationCopy error:error];
     v19 = v18;
-    if (!v18)
+    if (!v18 || (v15->_vdafType = [v18 unsignedIntValue], -[_DPTaskProv taskInfoWithError:](v15, "taskInfoWithError:", error), v20 = objc_claimAutoreleasedReturnValue(), taskInfo = v15->_taskInfo, v15->_taskInfo = v20, taskInfo, !v15->_taskInfo) || (objc_msgSend(lCopy, "dataUsingEncoding:", 4), v22 = objc_claimAutoreleasedReturnValue(), leaderURL = v15->_leaderURL, v15->_leaderURL = v22, leaderURL, objc_msgSend(rLCopy, "dataUsingEncoding:", 4), v24 = objc_claimAutoreleasedReturnValue(), helperURL = v15->_helperURL, v15->_helperURL = v24, helperURL, !-[_DPTaskProv isTaskConfigValidWithError:](v15, "isTaskConfigValidWithError:", error)))
     {
-      goto LABEL_11;
-    }
-
-    v15->_vdafType = [v18 unsignedIntValue];
-    v20 = [(_DPTaskProv *)v15 taskInfoWithError:error];
-    taskInfo = v15->_taskInfo;
-    v15->_taskInfo = v20;
-
-    if (!v15->_taskInfo)
-    {
-      goto LABEL_11;
-    }
-
-    v22 = [lCopy dataUsingEncoding:4];
-    leaderURL = v15->_leaderURL;
-    v15->_leaderURL = v22;
-
-    v24 = [rLCopy dataUsingEncoding:4];
-    helperURL = v15->_helperURL;
-    v15->_helperURL = v24;
-
-    if (![(_DPTaskProv *)v15 isTaskConfigValidWithError:error])
-    {
-LABEL_11:
 
       v27 = 0;
       goto LABEL_12;
@@ -143,6 +120,38 @@ LABEL_11:
 LABEL_12:
 
   return v27;
+}
+
+- (id)derivedMaxBatchSizeFromDonationMetadata:(id)metadata minBatchSize:(unsigned int)size error:(id *)error
+{
+  v6 = *&size;
+  v7 = kDPMetadataDediscoTaskConfig;
+  v8 = [metadata objectForKeyedSubscript:kDPMetadataDediscoTaskConfig];
+  v9 = kDPMetadataDediscoTaskConfigMaxBatchSize;
+  v10 = [v8 objectForKeyedSubscript:kDPMetadataDediscoTaskConfigMaxBatchSize];
+
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    v11 = [NSString stringWithFormat:@"Malformed parameter (%@.%@) in metadata, it should be a number.", v7, v9];
+    goto LABEL_5;
+  }
+
+  if ([v10 unsignedIntValue] < v6)
+  {
+    v11 = [NSString stringWithFormat:@"Malformed parameter (%@.%@) in metadata, it should be at least min batch size (%u)", v7, v9, v6];
+LABEL_5:
+    v12 = [_DPDediscoError errorWithCode:400 description:v11];
+
+    [v12 logAndStoreInError:error];
+    v13 = 0;
+    goto LABEL_7;
+  }
+
+  v13 = v10;
+LABEL_7:
+
+  return v13;
 }
 
 + (id)vdafTypeFromDonation:(id)donation error:(id *)error

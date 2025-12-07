@@ -249,13 +249,13 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v5.receiver = self;
-  v5.super_class = CRLiOSInsertPageViewController;
-  [(CRLiOSInsertPageViewController *)&v5 viewDidAppear:appear];
+  v6.receiver = self;
+  v6.super_class = CRLiOSInsertPageViewController;
+  [(CRLiOSInsertPageViewController *)&v6 viewDidAppear:appear];
   [(CRLiOSInsertPageViewController *)self setP_isInViewHierarchy:1];
   [(CRLiOSInsertPageViewController *)self p_updatePageSelectionForViewAppearance];
   p_searchButton = [(CRLiOSInsertPageViewController *)self p_searchButton];
-  CRLAccessibilityPostLayoutChangedNotification(p_searchButton);
+  CRLAccessibilityPostLayoutChangedNotification(p_searchButton, v5);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear

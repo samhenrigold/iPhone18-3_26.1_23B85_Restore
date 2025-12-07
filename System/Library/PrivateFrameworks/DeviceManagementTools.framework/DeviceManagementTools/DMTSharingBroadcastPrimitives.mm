@@ -128,8 +128,8 @@ void __56__DMTSharingBroadcastPrimitives_activateWithCompletion___block_invoke(u
 
   else
   {
-    v9 = _DMTLogGeneral_1();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _DMTLogGeneral_1(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [DMTSharingBroadcastPrimitives sendMessageToPairedDevice:];
     }
@@ -239,28 +239,30 @@ void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke(uin
 void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = _DMTLogGeneral_1();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = _DMTLogGeneral_1(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_2_cold_1();
     }
 
-    if ([WeakRetained isInvalidated])
+    v4 = [v2 isInvalidated];
+    if (v4)
     {
-      v3 = _DMTLogGeneral_1();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v5 = _DMTLogGeneral_1(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        *v4 = 0;
-        _os_log_impl(&dword_24891B000, v3, OS_LOG_TYPE_INFO, "Interrupted after invalidation, no-op", v4, 2u);
+        *v6 = 0;
+        _os_log_impl(&dword_24891B000, v5, OS_LOG_TYPE_INFO, "Interrupted after invalidation, no-op", v6, 2u);
       }
     }
 
     else
     {
-      v3 = DMTErrorWithCodeAndUserInfo(31, 0);
-      [WeakRetained invalidateWithError:v3];
+      v5 = DMTErrorWithCodeAndUserInfo(31, 0);
+      [v2 invalidateWithError:v5];
     }
   }
 }
@@ -269,12 +271,13 @@ void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_5(u
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = _DMTLogGeneral_1();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _DMTLogGeneral_1(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_5_cold_1(WeakRetained, v3, v5);
+      __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_5_cold_1(v5, v3, v6);
     }
   }
 }
@@ -316,38 +319,40 @@ void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_3(u
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = _DMTLogGeneral_1();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = _DMTLogGeneral_1(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_3_cold_1(v3, v5);
+      __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_3_cold_1(v3, v6);
     }
 
-    v7 = MEMORY[0x277D85DD0];
-    v8 = 3221225472;
-    v9 = __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_19;
-    v10 = &unk_278F5E4E0;
-    objc_copyWeak(&v12, (a1 + 32));
-    v6 = v3;
-    v11 = v6;
-    [v6 registerRequestID:@"_pa" options:&unk_285B5BE88 handler:&v7];
-    [WeakRetained updateRemoteDeviceWithSession:{v6, v7, v8, v9, v10}];
+    v8 = MEMORY[0x277D85DD0];
+    v9 = 3221225472;
+    v10 = __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_19;
+    v11 = &unk_278F5E4E0;
+    objc_copyWeak(&v13, (a1 + 32));
+    v7 = v3;
+    v12 = v7;
+    [v7 registerRequestID:@"_pa" options:&unk_285B5BE88 handler:&v8];
+    [v5 updateRemoteDeviceWithSession:{v7, v8, v9, v10, v11}];
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
   }
 }
 
 void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_19(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v9 = WeakRetained;
   if (WeakRetained)
   {
-    v9 = _DMTLogGeneral_1();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = _DMTLogGeneral_1(WeakRetained);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_19_cold_1();
     }
@@ -355,40 +360,39 @@ void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_19(
     if (v6)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v10 = +[DMTPairingConstants localeIdentifierKey];
-        v11 = [v6 objectForKeyedSubscript:v10];
-        [WeakRetained setRemoteHostLocaleIdentifier:v11];
+        v12 = +[DMTPairingConstants localeIdentifierKey];
+        v13 = [v6 objectForKeyedSubscript:v12];
+        [v9 setRemoteHostLocaleIdentifier:v13];
 
-        v12 = _DMTLogGeneral_1();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v15 = _DMTLogGeneral_1(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
-          __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_19_cold_3(WeakRetained);
+          __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_19_cold_3(v9);
         }
       }
 
       else
       {
-        v12 = _DMTLogGeneral_1();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v15 = _DMTLogGeneral_1(isKindOfClass);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_19_cold_2();
         }
       }
     }
 
-    v13 = MGCopyAnswer();
-    v14 = +[DMTPairingConstants productTypeKey];
-    v17 = v14;
-    v18[0] = v13;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = MGCopyAnswer();
+    v17 = +[DMTPairingConstants productTypeKey];
+    v19 = v17;
+    v20[0] = v16;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
 
-    v7[2](v7, 0, &unk_285B5BEB0, v15);
+    v7[2](v7, 0, &unk_285B5BEB0, v18);
     [*(a1 + 32) deregisterRequestID:@"_pa"];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_31(uint64_t a1, void *a2)
@@ -401,19 +405,19 @@ void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_31(
     v6 = [WeakRetained broadcastCallbackQueue];
     MEMORY[0x24C1DD2C0]();
 
-    v7 = _DMTLogGeneral_1();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _DMTLogGeneral_1(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_31_cold_1(v3);
     }
 
     [v5 setPaired:1];
     [v5 updateRemoteDeviceWithSession:v3];
-    v8 = [v5 sessionPairedHandler];
-    v9 = v8;
-    if (v8)
+    v9 = [v5 sessionPairedHandler];
+    v10 = v9;
+    if (v9)
     {
-      (*(v8 + 16))(v8);
+      (*(v9 + 16))(v9);
     }
 
     [v5 serviceReceivedObjectQueue];
@@ -429,11 +433,12 @@ void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_32(
   if (WeakRetained)
   {
     v9 = [WeakRetained isInvalidated];
-    v10 = _DMTLogGeneral_1();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
-    if (v9)
+    v10 = v9;
+    v11 = _DMTLogGeneral_1(v9);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
+    if (v10)
     {
-      if (v11)
+      if (v12)
       {
         __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_32_cold_2();
       }
@@ -443,7 +448,7 @@ LABEL_5:
       goto LABEL_11;
     }
 
-    if (v11)
+    if (v12)
     {
       __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_32_cold_1(v5);
     }
@@ -457,8 +462,8 @@ LABEL_5:
         goto LABEL_11;
       }
 
-      v10 = DMTErrorWithCodeAndUserInfo(91, 0);
-      [v8 invalidateWithError:v10];
+      v11 = DMTErrorWithCodeAndUserInfo(91, 0);
+      [v8 invalidateWithError:v11];
       goto LABEL_5;
     }
   }
@@ -468,7 +473,7 @@ LABEL_11:
 
 void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_34(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -478,13 +483,12 @@ void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_34(
     v10 = [WeakRetained broadcastCallbackQueue];
     MEMORY[0x24C1DD2C0]();
 
-    [v9 updateRemoteDeviceWithSession:v6];
-    v11 = _DMTLogGeneral_1();
+    v11 = _DMTLogGeneral_1([v9 updateRemoteDeviceWithSession:v6]);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v14 = 138543362;
-      v15 = v7;
-      _os_log_impl(&dword_24891B000, v11, OS_LOG_TYPE_INFO, "Received object: %{public}@", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v7;
+      _os_log_impl(&dword_24891B000, v11, OS_LOG_TYPE_INFO, "Received object: %{public}@", &v13, 0xCu);
     }
 
     v12 = [v9 receivedObjectQueue];
@@ -492,8 +496,6 @@ void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_34(
 
     [v9 serviceReceivedObjectQueue];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDependencyHandlers:(BOOL)handlers
@@ -531,9 +533,9 @@ void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_34(
 
 - (void)invalidateWithError:(id)error
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = _DMTLogGeneral_1();
+  v5 = _DMTLogGeneral_1(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [DMTSharingBroadcastPrimitives invalidateWithError:];
@@ -546,16 +548,14 @@ void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_34(
   invalidationHandler = [(DMTSharingBroadcastPrimitives *)self invalidationHandler];
   if (invalidationHandler)
   {
-    v11 = *MEMORY[0x277CCA7E8];
-    v12[0] = errorCopy;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA7E8];
+    v11[0] = errorCopy;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = DMTErrorWithCodeAndUserInfo(30, v8);
     (invalidationHandler)[2](invalidationHandler, v9);
   }
 
   [(DMTSharingBroadcastPrimitives *)self removeDependencyHandlers:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateRemoteDeviceWithSession:(id)session
@@ -569,118 +569,100 @@ void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_34(
   if (peerDevice)
   {
     v7 = [[DMTSharingDevice alloc] initWithDevice:peerDevice];
+    v8 = v7;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v8 = _DMTLogGeneral_1();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _DMTLogGeneral_1(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [DMTSharingBroadcastPrimitives updateRemoteDeviceWithSession:];
   }
 
-  [(DMTSharingBroadcastPrimitives *)self performSelectorOnMainThread:sel_setRemoteDevice_ withObject:v7 waitUntilDone:0];
+  [(DMTSharingBroadcastPrimitives *)self performSelectorOnMainThread:sel_setRemoteDevice_ withObject:v8 waitUntilDone:0];
 }
 
 - (void)serviceReceivedObjectQueue
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CCABB0];
   receivedObjectQueue = [self receivedObjectQueue];
   v3 = [v1 numberWithUnsignedInteger:{objc_msgSend(receivedObjectQueue, "count")}];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_5_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   OUTLINED_FUNCTION_1();
-  v9 = 2114;
-  v10 = a2;
-  _os_log_error_impl(&dword_24891B000, a3, OS_LOG_TYPE_ERROR, "%{public}@, sharing error: %{public}@", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = 2114;
+  v9 = a2;
+  _os_log_error_impl(&dword_24891B000, a3, OS_LOG_TYPE_ERROR, "%{public}@, sharing error: %{public}@", v7, 0x16u);
 }
 
 void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_3_cold_1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [a1 peerDevice];
   v4 = [v3 identifier];
   v5 = [v4 UUIDString];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_24891B000, a2, OS_LOG_TYPE_DEBUG, "Session Started for %{public}@.", v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24891B000, a2, OS_LOG_TYPE_DEBUG, "Session Started for %{public}@.", v6, 0xCu);
 }
 
 void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_19_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_24891B000, v0, OS_LOG_TYPE_DEBUG, "Received SFMessageRequestIDPreAuth request: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24891B000, v0, OS_LOG_TYPE_DEBUG, "Received SFMessageRequestIDPreAuth request: %{public}@", v1, 0xCu);
 }
 
 void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_19_cold_3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 remoteHostLocaleIdentifier];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_31_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 peerDevice];
   v2 = [v1 identifier];
   v3 = [v2 UUIDString];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __54__DMTSharingBroadcastPrimitives_addDependencyHandlers__block_invoke_32_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 peerDevice];
   v2 = [v1 identifier];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateWithError:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_24891B000, v0, OS_LOG_TYPE_ERROR, "[DMT] Primitives invalidated with error: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24891B000, v0, OS_LOG_TYPE_ERROR, "[DMT] Primitives invalidated with error: %{public}@", v1, 0xCu);
 }
 
 - (void)updateRemoteDeviceWithSession:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_24891B000, v0, OS_LOG_TYPE_DEBUG, "Updating remoteDevice with %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24891B000, v0, OS_LOG_TYPE_DEBUG, "Updating remoteDevice with %{public}@", v1, 0xCu);
 }
 
 @end

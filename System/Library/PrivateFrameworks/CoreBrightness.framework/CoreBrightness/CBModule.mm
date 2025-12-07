@@ -93,8 +93,6 @@
     __os_log_helper_16_0_1_8_0(v7, self->_notificationBlock);
     _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "notificationBlock = %p", v7, 0xCu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterNotificationBlock

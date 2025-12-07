@@ -1,6 +1,8 @@
 @interface _DKInCarMonitor
++ (void)setIsConnected:(BOOL)connected;
 - (void)deactivate;
 - (void)dealloc;
+- (void)setConnectedStatus:(BOOL)status;
 - (void)start;
 - (void)stop;
 @end
@@ -13,6 +15,29 @@
   v3.receiver = self;
   v3.super_class = _DKInCarMonitor;
   [(_DKMonitor *)&v3 dealloc];
+}
+
++ (void)setIsConnected:(BOOL)connected
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:connected];
+  userContext = [MEMORY[0x277CFE318] userContext];
+  keyPathForCarConnectedStatus = [MEMORY[0x277CFE338] keyPathForCarConnectedStatus];
+  [userContext setObject:v5 forKeyedSubscript:keyPathForCarConnectedStatus];
+}
+
+- (void)setConnectedStatus:(BOOL)status
+{
+  if (self->_enabled)
+  {
+    statusCopy = status;
+    if (self->_connected != status)
+    {
+      self->_connected = status;
+      v4 = objc_opt_class();
+
+      [v4 setIsConnected:statusCopy];
+    }
+  }
 }
 
 - (void)start

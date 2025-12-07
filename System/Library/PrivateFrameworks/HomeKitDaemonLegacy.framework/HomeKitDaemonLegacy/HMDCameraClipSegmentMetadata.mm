@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -416,7 +417,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    byteOffset = self->_byteOffset;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -436,7 +436,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  byteLength = self->_byteLength;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -451,7 +450,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  timeOffset = self->_timeOffset;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -466,12 +464,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  duration = self->_duration;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
@@ -889,6 +885,21 @@ LABEL_15:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27972F4A8[string];
   }
 
   return v4;

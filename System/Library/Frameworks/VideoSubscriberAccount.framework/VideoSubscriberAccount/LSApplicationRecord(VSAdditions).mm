@@ -25,7 +25,7 @@
 
   if (!v7)
   {
-    v8 = VSErrorLogObject();
+    v8 = VSErrorLogObject(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[LSApplicationRecord(VSAdditions) vs_applicationRecordWithBundleURL:];
@@ -53,7 +53,7 @@
 
   if (!v7)
   {
-    v8 = VSErrorLogObject();
+    v8 = VSErrorLogObject(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(LSApplicationRecord(VSAdditions) *)v6 vs_applicationRecordWithStoreItemIdentifier:a3, v8];
@@ -82,7 +82,7 @@
 
   if (!v7)
   {
-    v8 = VSErrorLogObject();
+    v8 = VSErrorLogObject(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[LSApplicationRecord(VSAdditions) vs_applicationRecordWithBundleIdentifier:];

@@ -48,34 +48,32 @@
 
 + (id)indexableKeyPathsWithPrefix:(id)prefix
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   prefixCopy = prefix;
   v4 = [HKCodedValueCollection indexableKeyPathsWithPrefix:@"codedValueCollection"];
   firstObject = [v4 firstObject];
 
   if (firstObject)
   {
-    v15 = @"medicalCodings";
-    v16 = @"dataAbsentReasonCodings";
-    v17 = firstObject;
+    v14 = @"medicalCodings";
+    v15 = @"dataAbsentReasonCodings";
+    v16 = firstObject;
     v6 = MEMORY[0x1E695DEC8];
-    v7 = &v15;
+    v7 = &v14;
     v8 = 3;
   }
 
   else
   {
-    v13 = @"medicalCodings";
-    v14 = @"dataAbsentReasonCodings";
+    v12 = @"medicalCodings";
+    v13 = @"dataAbsentReasonCodings";
     v6 = MEMORY[0x1E695DEC8];
-    v7 = &v13;
+    v7 = &v12;
     v8 = 2;
   }
 
-  v9 = [v6 arrayWithObjects:v7 count:{v8, v13, v14, v15, v16, v17, v18}];
+  v9 = [v6 arrayWithObjects:v7 count:{v8, v12, v13, v14, v15, v16, v17}];
   v10 = [HKConceptIndexUtilities keyPaths:v9 prefix:prefixCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -479,9 +477,11 @@ LABEL_9:
 
 uint64_t __31__HKInspectableValue_converter__block_invoke()
 {
-  converter_converter = objc_alloc_init(HKUCUMUnitDisplayConverter);
+  v0 = objc_alloc_init(HKUCUMUnitDisplayConverter);
+  v1 = converter_converter;
+  converter_converter = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (NSString)unitString
@@ -673,55 +673,51 @@ LABEL_15:
 
 - (void)_assertValueClass:(Class)class
 {
-  value = self->_value;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v6 = self->_value;
     [MEMORY[0x1E695DF30] raise:@"HKInconsistentValueTypeException" format:{@"Inconsistent value type found in inspectable value, have: %@, expect: %@", objc_opt_class(), class}];
   }
 }
 
 - (void)_assertValueType
 {
-  valueType = self->_valueType;
-  if (valueType <= 0xB)
+  if (self->_valueType <= 0xBuLL)
   {
-    v5 = **(&unk_1E737D5C8 + valueType);
-    v6 = objc_opt_class();
+    v4 = objc_opt_class();
 
-    [(HKInspectableValue *)self _assertValueClass:v6];
+    [(HKInspectableValue *)self _assertValueClass:v4];
   }
 }
 
 - (id)_unitStringForCodedValueCollection:(id)collection
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   codedValues = [collectionCopy codedValues];
   firstObject = [codedValues firstObject];
   value = [firstObject value];
   unitString = [value unitString];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   codedValues2 = [collectionCopy codedValues];
-  v9 = [codedValues2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [codedValues2 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(codedValues2);
         }
 
-        value2 = [*(*(&v18 + 1) + 8 * i) value];
+        value2 = [*(*(&v17 + 1) + 8 * i) value];
         unitString2 = [value2 unitString];
 
         LODWORD(value2) = [unitString2 isEqualToString:unitString];
@@ -733,7 +729,7 @@ LABEL_15:
         }
       }
 
-      v10 = [codedValues2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [codedValues2 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v10)
       {
         continue;
@@ -746,18 +742,16 @@ LABEL_15:
   v15 = unitString;
 LABEL_11:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 - (HKInspectableValue)initWithCoder:(id)coder
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v20.receiver = self;
-  v20.super_class = HKInspectableValue;
-  v5 = [(HKInspectableValue *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = HKInspectableValue;
+  v5 = [(HKInspectableValue *)&v19 init];
   if (!v5)
   {
     goto LABEL_23;
@@ -780,10 +774,10 @@ LABEL_11:
       }
 
       v8 = MEMORY[0x1E695DFD8];
-      v21[0] = objc_opt_class();
-      v21[1] = objc_opt_class();
+      v20[0] = objc_opt_class();
+      v20[1] = objc_opt_class();
       v9 = MEMORY[0x1E695DEC8];
-      v10 = v21;
+      v10 = v20;
     }
 
     else
@@ -794,10 +788,10 @@ LABEL_11:
       }
 
       v8 = MEMORY[0x1E695DFD8];
-      v22[0] = objc_opt_class();
-      v22[1] = objc_opt_class();
+      v21[0] = objc_opt_class();
+      v21[1] = objc_opt_class();
       v9 = MEMORY[0x1E695DEC8];
-      v10 = v22;
+      v10 = v21;
     }
 
     v11 = [v9 arrayWithObjects:v10 count:2];
@@ -843,7 +837,6 @@ LABEL_24:
   v17 = v7;
 LABEL_25:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -857,7 +850,7 @@ LABEL_25:
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = [HKConceptIndexUtilities firstComponentForKeyPath:pathCopy error:error];
   v8 = v7;
@@ -872,9 +865,9 @@ LABEL_25:
         dataAbsentReasonCodings2 = [(HKInspectableValue *)self dataAbsentReasonCodings];
         v11 = [HKMedicalCodingCollection collectionWithCodings:dataAbsentReasonCodings2];
         v12 = [HKIndexableObject indexableObjectWithObject:v11];
-        v23[0] = v12;
+        v22[0] = v12;
         v13 = MEMORY[0x1E695DEC8];
-        v14 = v23;
+        v14 = v22;
 LABEL_8:
         v16 = [v13 arrayWithObjects:v14 count:1];
 
@@ -893,9 +886,9 @@ LABEL_8:
         dataAbsentReasonCodings2 = [(HKInspectableValue *)self medicalCodings];
         v11 = [HKMedicalCodingCollection collectionWithCodings:dataAbsentReasonCodings2];
         v12 = [HKIndexableObject indexableObjectWithObject:v11];
-        v22 = v12;
+        v21 = v12;
         v13 = MEMORY[0x1E695DEC8];
-        v14 = &v22;
+        v14 = &v21;
         goto LABEL_8;
       }
 
@@ -933,8 +926,6 @@ LABEL_13:
 
   v16 = 0;
 LABEL_16:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

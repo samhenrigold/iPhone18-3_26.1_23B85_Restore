@@ -631,14 +631,14 @@ LABEL_56:
 {
   v2 = MEMORY[0x1E696ACB0];
   json = [(ATXActionResponse *)self json];
-  v8 = 0;
-  v4 = [v2 dataWithJSONObject:json options:1 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [v2 dataWithJSONObject:json options:1 error:&v9];
+  v5 = v9;
 
   if (!v4)
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(ATXActionResponse *)v5 jsonData];
     }

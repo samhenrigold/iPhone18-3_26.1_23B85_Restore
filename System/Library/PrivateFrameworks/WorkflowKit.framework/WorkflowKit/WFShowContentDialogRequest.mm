@@ -125,32 +125,30 @@ void __72__WFShowContentDialogRequest_getContentCollectionWithCompletionHandler_
 
 void __72__WFShowContentDialogRequest_getContentCollectionWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!v3)
   {
     v4 = getWFGeneralLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v6 = 136315138;
-      v7 = "[WFShowContentDialogRequest getContentCollectionWithCompletionHandler:]_block_invoke_3";
-      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_FAULT, "%s Unable to unarchive content collection.", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[WFShowContentDialogRequest getContentCollectionWithCompletionHandler:]_block_invoke_3";
+      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_FAULT, "%s Unable to unarchive content collection.", &v5, 0xCu);
     }
   }
 
   [*(a1 + 32) setCachedContentCollection:v3];
   (*(*(a1 + 40) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (WFShowContentDialogRequest)initWithContentCollection:(id)collection attribution:(id)attribution prompt:(id)prompt
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
-  v24.receiver = self;
-  v24.super_class = WFShowContentDialogRequest;
-  v9 = [(WFDialogRequest *)&v24 initWithAttribution:attribution prompt:prompt];
+  v23.receiver = self;
+  v23.super_class = WFShowContentDialogRequest;
+  v9 = [(WFDialogRequest *)&v23 initWithAttribution:attribution prompt:prompt];
   if (!v9)
   {
 LABEL_7:
@@ -170,9 +168,9 @@ LABEL_7:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v26 = "[WFShowContentDialogRequest initWithContentCollection:attribution:prompt:]";
-      v27 = 2114;
-      v28 = 0;
+      v25 = "[WFShowContentDialogRequest initWithContentCollection:attribution:prompt:]";
+      v26 = 2114;
+      v27 = 0;
       _os_log_impl(&dword_1CA256000, v21, OS_LOG_TYPE_FAULT, "%s Unable to archive content collection: %{public}@", buf, 0x16u);
     }
 
@@ -194,7 +192,6 @@ LABEL_7:
   v20 = v9;
 LABEL_8:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

@@ -24,30 +24,29 @@
 
 - (void)setVariantIndex:(unint64_t)index
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   event = [(MNAnnouncementPlanEvent *)self event];
   announcements = [event announcements];
   v7 = [announcements count];
 
   if (v7 <= index)
   {
-    v9 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315906;
-      v11 = "[MNAnnouncementPlanEvent setVariantIndex:]";
-      v12 = 2080;
-      v13 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Guidance/MNAnnouncementPlanEvent.m";
-      v14 = 1024;
-      v15 = 73;
-      v16 = 2080;
-      v17 = "variantIndex < self.event.announcements.count";
-      _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s)", &v10, 0x26u);
+      v9 = 136315906;
+      v10 = "[MNAnnouncementPlanEvent setVariantIndex:]";
+      v11 = 2080;
+      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Guidance/MNAnnouncementPlanEvent.m";
+      v13 = 1024;
+      v14 = 73;
+      v15 = 2080;
+      v16 = "variantIndex < self.event.announcements.count";
+      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s)", &v9, 0x26u);
     }
   }
 
   self->_variantIndex = index;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTriggerDistance:(double)distance

@@ -423,12 +423,12 @@ uint64_t __55__PRSwitcherConfiguration__posterConfigurationForUUID___block_invok
 
 - (void)_initWithConfigurations:selectedConfiguration:activeConfiguration:associatedHomeScreenConfigurations:.cold.1()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSArrayClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PRSwitcherConfiguration _initWithConfigurations:selectedConfiguration:activeConfiguration:associatedHomeScreenConfigurations:]"];
     OUTLINED_FUNCTION_4_1();
-    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"[_bs_assert_object isKindOfClass:NSArrayClass]", v7, v8);
+    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -438,12 +438,12 @@ uint64_t __55__PRSwitcherConfiguration__posterConfigurationForUUID___block_invok
 
 - (void)_initWithConfigurations:selectedConfiguration:activeConfiguration:associatedHomeScreenConfigurations:.cold.2()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PRSwitcherConfiguration _initWithConfigurations:selectedConfiguration:activeConfiguration:associatedHomeScreenConfigurations:]"];
     OUTLINED_FUNCTION_4_1();
-    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"[_bs_assert_object isKindOfClass:PRPosterConfigurationClass]", v7, v8);
+    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -453,12 +453,12 @@ uint64_t __55__PRSwitcherConfiguration__posterConfigurationForUUID___block_invok
 
 - (void)_initWithConfigurations:selectedConfiguration:activeConfiguration:associatedHomeScreenConfigurations:.cold.3()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PRSwitcherConfiguration _initWithConfigurations:selectedConfiguration:activeConfiguration:associatedHomeScreenConfigurations:]"];
     OUTLINED_FUNCTION_4_1();
-    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"[_bs_assert_object isKindOfClass:PRPosterConfigurationClass]", v7, v8);
+    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -468,12 +468,12 @@ uint64_t __55__PRSwitcherConfiguration__posterConfigurationForUUID___block_invok
 
 - (void)_initWithConfigurations:selectedConfiguration:activeConfiguration:associatedHomeScreenConfigurations:.cold.4()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSMapTableClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PRSwitcherConfiguration _initWithConfigurations:selectedConfiguration:activeConfiguration:associatedHomeScreenConfigurations:]"];
     OUTLINED_FUNCTION_4_1();
-    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"[_bs_assert_object isKindOfClass:NSMapTableClass]", v7, v8);
+    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -483,12 +483,12 @@ uint64_t __55__PRSwitcherConfiguration__posterConfigurationForUUID___block_invok
 
 - (void)_initWithConfigurations:selectedConfiguration:activeConfiguration:associatedHomeScreenConfigurations:.cold.5()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PRSwitcherConfiguration _initWithConfigurations:selectedConfiguration:activeConfiguration:associatedHomeScreenConfigurations:]"];
     OUTLINED_FUNCTION_4_1();
-    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"_bs_assert_object != nil", v7, v8);
+    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -498,12 +498,12 @@ uint64_t __55__PRSwitcherConfiguration__posterConfigurationForUUID___block_invok
 
 - (void)_initWithConfigurations:selectedConfiguration:activeConfiguration:associatedHomeScreenConfigurations:.cold.6()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PRSwitcherConfiguration _initWithConfigurations:selectedConfiguration:activeConfiguration:associatedHomeScreenConfigurations:]"];
     OUTLINED_FUNCTION_4_1();
-    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"_bs_assert_object != nil", v7, v8);
+    OUTLINED_FUNCTION_0_11(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];

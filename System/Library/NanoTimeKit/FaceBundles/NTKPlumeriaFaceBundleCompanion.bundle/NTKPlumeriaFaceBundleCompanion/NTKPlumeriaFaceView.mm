@@ -9,6 +9,7 @@
 - (void)_configureForEditMode:(int64_t)mode;
 - (void)_configureForTransitionFraction:(double)fraction fromEditMode:(int64_t)mode toEditMode:(int64_t)editMode;
 - (void)_loadSnapshotContentViews;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_reorderSwitcherSnapshotView;
 - (void)_setUpMetalView;
 - (void)_tearDownMetalView;
@@ -112,6 +113,16 @@
   [(CLKUIMetalQuadView *)self->_quadView removeFromSuperview];
   quadView = self->_quadView;
   self->_quadView = 0;
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKPlumeriaFaceView;
+  groupCopy = group;
+  [(NTKPlumeriaFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(CLKUIMetalQuadView *)self->_quadView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
 }
 
 - (void)_configureForEditMode:(int64_t)mode

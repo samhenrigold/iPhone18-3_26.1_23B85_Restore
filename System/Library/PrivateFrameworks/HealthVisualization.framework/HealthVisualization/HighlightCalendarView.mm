@@ -69,7 +69,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_1D1453BA0(0, &qword_1EE059708);
+  sub_1D1453BA0(0, &qword_1EE059708, 0x1E69DCC10);
 
   v2 = sub_1D15A40A8();
 
@@ -87,7 +87,7 @@
   }
 
   swift_beginAccess();
-  sub_1D1453BA0(0, &qword_1EE059708);
+  sub_1D1453BA0(0, &qword_1EE059708, 0x1E69DCC10);
 
   v2 = sub_1D15A40A8();
 

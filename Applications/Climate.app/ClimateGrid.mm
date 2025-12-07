@@ -24,14 +24,14 @@
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC7Climate11ClimateGrid_grid);
   if (v2)
   {
-    sub_1000040E8(&unk_100114770);
+    sub_1000040E8(&unk_100114770, qword_1000D58D0);
     v3 = swift_allocObject();
     *(v3 + 16) = xmmword_1000D5DA0;
     *(v3 + 32) = v2;
   }
 
   v4 = v2;
-  sub_1000040E8(&unk_1001150F0);
+  sub_1000040E8(&unk_1001150F0, &qword_1000D5F10);
   v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;

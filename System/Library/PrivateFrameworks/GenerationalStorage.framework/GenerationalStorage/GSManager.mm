@@ -1,4 +1,5 @@
 @interface GSManager
+- (BOOL)_createLibraryWithDiskInfos:(id *)infos createIfNone:(BOOL)none error:(id *)error;
 - (BOOL)_forsakePath:(id)path;
 - (BOOL)_generationForsakeRow:(id)row withCredential:(const GSCredential *)credential error:(id *)error;
 - (BOOL)_pathIsStaged:(id)staged;
@@ -8,18 +9,22 @@
 - (BOOL)dispatchSync:(id)sync;
 - (BOOL)removePendingDeleteDocumentTimerForDocID:(id)d;
 - (GSManager)init;
+- (GSManager)initWithDisk:(id *)disk createIfNone:(BOOL)none error:(id *)error;
 - (NSString)description;
 - (id)_additionDictionary:(id)dictionary path:(id)path;
+- (id)_additionDictionary:(id)dictionary path:(id)path isDir:(BOOL)dir;
 - (id)_additionDictionary:(id)dictionary url:(id)url;
 - (id)_createAddition:(int64_t)addition creationInfo:(id)info isDir:(BOOL)dir stagedPath:(id)path credentials:(const GSCredential *)credentials error:(id *)error;
 - (id)_getAddition:(int64_t)addition inNameSpace:(id)space named:(id)named credentials:(const GSCredential *)credentials error:(id *)error;
 - (id)_listAdditions:(int64_t)additions nameSpace:(id)space withOptions:(unint64_t)options withoutOptions:(unint64_t)withoutOptions andEnumerationState:(id)state credentials:(const GSCredential *)credentials;
 - (id)_setAdditionNameSpace:(int64_t)space inNameSpace:(id)nameSpace named:(id)named newNameSpace:(id)newNameSpace credentials:(const GSCredential *)credentials error:(id *)error;
 - (id)makeStagingPathForCredential:(const GSCredential *)credential prefix:(id)prefix stagedName:(id)name;
+- (id)makeStoragePathForGenerationNamed:(id)named storageID:(int64_t)d clientID:(id)iD forUID:(unsigned int)uID makePublic:(BOOL)public;
 - (id)pendingDeleteDocumentTimerForDocID:(id)d;
 - (int64_t)_purgeAggressively:(unint64_t *)aggressively credentials:(const GSCredential *)credentials whilePredicateIsTrue:(id)true;
 - (int64_t)_purgeGenerationsWithCredentials:(const GSCredential *)credentials;
 - (int64_t)estimatePurgeableSpace;
+- (int64_t)purgeTryingToReclaimSpace:(int64_t)space highUrgency:(BOOL)urgency;
 - (unint64_t)computeNumberOfPruneableStorages;
 - (unint64_t)computePruneableNumberOfGenerations;
 - (unint64_t)computePurgeableSpace;
@@ -84,27 +89,27 @@
 
   if (isThrottlingIo != isThrottlingIo2)
   {
-    v8 = sub_100003164();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = sub_100003164(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
     if (isThrottlingIo)
     {
-      if (v9)
+      if (v10)
       {
         device = selfCopy->_device;
-        v13 = 67109120;
-        v14 = device;
-        v11 = "[NOTICE] Quitting throttled mode on device %d";
+        v14 = 67109120;
+        v15 = device;
+        v12 = "[NOTICE] Quitting throttled mode on device %d";
 LABEL_7:
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v11, &v13, 8u);
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v12, &v14, 8u);
       }
     }
 
-    else if (v9)
+    else if (v10)
     {
-      v12 = selfCopy->_device;
-      v13 = 67109120;
-      v14 = v12;
-      v11 = "[WARNING] Entering throttled mode on device %d";
+      v13 = selfCopy->_device;
+      v14 = 67109120;
+      v15 = v13;
+      v12 = "[WARNING] Entering throttled mode on device %d";
       goto LABEL_7;
     }
   }
@@ -190,7 +195,7 @@ LABEL_7:
   rowCopy = row;
   rowCopy[8] = 1001;
   *(rowCopy + 2) = 0;
-  v7 = sub_100003164();
+  v7 = sub_100003164(rowCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_10002A938();
@@ -244,16 +249,16 @@ LABEL_7:
   v9 = v8;
   if (v8 && *(v8 + 40) != change)
   {
-    v10 = sub_100003164();
+    v10 = sub_100003164(v8);
     if (os_log_type_enabled(v10, 0x90u))
     {
-      v17 = 134218498;
+      v18 = 134218498;
       dstCopy = dst;
-      v19 = 2112;
-      v20 = v9;
-      v21 = 2048;
+      v20 = 2112;
+      v21 = v9;
+      v22 = 2048;
       changeCopy = change;
-      _os_log_error_impl(&_mh_execute_header, v10, 0x90u, "[ERROR] FileID %lld was already tracked as %@, received %lld: simulating deletion", &v17, 0x20u);
+      _os_log_error_impl(&_mh_execute_header, v10, 0x90u, "[ERROR] FileID %lld was already tracked as %@, received %lld: simulating deletion", &v18, 0x20u);
     }
 
     [(GSManager *)self _actOnDocidDeletion:v9[5] row:v9];
@@ -261,11 +266,11 @@ LABEL_7:
 
   v11 = [GSFileRow fileRow:self->_db byDocumentID:change];
 
-  v12 = sub_100003164();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
+  v13 = sub_100003164(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
   if (v11)
   {
-    if (v13)
+    if (v14)
     {
       sub_10002AA1C();
     }
@@ -277,7 +282,7 @@ LABEL_7:
 
   else
   {
-    if (v13)
+    if (v14)
     {
       sub_10002AA90();
     }
@@ -287,12 +292,12 @@ LABEL_7:
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v15 = [NSNumber numberWithUnsignedLongLong:change];
-  v16 = [(NSMutableDictionary *)selfCopy->_pendingDeleteDocuments objectForKeyedSubscript:v15];
-  if (v16)
+  v16 = [NSNumber numberWithUnsignedLongLong:change];
+  v17 = [(NSMutableDictionary *)selfCopy->_pendingDeleteDocuments objectForKeyedSubscript:v16];
+  if (v17)
   {
-    [(NSMutableDictionary *)selfCopy->_pendingDeleteDocuments removeObjectForKey:v15];
-    dispatch_source_cancel(v16);
+    [(NSMutableDictionary *)selfCopy->_pendingDeleteDocuments removeObjectForKey:v16];
+    dispatch_source_cancel(v17);
   }
 
   objc_sync_exit(selfCopy);
@@ -318,9 +323,759 @@ LABEL_7:
   }
 }
 
+- (BOOL)_createLibraryWithDiskInfos:(id *)infos createIfNone:(BOOL)none error:(id *)error
+{
+  noneCopy = none;
+  v7 = +[NSFileManager defaultManager];
+  v91[0] = NSFileOwnerAccountID;
+  v91[1] = NSFileGroupOwnerAccountID;
+  v92[0] = &off_100044280;
+  v92[1] = &off_100044280;
+  v91[2] = NSFilePosixPermissions;
+  v92[2] = &off_100044298;
+  v8 = [NSDictionary dictionaryWithObjects:v92 forKeys:v91 count:3];
+  v89[0] = NSFileOwnerAccountID;
+  v89[1] = NSFileGroupOwnerAccountID;
+  v90[0] = &off_100044280;
+  v90[1] = &off_100044280;
+  v89[2] = NSFilePosixPermissions;
+  v90[2] = &off_1000442B0;
+  v76 = [NSDictionary dictionaryWithObjects:v90 forKeys:v89 count:3];
+  v87[0] = NSFileOwnerAccountID;
+  v87[1] = NSFileGroupOwnerAccountID;
+  v88[0] = &off_100044280;
+  v88[1] = &off_100044280;
+  v87[2] = NSFilePosixPermissions;
+  v88[2] = &off_1000442B0;
+  v9 = [NSDictionary dictionaryWithObjects:v88 forKeys:v87 count:3];
+  volDirFd = self->_volDirFd;
+  if ((volDirFd & 0x80000000) == 0)
+  {
+    close(volDirFd);
+    self->_volDirFd = -1;
+  }
+
+  libDirfd = self->_libDirfd;
+  if ((libDirfd & 0x80000000) == 0)
+  {
+    close(libDirfd);
+    self->_libDirfd = -1;
+  }
+
+  infosCopy8 = infos;
+  v13 = sub_100009B34(infos->var0, 2);
+  self->_volDirFd = v13;
+  v14 = v7;
+  v15 = v8;
+  if (v13 < 0 || fcntl(v13, 50, v86) < 0)
+  {
+    v29 = [NSString stringWithFormat:@"unable to open library for device %x", infos->var0];
+    v30 = __error();
+    v31 = *v30;
+    v32 = sub_100003164(v30);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_15;
+  }
+
+  v16 = [NSString gs_stringWithFileSystemRepresentation:v86];
+  p_libraryRoot = &self->_libraryRoot;
+  libraryRoot = self->_libraryRoot;
+  self->_libraryRoot = v16;
+
+  v19 = [(NSString *)self->_libraryRoot stringByAppendingPathComponent:@".DocumentRevisions-V100"];
+  v20 = self->_libraryRoot;
+  self->_libraryRoot = v19;
+
+  v21 = openat(self->_volDirFd, ".DocumentRevisions-V100", 33028);
+  self->_libDirfd = v21;
+  if (v21 == -1)
+  {
+    if (*__error() != 2)
+    {
+      v29 = [NSString stringWithFormat:@"failed to open library dir: %@", *p_libraryRoot];
+      v38 = __error();
+      v31 = *v38;
+      v32 = sub_100003164(v38);
+      if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_15;
+      }
+
+      goto LABEL_14;
+    }
+
+    if (!noneCopy || infos->var2)
+    {
+      v23 = [NSString stringWithFormat:@"no library on volume"];
+      v34 = sub_100003164(v23);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+      {
+        sub_1000256F4();
+      }
+
+      errorCopy4 = error;
+      if (!error)
+      {
+        goto LABEL_65;
+      }
+
+      v35 = 102;
+      goto LABEL_63;
+    }
+
+    if (mkdirat(self->_volDirFd, ".DocumentRevisions-V100", 0x49u) < 0 && *__error() != 2)
+    {
+      v29 = [NSString stringWithFormat:@"unable to craete storage directory"];
+      v67 = __error();
+      v31 = *v67;
+      v32 = sub_100003164(v67);
+      if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_15;
+      }
+
+      goto LABEL_14;
+    }
+
+    v43 = openat(self->_volDirFd, ".DocumentRevisions-V100", 33028);
+    self->_libDirfd = v43;
+    if (v43 == -1)
+    {
+      v29 = [NSString stringWithFormat:@"failed to open storage directory"];
+      v55 = __error();
+      v31 = *v55;
+      v32 = sub_100003164(v55);
+      if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_15;
+      }
+
+      goto LABEL_14;
+    }
+
+    if (!fchown(v43, 0, 0))
+    {
+      v56 = acl_init(0);
+      if (v56)
+      {
+        v57 = v56;
+        v58 = acl_set_fd_np(self->_libDirfd, v56, ACL_TYPE_EXTENDED);
+        if (v58)
+        {
+          v59 = sub_100003164(v58);
+          if (os_log_type_enabled(v59, 0x90u))
+          {
+            sub_10002AC54(v59);
+          }
+
+          infosCopy8 = infos;
+        }
+
+        acl_free(v57);
+      }
+
+      goto LABEL_87;
+    }
+
+    v29 = [NSString stringWithFormat:@"chown(%@) failed", *p_libraryRoot];
+    v44 = __error();
+    v31 = *v44;
+    v32 = sub_100003164(v44);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+    {
+LABEL_14:
+      sub_100026B50();
+    }
+
+LABEL_15:
+
+    if (error)
+    {
+      *error = sub_10000F37C(v31, v29);
+    }
+
+    v33 = 0;
+    goto LABEL_18;
+  }
+
+  memset(&v85, 0, sizeof(v85));
+  v22 = fstat(v21, &v85);
+  if (v22)
+  {
+    v23 = [NSString stringWithFormat:@"fstat(%@) failed", *p_libraryRoot];
+    v24 = __error();
+    v25 = *v24;
+    v26 = sub_100003164(v24);
+    if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    {
+LABEL_11:
+
+      errorCopy4 = error;
+      if (!error)
+      {
+        infosCopy8 = infos;
+LABEL_65:
+
+LABEL_66:
+        v33 = 0;
+        goto LABEL_67;
+      }
+
+      v28 = sub_10000F37C(v25, v23);
+      infosCopy8 = infos;
+LABEL_64:
+      *errorCopy4 = v28;
+      goto LABEL_65;
+    }
+
+LABEL_10:
+    sub_100026B50();
+    goto LABEL_11;
+  }
+
+  if ((v85.st_mode & 0xF000) != 0x4000)
+  {
+    if (infos->var2)
+    {
+      v23 = [NSString stringWithFormat:@"storage is read-only"];
+      v39 = sub_100003164(v23);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+      {
+        sub_10002AB70();
+      }
+
+      errorCopy4 = error;
+      if (!error)
+      {
+        goto LABEL_65;
+      }
+
+      v35 = 111;
+    }
+
+    else
+    {
+      v40 = sub_100003164(v22);
+      if (os_log_type_enabled(v40, 0x90u))
+      {
+        sub_10002AB04();
+      }
+
+      infosCopy8 = infos;
+      if (sub_10001EF1C(*p_libraryRoot, 1))
+      {
+        goto LABEL_47;
+      }
+
+      v23 = [NSString stringWithFormat:@"unable to rename %@ away", *p_libraryRoot];
+      v46 = sub_100003164(v23);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+      {
+        sub_100027C60();
+      }
+
+      errorCopy4 = error;
+      if (!error)
+      {
+        goto LABEL_65;
+      }
+
+      v35 = 101;
+    }
+
+LABEL_63:
+    v28 = sub_10000F0F8(v35, v23, 0);
+    goto LABEL_64;
+  }
+
+  v36 = v85.st_mode & 0x1FF;
+  if (v36 == 457 || v36 == 73)
+  {
+    if (!infos->var1)
+    {
+      if (!infos->var2 && *&v85.st_uid && fchown(self->_libDirfd, 0, 0))
+      {
+        v23 = [NSString stringWithFormat:@"chown(%@) failed", *p_libraryRoot];
+        v45 = __error();
+        v25 = *v45;
+        v26 = sub_100003164(v45);
+        if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        {
+          goto LABEL_11;
+        }
+
+        goto LABEL_10;
+      }
+
+      goto LABEL_87;
+    }
+
+    if (!*&v85.st_uid)
+    {
+      goto LABEL_87;
+    }
+  }
+
+  if (!infos->var2)
+  {
+    v37 = sub_100003164(v22);
+    if (os_log_type_enabled(v37, 0x90u))
+    {
+      sub_10002ABE8();
+    }
+
+    infosCopy8 = infos;
+    if (!sub_10001EF1C(*p_libraryRoot, 2))
+    {
+      goto LABEL_66;
+    }
+
+LABEL_47:
+    close(self->_libDirfd);
+    self->_libDirfd = -1;
+    v41 = self->_libraryRoot;
+    self->_libraryRoot = 0;
+
+    v42 = [(GSManager *)self _createLibraryWithDiskInfos:infosCopy8 createIfNone:noneCopy error:error];
+    v33 = 0;
+    goto LABEL_78;
+  }
+
+LABEL_87:
+  v33 = [*p_libraryRoot stringByAppendingPathComponent:@"db-V1"];
+  if (infosCopy8->var2)
+  {
+    v60 = [NSString stringWithFormat:@"/private/var is readonly!"];
+    v61 = sub_100003164(v60);
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10002AB70();
+    }
+
+    if (error)
+    {
+      *error = sub_10000F0F8(111, v60, 0);
+    }
+
+    goto LABEL_18;
+  }
+
+  v62 = [(NSString *)self->_libraryRoot stringByAppendingPathComponent:@"staging"];
+  stagingPath = self->_stagingPath;
+  self->_stagingPath = v62;
+
+  v64 = [(NSString *)self->_libraryRoot stringByAppendingPathComponent:@"purgatory"];
+  purgatoryPath = self->_purgatoryPath;
+  self->_purgatoryPath = v64;
+
+  objc_storeStrong(&self->_dbPath, v33);
+  v66 = [(NSString *)self->_libraryRoot stringByAppendingPathComponent:@"ChunkTemp"];
+  [v7 removeItemAtPath:v66 error:0];
+
+  if (![v7 createDirectoryAtPath:self->_stagingPath withIntermediateDirectories:1 attributes:v8 error:error])
+  {
+LABEL_18:
+    infosCopy8 = infos;
+LABEL_67:
+    if (infosCopy8->var2)
+    {
+      v47 = self->_stagingPath;
+      if (v47)
+      {
+        sub_10000965C([(NSString *)v47 fileSystemRepresentation], 0, 0);
+      }
+
+      dbPath = self->_dbPath;
+      if (dbPath)
+      {
+        sub_10000965C([(NSString *)dbPath fileSystemRepresentation], 0, 0);
+      }
+    }
+
+    v49 = self->_dbPath;
+    self->_dbPath = 0;
+
+    v50 = self->_stagingPath;
+    self->_stagingPath = 0;
+
+    v51 = self->_libraryRoot;
+    self->_libraryRoot = 0;
+
+    v52 = self->_purgatoryPath;
+    self->_purgatoryPath = 0;
+
+    v53 = self->_libDirfd;
+    if ((v53 & 0x80000000) == 0)
+    {
+      close(v53);
+      v53 = -1;
+      self->_libDirfd = -1;
+    }
+
+    if ((self->_volDirFd & 0x80000000) == 0)
+    {
+      close(self->_volDirFd);
+      self->_volDirFd = -1;
+      v53 = self->_libDirfd;
+    }
+
+    if (v53 != -1)
+    {
+      sub_10002AD24();
+    }
+
+    v42 = 0;
+    goto LABEL_78;
+  }
+
+  infosCopy8 = infos;
+  if (![v7 createDirectoryAtPath:self->_dbPath withIntermediateDirectories:1 attributes:v76 error:error] || !objc_msgSend(v7, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", self->_purgatoryPath, 1, v9, error) || !objc_msgSend(v7, "setAttributes:ofItemAtPath:error:", v9, self->_purgatoryPath, error) || !objc_msgSend(v7, "setAttributes:ofItemAtPath:error:", v8, self->_stagingPath, error) || !objc_msgSend(v7, "setAttributes:ofItemAtPath:error:", v76, self->_dbPath, error))
+  {
+    goto LABEL_67;
+  }
+
+  v84 = 0;
+  v83 = xmmword_100031370;
+  memset(v81, 0, sizeof(v81));
+  v82 = 0;
+  if (fgetattrlist(self->_volDirFd, &v83, v81, 0x24uLL, 0x21u) < 0)
+  {
+    v68 = [NSString stringWithFormat:@"fgetattrlist(%d) failed", self->_volDirFd];
+    v69 = __error();
+    v70 = *v69;
+    v71 = sub_100003164(v69);
+    if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100026B50();
+    }
+
+    if (error)
+    {
+      *error = sub_10000F37C(v70, v68);
+    }
+
+    v14 = v7;
+    v15 = v8;
+    goto LABEL_18;
+  }
+
+  self->_volumeCapabilitiesInterfaces = DWORD2(v81[0]);
+  if (infos->var2)
+  {
+    v42 = 1;
+  }
+
+  else
+  {
+    v72 = *p_libraryRoot;
+    if (qword_10004CA20 != -1)
+    {
+      sub_10002ACFC();
+    }
+
+    v73 = qword_10004CA18;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10001F0F4;
+    block[3] = &unk_100041638;
+    v14 = v7;
+    v79 = v7;
+    v80 = v72;
+    v74 = v72;
+    dispatch_async(v73, block);
+
+    v42 = 1;
+    v15 = v8;
+  }
+
+LABEL_78:
+
+  return v42;
+}
+
+- (GSManager)initWithDisk:(id *)disk createIfNone:(BOOL)none error:(id *)error
+{
+  noneCopy = none;
+  v9 = objc_alloc_init(PQLConnection);
+  v74.receiver = self;
+  v74.super_class = GSManager;
+  v10 = [(GSManager *)&v74 init];
+  if (v10)
+  {
+    v11 = v10;
+    v10->_libDirfd = -1;
+    v10->_volDirFd = -1;
+    v12 = [[NSString alloc] initWithFormat:@"%x", disk->var0];
+    v70 = v9;
+    [v9 setLabel:v12];
+
+    v13 = 0;
+    v14 = 0;
+    v15 = 1;
+    while (1)
+    {
+      v16 = v14;
+      v17 = v15;
+      if (![(GSManager *)v11 _createLibraryWithDiskInfos:disk createIfNone:noneCopy error:error])
+      {
+
+        goto LABEL_33;
+      }
+
+      v75[0] = v11->_libraryRoot;
+      v75[1] = @"metadata";
+      v18 = [NSArray arrayWithObjects:v75 count:2];
+      v19 = [NSURL fileURLWithPathComponents:v18];
+
+      if (!v19)
+      {
+
+        v41 = 0;
+        v13 = v16;
+        goto LABEL_34;
+      }
+
+      v13 = v19;
+      v20 = [[NSMutableDictionary alloc] initWithContentsOfURL:v19];
+      metainfo = v11->_metainfo;
+      v11->_metainfo = v20;
+
+      v22 = v11->_metainfo;
+      p_super = sub_100003164(v23);
+      v25 = os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT);
+      if (v22)
+      {
+        if (v25)
+        {
+          var0 = disk->var0;
+          *buf = 67109120;
+          *&buf[4] = var0;
+          _os_log_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_DEFAULT, "[NOTICE] device %x had a metainfo file", buf, 8u);
+        }
+      }
+
+      else
+      {
+        if (v25)
+        {
+          v27 = disk->var0;
+          *buf = 67109120;
+          *&buf[4] = v27;
+          _os_log_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_DEFAULT, "[NOTICE] device %x has no metainfo file", buf, 8u);
+        }
+
+        v28 = objc_opt_new();
+        p_super = &v11->_metainfo->super.super;
+        v11->_metainfo = v28;
+      }
+
+      dbPath = v11->_dbPath;
+      var2 = disk->var2;
+      v73 = v16;
+      v31 = [v70 openAtPath:dbPath isReadOnly:var2 error:&v73];
+      v14 = v73;
+
+      if (v31)
+      {
+        v32 = [[NSUUID alloc] initWithUUIDBytes:disk->var4];
+        volumeUUID = v11->_volumeUUID;
+        v11->_volumeUUID = v32;
+
+        v34 = [(NSMutableDictionary *)v11->_metainfo objectForKeyedSubscript:@"DISK_UUID"];
+        uUIDString = [(NSUUID *)v11->_volumeUUID UUIDString];
+        v36 = uUIDString;
+        if (!v34)
+        {
+          [(NSMutableDictionary *)v11->_metainfo setObject:uUIDString forKeyedSubscript:@"DISK_UUID"];
+          [(NSMutableDictionary *)v11->_metainfo writeToURL:v13 atomically:1];
+          v9 = v70;
+LABEL_43:
+
+          v50 = v11;
+          *buf = _NSConcreteStackBlock;
+          v77 = 3221225472;
+          v78 = sub_100024FA8;
+          v79 = &unk_100040B00;
+          v80 = v50;
+          [v9 setCorruptionHandler:buf];
+
+          objc_storeStrong(v50 + 2, v9);
+          *(v50 + 36) = disk->var0;
+          *(v50 + 136) = 1;
+          v51 = dispatch_group_create();
+          v52 = v50[7];
+          v50[7] = v51;
+
+          v53 = objc_alloc_init(NSMutableDictionary);
+          v54 = v50[6];
+          v50[6] = v53;
+
+          *(v50 + 137) = disk->var1;
+          *(v50 + 138) = disk->var2;
+          *(v50 + 139) = disk->var3;
+          v55 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+          serialQueue = [v9 serialQueue];
+          v57 = dispatch_queue_create_with_target_V2("com.apple.revisiond.library", v55, serialQueue);
+          v58 = v50[8];
+          v50[8] = v57;
+
+          v59 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+          v60 = dispatch_queue_attr_make_with_qos_class(v59, QOS_CLASS_BACKGROUND, 0);
+          v61 = dispatch_queue_create("com.apple.revisiond.background", v60);
+          v62 = v50[9];
+          v50[9] = v61;
+
+          v63 = +[GSSystemResourcesManager manager];
+          [v63 addPowerObserver:v50];
+          [v63 addLowDiskObserver:v50 forDevice:*(v50 + 36)];
+          v41 = v50;
+
+          v13 = v41;
+          goto LABEL_56;
+        }
+
+        v37 = [uUIDString isEqualToString:v34];
+        if (v37)
+        {
+          v48 = sub_100003164(v37);
+          v9 = v70;
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+          {
+            v49 = disk->var0;
+            *buf = 67109120;
+            *&buf[4] = v49;
+            _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "[NOTICE] device %x UUID matches metadata", buf, 8u);
+          }
+
+          goto LABEL_43;
+        }
+
+        sub_10001EF1C(v11->_libraryRoot, 2);
+      }
+
+      else
+      {
+        code = [v14 code];
+        if (code != 10)
+        {
+          v46 = sub_100003164(code);
+          if (os_log_type_enabled(v46, 0x90u))
+          {
+            sub_10002AE20();
+          }
+
+          v9 = v70;
+          if (error)
+          {
+            v47 = v14;
+            *error = v14;
+          }
+
+LABEL_54:
+
+LABEL_55:
+          v41 = 0;
+          goto LABEL_56;
+        }
+
+        if (disk->var2)
+        {
+          v64 = [[NSError alloc] initWithDomain:NSPOSIXErrorDomain code:30 userInfo:0];
+
+          v65 = [NSString stringWithFormat:@"The generation storage database on a read-only filesystem is corrupt.\n"];
+          v66 = sub_100003164(v65);
+          if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
+          {
+            sub_10002567C();
+          }
+
+          v9 = v70;
+          if (error)
+          {
+            *error = sub_10000F0F8(107, v65, v64);
+          }
+
+          goto LABEL_55;
+        }
+
+        v39 = sub_10001EF1C(v11->_libraryRoot, 4);
+        if (!v39)
+        {
+          v67 = [NSString stringWithFormat:@"unable to rename corrupt storage away"];
+          v68 = sub_100003164(v67);
+          if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+          {
+            sub_100027C60();
+          }
+
+          v9 = v70;
+          if (error)
+          {
+            *error = sub_10000F0F8(101, v67, 0);
+          }
+
+          goto LABEL_54;
+        }
+
+        v34 = sub_100003164(v39);
+        if (os_log_type_enabled(v34, 0x90u))
+        {
+          sub_10002AE8C(&v71, v72, v34);
+        }
+      }
+
+      v15 = 0;
+      if ((v17 & 1) == 0)
+      {
+        v42 = [[NSError alloc] initWithDomain:NSPOSIXErrorDomain code:35 userInfo:0];
+
+        v43 = [NSString stringWithFormat:@"Failed to successfully create a generation storage location after 2 tries."];
+        v44 = sub_100003164(v43);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+        {
+          sub_10002567C();
+        }
+
+        if (error)
+        {
+          *error = sub_10000F0F8(107, v43, v42);
+        }
+
+LABEL_33:
+        v41 = 0;
+LABEL_34:
+        v9 = v70;
+        goto LABEL_56;
+      }
+    }
+  }
+
+  v13 = [NSString stringWithFormat:@"unable to allocate self"];
+  v40 = sub_100003164(v13);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+  {
+    sub_100027C60();
+  }
+
+  if (!error)
+  {
+    goto LABEL_55;
+  }
+
+  sub_10000F0F8(101, v13, 0);
+  *error = v41 = 0;
+LABEL_56:
+
+  return v41;
+}
+
 - (GSManager)init
 {
-  v2 = sub_100003164();
+  v2 = sub_100003164(self);
   if (os_log_type_enabled(v2, 0x90u))
   {
     *v3 = 0;
@@ -332,7 +1087,7 @@ LABEL_7:
 
 - (void)dealloc
 {
-  v3 = sub_100003164();
+  v3 = sub_100003164(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10002AECC();
@@ -467,7 +1222,7 @@ LABEL_5:
     block[10] = v4;
     invalidateCopy = invalidate;
     v8 = +[GSSystemResourcesManager manager];
-    v9 = sub_100003164();
+    v9 = sub_100003164(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       sub_10002AF68();
@@ -566,7 +1321,7 @@ LABEL_5:
   if (self->_isReadOnly)
   {
     v10 = [NSString stringWithFormat:@"storage is read-only"];
-    v11 = sub_100003164();
+    v11 = sub_100003164(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_10002AB70();
@@ -596,7 +1351,7 @@ LABEL_5:
 
     else
     {
-      v15 = sub_100003164();
+      v15 = sub_100003164(v9);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         sub_10002B084();
@@ -691,10 +1446,11 @@ LABEL_5:
 {
   trueCopy = true;
   doneCopy = done;
-  if ([(GSManager *)self isReadOnly])
+  isReadOnly = [(GSManager *)self isReadOnly];
+  if (isReadOnly)
   {
-    v13 = sub_100003164();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = sub_100003164(isReadOnly);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       sub_10002B27C();
     }
@@ -704,10 +1460,10 @@ LABEL_5:
 
   else
   {
-    v14 = *&credential->auditToken.val[1];
-    v20 = *&credential->pid;
-    *v21 = v14;
-    *&v21[12] = *&credential->auditToken.val[4];
+    v15 = *&credential->auditToken.val[1];
+    v21 = *&credential->pid;
+    *v22 = v15;
+    *&v22[12] = *&credential->auditToken.val[4];
     operationsGroup = self->_operationsGroup;
     backgroundQueue = self->_backgroundQueue;
     block[0] = _NSConcreteStackBlock;
@@ -716,10 +1472,38 @@ LABEL_5:
     block[3] = &unk_1000418A0;
     block[4] = self;
     urgencyCopy = urgency;
-    v18 = trueCopy;
-    v19 = doneCopy;
+    v19 = trueCopy;
+    v20 = doneCopy;
     dispatch_group_async(operationsGroup, backgroundQueue, block);
   }
+}
+
+- (int64_t)purgeTryingToReclaimSpace:(int64_t)space highUrgency:(BOOL)urgency
+{
+  urgencyCopy = urgency;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
+  memset(v14, 0, 44);
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100021900;
+  v12[3] = &unk_1000418C0;
+  spaceCopy = space;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100021910;
+  v9[3] = &unk_1000418E8;
+  v11 = &v15;
+  v6 = dispatch_semaphore_create(0);
+  v10 = v6;
+  [(GSManager *)self _purgeWithCredential:v14 tryingToFreeSpace:spaceCopy highUrgency:urgencyCopy whilePredicateIsTrue:v12 done:v9];
+  dispatch_semaphore_wait(v6, 0xFFFFFFFFFFFFFFFFLL);
+  v7 = v16[3];
+
+  _Block_object_dispose(&v15, 8);
+  return v7;
 }
 
 - (int64_t)estimatePurgeableSpace
@@ -883,109 +1667,120 @@ LABEL_11:
 
 - (void)_nukeStorageID:(int64_t)d
 {
-  v5 = sub_100003164();
+  selfCopy = self;
+  v5 = sub_100003164(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_10002B2B8();
   }
 
   v6 = +[NSFileManager defaultManager];
-  v7 = [NSString stringWithFormat:@"%@/%s/%llx", self->_libraryRoot, "AllUIDs", d];
-  if ([v6 fileExistsAtPath:v7] && !-[GSManager _forsakePath:](self, "_forsakePath:", v7))
+  v7 = [NSString stringWithFormat:@"%@/%s/%llx", selfCopy->_libraryRoot, "AllUIDs", d];
+  if ([v6 fileExistsAtPath:v7])
   {
-    v8 = sub_100003164();
-    if (os_log_type_enabled(v8, 0x90u))
+    v8 = [(GSManager *)selfCopy _forsakePath:v7];
+    if ((v8 & 1) == 0)
     {
-      sub_10002B328();
-    }
-
-    [(GSManager *)self setIsInconsistent:1];
-  }
-
-  v9 = [NSString stringWithFormat:@"%@/%s", self->_libraryRoot, "PerUID"];
-
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v10 = [v6 contentsOfDirectoryAtPath:v9 error:0];
-  v11 = [v10 countByEnumeratingWithState:&v27 objects:v33 count:16];
-  if (v11)
-  {
-    v12 = v11;
-    v13 = *v28;
-    v14 = @"/%@/%llx";
-    v26 = *v28;
-    do
-    {
-      v15 = 0;
-      do
+      v9 = sub_100003164(v8);
+      if (os_log_type_enabled(v9, 0x90u))
       {
-        if (*v28 != v13)
-        {
-          objc_enumerationMutation(v10);
-        }
-
-        v16 = [v9 stringByAppendingFormat:v14, *(*(&v27 + 1) + 8 * v15), d];
-        if ([v6 fileExistsAtPath:v16] && !-[GSManager _forsakePath:](self, "_forsakePath:", v16))
-        {
-          v17 = v9;
-          v18 = v14;
-          v19 = v10;
-          v20 = v6;
-          dCopy = d;
-          selfCopy = self;
-          v23 = sub_100003164();
-          if (os_log_type_enabled(v23, 0x90u))
-          {
-            *buf = 138412290;
-            v32 = v16;
-            _os_log_error_impl(&_mh_execute_header, v23, 0x90u, "[ERROR] Failed to forsake %@", buf, 0xCu);
-          }
-
-          self = selfCopy;
-          [(GSManager *)selfCopy setIsInconsistent:1];
-          d = dCopy;
-          v6 = v20;
-          v10 = v19;
-          v14 = v18;
-          v9 = v17;
-          v13 = v26;
-        }
-
-        v15 = v15 + 1;
+        sub_10002B328();
       }
 
-      while (v12 != v15);
-      v12 = [v10 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      [(GSManager *)selfCopy setIsInconsistent:1];
     }
-
-    while (v12);
   }
 
-  if (([(PQLConnection *)self->_db execute:@"DELETE FROM generations WHERE generation_storage_id = %lld", d]& 1) == 0)
+  v10 = [NSString stringWithFormat:@"%@/%s", selfCopy->_libraryRoot, "PerUID"];
+
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v11 = [v6 contentsOfDirectoryAtPath:v10 error:0];
+  v12 = [v11 countByEnumeratingWithState:&v31 objects:v37 count:16];
+  if (v12)
   {
-    v24 = sub_100003164();
-    if (os_log_type_enabled(v24, 0x90u))
+    v13 = v12;
+    v14 = *v32;
+    v15 = @"/%@/%llx";
+    v30 = *v32;
+    do
+    {
+      v16 = 0;
+      do
+      {
+        if (*v32 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        v17 = [v10 stringByAppendingFormat:v15, *(*(&v31 + 1) + 8 * v16), d];
+        if ([v6 fileExistsAtPath:v17])
+        {
+          v18 = [(GSManager *)selfCopy _forsakePath:v17];
+          if ((v18 & 1) == 0)
+          {
+            v19 = v10;
+            v20 = v15;
+            v21 = v11;
+            v22 = v6;
+            dCopy = d;
+            v24 = selfCopy;
+            v25 = sub_100003164(v18);
+            if (os_log_type_enabled(v25, 0x90u))
+            {
+              *buf = 138412290;
+              v36 = v17;
+              _os_log_error_impl(&_mh_execute_header, v25, 0x90u, "[ERROR] Failed to forsake %@", buf, 0xCu);
+            }
+
+            selfCopy = v24;
+            [(GSManager *)v24 setIsInconsistent:1];
+            d = dCopy;
+            v6 = v22;
+            v11 = v21;
+            v15 = v20;
+            v10 = v19;
+            v14 = v30;
+          }
+        }
+
+        v16 = v16 + 1;
+      }
+
+      while (v13 != v16);
+      v13 = [v11 countByEnumeratingWithState:&v31 objects:v37 count:16];
+    }
+
+    while (v13);
+  }
+
+  v26 = [(PQLConnection *)selfCopy->_db execute:@"DELETE FROM generations WHERE generation_storage_id = %lld", d];
+  if ((v26 & 1) == 0)
+  {
+    v27 = sub_100003164(v26);
+    if (os_log_type_enabled(v27, 0x90u))
     {
       sub_10002B390();
     }
 
-    [(GSManager *)self setIsInconsistent:1];
+    [(GSManager *)selfCopy setIsInconsistent:1];
   }
 
-  if (![GSFileRow deleteRow:self->_db storageID:d])
+  v28 = [GSFileRow deleteRow:selfCopy->_db storageID:d];
+  if ((v28 & 1) == 0)
   {
-    v25 = sub_100003164();
-    if (os_log_type_enabled(v25, 0x90u))
+    v29 = sub_100003164(v28);
+    if (os_log_type_enabled(v29, 0x90u))
     {
       sub_10002B3F8();
     }
 
-    [(GSManager *)self setIsInconsistent:1];
+    [(GSManager *)selfCopy setIsInconsistent:1];
   }
 
-  [(GSManager *)self _purgePurgatory];
+  [(GSManager *)selfCopy _purgePurgatory];
 }
 
 - (BOOL)_removeAdditionByRow:(id)row credentials:(const GSCredential *)credentials error:(id *)error
@@ -993,27 +1788,28 @@ LABEL_11:
   rowCopy = row;
   if (rowCopy && [(GSManager *)self _generationForsakeRow:rowCopy withCredential:credentials error:error])
   {
-    if ([GSGenerationRow deleteRow:self->_db rowID:rowCopy[1]]< 0)
+    v9 = [GSGenerationRow deleteRow:self->_db rowID:rowCopy[1]];
+    if (v9 < 0)
     {
-      v9 = sub_100003164();
-      if (os_log_type_enabled(v9, 0x90u))
+      v10 = sub_100003164(v9);
+      if (os_log_type_enabled(v10, 0x90u))
       {
-        sub_10002B460(rowCopy);
+        sub_10002B460();
       }
 
       [(GSManager *)self setIsInconsistent:1];
     }
 
     [(GSManager *)self _purgePurgatory];
-    v10 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)_removeAddition:(int64_t)addition inNameSpace:(id)space named:(id)named credentials:(const GSCredential *)credentials error:(id *)error
@@ -1023,21 +1819,21 @@ LABEL_11:
   v14 = [GSGenerationRow generationRow:self->_db storageID:addition name:namedCopy clientID:spaceCopy error:error];
   if (v14 || (-[PQLConnection lastError](self->_db, "lastError"), v15 = objc_claimAutoreleasedReturnValue(), v16 = [v15 isSqliteErrorCode:12], v15, !v16))
   {
-    v18 = [(GSManager *)self _removeAdditionByRow:v14 credentials:credentials error:error];
+    v19 = [(GSManager *)self _removeAdditionByRow:v14 credentials:credentials error:error];
   }
 
   else
   {
-    v17 = sub_100003164();
-    if (os_log_type_enabled(v17, 0x90u))
+    v18 = sub_100003164(v17);
+    if (os_log_type_enabled(v18, 0x90u))
     {
       sub_10002B4D8();
     }
 
-    v18 = 1;
+    v19 = 1;
   }
 
-  return v18;
+  return v19;
 }
 
 - (void)_removeAllAdditions:(int64_t)additions inNameSpace:(id)space credentials:(const GSCredential *)credentials
@@ -1161,41 +1957,43 @@ LABEL_11:
 - (void)cleanupStagingPath:(id)path withCredential:(const GSCredential *)credential
 {
   pathCopy = path;
-  if ([(GSManager *)self _pathIsStaged:pathCopy])
+  v7 = [(GSManager *)self _pathIsStaged:pathCopy];
+  if (v7)
   {
-    v7 = [pathCopy substringFromIndex:{-[NSString length](self->_stagingPath, "length") + 1}];
+    v8 = [pathCopy substringFromIndex:{-[NSString length](self->_stagingPath, "length") + 1}];
     stagingPath = self->_stagingPath;
-    pathComponents = [v7 pathComponents];
-    v10 = [pathComponents objectAtIndexedSubscript:0];
-    v11 = [(NSString *)stagingPath stringByAppendingPathComponent:v10];
+    pathComponents = [v8 pathComponents];
+    v11 = [pathComponents objectAtIndexedSubscript:0];
+    v12 = [(NSString *)stagingPath stringByAppendingPathComponent:v11];
 
     if (!credential || [(GSManager *)self isIgnoringOwners])
     {
       goto LABEL_7;
     }
 
-    v12 = +[NSFileManager defaultManager];
-    v13 = [v12 attributesOfItemAtPath:v11 error:0];
-    v14 = v13;
-    if (v13)
+    v13 = +[NSFileManager defaultManager];
+    v14 = [v13 attributesOfItemAtPath:v12 error:0];
+    v15 = v14;
+    if (v14)
     {
-      fileOwnerAccountID = [v13 fileOwnerAccountID];
-      v16 = [NSNumber numberWithUnsignedInt:credential->uid];
-      v17 = [fileOwnerAccountID isEqualToNumber:v16];
+      fileOwnerAccountID = [v14 fileOwnerAccountID];
+      v17 = [NSNumber numberWithUnsignedInt:credential->uid];
+      v18 = [fileOwnerAccountID isEqualToNumber:v17];
 
-      if (v17)
+      if (v18)
       {
 
 LABEL_7:
-        if (sub_10000965C([v11 fileSystemRepresentation], 0, 0))
+        v20 = sub_10000965C([v12 fileSystemRepresentation], 0, 0);
+        if (v20)
         {
 LABEL_17:
 
           goto LABEL_18;
         }
 
-        v12 = sub_100003164();
-        if (os_log_type_enabled(v12, 0x90u))
+        v13 = sub_100003164(v20);
+        if (os_log_type_enabled(v13, 0x90u))
         {
           sub_10002B680();
         }
@@ -1205,8 +2003,8 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      v18 = sub_100003164();
-      if (os_log_type_enabled(v18, 0x90u))
+      v21 = sub_100003164(v19);
+      if (os_log_type_enabled(v21, 0x90u))
       {
         sub_10002B618();
       }
@@ -1215,8 +2013,8 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v7 = sub_100003164();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = sub_100003164(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10002B5A8();
   }
@@ -1260,6 +2058,144 @@ LABEL_3:
 LABEL_4:
 }
 
+- (id)makeStoragePathForGenerationNamed:(id)named storageID:(int64_t)d clientID:(id)iD forUID:(unsigned int)uID makePublic:(BOOL)public
+{
+  publicCopy = public;
+  v8 = *&uID;
+  namedCopy = named;
+  iDCopy = iD;
+  v12 = +[NSFileManager defaultManager];
+  if (publicCopy)
+  {
+    v13 = @"AllUIDs";
+  }
+
+  else
+  {
+    v13 = @"PerUID";
+  }
+
+  iDCopy = [(NSString *)self->_libraryRoot stringByAppendingPathComponent:v13];
+  v51 = NSFilePosixPermissions;
+  v52 = &off_1000442C8;
+  v15 = [NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+  v46 = 0;
+  v16 = [v12 createDirectoryAtPath:iDCopy withIntermediateDirectories:1 attributes:v15 error:&v46];
+  v17 = v46;
+
+  if (v16)
+  {
+    if (publicCopy)
+    {
+      goto LABEL_8;
+    }
+
+    v19 = [NSNumber numberWithUnsignedInt:v8];
+    stringValue = [v19 stringValue];
+    v21 = [iDCopy stringByAppendingPathComponent:stringValue];
+
+    v50[0] = &off_1000442E0;
+    v49[0] = NSFilePosixPermissions;
+    v49[1] = NSFileOwnerAccountID;
+    v22 = [NSNumber numberWithUnsignedInt:v8];
+    v49[2] = NSFileGroupOwnerAccountID;
+    v50[1] = v22;
+    v50[2] = &off_100044280;
+    v23 = [NSDictionary dictionaryWithObjects:v50 forKeys:v49 count:3];
+    v45 = v17;
+    v24 = v21;
+    LOBYTE(stringValue) = [v12 createDirectoryAtPath:v21 withIntermediateDirectories:1 attributes:v23 error:&v45];
+    v25 = v45;
+
+    v17 = v25;
+    if (stringValue)
+    {
+      iDCopy = v24;
+LABEL_8:
+      v27 = iDCopy;
+      v28 = iDCopy;
+      v29 = v17;
+      iDCopy = [iDCopy stringByAppendingFormat:@"/%llx/%@", d, iDCopy];
+
+      v47 = NSFilePosixPermissions;
+      v48 = &off_1000442C8;
+      v30 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+      v44 = v17;
+      v31 = [v12 createDirectoryAtPath:iDCopy withIntermediateDirectories:1 attributes:v30 error:&v44];
+      v17 = v44;
+
+      if (v31)
+      {
+        v33 = namedCopy;
+        v34 = [iDCopy stringByAppendingPathComponent:namedCopy];
+
+        if ([v12 fileExistsAtPath:v34])
+        {
+          [(GSManager *)self setIsInconsistent:1];
+          v35 = __error();
+          *v35 = 17;
+          v36 = sub_100003164(v35);
+          if (os_log_type_enabled(v36, 0x90u))
+          {
+            sub_10002B7B8();
+          }
+
+          v37 = 0;
+          iDCopy = v34;
+        }
+
+        else
+        {
+          iDCopy = v34;
+          v37 = iDCopy;
+        }
+      }
+
+      else
+      {
+        v39 = sub_100003164(v32);
+        v33 = namedCopy;
+        if (os_log_type_enabled(v39, 0x90u))
+        {
+          sub_10002B750();
+        }
+
+        v37 = 0;
+      }
+
+      goto LABEL_23;
+    }
+
+    v40 = sub_100003164(v26);
+    v27 = iDCopy;
+    if (os_log_type_enabled(v40, 0x90u))
+    {
+      sub_10002B6E8();
+    }
+
+    v37 = 0;
+    iDCopy = v24;
+    v33 = namedCopy;
+  }
+
+  else
+  {
+    v38 = sub_100003164(v18);
+    if (os_log_type_enabled(v38, 0x90u))
+    {
+      sub_10002B6E8();
+    }
+
+    v37 = 0;
+    v33 = namedCopy;
+    v27 = iDCopy;
+  }
+
+LABEL_23:
+
+  return v37;
+}
+
 - (id)_createAddition:(int64_t)addition creationInfo:(id)info isDir:(BOOL)dir stagedPath:(id)path credentials:(const GSCredential *)credentials error:(id *)error
 {
   dirCopy = dir;
@@ -1273,38 +2209,15 @@ LABEL_4:
 
   v64 = 0;
   isIgnoringOwners = [(GSManager *)self isIgnoringOwners];
-  if ([v14 characterAtIndex:0] != 58)
+  if ([v14 characterAtIndex:0] != 58 || (+[NSString stringWithFormat:](NSString, "stringWithFormat:", @":%d:", credentials->uid), v18 = self, v19 = credentials, v20 = isIgnoringOwners, v21 = addition, v22 = v16, v23 = pathCopy, v24 = v15, v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v14, "hasPrefix:", v25), v25, v15 = v24, pathCopy = v23, v16 = v22, addition = v21, isIgnoringOwners = v20, credentials = v19, self = v18, (v26 & 1) != 0))
   {
-    goto LABEL_3;
-  }
-
-  [NSString stringWithFormat:@":%d:", credentials->uid];
-  selfCopy = self;
-  credentialsCopy = credentials;
-  v20 = isIgnoringOwners;
-  additionCopy = addition;
-  v22 = v16;
-  v23 = pathCopy;
-  v25 = v24 = v15;
-  v26 = [v14 hasPrefix:v25];
-
-  v15 = v24;
-  pathCopy = v23;
-  v16 = v22;
-  addition = additionCopy;
-  isIgnoringOwners = v20;
-  credentials = credentialsCopy;
-  self = selfCopy;
-  if (v26)
-  {
-LABEL_3:
     if ([(GSManager *)self _pathIsStaged:pathCopy])
     {
       if ([GSFileRow storageIDExists:self->_db storageID:addition])
       {
         db = self->_db;
         v63 = 0;
-        additionCopy2 = addition;
+        additionCopy = addition;
         v28 = [GSGenerationRow generationRow:db storageID:addition name:v14 clientID:v15 error:&v63];
         v29 = v63;
         v30 = v29;
@@ -1318,7 +2231,7 @@ LABEL_3:
             {
               v32 = v28;
               v33 = [NSString stringWithFormat:@"generation already exists"];
-              v34 = sub_100003164();
+              v34 = sub_100003164(v33);
               v35 = v60;
               if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
               {
@@ -1344,12 +2257,12 @@ LABEL_35:
               if (sub_10000B60C([pathCopy fileSystemRepresentation], isIgnoringOwners, &v64, errorCopy2))
               {
                 v15 = v44;
-                v50 = [(GSManager *)self makeStoragePathForGenerationNamed:v14 storageID:additionCopy2 clientID:v44 forUID:credentials->uid makePublic:isIgnoringOwners];
+                v50 = [(GSManager *)self makeStoragePathForGenerationNamed:v14 storageID:additionCopy clientID:v44 forUID:credentials->uid makePublic:isIgnoringOwners];
                 if (!v50)
                 {
                   v38 = v28;
                   v53 = [NSString stringWithFormat:@"Unable to make storage path"];
-                  v54 = sub_100003164();
+                  v54 = sub_100003164(v53);
                   v35 = v60;
                   if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
                   {
@@ -1372,7 +2285,7 @@ LABEL_35:
                 {
                   v38 = objc_alloc_init(GSGenerationRow);
 
-                  v38->generation_storage_id = additionCopy2;
+                  v38->generation_storage_id = additionCopy;
                   objc_storeStrong(&v38->generation_name, v14);
                   objc_storeStrong(&v38->generation_client_id, v15);
                   v51 = [v36 substringFromIndex:{-[NSString length](self->_libraryRoot, "length") + 1}];
@@ -1478,7 +2391,7 @@ LABEL_56:
       }
 
       v36 = [NSString stringWithFormat:@"Storage id doesn't exist"];
-      v43 = sub_100003164();
+      v43 = sub_100003164(v36);
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
       {
         sub_1000256F4();
@@ -1496,7 +2409,7 @@ LABEL_56:
     else
     {
       v36 = [NSString stringWithFormat:@"not a staged path"];
-      v39 = sub_100003164();
+      v39 = sub_100003164(v36);
       if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
       {
         sub_10002B820();
@@ -1519,7 +2432,7 @@ LABEL_25:
   }
 
   v36 = [NSString stringWithFormat:@"Mangled name with improper uid"];
-  v42 = sub_100003164();
+  v42 = sub_100003164(v36);
   if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
   {
     sub_100028B4C();
@@ -1568,6 +2481,16 @@ LABEL_57:
   return v12;
 }
 
+- (id)_additionDictionary:(id)dictionary path:(id)path isDir:(BOOL)dir
+{
+  dirCopy = dir;
+  dictionaryCopy = dictionary;
+  v9 = [NSURL fileURLWithPath:path isDirectory:dirCopy];
+  v10 = [(GSManager *)self _additionDictionary:dictionaryCopy url:v9];
+
+  return v10;
+}
+
 - (id)_additionDictionary:(id)dictionary path:(id)path
 {
   dictionaryCopy = dictionary;
@@ -1600,7 +2523,7 @@ LABEL_57:
   namedCopy = named;
   newNameSpaceCopy = newNameSpace;
   newNameSpaceCopy2 = newNameSpace;
-  v38 = nameSpaceCopy;
+  v40 = nameSpaceCopy;
   v18 = [nameSpaceCopy isEqualToString:newNameSpaceCopy2];
   if ((v18 & 1) == 0)
   {
@@ -1608,8 +2531,8 @@ LABEL_57:
     if (v19)
     {
       v20 = v19;
-      v21 = v38;
-      if (![(GSManager *)self _removeAddition:space inNameSpace:v38 named:namedCopy credentials:credentials error:error])
+      v21 = v40;
+      if (![(GSManager *)self _removeAddition:space inNameSpace:v40 named:namedCopy credentials:credentials error:error])
       {
         goto LABEL_8;
       }
@@ -1653,35 +2576,36 @@ LABEL_7:
       if (renameat(self->_libDirfd, [v28 fileSystemRepresentation], -1, objc_msgSend(v26, "fileSystemRepresentation")))
       {
         v31 = [NSString stringWithFormat:@"rename(%@, %@s) failed", v28, v26];
-        v36 = *__error();
-        v32 = sub_100003164();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        v32 = __error();
+        v38 = *v32;
+        v33 = sub_100003164(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
         {
           sub_100026B50();
         }
 
         if (error)
         {
-          *error = sub_10000F37C(v36, v31);
+          *error = sub_10000F37C(v38, v31);
         }
 
         objc_storeStrong(v20 + 4, newNameSpaceCopy);
         objc_storeStrong(v20 + 5, obj);
         [v20 saveToDB:self->_db];
         v23 = 0;
-        v21 = v38;
+        v21 = v40;
       }
 
       else
       {
         v23 = [(GSManager *)self _additionDictionary:v20 path:v26];
-        v21 = v38;
+        v21 = v40;
       }
     }
 
     else
     {
-      v21 = v38;
+      v21 = v40;
       if (error)
       {
         [(PQLConnection *)self->_db translatedError];
@@ -1697,21 +2621,22 @@ LABEL_7:
 
   else
   {
-    v33 = [NSString stringWithFormat:@"Unable to create new storage path for generation"];
-    v34 = *__error();
-    v35 = sub_100003164();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+    v34 = [NSString stringWithFormat:@"Unable to create new storage path for generation"];
+    v35 = __error();
+    v36 = *v35;
+    v37 = sub_100003164(v35);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       sub_100026B50();
     }
 
     if (error)
     {
-      *error = sub_10000F37C(v34, v33);
+      *error = sub_10000F37C(v36, v34);
     }
 
     v23 = 0;
-    v21 = v38;
+    v21 = v40;
   }
 
 LABEL_9:
@@ -1795,43 +2720,44 @@ LABEL_9:
 {
   nameCopy = name;
   v11 = fts_children(storage, 256);
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_100024748;
-  v21[3] = &unk_1000419B0;
-  v23 = v11;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_100024748;
+  v22[3] = &unk_1000419B0;
+  v24 = v11;
   idCopy = id;
   v12 = nameCopy;
-  v22 = v12;
-  [(GSManager *)self dispatchSync:v21];
+  v23 = v12;
+  [(GSManager *)self dispatchSync:v22];
   v13 = [NSString gs_stringWithFileSystemRepresentation:entry->fts_path];
+  v15 = v13;
   if (v11)
   {
     *&v14 = 67109890;
-    v20 = v14;
+    v21 = v14;
     do
     {
       if (!v11->fts_pointer)
       {
-        v15 = sub_100003164();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = sub_100003164(v13);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           device = self->_device;
           uTF8String = [v12 UTF8String];
-          *buf = v20;
-          v26 = device;
-          v27 = 2048;
+          *buf = v21;
+          v27 = device;
+          v28 = 2048;
           idCopy2 = id;
-          v29 = 2080;
-          v30 = uTF8String;
-          v31 = 2080;
+          v30 = 2080;
+          v31 = uTF8String;
+          v32 = 2080;
           fts_name = v11->fts_name;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[WARNING] removing generation [dev:%d,id:%lld,client:%s,name:%s] not represented in the database", buf, 0x26u);
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARNING] removing generation [dev:%d,id:%lld,client:%s,name:%s] not represented in the database", buf, 0x26u);
         }
 
-        v18 = [NSString stringWithUTF8String:v11->fts_name];
-        v19 = [v13 stringByAppendingPathComponent:v18];
-        [(GSManager *)self _forsakePath:v19];
+        v19 = [NSString stringWithUTF8String:v11->fts_name];
+        v20 = [v15 stringByAppendingPathComponent:v19];
+        [(GSManager *)self _forsakePath:v20];
       }
 
       v11 = v11->fts_link;
@@ -1845,20 +2771,19 @@ LABEL_9:
 
 - (void)_validateGenerationsStorageTree:(const char *)tree atDepth:(int)depth
 {
-  v20[0] = tree;
-  v20[1] = 0;
+  v18[0] = tree;
+  v18[1] = 0;
   if (faccessat(self->_libDirfd, tree, 0, 0))
   {
     return;
   }
 
-  libDirfd = self->_libDirfd;
   pthread_fchdir_np();
-  v7 = fts_open(v20, 92, 0);
-  if (!v7)
+  v6 = fts_open(v18, 92, 0);
+  if (!v6)
   {
-    v17 = sub_100003164();
-    if (os_log_type_enabled(v17, 0x90u))
+    v15 = sub_100003164(0);
+    if (os_log_type_enabled(v15, 0x90u))
     {
       sub_10002B9D0();
     }
@@ -1866,37 +2791,37 @@ LABEL_9:
     goto LABEL_26;
   }
 
-  v8 = v7;
-  v9 = fts_read(v7);
-  if (self->_invalidated || (v10 = v9) == 0)
+  v7 = v6;
+  v8 = fts_read(v6);
+  if (self->_invalidated || (v9 = v8) == 0)
   {
 LABEL_22:
-    fts_close(v8);
+    fts_close(v7);
 LABEL_26:
     pthread_fchdir_np();
     return;
   }
 
-  v11 = 0;
+  v10 = 0;
   while (1)
   {
-    fts_info = v10->fts_info;
+    fts_info = v9->fts_info;
     if (fts_info <= 5)
     {
       if (fts_info == 1)
       {
-        v13 = v10->fts_level - depth;
-        if (v13 == 1)
+        v12 = v9->fts_level - depth;
+        if (v12 == 1)
         {
-          v15 = [NSString gs_stringWithFileSystemRepresentation:v10->fts_name];
-          [(GSManager *)self _validateGenerationsStorage:v8 forEntry:v10 forStorageId:v11 andClientName:v15];
+          v14 = [NSString gs_stringWithFileSystemRepresentation:v9->fts_name];
+          [(GSManager *)self _validateGenerationsStorage:v7 forEntry:v9 forStorageId:v10 andClientName:v14];
 
-          fts_set(v8, v10, 4);
+          fts_set(v7, v9, 4);
         }
 
-        else if (!v13)
+        else if (!v12)
         {
-          v11 = strtoll(v10->fts_name, 0, 16);
+          v10 = strtoll(v9->fts_name, 0, 16);
         }
       }
 
@@ -1908,13 +2833,13 @@ LABEL_26:
       break;
     }
 
-    rmdir(v10->fts_accpath);
+    rmdir(v9->fts_accpath);
 LABEL_20:
-    v16 = fts_read(v8);
+    v8 = fts_read(v7);
     if (!self->_invalidated)
     {
-      v10 = v16;
-      if (v16)
+      v9 = v8;
+      if (v8)
       {
         continue;
       }
@@ -1928,27 +2853,27 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v18 = sub_100003164();
-  if (os_log_type_enabled(v18, 0x90u))
+  v16 = sub_100003164(v8);
+  if (os_log_type_enabled(v16, 0x90u))
   {
-    sub_10002B910(v10, v18);
+    sub_10002B910(v9, v16);
   }
 
-  fts_close(v8);
+  fts_close(v7);
 }
 
 - (void)_validateGenerationsTable
 {
-  v3 = sub_100003164();
+  v3 = sub_100003164(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    sub_10002BA38(self);
+    sub_10002BA38();
   }
 
   v4 = [GSGenerationRow deleteRowsWithoutData:self->_db atRoot:self->_libraryRoot];
   if (v4 < 0)
   {
-    v6 = sub_100003164();
+    v6 = sub_100003164(v4);
     if (os_log_type_enabled(v6, 0x90u))
     {
       sub_10002BAAC();
@@ -1960,7 +2885,7 @@ LABEL_20:
   v5 = v4;
   if (v4)
   {
-    v6 = sub_100003164();
+    v6 = sub_100003164(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
@@ -1985,58 +2910,59 @@ LABEL_9:
 {
   v3 = [(NSString *)self->_libraryRoot stringByAppendingPathComponent:@"LibraryStatus"];
   v4 = [NSDictionary dictionaryWithContentsOfFile:v3];
-  if ([v4 isEqual:&off_100044328])
+  v5 = [v4 isEqual:&off_100044328];
+  if (v5)
   {
     loadLibraryState = [(PQLConnection *)self->_db loadLibraryState];
-    v6 = loadLibraryState;
+    v7 = loadLibraryState;
     if (loadLibraryState)
     {
-      v7 = loadLibraryState;
+      v8 = loadLibraryState;
     }
 
     else
     {
-      v7 = objc_alloc_init(GSLibraryState);
+      v8 = objc_alloc_init(GSLibraryState);
     }
 
-    v10 = v7;
+    v11 = v8;
 
-    v11 = sub_100003164();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100003164(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       device = self->_device;
       *buf = 67109378;
-      v17 = device;
-      v18 = 2112;
-      v19 = v10;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[NOTICE] Library on device %x, loaded status %@", buf, 0x12u);
+      v19 = device;
+      v20 = 2112;
+      v21 = v11;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[NOTICE] Library on device %x, loaded status %@", buf, 0x12u);
     }
   }
 
   else
   {
-    v8 = sub_100003164();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100003164(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = self->_device;
+      v10 = self->_device;
       *buf = 67109120;
-      v17 = v9;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[NOTICE] Library on device %x, non Syrah+ status, do not trust the DB state", buf, 8u);
+      v19 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[NOTICE] Library on device %x, non Syrah+ status, do not trust the DB state", buf, 8u);
     }
 
-    v10 = objc_alloc_init(GSLibraryState);
+    v11 = objc_alloc_init(GSLibraryState);
   }
 
-  objc_storeStrong(&self->_state, v10);
+  objc_storeStrong(&self->_state, v11);
   sub_100009AD8([(NSString *)self->_stagingPath fileSystemRepresentation], 0, 0);
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_100024E88;
-  v14[3] = &unk_1000419D8;
-  v13 = v10;
-  v15 = v13;
-  [(PQLConnection *)self->_db setPreFlushHook:v14];
-  if (![(GSLibraryState *)v13 isClean])
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_100024E88;
+  v16[3] = &unk_1000419D8;
+  v15 = v11;
+  v17 = v15;
+  [(PQLConnection *)self->_db setPreFlushHook:v16];
+  if (![(GSLibraryState *)v15 isClean])
   {
     self->_state->state = 1;
     [(GSManager *)self _validateGenerationsTable];

@@ -1,10 +1,35 @@
 @interface RWIProtocolDOMStyleable
+- (RWIProtocolDOMStyleable)initWithNodeId:(int)id;
 - (int)nodeId;
 - (int64_t)pseudoId;
+- (void)setNodeId:(int)id;
 - (void)setPseudoId:(int64_t)id;
 @end
 
 @implementation RWIProtocolDOMStyleable
+
+- (RWIProtocolDOMStyleable)initWithNodeId:(int)id
+{
+  v3 = *&id;
+  v8.receiver = self;
+  v8.super_class = RWIProtocolDOMStyleable;
+  v4 = [(RWIProtocolJSONObject *)&v8 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(RWIProtocolDOMStyleable *)v4 setNodeId:v3];
+    v6 = v5;
+  }
+
+  return v5;
+}
+
+- (void)setNodeId:(int)id
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMStyleable;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&id forKey:@"nodeId"];
+}
 
 - (int)nodeId
 {

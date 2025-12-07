@@ -82,45 +82,48 @@
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      LODWORD(v40) = 138543362;
-      *(&v40 + 4) = objc_opt_class();
-      v10 = *(&v40 + 4);
-      LODWORD(v39) = 12;
-      v38 = &v40;
-      v11 = _os_log_send_and_compose_impl();
+      v39 = 138543362;
+      v40 = objc_opt_class();
+      v10 = v40;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%{public}@: Attempting to create AuthKit context with nil username", &v39, 12);
 
       if (!v11)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v40, v39, v40}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
   v18 = objc_alloc_init(MEMORY[0x1E698DCB8]);
   altDSID = [accountCopy altDSID];
   [v18 setAltDSID:altDSID];
@@ -143,7 +146,7 @@ LABEL_14:
   [v18 setUsername:accountName];
   if (v18)
   {
-    goto LABEL_27;
+    goto LABEL_29;
   }
 
   v24 = +[SSLogConfig sharedStoreServicesConfig];
@@ -155,41 +158,46 @@ LABEL_14:
   shouldLog2 = [v24 shouldLog];
   if ([v24 shouldLogToDisk])
   {
-    v26 = shouldLog2 | 2;
+    LODWORD(v26) = shouldLog2 | 2;
   }
 
   else
   {
-    v26 = shouldLog2;
+    LODWORD(v26) = shouldLog2;
   }
 
   oSLogObject2 = [v24 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  {
+    v26 = v26;
+  }
+
+  else
   {
     v26 &= 2u;
   }
 
   if (!v26)
   {
-    goto LABEL_25;
+    goto LABEL_27;
   }
 
   v28 = objc_opt_class();
-  LODWORD(v40) = 138543362;
-  *(&v40 + 4) = v28;
+  v39 = 138543362;
+  v40 = v28;
   v29 = v28;
-  LODWORD(v39) = 12;
-  v30 = _os_log_send_and_compose_impl();
+  LODWORD(v38) = 12;
+  v30 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "%{public}@: Failed to create AuthKit context for payment", &v39, v38);
 
   if (v30)
   {
-    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:{4, &v40, v39}];
+    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:4];
     free(v30);
     SSFileLog(v24, @"%@", v31, v32, v33, v34, v35, v36, oSLogObject2);
-LABEL_25:
+LABEL_27:
   }
 
-LABEL_27:
+LABEL_29:
 
   return v18;
 }
@@ -297,7 +305,7 @@ LABEL_27:
     v12 = v7;
     if (((v8 | v10) & 1) == 0)
     {
-      goto LABEL_29;
+      goto LABEL_30;
     }
   }
 
@@ -316,7 +324,7 @@ LABEL_27:
     }
 
     v16 = v15;
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
   v17 = +[SSLogConfig sharedStoreServicesConfig];
@@ -328,42 +336,46 @@ LABEL_27:
   shouldLog = [v17 shouldLog];
   if ([v17 shouldLogToDisk])
   {
-    v19 = shouldLog | 2;
+    LODWORD(v19) = shouldLog | 2;
   }
 
   else
   {
-    v19 = shouldLog;
+    LODWORD(v19) = shouldLog;
   }
 
   oSLogObject = [v17 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v19 = v19;
+  }
+
+  else
   {
     v19 &= 2u;
   }
 
   if (!v19)
   {
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
-  LODWORD(v36) = 138412290;
-  *(&v36 + 4) = objc_opt_class();
-  v21 = *(&v36 + 4);
-  LODWORD(v35) = 12;
-  v22 = _os_log_send_and_compose_impl();
+  v35 = 138412290;
+  v36 = objc_opt_class();
+  v21 = v36;
+  v22 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%@: Failed to lookup username, substituting empty string", &v35, 12);
 
   if (v22)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, &v36, v35, v36}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
     free(v22);
     SSFileLog(v17, @"%@", v23, v24, v25, v26, v27, v28, oSLogObject);
-LABEL_22:
+LABEL_23:
   }
 
   v14 = 0;
   v16 = &stru_1F503F418;
-LABEL_24:
+LABEL_25:
   v12 = v7;
   if (v8)
   {
@@ -382,7 +394,7 @@ LABEL_24:
     v12 = [v32 stringByReplacingOccurrencesOfString:localizedUppercaseString5 withString:localizedUppercaseString4];
   }
 
-LABEL_29:
+LABEL_30:
 
   return v12;
 }
@@ -1064,7 +1076,7 @@ LABEL_29:
   return v11;
 }
 
-void __54__SSPaymentSheet__attributedStringForAttributedArray___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __54__SSPaymentSheet__attributedStringForAttributedArray___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v7 = a2;
   objc_opt_class();
@@ -1147,7 +1159,7 @@ LABEL_6:
   return v11;
 }
 
-void __61__SSPaymentSheet__attributedStringForSalableInfoStringArray___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
+void __61__SSPaymentSheet__attributedStringForSalableInfoStringArray___block_invoke(uint64_t a1, uint64_t a2, char *a3)
 {
   v5 = [*(a1 + 32) _attributedStringForString:a2];
   v6 = v5;
@@ -1222,7 +1234,7 @@ void __61__SSPaymentSheet__attributedStringForSalableInfoStringArray___block_inv
   return v12;
 }
 
-void __58__SSPaymentSheet__attributedStringForStringArray_useGrey___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
+void __58__SSPaymentSheet__attributedStringForStringArray_useGrey___block_invoke(uint64_t a1, uint64_t a2, char *a3)
 {
   v5 = [*(a1 + 32) _attributedStringForString:a2];
   v6 = v5;
@@ -1296,34 +1308,35 @@ void __58__SSPaymentSheet__attributedStringForStringArray_useGrey___block_invoke
 {
   length = range.length;
   stringCopy = string;
+  v7 = stringCopy;
   if (!_greyAttributedStringForAttributedString_range__kPKPaymentContentItemLightColorAttribute)
   {
-    v6 = SSVPassKitFramework();
-    v7 = SSVWeakLinkedStringConstantForString("PKPaymentContentItemLightColorAttribute", v6);
-    v8 = _greyAttributedStringForAttributedString_range__kPKPaymentContentItemLightColorAttribute;
-    _greyAttributedStringForAttributedString_range__kPKPaymentContentItemLightColorAttribute = v7;
+    v8 = SSVPassKitFramework(stringCopy, v6);
+    v9 = SSVWeakLinkedStringConstantForString("PKPaymentContentItemLightColorAttribute", v8);
+    v10 = _greyAttributedStringForAttributedString_range__kPKPaymentContentItemLightColorAttribute;
+    _greyAttributedStringForAttributedString_range__kPKPaymentContentItemLightColorAttribute = v9;
   }
 
-  v9 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:stringCopy];
-  v10 = v9;
+  v11 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:v7];
+  v12 = v11;
   if (_greyAttributedStringForAttributedString_range__kPKPaymentContentItemLightColorAttribute)
   {
-    v11 = length == 0;
+    v13 = length == 0;
   }
 
   else
   {
-    v11 = 1;
+    v13 = 1;
   }
 
-  if (!v11)
+  if (!v13)
   {
-    [v9 addAttribute:? value:? range:?];
+    [v11 addAttribute:? value:? range:?];
   }
 
-  v12 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithAttributedString:v10];
+  v14 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithAttributedString:v12];
 
-  return v12;
+  return v14;
 }
 
 - (int64_t)_inferSalableIconTypeWithBuyParams:(id)params
@@ -1361,7 +1374,7 @@ void __58__SSPaymentSheet__attributedStringForStringArray_useGrey___block_invoke
 
 - (void)_parseResponse:(id)response
 {
-  v135 = *MEMORY[0x1E69E9840];
+  v133 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   v5 = [responseCopy objectForKey:@"caseControl"];
   objc_opt_class();
@@ -1456,16 +1469,21 @@ void __58__SSPaymentSheet__attributedStringForStringArray_useGrey___block_invoke
   shouldLog = [v19 shouldLog];
   if ([v19 shouldLogToDisk])
   {
-    v21 = shouldLog | 2;
+    LODWORD(v21) = shouldLog | 2;
   }
 
   else
   {
-    v21 = shouldLog;
+    LODWORD(v21) = shouldLog;
   }
 
   oSLogObject = [v19 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v21 = v21;
+  }
+
+  else
   {
     v21 &= 2u;
   }
@@ -1475,27 +1493,25 @@ void __58__SSPaymentSheet__attributedStringForStringArray_useGrey___block_invoke
     v23 = objc_opt_class();
     v24 = self->_title;
     v25 = [MEMORY[0x1E696AD98] numberWithInteger:self->_titleType];
-    v129 = 138543874;
-    v130 = v23;
+    v127 = 138543874;
+    v128 = v23;
+    v129 = 2114;
+    v130 = v24;
     v131 = 2114;
-    v132 = v24;
-    v133 = 2114;
-    v134 = v25;
-    LODWORD(v118) = 32;
-    v117 = &v129;
-    v26 = _os_log_send_and_compose_impl();
+    v132 = v25;
+    v26 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%{public}@: Configured payment sheet with title: %{public}@, titleType: %{public}@", &v127, 32);
 
     if (!v26)
     {
-      goto LABEL_33;
+      goto LABEL_34;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:{4, &v129, v118}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
     free(v26);
     SSFileLog(v19, @"%@", v27, v28, v29, v30, v31, v32, oSLogObject);
   }
 
-LABEL_33:
+LABEL_34:
   v33 = [responseCopy valueForKey:@"accountHeader"];
 
   objc_opt_class();
@@ -1506,7 +1522,7 @@ LABEL_33:
     self->_accountHeader = v34;
   }
 
-  v36 = [responseCopy valueForKey:{@"countryCode", v117}];
+  v36 = [responseCopy valueForKey:@"countryCode"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1594,14 +1610,14 @@ LABEL_33:
   {
     v56 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v57 = v55;
-    v124[0] = MEMORY[0x1E69E9820];
-    v124[1] = 3221225472;
-    v124[2] = __33__SSPaymentSheet__parseResponse___block_invoke;
-    v124[3] = &unk_1E84B1640;
-    v124[4] = self;
+    v122[0] = MEMORY[0x1E69E9820];
+    v122[1] = 3221225472;
+    v122[2] = __33__SSPaymentSheet__parseResponse___block_invoke;
+    v122[3] = &unk_1E84B1640;
+    v122[4] = self;
     v58 = v56;
-    v125 = v58;
-    [v57 enumerateObjectsUsingBlock:v124];
+    v123 = v58;
+    [v57 enumerateObjectsUsingBlock:v122];
     v59 = [v58 copy];
     priceSectionItems = self->_priceSectionItems;
     self->_priceSectionItems = v59;
@@ -1711,11 +1727,11 @@ LABEL_33:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      goto LABEL_78;
+      goto LABEL_79;
     }
 
-    v128 = v85;
-    v86 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v128 count:1];
+    v126 = v85;
+    v86 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v126 count:1];
   }
 
   salableInfo = self->_salableInfo;
@@ -1724,7 +1740,7 @@ LABEL_33:
   salableInfoLabel = self->_salableInfoLabel;
   self->_salableInfoLabel = 0;
 
-LABEL_78:
+LABEL_79:
   v89 = [responseCopy objectForKey:@"images"];
 
   objc_opt_class();
@@ -1732,16 +1748,16 @@ LABEL_78:
   {
     v90 = v89;
     v91 = [[SSPaymentSheetRatingImage alloc] initWithURLString:v90];
-    v127 = v91;
+    v125 = v91;
     v92 = MEMORY[0x1E695DEC8];
-    v93 = &v127;
-LABEL_82:
-    v94 = [v92 arrayWithObjects:v93 count:1];
+    v93 = &v125;
 LABEL_83:
+    v94 = [v92 arrayWithObjects:v93 count:1];
+LABEL_84:
     inlineImages = self->_inlineImages;
     self->_inlineImages = v94;
 
-    goto LABEL_84;
+    goto LABEL_85;
   }
 
   objc_opt_class();
@@ -1749,10 +1765,10 @@ LABEL_83:
   {
     v90 = v89;
     v91 = [[SSPaymentSheetRatingImage alloc] initWithDictionary:v90];
-    v126 = v91;
+    v124 = v91;
     v92 = MEMORY[0x1E695DEC8];
-    v93 = &v126;
-    goto LABEL_82;
+    v93 = &v124;
+    goto LABEL_83;
   }
 
   objc_opt_class();
@@ -1762,9 +1778,9 @@ LABEL_83:
     v91 = v89;
     if (![(SSPaymentSheetRatingImage *)v91 count])
     {
-LABEL_105:
+LABEL_106:
       v94 = [MEMORY[0x1E695DEC8] arrayWithArray:v90];
-      goto LABEL_83;
+      goto LABEL_84;
     }
 
     v111 = [(SSPaymentSheetRatingImage *)v91 objectAtIndexedSubscript:0];
@@ -1772,9 +1788,9 @@ LABEL_105:
     if (objc_opt_isKindOfClass())
     {
       v112 = v91;
-      v113 = v123;
-      v123[0] = MEMORY[0x1E69E9820];
-      v123[1] = 3221225472;
+      v113 = v121;
+      v121[0] = MEMORY[0x1E69E9820];
+      v121[1] = 3221225472;
       v114 = &unk_1E84AE648;
       v115 = __33__SSPaymentSheet__parseResponse___block_invoke_2;
     }
@@ -1784,15 +1800,15 @@ LABEL_105:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-LABEL_104:
+LABEL_105:
 
-        goto LABEL_105;
+        goto LABEL_106;
       }
 
       v116 = v91;
-      v113 = v122;
-      v122[0] = MEMORY[0x1E69E9820];
-      v122[1] = 3221225472;
+      v113 = v120;
+      v120[0] = MEMORY[0x1E69E9820];
+      v120[1] = 3221225472;
       v114 = &unk_1E84B1668;
       v115 = __33__SSPaymentSheet__parseResponse___block_invoke_3;
     }
@@ -1802,10 +1818,10 @@ LABEL_104:
     v113[4] = v90;
     [(SSPaymentSheetRatingImage *)v91 enumerateObjectsUsingBlock:v113];
 
-    goto LABEL_104;
+    goto LABEL_105;
   }
 
-LABEL_84:
+LABEL_85:
   v96 = [responseCopy objectForKey:@"styles"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1832,15 +1848,15 @@ LABEL_84:
   {
     v100 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v101 = v99;
-    v119[0] = MEMORY[0x1E69E9820];
-    v119[1] = 3221225472;
-    v119[2] = __33__SSPaymentSheet__parseResponse___block_invoke_4;
-    v119[3] = &unk_1E84B16E0;
-    v119[4] = self;
-    v120 = v98;
+    v117[0] = MEMORY[0x1E69E9820];
+    v117[1] = 3221225472;
+    v117[2] = __33__SSPaymentSheet__parseResponse___block_invoke_4;
+    v117[3] = &unk_1E84B16E0;
+    v117[4] = self;
+    v118 = v98;
     v102 = v100;
-    v121 = v102;
-    [v101 enumerateObjectsUsingBlock:v119];
+    v119 = v102;
+    [v101 enumerateObjectsUsingBlock:v117];
     v103 = [v102 copy];
     flexList = self->_flexList;
     self->_flexList = v103;
@@ -2149,14 +2165,14 @@ LABEL_38:
 LABEL_49:
 }
 
-void __33__SSPaymentSheet__parseResponse___block_invoke_5(uint64_t a1, void *a2, void *a3)
+void __33__SSPaymentSheet__parseResponse___block_invoke_5(void *a1, void *a2, void *a3)
 {
   v10 = a2;
   v5 = a3;
-  v6 = [objc_opt_class() stringWithFormattedUsernameForString:v5 username:*(a1 + 40)];
+  v6 = [objc_opt_class() stringWithFormattedUsernameForString:v5 username:a1[5]];
 
   v7 = [v10 isEqualToString:@"value"];
-  v8 = *(a1 + 48);
+  v8 = a1[6];
   if (v7)
   {
     v9 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v6];
@@ -2169,7 +2185,7 @@ void __33__SSPaymentSheet__parseResponse___block_invoke_5(uint64_t a1, void *a2,
   }
 }
 
-void __33__SSPaymentSheet__parseResponse___block_invoke_6(id *a1, void *a2, unint64_t a3)
+void __33__SSPaymentSheet__parseResponse___block_invoke_6(id *a1, void *a2, char *a3)
 {
   v19 = a2;
   objc_opt_class();
@@ -2431,7 +2447,7 @@ LABEL_12:
 
 - (int64_t)_payeeTypeInferredFromEnumeratedTitle
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v3)
   {
@@ -2441,42 +2457,70 @@ LABEL_12:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (v5)
   {
-    *v35 = 138412290;
-    *&v35[4] = objc_opt_class();
-    v7 = *&v35[4];
-    LODWORD(v34) = 12;
-    v33 = v35;
-    v8 = _os_log_send_and_compose_impl();
+    v35 = 138412290;
+    v36 = objc_opt_class();
+    v7 = v36;
+    v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "%@: Requestor key not found, attempting to infer requestor from title enumeration.", &v35, 12);
 
     if (!v8)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, v35, v34, *v35}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
   }
 
-LABEL_12:
-  if (self->_titleType != 1)
+LABEL_13:
+  if (self->_titleType == 1)
   {
+    if ([(NSString *)self->_title isEqualToString:@"AppStore"])
+    {
+      return 3;
+    }
+
+    if ([(NSString *)self->_title isEqualToString:@"iTunes"])
+    {
+      return 5;
+    }
+
+    if ([(NSString *)self->_title isEqualToString:@"AppleMusic"])
+    {
+      return 1;
+    }
+
+    if ([(NSString *)self->_title isEqualToString:@"iBooks"])
+    {
+      return 4;
+    }
+
+    if ([(NSString *)self->_title isEqualToString:@"AppleNews"])
+    {
+      return 2;
+    }
+
     v16 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v16)
     {
@@ -2486,54 +2530,42 @@ LABEL_12:
     shouldLog2 = [v16 shouldLog];
     if ([v16 shouldLogToDisk])
     {
-      v18 = shouldLog2 | 2;
+      LODWORD(v31) = shouldLog2 | 2;
     }
 
     else
     {
-      v18 = shouldLog2;
+      LODWORD(v31) = shouldLog2;
     }
 
     oSLogObject2 = [v16 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      v18 &= 2u;
+      v31 = v31;
     }
 
-    if (!v18)
+    else
     {
-      goto LABEL_26;
+      v31 &= 2u;
     }
 
-    v20 = objc_opt_class();
-    *v35 = 138412290;
-    *&v35[4] = v20;
-    v21 = v20;
-    LODWORD(v34) = 12;
-    goto LABEL_24;
+    if (!v31)
+    {
+      goto LABEL_28;
+    }
+
+    v32 = objc_opt_class();
+    title = self->_title;
+    v35 = 138412546;
+    v36 = v32;
+    v37 = 2112;
+    v38 = title;
+    v21 = v32;
+    LODWORD(v34) = 22;
+    v22 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 1, "%@: No requestor identified for title: %@", &v35, v34);
   }
 
-  if ([(NSString *)self->_title isEqualToString:@"AppStore"])
-  {
-    return 3;
-  }
-
-  if ([(NSString *)self->_title isEqualToString:@"iTunes"])
-  {
-    return 5;
-  }
-
-  if ([(NSString *)self->_title isEqualToString:@"AppleMusic"])
-  {
-    return 1;
-  }
-
-  if ([(NSString *)self->_title isEqualToString:@"iBooks"])
-  {
-    return 4;
-  }
-
-  if (![(NSString *)self->_title isEqualToString:@"AppleNews"])
+  else
   {
     v16 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v16)
@@ -2544,52 +2576,49 @@ LABEL_12:
     shouldLog3 = [v16 shouldLog];
     if ([v16 shouldLogToDisk])
     {
-      v30 = shouldLog3 | 2;
+      LODWORD(v18) = shouldLog3 | 2;
     }
 
     else
     {
-      v30 = shouldLog3;
+      LODWORD(v18) = shouldLog3;
     }
 
     oSLogObject2 = [v16 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      v30 &= 2u;
+      v18 = v18;
     }
 
-    if (!v30)
+    else
     {
-      goto LABEL_26;
+      v18 &= 2u;
     }
 
-    v31 = objc_opt_class();
-    title = self->_title;
-    *v35 = 138412546;
-    *&v35[4] = v31;
-    *&v35[12] = 2112;
-    *&v35[14] = title;
-    v21 = v31;
-    LODWORD(v34) = 22;
-LABEL_24:
-    v22 = _os_log_send_and_compose_impl();
-
-    if (!v22)
+    if (!v18)
     {
-LABEL_27:
-
-      return 0;
+      goto LABEL_28;
     }
 
-    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, v35, v34}];
-    free(v22);
-    SSFileLog(v16, @"%@", v23, v24, v25, v26, v27, v28, oSLogObject2);
-LABEL_26:
-
-    goto LABEL_27;
+    v20 = objc_opt_class();
+    v35 = 138412290;
+    v36 = v20;
+    v21 = v20;
+    LODWORD(v34) = 12;
+    v22 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 1, "%@: No requestor identified, title type is not enumeration", &v35, v34);
   }
 
-  return 2;
+  v23 = v22;
+
+  if (v23)
+  {
+    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:4];
+    free(v23);
+    SSFileLog(v16, @"%@", v24, v25, v26, v27, v28, v29, oSLogObject2);
+LABEL_28:
+  }
+
+  return 0;
 }
 
 - (id)_replaceBreakingSpaceMarkupForMutableAttributedString:(id)string
@@ -2643,7 +2672,7 @@ LABEL_26:
     v7 = v9;
   }
 
-  v31 = v7;
+  v33 = v7;
   if (type == 1)
   {
     v10 = @"[i]";
@@ -2657,10 +2686,11 @@ LABEL_26:
   string = [stringCopy string];
   lowercaseString = [string lowercaseString];
 
-  if ([lowercaseString rangeOfString:v10] != 0x7FFFFFFFFFFFFFFFLL)
+  v13 = [lowercaseString rangeOfString:v10];
+  if (v13 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v13 = SSVCoreText();
-    v14 = SSVWeakLinkedSymbolForString("CTFontCreateWithName", v13);
+    v15 = SSVCoreText(v13, v14);
+    v16 = SSVWeakLinkedSymbolForString("CTFontCreateWithName", v15);
     if (type)
     {
       if (type != 1)
@@ -2668,55 +2698,55 @@ LABEL_26:
         goto LABEL_22;
       }
 
-      v15 = @"Helvetica-Italic";
+      v17 = @"Helvetica-Italic";
     }
 
     else
     {
-      v15 = @"Helvetica-Bold";
+      v17 = @"Helvetica-Bold";
     }
 
-    v16 = v14(v15, 0, 14.0);
-    if (v16)
+    v18 = v16(v17, 0, 14.0);
+    if (v18)
     {
-      v17 = v16;
-      v18 = [lowercaseString rangeOfString:v10];
-      v20 = v19;
-      v21 = [lowercaseString rangeOfString:v31];
-      if (v18 != 0x7FFFFFFFFFFFFFFFLL)
+      v19 = v18;
+      v20 = [lowercaseString rangeOfString:v10];
+      v22 = v21;
+      v23 = [lowercaseString rangeOfString:v33];
+      if (v20 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v23 = v21;
-        if (v21 != 0x7FFFFFFFFFFFFFFFLL)
+        v25 = v23;
+        if (v23 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          v24 = 0;
+          v26 = 0;
           do
           {
-            v25 = lowercaseString;
-            [v6 replaceCharactersInRange:v23 withString:{v22, &stru_1F503F418}];
-            [v6 replaceCharactersInRange:v18 withString:{v20, &stru_1F503F418}];
+            v27 = lowercaseString;
+            [v6 replaceCharactersInRange:v25 withString:{v24, &stru_1F503F418}];
+            [v6 replaceCharactersInRange:v20 withString:{v22, &stru_1F503F418}];
             string2 = [v6 string];
             lowercaseString = [string2 lowercaseString];
 
-            v18 = [lowercaseString rangeOfString:v10];
-            v20 = v27;
-            v28 = [lowercaseString rangeOfString:v31];
-            if (v18 == 0x7FFFFFFFFFFFFFFFLL)
+            v20 = [lowercaseString rangeOfString:v10];
+            v22 = v29;
+            v30 = [lowercaseString rangeOfString:v33];
+            if (v20 == 0x7FFFFFFFFFFFFFFFLL)
             {
               break;
             }
 
-            v23 = v28;
-            if (v28 == 0x7FFFFFFFFFFFFFFFLL)
+            v25 = v30;
+            if (v30 == 0x7FFFFFFFFFFFFFFFLL)
             {
               break;
             }
           }
 
-          while (v24++ < 9);
+          while (v26++ < 9);
         }
       }
 
-      CFRelease(v17);
+      CFRelease(v19);
     }
   }
 
@@ -2810,119 +2840,120 @@ void __46__SSPaymentSheet__salableInfoItemsToUppercase__block_invoke(uint64_t a1
 {
   stringCopy = string;
   stylesCopy = styles;
+  v8 = stylesCopy;
   if (!_attributedStringWithString_styles__kPKPaymentContentItemLightColorAttribute)
   {
-    v7 = SSVPassKitFramework();
-    v8 = SSVWeakLinkedStringConstantForString("PKPaymentContentItemLightColorAttribute", v7);
-    v9 = _attributedStringWithString_styles__kPKPaymentContentItemLightColorAttribute;
-    _attributedStringWithString_styles__kPKPaymentContentItemLightColorAttribute = v8;
+    v9 = SSVPassKitFramework(stylesCopy, v7);
+    v10 = SSVWeakLinkedStringConstantForString("PKPaymentContentItemLightColorAttribute", v9);
+    v11 = _attributedStringWithString_styles__kPKPaymentContentItemLightColorAttribute;
+    _attributedStringWithString_styles__kPKPaymentContentItemLightColorAttribute = v10;
   }
 
-  v10 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:stringCopy];
-  v11 = [stylesCopy objectForKeyedSubscript:@"color"];
-  if ([v11 isEqualToString:@"gray"])
+  v12 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:stringCopy];
+  v13 = [v8 objectForKeyedSubscript:@"color"];
+  if ([v13 isEqualToString:@"gray"])
   {
   }
 
   else
   {
-    v12 = [stylesCopy objectForKeyedSubscript:@"color"];
-    v13 = [v12 isEqualToString:@"grey"];
+    v14 = [v8 objectForKeyedSubscript:@"color"];
+    v15 = [v14 isEqualToString:@"grey"];
 
-    if (!v13)
+    if (!v15)
     {
       goto LABEL_7;
     }
   }
 
-  v14 = _attributedStringWithString_styles__kPKPaymentContentItemLightColorAttribute;
-  v15 = [stringCopy length];
-  [v10 addAttribute:v14 value:MEMORY[0x1E695E118] range:{0, v15}];
+  v18 = _attributedStringWithString_styles__kPKPaymentContentItemLightColorAttribute;
+  v19 = [stringCopy length];
+  v16 = [v12 addAttribute:v18 value:MEMORY[0x1E695E118] range:{0, v19}];
 LABEL_7:
   if (!_attributedStringWithString_styles__kPKPaymentContentItemBoldAttribute)
   {
-    v16 = SSVPassKitFramework();
-    v17 = SSVWeakLinkedStringConstantForString("PKPaymentContentItemBoldAttribute", v16);
-    v18 = _attributedStringWithString_styles__kPKPaymentContentItemBoldAttribute;
-    _attributedStringWithString_styles__kPKPaymentContentItemBoldAttribute = v17;
+    v20 = SSVPassKitFramework(v16, v17);
+    v21 = SSVWeakLinkedStringConstantForString("PKPaymentContentItemBoldAttribute", v20);
+    v22 = _attributedStringWithString_styles__kPKPaymentContentItemBoldAttribute;
+    _attributedStringWithString_styles__kPKPaymentContentItemBoldAttribute = v21;
   }
 
-  v19 = [stylesCopy objectForKeyedSubscript:@"bold"];
-  if (([v19 isEqualToString:@"true"] & 1) != 0 || objc_msgSend(v19, "BOOLValue"))
+  v23 = [v8 objectForKeyedSubscript:@"bold"];
+  if (([v23 isEqualToString:@"true"] & 1) != 0 || objc_msgSend(v23, "BOOLValue"))
   {
-    v20 = _attributedStringWithString_styles__kPKPaymentContentItemBoldAttribute;
-    v21 = [stringCopy length];
-    [v10 addAttribute:v20 value:MEMORY[0x1E695E118] range:{0, v21}];
+    v24 = _attributedStringWithString_styles__kPKPaymentContentItemBoldAttribute;
+    v25 = [stringCopy length];
+    [v12 addAttribute:v24 value:MEMORY[0x1E695E118] range:{0, v25}];
   }
 
-  v22 = [stylesCopy objectForKeyedSubscript:@"size"];
-  v23 = [v22 isEqualToString:@"large"];
+  v26 = [v8 objectForKeyedSubscript:@"size"];
+  v27 = [v26 isEqualToString:@"large"];
 
-  if (v23)
+  if (v27)
   {
-    [v10 addAttribute:*MEMORY[0x1E698C728] value:@"large" range:{0, objc_msgSend(stringCopy, "length")}];
+    [v12 addAttribute:*MEMORY[0x1E698C728] value:@"large" range:{0, objc_msgSend(stringCopy, "length")}];
   }
 
-  v24 = [stylesCopy objectForKeyedSubscript:@"spacingAfter"];
-  v25 = v24;
-  if (v24)
+  v28 = [v8 objectForKeyedSubscript:@"spacingAfter"];
+  v29 = v28;
+  if (v28)
   {
-    if ([v24 isEqualToString:@"large"])
+    if ([v28 isEqualToString:@"large"])
     {
-      v26 = MEMORY[0x1E698C738];
+      v30 = MEMORY[0x1E698C738];
     }
 
-    else if ([v25 isEqualToString:@"small"])
+    else if ([v29 isEqualToString:@"small"])
     {
-      v26 = MEMORY[0x1E698C748];
+      v30 = MEMORY[0x1E698C748];
     }
 
     else
     {
-      if (![v25 isEqualToString:@"medium"])
+      if (![v29 isEqualToString:@"medium"])
       {
         goto LABEL_22;
       }
 
-      v26 = MEMORY[0x1E698C740];
+      v30 = MEMORY[0x1E698C740];
     }
 
-    [v10 addAttribute:*MEMORY[0x1E698C730] value:*v26 range:{0, objc_msgSend(stringCopy, "length")}];
+    [v12 addAttribute:*MEMORY[0x1E698C730] value:*v30 range:{0, objc_msgSend(stringCopy, "length")}];
   }
 
 LABEL_22:
-  v27 = [stylesCopy objectForKeyedSubscript:@"spacingBefore"];
-  v28 = v27;
-  if (!v27)
+  v31 = [v8 objectForKeyedSubscript:@"spacingBefore"];
+  v32 = v31;
+  if (!v31)
   {
     goto LABEL_30;
   }
 
-  if ([v27 isEqualToString:@"large"])
+  if ([v31 isEqualToString:@"large"])
   {
-    v29 = MEMORY[0x1E698C738];
+    v33 = MEMORY[0x1E698C738];
   }
 
-  else if ([v28 isEqualToString:@"small"])
+  else if ([v32 isEqualToString:@"small"])
   {
-    v29 = MEMORY[0x1E698C748];
+    v33 = MEMORY[0x1E698C748];
   }
 
   else
   {
-    if (![v28 isEqualToString:@"medium"])
+    if (![v32 isEqualToString:@"medium"])
     {
       goto LABEL_30;
     }
 
-    v29 = MEMORY[0x1E698C740];
+    v33 = MEMORY[0x1E698C740];
   }
 
-  [v10 addAttribute:*MEMORY[0x1E698C750] value:*v29 range:{0, objc_msgSend(stringCopy, "length")}];
+  [v12 addAttribute:*MEMORY[0x1E698C750] value:*v33 range:{0, objc_msgSend(stringCopy, "length")}];
 LABEL_30:
-  v30 = [v10 copy];
+  v34 = [v12 copy];
 
-  return v30;
+  return v34;
 }
 
 + (id)_styleDictionaryWithName:(id)name styles:(id)styles

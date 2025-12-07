@@ -27,22 +27,20 @@
 
 - (CGSize)intrinsicContentSize
 {
-  v3 = *MEMORY[0x277CBF3A0];
-  v4 = *(MEMORY[0x277CBF3A0] + 8);
   [(DOCFittingImageView *)self fittingSize];
-  v12.receiver = self;
-  v12.super_class = DOCFittingImageView;
-  [(DOCFittingImageView *)&v12 intrinsicContentSize];
+  v10.receiver = self;
+  v10.super_class = DOCFittingImageView;
+  [(DOCFittingImageView *)&v10 intrinsicContentSize];
   traitCollection = [(DOCFittingImageView *)self traitCollection];
   [traitCollection displayScale];
   DOCAdaptSizeToRect();
+  v5 = v4;
   v7 = v6;
-  v9 = v8;
 
-  v10 = v7;
-  v11 = v9;
-  result.height = v11;
-  result.width = v10;
+  v8 = v5;
+  v9 = v7;
+  result.height = v9;
+  result.width = v8;
   return result;
 }
 
@@ -240,31 +238,28 @@ LABEL_6:
 
 - (CGSize)systemLayoutSizeFittingSize:(CGSize)size
 {
-  v4 = *MEMORY[0x277CBF3A0];
-  v5 = *(MEMORY[0x277CBF3A0] + 8);
-  v13.receiver = self;
-  v13.super_class = DOCFittingImageView;
-  [(DOCFittingImageView *)&v13 intrinsicContentSize];
+  v11.receiver = self;
+  v11.super_class = DOCFittingImageView;
+  [(DOCFittingImageView *)&v11 intrinsicContentSize];
   traitCollection = [(DOCFittingImageView *)self traitCollection];
   [traitCollection displayScale];
   DOCAdaptSizeToRect();
+  v6 = v5;
   v8 = v7;
-  v10 = v9;
 
-  v11 = v8;
-  v12 = v10;
-  result.height = v12;
-  result.width = v11;
+  v9 = v6;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 
 - (void)setImage:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_249CE0000, a2, OS_LOG_TYPE_ERROR, "Attempting to assign image with zero width or height: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_249CE0000, a2, OS_LOG_TYPE_ERROR, "Attempting to assign image with zero width or height: %{public}@", &v2, 0xCu);
 }
 
 @end

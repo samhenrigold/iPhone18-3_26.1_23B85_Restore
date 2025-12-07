@@ -58,7 +58,7 @@
 
 - (void)placemarkForLocation:(id)location handler:(id)handler
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   handlerCopy = handler;
   v9 = [(NWCComplicationGeocoder *)self cachedPlacemarkForLocation:locationCopy];
@@ -68,9 +68,9 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v29 = locationCopy;
-      v30 = 2112;
-      v31 = v9;
+      v28 = locationCopy;
+      v29 = 2112;
+      v30 = v9;
       _os_log_impl(&dword_23BDCF000, v10, OS_LOG_TYPE_DEFAULT, "Hitting cached placemark for location: %@ %@", buf, 0x16u);
     }
 
@@ -78,8 +78,8 @@
     block[1] = 3221225472;
     block[2] = sub_23BDD483C;
     block[3] = &unk_278B99A48;
-    v27 = handlerCopy;
-    v26 = v9;
+    v26 = handlerCopy;
+    v25 = v9;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -89,7 +89,7 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = locationCopy;
+      v28 = locationCopy;
       _os_log_impl(&dword_23BDCF000, v11, OS_LOG_TYPE_DEFAULT, "Requesting the placemark for the same location. %@", buf, 0xCu);
     }
 
@@ -107,7 +107,7 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v29 = locationCopy;
+        v28 = locationCopy;
         _os_log_impl(&dword_23BDCF000, v15, OS_LOG_TYPE_DEFAULT, "Canceling the previous geocode request. %@", buf, 0xCu);
       }
 
@@ -125,30 +125,28 @@
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = locationCopy;
+      v28 = locationCopy;
       _os_log_impl(&dword_23BDCF000, v19, OS_LOG_TYPE_DEFAULT, "Sending geocode request for location %@", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
     geocoder = self->_geocoder;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = sub_23BDD4854;
-    v22[3] = &unk_278B99A70;
-    objc_copyWeak(&v24, buf);
-    v23 = locationCopy;
-    [(CLGeocoder *)geocoder reverseGeocodeLocation:v23 completionHandler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = sub_23BDD4854;
+    v21[3] = &unk_278B99A70;
+    objc_copyWeak(&v23, buf);
+    v22 = locationCopy;
+    [(CLGeocoder *)geocoder reverseGeocodeLocation:v22 completionHandler:v21];
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(buf);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handlePlacemarks:(id)placemarks fromLocation:(id)location error:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   placemarksCopy = placemarks;
   locationCopy = location;
   errorCopy = error;
@@ -160,9 +158,9 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v22 = locationCopy;
-        v23 = 2112;
-        v24 = errorCopy;
+        v21 = locationCopy;
+        v22 = 2112;
+        v23 = errorCopy;
         _os_log_impl(&dword_23BDCF000, v12, OS_LOG_TYPE_DEFAULT, "Reverse geocide with error: %@ %@.", buf, 0x16u);
       }
 
@@ -182,9 +180,9 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v22 = locationCopy;
-        v23 = 2112;
-        v24 = firstObject;
+        v21 = locationCopy;
+        v22 = 2112;
+        v23 = firstObject;
         _os_log_impl(&dword_23BDCF000, v12, OS_LOG_TYPE_DEFAULT, "Updated the cached placemark for location %@-%@.", buf, 0x16u);
       }
     }
@@ -195,9 +193,9 @@ LABEL_9:
     block[1] = 3221225472;
     block[2] = sub_23BDD4B54;
     block[3] = &unk_278B99A98;
-    v18 = v14;
-    v19 = firstObject;
-    v20 = errorCopy;
+    v17 = v14;
+    v18 = firstObject;
+    v19 = errorCopy;
     v15 = firstObject;
     v11 = v14;
     dispatch_async(MEMORY[0x277D85CD0], block);
@@ -210,13 +208,11 @@ LABEL_9:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = locationCopy;
+    v21 = locationCopy;
     _os_log_impl(&dword_23BDCF000, v11, OS_LOG_TYPE_DEFAULT, "Reverse geocode request is cancelled. %@", buf, 0xCu);
   }
 
 LABEL_10:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

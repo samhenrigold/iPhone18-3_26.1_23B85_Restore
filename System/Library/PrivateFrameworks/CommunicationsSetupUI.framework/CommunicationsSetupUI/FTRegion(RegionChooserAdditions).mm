@@ -24,7 +24,7 @@
 
 - (uint64_t)search:()RegionChooserAdditions withResults:
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   if (v6 && [v6 length])
@@ -47,30 +47,30 @@
 
     else
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       subRegions = [self subRegions];
-      v15 = [subRegions countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [subRegions countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v15)
       {
         v16 = v15;
         v13 = 0;
-        v17 = *v22;
+        v17 = *v21;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v22 != v17)
+            if (*v21 != v17)
             {
               objc_enumerationMutation(subRegions);
             }
 
-            v13 |= [*(*(&v21 + 1) + 8 * i) search:v6 withResults:v7];
+            v13 |= [*(*(&v20 + 1) + 8 * i) search:v6 withResults:v7];
           }
 
-          v16 = [subRegions countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v16 = [subRegions countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v16);
@@ -88,7 +88,6 @@
     LOBYTE(v13) = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v13 & 1;
 }
 

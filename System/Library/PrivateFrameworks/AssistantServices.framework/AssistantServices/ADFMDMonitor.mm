@@ -27,8 +27,8 @@
 
 - (BOOL)_fetchLostModeState
 {
-  sharedInstance = [off_10058F7A0() sharedInstance];
-  lostModeIsActive = [sharedInstance lostModeIsActive];
+  v2 = [off_10058F7A0(self a2)];
+  lostModeIsActive = [v2 lostModeIsActive];
 
   return lostModeIsActive;
 }

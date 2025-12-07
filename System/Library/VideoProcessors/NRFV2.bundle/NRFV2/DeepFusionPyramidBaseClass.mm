@@ -6,7 +6,6 @@
 - (int)setWidth:(unint64_t)width height:(unint64_t)height pixelFormat:(unint64_t)format numLevels:(unint64_t)levels;
 - (void)makeTexturesAliasable;
 - (void)makeTexturesAliasableWithRange:(_NSRange)range;
-- (void)purgeResources;
 @end
 
 @implementation DeepFusionPyramidBaseClass
@@ -76,7 +75,6 @@
         self->_minTexAlignment = objc_msgSend_minimumLinearTextureAlignmentForPixelFormat_(v11, v12, self->_pixelFormat, v13);
 
         v17 = objc_msgSend_device(self->_metal, v14, v15, v16, 0, 0, 0);
-        pixelFormat = self->_pixelFormat;
         MTLPixelFormatGetInfoForDevice();
 
         self->_pixelBytes = 0;
@@ -95,7 +93,7 @@
 
   else
   {
-    sub_2958C87C4();
+    sub_2958C87C4(self, a2);
   }
 
   return -12780;
@@ -105,14 +103,14 @@
 {
   if (!size)
   {
-    sub_2958C88F0();
+    sub_2958C88F0(self, a2, textures);
     return -12780;
   }
 
   *size = 0;
   if (!textures)
   {
-    sub_2958C888C();
+    sub_2958C888C(self, a2);
     return -12780;
   }
 
@@ -155,13 +153,6 @@
   }
 
   return v8;
-}
-
-- (void)purgeResources
-{
-  outputTextures = self->_outputTextures;
-  self->_outputTextures = 0;
-  MEMORY[0x2A1C71028]();
 }
 
 - (int)allocateTextures:(id)textures

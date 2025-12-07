@@ -2,7 +2,7 @@ uint64_t CloudRootDB.initialized()()
 {
   v1[10] = v0;
   v1[11] = *v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVy9MomentsUI24CloudManagerAccountStateOSg_So10CKRecordIDCSgt_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVy9MomentsUI24CloudManagerAccountStateOSg_So10CKRecordIDCSgt_GMd, &_s7Combine9PublishedV9PublisherVy9MomentsUI24CloudManagerAccountStateOSg_So10CKRecordIDCSgt_GMR);
   v1[12] = v2;
   v1[13] = *(v2 - 8);
   v1[14] = swift_task_alloc();
@@ -17,7 +17,7 @@ uint64_t CloudRootDB.initialized()()
   v0[15] = v3;
   if (v3)
   {
-    type metadata accessor for CloudManager();
+    type metadata accessor for CloudManager(0);
     v4 = swift_dynamicCastClass();
     v0[16] = v4;
     if (v4)
@@ -62,7 +62,7 @@ uint64_t CloudRootDB.initialized()()
 
 {
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy9MomentsUI24CloudManagerAccountStateOSg_So10CKRecordIDCSgtGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy9MomentsUI24CloudManagerAccountStateOSg_So10CKRecordIDCSgtGMd, &_s7Combine9PublishedVy9MomentsUI24CloudManagerAccountStateOSg_So10CKRecordIDCSgtGMR);
   Published.projectedValue.getter();
   swift_endAccess();
 
@@ -119,7 +119,7 @@ uint64_t CloudRootDB.initialized()()
 {
   v1 = v0[18];
   v2 = v0[19] + 1;
-  __swift_destroy_boxed_opaque_existential_1((v0 + 2));
+  __swift_destroy_boxed_opaque_existential_1(v0 + 2);
   if (v2 == v1)
   {
 
@@ -192,7 +192,7 @@ uint64_t CloudRootDB.cancelSync()()
 {
   v1 = v0[9];
   v2 = v0[10] + 1;
-  __swift_destroy_boxed_opaque_existential_1((v0 + 2));
+  __swift_destroy_boxed_opaque_existential_1(v0 + 2);
   if (v2 == v1)
   {
 
@@ -266,7 +266,7 @@ uint64_t CloudRootDB.refresh(force:)()
 {
   v1 = *(v0 + 72);
   v2 = *(v0 + 80) + 1;
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v2 == v1)
   {
 
@@ -433,7 +433,7 @@ LABEL_17:
 }
 
 {
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   v1 = *(v0 + 240) + 1;
   if (v1 == *(v0 + 232))
   {
@@ -490,7 +490,7 @@ LABEL_17:
     *(v10 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000012, 0x8000000216579010, &v32);
     *(v10 + 12) = 2082;
     outlined init with copy of DBObject(v0 + 16, v0 + 56);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI10CloudSubDB_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI10CloudSubDB_pMd, &_s9MomentsUI10CloudSubDB_pMR);
     v13 = String.init<A>(describing:)();
     v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v32);
 
@@ -501,7 +501,7 @@ LABEL_17:
     *(v10 + 24) = v17;
     *v11 = v17;
     _os_log_impl(&dword_21607C000, v7, v8, "CloudRootDB.%{public}s Error persisting sub-DB %{public}s, %@", v10, 0x20u);
-    outlined destroy of UTType?(v11, &_sSo8NSObjectCSgMd);
+    outlined destroy of UTType?(v11, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x21CE94770](v11, -1, -1);
     swift_arrayDestroy();
     MEMORY[0x21CE94770](v12, -1, -1);
@@ -519,7 +519,7 @@ LABEL_17:
     v18(v19, v20);
   }
 
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   v21 = *(v0 + 240) + 1;
   if (v21 == *(v0 + 232))
   {
@@ -552,7 +552,7 @@ LABEL_17:
 uint64_t CloudRootDB.deleteLocalData()()
 {
   v1[10] = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
   v1[11] = swift_task_alloc();
   v2 = type metadata accessor for Logger();
   v1[12] = v2;
@@ -649,7 +649,7 @@ uint64_t CloudRootDB.deleteLocalData()()
 {
   v1 = v0[16];
   v2 = v0[17] + 1;
-  __swift_destroy_boxed_opaque_existential_1((v0 + 2));
+  __swift_destroy_boxed_opaque_existential_1(v0 + 2);
   if (v2 == v1)
   {
 
@@ -686,7 +686,7 @@ uint64_t CloudRootDB.deleteLocalData()()
 
   v1 = *(v0 + 128);
   v2 = *(v0 + 136) + 1;
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v2 == v1)
   {
 
@@ -721,7 +721,7 @@ uint64_t CloudRootDB.deleteLocalData()()
 
 Swift::Void __swiftcall CloudRootDB.flushLocalData()()
 {
-  v161[6] = *MEMORY[0x277D85DE8];
+  v162 = *MEMORY[0x277D85DE8];
   v147 = type metadata accessor for CocoaError.Code();
   v0 = *(v147 - 8);
   MEMORY[0x28223BE20](v147);
@@ -748,7 +748,7 @@ Swift::Void __swiftcall CloudRootDB.flushLocalData()()
   v151 = &v130 - v23;
   MEMORY[0x28223BE20](v22);
   v135 = &v130 - v24;
-  v139 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  v139 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
   v25 = MEMORY[0x28223BE20](v139);
   v145 = &v130 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
   v27 = MEMORY[0x28223BE20](v25);
@@ -777,9 +777,9 @@ Swift::Void __swiftcall CloudRootDB.flushLocalData()()
     {
       v34 = swift_slowAlloc();
       v35 = swift_slowAlloc();
-      v161[0] = v35;
+      v161 = v35;
       *v34 = 136446210;
-      *(v34 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x8000000216585AE0, v161);
+      *(v34 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x8000000216585AE0, &v161);
       _os_log_impl(&dword_21607C000, v32, v33, "CloudDevicesDB.%{public}s DEBUG_NO_NETWORK: Skipping DB write", v34, 0xCu);
       __swift_destroy_boxed_opaque_existential_1(v35);
       MEMORY[0x21CE94770](v35, -1, -1);
@@ -817,7 +817,7 @@ Swift::Void __swiftcall CloudRootDB.flushLocalData()()
     v42 = type metadata accessor for CKSyncEngine.State.Serialization();
     v43 = *(*(v42 - 8) + 48);
     v44 = v43(v41, 1, v42);
-    outlined destroy of UTType?(v41, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+    outlined destroy of UTType?(v41, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
     if (v44 != 1)
     {
       type metadata accessor for JSONEncoder();
@@ -829,7 +829,7 @@ Swift::Void __swiftcall CloudRootDB.flushLocalData()()
       v85 = dispatch thunk of JSONEncoder.encode<A>(_:)();
       v149 = v43;
       v87 = v86;
-      outlined destroy of UTType?(v55, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+      outlined destroy of UTType?(v55, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
 
       KeyPath = swift_getKeyPath();
       (*(*v36 + 656))(KeyPath);
@@ -889,24 +889,24 @@ LABEL_48:
     URL._bridgeToObjectiveC()(v49);
     v51 = v50;
     (*v153)(v47, v48);
-    v161[0] = 0;
-    LODWORD(v47) = [v45 removeItemAtURL:v51 error:v161];
+    v161 = 0;
+    LODWORD(v47) = [v45 removeItemAtURL:v51 error:&v161];
 
-    v52 = v161[0];
+    v52 = v161;
     if (v47)
     {
       break;
     }
 
-    v149 = v161[0];
-    v53 = v161[0];
+    v149 = v161;
+    v53 = v161;
     v54 = _convertNSErrorToError(_:)();
 
     swift_willThrow();
     v56 = v54;
     v57 = v146;
     static CocoaError.fileNoSuchFile.getter();
-    lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type CocoaError.Code and conformance CocoaError.Code, MEMORY[0x277CC8608]);
+    lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type CocoaError.Code and conformance CocoaError.Code, MEMORY[0x277CC8608], MEMORY[0x277CC8600]);
     v58 = v147;
     v59 = static _ErrorCodeProtocol.~= infix(_:_:)();
 
@@ -943,7 +943,7 @@ LABEL_48:
         *(v97 + 14) = v103;
         *v100 = v103;
         _os_log_impl(&dword_21607C000, v95, v96, "CloudRootDB.%{public}s Failed to write sync state: (%@)", v97, 0x16u);
-        outlined destroy of UTType?(v100, &_sSo8NSObjectCSgMd);
+        outlined destroy of UTType?(v100, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         MEMORY[0x21CE94770](v100, -1, -1);
         __swift_destroy_boxed_opaque_existential_1(v101);
         MEMORY[0x21CE94770](v101, -1, -1);
@@ -964,7 +964,7 @@ LABEL_48:
     v60 = v145;
     v157();
     v61 = v43(v60, 1, v42);
-    outlined destroy of UTType?(v60, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+    outlined destroy of UTType?(v60, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
     v62 = v150;
     if (v61 == 1)
     {
@@ -1003,11 +1003,11 @@ LABEL_48:
       v75 = v72;
       v76 = swift_slowAlloc();
       v77 = swift_slowAlloc();
-      v161[0] = v77;
+      v161 = v77;
       *v76 = v136;
-      *(v76 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, v137 | 0x8000000000000000, v161);
+      *(v76 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, v137 | 0x8000000000000000, &v161);
       *(v76 + 12) = 2080;
-      *(v76 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v67, v69, v161);
+      *(v76 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v67, v69, &v161);
       _os_log_impl(&dword_21607C000, v73, v74, "CloudRootDB.%{public}s Folder for stateSerialization missing? Retrying after creating folder: %s", v76, 0x16u);
       swift_arrayDestroy();
       MEMORY[0x21CE94770](v77, -1, -1);
@@ -1032,12 +1032,12 @@ LABEL_48:
     v82 = [objc_opt_self() defaultManager];
     v83 = MEMORY[0x21CE91FC0](v67, v69);
 
-    v161[0] = 0;
-    v84 = [v82 createDirectoryIfNeededAtPath:v83 error:v161];
+    v161 = 0;
+    v84 = [v82 createDirectoryIfNeededAtPath:v83 error:&v161];
 
     if (!v84)
     {
-      v104 = v161[0];
+      v104 = v161;
       v105 = _convertNSErrorToError(_:)();
 
       swift_willThrow();
@@ -1052,16 +1052,16 @@ LABEL_48:
         v110 = swift_slowAlloc();
         v111 = swift_slowAlloc();
         v112 = swift_slowAlloc();
-        v161[0] = v112;
+        v161 = v112;
         *v110 = v136;
-        *(v110 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, v137 | 0x8000000000000000, v161);
+        *(v110 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, v137 | 0x8000000000000000, &v161);
         *(v110 + 12) = 2112;
         v113 = v105;
         v114 = _swift_stdlib_bridgeErrorToNSError();
         *(v110 + 14) = v114;
         *v111 = v114;
         _os_log_impl(&dword_21607C000, v108, v109, "CloudRootDB.%{public}s Failed to create folder for sync state: (%@)", v110, 0x16u);
-        outlined destroy of UTType?(v111, &_sSo8NSObjectCSgMd);
+        outlined destroy of UTType?(v111, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         MEMORY[0x21CE94770](v111, -1, -1);
         __swift_destroy_boxed_opaque_existential_1(v112);
         MEMORY[0x21CE94770](v112, -1, -1);
@@ -1076,7 +1076,7 @@ LABEL_48:
       return;
     }
 
-    v38 = v161[0];
+    v38 = v161;
     v39 = 1;
     v37 = v157;
     if (v156)
@@ -1088,7 +1088,7 @@ LABEL_48:
   if (v156)
   {
     v115 = one-time initialization token for Log;
-    v116 = v161[0];
+    v116 = v161;
     if (v115 != -1)
     {
       swift_once();
@@ -1188,7 +1188,7 @@ uint64_t CloudRootDB.willFetchChanges()()
 {
   v1 = v0[9];
   v2 = v0[10] + 1;
-  result = __swift_destroy_boxed_opaque_existential_1((v0 + 2));
+  result = __swift_destroy_boxed_opaque_existential_1(v0 + 2);
   if (v2 == v1)
   {
 
@@ -1227,7 +1227,7 @@ uint64_t CloudRootDB.willFetchChanges()()
 }
 
 {
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   v1 = *(v0 + 8);
 
   return v1();
@@ -1299,7 +1299,7 @@ uint64_t CloudRootDB.willCheckpointChanges()()
 {
   v1 = v0[9];
   v2 = v0[10] + 1;
-  result = __swift_destroy_boxed_opaque_existential_1((v0 + 2));
+  result = __swift_destroy_boxed_opaque_existential_1(v0 + 2);
   if (v2 == v1)
   {
 
@@ -1397,7 +1397,7 @@ uint64_t CloudRootDB.didFetchChanges()()
 {
   v1 = *(v0 + 72);
   v2 = *(v0 + 80) + 1;
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v2 == v1)
   {
 
@@ -1441,7 +1441,7 @@ uint64_t CloudRootDB.didFetchChanges()()
 
   v1 = *(v0 + 72);
   v2 = *(v0 + 80) + 1;
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v2 == v1)
   {
 
@@ -1549,7 +1549,7 @@ uint64_t CloudRootDB.hasCKRecord(_:)()
 
   v9 = *(v0 + 88);
   v10 = *(v0 + 96) + 1;
-  v11 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  v11 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v10 == v9)
   {
     v12 = *(v0 + 8);
@@ -1595,7 +1595,7 @@ uint64_t CloudRootDB.hasCKRecord(_:)()
   v1 = *(v0 + 129);
   if (v1)
   {
-    __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+    __swift_destroy_boxed_opaque_existential_1((v0 + 16));
 LABEL_4:
     v5 = *(v0 + 8);
 
@@ -1604,7 +1604,7 @@ LABEL_4:
 
   v2 = *(v0 + 88);
   v3 = *(v0 + 96) + 1;
-  v4 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  v4 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v3 == v2)
   {
     goto LABEL_4;
@@ -1720,7 +1720,7 @@ uint64_t CloudRootDB.dumpCKRecordIDsByZone()()
   specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v1, specialized thunk for @escaping @callee_guaranteed (@in_guaranteed A, @in_guaranteed B) -> (@out A, @out B), 0, isUniquelyReferenced_nonNull_native, &v16);
 
   v7 = v16;
-  v8 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  v8 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v5 == v4)
   {
     v9 = *(v0 + 8);
@@ -1849,7 +1849,7 @@ uint64_t CloudRootDB.lookupCKRecord(_:)()
 
   v9 = *(v0 + 88);
   v10 = *(v0 + 96) + 1;
-  v11 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  v11 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v10 == v9)
   {
     v12 = *(v0 + 8);
@@ -1892,9 +1892,9 @@ uint64_t CloudRootDB.lookupCKRecord(_:)()
 }
 
 {
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
-  v1 = *(v0 + 128);
-  v2 = *(v0 + 8);
+  __swift_destroy_boxed_opaque_existential_1(v0 + 2);
+  v1 = v0[16];
+  v2 = v0[1];
 
   return v2(v1);
 }
@@ -1943,7 +1943,7 @@ uint64_t CloudRootDB.modifyOrCreateCKRecord(_:force:)()
       *v11 = v0;
       v11[1] = CloudRootDB.modifyOrCreateCKRecord(_:force:);
 
-      return (specialized CloudSubDB.hasRecordType(_:))(v8, v10, v6, v7);
+      return specialized CloudSubDB.hasRecordType(_:)(v8, v10, v6, v7);
     }
 
     else
@@ -1979,12 +1979,12 @@ uint64_t CloudRootDB.modifyOrCreateCKRecord(_:force:)()
     v7 = v2;
     v8 = v21;
 
-    return (v8)(v5, v4, v6, v7);
+    return v8(v5, v4, v6, v7);
   }
 
   v10 = *(v0 + 88);
   v11 = *(v0 + 96) + 1;
-  v12 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  v12 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v11 == v10)
   {
     v13 = *(v0 + 8);
@@ -2017,7 +2017,7 @@ uint64_t CloudRootDB.modifyOrCreateCKRecord(_:force:)()
       v7 = v16;
       v8 = specialized CloudSubDB.hasRecordType(_:);
 
-      return (v8)(v5, v4, v6, v7);
+      return v8(v5, v4, v6, v7);
     }
 
     __break(1u);
@@ -2032,7 +2032,7 @@ uint64_t CloudRootDB.modifyOrCreateCKRecord(_:force:)()
 }
 
 {
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   v1 = *(v0 + 8);
 
   return v1();
@@ -2062,12 +2062,12 @@ uint64_t CloudRootDB.zoneNotFound(_:_:purged:)()
   v3 = *(v0 + 144);
   v5 = *(v0 + 56);
   v4 = *(v0 + 64);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_21658E190;
   v7 = [v5 zoneID];
   *(v6 + 56) = type metadata accessor for CKRecordZoneID();
-  *(v6 + 64) = lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type CKRecordZoneID and conformance NSObject, type metadata accessor for CKRecordZoneID);
+  *(v6 + 64) = lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type CKRecordZoneID and conformance NSObject, type metadata accessor for CKRecordZoneID, MEMORY[0x277CC9E10]);
   *(v6 + 32) = v7;
   v8 = [v4 recordID];
   v9 = [v8 recordName];
@@ -2155,7 +2155,7 @@ uint64_t CloudRootDB.zoneNotFound(_:_:purged:)()
   {
     v8 = *(v0 + 104);
     v9 = *(v0 + 112) + 1;
-    v10 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+    v10 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
     if (v9 == v8)
     {
       static CloudLog.LogEnd(_:)("zoneNotFound(_:_:purged:)", 25, 2, *(v0 + 80), &protocol witness table for CloudRootDB);
@@ -2198,7 +2198,7 @@ uint64_t CloudRootDB.zoneNotFound(_:_:purged:)()
 }
 
 {
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   v1 = *(v0 + 146);
   static CloudLog.LogEnd(_:)("zoneNotFound(_:_:purged:)", 25, 2, *(v0 + 80), &protocol witness table for CloudRootDB);
   v2 = *(v0 + 8);
@@ -2295,7 +2295,7 @@ uint64_t CloudRootDB.clearCKRecord(_:)()
 
   v9 = *(v0 + 88);
   v10 = *(v0 + 96) + 1;
-  v11 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  v11 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v10 == v9)
   {
     v12 = *(v0 + 8);
@@ -2345,7 +2345,7 @@ uint64_t CloudRootDB.clearCKRecord(_:)()
 {
   v1 = *(v0 + 88);
   v2 = *(v0 + 96) + 1;
-  v3 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  v3 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v2 == v1)
   {
     v4 = *(v0 + 8);
@@ -2471,7 +2471,7 @@ uint64_t CloudRootDB.deleteCKRecord(_:_:)()
   {
     v8 = *(v0 + 104);
     v9 = *(v0 + 112) + 1;
-    v10 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+    v10 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
     if (v9 == v8)
     {
       v11 = *(v0 + 8);
@@ -2519,7 +2519,7 @@ uint64_t CloudRootDB.deleteCKRecord(_:_:)()
 {
   v1 = *(v0 + 104);
   v2 = *(v0 + 112) + 1;
-  v3 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  v3 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v2 == v1)
   {
     v4 = *(v0 + 8);
@@ -2640,7 +2640,7 @@ uint64_t CloudRootDB.deleteCKRecordZone(_:purged:)()
   {
     v7 = *(v0 + 88);
     v8 = *(v0 + 96) + 1;
-    v9 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+    v9 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
     if (v8 == v7)
     {
       v10 = *(v0 + 8);
@@ -2688,7 +2688,7 @@ uint64_t CloudRootDB.deleteCKRecordZone(_:purged:)()
 {
   v1 = *(v0 + 88);
   v2 = *(v0 + 96) + 1;
-  v3 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  v3 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v2 == v1)
   {
     v4 = *(v0 + 8);
@@ -2808,7 +2808,7 @@ uint64_t CloudRootDB.modifyCKRecordZone(_:)()
 
   v9 = *(v0 + 88);
   v10 = *(v0 + 96) + 1;
-  v11 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  v11 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v10 == v9)
   {
     v12 = *(v0 + 8);
@@ -2855,7 +2855,7 @@ uint64_t CloudRootDB.modifyCKRecordZone(_:)()
 {
   v1 = *(v0 + 88);
   v2 = *(v0 + 96) + 1;
-  v3 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  v3 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
   if (v2 == v1)
   {
     v4 = *(v0 + 8);
@@ -2979,7 +2979,7 @@ uint64_t CloudRootDB.dumpRecord(_:)()
   {
     v6 = *(v0 + 88);
     v7 = *(v0 + 96) + 1;
-    v8 = __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+    v8 = __swift_destroy_boxed_opaque_existential_1((v0 + 16));
     if (v7 == v6)
     {
       v9 = [*(v0 + 56) debugDescription];
@@ -3025,7 +3025,7 @@ uint64_t CloudRootDB.dumpRecord(_:)()
 }
 
 {
-  __swift_destroy_boxed_opaque_existential_1((v0 + 2));
+  __swift_destroy_boxed_opaque_existential_1(v0 + 2);
   v1 = v0[16];
   v2 = v0[17];
   v3 = v0[1];
@@ -3056,7 +3056,7 @@ uint64_t CloudRootDB.deinit()
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
   swift_unknownObjectRelease();
 
-  outlined destroy of UTType?(v0 + OBJC_IVAR____TtC9MomentsUI11CloudRootDB___stateSerialization, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  outlined destroy of UTType?(v0 + OBJC_IVAR____TtC9MomentsUI11CloudRootDB___stateSerialization, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
 
   v3 = OBJC_IVAR____TtC9MomentsUI11CloudRootDB___observationRegistrar;
   v4 = type metadata accessor for ObservationRegistrar();
@@ -3071,7 +3071,7 @@ uint64_t CloudRootDB.__deallocating_deinit()
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
   swift_unknownObjectRelease();
 
-  outlined destroy of UTType?(v0 + OBJC_IVAR____TtC9MomentsUI11CloudRootDB___stateSerialization, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  outlined destroy of UTType?(v0 + OBJC_IVAR____TtC9MomentsUI11CloudRootDB___stateSerialization, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
 
   v3 = OBJC_IVAR____TtC9MomentsUI11CloudRootDB___observationRegistrar;
   v4 = type metadata accessor for ObservationRegistrar();
@@ -3330,7 +3330,18 @@ uint64_t specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:new
   return outlined init with take of MusicPlaybackCoordinatorDelegate(&v12, v10 + 40 * a1 + 32);
 }
 
-uint64_t specialized CloudRootDB.cloudManager.setter(uint64_t a1, uint64_t a2)
+double specialized thunk for @escaping @callee_guaranteed (@in_guaranteed A, @in_guaranteed B) -> (@out A, @out B)@<D0>(void *a1@<X0>, void *a2@<X8>)
+{
+  v2 = a1[1];
+  v3 = a1[2];
+  *a2 = *a1;
+  a2[1] = v2;
+  a2[2] = v3;
+
+  return result;
+}
+
+double specialized CloudRootDB.cloudManager.setter(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
   (*(*v2 + 664))();
@@ -3356,6 +3367,8 @@ uint64_t specialized CloudRootDB.cloudManager.setter(uint64_t a1, uint64_t a2)
 
     while (v6);
   }
+
+  return result;
 }
 
 uint64_t specialized static CloudRootDB.cloudRecordTypes.getter()
@@ -3371,15 +3384,15 @@ uint64_t specialized static CloudRootDB.cloudRecordTypes.getter()
   v2 = MEMORY[0x277D84F90];
   if (v1)
   {
-    v10 = MEMORY[0x277D84F90];
+    v11 = MEMORY[0x277D84F90];
 
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
-    v2 = v10;
+    v2 = v11;
     v3 = v0 + 40;
     do
     {
       v4 = (*(*v3 + 8))();
-      v11 = v2;
+      v12 = v2;
       v6 = *(v2 + 16);
       v5 = *(v2 + 24);
       if (v6 >= v5 >> 1)
@@ -3387,7 +3400,7 @@ uint64_t specialized static CloudRootDB.cloudRecordTypes.getter()
         v7 = v4;
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v5 > 1), v6 + 1, 1);
         v4 = v7;
-        v2 = v11;
+        v2 = v12;
       }
 
       *(v2 + 16) = v6 + 1;
@@ -3399,9 +3412,10 @@ uint64_t specialized static CloudRootDB.cloudRecordTypes.getter()
     while (v1);
   }
 
-  v8 = specialized _copySequenceToContiguousArray<A>(_:)(v2);
+  specialized _copySequenceToContiguousArray<A>(_:)(v2);
+  v9 = v8;
 
-  return v8;
+  return v9;
 }
 
 BOOL specialized CloudRootDB.shouldNotifyObservers<A>(_:_:)(char a1, unsigned __int8 a2)
@@ -3491,17 +3505,16 @@ LABEL_25:
   return (v2 & 1) == 0;
 }
 
-uint64_t partial apply for closure #1 in CloudRootDB._accountState.setter()
+void partial apply for closure #1 in CloudRootDB._accountState.setter()
 {
   v1 = *(v0 + 16);
   v2 = *(v0 + 24);
   v3 = OBJC_IVAR____TtC9MomentsUI11CloudRootDB___accountState;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = v2;
-  return result;
 }
 
-uint64_t type metadata accessor for CloudRootDB()
+uint64_t type metadata accessor for CloudRootDB(uint64_t a1)
 {
   result = type metadata singleton initialization cache for CloudRootDB;
   if (!type metadata singleton initialization cache for CloudRootDB)
@@ -3514,14 +3527,14 @@ uint64_t type metadata accessor for CloudRootDB()
 
 uint64_t outlined init with take of CKSyncEngine.State.Serialization?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined init with copy of CKSyncEngine.State.Serialization?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -3531,7 +3544,7 @@ unint64_t lazy protocol witness table accessor for type Published<(CloudManagerA
   result = lazy protocol witness table cache variable for type Published<(CloudManagerAccountState?, CKRecordID?)>.Publisher and conformance Published<A>.Publisher;
   if (!lazy protocol witness table cache variable for type Published<(CloudManagerAccountState?, CKRecordID?)>.Publisher and conformance Published<A>.Publisher)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7Combine9PublishedV9PublisherVy9MomentsUI24CloudManagerAccountStateOSg_So10CKRecordIDCSgt_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7Combine9PublishedV9PublisherVy9MomentsUI24CloudManagerAccountStateOSg_So10CKRecordIDCSgt_GMd, &_s7Combine9PublishedV9PublisherVy9MomentsUI24CloudManagerAccountStateOSg_So10CKRecordIDCSgt_GMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Published<(CloudManagerAccountState?, CKRecordID?)>.Publisher and conformance Published<A>.Publisher);
   }
@@ -3544,8 +3557,8 @@ unint64_t lazy protocol witness table accessor for type CKSyncEngine.State.Seria
   result = lazy protocol witness table cache variable for type CKSyncEngine.State.Serialization? and conformance <A> A?;
   if (!lazy protocol witness table cache variable for type CKSyncEngine.State.Serialization? and conformance <A> A?)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
-    lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type CKSyncEngine.State.Serialization and conformance CKSyncEngine.State.Serialization, MEMORY[0x277CBBD98]);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
+    lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type CKSyncEngine.State.Serialization and conformance CKSyncEngine.State.Serialization, MEMORY[0x277CBBD98], MEMORY[0x277CBBDA0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type CKSyncEngine.State.Serialization? and conformance <A> A?);
   }
@@ -3553,7 +3566,7 @@ unint64_t lazy protocol witness table accessor for type CKSyncEngine.State.Seria
   return result;
 }
 
-uint64_t specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(uint64_t a1, void (*a2)(uint64_t *__return_ptr, void *), uint64_t a3, int a4, void *a5)
+void specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(uint64_t a1, void (*a2)(uint64_t *__return_ptr, void *, __n128), uint64_t a3, int a4, void *a5)
 {
   v7 = a1 + 64;
   v8 = -1 << *(a1 + 32);
@@ -3571,30 +3584,30 @@ uint64_t specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(ui
   v11 = (63 - v8) >> 6;
 
   v12 = 0;
-  v38 = a5;
-  v39 = v7;
-  v37 = v11;
+  v37 = a5;
+  v38 = v7;
+  v36 = v11;
   while (v10)
   {
-    v46 = a4;
+    v45 = a4;
     v13 = v12;
 LABEL_14:
     v15 = __clz(__rbit64(v10)) | (v13 << 6);
     v16 = (*(a1 + 48) + 16 * v15);
     v17 = v16[1];
     v18 = *(*(a1 + 56) + 8 * v15);
-    v45[0] = *v16;
-    v45[1] = v17;
-    v45[2] = v18;
+    v44[0] = *v16;
+    v44[1] = v17;
+    v44[2] = v18;
 
-    a2(&v42, v45);
+    (a2)(&v41, v44);
 
-    v19 = v42;
-    v20 = v43;
-    v21 = v44;
+    v19 = v41;
+    v20 = v42;
+    v21 = v43;
     v22 = *a5;
-    v24 = specialized __RawDictionaryStorage.find<A>(_:)(v42, v43);
-    v25 = v22[2];
+    v24 = specialized __RawDictionaryStorage.find<A>(_:)(v41, v42);
+    v25 = *(v22 + 16);
     v26 = (v23 & 1) == 0;
     v27 = v25 + v26;
     if (__OFADD__(v25, v26))
@@ -3603,9 +3616,9 @@ LABEL_14:
     }
 
     v28 = v23;
-    if (v22[3] >= v27)
+    if (*(v22 + 24) >= v27)
     {
-      if ((v46 & 1) == 0)
+      if ((v45 & 1) == 0)
       {
         specialized _NativeDictionary.copy()();
       }
@@ -3613,7 +3626,7 @@ LABEL_14:
 
     else
     {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v27, v46 & 1);
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v27, v45 & 1);
       v29 = specialized __RawDictionaryStorage.find<A>(_:)(v19, v20);
       if ((v28 & 1) != (v30 & 1))
       {
@@ -3627,11 +3640,11 @@ LABEL_14:
     v31 = *a5;
     if (v28)
     {
-      v45[0] = *(v31[7] + 8 * v24);
+      v44[0] = *(v31[7] + 8 * v24);
 
       specialized Array.append<A>(contentsOf:)(v21);
 
-      *(v31[7] + 8 * v24) = v45[0];
+      *(v31[7] + 8 * v24) = v44[0];
     }
 
     else
@@ -3654,9 +3667,9 @@ LABEL_14:
 
     a4 = 1;
     v12 = v13;
-    a5 = v38;
-    v7 = v39;
-    v11 = v37;
+    a5 = v37;
+    v7 = v38;
+    v11 = v36;
   }
 
   v14 = v12;
@@ -3670,14 +3683,16 @@ LABEL_14:
 
     if (v13 >= v11)
     {
-      outlined consume of [String : DBAssetData].Iterator._Variant();
+      outlined consume of [String : DBAssetData].Iterator._Variant(a1);
+
+      return;
     }
 
     v10 = *(v7 + 8 * v13);
     ++v14;
     if (v10)
     {
-      v46 = a4;
+      v45 = a4;
       goto LABEL_14;
     }
   }
@@ -3688,21 +3703,20 @@ LABEL_25:
 LABEL_26:
   __break(1u);
 LABEL_27:
-  result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+  KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
   __break(1u);
-  return result;
 }
 
-void type metadata completion function for CloudRootDB()
+void type metadata completion function for CloudRootDB(uint64_t a1)
 {
   type metadata accessor for URL();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for CKSyncEngine.State.Serialization?();
-    if (v1 <= 0x3F)
+    type metadata accessor for CKSyncEngine.State.Serialization?(319);
+    if (v2 <= 0x3F)
     {
       type metadata accessor for ObservationRegistrar();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_updateClassMetadata2();
       }
@@ -3908,25 +3922,25 @@ uint64_t dispatch thunk of CloudRootDB.dumpRecord(_:)(uint64_t a1)
   return v6(a1);
 }
 
-void type metadata accessor for CKSyncEngine.State.Serialization?()
+void type metadata accessor for CKSyncEngine.State.Serialization?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for CKSyncEngine.State.Serialization?)
   {
     type metadata accessor for CKSyncEngine.State.Serialization();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for CKSyncEngine.State.Serialization?);
+      atomic_store(v1, &lazy cache variable for type metadata for CKSyncEngine.State.Serialization?);
     }
   }
 }
 
-uint64_t partial apply for closure #1 in CloudRootDB.accountStateSubscription.setter()
+void partial apply for closure #1 in CloudRootDB.accountStateSubscription.setter()
 {
   *(*(v0 + 16) + OBJC_IVAR____TtC9MomentsUI11CloudRootDB__accountStateSubscription) = *(v0 + 24);
 }
 
-uint64_t lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3941,29 +3955,28 @@ uint64_t lazy protocol witness table accessor for type CloudRootDB and conforman
 
 uint64_t outlined assign with copy of CKSyncEngine.State.Serialization?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
   (*(*(v4 - 8) + 24))(a2, a1, v4);
   return a2;
 }
 
-uint64_t partial apply for closure #1 in CloudRootDB._cloudManager.setter()
+void partial apply for closure #1 in CloudRootDB._cloudManager.setter()
 {
-  return partial apply for closure #1 in CloudRootDB._cloudManager.setter();
+  partial apply for closure #1 in CloudRootDB._cloudManager.setter();
 }
 
 {
   *(*(v0 + 16) + OBJC_IVAR____TtC9MomentsUI11CloudRootDB___cloudManager) = *(v0 + 24);
   swift_unknownObjectRetain();
-  return swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
 }
 
-uint64_t static CloudSyncSuggestion.Class.setter(char *a1, uint64_t a2, char a3)
+void static CloudSyncSuggestion.Class.setter(char *a1, uint64_t a2, char a3)
 {
-  result = swift_beginAccess();
+  swift_beginAccess();
   static CloudSyncSuggestion.Class = a1;
   unk_27CA92A58 = a2;
   byte_27CA92A60 = a3;
-  return result;
 }
 
 uint64_t CloudSyncSuggestion.Log.unsafeMutableAddressor()
@@ -4007,15 +4020,15 @@ uint64_t static CloudSyncSuggestion.Log.setter(uint64_t a1)
   return (*(v4 + 8))(a1, v2);
 }
 
-uint64_t (*static CloudSyncSuggestion.Log.modify())()
+uint64_t (*static CloudSyncSuggestion.Log.modify(uint64_t a1))()
 {
   if (one-time initialization token for Log != -1)
   {
     swift_once();
   }
 
-  v0 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v0, static CloudSyncSuggestion.Log);
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, static CloudSyncSuggestion.Log);
   swift_beginAccess();
   return MutableVideoViewModel.video.modify;
 }
@@ -4033,7 +4046,7 @@ uint64_t protocol witness for static CloudLog.Log.getter in conformance CloudSyn
   return (*(*(v2 - 8) + 16))(a1, v3, v2);
 }
 
-uint64_t static CloudSyncSuggestion.productionSchema.getter()
+double static CloudSyncSuggestion.productionSchema.getter()
 {
   if (one-time initialization token for productionSchema != -1)
   {
@@ -4041,9 +4054,11 @@ uint64_t static CloudSyncSuggestion.productionSchema.getter()
   }
 
   swift_beginAccess();
+
+  return result;
 }
 
-uint64_t static CloudSyncSuggestion.productionSchema.setter(uint64_t a1)
+double static CloudSyncSuggestion.productionSchema.setter(uint64_t a1)
 {
   if (one-time initialization token for productionSchema != -1)
   {
@@ -4052,9 +4067,11 @@ uint64_t static CloudSyncSuggestion.productionSchema.setter(uint64_t a1)
 
   swift_beginAccess();
   static CloudSyncSuggestion.productionSchema = a1;
+
+  return result;
 }
 
-uint64_t (*static CloudSyncSuggestion.productionSchema.modify())()
+uint64_t (*static CloudSyncSuggestion.productionSchema.modify(uint64_t a1))()
 {
   if (one-time initialization token for productionSchema != -1)
   {
@@ -4068,7 +4085,7 @@ uint64_t (*static CloudSyncSuggestion.productionSchema.modify())()
 void static CloudSyncSuggestion.zoneName.getter()
 {
   _StringGuts.grow(_:)(24);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI19CloudSyncSuggestionCmMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI19CloudSyncSuggestionCmMd, &_s9MomentsUI19CloudSyncSuggestionCmMR);
   String.init<A>(describing:)();
 
   MEMORY[0x21CE92100](0xD000000000000016, 0x8000000216578720);
@@ -4092,7 +4109,7 @@ CKRecordZoneID CloudSyncSuggestion.zoneID.getter()
     v5 = 0xE000000000000000;
   }
 
-  type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID);
+  type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8);
   v6._countAndFlagsBits = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v6._object = v7;
   v8._countAndFlagsBits = v3;
@@ -4100,7 +4117,7 @@ CKRecordZoneID CloudSyncSuggestion.zoneID.getter()
   return CKRecordZoneID.init(zoneName:ownerName:)(v8, v6);
 }
 
-uint64_t static CloudSyncSuggestion.create(id:expiry:suggestionID:type:title:subtitle:prompt:startDate:endDate:rankingScore:baseScore:goodnessScore:visibilityCategoryInt:ordinalRankInRecommendedTab:assetsData:assetDataIDs:subTypeInt:isSensitive:zoneName:context:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void (*a6)(_BYTE *, uint64_t, uint64_t), uint64_t a7, unint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, void (*a12)(_BYTE *, uint64_t), uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, unint64_t a25, uint64_t a26, uint64_t a27, unsigned __int8 a28, uint64_t a29, uint64_t a30, void *a31)
+id static CloudSyncSuggestion.create(id:expiry:suggestionID:type:title:subtitle:prompt:startDate:endDate:rankingScore:baseScore:goodnessScore:visibilityCategoryInt:ordinalRankInRecommendedTab:assetsData:assetDataIDs:subTypeInt:isSensitive:zoneName:context:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void (*a6)(_BYTE *, uint64_t, uint64_t, __n128), uint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, void (*a12)(_BYTE *, uint64_t), uint64_t a13, unint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, unint64_t a25, uint64_t a26, uint64_t a27, unsigned __int8 a28, uint64_t *a29, uint64_t a30, void *a31)
 {
   v36 = a23 & 1;
   v35 = a20 & 1;
@@ -4110,7 +4127,7 @@ uint64_t static CloudSyncSuggestion.create(id:expiry:suggestionID:type:title:sub
   return specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:type:title:subtitle:prompt:startDate:endDate:rankingScore:baseScore:goodnessScore:visibilityCategoryInt:ordinalRankInRecommendedTab:assetsData:assetDataIDs:subTypeInt:isSensitive:zoneName:context:)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, v33, a17, v34, a19, v35, a21, a22, v36, a24, a25, a26, a27, a28, a29, a30, a31);
 }
 
-void closure #1 in closure #1 in static CloudSyncSuggestion.create(id:expiry:suggestionID:type:title:subtitle:prompt:startDate:endDate:rankingScore:baseScore:goodnessScore:visibilityCategoryInt:ordinalRankInRecommendedTab:assetsData:assetDataIDs:subTypeInt:isSensitive:zoneName:context:)(uint64_t *a1, uint64_t a2, void **a3)
+void closure #1 in closure #1 in static CloudSyncSuggestion.create(id:expiry:suggestionID:type:title:subtitle:prompt:startDate:endDate:rankingScore:baseScore:goodnessScore:visibilityCategoryInt:ordinalRankInRecommendedTab:assetsData:assetDataIDs:subTypeInt:isSensitive:zoneName:context:)(unint64_t *a1, uint64_t a2, void *a3)
 {
   v5 = *a1;
   v6 = MEMORY[0x21CE93DB0]();
@@ -4219,12 +4236,12 @@ id static CloudSyncSuggestion.create(_:context:)(void *a1, uint64_t a2)
 void CloudSyncSuggestion._populateObject(_:)(void *a1)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v5 = MEMORY[0x28223BE20](v4 - 8);
   v95 = &v95 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v5);
   v8 = &v95 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v95 - v10;
   v12 = type metadata accessor for Date();
@@ -4282,7 +4299,7 @@ void CloudSyncSuggestion._populateObject(_:)(void *a1)
   }
 
   v99 = v27;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
     goto LABEL_12;
@@ -4295,18 +4312,18 @@ void CloudSyncSuggestion._populateObject(_:)(void *a1)
   if ((*(*(v30 - 8) + 48))(v11, 1, v30) == 1)
   {
 
-    outlined destroy of UTType?(v11, &_s10Foundation4UUIDVSgMd);
+    outlined destroy of UTType?(v11, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
 LABEL_12:
     type metadata accessor for related decl 'e' for CKErrorCode(0);
     v99 = 12;
     _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-    lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode);
+    lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode, &protocol conformance descriptor for related decl 'e' for CKErrorCode);
     _BridgedStoredNSError.init(_:userInfo:)();
     swift_willThrow();
     return;
   }
 
-  outlined destroy of UTType?(v11, &_s10Foundation4UUIDVSgMd);
+  outlined destroy of UTType?(v11, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v31 = MEMORY[0x21CE91FC0](v29, v28);
 
   [v2 setSuggestionID_];
@@ -4602,16 +4619,16 @@ uint64_t CloudSyncSuggestion.lastKnownCKRecord.setter(void *a1)
 {
   v2 = v1;
   v41 = a1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataVSg_AA4DateVSgtMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataVSg_AA4DateVSgtMd, &_s10Foundation4DataVSg_AA4DateVSgtMR);
   v4 = *(v3 - 8);
   v5 = MEMORY[0x28223BE20](v3);
   v7 = (&v38 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x28223BE20](v5);
   v39 = &v38 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v38 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataVSg_AA4DateVSgtSgMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataVSg_AA4DateVSgtSgMd, &_s10Foundation4DataVSg_AA4DateVSgtSgMR);
   v13 = MEMORY[0x28223BE20](v12 - 8);
   v15 = (&v38 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x28223BE20](v13);
@@ -4647,15 +4664,15 @@ uint64_t CloudSyncSuggestion.lastKnownCKRecord.setter(void *a1)
     (*(*(v26 - 8) + 56))(v11, 1, 1, v26);
   }
 
-  type metadata accessor for CloudSyncDB();
+  type metadata accessor for CloudSyncDB(0);
   v27 = v41;
   static CloudSyncDB.setCKRecord(oldData:oldDate:newValue:)(v20, v22, v41, v17);
   outlined consume of Data?(v20, v22);
-  outlined destroy of UTType?(v11, &_s10Foundation4DateVSgMd);
-  outlined init with copy of DateInterval?(v17, v15, &_s10Foundation4DataVSg_AA4DateVSgtSgMd);
+  outlined destroy of UTType?(v11, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  outlined init with copy of DateInterval?(v17, v15, &_s10Foundation4DataVSg_AA4DateVSgtSgMd, &_s10Foundation4DataVSg_AA4DateVSgtSgMR);
   if ((*(v4 + 48))(v15, 1, v3) == 1)
   {
-    outlined destroy of UTType?(v17, &_s10Foundation4DataVSg_AA4DateVSgtSgMd);
+    outlined destroy of UTType?(v17, &_s10Foundation4DataVSg_AA4DateVSgtSgMd, &_s10Foundation4DataVSg_AA4DateVSgtSgMR);
 
     v17 = v15;
   }
@@ -4663,8 +4680,8 @@ uint64_t CloudSyncSuggestion.lastKnownCKRecord.setter(void *a1)
   else
   {
     v28 = v39;
-    outlined init with take of URL?(v15, v39, &_s10Foundation4DataVSg_AA4DateVSgtMd);
-    outlined init with copy of DateInterval?(v28, v7, &_s10Foundation4DataVSg_AA4DateVSgtMd);
+    outlined init with take of URL?(v15, v39, &_s10Foundation4DataVSg_AA4DateVSgtMd, &_s10Foundation4DataVSg_AA4DateVSgtMR);
+    outlined init with copy of DateInterval?(v28, v7, &_s10Foundation4DataVSg_AA4DateVSgtMd, &_s10Foundation4DataVSg_AA4DateVSgtMR);
     v29 = v7[1];
     if (v29 >> 60 == 15)
     {
@@ -4693,10 +4710,10 @@ uint64_t CloudSyncSuggestion.lastKnownCKRecord.setter(void *a1)
 
     [v40 setLastKnownCKRecordSync_];
 
-    outlined destroy of UTType?(v28, &_s10Foundation4DataVSg_AA4DateVSgtMd);
+    outlined destroy of UTType?(v28, &_s10Foundation4DataVSg_AA4DateVSgtMd, &_s10Foundation4DataVSg_AA4DateVSgtMR);
   }
 
-  return outlined destroy of UTType?(v17, &_s10Foundation4DataVSg_AA4DateVSgtSgMd);
+  return outlined destroy of UTType?(v17, &_s10Foundation4DataVSg_AA4DateVSgtSgMd, &_s10Foundation4DataVSg_AA4DateVSgtSgMR);
 }
 
 uint64_t closure #1 in CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:primaryID:blobFolderURL:cloudManager:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -4711,7 +4728,7 @@ uint64_t closure #1 in CloudSyncSuggestion.mergeFromServerRecord(_:force:primary
 {
   v1 = v0[4];
   ObjectType = swift_getObjectType();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMd, &_ss23_ContiguousArrayStorageCy8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMR);
   v3 = type metadata accessor for CKSyncEngine.PendingRecordZoneChange();
   v4 = *(v3 - 8);
   v5 = (*(v4 + 80) + 32) & ~*(v4 + 80);
@@ -4735,7 +4752,7 @@ Swift::Void __swiftcall CloudSyncSuggestion.populateRecord(_:)(CKRecord a1)
   v179 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v173 = &v169 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v7 = MEMORY[0x28223BE20](v6 - 8);
   v9 = &v169 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = MEMORY[0x28223BE20](v7);
@@ -4903,12 +4920,12 @@ LABEL_19:
   *(&v184 + 1) = v68;
   v185 = v67;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0x6974736567677573, 0xEC00000044496E6FLL, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v71 = [v2 type];
   v72 = v71;
   if (v71)
   {
-    v71 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber);
+    v71 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
     v73 = MEMORY[0x277CBBED8];
   }
 
@@ -4923,7 +4940,7 @@ LABEL_19:
   *(&v184 + 1) = v71;
   v185 = v73;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 1701869940, 0xE400000000000000, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v74 = [v2 title];
   if (v74)
   {
@@ -4949,7 +4966,7 @@ LABEL_19:
   *(&v184 + 1) = v80;
   v185 = v79;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0x656C746974, 0xE500000000000000, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v81 = [v2 subtitle];
   if (v81)
   {
@@ -4975,7 +4992,7 @@ LABEL_19:
   *(&v184 + 1) = v87;
   v185 = v86;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0x656C746974627573, 0xE800000000000000, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v88 = [v2 prompt];
   if (v88)
   {
@@ -5001,7 +5018,7 @@ LABEL_19:
   *(&v184 + 1) = v94;
   v185 = v93;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0x74706D6F7270, 0xE600000000000000, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v95 = [v2 startDate];
   if (v95)
   {
@@ -5019,13 +5036,13 @@ LABEL_19:
   v98 = v179;
   v99 = *(v179 + 56);
   v99(v70, v97, 1, v4);
-  outlined init with take of URL?(v70, v69, &_s10Foundation4DateVSgMd);
+  outlined init with take of URL?(v70, v69, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v100 = *(v98 + 48);
   v101 = v100(v69, 1, v4);
   v102 = MEMORY[0x277CBBBE8];
   if (v101 == 1)
   {
-    outlined destroy of UTType?(v69, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v69, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     v183 = 0u;
     v184 = 0u;
     v185 = 0;
@@ -5040,7 +5057,7 @@ LABEL_19:
   }
 
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0x7461447472617473, 0xE900000000000065, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v104 = [v2 endDate];
   if (v104)
   {
@@ -5060,10 +5077,10 @@ LABEL_19:
 
   v99(v105, v107, 1, v4);
   v108 = v177;
-  outlined init with take of URL?(v105, v177, &_s10Foundation4DateVSgMd);
+  outlined init with take of URL?(v105, v177, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   if (v100(v108, 1, v4) == 1)
   {
-    outlined destroy of UTType?(v108, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v108, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     v183 = 0u;
     v184 = 0u;
     v185 = 0;
@@ -5079,12 +5096,12 @@ LABEL_19:
 
   v110 = v180;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0x65746144646E65, 0xE700000000000000, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v111 = [v2 rankingScore];
   v112 = v111;
   if (v111)
   {
-    v111 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber);
+    v111 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
     v113 = MEMORY[0x277CBBED8];
   }
 
@@ -5099,12 +5116,12 @@ LABEL_19:
   *(&v184 + 1) = v111;
   v185 = v113;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0x53676E696B6E6172, 0xEC00000065726F63, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v114 = [v2 baseScore];
   v115 = v114;
   if (v114)
   {
-    v114 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber);
+    v114 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
     v116 = MEMORY[0x277CBBED8];
   }
 
@@ -5119,12 +5136,12 @@ LABEL_19:
   *(&v184 + 1) = v114;
   v185 = v116;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0x726F635365736162, 0xE900000000000065, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v117 = [v2 goodnessScore];
   v118 = v117;
   if (v117)
   {
-    v117 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber);
+    v117 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
     v119 = MEMORY[0x277CBBED8];
   }
 
@@ -5139,12 +5156,12 @@ LABEL_19:
   *(&v184 + 1) = v117;
   v185 = v119;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0x7373656E646F6F67, 0xED000065726F6353, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v120 = [v2 visibilityCategoryInt];
   v121 = v120;
   if (v120)
   {
-    v120 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber);
+    v120 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
     v122 = MEMORY[0x277CBBED8];
   }
 
@@ -5159,12 +5176,12 @@ LABEL_19:
   *(&v184 + 1) = v120;
   v185 = v122;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0xD000000000000015, 0x800000021657BB10, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v123 = [v2 ordinalRankInRecommendedTab];
   v124 = v123;
   if (v123)
   {
-    v123 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber);
+    v123 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
     v125 = MEMORY[0x277CBBED8];
   }
 
@@ -5179,7 +5196,7 @@ LABEL_19:
   *(&v184 + 1) = v123;
   v185 = v125;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0xD00000000000001BLL, 0x80000002165752F0, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v126 = [v2 assetsData];
   if (v126)
   {
@@ -5205,7 +5222,7 @@ LABEL_19:
   *(&v184 + 1) = v132;
   v185 = v131;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0x6144737465737361, 0xEA00000000006174, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v133 = [v2 assetIDsData];
   if (v133)
   {
@@ -5231,12 +5248,12 @@ LABEL_19:
   *(&v184 + 1) = v139;
   v185 = v138;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0x7344497465737361, 0xEC00000061746144, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v140 = [v2 subTypeInt];
   v141 = v140;
   if (v140)
   {
-    v140 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber);
+    v140 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
     v142 = MEMORY[0x277CBBED8];
   }
 
@@ -5252,12 +5269,12 @@ LABEL_19:
   *(&v184 + 1) = v140;
   v185 = v142;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0x4965707954627573, 0xEA0000000000746ELL, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v144 = [v2 isSensitive];
   v145 = v144;
   if (v144)
   {
-    v144 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber);
+    v144 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
     v146 = MEMORY[0x277CBBED8];
   }
 
@@ -5272,7 +5289,7 @@ LABEL_19:
   *(&v184 + 1) = v144;
   v185 = v146;
   _s9MomentsUI11CloudRecordPAAE18_setEncryptedValueyySo8CKRecordC_SS0C3Kit0hG8Protocol_pSgtFAA0C14SyncSuggestionC_Tt2g5(a1.super.isa, 0x7469736E65537369, 0xEB00000000657669, &v183);
-  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd);
+  outlined destroy of UTType?(&v183, &_s8CloudKit21CKRecordValueProtocol_pSgMd, &_s8CloudKit21CKRecordValueProtocol_pSgMR);
   v147 = [v2 expiry];
   if (v147)
   {
@@ -5379,7 +5396,7 @@ id CloudSyncSuggestion.lastKnownCKRecord.getter()
   return v6;
 }
 
-void (*CloudSyncSuggestion.lastKnownCKRecord.modify(void *a1))(void **a1, char a2)
+void (*CloudSyncSuggestion.lastKnownCKRecord.modify(uint64_t *a1))(void **a1, char a2)
 {
   a1[1] = v1;
   v3 = [v1 lastKnownCKRecordData];
@@ -5417,7 +5434,7 @@ void CloudSyncSuggestion.lastKnownCKRecord.modify(void **a1, char a2)
   }
 }
 
-uint64_t protocol witness for static CloudRecord.productionSchema.getter in conformance CloudSyncSuggestion()
+double protocol witness for static CloudRecord.productionSchema.getter in conformance CloudSyncSuggestion()
 {
   if (one-time initialization token for productionSchema != -1)
   {
@@ -5425,9 +5442,11 @@ uint64_t protocol witness for static CloudRecord.productionSchema.getter in conf
   }
 
   swift_beginAccess();
+
+  return result;
 }
 
-void (*protocol witness for CloudRecord.lastKnownCKRecord.modify in conformance CloudSyncSuggestion(void *a1))(void *a1)
+void (*protocol witness for CloudRecord.lastKnownCKRecord.modify in conformance CloudSyncSuggestion(uint64_t **a1))(void *a1)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -5446,7 +5465,7 @@ void (*protocol witness for CloudRecord.lastKnownCKRecord.modify in conformance 
 
 BOOL specialized static CloudSyncSuggestion.< infix(_:_:)(void *a1, void *a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = v18 - v5;
   v7 = [a1 id];
@@ -5465,17 +5484,17 @@ BOOL specialized static CloudSyncSuggestion.< infix(_:_:)(void *a1, void *a2)
   (*(*(v15 - 8) + 56))(v6, 1, 1, v15);
   lazy protocol witness table accessor for type String and conformance String();
   v16 = StringProtocol.compare<A>(_:options:range:locale:)();
-  outlined destroy of UTType?(v6, &_s10Foundation6LocaleVSgMd);
+  outlined destroy of UTType?(v6, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
 
   return v16 == -1;
 }
 
-uint64_t specialized Sequence.forEach(_:)(uint64_t result, uint64_t a2, void **a3)
+void specialized Sequence.forEach(_:)(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *(result + 16);
+  v4 = *(a1 + 16);
   if (v4)
   {
-    v7 = (result + 32);
+    v7 = (a1 + 32);
     v8 = v4 - 1;
     do
     {
@@ -5495,191 +5514,180 @@ uint64_t specialized Sequence.forEach(_:)(uint64_t result, uint64_t a2, void **a
 
     while (v9);
   }
-
-  return result;
 }
 
-unint64_t specialized Sequence.forEach(_:)(unint64_t result, uint64_t a2, void **a3)
+void specialized Sequence.forEach(_:)(unint64_t a1, uint64_t a2, void **a3)
 {
-  v3 = result;
-  if (result >> 62)
+  v3 = a1;
+  if (a1 >> 62)
   {
     goto LABEL_20;
   }
 
-  v4 = *((result & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (v4)
+  for (i = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = __CocoaSet.count.getter())
   {
-    do
+    v5 = 0;
+    v16 = v3 & 0xFFFFFFFFFFFFFF8;
+    v17 = v3 & 0xC000000000000001;
+    v15 = v3;
+    while (v17)
     {
-      v5 = 0;
-      v16 = v3 & 0xFFFFFFFFFFFFFF8;
-      v17 = v3 & 0xC000000000000001;
-      v15 = v3;
-      while (v17)
+      v6 = MEMORY[0x21CE93180](v5, v3);
+      v7 = v5 + 1;
+      if (__OFADD__(v5, 1))
       {
-        v6 = MEMORY[0x21CE93180](v5, v3);
-        v7 = v5 + 1;
-        if (__OFADD__(v5, 1))
-        {
-          goto LABEL_18;
-        }
+        goto LABEL_18;
+      }
 
 LABEL_7:
-        v20 = MEMORY[0x277D84F90];
-        if (*(v6 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations))
-        {
-          v8 = *(v6 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations);
-        }
+      v20 = MEMORY[0x277D84F90];
+      if (*(v6 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations))
+      {
+        v8 = *(v6 + OBJC_IVAR____TtC9MomentsUI7DBAsset__representations);
+      }
 
-        else
-        {
-          v8 = MEMORY[0x277D84F90];
-        }
+      else
+      {
+        v8 = MEMORY[0x277D84F90];
+      }
 
-        specialized Sequence.forEach(_:)(v8, a2, &v20);
+      specialized Sequence.forEach(_:)(v8, a2, &v20);
 
-        v9 = v20;
-        v10 = *a3;
+      v9 = v20;
+      v10 = *a3;
 
-        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      *a3 = v10;
+      if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+      {
+        v10 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v10[2] + 1, 1, v10);
         *a3 = v10;
-        if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-        {
-          v10 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v10[2] + 1, 1, v10);
-          *a3 = v10;
-        }
-
-        v13 = v10[2];
-        v12 = v10[3];
-        if (v13 >= v12 >> 1)
-        {
-          v10 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1, v10);
-          *a3 = v10;
-        }
-
-        v10[2] = v13 + 1;
-        v14 = &v10[2 * v13];
-        v14[4] = v6;
-        v14[5] = v9;
-
-        ++v5;
-        v3 = v15;
-        if (v7 == v4)
-        {
-          return result;
-        }
       }
 
-      if (v5 >= *(v16 + 16))
+      v13 = v10[2];
+      v12 = v10[3];
+      if (v13 >= v12 >> 1)
       {
-        goto LABEL_19;
+        v10 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1, v10);
+        *a3 = v10;
       }
 
-      v6 = *(v3 + 8 * v5 + 32);
+      v10[2] = v13 + 1;
+      v14 = &v10[2 * v13];
+      v14[4] = v6;
+      v14[5] = v9;
 
-      v7 = v5 + 1;
-      if (!__OFADD__(v5, 1))
+      ++v5;
+      v3 = v15;
+      if (v7 == i)
       {
-        goto LABEL_7;
+        return;
       }
-
-LABEL_18:
-      __break(1u);
-LABEL_19:
-      __break(1u);
-LABEL_20:
-      result = __CocoaSet.count.getter();
-      v4 = result;
     }
 
-    while (result);
-  }
+    if (v5 >= *(v16 + 16))
+    {
+      goto LABEL_19;
+    }
 
-  return result;
+    v6 = *(v3 + 8 * v5 + 32);
+
+    v7 = v5 + 1;
+    if (!__OFADD__(v5, 1))
+    {
+      goto LABEL_7;
+    }
+
+LABEL_18:
+    __break(1u);
+LABEL_19:
+    __break(1u);
+LABEL_20:
+    ;
+  }
 }
 
-uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:type:title:subtitle:prompt:startDate:endDate:rankingScore:baseScore:goodnessScore:visibilityCategoryInt:ordinalRankInRecommendedTab:assetsData:assetDataIDs:subTypeInt:isSensitive:zoneName:context:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void (*a6)(_BYTE *, uint64_t, uint64_t), uint64_t a7, unint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, void (*a12)(_BYTE *, uint64_t), uint64_t a13, uint64_t a14, uint64_t a15, unsigned __int8 a16, uint64_t a17, unsigned __int8 a18, uint64_t a19, unsigned __int8 a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, unint64_t a25, uint64_t a26, uint64_t a27, unsigned __int8 a28, uint64_t a29, uint64_t a30, void *a31)
+id specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:type:title:subtitle:prompt:startDate:endDate:rankingScore:baseScore:goodnessScore:visibilityCategoryInt:ordinalRankInRecommendedTab:assetsData:assetDataIDs:subTypeInt:isSensitive:zoneName:context:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void (*a6)(_BYTE *, uint64_t, uint64_t, __n128), uint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, void (*a12)(_BYTE *, uint64_t), uint64_t a13, unint64_t a14, uint64_t a15, unsigned __int8 a16, uint64_t a17, unsigned __int8 a18, uint64_t a19, unsigned __int8 a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, unint64_t a25, uint64_t a26, uint64_t a27, unsigned __int8 a28, uint64_t *a29, uint64_t a30, void *a31)
 {
-  v365 = a8;
-  v339 = a7;
-  v362 = a6;
-  v363 = a5;
-  v364 = a4;
-  v346 = a3;
-  v361 = a31;
-  v348 = a30;
-  v347 = a29;
-  v349 = a28;
-  v350 = a27;
-  v351 = a26;
-  v352 = a21;
-  v353 = a20;
-  v334 = a19;
-  v354 = a18;
-  v335 = a17;
-  LODWORD(v355) = a16;
-  v336 = a15;
-  v356 = a14;
-  v357 = a13;
-  v360 = a12;
-  v358 = a11;
-  v359 = a10;
-  v338 = a9;
+  v366 = a8;
+  v340 = a7;
+  v363 = a6;
+  v364 = a5;
+  v365 = a4;
+  v347 = a3;
+  v362 = a31;
+  v349 = a30;
+  v348 = a29;
+  v350 = a28;
+  v351 = a27;
+  v352 = a26;
+  v353 = a21;
+  v354 = a20;
+  v335 = a19;
+  v355 = a18;
+  v336 = a17;
+  LODWORD(v356) = a16;
+  v337 = a15;
+  v357 = a14;
+  v358 = a13;
+  v361 = a12;
+  v359 = a11;
+  v360 = a10;
+  v339 = a9;
   v33 = type metadata accessor for UUID();
   MEMORY[0x28223BE20](v33 - 8);
-  v325 = &v308[-((v34 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v329 = type metadata accessor for JSONEncoder.OutputFormatting();
-  v327 = *(v329 - 8);
-  MEMORY[0x28223BE20](v329);
-  v328 = &v308[-((v35 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v337 = type metadata accessor for Logger();
-  v340 = *(v337 - 8);
-  v36 = MEMORY[0x28223BE20](v337);
-  v331 = &v308[-((v37 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v326 = &v309[-((v34 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v330 = type metadata accessor for JSONEncoder.OutputFormatting();
+  v328 = *(v330 - 8);
+  MEMORY[0x28223BE20](v330);
+  v329 = &v309[-((v35 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v338 = type metadata accessor for Logger();
+  v341 = *(v338 - 8);
+  v36 = MEMORY[0x28223BE20](v338);
+  v332 = &v309[-((v37 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v38 = MEMORY[0x28223BE20](v36);
-  v332 = &v308[-v39];
+  v333 = &v309[-v39];
   v40 = MEMORY[0x28223BE20](v38);
-  v333 = &v308[-v41];
+  v334 = &v309[-v41];
   v42 = MEMORY[0x28223BE20](v40);
-  v330 = &v308[-v43];
+  v331 = &v309[-v43];
   MEMORY[0x28223BE20](v42);
-  v319 = &v308[-v44];
+  v320 = &v309[-v44];
   v45 = type metadata accessor for Date();
-  v366 = *(v45 - 8);
-  v367 = v45;
+  v367 = *(v45 - 8);
+  v368 = v45;
   v46 = MEMORY[0x28223BE20](v45);
-  v343 = &v308[-((v47 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v344 = &v309[-((v47 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v48 = MEMORY[0x28223BE20](v46);
-  v320 = &v308[-v49];
+  v321 = &v309[-v49];
   MEMORY[0x28223BE20](v48);
-  v322 = &v308[-v50];
-  v324 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_ADtMd);
-  v51 = MEMORY[0x28223BE20](v324);
-  v321 = &v308[-((v52 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v323 = &v309[-v50];
+  v325 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_ADtMd, &_s10Foundation4DateVSg_ADtMR);
+  v51 = MEMORY[0x28223BE20](v325);
+  v322 = &v309[-((v52 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v51);
-  v323 = &v308[-v53];
-  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v324 = &v309[-v53];
+  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v55 = MEMORY[0x28223BE20](v54 - 8);
-  v344 = &v308[-((v56 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v345 = &v309[-((v56 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v57 = MEMORY[0x28223BE20](v55);
-  v345 = &v308[-v58];
+  v346 = &v309[-v58];
   v59 = MEMORY[0x28223BE20](v57);
-  v61 = &v308[-v60];
+  v61 = &v309[-v60];
   v62 = MEMORY[0x28223BE20](v59);
-  v64 = &v308[-v63];
+  v64 = &v309[-v63];
   v65 = MEMORY[0x28223BE20](v62);
-  v67 = &v308[-v66];
+  v67 = &v309[-v66];
   MEMORY[0x28223BE20](v65);
-  v69 = &v308[-v68];
+  v69 = &v309[-v68];
   v70 = objc_allocWithZone(MEMORY[0x277CBE428]);
   v71 = MEMORY[0x21CE91FC0](0xD000000000000013, 0x800000021657BA20);
   v72 = [v70 initWithEntityName_];
 
   [v72 setIncludesPendingChanges_];
   [v72 setFetchLimit_];
-  type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSPredicate);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+  type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSPredicate, 0x277CCAC30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
   v73 = swift_allocObject();
   *(v73 + 16) = xmmword_21658CA50;
   *(v73 + 56) = MEMORY[0x277D837D0];
@@ -5692,22 +5700,22 @@ uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:ty
   v76 = NSPredicate.init(format:_:)();
   [v72 setPredicate_];
 
-  v77 = v361;
+  v77 = v362;
   v78 = type metadata accessor for CloudSyncSuggestion();
-  v341 = v72;
+  v342 = v72;
   v79 = NSManagedObjectContext.fetch<A>(_:)();
-  v368 = v75;
+  v369 = v75;
   v80 = v79;
-  v316 = v67;
-  v317 = v64;
-  v315 = v61;
-  v81 = v358;
-  v326 = 0;
+  v317 = v67;
+  v318 = v64;
+  v316 = v61;
+  v81 = v359;
+  v327 = 0;
   if (v79 >> 62)
   {
-    v269 = v79;
+    v270 = v79;
     v82 = __CocoaSet.count.getter();
-    v80 = v269;
+    v80 = v270;
   }
 
   else
@@ -5715,8 +5723,8 @@ uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:ty
     v82 = *((v79 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v83 = v365;
-  v342 = v80;
+  v83 = v366;
+  v343 = v80;
   if (!v82)
   {
     v89 = v81;
@@ -5726,9 +5734,9 @@ uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:ty
 
   if ((v80 & 0xC000000000000001) != 0)
   {
-    v272 = v80;
+    v273 = v80;
 
-    v78 = MEMORY[0x21CE93180](0, v272);
+    v78 = MEMORY[0x21CE93180](0, v273);
   }
 
   else
@@ -5747,8 +5755,8 @@ uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:ty
   v87 = v86;
 
   v88 = v85 == v74;
-  v75 = v368;
-  if (v88 && v87 == v368)
+  v75 = v369;
+  if (v88 && v87 == v369)
   {
   }
 
@@ -5769,7 +5777,7 @@ uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:ty
     v93 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     v95 = v94;
 
-    if (v93 == v364 && v95 == v363)
+    if (v93 == v365 && v95 == v364)
     {
     }
 
@@ -5777,7 +5785,7 @@ uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:ty
     {
       v96 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      v75 = v368;
+      v75 = v369;
       if ((v96 & 1) == 0)
       {
         goto LABEL_44;
@@ -5793,10 +5801,10 @@ uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:ty
       goto LABEL_43;
     }
 
-    v314 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber);
+    v315 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
     v100 = static NSObject.== infix(_:_:)();
 
-    v75 = v368;
+    v75 = v369;
     if ((v100 & 1) == 0)
     {
       goto LABEL_44;
@@ -5814,8 +5822,8 @@ uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:ty
         goto LABEL_42;
       }
 
-      v75 = v368;
-      if (v103 == v339 && v105 == v83)
+      v75 = v369;
+      if (v103 == v340 && v105 == v83)
       {
       }
 
@@ -5842,13 +5850,13 @@ uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:ty
       v109 = static String._unconditionallyBridgeFromObjectiveC(_:)();
       v111 = v110;
 
-      if (!v360)
+      if (!v361)
       {
         goto LABEL_42;
       }
 
-      v75 = v368;
-      if (v109 == v81 && v111 == v360)
+      v75 = v369;
+      if (v109 == v81 && v111 == v361)
       {
       }
 
@@ -5863,7 +5871,7 @@ uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:ty
       }
     }
 
-    else if (v360)
+    else if (v361)
     {
       goto LABEL_44;
     }
@@ -5871,156 +5879,156 @@ uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:ty
     v113 = [v78 subtitle];
     if (!v113)
     {
-      if (v359)
+      if (v360)
       {
         goto LABEL_44;
       }
 
 LABEL_153:
-      v229 = [v78 startDate];
-      if (v229)
+      v230 = [v78 startDate];
+      if (v230)
       {
-        v230 = v229;
+        v231 = v230;
         static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
-        v231 = v366;
-        v232 = *(v366 + 56);
-        v233 = v69;
-        v234 = 0;
+        v232 = v367;
+        v233 = *(v367 + 56);
+        v234 = v69;
+        v235 = 0;
       }
 
       else
       {
-        v231 = v366;
-        v232 = *(v366 + 56);
-        v233 = v69;
-        v234 = 1;
+        v232 = v367;
+        v233 = *(v367 + 56);
+        v234 = v69;
+        v235 = 1;
       }
 
-      v235 = v367;
-      v312 = v232;
-      v232(v233, v234, 1, v367);
-      v236 = *(v324 + 48);
-      v237 = v323;
-      outlined init with copy of DateInterval?(v69, v323, &_s10Foundation4DateVSgMd);
-      v238 = v237;
-      outlined init with copy of DateInterval?(v357, &v237[v236], &_s10Foundation4DateVSgMd);
-      v240 = v231 + 48;
-      v239 = *(v231 + 48);
-      if (v239(v238, 1, v235) == 1)
+      v236 = v368;
+      v313 = v233;
+      v233(v234, v235, 1, v368);
+      v237 = *(v325 + 48);
+      v238 = v324;
+      outlined init with copy of DateInterval?(v69, v324, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      v239 = v238;
+      outlined init with copy of DateInterval?(v358, &v238[v237], &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      v241 = v232 + 48;
+      v240 = *(v232 + 48);
+      if (v240(v239, 1, v236) == 1)
       {
-        outlined destroy of UTType?(v69, &_s10Foundation4DateVSgMd);
-        v241 = v239(v238 + v236, 1, v235);
-        v81 = v358;
-        if (v241 == 1)
+        outlined destroy of UTType?(v69, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+        v242 = v240(v239 + v237, 1, v236);
+        v81 = v359;
+        if (v242 == 1)
         {
-          v311 = v240;
-          outlined destroy of UTType?(v238, &_s10Foundation4DateVSgMd);
-          v75 = v368;
+          v312 = v241;
+          outlined destroy of UTType?(v239, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+          v75 = v369;
           goto LABEL_163;
         }
       }
 
       else
       {
-        v242 = v316;
-        outlined init with copy of DateInterval?(v238, v316, &_s10Foundation4DateVSgMd);
-        v313 = v239;
-        v243 = v239(v238 + v236, 1, v235);
-        v244 = v322;
-        if (v243 != 1)
+        v243 = v317;
+        outlined init with copy of DateInterval?(v239, v317, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+        v314 = v240;
+        v244 = v240(v239 + v237, 1, v236);
+        v245 = v323;
+        if (v244 != 1)
         {
-          v311 = v240;
-          v310 = v69;
-          v245 = v238;
-          v246 = v366;
-          (*(v366 + 32))(v322, v245 + v236, v235);
-          lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
-          v309 = dispatch thunk of static Equatable.== infix(_:_:)();
-          v247 = *(v246 + 8);
-          v247(v244, v235);
-          outlined destroy of UTType?(v310, &_s10Foundation4DateVSgMd);
-          v247(v242, v235);
-          outlined destroy of UTType?(v245, &_s10Foundation4DateVSgMd);
-          v75 = v368;
-          v81 = v358;
-          v239 = v313;
-          if ((v309 & 1) == 0)
+          v312 = v241;
+          v311 = v69;
+          v246 = v239;
+          v247 = v367;
+          (*(v367 + 32))(v323, v246 + v237, v236);
+          lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
+          v310 = dispatch thunk of static Equatable.== infix(_:_:)();
+          v248 = *(v247 + 8);
+          v248(v245, v236);
+          outlined destroy of UTType?(v311, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+          v248(v243, v236);
+          outlined destroy of UTType?(v246, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+          v75 = v369;
+          v81 = v359;
+          v240 = v314;
+          if ((v310 & 1) == 0)
           {
             goto LABEL_44;
           }
 
 LABEL_163:
-          v248 = [v78 endDate];
-          v313 = v239;
-          if (v248)
+          v249 = [v78 endDate];
+          v314 = v240;
+          if (v249)
           {
-            v249 = v317;
-            v250 = v248;
+            v250 = v318;
+            v251 = v249;
             static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
-            v251 = 0;
+            v252 = 0;
           }
 
           else
           {
-            v251 = 1;
-            v249 = v317;
+            v252 = 1;
+            v250 = v318;
           }
 
-          v252 = v324;
-          v253 = v367;
-          v312(v249, v251, 1, v367);
-          v254 = *(v252 + 48);
-          v255 = v321;
-          outlined init with copy of DateInterval?(v249, v321, &_s10Foundation4DateVSgMd);
-          v324 = v254;
-          v256 = &v255[v254];
-          v257 = v255;
-          outlined init with copy of DateInterval?(v356, v256, &_s10Foundation4DateVSgMd);
-          v258 = v313;
-          if (v313(v255, 1, v253) == 1)
+          v253 = v325;
+          v254 = v368;
+          v313(v250, v252, 1, v368);
+          v255 = *(v253 + 48);
+          v256 = v322;
+          outlined init with copy of DateInterval?(v250, v322, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+          v325 = v255;
+          v257 = &v256[v255];
+          v258 = v256;
+          outlined init with copy of DateInterval?(v357, v257, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+          v259 = v314;
+          if (v314(v256, 1, v254) == 1)
           {
-            outlined destroy of UTType?(v249, &_s10Foundation4DateVSgMd);
-            if (v258(&v255[v324], 1, v367) == 1)
+            outlined destroy of UTType?(v250, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+            if (v259(&v256[v325], 1, v368) == 1)
             {
-              outlined destroy of UTType?(v255, &_s10Foundation4DateVSgMd);
+              outlined destroy of UTType?(v256, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
               goto LABEL_173;
             }
           }
 
           else
           {
-            v259 = v258;
-            v260 = v315;
-            outlined init with copy of DateInterval?(v255, v315, &_s10Foundation4DateVSgMd);
-            v261 = v324;
-            if (v259(&v255[v324], 1, v367) != 1)
+            v260 = v259;
+            v261 = v316;
+            outlined init with copy of DateInterval?(v256, v316, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+            v262 = v325;
+            if (v260(&v256[v325], 1, v368) != 1)
             {
-              v263 = v366;
-              v262 = v367;
-              v264 = &v255[v261];
-              v265 = v322;
-              (*(v366 + 32))(v322, v264, v367);
-              lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
-              LODWORD(v324) = dispatch thunk of static Equatable.== infix(_:_:)();
-              v266 = *(v263 + 8);
-              v266(v265, v262);
-              outlined destroy of UTType?(v317, &_s10Foundation4DateVSgMd);
-              v266(v315, v262);
-              v75 = v368;
-              outlined destroy of UTType?(v257, &_s10Foundation4DateVSgMd);
-              if ((v324 & 1) == 0)
+              v264 = v367;
+              v263 = v368;
+              v265 = &v256[v262];
+              v266 = v323;
+              (*(v367 + 32))(v323, v265, v368);
+              lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
+              LODWORD(v325) = dispatch thunk of static Equatable.== infix(_:_:)();
+              v267 = *(v264 + 8);
+              v267(v266, v263);
+              outlined destroy of UTType?(v318, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+              v267(v316, v263);
+              v75 = v369;
+              outlined destroy of UTType?(v258, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+              if ((v325 & 1) == 0)
               {
                 goto LABEL_44;
               }
 
 LABEL_173:
-              v267 = [v78 rankingScore];
-              v268 = v267;
-              if (v355)
+              v268 = [v78 rankingScore];
+              v269 = v268;
+              if (v356)
               {
-                if (!v267)
+                if (!v268)
                 {
                   goto LABEL_186;
                 }
@@ -6028,18 +6036,18 @@ LABEL_173:
 
               else
               {
-                v270.super.super.isa = CGFloat._bridgeToObjectiveC()().super.super.isa;
-                v140 = v270.super.super.isa;
-                if (!v268)
+                v271.super.super.isa = CGFloat._bridgeToObjectiveC()().super.super.isa;
+                v140 = v271.super.super.isa;
+                if (!v269)
                 {
                   goto LABEL_185;
                 }
 
-                if (v270.super.super.isa)
+                if (v271.super.super.isa)
                 {
-                  v271 = static NSObject.== infix(_:_:)();
+                  v272 = static NSObject.== infix(_:_:)();
 
-                  if (v271)
+                  if (v272)
                   {
                     goto LABEL_186;
                   }
@@ -6053,22 +6061,22 @@ LABEL_217:
               goto LABEL_44;
             }
 
-            outlined destroy of UTType?(v317, &_s10Foundation4DateVSgMd);
-            (*(v366 + 8))(v260, v367);
+            outlined destroy of UTType?(v318, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+            (*(v367 + 8))(v261, v368);
           }
 
-          outlined destroy of UTType?(v255, &_s10Foundation4DateVSg_ADtMd);
+          outlined destroy of UTType?(v256, &_s10Foundation4DateVSg_ADtMd, &_s10Foundation4DateVSg_ADtMR);
           goto LABEL_44;
         }
 
-        outlined destroy of UTType?(v69, &_s10Foundation4DateVSgMd);
-        (*(v366 + 8))(v242, v235);
-        v81 = v358;
+        outlined destroy of UTType?(v69, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+        (*(v367 + 8))(v243, v236);
+        v81 = v359;
       }
 
-      outlined destroy of UTType?(v238, &_s10Foundation4DateVSg_ADtMd);
+      outlined destroy of UTType?(v239, &_s10Foundation4DateVSg_ADtMd, &_s10Foundation4DateVSg_ADtMR);
 LABEL_43:
-      v75 = v368;
+      v75 = v369;
       goto LABEL_44;
     }
 
@@ -6076,18 +6084,18 @@ LABEL_43:
     v115 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     v117 = v116;
 
-    if (v359)
+    if (v360)
     {
-      v75 = v368;
-      if (v115 == v338 && v117 == v359)
+      v75 = v369;
+      if (v115 == v339 && v117 == v360)
       {
       }
 
       else
       {
-        v228 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v229 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if ((v228 & 1) == 0)
+        if ((v229 & 1) == 0)
         {
           goto LABEL_44;
         }
@@ -6115,12 +6123,12 @@ LABEL_183:
         }
 
         v89 = v81;
-        v118 = v337;
-        v119 = __swift_project_value_buffer(v337, static CloudSyncSuggestion.Log);
+        v118 = v338;
+        v119 = __swift_project_value_buffer(v338, static CloudSyncSuggestion.Log);
         swift_beginAccess();
-        v120 = v340;
-        v121 = v330;
-        (*(v340 + 16))(v330, v119, v118);
+        v120 = v341;
+        v121 = v331;
+        (*(v341 + 16))(v331, v119, v118);
 
         v122 = Logger.logObject.getter();
         v123 = static os_log_type_t.error.getter();
@@ -6129,22 +6137,22 @@ LABEL_183:
         {
           v124 = swift_slowAlloc();
           v125 = swift_slowAlloc();
-          v372 = v125;
+          v373 = v125;
           *v124 = 136315138;
-          *(v124 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v74, v368, &v372);
+          *(v124 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v74, v369, &v373);
           _os_log_impl(&dword_21607C000, v122, v123, "Modifying existing suggestion %s", v124, 0xCu);
           __swift_destroy_boxed_opaque_existential_1(v125);
           v126 = v125;
-          v75 = v368;
+          v75 = v369;
           MEMORY[0x21CE94770](v126, -1, -1);
           MEMORY[0x21CE94770](v124, -1, -1);
         }
 
         (*(v120 + 8))(v121, v118);
-        v83 = v365;
+        v83 = v366;
 LABEL_48:
-        v81 = v366;
-        v127 = v343;
+        v81 = v367;
+        v127 = v344;
         v128 = [v78 expiry];
         if (v128)
         {
@@ -6157,7 +6165,7 @@ LABEL_48:
             [v78 setExpiry_];
           }
 
-          (*(v81 + 8))(v127, v367);
+          (*(v81 + 8))(v127, v368);
         }
 
         else
@@ -6169,7 +6177,7 @@ LABEL_48:
         v132 = MEMORY[0x21CE91FC0](v74, v75);
         [v78 setId_];
 
-        v133 = MEMORY[0x21CE91FC0](v364, v363);
+        v133 = MEMORY[0x21CE91FC0](v365, v364);
         [v78 setSuggestionID_];
 
         v134 = Int64._bridgeToObjectiveC()().super.super.isa;
@@ -6177,7 +6185,7 @@ LABEL_48:
 
         if (v83)
         {
-          v135 = MEMORY[0x21CE91FC0](v339, v83);
+          v135 = MEMORY[0x21CE91FC0](v340, v83);
         }
 
         else
@@ -6185,10 +6193,10 @@ LABEL_48:
           v135 = 0;
         }
 
-        v136 = v367;
+        v136 = v368;
         [v78 setTitle_];
 
-        if (v360)
+        if (v361)
         {
           v137 = MEMORY[0x21CE91FC0](v89);
         }
@@ -6198,12 +6206,12 @@ LABEL_48:
           v137 = 0;
         }
 
-        v138 = v345;
+        v138 = v346;
         [v78 setPrompt_];
 
-        if (v359)
+        if (v360)
         {
-          v139 = MEMORY[0x21CE91FC0](v338);
+          v139 = MEMORY[0x21CE91FC0](v339);
         }
 
         else
@@ -6213,7 +6221,7 @@ LABEL_48:
 
         [v78 setSubtitle_];
 
-        outlined init with copy of DateInterval?(v357, v138, &_s10Foundation4DateVSgMd);
+        outlined init with copy of DateInterval?(v358, v138, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
         v140 = (v81 + 48);
         v141 = *(v81 + 48);
         if (v141(v138, 1, v136) == 1)
@@ -6231,8 +6239,8 @@ LABEL_48:
 
         [v78 setStartDate_];
 
-        v144 = v344;
-        outlined init with copy of DateInterval?(v356, v344, &_s10Foundation4DateVSgMd);
+        v144 = v345;
+        outlined init with copy of DateInterval?(v357, v345, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
         if (v141(v144, 1, v136) == 1)
         {
           v145 = 0;
@@ -6241,14 +6249,14 @@ LABEL_48:
         else
         {
           v145 = Date._bridgeToObjectiveC()().super.isa;
-          (*(v366 + 8))(v144, v136);
+          (*(v367 + 8))(v144, v136);
         }
 
-        v75 = v368;
-        v146 = v349;
+        v75 = v369;
+        v146 = v350;
         [v78 setEndDate_];
 
-        if (v355)
+        if (v356)
         {
           v147 = 0;
         }
@@ -6260,7 +6268,7 @@ LABEL_48:
 
         [v78 setRankingScore_];
 
-        if (v354)
+        if (v355)
         {
           v148 = 0;
         }
@@ -6272,7 +6280,7 @@ LABEL_48:
 
         [v78 setBaseScore_];
 
-        if (v353)
+        if (v354)
         {
           v149 = 0;
         }
@@ -6300,54 +6308,54 @@ LABEL_48:
         v152 = a25;
         [v78 setOrdinalRankInRecommendedTab_];
 
-        CloudSyncSuggestion.assetIDs.setter();
-        v153 = Int64._bridgeToObjectiveC()().super.super.isa;
+        CloudSyncSuggestion.assetIDs.setter(v153);
+        v154 = Int64._bridgeToObjectiveC()().super.super.isa;
         [v78 setSubTypeInt_];
 
         if (v146 == 2)
         {
-          v154 = 0;
+          v155 = 0;
         }
 
         else
         {
-          v154 = Bool._bridgeToObjectiveC()().super.super.isa;
+          v155 = Bool._bridgeToObjectiveC()().super.super.isa;
         }
 
         [v78 setIsSensitive_];
 
-        v155 = MEMORY[0x21CE91FC0](v347, v348);
+        v156 = MEMORY[0x21CE91FC0](v348, v349);
         [v78 setZoneName_];
 
-        v156 = specialized static DefaultsManager.MomentsUIDomain.intValueFor(_:)();
-        if (v157)
+        v157 = specialized static DefaultsManager.MomentsUIDomain.intValueFor(_:)();
+        if (v158)
         {
-          v158 = 512000;
+          v159 = 512000;
         }
 
         else
         {
-          v158 = v156;
+          v159 = v157;
         }
 
         if (a25 >> 60 == 15)
         {
 
-          v159 = 0;
+          v160 = 0;
 LABEL_107:
           [v78 setAssetsData_];
           goto LABEL_108;
         }
 
-        v160 = a25 >> 62;
+        v161 = a25 >> 62;
         if ((a25 >> 62) > 1)
         {
           break;
         }
 
-        if (!v160)
+        if (!v161)
         {
-          if (v158 >= BYTE6(a25))
+          if (v159 >= BYTE6(a25))
           {
             goto LABEL_106;
           }
@@ -6358,10 +6366,10 @@ LABEL_107:
 LABEL_96:
         if (!__OFSUB__(HIDWORD(a24), a24))
         {
-          v163 = HIDWORD(a24) - a24;
+          v164 = HIDWORD(a24) - a24;
 LABEL_98:
           outlined copy of Data._Representation(a24, a25);
-          if (v158 >= v163)
+          if (v159 >= v164)
           {
             goto LABEL_106;
           }
@@ -6379,11 +6387,11 @@ LABEL_203:
         else
         {
 LABEL_186:
-          v273 = [v78 baseScore];
-          v268 = v273;
-          if (v354)
+          v274 = [v78 baseScore];
+          v269 = v274;
+          if (v355)
           {
-            if (v273)
+            if (v274)
             {
               goto LABEL_217;
             }
@@ -6391,20 +6399,20 @@ LABEL_186:
             goto LABEL_194;
           }
 
-          v274.super.super.isa = CGFloat._bridgeToObjectiveC()().super.super.isa;
-          v140 = v274.super.super.isa;
-          if (v268)
+          v275.super.super.isa = CGFloat._bridgeToObjectiveC()().super.super.isa;
+          v140 = v275.super.super.isa;
+          if (v269)
           {
-            v75 = v368;
-            v81 = v358;
-            if (!v274.super.super.isa)
+            v75 = v369;
+            v81 = v359;
+            if (!v275.super.super.isa)
             {
               goto LABEL_217;
             }
 
-            v275 = static NSObject.== infix(_:_:)();
+            v276 = static NSObject.== infix(_:_:)();
 
-            if (v275)
+            if (v276)
             {
               goto LABEL_194;
             }
@@ -6412,23 +6420,23 @@ LABEL_186:
 
           else
           {
-            v75 = v368;
-            v81 = v358;
-            if (v274.super.super.isa)
+            v75 = v369;
+            v81 = v359;
+            if (v275.super.super.isa)
             {
               goto LABEL_203;
             }
 
 LABEL_194:
-            v318 = v74;
-            v276 = [v78 goodnessScore];
-            v268 = v276;
-            if (v353)
+            v319 = v74;
+            v277 = [v78 goodnessScore];
+            v269 = v277;
+            if (v354)
             {
-              v75 = v368;
-              v74 = v318;
-              v81 = v358;
-              if (v276)
+              v75 = v369;
+              v74 = v319;
+              v81 = v359;
+              if (v277)
               {
                 goto LABEL_217;
               }
@@ -6436,24 +6444,24 @@ LABEL_194:
               goto LABEL_204;
             }
 
-            v277.super.super.isa = CGFloat._bridgeToObjectiveC()().super.super.isa;
-            v140 = v277.super.super.isa;
-            if (!v268)
+            v278.super.super.isa = CGFloat._bridgeToObjectiveC()().super.super.isa;
+            v140 = v278.super.super.isa;
+            if (!v269)
             {
               goto LABEL_202;
             }
 
-            v75 = v368;
-            v74 = v318;
-            v81 = v358;
-            if (!v277.super.super.isa)
+            v75 = v369;
+            v74 = v319;
+            v81 = v359;
+            if (!v278.super.super.isa)
             {
               goto LABEL_217;
             }
 
-            v278 = static NSObject.== infix(_:_:)();
+            v279 = static NSObject.== infix(_:_:)();
 
-            if (v278)
+            if (v279)
             {
               goto LABEL_204;
             }
@@ -6461,12 +6469,12 @@ LABEL_194:
         }
       }
 
-      if (v160 == 2)
+      if (v161 == 2)
       {
-        v162 = *(a24 + 16);
-        v161 = *(a24 + 24);
-        v163 = v161 - v162;
-        if (!__OFSUB__(v161, v162))
+        v163 = *(a24 + 16);
+        v162 = *(a24 + 24);
+        v164 = v162 - v163;
+        if (!__OFSUB__(v162, v163))
         {
           goto LABEL_98;
         }
@@ -6475,72 +6483,72 @@ LABEL_194:
         goto LABEL_96;
       }
 
-      if ((v158 & 0x8000000000000000) == 0)
+      if ((v159 & 0x8000000000000000) == 0)
       {
 LABEL_106:
         outlined consume of Data?(a24, a25);
 
-        v159 = Data._bridgeToObjectiveC()().super.isa;
+        v160 = Data._bridgeToObjectiveC()().super.isa;
         goto LABEL_107;
       }
 
 LABEL_99:
-      v356 = a25 >> 62;
-      v318 = v74;
+      v357 = a25 >> 62;
+      v319 = v74;
       if (one-time initialization token for Log != -1)
       {
         swift_once();
       }
 
-      v164 = v337;
-      v165 = __swift_project_value_buffer(v337, static CloudSyncSuggestion.Log);
+      v165 = v338;
+      v166 = __swift_project_value_buffer(v338, static CloudSyncSuggestion.Log);
       swift_beginAccess();
-      v166 = v340;
-      v167 = *(v340 + 16);
-      v168 = v333;
-      v363 = v340 + 16;
-      v364 = v165;
-      v362 = v167;
-      v167(v333, v165, v164);
+      v167 = v341;
+      v168 = *(v341 + 16);
+      v169 = v334;
+      v364 = v341 + 16;
+      v365 = v166;
+      v363 = v168;
+      (v168)(v334, v166, v165);
 
       outlined copy of Data?(a24, a25);
-      v169 = Logger.logObject.getter();
-      v170 = static os_log_type_t.error.getter();
+      v170 = Logger.logObject.getter();
+      v171 = static os_log_type_t.error.getter();
 
-      v171 = os_log_type_enabled(v169, v170);
-      v367 = a24;
-      if (!v171)
+      v172 = os_log_type_enabled(v170, v171);
+      v368 = a24;
+      if (!v172)
       {
         outlined consume of Data?(a24, a25);
 
-        v360 = *(v166 + 8);
-        v360(v168, v164);
+        v361 = *(v167 + 8);
+        v361(v169, v165);
         goto LABEL_120;
       }
 
       v140 = a25;
-      v172 = swift_slowAlloc();
       v173 = swift_slowAlloc();
-      v369[0] = v173;
-      *v172 = 136315906;
-      *(v172 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD0000000000000E3, 0x8000000216585BB0, v369);
-      *(v172 + 12) = 2080;
-      *(v172 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v318, v75, v369);
-      *(v172 + 22) = 2048;
-      if (v356 > 1)
+      v174 = swift_slowAlloc();
+      v370[0] = v174;
+      *v173 = 136315906;
+      *(v173 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD0000000000000E3, 0x8000000216585BB0, v370);
+      *(v173 + 12) = 2080;
+      *(v173 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v319, v75, v370);
+      *(v173 + 22) = 2048;
+      if (v357 > 1)
       {
-        v174 = v333;
-        if (v356 != 2)
+        v175 = v334;
+        if (v357 != 2)
         {
-          v175 = 0;
+          v176 = 0;
           goto LABEL_119;
         }
 
-        v178 = *(v367 + 16);
-        v177 = *(v367 + 24);
-        v179 = __OFSUB__(v177, v178);
-        v175 = v177 - v178;
-        if (!v179)
+        v179 = *(v368 + 16);
+        v178 = *(v368 + 24);
+        v180 = __OFSUB__(v178, v179);
+        v176 = v178 - v179;
+        if (!v180)
         {
           goto LABEL_119;
         }
@@ -6549,69 +6557,69 @@ LABEL_99:
         goto LABEL_117;
       }
 
-      v174 = v333;
-      if (!v356)
+      v175 = v334;
+      if (!v357)
       {
         break;
       }
 
 LABEL_117:
-      LODWORD(v175) = HIDWORD(v367) - v367;
-      if (!__OFSUB__(HIDWORD(v367), v367))
+      LODWORD(v176) = HIDWORD(v368) - v368;
+      if (!__OFSUB__(HIDWORD(v368), v368))
       {
-        v175 = v175;
+        v176 = v176;
         goto LABEL_119;
       }
 
       __break(1u);
 LABEL_202:
-      v75 = v368;
-      v74 = v318;
-      v81 = v358;
+      v75 = v369;
+      v74 = v319;
+      v81 = v359;
       if (v140)
       {
         goto LABEL_203;
       }
 
 LABEL_204:
-      v279 = [v78 visibilityCategoryInt];
-      v280.super.super.isa = Int64._bridgeToObjectiveC()().super.super.isa;
-      if (!v279)
+      v280 = [v78 visibilityCategoryInt];
+      v281.super.super.isa = Int64._bridgeToObjectiveC()().super.super.isa;
+      if (!v280)
       {
         goto LABEL_212;
       }
 
-      v281 = static NSObject.== infix(_:_:)();
+      v282 = static NSObject.== infix(_:_:)();
 
-      v75 = v368;
-      v74 = v318;
-      v81 = v358;
-      if (v281)
+      v75 = v369;
+      v74 = v319;
+      v81 = v359;
+      if (v282)
       {
-        v282 = CloudSyncSuggestion.assetIDs.getter();
-        v283 = _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v282, v351);
+        v283 = CloudSyncSuggestion.assetIDs.getter();
+        v284 = _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v283, v352);
 
-        if (v283)
+        if (v284)
         {
-          v284 = [v78 subTypeInt];
-          v280.super.super.isa = Int64._bridgeToObjectiveC()().super.super.isa;
-          if (v284)
+          v285 = [v78 subTypeInt];
+          v281.super.super.isa = Int64._bridgeToObjectiveC()().super.super.isa;
+          if (v285)
           {
-            v285 = static NSObject.== infix(_:_:)();
+            v286 = static NSObject.== infix(_:_:)();
 
-            v75 = v368;
-            v74 = v318;
-            v81 = v358;
-            if (v285)
+            v75 = v369;
+            v74 = v319;
+            v81 = v359;
+            if (v286)
             {
-              v286 = [v78 isSensitive];
-              v268 = v286;
-              if (v349 == 2)
+              v287 = [v78 isSensitive];
+              v269 = v287;
+              if (v350 == 2)
               {
-                v75 = v368;
-                v74 = v318;
-                v81 = v358;
-                if (v286)
+                v75 = v369;
+                v74 = v319;
+                v81 = v359;
+                if (v287)
                 {
                   goto LABEL_217;
                 }
@@ -6619,21 +6627,21 @@ LABEL_204:
                 goto LABEL_225;
               }
 
-              v287.super.super.isa = Bool._bridgeToObjectiveC()().super.super.isa;
-              v140 = v287.super.super.isa;
-              if (v268)
+              v288.super.super.isa = Bool._bridgeToObjectiveC()().super.super.isa;
+              v140 = v288.super.super.isa;
+              if (v269)
               {
-                v75 = v368;
-                v74 = v318;
-                v81 = v358;
-                if (!v287.super.super.isa)
+                v75 = v369;
+                v74 = v319;
+                v81 = v359;
+                if (!v288.super.super.isa)
                 {
                   goto LABEL_217;
                 }
 
-                v288 = static NSObject.== infix(_:_:)();
+                v289 = static NSObject.== infix(_:_:)();
 
-                if (v288)
+                if (v289)
                 {
                   goto LABEL_225;
                 }
@@ -6642,23 +6650,23 @@ LABEL_204:
               else
               {
 LABEL_224:
-                v75 = v368;
-                v74 = v318;
-                v81 = v358;
+                v75 = v369;
+                v74 = v319;
+                v81 = v359;
                 if (v140)
                 {
                   goto LABEL_203;
                 }
 
 LABEL_225:
-                v289 = [v78 zoneName];
-                if (v289)
+                v290 = [v78 zoneName];
+                if (v290)
                 {
-                  v290 = v289;
-                  v291 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-                  v293 = v292;
+                  v291 = v290;
+                  v292 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+                  v294 = v293;
 
-                  if (v291 == v347 && v293 == v348)
+                  if (v292 == v348 && v294 == v349)
                   {
 
 LABEL_234:
@@ -6668,48 +6676,48 @@ LABEL_234:
                       swift_once();
                     }
 
-                    v297 = v337;
-                    v298 = __swift_project_value_buffer(v337, static CloudSyncSuggestion.Log);
+                    v298 = v338;
+                    v299 = __swift_project_value_buffer(v338, static CloudSyncSuggestion.Log);
                     swift_beginAccess();
-                    (*(v340 + 16))(v319, v298, v297);
+                    (*(v341 + 16))(v320, v299, v298);
 
-                    v299 = Logger.logObject.getter();
-                    v300 = static os_log_type_t.debug.getter();
+                    v300 = Logger.logObject.getter();
+                    v301 = static os_log_type_t.debug.getter();
 
-                    if (os_log_type_enabled(v299, v300))
+                    if (os_log_type_enabled(v300, v301))
                     {
-                      v301 = swift_slowAlloc();
                       v302 = swift_slowAlloc();
-                      v369[0] = v302;
-                      *v301 = 136315138;
-                      *(v301 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v318, v368, v369);
-                      _os_log_impl(&dword_21607C000, v299, v300, "Existing suggestion found %s", v301, 0xCu);
-                      __swift_destroy_boxed_opaque_existential_1(v302);
+                      v303 = swift_slowAlloc();
+                      v370[0] = v303;
+                      *v302 = 136315138;
+                      *(v302 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v319, v369, v370);
+                      _os_log_impl(&dword_21607C000, v300, v301, "Existing suggestion found %s", v302, 0xCu);
+                      __swift_destroy_boxed_opaque_existential_1(v303);
+                      MEMORY[0x21CE94770](v303, -1, -1);
                       MEMORY[0x21CE94770](v302, -1, -1);
-                      MEMORY[0x21CE94770](v301, -1, -1);
                     }
 
-                    (*(v340 + 8))(v319, v337);
-                    v303 = [v78 expiry];
-                    if (v303)
+                    (*(v341 + 8))(v320, v338);
+                    v304 = [v78 expiry];
+                    if (v304)
                     {
-                      v304 = v303;
+                      v305 = v304;
                       static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
                       if (static Date.> infix(_:_:)())
                       {
-                        v305 = Date._bridgeToObjectiveC()().super.isa;
+                        v306 = Date._bridgeToObjectiveC()().super.isa;
                         [v78 setExpiry_];
 
-                        (*(v366 + 8))(v320, v367);
+                        (*(v367 + 8))(v321, v368);
                         return v78;
                       }
 
-                      (*(v366 + 8))(v320, v367);
+                      (*(v367 + 8))(v321, v368);
                       goto LABEL_109;
                     }
 
-                    v159 = Date._bridgeToObjectiveC()().super.isa;
+                    v160 = Date._bridgeToObjectiveC()().super.isa;
                     [v78 setExpiry_];
 LABEL_108:
 
@@ -6727,294 +6735,294 @@ LABEL_109:
           {
 LABEL_212:
 
-            v75 = v368;
-            v74 = v318;
-            v81 = v358;
+            v75 = v369;
+            v74 = v319;
+            v81 = v359;
           }
         }
       }
     }
 
-    v175 = BYTE6(a25);
+    v176 = BYTE6(a25);
 LABEL_119:
-    *(v172 + 24) = v175;
-    outlined consume of Data?(v367, a25);
-    *(v172 + 32) = 2048;
-    *(v172 + 34) = v158;
-    _os_log_impl(&dword_21607C000, v169, v170, "CloudSyncSuggestion.%s ERROR: Assets too large in suggestion %s for iCloud CKRecord: %ld bytes (max: %ld). Please file a radar against Journaling Suggestions | CloudSync", v172, 0x2Au);
+    *(v173 + 24) = v176;
+    outlined consume of Data?(v368, a25);
+    *(v173 + 32) = 2048;
+    *(v173 + 34) = v159;
+    _os_log_impl(&dword_21607C000, v170, v171, "CloudSyncSuggestion.%s ERROR: Assets too large in suggestion %s for iCloud CKRecord: %ld bytes (max: %ld). Please file a radar against Journaling Suggestions | CloudSync", v173, 0x2Au);
     swift_arrayDestroy();
-    v180 = v173;
+    v181 = v174;
     v152 = a25;
-    MEMORY[0x21CE94770](v180, -1, -1);
-    MEMORY[0x21CE94770](v172, -1, -1);
+    MEMORY[0x21CE94770](v181, -1, -1);
+    MEMORY[0x21CE94770](v173, -1, -1);
 
-    v164 = v337;
-    v360 = *(v340 + 8);
-    v360(v174, v337);
+    v165 = v338;
+    v361 = *(v341 + 8);
+    v361(v175, v338);
 LABEL_120:
     type metadata accessor for JSONDecoder();
     swift_allocObject();
-    v181 = JSONDecoder.init()();
-    v182 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI7DBAssetCGMd);
-    lazy protocol witness table accessor for type [DBAsset] and conformance <A> [A](&lazy protocol witness table cache variable for type [DBAsset] and conformance <A> [A], &lazy protocol witness table cache variable for type DBAsset and conformance DBAsset);
-    v355 = v182;
-    v358 = v181;
-    v183 = v326;
+    v182 = JSONDecoder.init()();
+    v183 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI7DBAssetCGMd, &_sSay9MomentsUI7DBAssetCGMR);
+    lazy protocol witness table accessor for type [DBAsset] and conformance <A> [A](&lazy protocol witness table cache variable for type [DBAsset] and conformance <A> [A], &lazy protocol witness table cache variable for type DBAsset and conformance DBAsset, &protocol conformance descriptor for DBAsset, MEMORY[0x277D83978]);
+    v356 = v183;
+    v359 = v182;
+    v184 = v327;
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-    if (v183)
+    if (v184)
     {
 
-      v184 = 0;
-      v366 = 0;
+      v185 = 0;
+      v367 = 0;
     }
 
     else
     {
-      v366 = 0;
-      v184 = v369[0];
+      v367 = 0;
+      v185 = v370[0];
     }
 
     type metadata accessor for JSONEncoder();
     swift_allocObject();
-    v185 = JSONEncoder.init()();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation11JSONEncoderC16OutputFormattingVGMd);
-    v186 = swift_allocObject();
-    *(v186 + 16) = xmmword_21658CA60;
+    v186 = JSONEncoder.init()();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation11JSONEncoderC16OutputFormattingVGMd, &_ss23_ContiguousArrayStorageCy10Foundation11JSONEncoderC16OutputFormattingVGMR);
+    v187 = swift_allocObject();
+    *(v187 + 16) = xmmword_21658CA60;
     static JSONEncoder.OutputFormatting.sortedKeys.getter();
     static JSONEncoder.OutputFormatting.withoutEscapingSlashes.getter();
-    v369[0] = v186;
-    lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type JSONEncoder.OutputFormatting and conformance JSONEncoder.OutputFormatting, MEMORY[0x277CC8718]);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation11JSONEncoderC16OutputFormattingVGMd);
+    v370[0] = v187;
+    lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type JSONEncoder.OutputFormatting and conformance JSONEncoder.OutputFormatting, MEMORY[0x277CC8718], MEMORY[0x277CC8730]);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation11JSONEncoderC16OutputFormattingVGMd, &_sSay10Foundation11JSONEncoderC16OutputFormattingVGMR);
     lazy protocol witness table accessor for type [JSONEncoder.OutputFormatting] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     dispatch thunk of JSONEncoder.outputFormatting.setter();
-    v371 = MEMORY[0x277D84F90];
-    v359 = v152;
-    v357 = v184;
-    if (v184)
+    v372 = MEMORY[0x277D84F90];
+    v360 = v152;
+    v358 = v185;
+    if (v185)
     {
 
-      v188 = v366;
-      specialized Sequence.forEach(_:)(v187, v185, &v371);
-      v366 = v188;
+      v189 = v367;
+      specialized Sequence.forEach(_:)(v188, v186, &v372);
+      v367 = v189;
     }
 
-    v189 = v368;
-    v190 = v332;
-    v362(v332, v364, v164);
+    v190 = v369;
+    v191 = v333;
+    (v363)(v333, v365, v165);
 
-    v191 = Logger.logObject.getter();
-    v192 = v164;
-    v193 = static os_log_type_t.error.getter();
+    v192 = Logger.logObject.getter();
+    v193 = v165;
+    v194 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v191, v193))
+    if (os_log_type_enabled(v192, v194))
     {
-      v194 = swift_slowAlloc();
       v195 = swift_slowAlloc();
-      v370[0] = v195;
-      *v194 = 136446722;
-      *(v194 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD0000000000000E3, 0x8000000216585BB0, v370);
-      *(v194 + 12) = 2080;
-      *(v194 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v318, v368, v370);
-      *(v194 + 22) = 2080;
+      v196 = swift_slowAlloc();
+      v371[0] = v196;
+      *v195 = 136446722;
+      *(v195 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD0000000000000E3, 0x8000000216585BB0, v371);
+      *(v195 + 12) = 2080;
+      *(v195 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v319, v369, v371);
+      *(v195 + 22) = 2080;
       swift_beginAccess();
-      v196 = v371;
+      v197 = v372;
 
-      v197 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI7DBAssetC_SaySS_SitGtMd);
-      v198 = MEMORY[0x21CE922B0](v196, v197);
-      v199 = v185;
-      v201 = v200;
+      v198 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI7DBAssetC_SaySS_SitGtMd, &_s9MomentsUI7DBAssetC_SaySS_SitGtMR);
+      v199 = MEMORY[0x21CE922B0](v197, v198);
+      v200 = v186;
+      v202 = v201;
 
-      v202 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v198, v201, v370);
-      v185 = v199;
+      v203 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v199, v202, v371);
+      v186 = v200;
 
-      *(v194 + 24) = v202;
-      v189 = v368;
-      _os_log_impl(&dword_21607C000, v191, v193, "CloudSyncSuggestion.%{public}s Suggestion %s stats:\n%s", v194, 0x20u);
+      *(v195 + 24) = v203;
+      v190 = v369;
+      _os_log_impl(&dword_21607C000, v192, v194, "CloudSyncSuggestion.%{public}s Suggestion %s stats:\n%s", v195, 0x20u);
       swift_arrayDestroy();
+      MEMORY[0x21CE94770](v196, -1, -1);
       MEMORY[0x21CE94770](v195, -1, -1);
-      MEMORY[0x21CE94770](v194, -1, -1);
 
-      v203 = v332;
+      v204 = v333;
     }
 
     else
     {
 
-      v203 = v190;
+      v204 = v191;
     }
 
-    v360(v203, v192);
-    v140 = v192;
-    v204 = v365;
-    v205 = v331;
-    v206 = specialized static DefaultsManager.MomentsUIDomain.intValueFor(_:)();
-    v208 = 4;
-    if ((v207 & 1) == 0)
+    v361(v204, v193);
+    v140 = v193;
+    v205 = v366;
+    v206 = v332;
+    v207 = specialized static DefaultsManager.MomentsUIDomain.intValueFor(_:)();
+    v209 = 4;
+    if ((v208 & 1) == 0)
     {
-      v208 = v206;
+      v209 = v207;
     }
 
-    if (!v208)
+    if (!v209)
     {
 
-      outlined consume of Data?(v367, v359);
+      outlined consume of Data?(v368, v360);
 
       goto LABEL_149;
     }
 
-    if (v208 == 3)
+    if (v209 == 3)
     {
 
-      type metadata accessor for DBAsset();
-      v219 = v325;
+      type metadata accessor for DBAsset(0);
+      v220 = v326;
       UUID.init()();
-      v220 = DBAsset.__allocating_init(universalUUID:representations:priorityScore:)(v219, MEMORY[0x277D84F90], 0, 1);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
-      v221 = swift_allocObject();
-      *(v221 + 16) = xmmword_21658E210;
-      *(v221 + 32) = v220;
-      v370[0] = v221;
-      lazy protocol witness table accessor for type [DBAsset] and conformance <A> [A](&lazy protocol witness table cache variable for type [DBAsset] and conformance <A> [A], &lazy protocol witness table cache variable for type DBAsset and conformance DBAsset);
+      v221 = DBAsset.__allocating_init(universalUUID:representations:priorityScore:)(v220, MEMORY[0x277D84F90], 0, 1);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+      v222 = swift_allocObject();
+      *(v222 + 16) = xmmword_21658E210;
+      *(v222 + 32) = v221;
+      v371[0] = v222;
+      lazy protocol witness table accessor for type [DBAsset] and conformance <A> [A](&lazy protocol witness table cache variable for type [DBAsset] and conformance <A> [A], &lazy protocol witness table cache variable for type DBAsset and conformance DBAsset, &protocol conformance descriptor for DBAsset, MEMORY[0x277D83948]);
 
-      v222 = v366;
-      v223 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-      if (v222)
+      v223 = v367;
+      v224 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+      if (v223)
       {
 
-        v225 = 0;
+        v226 = 0;
       }
 
       else
       {
-        v226 = v223;
         v227 = v224;
+        v228 = v225;
 
-        v225 = Data._bridgeToObjectiveC()().super.isa;
-        outlined consume of Data._Representation(v226, v227);
+        v226 = Data._bridgeToObjectiveC()().super.isa;
+        outlined consume of Data._Representation(v227, v228);
       }
 
       [v78 setAssetsData_];
 
-      outlined consume of Data?(v367, v359);
+      outlined consume of Data?(v368, v360);
 
 LABEL_149:
 
       return v78;
     }
 
-    if ((v208 - 1) >= 2)
+    if ((v209 - 1) >= 2)
     {
 
-      v362(v205, v364, v192);
+      (v363)(v206, v365, v193);
 
-      v209 = Logger.logObject.getter();
-      v210 = static os_log_type_t.debug.getter();
+      v210 = Logger.logObject.getter();
+      v211 = static os_log_type_t.debug.getter();
 
-      if (os_log_type_enabled(v209, v210))
+      if (os_log_type_enabled(v210, v211))
       {
-        v211 = swift_slowAlloc();
-        v368 = v185;
-        v212 = v211;
-        v213 = swift_slowAlloc();
-        v370[0] = v213;
-        *v212 = 136446722;
-        *(v212 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD0000000000000E3, 0x8000000216585BB0, v370);
-        *(v212 + 12) = 2080;
-        *(v212 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v318, v189, v370);
-        *(v212 + 22) = 2080;
-        if (v204)
+        v212 = swift_slowAlloc();
+        v369 = v186;
+        v213 = v212;
+        v214 = swift_slowAlloc();
+        v371[0] = v214;
+        *v213 = 136446722;
+        *(v213 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD0000000000000E3, 0x8000000216585BB0, v371);
+        *(v213 + 12) = 2080;
+        *(v213 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v319, v190, v371);
+        *(v213 + 22) = 2080;
+        if (v205)
         {
-          v214 = v339;
+          v215 = v340;
         }
 
         else
         {
-          v214 = 0x296C696E28;
+          v215 = 0x296C696E28;
         }
 
-        if (v204)
+        if (v205)
         {
-          v215 = v204;
+          v216 = v205;
         }
 
         else
         {
-          v215 = 0xE500000000000000;
+          v216 = 0xE500000000000000;
         }
 
-        v216 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v214, v215, v370);
+        v217 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v215, v216, v371);
 
-        *(v212 + 24) = v216;
-        _os_log_impl(&dword_21607C000, v209, v210, "CloudSyncSuggestion.%{public}s Dropping suggestion %s title: %s", v212, 0x20u);
+        *(v213 + 24) = v217;
+        _os_log_impl(&dword_21607C000, v210, v211, "CloudSyncSuggestion.%{public}s Dropping suggestion %s title: %s", v213, 0x20u);
         swift_arrayDestroy();
+        MEMORY[0x21CE94770](v214, -1, -1);
         MEMORY[0x21CE94770](v213, -1, -1);
-        MEMORY[0x21CE94770](v212, -1, -1);
 
-        v217 = v331;
-        v218 = v337;
+        v218 = v332;
+        v219 = v338;
       }
 
       else
       {
 
-        v217 = v205;
-        v218 = v192;
+        v218 = v206;
+        v219 = v193;
       }
 
-      v360(v217, v218);
-      [v361 deleteObject_];
+      v361(v218, v219);
+      [v362 deleteObject_];
 
-      outlined consume of Data?(v367, v359);
+      outlined consume of Data?(v368, v360);
 
       return 0;
     }
 
-    v370[0] = 0;
-    v370[1] = 0xE000000000000000;
+    v371[0] = 0;
+    v371[1] = 0xE000000000000000;
     _StringGuts.grow(_:)(70);
     MEMORY[0x21CE92100](0xD00000000000001CLL, 0x8000000216585CA0);
-    MEMORY[0x21CE92100](v318, v189);
+    MEMORY[0x21CE92100](v319, v190);
     MEMORY[0x21CE92100](0xD000000000000020, 0x8000000216585CC0);
-    if (v356 <= 1)
+    if (v357 <= 1)
     {
       break;
     }
 
-    if (v356 != 2)
+    if (v357 != 2)
     {
-      v306 = 0;
+      v307 = 0;
       goto LABEL_244;
     }
 
-    v295 = *(v367 + 16);
-    v294 = *(v367 + 24);
-    v179 = __OFSUB__(v294, v295);
-    v306 = v294 - v295;
-    if (!v179)
+    v296 = *(v368 + 16);
+    v295 = *(v368 + 24);
+    v180 = __OFSUB__(v295, v296);
+    v307 = v295 - v296;
+    if (!v180)
     {
       goto LABEL_244;
     }
 
     __break(1u);
 LABEL_233:
-    v296 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v297 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    v75 = v368;
-    v74 = v318;
-    v81 = v358;
-    if (v296)
+    v75 = v369;
+    v74 = v319;
+    v81 = v359;
+    if (v297)
     {
       goto LABEL_234;
     }
   }
 
-  if (v356 == 1)
+  if (v357 == 1)
   {
-    LODWORD(v306) = HIDWORD(v367) - v367;
-    if (!__OFSUB__(HIDWORD(v367), v367))
+    LODWORD(v307) = HIDWORD(v368) - v368;
+    if (!__OFSUB__(HIDWORD(v368), v368))
     {
-      v306 = v306;
+      v307 = v307;
       goto LABEL_244;
     }
 
@@ -7022,11 +7030,11 @@ LABEL_233:
     goto LABEL_224;
   }
 
-  v306 = BYTE6(v359);
+  v307 = BYTE6(v360);
 LABEL_244:
-  v369[3] = v306;
-  v307 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x21CE92100](v307);
+  v370[3] = v307;
+  v308 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x21CE92100](v308);
 
   MEMORY[0x21CE92100](0x736574796220, 0xE600000000000000);
   result = _assertionFailure(_:_:file:line:flags:)();
@@ -7034,7 +7042,7 @@ LABEL_244:
   return result;
 }
 
-uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:type:title:subtitle:prompt:startDate:endDate:rankingScore:baseScore:goodnessScore:visibilityCategory:ordinalRankInRecommendedTab:assets:assetDataIDs:subType:isSensitive:zoneName:context:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(_BYTE *, uint64_t, uint64_t), uint64_t a6, unint64_t a7, uint64_t a8, unint64_t a9, uint64_t a10, void (*a11)(_BYTE *, uint64_t), uint64_t a12, uint64_t a13, uint64_t a14, unsigned __int8 a15, uint64_t a16, unsigned __int8 a17, uint64_t a18, unsigned __int8 a19, unsigned __int8 *a20, uint64_t a21, unsigned __int8 a22, char *a23, uint64_t a24, char *a25, unsigned __int8 a26, uint64_t a27, uint64_t a28, void *a29)
+uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:type:title:subtitle:prompt:startDate:endDate:rankingScore:baseScore:goodnessScore:visibilityCategory:ordinalRankInRecommendedTab:assets:assetDataIDs:subType:isSensitive:zoneName:context:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(_BYTE *, uint64_t, uint64_t, __n128), uint64_t a6, uint64_t a7, uint64_t a8, unint64_t a9, uint64_t a10, void (*a11)(_BYTE *, uint64_t), uint64_t a12, unint64_t a13, uint64_t a14, unsigned __int8 a15, uint64_t a16, unsigned __int8 a17, uint64_t a18, unsigned __int8 a19, unsigned __int8 *a20, uint64_t a21, unsigned __int8 a22, char *a23, uint64_t a24, char *a25, unsigned __int8 a26, uint64_t *a27, uint64_t a28, void *a29)
 {
   v90 = a8;
   v91 = a5;
@@ -7056,20 +7064,20 @@ uint64_t specialized static CloudSyncSuggestion.create(id:expiry:suggestionID:ty
   type metadata accessor for JSONEncoder();
   swift_allocObject();
   v33 = JSONEncoder.init()();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation11JSONEncoderC16OutputFormattingVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation11JSONEncoderC16OutputFormattingVGMd, &_ss23_ContiguousArrayStorageCy10Foundation11JSONEncoderC16OutputFormattingVGMR);
   v34 = swift_allocObject();
   *(v34 + 16) = xmmword_21658CA60;
   static JSONEncoder.OutputFormatting.sortedKeys.getter();
   static JSONEncoder.OutputFormatting.withoutEscapingSlashes.getter();
   v99 = v34;
-  lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type JSONEncoder.OutputFormatting and conformance JSONEncoder.OutputFormatting, MEMORY[0x277CC8718]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation11JSONEncoderC16OutputFormattingVGMd);
+  lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type JSONEncoder.OutputFormatting and conformance JSONEncoder.OutputFormatting, MEMORY[0x277CC8718], MEMORY[0x277CC8730]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation11JSONEncoderC16OutputFormattingVGMd, &_sSay10Foundation11JSONEncoderC16OutputFormattingVGMR);
   lazy protocol witness table accessor for type [JSONEncoder.OutputFormatting] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   dispatch thunk of JSONEncoder.outputFormatting.setter();
   v99 = v97;
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI7DBAssetCGMd);
-  lazy protocol witness table accessor for type [DBAsset] and conformance <A> [A](&lazy protocol witness table cache variable for type [DBAsset] and conformance <A> [A], &lazy protocol witness table cache variable for type DBAsset and conformance DBAsset);
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MomentsUI7DBAssetCGMd, &_sSay9MomentsUI7DBAssetCGMR);
+  lazy protocol witness table accessor for type [DBAsset] and conformance <A> [A](&lazy protocol witness table cache variable for type [DBAsset] and conformance <A> [A], &lazy protocol witness table cache variable for type DBAsset and conformance DBAsset, &protocol conformance descriptor for DBAsset, MEMORY[0x277D83948]);
   v36 = v98;
   v37 = dispatch thunk of JSONEncoder.encode<A>(_:)();
   if (v36)
@@ -7175,7 +7183,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
   v350 = a5;
   v364 = a4;
   LODWORD(isa) = a2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x28223BE20](v6 - 8);
   v349 = &v317 - v7;
   v8 = type metadata accessor for CKSyncEngine.PendingRecordZoneChange();
@@ -7189,7 +7197,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
   v13 = *(v12 - 8);
   MEMORY[0x28223BE20](v12);
   v336 = &v317 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v342 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_ADtMd);
+  v342 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_ADtMd, &_s10Foundation4DateVSg_ADtMR);
   v15 = MEMORY[0x28223BE20](v342);
   v338 = &v317 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v15);
@@ -7200,7 +7208,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
   v346 = &v317 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v19);
   v22 = (&v317 - v21);
-  v355 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v355 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v23 = MEMORY[0x28223BE20](v355);
   v335 = &v317 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
   v25 = MEMORY[0x28223BE20](v23);
@@ -7248,7 +7256,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
   v359 = v48;
   v48(v49, v50, 1, v51);
   v353 = v8;
-  outlined init with take of URL?(v42, v44, &_s10Foundation4DateVSgMd);
+  outlined init with take of URL?(v42, v44, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v52 = v22;
   if (one-time initialization token for Log != -1)
   {
@@ -7264,7 +7272,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
   v343 = v55;
   v55(v52, v53, v18);
   v362 = v44;
-  outlined init with copy of DateInterval?(v44, v39, &_s10Foundation4DateVSgMd);
+  outlined init with copy of DateInterval?(v44, v39, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v56 = a1;
   v57 = Logger.logObject.getter();
   v58 = static os_log_type_t.debug.getter();
@@ -7292,10 +7300,10 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
 
     *(v61 + 14) = v68;
     *(v61 + 22) = 2080;
-    outlined init with copy of DateInterval?(v39, v354, &_s10Foundation4DateVSgMd);
+    outlined init with copy of DateInterval?(v39, v354, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     v69 = String.init<A>(describing:)();
     v71 = v70;
-    outlined destroy of UTType?(v39, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v39, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     v72 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v69, v71, &v369);
 
     *(v61 + 24) = v72;
@@ -7314,7 +7322,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
   else
   {
 
-    outlined destroy of UTType?(v39, &_s10Foundation4DateVSgMd);
+    outlined destroy of UTType?(v39, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     v75 = *(v54 + 8);
     v75(v52, v18);
     v73 = v364;
@@ -7336,7 +7344,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v79)
       {
         v368 = v79;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         v80 = swift_dynamicCast();
         v81 = v369;
         if (!v80)
@@ -7370,7 +7378,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v85)
       {
         v369 = v85;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         swift_dynamicCast();
       }
 
@@ -7383,7 +7391,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v88)
       {
         v368 = v88;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         v89 = swift_dynamicCast();
         v90 = v369;
         if (!v89)
@@ -7417,7 +7425,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v94)
       {
         v368 = v94;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         v95 = swift_dynamicCast();
         v96 = v369;
         if (!v95)
@@ -7453,7 +7461,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v100)
       {
         v368 = v100;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         v101 = swift_dynamicCast();
         v102 = v369;
         if (!v101)
@@ -7489,7 +7497,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v106)
       {
         v369 = v106;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         v107 = v358;
         v108 = v363;
         v109 = swift_dynamicCast() ^ 1;
@@ -7513,7 +7521,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v114)
       {
         v369 = v114;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         v115 = v356;
         v116 = v363;
         v117 = swift_dynamicCast() ^ 1;
@@ -7537,7 +7545,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v122)
       {
         v369 = v122;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         swift_dynamicCast();
       }
 
@@ -7550,7 +7558,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v125)
       {
         v369 = v125;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         swift_dynamicCast();
       }
 
@@ -7563,7 +7571,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v128)
       {
         v369 = v128;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         swift_dynamicCast();
       }
 
@@ -7577,7 +7585,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v131)
       {
         v369 = v131;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         swift_dynamicCast();
       }
 
@@ -7590,7 +7598,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v134)
       {
         v369 = v134;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         swift_dynamicCast();
       }
 
@@ -7604,7 +7612,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v137)
       {
         v368 = v137;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         v139 = swift_dynamicCast();
         v140 = v369;
         if (!v139)
@@ -7636,7 +7644,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v143)
       {
         v368 = v143;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         v145 = swift_dynamicCast();
         v146 = v369;
         if (!v145)
@@ -7667,7 +7675,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v149)
       {
         v369 = v149;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         swift_dynamicCast();
       }
 
@@ -7680,7 +7688,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       if (v152)
       {
         v369 = v152;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CKRecordValue_pMd, &_sSo13CKRecordValue_pMR);
         swift_dynamicCast();
       }
 
@@ -7739,7 +7747,7 @@ uint64_t specialized CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:p
       swift_beginAccess();
       v161 = specialized Dictionary.subscript.getter(1701869940, 0xE400000000000000, static CloudSyncSuggestion.productionSchema);
       swift_endAccess();
-      if (!v161 || (v162 = [v153 type]) != 0 && (v163 = v162, type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber), v164 = isa, v165 = static NSObject.== infix(_:_:)(), v164, v163, (v165 & 1) != 0))
+      if (!v161 || (v162 = [v153 type]) != 0 && (v163 = v162, type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0), v164 = isa, v165 = static NSObject.== infix(_:_:)(), v164, v163, (v165 & 1) != 0))
       {
         swift_beginAccess();
         v166 = specialized Dictionary.subscript.getter(0x656C746974, 0xE500000000000000, static CloudSyncSuggestion.productionSchema);
@@ -7847,27 +7855,27 @@ LABEL_119:
                   v359(v188, v190, 1, v363);
                   v195 = *(v342 + 48);
                   v196 = v340;
-                  outlined init with copy of DateInterval?(v188, v340, &_s10Foundation4DateVSgMd);
-                  outlined init with copy of DateInterval?(v358, v196 + v195, &_s10Foundation4DateVSgMd);
+                  outlined init with copy of DateInterval?(v188, v340, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+                  outlined init with copy of DateInterval?(v358, v196 + v195, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                   v197 = *(v193 + 48);
                   if (v197(v196, 1, v194) == 1)
                   {
-                    outlined destroy of UTType?(v188, &_s10Foundation4DateVSgMd);
+                    outlined destroy of UTType?(v188, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                     if (v197(v196 + v195, 1, v194) != 1)
                     {
                       goto LABEL_151;
                     }
 
-                    outlined destroy of UTType?(v196, &_s10Foundation4DateVSgMd);
+                    outlined destroy of UTType?(v196, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                   }
 
                   else
                   {
                     v198 = v337;
-                    outlined init with copy of DateInterval?(v196, v337, &_s10Foundation4DateVSgMd);
+                    outlined init with copy of DateInterval?(v196, v337, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                     if (v197(v196 + v195, 1, v194) == 1)
                     {
-                      outlined destroy of UTType?(v341, &_s10Foundation4DateVSgMd);
+                      outlined destroy of UTType?(v341, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                       (*(v360 + 8))(v198, v194);
                       goto LABEL_151;
                     }
@@ -7877,14 +7885,14 @@ LABEL_119:
                     v202 = v200 + v195;
                     v203 = v336;
                     (*(v360 + 32))(v336, v202, v194);
-                    lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+                    lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
                     v204 = dispatch thunk of static Equatable.== infix(_:_:)();
                     v205 = *(v201 + 8);
                     v205(v203, v194);
-                    outlined destroy of UTType?(v341, &_s10Foundation4DateVSgMd);
+                    outlined destroy of UTType?(v341, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                     v205(v198, v194);
                     v154 = v357;
-                    outlined destroy of UTType?(v200, &_s10Foundation4DateVSgMd);
+                    outlined destroy of UTType?(v200, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                     if ((v204 & 1) == 0)
                     {
                       goto LABEL_152;
@@ -7922,42 +7930,42 @@ LABEL_119:
                 v359(v208, v210, 1, v363);
                 v213 = *(v342 + 48);
                 v196 = v338;
-                outlined init with copy of DateInterval?(v208, v338, &_s10Foundation4DateVSgMd);
-                outlined init with copy of DateInterval?(v356, v196 + v213, &_s10Foundation4DateVSgMd);
+                outlined init with copy of DateInterval?(v208, v338, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+                outlined init with copy of DateInterval?(v356, v196 + v213, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                 v214 = *(v211 + 48);
                 if (v214(v196, 1, v212) == 1)
                 {
-                  outlined destroy of UTType?(v208, &_s10Foundation4DateVSgMd);
+                  outlined destroy of UTType?(v208, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                   v215 = v214(v196 + v213, 1, v212);
                   v154 = v357;
                   if (v215 == 1)
                   {
-                    outlined destroy of UTType?(v196, &_s10Foundation4DateVSgMd);
+                    outlined destroy of UTType?(v196, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
 LABEL_162:
                     swift_beginAccess();
                     v261 = specialized Dictionary.subscript.getter(0x53676E696B6E6172, 0xEC00000065726F63, static CloudSyncSuggestion.productionSchema);
                     swift_endAccess();
-                    if (!v261 || (v262 = [v153 rankingScore]) != 0 && (v263 = v262, type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber), v264 = v355, v265 = static NSObject.== infix(_:_:)(), v264, v263, (v265 & 1) != 0))
+                    if (!v261 || (v262 = [v153 rankingScore]) != 0 && (v263 = v262, type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0), v264 = v355, v265 = static NSObject.== infix(_:_:)(), v264, v263, (v265 & 1) != 0))
                     {
                       swift_beginAccess();
                       v266 = specialized Dictionary.subscript.getter(0x726F635365736162, 0xE900000000000065, static CloudSyncSuggestion.productionSchema);
                       swift_endAccess();
-                      if (!v266 || (v267 = [v153 baseScore]) != 0 && (v268 = v267, type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber), v269 = v354, v270 = static NSObject.== infix(_:_:)(), v269, v268, (v270 & 1) != 0))
+                      if (!v266 || (v267 = [v153 baseScore]) != 0 && (v268 = v267, type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0), v269 = v354, v270 = static NSObject.== infix(_:_:)(), v269, v268, (v270 & 1) != 0))
                       {
                         swift_beginAccess();
                         v271 = specialized Dictionary.subscript.getter(0x7373656E646F6F67, 0xED000065726F6353, static CloudSyncSuggestion.productionSchema);
                         swift_endAccess();
-                        if (!v271 || (v272 = [v153 goodnessScore]) != 0 && (v273 = v272, type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber), v274 = v334, v275 = static NSObject.== infix(_:_:)(), v274, v273, (v275 & 1) != 0))
+                        if (!v271 || (v272 = [v153 goodnessScore]) != 0 && (v273 = v272, type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0), v274 = v334, v275 = static NSObject.== infix(_:_:)(), v274, v273, (v275 & 1) != 0))
                         {
                           swift_beginAccess();
                           v276 = specialized Dictionary.subscript.getter(0xD000000000000015, v318 | 0x8000000000000000, static CloudSyncSuggestion.productionSchema);
                           swift_endAccess();
-                          if (!v276 || (v277 = [v153 visibilityCategoryInt]) != 0 && (v278 = v277, type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber), v279 = v333, v280 = static NSObject.== infix(_:_:)(), v279, v278, (v280 & 1) != 0))
+                          if (!v276 || (v277 = [v153 visibilityCategoryInt]) != 0 && (v278 = v277, type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0), v279 = v333, v280 = static NSObject.== infix(_:_:)(), v279, v278, (v280 & 1) != 0))
                           {
                             swift_beginAccess();
                             v281 = specialized Dictionary.subscript.getter(0xD00000000000001BLL, 0x80000002165752F0, static CloudSyncSuggestion.productionSchema);
                             swift_endAccess();
-                            if (!v281 || (v282 = [v153 ordinalRankInRecommendedTab]) != 0 && (v283 = v282, type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber), v284 = v332, v285 = static NSObject.== infix(_:_:)(), v284, v283, (v285 & 1) != 0))
+                            if (!v281 || (v282 = [v153 ordinalRankInRecommendedTab]) != 0 && (v283 = v282, type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0), v284 = v332, v285 = static NSObject.== infix(_:_:)(), v284, v283, (v285 & 1) != 0))
                             {
                               swift_beginAccess();
                               v286 = specialized Dictionary.subscript.getter(0x6144737465737361, 0xEA00000000006174, static CloudSyncSuggestion.productionSchema);
@@ -7989,7 +7997,7 @@ LABEL_162:
                                     outlined consume of Data?(v293, v295);
                                     outlined consume of Data?(v289, v291);
                                     outlined consume of Data?(v289, v291);
-                                    if ((v296 & 1) == 0)
+                                    if (!v296)
                                     {
                                       goto LABEL_205;
                                     }
@@ -8024,7 +8032,7 @@ LABEL_186:
                                           outlined consume of Data?(v301, v303);
                                           outlined consume of Data?(v289, v291);
                                           outlined consume of Data?(v289, v291);
-                                          if ((v304 & 1) == 0)
+                                          if (!v304)
                                           {
                                             goto LABEL_205;
                                           }
@@ -8042,7 +8050,7 @@ LABEL_196:
                                             }
 
                                             v308 = v307;
-                                            type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber);
+                                            type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
                                             v309 = v327;
                                             v310 = static NSObject.== infix(_:_:)();
 
@@ -8064,7 +8072,7 @@ LABEL_196:
                                             }
 
                                             v313 = v312;
-                                            type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber);
+                                            type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
                                             v314 = v326;
                                             v315 = static NSObject.== infix(_:_:)();
 
@@ -8087,8 +8095,8 @@ LABEL_196:
                                           }
 
 LABEL_159:
-                                          outlined destroy of UTType?(v356, &_s10Foundation4DateVSgMd);
-                                          outlined destroy of UTType?(v358, &_s10Foundation4DateVSgMd);
+                                          outlined destroy of UTType?(v356, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+                                          outlined destroy of UTType?(v358, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                                           goto LABEL_160;
                                         }
 
@@ -8144,7 +8152,7 @@ LABEL_205:
                               type metadata accessor for related decl 'e' for CKErrorCode(0);
                               v368 = 12;
                               _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-                              lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode);
+                              lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode, &protocol conformance descriptor for related decl 'e' for CKErrorCode);
                               _BridgedStoredNSError.init(_:userInfo:)();
                               v217 = v369;
                               swift_willThrow();
@@ -8159,7 +8167,7 @@ LABEL_152:
                     type metadata accessor for related decl 'e' for CKErrorCode(0);
                     v368 = 12;
                     _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-                    lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode);
+                    lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type related decl 'e' for CKErrorCode and conformance related decl 'e' for CKErrorCode, type metadata accessor for related decl 'e' for CKErrorCode, &protocol conformance descriptor for related decl 'e' for CKErrorCode);
                     _BridgedStoredNSError.init(_:userInfo:)();
                     v217 = v369;
                     swift_willThrow();
@@ -8216,8 +8224,8 @@ LABEL_153:
                       v241 = 0xE000000000000000;
                     }
 
-                    type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordID);
-                    type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID);
+                    type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordID, 0x277CBC5D0);
+                    type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8);
                     v242._countAndFlagsBits = static String._unconditionallyBridgeFromObjectiveC(_:)();
                     v242._object = v243;
                     v244._countAndFlagsBits = v239;
@@ -8259,19 +8267,19 @@ LABEL_153:
                 else
                 {
                   v216 = v335;
-                  outlined init with copy of DateInterval?(v196, v335, &_s10Foundation4DateVSgMd);
+                  outlined init with copy of DateInterval?(v196, v335, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                   if (v214(v196 + v213, 1, v212) != 1)
                   {
                     v258 = v196 + v213;
                     v259 = v336;
                     (*(v211 + 32))(v336, v258, v212);
-                    lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+                    lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
                     LODWORD(v359) = dispatch thunk of static Equatable.== infix(_:_:)();
                     v260 = *(v211 + 8);
                     v260(v259, v212);
-                    outlined destroy of UTType?(v339, &_s10Foundation4DateVSgMd);
+                    outlined destroy of UTType?(v339, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                     v260(v216, v212);
-                    outlined destroy of UTType?(v196, &_s10Foundation4DateVSgMd);
+                    outlined destroy of UTType?(v196, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                     v154 = v357;
                     if ((v359 & 1) == 0)
                     {
@@ -8281,13 +8289,13 @@ LABEL_153:
                     goto LABEL_162;
                   }
 
-                  outlined destroy of UTType?(v339, &_s10Foundation4DateVSgMd);
+                  outlined destroy of UTType?(v339, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
                   (*(v211 + 8))(v216, v212);
                   v154 = v357;
                 }
 
 LABEL_151:
-                outlined destroy of UTType?(v196, &_s10Foundation4DateVSg_ADtMd);
+                outlined destroy of UTType?(v196, &_s10Foundation4DateVSg_ADtMd, &_s10Foundation4DateVSg_ADtMR);
                 goto LABEL_152;
               }
             }
@@ -8356,7 +8364,7 @@ LABEL_116:
 LABEL_160:
   v256 = v76;
   CloudSyncSuggestion.lastKnownCKRecord.setter(v76);
-  return outlined destroy of UTType?(v362, &_s10Foundation4DateVSgMd);
+  return outlined destroy of UTType?(v362, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
 }
 
 unint64_t lazy protocol witness table accessor for type CloudSyncSuggestion.LargeSuggestionDropPolicy and conformance CloudSyncSuggestion.LargeSuggestionDropPolicy()
@@ -8373,9 +8381,9 @@ unint64_t lazy protocol witness table accessor for type CloudSyncSuggestion.Larg
 
 uint64_t instantiation function for generic protocol witness table for CloudSyncSuggestion(void *a1)
 {
-  a1[1] = lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type CloudSyncSuggestion and conformance CloudSyncSuggestion, type metadata accessor for CloudSyncSuggestion);
-  a1[2] = lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type CloudSyncSuggestion and conformance NSObject, type metadata accessor for CloudSyncSuggestion);
-  result = lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type CloudSyncSuggestion and conformance CloudSyncSuggestion, type metadata accessor for CloudSyncSuggestion);
+  a1[1] = lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type CloudSyncSuggestion and conformance CloudSyncSuggestion, type metadata accessor for CloudSyncSuggestion, &protocol conformance descriptor for CloudSyncSuggestion);
+  a1[2] = lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type CloudSyncSuggestion and conformance NSObject, type metadata accessor for CloudSyncSuggestion, MEMORY[0x277D85378]);
+  result = lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(&lazy protocol witness table cache variable for type CloudSyncSuggestion and conformance CloudSyncSuggestion, type metadata accessor for CloudSyncSuggestion, &protocol conformance descriptor for CloudSyncSuggestion);
   a1[3] = result;
   return result;
 }
@@ -8396,13 +8404,13 @@ uint64_t partial apply for closure #1 in CloudSyncSuggestion.mergeFromServerReco
   return closure #1 in CloudSyncSuggestion.mergeFromServerRecord(_:force:primary:primaryID:blobFolderURL:cloudManager:)(a1, v6, v7, v8, v9, v1 + v5);
 }
 
-uint64_t lazy protocol witness table accessor for type [DBAsset] and conformance <A> [A](unint64_t *a1, unint64_t *a2)
+uint64_t lazy protocol witness table accessor for type [DBAsset] and conformance <A> [A](unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay9MomentsUI7DBAssetCGMd);
-    lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(a2, type metadata accessor for DBAsset);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay9MomentsUI7DBAssetCGMd, &_sSay9MomentsUI7DBAssetCGMR);
+    lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(a2, type metadata accessor for DBAsset, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -8410,7 +8418,7 @@ uint64_t lazy protocol witness table accessor for type [DBAsset] and conformance
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type CloudSyncSuggestion and conformance CloudSyncSuggestion(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8423,23 +8431,23 @@ uint64_t lazy protocol witness table accessor for type CloudSyncSuggestion and c
   return result;
 }
 
-void *specialized Sequence.compactMap<A>(_:)(void (*a1)(void *), uint64_t a2, uint64_t a3)
+void specialized Sequence.compactMap<A>(_:)(void (*a1)(void *, __n128), uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v45 = a2;
-  v46 = a1;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v44 = a2;
+  v45 = a1;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x28223BE20](v6 - 8);
-  v8 = &v37 - v7;
-  v47 = type metadata accessor for Date();
-  v9 = *(v47 - 8);
-  v10 = MEMORY[0x28223BE20](v47);
-  v40 = &v37 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v36 - v7;
+  v46 = type metadata accessor for Date();
+  v9 = *(v46 - 8);
+  v10 = MEMORY[0x28223BE20](v46);
+  v39 = &v36 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v10);
-  v39 = &v37 - v12;
-  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-  MEMORY[0x28223BE20](v44);
-  v43 = &v37 - v13;
+  v38 = &v36 - v12;
+  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+  MEMORY[0x28223BE20](v43);
+  v42 = &v36 - v13;
   v14 = a3 + 64;
   v15 = 1 << *(a3 + 32);
   v16 = -1;
@@ -8450,253 +8458,251 @@ void *specialized Sequence.compactMap<A>(_:)(void (*a1)(void *), uint64_t a2, ui
 
   v17 = v16 & *(a3 + 64);
   v18 = (v15 + 63) >> 6;
-  v42 = (v9 + 48);
-  v37 = v9;
-  v38 = (v9 + 32);
-  v48 = a3;
+  v41 = (v9 + 48);
+  v36 = v9;
+  v37 = (v9 + 32);
+  v47 = a3;
 
-  v20 = 0;
-  v41 = MEMORY[0x277D84F90];
+  v19 = 0;
+  v40 = MEMORY[0x277D84F90];
   while (1)
   {
-    v21 = v20;
+    v20 = v19;
     if (!v17)
     {
       break;
     }
 
-    v22 = v8;
-    v49 = v4;
+    v21 = v8;
+    v48 = v4;
 LABEL_10:
-    v23 = __clz(__rbit64(v17)) | (v20 << 6);
-    v24 = *(v48 + 56);
-    v25 = (*(v48 + 48) + 16 * v23);
-    v26 = *v25;
-    v27 = v25[1];
-    v28 = v24 + *(*(type metadata accessor for CloudDevice() - 8) + 72) * v23;
-    v29 = v43;
-    outlined init with copy of CloudDevice(v28, &v43[*(v44 + 48)]);
-    *v29 = v26;
-    v29[1] = v27;
-
-    v8 = v22;
-    v30 = v49;
-    v46(v29);
-    v4 = v30;
-    if (v30)
-    {
-      outlined destroy of UTType?(v29, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-
-LABEL_19:
-
-      return v41;
-    }
-
-    v17 &= v17 - 1;
-    outlined destroy of UTType?(v29, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-    if ((*v42)(v22, 1, v47) == 1)
-    {
-      result = outlined destroy of UTType?(v22, &_s10Foundation4DateVSgMd);
-    }
-
-    else
-    {
-      v31 = *v38;
-      v32 = v47;
-      (*v38)(v39, v8, v47);
-      v31(v40, v39, v32);
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v41 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v41[2] + 1, 1, v41);
-      }
-
-      v34 = v41[2];
-      v33 = v41[3];
-      if (v34 >= v33 >> 1)
-      {
-        v41 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v33 > 1, v34 + 1, 1, v41);
-      }
-
-      v35 = v40;
-      v36 = v41;
-      v41[2] = v34 + 1;
-      result = (v31)(v36 + ((*(v37 + 80) + 32) & ~*(v37 + 80)) + *(v37 + 72) * v34, v35, v47);
-    }
-  }
-
-  while (1)
-  {
-    v20 = v21 + 1;
-    if (__OFADD__(v21, 1))
-    {
-      break;
-    }
-
-    if (v20 >= v18)
-    {
-      goto LABEL_19;
-    }
-
-    v17 = *(v14 + 8 * v20);
-    ++v21;
-    if (v17)
-    {
-      v22 = v8;
-      v49 = v4;
-      goto LABEL_10;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v4 = v3;
-  v43 = a1;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI11CloudDeviceVSgMd);
-  MEMORY[0x28223BE20](v6 - 8);
-  v42 = &v35 - v7;
-  v40 = type metadata accessor for CloudDevice();
-  v8 = *(v40 - 8);
-  v9 = MEMORY[0x28223BE20](v40);
-  v36 = &v35 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9);
-  v35 = &v35 - v11;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-  MEMORY[0x28223BE20](v41);
-  v13 = (&v35 - v12);
-  v14 = a3 + 64;
-  v15 = 1 << *(a3 + 32);
-  v16 = -1;
-  if (v15 < 64)
-  {
-    v16 = ~(-1 << v15);
-  }
-
-  v17 = v16 & *(a3 + 64);
-  v18 = (v15 + 63) >> 6;
-  v44 = v8;
-  v39 = (v8 + 48);
-  v45 = a3;
-
-  v20 = 0;
-  v37 = MEMORY[0x277D84F90];
-  while (1)
-  {
-    v21 = v20;
-    if (!v17)
-    {
-      break;
-    }
-
-    v22 = v4;
-LABEL_10:
-    v23 = __clz(__rbit64(v17)) | (v20 << 6);
-    v24 = *(v45 + 56);
-    v25 = (*(v45 + 48) + 16 * v23);
-    v26 = *v25;
-    v27 = v25[1];
-    v38 = *(v44 + 72);
-    outlined init with copy of CloudDevice(v24 + v38 * v23, v13 + *(v41 + 48));
-    *v13 = v26;
-    v13[1] = v27;
-
+    v22 = __clz(__rbit64(v17)) | (v19 << 6);
+    v23 = *(v47 + 56);
+    v24 = (*(v47 + 48) + 16 * v22);
+    v25 = *v24;
+    v26 = v24[1];
+    v27 = v23 + *(*(type metadata accessor for CloudDevice(0) - 8) + 72) * v22;
     v28 = v42;
-    v43(v13);
-    v4 = v22;
-    if (v22)
+    outlined init with copy of CloudDevice(v27, &v42[*(v43 + 48)]);
+    *v28 = v25;
+    v28[1] = v26;
+
+    v8 = v21;
+    v29 = v48;
+    v45(v28);
+    v4 = v29;
+    if (v29)
     {
-      outlined destroy of UTType?(v13, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
+      outlined destroy of UTType?(v28, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
 
 LABEL_19:
 
-      return v37;
+      return;
     }
 
     v17 &= v17 - 1;
-    outlined destroy of UTType?(v13, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-    if ((*v39)(v28, 1, v40) == 1)
+    outlined destroy of UTType?(v28, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+    if ((*v41)(v21, 1, v46) == 1)
     {
-      result = outlined destroy of UTType?(v28, &_s9MomentsUI11CloudDeviceVSgMd);
+      outlined destroy of UTType?(v21, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     }
 
     else
     {
-      v29 = v28;
-      v30 = v35;
-      outlined init with take of CloudDevice(v29, v35);
-      outlined init with take of CloudDevice(v30, v36);
+      v30 = *v37;
+      v31 = v46;
+      (*v37)(v38, v8, v46);
+      v30(v39, v38, v31);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v37 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v37[2] + 1, 1, v37);
+        v40 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v40 + 2) + 1, 1, v40);
       }
 
-      v32 = v37[2];
-      v31 = v37[3];
-      if (v32 >= v31 >> 1)
+      v33 = *(v40 + 2);
+      v32 = *(v40 + 3);
+      if (v33 >= v32 >> 1)
       {
-        v37 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v31 > 1, v32 + 1, 1, v37);
+        v40 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1, v40);
       }
 
-      v33 = v36;
-      v34 = v37;
-      v37[2] = v32 + 1;
-      result = outlined init with take of CloudDevice(v33, v34 + ((*(v44 + 80) + 32) & ~*(v44 + 80)) + v32 * v38);
+      v34 = v39;
+      v35 = v40;
+      *(v40 + 2) = v33 + 1;
+      v30(&v35[((*(v36 + 80) + 32) & ~*(v36 + 80)) + *(v36 + 72) * v33], v34, v46);
     }
   }
 
   while (1)
   {
-    v20 = v21 + 1;
-    if (__OFADD__(v21, 1))
+    v19 = v20 + 1;
+    if (__OFADD__(v20, 1))
     {
       break;
     }
 
-    if (v20 >= v18)
+    if (v19 >= v18)
     {
       goto LABEL_19;
     }
 
-    v17 = *(v14 + 8 * v20);
-    ++v21;
+    v17 = *(v14 + 8 * v19);
+    ++v20;
     if (v17)
     {
-      v22 = v4;
+      v21 = v8;
+      v48 = v4;
       goto LABEL_10;
     }
   }
 
   __break(1u);
-  return result;
 }
 
-uint64_t specialized Dictionary.compactMapValues<A>(_:)(void (*a1)(uint64_t), uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v69 = a1;
-  v70 = a2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI11CloudDeviceVSgMd);
+  v42 = a1;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR);
   MEMORY[0x28223BE20](v6 - 8);
-  v8 = &v58 - v7;
-  v66 = type metadata accessor for CloudDevice();
-  v9 = *(v66 - 8);
-  v10 = MEMORY[0x28223BE20](v66);
-  v60 = &v58 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v41 = &v34 - v7;
+  v39 = type metadata accessor for CloudDevice(0);
+  v8 = *(v39 - 8);
+  v9 = MEMORY[0x28223BE20](v39);
+  v35 = &v34 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v34 = &v34 - v11;
+  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+  MEMORY[0x28223BE20](v40);
+  v13 = (&v34 - v12);
+  v14 = a3 + 64;
+  v15 = 1 << *(a3 + 32);
+  v16 = -1;
+  if (v15 < 64)
+  {
+    v16 = ~(-1 << v15);
+  }
+
+  v17 = v16 & *(a3 + 64);
+  v18 = (v15 + 63) >> 6;
+  v43 = v8;
+  v38 = (v8 + 48);
+  v44 = a3;
+
+  v19 = 0;
+  v36 = MEMORY[0x277D84F90];
+  while (1)
+  {
+    v20 = v19;
+    if (!v17)
+    {
+      break;
+    }
+
+    v21 = v4;
+LABEL_10:
+    v22 = __clz(__rbit64(v17)) | (v19 << 6);
+    v23 = *(v44 + 56);
+    v24 = (*(v44 + 48) + 16 * v22);
+    v25 = *v24;
+    v26 = v24[1];
+    v37 = *(v43 + 72);
+    outlined init with copy of CloudDevice(v23 + v37 * v22, v13 + *(v40 + 48));
+    *v13 = v25;
+    v13[1] = v26;
+
+    v27 = v41;
+    v42(v13);
+    v4 = v21;
+    if (v21)
+    {
+      outlined destroy of UTType?(v13, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+
+LABEL_19:
+
+      return;
+    }
+
+    v17 &= v17 - 1;
+    outlined destroy of UTType?(v13, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+    if ((*v38)(v27, 1, v39) == 1)
+    {
+      outlined destroy of UTType?(v27, &_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR);
+    }
+
+    else
+    {
+      v28 = v27;
+      v29 = v34;
+      outlined init with take of CloudDevice(v28, v34);
+      outlined init with take of CloudDevice(v29, v35);
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        v36 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v36[2] + 1, 1, v36);
+      }
+
+      v31 = v36[2];
+      v30 = v36[3];
+      if (v31 >= v30 >> 1)
+      {
+        v36 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v30 > 1), v31 + 1, 1, v36);
+      }
+
+      v32 = v35;
+      v33 = v36;
+      v36[2] = v31 + 1;
+      outlined init with take of CloudDevice(v32, v33 + ((*(v43 + 80) + 32) & ~*(v43 + 80)) + v31 * v37);
+    }
+  }
+
+  while (1)
+  {
+    v19 = v20 + 1;
+    if (__OFADD__(v20, 1))
+    {
+      break;
+    }
+
+    if (v19 >= v18)
+    {
+      goto LABEL_19;
+    }
+
+    v17 = *(v14 + 8 * v19);
+    ++v20;
+    if (v17)
+    {
+      v21 = v4;
+      goto LABEL_10;
+    }
+  }
+
+  __break(1u);
+}
+
+void specialized Dictionary.compactMapValues<A>(_:)(void (*a1)(uint64_t, __n128), uint64_t a2, uint64_t a3)
+{
+  v4 = v3;
+  v68 = a1;
+  v69 = a2;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v57 - v7;
+  v65 = type metadata accessor for CloudDevice(0);
+  v9 = *(v65 - 8);
+  v10 = MEMORY[0x28223BE20](v65);
+  v59 = &v57 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v10);
-  v59 = &v58 - v12;
-  v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-  v13 = MEMORY[0x28223BE20](v71);
-  v61 = (&v58 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v58 = &v57 - v12;
+  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+  v13 = MEMORY[0x28223BE20](v70);
+  v60 = (&v57 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
   v15 = MEMORY[0x28223BE20](v13);
-  v73 = &v58 - v16;
+  v72 = &v57 - v16;
   MEMORY[0x28223BE20](v15);
-  v67 = &v58 - v17;
+  v66 = &v57 - v17;
   v19 = a3 + 64;
   v18 = *(a3 + 64);
-  v62 = MEMORY[0x277D84F98];
-  v74 = MEMORY[0x277D84F98];
+  v61 = MEMORY[0x277D84F98];
+  v73 = MEMORY[0x277D84F98];
   v20 = 1 << *(a3 + 32);
   if (v20 < 64)
   {
@@ -8710,14 +8716,14 @@ uint64_t specialized Dictionary.compactMapValues<A>(_:)(void (*a1)(uint64_t), ui
 
   v22 = v21 & v18;
   v23 = (v20 + 63) >> 6;
-  v68 = v9;
-  v65 = (v9 + 48);
-  v72 = a3;
+  v67 = v9;
+  v64 = (v9 + 48);
+  v71 = a3;
 
-  v25 = 0;
+  v24 = 0;
   for (i = v23; ; v23 = i)
   {
-    v26 = v25;
+    v25 = v24;
     if (!v22)
     {
       goto LABEL_7;
@@ -8725,70 +8731,69 @@ uint64_t specialized Dictionary.compactMapValues<A>(_:)(void (*a1)(uint64_t), ui
 
     while (1)
     {
-      v27 = v4;
-      v28 = v8;
-      v25 = v26;
+      v26 = v4;
+      v27 = v8;
+      v24 = v25;
 LABEL_11:
-      v29 = __clz(__rbit64(v22)) | (v25 << 6);
-      v30 = v71;
-      v31 = *(v72 + 56);
-      v32 = (*(v72 + 48) + 16 * v29);
-      v34 = *v32;
-      v33 = v32[1];
-      v35 = v67;
-      v63 = *(v68 + 72);
-      outlined init with copy of CloudDevice(v31 + v63 * v29, &v67[*(v71 + 48)]);
-      *v35 = v34;
-      v35[1] = v33;
-      v36 = v73;
-      outlined init with take of URL?(v35, v73, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-      v37 = *(v30 + 48);
+      v28 = __clz(__rbit64(v22)) | (v24 << 6);
+      v29 = v70;
+      v30 = *(v71 + 56);
+      v31 = (*(v71 + 48) + 16 * v28);
+      v33 = *v31;
+      v32 = v31[1];
+      v34 = v66;
+      v62 = *(v67 + 72);
+      outlined init with copy of CloudDevice(v30 + v62 * v28, &v66[*(v70 + 48)]);
+      *v34 = v33;
+      v34[1] = v32;
+      v35 = v72;
+      outlined init with take of URL?(v34, v72, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+      v36 = *(v29 + 48);
 
-      v38 = v36 + v37;
-      v8 = v28;
-      v69(v38);
-      v4 = v27;
-      if (v27)
+      v37 = v35 + v36;
+      v8 = v27;
+      (v68)(v37);
+      v4 = v26;
+      if (v26)
       {
-        outlined destroy of UTType?(v73, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-        v57 = v62;
+        outlined destroy of UTType?(v72, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
 
-        return v57;
+        return;
       }
 
       v22 &= v22 - 1;
-      if ((*v65)(v8, 1, v66) != 1)
+      if ((*v64)(v8, 1, v65) != 1)
       {
         break;
       }
 
-      outlined destroy of UTType?(v73, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-      result = outlined destroy of UTType?(v8, &_s9MomentsUI11CloudDeviceVSgMd);
-      v26 = v25;
+      outlined destroy of UTType?(v72, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+      outlined destroy of UTType?(v8, &_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR);
+      v25 = v24;
       v23 = i;
       if (!v22)
       {
 LABEL_7:
         while (1)
         {
-          v25 = v26 + 1;
-          if (__OFADD__(v26, 1))
+          v24 = v25 + 1;
+          if (__OFADD__(v25, 1))
           {
             break;
           }
 
-          if (v25 >= v23)
+          if (v24 >= v23)
           {
 
-            return v62;
+            return;
           }
 
-          v22 = *(v19 + 8 * v25);
-          ++v26;
+          v22 = *(v19 + 8 * v24);
+          ++v25;
           if (v22)
           {
-            v27 = v4;
-            v28 = v8;
+            v26 = v4;
+            v27 = v8;
             goto LABEL_11;
           }
         }
@@ -8798,45 +8803,45 @@ LABEL_7:
       }
     }
 
-    v39 = v59;
-    outlined init with take of CloudDevice(v8, v59);
-    outlined init with take of URL?(v73, v61, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-    outlined init with take of CloudDevice(v39, v60);
-    v40 = v62;
-    v41 = v62[2];
-    if (v62[3] <= v41)
+    v38 = v58;
+    outlined init with take of CloudDevice(v8, v58);
+    outlined init with take of URL?(v72, v60, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+    outlined init with take of CloudDevice(v38, v59);
+    v39 = v61;
+    v40 = v61[2];
+    if (v61[3] <= v40)
     {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v41 + 1, 1);
-      v40 = v74;
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v40 + 1, 1);
+      v39 = v73;
     }
 
-    v42 = *v61;
-    v43 = v61[1];
+    v41 = *v60;
+    v42 = v60[1];
     Hasher.init(_seed:)();
     String.hash(into:)();
-    result = Hasher._finalize()();
-    v44 = v40 + 8;
-    v62 = v40;
-    v45 = -1 << *(v40 + 32);
-    v46 = result & ~v45;
+    v43 = Hasher._finalize()();
+    v44 = v39 + 8;
+    v61 = v39;
+    v45 = -1 << *(v39 + 32);
+    v46 = v43 & ~v45;
     v47 = v46 >> 6;
-    if (((-1 << v46) & ~v40[(v46 >> 6) + 8]) == 0)
+    if (((-1 << v46) & ~v39[(v46 >> 6) + 8]) == 0)
     {
       break;
     }
 
-    v48 = __clz(__rbit64((-1 << v46) & ~v40[(v46 >> 6) + 8])) | v46 & 0x7FFFFFFFFFFFFFC0;
+    v48 = __clz(__rbit64((-1 << v46) & ~v39[(v46 >> 6) + 8])) | v46 & 0x7FFFFFFFFFFFFFC0;
 LABEL_27:
-    v53 = *(v71 + 48);
+    v53 = *(v70 + 48);
     *(v44 + ((v48 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v48;
-    v55 = v62;
-    v54 = v63;
-    v56 = (v62[6] + 16 * v48);
-    *v56 = v42;
-    v56[1] = v43;
-    outlined init with take of CloudDevice(v60, v55[7] + v48 * v54);
+    v55 = v61;
+    v54 = v62;
+    v56 = (v61[6] + 16 * v48);
+    *v56 = v41;
+    v56[1] = v42;
+    outlined init with take of CloudDevice(v59, v55[7] + v48 * v54);
     ++v55[2];
-    result = outlined destroy of CloudDevice(v61 + v53);
+    outlined destroy of CloudDevice(v60 + v53);
   }
 
   v49 = 0;
@@ -8860,7 +8865,6 @@ LABEL_27:
 
 LABEL_31:
   __break(1u);
-  return result;
 }
 
 MomentsUI::CloudDevice::Capability_optional __swiftcall CloudDevice.Capability.init(rawValue:)(Swift::String rawValue)
@@ -8931,228 +8935,229 @@ uint64_t CloudDevice.Capability.rawValue.getter()
 
 uint64_t static CloudDevice.primaryPhone(in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v114 = a2;
-  v98 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_ADtMd);
-  MEMORY[0x28223BE20](v98);
-  v106 = v93 - v3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v115 = a2;
+  v99 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_ADtMd, &_s10Foundation4DateVSg_ADtMR);
+  MEMORY[0x28223BE20](v99);
+  v107 = v94 - v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v5 = MEMORY[0x28223BE20](v4 - 8);
-  v95 = v93 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v96 = v94 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v5);
-  v107 = v93 - v7;
-  v8 = type metadata accessor for CloudDevice();
+  v108 = v94 - v7;
+  v8 = type metadata accessor for CloudDevice(0);
   v9 = *(v8 - 8);
   v10 = MEMORY[0x28223BE20](v8);
-  v97 = v93 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v98 = v94 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v10);
-  v99 = v93 - v12;
-  v115 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-  v105 = *(v115 - 8);
-  v13 = MEMORY[0x28223BE20](v115);
-  v15 = (v93 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v100 = v94 - v12;
+  v116 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+  v106 = *(v116 - 8);
+  v13 = MEMORY[0x28223BE20](v116);
+  v15 = (v94 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
   v16 = MEMORY[0x28223BE20](v13);
-  v103 = (v93 - v17);
+  v104 = (v94 - v17);
   v18 = MEMORY[0x28223BE20](v16);
-  v102 = v93 - v19;
+  v103 = v94 - v19;
   MEMORY[0x28223BE20](v18);
-  v116 = v93 - v20;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd);
+  v117 = v94 - v20;
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMR);
   v22 = MEMORY[0x28223BE20](v21 - 8);
-  v104 = v93 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v105 = v94 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v22);
-  v108 = v93 - v24;
+  v109 = v94 - v24;
   v25 = type metadata accessor for Date();
   v26 = *(v25 - 8);
   v27 = MEMORY[0x28223BE20](v25);
-  v29 = v93 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = v94 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   v30 = MEMORY[0x28223BE20](v27);
-  v32 = v93 - v31;
+  v32 = v94 - v31;
   MEMORY[0x28223BE20](v30);
-  v34 = v93 - v33;
+  v34 = v94 - v33;
   static Date.distantPast.getter();
   static Date.now.getter();
   v35 = COERCE_DOUBLE(specialized static DefaultsManager.MomentsUIDomain.doubleValueFor(_:)());
-  v110 = v32;
-  v118 = v32;
+  v111 = v32;
+  v119 = v32;
   if (v36)
   {
     v35 = 2419200.0;
   }
 
-  v119 = v35;
-  v120 = v34;
-  v37 = specialized Dictionary.compactMapValues<A>(_:)(partial apply for closure #1 in static CloudDevice.primaryPhone(in:), v117, a1);
+  v120 = v35;
+  v121 = v34;
+  specialized Dictionary.compactMapValues<A>(_:)(partial apply for closure #1 in static CloudDevice.primaryPhone(in:), v118, a1);
+  v38 = v37;
   static Date.distantPast.getter();
-  v38 = lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
-  v113 = v34;
-  v93[2] = v38;
-  v39 = dispatch thunk of static Equatable.== infix(_:_:)();
-  v100 = v26;
-  v40 = *(v26 + 8);
-  v94 = v29;
-  v111 = v25;
-  v109 = v40;
-  v40(v29, v25);
-  if (v39)
+  v39 = lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9598]);
+  v114 = v34;
+  v94[2] = v39;
+  v40 = dispatch thunk of static Equatable.== infix(_:_:)();
+  v101 = v26;
+  v41 = *(v26 + 8);
+  v95 = v29;
+  v112 = v25;
+  v110 = v41;
+  v41(v29, v25);
+  if (v40)
   {
-    (*(v9 + 56))(v114, 1, 1, v8);
+    (*(v9 + 56))(v115, 1, 1, v8);
 
-    v41 = v111;
-    v42 = v109;
-    v109(v110, v111);
-    return v42(v113, v41);
+    v42 = v112;
+    v43 = v110;
+    v110(v111, v112);
+    return v43(v114, v42);
   }
 
-  v93[1] = v26 + 8;
-  v101 = v9;
-  v96 = v8;
-  v43 = 1 << *(v37 + 32);
-  v44 = -1;
-  if (v43 < 64)
+  v94[1] = v26 + 8;
+  v102 = v9;
+  v97 = v8;
+  v44 = 1 << *(v38 + 32);
+  v45 = -1;
+  if (v44 < 64)
   {
-    v44 = ~(-1 << v43);
+    v45 = ~(-1 << v44);
   }
 
-  v45 = v44 & *(v37 + 64);
-  if (!v45)
+  v46 = v45 & *(v38 + 64);
+  if (!v46)
   {
-    v50 = 0;
-    v49 = (v43 + 63) >> 6;
-    v51 = v107;
-    while (v49 - 1 != v45)
+    v51 = 0;
+    v50 = (v44 + 63) >> 6;
+    v52 = v108;
+    while (v50 - 1 != v46)
     {
-      v46 = v45 + 1;
-      v52 = *(v37 + 72 + 8 * v45);
-      v50 -= 64;
-      ++v45;
-      if (v52)
+      v47 = v46 + 1;
+      v53 = *(v38 + 72 + 8 * v46);
+      v51 -= 64;
+      ++v46;
+      if (v53)
       {
-        v48 = (v52 - 1) & v52;
-        v47 = __clz(__rbit64(v52)) - v50;
+        v49 = (v53 - 1) & v53;
+        v48 = __clz(__rbit64(v53)) - v51;
         goto LABEL_13;
       }
     }
 
-    v66 = 1;
-    v67 = v114;
-    v65 = v108;
+    v67 = 1;
+    v68 = v115;
+    v66 = v109;
 LABEL_24:
-    v68 = v105;
-    v69 = v115;
-    (*(v105 + 56))(v65, v66, 1, v115);
+    v69 = v106;
+    v70 = v116;
+    (*(v106 + 56))(v66, v67, 1, v116);
 
-    v70 = v104;
-    outlined init with copy of DateInterval?(v65, v104, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd);
-    v71 = (*(v68 + 48))(v70, 1, v69);
-    v72 = v96;
-    v73 = v101;
-    v74 = v106;
-    if (v71 == 1)
+    v71 = v105;
+    outlined init with copy of DateInterval?(v66, v105, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMR);
+    v72 = (*(v69 + 48))(v71, 1, v70);
+    v73 = v97;
+    v74 = v102;
+    v75 = v107;
+    if (v72 == 1)
     {
-      outlined destroy of UTType?(v65, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd);
-      outlined destroy of UTType?(v70, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd);
-      v75 = v110;
-      v41 = v111;
-      v42 = v109;
+      outlined destroy of UTType?(v66, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMR);
+      outlined destroy of UTType?(v71, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMR);
+      v76 = v111;
+      v42 = v112;
+      v43 = v110;
 LABEL_33:
-      (*(v73 + 56))(v67, 1, 1, v72);
+      (*(v74 + 56))(v68, 1, 1, v73);
 LABEL_34:
-      v42(v75, v41);
-      return v42(v113, v41);
+      v43(v76, v42);
+      return v43(v114, v42);
     }
 
-    v76 = v70 + *(v69 + 48);
-    v77 = v97;
-    outlined init with take of CloudDevice(v76, v97);
-    v78 = v77;
-    v79 = v72;
-    v80 = v99;
-    outlined init with take of CloudDevice(v78, v99);
-    v81 = *(v79 + 56);
-    v82 = v100;
-    v41 = v111;
-    (*(v100 + 16))(v51, v113, v111);
-    (*(v82 + 56))(v51, 0, 1, v41);
-    v83 = *(v98 + 48);
-    outlined init with copy of DateInterval?(v80 + v81, v74, &_s10Foundation4DateVSgMd);
-    outlined init with copy of DateInterval?(v51, v74 + v83, &_s10Foundation4DateVSgMd);
-    v84 = *(v82 + 48);
-    if (v84(v74, 1, v41) == 1)
+    v77 = v71 + *(v70 + 48);
+    v78 = v98;
+    outlined init with take of CloudDevice(v77, v98);
+    v79 = v78;
+    v80 = v73;
+    v81 = v100;
+    outlined init with take of CloudDevice(v79, v100);
+    v82 = *(v80 + 56);
+    v83 = v101;
+    v42 = v112;
+    (*(v101 + 16))(v52, v114, v112);
+    (*(v83 + 56))(v52, 0, 1, v42);
+    v84 = *(v99 + 48);
+    outlined init with copy of DateInterval?(v81 + v82, v75, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    outlined init with copy of DateInterval?(v52, v75 + v84, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v85 = *(v83 + 48);
+    if (v85(v75, 1, v42) == 1)
     {
-      outlined destroy of UTType?(v51, &_s10Foundation4DateVSgMd);
-      outlined destroy of UTType?(v108, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd);
-      v85 = v84(v74 + v83, 1, v41);
-      v42 = v109;
-      if (v85 == 1)
+      outlined destroy of UTType?(v52, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of UTType?(v109, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMR);
+      v86 = v85(v75 + v84, 1, v42);
+      v43 = v110;
+      if (v86 == 1)
       {
-        outlined destroy of UTType?(v74, &_s10Foundation4DateVSgMd);
+        outlined destroy of UTType?(v75, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
 LABEL_38:
-        v92 = v114;
-        outlined init with take of CloudDevice(v80, v114);
-        (*(v73 + 56))(v92, 0, 1, v96);
-        v75 = v110;
+        v93 = v115;
+        outlined init with take of CloudDevice(v81, v115);
+        (*(v74 + 56))(v93, 0, 1, v97);
+        v76 = v111;
         goto LABEL_34;
       }
     }
 
     else
     {
-      v86 = v95;
-      outlined init with copy of DateInterval?(v74, v95, &_s10Foundation4DateVSgMd);
-      if (v84(v74 + v83, 1, v41) != 1)
+      v87 = v96;
+      outlined init with copy of DateInterval?(v75, v96, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      if (v85(v75 + v84, 1, v42) != 1)
       {
-        v88 = v94;
-        (*(v100 + 32))(v94, v74 + v83, v41);
-        v89 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v90 = v88;
-        v91 = v109;
-        v109(v90, v41);
-        v42 = v91;
-        outlined destroy of UTType?(v51, &_s10Foundation4DateVSgMd);
-        outlined destroy of UTType?(v108, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd);
-        v91(v86, v41);
-        outlined destroy of UTType?(v74, &_s10Foundation4DateVSgMd);
-        if (v89)
+        v89 = v95;
+        (*(v101 + 32))(v95, v75 + v84, v42);
+        v90 = dispatch thunk of static Equatable.== infix(_:_:)();
+        v91 = v89;
+        v92 = v110;
+        v110(v91, v42);
+        v43 = v92;
+        outlined destroy of UTType?(v52, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+        outlined destroy of UTType?(v109, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMR);
+        v92(v87, v42);
+        outlined destroy of UTType?(v75, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+        if (v90)
         {
           goto LABEL_38;
         }
 
 LABEL_32:
-        outlined destroy of CloudDevice(v80);
-        v75 = v110;
-        v67 = v114;
-        v72 = v96;
+        outlined destroy of CloudDevice(v81);
+        v76 = v111;
+        v68 = v115;
+        v73 = v97;
         goto LABEL_33;
       }
 
-      outlined destroy of UTType?(v51, &_s10Foundation4DateVSgMd);
-      outlined destroy of UTType?(v108, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd);
-      v42 = v109;
-      v109(v86, v41);
+      outlined destroy of UTType?(v52, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of UTType?(v109, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMR);
+      v43 = v110;
+      v110(v87, v42);
     }
 
-    outlined destroy of UTType?(v74, &_s10Foundation4DateVSg_ADtMd);
+    outlined destroy of UTType?(v75, &_s10Foundation4DateVSg_ADtMd, &_s10Foundation4DateVSg_ADtMR);
     goto LABEL_32;
   }
 
-  v46 = 0;
-  v47 = __clz(__rbit64(v45));
-  v48 = (v45 - 1) & v45;
-  v49 = (v43 + 63) >> 6;
+  v47 = 0;
+  v48 = __clz(__rbit64(v46));
+  v49 = (v46 - 1) & v46;
+  v50 = (v44 + 63) >> 6;
 LABEL_13:
-  v53 = *(v37 + 56);
-  v54 = (*(v37 + 48) + 16 * v47);
-  v56 = *v54;
-  v55 = v54[1];
-  v112 = *(v101 + 72);
-  v57 = v102;
-  outlined init with copy of CloudDevice(v53 + v112 * v47, &v102[*(v115 + 48)]);
-  *v57 = v56;
-  v57[1] = v55;
-  outlined init with take of URL?(v57, v116, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-
+  v54 = *(v38 + 56);
+  v55 = (*(v38 + 48) + 16 * v48);
+  v57 = *v55;
+  v56 = v55[1];
+  v113 = *(v102 + 72);
   v58 = v103;
-  if (v48)
+  outlined init with copy of CloudDevice(v54 + v113 * v48, &v103[*(v116 + 48)]);
+  *v58 = v57;
+  v58[1] = v56;
+  outlined init with take of URL?(v58, v117, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+
+  v59 = v104;
+  if (v49)
   {
     goto LABEL_16;
   }
@@ -9160,46 +9165,46 @@ LABEL_13:
 LABEL_17:
   while (1)
   {
-    v59 = v46 + 1;
-    if (__OFADD__(v46, 1))
+    v60 = v47 + 1;
+    if (__OFADD__(v47, 1))
     {
       break;
     }
 
-    if (v59 >= v49)
+    if (v60 >= v50)
     {
 
-      v65 = v108;
-      outlined init with take of URL?(v116, v108, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-      v66 = 0;
-      v67 = v114;
-      v51 = v107;
+      v66 = v109;
+      outlined init with take of URL?(v117, v109, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+      v67 = 0;
+      v68 = v115;
+      v52 = v108;
       goto LABEL_24;
     }
 
-    v48 = *(v37 + 64 + 8 * v59);
-    ++v46;
-    if (v48)
+    v49 = *(v38 + 64 + 8 * v60);
+    ++v47;
+    if (v49)
     {
       while (1)
       {
-        v60 = __clz(__rbit64(v48)) | (v59 << 6);
-        v61 = (*(v37 + 48) + 16 * v60);
-        v63 = *v61;
-        v62 = v61[1];
-        outlined init with copy of CloudDevice(*(v37 + 56) + v60 * v112, v15 + *(v115 + 48));
-        *v15 = v63;
-        v15[1] = v62;
-        outlined init with take of URL?(v15, v58, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
+        v61 = __clz(__rbit64(v49)) | (v60 << 6);
+        v62 = (*(v38 + 48) + 16 * v61);
+        v64 = *v62;
+        v63 = v62[1];
+        outlined init with copy of CloudDevice(*(v38 + 56) + v61 * v113, v15 + *(v116 + 48));
+        *v15 = v64;
+        v15[1] = v63;
+        outlined init with take of URL?(v15, v59, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
 
-        v48 &= v48 - 1;
-        if (closure #2 in static CloudDevice.primaryPhone(in:)(v116, v58))
+        v49 &= v49 - 1;
+        if (closure #2 in static CloudDevice.primaryPhone(in:)(v117, v59))
         {
-          v64 = v116;
-          outlined destroy of UTType?(v116, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-          outlined init with take of URL?(v58, v64, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-          v46 = v59;
-          if (!v48)
+          v65 = v117;
+          outlined destroy of UTType?(v117, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+          outlined init with take of URL?(v59, v65, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+          v47 = v60;
+          if (!v49)
           {
             goto LABEL_17;
           }
@@ -9207,29 +9212,29 @@ LABEL_17:
 
         else
         {
-          outlined destroy of UTType?(v58, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-          v46 = v59;
-          if (!v48)
+          outlined destroy of UTType?(v59, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+          v47 = v60;
+          if (!v49)
           {
             goto LABEL_17;
           }
         }
 
 LABEL_16:
-        v59 = v46;
+        v60 = v47;
       }
     }
   }
 
   __break(1u);
 
-  outlined destroy of UTType?(v58, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
-  result = outlined destroy of UTType?(v116, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
+  outlined destroy of UTType?(v59, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
+  result = outlined destroy of UTType?(v117, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
   __break(1u);
   return result;
 }
 
-uint64_t type metadata accessor for CloudDevice()
+uint64_t type metadata accessor for CloudDevice(uint64_t a1)
 {
   result = type metadata singleton initialization cache for CloudDevice;
   if (!type metadata singleton initialization cache for CloudDevice)
@@ -9240,45 +9245,45 @@ uint64_t type metadata accessor for CloudDevice()
   return result;
 }
 
-uint64_t static CloudDevice.previousPrimaryPhone(in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void static CloudDevice.previousPrimaryPhone(in:)(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v91 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v90 = a2;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v4 = MEMORY[0x28223BE20](v3 - 8);
-  v83 = &v79 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v82 = &v78 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = MEMORY[0x28223BE20](v4);
-  v80 = &v79 - v7;
+  v79 = &v78 - v7;
   v8 = MEMORY[0x28223BE20](v6);
-  v86 = &v79 - v9;
+  v85 = &v78 - v9;
   MEMORY[0x28223BE20](v8);
-  v102 = &v79 - v10;
-  v11 = type metadata accessor for CloudDevice();
+  v101 = &v78 - v10;
+  v11 = type metadata accessor for CloudDevice(0);
   v12 = *(v11 - 1);
   v13 = MEMORY[0x28223BE20](v11);
-  v90 = &v79 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v89 = &v78 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = MEMORY[0x28223BE20](v13);
-  v17 = &v79 - v16;
+  v17 = &v78 - v16;
   MEMORY[0x28223BE20](v15);
-  v106 = &v79 - v18;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI11CloudDeviceVSgMd);
+  v105 = &v78 - v18;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR);
   v20 = MEMORY[0x28223BE20](v19 - 8);
-  v85 = &v79 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v84 = &v78 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v20);
-  v23 = &v79 - v22;
-  v107 = type metadata accessor for Date();
-  v24 = *(v107 - 8);
-  v25 = MEMORY[0x28223BE20](v107);
-  v79 = &v79 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = &v78 - v22;
+  v106 = type metadata accessor for Date();
+  v24 = *(v106 - 8);
+  v25 = MEMORY[0x28223BE20](v106);
+  v78 = &v78 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
   v27 = MEMORY[0x28223BE20](v25);
-  v88 = &v79 - v28;
+  v87 = &v78 - v28;
   v29 = MEMORY[0x28223BE20](v27);
-  v92 = &v79 - v30;
+  v91 = &v78 - v30;
   v31 = MEMORY[0x28223BE20](v29);
-  v96 = &v79 - v32;
+  v95 = &v78 - v32;
   v33 = MEMORY[0x28223BE20](v31);
-  v95 = &v79 - v34;
+  v94 = &v78 - v34;
   MEMORY[0x28223BE20](v33);
-  v98 = &v79 - v35;
+  v97 = &v78 - v35;
   static Date.now.getter();
   v36 = COERCE_DOUBLE(specialized static DefaultsManager.MomentsUIDomain.doubleValueFor(_:)());
   if (v37)
@@ -9292,9 +9297,9 @@ uint64_t static CloudDevice.previousPrimaryPhone(in:)@<X0>(uint64_t a1@<X0>, uin
   }
 
   v39 = *(v12 + 56);
-  v97 = v23;
-  v82 = v12 + 56;
-  v81 = v39;
+  v96 = v23;
+  v81 = v12 + 56;
+  v80 = v39;
   v39(v23, 1, 1, v11);
   v40 = a1 + 64;
   v41 = 1 << *(a1 + 32);
@@ -9306,165 +9311,167 @@ uint64_t static CloudDevice.previousPrimaryPhone(in:)@<X0>(uint64_t a1@<X0>, uin
 
   v43 = v42 & *(a1 + 64);
   v44 = (v41 + 63) >> 6;
-  v99 = (v24 + 32);
-  v104 = (v24 + 8);
-  v105 = (v24 + 48);
-  v84 = (v12 + 48);
+  v98 = (v24 + 32);
+  v103 = (v24 + 8);
+  v104 = (v24 + 48);
+  v83 = (v12 + 48);
 
-  v46 = 0;
-  v103 = a1;
-  v100 = v12;
-  v101 = v11;
-  v94 = v17;
+  v45 = 0;
+  v102 = a1;
+  v99 = v12;
+  v100 = v11;
+  v93 = v17;
   while (v43)
   {
 LABEL_13:
-    v48 = __clz(__rbit64(v43));
+    v47 = __clz(__rbit64(v43));
     v43 &= v43 - 1;
-    v49 = v106;
-    outlined init with copy of CloudDevice(*(a1 + 56) + *(v12 + 72) * (v48 | (v46 << 6)), v106);
-    outlined init with take of CloudDevice(v49, v17);
-    v50 = &v17[v11[10]];
-    if ((v50[8] & 1) != 0 || *v50)
+    v48 = v105;
+    outlined init with copy of CloudDevice(*(a1 + 56) + *(v12 + 72) * (v47 | (v45 << 6)), v105);
+    outlined init with take of CloudDevice(v48, v17);
+    v49 = &v17[v11[10]];
+    if ((v49[8] & 1) != 0 || *v49)
     {
       goto LABEL_7;
     }
 
-    v51 = v102;
-    outlined init with copy of DateInterval?(&v17[v11[20]], v102, &_s10Foundation4DateVSgMd);
-    v52 = *v105;
-    v53 = v107;
-    if ((*v105)(v51, 1, v107) == 1)
+    v50 = v101;
+    outlined init with copy of DateInterval?(&v17[v11[20]], v101, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v51 = *v104;
+    v52 = v106;
+    if ((*v104)(v50, 1, v106) == 1)
     {
-      outlined destroy of UTType?(v51, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v50, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       goto LABEL_22;
     }
 
-    v93 = v52;
+    v92 = v51;
+    v53 = v94;
+    v88 = *v98;
+    v88(v94, v50, v52);
     v54 = v95;
-    v89 = *v99;
-    v89(v95, v51, v53);
-    v55 = v96;
     static Date.distantPast.getter();
-    v56 = static Date.> infix(_:_:)();
-    v57 = *v104;
-    (*v104)(v55, v53);
-    v58 = v54;
-    v17 = v94;
-    v87 = v57;
-    v57(v58, v53);
-    if (v56)
+    v55 = static Date.> infix(_:_:)();
+    v56 = *v103;
+    (*v103)(v54, v52);
+    v57 = v53;
+    v17 = v93;
+    v86 = v56;
+    v56(v57, v52);
+    if (v55)
     {
-      v11 = v101;
-      v59 = v86;
-      outlined init with copy of DateInterval?(&v17[v101[7]], v86, &_s10Foundation4DateVSgMd);
-      v60 = v107;
-      if (v93(v59, 1, v107) == 1)
+      v11 = v100;
+      v58 = v85;
+      outlined init with copy of DateInterval?(&v17[v100[7]], v85, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      v59 = v106;
+      if (v92(v58, 1, v106) == 1)
       {
 
         outlined destroy of CloudDevice(v17);
-        outlined destroy of UTType?(v97, &_s9MomentsUI11CloudDeviceVSgMd);
-        v87(v98, v60);
-        outlined destroy of UTType?(v59, &_s10Foundation4DateVSgMd);
-        return v81(v91, 1, 1, v11);
+        outlined destroy of UTType?(v96, &_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR);
+        v86(v97, v59);
+        outlined destroy of UTType?(v58, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+LABEL_36:
+        v80(v90, 1, 1, v11);
+        return;
       }
 
-      v89(v92, v59, v60);
+      v88(v91, v58, v59);
       Date.timeIntervalSince(_:)();
-      v61 = v97;
-      if (v62 >= v38)
+      v60 = v96;
+      if (v61 >= v38)
       {
 
-        v78 = v87;
-        v87(v92, v60);
+        v77 = v86;
+        v86(v91, v59);
         outlined destroy of CloudDevice(v17);
-        outlined destroy of UTType?(v61, &_s9MomentsUI11CloudDeviceVSgMd);
-        v78(v98, v60);
-        return v81(v91, 1, 1, v11);
+        outlined destroy of UTType?(v60, &_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR);
+        v77(v97, v59);
+        goto LABEL_36;
       }
 
-      v63 = v85;
-      outlined init with copy of DateInterval?(v97, v85, &_s9MomentsUI11CloudDeviceVSgMd);
-      if ((*v84)(v63, 1, v11) == 1)
+      v62 = v84;
+      outlined init with copy of DateInterval?(v96, v84, &_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR);
+      if ((*v83)(v62, 1, v11) == 1)
       {
-        v87(v92, v107);
-        outlined destroy of UTType?(v61, &_s9MomentsUI11CloudDeviceVSgMd);
-        outlined destroy of UTType?(v63, &_s9MomentsUI11CloudDeviceVSgMd);
-        outlined init with take of CloudDevice(v17, v61);
-        result = v81(v61, 0, 1, v11);
-        a1 = v103;
-        v12 = v100;
+        v86(v91, v106);
+        outlined destroy of UTType?(v60, &_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR);
+        outlined destroy of UTType?(v62, &_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR);
+        outlined init with take of CloudDevice(v17, v60);
+        v80(v60, 0, 1, v11);
+        a1 = v102;
+        v12 = v99;
       }
 
       else
       {
-        outlined init with take of CloudDevice(v63, v90);
-        v64 = v80;
-        outlined init with copy of DateInterval?(&v17[v11[14]], v80, &_s10Foundation4DateVSgMd);
-        v65 = v107;
-        v66 = v93;
-        if (v93(v64, 1, v107) == 1)
+        outlined init with take of CloudDevice(v62, v89);
+        v63 = v79;
+        outlined init with copy of DateInterval?(&v17[v11[14]], v79, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+        v64 = v106;
+        v65 = v92;
+        if (v92(v63, 1, v106) == 1)
         {
           static Date.distantPast.getter();
-          v67 = v66(v64, 1, v65);
-          v68 = v79;
-          if (v67 != 1)
+          v66 = v65(v63, 1, v64);
+          v67 = v78;
+          if (v66 != 1)
           {
-            outlined destroy of UTType?(v64, &_s10Foundation4DateVSgMd);
+            outlined destroy of UTType?(v63, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
           }
         }
 
         else
         {
-          v89(v88, v64, v65);
-          v68 = v79;
+          v88(v87, v63, v64);
+          v67 = v78;
         }
 
-        v69 = v83;
-        outlined init with copy of DateInterval?(v90 + v11[20], v83, &_s10Foundation4DateVSgMd);
-        v70 = v65;
-        v71 = v93;
-        if (v93(v69, 1, v70) == 1)
+        v68 = v82;
+        outlined init with copy of DateInterval?(v89 + v11[20], v82, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+        v69 = v64;
+        v70 = v92;
+        if (v92(v68, 1, v69) == 1)
         {
           static Date.distantPast.getter();
-          v72 = v71(v69, 1, v107);
-          a1 = v103;
-          v73 = v68;
-          v12 = v100;
-          v74 = v107;
-          if (v72 != 1)
+          v71 = v70(v68, 1, v106);
+          a1 = v102;
+          v72 = v67;
+          v12 = v99;
+          v73 = v106;
+          if (v71 != 1)
           {
-            outlined destroy of UTType?(v83, &_s10Foundation4DateVSgMd);
+            outlined destroy of UTType?(v82, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
           }
         }
 
         else
         {
-          v74 = v107;
-          v89(v68, v69, v107);
-          a1 = v103;
-          v73 = v68;
-          v12 = v100;
+          v73 = v106;
+          v88(v67, v68, v106);
+          a1 = v102;
+          v72 = v67;
+          v12 = v99;
         }
 
-        LODWORD(v93) = static Date.> infix(_:_:)();
-        v75 = v74;
-        v76 = v87;
-        v87(v73, v75);
-        v76(v88, v107);
-        outlined destroy of CloudDevice(v90);
-        v76(v92, v107);
-        if (v93)
+        LODWORD(v92) = static Date.> infix(_:_:)();
+        v74 = v73;
+        v75 = v86;
+        v86(v72, v74);
+        v75(v87, v106);
+        outlined destroy of CloudDevice(v89);
+        v75(v91, v106);
+        if (v92)
         {
-          v77 = v90;
-          outlined init with take of CloudDevice(v17, v90);
-          result = outlined destroy of CloudDevice(v77);
+          v76 = v89;
+          outlined init with take of CloudDevice(v17, v89);
+          outlined destroy of CloudDevice(v76);
         }
 
         else
         {
 LABEL_7:
-          result = outlined destroy of CloudDevice(v17);
+          outlined destroy of CloudDevice(v17);
         }
       }
     }
@@ -9472,50 +9479,50 @@ LABEL_7:
     else
     {
 LABEL_22:
-      result = outlined destroy of CloudDevice(v17);
-      a1 = v103;
-      v12 = v100;
-      v11 = v101;
+      outlined destroy of CloudDevice(v17);
+      a1 = v102;
+      v12 = v99;
+      v11 = v100;
     }
   }
 
   while (1)
   {
-    v47 = v46 + 1;
-    if (__OFADD__(v46, 1))
+    v46 = v45 + 1;
+    if (__OFADD__(v45, 1))
     {
       break;
     }
 
-    if (v47 >= v44)
+    if (v46 >= v44)
     {
-      (*v104)(v98, v107);
+      (*v103)(v97, v106);
 
-      return outlined init with take of URL?(v97, v91, &_s9MomentsUI11CloudDeviceVSgMd);
+      outlined init with take of URL?(v96, v90, &_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR);
+      return;
     }
 
-    v43 = *(v40 + 8 * v47);
-    ++v46;
+    v43 = *(v40 + 8 * v46);
+    ++v45;
     if (v43)
     {
-      v46 = v47;
+      v45 = v46;
       goto LABEL_13;
     }
   }
 
   __break(1u);
-  return result;
 }
 
-uint64_t static CloudDevice.nominatedPhone(in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void static CloudDevice.nominatedPhone(in:)(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v249 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetSgMd, &_sSS3key_10Foundation4DateV5valuetSgMR);
   v4 = MEMORY[0x28223BE20](v3 - 8);
   v259 = &v230 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v4);
   v265 = (&v230 - v6);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v8 = MEMORY[0x28223BE20](v7 - 8);
   v10 = &v230 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = MEMORY[0x28223BE20](v8);
@@ -9532,7 +9539,7 @@ uint64_t static CloudDevice.nominatedPhone(in:)@<X0>(uint64_t a1@<X0>, uint64_t 
   v257 = &v230 - v23;
   MEMORY[0x28223BE20](v22);
   v25 = &v230 - v24;
-  v279 = type metadata accessor for CloudDevice();
+  v279 = type metadata accessor for CloudDevice(0);
   v269 = *(v279 - 1);
   v26 = MEMORY[0x28223BE20](v279);
   v244 = &v230 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -9544,7 +9551,7 @@ uint64_t static CloudDevice.nominatedPhone(in:)@<X0>(uint64_t a1@<X0>, uint64_t 
   v34 = &v230 - v33;
   MEMORY[0x28223BE20](v32);
   v268 = &v230 - v35;
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd);
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMR);
   v37 = MEMORY[0x28223BE20](v36 - 8);
   v282 = (&v230 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x28223BE20](v37);
@@ -9653,7 +9660,7 @@ LABEL_129:
 
       if (v86 >= v84)
       {
-        v110 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
+        v110 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
         (*(*(v110 - 8) + 56))(v282, 1, 1, v110);
         v79 = 0;
         v83 = v88;
@@ -9677,7 +9684,7 @@ LABEL_21:
     v92 = v91[1];
     v94 = v268;
     outlined init with copy of CloudDevice(*(v81 + 56) + *(v269 + 72) * v90, v268);
-    v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
+    v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
     v96 = *(v95 + 48);
     v97 = v282;
     *v282 = v93;
@@ -9690,8 +9697,8 @@ LABEL_21:
     v25 = v85;
     v34 = v281;
 LABEL_22:
-    outlined init with take of URL?(v282, v99, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd);
-    v100 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetMd);
+    outlined init with take of URL?(v282, v99, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetSgMR);
+    v100 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_9MomentsUI11CloudDeviceV5valuetMd, &_sSS3key_9MomentsUI11CloudDeviceV5valuetMR);
     if ((*(*(v100 - 8) + 48))(v99, 1, v100) == 1)
     {
       break;
@@ -9701,13 +9708,13 @@ LABEL_22:
     v19 = v99[1];
     outlined init with take of CloudDevice(v99 + *(v100 + 48), v34);
     v102 = v279[20];
-    outlined init with copy of DateInterval?(&v34[v102], v25, &_s10Foundation4DateVSgMd);
+    outlined init with copy of DateInterval?(&v34[v102], v25, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     v103 = v280;
     v276 = *v277;
     if (v276(v25, 1, v280) == 1)
     {
 
-      outlined destroy of UTType?(v25, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v25, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       v34 = v281;
 LABEL_9:
       outlined destroy of CloudDevice(v34);
@@ -9738,13 +9745,13 @@ LABEL_9:
 
     v19 = v281;
     v108 = v257;
-    outlined init with copy of DateInterval?(&v281[v279[7]], v257, &_s10Foundation4DateVSgMd);
+    outlined init with copy of DateInterval?(&v281[v279[7]], v257, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
     v109 = v276;
     if (v276(v108, 1, v103) == 1)
     {
       outlined destroy of CloudDevice(v19);
 
-      outlined destroy of UTType?(v108, &_s10Foundation4DateVSgMd);
+      outlined destroy of UTType?(v108, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       v81 = v278;
       v25 = v258;
       v34 = v19;
@@ -9770,7 +9777,7 @@ LABEL_10:
     else
     {
       v112 = v251;
-      outlined init with copy of DateInterval?(&v281[v102], v251, &_s10Foundation4DateVSgMd);
+      outlined init with copy of DateInterval?(&v281[v102], v251, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       v113 = v109(v112, 1, v103);
       v25 = v258;
       if (v113 == 1)
@@ -9780,7 +9787,7 @@ LABEL_10:
         v115 = v253;
         if (v114 != 1)
         {
-          outlined destroy of UTType?(v251, &_s10Foundation4DateVSgMd);
+          outlined destroy of UTType?(v251, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
         }
       }
 
@@ -9797,18 +9804,18 @@ LABEL_10:
       if ((v116[8] & 1) == 0 && !*v116)
       {
         v119 = v247;
-        outlined init with copy of DateInterval?(&v281[v279[14]], v247, &_s10Foundation4DateVSgMd);
+        outlined init with copy of DateInterval?(&v281[v279[14]], v247, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
         v120 = v280;
         if (v276(v119, 1, v280) == 1)
         {
-          outlined destroy of UTType?(v119, &_s10Foundation4DateVSgMd);
+          outlined destroy of UTType?(v119, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
           v121 = v120;
           goto LABEL_45;
         }
 
         v122 = v245;
         v266(v245, v119, v120);
-        lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+        lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9590]);
         if (dispatch thunk of static Comparable.< infix(_:_:)())
         {
           v121 = v120;
@@ -9835,16 +9842,16 @@ LABEL_44:
 LABEL_45:
         v125 = &v34[v279[16]];
         v126 = v248;
-        outlined init with copy of DateInterval?(v125, v248, &_s10Foundation4DateVSgMd);
+        outlined init with copy of DateInterval?(v125, v248, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
         if (v276(v126, 1, v121) == 1)
         {
-          outlined destroy of UTType?(v126, &_s10Foundation4DateVSgMd);
+          outlined destroy of UTType?(v126, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
           goto LABEL_49;
         }
 
         v127 = v246;
         v266(v246, v126, v121);
-        lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+        lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9590]);
         if (dispatch thunk of static Comparable.< infix(_:_:)())
         {
           v118(v127, v121);
@@ -9909,7 +9916,7 @@ LABEL_73:
 
       v230 = v136;
       v231 = v135;
-      outlined init with copy of DateInterval?(&v34[v279[18]], v117, &_s10Foundation4DateVSgMd);
+      outlined init with copy of DateInterval?(&v34[v279[18]], v117, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       v138 = v280;
       v139 = v276;
       if (v276(v117, 1, v280) == 1)
@@ -9917,7 +9924,7 @@ LABEL_73:
         static Date.distantPast.getter();
         if (v139(v117, 1, v138) != 1)
         {
-          outlined destroy of UTType?(v117, &_s10Foundation4DateVSgMd);
+          outlined destroy of UTType?(v117, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
         }
       }
 
@@ -9926,7 +9933,7 @@ LABEL_73:
         v266(v115, v117, v138);
       }
 
-      v142 = lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
+      v142 = lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC9590]);
       v143 = v255;
       if (dispatch thunk of static Comparable.< infix(_:_:)())
       {
@@ -9984,12 +9991,12 @@ LABEL_72:
       }
 
       v156 = v241;
-      outlined init with copy of DateInterval?(v243 + v279[20], v241, &_s10Foundation4DateVSgMd);
+      outlined init with copy of DateInterval?(v243 + v279[20], v241, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       v157 = v280;
       if (v276(v156, 1, v280) == 1)
       {
 
-        outlined destroy of UTType?(v156, &_s10Foundation4DateVSgMd);
+        outlined destroy of UTType?(v156, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
         v158 = v255;
         v159 = v264;
         goto LABEL_84;
@@ -10021,7 +10028,7 @@ LABEL_84:
       }
 
       v163 = v239;
-      outlined init with copy of DateInterval?(v243 + v279[16], v239, &_s10Foundation4DateVSgMd);
+      outlined init with copy of DateInterval?(v243 + v279[16], v239, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
       v164 = v276;
       v165 = v276(v163, 1, v157);
       v166 = v253;
@@ -10033,7 +10040,7 @@ LABEL_84:
         v34 = v281;
         if (v168 != 1)
         {
-          outlined destroy of UTType?(v163, &_s10Foundation4DateVSgMd);
+          outlined destroy of UTType?(v163, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
         }
       }
 
@@ -10049,7 +10056,7 @@ LABEL_84:
       if (v19)
       {
         v170 = v250;
-        if (!v250[2])
+        if (!*(v250 + 16))
         {
 
           v19 = v280;
@@ -10084,7 +10091,7 @@ LABEL_133:
             __break(1u);
 
             __break(1u);
-            return result;
+            return;
           }
 
           if ((isUniquelyReferenced_nonNull_native & 1) == 0)
@@ -10127,7 +10134,7 @@ LABEL_100:
             goto LABEL_132;
           }
 
-          v250[2] = v195;
+          *(v250 + 16) = v195;
 LABEL_104:
           outlined destroy of CloudDevice(v243);
           v34 = v281;
@@ -10191,14 +10198,15 @@ LABEL_76:
   v196 = v278;
 
   v197 = v250;
-  v198 = v250[2];
+  v198 = *(v250 + 16);
   if (v198)
   {
-    v199 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSS3key_10Foundation4DateV5valuet_Tt1g5(v250[2], 0);
-    v200 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd) - 8);
-    v19 = specialized Sequence._copySequenceContents(initializing:)(&v283, v199 + ((*(v200 + 80) + 32) & ~*(v200 + 80)), v198, v197);
+    v199 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSS3key_10Foundation4DateV5valuet_Tt1g5(*(v250 + 16), 0);
+    v200 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd, "j") - 8);
+    v19 = specialized Sequence._copySequenceContents(initializing:)(&v283, (v199 + ((*(v200 + 80) + 32) & ~*(v200 + 80))), v198, v197);
+    v201 = v283;
 
-    outlined consume of [String : DBAssetData].Iterator._Variant();
+    outlined consume of [String : DBAssetData].Iterator._Variant(v201);
     if (v19 == v198)
     {
       v196 = v278;
@@ -10219,107 +10227,107 @@ LABEL_109:
   v283 = v199;
   specialized MutableCollection<>.sort(by:)(&v283, v196);
 
-  v201 = v259;
-  v202 = v265;
-  v203 = v274;
-  v204 = 0;
-  v205 = v283;
-  v206 = v283[2];
+  v202 = v259;
+  v203 = v265;
+  v204 = v274;
+  v205 = 0;
+  v206 = v283;
+  v207 = v283[2];
   v19 = &_sSS3key_10Foundation4DateV5valuetMd;
   while (2)
   {
-    if (v204 == v206)
+    if (v205 == v207)
     {
-      v207 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd);
-      (*(*(v207 - 8) + 56))(v201, 1, 1, v207);
-      v204 = v206;
+      v208 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd, "j");
+      (*(*(v208 - 8) + 56))(v202, 1, 1, v208);
+      v205 = v207;
     }
 
     else
     {
-      if ((v204 & 0x8000000000000000) != 0)
+      if ((v205 & 0x8000000000000000) != 0)
       {
         goto LABEL_128;
       }
 
-      if (v204 >= v205[2])
+      if (v205 >= *(v206 + 16))
       {
         goto LABEL_129;
       }
 
-      v208 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd);
-      v209 = *(v208 - 8);
-      outlined init with copy of DateInterval?(v205 + ((*(v209 + 80) + 32) & ~*(v209 + 80)) + *(v209 + 72) * v204++, v201, &_sSS3key_10Foundation4DateV5valuetMd);
-      (*(v209 + 56))(v201, 0, 1, v208);
-      v202 = v265;
+      v209 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd, "j");
+      v210 = *(v209 - 8);
+      outlined init with copy of DateInterval?(v206 + ((*(v210 + 80) + 32) & ~*(v210 + 80)) + *(v210 + 72) * v205++, v202, &_sSS3key_10Foundation4DateV5valuetMd, "j");
+      (*(v210 + 56))(v202, 0, 1, v209);
+      v203 = v265;
     }
 
-    outlined init with take of URL?(v201, v202, &_sSS3key_10Foundation4DateV5valuetSgMd);
-    v210 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd);
-    if ((*(*(v210 - 8) + 48))(v202, 1, v210) == 1)
+    outlined init with take of URL?(v202, v203, &_sSS3key_10Foundation4DateV5valuetSgMd, &_sSS3key_10Foundation4DateV5valuetSgMR);
+    v211 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_10Foundation4DateV5valuetMd, "j");
+    if ((*(*(v211 - 8) + 48))(v203, 1, v211) == 1)
     {
 
-      v219 = *v203;
-      v220 = v280;
-      (*v203)(v254, v280);
-      v219(v260, v220);
+      v220 = *v204;
+      v221 = v280;
+      (*v204)(v254, v280);
+      v220(v260, v221);
 LABEL_124:
-      v222 = 1;
-      v223 = v249;
+      v223 = 1;
+      v224 = v249;
       goto LABEL_126;
     }
 
-    v211 = v202;
-    v213 = *v202;
-    v212 = v202[1];
-    v214 = v211 + *(v210 + 48);
-    v215 = v280;
-    (*v275)(v267, v214, v280);
+    v212 = v203;
+    v214 = *v203;
+    v213 = v203[1];
+    v215 = v212 + *(v211 + 48);
+    v216 = v280;
+    (*v275)(v267, v215, v280);
     if ((static Date.> infix(_:_:)() & 1) == 0)
     {
 
-      v221 = *v274;
-      (*v274)(v267, v215);
-      v221(v254, v215);
-      v221(v260, v215);
+      v222 = *v274;
+      (*v274)(v267, v216);
+      v222(v254, v216);
+      v222(v260, v216);
       goto LABEL_124;
     }
 
-    v203 = v274;
+    v204 = v274;
     if (!*(v278 + 16))
     {
-      (*v274)(v267, v215);
+      (*v274)(v267, v216);
 
 LABEL_111:
-      v201 = v259;
-      v202 = v265;
+      v202 = v259;
+      v203 = v265;
       continue;
     }
 
     break;
   }
 
-  v216 = specialized __RawDictionaryStorage.find<A>(_:)(v213, v212);
-  v218 = v217;
+  v217 = specialized __RawDictionaryStorage.find<A>(_:)(v214, v213);
+  v219 = v218;
 
-  if ((v218 & 1) == 0)
+  if ((v219 & 1) == 0)
   {
-    (*v203)(v267, v280);
+    (*v204)(v267, v280);
     goto LABEL_111;
   }
 
-  v224 = *(v278 + 56) + *(v269 + 72) * v216;
-  v225 = v244;
-  outlined init with copy of CloudDevice(v224, v244);
-  v226 = *v203;
-  v227 = v280;
-  (*v203)(v267, v280);
-  v226(v254, v227);
-  v226(v260, v227);
-  v228 = v249;
-  outlined init with take of CloudDevice(v225, v249);
-  v223 = v228;
-  v222 = 0;
+  v225 = *(v278 + 56) + *(v269 + 72) * v217;
+  v226 = v244;
+  outlined init with copy of CloudDevice(v225, v244);
+  v227 = *v204;
+  v228 = v280;
+  (*v204)(v267, v280);
+  v227(v254, v228);
+  v227(v260, v228);
+  v229 = v249;
+  outlined init with take of CloudDevice(v226, v249);
+  v224 = v229;
+  v223 = 0;
 LABEL_126:
-  (*(v269 + 56))(v223, v222, 1, v279);
+  (*(v269 + 56))(v224, v223, 1, v279);
 }

@@ -252,7 +252,7 @@ double AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL30
       v67 = *(*(a1 + 1872) + 848);
       block = v66 + 1544;
       v103 = a1 + 4824;
-      AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList(v67 + 3534, &block);
+      AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList(v67 + 3534, &block, *(a1 + 1904));
       v68 = *(*(a1 + 4824) + 16);
       v69 = *(a1 + 2328);
       v69[65] = *(v66 + 1544) & 0xFFFFFFFFFFC0;
@@ -872,7 +872,7 @@ LABEL_63:
     if (v70)
     {
       v71 = v70[2];
-      AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(v70);
+      AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(v70, *(a1 + 1912));
       v76 = *(a1 + 2336);
       v77 = v76[43];
       v78 = v76[52];
@@ -1053,7 +1053,7 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
   v13 = *(a1 + 1160);
   if (!v13)
   {
-    AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(a1 + 24, 0x22u);
+    AGX::DataBufferAllocator<44ul>::initializeOnDemandDataBufferSlow(a1 + 24, 34);
     v13 = *(a1 + 1160);
   }
 
@@ -1524,19 +1524,19 @@ uint64_t AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL
   return result;
 }
 
-void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::handleLastControlFlowEpilogue(uint64_t a1)
+void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::handleLastControlFlowEpilogue(uint64_t result)
 {
-  if ((*(a1 + 5442) & 2) != 0)
+  if ((*(result + 5442) & 2) != 0)
   {
-    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::restartComputePass(a1, 22);
+    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::restartComputePass(result, 22);
   }
 }
 
-void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::handleFirstControlFlowPrologue(uint64_t a1)
+void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::handleFirstControlFlowPrologue(uint64_t result)
 {
-  if ((*(a1 + 5442) & 1) == 0)
+  if ((*(result + 5442) & 1) == 0)
   {
-    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::restartComputePass(a1, 22);
+    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::restartComputePass(result, 22);
   }
 }
 
@@ -1713,10 +1713,10 @@ void sub_29CD7460C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::optimizeContentsForUncompressedAccess(uint64_t result, uint64_t a2, unsigned int a3, unsigned int a4)
+void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::optimizeContentsForUncompressedAccess(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4)
 {
   v4 = *(a2 + 592);
-  v43 = *(v4 + 584);
+  v41 = *(v4 + 584);
   if (*(v4 + 48))
   {
     v5 = 1;
@@ -1730,9 +1730,8 @@ uint64_t AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300
   if (!v5)
   {
     v6 = a4;
-    if (*(v43 + 1304) > a4 && !*(v4 + 57))
+    if (*(v41 + 1304) > a4 && !*(v4 + 57))
     {
-      v8 = result;
       v9 = *(v4 + 144);
       v10 = *(v4 + 136);
       v11 = v10 >> v9;
@@ -1741,7 +1740,7 @@ uint64_t AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300
         v11 = 1;
       }
 
-      v61 = v11;
+      v59 = v11;
       v12 = *(v4 + 396) & 0xFF00;
       if ((*(v4 + 396) & 0x10000) != 0 || v12 == 1024)
       {
@@ -1757,33 +1756,33 @@ uint64_t AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300
         v13 = 1;
       }
 
-      v62 = *(v4 + 24);
-      v14 = v62 - 1;
-      if (v62 - 1) <= 7 && ((0xB5u >> v14))
+      v60 = *(v4 + 24);
+      v14 = v60 - 1;
+      if (v60 - 1) <= 7 && ((0xB5u >> v14))
       {
-        v62 = qword_29D2F4698[v14];
+        v60 = qword_29D2F4698[v14];
       }
 
       v15 = *(v4 + 208);
       if (*(v15 + 24))
       {
         v16 = 0;
-        v60 = *(v4 + 40);
+        v58 = *(v4 + 40);
         v17 = *(v4 + 236);
-        v42 = *(v4 + 112);
+        v40 = *(v4 + 112);
         v18 = v10 >> (v9 + a4);
         v19 = vmax_u32(vshl_u32(*(v4 + 128), vneg_s32(vdup_n_s32(v9))), 0x100000001);
-        v58 = *(v4 + 140);
-        v59 = v17;
+        v56 = *(v4 + 140);
+        v57 = v17;
         if (!v17)
         {
           v13 = 1;
         }
 
-        v57 = v13;
+        v55 = v13;
         if (v17)
         {
-          v20 = v58 - a4;
+          v20 = v56 - a4;
         }
 
         else
@@ -1791,15 +1790,15 @@ uint64_t AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300
           v20 = 1;
         }
 
-        v56 = v20;
-        v54 = *(v4 + 160);
-        v55 = *(v4 + 152);
-        v53 = *(v4 + 168);
-        v51 = *(v4 + 180);
-        v52 = *(v4 + 176);
-        v50 = *(v4 + 184);
-        v48 = *(v4 + 232);
-        v49 = *(v4 + 241);
+        v54 = v20;
+        v52 = *(v4 + 160);
+        v53 = *(v4 + 152);
+        v51 = *(v4 + 168);
+        v49 = *(v4 + 180);
+        v50 = *(v4 + 176);
+        v48 = *(v4 + 184);
+        v46 = *(v4 + 232);
+        v47 = *(v4 + 241);
         if (v17)
         {
           v21 = 1;
@@ -1820,11 +1819,11 @@ uint64_t AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300
           v22 = v18;
         }
 
-        v46 = v19.i32[0];
-        v47 = v21;
-        v64 = v19;
-        v44 = *(v4 + 408);
-        v45 = v19.u32[1];
+        v44 = v19.i32[0];
+        v45 = v21;
+        v62 = v19;
+        v42 = *(v4 + 408);
+        v43 = v19.u32[1];
         do
         {
           v23 = *(v4 + 584);
@@ -1846,7 +1845,7 @@ uint64_t AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300
             v24 = 1;
           }
 
-          TextureViewFormat = AGX::BlitUtil::getTextureViewFormat(*(v15 + v16 + 88), v42, *(v4 + 32), v16, v24, 0);
+          TextureViewFormat = AGX::BlitUtil::getTextureViewFormat(*(v15 + v16 + 88), v40, *(v4 + 32), v16, v24, 0);
           v27 = HIDWORD(v25);
           v28 = TextureViewFormat - 1;
           v29 = &texFormatUnsupported;
@@ -1855,19 +1854,19 @@ uint64_t AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300
             v29 = *(&off_29F342380 + v28);
           }
 
-          AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v70, *(v4 + 8), 0, v47, v62, v29, TextureViewFormat, v60, 0.0, 0, *(v4 + 56), *(v4 + 324), 0, 84148994, v46, v45, v61, v58, SHIDWORD(v25), v57, v55, v59, v49, v54, v53, v52, v51, v50, v6, v56, v48, v44, *(v4 + 409), v39, 0);
-          v70[0] = off_2A23FA3D8;
+          AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v68, *(v4 + 8), 0, v45, v60, v29, TextureViewFormat, v58, 0.0, 0, *(v4 + 56), *(v4 + 324), 0, 84148994, v44, v43, v59, v56, SHIDWORD(v25), v55, v53, v57, v47, v52, v51, v50, v49, v48, v6, v54, v46, v42, *(v4 + 409), 0);
+          v68[0] = off_2A23FA3D8;
           v30 = &texFormatUnsupported;
           if (v28 <= 0x289)
           {
             v30 = *(&off_29F342380 + v28);
           }
 
-          AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v69, *(v4 + 8), 0, v47, v62, v30, TextureViewFormat, v60, 0.0, 0, *(v4 + 56) | 0x10, *(v4 + 324), 0, 84148994, v46, v45, v61, v58, v27, v57, v55, v59, v49, v54, v53, v52, v51, v50, v6, v56, v48, v44, *(v4 + 409), v40, 0);
-          v69[0] = off_2A23FA3D8;
+          AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v67, *(v4 + 8), 0, v45, v60, v30, TextureViewFormat, v58, 0.0, 0, *(v4 + 56) | 0x10, *(v4 + 324), 0, 84148994, v44, v43, v59, v56, v27, v55, v53, v57, v47, v52, v51, v50, v49, v48, v6, v54, v46, v42, *(v4 + 409), 0);
+          v67[0] = off_2A23FA3D8;
           GPUVirtualAddress = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v4, a3, 0, 0, v16);
-          v32 = v70[73];
-          v33 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v43 + 648 * v16, a3, 0, 0, 0);
+          v32 = v68[73];
+          v33 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v41 + 648 * v16, a3, 0, 0, 0);
           v32[39] = 0;
           v32[9] = v33;
           (*(*v32 + 16))(v32);
@@ -1879,8 +1878,8 @@ uint64_t AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300
             (*(v32[81] + 16))();
           }
 
-          v35 = v69[73];
-          v36 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v43 + 648 * v16, a3, 0, 0, 0);
+          v35 = v67[73];
+          v36 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v41 + 648 * v16, a3, 0, 0, 0);
           v35[39] = 0;
           v35[9] = v36;
           (*(*v35 + 16))(v35);
@@ -1892,33 +1891,36 @@ uint64_t AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300
             (*(v35[81] + 16))();
           }
 
-          v70[39] = 0;
-          v70[9] = GPUVirtualAddress;
-          (*(v70[0] + 16))(v70);
-          v69[39] = 0;
-          v69[9] = GPUVirtualAddress;
-          (*(v69[0] + 16))(v69);
+          v68[39] = 0;
+          v68[9] = GPUVirtualAddress;
+          (*(v68[0] + 16))(v68);
+          v67[39] = 0;
+          v67[9] = GPUVirtualAddress;
+          (*(v67[0] + 16))(v67);
           v6 = a4;
-          AGX::CompressionMetadataGen2<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getTextureViewForBlit(v68, v4, a4, v16);
+          AGX::CompressionMetadataGen2<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getTextureViewForBlit(v66, v4, a4, v16);
           {
-            v66[0].i8[0] = 0;
-            findEnvVarNum<BOOL>("AGX_DISABLE_PBE_COMPRESSION", v66);
-            AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::disablePBECompressionOnUICC(void)::disablePBECompression = v66[0].i8[0];
+            v64[0].i8[0] = 0;
+            findEnvVarNum<BOOL>("AGX_DISABLE_PBE_COMPRESSION", v64);
+            AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::disablePBECompressionOnUICC(void)::disablePBECompression = v64[0].i8[0];
           }
 
-          for (i = 0; i != v22; ++i)
+          v38 = 0;
+          do
           {
-            v66[0] = v64;
-            v66[1] = 0;
-            v66[2] = 0;
-            v67 = i;
-            v65 = 0;
-            AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMTextureToTexture((v8 + 8), a2, v69, a2, v70, &v65, i, v66);
+            v64[0] = v62;
+            v64[1] = 0;
+            v64[2] = 0;
+            v65 = v38;
+            v63 = 0;
+            AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMTextureToTexture((a1 + 8), a2, v67, a2, v68, &v63, v38, v64);
+            v38 = (v38 + 1);
           }
 
+          while (v22 != v38);
+          AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v66);
+          AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v67);
           AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v68);
-          AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v69);
-          result = AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v70);
           ++v16;
           v15 = *(v4 + 208);
         }
@@ -1927,8 +1929,6 @@ uint64_t AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300
       }
     }
   }
-
-  return result;
 }
 
 void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyTextureToTextureImpl(uint64_t *a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned int a5, int64x2_t *a6, uint64_t a7, unsigned int a8, unsigned int a9, unsigned int a10, int64x2_t *a11, int64x2_t *a12)
@@ -2219,8 +2219,8 @@ void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::Ob
     }
   }
 
-  v62 = *(a7 + v16 + 72) + a8;
-  v63 = v20;
+  v61 = *(a7 + v16 + 72) + a8;
+  v62 = v20;
   v21 = *(v18 + 112);
   v22 = *(v18 + 584);
   if (v22 && (v23 = *(v22 + 1304)) != 0)
@@ -2245,12 +2245,12 @@ void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::Ob
     v24 = 0;
   }
 
-  v57 = v21 * *(v19 + v20 + 88);
+  v56 = v21 * *(v19 + v20 + 88);
   v25 = *(v17 + 144);
   v26 = *(v17 + 152);
   TextureViewFormat = AGX::BlitUtil::getTextureViewFormat(*(v19 + v20 + 88), v21, *(v18 + 32), v20, v24, 0);
   v29 = TextureViewFormat;
-  v59 = v28;
+  v58 = v28;
   if (v28 >> 33)
   {
     v30 = 4;
@@ -2294,13 +2294,13 @@ LABEL_21:
       v38 = v30;
     }
 
-    v75 = 0;
-    v39 = a5[1].u32[0];
-    v70 = v36;
-    v71 = (v35 + v33.i32[1] - 1) / v35;
-    v72 = v37;
-    v73 = v32.i32[1] / v35;
     v74 = 0;
+    v39 = a5[1].u32[0];
+    v69 = v36;
+    v70 = (v35 + v33.i32[1] - 1) / v35;
+    v71 = v37;
+    v72 = v32.i32[1] / v35;
+    v73 = 0;
     v40 = v25;
     if ((TextureViewFormat - 1) > 0x289)
     {
@@ -2313,17 +2313,17 @@ LABEL_21:
     }
 
     v42 = HIDWORD(v28);
-    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v67, *(a1[7] + 848), 0, 2, v30, v41, TextureViewFormat, 0, 0.0, v40, 2, 0, 0, 84148994, v36, (v35 + v33.i32[1] - 1) / v35, 1u, 1u, SHIDWORD(v28), 1, a9, 0, 0, v26, 0, 0, 0, 0, 0, 1, 1, 0, 1, v56, 0);
-    v67[0] = off_2A23FA3D8;
+    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v66, *(a1[7] + 848), 0, 2, v30, v41, TextureViewFormat, 0, 0.0, v40, 2, 0, 0, 84148994, v36, (v35 + v33.i32[1] - 1) / v35, 1u, 1u, SHIDWORD(v28), 1, a9, 0, 0, v26, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0);
+    v66[0] = off_2A23FA3D8;
     if (AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::blitTextureViewAllowed(v18, a4))
     {
-      AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::createTextureViewForBlit(v65, v18, v38, v29, *(v18 + 40), *(v18 + 56), *(v18 + 324), a3, a4, v63, v42, *(v18 + 152), *(v18 + 160), *(v18 + 168), *(v18 + 176), *(v18 + 180), *(v18 + 184), *(v18 + 236) != 0, 0);
-      v43 = *(v66 + 88);
-      v64 = 0;
+      AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::createTextureViewForBlit(v64, v18, v38, v29, *(v18 + 40), *(v18 + 56), *(v18 + 324), a3, a4, v62, v42, *(v18 + 152), *(v18 + 160), *(v18 + 168), *(v18 + 176), *(v18 + 180), *(v18 + 184), *(v18 + 236) != 0, 0);
+      v43 = *(v65 + 88);
+      v63 = 0;
       {
-        v76[0] = 0;
-        findEnvVarNum<BOOL>("AGX_DISABLE_PBE_COMPRESSION", v76);
-        AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::disablePBECompressionOnUICC(void)::disablePBECompression = v76[0];
+        v75[0] = 0;
+        findEnvVarNum<BOOL>("AGX_DISABLE_PBE_COMPRESSION", v75);
+        AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::disablePBECompressionOnUICC(void)::disablePBECompression = v75[0];
       }
 
       if (AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::disablePBECompressionOnUICC(void)::disablePBECompression == 1)
@@ -2333,7 +2333,7 @@ LABEL_21:
         {
           if (*(v44 + 1304))
           {
-            v64 |= 8u;
+            v63 |= 8u;
           }
         }
       }
@@ -2344,21 +2344,21 @@ LABEL_21:
         {
           v45 = 0;
           v46 = 1;
-          v47 = (v71 | v70) >> 15;
+          v47 = (v70 | v69) >> 15;
           do
           {
-            v48 = v45 * a10 + v62;
-            if (v47 || (((a9 / v57 * v57) | v48) & 0xF) != 0)
+            v48 = v45 * a10 + v61;
+            if (v47 || (((a9 / v56 * v56) | v48) & 0xF) != 0)
             {
-              AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMBufferToTexture(a1 + 1, a2, v65, a7, v48, 0, &v70, v59, v43, a9, SHIDWORD(a9), v39 + v46 - 1, &v64);
+              AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMBufferToTexture(a1 + 1, a2, v64, a7, v48, 0, &v69, v58, v43, a9, SHIDWORD(a9), v39 + v46 - 1, &v63);
             }
 
             else
             {
-              v69 = 0;
-              v68 = v45 * a10 + v62;
-              (*(v67[0] + 16))(v67);
-              AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMTextureToTexture(a1 + 1, a2, v65, a7, v67, &v64, v39 + v46 - 1, &v70);
+              v68 = 0;
+              v67 = v45 * a10 + v61;
+              (*(v66[0] + 16))(v66);
+              AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMTextureToTexture(a1 + 1, a2, v64, a7, v66, &v63, v39 + v46 - 1, &v69);
             }
 
             v45 = v46++;
@@ -2373,7 +2373,7 @@ LABEL_21:
         fwrite("AGX: copyBufferToTexture: blit format is multi sampled\n", 0x37uLL, 1uLL, *MEMORY[0x29EDCA610]);
       }
 
-      AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v65);
+      AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v64);
     }
 
     else
@@ -2381,20 +2381,20 @@ LABEL_21:
       v49 = a7;
       if (*(v18 + 236))
       {
-        v69 = 0;
-        v68 = v62;
-        AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::texBaseAddressesUpdated(v67);
-        AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMSparseMiptail(a1 + 1, a2, v18, a3, a4, a7, v67, 0, 0);
+        v68 = 0;
+        v67 = v61;
+        AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::texBaseAddressesUpdated(v66);
+        AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMSparseMiptail(a1 + 1, a2, v18, a3, a4, a7, v66, 0, 0);
       }
 
       else if (a6[1].i64[0])
       {
         v50 = 0;
-        v51 = *(*(v18 + 208) + v63 + 88);
+        v51 = *(*(v18 + 208) + v62 + 88);
         v52 = 1;
         do
         {
-          GPUVirtualAddress = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v18, a3, *(v18 + 144) + a4, v39, v63);
+          GPUVirtualAddress = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v18, a3, *(v18 + 144) + a4, v39, v62);
           AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyBufferToBufferImpl(a1, a2, GPUVirtualAddress, v49, a8 + v50 * a10 + *(v49 + 72 + *MEMORY[0x29EDC5638]), v51);
           ++v39;
           v50 = v52++;
@@ -2404,7 +2404,7 @@ LABEL_21:
       }
     }
 
-    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v67);
+    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v66);
     return;
   }
 
@@ -2413,14 +2413,15 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v54 = a6->i64[0] * v57;
-  v55 = *(a2 + v16 + 72) + a5->i64[0] * v57;
+  v54 = a6->i64[0] * v56;
+  v55 = *(a2 + v16 + 72) + a5->i64[0] * v56;
 
-  AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyBufferToBufferImpl(a1, a2, v55, a7, v62, v54);
+  AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyBufferToBufferImpl(a1, a2, v55, a7, v61, v54);
 }
 
-void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyTextureToBuffer(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7, unsigned int a8, int64x2_t *a9, int64x2_t *a10, unsigned int a11)
+void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyTextureToBuffer(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7, uint64_t a8, int64x2_t *a9, int64x2_t *a10, unsigned int a11)
 {
+  v11 = a8;
   v14 = *(a6 + 592);
   v15 = *MEMORY[0x29EDC5638];
   v16 = a2 + v15;
@@ -2439,7 +2440,7 @@ void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::Ob
     }
   }
 
-  v106 = *(a2 + v15 + 72) + a3;
+  v105 = *(a2 + v15 + 72) + a3;
   v19 = v18;
   v20 = *(v17 + v18 + 88);
   v21 = *(v14 + 112);
@@ -2470,7 +2471,7 @@ void AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::Ob
   v26 = *(v16 + 152);
   v27 = v21 * v20;
   TextureViewFormat = AGX::BlitUtil::getTextureViewFormat(v20, v21, *(v14 + 32), v18, v24, 0);
-  v102 = v29;
+  v101 = v29;
   if (v29 >> 33)
   {
     v30 = 4;
@@ -2505,7 +2506,7 @@ LABEL_20:
     v94 = a10->i64[0] * v27;
     v95 = *(a6 + v15 + 72) + a9->i64[0] * v27;
 
-    AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyBufferToBufferImpl(a1, a2, v106, a6, v95, v94);
+    AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyBufferToBufferImpl(a1, a2, v105, a6, v95, v94);
     return;
   }
 
@@ -2531,13 +2532,13 @@ LABEL_21:
 
   v42 = a9[1].u32[0];
   v43 = (v37 + v34.i32[1] - 1) / v37;
-  v129[0] = __PAIR64__(v43, v38);
-  v129[1] = 0;
-  LODWORD(v130) = v39;
-  HIDWORD(v130) = v35.i32[1] / v37;
-  v131 = v42;
-  v98 = a3;
-  v100 = v41;
+  v128[0] = __PAIR64__(v43, v38);
+  v128[1] = 0;
+  LODWORD(v129) = v39;
+  HIDWORD(v129) = v35.i32[1] / v37;
+  v130 = v42;
+  v97 = a3;
+  v99 = v41;
   if ((TextureViewFormat - 1) > 0x289)
   {
     v44 = &texFormatUnsupported;
@@ -2549,35 +2550,36 @@ LABEL_21:
   }
 
   v45 = TextureViewFormat;
-  AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v126, *(a1[7] + 848), 0, 2, v30, v44, TextureViewFormat, 0, 0.0, v33, 2, 0, 0, 84148994, v38, v43, 1u, 1u, SHIDWORD(v29), 1, a4, 0, 0, v32, 0, 0, 0, 0, 0, 1, 1, 0, 1, v96, 0);
-  v126[0] = off_2A23FA3D8;
-  if (AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::blitTextureViewAllowed(v14, a8))
+  AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::TextureGen4(v125, *(a1[7] + 848), 0, 2, v30, v44, TextureViewFormat, 0, 0.0, v33, 2, 0, 0, 84148994, v38, v43, 1u, 1u, SHIDWORD(v29), 1, a4, 0, 0, v32, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0);
+  v125[0] = off_2A23FA3D8;
+  if (AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::blitTextureViewAllowed(v14, v11))
   {
-    AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::createTextureViewForBlit(v110, v14, v100, v45, *(v14 + 40), *(v14 + 56), *(v14 + 324), a7, a8, v19, v40, *(v14 + 152), *(v14 + 160), *(v14 + 168), *(v14 + 176), *(v14 + 180), *(v14 + 184), *(v14 + 236) != 0, 0);
+    AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::createTextureViewForBlit(v109, v14, v99, v45, *(v14 + 40), *(v14 + 56), *(v14 + 324), a7, v11, v19, v40, *(v14 + 152), *(v14 + 160), *(v14 + 168), *(v14 + 176), *(v14 + 180), *(v14 + 184), *(v14 + 236) != 0, 0);
     if (v40 == 1)
     {
       if (a10[1].i64[0])
       {
         v46 = 0;
-        v99 = (v102 - 1);
-        v101 = (a4 / v27) & 0xF;
-        v97 = *(v117 + 88);
+        v98 = (v101 - 1);
+        v100 = (a4 / v27) & 0xF;
+        v96 = *(v116 + 88);
         v47 = 1;
         while (1)
         {
-          v48 = v46 * a5 + v106;
-          if ((v43 | v38) >> 15 || v101 || (v48 & 0xF) != 0)
+          v48 = v46 * a5 + v105;
+          if ((v43 | v38) >> 15 || v100 || (v48 & 0xF) != 0)
           {
             break;
           }
 
-          v128 = 0;
-          v127 = v46 * a5 + v106;
-          (*(v126[0] + 16))(v126);
-          LODWORD(v133) = 0;
-          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMTextureToTexture(a1 + 1, a2, v126, a6, v110, &v133, 0, v129);
+          v127 = 0;
+          v126 = v46 * a5 + v105;
+          (*(v125[0] + 16))(v125);
+          LODWORD(v132) = 0;
+          AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMTextureToTexture(a1 + 1, a2, v125, a6, v109, &v132, 0, v128);
 LABEL_32:
-          v131 = ++v42;
+          v42 = (v42 + 1);
+          v130 = v42;
           v46 = v47++;
           if (a10[1].i64[0] <= v46)
           {
@@ -2585,14 +2587,14 @@ LABEL_32:
           }
         }
 
-        v134 = 101;
-        v136 = 0;
-        v137 = 0;
+        v133 = 101;
         v135 = 0;
-        v133 = &unk_2A23F67E0;
-        v138 = 0;
-        UberBlitPipeline = AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::findOrCreateUberBlitPipeline(*(a1[2] + 848), &v133);
-        v50 = v119 << 8;
+        v136 = 0;
+        v134 = 0;
+        v132 = &unk_2A23F67E0;
+        v137 = 0;
+        UberBlitPipeline = AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::findOrCreateUberBlitPipeline(*(a1[2] + 848), &v132);
+        v50 = v118 << 8;
         if (v50 == 768)
         {
           v51 = 3;
@@ -2603,7 +2605,7 @@ LABEL_32:
           v51 = 2;
         }
 
-        if (v99 < 0x19)
+        if (v98 < 0x19)
         {
           v52 = v50 == 768;
           v53 = &unk_29D2F4458;
@@ -2612,7 +2614,7 @@ LABEL_32:
             v53 = &unk_29D2F4390;
           }
 
-          v51 = v53[v99];
+          v51 = v53[v98];
         }
 
         v54 = a1[3];
@@ -2631,7 +2633,7 @@ LABEL_32:
         v56 = v55 + 47;
         if ((v55 + 47) > v54[20])
         {
-          v89 = AGX::DataBufferAllocator<44ul>::growNoInline(v54 + 3, 3, 0);
+          v89 = AGX::DataBufferAllocator<44ul>::growNoInline((v54 + 3), 3, 0);
           v55 = v54[21];
           if (!v89)
           {
@@ -2651,15 +2653,15 @@ LABEL_49:
         v58 = v54[23];
         v54[21] = v57 + 32;
         *(v57 + 24) = 0;
-        *(v57 + 25) = v119 << 8 == 768;
-        *v57 = v130;
+        *(v57 + 25) = v118 << 8 == 768;
+        *v57 = v129;
         *(v57 + 8) = v42;
-        *(v57 + 12) = v97;
+        *(v57 + 12) = v96;
         *(v57 + 16) = a4;
-        *(v57 + 20) = v102;
-        v132 = 0;
-        AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::checkBarrierRequirement((a1 + 1), v110, v42, 0, 0, &v132 + 1, &v132);
-        if (HIBYTE(v132) == 1)
+        *(v57 + 20) = v101;
+        v131 = 0;
+        AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::checkBarrierRequirement((a1 + 1), v109, v42, 0, 0, &v131 + 1, &v131);
+        if (HIBYTE(v131) == 1)
         {
           AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::encodeBarrier(a1[3], 22, 0, 0, 0);
         }
@@ -2677,23 +2679,23 @@ LABEL_49:
         v63 = *(a1[1] + 24) + *(a1[1] + 4);
         *(v63 + 8) = v48;
         *(v63 + 16) = v57 + v58;
-        v64 = v122;
-        v65 = v123;
-        if (v111 < 2)
+        v64 = v121;
+        v65 = v122;
+        if (v110 < 2)
         {
-          v66 = v121 & 0xEFFFFFFFFFFFFFFFLL;
+          v66 = v120 & 0xEFFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v66 = v121 | 0x1000000000000000;
-          v65 = v123 & 0xF0000FFFFFFFFFFFLL | ((v116 & 0xF | (16 * (v116 & 0xFu))) << 44);
-          v64 = v122 | 0x8000000000000000;
+          v66 = v120 | 0x1000000000000000;
+          v65 = v122 & 0xF0000FFFFFFFFFFFLL | ((v115 & 0xF | (16 * (v115 & 0xFu))) << 44);
+          v64 = v121 | 0x8000000000000000;
         }
 
-        v67 = v124;
-        GPUVirtualAddress = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v110, 0, 0, 0, 0);
-        v69 = GPUVirtualAddress + v118 * v42;
+        v67 = v123;
+        GPUVirtualAddress = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v109, 0, 0, 0, 0);
+        v69 = GPUVirtualAddress + v117 * v42;
         v70 = v69 >> 4;
         if ((v66 & 0x3F) == 2)
         {
@@ -2711,25 +2713,25 @@ LABEL_49:
         v72[10] = v65;
         v72[11] = v67;
         v73 = *(a1[1] + 24) + *(a1[1] + 8) + (v51 << 7);
-        v74 = v112;
-        v75 = v113;
-        v76 = v114;
-        *(v73 + 48) = v115;
+        v74 = v111;
+        v75 = v112;
+        v76 = v113;
+        *(v73 + 48) = v114;
         *(v73 + 16) = v75;
         *(v73 + 32) = v76;
         *v73 = v74;
         v77 = a1[1];
-        *(*(v77 + 24) + *(v77 + 8) + (v51 << 7) + 56) = v115;
+        *(*(v77 + 24) + *(v77 + 8) + (v51 << 7) + 56) = v114;
         v78 = 1 << v51;
         *(v77 + 32) |= 1 << v51;
-        if (v125)
+        if (v124)
         {
-          v79 = *(v125 + 1304);
+          v79 = *(v124 + 1304);
           v80 = ~v78;
           *(v77 + 48) = *(v77 + 48) & ~v78 | ((v79 != 0) << v51);
           if (v79)
           {
-            v81 = v120;
+            v81 = v119;
           }
 
           else
@@ -2747,25 +2749,25 @@ LABEL_49:
 
         *(v77 + 64) = *(v77 + 64) & v80 | (v81 << v51);
         v82 = a1[3];
-        v83 = v129[0];
+        v83 = v128[0];
         *(v82 + 2060) |= 2u;
         v84.i32[0] = 32;
         v84.i32[1] = v59 >> 5;
         v85 = vmin_u32(v84, v83);
-        v105 = v83;
+        v104 = v83;
         *&v86 = v83.u32[0];
         *(&v86 + 1) = v83.u32[1];
-        v141 = v86;
-        v142 = 1;
+        v140 = v86;
+        v141 = 1;
         *&v86 = v85.u32[0];
         *(&v86 + 1) = v85.u32[1];
-        v139 = v86;
-        v140 = 1;
+        v138 = v86;
+        v139 = 1;
         v87 = *(v82 + 4536);
         *(v82 + 4536) = v77;
         v88 = *(v82 + 2336);
         AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::setPipelineCommon(v82, UberBlitPipeline);
-        AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::executeKernelThreadsInternal(v82, 22, &v141, &v139);
+        AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::executeKernelThreadsInternal(v82, 22, &v140, &v138);
         if (v88)
         {
           AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::setPipelineCommon(v82, v88);
@@ -2776,20 +2778,20 @@ LABEL_49:
           *(v82 + 4536) = v87;
         }
 
-        if (v132 == 1)
+        if (v131 == 1)
         {
           AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext,AGX::HAL300::EncoderComputeServiceClassesNext>::encodeBarrier(a1[3], 22, 0, 0, 0);
         }
 
-        v133 = &unk_2A23F6820;
-        if (v135)
+        v132 = &unk_2A23F6820;
+        if (v134)
         {
-          v136 = v135;
-          operator delete(v135);
+          v135 = v134;
+          operator delete(v134);
         }
 
-        v38 = v105.i32[0];
-        v43 = v105.u32[1];
+        v38 = v104.i32[0];
+        v43 = v104.u32[1];
         goto LABEL_32;
       }
     }
@@ -2800,15 +2802,15 @@ LABEL_49:
     }
 
 LABEL_76:
-    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v110);
+    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v109);
   }
 
   else if (*(v14 + 236))
   {
-    v128 = 0;
-    v127 = v106;
-    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::texBaseAddressesUpdated(v126);
-    AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMSparseMiptail(a1 + 1, a2, v126, 0, 0, a6, v14, a7, a8);
+    v127 = 0;
+    v126 = v105;
+    AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::texBaseAddressesUpdated(v125);
+    AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMSparseMiptail(a1 + 1, a2, v125, 0, 0, a6, v14, a7, v11);
   }
 
   else if (a10[1].i64[0])
@@ -2818,16 +2820,16 @@ LABEL_76:
     v92 = 1;
     do
     {
-      v93 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v14, a7, *(v14 + 144) + a8, v42, v19);
-      AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyBufferToBufferImpl(a1, a2, v98 + v90 * a5 + *(a2 + 72 + *MEMORY[0x29EDC5638]), a6, v93, v91);
-      ++v42;
+      v93 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getGPUVirtualAddress(v14, a7, *(v14 + 144) + v11, v42, v19);
+      AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyBufferToBufferImpl(a1, a2, v97 + v90 * a5 + *(a2 + 72 + *MEMORY[0x29EDC5638]), a6, v93, v91);
+      LODWORD(v42) = v42 + 1;
       v90 = v92++;
     }
 
     while (a10[1].i64[0] > v90);
   }
 
-  AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v126);
+  AGX::TextureGen4<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::~TextureGen4(v125);
 }
 
 void sub_29CD778B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
@@ -2845,7 +2847,7 @@ void sub_29CD778B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_29CD7ACD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *__p, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_29CD7ACD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *__p, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a44, 8);
   if (__p)
@@ -2854,15 +2856,15 @@ void sub_29CD7ACD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  _Block_object_dispose(&a67, 8);
-  v69 = STACK[0x200];
+  _Block_object_dispose(&a65, 8);
+  v67 = STACK[0x200];
   if (STACK[0x200])
   {
-    STACK[0x208] = v69;
-    operator delete(v69);
+    STACK[0x208] = v67;
+    operator delete(v67);
   }
 
-  _Block_object_dispose((v67 - 160), 8);
+  _Block_object_dispose((v65 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2960,14 +2962,12 @@ uint64_t ___ZN3AGX11BlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClasse
 
 __n128 __Block_byref_object_copy__433(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -3133,14 +3133,12 @@ void ___ZN3AGX11BlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS
 
 __n128 __Block_byref_object_copy__438(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -3248,13 +3246,13 @@ void ___ZN3AGX11BlitContextINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesENS
         v55 = v54 + 1;
         if (v54 + 1 < *(v50 + 140) || v55 == *(v50 + 64))
         {
-          v56 = *(v49 + 584) + 648 * a2[2];
+          v56 = (*(v49 + 584) + 648 * a2[2]);
           v57 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getLevelOffset<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(v50, v55, 0);
         }
 
         else
         {
-          v56 = *(v49 + 584) + 648 * a2[2];
+          v56 = (*(v49 + 584) + 648 * a2[2]);
           v57 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getMipmapSize<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(v50, 0);
         }
 
@@ -3332,13 +3330,13 @@ LABEL_29:
         v67 = v66 + 1;
         if (v66 + 1 < *(v64 + 140) || v67 == *(v64 + 64))
         {
-          v68 = *(v63 + 584) + 648 * a2[2];
+          v68 = (*(v63 + 584) + 648 * a2[2]);
           v69 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getLevelOffset<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(v64, v67, 0);
         }
 
         else
         {
-          v68 = *(v63 + 584) + 648 * a2[2];
+          v68 = (*(v63 + 584) + 648 * a2[2]);
           v69 = AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getMipmapSize<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)1>(v64, 0);
         }
 
@@ -3423,7 +3421,7 @@ void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300:
 
   if (*(*(v3 + 424) + 24) == 1)
   {
-    AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(*(a1 + 2336));
+    AGX::ComputePipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::bindResources(*(a1 + 2336), *(a1 + 1912));
     v13 = *(a1 + 2336);
     v14 = *(v13 + 208) + *(v13 + 172);
     v15 = *(v13 + 16);
@@ -4904,7 +4902,7 @@ uint64_t AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL
     if (!v3)
     {
       v6 = a1;
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((a1 + 3), 19, 0))
       {
         goto LABEL_12;
       }
@@ -4920,7 +4918,7 @@ uint64_t AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL
     }
 
     v7 = a1;
-    v8 = AGX::DataBufferAllocator<44ul>::growNoInline(a1 + 3, 19, 0);
+    v8 = AGX::DataBufferAllocator<44ul>::growNoInline((a1 + 3), 19, 0);
     a1 = v7;
     v3 = v7[85];
     if (!v8)
@@ -4945,19 +4943,19 @@ LABEL_12:
   return v2;
 }
 
-void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::handleFirstControlFlowPrologue(uint64_t a1)
+void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::handleFirstControlFlowPrologue(uint64_t result)
 {
-  if ((*(a1 + 28090) & 1) == 0)
+  if ((*(result + 28090) & 1) == 0)
   {
-    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::restartComputePass(a1, 22);
+    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::restartComputePass(result, 22);
   }
 }
 
-void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::handleLastControlFlowEpilogue(uint64_t a1)
+void AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::handleLastControlFlowEpilogue(uint64_t result)
 {
-  if ((*(a1 + 28090) & 2) != 0)
+  if ((*(result + 28090) & 2) != 0)
   {
-    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::restartComputePass(a1, 22);
+    AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::restartComputePass(result, 22);
   }
 }
 
@@ -5306,13 +5304,13 @@ LABEL_9:
   _Unwind_Resume(exception_object);
 }
 
-void AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::appendLdshdr(uint64_t *a1)
+void AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::appendLdshdr(char **a1)
 {
   if (*(a1 + 54) != 20)
   {
     v2 = *a1;
     v1 = a1[1];
-    v3 = &v1[-*a1];
+    v3 = v1 - *a1;
     *(a1 + 158) = v3;
     v4 = *(a1 + 78);
     if (v4 == 1)
@@ -5330,12 +5328,12 @@ void AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::a
       v5 = 28;
     }
 
-    v6 = &v3[v5];
-    if (v3 >= &v3[v5])
+    v6 = v5 + v3;
+    if (v3 >= v5 + v3)
     {
-      if (v3 > &v3[v5])
+      if (v3 > v5 + v3)
       {
-        a1[1] = &v6[v2];
+        a1[1] = (v2 + v6);
       }
     }
 
@@ -5619,14 +5617,14 @@ LABEL_55:
     LODWORD(v24) = a4;
     DWORD1(v24) = a5 & 0x1FFFFFFF;
     DWORD2(v24) = v22;
-    v23 = (a1 + 56);
+    v23 = a1 + 56;
   }
 
   else
   {
     *&v24 = __PAIR64__(a5, a4);
     DWORD2(v24) = v22;
-    v23 = (a1 + 62);
+    v23 = a1 + 62;
   }
 
   std::vector<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::BufferPointer,std::allocator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::BufferPointer>>::push_back[abi:nn200100](v23, &v24);
@@ -5990,7 +5988,7 @@ void AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::a
   }
 
   __src = (v2 << 32) | (v62 << 48) | (v63 << 16) | v64;
-  std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(a1, *(a1 + 8), &__src, v86, 8);
+  std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(a1, *(a1 + 8), &__src, v86, 8uLL);
 }
 
 void std::vector<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::BufferPointer,std::allocator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::BufferPointer>>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
@@ -6059,7 +6057,7 @@ void std::vector<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::
   *(a1 + 8) = v6;
 }
 
-void std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(uint64_t a1, char *__dst, char *__src, char *a4, int64_t a5)
+void std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(uint64_t a1, char *__dst, char *__src, char *a4, size_t a5)
 {
   if (a5 < 1)
   {
@@ -6300,7 +6298,7 @@ LABEL_52:
 
 void AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::finishRound(uint64_t a1)
 {
-  v289 = *MEMORY[0x29EDCA608];
+  v290 = *MEMORY[0x29EDCA608];
   *(a1 + 56) = 18;
   v2 = *(a1 + 96);
   v3 = (v2 >> 3) & 0x1FFFFFFFFFFFFFF8;
@@ -6324,7 +6322,7 @@ LABEL_6:
   v10 = *(a1 + 104) + v2;
   v11 = (v10 >> 3) & 0x1FFFFFFFFFFFFFF8;
   v12 = (v4 + v11);
-  v13 = *(v4 + v11) + ((v10 & 0x3F) << 6);
+  v13 = (*(v4 + v11) + ((v10 & 0x3F) << 6));
   if (v13 == v8)
   {
     goto LABEL_6;
@@ -6338,284 +6336,284 @@ LABEL_6:
 
   v15 = 63 - __clz(v14 - v7);
 LABEL_7:
-  v257 = (a1 + 64);
+  v258 = (a1 + 64);
   _ZNSt3__111__introsortINS_17_ClassicAlgPolicyERZN3AGX23ESLStateLoadEncoderGen2INS2_6HAL3007ClassesENS4_8EncodersEE10EslBuilder11finishRoundEvEUlRT_RT0_E_NS_16__deque_iteratorINS8_12InflightLoadEPSG_RSG_PSH_lLl64EEELb0EEEvT1_SL_SB_NS_15iterator_traitsISL_E15difference_typeEb(v6, v8, v12, v13, 2 * v15, 1);
-  v16 = *(a1 + 96);
-  v17 = *(a1 + 72);
-  v18 = *(a1 + 80);
-  v19 = (v17 + 8 * (v16 >> 6));
-  v265 = a1;
-  if (v18 == v17)
+  v17 = *(a1 + 96);
+  v18 = *(a1 + 72);
+  v19 = *(a1 + 80);
+  v20 = (v18 + 8 * (v17 >> 6));
+  v266 = a1;
+  if (v19 == v18)
   {
-    v20 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v20 = (*v19 + ((*(a1 + 96) & 0x3FLL) << 6));
+    v21 = (*v20 + ((*(a1 + 96) & 0x3FLL) << 6));
   }
 
   __p = v9;
   while (1)
   {
-    v21 = v16 + *v9;
-    v22 = v21 >> 6;
-    if (v18 == v17)
+    v22 = v17 + *v9;
+    v23 = v22 >> 6;
+    if (v19 == v18)
     {
       break;
     }
 
-    if (v20 == (*(v17 + 8 * v22) + ((v21 & 0x3F) << 6)))
+    if (v21 == (*(v18 + 8 * v23) + ((v22 & 0x3F) << 6)))
     {
       goto LABEL_195;
     }
 
 LABEL_16:
-    v23 = (v20 - *v19) >> 6;
-    if (v23 < 0)
+    v24 = (v21 - *v20) >> 6;
+    if (v24 < 0)
     {
-      v24 = v19[-((62 - v23) >> 6)] + ((~(62 - v23) & 0x3F) << 6);
+      v25 = v20[-((62 - v24) >> 6)] + ((~(62 - v24) & 0x3F) << 6);
     }
 
     else
     {
-      v24 = *(v19 + (((v23 + 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) + (((v23 + 1) & 0x3F) << 6);
+      v25 = *(v20 + (((v24 + 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) + (((v24 + 1) & 0x3F) << 6);
     }
 
-    v25 = *(v20 + 5);
-    if (v25 - 5 >= 0xFFFFFFFD)
+    v26 = *(v21 + 5);
+    if (v26 - 5 >= 0xFFFFFFFD)
     {
-      v26 = v20[8];
-      if (v26 < 0x24 || v26 == 36 && ((v25 > 9) | (0x125u >> v25) & 1 || ((v25 < 0xA) & (0x90u >> v25)) == 0 && *(v20 + 6) < 8))
+      v27 = v21[8];
+      if (v27 < 0x24 || v27 == 36 && ((v26 > 9) | (0x125u >> v26) & 1 || ((v26 < 0xA) & (0x90u >> v26)) == 0 && *(v21 + 6) < 8))
       {
-        v27 = 0;
+        v28 = 0;
         goto LABEL_43;
       }
     }
 
-    if (v18 == v17)
+    if (v19 == v18)
     {
-      if (!v24)
+      if (!v25)
       {
         goto LABEL_42;
       }
     }
 
-    else if (v24 == *(v17 + 8 * v22) + ((v21 & 0x3F) << 6))
+    else if (v25 == *(v18 + 8 * v23) + ((v22 & 0x3F) << 6))
     {
       goto LABEL_42;
     }
 
-    v28 = *(v24 + 20);
-    if ((v28 - 2) > 7)
-    {
-      v29 = 3;
-    }
-
-    else
-    {
-      v29 = dword_29D2F49F8[v28 - 2];
-    }
-
-    if (v25 - 2 > 7)
+    v29 = *(v25 + 20);
+    if ((v29 - 2) > 7)
     {
       v30 = 3;
     }
 
     else
     {
-      v30 = dword_29D2F49F8[v25 - 2];
+      v30 = dword_29D2F49F8[v29 - 2];
     }
 
-    v31 = v28 - 1;
-    if (v31 > 8)
+    if (v26 - 2 > 7)
     {
-      v32 = 1;
+      v31 = 3;
     }
 
     else
     {
-      v32 = dword_29D2F4A18[v31];
+      v31 = dword_29D2F49F8[v26 - 2];
     }
 
-    v33 = v25 - 1;
-    if (v33 > 8)
+    v32 = v29 - 1;
+    if (v32 > 8)
     {
-      v34 = 1;
-      if (v29 != v30)
+      v33 = 1;
+    }
+
+    else
+    {
+      v33 = dword_29D2F4A18[v32];
+    }
+
+    v34 = v26 - 1;
+    if (v34 > 8)
+    {
+      v35 = 1;
+      if (v30 != v31)
       {
 LABEL_42:
-        v27 = 1;
+        v28 = 1;
         goto LABEL_43;
       }
     }
 
     else
     {
-      v34 = dword_29D2F4A18[v33];
-      if (v29 != v30)
+      v35 = dword_29D2F4A18[v34];
+      if (v30 != v31)
       {
         goto LABEL_42;
       }
     }
 
-    v27 = 1;
-    if (v32 == v34 && *(v24 + 16) == v20[8])
+    v28 = 1;
+    if (v33 == v35 && *(v25 + 16) == v21[8])
     {
-      v27 = *(v24 + 24) != *(v20 + 6);
+      v28 = *(v25 + 24) != *(v21 + 6);
     }
 
 LABEL_43:
-    v35 = *(v20 + 2);
-    v36 = *(v20 + 6);
-    v37 = *(v265 + 48);
-    if (*(v20 + 52))
+    v36 = *(v21 + 2);
+    v37 = *(v21 + 6);
+    v38 = *(v266 + 48);
+    if (*(v21 + 52))
     {
-      v38 = 3;
+      v39 = 3;
     }
 
     else
     {
-      v38 = 0xFu >> (4 - *(v20 + 35));
+      v39 = 0xFu >> (4 - *(v21 + 35));
     }
 
-    if (*(v20 + 34) != 1)
+    if (*(v21 + 34) != 1)
     {
-      v42 = *v20;
-      v43 = *(v20 + 1);
-      v44 = *(v20 + 2);
-      v45 = v20[16];
-      v286 = -1;
-      memset(v276, 0, sizeof(v276));
-      v277 = 0x6800000000uLL;
-      memset(v281, 0, sizeof(v281));
-      v282 = xmmword_29D2F1CA0;
-      v283 = 0u;
+      v43 = *v21;
+      v44 = *(v21 + 1);
+      v45 = *(v21 + 2);
+      v46 = v21[16];
+      v287 = -1;
+      memset(v277, 0, sizeof(v277));
+      v278 = 0x6800000000uLL;
+      memset(v282, 0, sizeof(v282));
+      v283 = xmmword_29D2F1CA0;
       v284 = 0u;
-      v285 = 0;
-      if (v43 - 2 <= 7)
+      v285 = 0u;
+      v286 = 0;
+      if (v44 - 2 <= 7)
       {
-        v46 = dword_29D2F49F8[v43 - 2];
-        v47 = v43 - 1;
+        v47 = dword_29D2F49F8[v44 - 2];
+        v48 = v44 - 1;
         goto LABEL_55;
       }
 
-      v47 = v43 - 1;
-      v46 = 3;
-      if (v43 - 1 > 8)
+      v48 = v44 - 1;
+      v47 = 3;
+      if (v44 - 1 > 8)
       {
-        v49 = 1;
-        if (v43 <= 9)
+        v50 = 1;
+        if (v44 <= 9)
         {
           goto LABEL_72;
         }
 
 LABEL_75:
-        if (v43 >= 2)
+        if (v44 >= 2)
         {
-          v42 = 0;
+          v43 = 0;
         }
       }
 
       else
       {
 LABEL_55:
-        v49 = dword_29D2F4A18[v47];
-        if (v43 > 9)
+        v50 = dword_29D2F4A18[v48];
+        if (v44 > 9)
         {
           goto LABEL_75;
         }
 
 LABEL_72:
-        v56 = 1 << v43;
-        if (((1 << v43) & 0x1C) == 0 && (v56 & 0xE0) == 0 && (v56 & 0x300) == 0)
+        v57 = 1 << v44;
+        if (((1 << v44) & 0x1C) == 0 && (v57 & 0xE0) == 0 && (v57 & 0x300) == 0)
         {
           goto LABEL_75;
         }
       }
 
-      v57 = HIDWORD(v35);
-      DWORD2(v283) = v42;
-      *&v284 = __PAIR64__(v49, v46);
-      HIDWORD(v284) = v44;
-      BYTE12(v277) = v38;
-      if ((HIDWORD(v35) - 2) <= 7)
+      v58 = HIDWORD(v36);
+      DWORD2(v284) = v43;
+      *&v285 = __PAIR64__(v50, v47);
+      HIDWORD(v285) = v45;
+      BYTE12(v278) = v39;
+      if ((HIDWORD(v36) - 2) <= 7)
       {
-        v58 = dword_29D2F49F8[HIDWORD(v35) - 2];
-        v59 = HIDWORD(v35) - 1;
+        v59 = dword_29D2F49F8[HIDWORD(v36) - 2];
+        v60 = HIDWORD(v36) - 1;
         goto LABEL_80;
       }
 
-      v59 = HIDWORD(v35) - 1;
-      v58 = 3;
-      if ((HIDWORD(v35) - 1) > 8)
+      v60 = HIDWORD(v36) - 1;
+      v59 = 3;
+      if ((HIDWORD(v36) - 1) > 8)
       {
-        v60 = 1;
+        v61 = 1;
       }
 
       else
       {
 LABEL_80:
-        v60 = dword_29D2F4A18[v59];
+        v61 = dword_29D2F4A18[v60];
       }
 
-      LODWORD(v35) = v35;
-      if (v57 > 9 || (v84 = 1 << v57, ((1 << v57) & 0x1C) == 0) && (v84 & 0xE0) == 0 && (v84 & 0x300) == 0)
+      LODWORD(v36) = v36;
+      if (v58 > 9 || (v85 = 1 << v58, ((1 << v58) & 0x1C) == 0) && (v85 & 0xE0) == 0 && (v85 & 0x300) == 0)
       {
-        if (v57 >= 2)
+        if (v58 >= 2)
         {
-          LODWORD(v35) = 0;
+          LODWORD(v36) = 0;
         }
       }
 
-      *&v278 = v35;
-      *(&v278 + 1) = __PAIR64__(v60, v58);
-      v279 = 0x800000000;
-      LOBYTE(v280) = v27;
-      *(&v280 + 1) = 0;
-      HIBYTE(v280) = 0;
-      v85 = 0x201008040201uLL >> (8 * v36);
-      if (v36 >= 6)
+      *&v279 = v36;
+      *(&v279 + 1) = __PAIR64__(v61, v59);
+      v280 = 0x800000000;
+      LOBYTE(v281) = v28;
+      *(&v281 + 1) = 0;
+      HIBYTE(v281) = 0;
+      v86 = 0x201008040201uLL >> (8 * v37);
+      if (v37 >= 6)
       {
-        LOBYTE(v85) = 0;
+        LOBYTE(v86) = 0;
       }
 
-      LOBYTE(v277) = v85;
-      *&v281[32] = v45;
-      *&v281[8] = 0x100000001;
-      *&v281[20] = 8;
-      *&v281[28] = 2;
-      *&v281[36] = 15;
-      *&v282 = 0x100000001;
-      BYTE8(v282) = 0;
-      HIDWORD(v282) = 8;
-      LOBYTE(v283) = 0;
-      if (v46 == 2)
+      LOBYTE(v278) = v86;
+      *&v282[32] = v46;
+      *&v282[8] = 0x100000001;
+      *&v282[20] = 8;
+      *&v282[28] = 2;
+      *&v282[36] = 15;
+      *&v283 = 0x100000001;
+      BYTE8(v283) = 0;
+      HIDWORD(v283) = 8;
+      LOBYTE(v284) = 0;
+      if (v47 == 2)
       {
-        if (v43 - 1 <= 8)
+        if (v44 - 1 <= 8)
         {
-          v86 = dword_29D2F46D8[v43 - 1];
-          if (v58 != 2)
+          v87 = dword_29D2F46D8[v44 - 1];
+          if (v59 != 2)
           {
             goto LABEL_143;
           }
 
 LABEL_140:
-          if (v35 + 4 > v42)
+          if (v36 + 4 > v43)
           {
-            v87 = vcnt_s8(v38);
-            v87.i16[0] = vaddlv_u8(v87);
-            if (v42 + v86 * v87.i32[0] > v35)
+            v88 = vcnt_s8(v39);
+            v88.i16[0] = vaddlv_u8(v88);
+            if (v43 + v87 * v88.i32[0] > v36)
             {
-              LOBYTE(v280) = 0;
+              LOBYTE(v281) = 0;
             }
           }
 
           goto LABEL_143;
         }
 
-        v86 = 1;
-        if (v58 == 2)
+        v87 = 1;
+        if (v59 == 2)
         {
           goto LABEL_140;
         }
@@ -6623,20 +6621,20 @@ LABEL_140:
 
 LABEL_143:
       *__src = 0u;
-      v274 = 0u;
-      v88 = AGXIotoInstruction_LDDEV::emit(v276, __src);
-      std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v37, *(v37 + 8), __src, v88, v88 - __src);
+      v275 = 0u;
+      v89 = AGXIotoInstruction_LDDEV::emit(v277, __src, v16);
+      std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v38, *(v38 + 8), __src, v89, v89 - __src);
       goto LABEL_164;
     }
 
-    v39 = HIDWORD(*v20);
-    if ((v39 - 2) <= 7)
+    v40 = HIDWORD(*v21);
+    if ((v40 - 2) <= 7)
     {
-      v40 = dword_29D2F49F8[(v39 - 2)];
-      v41 = v39 - 1;
+      v41 = dword_29D2F49F8[(v40 - 2)];
+      v42 = v40 - 1;
 LABEL_52:
-      v48 = dword_29D2F4A18[v41];
-      if (v39 > 9)
+      v49 = dword_29D2F4A18[v42];
+      if (v40 > 9)
       {
         goto LABEL_65;
       }
@@ -6644,279 +6642,279 @@ LABEL_52:
       goto LABEL_62;
     }
 
-    v41 = v39 - 1;
-    v40 = 3;
-    if ((v39 - 1) <= 8)
+    v42 = v40 - 1;
+    v41 = 3;
+    if ((v40 - 1) <= 8)
     {
       goto LABEL_52;
     }
 
-    v48 = 1;
-    if (v39 > 9)
+    v49 = 1;
+    if (v40 > 9)
     {
       goto LABEL_65;
     }
 
 LABEL_62:
-    v50 = 1 << v39;
-    if (((1 << v39) & 0x1C) != 0 || (v50 & 0xE0) != 0 || (v50 & 0x300) != 0)
+    v51 = 1 << v40;
+    if (((1 << v40) & 0x1C) != 0 || (v51 & 0xE0) != 0 || (v51 & 0x300) != 0)
     {
 LABEL_66:
-      v51 = *v20;
-      v52 = BYTE1(*v20);
+      v52 = *v21;
+      v53 = BYTE1(*v21);
       goto LABEL_67;
     }
 
 LABEL_65:
-    if (v39 < 2)
+    if (v40 < 2)
     {
       goto LABEL_66;
     }
 
-    v51 = 0;
     v52 = 0;
+    v53 = 0;
 LABEL_67:
-    if ((HIDWORD(v35) - 2) <= 7)
+    if ((HIDWORD(v36) - 2) <= 7)
     {
-      v53 = dword_29D2F49F8[HIDWORD(v35) - 2];
-      v54 = HIDWORD(v35) - 1;
+      v54 = dword_29D2F49F8[HIDWORD(v36) - 2];
+      v55 = HIDWORD(v36) - 1;
 LABEL_70:
-      v55 = dword_29D2F4A18[v54];
+      v56 = dword_29D2F4A18[v55];
       goto LABEL_82;
     }
 
-    v54 = HIDWORD(v35) - 1;
-    v53 = 3;
-    if ((HIDWORD(v35) - 1) <= 8)
+    v55 = HIDWORD(v36) - 1;
+    v54 = 3;
+    if ((HIDWORD(v36) - 1) <= 8)
     {
       goto LABEL_70;
     }
 
-    v55 = 1;
+    v56 = 1;
 LABEL_82:
-    v61 = *(v20 + 2);
-    v62 = v20[16];
-    if (HIDWORD(v35) > 9 || (v63 = 1 << SBYTE4(v35), ((1 << SBYTE4(v35)) & 0x1C) == 0) && (v63 & 0xE0) == 0 && (v63 & 0x300) == 0)
+    v62 = *(v21 + 2);
+    v63 = v21[16];
+    if (HIDWORD(v36) > 9 || (v64 = 1 << SBYTE4(v36), ((1 << SBYTE4(v36)) & 0x1C) == 0) && (v64 & 0xE0) == 0 && (v64 & 0x300) == 0)
     {
-      if (HIDWORD(v35) >= 2)
+      if (HIDWORD(v36) >= 2)
       {
-        LODWORD(v35) = 0;
+        LODWORD(v36) = 0;
       }
     }
 
-    if (v36 >= 6)
-    {
-      v64 = 0;
-    }
-
-    else
-    {
-      v64 = 0x201008040201uLL >> (8 * v36);
-    }
-
-    *&v276[16] = 0;
-    *&v277 = 0;
-    v65 = v38 - 1 < 0xF && ((0x7E7Fu >> (v38 - 1)) & 1) != 0 || (v38 & 0xE) == 8;
-    LOWORD(v66) = 0;
-    if (v61 >= 6 && (v61 & 0xFFFFFFFE) != 6)
+    if (v37 >= 6)
     {
       v65 = 0;
     }
 
-    v68 = v40 == 2 && v65;
-    if (v51)
+    else
     {
-      v69 = 0;
+      v65 = 0x201008040201uLL >> (8 * v37);
+    }
+
+    *&v277[16] = 0;
+    *&v278 = 0;
+    v66 = v39 - 1 < 0xF && ((0x7E7Fu >> (v39 - 1)) & 1) != 0 || (v39 & 0xE) == 8;
+    LOWORD(v67) = 0;
+    if (v62 >= 6 && (v62 & 0xFFFFFFFE) != 6)
+    {
+      v66 = 0;
+    }
+
+    v69 = v41 == 2 && v66;
+    if (v52)
+    {
+      v70 = 0;
     }
 
     else
     {
-      v69 = v61 == 8;
+      v70 = v62 == 8;
     }
 
-    v71 = v69 && v40 == 0;
-    v72 = v53 == 3 && !v27;
-    v73 = v53 == 1 && !v27;
-    LOWORD(v74) = 8;
-    v75 = 2;
-    LOWORD(v76) = 1;
-    LOWORD(v77) = 7;
-    if (v55 - 1) <= 1 && v48 <= 2 && ((v68 | v71))
+    v72 = v70 && v41 == 0;
+    v73 = v54 == 3 && !v28;
+    v74 = v54 == 1 && !v28;
+    LOWORD(v75) = 8;
+    v76 = 2;
+    LOWORD(v77) = 1;
+    LOWORD(v78) = 7;
+    if (v56 - 1) <= 1 && v49 <= 2 && ((v69 | v72))
     {
-      v78 = 0;
       v79 = 0;
       v80 = 0;
-      if (v53 == 2 || v72 || v73)
+      v81 = 0;
+      if (v54 == 2 || v73 || v74)
       {
-        v81 = (v62 >> 1) & 0x6000;
-        v82 = v55 == 2;
-        if (v48)
+        v82 = (v63 >> 1) & 0x6000;
+        v83 = v56 == 2;
+        if (v49)
         {
-          if (v48 == 2)
+          if (v49 == 2)
           {
-            v83 = 513;
+            v84 = 513;
             goto LABEL_145;
           }
 
-          v76 = v81 | 1;
+          v77 = v82 | 1;
         }
 
         else
         {
-          v83 = 2049;
+          v84 = 2049;
 LABEL_145:
-          v76 = v81 | v83;
+          v77 = v82 | v84;
         }
 
-        v89 = (v62 >> 2) & 0x40 | (((v62 >> 7) & 1) << 12);
-        v77 = (((v64 >> 4) & 1) << 14) | ((((v64 >> 1) & 1) << 11) | ((v64 & 1) << 10)) & 0xFFFFCFFF | (((v64 >> 2) & 1) << 12) & 0xFFFFDFFF | (((v64 >> 3) & 1) << 13) | 7 | 0x20;
-        v74 = (v64 << 10) & 0x38000 | 0x2A8;
-        if (v68)
+        v90 = (v63 >> 2) & 0x40 | (((v63 >> 7) & 1) << 12);
+        v78 = (((v65 >> 4) & 1) << 14) | ((((v65 >> 1) & 1) << 11) | ((v65 & 1) << 10)) & 0xFFFFCFFF | (((v65 >> 2) & 1) << 12) & 0xFFFFDFFF | (((v65 >> 3) & 1) << 13) | 7 | 0x20;
+        v75 = (v65 << 10) & 0x38000 | 0x2A8;
+        if (v69)
         {
-          switch(v38)
+          switch(v39)
           {
             case 1u:
               break;
             case 2u:
-              LOWORD(v89) = v89 | 7;
+              LOWORD(v90) = v90 | 7;
               break;
             case 3u:
-              LOWORD(v89) = v89 | 8;
+              LOWORD(v90) = v90 | 8;
               break;
             case 4u:
-              LOWORD(v89) = v89 | 9;
+              LOWORD(v90) = v90 | 9;
               break;
             case 5u:
-              LOWORD(v89) = v89 | 0xA;
+              LOWORD(v90) = v90 | 0xA;
               break;
             case 6u:
-              LOWORD(v89) = v89 | 0xB;
+              LOWORD(v90) = v90 | 0xB;
               break;
             case 7u:
-              LOWORD(v89) = v89 | 0xC;
+              LOWORD(v90) = v90 | 0xC;
               break;
             case 8u:
-              LOWORD(v89) = v89 | 0xD;
+              LOWORD(v90) = v90 | 0xD;
               break;
             case 0xAu:
-              LOWORD(v89) = v89 | 1;
+              LOWORD(v90) = v90 | 1;
               break;
             case 0xBu:
-              LOWORD(v89) = v89 | 2;
+              LOWORD(v90) = v90 | 2;
               break;
             case 0xCu:
-              LOWORD(v89) = v89 | 3;
+              LOWORD(v90) = v90 | 3;
               break;
             case 0xDu:
-              LOWORD(v89) = v89 | 4;
+              LOWORD(v90) = v90 | 4;
               break;
             case 0xEu:
-              LOWORD(v89) = v89 | 5;
+              LOWORD(v90) = v90 | 5;
               break;
             case 0xFu:
-              LOWORD(v89) = v89 | 6;
+              LOWORD(v90) = v90 | 6;
               break;
             default:
-              if (v38 == 9)
+              if (v39 == 9)
               {
-                LOWORD(v89) = v89 | 0xE;
+                LOWORD(v90) = v90 | 0xE;
               }
 
               break;
           }
 
-          LOWORD(v77) = (8 * v51) & 0x90 | (((v64 >> 4) & 1) << 14) & 0x7F6F | ((((v64 >> 1) & 1) << 11) | ((v64 & 1) << 10)) & 0x4F6F | (((v64 >> 2) & 1) << 12) & 0x5F6F | (((v64 >> 3) & 1) << 13) & 0x7F6F | 7 | 0x20;
-          v76 = ((v51 | (v52 << 8)) >> 4) & 0x18 | v76 & 0x6E67 | (((v51 >> 6) & 1) << 7) & 0xFFFFFEFF | ((v51 & 1) << 8);
-          v74 |= (v51 << 8) & 0x2000 | (((v51 >> 2) & 3) << 11);
-          if (v61 > 2)
+          LOWORD(v78) = (8 * v52) & 0x90 | (((v65 >> 4) & 1) << 14) & 0x7F6F | ((((v65 >> 1) & 1) << 11) | ((v65 & 1) << 10)) & 0x4F6F | (((v65 >> 2) & 1) << 12) & 0x5F6F | (((v65 >> 3) & 1) << 13) & 0x7F6F | 7 | 0x20;
+          v77 = ((v52 | (v53 << 8)) >> 4) & 0x18 | v77 & 0x6E67 | (((v52 >> 6) & 1) << 7) & 0xFFFFFEFF | ((v52 & 1) << 8);
+          v75 |= (v52 << 8) & 0x2000 | (((v52 >> 2) & 3) << 11);
+          if (v62 > 2)
           {
-            if (v61 <= 4)
+            if (v62 <= 4)
             {
-              if (v61 == 3)
+              if (v62 == 3)
               {
-                v75 = 806;
+                v76 = 806;
               }
 
               else
               {
-                v75 = 1062;
+                v76 = 1062;
               }
 
 LABEL_153:
-              v90 = v82 | 0x8000;
-              if (v53 == 2)
+              v91 = v83 | 0x8000;
+              if (v54 == 2)
               {
-                LOWORD(v77) = (2 * v35) & 0x300 | v77 & 0xFCFF;
-                LOWORD(v74) = (v35 << 10) & 0x4000 | v74 & 0xBFFF;
-                v75 |= (v27 << 7) | (v35 << 12);
-                v76 = (32 * v35) & 0x400 | v76 & 0xFFFFFBFF | (v35 >> 6 << 15);
+                LOWORD(v78) = (2 * v36) & 0x300 | v78 & 0xFCFF;
+                LOWORD(v75) = (v36 << 10) & 0x4000 | v75 & 0xBFFF;
+                v76 |= (v28 << 7) | (v36 << 12);
+                v77 = (32 * v36) & 0x400 | v77 & 0xFFFFFBFF | (v36 >> 6 << 15);
               }
 
-              else if (v72 || v73)
+              else if (v73 || v74)
               {
-                v75 |= 0x10u;
-                if (v72)
+                v76 |= 0x10u;
+                if (v73)
                 {
-                  v91 = v77 & 0xFCFF;
-                  v92 = v35 >> 6;
-                  v93 = (2 * v35) & 0x300;
+                  v92 = v78 & 0xFCFF;
+                  v93 = v36 >> 6;
+                  v94 = (2 * v36) & 0x300;
                 }
 
                 else
                 {
-                  if (!v73)
+                  if (!v74)
                   {
                     goto LABEL_162;
                   }
 
-                  v90 = v82 | 0x8002;
-                  v91 = v77 & 0xFEFF;
-                  v92 = v35 >> 6;
-                  v93 = (2 * v35) & 0x100;
+                  v91 = v83 | 0x8002;
+                  v92 = v78 & 0xFEFF;
+                  v93 = v36 >> 6;
+                  v94 = (2 * v36) & 0x100;
                 }
 
-                LOWORD(v77) = v93 | v91;
-                LOWORD(v76) = (32 * v35) & 0x400 | v76 & 0xFBFF | (v92 << 15);
-                LOWORD(v74) = (v35 << 10) & 0x4000 | v74 & 0xBFFF;
-                v75 |= v35 << 12;
+                LOWORD(v78) = v94 | v92;
+                LOWORD(v77) = (32 * v36) & 0x400 | v77 & 0xFBFF | (v93 << 15);
+                LOWORD(v75) = (v36 << 10) & 0x4000 | v75 & 0xBFFF;
+                v76 |= v36 << 12;
               }
 
 LABEL_162:
-              v66 = v62 & 0x30 | (((v62 >> 6) & 1) << 10) | (v62 << 12);
-              v80 = v62 & 0x3E00;
-              v78 = v89 & 0x104F;
-              v79 = v90 & 0xE3FF | 0x400;
+              v67 = v63 & 0x30 | (((v63 >> 6) & 1) << 10) | (v63 << 12);
+              v81 = v63 & 0x3E00;
+              v79 = v90 & 0x104F;
+              v80 = v91 & 0xE3FF | 0x400;
               goto LABEL_163;
             }
 
-            if (v61 == 5)
+            if (v62 == 5)
             {
-              v75 = 1318;
+              v76 = 1318;
               goto LABEL_153;
             }
 
-            if (v61 == 6)
+            if (v62 == 6)
             {
-              v75 = 1574;
+              v76 = 1574;
               goto LABEL_153;
             }
 
 LABEL_191:
-            v75 = 1830;
+            v76 = 1830;
             goto LABEL_153;
           }
 
-          if (v61)
+          if (v62)
           {
-            if (v61 == 1)
+            if (v62 == 1)
             {
-              v75 = 294;
+              v76 = 294;
               goto LABEL_153;
             }
 
-            if (v61 == 2)
+            if (v62 == 2)
             {
-              v75 = 550;
+              v76 = 550;
               goto LABEL_153;
             }
 
@@ -6924,954 +6922,954 @@ LABEL_191:
           }
         }
 
-        else if (v71)
+        else if (v72)
         {
-          v76 |= 0x1000u;
-          LOWORD(v89) = v89 | v38;
+          v77 |= 0x1000u;
+          LOWORD(v90) = v90 | v39;
         }
 
-        v75 = 38;
+        v76 = 38;
         goto LABEL_153;
       }
     }
 
     else
     {
-      v78 = 0;
       v79 = 0;
       v80 = 0;
+      v81 = 0;
     }
 
 LABEL_163:
-    *v276 = v77;
-    *&v276[2] = v76;
-    *&v276[4] = v75;
-    *&v276[6] = v74;
-    *&v276[8] = v66;
-    *&v276[10] = v78;
-    *&v276[12] = v79;
-    *&v276[14] = v80;
-    std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v37, *(v37 + 8), v276, &v276[16], 16);
+    *v277 = v78;
+    *&v277[2] = v77;
+    *&v277[4] = v76;
+    *&v277[6] = v75;
+    *&v277[8] = v67;
+    *&v277[10] = v79;
+    *&v277[12] = v80;
+    *&v277[14] = v81;
+    std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v38, *(v38 + 8), v277, &v277[16], 0x10uLL);
     v9 = __p;
 LABEL_164:
-    v20 += 32;
-    if ((v20 - *v19) == 4096)
+    v21 += 32;
+    if ((v21 - *v20) == 4096)
     {
-      v94 = v19[1];
-      ++v19;
-      v20 = v94;
+      v95 = v20[1];
+      ++v20;
+      v21 = v95;
     }
 
-    v16 = *(v265 + 96);
-    v17 = *(v265 + 72);
-    v18 = *(v265 + 80);
+    v17 = *(v266 + 96);
+    v18 = *(v266 + 72);
+    v19 = *(v266 + 80);
   }
 
-  if (v20)
+  if (v21)
   {
     goto LABEL_16;
   }
 
 LABEL_195:
-  v95 = v265;
-  if ((*(v265 + 114) & 1) == 0)
+  v96 = v266;
+  if ((*(v266 + 114) & 1) == 0)
   {
-    AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::appendLdshdr(*(v265 + 48));
-    v95 = v265;
-    *(v265 + 114) = 1;
+    AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::appendLdshdr(*(v266 + 48));
+    v96 = v266;
+    *(v266 + 114) = 1;
   }
 
-  if ((*(v95 + 115) & 1) == 0)
+  if ((*(v96 + 115) & 1) == 0)
   {
-    AGX::USCProfileControlStateLoaderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes>::appendStateLoaderInstructions(AGX::USCProfileControlStateLoaderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes>::instance, *(v95 + 120), *(v95 + 48));
-    v95 = v265;
-    *(v265 + 115) = 1;
+    AGX::USCProfileControlStateLoaderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes>::appendStateLoaderInstructions(AGX::USCProfileControlStateLoaderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes>::instance, *(v96 + 120), *(v96 + 48));
+    v96 = v266;
+    *(v266 + 115) = 1;
   }
 
-  v274 = 0u;
   v275 = 0u;
+  v276 = 0u;
   *__src = 0u;
-  v96 = *(v95 + 72);
-  if (*(v95 + 80) != v96)
+  v97 = *(v96 + 72);
+  if (*(v96 + 80) != v97)
   {
-    v97 = *(v95 + 96);
-    v98 = (v96 + 8 * (v97 >> 6));
-    v99 = (*v98 + ((v97 & 0x3F) << 6));
-    v100 = *(v96 + (((*v9 + v97) >> 3) & 0x1FFFFFFFFFFFFFF8)) + (((*v9 + v97) & 0x3F) << 6);
-    if (v99 != v100)
+    v98 = *(v96 + 96);
+    v99 = (v97 + 8 * (v98 >> 6));
+    v100 = (*v99 + ((v98 & 0x3F) << 6));
+    v101 = *(v97 + (((*v9 + v98) >> 3) & 0x1FFFFFFFFFFFFFF8)) + (((*v9 + v98) & 0x3F) << 6);
+    if (v100 != v101)
     {
-      v101 = 0;
-      v258 = *(v96 + (((*v9 + v97) >> 3) & 0x1FFFFFFFFFFFFFF8)) + (((*v9 + v97) & 0x3F) << 6);
-      while (*(v99 + 52) == 1)
+      v102 = 0;
+      v259 = *(v97 + (((*v9 + v98) >> 3) & 0x1FFFFFFFFFFFFFF8)) + (((*v9 + v98) & 0x3F) << 6);
+      while (*(v100 + 52) == 1)
       {
-        v102 = *(v99 + 35);
-        if (v102 <= 2)
+        v103 = *(v100 + 35);
+        if (v103 <= 2)
         {
-          LOBYTE(v102) = 2;
+          LOBYTE(v103) = 2;
         }
 
-        v103 = (v102 + (*v99 >> 1));
-        if (*(v95 + 56) > v103)
+        v104 = (v103 + (*v100 >> 1));
+        if (*(v96 + 56) > v104)
         {
-          LOBYTE(v103) = *(v95 + 56);
+          LOBYTE(v104) = *(v96 + 56);
         }
 
-        *(v95 + 56) = v103;
-        v287 = *v99;
-        v270 = *(v99 + 29);
-        v271 = *(v99 + 31);
-        v276[16] = *(v99 + 51);
-        *v276 = *(v99 + 35);
-        *&v272[7] = *(v99 + 15);
-        *v272 = *(v99 + 53);
-        v104 = *(v99 + 5);
-        *&v287 = *v99;
-        *(&v287 + 5) = v104;
-        v105 = *v99;
-        v106 = *v99 & 0xFFFFFFFF00000000;
-        v107 = HIDWORD(*v99);
-        if (v107 <= 8 && ((0x16Du >> v107) & 1) != 0)
+        *(v96 + 56) = v104;
+        v288 = *v100;
+        v271 = *(v100 + 29);
+        v272 = *(v100 + 31);
+        v277[16] = *(v100 + 51);
+        *v277 = *(v100 + 35);
+        *&v273[7] = *(v100 + 15);
+        *v273 = *(v100 + 53);
+        v105 = *(v100 + 5);
+        *&v288 = *v100;
+        *(&v288 + 5) = v105;
+        v106 = *v100;
+        v107 = *v100 & 0xFFFFFFFF00000000;
+        v108 = HIDWORD(*v100);
+        if (v108 <= 8 && ((0x16Du >> v108) & 1) != 0)
         {
-          v106 = qword_29D2F4700[v107];
+          v107 = qword_29D2F4700[v108];
         }
 
-        v108 = *(v99 + 1);
-        v109 = __src[1];
-        v110 = 8 * (v274 - __src[1]) - 1;
-        v111 = *(v99 + 14);
-        if (v274 == __src[1])
+        v109 = *(v100 + 1);
+        v110 = __src[1];
+        v111 = 8 * (v275 - __src[1]) - 1;
+        v112 = *(v100 + 14);
+        if (v275 == __src[1])
         {
-          v110 = 0;
+          v111 = 0;
         }
 
-        v112 = *(&v275 + 1) + v275;
-        if (v110 == *(&v275 + 1) + v275)
+        v113 = *(&v276 + 1) + v276;
+        if (v111 == *(&v276 + 1) + v276)
         {
           std::deque<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad,std::allocator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad>>::__add_back_capacity(__src);
-          v109 = __src[1];
-          v112 = *(&v275 + 1) + v275;
+          v110 = __src[1];
+          v113 = *(&v276 + 1) + v276;
         }
 
-        v113 = *&v109[(v112 >> 3) & 0x1FFFFFFFFFFFFFF8] + ((v112 & 0x3F) << 6);
-        *v113 = v287;
-        *(v113 + 16) = v106 | v105;
-        *(v113 + 28) = BYTE4(v108);
-        *(v113 + 24) = v108;
-        *(v113 + 29) = v270;
-        *(v113 + 31) = v271;
-        *(v113 + 32) = v111;
-        *(v113 + 34) = 0;
-        *(v113 + 35) = *v276;
-        *(v113 + 51) = v276[16];
-        *(v113 + 52) = 0;
-        *(v113 + 53) = *v272;
-        *(v113 + 60) = *&v272[7];
-        ++*(&v275 + 1);
-        v95 = v265;
+        v114 = *&v110[(v113 >> 3) & 0x1FFFFFFFFFFFFFF8] + ((v113 & 0x3F) << 6);
+        *v114 = v288;
+        *(v114 + 16) = v107 | v106;
+        *(v114 + 28) = BYTE4(v109);
+        *(v114 + 24) = v109;
+        *(v114 + 29) = v271;
+        *(v114 + 31) = v272;
+        *(v114 + 32) = v112;
+        *(v114 + 34) = 0;
+        *(v114 + 35) = *v277;
+        *(v114 + 51) = v277[16];
+        *(v114 + 52) = 0;
+        *(v114 + 53) = *v273;
+        *(v114 + 60) = *&v273[7];
+        ++*(&v276 + 1);
+        v96 = v266;
 LABEL_379:
-        v99 += 32;
-        if ((v99 - *v98) == 4096)
+        v100 += 32;
+        if ((v100 - *v99) == 4096)
         {
-          v183 = v98[1];
-          ++v98;
-          v99 = v183;
+          v184 = v99[1];
+          ++v99;
+          v100 = v184;
         }
 
-        if (v99 == v100)
+        if (v100 == v101)
         {
           goto LABEL_381;
         }
       }
 
-      v114 = *(v99 + 1);
-      if (v114 > 2)
+      v115 = *(v100 + 1);
+      if (v115 > 2)
       {
-        if ((v101 & 8) != 0)
-        {
-          LODWORD(v123) = 8;
-        }
-
-        else
-        {
-          v123 = *(v99 + 1);
-        }
-
-        if ((v101 & 0x10) != 0)
+        if ((v102 & 8) != 0)
         {
           LODWORD(v124) = 8;
         }
 
         else
         {
-          v124 = *(v99 + 1);
+          v124 = *(v100 + 1);
         }
 
-        if ((v101 & 0x20) != 0)
+        if ((v102 & 0x10) != 0)
         {
           LODWORD(v125) = 8;
         }
 
         else
         {
-          v125 = *(v99 + 1);
+          v125 = *(v100 + 1);
         }
 
-        if (v114 == 5)
+        if ((v102 & 0x20) != 0)
         {
-          v126 = 32;
-        }
-
-        else
-        {
-          v125 = *(v99 + 1);
-          v126 = 0;
-        }
-
-        if (v114 == 4)
-        {
-          v127 = 16;
+          LODWORD(v126) = 8;
         }
 
         else
         {
-          LODWORD(v124) = v125;
-          v127 = v126;
+          v126 = *(v100 + 1);
         }
 
-        v128 = v114 == 3;
-        if (v114 == 3)
+        if (v115 == 5)
         {
-          LODWORD(v121) = v123;
-        }
-
-        else
-        {
-          LODWORD(v121) = v124;
-        }
-
-        if (v128)
-        {
-          v122 = 8;
+          v127 = 32;
         }
 
         else
         {
-          v122 = v127;
+          v126 = *(v100 + 1);
+          v127 = 0;
+        }
+
+        if (v115 == 4)
+        {
+          v128 = 16;
+        }
+
+        else
+        {
+          LODWORD(v125) = v126;
+          v128 = v127;
+        }
+
+        v129 = v115 == 3;
+        if (v115 == 3)
+        {
+          LODWORD(v122) = v124;
+        }
+
+        else
+        {
+          LODWORD(v122) = v125;
+        }
+
+        if (v129)
+        {
+          v123 = 8;
+        }
+
+        else
+        {
+          v123 = v128;
         }
       }
 
       else
       {
-        LODWORD(v115) = 8;
-        if (v101)
-        {
-          LODWORD(v116) = 8;
-        }
-
-        else
-        {
-          v116 = *(v99 + 1);
-        }
-
-        if ((v101 & 2) != 0)
+        LODWORD(v116) = 8;
+        if (v102)
         {
           LODWORD(v117) = 8;
         }
 
         else
         {
-          v117 = *(v99 + 1);
+          v117 = *(v100 + 1);
         }
 
-        if ((v101 & 4) == 0)
+        if ((v102 & 2) != 0)
         {
-          v115 = *(v99 + 1);
-        }
-
-        if (v114 == 2)
-        {
-          v118 = 4;
+          LODWORD(v118) = 8;
         }
 
         else
         {
-          v115 = *(v99 + 1);
-          v118 = 0;
+          v118 = *(v100 + 1);
         }
 
-        if (v114 == 1)
+        if ((v102 & 4) == 0)
         {
-          v119 = 2;
+          v116 = *(v100 + 1);
         }
 
-        else
+        if (v115 == 2)
         {
-          LODWORD(v117) = v115;
-          v119 = v118;
-        }
-
-        v120 = v114 == 0;
-        if (v114)
-        {
-          LODWORD(v121) = v117;
+          v119 = 4;
         }
 
         else
         {
-          LODWORD(v121) = v116;
+          v116 = *(v100 + 1);
+          v119 = 0;
         }
 
-        if (v120)
+        if (v115 == 1)
         {
-          v122 = 1;
+          v120 = 2;
         }
 
         else
         {
-          v122 = v119;
+          LODWORD(v118) = v116;
+          v120 = v119;
+        }
+
+        v121 = v115 == 0;
+        if (v115)
+        {
+          LODWORD(v122) = v118;
+        }
+
+        else
+        {
+          LODWORD(v122) = v117;
+        }
+
+        if (v121)
+        {
+          v123 = 1;
+        }
+
+        else
+        {
+          v123 = v120;
         }
       }
 
-      v101 |= v122;
-      if (!*(v99 + 35))
+      v102 |= v123;
+      if (!*(v100 + 35))
       {
         goto LABEL_379;
       }
 
-      v259 = v101;
-      v260 = v98;
-      v129 = 0;
+      v260 = v102;
+      v261 = v99;
       v130 = 0;
       v131 = 0;
-      v132 = *(v99 + 60);
-      v133 = HIDWORD(*v99);
-      v266 = v99[31];
-      __pa = *v99;
-      v261 = *v99 & 0xFFFFFFFF00000000;
-      v121 = v121;
-      v134 = (v133 - 2);
-      v135 = (v133 - 1);
-      v264 = v99;
+      v132 = 0;
+      v133 = *(v100 + 60);
+      v134 = HIDWORD(*v100);
+      v267 = v100[31];
+      __pa = *v100;
+      v262 = *v100 & 0xFFFFFFFF00000000;
+      v122 = v122;
+      v135 = (v134 - 2);
+      v136 = (v134 - 1);
+      v265 = v100;
       while (1)
       {
-        v138 = *(v99 + 18);
-        v139 = HIDWORD(v138);
-        if (HIDWORD(v138) <= 9)
+        v139 = *(v100 + 18);
+        v140 = HIDWORD(v139);
+        if (HIDWORD(v139) <= 9)
         {
-          if (((1 << SBYTE4(v138)) & 0x125) != 0)
+          if (((1 << SBYTE4(v139)) & 0x125) != 0)
           {
-            LOWORD(v138) = v131 + v138;
+            LOWORD(v139) = v132 + v139;
           }
 
-          else if (((1 << SBYTE4(v138)) & 0x24A) != 0)
+          else if (((1 << SBYTE4(v139)) & 0x24A) != 0)
           {
-            LOWORD(v138) = v138 + 2 * v131;
+            LOWORD(v139) = v139 + 2 * v132;
           }
 
           else
           {
-            LOWORD(v138) = v129 + v138;
+            LOWORD(v139) = v130 + v139;
           }
         }
 
-        LOWORD(v140) = __pa;
-        if (v133 <= 9)
+        LOWORD(v141) = __pa;
+        if (v134 <= 9)
         {
-          if (((1 << v133) & 0x125) != 0)
+          if (((1 << v134) & 0x125) != 0)
           {
-            LOWORD(v140) = v131 + __pa;
+            LOWORD(v141) = v132 + __pa;
           }
 
-          else if (((1 << v133) & 0x24A) != 0)
+          else if (((1 << v134) & 0x24A) != 0)
           {
-            LOWORD(v140) = __pa + 2 * v131;
+            LOWORD(v141) = __pa + 2 * v132;
           }
 
           else
           {
-            LOWORD(v140) = __pa + v129;
+            LOWORD(v141) = __pa + v130;
           }
         }
 
-        v141 = *(v95 + 48);
-        v142 = *(v99 + 22);
-        *&v281[24] = -1;
-        memset(v276, 0, sizeof(v276));
-        LODWORD(v277) = 0;
-        *(&v277 + 4) = 35;
-        if ((v139 - 2) <= 7)
+        v142 = *(v96 + 48);
+        v143 = *(v100 + 22);
+        *&v282[24] = -1;
+        memset(v277, 0, sizeof(v277));
+        LODWORD(v278) = 0;
+        *(&v278 + 4) = 35;
+        if ((v140 - 2) <= 7)
         {
           break;
         }
 
-        v144 = v139 - 1;
-        v143 = 3;
-        if ((v139 - 1) <= 8)
+        v145 = v140 - 1;
+        v144 = 3;
+        if ((v140 - 1) <= 8)
         {
           goto LABEL_281;
         }
 
-        v145 = 1;
+        v146 = 1;
 LABEL_283:
-        LODWORD(v138) = v138;
-        if (v139 > 9 || (v146 = 1 << v139, ((1 << v139) & 0x1C) == 0) && (v146 & 0xE0) == 0 && (v146 & 0x300) == 0)
+        LODWORD(v139) = v139;
+        if (v140 > 9 || (v147 = 1 << v140, ((1 << v140) & 0x1C) == 0) && (v147 & 0xE0) == 0 && (v147 & 0x300) == 0)
         {
-          if (v139 >= 2)
+          if (v140 >= 2)
           {
-            LODWORD(v138) = 0;
+            LODWORD(v139) = 0;
           }
         }
 
-        HIDWORD(v277) = v138;
-        LODWORD(v278) = 0;
-        *(&v278 + 4) = __PAIR64__(v145, v143);
-        HIDWORD(v278) = 0;
-        v279 = v142;
-        if (v134 > 7)
+        HIDWORD(v278) = v139;
+        LODWORD(v279) = 0;
+        *(&v279 + 4) = __PAIR64__(v146, v144);
+        HIDWORD(v279) = 0;
+        v280 = v143;
+        if (v135 > 7)
         {
-          v147 = 3;
-          if (v135 > 8)
+          v148 = 3;
+          if (v136 > 8)
           {
 LABEL_291:
-            v148 = 1;
+            v149 = 1;
             goto LABEL_294;
           }
         }
 
         else
         {
-          v147 = dword_29D2F49F8[v134];
-          if (v135 > 8)
+          v148 = dword_29D2F49F8[v135];
+          if (v136 > 8)
           {
             goto LABEL_291;
           }
         }
 
-        v148 = dword_29D2F4A18[v135];
+        v149 = dword_29D2F4A18[v136];
 LABEL_294:
-        v140 = v140;
-        if (v133 > 9 || (v149 = 1 << v133, ((1 << v133) & 0x1C) == 0) && (v149 & 0xE0) == 0 && (v149 & 0x300) == 0)
+        v141 = v141;
+        if (v134 > 9 || (v150 = 1 << v134, ((1 << v134) & 0x1C) == 0) && (v150 & 0xE0) == 0 && (v150 & 0x300) == 0)
         {
-          if (v133 >= 2)
+          if (v134 >= 2)
           {
-            v140 = 0;
+            v141 = 0;
           }
         }
 
-        v280 = v140;
-        *v281 = 0;
-        *&v281[4] = v147;
-        *&v281[8] = v148;
-        *&v281[12] = 0x800000000;
-        v281[20] = (v132 & 3) == 0;
-        v150 = v121 & 0xFFFFFFFFFFFFLL;
-        *&v281[21] = 0;
-        v281[23] = 0;
-        v151 = 0x201008040201uLL >> (8 * v121);
-        if (v150 >= 6)
+        v281 = v141;
+        *v282 = 0;
+        *&v282[4] = v148;
+        *&v282[8] = v149;
+        *&v282[12] = 0x800000000;
+        v282[20] = (v133 & 3) == 0;
+        v151 = v122 & 0xFFFFFFFFFFFFLL;
+        *&v282[21] = 0;
+        v282[23] = 0;
+        v152 = 0x201008040201uLL >> (8 * v122);
+        if (v151 >= 6)
         {
-          LOBYTE(v151) = 0;
+          LOBYTE(v152) = 0;
         }
 
-        LOBYTE(v277) = v151;
-        if ((v143 - 3) <= 1)
+        LOBYTE(v278) = v152;
+        if ((v144 - 3) <= 1)
         {
-          DWORD2(v277) = 1;
+          DWORD2(v278) = 1;
         }
 
-        v287 = 0u;
         v288 = 0u;
-        v152 = AGXIotoInstruction_COPY::emit(v276, &v287);
-        std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v141, *(v141 + 8), &v287, v152, v152 - &v287);
-        v135 = (v133 - 1);
-        v134 = (v133 - 2);
-        if ((v132 & 3) == 0)
+        v289 = 0u;
+        v153 = AGXIotoInstruction_COPY::emit(v277, &v288, v16);
+        std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v142, *(v142 + 8), &v288, v153, v153 - &v288);
+        v136 = (v134 - 1);
+        v135 = (v134 - 2);
+        if ((v133 & 3) == 0)
         {
           goto LABEL_265;
         }
 
-        v154 = __pa;
-        if (v133 <= 9)
+        v155 = __pa;
+        if (v134 <= 9)
         {
-          if (((1 << v133) & 0x125) != 0)
+          if (((1 << v134) & 0x125) != 0)
           {
-            v154 = v131 + __pa;
+            v155 = v132 + __pa;
           }
 
-          else if (((1 << v133) & 0x24A) != 0)
+          else if (((1 << v134) & 0x24A) != 0)
           {
-            v154 = __pa + 2 * v131;
+            v155 = __pa + 2 * v132;
           }
 
           else
           {
-            v154 = __pa + v129;
+            v155 = __pa + v130;
           }
         }
 
-        v155 = (v132 & 1) == 0;
-        if (v133 > 4)
+        v156 = (v133 & 1) == 0;
+        if (v134 > 4)
         {
-          if (v133 > 6)
+          if (v134 > 6)
           {
-            if (v133 == 7)
+            if (v134 == 7)
             {
-              v154 += 2 * v155;
-              v156 = 0x600000000;
+              v155 += 2 * v156;
+              v157 = 0x600000000;
               goto LABEL_324;
             }
 
-            if (v133 == 9)
+            if (v134 == 9)
             {
-              v154 += v155;
-              v156 = 0x800000000;
+              v155 += v156;
+              v157 = 0x800000000;
               goto LABEL_324;
             }
 
-            if (v133 != 8)
+            if (v134 != 8)
             {
 LABEL_351:
-              v156 = v261;
+              v157 = v262;
               goto LABEL_324;
             }
 
 LABEL_323:
-            v156 = 0;
-            v154 += v155;
+            v157 = 0;
+            v155 += v156;
             goto LABEL_324;
           }
 
-          if (v133 == 5)
+          if (v134 == 5)
           {
             goto LABEL_323;
           }
 
-          v154 += v155;
-          v156 = 0x500000000;
+          v155 += v156;
+          v157 = 0x500000000;
         }
 
         else
         {
-          if (v133 < 3)
+          if (v134 < 3)
           {
             goto LABEL_323;
           }
 
-          if (v133 == 3)
+          if (v134 == 3)
           {
-            v154 += v155;
-            v156 = 0x200000000;
+            v155 += v156;
+            v157 = 0x200000000;
           }
 
           else
           {
-            if (v133 != 4)
+            if (v134 != 4)
             {
               goto LABEL_351;
             }
 
-            v154 += 2 * v155;
-            v156 = 0x300000000;
+            v155 += 2 * v156;
+            v157 = 0x300000000;
           }
         }
 
 LABEL_324:
-        v157 = (v132 & 3) >> v155;
-        v158 = v154 | v156;
-        if ((v266 & 2) != 0 || v157 != 3)
+        v158 = (v133 & 3) >> v156;
+        v159 = v155 | v157;
+        if ((v267 & 2) != 0 || v158 != 3)
         {
-          v153.i32[0] = v157;
-          v164 = vcnt_s8(v153);
-          v164.i16[0] = vaddlv_u8(v164);
-          v137 = v164.i32[0];
-          if (!v157)
+          v154.i32[0] = v158;
+          v165 = vcnt_s8(v154);
+          v165.i16[0] = vaddlv_u8(v165);
+          v138 = v165.i32[0];
+          if (!v158)
           {
             goto LABEL_264;
           }
 
-          v165 = HIDWORD(v156);
-          LOWORD(v156) = v154 | v156;
-          if (v165 <= 9)
+          v166 = HIDWORD(v157);
+          LOWORD(v157) = v155 | v157;
+          if (v166 <= 9)
           {
-            LOWORD(v156) = v154;
-            if (((1 << v165) & 0x125) == 0)
+            LOWORD(v157) = v155;
+            if (((1 << v166) & 0x125) == 0)
             {
-              LOWORD(v156) = v154;
-              if (((1 << v165) & 0x24A) == 0)
+              LOWORD(v157) = v155;
+              if (((1 << v166) & 0x24A) == 0)
               {
-                LOWORD(v156) = v154;
+                LOWORD(v157) = v155;
               }
             }
           }
 
-          v166 = *(v265 + 48);
-          *&v281[24] = -1;
-          memset(v276, 0, sizeof(v276));
-          *&v277 = 0x2300000000;
-          HIDWORD(v277) = (v266 + 16) >> 1;
-          v278 = xmmword_29D2F1CB0;
-          v279 = 5;
-          if ((v165 - 2) <= 7)
+          v167 = *(v266 + 48);
+          *&v282[24] = -1;
+          memset(v277, 0, sizeof(v277));
+          *&v278 = 0x2300000000;
+          HIDWORD(v278) = (v267 + 16) >> 1;
+          v279 = xmmword_29D2F1CB0;
+          v280 = 5;
+          if ((v166 - 2) <= 7)
           {
-            v167 = dword_29D2F49F8[(v165 - 2)];
-            v168 = v165 - 1;
+            v168 = dword_29D2F49F8[(v166 - 2)];
+            v169 = v166 - 1;
             goto LABEL_341;
           }
 
-          v168 = v165 - 1;
-          v167 = 3;
-          if ((v165 - 1) > 8)
+          v169 = v166 - 1;
+          v168 = 3;
+          if ((v166 - 1) > 8)
           {
-            v170 = 1;
+            v171 = 1;
           }
 
           else
           {
 LABEL_341:
-            v170 = dword_29D2F4A18[v168];
+            v171 = dword_29D2F4A18[v169];
           }
 
-          LODWORD(v156) = v156;
-          v262 = v165 - 2;
-          v263 = v158;
-          if (v165 > 9 || (v172 = 1 << v165, ((1 << v165) & 0x1C) == 0) && (v172 & 0xE0) == 0 && (v172 & 0x300) == 0)
+          LODWORD(v157) = v157;
+          v263 = v166 - 2;
+          v264 = v159;
+          if (v166 > 9 || (v173 = 1 << v166, ((1 << v166) & 0x1C) == 0) && (v173 & 0xE0) == 0 && (v173 & 0x300) == 0)
           {
-            if (v165 >= 2)
+            if (v166 >= 2)
             {
-              LODWORD(v156) = 0;
+              LODWORD(v157) = 0;
             }
           }
 
-          *v281 = 0;
-          *&v281[4] = v167;
-          *&v281[8] = v170;
-          *&v281[12] = 0x800000000;
-          v281[20] = 1;
-          *&v281[21] = 0;
-          v281[23] = 0;
-          v280 = v156;
-          DWORD2(v277) = 1;
-          v287 = 0u;
+          *v282 = 0;
+          *&v282[4] = v168;
+          *&v282[8] = v171;
+          *&v282[12] = 0x800000000;
+          v282[20] = 1;
+          *&v282[21] = 0;
+          v282[23] = 0;
+          v281 = v157;
+          DWORD2(v278) = 1;
           v288 = 0u;
-          v173 = AGXIotoInstruction_COPY::emit(v276, &v287);
-          std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v166, *(v166 + 8), &v287, v173, v173 - &v287);
-          v135 = (v133 - 1);
-          v134 = (v133 - 2);
-          v174 = v263;
-          if (v137 < 2)
+          v289 = 0u;
+          v174 = AGXIotoInstruction_COPY::emit(v277, &v288, v16);
+          std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v167, *(v167 + 8), &v288, v174, v174 - &v288);
+          v136 = (v134 - 1);
+          v135 = (v134 - 2);
+          v175 = v264;
+          if (v138 < 2)
           {
             goto LABEL_264;
           }
 
-          if (v165 <= 9)
+          if (v166 <= 9)
           {
-            if (((1 << v165) & 0x125) != 0)
+            if (((1 << v166) & 0x125) != 0)
             {
-              v174 = v154 + 1;
+              v175 = v155 + 1;
             }
 
-            else if (((1 << v165) & 0x24A) != 0)
+            else if (((1 << v166) & 0x24A) != 0)
             {
-              v174 = v154 + 2;
+              v175 = v155 + 2;
             }
 
             else
             {
-              v174 = v154 + 4;
+              v175 = v155 + 4;
             }
           }
 
-          v176 = *(v265 + 48);
-          *&v281[24] = -1;
-          memset(v276, 0, sizeof(v276));
-          *&v277 = 0x2300000000;
-          HIDWORD(v277) = ((v266 + 16) >> 1) + 1;
-          v278 = xmmword_29D2F1CB0;
-          v279 = 5;
-          if (v262 <= 7)
+          v177 = *(v266 + 48);
+          *&v282[24] = -1;
+          memset(v277, 0, sizeof(v277));
+          *&v278 = 0x2300000000;
+          HIDWORD(v278) = ((v267 + 16) >> 1) + 1;
+          v279 = xmmword_29D2F1CB0;
+          v280 = 5;
+          if (v263 <= 7)
           {
-            v177 = dword_29D2F49F8[v262];
-            v178 = v165 - 1;
+            v178 = dword_29D2F49F8[v263];
+            v179 = v166 - 1;
             goto LABEL_369;
           }
 
-          v178 = v165 - 1;
-          v177 = 3;
-          if ((v165 - 1) > 8)
+          v179 = v166 - 1;
+          v178 = 3;
+          if ((v166 - 1) > 8)
           {
-            v179 = 1;
+            v180 = 1;
           }
 
           else
           {
 LABEL_369:
-            v179 = dword_29D2F4A18[v178];
+            v180 = dword_29D2F4A18[v179];
           }
 
-          v180 = v174;
-          if (v165 > 9 || (v181 = 1 << v165, ((1 << v165) & 0x1C) == 0) && (v181 & 0xE0) == 0 && (v181 & 0x300) == 0)
+          v181 = v175;
+          if (v166 > 9 || (v182 = 1 << v166, ((1 << v166) & 0x1C) == 0) && (v182 & 0xE0) == 0 && (v182 & 0x300) == 0)
           {
-            if (v165 >= 2)
+            if (v166 >= 2)
             {
-              v180 = 0;
+              v181 = 0;
             }
           }
 
-          *v281 = 0;
-          *&v281[4] = v177;
-          *&v281[8] = v179;
-          *&v281[12] = 0x800000000;
-          v281[20] = 1;
-          *&v281[21] = 0;
-          v281[23] = 0;
-          v280 = v180;
-          DWORD2(v277) = 1;
-          v287 = 0u;
+          *v282 = 0;
+          *&v282[4] = v178;
+          *&v282[8] = v180;
+          *&v282[12] = 0x800000000;
+          v282[20] = 1;
+          *&v282[21] = 0;
+          v282[23] = 0;
+          v281 = v181;
+          DWORD2(v278) = 1;
           v288 = 0u;
-          v182 = AGXIotoInstruction_COPY::emit(v276, &v287);
-          std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v176, *(v176 + 8), &v287, v182, v182 - &v287);
+          v289 = 0u;
+          v183 = AGXIotoInstruction_COPY::emit(v277, &v288, v16);
+          std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v177, *(v177 + 8), &v288, v183, v183 - &v288);
           goto LABEL_263;
         }
 
-        v159 = HIDWORD(v156);
-        if (HIDWORD(v156) <= 8 && ((0x16Du >> SBYTE4(v156)) & 1) != 0)
+        v160 = HIDWORD(v157);
+        if (HIDWORD(v157) <= 8 && ((0x16Du >> SBYTE4(v157)) & 1) != 0)
         {
-          v160 = qword_29D2F4700[v159];
-          v158 = v160 | v154;
-          v159 = HIDWORD(v160);
+          v161 = qword_29D2F4700[v160];
+          v159 = v161 | v155;
+          v160 = HIDWORD(v161);
         }
 
-        v161 = *(v95 + 48);
-        *&v281[24] = -1;
-        memset(v276, 0, sizeof(v276));
-        *&v277 = 0x2300000000;
-        HIDWORD(v277) = (v266 + 16) >> 1;
-        v278 = xmmword_29D2F1CC0;
-        v279 = 5;
-        if ((v159 - 2) > 7)
+        v162 = *(v96 + 48);
+        *&v282[24] = -1;
+        memset(v277, 0, sizeof(v277));
+        *&v278 = 0x2300000000;
+        HIDWORD(v278) = (v267 + 16) >> 1;
+        v279 = xmmword_29D2F1CC0;
+        v280 = 5;
+        if ((v160 - 2) > 7)
         {
-          v163 = v159 - 1;
-          v162 = 3;
-          if ((v159 - 1) > 8)
+          v164 = v160 - 1;
+          v163 = 3;
+          if ((v160 - 1) > 8)
           {
-            v169 = 1;
+            v170 = 1;
             goto LABEL_343;
           }
         }
 
         else
         {
-          v162 = dword_29D2F49F8[(v159 - 2)];
-          v163 = v159 - 1;
+          v163 = dword_29D2F49F8[(v160 - 2)];
+          v164 = v160 - 1;
         }
 
-        v169 = dword_29D2F4A18[v163];
+        v170 = dword_29D2F4A18[v164];
 LABEL_343:
-        v175 = v158;
-        if (v159 > 9 || (v171 = 1 << v159, ((1 << v159) & 0x1C) == 0) && (v171 & 0xE0) == 0 && (v171 & 0x300) == 0)
+        v176 = v159;
+        if (v160 > 9 || (v172 = 1 << v160, ((1 << v160) & 0x1C) == 0) && (v172 & 0xE0) == 0 && (v172 & 0x300) == 0)
         {
-          if (v159 >= 2)
+          if (v160 >= 2)
           {
-            v175 = 0;
+            v176 = 0;
           }
         }
 
-        *v281 = 0;
-        *&v281[4] = v162;
-        *&v281[8] = v169;
-        *&v281[12] = 0x800000000;
-        v281[20] = 1;
-        *&v281[21] = 0;
-        v281[23] = 0;
-        v280 = v175;
-        DWORD2(v277) = 1;
-        v287 = 0u;
+        *v282 = 0;
+        *&v282[4] = v163;
+        *&v282[8] = v170;
+        *&v282[12] = 0x800000000;
+        v282[20] = 1;
+        *&v282[21] = 0;
+        v282[23] = 0;
+        v281 = v176;
+        DWORD2(v278) = 1;
         v288 = 0u;
-        v136 = AGXIotoInstruction_COPY::emit(v276, &v287);
-        std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v161, *(v161 + 8), &v287, v136, v136 - &v287);
+        v289 = 0u;
+        v137 = AGXIotoInstruction_COPY::emit(v277, &v288, v16);
+        std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(v162, *(v162 + 8), &v288, v137, v137 - &v288);
 LABEL_263:
-        LOWORD(v137) = 2;
-        v135 = (v133 - 1);
-        v134 = (v133 - 2);
+        LOWORD(v138) = 2;
+        v136 = (v134 - 1);
+        v135 = (v134 - 2);
 LABEL_264:
-        v266 += 2 * v137;
-        v99 = v264;
-        v95 = v265;
+        v267 += 2 * v138;
+        v100 = v265;
+        v96 = v266;
 LABEL_265:
-        ++v130;
-        v132 >>= 2;
         ++v131;
-        v129 += 4;
-        v121 = 8;
-        if (v130 >= *(v99 + 35))
+        v133 >>= 2;
+        ++v132;
+        v130 += 4;
+        v122 = 8;
+        if (v131 >= *(v100 + 35))
         {
-          v98 = v260;
-          v100 = v258;
+          v99 = v261;
           v101 = v259;
+          v102 = v260;
           goto LABEL_379;
         }
       }
 
-      v143 = dword_29D2F49F8[(v139 - 2)];
-      v144 = v139 - 1;
+      v144 = dword_29D2F49F8[(v140 - 2)];
+      v145 = v140 - 1;
 LABEL_281:
-      v145 = dword_29D2F4A18[v144];
+      v146 = dword_29D2F4A18[v145];
       goto LABEL_283;
     }
   }
 
 LABEL_381:
-  if (v257 == __src)
+  if (v258 == __src)
   {
     goto LABEL_468;
   }
 
-  v184 = (v275 >> 3) & 0x1FFFFFFFFFFFFFF8;
-  v185 = (__src[1] + v184);
-  if (v274 == __src[1])
+  v185 = (v276 >> 3) & 0x1FFFFFFFFFFFFFF8;
+  v186 = (__src[1] + v185);
+  if (v275 == __src[1])
   {
-    v187 = 0;
+    v188 = 0;
     goto LABEL_389;
   }
 
-  v186 = v275 & 0x3F;
-  v187 = *v185 + 64 * v186;
-  v188 = ((*(&v275 + 1) + v275) >> 3) & 0x1FFFFFFFFFFFFFF8;
-  v189 = (BYTE8(v275) + v275) & 0x3F;
-  if ((*(__src[1] + v188) + (v189 << 6)) == v187)
+  v187 = v276 & 0x3F;
+  v188 = *v186 + 64 * v187;
+  v189 = ((*(&v276 + 1) + v276) >> 3) & 0x1FFFFFFFFFFFFFF8;
+  v190 = (BYTE8(v276) + v276) & 0x3F;
+  if ((*(__src[1] + v189) + (v190 << 6)) == v188)
   {
 LABEL_389:
-    v190 = 0;
-    v192 = (v95 + 104);
+    v191 = 0;
+    v193 = (v96 + 104);
     goto LABEL_390;
   }
 
-  v190 = v189 - v186 + 8 * (v188 - v184);
-  v192 = (v95 + 104);
-  v191 = *(v95 + 104);
-  if (v191 < v190)
+  v191 = v190 - v187 + 8 * (v189 - v185);
+  v193 = (v96 + 104);
+  v192 = *(v96 + 104);
+  if (v192 < v191)
   {
-    v193 = *v185 + 64 * (v275 & 0x3F);
-    v194 = v185;
-    if (v191)
+    v194 = *v186 + 64 * (v276 & 0x3F);
+    v195 = v186;
+    if (v192)
     {
-      v195 = v186 + v191;
-      if (v195 < 1)
+      v196 = v187 + v192;
+      if (v196 < 1)
       {
-        v214 = 63 - v195;
-        v194 = &v185[-(v214 >> 6)];
-        v193 = *v194 + 64 * (~v214 & 0x3F);
+        v215 = 63 - v196;
+        v195 = &v186[-(v215 >> 6)];
+        v194 = *v195 + 64 * (~v215 & 0x3F);
       }
 
       else
       {
-        v194 = &v185[v195 >> 6];
-        v193 = *v194 + 64 * (v195 & 0x3F);
+        v195 = &v186[v196 >> 6];
+        v194 = *v195 + 64 * (v196 & 0x3F);
       }
     }
 
-    v215 = *(v95 + 72);
-    if (*(v95 + 80) == v215)
+    v216 = *(v96 + 72);
+    if (*(v96 + 80) == v216)
     {
-      v216 = 0;
+      v217 = 0;
     }
 
     else
     {
-      v216 = *(v215 + 8 * (*(v95 + 96) >> 6)) + ((*(v95 + 96) & 0x3FLL) << 6);
+      v217 = *(v216 + 8 * (*(v96 + 96) >> 6)) + ((*(v96 + 96) & 0x3FLL) << 6);
     }
 
-    *v276 = v215 + 8 * (*(v95 + 96) >> 6);
-    *&v276[8] = v216;
-    std::__for_each_segment[abi:nn200100]<std::__deque_iterator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const*,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const&,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const* const*,long,64l>,std::__copy_impl::_CopySegment<std::__deque_iterator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const*,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const&,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const* const*,long,64l>,std::__deque_iterator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad*,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad&,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad**,long,64l>>>(v185, v187, v194, v193, v276);
-    v217 = *(v95 + 72);
-    v218 = *(v95 + 80);
-    v219 = 8 * (v218 - v217) - 1;
-    v220 = v218 - v217;
-    if (v218 == v217)
+    *v277 = v216 + 8 * (*(v96 + 96) >> 6);
+    *&v277[8] = v217;
+    std::__for_each_segment[abi:nn200100]<std::__deque_iterator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const*,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const&,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const* const*,long,64l>,std::__copy_impl::_CopySegment<std::__deque_iterator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const*,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const&,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const* const*,long,64l>,std::__deque_iterator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad*,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad&,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad**,long,64l>>>(v186, v188, v195, v194, v277);
+    v218 = *(v96 + 72);
+    v219 = *(v96 + 80);
+    v220 = 8 * (v219 - v218) - 1;
+    v221 = v219 - v218;
+    if (v219 == v218)
     {
-      v219 = 0;
+      v220 = 0;
     }
 
-    v221 = *(v95 + 96);
-    i = *(v95 + 104);
-    v223 = v190 - i;
-    v224 = i + v221;
-    v225 = v219 - (i + v221);
-    v226 = v190 - i >= v225;
-    v227 = v190 - i - v225;
-    if (v227 != 0 && v226)
+    v222 = *(v96 + 96);
+    i = *(v96 + 104);
+    v224 = v191 - i;
+    v225 = i + v222;
+    v226 = v220 - (i + v222);
+    v227 = v191 - i >= v226;
+    v228 = v191 - i - v226;
+    if (v228 != 0 && v227)
     {
-      if (v218 == v217)
+      if (v219 == v218)
       {
-        v228 = v227 + 1;
+        v229 = v228 + 1;
       }
 
       else
       {
-        v228 = v227;
+        v229 = v228;
       }
 
-      if ((v228 & 0x3F) != 0)
+      if ((v229 & 0x3F) != 0)
       {
-        v229 = (v228 >> 6) + 1;
-      }
-
-      else
-      {
-        v229 = v228 >> 6;
-      }
-
-      if (v229 >= v221 >> 6)
-      {
-        v230 = v221 >> 6;
+        v230 = (v229 >> 6) + 1;
       }
 
       else
       {
-        v230 = v229;
+        v230 = v229 >> 6;
       }
 
-      if (v229 <= v221 >> 6)
+      if (v230 >= v222 >> 6)
       {
-        *(v95 + 96) = v221 - (v230 << 6);
-        if (v230)
+        v231 = v222 >> 6;
+      }
+
+      else
+      {
+        v231 = v230;
+      }
+
+      if (v230 <= v222 >> 6)
+      {
+        *(v96 + 96) = v222 - (v231 << 6);
+        if (v231)
         {
-          v236 = -v230;
+          v237 = -v231;
           do
           {
-            v237 = *(v95 + 72);
-            *v276 = *v237;
-            *(v95 + 72) = v237 + 1;
-            std::__split_buffer<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *,std::allocator<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *>>::emplace_back<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *&>(v257, v276);
-            v226 = __CFADD__(v236++, 1);
+            v238 = *(v96 + 72);
+            *v277 = *v238;
+            *(v96 + 72) = v238 + 1;
+            std::__split_buffer<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *,std::allocator<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *>>::emplace_back<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *&>(v258, v277);
+            v227 = __CFADD__(v237++, 1);
           }
 
-          while (!v226);
+          while (!v227);
         }
       }
 
       else
       {
-        v267 = *(v95 + 104);
-        v231 = v229 - v230;
-        v232 = *(v95 + 88) - *(v95 + 64);
-        v233 = v220 >> 3;
-        if (v231 > (v232 >> 3) - (v220 >> 3))
+        v268 = *(v96 + 104);
+        v232 = v230 - v231;
+        v233 = *(v96 + 88) - *(v96 + 64);
+        v234 = v221 >> 3;
+        if (v232 > (v233 >> 3) - (v221 >> 3))
         {
-          if (v232 >> 2 <= v231 + v233)
+          if (v233 >> 2 <= v232 + v234)
           {
-            v234 = v231 + v233;
+            v235 = v232 + v234;
           }
 
           else
           {
-            v234 = v232 >> 2;
+            v235 = v233 >> 2;
           }
 
-          if (v234)
+          if (v235)
           {
-            if (!(v234 >> 61))
+            if (!(v235 >> 61))
             {
               operator new();
             }
@@ -7882,9 +7880,9 @@ LABEL_389:
           operator new();
         }
 
-        if (v231)
+        if (v232)
         {
-          if (*(v265 + 88) != *(v265 + 80))
+          if (*(v266 + 88) != *(v266 + 80))
           {
             operator new();
           }
@@ -7892,165 +7890,165 @@ LABEL_389:
           operator new();
         }
 
-        v95 = v265;
-        *(v265 + 96) = v221 - (v230 << 6);
-        for (i = v267; v230; --v230)
+        v96 = v266;
+        *(v266 + 96) = v222 - (v231 << 6);
+        for (i = v268; v231; --v231)
         {
-          v238 = *(v265 + 72);
-          *v276 = *v238;
-          *(v265 + 72) = v238 + 1;
-          std::__split_buffer<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *,std::allocator<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *>>::emplace_back<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *&>(v257, v276);
+          v239 = *(v266 + 72);
+          *v277 = *v239;
+          *(v266 + 72) = v239 + 1;
+          std::__split_buffer<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *,std::allocator<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *>>::emplace_back<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block *&>(v258, v277);
         }
       }
 
-      v235 = *(v95 + 104);
-      v217 = *(v95 + 72);
-      v218 = *(v95 + 80);
-      v224 = *(v95 + 96) + v235;
+      v236 = *(v96 + 104);
+      v218 = *(v96 + 72);
+      v219 = *(v96 + 80);
+      v225 = *(v96 + 96) + v236;
     }
 
     else
     {
-      v235 = *(v95 + 104);
+      v236 = *(v96 + 104);
     }
 
-    v239 = (v217 + 8 * (v224 >> 6));
-    if (v218 == v217)
+    v240 = (v218 + 8 * (v225 >> 6));
+    if (v219 == v218)
     {
-      v240 = 0;
       v241 = 0;
+      v242 = 0;
     }
 
     else
     {
-      v240 = (*v239 + ((v224 & 0x3F) << 6));
-      v241 = v240;
+      v241 = (*v240 + ((v225 & 0x3F) << 6));
+      v242 = v241;
     }
 
-    v242 = v239;
-    if (v190 != i)
+    v243 = v240;
+    if (v191 != i)
     {
-      v243 = v223 + ((v241 - *v239) >> 6);
-      if (v243 < 1)
+      v244 = v224 + ((v242 - *v240) >> 6);
+      if (v244 < 1)
       {
-        v244 = 63 - v243;
-        v242 = &v239[-(v244 >> 6)];
-        v241 = *v242 + ((~v244 & 0x3F) << 6);
+        v245 = 63 - v244;
+        v243 = &v240[-(v245 >> 6)];
+        v242 = *v243 + ((~v245 & 0x3F) << 6);
       }
 
       else
       {
-        v242 = &v239[v243 >> 6];
-        v241 = *v242 + ((v243 & 0x3F) << 6);
+        v243 = &v240[v244 >> 6];
+        v242 = *v243 + ((v244 & 0x3F) << 6);
       }
     }
 
-    while (v240 != v241)
+    while (v241 != v242)
     {
-      v245 = v241;
-      if (v239 != v242)
+      v246 = v242;
+      if (v240 != v243)
       {
-        v245 = *v239 + 4096;
+        v246 = *v240 + 4096;
       }
 
-      if (v240 == v245)
+      if (v241 == v246)
       {
-        v245 = v240;
+        v246 = v241;
       }
 
       else
       {
-        v246 = v240;
+        v247 = v241;
         do
         {
-          v247 = *v193;
-          v248 = *(v193 + 16);
-          v249 = *(v193 + 48);
-          v246[2] = *(v193 + 32);
-          v246[3] = v249;
-          *v246 = v247;
-          v246[1] = v248;
-          v193 += 64;
-          if (v193 - *v194 == 4096)
+          v248 = *v194;
+          v249 = *(v194 + 16);
+          v250 = *(v194 + 48);
+          v247[2] = *(v194 + 32);
+          v247[3] = v250;
+          *v247 = v248;
+          v247[1] = v249;
+          v194 += 64;
+          if (v194 - *v195 == 4096)
           {
-            v250 = v194[1];
-            ++v194;
-            v193 = v250;
+            v251 = v195[1];
+            ++v195;
+            v194 = v251;
           }
 
-          v246 += 4;
+          v247 += 4;
         }
 
-        while (v246 != v245);
-        v235 = *v192;
+        while (v247 != v246);
+        v236 = *v193;
       }
 
-      v235 += (v245 - v240) >> 6;
-      *v192 = v235;
-      if (v239 == v242)
+      v236 += (v246 - v241) >> 6;
+      *v193 = v236;
+      if (v240 == v243)
       {
         break;
       }
 
-      v251 = v239[1];
-      ++v239;
-      v240 = v251;
+      v252 = v240[1];
+      ++v240;
+      v241 = v252;
     }
 
     goto LABEL_468;
   }
 
 LABEL_390:
-  v196 = v187;
-  v197 = *(v95 + 72);
-  v198 = (v197 + 8 * (*(v95 + 96) >> 6));
-  if (*(v95 + 80) != v197)
+  v197 = v188;
+  v198 = *(v96 + 72);
+  v199 = (v198 + 8 * (*(v96 + 96) >> 6));
+  if (*(v96 + 80) != v198)
   {
-    v199 = *v198 + ((*(v95 + 96) & 0x3FLL) << 6);
-    v200 = v185;
-    if (!v190)
+    v200 = *v199 + ((*(v96 + 96) & 0x3FLL) << 6);
+    v201 = v186;
+    if (!v191)
     {
       goto LABEL_397;
     }
 
 LABEL_394:
-    v201 = v190 + ((v187 - *v185) >> 6);
-    if (v201 < 1)
+    v202 = v191 + ((v188 - *v186) >> 6);
+    if (v202 < 1)
     {
-      v202 = 63 - v201;
-      v200 = &v185[-(v202 >> 6)];
-      v187 = *v200 + 64 * (~v202 & 0x3F);
+      v203 = 63 - v202;
+      v201 = &v186[-(v203 >> 6)];
+      v188 = *v201 + 64 * (~v203 & 0x3F);
     }
 
     else
     {
-      v200 = &v185[v201 >> 6];
-      v187 = *v200 + 64 * (v201 & 0x3F);
+      v201 = &v186[v202 >> 6];
+      v188 = *v201 + 64 * (v202 & 0x3F);
     }
 
     goto LABEL_397;
   }
 
-  v199 = 0;
-  v200 = v185;
-  if (v190)
+  v200 = 0;
+  v201 = v186;
+  if (v191)
   {
     goto LABEL_394;
   }
 
 LABEL_397:
-  *v276 = v198;
-  *&v276[8] = v199;
-  std::__for_each_segment[abi:nn200100]<std::__deque_iterator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const*,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const&,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const* const*,long,64l>,std::__copy_impl::_CopySegment<std::__deque_iterator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const*,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const&,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const* const*,long,64l>,std::__deque_iterator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad*,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad&,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad**,long,64l>>>(v185, v196, v200, v187, v276);
-  v203 = *(v95 + 96);
-  v204 = *(v95 + 104);
-  v206 = *(v95 + 72);
-  v205 = *(v95 + 80);
-  v207 = (v206 + 8 * ((v203 + v204) >> 6));
-  if (v205 == v206)
+  *v277 = v199;
+  *&v277[8] = v200;
+  std::__for_each_segment[abi:nn200100]<std::__deque_iterator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const*,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const&,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const* const*,long,64l>,std::__copy_impl::_CopySegment<std::__deque_iterator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const*,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const&,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad const* const*,long,64l>,std::__deque_iterator<AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad*,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad&,AGX::ESLStateLoadEncoderGen2<AGX::HAL300::Classes,AGX::HAL300::Encoders>::EslBuilder::InflightLoad**,long,64l>>>(v186, v197, v201, v188, v277);
+  v204 = *(v96 + 96);
+  v205 = *(v96 + 104);
+  v207 = *(v96 + 72);
+  v206 = *(v96 + 80);
+  v208 = (v207 + 8 * ((v204 + v205) >> 6));
+  if (v206 == v207)
   {
-    v208 = 0;
-    if (!*&v276[8])
+    v209 = 0;
+    if (!*&v277[8])
     {
       goto LABEL_468;
     }
@@ -8058,101 +8056,101 @@ LABEL_397:
 
   else
   {
-    v208 = *v207 + (((v203 + v204) & 0x3F) << 6);
-    if (v208 == *&v276[8])
+    v209 = *v208 + (((v204 + v205) & 0x3F) << 6);
+    if (v209 == *&v277[8])
     {
       goto LABEL_468;
     }
   }
 
-  v209 = ((v208 - *v207) >> 6) + 8 * (v207 - *v276) - ((*&v276[8] - **v276) >> 6);
-  if (v209 >= 1)
+  v210 = ((v209 - *v208) >> 6) + 8 * (v208 - *v277) - ((*&v277[8] - **v277) >> 6);
+  if (v210 >= 1)
   {
-    if (v205 == v206)
+    if (v206 == v207)
     {
-      v210 = 0;
+      v211 = 0;
     }
 
     else
     {
-      v210 = 8 * (v205 - v206) - 1;
+      v211 = 8 * (v206 - v207) - 1;
     }
 
-    v211 = v204 - v209;
-    *v192 = v211;
-    v212 = v210 - v203;
-    while ((v212 - v211) >= 0x80)
+    v212 = v205 - v210;
+    *v193 = v212;
+    v213 = v211 - v204;
+    while ((v213 - v212) >= 0x80)
     {
-      operator delete(*(v205 - 8));
-      v213 = *(v95 + 72);
-      v205 = *(v95 + 80) - 8;
-      *(v95 + 80) = v205;
-      if (v205 == v213)
+      operator delete(*(v206 - 8));
+      v214 = *(v96 + 72);
+      v206 = *(v96 + 80) - 8;
+      *(v96 + 80) = v206;
+      if (v206 == v214)
       {
-        v212 = 0;
+        v213 = 0;
       }
 
       else
       {
-        v212 = 8 * (v205 - v213) - 1;
+        v213 = 8 * (v206 - v214) - 1;
       }
 
-      v211 = *(v95 + 104) + *(v95 + 96);
+      v212 = *(v96 + 104) + *(v96 + 96);
     }
   }
 
 LABEL_468:
-  std::__tree<AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::Interval,AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::IntervalRangeComparator,std::allocator<AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::Interval>>::destroy(*(v95 + 8));
-  *v95 = v95 + 8;
-  *(v95 + 16) = 0;
-  *(v95 + 8) = 0;
-  std::__tree<AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::Interval,AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::IntervalRangeComparator,std::allocator<AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::Interval>>::destroy(*(v95 + 32));
-  *(v95 + 24) = v95 + 32;
-  *(v95 + 40) = 0;
-  *(v95 + 32) = 0;
-  v252 = __src[1];
-  v253 = v274;
-  *(&v275 + 1) = 0;
-  v254 = (v274 - __src[1]) >> 3;
-  if (v254 >= 3)
+  std::__tree<AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::Interval,AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::IntervalRangeComparator,std::allocator<AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::Interval>>::destroy(*(v96 + 8));
+  *v96 = v96 + 8;
+  *(v96 + 16) = 0;
+  *(v96 + 8) = 0;
+  std::__tree<AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::Interval,AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::IntervalRangeComparator,std::allocator<AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::Interval>>::destroy(*(v96 + 32));
+  *(v96 + 24) = v96 + 32;
+  *(v96 + 40) = 0;
+  *(v96 + 32) = 0;
+  v253 = __src[1];
+  v254 = v275;
+  *(&v276 + 1) = 0;
+  v255 = (v275 - __src[1]) >> 3;
+  if (v255 >= 3)
   {
     do
     {
-      operator delete(*v252);
-      v253 = v274;
-      v252 = (__src[1] + 8);
-      __src[1] = v252;
-      v254 = (v274 - v252) >> 3;
+      operator delete(*v253);
+      v254 = v275;
+      v253 = (__src[1] + 8);
+      __src[1] = v253;
+      v255 = (v275 - v253) >> 3;
     }
 
-    while (v254 > 2);
+    while (v255 > 2);
   }
 
-  if (v254 == 1)
+  if (v255 == 1)
   {
-    v255 = 32;
+    v256 = 32;
     goto LABEL_474;
   }
 
-  if (v254 == 2)
+  if (v255 == 2)
   {
-    v255 = 64;
+    v256 = 64;
 LABEL_474:
-    *&v275 = v255;
+    *&v276 = v256;
   }
 
-  if (v252 != v253)
+  if (v253 != v254)
   {
     do
     {
-      v256 = *v252++;
-      operator delete(v256);
+      v257 = *v253++;
+      operator delete(v257);
     }
 
-    while (v252 != v253);
-    if (v274 != __src[1])
+    while (v253 != v254);
+    if (v275 != __src[1])
     {
-      *&v274 = v274 + ((__src[1] - v274 + 7) & 0xFFFFFFFFFFFFFFF8);
+      *&v275 = v275 + ((__src[1] - v275 + 7) & 0xFFFFFFFFFFFFFFF8);
     }
   }
 
@@ -8160,6 +8158,13 @@ LABEL_474:
   {
     operator delete(__src[0]);
   }
+}
+
+void sub_29CD8274C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  std::deque<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block,std::allocator<AGX::ControlFlowContext<AGX::HAL300::ComputeControlFlowEmitter,AGX::HAL300::ComputeUSCStateLoader,AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::ControlFlowDelegate>::Block>>::~deque[abi:nn200100](va);
+  _Unwind_Resume(a1);
 }
 
 void AGX::USCProfileControlStateLoaderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes>::appendStateLoaderInstructions(void *a1, _BYTE *a2, uint64_t a3)
@@ -8251,7 +8256,7 @@ void AGX::USCProfileControlStateLoaderGen1<AGX::HAL300::Encoders,AGX::HAL300::Cl
     memset(&v17[12], 0, 20);
     *v17 = 0x2A300211A040427;
     *&v17[8] = 32904;
-    std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(a3, *(a3 + 8), v17, &v17[12], 12);
+    std::vector<unsigned char>::__insert_with_size[abi:nn200100]<unsigned char const*,unsigned char const*>(a3, *(a3 + 8), v17, &v17[12], 0xCuLL);
     memset(v17, 0, 28);
     *&v17[28] = xmmword_29D2F1CD0;
     *&v17[44] = xmmword_29D2F1B60;

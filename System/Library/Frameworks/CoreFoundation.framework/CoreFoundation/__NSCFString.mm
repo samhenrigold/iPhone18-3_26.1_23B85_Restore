@@ -31,15 +31,14 @@
 
 - (const)UTF8String
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (__CFStringMtbl(self) || (result = _CFNonObjCStringGetCStringPtr(self, 0x8000100u, 1)) == 0)
   {
-    v5.receiver = self;
-    v5.super_class = __NSCFString;
-    result = [(__NSCFString *)&v5 UTF8String];
+    v4.receiver = self;
+    v4.super_class = __NSCFString;
+    return [(__NSCFString *)&v4 UTF8String];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -67,16 +66,14 @@
 
 - (unsigned)characterAtIndex:(unint64_t)index
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  if (_CFStringCheckAndGetCharacterAtIndex(self, index, &v7))
+  v7 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  if (_CFStringCheckAndGetCharacterAtIndex(self, index, &v6))
   {
     [(__NSCFString *)self characterAtIndex:a2];
   }
 
-  result = v7;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return v6;
 }
 
 - (void)getCharacters:(unsigned __int16 *)characters range:(_NSRange)range
@@ -102,7 +99,7 @@
 
 - (const)cString
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (__CFStringMtbl(self))
   {
     goto LABEL_2;
@@ -119,18 +116,17 @@
   if (!result)
   {
 LABEL_2:
-    v6.receiver = self;
-    v6.super_class = __NSCFString;
-    result = [(__NSCFString *)&v6 cString];
+    v5.receiver = self;
+    v5.super_class = __NSCFString;
+    return [(__NSCFString *)&v5 cString];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (unint64_t)cStringLength
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   SystemEncoding = enc;
   if (enc == -1)
   {
@@ -140,25 +136,21 @@ LABEL_2:
 
   if (_CFNonObjCStringGetCStringPtr(self, SystemEncoding, 0))
   {
-    v4 = *MEMORY[0x1E69E9840];
 
     return _CFStringGetLength2(self);
   }
 
   else
   {
-    v7.receiver = self;
-    v7.super_class = __NSCFString;
-    result = [(__NSCFString *)&v7 cStringLength];
-    v6 = *MEMORY[0x1E69E9840];
+    v5.receiver = self;
+    v5.super_class = __NSCFString;
+    return [(__NSCFString *)&v5 cStringLength];
   }
-
-  return result;
 }
 
 - (const)cStringUsingEncoding:(unint64_t)encoding
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (__CFStringMtbl(self))
   {
     goto LABEL_2;
@@ -169,8 +161,7 @@ LABEL_2:
   {
     if (encoding != 134217984 && encoding)
     {
-      result = 0;
-      goto LABEL_10;
+      return 0;
     }
 
     if (_CFExecutableLinkedOnOrAfter(6uLL))
@@ -185,13 +176,11 @@ LABEL_2:
   if (!result)
   {
 LABEL_2:
-    v14.receiver = self;
-    v14.super_class = __NSCFString;
-    result = [(__NSCFString *)&v14 cStringUsingEncoding:encoding];
+    v13.receiver = self;
+    v13.super_class = __NSCFString;
+    return [(__NSCFString *)&v13 cStringUsingEncoding:encoding];
   }
 
-LABEL_10:
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -623,14 +612,12 @@ LABEL_18:
 
 - (void)appendFormat:(id)format
 {
-  v7 = *MEMORY[0x1E69E9840];
   if (!__CFStringMtbl(self))
   {
     [__NSCFString appendFormat:a2];
   }
 
-  _CFStringAppendFormatAndArgumentsAux2(self, _DescriptionWithLocaleFunc, _DescriptionWithStringProxyFunc, 0, 0, format, &v8);
-  v6 = *MEMORY[0x1E69E9840];
+  _CFStringAppendFormatAndArgumentsAux2(self, _DescriptionWithLocaleFunc, _DescriptionWithStringProxyFunc, 0, 0, format, &v6);
 }
 
 - (void)setString:(id)string
@@ -657,7 +644,7 @@ LABEL_18:
 {
   length = range.length;
   location = range.location;
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (!__CFStringMtbl(self))
   {
     [__NSCFString replaceOccurrencesOfString:a2 withString:? options:? range:?];
@@ -672,14 +659,14 @@ LABEL_18:
   v14 = Length2;
   if (location + length > Length2)
   {
-    v26 = __CFExceptionProem(self, a2);
-    v27 = "";
+    v24 = __CFExceptionProem(self, a2);
+    v25 = "";
     if (length == 64)
     {
-      v27 = " (Note that the indicated range may be smaller than the original range passed to the API)";
+      v25 = " (Note that the indicated range may be smaller than the original range passed to the API)";
     }
 
-    _CFThrowFormattedException(@"NSInvalidArgumentException", @"%@: Range {%lu, %lu} out of bounds; string length %lu%s", v26, location, length, v14, v27);
+    _CFThrowFormattedException(@"NSInvalidArgumentException", @"%@: Range {%lu, %lu} out of bounds; string length %lu%s", v24, location, length, v14, v25);
   }
 
   if ((Length2 < length || location > Length2 - length) && (replaceOccurrencesOfString_withString_options_range__warnonce & 1) == 0)
@@ -691,22 +678,18 @@ LABEL_18:
 
   if ((options & 0x400) != 0)
   {
-    v28.receiver = self;
-    v28.super_class = __NSCFString;
-    result = [(__NSCFString *)&v28 replaceOccurrencesOfString:string withString:withString options:options range:location, length];
-    v25 = *MEMORY[0x1E69E9840];
+    v26.receiver = self;
+    v26.super_class = __NSCFString;
+    return [(__NSCFString *)&v26 replaceOccurrencesOfString:string withString:withString options:options range:location, length];
   }
 
   else
   {
-    v22 = *MEMORY[0x1E69E9840];
-    v23.location = location;
-    v23.length = length;
+    v22.location = location;
+    v22.length = length;
 
-    return CFStringFindAndReplace(self, string, withString, v23, ~(8 * options) & 0x10 | options);
+    return CFStringFindAndReplace(self, string, withString, v22, ~(8 * options) & 0x10 | options);
   }
-
-  return result;
 }
 
 @end

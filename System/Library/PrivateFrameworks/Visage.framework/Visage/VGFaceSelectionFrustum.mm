@@ -111,26 +111,24 @@
 
 - (id)toDictionary
 {
-  v15[4] = *MEMORY[0x277D85DE8];
-  v14[0] = @"yawOffsetLeft";
+  v14[4] = *MEMORY[0x277D85DE8];
+  v13[0] = @"yawOffsetLeft";
   *&v2 = self->_yawOffsetLeft;
   v4 = [MEMORY[0x277CCABB0] numberWithFloat:v2];
-  v15[0] = v4;
-  v14[1] = @"yawOffsetRight";
+  v14[0] = v4;
+  v13[1] = @"yawOffsetRight";
   *&v5 = self->_yawOffsetRight;
   v6 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
-  v15[1] = v6;
-  v14[2] = @"pitchOffsetTop";
+  v14[1] = v6;
+  v13[2] = @"pitchOffsetTop";
   *&v7 = self->_pitchOffsetTop;
   v8 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-  v15[2] = v8;
-  v14[3] = @"pitchOffsetBottom";
+  v14[2] = v8;
+  v13[3] = @"pitchOffsetBottom";
   *&v9 = self->_pitchOffsetBottom;
   v10 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
-  v15[3] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
 
   return v11;
 }

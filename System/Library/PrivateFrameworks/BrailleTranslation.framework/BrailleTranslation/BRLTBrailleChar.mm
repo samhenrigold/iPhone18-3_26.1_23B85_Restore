@@ -1,5 +1,7 @@
 @interface BRLTBrailleChar
++ (id)charWithBits:(unsigned __int8)bits;
 + (id)charWithBrf:(id)brf;
++ (id)charWithUnichar:(unsigned __int16)unichar;
 + (id)charWithUnicode:(id)unicode;
 - (BOOL)isEqual:(id)equal;
 - (BRLTBrailleChar)initWithBits:(unsigned __int8)bits;
@@ -37,12 +39,26 @@
   return v5;
 }
 
++ (id)charWithBits:(unsigned __int8)bits
+{
+  v3 = [[BRLTBrailleChar alloc] initWithBits:bits];
+
+  return v3;
+}
+
 + (id)charWithUnicode:(id)unicode
 {
   unicodeCopy = unicode;
   v4 = [[BRLTBrailleChar alloc] initWithUnicode:unicodeCopy];
 
   return v4;
+}
+
++ (id)charWithUnichar:(unsigned __int16)unichar
+{
+  v3 = [[BRLTBrailleChar alloc] initWithUnichar:unichar];
+
+  return v3;
 }
 
 + (id)charWithBrf:(id)brf

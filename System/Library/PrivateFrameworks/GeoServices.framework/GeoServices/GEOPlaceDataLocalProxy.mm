@@ -6,6 +6,7 @@
 - (unint64_t)shrinkBySizeSync:(unint64_t)sync;
 - (void)_callHistoryRecentsClearedObserver:(id)observer;
 - (void)_privacyAndLocationSettingsResetObserver:(id)observer;
+- (void)_requestIdentifiersFromNetwork:(id)network resultProviderID:(int)d requestUUID:(id)iD traits:(id)traits auditToken:(id)token throttleToken:(id)throttleToken finished:(id)finished error:(id)self0;
 - (void)calculateFreeableSpaceWithHandler:(id)handler;
 - (void)cancelRequest:(id)request;
 - (void)clearCache;
@@ -13,6 +14,7 @@
 - (void)fetchAllCacheEntriesWithRequesterHandler:(id)handler;
 - (void)fetchAllURLCacheEntriesWithRequesterHandler:(id)handler;
 - (void)performPlaceDataRequest:(id)request requestUUID:(id)d traits:(id)traits cachePolicy:(unint64_t)policy timeout:(double)timeout auditToken:(id)token throttleToken:(id)throttleToken requesterHandler:(id)self0;
+- (void)registerCacheResult:(unsigned __int8)result forMapItem:(id)item cachedByteCount:(unint64_t)count forRequestType:(int)type auditToken:(id)token;
 - (void)requestIdentifiers:(id)identifiers resultProviderID:(int)d requestUUID:(id)iD traits:(id)traits options:(unint64_t)options auditToken:(id)token throttleToken:(id)throttleToken requesterHandler:(id)self0;
 - (void)requestPhoneNumbers:(id)numbers requestUUID:(id)d allowCellularDataForLookup:(BOOL)lookup traits:(id)traits auditToken:(id)token throttleToken:(id)throttleToken requesterHandler:(id)handler;
 - (void)shrinkBySize:(unint64_t)size finished:(id)finished;
@@ -588,6 +590,41 @@ LABEL_21:
 LABEL_27:
 }
 
+- (void)_requestIdentifiersFromNetwork:(id)network resultProviderID:(int)d requestUUID:(id)iD traits:(id)traits auditToken:(id)token throttleToken:(id)throttleToken finished:(id)finished error:(id)self0
+{
+  v14 = *&d;
+  networkCopy = network;
+  traitsCopy = traits;
+  finishedCopy = finished;
+  errorCopy = error;
+  throttleTokenCopy = throttleToken;
+  tokenCopy = token;
+  iDCopy = iD;
+  v23 = [[GEOPDPlaceRequest alloc] initWithIdentifiers:networkCopy resultProviderID:v14 traits:traitsCopy];
+  [v23 clearSensitiveFields:0];
+  v24 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138477827;
+    v33 = networkCopy;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "Making request for identifiers: %{private}@", buf, 0xCu);
+  }
+
+  GEODataRequestTimeout();
+  v26 = v25;
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_10004F358;
+  v29[3] = &unk_100083AF8;
+  v30 = finishedCopy;
+  v31 = errorCopy;
+  v27 = errorCopy;
+  v28 = finishedCopy;
+  [(GEOPlaceDataLocalProxy *)self startRequest:v23 requestUUID:iDCopy traits:traitsCopy timeout:tokenCopy auditToken:throttleTokenCopy throttleToken:v29 finished:v26 error:v27];
+
+  [(GEOPlaceDataLocalProxy *)self _resetRequestTimeout];
+}
+
 - (void)requestIdentifiers:(id)identifiers resultProviderID:(int)d requestUUID:(id)iD traits:(id)traits options:(unint64_t)options auditToken:(id)token throttleToken:(id)throttleToken requesterHandler:(id)self0
 {
   identifiersCopy = identifiers;
@@ -596,52 +633,49 @@ LABEL_27:
   tokenCopy = token;
   throttleTokenCopy = throttleToken;
   handlerCopy = handler;
-  v20 = +[GEOOfflineStateManager shared];
+  v19 = +[GEOOfflineStateManager shared];
   offlineCohortId = [tokenCopy offlineCohortId];
-  v22 = [v20 currentStateForCohortId:offlineCohortId];
+  v21 = [v19 currentStateForCohortId:offlineCohortId];
 
-  if (v22 >= 3u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
+  if (v21 >= 3u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
   {
     *buf = 67109120;
-    v34 = v22;
+    v32 = v21;
     _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "Unreachable reached: invalid offline mode value %x", buf, 8u);
   }
 
-  accessIsolater = self->_accessIsolater;
-  v30 = identifiersCopy;
-  v31 = traitsCopy;
-  v32 = iDCopy;
-  v24 = throttleTokenCopy;
-  v25 = iDCopy;
-  v26 = tokenCopy;
-  v27 = traitsCopy;
-  v28 = handlerCopy;
-  v29 = identifiersCopy;
+  v28 = identifiersCopy;
+  v29 = traitsCopy;
+  v30 = iDCopy;
+  v22 = throttleTokenCopy;
+  v23 = iDCopy;
+  v24 = tokenCopy;
+  v25 = traitsCopy;
+  v26 = handlerCopy;
+  v27 = identifiersCopy;
   geo_reentrant_isolate_sync();
 }
 
 - (void)cancelRequest:(id)request
 {
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = sub_10004D510;
+  v15 = sub_10004D520;
+  v16 = 0;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x3032000000;
+  v8 = sub_10004D510;
+  v9 = sub_10004D520;
+  v10 = 0;
   requestCopy = request;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_10004D510;
-  v17 = sub_10004D520;
-  v18 = 0;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3032000000;
-  v10 = sub_10004D510;
-  v11 = sub_10004D520;
-  v12 = 0;
-  accessIsolater = self->_accessIsolater;
-  v6 = requestCopy;
   geo_reentrant_isolate_sync_data();
-  [v14[5] cancelRequest:{v8[5], _NSConcreteStackBlock, 3221225472, sub_100050EB4, &unk_100083990, self}];
+  [v12[5] cancelRequest:{v6[5], _NSConcreteStackBlock, 3221225472, sub_100050EB4, &unk_100083990, self}];
 
-  _Block_object_dispose(&v7, 8);
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v11, 8);
 }
 
 - (void)startRequest:(id)request requestUUID:(id)d traits:(id)traits timeout:(double)timeout auditToken:(id)token throttleToken:(id)throttleToken finished:(id)finished error:(id)self0
@@ -654,30 +688,48 @@ LABEL_27:
   tokenCopy = token;
   traitsCopy = traits;
   serviceRequester = [(GEOPlaceDataLocalProxy *)self serviceRequester];
-  accessIsolater = self->_accessIsolater;
-  v35 = _NSConcreteStackBlock;
-  v36 = 3221225472;
-  v37 = sub_100051138;
-  v38 = &unk_100083918;
+  v34 = _NSConcreteStackBlock;
+  v35 = 3221225472;
+  v36 = sub_100051138;
+  v37 = &unk_100083918;
   selfCopy = self;
-  v40 = dCopy;
-  v41 = serviceRequester;
-  v42 = requestCopy;
-  v26 = requestCopy;
-  v27 = serviceRequester;
+  v39 = dCopy;
+  v40 = serviceRequester;
+  v41 = requestCopy;
+  v25 = requestCopy;
+  v26 = serviceRequester;
   geo_reentrant_isolate_sync_data();
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_100051184;
-  v31[3] = &unk_100083968;
-  v31[4] = self;
-  v32 = v40;
-  v33 = errorCopy;
-  v34 = finishedCopy;
-  v28 = finishedCopy;
-  v29 = errorCopy;
-  v30 = v40;
-  [v27 startWithRequest:v26 traits:traitsCopy timeout:tokenCopy auditToken:throttleTokenCopy throttleToken:v31 completionHandler:timeout];
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_100051184;
+  v30[3] = &unk_100083968;
+  v30[4] = self;
+  v31 = v39;
+  v32 = errorCopy;
+  v33 = finishedCopy;
+  v27 = finishedCopy;
+  v28 = errorCopy;
+  v29 = v39;
+  [v26 startWithRequest:v25 traits:traitsCopy timeout:tokenCopy auditToken:throttleTokenCopy throttleToken:v30 completionHandler:timeout];
+}
+
+- (void)registerCacheResult:(unsigned __int8)result forMapItem:(id)item cachedByteCount:(unint64_t)count forRequestType:(int)type auditToken:(id)token
+{
+  v7 = *&type;
+  resultCopy = result;
+  bundleId = [token bundleId];
+  v10 = bundleId;
+  v11 = @"<unknown>";
+  if (bundleId)
+  {
+    v11 = bundleId;
+  }
+
+  v12 = v11;
+
+  v14 = +[GEORequestCounter sharedCounter];
+  v13 = +[NSDate now];
+  [v14 placeCacheRegisterCacheResult:resultCopy forApp:v12 requestType:v7 timestamp:v13];
 }
 
 - (void)dealloc

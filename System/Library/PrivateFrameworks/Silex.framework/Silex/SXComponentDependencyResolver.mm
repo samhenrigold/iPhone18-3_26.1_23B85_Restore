@@ -182,11 +182,11 @@
     {
       v5 = self[2];
       vars0 = [(SXComponentDependencyResolver *)selfCopy solvedOrderForComponentNodes:v5, v6, v7, v8, v9, v10, v11, v14, v15, vars0];
-      v13 = *(selfCopy + 8);
-      *(selfCopy + 8) = vars0;
+      v13 = selfCopy[1];
+      selfCopy[1] = vars0;
     }
 
-    v3 = *(selfCopy + 8);
+    v3 = selfCopy[1];
     if (!v3)
     {
       v3 = MEMORY[0x1E695E0F0];

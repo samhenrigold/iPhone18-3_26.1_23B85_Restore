@@ -3,6 +3,7 @@
 - (GEOAPShowUploadInfoHandler)initWithInflightVisitorBlock:(id)block completion:(id)completion;
 - (void)endHistoricalData;
 - (void)endInflightData;
+- (void)showHistoryOfAge:(unsigned int)age;
 - (void)showInflight;
 @end
 
@@ -83,6 +84,43 @@ LABEL_11:
   [(NSXPCConnection *)self->_xpcConn invalidate];
   xpcConn = self->_xpcConn;
   self->_xpcConn = 0;
+}
+
+- (void)showHistoryOfAge:(unsigned int)age
+{
+  if (!self->_historyVisitorBlock)
+  {
+    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
+    {
+      return;
+    }
+
+    v9 = 0;
+    v4 = MEMORY[0x1E69E9C10];
+    v5 = "Assertion failed: _historyVisitorBlock != ((void*)0)";
+    v6 = &v9;
+    goto LABEL_11;
+  }
+
+  if (!self->_completionBlock)
+  {
+    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
+    {
+      return;
+    }
+
+    *buf = 0;
+    v4 = MEMORY[0x1E69E9C10];
+    v5 = "Assertion failed: _completionBlock != ((void*)0)";
+    v6 = buf;
+LABEL_11:
+    _os_log_fault_impl(&dword_1AB634000, v4, OS_LOG_TYPE_FAULT, v5, v6, 2u);
+    return;
+  }
+
+  v3 = *&age;
+  remoteObjectProxy = [(NSXPCConnection *)self->_xpcConn remoteObjectProxy];
+  [remoteObjectProxy showHistoryOfAge:v3];
 }
 
 - (GEOAPShowUploadInfoHandler)initWithHistoryVisitorBlock:(id)block completion:(id)completion

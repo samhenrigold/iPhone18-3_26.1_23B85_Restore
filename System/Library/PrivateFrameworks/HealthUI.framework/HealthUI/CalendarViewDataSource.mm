@@ -36,7 +36,7 @@
   v6 = sub_1C3D1E1E4();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C3D20374();
   sub_1C3D20364();
   sub_1C3D20314();
@@ -47,13 +47,13 @@
 
   selfCopy = self;
   CalendarViewDataSource.startDate(forSection:)(section, v9);
-  v11 = sub_1C3C8A3AC();
-  v12 = sub_1C3D1E324();
+  v12 = sub_1C3C8A3AC(v9, v11);
+  v13 = sub_1C3D1E324();
 
   (*(v7 + 8))(v9, v6);
 
-  result = v11 + v12;
-  if (__OFADD__(v11, v12))
+  result = v12 + v13;
+  if (__OFADD__(v12, v13))
   {
     __break(1u);
   }
@@ -66,7 +66,7 @@
   v6 = sub_1C3D1E5B4();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C3D20374();
   sub_1C3D20364();
   sub_1C3D20314();
@@ -78,11 +78,11 @@
   sub_1C3D1E564();
   viewCopy = view;
   selfCopy = self;
-  v12 = CalendarViewDataSource.collectionView(_:cellForItemAt:)(viewCopy, v9);
+  v13 = CalendarViewDataSource.collectionView(_:cellForItemAt:)(viewCopy, v9, v12);
 
   (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 - (id)collectionView:(id)view viewForSupplementaryElementOfKind:(id)kind atIndexPath:(id)path

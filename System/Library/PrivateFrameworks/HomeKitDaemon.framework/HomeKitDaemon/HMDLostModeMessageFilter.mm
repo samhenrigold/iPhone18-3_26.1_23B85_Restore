@@ -6,7 +6,7 @@
 
 + (int64_t)filterMessage:(id)message withPolicies:(id)policies error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   policiesCopy = policies;
   if (messageCopy)
@@ -22,9 +22,9 @@
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         v15 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v15;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Rejecting message in Lost Mode", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v15;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Rejecting message in Lost Mode", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -47,7 +47,6 @@
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

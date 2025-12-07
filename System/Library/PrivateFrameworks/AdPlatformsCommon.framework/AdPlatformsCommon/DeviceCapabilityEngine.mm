@@ -9,10 +9,9 @@
 
 - (_TtP17AdPlatformsCommon28DeviceCapabilityConfigurator_)configurator
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC17AdPlatformsCommon22DeviceCapabilityEngine_configurator);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (_TtC17AdPlatformsCommon22DeviceCapabilityEngine)initWithConfigurator:(id)configurator

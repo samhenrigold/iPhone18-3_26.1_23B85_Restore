@@ -16,44 +16,44 @@
 
 + (id)allCategoriesForAvailableCommands:(id)commands
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   commandsCopy = commands;
   array = [MEMORY[0x1E695DF70] array];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v6 = [self _basicCommandsFromAvailableCommands:{commandsCopy, 0}];
-  v27[0] = v6;
+  v26[0] = v6;
   v7 = [self _movementCommandsFromAvailableCommands:commandsCopy];
-  v27[1] = v7;
+  v26[1] = v7;
   v8 = [self _interactionCommandsFromAvailableCommands:commandsCopy];
-  v27[2] = v8;
+  v26[2] = v8;
   v9 = [self _deviceCommandsFromAvailableCommands:commandsCopy];
-  v27[3] = v9;
+  v26[3] = v9;
   v10 = [self _pointerCommandsFromAvailableCommands:commandsCopy];
-  v27[4] = v10;
+  v26[4] = v10;
   v11 = [self _gesturesCommandsFromAvailableCommands:commandsCopy];
-  v27[5] = v11;
+  v26[5] = v11;
   v12 = [self _advancedCommandsFromAvailableCommands:commandsCopy];
-  v27[6] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:7];
+  v26[6] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:7];
 
-  v14 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v24;
+    v16 = *v23;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v24 != v16)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v23 + 1) + 8 * i);
+        v18 = *(*(&v22 + 1) + 8 * i);
         commands = [v18 commands];
         v20 = [commands count];
 
@@ -63,56 +63,52 @@
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v15);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 + (id)_categoryWithCommandIdentifiers:(id)identifiers availableCommands:(id)commands localizedName:(id)name
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   commandsCopy = commands;
   nameCopy = name;
   array = [MEMORY[0x1E695DF70] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v12 = identifiersCopy;
-  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v22;
+    v15 = *v21;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [AXSSKeyboardCommand commandWithStandardCommandIdentifier:*(*(&v21 + 1) + 8 * i), v21];
+        v17 = [AXSSKeyboardCommand commandWithStandardCommandIdentifier:*(*(&v20 + 1) + 8 * i), v20];
         [array addObject:v17];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v14);
   }
 
   v18 = [self _categoryWithCommands:array availableCommands:commandsCopy localizedName:nameCopy];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -139,183 +135,169 @@
 
 + (id)_basicCommandsFromAvailableCommands:(id)commands
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v12 = @"Help";
-  v13 = @"GoToNextElement";
-  v14 = @"GoToPreviousElement";
-  v15 = @"MoveUp";
-  v16 = @"MoveDown";
-  v17 = @"MoveLeft";
-  v18 = @"MoveRight";
-  v19 = @"PerformDefaultAction";
-  v20 = @"GoHome";
-  v4 = MEMORY[0x1E695DEC8];
-  commandsCopy = commands;
-  v6 = [v4 arrayWithObjects:&v12 count:9];
-  v7 = [MEMORY[0x1E696AAE8] bundleForClass:{objc_opt_class(), v12, v13, v14, v15, v16, v17, v18, v19, v20, v21}];
-  v8 = [v7 localizedStringForKey:@"BASIC" value:&stru_1F405A428 table:@"FullKeyboardAccess"];
-  v9 = [self _categoryWithCommandIdentifiers:v6 availableCommands:commandsCopy localizedName:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v9;
-}
-
-+ (id)_movementCommandsFromAvailableCommands:(id)commands
-{
-  v29 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v11 = @"Help";
   v12 = @"GoToNextElement";
   v13 = @"GoToPreviousElement";
   v14 = @"MoveUp";
   v15 = @"MoveDown";
   v16 = @"MoveLeft";
   v17 = @"MoveRight";
-  v18 = @"GoToFirstElement";
-  v19 = @"GoToLastElement";
-  v20 = @"MoveInsideNext";
-  v21 = @"MoveInsidePrevious";
-  v22 = @"EnterContainer";
-  v23 = @"ExitContainer";
-  v24 = @"GoToNextSection";
-  v25 = @"GoToPreviousSection";
-  v26 = @"ActivateTypeahead";
-  v27 = @"ApplicationList";
-  v28 = @"WindowList";
+  v18 = @"PerformDefaultAction";
+  v19 = @"GoHome";
   v4 = MEMORY[0x1E695DEC8];
   commandsCopy = commands;
-  v6 = [v4 arrayWithObjects:&v12 count:17];
-  v7 = [MEMORY[0x1E696AAE8] bundleForClass:{objc_opt_class(), v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29}];
-  v8 = [v7 localizedStringForKey:@"MOVEMENT" value:&stru_1F405A428 table:@"FullKeyboardAccess"];
+  v6 = [v4 arrayWithObjects:&v11 count:9];
+  v7 = [MEMORY[0x1E696AAE8] bundleForClass:{objc_opt_class(), v11, v12, v13, v14, v15, v16, v17, v18, v19, v20}];
+  v8 = [v7 localizedStringForKey:@"BASIC" value:&stru_1F405A428 table:@"FullKeyboardAccess"];
   v9 = [self _categoryWithCommandIdentifiers:v6 availableCommands:commandsCopy localizedName:v8];
 
-  v10 = *MEMORY[0x1E69E9840];
+  return v9;
+}
+
++ (id)_movementCommandsFromAvailableCommands:(id)commands
+{
+  v28 = *MEMORY[0x1E69E9840];
+  v11 = @"GoToNextElement";
+  v12 = @"GoToPreviousElement";
+  v13 = @"MoveUp";
+  v14 = @"MoveDown";
+  v15 = @"MoveLeft";
+  v16 = @"MoveRight";
+  v17 = @"GoToFirstElement";
+  v18 = @"GoToLastElement";
+  v19 = @"MoveInsideNext";
+  v20 = @"MoveInsidePrevious";
+  v21 = @"EnterContainer";
+  v22 = @"ExitContainer";
+  v23 = @"GoToNextSection";
+  v24 = @"GoToPreviousSection";
+  v25 = @"ActivateTypeahead";
+  v26 = @"ApplicationList";
+  v27 = @"WindowList";
+  v4 = MEMORY[0x1E695DEC8];
+  commandsCopy = commands;
+  v6 = [v4 arrayWithObjects:&v11 count:17];
+  v7 = [MEMORY[0x1E696AAE8] bundleForClass:{objc_opt_class(), v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28}];
+  v8 = [v7 localizedStringForKey:@"MOVEMENT" value:&stru_1F405A428 table:@"FullKeyboardAccess"];
+  v9 = [self _categoryWithCommandIdentifiers:v6 availableCommands:commandsCopy localizedName:v8];
 
   return v9;
 }
 
 + (id)_interactionCommandsFromAvailableCommands:(id)commands
 {
-  v12[4] = *MEMORY[0x1E69E9840];
-  v12[0] = @"PerformDefaultAction";
-  v12[1] = @"PerformEscape";
-  v12[2] = @"OpenContextualMenu";
-  v12[3] = @"ShowAccessibilityActions";
+  v11[4] = *MEMORY[0x1E69E9840];
+  v11[0] = @"PerformDefaultAction";
+  v11[1] = @"PerformEscape";
+  v11[2] = @"OpenContextualMenu";
+  v11[3] = @"ShowAccessibilityActions";
   v4 = MEMORY[0x1E695DEC8];
   commandsCopy = commands;
-  v6 = [v4 arrayWithObjects:v12 count:4];
+  v6 = [v4 arrayWithObjects:v11 count:4];
   v7 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v8 = [v7 localizedStringForKey:@"INTERACTION" value:&stru_1F405A428 table:@"FullKeyboardAccess"];
   v9 = [self _categoryWithCommandIdentifiers:v6 availableCommands:commandsCopy localizedName:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)_advancedCommandsFromAvailableCommands:(id)commands
 {
-  v12[14] = *MEMORY[0x1E69E9840];
-  v12[0] = @"NextButton";
-  v12[1] = @"PreviousButton";
-  v12[2] = @"NextCheckbox";
-  v12[3] = @"PreviousCheckbox";
-  v12[4] = @"NextTable";
-  v12[5] = @"PreviousTable";
-  v12[6] = @"NextImage";
-  v12[7] = @"PreviousImage";
-  v12[8] = @"NextLink";
-  v12[9] = @"PreviousLink";
-  v12[10] = @"NextHeading";
-  v12[11] = @"PreviousHeading";
-  v12[12] = @"NextTextField";
-  v12[13] = @"PreviousTextField";
+  v11[14] = *MEMORY[0x1E69E9840];
+  v11[0] = @"NextButton";
+  v11[1] = @"PreviousButton";
+  v11[2] = @"NextCheckbox";
+  v11[3] = @"PreviousCheckbox";
+  v11[4] = @"NextTable";
+  v11[5] = @"PreviousTable";
+  v11[6] = @"NextImage";
+  v11[7] = @"PreviousImage";
+  v11[8] = @"NextLink";
+  v11[9] = @"PreviousLink";
+  v11[10] = @"NextHeading";
+  v11[11] = @"PreviousHeading";
+  v11[12] = @"NextTextField";
+  v11[13] = @"PreviousTextField";
   v4 = MEMORY[0x1E695DEC8];
   commandsCopy = commands;
-  v6 = [v4 arrayWithObjects:v12 count:14];
+  v6 = [v4 arrayWithObjects:v11 count:14];
   v7 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v8 = [v7 localizedStringForKey:@"ADVANCED" value:&stru_1F405A428 table:@"FullKeyboardAccess"];
   v9 = [self _categoryWithCommandIdentifiers:v6 availableCommands:commandsCopy localizedName:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)_deviceCommandsFromAvailableCommands:(id)commands
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v12 = @"GoHome";
-  v13 = @"ToggleMenuBar";
-  v14 = @"ToggleAppSwitcher";
-  v15 = @"ToggleControlCenter";
-  v16 = @"ToggleNotificationCenter";
-  v17 = @"ToggleDock";
-  v18 = @"ToggleAppLibrary";
-  v19 = @"ToggleQuickNote";
-  v20 = @"LockScreen";
-  v21 = @"RebootDevice";
-  v22 = @"ActivateSiri";
-  v23 = @"ActivateAccessibilityShortcut";
-  v24 = @"ActivateSOS";
-  v25 = @"RotateDevice";
-  v26 = @"ArmApplePay";
-  v27 = @"PerformSysdiagnose";
-  v28 = @"TogglePassthroughMode";
+  v28 = *MEMORY[0x1E69E9840];
+  v11 = @"GoHome";
+  v12 = @"ToggleMenuBar";
+  v13 = @"ToggleAppSwitcher";
+  v14 = @"ToggleControlCenter";
+  v15 = @"ToggleNotificationCenter";
+  v16 = @"ToggleDock";
+  v17 = @"ToggleAppLibrary";
+  v18 = @"ToggleQuickNote";
+  v19 = @"LockScreen";
+  v20 = @"RebootDevice";
+  v21 = @"ActivateSiri";
+  v22 = @"ActivateAccessibilityShortcut";
+  v23 = @"ActivateSOS";
+  v24 = @"RotateDevice";
+  v25 = @"ArmApplePay";
+  v26 = @"PerformSysdiagnose";
+  v27 = @"TogglePassthroughMode";
   v4 = MEMORY[0x1E695DEC8];
   commandsCopy = commands;
-  v6 = [v4 arrayWithObjects:&v12 count:17];
-  v7 = [MEMORY[0x1E696AAE8] bundleForClass:{objc_opt_class(), v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29}];
+  v6 = [v4 arrayWithObjects:&v11 count:17];
+  v7 = [MEMORY[0x1E696AAE8] bundleForClass:{objc_opt_class(), v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28}];
   v8 = [v7 localizedStringForKey:@"DEVICE" value:&stru_1F405A428 table:@"FullKeyboardAccess"];
   v9 = [self _categoryWithCommandIdentifiers:v6 availableCommands:commandsCopy localizedName:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)_pointerCommandsFromAvailableCommands:(id)commands
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v12 = @"MovePointerToFocus";
+  v12 = *MEMORY[0x1E69E9840];
+  v11 = @"MovePointerToFocus";
   v4 = MEMORY[0x1E695DEC8];
   commandsCopy = commands;
-  v6 = [v4 arrayWithObjects:&v12 count:1];
-  v7 = [MEMORY[0x1E696AAE8] bundleForClass:{objc_opt_class(), v12, v13}];
+  v6 = [v4 arrayWithObjects:&v11 count:1];
+  v7 = [MEMORY[0x1E696AAE8] bundleForClass:{objc_opt_class(), v11, v12}];
   v8 = [v7 localizedStringForKey:@"POINTER" value:&stru_1F405A428 table:@"FullKeyboardAccess"];
   v9 = [self _categoryWithCommandIdentifiers:v6 availableCommands:commandsCopy localizedName:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)_gesturesCommandsFromAvailableCommands:(id)commands
 {
-  v12[16] = *MEMORY[0x1E69E9840];
-  v12[0] = @"Gestures";
-  v12[1] = @"PressAndLift";
-  v12[2] = @"3DTouch";
-  v12[3] = @"SwipeUp";
-  v12[4] = @"SwipeDown";
-  v12[5] = @"SwipeLeft";
-  v12[6] = @"SwipeRight";
-  v12[7] = @"PinchIn";
-  v12[8] = @"PinchOut";
-  v12[9] = @"RotateLeft";
-  v12[10] = @"RotateRight";
-  v12[11] = @"TwoFingerPressAndLift";
-  v12[12] = @"TwoFingerSwipeDown";
-  v12[13] = @"TwoFingerSwipeLeft";
-  v12[14] = @"TwoFingerSwipeRight";
-  v12[15] = @"TwoFingerSwipeUp";
+  v11[16] = *MEMORY[0x1E69E9840];
+  v11[0] = @"Gestures";
+  v11[1] = @"PressAndLift";
+  v11[2] = @"3DTouch";
+  v11[3] = @"SwipeUp";
+  v11[4] = @"SwipeDown";
+  v11[5] = @"SwipeLeft";
+  v11[6] = @"SwipeRight";
+  v11[7] = @"PinchIn";
+  v11[8] = @"PinchOut";
+  v11[9] = @"RotateLeft";
+  v11[10] = @"RotateRight";
+  v11[11] = @"TwoFingerPressAndLift";
+  v11[12] = @"TwoFingerSwipeDown";
+  v11[13] = @"TwoFingerSwipeLeft";
+  v11[14] = @"TwoFingerSwipeRight";
+  v11[15] = @"TwoFingerSwipeUp";
   v4 = MEMORY[0x1E695DEC8];
   commandsCopy = commands;
-  v6 = [v4 arrayWithObjects:v12 count:16];
+  v6 = [v4 arrayWithObjects:v11 count:16];
   v7 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v8 = [v7 localizedStringForKey:@"GESTURES" value:&stru_1F405A428 table:@"FullKeyboardAccess"];
   v9 = [self _categoryWithCommandIdentifiers:v6 availableCommands:commandsCopy localizedName:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

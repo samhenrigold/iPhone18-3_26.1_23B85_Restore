@@ -107,18 +107,18 @@
 
 - (int64_t)read:(void *)read length:(unint64_t)length offset:(int64_t)offset
 {
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x2020000000;
-  v64 = 0;
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x2020000000;
-  v60 = _gPTPDeviceDataBufferSize;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v60 = 0;
+  v61 = &v60;
+  v62 = 0x2020000000;
+  v63 = 0;
   v56 = 0;
+  v57 = &v56;
+  v58 = 0x2020000000;
+  v59 = _gPTPDeviceDataBufferSize;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
+  v55 = 0;
   v9 = [(PTPDataSource *)self dataSourcePathForDataRange:offset];
   dataSourcePath = [(PTPDataSource *)self dataSourcePath];
   v11 = [dataSourcePath isEqualToString:v9];
@@ -154,9 +154,9 @@
       v18 = v13;
       uTF8String = [(__CFString *)v13 UTF8String];
       *buf = 136446466;
-      v66 = uTF8String;
-      v67 = 2114;
-      v68 = v16;
+      v65 = uTF8String;
+      v66 = 2114;
+      v67 = v16;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
@@ -171,12 +171,12 @@
     block[2] = sub_100023408;
     block[3] = &unk_100038AE8;
     block[4] = self;
-    block[5] = &v61;
+    block[5] = &v60;
     block[8] = read;
     block[9] = length;
     block[10] = offset;
-    block[6] = &v53;
-    block[7] = &v57;
+    block[6] = &v52;
+    block[7] = &v56;
     dispatch_sync(plAssetQueue, block);
   }
 
@@ -192,20 +192,20 @@
     v23 = [v22 stringByAppendingString:@".."];
   }
 
-  v24 = [NSString stringWithFormat:@"  *** Request:[%10lu] @ Offset:[%10llu] >> Read:[%10llu]", length, offset, v62[3]];
+  v24 = [NSString stringWithFormat:@"  *** Request:[%10lu] @ Offset:[%10llu] >> Read:[%10llu]", length, offset, v61[3]];
   v25 = _gICOSLog;
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     v26 = v23;
     uTF8String2 = [(__CFString *)v23 UTF8String];
     *buf = 136446466;
-    v66 = uTF8String2;
-    v67 = 2114;
-    v68 = v24;
+    v65 = uTF8String2;
+    v66 = 2114;
+    v67 = v24;
     _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
-  if (v58[3])
+  if (v57[3])
   {
     __ICOSLogCreate();
     if ([&stru_100038B48 length] < 0x15)
@@ -226,9 +226,9 @@
       v32 = v29;
       uTF8String3 = [(__CFString *)v29 UTF8String];
       *buf = 136446466;
-      v66 = uTF8String3;
-      v67 = 2114;
-      v68 = v30;
+      v65 = uTF8String3;
+      v66 = 2114;
+      v67 = v30;
       _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
@@ -244,62 +244,61 @@
       v35 = [v34 stringByAppendingString:@".."];
     }
 
-    v36 = v58[3];
-    v37 = [NSString stringWithFormat:@"  >>> Advised:[%10llu] @ Offset:[%10llu]", v36, v54[3]];
-    v38 = _gICOSLog;
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v36 = [NSString stringWithFormat:@"  >>> Advised:[%10llu] @ Offset:[%10llu]", v57[3], v53[3]];
+    v37 = _gICOSLog;
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
-      v39 = v35;
+      v38 = v35;
       uTF8String4 = [(__CFString *)v35 UTF8String];
       *buf = 136446466;
-      v66 = uTF8String4;
-      v67 = 2114;
-      v68 = v37;
-      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      v65 = uTF8String4;
+      v66 = 2114;
+      v67 = v36;
+      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
 
-  v41 = v62[3];
-  if (v41 + offset == [(PTPDataSource *)self plAssetSize]&& [(PTPDataSource *)self fd]!= -1)
+  v40 = v61[3];
+  if (v40 + offset == [(PTPDataSource *)self plAssetSize]&& [(PTPDataSource *)self fd]!= -1)
   {
     __ICOSLogCreate();
     if ([&stru_100038B48 length] < 0x15)
     {
-      v43 = &stru_100038B48;
+      v42 = &stru_100038B48;
     }
 
     else
     {
-      v42 = [&stru_100038B48 substringWithRange:{0, 18}];
-      v43 = [v42 stringByAppendingString:@".."];
+      v41 = [&stru_100038B48 substringWithRange:{0, 18}];
+      v42 = [v41 stringByAppendingString:@".."];
     }
 
     dataSourcePath4 = [(PTPDataSource *)self dataSourcePath];
-    v45 = dataSourcePath4;
-    v46 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"  --- Closing[%s]:[%10lu]", [dataSourcePath4 UTF8String], -[PTPDataSource plAssetSize](self, "plAssetSize"));
+    v44 = dataSourcePath4;
+    v45 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"  --- Closing[%s]:[%10lu]", [dataSourcePath4 UTF8String], -[PTPDataSource plAssetSize](self, "plAssetSize"));
 
-    v47 = _gICOSLog;
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v46 = _gICOSLog;
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
-      v48 = v43;
-      uTF8String5 = [(__CFString *)v43 UTF8String];
+      v47 = v42;
+      uTF8String5 = [(__CFString *)v42 UTF8String];
       *buf = 136446466;
-      v66 = uTF8String5;
-      v67 = 2114;
-      v68 = v46;
-      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      v65 = uTF8String5;
+      v66 = 2114;
+      v67 = v45;
+      _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
     close([(PTPDataSource *)self fd]);
     [(PTPDataSource *)self setFd:0xFFFFFFFFLL];
   }
 
-  v50 = v62[3];
+  v49 = v61[3];
 
-  _Block_object_dispose(&v53, 8);
-  _Block_object_dispose(&v57, 8);
-  _Block_object_dispose(&v61, 8);
-  return v50;
+  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v60, 8);
+  return v49;
 }
 
 - (void)boostAssetReaderLifespan

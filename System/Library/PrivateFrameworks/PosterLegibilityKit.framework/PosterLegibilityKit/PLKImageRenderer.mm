@@ -147,7 +147,7 @@ LABEL_27:
   v36.width = v6;
   v36.height = v8;
   v32 = NSStringFromCGSize(v36);
-  v33 = [v29 stringWithFormat:@"requested slot length (%zd) larger than maximum slotLength (%zd), not large enough for %@ context with dimensions %@ @%fx", v25, v30, v31, v32, *&v10];
+  v33 = [v29 stringWithFormat:v25, v30, v31, v32, *&v10];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -187,9 +187,9 @@ LABEL_27:
 
 - (id)imageWithActions:(id)actions
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
-  v5 = PLKLogRendering();
+  v5 = PLKLogRendering(actionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
@@ -197,15 +197,15 @@ LABEL_27:
     _os_log_impl(&dword_21E5D5000, v5, OS_LOG_TYPE_INFO, "<PLKImageRenderer:%p imageWithActions>", buf, 0xCu);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __37__PLKImageRenderer_imageWithActions___block_invoke;
-  v14[3] = &unk_27835B730;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __37__PLKImageRenderer_imageWithActions___block_invoke;
+  v13[3] = &unk_27835B730;
   v6 = actionsCopy;
-  v15 = v6;
-  v13.receiver = self;
-  v13.super_class = PLKImageRenderer;
-  v7 = [(UIGraphicsImageRenderer *)&v13 imageWithActions:v14];
+  v14 = v6;
+  v12.receiver = self;
+  v12.super_class = PLKImageRenderer;
+  v7 = [(UIGraphicsImageRenderer *)&v12 imageWithActions:v13];
   v8 = v7;
   if (v7)
   {
@@ -219,53 +219,43 @@ LABEL_27:
 
   v10 = v9;
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)imageWithRenderable:(id)renderable
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   renderableCopy = renderable;
-  v5 = PLKLogRendering();
+  v5 = PLKLogRendering(renderableCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 134218242;
     selfCopy = self;
-    v14 = 2112;
-    v15 = renderableCopy;
+    v12 = 2112;
+    v13 = renderableCopy;
     _os_log_impl(&dword_21E5D5000, v5, OS_LOG_TYPE_INFO, "<PLKImageRenderer:%p imageWithRenderable:%@>", buf, 0x16u);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __40__PLKImageRenderer_imageWithRenderable___block_invoke;
-  v10[3] = &unk_27835B6C8;
-  v11 = renderableCopy;
+  v9 = renderableCopy;
   v6 = renderableCopy;
-  v7 = [(PLKImageRenderer *)self imageWithActions:v10];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(PLKImageRenderer *)self imageWithActions:?];
 
   return v7;
 }
 
 + (void)contextWithFormat:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[PLKImageRenderer contextWithFormat:]"];
-  v4 = 138544130;
-  v5 = v2;
-  v6 = 2114;
-  v7 = @"PLKImageRenderer.m";
-  v8 = 1024;
-  v9 = 111;
-  v10 = 2114;
-  v11 = a1;
-  _os_log_error_impl(&dword_21E5D5000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", &v4, 0x26u);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:?];
+  v3 = 138544130;
+  v4 = v2;
+  v5 = 2114;
+  v6 = @"PLKImageRenderer.m";
+  v7 = 1024;
+  v8 = 111;
+  v9 = 2114;
+  v10 = a1;
+  _os_log_error_impl(&dword_21E5D5000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", &v3, 0x26u);
 }
 
 @end

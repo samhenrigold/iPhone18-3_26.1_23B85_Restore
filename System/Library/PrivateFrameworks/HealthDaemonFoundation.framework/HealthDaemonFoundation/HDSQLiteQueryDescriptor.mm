@@ -14,41 +14,39 @@
 
 - (id)selectSQLForProperties:(id)properties
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   entityClass = [(HDSQLiteQueryDescriptor *)self entityClass];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = propertiesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = [(objc_class *)entityClass disambiguatedSQLForProperty:*(*(&v15 + 1) + 8 * i), v15];
+        v11 = [(objc_class *)entityClass disambiguatedSQLForProperty:*(*(&v14 + 1) + 8 * i), v14];
         [v5 addObject:v11];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [(HDSQLiteQueryDescriptor *)self _SQLForSelectWithProperties:v7 columns:v5];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -137,51 +135,51 @@
 
 - (id)_sortedJoinClauses:(id)clauses preferredOrder:(id)order baseTables:(id)tables
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   clausesCopy = clauses;
   orderCopy = order;
   tablesCopy = tables;
   v8 = [objc_alloc(MEMORY[0x277CBEB58]) initWithSet:tablesCopy];
-  v31 = [clausesCopy mutableCopy];
-  v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v30 = [clausesCopy mutableCopy];
+  v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (orderCopy)
   {
-    v30 = [(HDSQLiteQueryDescriptor *)self _joinClauseComparatorWithPreferredEntityOrder:orderCopy];
+    v29 = [(HDSQLiteQueryDescriptor *)self _joinClauseComparatorWithPreferredEntityOrder:orderCopy];
   }
 
   else
   {
-    v30 = 0;
+    v29 = 0;
   }
 
-  while ([v31 count])
+  while ([v30 count])
   {
     [v9 removeAllObjects];
     [v10 removeAllObjects];
-    allObjects = [v31 allObjects];
+    allObjects = [v30 allObjects];
     v12 = [allObjects sortedArrayUsingComparator:&__block_literal_global_8];
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v14)
     {
-      v15 = *v33;
+      v15 = *v32;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v33 != v15)
+          if (*v32 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v32 + 1) + 8 * i);
+          v17 = *(*(&v31 + 1) + 8 * i);
           localTable = [v17 localTable];
           v19 = [v8 containsObject:localTable];
 
@@ -201,7 +199,7 @@
           }
         }
 
-        v14 = [v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v14);
@@ -213,71 +211,67 @@
       v23 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
-        [HDSQLiteQueryDescriptor _sortedJoinClauses:v31 preferredOrder:v8 baseTables:v23];
+        [HDSQLiteQueryDescriptor _sortedJoinClauses:v30 preferredOrder:v8 baseTables:v23];
       }
 
       break;
     }
 
-    if (v30)
+    if (v29)
     {
-      [v10 sortUsingComparator:v30];
+      [v10 sortUsingComparator:v29];
     }
 
-    [v29 addObjectsFromArray:v10];
-    [v31 minusSet:v9];
+    [v28 addObjectsFromArray:v10];
+    [v30 minusSet:v9];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v29;
+  return v28;
 }
 
 - (id)_joinClauseComparatorWithPreferredEntityOrder:(void *)order
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (order)
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
     v7 = 0;
     if (v6)
     {
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           v11 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
           [v4 setObject:v11 forKeyedSubscript:v10];
 
           ++v7;
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
       while (v6);
     }
 
     v12 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
-    [(HDSQLiteQueryDescriptor *)v12 _joinClauseComparatorWithPreferredEntityOrder:v4, &v20];
-    order = v20;
+    [(HDSQLiteQueryDescriptor *)v12 _joinClauseComparatorWithPreferredEntityOrder:v4, &v19];
+    order = v19;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return order;
 }
@@ -395,9 +389,9 @@ id __63__HDSQLiteQueryDescriptor__SQLForSelectWithProperties_columns___block_inv
 
 - (id)_joinClauseForProperties:(id)properties
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
-  v26 = [-[objc_class entityClassForEnumeration](self->_entityClass "entityClassForEnumeration")];
+  v25 = [-[objc_class entityClassForEnumeration](self->_entityClass "entityClassForEnumeration")];
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v5 = [(HDSQLitePredicate *)self->_predicate SQLJoinClausesForEntityClass:self->_entityClass];
   if ([v5 count])
@@ -405,32 +399,32 @@ id __63__HDSQLiteQueryDescriptor__SQLForSelectWithProperties_columns___block_inv
     [v4 unionSet:v5];
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v6 = propertiesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v7)
   {
-    v8 = *v32;
+    v8 = *v31;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v32 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = [(objc_class *)self->_entityClass joinClausesForProperty:*(*(&v31 + 1) + 8 * i)];
+        v10 = [(objc_class *)self->_entityClass joinClausesForProperty:*(*(&v30 + 1) + 8 * i)];
         if (v10)
         {
           [v4 unionSet:v10];
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v7);
@@ -443,39 +437,39 @@ id __63__HDSQLiteQueryDescriptor__SQLForSelectWithProperties_columns___block_inv
       anyObject = [v4 anyObject];
       v19 = MEMORY[0x277CCACA8];
       sQLJoinClause = [anyObject SQLJoinClause];
-      v11 = [v19 stringWithFormat:@"%@ %@", v26, sQLJoinClause];
+      v11 = [v19 stringWithFormat:@"%@ %@", v25, sQLJoinClause];
     }
 
     else
     {
-      v23 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v26, 0}];
-      v24 = [(HDSQLiteQueryDescriptor *)self _sortedJoinClauses:v4 preferredOrder:self->_preferredEntityJoinOrder baseTables:?];
-      v11 = [v26 mutableCopy];
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
+      v22 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{v25, 0}];
+      v23 = [(HDSQLiteQueryDescriptor *)self _sortedJoinClauses:v4 preferredOrder:self->_preferredEntityJoinOrder baseTables:?];
+      v11 = [v25 mutableCopy];
       v28 = 0u;
-      v12 = v24;
-      v13 = [v12 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
+      v12 = v23;
+      v13 = [v12 countByEnumeratingWithState:&v26 objects:v34 count:16];
       if (v13)
       {
-        v14 = *v28;
+        v14 = *v27;
         do
         {
           for (j = 0; j != v13; ++j)
           {
-            if (*v28 != v14)
+            if (*v27 != v14)
             {
               objc_enumerationMutation(v12);
             }
 
-            v16 = *(*(&v27 + 1) + 8 * j);
+            v16 = *(*(&v26 + 1) + 8 * j);
             [v11 appendString:@" "];
             sQLJoinClause2 = [v16 SQLJoinClause];
             [v11 appendString:sQLJoinClause2];
           }
 
-          v13 = [v12 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v26 objects:v34 count:16];
         }
 
         while (v13);
@@ -485,10 +479,8 @@ id __63__HDSQLiteQueryDescriptor__SQLForSelectWithProperties_columns___block_inv
 
   else
   {
-    v11 = v26;
+    v11 = v25;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -550,13 +542,12 @@ LABEL_16:
 
 - (void)_sortedJoinClauses:(uint64_t)a1 preferredOrder:(uint64_t)a2 baseTables:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_25156C000, log, OS_LOG_TYPE_ERROR, "No clauses in %@ can be joined after tables %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_25156C000, log, OS_LOG_TYPE_ERROR, "No clauses in %@ can be joined after tables %@", &v3, 0x16u);
 }
 
 - (void)_joinClauseComparatorWithPreferredEntityOrder:(void *)a3 .cold.1(void *a1, id *a2, void *a3, void **a4)

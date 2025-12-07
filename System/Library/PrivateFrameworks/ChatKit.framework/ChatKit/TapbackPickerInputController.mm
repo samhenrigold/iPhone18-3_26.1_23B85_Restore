@@ -75,7 +75,7 @@
 - (BOOL)becomeFirstResponder
 {
   selfCopy = self;
-  v3 = sub_190CE8DD0();
+  v3 = sub_190CE8DD0(selfCopy);
 
   return v3 & 1;
 }
@@ -83,7 +83,7 @@
 - (BOOL)resignFirstResponder
 {
   selfCopy = self;
-  v3 = sub_190CE8FD0();
+  v3 = sub_190CE8FD0(selfCopy);
 
   return v3 & 1;
 }

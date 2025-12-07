@@ -76,12 +76,12 @@
 
 + (id)valueFromSerializedRepresentation:()Serialization valueType:variableProvider:parameter:bundleIdentifier:
 {
-  v218 = *MEMORY[0x1E69E9840];
+  v217 = *MEMORY[0x1E69E9840];
   v11 = a3;
   v12 = a4;
   v13 = a5;
   v14 = a6;
-  v204 = a7;
+  v203 = a7;
   if (v11)
   {
     objc_opt_class();
@@ -132,25 +132,25 @@
     }
   }
 
-  v197 = v11;
+  v196 = v11;
   v21 = v16;
   v22 = [v16 objectForKeyedSubscript:@"subtitle"];
   if (v22)
   {
     v23 = v22;
-    v203 = [objc_alloc(MEMORY[0x1E69AC9E0]) initWithSerializedRepresentation:v22 variableProvider:v13 parameter:v14];
+    v202 = [objc_alloc(MEMORY[0x1E69AC9E0]) initWithSerializedRepresentation:v22 variableProvider:v13 parameter:v14];
   }
 
   else
   {
     v23 = 0;
-    v203 = 0;
+    v202 = 0;
   }
 
   v24 = [v21 objectForKeyedSubscript:@"image"];
   v25 = [v21 objectForKeyedSubscript:@"symbol"];
-  v193 = v25;
-  v194 = v24;
+  v192 = v25;
+  v193 = v24;
   if (v25)
   {
     v26 = 0x1E69ACA10;
@@ -161,7 +161,7 @@
   {
     if (!v24)
     {
-      v202 = 0;
+      v201 = 0;
       if (v19)
       {
         goto LABEL_25;
@@ -173,20 +173,20 @@
     v26 = 0x1E69AC870;
   }
 
-  v202 = [objc_alloc(*v26) initWithSerializedRepresentation:v24 variableProvider:v13 parameter:v14];
+  v201 = [objc_alloc(*v26) initWithSerializedRepresentation:v24 variableProvider:v13 parameter:v14];
   if (v19)
   {
 LABEL_25:
-    v201 = [objc_alloc(MEMORY[0x1E69AC7A0]) initWithTitle:v19 subtitle:v203 image:v202];
+    v200 = [objc_alloc(MEMORY[0x1E69AC7A0]) initWithTitle:v19 subtitle:v202 image:v201];
     goto LABEL_28;
   }
 
 LABEL_27:
-  v201 = 0;
+  v200 = 0;
 LABEL_28:
   objc_opt_class();
-  v195 = v19;
-  v196 = v18;
+  v194 = v19;
+  v195 = v18;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     goto LABEL_42;
@@ -202,10 +202,10 @@ LABEL_28:
 LABEL_41:
 
 LABEL_42:
-    v192 = v17;
+    v191 = v17;
     v40 = v17;
     v12 = v12;
-    v198 = v13;
+    v197 = v13;
     v41 = v14;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -232,7 +232,7 @@ LABEL_42:
           v64 = v41;
           v65 = v37;
           v66 = v64;
-          v67 = [[WFLocationValue alloc] initWithSerializedRepresentation:v40 variableProvider:v198 parameter:v64];
+          v67 = [[WFLocationValue alloc] initWithSerializedRepresentation:v40 variableProvider:v197 parameter:v64];
           v68 = v67;
           if (v67)
           {
@@ -252,16 +252,16 @@ LABEL_126:
         }
 
         v92 = v23;
-        v186 = v14;
+        v185 = v14;
         v93 = v13;
         v94 = v40;
-        v95 = v198;
-        v176 = v41;
+        v95 = v197;
+        v175 = v41;
         v96 = v94;
         if (v96 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v174 = v95;
-          v181 = v41;
+          v173 = v95;
+          v180 = v41;
           v97 = objc_alloc_init(MEMORY[0x1E695DF10]);
           v98 = [v96 objectForKeyedSubscript:@"era"];
           [v97 if_setValueIfNonNil:v98 forKey:@"era"];
@@ -313,7 +313,7 @@ LABEL_126:
           }
 
           iNPersonRepresentation = v97;
-          v114 = [v96 objectForKeyedSubscript:{@"timeZone", v174, v176}];
+          v114 = [v96 objectForKeyedSubscript:{@"timeZone", v173, v175}];
           if (v114)
           {
             [MEMORY[0x1E695DFE8] timeZoneWithName:v114];
@@ -324,8 +324,8 @@ LABEL_126:
           }
 
           v37 = v92;
-          v41 = v181;
-          v95 = v175;
+          v41 = v180;
+          v95 = v174;
         }
 
         else
@@ -335,18 +335,18 @@ LABEL_126:
         }
 
         v13 = v93;
-        v14 = v186;
+        v14 = v185;
 LABEL_143:
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v184 = v13;
+          v183 = v13;
           v134 = v12;
-          v135 = v198;
+          v135 = v197;
           v136 = v135;
-          v191 = v37;
-          v182 = v40;
+          v190 = v37;
+          v181 = v40;
           v137 = v38;
           if (v135)
           {
@@ -369,7 +369,7 @@ LABEL_143:
           v144 = v138;
 
           v145 = v41;
-          v187 = v14;
+          v186 = v14;
           if (v145)
           {
             objc_opt_class();
@@ -397,9 +397,9 @@ LABEL_143:
 
           identifier = [v150 identifier];
           identifier2 = [v134 identifier];
-          v153 = [identifier isEqualToString:identifier2];
+          isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-          if ((v153 & 1) == 0)
+          if ((isEqualToString & 1) == 0)
           {
             parameterMetadata2 = [v147 parameterMetadata];
             typeSpecificMetadata2 = [parameterMetadata2 typeSpecificMetadata];
@@ -426,12 +426,12 @@ LABEL_143:
 
             v160 = v157;
 
-            v205[0] = MEMORY[0x1E69E9820];
-            v205[1] = 3221225472;
-            v205[2] = __114__LNValue_Serialization__valueFromSerializedRepresentation_valueType_variableProvider_parameter_bundleIdentifier___block_invoke_2;
-            v205[3] = &unk_1E837E018;
-            v206 = v134;
-            v161 = [v160 if_firstObjectPassingTest:v205];
+            v204[0] = MEMORY[0x1E69E9820];
+            v204[1] = 3221225472;
+            v204[2] = __114__LNValue_Serialization__valueFromSerializedRepresentation_valueType_variableProvider_parameter_bundleIdentifier___block_invoke_2;
+            v204[3] = &unk_1E837E018;
+            v205 = v134;
+            v161 = [v160 if_firstObjectPassingTest:v204];
 
             v150 = v161;
           }
@@ -449,9 +449,9 @@ LABEL_143:
             if (objc_opt_isKindOfClass())
             {
               bundleIdentifier = [v12 bundleIdentifier];
-              v164 = v204;
+              v164 = v203;
               v165 = v12;
-              v204 = bundleIdentifier;
+              v203 = bundleIdentifier;
             }
 
             else
@@ -467,19 +467,19 @@ LABEL_143:
             v165 = 0;
           }
 
-          if (!v150 && v204)
+          if (!v150 && v203)
           {
             mEMORY[0x1E69E0970] = [MEMORY[0x1E69E0970] sharedProvider];
             identifier4 = [v12 identifier];
-            v150 = [mEMORY[0x1E69E0970] entityWithIdentifier:identifier4 fromBundleIdentifier:v204];
+            v150 = [mEMORY[0x1E69E0970] entityWithIdentifier:identifier4 fromBundleIdentifier:v203];
           }
 
           if (v150)
           {
-            v168 = [MEMORY[0x1E69AC7D0] valueFromSerializedRepresentation:v182 metadata:v150 variableProvider:v136 parameter:v145 bundleIdentifier:v204];
+            v168 = [MEMORY[0x1E69AC7D0] valueFromSerializedRepresentation:v181 metadata:v150 variableProvider:v136 parameter:v145 bundleIdentifier:v203];
             if (v168)
             {
-              v32 = [objc_alloc(MEMORY[0x1E69ACA90]) initWithValue:v168 valueType:v12 displayRepresentation:v201];
+              v32 = [objc_alloc(MEMORY[0x1E69ACA90]) initWithValue:v168 valueType:v12 displayRepresentation:v200];
             }
 
             else
@@ -487,26 +487,26 @@ LABEL_143:
               v32 = 0;
             }
 
-            v13 = v184;
+            v13 = v183;
           }
 
           else
           {
             v32 = 0;
-            v13 = v184;
+            v13 = v183;
           }
 
-          v39 = v197;
-          v14 = v187;
-          v37 = v191;
-          v29 = v192;
+          v39 = v196;
+          v14 = v186;
+          v37 = v190;
+          v29 = v191;
           v38 = v137;
           goto LABEL_200;
         }
 
         v139 = v41;
         objc_opt_class();
-        v39 = v197;
+        v39 = v196;
         if (objc_opt_isKindOfClass())
         {
           v140 = v37;
@@ -516,16 +516,16 @@ LABEL_143:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v29 = v192;
+              v29 = v191;
 LABEL_169:
-              v32 = [objc_alloc(MEMORY[0x1E69ACA90]) initWithValue:v141 valueType:v12 displayRepresentation:v201];
+              v32 = [objc_alloc(MEMORY[0x1E69ACA90]) initWithValue:v141 valueType:v12 displayRepresentation:v200];
 
               goto LABEL_199;
             }
           }
 
           v158 = v40;
-          v29 = v192;
+          v29 = v191;
           if (v158)
           {
             objc_opt_class();
@@ -547,27 +547,27 @@ LABEL_198:
         if (objc_opt_isKindOfClass())
         {
           v140 = v37;
-          v142 = [MEMORY[0x1E69AC748] valueFromSerializedRepresentation:v40 variableProvider:v198 parameter:v139];
+          v142 = [MEMORY[0x1E69AC748] valueFromSerializedRepresentation:v40 variableProvider:v197 parameter:v139];
           if (v142)
           {
             v143 = v142;
-            v32 = [objc_alloc(MEMORY[0x1E69ACA90]) initWithValue:v142 valueType:v12 displayRepresentation:v201];
+            v32 = [objc_alloc(MEMORY[0x1E69ACA90]) initWithValue:v142 valueType:v12 displayRepresentation:v200];
 
-            v29 = v192;
+            v29 = v191;
 LABEL_199:
             v37 = v140;
             goto LABEL_200;
           }
 
           v158 = getWFAppIntentsLogObject();
-          v29 = v192;
+          v29 = v191;
           if (!os_log_type_enabled(v158, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_198;
           }
 
           *buf = 136315138;
-          v213 = "+[LNValue(Serialization) valueFromSerializedRepresentation:valueType:variableProvider:parameter:bundleIdentifier:]";
+          v212 = "+[LNValue(Serialization) valueFromSerializedRepresentation:valueType:variableProvider:parameter:bundleIdentifier:]";
           v169 = "%s Serialized codable value is nil";
           v170 = v158;
           v171 = 12;
@@ -579,14 +579,14 @@ LABEL_199:
           if (!iNPersonRepresentation)
           {
             v32 = 0;
-            v29 = v192;
+            v29 = v191;
             goto LABEL_201;
           }
 
-          v29 = v192;
+          v29 = v191;
           if ([v12 objectIsMemberOfType:iNPersonRepresentation])
           {
-            v32 = [objc_alloc(MEMORY[0x1E69ACA90]) initWithValue:iNPersonRepresentation valueType:v12 displayRepresentation:v201];
+            v32 = [objc_alloc(MEMORY[0x1E69ACA90]) initWithValue:iNPersonRepresentation valueType:v12 displayRepresentation:v200];
             goto LABEL_201;
           }
 
@@ -598,11 +598,11 @@ LABEL_199:
           }
 
           *buf = 136315650;
-          v213 = "+[LNValue(Serialization) valueFromSerializedRepresentation:valueType:variableProvider:parameter:bundleIdentifier:]";
-          v214 = 2112;
-          v215 = v38;
-          v216 = 2112;
-          v217 = v12;
+          v212 = "+[LNValue(Serialization) valueFromSerializedRepresentation:valueType:variableProvider:parameter:bundleIdentifier:]";
+          v213 = 2112;
+          v214 = v38;
+          v215 = 2112;
+          v216 = v12;
           v169 = "%s Serialized value %@ does not match value type %@";
           v170 = v158;
           v171 = 32;
@@ -674,20 +674,20 @@ LABEL_114:
         {
           if (typeIdentifier2 == 13)
           {
-            v185 = v14;
+            v184 = v14;
             v82 = v40;
             v83 = v40;
             v84 = v41;
             v85 = v83;
-            v180 = v198;
+            v179 = v197;
             v86 = v84;
             v87 = v84;
             v88 = v85;
             if (v88 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v190 = v37;
+              v189 = v37;
               v89 = [v88 objectForKeyedSubscript:@"type"];
-              v183 = v13;
+              v182 = v13;
               if (v89)
               {
                 objc_opt_class();
@@ -755,8 +755,8 @@ LABEL_114:
               v133 = v132;
 
               iNPersonRepresentation = [objc_alloc(MEMORY[0x1E696E938]) initWithType:integerValue name:v130 identificationHint:v133 icon:0];
-              v13 = v183;
-              v37 = v190;
+              v13 = v182;
+              v37 = v189;
             }
 
             else
@@ -766,7 +766,7 @@ LABEL_114:
 
             v41 = v86;
 
-            v14 = v185;
+            v14 = v184;
             v40 = v82;
           }
 
@@ -775,11 +775,11 @@ LABEL_114:
             iNPersonRepresentation = 0;
             if (typeIdentifier2 == 12)
             {
-              v188 = v23;
-              v45 = v198;
+              v187 = v23;
+              v45 = v197;
               v46 = v41;
               v47 = v45;
-              v177 = v46;
+              v176 = v46;
               v48 = v46;
               v49 = v40;
               v50 = v48;
@@ -830,15 +830,15 @@ LABEL_114:
               v14 = v55;
 
               v40 = v51;
-              v37 = v188;
-              v41 = v177;
+              v37 = v187;
+              v41 = v176;
             }
           }
 
           goto LABEL_143;
         }
 
-        v43 = WFINCurrencyAmountFromSerialization(v40, v198, v41);
+        v43 = WFINCurrencyAmountFromSerialization(v40, v197, v41);
 LABEL_46:
         iNPersonRepresentation = v43;
         goto LABEL_143;
@@ -879,21 +879,21 @@ LABEL_46:
       }
 
       v71 = MEMORY[0x1E6996D10];
-      v179 = v41;
+      v178 = v41;
       v72 = v41;
       v73 = v40;
-      v74 = v198;
-      v189 = v23;
+      v74 = v197;
+      v188 = v23;
       v75 = v73;
       v76 = [[v71 alloc] initWithSerializedRepresentation:v75 variableProvider:v74 parameter:v72];
 
       v40 = v73;
-      v23 = v189;
+      v23 = v188;
       v38 = v21;
       contact = [v76 contact];
       iNPersonRepresentation = [contact INPersonRepresentation];
 
-      v41 = v179;
+      v41 = v178;
 LABEL_71:
 
       v37 = v23;
@@ -908,15 +908,15 @@ LABEL_71:
       {
         v57 = v23;
         v58 = MEMORY[0x1E69AC920];
-        v178 = v41;
+        v177 = v41;
         v59 = v41;
         v60 = v40;
-        v61 = v198;
+        v61 = v197;
         v62 = v14;
         v63 = v60;
         iNPersonRepresentation = [[v58 alloc] initWithSerializedRepresentation:v63 variableProvider:v61 parameter:v59];
 
-        v41 = v178;
+        v41 = v177;
         v40 = v60;
 
         v14 = v62;
@@ -968,14 +968,14 @@ LABEL_71:
           goto LABEL_143;
         }
 
-        v43 = WFLNStringSearchCriteriaFromSerialization(v40, v198, v41);
+        v43 = WFLNStringSearchCriteriaFromSerialization(v40, v197, v41);
         goto LABEL_46;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v76 = [MEMORY[0x1E69AC748] valueFromSerializedRepresentation:v40 variableProvider:v198 parameter:v41];
+        v76 = [MEMORY[0x1E69AC748] valueFromSerializedRepresentation:v40 variableProvider:v197 parameter:v41];
         if (v76)
         {
           iNPersonRepresentation = [objc_alloc(MEMORY[0x1E69ACA90]) initWithValue:v76 valueType:v12];
@@ -988,7 +988,7 @@ LABEL_71:
           if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v213 = "LNValueFromSerializedValueRepresentation";
+            v212 = "LNValueFromSerializedValueRepresentation";
             _os_log_impl(&dword_1CA256000, v126, OS_LOG_TYPE_ERROR, "%s Serialized codable value is nil", buf, 0xCu);
           }
 
@@ -1039,23 +1039,23 @@ LABEL_71:
 
   v32 = v30;
 
-  v207[0] = MEMORY[0x1E69E9820];
-  v207[1] = 3221225472;
-  v207[2] = __114__LNValue_Serialization__valueFromSerializedRepresentation_valueType_variableProvider_parameter_bundleIdentifier___block_invoke;
-  v207[3] = &unk_1E837DFF0;
+  v206[0] = MEMORY[0x1E69E9820];
+  v206[1] = 3221225472;
+  v206[2] = __114__LNValue_Serialization__valueFromSerializedRepresentation_valueType_variableProvider_parameter_bundleIdentifier___block_invoke;
+  v206[3] = &unk_1E837DFF0;
   iNPersonRepresentation = memberValueType;
-  v208 = iNPersonRepresentation;
+  v207 = iNPersonRepresentation;
   v33 = v13;
-  v209 = v13;
+  v208 = v13;
   v34 = v14;
-  v210 = v14;
-  v35 = v204;
-  v211 = v35;
-  v36 = [v32 if_compactMap:v207];
+  v209 = v14;
+  v35 = v203;
+  v210 = v35;
+  v36 = [v32 if_compactMap:v206];
 
   if (v36)
   {
-    v32 = [objc_alloc(MEMORY[0x1E69ACA90]) initWithValue:v36 valueType:v12 displayRepresentation:v201];
+    v32 = [objc_alloc(MEMORY[0x1E69ACA90]) initWithValue:v36 valueType:v12 displayRepresentation:v200];
   }
 
   if (!v36)
@@ -1066,17 +1066,15 @@ LABEL_71:
     goto LABEL_41;
   }
 
-  v204 = v35;
+  v203 = v35;
   v13 = v33;
   v14 = v34;
   v37 = v23;
   v38 = v21;
-  v39 = v197;
+  v39 = v196;
 LABEL_200:
   v159 = iNPersonRepresentation;
 LABEL_201:
-
-  v172 = *MEMORY[0x1E69E9840];
 
   return v32;
 }

@@ -47,7 +47,7 @@ uint64_t __50__WiFi3BarsTileCacheObserver__scheduleXPCActivity__block_invoke(uin
 
 - (void)_submitCacheAvailabilityMetric
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = +[WiFiLocationManager sharedWiFiLocationManager];
   latestLocation = [v3 latestLocation];
 
@@ -67,37 +67,37 @@ uint64_t __50__WiFi3BarsTileCacheObserver__scheduleXPCActivity__block_invoke(uin
         {
           v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v10];
           *buf = 136315650;
-          v29 = "[WiFi3BarsTileCacheObserver _submitCacheAvailabilityMetric]";
-          v30 = 2112;
-          v31 = v11;
-          v32 = 1024;
-          v33 = +[TBGloriaTile defaultZoomLevel];
+          v28 = "[WiFi3BarsTileCacheObserver _submitCacheAvailabilityMetric]";
+          v29 = 2112;
+          v30 = v11;
+          v31 = 1024;
+          v32 = +[TBGloriaTile defaultZoomLevel];
           _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: Fetching tile key at key: %@ zoom: %hhu", buf, 0x1Cu);
         }
 
         date = [MEMORY[0x277CBEAA8] date];
-        v24 = [date dateByAddingDays:-7];
+        v23 = [date dateByAddingDays:-7];
 
         v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v10];
         v14 = [TBTileItemDescriptor tileItemDescriptorWithKey:v13];
 
         v15 = [MEMORY[0x277CBEB98] setWithObjects:{v14, 0}];
-        v16 = [[TBTileFetchRequestDescriptor alloc] initWithTileItems:v15 maxCacheAge:v24];
+        v16 = [[TBTileFetchRequestDescriptor alloc] initWithTileItems:v15 maxCacheAge:v23];
         v17 = [[TBTileFetchRequest alloc] initWithDescriptor:v16 sourcePolicy:1 cacheable:0];
-        v26[0] = @"trigger";
-        v26[1] = @"tileKey";
-        v27[0] = &unk_2848B95D8;
+        v25[0] = @"trigger";
+        v25[1] = @"tileKey";
+        v26[0] = &unk_2848B95D8;
         v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v10];
-        v27[1] = v18;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+        v26[1] = v18;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
         [(TBTileFetchRequest *)v17 setUserInfo:v19];
 
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __60__WiFi3BarsTileCacheObserver__submitCacheAvailabilityMetric__block_invoke;
-        v25[3] = &__block_descriptor_40_e39_v28__0___TBFetchResponse__8___v___16B24l;
-        v25[4] = v10;
-        [(TBTileFetchRequest *)v17 setResultsHandler:v25];
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __60__WiFi3BarsTileCacheObserver__submitCacheAvailabilityMetric__block_invoke;
+        v24[3] = &__block_descriptor_40_e39_v28__0___TBFetchResponse__8___v___16B24l;
+        v24[4] = v10;
+        [(TBTileFetchRequest *)v17 setResultsHandler:v24];
         dataSourceMediator = [(WiFi3BarsTileCacheObserver *)self dataSourceMediator];
         [dataSourceMediator executeFetchRequest:v17];
       }
@@ -105,9 +105,9 @@ uint64_t __50__WiFi3BarsTileCacheObserver__scheduleXPCActivity__block_invoke(uin
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v29 = "[WiFi3BarsTileCacheObserver _submitCacheAvailabilityMetric]";
-        v30 = 1024;
-        LODWORD(v31) = +[TBGloriaTile defaultZoomLevel];
+        v28 = "[WiFi3BarsTileCacheObserver _submitCacheAvailabilityMetric]";
+        v29 = 1024;
+        LODWORD(v30) = +[TBGloriaTile defaultZoomLevel];
         _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: Invalid tileKey at zoom: %hhu", buf, 0x12u);
       }
     }
@@ -126,8 +126,6 @@ uint64_t __50__WiFi3BarsTileCacheObserver__scheduleXPCActivity__block_invoke(uin
 
     NSLog(&cfstr_SNoLocationAva.isa, "[WiFi3BarsTileCacheObserver _submitCacheAvailabilityMetric]");
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __60__WiFi3BarsTileCacheObserver__submitCacheAvailabilityMetric__block_invoke(uint64_t a1, void *a2, void *a3, int a4)
@@ -137,7 +135,7 @@ void __60__WiFi3BarsTileCacheObserver__submitCacheAvailabilityMetric__block_invo
   v8 = v7;
   if (v7)
   {
-    (*(v7 + 2))(v7);
+    v7[2](v7);
   }
 
   if (a4)

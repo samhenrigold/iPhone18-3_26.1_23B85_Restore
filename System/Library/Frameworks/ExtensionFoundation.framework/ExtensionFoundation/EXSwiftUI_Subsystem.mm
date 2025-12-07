@@ -26,16 +26,17 @@
 
 - (EXSwiftUI_Subsystem)init
 {
-  v19.receiver = self;
-  v19.super_class = EXSwiftUI_Subsystem;
-  v2 = [(EXSwiftUI_Subsystem *)&v19 init];
+  v21.receiver = self;
+  v21.super_class = EXSwiftUI_Subsystem;
+  v2 = [(EXSwiftUI_Subsystem *)&v21 init];
+  v3 = v2;
   if (!v2)
   {
-    return v2;
+    return v3;
   }
 
-  v3 = _EXLegacyLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = _EXLegacyLog(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [EXSwiftUI_Subsystem init];
   }
@@ -44,8 +45,8 @@
   prog_image_header = _dyld_get_prog_image_header();
   if (!prog_image_header)
   {
-    v8 = _EXLegacyLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _EXLegacyLog(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [EXSwiftUI_Subsystem init];
     }
@@ -53,12 +54,12 @@
     goto LABEL_13;
   }
 
-  v5 = getsectiondata(prog_image_header, "__TEXT", "__swift5_entry", &size);
-  if (!v5 || size <= 3)
+  v6 = getsectiondata(prog_image_header, "__TEXT", "__swift5_entry", &size);
+  if (!v6 || size <= 3)
   {
 LABEL_13:
-    v9 = _EXLegacyLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = _EXLegacyLog(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [EXSwiftUI_Subsystem init];
     }
@@ -66,11 +67,11 @@ LABEL_13:
     goto LABEL_16;
   }
 
-  v6 = *v5;
-  if (v6)
+  v7 = *v6;
+  if (v7)
   {
-    v7 = &v5[v6];
-    if (&v5[v6])
+    v8 = (v6 + v7);
+    if ((v6 + v7))
     {
       goto LABEL_22;
     }
@@ -79,24 +80,25 @@ LABEL_13:
   }
 
 LABEL_16:
-  v10 = _EXLegacyLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-  {
-    [EXSwiftUI_Subsystem init];
-  }
-
-LABEL_19:
-  v11 = _EXLegacyLog();
+  v11 = _EXLegacyLog(v6);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [EXSwiftUI_Subsystem init];
   }
 
-  v7 = dlsym(0xFFFFFFFFFFFFFFFBLL, "main");
-  if (!v7)
+LABEL_19:
+  v12 = _EXLegacyLog(v6);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v17 = _EXLegacyLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    [EXSwiftUI_Subsystem init];
+  }
+
+  v6 = dlsym(0xFFFFFFFFFFFFFFFBLL, "main");
+  v8 = v6;
+  if (!v6)
+  {
+    v18 = _EXLegacyLog(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       [EXSwiftUI_Subsystem init];
     }
@@ -105,40 +107,41 @@ LABEL_19:
   }
 
 LABEL_22:
-  v12 = _EXLegacyLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = _EXLegacyLog(v6);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [EXSwiftUI_Subsystem init];
   }
 
-  v13 = _NSGetArgc();
-  v14 = _NSGetArgv();
-  if (v13)
+  v14 = _NSGetArgc();
+  v15 = _NSGetArgv();
+  if (v14)
   {
-    v15 = *v13;
-    if (v14)
+    v16 = *v14;
+    if (v15)
     {
 LABEL_26:
-      v16 = *v14;
+      v17 = *v15;
       goto LABEL_31;
     }
   }
 
   else
   {
-    v15 = 0;
-    if (v14)
+    v16 = 0;
+    if (v15)
     {
       goto LABEL_26;
     }
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_31:
-  if ((v7)(v15, v16) == 1)
+  v19 = v8(v16, v17);
+  if (v19 == 1)
   {
-    v17 = _EXLegacyLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v18 = _EXLegacyLog(v19);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       [EXSwiftUI_Subsystem init];
     }
@@ -146,36 +149,34 @@ LABEL_31:
 LABEL_34:
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)beginUsing:(id)using withBundle:(id)bundle
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   usingCopy = using;
   bundleCopy = bundle;
-  v8 = _EXLegacyLog();
+  v8 = _EXLegacyLog(bundleCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 138543874;
+    v9 = 138543874;
     selfCopy = self;
-    v12 = 2112;
-    v13 = bundleCopy;
-    v14 = 2112;
-    v15 = usingCopy;
-    _os_log_debug_impl(&dword_1847D1000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ - Begin using bunde %@ with personality: %@ personality.", &v10, 0x20u);
+    v11 = 2112;
+    v12 = bundleCopy;
+    v13 = 2112;
+    v14 = usingCopy;
+    _os_log_debug_impl(&dword_1847D1000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ - Begin using bunde %@ with personality: %@ personality.", &v9, 0x20u);
   }
 
   +[EXConcreteExtensionContextVendor _startListening];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)init
 {
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_11();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
 @end

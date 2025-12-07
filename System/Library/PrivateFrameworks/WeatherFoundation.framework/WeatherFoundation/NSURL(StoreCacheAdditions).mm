@@ -12,9 +12,9 @@
     +[NSURL(StoreCacheAdditions) wf_inMemoryAddress];
   }
 
-  v1 = wf__inMemoryAddress;
+  v2 = wf__inMemoryAddress;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)wf_isInMemoryAddress

@@ -230,7 +230,7 @@
 
 + (id)_loadClassicState:(id)state
 {
-  location[2] = self;
+  selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, state);
@@ -363,12 +363,12 @@
     {
       v19 = objc_alloc(objc_opt_class());
       LOBYTE(v22) = 0;
-      v41 = [v19 initWithProductBuild:v38 backupUDID:v37 backupUUID:v36 snapshotID:unsignedIntegerValue snapshotDate:0 useLatestSnapshot:0 allowCellularNetwork:v22 persistDate:0];
+      v42 = [v19 initWithProductBuild:v38 backupUDID:v37 backupUUID:v36 snapshotID:unsignedIntegerValue snapshotDate:0 useLatestSnapshot:0 allowCellularNetwork:v22 persistDate:0];
     }
 
     else
     {
-      v41 = 0;
+      v42 = 0;
     }
 
     v39 = 1;
@@ -379,12 +379,12 @@
 
   else
   {
-    v41 = 0;
+    v42 = 0;
     v39 = 1;
   }
 
   objc_storeStrong(location, 0);
-  v20 = v41;
+  v20 = v42;
 
   return v20;
 }

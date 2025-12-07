@@ -78,38 +78,38 @@
 
 + (BOOL)isInputModeInstalledForLanguage:(id)language
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   v4 = +[TPSKeyboardUtilities installedInputModes];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
-      v7 = *v12;
+      v7 = *v11;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          if ([*(*(&v11 + 1) + 8 * i) hasPrefix:{languageCopy, v11}])
+          if ([*(*(&v10 + 1) + 8 * i) hasPrefix:{languageCopy, v10}])
           {
             LOBYTE(v6) = 1;
             goto LABEL_13;
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v6)
         {
           continue;
@@ -127,7 +127,6 @@ LABEL_13:
     LOBYTE(v6) = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

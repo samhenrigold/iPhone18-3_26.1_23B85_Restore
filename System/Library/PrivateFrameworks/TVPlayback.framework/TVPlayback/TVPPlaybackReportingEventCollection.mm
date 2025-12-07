@@ -61,37 +61,37 @@ uint64_t __49__TVPPlaybackReportingEventCollection_initialize__block_invoke()
 
 - (void)addOrReplaceStartEventWithName:(id)name date:(id)date
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dateCopy = date;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0x7FFFFFFFFFFFFFFFLL;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0x7FFFFFFFFFFFFFFFLL;
   if (nameCopy)
   {
     eventArray = [(TVPPlaybackReportingEventCollection *)self eventArray];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __75__TVPPlaybackReportingEventCollection_addOrReplaceStartEventWithName_date___block_invoke;
-    v17[3] = &unk_279D7BAA8;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __75__TVPPlaybackReportingEventCollection_addOrReplaceStartEventWithName_date___block_invoke;
+    v16[3] = &unk_279D7BAA8;
     v9 = nameCopy;
-    v18 = v9;
-    v19 = &v20;
-    [eventArray enumerateObjectsUsingBlock:v17];
+    v17 = v9;
+    v18 = &v19;
+    [eventArray enumerateObjectsUsingBlock:v16];
 
-    if (v21[3] != 0x7FFFFFFFFFFFFFFFLL)
+    if (v20[3] != 0x7FFFFFFFFFFFFFFFLL)
     {
       v10 = sLogObject_0;
       if (os_log_type_enabled(sLogObject_0, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v25 = v9;
+        v24 = v9;
         _os_log_impl(&dword_26CEDD000, v10, OS_LOG_TYPE_DEFAULT, "Replacing start event with name %@", buf, 0xCu);
       }
 
       eventArray2 = [(TVPPlaybackReportingEventCollection *)self eventArray];
-      [eventArray2 removeObjectAtIndex:v21[3]];
+      [eventArray2 removeObjectAtIndex:v20[3]];
 
       openEvents = [(TVPPlaybackReportingEventCollection *)self openEvents];
       [openEvents removeObjectForKey:v9];
@@ -110,11 +110,10 @@ uint64_t __49__TVPPlaybackReportingEventCollection_initialize__block_invoke()
     v14 = 0;
   }
 
-  LOBYTE(v16) = 0;
-  [(TVPPlaybackReportingEventCollection *)self _addEventWithName:nameCopy type:0 identifier:0 value:0 timestamp:v14 forceAdd:0 isUIInteraction:v16];
+  LOBYTE(v15) = 0;
+  [(TVPPlaybackReportingEventCollection *)self _addEventWithName:nameCopy type:0 identifier:0 value:0 timestamp:v14 forceAdd:0 isUIInteraction:v15];
 
-  _Block_object_dispose(&v20, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
 }
 
 void __75__TVPPlaybackReportingEventCollection_addOrReplaceStartEventWithName_date___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -183,8 +182,8 @@ void __61__TVPPlaybackReportingEventCollection_containsEventWithName___block_inv
 
 - (NSDictionary)rtcReportingEventDict
 {
-  v179 = *MEMORY[0x277D85DE8];
-  v162 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v170 = *MEMORY[0x277D85DE8];
+  v153 = objc_alloc_init(MEMORY[0x277CBEB38]);
   p_cache = TVPPlaybackState.cache;
   v3 = sLogObject_0;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -193,102 +192,97 @@ void __61__TVPPlaybackReportingEventCollection_containsEventWithName___block_inv
     _os_log_impl(&dword_26CEDD000, v3, OS_LOG_TYPE_DEFAULT, "Playback startup events:", buf, 2u);
   }
 
-  v160 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v170 = 0u;
-  v171 = 0u;
-  v172 = 0u;
-  v173 = 0u;
+  v151 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v161 = 0u;
+  v162 = 0u;
+  v163 = 0u;
+  v164 = 0u;
   obj = [(TVPPlaybackReportingEventCollection *)self eventArray];
-  v4 = [obj countByEnumeratingWithState:&v170 objects:v178 count:16];
+  v4 = [obj countByEnumeratingWithState:&v161 objects:v169 count:16];
   v5 = 0x277CCA000uLL;
   v6 = 0x2804D5000uLL;
   v7 = 0x2804D5000uLL;
   if (!v4)
   {
-    v161 = 0;
+    v152 = 0;
+    v9 = 0.0;
     v10 = 0.0;
     v11 = 0.0;
     v12 = 0.0;
     v13 = 0.0;
+    v155 = 0.0;
+    v156 = 0.0;
+    v154 = 0.0;
     v14 = 0.0;
-    v164 = 0.0;
-    v165 = 0.0;
-    v163 = 0.0;
     v15 = 0.0;
     v16 = 0.0;
-    v17 = 0.0;
     goto LABEL_103;
   }
 
   v8 = v4;
-  v161 = 0;
-  v168 = *v171;
-  v9 = 0x277CCA000uLL;
-  v156 = *MEMORY[0x277CCA7E8];
+  v152 = 0;
+  v159 = *v162;
+  v147 = *MEMORY[0x277CCA7E8];
+  v9 = 0.0;
   v10 = 0.0;
   v11 = 0.0;
   v12 = 0.0;
   v13 = 0.0;
+  v155 = 0.0;
+  v156 = 0.0;
+  v154 = 0.0;
   v14 = 0.0;
-  v164 = 0.0;
-  v165 = 0.0;
-  v163 = 0.0;
   v15 = 0.0;
   v16 = 0.0;
-  v17 = 0.0;
   do
   {
-    v18 = 0;
-    v166 = v8;
+    v17 = 0;
+    v157 = v8;
     do
     {
-      if (*v171 != v168)
+      if (*v162 != v159)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v170 + 1) + 8 * v18);
-      v20 = sReportableEvents;
-      name = [v19 name];
-      LODWORD(v20) = [v20 containsObject:name];
+      v18 = *(*(&v161 + 1) + 8 * v17);
+      v19 = sReportableEvents;
+      name = [v18 name];
+      LODWORD(v19) = [v19 containsObject:name];
 
-      if (v20)
+      if (v19)
       {
-        if ([v19 type] == 3)
+        if ([v18 type] == 3)
         {
-          name2 = [v19 name];
+          name2 = [v18 name];
           if (name2)
           {
-            v23 = name2;
-            value = [v19 value];
+            v22 = name2;
+            value = [v18 value];
 
             if (value)
             {
-              name3 = [v19 name];
-              v26 = [name3 isEqualToString:TVPPlaybackReportingEventError];
+              name3 = [v18 name];
+              v25 = [name3 isEqualToString:TVPPlaybackReportingEventError];
 
-              value2 = [v19 value];
-              if (!v26)
+              value2 = [v18 value];
+              if (!v25)
               {
                 goto LABEL_21;
               }
 
-              v28 = *(v9 + 2488);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v29 = value2;
-                v30 = v9;
-                name5 = v29;
-                userInfo = [v29 userInfo];
-                v33 = [userInfo objectForKey:v156];
+                name5 = value2;
+                userInfo = [name5 userInfo];
+                v29 = [userInfo objectForKey:v147];
 
-                [(TVPPlaybackReportingEventCollection *)self _setError:name5 inEventDict:v162 errorCodeKey:@"errorCode" errorDomainKey:@"errorDomain"];
-                v34 = *(v30 + 2488);
+                [(TVPPlaybackReportingEventCollection *)self _setError:name5 inEventDict:v153 errorCodeKey:@"errorCode" errorDomainKey:@"errorDomain"];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  [(TVPPlaybackReportingEventCollection *)self _setError:v33 inEventDict:v162 errorCodeKey:@"underlyingErrorCode" errorDomainKey:@"underlyingErrorDomain"];
+                  [(TVPPlaybackReportingEventCollection *)self _setError:v29 inEventDict:v153 errorCodeKey:@"underlyingErrorCode" errorDomainKey:@"underlyingErrorDomain"];
                 }
 
                 value2 = name5;
@@ -300,451 +294,505 @@ void __61__TVPPlaybackReportingEventCollection_containsEventWithName___block_inv
           }
         }
 
-        else if ([v19 type] == 1 || objc_msgSend(v19, "type") == 2)
+        else if ([v18 type] == 1 || objc_msgSend(v18, "type") == 2)
         {
-          name4 = [v19 name];
+          name4 = [v18 name];
 
           if (name4)
           {
-            value2 = [*(v5 + 2992) numberWithInteger:{objc_msgSend(v19, "durationMS")}];
+            value2 = [*(v5 + 2992) numberWithInteger:{objc_msgSend(v18, "durationMS")}];
 LABEL_21:
-            name5 = [v19 name];
-            [(NSDictionary *)v162 setObject:value2 forKey:name5];
+            name5 = [v18 name];
+            [(NSDictionary *)v153 setObject:value2 forKey:name5];
 LABEL_22:
 
-            v9 = 0x277CCA000;
 LABEL_23:
-
-            v8 = v166;
+            v8 = v157;
           }
         }
       }
 
-      if ([v19 type])
+      if ([v18 type])
       {
-        if ([v19 type] == 3)
+        if ([v18 type] == 3)
         {
-          name6 = [v19 name];
-          v37 = [name6 isEqualToString:TVPPlaybackReportingEventFPSServerProcessingTimeMS];
+          name6 = [v18 name];
+          v32 = [name6 isEqualToString:TVPPlaybackReportingEventFPSServerProcessingTimeMS];
 
-          if (v37)
+          if (v32)
           {
-            value3 = [v19 value];
-            v39 = *(v5 + 2992);
+            value3 = [v18 value];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
               integerValue = [value3 integerValue];
-              v41 = p_cache[133];
-              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+              v35 = p_cache[133];
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
               {
-                v158 = v17;
-                v42 = v16;
-                v43 = v13;
-                v44 = v15;
-                v45 = v14;
-                v46 = v11;
-                v47 = v12;
-                v48 = v10;
-                v49 = integerValue / 1000.0;
-                v50 = v41;
-                name7 = [v19 name];
+                v149 = v16;
+                v36 = v15;
+                v37 = v12;
+                v38 = v14;
+                v39 = v13;
+                v40 = v10;
+                v41 = v11;
+                v42 = v9;
+                v43 = integerValue / 1000.0;
+                v44 = v35;
+                name7 = [v18 name];
                 *buf = 138412546;
-                v175 = name7;
-                v176 = 2048;
-                v177 = v49;
-                v10 = v48;
-                v12 = v47;
-                v11 = v46;
-                v14 = v45;
-                v15 = v44;
-                v13 = v43;
-                v16 = v42;
-                v17 = v158;
-                _os_log_impl(&dword_26CEDD000, v50, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
+                v166 = name7;
+                v167 = 2048;
+                v168 = v43;
+                v9 = v42;
+                v11 = v41;
+                v10 = v40;
+                v13 = v39;
+                v14 = v38;
+                v12 = v37;
+                v15 = v36;
+                v16 = v149;
+                _os_log_impl(&dword_26CEDD000, v44, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
               }
             }
-
-            v9 = 0x277CCA000;
           }
 
           else
           {
-            v102 = p_cache[133];
-            if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
+            v96 = p_cache[133];
+            if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
             {
-              v103 = v102;
-              name8 = [v19 name];
-              [v19 value];
-              v105 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+              v97 = v96;
+              name8 = [v18 name];
+              [v18 value];
+              v99 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
               *buf = 138412546;
-              v175 = name8;
-              v176 = 2112;
-              v177 = v105;
-              _os_log_impl(&dword_26CEDD000, v103, OS_LOG_TYPE_DEFAULT, "%@: %@", buf, 0x16u);
-
-              v9 = 0x277CCA000;
+              v166 = name8;
+              v167 = 2112;
+              v168 = v99;
+              _os_log_impl(&dword_26CEDD000, v97, OS_LOG_TYPE_DEFAULT, "%@: %@", buf, 0x16u);
             }
           }
 
-          name9 = [v19 name];
-          v107 = [name9 isEqualToString:*(v6 + 2760)];
+          name9 = [v18 name];
+          v101 = [name9 isEqualToString:*(v6 + 2760)];
 
-          if (v107)
+          if (v101)
           {
-            value4 = [v19 value];
-            v109 = *(v5 + 2992);
+            value4 = [v18 value];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
               [value4 doubleValue];
-              v12 = v110;
+              v11 = v103;
             }
           }
 
-          name10 = [v19 name];
-          v112 = [name10 isEqualToString:TVPPlaybackReportingEventFPSServerProcessingTimeMS];
+          name10 = [v18 name];
+          v105 = [name10 isEqualToString:TVPPlaybackReportingEventFPSServerProcessingTimeMS];
 
-          if (v112)
+          if (v105)
           {
-            value5 = [v19 value];
-            v114 = *(v5 + 2992);
+            value5 = [v18 value];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
               integerValue2 = [value5 integerValue];
-              v116 = v161;
-              if (integerValue2 > v161)
+              v108 = v152;
+              if (integerValue2 > v152)
               {
-                v116 = integerValue2;
+                v108 = integerValue2;
               }
 
-              v161 = v116;
+              v152 = v108;
             }
           }
 
           goto LABEL_96;
         }
 
-        if ([v19 type] != 1 && objc_msgSend(v19, "type") != 2)
+        if ([v18 type] != 1 && objc_msgSend(v18, "type") != 2)
         {
           goto LABEL_96;
         }
 
-        if ([v19 type] == 2)
+        if ([v18 type] == 2)
         {
-          v55 = p_cache[133];
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+          v49 = p_cache[133];
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
           {
-            name11 = [v19 name];
+            name11 = [v18 name];
             *buf = 138412290;
-            v175 = name11;
-            _os_log_impl(&dword_26CEDD000, v55, OS_LOG_TYPE_DEFAULT, "Aborted event: %@", buf, 0xCu);
+            v166 = name11;
+            _os_log_impl(&dword_26CEDD000, v49, OS_LOG_TYPE_DEFAULT, "Aborted event: %@", buf, 0xCu);
           }
         }
 
-        v57 = p_cache[133];
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        v51 = p_cache[133];
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
-          name12 = [v19 name];
-          [v19 duration];
+          name12 = [v18 name];
+          objc_msgSend_duration(v18);
           *buf = 138412546;
-          v175 = name12;
-          v176 = 2048;
-          v177 = v59;
-          _os_log_impl(&dword_26CEDD000, v57, OS_LOG_TYPE_DEFAULT, "%@Duration: %f", buf, 0x16u);
+          v166 = name12;
+          v167 = 2048;
+          v168 = v53;
+          _os_log_impl(&dword_26CEDD000, v51, OS_LOG_TYPE_DEFAULT, "%@Duration: %f", buf, 0x16u);
         }
 
-        name13 = [v19 name];
-        v61 = [name13 isEqualToString:TVPPlaybackReportingEventFPSCertFetch];
+        name13 = [v18 name];
+        v55 = [name13 isEqualToString:TVPPlaybackReportingEventFPSCertFetch];
 
-        if (v61)
+        if (v55)
         {
-          [v19 duration];
-          v63 = v163;
-          if (v62 >= v163)
+          objc_msgSend_duration(v18);
+          v57 = v154;
+          if (v56 >= v154)
           {
-            v63 = v62;
+            v57 = v56;
           }
 
-          v163 = v63;
+          v154 = v57;
         }
 
-        name14 = [v19 name];
-        v65 = [name14 isEqualToString:TVPPlaybackReportingEventFPSOverallFetch];
+        name14 = [v18 name];
+        v59 = [name14 isEqualToString:TVPPlaybackReportingEventFPSOverallFetch];
 
-        if (v65)
+        if (v59)
         {
-          [v160 addObject:v19];
-          [v19 timestamp];
-          [v19 duration];
-          if (v66 >= v15)
+          [v151 addObject:v18];
+          [v18 timestamp];
+          objc_msgSend_duration(v18);
+          if (v60 >= v14)
           {
-            v15 = v66;
+            v14 = v60;
           }
         }
 
-        name15 = [v19 name];
-        v68 = [name15 isEqualToString:TVPPlaybackReportingEventFPSRequestDataGeneration];
+        name15 = [v18 name];
+        v62 = [name15 isEqualToString:TVPPlaybackReportingEventFPSRequestDataGeneration];
 
-        if (v68)
+        if (v62)
         {
-          [v19 duration];
-          v70 = v164;
-          if (v69 >= v164)
+          objc_msgSend_duration(v18);
+          v64 = v155;
+          if (v63 >= v155)
           {
-            v70 = v69;
+            v64 = v63;
           }
 
-          v164 = v70;
+          v155 = v64;
         }
 
-        name16 = [v19 name];
-        v72 = [name16 isEqualToString:TVPPlaybackReportingEventFPSServerKeyFetch];
+        name16 = [v18 name];
+        v66 = [name16 isEqualToString:TVPPlaybackReportingEventFPSServerKeyFetch];
 
-        if (v72)
+        if (v66)
         {
-          [v19 duration];
-          v74 = v165;
-          if (v73 >= v165)
+          objc_msgSend_duration(v18);
+          v68 = v156;
+          if (v67 >= v156)
           {
-            v74 = v73;
+            v68 = v67;
           }
 
-          v165 = v74;
+          v156 = v68;
         }
 
-        name17 = [v19 name];
-        v76 = [name17 isEqualToString:TVPPlaybackReportingEventLinearTokenFetch];
+        name17 = [v18 name];
+        v70 = [name17 isEqualToString:TVPPlaybackReportingEventLinearTokenFetch];
+
+        if (v70)
+        {
+          objc_msgSend_duration(v18);
+          if (v71 >= v13)
+          {
+            v13 = v71;
+          }
+        }
+
+        name18 = [v18 name];
+        v73 = [name18 isEqualToString:TVPPlaybackReportingEventFetchLocationAuthorizationStatus];
+
+        if (v73)
+        {
+          objc_msgSend_duration(v18);
+          if (v74 >= v9)
+          {
+            v9 = v74;
+          }
+        }
+
+        name19 = [v18 name];
+        v76 = [name19 isEqualToString:TVPPlaybackReportingEventTotalStartupSequence];
 
         if (v76)
         {
-          [v19 duration];
-          if (v77 >= v14)
-          {
-            v14 = v77;
-          }
+          objc_msgSend_duration(v18);
+          objc_msgSend_duration(v18);
+          v16 = v16 + v77;
         }
 
-        name18 = [v19 name];
-        v79 = [name18 isEqualToString:TVPPlaybackReportingEventFetchLocationAuthorizationStatus];
+        name20 = [v18 name];
+        v79 = [name20 isEqualToString:*(v7 + 2792)];
 
         if (v79)
         {
-          [v19 duration];
-          if (v80 >= v10)
-          {
-            v10 = v80;
-          }
+          objc_msgSend_duration(v18);
+          v15 = v15 + v80;
         }
 
-        name19 = [v19 name];
-        v82 = [name19 isEqualToString:TVPPlaybackReportingEventTotalStartupSequence];
-
-        if (v82)
-        {
-          [v19 duration];
-          [v19 duration];
-          v17 = v17 + v83;
-        }
-
-        name20 = [v19 name];
-        v85 = [name20 isEqualToString:*(v7 + 2792)];
-
-        if (v85)
-        {
-          [v19 duration];
-          v16 = v16 + v86;
-        }
-
-        name21 = [v19 name];
+        name21 = [v18 name];
         if (([name21 isEqualToString:TVPPlaybackReportingEventRestrictionsPasscodeDisplay] & 1) == 0)
         {
-          v88 = v7;
-          v89 = v6;
-          v90 = p_cache;
-          v91 = v5;
-          name22 = [v19 name];
+          v82 = v7;
+          v83 = v6;
+          v84 = p_cache;
+          v85 = v5;
+          name22 = [v18 name];
           if (([name22 isEqualToString:TVPPlaybackReportingEventResumeMenuDisplay] & 1) == 0)
           {
-            name23 = [v19 name];
+            name23 = [v18 name];
             if (([name23 isEqualToString:TVPPlaybackReportingEventPressPlayToStartDisplay] & 1) == 0)
             {
-              name24 = [v19 name];
+              name24 = [v18 name];
               if (([name24 isEqualToString:TVPPlaybackReportingEventBumperVideoDisplay] & 1) == 0)
               {
-                name25 = [v19 name];
+                name25 = [v18 name];
                 if (([name25 isEqualToString:TVPPlaybackReportingEventBumperTextDisplay] & 1) == 0)
                 {
-                  startEvent = [v19 startEvent];
+                  startEvent = [v18 startEvent];
                   isUIInteraction = [startEvent isUIInteraction];
 
-                  v5 = v91;
-                  p_cache = v90;
-                  v6 = v89;
-                  v7 = v88;
-                  v8 = v166;
+                  v5 = v85;
+                  p_cache = v84;
+                  v6 = v83;
+                  v7 = v82;
+                  v8 = v157;
                   if ((isUIInteraction & 1) == 0)
                   {
 LABEL_78:
-                    v9 = 0x277CCA000;
-                    name26 = [v19 name];
-                    v98 = [name26 isEqualToString:TVPPlaybackReportingEventRentalCheckout];
+                    name26 = [v18 name];
+                    v92 = [name26 isEqualToString:TVPPlaybackReportingEventRentalCheckout];
 
-                    if (v98)
+                    if (v92)
                     {
-                      [v19 duration];
-                      [v19 timestamp];
+                      objc_msgSend_duration(v18);
+                      [v18 timestamp];
                     }
 
                     goto LABEL_96;
                   }
 
 LABEL_77:
-                  [v19 duration];
-                  v17 = v17 - v95;
-                  [v19 duration];
-                  v16 = v16 - v96;
+                  objc_msgSend_duration(v18);
+                  v16 = v16 - v89;
+                  objc_msgSend_duration(v18);
+                  v15 = v15 - v90;
                   goto LABEL_78;
                 }
               }
             }
 
-            v8 = v166;
+            v8 = v157;
           }
 
-          v5 = v91;
-          p_cache = v90;
-          v6 = v89;
-          v7 = v88;
+          v5 = v85;
+          p_cache = v84;
+          v6 = v83;
+          v7 = v82;
         }
 
         goto LABEL_77;
       }
 
-      name27 = [v19 name];
-      v53 = [name27 isEqualToString:TVPPlaybackReportingEventFPSOverallFetch];
+      name27 = [v18 name];
+      v47 = [name27 isEqualToString:TVPPlaybackReportingEventFPSOverallFetch];
 
-      if (v53)
+      if (v47)
       {
-        [v19 timestamp];
-        if (v13 == 0.0)
+        [v18 timestamp];
+        if (v12 == 0.0)
         {
-          v13 = v54;
+          v12 = v48;
         }
 
-        else if (v54 < v13)
+        else if (v48 < v12)
         {
-          v13 = v54;
+          v12 = v48;
         }
       }
 
       else
       {
-        name28 = [v19 name];
-        v100 = [name28 isEqualToString:TVPPlaybackReportingEventCreatePlayerItemToLikelyToKeepUp];
+        name28 = [v18 name];
+        v94 = [name28 isEqualToString:TVPPlaybackReportingEventCreatePlayerItemToLikelyToKeepUp];
 
-        if (v100)
+        if (v94)
         {
-          [v19 timestamp];
-          v11 = v101;
+          [v18 timestamp];
+          v10 = v95;
         }
       }
 
 LABEL_96:
-      ++v18;
+      ++v17;
     }
 
-    while (v8 != v18);
-    v117 = [obj countByEnumeratingWithState:&v170 objects:v178 count:16];
-    v8 = v117;
+    while (v8 != v17);
+    v109 = [obj countByEnumeratingWithState:&v161 objects:v169 count:16];
+    v8 = v109;
   }
 
-  while (v117);
+  while (v109);
 LABEL_103:
 
-  [objc_opt_class() _totalTimeSpentDoingFPSFetchesFromEndEvents:v160];
-  v169 = v118;
-  v119 = [v160 count];
-  if (v119)
+  [objc_opt_class() _totalTimeSpentDoingFPSFetchesFromEndEvents:v151];
+  v160 = v110;
+  v111 = [v151 count];
+  if (v111)
   {
-    v120 = *&v119;
+    v112 = *&v111;
+    v113 = p_cache[133];
+    if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v166 = @"fpsFetchCount";
+      v167 = 2048;
+      v168 = v112;
+      _os_log_impl(&dword_26CEDD000, v113, OS_LOG_TYPE_DEFAULT, "%@: %lu", buf, 0x16u);
+    }
+
+    v114 = [*(v5 + 2992) numberWithUnsignedInteger:*&v112];
+    [(NSDictionary *)v153 setObject:v114 forKey:@"fpsFetchCount"];
+  }
+
+  if (v154 > 0.0)
+  {
+    v115 = p_cache[133];
+    if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v166 = @"fpsLongestCertFetchTime";
+      v167 = 2048;
+      v168 = v154;
+      _os_log_impl(&dword_26CEDD000, v115, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
+    }
+
+    v116 = [*(v5 + 2992) numberWithInteger:llround(v154 * 1000.0)];
+    [(NSDictionary *)v153 setObject:v116 forKey:@"fpsLongestCertFetchTime"];
+  }
+
+  if (v155 > 0.0)
+  {
+    v117 = p_cache[133];
+    if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v166 = @"fpsLongestRequestDataGenerationTime";
+      v167 = 2048;
+      v168 = v155;
+      _os_log_impl(&dword_26CEDD000, v117, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
+    }
+
+    v118 = [*(v5 + 2992) numberWithInteger:llround(v155 * 1000.0)];
+    [(NSDictionary *)v153 setObject:v118 forKey:@"fpsLongestRequestDataGenerationTime"];
+  }
+
+  if (v156 > 0.0)
+  {
+    v119 = p_cache[133];
+    if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v166 = @"fpsLongestServerFetchAsMeasuredByAppTime";
+      v167 = 2048;
+      v168 = v156;
+      _os_log_impl(&dword_26CEDD000, v119, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
+    }
+
+    v120 = [*(v5 + 2992) numberWithInteger:llround(v156 * 1000.0)];
+    [(NSDictionary *)v153 setObject:v120 forKey:@"fpsLongestServerFetchAsMeasuredByAppTime"];
+  }
+
+  if (v152 >= 1)
+  {
     v121 = p_cache[133];
     if (os_log_type_enabled(v121, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v175 = @"fpsFetchCount";
-      v176 = 2048;
-      v177 = v120;
-      _os_log_impl(&dword_26CEDD000, v121, OS_LOG_TYPE_DEFAULT, "%@: %lu", buf, 0x16u);
+      v166 = @"fpsLongestServerProcessingTime";
+      v167 = 2048;
+      v168 = v152 / 1000.0;
+      _os_log_impl(&dword_26CEDD000, v121, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
     }
 
-    v122 = [*(v5 + 2992) numberWithUnsignedInteger:*&v120];
-    [(NSDictionary *)v162 setObject:v122 forKey:@"fpsFetchCount"];
+    v122 = [*(v5 + 2992) numberWithInteger:v152];
+    [(NSDictionary *)v153 setObject:v122 forKey:@"fpsLongestServerProcessingTime"];
   }
 
-  if (v163 > 0.0)
+  if (v14 > 0.0)
   {
     v123 = p_cache[133];
     if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v175 = @"fpsLongestCertFetchTime";
-      v176 = 2048;
-      v177 = v163;
+      v166 = @"fpsLongestFetchTime";
+      v167 = 2048;
+      v168 = v14;
       _os_log_impl(&dword_26CEDD000, v123, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
     }
 
-    v124 = [*(v5 + 2992) numberWithInteger:llround(v163 * 1000.0)];
-    [(NSDictionary *)v162 setObject:v124 forKey:@"fpsLongestCertFetchTime"];
+    v124 = [*(v5 + 2992) numberWithInteger:llround(v14 * 1000.0)];
+    [(NSDictionary *)v153 setObject:v124 forKey:@"fpsLongestFetchTime"];
   }
 
-  if (v164 > 0.0)
+  if (v13 > 0.0)
   {
     v125 = p_cache[133];
     if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v175 = @"fpsLongestRequestDataGenerationTime";
-      v176 = 2048;
-      v177 = v164;
+      v166 = TVPPlaybackReportingEventLinearTokenFetch;
+      v167 = 2048;
+      v168 = v13;
       _os_log_impl(&dword_26CEDD000, v125, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
     }
 
-    v126 = [*(v5 + 2992) numberWithInteger:llround(v164 * 1000.0)];
-    [(NSDictionary *)v162 setObject:v126 forKey:@"fpsLongestRequestDataGenerationTime"];
+    v126 = [*(v5 + 2992) numberWithInteger:llround(v13 * 1000.0)];
+    [(NSDictionary *)v153 setObject:v126 forKey:TVPPlaybackReportingEventLinearTokenFetch];
   }
 
-  if (v165 > 0.0)
+  if (v160 > 0.0)
   {
     v127 = p_cache[133];
     if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v175 = @"fpsLongestServerFetchAsMeasuredByAppTime";
-      v176 = 2048;
-      v177 = v165;
+      v166 = TVPPlaybackReportingEventTotalTimeSpendDoingFPSFetches;
+      v167 = 2048;
+      v168 = v160;
       _os_log_impl(&dword_26CEDD000, v127, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
     }
 
-    v128 = [*(v5 + 2992) numberWithInteger:llround(v165 * 1000.0)];
-    [(NSDictionary *)v162 setObject:v128 forKey:@"fpsLongestServerFetchAsMeasuredByAppTime"];
+    v128 = [*(v5 + 2992) numberWithInteger:llround(v160 * 1000.0)];
+    [(NSDictionary *)v153 setObject:v128 forKey:TVPPlaybackReportingEventTotalTimeSpendDoingFPSFetches];
   }
 
-  if (v161 >= 1)
+  if (v16 > 0.0)
   {
     v129 = p_cache[133];
     if (os_log_type_enabled(v129, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v175 = @"fpsLongestServerProcessingTime";
-      v176 = 2048;
-      v177 = v161 / 1000.0;
+      v166 = TVPPlaybackReportingEventTotalUIStartupTimeNotIncludingUserInteraction;
+      v167 = 2048;
+      v168 = v16;
       _os_log_impl(&dword_26CEDD000, v129, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
     }
 
-    v130 = [*(v5 + 2992) numberWithInteger:v161];
-    [(NSDictionary *)v162 setObject:v130 forKey:@"fpsLongestServerProcessingTime"];
+    v130 = [*(v5 + 2992) numberWithInteger:llround(v16 * 1000.0)];
+    [(NSDictionary *)v153 setObject:v130 forKey:TVPPlaybackReportingEventTotalUIStartupTimeNotIncludingUserInteraction];
   }
 
   if (v15 > 0.0)
@@ -752,159 +800,94 @@ LABEL_103:
     v131 = p_cache[133];
     if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
     {
+      v132 = *(v7 + 2792);
       *buf = 138412546;
-      v175 = @"fpsLongestFetchTime";
-      v176 = 2048;
-      v177 = v15;
+      v166 = v132;
+      v167 = 2048;
+      v168 = v15;
       _os_log_impl(&dword_26CEDD000, v131, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
     }
 
-    v132 = [*(v5 + 2992) numberWithInteger:llround(v15 * 1000.0)];
-    [(NSDictionary *)v162 setObject:v132 forKey:@"fpsLongestFetchTime"];
+    v133 = [*(v5 + 2992) numberWithInteger:llround(v15 * 1000.0)];
+    [(NSDictionary *)v153 setObject:v133 forKey:*(v7 + 2792)];
   }
 
-  if (v14 > 0.0)
+  if (v10 > 0.0 && v12 > 0.0)
   {
-    v133 = p_cache[133];
-    if (os_log_type_enabled(v133, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412546;
-      v175 = TVPPlaybackReportingEventLinearTokenFetch;
-      v176 = 2048;
-      v177 = v14;
-      _os_log_impl(&dword_26CEDD000, v133, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
-    }
-
-    v134 = [*(v5 + 2992) numberWithInteger:llround(v14 * 1000.0)];
-    [(NSDictionary *)v162 setObject:v134 forKey:TVPPlaybackReportingEventLinearTokenFetch];
-  }
-
-  if (v169 > 0.0)
-  {
+    v134 = v12 - v10;
     v135 = p_cache[133];
     if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v175 = TVPPlaybackReportingEventTotalTimeSpendDoingFPSFetches;
-      v176 = 2048;
-      v177 = v169;
+      v166 = @"createAVPlayerItemToFirstFPSFetchTime";
+      v167 = 2048;
+      v168 = v134;
       _os_log_impl(&dword_26CEDD000, v135, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
     }
 
-    v136 = [*(v5 + 2992) numberWithInteger:llround(v169 * 1000.0)];
-    [(NSDictionary *)v162 setObject:v136 forKey:TVPPlaybackReportingEventTotalTimeSpendDoingFPSFetches];
+    if (v134 > 0.0)
+    {
+      v136 = [*(v5 + 2992) numberWithInteger:llround(v134 * 1000.0)];
+      [(NSDictionary *)v153 setObject:v136 forKey:@"createAVPlayerItemToFirstFPSFetchTime"];
+    }
   }
 
-  if (v17 > 0.0)
+  if (v11 > 0.0)
   {
-    v137 = p_cache[133];
-    if (os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
+    v137 = [*(v5 + 2992) numberWithInteger:llround(v11 * 1000.0)];
+    [(NSDictionary *)v153 setObject:v137 forKey:*(v6 + 2760)];
+  }
+
+  if (v9 > 0.0)
+  {
+    v138 = p_cache[133];
+    if (os_log_type_enabled(v138, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v175 = TVPPlaybackReportingEventTotalUIStartupTimeNotIncludingUserInteraction;
-      v176 = 2048;
-      v177 = v17;
-      _os_log_impl(&dword_26CEDD000, v137, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
+      v166 = TVPPlaybackReportingEventLongestFetchLocationAuthorizationStatus;
+      v167 = 2048;
+      v168 = v9;
+      _os_log_impl(&dword_26CEDD000, v138, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
     }
 
-    v138 = [*(v5 + 2992) numberWithInteger:llround(v17 * 1000.0)];
-    [(NSDictionary *)v162 setObject:v138 forKey:TVPPlaybackReportingEventTotalUIStartupTimeNotIncludingUserInteraction];
+    v139 = [*(v5 + 2992) numberWithInteger:llround(v9 * 1000.0)];
+    [(NSDictionary *)v153 setObject:v139 forKey:TVPPlaybackReportingEventLongestFetchLocationAuthorizationStatus];
   }
 
-  if (v16 > 0.0)
-  {
-    v139 = p_cache[133];
-    if (os_log_type_enabled(v139, OS_LOG_TYPE_DEFAULT))
-    {
-      v140 = *(v7 + 2792);
-      *buf = 138412546;
-      v175 = v140;
-      v176 = 2048;
-      v177 = v16;
-      _os_log_impl(&dword_26CEDD000, v139, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
-    }
+  v140 = [*(v5 + 2992) numberWithBool:{-[TVPPlaybackReportingEventCollection isDownloaded](self, "isDownloaded")}];
+  [(NSDictionary *)v153 setObject:v140 forKey:@"isDownloaded"];
 
-    v141 = [*(v5 + 2992) numberWithInteger:llround(v16 * 1000.0)];
-    [(NSDictionary *)v162 setObject:v141 forKey:*(v7 + 2792)];
-  }
+  v141 = [*(v5 + 2992) numberWithBool:{-[TVPPlaybackReportingEventCollection isGroupActivity](self, "isGroupActivity")}];
+  [(NSDictionary *)v153 setObject:v141 forKey:@"isGroupActivity"];
 
-  if (v11 > 0.0 && v13 > 0.0)
-  {
-    v142 = v13 - v11;
-    v143 = p_cache[133];
-    if (os_log_type_enabled(v143, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412546;
-      v175 = @"createAVPlayerItemToFirstFPSFetchTime";
-      v176 = 2048;
-      v177 = v142;
-      _os_log_impl(&dword_26CEDD000, v143, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
-    }
+  v142 = [*(v5 + 2992) numberWithBool:{-[TVPPlaybackReportingEventCollection isGroupActivityOriginator](self, "isGroupActivityOriginator")}];
+  [(NSDictionary *)v153 setObject:v142 forKey:@"isGroupActivityOriginator"];
 
-    if (v142 > 0.0)
-    {
-      v144 = [*(v5 + 2992) numberWithInteger:llround(v142 * 1000.0)];
-      [(NSDictionary *)v162 setObject:v144 forKey:@"createAVPlayerItemToFirstFPSFetchTime"];
-    }
-  }
-
-  if (v12 > 0.0)
-  {
-    v145 = [*(v5 + 2992) numberWithInteger:llround(v12 * 1000.0)];
-    [(NSDictionary *)v162 setObject:v145 forKey:*(v6 + 2760)];
-  }
-
-  if (v10 > 0.0)
-  {
-    v146 = p_cache[133];
-    if (os_log_type_enabled(v146, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412546;
-      v175 = TVPPlaybackReportingEventLongestFetchLocationAuthorizationStatus;
-      v176 = 2048;
-      v177 = v10;
-      _os_log_impl(&dword_26CEDD000, v146, OS_LOG_TYPE_DEFAULT, "%@: %f", buf, 0x16u);
-    }
-
-    v147 = [*(v5 + 2992) numberWithInteger:llround(v10 * 1000.0)];
-    [(NSDictionary *)v162 setObject:v147 forKey:TVPPlaybackReportingEventLongestFetchLocationAuthorizationStatus];
-  }
-
-  v148 = [*(v5 + 2992) numberWithBool:{-[TVPPlaybackReportingEventCollection isDownloaded](self, "isDownloaded")}];
-  [(NSDictionary *)v162 setObject:v148 forKey:@"isDownloaded"];
-
-  v149 = [*(v5 + 2992) numberWithBool:{-[TVPPlaybackReportingEventCollection isGroupActivity](self, "isGroupActivity")}];
-  [(NSDictionary *)v162 setObject:v149 forKey:@"isGroupActivity"];
-
-  v150 = [*(v5 + 2992) numberWithBool:{-[TVPPlaybackReportingEventCollection isGroupActivityOriginator](self, "isGroupActivityOriginator")}];
-  [(NSDictionary *)v162 setObject:v150 forKey:@"isGroupActivityOriginator"];
-
-  v151 = v162;
-  v152 = *MEMORY[0x277D85DE8];
-  return v162;
+  v143 = v153;
+  return v153;
 }
 
 - (NSDictionary)startupEventsDict
 {
-  v48[6] = *MEMORY[0x277D85DE8];
+  v47[6] = *MEMORY[0x277D85DE8];
   rtcReportingEventDict = [(TVPPlaybackReportingEventCollection *)self rtcReportingEventDict];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v48[0] = TVPPlaybackReportingEventUserPlayToLoadingInitiation;
-  v48[1] = TVPPlaybackReportingEventPrepareForLoading;
-  v48[2] = TVPPlaybackReportingEventPrepareForPlaybackInitiation;
-  v48[3] = TVPPlaybackReportingEventCreatePlayerItemToLikelyToKeepUp;
-  v48[4] = TVPPlaybackReportingEventWaitingForTimeControlStatus;
-  v48[5] = TVPPlaybackReportingEventLoadAVAssetKeysTotal;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:6];
+  v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v47[0] = TVPPlaybackReportingEventUserPlayToLoadingInitiation;
+  v47[1] = TVPPlaybackReportingEventPrepareForLoading;
+  v47[2] = TVPPlaybackReportingEventPrepareForPlaybackInitiation;
+  v47[3] = TVPPlaybackReportingEventCreatePlayerItemToLikelyToKeepUp;
+  v47[4] = TVPPlaybackReportingEventWaitingForTimeControlStatus;
+  v47[5] = TVPPlaybackReportingEventLoadAVAssetKeysTotal;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:6];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   selfCopy = self;
   obj = [(TVPPlaybackReportingEventCollection *)self eventArray];
-  v6 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v6 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (!v6)
   {
     v9 = 0.0;
@@ -913,7 +896,7 @@ LABEL_103:
   }
 
   v7 = v6;
-  v8 = *v44;
+  v8 = *v43;
   v9 = 0.0;
   v10 = 0.0;
   do
@@ -921,12 +904,12 @@ LABEL_103:
     for (i = 0; i != v7; ++i)
     {
       v12 = v9;
-      if (*v44 != v8)
+      if (*v43 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v43 + 1) + 8 * i);
+      v13 = *(*(&v42 + 1) + 8 * i);
       name = [v13 name];
       if ([v4 containsObject:name])
       {
@@ -964,7 +947,7 @@ LABEL_10:
 
       if (v26)
       {
-        [v40 addObject:v13];
+        [v39 addObject:v13];
         [v13 timestamp];
         if (v27 >= v10)
         {
@@ -992,7 +975,7 @@ LABEL_10:
 
       if (v30)
       {
-        [v39 addObject:v13];
+        [v38 addObject:v13];
         [v13 timestamp];
         v9 = v31;
         if (v12 != 0.0 && v31 >= v12)
@@ -1007,13 +990,13 @@ LABEL_10:
       }
     }
 
-    v7 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v7 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
   }
 
   while (v7);
 LABEL_29:
 
-  [objc_opt_class() _totalTimeSpentDoingFPSFetchesFromEndEvents:v40];
+  [objc_opt_class() _totalTimeSpentDoingFPSFetchesFromEndEvents:v39];
   v32 = TVPPlaybackReportingEventTotalTimeSpendDoingFPSFetches;
   v34 = [MEMORY[0x277CCABB0] numberWithInteger:llround(v33 * 1000.0)];
   [(TVPPlaybackReportingEventCollection *)selfCopy _addStartupEventWithName:v32 timestamp:v34 durationMS:v3 toDictionary:v10];
@@ -1021,8 +1004,6 @@ LABEL_29:
   v35 = TVPPlaybackReportingEventLongestFetchLocationAuthorizationStatus;
   v36 = [rtcReportingEventDict objectForKey:TVPPlaybackReportingEventLongestFetchLocationAuthorizationStatus];
   [(TVPPlaybackReportingEventCollection *)selfCopy _addStartupEventWithName:v35 timestamp:v36 durationMS:v3 toDictionary:v9];
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1177,28 +1158,28 @@ void __55__TVPPlaybackReportingEventCollection__closeOpenEvents__block_invoke(ui
 
 + (double)_totalTimeSpentDoingFPSFetchesFromEndEvents:(id)events
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v5 = eventsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v6)
   {
-    v7 = *v35;
+    v7 = *v34;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v35 != v7)
+        if (*v34 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v34 + 1) + 8 * i);
+        v9 = *(*(&v33 + 1) + 8 * i);
         startEvent = [v9 startEvent];
         v11 = startEvent == 0;
 
@@ -1214,47 +1195,46 @@ void __55__TVPPlaybackReportingEventCollection__closeOpenEvents__block_invoke(ui
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v6);
   }
 
   [v4 sortUsingComparator:&__block_literal_global_307];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy_;
-  v32 = __Block_byref_object_dispose_;
-  v33 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
   v27 = 0;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __83__TVPPlaybackReportingEventCollection__totalTimeSpentDoingFPSFetchesFromEndEvents___block_invoke_308;
-  v23[3] = &unk_279D7BB18;
-  v23[4] = &v28;
-  v23[5] = &v24;
-  [v4 enumerateObjectsUsingBlock:v23];
-  v18 = v29[5];
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy_;
+  v31 = __Block_byref_object_dispose_;
+  v32 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __83__TVPPlaybackReportingEventCollection__totalTimeSpentDoingFPSFetchesFromEndEvents___block_invoke_308;
+  v22[3] = &unk_279D7BB18;
+  v22[4] = &v27;
+  v22[5] = &v23;
+  [v4 enumerateObjectsUsingBlock:v22];
+  v18 = v28[5];
   if (v18)
   {
-    [v18 duration];
-    v20 = v19 + v25[3];
-    v25[3] = v20;
+    objc_msgSend_duration(v18);
+    v20 = v19 + v24[3];
+    v24[3] = v20;
   }
 
   else
   {
-    v20 = v25[3];
+    v20 = v24[3];
   }
 
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v27, 8);
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -1262,10 +1242,10 @@ uint64_t __83__TVPPlaybackReportingEventCollection__totalTimeSpentDoingFPSFetche
 {
   v4 = MEMORY[0x277CCABB0];
   v5 = a3;
-  [a2 startTime];
+  objc_msgSend_startTime(a2);
   v6 = [v4 numberWithDouble:?];
   v7 = MEMORY[0x277CCABB0];
-  [v5 startTime];
+  objc_msgSend_startTime(v5);
   v9 = v8;
 
   v10 = [v7 numberWithDouble:v9];
@@ -1282,11 +1262,11 @@ void __83__TVPPlaybackReportingEventCollection__totalTimeSpentDoingFPSFetchesFro
   if (a3)
   {
     v7 = *(v6 + 40);
-    [v5 startTime];
+    objc_msgSend_startTime(v5);
     if ([v7 containsTime:?])
     {
       v8 = [TVPTimeRange alloc];
-      [*(*(*(a1 + 32) + 8) + 40) startTime];
+      objc_msgSend_startTime(*(*(*(a1 + 32) + 8) + 40));
       v10 = v9;
       [*(*(*(a1 + 32) + 8) + 40) endTime];
       v12 = v11;
@@ -1309,7 +1289,7 @@ void __83__TVPPlaybackReportingEventCollection__totalTimeSpentDoingFPSFetchesFro
 
     else
     {
-      [*(*(*(a1 + 32) + 8) + 40) duration];
+      objc_msgSend_duration(*(*(*(a1 + 32) + 8) + 40));
       *(*(*(a1 + 40) + 8) + 24) = v19 + *(*(*(a1 + 40) + 8) + 24);
       v20 = *(*(a1 + 32) + 8);
       v21 = v22;
@@ -1328,11 +1308,10 @@ void __83__TVPPlaybackReportingEventCollection__totalTimeSpentDoingFPSFetchesFro
 
 - (void)_addEventWithName:(uint64_t)a1 type:(NSObject *)a2 identifier:value:timestamp:forceAdd:isUIInteraction:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26CEDD000, a2, OS_LOG_TYPE_ERROR, "Event %@ has no corresponding start event.  Removing from event array", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26CEDD000, a2, OS_LOG_TYPE_ERROR, "Event %@ has no corresponding start event.  Removing from event array", &v2, 0xCu);
 }
 
 @end

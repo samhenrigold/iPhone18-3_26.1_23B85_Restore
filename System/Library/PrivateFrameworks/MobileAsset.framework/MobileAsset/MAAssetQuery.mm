@@ -16,7 +16,7 @@
 
 - (int64_t)queryMetaDataSync
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   self->_isDone = 0;
   v3 = objc_autoreleasePoolPush();
   v4 = xpc_dictionary_create(0, 0, 0);
@@ -50,9 +50,9 @@
 
   v6 = MEMORY[0x1E696ACC8];
   queryParams = [(MAAssetQuery *)self queryParams];
-  v21 = 0;
-  assetType = [v6 archivedDataWithRootObject:queryParams requiringSecureCoding:1 error:&v21];
-  v8 = v21;
+  v20 = 0;
+  assetType = [v6 archivedDataWithRootObject:queryParams requiringSecureCoding:1 error:&v20];
+  v8 = v20;
 
   if (assetType && !v8)
   {
@@ -65,7 +65,7 @@ LABEL_7:
       {
         purpose = self->_purpose;
         *buf = 138543362;
-        v23 = purpose;
+        v22 = purpose;
         _os_log_impl(&dword_197AD5000, v9, OS_LOG_TYPE_DEFAULT, "Querying with purpose: %{public}@", buf, 0xCu);
       }
 
@@ -86,11 +86,11 @@ LABEL_7:
       xpc_dictionary_set_string(v4, "clientName", [v12 UTF8String]);
     }
 
-    v20 = 12;
+    v19 = 12;
     v14 = _getCommsManager();
-    v15 = [v14 sendSync:v4 gettingResponseCode:&v20 codeForXpcError:1 loggingName:@"queryMetaDataSync"];
+    v15 = [v14 sendSync:v4 gettingResponseCode:&v19 codeForXpcError:1 loggingName:@"queryMetaDataSync"];
 
-    v16 = v20;
+    v16 = v19;
     if (v15)
     {
       [(MAAssetQuery *)self getResultsFromMessage:v15];
@@ -104,7 +104,7 @@ LABEL_7:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v23 = v8;
+    v22 = v8;
     _os_log_impl(&dword_197AD5000, v17, OS_LOG_TYPE_DEFAULT, "Discarding params as they could not be encoded: %{public}@", buf, 0xCu);
   }
 
@@ -116,7 +116,6 @@ LABEL_21:
 
   objc_autoreleasePoolPop(v3);
   self->_resultCode = v16;
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -160,34 +159,34 @@ LABEL_21:
 
 - (int64_t)addKeyValueArray:(id)array with:(id)with
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   withCopy = with;
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
     selfCopy = self;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v8 = withCopy;
-    v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v26;
+      v11 = *v25;
       while (2)
       {
         v12 = 0;
         do
         {
-          if (*v26 != v11)
+          if (*v25 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v25 + 1) + 8 * v12);
+          v13 = *(*(&v24 + 1) + 8 * v12);
           null = [MEMORY[0x1E695DFB0] null];
           v15 = null;
           if (v13 == null)
@@ -217,7 +216,7 @@ LABEL_21:
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v10)
         {
           continue;
@@ -241,7 +240,6 @@ LABEL_19:
     v18 = 1;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -288,7 +286,7 @@ LABEL_19:
 
 - (void)getResultsFromMessage:(id)message
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   int64 = xpc_dictionary_get_int64(messageCopy, "Result");
   results = self->_results;
@@ -301,9 +299,9 @@ LABEL_19:
     assetType = [(MAAssetQuery *)self assetType];
     resultCode = self->_resultCode;
     *buf = 138543618;
-    v64 = assetType;
-    v65 = 2048;
-    v66 = resultCode;
+    v63 = assetType;
+    v64 = 2048;
+    v65 = resultCode;
     _os_log_impl(&dword_197AD5000, v7, OS_LOG_TYPE_DEFAULT, "Got the query meta data reply for: %{public}@, response: %ld", buf, 0x16u);
   }
 
@@ -342,9 +340,9 @@ LABEL_15:
   }
 
   v13 = v12;
-  v60 = 0;
-  v14 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v12 error:&v60];
-  v15 = v60;
+  v59 = 0;
+  v14 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v12 error:&v59];
+  v15 = v59;
   if (v15)
   {
     v16 = _MAClientLog(@"V2");
@@ -358,7 +356,7 @@ LABEL_44:
 
     v17 = [v15 description];
     *buf = 138543362;
-    v64 = v17;
+    v63 = v17;
     v18 = "Unable to initialize keyed unarchiver, error: %{public}@";
     v19 = v16;
     v20 = OS_LOG_TYPE_ERROR;
@@ -461,33 +459,33 @@ LABEL_9:
   if (v33)
   {
     v34 = v33;
-    v54 = v16;
-    v55 = messageCopy;
+    v53 = v16;
+    v54 = messageCopy;
 
     objc_autoreleasePoolPop(v24);
     context = objc_autoreleasePoolPush();
     v35 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v36 = objc_opt_new();
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
     v37 = v34;
-    v38 = [v37 countByEnumeratingWithState:&v56 objects:v62 count:16];
+    v38 = [v37 countByEnumeratingWithState:&v55 objects:v61 count:16];
     if (v38)
     {
       v39 = v38;
-      v40 = *v57;
+      v40 = *v56;
       do
       {
         for (i = 0; i != v39; ++i)
         {
-          if (*v57 != v40)
+          if (*v56 != v40)
           {
             objc_enumerationMutation(v37);
           }
 
-          v42 = *(*(&v56 + 1) + 8 * i);
+          v42 = *(*(&v55 + 1) + 8 * i);
           v43 = objc_autoreleasePoolPush();
           v44 = [[MAAsset alloc] initWithAttributes:v42];
           [v36 addObject:v44];
@@ -497,7 +495,7 @@ LABEL_9:
           objc_autoreleasePoolPop(v43);
         }
 
-        v39 = [v37 countByEnumeratingWithState:&v56 objects:v62 count:16];
+        v39 = [v37 countByEnumeratingWithState:&v55 objects:v61 count:16];
       }
 
       while (v39);
@@ -513,24 +511,22 @@ LABEL_9:
     objc_storeStrong(&self->_results, v36);
 
     objc_autoreleasePoolPop(context);
-    messageCopy = v55;
+    messageCopy = v54;
   }
 
   else
   {
-    v52 = _MAClientLog(@"V2");
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+    v51 = _MAClientLog(@"V2");
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_197AD5000, v52, OS_LOG_TYPE_DEFAULT, "attributes is nil", buf, 2u);
+      _os_log_impl(&dword_197AD5000, v51, OS_LOG_TYPE_DEFAULT, "attributes is nil", buf, 2u);
     }
 
     objc_autoreleasePoolPop(v24);
   }
 
 LABEL_45:
-
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryMetaData:(id)data
@@ -608,7 +604,7 @@ LABEL_7:
 
 - (int64_t)queryInstalledAssetIds
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   v4 = xpc_dictionary_create(0, 0, 0);
   length = 0;
@@ -629,18 +625,18 @@ LABEL_7:
         xpc_dictionary_set_string(v4, "clientName", [v7 UTF8String]);
       }
 
-      v29 = 12;
+      v28 = 12;
       v9 = _getCommsManager();
       v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MAAssetQuery queryInstalledAssetIds]"];
-      v11 = [v9 sendSync:v4 gettingResponseCode:&v29 codeForXpcError:1 loggingName:v10];
+      v11 = [v9 sendSync:v4 gettingResponseCode:&v28 codeForXpcError:1 loggingName:v10];
 
-      if (MAIsQueryResultFailure(v29))
+      if (MAIsQueryResultFailure(v28))
       {
         v12 = _MAClientLog(@"V2");
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v32 = 3;
+          v31 = 3;
           v13 = "queryInstalledAssetIds failure server side: %ld";
           v14 = v12;
           v15 = 12;
@@ -663,7 +659,7 @@ LABEL_26:
         {
           v19 = v18;
           v20 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v18 error:0];
-          v21 = queryDecodeClasses();
+          v21 = queryDecodeClasses(v20);
           v22 = [v20 decodeObjectOfClasses:v21 forKey:*MEMORY[0x1E696A508]];
 
           [v20 finishDecoding];
@@ -680,21 +676,21 @@ LABEL_26:
               goto LABEL_27;
             }
 
-            v28 = _MAClientLog(@"V2");
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+            v27 = _MAClientLog(@"V2");
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_197AD5000, v28, OS_LOG_TYPE_DEFAULT, "queryInstalledAssetIds allData is not a dictionary skipping", buf, 2u);
+              _os_log_impl(&dword_197AD5000, v27, OS_LOG_TYPE_DEFAULT, "queryInstalledAssetIds allData is not a dictionary skipping", buf, 2u);
             }
           }
 
           else
           {
-            v27 = _MAClientLog(@"V2");
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            v26 = _MAClientLog(@"V2");
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_197AD5000, v27, OS_LOG_TYPE_DEFAULT, "queryInstalledAssetIds allData is null skipping", buf, 2u);
+              _os_log_impl(&dword_197AD5000, v26, OS_LOG_TYPE_DEFAULT, "queryInstalledAssetIds allData is null skipping", buf, 2u);
             }
           }
 
@@ -753,7 +749,6 @@ LABEL_26:
 LABEL_27:
 
   objc_autoreleasePoolPop(v3);
-  v25 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

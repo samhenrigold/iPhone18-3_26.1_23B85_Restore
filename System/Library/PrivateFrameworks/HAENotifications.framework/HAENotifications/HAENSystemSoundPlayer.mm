@@ -46,59 +46,58 @@ uint64_t __39__HAENSystemSoundPlayer_sharedInstance__block_invoke()
     v2->_options = v10;
 
     v2->_turnOFFSound = 0;
-    if (MGGetBoolAnswer())
+    AppBooleanValue = MGGetBoolAnswer();
+    if (AppBooleanValue)
     {
       CFPreferencesAppSynchronize(@"com.apple.coreaudio");
-      if (CFPreferencesGetAppBooleanValue(@"haen_soundoff", @"com.apple.coreaudio", 0))
+      AppBooleanValue = CFPreferencesGetAppBooleanValue(@"haen_soundoff", @"com.apple.coreaudio", 0);
+      if (AppBooleanValue)
       {
         v2->_turnOFFSound = 1;
-        v12 = HAENotificationsLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v13 = HAENotificationsLog(AppBooleanValue);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_25081E000, v12, OS_LOG_TYPE_DEFAULT, "Setting HAEN Sounds off", buf, 2u);
+          _os_log_impl(&dword_25081E000, v13, OS_LOG_TYPE_DEFAULT, "Setting HAEN Sounds off", buf, 2u);
         }
       }
     }
 
-    v13 = HAENotificationsLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = HAENotificationsLog(AppBooleanValue);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v14 = v2->_options;
+      v15 = v2->_options;
       *buf = 138412290;
-      v19 = v14;
-      _os_log_impl(&dword_25081E000, v13, OS_LOG_TYPE_INFO, "System Sound Options: %@", buf, 0xCu);
+      v19 = v15;
+      _os_log_impl(&dword_25081E000, v14, OS_LOG_TYPE_INFO, "System Sound Options: %@", buf, 0xCu);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (id)playSystemSoundWithEvent:(id)event completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   completionCopy = completion;
-  v8 = HAENotificationsLog();
+  v8 = HAENotificationsLog(completionCopy);
   uuid = [eventCopy uuid];
   v10 = [uuid hash];
 
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     uuid2 = [eventCopy uuid];
-    v15 = 138412290;
-    v16 = uuid2;
-    _os_signpost_emit_with_name_impl(&dword_25081E000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v10, "HAENSSPlayed", "%@", &v15, 0xCu);
+    v13 = 138412290;
+    v14 = uuid2;
+    _os_signpost_emit_with_name_impl(&dword_25081E000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v10, "HAENSSPlayed", "%@", &v13, 0xCu);
   }
 
   if (!self->_turnOFFSound)
   {
-    options = self->_options;
     AudioServicesPlaySystemSoundWithOptions();
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

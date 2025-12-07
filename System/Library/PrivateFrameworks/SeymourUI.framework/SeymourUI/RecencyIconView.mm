@@ -42,7 +42,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_20B7220C8();
+  sub_20B7220C8(selfCopy);
 }
 
 - (void)didMoveToSuperview

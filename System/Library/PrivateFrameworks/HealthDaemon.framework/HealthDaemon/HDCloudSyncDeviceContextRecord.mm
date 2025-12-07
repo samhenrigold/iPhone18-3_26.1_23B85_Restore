@@ -136,7 +136,7 @@ LABEL_10:
             type = [(HDCloudSyncCodableDeviceContext *)self->_underlyingDeviceContext type];
             productTypeName = [(HDCloudSyncCodableDeviceContext *)self->_underlyingDeviceContext productTypeName];
             currentOSName = [(HDCloudSyncCodableDeviceContext *)self->_underlyingDeviceContext currentOSName];
-            currentOSVersion = [(HDCloudSyncCodableDeviceContext *)self->_underlyingDeviceContext currentOSVersion];
+            v11 = objc_msgSend_currentOSVersion(self->_underlyingDeviceContext);
             HKNSOperatingSystemVersionFromString();
             [(HDCloudSyncCodableDeviceContext *)self->_underlyingDeviceContext modificationDate];
             v12 = HDDecodeDateForValue();

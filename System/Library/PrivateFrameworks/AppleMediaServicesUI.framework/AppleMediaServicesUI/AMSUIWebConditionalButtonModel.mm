@@ -9,49 +9,13 @@
 {
   objectCopy = object;
   contextCopy = context;
-  if (!objectCopy)
+  if (!objectCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (v19.receiver = self, v19.super_class = AMSUIWebConditionalButtonModel, (self = -[AMSUIWebConditionalButtonModel init](&v19, sel_init)) != 0) && (([objectCopy objectForKeyedSubscript:@"hideOnPush"], v9 = objc_claimAutoreleasedReturnValue(), (objc_opt_respondsToSelector() & 1) == 0) ? (v10 = 0) : (v10 = objc_msgSend(v9, "BOOLValue")), (self->_hideOnPush = v10, objc_msgSend(objectCopy, "objectForKeyedSubscript:", @"hideOnModal"), v11 = objc_claimAutoreleasedReturnValue(), (objc_opt_respondsToSelector() & 1) == 0) ? (v12 = 0) : (v12 = objc_msgSend(v11, "BOOLValue")), (self->_hideOnModal = v12, objc_msgSend(objectCopy, "objectForKeyedSubscript:", @"button"), v13 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v14 = 0) : (v14 = v13), v13, v15 = -[AMSUIWebButtonModel initWithJSObject:context:]([AMSUIWebButtonModel alloc], "initWithJSObject:context:", v14, contextCopy), button = self->_button, self->_button = v15, button, v17 = self->_button, v14, v11, v9, !v17))
   {
-    goto LABEL_3;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    goto LABEL_3;
-  }
-
-  v19.receiver = self;
-  v19.super_class = AMSUIWebConditionalButtonModel;
-  self = [(AMSUIWebConditionalButtonModel *)&v19 init];
-  if (!self)
-  {
-    goto LABEL_15;
-  }
-
-  v9 = [objectCopy objectForKeyedSubscript:@"hideOnPush"];
-  v10 = (objc_opt_respondsToSelector() & 1) != 0 ? [v9 BOOLValue] : 0;
-  self->_hideOnPush = v10;
-  v11 = [objectCopy objectForKeyedSubscript:@"hideOnModal"];
-  v12 = (objc_opt_respondsToSelector() & 1) != 0 ? [v11 BOOLValue] : 0;
-  self->_hideOnModal = v12;
-  v13 = [objectCopy objectForKeyedSubscript:@"button"];
-  objc_opt_class();
-  v14 = (objc_opt_isKindOfClass() & 1) != 0 ? v13 : 0;
-
-  v15 = [[AMSUIWebButtonModel alloc] initWithJSObject:v14 context:contextCopy];
-  button = self->_button;
-  self->_button = v15;
-
-  v17 = self->_button;
-  if (!v17)
-  {
-LABEL_3:
     selfCopy = 0;
   }
 
   else
   {
-LABEL_15:
     self = self;
     selfCopy = self;
   }
@@ -61,11 +25,11 @@ LABEL_15:
 
 - (NSString)description
 {
-  v11[3] = *MEMORY[0x1E69E9840];
-  v10[0] = @"button";
+  v10[3] = *MEMORY[0x1E69E9840];
+  v9[0] = @"button";
   button = [(AMSUIWebConditionalButtonModel *)self button];
-  v11[0] = button;
-  v10[1] = @"hideOnPush";
+  v10[0] = button;
+  v9[1] = @"hideOnPush";
   if ([(AMSUIWebConditionalButtonModel *)self hideOnPush])
   {
     v4 = @"true";
@@ -76,8 +40,8 @@ LABEL_15:
     v4 = @"false";
   }
 
-  v11[1] = v4;
-  v10[2] = @"hideOnModal";
+  v10[1] = v4;
+  v9[2] = @"hideOnModal";
   if ([(AMSUIWebConditionalButtonModel *)self hideOnModal])
   {
     v5 = @"true";
@@ -88,11 +52,9 @@ LABEL_15:
     v5 = @"false";
   }
 
-  v11[2] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
+  v10[2] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
   v7 = [v6 description];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

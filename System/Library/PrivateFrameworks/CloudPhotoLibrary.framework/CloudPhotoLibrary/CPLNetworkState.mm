@@ -104,14 +104,14 @@
 
 - (NSDictionary)plistDescription
 {
-  v11[4] = *MEMORY[0x1E69E9840];
+  v10[4] = *MEMORY[0x1E69E9840];
   if (self->_networkPath)
   {
     if ([(CPLNetworkState *)self isConnected])
     {
-      v11[0] = @"connected";
-      v10[0] = @"state";
-      v10[1] = @"path";
+      v10[0] = @"connected";
+      v9[0] = @"state";
+      v9[1] = @"path";
       if ([(CPLNetworkState *)self isCellular])
       {
         v3 = @"cellular";
@@ -127,8 +127,8 @@
         }
       }
 
-      v11[1] = v3;
-      v10[2] = @"saveData";
+      v10[1] = v3;
+      v9[2] = @"saveData";
       if ([(CPLNetworkState *)self isConstrained])
       {
         v6 = &unk_1F57EF2C0;
@@ -139,8 +139,8 @@
         v6 = &unk_1F57EF2D8;
       }
 
-      v11[2] = v6;
-      v10[3] = @"airplane";
+      v10[2] = v6;
+      v9[3] = @"airplane";
       if ([(CPLNetworkState *)self isInAirplaneMode])
       {
         v7 = &unk_1F57EF2C0;
@@ -151,8 +151,8 @@
         v7 = &unk_1F57EF2D8;
       }
 
-      v11[3] = v7;
-      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
+      v10[3] = v7;
+      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
     }
 
     else
@@ -165,8 +165,6 @@
   {
     v4 = &unk_1F57EF900;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

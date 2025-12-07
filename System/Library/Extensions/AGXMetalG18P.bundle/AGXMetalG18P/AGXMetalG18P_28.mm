@@ -1,4 +1,4 @@
-unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)19,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)1>::compressMacroblock(unint64_t result, uint64_t a2, unint64_t a3, _BYTE *a4, unsigned int a5, unsigned int a6, int a7)
+unint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)19,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)1>::compressMacroblock(unint64_t result, uint64_t a2, unint64_t a3, _BYTE *a4, unsigned int a5, unsigned int a6, uint64_t a7)
 {
   v8 = a6;
   v9 = a5;
@@ -1436,7 +1436,7 @@ uint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixel
 
           while (v31);
           ++v21;
-          v24 = (v24 + a4);
+          v24 += a4;
         }
 
         while (v21 != a6);
@@ -4754,7 +4754,7 @@ uint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixel
     a1[3] = 0u;
     *a1 = 0u;
     a1[1] = 0u;
-    v12 = &a1->i8[a2];
+    v12 = (a1 + a2);
     v12[6] = 0u;
     v12[7] = 0u;
     v12[4] = 0u;
@@ -5429,7 +5429,7 @@ LABEL_6:
       a1[5] = v15;
       a1[6] = v15;
       a1[7] = v15;
-      v16 = &a1->i8[a2];
+      v16 = (a1 + a2);
       *v16 = v15;
       v16[1] = v15;
       v16[2] = v15;
@@ -6300,7 +6300,7 @@ LABEL_276:
       v11 = vdupq_n_s64(0xFFFFF003FFuLL);
       *a1 = v11;
       a1[1] = v11;
-      v12 = &a1->i8[a2];
+      v12 = (a1 + a2);
       goto LABEL_6;
     }
 
@@ -8392,7 +8392,7 @@ uint64_t AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::Pixel
         a1[5] = v13;
         a1[6] = v13;
         a1[7] = v13;
-        v14 = &a1->i8[a2];
+        v14 = (a1 + a2);
         *v14 = v13;
         v14[1] = v13;
         v14[2] = v13;
@@ -9485,7 +9485,7 @@ LABEL_277:
       v646.u64[1] = vmovn_s32(v630);
       *v648.i8 = vmovn_s32(v631);
       v648.u64[1] = vmovn_s32(v633);
-      v22 = &a1[4];
+      v22 = a1 + 4;
       v23 = 1;
       v24 = &v635;
       *v650.i8 = vmovn_s32(v632);
@@ -9495,31 +9495,31 @@ LABEL_277:
         v25 = v23;
         v26 = &v635.i16[16 * v21];
         v27 = (((v26[16] & 0x3FF) << 6) | (v26[17] << 22) | (v26[18] << 38)) & 0xFFC0FFC0FFC0 | (v26[19] << 54);
-        *(v22 - 8) = (((v24->i16[0] & 0x3FF) << 6) | (v24->u16[1] << 22) | (v24->u16[2] << 38)) & 0xFFC0FFC0FFC0 | (v24->u16[3] << 54);
-        *(v22 - 7) = v27;
+        v22[-4].i64[0] = (((v24->i16[0] & 0x3FF) << 6) | (v24->u16[1] << 22) | (v24->u16[2] << 38)) & 0xFFC0FFC0FFC0 | (v24->u16[3] << 54);
+        v22[-4].i64[1] = v27;
         v28 = (((v26[20] & 0x3FF) << 6) | (v26[21] << 22) | (v26[22] << 38)) & 0xFFC0FFC0FFC0 | (v26[23] << 54);
-        *(v22 - 6) = (((*v17 & 0x3FF) << 6) | (v17[1] << 22) | (v17[2] << 38)) & 0xFFC0FFC0FFC0 | (v17[3] << 54);
-        *(v22 - 5) = v28;
+        v22[-3].i64[0] = (((*v17 & 0x3FF) << 6) | (v17[1] << 22) | (v17[2] << 38)) & 0xFFC0FFC0FFC0 | (v17[3] << 54);
+        v22[-3].i64[1] = v28;
         v29 = (((v26[48] & 0x3FF) << 6) | (v26[49] << 22) | (v26[50] << 38)) & 0xFFC0FFC0FFC0 | (v26[51] << 54);
-        *(v22 - 4) = (((v26[32] & 0x3FF) << 6) | (v26[33] << 22) | (v26[34] << 38)) & 0xFFC0FFC0FFC0 | (v26[35] << 54);
-        *(v22 - 3) = v29;
+        v22[-2].i64[0] = (((v26[32] & 0x3FF) << 6) | (v26[33] << 22) | (v26[34] << 38)) & 0xFFC0FFC0FFC0 | (v26[35] << 54);
+        v22[-2].i64[1] = v29;
         v30 = (((v26[52] & 0x3FF) << 6) | (v26[53] << 22) | (v26[54] << 38)) & 0xFFC0FFC0FFC0 | (v26[55] << 54);
-        *(v22 - 2) = (((v26[36] & 0x3FF) << 6) | (v26[37] << 22) | (v26[38] << 38)) & 0xFFC0FFC0FFC0 | (v26[39] << 54);
-        *(v22 - 1) = v30;
+        v22[-1].i64[0] = (((v26[36] & 0x3FF) << 6) | (v26[37] << 22) | (v26[38] << 38)) & 0xFFC0FFC0FFC0 | (v26[39] << 54);
+        v22[-1].i64[1] = v30;
         v31 = (((v26[24] & 0x3FF) << 6) | (v26[25] << 22) | (v26[26] << 38)) & 0xFFC0FFC0FFC0 | (v26[27] << 54);
-        *v22 = (((v18->i16[0] & 0x3FF) << 6) | (v18->u16[1] << 22) | (v18->u16[2] << 38)) & 0xFFC0FFC0FFC0 | (v18->u16[3] << 54);
-        v22[1] = v31;
+        v22->i64[0] = (((v18->i16[0] & 0x3FF) << 6) | (v18->u16[1] << 22) | (v18->u16[2] << 38)) & 0xFFC0FFC0FFC0 | (v18->u16[3] << 54);
+        v22->i64[1] = v31;
         v32 = (((v26[28] & 0x3FF) << 6) | (v26[29] << 22) | (v26[30] << 38)) & 0xFFC0FFC0FFC0 | (v26[31] << 54);
-        v22[2] = (((*v19 & 0x3FF) << 6) | (v19[1] << 22) | (v19[2] << 38)) & 0xFFC0FFC0FFC0 | (v19[3] << 54);
-        v22[3] = v32;
+        v22[1].i64[0] = (((*v19 & 0x3FF) << 6) | (v19[1] << 22) | (v19[2] << 38)) & 0xFFC0FFC0FFC0 | (v19[3] << 54);
+        v22[1].i64[1] = v32;
         v33 = (((v26[56] & 0x3FF) << 6) | (v26[57] << 22) | (v26[58] << 38)) & 0xFFC0FFC0FFC0 | (v26[59] << 54);
-        v22[4] = (((v26[40] & 0x3FF) << 6) | (v26[41] << 22) | (v26[42] << 38)) & 0xFFC0FFC0FFC0 | (v26[43] << 54);
-        v22[5] = v33;
+        v22[2].i64[0] = (((v26[40] & 0x3FF) << 6) | (v26[41] << 22) | (v26[42] << 38)) & 0xFFC0FFC0FFC0 | (v26[43] << 54);
+        v22[2].i64[1] = v33;
         v34 = v26[47];
         v35 = (((v26[44] & 0x3FF) << 6) | (v26[45] << 22) | (v26[46] << 38)) & 0xFFC0FFC0FFC0;
         v36 = (((v26[60] & 0x3FF) << 6) | (v26[61] << 22) | (v26[62] << 38)) & 0xFFC0FFC0FFC0 | (v26[63] << 54);
-        v22[6] = v35 | (v34 << 54);
-        v22[7] = v36;
+        v22[3].i64[0] = v35 | (v34 << 54);
+        v22[3].i64[1] = v36;
         v22 = (v22 + a2);
         v24 = &v643;
         v17 = &v643.i16[4];

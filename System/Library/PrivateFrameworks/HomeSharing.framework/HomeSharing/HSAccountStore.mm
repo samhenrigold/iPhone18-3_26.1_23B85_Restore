@@ -34,7 +34,7 @@
   return v2;
 }
 
-uint64_t __30__HSAccountStore_defaultStore__block_invoke()
+uint64_t __30__HSAccountStore_defaultStore__block_invoke(uint64_t a1)
 {
   defaultStore_defaultStore = objc_alloc_init(objc_opt_class());
 

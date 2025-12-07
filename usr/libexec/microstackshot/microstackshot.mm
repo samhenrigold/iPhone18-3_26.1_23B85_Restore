@@ -246,7 +246,7 @@ void sub_1000010CC(void *a1, uint64_t a2)
   }
 }
 
-time_t sub_100001200(uint64_t *a1, time_t *a2)
+time_t sub_100001200(time_t *a1, time_t *a2)
 {
   v4 = time(0);
   v5 = +[NSUserDefaults standardUserDefaults];
@@ -360,7 +360,7 @@ LABEL_38:
     {
       if (v17)
       {
-        sub_100001B50(&v19);
+        sub_100001B50();
       }
 
       *a1 = v19;
@@ -385,27 +385,29 @@ LABEL_39:
 
 void sub_100001560(char *const *a1)
 {
-  v8 = 0;
-  v7 = 0;
-  if (posix_spawnattr_init(&v7))
+  v10 = 0;
+  v9 = 0;
+  v2 = posix_spawnattr_init(&v9);
+  if (v2)
   {
-    sub_100001D08();
+    sub_100001D08(v2);
   }
 
-  if (posix_spawnattr_setjetsam_ext())
+  v3 = posix_spawnattr_setjetsam_ext();
+  if (v3)
   {
-    sub_100001D08();
+    sub_100001D08(v3);
   }
 
-  v2 = posix_spawn(&v8, "/usr/sbin/spindump", 0, &v7, a1, environ);
-  posix_spawnattr_destroy(&v7);
-  if (!v2)
+  v4 = posix_spawn(&v10, "/usr/sbin/spindump", 0, &v9, a1, environ);
+  posix_spawnattr_destroy(&v9);
+  if (!v4)
   {
-    v6 = 0;
-    v3 = 1000001;
-    while (--v3)
+    v8 = 0;
+    v5 = 1000001;
+    while (--v5)
     {
-      if (waitpid(v8, &v6, 0) != -1 || *__error() != 4)
+      if (waitpid(v10, &v8, 0) != -1 || *__error() != 4)
       {
         goto LABEL_12;
       }
@@ -417,35 +419,35 @@ void sub_100001560(char *const *a1)
     }
 
 LABEL_12:
-    if ((v6 & 0xFF7F) != 0)
+    if ((v8 & 0xFF7F) != 0)
     {
-      v4 = v6 & 0x7F;
-      v5 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      if (v4)
+      v6 = v8 & 0x7F;
+      v7 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+      if (v6)
       {
-        if (v4 == 127)
+        if (v6 == 127)
         {
-          if (v5)
+          if (v7)
           {
-            sub_100001D6C(&v8, &v6);
+            sub_100001D6C();
           }
         }
 
-        else if (v5)
+        else if (v7)
         {
-          sub_100001E60(&v8, &v6);
+          sub_100001E60();
         }
       }
 
-      else if (v5)
+      else if (v7)
       {
-        sub_100001DE8(&v8, &v6);
+        sub_100001DE8();
       }
     }
 
     else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
     {
-      sub_100001EDC(&v8);
+      sub_100001EDC();
     }
   }
 }
@@ -468,10 +470,11 @@ void sub_1000016E0()
   }
 }
 
-void sub_1000017B8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000017B8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xEu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xEu);
 }
 
 void sub_100001920()
@@ -502,13 +505,6 @@ void sub_100001AD8()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_100001B50(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_1000017A0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-}
-
 void sub_100001BDC()
 {
   sub_1000017AC();
@@ -532,46 +528,15 @@ void sub_100001CCC()
 
 void sub_100001CE8()
 {
-  v0 = *__error();
+  __error();
   _os_assert_log();
   _os_crash();
   __break(1u);
 }
 
-void sub_100001D08()
+void sub_100001D08(int a1)
 {
   _os_assert_log();
   _os_crash();
   __break(1u);
-}
-
-void sub_100001D6C(unsigned int *a1, int *a2)
-{
-  v2 = *a1;
-  v3 = (*a2 >> 8);
-  sub_100001788();
-  sub_1000017B8(&_mh_execute_header, &_os_log_default, v4, "spindump[%d] stoppedby signal %d.", v5, v6, v7, v8, v9);
-}
-
-void sub_100001DE8(unsigned int *a1, uint64_t a2)
-{
-  v2 = *a1;
-  v3 = *(a2 + 1);
-  sub_100001788();
-  sub_1000017B8(&_mh_execute_header, &_os_log_default, v4, "spindump[%d] exited with return value %d.", v5, v6, v7, v8, v9);
-}
-
-void sub_100001E60(unsigned int *a1, _DWORD *a2)
-{
-  v2 = *a1;
-  v3 = *a2 & 0x7F;
-  sub_100001788();
-  sub_1000017B8(&_mh_execute_header, &_os_log_default, v4, "spindump[%d] died with signal %d.", v5, v6, v7, v8, v9);
-}
-
-void sub_100001EDC(int *a1)
-{
-  v6 = *a1;
-  sub_1000017A0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
 }

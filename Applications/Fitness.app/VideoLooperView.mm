@@ -12,7 +12,7 @@
 - (void)layoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for VideoLooperView();
+  v5.super_class = type metadata accessor for VideoLooperView(0);
   v2 = v5.receiver;
   [(VideoLooperView *)&v5 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC10FitnessApp15VideoLooperView_playerLayer];
@@ -27,7 +27,7 @@
 - (void)didMoveToWindow
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for VideoLooperView();
+  v3.super_class = type metadata accessor for VideoLooperView(0);
   v2 = v3.receiver;
   [(VideoLooperView *)&v3 didMoveToWindow];
   sub_1006551C8();

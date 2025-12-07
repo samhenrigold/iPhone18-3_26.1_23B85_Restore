@@ -20,12 +20,12 @@
   if (!lazy cache variable for type metadata for _DictionaryStorage<_NSRange, [NSAttributedStringKey : Any]>)
   {
     type metadata accessor for _NSRange(255);
-    type metadata accessor for [NSAttributedStringKey : Any]();
-    lazy protocol witness table accessor for type AGWeakAttribute and conformance AGWeakAttribute(&lazy protocol witness table cache variable for type _NSRange and conformance _NSRange, type metadata accessor for _NSRange);
-    v0 = type metadata accessor for _DictionaryStorage();
-    if (!v1)
+    type metadata accessor for [NSAttributedStringKey : Any](255);
+    lazy protocol witness table accessor for type AGWeakAttribute and conformance AGWeakAttribute(&lazy protocol witness table cache variable for type _NSRange and conformance _NSRange, type metadata accessor for _NSRange, MEMORY[0x1E6969FA0]);
+    v1 = type metadata accessor for _DictionaryStorage();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _DictionaryStorage<_NSRange, [NSAttributedStringKey : Any]>);
+      atomic_store(v1, &lazy cache variable for type metadata for _DictionaryStorage<_NSRange, [NSAttributedStringKey : Any]>);
     }
   }
 }

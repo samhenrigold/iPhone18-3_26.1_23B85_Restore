@@ -8,16 +8,16 @@ void start()
   dispatch_main();
 }
 
-void sub_100000F6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void (*a10)(void), uint64_t a11, void (*a12)(void))
+void sub_100000F6C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void (*a10)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a11, void (*a12)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   if (a11)
   {
-    a12();
+    a12(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a9)
   {
-    a10();
+    a10(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -300,7 +300,7 @@ void sub_1000029AC(std::__shared_weak_count *a1)
   }
 }
 
-void sub_100002AFC(void *a1, const char *a2, const void **a3)
+void sub_100002AFC(void *a1, const char *a2, CFStringRef *a3)
 {
   string = xpc_dictionary_get_string(a1, a2);
   if (string)
@@ -890,26 +890,23 @@ void sub_100003560(uint64_t a1, uint64_t *a2, uint64_t *a3)
   }
 }
 
-void *sub_100003678(void *a1, uint64_t a2, std::__shared_weak_count *this)
+void sub_100003678(void *a1, uint64_t a2, std::__shared_weak_count *this)
 {
   *a1 = a2;
-  if (this)
-  {
-    v4 = std::__shared_weak_count::lock(this);
-    a1[1] = v4;
-    if (v4)
-    {
-      return a1;
-    }
-  }
-
-  else
+  if (!this)
   {
     a1[1] = 0;
+    goto LABEL_5;
   }
 
-  v6 = sub_1000053EC();
-  return sub_1000036BC(v6);
+  v4 = std::__shared_weak_count::lock(this);
+  a1[1] = v4;
+  if (!v4)
+  {
+LABEL_5:
+    v5 = sub_1000053EC();
+    sub_1000036BC(v5);
+  }
 }
 
 void sub_1000036BC(void *a1)
@@ -971,10 +968,10 @@ void sub_1000036BC(void *a1)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v30 = CFErrorGetDomain(*(v2 + 40));
+      v29 = CFErrorGetDomain(*(v2 + 40));
       Code = CFErrorGetCode(*(v2 + 40));
       *buf = 138412546;
-      *&buf[4] = v30;
+      *&buf[4] = v29;
       *&buf[12] = 2048;
       *&buf[14] = Code;
       _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "PAC Fetch failed with cached error [%@:%ld]", buf, 0x16u);
@@ -1017,57 +1014,65 @@ void sub_1000036BC(void *a1)
     {
       v17 = a1[7];
       v18 = a1[8];
+      v43[2] = v17;
+      v43[3] = v18;
       if (v18)
       {
         atomic_fetch_add_explicit((v18 + 8), 1uLL, memory_order_relaxed);
-        v19 = a1[7];
-        v20 = a1[8];
+        v17 = a1[7];
+        v19 = a1[8];
       }
 
       else
       {
-        v20 = 0;
+        v19 = 0;
       }
 
-      if (v20)
+      v42[0] = _NSConcreteStackBlock;
+      v42[1] = 3321888768;
+      v42[2] = sub_100004084;
+      v42[3] = &unk_100010908;
+      v42[4] = v17;
+      v42[5] = v19;
+      if (v19)
       {
-        atomic_fetch_add_explicit((v20 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v19 + 8), 1uLL, memory_order_relaxed);
       }
 
-      sub_100002A18();
+      sub_100002A18(v43, v42);
     }
 
-    v21 = *(v2 + 64);
-    v22 = *(v2 + 72);
-    if (v21 >= v22)
+    v20 = *(v2 + 64);
+    v21 = *(v2 + 72);
+    if (v20 >= v21)
     {
-      v25 = *(v2 + 56);
-      v26 = (v21 - v25) >> 4;
-      v27 = v26 + 1;
-      if ((v26 + 1) >> 60)
+      v24 = *(v2 + 56);
+      v25 = (v20 - v24) >> 4;
+      v26 = v25 + 1;
+      if ((v25 + 1) >> 60)
       {
         sub_100005300();
       }
 
-      v28 = v22 - v25;
-      if (v28 >> 3 > v27)
+      v27 = v21 - v24;
+      if (v27 >> 3 > v26)
       {
-        v27 = v28 >> 3;
+        v26 = v27 >> 3;
       }
 
-      if (v28 >= 0x7FFFFFFFFFFFFFF0)
+      if (v27 >= 0x7FFFFFFFFFFFFFF0)
       {
-        v29 = 0xFFFFFFFFFFFFFFFLL;
+        v28 = 0xFFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v29 = v27;
+        v28 = v26;
       }
 
-      if (v29)
+      if (v28)
       {
-        if (!(v29 >> 60))
+        if (!(v28 >> 60))
         {
           operator new();
         }
@@ -1075,96 +1080,98 @@ void sub_1000036BC(void *a1)
         sub_100005300();
       }
 
-      v32 = 16 * v26;
-      v33 = *(a1 + 7);
-      *(16 * v26) = v33;
-      if (*(&v33 + 1))
+      v31 = 16 * v25;
+      v32 = *(a1 + 7);
+      *(16 * v25) = v32;
+      if (*(&v32 + 1))
       {
-        atomic_fetch_add_explicit((*(&v33 + 1) + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((*(&v32 + 1) + 8), 1uLL, memory_order_relaxed);
       }
 
-      v24 = (v32 + 16);
-      v34 = *(v2 + 56);
-      v35 = *(v2 + 64) - v34;
-      v36 = v32 - v35;
-      memcpy((v32 - v35), v34, v35);
-      *(v2 + 56) = v36;
-      *(v2 + 64) = v24;
+      v23 = (v31 + 16);
+      v33 = *(v2 + 56);
+      v34 = *(v2 + 64) - v33;
+      v35 = v31 - v34;
+      memcpy((v31 - v34), v33, v34);
+      *(v2 + 56) = v35;
+      *(v2 + 64) = v23;
       *(v2 + 72) = 0;
-      if (v34)
+      if (v33)
       {
-        operator delete(v34);
+        operator delete(v33);
       }
     }
 
     else
     {
-      *v21 = a1[7];
-      v23 = a1[8];
-      v21[1] = v23;
-      if (v23)
+      *v20 = a1[7];
+      v22 = a1[8];
+      v20[1] = v22;
+      if (v22)
       {
-        atomic_fetch_add_explicit((v23 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
       }
 
-      v24 = v21 + 2;
+      v23 = v20 + 2;
     }
 
-    *(v2 + 64) = v24;
-    if ((v24 - *(v2 + 56)) == 16)
+    *(v2 + 64) = v23;
+    if ((v23 - *(v2 + 56)) == 16)
     {
-      v38 = a1[7];
-      v37 = a1[8];
-      if (v37)
+      v37 = a1[7];
+      v36 = a1[8];
+      if (v36)
       {
-        atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v40 = a1[9];
-      v39 = a1[10];
-      if (v39)
+      v38 = a1[10];
+      if (v38)
       {
-        atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      if ((*(v38 + 88) & 1) == 0 && *v38)
+      if ((*(v37 + 88) & 1) == 0)
       {
-        *buf = v38;
-        *&buf[8] = v37;
-        if (v37)
+        v39 = *v37;
+        if (*v37)
         {
-          atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
+          *buf = v37;
+          *&buf[8] = v36;
+          if (v36)
+          {
+            atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
+          }
+
+          sub_100004184(v2, v39, buf);
         }
-
-        sub_100004184();
       }
 
-      if (v37)
+      if (v36)
       {
-        atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      if (v39)
+      if (v38)
       {
-        atomic_fetch_add_explicit(&v39->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       sub_100003678(&v45, *v2, *(v2 + 8));
-      v41 = v45;
+      v40 = v45;
       if (v45)
       {
-        v42 = *(v2 + 16);
-        v44[4] = v38;
-        v44[5] = v37;
-        if (v37)
+        v44[4] = v37;
+        v44[5] = v36;
+        if (v36)
         {
-          atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
-          v43 = v37;
+          atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
+          v41 = v36;
         }
 
         else
         {
-          v43 = 0;
+          v41 = 0;
         }
 
         *buf = _NSConcreteStackBlock;
@@ -1172,14 +1179,14 @@ void sub_1000036BC(void *a1)
         *&buf[16] = sub_100004930;
         v48 = &unk_100010988;
         v49 = v2;
-        v50 = v38;
-        v51 = v43;
-        if (v43)
+        v50 = v37;
+        v51 = v41;
+        if (v41)
         {
-          atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v41->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v52 = v41;
+        v52 = v40;
         v53 = v46;
         if (v46)
         {
@@ -1194,25 +1201,25 @@ void sub_1000036BC(void *a1)
         sub_1000029AC(v46);
       }
 
-      if (v39)
+      if (v38)
       {
-        sub_1000029AC(v39);
+        sub_1000029AC(v38);
       }
 
-      if (v37)
+      if (v36)
       {
-        sub_1000029AC(v37);
+        sub_1000029AC(v36);
       }
 
-      if (v39)
+      if (v38)
       {
-        sub_1000029AC(v39);
+        sub_1000029AC(v38);
       }
 
-      if (v37)
+      if (v36)
       {
 
-        sub_1000029AC(v37);
+        sub_1000029AC(v36);
       }
     }
   }
@@ -1483,23 +1490,24 @@ void sub_1000048C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_100004930(void *a1, uint64_t *a2, uint64_t a3, double a4)
+void sub_100004930(uint64_t **a1, const __CFString **a2, uint64_t a3, double a4)
 {
   v8 = a1[4];
-  std::mutex::lock((v8 + 80));
-  *(a1[7] + 144) = a4;
-  std::mutex::unlock((v8 + 80));
+  std::mutex::lock((v8 + 10));
+  *(a1[7] + 18) = a4;
+  std::mutex::unlock((v8 + 10));
   if (!*a3)
   {
     v14 = *a2;
     v15 = a1[6];
-    v17 = a1[5];
+    v17[0] = a1[5];
+    v17[1] = v15;
     if (v15)
     {
-      atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v15 + 1, 1uLL, memory_order_relaxed);
     }
 
-    sub_100004184();
+    sub_100004184(v8, v14, v17);
   }
 
   Domain = CFErrorGetDomain(*a3);
@@ -1516,9 +1524,9 @@ void sub_100004930(void *a1, uint64_t *a2, uint64_t a3, double a4)
   if (Code == 309 && CFStringCompare(kCFErrorDomainCFNetwork, Domain, 0) == kCFCompareEqualTo)
   {
     v16 = a1[5];
-    if (*(v16 + 16))
+    if (v16[2])
     {
-      if (*(v16 + 24))
+      if (v16[3])
       {
         *(v8 + 152) = 1;
       }
@@ -1532,14 +1540,14 @@ void sub_100004930(void *a1, uint64_t *a2, uint64_t a3, double a4)
     atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v13 = *(v8 + 48);
-  *(v8 + 40) = v11;
-  *(v8 + 48) = v12;
+  v13 = v8[6];
+  v8[5] = v11;
+  v8[6] = v12;
   if (v13)
   {
     sub_1000029AC(v13);
-    v11 = *(v8 + 40);
-    v12 = *(v8 + 48);
+    v11 = v8[5];
+    v12 = v8[6];
   }
 
   v19[0] = 0;
@@ -1791,14 +1799,14 @@ void sub_100004EB4(void *a1, uint64_t *a2, uint64_t *a3)
         }
 
         v16 = a3[1];
-        v24[0] = *a3;
-        v24[1] = v16;
+        v26[0] = *a3;
+        v26[1] = v16;
         if (v16)
         {
           atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        sub_100003F60(v10, v12, v13, v14, v15, v24);
+        sub_100003F60(v10, v12, v13, v14, v15, v26);
         if (v16)
         {
           sub_1000029AC(v16);
@@ -1811,19 +1819,19 @@ void sub_100004EB4(void *a1, uint64_t *a2, uint64_t *a3)
         if (a1[4])
         {
           v18 = v3[1];
-          v23[9] = *v3;
-          v23[10] = v18;
+          v25[2] = *v3;
+          v25[3] = v18;
           if (v18)
           {
             atomic_fetch_add_explicit((v18 + 8), 1uLL, memory_order_relaxed);
           }
 
-          v23[2] = _NSConcreteStackBlock;
-          v23[3] = 3221225472;
-          v23[4] = sub_100005128;
-          v23[5] = &unk_100010968;
-          v23[6] = v3;
-          sub_100002A18();
+          v24[0] = _NSConcreteStackBlock;
+          v24[1] = 3221225472;
+          v24[2] = sub_100005128;
+          v24[3] = &unk_100010968;
+          v24[4] = v3;
+          sub_100002A18(v25, v24);
         }
 
         v19 = v17[9];
@@ -2323,7 +2331,6 @@ BOOL sub_100005AA8(void *a1, void *a2)
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -2401,7 +2408,7 @@ void sub_100005C7C(std::__shared_weak_count *a1)
   operator delete();
 }
 
-_BYTE *sub_100005CF0(_BYTE *a1, char *__s)
+void *sub_100005CF0(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2415,24 +2422,24 @@ _BYTE *sub_100005CF0(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void sub_100005F5C()
+void sub_100005F5C(_Unwind_Exception *a1)
 {
-  std::mutex::~mutex(v2);
-  sub_100005404(v1);
-  v3 = *(v0 + 8);
-  if (v3)
+  std::mutex::~mutex(v3);
+  sub_100005404(v2);
+  v4 = *(v1 + 8);
+  if (v4)
   {
-    sub_1000029AC(v3);
+    sub_1000029AC(v4);
   }
 
   operator delete();
@@ -2477,32 +2484,31 @@ id sub_100006478(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     {
       v6 = *(a1 + 48);
       *buf = 138412546;
-      v13 = v6;
-      v14 = 2112;
-      v15 = a4;
+      v12 = v6;
+      v13 = 2112;
+      v14 = a4;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "HTTPS upgrade task failed, attempting fallback %@ %@", buf, 0x16u);
     }
 
     v7 = *(a1 + 48);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_1000065B4;
-    v11[3] = &unk_100010B58;
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_1000065B4;
+    v10[3] = &unk_100010B58;
     v8 = *(a1 + 32);
-    v11[4] = *(a1 + 40);
-    [objc_msgSend(v8 dataTaskWithURL:v7 completionHandler:{v11), "resume"}];
+    v10[4] = *(a1 + 40);
+    [objc_msgSend(v8 dataTaskWithURL:v7 completionHandler:{v10), "resume"}];
   }
 
   else
   {
-    v9 = *(a1 + 40);
     (*(*(a1 + 40) + 16))();
   }
 
   return [*(a1 + 32) finishTasksAndInvalidate];
 }
 
-UInt8 *sub_1000065C4(int a1, CFStringRef theString, UInt8 *a3, uint64_t *a4)
+UInt8 *sub_1000065C4(uint64_t a1, CFStringRef theString, UInt8 *a3, uint64_t *a4)
 {
   v13 = 0;
   usedBufLen = a4;
@@ -2794,26 +2800,7 @@ void sub_100006C48(void *a1, const __CFData *a2, uint64_t a3, const void *a4)
           ++v16;
         }
 
-        Length = CFStringGetLength(v14);
-        v18 = qword_100014678;
-        if (!qword_100014678)
-        {
-          v18 = CFCharacterSetCreateWithCharactersInString(0, @"\n\r\t ;");
-          qword_100014678 = v18;
-          if (!v18)
-          {
-            goto LABEL_29;
-          }
-        }
-
-        v19 = Length - v16;
-        v34.location = v16;
-        v34.length = v19;
-        v20.length = CFStringFindCharacterFromSet(v14, v18, v34, 0, &result) ? result.location - v16 : v19;
-        v20.location = v16;
-        v21 = CFStringCreateWithSubstring(0, v14, v20);
-        v22 = v21;
-        if (v21)
+        if (((Length = CFStringGetLength(v14), (v18 = qword_100014678) != 0) || (v18 = CFCharacterSetCreateWithCharactersInString(0, @"\n\r\t ;"), (qword_100014678 = v18) != 0)) && ((v19 = Length - v16, v34.location = v16, v34.length = v19, CFStringFindCharacterFromSet(v14, v18, v34, 0, &result)) ? (v20.length = result.location - v16) : (v20.length = v19), v20.location = v16, v21 = CFStringCreateWithSubstring(0, v14, v20), (v22 = v21) != 0))
         {
           v23 = CFStringConvertIANACharSetNameToEncoding(v21);
           CFRelease(v22);
@@ -3271,42 +3258,42 @@ LABEL_34:
   return v28;
 }
 
-void sub_1000079D4(const OpaqueJSContext **a1, uint64_t a2)
+void sub_1000079D4(const OpaqueJSContext **a1, uint64_t **a2, uint64_t *a3)
 {
-  v3 = *(*a2 + 8);
-  if (v3)
+  v4 = (*a2)[1];
+  if (v4)
   {
-    v5 = CFURLCopyHostName(v3);
-    v6 = CFURLCopyScheme(v3);
-    v7 = v6;
-    if (v5 && v6)
+    v6 = CFURLCopyHostName(v4);
+    v7 = CFURLCopyScheme(v4);
+    v8 = v7;
+    if (v6 && v7)
     {
       if (CFNetworkDiagnosticLevel() >= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        *&buf[4] = v3;
+        *&buf[4] = v4;
         *&buf[12] = 2114;
-        *&buf[14] = v5;
+        *&buf[14] = v6;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "PAC: Calling FindProxyForURL (Target URL: %{public}@, Target Hostname: %{public}@)", buf, 0x16u);
       }
 
-      v8 = *a1;
-      v10 = *(*a2 + 32);
-      v9 = *(*a2 + 40);
+      v9 = *a1;
+      v11 = (*a2)[4];
+      v10 = (*a2)[5];
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        *&buf[4] = v9;
+        *&buf[4] = v10;
         *&buf[12] = 2048;
-        *&buf[14] = v10;
+        *&buf[14] = v11;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "PAC calling FindProxyForURL for id %@ token %p", buf, 0x16u);
       }
 
-      *buf = v9;
-      *&buf[8] = v10;
-      if (v8)
+      *buf = v10;
+      *&buf[8] = v11;
+      if (v9)
       {
-        GlobalObject = JSContextGetGlobalObject(v8);
+        GlobalObject = JSContextGetGlobalObject(v9);
       }
 
       else
@@ -3314,63 +3301,63 @@ void sub_1000079D4(const OpaqueJSContext **a1, uint64_t a2)
         GlobalObject = 0;
       }
 
-      v12 = JSStringCreateWithCFString(@"__dnsResolve");
-      Property = JSObjectGetProperty(v8, GlobalObject, v12, 0);
-      JSStringRelease(v12);
+      v13 = JSStringCreateWithCFString(@"__dnsResolve");
+      Property = JSObjectGetProperty(v9, GlobalObject, v13, 0);
+      JSStringRelease(v13);
       if (Property)
       {
-        if (JSValueIsObject(v8, Property))
+        if (JSValueIsObject(v9, Property))
         {
           if (JSObjectSetPrivate(Property, buf))
           {
-            v14 = JSStringCreateWithCFString(@"__Apple_FindProxyForURL");
+            v15 = JSStringCreateWithCFString(@"__Apple_FindProxyForURL");
             if (GlobalObject)
             {
-              GlobalObject = JSObjectGetProperty(v8, GlobalObject, v14, 0);
+              GlobalObject = JSObjectGetProperty(v9, GlobalObject, v15, 0);
             }
 
-            JSStringRelease(v14);
-            IsFunction = JSObjectIsFunction(v8, GlobalObject);
+            JSStringRelease(v15);
+            IsFunction = JSObjectIsFunction(v9, GlobalObject);
             if (GlobalObject)
             {
-              v16 = IsFunction;
+              v17 = IsFunction;
             }
 
             else
             {
-              v16 = 0;
+              v17 = 0;
             }
 
-            if (!v16)
+            if (!v17)
             {
               goto LABEL_37;
             }
 
-            v17 = CFURLCopyAbsoluteURL(v3);
-            v18 = CFURLGetString(v17);
-            v19 = JSStringCreateWithCFString(v18);
-            arguments[0] = JSValueMakeString(v8, v19);
-            v20 = JSStringCreateWithCFString(v5);
-            arguments[1] = JSValueMakeString(v8, v20);
-            if (v17)
+            v18 = CFURLCopyAbsoluteURL(v4);
+            v19 = CFURLGetString(v18);
+            v20 = JSStringCreateWithCFString(v19);
+            arguments[0] = JSValueMakeString(v9, v20);
+            v21 = JSStringCreateWithCFString(v6);
+            arguments[1] = JSValueMakeString(v9, v21);
+            if (v18)
             {
-              CFRelease(v17);
+              CFRelease(v18);
             }
 
-            v21 = JSObjectCallAsFunction(v8, GlobalObject, 0, 2uLL, arguments, 0);
-            JSStringRelease(v19);
+            v22 = JSObjectCallAsFunction(v9, GlobalObject, 0, 2uLL, arguments, 0);
             JSStringRelease(v20);
-            if (v21 && JSValueIsString(v8, v21))
+            JSStringRelease(v21);
+            if (v22 && JSValueIsString(v9, v22))
             {
-              v22 = JSValueToStringCopy(v8, v21, 0);
-              v23 = JSStringCopyCFString(0, v22);
-              JSStringRelease(v22);
+              v23 = JSValueToStringCopy(v9, v22, 0);
+              v24 = JSStringCopyCFString(0, v23);
+              JSStringRelease(v23);
             }
 
             else
             {
 LABEL_37:
-              v23 = 0;
+              v24 = 0;
             }
 
             if (!JSObjectSetPrivate(Property, 0) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
@@ -3385,7 +3372,7 @@ LABEL_37:
               _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "PAC returning from FindProxyForURL", arguments, 2u);
             }
 
-            if (v23)
+            if (v24)
             {
               CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
               operator new();
@@ -3402,7 +3389,7 @@ LABEL_45:
           }
 
           LOWORD(arguments[0]) = 0;
-          v24 = "Failed to set the private context on dnsResolve object";
+          v25 = "Failed to set the private context on dnsResolve object";
         }
 
         else
@@ -3413,7 +3400,7 @@ LABEL_45:
           }
 
           LOWORD(arguments[0]) = 0;
-          v24 = "dnsResolve is not an object";
+          v25 = "dnsResolve is not an object";
         }
       }
 
@@ -3425,26 +3412,26 @@ LABEL_45:
         }
 
         LOWORD(arguments[0]) = 0;
-        v24 = "Failed to find dnsResolve function";
+        v25 = "Failed to find dnsResolve function";
       }
 
-      _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, v24, arguments, 2u);
+      _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, v25, arguments, 2u);
       goto LABEL_45;
     }
   }
 
   else
   {
-    v7 = 0;
-    v5 = 0;
+    v8 = 0;
+    v6 = 0;
   }
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
     *buf = 134218240;
-    *&buf[4] = v5;
+    *&buf[4] = v6;
     *&buf[12] = 2048;
-    *&buf[14] = v7;
+    *&buf[14] = v8;
     _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "PAC FindProxyForURL failed. Invalid target URL host=%p, scheme=%p", buf, 0x16u);
   }
 
@@ -3645,25 +3632,25 @@ JSValueRef sub_100008780(const OpaqueJSContext *a1, JSObjectRef object, uint64_t
       v13 = 0;
     }
 
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x2020000000;
     v46 = 0;
-    v47 = &v46;
-    v48 = 0x2020000000;
-    v49 = 0;
     *buf = kCFAllocatorDefault;
-    v54 = 1023;
+    v51 = 1023;
     if (v11)
     {
-      v15 = sub_1000065C4(kCFAllocatorDefault, v11, v56, &v54);
+      v15 = sub_1000065C4(kCFAllocatorDefault, v11, v53, &v51);
     }
 
     else
     {
-      v56[0] = 0;
-      v54 = 0;
-      v15 = v56;
+      v53[0] = 0;
+      v51 = 0;
+      v15 = v53;
     }
 
-    v55 = v15;
+    v52 = v15;
     host_with_numeric_port = nw_endpoint_create_host_with_numeric_port();
     v17 = nw_parameters_create();
     nw_parameters_set_allow_unusable_addresses();
@@ -3690,8 +3677,8 @@ JSValueRef sub_100008780(const OpaqueJSContext *a1, JSObjectRef object, uint64_t
       {
         allocator = *BytePtr;
         *ptr = *(BytePtr + 1);
-        v41 = allocator;
-        v42 = *ptr;
+        v38 = allocator;
+        v39 = *ptr;
         nw_parameters_set_source_application();
       }
     }
@@ -3703,78 +3690,75 @@ JSValueRef sub_100008780(const OpaqueJSContext *a1, JSObjectRef object, uint64_t
     ptr[0] = 0x3812000000;
     ptr[1] = sub_100008E70;
     ptr[2] = sub_100008E80;
-    v52 = nw_resolver_create_with_path();
-    *&v41 = 0;
-    *(&v41 + 1) = &v41;
-    *&v42 = 0x3812000000;
-    *(&v42 + 1) = sub_100008E98;
-    v43 = sub_100008EA8;
+    v49 = nw_resolver_create_with_path();
+    *&v38 = 0;
+    *(&v38 + 1) = &v38;
+    *&v39 = 0x3812000000;
+    *(&v39 + 1) = sub_100008E98;
+    v40 = sub_100008EA8;
     objecta = dispatch_semaphore_create(0);
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x3812000000;
-    v37 = sub_100008EC0;
-    v38 = sub_100008ED0;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x3812000000;
+    v34 = sub_100008EC0;
+    v35 = sub_100008ED0;
     obj = 0;
     if (qword_100014690 != -1)
     {
       dispatch_once(&qword_100014690, &stru_100010CE0);
     }
 
-    v21 = *(*(&allocator + 1) + 48);
     nw_resolver_set_update_handler();
-    dispatch_semaphore_wait(*(*(&v41 + 1) + 48), 0xFFFFFFFFFFFFFFFFLL);
-    if (v35[6] && nw_array_get_count())
+    dispatch_semaphore_wait(*(*(&v38 + 1) + 48), 0xFFFFFFFFFFFFFFFFLL);
+    if (v32[6] && nw_array_get_count())
     {
-      v22 = v35[6];
       count = nw_array_get_count();
       Mutable = CFArrayCreateMutable(kCFAllocatorDefault, count, &kCFTypeArrayCallBacks);
-      v47[3] = Mutable;
-      v25 = v35[6];
+      v44[3] = Mutable;
       nw_array_apply();
-      v26 = CFArrayGetCount(v47[3]);
-      v27 = v47;
-      if (!v26)
+      v23 = CFArrayGetCount(v44[3]);
+      v24 = v44;
+      if (!v23)
       {
-        v28 = v47[3];
-        if (v28)
+        v25 = v44[3];
+        if (v25)
         {
-          CFRelease(v28);
-          v27 = v47;
+          CFRelease(v25);
+          v24 = v44;
         }
 
-        v27[3] = 0;
+        v24[3] = 0;
       }
     }
 
     else
     {
-      v27 = v47;
+      v24 = v44;
     }
 
-    v29 = v27[3];
-    _Block_object_dispose(&v34, 8);
-    v30 = obj;
+    v26 = v24[3];
+    _Block_object_dispose(&v31, 8);
+    v27 = obj;
     obj = 0;
-    if (v30)
+    if (v27)
     {
-      nw_release(v30);
+      nw_release(v27);
     }
 
-    _Block_object_dispose(&v41, 8);
-    v31 = objecta;
+    _Block_object_dispose(&v38, 8);
+    v28 = objecta;
     objecta = 0;
-    if (v31)
+    if (v28)
     {
-      dispatch_release(v31);
+      dispatch_release(v28);
     }
 
     _Block_object_dispose(&allocator, 8);
-    v32 = v52;
-    v52 = 0;
-    if (v32)
+    v29 = v49;
+    v49 = 0;
+    if (v29)
     {
-      nw_release(v32);
+      nw_release(v29);
     }
 
     if (v20)
@@ -3797,21 +3781,21 @@ JSValueRef sub_100008780(const OpaqueJSContext *a1, JSObjectRef object, uint64_t
       nw_release(host_with_numeric_port);
     }
 
-    if (v55 && v56 != v55)
+    if (v52 && v53 != v52)
     {
-      CFAllocatorDeallocate(*buf, v55);
+      CFAllocatorDeallocate(*buf, v52);
     }
 
-    _Block_object_dispose(&v46, 8);
+    _Block_object_dispose(&v43, 8);
     if (v12)
     {
       CFRelease(v12);
     }
 
-    if (v29)
+    if (v26)
     {
-      Null = sub_1000086AC(kCFAllocatorDefault, a1, v29);
-      CFRelease(v29);
+      Null = sub_1000086AC(kCFAllocatorDefault, a1, v26);
+      CFRelease(v26);
     }
 
     JSStringRelease(v10);
@@ -3826,7 +3810,7 @@ JSValueRef sub_100008780(const OpaqueJSContext *a1, JSObjectRef object, uint64_t
   return Null;
 }
 
-void sub_100008D3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *obj, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, dispatch_object_t object, uint64_t a36, char a37)
+void sub_100008D3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *obj, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, dispatch_object_t object, uint64_t a36, char a37)
 {
   if (v38)
   {
@@ -3913,7 +3897,7 @@ intptr_t sub_100008EE8(intptr_t result, int a2, void *obj)
     if (obj)
     {
       nw_retain(obj);
-      v6 = *(v5[4] + 8);
+      v6 = *(*(v5 + 32) + 8);
       v7 = *(v6 + 48);
       *(v6 + 48) = obj;
       if (v7)
@@ -3922,11 +3906,10 @@ intptr_t sub_100008EE8(intptr_t result, int a2, void *obj)
       }
     }
 
-    v8 = *(*(v5[5] + 8) + 48);
     nw_resolver_cancel();
-    v9 = *(*(v5[6] + 8) + 48);
+    v8 = *(*(*(v5 + 48) + 8) + 48);
 
-    return dispatch_semaphore_signal(v9);
+    return dispatch_semaphore_signal(v8);
   }
 
   return result;

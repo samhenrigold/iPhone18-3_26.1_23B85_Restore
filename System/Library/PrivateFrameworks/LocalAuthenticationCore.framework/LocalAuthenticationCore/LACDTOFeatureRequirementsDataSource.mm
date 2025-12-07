@@ -55,7 +55,7 @@
   else
   {
     v9 = [LACError errorWithCode:-1000 debugDescription:@"Missing AuthKit dependency"];
-    v10 = LACLogDTOFeature();
+    v10 = LACLogDTOFeature(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(LACDTOFeatureRequirementsDataSource *)v9 hasHSA2AccountWithCompletion:v10];
@@ -127,7 +127,7 @@ void __68__LACDTOFeatureRequirementsDataSource_hasHSA2AccountWithCompletion___bl
   else
   {
     v9 = [LACError errorWithCode:-1000 debugDescription:@"Missing CoreLocation dependency"];
-    v10 = LACLogDTOFeature();
+    v10 = LACLogDTOFeature(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(LACDTOFeatureRequirementsDataSource *)v9 hasLocationServicesEnabledWithCompletion:v10];
@@ -166,20 +166,18 @@ void __80__LACDTOFeatureRequirementsDataSource_hasLocationServicesEnabledWithCom
 
 - (void)hasHSA2AccountWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Could not fetch HSA2 account %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Could not fetch HSA2 account %{public}@", &v2, 0xCu);
 }
 
 - (void)hasLocationServicesEnabledWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Could not fetch LocationServices status %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Could not fetch LocationServices status %{public}@", &v2, 0xCu);
 }
 
 @end

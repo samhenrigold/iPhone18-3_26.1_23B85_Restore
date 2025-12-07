@@ -21,7 +21,7 @@
 
 - (unint64_t)hash
 {
-  [(MKServerFormattedStringParameters *)self options];
+  objc_msgSend_options(self, a2);
   v3 = MNFormattedStringOptionsHash();
   variableOverrides = [(MKServerFormattedStringParameters *)self variableOverrides];
   v5 = [variableOverrides hash];
@@ -32,10 +32,10 @@
 - (BOOL)isEqualToServerFormattedStringParameters:(id)parameters
 {
   parametersCopy = parameters;
-  [(MKServerFormattedStringParameters *)self options];
+  objc_msgSend_options(self);
   if (parametersCopy)
   {
-    [parametersCopy options];
+    objc_msgSend_options(parametersCopy);
   }
 
   if (MNFormattedStringOptionsIsEqual())

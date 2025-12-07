@@ -6,16 +6,16 @@
 
 + (id)determinePreviousFireDateWithStore:(id)store error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   storeCopy = store;
-  v27 = 0;
-  v6 = [storeCopy _fetchPreviousSevenDayLocalNotificationFireDateWithError:&v27];
-  v7 = v27;
+  v26 = 0;
+  v6 = [storeCopy _fetchPreviousSevenDayLocalNotificationFireDateWithError:&v26];
+  v7 = v26;
   if (!v7)
   {
-    v26 = 0;
-    v11 = [storeCopy _fetchPreviousSevenDayRemoteNotificationFireDateWithError:&v26];
-    v8 = v26;
+    v25 = 0;
+    v11 = [storeCopy _fetchPreviousSevenDayRemoteNotificationFireDateWithError:&v25];
+    v8 = v25;
     if (v8)
     {
       if (error)
@@ -43,7 +43,7 @@ LABEL_12:
         v14 = v13;
         v15 = objc_opt_class();
         *buf = 138543362;
-        v29 = v15;
+        v28 = v15;
         _os_log_impl(&dword_251764000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Determiner returning nil", buf, 0xCu);
       }
 
@@ -67,7 +67,7 @@ LABEL_16:
       v17 = v16;
       v18 = objc_opt_class();
       *buf = 138543362;
-      v29 = v18;
+      v28 = v18;
       _os_log_impl(&dword_251764000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Determiner returning local notification fire date", buf, 0xCu);
 
       goto LABEL_17;
@@ -105,7 +105,7 @@ LABEL_26:
         v22 = v16;
         v23 = objc_opt_class();
         *buf = 138543362;
-        v29 = v23;
+        v28 = v23;
         _os_log_impl(&dword_251764000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Determiner returning remote notification fire date", buf, 0xCu);
       }
     }
@@ -129,8 +129,6 @@ LABEL_26:
   }
 
 LABEL_30:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

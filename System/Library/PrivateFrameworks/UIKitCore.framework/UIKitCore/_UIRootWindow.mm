@@ -341,9 +341,9 @@ LABEL_24:
 
       if (v15 && v20)
       {
-        v22 = [(FBSDisplayIdentity *)v19 isEqual:v20];
+        isEqual = objc_msgSend_isEqual_(v19);
 
-        if (v22)
+        if (isEqual)
         {
           goto LABEL_24;
         }
@@ -377,7 +377,7 @@ LABEL_15:
     goto LABEL_23;
   }
 
-  v16 = [(FBSDisplayIdentity *)v13 isEqual:v14];
+  v16 = objc_msgSend_isEqual_(v13);
 
   if ((v16 & 1) == 0)
   {

@@ -30,7 +30,7 @@
 {
   if (self->_activateCalled && !self->_invalidateDone)
   {
-    v2 = [ENExposureDetectionSession dealloc];
+    [ENExposureDetectionSession dealloc];
     [(ENUserAlert *)v2 activateWithCompletionHandler:v3, v4];
   }
 
@@ -61,10 +61,14 @@ void __45__ENUserAlert_activateWithCompletionHandler___block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 8) == 1)
   {
-    v7 = ENErrorF(10);
-    if (gLogCategory__ENUserAlert <= 90 && (gLogCategory__ENUserAlert != -1 || _LogCategory_Initialize()))
+    v3 = ENErrorF(10, "activate already called");
+    v10 = v3;
+    if (gLogCategory__ENUserAlert <= 90)
     {
-      __45__ENUserAlert_activateWithCompletionHandler___block_invoke_cold_1();
+      if (gLogCategory__ENUserAlert != -1 || (v4 = _LogCategory_Initialize(), v3 = v10, v4))
+      {
+        __45__ENUserAlert_activateWithCompletionHandler___block_invoke_cold_1(v3);
+      }
     }
 
     (*(*(a1 + 40) + 16))();
@@ -76,10 +80,14 @@ LABEL_11:
 
   if (*(v2 + 9) == 1)
   {
-    v7 = ENErrorF(10);
-    if (gLogCategory__ENUserAlert <= 90 && (gLogCategory__ENUserAlert != -1 || _LogCategory_Initialize()))
+    v5 = ENErrorF(10, "activate after invalidate");
+    v10 = v5;
+    if (gLogCategory__ENUserAlert <= 90)
     {
-      __45__ENUserAlert_activateWithCompletionHandler___block_invoke_cold_1();
+      if (gLogCategory__ENUserAlert != -1 || (v6 = _LogCategory_Initialize(), v5 = v10, v6))
+      {
+        __45__ENUserAlert_activateWithCompletionHandler___block_invoke_cold_1(v5);
+      }
     }
 
     (*(*(a1 + 40) + 16))();
@@ -88,19 +96,18 @@ LABEL_11:
 
   if (gLogCategory_ENUserAlert <= 30)
   {
-    if (gLogCategory_ENUserAlert != -1 || (v3 = _LogCategory_Initialize(), v2 = *(a1 + 32), v3))
+    if (gLogCategory_ENUserAlert != -1 || (v7 = _LogCategory_Initialize(), v2 = *(a1 + 32), v7))
     {
-      v6 = *(v2 + 104);
       LogPrintF_safe();
       v2 = *(a1 + 32);
     }
   }
 
   *(v2 + 8) = 1;
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v8 = *(a1 + 32);
+  v9 = *(a1 + 40);
 
-  [v4 _activateWithCompletionHandler:v5];
+  [v8 _activateWithCompletionHandler:v9];
 }
 
 - (void)_activateWithCompletionHandler:(id)handler
@@ -198,7 +205,12 @@ LABEL_11:
   v28 = v27;
   if (!v27)
   {
-    goto LABEL_24;
+    v36 = ENErrorF(11, "Create alert failed (%d)", error);
+LABEL_26:
+    v37 = v43[5];
+    v43[5] = v36;
+
+    goto LABEL_23;
   }
 
   self->_userNotification = v27;
@@ -219,61 +231,40 @@ LABEL_11:
   pthread_mutex_unlock(&gENUserAlertMutex);
   RunLoopSource = CFUserNotificationCreateRunLoopSource(0, v28, _responseCallback, 0);
   v34 = RunLoopSource;
-  if (RunLoopSource)
+  if (!RunLoopSource)
   {
-    self->_userRLS = RunLoopSource;
-    Main = CFRunLoopGetMain();
-    CFRunLoopAddSource(Main, v34, *MEMORY[0x277CBF058]);
-    (*(v5 + 2))(v5, 0);
+    v36 = ENErrorF(11, "Create alert RLS failed");
+    goto LABEL_26;
   }
 
-  else
-  {
-LABEL_24:
-    v36 = ENErrorF(11);
-    v37 = v43[5];
-    v43[5] = v36;
-  }
+  self->_userRLS = RunLoopSource;
+  Main = CFRunLoopGetMain();
+  CFRunLoopAddSource(Main, v34, *MEMORY[0x277CBF058]);
+  (*(v5 + 2))(v5, 0);
+LABEL_23:
 
   v6[2](v6);
   _Block_object_dispose(&v42, 8);
 }
 
-uint64_t __46__ENUserAlert__activateWithCompletionHandler___block_invoke(void *a1)
+void *__46__ENUserAlert__activateWithCompletionHandler___block_invoke(void *a1)
 {
-  v2 = a1[6];
-  result = *(*(v2 + 8) + 40);
-  if (!result)
+  result = *(*(a1[6] + 8) + 40);
+  if (result)
   {
-    return result;
-  }
-
-  if (gLogCategory__ENUserAlert <= 90)
-  {
-    if (gLogCategory__ENUserAlert == -1)
+    if (gLogCategory__ENUserAlert <= 90 && (gLogCategory__ENUserAlert != -1 || _LogCategory_Initialize()))
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
-      {
-        goto LABEL_7;
-      }
-
-      v7 = *(*(v2 + 8) + 40);
+      v4 = CUPrintNSError();
+      LogPrintF_safe();
     }
 
-    v8 = CUPrintNSError();
-    LogPrintF_safe();
+    (*(a1[5] + 16))(a1[5]);
+    v3 = a1[4];
 
-    v2 = a1[6];
+    return [v3 _autoInvalidate];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  (*(a1[5] + 16))(a1[5]);
-  v6 = a1[4];
-
-  return [v6 _autoInvalidate];
+  return result;
 }
 
 - (void)invalidate
@@ -287,7 +278,7 @@ LABEL_7:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __25__ENUserAlert_invalidate__block_invoke(uint64_t result)
+void *__25__ENUserAlert_invalidate__block_invoke(void *result)
 {
   v1 = result;
   if (gLogCategory_ENUserAlert <= 30)
@@ -298,11 +289,11 @@ uint64_t __25__ENUserAlert_invalidate__block_invoke(uint64_t result)
     }
   }
 
-  v2 = *(v1 + 32);
+  v2 = v1[4];
   if ((*(v2 + 9) & 1) == 0)
   {
     *(v2 + 9) = 1;
-    v3 = *(v1 + 32);
+    v3 = v1[4];
 
     return [v3 _autoInvalidate];
   }
@@ -398,7 +389,7 @@ void __47__ENUserAlert__responseCallback_responseFlags___block_invoke(uint64_t a
   {
     if (gLogCategory_ENUserAlert <= 30 && (gLogCategory_ENUserAlert != -1 || _LogCategory_Initialize()))
     {
-      __47__ENUserAlert__responseCallback_responseFlags___block_invoke_cold_1(a1);
+      __47__ENUserAlert__responseCallback_responseFlags___block_invoke_cold_1();
     }
 
     *(*(a1 + 32) + 11) = 1;
@@ -417,9 +408,9 @@ void __47__ENUserAlert__responseCallback_responseFlags___block_invoke(uint64_t a
   }
 }
 
-void __45__ENUserAlert_activateWithCompletionHandler___block_invoke_cold_1()
+void __45__ENUserAlert_activateWithCompletionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v0 = CUPrintNSError();
+  v1 = CUPrintNSError();
   LogPrintF_safe();
 }
 

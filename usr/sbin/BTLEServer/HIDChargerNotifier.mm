@@ -7,6 +7,7 @@
 - (void)blePairing:(id)pairing pairingFinished:(id)finished blePairingUUID:(id)d;
 - (void)blePairingNoAccessories:(id)accessories;
 - (void)changeState:(unsigned __int8)state;
+- (void)setBTAuthState:(BOOL)state;
 - (void)setPairingData:(id)data;
 - (void)start;
 - (void)stop;
@@ -137,6 +138,21 @@ LABEL_12:
   dispatch_async(queue, block);
   objc_destroyWeak(&v7);
   objc_destroyWeak(&location);
+}
+
+- (void)setBTAuthState:(BOOL)state
+{
+  stateCopy = state;
+  v5 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+  {
+    v7[0] = 67109120;
+    v7[1] = stateCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Setting auth state (%u)", v7, 8u);
+  }
+
+  v6 = +[ACCTransportClient sharedClient];
+  [v6 setConnectionAuthenticated:self->_accConnIdentifier state:stateCopy];
 }
 
 - (void)setPairingData:(id)data

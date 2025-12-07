@@ -67,11 +67,11 @@
 
 - (WFSettingsIPV6)initWithDictionary:(id)dictionary
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v22.receiver = self;
-  v22.super_class = WFSettingsIPV6;
-  v6 = [(WFSettingsIPV6 *)&v22 init];
+  v25.receiver = self;
+  v25.super_class = WFSettingsIPV6;
+  v6 = [(WFSettingsIPV6 *)&v25 init];
   v7 = v6;
   v8 = 0;
   if (!dictionaryCopy || !v6)
@@ -86,14 +86,15 @@
   v8 = v9;
   if (!v9)
   {
-    v19 = WFLogForCategory(0);
-    v21 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v19)
+    v18 = WFLogForCategory(0);
+    v22 = OSLogForWFLogLevel(1uLL);
+    v23 = v22;
+    if (WFCurrentLogLevel(v22, v24) && v18)
     {
-      if (os_log_type_enabled(v19, v21))
+      if (os_log_type_enabled(v18, v23))
       {
         *buf = 0;
-        _os_log_impl(&dword_273ECD000, v19, v21, "Missing kSCPropNetIPv6ConfigMethod in dictionary.", buf, 2u);
+        _os_log_impl(&dword_273ECD000, v18, v23, "Missing kSCPropNetIPv6ConfigMethod in dictionary.", buf, 2u);
       }
 
       v8 = 0;
@@ -116,13 +117,14 @@
       goto LABEL_10;
     }
 
-    v19 = WFLogForCategory(0);
-    v20 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v19 && os_log_type_enabled(v19, v20))
+    v18 = WFLogForCategory(0);
+    v19 = OSLogForWFLogLevel(1uLL);
+    v20 = v19;
+    if (WFCurrentLogLevel(v19, v21) && v18 && os_log_type_enabled(v18, v20))
     {
       *buf = 138543362;
-      v24 = v8;
-      _os_log_impl(&dword_273ECD000, v19, v20, "Uknown IPv6 config method %{public}@", buf, 0xCu);
+      v27 = v8;
+      _os_log_impl(&dword_273ECD000, v18, v20, "Uknown IPv6 config method %{public}@", buf, 0xCu);
     }
 
 LABEL_16:
@@ -148,19 +150,18 @@ LABEL_10:
   v7->_router = v15;
 LABEL_11:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (WFSettingsIPV6)initWithMethod:(int64_t)method addresses:(id)addresses prefixLengths:(id)lengths router:(id)router
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   addressesCopy = addresses;
   lengthsCopy = lengths;
   routerCopy = router;
-  v29.receiver = self;
-  v29.super_class = WFSettingsIPV6;
-  v13 = [(WFSettingsIPV6 *)&v29 init];
+  v30.receiver = self;
+  v30.super_class = WFSettingsIPV6;
+  v13 = [(WFSettingsIPV6 *)&v30 init];
   if (v13)
   {
     v14 = MEMORY[0x277CE1840];
@@ -171,17 +172,17 @@ LABEL_11:
       case 5:
         v15 = WFLogForCategory(0);
         v16 = OSLogForWFLogLevel(1uLL);
-        if (!WFCurrentLogLevel() || !v15 || !os_log_type_enabled(v15, v16))
+        if (!WFCurrentLogLevel(v16, v17) || !v15 || !os_log_type_enabled(v15, v16))
         {
           goto LABEL_13;
         }
 
         *buf = 134349056;
         methodCopy = method;
-        v17 = "Unsupported WFIPv6ConfigMethod used %{public}ld";
-        v18 = v15;
-        v19 = v16;
-        v20 = 12;
+        v18 = "Unsupported WFIPv6ConfigMethod used %{public}ld";
+        v19 = v15;
+        v20 = v16;
+        v21 = 12;
         goto LABEL_12;
       case 1:
         goto LABEL_18;
@@ -191,11 +192,11 @@ LABEL_11:
       case 3:
         v14 = MEMORY[0x277CE1850];
 LABEL_18:
-        v23 = *v14;
-        if (v23)
+        v25 = *v14;
+        if (v25)
         {
           dictionary = [MEMORY[0x277CBEB38] dictionary];
-          [dictionary setObject:v23 forKey:*MEMORY[0x277CE1760]];
+          [dictionary setObject:v25 forKey:*MEMORY[0x277CE1760]];
           if (lengthsCopy)
           {
             [dictionary setObject:lengthsCopy forKey:*MEMORY[0x277CE1778]];
@@ -211,14 +212,14 @@ LABEL_18:
             [dictionary setObject:routerCopy forKey:*MEMORY[0x277CE1780]];
           }
 
-          v22 = dictionary;
+          v24 = dictionary;
           items = v13->_items;
-          v13->_items = v22;
+          v13->_items = v24;
         }
 
         else
         {
-          v22 = 0;
+          v24 = 0;
 LABEL_15:
           items = v13;
           v13 = 0;
@@ -229,37 +230,36 @@ LABEL_15:
         if (method == 0x7FFFFFFFFFFFFFFFLL)
         {
           v15 = WFLogForCategory(0);
-          v21 = OSLogForWFLogLevel(1uLL);
-          if (WFCurrentLogLevel() && v15 && os_log_type_enabled(v15, v21))
+          v22 = OSLogForWFLogLevel(1uLL);
+          if (WFCurrentLogLevel(v22, v23) && v15 && os_log_type_enabled(v15, v22))
           {
             *buf = 0;
-            v17 = "Unknown WFIPv6ConfigMethod used";
-            v18 = v15;
-            v19 = v21;
-            v20 = 2;
+            v18 = "Unknown WFIPv6ConfigMethod used";
+            v19 = v15;
+            v20 = v22;
+            v21 = 2;
 LABEL_12:
-            _os_log_impl(&dword_273ECD000, v18, v19, v17, buf, v20);
+            _os_log_impl(&dword_273ECD000, v19, v20, v18, buf, v21);
           }
 
 LABEL_13:
         }
 
-        v22 = 0;
-        v23 = 0;
+        v24 = 0;
+        v25 = 0;
         goto LABEL_15;
     }
   }
 
   else
   {
-    v22 = 0;
-    v23 = 0;
+    v24 = 0;
+    v25 = 0;
     items = 0;
   }
 
-  v26 = v13;
-  v27 = *MEMORY[0x277D85DE8];
-  return v26;
+  v28 = v13;
+  return v28;
 }
 
 @end

@@ -40,50 +40,48 @@
 
 void __43__NWMUltravioletIndexColorIndex_allIndices__block_invoke(uint64_t a1)
 {
-  v31[12] = *MEMORY[0x277D85DE8];
-  v30 = [MEMORY[0x277D75348] systemGreenColor];
-  v29 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v30 color:0.9];
-  v31[0] = v29;
-  v28 = [MEMORY[0x277D75348] colorWithRed:0.345098039 green:0.882352941 blue:0.337254902 alpha:1.0];
-  v27 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v28 color:1.9];
-  v31[1] = v27;
-  v26 = [MEMORY[0x277D75348] colorWithRed:0.670588235 green:0.890196078 blue:0.37254902 alpha:1.0];
-  v25 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v26 color:2.9];
-  v31[2] = v25;
-  v24 = [MEMORY[0x277D75348] systemYellowColor];
-  v23 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v24 color:3.9];
-  v31[3] = v23;
-  v21 = [MEMORY[0x277D75348] colorWithRed:1.0 green:0.796078431 blue:0.0823529412 alpha:1.0];
-  v20 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v21 color:4.9];
-  v31[4] = v20;
-  v19 = [MEMORY[0x277D75348] colorWithRed:1.0 green:0.690196078 blue:0.0431372549 alpha:1.0];
-  v18 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v19 color:5.9];
-  v31[5] = v18;
-  v17 = [MEMORY[0x277D75348] systemOrangeColor];
-  v16 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v17 color:6.9];
-  v31[6] = v16;
+  v30[12] = *MEMORY[0x277D85DE8];
+  v29 = [MEMORY[0x277D75348] systemGreenColor];
+  v28 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v29 color:0.9];
+  v30[0] = v28;
+  v27 = [MEMORY[0x277D75348] colorWithRed:0.345098039 green:0.882352941 blue:0.337254902 alpha:1.0];
+  v26 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v27 color:1.9];
+  v30[1] = v26;
+  v25 = [MEMORY[0x277D75348] colorWithRed:0.670588235 green:0.890196078 blue:0.37254902 alpha:1.0];
+  v24 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v25 color:2.9];
+  v30[2] = v24;
+  v23 = [MEMORY[0x277D75348] systemYellowColor];
+  v22 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v23 color:3.9];
+  v30[3] = v22;
+  v20 = [MEMORY[0x277D75348] colorWithRed:1.0 green:0.796078431 blue:0.0823529412 alpha:1.0];
+  v19 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v20 color:4.9];
+  v30[4] = v19;
+  v18 = [MEMORY[0x277D75348] colorWithRed:1.0 green:0.690196078 blue:0.0431372549 alpha:1.0];
+  v17 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v18 color:5.9];
+  v30[5] = v17;
+  v16 = [MEMORY[0x277D75348] systemOrangeColor];
+  v15 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v16 color:6.9];
+  v30[6] = v15;
   v1 = [MEMORY[0x277D75348] colorWithRed:1.0 green:0.380392157 blue:0.168627451 alpha:1.0];
   v2 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v1 color:7.9];
-  v31[7] = v2;
+  v30[7] = v2;
   v3 = [MEMORY[0x277D75348] systemPinkColor];
   v4 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v3 color:8.9];
-  v31[8] = v4;
+  v30[8] = v4;
   v5 = [MEMORY[0x277D75348] colorWithRed:0.890196078 green:0.117647059 blue:0.556862745 alpha:1.0];
   v6 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v5 color:9.9];
-  v31[9] = v6;
+  v30[9] = v6;
   v7 = [MEMORY[0x277D75348] colorWithRed:0.776470588 green:0.0588235294 blue:0.776470588 alpha:1.0];
   v8 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v7 color:10.9];
-  v31[10] = v8;
+  v30[10] = v8;
   [*(a1 + 32) lastValue];
   v10 = v9;
   v11 = [MEMORY[0x277D75348] colorWithRed:0.666666667 green:0.0 blue:1.0 alpha:1.0];
   v12 = [NWMUltravioletIndexColorIndex indexWithUltravioletIndexValue:v11 color:v10];
-  v31[11] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:12];
+  v30[11] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:12];
   v14 = allIndices_AllIndices;
   allIndices_AllIndices = v13;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

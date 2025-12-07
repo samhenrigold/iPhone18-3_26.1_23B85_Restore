@@ -290,7 +290,7 @@ LABEL_12:
 
 - (BOOL)_updateTrailingAction
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v4 = self->_trailingAction;
   if (objc_opt_respondsToSelector())
@@ -306,27 +306,27 @@ LABEL_12:
   trailingAction = self->_trailingAction;
   self->_trailingAction = v5;
 
-  v7 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     if (self->_trailingAction)
     {
-      v8 = @"YES";
+      v10 = @"YES";
     }
 
     else
     {
-      v8 = @"NO";
+      v10 = @"NO";
     }
 
-    v9 = v8;
-    v13 = 138412290;
-    v14 = v9;
-    _os_log_impl(&dword_18B7AC000, v7, OS_LOG_TYPE_DEFAULT, "Update trailing action = %@", &v13, 0xCu);
+    v11 = v10;
+    v15 = 138412290;
+    v16 = v11;
+    _os_log_impl(&dword_18B7AC000, v9, OS_LOG_TYPE_DEFAULT, "Update trailing action = %@", &v15, 0xCu);
   }
 
-  v10 = WBSIsEqual();
-  if ((v10 & 1) == 0)
+  v12 = WBSIsEqual();
+  if ((v12 & 1) == 0)
   {
     [(SFCapsuleCollectionView *)self setNeedsLayout];
     if ([(NSArray *)self->_items count]== self->_numberOfItems + 1)
@@ -339,7 +339,7 @@ LABEL_12:
     }
   }
 
-  return v10 ^ 1;
+  return v12 ^ 1;
 }
 
 - (void)_updateTopAction
@@ -519,7 +519,7 @@ LABEL_11:
 - (void)_reloadDataWithoutLayout
 {
   v26 = *MEMORY[0x1E69E9840];
-  v3 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
+  v3 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -630,7 +630,7 @@ uint64_t __51__SFCapsuleCollectionView_updateSupplementaryViews__block_invoke(ui
     }
   }
 
-  return MEMORY[0x1EEE66BE0]();
+  return MEMORY[0x1EEE66BE0](v6);
 }
 
 - (void)updateSupplementaryViewTheme
@@ -1591,33 +1591,33 @@ LABEL_10:
 
 - (void)layOutSupplementaryViews
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v46 = [(SFCapsuleCollectionView *)self pageForIndex:self->_selectedItemIndex];
   selectedItemIsMinimized = [(SFCapsuleCollectionView *)self selectedItemIsMinimized];
+  v60 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v66 = 0u;
   obj = [(NSDictionary *)self->_supplementaryViews allKeys];
-  v3 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+  v3 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
   if (v3)
   {
     v4 = v3;
-    v45 = *v64;
+    v45 = *v61;
     v42 = *MEMORY[0x1E69796E8];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v64 != v45)
+        if (*v61 != v45)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v63 + 1) + 8 * i);
+        v6 = *(*(&v60 + 1) + 8 * i);
         v7 = [(SFCapsuleCollectionView *)self infoForSupplementaryWithIdentifier:v6 onPage:v46, v42];
-        v62 = 0;
-        v8 = [(SFCapsuleCollectionView *)self superviewForSupplementaryViewWithLayoutInfo:v7 isTopAligned:&v62];
+        v59 = 0;
+        v8 = [(SFCapsuleCollectionView *)self superviewForSupplementaryViewWithLayoutInfo:v7 isTopAligned:&v59];
         v9 = [(NSDictionary *)self->_supplementaryViews objectForKeyedSubscript:v6];
         superview = [v9 superview];
 
@@ -1654,24 +1654,24 @@ LABEL_10:
           v13 = layer;
           if (layer)
           {
-            [layer cornerRadii];
+            objc_msgSend_cornerRadii(layer);
           }
 
           else
           {
-            v60 = 0u;
-            v61 = 0u;
+            v57 = 0u;
             v58 = 0u;
-            v59 = 0u;
+            v55 = 0u;
+            v56 = 0u;
           }
 
           v14 = *(MEMORY[0x1E6979288] + 16);
-          v54 = *MEMORY[0x1E6979288];
+          v54[0] = *MEMORY[0x1E6979288];
           v15 = *(MEMORY[0x1E6979288] + 32);
           v16 = *(MEMORY[0x1E6979288] + 48);
-          v55 = v14;
-          v56 = v15;
-          v57 = v16;
+          v54[1] = v14;
+          v54[2] = v15;
+          v54[3] = v16;
           v17 = CACornerRadiiEqualToRadii();
 
           if (v17)
@@ -1688,7 +1688,7 @@ LABEL_19:
 
             if (v7)
             {
-              [v7 cornerRadii];
+              objc_msgSend_cornerRadii(v7);
             }
 
             else
@@ -1700,11 +1700,11 @@ LABEL_19:
             }
 
             layer3 = [v9 layer];
-            v58 = v50;
-            v59 = v51;
-            v60 = v52;
-            v61 = v53;
-            [layer3 setCornerRadii:&v58];
+            v55 = v50;
+            v56 = v51;
+            v57 = v52;
+            v58 = v53;
+            [layer3 setCornerRadii:&v55];
           }
         }
 
@@ -1714,7 +1714,7 @@ LABEL_19:
         v25 = v24;
         v27 = v26;
         v28 = &OBJC_IVAR___SFCapsuleCollectionView__contentView;
-        if (v62)
+        if (v59)
         {
           v28 = &OBJC_IVAR___SFCapsuleCollectionView__topContentView;
         }
@@ -1748,7 +1748,7 @@ LABEL_19:
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+      v4 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
     }
 
     while (v4);
@@ -1852,7 +1852,7 @@ LABEL_8:
     v12 = v11;
     if (v11)
     {
-      [v11 transform];
+      objc_msgSend_transform(v11);
     }
 
     else
@@ -2359,35 +2359,35 @@ LABEL_59:
 
 - (void)updateSupplementariesAlpha
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (([MEMORY[0x1E69C8880] isSolariumEnabled] & 1) == 0)
   {
     [(SFCapsuleCollectionView *)self _toolbarBackdropAlpha];
     v4 = v3;
-    v22 = [(SFCapsuleCollectionView *)self pageForIndex:self->_selectedItemIndex];
+    v24 = [(SFCapsuleCollectionView *)self pageForIndex:self->_selectedItemIndex];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v27 = 0u;
-    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     allKeys = [(NSDictionary *)self->_supplementaryViews allKeys];
-    v6 = [allKeys countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v6 = [allKeys countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v28;
+      v9 = *v30;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v28 != v9)
+          if (*v30 != v9)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v11 = *(*(&v27 + 1) + 8 * i);
-          [(SFCapsuleCollectionView *)self infoForSupplementaryWithIdentifier:v11 onPage:v22];
+          v11 = *(*(&v29 + 1) + 8 * i);
+          [(SFCapsuleCollectionView *)self infoForSupplementaryWithIdentifier:v11 onPage:v24];
           v13 = v12 = self;
           [v13 alpha];
           v15 = v4 * v14;
@@ -2398,49 +2398,49 @@ LABEL_59:
           self = v12;
         }
 
-        v7 = [allKeys countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v7 = [allKeys countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v7);
 
       if (v8)
       {
-        v17 = 0.3;
+        v19 = 0.3;
       }
 
       else
       {
-        v17 = 0.2;
+        v19 = 0.2;
       }
     }
 
     else
     {
 
-      v17 = 0.2;
+      v19 = 0.2;
     }
 
     toolbarCrossfadeDelay = self->_toolbarCrossfadeDelay;
-    v19 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(v17, v18);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v32 = v4;
-      v33 = 2114;
-      v34 = dictionary;
-      _os_log_impl(&dword_18B7AC000, v19, OS_LOG_TYPE_DEFAULT, "Set _toolbarBackdropView.alpha = %f, supplementaries: %{public}@", buf, 0x16u);
+      v34 = v4;
+      v35 = 2114;
+      v36 = dictionary;
+      _os_log_impl(&dword_18B7AC000, v21, OS_LOG_TYPE_DEFAULT, "Set _toolbarBackdropView.alpha = %f, supplementaries: %{public}@", buf, 0x16u);
     }
 
-    v20 = MEMORY[0x1E69DD250];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __53__SFCapsuleCollectionView_updateSupplementariesAlpha__block_invoke;
-    v24[3] = &unk_1E721B9A8;
-    v26 = v4;
-    v24[4] = self;
-    v25 = dictionary;
-    v21 = dictionary;
-    [v20 animateWithDuration:50331654 delay:v24 options:0 animations:v17 completion:toolbarCrossfadeDelay];
+    v22 = MEMORY[0x1E69DD250];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __53__SFCapsuleCollectionView_updateSupplementariesAlpha__block_invoke;
+    v26[3] = &unk_1E721B9A8;
+    v28 = v4;
+    v26[4] = self;
+    v27 = dictionary;
+    v23 = dictionary;
+    [v22 animateWithDuration:50331654 delay:v26 options:0 animations:v19 completion:toolbarCrossfadeDelay];
   }
 }
 
@@ -2579,7 +2579,7 @@ LABEL_59:
   [(SFCapsuleCollectionView *)self convertRect:superview3 toView:v17, v19, v21, v23];
   [(UIView *)self->_lockdownStatusBar ss_setUntransformedFrame:?];
 
-  [(SFCapsuleCollectionView *)self _lockdownIndicatorTransform];
+  objc_msgSend__lockdownIndicatorTransform(self);
   lockdownStatusBar = self->_lockdownStatusBar;
   v26[0] = v26[3];
   v26[1] = v26[4];
@@ -2736,7 +2736,7 @@ void __51__SFCapsuleCollectionView__updateContentBlurRadius__block_invoke(uint64
   return result;
 }
 
-uint64_t __57__SFCapsuleCollectionView_obscuredInsetsIgnoringKeyboard__block_invoke(uint64_t a1)
+void *__57__SFCapsuleCollectionView_obscuredInsetsIgnoringKeyboard__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _insetsByApplyingSelectedItemOffset];
   v3 = *(*(a1 + 40) + 8);
@@ -3384,7 +3384,7 @@ void __68__SFCapsuleCollectionView__layOutItems_atIndexes_selectedItemIndex___bl
     v26 = *(a1 + 40);
     if (v26)
     {
-      [v26 _selectedItemContentTransformForFrame:{v19, v21, v23, v25}];
+      objc_msgSend__selectedItemContentTransformForFrame_(v26, v19, v21, v23, v25);
     }
 
     else
@@ -3909,7 +3909,7 @@ LABEL_22:
     {
       if (v18)
       {
-        [v18 cornerRadii];
+        objc_msgSend_cornerRadii(v18);
         v36 = *&v138;
       }
 
@@ -3924,7 +3924,7 @@ LABEL_22:
 
       if (v19)
       {
-        [v19 cornerRadii];
+        objc_msgSend_cornerRadii(v19);
         v37 = *&v134;
       }
 
@@ -3940,7 +3940,7 @@ LABEL_22:
       v65 = _SFInterpolate(v36, v37, v14);
       if (v18)
       {
-        [v18 cornerRadii];
+        objc_msgSend_cornerRadii(v18);
         v38 = *(&v130 + 1);
       }
 
@@ -3955,7 +3955,7 @@ LABEL_22:
 
       if (v19)
       {
-        [v19 cornerRadii];
+        objc_msgSend_cornerRadii(v19);
         v39 = *(&v126 + 1);
       }
 
@@ -3971,7 +3971,7 @@ LABEL_22:
       v40 = _SFInterpolate(v38, v39, v14);
       if (v18)
       {
-        [v18 cornerRadii];
+        objc_msgSend_cornerRadii(v18);
         v41 = *&v119;
       }
 
@@ -3986,7 +3986,7 @@ LABEL_22:
 
       if (v19)
       {
-        [v19 cornerRadii];
+        objc_msgSend_cornerRadii(v19);
         v42 = *&v115;
       }
 
@@ -4002,7 +4002,7 @@ LABEL_22:
       v43 = _SFInterpolate(v41, v42, v14);
       if (v18)
       {
-        [v18 cornerRadii];
+        objc_msgSend_cornerRadii(v18);
         v44 = *(&v111 + 1);
       }
 
@@ -4017,7 +4017,7 @@ LABEL_22:
 
       if (v19)
       {
-        [v19 cornerRadii];
+        objc_msgSend_cornerRadii(v19);
         v45 = *(&v107 + 1);
       }
 
@@ -4033,7 +4033,7 @@ LABEL_22:
       v46 = _SFInterpolate(v44, v45, v14);
       if (v18)
       {
-        [v18 cornerRadii];
+        objc_msgSend_cornerRadii(v18);
         v47 = *&v105;
       }
 
@@ -4048,7 +4048,7 @@ LABEL_22:
 
       if (v19)
       {
-        [v19 cornerRadii];
+        objc_msgSend_cornerRadii(v19);
         v48 = *&v101;
       }
 
@@ -4064,7 +4064,7 @@ LABEL_22:
       v49 = _SFInterpolate(v47, v48, v14);
       if (v18)
       {
-        [v18 cornerRadii];
+        objc_msgSend_cornerRadii(v18);
         v50 = *(&v97 + 1);
       }
 
@@ -4079,7 +4079,7 @@ LABEL_22:
 
       if (v19)
       {
-        [v19 cornerRadii];
+        objc_msgSend_cornerRadii(v19);
         v51 = *(&v93 + 1);
       }
 
@@ -4095,7 +4095,7 @@ LABEL_22:
       v52 = _SFInterpolate(v50, v51, v14);
       if (v18)
       {
-        [v18 cornerRadii];
+        objc_msgSend_cornerRadii(v18);
         v53 = *&v88;
       }
 
@@ -4110,7 +4110,7 @@ LABEL_22:
 
       if (v19)
       {
-        [v19 cornerRadii];
+        objc_msgSend_cornerRadii(v19);
         v54 = *&v84;
       }
 
@@ -4126,7 +4126,7 @@ LABEL_22:
       v55 = _SFInterpolate(v53, v54, v14);
       if (v18)
       {
-        [v18 cornerRadii];
+        objc_msgSend_cornerRadii(v18);
         v56 = *(&v80 + 1);
       }
 
@@ -4141,7 +4141,7 @@ LABEL_22:
 
       if (v19)
       {
-        [v19 cornerRadii];
+        objc_msgSend_cornerRadii(v19);
         v57 = *(&v76 + 1);
       }
 
@@ -4189,7 +4189,7 @@ LABEL_22:
     v70 = 0u;
     if (v18)
     {
-      [v18 transform];
+      objc_msgSend_transform(v18);
       v63 = 0uLL;
     }
 
@@ -4198,7 +4198,7 @@ LABEL_22:
     v67 = v63;
     if (v19)
     {
-      [v19 transform];
+      objc_msgSend_transform(v19);
       v64 = *&v67;
     }
 
@@ -4438,7 +4438,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t __67__SFCapsuleCollectionView_obscuredInsetsForState_ignoringKeyboard___block_invoke(uint64_t a1)
+void *__67__SFCapsuleCollectionView_obscuredInsetsForState_ignoringKeyboard___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) obscuredInsetsForState:*(a1 + 48) ignoringKeyboard:0];
   v3 = *(*(a1 + 40) + 8);
@@ -5037,7 +5037,7 @@ LABEL_13:
     self->_ignoresKeyboardHideEvents = events;
     if (events)
     {
-      v4 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
+      v4 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(self, a2);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         LOWORD(v8) = 0;
@@ -5048,7 +5048,7 @@ LABEL_13:
     else
     {
       v5 = !self->_showingKeyboard && self->_keyboardHeight != 0.0;
-      v6 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
+      v6 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(self, a2);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         v7 = &stru_1EFF36230;
@@ -5076,7 +5076,7 @@ LABEL_13:
   v9 = *MEMORY[0x1E69E9840];
   if ((height != 0.0 || !self->_ignoresKeyboardHideEvents) && self->_keyboardHeight != height)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
+    v5 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
@@ -5117,107 +5117,107 @@ LABEL_13:
 
 - (void)_keyboardWillChangeFrame:(id)frame
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   frameCopy = frame;
-  v5 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(frameCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     name = [frameCopy name];
     if (self->_showingKeyboard)
     {
-      v8 = @"YES";
+      v9 = @"YES";
     }
 
     else
     {
-      v8 = @"NO";
+      v9 = @"NO";
     }
 
-    v9 = v8;
+    v10 = v9;
     *buf = 138543618;
-    v43 = name;
-    v44 = 2114;
-    v45 = v9;
-    _os_log_impl(&dword_18B7AC000, v6, OS_LOG_TYPE_DEFAULT, "Recieved %{public}@, with _showingKeyboard = %{public}@", buf, 0x16u);
+    v44 = name;
+    v45 = 2114;
+    v46 = v10;
+    _os_log_impl(&dword_18B7AC000, v7, OS_LOG_TYPE_DEFAULT, "Recieved %{public}@, with _showingKeyboard = %{public}@", buf, 0x16u);
   }
 
   userInfo = [frameCopy userInfo];
-  v11 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69DDFA0]];
-  [v11 CGRectValue];
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
+  v12 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69DDFA0]];
+  [v12 CGRectValue];
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
 
-  [(SFCapsuleCollectionView *)self convertRect:0 fromView:v13, v15, v17, v19];
-  v21 = v20;
-  v23 = v22;
-  v25 = v24;
-  v27 = v26;
+  [(SFCapsuleCollectionView *)self convertRect:0 fromView:v14, v16, v18, v20];
+  v22 = v21;
+  v24 = v23;
+  v26 = v25;
+  v28 = v27;
   keyboardHeight = self->_keyboardHeight;
   [(SFCapsuleCollectionView *)self bounds];
-  v49.origin.x = v29;
-  v49.origin.y = v30;
-  v49.size.width = v31;
-  v49.size.height = v32;
-  v47.origin.x = v21;
-  v47.origin.y = v23;
-  v47.size.width = v25;
-  v47.size.height = v27;
-  v48 = CGRectIntersection(v47, v49);
-  Height = CGRectGetHeight(v48);
+  v50.origin.x = v30;
+  v50.origin.y = v31;
+  v50.size.width = v32;
+  v50.size.height = v33;
+  v48.origin.x = v22;
+  v48.origin.y = v24;
+  v48.size.width = v26;
+  v48.size.height = v28;
+  v49 = CGRectIntersection(v48, v50);
+  Height = CGRectGetHeight(v49);
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if ((objc_opt_respondsToSelector() & 1) != 0 && [WeakRetained capsuleCollectionViewKeyboardHeightIncludesCapsuleHeight:self])
   {
     [(SFCapsuleCollectionView *)self minimizedCapsuleHeightAboveKeyboard];
-    Height = fmax(Height - v35, 0.0);
+    Height = fmax(Height - v36, 0.0);
   }
 
   [(SFCapsuleCollectionView *)self _setKeyboardHeight:Height];
-  v36 = [userInfo objectForKey:*MEMORY[0x1E69DDF40]];
-  [v36 doubleValue];
-  v38 = v37;
+  v37 = [userInfo objectForKey:*MEMORY[0x1E69DDF40]];
+  [v37 doubleValue];
+  v39 = v38;
 
-  if (self->_showingKeyboard && keyboardHeight != self->_keyboardHeight && [(SFCapsuleCollectionView *)self _shouldAnimateKeyboardHeightChanges]&& v38 != 0.0)
+  if (self->_showingKeyboard && keyboardHeight != self->_keyboardHeight && [(SFCapsuleCollectionView *)self _shouldAnimateKeyboardHeightChanges]&& v39 != 0.0)
   {
-    v39 = [userInfo objectForKey:*MEMORY[0x1E69DDF38]];
-    v40 = [v39 integerValue] << 16;
+    v40 = [userInfo objectForKey:*MEMORY[0x1E69DDF38]];
+    v41 = [v40 integerValue] << 16;
 
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __52__SFCapsuleCollectionView__keyboardWillChangeFrame___block_invoke;
-    v41[3] = &unk_1E721B360;
-    v41[4] = self;
-    [MEMORY[0x1E69DD250] sf_animate:1 withDuration:v40 delay:v41 options:0 animations:v38 completion:0.0];
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __52__SFCapsuleCollectionView__keyboardWillChangeFrame___block_invoke;
+    v42[3] = &unk_1E721B360;
+    v42[4] = self;
+    [MEMORY[0x1E69DD250] sf_animate:1 withDuration:v41 delay:v42 options:0 animations:v39 completion:0.0];
   }
 }
 
 - (void)_keyboardWillShow:(id)show
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   showCopy = show;
-  v5 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(showCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
+    v7 = v6;
     name = [showCopy name];
     if (self->_showingKeyboard)
     {
-      v8 = @"YES";
+      v9 = @"YES";
     }
 
     else
     {
-      v8 = @"NO";
+      v9 = @"NO";
     }
 
-    v9 = v8;
+    v10 = v9;
     *buf = 138543618;
-    v18 = name;
-    v19 = 2114;
-    v20 = v9;
-    _os_log_impl(&dword_18B7AC000, v6, OS_LOG_TYPE_DEFAULT, "Recieved %{public}@, with _showingKeyboard = %{public}@", buf, 0x16u);
+    v19 = name;
+    v20 = 2114;
+    v21 = v10;
+    _os_log_impl(&dword_18B7AC000, v7, OS_LOG_TYPE_DEFAULT, "Recieved %{public}@, with _showingKeyboard = %{public}@", buf, 0x16u);
   }
 
   if (!self->_showingKeyboard)
@@ -5227,22 +5227,22 @@ LABEL_13:
     [(SFCapsuleCollectionView *)self updateSupplementariesAlpha];
     [(SFCapsuleCollectionView *)self setNeedsLayout];
     userInfo = [showCopy userInfo];
-    v11 = [userInfo objectForKey:*MEMORY[0x1E69DDF40]];
-    [v11 doubleValue];
-    v13 = v12;
+    v12 = [userInfo objectForKey:*MEMORY[0x1E69DDF40]];
+    [v12 doubleValue];
+    v14 = v13;
 
-    if (self->_keyboardHeight != 0.0 && [(SFCapsuleCollectionView *)self _shouldAnimateKeyboardHeightChanges]&& v13 != 0.0)
+    if (self->_keyboardHeight != 0.0 && [(SFCapsuleCollectionView *)self _shouldAnimateKeyboardHeightChanges]&& v14 != 0.0)
     {
       [(SFCapsuleCollectionView *)self _removeAllRetargetableAnimations:1];
-      v14 = [userInfo objectForKey:*MEMORY[0x1E69DDF38]];
-      v15 = [v14 integerValue] << 16;
+      v15 = [userInfo objectForKey:*MEMORY[0x1E69DDF38]];
+      v16 = [v15 integerValue] << 16;
 
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __45__SFCapsuleCollectionView__keyboardWillShow___block_invoke;
-      v16[3] = &unk_1E721B360;
-      v16[4] = self;
-      [MEMORY[0x1E69DD250] sf_animate:1 withDuration:v15 delay:v16 options:0 animations:v13 completion:0.0];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __45__SFCapsuleCollectionView__keyboardWillShow___block_invoke;
+      v17[3] = &unk_1E721B360;
+      v17[4] = self;
+      [MEMORY[0x1E69DD250] sf_animate:1 withDuration:v16 delay:v17 options:0 animations:v14 completion:0.0];
     }
   }
 }
@@ -5254,15 +5254,16 @@ LABEL_13:
   if (!self->_suppressesSelectedItemUnfocus && self->_selectedItemState == 2)
   {
     v5 = WeakRetained;
-    if (objc_opt_respondsToSelector())
+    WeakRetained = objc_opt_respondsToSelector();
+    if (WeakRetained)
     {
-      [v5 capsuleCollectionViewWillHideKeyboard:self];
+      WeakRetained = [v5 capsuleCollectionViewWillHideKeyboard:self];
     }
   }
 
   self->_suppressesSelectedItemUnfocus = 0;
 
-  MEMORY[0x1EEE66BE0]();
+  MEMORY[0x1EEE66BE0](WeakRetained);
 }
 
 uint64_t __50__SFCapsuleCollectionView__layOutKeyboardBackdrop__block_invoke(uint64_t a1)
@@ -5609,7 +5610,7 @@ uint64_t __96__SFCapsuleCollectionView_invalidateHeightForCapsuleContentView_ani
 {
   animatedCopy = animated;
   v11 = *MEMORY[0x1E69E9840];
-  v5 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
+  v5 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"NO";
@@ -5637,28 +5638,28 @@ uint64_t __96__SFCapsuleCollectionView_invalidateHeightForCapsuleContentView_ani
 
 - (void)reloadItemsAtIndexes:(id)indexes
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   indexesCopy = indexes;
-  v5 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(indexesCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = indexesCopy;
-    _os_log_impl(&dword_18B7AC000, v5, OS_LOG_TYPE_DEFAULT, "Reload indexes = %@", buf, 0xCu);
+    v13 = indexesCopy;
+    _os_log_impl(&dword_18B7AC000, v6, OS_LOG_TYPE_DEFAULT, "Reload indexes = %@", buf, 0xCu);
   }
 
   if ([indexesCopy count])
   {
     WeakRetained = objc_loadWeakRetained(&self->_currentTransitionCoordinator);
     items = self->_items;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __48__SFCapsuleCollectionView_reloadItemsAtIndexes___block_invoke;
-    v9[3] = &unk_1E721BB10;
-    v9[4] = self;
-    v10 = WeakRetained;
-    v8 = WeakRetained;
-    [(NSArray *)items enumerateObjectsAtIndexes:indexesCopy options:0 usingBlock:v9];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __48__SFCapsuleCollectionView_reloadItemsAtIndexes___block_invoke;
+    v10[3] = &unk_1E721BB10;
+    v10[4] = self;
+    v11 = WeakRetained;
+    v9 = WeakRetained;
+    [(NSArray *)items enumerateObjectsAtIndexes:indexesCopy options:0 usingBlock:v10];
   }
 }
 
@@ -5863,7 +5864,7 @@ void __60__SFCapsuleCollectionView__fetchContentViewForItem_atIndex___block_invo
   {
     v10 = v2;
     v11 = v3;
-    v6 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
+    v6 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -5887,7 +5888,7 @@ void __60__SFCapsuleCollectionView__fetchContentViewForItem_atIndex___block_invo
     v104 = v4;
     v105 = v2;
     v106 = v3;
-    v8 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
+    v8 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v102[0] = 0;
@@ -6516,7 +6517,7 @@ void __61__SFCapsuleCollectionView__applyEffectsForChangeType_update___block_inv
 
 - (void)setSelectedItemIndex:(int64_t)index animated:(BOOL)animated
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self->_selectedItemIndex != index)
   {
     animatedCopy = animated;
@@ -6529,22 +6530,22 @@ void __61__SFCapsuleCollectionView__applyEffectsForChangeType_update___block_inv
 
     else
     {
-      [(SFCapsuleCollectionView *)self beginUpdates];
-      v9 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      beginUpdates = [(SFCapsuleCollectionView *)self beginUpdates];
+      v11 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(beginUpdates, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = @"NO";
+        v12 = @"NO";
         if (animatedCopy)
         {
-          v10 = @"YES";
+          v12 = @"YES";
         }
 
-        v11 = v10;
-        v12[0] = 67109378;
-        v12[1] = index;
-        v13 = 2112;
-        v14 = v11;
-        _os_log_impl(&dword_18B7AC000, v9, OS_LOG_TYPE_DEFAULT, "Select index = %d; animated = %@", v12, 0x12u);
+        v13 = v12;
+        v14[0] = 67109378;
+        v14[1] = index;
+        v15 = 2112;
+        v16 = v13;
+        _os_log_impl(&dword_18B7AC000, v11, OS_LOG_TYPE_DEFAULT, "Select index = %d; animated = %@", v14, 0x12u);
       }
 
       [(SFCapsuleCollectionViewUpdate *)self->_update setSelectedItemIndex:index animated:animatedCopy];
@@ -6558,36 +6559,36 @@ void __61__SFCapsuleCollectionView__applyEffectsForChangeType_update___block_inv
 - (void)deleteItemsAtIndexes:(id)indexes animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   indexesCopy = indexes;
-  [(SFCapsuleCollectionView *)self beginUpdates];
-  v7 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  beginUpdates = [(SFCapsuleCollectionView *)self beginUpdates];
+  v9 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(beginUpdates, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = @"NO";
+    v10 = @"NO";
     if (animatedCopy)
     {
-      v8 = @"YES";
+      v10 = @"YES";
     }
 
-    v9 = v8;
-    v16 = 138412546;
-    v17 = indexesCopy;
-    v18 = 2112;
-    v19 = v9;
-    _os_log_impl(&dword_18B7AC000, v7, OS_LOG_TYPE_DEFAULT, "Delete indexes = %@; animated = %@", &v16, 0x16u);
+    v11 = v10;
+    v18 = 138412546;
+    v19 = indexesCopy;
+    v20 = 2112;
+    v21 = v11;
+    _os_log_impl(&dword_18B7AC000, v9, OS_LOG_TYPE_DEFAULT, "Delete indexes = %@; animated = %@", &v18, 0x16u);
   }
 
   [(SFCapsuleCollectionViewUpdate *)self->_update deleteItemsAtIndexes:indexesCopy animated:animatedCopy];
   itemsAfterUpdate = [(SFCapsuleCollectionViewUpdate *)self->_update itemsAfterUpdate];
-  v11 = [itemsAfterUpdate copy];
+  v13 = [itemsAfterUpdate copy];
   items = self->_items;
-  self->_items = v11;
+  self->_items = v13;
 
   self->_selectedItemIndex = [(SFCapsuleCollectionViewUpdate *)self->_update selectedItemIndexAfterUpdate];
-  v13 = [(NSArray *)self->_items indexesOfObjectsPassingTest:&__block_literal_global_149];
+  v15 = [(NSArray *)self->_items indexesOfObjectsPassingTest:&__block_literal_global_149];
   indexesOfLoadedViews = self->_indexesOfLoadedViews;
-  self->_indexesOfLoadedViews = v13;
+  self->_indexesOfLoadedViews = v15;
 
   WeakRetained = objc_loadWeakRetained(&self->_dataSource);
   self->_numberOfItems = [WeakRetained numberOfItemsInCapsuleCollectionView:self];
@@ -6609,36 +6610,36 @@ BOOL __57__SFCapsuleCollectionView_deleteItemsAtIndexes_animated___block_invoke(
 - (void)insertItemsAtIndexes:(id)indexes animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   indexesCopy = indexes;
-  [(SFCapsuleCollectionView *)self beginUpdates];
-  v7 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  beginUpdates = [(SFCapsuleCollectionView *)self beginUpdates];
+  v9 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(beginUpdates, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = @"NO";
+    v10 = @"NO";
     if (animatedCopy)
     {
-      v8 = @"YES";
+      v10 = @"YES";
     }
 
-    v9 = v8;
-    v16 = 138412546;
-    v17 = indexesCopy;
-    v18 = 2112;
-    v19 = v9;
-    _os_log_impl(&dword_18B7AC000, v7, OS_LOG_TYPE_DEFAULT, "Insert indexes = %@; animated = %@", &v16, 0x16u);
+    v11 = v10;
+    v18 = 138412546;
+    v19 = indexesCopy;
+    v20 = 2112;
+    v21 = v11;
+    _os_log_impl(&dword_18B7AC000, v9, OS_LOG_TYPE_DEFAULT, "Insert indexes = %@; animated = %@", &v18, 0x16u);
   }
 
   [(SFCapsuleCollectionViewUpdate *)self->_update insertItemsAtIndexes:indexesCopy animated:animatedCopy];
   itemsAfterUpdate = [(SFCapsuleCollectionViewUpdate *)self->_update itemsAfterUpdate];
-  v11 = [itemsAfterUpdate copy];
+  v13 = [itemsAfterUpdate copy];
   items = self->_items;
-  self->_items = v11;
+  self->_items = v13;
 
   self->_selectedItemIndex = [(SFCapsuleCollectionViewUpdate *)self->_update selectedItemIndexAfterUpdate];
-  v13 = [(NSArray *)self->_items indexesOfObjectsPassingTest:&__block_literal_global_151];
+  v15 = [(NSArray *)self->_items indexesOfObjectsPassingTest:&__block_literal_global_151];
   indexesOfLoadedViews = self->_indexesOfLoadedViews;
-  self->_indexesOfLoadedViews = v13;
+  self->_indexesOfLoadedViews = v15;
 
   WeakRetained = objc_loadWeakRetained(&self->_dataSource);
   self->_numberOfItems = [WeakRetained numberOfItemsInCapsuleCollectionView:self];
@@ -6934,12 +6935,13 @@ LABEL_8:
 
 - (id)_indexesOfVisibleItemsWithSelectedItemIndex:(int64_t)index
 {
-  if ([(NSArray *)self->_items count]<= index)
+  v5 = [(NSArray *)self->_items count];
+  if (v5 <= index)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(v5, v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(SFCapsuleCollectionView *)&self->_items _indexesOfVisibleItemsWithSelectedItemIndex:v10];
+      [(SFCapsuleCollectionView *)&self->_items _indexesOfVisibleItemsWithSelectedItemIndex:v12];
     }
 
     indexSet = [MEMORY[0x1E696AC90] indexSet];
@@ -6947,22 +6949,22 @@ LABEL_8:
 
   else
   {
-    v5 = [MEMORY[0x1E696AD50] indexSetWithIndex:index];
-    indexSet = v5;
-    v7 = index - 1;
+    v7 = [MEMORY[0x1E696AD50] indexSetWithIndex:index];
+    indexSet = v7;
+    v9 = index - 1;
     if (index >= 1)
     {
-      [v5 addIndex:v7];
+      [v7 addIndex:v9];
     }
 
-    v8 = [(NSArray *)self->_items count];
-    v9 = -2;
+    v10 = [(NSArray *)self->_items count];
+    v11 = -2;
     if (self->_trailingAction)
     {
-      v9 = -1;
+      v11 = -1;
     }
 
-    if ((v9 + v8) > index)
+    if ((v11 + v10) > index)
     {
       [indexSet addIndex:index + 1];
     }
@@ -7839,12 +7841,12 @@ LABEL_9:
 
 - (void)_didReceivePan:(id)pan
 {
-  v182 = *MEMORY[0x1E69E9840];
+  v185 = *MEMORY[0x1E69E9840];
   panCopy = pan;
-  v128 = [(SFCapsuleCollectionView *)self _indexesOfVisibleItemsIncludingAction:1];
+  v131 = [(SFCapsuleCollectionView *)self _indexesOfVisibleItemsIncludingAction:1];
   v4 = MEMORY[0x1E695DFD8];
-  v5 = [(NSArray *)self->_items objectsAtIndexes:v128];
-  v127 = [v4 setWithArray:v5];
+  v5 = [(NSArray *)self->_items objectsAtIndexes:v131];
+  v130 = [v4 setWithArray:v5];
 
   view = [panCopy view];
   [panCopy velocityInView:view];
@@ -7867,30 +7869,30 @@ LABEL_9:
     v15 = panCopy;
     if ([panCopy state] == 1)
     {
-      v16 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-      if (os_signpost_enabled(v16))
+      v17 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(1, v16);
+      if (os_signpost_enabled(v17))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_18B7AC000, v16, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PanGesture", " isAnimation=YES ", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_18B7AC000, v17, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PanGesture", " isAnimation=YES ", buf, 2u);
       }
 
-      v17 = [(NSArray *)self->_items objectAtIndexedSubscript:self->_selectedItemIndex];
-      capsuleView = [v17 capsuleView];
+      v18 = [(NSArray *)self->_items objectAtIndexedSubscript:self->_selectedItemIndex];
+      capsuleView = [v18 capsuleView];
 
       [(SFCapsuleCollectionView *)self _setUpdateRequestActive:1];
       [capsuleView _setSafeAreaInsetsFrozen:1];
       self->_selectionGestureState = 1;
       [(SFCapsuleCollectionView *)self freezeHiddenSupplementaries];
-      v19 = fabs(v11);
-      v20 = fabs(v12);
-      v21 = v19 > v20 || self->_topAction == 0;
-      v22 = 1;
-      if (!v21)
+      v20 = fabs(v11);
+      v21 = fabs(v12);
+      v22 = v20 > v21 || self->_topAction == 0;
+      v23 = 1;
+      if (!v22)
       {
-        v22 = 2;
+        v23 = 2;
       }
 
-      self->_panAxis = v22;
+      self->_panAxis = v23;
       [(SFCapsuleCollectionView *)self _updateCanBlurCapsules];
       if (self->_panAxis == 1)
       {
@@ -7899,35 +7901,35 @@ LABEL_9:
 
       self->_axisSwitchTime = CACurrentMediaTime();
       [(UISelectionFeedbackGenerator *)self->_feedbackGenerator prepare];
-      v174 = 0u;
+      v177 = 0u;
+      v178 = 0u;
       v175 = 0u;
-      v172 = 0u;
-      v173 = 0u;
-      v23 = self->_gestureObservers;
-      v24 = [(NSHashTable *)v23 countByEnumeratingWithState:&v172 objects:v181 count:16];
-      if (v24)
+      v176 = 0u;
+      v24 = self->_gestureObservers;
+      v25 = [(NSHashTable *)v24 countByEnumeratingWithState:&v175 objects:v184 count:16];
+      if (v25)
       {
-        v25 = *v173;
+        v26 = *v176;
         do
         {
-          for (i = 0; i != v24; ++i)
+          for (i = 0; i != v25; ++i)
           {
-            if (*v173 != v25)
+            if (*v176 != v26)
             {
-              objc_enumerationMutation(v23);
+              objc_enumerationMutation(v24);
             }
 
-            v27 = *(*(&v172 + 1) + 8 * i);
+            v28 = *(*(&v175 + 1) + 8 * i);
             if (objc_opt_respondsToSelector())
             {
-              [v27 capsuleCollectionView:self didBeginSelectionGestureOnAxis:self->_panAxis];
+              [v28 capsuleCollectionView:self didBeginSelectionGestureOnAxis:self->_panAxis];
             }
           }
 
-          v24 = [(NSHashTable *)v23 countByEnumeratingWithState:&v172 objects:v181 count:16];
+          v25 = [(NSHashTable *)v24 countByEnumeratingWithState:&v175 objects:v184 count:16];
         }
 
-        while (v24);
+        while (v25);
       }
 
       v15 = panCopy;
@@ -7935,93 +7937,93 @@ LABEL_9:
 
     else
     {
-      v19 = fabs(v11);
-      v20 = fabs(v12);
+      v20 = fabs(v11);
+      v21 = fabs(v12);
     }
 
     [(SFCapsuleCollectionViewLinkablePageView *)self->_linkedPageView didReceiveLinkedPanGesture:v15];
     [panCopy translationInView:self];
-    v34 = v33;
-    v36 = v35;
+    v37 = v36;
+    v39 = v38;
     panAxis = self->_panAxis;
-    v38 = CACurrentMediaTime();
-    v39 = _SFClampPercent(v38 - self->_axisSwitchTime, 0.0, 0.5);
-    v40 = _SFInterpolate(1.49253731, 0.67, v39);
-    if (v19 <= 50.0 || v19 <= v20 + v20 || fabs(v34) <= fabs(v36) * v40)
+    v41 = CACurrentMediaTime();
+    v42 = _SFClampPercent(v41 - self->_axisSwitchTime, 0.0, 0.5);
+    v43 = _SFInterpolate(1.49253731, 0.67, v42);
+    if (v20 <= 50.0 || v20 <= v21 + v21 || fabs(v37) <= fabs(v39) * v43)
     {
-      if (v20 <= 50.0 || v20 <= v19 + v19 || fabs(v36) <= fabs(v34) * v40 || v36 > 0.0 || !self->_topAction)
+      if (v21 <= 50.0 || v21 <= v20 + v20 || fabs(v39) <= fabs(v37) * v43 || v39 > 0.0 || !self->_topAction)
       {
         goto LABEL_39;
       }
 
-      v41 = 2;
+      v44 = 2;
     }
 
     else
     {
-      v41 = 1;
+      v44 = 1;
     }
 
-    self->_panAxis = v41;
+    self->_panAxis = v44;
 LABEL_39:
     _hasReachedTrailingActionPullThreshold = [(SFCapsuleCollectionView *)self _hasReachedTrailingActionPullThreshold];
     [(SFCapsuleCollectionView *)self _updateOffsetForPan];
     [(SFCapsuleCollectionView *)self _updateRangeOfLoadedViews];
-    v42 = 0x1E69DD000;
-    v43 = &off_18BC3D000;
+    v45 = 0x1E69DD000;
+    v46 = &off_18BC3D000;
     if (panAxis != self->_panAxis)
     {
       self->_axisSwitchTime = CACurrentMediaTime();
       [(UISelectionFeedbackGenerator *)self->_feedbackGenerator selectionChanged];
-      v171[0] = MEMORY[0x1E69E9820];
-      v171[1] = 3221225472;
-      v171[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke;
-      v171[3] = &unk_1E721B360;
-      v171[4] = self;
-      [MEMORY[0x1E69DD250] _animateUsingDefaultTimingWithOptions:0 animations:v171 completion:0];
-      v169 = 0u;
+      v174[0] = MEMORY[0x1E69E9820];
+      v174[1] = 3221225472;
+      v174[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke;
+      v174[3] = &unk_1E721B360;
+      v174[4] = self;
+      [MEMORY[0x1E69DD250] _animateUsingDefaultTimingWithOptions:0 animations:v174 completion:0];
+      v172 = 0u;
+      v173 = 0u;
       v170 = 0u;
-      v167 = 0u;
-      v168 = 0u;
-      v44 = self->_gestureObservers;
-      v45 = [(NSHashTable *)v44 countByEnumeratingWithState:&v167 objects:v180 count:16];
-      if (v45)
+      v171 = 0u;
+      v47 = self->_gestureObservers;
+      v48 = [(NSHashTable *)v47 countByEnumeratingWithState:&v170 objects:v183 count:16];
+      if (v48)
       {
-        v46 = *v168;
+        v49 = *v171;
         do
         {
-          for (j = 0; j != v45; ++j)
+          for (j = 0; j != v48; ++j)
           {
-            if (*v168 != v46)
+            if (*v171 != v49)
             {
-              objc_enumerationMutation(v44);
+              objc_enumerationMutation(v47);
             }
 
-            v48 = *(*(&v167 + 1) + 8 * j);
+            v51 = *(*(&v170 + 1) + 8 * j);
             if (objc_opt_respondsToSelector())
             {
-              [v48 capsuleCollectionView:self selectionGestureDidChangeFromAxis:panAxis];
+              [v51 capsuleCollectionView:self selectionGestureDidChangeFromAxis:panAxis];
             }
           }
 
-          v45 = [(NSHashTable *)v44 countByEnumeratingWithState:&v167 objects:v180 count:16];
+          v48 = [(NSHashTable *)v47 countByEnumeratingWithState:&v170 objects:v183 count:16];
         }
 
-        while (v45);
+        while (v48);
       }
 
-      v43 = &off_18BC3D000;
-      v42 = 0x1E69DD000uLL;
+      v46 = &off_18BC3D000;
+      v45 = 0x1E69DD000uLL;
     }
 
-    v49 = *(v42 + 592);
-    v166[0] = MEMORY[0x1E69E9820];
-    v50 = *(v43 + 280);
-    v166[1] = v50;
-    v166[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_2;
-    v166[3] = &unk_1E721B360;
-    v166[4] = self;
-    [v49 animateWithDuration:v166 animations:0.15];
+    v52 = *(v45 + 592);
+    v169[0] = MEMORY[0x1E69E9820];
+    v53 = *(v46 + 280);
+    v169[1] = v53;
+    v169[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_2;
+    v169[3] = &unk_1E721B360;
+    v169[4] = self;
+    [v52 animateWithDuration:v169 animations:0.15];
     if (self->_trailingAction && self->_panAxis == 1 && self->_selectedItemIndex + 1 == self->_numberOfItems && _hasReachedTrailingActionPullThreshold != [(SFCapsuleCollectionView *)self _hasReachedTrailingActionPullThreshold])
     {
       [(UISelectionFeedbackGenerator *)self->_feedbackGenerator selectionChanged];
@@ -8030,43 +8032,43 @@ LABEL_39:
     if (self->_sendProgressMessageToObservers)
     {
       [(SFCapsuleCollectionView *)self _panGestureTranslationConstrainedToPanAxis];
-      v51 = [SFCapsuleCollectionView _indexOfTargetItemWithTranslation:"_indexOfTargetItemWithTranslation:roundingThreshold:allowActionIndex:allowOutOfBounds:" roundingThreshold:1 allowActionIndex:1 allowOutOfBounds:?];
+      v54 = [SFCapsuleCollectionView _indexOfTargetItemWithTranslation:"_indexOfTargetItemWithTranslation:roundingThreshold:allowActionIndex:allowOutOfBounds:" roundingThreshold:1 allowActionIndex:1 allowOutOfBounds:?];
       [(SFCapsuleCollectionView *)self _percentToActivatingTopActionWithTranslation:self->_offsetForPan.x, self->_offsetForPan.y];
-      v53 = v52;
-      [(SFCapsuleCollectionView *)self _percentToSelectItemIndex:v51];
-      v55 = v54;
-      [(SFCapsuleCollectionView *)self _swipeTranslationFactorWithPercentToTopAction:v53];
-      v57 = v56;
-      v164 = 0u;
+      v56 = v55;
+      [(SFCapsuleCollectionView *)self _percentToSelectItemIndex:v54];
+      v58 = v57;
+      [(SFCapsuleCollectionView *)self _swipeTranslationFactorWithPercentToTopAction:v56];
+      v60 = v59;
+      v167 = 0u;
+      v168 = 0u;
       v165 = 0u;
-      v162 = 0u;
-      v163 = 0u;
-      v58 = self->_gestureObservers;
-      v59 = [(NSHashTable *)v58 countByEnumeratingWithState:&v162 objects:v179 count:16];
-      if (v59)
+      v166 = 0u;
+      v61 = self->_gestureObservers;
+      v62 = [(NSHashTable *)v61 countByEnumeratingWithState:&v165 objects:v182 count:16];
+      if (v62)
       {
-        v60 = v55 * v57;
-        v61 = *v163;
+        v63 = v58 * v60;
+        v64 = *v166;
         do
         {
-          for (k = 0; k != v59; ++k)
+          for (k = 0; k != v62; ++k)
           {
-            if (*v163 != v61)
+            if (*v166 != v64)
             {
-              objc_enumerationMutation(v58);
+              objc_enumerationMutation(v61);
             }
 
-            v63 = *(*(&v162 + 1) + 8 * k);
+            v66 = *(*(&v165 + 1) + 8 * k);
             if (objc_opt_respondsToSelector())
             {
-              [v63 capsuleCollectionView:self didUpdateProgress:v51 toSelectItemAtIndex:self->_panAxis progressToTopAction:v60 snapToAxis:v53];
+              [v66 capsuleCollectionView:self didUpdateProgress:v54 toSelectItemAtIndex:self->_panAxis progressToTopAction:v63 snapToAxis:v56];
             }
           }
 
-          v59 = [(NSHashTable *)v58 countByEnumeratingWithState:&v162 objects:v179 count:16];
+          v62 = [(NSHashTable *)v61 countByEnumeratingWithState:&v165 objects:v182 count:16];
         }
 
-        while (v59);
+        while (v62);
       }
     }
 
@@ -8074,91 +8076,92 @@ LABEL_39:
     if (linkedPageView)
     {
       animationSettingsForCapsuleSelectionGesture = [(SFCapsuleCollectionViewLinkablePageView *)linkedPageView animationSettingsForCapsuleSelectionGesture];
-      v161[0] = MEMORY[0x1E69E9820];
-      v161[1] = v50;
-      v161[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_3;
-      v161[3] = &unk_1E721B360;
-      v161[4] = self;
-      [animationSettingsForCapsuleSelectionGesture performInteractive:1 animations:v161 completion:0];
+      v164[0] = MEMORY[0x1E69E9820];
+      v164[1] = v53;
+      v164[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_3;
+      v164[3] = &unk_1E721B360;
+      v164[4] = self;
+      [animationSettingsForCapsuleSelectionGesture performInteractive:1 animations:v164 completion:0];
     }
 
     goto LABEL_131;
   }
 
-  v120 = selectedItemIndex;
+  v123 = selectedItemIndex;
   [(SFCapsuleCollectionViewLinkablePageView *)self->_linkedPageView didReceiveLinkedPanGesture:panCopy];
-  v28 = [(NSArray *)self->_items objectAtIndexedSubscript:self->_selectedItemIndex];
-  capsuleView2 = [v28 capsuleView];
+  v29 = [(NSArray *)self->_items objectAtIndexedSubscript:self->_selectedItemIndex];
+  capsuleView2 = [v29 capsuleView];
 
   [capsuleView2 _setSafeAreaInsetsFrozen:0];
   [capsuleView2 setAllowsHighlight:1];
   x = self->_offsetForPan.x;
   y = self->_offsetForPan.y;
-  v124 = self->_selectedItemIndex;
+  v127 = self->_selectedItemIndex;
   if ([(SFCapsuleCollectionViewLinkablePageView *)self->_linkedPageView drivesCapsuleSelection])
   {
     nextSelectedItemIndexAfterPan = self->_nextSelectedItemIndexAfterPan;
     if (nextSelectedItemIndexAfterPan)
     {
       integerValue = [(NSNumber *)nextSelectedItemIndexAfterPan integerValue];
-      if (integerValue >= [(NSArray *)self->_items count])
+      v34 = [(NSArray *)self->_items count];
+      if (integerValue >= v34)
       {
-        v70 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+        v73 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(v34, v35);
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
         {
-          [(SFCapsuleCollectionView *)&self->_items _didReceivePan:v70];
+          [(SFCapsuleCollectionView *)&self->_items _didReceivePan:v73];
         }
       }
 
       else
       {
-        v124 = integerValue;
+        v127 = integerValue;
       }
     }
 
-    v71 = self->_nextSelectedItemIndexAfterPan;
+    v74 = self->_nextSelectedItemIndexAfterPan;
     self->_nextSelectedItemIndexAfterPan = 0;
 
-    v122 = 0;
+    v125 = 0;
   }
 
   else
   {
     if ([panCopy state] == 3)
     {
-      v66 = SFProjectedOffsetForOffsetWithVelocity(x, y, v11, v12, *MEMORY[0x1E69DE3A8], *MEMORY[0x1E69DE3A8]);
+      v69 = SFProjectedOffsetForOffsetWithVelocity(x, y, v11, v12, *MEMORY[0x1E69DE3A8], *MEMORY[0x1E69DE3A8]);
       [(SFCapsuleCollectionView *)self _percentToActivatingTopActionWithTranslation:?];
-      v68 = v67;
+      v71 = v70;
       [(SFCapsuleCollectionView *)self _swipeTranslationFactorWithPercentToTopAction:?];
       if (fabs(x) <= fabs(y) && self->_topAction)
       {
-        if (v68 >= 0.5)
+        if (v71 >= 0.5)
         {
-          v122 = 1;
+          v125 = 1;
           goto LABEL_78;
         }
       }
 
       else
       {
-        v124 = [(SFCapsuleCollectionView *)self _indexOfTargetItemWithTranslation:v66 * v69 roundingThreshold:0.5];
+        v127 = [(SFCapsuleCollectionView *)self _indexOfTargetItemWithTranslation:v69 * v72 roundingThreshold:0.5];
       }
     }
 
-    v122 = 0;
+    v125 = 0;
   }
 
 LABEL_78:
-  v119 = self->_selectedItemIndex;
+  v122 = self->_selectedItemIndex;
   _hasReachedTrailingActionPullThreshold2 = [(SFCapsuleCollectionView *)self _hasReachedTrailingActionPullThreshold];
-  if (v119 != v124)
+  if (v122 != v127)
   {
     [(SFCapsuleCollectionView *)self unfreezeHiddenSupplementaries];
-    v118 = 0;
-    v75 = 2;
-    if (v122)
+    v121 = 0;
+    v78 = 2;
+    if (v125)
     {
-      v75 = 4;
+      v78 = 4;
     }
 
     goto LABEL_90;
@@ -8167,141 +8170,141 @@ LABEL_78:
   if (!self->_trailingAction)
   {
     [(SFCapsuleCollectionView *)self unfreezeHiddenSupplementaries];
-    if (v122)
+    if (v125)
     {
-      v118 = 0;
-      v75 = 4;
+      v121 = 0;
+      v78 = 4;
       goto LABEL_90;
     }
 
 LABEL_89:
-    v118 = 0;
-    v75 = 5;
+    v121 = 0;
+    v78 = 5;
     goto LABEL_90;
   }
 
-  v73 = _hasReachedTrailingActionPullThreshold2;
-  v74 = self->_selectedItemIndex + 1 == self->_numberOfItems;
+  v76 = _hasReachedTrailingActionPullThreshold2;
+  v77 = self->_selectedItemIndex + 1 == self->_numberOfItems;
   [(SFCapsuleCollectionView *)self unfreezeHiddenSupplementaries];
-  v75 = 3;
-  if (v122)
+  v78 = 3;
+  if (v125)
   {
-    v75 = 4;
+    v78 = 4;
   }
 
-  if (((v122 | (v74 && v73)) & 1) == 0)
+  if (((v125 | (v77 && v76)) & 1) == 0)
   {
     goto LABEL_89;
   }
 
-  v118 = v122 ^ 1 | (v74 && v73);
+  v121 = v125 ^ 1 | (v77 && v76);
 LABEL_90:
-  self->_selectionGestureState = v75;
+  self->_selectionGestureState = v78;
   [(SFCapsuleCollectionView *)self layOutToolbarBackdropView];
   *buf = 0;
+  v159 = buf;
+  v160 = 0x3032000000;
+  v161 = __Block_byref_object_copy_;
+  v162 = __Block_byref_object_dispose_;
+  v163 = 0;
+  v79 = MEMORY[0x1E69DD250];
+  v154[0] = MEMORY[0x1E69E9820];
+  v154[1] = 3221225472;
+  v154[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_176;
+  v154[3] = &unk_1E721BD30;
+  v154[4] = self;
+  v157 = v127;
+  v155 = v130;
   v156 = buf;
-  v157 = 0x3032000000;
-  v158 = __Block_byref_object_copy_;
-  v159 = __Block_byref_object_dispose_;
-  v160 = 0;
-  v76 = MEMORY[0x1E69DD250];
-  v151[0] = MEMORY[0x1E69E9820];
-  v151[1] = 3221225472;
-  v151[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_176;
-  v151[3] = &unk_1E721BD30;
-  v151[4] = self;
-  v154 = v124;
-  v152 = v127;
-  v153 = buf;
-  [v76 safari_performWithoutRetargetingAnimations:v151];
-  v77 = objc_alloc_init(SFTransitionCoordinator);
-  objc_storeWeak(&self->_currentTransitionCoordinator, v77);
-  v149 = 0u;
+  [v79 safari_performWithoutRetargetingAnimations:v154];
+  v80 = objc_alloc_init(SFTransitionCoordinator);
+  objc_storeWeak(&self->_currentTransitionCoordinator, v80);
+  v152 = 0u;
+  v153 = 0u;
   v150 = 0u;
-  v147 = 0u;
-  v148 = 0u;
-  v78 = self->_gestureObservers;
-  v79 = [(NSHashTable *)v78 countByEnumeratingWithState:&v147 objects:v178 count:16];
-  if (v79)
+  v151 = 0u;
+  v81 = self->_gestureObservers;
+  v82 = [(NSHashTable *)v81 countByEnumeratingWithState:&v150 objects:v181 count:16];
+  if (v82)
   {
-    v80 = *v148;
+    v83 = *v151;
     do
     {
-      for (m = 0; m != v79; ++m)
+      for (m = 0; m != v82; ++m)
       {
-        if (*v148 != v80)
+        if (*v151 != v83)
         {
-          objc_enumerationMutation(v78);
+          objc_enumerationMutation(v81);
         }
 
-        v82 = *(*(&v147 + 1) + 8 * m);
+        v85 = *(*(&v150 + 1) + 8 * m);
         if (objc_opt_respondsToSelector())
         {
-          publicCoordinator = [(SFTransitionCoordinator *)v77 publicCoordinator];
-          [v82 capsuleCollectionView:self willEndSelectionGestureWithCoordinator:publicCoordinator];
+          publicCoordinator = [(SFTransitionCoordinator *)v80 publicCoordinator];
+          [v85 capsuleCollectionView:self willEndSelectionGestureWithCoordinator:publicCoordinator];
         }
       }
 
-      v79 = [(NSHashTable *)v78 countByEnumeratingWithState:&v147 objects:v178 count:16];
+      v82 = [(NSHashTable *)v81 countByEnumeratingWithState:&v150 objects:v181 count:16];
     }
 
-    while (v79);
+    while (v82);
   }
 
-  v145 = 0u;
+  v148 = 0u;
+  v149 = 0u;
   v146 = 0u;
-  v143 = 0u;
-  v144 = 0u;
+  v147 = 0u;
   allValues = [(NSDictionary *)self->_supplementaryViews allValues];
-  v85 = [allValues countByEnumeratingWithState:&v143 objects:v177 count:16];
-  if (v85)
+  v88 = [allValues countByEnumeratingWithState:&v146 objects:v180 count:16];
+  if (v88)
   {
-    v86 = *v144;
+    v89 = *v147;
     do
     {
-      for (n = 0; n != v85; ++n)
+      for (n = 0; n != v88; ++n)
       {
-        if (*v144 != v86)
+        if (*v147 != v89)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v88 = *(*(&v143 + 1) + 8 * n);
+        v91 = *(*(&v146 + 1) + 8 * n);
         if (objc_opt_respondsToSelector())
         {
-          publicCoordinator2 = [(SFTransitionCoordinator *)v77 publicCoordinator];
-          [v88 willBeginTransitionWithCoordinator:publicCoordinator2];
+          publicCoordinator2 = [(SFTransitionCoordinator *)v80 publicCoordinator];
+          [v91 willBeginTransitionWithCoordinator:publicCoordinator2];
         }
       }
 
-      v85 = [allValues countByEnumeratingWithState:&v143 objects:v177 count:16];
+      v88 = [allValues countByEnumeratingWithState:&v146 objects:v180 count:16];
     }
 
-    while (v85);
+    while (v88);
   }
 
-  v142[0] = MEMORY[0x1E69E9820];
-  v142[1] = 3221225472;
-  v142[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_3_182;
-  v142[3] = &unk_1E721BD58;
-  v142[4] = self;
-  [(SFTransitionCoordinator *)v77 addAnimations:v142];
-  v141[0] = MEMORY[0x1E69E9820];
-  v141[1] = 3221225472;
-  v141[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_4;
-  v141[3] = &unk_1E721BD80;
-  v141[4] = self;
-  v141[5] = buf;
-  [(SFTransitionCoordinator *)v77 addCompletion:v141];
-  [(SFCapsuleCollectionView *)self setSelectedItemIndex:v124];
+  v145[0] = MEMORY[0x1E69E9820];
+  v145[1] = 3221225472;
+  v145[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_3_182;
+  v145[3] = &unk_1E721BD58;
+  v145[4] = self;
+  [(SFTransitionCoordinator *)v80 addAnimations:v145];
+  v144[0] = MEMORY[0x1E69E9820];
+  v144[1] = 3221225472;
+  v144[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_4;
+  v144[3] = &unk_1E721BD80;
+  v144[4] = self;
+  v144[5] = buf;
+  [(SFTransitionCoordinator *)v80 addCompletion:v144];
+  [(SFCapsuleCollectionView *)self setSelectedItemIndex:v127];
   self->_previousVelocity = *MEMORY[0x1E695EFF8];
   [(SFCapsuleCollectionView *)self _updateOffsetForPan];
   [(SFCapsuleCollectionView *)self pageWidth];
-  v91 = v120 * v90 - v90 * self->_selectedItemIndex;
-  v92 = 0.0;
-  if (!_SFEqualWithEpsilon(v91, x, 0.1))
+  v94 = v123 * v93 - v93 * self->_selectedItemIndex;
+  v95 = 0.0;
+  if (!_SFEqualWithEpsilon(v94, x, 0.1))
   {
-    v92 = v11 / (v91 - x);
+    v95 = v11 / (v94 - x);
   }
 
   [(SFCapsuleCollectionView *)self setNeedsLayout];
@@ -8310,110 +8313,110 @@ LABEL_90:
   aBlock[1] = 3221225472;
   aBlock[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_183;
   aBlock[3] = &unk_1E721B360;
-  v93 = v77;
-  v140 = v93;
-  v94 = _Block_copy(aBlock);
-  v137[0] = MEMORY[0x1E69E9820];
-  v137[1] = 3221225472;
-  v137[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_2_184;
-  v137[3] = &unk_1E721B360;
-  v95 = v93;
-  v138 = v95;
-  v96 = _Block_copy(v137);
-  v97 = self->_linkedPageView;
-  if (v97)
+  v96 = v80;
+  v143 = v96;
+  v97 = _Block_copy(aBlock);
+  v140[0] = MEMORY[0x1E69E9820];
+  v140[1] = 3221225472;
+  v140[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_2_184;
+  v140[3] = &unk_1E721B360;
+  v98 = v96;
+  v141 = v98;
+  v99 = _Block_copy(v140);
+  v100 = self->_linkedPageView;
+  if (v100)
   {
-    animationSettingsForCapsuleSelectionGesture2 = [(SFCapsuleCollectionViewLinkablePageView *)v97 animationSettingsForCapsuleSelectionGesture];
-    v99 = v136;
-    v136[0] = MEMORY[0x1E69E9820];
-    v136[1] = 3221225472;
-    v136[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_3_185;
-    v136[3] = &unk_1E721BDA8;
-    v136[4] = v96;
-    [animationSettingsForCapsuleSelectionGesture2 performInteractive:0 animations:v94 completion:v136];
+    animationSettingsForCapsuleSelectionGesture2 = [(SFCapsuleCollectionViewLinkablePageView *)v100 animationSettingsForCapsuleSelectionGesture];
+    v102 = v139;
+    v139[0] = MEMORY[0x1E69E9820];
+    v139[1] = 3221225472;
+    v139[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_3_185;
+    v139[3] = &unk_1E721BDA8;
+    v139[4] = v99;
+    [animationSettingsForCapsuleSelectionGesture2 performInteractive:0 animations:v97 completion:v139];
   }
 
   else
   {
-    v100 = MEMORY[0x1E69DD250];
-    v183 = CAFrameRateRangeMake(80.0, 120.0, 120.0);
-    minimum = v183.minimum;
-    maximum = v183.maximum;
-    preferred = v183.preferred;
-    v99 = v135;
-    v135[0] = MEMORY[0x1E69E9820];
-    v135[1] = 3221225472;
-    v135[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_4_187;
-    v135[3] = &unk_1E721BA70;
-    v135[4] = v96;
-    *&v104 = minimum;
-    *&v105 = maximum;
-    *&v106 = preferred;
-    [v100 sf_animateUsingDefaultDampedSpringWithDelay:2 initialSpringVelocity:v94 options:v135 preferredFrameRateRange:0.0 animations:v92 completion:{v104, v105, v106}];
+    v103 = MEMORY[0x1E69DD250];
+    v186 = CAFrameRateRangeMake(80.0, 120.0, 120.0);
+    minimum = v186.minimum;
+    maximum = v186.maximum;
+    preferred = v186.preferred;
+    v102 = v138;
+    v138[0] = MEMORY[0x1E69E9820];
+    v138[1] = 3221225472;
+    v138[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_4_187;
+    v138[3] = &unk_1E721BA70;
+    v138[4] = v99;
+    *&v107 = minimum;
+    *&v108 = maximum;
+    *&v109 = preferred;
+    [v103 sf_animateUsingDefaultDampedSpringWithDelay:2 initialSpringVelocity:v97 options:v138 preferredFrameRateRange:0.0 animations:v95 completion:{v107, v108, v109}];
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  if (v119 != v124 && ([(SFCapsuleCollectionViewLinkablePageView *)self->_linkedPageView drivesCapsuleSelection]& 1) == 0 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v122 != v127 && ([(SFCapsuleCollectionViewLinkablePageView *)self->_linkedPageView drivesCapsuleSelection]& 1) == 0 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    [WeakRetained capsuleCollectionView:self didSelectItemAtIndex:v124];
+    [WeakRetained capsuleCollectionView:self didSelectItemAtIndex:v127];
   }
 
-  if (v122)
+  if (v125)
   {
-    v107 = self->_topAction;
-    v108 = objc_alloc_init(MEMORY[0x1E69DC8F0]);
-    [v108 sendAction:v107];
+    v110 = self->_topAction;
+    v111 = objc_alloc_init(MEMORY[0x1E69DC8F0]);
+    [v111 sendAction:v110];
   }
 
-  if (v118)
+  if (v121)
   {
     lastObject = [(NSArray *)self->_items lastObject];
     capsuleView3 = [lastObject capsuleView];
     contentView = [capsuleView3 contentView];
 
-    v112 = self->_trailingAction;
-    [contentView sendAction:v112];
+    v115 = self->_trailingAction;
+    [contentView sendAction:v115];
   }
 
-  v125 = v96;
-  v133 = 0u;
+  v128 = v99;
+  v136 = 0u;
+  v137 = 0u;
   v134 = 0u;
-  v131 = 0u;
-  v132 = 0u;
-  v113 = self->_gestureObservers;
-  v114 = [(NSHashTable *)v113 countByEnumeratingWithState:&v131 objects:v176 count:16];
-  if (v114)
+  v135 = 0u;
+  v116 = self->_gestureObservers;
+  v117 = [(NSHashTable *)v116 countByEnumeratingWithState:&v134 objects:v179 count:16];
+  if (v117)
   {
-    v115 = *v132;
+    v118 = *v135;
     do
     {
-      for (ii = 0; ii != v114; ++ii)
+      for (ii = 0; ii != v117; ++ii)
       {
-        if (*v132 != v115)
+        if (*v135 != v118)
         {
-          objc_enumerationMutation(v113);
+          objc_enumerationMutation(v116);
         }
 
-        v117 = *(*(&v131 + 1) + 8 * ii);
+        v120 = *(*(&v134 + 1) + 8 * ii);
         if (objc_opt_respondsToSelector())
         {
-          [v117 capsuleCollectionViewDidEndSelectionGesture:self];
+          [v120 capsuleCollectionViewDidEndSelectionGesture:self];
         }
       }
 
-      v114 = [(NSHashTable *)v113 countByEnumeratingWithState:&v131 objects:v176 count:16];
+      v117 = [(NSHashTable *)v116 countByEnumeratingWithState:&v134 objects:v179 count:16];
     }
 
-    while (v114);
+    while (v117);
   }
 
   self->_selectionGestureState = 0;
-  v130[0] = MEMORY[0x1E69E9820];
-  v130[1] = 3221225472;
-  v130[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_5;
-  v130[3] = &unk_1E721B360;
-  v130[4] = self;
-  [MEMORY[0x1E69DD250] animateWithDuration:v130 animations:0.15];
+  v133[0] = MEMORY[0x1E69E9820];
+  v133[1] = 3221225472;
+  v133[2] = __42__SFCapsuleCollectionView__didReceivePan___block_invoke_5;
+  v133[3] = &unk_1E721B360;
+  v133[4] = self;
+  [MEMORY[0x1E69DD250] animateWithDuration:v133 animations:0.15];
   [(SFCapsuleCollectionView *)self _setUpdateRequestActive:0];
 
   _Block_object_dispose(buf, 8);
@@ -8458,12 +8461,12 @@ void __42__SFCapsuleCollectionView__didReceivePan___block_invoke_176(uint64_t a1
 void __42__SFCapsuleCollectionView__didReceivePan___block_invoke_4(uint64_t a1)
 {
   [*(a1 + 32) _decrementAnimationCountForItems:*(*(*(a1 + 40) + 8) + 40)];
-  [*(a1 + 32) _updateCanBlurCapsules];
-  v2 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar();
-  if (os_signpost_enabled(v2))
+  v2 = [*(a1 + 32) _updateCanBlurCapsules];
+  v4 = WBS_LOG_CHANNEL_PREFIXLoweredTabBar(v2, v3);
+  if (os_signpost_enabled(v4))
   {
-    *v3 = 0;
-    _os_signpost_emit_with_name_impl(&dword_18B7AC000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PanGesture", "", v3, 2u);
+    *v5 = 0;
+    _os_signpost_emit_with_name_impl(&dword_18B7AC000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PanGesture", "", v5, 2u);
   }
 }
 
@@ -9369,7 +9372,7 @@ void __64__SFCapsuleCollectionView__updateDragWithOffset_velocity_ended___block_
   }
 }
 
-uint64_t __64__SFCapsuleCollectionView__updateDragWithOffset_velocity_ended___block_invoke_6(uint64_t a1)
+void *__64__SFCapsuleCollectionView__updateDragWithOffset_velocity_ended___block_invoke_6(uint64_t a1)
 {
   [*(a1 + 32) layoutIfNeeded];
   result = (*(*(a1 + 40) + 16))();
@@ -10082,7 +10085,7 @@ void __42__SFCapsuleCollectionView_showTipIfNeeded__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __61__SFCapsuleCollectionView_setShouldDismissContent_withDelay___block_invoke(uint64_t a1)
+void *__61__SFCapsuleCollectionView_setShouldDismissContent_withDelay___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 904) = *(a1 + 40);
   result = [*(a1 + 32) layoutIfNeeded];
@@ -10090,12 +10093,12 @@ uint64_t __61__SFCapsuleCollectionView_setShouldDismissContent_withDelay___block
   return result;
 }
 
-uint64_t __61__SFCapsuleCollectionView_setShouldDismissContent_withDelay___block_invoke_2(uint64_t result)
+void *__61__SFCapsuleCollectionView_setShouldDismissContent_withDelay___block_invoke_2(void *result)
 {
   if (*(result + 40) == 1)
   {
-    result = *(result + 32);
-    if (*(result + 970) == 1 && *(result + 1048) == 1)
+    result = result[4];
+    if (*(result + 970) == 1 && result[131] == 1)
     {
       return [result setSelectedItemState:0 animated:0];
     }
@@ -10689,7 +10692,7 @@ id __69__SFCapsuleCollectionView__buttonPointerStyleProviderForContentView___blo
   v3 = a2;
   [v2 count];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_18B7AC000, v4, v5, "Selecting item at index %zd in array of %lu items", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_0(&dword_18B7AC000, v4, v5, "Selecting item at index %zd in array of %lu items", v6, v7, v8, v9);
 }
 
 - (void)_didReceivePan:(void *)a1 .cold.1(void **a1, void *a2)
@@ -10698,7 +10701,7 @@ id __69__SFCapsuleCollectionView__buttonPointerStyleProviderForContentView___blo
   v3 = a2;
   [v2 count];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_18B7AC000, v4, v5, "Next selected item index after pan %zd is beyond bounds of array of %lu items", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_0(&dword_18B7AC000, v4, v5, "Next selected item index after pan %zd is beyond bounds of array of %lu items", v6, v7, v8, v9);
 }
 
 @end

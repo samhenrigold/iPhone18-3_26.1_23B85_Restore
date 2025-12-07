@@ -18,8 +18,10 @@
 - (void)layoutSubviews;
 - (void)refreshForCallState:(int64_t)state;
 - (void)setBackgroundColor:(id)color;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setHighlighted:(BOOL)highlighted;
 - (void)setOrientation:(int64_t)orientation;
+- (void)setSelected:(BOOL)selected;
 - (void)setUsesSmallerFontSize:(BOOL)size;
 @end
 
@@ -697,6 +699,19 @@ void __37__PHBottomBarButton_titleRectYOffset__block_invoke(id a1)
   return v8;
 }
 
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  isEnabled = [(PHBottomBarButton *)self isEnabled];
+  v6.receiver = self;
+  v6.super_class = PHBottomBarButton;
+  [(PHBottomBarButton *)&v6 setEnabled:enabledCopy];
+  if (isEnabled != enabledCopy)
+  {
+    [(PHBottomBarButton *)self _performSetEnabled:enabledCopy];
+  }
+}
+
 - (void)_performSetEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
@@ -849,6 +864,19 @@ LABEL_3:
     [layer addAnimation:v8 forKey:@"opacityAnimation"];
 
     +[CATransaction commit];
+  }
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  selectedCopy = selected;
+  isSelected = [(PHBottomBarButton *)self isSelected];
+  v6.receiver = self;
+  v6.super_class = PHBottomBarButton;
+  [(PHBottomBarButton *)&v6 setSelected:selectedCopy];
+  if (isSelected != selectedCopy)
+  {
+    [(PHBottomBarButton *)self _performSetSelected:selectedCopy];
   }
 }
 

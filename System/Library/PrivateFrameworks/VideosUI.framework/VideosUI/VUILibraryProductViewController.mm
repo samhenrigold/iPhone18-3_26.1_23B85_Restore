@@ -310,7 +310,7 @@ void __40__VUILibraryProductViewController_start__block_invoke(uint64_t a1, uint
 
 - (void)didSelectButton:(id)button
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v3 = self->_mediaItem;
   if (v3)
   {
@@ -319,8 +319,8 @@ void __40__VUILibraryProductViewController_start__block_invoke(uint64_t a1, uint
     {
       videosPlayable = [(VUIMediaItem *)v3 videosPlayable];
       v5 = [VUIMediaInfo alloc];
-      v13[0] = videosPlayable;
-      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+      v14[0] = videosPlayable;
+      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
       v7 = [(VUIMediaInfo *)v5 initWithPlaybackContext:3 videosPlayables:v6 imageProxies:0 storeDictionary:0];
 
       date = [MEMORY[0x1E695DF00] date];
@@ -330,10 +330,11 @@ void __40__VUILibraryProductViewController_start__block_invoke(uint64_t a1, uint
     else
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
 LABEL_10:
-        v7 = VUIDefaultLogObject();
+        v7 = VUIDefaultLogObject(isKindOfClass);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           [VUIDownloadShowTableViewController tableView:v3 didSelectRowAtIndexPath:v7];
@@ -342,22 +343,22 @@ LABEL_10:
         goto LABEL_12;
       }
 
-      v9 = [VUIMediaInfo alloc];
-      v12 = v3;
-      videosPlayable = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
-      v7 = [(VUIMediaInfo *)v9 initWithPlaybackContext:3 vuiMediaItems:videosPlayable];
+      v10 = [VUIMediaInfo alloc];
+      v13 = v3;
+      videosPlayable = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
+      v7 = [(VUIMediaInfo *)v10 initWithPlaybackContext:3 vuiMediaItems:videosPlayable];
     }
 
     if (v7)
     {
       [v7 setIntent:1];
       [v7 setAutomaticPlaybackStart:0];
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __51__VUILibraryProductViewController_didSelectButton___block_invoke;
-      v10[3] = &unk_1E872D768;
-      v11 = v3;
-      [VUIActionPlay playMediaInfo:v7 watchType:0 isRentAndWatchNow:0 completion:v10];
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __51__VUILibraryProductViewController_didSelectButton___block_invoke;
+      v11[3] = &unk_1E872D768;
+      v12 = v3;
+      [VUIActionPlay playMediaInfo:v7 watchType:0 isRentAndWatchNow:0 completion:v11];
 
       goto LABEL_12;
     }
@@ -365,7 +366,7 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     __44__VUIEpisodeDetailViewController_didTapPlay__block_invoke_cold_2(v7);

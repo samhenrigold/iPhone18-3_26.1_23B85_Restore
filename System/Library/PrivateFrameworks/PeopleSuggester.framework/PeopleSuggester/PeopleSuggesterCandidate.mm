@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)feedbackDeprecatedAsString:(int)string;
 - (int)StringAsFeedbackDeprecated:(id)deprecated;
 - (int)feedbackDeprecated;
 - (unint64_t)hash;
@@ -48,6 +49,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFEF | v3;
+}
+
+- (id)feedbackDeprecatedAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7C24F58[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsFeedbackDeprecated:(id)deprecated
@@ -580,50 +596,48 @@ LABEL_53:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v17 = toCopy;
+  v7 = toCopy;
   if (self->_privatizedIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    feedbackDeprecated = self->_feedbackDeprecated;
     PBDataWriterWriteInt32Field();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_privatizedTransportBundleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_timeSinceLastOutgoingInteraction)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_timeSinceOutgoingInteractionNumber10)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_timeSinceLastIncomingInteraction)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    deprecatedField1 = self->_deprecatedField1;
     PBDataWriterWriteDoubleField();
-    toCopy = v17;
+    toCopy = v7;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -642,113 +656,110 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  deprecatedField2 = self->_deprecatedField2;
   PBDataWriterWriteDoubleField();
-  toCopy = v17;
+  toCopy = v7;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_16:
-    deprecatedField3 = self->_deprecatedField3;
     PBDataWriterWriteDoubleField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
 LABEL_17:
   if (self->_numberOfSharesWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfSharesFromCurrentAppWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfSharesOfTopDomainURLWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfSharesOfDetectedPeopleWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfSharesOfPeopleInPhotoWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfOutgoingInteractionsWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfIncomingInteractionsWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfInteractionsDuringTimePeriodWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfEngagedSuggestionsWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfEngagedSuggestionsFromCurrentAppWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfEngagedSuggestionsOfTopDomainURLWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfEngagedSuggestionsOfDetectedPeopleWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfEngagedSuggestionsOfPeopleInPhotoWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_hasEverSharePlayedWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
-  v8 = self->_has;
-  if ((v8 & 0x40) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x40) != 0)
   {
-    suggestedRank = self->_suggestedRank;
     PBDataWriterWriteInt32Field();
-    toCopy = v17;
-    v8 = self->_has;
-    if ((v8 & 1) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 1) == 0)
     {
 LABEL_47:
-      if ((v8 & 0x20) == 0)
+      if ((v6 & 0x20) == 0)
       {
         goto LABEL_48;
       }
@@ -757,19 +768,18 @@ LABEL_47:
     }
   }
 
-  else if ((v8 & 1) == 0)
+  else if ((v6 & 1) == 0)
   {
     goto LABEL_47;
   }
 
-  coreMLModelScore = self->_coreMLModelScore;
   PBDataWriterWriteDoubleField();
-  toCopy = v17;
-  v8 = self->_has;
-  if ((v8 & 0x20) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x20) == 0)
   {
 LABEL_48:
-    if ((v8 & 0x80) == 0)
+    if ((v6 & 0x80) == 0)
     {
       goto LABEL_50;
     }
@@ -778,120 +788,116 @@ LABEL_48:
   }
 
 LABEL_92:
-  foundInChunk = self->_foundInChunk;
   PBDataWriterWriteInt32Field();
-  toCopy = v17;
+  toCopy = v7;
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_49:
-    updatedInChunk = self->_updatedInChunk;
     PBDataWriterWriteInt32Field();
-    toCopy = v17;
+    toCopy = v7;
   }
 
 LABEL_50:
   if (self->_numberOfSharesOfPeopleInPhotoIoUWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfSharesOfPetsWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfSharesOfPetsInCurrentPhotoWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfSharesOfScenesInPhotoWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfSharesOfDetectedScenesInPhotoWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfTopicsSharedWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfAppsSharedFromWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_timeSinceLastPhotoShareWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_hasSharedSensitiveContentWIthConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if ((*&self->_has & 0x200) != 0)
   {
-    isInPhoneCallWithConversation = self->_isInPhoneCallWithConversation;
     PBDataWriterWriteBOOLField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfSharesFromAlbumPhotoBelongsToWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if ((*&self->_has & 0x100) != 0)
   {
-    isFirstPartyApp = self->_isFirstPartyApp;
     PBDataWriterWriteBOOLField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfTimesSharedToTargetAppWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_timeSinceLastShareWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_timeSinceLastPhoneCallWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfDifferentFacesSharedWithConversation)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_numberOfTotalSharesToTargetApp)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 }
 
@@ -1805,7 +1811,6 @@ LABEL_12:
   }
 
   v38 = self->_has;
-  v39 = *(equalCopy + 168);
   if ((v38 & 0x200) != 0)
   {
     if ((*(equalCopy + 168) & 0x200) == 0)
@@ -1813,7 +1818,6 @@ LABEL_12:
       goto LABEL_122;
     }
 
-    v40 = *(equalCopy + 333);
     if (self->_isInPhoneCallWithConversation)
     {
       if ((*(equalCopy + 333) & 1) == 0)
@@ -1844,7 +1848,6 @@ LABEL_12:
     v38 = self->_has;
   }
 
-  v42 = *(equalCopy + 168);
   if ((v38 & 0x100) == 0)
   {
     if ((*(equalCopy + 168) & 0x100) == 0)
@@ -1853,7 +1856,7 @@ LABEL_12:
     }
 
 LABEL_122:
-    v48 = 0;
+    v45 = 0;
     goto LABEL_123;
   }
 
@@ -1862,7 +1865,6 @@ LABEL_122:
     goto LABEL_122;
   }
 
-  v50 = *(equalCopy + 332);
   if (self->_isFirstPartyApp)
   {
     if ((*(equalCopy + 332) & 1) == 0)
@@ -1913,17 +1915,17 @@ LABEL_111:
   numberOfTotalSharesToTargetApp = self->_numberOfTotalSharesToTargetApp;
   if (numberOfTotalSharesToTargetApp | *(equalCopy + 31))
   {
-    v48 = [(PeopleSuggesterFeatureDouble *)numberOfTotalSharesToTargetApp isEqual:?];
+    v45 = [(PeopleSuggesterFeatureDouble *)numberOfTotalSharesToTargetApp isEqual:?];
   }
 
   else
   {
-    v48 = 1;
+    v45 = 1;
   }
 
 LABEL_123:
 
-  return v48;
+  return v45;
 }
 
 - (unint64_t)hash

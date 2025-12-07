@@ -65,20 +65,21 @@ LABEL_10:
   [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"The %@ parameter must not be nil.", @"requestedProperties"}];
 LABEL_4:
   v11 = [VUIMPMediaEntityIdentifier mediaItemIdentifierWithMediaItem:itemCopy];
+  v12 = v11;
   if (v11)
   {
-    v12 = VUIMPMediaItemKind();
-    v16.receiver = self;
-    v16.super_class = VUIMPMediaItem;
-    v13 = [(VUIMediaEntity *)&v16 initWithMediaLibrary:libraryCopy identifier:v11 requestedProperties:propertiesCopy kind:v12];
+    v13 = VUIMPMediaItemKind(v11);
+    v17.receiver = self;
+    v17.super_class = VUIMPMediaItem;
+    v14 = [(VUIMediaEntity *)&v17 initWithMediaLibrary:libraryCopy identifier:v12 requestedProperties:propertiesCopy kind:v13];
 
-    if (v13)
+    if (v14)
     {
-      objc_storeStrong(&v13->_mediaItem, item);
-      [(VUIMediaEntity *)v13 setCachesPropertiesOnFirstAccess:1];
+      objc_storeStrong(&v14->_mediaItem, item);
+      [(VUIMediaEntity *)v14 setCachesPropertiesOnFirstAccess:1];
     }
 
-    self = v13;
+    self = v14;
     selfCopy = self;
   }
 

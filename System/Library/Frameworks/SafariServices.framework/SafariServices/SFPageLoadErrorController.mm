@@ -121,60 +121,61 @@ void __77___SFPageLoadErrorController__handleFrameLoadError_forURL_recoveryAttem
         v4 = 0;
       }
 
-      if ([*(a1 + 40) _web_errorIsInDomain:@"WebKitServiceWorker"])
+      v5 = [*(a1 + 40) _web_errorIsInDomain:@"WebKitServiceWorker"];
+      if (v5)
       {
-        v5 = *(a1 + 56) == 0;
+        v7 = *(a1 + 56) == 0;
       }
 
       else
       {
-        v5 = 0;
+        v7 = 0;
       }
 
-      if ((v4 | v5))
+      if ((v4 | v7))
       {
-        v6 = *(a1 + 32);
-        v7 = [MEMORY[0x1E695AC68] safari_nonAppInitiatedRequestWithURL:*(a1 + 48)];
-        [v6 _setFailedRequest:v7];
+        v8 = *(a1 + 32);
+        v9 = [MEMORY[0x1E695AC68] safari_nonAppInitiatedRequestWithURL:*(a1 + 48)];
+        [v8 _setFailedRequest:v9];
       }
 
-      v8 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = WBS_LOG_CHANNEL_PREFIXPageLoading(v5, v6);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __77___SFPageLoadErrorController__handleFrameLoadError_forURL_recoveryAttempter___block_invoke_cold_1((a1 + 40), v8);
+        __77___SFPageLoadErrorController__handleFrameLoadError_forURL_recoveryAttempter___block_invoke_cold_1((a1 + 40), v10);
       }
 
       if (isDiffieHellmanError(*(a1 + 40)))
       {
-        v9 = @"https://support.apple.com/kb/HT204937";
+        v11 = @"https://support.apple.com/kb/HT204937";
       }
 
       else
       {
-        v9 = 0;
+        v11 = 0;
       }
 
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 3221225472;
       aBlock[2] = __77___SFPageLoadErrorController__handleFrameLoadError_forURL_recoveryAttempter___block_invoke_246;
       aBlock[3] = &unk_1E848FAC8;
-      v10 = *(a1 + 40);
-      aBlock[4] = *(a1 + 32);
-      v20 = v10;
-      v21 = v9;
-      v11 = _Block_copy(aBlock);
-      v13 = *(a1 + 32);
       v12 = *(a1 + 40);
-      v14 = *(a1 + 48);
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __77___SFPageLoadErrorController__handleFrameLoadError_forURL_recoveryAttempter___block_invoke_2;
-      v16[3] = &unk_1E848FAF0;
-      v16[4] = v13;
-      v17 = v12;
-      v18 = v11;
-      v15 = v11;
-      [v13 _fetchSpecializedMessageForError:v17 URL:v14 completionHandler:v16];
+      aBlock[4] = *(a1 + 32);
+      v22 = v12;
+      v23 = v11;
+      v13 = _Block_copy(aBlock);
+      v15 = *(a1 + 32);
+      v14 = *(a1 + 40);
+      v16 = *(a1 + 48);
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __77___SFPageLoadErrorController__handleFrameLoadError_forURL_recoveryAttempter___block_invoke_2;
+      v18[3] = &unk_1E848FAF0;
+      v18[4] = v15;
+      v19 = v14;
+      v20 = v13;
+      v17 = v13;
+      [v15 _fetchSpecializedMessageForError:v19 URL:v16 completionHandler:v18];
     }
   }
 }

@@ -555,9 +555,9 @@ LABEL_69:
       goto LABEL_88;
     case 34:
       placeItem = [(MKPlaceActionManager *)self placeItem];
-      options = [placeItem options];
+      v83 = objc_msgSend_options(placeItem);
 
-      if ((options & 8) != 0)
+      if ((v83 & 8) != 0)
       {
         v84 = 394;
       }
@@ -575,9 +575,9 @@ LABEL_69:
       goto LABEL_81;
     case 35:
       placeItem2 = [(MKPlaceActionManager *)self placeItem];
-      options2 = [placeItem2 options];
+      v111 = objc_msgSend_options(placeItem2);
 
-      if ((options2 & 8) != 0)
+      if ((v111 & 8) != 0)
       {
         v112 = 394;
       }
@@ -595,9 +595,9 @@ LABEL_69:
       goto LABEL_81;
     case 36:
       placeItem3 = [(MKPlaceActionManager *)self placeItem];
-      options3 = [placeItem3 options];
+      v87 = objc_msgSend_options(placeItem3);
 
-      if ((options3 & 8) != 0)
+      if ((v87 & 8) != 0)
       {
         v88 = 394;
       }
@@ -778,7 +778,7 @@ LABEL_23:
 - (BOOL)_isCurrentLocationOrDroppedPin
 {
   placeItem = [(MKPlaceActionManager *)self placeItem];
-  if (([placeItem options] & 2) != 0)
+  if ((objc_msgSend_options(placeItem) & 2) != 0)
   {
     LOBYTE(v5) = 1;
   }
@@ -786,7 +786,7 @@ LABEL_23:
   else
   {
     placeItem2 = [(MKPlaceActionManager *)self placeItem];
-    v5 = [placeItem2 options] & 1;
+    v5 = objc_msgSend_options(placeItem2) & 1;
   }
 
   return v5;
@@ -1050,7 +1050,7 @@ void __35__MKPlaceActionManager__launchMaps__block_invoke(uint64_t a1, char a2)
 - (void)_addInternalOnlyActions:(id)actions
 {
   actionsCopy = actions;
-  if (([(MKPlaceActionManager *)self options]& 0x2000) != 0)
+  if ((objc_msgSend_options(self) & 0x2000) != 0)
   {
     v4 = [MKPlaceCardActionItem actionItemWithType:46 actionDataProvider:self enabled:1];
     [actionsCopy addObject:v4];
@@ -1080,7 +1080,7 @@ void __35__MKPlaceActionManager__launchMaps__block_invoke(uint64_t a1, char a2)
 
 - (BOOL)_canShowClaimThisBusiness
 {
-  if (([(MKPlaceActionManager *)self options]& 0x1000000000000) != 0)
+  if ((objc_msgSend_options(self, a2) & 0x1000000000000) != 0)
   {
     return 0;
   }
@@ -1138,7 +1138,7 @@ void __35__MKPlaceActionManager__launchMaps__block_invoke(uint64_t a1, char a2)
   mapItem = [placeItem mapItem];
   _flyover = [mapItem _flyover];
 
-  if (_flyover && ([(MKPlaceActionManager *)self options]& 0x20000000) != 0)
+  if (_flyover && (objc_msgSend_options(self) & 0x20000000) != 0)
   {
     v6 = [MKPlaceCardActionItem actionItemWithType:17 actionDataProvider:self enabled:1];
   }
@@ -1188,13 +1188,13 @@ void __35__MKPlaceActionManager__launchMaps__block_invoke(uint64_t a1, char a2)
         [v6 addObject:homeActionItem];
       }
 
-      if (([(MKPlaceActionManager *)self options]& 0x80000) != 0)
+      if ((objc_msgSend_options(self) & 0x80000) != 0)
       {
         v15 = [MKPlaceCardActionItem actionItemWithType:25 actionDataProvider:self enabled:1];
         [v6 addObject:v15];
       }
 
-      if (([(MKPlaceActionManager *)self options]& 0x40000) != 0)
+      if ((objc_msgSend_options(self) & 0x40000) != 0)
       {
         v16 = [MKPlaceCardActionItem actionItemWithType:24 actionDataProvider:self enabled:1];
         [v6 addObject:v16];
@@ -1204,7 +1204,7 @@ void __35__MKPlaceActionManager__launchMaps__block_invoke(uint64_t a1, char a2)
       countryCode = [mEMORY[0x1E69A1CD8] countryCode];
       v19 = [countryCode isEqualToString:@"KR"];
 
-      if ((([(MKPlaceActionManager *)self options]& 0x80000) != 0 || ([(MKPlaceActionManager *)self options]& 0x40000) != 0) && !(v19 & 1 | ((_MKRAPIsAvailable() & 1) == 0)))
+      if (((objc_msgSend_options(self) & 0x80000) != 0 || (objc_msgSend_options(self) & 0x40000) != 0) && !(v19 & 1 | ((_MKRAPIsAvailable() & 1) == 0)))
       {
         reportAProblemFooterAction = [(MKPlaceActionManager *)self reportAProblemFooterAction];
         [v6 addObject:reportAProblemFooterAction];
@@ -1308,9 +1308,9 @@ void __35__MKPlaceActionManager__launchMaps__block_invoke(uint64_t a1, char a2)
   if (([mapItem _isMapItemTypeBrand] & 1) == 0)
   {
     placeItem = [(MKPlaceActionManager *)self placeItem];
-    options = [placeItem options];
+    v9 = objc_msgSend_options(placeItem);
 
-    if ((options & 2) == 0)
+    if ((v9 & 2) == 0)
     {
       goto LABEL_5;
     }
@@ -1399,9 +1399,9 @@ LABEL_5:
     goto LABEL_32;
   }
 
-  options2 = [(MKPlaceActionManager *)self options];
+  v28 = objc_msgSend_options(self);
 
-  if ((options2 & 0x200000) == 0)
+  if ((v28 & 0x200000) == 0)
   {
     mapItem2 = [(MKPlaceActionManager *)self shareActionItem];
     [v4 addObject:mapItem2];
@@ -1621,7 +1621,7 @@ LABEL_32:
   mapItem = [(MKPlaceActionManager *)self mapItem];
   _isMapItemTypeBrand = [mapItem _isMapItemTypeBrand];
 
-  return (_isMapItemTypeBrand & 1) == 0 && ([(MKPlaceActionManager *)self options]& 0x10000000) != 0 && !self->_isCurrentLocation;
+  return (_isMapItemTypeBrand & 1) == 0 && (objc_msgSend_options(self) & 0x10000000) != 0 && !self->_isCurrentLocation;
 }
 
 - (BOOL)_canShowCreateCustomRouteAction
@@ -1662,7 +1662,7 @@ LABEL_32:
   mapItem = [(MKPlaceActionManager *)self mapItem];
   _isMapItemTypeBrand = [mapItem _isMapItemTypeBrand];
 
-  return (_isMapItemTypeBrand & 1) == 0 && ([(MKPlaceActionManager *)self options]& 0x20000000000) != 0 && !self->_isCurrentLocation;
+  return (_isMapItemTypeBrand & 1) == 0 && (objc_msgSend_options(self) & 0x20000000000) != 0 && !self->_isCurrentLocation;
 }
 
 - (BOOL)_canShowLibraryAction
@@ -1670,7 +1670,7 @@ LABEL_32:
   mapItem = [(MKPlaceActionManager *)self mapItem];
   _isMapItemTypeBrand = [mapItem _isMapItemTypeBrand];
 
-  return (_isMapItemTypeBrand & 1) == 0 && ([(MKPlaceActionManager *)self options]& 0x10000000000) != 0 && !self->_isCurrentLocation;
+  return (_isMapItemTypeBrand & 1) == 0 && (objc_msgSend_options(self) & 0x10000000000) != 0 && !self->_isCurrentLocation;
 }
 
 - (BOOL)_showCollectionItem
@@ -1678,7 +1678,7 @@ LABEL_32:
   mapItem = [(MKPlaceActionManager *)self mapItem];
   _isMapItemTypeBrand = [mapItem _isMapItemTypeBrand];
 
-  return (_isMapItemTypeBrand & 1) == 0 && ([(MKPlaceActionManager *)self options]& 0x8000) != 0 && !self->_isCurrentLocation;
+  return (_isMapItemTypeBrand & 1) == 0 && (objc_msgSend_options(self) & 0x8000) != 0 && !self->_isCurrentLocation;
 }
 
 - (BOOL)_showWebsite
@@ -1691,7 +1691,7 @@ LABEL_32:
     if ([urlAddresses count])
     {
       placeItem = [(MKPlaceActionManager *)self placeItem];
-      v7 = ([placeItem options] & 8) == 0;
+      v7 = (objc_msgSend_options(placeItem) & 8) == 0;
     }
 
     else
@@ -1713,10 +1713,10 @@ LABEL_32:
   if ([(MKPlaceActionManager *)self _showReportAProblem])
   {
     placeItem = [(MKPlaceActionManager *)self placeItem];
-    options = [placeItem options];
+    v4 = objc_msgSend_options(placeItem);
 
     placeItem2 = [(MKPlaceActionManager *)self placeItem];
-    if (([placeItem2 options] & 8) != 0)
+    if ((objc_msgSend_options(placeItem2) & 8) != 0)
     {
       v9 = 1;
     }
@@ -1724,7 +1724,7 @@ LABEL_32:
     else
     {
       placeItem3 = [(MKPlaceActionManager *)self placeItem];
-      if (([placeItem3 options] & 4) != 0)
+      if ((objc_msgSend_options(placeItem3) & 4) != 0)
       {
         v9 = 1;
       }
@@ -1738,7 +1738,7 @@ LABEL_32:
     }
 
     mapItem = [(MKPlaceActionManager *)self mapItem];
-    v12 = ((options & 2) == 0) & ~[mapItem _isMapItemTypeAddress];
+    v12 = ((v4 & 2) == 0) & ~[mapItem _isMapItemTypeAddress];
 
     v10 = (v12 | v9) ^ 1;
   }
@@ -1767,20 +1767,20 @@ LABEL_32:
   if (_MKRAPIsAvailable())
   {
     placeItem = [(MKPlaceActionManager *)self placeItem];
-    if (([placeItem options] & 4) != 0)
+    if ((objc_msgSend_options(placeItem) & 4) != 0)
     {
       goto LABEL_8;
     }
 
     placeItem2 = [(MKPlaceActionManager *)self placeItem];
-    options = [placeItem2 options];
+    v5 = objc_msgSend_options(placeItem2);
 
-    if ((options & 8) == 0)
+    if ((v5 & 8) == 0)
     {
       placeItem = [(MKPlaceActionManager *)self mapItem];
       if (placeItem)
       {
-        if (([(MKPlaceActionManager *)self options]& 0x40) != 0)
+        if ((objc_msgSend_options(self) & 0x40) != 0)
         {
           placeItem3 = [(MKPlaceActionManager *)self placeItem];
           hasContactOnly = [placeItem3 hasContactOnly];
@@ -1812,7 +1812,7 @@ LABEL_9:
   identifierString = [identifier identifierString];
   if (identifierString)
   {
-    v6 = ([(MKPlaceActionManager *)self options]>> 50) & 1;
+    v6 = (objc_msgSend_options(self) >> 50) & 1;
   }
 
   else
@@ -1828,7 +1828,7 @@ LABEL_9:
   mapItem = [(MKPlaceActionManager *)self mapItem];
   if ([mapItem _muid])
   {
-    v4 = ([(MKPlaceActionManager *)self options]>> 24) & 1;
+    v4 = (objc_msgSend_options(self) >> 24) & 1;
   }
 
   else
@@ -1842,9 +1842,9 @@ LABEL_9:
 - (unint64_t)options
 {
   delegate = [(MKPlaceActionManager *)self delegate];
-  options = [delegate options];
+  v3 = objc_msgSend_options(delegate);
 
-  return options;
+  return v3;
 }
 
 - (id)placeItem
@@ -1997,7 +1997,7 @@ LABEL_9:
       rateActionItem = [(MKPlaceActionManager *)self flyoverActionItem];
       goto LABEL_23;
     case 10:
-      if (!GEOSupportsOfflineMaps() || ([(MKPlaceActionManager *)self options]& 0x1000000000) != 0)
+      if (!GEOSupportsOfflineMaps() || (objc_msgSend_options(self) & 0x1000000000) != 0)
       {
         goto LABEL_14;
       }

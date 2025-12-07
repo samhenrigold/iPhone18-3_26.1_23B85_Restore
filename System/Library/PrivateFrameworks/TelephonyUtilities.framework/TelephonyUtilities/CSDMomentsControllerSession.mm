@@ -80,9 +80,10 @@
 
 - (void)removeActiveRequestForTransactionID:(id)d
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = v5;
   selfCopy = self;
-  sub_1003AB6B0();
+  sub_1003AB6B0(v4, v6);
 }
 
 @end

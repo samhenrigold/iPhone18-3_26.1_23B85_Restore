@@ -185,7 +185,7 @@ LABEL_8:
       v10 = @"No Access to Camera";
 LABEL_26:
       v16 = +[NSBundle mainBundle];
-      v44 = [v16 localizedStringForKey:v10 value:@"localized string not found" table:0];
+      v49 = [v16 localizedStringForKey:v10 value:@"localized string not found" table:0];
 
       v17 = +[NSBundle mainBundle];
       v15 = [v17 localizedStringForKey:v9 value:@"localized string not found" table:0];
@@ -213,13 +213,13 @@ LABEL_26:
 
   if (!v7)
   {
-    v44 = 0;
+    v49 = 0;
     v15 = 0;
 LABEL_27:
     presentingViewController = [(RAPPhotoPickerController *)self presentingViewController];
     v19 = +[NSBundle mainBundle];
     v20 = [v19 localizedStringForKey:@"OK [Alert dismissal]" value:@"localized string not found" table:0];
-    [presentingViewController _maps_presentSimpleAlertWithTitle:v44 message:v15 dismissalActionTitle:v20];
+    [presentingViewController _maps_presentSimpleAlertWithTitle:v49 message:v15 dismissalActionTitle:v20];
 
     [(RAPPhotoPickerController *)self _endPicking];
 
@@ -245,8 +245,8 @@ LABEL_45:
     if (!type)
     {
       identifier = [UTTypeImage identifier];
-      v45 = identifier;
-      v24 = [NSArray arrayWithObjects:&v45 count:1];
+      v50 = identifier;
+      v24 = [NSArray arrayWithObjects:&v50 count:1];
       [v22 setMediaTypes:v24];
     }
 
@@ -295,7 +295,7 @@ LABEL_40:
 
           v42 = qword_10195E470;
           v43 = +[NSDate now];
-          sub_100ACAD38(v42, 0, @"%@ <%@>[Maps][%@] : Reading photos or videos");
+          sub_100ACAD38(v42, 0, @"%@ <%@>[Maps][%@] : Reading photos or videos", v44, v45, v46, v47, v48, v43);
         }
 
         goto LABEL_45;

@@ -12,7 +12,7 @@
     sub_100593364();
   }
 
-  sub_100004290();
+  sub_100004290(self, a2);
   v2 = qword_1006D7C28;
 
   return v2;
@@ -53,7 +53,7 @@
   v27 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   v13 = qword_1006DF770;

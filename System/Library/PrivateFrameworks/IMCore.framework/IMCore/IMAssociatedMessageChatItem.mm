@@ -20,115 +20,115 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [IMAssociatedMessageChatItem alloc];
-  v7 = objc_msgSend__item(self, v5, v6);
-  v10 = objc_msgSend_sender(self, v8, v9);
-  v12 = objc_msgSend__initWithItem_sender_(v4, v11, v7, v10);
+  _item = [(IMChatItem *)self _item];
+  sender = [(IMAssociatedMessageChatItem *)self sender];
+  v7 = [(IMAssociatedMessageChatItem *)v4 _initWithItem:_item sender:sender];
 
-  v14 = *&self->_geometryDescriptor.parentPreviewWidth;
-  v13 = *&self->_geometryDescriptor.yScalar;
-  v15 = *&self->_geometryDescriptor.layoutIntent;
-  *(v12 + 152) = self->_geometryDescriptor.rotation;
-  *(v12 + 104) = v15;
-  *(v12 + 120) = v14;
-  *(v12 + 136) = v13;
-  objc_storeStrong((v12 + 64), self->_sender);
-  objc_storeStrong((v12 + 72), self->_tapback);
-  objc_storeStrong((v12 + 80), self->_emojiSticker);
-  return v12;
+  v9 = *&self->_geometryDescriptor.parentPreviewWidth;
+  v8 = *&self->_geometryDescriptor.yScalar;
+  v10 = *&self->_geometryDescriptor.layoutIntent;
+  *(v7 + 152) = self->_geometryDescriptor.rotation;
+  *(v7 + 104) = v10;
+  *(v7 + 120) = v9;
+  *(v7 + 136) = v8;
+  objc_storeStrong((v7 + 64), self->_sender);
+  objc_storeStrong((v7 + 72), self->_tapback);
+  objc_storeStrong((v7 + 80), self->_emojiSticker);
+  return v7;
 }
 
 - (id)_initWithItem:(id)item sender:(id)sender
 {
   itemCopy = item;
   senderCopy = sender;
-  v11 = objc_msgSend__initWithItem_(self, v8, itemCopy);
-  if (v11)
+  v8 = [(IMChatItem *)self _initWithItem:itemCopy];
+  if (v8)
   {
-    v12 = objc_msgSend_guid(itemCopy, v9, v10);
-    v13 = sub_1A83AC604();
+    guid = [itemCopy guid];
+    v10 = sub_1A83AC604();
 
-    objc_msgSend__setGUID_(v11, v14, v13);
-    objc_storeStrong(v11 + 8, sender);
+    [v8 _setGUID:v10];
+    objc_storeStrong(v8 + 8, sender);
   }
 
-  return v11;
+  return v8;
 }
 
 - (id)message
 {
-  v3 = objc_msgSend__item(self, a2, v2);
-  v6 = objc_msgSend_message(v3, v4, v5);
+  _item = [(IMChatItem *)self _item];
+  message = [_item message];
 
-  return v6;
+  return message;
 }
 
 - (NSDate)time
 {
-  v3 = objc_msgSend__item(self, a2, v2);
-  v6 = objc_msgSend_time(v3, v4, v5);
+  _item = [(IMChatItem *)self _item];
+  time = [_item time];
 
-  return v6;
+  return time;
 }
 
 - (BOOL)isFromMe
 {
-  v3 = objc_msgSend__imAssociatedMessageItem(self, a2, v2);
-  v6 = objc_msgSend_isFromMe(v3, v4, v5);
+  _imAssociatedMessageItem = [(IMAssociatedMessageChatItem *)self _imAssociatedMessageItem];
+  isFromMe = [_imAssociatedMessageItem isFromMe];
 
-  return v6;
+  return isFromMe;
 }
 
 - (NSString)associatedMessageGUID
 {
-  v3 = objc_msgSend__imAssociatedMessageItem(self, a2, v2);
-  v6 = objc_msgSend_associatedMessageGUID(v3, v4, v5);
+  _imAssociatedMessageItem = [(IMAssociatedMessageChatItem *)self _imAssociatedMessageItem];
+  associatedMessageGUID = [_imAssociatedMessageItem associatedMessageGUID];
 
-  return v6;
+  return associatedMessageGUID;
 }
 
 - (int64_t)associatedMessageType
 {
-  v3 = objc_msgSend__imAssociatedMessageItem(self, a2, v2);
-  v6 = objc_msgSend_associatedMessageType(v3, v4, v5);
+  _imAssociatedMessageItem = [(IMAssociatedMessageChatItem *)self _imAssociatedMessageItem];
+  associatedMessageType = [_imAssociatedMessageItem associatedMessageType];
 
-  return v6;
+  return associatedMessageType;
 }
 
 - (_NSRange)associatedMessageRange
 {
-  v3 = objc_msgSend__imAssociatedMessageItem(self, a2, v2);
-  v6 = objc_msgSend_associatedMessageRange(v3, v4, v5);
-  v8 = v7;
+  _imAssociatedMessageItem = [(IMAssociatedMessageChatItem *)self _imAssociatedMessageItem];
+  associatedMessageRange = [_imAssociatedMessageItem associatedMessageRange];
+  v5 = v4;
 
-  v9 = v6;
-  v10 = v8;
-  result.length = v10;
-  result.location = v9;
+  v6 = associatedMessageRange;
+  v7 = v5;
+  result.length = v7;
+  result.location = v6;
   return result;
 }
 
 - (NSString)associatedMessageEmoji
 {
-  v3 = objc_msgSend__imAssociatedMessageItem(self, a2, v2);
-  v6 = objc_msgSend_associatedMessageEmoji(v3, v4, v5);
+  _imAssociatedMessageItem = [(IMAssociatedMessageChatItem *)self _imAssociatedMessageItem];
+  associatedMessageEmoji = [_imAssociatedMessageItem associatedMessageEmoji];
 
-  return v6;
+  return associatedMessageEmoji;
 }
 
 - (BOOL)failed
 {
-  v3 = objc_msgSend__imAssociatedMessageItem(self, a2, v2);
-  v6 = objc_msgSend_errorCode(v3, v4, v5) != 0;
+  _imAssociatedMessageItem = [(IMAssociatedMessageChatItem *)self _imAssociatedMessageItem];
+  v3 = [_imAssociatedMessageItem errorCode] != 0;
 
-  return v6;
+  return v3;
 }
 
 - (NSDictionary)messageSummaryInfo
 {
-  v3 = objc_msgSend__imAssociatedMessageItem(self, a2, v2);
-  v6 = objc_msgSend_messageSummaryInfo(v3, v4, v5);
+  _imAssociatedMessageItem = [(IMAssociatedMessageChatItem *)self _imAssociatedMessageItem];
+  messageSummaryInfo = [_imAssociatedMessageItem messageSummaryInfo];
 
-  return v6;
+  return messageSummaryInfo;
 }
 
 - (void)_setGeometryDescriptor:(IMAssociatedMessageGeometryDescriptor *)descriptor
@@ -144,29 +144,29 @@
 
 - (BOOL)_isRecentForTapbackBackgroundAnimationWithinTimeInterval:(double)interval
 {
-  v6 = objc_msgSend_time(self, a2, v3);
-  v9 = objc_msgSend_messageSummaryInfo(self, v7, v8);
-  v12 = v9;
-  if (v9)
+  time = [(IMAssociatedMessageChatItem *)self time];
+  messageSummaryInfo = [(IMAssociatedMessageChatItem *)self messageSummaryInfo];
+  v7 = messageSummaryInfo;
+  if (messageSummaryInfo)
   {
-    v13 = objc_msgSend_objectForKeyedSubscript_(v9, v10, *MEMORY[0x1E69A7248]);
-    if (v13)
+    v8 = [messageSummaryInfo objectForKeyedSubscript:*MEMORY[0x1E69A7248]];
+    if (v8)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v14 = v13;
+        v9 = v8;
 
-        v6 = v14;
+        time = v9;
       }
     }
   }
 
-  v15 = objc_msgSend_now(MEMORY[0x1E695DF00], v10, v11);
-  objc_msgSend_timeIntervalSinceDate_(v15, v16, v6);
-  v18 = v17 < interval;
+  v10 = [MEMORY[0x1E695DF00] now];
+  [v10 timeIntervalSinceDate:time];
+  v12 = v11 < interval;
 
-  return v18;
+  return v12;
 }
 
 - (IMAssociatedMessageGeometryDescriptor)geometryDescriptor

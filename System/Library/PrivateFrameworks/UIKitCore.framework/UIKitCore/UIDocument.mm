@@ -1075,7 +1075,7 @@ LABEL_56:
     currentCopy = current;
     _userActivity = [(UIDocument *)self _userActivity];
     _defaultUserActivityType = [(UIDocument *)self _defaultUserActivityType];
-    if (_userActivity && ([_userActivity activityType], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToString:", _defaultUserActivityType), v6, (v7 & 1) != 0))
+    if (_userActivity && ([_userActivity activityType], v6 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v6), v6, (isEqualToString & 1) != 0))
     {
       [_userActivity setNeedsSave:1];
       v8 = _userActivity;
@@ -1603,7 +1603,7 @@ void __26__UIDocument__setFileURL___block_invoke_2(uint64_t a1)
 
 - (void)_updateLastUsedDate
 {
-  if (FileProviderLibraryCore())
+  if (FileProviderLibraryCore(0))
   {
     fileURL = [(UIDocument *)self fileURL];
     v10[0] = MEMORY[0x1E69E9820];
@@ -2072,43 +2072,43 @@ uint64_t __22__UIDocument_progress__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = [v2 kind];
-  v4 = [v3 isEqualToString:*MEMORY[0x1E696A888]];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  if (v4)
+  if (isEqualToString)
   {
     v5 = [v2 userInfo];
     v6 = [v5 objectForKeyedSubscript:*MEMORY[0x1E696A858]];
 
-    if ([v6 isEqualToString:*MEMORY[0x1E696A840]])
+    if (objc_msgSend_isEqualToString_(v6))
     {
       if ([v2 isIndeterminate])
       {
-        v4 = 1;
+        isEqualToString = 1;
       }
 
       else
       {
-        v4 = 2;
+        isEqualToString = 2;
       }
     }
 
-    else if ([v6 isEqualToString:*MEMORY[0x1E696A848]])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
-      v4 = 3;
+      isEqualToString = 3;
     }
 
-    else if ([v6 isEqualToString:*MEMORY[0x1E696A870]])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
-      v4 = 4;
+      isEqualToString = 4;
     }
 
     else
     {
-      v4 = 1;
+      isEqualToString = 1;
     }
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 uint64_t __22__UIDocument_progress__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -2699,9 +2699,9 @@ LABEL_18:
 {
   _urlCopy = _url;
   lCopy = l;
-  v7 = [lCopy isEqual:_urlCopy];
-  v8 = v7;
-  if (lCopy && _urlCopy && !v7)
+  isEqual = objc_msgSend_isEqual_(lCopy);
+  v8 = isEqual;
+  if (lCopy && _urlCopy && !isEqual)
   {
     v14 = 0;
     v9 = *MEMORY[0x1E695DB00];
@@ -2712,7 +2712,7 @@ LABEL_18:
       v13 = 0;
       if ([lCopy getResourceValue:&v13 forKey:v9 error:0])
       {
-        v8 = [v11 isEqual:v13];
+        v8 = objc_msgSend_isEqual_(v11);
       }
     }
   }
@@ -2880,9 +2880,9 @@ void __59__UIDocument__coordinateWritingItemAtURL_error_byAccessor___block_invok
 
   if (v12 && v13)
   {
-    v15 = [v12 isEqual:v13];
+    isEqual = objc_msgSend_isEqual_(v12);
 
-    if (!v15)
+    if (!isEqual)
     {
       goto LABEL_9;
     }
@@ -4409,7 +4409,7 @@ void __46__UIDocument_relinquishPresentedItemToWriter___block_invoke_359(uint64_
       {
         v8 = [*(a1 + 48) _fileModificationDateForURL:v4];
         v9 = v8;
-        if (v8 && ([v8 isEqual:*(a1 + 40)]& 1) == 0)
+        if (v8 && (objc_msgSend_isEqual_(v8) & 1) == 0)
         {
           [*(a1 + 32) revertToContentsOfURL:v4 completionHandler:0];
 
@@ -4587,7 +4587,7 @@ uint64_t __60__UIDocument_savePresentedItemChangesWithCompletionHandler___block_
     v12 = v11;
     v25 = v12;
     [(UIDocument *)self _saveUnsavedChangesWithCompletionHandler:v24];
-    if (FileProviderLibraryCore())
+    if (FileProviderLibraryCore(0))
     {
       fileURL = [(UIDocument *)self fileURL];
       v27 = 0;
@@ -4698,7 +4698,7 @@ void __42__UIDocument__applicationDidBecomeActive___block_invoke(uint64_t a1)
     goto LABEL_17;
   }
 
-  v3 = FileProviderLibraryCore();
+  v3 = FileProviderLibraryCore(0);
   v2 = *(a1 + 32);
   if (!v3)
   {
@@ -4741,7 +4741,7 @@ void __42__UIDocument__applicationDidBecomeActive___block_invoke(uint64_t a1)
   v10 = v9;
   if (v9)
   {
-    if (([v9 isEqual:v4] & 1) == 0)
+    if ((objc_msgSend_isEqual_(v9) & 1) == 0)
     {
       v11 = _UIDocumentLog();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))

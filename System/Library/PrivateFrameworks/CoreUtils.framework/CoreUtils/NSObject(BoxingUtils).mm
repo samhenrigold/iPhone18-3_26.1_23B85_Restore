@@ -1,11 +1,11 @@
 @interface NSObject(BoxingUtils)
 - (__CFString)stringValueSafe:()BoxingUtils;
-- (const)utf8ValueSafe:()BoxingUtils;
+- (char)utf8ValueSafe:()BoxingUtils;
 @end
 
 @implementation NSObject(BoxingUtils)
 
-- (const)utf8ValueSafe:()BoxingUtils
+- (char)utf8ValueSafe:()BoxingUtils
 {
   v8 = 0;
   objc_opt_class();

@@ -80,18 +80,18 @@ uint64_t llvm::itanium_demangle::ReferenceType::hasRHSComponentSlow(uint64_t a1)
   }
 }
 
-uint64_t llvm::itanium_demangle::ReferenceType::printLeft(uint64_t result, void **a2)
+_BYTE *llvm::itanium_demangle::ReferenceType::printLeft(_BYTE *result, char **a2)
 {
-  v2 = *(result + 28);
+  v2 = result[28];
   if ((v2 & 1) == 0)
   {
     v4 = result;
-    *(result + 28) = 1;
+    result[28] = 1;
     result = llvm::itanium_demangle::ReferenceType::collapse(result, a2);
     if (!v5)
     {
 LABEL_40:
-      *(v4 + 28) = v2;
+      v4[28] = v2;
       return result;
     }
 
@@ -105,7 +105,7 @@ LABEL_40:
       v10 = a2[2];
       if ((v9 + 1) > v10)
       {
-        v11 = (v9 + 993);
+        v11 = v9 + 993;
         v12 = 2 * v10;
         if (v12 <= v11)
         {
@@ -129,7 +129,7 @@ LABEL_40:
       }
 
       v9[v8] = 32;
-      a2[1] = a2[1] + 1;
+      ++a2[1];
     }
 
     v14 = *(v7 + 9);
@@ -184,12 +184,12 @@ LABEL_27:
 
       if (2 * v28 <= (v27 + 992))
       {
-        v29 = (v27 + 992);
+        v29 = v27 + 992;
       }
 
       else
       {
-        v29 = 2 * v28;
+        v29 = (2 * v28);
       }
 
       a2[2] = v29;
@@ -200,7 +200,7 @@ LABEL_27:
         v26 = a2[1];
 LABEL_39:
         result = memcpy(&v26[v25], v23, v24);
-        a2[1] = a2[1] + v24;
+        a2[1] += v24;
         goto LABEL_40;
       }
 
@@ -214,7 +214,7 @@ LABEL_20:
     v19 = a2[2];
     if ((v18 + 1) > v19)
     {
-      v20 = (v18 + 993);
+      v20 = v18 + 993;
       v21 = 2 * v19;
       if (v21 <= v20)
       {
@@ -238,7 +238,7 @@ LABEL_20:
     }
 
     v18[v17] = 40;
-    a2[1] = a2[1] + 1;
+    ++a2[1];
     goto LABEL_27;
   }
 
@@ -428,7 +428,7 @@ void *llvm::ms_demangle::Demangler::copyString(uint64_t a1, const void *a2, size
   return v6;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleSpecialTableSymbolNode(uint64_t a1, uint64_t *a2, int a3)
+unint64_t llvm::ms_demangle::Demangler::demangleSpecialTableSymbolNode(uint64_t a1, char **a2, int a3)
 {
   v6 = *(a1 + 16);
   v7 = (v6[1] + *v6 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -486,7 +486,7 @@ unint64_t llvm::ms_demangle::Demangler::demangleSpecialTableSymbolNode(uint64_t 
   *(result + 16) = v11;
   *(result + 24) = 0;
   v15 = a2[1];
-  if (!v15 || (v16 = *a2, v17 = **a2, ++*a2, a2[1] = v15 - 1, (v17 - 56) <= 0xFFFFFFFD))
+  if (!v15 || (v16 = *a2, v17 = **a2, ++*a2, a2[1] = (v15 - 1), (v17 - 56) <= 0xFFFFFFFD))
   {
     result = 0;
     *(a1 + 8) = 1;
@@ -501,9 +501,9 @@ unint64_t llvm::ms_demangle::Demangler::demangleSpecialTableSymbolNode(uint64_t 
     goto LABEL_25;
   }
 
-  v18 = *(v16 + 1);
+  v18 = v16[1];
   *a2 = v16 + 2;
-  a2[1] = v15 - 2;
+  a2[1] = (v15 - 2);
   if (v18 - 65) < 0x14 && ((0xF000Fu >> (v18 - 65)))
   {
     *(result + 32) = byte_2573A5A58[(v18 - 65)];
@@ -527,8 +527,8 @@ unint64_t llvm::ms_demangle::Demangler::demangleSpecialTableSymbolNode(uint64_t 
 
   if (*v19 == 64)
   {
-    *a2 = (v19 + 1);
-    a2[1] = v15 - 3;
+    *a2 = v19 + 1;
+    a2[1] = (v15 - 3);
     return result;
   }
 
@@ -567,8 +567,8 @@ LABEL_31:
 
   else
   {
-    *a2 = (v19 + 1);
-    a2[1] = v20 - 1;
+    *a2 = v19 + 1;
+    a2[1] = (v20 - 1);
     v24 = *(a1 + 8 * v27 + 112);
   }
 
@@ -597,7 +597,7 @@ LABEL_32:
   return result;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleNameScopeChain(uint64_t a1, uint64_t *a2, uint64_t a3)
+unint64_t llvm::ms_demangle::Demangler::demangleNameScopeChain(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = (a1 + 16);
   v5 = *(a1 + 16);
@@ -612,7 +612,7 @@ unint64_t llvm::ms_demangle::Demangler::demangleNameScopeChain(uint64_t a1, uint
   *v7 = a3;
   v7[1] = 0;
   v9 = 1;
-  v10 = a2[1];
+  v10 = *(a2 + 8);
   if (v10)
   {
 LABEL_4:
@@ -622,7 +622,7 @@ LABEL_4:
     }
 
     ++*a2;
-    a2[1] = v10 - 1;
+    *(a2 + 8) = v10 - 1;
     v16 = *v6;
     v17 = (*(*v6 + 8) + **v6 + 7) & 0xFFFFFFFFFFFFFFF8;
     v18 = v17 - **v6 + 24;
@@ -657,7 +657,7 @@ LABEL_5:
 
       *v12 = 0;
       v12[1] = v7;
-      if (!a2[1])
+      if (!*(a2 + 8))
       {
         result = 0;
         *(a1 + 8) = 1;
@@ -673,7 +673,7 @@ LABEL_5:
       *v12 = v14;
       ++v9;
       v7 = v12;
-      v10 = a2[1];
+      v10 = *(a2 + 8);
       if (v10)
       {
         goto LABEL_4;
@@ -703,7 +703,7 @@ uint64_t llvm::ms_demangle::Demangler::demangleQualifiers(uint64_t a1, void *a2)
   return v2;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleFullyQualifiedTypeName(uint64_t a1, uint64_t *a2)
+unint64_t llvm::ms_demangle::Demangler::demangleFullyQualifiedTypeName(uint64_t a1, char **a2)
 {
   v4 = a2[1];
   if (!v4)
@@ -759,7 +759,7 @@ LABEL_8:
   return result;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleLocalStaticGuard(uint64_t a1, uint64_t *a2, char a3)
+unint64_t llvm::ms_demangle::Demangler::demangleLocalStaticGuard(uint64_t a1, unsigned __int8 **a2, char a3)
 {
   v5 = *(a1 + 16);
   v6 = (v5[1] + *v5 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -793,7 +793,7 @@ unint64_t llvm::ms_demangle::Demangler::demangleLocalStaticGuard(uint64_t a1, ui
   if (v12 >= 3)
   {
     v13 = *a2;
-    if (**a2 == 18740 && *(*a2 + 2) == 65)
+    if (**a2 == 18740 && (*a2)[2] == 65)
     {
       *(result + 24) = 0;
       v16 = v12 - 3;
@@ -863,7 +863,7 @@ LABEL_27:
     if ((*(MEMORY[0x277D85DE0] + 4 * v19 + 60) & 0x400) != 0)
     {
       v20 = v19 - 47;
-      *a2 = (v17 + 1);
+      *a2 = v17 + 1;
       a2[1] = v16 - 1;
       if (v18 != 63)
       {
@@ -1028,7 +1028,7 @@ LABEL_7:
   return v6;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleUntypedVariable(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+unint64_t llvm::ms_demangle::Demangler::demangleUntypedVariable(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4, uint64_t a5)
 {
   v8 = *a2;
   v9 = (*(*a2 + 8) + **a2 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -1075,7 +1075,7 @@ unint64_t llvm::ms_demangle::Demangler::demangleUntypedVariable(uint64_t a1, uin
   return result;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleRttiBaseClassDescriptorNode(uint64_t a1, uint64_t *a2, uint64_t *a3)
+unint64_t llvm::ms_demangle::Demangler::demangleRttiBaseClassDescriptorNode(uint64_t a1, uint64_t *a2, unsigned __int8 **a3)
 {
   v5 = *a2;
   v6 = (*(*a2 + 8) + **a2 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -1185,7 +1185,7 @@ LABEL_20:
   }
 
   v13 = v12 - 47;
-  *a3 = (v10 + 1);
+  *a3 = v10 + 1;
   a3[1] = --v9;
   if (v11 != 63)
   {
@@ -1242,7 +1242,7 @@ LABEL_26:
   if ((*(MEMORY[0x277D85DE0] + 4 * v20 + 60) & 0x400) != 0)
   {
     v21 = v20 - 47;
-    *a3 = (v18 + 1);
+    *a3 = v18 + 1;
     v22 = v9 - 1;
     a3[1] = v9 - 1;
     if ((v21 & 0x8000000000000000) != 0)
@@ -1402,7 +1402,7 @@ LABEL_54:
   }
 
   v29 = v28 - 47;
-  *a3 = (v26 + 1);
+  *a3 = v26 + 1;
   a3[1] = --v22;
   if (v27 != 63)
   {
@@ -1492,7 +1492,7 @@ LABEL_65:
   }
 
   v37 = v36 - 47;
-  *a3 = (v34 + 1);
+  *a3 = v34 + 1;
   a3[1] = v22 - 1;
   if (v35 == 63)
   {
@@ -1633,7 +1633,7 @@ LABEL_15:
   }
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleInitFiniStub(uint64_t a1, uint64_t *a2, char a3)
+uint64_t llvm::ms_demangle::Demangler::demangleInitFiniStub(uint64_t a1, char **a2, char a3)
 {
   v6 = (a1 + 16);
   v5 = *(a1 + 16);
@@ -1655,7 +1655,7 @@ unint64_t llvm::ms_demangle::Demangler::demangleInitFiniStub(uint64_t a1, uint64
   if (v9 && **a2 == 63)
   {
     ++*a2;
-    a2[1] = v9 - 1;
+    a2[1] = (v9 - 1);
     v10 = 1;
     v11 = llvm::ms_demangle::Demangler::demangleUnqualifiedSymbolName(a1, a2, 2u);
     v12 = *(a1 + 8);
@@ -1725,7 +1725,7 @@ LABEL_14:
     else
     {
       ++*a2;
-      a2[1] = v19 - 1;
+      a2[1] = (v19 - 1);
       result = llvm::ms_demangle::Demangler::demangleVariableEncoding(a1, a2, v20 - 47);
     }
   }
@@ -1767,7 +1767,7 @@ LABEL_14:
   }
 
   ++*a2;
-  a2[1] = v23 - 1;
+  a2[1] = (v23 - 1);
   if (!v10)
   {
     goto LABEL_32;
@@ -1782,7 +1782,7 @@ LABEL_35:
   }
 
   ++*a2;
-  a2[1] = v23 - 2;
+  a2[1] = (v23 - 2);
 LABEL_32:
   result = llvm::ms_demangle::Demangler::demangleFunctionEncoding(a1, a2);
   if (result)
@@ -1797,7 +1797,7 @@ LABEL_37:
   return result;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleDeclarator(uint64_t a1, uint64_t *a2)
+uint64_t llvm::ms_demangle::Demangler::demangleDeclarator(uint64_t a1, char **a2)
 {
   v4 = llvm::ms_demangle::Demangler::demangleUnqualifiedSymbolName(a1, a2, 2u);
   v5 = *(a1 + 8);
@@ -1849,7 +1849,7 @@ LABEL_20:
     else
     {
       ++*a2;
-      a2[1] = v12 - 1;
+      a2[1] = (v12 - 1);
       result = llvm::ms_demangle::Demangler::demangleVariableEncoding(a1, a2, v13 - 47);
     }
   }
@@ -1892,7 +1892,7 @@ unint64_t llvm::ms_demangle::Demangler::demangleFunctionEncoding(uint64_t a1, un
   if (**a2 == 810165284)
   {
     *a2 += 4;
-    a2[1] = (v4 - 4);
+    a2[1] = v4 - 4;
     v5 = 128;
     if (v4 != 4)
     {
@@ -2537,9 +2537,9 @@ unint64_t synthesizeQualifiedName(uint64_t **a1, uint64_t a2)
   return v5;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleSpecialIntrinsic(uint64_t a1, uint64_t *a2)
+uint64_t llvm::ms_demangle::Demangler::demangleSpecialIntrinsic(uint64_t a1, uint64_t a2)
 {
-  v2 = a2[1];
+  v2 = *(a2 + 8);
   v3 = v2 - 3;
   if (v2 < 3)
   {
@@ -2551,57 +2551,57 @@ unint64_t llvm::ms_demangle::Demangler::demangleSpecialIntrinsic(uint64_t a1, ui
   {
     v16 = 1;
 LABEL_45:
-    v17 = (v5 + 3);
+    v17 = v5 + 3;
 LABEL_46:
     v18 = -3;
 LABEL_47:
     *a2 = v17;
-    a2[1] = v2 + v18;
+    *(a2 + 8) = v2 + v18;
 
     return llvm::ms_demangle::Demangler::demangleSpecialTableSymbolNode(a1, a2, v16);
   }
 
-  if (*v5 == 24383 && *(v5 + 2) == 56)
+  if (*v5 == 24383 && v5[2] == 56)
   {
     v16 = 2;
     goto LABEL_45;
   }
 
-  if (*v5 == 24383 && *(v5 + 2) == 57)
+  if (*v5 == 24383 && v5[2] == 57)
   {
     *a2 = v5 + 3;
-    a2[1] = v3;
+    *(a2 + 8) = v3;
 
     return llvm::ms_demangle::Demangler::demangleVcallThunkNode(a1, a2);
   }
 
-  if (*v5 == 24383 && *(v5 + 2) == 65)
+  if (*v5 == 24383 && v5[2] == 65)
   {
     goto LABEL_53;
   }
 
-  if (*v5 == 24383 && *(v5 + 2) == 66)
+  if (*v5 == 24383 && v5[2] == 66)
   {
     *a2 = v5 + 3;
-    a2[1] = v3;
+    *(a2 + 8) = v3;
     v15 = 0;
 
     return llvm::ms_demangle::Demangler::demangleLocalStaticGuard(a1, a2, v15);
   }
 
-  if (*v5 == 24383 && *(v5 + 2) == 67)
+  if (*v5 == 24383 && v5[2] == 67)
   {
     *a2 = v5 + 3;
-    a2[1] = v3;
+    *(a2 + 8) = v3;
 
     return llvm::ms_demangle::Demangler::demangleStringLiteral(a1, a2);
   }
 
-  if (*v5 == 24383 && *(v5 + 2) == 80)
+  if (*v5 == 24383 && v5[2] == 80)
   {
 LABEL_53:
     *a2 = v5 + 3;
-    a2[1] = v3;
+    *(a2 + 8) = v3;
     goto LABEL_54;
   }
 
@@ -2614,18 +2614,18 @@ LABEL_53:
   {
     case 0x30525F3F:
       *a2 = v5 + 4;
-      a2[1] = v2 - 4;
+      *(a2 + 8) = v2 - 4;
       v19 = a1;
       v21 = llvm::ms_demangle::Demangler::demangleType(a1, a2, 2);
       a1 = v19;
       if ((*(v19 + 8) & 1) == 0)
       {
-        v22 = a2[1];
+        v22 = *(a2 + 8);
         if (v22 >= 2 && **a2 == 14400)
         {
           v23 = v22 - 2;
           *a2 += 2;
-          a2[1] = v23;
+          *(a2 + 8) = v23;
           if (!v23)
           {
           }
@@ -2637,12 +2637,12 @@ LABEL_54:
       return 0;
     case 0x31525F3F:
       *a2 = v5 + 4;
-      a2[1] = v2 - 4;
+      *(a2 + 8) = v2 - 4;
 
       return llvm::ms_demangle::Demangler::demangleRttiBaseClassDescriptorNode(a1, (a1 + 16), a2);
     case 0x32525F3F:
       *a2 = v5 + 4;
-      a2[1] = v2 - 4;
+      *(a2 + 8) = v2 - 4;
       v24 = *(a1 + 16);
       v25 = (v24[1] + *v24 + 7) & 0xFFFFFFFFFFFFFFF8;
       v26 = v25 - *v24 + 40;
@@ -2673,11 +2673,11 @@ LABEL_54:
       *(result + 24) = 0;
       *(result + 32) = 0;
       *(result + 16) = v29;
-      v42 = a2[1];
+      v42 = *(a2 + 8);
       if (v42 && **a2 == 56)
       {
         ++*a2;
-        a2[1] = v42 - 1;
+        *(a2 + 8) = v42 - 1;
         return result;
       }
 
@@ -2687,7 +2687,7 @@ LABEL_98:
       return result;
     case 0x33525F3F:
       *a2 = v5 + 4;
-      a2[1] = v2 - 4;
+      *(a2 + 8) = v2 - 4;
       v33 = *(a1 + 16);
       v34 = (v33[1] + *v33 + 7) & 0xFFFFFFFFFFFFFFF8;
       v35 = v34 - *v33 + 40;
@@ -2718,17 +2718,17 @@ LABEL_98:
       *(result + 24) = 0;
       *(result + 32) = 0;
       *(result + 16) = v38;
-      v43 = a2[1];
+      v43 = *(a2 + 8);
       if (v43 && **a2 == 56)
       {
         ++*a2;
-        a2[1] = v43 - 1;
+        *(a2 + 8) = v43 - 1;
         return result;
       }
 
       goto LABEL_98;
     case 0x34525F3F:
-      v17 = (v5 + 4);
+      v17 = v5 + 4;
       v16 = 15;
       v18 = -4;
       goto LABEL_47;
@@ -2751,20 +2751,20 @@ LABEL_32:
   switch(*v13)
   {
     case 0x455F5F3F:
-      *a2 = (v13 + 1);
-      a2[1] = v2 - 4;
+      *a2 = v13 + 4;
+      *(a2 + 8) = v2 - 4;
       v32 = 0;
 
       break;
     case 0x465F5F3F:
-      *a2 = (v13 + 1);
-      a2[1] = v2 - 4;
+      *a2 = v13 + 4;
+      *(a2 + 8) = v2 - 4;
       v32 = 1;
 
       break;
     case 0x4A5F5F3F:
-      *a2 = (v13 + 1);
-      a2[1] = v2 - 4;
+      *a2 = v13 + 4;
+      *(a2 + 8) = v2 - 4;
       v15 = 1;
 
       return llvm::ms_demangle::Demangler::demangleLocalStaticGuard(a1, a2, v15);
@@ -3095,7 +3095,7 @@ LABEL_7:
   return v5;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleVcallThunkNode(uint64_t a1, uint64_t *a2)
+unint64_t llvm::ms_demangle::Demangler::demangleVcallThunkNode(uint64_t a1, unsigned __int8 **a2)
 {
   v4 = *(a1 + 16);
   v5 = *v4;
@@ -3203,7 +3203,7 @@ LABEL_17:
   if ((v20 & 0x80) == 0 && (*(MEMORY[0x277D85DE0] + 4 * v20 + 60) & 0x400) != 0)
   {
     v21 = v20 - 47;
-    *a2 = (v18 + 1);
+    *a2 = v18 + 1;
     v22 = v17 - 1;
   }
 
@@ -3394,7 +3394,7 @@ LABEL_55:
   if (**a2 == 63)
   {
     *a2 = v6 + 1;
-    a2[1] = (v3 - 1);
+    a2[1] = v3 - 1;
     if (v3 == 1)
     {
       goto LABEL_59;
@@ -3564,7 +3564,7 @@ LABEL_70:
   }
 
   *a2 = v7 + 6;
-  a2[1] = (v3 - 6);
+  a2[1] = v3 - 6;
   v9 = a1;
   result = llvm::ms_demangle::Demangler::demangleFunctionType(a1, a2, 1);
 LABEL_61:
@@ -3983,13 +3983,13 @@ unint64_t llvm::ms_demangle::Demangler::demangleEncodedSymbol(uint64_t a1, unsig
 uint64_t llvm::ms_demangle::Demangler::demangleVariableStorageClass(uint64_t a1, char **a2)
 {
   v2 = **a2;
-  v3 = (a2[1] - 1);
+  v3 = a2[1] - 1;
   ++*a2;
   a2[1] = v3;
   return (v2 - 47);
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleVariableEncoding(uint64_t a1, unsigned __int8 **a2, char a3)
+uint64_t llvm::ms_demangle::Demangler::demangleVariableEncoding(uint64_t a1, unsigned __int8 **a2, char a3)
 {
   v6 = *(a1 + 16);
   v7 = (v6[1] + *v6 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -4187,7 +4187,7 @@ LABEL_18:
   return v10;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleFullyQualifiedSymbolName(uint64_t a1, uint64_t *a2)
+unint64_t llvm::ms_demangle::Demangler::demangleFullyQualifiedSymbolName(uint64_t a1, char **a2)
 {
   v4 = llvm::ms_demangle::Demangler::demangleUnqualifiedSymbolName(a1, a2, 2u);
   if (*(a1 + 8))
@@ -4315,7 +4315,7 @@ unint64_t llvm::ms_demangle::Demangler::parse(uint64_t a1, unsigned __int8 **a2)
   if (v6 == 46)
   {
     *a2 = v5 + 1;
-    a2[1] = (v3 - 1);
+    a2[1] = v3 - 1;
     v7 = llvm::ms_demangle::Demangler::demangleType(a1, a2, 2);
     if ((*(a1 + 8) & 1) == 0 && !a2[1])
     {
@@ -4341,7 +4341,7 @@ LABEL_37:
     }
 
     *a2 = v5 + 1;
-    a2[1] = (v3 - 1);
+    a2[1] = v3 - 1;
     result = llvm::ms_demangle::Demangler::demangleSpecialIntrinsic(a1, a2);
     if (result)
     {
@@ -4672,7 +4672,7 @@ LABEL_10:
   return result;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleNumber(uint64_t a1, uint64_t *a2)
+unint64_t llvm::ms_demangle::Demangler::demangleNumber(uint64_t a1, char **a2)
 {
   v2 = a2[1];
   if (!v2)
@@ -4709,7 +4709,7 @@ LABEL_12:
 LABEL_8:
     v5 = 0;
     v6 = v2 - 1;
-    v7 = *a2 + 1;
+    v7 = (*a2 + 1);
     while (1)
     {
       v8 = *(v7 - 1);
@@ -4815,7 +4815,7 @@ uint64_t llvm::ms_demangle::Demangler::demangleBackRefName(uint64_t a1, char **a
 
   else
   {
-    v3 = (a2[1] - 1);
+    v3 = a2[1] - 1;
     ++*a2;
     a2[1] = v3;
     return *(a1 + 8 * v2 + 112);
@@ -4851,11 +4851,11 @@ void llvm::ms_demangle::Demangler::memorizeIdentifier(uint64_t a1, uint64_t a2)
   free(v10[0]);
 }
 
-uint64_t llvm::ms_demangle::Demangler::demangleTemplateInstantiationName(uint64_t a1, uint64_t *a2, char a3)
+uint64_t llvm::ms_demangle::Demangler::demangleTemplateInstantiationName(uint64_t a1, char **a2, char a3)
 {
   v6 = a2[1];
   v7 = v6 >= 2;
-  v8 = v6 - 2;
+  v8 = (v6 - 2);
   if (v7 && **a2 == 9279)
   {
     *a2 += 2;
@@ -4923,7 +4923,7 @@ uint64_t llvm::ms_demangle::Demangler::demangleTemplateInstantiationName(uint64_
   return result;
 }
 
-uint64_t llvm::ms_demangle::Demangler::demangleUnqualifiedSymbolName(uint64_t a1, uint64_t *a2, unsigned int a3)
+uint64_t llvm::ms_demangle::Demangler::demangleUnqualifiedSymbolName(uint64_t a1, char **a2, unsigned int a3)
 {
   v3 = a2[1];
   if (!v3)
@@ -4944,7 +4944,7 @@ uint64_t llvm::ms_demangle::Demangler::demangleUnqualifiedSymbolName(uint64_t a1
 
     else
     {
-      *a2 = (v4 + 1);
+      *a2 = v4 + 1;
       a2[1] = v3 - 1;
       return *(a1 + 8 * v7 + 112);
     }
@@ -4962,7 +4962,7 @@ uint64_t llvm::ms_demangle::Demangler::demangleUnqualifiedSymbolName(uint64_t a1
       return llvm::ms_demangle::Demangler::demangleSimpleName(a1, a2, (a3 >> 1) & 1);
     }
 
-    return llvm::ms_demangle::Demangler::demangleTemplateInstantiationName();
+    return llvm::ms_demangle::Demangler::demangleTemplateInstantiationName(a1, a2, a3);
   }
 }
 
@@ -5891,7 +5891,7 @@ LABEL_238:
       }
 
       *a2 = v16 + 2;
-      a2[1] = (v15 - 2);
+      a2[1] = v15 - 2;
       llvm::ms_demangle::Demangler::demangleType(v3, a2, 0);
       if (*(v3 + 8))
       {
@@ -6105,7 +6105,7 @@ LABEL_5:
   }
 
   *a2 = v7 + 1;
-  a2[1] = (v6 - 1);
+  a2[1] = v6 - 1;
   v134 = v138;
 
   return nodeListToNodeArray((v3 + 16), v134, v4);
@@ -6296,7 +6296,7 @@ uint64_t llvm::ms_demangle::Demangler::demangleCallingConvention(uint64_t a1, vo
   return result;
 }
 
-size_t outputEscapedChar(char **a1, int a2)
+size_t outputEscapedChar(size_t *a1, unsigned int a2)
 {
   v72 = *MEMORY[0x277D85DE8];
   if (a2 <= 10)
@@ -6312,7 +6312,7 @@ size_t outputEscapedChar(char **a1, int a2)
           v10 = a1[2];
           if ((v4 + 2) > v10)
           {
-            v11 = (v4 + 994);
+            v11 = v4 + 994;
             v12 = 2 * v10;
             if (v12 <= v11)
             {
@@ -6344,7 +6344,7 @@ size_t outputEscapedChar(char **a1, int a2)
         v26 = a1[2];
         if ((v4 + 2) > v26)
         {
-          v27 = (v4 + 994);
+          v27 = v4 + 994;
           v28 = 2 * v26;
           if (v28 <= v27)
           {
@@ -6376,7 +6376,7 @@ size_t outputEscapedChar(char **a1, int a2)
       v38 = a1[2];
       if ((v4 + 2) > v38)
       {
-        v39 = (v4 + 994);
+        v39 = v4 + 994;
         v40 = 2 * v38;
         if (v40 <= v39)
         {
@@ -6410,7 +6410,7 @@ size_t outputEscapedChar(char **a1, int a2)
       v22 = a1[2];
       if ((v4 + 2) > v22)
       {
-        v23 = (v4 + 994);
+        v23 = v4 + 994;
         v24 = 2 * v22;
         if (v24 <= v23)
         {
@@ -6444,7 +6444,7 @@ size_t outputEscapedChar(char **a1, int a2)
       v18 = a1[2];
       if ((v4 + 2) > v18)
       {
-        v19 = (v4 + 994);
+        v19 = v4 + 994;
         v20 = 2 * v18;
         if (v20 <= v19)
         {
@@ -6482,7 +6482,7 @@ size_t outputEscapedChar(char **a1, int a2)
         v46 = a1[2];
         if ((v4 + 2) > v46)
         {
-          v47 = (v4 + 994);
+          v47 = v4 + 994;
           v48 = 2 * v46;
           if (v48 <= v47)
           {
@@ -6513,7 +6513,7 @@ size_t outputEscapedChar(char **a1, int a2)
         v34 = a1[2];
         if ((v4 + 2) > v34)
         {
-          v35 = (v4 + 994);
+          v35 = v4 + 994;
           v36 = 2 * v34;
           if (v36 <= v35)
           {
@@ -6544,7 +6544,7 @@ size_t outputEscapedChar(char **a1, int a2)
         v14 = a1[2];
         if ((v4 + 2) > v14)
         {
-          v15 = (v4 + 994);
+          v15 = v4 + 994;
           v16 = 2 * v14;
           if (v16 <= v15)
           {
@@ -6576,13 +6576,13 @@ size_t outputEscapedChar(char **a1, int a2)
   {
     switch(a2)
     {
-      case 11:
+      case 0xBu:
         result = *a1;
         v4 = a1[1];
         v42 = a1[2];
         if ((v4 + 2) > v42)
         {
-          v43 = (v4 + 994);
+          v43 = v4 + 994;
           v44 = 2 * v42;
           if (v44 <= v43)
           {
@@ -6607,13 +6607,13 @@ size_t outputEscapedChar(char **a1, int a2)
 
         v9 = 30300;
         goto LABEL_91;
-      case 12:
+      case 0xCu:
         result = *a1;
         v4 = a1[1];
         v30 = a1[2];
         if ((v4 + 2) > v30)
         {
-          v31 = (v4 + 994);
+          v31 = v4 + 994;
           v32 = 2 * v30;
           if (v32 <= v31)
           {
@@ -6638,7 +6638,7 @@ size_t outputEscapedChar(char **a1, int a2)
 
         v9 = 26204;
         goto LABEL_91;
-      case 13:
+      case 0xDu:
         result = *a1;
         v4 = a1[1];
         v5 = a1[2];
@@ -6654,7 +6654,7 @@ LABEL_92:
           return result;
         }
 
-        v6 = (v4 + 994);
+        v6 = v4 + 994;
         v7 = 2 * v5;
         if (v7 <= v6)
         {
@@ -6680,7 +6680,7 @@ LABEL_118:
     }
   }
 
-  if ((a2 - 32) <= 0x5E)
+  if (a2 - 32 <= 0x5E)
   {
     result = *a1;
     v51 = a1[1];
@@ -6697,7 +6697,7 @@ LABEL_118:
 
       else
       {
-        v56 = 2 * v53;
+        v56 = (2 * v53);
       }
 
       a1[2] = v56;
@@ -6725,7 +6725,7 @@ LABEL_118:
   do
   {
     v58 = v70 + v57;
-    if ((a2 & 0xFu) >= 0xA)
+    if ((a2 & 0xF) >= 0xA)
     {
       v59 = (a2 & 0xF) + 55;
     }
@@ -6749,7 +6749,7 @@ LABEL_118:
 
     *(v58 - 1) = v60;
     v61 = a2 > 0xFF;
-    a2 = a2 >> 8;
+    a2 >>= 8;
   }
 
   while (v61);
@@ -6768,12 +6768,12 @@ LABEL_118:
     {
       if (2 * v68 <= (v67 + 992))
       {
-        v69 = (v67 + 992);
+        v69 = v67 + 992;
       }
 
       else
       {
-        v69 = 2 * v68;
+        v69 = (2 * v68);
       }
 
       a1[2] = v69;
@@ -6788,7 +6788,7 @@ LABEL_118:
     }
 
     result = memcpy(&v66[v65], v63, v64);
-    v50 = &a1[1][v64];
+    v50 = (a1[1] + v64);
     goto LABEL_92;
   }
 
@@ -6874,7 +6874,7 @@ LABEL_37:
 
       if ((a2 & 0x1C) == 0)
       {
-        v14 = &a1->u8[v15];
+        v14 = (a1 + v15);
         LODWORD(v12) = a2 & 0xFFFFFFE0;
         goto LABEL_33;
       }
@@ -6887,16 +6887,15 @@ LABEL_37:
     }
 
     v12 = a2 & 0xFFFFFFFC;
-    v14 = &a1->u8[v12];
+    v14 = (a1 + v12);
     v33 = v13;
-    v34 = &a1->u8[v15];
+    v34 = (a1->i32 + v15);
     v35 = v15 - v12;
     v36.i64[0] = 0x100000001;
     v36.i64[1] = 0x100000001;
     do
     {
-      v37 = *v34;
-      v34 += 4;
+      v37 = *v34++;
       a6.i32[0] = v37;
       a6 = vandq_s8(vmovl_u16(vceqz_s16(*&vmovl_u8(*a6.i8))), v36);
       v33 = vaddq_s32(v33, a6);
@@ -6914,7 +6913,9 @@ LABEL_33:
     v38 = a2 - v12;
     do
     {
-      if (!*v14++)
+      v39 = v14->u8[0];
+      v14 = (v14 + 1);
+      if (!v39)
       {
         ++v13;
       }
@@ -6932,7 +6933,7 @@ LABEL_33:
   }
 
   v6 = 0;
-  v7 = &a1->u8[a2 - 1];
+  v7 = &a1->i8[a2 - 1];
   while (!*v7--)
   {
     if (a2 == ++v6)
@@ -7327,7 +7328,7 @@ LABEL_56:
   return v4;
 }
 
-uint64_t llvm::ms_demangle::Demangler::demangleUnqualifiedTypeName(uint64_t a1, uint64_t *a2, int a3)
+uint64_t llvm::ms_demangle::Demangler::demangleUnqualifiedTypeName(uint64_t a1, char **a2, int a3)
 {
   v3 = a2[1];
   if (!v3)
@@ -7365,7 +7366,7 @@ uint64_t llvm::ms_demangle::Demangler::demangleUnqualifiedTypeName(uint64_t a1, 
   }
 }
 
-uint64_t llvm::ms_demangle::Demangler::demangleNameScopePiece(uint64_t a1, uint64_t *a2)
+uint64_t llvm::ms_demangle::Demangler::demangleNameScopePiece(uint64_t a1, char **a2)
 {
   v2 = a2[1];
   if (!v2)
@@ -7388,8 +7389,8 @@ LABEL_29:
 
     else
     {
-      *a2 = (v3 + 1);
-      a2[1] = v2 - 1;
+      *a2 = v3 + 1;
+      a2[1] = (v2 - 1);
       return *(a1 + 8 * v13 + 112);
     }
   }
@@ -7402,16 +7403,16 @@ LABEL_7:
       v5 = v2 - 1;
       if (v2 != 1)
       {
-        v6 = v3 + 1;
+        v6 = (v3 + 1);
         v7 = a1;
         v8 = a2;
-        v9 = memchr(v3 + 1, 63, v2 - 1);
+        v9 = memchr(v3 + 1, 63, (v2 - 1));
         a2 = v8;
         v10 = v9;
         a1 = v7;
         if (v10)
         {
-          v11 = v10 - v6;
+          v11 = (v10 - v6);
           if (v11 != -1)
           {
             if (v5 < v11)
@@ -7432,7 +7433,7 @@ LABEL_36:
                 }
               }
 
-              else if (v3[v11] == 64 && *v6 - 81 >= 0xFFFFFFF1)
+              else if (v11[v3] == 64 && *v6 - 81 >= 0xFFFFFFF1)
               {
                 v15 = v11 - 2;
                 if (!v15)
@@ -7440,7 +7441,7 @@ LABEL_36:
                   goto LABEL_36;
                 }
 
-                v16 = v3 + 2;
+                v16 = (v3 + 2);
                 while (*v16 - 65 <= 0xF)
                 {
                   ++v16;
@@ -7690,7 +7691,7 @@ LABEL_42:
   return result;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleMemberPointerType(uint64_t a1, uint64_t *a2)
+unint64_t llvm::ms_demangle::Demangler::demangleMemberPointerType(uint64_t a1, unsigned __int8 **a2)
 {
   v4 = *(a1 + 16);
   v5 = (v4[1] + *v4 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -7711,10 +7712,10 @@ unint64_t llvm::ms_demangle::Demangler::demangleMemberPointerType(uint64_t a1, u
   if (v7 > 2)
   {
     v8 = *a2;
-    if (**a2 == 9252 && *(*a2 + 2) == 81)
+    if (**a2 == 9252 && (*a2)[2] == 81)
     {
       v12 = v7 - 3;
-      *a2 = v8 + 3;
+      *a2 = (v8 + 3);
       a2[1] = v12;
       LOBYTE(v8) = 0;
       *(v5 + 12) = 0;
@@ -7736,7 +7737,7 @@ unint64_t llvm::ms_demangle::Demangler::demangleMemberPointerType(uint64_t a1, u
   v11 = *v8;
   v10 = v11;
   v12 = v7 - 1;
-  *a2 = v8 + 1;
+  *a2 = (v8 + 1);
   a2[1] = v12;
   if (v11 <= 80)
   {
@@ -7859,7 +7860,7 @@ LABEL_24:
 LABEL_25:
   *(v5 + 12) = v13 | v8 | 0x10;
   --v12;
-  *a2 = (v14 + 1);
+  *a2 = v14 + 1;
   a2[1] = v12;
   if (!v12)
   {
@@ -7869,11 +7870,11 @@ LABEL_25:
 LABEL_31:
   v16 = 0;
   v17 = *a2;
-  v19 = (*a2 + 1);
+  v19 = *a2 + 1;
   v18 = **a2;
   v20 = v12 - 1;
   *a2 = v19;
-  a2[1] = v12 - 1;
+  a2[1] = (v12 - 1);
   if (v18 > 67)
   {
     if (v18 > 81)
@@ -7952,7 +7953,7 @@ LABEL_46:
         else
         {
           *a2 = v21 + 1;
-          a2[1] = v20 - 1;
+          a2[1] = (v20 - 1);
           v24 = *(a1 + 8 * v29 + 112);
         }
 
@@ -8035,7 +8036,7 @@ LABEL_78:
   else
   {
     *a2 = v17 + 2;
-    a2[1] = v12 - 2;
+    a2[1] = (v12 - 2);
     v32 = *(a1 + 8 * (v30 - 48) + 112);
   }
 
@@ -8064,7 +8065,7 @@ LABEL_79:
   return v5;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demanglePointerType(uint64_t a1, uint64_t *a2)
+unint64_t llvm::ms_demangle::Demangler::demanglePointerType(uint64_t a1, unsigned __int8 **a2)
 {
   v4 = *(a1 + 16);
   v5 = (v4[1] + *v4 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -8089,14 +8090,14 @@ unint64_t llvm::ms_demangle::Demangler::demanglePointerType(uint64_t a1, uint64_
   }
 
   v8 = *a2;
-  if (**a2 != 9252 || *(*a2 + 2) != 81)
+  if (**a2 != 9252 || (*a2)[2] != 81)
   {
 LABEL_9:
     v11 = *v8;
     v10 = v11;
-    v12 = v7 - 1;
-    *a2 = (v8 + 1);
-    a2[1] = v7 - 1;
+    v12 = (v7 - 1);
+    *a2 = v8 + 1;
+    a2[1] = (v7 - 1);
     v7 = 0x200000000;
     v13 = 0x100000001;
     v14 = 0x100000002;
@@ -8132,9 +8133,9 @@ LABEL_37:
     goto LABEL_38;
   }
 
-  v12 = v7 - 3;
-  *a2 = (v8 + 3);
-  a2[1] = v7 - 3;
+  v12 = (v7 - 3);
+  *a2 = v8 + 3;
+  a2[1] = (v7 - 3);
   LOBYTE(v7) = 0;
   *(v5 + 12) = 0;
   *(v5 + 16) = 3;
@@ -8165,7 +8166,7 @@ LABEL_18:
 LABEL_34:
       if (v16 == 70)
       {
-        *a2 = (v15 + 1);
+        *a2 = v15 + 1;
         a2[1] = v12 - 1;
         v23 |= 0x10u;
       }
@@ -8178,7 +8179,7 @@ LABEL_34:
   {
     if (v16 == 54)
     {
-      *a2 = (v15 + 1);
+      *a2 = v15 + 1;
       a2[1] = v12 - 1;
       v17 = *(a1 + 16);
       v18 = (v17[1] + *v17 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -8297,7 +8298,7 @@ LABEL_66:
             v26 = *a2;
             if (**a2 == 17759)
             {
-              *a2 = (v26 + 2);
+              *a2 = v26 + 2;
               a2[1] = v25 - 2;
               *(v18 + 56) = 1;
               goto LABEL_39;
@@ -8316,7 +8317,7 @@ LABEL_66:
 
           if (*v26 == 90)
           {
-            *a2 = (v26 + 1);
+            *a2 = v26 + 1;
             a2[1] = v25 - 1;
             *(v18 + 56) = 0;
             goto LABEL_39;
@@ -8621,7 +8622,7 @@ LABEL_59:
   }
 
   *a2 = v41 + 3;
-  a2[1] = (v40 - 3);
+  a2[1] = v40 - 3;
   v43 = 0;
   if (v40 == 3)
   {
@@ -8632,7 +8633,7 @@ LABEL_59:
 
   v44 = v41[3];
   *a2 = v41 + 4;
-  a2[1] = (v40 - 4);
+  a2[1] = v40 - 4;
   if (v44 <= 80)
   {
     v45 = v50;
@@ -8702,7 +8703,7 @@ LABEL_71:
   return 0;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleFunctionType(uint64_t a1, uint64_t *a2, int a3)
+unint64_t llvm::ms_demangle::Demangler::demangleFunctionType(uint64_t a1, unsigned __int8 **a2, int a3)
 {
   v5 = *(a1 + 16);
   v6 = (v5[1] + *v5 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -8779,7 +8780,7 @@ LABEL_9:
           v11 |= 0x10u;
           *(v6 + 12) = v11;
           --v8;
-          *a2 = (v9 + 1);
+          *a2 = v9 + 1;
           a2[1] = v8;
           if (!v8)
           {
@@ -9084,7 +9085,7 @@ LABEL_80:
     v18 = *a2;
     if (**a2 == 17759)
     {
-      *a2 = (v18 + 2);
+      *a2 = v18 + 2;
       a2[1] = v17 - 2;
       v19 = 1;
       goto LABEL_88;
@@ -9110,7 +9111,7 @@ LABEL_86:
   }
 
   v19 = 0;
-  *a2 = (v18 + 1);
+  *a2 = v18 + 1;
   a2[1] = v17 - 1;
 LABEL_88:
   *(v6 + 56) = v19;
@@ -9119,7 +9120,7 @@ LABEL_88:
 
 unint64_t llvm::ms_demangle::Demangler::demangleCustomType(uint64_t a1, char **a2)
 {
-  v4 = (a2[1] - 1);
+  v4 = a2[1] - 1;
   ++*a2;
   a2[1] = v4;
   v5 = *(a1 + 16);
@@ -9160,7 +9161,7 @@ unint64_t llvm::ms_demangle::Demangler::demangleCustomType(uint64_t a1, char **a
     else
     {
       v12 = v8 - 1;
-      *a2 = v9 + 1;
+      *a2 = (v9 + 1);
       a2[1] = v12;
       *(v6 + 16) = *(a1 + 8 * v14 + 112);
       if (!v12)
@@ -9577,14 +9578,14 @@ LABEL_5:
   return 1;
 }
 
-unint64_t llvm::ms_demangle::Demangler::demangleFunctionParameterList(uint64_t a1, uint64_t *a2, _BYTE *a3)
+unint64_t llvm::ms_demangle::Demangler::demangleFunctionParameterList(uint64_t a1, unsigned __int8 **a2, _BYTE *a3)
 {
   v5 = a2[1];
   if (v5 && **a2 == 88)
   {
     result = 0;
-    v7 = *a2 + 1;
-    v8 = (v5 - 1);
+    v7 = (*a2 + 1);
+    v8 = v5 - 1;
 LABEL_4:
     *a2 = v7;
     a2[1] = v8;
@@ -9649,7 +9650,7 @@ LABEL_22:
       v24 = *v16;
       **v16 = v29;
       v30 = *(a1 + 104);
-      if (v30 <= 9 && &v18[-a2[1]] >= 2)
+      if (v30 <= 9 && (v18 - a2[1]) >= 2)
       {
         *(a1 + 104) = v30 + 1;
         *(v32 + 8 * v30) = v29;
@@ -9708,8 +9709,8 @@ LABEL_12:
   }
 
   result = nodeListToNodeArray((a1 + 16), v33, v15);
-  v7 = *a2 + 1;
-  v8 = a2[1] - 1;
+  v7 = (*a2 + 1);
+  v8 = (a2[1] - 1);
   if (**a2 == 64)
   {
     goto LABEL_4;

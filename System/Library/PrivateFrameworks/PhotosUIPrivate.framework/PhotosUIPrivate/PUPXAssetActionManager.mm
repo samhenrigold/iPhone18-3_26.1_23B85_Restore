@@ -326,7 +326,7 @@
           v19 = 0u;
           v20 = 0u;
           [dataSource identifier];
-          indexPath = [v14 indexPath];
+          v15 = objc_msgSend_indexPath(v14);
           PXSimpleIndexPathFromIndexPath();
 
           v18[0] = v19;

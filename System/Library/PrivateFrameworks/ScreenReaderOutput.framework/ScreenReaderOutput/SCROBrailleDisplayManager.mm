@@ -28,6 +28,7 @@
 - (_NSRange)rangeOfBrailleCellRepresentingCharacterAtIndex:(unint64_t)index;
 - (double)autoAdvanceDuration;
 - (id)_brailleUIFirstResponder;
+- (id)_eventQueue_activeDisplayForToken:(int)token;
 - (id)_eventQueue_cachedMainStringForDisplayMode:(int)mode;
 - (id)_eventQueue_driverConfiguration;
 - (id)_eventQueue_mainAttributedString;
@@ -59,6 +60,7 @@
 - (void)_eventQueue_brailleDisplayDriverFailedToLoad:(id)load;
 - (void)_eventQueue_brailleDriverDisconnected:(id)disconnected;
 - (void)_eventQueue_didChangeBrailleString:(id)string brailleSelection:(_NSRange)selection brailleUIOptions:(id)options;
+- (void)_eventQueue_doSetDisplayMode:(int)mode;
 - (void)_eventQueue_endBrailleUI;
 - (void)_eventQueue_exitCurrentDisplayMode;
 - (void)_eventQueue_fireAlertTimeoutHandler;
@@ -67,10 +69,15 @@
 - (void)_eventQueue_loadNextDriverForIOElement:(id)element;
 - (void)_eventQueue_loadStealthDisplay;
 - (void)_eventQueue_migratePasteBoardContentToSystem;
+- (void)_eventQueue_panDisplay:(int64_t)display token:(int)token;
+- (void)_eventQueue_planarPanDisplay:(int64_t)display token:(int)token;
 - (void)_eventQueue_popDisplayModeStack;
+- (void)_eventQueue_prepareToMemorizeNextKey:(BOOL)key immediately:(BOOL)immediately forDisplayWithToken:(int)token;
+- (void)_eventQueue_requestSpeech:(id)speech language:(id)language shouldQueue:(BOOL)queue;
 - (void)_eventQueue_resetAlertTimer;
 - (void)_eventQueue_resetEditingManager;
 - (void)_eventQueue_setAggregatedStatus:(id)status;
+- (void)_eventQueue_setAlwaysUsesNemethCodeForTechnicalText:(BOOL)text;
 - (void)_eventQueue_setAutoAdvanceDuration:(double)duration;
 - (void)_eventQueue_setAutoAdvanceEnabled:(BOOL)enabled;
 - (void)_eventQueue_setAutomaticBrailleTranslationEnabled:(BOOL)enabled;
@@ -78,15 +85,19 @@
 - (void)_eventQueue_setBrailleFormatter:(id)formatter;
 - (void)_eventQueue_setBrailleKeyDebounceTimeout:(double)timeout;
 - (void)_eventQueue_setDisplayInputAccessMode:(int)mode;
+- (void)_eventQueue_setDisplayMode:(int)mode;
 - (void)_eventQueue_setInputTableWithIdentifier:(id)identifier;
+- (void)_eventQueue_setLineDescriptorCallbackEnabled:(BOOL)enabled;
 - (void)_eventQueue_setMainAttributedString:(id)string shouldDisplay:(BOOL)display forceUpdate:(BOOL)update;
 - (void)_eventQueue_setMasterStatusCellIndex:(int64_t)index;
 - (void)_eventQueue_setPersistentKeyModifiers:(unsigned int)modifiers;
 - (void)_eventQueue_setPlanarData:(id)data;
+- (void)_eventQueue_setPrimaryDisplay:(int)display;
 - (void)_eventQueue_setSingleLetterInputIsOn:(BOOL)on;
 - (void)_eventQueue_setTableIdentifier:(id)identifier;
 - (void)_eventQueue_setTactileGraphicsImageData:(id)data;
 - (void)_eventQueue_setTextSearchModeIsOn:(BOOL)on;
+- (void)_eventQueue_setVirtualStatusAlignment:(int)alignment;
 - (void)_eventQueue_setWordWrapEnabled:(BOOL)enabled;
 - (void)_eventQueue_showDotsSevenAndEight:(BOOL)eight;
 - (void)_eventQueue_showNextAnnouncement:(BOOL)announcement;
@@ -97,6 +108,7 @@
 - (void)_eventQueue_unloadVirtualDisplay:(unint64_t)display;
 - (void)_eventQueue_virtualDisplay:(unint64_t)display pressButton:(unint64_t)button;
 - (void)_eventQueue_virtualDisplay:(unint64_t)display pressKeyChord:(unint64_t)chord;
+- (void)_eventQueue_virtualDisplay:(unint64_t)display pressRouterWithIndex:(unint64_t)index withSpace:(BOOL)space;
 - (void)_loadNextDriverForIOElement:(id)element;
 - (void)_loadStealthDisplay;
 - (void)_mainQueue_invalidate;
@@ -558,31 +570,31 @@ void __68__SCROBrailleDisplayManager_tokenizeString_intoFormatter_selection___bl
   }
 }
 
-uint64_t __68__SCROBrailleDisplayManager_tokenizeString_intoFormatter_selection___block_invoke_2(uint64_t result, uint64_t a2)
+id *__68__SCROBrailleDisplayManager_tokenizeString_intoFormatter_selection___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addBoldRange:?];
+    return [result[4] addBoldRange:?];
   }
 
   return result;
 }
 
-uint64_t __68__SCROBrailleDisplayManager_tokenizeString_intoFormatter_selection___block_invoke_3(uint64_t result, uint64_t a2)
+id *__68__SCROBrailleDisplayManager_tokenizeString_intoFormatter_selection___block_invoke_3(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addItalicRange:?];
+    return [result[4] addItalicRange:?];
   }
 
   return result;
 }
 
-uint64_t __68__SCROBrailleDisplayManager_tokenizeString_intoFormatter_selection___block_invoke_4(uint64_t result, uint64_t a2)
+id *__68__SCROBrailleDisplayManager_tokenizeString_intoFormatter_selection___block_invoke_4(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addUnderlineRange:?];
+    return [result[4] addUnderlineRange:?];
   }
 
   return result;
@@ -599,7 +611,7 @@ uint64_t __68__SCROBrailleDisplayManager_tokenizeString_intoFormatter_selection_
 
 - (void)_updateTactileGraphicsDisplay
 {
-  v3 = _SCROD_LOG();
+  v3 = _SCROD_LOG(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -683,7 +695,7 @@ void __53__SCROBrailleDisplayManager__deviceConnectedHandler___block_invoke(uint
   }
 }
 
-uint64_t __72__SCROBrailleDisplayManager__addDetectedIOElement_withDriverIdentifier___block_invoke(uint64_t a1)
+void *__72__SCROBrailleDisplayManager__addDetectedIOElement_withDriverIdentifier___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _eventQueue_addDetectedIOElement:*(a1 + 40) withDriverIdentifier:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -807,17 +819,18 @@ uint64_t __72__SCROBrailleDisplayManager__addDetectedIOElement_withDriverIdentif
             if (v21 && [v6 isEqualToString:v21])
             {
               v22 = selfCopy;
-              if (-[SCROBrailleDisplayManager _isIOElementHID:](selfCopy, "_isIOElementHID:", elementCopy) && ([v16 ioElement], v23 = objc_claimAutoreleasedReturnValue(), v24 = -[SCROBrailleDisplayManager _isIOElementHID:](selfCopy, "_isIOElementHID:", v23), v23, v22 = selfCopy, !v24))
+              v23 = [(SCROBrailleDisplayManager *)selfCopy _isIOElementHID:elementCopy];
+              if (v23 && ([v16 ioElement], v24 = objc_claimAutoreleasedReturnValue(), v25 = -[SCROBrailleDisplayManager _isIOElementHID:](selfCopy, "_isIOElementHID:", v24), v24, v22 = selfCopy, !v25))
               {
-                v26 = _SCROD_LOG();
+                v27 = _SCROD_LOG(v23);
                 elementCopy = v39;
-                if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+                if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412546;
                   v46 = v16;
                   v47 = 2112;
                   v48 = v39;
-                  _os_log_impl(&dword_26490B000, v26, OS_LOG_TYPE_DEFAULT, "loadNextDriverForIOElement: old display is non-HID and the new one is HID. Invalidating %@ (new ioElement = %@)", buf, 0x16u);
+                  _os_log_impl(&dword_26490B000, v27, OS_LOG_TYPE_DEFAULT, "loadNextDriverForIOElement: old display is non-HID and the new one is HID. Invalidating %@ (new ioElement = %@)", buf, 0x16u);
                 }
 
                 [v16 invalidate];
@@ -825,11 +838,11 @@ uint64_t __72__SCROBrailleDisplayManager__addDetectedIOElement_withDriverIdentif
 
               else
               {
-                v25 = _SCROD_LOG();
-                if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+                v26 = _SCROD_LOG(v23);
+                if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_26490B000, v25, OS_LOG_TYPE_DEFAULT, "loadNextDriverForIOElement: second load attempt from the same BT address. Ignoring.", buf, 2u);
+                  _os_log_impl(&dword_26490B000, v26, OS_LOG_TYPE_DEFAULT, "loadNextDriverForIOElement: second load attempt from the same BT address. Ignoring.", buf, 2u);
                 }
 
                 elementCopy = v39;
@@ -850,62 +863,62 @@ uint64_t __72__SCROBrailleDisplayManager__addDetectedIOElement_withDriverIdentif
 
   if ([elementCopy transport] == 2 || objc_msgSend(elementCopy, "transport") == 8)
   {
-    v27 = [elementCopy conformsToProtocol:&unk_28765F968];
+    v28 = [elementCopy conformsToProtocol:&unk_28765F968];
   }
 
   else
   {
-    v27 = 0;
+    v28 = 0;
   }
 
-  v28 = [(NSMutableDictionary *)self->_detectedIOElementsDict objectForKey:elementCopy];
-  v29 = [v28 count];
-  if (v29)
+  v29 = [(NSMutableDictionary *)self->_detectedIOElementsDict objectForKey:elementCopy];
+  v30 = [v29 count];
+  if (v30)
   {
-    v30 = v29;
+    v31 = v30;
     while (1)
     {
-      bluetoothAddress3 = [v28 objectAtIndex:0];
-      v32 = [(SCROBrailleDisplayManager *)selfCopy _displayWithIOElement:elementCopy driverIdentifier:bluetoothAddress3 delegate:selfCopy];
-      v33 = _SCROD_LOG();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      bluetoothAddress3 = [v29 objectAtIndex:0];
+      v33 = [(SCROBrailleDisplayManager *)selfCopy _displayWithIOElement:elementCopy driverIdentifier:bluetoothAddress3 delegate:selfCopy];
+      v34 = _SCROD_LOG(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v46 = v32;
+        v46 = v33;
         v47 = 2114;
         v48 = bluetoothAddress3;
         v49 = 2112;
         v50 = v39;
-        _os_log_impl(&dword_26490B000, v33, OS_LOG_TYPE_DEFAULT, "Made braille display %@ from identifier %{public}@ %@", buf, 0x20u);
+        _os_log_impl(&dword_26490B000, v34, OS_LOG_TYPE_DEFAULT, "Made braille display %@ from identifier %{public}@ %@", buf, 0x20u);
       }
 
-      if (v27)
+      if (v28)
       {
-        objc_storeStrong(&selfCopy->_bluetoothBrailleDisplay, v32);
+        objc_storeStrong(&selfCopy->_bluetoothBrailleDisplay, v33);
       }
 
-      [v28 removeObjectAtIndex:0];
+      [v29 removeObjectAtIndex:0];
       elementCopy = v39;
-      if (v32)
+      if (v33)
       {
         break;
       }
 
-      --v30;
+      --v31;
 
-      if (!v30)
+      if (!v31)
       {
         goto LABEL_40;
       }
     }
 
-    [(SCROBrailleDisplayManagedQueue *)selfCopy->_managedDisplayQueue addDisplay:v32 withState:4];
+    [(SCROBrailleDisplayManagedQueue *)selfCopy->_managedDisplayQueue addDisplay:v33 withState:4];
     goto LABEL_44;
   }
 
 LABEL_40:
   [(NSMutableDictionary *)selfCopy->_detectedIOElementsDict removeObjectForKey:elementCopy];
-  if (v27)
+  if (v28)
   {
     bluetoothBrailleDisplay = selfCopy->_bluetoothBrailleDisplay;
     selfCopy->_bluetoothBrailleDisplay = 0;
@@ -913,14 +926,12 @@ LABEL_40:
     WeakRetained = objc_loadWeakRetained(&selfCopy->_delegate);
     if (WeakRetained)
     {
-      v32 = WeakRetained;
+      v33 = WeakRetained;
       bluetoothAddress3 = [elementCopy bluetoothAddress];
-      [v32 handleFailedToLoadBluetoothDevice:bluetoothAddress3];
+      [v33 handleFailedToLoadBluetoothDevice:bluetoothAddress3];
 LABEL_44:
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isIOElementHID:(id)d
@@ -979,9 +990,7 @@ LABEL_44:
 uint64_t __37__SCROBrailleDisplayManager_delegate__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 72));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = WeakRetained;
 
   return MEMORY[0x2821F96F8](WeakRetained);
 }
@@ -989,32 +998,32 @@ uint64_t __37__SCROBrailleDisplayManager_delegate__block_invoke(uint64_t a1)
 - (void)brailleDisplay:(id)display driverDidLoad:(BOOL)load
 {
   loadCopy = load;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   displayCopy = display;
-  v7 = _SCROD_LOG();
+  v7 = _SCROD_LOG(displayCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v16 = loadCopy;
-    v17 = 2114;
-    v18 = displayCopy;
+    v15 = loadCopy;
+    v16 = 2114;
+    v17 = displayCopy;
     _os_log_impl(&dword_26490B000, v7, OS_LOG_TYPE_DEFAULT, "Driver did load: %d %{public}@", buf, 0x12u);
   }
 
   eventQueue = self->_eventQueue;
   if (loadCopy)
   {
-    v9 = v14;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
+    v9 = v13;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
     v10 = __58__SCROBrailleDisplayManager_brailleDisplay_driverDidLoad___block_invoke;
   }
 
   else
   {
-    v9 = v13;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
+    v9 = v12;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
     v10 = __58__SCROBrailleDisplayManager_brailleDisplay_driverDidLoad___block_invoke_2;
   }
 
@@ -1024,118 +1033,118 @@ uint64_t __37__SCROBrailleDisplayManager_delegate__block_invoke(uint64_t a1)
   v9[5] = displayCopy;
   v11 = displayCopy;
   dispatch_async(eventQueue, v9);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_eventQueue_brailleDisplayDriverDidLoad:(id)load
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   loadCopy = load;
-  v5 = _SCROD_LOG();
+  v5 = _SCROD_LOG(loadCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     driverIdentifier = [(SCROBrailleDisplay *)loadCopy driverIdentifier];
     *buf = 138412290;
-    v51 = driverIdentifier;
+    v55 = driverIdentifier;
     _os_log_impl(&dword_26490B000, v5, OS_LOG_TYPE_DEFAULT, "Display loaded: %@", buf, 0xCu);
   }
 
   dispatch_assert_queue_V2(self->_eventQueue);
   ioElement = [(SCROBrailleDisplay *)loadCopy ioElement];
   configuration = [(SCROBrailleDisplay *)loadCopy configuration];
+  v9 = configuration;
   if (ioElement)
   {
     bluetoothBrailleDisplay = self->_bluetoothBrailleDisplay;
-    v47 = bluetoothBrailleDisplay == loadCopy;
-    v10 = _SCROD_LOG();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v51 = bluetoothBrailleDisplay == loadCopy;
+    v11 = _SCROD_LOG(configuration);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       loadCopy = [MEMORY[0x277CCABB0] numberWithBool:bluetoothBrailleDisplay == loadCopy];
-      v12 = self->_bluetoothBrailleDisplay;
+      v13 = self->_bluetoothBrailleDisplay;
       *buf = 138412802;
-      v51 = loadCopy;
-      v52 = 2112;
-      v53 = v12;
-      v54 = 2112;
       v55 = loadCopy;
-      _os_log_impl(&dword_26490B000, v10, OS_LOG_TYPE_DEFAULT, "Selected BT Display (%@): %@ | %@", buf, 0x20u);
+      v56 = 2112;
+      v57 = v13;
+      v58 = 2112;
+      v59 = loadCopy;
+      _os_log_impl(&dword_26490B000, v11, OS_LOG_TYPE_DEFAULT, "Selected BT Display (%@): %@ | %@", buf, 0x20u);
     }
 
-    v13 = _SCROD_LOG();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = _SCROD_LOG(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v51 = ioElement;
-      _os_log_impl(&dword_26490B000, v13, OS_LOG_TYPE_DEFAULT, "Selected ioElement (%@)", buf, 0xCu);
+      v55 = ioElement;
+      _os_log_impl(&dword_26490B000, v15, OS_LOG_TYPE_DEFAULT, "Selected ioElement (%@)", buf, 0xCu);
     }
 
     if (!self->_bluetoothBrailleDisplay)
     {
-      v14 = _SCROD_LOG();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v17 = _SCROD_LOG(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v51 = ioElement;
-        _os_log_impl(&dword_26490B000, v14, OS_LOG_TYPE_DEFAULT, "Marking BT device as loading so it can be saved: %@", buf, 0xCu);
+        v55 = ioElement;
+        _os_log_impl(&dword_26490B000, v17, OS_LOG_TYPE_DEFAULT, "Marking BT device as loading so it can be saved: %@", buf, 0xCu);
       }
 
-      v47 = 1;
+      v51 = 1;
     }
 
     [(NSMutableSet *)self->_loadedIOElements addObject:ioElement];
     [(NSMutableDictionary *)self->_detectedIOElementsDict removeObjectForKey:ioElement];
     objc_opt_class();
-    v15 = objc_opt_isKindOfClass() ^ 1;
-    v16 = 1;
+    v18 = objc_opt_isKindOfClass() ^ 1;
+    v19 = 1;
   }
 
   else
   {
-    v47 = 0;
-    v16 = self->_stealthBrailleDisplay != loadCopy;
-    v15 = 1;
+    v51 = 0;
+    v19 = self->_stealthBrailleDisplay != loadCopy;
+    v18 = 1;
   }
 
-  v17 = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue stateForDisplay:loadCopy];
-  v18 = _SCROD_LOG();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v20 = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue stateForDisplay:loadCopy];
+  v21 = v20;
+  v22 = _SCROD_LOG(v20);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v51) = v17;
-    _os_log_impl(&dword_26490B000, v18, OS_LOG_TYPE_DEFAULT, "Current display state: %d", buf, 8u);
+    LODWORD(v55) = v21;
+    _os_log_impl(&dword_26490B000, v22, OS_LOG_TYPE_DEFAULT, "Current display state: %d", buf, 8u);
   }
 
-  v19 = v17 & 0xFFFFFFFB;
-  v20 = (v17 & 0xFFFFFFFB) == 0;
-  v45 = configuration;
-  if (v19)
+  v23 = v21 & 0xFFFFFFFB;
+  v24 = (v21 & 0xFFFFFFFB) == 0;
+  v49 = v9;
+  if (v23)
   {
-    v21 = 0;
-    v46 = 0;
+    v25 = 0;
+    v50 = 0;
     WeakRetained = 0;
-    v23 = 0;
+    v27 = 0;
     goto LABEL_18;
   }
 
   displayConfigurationDict = self->_displayConfigurationDict;
-  if (displayConfigurationDict && configuration)
+  if (displayConfigurationDict && v9)
   {
-    CFDictionarySetValue(displayConfigurationDict, loadCopy, configuration);
+    CFDictionarySetValue(displayConfigurationDict, loadCopy, v9);
   }
 
-  v25 = v15 & v16;
+  v30 = v18 & v19;
   activeDisplays = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue activeDisplays];
-  v27 = [activeDisplays count];
+  v32 = [activeDisplays count];
 
-  if (!v27)
+  if (!v32)
   {
-    v16 = 1;
+    v19 = 1;
   }
 
-  if (v16)
+  if (v19)
   {
-    if (v27 == 1)
+    if (v32 == 1)
     {
       activeDisplays2 = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue activeDisplays];
       lastObject = [activeDisplays2 lastObject];
@@ -1153,13 +1162,13 @@ uint64_t __37__SCROBrailleDisplayManager_delegate__block_invoke(uint64_t a1)
       virtualAlignment = [(SCROBrailleDisplayManagerStatus *)self->_status virtualAlignment];
       masterStatusCellIndex = [(SCROBrailleDisplayManagerStatus *)self->_status masterStatusCellIndex];
       primaryDisplay = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue primaryDisplay];
-      v42 = primaryDisplay == loadCopy;
+      v46 = primaryDisplay == loadCopy;
 
-      v46 = self->_currentBrailleFormatter;
-      v32 = 1;
-      if ((v25 & 1) == 0)
+      v50 = self->_currentBrailleFormatter;
+      v37 = 1;
+      if ((v30 & 1) == 0)
       {
-        v21 = 0;
+        v25 = 0;
         WeakRetained = 0;
         goto LABEL_37;
       }
@@ -1167,14 +1176,14 @@ uint64_t __37__SCROBrailleDisplayManager_delegate__block_invoke(uint64_t a1)
 
     else
     {
-      v32 = 0;
-      v42 = 0;
+      v37 = 0;
+      v46 = 0;
       virtualAlignment = 0;
       masterStatusCellIndex = 0;
-      v46 = 0;
-      v21 = 0;
+      v50 = 0;
+      v25 = 0;
       WeakRetained = 0;
-      if (!v25)
+      if (!v30)
       {
         goto LABEL_37;
       }
@@ -1183,83 +1192,84 @@ uint64_t __37__SCROBrailleDisplayManager_delegate__block_invoke(uint64_t a1)
 
   else
   {
-    v33 = self->_stealthBrailleDisplay;
+    v38 = self->_stealthBrailleDisplay;
     self->_stealthBrailleDisplay = 0;
 
     [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue removeDisplay:loadCopy];
-    if ((v25 & 1) == 0)
+    if ((v30 & 1) == 0)
     {
-      v21 = 0;
-      v46 = 0;
+      v25 = 0;
+      v50 = 0;
       WeakRetained = 0;
-      v23 = 0;
-      v20 = 1;
+      v27 = 0;
+      v24 = 1;
       goto LABEL_18;
     }
 
-    v32 = 0;
-    v42 = 0;
+    v37 = 0;
+    v46 = 0;
     virtualAlignment = 0;
     masterStatusCellIndex = 0;
-    v46 = 0;
+    v50 = 0;
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  if (v16)
+  if (v19)
   {
-    v21 = 1;
+    v25 = 1;
 LABEL_37:
-    v23 = objc_loadWeakRetained(&self->_delegate);
-    v20 = 0;
-    if (v32)
+    v27 = objc_loadWeakRetained(&self->_delegate);
+    v24 = 0;
+    if (v37)
     {
       goto LABEL_41;
     }
 
 LABEL_18:
-    if ([(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue stateForDisplay:loadCopy]!= 1)
+    v28 = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue stateForDisplay:loadCopy];
+    if (v28 != 1)
     {
       [(SCROBrailleDisplay *)loadCopy setDelegateWantsDisplayCallback:0];
-      [(SCROBrailleDisplay *)loadCopy setInputAllowed:0];
+      v28 = [(SCROBrailleDisplay *)loadCopy setInputAllowed:0];
     }
 
     goto LABEL_44;
   }
 
-  v23 = 0;
-  v20 = 1;
-  v21 = 1;
-  if ((v32 & 1) == 0)
+  v27 = 0;
+  v24 = 1;
+  v25 = 1;
+  if ((v37 & 1) == 0)
   {
     goto LABEL_18;
   }
 
 LABEL_41:
-  lineDescriptorDisplayCallbackEnabled = v42;
-  if (v42)
+  lineDescriptorDisplayCallbackEnabled = v46;
+  if (v46)
   {
     lineDescriptorDisplayCallbackEnabled = self->_lineDescriptorDisplayCallbackEnabled;
   }
 
-  _updateNewlyActiveDisplay(loadCopy, v46, lineDescriptorDisplayCallbackEnabled, 1, masterStatusCellIndex, virtualAlignment, self->_automaticBrailleTranslation);
+  _updateNewlyActiveDisplay(loadCopy, v50, lineDescriptorDisplayCallbackEnabled, 1, masterStatusCellIndex, virtualAlignment, self->_automaticBrailleTranslation);
 LABEL_44:
-  v35 = _SCROD_LOG();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v40 = _SCROD_LOG(v28);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
-    v36 = [MEMORY[0x277CCABB0] numberWithBool:v21];
-    v37 = [MEMORY[0x277CCABB0] numberWithBool:v47];
+    v41 = [MEMORY[0x277CCABB0] numberWithBool:v25];
+    v42 = [MEMORY[0x277CCABB0] numberWithBool:v51];
     *buf = 138412546;
-    v51 = v36;
-    v52 = 2112;
-    v53 = v37;
-    _os_log_impl(&dword_26490B000, v35, OS_LOG_TYPE_DEFAULT, "Braille display loaded: will notify: %@, will save: %@", buf, 0x16u);
+    v55 = v41;
+    v56 = 2112;
+    v57 = v42;
+    _os_log_impl(&dword_26490B000, v40, OS_LOG_TYPE_DEFAULT, "Braille display loaded: will notify: %@, will save: %@", buf, 0x16u);
   }
 
-  if (v21)
+  if (v25)
   {
-    if (v47)
+    if (v51)
     {
-      [(SCROBrailleDisplayManager *)self _saveBluetoothDisplayConfiguration:v45];
+      [(SCROBrailleDisplayManager *)self _saveBluetoothDisplayConfiguration:v49];
     }
 
     [WeakRetained handleBrailleDriverDidLoad];
@@ -1269,31 +1279,29 @@ LABEL_44:
   block[1] = 3221225472;
   block[2] = __69__SCROBrailleDisplayManager__eventQueue_brailleDisplayDriverDidLoad___block_invoke;
   block[3] = &unk_279B73DD0;
-  v49 = v23;
-  v38 = v23;
+  v53 = v27;
+  v43 = v27;
   dispatch_async(MEMORY[0x277D85CD0], block);
   brailleInputManager = [(SCROBrailleDisplayManager *)self brailleInputManager];
   _eventQueue_driverConfiguration = [(SCROBrailleDisplayManager *)self _eventQueue_driverConfiguration];
   [brailleInputManager configureWithDriverConfiguration:_eventQueue_driverConfiguration];
 
-  if (v20)
+  if (v24)
   {
     [(SCROBrailleDisplay *)loadCopy invalidate];
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_eventQueue_brailleDisplayDriverFailedToLoad:(id)load
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   loadCopy = load;
-  v5 = _SCROD_LOG();
+  v5 = _SCROD_LOG(loadCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     driverIdentifier = [(SCROBrailleDisplay *)loadCopy driverIdentifier];
     *buf = 138543362;
-    v17 = driverIdentifier;
+    v16 = driverIdentifier;
     _os_log_impl(&dword_26490B000, v5, OS_LOG_TYPE_DEFAULT, "Display failed load: %{public}@", buf, 0xCu);
   }
 
@@ -1355,11 +1363,9 @@ LABEL_16:
   block[1] = 3221225472;
   block[2] = __74__SCROBrailleDisplayManager__eventQueue_brailleDisplayDriverFailedToLoad___block_invoke;
   block[3] = &unk_279B73DD0;
-  v15 = WeakRetained;
+  v14 = WeakRetained;
   v12 = WeakRetained;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)brailleDriverDisconnected:(id)disconnected
@@ -1520,20 +1526,19 @@ LABEL_34:
     [(SCROBrailleDisplay *)disconnectedCopy invalidate];
   }
 
-  if ([ioElement conformsToProtocol:&unk_28765F720])
+  v33 = [ioElement conformsToProtocol:&unk_28765F720];
+  if (v33)
   {
-    v33 = _SCROD_LOG();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v34 = _SCROD_LOG(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v44 = ioElement;
-      _os_log_impl(&dword_26490B000, v33, OS_LOG_TYPE_DEFAULT, "element was BTLE, restarting auto detect: %@", buf, 0xCu);
+      _os_log_impl(&dword_26490B000, v34, OS_LOG_TYPE_DEFAULT, "element was BTLE, restarting auto detect: %@", buf, 0xCu);
     }
 
     [(SCROBrailleDisplayManager *)self _startAutodetectingTactileGraphics];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)brailleDisplay:(id)display isSleeping:(BOOL)sleeping
@@ -1708,9 +1713,7 @@ void __67__SCROBrailleDisplayManager_configurationChangedForBrailleDisplay___blo
 
     *(*(*(a1 + 56) + 8) + 24) = *(a1 + 40) == *(v3 + 24);
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 72));
-    v6 = *(*(a1 + 64) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = WeakRetained;
+    *(*(*(a1 + 64) + 8) + 40) = WeakRetained;
 
     MEMORY[0x2821F96F8](WeakRetained);
   }
@@ -1765,7 +1768,7 @@ void __56__SCROBrailleDisplayManager_brailleDisplay_pressedKeys___block_invoke(i
 
 - (BOOL)_eventQueue_handleSystemVirtualDisplayKeyPress:(id)press
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   pressCopy = press;
   dispatch_assert_queue_V2(self->_eventQueue);
   activeDisplays = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue activeDisplays];
@@ -1789,26 +1792,26 @@ void __56__SCROBrailleDisplayManager_brailleDisplay_pressedKeys___block_invoke(i
   else
   {
     v12 = +[SCROMobileBrailleDisplayInputManager sharedManager];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v13 = pressCopy;
-    v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v22;
+      v16 = *v21;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v22 != v16)
+          if (*v21 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [v12 commandForBrailleKey:{*(*(&v21 + 1) + 8 * i), v21}];
+          v18 = [v12 commandForBrailleKey:{*(*(&v20 + 1) + 8 * i), v20}];
           if ([v18 isEqualToString:@"VOTEventCommandBrailleAnnouncementModeOn"] & 1) != 0 || (objc_msgSend(v18, "isEqualToString:", @"VOTEventCommandStartTextSearch") & 1) != 0 || (objc_msgSend(v18, "isEqualToString:", @"VOTEventCommandWordDescription") & 1) != 0 || (objc_msgSend(v18, "isEqualToString:", @"VOTEventCommandBrailleToggleZoomOut") & 1) != 0 || (objc_msgSend(v18, "isEqualToString:", @"VOTEventCommandBraillePanLeft") & 1) != 0 || (objc_msgSend(v18, "isEqualToString:", @"VOTEventCommandBraillePanRight"))
           {
 
@@ -1817,7 +1820,7 @@ void __56__SCROBrailleDisplayManager_brailleDisplay_pressedKeys___block_invoke(i
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
         v11 = 0;
         if (v15)
         {
@@ -1836,7 +1839,6 @@ void __56__SCROBrailleDisplayManager_brailleDisplay_pressedKeys___block_invoke(i
 LABEL_21:
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -2535,21 +2537,20 @@ void __60__SCROBrailleDisplayManager_loadVirtualDisplayWithMainSize___block_invo
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_eventQueue_loadVirtualDisplay__token];
   [(NSMutableDictionary *)virtualDisplays setObject:displayCopy forKey:v6];
 
-  v7 = _SCROD_LOG();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _SCROD_LOG(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(displayCopy, "mainSize")}];
-    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_eventQueue_loadVirtualDisplay__token];
+    v9 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(displayCopy, "mainSize")}];
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_eventQueue_loadVirtualDisplay__token];
     v13 = 138412546;
-    v14 = v8;
+    v14 = v9;
     v15 = 2112;
-    v16 = v9;
-    _os_log_impl(&dword_26490B000, v7, OS_LOG_TYPE_DEFAULT, "Virtual display with %@ main cells loaded. Token: %@", &v13, 0x16u);
+    v16 = v10;
+    _os_log_impl(&dword_26490B000, v8, OS_LOG_TYPE_DEFAULT, "Virtual display with %@ main cells loaded. Token: %@", &v13, 0x16u);
   }
 
-  v10 = _eventQueue_loadVirtualDisplay__token++;
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  v11 = _eventQueue_loadVirtualDisplay__token++;
+  return v11;
 }
 
 - (void)unloadVirtualDisplay:(unint64_t)display
@@ -2566,7 +2567,7 @@ void __60__SCROBrailleDisplayManager_loadVirtualDisplayWithMainSize___block_invo
 
 - (void)_eventQueue_unloadVirtualDisplay:(unint64_t)display
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   virtualDisplays = self->_virtualDisplays;
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
   v7 = [(NSMutableDictionary *)virtualDisplays objectForKey:v6];
@@ -2574,36 +2575,34 @@ void __60__SCROBrailleDisplayManager_loadVirtualDisplayWithMainSize___block_invo
   if (v7)
   {
     [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue removeDisplay:v7];
-    v8 = self->_virtualDisplays;
-    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
-    [(NSMutableDictionary *)v8 removeObjectForKey:v9];
+    v9 = self->_virtualDisplays;
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
+    [(NSMutableDictionary *)v9 removeObjectForKey:v10];
 
-    v10 = _SCROD_LOG();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = _SCROD_LOG(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
-      v14 = 138412290;
-      v15 = v11;
-      v12 = "Virtual display with token %@ unloaded.";
+      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
+      v15 = 138412290;
+      v16 = v13;
+      v14 = "Virtual display with token %@ unloaded.";
 LABEL_6:
-      _os_log_impl(&dword_26490B000, v10, OS_LOG_TYPE_DEFAULT, v12, &v14, 0xCu);
+      _os_log_impl(&dword_26490B000, v12, OS_LOG_TYPE_DEFAULT, v14, &v15, 0xCu);
     }
   }
 
   else
   {
-    v10 = _SCROD_LOG();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = _SCROD_LOG(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
-      v14 = 138412290;
-      v15 = v11;
-      v12 = "Virtual display with token %@ not found.";
+      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
+      v15 = 138412290;
+      v16 = v13;
+      v14 = "Virtual display with token %@ not found.";
       goto LABEL_6;
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mainCellsForVirtualDisplay:(unint64_t)display
@@ -2632,9 +2631,7 @@ LABEL_6:
 uint64_t __56__SCROBrailleDisplayManager_mainCellsForVirtualDisplay___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _eventQueue_mainCellsForVirtualDisplay:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = v2;
 
   return MEMORY[0x2821F96F8](v2);
 }
@@ -2649,33 +2646,31 @@ uint64_t __56__SCROBrailleDisplayManager_mainCellsForVirtualDisplay___block_invo
   if (v6)
   {
     mainCells = [v6 mainCells];
-    v8 = _SCROD_LOG();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _SCROD_LOG(mainCells);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
       v13 = 138412546;
-      v14 = v9;
+      v14 = v10;
       v15 = 2112;
       v16 = mainCells;
-      _os_log_impl(&dword_26490B000, v8, OS_LOG_TYPE_DEFAULT, "Virtual display with token %@ is displaying %@", &v13, 0x16u);
+      _os_log_impl(&dword_26490B000, v9, OS_LOG_TYPE_DEFAULT, "Virtual display with token %@ is displaying %@", &v13, 0x16u);
     }
   }
 
   else
   {
-    v8 = _SCROD_LOG();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _SCROD_LOG(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
+      v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
       v13 = 138412290;
-      v14 = v10;
-      _os_log_impl(&dword_26490B000, v8, OS_LOG_TYPE_DEFAULT, "Virtual display with token %@ not found.", &v13, 0xCu);
+      v14 = v11;
+      _os_log_impl(&dword_26490B000, v9, OS_LOG_TYPE_DEFAULT, "Virtual display with token %@ not found.", &v13, 0xCu);
     }
 
     mainCells = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return mainCells;
 }
@@ -2706,14 +2701,13 @@ uint64_t __56__SCROBrailleDisplayManager_mainCellsForVirtualDisplay___block_invo
     {
       if (button == 2)
       {
-        [v8 pressPrevious];
-        v9 = _SCROD_LOG();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = _SCROD_LOG([v8 pressPrevious]);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
+          v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
           v13 = 138412290;
-          v14 = v10;
-          v11 = "Virtual display with token %@: previous pressed.";
+          v14 = v11;
+          v12 = "Virtual display with token %@: previous pressed.";
           goto LABEL_19;
         }
 
@@ -2722,14 +2716,13 @@ uint64_t __56__SCROBrailleDisplayManager_mainCellsForVirtualDisplay___block_invo
 
       if (button == 3)
       {
-        [v8 pressNext];
-        v9 = _SCROD_LOG();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = _SCROD_LOG([v8 pressNext]);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
+          v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
           v13 = 138412290;
-          v14 = v10;
-          v11 = "Virtual display with token %@: next pressed.";
+          v14 = v11;
+          v12 = "Virtual display with token %@: next pressed.";
           goto LABEL_19;
         }
 
@@ -2741,14 +2734,13 @@ uint64_t __56__SCROBrailleDisplayManager_mainCellsForVirtualDisplay___block_invo
     {
       if (!button)
       {
-        [v8 pressPanLeft];
-        v9 = _SCROD_LOG();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = _SCROD_LOG([v8 pressPanLeft]);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
+          v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
           v13 = 138412290;
-          v14 = v10;
-          v11 = "Virtual display with token %@: pan left pressed.";
+          v14 = v11;
+          v12 = "Virtual display with token %@: pan left pressed.";
           goto LABEL_19;
         }
 
@@ -2757,16 +2749,15 @@ uint64_t __56__SCROBrailleDisplayManager_mainCellsForVirtualDisplay___block_invo
 
       if (button == 1)
       {
-        [v8 pressPanRight];
-        v9 = _SCROD_LOG();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = _SCROD_LOG([v8 pressPanRight]);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
+          v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
           v13 = 138412290;
-          v14 = v10;
-          v11 = "Virtual display with token %@: pan right pressed.";
+          v14 = v11;
+          v12 = "Virtual display with token %@: pan right pressed.";
 LABEL_19:
-          _os_log_impl(&dword_26490B000, v9, OS_LOG_TYPE_DEFAULT, v11, &v13, 0xCu);
+          _os_log_impl(&dword_26490B000, v10, OS_LOG_TYPE_DEFAULT, v12, &v13, 0xCu);
 
           goto LABEL_20;
         }
@@ -2775,32 +2766,30 @@ LABEL_19:
       }
     }
 
-    v9 = _SCROD_LOG();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _SCROD_LOG(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:button];
+      v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:button];
       v13 = 138412290;
-      v14 = v10;
-      v11 = "Undefined button number: %@";
+      v14 = v11;
+      v12 = "Undefined button number: %@";
       goto LABEL_19;
     }
 
     goto LABEL_20;
   }
 
-  v9 = _SCROD_LOG();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _SCROD_LOG(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
     v13 = 138412290;
-    v14 = v10;
-    v11 = "Virtual display with token %@ not found.";
+    v14 = v11;
+    v12 = "Virtual display with token %@ not found.";
     goto LABEL_19;
   }
 
 LABEL_20:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)virtualDisplay:(unint64_t)display pressKeyChord:(unint64_t)chord
@@ -2830,19 +2819,19 @@ LABEL_20:
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
   v8 = [(NSMutableDictionary *)virtualDisplays objectForKey:v7];
 
-  v9 = _SCROD_LOG();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = _SCROD_LOG(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (v8)
   {
-    if (v10)
+    if (v11)
     {
-      v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
-      v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:chord];
+      v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
+      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:chord];
       v15 = 138412546;
-      v16 = v11;
+      v16 = v12;
       v17 = 2112;
-      v18 = v12;
-      _os_log_impl(&dword_26490B000, v9, OS_LOG_TYPE_DEFAULT, "Virtual display with token %@: keychord %@ pressed.", &v15, 0x16u);
+      v18 = v13;
+      _os_log_impl(&dword_26490B000, v10, OS_LOG_TYPE_DEFAULT, "Virtual display with token %@: keychord %@ pressed.", &v15, 0x16u);
     }
 
     [v8 pressKeyChord:chord];
@@ -2850,16 +2839,14 @@ LABEL_20:
 
   else
   {
-    if (v10)
+    if (v11)
     {
-      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
+      v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
       v15 = 138412290;
-      v16 = v13;
-      _os_log_impl(&dword_26490B000, v9, OS_LOG_TYPE_DEFAULT, "Virtual display with token %@ not found.", &v15, 0xCu);
+      v16 = v14;
+      _os_log_impl(&dword_26490B000, v10, OS_LOG_TYPE_DEFAULT, "Virtual display with token %@ not found.", &v15, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)virtualDisplay:(unint64_t)display pressRouterWithIndex:(unint64_t)index withSpace:(BOOL)space
@@ -2874,6 +2861,44 @@ LABEL_20:
   v6[6] = index;
   spaceCopy = space;
   dispatch_sync(eventQueue, v6);
+}
+
+- (void)_eventQueue_virtualDisplay:(unint64_t)display pressRouterWithIndex:(unint64_t)index withSpace:(BOOL)space
+{
+  spaceCopy = space;
+  v21 = *MEMORY[0x277D85DE8];
+  virtualDisplays = self->_virtualDisplays;
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+  v10 = [(NSMutableDictionary *)virtualDisplays objectForKey:v9];
+
+  v12 = _SCROD_LOG(v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  if (v10)
+  {
+    if (v13)
+    {
+      v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
+      v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:index];
+      v17 = 138412546;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v15;
+      _os_log_impl(&dword_26490B000, v12, OS_LOG_TYPE_DEFAULT, "Virtual display with token %@: router with index %@ pressed.", &v17, 0x16u);
+    }
+
+    [v10 pressRouterWithIndex:index withSpace:spaceCopy];
+  }
+
+  else
+  {
+    if (v13)
+    {
+      v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:display];
+      v17 = 138412290;
+      v18 = v16;
+      _os_log_impl(&dword_26490B000, v12, OS_LOG_TYPE_DEFAULT, "Virtual display with token %@ not found.", &v17, 0xCu);
+    }
+  }
 }
 
 - (void)processBrailleUICommand:(id)command
@@ -2931,222 +2956,220 @@ void __48__SCROBrailleDisplayManager_driverConfiguration__block_invoke(uint64_t 
   if (displayConfigurationDict)
   {
     Copy = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], displayConfigurationDict);
+    v5 = Copy;
     if (Copy)
     {
       activeDisplays = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue activeDisplays];
-      v6 = [activeDisplays mutableCopy];
+      v7 = [activeDisplays mutableCopy];
 
       activePendingDisplays = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue activePendingDisplays];
-      v8 = [activePendingDisplays copy];
+      v9 = [activePendingDisplays copy];
 
       sleepingDisplays = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue sleepingDisplays];
-      v10 = [sleepingDisplays copy];
+      v11 = [sleepingDisplays copy];
 
       disconnectedDisplays = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue disconnectedDisplays];
-      v12 = [disconnectedDisplays copy];
+      v13 = [disconnectedDisplays copy];
 
-      v13 = self->_stealthBrailleDisplay;
-      v14 = 0;
+      Copy = self->_stealthBrailleDisplay;
+      v14 = Copy;
+      v15 = 0;
       goto LABEL_6;
     }
   }
 
   else
   {
-    Copy = 0;
+    v5 = 0;
   }
 
+  v14 = 0;
   v13 = 0;
-  v12 = 0;
-  v10 = 0;
-  v8 = 0;
-  v6 = 0;
-  v14 = 1;
+  v11 = 0;
+  v9 = 0;
+  v7 = 0;
+  v15 = 1;
 LABEL_6:
-  v15 = _SCROD_LOG();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = _SCROD_LOG(Copy);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v62 = v6;
+    v62 = v7;
     v63 = 2114;
-    v64 = v8;
-    _os_log_impl(&dword_26490B000, v15, OS_LOG_TYPE_DEFAULT, "active: %{public}@ pending %{public}@", buf, 0x16u);
+    v64 = v9;
+    _os_log_impl(&dword_26490B000, v16, OS_LOG_TYPE_DEFAULT, "active: %{public}@ pending %{public}@", buf, 0x16u);
   }
 
-  if (v14)
+  if (v15)
   {
-    v16 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v40 = v10;
-    v16 = [MEMORY[0x277CBEB18] arrayWithCapacity:CFDictionaryGetCount(Copy)];
-    [v6 removeObject:v13];
+    v40 = v11;
+    v17 = [MEMORY[0x277CBEB18] arrayWithCapacity:CFDictionaryGetCount(v5)];
+    [v7 removeObject:v14];
     v55 = 0u;
     v56 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v17 = v6;
-    v18 = [v17 countByEnumeratingWithState:&v53 objects:v60 count:16];
-    if (v18)
+    v18 = v7;
+    v19 = [v18 countByEnumeratingWithState:&v53 objects:v60 count:16];
+    if (v19)
     {
-      v19 = v18;
-      v20 = *v54;
+      v20 = v19;
+      v21 = *v54;
       do
       {
-        for (i = 0; i != v19; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v54 != v20)
+          if (*v54 != v21)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v18);
           }
 
-          _addDisplayConfigurationToList(*(*(&v53 + 1) + 8 * i), v16, Copy, 1);
+          _addDisplayConfigurationToList(*(*(&v53 + 1) + 8 * i), v17, v5, 1);
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v53 objects:v60 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v53 objects:v60 count:16];
       }
 
-      while (v19);
+      while (v20);
     }
 
-    if ([v16 count])
+    if ([v17 count])
     {
-      v22 = [v16 objectAtIndex:0];
-      [v22 setObject:MEMORY[0x277CBEC38] forKey:kSCROBrailleDisplayIsPrimary[0]];
+      v23 = [v17 objectAtIndex:0];
+      [v23 setObject:MEMORY[0x277CBEC38] forKey:kSCROBrailleDisplayIsPrimary[0]];
     }
 
     v51 = 0u;
     v52 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v23 = v8;
-    v24 = [v23 countByEnumeratingWithState:&v49 objects:v59 count:16];
-    if (v24)
+    v24 = v9;
+    v25 = [v24 countByEnumeratingWithState:&v49 objects:v59 count:16];
+    if (v25)
     {
-      v25 = v24;
-      v26 = *v50;
+      v26 = v25;
+      v27 = *v50;
       do
       {
-        for (j = 0; j != v25; ++j)
+        for (j = 0; j != v26; ++j)
         {
-          if (*v50 != v26)
+          if (*v50 != v27)
           {
-            objc_enumerationMutation(v23);
+            objc_enumerationMutation(v24);
           }
 
-          _addDisplayConfigurationToList(*(*(&v49 + 1) + 8 * j), v16, Copy, 2);
+          _addDisplayConfigurationToList(*(*(&v49 + 1) + 8 * j), v17, v5, 2);
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v49 objects:v59 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v49 objects:v59 count:16];
       }
 
-      while (v25);
+      while (v26);
     }
 
     v47 = 0u;
     v48 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v28 = v40;
-    v29 = [v28 countByEnumeratingWithState:&v45 objects:v58 count:16];
-    if (v29)
+    v29 = v40;
+    v30 = [v29 countByEnumeratingWithState:&v45 objects:v58 count:16];
+    if (v30)
     {
-      v30 = v29;
-      v31 = *v46;
+      v31 = v30;
+      v32 = *v46;
       do
       {
-        for (k = 0; k != v30; ++k)
+        for (k = 0; k != v31; ++k)
         {
-          if (*v46 != v31)
+          if (*v46 != v32)
           {
-            objc_enumerationMutation(v28);
+            objc_enumerationMutation(v29);
           }
 
-          _addDisplayConfigurationToList(*(*(&v45 + 1) + 8 * k), v16, Copy, 3);
+          _addDisplayConfigurationToList(*(*(&v45 + 1) + 8 * k), v17, v5, 3);
         }
 
-        v30 = [v28 countByEnumeratingWithState:&v45 objects:v58 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v45 objects:v58 count:16];
       }
 
-      while (v30);
+      while (v31);
     }
 
     v43 = 0u;
     v44 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v33 = v12;
-    v34 = [v33 countByEnumeratingWithState:&v41 objects:v57 count:16];
-    if (v34)
+    v34 = v13;
+    v35 = [v34 countByEnumeratingWithState:&v41 objects:v57 count:16];
+    if (v35)
     {
-      v35 = v34;
-      v36 = *v42;
+      v36 = v35;
+      v37 = *v42;
       do
       {
-        for (m = 0; m != v35; ++m)
+        for (m = 0; m != v36; ++m)
         {
-          if (*v42 != v36)
+          if (*v42 != v37)
           {
-            objc_enumerationMutation(v33);
+            objc_enumerationMutation(v34);
           }
 
-          _addDisplayConfigurationToList(*(*(&v41 + 1) + 8 * m), v16, Copy, 0);
+          _addDisplayConfigurationToList(*(*(&v41 + 1) + 8 * m), v17, v5, 0);
         }
 
-        v35 = [v33 countByEnumeratingWithState:&v41 objects:v57 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v41 objects:v57 count:16];
       }
 
-      while (v35);
+      while (v36);
     }
 
-    CFRelease(Copy);
-    v10 = v40;
+    CFRelease(v5);
+    v11 = v40;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v17;
 }
 
 - (void)_blankOutDisplaysInQueue:(id)queue
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   v5 = [[SCROBrailleFormatter alloc] initWithOutputTableIdentifier:self->_outputTableIdentifier inputTableIdentifier:self->_inputTableIdentifier showDotsSevenAndEight:1];
   v6 = objc_alloc_init(MEMORY[0x277CBEA90]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v7 = queueCopy;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
-        [v12 setBrailleFormatter:{v5, v14}];
+        v12 = *(*(&v13 + 1) + 8 * i);
+        [v12 setBrailleFormatter:{v5, v13}];
         [v12 setAggregatedStatus:v6];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isConfigured
@@ -3181,7 +3204,7 @@ LABEL_6:
   return v5;
 }
 
-uint64_t __41__SCROBrailleDisplayManager_isConfigured__block_invoke(void *a1)
+void *__41__SCROBrailleDisplayManager_isConfigured__block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) displayCountIncludingDisconnectedDisplays:0];
   *(*(a1[5] + 8) + 24) = result;
@@ -3210,7 +3233,7 @@ uint64_t __41__SCROBrailleDisplayManager_isConfigured__block_invoke(void *a1)
   return selfCopy;
 }
 
-uint64_t __50__SCROBrailleDisplayManager_hasActiveUserDisplays__block_invoke(uint64_t a1)
+void *__50__SCROBrailleDisplayManager_hasActiveUserDisplays__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _eventQueue_hasActiveUserDisplays];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3236,6 +3259,46 @@ uint64_t __50__SCROBrailleDisplayManager_hasActiveUserDisplays__block_invoke(uin
   v4[4] = self;
   displayCopy = display;
   dispatch_async(eventQueue, v4);
+}
+
+- (void)_eventQueue_setPrimaryDisplay:(int)display
+{
+  v3 = *&display;
+  dispatch_assert_queue_V2(self->_eventQueue);
+  v5 = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue displayForToken:v3];
+  if (v5)
+  {
+    primaryDisplay = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue primaryDisplay];
+    if (v5 != primaryDisplay && ([(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue setPrimaryDisplay:v5], [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue primaryDisplay], v7 = objc_claimAutoreleasedReturnValue(), v7, v5 == v7))
+    {
+      [primaryDisplay setDelegateWantsDisplayCallback:0];
+      [primaryDisplay setInputAllowed:self->_inputAccessMode == 1];
+      [v5 setDelegateWantsDisplayCallback:self->_lineDescriptorDisplayCallbackEnabled];
+      [v5 setInputAllowed:1];
+      WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    }
+
+    else
+    {
+      WeakRetained = 0;
+    }
+  }
+
+  else
+  {
+    WeakRetained = 0;
+  }
+
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __59__SCROBrailleDisplayManager__eventQueue_setPrimaryDisplay___block_invoke;
+  block[3] = &unk_279B73DD0;
+  v13 = WeakRetained;
+  v9 = WeakRetained;
+  dispatch_async(MEMORY[0x277D85CD0], block);
+  brailleInputManager = [(SCROBrailleDisplayManager *)self brailleInputManager];
+  _eventQueue_driverConfiguration = [(SCROBrailleDisplayManager *)self _eventQueue_driverConfiguration];
+  [brailleInputManager configureWithDriverConfiguration:_eventQueue_driverConfiguration];
 }
 
 - (void)setDisplayInputAccessMode:(int)mode
@@ -3365,9 +3428,7 @@ void __65__SCROBrailleDisplayManager_setMainAttributedString_forceUpdate___block
 uint64_t __49__SCROBrailleDisplayManager_mainAttributedString__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _eventQueue_mainAttributedString];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = v2;
 
   return MEMORY[0x2821F96F8](v2);
 }
@@ -3449,12 +3510,12 @@ LABEL_39:
         string = [stringCopy string];
         [(SCROBrailleFormatter *)v9 setBrailleLineOffset:string stringLineOffset:integerValue];
 
-        v40 = _SCROD_LOG();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        v41 = _SCROD_LOG(v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
           v58 = integerValue;
-          _os_log_impl(&dword_26490B000, v40, OS_LOG_TYPE_INFO, "Setting line offset: %d", buf, 8u);
+          _os_log_impl(&dword_26490B000, v41, OS_LOG_TYPE_INFO, "Setting line offset: %d", buf, 8u);
         }
 
         [(SCROBrailleFormatter *)v9 setCurrentUnread:0];
@@ -3462,8 +3523,8 @@ LABEL_39:
         v21 = v36;
         [(SCROBrailleFormatter *)v9 setDisplayMode:v36];
         [(SCROBrailleFormatter *)v9 setIsTokenSecure:v17];
-        v41 = [stringCopy attribute:kSCROAppTokenAttribute[0] atIndex:0 effectiveRange:0];
-        [(SCROBrailleFormatter *)v9 setAppToken:v41];
+        v42 = [stringCopy attribute:kSCROAppTokenAttribute[0] atIndex:0 effectiveRange:0];
+        [(SCROBrailleFormatter *)v9 setAppToken:v42];
         [(SCROBrailleDisplayManager *)self tokenizeString:stringCopy intoFormatter:v9 selection:v56];
 
         if (v16)
@@ -3475,9 +3536,9 @@ LABEL_39:
 
 LABEL_53:
           activeDisplays = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue activeDisplays];
-          v46 = [activeDisplays copy];
+          v47 = [activeDisplays copy];
 
-          [v46 makeObjectsPerformSelector:sel_setBrailleFormatter_ withObject:v9];
+          [v47 makeObjectsPerformSelector:sel_setBrailleFormatter_ withObject:v9];
           [(SCROBrailleDisplayManager *)self _eventQueue_setBrailleFormatter:v9];
 
           goto LABEL_54;
@@ -3668,8 +3729,6 @@ LABEL_49:
   }
 
 LABEL_58:
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 void __91__SCROBrailleDisplayManager__eventQueue_setMainAttributedString_shouldDisplay_forceUpdate___block_invoke(uint64_t a1)
@@ -3735,25 +3794,26 @@ void __91__SCROBrailleDisplayManager__eventQueue_setMainAttributedString_shouldD
 - (void)_eventQueue_startBrailleUI:(id)i
 {
   iCopy = i;
-  if ([(SCROBrailleDisplayManager *)self _eventQueue_hasActiveUserDisplays])
+  _eventQueue_hasActiveUserDisplays = [(SCROBrailleDisplayManager *)self _eventQueue_hasActiveUserDisplays];
+  if (_eventQueue_hasActiveUserDisplays)
   {
     *buf = 0;
-    v30 = buf;
-    v31 = 0x2020000000;
-    v32 = 0;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __56__SCROBrailleDisplayManager__eventQueue_startBrailleUI___block_invoke;
-    v28[3] = &unk_279B74308;
-    v28[4] = buf;
-    [(SCROBrailleDisplayManager *)self _enumerateActiveDisplays:v28];
-    if (*(v30 + 3) <= 0)
+    v34 = buf;
+    v35 = 0x2020000000;
+    v36 = 0;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __56__SCROBrailleDisplayManager__eventQueue_startBrailleUI___block_invoke;
+    v32[3] = &unk_279B74308;
+    v32[4] = buf;
+    v6 = [(SCROBrailleDisplayManager *)self _enumerateActiveDisplays:v32];
+    if (*(v34 + 3) <= 0)
     {
-      v6 = _SCROD_LOG();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v10 = _SCROD_LOG(v6);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        *v27 = 0;
-        v7 = "No active device has a display with nonzero size";
+        *v31 = 0;
+        v11 = "No active device has a display with nonzero size";
         goto LABEL_21;
       }
 
@@ -3765,15 +3825,15 @@ LABEL_42:
 
     if ([(SCROBrailleDisplayManager *)self _isBrailleUIActive])
     {
-      v5 = [iCopy objectForKeyedSubscript:kSCROBrailleUIInitOpenInAppKey[0]];
+      v7 = [iCopy objectForKeyedSubscript:kSCROBrailleUIInitOpenInAppKey[0]];
 
-      if (!v5)
+      if (!v7)
       {
-        v6 = _SCROD_LOG();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v10 = _SCROD_LOG(v8);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          *v27 = 0;
-          v7 = "Braille UI is already active and no app is specifiedx; not starting Braille UI";
+          *v31 = 0;
+          v11 = "Braille UI is already active and no app is specifiedx; not starting Braille UI";
           goto LABEL_21;
         }
 
@@ -3781,40 +3841,41 @@ LABEL_42:
       }
     }
 
-    if (MKBGetDeviceLockState() == 1)
+    v9 = MKBGetDeviceLockState();
+    if (v9 == 1)
     {
-      v6 = _SCROD_LOG();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v10 = _SCROD_LOG(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        *v27 = 0;
-        v7 = "Device is locked; not starting Braille UI";
+        *v31 = 0;
+        v11 = "Device is locked; not starting Braille UI";
 LABEL_21:
-        _os_log_impl(&dword_26490B000, v6, OS_LOG_TYPE_DEFAULT, v7, v27, 2u);
+        _os_log_impl(&dword_26490B000, v10, OS_LOG_TYPE_DEFAULT, v11, v31, 2u);
         goto LABEL_42;
       }
 
       goto LABEL_42;
     }
 
-    v9 = _SCROD_LOG();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v13 = _SCROD_LOG(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v27 = 0;
-      _os_log_impl(&dword_26490B000, v9, OS_LOG_TYPE_DEFAULT, "Starting Braille UI", v27, 2u);
+      *v31 = 0;
+      _os_log_impl(&dword_26490B000, v13, OS_LOG_TYPE_DEFAULT, "Starting Braille UI", v31, 2u);
     }
 
-    v6 = [iCopy objectForKeyedSubscript:kSCROBrailleUIInitPasteBoardContentKey[0]];
-    if ([v6 length])
+    v10 = [iCopy objectForKeyedSubscript:kSCROBrailleUIInitPasteBoardContentKey[0]];
+    if ([v10 length])
     {
-      v10 = +[SCROBrailleUIPasteBoard sharedBoard];
-      [v10 writeText:v6];
+      v14 = +[SCROBrailleUIPasteBoard sharedBoard];
+      [v14 writeText:v10];
     }
 
-    v11 = [iCopy objectForKeyedSubscript:kSCROBrailleUIInitOpenInAppKey[0]];
-    v12 = v11;
-    if (v11)
+    v15 = [iCopy objectForKeyedSubscript:kSCROBrailleUIInitOpenInAppKey[0]];
+    v16 = v15;
+    if (v15)
     {
-      integerValue = [v11 integerValue];
+      integerValue = [v15 integerValue];
     }
 
     else
@@ -3822,29 +3883,29 @@ LABEL_21:
       integerValue = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    v14 = [iCopy objectForKeyedSubscript:kSCROBrailleUIInitFilePathKey[0]];
-    if ([v14 length])
+    v18 = [iCopy objectForKeyedSubscript:kSCROBrailleUIInitFilePathKey[0]];
+    if ([v18 length])
     {
       if (+[SCROBrailleUIApp isHidingViews])
       {
         +[SCROBrailleUIApp closeAllApps];
       }
 
-      v24 = [MEMORY[0x277CBEBC0] fileURLWithPath:v14];
+      v28 = [MEMORY[0x277CBEBC0] fileURLWithPath:v18];
     }
 
     else
     {
-      v24 = 0;
+      v28 = 0;
     }
 
-    v15 = *(v30 + 3);
-    v16 = +[SCROBrailleUISettingsManager sharedInstance];
-    [v16 setBrfReflowSize:v15];
+    v19 = *(v34 + 3);
+    v20 = +[SCROBrailleUISettingsManager sharedInstance];
+    [v20 setBrfReflowSize:v19];
 
     wordWrapEnabled = self->_wordWrapEnabled;
-    v18 = +[SCROBrailleUISettingsManager sharedInstance];
-    [v18 setIsBRFWordWrapEnabled:wordWrapEnabled];
+    v22 = +[SCROBrailleUISettingsManager sharedInstance];
+    [v22 setIsBRFWordWrapEnabled:wordWrapEnabled];
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -3854,10 +3915,10 @@ LABEL_21:
     dispatch_async(MEMORY[0x277D85CD0], block);
     if (integerValue == 0x7FFFFFFFFFFFFFFFLL)
     {
-      if (v25)
+      if (v29)
       {
         lastObject = [[SCROBrailleUIFinderApp alloc] initWithDelegate:self];
-        [(SCROBrailleUIFinderApp *)lastObject openWithURL:v25];
+        [(SCROBrailleUIFinderApp *)lastObject openWithURL:v29];
       }
 
       else
@@ -3893,8 +3954,8 @@ LABEL_41:
         brailleUIVisualManager3 = [(SCROBrailleDisplayManager *)self brailleUIVisualManager];
         [brailleUIVisualManager3 cancelVisualSession];
 
-        v21 = +[SCROBrailleUIApp allApps];
-        lastObject = [v21 lastObject];
+        v25 = +[SCROBrailleUIApp allApps];
+        lastObject = [v25 lastObject];
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -3914,11 +3975,11 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  v8 = _SCROD_LOG();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v12 = _SCROD_LOG(_eventQueue_hasActiveUserDisplays);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_26490B000, v8, OS_LOG_TYPE_DEFAULT, "No active user display detected; not starting Braille UI", buf, 2u);
+    _os_log_impl(&dword_26490B000, v12, OS_LOG_TYPE_DEFAULT, "No active user display detected; not starting Braille UI", buf, 2u);
   }
 
 LABEL_43:
@@ -3978,7 +4039,7 @@ void __56__SCROBrailleDisplayManager__eventQueue_startBrailleUI___block_invoke_1
   return v3;
 }
 
-uint64_t __46__SCROBrailleDisplayManager_isBrailleUIActive__block_invoke(uint64_t a1)
+void *__46__SCROBrailleDisplayManager_isBrailleUIActive__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isBrailleUIActive];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -4111,25 +4172,23 @@ void __50__SCROBrailleDisplayManager_handleDidBrailleUIEnd__block_invoke(uint64_
 
 - (void)_eventQueue_migratePasteBoardContentToSystem
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v3 = +[SCROBrailleUIPasteBoard sharedBoard];
   text = [v3 text];
 
   if ([text length])
   {
-    v9[0] = kSCROBrailleUIRequestTypeKey[0];
-    v9[1] = kSCROBrailleUIRequestTextToWriteToPasteBoardKey[0];
-    v10[0] = &unk_287651B90;
-    v10[1] = text;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+    v8[0] = kSCROBrailleUIRequestTypeKey[0];
+    v8[1] = kSCROBrailleUIRequestTextToWriteToPasteBoardKey[0];
+    v9[0] = &unk_287651B90;
+    v9[1] = text;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained handleBrailleUIRequest:v5];
 
     v7 = +[SCROBrailleUIPasteBoard sharedBoard];
     [v7 reset];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleBrailleUIResponse:(id)response forRequest:(id)request
@@ -4151,7 +4210,7 @@ void __50__SCROBrailleDisplayManager_handleDidBrailleUIEnd__block_invoke(uint64_
 
 - (void)_eventQueue_handleBrailleUIResponse:(id)response forRequest:(id)request
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   responseCopy = response;
   requestCopy = request;
   if (![(SCROBrailleDisplayManager *)self _isBrailleUIActive])
@@ -4167,9 +4226,9 @@ void __50__SCROBrailleDisplayManager_handleDidBrailleUIEnd__block_invoke(uint64_
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) != 0 && [responseCopy length])
     {
-      v17 = kSCROBrailleUIInitPasteBoardContentKey[0];
-      v18[0] = responseCopy;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v16 = kSCROBrailleUIInitPasteBoardContentKey[0];
+      v17[0] = responseCopy;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     }
 
     else
@@ -4206,35 +4265,34 @@ void __50__SCROBrailleDisplayManager_handleDidBrailleUIEnd__block_invoke(uint64_
   }
 
 LABEL_14:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_eventQueue_handleBrailleUIKeyPress:(id)press
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pressCopy = press;
   dispatch_assert_queue_V2(self->_eventQueue);
   v5 = +[SCROMobileBrailleDisplayInputManager sharedManager];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = pressCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [v5 commandForBrailleKey:{*(*(&v16 + 1) + 8 * i), v16}];
+        v11 = [v5 commandForBrailleKey:{*(*(&v15 + 1) + 8 * i), v15}];
         v12 = [(SCROBrailleDisplayManager *)self _eventQueue_handleBrailleUICommand:v11];
 
         if (v12)
@@ -4244,7 +4302,7 @@ LABEL_14:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -4257,13 +4315,12 @@ LABEL_14:
   v13 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)_eventQueue_handleBrailleUICommand:(id)command
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   commandCopy = command;
   _isBrailleUIActive = [(SCROBrailleDisplayManager *)self _isBrailleUIActive];
   brailleUIKeyCommandAdapter = [(SCROBrailleDisplayManager *)self brailleUIKeyCommandAdapter];
@@ -4277,10 +4334,10 @@ LABEL_11:
 
       if (v10)
       {
-        v25 = kSCROBrailleUIRequestTypeKey[0];
-        v26[0] = &unk_287651BA8;
+        v24 = kSCROBrailleUIRequestTypeKey[0];
+        v25[0] = &unk_287651BA8;
         v9 = 1;
-        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
         [(SCROBrailleDisplayManager *)self handleBrailleUIRequest:v11];
         goto LABEL_14;
       }
@@ -4345,7 +4402,6 @@ LABEL_4:
   v9 = 1;
 LABEL_17:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -4363,28 +4419,29 @@ LABEL_17:
 - (void)_eventQueue_endBrailleUI
 {
   _isBrailleUIActive = [(SCROBrailleDisplayManager *)self _isBrailleUIActive];
-  v4 = _SCROD_LOG();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (_isBrailleUIActive)
+  v4 = _isBrailleUIActive;
+  v5 = _SCROD_LOG(_isBrailleUIActive);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    if (v5)
+    if (v6)
     {
-      *v9 = 0;
-      _os_log_impl(&dword_26490B000, v4, OS_LOG_TYPE_DEFAULT, "Ending Braille UI", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_26490B000, v5, OS_LOG_TYPE_DEFAULT, "Ending Braille UI", v10, 2u);
     }
 
-    v6 = [SCROBrailleUIAction alloc];
-    v7 = +[SCROBrailleUIView visibleView];
-    v4 = [(SCROBrailleUIAction *)v6 initWithType:3 originator:v7];
+    v7 = [SCROBrailleUIAction alloc];
+    v8 = +[SCROBrailleUIView visibleView];
+    v5 = [(SCROBrailleUIAction *)v7 initWithType:3 originator:v8];
 
     _brailleUIFirstResponder = [(SCROBrailleDisplayManager *)self _brailleUIFirstResponder];
-    [_brailleUIFirstResponder handleAction:v4];
+    [_brailleUIFirstResponder handleAction:v5];
   }
 
-  else if (v5)
+  else if (v6)
   {
     *buf = 0;
-    _os_log_impl(&dword_26490B000, v4, OS_LOG_TYPE_DEFAULT, "Braille UI is not active; not ending Braille UI", buf, 2u);
+    _os_log_impl(&dword_26490B000, v5, OS_LOG_TYPE_DEFAULT, "Braille UI is not active; not ending Braille UI", buf, 2u);
   }
 }
 
@@ -4487,7 +4544,7 @@ void __45__SCROBrailleDisplayManager_aggregatedStatus__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __50__SCROBrailleDisplayManager_masterStatusCellIndex__block_invoke(uint64_t a1)
+void *__50__SCROBrailleDisplayManager_masterStatusCellIndex__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 200) masterStatusCellIndex];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -4539,11 +4596,24 @@ uint64_t __50__SCROBrailleDisplayManager_masterStatusCellIndex__block_invoke(uin
   return selfCopy;
 }
 
-uint64_t __51__SCROBrailleDisplayManager_virtualStatusAlignment__block_invoke(uint64_t a1)
+void *__51__SCROBrailleDisplayManager_virtualStatusAlignment__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 200) virtualAlignment];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
+}
+
+- (void)_eventQueue_setVirtualStatusAlignment:(int)alignment
+{
+  v3 = *&alignment;
+  dispatch_assert_queue_V2(self->_eventQueue);
+  [(SCROBrailleDisplayManagerStatus *)self->_status setVirtualAlignment:v3];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __67__SCROBrailleDisplayManager__eventQueue_setVirtualStatusAlignment___block_invoke;
+  v5[3] = &__block_descriptor_36_e28_v16__0__SCROBrailleDisplay_8l;
+  v6 = v3;
+  [(SCROBrailleDisplayManager *)self _enumerateActiveDisplays:v5];
 }
 
 - (void)panDisplayLeft:(int)left
@@ -4594,6 +4664,71 @@ uint64_t __51__SCROBrailleDisplayManager_virtualStatusAlignment__block_invoke(ui
   dispatch_async(eventQueue, v4);
 }
 
+- (void)_eventQueue_panDisplay:(int64_t)display token:(int)token
+{
+  v4 = *&token;
+  dispatch_assert_queue_V2(self->_eventQueue);
+  v11 = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue displayForToken:v4];
+  if ([(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue stateForDisplay:?]!= 1)
+  {
+
+    v11 = 0;
+  }
+
+  lastObject = [(NSMutableArray *)self->_displayModeStack lastObject];
+  if (lastObject)
+  {
+    v8 = lastObject;
+    intValue = [lastObject intValue];
+
+    if (intValue == 1)
+    {
+      [(SCROBrailleDisplayManager *)self _eventQueue_resetAlertTimer];
+    }
+  }
+
+  if (display > 2)
+  {
+    v10 = v11;
+    if (display == 3)
+    {
+      [v11 panBeginning];
+    }
+
+    else
+    {
+      if (display != 4)
+      {
+        goto LABEL_16;
+      }
+
+      [v11 panEnd];
+    }
+  }
+
+  else
+  {
+    v10 = v11;
+    if (display == 1)
+    {
+      [v11 panLeft];
+    }
+
+    else
+    {
+      if (display != 2)
+      {
+        goto LABEL_16;
+      }
+
+      [v11 panRight];
+    }
+  }
+
+  v10 = v11;
+LABEL_16:
+}
+
 - (void)planarPanDisplayLeft:(int)left
 {
   eventQueue = self->_eventQueue;
@@ -4616,6 +4751,43 @@ uint64_t __51__SCROBrailleDisplayManager_virtualStatusAlignment__block_invoke(ui
   v4[4] = self;
   rightCopy = right;
   dispatch_async(eventQueue, v4);
+}
+
+- (void)_eventQueue_planarPanDisplay:(int64_t)display token:(int)token
+{
+  v4 = *&token;
+  dispatch_assert_queue_V2(self->_eventQueue);
+  v8 = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue displayForToken:v4];
+  if ([(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue stateForDisplay:?]== 1)
+  {
+    v7 = v8;
+  }
+
+  else
+  {
+
+    v7 = 0;
+  }
+
+  if (display == 2)
+  {
+    v9 = v7;
+    [v7 planarPanRight];
+  }
+
+  else
+  {
+    if (display != 1)
+    {
+      goto LABEL_9;
+    }
+
+    v9 = v7;
+    [v7 planarPanLeft];
+  }
+
+  v7 = v9;
+LABEL_9:
 }
 
 - (void)setUIDisplayMode
@@ -4689,11 +4861,174 @@ void __40__SCROBrailleDisplayManager_displayMode__block_invoke(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = v4;
 }
 
+- (void)_eventQueue_setDisplayMode:(int)mode
+{
+  v3 = *&mode;
+  dispatch_assert_queue_V2(self->_eventQueue);
+  lastObject = [(NSMutableArray *)self->_displayModeStack lastObject];
+  v6 = lastObject;
+  if (lastObject)
+  {
+    intValue = [lastObject intValue];
+  }
+
+  else
+  {
+    intValue = 0;
+  }
+
+  if (intValue != v3)
+  {
+    [(SCROBrailleDisplayManager *)self _eventQueue_doSetDisplayMode:v3];
+    v8 = [(SCROBrailleDisplayManager *)self _eventQueue_cachedMainStringForDisplayMode:v3];
+    [(SCROBrailleDisplayManager *)self setMainAttributedString:v8 forceUpdate:1];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __56__SCROBrailleDisplayManager__eventQueue_setDisplayMode___block_invoke;
+    v9[3] = &unk_279B742E0;
+    v9[4] = self;
+    v10 = v3;
+    dispatch_async(MEMORY[0x277D85CD0], v9);
+  }
+}
+
 void __56__SCROBrailleDisplayManager__eventQueue_setDisplayMode___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 72));
   v2 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40)];
   [WeakRetained handleDisplayModeChanged:v2];
+}
+
+- (void)_eventQueue_doSetDisplayMode:(int)mode
+{
+  v3 = *&mode;
+  v30 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(self->_eventQueue);
+  v5 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  if (v3 && ![(NSMutableArray *)self->_displayModeStack containsObject:v5])
+  {
+    lastObject = [(NSMutableArray *)self->_displayModeStack lastObject];
+    v11 = lastObject;
+    if (lastObject)
+    {
+      intValue = [lastObject intValue];
+    }
+
+    else
+    {
+      intValue = 0;
+    }
+
+    if (v3 == 3)
+    {
+      if (intValue)
+      {
+        if (intValue == 1)
+        {
+          [(SCROBrailleDisplayManager *)self _eventQueue_popDisplayModeStack];
+        }
+
+        goto LABEL_31;
+      }
+    }
+
+    else if (v3 == 2)
+    {
+      if (intValue)
+      {
+        while (1)
+        {
+          [(SCROBrailleDisplayManager *)self _eventQueue_popDisplayModeStack];
+          lastObject2 = [(NSMutableArray *)self->_displayModeStack lastObject];
+          v14 = lastObject2;
+          if (!lastObject2)
+          {
+            break;
+          }
+
+          intValue2 = [lastObject2 intValue];
+
+          if (!intValue2)
+          {
+            goto LABEL_23;
+          }
+        }
+      }
+
+LABEL_23:
+      [(SCROBrailleDisplayHistory *)self->_history moveToMostRecent];
+      [(SCROBrailleDisplayHistory *)self->_history snapshotUnread];
+    }
+
+    else if (intValue)
+    {
+LABEL_31:
+      [(NSMutableArray *)self->_displayModeStack addObject:v5];
+      goto LABEL_32;
+    }
+
+    generationID = [(SCROBrailleFormatter *)self->_currentBrailleFormatter generationID];
+    primaryDisplay = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue primaryDisplay];
+    brailleLineGenerationID = [primaryDisplay brailleLineGenerationID];
+    if (brailleLineGenerationID != generationID)
+    {
+      v19 = brailleLineGenerationID;
+      v20 = _SCROD_LOG(brailleLineGenerationID);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      {
+        v28 = 134218240;
+        *v29 = generationID;
+        *&v29[8] = 2048;
+        *&v29[10] = v19;
+        _os_log_impl(&dword_26490B000, v20, OS_LOG_TYPE_INFO, "Braille moving too fast, generation mismatch, wait to sync up %lld %lld", &v28, 0x16u);
+      }
+
+      usleep(0x7A120u);
+    }
+
+    self->_uiStringCachedLineOffset = [primaryDisplay lineOffset];
+    editingString = [primaryDisplay editingString];
+    v22 = [editingString copy];
+    uiEditingCachedString = self->_uiEditingCachedString;
+    self->_uiEditingCachedString = v22;
+
+    v25 = _SCROD_LOG(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    {
+      uiStringCachedLineOffset = self->_uiStringCachedLineOffset;
+      v27 = self->_uiEditingCachedString;
+      v28 = 67109378;
+      *v29 = uiStringCachedLineOffset;
+      *&v29[4] = 2112;
+      *&v29[6] = v27;
+      _os_log_impl(&dword_26490B000, v25, OS_LOG_TYPE_INFO, "Caching line offset as we go into another mode: offset: %d, editing: %@", &v28, 0x12u);
+    }
+
+    goto LABEL_31;
+  }
+
+  v6 = [(NSMutableArray *)self->_displayModeStack count];
+  if (v6)
+  {
+    v7 = v6;
+    do
+    {
+      lastObject3 = [(NSMutableArray *)self->_displayModeStack lastObject];
+      v9 = [v5 isEqualToNumber:lastObject3];
+
+      if (v9)
+      {
+        break;
+      }
+
+      [(SCROBrailleDisplayManager *)self _eventQueue_popDisplayModeStack];
+      --v7;
+    }
+
+    while (v7);
+  }
+
+LABEL_32:
 }
 
 - (void)_eventQueue_exitCurrentDisplayMode
@@ -4720,18 +5055,18 @@ void __56__SCROBrailleDisplayManager__eventQueue_setDisplayMode___block_invoke(u
 
     if (!intValue)
     {
-      v8 = _SCROD_LOG();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = _SCROD_LOG(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         uiStringCachedLineOffset = self->_uiStringCachedLineOffset;
         *buf = 67109120;
         *&buf[4] = uiStringCachedLineOffset;
-        _os_log_impl(&dword_26490B000, v8, OS_LOG_TYPE_INFO, "Consuming stored lineOffset: %d", buf, 8u);
+        _os_log_impl(&dword_26490B000, v9, OS_LOG_TYPE_INFO, "Consuming stored lineOffset: %d", buf, 8u);
       }
 
-      v10 = kSCROBrailleOffsetAttribute[0];
-      v11 = [MEMORY[0x277CCABB0] numberWithInteger:self->_uiStringCachedLineOffset];
-      [v7 addAttribute:v10 value:v11 range:{0, objc_msgSend(v7, "length")}];
+      v11 = kSCROBrailleOffsetAttribute[0];
+      v12 = [MEMORY[0x277CCABB0] numberWithInteger:self->_uiStringCachedLineOffset];
+      [v7 addAttribute:v11 value:v12 range:{0, objc_msgSend(v7, "length")}];
 
       if (self->_uiEditingCachedString)
       {
@@ -4749,9 +5084,9 @@ void __56__SCROBrailleDisplayManager__eventQueue_setDisplayMode___block_invoke(u
       self->_uiStringCachedLineOffset = 0;
     }
 
-    v13 = [v7 length];
-    [v7 removeAttribute:kSCROLineFocusAttribute[0] range:{0, v13}];
-    [v7 addAttribute:kSCROLineFocusAttribute[0] value:&unk_287651BC0 range:{0, v13}];
+    v14 = [v7 length];
+    [v7 removeAttribute:kSCROLineFocusAttribute[0] range:{0, v14}];
+    [v7 addAttribute:kSCROLineFocusAttribute[0] value:&unk_287651BC0 range:{0, v14}];
     [(SCROBrailleDisplayManager *)self setMainAttributedString:v7 forceUpdate:1];
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
@@ -4761,8 +5096,6 @@ void __56__SCROBrailleDisplayManager__eventQueue_setDisplayMode___block_invoke(u
     v16 = intValue;
     dispatch_async(MEMORY[0x277D85CD0], v15);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __63__SCROBrailleDisplayManager__eventQueue_exitCurrentDisplayMode__block_invoke(uint64_t a1)
@@ -5055,6 +5388,14 @@ void __65__SCROBrailleDisplayManager_alwaysUsesNemethCodeForTechnicalText__block
 {
   v2 = +[SCROBrailleTranslationManager sharedManager];
   *(*(*(a1 + 32) + 8) + 24) = [v2 alwaysUsesNemethCodeForTechnicalText];
+}
+
+- (void)_eventQueue_setAlwaysUsesNemethCodeForTechnicalText:(BOOL)text
+{
+  textCopy = text;
+  dispatch_assert_queue_V2(self->_eventQueue);
+  v4 = +[SCROBrailleTranslationManager sharedManager];
+  [v4 setAlwaysUsesNemethCodeForTechnicalText:textCopy];
 }
 
 - (int)contractionMode
@@ -5410,7 +5751,7 @@ void __55__SCROBrailleDisplayManager__eventQueue_setPlanarData___block_invoke(ui
   return v2;
 }
 
-uint64_t __46__SCROBrailleDisplayManager__hasPlanarDisplay__block_invoke(uint64_t a1, void *a2)
+void *__46__SCROBrailleDisplayManager__hasPlanarDisplay__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isPlanar];
   if (result)
@@ -5438,7 +5779,7 @@ uint64_t __46__SCROBrailleDisplayManager__hasPlanarDisplay__block_invoke(uint64_
   return v2;
 }
 
-unint64_t __61__SCROBrailleDisplayManager_numberOfTextLinesInPlanarBraille__block_invoke(uint64_t a1, void *a2)
+void *__61__SCROBrailleDisplayManager_numberOfTextLinesInPlanarBraille__block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 numberOfTextLinesInPlanarBraille];
@@ -5780,6 +6121,15 @@ void __62__SCROBrailleDisplayManager__eventQueue_showNextAnnouncement___block_in
   return selfCopy;
 }
 
+- (void)_eventQueue_setLineDescriptorCallbackEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  dispatch_assert_queue_V2(self->_eventQueue);
+  self->_lineDescriptorDisplayCallbackEnabled = enabledCopy;
+  primaryDisplay = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue primaryDisplay];
+  [primaryDisplay setDelegateWantsDisplayCallback:enabledCopy];
+}
+
 - (int64_t)tokenForRouterIndex:(int64_t)index location:(int64_t *)location appToken:(id *)token forDisplayWithToken:(int)withToken
 {
   dispatch_assert_queue_not_V2(self->_eventQueue);
@@ -5807,9 +6157,7 @@ void __62__SCROBrailleDisplayManager__eventQueue_showNextAnnouncement___block_in
 uint64_t __87__SCROBrailleDisplayManager_tokenForRouterIndex_location_appToken_forDisplayWithToken___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _eventQueue_activeDisplayForToken:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = v2;
 
   return MEMORY[0x2821F96F8](v2);
 }
@@ -5868,6 +6216,44 @@ uint64_t __87__SCROBrailleDisplayManager_tokenForRouterIndex_location_appToken_f
   immediateCopy = immediate;
   tokenCopy = token;
   dispatch_async(eventQueue, v6);
+}
+
+- (void)_eventQueue_prepareToMemorizeNextKey:(BOOL)key immediately:(BOOL)immediately forDisplayWithToken:(int)token
+{
+  v5 = *&token;
+  immediatelyCopy = immediately;
+  keyCopy = key;
+  dispatch_assert_queue_V2(self->_eventQueue);
+  inputAccessMode = self->_inputAccessMode;
+  if (!keyCopy || inputAccessMode)
+  {
+    if (inputAccessMode == 1)
+    {
+      v13 = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue displayForToken:v5];
+      if ([(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue stateForDisplay:?]== 1)
+      {
+        primaryDisplay = v13;
+        goto LABEL_10;
+      }
+    }
+  }
+
+  else
+  {
+    activeDisplays = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue activeDisplays];
+    v11 = [activeDisplays count];
+
+    if (v11)
+    {
+      primaryDisplay = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue primaryDisplay];
+      goto LABEL_10;
+    }
+  }
+
+  primaryDisplay = 0;
+LABEL_10:
+  v14 = primaryDisplay;
+  [primaryDisplay setPrepareToMemorizeNextKey:keyCopy immediate:immediatelyCopy];
 }
 
 - (void)beginUpdates
@@ -6105,13 +6491,11 @@ void __89__SCROBrailleDisplayManager_didReplaceScriptStringRange_withScriptStrin
 
 void __51__SCROBrailleDisplayManager_didInsertScriptString___block_invoke(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 72));
-  v5[0] = *(a1 + 40);
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = *(a1 + 40);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   [WeakRetained handleBrailleKeypress:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didDeleteBrailleChar:(id)char
@@ -6154,47 +6538,68 @@ void __50__SCROBrailleDisplayManager_didDeleteBrailleChar___block_invoke(uint64_
   dispatch_async(MEMORY[0x277D85CD0], v12);
 }
 
+- (void)_eventQueue_requestSpeech:(id)speech language:(id)language shouldQueue:(BOOL)queue
+{
+  queueCopy = queue;
+  languageCopy = language;
+  speechCopy = speech;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained handleBrailleSpeechRequest:speechCopy language:languageCopy shouldQueue:queueCopy];
+}
+
 - (void)_enumerateActiveDisplays:(id)displays
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   displaysCopy = displays;
   if (displaysCopy)
   {
     activeDisplays = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue activeDisplays];
     v6 = [activeDisplays copy];
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          displaysCopy[2](displaysCopy, *(*(&v13 + 1) + 8 * v11++));
+          displaysCopy[2](displaysCopy, *(*(&v12 + 1) + 8 * v11++));
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
     }
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (id)_eventQueue_activeDisplayForToken:(int)token
+{
+  v3 = *&token;
+  dispatch_assert_queue_V2(self->_eventQueue);
+  v5 = [(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue displayForToken:v3];
+  if ([(SCROBrailleDisplayManagedQueue *)self->_managedDisplayQueue stateForDisplay:v5]!= 1)
+  {
+
+    v5 = 0;
+  }
+
+  return v5;
 }
 
 - (void)resetEditingManager

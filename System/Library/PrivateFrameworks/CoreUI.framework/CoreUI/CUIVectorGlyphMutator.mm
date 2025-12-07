@@ -204,9 +204,9 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
 
 - (CUIVectorGlyphMutator)initWithPointSize:(double)size regular:(id)regular ultralight:(id)ultralight black:(id)black
 {
-  v52.receiver = self;
-  v52.super_class = CUIVectorGlyphMutator;
-  v10 = [(CUIVectorGlyphMutator *)&v52 init];
+  v46.receiver = self;
+  v46.super_class = CUIVectorGlyphMutator;
+  v10 = [(CUIVectorGlyphMutator *)&v46 init];
   if (v10)
   {
     v10->_originPath = regular;
@@ -218,21 +218,21 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
     v14 = +[CUIVectorGlyphMutator pointArrayFromPath:](CUIVectorGlyphMutator, "pointArrayFromPath:", [ultralight path]);
     v16 = v15;
     blackCopy = black;
-    v24 = +[CUIVectorGlyphMutator pointArrayFromPath:](CUIVectorGlyphMutator, "pointArrayFromPath:", [black path]);
-    v25 = v17;
+    v18 = +[CUIVectorGlyphMutator pointArrayFromPath:](CUIVectorGlyphMutator, "pointArrayFromPath:", [black path]);
+    v19 = v17;
     if (v13 != v16 || v13 != v17)
     {
-      _CUILog(4, "CoreUI: Incompatible points when attempting to interpolate: Ultralight=%lu, Regular=%lu, Black=%lu", v18, v19, v20, v21, v22, v23, v16);
-      [NSException raise:@"CUIVectorGlyphIncompatiblePointsException" format:@"Point counts: Ultralight=%lu, Regular=%lu, Black=%lu", v16, v13, v25];
+      _CUILog(4, "CoreUI: Incompatible points when attempting to interpolate: Ultralight=%lu, Regular=%lu, Black=%lu", v16, v13, v17);
+      [NSException raise:@"CUIVectorGlyphIncompatiblePointsException" format:@"Point counts: Ultralight=%lu, Regular=%lu, Black=%lu", v16, v13, v19];
     }
 
     [(CUIVectorGlyphMutator *)v10 setOriginPoints:v11, v13];
-    v26 = [CUIVectorGlyphMutator deltaArrayFrom:v10->_originPoints.pointComponents to:v10->_originPoints.numPoints, v14, v16];
-    [(CUIVectorGlyphMutator *)v10 setUltralightDeltas:v26, v27];
-    v28 = [CUIVectorGlyphMutator deltaArrayFrom:v10->_originPoints.pointComponents to:v10->_originPoints.numPoints, v24, v25];
-    [(CUIVectorGlyphMutator *)v10 setBlackDeltas:v28, v29];
+    v20 = [CUIVectorGlyphMutator deltaArrayFrom:v10->_originPoints.pointComponents to:v10->_originPoints.numPoints, v14, v16];
+    [(CUIVectorGlyphMutator *)v10 setUltralightDeltas:v20, v21];
+    v22 = [CUIVectorGlyphMutator deltaArrayFrom:v10->_originPoints.pointComponents to:v10->_originPoints.numPoints, v18, v19];
+    [(CUIVectorGlyphMutator *)v10 setBlackDeltas:v22, v23];
     free(v14);
-    free(v24);
+    free(v18);
     encodedClipStrokeKeyframes = [regular encodedClipStrokeKeyframes];
     encodedClipStrokeKeyframes2 = [ultralight encodedClipStrokeKeyframes];
     encodedClipStrokeKeyframes3 = [blackCopy encodedClipStrokeKeyframes];
@@ -240,76 +240,76 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
     {
       if (encodedClipStrokeKeyframes2)
       {
-        v33 = encodedClipStrokeKeyframes3;
+        v27 = encodedClipStrokeKeyframes3;
         if (encodedClipStrokeKeyframes3)
         {
-          v34 = [encodedClipStrokeKeyframes length];
-          if (v34 == [encodedClipStrokeKeyframes2 length])
+          v28 = [encodedClipStrokeKeyframes length];
+          if (v28 == [encodedClipStrokeKeyframes2 length])
           {
-            v35 = [encodedClipStrokeKeyframes length];
-            if (v35 == [v33 length])
+            v29 = [encodedClipStrokeKeyframes length];
+            if (v29 == [v27 length])
             {
-              v50 = 0;
-              v51 = 0;
-              v49 = 0;
-              v36 = [encodedClipStrokeKeyframes validate:&v51];
-              v37 = [encodedClipStrokeKeyframes2 validate:&v50];
-              v38 = [v33 validate:&v49];
-              if (v36)
+              v44 = 0;
+              v45 = 0;
+              v43 = 0;
+              v30 = [encodedClipStrokeKeyframes validate:&v45];
+              v31 = [encodedClipStrokeKeyframes2 validate:&v44];
+              v32 = [v27 validate:&v43];
+              if (v30)
               {
-                if (v37 && v38 && v51 == v50 && v51 == v49)
+                if (v31 && v32 && v45 == v44 && v45 == v43)
                 {
                   rawKeyframesOffset = [encodedClipStrokeKeyframes rawKeyframesOffset];
-                  v40 = [encodedClipStrokeKeyframes length];
-                  while (rawKeyframesOffset < v40)
+                  v34 = [encodedClipStrokeKeyframes length];
+                  while (rawKeyframesOffset < v34)
                   {
-                    v47 = 0;
-                    v48 = 0;
-                    [encodedClipStrokeKeyframes getBytes:&v48 + 4 range:{rawKeyframesOffset, 4}];
-                    [encodedClipStrokeKeyframes2 getBytes:&v48 range:{rawKeyframesOffset, 4}];
-                    LODWORD(v41) = HIDWORD(v48);
-                    if (*(&v48 + 1) != *&v48)
+                    v41 = 0;
+                    v42 = 0;
+                    [encodedClipStrokeKeyframes getBytes:&v42 + 4 range:{rawKeyframesOffset, 4}];
+                    [encodedClipStrokeKeyframes2 getBytes:&v42 range:{rawKeyframesOffset, 4}];
+                    LODWORD(v35) = HIDWORD(v42);
+                    if (*(&v42 + 1) != *&v42)
                     {
                       return v10;
                     }
 
-                    [v33 getBytes:&v48 range:{rawKeyframesOffset, 4, v41}];
-                    LODWORD(v42) = HIDWORD(v48);
-                    if (*(&v48 + 1) != *&v48)
+                    [v27 getBytes:&v42 range:{rawKeyframesOffset, 4, v35}];
+                    LODWORD(v36) = HIDWORD(v42);
+                    if (*(&v42 + 1) != *&v42)
                     {
                       return v10;
                     }
 
-                    v43 = rawKeyframesOffset + 8;
-                    [encodedClipStrokeKeyframes getBytes:&v47 + 4 range:{v43, 4, v42}];
-                    [encodedClipStrokeKeyframes2 getBytes:&v47 range:{v43, 4}];
-                    if (floorf(*(&v47 + 1)) != floorf(*&v47))
+                    v37 = rawKeyframesOffset + 8;
+                    [encodedClipStrokeKeyframes getBytes:&v41 + 4 range:{v37, 4, v36}];
+                    [encodedClipStrokeKeyframes2 getBytes:&v41 range:{v37, 4}];
+                    if (floorf(*(&v41 + 1)) != floorf(*&v41))
                     {
                       return v10;
                     }
 
-                    [v33 getBytes:&v47 range:{v43, 4}];
-                    if (floorf(*(&v47 + 1)) != floorf(*&v47))
+                    [v27 getBytes:&v41 range:{v37, 4}];
+                    if (floorf(*(&v41 + 1)) != floorf(*&v41))
                     {
                       return v10;
                     }
 
-                    v44 = v43 + 4;
-                    [encodedClipStrokeKeyframes getBytes:&v47 + 4 range:{v44, 4}];
-                    [encodedClipStrokeKeyframes2 getBytes:&v47 range:{v44, 4}];
-                    if (floorf(*(&v47 + 1)) != floorf(*&v47))
+                    v38 = v37 + 4;
+                    [encodedClipStrokeKeyframes getBytes:&v41 + 4 range:{v38, 4}];
+                    [encodedClipStrokeKeyframes2 getBytes:&v41 range:{v38, 4}];
+                    if (floorf(*(&v41 + 1)) != floorf(*&v41))
                     {
                       return v10;
                     }
 
-                    [v33 getBytes:&v47 range:{v44, 4}];
-                    if (floorf(*(&v47 + 1)) != floorf(*&v47))
+                    [v27 getBytes:&v41 range:{v38, 4}];
+                    if (floorf(*(&v41 + 1)) != floorf(*&v41))
                     {
                       return v10;
                     }
 
-                    v40 = [encodedClipStrokeKeyframes length];
-                    rawKeyframesOffset = v44 + 4;
+                    v34 = [encodedClipStrokeKeyframes length];
+                    rawKeyframesOffset = v38 + 4;
                   }
 
                   v10->_originClipStrokeKeyframes = [regular encodedClipStrokeKeyframes];
@@ -459,7 +459,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
   pathCopy = path;
   if (path)
   {
-    [path lengthData];
+    objc_msgSend_lengthData(path, a2);
     v8 = *(&v124 + 1);
   }
 
@@ -474,7 +474,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
   originPath = self->_originPath;
   if (originPath)
   {
-    [(CUIVectorGlyphPath *)originPath lengthData];
+    objc_msgSend_lengthData(originPath);
     v10 = *(&v121 + 1) != 0;
   }
 
@@ -489,7 +489,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
   ultralightPath = self->_ultralightPath;
   if (ultralightPath)
   {
-    [(CUIVectorGlyphPath *)ultralightPath lengthData];
+    objc_msgSend_lengthData(ultralightPath);
     v12 = *(&v118 + 1) != 0;
   }
 
@@ -507,7 +507,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
     return 0;
   }
 
-  [(CUIVectorGlyphPath *)blackPath lengthData];
+  objc_msgSend_lengthData(blackPath);
   v14 = 0;
   if (v8 == 0 || !v10 || !v12 || !v117)
   {
@@ -516,7 +516,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
 
   if (pathCopy)
   {
-    [pathCopy lengthData];
+    objc_msgSend_lengthData(pathCopy);
     v15 = v115;
   }
 
@@ -531,7 +531,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
   v16 = self->_originPath;
   if (v16)
   {
-    [(CUIVectorGlyphPath *)v16 lengthData];
+    objc_msgSend_lengthData(v16);
     v17 = v112 != 0;
   }
 
@@ -546,7 +546,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
   v18 = self->_ultralightPath;
   if (v18)
   {
-    [(CUIVectorGlyphPath *)v18 lengthData];
+    objc_msgSend_lengthData(v18);
     v19 = v109 != 0;
   }
 
@@ -564,7 +564,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
     return 0;
   }
 
-  [(CUIVectorGlyphPath *)v20 lengthData];
+  objc_msgSend_lengthData(v20);
   v14 = 0;
   if (v15 == 0 || !v17 || !v19 || !v107)
   {
@@ -573,7 +573,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
 
   if (pathCopy)
   {
-    [pathCopy lengthData];
+    objc_msgSend_lengthData(pathCopy);
     LODWORD(pathCopy) = *(&v105 + 1) != 0;
   }
 
@@ -587,7 +587,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
   v21 = self->_originPath;
   if (v21)
   {
-    [(CUIVectorGlyphPath *)v21 lengthData];
+    objc_msgSend_lengthData(v21);
     v22 = *(&v102 + 1) != 0;
   }
 
@@ -602,7 +602,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
   v23 = self->_ultralightPath;
   if (v23)
   {
-    [(CUIVectorGlyphPath *)v23 lengthData];
+    objc_msgSend_lengthData(v23);
     v24 = *(&v99 + 1) != 0;
   }
 
@@ -620,7 +620,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
     return 0;
   }
 
-  [(CUIVectorGlyphPath *)v25 lengthData];
+  objc_msgSend_lengthData(v25);
   v14 = 0;
   if ((pathCopy & v22 & v24) == 1)
   {
@@ -666,7 +666,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
           v32 = self->_originPath;
           if (v32)
           {
-            [(CUIVectorGlyphPath *)v32 lengthData];
+            objc_msgSend_lengthData(v32);
           }
 
           else
@@ -699,7 +699,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
           v39 = self->_ultralightPath;
           if (v39)
           {
-            [(CUIVectorGlyphPath *)v39 lengthData];
+            objc_msgSend_lengthData(v39);
           }
 
           else
@@ -730,7 +730,7 @@ id __43__CUIVectorGlyphMutator__interpolationData__block_invoke()
           v44 = self->_blackPath;
           if (v44)
           {
-            [(CUIVectorGlyphPath *)v44 lengthData];
+            objc_msgSend_lengthData(v44);
           }
 
           else
@@ -971,17 +971,17 @@ char *__44__CUIVectorGlyphMutator_pointArrayFromPath___block_invoke(char *result
       if (v15 + 2 > v16)
       {
         result = [*(result + 4) realloc_cgfloat_array:*(*(*(result + 7) + 8) + 24) withNewCount:2 * (*(result + 8) + v16)];
-        v17 = v3[8];
-        *(*(v3[7] + 8) + 24) = result;
-        *(*(v3[6] + 8) + 24) += v17;
-        v15 = *(*(v3[5] + 8) + 24);
+        v17 = *(v3 + 8);
+        *(*(*(v3 + 7) + 8) + 24) = result;
+        *(*(*(v3 + 6) + 8) + 24) += v17;
+        v15 = *(*(*(v3 + 5) + 8) + 24);
       }
 
       v18 = *(a2 + 8);
-      *(*(*(v3[7] + 8) + 24) + 16 * v15) = *v18;
-      *(*(*(v3[7] + 8) + 24) + 16 * *(*(v3[5] + 8) + 24) + 8) = v18[1];
-      *(*(*(v3[7] + 8) + 24) + 16 * *(*(v3[5] + 8) + 24) + 16) = v18[2];
-      *(*(*(v3[7] + 8) + 24) + 16 * *(*(v3[5] + 8) + 24) + 24) = v18[3];
+      *(*(*(*(v3 + 7) + 8) + 24) + 16 * v15) = *v18;
+      *(*(*(*(v3 + 7) + 8) + 24) + 16 * *(*(*(v3 + 5) + 8) + 24) + 8) = v18[1];
+      *(*(*(*(v3 + 7) + 8) + 24) + 16 * *(*(*(v3 + 5) + 8) + 24) + 16) = v18[2];
+      *(*(*(*(v3 + 7) + 8) + 24) + 16 * *(*(*(v3 + 5) + 8) + 24) + 24) = v18[3];
       v10 = 2;
     }
 
@@ -998,19 +998,19 @@ char *__44__CUIVectorGlyphMutator_pointArrayFromPath___block_invoke(char *result
       if (v11 + 3 > v12)
       {
         result = [*(result + 4) realloc_cgfloat_array:*(*(*(result + 7) + 8) + 24) withNewCount:2 * (*(result + 8) + v12)];
-        v13 = v3[8];
-        *(*(v3[7] + 8) + 24) = result;
-        *(*(v3[6] + 8) + 24) += v13;
-        v11 = *(*(v3[5] + 8) + 24);
+        v13 = *(v3 + 8);
+        *(*(*(v3 + 7) + 8) + 24) = result;
+        *(*(*(v3 + 6) + 8) + 24) += v13;
+        v11 = *(*(*(v3 + 5) + 8) + 24);
       }
 
       v14 = *(a2 + 8);
-      *(*(*(v3[7] + 8) + 24) + 16 * v11) = *v14;
-      *(*(*(v3[7] + 8) + 24) + 16 * *(*(v3[5] + 8) + 24) + 8) = v14[1];
-      *(*(*(v3[7] + 8) + 24) + 16 * *(*(v3[5] + 8) + 24) + 16) = v14[2];
-      *(*(*(v3[7] + 8) + 24) + 16 * *(*(v3[5] + 8) + 24) + 24) = v14[3];
-      *(*(*(v3[7] + 8) + 24) + 16 * *(*(v3[5] + 8) + 24) + 32) = v14[4];
-      *(*(*(v3[7] + 8) + 24) + 16 * *(*(v3[5] + 8) + 24) + 40) = v14[5];
+      *(*(*(*(v3 + 7) + 8) + 24) + 16 * v11) = *v14;
+      *(*(*(*(v3 + 7) + 8) + 24) + 16 * *(*(*(v3 + 5) + 8) + 24) + 8) = v14[1];
+      *(*(*(*(v3 + 7) + 8) + 24) + 16 * *(*(*(v3 + 5) + 8) + 24) + 16) = v14[2];
+      *(*(*(*(v3 + 7) + 8) + 24) + 16 * *(*(*(v3 + 5) + 8) + 24) + 24) = v14[3];
+      *(*(*(*(v3 + 7) + 8) + 24) + 16 * *(*(*(v3 + 5) + 8) + 24) + 32) = v14[4];
+      *(*(*(*(v3 + 7) + 8) + 24) + 16 * *(*(*(v3 + 5) + 8) + 24) + 40) = v14[5];
       v10 = 3;
     }
   }
@@ -1028,15 +1028,15 @@ char *__44__CUIVectorGlyphMutator_pointArrayFromPath___block_invoke(char *result
     if (v6 + 1 > v7)
     {
       result = [*(result + 4) realloc_cgfloat_array:*(*(*(result + 7) + 8) + 24) withNewCount:2 * (*(result + 8) + v7)];
-      v8 = v3[8];
-      *(*(v3[7] + 8) + 24) = result;
-      *(*(v3[6] + 8) + 24) += v8;
-      v6 = *(*(v3[5] + 8) + 24);
+      v8 = *(v3 + 8);
+      *(*(*(v3 + 7) + 8) + 24) = result;
+      *(*(*(v3 + 6) + 8) + 24) += v8;
+      v6 = *(*(*(v3 + 5) + 8) + 24);
     }
 
     v9 = *(a2 + 8);
-    *(*(*(v3[7] + 8) + 24) + 16 * v6) = *v9;
-    *(*(*(v3[7] + 8) + 24) + 16 * *(*(v3[5] + 8) + 24) + 8) = v9[1];
+    *(*(*(*(v3 + 7) + 8) + 24) + 16 * v6) = *v9;
+    *(*(*(*(v3 + 7) + 8) + 24) + 16 * *(*(*(v3 + 5) + 8) + 24) + 8) = v9[1];
     v10 = 1;
   }
 

@@ -88,27 +88,27 @@
 
 - (id)getEnabledOTARequestorEndpoint
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   obj = [(NSMutableDictionary *)self->_otaRequestorEndpoints allKeys];
-  v3 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         v8 = [(NSMutableDictionary *)self->_otaRequestorEndpoints objectForKey:v7];
         v9 = [MEMORY[0x277CCABB0] numberWithBool:1];
         v10 = [v8 isEqualToNumber:v9];
@@ -120,7 +120,7 @@
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v4)
       {
         continue;
@@ -132,8 +132,6 @@
 
   v11 = 0;
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -176,49 +174,49 @@ LABEL_11:
 
 - (id)getAttributesForClusterClassName:(id)name endpoint:(id)endpoint
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   endpointCopy = endpoint;
   deviceAttributeValues = self->_deviceAttributeValues;
-  v52 = endpointCopy;
+  v51 = endpointCopy;
   stringValue = [endpointCopy stringValue];
   v10 = [(NSMutableDictionary *)deviceAttributeValues objectForKeyedSubscript:stringValue];
 
-  v47 = [nameCopy copy];
+  v46 = [nameCopy copy];
   v11 = @"MTRCluster";
   if ([nameCopy hasPrefix:@"MTRCluster"] & 1) != 0 || (v11 = @"MTRBaseCluster", (objc_msgSend(nameCopy, "hasPrefix:", @"MTRBaseCluster")) || (v11 = @"HMMTR", objc_msgSend(nameCopy, "hasPrefix:", @"HMMTR")))
   {
     v12 = [nameCopy substringFromIndex:{-[__CFString length](v11, "length")}];
 
-    v47 = v12;
+    v46 = v12;
   }
 
   if ([v10 count])
   {
-    v43 = v10;
-    v44 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v42 = v10;
+    v43 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
     obj = v10;
-    v53 = [obj countByEnumeratingWithState:&v55 objects:v69 count:16];
-    if (v53)
+    v52 = [obj countByEnumeratingWithState:&v54 objects:v68 count:16];
+    if (v52)
     {
-      v13 = *v56;
+      v13 = *v55;
       v14 = @":";
-      v48 = *v56;
-      v50 = nameCopy;
+      v47 = *v55;
+      v49 = nameCopy;
       do
       {
-        for (i = 0; i != v53; ++i)
+        for (i = 0; i != v52; ++i)
         {
-          if (*v56 != v13)
+          if (*v55 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = [*(*(&v55 + 1) + 8 * i) componentsSeparatedByString:{v14, v43}];
+          v16 = [*(*(&v54 + 1) + 8 * i) componentsSeparatedByString:{v14, v42}];
           if ([v16 count] > 2)
           {
             v22 = [v16 objectAtIndexedSubscript:0];
@@ -234,24 +232,24 @@ LABEL_11:
               v25 = 1;
             }
 
-            if (!v25 && [v22 hasSuffix:v47])
+            if (!v25 && [v22 hasSuffix:v46])
             {
               v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
-              v54 = objc_alloc_init(MEMORY[0x277CCABB8]);
-              [v54 setNumberStyle:1];
+              v53 = objc_alloc_init(MEMORY[0x277CCABB8]);
+              [v53 setNumberStyle:1];
               if ([v16 count] < 3)
               {
                 goto LABEL_29;
               }
 
-              v45 = v24;
-              v46 = v22;
+              v44 = v24;
+              v45 = v22;
               v27 = 1;
               v28 = 3;
               v29 = 2;
               v30 = v26;
-              v31 = v54;
-              v49 = v30;
+              v31 = v53;
+              v48 = v30;
               do
               {
                 v32 = [v16 objectAtIndexedSubscript:v29];
@@ -273,40 +271,40 @@ LABEL_11:
                     v37 = v14;
                     v39 = v38 = self;
                     *buf = 138544130;
-                    v60 = v39;
-                    v61 = 2112;
-                    v62 = v16;
-                    v63 = 2112;
-                    v64 = v50;
-                    v65 = 2112;
-                    v66 = v52;
+                    v59 = v39;
+                    v60 = 2112;
+                    v61 = v16;
+                    v62 = 2112;
+                    v63 = v49;
+                    v64 = 2112;
+                    v65 = v51;
                     _os_log_impl(&dword_22AEAE000, v36, OS_LOG_TYPE_ERROR, "%{public}@Unable to parse attribute string %@ for cluster %@ on endpoint %@, skipping.", buf, 0x2Au);
 
                     self = v38;
                     v14 = v37;
-                    v30 = v49;
+                    v30 = v48;
                   }
 
                   objc_autoreleasePoolPop(v34);
                   v27 = 0;
-                  v31 = v54;
+                  v31 = v53;
                 }
 
                 v29 = v28;
               }
 
               while ([v16 count] > v28++);
-              v13 = v48;
+              v13 = v47;
               v26 = v30;
-              v24 = v45;
-              v22 = v46;
+              v24 = v44;
+              v22 = v45;
               if (v27)
               {
 LABEL_29:
-                [v44 setObject:v26 forKey:v24];
+                [v43 setObject:v26 forKey:v24];
               }
 
-              nameCopy = v50;
+              nameCopy = v49;
             }
           }
 
@@ -320,76 +318,74 @@ LABEL_29:
               v20 = HMFGetLogIdentifier();
               v21 = [v16 count];
               *buf = 138544386;
-              v60 = v20;
-              v61 = 2112;
-              v62 = v16;
-              v63 = 2048;
-              v64 = v21;
-              v65 = 2112;
-              v66 = nameCopy;
-              v67 = 2112;
-              v68 = v52;
+              v59 = v20;
+              v60 = 2112;
+              v61 = v16;
+              v62 = 2048;
+              v63 = v21;
+              v64 = 2112;
+              v65 = nameCopy;
+              v66 = 2112;
+              v67 = v51;
               _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_ERROR, "%{public}@Invalid attribute string %@ and count %lu, for cluster %@ on endpoint %@", buf, 0x34u);
 
-              v13 = v48;
+              v13 = v47;
             }
 
             objc_autoreleasePoolPop(v17);
           }
         }
 
-        v53 = [obj countByEnumeratingWithState:&v55 objects:v69 count:16];
+        v52 = [obj countByEnumeratingWithState:&v54 objects:v68 count:16];
       }
 
-      while (v53);
+      while (v52);
     }
 
-    v10 = v43;
+    v10 = v42;
   }
 
   else
   {
-    v44 = 0;
+    v43 = 0;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
-
-  return v44;
+  return v43;
 }
 
 - (id)getFeatureMapForClusterClassName:(id)name endpoint:(id)endpoint
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   deviceFeatureMapValues = self->_deviceFeatureMapValues;
   stringValue = [endpoint stringValue];
   v9 = [(NSMutableDictionary *)deviceFeatureMapValues objectForKeyedSubscript:stringValue];
 
-  v26 = nameCopy;
-  v24 = ([nameCopy isEqualToString:@"MTRBaseClusterColorControl"] & 1) != 0 || objc_msgSend(nameCopy, "isEqualToString:", @"HMMTRColorControl");
+  v25 = nameCopy;
+  v23 = ([nameCopy isEqualToString:@"MTRBaseClusterColorControl"] & 1) != 0 || objc_msgSend(nameCopy, "isEqualToString:", @"HMMTRColorControl");
   if ([v9 count])
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = v9;
-    v10 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v10)
     {
       v11 = v10;
-      v23 = v9;
-      v12 = *v28;
+      v22 = v9;
+      v12 = *v27;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v28 != v12)
+          if (*v27 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = [*(*(&v27 + 1) + 8 * i) componentsSeparatedByString:{@":", v23}];
+          v14 = [*(*(&v26 + 1) + 8 * i) componentsSeparatedByString:{@":", v22}];
           v15 = [v14 objectAtIndexedSubscript:0];
           v16 = objc_alloc_init(MEMORY[0x277CCABB8]);
           [v16 setNumberStyle:1];
@@ -406,7 +402,7 @@ LABEL_29:
             v19 = 1;
           }
 
-          if (!v19 && (v24 && ([v15 hasSuffix:@"ColorControl"] & 1) != 0 || (objc_msgSend(v26, "isEqualToString:", v15) & 1) != 0))
+          if (!v19 && (v23 && ([v15 hasSuffix:@"ColorControl"] & 1) != 0 || (objc_msgSend(v25, "isEqualToString:", v15) & 1) != 0))
           {
             v20 = v18;
 
@@ -414,7 +410,7 @@ LABEL_29:
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v11 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v11)
         {
           continue;
@@ -425,7 +421,7 @@ LABEL_29:
 
       v20 = 0;
 LABEL_22:
-      v9 = v23;
+      v9 = v22;
     }
 
     else
@@ -439,14 +435,12 @@ LABEL_22:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (BOOL)isHAPCharacteristicDisabledAtEndpoint:(id)endpoint hapServiceType:(id)type hapCharacteristic:(id)characteristic
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   characteristicCopy = characteristic;
   hapDisabledCharacteristics = self->_hapDisabledCharacteristics;
@@ -455,27 +449,27 @@ LABEL_22:
 
   if ([v12 count])
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v14)
     {
       v15 = v14;
-      v26 = v12;
-      v16 = *v28;
+      v25 = v12;
+      v16 = *v27;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v28 != v16)
+          if (*v27 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [*(*(&v27 + 1) + 8 * i) componentsSeparatedByString:@":"];
+          v18 = [*(*(&v26 + 1) + 8 * i) componentsSeparatedByString:@":"];
           v19 = [v18 objectAtIndexedSubscript:0];
           v20 = [v18 objectAtIndexedSubscript:1];
           v21 = v20;
@@ -497,7 +491,7 @@ LABEL_22:
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v15)
         {
           continue;
@@ -508,7 +502,7 @@ LABEL_22:
 
       v23 = 0;
 LABEL_18:
-      v12 = v26;
+      v12 = v25;
     }
 
     else
@@ -522,7 +516,6 @@ LABEL_18:
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -536,50 +529,50 @@ LABEL_18:
 
 - (id)getBridgeAggregateNodeEndpoint
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   allKeys = [(NSMutableDictionary *)self->_hapCategories allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v25;
+    v6 = *v24;
     v7 = 0x277CCA000uLL;
-    v19 = *v25;
+    v18 = *v24;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = [*(v7 + 2992) numberWithInt:{objc_msgSend(*(*(&v24 + 1) + 8 * i), "intValue")}];
+        v9 = [*(v7 + 2992) numberWithInt:{objc_msgSend(*(*(&v23 + 1) + 8 * i), "intValue")}];
         v10 = [(HMMTRDeviceTopology *)self getHAPCategoriesAtEndpoint:v9];
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         v11 = v10;
-        v12 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v21;
+          v14 = *v20;
           while (2)
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v21 != v14)
+              if (*v20 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v20 + 1) + 8 * j);
+              v16 = *(*(&v19 + 1) + 8 * j);
               if (v16 && ([v16 isEqual:&unk_283EE80D0] & 1) != 0)
               {
 
@@ -587,7 +580,7 @@ LABEL_18:
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
             if (v13)
             {
               continue;
@@ -597,11 +590,11 @@ LABEL_18:
           }
         }
 
-        v6 = v19;
+        v6 = v18;
         v7 = 0x277CCA000;
       }
 
-      v5 = [allKeys countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v23 objects:v28 count:16];
       v9 = 0;
     }
 
@@ -614,8 +607,6 @@ LABEL_18:
   }
 
 LABEL_20:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -717,7 +708,7 @@ LABEL_20:
 
 - (HMMTRDeviceTopology)initWithNodeId:(id)id server:(id)server
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   idCopy = id;
   serverCopy = server;
   v8 = [(HMMTRDeviceTopology *)self init];
@@ -736,9 +727,9 @@ LABEL_20:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v51 = v21;
-      v52 = 2112;
-      v53 = idCopy;
+      v50 = v21;
+      v51 = 2112;
+      v52 = idCopy;
       _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_ERROR, "%{public}@No enumeration/topology dictionary found for NodeId:%@", buf, 0x16u);
     }
 
@@ -747,9 +738,9 @@ LABEL_20:
   }
 
   v10 = topology;
-  v49 = 0;
-  v11 = [MEMORY[0x277CCAC58] propertyListWithData:topology options:0 format:0 error:&v49];
-  v12 = v49;
+  v48 = 0;
+  v11 = [MEMORY[0x277CCAC58] propertyListWithData:topology options:0 format:0 error:&v48];
+  v12 = v48;
   if (!v12)
   {
     hapServiceTypes = v8->_hapServiceTypes;
@@ -813,9 +804,9 @@ LABEL_12:
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v51 = v17;
-    v52 = 2112;
-    v53 = v13;
+    v50 = v17;
+    v51 = 2112;
+    v52 = v13;
     _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_ERROR, "%{public}@Could not decode string to generate topology dictionary. Error: %@", buf, 0x16u);
   }
 
@@ -824,7 +815,6 @@ LABEL_10:
   v22 = 0;
 LABEL_13:
 
-  v47 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

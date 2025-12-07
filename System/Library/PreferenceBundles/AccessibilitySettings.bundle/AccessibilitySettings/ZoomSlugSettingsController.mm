@@ -194,9 +194,10 @@ void __41__ZoomSlugSettingsController_viewDidLoad__block_invoke_6(uint64_t a1)
 {
   v3 = +[AXSettings sharedInstance];
   [v3 zoomIdleSlugOpacity];
-  v4 = AXFormatFloatWithPercentage();
+  *&v4 = v4;
+  v5 = AXFormatFloatWithPercentage(*&v4);
 
-  return v4;
+  return v5;
 }
 
 - (id)zoomSlugSingleTapActionSummary:(id)summary

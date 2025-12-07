@@ -94,13 +94,13 @@
   }
 
   calendarIdentifier = [(NSCalendar *)v5 calendarIdentifier];
-  if ([calendarIdentifier isEqualToString:*MEMORY[0x1E695D828]])
+  if (objc_msgSend_isEqualToString_(calendarIdentifier))
   {
     goto LABEL_13;
   }
 
   calendarIdentifier2 = [(NSCalendar *)v5 calendarIdentifier];
-  if ([calendarIdentifier2 isEqualToString:*MEMORY[0x1E695D838]])
+  if (objc_msgSend_isEqualToString_(calendarIdentifier2))
   {
 
 LABEL_13:
@@ -108,9 +108,9 @@ LABEL_13:
   }
 
   calendarIdentifier3 = [(NSCalendar *)v5 calendarIdentifier];
-  v24 = [calendarIdentifier3 isEqualToString:*MEMORY[0x1E695D8E0]];
+  isEqualToString = objc_msgSend_isEqualToString_(calendarIdentifier3);
 
-  if ((v24 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     chineseWrapperCalendar = self->_chineseWrapperCalendar;
     self->_chineseWrapperCalendar = 0;

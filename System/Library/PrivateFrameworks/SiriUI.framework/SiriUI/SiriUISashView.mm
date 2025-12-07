@@ -254,7 +254,7 @@
     v14 = objc_opt_class();
     if (v14)
     {
-      [v14 _textContainerStyleForSashItem:itemCopy];
+      objc_msgSend__textContainerStyleForSashItem_(v14);
     }
 
     else

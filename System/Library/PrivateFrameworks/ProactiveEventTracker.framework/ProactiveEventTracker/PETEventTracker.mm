@@ -20,9 +20,7 @@
 - (void)disableTestingMode
 {
   self->_testingMode = 0;
-  _defaultLoggingOutlet = [(PETEventTracker *)self _defaultLoggingOutlet];
-  loggingOutlet = self->_loggingOutlet;
-  self->_loggingOutlet = _defaultLoggingOutlet;
+  self->_loggingOutlet = [(PETEventTracker *)self _defaultLoggingOutlet];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -56,9 +54,7 @@
 - (void)enableTestingMode
 {
   self->_testingMode = 1;
-  v3 = objc_alloc_init(PETTestLoggingOutlet);
-  loggingOutlet = self->_loggingOutlet;
-  self->_loggingOutlet = v3;
+  self->_loggingOutlet = objc_alloc_init(PETTestLoggingOutlet);
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -160,7 +156,7 @@
 - (void)_trackEvent:(id)event withPropertyValues:(id)values value:(id)value overwrite:(BOOL)overwrite
 {
   overwriteCopy = overwrite;
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   valuesCopy = values;
   valueCopy = value;
@@ -175,8 +171,8 @@
   {
     v13 = [(PETEventTracker *)self _stringifiedPropertiesForEvent:eventCopy propertyValueArray:valuesCopy];
     v14 = [(PETEventTracker *)self _keyMetadataForEvent:eventCopy];
-    v27 = v11;
-    v28 = valuesCopy;
+    v26 = v11;
+    v27 = valuesCopy;
     v15 = eventCopy;
     if (overwriteCopy)
     {
@@ -188,27 +184,27 @@
       [(PETEventTracker *)self _logValue:valueCopy forEvent:eventCopy stringifiedProperties:v13 metaData:v14];
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     selfCopy = self;
     obj = self->_propertySubsets;
-    v18 = [(NSArray *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v18 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v33;
+      v20 = *v32;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v33 != v20)
+          if (*v32 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v32 + 1) + 8 * i);
+          v22 = *(*(&v31 + 1) + 8 * i);
           v23 = objc_autoreleasePoolPush();
           v24 = [v13 subsetForKeys:v22];
           v25 = [[PETStringPairs alloc] initWithKeys:&unk_1F5AB6D20 values:&unk_1F5AB6D38];
@@ -225,15 +221,15 @@
           objc_autoreleasePoolPop(v23);
         }
 
-        v19 = [(NSArray *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v19 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v19);
     }
 
     eventCopy = v15;
-    v11 = v27;
-    valuesCopy = v28;
+    v11 = v26;
+    valuesCopy = v27;
   }
 
   else
@@ -242,11 +238,11 @@
     {
       registeredProperties = self->_registeredProperties;
       *buf = 138412802;
-      v38 = eventCopy;
-      v39 = 2112;
-      v40 = valuesCopy;
-      v41 = 2112;
-      v42 = registeredProperties;
+      v37 = eventCopy;
+      v38 = 2112;
+      v39 = valuesCopy;
+      v40 = 2112;
+      v41 = registeredProperties;
       _os_log_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Invalid property values passed in for event: %@, values: %@, registeredProperties: %@", buf, 0x20u);
     }
 
@@ -254,34 +250,32 @@
   }
 
   objc_autoreleasePoolPop(v11);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_checkPropertySubsets:(id)subsets
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = subsets;
-  v28 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+  if (v27)
   {
-    v27 = *v42;
+    v26 = *v41;
     do
     {
       v3 = 0;
       do
       {
-        if (*v42 != v27)
+        if (*v41 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = v3;
-        v4 = *(*(&v41 + 1) + 8 * v3);
+        v29 = v3;
+        v4 = *(*(&v40 + 1) + 8 * v3);
         context = objc_autoreleasePoolPush();
         v5 = [v4 count];
         v6 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v4];
@@ -296,47 +290,47 @@
           [v10 raise];
         }
 
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
         v38 = 0u;
-        v31 = v4;
-        v11 = [v31 countByEnumeratingWithState:&v37 objects:v46 count:16];
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
+        v30 = v4;
+        v11 = [v30 countByEnumeratingWithState:&v36 objects:v45 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v38;
+          v13 = *v37;
           do
           {
             v14 = 0;
             do
             {
-              if (*v38 != v13)
+              if (*v37 != v13)
               {
-                objc_enumerationMutation(v31);
+                objc_enumerationMutation(v30);
               }
 
-              v15 = *(*(&v37 + 1) + 8 * v14);
+              v15 = *(*(&v36 + 1) + 8 * v14);
+              v32 = 0u;
               v33 = 0u;
               v34 = 0u;
               v35 = 0u;
-              v36 = 0u;
               v16 = self->_registeredProperties;
-              v17 = [(NSArray *)v16 countByEnumeratingWithState:&v33 objects:v45 count:16];
+              v17 = [(NSArray *)v16 countByEnumeratingWithState:&v32 objects:v44 count:16];
               if (v17)
               {
                 v18 = v17;
-                v19 = *v34;
+                v19 = *v33;
 LABEL_15:
                 v20 = 0;
                 while (1)
                 {
-                  if (*v34 != v19)
+                  if (*v33 != v19)
                   {
                     objc_enumerationMutation(v16);
                   }
 
-                  name = [*(*(&v33 + 1) + 8 * v20) name];
+                  name = [*(*(&v32 + 1) + 8 * v20) name];
                   v22 = [v15 isEqualToString:name];
 
                   if (v22)
@@ -346,7 +340,7 @@ LABEL_15:
 
                   if (v18 == ++v20)
                   {
-                    v18 = [(NSArray *)v16 countByEnumeratingWithState:&v33 objects:v45 count:16];
+                    v18 = [(NSArray *)v16 countByEnumeratingWithState:&v32 objects:v44 count:16];
                     if (v18)
                     {
                       goto LABEL_15;
@@ -372,57 +366,55 @@ LABEL_21:
             }
 
             while (v14 != v12);
-            v12 = [v31 countByEnumeratingWithState:&v37 objects:v46 count:16];
+            v12 = [v30 countByEnumeratingWithState:&v36 objects:v45 count:16];
           }
 
           while (v12);
         }
 
         objc_autoreleasePoolPop(context);
-        v3 = v30 + 1;
+        v3 = v29 + 1;
       }
 
-      while (v30 + 1 != v28);
-      v28 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
+      while (v29 + 1 != v27);
+      v27 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_checkKeyLengthForEvent:(id)event metaData:(id)data
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   dataCopy = data;
   if ([MEMORY[0x1E69C5CF8] isInternalBuild])
   {
-    v24 = dataCopy;
+    v23 = dataCopy;
     context = objc_autoreleasePoolPush();
     v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_registeredProperties, "count")}];
     v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_registeredProperties, "count")}];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v10 = self->_registeredProperties;
-    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v25 objects:v37 count:16];
+    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v24 objects:v36 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v26;
+      v13 = *v25;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v26 != v13)
+          if (*v25 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v25 + 1) + 8 * i);
+          v15 = *(*(&v24 + 1) + 8 * i);
           name = [v15 name];
           [v8 addObject:name];
 
@@ -430,66 +422,64 @@ LABEL_21:
           [v9 addObject:longestValueString];
         }
 
-        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v25 objects:v37 count:16];
+        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v24 objects:v36 count:16];
       }
 
       while (v12);
     }
 
     v18 = [[PETStringPairs alloc] initWithKeys:v8 values:v9];
-    dataCopy = v24;
-    v19 = [PETLoggingUtils keyStringForEvent:eventCopy featureId:self->_featureId stringifiedProperties:v18 metaData:v24];
+    dataCopy = v23;
+    v19 = [PETLoggingUtils keyStringForEvent:eventCopy featureId:self->_featureId stringifiedProperties:v18 metaData:v23];
     if ([v19 length] >= 0x100 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       featureId = self->_featureId;
       v21 = [v19 length];
       *buf = 138413058;
-      v30 = eventCopy;
-      v31 = 2112;
-      v32 = featureId;
-      v33 = 2048;
-      v34 = v21;
-      v35 = 1024;
-      v36 = 255;
+      v29 = eventCopy;
+      v30 = 2112;
+      v31 = featureId;
+      v32 = 2048;
+      v33 = v21;
+      v34 = 1024;
+      v35 = 255;
       _os_log_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "aggd key length may exceed the limit - event: %@, featureId: %@, longestKeyLength: %lu, keyLengthLimit: %d. try to shorten the event/property names", buf, 0x26u);
     }
 
     objc_autoreleasePoolPop(context);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_checkCardinalityForEvent:(id)event
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if ([MEMORY[0x1E69C5CF8] isInternalBuild])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = self->_registeredProperties;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v23 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       v9 = 1;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 *= [*(*(&v13 + 1) + 8 * i) cardinality];
+          v9 *= [*(*(&v12 + 1) + 8 * i) cardinality];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v23 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v22 count:16];
       }
 
       while (v7);
@@ -498,11 +488,11 @@ LABEL_21:
       {
         featureId = self->_featureId;
         *buf = 138412802;
-        v18 = eventCopy;
-        v19 = 2112;
-        v20 = featureId;
-        v21 = 2048;
-        v22 = v9;
+        v17 = eventCopy;
+        v18 = 2112;
+        v19 = featureId;
+        v20 = 2048;
+        v21 = v9;
         _os_log_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "high cardinality event found: %@, featureId: %@, cardinality: %lu. try to reduce the number of dimensions, or reduce the number of possbile values of properties", buf, 0x20u);
       }
     }
@@ -511,8 +501,6 @@ LABEL_21:
     {
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (PETEventTracker)initWithFeatureId:(id)id registerProperties:(id)properties propertySubsets:(id)subsets

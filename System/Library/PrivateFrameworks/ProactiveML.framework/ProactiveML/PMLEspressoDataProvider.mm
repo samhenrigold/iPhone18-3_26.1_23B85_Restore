@@ -8,7 +8,7 @@
 
 - (id)dataPointAtIndex:(unint64_t)index error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (self->_numberOfDataPoints <= index)
   {
     v26 = PML_LogHandle();
@@ -17,8 +17,8 @@
       numberOfDataPoints = self->_numberOfDataPoints;
       *buf = 134218240;
       indexCopy = index;
-      v37 = 2048;
-      v38 = numberOfDataPoints;
+      v36 = 2048;
+      v37 = numberOfDataPoints;
       _os_log_error_impl(&dword_260D68000, v26, OS_LOG_TYPE_ERROR, "Out of range index %lu requested from PMLEspressoDataProvider of size %lu", buf, 0x16u);
     }
 
@@ -42,23 +42,23 @@
     +[PMLSparseVector sparseVectorWithLength:numberOfNonZeroValues:isSparseIndexInt64:sparseIndices:sparseValues:toDenseValues:withLength:](PMLSparseVector, "sparseVectorWithLength:numberOfNonZeroValues:isSparseIndexInt64:sparseIndices:sparseValues:toDenseValues:withLength:", inputDim, v8, 0, bytes, [second bytes], -[NSMutableData mutableBytes](self->_inputBuffer, "mutableBytes"), self->_inputDim);
 
     v14 = objc_opt_new();
-    v32 = objc_alloc(MEMORY[0x277D07758]);
+    v31 = objc_alloc(MEMORY[0x277D07758]);
     mutableBytes = [(NSMutableData *)self->_inputBuffer mutableBytes];
-    v34[0] = &unk_287358250;
+    v33[0] = &unk_287358250;
     v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_inputDim];
-    v34[1] = v15;
-    v34[2] = &unk_287358250;
-    v34[3] = &unk_287358250;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:4];
-    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_inputDim];
-    v33[0] = v17;
-    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_inputDim];
-    v33[1] = v18;
-    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_inputDim];
-    v33[2] = v19;
+    v33[1] = v15;
+    v33[2] = &unk_287358250;
     v33[3] = &unk_287358250;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:4];
-    v21 = [v32 initWithData:mutableBytes type:2 shape:v16 strides:v20];
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:4];
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_inputDim];
+    v32[0] = v17;
+    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_inputDim];
+    v32[1] = v18;
+    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_inputDim];
+    v32[2] = v19;
+    v32[3] = &unk_287358250;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:4];
+    v21 = [v31 initWithData:mutableBytes type:2 shape:v16 strides:v20];
     [v14 setObject:v21 forKeyedSubscript:self->_inputName];
 
     v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_inputDim];
@@ -71,8 +71,6 @@
     v25 = [v14 objectForKeyedSubscript:self->_trueLabelName];
     [v25 setMaxNumberOfElements:&unk_287358250];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

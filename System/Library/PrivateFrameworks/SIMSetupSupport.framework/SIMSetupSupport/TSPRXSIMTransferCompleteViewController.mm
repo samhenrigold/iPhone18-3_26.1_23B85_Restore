@@ -3,6 +3,7 @@
 - (TSPRXSIMTransferCompleteViewController)initWithoutTargetSyncAndSelectedPlansCount:(int)count;
 - (TSSIMSetupFlowDelegate)delegate;
 - (id)_createPKGlyphView;
+- (id)_getSubtitleWhenSyncWithTarget:(BOOL)target selectedPlansCount:(int)count selectedPlansFailedTransferCount:(int)transferCount;
 - (id)_getTitleWhenSyncWithTarget:(BOOL)target selectedPlansCount:(int)count selectedPlansFailedTransferCount:(int)transferCount;
 - (void)_updateLayoutConstraint;
 - (void)viewDidLoad;
@@ -151,7 +152,7 @@ void __53__TSPRXSIMTransferCompleteViewController_viewDidLoad__block_invoke(uint
 
 - (void)_updateLayoutConstraint
 {
-  v34[5] = *MEMORY[0x277D85DE8];
+  v33[5] = *MEMORY[0x277D85DE8];
   if (self->_glyphView || self->_triangleImageView)
   {
     contentView = [(TSPRXSIMTransferCompleteViewController *)self contentView];
@@ -176,39 +177,37 @@ void __53__TSPRXSIMTransferCompleteViewController_viewDidLoad__block_invoke(uint
       glyphView = self->_triangleImageView;
     }
 
-    v25 = MEMORY[0x277CCAAD0];
+    v24 = MEMORY[0x277CCAAD0];
     v11 = glyphView;
     topAnchor = [v11 topAnchor];
     contentView2 = [(TSPRXSIMTransferCompleteViewController *)self contentView];
     mainContentGuide = [contentView2 mainContentGuide];
     topAnchor2 = [mainContentGuide topAnchor];
-    v29 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
-    v34[0] = v29;
+    v28 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
+    v33[0] = v28;
     centerXAnchor = [v11 centerXAnchor];
     contentView3 = [(TSPRXSIMTransferCompleteViewController *)self contentView];
     mainContentGuide2 = [contentView3 mainContentGuide];
     centerXAnchor2 = [mainContentGuide2 centerXAnchor];
-    v23 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v34[1] = v23;
+    v22 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v33[1] = v22;
     centerYAnchor = [v11 centerYAnchor];
     contentView4 = [(TSPRXSIMTransferCompleteViewController *)self contentView];
     mainContentGuide3 = [contentView4 mainContentGuide];
     centerYAnchor2 = [mainContentGuide3 centerYAnchor];
     v15 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v34[2] = v15;
+    v33[2] = v15;
     widthAnchor = [v11 widthAnchor];
     v17 = [widthAnchor constraintEqualToConstant:v9];
-    v34[3] = v17;
+    v33[3] = v17;
     heightAnchor = [v11 heightAnchor];
     v19 = [heightAnchor constraintEqualToConstant:v9];
-    v34[4] = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:5];
-    [v25 activateConstraints:v20];
+    v33[4] = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:5];
+    [v24 activateConstraints:v20];
 
     [v11 setTranslatesAutoresizingMaskIntoConstraints:0];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getTitleWhenSyncWithTarget:(BOOL)target selectedPlansCount:(int)count selectedPlansFailedTransferCount:(int)transferCount
@@ -241,6 +240,80 @@ void __53__TSPRXSIMTransferCompleteViewController_viewDidLoad__block_invoke(uint
   v13 = [v8 localizedStringForKey:v12 value:&stru_28753DF48 table:@"Localizable"];
 
   return v13;
+}
+
+- (id)_getSubtitleWhenSyncWithTarget:(BOOL)target selectedPlansCount:(int)count selectedPlansFailedTransferCount:(int)transferCount
+{
+  if (target)
+  {
+    v5 = *&transferCount;
+    if (transferCount)
+    {
+      if (count != transferCount)
+      {
+        v10 = [TSUtilities getWordRepresentationForInt:*&transferCount];
+        capitalizedString = [v10 capitalizedString];
+
+        LODWORD(v10) = +[TSUtilities isPad];
+        v11 = MEMORY[0x277CCACA8];
+        v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v13 = v12;
+        if (v10)
+        {
+          v14 = @"IPAD_PRXCARD_TARGET_TRANSFER_FAILED_DETAIL_%@_%d";
+        }
+
+        else
+        {
+          v14 = @"PRXCARD_TARGET_TRANSFER_FAILED_DETAIL_%@_%d";
+        }
+
+        v15 = [v12 localizedStringForKey:v14 value:&stru_28753DF48 table:@"Plurals"];
+        v16 = [v11 localizedStringWithFormat:v15, capitalizedString, v5];
+
+        goto LABEL_17;
+      }
+
+      capitalizedString = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      if (v5 == 1)
+      {
+        v8 = @"PRXCARD_TARGET_TRANSFER_SINGLE_FAILED_DETAIL";
+      }
+
+      else
+      {
+        v8 = @"PRXCARD_TARGET_TRANSFER_ALL_FAILED_DETAIL";
+      }
+    }
+
+    else
+    {
+      capitalizedString = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      if (count == 1)
+      {
+        v8 = @"PRXCARD_TARGET_TRANSFER_COMPLETE_SINGLE_DETAIL";
+      }
+
+      else
+      {
+        v8 = @"PRXCARD_TARGET_TRANSFER_COMPLETE_MULTIPLE_DETAIL";
+      }
+    }
+
+    v9 = capitalizedString;
+  }
+
+  else
+  {
+    v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    capitalizedString = v9;
+    v8 = @"PRXCARD_SOURCE_COMPLETE_DETAIL";
+  }
+
+  v16 = [v9 localizedStringForKey:v8 value:&stru_28753DF48 table:@"Localizable"];
+LABEL_17:
+
+  return v16;
 }
 
 - (TSSIMSetupFlowDelegate)delegate

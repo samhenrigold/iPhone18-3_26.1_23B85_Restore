@@ -191,7 +191,7 @@ LABEL_11:
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"shadowPath"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v5 = 1;
   }
@@ -215,7 +215,7 @@ LABEL_11:
   v8 = [(UIView *)&v22 actionForLayer:layerCopy forKey:keyCopy];
   hasBeenCommitted = [layerCopy hasBeenCommitted];
 
-  if (hasBeenCommitted && [keyCopy isEqual:@"shadowPath"] && (objc_opt_respondsToSelector() & 1) != 0)
+  if (hasBeenCommitted && objc_msgSend_isEqual_(keyCopy) && (objc_opt_respondsToSelector() & 1) != 0)
   {
     layer = [(UIView *)self layer];
     presentationLayer = [layer presentationLayer];

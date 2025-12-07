@@ -7,9 +7,9 @@
 - (id)keyAssetIndexPath
 {
   currentAssetReference = [(PUOneUpPhotosSharingTransitionContext *)self currentAssetReference];
-  indexPath = [currentAssetReference indexPath];
+  v3 = objc_msgSend_indexPath(currentAssetReference);
 
-  return indexPath;
+  return v3;
 }
 
 @end

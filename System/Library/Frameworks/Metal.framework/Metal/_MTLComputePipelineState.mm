@@ -65,7 +65,7 @@
     *(v27 + 7) = [descriptor textureWriteRoundingMode];
     if (descriptor)
     {
-      [descriptor requiredThreadsPerThreadgroup];
+      objc_msgSend_requiredThreadsPerThreadgroup(descriptor);
     }
 
     else
@@ -112,7 +112,7 @@
     v18[48] = [parent supportIndirectCommandBuffers];
     *(v18 + 7) = [parent textureWriteRoundingMode];
     *(v18 + 5) = *(parent + 5);
-    [parent requiredThreadsPerThreadgroup];
+    objc_msgSend_requiredThreadsPerThreadgroup(parent);
     *(v18 + 88) = v21;
     *(v18 + 13) = v22;
   }
@@ -122,14 +122,14 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v14[6] = *MEMORY[0x1E69E9840];
+  v13[6] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v6 = MEMORY[0x1E696AEC0];
-  v13.receiver = self;
-  v13.super_class = _MTLComputePipelineState;
-  v7 = [(_MTLComputePipelineState *)&v13 description];
-  v14[0] = v5;
-  v14[1] = @"label =";
+  v12.receiver = self;
+  v12.super_class = _MTLComputePipelineState;
+  v7 = [(_MTLComputePipelineState *)&v12 description];
+  v13[0] = v5;
+  v13[1] = @"label =";
   if ([(_MTLObjectWithLabel *)self label])
   {
     label = [(_MTLObjectWithLabel *)self label];
@@ -140,9 +140,9 @@
     label = @"<none>";
   }
 
-  v14[2] = label;
-  v14[3] = v5;
-  v14[4] = @"device =";
+  v13[2] = label;
+  v13[3] = v5;
+  v13[4] = @"device =";
   device = self->_device;
   if (device)
   {
@@ -154,10 +154,8 @@
     v10 = @"<null>";
   }
 
-  v14[5] = v10;
-  result = [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v14, 6), "componentsJoinedByString:", @" "];
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  v13[5] = v10;
+  return [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v13, 6), "componentsJoinedByString:", @" "];
 }
 
 - (id)newVisibleFunctionTableWithDescriptor:(id)descriptor

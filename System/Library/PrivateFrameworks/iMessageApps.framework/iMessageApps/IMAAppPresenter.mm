@@ -19,6 +19,7 @@
 - (id)logHandle;
 - (id)transitionsPresentationViewController;
 - (int)dragManager:(id)manager dropAreaForDragTarget:(id)target;
+- (void)_hideAppCardAnimated:(BOOL)animated completion:(id)completion;
 - (void)_hideCompactBrowserAnimated:(BOOL)animated completion:(id)completion;
 - (void)_presentAppCardWithBundleIdentifier:(id)identifier completion:(id)completion;
 - (void)_presentAppCardWithBundleIdentifier:(id)identifier style:(unint64_t)style completion:(id)completion;
@@ -30,10 +31,12 @@
 - (void)commitSticker:(id)sticker withDragTarget:(id)target draggedSticker:(id)draggedSticker;
 - (void)convertIMSticker:(id)sticker bakeInEffect:(BOOL)effect completion:(id)completion;
 - (void)dealloc;
+- (void)dismissAndReloadInputViews:(BOOL)views forPlugin:(id)plugin;
 - (void)dragManager:(id)manager draggedItemWithTarget:(id)target;
 - (void)dragManager:(id)manager overrideDropPointForTarget:(id)target completion:(id)completion;
 - (void)dragManagerDidBeginDragging:(id)dragging;
 - (void)dragManagerDidEndDragging:(id)dragging;
+- (void)hideAppViewControllerAnimated:(BOOL)animated completion:(id)completion;
 - (void)notifyDelegateOfSelectedPlugin:(id)plugin type:(id)type;
 - (void)positionSwitcherOffscreen:(BOOL)offscreen;
 - (void)presentAppWithBundleIdentifier:(id)identifier completion:(id)completion;
@@ -67,9 +70,11 @@
 
 uint64_t __28__IMAAppPresenter_logHandle__block_invoke()
 {
-  logHandle_sLogHandle = os_log_create("com.apple.Messages", "iMessageAppsViewService");
+  v0 = os_log_create("com.apple.Messages", "iMessageAppsViewService");
+  v1 = logHandle_sLogHandle;
+  logHandle_sLogHandle = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)logHandle
@@ -347,6 +352,38 @@ uint64_t __86__IMAAppPresenter_presentPopoverAppWithBundleIdentifier_sourceRect_
   return remoteViewController;
 }
 
+- (void)hideAppViewControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __60__IMAAppPresenter_hideAppViewControllerAnimated_completion___block_invoke;
+  v13 = &unk_27A66DD60;
+  selfCopy = self;
+  v15 = completionCopy;
+  v7 = completionCopy;
+  v8 = MEMORY[0x277C8AB80](&v10);
+  if ([(IMAAppPresenter *)self alwaysPresentAppsExpanded:v10])
+  {
+    v9 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [IMAAppPresenter hideAppViewControllerAnimated:completion:];
+    }
+  }
+
+  else if ([(IMAAppPresenter *)self isAppCardsEnabled])
+  {
+    [(IMAAppPresenter *)self _hideAppCardAnimated:animatedCopy completion:v8];
+  }
+
+  else
+  {
+    [(IMAAppPresenter *)self _hideCompactBrowserAnimated:animatedCopy completion:v8];
+  }
+}
+
 uint64_t __60__IMAAppPresenter_hideAppViewControllerAnimated_completion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
@@ -403,6 +440,14 @@ void __58__IMAAppPresenter__hideCompactBrowserAnimated_completion___block_invoke
   {
     (*(v2 + 16))();
   }
+}
+
+- (void)_hideAppCardAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  appCardPresentationOverseer = [(IMAAppPresenter *)self appCardPresentationOverseer];
+  [appCardPresentationOverseer dismissCardAnimated:animatedCopy completion:completionCopy];
 }
 
 - (void)updateAppFrameForRotation
@@ -624,6 +669,36 @@ void __58__IMAAppPresenter__hideCompactBrowserAnimated_completion___block_invoke
     [delegate addSticker:v6];
 
     fileURL = v8;
+  }
+}
+
+- (void)dismissAndReloadInputViews:(BOOL)views forPlugin:(id)plugin
+{
+  v5 = [(IMAAppPresenter *)self delegate:views];
+  v6 = objc_opt_respondsToSelector();
+
+  isAppCardsEnabled = [(IMAAppPresenter *)self isAppCardsEnabled];
+  transitionCoordinator = self->_transitionCoordinator;
+  if (!isAppCardsEnabled || transitionCoordinator)
+  {
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __56__IMAAppPresenter_dismissAndReloadInputViews_forPlugin___block_invoke_2;
+    v9[3] = &unk_27A66DDB0;
+    v10 = v6 & 1;
+    v9[4] = self;
+    [(CKBrowserTransitionCoordinator *)transitionCoordinator dismissCurrentFullScreenModalAnimated:1 completion:v9];
+  }
+
+  else
+  {
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __56__IMAAppPresenter_dismissAndReloadInputViews_forPlugin___block_invoke;
+    v11[3] = &unk_27A66DDB0;
+    v12 = v6 & 1;
+    v11[4] = self;
+    [(IMAAppPresenter *)self _hideAppCardAnimated:1 completion:v11];
   }
 }
 
@@ -1155,44 +1230,13 @@ LABEL_15:
 - (int)dragManager:(id)manager dropAreaForDragTarget:(id)target
 {
   targetCopy = target;
-  if (![(IMAAppPresenter *)self isAppCompact])
-  {
-    goto LABEL_5;
-  }
-
-  if ([(IMAAppPresenter *)self isSwitcherOffscreen])
-  {
-    goto LABEL_5;
-  }
-
-  switcherViewController = [(IMAAppPresenter *)self switcherViewController];
-  view = [switcherViewController view];
-
-  superview = [view superview];
-  [view frame];
-  [superview convertRect:0 toView:?];
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-
-  [targetCopy screenCoordinate];
-  v37.x = v17;
-  v37.y = v18;
-  v38.origin.x = v10;
-  v38.origin.y = v12;
-  v38.size.width = v14;
-  v38.size.height = v16;
-  LOBYTE(superview) = CGRectContainsPoint(v38, v37);
-
-  if (superview)
+  if (-[IMAAppPresenter isAppCompact](self, "isAppCompact") && !-[IMAAppPresenter isSwitcherOffscreen](self, "isSwitcherOffscreen") && (-[IMAAppPresenter switcherViewController](self, "switcherViewController"), v6 = objc_claimAutoreleasedReturnValue(), [v6 view], v7 = objc_claimAutoreleasedReturnValue(), v6, objc_msgSend(v7, "superview"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "frame"), objc_msgSend(v8, "convertRect:toView:", 0), v10 = v9, v12 = v11, v14 = v13, v16 = v15, v8, objc_msgSend(targetCopy, "screenCoordinate"), v37.x = v17, v37.y = v18, v38.origin.x = v10, v38.origin.y = v12, v38.size.width = v14, v38.size.height = v16, LOBYTE(v8) = CGRectContainsPoint(v38, v37), v7, (v8 & 1) != 0))
   {
     v19 = 3;
   }
 
   else
   {
-LABEL_5:
     v20 = [IMADropTarget alloc];
     [targetCopy screenCoordinate];
     v22 = v21;

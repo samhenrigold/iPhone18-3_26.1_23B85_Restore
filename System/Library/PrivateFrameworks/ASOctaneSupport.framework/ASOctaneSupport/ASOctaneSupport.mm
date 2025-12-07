@@ -1,0 +1,10 @@
+void nullsub_1();
+void nullsub_2();
+void nullsub_3();
+uint64_t nullsub_4();
+uint64_t nullsub_5();
+void nullsub_6();
+void nullsub_7();
+uint64_t nullsub_8();
+uint64_t nullsub_9();
+void nullsub_10();

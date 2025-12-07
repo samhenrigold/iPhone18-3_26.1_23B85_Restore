@@ -60,31 +60,31 @@
     [(ULLabelMO *)v9 setUuid:0];
   }
 
-  if (!ULLabelDO::hasData(o) || (ULLabelDO::getNSDataFromLabelData(o), v15 = objc_claimAutoreleasedReturnValue(), [(ULLabelMO *)v9 setData:v15], v15, [(ULLabelMO *)v9 data], v16 = objc_claimAutoreleasedReturnValue(), v16, v16))
+  if (!ULLabelDO::hasData(o, v15) || (ULLabelDO::getNSDataFromLabelData(o, v16), v17 = objc_claimAutoreleasedReturnValue(), [(ULLabelMO *)v9 setData:v17], v17, [(ULLabelMO *)v9 data], v18 = objc_claimAutoreleasedReturnValue(), v18, v18))
   {
-    v16 = v9;
+    v18 = v9;
   }
 
-  return v16;
+  return v18;
 }
 
 - (optional<ULLabelDOAndObjectID>)convertToDO
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   labelID = [(ULLabelMO *)self labelID];
   v5 = labelID;
   if (labelID)
   {
-    [labelID stdString];
+    objc_msgSend_stdString(labelID);
   }
 
   else
   {
-    *v25 = 0u;
-    v26 = 0u;
+    *v24 = 0u;
+    v25 = 0u;
   }
 
-  if ((BYTE8(v26) & 1) == 0)
+  if ((BYTE8(v25) & 1) == 0)
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -103,20 +103,20 @@
   }
 
   [(ULLabelMO *)self receivedTimestamp];
-  v24 = v6;
+  v23 = v6;
   service = [(ULLabelMO *)self service];
   serviceUUID = [service serviceUUID];
   v9 = serviceUUID;
   if (serviceUUID)
   {
-    [serviceUUID boostUUID];
+    objc_msgSend_boostUUID(serviceUUID);
   }
 
   else
   {
-    v39[0] = 0;
-    v39[1] = 0;
+    v39 = 0;
     v40 = 0;
+    v41 = 0;
   }
 
   contextLayerType = [(ULLabelMO *)self contextLayerType];
@@ -125,18 +125,18 @@
   v13 = uuid;
   if (uuid)
   {
-    [uuid boostUUID];
+    objc_msgSend_boostUUID(uuid);
   }
 
   else
   {
-    v37[0] = 0;
-    v37[1] = 0;
+    v36 = 0;
+    v37 = 0;
     v38 = 0;
   }
 
-  v20[0] = 0;
-  v21 = 0;
+  v19[0] = 0;
+  v20 = 0;
   data = [(ULLabelMO *)self data];
   v15 = data == 0;
 
@@ -144,13 +144,13 @@
   {
     data2 = [(ULLabelMO *)self data];
     ULLabelDO::getLabelDataFromNSData(data2, contextLayerType, &buf);
-    std::__optional_storage_base<std::variant<ULLabelDataWiFi>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<ULLabelDataWiFi>,false>>(v20, &buf);
+    std::__optional_storage_base<std::variant<ULLabelDataWiFi>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::variant<ULLabelDataWiFi>,false>>(v19, &buf);
     if (buf.var0.var2.var0.var1.data[8] == 1)
     {
       *&buf.var0.var2.var0.var0 = -1;
     }
 
-    if ((v21 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
 LABEL_28:
       retstr->var0.var0 = 0;
@@ -159,46 +159,45 @@ LABEL_28:
     }
   }
 
-  if ((BYTE8(v26) & 1) == 0)
+  if ((BYTE8(v25) & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  ULLabelDO::ULLabelDO(&v32, &contextLayerType, &deviceClass, v37, &v24, v39, v25, v20);
+  ULLabelDO::ULLabelDO(&v31);
   objectID = [(ULLabelMO *)self objectID];
-  ULLabelDOAndObjectID::ULLabelDOAndObjectID(&buf, &v32, objectID);
+  ULLabelDOAndObjectID::ULLabelDOAndObjectID(&buf, &v31, objectID);
   ULLabelDO::ULLabelDO(retstr, &buf);
-  v18 = v31;
-  v31 = 0;
+  v18 = v30;
+  v30 = 0;
   retstr[1].var0.var1.var0.var1 = v18;
   retstr[1].var0.var1.var0.var2.var0.var0 = 1;
-  if (v30 == 1)
+  if (v29 == 1)
   {
-    v29 = -1;
+    v28 = -1;
   }
 
-  if (v28 < 0)
+  if (v27 < 0)
   {
     operator delete(buf.var2.var0.var1.var1);
   }
 
-  if (v36 == 1)
+  if (v35 == 1)
   {
-    v35 = -1;
+    v34 = -1;
   }
 
-  if (v34 < 0)
+  if (v33 < 0)
   {
-    operator delete(v33);
+    operator delete(v32);
   }
 
 LABEL_29:
-  if (BYTE8(v26) == 1 && SBYTE7(v26) < 0)
+  if (BYTE8(v25) == 1 && SBYTE7(v25) < 0)
   {
-    operator delete(v25[0]);
+    operator delete(v24[0]);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 

@@ -51,10 +51,9 @@
   if (*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC13HearingTestUI25HTUIResultsViewController_analyticsManager))
   {
     v2 = *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtC13HearingTestUI25HTUIResultsViewController_analyticsManager);
-    v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC13HearingTestUI25HTUIResultsViewController_analyticsManager);
     ObjectType = swift_getObjectType();
-    v8 = 3;
-    (*(v2 + 48))(&v8, self, &protocol witness table for HTUIResultsViewController, ObjectType, v2);
+    v7 = 3;
+    (*(v2 + 48))(&v7, self, &protocol witness table for HTUIResultsViewController, ObjectType, v2);
   }
 
   else

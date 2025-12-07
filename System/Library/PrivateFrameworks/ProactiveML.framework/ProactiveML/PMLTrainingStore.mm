@@ -34,7 +34,9 @@
 - (void)limitSessionsByMaxTimesAccessed;
 - (void)limitSessionsForEachLabelWithSessionDescriptor:(id)descriptor totalSessionLimit:(unint64_t)limit;
 - (void)limitSessionsWithSessionDescriptor:(id)descriptor withLabel:(id)label limit:(unint64_t)limit;
+- (void)loadDataForModel:(id)model excludeItemIdsUsedWithin:(double)within limit:(unint64_t)limit onlyAppleInternal:(BOOL)internal positiveLabel:(unint64_t)label skew:(double)skew block:(id)block;
 - (void)loadDataForModel:(id)model privacyBudgetRefreshPeriod:(double)period labels:(id)labels batchSize:(unint64_t)size block:(id)block;
+- (void)loadSessionsForModel:(id)model excludeItemIdsUsedWithin:(double)within limit:(unint64_t)limit onlyAppleInternal:(BOOL)internal positiveLabel:(unint64_t)label skew:(double)skew block:(id)block;
 - (void)loadSessionsForModel:(id)model privacyBudgetRefreshPeriod:(double)period labels:(id)labels batchSize:(unint64_t)size block:(id)block;
 - (void)logDbNotOpenEvent;
 - (void)setMaxTimesAccessed:(unint64_t)accessed;
@@ -79,36 +81,32 @@
 
 - (void)storeSession:(id)session label:(int64_t)label model:(id)model
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CCACA8];
   modelCopy = model;
   sessionCopy = session;
   v11 = [v8 stringWithFormat:@"%d", arc4random_uniform(0x2710u)];
-  v15[0] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
-  LOBYTE(v14) = 1;
-  [(PMLTrainingStore *)self storeSession:sessionCopy label:label model:modelCopy bundleId:@"test" domainId:@"foo" itemIds:v12 isAppleInternal:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[0] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  LOBYTE(v13) = 1;
+  [(PMLTrainingStore *)self storeSession:sessionCopy label:label model:modelCopy bundleId:@"test" domainId:@"foo" itemIds:v12 isAppleInternal:v13];
 }
 
 - (void)logDbNotOpenEvent
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = PML_LogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     db = self->_db;
-    v6 = 138412802;
-    v7 = db;
-    v8 = 1024;
+    v5 = 138412802;
+    v6 = db;
+    v7 = 1024;
     isUnlocked = [MEMORY[0x277D42598] isUnlocked];
-    v10 = 1024;
+    v9 = 1024;
     isClassCLocked = [MEMORY[0x277D42598] isClassCLocked];
-    _os_log_impl(&dword_260D68000, v3, OS_LOG_TYPE_DEFAULT, "db: %@, isUnlocked: %d, isClassCLocked: %d", &v6, 0x18u);
+    _os_log_impl(&dword_260D68000, v3, OS_LOG_TYPE_DEFAULT, "db: %@, isUnlocked: %d, isClassCLocked: %d", &v5, 0x18u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMaxTimesAccessed:(unint64_t)accessed
@@ -184,21 +182,20 @@ uint64_t __30__PMLTrainingStore_getSchema___block_invoke_2(uint64_t a1, void *a2
 
 uint64_t __30__PMLTrainingStore_getSchema___block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = PML_LogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "Error querying schema: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "Error querying schema: %@", &v8, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = 0;
 
-  v7 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -258,7 +255,7 @@ void __52__PMLTrainingStore_convertToBagOfIdsVectorForModel___block_invoke_2(uin
 
 uint64_t __52__PMLTrainingStore_convertToBagOfIdsVectorForModel___block_invoke_3(uint64_t a1, void *a2)
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 getIntegerForColumn:0];
   v5 = [v3 getNSDataForColumn:2];
@@ -308,17 +305,16 @@ uint64_t __52__PMLTrainingStore_convertToBagOfIdsVectorForModel___block_invoke_3
   }
 
   v19 = *(*(a1 + 32) + 16);
-  v26[0] = @"covariatesIndices";
+  v25[0] = @"covariatesIndices";
   v20 = [v9 copy];
-  v26[1] = @"covariatesValues";
-  v27[0] = v20;
+  v25[1] = @"covariatesValues";
+  v26[0] = v20;
   v21 = [v14 copy];
-  v27[1] = v21;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+  v26[1] = v21;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
   v23 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"id = %ld", v4];
   [v19 updateTable:@"sessions" dictionary:v22 whereClause:v23 onError:&__block_literal_global_303];
 
-  v24 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
@@ -341,37 +337,37 @@ uint64_t __52__PMLTrainingStore_convertToBagOfIdsVectorForModel___block_invoke_3
 
 void __68__PMLTrainingStore_updateLastTrainingFeaturizationForModel_andData___block_invoke(uint64_t a1)
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
+  v18[2] = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   v2 = *(*(a1 + 32) + 16);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __68__PMLTrainingStore_updateLastTrainingFeaturizationForModel_andData___block_invoke_2;
-  v12[3] = &unk_279ABFDB0;
-  v13 = *(a1 + 40);
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
-  v11[2] = __68__PMLTrainingStore_updateLastTrainingFeaturizationForModel_andData___block_invoke_3;
-  v11[3] = &unk_279ABFDD8;
-  v11[4] = &v14;
-  [v2 prepAndRunQuery:@"SELECT sd.id FROM sessionsDescriptors sd CROSS JOIN lastFeaturizations lf ON lf.sessionDescriptorId = sd.id WHERE sd.name = :name AND sd.locale = :locale" onPrep:v12 onRow:v11 onError:&__block_literal_global_283];
+  v11[2] = __68__PMLTrainingStore_updateLastTrainingFeaturizationForModel_andData___block_invoke_2;
+  v11[3] = &unk_279ABFDB0;
+  v12 = *(a1 + 40);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __68__PMLTrainingStore_updateLastTrainingFeaturizationForModel_andData___block_invoke_3;
+  v10[3] = &unk_279ABFDD8;
+  v10[4] = &v13;
+  [v2 prepAndRunQuery:@"SELECT sd.id FROM sessionsDescriptors sd CROSS JOIN lastFeaturizations lf ON lf.sessionDescriptorId = sd.id WHERE sd.name = :name AND sd.locale = :locale" onPrep:v11 onRow:v10 onError:&__block_literal_global_283];
   v3 = [*(a1 + 32) sessionDescriptorIdFor:*(a1 + 40)];
-  v18[0] = @"sessionDescriptorId";
+  v17[0] = @"sessionDescriptorId";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v3];
-  v18[1] = @"transformer";
-  v19[0] = v4;
-  v19[1] = *(a1 + 48);
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v17[1] = @"transformer";
+  v18[0] = v4;
+  v18[1] = *(a1 + 48);
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
   v6 = *(a1 + 32);
   v7 = *(v6 + 16);
-  if (v15[3])
+  if (v14[3])
   {
     v8 = objc_alloc(MEMORY[0x277CCACA8]);
-    v9 = [v8 initWithFormat:@"sessionDescriptorId = %lu", v15[3]];
+    v9 = [v8 initWithFormat:@"sessionDescriptorId = %lu", v14[3]];
     [v7 updateTable:@"lastFeaturizations" dictionary:v5 whereClause:v9 onError:&__block_literal_global_295];
   }
 
@@ -380,8 +376,7 @@ void __68__PMLTrainingStore_updateLastTrainingFeaturizationForModel_andData___bl
     [*(v6 + 16) insertIntoTable:@"lastFeaturizations" dictionary:v5];
   }
 
-  _Block_object_dispose(&v14, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
 }
 
 void __68__PMLTrainingStore_updateLastTrainingFeaturizationForModel_andData___block_invoke_2(uint64_t a1, void *a2)
@@ -397,17 +392,16 @@ void __68__PMLTrainingStore_updateLastTrainingFeaturizationForModel_andData___bl
 
 uint64_t __68__PMLTrainingStore_updateLastTrainingFeaturizationForModel_andData___block_invoke_4(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = PML_LogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "Failed to load last training featurization in db. Error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "Failed to load last training featurization in db. Error: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -455,7 +449,7 @@ void __68__PMLTrainingStore_lastTrainingFeaturizationForModelName_andLocale___bl
 
 uint64_t __68__PMLTrainingStore_lastTrainingFeaturizationForModelName_andLocale___block_invoke_2(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -478,9 +472,9 @@ uint64_t __68__PMLTrainingStore_lastTrainingFeaturizationForModelName_andLocale_
       v13 = PML_LogHandle();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v16 = 138412290;
-        v17 = 0;
-        _os_log_error_impl(&dword_260D68000, v13, OS_LOG_TYPE_ERROR, "Row in sessionStats contained unexpected null value, version %@, continuing to iterate as best effort", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = 0;
+        _os_log_error_impl(&dword_260D68000, v13, OS_LOG_TYPE_ERROR, "Row in sessionStats contained unexpected null value, version %@, continuing to iterate as best effort", &v15, 0xCu);
       }
 
       v11 = *MEMORY[0x277D42690];
@@ -492,30 +486,28 @@ uint64_t __68__PMLTrainingStore_lastTrainingFeaturizationForModelName_andLocale_
     v12 = PML_LogHandle();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v16) = 0;
-      _os_log_error_impl(&dword_260D68000, v12, OS_LOG_TYPE_ERROR, "Row returned in lastTrainingFeaturizationForModelName was null, continuing to iterate as best effort", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_error_impl(&dword_260D68000, v12, OS_LOG_TYPE_ERROR, "Row returned in lastTrainingFeaturizationForModelName was null, continuing to iterate as best effort", &v15, 2u);
     }
 
     v11 = *MEMORY[0x277D42690];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t __68__PMLTrainingStore_lastTrainingFeaturizationForModelName_andLocale___block_invoke_276(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = PML_LogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "Failed to load last training featurization in db. Error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "Failed to load last training featurization in db. Error: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -534,7 +526,7 @@ uint64_t __68__PMLTrainingStore_lastTrainingFeaturizationForModelName_andLocale_
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = PML_LogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -545,15 +537,14 @@ uint64_t __68__PMLTrainingStore_lastTrainingFeaturizationForModelName_andLocale_
 
   [(PMLTrainingStore *)self _unregisterUnlockHandler];
   [(_PASSqliteDatabase *)self->_db closePermanently];
-  v5.receiver = self;
-  v5.super_class = PMLTrainingStore;
-  [(PMLTrainingStore *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = PMLTrainingStore;
+  [(PMLTrainingStore *)&v4 dealloc];
 }
 
 - (BOOL)_truncateDbIfCorrupted
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D42630] isInMemoryPath:self->_dbPath])
   {
     LOBYTE(v3) = 0;
@@ -571,9 +562,9 @@ uint64_t __68__PMLTrainingStore_lastTrainingFeaturizationForModelName_andLocale_
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         dbPath = self->_dbPath;
-        v11 = 138412290;
-        v12 = dbPath;
-        _os_log_impl(&dword_260D68000, v6, OS_LOG_TYPE_DEFAULT, "PMLTraining db (%@) corrupted. Flushing.", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = dbPath;
+        _os_log_impl(&dword_260D68000, v6, OS_LOG_TYPE_DEFAULT, "PMLTraining db (%@) corrupted. Flushing.", &v10, 0xCu);
       }
 
       [MEMORY[0x277D42630] truncateDatabaseAtPath:self->_dbPath];
@@ -582,101 +573,95 @@ uint64_t __68__PMLTrainingStore_lastTrainingFeaturizationForModelName_andLocale_
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (int64_t)_unsafeOpenDbIfUnlocked
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (self->_db)
   {
-    v2 = 0;
+    return 0;
   }
 
-  else if ([MEMORY[0x277D42598] isUnlocked])
+  if (![MEMORY[0x277D42598] isUnlocked])
   {
-    [(PMLTrainingStore *)self _truncateDbIfCorrupted];
-    for (i = 1; ; i = 0)
+    return 1;
+  }
+
+  [(PMLTrainingStore *)self _truncateDbIfCorrupted];
+  for (i = 1; ; i = 0)
+  {
+    v5 = PML_LogHandle();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v5 = PML_LogHandle();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-      {
-        dbPath = self->_dbPath;
-        *buf = 138412290;
-        v16 = dbPath;
-        _os_log_debug_impl(&dword_260D68000, v5, OS_LOG_TYPE_DEBUG, "Opening db %@.", buf, 0xCu);
-      }
-
-      v6 = [MEMORY[0x277D42630] initializeDatabase:self->_dbPath withContentProtection:2 newDatabaseCreated:0 errorHandler:0];
-      if (!v6)
-      {
-        break;
-      }
-
-      v7 = v6;
-      v2 = [PMLTrainingStore _migrate:v6 forStore:self];
-      if (!v2)
-      {
-        db = self->_db;
-        self->_db = v7;
-
-        [(_PASSqliteDatabase *)self->_db prepAndRunQuery:@"PRAGMA foreign_keys = ON" onPrep:0 onRow:0 onError:&__block_literal_global_264];
-        [(PMLTrainingStore *)self _unregisterUnlockHandler];
-        goto LABEL_22;
-      }
-
-      v8 = PML_LogHandle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-      {
-        v10 = self->_dbPath;
-        *buf = 138412290;
-        v16 = v10;
-        _os_log_debug_impl(&dword_260D68000, v8, OS_LOG_TYPE_DEBUG, "Closing db %@.", buf, 0xCu);
-      }
-
-      [(_PASSqliteDatabase *)v7 closePermanently];
-      if (v2 == 2)
-      {
-        [(PMLTrainingStore *)self _unregisterUnlockHandler];
-        goto LABEL_21;
-      }
-
-      if ((i & 1) == 0 || ![(PMLTrainingStore *)self _truncateDbIfCorrupted])
-      {
-        goto LABEL_21;
-      }
+      dbPath = self->_dbPath;
+      *buf = 138412290;
+      v15 = dbPath;
+      _os_log_debug_impl(&dword_260D68000, v5, OS_LOG_TYPE_DEBUG, "Opening db %@.", buf, 0xCu);
     }
 
-    v11 = PML_LogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v6 = [MEMORY[0x277D42630] initializeDatabase:self->_dbPath withContentProtection:2 newDatabaseCreated:0 errorHandler:0];
+    if (!v6)
     {
-      *buf = 0;
-      _os_log_error_impl(&dword_260D68000, v11, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to open/initialize db.", buf, 2u);
+      break;
     }
 
-    v7 = 0;
-    v2 = 3;
+    v7 = v6;
+    v2 = [PMLTrainingStore _migrate:v6 forStore:self];
+    if (!v2)
+    {
+      db = self->_db;
+      self->_db = v7;
+
+      [(_PASSqliteDatabase *)self->_db prepAndRunQuery:@"PRAGMA foreign_keys = ON" onPrep:0 onRow:0 onError:&__block_literal_global_264];
+      [(PMLTrainingStore *)self _unregisterUnlockHandler];
+      return v2;
+    }
+
+    v8 = PML_LogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      v10 = self->_dbPath;
+      *buf = 138412290;
+      v15 = v10;
+      _os_log_debug_impl(&dword_260D68000, v8, OS_LOG_TYPE_DEBUG, "Closing db %@.", buf, 0xCu);
+    }
+
+    [(_PASSqliteDatabase *)v7 closePermanently];
+    if (v2 == 2)
+    {
+      [(PMLTrainingStore *)self _unregisterUnlockHandler];
+      goto LABEL_21;
+    }
+
+    if ((i & 1) == 0 || ![(PMLTrainingStore *)self _truncateDbIfCorrupted])
+    {
+      goto LABEL_21;
+    }
+  }
+
+  v11 = PML_LogHandle();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_error_impl(&dword_260D68000, v11, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to open/initialize db.", buf, 2u);
+  }
+
+  v7 = 0;
+  v2 = 3;
 LABEL_21:
-  }
 
-  else
-  {
-    v2 = 1;
-  }
-
-LABEL_22:
-  v13 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-uint64_t __43__PMLTrainingStore__unsafeOpenDbIfUnlocked__block_invoke()
+uint64_t __43__PMLTrainingStore__unsafeOpenDbIfUnlocked__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = PML_LogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = PML_LogHandle();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    *v2 = 0;
-    _os_log_error_impl(&dword_260D68000, v0, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to enable foreign keys support.", v2, 2u);
+    *v4 = 0;
+    _os_log_error_impl(&dword_260D68000, v2, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to enable foreign keys support.", v4, 2u);
   }
 
   return *MEMORY[0x277D42698];
@@ -723,24 +708,23 @@ uint64_t __43__PMLTrainingStore__unsafeOpenDbIfUnlocked__block_invoke()
   objc_destroyWeak(&location);
 }
 
-void __42__PMLTrainingStore__registerUnlockHandler__block_invoke(uint64_t a1, int a2)
+void __42__PMLTrainingStore__registerUnlockHandler__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v7 = *MEMORY[0x277D85DE8];
   v4 = PML_LogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7[0] = 67109120;
-    v7[1] = a2;
-    _os_log_debug_impl(&dword_260D68000, v4, OS_LOG_TYPE_DEBUG, "PMLTrainingStore notified of device lock state change to %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = v2;
+    _os_log_debug_impl(&dword_260D68000, v4, OS_LOG_TYPE_DEBUG, "PMLTrainingStore notified of device lock state change to %d", v6, 8u);
   }
 
-  if (a2 == 3 || !a2)
+  if (v2 == 3 || !v2)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     [WeakRetained _openDbIfUnlocked];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)sessionDescriptorIdFor:(id)for
@@ -768,39 +752,37 @@ void __42__PMLTrainingStore__registerUnlockHandler__block_invoke(uint64_t a1, in
 
 void __43__PMLTrainingStore_sessionDescriptorIdFor___block_invoke(uint64_t a1)
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 16);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __43__PMLTrainingStore_sessionDescriptorIdFor___block_invoke_2;
-  v11[3] = &unk_279ABFDB0;
-  v12 = *(a1 + 40);
   v10[0] = MEMORY[0x277D85DD0];
   v10[1] = 3221225472;
-  v10[2] = __43__PMLTrainingStore_sessionDescriptorIdFor___block_invoke_3;
-  v10[3] = &unk_279ABFDD8;
-  v10[4] = *(a1 + 48);
-  [v2 prepAndRunQuery:@"SELECT id FROM sessionsDescriptors WHERE name = :name AND version = :version AND locale = :locale" onPrep:v11 onRow:v10 onError:0];
+  v10[2] = __43__PMLTrainingStore_sessionDescriptorIdFor___block_invoke_2;
+  v10[3] = &unk_279ABFDB0;
+  v11 = *(a1 + 40);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __43__PMLTrainingStore_sessionDescriptorIdFor___block_invoke_3;
+  v9[3] = &unk_279ABFDD8;
+  v9[4] = *(a1 + 48);
+  [v2 prepAndRunQuery:@"SELECT id FROM sessionsDescriptors WHERE name = :name AND version = :version AND locale = :locale" onPrep:v10 onRow:v9 onError:0];
   if (!*(*(*(a1 + 48) + 8) + 24))
   {
     v3 = *(a1 + 40);
     v4 = *(*(a1 + 32) + 16);
-    v13[0] = @"name";
+    v12[0] = @"name";
     v5 = [v3 name];
-    v14[0] = v5;
-    v13[1] = @"version";
+    v13[0] = v5;
+    v12[1] = @"version";
     v6 = [*(a1 + 40) version];
-    v14[1] = v6;
-    v13[2] = @"locale";
+    v13[1] = v6;
+    v12[2] = @"locale";
     v7 = [*(a1 + 40) locale];
-    v14[2] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+    v13[2] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
     [v4 insertIntoTable:@"sessionsDescriptors" dictionary:v8];
 
     *(*(*(a1 + 48) + 8) + 24) = [*(*(a1 + 32) + 16) lastInsertRowId];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PMLTrainingStore_sessionDescriptorIdFor___block_invoke_2(uint64_t a1, void *a2)
@@ -832,7 +814,7 @@ void __43__PMLTrainingStore_sessionDescriptorIdFor___block_invoke_2(uint64_t a1,
 
 uint64_t __58__PMLTrainingStore_enumerateSessionDescriptorsUsingBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -844,7 +826,7 @@ uint64_t __58__PMLTrainingStore_enumerateSessionDescriptorsUsingBlock___block_in
     if (v5 && v6 && v7)
     {
       v9 = [PMLSessionDescriptor descriptorForName:v5 version:v6 locale:v7];
-      LOBYTE(v15) = 0;
+      LOBYTE(v14) = 0;
       (*(*(a1 + 32) + 16))();
       v10 = *MEMORY[0x277D42690];
     }
@@ -854,13 +836,13 @@ uint64_t __58__PMLTrainingStore_enumerateSessionDescriptorsUsingBlock___block_in
       v12 = PML_LogHandle();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v15 = 138412802;
-        v16 = v5;
-        v17 = 2112;
-        v18 = v6;
-        v19 = 2112;
-        v20 = v8;
-        _os_log_error_impl(&dword_260D68000, v12, OS_LOG_TYPE_ERROR, "Row in enumerateSessionDescriptorsUsingBlock contained unexpected null value, name %@, version %@, locale %@, continuing to iterate as best effort", &v15, 0x20u);
+        v14 = 138412802;
+        v15 = v5;
+        v16 = 2112;
+        v17 = v6;
+        v18 = 2112;
+        v19 = v8;
+        _os_log_error_impl(&dword_260D68000, v12, OS_LOG_TYPE_ERROR, "Row in enumerateSessionDescriptorsUsingBlock contained unexpected null value, name %@, version %@, locale %@, continuing to iterate as best effort", &v14, 0x20u);
       }
 
       v10 = *MEMORY[0x277D42690];
@@ -872,14 +854,13 @@ uint64_t __58__PMLTrainingStore_enumerateSessionDescriptorsUsingBlock___block_in
     v11 = PML_LogHandle();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v15) = 0;
-      _os_log_error_impl(&dword_260D68000, v11, OS_LOG_TYPE_ERROR, "Row returned in enumerateSessionDescriptorsUsingBlock was null, continuing to iterate as best effort", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_error_impl(&dword_260D68000, v11, OS_LOG_TYPE_ERROR, "Row returned in enumerateSessionDescriptorsUsingBlock was null, continuing to iterate as best effort", &v14, 2u);
     }
 
     v10 = *MEMORY[0x277D42690];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -916,7 +897,7 @@ uint64_t __58__PMLTrainingStore_enumerateSessionDescriptorsUsingBlock___block_in
 
 uint64_t __32__PMLTrainingStore_sessionStats__block_invoke_2(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -952,13 +933,13 @@ uint64_t __32__PMLTrainingStore_sessionStats__block_invoke_2(uint64_t a1, void *
       v20 = PML_LogHandle();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v23 = 138412802;
-        v24 = v5;
-        v25 = 2112;
-        v26 = v6;
-        v27 = 2112;
-        v28 = v8;
-        _os_log_error_impl(&dword_260D68000, v20, OS_LOG_TYPE_ERROR, "Row in sessionStats contained unexpected null value, name %@, version %@, locale %@, continuing to iterate as best effort", &v23, 0x20u);
+        v22 = 138412802;
+        v23 = v5;
+        v24 = 2112;
+        v25 = v6;
+        v26 = 2112;
+        v27 = v8;
+        _os_log_error_impl(&dword_260D68000, v20, OS_LOG_TYPE_ERROR, "Row in sessionStats contained unexpected null value, name %@, version %@, locale %@, continuing to iterate as best effort", &v22, 0x20u);
       }
 
       v18 = *MEMORY[0x277D42690];
@@ -970,30 +951,28 @@ uint64_t __32__PMLTrainingStore_sessionStats__block_invoke_2(uint64_t a1, void *
     v19 = PML_LogHandle();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v23) = 0;
-      _os_log_error_impl(&dword_260D68000, v19, OS_LOG_TYPE_ERROR, "Row returned in sessionStats was null, continuing to iterate as best effort", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_error_impl(&dword_260D68000, v19, OS_LOG_TYPE_ERROR, "Row returned in sessionStats was null, continuing to iterate as best effort", &v22, 2u);
     }
 
     v18 = *MEMORY[0x277D42690];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 uint64_t __32__PMLTrainingStore_sessionStats__block_invoke_230(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = PML_LogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "Failed to load stats about sessions in db. Error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "Failed to load stats about sessions in db. Error: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -1029,23 +1008,22 @@ void __56__PMLTrainingStore_deleteSessionsWithBundleId_domainId___block_invoke(u
 
 uint64_t __56__PMLTrainingStore_deleteSessionsWithBundleId_domainId___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = PML_LogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = 138412802;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to delete sessions for bundleId=%@ and domainId=%@. Error: %@", &v9, 0x20u);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to delete sessions for bundleId=%@ and domainId=%@. Error: %@", &v8, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -1081,23 +1059,22 @@ void __54__PMLTrainingStore_deleteSessionsWithBundleId_itemId___block_invoke(uin
 
 uint64_t __54__PMLTrainingStore_deleteSessionsWithBundleId_itemId___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = PML_LogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = 138412802;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to delete sessions for for bundleId=%@ and itemId=%@. Error: %@", &v9, 0x20u);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to delete sessions for for bundleId=%@ and itemId=%@. Error: %@", &v8, 0x20u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -1121,20 +1098,19 @@ uint64_t __54__PMLTrainingStore_deleteSessionsWithBundleId_itemId___block_invoke
 
 uint64_t __47__PMLTrainingStore_deleteSessionsWithBundleId___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = PML_LogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to delete sessions for bundleId=%@. Error: %@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to delete sessions for bundleId=%@. Error: %@", &v7, 0x16u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -1245,17 +1221,16 @@ void __71__PMLTrainingStore_limitSessionsWithSessionDescriptor_withLabel_limit__
 
 uint64_t __71__PMLTrainingStore_limitSessionsWithSessionDescriptor_withLabel_limit___block_invoke_3_211(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = PML_LogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to delete sessions. Error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to delete sessions. Error: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -1280,17 +1255,16 @@ void __71__PMLTrainingStore_limitSessionsWithSessionDescriptor_withLabel_limit__
 
 uint64_t __71__PMLTrainingStore_limitSessionsWithSessionDescriptor_withLabel_limit___block_invoke_4(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = PML_LogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to count labeled sessions. Error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to count labeled sessions. Error: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -1319,17 +1293,16 @@ uint64_t __51__PMLTrainingStore_limitSessionsByMaxTimesAccessed__block_invoke(ui
 
 uint64_t __51__PMLTrainingStore_limitSessionsByMaxTimesAccessed__block_invoke_3(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = PML_LogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to delete over used sessions. Error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to delete over used sessions. Error: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -1362,84 +1335,83 @@ uint64_t __47__PMLTrainingStore_limitSessionsByLastUsedTTL___block_invoke(uint64
 
 uint64_t __47__PMLTrainingStore_limitSessionsByLastUsedTTL___block_invoke_3(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = PML_LogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to delete unused sessions. Error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to delete unused sessions. Error: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
 - (void)limitSessionsForEachLabelWithSessionDescriptor:(id)descriptor totalSessionLimit:(unint64_t)limit
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
   db = self->_db;
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __85__PMLTrainingStore_limitSessionsForEachLabelWithSessionDescriptor_totalSessionLimit___block_invoke;
-  v34[3] = &unk_279ABFE00;
-  v34[4] = self;
-  v35 = @"SELECT count(*) FROM sessions WHERE sessionDescriptorId = (SELECT id FROM sessionsDescriptors WHERE name = :name AND version = :version AND locale = :locale) ";
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __85__PMLTrainingStore_limitSessionsForEachLabelWithSessionDescriptor_totalSessionLimit___block_invoke;
+  v33[3] = &unk_279ABFE00;
+  v33[4] = self;
+  v34 = @"SELECT count(*) FROM sessions WHERE sessionDescriptorId = (SELECT id FROM sessionsDescriptors WHERE name = :name AND version = :version AND locale = :locale) ";
   v8 = descriptorCopy;
-  v36 = v8;
-  v37 = &v38;
-  [(_PASSqliteDatabase *)db readTransaction:v34];
-  if (v39[3] >= limit)
+  v35 = v8;
+  v36 = &v37;
+  [(_PASSqliteDatabase *)db readTransaction:v33];
+  if (v38[3] >= limit)
   {
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x3032000000;
-    v31 = __Block_byref_object_copy__1041;
-    v32 = __Block_byref_object_dispose__1042;
-    v33 = objc_opt_new();
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x3032000000;
+    v30 = __Block_byref_object_copy__1041;
+    v31 = __Block_byref_object_dispose__1042;
+    v32 = objc_opt_new();
     v9 = self->_db;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __85__PMLTrainingStore_limitSessionsForEachLabelWithSessionDescriptor_totalSessionLimit___block_invoke_178;
-    v24[3] = &unk_279ABFE00;
-    v24[4] = self;
-    v25 = @"SELECT DISTINCT label FROM sessions WHERE UNLIKELY(sessionDescriptorId = (SELECT id FROM sessionsDescriptors WHERE name = :name AND version = :version AND locale = :locale))";
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __85__PMLTrainingStore_limitSessionsForEachLabelWithSessionDescriptor_totalSessionLimit___block_invoke_178;
+    v23[3] = &unk_279ABFE00;
+    v23[4] = self;
+    v24 = @"SELECT DISTINCT label FROM sessions WHERE UNLIKELY(sessionDescriptorId = (SELECT id FROM sessionsDescriptors WHERE name = :name AND version = :version AND locale = :locale))";
     v10 = v8;
-    v26 = v10;
-    v27 = &v28;
-    [(_PASSqliteDatabase *)v9 readTransaction:v24];
+    v25 = v10;
+    v26 = &v27;
+    [(_PASSqliteDatabase *)v9 readTransaction:v23];
     limitCopy = limit;
-    if ([v29[5] count] >= 2)
+    if ([v28[5] count] >= 2)
     {
-      limitCopy = (limit / ([v29[5] count] - 1)) >> 1;
+      limitCopy = (limit / ([v28[5] count] - 1)) >> 1;
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v12 = v29[5];
-    v13 = [v12 countByEnumeratingWithState:&v20 objects:v42 count:16];
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v12 = v28[5];
+    v13 = [v12 countByEnumeratingWithState:&v19 objects:v41 count:16];
     if (v13)
     {
-      v14 = *v21;
+      v14 = *v20;
       v15 = limit >> 1;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v20 + 1) + 8 * i);
+          v17 = *(*(&v19 + 1) + 8 * i);
           if ([v17 integerValue])
           {
             v18 = limitCopy;
@@ -1453,17 +1425,16 @@ uint64_t __47__PMLTrainingStore_limitSessionsByLastUsedTTL___block_invoke_3(uint
           [(PMLTrainingStore *)self limitSessionsWithSessionDescriptor:v10 withLabel:v17 limit:v18];
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v20 objects:v42 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v19 objects:v41 count:16];
       }
 
       while (v13);
     }
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v27, 8);
   }
 
-  _Block_object_dispose(&v38, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v37, 8);
 }
 
 void __85__PMLTrainingStore_limitSessionsForEachLabelWithSessionDescriptor_totalSessionLimit___block_invoke(uint64_t a1)
@@ -1525,17 +1496,16 @@ uint64_t __85__PMLTrainingStore_limitSessionsForEachLabelWithSessionDescriptor_t
 
 uint64_t __85__PMLTrainingStore_limitSessionsForEachLabelWithSessionDescriptor_totalSessionLimit___block_invoke_4_181(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = PML_LogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to count labeled sessions. Error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to count labeled sessions. Error: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -1555,17 +1525,16 @@ void __85__PMLTrainingStore_limitSessionsForEachLabelWithSessionDescriptor_total
 
 uint64_t __85__PMLTrainingStore_limitSessionsForEachLabelWithSessionDescriptor_totalSessionLimit___block_invoke_4(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = PML_LogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to count total sessions. Error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_260D68000, v3, OS_LOG_TYPE_ERROR, "PMLTrainingStore failed to count total sessions. Error: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -1808,23 +1777,23 @@ void __89__PMLTrainingStore__loadBatchForModel_privacyBudgetRefreshPeriod_labels
 
 uint64_t __89__PMLTrainingStore__loadBatchForModel_privacyBudgetRefreshPeriod_labels_batchSize_block___block_invoke_2(void *a1, void *a2)
 {
-  v44[2] = *MEMORY[0x277D85DE8];
+  v43[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 getIntegerForColumn:0];
   v5 = [v3 getIntegerForColumn:5];
   v6 = *(a1[4] + 16);
-  v43[0] = @"lastUsed";
+  v42[0] = @"lastUsed";
   v7 = MEMORY[0x277CCABB0];
   v8 = objc_opt_new();
   [v8 timeIntervalSince1970];
   v10 = v9;
 
   v11 = [v7 numberWithDouble:v10];
-  v43[1] = @"timesAccessed";
-  v44[0] = v11;
+  v42[1] = @"timesAccessed";
+  v43[0] = v11;
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v5 + 1];
-  v44[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
+  v43[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
   v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"sessionId = %ld", v4];
   [v6 updateTable:@"sessionsItemIds" dictionary:v13 whereClause:v14 onError:&__block_literal_global_163];
 
@@ -1840,11 +1809,11 @@ uint64_t __89__PMLTrainingStore__loadBatchForModel_privacyBudgetRefreshPeriod_la
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218496;
-      v38 = v4;
-      v39 = 2048;
-      v40 = [v17 length];
-      v41 = 2048;
-      v42 = [v18 length];
+      v37 = v4;
+      v38 = 2048;
+      v39 = [v17 length];
+      v40 = 2048;
+      v41 = [v18 length];
       _os_log_error_impl(&dword_260D68000, v29, OS_LOG_TYPE_ERROR, "Invalid session from db (row id %lu): covariatesIndices and covariatesValues must contain the same number of elements (expected bytes length in int/float ratio but got %lu and %lu).", buf, 0x20u);
     }
 
@@ -1865,13 +1834,13 @@ uint64_t __89__PMLTrainingStore__loadBatchForModel_privacyBudgetRefreshPeriod_la
     v30 = PML_LogHandle();
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      v35 = *(*(a1[5] + 8) + 24);
+      v34 = *(*(a1[5] + 8) + 24);
       *buf = 134218496;
-      v38 = v4;
-      v39 = 2048;
-      v40 = v35;
-      v41 = 2048;
-      v42 = v16;
+      v37 = v4;
+      v38 = 2048;
+      v39 = v34;
+      v40 = 2048;
+      v41 = v16;
       _os_log_error_impl(&dword_260D68000, v30, OS_LOG_TYPE_ERROR, "Invalid session from db (row id %lu), covariatesLength has to be %lu, got %lu.", buf, 0x20u);
     }
 
@@ -1883,18 +1852,18 @@ LABEL_15:
 
   if (v19 >= 4)
   {
-    v34 = 0;
+    v33 = 0;
     do
     {
       *buf = 0;
-      [v17 getBytes:buf range:{v34, 4}];
+      [v17 getBytes:buf range:{v33, 4}];
       if ((*buf & 0x80000000) != 0 || v16 <= *buf)
       {
-        v36 = [MEMORY[0x277CCA890] currentHandler];
-        [v36 handleFailureInMethod:a1[9] object:a1[4] file:@"PMLTrainingStore.m" lineNumber:623 description:{@"Invalid session from db (row id %lu): idx %d out of bounds [0, %lu."}], v4, *buf, v16);
+        v35 = [MEMORY[0x277CCA890] currentHandler];
+        [v35 handleFailureInMethod:a1[9] object:a1[4] file:@"PMLTrainingStore.m" lineNumber:623 description:{@"Invalid session from db (row id %lu): idx %d out of bounds [0, %lu."}], v4, *buf, v16);
       }
 
-      v34 += 4;
+      v33 += 4;
       --v20;
     }
 
@@ -1925,26 +1894,24 @@ LABEL_15:
 LABEL_16:
   v31 = *v28;
 
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 uint64_t __89__PMLTrainingStore__loadBatchForModel_privacyBudgetRefreshPeriod_labels_batchSize_block___block_invoke_164(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = PML_LogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "Failed to load sessions for model %@. Error: %@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "Failed to load sessions for model %@. Error: %@", &v7, 0x16u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -1994,7 +1961,7 @@ uint64_t __89__PMLTrainingStore__loadBatchForModel_privacyBudgetRefreshPeriod_la
 
 void __140__PMLTrainingStore__loadDataForModel_positiveRowId_negativeRowId_excludeItemIdsUsedWithin_limit_onlyAppleInternal_positiveLabel_skew_block___block_invoke(uint64_t a1)
 {
-  v51[2] = *MEMORY[0x277D85DE8];
+  v50[2] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   [v2 timeIntervalSince1970];
   v4 = v3;
@@ -2002,7 +1969,7 @@ void __140__PMLTrainingStore__loadDataForModel_positiveRowId_negativeRowId_exclu
   v5 = v4 - *(a1 + 80);
   v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"AND sessions.label = %lu AND sessions.id in (SELECT sessionId from sessionsItemIds WHERE lastUsed < %f AND timesAccessed < %lu) ", *(a1 + 88), *&v5, *(*(a1 + 32) + 40)];
   v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"AND sessions.label = 0 AND sessions.id in (SELECT sessionId from sessionsItemIds WHERE lastUsed < %f AND timesAccessed < %lu) ", *&v5, *(*(a1 + 32) + 40)];
-  v45 = v6;
+  v44 = v6;
   v8 = [*(a1 + 32) sessionDimensionsForModel:*(a1 + 40) startingRowId:*(a1 + 96) onlyAppleInternal:*(a1 + 120) labelFilter:v6];
   v9 = [*(a1 + 32) sessionDimensionsForModel:*(a1 + 40) startingRowId:*(a1 + 104) onlyAppleInternal:*(a1 + 120) labelFilter:v7];
   v10 = [v8 objectForKeyedSubscript:@"numberOfColumns"];
@@ -2061,26 +2028,26 @@ void __140__PMLTrainingStore__loadDataForModel_positiveRowId_negativeRowId_exclu
       v22 = v16;
 LABEL_21:
       v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 88)];
-      v50[0] = &unk_287357ED8;
+      v49[0] = &unk_287357ED8;
       v37 = [PMLLabelLimitRowId labelLimitRowIdWithLabel:v7 limit:v23 rowId:*(a1 + 104)];
-      v50[1] = v36;
-      v51[0] = v37;
-      v38 = [PMLLabelLimitRowId labelLimitRowIdWithLabel:v45 limit:v22 rowId:*(a1 + 96)];
-      v51[1] = v38;
-      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
+      v49[1] = v36;
+      v50[0] = v37;
+      v38 = [PMLLabelLimitRowId labelLimitRowIdWithLabel:v44 limit:v22 rowId:*(a1 + 96)];
+      v50[1] = v38;
+      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
 
       v40 = *(a1 + 32);
       v41 = *(a1 + 40);
       v42 = *(a1 + 112);
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __140__PMLTrainingStore__loadDataForModel_positiveRowId_negativeRowId_excludeItemIdsUsedWithin_limit_onlyAppleInternal_positiveLabel_skew_block___block_invoke_2;
-      v46[3] = &unk_279ABFC98;
-      v47 = v36;
-      v48 = &unk_287357ED8;
-      v49 = *(a1 + 48);
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __140__PMLTrainingStore__loadDataForModel_positiveRowId_negativeRowId_excludeItemIdsUsedWithin_limit_onlyAppleInternal_positiveLabel_skew_block___block_invoke_2;
+      v45[3] = &unk_279ABFC98;
+      v46 = v36;
+      v47 = &unk_287357ED8;
+      v48 = *(a1 + 48);
       v43 = v36;
-      [v40 _loadDataFromLabelAndTuples:v39 model:v41 numberOfRows:v42 numberOfColumns:v14 lastUsedMax:v46 block:v5];
+      [v40 _loadDataFromLabelAndTuples:v39 model:v41 numberOfRows:v42 numberOfColumns:v14 lastUsedMax:v45 block:v5];
 
       goto LABEL_22;
     }
@@ -2102,7 +2069,6 @@ LABEL_21:
   (*(v34 + 16))(v34, v14, MEMORY[0x277CBEBF8], v35, *(a1 + 96), *(a1 + 104), *(*(a1 + 72) + 8) + 24);
 
 LABEL_22:
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __140__PMLTrainingStore__loadDataForModel_positiveRowId_negativeRowId_excludeItemIdsUsedWithin_limit_onlyAppleInternal_positiveLabel_skew_block___block_invoke_2(void *a1, uint64_t a2, void *a3, void *a4, void *a5)
@@ -2122,40 +2088,40 @@ void __140__PMLTrainingStore__loadDataForModel_positiveRowId_negativeRowId_exclu
 
 - (void)_loadDataFromLabelAndTuples:(id)tuples model:(id)model numberOfRows:(unint64_t)rows numberOfColumns:(unint64_t)columns lastUsedMax:(double)max block:(id)block
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   tuplesCopy = tuples;
   modelCopy = model;
   blockCopy = block;
-  v62 = 0;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = __Block_byref_object_copy__1041;
-  v60 = __Block_byref_object_dispose__1042;
-  v61 = objc_opt_new();
-  v55[0] = 0;
-  v55[1] = v55;
-  v55[2] = 0x2020000000;
-  v55[3] = 0;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__1041;
-  v53 = __Block_byref_object_dispose__1042;
-  v54 = objc_opt_new();
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__1041;
-  v47 = __Block_byref_object_dispose__1042;
-  v48 = objc_opt_new();
+  v61 = 0;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__1041;
+  v59 = __Block_byref_object_dispose__1042;
+  v60 = objc_opt_new();
+  v54[0] = 0;
+  v54[1] = v54;
+  v54[2] = 0x2020000000;
+  v54[3] = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__1041;
+  v52 = __Block_byref_object_dispose__1042;
+  v53 = objc_opt_new();
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__1041;
+  v46 = __Block_byref_object_dispose__1042;
+  v47 = objc_opt_new();
   if (rows)
   {
     v17 = 0;
     do
     {
       null = [MEMORY[0x277CBEB68] null];
-      [v57[5] setObject:null atIndexedSubscript:v17];
+      [v56[5] setObject:null atIndexedSubscript:v17];
 
       ++v17;
     }
@@ -2163,63 +2129,61 @@ void __140__PMLTrainingStore__loadDataForModel_positiveRowId_negativeRowId_exclu
     while (rows != v17);
   }
 
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __101__PMLTrainingStore__loadDataFromLabelAndTuples_model_numberOfRows_numberOfColumns_lastUsedMax_block___block_invoke;
-  v33[3] = &unk_279ABFC70;
-  v33[4] = self;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __101__PMLTrainingStore__loadDataFromLabelAndTuples_model_numberOfRows_numberOfColumns_lastUsedMax_block___block_invoke;
+  v32[3] = &unk_279ABFC70;
+  v32[4] = self;
   v19 = modelCopy;
   maxCopy = max;
-  v34 = v19;
-  v35 = &v49;
-  v40 = a2;
+  v33 = v19;
+  v34 = &v48;
+  v39 = a2;
   columnsCopy = columns;
-  v36 = &v56;
-  v37 = v55;
-  v38 = &v43;
+  v35 = &v55;
+  v36 = v54;
+  v37 = &v42;
   rowsCopy = rows;
-  [tuplesCopy enumerateKeysAndObjectsUsingBlock:v33];
+  [tuplesCopy enumerateKeysAndObjectsUsingBlock:v32];
   v20 = objc_opt_new();
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  v21 = v57[5];
-  v22 = [v21 countByEnumeratingWithState:&v29 objects:v63 count:16];
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v21 = v56[5];
+  v22 = [v21 countByEnumeratingWithState:&v28 objects:v62 count:16];
   if (v22)
   {
-    v23 = *v30;
+    v23 = *v29;
     do
     {
       v24 = 0;
       do
       {
-        if (*v30 != v23)
+        if (*v29 != v23)
         {
           objc_enumerationMutation(v21);
         }
 
-        [*(*(&v29 + 1) + 8 * v24) floatValue];
-        v28 = v25;
-        [v20 appendBytes:&v28 length:4];
+        [*(*(&v28 + 1) + 8 * v24) floatValue];
+        v27 = v25;
+        [v20 appendBytes:&v27 length:4];
         ++v24;
       }
 
       while (v22 != v24);
-      v22 = [v21 countByEnumeratingWithState:&v29 objects:v63 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v28 objects:v62 count:16];
     }
 
     while (v22);
   }
 
-  blockCopy[2](blockCopy, columns, v44[5], v20, v50[5], &v62);
-  _Block_object_dispose(&v43, 8);
+  blockCopy[2](blockCopy, columns, v43[5], v20, v49[5], &v61);
+  _Block_object_dispose(&v42, 8);
 
-  _Block_object_dispose(&v49, 8);
-  _Block_object_dispose(v55, 8);
-  _Block_object_dispose(&v56, 8);
-
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(v54, 8);
+  _Block_object_dispose(&v55, 8);
 }
 
 void __101__PMLTrainingStore__loadDataFromLabelAndTuples_model_numberOfRows_numberOfColumns_lastUsedMax_block___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2282,35 +2246,35 @@ void __101__PMLTrainingStore__loadDataFromLabelAndTuples_model_numberOfRows_numb
 
 uint64_t __101__PMLTrainingStore__loadDataFromLabelAndTuples_model_numberOfRows_numberOfColumns_lastUsedMax_block___block_invoke_3(uint64_t a1, void *a2)
 {
-  v44[2] = *MEMORY[0x277D85DE8];
+  v43[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 getIntegerForColumn:0];
   v5 = [v3 getIntegerForColumn:5];
   v6 = *(*(a1 + 32) + 16);
-  v43[0] = @"lastUsed";
+  v42[0] = @"lastUsed";
   v7 = MEMORY[0x277CCABB0];
   v8 = objc_opt_new();
   [v8 timeIntervalSince1970];
   v10 = v9;
 
   v11 = [v7 numberWithDouble:v10];
-  v43[1] = @"timesAccessed";
-  v44[0] = v11;
+  v42[1] = @"timesAccessed";
+  v43[0] = v11;
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v5 + 1];
-  v44[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
+  v43[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
   v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"sessionId = %ld", v4];
   [v6 updateTable:@"sessionsItemIds" dictionary:v13 whereClause:v14 onError:&__block_literal_global];
 
   v15 = [v3 getIntegerForColumn:1];
   if ([*(a1 + 40) integerValue] != v15)
   {
-    v31 = [MEMORY[0x277CCA890] currentHandler];
-    v32 = *(a1 + 88);
-    v33 = *(a1 + 32);
-    v34 = *(a1 + 40);
-    v35 = [*(a1 + 48) label];
-    [v31 handleFailureInMethod:v32 object:v33 file:@"PMLTrainingStore.m" lineNumber:396 description:{@"Read label %lu while specified %@. Matcher: %@", v15, v34, v35}];
+    v30 = [MEMORY[0x277CCA890] currentHandler];
+    v31 = *(a1 + 88);
+    v32 = *(a1 + 32);
+    v33 = *(a1 + 40);
+    v34 = [*(a1 + 48) label];
+    [v30 handleFailureInMethod:v31 object:v32 file:@"PMLTrainingStore.m" lineNumber:396 description:{@"Read label %lu while specified %@. Matcher: %@", v15, v33, v34}];
   }
 
   v16 = [MEMORY[0x277CCABB0] numberWithLong:v4];
@@ -2327,11 +2291,11 @@ uint64_t __101__PMLTrainingStore__loadDataFromLabelAndTuples_model_numberOfRows_
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218496;
-      v38 = v4;
-      v39 = 2048;
-      v40 = [v18 length];
-      v41 = 2048;
-      v42 = [v19 length];
+      v37 = v4;
+      v38 = 2048;
+      v39 = [v18 length];
+      v40 = 2048;
+      v41 = [v19 length];
       _os_log_error_impl(&dword_260D68000, v25, OS_LOG_TYPE_ERROR, "Invalid session from db (row id %lu): covariatesIndices and covariatesValues must contain the same number of elements (expected bytes length in int/float ratio but got %lu and %lu).", buf, 0x20u);
     }
 
@@ -2344,13 +2308,13 @@ uint64_t __101__PMLTrainingStore__loadDataFromLabelAndTuples_model_numberOfRows_
     v26 = PML_LogHandle();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v30 = *(a1 + 96);
+      v29 = *(a1 + 96);
       *buf = 134218496;
-      v38 = v4;
-      v39 = 2048;
-      v40 = v30;
-      v41 = 2048;
-      v42 = v17;
+      v37 = v4;
+      v38 = 2048;
+      v39 = v29;
+      v40 = 2048;
+      v41 = v17;
       _os_log_error_impl(&dword_260D68000, v26, OS_LOG_TYPE_ERROR, "Invalid session from db (row id %lu), covariatesLength has to be %lu, got %lu.", buf, 0x20u);
     }
 
@@ -2362,18 +2326,18 @@ LABEL_15:
 
   if (v20 >= 4)
   {
-    v29 = 0;
+    v28 = 0;
     do
     {
       *buf = 0;
-      [v18 getBytes:buf range:{v29, 4}];
+      [v18 getBytes:buf range:{v28, 4}];
       if ((*buf & 0x80000000) != 0 || v17 <= *buf)
       {
-        v36 = [MEMORY[0x277CCA890] currentHandler];
-        [v36 handleFailureInMethod:*(a1 + 88) object:*(a1 + 32) file:@"PMLTrainingStore.m" lineNumber:419 description:{@"Invalid session from db (row id %lu): idx %d out of bounds [0, %lu."}], v4, *buf, v17);
+        v35 = [MEMORY[0x277CCA890] currentHandler];
+        [v35 handleFailureInMethod:*(a1 + 88) object:*(a1 + 32) file:@"PMLTrainingStore.m" lineNumber:419 description:{@"Invalid session from db (row id %lu): idx %d out of bounds [0, %lu."}], v4, *buf, v17);
       }
 
-      v29 += 4;
+      v28 += 4;
       --v21;
     }
 
@@ -2397,44 +2361,41 @@ LABEL_15:
 
 LABEL_16:
 
-  result = *v24;
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  return *v24;
 }
 
 uint64_t __101__PMLTrainingStore__loadDataFromLabelAndTuples_model_numberOfRows_numberOfColumns_lastUsedMax_block___block_invoke_146(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = PML_LogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "Failed to load sessions for model %@. Error: %@", &v8, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "Failed to load sessions for model %@. Error: %@", &v7, 0x16u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
 - (id)sessionDimensionsForModel:(id)model startingRowId:(unint64_t)id onlyAppleInternal:(BOOL)internal labelFilter:(id)filter
 {
   internalCopy = internal;
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   modelCopy = model;
   filterCopy = filter;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
   v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
   v12 = &stru_28734BC68;
   if (internalCopy)
   {
@@ -2444,32 +2405,30 @@ uint64_t __101__PMLTrainingStore__loadDataFromLabelAndTuples_model_numberOfRows_
   v13 = v12;
   filterCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SELECT covariatesLength, COUNT(*) FROM sessions WHERE sessionDescriptorId = (SELECT id FROM sessionsDescriptors WHERE name = :name AND version = :version AND locale = :locale) AND id > :rowId %@ %@ ORDER BY id", v13, filterCopy];
   db = self->_db;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __90__PMLTrainingStore_sessionDimensionsForModel_startingRowId_onlyAppleInternal_labelFilter___block_invoke;
-  v23[3] = &unk_279ABFBA8;
-  idCopy = id;
-  v16 = modelCopy;
-  v24 = v16;
   v22[0] = MEMORY[0x277D85DD0];
   v22[1] = 3221225472;
-  v22[2] = __90__PMLTrainingStore_sessionDimensionsForModel_startingRowId_onlyAppleInternal_labelFilter___block_invoke_2;
-  v22[3] = &unk_279ABFBD0;
-  v22[4] = &v30;
-  v22[5] = &v26;
-  [(_PASSqliteDatabase *)db prepAndRunQuery:filterCopy onPrep:v23 onRow:v22 onError:0];
-  v34[0] = @"numberOfRows";
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v27[3]];
-  v34[1] = @"numberOfColumns";
-  v35[0] = v17;
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v31[3]];
-  v35[1] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+  v22[2] = __90__PMLTrainingStore_sessionDimensionsForModel_startingRowId_onlyAppleInternal_labelFilter___block_invoke;
+  v22[3] = &unk_279ABFBA8;
+  idCopy = id;
+  v16 = modelCopy;
+  v23 = v16;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __90__PMLTrainingStore_sessionDimensionsForModel_startingRowId_onlyAppleInternal_labelFilter___block_invoke_2;
+  v21[3] = &unk_279ABFBD0;
+  v21[4] = &v29;
+  v21[5] = &v25;
+  [(_PASSqliteDatabase *)db prepAndRunQuery:filterCopy onPrep:v22 onRow:v21 onError:0];
+  v33[0] = @"numberOfRows";
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v26[3]];
+  v33[1] = @"numberOfColumns";
+  v34[0] = v17;
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v30[3]];
+  v34[1] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v30, 8);
-
-  v20 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v29, 8);
 
   return v19;
 }
@@ -2526,10 +2485,9 @@ uint64_t __90__PMLTrainingStore_sessionDimensionsForModel_startingRowId_onlyAppl
 
 void __91__PMLTrainingStore_loadSessionsForModel_privacyBudgetRefreshPeriod_labels_batchSize_block___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v7 = *(a1 + 32);
-  v8 = a4;
-  v9 = a3;
-  v10 = [objc_opt_class() _sessionDataToBatchWithNumberOfColumns:a2 rowsData:v9 labelsData:v8];
+  v7 = a4;
+  v8 = a3;
+  v9 = [objc_opt_class() _sessionDataToBatchWithNumberOfColumns:a2 rowsData:v8 labelsData:v7];
 
   (*(*(a1 + 40) + 16))();
 }
@@ -2574,14 +2532,73 @@ void __87__PMLTrainingStore_loadDataForModel_privacyBudgetRefreshPeriod_labels_b
   }
 }
 
+- (void)loadSessionsForModel:(id)model excludeItemIdsUsedWithin:(double)within limit:(unint64_t)limit onlyAppleInternal:(BOOL)internal positiveLabel:(unint64_t)label skew:(double)skew block:(id)block
+{
+  internalCopy = internal;
+  blockCopy = block;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __115__PMLTrainingStore_loadSessionsForModel_excludeItemIdsUsedWithin_limit_onlyAppleInternal_positiveLabel_skew_block___block_invoke;
+  v18[3] = &unk_279ABFB58;
+  v18[4] = self;
+  v19 = blockCopy;
+  v17 = blockCopy;
+  [(PMLTrainingStore *)self loadDataForModel:model excludeItemIdsUsedWithin:limit limit:internalCopy onlyAppleInternal:label positiveLabel:v18 skew:within block:skew];
+}
+
 void __115__PMLTrainingStore_loadSessionsForModel_excludeItemIdsUsedWithin_limit_onlyAppleInternal_positiveLabel_skew_block___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v7 = *(a1 + 32);
-  v8 = a4;
-  v9 = a3;
-  v10 = [objc_opt_class() _sessionDataToBatchWithNumberOfColumns:a2 rowsData:v9 labelsData:v8];
+  v7 = a4;
+  v8 = a3;
+  v9 = [objc_opt_class() _sessionDataToBatchWithNumberOfColumns:a2 rowsData:v8 labelsData:v7];
 
   (*(*(a1 + 40) + 16))();
+}
+
+- (void)loadDataForModel:(id)model excludeItemIdsUsedWithin:(double)within limit:(unint64_t)limit onlyAppleInternal:(BOOL)internal positiveLabel:(unint64_t)label skew:(double)skew block:(id)block
+{
+  internalCopy = internal;
+  modelCopy = model;
+  blockCopy = block;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 1;
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x2020000000;
+  v29 = 0;
+  v17 = MEMORY[0x277D85DD0];
+  do
+  {
+    v18 = v39[3];
+    v19 = v35[3];
+    v22[0] = v17;
+    v22[1] = 3221225472;
+    v22[2] = __111__PMLTrainingStore_loadDataForModel_excludeItemIdsUsedWithin_limit_onlyAppleInternal_positiveLabel_skew_block___block_invoke;
+    v22[3] = &unk_279ABFB30;
+    v24 = &v38;
+    v25 = &v34;
+    v26 = &v30;
+    v27 = v28;
+    v20 = blockCopy;
+    v23 = v20;
+    [(PMLTrainingStore *)self _loadDataForModel:modelCopy positiveRowId:v18 negativeRowId:v19 excludeItemIdsUsedWithin:limit limit:internalCopy onlyAppleInternal:label positiveLabel:within skew:skew block:v22];
+  }
+
+  while ((v31[3] & 1) != 0);
+  _Block_object_dispose(v28, 8);
+  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v38, 8);
 }
 
 void __111__PMLTrainingStore_loadDataForModel_excludeItemIdsUsedWithin_limit_onlyAppleInternal_positiveLabel_skew_block___block_invoke(void *a1, uint64_t a2, void *a3, void *a4, unint64_t a5, unint64_t a6, _BYTE *a7)
@@ -2698,36 +2715,36 @@ LABEL_8:
 
 void __87__PMLTrainingStore_storeSession_label_model_bundleId_domainId_itemIds_isAppleInternal___block_invoke(uint64_t a1)
 {
-  v45[7] = *MEMORY[0x277D85DE8];
+  v44[7] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) sessionDescriptorIdFor:*(a1 + 40)];
   obja = *(*(a1 + 32) + 16);
-  v44[0] = @"creationTimestamp";
+  v43[0] = @"creationTimestamp";
   v3 = MEMORY[0x277CCABB0];
   v4 = objc_opt_new();
   [v4 timeIntervalSince1970];
   v6 = v5;
 
   v7 = [v3 numberWithDouble:v6];
-  v45[0] = v7;
-  v44[1] = @"sessionDescriptorId";
+  v44[0] = v7;
+  v43[1] = @"sessionDescriptorId";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v2];
-  v45[1] = v8;
-  v44[2] = @"label";
+  v44[1] = v8;
+  v43[2] = @"label";
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 80)];
-  v45[2] = v9;
-  v44[3] = @"covariatesLength";
+  v44[2] = v9;
+  v43[3] = @"covariatesLength";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 48), "length")}];
-  v45[3] = v10;
-  v44[4] = @"covariatesIndices";
+  v44[3] = v10;
+  v43[4] = @"covariatesIndices";
   v11 = [*(a1 + 48) indicesData];
-  v45[4] = v11;
-  v44[5] = @"covariatesValues";
+  v44[4] = v11;
+  v43[5] = @"covariatesValues";
   v12 = [*(a1 + 48) valuesData];
-  v45[5] = v12;
-  v44[6] = @"isAppleInternal";
+  v44[5] = v12;
+  v43[6] = @"isAppleInternal";
   v13 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 88)];
-  v45[6] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:7];
+  v44[6] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:7];
   [obja insertIntoTable:@"sessions" dictionary:v14];
 
   v15 = [*(*(a1 + 32) + 16) lastInsertRowId];
@@ -2735,55 +2752,55 @@ void __87__PMLTrainingStore_storeSession_label_model_bundleId_domainId_itemIds_i
   if (*(a1 + 56))
   {
     v17 = *(*(a1 + 32) + 16);
-    v42[0] = @"sessionId";
+    v41[0] = @"sessionId";
     v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v15];
     v20 = *(a1 + 56);
     v19 = *(a1 + 64);
-    v43[0] = v18;
-    v43[1] = v19;
-    v42[1] = @"bundleIdentifier";
-    v42[2] = @"domainIdentifier";
-    v43[2] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:3];
+    v42[0] = v18;
+    v42[1] = v19;
+    v41[1] = @"bundleIdentifier";
+    v41[2] = @"domainIdentifier";
+    v42[2] = v20;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
     [v17 insertIntoTable:@"sessionsDomainIds" dictionary:v21];
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obj = *(a1 + 72);
-  v22 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v22 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v36;
+    v24 = *v35;
     do
     {
       v25 = 0;
       do
       {
-        if (*v36 != v24)
+        if (*v35 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v35 + 1) + 8 * v25);
+        v26 = *(*(&v34 + 1) + 8 * v25);
         v27 = *(*(a1 + 32) + 16);
-        v39[0] = v16;
+        v38[0] = v16;
         [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v15];
         v29 = v28 = v16;
         v30 = *(a1 + 64);
-        v40[0] = v29;
-        v40[1] = v30;
-        v39[1] = @"bundleIdentifier";
-        v39[2] = @"itemIdentifier";
-        v40[2] = v26;
-        v40[3] = &unk_287357ED8;
-        v39[3] = @"lastUsed";
-        v39[4] = @"timesAccessed";
-        v40[4] = &unk_287357ED8;
-        v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:5];
+        v39[0] = v29;
+        v39[1] = v30;
+        v38[1] = @"bundleIdentifier";
+        v38[2] = @"itemIdentifier";
+        v39[2] = v26;
+        v39[3] = &unk_287357ED8;
+        v38[3] = @"lastUsed";
+        v38[4] = @"timesAccessed";
+        v39[4] = &unk_287357ED8;
+        v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:5];
         [v27 insertIntoTable:@"sessionsItemIds" dictionary:v31];
 
         v16 = v28;
@@ -2791,13 +2808,11 @@ void __87__PMLTrainingStore_storeSession_label_model_bundleId_domainId_itemIds_i
       }
 
       while (v23 != v25);
-      v23 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v23 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
     while (v23);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (PMLTrainingStore)initWithPath:(id)path allowSkipSchema:(BOOL)schema
@@ -2874,27 +2889,27 @@ void __87__PMLTrainingStore_storeSession_label_model_bundleId_domainId_itemIds_i
 
 uint64_t __78__PMLTrainingStore__runQueries_andUpdateVersionTo_inTransactionOnDb_forStore___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v21;
+    v5 = *v20;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v21 != v5)
+      if (*v20 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v7 = *(*(&v20 + 1) + 8 * v6);
+      v7 = *(*(&v19 + 1) + 8 * v6);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -2914,7 +2929,7 @@ LABEL_3:
 LABEL_11:
       if (v4 == ++v6)
       {
-        v4 = [v2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -2926,21 +2941,20 @@ LABEL_11:
 
 LABEL_10:
     v11 = *(a1 + 48);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __78__PMLTrainingStore__runQueries_andUpdateVersionTo_inTransactionOnDb_forStore___block_invoke_2;
-    v16[3] = &unk_279AC0020;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __78__PMLTrainingStore__runQueries_andUpdateVersionTo_inTransactionOnDb_forStore___block_invoke_2;
+    v15[3] = &unk_279AC0020;
     v12 = v11;
-    v19 = *(a1 + 56);
-    v17 = v12;
-    v18 = v7;
-    v13 = [v12 prepAndRunQuery:v7 onPrep:0 onRow:0 onError:v16];
+    v18 = *(a1 + 56);
+    v16 = v12;
+    v17 = v7;
+    v13 = [v12 prepAndRunQuery:v7 onPrep:0 onRow:0 onError:v15];
 
     if (!v13)
     {
 
-      result = 0;
-      goto LABEL_15;
+      return 0;
     }
 
     goto LABEL_11;
@@ -2949,40 +2963,36 @@ LABEL_10:
 LABEL_13:
 
   [*(a1 + 48) setUserVersion:*(a1 + 56)];
-  result = 1;
-LABEL_15:
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t __78__PMLTrainingStore__runQueries_andUpdateVersionTo_inTransactionOnDb_forStore___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = PML_LogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = [*(a1 + 32) filename];
-    v8 = *(a1 + 48);
-    v9 = *(a1 + 40);
-    v10 = 138413058;
-    v11 = v7;
-    v12 = 2048;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "Migration encountered error during migration of %@: versions %lu, query: %@, error: %@", &v10, 0x2Au);
+    v6 = [*(a1 + 32) filename];
+    v7 = *(a1 + 48);
+    v8 = *(a1 + 40);
+    v9 = 138413058;
+    v10 = v6;
+    v11 = 2048;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "Migration encountered error during migration of %@: versions %lu, query: %@, error: %@", &v9, 0x2Au);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
 + (int64_t)migrate:(id)migrate to:(id)to forStore:(id)store
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   migrateCopy = migrate;
   toCopy = to;
   storeCopy = store;
@@ -3000,9 +3010,9 @@ uint64_t __78__PMLTrainingStore__runQueries_andUpdateVersionTo_inTransactionOnDb
     v15 = PML_LogHandle();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 134217984;
-      v23 = v14;
-      _os_log_impl(&dword_260D68000, v15, OS_LOG_TYPE_DEFAULT, "Future database version detected (%lu). Giving up on migration.", &v22, 0xCu);
+      v21 = 134217984;
+      v22 = v14;
+      _os_log_impl(&dword_260D68000, v15, OS_LOG_TYPE_DEFAULT, "Future database version detected (%lu). Giving up on migration.", &v21, 0xCu);
     }
 
     v13 = 2;
@@ -3035,8 +3045,8 @@ LABEL_15:
     v19 = PML_LogHandle();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v22) = 0;
-      _os_log_error_impl(&dword_260D68000, v19, OS_LOG_TYPE_ERROR, "PMLTrainingStore db failed to migrate but migration is needed.", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_error_impl(&dword_260D68000, v19, OS_LOG_TYPE_ERROR, "PMLTrainingStore db failed to migrate but migration is needed.", &v21, 2u);
     }
 
     v13 = 4;
@@ -3047,7 +3057,6 @@ LABEL_2:
   v13 = 0;
 LABEL_16:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

@@ -28,8 +28,8 @@
   x = label.origin.x;
   validator = self->_validator;
   completionCopy = completion;
-  objc_msgSend_coverageOfTimeLabel_(validator, v9, v10, v11, x, y, width, height);
-  completionCopy[2](completionCopy, v12 <= 0.18);
+  objc_msgSend_coverageOfTimeLabel_(validator, v9, v10, x, y, width, height);
+  completionCopy[2](completionCopy, v11 <= 0.18);
 }
 
 @end

@@ -181,52 +181,53 @@ LABEL_27:
   v7 = [NSURL fileURLWithPath:directory];
   v8 = [(NSFileManager *)self enumeratorAtURL:v7 includingPropertiesForKeys:0 options:5 errorHandler:0];
 
-  v26 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
+  v26 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v10)
   {
     v12 = v10;
-    v13 = *v25;
+    v13 = *v26;
     *&v11 = 138412546;
-    v22 = v11;
+    v23 = v11;
     do
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v25 != v13)
+        if (*v26 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * i);
+        v15 = *(*(&v25 + 1) + 8 * i);
         pathExtension = [v15 pathExtension];
         v17 = [pathExtension isEqualToString:extensionCopy];
 
         if (v17)
         {
-          v23 = 0;
-          v18 = [(NSFileManager *)self removeItemAtURL:v15 error:&v23];
-          v19 = v23;
+          v24 = 0;
+          v18 = [(NSFileManager *)self removeItemAtURL:v15 error:&v24];
+          v19 = v24;
+          v20 = v19;
           if ((v18 & 1) == 0)
           {
-            v20 = BCIMLog();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v21 = BCIMLog(v19);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
-              *buf = v22;
-              v29 = v15;
-              v30 = 2112;
-              v31 = v19;
-              _os_log_error_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "Error removing file %@: %@", buf, 0x16u);
+              *buf = v23;
+              v30 = v15;
+              v31 = 2112;
+              v32 = v20;
+              _os_log_error_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "Error removing file %@: %@", buf, 0x16u);
             }
           }
         }
       }
 
-      v12 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v12 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v12);

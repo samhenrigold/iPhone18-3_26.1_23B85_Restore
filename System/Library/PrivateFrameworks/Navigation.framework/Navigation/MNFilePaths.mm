@@ -58,11 +58,11 @@
 
 + (BOOL)createFolderIfNotPresent:(id)present error:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   presentCopy = present;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v13 = 0;
-  if (![defaultManager fileExistsAtPath:presentCopy isDirectory:&v13])
+  v12 = 0;
+  if (![defaultManager fileExistsAtPath:presentCopy isDirectory:&v12])
   {
     v8 = +[MNFilePaths fileAttributes];
     v7 = 1;
@@ -78,9 +78,9 @@ LABEL_11:
     {
       v10 = *error;
       *buf = 138412546;
-      v15 = presentCopy;
-      v16 = 2112;
-      v17 = v10;
+      v14 = presentCopy;
+      v15 = 2112;
+      v16 = v10;
       _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "Could not create trace directory at path: %@. Error: %@", buf, 0x16u);
     }
 
@@ -89,13 +89,13 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
     v8 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v15 = presentCopy;
+      v14 = presentCopy;
       _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEBUG, "File exists in place of traces directory at path: %@. Please remove it.", buf, 0xCu);
     }
 
@@ -105,13 +105,12 @@ LABEL_10:
   v7 = 1;
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 void __35__MNFilePaths_navTempDirectoryPath__block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v0 = +[MNFilePaths navdCacheDirectoryPath];
   v1 = [v0 stringByAppendingPathComponent:@"tmp"];
   v2 = navTempDirectoryPath_navTracesPath;
@@ -120,12 +119,10 @@ void __35__MNFilePaths_navTempDirectoryPath__block_invoke()
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138477827;
-    v6 = navTempDirectoryPath_navTracesPath;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEBUG, "navTracesDirectoryPath: %{private}@", &v5, 0xCu);
+    v4 = 138477827;
+    v5 = navTempDirectoryPath_navTracesPath;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEBUG, "navTracesDirectoryPath: %{private}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (NSString)commuteTracesDirectoryPath
@@ -166,7 +163,7 @@ void __35__MNFilePaths_navTempDirectoryPath__block_invoke()
 
 void __37__MNFilePaths_navTracesDirectoryPath__block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v0 = +[MNFilePaths navdCacheDirectoryPath];
   v1 = [v0 stringByAppendingPathComponent:@"NavTraces"];
   v2 = navTracesDirectoryPath_navTracesPath;
@@ -175,12 +172,10 @@ void __37__MNFilePaths_navTracesDirectoryPath__block_invoke()
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138477827;
-    v6 = navTracesDirectoryPath_navTracesPath;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEBUG, "navTracesDirectoryPath: %{private}@", &v5, 0xCu);
+    v4 = 138477827;
+    v5 = navTracesDirectoryPath_navTracesPath;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEBUG, "navTracesDirectoryPath: %{private}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (NSString)navdCacheDirectoryPath
@@ -197,7 +192,7 @@ void __37__MNFilePaths_navTracesDirectoryPath__block_invoke()
 
 void __37__MNFilePaths_navdCacheDirectoryPath__block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v0 = +[MNFilePaths _cachesDirectoryPath];
   v1 = [v0 stringByAppendingPathComponent:@"com.apple.navd"];
   v2 = navdCacheDirectoryPath_navdCachePath;
@@ -206,21 +201,18 @@ void __37__MNFilePaths_navdCacheDirectoryPath__block_invoke()
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138477827;
-    v6 = navdCacheDirectoryPath_navdCachePath;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEBUG, "navdCacheDirectoryPath: %{private}@", &v5, 0xCu);
+    v4 = 138477827;
+    v5 = navdCacheDirectoryPath_navdCachePath;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEBUG, "navdCacheDirectoryPath: %{private}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (NSDictionary)fileAttributes
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = *MEMORY[0x1E696A3A0];
-  v6[0] = *MEMORY[0x1E696A388];
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E696A3A0];
+  v5[0] = *MEMORY[0x1E696A388];
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -239,7 +231,7 @@ void __37__MNFilePaths_navdCacheDirectoryPath__block_invoke()
 
 void __35__MNFilePaths__cachesDirectoryPath__block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v0 = +[MNFilePaths _homeDirectoryPath];
   v1 = [v0 stringByAppendingPathComponent:@"Library/Caches/"];
   v2 = _cachesDirectoryPath_cachesPath;
@@ -248,12 +240,10 @@ void __35__MNFilePaths__cachesDirectoryPath__block_invoke()
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138477827;
-    v6 = _cachesDirectoryPath_cachesPath;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEBUG, "cachesDirectory: %{private}@", &v5, 0xCu);
+    v4 = 138477827;
+    v5 = _cachesDirectoryPath_cachesPath;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEBUG, "cachesDirectory: %{private}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_homeDirectoryPath

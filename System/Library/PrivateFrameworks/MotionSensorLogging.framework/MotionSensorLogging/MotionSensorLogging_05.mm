@@ -1194,28 +1194,25 @@ uint64_t CMMsl::AuxiliaryDeviceMotion::writeTo(uint64_t this, PB::Writer *a2)
   v16 = *(v3 + 152);
   if ((v16 & 8) != 0)
   {
-    v17 = *(v3 + 148);
     this = PB::Writer::writeVarInt(a2);
     v16 = *(v3 + 152);
   }
 
   if (v16)
   {
-    v18 = *(v3 + 128);
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v19 = *(v3 + 104);
-  v20 = *(v3 + 112);
-  while (v19 != v20)
+  v17 = *(v3 + 104);
+  v18 = *(v3 + 112);
+  while (v17 != v18)
   {
-    v21 = *v19++;
-    this = PB::Writer::write(a2, v21);
+    v19 = *v17++;
+    this = PB::Writer::write(a2, v19);
   }
 
   if ((*(v3 + 152) & 4) != 0)
   {
-    v22 = *(v3 + 144);
 
     return PB::Writer::writeVarInt(a2);
   }
@@ -1243,21 +1240,13 @@ uint64_t CMMsl::AuxiliaryDeviceMotion::hash_value(CMMsl::AuxiliaryDeviceMotion *
     v2 = 0;
   }
 
-  v3 = *(this + 7);
-  v4 = *(this + 8);
+  v3 = PBHashBytes();
+  v4 = PBHashBytes();
   v5 = PBHashBytes();
-  v6 = *(this + 10);
-  v7 = *(this + 11);
-  v8 = PBHashBytes();
-  v9 = *(this + 4);
-  v10 = *(this + 5);
-  v11 = PBHashBytes();
-  v12 = *(this + 1);
-  v13 = *(this + 2);
-  v14 = PBHashBytes();
+  v6 = PBHashBytes();
   if ((*(this + 152) & 8) != 0)
   {
-    v15 = *(this + 37);
+    v7 = *(this + 37);
     if (*(this + 152))
     {
       goto LABEL_8;
@@ -1266,31 +1255,29 @@ uint64_t CMMsl::AuxiliaryDeviceMotion::hash_value(CMMsl::AuxiliaryDeviceMotion *
 
   else
   {
-    v15 = 0;
+    v7 = 0;
     if (*(this + 152))
     {
 LABEL_8:
-      v16 = *(this + 16);
+      v8 = *(this + 16);
       goto LABEL_11;
     }
   }
 
-  v16 = 0;
+  v8 = 0;
 LABEL_11:
-  v17 = *(this + 13);
-  v18 = *(this + 14);
-  v19 = PBHashBytes();
+  v9 = PBHashBytes();
   if ((*(this + 152) & 4) != 0)
   {
-    v20 = *(this + 36);
+    v10 = *(this + 36);
   }
 
   else
   {
-    v20 = 0;
+    v10 = 0;
   }
 
-  return v5 ^ v2 ^ v8 ^ v11 ^ v14 ^ v15 ^ v16 ^ v19 ^ v20;
+  return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ v7 ^ v8 ^ v9 ^ v10;
 }
 
 uint64_t CMMsl::AveragedALSData::AveragedALSData(uint64_t this)
@@ -1810,7 +1797,6 @@ uint64_t CMMsl::BTConnection::formatText(CMMsl::BTConnection *this, PB::TextForm
   v5 = *(this + 28);
   if ((v5 & 4) != 0)
   {
-    v6 = *(this + 24);
     PB::TextFormatter::format(a2, "fConnected");
     v5 = *(this + 28);
     if ((v5 & 1) == 0)
@@ -2036,7 +2022,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  v5 = *(v3 + 24);
 
   return PB::Writer::write(a2);
 }
@@ -2171,17 +2156,17 @@ void CMMsl::BacklightState::~BacklightState(CMMsl::BacklightState *this)
   JUMPOUT(0x25F8548F0);
 }
 
-uint64_t CMMsl::BacklightState::BacklightState(uint64_t this, const CMMsl::BacklightState *a2)
+CMMsl::BacklightState *CMMsl::BacklightState::BacklightState(CMMsl::BacklightState *this, const CMMsl::BacklightState *a2)
 {
   *this = &unk_286C1EB00;
-  *(this + 8) = 0;
-  *(this + 28) = 0;
-  *(this + 16) = 0;
+  *(this + 1) = 0;
+  *(this + 7) = 0;
+  *(this + 2) = 0;
   if (*(a2 + 28))
   {
     v2 = *(a2 + 6);
     *(this + 28) = 1;
-    *(this + 24) = v2;
+    *(this + 6) = v2;
   }
 
   if (*(a2 + 1))
@@ -2282,7 +2267,6 @@ uint64_t CMMsl::BacklightState::formatText(CMMsl::BacklightState *this, PB::Text
   PB::TextFormatter::beginObject(a2, a3);
   if (*(this + 28))
   {
-    v5 = *(this + 6);
     PB::TextFormatter::format(a2, "backlightState");
   }
 
@@ -2506,19 +2490,18 @@ LABEL_48:
 
 uint64_t CMMsl::BacklightState::writeTo(uint64_t this, PB::Writer *a2)
 {
-  v3 = this;
+  v2 = this;
   if (*(this + 28))
   {
-    v4 = *(this + 24);
     this = PB::Writer::writeVarInt(a2);
   }
 
-  if (*(v3 + 8))
+  if (*(v2 + 8))
   {
     this = PB::Writer::write();
   }
 
-  if (*(v3 + 16))
+  if (*(v2 + 16))
   {
 
     return PB::Writer::write();
@@ -2529,7 +2512,6 @@ uint64_t CMMsl::BacklightState::writeTo(uint64_t this, PB::Writer *a2)
 
 BOOL CMMsl::BacklightState::operator==(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 28);
   if (*(a1 + 28))
   {
     if ((*(a2 + 28) & 1) == 0 || *(a1 + 24) != *(a2 + 24))
@@ -2543,81 +2525,81 @@ BOOL CMMsl::BacklightState::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v5 = *(a1 + 8);
-  v6 = *(a2 + 8);
-  if (v5)
+  v4 = *(a1 + 8);
+  v5 = *(a2 + 8);
+  if (v4)
   {
-    if (!v6)
+    if (!v5)
     {
       return 0;
     }
 
-    v7 = *(v5 + 23);
-    if (v7 >= 0)
+    v6 = *(v4 + 23);
+    if (v6 >= 0)
     {
-      v8 = *(v5 + 23);
+      v7 = *(v4 + 23);
     }
 
     else
     {
+      v7 = *(v4 + 8);
+    }
+
+    v8 = *(v5 + 23);
+    v9 = v8;
+    if ((v8 & 0x80u) != 0)
+    {
       v8 = *(v5 + 8);
     }
 
-    v9 = *(v6 + 23);
-    v10 = v9;
-    if ((v9 & 0x80u) != 0)
-    {
-      v9 = *(v6 + 8);
-    }
-
-    if (v8 != v9)
+    if (v7 != v8)
     {
       return 0;
     }
 
-    v11 = v7 >= 0 ? *(a1 + 8) : *v5;
-    v12 = v10 >= 0 ? *(a2 + 8) : *v6;
-    if (memcmp(v11, v12, v8))
+    v10 = v6 >= 0 ? *(a1 + 8) : *v4;
+    v11 = v9 >= 0 ? *(a2 + 8) : *v5;
+    if (memcmp(v10, v11, v7))
     {
       return 0;
     }
   }
 
-  else if (v6)
+  else if (v5)
   {
     return 0;
   }
 
-  v14 = *(a1 + 16);
-  v15 = *(a2 + 16);
-  result = v15 == 0;
-  if (v14)
+  v13 = *(a1 + 16);
+  v14 = *(a2 + 16);
+  result = v14 == 0;
+  if (v13)
   {
-    if (v15)
+    if (v14)
     {
-      v16 = *(v14 + 23);
-      if (v16 >= 0)
+      v15 = *(v13 + 23);
+      if (v15 >= 0)
       {
-        v17 = *(v14 + 23);
+        v16 = *(v13 + 23);
       }
 
       else
       {
+        v16 = *(v13 + 8);
+      }
+
+      v17 = *(v14 + 23);
+      v18 = v17;
+      if ((v17 & 0x80u) != 0)
+      {
         v17 = *(v14 + 8);
       }
 
-      v18 = *(v15 + 23);
-      v19 = v18;
-      if ((v18 & 0x80u) != 0)
+      if (v16 == v17)
       {
-        v18 = *(v15 + 8);
-      }
-
-      if (v17 == v18)
-      {
-        v20 = v16 >= 0 ? *(a1 + 16) : *v14;
-        v21 = v19 >= 0 ? *(a2 + 16) : *v15;
-        if (!memcmp(v20, v21, v17))
+        v19 = v15 >= 0 ? *(a1 + 16) : *v13;
+        v20 = v18 >= 0 ? *(a2 + 16) : *v14;
+        if (!memcmp(v19, v20, v16))
         {
           return 1;
         }
@@ -2850,7 +2832,6 @@ uint64_t CMMsl::BasebandCompassCoex::formatText(CMMsl::BasebandCompassCoex *this
   v5 = *(this + 28);
   if ((v5 & 8) != 0)
   {
-    v6 = *(this + 24);
     PB::TextFormatter::format(a2, "inCoex");
     v5 = *(this + 28);
     if ((v5 & 2) == 0)
@@ -2870,7 +2851,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v7 = *(this + 4);
   PB::TextFormatter::format(a2, "reserved");
   v5 = *(this + 28);
   if ((v5 & 4) == 0)
@@ -2885,7 +2865,6 @@ LABEL_4:
   }
 
 LABEL_11:
-  v8 = *(this + 5);
   PB::TextFormatter::format(a2, "subType");
   if (*(this + 28))
   {
@@ -3242,7 +3221,6 @@ LABEL_3:
       }
 
 LABEL_8:
-      v6 = *(v3 + 24);
       this = PB::Writer::write(a2);
       if ((*(v3 + 28) & 2) == 0)
       {
@@ -3258,7 +3236,6 @@ LABEL_8:
     goto LABEL_3;
   }
 
-  v5 = *(v3 + 20);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 28);
   if ((v4 & 8) != 0)
@@ -3273,7 +3250,6 @@ LABEL_4:
   }
 
 LABEL_9:
-  v7 = *(v3 + 16);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -3654,7 +3630,7 @@ float CMMsl::BasebandCompassCoexConstraints::BasebandCompassCoexConstraints(uint
   return result;
 }
 
-CMMsl *CMMsl::BasebandCompassCoexConstraints::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::BasebandCompassCoexConstraints::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -3672,7 +3648,6 @@ uint64_t CMMsl::BasebandCompassCoexConstraints::formatText(CMMsl::BasebandCompas
   v5 = *(this + 24);
   if ((v5 & 0x80) != 0)
   {
-    v6 = *(this + 44);
     PB::TextFormatter::format(a2, "activeCoex");
     v5 = *(this + 24);
     if ((v5 & 4) == 0)
@@ -3706,7 +3681,6 @@ LABEL_4:
   }
 
 LABEL_18:
-  v7 = *(this + 45);
   PB::TextFormatter::format(a2, "blackout");
   v5 = *(this + 24);
   if ((v5 & 8) == 0)
@@ -3749,7 +3723,6 @@ LABEL_7:
   }
 
 LABEL_21:
-  v8 = *(this + 46);
   PB::TextFormatter::format(a2, "isSettle");
   v5 = *(this + 24);
   if ((v5 & 0x400) == 0)
@@ -3764,7 +3737,6 @@ LABEL_8:
   }
 
 LABEL_22:
-  v9 = *(this + 47);
   PB::TextFormatter::format(a2, "rapidGradientChange");
   v5 = *(this + 24);
   if ((v5 & 1) == 0)
@@ -3793,7 +3765,6 @@ LABEL_10:
   }
 
 LABEL_24:
-  v10 = *(this + 9);
   PB::TextFormatter::format(a2, "state");
   v5 = *(this + 24);
   if ((v5 & 0x40) == 0)
@@ -4246,7 +4217,6 @@ LABEL_6:
   }
 
 LABEL_17:
-  v5 = *(v3 + 47);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 48);
   if ((v4 & 0x100) == 0)
@@ -4261,7 +4231,6 @@ LABEL_7:
   }
 
 LABEL_18:
-  v6 = *(v3 + 45);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 48);
   if ((v4 & 0x80) == 0)
@@ -4276,7 +4245,6 @@ LABEL_8:
   }
 
 LABEL_19:
-  v7 = *(v3 + 44);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 48);
   if ((v4 & 0x20) == 0)
@@ -4291,7 +4259,6 @@ LABEL_9:
   }
 
 LABEL_20:
-  v8 = *(v3 + 36);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 48);
   if ((v4 & 0x10) == 0)
@@ -4327,7 +4294,6 @@ LABEL_11:
   }
 
 LABEL_23:
-  v9 = *(v3 + 46);
 
   return PB::Writer::write(a2);
 }
@@ -4851,7 +4817,6 @@ uint64_t CMMsl::BasebandSpeed::formatText(CMMsl::BasebandSpeed *this, PB::TextFo
   v5 = *(this + 32);
   if ((v5 & 2) != 0)
   {
-    v7 = *(this + 4);
     PB::TextFormatter::format(a2, "reserved");
     v5 = *(this + 32);
     if ((v5 & 4) == 0)
@@ -4871,7 +4836,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v8 = *(this + 5);
   PB::TextFormatter::format(a2, "scaledValue");
   v5 = *(this + 32);
   if ((v5 & 8) == 0)
@@ -4886,7 +4850,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  v9 = *(this + 6);
   PB::TextFormatter::format(a2, "speedRange");
   v5 = *(this + 32);
   if ((v5 & 0x10) == 0)
@@ -4901,12 +4864,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  v10 = *(this + 7);
   PB::TextFormatter::format(a2, "speedThreshold");
   if (*(this + 32))
   {
 LABEL_6:
-    v6 = *(this + 1);
     PB::TextFormatter::format(a2, "timestamp");
   }
 
@@ -5504,7 +5465,6 @@ uint64_t CMMsl::BasebandSpeed::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 32);
   if (v4)
   {
-    v5 = *(this + 8);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 32);
     if ((v4 & 0x10) == 0)
@@ -5524,7 +5484,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(v3 + 28);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 32);
   if ((v4 & 8) == 0)
@@ -5536,7 +5495,6 @@ LABEL_4:
     }
 
 LABEL_10:
-    v8 = *(v3 + 20);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 32) & 2) == 0)
     {
@@ -5547,7 +5505,6 @@ LABEL_10:
   }
 
 LABEL_9:
-  v7 = *(v3 + 24);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 32);
   if ((v4 & 4) != 0)
@@ -5562,7 +5519,6 @@ LABEL_5:
   }
 
 LABEL_11:
-  v9 = *(v3 + 16);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -5929,7 +5885,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  v7 = *(this + 24);
   PB::TextFormatter::format(a2, "possibleObstructed");
   v5 = *(this + 28);
   if ((v5 & 0x10) == 0)
@@ -5944,12 +5899,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  v8 = *(this + 25);
   PB::TextFormatter::format(a2, "resetTriggered");
   if (*(this + 28))
   {
 LABEL_6:
-    v6 = *(this + 1);
     PB::TextFormatter::format(a2, "timestamp");
   }
 
@@ -6227,7 +6180,6 @@ uint64_t CMMsl::BaselineResetCheck::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 28);
   if (v4)
   {
-    v5 = *(this + 8);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 28);
     if ((v4 & 0x10) == 0)
@@ -6247,7 +6199,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(v3 + 25);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 28);
   if ((v4 & 8) == 0)
@@ -6269,7 +6220,6 @@ LABEL_10:
   }
 
 LABEL_9:
-  v7 = *(v3 + 24);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 28);
   if ((v4 & 4) != 0)
@@ -6284,9 +6234,9 @@ LABEL_5:
   }
 
 LABEL_11:
-  v8 = *(v3 + 16);
+  v5 = *(v3 + 16);
 
-  return PB::Writer::write(a2, v8);
+  return PB::Writer::write(a2, v5);
 }
 
 BOOL CMMsl::BaselineResetCheck::operator==(uint64_t a1, uint64_t a2)
@@ -6466,12 +6416,12 @@ void CMMsl::BatchedLocationFromOdometer::~BatchedLocationFromOdometer(CMMsl::Bat
   JUMPOUT(0x25F8548F0);
 }
 
-uint64_t CMMsl::BatchedLocationFromOdometer::BatchedLocationFromOdometer(uint64_t this, const CMMsl::BatchedLocationFromOdometer *a2)
+CMMsl::BatchedLocationFromOdometer *CMMsl::BatchedLocationFromOdometer::BatchedLocationFromOdometer(CMMsl::BatchedLocationFromOdometer *this, const CMMsl::MotionGPSLocation **a2)
 {
   *this = &unk_286C1EC18;
-  *(this + 8) = 0;
-  *(this + 20) = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  *(this + 5) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -6480,22 +6430,22 @@ uint64_t CMMsl::BatchedLocationFromOdometer::BatchedLocationFromOdometer(uint64_
   {
     v2 = *(a2 + 4);
     *(this + 20) |= 1u;
-    *(this + 16) = v2;
+    *(this + 4) = v2;
   }
 
   return this;
 }
 
-const CMMsl::BatchedLocationFromOdometer *CMMsl::BatchedLocationFromOdometer::operator=(const CMMsl::BatchedLocationFromOdometer *a1, const CMMsl::BatchedLocationFromOdometer *a2)
+uint64_t CMMsl::BatchedLocationFromOdometer::operator=(uint64_t a1, const CMMsl::MotionGPSLocation **a2)
 {
   if (a1 != a2)
   {
     CMMsl::BatchedLocationFromOdometer::BatchedLocationFromOdometer(v6, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v7;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v7;
     v7 = v3;
-    v4 = *(a1 + 2);
-    *(a1 + 2) = v8;
+    v4 = *(a1 + 16);
+    *(a1 + 16) = v8;
     v8 = v4;
     CMMsl::BatchedLocationFromOdometer::~BatchedLocationFromOdometer(v6);
   }
@@ -6558,14 +6508,13 @@ uint64_t CMMsl::BatchedLocationFromOdometer::formatText(CMMsl::BatchedLocationFr
   PB::TextFormatter::beginObject(a2, a3);
   if (*(this + 20))
   {
-    v5 = *(this + 4);
     PB::TextFormatter::format(a2, "batchedLocationFixType");
   }
 
-  v6 = *(this + 1);
-  if (v6)
+  v5 = *(this + 1);
+  if (v5)
   {
-    (*(*v6 + 32))(v6, a2, "super");
+    (*(*v5 + 32))(v5, a2, "super");
   }
 
   return MEMORY[0x2821A4560](a2);
@@ -6796,7 +6745,6 @@ uint64_t CMMsl::BatchedLocationFromOdometer::writeTo(uint64_t this, PB::Writer *
 
   if (*(v3 + 20))
   {
-    v5 = *(v3 + 16);
 
     return PB::Writer::writeVarInt(a2);
   }
@@ -7219,9 +7167,9 @@ unint64_t CMMsl::BatchedLocationFromOdometer::hash_value(CMMsl::BatchedLocationF
   return v3 ^ v2;
 }
 
-uint64_t CMMsl::BatchedLocationFromOdometer::makeSuper(uint64_t this)
+void *CMMsl::BatchedLocationFromOdometer::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -7431,7 +7379,7 @@ LABEL_16:
   return this;
 }
 
-uint64_t CMMsl::BatchedPPGData::operator=(uint64_t a1, const CMMsl::BatchedPPGData *a2)
+CMMsl *CMMsl::BatchedPPGData::operator=(CMMsl *a1, const CMMsl::BatchedPPGData *a2)
 {
   if (a1 != a2)
   {
@@ -7514,7 +7462,7 @@ uint64_t CMMsl::swap(uint64_t this, CMMsl::BatchedPPGData *a2, CMMsl::BatchedPPG
   return this;
 }
 
-uint64_t CMMsl::BatchedPPGData::BatchedPPGData(uint64_t a1, uint64_t a2)
+uint64_t CMMsl::BatchedPPGData::BatchedPPGData(uint64_t a1, _DWORD *a2)
 {
   *a1 = &unk_286C1EC50;
   *(a1 + 24) = 0u;
@@ -7525,25 +7473,25 @@ uint64_t CMMsl::BatchedPPGData::BatchedPPGData(uint64_t a1, uint64_t a2)
   v4 = a1 + 8;
   *(a1 + 56) = 0u;
   v5 = a1 + 56;
-  *(a1 + 140) = *(a2 + 140);
-  *(a2 + 140) = 0;
-  *(a1 + 136) = *(a2 + 136);
-  *(a1 + 120) = *(a2 + 120);
-  *(a1 + 128) = *(a2 + 128);
-  *(a1 + 124) = *(a2 + 124);
-  *(a1 + 132) = *(a2 + 132);
-  sub_25AD28758(a1 + 80, (a2 + 80));
-  sub_25AD28758(v5, (a2 + 56));
-  *(a1 + 116) = *(a2 + 116);
-  *(a1 + 112) = *(a2 + 112);
-  *(a1 + 108) = *(a2 + 108);
-  sub_25AD28758(a1 + 32, (a2 + 32));
-  sub_25AD28758(v4, (a2 + 8));
-  *(a1 + 104) = *(a2 + 104);
+  *(a1 + 140) = a2[35];
+  a2[35] = 0;
+  *(a1 + 136) = a2[34];
+  *(a1 + 120) = a2[30];
+  *(a1 + 128) = a2[32];
+  *(a1 + 124) = a2[31];
+  *(a1 + 132) = a2[33];
+  sub_25AD28758(a1 + 80, a2 + 5);
+  sub_25AD28758(v5, (a2 + 14));
+  *(a1 + 116) = a2[29];
+  *(a1 + 112) = a2[28];
+  *(a1 + 108) = a2[27];
+  sub_25AD28758(a1 + 32, a2 + 2);
+  sub_25AD28758(v4, (a2 + 2));
+  *(a1 + 104) = a2[26];
   return a1;
 }
 
-uint64_t CMMsl::BatchedPPGData::operator=(uint64_t a1, uint64_t a2)
+_DWORD *CMMsl::BatchedPPGData::operator=(_DWORD *a1, _DWORD *a2)
 {
   if (a1 != a2)
   {
@@ -7561,43 +7509,40 @@ uint64_t CMMsl::BatchedPPGData::formatText(CMMsl::BatchedPPGData *this, PB::Text
   v5 = *(this + 70);
   if ((v5 & 0x80) != 0)
   {
-    v6 = *(this + 33);
     PB::TextFormatter::format(a2, "TIA");
     v5 = *(this + 70);
   }
 
   if (v5)
   {
-    v7 = *(this + 26);
     PB::TextFormatter::format(a2, "blankDacOffset");
   }
 
-  v8 = *(this + 1);
-  v9 = *(this + 2);
-  while (v8 != v9)
+  v6 = *(this + 1);
+  v7 = *(this + 2);
+  while (v6 != v7)
   {
-    v10 = *v8++;
+    v6 += 4;
     PB::TextFormatter::format(a2, "blankDark");
   }
 
-  v11 = *(this + 4);
-  v12 = *(this + 5);
-  while (v11 != v12)
+  v8 = *(this + 4);
+  v9 = *(this + 5);
+  while (v8 != v9)
   {
-    v13 = *v11++;
+    v8 += 4;
     PB::TextFormatter::format(a2, "blankLight");
   }
 
-  v14 = *(this + 70);
-  if ((v14 & 2) != 0)
+  v10 = *(this + 70);
+  if ((v10 & 2) != 0)
   {
-    v28 = *(this + 27);
     PB::TextFormatter::format(a2, "blankTIA");
-    v14 = *(this + 70);
-    if ((v14 & 4) == 0)
+    v10 = *(this + 70);
+    if ((v10 & 4) == 0)
     {
 LABEL_11:
-      if ((v14 & 8) == 0)
+      if ((v10 & 8) == 0)
       {
         goto LABEL_13;
       }
@@ -7606,62 +7551,56 @@ LABEL_11:
     }
   }
 
-  else if ((v14 & 4) == 0)
+  else if ((v10 & 4) == 0)
   {
     goto LABEL_11;
   }
 
-  v29 = *(this + 28);
   PB::TextFormatter::format(a2, "blankiLED");
   if ((*(this + 70) & 8) != 0)
   {
 LABEL_12:
-    v15 = *(this + 29);
     PB::TextFormatter::format(a2, "dacOffset");
   }
 
 LABEL_13:
-  v16 = *(this + 7);
-  v17 = *(this + 8);
-  while (v16 != v17)
+  v11 = *(this + 7);
+  v12 = *(this + 8);
+  while (v11 != v12)
   {
-    v18 = *v16++;
+    v11 += 4;
     PB::TextFormatter::format(a2, "dark");
   }
 
-  v19 = *(this + 70);
-  if ((v19 & 0x10) != 0)
+  v13 = *(this + 70);
+  if ((v13 & 0x10) != 0)
   {
-    v20 = *(this + 30);
     PB::TextFormatter::format(a2, "flagBitfield");
-    v19 = *(this + 70);
+    v13 = *(this + 70);
   }
 
-  if ((v19 & 0x20) != 0)
+  if ((v13 & 0x20) != 0)
   {
-    v21 = *(this + 31);
     PB::TextFormatter::format(a2, "iLED");
   }
 
-  v22 = *(this + 10);
-  v23 = *(this + 11);
-  while (v22 != v23)
+  v14 = *(this + 10);
+  v15 = *(this + 11);
+  while (v14 != v15)
   {
-    v24 = *v22++;
+    v14 += 4;
     PB::TextFormatter::format(a2, "light");
   }
 
-  v25 = *(this + 70);
-  if ((v25 & 0x40) != 0)
+  v16 = *(this + 70);
+  if ((v16 & 0x40) != 0)
   {
-    v26 = *(this + 32);
     PB::TextFormatter::format(a2, "samplingFrequency");
-    v25 = *(this + 70);
+    v16 = *(this + 70);
   }
 
-  if ((v25 & 0x100) != 0)
+  if ((v16 & 0x100) != 0)
   {
-    v27 = *(this + 34);
     PB::TextFormatter::format(a2, "timestampRel");
   }
 
@@ -9674,7 +9613,6 @@ uint64_t CMMsl::BatchedPPGData::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 140);
   if ((v4 & 0x100) != 0)
   {
-    v20 = *(this + 136);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 140);
     if ((v4 & 0x10) == 0)
@@ -9694,7 +9632,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v21 = *(v3 + 120);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 140);
   if ((v4 & 0x40) == 0)
@@ -9706,7 +9643,6 @@ LABEL_4:
     }
 
 LABEL_28:
-    v23 = *(v3 + 124);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 140) & 0x80) == 0)
     {
@@ -9717,7 +9653,6 @@ LABEL_28:
   }
 
 LABEL_27:
-  v22 = *(v3 + 128);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 140);
   if ((v4 & 0x20) != 0)
@@ -9729,37 +9664,35 @@ LABEL_5:
   if ((v4 & 0x80) != 0)
   {
 LABEL_6:
-    v5 = *(v3 + 132);
     this = PB::Writer::writeVarInt(a2);
   }
 
 LABEL_7:
-  v6 = *(v3 + 80);
-  v7 = *(v3 + 88);
-  while (v6 != v7)
+  v5 = *(v3 + 80);
+  v6 = *(v3 + 88);
+  while (v5 != v6)
   {
-    v8 = *v6++;
+    v5 += 4;
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v9 = *(v3 + 56);
-  v10 = *(v3 + 64);
-  while (v9 != v10)
+  v7 = *(v3 + 56);
+  v8 = *(v3 + 64);
+  while (v7 != v8)
   {
-    v11 = *v9++;
+    v7 += 4;
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v12 = *(v3 + 140);
-  if ((v12 & 8) == 0)
+  v9 = *(v3 + 140);
+  if ((v9 & 8) == 0)
   {
-    if ((v12 & 4) == 0)
+    if ((v9 & 4) == 0)
     {
       goto LABEL_15;
     }
 
 LABEL_31:
-    v25 = *(v3 + 112);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 140) & 2) == 0)
     {
@@ -9769,45 +9702,204 @@ LABEL_31:
     goto LABEL_16;
   }
 
-  v24 = *(v3 + 116);
   this = PB::Writer::writeVarInt(a2);
-  v12 = *(v3 + 140);
-  if ((v12 & 4) != 0)
+  v9 = *(v3 + 140);
+  if ((v9 & 4) != 0)
   {
     goto LABEL_31;
   }
 
 LABEL_15:
-  if ((v12 & 2) != 0)
+  if ((v9 & 2) != 0)
   {
 LABEL_16:
-    v13 = *(v3 + 108);
     this = PB::Writer::writeVarInt(a2);
   }
 
 LABEL_17:
-  v14 = *(v3 + 32);
-  v15 = *(v3 + 40);
-  while (v14 != v15)
+  v10 = *(v3 + 32);
+  v11 = *(v3 + 40);
+  while (v10 != v11)
   {
-    v16 = *v14++;
+    v10 += 4;
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v17 = *(v3 + 8);
-  v18 = *(v3 + 16);
-  while (v17 != v18)
+  v12 = *(v3 + 8);
+  v13 = *(v3 + 16);
+  while (v12 != v13)
   {
-    v19 = *v17++;
+    v12 += 4;
     this = PB::Writer::writeVarInt(a2);
   }
 
   if (*(v3 + 140))
   {
-    v26 = *(v3 + 104);
 
     return PB::Writer::writeVarInt(a2);
   }
 
   return this;
+}
+
+BOOL CMMsl::BatchedPPGData::operator==(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 140);
+  v5 = *(a2 + 140);
+  if ((v4 & 0x100) != 0)
+  {
+    if ((*(a2 + 140) & 0x100) == 0 || *(a1 + 136) != *(a2 + 136))
+    {
+      return 0;
+    }
+  }
+
+  else if ((*(a2 + 140) & 0x100) != 0)
+  {
+    return 0;
+  }
+
+  if ((v4 & 0x10) != 0)
+  {
+    if ((v5 & 0x10) == 0 || *(a1 + 120) != *(a2 + 120))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v5 & 0x10) != 0)
+  {
+    return 0;
+  }
+
+  if ((v4 & 0x40) != 0)
+  {
+    if ((v5 & 0x40) == 0 || *(a1 + 128) != *(a2 + 128))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v5 & 0x40) != 0)
+  {
+    return 0;
+  }
+
+  if ((v4 & 0x20) != 0)
+  {
+    if ((v5 & 0x20) == 0 || *(a1 + 124) != *(a2 + 124))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v5 & 0x20) != 0)
+  {
+    return 0;
+  }
+
+  if ((v4 & 0x80) != 0)
+  {
+    if ((v5 & 0x80) == 0 || *(a1 + 132) != *(a2 + 132))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v5 & 0x80) != 0)
+  {
+    return 0;
+  }
+
+  v6 = *(a1 + 80);
+  v7 = *(a2 + 80);
+  v8 = *(a1 + 88) - v6;
+  if (v8 != *(a2 + 88) - v7)
+  {
+    return 0;
+  }
+
+  if (memcmp(v6, v7, v8))
+  {
+    return 0;
+  }
+
+  v9 = *(a1 + 56);
+  v10 = *(a2 + 56);
+  v11 = *(a1 + 64) - v9;
+  if (v11 != *(a2 + 64) - v10 || memcmp(v9, v10, v11))
+  {
+    return 0;
+  }
+
+  if ((v4 & 8) != 0)
+  {
+    if ((v5 & 8) == 0 || *(a1 + 116) != *(a2 + 116))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v5 & 8) != 0)
+  {
+    return 0;
+  }
+
+  if ((v4 & 4) != 0)
+  {
+    if ((v5 & 4) == 0 || *(a1 + 112) != *(a2 + 112))
+    {
+      return 0;
+    }
+  }
+
+  else if ((v5 & 4) != 0)
+  {
+    return 0;
+  }
+
+  if ((v4 & 2) == 0)
+  {
+    if ((v5 & 2) == 0)
+    {
+      goto LABEL_47;
+    }
+
+    return 0;
+  }
+
+  if ((v5 & 2) == 0 || *(a1 + 108) != *(a2 + 108))
+  {
+    return 0;
+  }
+
+LABEL_47:
+  v13 = *(a1 + 32);
+  v14 = *(a2 + 32);
+  v15 = *(a1 + 40) - v13;
+  if (v15 != *(a2 + 40) - v14)
+  {
+    return 0;
+  }
+
+  if (memcmp(v13, v14, v15))
+  {
+    return 0;
+  }
+
+  v16 = *(a1 + 8);
+  v17 = *(a2 + 8);
+  v18 = *(a1 + 16) - v16;
+  if (v18 != *(a2 + 16) - v17 || memcmp(v16, v17, v18))
+  {
+    return 0;
+  }
+
+  result = (v5 & 1) == 0;
+  if (v4)
+  {
+    return (v5 & 1) != 0 && *(a1 + 104) == *(a2 + 104);
+  }
+
+  return result;
 }

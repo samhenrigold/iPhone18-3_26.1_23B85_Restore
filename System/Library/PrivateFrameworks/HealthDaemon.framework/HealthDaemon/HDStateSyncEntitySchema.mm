@@ -26,11 +26,11 @@
   v8 = [(HDStateSyncEntitySchema *)&v14 init];
   if (v8)
   {
-    v9 = [domainCopy copy];
+    v9 = objc_msgSend_copy(domainCopy);
     domain = v8->_domain;
     v8->_domain = v9;
 
-    v11 = [keysCopy copy];
+    v11 = objc_msgSend_copy(keysCopy);
     dataKeys = v8->_dataKeys;
     v8->_dataKeys = v11;
   }
@@ -83,18 +83,17 @@ LABEL_11:
 
 - (HDStateSyncEntitySchema)initWithCoder:(id)coder
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"domain"];
   v6 = MEMORY[0x277CBEB98];
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"dataKeys"];
 
   v10 = [(HDStateSyncEntitySchema *)self initWithWithDomain:v5 dataKeys:v9];
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

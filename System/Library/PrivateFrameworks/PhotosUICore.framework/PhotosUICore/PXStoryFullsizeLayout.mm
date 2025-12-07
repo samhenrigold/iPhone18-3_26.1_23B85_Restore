@@ -383,7 +383,7 @@ void __53__PXStoryFullsizeLayout__updateVisibleClipsReporting__block_invoke(uint
   if (v6)
   {
     v7 = v6;
-    [v6 info];
+    objc_msgSend_info(v6);
 
     if (v9[1] == 1)
     {
@@ -591,21 +591,21 @@ void __55__PXStoryFullsizeLayout__updateTransitionEffectSprites__block_invoke_3(
   }
 }
 
-uint64_t __55__PXStoryFullsizeLayout__updateTransitionEffectSprites__block_invoke_4(uint64_t a1, id a2)
+_DWORD *__55__PXStoryFullsizeLayout__updateTransitionEffectSprites__block_invoke_4(uint64_t a1, id a2)
 {
   v4 = *(a1 + 72);
   v5 = a2;
   result = [a2 mutableEffectIds];
-  *(result + 4 * **(a1 + 40)) = v4;
+  result[**(a1 + 40)] = v4;
   return result;
 }
 
-uint64_t __55__PXStoryFullsizeLayout__updateTransitionEffectSprites__block_invoke_5(uint64_t a1, id a2)
+_DWORD *__55__PXStoryFullsizeLayout__updateTransitionEffectSprites__block_invoke_5(uint64_t a1, id a2)
 {
   v4 = *(a1 + 72);
   v5 = a2;
   result = [a2 mutableEffectIds];
-  *(result + 4 * *(*(a1 + 40) + 4)) = v4;
+  result[*(*(a1 + 40) + 4)] = v4;
   return result;
 }
 
@@ -837,7 +837,7 @@ LABEL_5:
 {
   v3 = objc_alloc_init(MEMORY[0x1E696AD50]);
   displayedTimeline = [(PXStoryTimelineLayout *)self displayedTimeline];
-  [(PXStoryFullsizeLayout *)self strictVisibleTimeRange];
+  objc_msgSend_strictVisibleTimeRange(self);
   [(PXStoryFullsizeLayout *)self strictVisibleTimelineRect];
   v5 = [displayedTimeline segmentIdentifiersInTimeRange:v14 rect:?];
 
@@ -1175,7 +1175,7 @@ void __57__PXStoryFullsizeLayout__updateVisibleSegmentIdentifiers__block_invoke(
   v30 = 0;
   if (model)
   {
-    [model currentScrollPosition];
+    objc_msgSend_currentScrollPosition(model);
     v8 = v28;
   }
 
@@ -1240,7 +1240,7 @@ void __57__PXStoryFullsizeLayout__updateVisibleSegmentIdentifiers__block_invoke(
   _Block_object_dispose(&v34, 8);
 }
 
-__n128 __49__PXStoryFullsizeLayout_updateDisplayedTimeRange__block_invoke(uint64_t a1, uint64_t a2, __n128 result)
+__n128 __49__PXStoryFullsizeLayout_updateDisplayedTimeRange__block_invoke(uint64_t a1, const char *a2, __n128 result)
 {
   if (result.n128_f64[0] > 0.0)
   {
@@ -1252,7 +1252,7 @@ __n128 __49__PXStoryFullsizeLayout_updateDisplayedTimeRange__block_invoke(uint64
     v6 = *(a1 + 32);
     if (v6)
     {
-      [v6 timeRangeForSegmentWithIdentifier:a2];
+      objc_msgSend_timeRangeForSegmentWithIdentifier_(v6, a2, a2);
     }
 
     v7 = *(*(a1 + 40) + 8);
@@ -1314,7 +1314,7 @@ __n128 __49__PXStoryFullsizeLayout_updateDisplayedTimeRange__block_invoke(uint64
   v31 = 0.0;
   if (model)
   {
-    [model currentScrollPosition];
+    objc_msgSend_currentScrollPosition(model);
     v20 = v30;
   }
 
@@ -1356,15 +1356,14 @@ LABEL_9:
   _Block_object_dispose(&v35, 8);
 }
 
-BOOL __48__PXStoryFullsizeLayout_updateDisplayedTimeline__block_invoke(uint64_t a1, uint64_t a2)
+void __48__PXStoryFullsizeLayout_updateDisplayedTimeline__block_invoke(uint64_t a1, uint64_t a2, double a3)
 {
   [*(a1 + 32) frameForSegmentWithIdentifier:a2];
   x = v7.origin.x;
   y = v7.origin.y;
   width = v7.size.width;
   height = v7.size.height;
-  result = CGRectIsNull(v7);
-  if (!result)
+  if (!CGRectIsNull(v7))
   {
     v8.origin.x = x;
     v8.origin.y = y;
@@ -1373,8 +1372,6 @@ BOOL __48__PXStoryFullsizeLayout_updateDisplayedTimeline__block_invoke(uint64_t 
     CGRectGetMinX(v8);
     PXFloatByLinearlyInterpolatingFloats();
   }
-
-  return result;
 }
 
 - (int64_t)viewMode
@@ -1402,7 +1399,7 @@ BOOL __48__PXStoryFullsizeLayout_updateDisplayedTimeline__block_invoke(uint64_t 
   v8 = v7;
   v10 = v9;
   v12 = v11;
-  [(PXStoryFullsizeLayout *)self strictVisibleTimeRange];
+  objc_msgSend_strictVisibleTimeRange(self);
   [(PXStoryTimelineLayout *)self clipsCornerRadius];
   LODWORD(v14) = v13;
   LODWORD(v16) = v15;
@@ -1494,18 +1491,18 @@ BOOL __48__PXStoryFullsizeLayout_updateDisplayedTimeline__block_invoke(uint64_t 
   v16.receiver = self;
   v16.super_class = PXStoryFullsizeLayout;
   v5 = [(PXStoryFullsizeLayout *)&v16 hitTestResultForSpriteIndex:?];
-  layout = [v5 layout];
+  v6 = objc_msgSend_layout(v5);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    layout2 = [v5 layout];
-    clip = [layout2 clip];
+    v8 = objc_msgSend_layout(v5);
+    clip = [v8 clip];
     if (clip)
     {
       v10 = clip;
-      [clip info];
+      objc_msgSend_info(clip);
 
       if (v15[1] != 1)
       {
@@ -1515,7 +1512,7 @@ LABEL_7:
       }
 
       v11 = [(PXFeedHitTestResult *)[PXStoryHitTestResult alloc] initWithSpriteIndex:v3 layout:self];
-      clip2 = [layout2 clip];
+      clip2 = [v8 clip];
       v13 = -[PXStoryHitTestResult clipIdentifier:](v11, "clipIdentifier:", [clip2 identifier]);
 
       v5 = v13;
@@ -1617,7 +1614,7 @@ void __47__PXStoryFullsizeLayout_entityManagerDidChange__block_invoke(uint64_t a
 
     v9->_textAlpha = 1.0;
     v9->_cornerRadiusOverride = *off_1E7721FE8;
-    v9->_allowsTransitionEffects = ([modelCopy options] & 2) == 0;
+    v9->_allowsTransitionEffects = (objc_msgSend_options(modelCopy) & 2) == 0;
   }
 
   return v9;

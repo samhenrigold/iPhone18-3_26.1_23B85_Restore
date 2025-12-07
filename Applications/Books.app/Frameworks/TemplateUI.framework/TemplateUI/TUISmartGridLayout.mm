@@ -12,7 +12,7 @@
 {
   if (!self->_layoutManager)
   {
-    v3 = [(TUILayout *)self box];
+    v3 = objc_msgSend_box(self, a2);
     layoutMode = [v3 layoutMode];
 
     if (layoutMode <= 1)
@@ -35,7 +35,7 @@
       if (layoutMode == (&dword_0 + 2))
       {
         v6 = [TUISmartGridGridLayoutManager alloc];
-        v7 = [(TUILayout *)self box];
+        v7 = objc_msgSend_box(self);
         content = [v7 content];
         v9 = [(TUISmartGridGridLayoutManager *)v6 initWithContent:content];
 
@@ -58,7 +58,7 @@ LABEL_14:
         v5 = TUISmartGridFlexRowLayoutManager;
 LABEL_13:
         v11 = [v5 alloc];
-        layoutManager = [(TUILayout *)self box];
+        layoutManager = objc_msgSend_box(self);
         content2 = [layoutManager content];
         v13 = [v11 initWithContent:content2];
         v14 = self->_layoutManager;
@@ -72,14 +72,14 @@ LABEL_13:
 LABEL_15:
   [(TUILayout *)self computeWidth];
   v16 = v15;
-  v37 = [(TUILayout *)self box];
+  v37 = objc_msgSend_box(self);
   controller = [(TUILayout *)self controller];
-  v18 = [(TUILayout *)self box];
+  v18 = objc_msgSend_box(self);
   scrollBox = [v18 scrollBox];
   v20 = [controller layoutForModel:scrollBox];
 
   controller2 = [(TUILayout *)self controller];
-  v22 = [(TUILayout *)self box];
+  v22 = objc_msgSend_box(self);
   content3 = [v22 content];
   v24 = [controller2 layoutForModel:content3];
 
@@ -97,7 +97,7 @@ LABEL_15:
   v33 = v32;
   [v24 containingWidth];
   v35 = v34;
-  [v20 validateLayout];
+  objc_msgSend_validateLayout(v20);
   v36 = objc_opt_respondsToSelector();
   if (v28 != v33 - v35 || (v36 & 1) != 0)
   {
@@ -120,7 +120,7 @@ LABEL_15:
   contextCopy = context;
   [(TUILayout *)&v19 appendChildRenderModelCompatibleWithKind:kind context:contextCopy transform:&v16 toModels:modelsCopy];
   layoutManager = self->_layoutManager;
-  v14 = [(TUILayout *)self box:v16];
+  v14 = objc_msgSend_box(self, v16, v17, v18, v19.receiver, v19.super_class);
   v15 = *&transform->c;
   v16 = *&transform->a;
   v17 = v15;

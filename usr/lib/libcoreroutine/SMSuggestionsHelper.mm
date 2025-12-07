@@ -1951,25 +1951,25 @@ void __46__SMSuggestionsHelper_getiCloudFamilyHandles___block_invoke(uint64_t a1
   dispatch_async(v7, block);
 }
 
-void __46__SMSuggestionsHelper_getiCloudFamilyHandles___block_invoke_2(uint64_t a1)
+void __46__SMSuggestionsHelper_getiCloudFamilyHandles___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
-    v2 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
-      v26 = NSStringFromSelector(*(a1 + 72));
-      v27 = *(a1 + 32);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
+      v27 = NSStringFromSelector(*(a1 + 72));
+      v28 = *(a1 + 32);
       *buf = 138412802;
-      v35 = v25;
-      v36 = 2112;
-      v37 = v26;
-      v38 = 2112;
-      v39 = v27;
-      _os_log_error_impl(&dword_2304B3000, v2, OS_LOG_TYPE_ERROR, "%@, %@, iCloud family query errored, %@", buf, 0x20u);
+      v36 = v26;
+      v37 = 2112;
+      v38 = v27;
+      v39 = 2112;
+      v40 = v28;
+      _os_log_error_impl(&dword_2304B3000, v3, OS_LOG_TYPE_ERROR, "%@, %@, iCloud family query errored, %@", buf, 0x20u);
     }
 
     (*(*(a1 + 64) + 16))();
@@ -1977,95 +1977,95 @@ void __46__SMSuggestionsHelper_getiCloudFamilyHandles___block_invoke_2(uint64_t 
 
   else
   {
-    v3 = objc_opt_new();
-    v29 = 0u;
+    v4 = objc_opt_new();
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v4 = *(a1 + 48);
-    v5 = [v4 countByEnumeratingWithState:&v29 objects:v33 count:16];
-    if (v5)
+    v33 = 0u;
+    v5 = *(a1 + 48);
+    v6 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    if (v6)
     {
-      v6 = v5;
-      v7 = *v30;
+      v7 = v6;
+      v8 = *v31;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v30 != v7)
+          if (*v31 != v8)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v29 + 1) + 8 * i);
-          if (![v9 memberType] && (objc_msgSend(v9, "isMe") & 1) == 0)
+          v10 = *(*(&v30 + 1) + 8 * i);
+          if (![v10 memberType] && (objc_msgSend(v10, "isMe") & 1) == 0)
           {
-            [v3 addObject:v9];
+            [v4 addObject:v10];
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
-      while (v6);
+      while (v7);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v10 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v11 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
-        v13 = NSStringFromSelector(*(a1 + 72));
-        v14 = [v3 count];
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
+        v14 = NSStringFromSelector(*(a1 + 72));
+        v15 = [v4 count];
         *buf = 138412802;
-        v35 = v12;
-        v36 = 2112;
-        v37 = v13;
-        v38 = 2048;
-        v39 = v14;
-        _os_log_impl(&dword_2304B3000, v10, OS_LOG_TYPE_INFO, "%@, %@, Adult iCloud family members count, %lu", buf, 0x20u);
+        v36 = v13;
+        v37 = 2112;
+        v38 = v14;
+        v39 = 2048;
+        v40 = v15;
+        _os_log_impl(&dword_2304B3000, v11, OS_LOG_TYPE_INFO, "%@, %@, Adult iCloud family members count, %lu", buf, 0x20u);
       }
     }
 
-    v28 = 0;
-    v15 = [SMSuggestionsHelper getSMHandlesFromFAFamilyMembers:v3 error:&v28];
-    v16 = v28;
+    v29 = 0;
+    v16 = [SMSuggestionsHelper getSMHandlesFromFAFamilyMembers:v4 error:&v29];
+    v17 = v29;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v17 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v18 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
-        v20 = NSStringFromSelector(*(a1 + 72));
-        v21 = [v15 count];
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
+        v21 = NSStringFromSelector(*(a1 + 72));
+        v22 = [v16 count];
         *buf = 138412802;
-        v35 = v19;
-        v36 = 2112;
-        v37 = v20;
-        v38 = 2048;
-        v39 = v21;
-        _os_log_impl(&dword_2304B3000, v17, OS_LOG_TYPE_INFO, "%@, %@, iCloud family handles count, %lu", buf, 0x20u);
+        v36 = v20;
+        v37 = 2112;
+        v38 = v21;
+        v39 = 2048;
+        v40 = v22;
+        _os_log_impl(&dword_2304B3000, v18, OS_LOG_TYPE_INFO, "%@, %@, iCloud family handles count, %lu", buf, 0x20u);
       }
     }
 
-    if (v16)
+    if (v17)
     {
       (*(*(a1 + 64) + 16))();
     }
 
     else
     {
-      if (v15 && [v15 count])
+      if (v16 && [v16 count])
       {
-        [*(a1 + 56) addObjectsFromArray:v15];
+        [*(a1 + 56) addObjectsFromArray:v16];
       }
 
-      v22 = *(a1 + 64);
-      v23 = [*(a1 + 56) copy];
-      (*(v22 + 16))(v22, v23, 0);
+      v23 = *(a1 + 64);
+      v24 = [*(a1 + 56) copy];
+      (*(v23 + 16))(v23, v24, 0);
     }
   }
 }

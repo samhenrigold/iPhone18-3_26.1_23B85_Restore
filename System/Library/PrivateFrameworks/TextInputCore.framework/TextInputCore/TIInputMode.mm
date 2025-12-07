@@ -1,4 +1,5 @@
 @interface TIInputMode
++ (TIInputMode)inputModeWithIdentifier:(id)identifier isSiriMode:(BOOL)mode originalIdentifier:(id)originalIdentifier;
 - (BOOL)deletesByComposedCharacterSequence;
 - (BOOL)doesComposeText;
 - (BOOL)doesSupportInlineCompletion;
@@ -437,14 +438,7 @@ LABEL_6:
     self->_keyboardFeatureSpecializationClass = keyboardFeatureSpecializationClass;
     if (!keyboardFeatureSpecializationClass)
     {
-      supportsPrediction = [(TIInputMode *)self supportsPrediction];
-      v5 = off_27872D600;
-      if (!supportsPrediction)
-      {
-        v5 = off_27872D560;
-      }
-
-      v6 = *v5;
+      [(TIInputMode *)self supportsPrediction];
       keyboardFeatureSpecializationClass = objc_opt_class();
       self->_keyboardFeatureSpecializationClass = keyboardFeatureSpecializationClass;
     }
@@ -492,103 +486,74 @@ LABEL_6:
     normalizedIdentifier = [(TIInputMode *)self normalizedIdentifier];
     v5 = TIGetInputModeProperties();
 
-    if (self->_inputManagerClass)
+    if (!self->_inputManagerClass)
     {
-LABEL_13:
+      v6 = [v5 objectForKey:*MEMORY[0x277D6F6F0]];
+      if (v6)
+      {
+        normalizedIdentifier2 = [(TIInputMode *)self normalizedIdentifier];
+        v8 = TIBundleForInputMode();
 
-      inputManagerClass = self->_inputManagerClass;
-      goto LABEL_14;
-    }
-
-    v6 = [v5 objectForKey:*MEMORY[0x277D6F6F0]];
-    if (!v6)
-    {
-LABEL_11:
+        v9 = [v8 classNamed:v6];
+        self->_inputManagerClass = v9;
+        if (!v9 && ((objc_msgSend_isEqualToString_(v6) & 1) != 0 || objc_msgSend_isEqualToString_(v6)))
+        {
+          self->_inputManagerClass = objc_opt_class();
+        }
+      }
 
       if (!self->_inputManagerClass)
       {
         self->_inputManagerClass = objc_opt_class();
       }
-
-      goto LABEL_13;
     }
 
-    normalizedIdentifier2 = [(TIInputMode *)self normalizedIdentifier];
-    v8 = TIBundleForInputMode();
-
-    v9 = [v8 classNamed:v6];
-    self->_inputManagerClass = v9;
-    if (!v9)
-    {
-      if ([v6 isEqualToString:@"TIKeyboardInputManagerTransliteration"])
-      {
-        v10 = off_27872D5B0;
-LABEL_9:
-        v11 = *v10;
-        self->_inputManagerClass = objc_opt_class();
-        goto LABEL_10;
-      }
-
-      if ([v6 isEqualToString:@"TIKeyboardInputManagerIndic"])
-      {
-        v10 = off_27872D580;
-        goto LABEL_9;
-      }
-    }
-
-LABEL_10:
-
-    goto LABEL_11;
+    inputManagerClass = self->_inputManagerClass;
   }
-
-LABEL_14:
 
   return inputManagerClass;
 }
 
 - (NSArray)additionalConfiguredLatinLanguages
 {
-  originalIdentifier = self->_originalIdentifier;
-  v4 = TIInputModeGetMultilingualID();
+  v3 = TIInputModeGetMultilingualID();
 
-  v5 = self->_originalIdentifier;
-  if (v4)
+  if (v3)
   {
-    v6 = TIInputModeGetMultilingualSet();
-    v7 = [v6 mutableCopy];
+    v4 = TIInputModeGetMultilingualSet();
+    v5 = [v4 mutableCopy];
 
-    [v7 removeObject:self->_originalIdentifier];
-    v8 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_1246];
-    [v7 filterUsingPredicate:v8];
+    [v5 removeObject:self->_originalIdentifier];
+    v6 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_1246];
+    [v5 filterUsingPredicate:v6];
 LABEL_8:
 
     goto LABEL_9;
   }
 
-  v8 = TIInputModeGetNormalizedIdentifier();
-  if (![v8 isEqualToString:@"ko_KR"])
+  v6 = TIInputModeGetNormalizedIdentifier();
+  if (!objc_msgSend_isEqualToString_(v6))
   {
-    v7 = 0;
+    v5 = 0;
     goto LABEL_8;
   }
 
-  v9 = self->_originalIdentifier;
-  v10 = TIInputModeGetSWLayout();
-  v11 = [v10 isEqualToString:@"Korean-With-QWERTY"];
+  v7 = TIInputModeGetSWLayout();
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v11)
+  if (isEqualToString)
   {
-    v7 = &unk_28400B8E0;
+    v5 = &unk_28400B8E0;
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
 LABEL_9:
 
-  return v7;
+  return v5;
 }
 
 - (NSString)variant
@@ -623,15 +588,15 @@ LABEL_9:
     {
       v5 = equalCopy;
       normalizedIdentifier = [(TIInputMode *)self normalizedIdentifier];
-      if ([normalizedIdentifier isEqualToString:@"ko_KR"])
+      if (objc_msgSend_isEqualToString_(normalizedIdentifier))
       {
         originalIdentifier = [(TIInputMode *)self originalIdentifier];
         v8 = TIInputModeGetSWLayout();
         originalIdentifier2 = [(TIInputMode *)v5 originalIdentifier];
         v10 = TIInputModeGetSWLayout();
-        v11 = [v8 isEqualToString:v10];
+        isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-        if (!v11)
+        if (!isEqualToString)
         {
           goto LABEL_10;
         }
@@ -641,7 +606,7 @@ LABEL_9:
       {
         normalizedIdentifier2 = [(TIInputMode *)self normalizedIdentifier];
         normalizedIdentifier3 = [(TIInputMode *)v5 normalizedIdentifier];
-        v15 = [normalizedIdentifier2 isEqualToString:normalizedIdentifier3];
+        v15 = objc_msgSend_isEqualToString_(normalizedIdentifier2);
 
         if ((v15 & 1) == 0)
         {
@@ -692,6 +657,76 @@ LABEL_13:
   }
 
   return v7;
+}
+
++ (TIInputMode)inputModeWithIdentifier:(id)identifier isSiriMode:(BOOL)mode originalIdentifier:(id)originalIdentifier
+{
+  modeCopy = mode;
+  identifierCopy = identifier;
+  originalIdentifierCopy = originalIdentifier;
+  if (modeCopy)
+  {
+    v9 = &inputModeWithIdentifier_isSiriMode_originalIdentifier__cachedSiriInputModes;
+  }
+
+  else
+  {
+    v9 = &inputModeWithIdentifier_isSiriMode_originalIdentifier__cachedInputModes;
+  }
+
+  v10 = *v9;
+  if (!*v9)
+  {
+    v11 = objc_opt_new();
+    v12 = *v9;
+    *v9 = v11;
+
+    v10 = *v9;
+  }
+
+  v13 = v10;
+  v14 = [v13 objectForKey:identifierCopy];
+  if (v14)
+  {
+    v15 = v14;
+    v16 = originalIdentifierCopy;
+  }
+
+  else
+  {
+    v17 = TIInputModeGetNormalizedIdentifier();
+    v15 = [v13 objectForKey:v17];
+    if (originalIdentifierCopy)
+    {
+      v18 = originalIdentifierCopy;
+    }
+
+    else
+    {
+      v18 = identifierCopy;
+    }
+
+    v16 = v18;
+
+    if (!v15 || ([v15 originalIdentifier], v19 = objc_claimAutoreleasedReturnValue(), v19, v19 != v16))
+    {
+      v20 = [[TIInputMode alloc] initWithNormalizedIdentifier:v17 isSiriMode:modeCopy];
+
+      v21 = [v16 copy];
+      [(TIInputMode *)v20 setOriginalIdentifier:v21];
+
+      [v13 setObject:v20 forKey:v17];
+      v15 = v20;
+    }
+
+    [v13 setObject:v15 forKey:identifierCopy];
+    if (v16 != identifierCopy)
+    {
+      [v13 setObject:v15 forKey:v16];
+    }
+  }
+
+  return v15;
 }
 
 - (void)setQuickTypeKeyboardFeatureSpecializationClass

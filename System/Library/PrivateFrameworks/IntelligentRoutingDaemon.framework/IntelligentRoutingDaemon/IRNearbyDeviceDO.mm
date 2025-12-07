@@ -123,88 +123,8 @@
 {
   oCopy = o;
   v5 = oCopy;
-  if (!oCopy)
+  if (!oCopy || (range = self->_range, [oCopy range], range != v7) || (v8 = self->_idsIdentifier == 0, objc_msgSend(v5, "idsIdentifier"), v9 = objc_claimAutoreleasedReturnValue(), v10 = v9 != 0, v9, v8 == v10) || (idsIdentifier = self->_idsIdentifier) != 0 && (objc_msgSend(v5, "idsIdentifier"), v12 = objc_claimAutoreleasedReturnValue(), v13 = -[NSString isEqual:](idsIdentifier, "isEqual:", v12), v12, !v13) || (v14 = self->_mediaRemoteIdentifier == 0, objc_msgSend(v5, "mediaRemoteIdentifier"), v15 = objc_claimAutoreleasedReturnValue(), v16 = v15 != 0, v15, v14 == v16) || (mediaRemoteIdentifier = self->_mediaRemoteIdentifier) != 0 && (objc_msgSend(v5, "mediaRemoteIdentifier"), v18 = objc_claimAutoreleasedReturnValue(), v19 = -[NSString isEqual:](mediaRemoteIdentifier, "isEqual:", v18), v18, !v19) || (v20 = self->_proximityType == 0, objc_msgSend(v5, "proximityType"), v21 = objc_claimAutoreleasedReturnValue(), v22 = v21 != 0, v21, v20 == v22) || (proximityType = self->_proximityType) != 0 && (objc_msgSend(v5, "proximityType"), v24 = objc_claimAutoreleasedReturnValue(), v25 = -[NSString isEqual:](proximityType, "isEqual:", v24), v24, !v25) || (v26 = self->_measurementDate == 0, objc_msgSend(v5, "measurementDate"), v27 = objc_claimAutoreleasedReturnValue(), v28 = v27 != 0, v27, v26 == v28))
   {
-    goto LABEL_15;
-  }
-
-  range = self->_range;
-  [oCopy range];
-  if (range != v7)
-  {
-    goto LABEL_15;
-  }
-
-  v8 = self->_idsIdentifier == 0;
-  idsIdentifier = [v5 idsIdentifier];
-  v10 = idsIdentifier != 0;
-
-  if (v8 == v10)
-  {
-    goto LABEL_15;
-  }
-
-  idsIdentifier = self->_idsIdentifier;
-  if (idsIdentifier)
-  {
-    idsIdentifier2 = [v5 idsIdentifier];
-    v13 = [(NSString *)idsIdentifier isEqual:idsIdentifier2];
-
-    if (!v13)
-    {
-      goto LABEL_15;
-    }
-  }
-
-  v14 = self->_mediaRemoteIdentifier == 0;
-  mediaRemoteIdentifier = [v5 mediaRemoteIdentifier];
-  v16 = mediaRemoteIdentifier != 0;
-
-  if (v14 == v16)
-  {
-    goto LABEL_15;
-  }
-
-  mediaRemoteIdentifier = self->_mediaRemoteIdentifier;
-  if (mediaRemoteIdentifier)
-  {
-    mediaRemoteIdentifier2 = [v5 mediaRemoteIdentifier];
-    v19 = [(NSString *)mediaRemoteIdentifier isEqual:mediaRemoteIdentifier2];
-
-    if (!v19)
-    {
-      goto LABEL_15;
-    }
-  }
-
-  v20 = self->_proximityType == 0;
-  proximityType = [v5 proximityType];
-  v22 = proximityType != 0;
-
-  if (v20 == v22)
-  {
-    goto LABEL_15;
-  }
-
-  proximityType = self->_proximityType;
-  if (proximityType)
-  {
-    proximityType2 = [v5 proximityType];
-    v25 = [(NSString *)proximityType isEqual:proximityType2];
-
-    if (!v25)
-    {
-      goto LABEL_15;
-    }
-  }
-
-  v26 = self->_measurementDate == 0;
-  measurementDate = [v5 measurementDate];
-  v28 = measurementDate != 0;
-
-  if (v26 == v28)
-  {
-LABEL_15:
     v31 = 0;
   }
 
@@ -213,8 +133,8 @@ LABEL_15:
     measurementDate = self->_measurementDate;
     if (measurementDate)
     {
-      measurementDate2 = [v5 measurementDate];
-      v31 = [(NSDate *)measurementDate isEqual:measurementDate2];
+      measurementDate = [v5 measurementDate];
+      v31 = [(NSDate *)measurementDate isEqual:measurementDate];
     }
 
     else
@@ -254,7 +174,7 @@ LABEL_15:
 
 - (IRNearbyDeviceDO)initWithCoder:(id)coder
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeInt64ForKey:@"range"];
   if (v5)
@@ -268,9 +188,9 @@ LABEL_15:
   {
     if (([coderCopy containsValueForKey:@"range"] & 1) == 0)
     {
-      v43 = *MEMORY[0x277CCA450];
-      v44[0] = @"Missing serialized value for IRNearbyDeviceDO.range";
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+      v42 = *MEMORY[0x277CCA450];
+      v43[0] = @"Missing serialized value for IRNearbyDeviceDO.range";
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
       v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRNearbyDeviceDOOCNTErrorDomain" code:1 userInfo:v6];
       [coderCopy failWithError:v8];
       goto LABEL_15;
@@ -288,9 +208,9 @@ LABEL_2:
         v9 = objc_opt_class();
         v10 = NSStringFromClass(v9);
         v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRNearbyDeviceDO key idsIdentifier (expected %@, decoded %@)", v8, v10, 0];
-        v41 = *MEMORY[0x277CCA450];
-        v42 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+        v40 = *MEMORY[0x277CCA450];
+        v41 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
         v13 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRNearbyDeviceDOOCNTErrorDomain" code:3 userInfo:v12];
         [coderCopy failWithError:v13];
 LABEL_20:
@@ -328,9 +248,9 @@ LABEL_25:
         v18 = objc_opt_class();
         v11 = NSStringFromClass(v18);
         v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRNearbyDeviceDO key mediaRemoteIdentifier (expected %@, decoded %@)", v10, v11, 0];
-        v39 = *MEMORY[0x277CCA450];
-        v40 = v12;
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+        v38 = *MEMORY[0x277CCA450];
+        v39 = v12;
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
         v19 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRNearbyDeviceDOOCNTErrorDomain" code:3 userInfo:v13];
         [coderCopy failWithError:v19];
 LABEL_19:
@@ -350,9 +270,9 @@ LABEL_16:
           v22 = objc_opt_class();
           v12 = NSStringFromClass(v22);
           v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRNearbyDeviceDO key proximityType (expected %@, decoded %@)", v11, v12, 0];
-          v37 = *MEMORY[0x277CCA450];
-          v38 = v13;
-          v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+          v36 = *MEMORY[0x277CCA450];
+          v37 = v13;
+          v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
           v23 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRNearbyDeviceDOOCNTErrorDomain" code:3 userInfo:v19];
           [coderCopy failWithError:v23];
 
@@ -377,16 +297,16 @@ LABEL_16:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
+          v26 = objc_opt_class();
+          v33 = NSStringFromClass(v26);
           v27 = objc_opt_class();
-          v34 = NSStringFromClass(v27);
-          v28 = objc_opt_class();
-          v29 = NSStringFromClass(v28);
-          v30 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRNearbyDeviceDO key measurementDate (expected %@, decoded %@)", v34, v29, 0];
-          v35 = *MEMORY[0x277CCA450];
-          v36 = v30;
-          v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-          v32 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRNearbyDeviceDOOCNTErrorDomain" code:3 userInfo:v31];
-          [coderCopy failWithError:v32];
+          v28 = NSStringFromClass(v27);
+          v29 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRNearbyDeviceDO key measurementDate (expected %@, decoded %@)", v33, v28, 0];
+          v34 = *MEMORY[0x277CCA450];
+          v35 = v29;
+          v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+          v31 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRNearbyDeviceDOOCNTErrorDomain" code:3 userInfo:v30];
+          [coderCopy failWithError:v31];
 
           goto LABEL_21;
         }
@@ -424,7 +344,6 @@ LABEL_24:
   selfCopy = 0;
 LABEL_26:
 
-  v24 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

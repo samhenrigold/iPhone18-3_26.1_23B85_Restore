@@ -53,39 +53,43 @@
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  *v12 = 138412546;
-  *&v12[4] = objc_opt_class();
-  *&v12[12] = 2112;
-  *&v12[14] = serverCopy;
-  v9 = *&v12[4];
-  LODWORD(v11) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v11 = 138412546;
+  v12 = objc_opt_class();
+  v13 = 2112;
+  v14 = serverCopy;
+  v9 = v12;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%@]: Skipping most of server registration for server %@ since we are using appstored software updates", &v11, 22);
 
   if (v10)
   {
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, v12, v11, *v12, *&v12[16]];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   [serverCopy addObserver:self selector:"hideAppstoredPendingUpdatesBadgeWithMessage:connection:" forMessage:118];

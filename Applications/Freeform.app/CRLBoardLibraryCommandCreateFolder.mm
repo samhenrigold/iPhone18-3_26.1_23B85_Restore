@@ -18,7 +18,7 @@
 - (NSSet)itemIdentifiersToReparent
 {
   type metadata accessor for UUID();
-  sub_100B02420(&qword_1019FB870, &type metadata accessor for UUID);
+  sub_100B02420(&qword_1019FB870, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
 
   v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
 

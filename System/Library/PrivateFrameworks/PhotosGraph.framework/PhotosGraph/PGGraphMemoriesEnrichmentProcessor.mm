@@ -19,34 +19,34 @@
 
 - (void)insertOrUpdateLocalMemoriesForEnrichedMemories:(id)memories localMemoryByUniqueIdentifier:(id)identifier memoryPersister:(id)persister progressReporter:(id)reporter
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   memoriesCopy = memories;
   identifierCopy = identifier;
   persisterCopy = persister;
   reporterCopy = reporter;
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v42 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v41 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   v13 = memoriesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v44 objects:v52 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v43 objects:v51 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v45;
+    v16 = *v44;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v45 != v16)
+        if (*v44 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v44 + 1) + 8 * i);
+        v18 = *(*(&v43 + 1) + 8 * i);
         uniqueMemoryIdentifier = [v18 uniqueMemoryIdentifier];
         v20 = [identifierCopy objectForKeyedSubscript:uniqueMemoryIdentifier];
 
@@ -56,7 +56,7 @@
           [v20 photosGraphVersion];
           if (PLMemoriesAlgorithmsVersionFromPhotosGraphVersion() < 0x400 || (v22 = [v20 isRejected], v21 = v12, v22) && (v23 = objc_msgSend(v18, "failedEnrichment"), v21 = v12, (v23 & 1) == 0))
           {
-            [v42 addObject:v20];
+            [v41 addObject:v20];
             v21 = v11;
           }
         }
@@ -64,7 +64,7 @@
         [v21 addObject:v18];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v43 objects:v51 count:16];
     }
 
     while (v15);
@@ -77,18 +77,18 @@
   if (v27)
   {
     v28 = v27;
-    v37 = v26;
-    v38 = v25;
-    v43 = 0;
-    v29 = [persisterCopy persistLocalMemoriesFromEnrichedMemories:v11 localMemoriesToDelete:v42 progressReporter:v25 error:&v43];
-    v30 = v43;
+    v36 = v26;
+    v37 = v25;
+    v42 = 0;
+    v29 = [persisterCopy persistLocalMemoriesFromEnrichedMemories:v11 localMemoriesToDelete:v41 progressReporter:v25 error:&v42];
+    v30 = v42;
     loggingConnection = self->_loggingConnection;
     if (v29)
     {
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v49 = v28;
+        v48 = v28;
         _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[PGGraphMemoriesEnrichmentProcessor] Successfully inserted %d memories.", buf, 8u);
       }
     }
@@ -96,14 +96,14 @@
     else if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109378;
-      v49 = v28;
-      v50 = 2112;
-      v51 = v30;
+      v48 = v28;
+      v49 = 2112;
+      v50 = v30;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGGraphMemoriesEnrichmentProcessor] Failed to insert %d memories (%@)", buf, 0x12u);
     }
 
-    v26 = v37;
-    v25 = v38;
+    v26 = v36;
+    v25 = v37;
   }
 
   v32 = [v12 count];
@@ -117,7 +117,7 @@
       if (os_log_type_enabled(self->_loggingConnection, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v49 = v33;
+        v48 = v33;
         _os_log_impl(&dword_22F0FC000, v35, OS_LOG_TYPE_DEFAULT, "[PGGraphMemoriesEnrichmentProcessor] Successfully updated %d memories.", buf, 8u);
       }
     }
@@ -125,56 +125,54 @@
     else if (os_log_type_enabled(self->_loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v49 = v33;
+      v48 = v33;
       _os_log_error_impl(&dword_22F0FC000, v35, OS_LOG_TYPE_ERROR, "[PGGraphMemoriesEnrichmentProcessor] Failed to update %d memories.", buf, 8u);
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteNoLongerExistingMemoryNodes:(id)nodes fromLocalMemoryByUniqueIdentifier:(id)identifier inPhotoLibrary:(id)library progressReporter:(id)reporter
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   identifierCopy = identifier;
   libraryCopy = library;
   reporterCopy = reporter;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
   if ([identifierCopy count])
   {
-    *v47 = 0;
-    *&v48 = v47;
-    *(&v48 + 1) = 0x2020000000;
-    v49 = 0;
+    *v46 = 0;
+    *&v47 = v46;
+    *(&v47 + 1) = 0x2020000000;
+    v48 = 0;
     v14 = [identifierCopy count];
     uniqueMemoryIdentifiers = [nodesCopy uniqueMemoryIdentifiers];
     v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __138__PGGraphMemoriesEnrichmentProcessor_deleteNoLongerExistingMemoryNodes_fromLocalMemoryByUniqueIdentifier_inPhotoLibrary_progressReporter___block_invoke;
-    v32[3] = &unk_278884700;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __138__PGGraphMemoriesEnrichmentProcessor_deleteNoLongerExistingMemoryNodes_fromLocalMemoryByUniqueIdentifier_inPhotoLibrary_progressReporter___block_invoke;
+    v31[3] = &unk_278884700;
     v17 = uniqueMemoryIdentifiers;
-    v33 = v17;
+    v32 = v17;
     v18 = v16;
-    v34 = v18;
-    v36 = v47;
-    v38 = 0.5 / v14;
-    v37 = &v39;
+    v33 = v18;
+    v35 = v46;
+    v37 = 0.5 / v14;
+    v36 = &v38;
     v19 = reporterCopy;
-    v35 = v19;
-    [identifierCopy enumerateKeysAndObjectsUsingBlock:v32];
-    if (*(v40 + 24) == 1)
+    v34 = v19;
+    [identifierCopy enumerateKeysAndObjectsUsingBlock:v31];
+    if (*(v39 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v44 = 536;
-        v45 = 2080;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphMemoriesEnrichmentProcessor.m";
+        v43 = 536;
+        v44 = 2080;
+        v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphMemoriesEnrichmentProcessor.m";
         v20 = MEMORY[0x277D86220];
 LABEL_22:
         _os_log_impl(&dword_22F0FC000, v20, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -187,21 +185,21 @@ LABEL_22:
       v22 = v21;
       if (v21)
       {
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __138__PGGraphMemoriesEnrichmentProcessor_deleteNoLongerExistingMemoryNodes_fromLocalMemoryByUniqueIdentifier_inPhotoLibrary_progressReporter___block_invoke_310;
-        v30[3] = &unk_27888A660;
-        v31 = v18;
-        v29 = 0;
-        v23 = [libraryCopy performChangesAndWait:v30 error:&v29];
-        v28 = v29;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __138__PGGraphMemoriesEnrichmentProcessor_deleteNoLongerExistingMemoryNodes_fromLocalMemoryByUniqueIdentifier_inPhotoLibrary_progressReporter___block_invoke_310;
+        v29[3] = &unk_27888A660;
+        v30 = v18;
+        v28 = 0;
+        v23 = [libraryCopy performChangesAndWait:v29 error:&v28];
+        v27 = v28;
         loggingConnection = self->_loggingConnection;
         if (v23)
         {
           if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v44 = v22;
+            v43 = v22;
             _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[PGGraphMemoriesEnrichmentProcessor] Successfully deleted %d local memories.", buf, 8u);
           }
         }
@@ -209,22 +207,22 @@ LABEL_22:
         else if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109378;
-          v44 = v22;
-          v45 = 2112;
-          v46 = v28;
+          v43 = v22;
+          v44 = 2112;
+          v45 = v27;
           _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGGraphMemoriesEnrichmentProcessor] Failed to delete %d local memories: %@", buf, 0x12u);
         }
       }
 
-      if (v40[3])
+      if (v39[3])
       {
-        *(v40 + 24) = 1;
+        *(v39 + 24) = 1;
       }
 
       else
       {
         v26 = [v19 isCancelledWithProgress:1.0];
-        *(v40 + 24) = v26;
+        *(v39 + 24) = v26;
         if ((v26 & 1) == 0)
         {
           goto LABEL_23;
@@ -234,9 +232,9 @@ LABEL_22:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v44 = 551;
-        v45 = 2080;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphMemoriesEnrichmentProcessor.m";
+        v43 = 551;
+        v44 = 2080;
+        v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphMemoriesEnrichmentProcessor.m";
         v20 = MEMORY[0x277D86220];
         goto LABEL_22;
       }
@@ -244,19 +242,19 @@ LABEL_22:
 
 LABEL_23:
 
-    _Block_object_dispose(v47, 8);
+    _Block_object_dispose(v46, 8);
     goto LABEL_24;
   }
 
-  if (v40[3])
+  if (v39[3])
   {
-    *(v40 + 24) = 1;
+    *(v39 + 24) = 1;
   }
 
   else
   {
     v25 = [reporterCopy isCancelledWithProgress:1.0];
-    *(v40 + 24) = v25;
+    *(v39 + 24) = v25;
     if ((v25 & 1) == 0)
     {
       goto LABEL_24;
@@ -265,17 +263,15 @@ LABEL_23:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    *v47 = 67109378;
-    *&v47[4] = 520;
-    LOWORD(v48) = 2080;
-    *(&v48 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphMemoriesEnrichmentProcessor.m";
-    _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v47, 0x12u);
+    *v46 = 67109378;
+    *&v46[4] = 520;
+    LOWORD(v47) = 2080;
+    *(&v47 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphMemoriesEnrichmentProcessor.m";
+    _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v46, 0x12u);
   }
 
 LABEL_24:
-  _Block_object_dispose(&v39, 8);
-
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
 }
 
 void __138__PGGraphMemoriesEnrichmentProcessor_deleteNoLongerExistingMemoryNodes_fromLocalMemoryByUniqueIdentifier_inPhotoLibrary_progressReporter___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -446,39 +442,39 @@ LABEL_13:
 
 - (id)sortedMemoryNodesToEnrichForMemoryNodes:(id)nodes localMemoryByUniqueIdentifier:(id)identifier graph:(id)graph
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   identifierCopy = identifier;
   graphCopy = graph;
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__42278;
-  v52 = __Block_byref_object_dispose__42279;
-  v53 = 0;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__42278;
-  v46 = __Block_byref_object_dispose__42279;
   v47 = 0;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __114__PGGraphMemoriesEnrichmentProcessor_sortedMemoryNodesToEnrichForMemoryNodes_localMemoryByUniqueIdentifier_graph___block_invoke;
-  v36[3] = &unk_278884688;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__42278;
+  v51 = __Block_byref_object_dispose__42279;
+  v52 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__42278;
+  v45 = __Block_byref_object_dispose__42279;
+  v46 = 0;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __114__PGGraphMemoriesEnrichmentProcessor_sortedMemoryNodesToEnrichForMemoryNodes_localMemoryByUniqueIdentifier_graph___block_invoke;
+  v35[3] = &unk_278884688;
   v13 = identifierCopy;
-  v37 = v13;
+  v36 = v13;
   v14 = v11;
-  v38 = v14;
-  v40 = &v48;
-  v41 = &v42;
+  v37 = v14;
+  v39 = &v47;
+  v40 = &v41;
   v15 = v12;
-  v39 = v15;
-  v32 = nodesCopy;
-  [nodesCopy enumerateNodesUsingBlock:v36];
+  v38 = v15;
+  v31 = nodesCopy;
+  [nodesCopy enumerateNodesUsingBlock:v35];
   v16 = [v15 count];
   if (v16)
   {
@@ -490,13 +486,13 @@ LABEL_13:
   if (v18)
   {
     v19 = MEMORY[0x277CCAC30];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __114__PGGraphMemoriesEnrichmentProcessor_sortedMemoryNodesToEnrichForMemoryNodes_localMemoryByUniqueIdentifier_graph___block_invoke_2;
-    v34[3] = &unk_2788846B0;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __114__PGGraphMemoriesEnrichmentProcessor_sortedMemoryNodesToEnrichForMemoryNodes_localMemoryByUniqueIdentifier_graph___block_invoke_2;
+    v33[3] = &unk_2788846B0;
     v20 = v13;
-    v35 = v20;
-    v21 = [v19 predicateWithBlock:v34];
+    v34 = v20;
+    v21 = [v19 predicateWithBlock:v33];
     v22 = [v14 filteredArrayUsingPredicate:v21];
 
     v23 = [(PGGraphMemoriesEnrichmentProcessor *)self _memoryNodesSortedForEnrichment:v22 localMemoryByUniqueIdentifier:v20 graph:graphCopy];
@@ -507,28 +503,26 @@ LABEL_13:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     v25 = [v10 count];
-    v26 = v49[5];
-    v27 = v43[5];
+    v26 = v48[5];
+    v27 = v42[5];
     *buf = 134219010;
-    v55 = v25;
-    v56 = 2048;
-    v57 = v16;
-    v58 = 2048;
-    v59 = v18;
-    v60 = 2112;
-    v61 = v26;
-    v62 = 2112;
-    v63 = v27;
+    v54 = v25;
+    v55 = 2048;
+    v56 = v16;
+    v57 = 2048;
+    v58 = v18;
+    v59 = 2112;
+    v60 = v26;
+    v61 = 2112;
+    v62 = v27;
     _os_log_impl(&dword_22F0FC000, v24, OS_LOG_TYPE_DEFAULT, "[PGGraphMemoriesEnrichmentProcessor] Found %lu Memory nodes to enrich out of %lu without local memories and %lu with local memories.\n\tEnrichment date range: %@ - %@", buf, 0x34u);
   }
 
-  v28 = v39;
+  v28 = v38;
   v29 = v10;
 
-  _Block_object_dispose(&v42, 8);
-  _Block_object_dispose(&v48, 8);
-
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v47, 8);
 
   return v29;
 }
@@ -606,7 +600,7 @@ BOOL __114__PGGraphMemoriesEnrichmentProcessor_sortedMemoryNodesToEnrichForMemor
 
 - (id)sortedMemoryNodesToEnrichForIncrementalForMemoryNodes:(id)nodes localMemoryByUniqueIdentifier:(id)identifier graph:(id)graph
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v9 = MEMORY[0x277CBEB18];
   graphCopy = graph;
@@ -615,21 +609,21 @@ BOOL __114__PGGraphMemoriesEnrichmentProcessor_sortedMemoryNodesToEnrichForMemor
   v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v30 = MEMORY[0x277D85DD0];
-  v31 = 3221225472;
-  v32 = __128__PGGraphMemoriesEnrichmentProcessor_sortedMemoryNodesToEnrichForIncrementalForMemoryNodes_localMemoryByUniqueIdentifier_graph___block_invoke;
-  v33 = &unk_278884660;
+  v29 = MEMORY[0x277D85DD0];
+  v30 = 3221225472;
+  v31 = __128__PGGraphMemoriesEnrichmentProcessor_sortedMemoryNodesToEnrichForIncrementalForMemoryNodes_localMemoryByUniqueIdentifier_graph___block_invoke;
+  v32 = &unk_278884660;
   v16 = identifierCopy;
-  v34 = v16;
+  v33 = v16;
   v17 = v13;
-  v35 = v17;
+  v34 = v17;
   v18 = v15;
-  v36 = v18;
+  v35 = v18;
   v19 = v14;
-  v37 = v19;
-  [nodesCopy enumerateNodesUsingBlock:&v30];
+  v36 = v19;
+  [nodesCopy enumerateNodesUsingBlock:&v29];
 
-  v20 = [(PGGraphMemoriesEnrichmentProcessor *)self _memoryNodesSortedForEnrichment:v17 localMemoryByUniqueIdentifier:0 graph:graphCopy, v30, v31, v32, v33];
+  v20 = [(PGGraphMemoriesEnrichmentProcessor *)self _memoryNodesSortedForEnrichment:v17 localMemoryByUniqueIdentifier:0 graph:graphCopy, v29, v30, v31, v32];
   [v12 addObjectsFromArray:v20];
 
   v21 = [(PGGraphMemoriesEnrichmentProcessor *)self _memoryNodesSortedForEnrichment:v18 localMemoryByUniqueIdentifier:v16 graph:graphCopy];
@@ -646,15 +640,13 @@ BOOL __114__PGGraphMemoriesEnrichmentProcessor_sortedMemoryNodesToEnrichForMemor
     v26 = [v17 count];
     v27 = [v19 count];
     *buf = 134218496;
-    v39 = v25;
-    v40 = 2048;
-    v41 = v26;
-    v42 = 2048;
-    v43 = v27;
+    v38 = v25;
+    v39 = 2048;
+    v40 = v26;
+    v41 = 2048;
+    v42 = v27;
     _os_log_impl(&dword_22F0FC000, v24, OS_LOG_TYPE_DEFAULT, "[PGGraphMemoriesEnrichmentProcessor] Found %lu Memory nodes to enrich out of %lu without local memories and %lu with local memories whose lastEnrichmentDate is nil.", buf, 0x20u);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -699,7 +691,7 @@ LABEL_8:
 
 - (unint64_t)_targetNumberOfMemoriesToEnrichWithPhotoLibrary:(id)library
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   libraryCopy = library;
   numberOfMemoriesToEnrich = self->_numberOfMemoriesToEnrich;
   if (numberOfMemoriesToEnrich)
@@ -708,7 +700,7 @@ LABEL_8:
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v17 = numberOfMemoriesToEnrich;
+      v16 = numberOfMemoriesToEnrich;
       _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[PGGraphMemoriesEnrichmentProcessor] Target overriden: Will try to enrich %tu memory nodes.", buf, 0xCu);
       numberOfMemoriesToEnrich = self->_numberOfMemoriesToEnrich;
     }
@@ -739,20 +731,19 @@ LABEL_8:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v17 = numberOfMemoriesToEnrich;
-      v18 = 2048;
-      v19 = v12;
+      v16 = numberOfMemoriesToEnrich;
+      v17 = 2048;
+      v18 = v12;
       _os_log_impl(&dword_22F0FC000, v13, OS_LOG_TYPE_DEFAULT, "[PGGraphMemoriesEnrichmentProcessor] Will try to enrich %tu memory nodes (%tu recently enriched).", buf, 0x16u);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return numberOfMemoriesToEnrich;
 }
 
 - (id)enrichedMemoryFromMemoryNode:(id)node atCreationDate:(id)date configuration:(id)configuration curationContext:(id)context enrichedMemoryFactory:(id)factory graph:(id)graph progressReporter:(id)reporter
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   configurationCopy = configuration;
   factoryCopy = factory;
@@ -778,11 +769,11 @@ LABEL_8:
       v28 = MEMORY[0x277CD98D8];
       v29 = loggingConnection;
       v30 = [v28 stringForCategory:{objc_msgSend(nodeCopy, "memoryCategory")}];
-      v40 = 138412546;
-      v41 = v30;
-      v42 = 2112;
-      v43 = v26;
-      _os_log_impl(&dword_22F0FC000, v29, OS_LOG_TYPE_DEFAULT, "[PGGraphMemoriesEnrichmentProcessor] Not enriching memory of category %@ because it contains blocked features %@", &v40, 0x16u);
+      v39 = 138412546;
+      v40 = v30;
+      v41 = 2112;
+      v42 = v26;
+      _os_log_impl(&dword_22F0FC000, v29, OS_LOG_TYPE_DEFAULT, "[PGGraphMemoriesEnrichmentProcessor] Not enriching memory of category %@ because it contains blocked features %@", &v39, 0x16u);
     }
 
     v31 = 0;
@@ -810,11 +801,11 @@ LABEL_8:
         }
 
         v36 = v35;
-        v40 = 138412546;
-        v41 = v31;
-        v42 = 2112;
-        v43 = v36;
-        _os_log_impl(&dword_22F0FC000, v33, OS_LOG_TYPE_DEFAULT, "[PGGraphMemoriesEnrichmentProcessor] Failed to enrich memory %@ (%@): Persisting empty memory", &v40, 0x16u);
+        v39 = 138412546;
+        v40 = v31;
+        v41 = 2112;
+        v42 = v36;
+        _os_log_impl(&dword_22F0FC000, v33, OS_LOG_TYPE_DEFAULT, "[PGGraphMemoriesEnrichmentProcessor] Failed to enrich memory %@ (%@): Persisting empty memory", &v39, 0x16u);
       }
 
       uniqueMemoryIdentifier = [v31 uniqueMemoryIdentifier];
@@ -822,87 +813,85 @@ LABEL_8:
     }
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-
   return v31;
 }
 
 - (id)enrichMemoryNodes:(id)nodes localMemoryByUniqueIdentifier:(id)identifier workingContext:(id)context graph:(id)graph progressReporter:(id)reporter
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   identifierCopy = identifier;
   contextCopy = context;
   graphCopy = graph;
   reporterCopy = reporter;
   photoLibrary = [contextCopy photoLibrary];
-  v76 = [nodesCopy count];
+  v75 = [nodesCopy count];
   selfCopy = self;
-  v87 = [objc_alloc(MEMORY[0x277D22C88]) initWithProgressReporter:reporterCopy];
-  v75 = [(PGGraphMemoriesEnrichmentProcessor *)self _targetNumberOfMemoriesToEnrichWithPhotoLibrary:photoLibrary];
+  v86 = [objc_alloc(MEMORY[0x277D22C88]) initWithProgressReporter:reporterCopy];
+  v74 = [(PGGraphMemoriesEnrichmentProcessor *)self _targetNumberOfMemoriesToEnrichWithPhotoLibrary:photoLibrary];
   v16 = [objc_alloc(MEMORY[0x277D3C790]) initWithPhotoLibrary:photoLibrary];
-  v71 = [[PGMemoryPhotoKitPersister alloc] initWithPhotoLibrary:photoLibrary];
+  v70 = [[PGMemoryPhotoKitPersister alloc] initWithPhotoLibrary:photoLibrary];
   v17 = objc_alloc_init(PGMemoryElectorConfiguration);
   v18 = [[PGGraphLocationHelper alloc] initWithGraph:graphCopy];
   v19 = [PGMemoryCurationSession alloc];
   curationManager = [contextCopy curationManager];
-  v82 = v16;
-  v69 = v18;
+  v81 = v16;
+  v68 = v18;
   v21 = [(PGMemoryCurationSession *)v19 initWithCurationManager:curationManager photoLibrary:photoLibrary curationContext:v16 locationHelper:v18];
 
   v22 = [PGEnrichedMemoryFactory alloc];
   serviceManager = [contextCopy serviceManager];
-  v80 = [(PGEnrichedMemoryFactory *)v22 initWithMemoryCurationSession:v21 graph:graphCopy serviceManager:serviceManager];
+  v79 = [(PGEnrichedMemoryFactory *)v22 initWithMemoryCurationSession:v21 graph:graphCopy serviceManager:serviceManager];
 
   v24 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v73 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v72 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v25 = [PGMemoryDate alloc];
   localDate = [(PGMemoryElectorConfiguration *)v17 localDate];
   v27 = [(PGMemoryDate *)v25 initWithLocalDate:localDate];
 
-  v81 = v17;
+  v80 = v17;
   timeZone = [(PGMemoryElectorConfiguration *)v17 timeZone];
-  v68 = v27;
-  v79 = [(PGMemoryDate *)v27 universalDateInTimeZone:timeZone];
+  v67 = v27;
+  v78 = [(PGMemoryDate *)v27 universalDateInTimeZone:timeZone];
 
-  v90 = 0u;
-  v91 = 0u;
-  v88 = 0u;
   v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
   v29 = nodesCopy;
-  v78 = [v29 countByEnumeratingWithState:&v88 objects:v94 count:16];
+  v77 = [v29 countByEnumeratingWithState:&v87 objects:v93 count:16];
   v30 = 0;
-  if (v78)
+  if (v77)
   {
-    v31 = 0.6 / v76 * 0.5;
-    v77 = *v89;
+    v31 = 0.6 / v75 * 0.5;
+    v76 = *v88;
     v32 = 0.0;
     v33 = v24;
-    v66 = photoLibrary;
-    v67 = contextCopy;
-    v70 = graphCopy;
-    v65 = v21;
+    v65 = photoLibrary;
+    v66 = contextCopy;
+    v69 = graphCopy;
+    v64 = v21;
     obj = v29;
     while (2)
     {
-      for (i = 0; i != v78; ++i)
+      for (i = 0; i != v77; ++i)
       {
-        if (*v89 != v77)
+        if (*v88 != v76)
         {
           objc_enumerationMutation(obj);
         }
 
-        v35 = *(*(&v88 + 1) + 8 * i);
+        v35 = *(*(&v87 + 1) + 8 * i);
         v36 = objc_autoreleasePoolPush();
         v32 = v31 + v32;
-        v37 = [v87 childProgressReporterToCheckpoint:v32];
-        v38 = [(PGGraphMemoriesEnrichmentProcessor *)selfCopy enrichedMemoryFromMemoryNode:v35 atCreationDate:v79 configuration:v81 curationContext:v82 enrichedMemoryFactory:v80 graph:graphCopy progressReporter:v37];
+        v37 = [v86 childProgressReporterToCheckpoint:v32];
+        v38 = [(PGGraphMemoriesEnrichmentProcessor *)selfCopy enrichedMemoryFromMemoryNode:v35 atCreationDate:v78 configuration:v80 curationContext:v81 enrichedMemoryFactory:v79 graph:graphCopy progressReporter:v37];
         throughputReportBlock = [reporterCopy throughputReportBlock];
 
         if (throughputReportBlock)
         {
           throughputReportBlock2 = [reporterCopy throughputReportBlock];
-          v84 = i;
+          v83 = i;
           v41 = v38;
           v42 = v37;
           v43 = v36;
@@ -920,7 +909,7 @@ LABEL_8:
           v36 = v43;
           v37 = v42;
           v38 = v41;
-          i = v84;
+          i = v83;
         }
 
         if ([reporterCopy isCancelled])
@@ -930,9 +919,9 @@ LABEL_8:
           v57 = obj;
 
           v58 = 0;
-          photoLibrary = v66;
-          contextCopy = v67;
-          v21 = v65;
+          photoLibrary = v65;
+          contextCopy = v66;
+          v21 = v64;
           goto LABEL_34;
         }
 
@@ -943,15 +932,15 @@ LABEL_8:
           uniqueMemoryIdentifier = [v35 uniqueMemoryIdentifier];
           if (uniqueMemoryIdentifier)
           {
-            [v73 addObject:uniqueMemoryIdentifier];
+            [v72 addObject:uniqueMemoryIdentifier];
             v32 = v31 + v32;
             v50 = [v33 count];
-            if (v50 > 0x18 || v30 >= v75)
+            if (v50 > 0x18 || v30 >= v74)
             {
-              v51 = [v87 childProgressReporterToCheckpoint:v32];
+              v51 = [v86 childProgressReporterToCheckpoint:v32];
               v52 = v33;
               v53 = v51;
-              v85 = v52;
+              v84 = v52;
               [PGGraphMemoriesEnrichmentProcessor insertOrUpdateLocalMemoriesForEnrichedMemories:selfCopy localMemoryByUniqueIdentifier:"insertOrUpdateLocalMemoriesForEnrichedMemories:localMemoryByUniqueIdentifier:memoryPersister:progressReporter:" memoryPersister:? progressReporter:?];
               throughputReportBlock3 = [reporterCopy throughputReportBlock];
 
@@ -968,27 +957,27 @@ LABEL_8:
                 v57 = obj;
 
                 v58 = 0;
-                photoLibrary = v66;
-                contextCopy = v67;
-                graphCopy = v70;
-                v21 = v65;
-                v33 = v85;
+                photoLibrary = v65;
+                contextCopy = v66;
+                graphCopy = v69;
+                v21 = v64;
+                v33 = v84;
                 goto LABEL_34;
               }
 
               v56 = objc_alloc_init(MEMORY[0x277CBEB18]);
 
               v33 = v56;
-              graphCopy = v70;
+              graphCopy = v69;
             }
 
-            if (v30 >= v75)
+            if (v30 >= v74)
             {
 
               objc_autoreleasePoolPop(v36);
-              photoLibrary = v66;
-              contextCopy = v67;
-              v21 = v65;
+              photoLibrary = v65;
+              contextCopy = v66;
+              v21 = v64;
               v29 = obj;
               goto LABEL_27;
             }
@@ -1005,11 +994,11 @@ LABEL_8:
       }
 
       v29 = obj;
-      photoLibrary = v66;
-      contextCopy = v67;
-      v21 = v65;
-      v78 = [obj countByEnumeratingWithState:&v88 objects:v94 count:16];
-      if (v78)
+      photoLibrary = v65;
+      contextCopy = v66;
+      v21 = v64;
+      v77 = [obj countByEnumeratingWithState:&v87 objects:v93 count:16];
+      if (v77)
       {
         continue;
       }
@@ -1026,11 +1015,11 @@ LABEL_8:
 LABEL_27:
   v57 = v29;
 
-  if ([v33 count] && (objc_msgSend(v87, "childProgressReporterToCheckpoint:", 0.7), v59 = objc_claimAutoreleasedReturnValue(), -[PGGraphMemoriesEnrichmentProcessor insertOrUpdateLocalMemoriesForEnrichedMemories:localMemoryByUniqueIdentifier:memoryPersister:progressReporter:](selfCopy, "insertOrUpdateLocalMemoriesForEnrichedMemories:localMemoryByUniqueIdentifier:memoryPersister:progressReporter:", v33, identifierCopy, v71, v59), v60 = objc_msgSend(reporterCopy, "isCancelled"), v59, (v60 & 1) != 0))
+  if ([v33 count] && (objc_msgSend(v86, "childProgressReporterToCheckpoint:", 0.7), v59 = objc_claimAutoreleasedReturnValue(), -[PGGraphMemoriesEnrichmentProcessor insertOrUpdateLocalMemoriesForEnrichedMemories:localMemoryByUniqueIdentifier:memoryPersister:progressReporter:](selfCopy, "insertOrUpdateLocalMemoriesForEnrichedMemories:localMemoryByUniqueIdentifier:memoryPersister:progressReporter:", v33, identifierCopy, v70, v59), v60 = objc_msgSend(reporterCopy, "isCancelled"), v59, (v60 & 1) != 0))
   {
     v58 = 0;
 LABEL_34:
-    v62 = v73;
+    v62 = v72;
   }
 
   else
@@ -1039,15 +1028,13 @@ LABEL_34:
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v93 = v30;
+      v92 = v30;
       _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[PGGraphMemoriesEnrichmentProcessor] Enriched %tu Memory nodes.", buf, 0xCu);
     }
 
-    v62 = v73;
-    v58 = v73;
+    v62 = v72;
+    v58 = v72;
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 
   return v58;
 }
@@ -1122,7 +1109,7 @@ LABEL_7:
 
 void __96__PGGraphMemoriesEnrichmentProcessor_runWithGraphManager_forMemoryUUIDs_progressReporter_error___block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v4 = *(*(a1 + 32) + 24);
   v5 = a2;
   v6 = os_signpost_id_generate(v4);
@@ -1164,9 +1151,9 @@ void __96__PGGraphMemoriesEnrichmentProcessor_runWithGraphManager_forMemoryUUIDs
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v32 = "PGGraphMemoriesEnrichmentProcessorForUUIDs";
-      v33 = 2048;
-      v34 = ((((v17 - v9) * numer) / denom) / 1000000.0);
+      v31 = "PGGraphMemoriesEnrichmentProcessorForUUIDs";
+      v32 = 2048;
+      v33 = ((((v17 - v9) * numer) / denom) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v21, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
   }
@@ -1183,14 +1170,12 @@ void __96__PGGraphMemoriesEnrichmentProcessor_runWithGraphManager_forMemoryUUIDs
     v27 = *(*(a1 + 32) + 24);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v29 = *(*(*(a1 + 72) + 8) + 40);
+      v28 = *(*(*(a1 + 72) + 8) + 40);
       *buf = 138412290;
-      v32 = v29;
+      v31 = v28;
       _os_log_error_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_ERROR, "[PGGraphMemoriesEnrichmentProcessor] Error: %@", buf, 0xCu);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)runWithGraphManager:(id)manager forMemoryCategory:(unint64_t)category progressReporter:(id)reporter error:(id *)error
@@ -1258,7 +1243,7 @@ LABEL_7:
 
 void __99__PGGraphMemoriesEnrichmentProcessor_runWithGraphManager_forMemoryCategory_progressReporter_error___block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v4 = *(*(a1 + 32) + 24);
   v5 = a2;
   v6 = os_signpost_id_generate(v4);
@@ -1279,7 +1264,7 @@ void __99__PGGraphMemoriesEnrichmentProcessor_runWithGraphManager_forMemoryCateg
   v12 = [v11 array];
   if ([v12 count])
   {
-    v32 = v9;
+    v31 = v9;
     v13 = [v11 uniqueMemoryIdentifiers];
     v14 = [v13 allObjects];
     v15 = [PGGraphMemoryProcessorHelper localMemoryByUniqueIdentifierWithGraphMemoryIdentifiers:v14 inPhotoLibrary:*(a1 + 40)];
@@ -1303,9 +1288,9 @@ void __99__PGGraphMemoriesEnrichmentProcessor_runWithGraphManager_forMemoryCateg
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v35 = "PGGraphMemoriesEnrichmentProcessorForUUIDs";
-      v36 = 2048;
-      v37 = ((((v19 - v32) * numer) / denom) / 1000000.0);
+      v34 = "PGGraphMemoriesEnrichmentProcessorForUUIDs";
+      v35 = 2048;
+      v36 = ((((v19 - v31) * numer) / denom) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v23, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
   }
@@ -1322,14 +1307,12 @@ void __99__PGGraphMemoriesEnrichmentProcessor_runWithGraphManager_forMemoryCateg
     v29 = *(*(a1 + 32) + 24);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v31 = *(*(*(a1 + 64) + 8) + 40);
+      v30 = *(*(*(a1 + 64) + 8) + 40);
       *buf = 138412290;
-      v35 = v31;
+      v34 = v30;
       _os_log_error_impl(&dword_22F0FC000, v29, OS_LOG_TYPE_ERROR, "[PGGraphMemoriesEnrichmentProcessor] Error: %@", buf, 0xCu);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)runWithGraphManager:(id)manager incrementalChange:(id)change progressReporter:(id)reporter error:(id *)error
@@ -1380,7 +1363,7 @@ void __99__PGGraphMemoriesEnrichmentProcessor_runWithGraphManager_forMemoryCateg
 
 void __99__PGGraphMemoriesEnrichmentProcessor_runWithGraphManager_incrementalChange_progressReporter_error___block_invoke(uint64_t a1, void *a2)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   v5 = os_signpost_id_generate(v4);
@@ -1408,130 +1391,127 @@ void __99__PGGraphMemoriesEnrichmentProcessor_runWithGraphManager_incrementalCha
     v12 = 1;
   }
 
-  v13 = *(a1 + 32);
-  v14 = [objc_opt_class() enrichableMemoryNodesInGraph:v10];
-  v15 = *(a1 + 32);
-  v16 = *(a1 + 48);
+  v13 = [objc_opt_class() enrichableMemoryNodesInGraph:v10];
+  v14 = *(a1 + 32);
+  v15 = *(a1 + 48);
   if (v12)
   {
-    [v15 sortedMemoryNodesToEnrichForMemoryNodes:v14 localMemoryByUniqueIdentifier:v16 graph:v10];
+    [v14 sortedMemoryNodesToEnrichForMemoryNodes:v13 localMemoryByUniqueIdentifier:v15 graph:v10];
   }
 
   else
   {
-    [v15 sortedMemoryNodesToEnrichForIncrementalForMemoryNodes:v14 localMemoryByUniqueIdentifier:v16 graph:v10];
+    [v14 sortedMemoryNodesToEnrichForIncrementalForMemoryNodes:v13 localMemoryByUniqueIdentifier:v15 graph:v10];
   }
-  v17 = ;
-  v45 = [*(a1 + 56) childProgressReporterFromStart:0.0 toEnd:0.1];
-  [*(a1 + 32) deleteNoLongerExistingMemoryNodes:v14 fromLocalMemoryByUniqueIdentifier:*(a1 + 48) inPhotoLibrary:*(a1 + 64) progressReporter:?];
+  v16 = ;
+  v43 = [*(a1 + 56) childProgressReporterFromStart:0.0 toEnd:0.1];
+  [*(a1 + 32) deleteNoLongerExistingMemoryNodes:v13 fromLocalMemoryByUniqueIdentifier:*(a1 + 48) inPhotoLibrary:*(a1 + 64) progressReporter:?];
   if (([*(a1 + 56) isCancelled] & 1) == 0)
   {
-    if ([v17 count])
+    if ([v16 count])
     {
-      v42 = v9;
-      v18 = [*(a1 + 56) throughputReportBlock];
+      v40 = v9;
+      v17 = [*(a1 + 56) throughputReportBlock];
 
-      if (v18)
+      if (v17)
       {
-        v19 = [*(a1 + 56) throughputReportBlock];
-        (v19)[2](v19, 1, @"prepareStep");
+        v18 = [*(a1 + 56) throughputReportBlock];
+        (v18)[2](v18, 1, @"prepareStep");
       }
 
-      v43 = [*(a1 + 56) childProgressReporterFromStart:0.1 toEnd:1.0];
-      v44 = [*(a1 + 32) enrichMemoryNodes:v17 localMemoryByUniqueIdentifier:*(a1 + 48) workingContext:*(a1 + 72) graph:v10 progressReporter:?];
-      *(*(*(a1 + 80) + 8) + 24) = v44 != 0;
+      v41 = [*(a1 + 56) childProgressReporterFromStart:0.1 toEnd:1.0];
+      v42 = [*(a1 + 32) enrichMemoryNodes:v16 localMemoryByUniqueIdentifier:*(a1 + 48) workingContext:*(a1 + 72) graph:v10 progressReporter:?];
+      *(*(*(a1 + 80) + 8) + 24) = v42 != 0;
       if (([*(a1 + 56) isCancelled] & 1) == 0)
       {
         if ((v12 & 1) == 0)
         {
-          v37 = v5 - 1;
-          v39 = v5;
-          v40 = v7;
-          v41 = v3;
-          v20 = [MEMORY[0x277CBEB58] set];
+          v35 = v5 - 1;
+          v37 = v5;
+          v38 = v7;
+          v39 = v3;
+          v19 = [MEMORY[0x277CBEB58] set];
+          v44 = 0u;
+          v45 = 0u;
           v46 = 0u;
           v47 = 0u;
-          v48 = 0u;
-          v49 = 0u;
-          v38 = v17;
-          v21 = v17;
-          v22 = [v21 countByEnumeratingWithState:&v46 objects:v55 count:16];
-          if (v22)
+          v36 = v16;
+          v20 = v16;
+          v21 = [v20 countByEnumeratingWithState:&v44 objects:v53 count:16];
+          if (v21)
           {
-            v23 = v22;
-            v24 = *v47;
+            v22 = v21;
+            v23 = *v45;
             do
             {
-              for (i = 0; i != v23; ++i)
+              for (i = 0; i != v22; ++i)
               {
-                if (*v47 != v24)
+                if (*v45 != v23)
                 {
-                  objc_enumerationMutation(v21);
+                  objc_enumerationMutation(v20);
                 }
 
-                v26 = *(*(&v46 + 1) + 8 * i);
-                v27 = objc_autoreleasePoolPush();
-                v28 = [v26 uniqueMemoryIdentifier];
-                [v20 addObject:v28];
+                v25 = *(*(&v44 + 1) + 8 * i);
+                v26 = objc_autoreleasePoolPush();
+                v27 = [v25 uniqueMemoryIdentifier];
+                [v19 addObject:v27];
 
-                objc_autoreleasePoolPop(v27);
+                objc_autoreleasePoolPop(v26);
               }
 
-              v23 = [v21 countByEnumeratingWithState:&v46 objects:v55 count:16];
+              v22 = [v20 countByEnumeratingWithState:&v44 objects:v53 count:16];
             }
 
-            while (v23);
+            while (v22);
           }
 
-          if (v44)
+          if (v42)
           {
-            v29 = [MEMORY[0x277CBEB98] setWithArray:?];
-            [v20 minusSet:v29];
+            v28 = [MEMORY[0x277CBEB98] setWithArray:?];
+            [v19 minusSet:v28];
           }
 
-          [PGGraphMemoryProcessorHelper resetLocalMemoryLastEnrichmentDateOfMemoriesWithUniqueIdentifiers:v20 localMemoryByUniqueIdentifierCache:*(a1 + 48) inPhotoLibrary:*(a1 + 64)];
+          [PGGraphMemoryProcessorHelper resetLocalMemoryLastEnrichmentDateOfMemoriesWithUniqueIdentifiers:v19 localMemoryByUniqueIdentifierCache:*(a1 + 48) inPhotoLibrary:*(a1 + 64)];
 
-          v7 = v40;
-          v3 = v41;
-          v17 = v38;
-          v5 = v39;
-          v8 = v37;
+          v7 = v38;
+          v3 = v39;
+          v16 = v36;
+          v5 = v37;
+          v8 = v35;
         }
 
-        v30 = mach_absolute_time();
+        v29 = mach_absolute_time();
         numer = info.numer;
         denom = info.denom;
-        v33 = v7;
-        v34 = v33;
-        if (v8 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
+        v32 = v7;
+        v33 = v32;
+        if (v8 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v34, OS_SIGNPOST_INTERVAL_END, v5, "PGGraphMemoriesEnrichmentProcessor", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v33, OS_SIGNPOST_INTERVAL_END, v5, "PGGraphMemoriesEnrichmentProcessor", "", buf, 2u);
         }
 
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v52 = "PGGraphMemoriesEnrichmentProcessor";
-          v53 = 2048;
-          v54 = ((((v30 - v42) * numer) / denom) / 1000000.0);
-          _os_log_impl(&dword_22F0FC000, v34, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
+          v50 = "PGGraphMemoriesEnrichmentProcessor";
+          v51 = 2048;
+          v52 = ((((v29 - v40) * numer) / denom) / 1000000.0);
+          _os_log_impl(&dword_22F0FC000, v33, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      v35 = *(*(a1 + 32) + 24);
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v34 = *(*(a1 + 32) + 24);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_22F0FC000, v35, OS_LOG_TYPE_DEFAULT, "[PGGraphMemoriesEnrichmentProcessor] No memory nodes to enrich", buf, 2u);
+        _os_log_impl(&dword_22F0FC000, v34, OS_LOG_TYPE_DEFAULT, "[PGGraphMemoriesEnrichmentProcessor] No memory nodes to enrich", buf, 2u);
       }
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (PGGraphMemoriesEnrichmentProcessor)initWithNumberOfMemoriesToEnrich:(unint64_t)enrich

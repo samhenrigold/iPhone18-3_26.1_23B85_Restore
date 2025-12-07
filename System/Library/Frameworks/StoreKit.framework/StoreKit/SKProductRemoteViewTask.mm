@@ -452,11 +452,11 @@ void __64__SKProductRemoteViewTask_storeProductViewControllerWillDismiss__block_
   [(SKProductRemoteViewTask *)self _addConfigurationAction:v9 needsEntitlement:0];
 }
 
-uint64_t __48__SKProductRemoteViewTask_setPresentationStyle___block_invoke(uint64_t result, uint64_t a2, void *a3)
+void *__48__SKProductRemoteViewTask_setPresentationStyle___block_invoke(void *result, uint64_t a2, void *a3)
 {
   if (a3)
   {
-    return [a3 setPresentationStyle:*(result + 32)];
+    return [a3 setPresentationStyle:result[4]];
   }
 
   return result;
@@ -2504,7 +2504,7 @@ void __68__SKProductRemoteViewTask__didReceiveExtensionRemoteViewController___bl
 {
   OUTLINED_FUNCTION_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "[%{public}@][%{public}@]: Finishing with result: %ld", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v0, "[%{public}@][%{public}@]: Finishing with result: %ld", v1, v2, v3, v4);
 }
 
 - (void)productPageRemoteViewController:userDidInteractWithProduct:.cold.1()
@@ -2554,7 +2554,7 @@ void __54__SKProductRemoteViewTask_setAdditionalBuyParameters___block_invoke_col
   OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set additional buy params: %{public}@.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set additional buy params: %{public}@.", v3, v4, v5, v6);
 }
 
 void __50__SKProductRemoteViewTask_setAffiliateIdentifier___block_invoke_cold_1(uint64_t a1)
@@ -2562,7 +2562,7 @@ void __50__SKProductRemoteViewTask_setAffiliateIdentifier___block_invoke_cold_1(
   OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set affiliate identifier: %{public}@.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set affiliate identifier: %{public}@.", v3, v4, v5, v6);
 }
 
 void __47__SKProductRemoteViewTask_setClientIdentifier___block_invoke_cold_1(uint64_t a1)
@@ -2570,7 +2570,7 @@ void __47__SKProductRemoteViewTask_setClientIdentifier___block_invoke_cold_1(uin
   OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set client identifier: %{public}@.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set client identifier: %{public}@.", v3, v4, v5, v6);
 }
 
 void __48__SKProductRemoteViewTask_setCancelButtonTitle___block_invoke_cold_1(uint64_t a1)
@@ -2578,7 +2578,7 @@ void __48__SKProductRemoteViewTask_setCancelButtonTitle___block_invoke_cold_1(ui
   OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set cancel button title: %{public}@.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set cancel button title: %{public}@.", v3, v4, v5, v6);
 }
 
 void __50__SKProductRemoteViewTask_setRightBarButtonTitle___block_invoke_cold_1(uint64_t a1)
@@ -2586,7 +2586,7 @@ void __50__SKProductRemoteViewTask_setRightBarButtonTitle___block_invoke_cold_1(
   OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set right bar button title: %{public}@.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set right bar button title: %{public}@.", v3, v4, v5, v6);
 }
 
 void __50__SKProductRemoteViewTask_setShowsRightBarButton___block_invoke_cold_1(uint64_t a1)
@@ -2604,7 +2604,7 @@ void __43__SKProductRemoteViewTask_setPromptString___block_invoke_cold_1(uint64_
   OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set prompt string: %{public}@.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set prompt string: %{public}@.", v3, v4, v5, v6);
 }
 
 void __47__SKProductRemoteViewTask_setProductPageStyle___block_invoke_cold_1(uint64_t a1)
@@ -2612,7 +2612,7 @@ void __47__SKProductRemoteViewTask_setProductPageStyle___block_invoke_cold_1(uin
   OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set product page style: %{public}@.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set product page style: %{public}@.", v3, v4, v5, v6);
 }
 
 void __47__SKProductRemoteViewTask_setShowsStoreButton___block_invoke_cold_1(uint64_t a1)
@@ -2620,7 +2620,7 @@ void __47__SKProductRemoteViewTask_setShowsStoreButton___block_invoke_cold_1(uin
   OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set shows store: %{public}@.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set shows store: %{public}@.", v3, v4, v5, v6);
 }
 
 void __54__SKProductRemoteViewTask_setScriptContextDictionary___block_invoke_cold_1(uint64_t a1)
@@ -2628,7 +2628,7 @@ void __54__SKProductRemoteViewTask_setScriptContextDictionary___block_invoke_col
   OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set context dictionary: %{public}@.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set context dictionary: %{public}@.", v3, v4, v5, v6);
 }
 
 void __43__SKProductRemoteViewTask_setUsageContext___block_invoke_cold_1(uint64_t a1)
@@ -2636,7 +2636,7 @@ void __43__SKProductRemoteViewTask_setUsageContext___block_invoke_cold_1(uint64_
   OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set usage context: %{public}@.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_4(&dword_1B23EF000, MEMORY[0x1E69E9C10], v2, "[%{public}@][%{public}@]: Set usage context: %{public}@.", v3, v4, v5, v6);
 }
 
 void __39__SKProductRemoteViewTask_setAskToBuy___block_invoke_cold_1(uint64_t a1)

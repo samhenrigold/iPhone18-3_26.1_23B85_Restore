@@ -47,12 +47,12 @@
 
 + (id)withData:(id)data
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = +[CVACMDeviceMotionData classes];
-  v15 = 0;
-  v5 = [CVAMetadataWrapper decodeNSCoderObject:dataCopy classes:v4 error:&v15];
-  v6 = v15;
+  v14 = 0;
+  v5 = [CVAMetadataWrapper decodeNSCoderObject:dataCopy classes:v4 error:&v14];
+  v6 = v14;
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -62,9 +62,9 @@
 
   else
   {
-    v14 = v6;
-    v8 = [CVAMetadataWrapper decodeClass:dataCopy class:objc_opt_class() error:&v14];
-    v7 = v14;
+    v13 = v6;
+    v8 = [CVAMetadataWrapper decodeClass:dataCopy class:objc_opt_class() error:&v13];
+    v7 = v13;
 
     if (v8)
     {
@@ -88,7 +88,7 @@
           {
             localizedDescription = [v7 localizedDescription];
             *buf = 138412290;
-            v17 = localizedDescription;
+            v16 = localizedDescription;
             _os_log_impl(&dword_24016D000, v10, OS_LOG_TYPE_ERROR, "CVACMDeviceMotionData - ERROR - cannot deserialize data: %@", buf, 0xCu);
           }
         }
@@ -97,8 +97,6 @@
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -199,23 +197,23 @@
     v58 = [dictionaryCopy objectForKeyedSubscript:@"mx"];
     [v58 floatValue];
     LODWORD(v20) = v59;
-    magneticField = [(CVACMMotionTypeDeviceMotionData *)v5->_deviceMotion magneticField];
+    v60 = objc_msgSend_magneticField(v5->_deviceMotion);
     LODWORD(v61) = LODWORD(v20);
-    [magneticField setX:v61];
+    [v60 setX:v61];
 
     v62 = [dictionaryCopy objectForKeyedSubscript:@"my"];
     [v62 floatValue];
     LODWORD(v20) = v63;
-    magneticField2 = [(CVACMMotionTypeDeviceMotionData *)v5->_deviceMotion magneticField];
+    v64 = objc_msgSend_magneticField(v5->_deviceMotion);
     LODWORD(v65) = LODWORD(v20);
-    [magneticField2 setY:v65];
+    [v64 setY:v65];
 
     v66 = [dictionaryCopy objectForKeyedSubscript:@"mz"];
     [v66 floatValue];
     LODWORD(v20) = v67;
-    magneticField3 = [(CVACMMotionTypeDeviceMotionData *)v5->_deviceMotion magneticField];
+    v68 = objc_msgSend_magneticField(v5->_deviceMotion);
     LODWORD(v69) = LODWORD(v20);
-    [magneticField3 setZ:v69];
+    [v68 setZ:v69];
 
     v70 = [dictionaryCopy objectForKeyedSubscript:@"mc"];
     -[CVACMMotionTypeDeviceMotionData setMagneticFieldCalibrationLevel:](v5->_deviceMotion, "setMagneticFieldCalibrationLevel:", [v70 intValue]);
@@ -323,21 +321,21 @@
 
     [coderCopy decodeFloatForKey:@"mx"];
     LODWORD(v17) = v46;
-    magneticField = [(CVACMMotionTypeDeviceMotionData *)v5->_deviceMotion magneticField];
+    v47 = objc_msgSend_magneticField(v5->_deviceMotion);
     LODWORD(v48) = LODWORD(v17);
-    [magneticField setX:v48];
+    [v47 setX:v48];
 
     [coderCopy decodeFloatForKey:@"my"];
     LODWORD(v17) = v49;
-    magneticField2 = [(CVACMMotionTypeDeviceMotionData *)v5->_deviceMotion magneticField];
+    v50 = objc_msgSend_magneticField(v5->_deviceMotion);
     LODWORD(v51) = LODWORD(v17);
-    [magneticField2 setY:v51];
+    [v50 setY:v51];
 
     [coderCopy decodeFloatForKey:@"mz"];
     LODWORD(v17) = v52;
-    magneticField3 = [(CVACMMotionTypeDeviceMotionData *)v5->_deviceMotion magneticField];
+    v53 = objc_msgSend_magneticField(v5->_deviceMotion);
     LODWORD(v54) = LODWORD(v17);
-    [magneticField3 setZ:v54];
+    [v53 setZ:v54];
 
     -[CVACMMotionTypeDeviceMotionData setMagneticFieldCalibrationLevel:](v5->_deviceMotion, "setMagneticFieldCalibrationLevel:", [coderCopy decodeIntForKey:@"mc"]);
     -[CVACMMotionTypeDeviceMotionData setDoingYawCorrection:](v5->_deviceMotion, "setDoingYawCorrection:", [coderCopy decodeBoolForKey:@"yc"]);
@@ -437,16 +435,16 @@ LABEL_6:
   [rotationRate3 z];
   [coderCopy encodeFloat:@"rz" forKey:?];
 
-  magneticField = [(CVACMMotionTypeDeviceMotionData *)self->_deviceMotion magneticField];
-  [magneticField x];
+  v18 = objc_msgSend_magneticField(self->_deviceMotion);
+  [v18 x];
   [coderCopy encodeFloat:@"mx" forKey:?];
 
-  magneticField2 = [(CVACMMotionTypeDeviceMotionData *)self->_deviceMotion magneticField];
-  [magneticField2 y];
+  v19 = objc_msgSend_magneticField(self->_deviceMotion);
+  [v19 y];
   [coderCopy encodeFloat:@"my" forKey:?];
 
-  magneticField3 = [(CVACMMotionTypeDeviceMotionData *)self->_deviceMotion magneticField];
-  [magneticField3 z];
+  v20 = objc_msgSend_magneticField(self->_deviceMotion);
+  [v20 z];
   [coderCopy encodeFloat:@"mz" forKey:?];
 
   [coderCopy encodeInteger:-[CVACMMotionTypeDeviceMotionData magneticFieldCalibrationLevel](self->_deviceMotion forKey:{"magneticFieldCalibrationLevel"), @"mc"}];
@@ -464,7 +462,7 @@ LABEL_6:
   v5 = [(CVACMDeviceMotionData *)self init];
   if (v5)
   {
-    [motionCopy timestamp];
+    objc_msgSend_timestamp(motionCopy);
     v5->_timestamp = v6;
     attitude = [motionCopy attitude];
     [attitude quaternion];
@@ -546,7 +544,7 @@ LABEL_6:
 
     if (motionCopy)
     {
-      [motionCopy magneticField];
+      objc_msgSend_magneticField(motionCopy);
       v50 = *&v64;
     }
 
@@ -557,13 +555,13 @@ LABEL_6:
       v50 = 0.0;
     }
 
-    magneticField = [(CVACMMotionTypeDeviceMotionData *)v5->_deviceMotion magneticField];
+    v51 = objc_msgSend_magneticField(v5->_deviceMotion);
     *&v52 = v50;
-    [magneticField setX:v52];
+    [v51 setX:v52];
 
     if (motionCopy)
     {
-      [motionCopy magneticField];
+      objc_msgSend_magneticField(motionCopy);
       v53 = *(&v62 + 1);
     }
 
@@ -574,13 +572,13 @@ LABEL_6:
       v53 = 0.0;
     }
 
-    magneticField2 = [(CVACMMotionTypeDeviceMotionData *)v5->_deviceMotion magneticField];
+    v54 = objc_msgSend_magneticField(v5->_deviceMotion);
     *&v55 = v53;
-    [magneticField2 setY:v55];
+    [v54 setY:v55];
 
     if (motionCopy)
     {
-      [motionCopy magneticField];
+      objc_msgSend_magneticField(motionCopy);
       v56 = *&v61;
     }
 
@@ -591,7 +589,7 @@ LABEL_6:
       v56 = 0.0;
     }
 
-    v57 = [(CVACMMotionTypeDeviceMotionData *)v5->_deviceMotion magneticField:v60];
+    v57 = objc_msgSend_magneticField(v5->_deviceMotion, v60, v61, v62, v63, v64, v65);
     *&v58 = v56;
     [v57 setZ:v58];
 

@@ -52,25 +52,8 @@
 
       v25 = v17;
       v26 = v19;
-      if (!v26)
+      if (!v26 || ([v25 bundleSubscription], v37 = v26, v27 = objc_claimAutoreleasedReturnValue(), objc_getAssociatedObject(v27, (v27 + 1)), v38 = v25, v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(v28, "unsignedIntegerValue"), v30 = v29, objc_getAssociatedObject(v27, ~v29), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "unsignedIntegerValue") ^ v30, v31, v28, v25 = v38, v27, v26 = v37, (v32 & 1) == 0))
       {
-        goto LABEL_13;
-      }
-
-      [v25 bundleSubscription];
-      v27 = v37 = v26;
-      objc_getAssociatedObject(v27, (v27 + 1));
-      v28 = v38 = v25;
-      unsignedIntegerValue = [v28 unsignedIntegerValue];
-      v30 = unsignedIntegerValue;
-      v31 = objc_getAssociatedObject(v27, ~unsignedIntegerValue);
-      v32 = [v31 unsignedIntegerValue] ^ v30;
-
-      v25 = v38;
-      v26 = v37;
-      if ((v32 & 1) == 0)
-      {
-LABEL_13:
 
 LABEL_14:
         v20 = 0;

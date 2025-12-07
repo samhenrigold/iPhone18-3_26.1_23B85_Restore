@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)fromStepAsString:(int)string;
+- (id)toStepAsString:(int)string;
 - (int)StringAsFromStep:(id)step;
 - (int)StringAsToStep:(id)step;
 - (unint64_t)hash;
@@ -12,6 +14,258 @@
 @end
 
 @implementation NPKProtoStandalonePaymentProvisioningFlowResponse
+
+- (id)fromStepAsString:(int)string
+{
+  if (string <= 164)
+  {
+    if (string > 139)
+    {
+      if (string <= 149)
+      {
+        switch(string)
+        {
+          case 140:
+            v4 = @"ChooseCredentials";
+
+            return v4;
+          case 144:
+            v4 = @"ChooseTransitProductType";
+
+            return v4;
+          case 145:
+            v4 = @"ChooseServiceProviderProducts";
+
+            return v4;
+        }
+      }
+
+      else if (string > 156)
+      {
+        if (string == 157)
+        {
+          v4 = @"MoreInformation";
+
+          return v4;
+        }
+
+        if (string == 160)
+        {
+          v4 = @"ReaderModeEntry";
+
+          return v4;
+        }
+      }
+
+      else
+      {
+        if (string == 150)
+        {
+          v4 = @"DigitalIssuanceAmount";
+
+          return v4;
+        }
+
+        if (string == 155)
+        {
+          v4 = @"DigitalIssuancePayment";
+
+          return v4;
+        }
+      }
+    }
+
+    else if (string <= 129)
+    {
+      switch(string)
+      {
+        case 'd':
+          v4 = @"Initialized";
+
+          return v4;
+        case 'n':
+          v4 = @"Preconditions";
+
+          return v4;
+        case 'x':
+          v4 = @"Welcome";
+
+          return v4;
+      }
+    }
+
+    else if (string > 136)
+    {
+      if (string == 137)
+      {
+        v4 = @"ChooseTransitProduct";
+
+        return v4;
+      }
+
+      if (string == 138)
+      {
+        v4 = @"ChooseEMoneyProduct";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 130)
+      {
+        v4 = @"ChooseFlow";
+
+        return v4;
+      }
+
+      if (string == 135)
+      {
+        v4 = @"ChooseProduct";
+
+        return v4;
+      }
+    }
+
+LABEL_129:
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string <= 199)
+  {
+    if (string <= 191)
+    {
+      switch(string)
+      {
+        case 165:
+          v4 = @"ReaderModeIngestion";
+
+          return v4;
+        case 180:
+          v4 = @"ManualEntry";
+
+          return v4;
+        case 190:
+          v4 = @"SecondaryManualEntry";
+
+          return v4;
+      }
+    }
+
+    else if (string > 194)
+    {
+      if (string == 195)
+      {
+        v4 = @"ProductDisambiguation";
+
+        return v4;
+      }
+
+      if (string == 197)
+      {
+        v4 = @"PasscodeUpgrade";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 192)
+      {
+        v4 = @"LocalDeviceManualEntry";
+
+        return v4;
+      }
+
+      if (string == 193)
+      {
+        v4 = @"LocalDeviceManualEntryProgress";
+
+        return v4;
+      }
+    }
+
+    goto LABEL_129;
+  }
+
+  if (string > 239)
+  {
+    if (string > 259)
+    {
+      if (string == 260)
+      {
+        v4 = @"AppleBalanceAccountDetails";
+
+        return v4;
+      }
+
+      if (string == 300)
+      {
+        v4 = @"GetIssuerApplicationAddRequest";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 240)
+      {
+        v4 = @"IssuerVerificationFields";
+
+        return v4;
+      }
+
+      if (string == 250)
+      {
+        v4 = @"IssuerVerificationCode";
+
+        return v4;
+      }
+    }
+
+    goto LABEL_129;
+  }
+
+  if (string > 219)
+  {
+    if (string == 220)
+    {
+      v4 = @"ProvisioningResult";
+
+      return v4;
+    }
+
+    if (string == 230)
+    {
+      v4 = @"IssuerVerificationChannels";
+
+      return v4;
+    }
+
+    goto LABEL_129;
+  }
+
+  if (string != 200)
+  {
+    if (string == 210)
+    {
+      v4 = @"ProvisioningProgress";
+
+      return v4;
+    }
+
+    goto LABEL_129;
+  }
+
+  v4 = @"TermsAndConditions";
+
+  return v4;
+}
 
 - (int)StringAsFromStep:(id)step
 {
@@ -165,6 +419,258 @@
   {
     v4 = 100;
   }
+
+  return v4;
+}
+
+- (id)toStepAsString:(int)string
+{
+  if (string <= 164)
+  {
+    if (string > 139)
+    {
+      if (string <= 149)
+      {
+        switch(string)
+        {
+          case 140:
+            v4 = @"ChooseCredentials";
+
+            return v4;
+          case 144:
+            v4 = @"ChooseTransitProductType";
+
+            return v4;
+          case 145:
+            v4 = @"ChooseServiceProviderProducts";
+
+            return v4;
+        }
+      }
+
+      else if (string > 156)
+      {
+        if (string == 157)
+        {
+          v4 = @"MoreInformation";
+
+          return v4;
+        }
+
+        if (string == 160)
+        {
+          v4 = @"ReaderModeEntry";
+
+          return v4;
+        }
+      }
+
+      else
+      {
+        if (string == 150)
+        {
+          v4 = @"DigitalIssuanceAmount";
+
+          return v4;
+        }
+
+        if (string == 155)
+        {
+          v4 = @"DigitalIssuancePayment";
+
+          return v4;
+        }
+      }
+    }
+
+    else if (string <= 129)
+    {
+      switch(string)
+      {
+        case 'd':
+          v4 = @"Initialized";
+
+          return v4;
+        case 'n':
+          v4 = @"Preconditions";
+
+          return v4;
+        case 'x':
+          v4 = @"Welcome";
+
+          return v4;
+      }
+    }
+
+    else if (string > 136)
+    {
+      if (string == 137)
+      {
+        v4 = @"ChooseTransitProduct";
+
+        return v4;
+      }
+
+      if (string == 138)
+      {
+        v4 = @"ChooseEMoneyProduct";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 130)
+      {
+        v4 = @"ChooseFlow";
+
+        return v4;
+      }
+
+      if (string == 135)
+      {
+        v4 = @"ChooseProduct";
+
+        return v4;
+      }
+    }
+
+LABEL_129:
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string <= 199)
+  {
+    if (string <= 191)
+    {
+      switch(string)
+      {
+        case 165:
+          v4 = @"ReaderModeIngestion";
+
+          return v4;
+        case 180:
+          v4 = @"ManualEntry";
+
+          return v4;
+        case 190:
+          v4 = @"SecondaryManualEntry";
+
+          return v4;
+      }
+    }
+
+    else if (string > 194)
+    {
+      if (string == 195)
+      {
+        v4 = @"ProductDisambiguation";
+
+        return v4;
+      }
+
+      if (string == 197)
+      {
+        v4 = @"PasscodeUpgrade";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 192)
+      {
+        v4 = @"LocalDeviceManualEntry";
+
+        return v4;
+      }
+
+      if (string == 193)
+      {
+        v4 = @"LocalDeviceManualEntryProgress";
+
+        return v4;
+      }
+    }
+
+    goto LABEL_129;
+  }
+
+  if (string > 239)
+  {
+    if (string > 259)
+    {
+      if (string == 260)
+      {
+        v4 = @"AppleBalanceAccountDetails";
+
+        return v4;
+      }
+
+      if (string == 300)
+      {
+        v4 = @"GetIssuerApplicationAddRequest";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 240)
+      {
+        v4 = @"IssuerVerificationFields";
+
+        return v4;
+      }
+
+      if (string == 250)
+      {
+        v4 = @"IssuerVerificationCode";
+
+        return v4;
+      }
+    }
+
+    goto LABEL_129;
+  }
+
+  if (string > 219)
+  {
+    if (string == 220)
+    {
+      v4 = @"ProvisioningResult";
+
+      return v4;
+    }
+
+    if (string == 230)
+    {
+      v4 = @"IssuerVerificationChannels";
+
+      return v4;
+    }
+
+    goto LABEL_129;
+  }
+
+  if (string != 200)
+  {
+    if (string == 210)
+    {
+      v4 = @"ProvisioningProgress";
+
+      return v4;
+    }
+
+    goto LABEL_129;
+  }
+
+  v4 = @"TermsAndConditions";
 
   return v4;
 }
@@ -790,9 +1296,7 @@ LABEL_145:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  fromStep = self->_fromStep;
   PBDataWriterWriteInt32Field();
-  toStep = self->_toStep;
   PBDataWriterWriteInt32Field();
   if (self->_context)
   {

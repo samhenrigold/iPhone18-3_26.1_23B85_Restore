@@ -94,13 +94,11 @@
 
 - (id)zoneName
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR____TtC14bookdatastored13CRDTModelSync_type);
-  v3 = *(&self->super._deletedFlag + OBJC_IVAR____TtC14bookdatastored13CRDTModelSync_type);
   selfCopy = self;
 
-  v5 = sub_1001C5FE8();
+  v3 = sub_1001C5FE8();
 
-  return v5;
+  return v3;
 }
 
 @end

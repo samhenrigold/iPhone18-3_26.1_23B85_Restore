@@ -17,14 +17,14 @@
 - (id)fetchAppShortcutForBundleIdentifiers:(id)identifiers localeIdentifier:(id)identifier error:(id *)error
 {
   v6 = sub_1CA94C658();
-  sub_1CA94C3A8();
+  v7 = sub_1CA94C3A8();
   selfCopy = self;
-  sub_1CA5F8928(v6);
+  sub_1CA5F8928(v6, v7);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4445A0, &qword_1CA983900);
-  v8 = sub_1CA94C1A8();
+  v9 = sub_1CA94C1A8();
 
-  return v8;
+  return v9;
 }
 
 - (void)appShortcutsChanged

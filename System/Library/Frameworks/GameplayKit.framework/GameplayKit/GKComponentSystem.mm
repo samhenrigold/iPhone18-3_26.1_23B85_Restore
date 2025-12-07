@@ -30,24 +30,24 @@
 
 - (void)addComponent:(id)component
 {
-  v18[1] = *MEMORY[0x277D85DE8];
-  v15 = component;
+  v17[1] = *MEMORY[0x277D85DE8];
+  v14 = component;
   v4 = objc_opt_class();
   componentClass = self->_componentClass;
   if (v4 != componentClass)
   {
-    v10 = MEMORY[0x277CBEAD8];
-    v11 = *MEMORY[0x277CBE660];
-    v17 = @"supportedClass";
-    v18[0] = componentClass;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-    v13 = [v10 exceptionWithName:v11 reason:@"component class is not supported by this system" userInfo:v12];
-    v14 = v13;
+    v9 = MEMORY[0x277CBEAD8];
+    v10 = *MEMORY[0x277CBE660];
+    v16 = @"supportedClass";
+    v17[0] = componentClass;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v12 = [v9 exceptionWithName:v10 reason:@"component class is not supported by this system" userInfo:v11];
+    v13 = v12;
 
-    objc_exception_throw(v13);
+    objc_exception_throw(v12);
   }
 
-  [v15 setUsesPerComponentUpdate:1];
+  [v14 setUsesPerComponentUpdate:1];
   components = self->_components;
   if (!components)
   {
@@ -58,9 +58,8 @@
     components = self->_components;
   }
 
-  [(NSMutableArray *)components addObject:v15, v15];
-  [v16 setComponentSystem:self];
-  v9 = *MEMORY[0x277D85DE8];
+  [(NSMutableArray *)components addObject:v14, v14];
+  [v15 setComponentSystem:self];
 }
 
 - (void)addComponentWithEntity:(GKEntity *)entity
@@ -103,70 +102,68 @@
 
 - (void)updateWithDeltaTime:(NSTimeInterval)seconds
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = self->_components;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) updateWithDeltaTime:{seconds, v10}];
+        [*(*(&v9 + 1) + 8 * v8++) updateWithDeltaTime:{seconds, v9}];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)performSelector:(SEL)selector withObject:(id)object
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if ([(objc_class *)self->_componentClass instancesRespondToSelector:selector])
   {
     v7 = [(objc_class *)self->_componentClass instanceMethodForSelector:selector];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v8 = self->_components;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v7(*(*(&v17 + 1) + 8 * i), selector, objectCopy);
+          v7(*(*(&v16 + 1) + 8 * i), selector, objectCopy);
         }
 
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -177,12 +174,10 @@
 
   else
   {
-    v16.receiver = self;
-    v16.super_class = GKComponentSystem;
-    v13 = [(GKComponentSystem *)&v16 performSelector:selector withObject:objectCopy];
+    v15.receiver = self;
+    v15.super_class = GKComponentSystem;
+    v13 = [(GKComponentSystem *)&v15 performSelector:selector withObject:objectCopy];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -222,35 +217,35 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   invocationCopy = invocation;
   if ([(NSMutableArray *)self->_components count])
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v5 = self->_components;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         v9 = 0;
         do
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [invocationCopy invokeWithTarget:*(*(&v12 + 1) + 8 * v9++)];
+          [invocationCopy invokeWithTarget:*(*(&v11 + 1) + 8 * v9++)];
         }
 
         while (v7 != v9);
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
@@ -259,12 +254,10 @@
 
   else
   {
-    v11.receiver = self;
-    v11.super_class = GKComponentSystem;
-    [(GKComponentSystem *)&v11 forwardInvocation:invocationCopy];
+    v10.receiver = self;
+    v10.super_class = GKComponentSystem;
+    [(GKComponentSystem *)&v10 forwardInvocation:invocationCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

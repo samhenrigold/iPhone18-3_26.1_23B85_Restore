@@ -21,6 +21,7 @@
 - (id)_linkAssetWithId:(id)id treatmentId:(id)treatmentId assetStore:(id)store factor:(id)factor;
 - (id)loadTreatmentWithTreatmentId:(id)id isFilePresent:(BOOL *)present;
 - (id)saveTreatment:(id)treatment;
+- (id)updateSavedTreatmentWithTreatmentId:(id)id deletingAssetsWithFactorNames:(id)names forNamespaceName:(id)name inUseAssetDeletionBehavior:(unsigned __int8)behavior;
 - (id)updateSavedTreatmentWithTreatmentId:(id)id linkingNewAssetIds:(id)ids forNamespaceNames:(id)names;
 - (id)urlForFactorsWithTreatmentId:(id)id namespaceName:(id)name;
 - (id)urlForTreatmentWithTreatmentId:(id)id;
@@ -56,7 +57,7 @@
 
 - (id)loadTreatmentWithTreatmentId:(id)id isFilePresent:(BOOL *)present
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v7 = objc_autoreleasePoolPush();
   if (present)
@@ -66,16 +67,16 @@
 
   v8 = objc_alloc(MEMORY[0x277CBEA90]);
   v9 = [(TRIClientTreatmentStorage *)self urlForTreatmentWithTreatmentId:idCopy];
-  v33 = 0;
-  v10 = [v8 initWithContentsOfURL:v9 options:1 error:&v33];
-  v11 = v33;
+  v32 = 0;
+  v10 = [v8 initWithContentsOfURL:v9 options:1 error:&v32];
+  v11 = v32;
 
   if (v10)
   {
 
-    v32 = 0;
-    v12 = [(TRIPBMessage *)TRIPersistedTreatment parseFromData:v10 error:&v32];
-    v11 = v32;
+    v31 = 0;
+    v12 = [(TRIPBMessage *)TRIPersistedTreatment parseFromData:v10 error:&v31];
+    v11 = v31;
     if (v12)
     {
       if (([v12 hasTreatment]& 1) != 0)
@@ -101,14 +102,14 @@ LABEL_26:
             goto LABEL_24;
           }
 
-          v29 = [(TRIClientTreatmentStorage *)self urlForTreatmentWithTreatmentId:idCopy];
+          v28 = [(TRIClientTreatmentStorage *)self urlForTreatmentWithTreatmentId:idCopy];
           treatmentId2 = [treatment treatmentId];
           *buf = 138412802;
-          v35 = v29;
-          v36 = 2112;
-          v37 = idCopy;
-          v38 = 2112;
-          v39 = treatmentId2;
+          v34 = v28;
+          v35 = 2112;
+          v36 = idCopy;
+          v37 = 2112;
+          v38 = treatmentId2;
           _os_log_error_impl(&dword_26F567000, v26, OS_LOG_TYPE_ERROR, "TRIClientTreatment at %@ has mismatched treatmentId (exp: %@, act: %@)", buf, 0x20u);
         }
 
@@ -122,9 +123,9 @@ LABEL_24:
             goto LABEL_25;
           }
 
-          v29 = [(TRIClientTreatmentStorage *)self urlForTreatmentWithTreatmentId:idCopy];
+          v28 = [(TRIClientTreatmentStorage *)self urlForTreatmentWithTreatmentId:idCopy];
           *buf = 138412290;
-          v35 = v29;
+          v34 = v28;
           _os_log_error_impl(&dword_26F567000, v26, OS_LOG_TYPE_ERROR, "TRIPersistedTreatment has TRIClientTreatment with nil or empty treatmentId: %@", buf, 0xCu);
         }
 
@@ -136,7 +137,7 @@ LABEL_24:
       {
         v21 = [(TRIClientTreatmentStorage *)self urlForTreatmentWithTreatmentId:idCopy];
         *buf = 138412290;
-        v35 = v21;
+        v34 = v21;
         v22 = "TRIPersistedTreatment has missing treatment: %@";
         v23 = treatment;
         v24 = 12;
@@ -151,9 +152,9 @@ LABEL_24:
       {
         v21 = [(TRIClientTreatmentStorage *)self urlForTreatmentWithTreatmentId:idCopy];
         *buf = 138412546;
-        v35 = v21;
-        v36 = 2114;
-        v37 = v11;
+        v34 = v21;
+        v35 = 2114;
+        v36 = v11;
         v22 = "Unable to parse TRIPersistedTreatment from %@: %{public}@";
         v23 = treatment;
         v24 = 22;
@@ -186,13 +187,13 @@ LABEL_25:
   v12 = TRILogCategory_Server();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    v31 = [(TRIClientTreatmentStorage *)self urlForTreatmentWithTreatmentId:idCopy];
+    v30 = [(TRIClientTreatmentStorage *)self urlForTreatmentWithTreatmentId:idCopy];
     *buf = 138412802;
-    v35 = idCopy;
-    v36 = 2112;
-    v37 = v31;
-    v38 = 2114;
-    v39 = v11;
+    v34 = idCopy;
+    v35 = 2112;
+    v36 = v30;
+    v37 = 2114;
+    v38 = v11;
     _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Unable to read treatment with ID %@ from %@: %{public}@", buf, 0x20u);
   }
 
@@ -200,14 +201,13 @@ LABEL_25:
 LABEL_27:
 
   objc_autoreleasePoolPop(v7);
-  v27 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 - (id)saveTreatment:(id)treatment
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   treatmentCopy = treatment;
   v5 = objc_autoreleasePoolPush();
   if (![treatmentCopy hasTreatmentId] || (objc_msgSend(treatmentCopy, "treatmentId"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "length"), v6, !v7))
@@ -231,38 +231,38 @@ LABEL_27:
   }
 
   selfCopy = self;
-  v43 = v5;
+  v42 = v5;
   context = objc_autoreleasePoolPush();
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   obj = [v8 factorLevelArray];
-  v47 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v46 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
   v10 = 0;
-  if (!v47)
+  if (!v46)
   {
     goto LABEL_33;
   }
 
-  v46 = *v49;
+  v45 = *v48;
   *&v9 = 138543362;
-  v40 = v9;
+  v39 = v9;
   do
   {
     v11 = 0;
     do
     {
-      if (*v49 != v46)
+      if (*v48 != v45)
       {
         objc_enumerationMutation(obj);
       }
 
       v12 = v8;
-      v13 = *(*(&v48 + 1) + 8 * v11);
+      v13 = *(*(&v47 + 1) + 8 * v11);
       if (!v10)
       {
-        factor = [*(*(&v48 + 1) + 8 * v11) factor];
+        factor = [*(*(&v47 + 1) + 8 * v11) factor];
         namespaceName = [factor namespaceName];
         v10 = [TRIClientFactorPackUtils aliasesInNamespace:namespaceName];
       }
@@ -307,9 +307,9 @@ LABEL_27:
                 factor5 = [v13 factor];
                 name2 = [factor5 name];
                 *buf = 138412546;
-                v53 = treatmentId;
-                v54 = 2114;
-                v55 = name2;
+                v52 = treatmentId;
+                v53 = 2114;
+                v54 = name2;
                 _os_log_debug_impl(&dword_26F567000, v25, OS_LOG_TYPE_DEBUG, "Populating treatmentId %@ on asset for %{public}@", buf, 0x16u);
 
                 v8 = v12;
@@ -339,8 +339,8 @@ LABEL_27:
             {
               factor6 = [v13 factor];
               name3 = [factor6 name];
-              *buf = v40;
-              v53 = name3;
+              *buf = v39;
+              v52 = name3;
               _os_log_debug_impl(&dword_26F567000, v30, OS_LOG_TYPE_DEBUG, "Populating system default cloudKitContainer on asset for %{public}@", buf, 0xCu);
             }
 
@@ -354,16 +354,16 @@ LABEL_29:
       ++v11;
     }
 
-    while (v47 != v11);
-    v47 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
+    while (v46 != v11);
+    v46 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
   }
 
-  while (v47);
+  while (v46);
 LABEL_33:
 
   objc_autoreleasePoolPop(context);
   self = selfCopy;
-  v5 = v43;
+  v5 = v42;
 LABEL_34:
   if ([(TRIClientTreatmentStorage *)self _linkAssetsUpdatingTreatment:v8]&& [(TRIClientTreatmentStorage *)self _saveNamespacePartitionedTreatmentsForTreatment:v8 forNamespaceNames:0]&& [(TRIClientTreatmentStorage *)self _savePersistedTreatment:v8])
   {
@@ -380,30 +380,28 @@ LABEL_34:
 LABEL_42:
   objc_autoreleasePoolPop(v5);
 
-  v38 = *MEMORY[0x277D85DE8];
-
   return v36;
 }
 
 - (id)updateSavedTreatmentWithTreatmentId:(id)id linkingNewAssetIds:(id)ids forNamespaceNames:(id)names
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   idCopy = id;
   idsCopy = ids;
   namesCopy = names;
   v11 = objc_autoreleasePoolPush();
-  v20 = 0;
-  v12 = [(TRIClientTreatmentStorage *)self loadTreatmentWithTreatmentId:idCopy isFilePresent:&v20];
+  v19 = 0;
+  v12 = [(TRIClientTreatmentStorage *)self loadTreatmentWithTreatmentId:idCopy isFilePresent:&v19];
   if (v12)
   {
     v13 = TRILogCategory_Server();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v18 = [idsCopy count];
+      v17 = [idsCopy count];
       *buf = 134218242;
-      v22 = v18;
-      v23 = 2112;
-      v24 = idCopy;
+      v21 = v17;
+      v22 = 2112;
+      v23 = idCopy;
       _os_log_debug_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEBUG, "Merging %tu assets for treatment %@.", buf, 0x16u);
     }
 
@@ -414,14 +412,14 @@ LABEL_42:
     }
   }
 
-  else if ((v20 & 1) == 0)
+  else if ((v19 & 1) == 0)
   {
     v15 = TRILogCategory_Server();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v19 = [(TRIClientTreatmentStorage *)self urlForTreatmentWithTreatmentId:idCopy];
+      v18 = [(TRIClientTreatmentStorage *)self urlForTreatmentWithTreatmentId:idCopy];
       *buf = 138412290;
-      v22 = v19;
+      v21 = v18;
       _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "updateSavedTreatmentWithTreatmentId failed because preexisting treatment is not present: %@", buf, 0xCu);
     }
   }
@@ -430,14 +428,13 @@ LABEL_42:
 LABEL_13:
 
   objc_autoreleasePoolPop(v11);
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (BOOL)_linkAssetsWithIds:(id)ids updatingTreatment:(id)treatment
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   treatmentCopy = treatment;
   v7 = [TRIAssetStore alloc];
@@ -445,29 +442,29 @@ LABEL_13:
   extractor = self->_extractor;
   selfCopy = self;
   v10 = [[TRIRemoteAssetPatcher alloc] initWithMonitoredActivity:0];
-  v32 = [(TRIAssetStore *)v7 initWithPaths:paths extractor:extractor patcher:v10];
+  v31 = [(TRIAssetStore *)v7 initWithPaths:paths extractor:extractor patcher:v10];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  v33 = treatmentCopy;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = treatmentCopy;
   factorLevelArray = [treatmentCopy factorLevelArray];
-  v12 = [factorLevelArray countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v12 = [factorLevelArray countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v36;
+    v14 = *v35;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v36 != v14)
+        if (*v35 != v14)
         {
           objc_enumerationMutation(factorLevelArray);
         }
 
-        v16 = *(*(&v35 + 1) + 8 * i);
+        v16 = *(*(&v34 + 1) + 8 * i);
         v17 = objc_autoreleasePoolPush();
         level = [v16 level];
         v19 = [level fileOrDirectoryLevelWithIsDir:0];
@@ -489,9 +486,9 @@ LABEL_13:
 
                 if (v24 && [idsCopy containsObject:v24])
                 {
-                  treatmentId = [v33 treatmentId];
+                  treatmentId = [v32 treatmentId];
                   factor = [v16 factor];
-                  v27 = [(TRIClientTreatmentStorage *)selfCopy _linkAssetWithId:v24 treatmentId:treatmentId assetStore:v32 factor:factor];
+                  v27 = [(TRIClientTreatmentStorage *)selfCopy _linkAssetWithId:v24 treatmentId:treatmentId assetStore:v31 factor:factor];
 
                   if (!v27)
                   {
@@ -511,7 +508,7 @@ LABEL_13:
         objc_autoreleasePoolPop(v17);
       }
 
-      v13 = [factorLevelArray countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v13 = [factorLevelArray countByEnumeratingWithState:&v34 objects:v38 count:16];
       if (v13)
       {
         continue;
@@ -524,7 +521,6 @@ LABEL_13:
   v28 = 1;
 LABEL_19:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -570,9 +566,52 @@ LABEL_19:
   return v21;
 }
 
+- (id)updateSavedTreatmentWithTreatmentId:(id)id deletingAssetsWithFactorNames:(id)names forNamespaceName:(id)name inUseAssetDeletionBehavior:(unsigned __int8)behavior
+{
+  behaviorCopy = behavior;
+  v24 = *MEMORY[0x277D85DE8];
+  idCopy = id;
+  namesCopy = names;
+  nameCopy = name;
+  v13 = objc_autoreleasePoolPush();
+  v21 = 0;
+  v14 = [(TRIClientTreatmentStorage *)self loadTreatmentWithTreatmentId:idCopy isFilePresent:&v21];
+  if (v14)
+  {
+    [(TRIClientTreatmentStorage *)self _deleteOnDemandAssetsWithFactorNames:namesCopy treatment:v14 namespace:nameCopy inUseAssetDeletionBehavior:behaviorCopy];
+    v15 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{nameCopy, 0}];
+    v16 = [(TRIClientTreatmentStorage *)self _saveNamespacePartitionedTreatmentsForTreatment:v14 forNamespaceNames:v15];
+
+    if (v16 && [(TRIClientTreatmentStorage *)self _savePersistedTreatment:v14])
+    {
+      v17 = v14;
+      goto LABEL_10;
+    }
+  }
+
+  else if ((v21 & 1) == 0)
+  {
+    v18 = TRILogCategory_Server();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      v20 = [(TRIClientTreatmentStorage *)self urlForTreatmentWithTreatmentId:idCopy];
+      *buf = 138412290;
+      v23 = v20;
+      _os_log_error_impl(&dword_26F567000, v18, OS_LOG_TYPE_ERROR, "updateSavedTreatmentWithTreatmentId failed because preexisting treatment is not present: %@", buf, 0xCu);
+    }
+  }
+
+  v17 = 0;
+LABEL_10:
+
+  objc_autoreleasePoolPop(v13);
+
+  return v17;
+}
+
 - (BOOL)removeUnreferencedTreatmentsWithRemovedCount:(unsigned int *)count
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   _collectTreatments = [(TRIClientTreatmentStorage *)self _collectTreatments];
   if (_collectTreatments)
   {
@@ -580,17 +619,17 @@ LABEL_19:
     localTempDir = [(TRIPaths *)self->_paths localTempDir];
     v7 = [(TRITempDirScopeGuard *)v5 initWithPath:localTempDir];
 
-    v35 = v7;
+    v34 = v7;
     if (v7)
     {
-      v33 = [[TRINamespaceDescriptorSetStorage alloc] initWithPaths:self->_paths];
-      parentDirForNamespaceDescriptorSets = [(TRINamespaceDescriptorSetStorage *)v33 parentDirForNamespaceDescriptorSets];
+      v32 = [[TRINamespaceDescriptorSetStorage alloc] initWithPaths:self->_paths];
+      parentDirForNamespaceDescriptorSets = [(TRINamespaceDescriptorSetStorage *)v32 parentDirForNamespaceDescriptorSets];
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
       v9 = [defaultManager fileExistsAtPath:parentDirForNamespaceDescriptorSets];
 
       if (v9)
       {
-        v37 = objc_alloc_init(MEMORY[0x277CBEB58]);
+        v36 = objc_alloc_init(MEMORY[0x277CBEB58]);
         context = objc_autoreleasePoolPush();
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
         v11 = [MEMORY[0x277CBEBC0] fileURLWithPath:parentDirForNamespaceDescriptorSets isDirectory:1];
@@ -601,7 +640,7 @@ LABEL_19:
         if (nextObject)
         {
           *&v15 = 138412290;
-          v31 = v15;
+          v30 = v15;
           do
           {
             path = [nextObject path];
@@ -619,7 +658,7 @@ LABEL_19:
                 factorsURL = [v21 factorsURL];
                 path3 = [factorsURL path];
                 stringByDeletingLastPathComponent = [path3 stringByDeletingLastPathComponent];
-                [v37 addObject:stringByDeletingLastPathComponent];
+                [v36 addObject:stringByDeletingLastPathComponent];
               }
 
               else
@@ -628,7 +667,7 @@ LABEL_19:
                 if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
                 {
                   path4 = [nextObject path];
-                  LODWORD(buf) = v31;
+                  LODWORD(buf) = v30;
                   *(&buf + 4) = path4;
                   _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "failed to parse dictionary from file: %@", &buf, 0xCu);
                 }
@@ -648,22 +687,22 @@ LABEL_19:
         objc_autoreleasePoolPop(context);
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v48 = 0x2020000000;
-        v49 = 0;
-        v43 = 0;
-        v44 = &v43;
-        v45 = 0x2020000000;
-        v46 = 1;
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __74__TRIClientTreatmentStorage_removeUnreferencedTreatmentsWithRemovedCount___block_invoke;
-        v38[3] = &unk_279DE2810;
-        v27 = v37;
-        v39 = v27;
-        v41 = &v43;
-        v40 = v35;
+        v47 = 0x2020000000;
+        v48 = 0;
+        v42 = 0;
+        v43 = &v42;
+        v44 = 0x2020000000;
+        v45 = 1;
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __74__TRIClientTreatmentStorage_removeUnreferencedTreatmentsWithRemovedCount___block_invoke;
+        v37[3] = &unk_279DE2810;
+        v27 = v36;
+        v38 = v27;
+        v40 = &v42;
+        v39 = v34;
         p_buf = &buf;
-        v28 = [_collectTreatments enumerateStringsWithBlock:v38];
+        v28 = [_collectTreatments enumerateStringsWithBlock:v37];
         if (count)
         {
           *count = *(*(&buf + 1) + 24);
@@ -671,7 +710,7 @@ LABEL_19:
 
         if (v28)
         {
-          v26 = *(v44 + 24);
+          v26 = *(v43 + 24);
         }
 
         else
@@ -679,7 +718,7 @@ LABEL_19:
           v26 = 0;
         }
 
-        _Block_object_dispose(&v43, 8);
+        _Block_object_dispose(&v42, 8);
         _Block_object_dispose(&buf, 8);
       }
 
@@ -708,22 +747,21 @@ LABEL_19:
     v26 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v26 & 1;
 }
 
 void __74__TRIClientTreatmentStorage_removeUnreferencedTreatmentsWithRemovedCount___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) containsObject:v3])
   {
     v4 = TRILogCategory_Server();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Treatment managed-dir %@ is referenced. Looking to see if there are any deferred-deletion items to remove", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "Treatment managed-dir %@ is referenced. Looking to see if there are any deferred-deletion items to remove", &v6, 0xCu);
     }
 
     *(*(*(a1 + 48) + 8) + 24) &= [TRIReferenceManagedDir collectDeferredDeletionItemsWithManagedDir:v3];
@@ -731,22 +769,20 @@ void __74__TRIClientTreatmentStorage_removeUnreferencedTreatmentsWithRemovedCoun
 
   else
   {
-    LOBYTE(v7) = 0;
+    LOBYTE(v6) = 0;
     v5 = [*(a1 + 40) path];
-    *(*(*(a1 + 48) + 8) + 24) &= [TRIReferenceManagedDir collectGarbageForManagedDir:v3 withExternalReferenceStore:0 usingTempDir:v5 managedDirWasDeleted:&v7];
+    *(*(*(a1 + 48) + 8) + 24) &= [TRIReferenceManagedDir collectGarbageForManagedDir:v3 withExternalReferenceStore:0 usingTempDir:v5 managedDirWasDeleted:&v6];
 
-    if (v7 == 1)
+    if (v6 == 1)
     {
       ++*(*(*(a1 + 56) + 8) + 24);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_collectTreatments
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   if (!v3)
   {
@@ -756,40 +792,40 @@ void __74__TRIClientTreatmentStorage_removeUnreferencedTreatmentsWithRemovedCoun
 
   treatmentsDir = [(TRIPaths *)self->_paths treatmentsDir];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v54 = 0;
-  v6 = [defaultManager contentsOfDirectoryAtPath:treatmentsDir error:&v54];
-  v7 = v54;
+  v53 = 0;
+  v6 = [defaultManager contentsOfDirectoryAtPath:treatmentsDir error:&v53];
+  v7 = v53;
 
   if (v6)
   {
-    v39 = v7;
-    v41 = v3;
-    v47 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v38 = v7;
+    v40 = v3;
+    v46 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
-    v40 = v6;
+    v39 = v6;
     obj = v6;
-    v8 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
+    v8 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v51;
-      v42 = *v51;
-      v43 = treatmentsDir;
+      v10 = *v50;
+      v41 = *v50;
+      v42 = treatmentsDir;
       do
       {
         v11 = 0;
-        v44 = v9;
+        v43 = v9;
         do
         {
-          if (*v51 != v10)
+          if (*v50 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v50 + 1) + 8 * v11);
+          v12 = *(*(&v49 + 1) + 8 * v11);
           v13 = objc_autoreleasePoolPush();
           v14 = [treatmentsDir stringByAppendingPathComponent:v12];
           buf[0] = 0;
@@ -798,7 +834,7 @@ void __74__TRIClientTreatmentStorage_removeUnreferencedTreatmentsWithRemovedCoun
 
           if (buf[0] == 1)
           {
-            v46 = v13;
+            v45 = v13;
             defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
             v17 = [MEMORY[0x277CBEBC0] fileURLWithPath:v14 isDirectory:1];
             v18 = [defaultManager3 enumeratorAtURL:v17 includingPropertiesForKeys:0 options:1 errorHandler:0];
@@ -810,7 +846,7 @@ void __74__TRIClientTreatmentStorage_removeUnreferencedTreatmentsWithRemovedCoun
               nextObject2 = nextObject;
               while (1)
               {
-                v22 = [nextObject2 URLByAppendingPathComponent:{@"treatment.pb", v39}];
+                v22 = [nextObject2 URLByAppendingPathComponent:{@"treatment.pb", v38}];
                 path = [v22 path];
                 if (path)
                 {
@@ -830,7 +866,7 @@ void __74__TRIClientTreatmentStorage_removeUnreferencedTreatmentsWithRemovedCoun
                 if (path3)
                 {
                   path4 = [nextObject2 path];
-                  [v47 addObject:path4];
+                  [v46 addObject:path4];
                 }
 
                 objc_autoreleasePoolPop(v19);
@@ -846,10 +882,10 @@ void __74__TRIClientTreatmentStorage_removeUnreferencedTreatmentsWithRemovedCoun
 LABEL_18:
             objc_autoreleasePoolPop(v19);
 
-            v10 = v42;
-            treatmentsDir = v43;
-            v9 = v44;
-            v13 = v46;
+            v10 = v41;
+            treatmentsDir = v42;
+            v9 = v43;
+            v13 = v45;
           }
 
           objc_autoreleasePoolPop(v13);
@@ -857,24 +893,24 @@ LABEL_18:
         }
 
         while (v11 != v9);
-        v9 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
+        v9 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
       }
 
       while (v9);
     }
 
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __47__TRIClientTreatmentStorage__collectTreatments__block_invoke;
-    v48[3] = &unk_279DE2838;
-    v3 = v41;
-    v30 = v41;
-    v49 = v30;
-    [v47 enumerateObjectsUsingBlock:v48];
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __47__TRIClientTreatmentStorage__collectTreatments__block_invoke;
+    v47[3] = &unk_279DE2838;
+    v3 = v40;
+    v30 = v40;
+    v48 = v30;
+    [v46 enumerateObjectsUsingBlock:v47];
     v31 = v30;
 
-    v7 = v39;
-    v6 = v40;
+    v7 = v38;
+    v6 = v39;
     goto LABEL_32;
   }
 
@@ -890,7 +926,7 @@ LABEL_18:
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v57 = treatmentsDir;
+        v56 = treatmentsDir;
         _os_log_impl(&dword_26F567000, v35, OS_LOG_TYPE_DEFAULT, "Treatments folder does not exist at %{public}@. Treating as empty", buf, 0xCu);
       }
 
@@ -907,9 +943,9 @@ LABEL_18:
   if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543618;
-    v57 = treatmentsDir;
-    v58 = 2112;
-    v59 = v7;
+    v56 = treatmentsDir;
+    v57 = 2112;
+    v58 = v7;
     _os_log_error_impl(&dword_26F567000, v36, OS_LOG_TYPE_ERROR, "Unable to gather contents of treatment directory %{public}@: %@", buf, 0x16u);
   }
 
@@ -917,32 +953,29 @@ LABEL_18:
 LABEL_32:
 
 LABEL_33:
-  v37 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
 
 void __47__TRIClientTreatmentStorage__collectTreatments__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([*(a1 + 32) addString:v3] & 1) == 0)
   {
     v4 = TRILogCategory_Server();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "Failed to add string %@ to file-backed mutable array", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "Failed to add string %@ to file-backed mutable array", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)removeTreatmentFromLayer:(unint64_t)layer withNamespaceName:(id)name upgradeNCVs:(id)vs
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   vsCopy = vs;
   if (layer != 32 && layer != 4)
@@ -953,7 +986,7 @@ void __47__TRIClientTreatmentStorage__collectTreatments__block_invoke(uint64_t a
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v38 = nameCopy;
+        v37 = nameCopy;
         _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "cannot remove treatment from 'installed' layer for namespace %{public}@", buf, 0xCu);
       }
     }
@@ -969,7 +1002,7 @@ LABEL_12:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v38) = layer;
+      LODWORD(v37) = layer;
       _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "cannot remove treatment from unknown treatment layer %u", buf, 8u);
     }
 
@@ -1001,50 +1034,50 @@ LABEL_12:
 
     else if (vsCopy)
     {
-      v31 = v14;
-      v32 = v13;
+      v30 = v14;
+      v31 = v13;
       namespaceCompatibilityVersion = [v14 namespaceCompatibilityVersion];
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
       v20 = vsCopy;
-      v21 = [v20 countByEnumeratingWithState:&v33 objects:v43 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v32 objects:v42 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v34;
+        v23 = *v33;
         while (2)
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v34 != v23)
+            if (*v33 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            if ([*(*(&v33 + 1) + 8 * i) intValue] > namespaceCompatibilityVersion)
+            if ([*(*(&v32 + 1) + 8 * i) intValue] > namespaceCompatibilityVersion)
             {
               v27 = TRILogCategory_Server();
               if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543874;
-                v38 = nameCopy;
-                v39 = 2112;
-                v40 = v20;
-                v41 = 1024;
-                v42 = namespaceCompatibilityVersion;
+                v37 = nameCopy;
+                v38 = 2112;
+                v39 = v20;
+                v40 = 1024;
+                v41 = namespaceCompatibilityVersion;
                 _os_log_error_impl(&dword_26F567000, v27, OS_LOG_TYPE_ERROR, "Error for namespace %{public}@. Every element of Namespace Upgrade Compatibility Versions %@ must be less than or equal to the current rollout Namespace Compatibility Version %u", buf, 0x1Cu);
               }
 
               v18 = 0;
-              v15 = v31;
-              v13 = v32;
+              v15 = v30;
+              v13 = v31;
               goto LABEL_36;
             }
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v33 objects:v43 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v32 objects:v42 count:16];
           if (v22)
           {
             continue;
@@ -1060,23 +1093,23 @@ LABEL_12:
       if (v26)
       {
         v18 = 1;
-        v13 = v32;
+        v13 = v31;
       }
 
       else
       {
-        v13 = v32;
-        v18 = [(TRIClientTreatmentStorage *)self _removeRolloutWithDescriptor:v32 descriptorDir:v12 treatmentLayer:layer namespaceName:nameCopy];
+        v13 = v31;
+        v18 = [(TRIClientTreatmentStorage *)self _removeRolloutWithDescriptor:v31 descriptorDir:v12 treatmentLayer:layer namespaceName:nameCopy];
       }
 
-      v15 = v31;
+      v15 = v30;
       v28 = TRILogCategory_Server();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v38 = nameCopy;
-        v39 = 2114;
-        v40 = v20;
+        v37 = nameCopy;
+        v38 = 2114;
+        v39 = v20;
         _os_log_impl(&dword_26F567000, v28, OS_LOG_TYPE_DEFAULT, "Not deleting rollout for namespace %{public}@ due to upgrade NCVS %{public}@", buf, 0x16u);
       }
     }
@@ -1095,42 +1128,41 @@ LABEL_36:
   }
 
 LABEL_38:
-  v29 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (BOOL)removeTreatmentWithTreatmentId:(id)id
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v6 = objc_autoreleasePoolPush();
-  v44 = 0;
-  v7 = [(TRIClientTreatmentStorage *)self loadTreatmentWithTreatmentId:idCopy isFilePresent:&v44];
+  v43 = 0;
+  v7 = [(TRIClientTreatmentStorage *)self loadTreatmentWithTreatmentId:idCopy isFilePresent:&v43];
   if (v7)
   {
-    v33 = a2;
-    v34 = v6;
+    v32 = a2;
+    v33 = v6;
     v8 = objc_opt_new();
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     factorLevelArray = [v7 factorLevelArray];
-    v10 = [factorLevelArray countByEnumeratingWithState:&v40 objects:v48 count:16];
+    v10 = [factorLevelArray countByEnumeratingWithState:&v39 objects:v47 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v41;
+      v12 = *v40;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v41 != v12)
+          if (*v40 != v12)
           {
             objc_enumerationMutation(factorLevelArray);
           }
 
-          factor = [*(*(&v40 + 1) + 8 * i) factor];
+          factor = [*(*(&v39 + 1) + 8 * i) factor];
           namespaceString = [factor namespaceString];
 
           if (namespaceString)
@@ -1139,41 +1171,41 @@ LABEL_38:
           }
         }
 
-        v11 = [factorLevelArray countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v11 = [factorLevelArray countByEnumeratingWithState:&v39 objects:v47 count:16];
       }
 
       while (v11);
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v16 = v8;
-    v17 = [v16 countByEnumeratingWithState:&v36 objects:v47 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v35 objects:v46 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v37;
+      v19 = *v36;
       LODWORD(v20) = 1;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v37 != v19)
+          if (*v36 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          LODWORD(v20) = v20 & [(TRIClientTreatmentStorage *)self _removeFactorsWithTreatmentId:idCopy namespaceName:*(*(&v36 + 1) + 8 * j)];
+          LODWORD(v20) = v20 & [(TRIClientTreatmentStorage *)self _removeFactorsWithTreatmentId:idCopy namespaceName:*(*(&v35 + 1) + 8 * j)];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v36 objects:v47 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v35 objects:v46 count:16];
       }
 
       while (v18);
 
-      v6 = v34;
+      v6 = v33;
       if (!v20)
       {
         goto LABEL_33;
@@ -1183,7 +1215,7 @@ LABEL_38:
     else
     {
 
-      v6 = v34;
+      v6 = v33;
     }
 
     v22 = [(TRIClientTreatmentStorage *)self urlForTreatmentWithTreatmentId:idCopy];
@@ -1191,13 +1223,13 @@ LABEL_38:
     if (!path)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      [currentHandler handleFailureInMethod:v33 object:self file:@"TRIClientTreatmentStorage.m" lineNumber:523 description:{@"Invalid parameter not satisfying: %@", @"artifactPath"}];
+      [currentHandler handleFailureInMethod:v32 object:self file:@"TRIClientTreatmentStorage.m" lineNumber:523 description:{@"Invalid parameter not satisfying: %@", @"artifactPath"}];
     }
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v35 = 0;
-    v25 = [defaultManager triForceRemoveItemAtPath:path error:&v35];
-    v26 = v35;
+    v34 = 0;
+    v25 = [defaultManager triForceRemoveItemAtPath:path error:&v34];
+    v26 = v34;
 
     if (v25)
     {
@@ -1229,7 +1261,7 @@ LABEL_33:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v46 = v26;
+      v45 = v26;
       _os_log_error_impl(&dword_26F567000, v20, OS_LOG_TYPE_ERROR, "Failed to remove artifact: %{public}@", buf, 0xCu);
     }
 
@@ -1237,11 +1269,10 @@ LABEL_33:
     goto LABEL_32;
   }
 
-  LOBYTE(v20) = v44 ^ 1;
+  LOBYTE(v20) = v43 ^ 1;
 LABEL_34:
 
   objc_autoreleasePoolPop(v6);
-  v30 = *MEMORY[0x277D85DE8];
   return v20 & 1;
 }
 
@@ -1257,7 +1288,7 @@ LABEL_34:
 - (BOOL)_removeRolloutWithDescriptor:(id)descriptor descriptorDir:(id)dir treatmentLayer:(unint64_t)layer namespaceName:(id)name
 {
   layerCopy = layer;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   nameCopy = name;
   v12 = [descriptorCopy removeFromDirectory:dir];
@@ -1274,21 +1305,20 @@ LABEL_34:
     v15 = TRILogCategory_Server();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v18[0] = 67109378;
-      v18[1] = layerCopy;
-      v19 = 2114;
-      v20 = nameCopy;
-      _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "descriptor in layer %u is missing factors URL for namespace %{public}@", v18, 0x12u);
+      v17[0] = 67109378;
+      v17[1] = layerCopy;
+      v18 = 2114;
+      v19 = nameCopy;
+      _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "descriptor in layer %u is missing factors URL for namespace %{public}@", v17, 0x12u);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)_removeFactorsWithURL:(id)l
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (!lCopy)
   {
@@ -1318,7 +1348,7 @@ LABEL_34:
         [currentHandler3 handleFailureInMethod:a2 object:self file:@"TRIClientTreatmentStorage.m" lineNumber:586 description:{@"Invalid parameter not satisfying: %@", @"parentPath"}];
       }
 
-      v25 = 0;
+      v24 = 0;
       path = [lCopy path];
       if (path)
       {
@@ -1328,7 +1358,7 @@ LABEL_34:
         {
           path3 = [lCopy path];
           v14 = 1;
-          v15 = [TRIReferenceManagedDir removeFileInManagedDirWithPath:path3 inUseDeletionBehavior:1 wasDeleted:&v25];
+          v15 = [TRIReferenceManagedDir removeFileInManagedDirWithPath:path3 inUseDeletionBehavior:1 wasDeleted:&v24];
 
           if (!v15)
           {
@@ -1336,7 +1366,7 @@ LABEL_34:
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v27 = v6;
+              v26 = v6;
               _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Failed to remove factors path %{public}@ in managed dir", buf, 0xCu);
             }
 
@@ -1357,7 +1387,7 @@ LABEL_27:
     if (os_log_type_enabled(lCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v27 = 0;
+      v26 = 0;
       _os_log_error_impl(&dword_26F567000, lCopy, OS_LOG_TYPE_ERROR, "Failed to resolve url: %{public}@", buf, 0xCu);
     }
 
@@ -1372,7 +1402,7 @@ LABEL_27:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v27 = lCopy;
+      v26 = lCopy;
       _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, "Failed to resolve url: %{public}@", buf, 0xCu);
     }
 
@@ -1384,26 +1414,25 @@ LABEL_24:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v27 = lCopy;
+    v26 = lCopy;
     _os_log_impl(&dword_26F567000, v19, OS_LOG_TYPE_DEFAULT, "Failed to resolve container url: %{public}@", buf, 0xCu);
   }
 
   v14 = 1;
 LABEL_28:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (id)urlForFactorsWithTreatmentId:(id)id namespaceName:(id)name
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v6 = [(TRIClientTreatmentStorage *)self _baseUrlForTreatment:id namespaceName:name];
   v7 = MEMORY[0x277CBEBC0];
   path = [v6 path];
-  v14[0] = path;
-  v14[1] = @"treatment.pb";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[0] = path;
+  v13[1] = @"treatment.pb";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v10 = [v7 fileURLWithPathComponents:v9];
 
   if (!v10)
@@ -1412,14 +1441,12 @@ LABEL_28:
     [currentHandler handleFailureInMethod:a2 object:self file:@"TRIClientTreatmentStorage.m" lineNumber:602 description:@"urlForFactorsWithTreatmentId is nil"];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (BOOL)_savePersistedTreatment:(id)treatment
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   treatmentCopy = treatment;
   v6 = objc_autoreleasePoolPush();
   treatmentId = [treatmentCopy treatmentId];
@@ -1433,9 +1460,9 @@ LABEL_28:
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v25 = 0;
-  v11 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v25];
-  v12 = v25;
+  v24 = 0;
+  v11 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v24];
+  v12 = v24;
 
   if ((v11 & 1) == 0)
   {
@@ -1443,7 +1470,7 @@ LABEL_28:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v27 = v12;
+      v26 = v12;
       _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Failed to create directory: %{public}@", buf, 0xCu);
     }
   }
@@ -1457,9 +1484,9 @@ LABEL_28:
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"TRIClientTreatmentStorage.m" lineNumber:625 description:{@"Invalid parameter not satisfying: %@", @"data"}];
   }
 
-  v24 = 0;
-  v16 = [data writeToURL:v8 options:268435457 error:&v24];
-  v17 = v24;
+  v23 = 0;
+  v16 = [data writeToURL:v8 options:268435457 error:&v23];
+  v17 = v23;
   if ((v16 & 1) == 0)
   {
     v18 = TRILogCategory_Server();
@@ -1467,39 +1494,38 @@ LABEL_28:
     {
       treatmentId2 = [treatmentCopy treatmentId];
       *buf = 138412546;
-      v27 = treatmentId2;
-      v28 = 2114;
-      v29 = v17;
+      v26 = treatmentId2;
+      v27 = 2114;
+      v28 = v17;
       _os_log_error_impl(&dword_26F567000, v18, OS_LOG_TYPE_ERROR, "Failed to write TRIPersistedTreatment for treatment %@: %{public}@", buf, 0x16u);
     }
   }
 
   objc_autoreleasePoolPop(v6);
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)_deleteOnDemandAssetsWithFactorNames:(id)names treatment:(id)treatment namespace:(id)namespace inUseAssetDeletionBehavior:(unsigned __int8)behavior
 {
   behaviorCopy = behavior;
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   treatmentCopy = treatment;
   namespaceCopy = namespace;
   treatmentId = [treatmentCopy treatmentId];
   selfCopy = self;
-  v62 = namespaceCopy;
+  v61 = namespaceCopy;
   v13 = [(TRIClientTreatmentStorage *)self _baseUrlForTreatment:treatmentId namespaceName:namespaceCopy];
   path = [v13 path];
 
-  v63 = treatmentCopy;
-  v64 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v62 = treatmentCopy;
+  v63 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v76 = 0u;
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
   factorLevelArray = [treatmentCopy factorLevelArray];
-  v15 = [factorLevelArray countByEnumeratingWithState:&v77 objects:v86 count:16];
+  v15 = [factorLevelArray countByEnumeratingWithState:&v76 objects:v85 count:16];
   if (!v15)
   {
     LOBYTE(v18) = 1;
@@ -1507,21 +1533,21 @@ LABEL_28:
   }
 
   v16 = v15;
-  v60 = a2;
-  v17 = *v78;
+  v59 = a2;
+  v17 = *v77;
   LODWORD(v18) = 1;
-  v68 = factorLevelArray;
+  v67 = factorLevelArray;
   do
   {
     v19 = 0;
     do
     {
-      if (*v78 != v17)
+      if (*v77 != v17)
       {
         objc_enumerationMutation(factorLevelArray);
       }
 
-      v20 = *(*(&v77 + 1) + 8 * v19);
+      v20 = *(*(&v76 + 1) + 8 * v19);
       v21 = objc_autoreleasePoolPush();
       level = [v20 level];
       v23 = [level fileOrDirectoryLevelWithIsDir:0];
@@ -1541,7 +1567,7 @@ LABEL_28:
 
         if ([mobileAssetReferenceValue isOnDemand])
         {
-          v70 = v18;
+          v69 = v18;
           factor = [v20 factor];
           name = [factor name];
           v37 = [namesCopy containsObject:name];
@@ -1559,11 +1585,11 @@ LABEL_28:
 
             if (factor2)
             {
-              [v64 addObject:v42];
+              [v63 addObject:v42];
               v44 = objc_opt_new();
-              v76 = 0;
-              v45 = [v44 writeToFile:v42 options:0x10000000 error:&v76];
-              v65 = v76;
+              v75 = 0;
+              v45 = [v44 writeToFile:v42 options:0x10000000 error:&v75];
+              v64 = v75;
 
               if ((v45 & 1) == 0)
               {
@@ -1571,16 +1597,16 @@ LABEL_28:
                 if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
                 {
                   buf = 138543362;
-                  v83 = v42;
+                  v82 = v42;
                   _os_log_error_impl(&dword_26F567000, v46, OS_LOG_TYPE_ERROR, "Unable to nil out MARef by creating a blank file at %{public}@", &buf, 0xCu);
                 }
               }
             }
           }
 
-          LODWORD(v18) = v70;
+          LODWORD(v18) = v69;
 LABEL_26:
-          factorLevelArray = v68;
+          factorLevelArray = v67;
         }
 
 LABEL_27:
@@ -1615,17 +1641,17 @@ LABEL_27:
         if ([v23 isOnDemand])
         {
           factor4 = [v20 factor];
-          treatmentId2 = [v63 treatmentId];
+          treatmentId2 = [v62 treatmentId];
           v31 = [(TRIClientTreatmentStorage *)selfCopy _assetURLForFactor:factor4 treatmentId:treatmentId2];
 
           mobileAssetReferenceValue = [v31 path];
           if (!mobileAssetReferenceValue)
           {
             currentHandler = [MEMORY[0x277CCA890] currentHandler];
-            [currentHandler handleFailureInMethod:v60 object:selfCopy file:@"TRIClientTreatmentStorage.m" lineNumber:669 description:{@"Expression was unexpectedly nil/false: %@", @"url.path"}];
+            [currentHandler handleFailureInMethod:v59 object:selfCopy file:@"TRIClientTreatmentStorage.m" lineNumber:669 description:{@"Expression was unexpectedly nil/false: %@", @"url.path"}];
           }
 
-          [v64 addObject:mobileAssetReferenceValue];
+          [v63 addObject:mobileAssetReferenceValue];
           [v23 setPath:0];
         }
 
@@ -1636,11 +1662,11 @@ LABEL_27:
           {
             factor5 = [v20 factor];
             name4 = [factor5 name];
-            treatmentId3 = [v63 treatmentId];
+            treatmentId3 = [v62 treatmentId];
             buf = 138543618;
-            v83 = name4;
-            v84 = 2112;
-            v85 = treatmentId3;
+            v82 = name4;
+            v83 = 2112;
+            v84 = treatmentId3;
             _os_log_error_impl(&dword_26F567000, mobileAssetReferenceValue, OS_LOG_TYPE_ERROR, "Factor %{public}@ for treatment %@ is not on-demand.", &buf, 0x16u);
           }
 
@@ -1650,7 +1676,7 @@ LABEL_27:
         goto LABEL_26;
       }
 
-      factorLevelArray = v68;
+      factorLevelArray = v67;
 LABEL_28:
 
       objc_autoreleasePoolPop(v21);
@@ -1658,41 +1684,41 @@ LABEL_28:
     }
 
     while (v16 != v19);
-    v51 = [factorLevelArray countByEnumeratingWithState:&v77 objects:v86 count:16];
+    v51 = [factorLevelArray countByEnumeratingWithState:&v76 objects:v85 count:16];
     v16 = v51;
   }
 
   while (v51);
 LABEL_37:
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
-  v52 = v64;
-  v53 = [v52 countByEnumeratingWithState:&v72 objects:v81 count:16];
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  v52 = v63;
+  v53 = [v52 countByEnumeratingWithState:&v71 objects:v80 count:16];
   if (v53)
   {
     v54 = v53;
-    v55 = *v73;
+    v55 = *v72;
     do
     {
       for (i = 0; i != v54; ++i)
       {
-        if (*v73 != v55)
+        if (*v72 != v55)
         {
           objc_enumerationMutation(v52);
         }
 
-        v57 = *(*(&v72 + 1) + 8 * i);
-        v71 = 0;
-        if (![TRIReferenceManagedDir removeFileInManagedDirWithPath:v57 inUseDeletionBehavior:behaviorCopy wasDeleted:&v71])
+        v57 = *(*(&v71 + 1) + 8 * i);
+        v70 = 0;
+        if (![TRIReferenceManagedDir removeFileInManagedDirWithPath:v57 inUseDeletionBehavior:behaviorCopy wasDeleted:&v70])
         {
           v18 = TRILogCategory_Server();
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             buf = 138543362;
-            v83 = v57;
+            v82 = v57;
             _os_log_error_impl(&dword_26F567000, v18, OS_LOG_TYPE_ERROR, "Failed to remove file %{public}@ in managed dir", &buf, 0xCu);
           }
 
@@ -1700,21 +1726,20 @@ LABEL_37:
         }
       }
 
-      v54 = [v52 countByEnumeratingWithState:&v72 objects:v81 count:16];
+      v54 = [v52 countByEnumeratingWithState:&v71 objects:v80 count:16];
     }
 
     while (v54);
   }
 
-  v58 = *MEMORY[0x277D85DE8];
   return v18 & 1;
 }
 
 - (BOOL)_linkAssetsUpdatingTreatment:(id)treatment
 {
-  v116 = *MEMORY[0x277D85DE8];
+  v115 = *MEMORY[0x277D85DE8];
   treatmentCopy = treatment;
-  v97 = [[TRIAssetStore alloc] initWithPaths:self->_paths];
+  v96 = [[TRIAssetStore alloc] initWithPaths:self->_paths];
   factorLevelArray = [treatmentCopy factorLevelArray];
   v7 = [factorLevelArray count];
 
@@ -1725,7 +1750,7 @@ LABEL_37:
     {
       treatmentId = [treatmentCopy treatmentId];
       *buf = 138412290;
-      v110 = treatmentId;
+      v109 = treatmentId;
       _os_log_impl(&dword_26F567000, namespaceName, OS_LOG_TYPE_DEFAULT, "Treatment %@ has no factor levels. Proceeding without linking assets.", buf, 0xCu);
     }
 
@@ -1733,32 +1758,32 @@ LABEL_37:
     goto LABEL_79;
   }
 
-  v107 = 0u;
-  v108 = 0u;
-  v105 = 0u;
   v106 = 0u;
+  v107 = 0u;
+  v104 = 0u;
+  v105 = 0u;
   factorLevelArray2 = [treatmentCopy factorLevelArray];
-  v101 = [factorLevelArray2 countByEnumeratingWithState:&v105 objects:v115 count:16];
-  if (v101)
+  v100 = [factorLevelArray2 countByEnumeratingWithState:&v104 objects:v114 count:16];
+  if (v100)
   {
-    v90 = a2;
+    v89 = a2;
     selfCopy = self;
     namespaceName = 0;
-    v100 = *v106;
-    v94 = treatmentCopy;
-    v96 = factorLevelArray2;
+    v99 = *v105;
+    v93 = treatmentCopy;
+    v95 = factorLevelArray2;
     while (1)
     {
       v10 = 0;
       v11 = namespaceName;
       do
       {
-        if (*v106 != v100)
+        if (*v105 != v99)
         {
           objc_enumerationMutation(factorLevelArray2);
         }
 
-        v12 = *(*(&v105 + 1) + 8 * v10);
+        v12 = *(*(&v104 + 1) + 8 * v10);
         context = objc_autoreleasePoolPush();
         factor = [v12 factor];
         namespaceName = [factor namespaceName];
@@ -1789,9 +1814,9 @@ LABEL_37:
               [factor3 name];
               v73 = v72 = namespaceName;
               *buf = 138543618;
-              v110 = treatmentId2;
-              v111 = 2114;
-              v112 = v73;
+              v109 = treatmentId2;
+              v110 = 2114;
+              v111 = v73;
               _os_log_error_impl(&dword_26F567000, mobileAssetReferenceValue, OS_LOG_TYPE_ERROR, "Treatment %{public}@ has factor %{public}@ with missing namespaceString.", buf, 0x16u);
 
               namespaceName = v72;
@@ -1813,40 +1838,40 @@ LABEL_65:
 
               factor3 = [treatmentCopy treatmentId];
               [v12 factor];
-              v86 = v85 = namespaceName;
-              name = [v86 name];
+              v85 = v84 = namespaceName;
+              name = [v85 name];
               *buf = 138543618;
-              v110 = factor3;
-              v111 = 2114;
-              v112 = name;
+              v109 = factor3;
+              v110 = 2114;
+              v111 = name;
               _os_log_error_impl(&dword_26F567000, treatmentId2, OS_LOG_TYPE_ERROR, "Treatment %{public}@ has factor %{public}@ with incomplete MobileAssetReference.", buf, 0x16u);
 
-              namespaceName = v85;
+              namespaceName = v84;
 LABEL_81:
 
               goto LABEL_65;
             }
 
-            v99 = namespaceName;
+            v98 = namespaceName;
             factor4 = [v12 factor];
             treatmentId3 = [treatmentCopy treatmentId];
             namespaceName2 = [factor4 namespaceName];
             v40 = [(TRIClientTreatmentStorage *)selfCopy _baseUrlForTreatment:treatmentId3 namespaceName:namespaceName2];
 
-            v92 = v40;
+            v91 = v40;
             path = [v40 path];
             if (!path)
             {
               currentHandler = [MEMORY[0x277CCA890] currentHandler];
-              [currentHandler handleFailureInMethod:v90 object:selfCopy file:@"TRIClientTreatmentStorage.m" lineNumber:796 description:{@"Expression was unexpectedly nil/false: %@", @"targetURL.path"}];
+              [currentHandler handleFailureInMethod:v89 object:selfCopy file:@"TRIClientTreatmentStorage.m" lineNumber:796 description:{@"Expression was unexpectedly nil/false: %@", @"targetURL.path"}];
             }
 
             v42 = objc_opt_class();
-            v93 = factor4;
+            v92 = factor4;
             name2 = [factor4 name];
             v44 = [v42 relPathForMAReferenceWithFactorName:name2];
 
-            v91 = v44;
+            v90 = v44;
             v45 = [path stringByAppendingPathComponent:v44];
             stringByDeletingLastPathComponent = [v45 stringByDeletingLastPathComponent];
             v47 = objc_alloc(MEMORY[0x277D73740]);
@@ -1866,31 +1891,31 @@ LABEL_81:
               isFileFactor = 0;
             }
 
-            treatmentCopy = v94;
-            if (![(TRIAssetStore *)v97 referenceMAAutoAssetWithId:v51 isFileFactor:isFileFactor usingCurrentPath:v45 futurePath:v45])
+            treatmentCopy = v93;
+            if (![(TRIAssetStore *)v96 referenceMAAutoAssetWithId:v51 isFileFactor:isFileFactor usingCurrentPath:v45 futurePath:v45])
             {
               v74 = TRILogCategory_Server();
               if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v110 = v45;
+                v109 = v45;
                 _os_log_error_impl(&dword_26F567000, v74, OS_LOG_TYPE_ERROR, "Unable to reference maAutoAsset at %{public}@", buf, 0xCu);
               }
 
-              namespaceName = v99;
+              namespaceName = v98;
 LABEL_71:
               v75 = context;
 LABEL_76:
 
               objc_autoreleasePoolPop(v75);
-              factorLevelArray2 = v96;
+              factorLevelArray2 = v95;
 LABEL_77:
 
               goto LABEL_78;
             }
 
-            namespaceName = v99;
-            factorLevelArray2 = v96;
+            namespaceName = v98;
+            factorLevelArray2 = v95;
           }
 
 LABEL_38:
@@ -1934,11 +1959,11 @@ LABEL_75:
           factor5 = [v12 factor];
           name3 = [factor5 name];
           *buf = 138412802;
-          v110 = treatmentId4;
-          v111 = 2114;
-          v112 = assetId2;
-          v113 = 2114;
-          v114 = name3;
+          v109 = treatmentId4;
+          v110 = 2114;
+          v111 = assetId2;
+          v112 = 2114;
+          v113 = name3;
           _os_log_error_impl(&dword_26F567000, v76, OS_LOG_TYPE_ERROR, "Treatment %@ has unsuitable asset id %{public}@ for factor %{public}@.", buf, 0x20u);
 
           namespaceName = v78;
@@ -1957,12 +1982,12 @@ LABEL_83:
 
           treatmentId4 = [treatmentCopy treatmentId];
           *buf = 138412290;
-          v110 = treatmentId4;
+          v109 = treatmentId4;
           _os_log_error_impl(&dword_26F567000, v76, OS_LOG_TYPE_ERROR, "Treatment %@ has missing factor.", buf, 0xCu);
           goto LABEL_83;
         }
 
-        v98 = namespaceName;
+        v97 = namespaceName;
         factor6 = [v12 factor];
         treatmentId5 = [treatmentCopy treatmentId];
         v23 = [(TRIClientTreatmentStorage *)selfCopy _assetURLForFactor:factor6 treatmentId:treatmentId5];
@@ -1971,14 +1996,14 @@ LABEL_83:
         if (!path2)
         {
           currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-          [currentHandler2 handleFailureInMethod:v90 object:selfCopy file:@"TRIClientTreatmentStorage.m" lineNumber:751 description:{@"Expression was unexpectedly nil/false: %@", @"targetURL.path"}];
+          [currentHandler2 handleFailureInMethod:v89 object:selfCopy file:@"TRIClientTreatmentStorage.m" lineNumber:751 description:{@"Expression was unexpectedly nil/false: %@", @"targetURL.path"}];
         }
 
         stringByDeletingLastPathComponent2 = [path2 stringByDeletingLastPathComponent];
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-        v104 = 0;
-        v27 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent2 withIntermediateDirectories:1 attributes:0 error:&v104];
-        v28 = v104;
+        v103 = 0;
+        v27 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent2 withIntermediateDirectories:1 attributes:0 error:&v103];
+        v28 = v103;
 
         if ((v27 & 1) == 0)
         {
@@ -1986,18 +2011,18 @@ LABEL_83:
           if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v110 = v28;
+            v109 = v28;
             _os_log_error_impl(&dword_26F567000, v29, OS_LOG_TYPE_ERROR, "Failed to create directory for factor: %{public}@", buf, 0xCu);
           }
         }
 
-        if ([v15 hasIsOnDemand] && objc_msgSend(v15, "isOnDemand") && !-[TRIAssetStore hasAssetWithIdentifier:type:](v97, "hasAssetWithIdentifier:type:", mobileAssetReferenceValue, 0))
+        if ([v15 hasIsOnDemand] && objc_msgSend(v15, "isOnDemand") && !-[TRIAssetStore hasAssetWithIdentifier:type:](v96, "hasAssetWithIdentifier:type:", mobileAssetReferenceValue, 0))
         {
           v31 = 0;
           v30 = 1;
         }
 
-        else if ([(TRIAssetStore *)v97 linkAssetWithIdentifier:mobileAssetReferenceValue toPath:path2])
+        else if ([(TRIAssetStore *)v96 linkAssetWithIdentifier:mobileAssetReferenceValue toPath:path2])
         {
           [v15 setPath:path2];
           v30 = 0;
@@ -2010,9 +2035,9 @@ LABEL_83:
           v30 = 0;
         }
 
-        treatmentCopy = v94;
-        namespaceName = v98;
-        factorLevelArray2 = v96;
+        treatmentCopy = v93;
+        namespaceName = v97;
+        factorLevelArray2 = v95;
         if (v31)
         {
           goto LABEL_38;
@@ -2029,9 +2054,9 @@ LABEL_39:
         v11 = namespaceName;
       }
 
-      while (v101 != v10);
-      v55 = [factorLevelArray2 countByEnumeratingWithState:&v105 objects:v115 count:16];
-      v101 = v55;
+      while (v100 != v10);
+      v55 = [factorLevelArray2 countByEnumeratingWithState:&v104 objects:v114 count:16];
+      v100 = v55;
       if (!v55)
       {
 
@@ -2050,12 +2075,12 @@ LABEL_39:
         if (!v61)
         {
           currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
-          [currentHandler3 handleFailureInMethod:v90 object:selfCopy file:@"TRIClientTreatmentStorage.m" lineNumber:825 description:{@"Expression was unexpectedly nil/false: %@", @"directory"}];
+          [currentHandler3 handleFailureInMethod:v89 object:selfCopy file:@"TRIClientTreatmentStorage.m" lineNumber:825 description:{@"Expression was unexpectedly nil/false: %@", @"directory"}];
         }
 
-        v103 = 0;
-        v62 = [defaultManager2 createDirectoryAtPath:v61 withIntermediateDirectories:1 attributes:0 error:&v103];
-        v63 = v103;
+        v102 = 0;
+        v62 = [defaultManager2 createDirectoryAtPath:v61 withIntermediateDirectories:1 attributes:0 error:&v102];
+        v63 = v102;
 
         if ((v62 & 1) == 0)
         {
@@ -2063,9 +2088,9 @@ LABEL_39:
           if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v110 = v61;
-            v111 = 2114;
-            v112 = v63;
+            v109 = v61;
+            v110 = 2114;
+            v111 = v63;
             _os_log_error_impl(&dword_26F567000, v64, OS_LOG_TYPE_ERROR, "Failed to create directory for treatment at %{public}@: %{public}@", buf, 0x16u);
           }
         }
@@ -2074,7 +2099,7 @@ LABEL_39:
         if (!v61)
         {
           currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
-          [currentHandler4 handleFailureInMethod:v90 object:selfCopy file:@"TRIClientTreatmentStorage.m" lineNumber:831 description:{@"Expression was unexpectedly nil/false: %@", @"directory"}];
+          [currentHandler4 handleFailureInMethod:v89 object:selfCopy file:@"TRIClientTreatmentStorage.m" lineNumber:831 description:{@"Expression was unexpectedly nil/false: %@", @"directory"}];
         }
 
         v66 = [TRIReferenceManagedDir createFromDir:v65];
@@ -2085,7 +2110,7 @@ LABEL_39:
           if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v110 = v65;
+            v109 = v65;
             _os_log_error_impl(&dword_26F567000, v67, OS_LOG_TYPE_ERROR, "Failed to create reference-managed directory at %{public}@ for factor", buf, 0xCu);
           }
         }
@@ -2102,7 +2127,7 @@ LABEL_62:
   {
     treatmentId7 = [treatmentCopy treatmentId];
     *buf = 138543362;
-    v110 = treatmentId7;
+    v109 = treatmentId7;
     _os_log_error_impl(&dword_26F567000, namespaceName, OS_LOG_TYPE_ERROR, "Unable to find a namespace name from factor levels in treatment %{public}@", buf, 0xCu);
   }
 
@@ -2110,7 +2135,6 @@ LABEL_78:
   v66 = 0;
 LABEL_79:
 
-  v83 = *MEMORY[0x277D85DE8];
   return v66;
 }
 
@@ -2124,33 +2148,33 @@ LABEL_79:
 
 - (BOOL)_saveNamespacePartitionedTreatmentsForTreatment:(id)treatment forNamespaceNames:(id)names
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   treatmentCopy = treatment;
   namesCopy = names;
-  v23 = treatmentCopy;
+  v22 = treatmentCopy;
   treatmentId = [treatmentCopy treatmentId];
   if (treatmentId)
   {
     v7 = objc_opt_new();
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     obj = [treatmentCopy factorLevelArray];
-    v8 = [obj countByEnumeratingWithState:&v30 objects:v37 count:16];
+    v8 = [obj countByEnumeratingWithState:&v29 objects:v36 count:16];
     if (v8)
     {
-      v9 = *v31;
+      v9 = *v30;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v31 != v9)
+          if (*v30 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v30 + 1) + 8 * i);
+          v11 = *(*(&v29 + 1) + 8 * i);
           v12 = objc_autoreleasePoolPush();
           factor = [v11 factor];
           namespaceString = [factor namespaceString];
@@ -2186,7 +2210,7 @@ LABEL_79:
           objc_autoreleasePoolPop(v12);
         }
 
-        v8 = [obj countByEnumeratingWithState:&v30 objects:v37 count:16];
+        v8 = [obj countByEnumeratingWithState:&v29 objects:v36 count:16];
         if (v8)
         {
           continue;
@@ -2198,17 +2222,17 @@ LABEL_79:
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v35 = 0x2020000000;
-    v36 = 1;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __95__TRIClientTreatmentStorage__saveNamespacePartitionedTreatmentsForTreatment_forNamespaceNames___block_invoke;
-    v26[3] = &unk_279DE2860;
-    v26[4] = self;
+    v34 = 0x2020000000;
+    v35 = 1;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __95__TRIClientTreatmentStorage__saveNamespacePartitionedTreatmentsForTreatment_forNamespaceNames___block_invoke;
+    v25[3] = &unk_279DE2860;
+    v25[4] = self;
     p_buf = &buf;
-    v29 = a2;
-    v27 = treatmentId;
-    [v7 enumerateKeysAndObjectsUsingBlock:v26];
+    v28 = a2;
+    v26 = treatmentId;
+    [v7 enumerateKeysAndObjectsUsingBlock:v25];
     v17 = *(*(&buf + 1) + 24);
 
     _Block_object_dispose(&buf, 8);
@@ -2227,13 +2251,12 @@ LABEL_21:
     v17 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17 & 1;
 }
 
 void __95__TRIClientTreatmentStorage__saveNamespacePartitionedTreatmentsForTreatment_forNamespaceNames___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = objc_autoreleasePoolPush();
@@ -2241,35 +2264,35 @@ void __95__TRIClientTreatmentStorage__saveNamespacePartitionedTreatmentsForTreat
   v11 = [v10 URLByDeletingLastPathComponent];
   if (!v11)
   {
-    v26 = [MEMORY[0x277CCA890] currentHandler];
-    [v26 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRIClientTreatmentStorage.m" lineNumber:879 description:{@"Invalid parameter not satisfying: %@", @"referenceURL"}];
+    v25 = [MEMORY[0x277CCA890] currentHandler];
+    [v25 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRIClientTreatmentStorage.m" lineNumber:879 description:{@"Invalid parameter not satisfying: %@", @"referenceURL"}];
   }
 
   if ([*(a1 + 32) _resolveAssetPathsInTreatment:v8 usingReferenceURL:v11])
   {
-    v29 = a4;
+    v28 = a4;
     v12 = [v8 data];
     if (!v12)
     {
-      v27 = [MEMORY[0x277CCA890] currentHandler];
-      [v27 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRIClientTreatmentStorage.m" lineNumber:889 description:{@"Invalid parameter not satisfying: %@", @"data"}];
+      v26 = [MEMORY[0x277CCA890] currentHandler];
+      [v26 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRIClientTreatmentStorage.m" lineNumber:889 description:{@"Invalid parameter not satisfying: %@", @"data"}];
     }
 
     v13 = [MEMORY[0x277CCAA00] defaultManager];
-    v31 = 0;
-    v14 = [v13 createDirectoryAtURL:v11 withIntermediateDirectories:1 attributes:0 error:&v31];
-    v15 = v31;
+    v30 = 0;
+    v14 = [v13 createDirectoryAtURL:v11 withIntermediateDirectories:1 attributes:0 error:&v30];
+    v15 = v30;
     v16 = v15;
     if (v14)
     {
-      v30 = v15;
-      v28 = [v12 writeToURL:v10 options:268435457 error:&v30];
+      v29 = v15;
+      v27 = [v12 writeToURL:v10 options:268435457 error:&v29];
       v17 = v8;
       v18 = v10;
       v19 = v12;
       v20 = v7;
       v21 = v9;
-      v22 = v30;
+      v22 = v29;
 
       v16 = v22;
       v9 = v21;
@@ -2277,7 +2300,7 @@ void __95__TRIClientTreatmentStorage__saveNamespacePartitionedTreatmentsForTreat
       v12 = v19;
       v10 = v18;
       v8 = v17;
-      if (v28)
+      if (v27)
       {
 LABEL_16:
 
@@ -2293,12 +2316,12 @@ LABEL_16:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v33 = v16;
+      v32 = v16;
       _os_log_error_impl(&dword_26F567000, v24, OS_LOG_TYPE_ERROR, "Unable to write serialized namespace treatment: %{public}@", buf, 0xCu);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
-    *v29 = 1;
+    *v28 = 1;
     goto LABEL_16;
   }
 
@@ -2306,7 +2329,7 @@ LABEL_16:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v33 = v11;
+    v32 = v11;
     _os_log_error_impl(&dword_26F567000, v23, OS_LOG_TYPE_ERROR, "Unable to resolve asset paths with reference URL %@", buf, 0xCu);
   }
 
@@ -2315,7 +2338,6 @@ LABEL_16:
 LABEL_17:
 
   objc_autoreleasePoolPop(v9);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_assetURLForFactor:(id)factor treatmentId:(id)id
@@ -2358,21 +2380,21 @@ LABEL_17:
 
 - (id)_copyFileFromURL:(id)l to:(id)to
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   toCopy = to;
   v8 = MEMORY[0x277CBEA90];
   lCopy = l;
-  v25 = 0;
-  v10 = [[v8 alloc] initWithContentsOfURL:lCopy options:1 error:&v25];
+  v24 = 0;
+  v10 = [[v8 alloc] initWithContentsOfURL:lCopy options:1 error:&v24];
 
-  v11 = v25;
+  v11 = v24;
   if (!v10)
   {
     uRLByDeletingLastPathComponent = TRILogCategory_Server();
     if (os_log_type_enabled(uRLByDeletingLastPathComponent, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v27 = v11;
+      v26 = v11;
       _os_log_error_impl(&dword_26F567000, uRLByDeletingLastPathComponent, OS_LOG_TYPE_ERROR, "Failed to read source URL: %{public}@", buf, 0xCu);
     }
 
@@ -2387,9 +2409,9 @@ LABEL_17:
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v24 = 0;
-  v14 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v24];
-  v15 = v24;
+  v23 = 0;
+  v14 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v23];
+  v15 = v23;
 
   if ((v14 & 1) == 0)
   {
@@ -2397,21 +2419,21 @@ LABEL_17:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v27 = v15;
+      v26 = v15;
       _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Failed to create directory for target file: %{public}@", buf, 0xCu);
     }
   }
 
-  v23 = 0;
-  v17 = [v10 writeToURL:toCopy options:268435457 error:&v23];
-  v11 = v23;
+  v22 = 0;
+  v17 = [v10 writeToURL:toCopy options:268435457 error:&v22];
+  v11 = v22;
   if ((v17 & 1) == 0)
   {
     v19 = TRILogCategory_Server();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v27 = v11;
+      v26 = v11;
       _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, "Failed to write to target URL: %{public}@", buf, 0xCu);
     }
 
@@ -2423,7 +2445,6 @@ LABEL_15:
   v18 = toCopy;
 LABEL_16:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -2452,7 +2473,7 @@ LABEL_16:
 
 - (BOOL)_resolveAssetPathsInTreatment:(id)treatment usingReferenceURL:(id)l
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   treatmentCopy = treatment;
   lCopy = l;
   if (([lCopy hasDirectoryPath] & 1) == 0)
@@ -2464,28 +2485,28 @@ LABEL_16:
   v9 = [lCopy triPathAsOwner:0];
   if (v9)
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     factorLevelArray = [treatmentCopy factorLevelArray];
-    v11 = [factorLevelArray countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v11 = [factorLevelArray countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v11)
     {
       v12 = v11;
-      v28 = lCopy;
-      v29 = treatmentCopy;
-      v13 = *v31;
+      v27 = lCopy;
+      v28 = treatmentCopy;
+      v13 = *v30;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v31 != v13)
+          if (*v30 != v13)
           {
             objc_enumerationMutation(factorLevelArray);
           }
 
-          level = [*(*(&v30 + 1) + 8 * i) level];
+          level = [*(*(&v29 + 1) + 8 * i) level];
           v16 = [level fileOrDirectoryLevelWithIsDir:0];
 
           if (v16 && [v16 hasPath])
@@ -2516,7 +2537,7 @@ LABEL_20:
           }
         }
 
-        v12 = [factorLevelArray countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v12 = [factorLevelArray countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v12)
         {
           continue;
@@ -2527,8 +2548,8 @@ LABEL_20:
 
       v24 = 1;
 LABEL_21:
-      lCopy = v28;
-      treatmentCopy = v29;
+      lCopy = v27;
+      treatmentCopy = v28;
     }
 
     else
@@ -2542,7 +2563,6 @@ LABEL_21:
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

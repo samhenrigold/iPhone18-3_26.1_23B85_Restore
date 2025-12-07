@@ -15,7 +15,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v8 = PGLogCommon();
+  v8 = PGLogCommon(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [PGLayerHostView initWithFrame:?];
@@ -28,7 +28,7 @@
 
 - (void)dealloc
 {
-  v3 = PGLogCommon();
+  v3 = PGLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PGLayerHostView initWithFrame:?];
@@ -42,27 +42,30 @@
 - (void)setHostedWindowHostingHandle:(id)handle
 {
   handleCopy = handle;
+  v5 = handleCopy;
   if (handleCopy)
   {
     remoteView = self->_remoteView;
+    v9 = v5;
     if (remoteView)
     {
-      [(_UIRemoteView *)remoteView setHostedWindowHostingHandle:handleCopy];
+      [(_UIRemoteView *)remoteView setHostedWindowHostingHandle:v5];
     }
 
     else
     {
-      v6 = [MEMORY[0x1E69DD660] viewWithHostedWindowHostingHandle:handleCopy];
-      v7 = self->_remoteView;
-      self->_remoteView = v6;
+      v7 = [MEMORY[0x1E69DD660] viewWithHostedWindowHostingHandle:v5];
+      v8 = self->_remoteView;
+      self->_remoteView = v7;
 
       [(PGLayerHostView *)self addSubview:self->_remoteView];
     }
 
-    [(PGLayerHostView *)self _manageSharingOfTouchesBetweenClientAndHostContext];
+    handleCopy = [(PGLayerHostView *)self _manageSharingOfTouchesBetweenClientAndHostContext];
+    v5 = v9;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](handleCopy, v5);
 }
 
 - (void)setSceneView:(id)view
@@ -74,13 +77,15 @@
     v7 = viewCopy;
     [(UIView *)sceneView removeFromSuperview];
     objc_storeStrong(&self->_sceneView, view);
+    viewCopy = v7;
     if (v7)
     {
-      [(PGLayerHostView *)self addSubview:v7];
+      sceneView = [(PGLayerHostView *)self addSubview:v7];
+      viewCopy = v7;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](sceneView, viewCopy);
 }
 
 - (void)layoutSubviews
@@ -129,7 +134,7 @@
 void __69__PGLayerHostView__manageSharingOfTouchesBetweenClientAndHostContext__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PGLogCommon();
+  v4 = PGLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __69__PGLayerHostView__manageSharingOfTouchesBetweenClientAndHostContext__block_invoke_cold_1(a1);

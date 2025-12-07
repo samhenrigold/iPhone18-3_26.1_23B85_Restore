@@ -158,7 +158,7 @@
 
   sub_1005F802C();
 
-  sub_10002B894(v6, &unk_1009711D0);
+  sub_10002B894(v6, &unk_1009711D0, &unk_1007B1A10);
 }
 
 - (_TtC8AppStore29ArcadeSubscribeViewController)initWithNibName:(id)name bundle:(id)bundle

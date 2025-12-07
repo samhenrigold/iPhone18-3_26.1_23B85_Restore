@@ -2,6 +2,7 @@
 - (CertificateDetailsSummaryCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier;
 - (void)setDetails:(id)details;
 - (void)setDetailsWithCertificateTrust:(__SecTrust *)trust certificateExpiration:(id)expiration certificateIsTrusted:(BOOL)trusted;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 @end
 
 @implementation CertificateDetailsSummaryCell
@@ -18,6 +19,13 @@
   }
 
   return v5;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = CertificateDetailsSummaryCell;
+  [(CertUIItemDetailsSummaryCell *)&v4 setSelected:selected animated:animated];
 }
 
 - (void)setDetails:(id)details

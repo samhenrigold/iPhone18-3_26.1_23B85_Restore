@@ -252,7 +252,7 @@ void __41__AXCaptioningThemeController_specifiers__block_invoke_2(uint64_t a1, v
 
 - (void)_resetActiveProfileToDefault
 {
-  if (AXCaptionResetDefaultActiveProfile())
+  if (AXCaptionResetDefaultActiveProfile(self))
   {
 
     [(AXCaptioningThemeController *)self reload];

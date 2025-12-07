@@ -60,48 +60,47 @@ uint64_t AppleUSBPLCOM::Start_Impl(AppleUSBPLCOM *this, IOService *a2)
 
 uint64_t AppleUSBPLCOM::HwActivate_Impl(AppleUSBPLCOM_IVars **this)
 {
-  result = AppleUSBPLCOM_IVars::readVendorReq(this[10], 33924, &v9 + 5);
+  result = AppleUSBPLCOM_IVars::readVendorReq(this[10], 33924, &v8 + 5);
   if (!result)
   {
     v3 = this[10];
-    HIWORD(v9) = 0;
-    LODWORD(v9) = 5000;
-    result = (*(**v3 + 104))(*v3, 64, 1, 1028, 0, 0, 0, &v9 + 6, v9);
+    HIWORD(v8) = 0;
+    LODWORD(v8) = 5000;
+    result = (*(**v3 + 104))(*v3, 64, 1, 1028, 0, 0, 0, &v8 + 6, v8);
     if (!result)
     {
-      result = AppleUSBPLCOM_IVars::readVendorReq(this[10], 33924, &v9 + 5);
+      result = AppleUSBPLCOM_IVars::readVendorReq(this[10], 33924, &v8 + 5);
       if (!result)
       {
-        result = AppleUSBPLCOM_IVars::readVendorReq(this[10], 33667, &v9 + 5);
+        result = AppleUSBPLCOM_IVars::readVendorReq(this[10], 33667, &v8 + 5);
         if (!result)
         {
-          result = AppleUSBPLCOM_IVars::readVendorReq(this[10], 33924, &v9 + 5);
+          result = AppleUSBPLCOM_IVars::readVendorReq(this[10], 33924, &v8 + 5);
           if (!result)
           {
             v4 = this[10];
-            v10 = 0;
-            result = (*(**v4 + 104))(*v4, 64, 1, 1028, 1, 0, 0, &v10, 5000, HIDWORD(v9));
+            v9 = 0;
+            result = (*(**v4 + 104))(*v4, 64, 1, 1028, 1, 0, 0, &v9, 5000, HIDWORD(v8));
             if (!result)
             {
-              result = AppleUSBPLCOM_IVars::readVendorReq(this[10], 33924, &v9 + 5);
+              result = AppleUSBPLCOM_IVars::readVendorReq(this[10], 33924, &v8 + 5);
               if (!result)
               {
-                result = AppleUSBPLCOM_IVars::readVendorReq(this[10], 33667, &v9 + 5);
+                result = AppleUSBPLCOM_IVars::readVendorReq(this[10], 33667, &v8 + 5);
                 if (!result)
                 {
                   v5 = this[10];
-                  v11 = 0;
-                  result = (*(**v5 + 104))(*v5, 64, 1, 0, 1, 0, 0, &v11, 5000);
+                  v10 = 0;
+                  result = (*(**v5 + 104))(*v5, 64, 1, 0, 1, 0, 0, &v10, 5000);
                   if (!result)
                   {
                     v6 = this[10];
-                    v12[0] = 0;
-                    result = (*(**v6 + 104))(*v6, 64, 1, 1, 0, 0, 0, v12, 5000);
+                    v11[0] = 0;
+                    result = (*(**v6 + 104))(*v6, 64, 1, 1, 0, 0, 0, v11, 5000);
                     if (!result)
                     {
                       v7 = this[10];
-                      v8 = *(v7 + 15);
-                      v12[1] = 0;
+                      v11[1] = 0;
                       result = (*(**v7 + 104))(*v7);
                       if (!result)
                       {

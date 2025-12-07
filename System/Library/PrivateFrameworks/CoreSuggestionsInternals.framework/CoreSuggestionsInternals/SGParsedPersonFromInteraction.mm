@@ -15,7 +15,7 @@
 
 - (id)pipelineEntity
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   displayName = self->_displayName;
   if (displayName && !heuristicIdentifyHandle(displayName))
   {
@@ -28,189 +28,188 @@
   }
 
   v5 = v4;
-  phoneNumber = self->_phoneNumber;
-  v7 = SGNormalizePhoneNumber();
+  v6 = SGNormalizePhoneNumber();
   socialProfile = self->_socialProfile;
   if (socialProfile)
   {
     serialize = [(SGSocialProfileDetails *)self->_socialProfile serialize];
-    v10 = [SGIdentityKey keyForSocialProfile:serialize];
+    v9 = [SGIdentityKey keyForSocialProfile:serialize];
 
     userIdentifier = [(SGSocialProfileDetails *)self->_socialProfile userIdentifier];
-    v12 = [userIdentifier length];
-    v13 = self->_socialProfile;
-    if (v12)
+    v11 = [userIdentifier length];
+    v12 = self->_socialProfile;
+    if (v11)
     {
-      [(SGSocialProfileDetails *)v13 userIdentifier];
+      [(SGSocialProfileDetails *)v12 userIdentifier];
     }
 
     else
     {
-      [(SGSocialProfileDetails *)v13 username];
+      [(SGSocialProfileDetails *)v12 username];
     }
-    v14 = ;
-    v15 = 1;
+    v13 = ;
+    v14 = 1;
     goto LABEL_12;
   }
 
   if (self->_phoneNumber)
   {
-    v10 = [SGIdentityKey keyForNormalizedPhone:v7];
+    v9 = [SGIdentityKey keyForNormalizedPhone:v6];
     userIdentifier = [(INPersonHandle *)self->_handle value];
-    v14 = SGNormalizePhoneNumber();
-    v15 = 0;
+    v13 = SGNormalizePhoneNumber();
+    v14 = 0;
 LABEL_12:
-    v16 = 1;
+    v15 = 1;
     goto LABEL_13;
   }
 
   if (!self->_email)
   {
-    v14 = 0;
-    v10 = 0;
+    v13 = 0;
+    v9 = 0;
     goto LABEL_47;
   }
 
-  v10 = [SGIdentityKey keyForEmail:?];
+  v9 = [SGIdentityKey keyForEmail:?];
   userIdentifier = [(INPersonHandle *)self->_handle value];
-  v14 = SGNormalizeEmailAddress();
-  v16 = 0;
-  v15 = 1;
+  v13 = SGNormalizeEmailAddress();
+  v15 = 0;
+  v14 = 1;
 LABEL_13:
 
-  if (v10 && [v14 length])
+  if (v9 && [v13 length])
   {
-    v51 = v15;
-    v52 = v16;
-    v56 = v7;
-    v17 = [[SGPipelineEntity alloc] initWithIntentPersonAtDate:self->_date bundleId:self->_bundleId handle:v14 displayName:v5];
-    v18 = [[SGPseudoContactKey alloc] initWithIdentityKey:v10];
-    v19 = [SGDuplicateKey alloc];
-    duplicateKey = [(SGEntity *)v17 duplicateKey];
-    v54 = v18;
-    v21 = [(SGDuplicateKey *)v19 initWithEntityKey:v18 entityType:4 parentKey:duplicateKey];
+    v49 = v14;
+    v50 = v15;
+    v54 = v6;
+    v16 = [[SGPipelineEntity alloc] initWithIntentPersonAtDate:self->_date bundleId:self->_bundleId handle:v13 displayName:v5];
+    v17 = [[SGPseudoContactKey alloc] initWithIdentityKey:v9];
+    v18 = [SGDuplicateKey alloc];
+    duplicateKey = [(SGEntity *)v16 duplicateKey];
+    v52 = v17;
+    v20 = [(SGDuplicateKey *)v18 initWithEntityKey:v17 entityType:4 parentKey:duplicateKey];
 
-    v53 = v21;
-    v55 = v5;
-    v22 = [[SGPipelineEnrichment alloc] initWithDuplicateKey:v21 title:v5 parent:v17];
-    v57 = v10;
+    v51 = v20;
+    v53 = v5;
+    v21 = [[SGPipelineEnrichment alloc] initWithDuplicateKey:v20 title:v5 parent:v16];
+    v55 = v9;
     if (socialProfile)
     {
-      v64 = 0u;
-      v65 = 0u;
       v62 = 0u;
       v63 = 0u;
+      v60 = 0u;
+      v61 = 0u;
       uniqueIdentifiers = [(SGSocialProfileDetails *)self->_socialProfile uniqueIdentifiers];
-      v24 = [uniqueIdentifiers countByEnumeratingWithState:&v62 objects:v67 count:16];
-      if (v24)
+      v23 = [uniqueIdentifiers countByEnumeratingWithState:&v60 objects:v65 count:16];
+      if (v23)
       {
-        v25 = v24;
-        v26 = *v63;
+        v24 = v23;
+        v25 = *v61;
         do
         {
-          for (i = 0; i != v25; ++i)
+          for (i = 0; i != v24; ++i)
           {
-            if (*v63 != v26)
+            if (*v61 != v25)
             {
               objc_enumerationMutation(uniqueIdentifiers);
             }
 
-            v28 = *(*(&v62 + 1) + 8 * i);
-            v29 = MEMORY[0x277D01FA0];
-            SGNormalizeSocialProfile(v28);
+            v27 = *(*(&v60 + 1) + 8 * i);
+            v28 = MEMORY[0x277D01FA0];
+            SGNormalizeSocialProfile(v27);
             objc_claimAutoreleasedReturnValue();
-            v30 = [v29 contactDetail:v28];
-            [(SGEntity *)v22 addTag:v30];
+            v29 = [v28 contactDetail:v27];
+            [(SGEntity *)v21 addTag:v29];
           }
 
-          v25 = [uniqueIdentifiers countByEnumeratingWithState:&v62 objects:v67 count:16];
+          v24 = [uniqueIdentifiers countByEnumeratingWithState:&v60 objects:v65 count:16];
         }
 
-        while (v25);
+        while (v24);
       }
 
-      v10 = v57;
+      v9 = v55;
     }
 
-    [(SGPipelineEntity *)v17 addEnrichment:v22];
-    v31 = v51 ^ 1;
+    [(SGPipelineEntity *)v16 addEnrichment:v21];
+    v30 = v49 ^ 1;
     if (!self->_phoneNumber)
     {
-      v31 = 1;
+      v30 = 1;
     }
 
-    if ((v31 & 1) == 0)
+    if ((v30 & 1) == 0)
     {
-      v32 = [[SGLabeledValue alloc] initWithLabel:0 value:v56];
-      v33 = [MEMORY[0x277D01FD8] extractionInfoWithExtractionType:16 modelVersion:0 confidence:0];
-      [(SGPipelineEntity *)v17 addDetectedPhoneNumber:v32 forIdentity:v10 context:0 contextRangeOfInterest:0x7FFFFFFFFFFFFFFFLL extractionInfo:0, v33];
+      v31 = [[SGLabeledValue alloc] initWithLabel:0 value:v54];
+      v32 = [MEMORY[0x277D01FD8] extractionInfoWithExtractionType:16 modelVersion:0 confidence:0];
+      [(SGPipelineEntity *)v16 addDetectedPhoneNumber:v31 forIdentity:v9 context:0 contextRangeOfInterest:0x7FFFFFFFFFFFFFFFLL extractionInfo:0, v32];
     }
 
-    v34 = v52 ^ 1;
+    v33 = v50 ^ 1;
     if (!self->_email)
     {
-      v34 = 1;
+      v33 = 1;
     }
 
-    if ((v34 & 1) == 0)
+    if ((v33 & 1) == 0)
     {
-      v35 = [[SGLabeledValue alloc] initWithLabel:0 value:self->_email];
-      v36 = [MEMORY[0x277D01FD8] extractionInfoWithExtractionType:16 modelVersion:0 confidence:0];
-      [(SGPipelineEntity *)v17 addDetectedEmailAddress:v35 forIdentity:v10 context:0 contextRangeOfInterest:0x7FFFFFFFFFFFFFFFLL extractionInfo:0, v36];
+      v34 = [[SGLabeledValue alloc] initWithLabel:0 value:self->_email];
+      v35 = [MEMORY[0x277D01FD8] extractionInfoWithExtractionType:16 modelVersion:0 confidence:0];
+      [(SGPipelineEntity *)v16 addDetectedEmailAddress:v34 forIdentity:v9 context:0 contextRangeOfInterest:0x7FFFFFFFFFFFFFFFLL extractionInfo:0, v35];
     }
 
-    v60 = 0u;
-    v61 = 0u;
     v58 = 0u;
     v59 = 0u;
-    enrichments = [(SGPipelineEntity *)v17 enrichments];
-    v38 = [enrichments countByEnumeratingWithState:&v58 objects:v66 count:16];
-    if (v38)
+    v56 = 0u;
+    v57 = 0u;
+    enrichments = [(SGPipelineEntity *)v16 enrichments];
+    v37 = [enrichments countByEnumeratingWithState:&v56 objects:v64 count:16];
+    if (v37)
     {
-      v39 = v38;
-      v40 = *v59;
+      v38 = v37;
+      v39 = *v57;
       do
       {
-        for (j = 0; j != v39; ++j)
+        for (j = 0; j != v38; ++j)
         {
-          if (*v59 != v40)
+          if (*v57 != v39)
           {
             objc_enumerationMutation(enrichments);
           }
 
-          v42 = *(*(&v58 + 1) + 8 * j);
+          v41 = *(*(&v56 + 1) + 8 * j);
           fromInteraction = [MEMORY[0x277D01FA0] fromInteraction];
-          [v42 addTag:fromInteraction];
+          [v41 addTag:fromInteraction];
 
-          v44 = [MEMORY[0x277D01FA0] interactionId:self->_interactionIdentifier];
-          [v42 addTag:v44];
+          v43 = [MEMORY[0x277D01FA0] interactionId:self->_interactionIdentifier];
+          [v41 addTag:v43];
 
-          v45 = [MEMORY[0x277D01FA0] interactionBundleId:self->_bundleId];
-          [v42 addTag:v45];
+          v44 = [MEMORY[0x277D01FA0] interactionBundleId:self->_bundleId];
+          [v41 addTag:v44];
 
           if (self->_contactIdentifier)
           {
-            v46 = [MEMORY[0x277D01FA0] interactionContactIdentifier:?];
-            [v42 addTag:v46];
+            v45 = [MEMORY[0x277D01FA0] interactionContactIdentifier:?];
+            [v41 addTag:v45];
           }
 
           if (self->_groupId)
           {
-            v47 = [MEMORY[0x277D01FA0] interactionGroupId:?];
-            [v42 addTag:v47];
+            v46 = [MEMORY[0x277D01FA0] interactionGroupId:?];
+            [v41 addTag:v46];
           }
         }
 
-        v39 = [enrichments countByEnumeratingWithState:&v58 objects:v66 count:16];
+        v38 = [enrichments countByEnumeratingWithState:&v56 objects:v64 count:16];
       }
 
-      while (v39);
+      while (v38);
     }
 
-    v5 = v55;
-    v7 = v56;
-    v10 = v57;
-    p_super = &v54->super;
+    v5 = v53;
+    v6 = v54;
+    v9 = v55;
+    p_super = &v52->super;
     goto LABEL_50;
   }
 
@@ -219,23 +218,21 @@ LABEL_47:
   if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v69 = v10;
-    v70 = 2112;
-    v71 = v14;
+    v67 = v9;
+    v68 = 2112;
+    v69 = v13;
     _os_log_error_impl(&dword_231E60000, p_super, OS_LOG_TYPE_ERROR, "Interaction Person has no identity/handle: %@ / %@", buf, 0x16u);
   }
 
-  v17 = 0;
+  v16 = 0;
 LABEL_50:
 
-  v49 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v16;
 }
 
 - (void)grabNameIfNeededFromContactStore:(id)store
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   if (!self->_displayName && self->_contactIdentifier)
   {
@@ -246,9 +243,9 @@ LABEL_50:
 
     v5 = grabNameIfNeededFromContactStore___pasExprOnceResult;
     contactIdentifier = self->_contactIdentifier;
-    v14 = 0;
-    v7 = [SGContactsInterface unifiedContactWithIdentifier:contactIdentifier keysToFetch:v5 usingContactStore:storeCopy error:&v14];
-    v8 = v14;
+    v13 = 0;
+    v7 = [SGContactsInterface unifiedContactWithIdentifier:contactIdentifier keysToFetch:v5 usingContactStore:storeCopy error:&v13];
+    v8 = v13;
     v9 = v8;
     if (v7)
     {
@@ -269,11 +266,11 @@ LABEL_11:
       p_super = sgLogHandle();
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
-        v13 = self->_contactIdentifier;
+        v12 = self->_contactIdentifier;
         *buf = 138412546;
-        v16 = v13;
-        v17 = 2112;
-        v18 = v9;
+        v15 = v12;
+        v16 = 2112;
+        v17 = v9;
         _os_log_error_impl(&dword_231E60000, p_super, OS_LOG_TYPE_ERROR, "Error fetching contact for identifier '%@': %@", buf, 0x16u);
       }
     }
@@ -282,22 +279,19 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __66__SGParsedPersonFromInteraction_grabNameIfNeededFromContactStore___block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v0 = objc_autoreleasePoolPush();
   v1 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:0];
-  v5[0] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   v3 = grabNameIfNeededFromContactStore___pasExprOnceResult;
   grabNameIfNeededFromContactStore___pasExprOnceResult = v2;
 
   objc_autoreleasePoolPop(v0);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_harvestSocialProfile:(id)profile handle:(id)handle bundleId:(id)id
@@ -398,7 +392,7 @@ void __66__SGParsedPersonFromInteraction_grabNameIfNeededFromContactStore___bloc
     phoneNumber = self->_phoneNumber;
     self->_phoneNumber = v5;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v5, phoneNumber);
   }
 }
 
@@ -487,7 +481,7 @@ LABEL_15:
 
 - (SGParsedPersonFromInteraction)initWithPerson:(id)person bundleId:(id)id interactionIdentifier:(id)identifier groupId:(id)groupId date:(id)date
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   personCopy = person;
   idCopy = id;
   identifierCopy = identifier;
@@ -503,10 +497,10 @@ LABEL_15:
 
 LABEL_36:
     [MEMORY[0x277CCA890] currentHandler];
-    v45 = v51 = date;
-    [v45 handleFailureInMethod:a2 object:self file:@"SGInteractionParser.m" lineNumber:108 description:{@"Invalid parameter not satisfying: %@", @"bundleId"}];
+    v44 = v50 = date;
+    [v44 handleFailureInMethod:a2 object:self file:@"SGInteractionParser.m" lineNumber:108 description:{@"Invalid parameter not satisfying: %@", @"bundleId"}];
 
-    date = v51;
+    date = v50;
     if (identifierCopy)
     {
       goto LABEL_4;
@@ -516,10 +510,10 @@ LABEL_36:
   }
 
   [MEMORY[0x277CCA890] currentHandler];
-  v44 = v50 = date;
-  [v44 handleFailureInMethod:a2 object:self file:@"SGInteractionParser.m" lineNumber:107 description:{@"Invalid parameter not satisfying: %@", @"person"}];
+  v43 = v49 = date;
+  [v43 handleFailureInMethod:a2 object:self file:@"SGInteractionParser.m" lineNumber:107 description:{@"Invalid parameter not satisfying: %@", @"person"}];
 
-  date = v50;
+  date = v49;
   if (!idCopy)
   {
     goto LABEL_36;
@@ -533,14 +527,14 @@ LABEL_3:
 
 LABEL_37:
   [MEMORY[0x277CCA890] currentHandler];
-  v46 = v52 = date;
-  [v46 handleFailureInMethod:a2 object:self file:@"SGInteractionParser.m" lineNumber:109 description:{@"Invalid parameter not satisfying: %@", @"interactionIdentifier"}];
+  v45 = v51 = date;
+  [v45 handleFailureInMethod:a2 object:self file:@"SGInteractionParser.m" lineNumber:109 description:{@"Invalid parameter not satisfying: %@", @"interactionIdentifier"}];
 
-  date = v52;
+  date = v51;
 LABEL_4:
-  v59.receiver = self;
-  v59.super_class = SGParsedPersonFromInteraction;
-  v18 = [(SGParsedPersonFromInteraction *)&v59 init];
+  v58.receiver = self;
+  v58.super_class = SGParsedPersonFromInteraction;
+  v18 = [(SGParsedPersonFromInteraction *)&v58 init];
   if (!v18)
   {
 LABEL_32:
@@ -560,42 +554,42 @@ LABEL_32:
   }
 
   dateCopy2 = date;
-  v53 = dateCopy;
+  v52 = dateCopy;
   value2 = [(INPersonHandle *)v18->_handle value];
   v23 = [value2 length];
 
   if (v23 <= 0x3E8)
   {
-    v47 = groupIdCopy;
-    v48 = identifierCopy;
+    v46 = groupIdCopy;
+    v47 = identifierCopy;
     personHandle2 = [personCopy personHandle];
     -[SGParsedPersonFromInteraction _harvestPerson:handle:suggestionType:bundleId:](v18, "_harvestPerson:handle:suggestionType:bundleId:", personCopy, personHandle2, [personCopy suggestionType], idCopy);
 
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     aliases = [personCopy aliases];
-    v27 = [aliases countByEnumeratingWithState:&v55 objects:v60 count:16];
+    v27 = [aliases countByEnumeratingWithState:&v54 objects:v59 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v56;
+      v29 = *v55;
       do
       {
         v30 = 0;
         do
         {
-          if (*v56 != v29)
+          if (*v55 != v29)
           {
             objc_enumerationMutation(aliases);
           }
 
-          -[SGParsedPersonFromInteraction _harvestPerson:handle:suggestionType:bundleId:](v18, "_harvestPerson:handle:suggestionType:bundleId:", personCopy, *(*(&v55 + 1) + 8 * v30++), [personCopy suggestionType], idCopy);
+          -[SGParsedPersonFromInteraction _harvestPerson:handle:suggestionType:bundleId:](v18, "_harvestPerson:handle:suggestionType:bundleId:", personCopy, *(*(&v54 + 1) + 8 * v30++), [personCopy suggestionType], idCopy);
         }
 
         while (v28 != v30);
-        v28 = [aliases countByEnumeratingWithState:&v55 objects:v60 count:16];
+        v28 = [aliases countByEnumeratingWithState:&v54 objects:v59 count:16];
       }
 
       while (v28);
@@ -604,8 +598,8 @@ LABEL_32:
     if (!v18->_email && !v18->_phoneNumber && !v18->_socialProfile)
     {
       v24 = 0;
-      groupIdCopy = v47;
-      identifierCopy = v48;
+      groupIdCopy = v46;
+      identifierCopy = v47;
       goto LABEL_8;
     }
 
@@ -627,8 +621,8 @@ LABEL_32:
     contactIdentifier = v18->_contactIdentifier;
     v18->_contactIdentifier = contactIdentifier;
 
-    groupIdCopy = v47;
-    identifierCopy = v48;
+    groupIdCopy = v46;
+    identifierCopy = v47;
     if (!v18->_nameComponents && !v18->_socialProfile && (v18->_email || v18->_phoneNumber || v18->_contactIdentifier))
     {
       value3 = [(INPersonHandle *)v18->_handle value];
@@ -651,7 +645,7 @@ LABEL_29:
     }
 
 LABEL_30:
-    dateCopy = v53;
+    dateCopy = v52;
     if (v18->_displayName || v18->_contactIdentifier)
     {
       goto LABEL_32;
@@ -664,27 +658,25 @@ LABEL_10:
 
   v24 = 0;
 LABEL_8:
-  dateCopy = v53;
+  dateCopy = v52;
 LABEL_33:
 
-  v42 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 + (id)intentClassWhitelist
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
 
 + (id)parseInteraction:(id)interaction bundleId:(id)id
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   interactionCopy = interaction;
   idCopy = id;
   v9 = idCopy;
@@ -714,28 +706,28 @@ LABEL_3:
   dateInterval = [interactionCopy dateInterval];
   startDate = [dateInterval startDate];
 
-  v28 = objc_opt_new();
+  v27 = objc_opt_new();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = [self _peopleFromInteraction:interactionCopy];
-  v12 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v30;
+    v14 = *v29;
     do
     {
       for (i = 0; i != v13; ++i)
       {
         v16 = v9;
-        if (*v30 != v14)
+        if (*v29 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * i);
+        v17 = *(*(&v28 + 1) + 8 * i);
         v18 = [SGParsedPersonFromInteraction alloc];
         identifier = [interactionCopy identifier];
         groupIdentifier = [interactionCopy groupIdentifier];
@@ -745,19 +737,17 @@ LABEL_3:
 
         if (v22)
         {
-          [v28 addObject:v22];
+          [v27 addObject:v22];
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v13 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v13);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
 + (id)_peopleFromInteraction:(id)interaction

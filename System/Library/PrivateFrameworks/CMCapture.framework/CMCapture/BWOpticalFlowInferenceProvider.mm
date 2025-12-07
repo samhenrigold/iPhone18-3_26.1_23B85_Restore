@@ -99,32 +99,32 @@
       if ([(PTDisparityPostProcessing *)self->_disparityPostProcessor computeOpticalFlow:v11 outDisplacement:v13])
       {
         [BWOpticalFlowInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
-        v15 = 4294935586;
+        v22 = 4294935586;
       }
 
       else
       {
         commandBuffer = [(MTLCommandQueue *)[(BWMetalInferenceContext *)self->_metalInferenceContext commandQueue] commandBuffer];
-        v15 = commandBuffer;
+        v22 = commandBuffer;
         if (commandBuffer)
         {
-          v17[0] = MEMORY[0x1E69E9820];
-          v17[1] = 3221225472;
-          v17[2] = __116__BWOpticalFlowInferenceProvider_submitForSampleBuffer_usingStorage_withSubmissionTime_workQueue_completionHandler___block_invoke;
-          v17[3] = &unk_1E798FB70;
-          v18 = 0;
-          v17[4] = self;
-          v17[5] = handler;
-          [commandBuffer addScheduledHandler:v17];
-          [v15 addCompletedHandler:&__block_literal_global_4];
-          [v15 commit];
-          LODWORD(v15) = 0;
+          v25[0] = MEMORY[0x1E69E9820];
+          v25[1] = 3221225472;
+          v25[2] = __116__BWOpticalFlowInferenceProvider_submitForSampleBuffer_usingStorage_withSubmissionTime_workQueue_completionHandler___block_invoke;
+          v25[3] = &unk_1E798FB70;
+          v26 = 0;
+          v25[4] = self;
+          v25[5] = handler;
+          [commandBuffer addScheduledHandler:v25];
+          [v22 addCompletedHandler:&__block_literal_global_4];
+          [v22 commit];
+          LODWORD(v22) = 0;
 LABEL_8:
           CFRelease(v12);
           goto LABEL_9;
         }
 
-        [BWOpticalFlowInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
+        [(BWOpticalFlowInferenceProvider *)0 submitForSampleBuffer:v15 usingStorage:v16 withSubmissionTime:v17 workQueue:v18 completionHandler:v19, v20, v21, v24];
       }
     }
 
@@ -133,7 +133,7 @@ LABEL_8:
       [BWOpticalFlowInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
       v13 = 0;
       v11 = 0;
-      v15 = 4294935578;
+      v22 = 4294935578;
     }
   }
 
@@ -142,12 +142,12 @@ LABEL_8:
     [BWOpticalFlowInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
     v13 = 0;
     v12 = 0;
-    v15 = 4294935584;
+    v22 = 4294935584;
   }
 
   if (handler)
   {
-    (*(handler + 2))(handler, v15, self);
+    (*(handler + 2))(handler, v22, self);
   }
 
   if (*v10 == 1)
@@ -162,7 +162,7 @@ LABEL_8:
 
 LABEL_9:
 
-  return v15;
+  return v22;
 }
 
 uint64_t __116__BWOpticalFlowInferenceProvider_submitForSampleBuffer_usingStorage_withSubmissionTime_workQueue_completionHandler___block_invoke(uint64_t a1)
@@ -268,41 +268,14 @@ uint64_t __116__BWOpticalFlowInferenceProvider_submitForSampleBuffer_usingStorag
   }
 }
 
-- (uint64_t)prepareForSubmissionWithWorkQueue:.cold.1()
+- (uint64_t)submitForSampleBuffer:(uint64_t)a3 usingStorage:(uint64_t)a4 withSubmissionTime:(uint64_t)a5 workQueue:(uint64_t)a6 completionHandler:(uint64_t)a7 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id *a9)
 {
   fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
+  v14 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v9, v15, v16, v17, v18, vars0, vars8);
+  emitter = fig_log_get_emitter();
 
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.2()
-{
-  fig_log_get_emitter();
-  FigDebugAssert3();
-  fig_log_get_emitter();
-
-  return FigSignalErrorAtGM();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFEE107, "<<<< BWOpticalFlowInferenceProvider >>>>", 0xB3, v9, v11, v12, a9);
 }
 
 @end

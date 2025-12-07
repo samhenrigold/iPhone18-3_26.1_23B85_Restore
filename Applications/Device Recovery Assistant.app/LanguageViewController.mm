@@ -148,14 +148,14 @@
 
   v9 = [languageCodes objectAtIndexedSubscript:v8];
 
-  v10 = sub_100012608();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100012608(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136446466;
-    v14 = "[LanguageViewController tableView:didSelectRowAtIndexPath:]";
-    v15 = 2114;
-    v16 = v9;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: Tapped language %{public}@", &v13, 0x16u);
+    v14 = 136446466;
+    v15 = "[LanguageViewController tableView:didSelectRowAtIndexPath:]";
+    v16 = 2114;
+    v17 = v9;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: Tapped language %{public}@", &v14, 0x16u);
   }
 
   delegate = [(LanguageViewController *)self delegate];

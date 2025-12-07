@@ -13,6 +13,8 @@
 - (void)_handleAccountNotification:(id)notification;
 - (void)_startListeningForNotifications;
 - (void)_stopListeningForNotifications;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CNFInternalAccountViewController
@@ -128,6 +130,22 @@ uint64_t __46__CNFInternalAccountViewController_specifiers__block_invoke(uint64_
   }
 
   return MEMORY[0x2821F96F8]();
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CNFInternalAccountViewController;
+  [(CNFInternalAccountViewController *)&v4 viewDidAppear:appear];
+  [(CNFInternalAccountViewController *)self _startListeningForNotifications];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CNFInternalAccountViewController;
+  [(CNFInternalAccountViewController *)&v4 viewWillDisappear:disappear];
+  [(CNFInternalAccountViewController *)self _stopListeningForNotifications];
 }
 
 - (id)specifierForAlias:(id)alias

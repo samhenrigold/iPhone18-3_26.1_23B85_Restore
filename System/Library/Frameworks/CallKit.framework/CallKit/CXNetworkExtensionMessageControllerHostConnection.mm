@@ -13,11 +13,11 @@
 
 - (CXNetworkExtensionMessageControllerHostConnection)initWithConnection:(id)connection
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v21.receiver = self;
-  v21.super_class = CXNetworkExtensionMessageControllerHostConnection;
-  v6 = [(CXNetworkExtensionMessageControllerHostConnection *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = CXNetworkExtensionMessageControllerHostConnection;
+  v6 = [(CXNetworkExtensionMessageControllerHostConnection *)&v20 init];
   v7 = v6;
   if (v6)
   {
@@ -36,33 +36,31 @@
     [(NSXPCConnection *)v7->_connection setExportedInterface:cx_networkExtensionMessageControllerHostInterface];
 
     objc_initWeak(&location, v7);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __72__CXNetworkExtensionMessageControllerHostConnection_initWithConnection___block_invoke;
-    v18[3] = &unk_1E7C06E50;
-    objc_copyWeak(&v19, &location);
-    [(NSXPCConnection *)v7->_connection setInterruptionHandler:v18];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __72__CXNetworkExtensionMessageControllerHostConnection_initWithConnection___block_invoke_2;
-    v16[3] = &unk_1E7C06E50;
-    objc_copyWeak(&v17, &location);
-    [(NSXPCConnection *)v7->_connection setInvalidationHandler:v16];
-    [(NSXPCConnection *)v7->_connection resume];
-    v13 = CXDefaultLog();
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __72__CXNetworkExtensionMessageControllerHostConnection_initWithConnection___block_invoke;
+    v17[3] = &unk_1E7C06E50;
+    objc_copyWeak(&v18, &location);
+    [(NSXPCConnection *)v7->_connection setInterruptionHandler:v17];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __72__CXNetworkExtensionMessageControllerHostConnection_initWithConnection___block_invoke_2;
+    v15[3] = &unk_1E7C06E50;
+    objc_copyWeak(&v16, &location);
+    [(NSXPCConnection *)v7->_connection setInvalidationHandler:v15];
+    v13 = CXDefaultLog([(NSXPCConnection *)v7->_connection resume]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v23 = v7;
+      v22 = v7;
       _os_log_impl(&dword_1B47F3000, v13, OS_LOG_TYPE_DEFAULT, "Created %@", buf, 0xCu);
     }
 
-    objc_destroyWeak(&v17);
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -70,41 +68,39 @@ void __72__CXNetworkExtensionMessageControllerHostConnection_initWithConnection_
 {
   v6 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = CXDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = CXDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 138412290;
-      v5 = WeakRetained;
-      _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for network extension message controller host %@", &v4, 0xCu);
+      v5 = v2;
+      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Connection interrupted for network extension message controller host %@", &v4, 0xCu);
     }
 
-    [WeakRetained invalidate];
+    [v2 invalidate];
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __72__CXNetworkExtensionMessageControllerHostConnection_initWithConnection___block_invoke_2(uint64_t a1)
 {
   v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = CXDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = CXDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v5 = 138412290;
-      v6 = WeakRetained;
-      _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for network extension message controller host %@", &v5, 0xCu);
+      v6 = v2;
+      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Connection invalidated for network extension message controller host %@", &v5, 0xCu);
     }
 
-    v3 = [WeakRetained delegate];
-    [v3 networkExtensionMessageControllerHostConnectionInvalidated:WeakRetained];
+    v4 = [v2 delegate];
+    [v4 networkExtensionMessageControllerHostConnectionInvalidated:v2];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -160,21 +156,21 @@ void __72__CXNetworkExtensionMessageControllerHostConnection_initWithConnection_
     delegate = [(CXNetworkExtensionMessageControllerHostConnection *)self delegate];
     [delegate networkExtensionMessageControllerHostConnection:self didReceiveIncomingMessage:messageCopy forBundleIdentifier:identifierCopy];
 
-    v14 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v15 = CXDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = CXDefaultLog(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [CXNetworkExtensionMessageControllerHostConnection sendNetworkExtensionMessage:v15 forBundleIdentifier:? reply:?];
+      [CXNetworkExtensionMessageControllerHostConnection sendNetworkExtensionMessage:v16 forBundleIdentifier:? reply:?];
     }
 
-    v14 = [MEMORY[0x1E696ABC0] cx_requestTransactionErrorWithCode:1];
+    v15 = [MEMORY[0x1E696ABC0] cx_requestTransactionErrorWithCode:1];
   }
 
-  replyCopy[2](replyCopy, v12, v14);
+  replyCopy[2](replyCopy, v12, v15);
 }
 
 - (void)sendNetworkExtensionPushToTalkMessage:(id)message forBundleIdentifier:(id)identifier reply:(id)reply
@@ -190,21 +186,21 @@ void __72__CXNetworkExtensionMessageControllerHostConnection_initWithConnection_
     delegate = [(CXNetworkExtensionMessageControllerHostConnection *)self delegate];
     [delegate networkExtensionMessageControllerHostConnection:self didReceiveIncomingPushToTalkMessage:messageCopy forBundleIdentifier:identifierCopy];
 
-    v14 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v15 = CXDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = CXDefaultLog(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [CXNetworkExtensionMessageControllerHostConnection sendNetworkExtensionMessage:v15 forBundleIdentifier:? reply:?];
+      [CXNetworkExtensionMessageControllerHostConnection sendNetworkExtensionMessage:v16 forBundleIdentifier:? reply:?];
     }
 
-    v14 = [MEMORY[0x1E696ABC0] cx_requestTransactionErrorWithCode:1];
+    v15 = [MEMORY[0x1E696ABC0] cx_requestTransactionErrorWithCode:1];
   }
 
-  replyCopy[2](replyCopy, v12, v14);
+  replyCopy[2](replyCopy, v12, v15);
 }
 
 - (NSString)description
@@ -220,11 +216,10 @@ void __72__CXNetworkExtensionMessageControllerHostConnection_initWithConnection_
 
 - (void)sendNetworkExtensionMessage:(uint64_t)a1 forBundleIdentifier:(NSObject *)a2 reply:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Connection is not entitled to use private API: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Connection is not entitled to use private API: %@", &v2, 0xCu);
 }
 
 @end

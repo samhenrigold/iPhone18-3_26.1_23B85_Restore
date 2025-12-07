@@ -91,19 +91,21 @@ LABEL_6:
 
 - (BOOL)allocateInputBufferObjects
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
+  v21[2] = 0;
+  input_ports = self->_input_ports;
   if (e5rt_io_port_retain_tensor_desc())
   {
     e5rt_get_last_error_message();
     if ((global_logLevel & 0x10) == 0)
     {
 LABEL_15:
-      LOBYTE(v3) = 0;
-      return v3;
+      LOBYTE(v4) = 0;
+      return v4;
     }
 
-    v3 = os_log_type_enabled(global_logger, OS_LOG_TYPE_ERROR);
-    if (v3)
+    v4 = os_log_type_enabled(global_logger, OS_LOG_TYPE_ERROR);
+    if (v4)
     {
       [VSRNet allocateInputBufferObjects];
       goto LABEL_15;
@@ -118,24 +120,8 @@ LABEL_15:
       goto LABEL_15;
     }
 
-    v3 = os_log_type_enabled(global_logger, OS_LOG_TYPE_ERROR);
-    if (v3)
-    {
-      [VSRNet allocateInputBufferObjects];
-      goto LABEL_15;
-    }
-  }
-
-  else if (e5rt_io_port_retain_tensor_desc())
-  {
-    e5rt_get_last_error_message();
-    if ((global_logLevel & 0x10) == 0)
-    {
-      goto LABEL_15;
-    }
-
-    v3 = os_log_type_enabled(global_logger, OS_LOG_TYPE_ERROR);
-    if (v3)
+    v4 = os_log_type_enabled(global_logger, OS_LOG_TYPE_ERROR);
+    if (v4)
     {
       [VSRNet allocateInputBufferObjects];
       goto LABEL_15;
@@ -144,105 +130,172 @@ LABEL_15:
 
   else
   {
-    if (e5rt_tensor_desc_alloc_buffer_object())
+    v21[1] = 0;
+    if (e5rt_io_port_retain_tensor_desc())
     {
       e5rt_get_last_error_message();
-      if ((global_logLevel & 0x10) != 0)
+      if ((global_logLevel & 0x10) == 0)
       {
-        v3 = os_log_type_enabled(global_logger, OS_LOG_TYPE_ERROR);
-        if (!v3)
+        goto LABEL_15;
+      }
+
+      v4 = os_log_type_enabled(global_logger, OS_LOG_TYPE_ERROR);
+      if (v4)
+      {
+        [VSRNet allocateInputBufferObjects];
+        goto LABEL_15;
+      }
+    }
+
+    else
+    {
+      if (e5rt_tensor_desc_alloc_buffer_object())
+      {
+        e5rt_get_last_error_message();
+        if ((global_logLevel & 0x10) != 0)
         {
-          return v3;
+          v4 = os_log_type_enabled(global_logger, OS_LOG_TYPE_ERROR);
+          if (!v4)
+          {
+            return v4;
+          }
+
+          [VSRNet allocateInputBufferObjects];
         }
 
-        [VSRNet allocateInputBufferObjects];
+        goto LABEL_15;
       }
 
-      goto LABEL_15;
-    }
-
-    e5rt_tensor_desc_release();
-    e5rt_tensor_desc_release();
-    getPortShape();
-    if ((global_logLevel & 8) != 0)
-    {
-      v4 = global_logger;
-      if (os_log_type_enabled(global_logger, OS_LOG_TYPE_DEBUG))
+      e5rt_tensor_desc_release();
+      e5rt_tensor_desc_release();
+      v20 = 0;
+      v21[0] = 0;
+      v18 = 0;
+      v19 = 0;
+      getPortShape(*input_ports, v21, &v20, &v19, &v18);
+      if ((global_logLevel & 8) != 0)
       {
-        inputPortNames = self->_inputPortNames;
-        v7 = v4;
-        v8 = [(NSMutableArray *)inputPortNames objectAtIndexedSubscript:0];
-        *buf = 138413058;
-        v14 = v8;
-        v15 = 2048;
-        v16 = 0;
-        v17 = 2048;
-        v18 = 0;
-        v19 = 2048;
-        v20 = 0;
-        _os_log_debug_impl(&dword_24874B000, v7, OS_LOG_TYPE_DEBUG, "Input0 [%@]: %ld x %ld x %ld", buf, 0x2Au);
-      }
-    }
-
-    getPortShape();
-    if ((global_logLevel & 8) != 0)
-    {
-      v5 = global_logger;
-      if (os_log_type_enabled(global_logger, OS_LOG_TYPE_DEBUG))
-      {
-        v9 = self->_inputPortNames;
-        v10 = v5;
-        v11 = [(NSMutableArray *)v9 objectAtIndexedSubscript:1];
-        *buf = 138413058;
-        v14 = v11;
-        v15 = 2048;
-        v16 = 0;
-        v17 = 2048;
-        v18 = 0;
-        v19 = 2048;
-        v20 = 0;
-        _os_log_debug_impl(&dword_24874B000, v10, OS_LOG_TYPE_DEBUG, "Input1 [%@]: %ld x %ld x %ld", buf, 0x2Au);
-      }
-    }
-
-    if (e5rt_buffer_object_get_iosurface())
-    {
-      e5rt_get_last_error_message();
-      if ((global_logLevel & 0x10) != 0)
-      {
-        v3 = os_log_type_enabled(global_logger, OS_LOG_TYPE_ERROR);
-        if (!v3)
+        v5 = global_logger;
+        if (os_log_type_enabled(global_logger, OS_LOG_TYPE_DEBUG))
         {
-          return v3;
+          inputPortNames = self->_inputPortNames;
+          v8 = v5;
+          v9 = [(NSMutableArray *)inputPortNames objectAtIndexedSubscript:0];
+          *buf = 138413058;
+          v23 = v9;
+          v24 = 2048;
+          v25 = v21[0];
+          v26 = 2048;
+          v27 = v20;
+          v28 = 2048;
+          v29 = v19;
+          _os_log_debug_impl(&dword_24874B000, v8, OS_LOG_TYPE_DEBUG, "Input0 [%@]: %ld x %ld x %ld", buf, 0x2Au);
+        }
+      }
+
+      v16 = 0;
+      v17 = 0;
+      v15 = 0;
+      getPortShape(input_ports[1], &v17, &v16, &v15, &v14);
+      if ((global_logLevel & 8) != 0)
+      {
+        v6 = global_logger;
+        if (os_log_type_enabled(global_logger, OS_LOG_TYPE_DEBUG))
+        {
+          v10 = self->_inputPortNames;
+          v11 = v6;
+          v12 = [(NSMutableArray *)v10 objectAtIndexedSubscript:1];
+          *buf = 138413058;
+          v23 = v12;
+          v24 = 2048;
+          v25 = v17;
+          v26 = 2048;
+          v27 = v16;
+          v28 = 2048;
+          v29 = v15;
+          _os_log_debug_impl(&dword_24874B000, v11, OS_LOG_TYPE_DEBUG, "Input1 [%@]: %ld x %ld x %ld", buf, 0x2Au);
+        }
+      }
+
+      if (v19 == 3)
+      {
+        if (e5rt_buffer_object_get_iosurface())
+        {
+          e5rt_get_last_error_message();
+          if ((global_logLevel & 0x10) != 0)
+          {
+            v4 = os_log_type_enabled(global_logger, OS_LOG_TYPE_ERROR);
+            if (!v4)
+            {
+              return v4;
+            }
+
+            [VSRNet allocateInputBufferObjects];
+          }
+
+          goto LABEL_15;
         }
 
-        [VSRNet allocateInputBufferObjects];
+        if (e5rt_buffer_object_get_iosurface())
+        {
+          e5rt_get_last_error_message();
+          if ((global_logLevel & 0x10) != 0)
+          {
+            v4 = os_log_type_enabled(global_logger, OS_LOG_TYPE_ERROR);
+            if (!v4)
+            {
+              return v4;
+            }
+
+            [VSRNet allocateInputBufferObjects];
+          }
+
+          goto LABEL_15;
+        }
       }
 
-      goto LABEL_15;
-    }
-
-    if (e5rt_buffer_object_get_iosurface())
-    {
-      e5rt_get_last_error_message();
-      if ((global_logLevel & 0x10) != 0)
+      else
       {
-        v3 = os_log_type_enabled(global_logger, OS_LOG_TYPE_ERROR);
-        if (!v3)
+        if (e5rt_buffer_object_get_iosurface())
         {
-          return v3;
+          e5rt_get_last_error_message();
+          if ((global_logLevel & 0x10) != 0)
+          {
+            v4 = os_log_type_enabled(global_logger, OS_LOG_TYPE_ERROR);
+            if (!v4)
+            {
+              return v4;
+            }
+
+            [VSRNet allocateInputBufferObjects];
+          }
+
+          goto LABEL_15;
         }
 
-        [VSRNet allocateInputBufferObjects];
+        if (e5rt_buffer_object_get_iosurface())
+        {
+          e5rt_get_last_error_message();
+          if ((global_logLevel & 0x10) != 0)
+          {
+            v4 = os_log_type_enabled(global_logger, OS_LOG_TYPE_ERROR);
+            if (!v4)
+            {
+              return v4;
+            }
+
+            [VSRNet allocateInputBufferObjects];
+          }
+
+          goto LABEL_15;
+        }
       }
 
-      goto LABEL_15;
+      LOBYTE(v4) = 1;
     }
-
-    LOBYTE(v3) = 1;
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)dealloc

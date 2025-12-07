@@ -2,6 +2,7 @@
 - (MSDCodeEntryContentViewController)initWithTitle:(id)title message:(id)message verificationCode:(id)code verificationErrorMesssage:(id)messsage andDelegate:(id)delegate;
 - (void)didEnterCode:(id)code forEntry:(id)entry;
 - (void)updateViewConstraints;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -150,6 +151,15 @@
   [(MSDCodeEntryContentViewController *)self setPreferredContentSize:270.0, v5];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = MSDCodeEntryContentViewController;
+  [(MSDCodeEntryContentViewController *)&v5 viewDidAppear:appear];
+  codeEntryView = [(MSDCodeEntryContentViewController *)self codeEntryView];
+  [codeEntryView becomeFirstResponder];
+}
+
 - (void)updateViewConstraints
 {
   v56.receiver = self;
@@ -243,7 +253,7 @@
   v24 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   entryCopy = entry;
-  v8 = defaultLogHandle();
+  v8 = defaultLogHandle(entryCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -254,27 +264,27 @@
   verificationCode = [(MSDCodeEntryContentViewController *)self verificationCode];
   v10 = [codeCopy isEqualToString:verificationCode];
 
-  v11 = defaultLogHandle();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  v12 = defaultLogHandle(v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
   if (v10)
   {
-    if (v12)
+    if (v13)
     {
       *buf = 0;
-      _os_log_impl(&dword_259BCA000, v11, OS_LOG_TYPE_DEFAULT, "Verification successful", buf, 2u);
+      _os_log_impl(&dword_259BCA000, v12, OS_LOG_TYPE_DEFAULT, "Verification successful", buf, 2u);
     }
   }
 
   else
   {
-    if (v12)
+    if (v13)
     {
       verificationCode2 = [(MSDCodeEntryContentViewController *)self verificationCode];
       *buf = 138543618;
       v21 = codeCopy;
       v22 = 2114;
       v23 = verificationCode2;
-      _os_log_impl(&dword_259BCA000, v11, OS_LOG_TYPE_DEFAULT, "Entered code: %{public}@ is not expected code: %{public}@", buf, 0x16u);
+      _os_log_impl(&dword_259BCA000, v12, OS_LOG_TYPE_DEFAULT, "Entered code: %{public}@ is not expected code: %{public}@", buf, 0x16u);
     }
 
     v17[0] = MEMORY[0x277D85DD0];
@@ -284,14 +294,12 @@
     v18 = entryCopy;
     selfCopy = self;
     dispatch_async(MEMORY[0x277D85CD0], v17);
-    v11 = v18;
+    v12 = v18;
   }
 
   delegate = [(MSDCodeEntryContentViewController *)self delegate];
   verificationCode3 = [(MSDCodeEntryContentViewController *)self verificationCode];
   [delegate didCompleteVerification:v10 forCode:verificationCode3];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __59__MSDCodeEntryContentViewController_didEnterCode_forEntry___block_invoke(uint64_t a1)

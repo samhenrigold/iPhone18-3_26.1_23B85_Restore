@@ -14,11 +14,11 @@
     switch(a3)
     {
       case 3:
-        return [self coreSleepDuration];
+        return [result coreSleepDuration];
       case 4:
-        return [self deepSleepDuration];
+        return [result deepSleepDuration];
       case 5:
-        return [self remSleepDuration];
+        return [result remSleepDuration];
     }
   }
 
@@ -26,21 +26,21 @@
   {
     if (a3 == 1)
     {
-      return [self unspecifiedSleepDuration];
+      return [result unspecifiedSleepDuration];
     }
 
     else if (a3 == 2)
     {
-      return [self awakeDuration];
+      return [result awakeDuration];
     }
   }
 
   else
   {
-    return [self inBedDuration];
+    return [result inBedDuration];
   }
 
-  return self;
+  return result;
 }
 
 - (id)hkui_somnogramChartDateInterval

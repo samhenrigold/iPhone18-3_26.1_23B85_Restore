@@ -8,7 +8,7 @@
 {
   v4 = objc_opt_class();
 
-  return [v4 allocWithZone:zone];
+  return objc_msgSend_allocWithZone_(v4, v5, zone, v6);
 }
 
 @end

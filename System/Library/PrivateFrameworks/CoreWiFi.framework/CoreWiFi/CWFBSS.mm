@@ -242,37 +242,37 @@ LABEL_14:
 
 - (CWFBSS)initWithExternalForm:(id)form
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   formCopy = form;
   v6 = [(CWFBSS *)self init];
   if (v6)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     obj = [formCopy allKeys];
-    v34 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
-    if (!v34)
+    v33 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+    if (!v33)
     {
       goto LABEL_37;
     }
 
-    v33 = *v36;
-    v31 = @"ChannelFlags";
+    v32 = *v35;
+    v30 = @"ChannelFlags";
     while (1)
     {
       v8 = 0;
       do
       {
-        if (*v36 != v33)
+        if (*v35 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v35 + 1) + 8 * v8);
-        v10 = [(CWFBSS *)v6 __propertyForKey:v9, v31];
+        v9 = *(*(&v34 + 1) + 8 * v8);
+        v10 = [(CWFBSS *)v6 __propertyForKey:v9, v30];
         if (v10)
         {
           v11 = v10;
@@ -371,7 +371,7 @@ LABEL_22:
               }
 
               v16 = [formCopy objectForKeyedSubscript:@"Channel"];
-              v25 = [formCopy objectForKeyedSubscript:v31];
+              v25 = [formCopy objectForKeyedSubscript:v30];
               v20 = v25;
               if (!v16 || !v25)
               {
@@ -399,9 +399,9 @@ LABEL_32:
         ++v8;
       }
 
-      while (v34 != v8);
-      v28 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
-      v34 = v28;
+      while (v33 != v8);
+      v28 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v33 = v28;
       if (!v28)
       {
 LABEL_37:
@@ -412,35 +412,34 @@ LABEL_37:
     }
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)externalForm
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   allKeys = [(NSMutableDictionary *)self->_internal allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v30;
-    v28 = @"ChannelFlags";
+    v7 = *v29;
+    v27 = @"ChannelFlags";
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v29 + 1) + 8 * i);
+        v9 = *(*(&v28 + 1) + 8 * i);
         v10 = -[CWFBSS __keyForProperty:](self, "__keyForProperty:", [v9 integerValue]);
         integerValue = [v9 integerValue];
         v12 = integerValue;
@@ -501,7 +500,7 @@ LABEL_37:
               v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v14, "flags")}];
               v18 = dictionary;
               v19 = v17;
-              v20 = v28;
+              v20 = v27;
 LABEL_19:
               [v18 setObject:v19 forKeyedSubscript:v20];
             }
@@ -516,14 +515,13 @@ LABEL_20:
 LABEL_21:
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v6);
   }
 
   v25 = [dictionary copy];
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -576,7 +574,7 @@ LABEL_21:
 
 - (id)__filteredBSSWithProperties:(id)properties OSSpecificKeys:(id)keys
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   keysCopy = keys;
   v8 = objc_alloc_init(CWFBSS);
@@ -595,32 +593,32 @@ LABEL_21:
   v13 = [propertiesCopy containsObject:&unk_1F5BBC400];
   if (keysCopy && v13)
   {
-    v27 = v9;
-    v28 = v8;
-    v29 = propertiesCopy;
+    v26 = v9;
+    v27 = v8;
+    v28 = propertiesCopy;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     oSSpecificAttributes = [(CWFBSS *)self OSSpecificAttributes];
     allKeys = [oSSpecificAttributes allKeys];
 
-    v17 = [allKeys countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v17 = [allKeys countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v31;
+      v19 = *v30;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v31 != v19)
+          if (*v30 != v19)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v21 = *(*(&v30 + 1) + 8 * i);
+          v21 = *(*(&v29 + 1) + 8 * i);
           if ([keysCopy containsObject:v21])
           {
             oSSpecificAttributes2 = [(CWFBSS *)self OSSpecificAttributes];
@@ -629,21 +627,19 @@ LABEL_21:
           }
         }
 
-        v18 = [allKeys countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v18 = [allKeys countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v18);
     }
 
     v24 = [dictionary copy];
-    v8 = v28;
-    [(CWFBSS *)v28 setOSSpecificAttributes:v24];
+    v8 = v27;
+    [(CWFBSS *)v27 setOSSpecificAttributes:v24];
 
-    propertiesCopy = v29;
-    v9 = v27;
+    propertiesCopy = v28;
+    v9 = v26;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -693,30 +689,28 @@ LABEL_21:
 
 - (id)__infoForLocation:(id)location
 {
-  v16[4] = *MEMORY[0x1E69E9840];
-  v15[0] = @"LocationLatitude";
+  v15[4] = *MEMORY[0x1E69E9840];
+  v14[0] = @"LocationLatitude";
   v3 = MEMORY[0x1E696AD98];
   locationCopy = location;
   [locationCopy coordinate];
   v5 = [v3 numberWithDouble:?];
-  v16[0] = v5;
-  v15[1] = @"LocationLongitude";
+  v15[0] = v5;
+  v14[1] = @"LocationLongitude";
   v6 = MEMORY[0x1E696AD98];
   [locationCopy coordinate];
   v8 = [v6 numberWithDouble:v7];
-  v16[1] = v8;
-  v15[2] = @"LocationAccuracy";
+  v15[1] = v8;
+  v14[2] = @"LocationAccuracy";
   v9 = MEMORY[0x1E696AD98];
   [locationCopy horizontalAccuracy];
   v10 = [v9 numberWithDouble:?];
-  v16[2] = v10;
-  v15[3] = @"LocationTimestamp";
+  v15[2] = v10;
+  v14[3] = @"LocationTimestamp";
   timestamp = [locationCopy timestamp];
 
-  v16[3] = timestamp;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v15[3] = timestamp;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
 
   return v12;
 }
@@ -836,36 +830,36 @@ LABEL_20:
 
 - (void)setOSSpecificAttributes:(id)attributes
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   v5 = attributesCopy;
   if (attributesCopy)
   {
     selfCopy = self;
-    v25 = attributesCopy;
-    v28 = 0u;
-    v29 = 0u;
+    v23 = attributesCopy;
     v26 = 0u;
     v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     allKeys = [attributesCopy allKeys];
-    v7 = [allKeys countByEnumeratingWithState:&v26 objects:v38 count:16];
+    v7 = [allKeys countByEnumeratingWithState:&v24 objects:v36 count:16];
     if (v7)
     {
       v8 = v7;
       array = 0;
-      v10 = *v27;
+      v10 = *v25;
       v11 = MEMORY[0x1E69E9C10];
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v27 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v13 = *(*(&v26 + 1) + 8 * i);
-          v14 = [CWFBSS supportedOSSpecificKeys:v22];
+          v13 = *(*(&v24 + 1) + 8 * i);
+          v14 = +[CWFBSS supportedOSSpecificKeys];
           v15 = [v14 containsObject:v13];
 
           if ((v15 & 1) == 0)
@@ -890,22 +884,21 @@ LABEL_20:
 
             if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
             {
-              v30 = 136446978;
-              v31 = "[CWFBSS setOSSpecificAttributes:]";
-              v32 = 2082;
-              v33 = "CWFBSS.m";
-              v34 = 1024;
-              v35 = 697;
-              v36 = 2112;
-              v37 = v13;
-              LODWORD(v23) = 38;
-              v22 = &v30;
-              _os_log_send_and_compose_impl();
+              v28 = 136446978;
+              v29 = "[CWFBSS setOSSpecificAttributes:]";
+              v30 = 2082;
+              v31 = "CWFBSS.m";
+              v32 = 1024;
+              v33 = 697;
+              v34 = 2112;
+              v35 = v13;
+              LODWORD(v21) = 38;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v17, 17, "[corewifi] %{public}s (%{public}s:%u) OS-specific key '%@' is not supported", &v28, v21);
             }
           }
         }
 
-        v8 = [allKeys countByEnumeratingWithState:&v26 objects:v38 count:16];
+        v8 = [allKeys countByEnumeratingWithState:&v24 objects:v36 count:16];
       }
 
       while (v8);
@@ -918,15 +911,15 @@ LABEL_20:
 
     if ([array count])
     {
-      v5 = v25;
-      v19 = [v25 mutableCopy];
+      v5 = v23;
+      v19 = [v23 mutableCopy];
       [v19 removeObjectsForKeys:array];
     }
 
     else
     {
       v19 = 0;
-      v5 = v25;
+      v5 = v23;
     }
 
     self = selfCopy;
@@ -947,14 +940,12 @@ LABEL_20:
     v20 = v5;
   }
 
-  [(NSMutableDictionary *)self->_internal setObject:v20 forKeyedSubscript:&unk_1F5BBC400, v22, v23];
-
-  v21 = *MEMORY[0x1E69E9840];
+  [(NSMutableDictionary *)self->_internal setObject:v20 forKeyedSubscript:&unk_1F5BBC400];
 }
 
 - (void)setOSSpecificValue:(id)value forKey:(id)key
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
   if (keyCopy && (+[CWFBSS supportedOSSpecificKeys](CWFBSS, "supportedOSSpecificKeys"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 containsObject:keyCopy], v8, v9))
@@ -987,11 +978,17 @@ LABEL_20:
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      _os_log_send_and_compose_impl();
+      v15 = 136446978;
+      v16 = "[CWFBSS setOSSpecificValue:forKey:]";
+      v17 = 2082;
+      v18 = "CWFBSS.m";
+      v19 = 1024;
+      v20 = 746;
+      v21 = 2112;
+      v22 = keyCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 17, "[corewifi] %{public}s (%{public}s:%u) OS-specific key '%@' is not supported", &v15, 38);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)OSSpecificValueForKey:(id)key
@@ -1181,15 +1178,15 @@ LABEL_20:
 
 - (id)deepCopy
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v16];
-  v3 = v16;
+  v18 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v15];
+  v3 = v15;
   if (v2)
   {
-    v15 = v3;
-    v4 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v2 error:&v15];
-    v5 = v15;
+    v14 = v3;
+    v4 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v2 error:&v14];
+    v5 = v14;
 
     if (v4)
     {
@@ -1213,9 +1210,9 @@ LABEL_20:
 
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v17 = 138412290;
-        v18 = v5;
-        _os_log_send_and_compose_impl();
+        v16 = 138412290;
+        v17 = v5;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 16, "[corewifi] failed to unarchive network profile: %@", &v16, 12);
       }
 
       v6 = 0;
@@ -1239,42 +1236,40 @@ LABEL_20:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412290;
-      v18 = v3;
-      _os_log_send_and_compose_impl();
+      v16 = 138412290;
+      v17 = v3;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 16, "[corewifi] failed to archive network profile: %@", &v16, 12);
     }
 
     v7 = 0;
     v5 = v3;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (CWFBSS)initWithCoder:(id)coder
 {
-  v15[8] = *MEMORY[0x1E69E9840];
+  v14[8] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = CWFBSS;
-  v5 = [(CWFBSS *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = CWFBSS;
+  v5 = [(CWFBSS *)&v13 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFA8];
-    v15[0] = objc_opt_class();
-    v15[1] = objc_opt_class();
-    v15[2] = objc_opt_class();
-    v15[3] = objc_opt_class();
-    v15[4] = objc_opt_class();
-    v15[5] = objc_opt_class();
-    v15[6] = objc_opt_class();
-    v15[7] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:8];
+    v14[0] = objc_opt_class();
+    v14[1] = objc_opt_class();
+    v14[2] = objc_opt_class();
+    v14[3] = objc_opt_class();
+    v14[4] = objc_opt_class();
+    v14[5] = objc_opt_class();
+    v14[6] = objc_opt_class();
+    v14[7] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:8];
     v8 = [v6 setWithArray:v7];
 
-    if (sub_1E0BCC6CC())
+    if (sub_1E0BCC6CC(0))
     {
       sub_1E0BCC51C();
       [v8 addObject:objc_opt_class()];
@@ -1286,7 +1281,6 @@ LABEL_20:
     v5->_internal = v10;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

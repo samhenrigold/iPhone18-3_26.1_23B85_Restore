@@ -40,7 +40,7 @@
 
   else
   {
-    v8 = _maps_backgroundStateLog();
+    v8 = _maps_backgroundStateLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v15[0] = 67109376;
@@ -173,32 +173,33 @@ LABEL_9:
 
   v9 = +[MapsSiriIPCInterface sharedInterface];
   [v9 initializeBrokerConnectionIfNeeded];
-  if ([v9 canReceiveMessages] && !objc_msgSend(v9, "isMapsBackgroundTaskSuspended"))
+  canReceiveMessages = [v9 canReceiveMessages];
+  if (canReceiveMessages && (canReceiveMessages = [v9 isMapsBackgroundTaskSuspended], !canReceiveMessages))
   {
     dictionary = objc_alloc_init(IPCGuidanceStateMessage);
     getRoute = [(MAHandleGetNavigationStatus *)self getRoute];
     -[IPCGuidanceStateMessage setIncludeRoute:](dictionary, "setIncludeRoute:", [getRoute BOOLValue]);
 
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1A5B8;
-    v13[3] = &unk_4AB70;
-    v13[4] = self;
-    v15 = completionCopy;
-    v14 = v7;
-    [v9 getGuidanceState:dictionary completion:v13];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1A5B8;
+    v14[3] = &unk_4AB70;
+    v14[4] = self;
+    v16 = completionCopy;
+    v15 = v7;
+    [v9 getGuidanceState:dictionary completion:v14];
   }
 
   else
   {
-    v10 = _maps_backgroundStateLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = _maps_backgroundStateLog(canReceiveMessages);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 67109376;
-      canReceiveMessages = [v9 canReceiveMessages];
-      v18 = 1024;
+      canReceiveMessages2 = [v9 canReceiveMessages];
+      v19 = 1024;
       isMapsBackgroundTaskSuspended = [v9 isMapsBackgroundTaskSuspended];
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "MAPS SIRI: Failed as IPC can't receive messages. canReceiveMessages: %d isMapsBackgroundTaskSuspended: %d", buf, 0xEu);
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "MAPS SIRI: Failed as IPC can't receive messages. canReceiveMessages: %d isMapsBackgroundTaskSuspended: %d", buf, 0xEu);
     }
 
     dictionary = [v7 dictionary];

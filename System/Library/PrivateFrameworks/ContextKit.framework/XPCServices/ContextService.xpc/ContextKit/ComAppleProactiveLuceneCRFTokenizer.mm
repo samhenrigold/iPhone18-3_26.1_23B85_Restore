@@ -74,24 +74,24 @@ LABEL_7:
       goto LABEL_22;
     }
 
-    v6 = next;
-    v7 = next[2];
-    if (v7 < 1)
+    v7 = next;
+    v8 = next[2];
+    if (v8 < 1)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v7, 0);
+      IOSArray_throwOutOfBoundsWithMsg(v8, 0);
     }
 
-    v8 = v6[3];
-    if (v7 <= 1)
+    v9 = v7[3];
+    if (v8 <= 1)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v7, 1);
+      IOSArray_throwOutOfBoundsWithMsg(v8, 1);
     }
 
-    v19 = v6[4];
-    v20 = v19 + v8;
-    if (v8 < v20)
+    v20 = v7[4];
+    v21 = v20 + v9;
+    if (v9 < v21)
     {
-      v9 = v6[3];
+      v10 = v7[3];
       while (1)
       {
         text = self->text_;
@@ -101,21 +101,21 @@ LABEL_7:
         }
 
         size = text->super.size_;
-        if (v9 < 0 || v9 >= size)
+        if (v10 < 0 || v10 >= size)
         {
-          IOSArray_throwOutOfBoundsWithMsg(size, v9);
+          IOSArray_throwOutOfBoundsWithMsg(size, v10);
         }
 
-        v12 = JavaLangCharacter_toLowerCaseWithChar_(*(&text->super.size_ + v9 + 2));
-        v13 = self->text_;
-        v14 = v13->super.size_;
-        if (v9 < 0 || v9 >= v14)
+        v13 = JavaLangCharacter_toLowerCaseWithChar_(*(&text->super.size_ + v10 + 2), v6);
+        v14 = self->text_;
+        v15 = v14->super.size_;
+        if (v10 < 0 || v10 >= v15)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v14, v9);
+          IOSArray_throwOutOfBoundsWithMsg(v15, v10);
         }
 
-        *(&v13->super.size_ + v9++ + 2) = v12;
-        if (v20 == v9)
+        *(&v14->super.size_ + v10++ + 2) = v13;
+        if (v21 == v10)
         {
           goto LABEL_17;
         }
@@ -140,14 +140,14 @@ LABEL_17:
       goto LABEL_22;
     }
 
-    [(OrgApacheLuceneAnalysisTokenattributesOffsetAttribute *)offsetAtt setOffsetWithInt:v8 withInt:v20];
+    [(OrgApacheLuceneAnalysisTokenattributesOffsetAttribute *)offsetAtt setOffsetWithInt:v9 withInt:v21];
     termAtt = self->termAtt_;
     if (!termAtt)
     {
       goto LABEL_22;
     }
 
-    [(OrgApacheLuceneAnalysisTokenattributesCharTermAttribute *)termAtt copyBufferWithCharArray:self->text_ withInt:v8 withInt:v19];
+    [(OrgApacheLuceneAnalysisTokenattributesCharTermAttribute *)termAtt copyBufferWithCharArray:self->text_ withInt:v9 withInt:v20];
   }
 
   return hasNext;

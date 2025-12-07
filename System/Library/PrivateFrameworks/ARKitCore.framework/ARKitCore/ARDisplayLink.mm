@@ -199,7 +199,7 @@ double __85__ARDisplayLink__recomputeActualVsyncOffsetWithVsyncOffset_preferredF
 {
   [(CADisplayLink *)self->_displayLink targetTimestamp];
   v4 = v3;
-  [(CADisplayLink *)self->_displayLink timestamp];
+  objc_msgSend_timestamp(self->_displayLink);
   self->_currentFramesPerSecond = 1.0 / (v4 - v5);
   objc_initWeak(&location, self);
   v6 = MEMORY[0x1E695DFF0];

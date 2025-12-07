@@ -25,6 +25,7 @@
 - (void)_setTitle:(id)title forTabGroupWithUUID:(id)d reply:(id)reply;
 - (void)_setTitle:(id)title forTabWithUUID:(id)d reply:(id)reply;
 - (void)_startMonitoringSyncStatusWithCompletionHandler:(id)handler;
+- (void)_startMonitoringTabGroupUpdateExpectingMigration:(BOOL)migration completionHandler:(id)handler;
 - (void)_triggerTabGroupSync;
 - (void)clearBookmarksWithOptions:(unint64_t)options completionHandler:(id)handler;
 - (void)createBookmarkListWithTitle:(id)title inListWithIdentifier:(id)identifier atIndex:(unint64_t)index reply:(id)reply;
@@ -44,11 +45,11 @@
 
 - (WBTabCyclerCommandHandler)initWithTabGroupManager:(id)manager
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
-  v19.receiver = self;
-  v19.super_class = WBTabCyclerCommandHandler;
-  v6 = [(WBTabCyclerCommandHandler *)&v19 init];
+  v20.receiver = self;
+  v20.super_class = WBTabCyclerCommandHandler;
+  v6 = [(WBTabCyclerCommandHandler *)&v20 init];
   v7 = v6;
   if (v6)
   {
@@ -63,62 +64,60 @@
     syncAgentNotificationObserver = v7->_syncAgentNotificationObserver;
     v7->_syncAgentNotificationObserver = v12;
 
-    v14 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v16 = WBS_LOG_CHANNEL_PREFIXCycler(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v15 = v7->_tabCollection;
+      v17 = v7->_tabCollection;
       *buf = 138412290;
-      v21 = v15;
-      _os_log_impl(&dword_272C20000, v14, OS_LOG_TYPE_INFO, "Created Tab Cycler test target with tab collection: %@", buf, 0xCu);
+      v22 = v17;
+      _os_log_impl(&dword_272C20000, v16, OS_LOG_TYPE_INFO, "Created Tab Cycler test target with tab collection: %@", buf, 0xCu);
     }
 
-    v16 = v7;
+    v18 = v7;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)fetchTopLevelBookmarkList:(id)list
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   listCopy = list;
   v5 = [objc_alloc(MEMORY[0x277D49F08]) initWithTitle:@"tab-group-container-bookmark" uniqueIdentifier:@"tab-group-container-bookmark-uuid"];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   profiles = [(WBTabGroupManager *)self->_tabGroupManager profiles];
-  v7 = [profiles countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [profiles countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(profiles);
         }
 
-        v11 = [(WBTabCyclerCommandHandler *)self _cyclerRepresentationOfProfile:*(*(&v13 + 1) + 8 * v10)];
+        v11 = [(WBTabCyclerCommandHandler *)self _cyclerRepresentationOfProfile:*(*(&v12 + 1) + 8 * v10)];
         [v5 addChild:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [profiles countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [profiles countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   listCopy[2](listCopy, v5);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearBookmarksWithOptions:(unint64_t)options completionHandler:(id)handler
@@ -126,18 +125,18 @@
   optionsCopy = options;
   v12 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v7 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = WBS_LOG_CHANNEL_PREFIXCycler(handlerCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v8 = @"local and remote";
+    v9 = @"local and remote";
     if ((optionsCopy & 1) == 0)
     {
-      v8 = @"local";
+      v9 = @"local";
     }
 
     v10 = 138412290;
-    v11 = v8;
-    _os_log_impl(&dword_272C20000, v7, OS_LOG_TYPE_INFO, "Clearing %@ profiles and tab groups", &v10, 0xCu);
+    v11 = v9;
+    _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Clearing %@ profiles and tab groups", &v10, 0xCu);
   }
 
   if (optionsCopy)
@@ -149,76 +148,74 @@
   {
     [(WBTabCyclerCommandHandler *)self _clearLocalProfilesWithCompletionHandler:handlerCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearLocalTabGroupsWithCompletionHandler:(id)handler retryCooldown:(double)cooldown
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
+  v8 = handlerCopy;
   if (cooldown <= 64.0)
   {
-    if ([(WBTabCollection *)self->_tabCollection lockSync])
+    lockSync = [(WBTabCollection *)self->_tabCollection lockSync];
+    if (lockSync)
     {
-      v17 = MEMORY[0x277D85DD0];
-      v18 = 3221225472;
-      v19 = __85__WBTabCyclerCommandHandler__clearLocalTabGroupsWithCompletionHandler_retryCooldown___block_invoke_2;
-      v20 = &unk_279E773A0;
-      v21 = handlerCopy;
-      [(WBTabCyclerCommandHandler *)self _startMonitoringTabGroupUpdateExpectingMigration:0 completionHandler:&v17];
+      v20 = MEMORY[0x277D85DD0];
+      v21 = 3221225472;
+      v22 = __85__WBTabCyclerCommandHandler__clearLocalTabGroupsWithCompletionHandler_retryCooldown___block_invoke_2;
+      v23 = &unk_279E773A0;
+      v24 = v8;
+      [(WBTabCyclerCommandHandler *)self _startMonitoringTabGroupUpdateExpectingMigration:0 completionHandler:&v20];
       tabCollection = self->_tabCollection;
-      v9 = [(WBTabCollection *)tabCollection allNamedTabGroupsUnsorted:v17];
-      [(WBTabCollection *)tabCollection deleteItems:v9 leaveTombstones:0];
+      v13 = [(WBTabCollection *)tabCollection allNamedTabGroupsUnsorted:v20];
+      [(WBTabCollection *)tabCollection deleteItems:v13 leaveTombstones:0];
 
       [(WBTabCollection *)self->_tabCollection unlockSync];
       [(WBTabGroupManager *)self->_tabGroupManager reloadTabGroupsFromDatabaseWithCompletionHandler:0];
-      v10 = v21;
+      v14 = v24;
     }
 
     else
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXCycler();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v15 = WBS_LOG_CHANNEL_PREFIXCycler(lockSync, v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
         cooldownCopy = cooldown;
-        _os_log_impl(&dword_272C20000, v11, OS_LOG_TYPE_INFO, "Failed to acquire tab collection lock. Retrying after %f seconds.", buf, 0xCu);
+        _os_log_impl(&dword_272C20000, v15, OS_LOG_TYPE_INFO, "Failed to acquire tab collection lock. Retrying after %f seconds.", buf, 0xCu);
       }
 
-      v12 = MEMORY[0x277CBEBB8];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __85__WBTabCyclerCommandHandler__clearLocalTabGroupsWithCompletionHandler_retryCooldown___block_invoke;
-      v22[3] = &unk_279E77378;
-      v22[4] = self;
-      v23 = handlerCopy;
+      v16 = MEMORY[0x277CBEBB8];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __85__WBTabCyclerCommandHandler__clearLocalTabGroupsWithCompletionHandler_retryCooldown___block_invoke;
+      v25[3] = &unk_279E77378;
+      v25[4] = self;
+      v26 = v8;
       cooldownCopy2 = cooldown;
-      v13 = [v12 timerWithTimeInterval:0 repeats:v22 block:cooldown];
+      v17 = [v16 timerWithTimeInterval:0 repeats:v25 block:cooldown];
       clearLocalTabGroupsRetryTimer = self->_clearLocalTabGroupsRetryTimer;
-      self->_clearLocalTabGroupsRetryTimer = v13;
+      self->_clearLocalTabGroupsRetryTimer = v17;
 
       mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
       [mainRunLoop addTimer:self->_clearLocalTabGroupsRetryTimer forMode:*MEMORY[0x277CBE640]];
 
-      v10 = v23;
+      v14 = v26;
     }
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = WBS_LOG_CHANNEL_PREFIXCycler(handlerCopy, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
       cooldownCopy = cooldown * 0.5;
-      _os_log_impl(&dword_272C20000, v7, OS_LOG_TYPE_INFO, "Failed to acquire tab collection lock after backing off to a %f second wait. Giving up.", buf, 0xCu);
+      _os_log_impl(&dword_272C20000, v9, OS_LOG_TYPE_INFO, "Failed to acquire tab collection lock after backing off to a %f second wait. Giving up.", buf, 0xCu);
     }
 
-    (*(handlerCopy + 2))(handlerCopy, 0);
+    v8[2](v8, 0);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -244,56 +241,53 @@
 
 void __72__WBTabCyclerCommandHandler__clearRemoteTabGroupsWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) tabGroups];
   v3 = [v2 count];
 
   if (v3)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __72__WBTabCyclerCommandHandler__clearRemoteTabGroupsWithCompletionHandler___block_invoke_2;
-    v17[3] = &unk_279E773A0;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __72__WBTabCyclerCommandHandler__clearRemoteTabGroupsWithCompletionHandler___block_invoke_2;
+    v15[3] = &unk_279E773A0;
     v4 = *(a1 + 32);
-    v18 = *(a1 + 40);
-    [v4 _startMonitoringSyncStatusWithCompletionHandler:v17];
-    v15 = 0u;
-    v16 = 0u;
+    v16 = *(a1 + 40);
+    [v4 _startMonitoringSyncStatusWithCompletionHandler:v15];
     v13 = 0u;
     v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v5 = [*(a1 + 32) tabGroups];
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v12;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(a1 + 32) + 40) removeTabGroup:*(*(&v13 + 1) + 8 * i)];
+          [*(*(a1 + 32) + 40) removeTabGroup:*(*(&v11 + 1) + 8 * i)];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v11 objects:v17 count:16];
       }
 
       while (v7);
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v11 = *(*(a1 + 40) + 16);
-    v12 = *MEMORY[0x277D85DE8];
+    v10 = *(*(a1 + 40) + 16);
 
-    v11();
+    v10();
   }
 }
 
@@ -312,76 +306,75 @@ void __72__WBTabCyclerCommandHandler__clearRemoteTabGroupsWithCompletionHandler_
 
 void __71__WBTabCyclerCommandHandler__clearRemoteProfilesWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 40) namedProfiles];
   if ([v2 count])
   {
 
 LABEL_4:
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __71__WBTabCyclerCommandHandler__clearRemoteProfilesWithCompletionHandler___block_invoke_2;
-    v27[3] = &unk_279E773A0;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __71__WBTabCyclerCommandHandler__clearRemoteProfilesWithCompletionHandler___block_invoke_2;
+    v25[3] = &unk_279E773A0;
     v5 = *(a1 + 32);
-    v28 = *(a1 + 40);
-    [v5 _startMonitoringSyncStatusWithCompletionHandler:v27];
-    v25 = 0u;
-    v26 = 0u;
+    v26 = *(a1 + 40);
+    [v5 _startMonitoringSyncStatusWithCompletionHandler:v25];
     v23 = 0u;
     v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v6 = [*(*(a1 + 32) + 40) namedProfiles];
-    v7 = [v6 countByEnumeratingWithState:&v23 objects:v30 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v21 objects:v28 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v24;
+      v9 = *v22;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(a1 + 32) + 40) removeProfile:*(*(&v23 + 1) + 8 * i) completionHandler:0];
+          [*(*(a1 + 32) + 40) removeProfile:*(*(&v21 + 1) + 8 * i) completionHandler:0];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v23 objects:v30 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v21 objects:v28 count:16];
       }
 
       while (v8);
     }
 
-    v21 = 0u;
-    v22 = 0u;
     v19 = 0u;
     v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v11 = [*(*(a1 + 32) + 40) namedTabGroupsForProfileWithIdentifier:{*MEMORY[0x277D49BD8], 0}];
-    v12 = [v11 countByEnumeratingWithState:&v19 objects:v29 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v17 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v18;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v20 != v14)
+          if (*v18 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [*(*(a1 + 32) + 40) removeTabGroup:*(*(&v19 + 1) + 8 * j)];
+          [*(*(a1 + 32) + 40) removeTabGroup:*(*(&v17 + 1) + 8 * j)];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v19 objects:v29 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v17 objects:v27 count:16];
       }
 
       while (v13);
     }
 
-    v16 = *MEMORY[0x277D85DE8];
     return;
   }
 
@@ -393,10 +386,9 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v17 = *(*(a1 + 40) + 16);
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *(*(a1 + 40) + 16);
 
-  v17();
+  v16();
 }
 
 - (void)_clearLocalProfilesWithCompletionHandler:(id)handler
@@ -539,15 +531,13 @@ void __92__WBTabCyclerCommandHandler_createBookmarkWithTitle_url_inListWithIdent
 
 void __92__WBTabCyclerCommandHandler_createBookmarkWithTitle_url_inListWithIdentifier_atIndex_reply___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = *(a1 + 32);
+  v8 = *MEMORY[0x277D85DE8];
+  v7 = *(a1 + 32);
   v3 = MEMORY[0x277CBEA60];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:&v8 count:1];
-  v6 = [*(a1 + 40) _mutableTabBeforeIndex:*(a1 + 48) inGroup:{v4, v8, v9}];
+  v5 = [v3 arrayWithObjects:&v7 count:1];
+  v6 = [*(a1 + 40) _mutableTabBeforeIndex:*(a1 + 48) inGroup:{v4, v7, v8}];
   [v4 insertTabs:v5 afterTab:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createProfileWithTitle:(id)title symbolName:(id)name inListWithIdentifier:(id)identifier reply:(id)reply
@@ -667,14 +657,12 @@ void __46__WBTabCyclerCommandHandler__deleteTab_reply___block_invoke(uint64_t a1
 
 void __46__WBTabCyclerCommandHandler__deleteTab_reply___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *(a1 + 32);
+  v6 = *MEMORY[0x277D85DE8];
+  v5 = *(a1 + 32);
   v2 = MEMORY[0x277CBEA60];
   v3 = a2;
-  v4 = [v2 arrayWithObjects:&v6 count:1];
-  [v3 deleteTabs:{v4, v6, v7}];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = [v2 arrayWithObjects:&v5 count:1];
+  [v3 deleteTabs:{v4, v5, v6}];
 }
 
 - (void)moveBookmarkWithIdentifier:(id)identifier intoListWithIdentifier:(id)withIdentifier atIndex:(unint64_t)index reply:(id)reply
@@ -709,17 +697,15 @@ void __46__WBTabCyclerCommandHandler__deleteTab_reply___block_invoke_2(uint64_t 
 
 uint64_t __93__WBTabCyclerCommandHandler_moveBookmarkWithIdentifier_intoListWithIdentifier_atIndex_reply___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 40);
-  v8[0] = *(a1 + 40);
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = *(a1 + 40);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v4 = *(a1 + 48);
   v5 = [*(a1 + 32) _tabBeforeIndex:*(a1 + 64) inGroup:v4];
   [v2 moveTabs:v3 toTabGroup:v4 afterTab:v5 withoutPersistingTabGroupsWithUUIDStrings:0];
 
-  result = (*(*(a1 + 56) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 - (void)_moveTabGroup:(id)group toProfileWithIdentifier:(id)identifier atIndex:(unint64_t)index reply:(id)reply
@@ -1058,7 +1044,7 @@ uint64_t __64__WBTabCyclerCommandHandler_syncBookmarksWithCompletionHandler___bl
 
 - (void)_triggerTabGroupSync
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXCycler();
+  v2 = WBS_LOG_CHANNEL_PREFIXCycler(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -1102,63 +1088,85 @@ BOOL __77__WBTabCyclerCommandHandler__startMonitoringSyncStatusWithCompletionHan
   v5 = [v4 integerValue];
   if (v5 == 1)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v13 = WBS_LOG_CHANNEL_PREFIXCycler(1, v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_272C20000, v10, OS_LOG_TYPE_INFO, "Sync finished but local migration has not completed. Waiting for migration to complete.", v14, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_272C20000, v13, OS_LOG_TYPE_INFO, "Sync finished but local migration has not completed. Waiting for migration to complete.", v17, 2u);
     }
 
-    v8 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v6 = v5;
+    v7 = v5;
     if (v5 == 5)
     {
       WeakRetained = objc_loadWeakRetained((a1 + 40));
-      v8 = WeakRetained == 0;
+      v10 = WeakRetained;
+      v11 = WeakRetained == 0;
       if (WeakRetained)
       {
-        v9 = WBS_LOG_CHANNEL_PREFIXCycler();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        v12 = WBS_LOG_CHANNEL_PREFIXCycler(WeakRetained, v9);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_272C20000, v9, OS_LOG_TYPE_INFO, "Sync agent reset sync data. Triggering another sync.", buf, 2u);
+          _os_log_impl(&dword_272C20000, v12, OS_LOG_TYPE_INFO, "Sync agent reset sync data. Triggering another sync.", buf, 2u);
         }
 
-        [WeakRetained _triggerTabGroupSync];
+        [v10 _triggerTabGroupSync];
       }
     }
 
     else
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXCycler();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v14 = WBS_LOG_CHANNEL_PREFIXCycler(v5, v6);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_272C20000, v11, OS_LOG_TYPE_INFO, "Sync agent finished syncing", v13, 2u);
+        *v16 = 0;
+        _os_log_impl(&dword_272C20000, v14, OS_LOG_TYPE_INFO, "Sync agent finished syncing", v16, 2u);
       }
 
-      (*(*(a1 + 32) + 16))(*(a1 + 32), v6 == 0);
-      v8 = 1;
+      (*(*(a1 + 32) + 16))(*(a1 + 32), v7 == 0);
+      v11 = 1;
     }
   }
 
-  return v8;
+  return v11;
 }
 
-uint64_t __77__WBTabCyclerCommandHandler__startMonitoringSyncStatusWithCompletionHandler___block_invoke_40(uint64_t a1)
+uint64_t __77__WBTabCyclerCommandHandler__startMonitoringSyncStatusWithCompletionHandler___block_invoke_40(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXCycler(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_272C20000, v2, OS_LOG_TYPE_INFO, "Timed out waiting for sync agent to finish syncing", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_272C20000, v3, OS_LOG_TYPE_INFO, "Timed out waiting for sync agent to finish syncing", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
+}
+
+- (void)_startMonitoringTabGroupUpdateExpectingMigration:(BOOL)migration completionHandler:(id)handler
+{
+  migrationCopy = migration;
+  handlerCopy = handler;
+  objc_initWeak(&location, self);
+  tabGroupManager = self->_tabGroupManager;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __96__WBTabCyclerCommandHandler__startMonitoringTabGroupUpdateExpectingMigration_completionHandler___block_invoke;
+  v11[3] = &unk_279E77530;
+  objc_copyWeak(&v13, &location);
+  v8 = handlerCopy;
+  v12 = v8;
+  v9 = [_WBTabCyclerTabGroupUpdateObserver observeTabGroupManager:tabGroupManager waitForTabGroups:migrationCopy handler:v11];
+  tabGroupUpdateObserver = self->_tabGroupUpdateObserver;
+  self->_tabGroupUpdateObserver = v9;
+
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&location);
 }
 
 void __96__WBTabCyclerCommandHandler__startMonitoringTabGroupUpdateExpectingMigration_completionHandler___block_invoke(uint64_t a1)
@@ -1390,7 +1398,7 @@ uint64_t __48__WBTabCyclerCommandHandler__tabWithIdentifier___block_invoke_2(uin
 
 - (id)_cyclerRepresentationOfProfile:(id)profile
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   v5 = objc_alloc(MEMORY[0x277D49F10]);
   title = [profileCopy title];
@@ -1402,43 +1410,41 @@ uint64_t __48__WBTabCyclerCommandHandler__tabWithIdentifier___block_invoke_2(uin
   identifier2 = [profileCopy identifier];
   v12 = [(WBTabGroupManager *)tabGroupManager namedTabGroupsForProfileWithIdentifier:identifier2];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [(WBTabCyclerCommandHandler *)self _cyclerRepresentationOfTabGroup:*(*(&v21 + 1) + 8 * i), v21];
+        v18 = [(WBTabCyclerCommandHandler *)self _cyclerRepresentationOfTabGroup:*(*(&v20 + 1) + 8 * i), v20];
         [v9 addChild:v18];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_cyclerRepresentationOfTabGroup:(id)group
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   v5 = objc_alloc(MEMORY[0x277D49F18]);
   title = [groupCopy title];
@@ -1448,36 +1454,34 @@ uint64_t __48__WBTabCyclerCommandHandler__tabWithIdentifier___block_invoke_2(uin
   v9 = [(WBTabCyclerCommandHandler *)self _cyclerRepresentationOfTopScopedBookmarkListForTabGroup:groupCopy];
   [v8 addChild:v9];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   tabs = [groupCopy tabs];
-  v11 = [tabs countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [tabs countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(tabs);
         }
 
-        v15 = [(WBTabCyclerCommandHandler *)self _cyclerRepresentationOfTab:*(*(&v18 + 1) + 8 * i)];
+        v15 = [(WBTabCyclerCommandHandler *)self _cyclerRepresentationOfTab:*(*(&v17 + 1) + 8 * i)];
         [v8 addChild:v15];
       }
 
-      v12 = [tabs countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [tabs countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1498,7 +1502,7 @@ uint64_t __48__WBTabCyclerCommandHandler__tabWithIdentifier___block_invoke_2(uin
 
 - (id)_cyclerRepresentationOfTopScopedBookmarkListForTabGroup:(id)group
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   v5 = [(WBTabGroupManager *)self->_tabGroupManager topScopedBookmarkListForTabGroup:groupCopy];
   v6 = objc_alloc(MEMORY[0x277D49F20]);
@@ -1508,35 +1512,33 @@ uint64_t __48__WBTabCyclerCommandHandler__tabWithIdentifier___block_invoke_2(uin
   v10 = [v6 initWithTitle:&stru_288259858 uniqueIdentifier:v9];
 
   bookmarkArray = [v5 bookmarkArray];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v12 = [bookmarkArray countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v12 = [bookmarkArray countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(bookmarkArray);
         }
 
-        v16 = [(WBTabCyclerCommandHandler *)self _cyclerRepresentationOfTabGroupFavorite:*(*(&v19 + 1) + 8 * i)];
+        v16 = [(WBTabCyclerCommandHandler *)self _cyclerRepresentationOfTabGroupFavorite:*(*(&v18 + 1) + 8 * i)];
         [v10 addChild:v16];
       }
 
-      v13 = [bookmarkArray countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [bookmarkArray countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

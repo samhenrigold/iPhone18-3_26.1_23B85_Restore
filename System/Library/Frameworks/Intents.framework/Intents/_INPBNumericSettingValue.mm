@@ -3,6 +3,7 @@
 - (_INPBNumericSettingValue)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)unitAsString:(int)string;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 - (void)setHasValue:(BOOL)value;
@@ -162,13 +163,11 @@
   toCopy = to;
   if ([(_INPBNumericSettingValue *)self hasUnit])
   {
-    unit = self->_unit;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBNumericSettingValue *)self hasValue])
   {
-    value = self->_value;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -186,6 +185,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)unitAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"PERCENTAGE";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (void)setUnit:(int)unit

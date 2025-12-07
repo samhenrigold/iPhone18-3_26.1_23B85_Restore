@@ -14,11 +14,9 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v3 = *self->transactionChangesObserver;
-  sub_238453D6C(&qword_27DF09A38, type metadata accessor for GroupedTransactionsViewDataProvider);
+  sub_238453D6C(&qword_27DF09A38, type metadata accessor for GroupedTransactionsViewDataProvider, &unk_238763F7C);
   swift_retain_n();
   sub_23875A2C0();
-  v4 = *self->transactionChangesObserver;
   sub_23875A2A0();
   sub_238450C60();
 }

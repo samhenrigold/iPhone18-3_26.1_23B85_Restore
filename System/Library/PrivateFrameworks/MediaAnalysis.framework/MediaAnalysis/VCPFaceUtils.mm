@@ -1286,7 +1286,7 @@ LABEL_35:
 
 + (int)configureVNRequest:(id *)request withClass:(Class)class andVisionRevision:(unint64_t)revision
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v8 = objc_alloc_init(class);
   *request = v8;
   if (revision < 0xDECAF000)
@@ -1296,9 +1296,9 @@ LABEL_35:
 
   else
   {
-    v14 = 0;
-    v9 = [v8 setRevision:revision error:&v14];
-    v10 = v14;
+    v16 = 0;
+    v9 = [v8 setRevision:revision error:&v16];
+    v10 = v16;
     defaultANEDevice = v10;
     if ((v9 & 1) == 0)
     {
@@ -1306,28 +1306,28 @@ LABEL_35:
       {
         *buf = 138412802;
         classCopy = class;
-        v17 = 2112;
-        v18 = defaultANEDevice;
-        v19 = 1024;
-        v20 = 15;
+        v19 = 2112;
+        v20 = defaultANEDevice;
+        v21 = 1024;
+        v22 = 15;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[Face] Failed setting %@ private revision: %@, umbrellaVersion: %d", buf, 0x1Cu);
       }
 
-      v12 = -50;
+      v14 = -50;
       goto LABEL_12;
     }
   }
 
   [*request setMetalContextPriority:1];
-  [*request setPreferBackgroundProcessing:1];
-  if (DeviceHasANE())
+  v12 = [*request setPreferBackgroundProcessing:1];
+  if (DeviceHasANE(v12, v13))
   {
     defaultANEDevice = [MEMORY[0x1E6984608] defaultANEDevice];
     [*request setProcessingDevice:defaultANEDevice];
-    v12 = 0;
+    v14 = 0;
 LABEL_12:
 
-    return v12;
+    return v14;
   }
 
   return 0;

@@ -12,7 +12,7 @@ uint64_t ___BYLoggingEnabled_block_invoke()
   return result;
 }
 
-uint64_t ___BYLoggingEnabled_block_invoke_2()
+uint64_t ___BYLoggingEnabled_block_invoke_2(uint64_t a1)
 {
   result = _checkLoggingEnabled();
   _BYLoggingEnabled_shouldLog = result;

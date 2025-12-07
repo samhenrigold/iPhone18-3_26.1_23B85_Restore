@@ -9,7 +9,7 @@
 
 - (RestoreService)init
 {
-  v3 = sub_1003C27BC();
+  v3 = sub_1003C27BC(AppInstallsDatabaseStore);
   v4 = v3;
   if (self)
   {

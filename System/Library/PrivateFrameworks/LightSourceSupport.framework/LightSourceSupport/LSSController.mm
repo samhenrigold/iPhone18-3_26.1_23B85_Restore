@@ -16,10 +16,10 @@
 
 - (void)_selectProviderFromSettings
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (!self)
   {
-    goto LABEL_8;
+    return;
   }
 
   dispatch_assert_queue_V2(*(self + 8));
@@ -43,9 +43,9 @@
   if (os_log_type_enabled(qword_280D2F4E8, OS_LOG_TYPE_DEFAULT))
   {
 LABEL_4:
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_255E8B000, v4, OS_LOG_TYPE_DEFAULT, "provider resolved: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_255E8B000, v4, OS_LOG_TYPE_DEFAULT, "provider resolved: %@", &v6, 0xCu);
   }
 
 LABEL_5:
@@ -64,9 +64,6 @@ LABEL_5:
 
   [*(self + 32) setFeatures:*(self + 104)];
   [*(self + 24) setFeatures:*(self + 104)];
-
-LABEL_8:
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance
@@ -343,7 +340,7 @@ LABEL_11:
 - (void)provider:(id)provider updatedLight:(id)light
 {
   var0 = light.var0;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   dispatch_assert_queue_V2(self->_queue);
   if (self->_provider == providerCopy)
@@ -423,32 +420,32 @@ LABEL_22:
 LABEL_24:
         xpc = self->_xpc;
         v19 = *(*&var0 + 48);
-        v38 = *(*&var0 + 32);
-        v39 = v19;
+        v37 = *(*&var0 + 32);
+        v38 = v19;
         v20 = *(*&var0 + 80);
-        v40 = *(*&var0 + 64);
-        v41 = v20;
+        v39 = *(*&var0 + 64);
+        v40 = v20;
         v21 = *(*&var0 + 16);
         *buf = **&var0;
-        v37 = v21;
+        v36 = v21;
         [(LSSXPCService *)xpc updateLightDirection:buf];
         v22 = dispatch_time(0, 1000000);
         queue = self->_queue;
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __39__LSSController_provider_updatedLight___block_invoke;
-        v28[3] = &unk_279812798;
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __39__LSSController_provider_updatedLight___block_invoke;
+        v27[3] = &unk_279812798;
         selfCopy = self;
         v24 = *(*&var0 + 48);
-        v31 = *(*&var0 + 32);
-        v32 = v24;
+        v30 = *(*&var0 + 32);
+        v31 = v24;
         v25 = *(*&var0 + 80);
-        v33 = *(*&var0 + 64);
-        v34 = v25;
+        v32 = *(*&var0 + 64);
+        v33 = v25;
         v26 = *(*&var0 + 16);
-        v29 = **&var0;
-        v30 = v26;
-        dispatch_after(v22, queue, v28);
+        v28 = **&var0;
+        v29 = v26;
+        dispatch_after(v22, queue, v27);
         goto LABEL_25;
       }
     }
@@ -472,38 +469,34 @@ LABEL_24:
   {
     caService = self->_caService;
     v8 = *(*&var0 + 48);
-    v38 = *(*&var0 + 32);
-    v39 = v8;
+    v37 = *(*&var0 + 32);
+    v38 = v8;
     v9 = *(*&var0 + 80);
-    v40 = *(*&var0 + 64);
-    v41 = v9;
+    v39 = *(*&var0 + 64);
+    v40 = v9;
     v10 = *(*&var0 + 16);
     *buf = **&var0;
-    v37 = v10;
+    v36 = v10;
     [(LSSCAService *)caService setLightForExtendedDisplays:buf];
   }
 
 LABEL_25:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __39__LSSController_provider_updatedLight___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(*(a1 + 128) + 56);
   v2 = *(a1 + 80);
-  v7[2] = *(a1 + 64);
-  v7[3] = v2;
+  v6[2] = *(a1 + 64);
+  v6[3] = v2;
   v3 = *(a1 + 112);
-  v7[4] = *(a1 + 96);
-  v7[5] = v3;
+  v6[4] = *(a1 + 96);
+  v6[5] = v3;
   v4 = *(a1 + 48);
-  v7[0] = *(a1 + 32);
-  v7[1] = v4;
-  result = [v1 setLightForDynamicDisplays:v7];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[0] = *(a1 + 32);
+  v6[1] = v4;
+  return [v1 setLightForDynamicDisplays:v6];
 }
 
 - (id)addAssertion:(unsigned int)assertion reason:(id)reason
@@ -554,7 +547,7 @@ LABEL_13:
 
 - (__CFString)_resolveProvider:(uint64_t)provider
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (provider)
   {
     v3 = +[LSSSettings currentSettings];
@@ -569,9 +562,9 @@ LABEL_13:
     v6 = qword_280D2F4E8;
     if (os_log_type_enabled(qword_280D2F4E8, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_debug_impl(&dword_255E8B000, v6, OS_LOG_TYPE_DEBUG, "provider suggested: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_debug_impl(&dword_255E8B000, v6, OS_LOG_TYPE_DEBUG, "provider suggested: %@", &v10, 0xCu);
     }
 
     v7 = @"stationary";
@@ -587,8 +580,6 @@ LABEL_13:
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -759,8 +750,8 @@ LABEL_36:
   v6 = qword_280D2F4E8;
   if (os_log_type_enabled(qword_280D2F4E8, OS_LOG_TYPE_DEFAULT))
   {
-    *v30 = 0;
-    OUTLINED_FUNCTION_0_0(&dword_255E8B000, v6, v7, "changing provider", v30);
+    *v31 = 0;
+    OUTLINED_FUNCTION_0_0(&dword_255E8B000, v6, v7, "changing provider", v31);
   }
 
   objc_storeStrong((to + 48), a2);
@@ -798,8 +789,8 @@ LABEL_36:
         v17 = qword_280D2F4E8;
         if (os_log_type_enabled(qword_280D2F4E8, OS_LOG_TYPE_ERROR))
         {
-          *v29 = 0;
-          OUTLINED_FUNCTION_1_0(&dword_255E8B000, v17, v18, "cannot make display link", v29);
+          *v30 = 0;
+          OUTLINED_FUNCTION_1_0(&dword_255E8B000, v17, v18, "cannot make display link", v30);
         }
 
         v19 = [LSSResampler alloc];
@@ -826,13 +817,14 @@ LABEL_36:
     {
       if (![v5 isEqualToString:@"time"])
       {
-        if (![v5 isEqualToString:@"null"])
+        v25 = [v5 isEqualToString:@"null"];
+        if (!v25)
         {
-          v25 = LSSLogController();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v26 = LSSLogController(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
-            *v28 = 0;
-            OUTLINED_FUNCTION_1_0(&dword_255E8B000, v25, v26, "invalid provider setting.", v28);
+            *v29 = 0;
+            OUTLINED_FUNCTION_1_0(&dword_255E8B000, v26, v27, "invalid provider setting.", v29);
           }
 
           v10 = *(to + 32);
@@ -864,8 +856,8 @@ LABEL_23:
     v21 = qword_280D2F4E8;
     if (os_log_type_enabled(qword_280D2F4E8, OS_LOG_TYPE_ERROR))
     {
-      *v27 = 0;
-      OUTLINED_FUNCTION_1_0(&dword_255E8B000, v21, v22, "provider is not available (failed to init?). using fallback.", v27);
+      *v28 = 0;
+      OUTLINED_FUNCTION_1_0(&dword_255E8B000, v21, v22, "provider is not available (failed to init?). using fallback.", v28);
     }
 
     v23 = [[LSSStationaryProvider alloc] initWithQueue:*(to + 8) delegate:to];

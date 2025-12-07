@@ -45,9 +45,9 @@
   return WeakRetained;
 }
 
-uint64_t __42__RETrainingSimulationServer_sharedServer__block_invoke()
+uint64_t __42__RETrainingSimulationServer_sharedServer__block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = _REGetIsInternalBuild();
+  result = _REGetIsInternalBuild(a1, a2);
   _isInternalDevice = result;
   return result;
 }
@@ -111,41 +111,39 @@ uint64_t __42__RETrainingSimulationServer_sharedServer__block_invoke()
 
 void __64__RETrainingSimulationServer_availableRelevanceEnginesDidChange__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v1 = *(*(a1 + 32) + 8);
-  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v9;
+    v4 = *v8;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = [*(*(&v8 + 1) + 8 * v5) remoteObjectProxyWithErrorHandler:{&__block_literal_global_10, v8}];
+        v6 = [*(*(&v7 + 1) + 8 * v5) remoteObjectProxyWithErrorHandler:{&__block_literal_global_10, v7}];
         [v6 availableRelevanceEnginesDidChange];
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __64__RETrainingSimulationServer_availableRelevanceEnginesDidChange__block_invoke_2(uint64_t a1, void *a2)
@@ -698,11 +696,11 @@ uint64_t __77__RETrainingSimulationServer_relevanceEngine_encodedObjectAtPath_co
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = RETrainingSimulationClientInterface();
+  v8 = RETrainingSimulationClientInterface(connectionCopy);
   [connectionCopy setRemoteObjectInterface:v8];
 
-  v9 = RETrainingSimulationServerInterface();
-  [connectionCopy setExportedInterface:v9];
+  v10 = RETrainingSimulationServerInterface(v9);
+  [connectionCopy setExportedInterface:v10];
 
   [connectionCopy setExportedObject:self];
   queue = self->_queue;
@@ -711,19 +709,19 @@ uint64_t __77__RETrainingSimulationServer_relevanceEngine_encodedObjectAtPath_co
   block[2] = __65__RETrainingSimulationServer_listener_shouldAcceptNewConnection___block_invoke;
   block[3] = &unk_2785F9AE0;
   block[4] = self;
-  v11 = connectionCopy;
-  v17 = v11;
+  v12 = connectionCopy;
+  v18 = v12;
   dispatch_async(queue, block);
-  objc_initWeak(&location, v11);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __65__RETrainingSimulationServer_listener_shouldAcceptNewConnection___block_invoke_2;
-  v13[3] = &unk_2785FA2E0;
-  v13[4] = self;
-  objc_copyWeak(&v14, &location);
-  [v11 setInvalidationHandler:v13];
-  [v11 resume];
-  objc_destroyWeak(&v14);
+  objc_initWeak(&location, v12);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __65__RETrainingSimulationServer_listener_shouldAcceptNewConnection___block_invoke_2;
+  v14[3] = &unk_2785FA2E0;
+  v14[4] = self;
+  objc_copyWeak(&v15, &location);
+  [v12 setInvalidationHandler:v14];
+  [v12 resume];
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
 
   return 1;
@@ -758,11 +756,10 @@ uint64_t __65__RETrainingSimulationServer_listener_shouldAcceptNewConnection___b
 
 void __64__RETrainingSimulationServer_availableRelevanceEnginesDidChange__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to access remote object: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to access remote object: %@", &v2, 0xCu);
 }
 
 @end

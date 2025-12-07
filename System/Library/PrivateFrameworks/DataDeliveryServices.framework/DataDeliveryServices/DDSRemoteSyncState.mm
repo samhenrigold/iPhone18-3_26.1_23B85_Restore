@@ -131,63 +131,61 @@
 
   if ((v5 & 1) == 0)
   {
-    v6 = UpdateLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = UpdateLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       buildVersion2 = [(DDSRemoteSyncState *)self buildVersion];
       v11 = 138412546;
       v12 = buildVersionString;
       v13 = 2112;
       v14 = buildVersion2;
-      _os_log_impl(&dword_1DF7C6000, v6, OS_LOG_TYPE_DEFAULT, "Determined new build version: %@, previously on: %@", &v11, 0x16u);
+      _os_log_impl(&dword_1DF7C6000, v7, OS_LOG_TYPE_DEFAULT, "Determined new build version: %@, previously on: %@", &v11, 0x16u);
     }
 
     buildVersionString2 = [objc_opt_class() buildVersionString];
     [(DDSRemoteSyncState *)self setBuildVersion:buildVersionString2];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5 ^ 1;
 }
 
 - (BOOL)shouldInitiateRegularUpdateCycle
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if ([(DDSRemoteSyncState *)self syncStatus]|| [(DDSRemoteSyncState *)self attemptCount]> 9)
+  v18 = *MEMORY[0x1E69E9840];
+  if ([(DDSRemoteSyncState *)self syncStatus]|| (v3 = [(DDSRemoteSyncState *)self attemptCount], v3 > 9))
   {
     date = [(DDSRemoteSyncState *)self date];
     [date timeIntervalSinceNow];
-    v4 = v6 < -86400.0;
+    v5 = v7 < -86400.0;
 
-    v3 = UpdateLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = UpdateLog(v8);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       date2 = [(DDSRemoteSyncState *)self date];
       [date2 timeIntervalSinceNow];
-      v9 = -v8;
+      v11 = -v10;
       date3 = [(DDSRemoteSyncState *)self date];
-      v13 = 134218242;
-      v14 = v9;
-      v15 = 2112;
-      v16 = date3;
-      _os_log_impl(&dword_1DF7C6000, v3, OS_LOG_TYPE_DEFAULT, "Time elapsed since last update: %f, date: %@", &v13, 0x16u);
+      v14 = 134218242;
+      v15 = v11;
+      v16 = 2112;
+      v17 = date3;
+      _os_log_impl(&dword_1DF7C6000, v4, OS_LOG_TYPE_DEFAULT, "Time elapsed since last update: %f, date: %@", &v14, 0x16u);
     }
   }
 
   else
   {
-    v3 = UpdateLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = UpdateLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_1DF7C6000, v3, OS_LOG_TYPE_DEFAULT, "Triggering regular asset update request as previous request seems to have failed", &v13, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_1DF7C6000, v4, OS_LOG_TYPE_DEFAULT, "Triggering regular asset update request as previous request seems to have failed", &v14, 2u);
     }
 
-    v4 = 1;
+    v5 = 1;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v5;
 }
 
 - (void)beganUpdateCycle
@@ -208,24 +206,25 @@
     [(DDSRemoteSyncState *)self setDate:date];
 
     selfCopy2 = self;
-    v7 = 2;
+    v8 = 2;
 LABEL_9:
-    [(DDSRemoteSyncState *)selfCopy2 setSyncStatus:v7];
+    [(DDSRemoteSyncState *)selfCopy2 setSyncStatus:v8];
     [(DDSRemoteSyncState *)self setAttemptCount:0];
     goto LABEL_10;
   }
 
-  if ([(DDSRemoteSyncState *)self attemptCount]> 9)
+  attemptCount = [(DDSRemoteSyncState *)self attemptCount];
+  if (attemptCount > 9)
   {
-    v8 = UpdateLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = UpdateLog(attemptCount);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1DF7C6000, v8, OS_LOG_TYPE_DEFAULT, "Sync failed, giving up for today", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1DF7C6000, v9, OS_LOG_TYPE_DEFAULT, "Sync failed, giving up for today", v11, 2u);
     }
 
     selfCopy2 = self;
-    v7 = 3;
+    v8 = 3;
     goto LABEL_9;
   }
 
@@ -238,11 +237,11 @@ LABEL_9:
 
   else if (![(DDSRemoteSyncState *)self syncStatus])
   {
-    v9 = UpdateLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = UpdateLog(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DF7C6000, v9, OS_LOG_TYPE_DEFAULT, "Retry already scheduled", buf, 2u);
+      _os_log_impl(&dword_1DF7C6000, v10, OS_LOG_TYPE_DEFAULT, "Retry already scheduled", buf, 2u);
     }
   }
 
@@ -259,7 +258,7 @@ LABEL_10:
 
 - (void)requestRetry
 {
-  v3 = UpdateLog();
+  v3 = UpdateLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -273,7 +272,7 @@ LABEL_10:
 
 - (void)requestCompleteRefresh
 {
-  v3 = UpdateLog();
+  v3 = UpdateLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -336,7 +335,7 @@ LABEL_10:
 
 - (void)loadState
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   metadataSyncStatePreferenceKey = [(DDSRemoteSyncState *)self metadataSyncStatePreferenceKey];
   v4 = DDSGetPreferenceObjectForKey(metadataSyncStatePreferenceKey);
 
@@ -417,48 +416,43 @@ LABEL_10:
     [DDSRemoteSyncState loadState];
   }
 
-  [(DDSRemoteSyncState *)self setAttemptCount:integerValue2];
-  v21 = UpdateLog();
+  v21 = UpdateLog([(DDSRemoteSyncState *)self setAttemptCount:integerValue2]);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     assetType = [(DDSRemoteSyncState *)self assetType];
     date3 = [(DDSRemoteSyncState *)self date];
     buildVersion = [(DDSRemoteSyncState *)self buildVersion];
-    v26 = 138544386;
-    v27 = assetType;
-    v28 = 2114;
-    v29 = date3;
-    v30 = 2114;
-    v31 = buildVersion;
-    v32 = 2050;
+    v25 = 138544386;
+    v26 = assetType;
+    v27 = 2114;
+    v28 = date3;
+    v29 = 2114;
+    v30 = buildVersion;
+    v31 = 2050;
     attemptCount = [(DDSRemoteSyncState *)self attemptCount];
-    v34 = 2050;
+    v33 = 2050;
     syncStatus = [(DDSRemoteSyncState *)self syncStatus];
-    _os_log_impl(&dword_1DF7C6000, v21, OS_LOG_TYPE_DEFAULT, "Loaded sync state for asset type: %{public}@ (date: %{public}@, buildVersion: %{public}@, attempts: %{public}lu, status: %{public}lu)", &v26, 0x34u);
+    _os_log_impl(&dword_1DF7C6000, v21, OS_LOG_TYPE_DEFAULT, "Loaded sync state for asset type: %{public}@ (date: %{public}@, buildVersion: %{public}@, attempts: %{public}lu, status: %{public}lu)", &v25, 0x34u);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveState
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   assetType = [self assetType];
   date = [self date];
   buildVersion = [self buildVersion];
-  v8 = 138544386;
-  v9 = assetType;
-  v10 = 2114;
-  v11 = date;
-  v12 = 2114;
-  v13 = buildVersion;
-  v14 = 2050;
+  v7 = 138544386;
+  v8 = assetType;
+  v9 = 2114;
+  v10 = date;
+  v11 = 2114;
+  v12 = buildVersion;
+  v13 = 2050;
   attemptCount = [self attemptCount];
-  v16 = 2050;
+  v15 = 2050;
   syncStatus = [self syncStatus];
-  _os_log_debug_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_DEBUG, "Saving sync state for asset type: %{public}@ (date: %{public}@, buildVersion: %{public}@, attempts: %{public}lu, status: %{public}lu", &v8, 0x34u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_DEBUG, "Saving sync state for asset type: %{public}@ (date: %{public}@, buildVersion: %{public}@, attempts: %{public}lu, status: %{public}lu", &v7, 0x34u);
 }
 
 - (double)nextUpdateTimeIntervalForAttemptCount:(unint64_t)count

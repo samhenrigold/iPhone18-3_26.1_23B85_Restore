@@ -149,35 +149,35 @@ LABEL_15:
 {
   onlyCopy = only;
   nodesCopy = nodes;
-  v25 = [DIShadowChain verifyNodes:"verifyNodes:error:" error:?];
-  if (v25)
+  v29 = [DIShadowChain verifyNodes:"verifyNodes:error:" error:?];
+  if (v29)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     obj = nodesCopy;
-    v7 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
+    v7 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
     if (v7)
     {
-      v8 = *v29;
+      v8 = *v34;
       do
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v29 != v8)
+          if (*v34 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v28 + 1) + 8 * i);
+          v10 = *(*(&v33 + 1) + 8 * i);
           if (onlyCopy)
           {
-            fileBackend = [*(*(&v28 + 1) + 8 * i) fileBackend];
+            fileBackend = [*(*(&v33 + 1) + 8 * i) fileBackend];
             v12 = fileBackend;
             if (fileBackend)
             {
-              [fileBackend backend];
+              objc_msgSend_backend(fileBackend);
               v13 = *buf;
             }
 
@@ -197,47 +197,60 @@ LABEL_15:
             if (v14)
             {
               v15 = *__error();
-              if (sub_1000E95F0())
+              v16 = sub_1000E95F0();
+              if (v16)
               {
-                v16 = sub_1000E957C();
-                os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-                v17 = [v10 URL];
+                *&v32 = 0;
+                v18 = sub_1000E957C(v16, v17);
+                v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+                v20 = [v10 URL];
                 *buf = 68158211;
+                if (v19)
+                {
+                  v21 = 3;
+                }
+
+                else
+                {
+                  v21 = 2;
+                }
+
                 *&buf[4] = 51;
                 *&buf[8] = 2080;
                 *&buf[10] = "[DIShadowChain addShadowNodes:wrapReadOnly:error:]";
-                v33 = 2113;
-                v34 = v17;
-                v18 = _os_log_send_and_compose_impl();
+                v38 = 2113;
+                v39 = v20;
+                v22 = _os_log_send_and_compose_impl(v21, &v32, 0, 0, &_mh_execute_header, v18, 0, "%.*s: Using %{private}@ as read-only", buf, 28);
 
-                if (v18)
+                if (v22)
                 {
-                  fprintf(__stderrp, "%s\n", v18);
-                  free(v18);
+                  fprintf(__stderrp, "%s\n", v22);
+                  free(v22);
                 }
               }
 
               else
               {
-                v19 = sub_1000E957C();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+                v23 = sub_1000E957C(v16, v17);
+                if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
                 {
-                  v20 = [v10 URL];
-                  *buf = 0x3304100303;
+                  v24 = [v10 URL];
+                  *buf = 68158211;
+                  *&buf[4] = 51;
                   *&buf[8] = 2080;
                   *&buf[10] = "[DIShadowChain addShadowNodes:wrapReadOnly:error:]";
-                  v33 = 2113;
-                  v34 = v20;
-                  _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%.*s: Using %{private}@ as read-only", buf, 0x1Cu);
+                  v38 = 2113;
+                  v39 = v24;
+                  _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%.*s: Using %{private}@ as read-only", buf, 0x1Cu);
                 }
               }
 
               *__error() = v15;
-              v21 = [FileLocalXPC alloc];
+              v25 = [FileLocalXPC alloc];
               fileBackend2 = [v10 fileBackend];
               if (fileBackend2)
               {
-                [fileBackend2 backend];
+                objc_msgSend_backend(fileBackend2);
               }
 
               sub_1000E0E88();
@@ -248,14 +261,14 @@ LABEL_15:
           [nodes addObject:v10];
         }
 
-        v7 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
+        v7 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
       }
 
       while (v7);
     }
   }
 
-  return v25;
+  return v29;
 }
 
 - (void)openWritable:(BOOL)writable createNonExisting:(BOOL)existing
@@ -305,7 +318,7 @@ LABEL_3:
       v13 = fileBackend2;
       if (fileBackend2)
       {
-        [fileBackend2 backend];
+        objc_msgSend_backend(fileBackend2);
       }
 
       else
@@ -462,54 +475,66 @@ LABEL_23:
     lastObject = [nodes lastObject];
 
     fileBackend = [lastObject fileBackend];
-    v9 = fileBackend;
+    v12 = fileBackend;
     if (fileBackend)
     {
-      [fileBackend backend];
-      v10 = *buf;
+      objc_msgSend_backend(fileBackend);
+      v13 = *buf;
     }
 
     else
     {
-      v10 = 0;
+      v13 = 0;
     }
 
     *buf = 0;
-    *v15 = 0;
+    *v21 = 0;
 
-    v12 = (*(*v10 + 192))(v10);
-    dup(v12);
-    diskimage_uio::diskimage_open_params::create();
+    v15 = (*(*v13 + 192))(v13);
+    v16 = dup(v15);
+    diskimage_uio::diskimage_open_params::create(v16, 0, 0);
   }
 
   v3 = *__error();
-  if (sub_1000E95F0())
+  v4 = sub_1000E95F0();
+  if (v4)
   {
-    v4 = sub_1000E957C();
-    os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+    *v19 = 0;
+    v6 = sub_1000E957C(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
     *buf = 68157954;
     *&buf[4] = 38;
-    *v15 = 2080;
-    *&v15[2] = "[DIShadowChain topDiskImageNumBlocks]";
-    v5 = _os_log_send_and_compose_impl();
+    *v21 = 2080;
+    *&v21[2] = "[DIShadowChain topDiskImageNumBlocks]";
+    LODWORD(v18) = 18;
+    v8 = _os_log_send_and_compose_impl(v7, v19, 0, 0, &_mh_execute_header, v6, 16, "%.*s: numBlocks queried for an empty shadowChain.", buf, v18);
 
-    if (v5)
+    if (v8)
     {
-      fprintf(__stderrp, "%s\n", v5);
-      free(v5);
+      fprintf(__stderrp, "%s\n", v8);
+      free(v8);
     }
   }
 
   else
   {
-    v11 = sub_1000E957C();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = sub_1000E957C(v4, v5);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 68157954;
       *&buf[4] = 38;
-      *v15 = 2080;
-      *&v15[2] = "[DIShadowChain topDiskImageNumBlocks]";
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%.*s: numBlocks queried for an empty shadowChain.", buf, 0x12u);
+      *v21 = 2080;
+      *&v21[2] = "[DIShadowChain topDiskImageNumBlocks]";
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%.*s: numBlocks queried for an empty shadowChain.", buf, 0x12u);
     }
   }
 

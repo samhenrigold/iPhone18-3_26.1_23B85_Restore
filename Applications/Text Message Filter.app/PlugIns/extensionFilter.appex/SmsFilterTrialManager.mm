@@ -5,7 +5,10 @@
 - (id)getRegexFileNameWithPath;
 - (id)getThresholdMapFilePath;
 - (id)loadModelFromPath:(id)path deleteExistingFiles:(BOOL)files;
+- (id)loadTrialBasicModelByDeletingExistingModel:(BOOL)model;
+- (id)loadTrialMainModelByDeletingExistingModel:(BOOL)model;
 - (id)loadTrialModelByDeletingExistingModel:(id)model;
+- (id)loadTrialSubClassificationModelByDeletingExistingModel:(BOOL)model;
 - (int64_t)loadTrialModelTransitionTimer;
 - (void)loadTrialUpdates;
 @end
@@ -25,7 +28,7 @@
 
   v6 = v5;
   v5->_lock._os_unfair_lock_opaque = 0;
-  v7 = trialLogHandle();
+  v7 = trialLogHandle(v5);
   log = v6->_log;
   v6->_log = v7;
 
@@ -92,6 +95,87 @@
     v18 = v12;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "loadTrialUpdates: _trialTrackingID = %@, _trialNamespaceName=%@, _experimentID=%@ \n", &v13, 0x20u);
   }
+}
+
+- (id)loadTrialMainModelByDeletingExistingModel:(BOOL)model
+{
+  modelCopy = model;
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    *v14 = 0;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "Loading trial main model", v14, 2u);
+  }
+
+  v6 = [(SmsFilterTrialManager *)self trialFactor:@"trialMainModel"];
+  v7 = v6;
+  if (v6 && ([v6 fileValue], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "path"), v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v9))
+  {
+    fileValue = [v7 fileValue];
+    path = [fileValue path];
+    v12 = [(SmsFilterTrialManager *)self loadModelFromPath:path deleteExistingFiles:modelCopy];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
+}
+
+- (id)loadTrialBasicModelByDeletingExistingModel:(BOOL)model
+{
+  modelCopy = model;
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    *v14 = 0;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "Loading trial basic model", v14, 2u);
+  }
+
+  v6 = [(SmsFilterTrialManager *)self trialFactor:@"trialBasicModel"];
+  v7 = v6;
+  if (v6 && ([v6 fileValue], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "path"), v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v9))
+  {
+    fileValue = [v7 fileValue];
+    path = [fileValue path];
+    v12 = [(SmsFilterTrialManager *)self loadModelFromPath:path deleteExistingFiles:modelCopy];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
+}
+
+- (id)loadTrialSubClassificationModelByDeletingExistingModel:(BOOL)model
+{
+  modelCopy = model;
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    *v14 = 0;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "Loading trial sub-classification model", v14, 2u);
+  }
+
+  v6 = [(SmsFilterTrialManager *)self trialFactor:@"subClassModel"];
+  v7 = v6;
+  if (v6 && ([v6 fileValue], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "path"), v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v9))
+  {
+    fileValue = [v7 fileValue];
+    path = [fileValue path];
+    v12 = [(SmsFilterTrialManager *)self loadModelFromPath:path deleteExistingFiles:modelCopy];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 - (id)loadTrialModelByDeletingExistingModel:(id)model

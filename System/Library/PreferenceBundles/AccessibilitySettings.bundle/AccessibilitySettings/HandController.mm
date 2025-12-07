@@ -833,9 +833,10 @@ BOOL __28__HandController_specifiers__block_invoke_463(id a1, PSSpecifier *a2, u
 {
   v3 = +[AXSettings sharedInstance];
   [v3 assistiveTouchIdleOpacity];
-  v4 = AXFormatFloatWithPercentage();
+  *&v4 = v4;
+  v5 = AXFormatFloatWithPercentage(*&v4);
 
-  return v4;
+  return v5;
 }
 
 - (id)virtualTrackpadEnabled:(id)enabled
@@ -1144,7 +1145,7 @@ id __43__HandController_setHandEnabled_specifier___block_invoke_2(id result, uin
   if (enabledCopy)
   {
     _AXSHomeButtonSetRestingUnlock();
-    _AXLogWithFacility();
+    _AXLogWithFacility(0xFFFFFFFFLL, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Enabling resting unlock because AST was turned on");
   }
 
   [(HandController *)self _handleAssistiveTouchToggled:0];

@@ -21,7 +21,7 @@
 
 - (void)dealloc
 {
-  FxDebugAssert(self->_paramPriv != 0, &cfstr_ParamprivNull.isa, v2, v3, v4, v5, v6, v7, v9.receiver);
+  FxDebugAssert(self->_paramPriv != 0, &cfstr_ParamprivNull.isa, v2, v3, v4, v5, v6, v7);
   free(self->_paramPriv);
   v9.receiver = self;
   v9.super_class = FxPinParameter;

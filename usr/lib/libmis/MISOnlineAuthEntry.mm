@@ -87,32 +87,30 @@
 
 - (id)dictionaryDescription
 {
-  v21[7] = *MEMORY[0x1E69E9840];
+  v20[7] = *MEMORY[0x1E69E9840];
   profileUUID = self->_profileUUID;
   cdHash = self->_cdHash;
-  v21[0] = profileUUID;
-  v20[0] = @"profileUUID";
-  v20[1] = @"cdHash";
+  v20[0] = profileUUID;
+  v19[0] = @"profileUUID";
+  v19[1] = @"cdHash";
   v5 = sub_1B9D989C4(cdHash);
-  v21[1] = v5;
-  v20[2] = @"gracePeriod";
+  v20[1] = v5;
+  v19[2] = @"gracePeriod";
   v7 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v6, self->_gracePeriod);
-  v21[2] = v7;
-  v20[3] = @"lastSuccessMonotonicTime";
+  v20[2] = v7;
+  v19[3] = @"lastSuccessMonotonicTime";
   v9 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v8, self->_lastSuccessMonotonicTime);
-  v21[3] = v9;
-  v20[4] = @"lastSuccessResetCount";
+  v20[3] = v9;
+  v19[4] = @"lastSuccessResetCount";
   v11 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v10, self->_lastSuccessResetCount);
-  v21[4] = v11;
-  v20[5] = @"isRejected";
+  v20[4] = v11;
+  v19[5] = @"isRejected";
   v13 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v12, self->_isRejected);
-  v21[5] = v13;
-  v20[6] = @"isRejectedByWholeProfile";
+  v20[5] = v13;
+  v19[6] = @"isRejectedByWholeProfile";
   v15 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v14, self->_isRejectedByWholeProfile);
-  v21[6] = v15;
-  v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v16, v21, v20, 7);
-
-  v18 = *MEMORY[0x1E69E9840];
+  v20[6] = v15;
+  v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v16, v20, v19, 7);
 
   return v17;
 }

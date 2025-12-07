@@ -277,7 +277,7 @@
 
 + (uint64_t)_usesCoreHapticsForAudioOnly
 {
-  objc_opt_self();
+  v1 = objc_opt_self();
   objc_opt_self();
   if (qword_1ED49FDC0 != -1)
   {
@@ -289,7 +289,7 @@
     return 1;
   }
 
-  return +[_UIKBFeedbackGenerator _solariumKeyboardFeedbackEnabled];
+  return +[(_UIKBFeedbackGenerator *)v1];
 }
 
 - (void)_releaseEngineAndPlayersOnQueue
@@ -442,7 +442,7 @@
 {
   if (kKVOContext == context)
   {
-    if ([path isEqualToString:{@"keyboard-audio", object, change}])
+    if (objc_msgSend_isEqualToString_(path, a2, @"keyboard-audio", object, change))
     {
 
       [(_UIKBFeedbackGenerator *)self _resetWithReason:?];
@@ -1201,7 +1201,7 @@ LABEL_9:
     v8 = *v6;
     v9 = [userInfo objectForKeyedSubscript:v8];
 
-    if ([v9 isEqualToString:@"Ringtone"])
+    if (objc_msgSend_isEqualToString_(v9))
     {
       v12[0] = MEMORY[0x1E69E9820];
       v12[1] = 3221225472;

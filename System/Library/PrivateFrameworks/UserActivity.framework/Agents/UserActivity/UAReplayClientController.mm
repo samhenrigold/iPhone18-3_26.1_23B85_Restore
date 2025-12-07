@@ -98,34 +98,17 @@ LABEL_5:
 - (id)userActivityInfoForUUID:(id)d
 {
   dCopy = d;
-  if (!dCopy)
+  if (dCopy && (-[UAReplayClientController item](self, "item"), (v5 = objc_claimAutoreleasedReturnValue()) != 0) && (v6 = v5, -[UAReplayClientController item](self, "item"), v7 = objc_claimAutoreleasedReturnValue(), [v7 uuid], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(dCopy, "isEqual:", v8), v8, v7, v6, v9))
   {
-    goto LABEL_5;
-  }
-
-  item = [(UAReplayClientController *)self item];
-  if (!item)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = item;
-  item2 = [(UAReplayClientController *)self item];
-  uuid = [item2 uuid];
-  v9 = [dCopy isEqual:uuid];
-
-  if (v9)
-  {
-    item3 = [(UAReplayClientController *)self item];
+    item = [(UAReplayClientController *)self item];
   }
 
   else
   {
-LABEL_5:
-    item3 = 0;
+    item = 0;
   }
 
-  return item3;
+  return item;
 }
 
 - (id)statusString

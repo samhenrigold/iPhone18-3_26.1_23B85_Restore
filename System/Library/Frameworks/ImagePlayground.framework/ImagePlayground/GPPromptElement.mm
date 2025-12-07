@@ -1,5 +1,7 @@
 @interface GPPromptElement
 - (GPPromptElement)initWithCoder:(id)coder;
+- (GPPromptElement)initWithText:(id)text isPersonHandle:(BOOL)handle isTitle:(BOOL)title isSuggestableText:(BOOL)suggestableText needsConceptsExtraction:(BOOL)extraction needsSuggestableConceptsExtraction:(BOOL)conceptsExtraction;
+- (GPPromptElement)initWithText:(id)text isTitle:(BOOL)title isSuggestableText:(BOOL)suggestableText needsConceptsExtraction:(BOOL)extraction needsSuggestableConceptsExtraction:(BOOL)conceptsExtraction;
 - (GPPromptElement)initWithText:(id)text title:(id)title isPersonHandle:(BOOL)handle isSuggestableText:(BOOL)suggestableText needsConceptsExtraction:(BOOL)extraction needsSuggestableConceptsExtraction:(BOOL)conceptsExtraction drawing:(id)drawing image:(CGImage *)self0;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
@@ -215,6 +217,49 @@ LABEL_11:
   }
 
 LABEL_17:
+}
+
+- (GPPromptElement)initWithText:(id)text isPersonHandle:(BOOL)handle isTitle:(BOOL)title isSuggestableText:(BOOL)suggestableText needsConceptsExtraction:(BOOL)extraction needsSuggestableConceptsExtraction:(BOOL)conceptsExtraction
+{
+  conceptsExtractionCopy = conceptsExtraction;
+  extractionCopy = extraction;
+  suggestableTextCopy = suggestableText;
+  handleCopy = handle;
+  if (title)
+  {
+    textCopy = text;
+  }
+
+  else
+  {
+    textCopy = 0;
+  }
+
+  textCopy2 = text;
+  v15 = [(GPPromptElement *)self initWithText:textCopy2 title:textCopy isPersonHandle:handleCopy isSuggestableText:suggestableTextCopy needsConceptsExtraction:extractionCopy needsSuggestableConceptsExtraction:conceptsExtractionCopy drawing:0 image:0];
+
+  return v15;
+}
+
+- (GPPromptElement)initWithText:(id)text isTitle:(BOOL)title isSuggestableText:(BOOL)suggestableText needsConceptsExtraction:(BOOL)extraction needsSuggestableConceptsExtraction:(BOOL)conceptsExtraction
+{
+  conceptsExtractionCopy = conceptsExtraction;
+  extractionCopy = extraction;
+  suggestableTextCopy = suggestableText;
+  if (title)
+  {
+    textCopy = text;
+  }
+
+  else
+  {
+    textCopy = 0;
+  }
+
+  textCopy2 = text;
+  v13 = [(GPPromptElement *)self initWithText:textCopy2 title:textCopy isPersonHandle:0 isSuggestableText:suggestableTextCopy needsConceptsExtraction:extractionCopy needsSuggestableConceptsExtraction:conceptsExtractionCopy drawing:0 image:0];
+
+  return v13;
 }
 
 @end

@@ -97,7 +97,7 @@ LABEL_8:
 
 BOOL __59__HMDBackingStoreCacheFetchModelObjects_mainReturningError__block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5, void *a6)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v11 = a2;
   v12 = a4;
   v13 = a5;
@@ -128,15 +128,15 @@ BOOL __59__HMDBackingStoreCacheFetchModelObjects_mainReturningError__block_invok
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           HMFGetLogIdentifier();
-          v23 = v27 = v20;
+          v23 = v26 = v20;
           v24 = *(*(*(a1 + 48) + 8) + 40);
           *buf = 138543618;
-          v30 = v23;
-          v31 = 2112;
-          v32 = v24;
+          v29 = v23;
+          v30 = 2112;
+          v31 = v24;
           _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@unable to decode result (%@)", buf, 0x16u);
 
-          v20 = v27;
+          v20 = v26;
         }
 
         objc_autoreleasePoolPop(v20);
@@ -149,7 +149,6 @@ BOOL __59__HMDBackingStoreCacheFetchModelObjects_mainReturningError__block_invok
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

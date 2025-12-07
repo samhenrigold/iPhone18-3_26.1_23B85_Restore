@@ -1,3 +1,1440 @@
+void PXSharedLibraryGetMoveToSharedLibraryConfirmationTitleAndMessage(void *a1, void *a2, void *a3)
+{
+  if (![a1 count])
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXSharedLibraryGetMoveToSharedLibraryConfirmationTitleAndMessage(__strong id<PXFastEnumeration> _Nonnull, NSString * _Nullable __autoreleasing * _Nullable, NSString * _Nullable __autoreleasing * _Nullable)"}];
+    [v3 handleFailureInFunction:v4 file:@"PXSharedLibraryUtilities.m" lineNumber:489 description:{@"Invalid parameter not satisfying: %@", @"assetCount > 0"}];
+  }
+
+  PXMediaTypeForAssets();
+}
+
+void PXSharedLibraryGetMoveToPersonalLibraryConfirmationTitleAndMessage(void *a1, void *a2, void *a3)
+{
+  if (![a1 count])
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXSharedLibraryGetMoveToPersonalLibraryConfirmationTitleAndMessage(__strong id<PXFastEnumeration> _Nonnull, NSString * _Nullable __autoreleasing * _Nullable, NSString * _Nullable __autoreleasing * _Nullable)"}];
+    [v3 handleFailureInFunction:v4 file:@"PXSharedLibraryUtilities.m" lineNumber:513 description:{@"Invalid parameter not satisfying: %@", @"assetCount > 0"}];
+  }
+
+  PXMediaTypeForAssets();
+}
+
+void PXSharedLibraryGetRemoveSharedLibrarySuggestionsConfirmationTitleAndMessage(void *a1, void *a2, void *a3)
+{
+  if (![a1 count])
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXSharedLibraryGetRemoveSharedLibrarySuggestionsConfirmationTitleAndMessage(__strong id<PXFastEnumeration> _Nonnull, NSString * _Nullable __autoreleasing * _Nullable, NSString * _Nullable __autoreleasing * _Nullable)"}];
+    [v3 handleFailureInFunction:v4 file:@"PXSharedLibraryUtilities.m" lineNumber:543 description:{@"Invalid parameter not satisfying: %@", @"assetCount > 0"}];
+  }
+
+  PXMediaTypeForAssets();
+}
+
+id PXSharedLibraryRecipientsForSharedLibrary(void *a1)
+{
+  v1 = a1;
+  v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  if (v1)
+  {
+    v3 = [v1 participants];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __PXSharedLibraryRecipientsForSharedLibrary_block_invoke;
+    v5[3] = &unk_1E772DEA0;
+    v6 = v2;
+    [v3 enumerateObjectsUsingBlock:v5];
+  }
+
+  return v2;
+}
+
+void __PXSharedLibraryRecipientsForSharedLibrary_block_invoke(uint64_t a1, void *a2)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v4 = [v3 emailAddress];
+  v5 = [v3 phoneNumber];
+  if (v4 | v5)
+  {
+    v6 = [PXRecipient alloc];
+    v7 = [v3 nameComponents];
+    v8 = [(PXRecipient *)v6 initWithEmailAddress:v4 phoneNumber:v5 nameComponents:v7];
+
+    [*(a1 + 32) addObject:v8];
+  }
+
+  else
+  {
+    v9 = PLSharedLibraryGetLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v10 = 138412290;
+      v11 = v3;
+      _os_log_impl(&dword_1A3C1C000, v9, OS_LOG_TYPE_ERROR, "Failed to create recipient for participant with no address: %@", &v10, 0xCu);
+    }
+  }
+}
+
+uint64_t _PXSharedLibraryParticipantsAreEqual(void *a1, void *a2)
+{
+  v3 = a1;
+  v4 = a2;
+  v5 = [v3 emailAddress];
+  v6 = [v4 emailAddress];
+  if (v5 == v6 || [v5 isEqualToString:v6])
+  {
+    v7 = [v3 phoneNumber];
+    v8 = [v4 phoneNumber];
+    if (v7 == v8)
+    {
+      v9 = 1;
+    }
+
+    else
+    {
+      v9 = [v7 isEqualToString:v8];
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
+
+id PXSharedLibraryMakeContactForParticipant(void *a1)
+{
+  v26[1] = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = [v1 nameComponents];
+  v3 = objc_alloc_init(MEMORY[0x1E695CF18]);
+  v4 = [v2 namePrefix];
+  [v3 setNamePrefix:v4];
+
+  v5 = [v2 givenName];
+  [v3 setGivenName:v5];
+
+  v6 = [v2 middleName];
+  [v3 setMiddleName:v6];
+
+  v7 = [v2 familyName];
+  [v3 setFamilyName:v7];
+
+  v8 = [v2 nameSuffix];
+  [v3 setNameSuffix:v8];
+
+  v9 = [v2 nickname];
+  [v3 setNickname:v9];
+
+  v10 = [v1 emailAddress];
+  v11 = [v10 length];
+
+  if (v11)
+  {
+    v12 = MEMORY[0x1E695CEE0];
+    v13 = *MEMORY[0x1E695CB58];
+    v14 = [v1 emailAddress];
+    v15 = [v12 labeledValueWithLabel:v13 value:v14];
+
+    v26[0] = v15;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+    [v3 setEmailAddresses:v16];
+  }
+
+  v17 = [v1 phoneNumber];
+  v18 = [v17 length];
+
+  if (v18)
+  {
+    v19 = MEMORY[0x1E695CF50];
+    v20 = [v1 phoneNumber];
+    v21 = [v19 phoneNumberWithStringValue:v20];
+
+    v22 = [MEMORY[0x1E695CEE0] labeledValueWithLabel:*MEMORY[0x1E695CBC0] value:v21];
+    v25 = v22;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+    [v3 setPhoneNumbers:v23];
+  }
+
+  return v3;
+}
+
+id PXSharedLibraryMakeContactForUIParticipant(void *a1)
+{
+  v13[1] = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = objc_alloc_init(MEMORY[0x1E695CF18]);
+  if ([v1 addressKind] == 1)
+  {
+    v3 = MEMORY[0x1E695CEE0];
+    v4 = *MEMORY[0x1E695CB58];
+    v5 = [v1 appleIDAddress];
+    v6 = [v3 labeledValueWithLabel:v4 value:v5];
+
+    v13[0] = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    [v2 setEmailAddresses:v7];
+  }
+
+  else
+  {
+    if ([v1 addressKind] != 2)
+    {
+      goto LABEL_6;
+    }
+
+    v8 = MEMORY[0x1E695CF50];
+    v9 = [v1 appleIDAddress];
+    v6 = [v8 phoneNumberWithStringValue:v9];
+
+    v7 = [MEMORY[0x1E695CEE0] labeledValueWithLabel:*MEMORY[0x1E695CBC0] value:v6];
+    v12 = v7;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
+    [v2 setPhoneNumbers:v10];
+  }
+
+LABEL_6:
+
+  return v2;
+}
+
+uint64_t PXSharedLibraryOpenContactInContactsApp(void *a1, int a2)
+{
+  v3 = &stru_1F1741150;
+  if (a2)
+  {
+    v3 = @"?edit";
+  }
+
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = v3;
+  v6 = a1;
+  v7 = [v4 alloc];
+  v8 = [v6 identifier];
+
+  v9 = [v7 initWithFormat:@"addressbook://%@%@", v8, v5];
+  v10 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:v9];
+  v11 = [MEMORY[0x1E69DC668] sharedApplication];
+  v12 = [v11 canOpenURL:v10];
+
+  if (v12)
+  {
+    v13 = [MEMORY[0x1E69DC668] sharedApplication];
+    [v13 openURL:v10 options:MEMORY[0x1E695E0F8] completionHandler:0];
+  }
+
+  return v12;
+}
+
+uint64_t PXSharedLibraryStoreContactAndOpenInContactsApp(void *a1)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  if ([MEMORY[0x1E695CE18] authorizationStatusForEntityType:0] == 3)
+  {
+    v2 = objc_alloc_init(MEMORY[0x1E695CE18]);
+    v3 = objc_alloc_init(MEMORY[0x1E695CF88]);
+    v4 = [v2 defaultContainerIdentifier];
+    [v3 addContact:v1 toContainerWithIdentifier:v4];
+
+    v9 = 0;
+    v5 = [v2 executeSaveRequest:v3 error:&v9];
+    v6 = v9;
+    if (v5)
+    {
+      PXSharedLibraryOpenContactInContactsApp(v1, 1);
+    }
+
+    else
+    {
+      v7 = PLSharedLibraryGetLog();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v11 = v6;
+        _os_log_impl(&dword_1A3C1C000, v7, OS_LOG_TYPE_ERROR, "Failed adding to contacts: %@", buf, 0xCu);
+      }
+    }
+  }
+
+  else
+  {
+    v2 = PLSharedLibraryGetLog();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_ERROR, "Unauthorized to access contacts", buf, 2u);
+    }
+  }
+
+  return 0;
+}
+
+void PXPresentFailureWithLocalizedTitle(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
+{
+  v11 = a6;
+  v12 = a5;
+  v13 = a4;
+  v14 = a3;
+  v15 = a2;
+  v16 = a1;
+  v17 = PLSharedLibraryGetLog();
+  PXConfigureAndPresentFailureAlert(v16, v15, v13, v12, v11, v17, v14, &__block_literal_global_7415);
+}
+
+void __PXPresentFailureWithLocalizedTitle_block_invoke(uint64_t a1, void *a2)
+{
+  v2 = a2;
+  [v2 setComponent:10];
+  [v2 setClassification:7];
+}
+
+void PXHandleErrorAddingParticipants(void *a1, void *a2, void *a3, void *a4)
+{
+  v28 = *MEMORY[0x1E69E9840];
+  v7 = a1;
+  v8 = a2;
+  v9 = a3;
+  v10 = a4;
+  if (v7)
+  {
+    if (v8)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_14:
+    v20 = [MEMORY[0x1E696AAA8] currentHandler];
+    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXHandleErrorAddingParticipants(NSError *__strong _Nonnull, __strong id<PXSharedLibrarySourceLibraryInfo> _Nonnull, __strong id<PXPresentationEnvironment> _Nonnull, void (^ _Nullable __strong)(void))"}];
+    [v20 handleFailureInFunction:v21 file:@"PXSharedLibraryUtilities.m" lineNumber:669 description:{@"Invalid parameter not satisfying: %@", @"sourceLibraryInfo"}];
+
+    if (v9)
+    {
+      goto LABEL_4;
+    }
+
+    goto LABEL_15;
+  }
+
+  v18 = [MEMORY[0x1E696AAA8] currentHandler];
+  v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXHandleErrorAddingParticipants(NSError *__strong _Nonnull, __strong id<PXSharedLibrarySourceLibraryInfo> _Nonnull, __strong id<PXPresentationEnvironment> _Nonnull, void (^ _Nullable __strong)(void))"}];
+  [v18 handleFailureInFunction:v19 file:@"PXSharedLibraryUtilities.m" lineNumber:668 description:{@"Invalid parameter not satisfying: %@", @"error"}];
+
+  if (!v8)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_3:
+  if (v9)
+  {
+    goto LABEL_4;
+  }
+
+LABEL_15:
+  v22 = [MEMORY[0x1E696AAA8] currentHandler];
+  v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXHandleErrorAddingParticipants(NSError *__strong _Nonnull, __strong id<PXSharedLibrarySourceLibraryInfo> _Nonnull, __strong id<PXPresentationEnvironment> _Nonnull, void (^ _Nullable __strong)(void))"}];
+  [v22 handleFailureInFunction:v23 file:@"PXSharedLibraryUtilities.m" lineNumber:670 description:{@"Invalid parameter not satisfying: %@", @"presentationEnvironment"}];
+
+LABEL_4:
+  IsUserCanceledError = PXSharedLibraryIsUserCanceledError(v7);
+  v12 = PLSharedLibraryGetLog();
+  v13 = v12;
+  if (IsUserCanceledError)
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1A3C1C000, v13, OS_LOG_TYPE_DEFAULT, "User canceled adding participants", buf, 2u);
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v27 = v7;
+      _os_log_impl(&dword_1A3C1C000, v13, OS_LOG_TYPE_ERROR, "Failed to add participants: %@", buf, 0xCu);
+    }
+
+    v24 = 0;
+    v25 = 0;
+    v14 = [v8 presentCustomInformationForError:v7 customTitle:&v25 customMessage:&v24];
+    v13 = v25;
+    v15 = v24;
+    if ((v14 & 1) == 0)
+    {
+      v16 = PXLocalizedSharedLibraryString(@"PXSharedLibraryAddParticipantsFailureAlertTitle_Generic");
+
+      v17 = PXLocalizedSharedLibraryString(@"PXSharedLibraryGenericFailureAlertMessage");
+
+      v13 = v16;
+      v15 = v17;
+    }
+
+    PXPresentFailureWithLocalizedTitle(v13, v15, 0, v7, v9, v10);
+  }
+}
+
+void PXHandleErrorDeletingParticipants(void *a1, void *a2, void *a3)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v6 = a2;
+  v7 = a3;
+  if (v5)
+  {
+    if (v6)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v12 = [MEMORY[0x1E696AAA8] currentHandler];
+    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXHandleErrorDeletingParticipants(NSError *__strong _Nonnull, __strong id<PXPresentationEnvironment> _Nonnull, void (^ _Nullable __strong)(void))"}];
+    [v12 handleFailureInFunction:v13 file:@"PXSharedLibraryUtilities.m" lineNumber:687 description:{@"Invalid parameter not satisfying: %@", @"error"}];
+
+    if (v6)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v14 = [MEMORY[0x1E696AAA8] currentHandler];
+  v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXHandleErrorDeletingParticipants(NSError *__strong _Nonnull, __strong id<PXPresentationEnvironment> _Nonnull, void (^ _Nullable __strong)(void))"}];
+  [v14 handleFailureInFunction:v15 file:@"PXSharedLibraryUtilities.m" lineNumber:688 description:{@"Invalid parameter not satisfying: %@", @"presentationEnvironment"}];
+
+LABEL_3:
+  IsUserCanceledError = PXSharedLibraryIsUserCanceledError(v5);
+  v9 = PLSharedLibraryGetLog();
+  v10 = v9;
+  if (IsUserCanceledError)
+  {
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1A3C1C000, v10, OS_LOG_TYPE_DEFAULT, "User canceled removing participants", buf, 2u);
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v17 = v5;
+      _os_log_impl(&dword_1A3C1C000, v10, OS_LOG_TYPE_ERROR, "Failed to remove participants: %@", buf, 0xCu);
+    }
+
+    v10 = PXLocalizedSharedLibraryString(@"PXSharedLibraryDeleteParticipantsFailureAlertTitle");
+    v11 = PXLocalizedSharedLibraryString(@"PXSharedLibraryGenericFailureAlertMessage");
+    PXPresentFailureWithLocalizedTitle(v10, v11, 0, v5, v6, v7);
+  }
+}
+
+id PXSharedLibrarySettingsTitle(void *a1)
+{
+  v1 = [a1 exiting];
+  v2 = v1;
+  if (v1)
+  {
+    if ([v1 isOwned])
+    {
+      v3 = @"PXSharedLibraryPreferences_Title_Exiting_Owner";
+    }
+
+    else
+    {
+      v3 = @"PXSharedLibraryPreferences_Title_Exiting_Participant";
+    }
+  }
+
+  else
+  {
+    v3 = @"PXSharedLibrarySetupAssistant_Welcome_Title";
+  }
+
+  v4 = PXLocalizedSharedLibraryString(v3);
+
+  return v4;
+}
+
+id PXSharedLibrarySettingsSubtitle(void *a1)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v3 = [v1 participants];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v13;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v13 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(*(&v12 + 1) + 8 * i);
+        if (([v8 isCurrentUser] & 1) == 0)
+        {
+          v9 = PXSharedLibraryFullNameForParticipant(v8);
+          [v2 addObject:v9];
+        }
+      }
+
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v5);
+  }
+
+  if ([v2 count])
+  {
+    if ([v2 count] == 1)
+    {
+      PXLocalizedSharedLibraryString(@"PXSharedLibrary_Status_OneParticipant_Format");
+      objc_claimAutoreleasedReturnValue();
+      [v2 firstObject];
+    }
+
+    else
+    {
+      PXLocalizedSharedLibraryString(@"PXSharedLibrary_Status_MultipleParticipants_Format");
+      objc_claimAutoreleasedReturnValue();
+      [MEMORY[0x1E696AD08] localizedStringByJoiningStrings:v2];
+    }
+
+    objc_claimAutoreleasedReturnValue();
+    PXLocalizedStringWithValidatedFormat();
+  }
+
+  v10 = PXLocalizedSharedLibraryString(@"PXSharedLibrary_Status_NoParticipant");
+
+  return v10;
+}
+
+__CFString *PXSharedLibraryFullNameForParticipant(void *a1)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = PXSharedLibraryContactForParticipant(v1);
+  if (v2)
+  {
+    v3 = [MEMORY[0x1E695CD80] stringFromContact:v2 style:0];
+    if ([(__CFString *)v3 length])
+    {
+      goto LABEL_16;
+    }
+  }
+
+  v4 = [v1 nameComponents];
+  v5 = PXSharedLibraryFullNameForNameComponents(v4);
+
+  if ([v5 length])
+  {
+    v3 = v5;
+  }
+
+  else
+  {
+    v6 = [v1 emailAddress];
+    if ([v6 length])
+    {
+      v3 = v6;
+    }
+
+    else
+    {
+      v7 = [v1 phoneNumber];
+      if ([v7 length])
+      {
+        v3 = v7;
+      }
+
+      else
+      {
+        v8 = PLSharedLibraryGetLog();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        {
+          v10 = 138412290;
+          v11 = v1;
+          _os_log_impl(&dword_1A3C1C000, v8, OS_LOG_TYPE_DEFAULT, "Failed to format full name for participant: %@", &v10, 0xCu);
+        }
+
+        v3 = &stru_1F1741150;
+      }
+    }
+  }
+
+LABEL_16:
+
+  return v3;
+}
+
+id PXSharedLibrarySettingsDescription(void *a1)
+{
+  v1 = a1;
+  if (PXSharedLibraryCanSetupSharedLibraryOrPreview(v1))
+  {
+    v2 = @"PXSharedLibraryPreferences_Description_Setup";
+  }
+
+  else
+  {
+    v3 = [v1 exiting];
+
+    if (v3)
+    {
+      v2 = @"PXSharedLibraryPreferences_Description_Exiting";
+    }
+
+    else
+    {
+      v2 = @"PXSharedLibraryPreferences_Description_iCloudLogin";
+    }
+  }
+
+  v4 = PXLocalizedSharedLibraryString(v2);
+
+  return v4;
+}
+
+uint64_t PXSharedLibraryCanSetupSharedLibraryOrPreview(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 exiting];
+  if (v2)
+  {
+    v3 = 0;
+  }
+
+  else
+  {
+    v4 = [v1 sharedLibrary];
+    if (v4)
+    {
+      v3 = 0;
+    }
+
+    else if (PLIsCloudPhotoLibraryEnabledForCurrentUser())
+    {
+      v3 = 1;
+    }
+
+    else
+    {
+      v3 = _os_feature_enabled_impl();
+    }
+  }
+
+  return v3;
+}
+
+id PXSharedLibraryExitButtonTitle(void *a1)
+{
+  v1 = [a1 sharedLibrary];
+  v2 = v1;
+  v3 = @"PXSharedLibrary_Action_Owner_Exit";
+  if (v1)
+  {
+    v4 = [v1 owner];
+    v5 = [v4 isCurrentUser];
+
+    if (!v5)
+    {
+      v3 = @"PXSharedLibrary_Action_Participant_Exit";
+    }
+  }
+
+  v6 = PXLocalizedSharedLibraryString(v3);
+
+  return v6;
+}
+
+__CFString *PXSharedLibraryLearnMoreURLString(double a1)
+{
+  if (PLPhysicalDeviceIsIPad())
+  {
+    return @"https://support.apple.com/118229?cid=mc-ols-icloudphotos-article_ht213248-ipados_ui-05052022";
+  }
+
+  else
+  {
+    return @"https://support.apple.com/118229?cid=mc-ols-icloudphotos-article_ht213248-ios_ui-05052022";
+  }
+}
+
+id PXSharedLibraryLearnMoreString()
+{
+  v0 = PXLocalizedSharedLibraryString(@"PXSharedLibraryPreferences_Description_LearnMore");
+  v1 = MEMORY[0x1E695DF20];
+  v2 = MEMORY[0x1E695DFF8];
+  if (PLPhysicalDeviceIsIPad())
+  {
+    v3 = @"https://support.apple.com/118229?cid=mc-ols-icloudphotos-article_ht213248-ipados_ui-05052022";
+  }
+
+  else
+  {
+    v3 = @"https://support.apple.com/118229?cid=mc-ols-icloudphotos-article_ht213248-ios_ui-05052022";
+  }
+
+  v4 = [v2 URLWithString:v3];
+  v5 = [v1 dictionaryWithObjectsAndKeys:{v4, *MEMORY[0x1E69DB670], 0}];
+
+  v6 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v0 attributes:v5];
+
+  return v6;
+}
+
+id PXSharedLibraryLearnMoreStringWithKey(void *a1)
+{
+  v1 = MEMORY[0x1E696AD40];
+  v2 = a1;
+  v3 = [v1 alloc];
+  v4 = PXLocalizedSharedLibraryString(v2);
+
+  v5 = [v3 initWithString:v4];
+  v6 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:@" "];
+  [v5 appendAttributedString:v6];
+
+  v7 = PXSharedLibraryLearnMoreString();
+  [v5 appendAttributedString:v7];
+
+  return v5;
+}
+
+void *PXSharedLibraryAnnotatedDisplayNameForParticipant(void *a1, void *a2)
+{
+  v3 = a1;
+  v4 = a2;
+  v5 = PXSharedLibraryFullNameForParticipant(v3);
+  v6 = [v4 sharedLibraryOrPreview];
+
+  v7 = [v6 owner];
+  v8 = v7;
+  if (v7 == v3)
+  {
+
+    goto LABEL_6;
+  }
+
+  v9 = [v7 isEqual:v3];
+
+  if (v9)
+  {
+LABEL_6:
+    v10 = @"PXSharedLibrary_Owner_Format";
+LABEL_7:
+    PXLocalizedSharedLibraryString(v10);
+    objc_claimAutoreleasedReturnValue();
+    PXStringWithValidatedFormat();
+  }
+
+  if ([v3 isCurrentUser])
+  {
+    v10 = @"PXSharedLibrary_CurrentUser_Format";
+    goto LABEL_7;
+  }
+
+  v11 = v5;
+
+  return v5;
+}
+
+void PXSharedLibrarySettingsTextForIdentifyingParticipant(void *a1)
+{
+  PXSharedLibraryShortNameForParticipant(a1);
+  objc_claimAutoreleasedReturnValue();
+  PXLocalizedSharedLibraryString(@"PXSharedLibraryPreferences_PeopleSuggestions_Identify");
+  objc_claimAutoreleasedReturnValue();
+  PXStringWithValidatedFormat();
+}
+
+id PXSharedLibrarySettingsMessageForRemovingPendingParticipant(void *a1)
+{
+  v1 = a1;
+  v2 = PXSharedLibraryShortNameForParticipant(v1);
+  v3 = PXSharedLibraryTermsOfAddressForParticipant(v1);
+
+  v10 = PXLocalizedSharedLibraryAttributedString(v3, @"PXSharedLibraryPreferences_RemovePendingParticipantAlertMessage", v4, v5, v6, v7, v8, v9, v2);
+
+  return v10;
+}
+
+id PXSharedLibrarySettingsSubtitleForParticipant(void *a1)
+{
+  v2 = a1;
+  v3 = [v2 status];
+  if (v3 > 2)
+  {
+    if (v3 == 3)
+    {
+      v7 = @"PXSharedLibraryPreferences_ParticipantStatus_Removing";
+      goto LABEL_10;
+    }
+
+    if (v3 != 4)
+    {
+      goto LABEL_11;
+    }
+
+LABEL_8:
+    v7 = @"PXSharedLibraryPreferences_ParticipantStatus_Invited";
+LABEL_10:
+    v1 = PXLocalizedSharedLibraryString(v7);
+    goto LABEL_11;
+  }
+
+  if (v3 < 2)
+  {
+    goto LABEL_8;
+  }
+
+  if (v3 == 2)
+  {
+    v4 = [v2 emailAddress];
+    v5 = v4;
+    if (v4)
+    {
+      v6 = v4;
+    }
+
+    else
+    {
+      v6 = [v2 phoneNumber];
+    }
+
+    v1 = v6;
+  }
+
+LABEL_11:
+
+  return v1;
+}
+
+id _searchCompatibleNameForParticipant(void *a1)
+{
+  v1 = [a1 nameComponents];
+  if (v1)
+  {
+    v2 = [MEMORY[0x1E696ADF8] localizedStringFromPersonNameComponents:v1 style:0 options:0];
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  return v2;
+}
+
+__CFString *PXSharedLibrarySharedBySearchText(void *a1)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  if ([v1 isCurrentUser])
+  {
+    v2 = PLServicesSharedLibraryLocalizedFrameworkString();
+LABEL_11:
+    v7 = v2;
+    goto LABEL_16;
+  }
+
+  if (!v1)
+  {
+    v2 = PXLocalizedSharedLibraryString(@"PXSharedLibrarySearchToken_NoContributor");
+    goto LABEL_11;
+  }
+
+  v3 = _searchCompatibleNameForParticipant(v1);
+  if (![v3 length])
+  {
+    v4 = [v1 emailAddress];
+
+    v3 = v4;
+  }
+
+  if (![v3 length])
+  {
+    v5 = [v1 phoneNumber];
+
+    v3 = v5;
+  }
+
+  if ([v3 length])
+  {
+    v6 = PLServicesSharedLibraryLocalizedFrameworkString();
+    v7 = PFStringWithValidatedFormat();
+  }
+
+  else
+  {
+    v8 = PLSharedLibraryGetLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v11 = v1;
+      _os_log_impl(&dword_1A3C1C000, v8, OS_LOG_TYPE_ERROR, "No participant name available for search text: %@", buf, 0xCu);
+    }
+
+    v7 = &stru_1F1741150;
+  }
+
+LABEL_16:
+
+  return v7;
+}
+
+void PXSharedLibraryParticipantLimitReachedMessage()
+{
+  PXLocalizedSharedLibraryString(@"PXSharedLibraryPreferences_ParticipantLimitReached");
+  objc_claimAutoreleasedReturnValue();
+  PXLocalizedStringWithValidatedFormat();
+}
+
+id PXSharedLibraryAddressForParticipant(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 emailAddress];
+  v3 = [v1 phoneNumber];
+
+  v4 = [v2 length];
+  v5 = v2;
+  if (v4 || (v6 = [v3 length], v5 = v3, v6))
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = v7;
+
+  return v7;
+}
+
+PXSharedLibraryUIParticipant *PXSharedLibraryUIParticipantForSharedLibraryParticipant(void *a1)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  if (PXSharedLibraryUIParticipantForSharedLibraryParticipant_predicate != -1)
+  {
+    dispatch_once(&PXSharedLibraryUIParticipantForSharedLibraryParticipant_predicate, &__block_literal_global_463);
+  }
+
+  v2 = [v1 emailAddress];
+  v3 = [v1 phoneNumber];
+  if ([v2 length])
+  {
+    v4 = _contactForEmail(v2, PXSharedLibraryUIParticipantForSharedLibraryParticipant_keys);
+    v5 = [[PXSharedLibraryUIParticipant alloc] initWithEmailAddress:v2 contact:v4];
+LABEL_7:
+    v6 = v5;
+
+    goto LABEL_8;
+  }
+
+  if ([v3 length])
+  {
+    v4 = _contactForPhone(v3, PXSharedLibraryUIParticipantForSharedLibraryParticipant_keys);
+    v5 = [[PXSharedLibraryUIParticipant alloc] initWithPhoneNumber:v3 contact:v4];
+    goto LABEL_7;
+  }
+
+  v8 = PLSharedLibraryGetLog();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  {
+    v9 = 138412290;
+    v10 = v1;
+    _os_log_impl(&dword_1A3C1C000, v8, OS_LOG_TYPE_ERROR, "Failed to create UI participant for participant: %@", &v9, 0xCu);
+  }
+
+  v6 = 0;
+LABEL_8:
+
+  return v6;
+}
+
+void __PXSharedLibraryUIParticipantForSharedLibraryParticipant_block_invoke()
+{
+  v5[4] = *MEMORY[0x1E69E9840];
+  v0 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:0];
+  v1 = *MEMORY[0x1E695C208];
+  v5[0] = v0;
+  v5[1] = v1;
+  v2 = *MEMORY[0x1E695C400];
+  v5[2] = *MEMORY[0x1E695C330];
+  v5[3] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
+  v4 = PXSharedLibraryUIParticipantForSharedLibraryParticipant_keys;
+  PXSharedLibraryUIParticipantForSharedLibraryParticipant_keys = v3;
+}
+
+void PXSharedLibraryUIParticipantsForSharedLibrary(void *a1, unsigned int a2)
+{
+  v3 = a1;
+  if (!v3)
+  {
+    v15 = [MEMORY[0x1E696AAA8] currentHandler];
+    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSArray<PXSharedLibraryUIParticipant *> * _Nonnull PXSharedLibraryUIParticipantsForSharedLibrary(id<PXSharedLibrary>  _Nullable __strong, PXSharedLibraryParticipantExclusion)"}];
+    [v15 handleFailureInFunction:v16 file:@"PXSharedLibraryUtilities.m" lineNumber:955 description:{@"Invalid parameter not satisfying: %@", @"sharedLibrary"}];
+  }
+
+  v4 = MEMORY[0x1E695DF70];
+  v5 = v3;
+  v6 = objc_alloc_init(v4);
+  v7 = a2 & 1;
+  v8 = (a2 >> 1) & 1;
+  v9 = [v5 owner];
+  v10 = [v5 participants];
+
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = ___ParticipantsForSharedLibrary_block_invoke;
+  v17[3] = &unk_1E772E020;
+  v20 = v7;
+  v18 = v9;
+  v21 = v8;
+  v11 = v6;
+  v19 = v11;
+  v12 = v9;
+  [v10 enumerateObjectsUsingBlock:v17];
+
+  v13 = v19;
+  v14 = v11;
+
+  PXMap();
+}
+
+id PXSharedLibrarySwitchLibraryMenu(void *a1, char a2, void *a3)
+{
+  v5 = a1;
+  v6 = a3;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __PXSharedLibrarySwitchLibraryMenu_block_invoke;
+  v11[3] = &unk_1E7736130;
+  v14 = a2;
+  v12 = v5;
+  v13 = v6;
+  v7 = v6;
+  v8 = v5;
+  v9 = [PXMenuBuilder menuWithDeferredConfiguration:v11];
+
+  return v9;
+}
+
+void __PXSharedLibrarySwitchLibraryMenu_block_invoke(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __PXSharedLibrarySwitchLibraryMenu_block_invoke_2;
+  v8[3] = &unk_1E772DF10;
+  v9 = *(a1 + 32);
+  v10 = *(a1 + 48);
+  [v3 addSectionWithConfiguration:v8];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __PXSharedLibrarySwitchLibraryMenu_block_invoke_5;
+  v6[3] = &unk_1E77495C0;
+  v7 = *(a1 + 32);
+  [v3 addSectionWithConfiguration:v6];
+  v4 = *(a1 + 40);
+  if (v4)
+  {
+    v5 = [[_PXSharedLibraryMenuConfiguration alloc] initWithMenuBuilder:v3];
+    (*(v4 + 16))(v4, v5);
+  }
+}
+
+void __PXSharedLibrarySwitchLibraryMenu_block_invoke_2(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = [*(a1 + 32) viewMode];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __PXSharedLibrarySwitchLibraryMenu_block_invoke_3;
+  v7[3] = &unk_1E772DEE8;
+  v11 = *(a1 + 40);
+  v8 = v3;
+  v10 = v4;
+  v9 = *(a1 + 32);
+  v5 = v3;
+  v6 = _Block_copy(v7);
+  v6[2](v6, 0);
+  v6[2](v6, 1);
+  v6[2](v6, 2);
+}
+
+void __PXSharedLibrarySwitchLibraryMenu_block_invoke_5(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 32);
+  v4 = a2;
+  LODWORD(v3) = [v3 isSharedLibraryBadgeEnabled];
+  v5 = PXLocalizedSharedLibraryString(@"PXSharedLibrary_FilterMenu_ToggleBadge");
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __PXSharedLibrarySwitchLibraryMenu_block_invoke_6;
+  v6[3] = &unk_1E772DF38;
+  v7 = *(a1 + 32);
+  v8 = v3;
+  [v4 addItemWithTitle:v5 systemImageName:0 state:v3 options:0 handler:v6];
+}
+
+void __PXSharedLibrarySwitchLibraryMenu_block_invoke_3(uint64_t a1, uint64_t a2)
+{
+  if (a2 == 2)
+  {
+    v4 = 2;
+  }
+
+  else
+  {
+    v4 = a2 == 1;
+  }
+
+  v5 = *(a1 + 32);
+  v6 = PXLibraryFilterTitleForItemTag(v4);
+  v7 = PXLibraryFilterMenuImageNameForItemTagFilled(v4, 0);
+  v8 = *(a1 + 48) == a2;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __PXSharedLibrarySwitchLibraryMenu_block_invoke_4;
+  v9[3] = &unk_1E7749570;
+  v10 = *(a1 + 40);
+  v11 = a2;
+  [v5 addItemWithTitle:v6 systemImageName:v7 state:v8 options:0 handler:v9];
+}
+
+void PXSharedLibraryCreateSwitchLibraryButton(void *a1, char a2, void *a3)
+{
+  v4 = a3;
+  [a1 viewMode];
+  v5 = [MEMORY[0x1E69DC668] sharedApplication];
+  v6 = [v5 preferredContentSizeCategory];
+  IsAccessibilityCategory = UIContentSizeCategoryIsAccessibilityCategory(v6);
+
+  v8 = MEMORY[0x1E69DDC50];
+  if (!IsAccessibilityCategory)
+  {
+    v8 = MEMORY[0x1E69DDC70];
+  }
+
+  v9 = *v8;
+  UIFontTextStyleFromPXFontTextStyle();
+}
+
+void PXSharedLibrarySwitchLibraryButtonItems(void *a1, char a2, void *a3)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  v5 = MEMORY[0x1E69DC708];
+  v6 = a3;
+  v7 = a1;
+  [objc_msgSend([v5 alloc] initWithBarButtonSystemItem:6 target:0 action:{0), "setWidth:", 12.0}];
+  PXSharedLibraryCreateSwitchLibraryButtonItem(v7, a2, v6);
+}
+
+void PXSharedLibraryUpdateActionTitleForPreview(void *a1)
+{
+  v22[2] = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69DB648];
+  v1 = v20;
+  v2 = MEMORY[0x1E69DB878];
+  v3 = *MEMORY[0x1E69DDCF8];
+  v4 = a1;
+  v5 = [v2 px_preferredFontForTextStyle:v3 withSymbolicTraits:0 options:0];
+  v22[0] = v5;
+  v21 = *MEMORY[0x1E69DB650];
+  v6 = v21;
+  v7 = [MEMORY[0x1E69DC888] labelColor];
+  v22[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v20 count:2];
+
+  v18[0] = v1;
+  v9 = [MEMORY[0x1E69DB878] px_preferredFontForTextStyle:*MEMORY[0x1E69DDD28] withSymbolicTraits:0x8000 options:0];
+  v18[1] = v6;
+  v19[0] = v9;
+  v10 = [MEMORY[0x1E69DC888] secondaryLabelColor];
+  v19[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+
+  v12 = objc_alloc(MEMORY[0x1E696AD40]);
+  v13 = [v4 title];
+  v14 = [v13 stringByAppendingString:@"\n"];
+  v15 = [v12 initWithString:v14 attributes:v8];
+
+  v16 = PXLocalizedSharedLibraryString(@"PXSharedLibrary_FilterMenu_Preview_Subtitle");
+  v17 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v16 attributes:v11];
+  [v15 appendAttributedString:v17];
+  [v4 setAttributedTitle:v15];
+}
+
+BOOL PXSharedLibraryShouldDisplayInvitation(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 invitation];
+  if (v2 && ([v1 hasSharedLibrary] & 1) == 0)
+  {
+    v4 = [v1 exiting];
+    v3 = v4 == 0;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  return v3;
+}
+
+BOOL PXSharedLibraryShouldDisplaySettings(void *a1)
+{
+  v1 = a1;
+  if ([v1 hasSharedLibrary] && (objc_msgSend(v1, "hasPreview") & 1) == 0)
+  {
+    v3 = [v1 exiting];
+    v2 = v3 == 0;
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  return v2;
+}
+
+void PXSharedLibrarySetupSharedLibraryOrPreview(void *a1, void *a2, void *a3, void *a4, void *a5)
+{
+  v27 = *MEMORY[0x1E69E9840];
+  v9 = a1;
+  v10 = a2;
+  v11 = a3;
+  v12 = a4;
+  v13 = a5;
+  if (!v11)
+  {
+    v18 = [MEMORY[0x1E696AAA8] currentHandler];
+    v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXSharedLibrarySetupSharedLibraryOrPreview(PXSharedLibraryStatusProvider *__strong _Nonnull, PXSharedLibraryLegacyDevicesFallbackMonitor * _Nullable __strong, __strong id<PXPresentationEnvironment> _Nonnull, NSString *__strong _Nonnull, void (^ _Nullable __strong)(BOOL, NSError * _Nullable __strong))"}];
+    [v18 handleFailureInFunction:v19 file:@"PXSharedLibraryUtilities.m" lineNumber:1111 description:{@"Invalid parameter not satisfying: %@", @"presentationEnvironment"}];
+  }
+
+  if (![v12 length])
+  {
+    v20 = [MEMORY[0x1E696AAA8] currentHandler];
+    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXSharedLibrarySetupSharedLibraryOrPreview(PXSharedLibraryStatusProvider *__strong _Nonnull, PXSharedLibraryLegacyDevicesFallbackMonitor * _Nullable __strong, __strong id<PXPresentationEnvironment> _Nonnull, NSString *__strong _Nonnull, void (^ _Nullable __strong)(BOOL, NSError * _Nullable __strong))"}];
+    [v20 handleFailureInFunction:v21 file:@"PXSharedLibraryUtilities.m" lineNumber:1112 description:{@"Invalid parameter not satisfying: %@", @"senderIdentifier.length"}];
+  }
+
+  v14 = PLSharedLibraryGetLog();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    v26 = v12;
+    _os_log_impl(&dword_1A3C1C000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Will setup Shared Library or preview", buf, 0xCu);
+  }
+
+  v15 = [[PXCreateSharedLibraryActionPerformer alloc] initWithSharedLibraryStatusProvider:v9];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __PXSharedLibrarySetupSharedLibraryOrPreview_block_invoke;
+  v22[3] = &unk_1E774BD88;
+  v23 = v12;
+  v24 = v13;
+  v16 = v13;
+  v17 = v12;
+  [(PXCreateSharedLibraryActionPerformer *)v15 performActionWithLegacyDevicesFallbackMonitor:v10 presentationEnvironment:v11 completionHandler:v22];
+}
+
+void __PXSharedLibrarySetupSharedLibraryOrPreview_block_invoke(uint64_t a1, uint64_t a2, void *a3)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  v5 = a3;
+  dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
+  if (a2)
+  {
+    v6 = PLSharedLibraryGetLog();
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_11;
+    }
+
+    v7 = *(a1 + 32);
+    v17 = 138543362;
+    v18 = v7;
+    v8 = "%{public}@: Did setup Shared Library or preview";
+LABEL_7:
+    v12 = v6;
+    v13 = OS_LOG_TYPE_DEFAULT;
+    v14 = 12;
+    goto LABEL_10;
+  }
+
+  IsUserCanceledError = PXSharedLibraryIsUserCanceledError(v5);
+  v10 = PLSharedLibraryGetLog();
+  v6 = v10;
+  if (IsUserCanceledError)
+  {
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_11;
+    }
+
+    v11 = *(a1 + 32);
+    v17 = 138543362;
+    v18 = v11;
+    v8 = "%{public}@: User canceled setup Shared Library or preview";
+    goto LABEL_7;
+  }
+
+  if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    goto LABEL_11;
+  }
+
+  v15 = *(a1 + 32);
+  v17 = 138543618;
+  v18 = v15;
+  v19 = 2112;
+  v20 = v5;
+  v8 = "%{public}@: Failed to setup Shared Library or preview: %@";
+  v12 = v6;
+  v13 = OS_LOG_TYPE_ERROR;
+  v14 = 22;
+LABEL_10:
+  _os_log_impl(&dword_1A3C1C000, v12, v13, v8, &v17, v14);
+LABEL_11:
+
+  v16 = *(a1 + 40);
+  if (v16)
+  {
+    (*(v16 + 16))(v16, a2, v5);
+  }
+}
+
+void PXSharedLibrarySendInvitation(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
+{
+  v11 = a1;
+  v12 = a2;
+  v13 = a3;
+  v14 = a4;
+  v15 = a5;
+  v16 = a6;
+  if (v11)
+  {
+    if (v12)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_11:
+    v27 = [MEMORY[0x1E696AAA8] currentHandler];
+    v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXSharedLibrarySendInvitation(__strong id<PXSharedLibrary> _Nonnull, NSArray<NSString *> *__strong _Nonnull, NSArray<NSString *> *__strong _Nonnull, __strong id<PXPresentationEnvironment> _Nonnull, NSString *__strong _Nonnull, void (^ _Nullable __strong)(BOOL, NSError * _Nullable __strong))"}];
+    [v27 handleFailureInFunction:v28 file:@"PXSharedLibraryUtilities.m" lineNumber:1136 description:{@"Invalid parameter not satisfying: %@", @"emailAddresses"}];
+
+    if (v13)
+    {
+      goto LABEL_4;
+    }
+
+LABEL_12:
+    v29 = [MEMORY[0x1E696AAA8] currentHandler];
+    v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXSharedLibrarySendInvitation(__strong id<PXSharedLibrary> _Nonnull, NSArray<NSString *> *__strong _Nonnull, NSArray<NSString *> *__strong _Nonnull, __strong id<PXPresentationEnvironment> _Nonnull, NSString *__strong _Nonnull, void (^ _Nullable __strong)(BOOL, NSError * _Nullable __strong))"}];
+    [v29 handleFailureInFunction:v30 file:@"PXSharedLibraryUtilities.m" lineNumber:1137 description:{@"Invalid parameter not satisfying: %@", @"phoneNumbers"}];
+
+    goto LABEL_4;
+  }
+
+  v25 = [MEMORY[0x1E696AAA8] currentHandler];
+  v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXSharedLibrarySendInvitation(__strong id<PXSharedLibrary> _Nonnull, NSArray<NSString *> *__strong _Nonnull, NSArray<NSString *> *__strong _Nonnull, __strong id<PXPresentationEnvironment> _Nonnull, NSString *__strong _Nonnull, void (^ _Nullable __strong)(BOOL, NSError * _Nullable __strong))"}];
+  [v25 handleFailureInFunction:v26 file:@"PXSharedLibraryUtilities.m" lineNumber:1135 description:{@"Invalid parameter not satisfying: %@", @"sharedLibrary"}];
+
+  if (!v12)
+  {
+    goto LABEL_11;
+  }
+
+LABEL_3:
+  if (!v13)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_4:
+  if ([v12 count] || objc_msgSend(v13, "count"))
+  {
+    if (v14)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  else
+  {
+    v33 = [MEMORY[0x1E696AAA8] currentHandler];
+    v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXSharedLibrarySendInvitation(__strong id<PXSharedLibrary> _Nonnull, NSArray<NSString *> *__strong _Nonnull, NSArray<NSString *> *__strong _Nonnull, __strong id<PXPresentationEnvironment> _Nonnull, NSString *__strong _Nonnull, void (^ _Nullable __strong)(BOOL, NSError * _Nullable __strong))"}];
+    [v33 handleFailureInFunction:v34 file:@"PXSharedLibraryUtilities.m" lineNumber:1138 description:{@"Invalid parameter not satisfying: %@", @"emailAddresses.count || phoneNumbers.count"}];
+
+    if (v14)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  v35 = [MEMORY[0x1E696AAA8] currentHandler];
+  v36 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXSharedLibrarySendInvitation(__strong id<PXSharedLibrary> _Nonnull, NSArray<NSString *> *__strong _Nonnull, NSArray<NSString *> *__strong _Nonnull, __strong id<PXPresentationEnvironment> _Nonnull, NSString *__strong _Nonnull, void (^ _Nullable __strong)(BOOL, NSError * _Nullable __strong))"}];
+  [v35 handleFailureInFunction:v36 file:@"PXSharedLibraryUtilities.m" lineNumber:1139 description:{@"Invalid parameter not satisfying: %@", @"presentationEnvironment"}];
+
+LABEL_7:
+  if (![v15 length])
+  {
+    v31 = [MEMORY[0x1E696AAA8] currentHandler];
+    v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void PXSharedLibrarySendInvitation(__strong id<PXSharedLibrary> _Nonnull, NSArray<NSString *> *__strong _Nonnull, NSArray<NSString *> *__strong _Nonnull, __strong id<PXPresentationEnvironment> _Nonnull, NSString *__strong _Nonnull, void (^ _Nullable __strong)(BOOL, NSError * _Nullable __strong))"}];
+    [v31 handleFailureInFunction:v32 file:@"PXSharedLibraryUtilities.m" lineNumber:1140 description:{@"Invalid parameter not satisfying: %@", @"senderIdentifier.length"}];
+  }
+
+  v17 = [v11 shareURL];
+  v18 = [v11 owner];
+  v19 = PXSharedLibraryShortNameForParticipant(v18);
+
+  v20 = [v13 arrayByAddingObjectsFromArray:v12];
+  v21 = [(PXActionPerformer *)[PXSharedLibraryComposeMessageActionPerformer alloc] initWithActionType:@"PXActionSharedLibraryComposeMessage"];
+  [(PXActionPerformer *)v21 setPresentationEnvironment:v14];
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __PXSharedLibrarySendInvitation_block_invoke;
+  v37[3] = &unk_1E774ACE8;
+  v39 = v14;
+  v40 = v16;
+  v38 = v15;
+  v22 = v14;
+  v23 = v16;
+  v24 = v15;
+  [(PXSharedLibraryComposeMessageActionPerformer *)v21 performActionWithInvitationURL:v17 originatorDisplayName:v19 recipients:v20 completionHandler:v37];
+}
+
 void __PXSharedLibrarySendInvitation_block_invoke(uint64_t a1, int a2, void *a3)
 {
   v27 = *MEMORY[0x1E69E9840];
@@ -718,10 +2155,11 @@ LABEL_47:
 LABEL_48:
 }
 
-void sub_1A4AC93F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_1A4AC93F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 176), 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1524,18 +2962,18 @@ LABEL_5:
 LABEL_10:
 }
 
-void __PXSharedLibraryPreviewInvitation_block_invoke(uint64_t a1, void *a2, void *a3)
+void __PXSharedLibraryPreviewInvitation_block_invoke(void *a1, void *a2, void *a3)
 {
   v7 = a2;
   v5 = a3;
   if (v7)
   {
-    _PXSharedLibraryPreviewInvitation(*(a1 + 32), v7, *(a1 + 40), *(a1 + 48), *(a1 + 72), *(a1 + 56), *(a1 + 64));
+    _PXSharedLibraryPreviewInvitation(a1[4], v7, a1[5], a1[6], a1[9], a1[7], a1[8]);
   }
 
   else
   {
-    v6 = *(a1 + 64);
+    v6 = a1[8];
     if (v6)
     {
       (*(v6 + 16))(v6, 0, v5);
@@ -1718,18 +3156,18 @@ LABEL_5:
 LABEL_10:
 }
 
-void __PXSharedLibraryAcceptInvitation_block_invoke(uint64_t a1, void *a2, void *a3)
+void __PXSharedLibraryAcceptInvitation_block_invoke(void *a1, void *a2, void *a3)
 {
   v7 = a2;
   v5 = a3;
   if (v7)
   {
-    _PXSharedLibraryAcceptInvitation(v7, *(a1 + 32), *(a1 + 64), *(a1 + 40), *(a1 + 48), *(a1 + 56));
+    _PXSharedLibraryAcceptInvitation(v7, a1[4], a1[8], a1[5], a1[6], a1[7]);
   }
 
   else
   {
-    v6 = *(a1 + 56);
+    v6 = a1[7];
     if (v6)
     {
       (*(v6 + 16))(v6, 0, v5);
@@ -1826,23 +3264,23 @@ id PXSharedLibraryPlaceholderParticipantImageWithPointSize()
   return v1;
 }
 
-void sub_1A4ACFD94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1A4ACFD94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4AD1484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1A4AD1484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4AD1AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1A4AD1AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1861,30 +3299,30 @@ void sub_1A4AD4E28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A4AD5E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4AD5E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4AD6040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4AD6040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4AD61E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4AD61E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4AD63DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4AD63DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2182,9 +3620,9 @@ LABEL_3:
   _Block_object_dispose(&v32, 8);
 }
 
-void sub_1A4AE7100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4AE7100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2376,31 +3814,31 @@ LABEL_11:
   }
 }
 
-void sub_1A4AEAF00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1A4AEAF00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 80), 8);
+  _Block_object_dispose((v22 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4AEB958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1A4AEB958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4AECC00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1A4AECC00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2492,9 +3930,9 @@ PXSharedAlbumSubscriberInfo *_subscriberInfoForAdjustedIndex(void *a1, uint64_t 
   return v11;
 }
 
-void sub_1A4AF3A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1A4AF3A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2506,6 +3944,13 @@ uint64_t __Block_byref_object_copy__13111(uint64_t result, uint64_t a2)
   return result;
 }
 
+void sub_1A4AF6920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__13537(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -2513,9 +3958,9 @@ uint64_t __Block_byref_object_copy__13537(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A4AF7174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1A4AF7174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2584,9 +4029,9 @@ LABEL_4:
   return v6;
 }
 
-void sub_1A4AFE220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A4AFE220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2711,26 +4156,27 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __ManagedConfigurationLibraryCore_block_invoke()
+uint64_t __ManagedConfigurationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ManagedConfigurationLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-uint64_t __SystemConfigurationLibraryCore_block_invoke()
+uint64_t __SystemConfigurationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   SystemConfigurationLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_1A4B009C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1A4B009C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 192), 8);
-  _Block_object_dispose((v33 - 144), 8);
-  _Block_object_dispose((v33 - 112), 8);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 192), 8);
+  _Block_object_dispose((v32 - 144), 8);
+  _Block_object_dispose((v32 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2755,9 +4201,9 @@ void sub_1A4B073C4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1A4B09FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1A4B09FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2769,12 +4215,12 @@ uint64_t __Block_byref_object_copy__16543(uint64_t result, uint64_t a2)
   return result;
 }
 
-void _getSpriteGeometryTransformedTopTrailingCorner(float a1, float a2)
+void _getSpriteGeometryTransformedTopTrailingCorner(uint64_t a1, int a2, float a3, float a4)
 {
-  memset(&v5, 0, sizeof(v5));
-  CGAffineTransformMakeScale(&t1, a2, a2);
-  CGAffineTransformMakeRotation(&t2, a1);
-  CGAffineTransformConcat(&v5, &t1, &t2);
+  memset(&v7, 0, sizeof(v7));
+  CGAffineTransformMakeScale(&t1, a4, a4);
+  CGAffineTransformMakeRotation(&t2, a3);
+  CGAffineTransformConcat(&v7, &t1, &t2);
   PXPointAdd();
 }
 
@@ -3151,9 +4597,9 @@ uint64_t PXDeduplicationEntireDuplicatesGroupsAreSelected(void *a1)
   return v4;
 }
 
-void sub_1A4B13D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4B13D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3501,10 +4947,11 @@ void __PXDuplicateGroupingAssetIdentifiersFromSelection_block_invoke_2(uint64_t 
   [v5 addObject:v6];
 }
 
-void sub_1A4B16D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_1A4B16D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   _Block_object_dispose(&a16, 8);
-  _Block_object_dispose(&a28, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3549,16 +4996,16 @@ id PXAddEdgeOverlaySubviewsToWorkAround53118165(void *a1, double a2, double a3, 
   return v15;
 }
 
-void __PXAddEdgeOverlaySubviewsToWorkAround53118165_block_invoke()
+void __PXAddEdgeOverlaySubviewsToWorkAround53118165_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v0 = objc_alloc_init(PXGradientView);
-  v1 = [MEMORY[0x1E69DC888] systemBackgroundColor];
-  v2 = [v1 colorWithAlphaComponent:0.0];
-  v4[0] = v2;
-  v4[1] = v1;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
-  [(PXGradientView *)v0 setColors:v3];
+  v6[2] = *MEMORY[0x1E69E9840];
+  v2 = objc_alloc_init(PXGradientView);
+  v3 = [MEMORY[0x1E69DC888] systemBackgroundColor];
+  v4 = [v3 colorWithAlphaComponent:0.0];
+  v6[0] = v4;
+  v6[1] = v3;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
+  [(PXGradientView *)v2 setColors:v5];
 
   PXRectEdgeValue();
 }
@@ -3577,9 +5024,9 @@ __CFString *PXDisplayAssetCollectionCurationKindDescription(unint64_t a1)
   return off_1E772F060[a1];
 }
 
-void sub_1A4B18D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A4B18D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3615,9 +5062,9 @@ id getMFMailComposeViewControllerClass()
   return v1;
 }
 
-void sub_1A4B1A284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4B1A284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3668,7 +5115,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __MessageUILibraryCore_block_invoke()
+uint64_t __MessageUILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MessageUILibraryCore_frameworkLibrary = result;
@@ -3695,6 +5142,13 @@ id _PXItemProviderTemporaryURL(void *a1, void *a2)
   v13 = [v12 URLByAppendingPathComponent:v9];
 
   return v13;
+}
+
+void sub_1A4B205E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__19703(uint64_t result, uint64_t a2)
@@ -4066,10 +5520,11 @@ id _DateForAsset(void *a1, char a2)
   return v2;
 }
 
-void sub_1A4B22D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1A4B22D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4127,9 +5582,9 @@ void sub_1A4B2C358(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A4B2D5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1A4B2D5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4141,9 +5596,9 @@ uint64_t __Block_byref_object_copy__21025(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A4B2D9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4B2D9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4205,7 +5660,7 @@ BOOL PXDisplayCollectionIsMomentShare(void *a1, BOOL *a2)
   return v6;
 }
 
-uint64_t PXDisplayCollectionSupportsSavingMomentShareAssetsToLibrary(void *a1, void *a2, uint64_t *a3, uint64_t a4)
+uint64_t PXDisplayCollectionSupportsSavingMomentShareAssetsToLibrary(void *a1, void *a2, uint64_t *a3, void *a4)
 {
   v7 = a1;
   v8 = a2;
@@ -4275,9 +5730,9 @@ void sub_1A4B331EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A4B395F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1A4B395F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4328,7 +5783,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __ChatKitLibraryCore_block_invoke()
+uint64_t __ChatKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ChatKitLibraryCore_frameworkLibrary = result;
@@ -4410,9 +5865,9 @@ id _SynchronousThumbnailImagesForAssets(void *a1)
   return v13;
 }
 
-void sub_1A4B3ECFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1A4B3ECFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4443,9 +5898,9 @@ void __PKPlacesKitGetLog_block_invoke()
   PKPlacesKitGetLog_log = v0;
 }
 
-void sub_1A4B40FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1A4B40FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4496,7 +5951,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __AppleIDSSOAuthenticationLibraryCore_block_invoke()
+uint64_t __AppleIDSSOAuthenticationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AppleIDSSOAuthenticationLibraryCore_frameworkLibrary = result;
@@ -4510,9 +5965,9 @@ void sub_1A4B41498(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A4B417D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4B417D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4536,9 +5991,9 @@ void __getAAUIGrandSlamRemoteUIPresenterClass_block_invoke(uint64_t a1)
   }
 }
 
-void sub_1A4B419FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A4B419FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4717,9 +6172,9 @@ id PXMessageForMomentShareURL(void *a1)
   return 0;
 }
 
-void sub_1A4B42A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1A4B42A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4734,17 +6189,17 @@ uint64_t PXCMMSupportsLiveBubbles()
   return PFIsVisionPhotosApp();
 }
 
-void sub_1A4B44DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A4B44DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 112), 8);
+  _Block_object_dispose((v16 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4781,16 +6236,16 @@ void sub_1A4B4D2FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A4B50DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A4B50DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4B524DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1A4B524DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5198,9 +6653,9 @@ void sub_1A4B69A14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A4B69D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1A4B69D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5273,9 +6728,9 @@ id _ConditionallyFormattedString(int a1, int a2, void *a3, void *a4, void *a5, v
   return v31;
 }
 
-void sub_1A4B6CADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1A4B6CADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5287,32 +6742,34 @@ uint64_t __Block_byref_object_copy__30072(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A4B6E72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A4B6E72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4B6F460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_1A4B6F460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
   _Block_object_dispose(&a35, 8);
-  _Block_object_dispose(&a39, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4B7159C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, char a21)
+void sub_1A4B7159C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, ...)
 {
-  objc_destroyWeak((v22 + 40));
-  objc_destroyWeak((v21 + 32));
+  va_start(va, location);
+  objc_destroyWeak((v21 + 40));
+  objc_destroyWeak((v20 + 32));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a21, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5347,9 +6804,9 @@ float PXStoryVolumeForFadeOutFractionCompleted(float a1)
   return v2;
 }
 
-void sub_1A4B78280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4B78280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5379,9 +6836,9 @@ void __PXStoryVolumeForFadeOutFractionCompleted_block_invoke(uint64_t a1, void *
   }
 }
 
-void sub_1A4B7A97C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4B7A97C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5482,7 +6939,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __iCloudQuotaUILibraryCore_block_invoke_33069()
+uint64_t __iCloudQuotaUILibraryCore_block_invoke_33069(uint64_t a1)
 {
   result = _sl_dlopen();
   iCloudQuotaUILibraryCore_frameworkLibrary_33068 = result;
@@ -5563,9 +7020,9 @@ LABEL_12:
   __break(1u);
 }
 
-void sub_1A4B88B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4B88B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5625,16 +7082,16 @@ void *__getICQUIInAppMessageReasoniCloudFullSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __iCloudQuotaUILibraryCore_block_invoke_33500()
+uint64_t __iCloudQuotaUILibraryCore_block_invoke_33500(uint64_t a1)
 {
   result = _sl_dlopen();
   iCloudQuotaUILibraryCore_frameworkLibrary_33499 = result;
   return result;
 }
 
-void sub_1A4B8937C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1A4B8937C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5646,31 +7103,33 @@ uint64_t __Block_byref_object_copy__33646(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A4B89B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1A4B8A680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
-{
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a48, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1A4B8C084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1A4B89B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 152), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4B8DCB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_1A4B8A680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
-  _Block_object_dispose(&a31, 8);
+  va_start(va, a47);
+  _Block_object_dispose(&a37, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1A4B8C084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 152), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1A4B8DCB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
 }
@@ -5804,9 +7263,9 @@ void sub_1A4B9C0E8(void *a1, int a2)
   JUMPOUT(0x1A4B9C0BCLL);
 }
 
-void sub_1A4B9CC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1A4B9CC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5857,16 +7316,16 @@ LABEL_10:
   return result;
 }
 
-uint64_t __ProactiveSuggestionClientModelLibraryCore_block_invoke()
+uint64_t __ProactiveSuggestionClientModelLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ProactiveSuggestionClientModelLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_1A4B9E324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1A4B9E324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5878,9 +7337,9 @@ uint64_t __Block_byref_object_copy__35197(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A4B9E460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4B9E460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5896,11 +7355,11 @@ uint64_t PXCanAccessDocumentStorageURL(void *a1)
   return 1;
 }
 
-void sub_1A4B9F1D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, uint64_t a10, __int16 a11, uint64_t a12)
+void sub_1A4B9F1D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, __int128 a10)
 {
   if (a2 == 1)
   {
-    v12 = objc_begin_catch(exception_object);
+    v10 = objc_begin_catch(exception_object);
     PXAssertGetLog();
   }
 
@@ -5931,9 +7390,9 @@ id getMFMailComposeViewControllerClass_35356()
   return v1;
 }
 
-void sub_1A4B9F9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4B9F9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5984,16 +7443,16 @@ LABEL_10:
   return result;
 }
 
-uint64_t __MessageUILibraryCore_block_invoke_35382()
+uint64_t __MessageUILibraryCore_block_invoke_35382(uint64_t a1)
 {
   result = _sl_dlopen();
   MessageUILibraryCore_frameworkLibrary_35381 = result;
   return result;
 }
 
-void sub_1A4BA2A44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1A4BA2A44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6005,9 +7464,9 @@ uint64_t __Block_byref_object_copy__35798(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A4BA4F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A4BA4F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6089,6 +7548,13 @@ void sub_1A4BAB2E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   objc_destroyWeak((v16 + 32));
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
+}
+
+void sub_1A4BAC8C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  JUMPOUT(0x1A4BAC8D0);
 }
 
 uint64_t __Block_byref_object_copy__36874(uint64_t result, uint64_t a2)
@@ -6377,31 +7843,31 @@ double PXAssetsSectionGetLayoutPropertiesForMetrics(uint64_t a1, uint64_t a2, do
   return result;
 }
 
-void sub_1A4BB1C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4BB1C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4BB1F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4BB1F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4BB3D74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A4BB3D74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4BB4254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4BB4254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6413,17 +7879,18 @@ uint64_t __Block_byref_object_copy__38136(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A4BB4694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A4BB4694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4BB5BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1A4BB5BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6434,37 +7901,37 @@ void sub_1A4BBAD28(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1A4BBB080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4BBB080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4BBB15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4BBB15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4BBB2BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4BBB2BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4BBB3A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4BBB3A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A4BBB580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4BBB580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6476,9 +7943,9 @@ uint64_t __Block_byref_object_copy__39298(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A4BBB844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4BBB844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6507,9 +7974,9 @@ id getPIColorNormalizationFilterClass()
   return v1;
 }
 
-void sub_1A4BBC400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4BBC400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6560,16 +8027,16 @@ LABEL_10:
   return result;
 }
 
-uint64_t __PhotoImagingLibraryCore_block_invoke()
+uint64_t __PhotoImagingLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PhotoImagingLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_1A4BBD3A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A4BBD3A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6620,7 +8087,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __PDFKitLibraryCore_block_invoke()
+uint64_t __PDFKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PDFKitLibraryCore_frameworkLibrary = result;
@@ -6634,9 +8101,9 @@ void sub_1A4BBD94C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A4BBDC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4BBDC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6809,13 +8276,13 @@ void sub_1A4BC0448(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A4BC0704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1A4BC0704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
-  objc_destroyWeak((v16 + 48));
+  va_start(va, a23);
+  objc_destroyWeak((v23 + 48));
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 136), 8);
-  objc_destroyWeak((v17 - 88));
+  _Block_object_dispose((v24 - 136), 8);
+  objc_destroyWeak((v24 - 88));
   _Unwind_Resume(a1);
 }
 
@@ -6857,11 +8324,11 @@ void PXCMMUpdateCountsWithSelectionSnapshot(void *a1, void *a2)
   _Block_object_dispose(&v16, 8);
 }
 
-void sub_1A4BC1E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A4BC1E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7077,7 +8544,7 @@ id PXCMMViewModelChangeDescriptorDebugDescription(unsigned int a1)
   return v5;
 }
 
-void _LabelContextMakeGadgetSpec(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>, double a5@<D0>, double a6@<D1>, double a7@<D2>, double a8@<D3>)
+void _LabelContextMakeGadgetSpec(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>, double a5@<D0>, double a6@<D1>, double a7@<D2>, double a8@<D3>)
 {
   v12 = a2;
   *(a4 + 64) = 0;
@@ -7096,7 +8563,7 @@ void _LabelContextMakeGadgetSpec(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<
   *(a4 + 64) = v12;
 }
 
-void _LabelContextMakeFeatureSpec(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>, double a5@<D0>, double a6@<D1>, double a7@<D2>, double a8@<D3>)
+void _LabelContextMakeFeatureSpec(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>, double a5@<D0>, double a6@<D1>, double a7@<D2>, double a8@<D3>)
 {
   v12 = a2;
   *(a4 + 64) = 0;
@@ -7115,11 +8582,11 @@ void _LabelContextMakeFeatureSpec(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@
   *(a4 + 64) = v12;
 }
 
-void _LabelContextMakeDescriptor(uint64_t a1@<X0>, void *a2@<X2>, void *a3@<X8>)
+void _LabelContextMakeDescriptor(uint64_t a1@<X0>, void *a3@<X2>, void *a4@<X8>)
 {
-  a3[8] = 0;
-  *a3 = a1;
-  v3 = a2;
+  a4[8] = 0;
+  *a4 = a1;
+  v4 = a3;
   PXMemoryTileKindForViewSpecContext();
 }
 
@@ -7194,16 +8661,16 @@ LABEL_3:
   [v6 presentViewController:v7 animated:1 completion:0];
 }
 
-void sub_1A4BCA300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1A4BCA300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -7230,9 +8697,9 @@ void sub_1A4BCB068(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1A4BCDF74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A4BCDF74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7283,7 +8750,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __PhotoImagingLibraryCore_block_invoke_43184()
+uint64_t __PhotoImagingLibraryCore_block_invoke_43184(uint64_t a1)
 {
   result = _sl_dlopen();
   PhotoImagingLibraryCore_frameworkLibrary_43183 = result;
@@ -7555,9 +9022,9 @@ id PXRecipientWithPersonSuggestion(void *a1, void *a2)
   return v7;
 }
 
-void sub_1A4BD86A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A4BD86A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7612,1490 +9079,4 @@ void __PXRecipientWithPersonSuggestion_block_invoke(uint64_t a1, void *a2, void 
       *(v16 + 40) = 0;
     }
   }
-}
-
-PXRecipient *PXRecipientFromShareParticipant(void *a1)
-{
-  v1 = a1;
-  if (!v1)
-  {
-    v8 = [MEMORY[0x1E696AAA8] currentHandler];
-    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"PXRecipient * _Nonnull PXRecipientFromShareParticipant(PHShareParticipant *__strong _Nonnull)"];
-    [v8 handleFailureInFunction:v9 file:@"PXRecipientUtilities.m" lineNumber:49 description:{@"Invalid parameter not satisfying: %@", @"participant"}];
-  }
-
-  v2 = [PXRecipient alloc];
-  v3 = [v1 emailAddress];
-  v4 = [v1 phoneNumber];
-  v5 = [v1 nameComponents];
-  v6 = [(PXRecipient *)v2 initWithEmailAddress:v3 phoneNumber:v4 nameComponents:v5];
-
-  return v6;
-}
-
-uint64_t PXBootstrapPersonSuggestionWithContact(void *a1, void *a2, uint64_t a3)
-{
-  v5 = a1;
-  v6 = a2;
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v17 = [MEMORY[0x1E696AAA8] currentHandler];
-    v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL PXBootstrapPersonSuggestionWithContact(__strong id<PXPersonSuggestion> _Nonnull, CNContact *__strong _Nonnull, NSError *__autoreleasing * _Nullable)"}];
-    [v17 handleFailureInFunction:v18 file:@"PXRecipientUtilities.m" lineNumber:57 description:{@"Invalid parameter not satisfying: %@", @"[personSuggestion isKindOfClass:[PXPhotoKitPersonSuggestion class]]"}];
-  }
-
-  v7 = [v5 person];
-  if (!v7)
-  {
-    v19 = [MEMORY[0x1E696AAA8] currentHandler];
-    v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL PXBootstrapPersonSuggestionWithContact(__strong id<PXPersonSuggestion> _Nonnull, CNContact *__strong _Nonnull, NSError *__autoreleasing * _Nullable)"}];
-    [v19 handleFailureInFunction:v20 file:@"PXRecipientUtilities.m" lineNumber:59 description:{@"Invalid parameter not satisfying: %@", @"person"}];
-  }
-
-  v8 = [MEMORY[0x1E6978980] fullNameFromContact:v6];
-  v9 = [MEMORY[0x1E6978980] displayNameFromContact:v6];
-  v10 = [v7 photoLibrary];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __PXBootstrapPersonSuggestionWithContact_block_invoke;
-  v21[3] = &unk_1E7744F50;
-  v22 = v7;
-  v23 = v6;
-  v24 = v8;
-  v25 = v9;
-  v11 = v9;
-  v12 = v8;
-  v13 = v6;
-  v14 = v7;
-  v15 = [v10 performChangesAndWait:v21 error:a3];
-
-  return v15;
-}
-
-void __PXBootstrapPersonSuggestionWithContact_block_invoke(uint64_t a1)
-{
-  v5 = [MEMORY[0x1E6978990] changeRequestForPerson:*(a1 + 32)];
-  v2 = +[PXPeopleUtilities sharedContactStore];
-  v3 = [MEMORY[0x1E69BE380] matchingDictionaryForContact:*(a1 + 40) contactStore:v2];
-  [v5 setContactMatchingDictionary:v3];
-  v4 = [*(a1 + 40) identifier];
-  [v5 setPersonUri:v4];
-
-  [v5 setName:*(a1 + 48)];
-  [v5 setDisplayName:*(a1 + 56)];
-}
-
-uint64_t __Block_byref_object_copy__45122(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1A4BDB8E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
-{
-  objc_destroyWeak((v23 + 64));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-BOOL PXClipCompositionContainsSplitAsset(void *a1)
-{
-  v1 = a1;
-  v2 = [v1 numberOfClips];
-  v3 = [v1 numberOfAssets];
-
-  return v2 > v3;
-}
-
-void PXStorySegmentClipCompositionInfoFromComposition(void *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = a1;
-  v4 = [v3 numberOfClips];
-  v5 = [v3 clipFramesExtendToBounds];
-  v6 = [v3 mainDividerAxis];
-  [v3 mainDividerSplitRatio];
-  v8 = v7;
-  v9 = [v3 numberOfAssets];
-
-  *a2 = v4;
-  *(a2 + 8) = v5;
-  *(a2 + 16) = v6;
-  *(a2 + 24) = v8;
-  *(a2 + 32) = v9;
-}
-
-id PXLinkPresentationImageForAsset(void *a1, char a2, double a3, double a4)
-{
-  v7 = a1;
-  v8 = objc_alloc_init(MEMORY[0x1E696ACA0]);
-  v9 = objc_opt_class();
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __PXLinkPresentationImageForAsset_block_invoke;
-  v17 = &unk_1E7731AA8;
-  v19 = a3;
-  v20 = a4;
-  v21 = a2;
-  v18 = v7;
-  v10 = v7;
-  [v8 registerObjectOfClass:v9 visibility:0 loadHandler:&v14];
-  v11 = objc_alloc(MEMORY[0x1E696EC68]);
-  v12 = [v11 initWithItemProvider:v8 properties:0 placeholderImage:{0, v14, v15, v16, v17}];
-
-  return v12;
-}
-
-void __PXLinkPresentationImageForAsset_block_invoke(uint64_t a1, void *a2)
-{
-  v2 = a2;
-  PLPhysicalScreenScale();
-  PXSizeScale();
-}
-
-void __PXLinkPresentationImageForAsset_block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  if (a2)
-  {
-    v4 = *(*(a1 + 32) + 16);
-
-    v4();
-  }
-
-  else
-  {
-    v5 = [a3 objectForKeyedSubscript:*MEMORY[0x1E6978DF0]];
-    v6 = PLUIGetLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v7 = 136315394;
-      v8 = "LPImage * _Nonnull PXLinkPresentationImageForAsset(__strong id<PXDisplayAsset> _Nonnull, CGSize, BOOL)_block_invoke_2";
-      v9 = 2112;
-      v10 = v5;
-      _os_log_impl(&dword_1A3C1C000, v6, OS_LOG_TYPE_ERROR, "%s: Error fetching thumbnail image data: %@", &v7, 0x16u);
-    }
-
-    (*(*(a1 + 32) + 16))();
-  }
-}
-
-void PXStoryStyleDefaultContentInfoForDisplayAsset(void *a1@<X0>, uint64_t a2@<X8>)
-{
-  v13 = a1;
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 0u;
-  *(a2 + 48) = 0u;
-  *(a2 + 64) = 0u;
-  *(a2 + 80) = 0u;
-  *(a2 + 96) = 0u;
-  *(a2 + 112) = 0u;
-  *(a2 + 128) = 0u;
-  v3 = [v13 playbackStyle];
-  v4 = v13;
-  if ((v3 & 0xFFFFFFFFFFFFFFFELL) == 4)
-  {
-    v5 = [v13 resourcesDataSource];
-    v6 = [v5 movieHighlightsForDisplayAssetAtIndex:{objc_msgSend(v13, "resourceIndex")}];
-
-    v7 = PXStoryMovieHighlightForPlaybackStyle(v6, v3);
-    v8 = v7;
-    if (v7)
-    {
-      [v7 bestPlaybackRect];
-      *(a2 + 112) = v9;
-      *(a2 + 120) = v10;
-      *(a2 + 128) = v11;
-      *(a2 + 136) = v12;
-    }
-
-    v4 = v13;
-  }
-}
-
-BOOL PXStoryStyleEqualToStyle(void *a1, void *a2)
-{
-  v3 = a1;
-  v4 = a2;
-  v5 = [v3 originalColorGradeCategory];
-  v6 = [v4 originalColorGradeCategory];
-  if (v5 == v6 || [v5 isEqualToString:v6])
-  {
-    v7 = [v3 customColorGradeKind];
-    if (v7 == [v4 customColorGradeKind])
-    {
-      v8 = [v3 songResource];
-      v9 = [v4 songResource];
-      if (!PXStorySongResourceEqualToSongResource(v8, v9))
-      {
-        v13 = 0;
-LABEL_18:
-
-        goto LABEL_19;
-      }
-
-      v10 = [v3 cueSource];
-      v11 = [v4 cueSource];
-      if (v10 != v11 && ![v10 isEqual:v11] || (v12 = objc_msgSend(v3, "isCustomized"), v12 != objc_msgSend(v4, "isCustomized")))
-      {
-        v13 = 0;
-LABEL_17:
-
-        goto LABEL_18;
-      }
-
-      if (v3)
-      {
-        [v3 outroDuration];
-        if (v4)
-        {
-LABEL_13:
-          [v4 outroDuration];
-LABEL_16:
-          time1 = v15[1];
-          time2 = v15[0];
-          v13 = CMTimeCompare(&time1, &time2) == 0;
-          goto LABEL_17;
-        }
-      }
-
-      else
-      {
-        memset(&v15[1], 0, sizeof(CMTime));
-        if (v4)
-        {
-          goto LABEL_13;
-        }
-      }
-
-      memset(v15, 0, 24);
-      goto LABEL_16;
-    }
-  }
-
-  v13 = 0;
-LABEL_19:
-
-  return v13;
-}
-
-id PXDebugImageWithFaceRect(void *a1, void *a2)
-{
-  v3 = a1;
-  v4 = a2;
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    [v3 normalizedFaceAreaRect];
-    [v4 size];
-    [v4 size];
-    PXRectDenormalize();
-  }
-
-  return v4;
-}
-
-id PXStoryRelatedAnimationCreate(void *a1)
-{
-  v1 = a1;
-  v2 = +[PXStorySettings sharedInstance];
-  [v2 relatedAnimationDuration];
-  v4 = v3;
-
-  if (v4 <= 0.0)
-  {
-    v6 = 0;
-  }
-
-  else
-  {
-    v5 = [v1 rootLayout];
-    v6 = [v5 createAnimation];
-
-    [v6 setDuration:v4];
-    [v6 setDoubleSided:1];
-    v7 = [[PXStoryRelatedAnimationDelegate alloc] initWithSelectedRelatedLayout:v1];
-    [v6 setDelegate:v7];
-  }
-
-  return v6;
-}
-
-float _AdjustAlphaWithRelativeFadeDuration(float *a1, float a2)
-{
-  result = (1.0 - 1.0 / a2) * *a1;
-  *a1 = result;
-  return result;
-}
-
-void sub_1A4BE5E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
-{
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose(&a38, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1A4BE687C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
-{
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 208), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__47172(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-id PXGetBootSessionUUID()
-{
-  if (PXGetBootSessionUUID_onceToken != -1)
-  {
-    dispatch_once(&PXGetBootSessionUUID_onceToken, &__block_literal_global_47206);
-  }
-
-  v1 = PXGetBootSessionUUID_bootUUID;
-
-  return v1;
-}
-
-void __PXGetBootSessionUUID_block_invoke()
-{
-  v4 = *MEMORY[0x1E69E9840];
-  memset(v3, 0, sizeof(v3));
-  v2 = 37;
-  if (!sysctlbyname("kern.bootsessionuuid", v3, &v2, 0, 0))
-  {
-    v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v3];
-    v1 = PXGetBootSessionUUID_bootUUID;
-    PXGetBootSessionUUID_bootUUID = v0;
-  }
-}
-
-uint64_t PXCheckAndNoteUseOfSystemSinceBoot(uint64_t a1)
-{
-  v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"lastEditBootUUID_%@", a1];
-  v2 = PXGetBootSessionUUID();
-  if (v2)
-  {
-    v3 = [MEMORY[0x1E695E000] standardUserDefaults];
-    v4 = [v3 stringForKey:v1];
-
-    if (v4 && ([v4 isEqual:v2] & 1) != 0)
-    {
-      v5 = 0;
-    }
-
-    else
-    {
-      v6 = [MEMORY[0x1E695E000] standardUserDefaults];
-      [v6 setObject:v2 forKey:v1];
-
-      v5 = 1;
-    }
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  return v5;
-}
-
-uint64_t PXDisplayAssetSupportsSyndication(void *a1)
-{
-  v1 = a1;
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  return isKindOfClass & 1;
-}
-
-uint64_t PXDisplayAssetIsInCloud(void *a1)
-{
-  v1 = a1;
-  if (!objc_opt_class() || (objc_opt_isKindOfClass() & 1) == 0)
-  {
-
-    v2 = 0;
-LABEL_7:
-    v3 = 0;
-    goto LABEL_8;
-  }
-
-  v2 = v1;
-
-  if (!v2 || ([v2 px_isStreamSharedAlbumAsset] & 1) != 0)
-  {
-    goto LABEL_7;
-  }
-
-  v3 = [v2 hasAllThumbs] ^ 1;
-LABEL_8:
-
-  return v3;
-}
-
-uint64_t PXDisplayAssetIsInSharedAlbum(void *a1)
-{
-  v1 = a1;
-  if (objc_opt_class() && (objc_opt_isKindOfClass() & 1) != 0)
-  {
-    v2 = v1;
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = [v2 px_isSharedAlbumAsset];
-  return v3;
-}
-
-uint64_t PXDisplayAssetIsInSharedCollection(void *a1)
-{
-  v1 = a1;
-  if (objc_opt_class() && (objc_opt_isKindOfClass() & 1) != 0)
-  {
-    v2 = v1;
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = [v2 isCollectionShareAsset];
-  return v3;
-}
-
-uint64_t PXDisplayAssetIsInSharedAlbumOrSharedCollection(void *a1)
-{
-  v1 = a1;
-  if (PXDisplayAssetIsInSharedAlbum(v1))
-  {
-    v2 = 1;
-  }
-
-  else
-  {
-    v2 = PXDisplayAssetIsInSharedCollection(v1);
-  }
-
-  return v2;
-}
-
-uint64_t PXDisplayAssetIsAnimatedImage(void *a1)
-{
-  v1 = a1;
-  if (!objc_opt_class() || (objc_opt_isKindOfClass() & 1) == 0)
-  {
-
-    v2 = 0;
-LABEL_7:
-    v3 = 0;
-    goto LABEL_8;
-  }
-
-  v2 = v1;
-
-  if (!v2 || ([v2 hasAdjustments] & 1) != 0)
-  {
-    goto LABEL_7;
-  }
-
-  v3 = [v2 isAnimatedGIF];
-LABEL_8:
-
-  return v3;
-}
-
-uint64_t PXDisplayAssetWasSavedThroughSyndication(void *a1)
-{
-  v1 = a1;
-  if (objc_opt_class() && (objc_opt_isKindOfClass() & 1) != 0)
-  {
-    v2 = v1;
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = [v2 px_wasSavedThroughSyndication];
-  return v3;
-}
-
-uint64_t PXDisplayAssetIsSyndicatedAsset(void *a1)
-{
-  v1 = a1;
-  if (objc_opt_class() && (objc_opt_isKindOfClass() & 1) != 0)
-  {
-    v2 = v1;
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = [v2 px_isSyndicatedAsset];
-  return v3;
-}
-
-BOOL PXDisplayAssetHasSyndicationInformation(void *a1)
-{
-  v1 = a1;
-  if (objc_opt_class() && (objc_opt_isKindOfClass() & 1) != 0)
-  {
-    v2 = v1;
-
-    if (!v2)
-    {
-      v5 = 0;
-      goto LABEL_7;
-    }
-
-    [v2 fetchPropertySetsIfNeeded];
-    v3 = [v2 curationProperties];
-    v4 = [v3 syndicationIdentifier];
-    v5 = [v4 length] != 0;
-  }
-
-  else
-  {
-    v2 = 0;
-    v5 = 0;
-    v3 = v1;
-  }
-
-LABEL_7:
-  return v5;
-}
-
-uint64_t PXDisplayAssetContentIsPreviewable(void *a1)
-{
-  v1 = a1;
-  if (!objc_opt_class() || (objc_opt_isKindOfClass() & 1) == 0)
-  {
-
-    v2 = 0;
-    goto LABEL_6;
-  }
-
-  v2 = v1;
-
-  if (!v2)
-  {
-LABEL_6:
-    v3 = 1;
-    goto LABEL_7;
-  }
-
-  v3 = [v2 px_isContentPreviewable];
-LABEL_7:
-
-  return v3;
-}
-
-id PXDisplayAssetLocation(void *a1)
-{
-  v1 = a1;
-  if (!v1)
-  {
-    v6 = [MEMORY[0x1E696AAA8] currentHandler];
-    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CLLocation * _Nullable PXDisplayAssetLocation(__strong id<PXDisplayAsset> _Nonnull)"];
-    [v6 handleFailureInFunction:v7 file:@"PXPHDisplayAssetUtilities.m" lineNumber:89 description:{@"Invalid parameter not satisfying: %@", @"asset"}];
-  }
-
-  v2 = v1;
-  if (objc_opt_class() && (objc_opt_isKindOfClass() & 1) != 0)
-  {
-    v3 = v2;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v4 = [v3 location];
-
-  return v4;
-}
-
-void image_queue_release(uint64_t a1, uint64_t a2, void *a3)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = a3;
-  CAImageQueueUnregisterBuffer();
-  v5 = PLUIGetLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-  {
-    v6 = 134218240;
-    v7 = v4;
-    v8 = 2048;
-    v9 = a2;
-    _os_log_impl(&dword_1A3C1C000, v5, OS_LOG_TYPE_DEBUG, "PXImageQueueLayer(%p) released buffer %llu", &v6, 0x16u);
-  }
-}
-
-void sub_1A4BEDFE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
-{
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 96), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__47617(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void std::__throw_bad_array_new_length[abi:ne200100]()
-{
-  exception = __cxa_allocate_exception(8uLL);
-  v1 = std::bad_array_new_length::bad_array_new_length(exception);
-  __cxa_throw(v1, MEMORY[0x1E69E5420], MEMORY[0x1E69E52A8]);
-}
-
-void std::__hash_table<std::__hash_value_type<PXTileIdentifier,unsigned long>,std::__unordered_map_hasher<PXTileIdentifier,std::__hash_value_type<PXTileIdentifier,unsigned long>,std::hash<PXTileIdentifier>,std::equal_to<PXTileIdentifier>,true>,std::__unordered_map_equal<PXTileIdentifier,std::__hash_value_type<PXTileIdentifier,unsigned long>,std::equal_to<PXTileIdentifier>,std::hash<PXTileIdentifier>,true>,std::allocator<std::__hash_value_type<PXTileIdentifier,unsigned long>>>::__erase_unique<PXTileIdentifier>(void *a1, unint64_t *a2)
-{
-  v3 = std::__hash_table<std::__hash_value_type<PXTileIdentifier,unsigned long>,std::__unordered_map_hasher<PXTileIdentifier,std::__hash_value_type<PXTileIdentifier,unsigned long>,std::hash<PXTileIdentifier>,std::equal_to<PXTileIdentifier>,true>,std::__unordered_map_equal<PXTileIdentifier,std::__hash_value_type<PXTileIdentifier,unsigned long>,std::equal_to<PXTileIdentifier>,std::hash<PXTileIdentifier>,true>,std::allocator<std::__hash_value_type<PXTileIdentifier,unsigned long>>>::find<PXTileIdentifier>(a1, a2);
-  if (v3)
-  {
-    v4 = a1[1];
-    v5 = v3[1];
-    v6 = vcnt_s8(v4);
-    v6.i16[0] = vaddlv_u8(v6);
-    if (v6.u32[0] > 1uLL)
-    {
-      if (v5 >= *&v4)
-      {
-        v5 %= *&v4;
-      }
-    }
-
-    else
-    {
-      v5 &= *&v4 - 1;
-    }
-
-    v7 = *(*a1 + 8 * v5);
-    do
-    {
-      v8 = v7;
-      v7 = *v7;
-    }
-
-    while (v7 != v3);
-    if (v8 == a1 + 2)
-    {
-      goto LABEL_20;
-    }
-
-    v9 = v8[1];
-    if (v6.u32[0] > 1uLL)
-    {
-      if (v9 >= *&v4)
-      {
-        v9 %= *&v4;
-      }
-    }
-
-    else
-    {
-      v9 &= *&v4 - 1;
-    }
-
-    if (v9 != v5)
-    {
-LABEL_20:
-      if (!*v3)
-      {
-        goto LABEL_21;
-      }
-
-      v10 = *(*v3 + 8);
-      if (v6.u32[0] > 1uLL)
-      {
-        if (v10 >= *&v4)
-        {
-          v10 %= *&v4;
-        }
-      }
-
-      else
-      {
-        v10 &= *&v4 - 1;
-      }
-
-      if (v10 != v5)
-      {
-LABEL_21:
-        *(*a1 + 8 * v5) = 0;
-      }
-    }
-
-    v11 = *v3;
-    if (*v3)
-    {
-      v12 = *(v11 + 8);
-      if (v6.u32[0] > 1uLL)
-      {
-        if (v12 >= *&v4)
-        {
-          v12 %= *&v4;
-        }
-      }
-
-      else
-      {
-        v12 &= *&v4 - 1;
-      }
-
-      if (v12 != v5)
-      {
-        *(*a1 + 8 * v12) = v8;
-        v11 = *v3;
-      }
-    }
-
-    *v8 = v11;
-    *v3 = 0;
-    --a1[3];
-
-    operator delete(v3);
-  }
-}
-
-void *std::__hash_table<std::__hash_value_type<PXTileIdentifier,unsigned long>,std::__unordered_map_hasher<PXTileIdentifier,std::__hash_value_type<PXTileIdentifier,unsigned long>,std::hash<PXTileIdentifier>,std::equal_to<PXTileIdentifier>,true>,std::__unordered_map_equal<PXTileIdentifier,std::__hash_value_type<PXTileIdentifier,unsigned long>,std::equal_to<PXTileIdentifier>,std::hash<PXTileIdentifier>,true>,std::allocator<std::__hash_value_type<PXTileIdentifier,unsigned long>>>::find<PXTileIdentifier>(void *a1, unint64_t *a2)
-{
-  v2 = *a2;
-  if (*a2)
-  {
-    v3 = 0;
-    v4 = *a2;
-    do
-    {
-      v4 ^= a2[v3 + 1] << v3;
-      ++v3;
-    }
-
-    while (v2 != v3);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v5 = a1[1];
-  if (!*&v5)
-  {
-    return 0;
-  }
-
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
-  {
-    v7 = v4;
-    if (v4 >= *&v5)
-    {
-      v7 = v4 % *&v5;
-    }
-  }
-
-  else
-  {
-    v7 = (*&v5 - 1) & v4;
-  }
-
-  v8 = *(*a1 + 8 * v7);
-  if (!v8)
-  {
-    return 0;
-  }
-
-  result = *v8;
-  if (*v8)
-  {
-    do
-    {
-      v10 = result[1];
-      if (v10 == v4)
-      {
-        v11 = result[2];
-        v12 = v11 == v2;
-        if (v11)
-        {
-          v13 = v11 == v2;
-        }
-
-        else
-        {
-          v13 = 0;
-        }
-
-        if (v13)
-        {
-          v14 = result + 3;
-          v15 = 1;
-          do
-          {
-            v17 = *v14++;
-            v16 = v17;
-            v18 = a2[v15];
-            v12 = v17 == v18;
-            if (v15 >= v2)
-            {
-              break;
-            }
-
-            ++v15;
-          }
-
-          while (v16 == v18);
-        }
-
-        if (v12)
-        {
-          return result;
-        }
-      }
-
-      else
-      {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v5)
-          {
-            v10 %= *&v5;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v5 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
-      }
-
-      result = *result;
-    }
-
-    while (result);
-  }
-
-  return result;
-}
-
-void sub_1A4BEFA60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, objc_super a10)
-{
-  a10.super_class = PXTileStatePool;
-  [(_Unwind_Exception *)&a10 dealloc];
-  _Unwind_Resume(a1);
-}
-
-void sub_1A4BF1D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__48003(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1A4BF1ED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1A4BF2CB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
-{
-  objc_destroyWeak((v14 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1A4BF4900(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
-{
-  objc_destroyWeak((v19 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1A4BF6254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__48838(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-id PXLocalizedStringFromInteger(uint64_t a1)
-{
-  if (PXLocalizedStringFromInteger_onceToken != -1)
-  {
-    dispatch_once(&PXLocalizedStringFromInteger_onceToken, &__block_literal_global_408);
-  }
-
-  v2 = PXLocalizedStringFromInteger_decimalCountFormatter;
-  v3 = [MEMORY[0x1E696AD98] numberWithInteger:a1];
-  v4 = [v2 stringFromNumber:v3];
-
-  return v4;
-}
-
-uint64_t __PXLocalizedStringFromInteger_block_invoke()
-{
-  v0 = objc_alloc_init(MEMORY[0x1E696ADA0]);
-  v1 = PXLocalizedStringFromInteger_decimalCountFormatter;
-  PXLocalizedStringFromInteger_decimalCountFormatter = v0;
-
-  v2 = PXLocalizedStringFromInteger_decimalCountFormatter;
-  v3 = [MEMORY[0x1E695DF58] currentLocale];
-  [v2 setLocale:v3];
-
-  [PXLocalizedStringFromInteger_decimalCountFormatter setGeneratesDecimalNumbers:1];
-  v4 = PXLocalizedStringFromInteger_decimalCountFormatter;
-
-  return [v4 setNumberStyle:1];
-}
-
-id PXLocalizedSharedAlbumsString(void *a1)
-{
-  v1 = a1;
-  if (!v1)
-  {
-    v6 = [MEMORY[0x1E696AAA8] currentHandler];
-    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull PXLocalizedSharedAlbumsString(NSString *__strong _Nonnull)"];
-    [v6 handleFailureInFunction:v7 file:@"PXLocalization.m" lineNumber:60 description:{@"Invalid parameter not satisfying: %@", @"key"}];
-  }
-
-  v2 = [MEMORY[0x1E696AAE8] px_bundle];
-  v3 = [v2 localizedStringForKey:v1 value:&stru_1F1741150 table:@"PhotosUICoreSharedAlbums"];
-  v4 = _Workaround_57367996_IfNecessary(v3);
-
-  return v4;
-}
-
-id PXLocalizedSharedCollectionsString(void *a1)
-{
-  v1 = a1;
-  if (!v1)
-  {
-    v6 = [MEMORY[0x1E696AAA8] currentHandler];
-    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull PXLocalizedSharedCollectionsString(NSString *__strong _Nonnull)"];
-    [v6 handleFailureInFunction:v7 file:@"PXLocalization.m" lineNumber:73 description:{@"Invalid parameter not satisfying: %@", @"key"}];
-  }
-
-  v2 = [MEMORY[0x1E696AAE8] px_bundle];
-  v3 = [v2 localizedStringForKey:v1 value:&stru_1F1741150 table:@"PhotosUICoreSharedCollections"];
-  v4 = _Workaround_57367996_IfNecessary(v3);
-
-  return v4;
-}
-
-id PXLocalizedSharedLibraryString(void *a1)
-{
-  v1 = a1;
-  if (!v1)
-  {
-    v6 = [MEMORY[0x1E696AAA8] currentHandler];
-    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull PXLocalizedSharedLibraryString(NSString *__strong _Nonnull)"];
-    [v6 handleFailureInFunction:v7 file:@"PXLocalization.m" lineNumber:84 description:{@"Invalid parameter not satisfying: %@", @"key"}];
-  }
-
-  v2 = [MEMORY[0x1E696AAE8] px_bundle];
-  v3 = [v2 localizedStringForKey:v1 value:&stru_1F1741150 table:@"PhotosUICoreSharedLibrary"];
-  v4 = _Workaround_57367996_IfNecessary(v3);
-
-  return v4;
-}
-
-id PXLocalizedStoryPromptSuggestionsString(void *a1)
-{
-  v1 = a1;
-  if (!v1)
-  {
-    v6 = [MEMORY[0x1E696AAA8] currentHandler];
-    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull PXLocalizedStoryPromptSuggestionsString(NSString *__strong _Nonnull)"];
-    [v6 handleFailureInFunction:v7 file:@"PXLocalization.m" lineNumber:96 description:{@"Invalid parameter not satisfying: %@", @"key"}];
-  }
-
-  v2 = [MEMORY[0x1E696AAE8] px_bundle];
-  v3 = [v2 localizedStringForKey:v1 value:&stru_1F1741150 table:@"PhotosUICoreStoryPromptSuggestions"];
-  v4 = _Workaround_57367996_IfNecessary(v3);
-
-  return v4;
-}
-
-id PXLocalizedAttributedStringFromTable(void *a1, void *a2)
-{
-  v3 = a1;
-  v4 = a2;
-  v5 = v4;
-  if (v3)
-  {
-    if (v4)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  else
-  {
-    v9 = [MEMORY[0x1E696AAA8] currentHandler];
-    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSAttributedString * _Nonnull PXLocalizedAttributedStringFromTable(NSString *__strong _Nonnull, NSString *__strong _Nonnull)"}];
-    [v9 handleFailureInFunction:v10 file:@"PXLocalization.m" lineNumber:163 description:{@"Invalid parameter not satisfying: %@", @"key"}];
-
-    if (v5)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  v11 = [MEMORY[0x1E696AAA8] currentHandler];
-  v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSAttributedString * _Nonnull PXLocalizedAttributedStringFromTable(NSString *__strong _Nonnull, NSString *__strong _Nonnull)"}];
-  [v11 handleFailureInFunction:v12 file:@"PXLocalization.m" lineNumber:164 description:{@"Invalid parameter not satisfying: %@", @"table"}];
-
-LABEL_3:
-  v6 = [MEMORY[0x1E696AAE8] px_bundle];
-  v7 = [v6 localizedAttributedStringForKey:v3 value:&stru_1F1741150 table:v5];
-
-  return v7;
-}
-
-id PXLocalizedDetailedCountsDescription(void *a1)
-{
-  if (*a1 == 0x7FFFFFFFFFFFFFFFLL || a1[1] == 0x7FFFFFFFFFFFFFFFLL || a1[2] == 0x7FFFFFFFFFFFFFFFLL)
-  {
-    PXAssertGetLog();
-  }
-
-  v3 = PLLocalizedCountDescription();
-
-  return v3;
-}
-
-id PXLocalizedStringForDetailedCounts(void *a1, void *a2, void *a3, void *a4)
-{
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  if (*a1 == 0x7FFFFFFFFFFFFFFFLL || a1[1] == 0x7FFFFFFFFFFFFFFFLL || a1[2] == 0x7FFFFFFFFFFFFFFFLL)
-  {
-    v20 = [MEMORY[0x1E696AAA8] currentHandler];
-    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSString * _Nonnull PXLocalizedStringForDetailedCounts(PXDisplayAssetDetailedCounts, NSString *__strong _Nonnull, NSString *__strong _Nonnull, NSString *__strong _Nonnull)"}];
-    [v20 handleFailureInFunction:v21 file:@"PXLocalization.m" lineNumber:194 description:{@"Invalid parameter not satisfying: %@", @"PXDisplayAssetDetailedCountsIsValid(detailedCounts)"}];
-
-    if (v7)
-    {
-LABEL_9:
-      if (v8)
-      {
-        goto LABEL_10;
-      }
-
-LABEL_27:
-      v24 = [MEMORY[0x1E696AAA8] currentHandler];
-      v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSString * _Nonnull PXLocalizedStringForDetailedCounts(PXDisplayAssetDetailedCounts, NSString *__strong _Nonnull, NSString *__strong _Nonnull, NSString *__strong _Nonnull)"}];
-      [v24 handleFailureInFunction:v25 file:@"PXLocalization.m" lineNumber:196 description:{@"Invalid parameter not satisfying: %@", @"videosKey"}];
-
-      if (v9)
-      {
-        goto LABEL_11;
-      }
-
-      goto LABEL_28;
-    }
-  }
-
-  else if (v7)
-  {
-    goto LABEL_9;
-  }
-
-  v22 = [MEMORY[0x1E696AAA8] currentHandler];
-  v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSString * _Nonnull PXLocalizedStringForDetailedCounts(PXDisplayAssetDetailedCounts, NSString *__strong _Nonnull, NSString *__strong _Nonnull, NSString *__strong _Nonnull)"}];
-  [v22 handleFailureInFunction:v23 file:@"PXLocalization.m" lineNumber:195 description:{@"Invalid parameter not satisfying: %@", @"photosKey"}];
-
-  if (!v8)
-  {
-    goto LABEL_27;
-  }
-
-LABEL_10:
-  if (v9)
-  {
-    goto LABEL_11;
-  }
-
-LABEL_28:
-  v26 = [MEMORY[0x1E696AAA8] currentHandler];
-  v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSString * _Nonnull PXLocalizedStringForDetailedCounts(PXDisplayAssetDetailedCounts, NSString *__strong _Nonnull, NSString *__strong _Nonnull, NSString *__strong _Nonnull)"}];
-  [v26 handleFailureInFunction:v27 file:@"PXLocalization.m" lineNumber:197 description:{@"Invalid parameter not satisfying: %@", @"othersKey"}];
-
-LABEL_11:
-  v12 = *a1 != 0;
-  v13 = a1[2];
-  if (!a1[1])
-  {
-    v12 = 1;
-  }
-
-  if (v13)
-  {
-    v14 = 1;
-  }
-
-  else
-  {
-    v14 = v12;
-  }
-
-  if (v14)
-  {
-    v15 = v9;
-  }
-
-  else
-  {
-    v15 = v8;
-  }
-
-  if (*a1 == 0 || a1[1] != 0 || v13 != 0)
-  {
-    v16 = v15;
-  }
-
-  else
-  {
-    v16 = v7;
-  }
-
-  v17 = v16;
-  v18 = PXLocalizedStringFromTable(v17, @"PhotosUICore");
-
-  return v18;
-}
-
-id PXLocalizedStringForDetailedCountsWithUsage(void *a1, uint64_t a2)
-{
-  if ((a2 & 0xFFFFFFFFFFFFFFFELL) == 2)
-  {
-    v2 = a1[1];
-    if (v2)
-    {
-      v3 = (*a1 != 0) + 1;
-    }
-
-    else
-    {
-      v3 = *a1 != 0;
-    }
-
-    v4 = a1[2];
-    if (v4)
-    {
-      ++v3;
-    }
-
-    if (v3 >= 2)
-    {
-      v5 = v2 + *a1 + v4;
-      a1[1] = 0;
-      a1[2] = v5;
-      *a1 = 0;
-    }
-  }
-
-  else if (a2 == 4)
-  {
-    v6 = MEMORY[0x1E696ADA0];
-    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1[1] + *a1 + a1[2]];
-    v8 = [v6 localizedStringFromNumber:v7 numberStyle:1];
-
-    goto LABEL_12;
-  }
-
-  v10 = *a1;
-  v11 = a1[2];
-  v8 = PXLocalizedDetailedCountsDescription(&v10);
-LABEL_12:
-
-  return v8;
-}
-
-void PXLocalizedCountsDescription(void *a1)
-{
-  PXLocalizedStringFromTable(a1, @"PhotosUICore");
-  objc_claimAutoreleasedReturnValue();
-  PXLocalizedStringWithValidatedFormat();
-}
-
-void PXLocalizedCollectionDetailedCountsDescription(uint64_t a1, uint64_t a2)
-{
-  if (a1 != 0x7FFFFFFFFFFFFFFFLL && a2 != 0x7FFFFFFFFFFFFFFFLL)
-  {
-    if (a1 && a2)
-    {
-      PXLocalizedStringFromTable(@"PXCollectionDetailedCountDescriptionAlbumsFolders", @"PhotosUICore");
-      objc_claimAutoreleasedReturnValue();
-    }
-
-    else
-    {
-      if (!a2)
-      {
-        PXLocalizedStringFromTable(@"PXCollectionDetailedCountDescriptionAlbums", @"PhotosUICore");
-        objc_claimAutoreleasedReturnValue();
-        PXLocalizedStringWithValidatedFormat();
-      }
-
-      PXLocalizedStringFromTable(@"PXCollectionDetailedCountDescriptionFolders", @"PhotosUICore");
-      objc_claimAutoreleasedReturnValue();
-    }
-
-    PXLocalizedStringWithValidatedFormat();
-  }
-
-  PXAssertGetLog();
-}
-
-id PXLocalizedStringForPersonOrPetAndVisibility(void *a1, uint64_t a2, void *a3)
-{
-  v5 = a1;
-  v6 = a3;
-  if (!v6)
-  {
-    v12 = [MEMORY[0x1E696AAA8] currentHandler];
-    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSString * _Nonnull PXLocalizedStringForPersonOrPetAndVisibility(id<PXPerson>  _Nullable __strong, PXPeoplePetsHomeVisibility, NSString *__strong _Nonnull)"}];
-    [v12 handleFailureInFunction:v13 file:@"PXLocalization.m" lineNumber:255 description:{@"Invalid parameter not satisfying: %@", @"key"}];
-  }
-
-  v7 = v5;
-  if (objc_opt_class() && (objc_opt_isKindOfClass() & 1) != 0)
-  {
-    v8 = v7;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = [PXPeopleUtilities locKeyForPersonOrPet:v8 withVisibility:a2 key:v6];
-  v10 = PXLocalizedStringFromTable(v9, @"PhotosUICore");
-
-  return v10;
-}
-
-id PXLocalizedStringForPeoplePetsHomeTitle(uint64_t a1)
-{
-  v1 = [PXPeopleUtilities locKeyForPersonOrPet:0 withVisibility:a1 key:@"PXPeopleTitle"];
-  v2 = PXLocalizedStringFromTable(v1, @"PhotosUICore");
-
-  return v2;
-}
-
-id PXLocalizedStringForPeople(void *a1, void *a2)
-{
-  v3 = a1;
-  v4 = a2;
-  if (!v4)
-  {
-    v8 = [MEMORY[0x1E696AAA8] currentHandler];
-    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSString * _Nonnull PXLocalizedStringForPeople(id<PXFastEnumeration>  _Nullable __strong, NSString *__strong _Nonnull)"}];
-    [v8 handleFailureInFunction:v9 file:@"PXLocalization.m" lineNumber:266 description:{@"Invalid parameter not satisfying: %@", @"key"}];
-  }
-
-  v5 = [PXPeopleUtilities locKeyForPeople:v3 key:v4];
-  v6 = PXLocalizedStringFromTable(v5, @"PhotosUICore");
-
-  return v6;
-}
-
-id PXLocalizedAttributedStringForPersonOrPet(void *a1, uint64_t a2, void *a3, void *a4)
-{
-  v24[1] = *MEMORY[0x1E69E9840];
-  v7 = a1;
-  v8 = a3;
-  v9 = a4;
-  if (!v9)
-  {
-    v20 = [MEMORY[0x1E696AAA8] currentHandler];
-    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSAttributedString * _Nonnull PXLocalizedAttributedStringForPersonOrPet(id<PXPerson>  _Nullable __strong, PXPeoplePetsHomeVisibility, NSArray<NSTermOfAddress *> * _Nullable __strong, NSString *__strong _Nonnull)"}];
-    [v20 handleFailureInFunction:v21 file:@"PXLocalization.m" lineNumber:272 description:{@"Invalid parameter not satisfying: %@", @"key"}];
-  }
-
-  v10 = v7;
-  if (objc_opt_class() && (objc_opt_isKindOfClass() & 1) != 0)
-  {
-    v11 = v10;
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  v12 = [MEMORY[0x1E696AAE8] px_bundle];
-  v13 = [PXPeopleUtilities locKeyForPersonOrPet:v11 withVisibility:a2 key:v9];
-  v14 = [v12 localizedAttributedStringForKey:v13 value:&stru_1F1741150 table:@"PhotosUICore"];
-
-  v15 = MEMORY[0x1E696AAB0];
-  v23 = *MEMORY[0x1E696A498];
-  if (v8)
-  {
-    v22 = v8;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
-  }
-
-  else
-  {
-    v16 = MEMORY[0x1E695E0F0];
-  }
-
-  v24[0] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
-  v18 = [v15 localizedAttributedStringWithFormat:v14 context:v17];
-
-  if (v8)
-  {
-  }
-
-  return v18;
-}
-
-id PXLocalizedSharedLibraryAttributedString(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  v23[1] = *MEMORY[0x1E69E9840];
-  v10 = a1;
-  v11 = a2;
-  if (!v11)
-  {
-    v19 = [MEMORY[0x1E696AAA8] currentHandler];
-    v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSAttributedString * _Nonnull PXLocalizedSharedLibraryAttributedString(NSArray<NSTermOfAddress *> * _Nullable __strong, NSString *__strong _Nonnull, ...)"}];
-    [v19 handleFailureInFunction:v20 file:@"PXLocalization.m" lineNumber:283 description:{@"Invalid parameter not satisfying: %@", @"key"}];
-  }
-
-  v12 = [MEMORY[0x1E696AAE8] px_bundle];
-  v13 = [v12 localizedAttributedStringForKey:v11 value:&stru_1F1741150 table:@"PhotosUICoreSharedLibrary"];
-
-  v14 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v22 = *MEMORY[0x1E696A498];
-  if (v10)
-  {
-    v21 = v10;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
-  }
-
-  else
-  {
-    v15 = MEMORY[0x1E695E0F0];
-  }
-
-  v23[0] = v15;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-  v17 = [v14 initWithFormat:v13 options:0 locale:0 context:v16 arguments:&a9];
-
-  if (v10)
-  {
-  }
-
-  return v17;
-}
-
-id PXLocalizationKeyForMediaType(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  v10 = v9;
-  v11 = v7;
-  if (a1 != 1)
-  {
-    v12 = v9;
-    if (a1 != 2)
-    {
-      goto LABEL_5;
-    }
-
-    v11 = v8;
-  }
-
-  v12 = v11;
-
-LABEL_5:
-
-  return v12;
-}
-
-void PXLocalizationKeyByAddingMediaSpecificSuffixForAssets(void *a1, void *a2)
-{
-  v3 = a2;
-  v4 = a1;
-  [v3 count];
-  PXMediaTypeForAssets();
-}
-
-id PXLocalizationKeyByAddingMediaSpecificSuffix(void *a1, uint64_t a2, uint64_t a3)
-{
-  v5 = a1;
-  v6 = v5;
-  if (a2 >= 2)
-  {
-    v7 = [v5 stringByAppendingString:@"MULTIPLE_"];
-
-    v6 = v7;
-  }
-
-  v8 = @"ITEM";
-  if (a3 == 2)
-  {
-    v8 = @"VIDEO";
-  }
-
-  if (a3 == 1)
-  {
-    v9 = @"PHOTO";
-  }
-
-  else
-  {
-    v9 = v8;
-  }
-
-  v10 = [v6 stringByAppendingString:v9];
-
-  return v10;
 }

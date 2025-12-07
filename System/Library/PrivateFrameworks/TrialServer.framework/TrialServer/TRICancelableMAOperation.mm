@@ -78,7 +78,7 @@ intptr_t __41__TRICancelableMAOperation_addSemaphore___block_invoke(uint64_t a1,
 
 void __34__TRICancelableMAOperation_cancel__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = v2;
   if ((v2[24] & 1) == 0)
@@ -98,57 +98,55 @@ void __34__TRICancelableMAOperation_cancel__block_invoke(uint64_t a1, void *a2)
       }
 
       *buf = 138543362;
-      v22 = v5;
+      v21 = v5;
       _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "MA asset download activity was cancelled %{public}@", buf, 0xCu);
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
-    v6 = *(v3 + 2);
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v6 = v3[2];
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         v10 = 0;
         do
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          dispatch_semaphore_signal(*(*(&v16 + 1) + 8 * v10++));
+          dispatch_semaphore_signal(*(*(&v15 + 1) + 8 * v10++));
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v8);
     }
 
-    [*(v3 + 2) removeAllObjects];
+    [v3[2] removeAllObjects];
     v11 = objc_opt_new();
-    v12 = [*(v3 + 4) assetSelector];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __34__TRICancelableMAOperation_cancel__block_invoke_489;
-    v14[3] = &unk_279DE25E8;
-    v15 = v3;
-    [v11 cancelActivityForSelector:v12 completion:v14];
+    v12 = [v3[4] assetSelector];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __34__TRICancelableMAOperation_cancel__block_invoke_489;
+    v13[3] = &unk_279DE25E8;
+    v14 = v3;
+    [v11 cancelActivityForSelector:v12 completion:v13];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __34__TRICancelableMAOperation_cancel__block_invoke_489(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = TRILogCategory_Server();
   v6 = v5;
@@ -157,11 +155,11 @@ void __34__TRICancelableMAOperation_cancel__block_invoke_489(uint64_t a1, uint64
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v7 = [*(*(a1 + 32) + 32) assetSelector];
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2114;
-      v12 = v4;
-      _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Upon fetch operation being cancelled, failed to cancel activity for MAAutoAsset %{public}@: %{public}@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v4;
+      _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Upon fetch operation being cancelled, failed to cancel activity for MAAutoAsset %{public}@: %{public}@", &v8, 0x16u);
 LABEL_6:
     }
   }
@@ -169,13 +167,11 @@ LABEL_6:
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [*(*(a1 + 32) + 32) assetSelector];
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Upon fetch operation being cancelled, cancelled activity for MAAutoAsset: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Upon fetch operation being cancelled, cancelled activity for MAAutoAsset: %{public}@", &v8, 0xCu);
     goto LABEL_6;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCurrentAsset:(id)asset

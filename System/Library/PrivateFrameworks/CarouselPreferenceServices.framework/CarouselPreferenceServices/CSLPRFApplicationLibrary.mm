@@ -8,31 +8,31 @@
 
 + (id)_withClassLock_libraryForLocation:(unint64_t)location
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (location >= 4)
   {
-    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"location < __locationCount"];
+    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"location < __locationCount"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v17 = NSStringFromSelector(a2);
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
+      v16 = NSStringFromSelector(a2);
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
       *buf = 138544642;
-      v21 = v17;
-      v22 = 2114;
-      v23 = v19;
-      v24 = 2048;
+      v20 = v16;
+      v21 = 2114;
+      v22 = v18;
+      v23 = 2048;
       selfCopy = self;
-      v26 = 2114;
-      v27 = @"CSLPRFApplicationLibrary.m";
-      v28 = 1024;
-      v29 = 51;
-      v30 = 2114;
-      v31 = v16;
+      v25 = 2114;
+      v26 = @"CSLPRFApplicationLibrary.m";
+      v27 = 1024;
+      v28 = 51;
+      v29 = 2114;
+      v30 = v15;
       _os_log_error_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v16 UTF8String];
+    [v15 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x22CEAA144);
@@ -49,21 +49,21 @@
   {
     if (location > 1)
     {
-      v10 = [CSLPRFCompositeApplicationLibrary alloc];
+      v9 = [CSLPRFCompositeApplicationLibrary alloc];
       if (location == 2)
       {
-        v11 = +[CSLPRFWatchApplicationLibrary libraryForWatchApplications];
-        v12 = objc_alloc_init(CSLPRFBulletinBoardApplicationLibrary);
+        v10 = +[CSLPRFWatchApplicationLibrary libraryForWatchApplications];
+        v11 = objc_alloc_init(CSLPRFBulletinBoardApplicationLibrary);
       }
 
       else
       {
-        v11 = objc_alloc_init(CSLPRFLocalApplicationLibrary);
-        v12 = +[CSLPRFWatchApplicationLibrary libraryForWatchApplications];
+        v10 = objc_alloc_init(CSLPRFLocalApplicationLibrary);
+        v11 = +[CSLPRFWatchApplicationLibrary libraryForWatchApplications];
       }
 
-      v13 = v12;
-      v7 = [(CSLPRFCompositeApplicationLibrary *)v10 initWithPrimaryLibrary:v11 secondaryLibrary:v12];
+      v12 = v11;
+      v7 = [(CSLPRFCompositeApplicationLibrary *)v9 initWithPrimaryLibrary:v10 secondaryLibrary:v11];
 
       goto LABEL_5;
     }
@@ -82,38 +82,36 @@
   v7 = v6;
 LABEL_5:
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (id)libraryForLocation:(unint64_t)location
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (location >= 4)
   {
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"location < __locationCount"];
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"location < __locationCount"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v10 = NSStringFromSelector(a2);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v9 = NSStringFromSelector(a2);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       *buf = 138544642;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v12;
-      v17 = 2048;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v11;
+      v16 = 2048;
       selfCopy = self;
-      v19 = 2114;
-      v20 = @"CSLPRFApplicationLibrary.m";
-      v21 = 1024;
-      v22 = 39;
-      v23 = 2114;
-      v24 = v9;
+      v18 = 2114;
+      v19 = @"CSLPRFApplicationLibrary.m";
+      v20 = 1024;
+      v21 = 39;
+      v22 = 2114;
+      v23 = v8;
       _os_log_error_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v9 UTF8String];
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x22CEAA300);
@@ -127,38 +125,37 @@ LABEL_5:
   }
 
   os_unfair_lock_unlock(&__lock);
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (id)sharedLibraryForLocation:(unint64_t)location
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (location >= 4)
   {
-    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"location < __locationCount"];
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"location < __locationCount"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v12 = NSStringFromSelector(a2);
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v11 = NSStringFromSelector(a2);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138544642;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v14;
-      v19 = 2048;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v13;
+      v18 = 2048;
       selfCopy = self;
-      v21 = 2114;
-      v22 = @"CSLPRFApplicationLibrary.m";
-      v23 = 1024;
-      v24 = 27;
-      v25 = 2114;
-      v26 = v11;
+      v20 = 2114;
+      v21 = @"CSLPRFApplicationLibrary.m";
+      v22 = 1024;
+      v23 = 27;
+      v24 = 2114;
+      v25 = v10;
       _os_log_error_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v11 UTF8String];
+    [v10 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x22CEAA4D0);
@@ -176,7 +173,6 @@ LABEL_5:
   }
 
   os_unfair_lock_unlock(&__lock);
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

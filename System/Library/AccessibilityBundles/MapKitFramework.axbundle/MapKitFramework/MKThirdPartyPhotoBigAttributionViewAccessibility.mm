@@ -46,11 +46,11 @@
   return v13;
 }
 
-uint64_t __70__MKThirdPartyPhotoBigAttributionViewAccessibility_accessibilityLabel__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+id *__70__MKThirdPartyPhotoBigAttributionViewAccessibility_accessibilityLabel__block_invoke(id *result, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   if (a2)
   {
-    result = [*(result + 32) replaceCharactersInRange:a3 withString:{a4, *(result + 40)}];
+    result = [result[4] replaceCharactersInRange:a3 withString:{a4, result[5]}];
     *a5 = 1;
   }
 

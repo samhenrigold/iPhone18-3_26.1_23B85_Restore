@@ -39,21 +39,20 @@
 {
   v4 = sub_1C1B94588();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v4);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = &v14 - v10;
+  v6 = MEMORY[0x1EEE9AC00](v4);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v10 = &v14 - v9;
   sub_1C1B94558();
   sub_1C1B94558();
-  sub_1C1B95128();
+  v11 = sub_1C1B95128();
   sub_1C1AC53E4();
   v12 = sub_1C1B95298();
-  sub_1C1B94BA8();
+  sub_1C1B94BA8(v11, &dword_1C1AA2000, v12, "Manual impression tracking is no longer supported. This method will be removed in a future iOS update.", 102, 2, MEMORY[0x1E69E7CC0]);
 
   v13 = *(v5 + 8);
-  v13(v9, v4);
-  v13(v11, v4);
+  v13(v8, v4);
+  v13(v10, v4);
 }
 
 - (APPCLifecycleMetricsHelper)init

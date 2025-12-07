@@ -10,73 +10,73 @@
 - (NTKPoodleBackgroundView)initWithDevice:(id)device
 {
   deviceCopy = device;
-  sub_16F44(deviceCopy, v37);
-  v36.receiver = self;
-  v36.super_class = NTKPoodleBackgroundView;
-  v6 = [(NTKPoodleBackgroundView *)&v36 initWithFrame:v38, v39, v40, v41];
+  sub_16F44(deviceCopy, v38);
+  v37.receiver = self;
+  v37.super_class = NTKPoodleBackgroundView;
+  v6 = [(NTKPoodleBackgroundView *)&v37 initWithFrame:v39, v40, v41, v42];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_device, device);
-    [(NTKPoodleBackgroundView *)v7 dialWidth];
-    v9 = v8;
-    v10 = sub_16AD8();
-    v11 = +[CALayer layer];
+    dialWidth = [(NTKPoodleBackgroundView *)v7 dialWidth];
+    v10 = v9;
+    v11 = sub_16AD8(dialWidth);
+    v12 = +[CALayer layer];
     dialInnerLayer = v7->_dialInnerLayer;
-    v7->_dialInnerLayer = v11;
+    v7->_dialInnerLayer = v12;
 
     [(CALayer *)v7->_dialInnerLayer setCornerCurve:kCACornerCurveCircular];
     [(CALayer *)v7->_dialInnerLayer setMasksToBounds:1];
-    v13 = v7->_dialInnerLayer;
-    v14 = +[UIColor grayColor];
-    -[CALayer setBackgroundColor:](v13, "setBackgroundColor:", [v14 CGColor]);
+    v14 = v7->_dialInnerLayer;
+    v15 = +[UIColor grayColor];
+    -[CALayer setBackgroundColor:](v14, "setBackgroundColor:", [v15 CGColor]);
 
-    [(CALayer *)v7->_dialInnerLayer setActions:v10];
+    [(CALayer *)v7->_dialInnerLayer setActions:v11];
     layer = [(NTKPoodleBackgroundView *)v7 layer];
     [layer addSublayer:v7->_dialInnerLayer];
 
-    v16 = +[CALayer layer];
+    v17 = +[CALayer layer];
     dialOuterLayer = v7->_dialOuterLayer;
-    v7->_dialOuterLayer = v16;
+    v7->_dialOuterLayer = v17;
 
-    [(CALayer *)v7->_dialOuterLayer setBorderWidth:v9 + 1.0];
+    [(CALayer *)v7->_dialOuterLayer setBorderWidth:v10 + 1.0];
     [(CALayer *)v7->_dialOuterLayer setCornerCurve:kCACornerCurveCircular];
     [(CALayer *)v7->_dialOuterLayer setMasksToBounds:1];
-    v18 = v7->_dialOuterLayer;
-    v19 = +[UIColor darkGrayColor];
-    -[CALayer setBorderColor:](v18, "setBorderColor:", [v19 CGColor]);
+    v19 = v7->_dialOuterLayer;
+    v20 = +[UIColor darkGrayColor];
+    -[CALayer setBorderColor:](v19, "setBorderColor:", [v20 CGColor]);
 
-    [(CALayer *)v7->_dialOuterLayer setActions:v10];
+    [(CALayer *)v7->_dialOuterLayer setActions:v11];
     layer2 = [(NTKPoodleBackgroundView *)v7 layer];
     [layer2 addSublayer:v7->_dialOuterLayer];
 
-    v21 = +[CALayer layer];
+    v22 = +[CALayer layer];
     dialInnerBorderLayer = v7->_dialInnerBorderLayer;
-    v7->_dialInnerBorderLayer = v21;
+    v7->_dialInnerBorderLayer = v22;
 
     [(CALayer *)v7->_dialInnerBorderLayer setCornerCurve:kCACornerCurveCircular];
     [(CALayer *)v7->_dialInnerBorderLayer setMasksToBounds:1];
     [(CALayer *)v7->_dialInnerBorderLayer setBorderWidth:0.0];
-    v23 = v7->_dialInnerBorderLayer;
-    v24 = +[UIColor orangeColor];
-    -[CALayer setBorderColor:](v23, "setBorderColor:", [v24 CGColor]);
+    v24 = v7->_dialInnerBorderLayer;
+    v25 = +[UIColor orangeColor];
+    -[CALayer setBorderColor:](v24, "setBorderColor:", [v25 CGColor]);
 
-    [(CALayer *)v7->_dialInnerBorderLayer setActions:v10];
+    [(CALayer *)v7->_dialInnerBorderLayer setActions:v11];
     layer3 = [(NTKPoodleBackgroundView *)v7 layer];
     [layer3 addSublayer:v7->_dialInnerBorderLayer];
 
-    v26 = +[CALayer layer];
+    v27 = +[CALayer layer];
     dialOuterBorderLayer = v7->_dialOuterBorderLayer;
-    v7->_dialOuterBorderLayer = v26;
+    v7->_dialOuterBorderLayer = v27;
 
     [(CALayer *)v7->_dialOuterBorderLayer setCornerCurve:kCACornerCurveCircular];
     [(CALayer *)v7->_dialOuterBorderLayer setMasksToBounds:1];
     [(CALayer *)v7->_dialOuterBorderLayer setBorderWidth:0.0];
-    v28 = v7->_dialOuterBorderLayer;
-    v29 = +[UIColor orangeColor];
-    -[CALayer setBorderColor:](v28, "setBorderColor:", [v29 CGColor]);
+    v29 = v7->_dialOuterBorderLayer;
+    v30 = +[UIColor orangeColor];
+    -[CALayer setBorderColor:](v29, "setBorderColor:", [v30 CGColor]);
 
-    [(CALayer *)v7->_dialOuterBorderLayer setActions:v10];
+    [(CALayer *)v7->_dialOuterBorderLayer setActions:v11];
     layer4 = [(NTKPoodleBackgroundView *)v7 layer];
     [layer4 addSublayer:v7->_dialOuterBorderLayer];
 
@@ -84,10 +84,10 @@
     [layer5 setMasksToBounds:1];
 
     layer6 = [(NTKPoodleBackgroundView *)v7 layer];
-    v33 = sub_16AD8();
-    [layer6 setActions:v33];
+    v34 = sub_16AD8(layer6);
+    [layer6 setActions:v34];
 
-    v34 = v7;
+    v35 = v7;
   }
 
   return v7;

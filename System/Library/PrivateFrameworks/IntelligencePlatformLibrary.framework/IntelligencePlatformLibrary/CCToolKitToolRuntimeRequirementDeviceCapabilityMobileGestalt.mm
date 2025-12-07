@@ -232,7 +232,6 @@ LABEL_42:
           NSStringFromClass(v35);
           errorCopy = error;
           v38 = v37 = dataCopy;
-          v39 = *&v7[*v10];
           v11 = CCSkipFieldErrorForMessage();
 
           dataCopy = v37;
@@ -258,22 +257,21 @@ LABEL_42:
 LABEL_45:
   if (!*&v7[*v10])
   {
-    v43 = 1;
+    v41 = 1;
     goto LABEL_49;
   }
 
 LABEL_46:
-  v40 = objc_opt_class();
-  v11 = NSStringFromClass(v40);
-  v41 = *&v7[*v10];
-  v42 = CCInvalidBufferErrorForMessage();
+  v39 = objc_opt_class();
+  v11 = NSStringFromClass(v39);
+  v40 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_47:
-  v43 = 0;
+  v41 = 0;
 LABEL_49:
 
-  return v43;
+  return v41;
 }
 
 - (CCToolKitToolRuntimeRequirementDeviceCapabilityMobileGestalt)initWithKey:(id)key value:(id)value error:(id *)error

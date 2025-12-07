@@ -45,7 +45,7 @@
   return 0;
 }
 
-uint64_t __58__AVAssetCustomURLBridgeForNSURLSession__cancelRequestID___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+void *__58__AVAssetCustomURLBridgeForNSURLSession__cancelRequestID___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   result = [a3 requestID];
   if (result == *(a1 + 40))

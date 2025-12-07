@@ -14,13 +14,19 @@
   v7 = _Block_copy(completion);
   if (v7)
   {
-    *(swift_allocObject() + 16) = v7;
+    v8 = swift_allocObject();
+    *(v8 + 16) = v7;
     v7 = thunk for @escaping @callee_unowned @convention(block) () -> ()partial apply;
+  }
+
+  else
+  {
+    v8 = 0;
   }
 
   selfCopy = self;
   NetworkActivityTracing.start(label:activate:completion:)(label);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v7, v8);
 }
 
 - (void)tracingCancelWithCompletion:(id)completion
@@ -42,7 +48,7 @@
 
   selfCopy = self;
   NetworkActivityTracing.tracingCancel(completion:)(v7, v6);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v7, v6);
 }
 
 - (void)stopWithLabel:(int64_t)label reason:(int64_t)reason error:(id)error completion:(id)completion
@@ -50,14 +56,20 @@
   v9 = _Block_copy(completion);
   if (v9)
   {
-    *(swift_allocObject() + 16) = v9;
+    v10 = swift_allocObject();
+    *(v10 + 16) = v9;
     v9 = thunk for @escaping @callee_unowned @convention(block) () -> ()partial apply;
+  }
+
+  else
+  {
+    v10 = 0;
   }
 
   selfCopy = self;
   errorCopy = error;
   NetworkActivityTracing.stop(label:reason:error:completion:)(label);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v9);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v9, v10);
 }
 
 + (SNNetworkActivityTracingInternal)shared
@@ -72,13 +84,19 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = thunk for @escaping @callee_unowned @convention(block) () -> ()partial apply;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   selfCopy = self;
   NetworkActivityTracing.activate(label:completion:)(label);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v6);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v6, v7);
 }
 
 - (void)currentNetworkActivityToken:(id)token
@@ -100,7 +118,7 @@
 
   selfCopy = self;
   NetworkActivityTracing.currentNetworkActivityToken(_:)(v7, v6);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v7, v6);
 }
 
 @end

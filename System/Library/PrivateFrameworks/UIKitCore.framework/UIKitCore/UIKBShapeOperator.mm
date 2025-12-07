@@ -161,8 +161,8 @@ LABEL_9:
   v27 = v26;
   v29 = v28;
   v30 = [UIKBShape alloc];
-  geometry = [v8 geometry];
-  height = [(UIKBShape *)v30 initWithGeometry:geometry frame:v15 paddedFrame:v17, v19, v21, v23, v25, v27, v29];
+  v31 = objc_msgSend_geometry(v8);
+  height = [(UIKBShape *)v30 initWithGeometry:v31 frame:v15 paddedFrame:v17, v19, v21, v23, v25, v27, v29];
 
   [(UIKBShape *)height setScaled:1];
   [(UIKBShape *)height setOriginalShape:v8];
@@ -176,9 +176,9 @@ LABEL_10:
   height = factor.height;
   width = factor.width;
   geometryCopy = geometry;
-  geometry = [geometryCopy geometry];
-  v9 = geometry;
-  if (geometryCopy && geometry && ![geometryCopy scaled])
+  v8 = objc_msgSend_geometry(geometryCopy);
+  v9 = v8;
+  if (geometryCopy && v8 && ![geometryCopy scaled])
   {
     v11 = [v9 copy];
     [v11 x];
@@ -464,12 +464,12 @@ LABEL_10:
 
             v76 = v14;
             v81 = v16;
-            geometry = [v20 geometry];
+            v52 = objc_msgSend_geometry(v20);
 
-            if (geometry)
+            if (v52)
             {
-              geometry2 = [v20 geometry];
-              [geometry2 paddedFrameWithResolvedFrame:{v23, v25, v27, v29}];
+              v53 = objc_msgSend_geometry(v20);
+              [v53 paddedFrameWithResolvedFrame:{v23, v25, v27, v29}];
               v55 = v54;
               v57 = v56;
               v59 = v58;
@@ -487,8 +487,8 @@ LABEL_10:
             }
 
             v66 = [UIKBShape alloc];
-            geometry3 = [v20 geometry];
-            height = [(UIKBShape *)v66 initWithGeometry:geometry3 frame:v23 paddedFrame:v25, v27, v29, v55, v57, v59, v61];
+            v67 = objc_msgSend_geometry(v20);
+            height = [(UIKBShape *)v66 initWithGeometry:v67 frame:v23 paddedFrame:v25, v27, v29, v55, v57, v59, v61];
 
             [(UIKBShape *)height setOriginalShape:v20];
             width = v74;
@@ -551,10 +551,10 @@ LABEL_10:
             }
 
             v18 = *(*(&v95 + 1) + 8 * i);
-            if (v15 || ([*(*(&v95 + 1) + 8 * i) geometry], v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "isTemplate"), v19, !v20))
+            if (v15 || (objc_msgSend_geometry(*(*(&v95 + 1) + 8 * i)), v19 = objc_claimAutoreleasedReturnValue(), v20 = [v19 isTemplate], v19, !v20))
             {
-              geometry = [v18 geometry];
-              [geometry w];
+              v24 = objc_msgSend_geometry(v18);
+              [v24 w];
               v26 = v25 == 100;
 
               if (v26)
@@ -564,9 +564,9 @@ LABEL_10:
 
               else
               {
-                geometry2 = [v18 geometry];
+                v27 = objc_msgSend_geometry(v18);
                 [shapeCopy frame];
-                [geometry2 frameWithContainingFrame:?];
+                [v27 frameWithContainingFrame:?];
                 v29 = v28;
 
                 v12 = v12 + v29;
@@ -576,9 +576,9 @@ LABEL_10:
             else
             {
               v15 = v18;
-              geometry3 = [v15 geometry];
+              v21 = objc_msgSend_geometry(v15);
               [shapeCopy frame];
-              [geometry3 frameWithContainingFrame:?];
+              [v21 frameWithContainingFrame:?];
               v23 = v22;
 
               v12 = v12 + v23 * ++v13;
@@ -660,9 +660,9 @@ LABEL_10:
         *(&v103 + 1) = v45;
         *&v104 = v46;
         *(&v104 + 1) = v47;
-        geometry4 = [v43 geometry];
+        v48 = objc_msgSend_geometry(v43);
 
-        if (geometry4)
+        if (v48)
         {
           v91[0] = MEMORY[0x1E69E9820];
           v91[1] = 3221225472;
@@ -675,8 +675,8 @@ LABEL_10:
           [UIKBGeometry performOperations:v91 withScale:?];
         }
 
-        geometry5 = [v43 geometry];
-        [geometry5 w];
+        v49 = objc_msgSend_geometry(v43);
+        [v49 w];
         v51 = v50 == 100;
 
         if (v51)
@@ -684,8 +684,8 @@ LABEL_10:
           v100[6] = v36;
         }
 
-        geometry6 = [v43 geometry];
-        [geometry6 x];
+        v52 = objc_msgSend_geometry(v43);
+        [v52 x];
         v54 = v53 == 100;
 
         v55 = v100;
@@ -715,9 +715,9 @@ LABEL_10:
         *(&v89 + 1) = v62;
         *&v90 = v63;
         *(&v90 + 1) = v64;
-        geometry7 = [v43 geometry];
+        v65 = objc_msgSend_geometry(v43);
 
-        if (geometry7)
+        if (v65)
         {
           v81[0] = MEMORY[0x1E69E9820];
           v81[1] = 3221225472;
@@ -731,8 +731,8 @@ LABEL_10:
         }
 
         v66 = [UIKBShape alloc];
-        geometry8 = [v43 geometry];
-        v68 = [(UIKBShape *)v66 initWithGeometry:geometry8 frame:v100[4] paddedFrame:v100[5], v100[6], v100[7], v86[4], v86[5], v86[6], v86[7]];
+        v67 = objc_msgSend_geometry(v43);
+        v68 = [(UIKBShape *)v66 initWithGeometry:v67 frame:v100[4] paddedFrame:v100[5], v100[6], v100[7], v86[4], v86[5], v86[6], v86[7]];
         [v78 addObject:v68];
 
         v69 = v39 + 1;
@@ -804,7 +804,7 @@ LABEL_52:
 
 void __65__UIKBShapeOperator_shapesByElaboratingShapes_insideShape_count___block_invoke(uint64_t a1)
 {
-  v7 = [*(a1 + 32) geometry];
+  v7 = objc_msgSend_geometry(*(a1 + 32));
   [*(a1 + 40) frame];
   [v7 frameWithContainingFrame:?];
   v2 = *(*(a1 + 48) + 8);
@@ -816,7 +816,7 @@ void __65__UIKBShapeOperator_shapesByElaboratingShapes_insideShape_count___block
 
 void __65__UIKBShapeOperator_shapesByElaboratingShapes_insideShape_count___block_invoke_2(uint64_t a1)
 {
-  v7 = [*(a1 + 32) geometry];
+  v7 = objc_msgSend_geometry(*(a1 + 32));
   [v7 paddedFrameWithResolvedFrame:{*(*(*(a1 + 48) + 8) + 32), *(*(*(a1 + 48) + 8) + 40), *(*(*(a1 + 48) + 8) + 48), *(*(*(a1 + 48) + 8) + 56)}];
   v2 = *(*(a1 + 40) + 8);
   v2[4] = v3;
@@ -915,8 +915,8 @@ void __65__UIKBShapeOperator_shapesByElaboratingShapes_insideShape_count___block
           v36 = v35;
           v38 = v37;
           v39 = [UIKBShape alloc];
-          geometry = [v23 geometry];
-          v41 = [(UIKBShape *)v39 initWithGeometry:geometry frame:v43 + v21 paddedFrame:v29, v31, v44, v43 + v21 + v27, v34, v36, v38];
+          v40 = objc_msgSend_geometry(v23);
+          v41 = [(UIKBShape *)v39 initWithGeometry:v40 frame:v43 + v21 paddedFrame:v29, v31, v44, v43 + v21 + v27, v34, v36, v38];
           [array addObject:v41];
 
           v21 = v21 + v31;
@@ -1190,8 +1190,8 @@ void __65__UIKBShapeOperator_shapesByElaboratingShapes_insideShape_count___block
         v25 = offsetCopy.x + v24;
         v27 = offsetCopy.y + v26;
         v28 = [UIKBShape alloc];
-        geometry = [v11 geometry];
-        v30 = [(UIKBShape *)v28 initWithGeometry:geometry frame:v17 paddedFrame:v19, v13, v15, v25, v27, v21, v23];
+        v29 = objc_msgSend_geometry(v11);
+        v30 = [(UIKBShape *)v28 initWithGeometry:v29 frame:v17 paddedFrame:v19, v13, v15, v25, v27, v21, v23];
 
         originalShape = [v11 originalShape];
         if (originalShape)
@@ -1253,8 +1253,8 @@ void __65__UIKBShapeOperator_shapesByElaboratingShapes_insideShape_count___block
         v24 = offset.x + v23;
         v26 = fmax(offset.y + v25, 0.0);
         v27 = [UIKBShape alloc];
-        geometry = [v11 geometry];
-        v29 = [(UIKBShape *)v27 initWithGeometry:geometry frame:v34 paddedFrame:v14, v16, v18, v20, v22, v24, v26];
+        v28 = objc_msgSend_geometry(v11);
+        v29 = [(UIKBShape *)v27 initWithGeometry:v28 frame:v34 paddedFrame:v14, v16, v18, v20, v22, v24, v26];
 
         originalShape = [v11 originalShape];
         if (originalShape)
@@ -1307,9 +1307,9 @@ void __65__UIKBShapeOperator_shapesByElaboratingShapes_insideShape_count___block
         v11 = *(*(&v18 + 1) + 8 * i);
         [v11 paddedFrame];
         v12 = [UIKBShape alloc];
-        geometry = [v11 geometry];
+        v13 = objc_msgSend_geometry(v11);
         [v11 frame];
-        v14 = [UIKBShape initWithGeometry:v12 frame:"initWithGeometry:frame:paddedFrame:" paddedFrame:geometry];
+        v14 = [UIKBShape initWithGeometry:v12 frame:"initWithGeometry:frame:paddedFrame:" paddedFrame:v13];
 
         originalShape = [v11 originalShape];
         if (originalShape)

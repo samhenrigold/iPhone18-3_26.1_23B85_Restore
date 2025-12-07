@@ -6,6 +6,7 @@
 + (id)keyPathForUserIsDrivingStatus;
 + (id)keyPathForUserIsLeavingHomeStatus;
 + (id)keyPathForUserIsTravelingStatus;
++ (id)predicateForUserIsAtHomeStatus:(BOOL)status;
 @end
 
 @implementation _CDUserContextQueries
@@ -32,6 +33,16 @@
   v3 = keyPathForUserIsAtHomeStatus_userIsAtHomeStatus;
 
   return v3;
+}
+
++ (id)predicateForUserIsAtHomeStatus:(BOOL)status
+{
+  statusCopy = status;
+  v4 = +[_CDUserContextQueries keyPathForUserIsAtHomeStatus];
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:statusCopy];
+  v6 = [_CDContextualPredicate predicateForKeyPath:v4 equalToValue:v5];
+
+  return v6;
 }
 
 + (id)keyPathForUserIsAtWorkStatus

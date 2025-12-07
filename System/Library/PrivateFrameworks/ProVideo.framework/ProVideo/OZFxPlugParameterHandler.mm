@@ -412,22 +412,22 @@ LABEL_13:
   renderer = self->_renderer;
   if (renderer)
   {
-    v20 = OZChannelBase::setRangeName(renderer, v15);
-    MEMORY[0x2666E9F00](v20, 0xC400A2AC0F1);
+    OZChannelBase::setRangeName(renderer, v15);
+    MEMORY[0x2666E9F00]();
   }
 
   self->_renderer = 0;
-  v21 = self->_flagMap;
-  if (v21)
+  v20 = self->_flagMap;
+  if (v20)
   {
-    std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(self->_flagMap, v21[1]);
-    MEMORY[0x2666E9F00](v21, 0x1020C4062D53EE8);
+    std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(self->_flagMap, v20[1]);
+    MEMORY[0x2666E9F00](v20, 0x1020C4062D53EE8);
   }
 
   self->_flagMap = 0;
-  v22.receiver = self;
-  v22.super_class = OZFxPlugParameterHandler;
-  [(OZFxPlugParameterHandler *)&v22 dealloc];
+  v21.receiver = self;
+  v21.super_class = OZFxPlugParameterHandler;
+  [(OZFxPlugParameterHandler *)&v21 dealloc];
 }
 
 - (void)copyFolderRecursiveFrom:(void *)from To:(void *)to Skip:(int)skip
@@ -448,7 +448,7 @@ LABEL_13:
           channelMap = self->_channelMap;
           LODWORD(v31) = *(*i + 6);
           v35[0] = &v31;
-          std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(channelMap, &v31)[5] = v11;
+          std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(channelMap, &v31, &std::piecewise_construct, v35)[5] = v11;
           if (v11)
           {
             if (v36)
@@ -546,7 +546,8 @@ LABEL_13:
   {
     do
     {
-      v6 = std::__tree<std::__value_type<unsigned int,ParameterTransactionHelpers>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ParameterTransactionHelpers>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ParameterTransactionHelpers>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&self->_paramCreationMap, v3 + 8);
+      v11 = v3 + 32;
+      v6 = std::__tree<std::__value_type<unsigned int,ParameterTransactionHelpers>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,ParameterTransactionHelpers>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,ParameterTransactionHelpers>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&self->_paramCreationMap, v3 + 8, &std::piecewise_construct, &v11);
       v7 = *(v3 + 40);
       v6[7] = *(v3 + 7);
       *(v6 + 5) = v7;
@@ -1032,7 +1033,7 @@ LABEL_10:
       }
 
       v20 = &v19;
-      std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(channelMap, &v19)[5] = v6;
+      std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(channelMap, &v19, &std::piecewise_construct, &v20)[5] = v6;
       std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer(self->_channelMap, i);
       operator delete(i);
       channelMap = self->_channelMap;
@@ -1053,7 +1054,7 @@ LABEL_10:
     selfCopy = self;
     do
     {
-      self = v5[5];
+      self = *(v5 + 5);
       if (self)
       {
         if (self)
@@ -1066,7 +1067,7 @@ LABEL_10:
         }
       }
 
-      v7 = v5[1];
+      v7 = *(v5 + 1);
       if (v7)
       {
         do
@@ -1082,7 +1083,7 @@ LABEL_10:
       {
         do
         {
-          v8 = v5[2];
+          v8 = *(v5 + 2);
           v9 = *v8 == v5;
           v5 = v8;
         }
@@ -1093,7 +1094,7 @@ LABEL_10:
       v5 = v8;
     }
 
-    while (v8 != selfCopy[1].__begin_ + 1);
+    while (v8 != selfCopy[1].__begin_ + 2);
   }
 
   return self;
@@ -1103,7 +1104,7 @@ LABEL_10:
 {
   if (self)
   {
-    [(OZFxPlugParameterHandler *)self imageParamIDs];
+    objc_msgSend_imageParamIDs(self, a2);
     v5 = __p;
     v6 = v15;
     if (__p == v15)
@@ -1119,7 +1120,7 @@ LABEL_8:
         v13 = *v5;
         channelMap = self->_channelMap;
         v17 = &v13;
-        v8 = std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(channelMap, &v13)[5];
+        v8 = std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(channelMap, &v13, &std::piecewise_construct, &v17)[5];
         if (v8)
         {
           if (v9)
@@ -1210,7 +1211,7 @@ LABEL_9:
       v6 = *(v5 + 56);
       flagMap = self->_flagMap;
       v12 = &v11;
-      std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(flagMap, &v11)[5] = v6;
+      std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(flagMap, &v11, &std::piecewise_construct, &v12)[5] = v6;
       v8 = v3[1];
       if (v8)
       {
@@ -1500,37 +1501,37 @@ LABEL_9:
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __48__OZFxPlugParameterHandler_updateKeyframeEditor__block_invoke(uint64_t a1)
+void __48__OZFxPlugParameterHandler_updateKeyframeEditor__block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 motionEffectRef];
-    if (v5)
+    objc_msgSend_motionEffectRef(v3, a2);
+    if (v6)
     {
       goto LABEL_8;
     }
 
-    v2 = *(a1 + 32);
+    v3 = *(a1 + 32);
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  v3 = [v2 getScene];
-  if (v3)
+  v4 = [v3 getScene];
+  if (v4)
   {
-    v4 = *(v3 + 1584);
-    if (v4)
+    v5 = *(v4 + 1584);
+    if (v5)
     {
-      OZDocument::postNotification(v4, 137216);
+      OZDocument::postNotification(v5, 137216);
     }
   }
 
 LABEL_8:
-  ProCore_Impl::PCNSRefImpl::release(&v5);
+  ProCore_Impl::PCNSRefImpl::release(&v6);
 }
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)convertToFigTime:(SEL)time meOffset:(double)offset motionEffect:(double)effect
@@ -1546,7 +1547,7 @@ LABEL_8:
   timeCopy = 0;
   if (self)
   {
-    [(OZFxPlugParameterHandler *)self motionEffectRef:time];
+    objc_msgSend_motionEffectRef(self, a2, time, data);
   }
 
   else
@@ -1691,7 +1692,7 @@ LABEL_8:
   channelMap = self->_channelMap;
   var3 = channel->var3;
   p_var3 = &var3;
-  std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(channelMap, &var3)[5] = channel;
+  std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(channelMap, &var3, &std::piecewise_construct, &p_var3)[5] = channel;
   [(OZFxPlugParameterHandler *)self addParamMappingForParameterChannel:channel];
 }
 
@@ -1739,7 +1740,7 @@ LABEL_8:
   OZChannelBase::setFlag(channel, 0x100000000, 0);
   channelMap = self->_channelMap;
   v8 = &sliderCopy;
-  std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(channelMap, &sliderCopy)[5] = channel;
+  std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(channelMap, &sliderCopy, &std::piecewise_construct, &v8)[5] = channel;
 }
 
 - (OZChannelPercent)mixChannel
@@ -1799,7 +1800,7 @@ LABEL_8:
   OZChannelBase::setFlag(channel, 0x100000000, 0);
   channelMap = self->_channelMap;
   v8 = &checkboxCopy;
-  std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(channelMap, &checkboxCopy)[5] = channel;
+  std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(channelMap, &checkboxCopy, &std::piecewise_construct, &v8)[5] = channel;
 }
 
 - (OZChannelBool)flipChannel
@@ -1857,7 +1858,7 @@ LABEL_8:
   OZChannelBase::setFlag(channel, 0x100000000, 0);
   channelMap = self->_channelMap;
   v8 = &checkboxCopy;
-  std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(channelMap, &checkboxCopy)[5] = channel;
+  std::__tree<std::__value_type<unsigned int,OZFactory *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,OZFactory *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,OZFactory *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(channelMap, &checkboxCopy, &std::piecewise_construct, &v8)[5] = channel;
 }
 
 - (BOOL)useInputPoints
@@ -2257,7 +2258,7 @@ LABEL_17:
       retstr->var0._pcColorDesc._toneMapMethod._gain = *(RequestedColorDescription + 16);
       *&retstr->var0._pcColorDesc._dynamicRange = v14;
       retstr->var0._isPremultiplied = *(RequestedColorDescription + 24);
-      OZFxPlugSharedBase::getPluginColorDescription(v6, v11, &retstr->var1);
+      OZFxPlugSharedBase::getPluginColorDescription(&retstr->var1, v6, v11);
     }
 
     else
@@ -2295,7 +2296,7 @@ LABEL_17:
 {
   if (self)
   {
-    [(OZFxPlugParameterHandler *)self getColorTransformInfo];
+    objc_msgSend_getColorTransformInfo(self, a2);
   }
 
   else
@@ -2324,11 +2325,11 @@ LABEL_17:
     v19 = 0;
     PCColor::getRGBA(space, &v19, &v19 + 1, &v20, alpha, v15, 1, &v21);
     v16 = FxColorDescription::getToneMapMethod(&v23);
-    PCColorUtil::transform(v16, &v19, v15, 1, CGColorSpace, DynamicRange, v18);
+    PCColorUtil::transform(v18, v16, &v19, v15, 1, CGColorSpace, DynamicRange);
     v17 = v18[1];
-    *red = *v18;
+    *red = v18[0];
     *green = v17;
-    *blue = *&v18[2];
+    *blue = v18[2];
   }
 
   else
@@ -2344,7 +2345,7 @@ LABEL_17:
 {
   if (self)
   {
-    [(OZFxPlugParameterHandler *)self getColorTransformInfo];
+    objc_msgSend_getColorTransformInfo(self, a2);
   }
 
   else
@@ -2372,7 +2373,7 @@ LABEL_17:
     v18 = __PAIR64__(LODWORD(green), LODWORD(red));
     blueCopy = blue;
     v16 = FxColorDescription::getToneMapMethod(&v22);
-    PCColorUtil::transform(v16, &v18, CGColorSpace, DynamicRange, v15, 1, &v17);
+    PCColorUtil::transform(&v17, v16, &v18, CGColorSpace, DynamicRange, v15, 1);
     PCColor::setRGBA(space, v15, 1, &v20, red, green, blue, alpha);
   }
 
@@ -2704,7 +2705,7 @@ LABEL_17:
 {
   if (self)
   {
-    [(OZFxPlugParameterHandler *)self fxTimeToFigTime:fxTime.var1 withConversionData:0];
+    objc_msgSend_fxTimeToFigTime_withConversionData_(self, a2, fxTime.var1, 0);
   }
 
   else
@@ -2760,210 +2761,210 @@ LABEL_17:
 
 - (BOOL)_getFloatValue:(double *)value fromParm:(unsigned int)parm atTime:(id)time
 {
-  v8 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
-  if (v8)
+  v7 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
+  if (v7)
   {
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
-      [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+      objc_msgSend_motionEffectRef(self);
+      objc_msgSend_fxTimeToFigTime_withConversionData_(self);
     }
 
     else
     {
-      v14 = 0;
-      memset(&v12, 0, sizeof(v12));
+      v13 = 0;
+      memset(&v11, 0, sizeof(v11));
     }
 
-    v13 = v12;
-    v9 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v12 forChannel:v8];
-    OZChannel::getValueAsDouble(v8, &v13, 0.0);
-    *value = v10;
-    [(OZFxPlugParameterHandler *)self endTimingOperation:v9];
-    ProCore_Impl::PCNSRefImpl::release(&v14);
+    v12 = v11;
+    v8 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v11 forChannel:v7];
+    OZChannel::getValueAsDouble(v7, &v12, 0.0);
+    *value = v9;
+    [(OZFxPlugParameterHandler *)self endTimingOperation:v8];
+    ProCore_Impl::PCNSRefImpl::release(&v13);
   }
 
-  return v8 != 0;
+  return v7 != 0;
 }
 
 - (BOOL)_getIntValue:(int *)value fromParm:(unsigned int)parm atTime:(id)time
 {
-  v8 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
-  if (v8)
+  v7 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
+  if (v7)
   {
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
-      [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+      objc_msgSend_motionEffectRef(self);
+      objc_msgSend_fxTimeToFigTime_withConversionData_(self);
     }
 
     else
     {
-      v13 = 0;
-      memset(&v11, 0, sizeof(v11));
+      v12 = 0;
+      memset(&v10, 0, sizeof(v10));
     }
 
-    v12 = v11;
-    v9 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v11 forChannel:v8];
-    *value = OZChannel::getValueAsInt(v8, &v12, 0.0);
-    [(OZFxPlugParameterHandler *)self endTimingOperation:v9];
-    ProCore_Impl::PCNSRefImpl::release(&v13);
+    v11 = v10;
+    v8 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v10 forChannel:v7];
+    *value = OZChannel::getValueAsInt(v7, &v11, 0.0);
+    [(OZFxPlugParameterHandler *)self endTimingOperation:v8];
+    ProCore_Impl::PCNSRefImpl::release(&v12);
   }
 
-  return v8 != 0;
+  return v7 != 0;
 }
 
 - (BOOL)_getBoolValue:(BOOL *)value fromParm:(unsigned int)parm atTime:(id)time
 {
-  v8 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
-  if (v8)
+  v7 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
+  if (v7)
   {
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
-      [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+      objc_msgSend_motionEffectRef(self);
+      objc_msgSend_fxTimeToFigTime_withConversionData_(self);
     }
 
     else
     {
-      v13 = 0;
-      memset(&v11, 0, sizeof(v11));
+      v12 = 0;
+      memset(&v10, 0, sizeof(v10));
     }
 
-    v12 = v11;
-    v9 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v11 forChannel:v8];
-    *value = OZChannel::getValueAsInt(v8, &v12, 0.0) != 0;
-    [(OZFxPlugParameterHandler *)self endTimingOperation:v9];
-    ProCore_Impl::PCNSRefImpl::release(&v13);
+    v11 = v10;
+    v8 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v10 forChannel:v7];
+    *value = OZChannel::getValueAsInt(v7, &v11, 0.0) != 0;
+    [(OZFxPlugParameterHandler *)self endTimingOperation:v8];
+    ProCore_Impl::PCNSRefImpl::release(&v12);
   }
 
-  return v8 != 0;
+  return v7 != 0;
 }
 
 - (BOOL)_getRedValue:(double *)value greenValue:(double *)greenValue blueValue:(double *)blueValue fromParm:(unsigned int)parm atTime:(id)time
 {
-  v12 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
-  if (v12)
+  v11 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
+  if (v11)
   {
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
-      [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+      objc_msgSend_motionEffectRef(self);
+      objc_msgSend_fxTimeToFigTime_withConversionData_(self);
     }
 
     else
     {
-      v21 = 0;
-      memset(&v18, 0, 24);
+      v20 = 0;
+      memset(&v17, 0, 24);
     }
 
-    v19 = *&v18.var0.var0;
-    v20 = v18.var0.var1[1];
-    v13 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v18 forChannel:v12];
-    PCColor::PCColor(&v18);
-    (*(v12->var0 + 104))(v12, &v19, &v18);
+    v18 = *&v17.var0.var0;
+    v19 = v17.var0.var1[1];
+    v12 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v17 forChannel:v11];
+    PCColor::PCColor(&v17);
+    (*(v11->var0 + 104))(v11, &v18, &v17);
+    v15 = 0;
     v16 = 0;
-    v17 = 0;
-    if (OZChannelColorNoAlpha::isColor(v12))
+    if (OZChannelColorNoAlpha::isColor(v11))
     {
-      [(OZFxPlugParameterHandler *)self getColorInFxPlugColorSpace:&v18 red:&v17 + 4 green:&v17 blue:&v16 + 4 alpha:&v16];
+      [(OZFxPlugParameterHandler *)self getColorInFxPlugColorSpace:&v17 red:&v16 + 4 green:&v16 blue:&v15 + 4 alpha:&v15];
     }
 
     else
     {
-      CGColorSpace = PCColor::getCGColorSpace(&v18);
-      PCColor::getRGBA(&v18, &v17 + 1, &v17, &v16 + 1, &v16, CGColorSpace);
+      CGColorSpace = PCColor::getCGColorSpace(&v17);
+      PCColor::getRGBA(&v17, &v16 + 1, &v16, &v15 + 1, &v15, CGColorSpace);
     }
 
-    *value = *(&v17 + 1);
-    *greenValue = *&v17;
-    *blueValue = *(&v16 + 1);
-    [(OZFxPlugParameterHandler *)self endTimingOperation:v13, v16];
-    PCCFRef<CGColorSpace *>::~PCCFRef(&v18.var1._obj);
-    ProCore_Impl::PCNSRefImpl::release(&v21);
+    *value = *(&v16 + 1);
+    *greenValue = *&v16;
+    *blueValue = *(&v15 + 1);
+    [(OZFxPlugParameterHandler *)self endTimingOperation:v12, v15];
+    PCCFRef<CGColorSpace *>::~PCCFRef(&v17.var1._obj);
+    ProCore_Impl::PCNSRefImpl::release(&v20);
   }
 
-  return v12 != 0;
+  return v11 != 0;
 }
 
 - (BOOL)_getRedValue:(double *)value greenValue:(double *)greenValue blueValue:(double *)blueValue alphaValue:(double *)alphaValue fromParm:(unsigned int)parm atTime:(id)time
 {
-  v14 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
-  if (v14)
+  v13 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
+  if (v13)
   {
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
-      [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+      objc_msgSend_motionEffectRef(self);
+      objc_msgSend_fxTimeToFigTime_withConversionData_(self);
     }
 
     else
     {
-      v23 = 0;
-      memset(&v20, 0, 24);
+      v22 = 0;
+      memset(&v19, 0, 24);
     }
 
-    v21 = *&v20.var0.var0;
-    v22 = v20.var0.var1[1];
-    v15 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v20 forChannel:v14];
-    PCColor::PCColor(&v20);
-    (*(v14->var0 + 104))(v14, &v21, &v20);
+    v20 = *&v19.var0.var0;
+    v21 = v19.var0.var1[1];
+    v14 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v19 forChannel:v13];
+    PCColor::PCColor(&v19);
+    (*(v13->var0 + 104))(v13, &v20, &v19);
+    v17 = 0;
     v18 = 0;
-    v19 = 0;
-    if (OZChannelColorNoAlpha::isColor(v14))
+    if (OZChannelColorNoAlpha::isColor(v13))
     {
-      [(OZFxPlugParameterHandler *)self getColorInFxPlugColorSpace:&v20 red:&v19 + 4 green:&v19 blue:&v18 + 4 alpha:&v18];
+      [(OZFxPlugParameterHandler *)self getColorInFxPlugColorSpace:&v19 red:&v18 + 4 green:&v18 blue:&v17 + 4 alpha:&v17];
     }
 
     else
     {
-      CGColorSpace = PCColor::getCGColorSpace(&v20);
-      PCColor::getRGBA(&v20, &v19 + 1, &v19, &v18 + 1, &v18, CGColorSpace);
+      CGColorSpace = PCColor::getCGColorSpace(&v19);
+      PCColor::getRGBA(&v19, &v18 + 1, &v18, &v17 + 1, &v17, CGColorSpace);
     }
 
-    *value = *(&v19 + 1);
-    *greenValue = *&v19;
-    *blueValue = *(&v18 + 1);
-    *alphaValue = *&v18;
-    [(OZFxPlugParameterHandler *)self endTimingOperation:v15, v18, v19];
-    PCCFRef<CGColorSpace *>::~PCCFRef(&v20.var1._obj);
-    ProCore_Impl::PCNSRefImpl::release(&v23);
+    *value = *(&v18 + 1);
+    *greenValue = *&v18;
+    *blueValue = *(&v17 + 1);
+    *alphaValue = *&v17;
+    [(OZFxPlugParameterHandler *)self endTimingOperation:v14, v17, v18];
+    PCCFRef<CGColorSpace *>::~PCCFRef(&v19.var1._obj);
+    ProCore_Impl::PCNSRefImpl::release(&v22);
   }
 
-  return v14 != 0;
+  return v13 != 0;
 }
 
 - (BOOL)_getXValue:(double *)value YValue:(double *)yValue fromParm:(unsigned int)parm atTime:(id)time
 {
-  v10 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
-  if (v10)
+  v9 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
+  if (v9)
   {
-    v11 = v10;
+    v10 = v9;
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
-      v36 = **&MEMORY[0x277CC0898];
-      [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+      objc_msgSend_motionEffectRef(self);
+      v35 = **&MEMORY[0x277CC0898];
+      objc_msgSend_fxTimeToFigTime_withConversionData_(self);
     }
 
     else
     {
-      v37 = 0;
-      memset(v35, 0, 24);
+      v36 = 0;
+      memset(v34, 0, 24);
     }
 
-    v36 = v35[0];
-    v13 = [(OZFxPlugParameterHandler *)self beginTimingOperation:v35 forChannel:v11];
+    v35 = v34[0];
+    v12 = [(OZFxPlugParameterHandler *)self beginTimingOperation:v34 forChannel:v10];
     if (value)
     {
-      OZChannel::getValueAsDouble(&v11[1].var3, &v36, 0.0);
-      *value = v14;
+      OZChannel::getValueAsDouble(&v10[1].var3, &v35, 0.0);
+      *value = v13;
     }
 
     if (yValue)
     {
-      OZChannel::getValueAsDouble(&v11[2].var8, &v36, 0.0);
-      *yValue = v15;
+      OZChannel::getValueAsDouble(&v10[2].var8, &v35, 0.0);
+      *yValue = v14;
     }
 
     if ([(OZFxPlugParameterHandler *)self shouldFlipPoints])
@@ -2973,66 +2974,66 @@ LABEL_17:
 
     if ([(OZFxPlugParameterHandler *)self useAbsolutePoints])
     {
-      OZRenderParams::OZRenderParams(v35);
+      OZRenderParams::OZRenderParams(v34);
       cntrl = self->_fxPlugLock.__cntrl_;
       ptr = self->_fxPlugLock.__ptr_;
-      v33 = cntrl;
+      v32 = cntrl;
       if (cntrl)
       {
         atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
       }
 
-      OZFxPlugLockSentinel::OZFxPlugLockSentinel(v34, &ptr);
-      if (v33)
+      OZFxPlugLockSentinel::OZFxPlugLockSentinel(v33, &ptr);
+      if (v32)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v32);
       }
 
-      v17 = *v34[0];
-      if (!*v34[0] || (v18 = atomic_load(&self->_pluginRemoved), (v18 & 1) != 0))
+      v16 = *v33[0];
+      if (!*v33[0] || (v17 = atomic_load(&self->_pluginRemoved), (v17 & 1) != 0))
       {
-        [(OZFxPlugParameterHandler *)self endTimingOperation:v13];
+        [(OZFxPlugParameterHandler *)self endTimingOperation:v12];
 LABEL_20:
-        OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v34);
-        OZRenderParams::~OZRenderParams(v35);
-        v12 = 0;
+        OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v33);
+        OZRenderParams::~OZRenderParams(v34);
+        v11 = 0;
 LABEL_27:
-        ProCore_Impl::PCNSRefImpl::release(&v37);
-        return v12;
+        ProCore_Impl::PCNSRefImpl::release(&v36);
+        return v11;
       }
 
+      v28 = 0;
       v29 = 0;
-      v30 = 0;
       __asm { FMOV            V0.2D, #-1.0 }
 
-      v31 = _Q0;
-      if (v19)
+      v30 = _Q0;
+      if (v18)
       {
-        v26 = (*v19 + 1488);
-        v20 = v19;
+        v25 = (*v18 + 1488);
+        v19 = v18;
       }
 
       else
       {
-        if (!v20)
+        if (!v19)
         {
-          [(OZFxPlugParameterHandler *)self endTimingOperation:v13, v29, v30];
+          [(OZFxPlugParameterHandler *)self endTimingOperation:v12, v28, v29];
           goto LABEL_20;
         }
 
-        v26 = (*v20 + 16);
+        v25 = (*v19 + 16);
       }
 
-      (*v26)(v20, &v29, v35);
-      v27 = *(&v31 + 1);
-      *value = *value / *&v31 + 0.5;
-      *yValue = *yValue / v27 + 0.5;
-      OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v34);
-      OZRenderParams::~OZRenderParams(v35);
+      (*v25)(v19, &v28, v34);
+      v26 = *(&v30 + 1);
+      *value = *value / *&v30 + 0.5;
+      *yValue = *yValue / v26 + 0.5;
+      OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v33);
+      OZRenderParams::~OZRenderParams(v34);
     }
 
-    [(OZFxPlugParameterHandler *)self endTimingOperation:v13, v29, v30];
-    v12 = 1;
+    [(OZFxPlugParameterHandler *)self endTimingOperation:v12, v28, v29];
+    v11 = 1;
     goto LABEL_27;
   }
 
@@ -3041,30 +3042,30 @@ LABEL_27:
 
 - (BOOL)_getAngle:(double *)angle fromParm:(unsigned int)parm atTime:(id)time
 {
-  v8 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
-  if (v8)
+  v7 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
+  if (v7)
   {
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
-      [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+      objc_msgSend_motionEffectRef(self);
+      objc_msgSend_fxTimeToFigTime_withConversionData_(self);
     }
 
     else
     {
-      v14 = 0;
-      memset(&v12, 0, sizeof(v12));
+      v13 = 0;
+      memset(&v11, 0, sizeof(v11));
     }
 
-    v13 = v12;
-    v9 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v12 forChannel:v8];
-    OZChannel::getValueAsDouble(v8, &v13, 0.0);
-    *angle = v10 * 57.2957795;
-    [(OZFxPlugParameterHandler *)self endTimingOperation:v9];
-    ProCore_Impl::PCNSRefImpl::release(&v14);
+    v12 = v11;
+    v8 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v11 forChannel:v7];
+    OZChannel::getValueAsDouble(v7, &v12, 0.0);
+    *angle = v9 * 57.2957795;
+    [(OZFxPlugParameterHandler *)self endTimingOperation:v8];
+    ProCore_Impl::PCNSRefImpl::release(&v13);
   }
 
-  return v8 != 0;
+  return v7 != 0;
 }
 
 - (BOOL)retrieveImage:(id *)image layerOffsetX:(double *)x layerOffsetY:(double *)y requestInfo:(id *)info fromParm:(unsigned int)parm atTime:(id)time retriever:(SEL)retriever ARGB:(BOOL)self0 imageType:(unint64_t)self1 forAnalysis:(BOOL)self2
@@ -3081,95 +3082,95 @@ LABEL_27:
   }
 
   channelMap = self->_channelMap;
-  v19 = channelMap[1];
-  v17 = (channelMap + 1);
-  v18 = v19;
-  if (v19)
+  v18 = channelMap[1];
+  v16 = (channelMap + 1);
+  v17 = v18;
+  if (v18)
   {
-    v20 = v17;
+    v19 = v16;
     do
     {
-      v21 = *(v18 + 8);
-      v22 = v21 >= parm;
-      v23 = v21 < parm;
-      if (v22)
+      v20 = *(v17 + 8);
+      v21 = v20 >= parm;
+      v22 = v20 < parm;
+      if (v21)
       {
-        v20 = v18;
+        v19 = v17;
       }
 
-      v18 = *&v18[8 * v23];
+      v17 = *&v17[8 * v22];
     }
 
-    while (v18);
-    if (v20 != v17 && *(v20 + 8) <= parm)
+    while (v17);
+    if (v19 != v16 && *(v19 + 8) <= parm)
     {
-      v25 = *(v20 + 5);
+      v24 = *(v19 + 5);
       getScene = [(OZFxPlugParameterHandler *)self getScene];
       if (self)
       {
-        [(OZFxPlugParameterHandler *)self motionEffectRef];
-        memset(&v43, 0, sizeof(v43));
-        [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+        objc_msgSend_motionEffectRef(self);
+        memset(&v42, 0, sizeof(v42));
+        objc_msgSend_fxTimeToFigTime_withConversionData_(self);
       }
 
       else
       {
-        v44 = 0;
-        memset(&v43, 0, sizeof(v43));
+        v43 = 0;
+        memset(&v42, 0, sizeof(v42));
       }
 
-      v39[0] = v43;
-      v27 = [(OZFxPlugParameterHandler *)self beginTimingOperation:v39 forChannel:v25];
-      ValueAsUint = OZChannel::getValueAsUint(v25, &v43, 0.0);
+      v38[0] = v42;
+      v26 = [(OZFxPlugParameterHandler *)self beginTimingOperation:v38 forChannel:v24];
+      ValueAsUint = OZChannel::getValueAsUint(v24, &v42, 0.0);
       if (getScene)
       {
         Node = OZScene::getNode(getScene, ValueAsUint);
-        v30 = Node;
+        v29 = Node;
         if (Node)
         {
-          if (v32)
+          if (v31)
           {
-            if (v33)
+            if (v32)
             {
-              OZImageElement::isDropZone(v33);
+              OZImageElement::isDropZone(v32);
             }
 
             goto LABEL_21;
           }
 
-          if (v31)
+          if (v30)
           {
 LABEL_21:
             cntrl = self->_fxPlugLock.__cntrl_;
             ptr = self->_fxPlugLock.__ptr_;
-            v41 = cntrl;
+            v40 = cntrl;
             if (cntrl)
             {
               atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
             }
 
-            OZFxPlugLockSentinel::OZFxPlugLockSentinel(v42, &ptr);
-            if (v41)
+            OZFxPlugLockSentinel::OZFxPlugLockSentinel(v41, &ptr);
+            if (v40)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v40);
             }
 
-            if (*v42[0])
+            if (*v41[0])
             {
-              RenderParams = OZFxPlugRenderContextManager::getRenderParams(&self->_threadContextManager, *v42[0]);
-              OZRenderParams::OZRenderParams(v39, RenderParams);
-              OZFxPlugSharedBase::setupRenderParamsForRetrievingImage(v39, info, v30, &v43, self->_renderer, v36);
+              RenderParams = OZFxPlugRenderContextManager::getRenderParams(&self->_threadContextManager, *v41[0]);
+              OZRenderParams::OZRenderParams(v38, RenderParams);
+              OZFxPlugSharedBase::setupRenderParamsForRetrievingImage(v38, info, v29, &v42, self->_renderer, v35);
             }
 
-            [(OZFxPlugParameterHandler *)self endTimingOperation:v27];
-            OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v42);
-            v37 = 0;
-            v24 = 1;
+            [(OZFxPlugParameterHandler *)self endTimingOperation:v26];
+            OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v41);
+            v36 = 0;
+            v23 = 1;
 LABEL_28:
-            ProCore_Impl::PCNSRefImpl::release(&v44);
-            if (v37)
+            ProCore_Impl::PCNSRefImpl::release(&v43);
+            if (v36)
             {
-              return v24;
+              return v23;
             }
 
             return 0;
@@ -3177,9 +3178,9 @@ LABEL_28:
         }
       }
 
-      v24 = 1;
-      [(OZFxPlugParameterHandler *)self endTimingOperation:v27];
-      v37 = 1;
+      v23 = 1;
+      [(OZFxPlugParameterHandler *)self endTimingOperation:v26];
+      v36 = 1;
       goto LABEL_28;
     }
   }
@@ -3246,113 +3247,113 @@ LABEL_28:
     UseLiEdgeTextureNodeCache = getUseLiEdgeTextureNodeCache();
     setUseLiEdgeTextureNodeCache(0);
     channelMap = self->_channelMap;
-    v17 = channelMap[1];
-    v15 = (channelMap + 1);
-    v16 = v17;
-    if (!v17)
+    v16 = channelMap[1];
+    v14 = (channelMap + 1);
+    v15 = v16;
+    if (!v16)
     {
       goto LABEL_12;
     }
 
-    v18 = v15;
+    v17 = v14;
     do
     {
-      v19 = *(v16 + 8);
-      v20 = v19 >= parm;
-      v21 = v19 < parm;
-      if (v20)
+      v18 = *(v15 + 8);
+      v19 = v18 >= parm;
+      v20 = v18 < parm;
+      if (v19)
       {
-        v18 = v16;
+        v17 = v15;
       }
 
-      v16 = *&v16[8 * v21];
+      v15 = *&v15[8 * v20];
     }
 
-    while (v16);
-    if (v18 == v15 || *(v18 + 8) > parm)
+    while (v15);
+    if (v17 == v14 || *(v17 + 8) > parm)
     {
 LABEL_12:
-      v12 = 1;
+      v11 = 1;
 LABEL_13:
       setUseLiEdgeTextureNodeCache(UseLiEdgeTextureNodeCache);
-      return v12;
+      return v11;
     }
 
-    v23 = *(v18 + 5);
+    v22 = *(v17 + 5);
     getScene = [(OZFxPlugParameterHandler *)self getScene];
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
-      memset(&v40, 0, sizeof(v40));
-      [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+      objc_msgSend_motionEffectRef(self);
+      memset(&v39, 0, sizeof(v39));
+      objc_msgSend_fxTimeToFigTime_withConversionData_(self);
     }
 
     else
     {
-      v41 = 0;
-      memset(&v40, 0, sizeof(v40));
+      v40 = 0;
+      memset(&v39, 0, sizeof(v39));
     }
 
-    v36[0] = v40;
-    v25 = [(OZFxPlugParameterHandler *)self beginTimingOperation:v36 forChannel:v23];
-    ValueAsUint = OZChannel::getValueAsUint(v23, &v40, 0.0);
+    v35[0] = v39;
+    v24 = [(OZFxPlugParameterHandler *)self beginTimingOperation:v35 forChannel:v22];
+    ValueAsUint = OZChannel::getValueAsUint(v22, &v39, 0.0);
     if (getScene)
     {
       Node = OZScene::getNode(getScene, ValueAsUint);
-      v28 = Node;
+      v27 = Node;
       if (Node)
       {
-        if (v30)
+        if (v29)
         {
-          if (v31)
+          if (v30)
           {
-            OZImageElement::isDropZone(v31);
+            OZImageElement::isDropZone(v30);
           }
 
           goto LABEL_24;
         }
 
-        if (v29)
+        if (v28)
         {
 LABEL_24:
           cntrl = self->_fxPlugLock.__cntrl_;
           ptr = self->_fxPlugLock.__ptr_;
-          v38 = cntrl;
+          v37 = cntrl;
           if (cntrl)
           {
             atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
           }
 
-          OZFxPlugLockSentinel::OZFxPlugLockSentinel(v39, &ptr);
-          if (v38)
+          OZFxPlugLockSentinel::OZFxPlugLockSentinel(v38, &ptr);
+          if (v37)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v38);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v37);
           }
 
-          if (*v39[0])
+          if (*v38[0])
           {
-            RenderParams = OZFxPlugRenderContextManager::getRenderParams(&self->_threadContextManager, *v39[0]);
-            OZRenderParams::OZRenderParams(v36, RenderParams);
-            OZFxPlugSharedBase::setupRenderParamsForRetrievingImage(v36, info, v28, &v40, self->_renderer, v34);
+            RenderParams = OZFxPlugRenderContextManager::getRenderParams(&self->_threadContextManager, *v38[0]);
+            OZRenderParams::OZRenderParams(v35, RenderParams);
+            OZFxPlugSharedBase::setupRenderParamsForRetrievingImage(v35, info, v27, &v39, self->_renderer, v33);
           }
 
-          [(OZFxPlugParameterHandler *)self endTimingOperation:v25];
-          OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v39);
-          v35 = 0;
-          v12 = 1;
+          [(OZFxPlugParameterHandler *)self endTimingOperation:v24];
+          OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v38);
+          v34 = 0;
+          v11 = 1;
           goto LABEL_31;
         }
       }
     }
 
-    v12 = 1;
-    [(OZFxPlugParameterHandler *)self endTimingOperation:v25];
-    v35 = 1;
+    v11 = 1;
+    [(OZFxPlugParameterHandler *)self endTimingOperation:v24];
+    v34 = 1;
 LABEL_31:
-    ProCore_Impl::PCNSRefImpl::release(&v41);
-    if ((v35 & 1) == 0)
+    ProCore_Impl::PCNSRefImpl::release(&v40);
+    if ((v34 & 1) == 0)
     {
-      v12 = 0;
+      v11 = 0;
     }
 
     goto LABEL_13;
@@ -3368,7 +3369,7 @@ LABEL_31:
   {
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
+      objc_msgSend_motionEffectRef(self);
     }
 
     else
@@ -3385,87 +3386,87 @@ LABEL_31:
 
 - (BOOL)_getCustomParameterValue:(id *)value fromParm:(unsigned int)parm atTime:(id)time
 {
-  v6 = *&parm;
-  v9 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
-  if (!v9)
+  v5 = *&parm;
+  v8 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
+  if (!v8)
   {
     return 0;
   }
 
-  v10 = v9;
+  v9 = v8;
   if (self)
   {
-    [(OZFxPlugParameterHandler *)self motionEffectRef];
+    objc_msgSend_motionEffectRef(self);
   }
 
   else
   {
-    v27 = 0;
+    v26 = 0;
   }
 
   cntrl = self->_fxPlugLock.__cntrl_;
   ptr = self->_fxPlugLock.__ptr_;
-  v25 = cntrl;
+  v24 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
   }
 
-  OZFxPlugLockSentinel::OZFxPlugLockSentinel(v26, &ptr);
-  if (v25)
+  OZFxPlugLockSentinel::OZFxPlugLockSentinel(v25, &ptr);
+  if (v24)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
   }
 
-  v13 = *v26[0];
-  if (*v26[0] && (v14 = atomic_load(&self->_pluginRemoved), (v14 & 1) == 0))
+  v12 = *v25[0];
+  if (*v25[0] && (v13 = atomic_load(&self->_pluginRemoved), (v13 & 1) == 0))
   {
-    v23 = **&MEMORY[0x277CC0898];
-    [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
-    v23 = v22;
-    v15 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v22 forChannel:v10];
-    PluginDataPtr = OZChannelBlindData::getPluginDataPtr(v10, &v23);
+    v22 = **&MEMORY[0x277CC0898];
+    objc_msgSend_fxTimeToFigTime_withConversionData_(self);
+    v22 = v21;
+    v14 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v21 forChannel:v9];
+    PluginDataPtr = OZChannelBlindData::getPluginDataPtr(v9, &v22);
     *value = PluginDataPtr;
-    v11 = 1;
-    if ((*(v13 + 216) & 1) == 0 && PluginDataPtr)
+    v10 = 1;
+    if ((*(v12 + 216) & 1) == 0 && PluginDataPtr)
     {
-      v17 = *(v13 + 24);
-      if (v17)
+      v16 = *(v12 + 24);
+      if (v16)
       {
-        if (([v17 useLegacyCoding] & 1) == 0)
+        if (([v16 useLegacyCoding] & 1) == 0)
         {
-          v22.value = 0;
-          v18 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:*value error:&v22];
-          if (!v18)
+          v21.value = 0;
+          v17 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:*value error:&v21];
+          if (!v17)
           {
-            v19 = MEMORY[0x277CBEAD8];
-            localizedFailureReason = [v22.value localizedFailureReason];
-            [v19 raise:*MEMORY[0x277CBE728] format:{@"%@", localizedFailureReason}];
+            v18 = MEMORY[0x277CBEAD8];
+            localizedFailureReason = [v21.value localizedFailureReason];
+            [v18 raise:*MEMORY[0x277CBE728] format:{@"%@", localizedFailureReason}];
           }
 
-          *value = [v18 decodeObjectOfClass:objc_msgSend(*(v13 + 24) forKey:{"classForCustomParameterID:", v6), @"Custom Data"}];
-          v11 = 1;
+          *value = [v17 decodeObjectOfClass:objc_msgSend(*(v12 + 24) forKey:{"classForCustomParameterID:", v5), @"Custom Data"}];
+          v10 = 1;
         }
       }
 
       else
       {
-        v11 = 0;
+        v10 = 0;
         *value = 0;
       }
     }
 
-    [(OZFxPlugParameterHandler *)self endTimingOperation:v15];
+    [(OZFxPlugParameterHandler *)self endTimingOperation:v14];
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v26);
-  ProCore_Impl::PCNSRefImpl::release(&v27);
-  return v11;
+  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v25);
+  ProCore_Impl::PCNSRefImpl::release(&v26);
+  return v10;
 }
 
 - (id)decodeLegacyData:(id)data forParameterID:(unsigned int)d
@@ -3507,8 +3508,8 @@ LABEL_31:
   {
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
-      [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+      objc_msgSend_motionEffectRef(self);
+      objc_msgSend_fxTimeToFigTime_withConversionData_(self);
     }
 
     else
@@ -3533,34 +3534,34 @@ LABEL_31:
 
 - (BOOL)getLevelsBlack:(double *)black White:(double *)white Gamma:(double *)gamma fromParm:(unsigned int)parm atTime:(id)time
 {
-  v12 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
-  if (v12)
+  v11 = [(OZFxPlugParameterHandler *)self channelForParameterID:*&parm];
+  if (v11)
   {
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
-      [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+      objc_msgSend_motionEffectRef(self);
+      objc_msgSend_fxTimeToFigTime_withConversionData_(self);
     }
 
     else
     {
-      v20 = 0;
-      memset(&v18, 0, sizeof(v18));
+      v19 = 0;
+      memset(&v17, 0, sizeof(v17));
     }
 
-    v19 = v18;
-    v13 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v18 forChannel:v12];
-    OZChannelLevels::getBlackValue(v12, &v19, 0.0);
-    *black = v14;
-    OZChannelLevels::getWhiteValue(v12, &v19, 0.0);
-    *white = v15;
-    OZChannelLevels::getGammaValue(v12, &v19, 0.0);
-    *gamma = v16;
-    [(OZFxPlugParameterHandler *)self endTimingOperation:v13];
-    ProCore_Impl::PCNSRefImpl::release(&v20);
+    v18 = v17;
+    v12 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v17 forChannel:v11];
+    OZChannelLevels::getBlackValue(v11, &v18, 0.0);
+    *black = v13;
+    OZChannelLevels::getWhiteValue(v11, &v18, 0.0);
+    *white = v14;
+    OZChannelLevels::getGammaValue(v11, &v18, 0.0);
+    *gamma = v15;
+    [(OZFxPlugParameterHandler *)self endTimingOperation:v12];
+    ProCore_Impl::PCNSRefImpl::release(&v19);
   }
 
-  return v12 != 0;
+  return v11 != 0;
 }
 
 - (BOOL)_getGradientSamples:(void *)samples numSamples:(unint64_t)numSamples depth:(unint64_t)depth fromParm:(unsigned int)parm atTime:(id)time
@@ -3578,35 +3579,35 @@ LABEL_31:
         selfCopy2 = self;
         if (selfCopy)
         {
-          [(OZFxPlugParameterHandler *)selfCopy motionEffectRef];
+          objc_msgSend_motionEffectRef(selfCopy);
           pcColorDesc = **&MEMORY[0x277CC0898];
-          [(OZFxPlugParameterHandler *)selfCopy fxTimeToFigTime:time.var1 withConversionData:0];
+          objc_msgSend_fxTimeToFigTime_withConversionData_(selfCopy);
         }
 
         else
         {
-          v55 = 0;
-          memset(&v52, 0, 24);
+          v54 = 0;
+          memset(&v51, 0, 24);
         }
 
-        pcColorDesc = v52._pcColorDesc;
-        v37 = [(OZFxPlugParameterHandler *)selfCopy beginTimingOperation:&v52 forChannel:selfCopy2];
+        pcColorDesc = v51._pcColorDesc;
+        v36 = [(OZFxPlugParameterHandler *)selfCopy beginTimingOperation:&v51 forChannel:selfCopy2];
         if (selfCopy)
         {
-          [(OZFxPlugParameterHandler *)selfCopy getColorTransformInfo];
+          objc_msgSend_getColorTransformInfo(selfCopy);
         }
 
         else
         {
-          memset(&v53, 0, sizeof(v53));
           memset(&v52, 0, sizeof(v52));
+          memset(&v51, 0, sizeof(v51));
         }
 
-        CGColorSpace = FxColorDescription::getCGColorSpace(&v53);
-        DynamicRange = FxColorDescription::getDynamicRange(&v53);
-        if (FxColorDescription::isDynamicRangeManaged(&v52))
+        CGColorSpace = FxColorDescription::getCGColorSpace(&v52);
+        DynamicRange = FxColorDescription::getDynamicRange(&v52);
+        if (FxColorDescription::isDynamicRangeManaged(&v51))
         {
-          ToneMapMethod = FxColorDescription::getToneMapMethod(&v52);
+          ToneMapMethod = FxColorDescription::getToneMapMethod(&v51);
         }
 
         else
@@ -3614,36 +3615,27 @@ LABEL_31:
           ToneMapMethod = &kPCNoToneMapMethod;
         }
 
-        v51 = *ToneMapMethod;
-        if (FxColorDescription::isHDR(&v52))
+        v50 = *ToneMapMethod;
+        v15 = FxColorDescription::isHDR(&v51) && FxColorDescription::isSDR(&v52);
+        std::vector<float>::vector[abi:ne200100](&v48, 4 * numSamples);
+        if (v15)
         {
-          isSDR = FxColorDescription::isSDR(&v53);
-        }
-
-        else
-        {
-          isSDR = 0;
-        }
-
-        std::vector<float>::vector[abi:ne200100](&v49, 4 * numSamples);
-        if (isSDR)
-        {
-          v17 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020Linear);
+          v16 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020Linear);
           std::vector<float>::vector[abi:ne200100](__p, 4 * numSamples);
-          OZChannelGradient::getGradient(selfCopy2, &pcColorDesc, v17, __p[0], numSamples, 1, &v51);
+          OZChannelGradient::getGradient(selfCopy2, &pcColorDesc, v16, __p[0], numSamples, 1, &v50);
           numSamplesCopy = numSamples;
-          v44 = __p[0];
-          v45 = 4;
-          v46 = v17;
-          v47 = 0x100000001;
+          v43 = __p[0];
+          v44 = 4;
+          v45 = v16;
+          v46 = 0x100000001;
           numSamplesCopy2 = numSamples;
-          v39 = v49;
-          v40 = 4;
-          v41 = CGColorSpace;
-          LODWORD(v42) = 1;
-          HIDWORD(v42) = DynamicRange;
-          v18 = FxColorDescription::getToneMapMethod(&v53);
-          PCColorUtil::transformColorWithDynamicRange(&numSamplesCopy, &numSamplesCopy2, v18);
+          v38 = v48;
+          v39 = 4;
+          v40 = CGColorSpace;
+          LODWORD(v41) = 1;
+          HIDWORD(v41) = DynamicRange;
+          v17 = FxColorDescription::getToneMapMethod(&v52);
+          PCColorUtil::transformColorWithDynamicRange(&numSamplesCopy, &numSamplesCopy2, v17);
           if (__p[0])
           {
             __p[1] = __p[0];
@@ -3653,117 +3645,117 @@ LABEL_31:
 
         else
         {
-          OZChannelGradient::getGradient(selfCopy2, &pcColorDesc, CGColorSpace, v49, numSamples, DynamicRange, &v51);
+          OZChannelGradient::getGradient(selfCopy2, &pcColorDesc, CGColorSpace, v48, numSamples, DynamicRange, &v50);
         }
 
         if (((1 << depthCopy) & 0x102) != 0)
         {
-          v29 = v49;
-          if (v50 != v49)
+          v28 = v48;
+          if (v49 != v48)
           {
-            v30 = (v50 - v49) >> 2;
+            v29 = (v49 - v48) >> 2;
             do
             {
-              v31 = *v29++;
-              v32 = v31;
-              if (v31 <= 1.0)
+              v30 = *v28++;
+              v31 = v30;
+              if (v30 <= 1.0)
               {
-                v33 = v32;
+                v32 = v31;
               }
 
               else
               {
-                v33 = 1.0;
+                v32 = 1.0;
               }
 
-              v34 = v33 * 255.0;
-              if (v32 >= 0.0)
+              v33 = v32 * 255.0;
+              if (v31 >= 0.0)
               {
-                v35 = v34;
+                v34 = v33;
               }
 
               else
               {
-                v35 = 0.0;
+                v34 = 0.0;
               }
 
-              *samples = vcvtmd_s64_f64(v35 + 0.5 + 0.0000001);
+              *samples = vcvtmd_s64_f64(v34 + 0.5 + 0.0000001);
               samples = samples + 1;
-              --v30;
+              --v29;
             }
 
-            while (v30);
+            while (v29);
           }
         }
 
         else if (((1 << depthCopy) & 0x10004) != 0)
         {
-          v22 = v49;
-          if (v50 != v49)
+          v21 = v48;
+          if (v49 != v48)
           {
-            v23 = (v50 - v49) >> 2;
+            v22 = (v49 - v48) >> 2;
             do
             {
-              v24 = *v22++;
-              v25 = v24;
-              if (v24 <= 1.0)
+              v23 = *v21++;
+              v24 = v23;
+              if (v23 <= 1.0)
               {
-                v26 = v25;
+                v25 = v24;
               }
 
               else
               {
-                v26 = 1.0;
+                v25 = 1.0;
               }
 
-              v27 = v26 * 65536.0;
-              if (v25 >= 0.0)
+              v26 = v25 * 65536.0;
+              if (v24 >= 0.0)
               {
-                v28 = v27;
+                v27 = v26;
               }
 
               else
               {
-                v28 = 0.0;
+                v27 = 0.0;
               }
 
-              *samples = vcvtmd_s64_f64(v28 + 0.5 + 0.0000001);
+              *samples = vcvtmd_s64_f64(v27 + 0.5 + 0.0000001);
               samples = samples + 2;
-              --v23;
+              --v22;
             }
 
-            while (v23);
+            while (v22);
           }
         }
 
         else if (((1 << depthCopy) & 0x100000010) != 0)
         {
-          v19 = v49;
-          if (v50 != v49)
+          v18 = v48;
+          if (v49 != v48)
           {
-            v20 = (v50 - v49) >> 2;
+            v19 = (v49 - v48) >> 2;
             do
             {
-              v21 = *v19++;
-              *samples = v21;
+              v20 = *v18++;
+              *samples = v20;
               samples = samples + 4;
-              --v20;
+              --v19;
             }
 
-            while (v20);
+            while (v19);
           }
         }
 
-        [(OZFxPlugParameterHandler *)selfCopy endTimingOperation:v37, v37, numSamplesCopy2, v39, v40, v41, v42, numSamplesCopy, v44, v45, v46, v47];
-        if (v49)
+        [(OZFxPlugParameterHandler *)selfCopy endTimingOperation:v36, v36, numSamplesCopy2, v38, v39, v40, v41, numSamplesCopy, v43, v44, v45, v46];
+        if (v48)
         {
-          v50 = v49;
-          operator delete(v49);
+          v49 = v48;
+          operator delete(v48);
         }
 
-        PCCFRef<CGColorSpace *>::~PCCFRef(&v53._pcColorDesc._colorSpaceRef._obj);
         PCCFRef<CGColorSpace *>::~PCCFRef(&v52._pcColorDesc._colorSpaceRef._obj);
-        ProCore_Impl::PCNSRefImpl::release(&v55);
+        PCCFRef<CGColorSpace *>::~PCCFRef(&v51._pcColorDesc._colorSpaceRef._obj);
+        ProCore_Impl::PCNSRefImpl::release(&v54);
         LOBYTE(self) = 1;
       }
     }
@@ -3779,8 +3771,8 @@ LABEL_31:
   {
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
-      [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+      objc_msgSend_motionEffectRef(self);
+      objc_msgSend_fxTimeToFigTime_withConversionData_(self);
     }
 
     else
@@ -3858,7 +3850,7 @@ LABEL_16:
   }
 
 LABEL_14:
-  [(OZFxPlugParameterHandler *)self motionEffectRef];
+  objc_msgSend_motionEffectRef(self);
 LABEL_17:
   if (((*(*v16 + 512))(v16) & 1) == 0)
   {
@@ -3925,7 +3917,7 @@ LABEL_39:
   {
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
+      objc_msgSend_motionEffectRef(self);
     }
 
     else
@@ -3949,7 +3941,7 @@ LABEL_39:
   {
     if (self)
     {
-      [(OZFxPlugParameterHandler *)self motionEffectRef];
+      objc_msgSend_motionEffectRef(self);
     }
 
     else
@@ -4020,7 +4012,7 @@ LABEL_39:
 
     if (*v9[0])
     {
-      OZFxPlugSharedBase::getDisplayName(*v9[0], &v6);
+      OZFxPlugSharedBase::getDisplayName(&v6, *v9[0]);
       v4 = PCString::ns_str(&v6);
       PCString::~PCString(&v6);
     }
@@ -4040,76 +4032,76 @@ LABEL_39:
 
 - (BOOL)_setFloatValue:(double)value toParm:(unsigned int)parm atTime:(id)time
 {
-  v6 = *&parm;
+  v5 = *&parm;
   safeToSetParameters = [(OZFxPlugParameterHandler *)self safeToSetParameters];
   if (safeToSetParameters)
   {
     channelMap = self->_channelMap;
-    v13 = channelMap[1];
-    v11 = (channelMap + 1);
-    v12 = v13;
-    if (!v13)
+    v12 = channelMap[1];
+    v10 = (channelMap + 1);
+    v11 = v12;
+    if (!v12)
     {
       goto LABEL_10;
     }
 
-    v14 = v11;
+    v13 = v10;
     do
     {
-      v15 = *(v12 + 8);
-      v16 = v15 >= v6;
-      v17 = v15 < v6;
-      if (v16)
+      v14 = *(v11 + 8);
+      v15 = v14 >= v5;
+      v16 = v14 < v5;
+      if (v15)
       {
-        v14 = v12;
+        v13 = v11;
       }
 
-      v12 = *&v12[8 * v17];
+      v11 = *&v11[8 * v16];
     }
 
-    while (v12);
-    if (v14 != v11 && *(v14 + 8) <= v6)
+    while (v11);
+    if (v13 != v10 && *(v13 + 8) <= v5)
     {
-      v18 = *(v14 + 5);
+      v17 = *(v13 + 5);
       getScene = [(OZFxPlugParameterHandler *)self getScene];
-      if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v18, 8))
+      if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v17, 8))
       {
-        PCSharedCount::PCSharedCount(v24);
-        (*(v18->var0 + 43))(v18, v24);
-        PCString::~PCString(v24);
+        PCSharedCount::PCSharedCount(v23);
+        (*(v17->var0 + 43))(v17, v23);
+        PCString::~PCString(v23);
       }
 
-      [(OZFxPlugParameterHandler *)self preChannelChange:v18 flagsOnly:0];
+      [(OZFxPlugParameterHandler *)self preChannelChange:v17 flagsOnly:0];
       if (self)
       {
-        [(OZFxPlugParameterHandler *)self motionEffectRef];
-        v24[0].var0 = 0;
-        v24[1].var0 = 0;
-        v25 = 0;
-        [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+        objc_msgSend_motionEffectRef(self);
+        v23[0].var0 = 0;
+        v23[1].var0 = 0;
+        v24 = 0;
+        objc_msgSend_fxTimeToFigTime_withConversionData_(self);
       }
 
       else
       {
+        v24 = 0;
         v25 = 0;
-        v26 = 0;
-        v24[0].var0 = 0;
-        v24[1].var0 = 0;
+        v23[0].var0 = 0;
+        v23[1].var0 = 0;
       }
 
-      v22 = *&v24[0].var0;
-      v23 = v25;
-      v20 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v22 forChannel:v18];
-      (*(v18->var0 + 89))(v18, v24, [(OZFxPlugParameterHandler *)self isRendering], value);
-      [(OZFxPlugParameterHandler *)self endTimingOperation:v20];
-      [(OZFxPlugParameterHandler *)self postChannelChange:v18 flagsOnly:0];
+      v21 = *&v23[0].var0;
+      v22 = v24;
+      v19 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v21 forChannel:v17];
+      (*(v17->var0 + 89))(v17, v23, [(OZFxPlugParameterHandler *)self isRendering], value);
+      [(OZFxPlugParameterHandler *)self endTimingOperation:v19];
+      [(OZFxPlugParameterHandler *)self postChannelChange:v17 flagsOnly:0];
       if (self->_startActionCalled)
       {
         ++self->_numWriteActions;
       }
 
-      [(OZFxPlugParameterHandler *)self _updateUIForParm:v6];
-      ProCore_Impl::PCNSRefImpl::release(&v26);
+      [(OZFxPlugParameterHandler *)self _updateUIForParm:v5];
+      ProCore_Impl::PCNSRefImpl::release(&v25);
       LOBYTE(safeToSetParameters) = 1;
     }
 
@@ -4125,76 +4117,76 @@ LABEL_10:
 
 - (BOOL)_setIntValue:(int)value toParm:(unsigned int)parm atTime:(id)time
 {
-  v6 = *&parm;
+  v5 = *&parm;
   safeToSetParameters = [(OZFxPlugParameterHandler *)self safeToSetParameters];
   if (safeToSetParameters)
   {
     channelMap = self->_channelMap;
-    v13 = channelMap[1];
-    v11 = (channelMap + 1);
-    v12 = v13;
-    if (!v13)
+    v12 = channelMap[1];
+    v10 = (channelMap + 1);
+    v11 = v12;
+    if (!v12)
     {
       goto LABEL_10;
     }
 
-    v14 = v11;
+    v13 = v10;
     do
     {
-      v15 = *(v12 + 8);
-      v16 = v15 >= v6;
-      v17 = v15 < v6;
-      if (v16)
+      v14 = *(v11 + 8);
+      v15 = v14 >= v5;
+      v16 = v14 < v5;
+      if (v15)
       {
-        v14 = v12;
+        v13 = v11;
       }
 
-      v12 = *&v12[8 * v17];
+      v11 = *&v11[8 * v16];
     }
 
-    while (v12);
-    if (v14 != v11 && *(v14 + 8) <= v6)
+    while (v11);
+    if (v13 != v10 && *(v13 + 8) <= v5)
     {
-      v18 = *(v14 + 5);
+      v17 = *(v13 + 5);
       getScene = [(OZFxPlugParameterHandler *)self getScene];
-      if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v18, 8))
+      if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v17, 8))
       {
-        PCSharedCount::PCSharedCount(v24);
-        (*(v18->var0 + 43))(v18, v24);
-        PCString::~PCString(v24);
+        PCSharedCount::PCSharedCount(v23);
+        (*(v17->var0 + 43))(v17, v23);
+        PCString::~PCString(v23);
       }
 
-      [(OZFxPlugParameterHandler *)self preChannelChange:v18 flagsOnly:0];
+      [(OZFxPlugParameterHandler *)self preChannelChange:v17 flagsOnly:0];
       if (self)
       {
-        [(OZFxPlugParameterHandler *)self motionEffectRef];
-        v24[0].var0 = 0;
-        v24[1].var0 = 0;
-        v25 = 0;
-        [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+        objc_msgSend_motionEffectRef(self);
+        v23[0].var0 = 0;
+        v23[1].var0 = 0;
+        v24 = 0;
+        objc_msgSend_fxTimeToFigTime_withConversionData_(self);
       }
 
       else
       {
+        v24 = 0;
         v25 = 0;
-        v26 = 0;
-        v24[0].var0 = 0;
-        v24[1].var0 = 0;
+        v23[0].var0 = 0;
+        v23[1].var0 = 0;
       }
 
-      v22 = *&v24[0].var0;
-      v23 = v25;
-      v20 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v22 forChannel:v18];
-      (*(v18->var0 + 89))(v18, v24, [(OZFxPlugParameterHandler *)self isRendering], value);
-      [(OZFxPlugParameterHandler *)self endTimingOperation:v20];
-      [(OZFxPlugParameterHandler *)self postChannelChange:v18 flagsOnly:0];
+      v21 = *&v23[0].var0;
+      v22 = v24;
+      v19 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v21 forChannel:v17];
+      (*(v17->var0 + 89))(v17, v23, [(OZFxPlugParameterHandler *)self isRendering], value);
+      [(OZFxPlugParameterHandler *)self endTimingOperation:v19];
+      [(OZFxPlugParameterHandler *)self postChannelChange:v17 flagsOnly:0];
       if (self->_startActionCalled)
       {
         ++self->_numWriteActions;
       }
 
-      [(OZFxPlugParameterHandler *)self _updateUIForParm:v6];
-      ProCore_Impl::PCNSRefImpl::release(&v26);
+      [(OZFxPlugParameterHandler *)self _updateUIForParm:v5];
+      ProCore_Impl::PCNSRefImpl::release(&v25);
       LOBYTE(safeToSetParameters) = 1;
     }
 
@@ -4210,77 +4202,77 @@ LABEL_10:
 
 - (BOOL)_setBoolValue:(BOOL)value toParm:(unsigned int)parm atTime:(id)time
 {
-  v6 = *&parm;
+  v5 = *&parm;
   valueCopy = value;
   safeToSetParameters = [(OZFxPlugParameterHandler *)self safeToSetParameters];
   if (safeToSetParameters)
   {
     channelMap = self->_channelMap;
-    v13 = channelMap[1];
-    v11 = (channelMap + 1);
-    v12 = v13;
-    if (!v13)
+    v12 = channelMap[1];
+    v10 = (channelMap + 1);
+    v11 = v12;
+    if (!v12)
     {
       goto LABEL_10;
     }
 
-    v14 = v11;
+    v13 = v10;
     do
     {
-      v15 = *(v12 + 8);
-      v16 = v15 >= v6;
-      v17 = v15 < v6;
-      if (v16)
+      v14 = *(v11 + 8);
+      v15 = v14 >= v5;
+      v16 = v14 < v5;
+      if (v15)
       {
-        v14 = v12;
+        v13 = v11;
       }
 
-      v12 = *&v12[8 * v17];
+      v11 = *&v11[8 * v16];
     }
 
-    while (v12);
-    if (v14 != v11 && *(v14 + 8) <= v6)
+    while (v11);
+    if (v13 != v10 && *(v13 + 8) <= v5)
     {
-      v18 = *(v14 + 5);
+      v17 = *(v13 + 5);
       getScene = [(OZFxPlugParameterHandler *)self getScene];
-      if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v18, 8))
+      if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v17, 8))
       {
-        PCSharedCount::PCSharedCount(v24);
-        (*(v18->var0 + 43))(v18, v24);
-        PCString::~PCString(v24);
+        PCSharedCount::PCSharedCount(v23);
+        (*(v17->var0 + 43))(v17, v23);
+        PCString::~PCString(v23);
       }
 
-      [(OZFxPlugParameterHandler *)self preChannelChange:v18 flagsOnly:0];
+      [(OZFxPlugParameterHandler *)self preChannelChange:v17 flagsOnly:0];
       if (self)
       {
-        [(OZFxPlugParameterHandler *)self motionEffectRef];
-        v24[0].var0 = 0;
-        v24[1].var0 = 0;
-        v25 = 0;
-        [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+        objc_msgSend_motionEffectRef(self);
+        v23[0].var0 = 0;
+        v23[1].var0 = 0;
+        v24 = 0;
+        objc_msgSend_fxTimeToFigTime_withConversionData_(self);
       }
 
       else
       {
+        v24 = 0;
         v25 = 0;
-        v26 = 0;
-        v24[0].var0 = 0;
-        v24[1].var0 = 0;
+        v23[0].var0 = 0;
+        v23[1].var0 = 0;
       }
 
-      v22 = *&v24[0].var0;
-      v23 = v25;
-      v20 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v22 forChannel:v18];
-      (*(v18->var0 + 89))(v18, v24, [(OZFxPlugParameterHandler *)self isRendering], valueCopy);
-      [(OZFxPlugParameterHandler *)self endTimingOperation:v20];
-      [(OZFxPlugParameterHandler *)self postChannelChange:v18 flagsOnly:0];
+      v21 = *&v23[0].var0;
+      v22 = v24;
+      v19 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v21 forChannel:v17];
+      (*(v17->var0 + 89))(v17, v23, [(OZFxPlugParameterHandler *)self isRendering], valueCopy);
+      [(OZFxPlugParameterHandler *)self endTimingOperation:v19];
+      [(OZFxPlugParameterHandler *)self postChannelChange:v17 flagsOnly:0];
       if (self->_startActionCalled)
       {
         ++self->_numWriteActions;
       }
 
-      [(OZFxPlugParameterHandler *)self _updateUIForParm:v6];
-      ProCore_Impl::PCNSRefImpl::release(&v26);
+      [(OZFxPlugParameterHandler *)self _updateUIForParm:v5];
+      ProCore_Impl::PCNSRefImpl::release(&v25);
       LOBYTE(safeToSetParameters) = 1;
     }
 
@@ -4296,81 +4288,81 @@ LABEL_10:
 
 - (BOOL)_setRedValue:(double)value greenValue:(double)greenValue blueValue:(double)blueValue toParm:(unsigned int)parm atTime:(id)time
 {
-  v8 = *&parm;
+  v7 = *&parm;
   safeToSetParameters = [(OZFxPlugParameterHandler *)self safeToSetParameters];
   if (safeToSetParameters)
   {
     channelMap = self->_channelMap;
-    v17 = channelMap[1];
-    v15 = (channelMap + 1);
-    v16 = v17;
-    if (!v17)
+    v16 = channelMap[1];
+    v14 = (channelMap + 1);
+    v15 = v16;
+    if (!v16)
     {
       goto LABEL_10;
     }
 
-    v18 = v15;
+    v17 = v14;
     do
     {
-      v19 = *(v16 + 8);
-      v20 = v19 >= v8;
-      v21 = v19 < v8;
-      if (v20)
+      v18 = *(v15 + 8);
+      v19 = v18 >= v7;
+      v20 = v18 < v7;
+      if (v19)
       {
-        v18 = v16;
+        v17 = v15;
       }
 
-      v16 = *&v16[8 * v21];
+      v15 = *&v15[8 * v20];
     }
 
-    while (v16);
-    if (v18 != v15 && *(v18 + 8) <= v8)
+    while (v15);
+    if (v17 != v14 && *(v17 + 8) <= v7)
     {
-      v22 = *(v18 + 5);
+      v21 = *(v17 + 5);
       getScene = [(OZFxPlugParameterHandler *)self getScene];
-      if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v22, 8))
+      if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v21, 8))
       {
-        PCSharedCount::PCSharedCount(&v32);
-        (*(v22->var0 + 43))(v22, &v32);
-        PCString::~PCString(&v32);
+        PCSharedCount::PCSharedCount(&v31);
+        (*(v21->var0 + 43))(v21, &v31);
+        PCString::~PCString(&v31);
       }
 
       if (self)
       {
-        [(OZFxPlugParameterHandler *)self motionEffectRef];
-        v33 = 0uLL;
-        v34 = 0;
-        [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+        objc_msgSend_motionEffectRef(self);
+        v32 = 0uLL;
+        v33 = 0;
+        objc_msgSend_fxTimeToFigTime_withConversionData_(self);
       }
 
       else
       {
-        v35 = 0;
-        v33 = 0uLL;
         v34 = 0;
+        v32 = 0uLL;
+        v33 = 0;
       }
 
-      PCColor::PCColor(&v32);
-      *&v24 = value;
-      *&v25 = greenValue;
-      *&v26 = blueValue;
-      LODWORD(v27) = 1.0;
-      [(OZFxPlugParameterHandler *)self setColorFromFxPlugColorSpace:&v32 red:v24 green:v25 blue:v26 alpha:v27];
+      PCColor::PCColor(&v31);
+      *&v23 = value;
+      *&v24 = greenValue;
+      *&v25 = blueValue;
+      LODWORD(v26) = 1.0;
+      [(OZFxPlugParameterHandler *)self setColorFromFxPlugColorSpace:&v31 red:v23 green:v24 blue:v25 alpha:v26];
+      v29 = v32;
       v30 = v33;
-      v31 = v34;
-      v28 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v30 forChannel:v22];
-      [(OZFxPlugParameterHandler *)self preChannelChange:v22 flagsOnly:0];
-      (*(v22->var0 + 105))(v22, &v33, &v32, [(OZFxPlugParameterHandler *)self isRendering]);
-      [(OZFxPlugParameterHandler *)self postChannelChange:v22 flagsOnly:0];
-      [(OZFxPlugParameterHandler *)self endTimingOperation:v28];
+      v27 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v29 forChannel:v21];
+      [(OZFxPlugParameterHandler *)self preChannelChange:v21 flagsOnly:0];
+      (*(v21->var0 + 105))(v21, &v32, &v31, [(OZFxPlugParameterHandler *)self isRendering]);
+      [(OZFxPlugParameterHandler *)self postChannelChange:v21 flagsOnly:0];
+      [(OZFxPlugParameterHandler *)self endTimingOperation:v27];
       if (self->_startActionCalled)
       {
         ++self->_numWriteActions;
       }
 
-      [(OZFxPlugParameterHandler *)self _updateUIForParm:v8];
-      PCCFRef<CGColorSpace *>::~PCCFRef(&v32.var1._obj);
-      ProCore_Impl::PCNSRefImpl::release(&v35);
+      [(OZFxPlugParameterHandler *)self _updateUIForParm:v7];
+      PCCFRef<CGColorSpace *>::~PCCFRef(&v31.var1._obj);
+      ProCore_Impl::PCNSRefImpl::release(&v34);
       LOBYTE(safeToSetParameters) = 1;
     }
 
@@ -4386,81 +4378,81 @@ LABEL_10:
 
 - (BOOL)_setRedValue:(double)value greenValue:(double)greenValue blueValue:(double)blueValue alphaValue:(double)alphaValue toParm:(unsigned int)parm atTime:(id)time
 {
-  v9 = *&parm;
+  v8 = *&parm;
   safeToSetParameters = [(OZFxPlugParameterHandler *)self safeToSetParameters];
   if (safeToSetParameters)
   {
     channelMap = self->_channelMap;
-    v19 = channelMap[1];
-    v17 = (channelMap + 1);
-    v18 = v19;
-    if (!v19)
+    v18 = channelMap[1];
+    v16 = (channelMap + 1);
+    v17 = v18;
+    if (!v18)
     {
       goto LABEL_10;
     }
 
-    v20 = v17;
+    v19 = v16;
     do
     {
-      v21 = *(v18 + 8);
-      v22 = v21 >= v9;
-      v23 = v21 < v9;
-      if (v22)
+      v20 = *(v17 + 8);
+      v21 = v20 >= v8;
+      v22 = v20 < v8;
+      if (v21)
       {
-        v20 = v18;
+        v19 = v17;
       }
 
-      v18 = *&v18[8 * v23];
+      v17 = *&v17[8 * v22];
     }
 
-    while (v18);
-    if (v20 != v17 && *(v20 + 8) <= v9)
+    while (v17);
+    if (v19 != v16 && *(v19 + 8) <= v8)
     {
-      v24 = *(v20 + 5);
+      v23 = *(v19 + 5);
       getScene = [(OZFxPlugParameterHandler *)self getScene];
-      if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v24, 8))
+      if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v23, 8))
       {
-        PCSharedCount::PCSharedCount(&v34);
-        (*(v24->var0 + 43))(v24, &v34);
-        PCString::~PCString(&v34);
+        PCSharedCount::PCSharedCount(&v33);
+        (*(v23->var0 + 43))(v23, &v33);
+        PCString::~PCString(&v33);
       }
 
       if (self)
       {
-        [(OZFxPlugParameterHandler *)self motionEffectRef];
-        v35 = 0uLL;
-        v36 = 0;
-        [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+        objc_msgSend_motionEffectRef(self);
+        v34 = 0uLL;
+        v35 = 0;
+        objc_msgSend_fxTimeToFigTime_withConversionData_(self);
       }
 
       else
       {
-        v37 = 0;
-        v35 = 0uLL;
         v36 = 0;
+        v34 = 0uLL;
+        v35 = 0;
       }
 
-      PCColor::PCColor(&v34);
-      *&v26 = value;
-      *&v27 = greenValue;
-      *&v28 = blueValue;
-      *&v29 = alphaValue;
-      [(OZFxPlugParameterHandler *)self setColorFromFxPlugColorSpace:&v34 red:v26 green:v27 blue:v28 alpha:v29];
+      PCColor::PCColor(&v33);
+      *&v25 = value;
+      *&v26 = greenValue;
+      *&v27 = blueValue;
+      *&v28 = alphaValue;
+      [(OZFxPlugParameterHandler *)self setColorFromFxPlugColorSpace:&v33 red:v25 green:v26 blue:v27 alpha:v28];
+      v31 = v34;
       v32 = v35;
-      v33 = v36;
-      v30 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v32 forChannel:v24];
-      [(OZFxPlugParameterHandler *)self preChannelChange:v24 flagsOnly:0];
-      (*(v24->var0 + 105))(v24, &v35, &v34, [(OZFxPlugParameterHandler *)self isRendering]);
-      [(OZFxPlugParameterHandler *)self postChannelChange:v24 flagsOnly:0];
-      [(OZFxPlugParameterHandler *)self endTimingOperation:v30];
+      v29 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v31 forChannel:v23];
+      [(OZFxPlugParameterHandler *)self preChannelChange:v23 flagsOnly:0];
+      (*(v23->var0 + 105))(v23, &v34, &v33, [(OZFxPlugParameterHandler *)self isRendering]);
+      [(OZFxPlugParameterHandler *)self postChannelChange:v23 flagsOnly:0];
+      [(OZFxPlugParameterHandler *)self endTimingOperation:v29];
       if (self->_startActionCalled)
       {
         ++self->_numWriteActions;
       }
 
-      [(OZFxPlugParameterHandler *)self _updateUIForParm:v9];
-      PCCFRef<CGColorSpace *>::~PCCFRef(&v34.var1._obj);
-      ProCore_Impl::PCNSRefImpl::release(&v37);
+      [(OZFxPlugParameterHandler *)self _updateUIForParm:v8];
+      PCCFRef<CGColorSpace *>::~PCCFRef(&v33.var1._obj);
+      ProCore_Impl::PCNSRefImpl::release(&v36);
       LOBYTE(safeToSetParameters) = 1;
     }
 
@@ -4476,155 +4468,155 @@ LABEL_10:
 
 - (BOOL)_setXValue:(double)value YValue:(double)yValue toParm:(unsigned int)parm atTime:(id)time
 {
-  v7 = *&parm;
+  v6 = *&parm;
   if (![(OZFxPlugParameterHandler *)self safeToSetParameters])
   {
     goto LABEL_39;
   }
 
   channelMap = self->_channelMap;
-  v14 = channelMap[1];
-  v12 = (channelMap + 1);
-  v13 = v14;
-  if (!v14)
+  v13 = channelMap[1];
+  v11 = (channelMap + 1);
+  v12 = v13;
+  if (!v13)
   {
     goto LABEL_39;
   }
 
-  v15 = v12;
+  v14 = v11;
   do
   {
-    v16 = *(v13 + 8);
-    _CF = v16 >= v7;
-    v18 = v16 < v7;
+    v15 = *(v12 + 8);
+    _CF = v15 >= v6;
+    v17 = v15 < v6;
     if (_CF)
     {
-      v15 = v13;
+      v14 = v12;
     }
 
-    v13 = *&v13[8 * v18];
+    v12 = *&v12[8 * v17];
   }
 
-  while (v13);
-  if (v15 == v12 || *(v15 + 8) > v7)
+  while (v12);
+  if (v14 == v11 || *(v14 + 8) > v6)
   {
     goto LABEL_39;
   }
 
-  v19 = *(v15 + 5);
+  v18 = *(v14 + 5);
   if (self)
   {
-    [(OZFxPlugParameterHandler *)self motionEffectRef];
+    objc_msgSend_motionEffectRef(self);
   }
 
   else
   {
-    v46 = 0;
+    v45 = 0;
   }
 
   cntrl = self->_fxPlugLock.__cntrl_;
   ptr = self->_fxPlugLock.__ptr_;
-  v44 = cntrl;
+  v43 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
   }
 
-  OZFxPlugLockSentinel::OZFxPlugLockSentinel(v45, &ptr);
-  if (v44)
+  OZFxPlugLockSentinel::OZFxPlugLockSentinel(v44, &ptr);
+  if (v43)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v43);
   }
 
-  v21 = *v45[0];
-  if (!*v45[0] || (v22 = atomic_load(&self->_pluginRemoved), (v22 & 1) != 0))
+  v20 = *v44[0];
+  if (!*v44[0] || (v21 = atomic_load(&self->_pluginRemoved), (v21 & 1) != 0))
   {
-    v23 = 0;
-    LOBYTE(v24) = 1;
+    v22 = 0;
+    LOBYTE(v23) = 1;
     goto LABEL_38;
   }
 
-  memset(&v42, 0, sizeof(v42));
-  [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
-  v38[0]._pcColorDesc = v42;
-  v25 = [(OZFxPlugParameterHandler *)self beginTimingOperation:v38 forChannel:v19];
-  if (v26)
+  memset(&v41, 0, sizeof(v41));
+  objc_msgSend_fxTimeToFigTime_withConversionData_(self);
+  v37[0]._pcColorDesc = v41;
+  v24 = [(OZFxPlugParameterHandler *)self beginTimingOperation:v37 forChannel:v18];
+  if (v25)
   {
-    v27 = v26;
-    v24 = v26[3];
-    if (v24)
+    v26 = v25;
+    v23 = v25[3];
+    if (v23)
     {
-      v41[0] = 0uLL;
+      v40[0] = 0uLL;
       __asm { FMOV            V0.2D, #-1.0 }
 
-      v41[1] = _Q0;
-      OZRenderParams::OZRenderParams(v38);
-      v38[0]._pcColorDesc = v42;
+      v40[1] = _Q0;
+      OZRenderParams::OZRenderParams(v37);
+      v37[0]._pcColorDesc = v41;
+      v38 = 0;
       v39 = 0;
-      v40 = 0;
-      v32 = (*(*v27 + 296))(v27);
-      WorkingColorSpace = OZScene::getWorkingColorSpace(v32);
-      OZRenderParams::setWorkingColorSpace(v38, WorkingColorSpace);
-      v34 = *v24;
-      if (v35)
+      v31 = (*(*v26 + 296))(v26);
+      WorkingColorSpace = OZScene::getWorkingColorSpace(v31);
+      OZRenderParams::setWorkingColorSpace(v37, WorkingColorSpace);
+      v33 = *v23;
+      if (v34)
       {
-        if ((*(*v35 + 2216))(v35, v38))
+        if ((*(*v34 + 2216))(v34, v37))
         {
-          OZScene::getSceneBounds(v32, v41);
+          OZScene::getSceneBounds(v31, v40);
 LABEL_28:
-          OZRenderParams::~OZRenderParams(v38);
-          LOBYTE(v24) = 1;
+          OZRenderParams::~OZRenderParams(v37);
+          LOBYTE(v23) = 1;
           goto LABEL_29;
         }
 
-        v34 = *v24;
+        v33 = *v23;
       }
 
-      (*(v34 + 80))(v24, v41, v38);
+      (*(v33 + 80))(v23, v40, v37);
       goto LABEL_28;
     }
   }
 
   else
   {
-    LOBYTE(v24) = 0;
+    LOBYTE(v23) = 0;
   }
 
 LABEL_29:
-  if ([(OZFxPlugParameterHandler *)self shouldFlipPoints:*&v38[0]._pcColorDesc._colorSpaceRef._obj])
+  if ([(OZFxPlugParameterHandler *)self shouldFlipPoints:*&v37[0]._pcColorDesc._colorSpaceRef._obj])
   {
     yValue = 1.0 - yValue;
   }
 
   getScene = [(OZFxPlugParameterHandler *)self getScene];
-  if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v19, 8))
+  if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v18, 8))
   {
-    PCSharedCount::PCSharedCount(v38);
-    (*(v19->var0 + 43))(v19, v38);
-    PCString::~PCString(v38);
+    PCSharedCount::PCSharedCount(v37);
+    (*(v18->var0 + 43))(v18, v37);
+    PCString::~PCString(v37);
   }
 
-  [(OZFxPlugParameterHandler *)self preChannelChange:v19 flagsOnly:0];
-  OZChannel2D::setValue(v19, &v42, value, yValue, [(OZFxPlugParameterHandler *)self isRendering]);
-  [(OZFxPlugParameterHandler *)self postChannelChange:v19 flagsOnly:0];
-  [(OZFxPlugParameterHandler *)self endTimingOperation:v25];
+  [(OZFxPlugParameterHandler *)self preChannelChange:v18 flagsOnly:0];
+  OZChannel2D::setValue(v18, &v41, value, yValue, [(OZFxPlugParameterHandler *)self isRendering]);
+  [(OZFxPlugParameterHandler *)self postChannelChange:v18 flagsOnly:0];
+  [(OZFxPlugParameterHandler *)self endTimingOperation:v24];
   if (self->_startActionCalled)
   {
     ++self->_numWriteActions;
   }
 
-  [(OZFxPlugParameterHandler *)self _updateUIForParm:v7];
-  v23 = 1;
+  [(OZFxPlugParameterHandler *)self _updateUIForParm:v6];
+  v22 = 1;
 LABEL_38:
-  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v45);
-  ProCore_Impl::PCNSRefImpl::release(&v46);
-  if ((v23 & 1) == 0)
+  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v44);
+  ProCore_Impl::PCNSRefImpl::release(&v45);
+  if ((v22 & 1) == 0)
   {
 LABEL_39:
-    LOBYTE(v24) = 0;
+    LOBYTE(v23) = 0;
   }
 
-  return v24;
+  return v23;
 }
 
 - (void)onVTBUserInteractionEventNotification:(id)notification
@@ -4720,7 +4712,7 @@ LABEL_39:
   [(OZFxPlugParameterHandler *)self preChannelChange:v15 flagsOnly:0];
   if (self)
   {
-    [(OZFxPlugParameterHandler *)self motionEffectRef];
+    objc_msgSend_motionEffectRef(self);
   }
 
   else
@@ -4793,207 +4785,207 @@ LABEL_33:
 
 - (BOOL)_setCustomParameterValue:(id)value toParm:(unsigned int)parm atTime:(id)time
 {
-  v6 = *&parm;
+  v5 = *&parm;
   if (![(OZFxPlugParameterHandler *)self safeToSetParameters])
   {
     return 0;
   }
 
   channelMap = self->_channelMap;
-  v12 = channelMap[1];
-  v10 = (channelMap + 1);
-  v11 = v12;
-  if (!v12)
+  v11 = channelMap[1];
+  v9 = (channelMap + 1);
+  v10 = v11;
+  if (!v11)
   {
     return 0;
   }
 
-  v13 = v10;
+  v12 = v9;
   do
   {
-    v14 = *(v11 + 8);
-    v15 = v14 >= v6;
-    v16 = v14 < v6;
-    if (v15)
+    v13 = *(v10 + 8);
+    v14 = v13 >= v5;
+    v15 = v13 < v5;
+    if (v14)
     {
-      v13 = v11;
+      v12 = v10;
     }
 
-    v11 = *&v11[8 * v16];
+    v10 = *&v10[8 * v15];
   }
 
-  while (v11);
-  if (v13 == v10 || *(v13 + 8) > v6)
+  while (v10);
+  if (v12 == v9 || *(v12 + 8) > v5)
   {
     return 0;
   }
 
-  v17 = *(v13 + 5);
+  v16 = *(v12 + 5);
   if (self)
   {
-    [(OZFxPlugParameterHandler *)self motionEffectRef];
+    objc_msgSend_motionEffectRef(self);
   }
 
   else
   {
-    v32 = 0;
+    v31 = 0;
   }
 
   cntrl = self->_fxPlugLock.__cntrl_;
   ptr = self->_fxPlugLock.__ptr_;
-  v30 = cntrl;
+  v29 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
   }
 
-  OZFxPlugLockSentinel::OZFxPlugLockSentinel(v31, &ptr);
-  if (v30)
+  OZFxPlugLockSentinel::OZFxPlugLockSentinel(v30, &ptr);
+  if (v29)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v29);
   }
 
-  v19 = *v31[0];
-  if (!*v31[0] || (v20 = atomic_load(&self->_pluginRemoved), (v20 & 1) != 0))
+  v18 = *v30[0];
+  if (!*v30[0] || (v19 = atomic_load(&self->_pluginRemoved), (v19 & 1) != 0))
   {
-    v21 = 0;
-    v22 = 1;
+    v20 = 0;
+    v21 = 1;
     goto LABEL_29;
   }
 
-  memset(&v28, 0, sizeof(v28));
-  [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
-  v27 = v28;
-  v23 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v27 forChannel:v17];
-  [(OZFxPlugParameterHandler *)self preChannelChange:v17 flagsOnly:0];
-  if (value && (*(v19 + 216) & 1) == 0)
+  memset(&v27, 0, sizeof(v27));
+  objc_msgSend_fxTimeToFigTime_withConversionData_(self);
+  v26 = v27;
+  v22 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v26 forChannel:v16];
+  [(OZFxPlugParameterHandler *)self preChannelChange:v16 flagsOnly:0];
+  if (value && (*(v18 + 216) & 1) == 0)
   {
-    v24 = *(v19 + 24);
-    if (!v24)
+    v23 = *(v18 + 24);
+    if (!v23)
     {
-      v22 = 0;
+      v21 = 0;
       goto LABEL_26;
     }
 
-    if (([v24 useLegacyCoding] & 1) == 0)
+    if (([v23 useLegacyCoding] & 1) == 0)
     {
-      v25 = [objc_alloc(MEMORY[0x277CCAAB0]) initRequiringSecureCoding:1];
-      [v25 encodeObject:value forKey:@"Custom Data"];
-      value = [v25 encodedData];
+      v24 = [objc_alloc(MEMORY[0x277CCAAB0]) initRequiringSecureCoding:1];
+      [v24 encodeObject:value forKey:@"Custom Data"];
+      value = [v24 encodedData];
     }
   }
 
-  v22 = 1;
-  OZChannelBlindData::setPluginDataPtr(v17, &v28, value, [(OZFxPlugParameterHandler *)self isRendering], 1, 1);
+  v21 = 1;
+  OZChannelBlindData::setPluginDataPtr(v16, &v27, value, [(OZFxPlugParameterHandler *)self isRendering], 1, 1);
 LABEL_26:
-  [(OZFxPlugParameterHandler *)self _updateUIForParm:v6];
-  [(OZFxPlugParameterHandler *)self postChannelChange:v17 flagsOnly:0];
+  [(OZFxPlugParameterHandler *)self _updateUIForParm:v5];
+  [(OZFxPlugParameterHandler *)self postChannelChange:v16 flagsOnly:0];
   if (self->_startActionCalled)
   {
     ++self->_numWriteActions;
   }
 
-  [(OZFxPlugParameterHandler *)self endTimingOperation:v23];
-  v21 = 1;
+  [(OZFxPlugParameterHandler *)self endTimingOperation:v22];
+  v20 = 1;
 LABEL_29:
-  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v31);
-  ProCore_Impl::PCNSRefImpl::release(&v32);
-  if ((v21 & 1) == 0)
+  OZFxPlugLockSentinel::~OZFxPlugLockSentinel(v30);
+  ProCore_Impl::PCNSRefImpl::release(&v31);
+  if ((v20 & 1) == 0)
   {
     return 0;
   }
 
-  return v22;
+  return v21;
 }
 
 - (BOOL)_setHistogramBlackIn:(double)in BlackOut:(double)out WhiteIn:(double)whiteIn WhiteOut:(double)whiteOut Gamma:(double)gamma forChannel:(unint64_t)channel fromParm:(unsigned int)parm atTime:(id)self0
 {
-  v11 = *&parm;
+  v10 = *&parm;
   safeToSetParameters = [(OZFxPlugParameterHandler *)self safeToSetParameters];
   if (safeToSetParameters)
   {
     channelMap = self->_channelMap;
-    v23 = channelMap[1];
-    v21 = (channelMap + 1);
-    v22 = v23;
-    if (!v23)
+    v22 = channelMap[1];
+    v20 = (channelMap + 1);
+    v21 = v22;
+    if (!v22)
     {
       goto LABEL_10;
     }
 
-    v24 = v21;
+    v23 = v20;
     do
     {
-      v25 = *(v22 + 8);
-      v26 = v25 >= v11;
-      v27 = v25 < v11;
-      if (v26)
+      v24 = *(v21 + 8);
+      v25 = v24 >= v10;
+      v26 = v24 < v10;
+      if (v25)
       {
-        v24 = v22;
+        v23 = v21;
       }
 
-      v22 = *&v22[8 * v27];
+      v21 = *&v21[8 * v26];
     }
 
-    while (v22);
-    if (v24 != v21 && *(v24 + 8) <= v11)
+    while (v21);
+    if (v23 != v20 && *(v23 + 8) <= v10)
     {
-      v28 = *(v24 + 5);
+      v27 = *(v23 + 5);
       getScene = [(OZFxPlugParameterHandler *)self getScene];
-      if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v28, 8))
+      if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v27, 8))
       {
-        PCSharedCount::PCSharedCount(v37);
-        (*(v28->var0 + 43))(v28, v37);
-        PCString::~PCString(v37);
+        PCSharedCount::PCSharedCount(v36);
+        (*(v27->var0 + 43))(v27, v36);
+        PCString::~PCString(v36);
       }
 
-      [(OZFxPlugParameterHandler *)self preChannelChange:v28 flagsOnly:0];
+      [(OZFxPlugParameterHandler *)self preChannelChange:v27 flagsOnly:0];
       if (self)
       {
-        [(OZFxPlugParameterHandler *)self motionEffectRef];
-        v37[0].var0 = 0;
-        v37[1].var0 = 0;
-        v38 = 0;
-        [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+        objc_msgSend_motionEffectRef(self);
+        v36[0].var0 = 0;
+        v36[1].var0 = 0;
+        v37 = 0;
+        objc_msgSend_fxTimeToFigTime_withConversionData_(self);
       }
 
       else
       {
+        v37 = 0;
         v38 = 0;
-        v39 = 0;
-        v37[0].var0 = 0;
-        v37[1].var0 = 0;
+        v36[0].var0 = 0;
+        v36[1].var0 = 0;
       }
 
-      v35 = *&v37[0].var0;
-      v36 = v38;
-      v30 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v35 forChannel:v28];
+      v34 = *&v36[0].var0;
+      v35 = v37;
+      v29 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v34 forChannel:v27];
       if (channel - 1 >= 4)
       {
-        v31 = 392;
+        v30 = 392;
       }
 
       else
       {
-        v31 = 896 * channel + 392;
+        v30 = 896 * channel + 392;
       }
 
       isRendering = [(OZFxPlugParameterHandler *)self isRendering];
-      v33 = (&v28->var0 + v31);
-      (*(v33[17] + 712))(v33 + 17, v37, isRendering, in);
-      (*(v33[36] + 712))(v33 + 36, v37, isRendering, out);
-      (*(v33[55] + 712))(v33 + 55, v37, isRendering, whiteIn);
-      (*(v33[74] + 712))(v33 + 74, v37, isRendering, whiteOut);
-      (*(v33[93] + 712))(v33 + 93, v37, isRendering, gamma);
-      [(OZFxPlugParameterHandler *)self endTimingOperation:v30];
-      [(OZFxPlugParameterHandler *)self postChannelChange:v28 flagsOnly:0];
+      v32 = (&v27->var0 + v30);
+      (*(v32[17] + 712))(v32 + 17, v36, isRendering, in);
+      (*(v32[36] + 712))(v32 + 36, v36, isRendering, out);
+      (*(v32[55] + 712))(v32 + 55, v36, isRendering, whiteIn);
+      (*(v32[74] + 712))(v32 + 74, v36, isRendering, whiteOut);
+      (*(v32[93] + 712))(v32 + 93, v36, isRendering, gamma);
+      [(OZFxPlugParameterHandler *)self endTimingOperation:v29];
+      [(OZFxPlugParameterHandler *)self postChannelChange:v27 flagsOnly:0];
       if (self->_startActionCalled)
       {
         ++self->_numWriteActions;
       }
 
-      [(OZFxPlugParameterHandler *)self _updateUIForParm:v11];
-      ProCore_Impl::PCNSRefImpl::release(&v39);
+      [(OZFxPlugParameterHandler *)self _updateUIForParm:v10];
+      ProCore_Impl::PCNSRefImpl::release(&v38);
       LOBYTE(safeToSetParameters) = 1;
     }
 
@@ -5009,73 +5001,73 @@ LABEL_10:
 
 - (BOOL)setLevelsBlack:(double)black White:(double)white Gamma:(double)gamma forParm:(unsigned int)parm atTime:(id)time
 {
-  v8 = *&parm;
+  v7 = *&parm;
   safeToSetParameters = [(OZFxPlugParameterHandler *)self safeToSetParameters];
   if (safeToSetParameters)
   {
     channelMap = self->_channelMap;
-    v17 = channelMap[1];
-    v15 = (channelMap + 1);
-    v16 = v17;
-    if (!v17)
+    v16 = channelMap[1];
+    v14 = (channelMap + 1);
+    v15 = v16;
+    if (!v16)
     {
       goto LABEL_10;
     }
 
-    v18 = v15;
+    v17 = v14;
     do
     {
-      v19 = *(v16 + 8);
-      v20 = v19 >= v8;
-      v21 = v19 < v8;
-      if (v20)
+      v18 = *(v15 + 8);
+      v19 = v18 >= v7;
+      v20 = v18 < v7;
+      if (v19)
       {
-        v18 = v16;
+        v17 = v15;
       }
 
-      v16 = *&v16[8 * v21];
+      v15 = *&v15[8 * v20];
     }
 
-    while (v16);
-    if (v18 != v15 && *(v18 + 8) <= v8)
+    while (v15);
+    if (v17 != v14 && *(v17 + 8) <= v7)
     {
-      v22 = *(v18 + 5);
+      v21 = *(v17 + 5);
       getScene = [(OZFxPlugParameterHandler *)self getScene];
-      if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v22, 8))
+      if (getScene && (*(getScene[198] + 101) & 1) == 0 && !OZChannelBase::testFlag(v21, 8))
       {
-        PCSharedCount::PCSharedCount(&v27);
-        (*(v22->var0 + 43))(v22, &v27);
-        PCString::~PCString(&v27);
+        PCSharedCount::PCSharedCount(&v26);
+        (*(v21->var0 + 43))(v21, &v26);
+        PCString::~PCString(&v26);
       }
 
       if (self)
       {
-        [(OZFxPlugParameterHandler *)self motionEffectRef];
-        memset(&v27, 0, sizeof(v27));
-        [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+        objc_msgSend_motionEffectRef(self);
+        memset(&v26, 0, sizeof(v26));
+        objc_msgSend_fxTimeToFigTime_withConversionData_(self);
       }
 
       else
       {
-        v28 = 0;
-        memset(&v27, 0, sizeof(v27));
+        v27 = 0;
+        memset(&v26, 0, sizeof(v26));
       }
 
-      v26 = v27;
-      v24 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v26 forChannel:v22];
-      [(OZFxPlugParameterHandler *)self preChannelChange:v22 flagsOnly:0];
-      OZChannelLevels::setBlackValue(v22, &v27, black, 0);
-      OZChannelLevels::setWhiteValue(v22, &v27, white, 0);
-      OZChannelLevels::setGammaValue(v22, &v27, gamma, 0);
-      [(OZFxPlugParameterHandler *)self postChannelChange:v22 flagsOnly:0];
-      [(OZFxPlugParameterHandler *)self endTimingOperation:v24];
+      v25 = v26;
+      v23 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v25 forChannel:v21];
+      [(OZFxPlugParameterHandler *)self preChannelChange:v21 flagsOnly:0];
+      OZChannelLevels::setBlackValue(v21, &v26, black, 0);
+      OZChannelLevels::setWhiteValue(v21, &v26, white, 0);
+      OZChannelLevels::setGammaValue(v21, &v26, gamma, 0);
+      [(OZFxPlugParameterHandler *)self postChannelChange:v21 flagsOnly:0];
+      [(OZFxPlugParameterHandler *)self endTimingOperation:v23];
       if (self->_startActionCalled)
       {
         ++self->_numWriteActions;
       }
 
-      [(OZFxPlugParameterHandler *)self _updateUIForParm:v8];
-      ProCore_Impl::PCNSRefImpl::release(&v28);
+      [(OZFxPlugParameterHandler *)self _updateUIForParm:v7];
+      ProCore_Impl::PCNSRefImpl::release(&v27);
       LOBYTE(safeToSetParameters) = 1;
     }
 
@@ -5134,7 +5126,7 @@ LABEL_10:
       [(OZFxPlugParameterHandler *)self preChannelChange:v16 flagsOnly:1];
       if (self)
       {
-        [(OZFxPlugParameterHandler *)self motionEffectRef];
+        objc_msgSend_motionEffectRef(self);
       }
 
       else
@@ -5258,7 +5250,7 @@ LABEL_10:
       [(OZFxPlugParameterHandler *)self preChannelChange:v16 flagsOnly:0];
       if (self)
       {
-        [(OZFxPlugParameterHandler *)self motionEffectRef];
+        objc_msgSend_motionEffectRef(self);
       }
 
       else
@@ -5301,52 +5293,52 @@ LABEL_10:
     return 0;
   }
 
-  v13 = *&parm;
-  v19 = v9;
+  v12 = *&parm;
+  v18 = v9;
   do
   {
-    v20 = *(v10 + 8);
-    v21 = v20 >= parm;
-    v22 = v20 < parm;
-    if (v21)
+    v19 = *(v10 + 8);
+    v20 = v19 >= parm;
+    v21 = v19 < parm;
+    if (v20)
     {
-      v19 = v10;
+      v18 = v10;
     }
 
-    v10 = *&v10[8 * v22];
+    v10 = *&v10[8 * v21];
   }
 
   while (v10);
-  if (v19 == v9 || *(v19 + 8) > parm)
+  if (v18 == v9 || *(v18 + 8) > parm)
   {
     return 0;
   }
 
-  v24 = *(v19 + 5);
+  v23 = *(v18 + 5);
   if (self)
   {
-    [(OZFxPlugParameterHandler *)self motionEffectRef];
-    memset(&v27, 0, sizeof(v27));
-    [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+    objc_msgSend_motionEffectRef(self, a2);
+    memset(&v26, 0, sizeof(v26));
+    objc_msgSend_fxTimeToFigTime_withConversionData_(self);
   }
 
   else
   {
-    v28 = 0;
-    memset(&v27, 0, sizeof(v27));
+    v27 = 0;
+    memset(&v26, 0, sizeof(v26));
   }
 
-  v26 = v27;
-  v25 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v26 forChannel:v24];
-  [(OZFxPlugParameterHandler *)self preChannelChange:v24 + 1056 flagsOnly:0];
-  OZChannelPosition::setPosition((v24 + 1056), &v27, end, y, [(OZFxPlugParameterHandler *)self isRendering]);
-  [(OZFxPlugParameterHandler *)self postChannelChange:v24 + 1056 flagsOnly:0];
-  [(OZFxPlugParameterHandler *)self preChannelChange:v24 + 1760 flagsOnly:0];
-  OZChannelPosition::setPosition((v24 + 1760), &v27, x, endY, [(OZFxPlugParameterHandler *)self isRendering]);
-  [(OZFxPlugParameterHandler *)self postChannelChange:v24 + 1760 flagsOnly:0];
-  [(OZFxPlugParameterHandler *)self endTimingOperation:v25];
-  [(OZFxPlugParameterHandler *)self _updateUIForParm:v13];
-  ProCore_Impl::PCNSRefImpl::release(&v28);
+  v25 = v26;
+  v24 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v25 forChannel:v23];
+  [(OZFxPlugParameterHandler *)self preChannelChange:v23 + 1056 flagsOnly:0];
+  OZChannelPosition::setPosition((v23 + 1056), &v26, end, y, [(OZFxPlugParameterHandler *)self isRendering]);
+  [(OZFxPlugParameterHandler *)self postChannelChange:v23 + 1056 flagsOnly:0];
+  [(OZFxPlugParameterHandler *)self preChannelChange:v23 + 1760 flagsOnly:0];
+  OZChannelPosition::setPosition((v23 + 1760), &v26, x, endY, [(OZFxPlugParameterHandler *)self isRendering]);
+  [(OZFxPlugParameterHandler *)self postChannelChange:v23 + 1760 flagsOnly:0];
+  [(OZFxPlugParameterHandler *)self endTimingOperation:v24];
+  [(OZFxPlugParameterHandler *)self _updateUIForParm:v12];
+  ProCore_Impl::PCNSRefImpl::release(&v27);
   return 1;
 }
 
@@ -5386,7 +5378,7 @@ LABEL_10:
   v16 = *(v11 + 5);
   if (self)
   {
-    [(OZFxPlugParameterHandler *)self motionEffectRef];
+    objc_msgSend_motionEffectRef(self, a2);
   }
 
   else
@@ -5481,7 +5473,7 @@ LABEL_10:
   v18 = *(v11 + 5);
   if (self)
   {
-    [(OZFxPlugParameterHandler *)self motionEffectRef];
+    objc_msgSend_motionEffectRef(self);
   }
 
   else
@@ -5508,61 +5500,61 @@ LABEL_10:
 
 - (BOOL)_setPathID:(void *)d toParm:(unsigned int)parm atTime:(id)time
 {
-  v6 = *&parm;
+  v5 = *&parm;
   safeToSetParameters = [(OZFxPlugParameterHandler *)self safeToSetParameters];
   if (safeToSetParameters)
   {
     channelMap = self->_channelMap;
-    v13 = channelMap[1];
-    v11 = (channelMap + 1);
-    v12 = v13;
-    if (!v13)
+    v12 = channelMap[1];
+    v10 = (channelMap + 1);
+    v11 = v12;
+    if (!v12)
     {
       goto LABEL_10;
     }
 
-    v14 = v11;
+    v13 = v10;
     do
     {
-      v15 = *(v12 + 8);
-      v16 = v15 >= v6;
-      v17 = v15 < v6;
-      if (v16)
+      v14 = *(v11 + 8);
+      v15 = v14 >= v5;
+      v16 = v14 < v5;
+      if (v15)
       {
-        v14 = v12;
+        v13 = v11;
       }
 
-      v12 = *&v12[8 * v17];
+      v11 = *&v11[8 * v16];
     }
 
-    while (v12);
-    if (v14 != v11 && *(v14 + 8) <= v6)
+    while (v11);
+    if (v13 != v10 && *(v13 + 8) <= v5)
     {
-      v18 = *(v14 + 5);
+      v17 = *(v13 + 5);
       if (self)
       {
-        [(OZFxPlugParameterHandler *)self motionEffectRef];
-        v23 = 0uLL;
-        v24 = 0;
-        [(OZFxPlugParameterHandler *)self fxTimeToFigTime:time.var1 withConversionData:0];
+        objc_msgSend_motionEffectRef(self);
+        v22 = 0uLL;
+        v23 = 0;
+        objc_msgSend_fxTimeToFigTime_withConversionData_(self);
       }
 
       else
       {
+        v23 = 0;
         v24 = 0;
-        v25 = 0;
-        v23 = 0uLL;
+        v22 = 0uLL;
       }
 
+      v20 = v22;
       v21 = v23;
-      v22 = v24;
-      v19 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v21 forChannel:v18];
-      [(OZFxPlugParameterHandler *)self preChannelChange:v18 flagsOnly:0];
-      OZChanSceneNodeRef::setNode(v18, d);
-      [(OZFxPlugParameterHandler *)self postChannelChange:v18 flagsOnly:0];
-      [(OZFxPlugParameterHandler *)self endTimingOperation:v19];
-      [(OZFxPlugParameterHandler *)self _updateUIForParm:v6];
-      ProCore_Impl::PCNSRefImpl::release(&v25);
+      v18 = [(OZFxPlugParameterHandler *)self beginTimingOperation:&v20 forChannel:v17];
+      [(OZFxPlugParameterHandler *)self preChannelChange:v17 flagsOnly:0];
+      OZChanSceneNodeRef::setNode(v17, d);
+      [(OZFxPlugParameterHandler *)self postChannelChange:v17 flagsOnly:0];
+      [(OZFxPlugParameterHandler *)self endTimingOperation:v18];
+      [(OZFxPlugParameterHandler *)self _updateUIForParm:v5];
+      ProCore_Impl::PCNSRefImpl::release(&v24);
       LOBYTE(safeToSetParameters) = 1;
     }
 
@@ -6096,7 +6088,7 @@ LABEL_4:
   }
 
 LABEL_7:
-  [(OZFxPlugParameterHandler *)self motionEffectRef];
+  objc_msgSend_motionEffectRef(self);
   if (v20)
   {
     [(OZFxPlugParameterHandler *)self isImageWellMediaFlexoMediaForSceneNode:node];
@@ -6240,7 +6232,7 @@ LABEL_20:
     *&v18 = FxConvertPCNCLCCodeToFxNCLCValue(&PluginNCLC);
     [image setNCLCValue:{v19, v18}];
     [image setColorSpace:{OZFxPlugSharedBase::getPluginColorSpace(&v13->var0, v8)}];
-    OZFxPlugSharedBase::getPluginColorDescription(&v13->var0, v8, &v35);
+    OZFxPlugSharedBase::getPluginColorDescription(&v35, &v13->var0, v8);
     [image setDynamicRangeType:OZFxPlug_ConvertDynamicRangeType(&v35)];
     v20 = v9[1];
     v21.i64[0] = *v9;
@@ -6493,7 +6485,7 @@ LABEL_20:
     goto LABEL_15;
   }
 
-  OZFxPlugSharedBase::getPluginUUID(*v34[0], &v30);
+  OZFxPlugSharedBase::getPluginUUID(&v30, *v34[0]);
   v13 = PCString::ns_str(&v30);
   PCString::~PCString(&v30);
   left = self->_paramCreationMap.__tree_.__end_node_.__left_;

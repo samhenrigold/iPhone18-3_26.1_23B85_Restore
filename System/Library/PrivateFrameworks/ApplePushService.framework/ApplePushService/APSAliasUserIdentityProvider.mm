@@ -66,8 +66,8 @@
 
 - (void)forceIdentityRefresh:(id)refresh
 {
-  v5 = (*(*(sub_1000C8C30(&unk_1001BCA60, &qword_10015D240) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_1000C8C30(&unk_1001BCA60, &qword_10015D240);
+  __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(refresh);
   v9 = swift_allocObject();
@@ -91,8 +91,8 @@
 
 - (void)preloadIdentity:(id)identity
 {
-  v5 = (*(*(sub_1000C8C30(&unk_1001BCA60, &qword_10015D240) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_1000C8C30(&unk_1001BCA60, &qword_10015D240);
+  __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(identity);
   v9 = swift_allocObject();
@@ -173,8 +173,8 @@
 
 - (void)debugForceDeleteIdentity:(id)identity
 {
-  v5 = (*(*(sub_1000C8C30(&unk_1001BCA60, &qword_10015D240) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_1000C8C30(&unk_1001BCA60, &qword_10015D240);
+  __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(identity);
   v9 = swift_allocObject();

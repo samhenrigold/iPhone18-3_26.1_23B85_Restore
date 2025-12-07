@@ -25,33 +25,30 @@
 {
   v5 = MEMORY[0x1E696AEC0];
   v6 = objc_msgSend_name(self, a2, v2, v3);
-  cpuTime = self->cpuTime;
-  v10 = objc_msgSend_stringWithFormat_(v5, v8, @"[%@: Peak-Delta: %lf, CPU-Time: %lf, Interval: %lf]", v9, v6, *&self->peakdelta, *&cpuTime, *&self->timeInterval);
+  v9 = objc_msgSend_stringWithFormat_(v5, v7, @"[%@: Peak-Delta: %lf, CPU-Time: %lf, Interval: %lf]", v8, v6, *&self->peakdelta, *&self->cpuTime, *&self->timeInterval);
 
-  return v10;
+  return v9;
 }
 
 - (id)dict
 {
-  v27[5] = *MEMORY[0x1E69E9840];
-  v26[0] = @"maxpeak";
+  v26[5] = *MEMORY[0x1E69E9840];
+  v25[0] = @"maxpeak";
   v5 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], a2, v2, v3, self->maxpeak);
-  v27[0] = v5;
-  v26[1] = @"peakdelta";
+  v26[0] = v5;
+  v25[1] = @"peakdelta";
   v9 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v6, v7, v8, self->peakdelta);
-  v27[1] = v9;
-  v26[2] = @"recentpeak";
+  v26[1] = v9;
+  v25[2] = @"recentpeak";
   v13 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v10, v11, v12, self->recentpeak);
-  v27[2] = v13;
-  v26[3] = @"current";
+  v26[2] = v13;
+  v25[3] = @"current";
   v17 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v14, v15, v16, self->current);
-  v27[3] = v17;
-  v26[4] = @"timeInterval";
+  v26[3] = v17;
+  v25[4] = @"timeInterval";
   v21 = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v18, v19, v20, self->timeInterval);
-  v27[4] = v21;
-  v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v22, v27, v26, 5);
-
-  v24 = *MEMORY[0x1E69E9840];
+  v26[4] = v21;
+  v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v22, v26, v25, 5);
 
   return v23;
 }

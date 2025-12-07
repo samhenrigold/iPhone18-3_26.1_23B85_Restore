@@ -100,7 +100,7 @@
   }
 }
 
-uint64_t __69__TabCollectionViewManagerAccessibility_movePlaceholder_overTabItem___block_invoke(uint64_t a1)
+void *__69__TabCollectionViewManagerAccessibility_movePlaceholder_overTabItem___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _indexToInsertPlaceholderAtTabItem:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

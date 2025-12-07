@@ -2,6 +2,7 @@
 - (POPrebootDeviceConfiguration)initWithCoder:(id)coder;
 - (POPrebootDeviceConfiguration)initWithData:(id)data;
 - (POPrebootDeviceConfiguration)initWithDictionary:(id)dictionary;
+- (id)dataRepresentationForDisplay:(BOOL)display;
 - (id)description;
 - (id)dictionaryRepresentationForDisplay:(BOOL)display;
 - (void)encodeWithCoder:(id)coder;
@@ -61,10 +62,43 @@
   return v6;
 }
 
+- (id)dataRepresentationForDisplay:(BOOL)display
+{
+  v3 = [(POPrebootDeviceConfiguration *)self dictionaryRepresentationForDisplay:display];
+  v13 = 0;
+  v4 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v3 options:11 error:&v13];
+  v5 = v13;
+  v6 = v5;
+  if (v5)
+  {
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __61__POPrebootDeviceConfiguration_dataRepresentationForDisplay___block_invoke;
+    v11[3] = &unk_279A3DC48;
+    v12 = v5;
+    v7 = __61__POPrebootDeviceConfiguration_dataRepresentationForDisplay___block_invoke(v11);
+
+    v8 = 0;
+  }
+
+  else
+  {
+    v9 = PO_LOG_POPrebootDeviceConfiguration(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      [(POPrebootDeviceConfiguration *)v4 dataRepresentationForDisplay:v9];
+    }
+
+    v8 = v4;
+  }
+
+  return v8;
+}
+
 id __61__POPrebootDeviceConfiguration_dataRepresentationForDisplay___block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Error serializing user login config."];
-  v2 = PO_LOG_POPrebootDeviceConfiguration();
+  v2 = PO_LOG_POPrebootDeviceConfiguration(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __61__POPrebootDeviceConfiguration_dataRepresentationForDisplay___block_invoke_cold_1(v1, v2);
@@ -132,7 +166,7 @@ id __61__POPrebootDeviceConfiguration_dataRepresentationForDisplay___block_invok
 id __45__POPrebootDeviceConfiguration_initWithData___block_invoke()
 {
   v0 = [POError errorWithCode:-1001 description:@"Error deserializing user login config."];
-  v1 = PO_LOG_POPrebootDeviceConfiguration();
+  v1 = PO_LOG_POPrebootDeviceConfiguration(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __61__POPrebootDeviceConfiguration_dataRepresentationForDisplay___block_invoke_cold_1(v0, v1);
@@ -171,22 +205,19 @@ id __45__POPrebootDeviceConfiguration_initWithData___block_invoke()
 
 - (void)dataRepresentationForDisplay:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:a1 encoding:4];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_debug_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_DEBUG, "serialized configuration: %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_debug_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_DEBUG, "serialized configuration: %{public}@", &v4, 0xCu);
 }
 
 void __61__POPrebootDeviceConfiguration_dataRepresentationForDisplay___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_ERROR, "%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_ERROR, "%{public}@", &v2, 0xCu);
 }
 
 @end

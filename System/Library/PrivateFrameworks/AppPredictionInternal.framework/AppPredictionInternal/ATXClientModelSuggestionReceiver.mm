@@ -144,7 +144,7 @@ void __41__ATXClientModelSuggestionReceiver_start__block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __atxlog_handle_blending();
+    v3 = __atxlog_handle_blending(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __41__ATXClientModelSuggestionReceiver_start__block_invoke_cold_1(v3);
@@ -156,7 +156,7 @@ void __41__ATXClientModelSuggestionReceiver_start__block_invoke_41(uint64_t a1, 
 {
   v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v5 = __atxlog_handle_home_screen();
+  v5 = __atxlog_handle_home_screen(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8[0] = 67109120;
@@ -166,14 +166,12 @@ void __41__ATXClientModelSuggestionReceiver_start__block_invoke_41(uint64_t a1, 
 
   if (v4)
   {
-    v6 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_home_screen(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __41__ATXClientModelSuggestionReceiver_start__block_invoke_41_cold_1();
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -192,7 +190,7 @@ void __41__ATXClientModelSuggestionReceiver_start__block_invoke_41(uint64_t a1, 
 
 + (id)layoutSelectorsForConsumerSubTypes
 {
-  v20[14] = *MEMORY[0x277D85DE8];
+  v19[14] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = objc_opt_new();
   v4 = objc_opt_new();
@@ -208,39 +206,38 @@ void __41__ATXClientModelSuggestionReceiver_start__block_invoke_41(uint64_t a1, 
   v13 = [(ATXSpotlightLayoutSelector *)v10 initWithSuggestionDeduplicator:v11 hyperParameters:mEMORY[0x277D41B98]2];
 
   v14 = objc_opt_new();
-  v19[0] = &unk_283A56B88;
-  v19[1] = &unk_283A56BA0;
-  v20[0] = v5;
-  v20[1] = v9;
-  v19[2] = &unk_283A56BB8;
-  v19[3] = &unk_283A56BD0;
-  v20[2] = v13;
-  v20[3] = v9;
-  v19[4] = &unk_283A56BE8;
-  v19[5] = &unk_283A56C00;
-  v20[4] = v9;
-  v20[5] = v9;
-  v19[6] = &unk_283A56C18;
-  v19[7] = &unk_283A56C30;
-  v20[6] = v9;
-  v20[7] = v9;
-  v19[8] = &unk_283A56C48;
-  v19[9] = &unk_283A56C60;
-  v20[8] = v9;
-  v20[9] = v9;
-  v19[10] = &unk_283A56C78;
-  v19[11] = &unk_283A56C90;
-  v20[10] = v9;
-  v20[11] = v2;
-  v19[12] = &unk_283A56CA8;
-  v19[13] = &unk_283A56CC0;
-  v20[12] = v3;
-  v20[13] = v4;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:14];
+  v18[0] = &unk_283A56B88;
+  v18[1] = &unk_283A56BA0;
+  v19[0] = v5;
+  v19[1] = v9;
+  v18[2] = &unk_283A56BB8;
+  v18[3] = &unk_283A56BD0;
+  v19[2] = v13;
+  v19[3] = v9;
+  v18[4] = &unk_283A56BE8;
+  v18[5] = &unk_283A56C00;
+  v19[4] = v9;
+  v19[5] = v9;
+  v18[6] = &unk_283A56C18;
+  v18[7] = &unk_283A56C30;
+  v19[6] = v9;
+  v19[7] = v9;
+  v18[8] = &unk_283A56C48;
+  v18[9] = &unk_283A56C60;
+  v19[8] = v9;
+  v19[9] = v9;
+  v18[10] = &unk_283A56C78;
+  v18[11] = &unk_283A56C90;
+  v19[10] = v9;
+  v19[11] = v2;
+  v18[12] = &unk_283A56CA8;
+  v18[13] = &unk_283A56CC0;
+  v19[12] = v3;
+  v19[13] = v4;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:14];
   [v14 setDictionary:v15];
 
   v16 = [v14 copy];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -317,10 +314,11 @@ void __41__ATXClientModelSuggestionReceiver_start__block_invoke_41(uint64_t a1, 
 void __70__ATXClientModelSuggestionReceiver__sendStackChangeDebugNotification___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_home_screen(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __70__ATXClientModelSuggestionReceiver__sendStackChangeDebugNotification___block_invoke_cold_1();
     }
@@ -435,7 +433,7 @@ LABEL_37:
     }
 
 LABEL_22:
-    v10 = __atxlog_handle_settings_actions();
+    v10 = __atxlog_handle_settings_actions(cacheCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *v17 = 0;
@@ -475,13 +473,12 @@ LABEL_40:
 
 void __80__ATXClientModelSuggestionReceiver_blendingLayerUpdatedUICache_consumerSubType___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(*(a1 + 32) + 32);
-  v5 = objc_opt_self();
-  if (v3)
+  v2 = a2;
+  v3 = objc_opt_self();
+  if (v2)
   {
-    v6 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_home_screen(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __80__ATXClientModelSuggestionReceiver_blendingLayerUpdatedUICache_consumerSubType___block_invoke_cold_1();
     }
@@ -521,10 +518,11 @@ void __80__ATXClientModelSuggestionReceiver_blendingLayerUpdatedUICache_consumer
 void __101__ATXClientModelSuggestionReceiver_willCreateCacheUpdateWithFeedbackMetadataLength_forClientModelId___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = __atxlog_handle_default();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_default(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __101__ATXClientModelSuggestionReceiver_willCreateCacheUpdateWithFeedbackMetadataLength_forClientModelId___block_invoke_cold_1();
     }
@@ -555,7 +553,7 @@ void __101__ATXClientModelSuggestionReceiver_willCreateCacheUpdateWithFeedbackMe
   engineCopy = engine;
   idCopy = id;
   completionCopy = completion;
-  v11 = __atxlog_handle_blending();
+  v11 = __atxlog_handle_blending(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -579,25 +577,24 @@ void __101__ATXClientModelSuggestionReceiver_willCreateCacheUpdateWithFeedbackMe
 
 void __100__ATXClientModelSuggestionReceiver_routeSuggestionsToInfoSuggestionEngine_clientModelId_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v10 = a2;
+  v9 = a2;
   v5 = a3;
   if (!v5 && [*(a1[4] + 8) shouldPersistCacheForClientModel:a1[5]])
   {
-    v6 = a1[4];
-    v7 = objc_opt_class();
-    if (v10)
+    v6 = objc_opt_class();
+    if (v9)
     {
-      v8 = *(a1[4] + 72);
-      v9 = v10;
+      v7 = *(a1[4] + 72);
+      v8 = v9;
     }
 
     else
     {
-      v9 = a1[6];
-      v8 = *(a1[4] + 72);
+      v8 = a1[6];
+      v7 = *(a1[4] + 72);
     }
 
-    [v7 _updateCacheForClientModel:a1[5] withSuggestions:v9 cacheManager:v8];
+    [v6 _updateCacheForClientModel:a1[5] withSuggestions:v8 cacheManager:v7];
   }
 
   (*(a1[7] + 16))();
@@ -616,31 +613,31 @@ void __100__ATXClientModelSuggestionReceiver_routeSuggestionsToInfoSuggestionEng
 
 + (void)clearPreviouslyPersistedCachesForCardSuggestionClientsIfNecessary
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.photos", @"com.apple.news", 0}];
   v3 = objc_opt_new();
   v4 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = v2;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     v9 = MEMORY[0x277CBEBF8];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         if ([v4 shouldRouteClientToInfoSuggestionEngine:v11])
         {
           v12 = [v3 lastCacheUpdateDateForClientModel:v11];
@@ -652,29 +649,11 @@ void __100__ATXClientModelSuggestionReceiver_routeSuggestionsToInfoSuggestionEng
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
-}
-
-void __41__ATXClientModelSuggestionReceiver_start__block_invoke_41_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "StackChangeDebugNotification: error while requesting notification auth - %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __70__ATXClientModelSuggestionReceiver__sendStackChangeDebugNotification___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "StackChangeDebugNotification: error while adding notification request - %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)blendingLayerUpdatedUICache:consumerSubType:.cold.1()
@@ -708,22 +687,6 @@ void __70__ATXClientModelSuggestionReceiver__sendStackChangeDebugNotification___
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   [OUTLINED_FUNCTION_1_12(v3 v4];
-}
-
-void __80__ATXClientModelSuggestionReceiver_blendingLayerUpdatedUICache_consumerSubType___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Blending: failed to push update to home screen - %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __101__ATXClientModelSuggestionReceiver_willCreateCacheUpdateWithFeedbackMetadataLength_forClientModelId___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error while adding blending memory warning notification request: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

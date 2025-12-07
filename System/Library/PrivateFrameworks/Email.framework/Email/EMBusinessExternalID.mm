@@ -396,45 +396,30 @@ LABEL_15:
 
 + (id)_serializedRepresentationUsingSimpleAddress:(id)address
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   addressCopy = address;
   v4 = objc_alloc_init(MEMORY[0x1E696AF20]);
   [v4 setScheme:@"business-addr"];
   emailAddressValue = [addressCopy emailAddressValue];
   v6 = emailAddressValue;
-  if (!emailAddressValue)
+  if (!emailAddressValue || ([emailAddressValue localPart], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "setUser:", v7), v7, objc_msgSend(v6, "domain"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "setHost:", v8), v8, objc_msgSend(v4, "string"), (string = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    goto LABEL_3;
-  }
-
-  localPart = [emailAddressValue localPart];
-  [v4 setUser:localPart];
-
-  domain = [v6 domain];
-  [v4 setHost:domain];
-
-  string = [v4 string];
-  if (!string)
-  {
-LABEL_3:
     [v4 setUser:0];
     [v4 setHost:0];
     v10 = [MEMORY[0x1E696AF60] queryItemWithName:@"invalid-addr" value:addressCopy];
-    v14[0] = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = v10;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
     [v4 setQueryItems:v11];
 
     string = [v4 string];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return string;
 }
 
 + (id)_serializedRepresentationUsingHighLevelDomain:(id)domain
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   v4 = objc_alloc_init(MEMORY[0x1E696AF20]);
   [v4 setScheme:@"business-hld"];
@@ -444,14 +429,12 @@ LABEL_3:
   {
     [v4 setHost:0];
     v6 = [MEMORY[0x1E696AF60] queryItemWithName:@"invalid-hld" value:domainCopy];
-    v10[0] = v6;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
     [v4 setQueryItems:v7];
 
     string = [v4 string];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return string;
 }
@@ -474,7 +457,7 @@ LABEL_3:
 
 + (id)_serializedRepresentationUsingScheme:(id)scheme highLevelDomain:(id)domain andDisplayName:(id)name
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   schemeCopy = scheme;
   domainCopy = domain;
   nameCopy = name;
@@ -492,14 +475,12 @@ LABEL_3:
   {
     [v10 setHost:0];
     v13 = [MEMORY[0x1E696AF60] queryItemWithName:@"invalid-hld" value:domainCopy];
-    v17[0] = v13;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = v13;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     [v10 setQueryItems:v14];
 
     string = [v10 string];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return string;
 }
@@ -600,26 +581,11 @@ LABEL_26:
 {
   lCopy = l;
   v5 = [objc_alloc(MEMORY[0x1E696AF20]) initWithURL:lCopy resolvingAgainstBaseURL:0];
-  stringValue = [self _queryItemValueForName:@"invalid-addr" fromURLComponents:v5];
-  if (stringValue)
+  v6 = [self _queryItemValueForName:@"invalid-addr" fromURLComponents:v5];
+  if (v6 || (v7 = objc_alloc_init(MEMORY[0x1E699B248]), [v5 user], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "setLocalPart:", v8), v8, objc_msgSend(v5, "host"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "setDomain:", v9), v9, objc_msgSend(v7, "stringValue"), v6 = objc_claimAutoreleasedReturnValue(), v7, v6))
   {
-    goto LABEL_3;
-  }
-
-  v7 = objc_alloc_init(MEMORY[0x1E699B248]);
-  user = [v5 user];
-  [v7 setLocalPart:user];
-
-  host = [v5 host];
-  [v7 setDomain:host];
-
-  stringValue = [v7 stringValue];
-
-  if (stringValue)
-  {
-LABEL_3:
     v10 = objc_alloc_init(_EMBusinessExternalIDComponents);
-    [(_EMBusinessExternalIDComponents *)v10 setSimpleAddress:stringValue];
+    [(_EMBusinessExternalIDComponents *)v10 setSimpleAddress:v6];
   }
 
   else
@@ -705,7 +671,7 @@ LABEL_3:
 
 + (id)_queryItemValueForName:(id)name fromURLComponents:(id)components
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   componentsCopy = components;
   queryItems = [componentsCopy queryItems];
@@ -713,25 +679,25 @@ LABEL_3:
 
   if (value)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     queryItems2 = [componentsCopy queryItems];
-    value = [queryItems2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    value = [queryItems2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (value)
     {
-      v10 = *v18;
+      v10 = *v17;
       while (2)
       {
         for (i = 0; i != value; i = i + 1)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(queryItems2);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           name = [v12 name];
           v14 = [name isEqualToString:nameCopy];
 
@@ -742,7 +708,7 @@ LABEL_3:
           }
         }
 
-        value = [queryItems2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        value = [queryItems2 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (value)
         {
           continue;
@@ -754,8 +720,6 @@ LABEL_3:
 
 LABEL_12:
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return value;
 }

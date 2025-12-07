@@ -85,9 +85,9 @@
   }
 }
 
-uint64_t __32__QLCacheFragHandler_initialize__block_invoke()
+uint64_t __32__QLCacheFragHandler_initialize__block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = QLCacheInDebugMode();
+  result = QLCacheInDebugMode(a1, a2);
   _debugCacheFragHandler = result;
   return result;
 }
@@ -780,7 +780,7 @@ LABEL_8:
 
 - (void)compact
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = _log_1();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -791,12 +791,12 @@ LABEL_8:
   totalLen = self->_totalLen;
   holesLen = self->_holesLen;
   [(QLCacheFragHandler *)self clear];
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v14 = v11;
-  v15 = [v14 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v30 objects:v38 count:16];
   v16 = v14;
   if (!v15)
   {
@@ -804,25 +804,25 @@ LABEL_8:
   }
 
   v17 = v15;
-  v29 = holesLen;
-  v30 = totalLen;
+  v28 = holesLen;
+  v29 = totalLen;
   v18 = 0;
   location2 = 0;
-  v20 = *v32;
+  v20 = *v31;
   v21 = 0x279ADC000uLL;
   do
   {
     for (i = 0; i != v17; ++i)
     {
-      if (*v32 != v20)
+      if (*v31 != v20)
       {
         objc_enumerationMutation(v14);
       }
 
-      v23 = *(*(&v31 + 1) + 8 * i);
+      v23 = *(*(&v30 + 1) + 8 * i);
       if (v18)
       {
-        if (location2 + v18 == [*(*(&v31 + 1) + 8 * i) location])
+        if (location2 + v18 == [*(*(&v30 + 1) + 8 * i) location])
         {
           v24 = _log_1();
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
@@ -830,10 +830,10 @@ LABEL_8:
             location = [v23 location];
             v27 = [v23 length];
             *buf = 134218240;
-            v36 = location;
+            v35 = location;
             v21 = 0x279ADC000;
-            v37 = 2048;
-            v38 = v27;
+            v36 = 2048;
+            v37 = v27;
             _os_log_debug_impl(&dword_2615D3000, v24, OS_LOG_TYPE_DEBUG, "Coalescing %llu - %llu to previous hole", buf, 0x16u);
           }
 
@@ -852,18 +852,18 @@ LABEL_8:
 
       else
       {
-        location2 = [*(*(&v31 + 1) + 8 * i) location];
+        location2 = [*(*(&v30 + 1) + 8 * i) location];
         v18 = [v23 length];
       }
     }
 
-    v17 = [v14 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v17 = [v14 countByEnumeratingWithState:&v30 objects:v38 count:16];
   }
 
   while (v17);
 
-  holesLen = v29;
-  totalLen = v30;
+  holesLen = v28;
+  totalLen = v29;
   if (v18)
   {
     v16 = [objc_alloc(*(v21 + 1984)) initWithLocation:location2 length:v18];
@@ -875,8 +875,6 @@ LABEL_19:
   self->_totalLen = totalLen;
   self->_holesLen = holesLen;
   self->_needsCompact = 0;
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)checkHolesLenConsistency
@@ -908,50 +906,45 @@ LABEL_19:
 
 - (BOOL)checkConsistency
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableArray *)self->_orderedByStart count];
-  if (v3)
+  if (!v3)
   {
-    v5 = v3;
-    v6 = 0;
-    v7 = 0;
-    v8 = 1;
-    *&v4 = 138412546;
-    v14 = v4;
-    do
-    {
-      v9 = [(NSMutableArray *)self->_orderedByStart objectAtIndex:v6, v14];
-      if ([v9 location] < v7)
-      {
-        v10 = _log_1();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-        {
-          *buf = v14;
-          v16 = v9;
-          v17 = 2048;
-          v18 = v7;
-          _os_log_error_impl(&dword_2615D3000, v10, OS_LOG_TYPE_ERROR, "inconsistency in cache frag handler: bad hole: %@ after offset : %llu", buf, 0x16u);
-        }
+    return 1;
+  }
 
-        v8 = 0;
+  v5 = v3;
+  v6 = 0;
+  v7 = 0;
+  v8 = 1;
+  *&v4 = 138412546;
+  v13 = v4;
+  do
+  {
+    v9 = [(NSMutableArray *)self->_orderedByStart objectAtIndex:v6, v13];
+    if ([v9 location] < v7)
+    {
+      v10 = _log_1();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        *buf = v13;
+        v15 = v9;
+        v16 = 2048;
+        v17 = v7;
+        _os_log_error_impl(&dword_2615D3000, v10, OS_LOG_TYPE_ERROR, "inconsistency in cache frag handler: bad hole: %@ after offset : %llu", buf, 0x16u);
       }
 
-      location = [v9 location];
-      v7 = [v9 length] + location;
-
-      ++v6;
+      v8 = 0;
     }
 
-    while (v5 != v6);
+    location = [v9 location];
+    v7 = [v9 length] + location;
+
+    ++v6;
   }
 
-  else
-  {
-    v8 = 1;
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-  return v8 & 1;
+  while (v5 != v6);
+  return v8;
 }
 
 - (void)assertSpaceIsRetainedAtPos:(unint64_t)pos withLen:(unint64_t)len
@@ -1008,11 +1001,10 @@ LABEL_8:
 
 - (void)save
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_2615D3000, a2, OS_LOG_TYPE_ERROR, "failed to create plist data from dictionary: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2615D3000, a2, OS_LOG_TYPE_ERROR, "failed to create plist data from dictionary: %@", &v2, 0xCu);
 }
 
 @end

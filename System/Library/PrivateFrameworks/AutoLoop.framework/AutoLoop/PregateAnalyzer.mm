@@ -713,7 +713,7 @@ LABEL_22:
     {
       v47 = 0;
       v48 = 0;
-      if (![(PregateAnalyzer *)self findSurroundingNonInterpForIndex:index inFrameInfoArray:dataCopy prevIndex:&v48 nextIndex:&v47]|| (memset(&v46, 0, sizeof(v46)), [(PregateAnalyzer *)self timeForFrameFromArray:dataCopy frameIndex:v48], memset(&v45, 0, sizeof(v45)), [(PregateAnalyzer *)self timeForFrameFromArray:dataCopy frameIndex:v47], memset(&v44, 0, sizeof(v44)), lhs = v45, rhs = v46, CMTimeSubtract(&v44, &lhs, &rhs), lhs = v44, rhs = *time, CMTimeCompare(&lhs, &rhs) >= 1))
+      if (![(PregateAnalyzer *)self findSurroundingNonInterpForIndex:index inFrameInfoArray:dataCopy prevIndex:&v48 nextIndex:&v47]|| (memset(&v46, 0, sizeof(v46)), objc_msgSend_timeForFrameFromArray_frameIndex_(self), memset(&v45, 0, sizeof(v45)), objc_msgSend_timeForFrameFromArray_frameIndex_(self), memset(&v44, 0, sizeof(v44)), lhs = v45, rhs = v46, CMTimeSubtract(&v44, &lhs, &rhs), lhs = v44, rhs = *time, CMTimeCompare(&lhs, &rhs) >= 1))
       {
         v18 = [flagsCopy objectAtIndexedSubscript:index];
         unsignedIntegerValue = [v18 unsignedIntegerValue];
@@ -1461,7 +1461,7 @@ LABEL_74:
       *timeOut = v46;
     }
 
-    [(PregateAnalyzer *)self minimumRequiredTrimLength];
+    objc_msgSend_minimumRequiredTrimLength(self);
     if ((v45 & 0x1D) != 1)
     {
       goto LABEL_22;
@@ -1477,7 +1477,7 @@ LABEL_74:
       trimTimeOut->var3 = v33.start.epoch;
     }
 
-    [(PregateAnalyzer *)self minimumRequiredTrimLength];
+    objc_msgSend_minimumRequiredTrimLength(self);
     rhs = v33.start;
     if ((CMTimeCompare(&rhs, &lhs) & 0x80000000) == 0)
     {
@@ -1493,7 +1493,7 @@ LABEL_18:
         time2 = v33.start;
         v41 = lhs;
         CMTimeAdd(&rhs, &time2, &v41);
-        [(PregateAnalyzer *)self minimumRequiredTrimLength];
+        objc_msgSend_minimumRequiredTrimLength(self);
         v26 = CMTimeCompare(&rhs, &time2);
         if (!trimTimeOut || v26 < 0)
         {
@@ -1508,18 +1508,18 @@ LABEL_42:
 
         else
         {
-          [(PregateAnalyzer *)self minimumRequiredTrimLength];
+          objc_msgSend_minimumRequiredTrimLength(self);
           *trimTimeOut = rhs;
         }
 
 LABEL_22:
-        [(PregateAnalyzer *)self requiredFrameTime];
+        objc_msgSend_requiredFrameTime(self);
         if ((v40 & 0x1D) == 1)
         {
-          [(PregateAnalyzer *)self requiredFrameTime];
+          objc_msgSend_requiredFrameTime(self);
           lhs = v47;
           v27 = CMTimeCompare(&v33.start, &lhs);
-          [(PregateAnalyzer *)self requiredFrameTime];
+          objc_msgSend_requiredFrameTime(self);
           lhs = v46;
           v16 = CMTimeCompare(&v33.start, &lhs) < 1 && v27 >= 0;
         }
@@ -1529,24 +1529,24 @@ LABEL_22:
           v16 = 1;
         }
 
-        [(PregateAnalyzer *)self requiredTimeRange];
+        objc_msgSend_requiredTimeRange(self);
         if (v39)
         {
-          [(PregateAnalyzer *)self requiredTimeRange];
+          objc_msgSend_requiredTimeRange(self);
           if (v38)
           {
-            [(PregateAnalyzer *)self requiredTimeRange];
+            objc_msgSend_requiredTimeRange(self);
             if (!v37)
             {
-              [(PregateAnalyzer *)self requiredTimeRange];
+              objc_msgSend_requiredTimeRange(self);
               if ((v36 & 0x8000000000000000) == 0)
               {
-                [(PregateAnalyzer *)self requiredTimeRange];
+                objc_msgSend_requiredTimeRange(self);
                 *&v33.start.value = v34;
                 v33.start.epoch = v35;
                 lhs = v47;
                 v29 = CMTimeCompare(&v33.start, &lhs);
-                [(PregateAnalyzer *)self requiredTimeRange];
+                objc_msgSend_requiredTimeRange(self);
                 CMTimeRangeGetEnd(&lhs, &v33);
                 v33.start = v46;
                 v31 = CMTimeCompare(&lhs, &v33.start) < 1 && v29 >= 0;

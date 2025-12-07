@@ -111,7 +111,7 @@
 {
   v14 = *MEMORY[0x277D85DE8];
   watchdog = [(VSUserAccountUpdateManager *)self watchdog];
-  v6 = VSDefaultLogObject();
+  v6 = VSDefaultLogObject(watchdog);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (seconds)
   {
@@ -163,7 +163,7 @@ LABEL_11:
 
 void __60__VSUserAccountUpdateManager__configureWatchdogWithSeconds___block_invoke(uint64_t a1)
 {
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -181,7 +181,7 @@ void __60__VSUserAccountUpdateManager__configureWatchdogWithSeconds___block_invo
 
 - (void)transitionToEnqueuingNextUserAccountSetState
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(VSUserAccountUpdateManager *)self setCurrentApp:0];
   [(VSUserAccountUpdateManager *)self setCurrentUpdateRequest:0];
   updateRequests = [(VSUserAccountUpdateManager *)self updateRequests];
@@ -190,12 +190,12 @@ void __60__VSUserAccountUpdateManager__configureWatchdogWithSeconds___block_invo
 
   if (firstObject)
   {
-    v6 = VSDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = VSDefaultLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = firstObject;
-      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Enqueuing update request: %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = firstObject;
+      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Enqueuing update request: %@", &v12, 0xCu);
     }
 
     updateRequests2 = [(VSUserAccountUpdateManager *)self updateRequests];
@@ -203,18 +203,18 @@ void __60__VSUserAccountUpdateManager__configureWatchdogWithSeconds___block_invo
 
     [(VSUserAccountUpdateManager *)self setCurrentUpdateRequest:firstObject];
     stateMachine = [(VSUserAccountUpdateManager *)self stateMachine];
-    v9 = stateMachine;
-    v10 = @"Done";
+    v10 = stateMachine;
+    v11 = @"Done";
   }
 
   else
   {
     stateMachine = [(VSUserAccountUpdateManager *)self stateMachine];
-    v9 = stateMachine;
-    v10 = @"Stop";
+    v10 = stateMachine;
+    v11 = @"Stop";
   }
 
-  [stateMachine enqueueEvent:v10];
+  [stateMachine enqueueEvent:v11];
 }
 
 - (void)transitionToBootingAppState
@@ -282,7 +282,7 @@ void __72__VSUserAccountUpdateManager_transitionToInvokingOnRequestCallbackState
   v13 = [v3 context];
   v14 = [v13 objectForKeyedSubscript:@"App"];
 
-  VSAssertWithMessage(v14 != 0, @"App object undefined");
+  VSAssertWithMessage((v14 != 0), @"App object undefined");
   v20 = v12;
   v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
   v16 = [v14 invokeMethod:@"onRequest" withArguments:v15];
@@ -293,15 +293,15 @@ void __72__VSUserAccountUpdateManager_transitionToInvokingOnRequestCallbackState
 
 void __72__VSUserAccountUpdateManager_transitionToInvokingOnRequestCallbackState__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = VSDefaultLogObject();
+  v7 = VSDefaultLogObject(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
-    v19 = @"onRequest";
-    _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "%@ callback invoked", &v18, 0xCu);
+    v19 = 138412290;
+    v20 = @"onRequest";
+    _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "%@ callback invoked", &v19, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -332,25 +332,26 @@ void __72__VSUserAccountUpdateManager_transitionToInvokingOnRequestCallbackState
     {
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      v16 = VSErrorLogObject();
-      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
-      if (isKindOfClass)
+      v16 = isKindOfClass;
+      v17 = VSErrorLogObject(isKindOfClass);
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+      if (v16)
       {
-        if (v17)
+        if (v18)
         {
-          __72__VSUserAccountUpdateManager_transitionToInvokingOnRequestCallbackState__block_invoke_2_cold_2(v6, v16);
+          __72__VSUserAccountUpdateManager_transitionToInvokingOnRequestCallbackState__block_invoke_2_cold_2(v6, v17);
         }
       }
 
       else
       {
-        if (v17)
+        if (v18)
         {
-          __72__VSUserAccountUpdateManager_transitionToInvokingOnRequestCallbackState__block_invoke_2_cold_1(v16);
+          __72__VSUserAccountUpdateManager_transitionToInvokingOnRequestCallbackState__block_invoke_2_cold_1(v17);
         }
 
-        v16 = [v9 currentApp];
-        [v16 setExceptionWithMessage:@"Must provide a valid ResponsePayload or Error object to onRequest callback."];
+        v17 = [v9 currentApp];
+        [v17 setExceptionWithMessage:@"Must provide a valid ResponsePayload or Error object to onRequest callback."];
       }
 
       v12 = [v9 stateMachine];
@@ -395,7 +396,7 @@ void __72__VSUserAccountUpdateManager_transitionToInvokingOnRequestCallbackState
 - (void)app:(id)app prewarmWithContext:(id)context
 {
   v4 = [context objectForKeyedSubscript:@"App"];
-  VSAssertWithMessage(v4 != 0, @"App object undefined");
+  VSAssertWithMessage((v4 != 0), @"App object undefined");
   [v4 setObject:objc_opt_class() forKeyedSubscript:@"UserAccount"];
   [v4 setObject:objc_opt_class() forKeyedSubscript:@"AppleSubscription"];
   [v4 setObject:objc_opt_class() forKeyedSubscript:@"ResponsePayload"];
@@ -404,7 +405,7 @@ void __72__VSUserAccountUpdateManager_transitionToInvokingOnRequestCallbackState
 - (void)app:(id)app didFailToStartWithError:(id)error
 {
   errorCopy = error;
-  v6 = VSErrorLogObject();
+  v6 = VSErrorLogObject(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [VSUserAccountUpdateManager app:errorCopy didFailToStartWithError:v6];
@@ -419,7 +420,7 @@ void __72__VSUserAccountUpdateManager_transitionToInvokingOnRequestCallbackState
 
 - (void)appDidStart:(id)start
 {
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -432,7 +433,7 @@ void __72__VSUserAccountUpdateManager_transitionToInvokingOnRequestCallbackState
 
 - (void)appDidStop:(id)stop
 {
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

@@ -125,46 +125,41 @@ void __77__ACUISAddAccountHelperSetupController_controller_didFinishSettingUpAcc
 
 - (void)_dismissAndNotifyParent
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  *(&v2[3] + 2) = 100;
-  _os_log_debug_impl(&dword_23DCDB000, v0, OS_LOG_TYPE_DEBUG, "%s (%d) Dismissing ACUISAddAccountHelperSetupController", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  *(&v1[3] + 2) = 100;
+  _os_log_debug_impl(&dword_23DCDB000, v0, OS_LOG_TYPE_DEBUG, "%s (%d) Dismissing ACUISAddAccountHelperSetupController", v1, 0x12u);
 }
 
 - (void)controller:(NSObject *)a3 didFinishSettingUpAccount:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = [a2 username];
-  v10[0] = 136315906;
+  v9[0] = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  v11 = v5;
-  v12 = v7;
-  v13 = v8;
-  _os_log_debug_impl(&dword_23DCDB000, a3, OS_LOG_TYPE_DEBUG, "%s (%d) Controller %@ reports being finished with setting up account %@.", v10, 0x26u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = v5;
+  v11 = v7;
+  v12 = v8;
+  _os_log_debug_impl(&dword_23DCDB000, a3, OS_LOG_TYPE_DEBUG, "%s (%d) Controller %@ reports being finished with setting up account %@.", v9, 0x26u);
 }
 
 - (void)controller:didFinishSettingUpAccount:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_23DCDB000, v0, v1, "%s (%d) Pushing dataclass configuration controller for %@.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23DCDB000, v0, v1, "%s (%d) Pushing dataclass configuration controller for %@.", v2, v3, v4, v5, v6);
 }
 
 - (void)controller:didFinishSettingUpAccount:.cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_23DCDB000, v0, v1, "%s (%d) Didn't push dataclass configuration controller for %@. Considering it done", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23DCDB000, v0, v1, "%s (%d) Didn't push dataclass configuration controller for %@. Considering it done", v2, v3, v4, v5, v6);
 }
 
 @end

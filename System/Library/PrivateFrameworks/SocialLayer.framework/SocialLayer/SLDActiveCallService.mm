@@ -52,7 +52,7 @@ uint64_t __37__SLDActiveCallService_sharedService__block_invoke()
   if (width <= 0.0)
   {
     replyCopy = reply;
-    v18 = SLDaemonLogHandle();
+    v18 = SLDaemonLogHandle(replyCopy);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [SLDActiveCallService activeCallViewForStyle:v18 maxWidth:? layerContextID:? reply:?];
@@ -115,29 +115,29 @@ uint64_t __37__SLDActiveCallService_sharedService__block_invoke()
 
 - (id)_lookupActiveTUConversation
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D6EDF8] = [MEMORY[0x277D6EDF8] sharedInstance];
   conversationManager = [mEMORY[0x277D6EDF8] conversationManager];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   activeConversations = [conversationManager activeConversations];
-  v5 = [activeConversations countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [activeConversations countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(activeConversations);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         if ([v8 state] == 3)
         {
           v5 = v8;
@@ -145,7 +145,7 @@ uint64_t __37__SLDActiveCallService_sharedService__block_invoke()
         }
       }
 
-      v5 = [activeConversations countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [activeConversations countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -157,18 +157,15 @@ uint64_t __37__SLDActiveCallService_sharedService__block_invoke()
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)activeCallViewForStyle:(uint64_t)a1 maxWidth:(NSObject *)a2 layerContextID:reply:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "[SLDActiveCallService: %p] 0.0 was provided for the max width of the requested view. This is undefined behavior and should be sanitized before invoking this xpc interface!", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "[SLDActiveCallService: %p] 0.0 was provided for the max width of the requested view. This is undefined behavior and should be sanitized before invoking this xpc interface!", &v2, 0xCu);
 }
 
 @end

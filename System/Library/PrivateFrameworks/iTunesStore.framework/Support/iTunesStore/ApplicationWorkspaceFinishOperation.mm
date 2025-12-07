@@ -35,35 +35,31 @@
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-LABEL_19:
-      *v33 = 138412290;
-      *&v33[4] = [(ApplicationWorkspaceOperation *)self applicationHandle];
-      LODWORD(v32) = 12;
-      v31 = v33;
-      v14 = _os_log_send_and_compose_impl();
-      if (v14)
-      {
-        v15 = v14;
-        v16 = [NSString stringWithCString:v14 encoding:4, v33, v32, *v33];
-        free(v15);
-        v31 = v16;
-        SSFileLog();
-      }
+      *v37 = 138412290;
+      *&v37[4] = [(ApplicationWorkspaceOperation *)self applicationHandle];
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[ApplicationWorkspace]: Restoring placeholder for %@", v37, 12, *v37, *&v37[8]);
+      goto LABEL_22;
     }
   }
 
@@ -77,96 +73,101 @@ LABEL_19:
     shouldLog2 = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v13 = shouldLog2 | 2;
+      LODWORD(v15) = shouldLog2 | 2;
     }
 
     else
     {
-      v13 = shouldLog2;
+      LODWORD(v15) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v13 &= 2u;
+      v15 = v15;
     }
 
-    if (v13)
+    else
     {
-      goto LABEL_19;
+      v15 &= 2u;
+    }
+
+    if (v15)
+    {
+      *v37 = 138412290;
+      *&v37[4] = [(ApplicationWorkspaceOperation *)self applicationHandle];
+      v13 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[ApplicationWorkspace]: Updating placeholder for %@", v37, 12, *v37, *&v37[8]);
+LABEL_22:
+      if (v13)
+      {
+        v17 = v13;
+        v18 = [NSString stringWithCString:v13 encoding:4];
+        free(v17);
+        v35 = v18;
+        SSFileLog();
+      }
     }
   }
 
-  if ([(ApplicationWorkspaceOperation *)self applicationIsInstalled:bundleID, v31])
+  if ([(ApplicationWorkspaceOperation *)self applicationIsInstalled:bundleID, v35])
   {
-    v17 = [LSApplicationProxy applicationProxyForIdentifier:bundleID placeholder:1];
-    if (v17)
+    v19 = [LSApplicationProxy applicationProxyForIdentifier:bundleID placeholder:1];
+    if (v19)
     {
-      v18 = [v6 installProgressForApplication:v17 withPhase:0];
-      if ([v18 installState] != 5)
+      v20 = [v6 installProgressForApplication:v19 withPhase:0];
+      if ([v20 installState] != 5)
       {
-        [v18 setCompletedUnitCount:1];
-        [v18 setInstallState:5];
-        [v18 setTotalUnitCount:1];
+        [v20 setCompletedUnitCount:1];
+        [v20 setInstallState:5];
+        [v20 setTotalUnitCount:1];
       }
 
-      if ([v6 installPhaseFinishedForProgress:v18])
+      if ([v6 installPhaseFinishedForProgress:v20])
       {
-        v17 = 1;
+        v19 = 1;
       }
 
       else
       {
-        v24 = [v6 installProgressForApplication:v17 withPhase:0];
-        if ([v24 installState] != 5)
+        v27 = [v6 installProgressForApplication:v19 withPhase:0];
+        if ([v27 installState] != 5)
         {
-          [v24 setCompletedUnitCount:1];
-          [v24 setInstallState:5];
-          [v24 setTotalUnitCount:1];
+          [v27 setCompletedUnitCount:1];
+          [v27 setInstallState:5];
+          [v27 setTotalUnitCount:1];
         }
 
-        v17 = [v6 installPhaseFinishedForProgress:v24];
+        v19 = [v6 installPhaseFinishedForProgress:v27];
       }
 
-      v25 = +[SSLogConfig sharedDaemonConfig];
-      if (!v25)
+      v28 = +[SSLogConfig sharedDaemonConfig];
+      if (!v28)
       {
-        v25 = +[SSLogConfig sharedConfig];
+        v28 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog3 = [v25 shouldLog];
-      if ([v25 shouldLogToDisk])
+      shouldLog3 = [v28 shouldLog];
+      LODWORD(v30) = [v28 shouldLogToDisk] ? shouldLog3 | 2 : shouldLog3;
+      oSLogObject3 = [v28 OSLogObject];
+      v30 = os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT) ? v30 : v30 & 2u;
+      if (v30)
       {
-        v27 = shouldLog3 | 2;
-      }
-
-      else
-      {
-        v27 = shouldLog3;
-      }
-
-      if (!os_log_type_enabled([v25 OSLogObject], OS_LOG_TYPE_DEFAULT))
-      {
-        v27 &= 2u;
-      }
-
-      if (v27)
-      {
-        v28 = self->_isPlaceholderRestore ? @"restored" : @"updated";
+        v32 = self->_isPlaceholderRestore ? @"restored" : @"updated";
         applicationHandle = [(ApplicationWorkspaceOperation *)self applicationHandle];
-        *v33 = 138412802;
-        *&v33[4] = v28;
-        *&v33[12] = 2112;
-        *&v33[14] = applicationHandle;
-        v34 = 1024;
-        v35 = v17;
-        LODWORD(v32) = 28;
-        v23 = _os_log_send_and_compose_impl();
-        if (v23)
+        *v37 = 138412802;
+        *&v37[4] = v32;
+        *&v37[12] = 2112;
+        *&v37[14] = applicationHandle;
+        v38 = 1024;
+        v39 = v19;
+        LODWORD(v36) = 28;
+        v26 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "[ApplicationWorkspace]: Placeholder %@ for %@ success: %d", v37, v36);
+        if (v26)
         {
-LABEL_53:
-          v30 = v23;
-          [NSString stringWithCString:v23 encoding:4, v33, v32];
-          free(v30);
+LABEL_58:
+          v34 = v26;
+          [NSString stringWithCString:v26 encoding:4];
+          free(v34);
           SSFileLog();
         }
       }
@@ -175,50 +176,56 @@ LABEL_53:
 
   else
   {
-    v19 = +[SSLogConfig sharedDaemonConfig];
-    if (!v19)
+    v21 = +[SSLogConfig sharedDaemonConfig];
+    if (!v21)
     {
-      v19 = +[SSLogConfig sharedConfig];
+      v21 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog4 = [v19 shouldLog];
-    if ([v19 shouldLogToDisk])
+    shouldLog4 = [v21 shouldLog];
+    if ([v21 shouldLogToDisk])
     {
-      v21 = shouldLog4 | 2;
+      LODWORD(v23) = shouldLog4 | 2;
     }
 
     else
     {
-      v21 = shouldLog4;
+      LODWORD(v23) = shouldLog4;
     }
 
-    if (!os_log_type_enabled([v19 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject4 = [v21 OSLogObject];
+    if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
     {
-      v21 &= 2u;
+      v23 = v23;
     }
 
-    if (!v21)
+    else
     {
-      v17 = 0;
-      goto LABEL_54;
+      v23 &= 2u;
+    }
+
+    if (!v23)
+    {
+      v19 = 0;
+      goto LABEL_59;
     }
 
     applicationHandle2 = [(ApplicationWorkspaceOperation *)self applicationHandle];
-    *v33 = 138412290;
-    *&v33[4] = applicationHandle2;
-    LODWORD(v32) = 12;
-    v23 = _os_log_send_and_compose_impl();
-    v17 = 0;
-    if (v23)
+    *v37 = 138412290;
+    *&v37[4] = applicationHandle2;
+    LODWORD(v36) = 12;
+    v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "[ApplicationWorkspace]: Placeholder not installed for %@ because application not installed", v37, v36);
+    v19 = 0;
+    if (v26)
     {
-      goto LABEL_53;
+      goto LABEL_58;
     }
   }
 
-LABEL_54:
+LABEL_59:
   if (block)
   {
-    (*(block + 2))(block, v17, 0, 0);
+    (*(block + 2))(block, v19, 0, 0);
   }
 }
 

@@ -9,7 +9,7 @@
 - (double)px_preferredTransformBasedOnNaturalSize
 {
   v4 = objc_opt_class();
-  [self preferredTransform];
+  objc_msgSend_preferredTransform(self);
   [self naturalSize];
   if (v4)
   {
@@ -32,7 +32,7 @@
   [self naturalSize];
   v5 = v3;
   v6 = v2;
-  [self px_preferredTransformBasedOnNaturalSize];
+  objc_msgSend_px_preferredTransformBasedOnNaturalSize(self);
   *&result = *&vabsq_f64(vmlaq_n_f64(vmulq_n_f64(0, v5), 0, v6));
   return result;
 }

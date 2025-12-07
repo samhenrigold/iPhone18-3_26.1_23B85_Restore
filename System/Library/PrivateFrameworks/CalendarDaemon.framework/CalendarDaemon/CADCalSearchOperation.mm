@@ -1,4 +1,5 @@
 @interface CADCalSearchOperation
++ (id)operationWithConnection:(id)connection searchTerm:(id)term calendars:(id)calendars replyID:(unsigned int)d;
 - (CADCalSearchOperation)initWithConnection:(id)connection searchTerm:(id)term calendars:(id)calendars replyID:(unsigned int)d;
 - (void)_completeOperation;
 - (void)calSearch:(id)search foundOccurrences:(__CFArray *)occurrences cachedDays:(__CFArray *)days cachedDaysIndexes:(__CFArray *)indexes;
@@ -10,6 +11,17 @@
 @end
 
 @implementation CADCalSearchOperation
+
++ (id)operationWithConnection:(id)connection searchTerm:(id)term calendars:(id)calendars replyID:(unsigned int)d
+{
+  v6 = *&d;
+  calendarsCopy = calendars;
+  termCopy = term;
+  connectionCopy = connection;
+  v12 = [objc_alloc(objc_opt_class()) initWithConnection:connectionCopy searchTerm:termCopy calendars:calendarsCopy replyID:v6];
+
+  return v12;
+}
 
 - (CADCalSearchOperation)initWithConnection:(id)connection searchTerm:(id)term calendars:(id)calendars replyID:(unsigned int)d
 {
@@ -99,30 +111,29 @@
 
 uint64_t __29__CADCalSearchOperation_main__block_invoke(uint64_t a1, int a2, void *a3, uint64_t a4)
 {
-  v18 = a3;
+  v17 = a3;
   v7 = [*(a1 + 32) isCancelled];
   if ((v7 & 1) == 0)
   {
     *(*(a1 + 32) + 264) = a2;
     v8 = MEMORY[0x277CBEB58];
-    v9 = [v18 valueForKey:@"entityID"];
+    v9 = [v17 valueForKey:@"entityID"];
     v10 = [v8 setWithArray:v9];
 
     v11 = [*(*(a1 + 32) + 248) restrictedCalendarRowIDsForAction:0 inDatabase:a4];
     [v10 minusSet:v11];
 
     v12 = CalFilterCreateWithDatabaseShowingCalendarsWithUIDs();
-    v13 = *(*(a1 + 32) + 280);
     CalFilterSetSearchTerm();
     os_unfair_lock_lock((*(a1 + 32) + 312));
     if (([*(a1 + 32) isCancelled] & 1) == 0)
     {
-      v14 = [objc_alloc(MEMORY[0x277CF7530]) initWithDatabase:a4 filter:v12 dataSink:*(a1 + 32)];
-      [*(a1 + 32) configureSearch:v14];
-      [v14 startSearching];
-      v15 = *(a1 + 32);
-      v16 = *(v15 + 256);
-      *(v15 + 256) = v14;
+      v13 = [objc_alloc(MEMORY[0x277CF7530]) initWithDatabase:a4 filter:v12 dataSink:*(a1 + 32)];
+      [*(a1 + 32) configureSearch:v13];
+      [v13 startSearching];
+      v14 = *(a1 + 32);
+      v15 = *(v14 + 256);
+      *(v14 + 256) = v13;
     }
 
     CFRelease(v12);
@@ -138,7 +149,7 @@ uint64_t __29__CADCalSearchOperation_main__block_invoke(uint64_t a1, int a2, voi
 
 - (void)cancel
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
   {
@@ -148,14 +159,13 @@ uint64_t __29__CADCalSearchOperation_main__block_invoke(uint64_t a1, int a2, voi
   }
 
   os_unfair_lock_lock(&self->_lock);
-  v5.receiver = self;
-  v5.super_class = CADCalSearchOperation;
-  [(CADCalSearchOperation *)&v5 cancel];
+  v4.receiver = self;
+  v4.super_class = CADCalSearchOperation;
+  [(CADCalSearchOperation *)&v4 cancel];
   [(CalSearch *)self->_currentSearch stopSearching];
   os_unfair_lock_unlock(&self->_lock);
   dispatch_semaphore_signal(self->_finishedSemaphore);
   [(CADCalSearchOperation *)self _completeOperation];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)calSearch:(id)search foundOccurrences:(__CFArray *)occurrences cachedDays:(__CFArray *)days cachedDaysIndexes:(__CFArray *)indexes
@@ -206,17 +216,15 @@ uint64_t __29__CADCalSearchOperation_main__block_invoke(uint64_t a1, int a2, voi
 
 void __81__CADCalSearchOperation_calSearch_foundOccurrences_cachedDays_cachedDaysIndexes___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_ERROR, "Error sending occurrence cache search results: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_ERROR, "Error sending occurrence cache search results: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)calSearchComplete:(id)complete
@@ -233,13 +241,13 @@ void __81__CADCalSearchOperation_calSearch_foundOccurrences_cachedDays_cachedDay
 
 - (void)_completeOperation
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412290;
+    v6 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_INFO, "Sending an empty array to client of [%@].", &v7, 0xCu);
+    _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_INFO, "Sending an empty array to client of [%@].", &v6, 0xCu);
   }
 
   array = [MEMORY[0x277CBEA60] array];
@@ -250,8 +258,6 @@ void __81__CADCalSearchOperation_calSearch_foundOccurrences_cachedDays_cachedDay
   {
     [(ClientConnection *)self->_connection logAccessToObjects:?];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

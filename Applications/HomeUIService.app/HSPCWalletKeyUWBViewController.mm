@@ -9,7 +9,10 @@
 - (id)commitConfiguration;
 - (id)dismissButtonBlock;
 - (void)_enableUWBOfExistingWalletKeyAfterAuthWithPromise:(id)promise;
+- (void)_setAllowsAlertStacking:(BOOL)stacking;
 - (void)_updateHasOnboardedForWalletKey:(id)key;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HSPCWalletKeyUWBViewController
@@ -131,6 +134,22 @@
   }
 
   return v10;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HSPCWalletKeyUWBViewController;
+  [(HSPCWalletKeyUWBViewController *)&v4 viewDidAppear:appear];
+  [(HSPCWalletKeyUWBViewController *)self _setAllowsAlertStacking:1];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = HSPCWalletKeyUWBViewController;
+  [(HSPCWalletKeyUWBViewController *)&v4 viewWillDisappear:disappear];
+  [(HSPCWalletKeyUWBViewController *)self _setAllowsAlertStacking:0];
 }
 
 - (id)commitConfiguration
@@ -368,6 +387,29 @@ LABEL_19:
 LABEL_20:
 
   return v4;
+}
+
+- (void)_setAllowsAlertStacking:(BOOL)stacking
+{
+  stackingCopy = stacking;
+  objc_opt_class();
+  coordinator = [(HSPCWalletKeyUWBViewController *)self coordinator];
+  delegate = [coordinator delegate];
+  if (objc_opt_isKindOfClass())
+  {
+    v7 = delegate;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = v7;
+
+  _remoteViewControllerProxy = [v8 _remoteViewControllerProxy];
+
+  [_remoteViewControllerProxy setAllowsAlertStacking:stackingCopy];
 }
 
 - (id)_addWalletKeyWithUWB

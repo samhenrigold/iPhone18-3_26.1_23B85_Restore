@@ -133,7 +133,7 @@
   [navigationItem setHidesBackButton:1];
 
   v28 = objc_alloc(MEMORY[0x277D751E0]);
-  v29 = NCUserNotificationsUIKitFrameworkBundle();
+  v29 = NCUserNotificationsUIKitFrameworkBundle(v28);
   v30 = [v29 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_APP_PICKER_CANCEL" value:&stru_282FE84F8 table:0];
   v31 = [v28 initWithTitle:v30 style:0 target:self action:sel__cancelButtonPressed_];
 
@@ -329,11 +329,11 @@ uint64_t __68__NCAppPickerViewController_appPickViewFooterShowMoreButtonPressed_
   return [v2 _reloadFooter];
 }
 
-uint64_t __68__NCAppPickerViewController_appPickViewFooterShowMoreButtonPressed___block_invoke_2(uint64_t result, int a2)
+id *__68__NCAppPickerViewController_appPickViewFooterShowMoreButtonPressed___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _saveCellsSeen];
+    return [result[4] _saveCellsSeen];
   }
 
   return result;
@@ -447,22 +447,22 @@ uint64_t __68__NCAppPickerViewController_appPickViewFooterShowMoreButtonPressed_
   {
     v3 = MEMORY[0x277CCABB8];
     v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NCAppPickerContentProvider selectedCount](self->_contentProvider, "selectedCount")}];
-    v11 = [v3 localizedStringFromNumber:v4 numberStyle:0];
+    v12 = [v3 localizedStringFromNumber:v4 numberStyle:0];
 
     v5 = MEMORY[0x277CCACA8];
-    v6 = NCUserNotificationsUIKitFrameworkBundle();
-    v7 = [v6 localizedStringForKey:@"NOTIFICATION_DIGEST_ADD_APPS_FORMAT_WITH_LOCALIZED_NUMBER" value:&stru_282FE84F8 table:0];
-    v8 = [v5 stringWithFormat:v7, -[NCAppPickerContentProvider selectedCount](self->_contentProvider, "selectedCount"), v11];
+    v7 = NCUserNotificationsUIKitFrameworkBundle(v6);
+    v8 = [v7 localizedStringForKey:@"NOTIFICATION_DIGEST_ADD_APPS_FORMAT_WITH_LOCALIZED_NUMBER" value:&stru_282FE84F8 table:0];
+    v9 = [v5 stringWithFormat:v8, -[NCAppPickerContentProvider selectedCount](self->_contentProvider, "selectedCount"), v12];
 
-    [(NCOnboardingViewController *)self setNextButtonText:v8];
+    [(NCOnboardingViewController *)self setNextButtonText:v9];
     [(NCOnboardingViewController *)self setNextButtonEnabled:1];
   }
 
   else
   {
-    v9 = NCUserNotificationsUIKitFrameworkBundle();
-    v10 = [v9 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_ADD_APPS" value:&stru_282FE84F8 table:0];
-    [(NCOnboardingViewController *)self setNextButtonText:v10];
+    v10 = NCUserNotificationsUIKitFrameworkBundle(0);
+    v11 = [v10 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_ADD_APPS" value:&stru_282FE84F8 table:0];
+    [(NCOnboardingViewController *)self setNextButtonText:v11];
 
     [(NCOnboardingViewController *)self setNextButtonEnabled:0];
   }

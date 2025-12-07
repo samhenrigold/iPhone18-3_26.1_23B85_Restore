@@ -7,6 +7,7 @@
 + (id)createWithJSONDictionary:(id)dictionary error:(id *)error;
 + (id)createWithJSONDictionary:(id)dictionary name:(id)name critical:(BOOL)critical purpose:(unint64_t)purpose allowInterAccessoryConnections:(BOOL)connections direction:(unsigned __int8)direction requiredForHAPFunctionality:(BOOL)functionality ruleDictionary:(id)self0 error:(id *)self1;
 - (BOOL)isEqual:(id)equal;
+- (HMDNetworkRouterFirewallRuleLAN)initWithJSONDictionary:(id)dictionary name:(id)name critical:(BOOL)critical purpose:(unint64_t)purpose allowInterAccessoryConnections:(BOOL)connections direction:(unsigned __int8)direction requiredForHAPFunctionality:(BOOL)functionality;
 - (id)attributeDescriptions;
 - (id)prettyJSONDictionary;
 - (unint64_t)hash;
@@ -16,7 +17,7 @@
 
 - (id)prettyJSONDictionary
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   direction = [(HMDNetworkRouterFirewallRuleLAN *)self direction];
   v4 = @"fromAccessory";
   if (direction == 1)
@@ -24,15 +25,15 @@
     v4 = @"toAccessory";
   }
 
-  v19.receiver = self;
-  v19.super_class = HMDNetworkRouterFirewallRuleLAN;
+  v18.receiver = self;
+  v18.super_class = HMDNetworkRouterFirewallRuleLAN;
   v5 = v4;
-  prettyJSONDictionary = [(HMDNetworkRouterFirewallRule *)&v19 prettyJSONDictionary];
+  prettyJSONDictionary = [(HMDNetworkRouterFirewallRule *)&v18 prettyJSONDictionary];
   v7 = [prettyJSONDictionary mutableCopy];
 
-  v20[0] = @"direction";
-  v20[1] = @"purpose";
-  v21[0] = v5;
+  v19[0] = @"direction";
+  v19[1] = @"purpose";
+  v20[0] = v5;
   purpose = [(HMDNetworkRouterFirewallRuleLAN *)self purpose];
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (purpose)
@@ -97,7 +98,7 @@ LABEL_22:
       {
         if (v11)
         {
-          v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown (0x%llx)", v11, v19.receiver, v19.super_class];
+          v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown (0x%llx)", v11, v18.receiver, v18.super_class];
           [v9 addObject:v13];
         }
 
@@ -116,8 +117,8 @@ LABEL_22:
     v14 = @"none";
   }
 
-  v21[1] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v20[1] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   [v7 addEntriesFromDictionary:v15];
   if ([(HMDNetworkRouterFirewallRuleLAN *)self areConnectionsWithOtherAccessoriesAllowed])
@@ -130,39 +131,35 @@ LABEL_22:
     [v7 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"requiredForHAPFunctionality"];
   }
 
-  v16 = [v7 copy];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = objc_msgSend_copy(v7);
 
   return v16;
 }
 
 - (id)attributeDescriptions
 {
-  v21[4] = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = HMDNetworkRouterFirewallRuleLAN;
-  attributeDescriptions = [(HMDNetworkRouterFirewallRule *)&v20 attributeDescriptions];
+  v20[4] = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = HMDNetworkRouterFirewallRuleLAN;
+  attributeDescriptions = [(HMDNetworkRouterFirewallRule *)&v19 attributeDescriptions];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
-  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[HMDNetworkRouterFirewallRuleLAN purpose](self, "purpose")}];
-  v4 = [v3 initWithName:@"Purpose" value:v19];
-  v21[0] = v4;
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[HMDNetworkRouterFirewallRuleLAN purpose](self, "purpose")}];
+  v4 = [v3 initWithName:@"Purpose" value:v18];
+  v20[0] = v4;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDNetworkRouterFirewallRuleLAN areConnectionsWithOtherAccessoriesAllowed](self, "areConnectionsWithOtherAccessoriesAllowed")}];
   v7 = [v5 initWithName:@"AreConnectionsWithOtherAccessoriesAllowed" value:v6];
-  v21[1] = v7;
+  v20[1] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[HMDNetworkRouterFirewallRuleLAN direction](self, "direction")}];
   v10 = [v8 initWithName:@"Direction" value:v9];
-  v21[2] = v10;
+  v20[2] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   v12 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDNetworkRouterFirewallRuleLAN isRequiredForHAPFunctionality](self, "isRequiredForHAPFunctionality")}];
   v13 = [v11 initWithName:@"IsRequiredForHAPFunctionality" value:v12];
-  v21[3] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+  v20[3] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
   v15 = [attributeDescriptions arrayByAddingObjectsFromArray:v14];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -237,6 +234,24 @@ LABEL_22:
   return v12;
 }
 
+- (HMDNetworkRouterFirewallRuleLAN)initWithJSONDictionary:(id)dictionary name:(id)name critical:(BOOL)critical purpose:(unint64_t)purpose allowInterAccessoryConnections:(BOOL)connections direction:(unsigned __int8)direction requiredForHAPFunctionality:(BOOL)functionality
+{
+  v16.receiver = self;
+  v16.super_class = HMDNetworkRouterFirewallRuleLAN;
+  v12 = [(HMDNetworkRouterFirewallRule *)&v16 initWithJSONDictionary:dictionary name:name critical:critical];
+  v13 = v12;
+  if (v12)
+  {
+    v12->_purpose = purpose;
+    v12->_allowInterAccessoryConnections = connections;
+    v12->_direction = direction;
+    v12->_requiredForHAPFunctionality = functionality;
+    v14 = v12;
+  }
+
+  return v13;
+}
+
 + (id)createWithJSONDictionary:(id)dictionary name:(id)name critical:(BOOL)critical purpose:(unint64_t)purpose allowInterAccessoryConnections:(BOOL)connections direction:(unsigned __int8)direction requiredForHAPFunctionality:(BOOL)functionality ruleDictionary:(id)self0 error:(id *)self1
 {
   dictionaryCopy = dictionary;
@@ -255,17 +270,17 @@ LABEL_22:
 
 + (id)createWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v26 = 0;
-  if (![self __decodeType:dictionaryCopy type:&v26 error:error] || (v25 = 0, v24 = 0, !objc_msgSend(self, "__decodeFlags:critical:allowInterAccessoryConnections:requiredForHAPFunctionality:error:", dictionaryCopy, &v25, &v24 + 1, &v24, error)))
+  v25 = 0;
+  if (![self __decodeType:dictionaryCopy type:&v25 error:error] || (v24 = 0, v23 = 0, !objc_msgSend(self, "__decodeFlags:critical:allowInterAccessoryConnections:requiredForHAPFunctionality:error:", dictionaryCopy, &v24, &v23 + 1, &v23, error)))
   {
     v9 = 0;
     goto LABEL_28;
   }
 
   v7 = objc_alloc([objc_opt_class() superclass]);
-  v8 = [v7 initWithJSONDictionary:dictionaryCopy critical:v25];
+  v8 = [v7 initWithJSONDictionary:dictionaryCopy critical:v24];
   if (!v8)
   {
     if (error)
@@ -282,9 +297,9 @@ LABEL_22:
     goto LABEL_27;
   }
 
-  v23 = 0;
+  v22 = 0;
   v9 = 0;
-  if ([self __decodePurpose:dictionaryCopy purpose:&v23 error:error])
+  if ([self __decodePurpose:dictionaryCopy purpose:&v22 error:error])
   {
     v10 = [dictionaryCopy objectForKeyedSubscript:@"r"];
     objc_opt_class();
@@ -305,7 +320,7 @@ LABEL_22:
       buf[0] = 0;
       if ([self __decodeDirection:v12 direction:buf error:error])
       {
-        switch(v26)
+        switch(v25)
         {
           case 1:
             v13 = HMDNetworkRouterFirewallRuleLANMulticast;
@@ -318,8 +333,8 @@ LABEL_22:
 LABEL_25:
             name = [v8 name];
             isCritical = [v8 isCritical];
-            LOBYTE(v22) = v24;
-            v9 = [(__objc2_class *)v13 createWithJSONDictionary:dictionaryCopy name:name critical:isCritical purpose:v23 allowInterAccessoryConnections:HIBYTE(v24) direction:buf[0] requiredForHAPFunctionality:v22 ruleDictionary:v12 error:error];
+            LOBYTE(v21) = v23;
+            v9 = [(__objc2_class *)v13 createWithJSONDictionary:dictionaryCopy name:name critical:isCritical purpose:v22 allowInterAccessoryConnections:HIBYTE(v23) direction:buf[0] requiredForHAPFunctionality:v21 ruleDictionary:v12 error:error];
 
             goto LABEL_26;
         }
@@ -335,11 +350,11 @@ LABEL_25:
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v28 = v17;
-        v29 = 2112;
-        v30 = @"r";
-        v31 = 2112;
-        v32 = dictionaryCopy;
+        v27 = v17;
+        v28 = 2112;
+        v29 = @"r";
+        v30 = 2112;
+        v31 = dictionaryCopy;
         _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Rule contains an invalid '%@' value: %@", buf, 0x20u);
       }
 
@@ -361,19 +376,18 @@ LABEL_26:
 LABEL_27:
 
 LABEL_28:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (BOOL)__decodeTransportProtocolFromJSONDictionary:(id)dictionary key:(id)key transportProtocol:(unsigned __int8 *)protocol error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   keyCopy = key;
-  v24 = 0;
-  v12 = decodeUnsignedIntegerFromJSONDictionary(dictionaryCopy, keyCopy, 1, 0xFFuLL, &v24);
-  v13 = v24;
+  v23 = 0;
+  v12 = decodeUnsignedIntegerFromJSONDictionary(dictionaryCopy, keyCopy, 1, 0xFFuLL, &v23);
+  v13 = v23;
   v14 = v13;
   if (v12)
   {
@@ -401,13 +415,13 @@ LABEL_11:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v26 = v21;
-      v27 = 2112;
-      v28 = keyCopy;
-      v29 = 2112;
-      v30 = v14;
-      v31 = 2112;
-      v32 = dictionaryCopy;
+      v25 = v21;
+      v26 = 2112;
+      v27 = keyCopy;
+      v28 = 2112;
+      v29 = v14;
+      v30 = 2112;
+      v31 = dictionaryCopy;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Rule contains an unknown '%@' value %@: %@", buf, 0x2Au);
     }
 
@@ -434,17 +448,16 @@ LABEL_8:
   *error = v16;
 LABEL_17:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 + (BOOL)__decodeDirection:(id)direction direction:(unsigned __int8 *)a4 error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   directionCopy = direction;
-  v21 = 0;
-  v9 = decodeUnsignedIntegerFromJSONDictionary(directionCopy, @"d", 1, 0xFFuLL, &v21);
-  v10 = v21;
+  v20 = 0;
+  v9 = decodeUnsignedIntegerFromJSONDictionary(directionCopy, @"d", 1, 0xFFuLL, &v20);
+  v10 = v20;
   v11 = v10;
   if ((v9 & 1) == 0)
   {
@@ -479,13 +492,13 @@ LABEL_13:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v23 = v18;
-      v24 = 2112;
-      v25 = @"d";
-      v26 = 2112;
-      v27 = v11;
-      v28 = 2112;
-      v29 = directionCopy;
+      v22 = v18;
+      v23 = 2112;
+      v24 = @"d";
+      v25 = 2112;
+      v26 = v11;
+      v27 = 2112;
+      v28 = directionCopy;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Rule contains an unknown '%@' value %@: %@", buf, 0x2Au);
     }
 
@@ -503,17 +516,16 @@ LABEL_13:
   *a4 = 1;
 LABEL_14:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 + (BOOL)__decodeType:(id)type type:(unsigned __int8 *)a4 error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   typeCopy = type;
-  v21 = 0;
-  v9 = decodeUnsignedIntegerFromJSONDictionary(typeCopy, @"t", 1, 0xFFuLL, &v21);
-  v10 = v21;
+  v20 = 0;
+  v9 = decodeUnsignedIntegerFromJSONDictionary(typeCopy, @"t", 1, 0xFFuLL, &v20);
+  v10 = v20;
   v11 = v10;
   if ((v9 & 1) == 0)
   {
@@ -541,13 +553,13 @@ LABEL_11:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v23 = v18;
-      v24 = 2112;
-      v25 = @"t";
-      v26 = 2112;
-      v27 = v11;
-      v28 = 2112;
-      v29 = typeCopy;
+      v22 = v18;
+      v23 = 2112;
+      v24 = @"t";
+      v25 = 2112;
+      v26 = v11;
+      v27 = 2112;
+      v28 = typeCopy;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Rule contains an unknown '%@' value %@: %@", buf, 0x2Au);
     }
 
@@ -565,7 +577,6 @@ LABEL_11:
   v13 = 1;
 LABEL_12:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

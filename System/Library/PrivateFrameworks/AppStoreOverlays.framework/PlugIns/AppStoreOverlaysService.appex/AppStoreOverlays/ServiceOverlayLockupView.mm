@@ -36,24 +36,21 @@
 - (void)setVariant:(int64_t)variant
 {
   selfCopy = self;
-  sub_100012AA0(variant);
+  sub_100012AA0(variant, selfCopy);
 }
 
 - (ASOServiceAdInteractionAttributor)adInteractionAttributor
 {
-  v3 = OBJC_IVAR____TtC23AppStoreOverlaysService24ServiceOverlayLockupView_adInteractionAttributor;
   swift_beginAccess();
-  v4 = *(&self->super.super.super.isa + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setAdInteractionAttributor:(id)attributor
 {
   v5 = OBJC_IVAR____TtC23AppStoreOverlaysService24ServiceOverlayLockupView_adInteractionAttributor;
   swift_beginAccess();
-  v6 = *(&self->super.super.super.isa + v5);
   *(&self->super.super.super.isa + v5) = attributor;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -77,75 +74,72 @@
 
 - (int64_t)semanticContentAttribute
 {
-  v3.receiver = self;
-  v3.super_class = swift_getObjectType();
-  return [(ServiceOverlayLockupView *)&v3 semanticContentAttribute];
+  v4.receiver = self;
+  v4.super_class = swift_getObjectType(v2);
+  return [(ServiceOverlayLockupView *)&v4 semanticContentAttribute];
 }
 
 - (void)setSemanticContentAttribute:(int64_t)attribute
 {
-  ObjectType = swift_getObjectType();
-  v9.receiver = self;
-  v9.super_class = ObjectType;
+  ObjectType = swift_getObjectType(v3);
+  v10.receiver = self;
+  v10.super_class = ObjectType;
   selfCopy = self;
-  [(ServiceOverlayLockupView *)&v9 setSemanticContentAttribute:attribute];
-  v7 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC23AppStoreOverlaysService24ServiceOverlayLockupView_calloutLabel);
-  v8.receiver = selfCopy;
-  v8.super_class = ObjectType;
-  [v7 setSemanticContentAttribute:{-[ServiceOverlayLockupView semanticContentAttribute](&v8, "semanticContentAttribute")}];
+  [(ServiceOverlayLockupView *)&v10 setSemanticContentAttribute:attribute];
+  v8 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC23AppStoreOverlaysService24ServiceOverlayLockupView_calloutLabel);
+  v9.receiver = selfCopy;
+  v9.super_class = ObjectType;
+  [v8 setSemanticContentAttribute:{-[ServiceOverlayLockupView semanticContentAttribute](&v9, "semanticContentAttribute")}];
 }
 
 - (void)layoutSubviews
 {
-  ObjectType = swift_getObjectType();
-  v4 = sub_100018158();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
-  v8 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  ObjectType = swift_getObjectType(v2);
+  v5 = sub_100018158();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = sub_100018268();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   __chkstk_darwin(v9);
-  v13 = &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25.receiver = self;
-  v25.super_class = ObjectType;
+  v12 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24.receiver = self;
+  v24.super_class = ObjectType;
   selfCopy = self;
-  [(ServiceOverlayLockupView *)&v25 layoutSubviews];
-  sub_1000133D8(v13);
+  [(ServiceOverlayLockupView *)&v24 layoutSubviews];
+  sub_1000133D8(v12);
   [(ServiceOverlayLockupView *)selfCopy bounds];
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
+  v21 = v20;
   [(ServiceOverlayLockupView *)selfCopy layoutMargins];
-  sub_100010BD8(v16, v18, v20, v22, v23, v24);
+  sub_100010BD8(v15, v17, v19, v21, v22, v23);
   sub_1000181E8();
 
-  (*(v5 + 8))(v8, v4);
-  (*(v10 + 8))(v13, v9);
+  (*(v6 + 8))(v8, v5);
+  (*(v10 + 8))(v12, v9);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
   v4 = sub_100018268();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   [(ServiceOverlayLockupView *)selfCopy layoutMargins];
-  sub_1000184E8(v18);
-  sub_1000133D8(v8);
+  sub_1000184E8(v17);
+  sub_1000133D8(v7);
   sub_100018168();
-  v11 = v10;
-  v13 = v12;
+  v10 = v9;
+  v12 = v11;
 
-  (*(v5 + 8))(v8, v4);
-  v14 = v11;
-  v15 = v13;
-  result.height = v15;
-  result.width = v14;
+  (*(v5 + 8))(v7, v4);
+  v13 = v10;
+  v14 = v12;
+  result.height = v14;
+  result.width = v13;
   return result;
 }
 
@@ -187,7 +181,7 @@
   viewCopy = view;
   errorCopy = error;
   selfCopy = self;
-  sub_10001727C();
+  sub_10001727C(errorCopy);
 }
 
 - (id)metricsActivityForLockupView:(id)view toPerformActionOfOffer:(id)offer
@@ -238,26 +232,25 @@
 - (id)lockupViewPerformAdAttributionForState:(id)state
 {
   v5 = sub_10000D4AC(&qword_10002C1C8, &unk_10001CCA0);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v18 - v7;
+  v7 = &v17 - v6;
   stateCopy = state;
   selfCopy = self;
-  sub_100015424(v8);
+  sub_100015424(v7);
 
-  v11 = sub_100018088();
-  v12 = *(v11 - 8);
-  v13 = (*(v12 + 48))(v8, 1, v11);
-  v14 = 0;
-  if (v13 != 1)
+  v10 = sub_100018088();
+  v11 = *(v10 - 8);
+  v12 = (*(v11 + 48))(v7, 1, v10);
+  v13 = 0;
+  if (v12 != 1)
   {
-    sub_100018068(v13);
-    v16 = v15;
-    (*(v12 + 8))(v8, v11);
-    v14 = v16;
+    sub_100018068(v12);
+    v15 = v14;
+    (*(v11 + 8))(v7, v10);
+    v13 = v15;
   }
 
-  return v14;
+  return v13;
 }
 
 @end

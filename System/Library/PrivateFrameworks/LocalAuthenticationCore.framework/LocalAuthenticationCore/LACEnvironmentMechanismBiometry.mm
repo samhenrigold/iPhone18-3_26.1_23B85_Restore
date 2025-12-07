@@ -1,4 +1,5 @@
 @interface LACEnvironmentMechanismBiometry
++ (id)environmentMechanismForUser:(unsigned int)user auditToken:(id *)token dependencies:(id)dependencies error:(id *)error;
 - (BOOL)isEqual:(id)equal;
 - (LACEnvironmentMechanismBiometry)initWithAvailabilityError:(id)error biometryType:(int64_t)type enrolled:(BOOL)enrolled lockedOut:(BOOL)out stateHash:(id)hash sensorInaccessible:(BOOL)inaccessible approvalState:(int64_t)state;
 - (LACEnvironmentMechanismBiometry)initWithCoder:(id)coder;
@@ -46,36 +47,115 @@
   return v20;
 }
 
++ (id)environmentMechanismForUser:(unsigned int)user auditToken:(id *)token dependencies:(id)dependencies error:(id *)error
+{
+  v7 = *&user;
+  dependenciesCopy = dependencies;
+  biometryHelper = [dependenciesCopy biometryHelper];
+  if (!biometryHelper)
+  {
+    v17 = 0;
+    goto LABEL_25;
+  }
+
+  v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v7];
+  v38 = 0;
+  v11 = [biometryHelper isEnrolled:v10 error:&v38];
+  v12 = v38;
+  if (!v11)
+  {
+    goto LABEL_5;
+  }
+
+  v13 = objc_opt_new();
+  v37 = v12;
+  v14 = [biometryHelper isLockedOutForUser:v10 request:v13 error:&v37];
+  v15 = v37;
+
+  if (v14)
+  {
+    v12 = v15;
+LABEL_5:
+    v15 = v12;
+    v30 = v11;
+    v16 = v15;
+    goto LABEL_8;
+  }
+
+  v30 = 0;
+  v16 = 0;
+LABEL_8:
+  v18 = [LACError errorWithCode:-6 debugDescription:@"Companion session is active"];
+  onenessSessionMonitor = [dependenciesCopy onenessSessionMonitor];
+  isSessionActive = [onenessSessionMonitor isSessionActive];
+
+  if (isSessionActive && !v16)
+  {
+    v16 = v18;
+  }
+
+  phoneIntegrationSessionMonitor = [dependenciesCopy phoneIntegrationSessionMonitor];
+  isSessionActive2 = [phoneIntegrationSessionMonitor isSessionActive];
+
+  if (isSessionActive2 && !v16)
+  {
+    v16 = v18;
+  }
+
+  v31 = v18;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __93__LACEnvironmentMechanismBiometry_environmentMechanismForUser_auditToken_dependencies_error___block_invoke;
+  v33[3] = &unk_1E7A97260;
+  v23 = biometryHelper;
+  v34 = v23;
+  v24 = *&token->var0[4];
+  v35 = *token->var0;
+  v36 = v24;
+  v25 = (__93__LACEnvironmentMechanismBiometry_environmentMechanismForUser_auditToken_dependencies_error___block_invoke)(v33);
+  if (!v25 && !v16)
+  {
+    v16 = [LACError errorWithCode:-1018 debugDescription:@"User has denied the use of biometry for this app."];
+  }
+
+  v32 = v10;
+  if (v11)
+  {
+    v26 = [v23 biometryDatabaseHashForUser:v10 error:0];
+  }
+
+  else
+  {
+    v26 = 0;
+  }
+
+  v27 = [LACEnvironmentMechanismBiometry alloc];
+  v28 = v16;
+  if (!v16)
+  {
+    v28 = [LACError errorWithCode:-1004 debugDescription:@"User interaction is required"];
+  }
+
+  v17 = -[LACEnvironmentMechanismBiometry initWithAvailabilityError:biometryType:enrolled:lockedOut:stateHash:sensorInaccessible:approvalState:](v27, "initWithAvailabilityError:biometryType:enrolled:lockedOut:stateHash:sensorInaccessible:approvalState:", v28, [v23 biometryType], v11, v30, v26, 0, v25);
+  if (!v16)
+  {
+  }
+
+LABEL_25:
+
+  return v17;
+}
+
 void __93__LACEnvironmentMechanismBiometry_environmentMechanismForUser_auditToken_dependencies_error___block_invoke(uint64_t a1)
 {
-  if ([*(a1 + 32) biometryType] != 2)
+  if ([*(a1 + 32) biometryType] == 2)
   {
-    goto LABEL_6;
+    v2 = +[LACTCCManager sharedInstance];
+    v3 = *(a1 + 56);
+    v4[0] = *(a1 + 40);
+    v4[1] = v3;
+    [v2 authorizationStatusOfFaceIDServiceForAuditToken:v4];
   }
-
-  v2 = +[LACTCCManager sharedInstance];
-  v3 = *(a1 + 56);
-  v7[0] = *(a1 + 40);
-  v7[1] = v3;
-  v4 = [v2 authorizationStatusOfFaceIDServiceForAuditToken:v7];
-
-  switch(v4)
-  {
-    case 0:
-      v5 = &LACEnvironmentMechanismApprovalStateUnknown;
-      break;
-    case 1:
-LABEL_6:
-      v5 = &LACEnvironmentMechanismApprovalStateGranted;
-      break;
-    case 2:
-      v5 = &LACEnvironmentMechanismApprovalStateDenied;
-      break;
-    default:
-      return;
-  }
-
-  v6 = *v5;
 }
 
 - (void)encodeWithCoder:(id)coder

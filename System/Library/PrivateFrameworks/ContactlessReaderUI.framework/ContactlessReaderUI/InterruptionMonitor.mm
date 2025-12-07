@@ -12,7 +12,7 @@
   selfCopy = self;
   v2(0);
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for InterruptionMonitor();
+  v4.super_class = type metadata accessor for InterruptionMonitor(0);
   [(InterruptionMonitor *)&v4 dealloc];
 }
 

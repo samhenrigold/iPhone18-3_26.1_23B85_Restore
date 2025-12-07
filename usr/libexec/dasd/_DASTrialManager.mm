@@ -1,11 +1,13 @@
 @interface _DASTrialManager
 + (_DASTrialManager)sharedInstance;
++ (id)sharedInstanceForProject:(int)project withNamespace:(id)namespace;
 + (void)initialize;
 - (BOOL)handleTrialContinuation:(id)continuation;
 - (BOOL)handleTrialEnd:(id)end;
 - (BOOL)handleTrialStart:(id)start;
 - (BOOL)handleTrialUpdate:(id)update;
 - (BOOL)matches:(id)matches withCache:(id)cache;
+- (_DASTrialManager)initWithProject:(int)project andNamespace:(id)namespace;
 - (void)addDelegate:(id)delegate;
 - (void)clear;
 - (void)saveToDefaults:(id)defaults;
@@ -36,6 +38,129 @@
   qword_10020AED0 = v2;
 
   dword_10020AED8 = 0;
+}
+
++ (id)sharedInstanceForProject:(int)project withNamespace:(id)namespace
+{
+  v4 = *&project;
+  namespaceCopy = namespace;
+  os_unfair_lock_lock(&dword_10020AED8);
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v6 = qword_10020AED0;
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v17;
+LABEL_3:
+    v10 = 0;
+    while (1)
+    {
+      if (*v17 != v9)
+      {
+        objc_enumerationMutation(v6);
+      }
+
+      v11 = *(*(&v16 + 1) + 8 * v10);
+      if ([v11 project] == v4)
+      {
+        namespace = [v11 namespace];
+        v13 = [namespace isEqual:namespaceCopy];
+
+        if (v13)
+        {
+          break;
+        }
+      }
+
+      if (v8 == ++v10)
+      {
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        if (v8)
+        {
+          goto LABEL_3;
+        }
+
+        goto LABEL_10;
+      }
+    }
+
+    v14 = v11;
+
+    if (v14)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+LABEL_10:
+  }
+
+  v14 = [[_DASTrialManager alloc] initWithProject:v4 andNamespace:namespaceCopy];
+  [qword_10020AED0 addObject:v14];
+LABEL_13:
+  os_unfair_lock_unlock(&dword_10020AED8);
+
+  return v14;
+}
+
+- (_DASTrialManager)initWithProject:(int)project andNamespace:(id)namespace
+{
+  v5 = *&project;
+  namespaceCopy = namespace;
+  v27.receiver = self;
+  v27.super_class = _DASTrialManager;
+  v8 = [(_DASTrialManager *)&v27 init];
+  v9 = v8;
+  if (v8)
+  {
+    v8->_project = v5;
+    objc_storeStrong(&v8->_namespace, namespace);
+    v9->_lock._os_unfair_lock_opaque = 0;
+    v10 = [_DASDaemonLogger logForCategory:@"TrialManager"];
+    log = v9->_log;
+    v9->_log = v10;
+
+    v12 = [TRIClient clientWithIdentifier:v5];
+    trialClient = v9->_trialClient;
+    v9->_trialClient = v12;
+
+    v14 = +[NSMutableArray array];
+    delegates = v9->_delegates;
+    v9->_delegates = v14;
+
+    v16 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.duetactivityscheduler.trial"];
+    defaults = v9->_defaults;
+    v9->_defaults = v16;
+
+    objc_initWeak(&location, v9);
+    v18 = v9->_trialClient;
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_1000264D8;
+    v24[3] = &unk_1001B5B50;
+    objc_copyWeak(&v25, &location);
+    v19 = [(TRIClient *)v18 addUpdateHandlerForNamespaceName:namespaceCopy usingBlock:v24];
+    [(_DASTrialManager *)v9 updateFactors];
+    [(_DASTrialManager *)v9 updateKernelWithDASIdentifiers];
+    v20 = dispatch_get_global_queue(-32768, 0);
+    handler[0] = _NSConcreteStackBlock;
+    handler[1] = 3221225472;
+    handler[2] = sub_100026570;
+    handler[3] = &unk_1001B5B78;
+    v23 = v9;
+    notify_register_dispatch("com.apple.dasd.trial", &v9->_token, v20, handler);
+
+    objc_destroyWeak(&v25);
+    objc_destroyWeak(&location);
+  }
+
+  return v9;
 }
 
 - (void)updateFactors
@@ -211,7 +336,6 @@ LABEL_14:
       [(NSString *)self->_experimentID UTF8String];
       strlen([(NSString *)self->_experimentID UTF8String]);
       __strncpy_chk();
-      deploymentID = self->_deploymentID;
       if (!memorystatus_control())
       {
         log = self->_log;
@@ -382,7 +506,7 @@ LABEL_14:
 {
   defaultsCopy = defaults;
   v5 = defaultsCopy;
-  if (defaultsCopy && [defaultsCopy count])
+  if (defaultsCopy && objc_msgSend_count(defaultsCopy))
   {
     [(NSUserDefaults *)self->_defaults setObject:v5 forKey:@"trialDictionary"];
   }
@@ -477,7 +601,7 @@ LABEL_14:
 {
   sCopy = s;
   v4 = sCopy;
-  if (sCopy && [sCopy count])
+  if (sCopy && objc_msgSend_count(sCopy))
   {
     v5 = [_DASDaemonLogger logForCategory:@"powerlog"];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -508,7 +632,7 @@ LABEL_14:
     if (v12)
     {
       array = [v12 array];
-      v14 = [array count];
+      v14 = objc_msgSend_count(array);
 
       if (v14 > 4)
       {

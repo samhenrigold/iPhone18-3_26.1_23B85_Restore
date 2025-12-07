@@ -55,7 +55,7 @@
   bootstrap_look_up(bootstrap_port, uTF8String, &sp);
   if (bootstrap_check_in(bootstrap_port, uTF8String, &sp))
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not check in as: %s");
   }
 
   v4 = dispatch_get_global_queue(0, 0);

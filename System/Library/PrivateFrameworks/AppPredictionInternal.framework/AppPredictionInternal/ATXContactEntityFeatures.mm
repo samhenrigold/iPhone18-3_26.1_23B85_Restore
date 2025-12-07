@@ -128,46 +128,44 @@
 
 - (id)jsonRepresentation
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v13[0] = @"isFavorite";
+  v21 = *MEMORY[0x277D85DE8];
+  v12[0] = @"isFavorite";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:self->_isFavoriteContact];
-  v14[0] = v3;
-  v13[1] = @"isVIP";
+  v13[0] = v3;
+  v12[1] = @"isVIP";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:self->_isVIPContact];
-  v14[1] = v4;
-  v13[2] = @"isEmergency";
+  v13[1] = v4;
+  v12[2] = @"isEmergency";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_isEmergencyContact];
-  v14[2] = v5;
-  v13[3] = @"isICloudFamilyMember";
+  v13[2] = v5;
+  v12[3] = @"isICloudFamilyMember";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:self->_isICloudFamilyMember];
   modeCountOfNotificationsClearedForEntity = self->_modeCountOfNotificationsClearedForEntity;
   globalCountOfNotificationsClearedForEntity = self->_globalCountOfNotificationsClearedForEntity;
-  v14[3] = v6;
-  v14[4] = modeCountOfNotificationsClearedForEntity;
-  v13[4] = @"modeCountOfNotificationsClearedForEntity";
-  v13[5] = @"globalCountOfNotificationsClearedForEntity";
-  v14[5] = globalCountOfNotificationsClearedForEntity;
-  v15 = *&self->_localNotificationsClearedRateForEntity;
-  v13[6] = @"localNotificationsClearedRateForEntity";
-  v13[7] = @"globalNotificationsClearedRateForEntity";
-  v13[8] = @"ratioOfLocalToGlobalNotificationsClearedRateForEntity";
-  v13[9] = @"classConditionalOfNotificationsClearedForEntity";
+  v13[3] = v6;
+  v13[4] = modeCountOfNotificationsClearedForEntity;
+  v12[4] = @"modeCountOfNotificationsClearedForEntity";
+  v12[5] = @"globalCountOfNotificationsClearedForEntity";
+  v13[5] = globalCountOfNotificationsClearedForEntity;
+  v14 = *&self->_localNotificationsClearedRateForEntity;
+  v12[6] = @"localNotificationsClearedRateForEntity";
+  v12[7] = @"globalNotificationsClearedRateForEntity";
+  v12[8] = @"ratioOfLocalToGlobalNotificationsClearedRateForEntity";
+  v12[9] = @"classConditionalOfNotificationsClearedForEntity";
   classConditionalOfNotificationsClearedForEntity = self->_classConditionalOfNotificationsClearedForEntity;
   ratioOfLocalToGlobalNotificationsClearedRateForEntity = self->_ratioOfLocalToGlobalNotificationsClearedRateForEntity;
-  v17 = classConditionalOfNotificationsClearedForEntity;
-  v18 = *&self->_globalCountOfNotificationsReceivedForEntity;
-  v13[10] = @"globalCountOfNotificationsReceivedForEntity";
-  v13[11] = @"modeCountOfNotificationsReceivedForEntity";
+  v16 = classConditionalOfNotificationsClearedForEntity;
+  v17 = *&self->_globalCountOfNotificationsReceivedForEntity;
+  v12[10] = @"globalCountOfNotificationsReceivedForEntity";
+  v12[11] = @"modeCountOfNotificationsReceivedForEntity";
   localPopularityOfNotificationsReceivedForEntity = self->_localPopularityOfNotificationsReceivedForEntity;
-  v13[12] = @"localPopularityOfNotificationsReceivedForEntity";
-  v13[13] = @"globalPopularityOfNotificationsReceivedForEntity";
-  v20 = *&self->_globalPopularityOfNotificationsReceivedForEntity;
-  v13[14] = @"ratioOfLocalToGlobalPopularityOfNotificationsReceivedForEntity";
-  v13[15] = @"classConditionalOfNotificationsReceivedForEntity";
+  v12[12] = @"localPopularityOfNotificationsReceivedForEntity";
+  v12[13] = @"globalPopularityOfNotificationsReceivedForEntity";
+  v19 = *&self->_globalPopularityOfNotificationsReceivedForEntity;
+  v12[14] = @"ratioOfLocalToGlobalPopularityOfNotificationsReceivedForEntity";
+  v12[15] = @"classConditionalOfNotificationsReceivedForEntity";
   classConditionalOfNotificationsReceivedForEntity = self->_classConditionalOfNotificationsReceivedForEntity;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:16];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:16];
 
   return v10;
 }

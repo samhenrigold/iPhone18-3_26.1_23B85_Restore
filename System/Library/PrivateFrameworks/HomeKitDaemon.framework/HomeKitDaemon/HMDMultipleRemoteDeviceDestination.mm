@@ -35,7 +35,7 @@
 
 id __65__HMDMultipleRemoteDeviceDestination_allRemoteDestinationStrings__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) remoteDestinationStringForDevice:v3];
   v5 = v4;
@@ -52,17 +52,15 @@ id __65__HMDMultipleRemoteDeviceDestination_allRemoteDestinationStrings__block_i
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v3;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Device is not addressable: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Device is not addressable: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -106,20 +104,19 @@ LABEL_9:
 
 - (id)remoteDestinationString
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_FAULT, "%{public}@Cannot get remoteDestinationString for HMDMultipleRemoteDeviceDestination", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_FAULT, "%{public}@Cannot get remoteDestinationString for HMDMultipleRemoteDeviceDestination", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

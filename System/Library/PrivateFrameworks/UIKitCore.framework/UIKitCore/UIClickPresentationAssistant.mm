@@ -34,7 +34,7 @@ void __53___UIClickPresentationAssistant__animatePresentation__block_invoke(uint
   v12 = v11;
   if (v11)
   {
-    [v11 transform];
+    objc_msgSend_transform(v11);
   }
 
   else
@@ -182,7 +182,7 @@ uint64_t __77___UIClickPresentationAssistant__applyStashedParentViewControllerIf
 id __128___UIClickPresentationAssistant_presentationControllerForPresentedViewController_presentingViewController_sourceViewController___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = [WeakRetained presentation];
+  v2 = objc_msgSend_presentation(WeakRetained);
   v3 = [v2 customContainerView];
 
   return v3;

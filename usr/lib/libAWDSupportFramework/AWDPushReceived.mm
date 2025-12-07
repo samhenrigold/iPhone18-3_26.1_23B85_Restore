@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)wakeStatusAsString:(int)string;
 - (int)StringAsWakeStatus:(id)status;
 - (int)wakeStatus;
 - (unint64_t)hash;
@@ -146,6 +147,19 @@
   }
 
   *&self->_has = v3 & 0x80 | *&self->_has & 0x7F;
+}
+
+- (id)wakeStatusAsString:(int)string
+{
+  if (string >= 3)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32C08[string];
+  }
 }
 
 - (int)StringAsWakeStatus:(id)status
@@ -306,7 +320,6 @@ LABEL_11:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -326,7 +339,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  connectionType = self->_connectionType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -341,7 +353,6 @@ LABEL_6:
   }
 
 LABEL_17:
-  linkQuality = self->_linkQuality;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -356,7 +367,6 @@ LABEL_7:
   }
 
 LABEL_18:
-  receiveOffset = self->_receiveOffset;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -371,7 +381,6 @@ LABEL_8:
   }
 
 LABEL_19:
-  payloadSize = self->_payloadSize;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -386,12 +395,10 @@ LABEL_9:
   }
 
 LABEL_20:
-  isFromStorage = self->_isFromStorage;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_10:
-    dualChannelState = self->_dualChannelState;
     PBDataWriterWriteUint32Field();
   }
 
@@ -403,7 +410,6 @@ LABEL_11:
 
   if ((*&self->_has & 0x80000000) != 0)
   {
-    wakeStatus = self->_wakeStatus;
 
     PBDataWriterWriteInt32Field();
   }
@@ -639,7 +645,6 @@ LABEL_9:
     if (!(guid | *(equal + 3)) || (v5 = [(NSString *)guid isEqual:?]) != 0)
     {
       has = self->_has;
-      v8 = *(equal + 60);
       if (has)
       {
         if ((*(equal + 60) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -745,10 +750,10 @@ LABEL_47:
         has = self->_has;
       }
 
-      v10 = *(equal + 60);
+      v9 = *(equal + 60);
       if (has < 0)
       {
-        if ((v10 & 0x80000000) == 0 || self->_wakeStatus != *(equal + 14))
+        if ((v9 & 0x80000000) == 0 || self->_wakeStatus != *(equal + 14))
         {
           goto LABEL_47;
         }
@@ -758,7 +763,7 @@ LABEL_47:
 
       else
       {
-        LOBYTE(v5) = v10 >= 0;
+        LOBYTE(v5) = v9 >= 0;
       }
     }
   }

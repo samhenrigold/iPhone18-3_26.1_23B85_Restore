@@ -39,36 +39,36 @@
 
 void __38__IPLocalStateUpdateStreamSink_resume__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v2 = *(*(a1 + 32) + 16);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * v6);
+        v7 = *(*(&v11 + 1) + 8 * v6);
         WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-        [WeakRetained sink:*(a1 + 32) sendMessage:{v7, v12}];
+        [WeakRetained sink:*(a1 + 32) sendMessage:{v7, v11}];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -79,7 +79,6 @@ void __38__IPLocalStateUpdateStreamSink_resume__block_invoke(uint64_t a1)
   *(v9 + 16) = 0;
 
   *(*(a1 + 32) + 28) = 1;
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendUpdateMessage:(id)message

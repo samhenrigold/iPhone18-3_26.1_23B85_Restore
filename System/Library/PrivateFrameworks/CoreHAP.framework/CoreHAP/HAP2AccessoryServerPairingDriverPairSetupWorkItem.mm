@@ -201,13 +201,12 @@ void __87__HAP2AccessoryServerPairingDriverPairSetupWorkItem_pairSetupSession_di
 void __78__HAP2AccessoryServerPairingDriverPairSetupWorkItem_pairSetupSessionDidStart___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v2 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = *(a1 + 32);
-    v4 = [WeakRetained pairingDriver];
-    [v4 setPairingSession:v3];
+    v2 = *(a1 + 32);
+    v3 = [WeakRetained pairingDriver];
+    [v3 setPairingSession:v2];
   }
 }
 
@@ -232,7 +231,7 @@ void __78__HAP2AccessoryServerPairingDriverPairSetupWorkItem_pairSetupSessionDid
 
 void __92__HAP2AccessoryServerPairingDriverPairSetupWorkItem_pairSetupSession_didReceiveProductData___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (hap2LogInitialize_onceToken != -1)
   {
@@ -243,11 +242,11 @@ void __92__HAP2AccessoryServerPairingDriverPairSetupWorkItem_pairSetupSession_di
   if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v10 = 138412546;
-    v11 = WeakRetained;
-    v12 = 2112;
-    v13 = v4;
-    _os_log_impl(&dword_22AADC000, v3, OS_LOG_TYPE_DEFAULT, "%@ Received product data: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = WeakRetained;
+    v11 = 2112;
+    v12 = v4;
+    _os_log_impl(&dword_22AADC000, v3, OS_LOG_TYPE_DEFAULT, "%@ Received product data: %@", &v9, 0x16u);
   }
 
   v5 = [WeakRetained pairingDriver];
@@ -264,7 +263,6 @@ void __92__HAP2AccessoryServerPairingDriverPairSetupWorkItem_pairSetupSession_di
   }
 
   [v8 setProductData:*(a1 + 32)];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pairSetupSession:(id)session didReceiveSetupExchangeData:(id)data
@@ -418,7 +416,7 @@ void __117__HAP2AccessoryServerPairingDriverPairSetupWorkItem_pairSetupSession_d
 
 - (BOOL)pairSetupSession:(id)session didPairWithPeer:(id)peer error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   peerCopy = peer;
   pairingDriver = [(HAP2AccessoryServerPairingDriverWorkItem *)self pairingDriver];
@@ -469,14 +467,14 @@ LABEL_19:
     v22 = hap2Log_default;
     if (os_log_type_enabled(hap2Log_default, OS_LOG_TYPE_ERROR))
     {
-      v25 = v22;
+      v24 = v22;
       deviceID2 = [v13 deviceID];
       identifier2 = [peerCopy identifier];
       *buf = 138412546;
       *&buf[4] = deviceID2;
       *&buf[12] = 2112;
       *&buf[14] = identifier2;
-      _os_log_error_impl(&dword_22AADC000, v25, OS_LOG_TYPE_ERROR, "The peer's identifier doesn't match any more %@ -> %@", buf, 0x16u);
+      _os_log_error_impl(&dword_22AADC000, v24, OS_LOG_TYPE_ERROR, "The peer's identifier doesn't match any more %@ -> %@", buf, 0x16u);
     }
 
     if (error)
@@ -492,18 +490,18 @@ LABEL_19:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v33 = __Block_byref_object_copy__25273;
-  v34 = __Block_byref_object_dispose__25274;
-  v35 = 0;
+  v32 = __Block_byref_object_copy__25273;
+  v33 = __Block_byref_object_dispose__25274;
+  v34 = 0;
   dispatch_group_enter(v18);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __92__HAP2AccessoryServerPairingDriverPairSetupWorkItem_pairSetupSession_didPairWithPeer_error___block_invoke;
-  v29[3] = &unk_2786D6ED8;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __92__HAP2AccessoryServerPairingDriverPairSetupWorkItem_pairSetupSession_didPairWithPeer_error___block_invoke;
+  v28[3] = &unk_2786D6ED8;
   v19 = v18;
-  v30 = v19;
-  v31 = buf;
-  [delegate pairingDriver:pairingDriver didSaveRemotePairingIdentity:peerCopy completion:v29];
+  v29 = v19;
+  v30 = buf;
+  [delegate pairingDriver:pairingDriver didSaveRemotePairingIdentity:peerCopy completion:v28];
   if (dispatch_group_wait(v19, 0xFFFFFFFFFFFFFFFFLL))
   {
     v20 = 0;
@@ -522,7 +520,6 @@ LABEL_19:
   _Block_object_dispose(buf, 8);
 LABEL_24:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

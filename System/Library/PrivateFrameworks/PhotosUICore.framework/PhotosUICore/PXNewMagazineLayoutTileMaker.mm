@@ -1252,7 +1252,7 @@ LABEL_37:
             v38 = 0;
             if (rectsArray2)
             {
-              [rectsArray2 rectAtIndex:v19];
+              objc_msgSend_rectAtIndex_(rectsArray2);
             }
 
             startY = [v17 startY];

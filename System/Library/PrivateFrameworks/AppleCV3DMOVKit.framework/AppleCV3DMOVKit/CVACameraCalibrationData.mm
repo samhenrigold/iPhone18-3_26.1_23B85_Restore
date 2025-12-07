@@ -5,8 +5,6 @@
 - (CGSize)intrinsicMatrixReferenceDimensions;
 - (CVACameraCalibrationData)initWithAVCameraCalibrationData:(id)data timestamp:(double)timestamp streamID:(id)d;
 - (CVACameraCalibrationData)initWithCoder:(id)coder;
-- (__n128)extrinsicMatrix;
-- (__n128)intrinsicMatrix;
 - (__n128)setExtrinsicMatrix:(__n128)matrix;
 - (__n128)setIntrinsicMatrix:(__n128)matrix;
 - (id)debugDescription;
@@ -121,11 +119,11 @@
 
 - (CVACameraCalibrationData)initWithCoder:(id)coder
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v114.receiver = self;
-  v114.super_class = CVACameraCalibrationData;
-  v5 = [(CVACameraCalibrationData *)&v114 init];
+  v113.receiver = self;
+  v113.super_class = CVACameraCalibrationData;
+  v5 = [(CVACameraCalibrationData *)&v113 init];
   if (v5)
   {
     v6 = objc_autoreleasePoolPush();
@@ -145,9 +143,9 @@
       {
         v12 = objc_alloc(MEMORY[0x277CE5A98]);
         v13 = v5->_calibrationDictionary;
-        v113 = 0;
-        v14 = [v12 initWithCameraCalibrationDataDictionary:v13 error:&v113];
-        v15 = v113;
+        v112 = 0;
+        v14 = [v12 initWithCameraCalibrationDataDictionary:v13 error:&v112];
+        v15 = v112;
         calibrationData = v5->_calibrationData;
         v5->_calibrationData = v14;
 
@@ -157,7 +155,7 @@
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v116 = v15;
+            v115 = v15;
             _os_log_impl(&dword_24016D000, v17, OS_LOG_TYPE_ERROR, "Failed to recreate calibration data : %@", buf, 0xCu);
           }
 
@@ -165,7 +163,7 @@
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v116 = v15;
+            v115 = v15;
             _os_log_impl(&dword_24016D000, v18, OS_LOG_TYPE_ERROR, "Failed to recreate calibration data : %@", buf, 0xCu);
           }
 
@@ -187,7 +185,7 @@ LABEL_24:
         if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v116 = operatingSystemVersionString;
+          v115 = operatingSystemVersionString;
           _os_log_impl(&dword_24016D000, v91, OS_LOG_TYPE_ERROR, "Failed to recreate calibration data : OS %@", buf, 0xCu);
         }
       }
@@ -202,50 +200,50 @@ LABEL_24:
     {
       v20 = [v19 objectAtIndexedSubscript:0];
       [v20 floatValue];
-      v109 = v21;
+      v108 = v21;
 
       v22 = [v15 objectAtIndexedSubscript:1];
       [v22 floatValue];
-      v103 = v23;
+      v102 = v23;
 
       v24 = [v15 objectAtIndexedSubscript:2];
       [v24 floatValue];
       v26 = v25;
-      v110 = __PAIR64__(v103, v109);
+      v109 = __PAIR64__(v102, v108);
 
       v27 = [v15 objectAtIndexedSubscript:3];
       [v27 floatValue];
-      v104 = v28;
+      v103 = v28;
 
       v29 = [v15 objectAtIndexedSubscript:4];
       [v29 floatValue];
-      v98 = v30;
+      v97 = v30;
 
       v31 = [v15 objectAtIndexedSubscript:5];
       [v31 floatValue];
       v33 = v32;
-      v105 = __PAIR64__(v98, v104);
+      v104 = __PAIR64__(v97, v103);
 
       v34 = [v15 objectAtIndexedSubscript:6];
       [v34 floatValue];
-      v99 = v35;
+      v98 = v35;
 
       v36 = [v15 objectAtIndexedSubscript:7];
       [v36 floatValue];
-      v95 = v37;
+      v94 = v37;
 
       v38 = [v15 objectAtIndexedSubscript:8];
       [v38 floatValue];
       v40 = v39;
 
       *&v5->_anon_60[8] = v26;
-      *v5->_anon_60 = v110;
+      *v5->_anon_60 = v109;
       *&v5->_anon_60[12] = 0;
       *&v5->_anon_60[24] = v33;
-      *&v5->_anon_60[16] = v105;
+      *&v5->_anon_60[16] = v104;
       *&v5->_anon_60[28] = 0;
       *&v5->_anon_60[40] = v40;
-      *&v5->_anon_60[32] = __PAIR64__(v95, v99);
+      *&v5->_anon_60[32] = __PAIR64__(v94, v98);
       *&v5->_anon_60[44] = 0;
     }
 
@@ -268,70 +266,70 @@ LABEL_24:
     {
       v49 = [v47 objectAtIndexedSubscript:0];
       [v49 floatValue];
-      v111 = v50;
+      v110 = v50;
 
       v51 = [v48 objectAtIndexedSubscript:1];
       [v51 floatValue];
-      v106 = v52;
+      v105 = v52;
 
       v53 = [v48 objectAtIndexedSubscript:2];
       [v53 floatValue];
       v55 = v54;
-      v112 = __PAIR64__(v106, v111);
+      v111 = __PAIR64__(v105, v110);
 
       v56 = [v48 objectAtIndexedSubscript:3];
       [v56 floatValue];
-      v107 = v57;
+      v106 = v57;
 
       v58 = [v48 objectAtIndexedSubscript:4];
       [v58 floatValue];
-      v100 = v59;
+      v99 = v59;
 
       v60 = [v48 objectAtIndexedSubscript:5];
       [v60 floatValue];
       v62 = v61;
-      v108 = __PAIR64__(v100, v107);
+      v107 = __PAIR64__(v99, v106);
 
       v63 = [v48 objectAtIndexedSubscript:6];
       [v63 floatValue];
-      v101 = v64;
+      v100 = v64;
 
       v65 = [v48 objectAtIndexedSubscript:7];
       [v65 floatValue];
-      v96 = v66;
+      v95 = v66;
 
       v67 = [v48 objectAtIndexedSubscript:8];
       [v67 floatValue];
       v69 = v68;
-      v102 = __PAIR64__(v96, v101);
+      v101 = __PAIR64__(v95, v100);
 
       v70 = [v48 objectAtIndexedSubscript:9];
       [v70 floatValue];
-      v97 = v71;
+      v96 = v71;
 
       v72 = [v48 objectAtIndexedSubscript:10];
       [v72 floatValue];
-      v94 = v73;
+      v93 = v73;
 
       v74 = [v48 objectAtIndexedSubscript:11];
       [v74 floatValue];
       v76 = v75;
 
       v5[1]._pixelSize = v55;
-      v5[1].super.isa = v112;
+      v5[1].super.isa = v111;
       *(&v5[1]._pixelSize + 1) = 0;
       LODWORD(v5[1]._timestamp) = v62;
-      v5[1]._streamID = v108;
+      v5[1]._streamID = v107;
       HIDWORD(v5[1]._timestamp) = 0;
       LODWORD(v5[1]._calibrationData) = v69;
-      v5[1]._calibrationDictionary = v102;
+      v5[1]._calibrationDictionary = v101;
       HIDWORD(v5[1]._calibrationData) = 0;
       LODWORD(v5[1]._inverseLensDistortionLookupTable) = v76;
-      v5[1]._lensDistortionLookupTable = __PAIR64__(v94, v97);
+      v5[1]._lensDistortionLookupTable = __PAIR64__(v93, v96);
       HIDWORD(v5[1]._inverseLensDistortionLookupTable) = 0;
     }
 
-    [coderCopy decodeFloatForKey:{@"ps", v94}];
+    [coderCopy decodeFloatForKey:{@"ps", v93}];
     v5->_pixelSize = v77;
     v78 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"ldlt"];
     lensDistortionLookupTable = v5->_lensDistortionLookupTable;
@@ -359,13 +357,12 @@ LABEL_24:
 
 LABEL_25:
 
-  v92 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v63[9] = *MEMORY[0x277D85DE8];
+  v62[9] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = objc_autoreleasePoolPush();
   [coderCopy encodeObject:self->_streamID forKey:@"si"];
@@ -379,80 +376,80 @@ LABEL_25:
   else
   {
     LODWORD(v6) = *self->_anon_60;
-    v56 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
-    v63[0] = v56;
+    v55 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
+    v62[0] = v55;
     LODWORD(v8) = *&self->_anon_60[4];
-    v54 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-    v63[1] = v54;
+    v53 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
+    v62[1] = v53;
     LODWORD(v9) = *&self->_anon_60[8];
-    v52 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
-    v63[2] = v52;
+    v51 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
+    v62[2] = v51;
     LODWORD(v10) = *&self->_anon_60[16];
     v11 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
-    v63[3] = v11;
+    v62[3] = v11;
     LODWORD(v12) = *&self->_anon_60[20];
     [MEMORY[0x277CCABB0] numberWithFloat:v12];
-    v13 = v59 = v5;
-    v63[4] = v13;
+    v13 = v58 = v5;
+    v62[4] = v13;
     LODWORD(v14) = *&self->_anon_60[24];
     v15 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
-    v63[5] = v15;
+    v62[5] = v15;
     LODWORD(v16) = *&self->_anon_60[32];
     v17 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
-    v63[6] = v17;
+    v62[6] = v17;
     LODWORD(v18) = *&self->_anon_60[36];
     v19 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
-    v63[7] = v19;
+    v62[7] = v19;
     LODWORD(v20) = *&self->_anon_60[40];
     v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
-    v63[8] = v21;
-    v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:9];
+    v62[8] = v21;
+    v57 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:9];
 
-    [coderCopy encodeObject:v58 forKey:@"im"];
+    [coderCopy encodeObject:v57 forKey:@"im"];
     v22 = [MEMORY[0x277CCABB0] numberWithDouble:self->_intrinsicMatrixReferenceDimensions.width];
-    v62[0] = v22;
+    v61[0] = v22;
     v23 = [MEMORY[0x277CCABB0] numberWithDouble:self->_intrinsicMatrixReferenceDimensions.height];
-    v62[1] = v23;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+    v61[1] = v23;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
     [coderCopy encodeObject:v24 forKey:@"imrd"];
 
     LODWORD(v25) = self[1].super.isa;
-    v57 = [MEMORY[0x277CCABB0] numberWithFloat:v25];
-    v61[0] = v57;
+    v56 = [MEMORY[0x277CCABB0] numberWithFloat:v25];
+    v60[0] = v56;
     LODWORD(v26) = HIDWORD(self[1].super.isa);
-    v55 = [MEMORY[0x277CCABB0] numberWithFloat:v26];
-    v61[1] = v55;
+    v54 = [MEMORY[0x277CCABB0] numberWithFloat:v26];
+    v60[1] = v54;
     *&v27 = self[1]._pixelSize;
-    v53 = [MEMORY[0x277CCABB0] numberWithFloat:v27];
-    v61[2] = v53;
+    v52 = [MEMORY[0x277CCABB0] numberWithFloat:v27];
+    v60[2] = v52;
     LODWORD(v28) = self[1]._streamID;
-    v51 = [MEMORY[0x277CCABB0] numberWithFloat:v28];
-    v61[3] = v51;
+    v50 = [MEMORY[0x277CCABB0] numberWithFloat:v28];
+    v60[3] = v50;
     LODWORD(v29) = HIDWORD(self[1]._streamID);
-    v50 = [MEMORY[0x277CCABB0] numberWithFloat:v29];
-    v61[4] = v50;
+    v49 = [MEMORY[0x277CCABB0] numberWithFloat:v29];
+    v60[4] = v49;
     LODWORD(v30) = LODWORD(self[1]._timestamp);
     v31 = [MEMORY[0x277CCABB0] numberWithFloat:v30];
-    v61[5] = v31;
+    v60[5] = v31;
     LODWORD(v32) = self[1]._calibrationDictionary;
     v33 = [MEMORY[0x277CCABB0] numberWithFloat:v32];
-    v61[6] = v33;
+    v60[6] = v33;
     LODWORD(v34) = HIDWORD(self[1]._calibrationDictionary);
     v35 = [MEMORY[0x277CCABB0] numberWithFloat:v34];
-    v61[7] = v35;
+    v60[7] = v35;
     LODWORD(v36) = self[1]._calibrationData;
     v37 = [MEMORY[0x277CCABB0] numberWithFloat:v36];
-    v61[8] = v37;
+    v60[8] = v37;
     LODWORD(v38) = self[1]._lensDistortionLookupTable;
     v39 = [MEMORY[0x277CCABB0] numberWithFloat:v38];
-    v61[9] = v39;
+    v60[9] = v39;
     LODWORD(v40) = HIDWORD(self[1]._lensDistortionLookupTable);
     v41 = [MEMORY[0x277CCABB0] numberWithFloat:v40];
-    v61[10] = v41;
+    v60[10] = v41;
     LODWORD(v42) = self[1]._inverseLensDistortionLookupTable;
     v43 = [MEMORY[0x277CCABB0] numberWithFloat:v42];
-    v61[11] = v43;
-    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:12];
+    v60[11] = v43;
+    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:12];
 
     [coderCopy encodeObject:v44 forKey:@"em"];
     *&v45 = self->_pixelSize;
@@ -460,23 +457,21 @@ LABEL_25:
     [coderCopy encodeObject:self->_lensDistortionLookupTable forKey:@"ldlt"];
     [coderCopy encodeObject:self->_inverseLensDistortionLookupTable forKey:@"ildlt"];
     v46 = [MEMORY[0x277CCABB0] numberWithDouble:self->_lensDistortionCenter.x];
-    v60[0] = v46;
+    v59[0] = v46;
     v47 = [MEMORY[0x277CCABB0] numberWithDouble:self->_lensDistortionCenter.y];
-    v60[1] = v47;
-    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
+    v59[1] = v47;
+    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
     [coderCopy encodeObject:v48 forKey:@"ldc"];
 
-    v5 = v59;
+    v5 = v58;
   }
 
   objc_autoreleasePoolPop(v5);
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dictionary
 {
-  v78[2] = *MEMORY[0x277D85DE8];
+  v77[2] = *MEMORY[0x277D85DE8];
   if (self->_streamID)
   {
     streamID = self->_streamID;
@@ -488,12 +483,12 @@ LABEL_25:
   }
 
   v4 = MEMORY[0x277CBEB38];
-  v77[0] = @"si";
-  v77[1] = @"t";
-  v78[0] = streamID;
+  v76[0] = @"si";
+  v76[1] = @"t";
+  v77[0] = streamID;
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:self->_timestamp];
-  v78[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:2];
+  v77[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:2];
   v7 = [v4 dictionaryWithDictionary:v6];
 
   calibrationDictionary = self->_calibrationDictionary;
@@ -503,91 +498,91 @@ LABEL_25:
     goto LABEL_13;
   }
 
-  v70 = v7;
+  v69 = v7;
   LODWORD(v8) = *self->_anon_60;
-  v66 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-  v76[0] = v66;
+  v65 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
+  v75[0] = v65;
   LODWORD(v10) = *&self->_anon_60[4];
   v11 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
-  v76[1] = v11;
+  v75[1] = v11;
   LODWORD(v12) = *&self->_anon_60[8];
   v13 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
-  v76[2] = v13;
+  v75[2] = v13;
   LODWORD(v14) = *&self->_anon_60[16];
   v15 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
-  v76[3] = v15;
+  v75[3] = v15;
   LODWORD(v16) = *&self->_anon_60[20];
   v17 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
-  v76[4] = v17;
+  v75[4] = v17;
   LODWORD(v18) = *&self->_anon_60[24];
   v19 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
-  v76[5] = v19;
+  v75[5] = v19;
   LODWORD(v20) = *&self->_anon_60[32];
   v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
-  v76[6] = v21;
+  v75[6] = v21;
   LODWORD(v22) = *&self->_anon_60[36];
   v23 = [MEMORY[0x277CCABB0] numberWithFloat:v22];
-  v76[7] = v23;
+  v75[7] = v23;
   LODWORD(v24) = *&self->_anon_60[40];
   v25 = [MEMORY[0x277CCABB0] numberWithFloat:v24];
-  v76[8] = v25;
-  v69 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:9];
+  v75[8] = v25;
+  v68 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:9];
 
   LODWORD(v26) = self[1].super.isa;
-  v67 = [MEMORY[0x277CCABB0] numberWithFloat:v26];
-  v75[0] = v67;
+  v66 = [MEMORY[0x277CCABB0] numberWithFloat:v26];
+  v74[0] = v66;
   LODWORD(v27) = HIDWORD(self[1].super.isa);
-  v64 = [MEMORY[0x277CCABB0] numberWithFloat:v27];
-  v75[1] = v64;
+  v63 = [MEMORY[0x277CCABB0] numberWithFloat:v27];
+  v74[1] = v63;
   *&v28 = self[1]._pixelSize;
-  v62 = [MEMORY[0x277CCABB0] numberWithFloat:v28];
-  v75[2] = v62;
+  v61 = [MEMORY[0x277CCABB0] numberWithFloat:v28];
+  v74[2] = v61;
   LODWORD(v29) = self[1]._streamID;
-  v61 = [MEMORY[0x277CCABB0] numberWithFloat:v29];
-  v75[3] = v61;
+  v60 = [MEMORY[0x277CCABB0] numberWithFloat:v29];
+  v74[3] = v60;
   LODWORD(v30) = HIDWORD(self[1]._streamID);
-  v60 = [MEMORY[0x277CCABB0] numberWithFloat:v30];
-  v75[4] = v60;
+  v59 = [MEMORY[0x277CCABB0] numberWithFloat:v30];
+  v74[4] = v59;
   LODWORD(v31) = LODWORD(self[1]._timestamp);
-  v59 = [MEMORY[0x277CCABB0] numberWithFloat:v31];
-  v75[5] = v59;
+  v58 = [MEMORY[0x277CCABB0] numberWithFloat:v31];
+  v74[5] = v58;
   LODWORD(v32) = self[1]._calibrationDictionary;
   v33 = [MEMORY[0x277CCABB0] numberWithFloat:v32];
-  v75[6] = v33;
+  v74[6] = v33;
   LODWORD(v34) = HIDWORD(self[1]._calibrationDictionary);
   v35 = [MEMORY[0x277CCABB0] numberWithFloat:v34];
-  v75[7] = v35;
+  v74[7] = v35;
   LODWORD(v36) = self[1]._calibrationData;
   v37 = [MEMORY[0x277CCABB0] numberWithFloat:v36];
-  v75[8] = v37;
+  v74[8] = v37;
   LODWORD(v38) = self[1]._lensDistortionLookupTable;
   v39 = [MEMORY[0x277CCABB0] numberWithFloat:v38];
-  v75[9] = v39;
+  v74[9] = v39;
   LODWORD(v40) = HIDWORD(self[1]._lensDistortionLookupTable);
   v41 = [MEMORY[0x277CCABB0] numberWithFloat:v40];
-  v75[10] = v41;
+  v74[10] = v41;
   LODWORD(v42) = self[1]._inverseLensDistortionLookupTable;
   v43 = [MEMORY[0x277CCABB0] numberWithFloat:v42];
-  v75[11] = v43;
-  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:12];
+  v74[11] = v43;
+  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:12];
 
-  v74[0] = v69;
-  v73[0] = @"im";
-  v73[1] = @"imrd";
-  v65 = [MEMORY[0x277CCABB0] numberWithDouble:self->_intrinsicMatrixReferenceDimensions.width];
-  v72[0] = v65;
-  v63 = [MEMORY[0x277CCABB0] numberWithDouble:self->_intrinsicMatrixReferenceDimensions.height];
-  v72[1] = v63;
-  v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
-  v74[1] = v45;
-  v74[2] = v44;
-  v68 = v44;
-  v73[2] = @"em";
-  v73[3] = @"ps";
+  v73[0] = v68;
+  v72[0] = @"im";
+  v72[1] = @"imrd";
+  v64 = [MEMORY[0x277CCABB0] numberWithDouble:self->_intrinsicMatrixReferenceDimensions.width];
+  v71[0] = v64;
+  v62 = [MEMORY[0x277CCABB0] numberWithDouble:self->_intrinsicMatrixReferenceDimensions.height];
+  v71[1] = v62;
+  v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
+  v73[1] = v45;
+  v73[2] = v44;
+  v67 = v44;
+  v72[2] = @"em";
+  v72[3] = @"ps";
   *&v46 = self->_pixelSize;
   v47 = [MEMORY[0x277CCABB0] numberWithFloat:v46];
-  v74[3] = v47;
-  v73[4] = @"ldlt";
+  v73[3] = v47;
+  v72[4] = @"ldlt";
   lensDistortionLookupTable = self->_lensDistortionLookupTable;
   v49 = lensDistortionLookupTable;
   if (!lensDistortionLookupTable)
@@ -595,8 +590,8 @@ LABEL_25:
     v49 = objc_opt_new();
   }
 
-  v74[4] = v49;
-  v73[5] = @"ildlt";
+  v73[4] = v49;
+  v72[5] = @"ildlt";
   inverseLensDistortionLookupTable = self->_inverseLensDistortionLookupTable;
   v51 = inverseLensDistortionLookupTable;
   if (!inverseLensDistortionLookupTable)
@@ -604,16 +599,16 @@ LABEL_25:
     v51 = objc_opt_new();
   }
 
-  v74[5] = v51;
-  v73[6] = @"ldc";
+  v73[5] = v51;
+  v72[6] = @"ldc";
   v52 = [MEMORY[0x277CCABB0] numberWithDouble:self->_lensDistortionCenter.x];
-  v71[0] = v52;
+  v70[0] = v52;
   v53 = [MEMORY[0x277CCABB0] numberWithDouble:self->_lensDistortionCenter.y];
-  v71[1] = v53;
-  v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
-  v74[6] = v54;
-  v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:7];
-  [v70 addEntriesFromDictionary:v55];
+  v70[1] = v53;
+  v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
+  v73[6] = v54;
+  v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:7];
+  [v69 addEntriesFromDictionary:v55];
 
   if (!inverseLensDistortionLookupTable)
   {
@@ -635,11 +630,9 @@ LABEL_17:
 
 LABEL_12:
 
-  v7 = v70;
+  v7 = v69;
 LABEL_13:
   v56 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v7];
-
-  v57 = *MEMORY[0x277D85DE8];
 
   return v56;
 }
@@ -652,14 +645,6 @@ LABEL_13:
   v6 = [v3 stringWithFormat:@"<%@: %@>", v4, dictionary];
 
   return v6;
-}
-
-- (__n128)intrinsicMatrix
-{
-  result = *(self + 96);
-  v2 = *(self + 112);
-  v3 = *(self + 128);
-  return result;
 }
 
 - (__n128)setIntrinsicMatrix:(__n128)matrix
@@ -676,15 +661,6 @@ LABEL_13:
   height = self->_intrinsicMatrixReferenceDimensions.height;
   result.height = height;
   result.width = width;
-  return result;
-}
-
-- (__n128)extrinsicMatrix
-{
-  result = *(self + 144);
-  v2 = *(self + 160);
-  v3 = *(self + 176);
-  v4 = *(self + 192);
   return result;
 }
 

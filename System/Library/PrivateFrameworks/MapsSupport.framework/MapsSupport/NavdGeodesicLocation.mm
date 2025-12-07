@@ -1,7 +1,6 @@
 @interface NavdGeodesicLocation
 - ($F24F406B2B787EFB06265DBA3D28CBD5)location;
 - (NavdGeodesicLocation)initWithLocation:(id)location timeInterval:(double)interval;
-- (double)distanceTo:(id)to;
 @end
 
 @implementation NavdGeodesicLocation
@@ -20,14 +19,6 @@
     result->_timeInterval = interval;
   }
 
-  return result;
-}
-
-- (double)distanceTo:(id)to
-{
-  latitude = self->_location.latitude;
-  longitude = self->_location.longitude;
-  GEOCalculateDistance();
   return result;
 }
 

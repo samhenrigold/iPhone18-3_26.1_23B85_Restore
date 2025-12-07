@@ -176,10 +176,7 @@ LABEL_14:
 
 uint64_t __62__MessageStatusIndicatorManagerAccessibility__axValueForMask___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) statusIndicatorColorWithOptionsMask:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) statusIndicatorColorWithOptionsMask:*(a1 + 48)];
 
   return MEMORY[0x2A1C71028]();
 }

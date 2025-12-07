@@ -1,6 +1,7 @@
 @interface ATXInformationHeuristicRefreshLocationTrigger
 + (BOOL)_locationIsStaleOrNotAccurateEnough:(id)enough now:(id)now;
 - (ATXInformationHeuristicRefreshLocationTrigger)initWithCoder:(id)coder;
+- (ATXInformationHeuristicRefreshLocationTrigger)initWithLocation:(CLLocationCoordinate2D)location notifyOnEntry:(BOOL)entry notifyOnExit:(BOOL)exit radiusInMeters:(double)meters;
 - (ATXInformationHeuristicRefreshLocationTrigger)initWithLocationManager:(id)manager regionToMonitor:(id)monitor;
 - (void)_run;
 - (void)_start;
@@ -9,6 +10,25 @@
 @end
 
 @implementation ATXInformationHeuristicRefreshLocationTrigger
+
+- (ATXInformationHeuristicRefreshLocationTrigger)initWithLocation:(CLLocationCoordinate2D)location notifyOnEntry:(BOOL)entry notifyOnExit:(BOOL)exit radiusInMeters:(double)meters
+{
+  exitCopy = exit;
+  entryCopy = entry;
+  longitude = location.longitude;
+  latitude = location.latitude;
+  v12 = objc_alloc(MEMORY[0x277CBFBC8]);
+  uUID = [MEMORY[0x277CCAD78] UUID];
+  uUIDString = [uUID UUIDString];
+  v15 = [v12 initWithCenter:uUIDString radius:latitude identifier:{longitude, meters}];
+
+  [v15 setNotifyOnEntry:entryCopy];
+  [v15 setNotifyOnExit:exitCopy];
+  mEMORY[0x277D41BF8] = [MEMORY[0x277D41BF8] sharedInstance];
+  v17 = [(ATXInformationHeuristicRefreshLocationTrigger *)self initWithLocationManager:mEMORY[0x277D41BF8] regionToMonitor:v15];
+
+  return v17;
+}
 
 - (ATXInformationHeuristicRefreshLocationTrigger)initWithLocationManager:(id)manager regionToMonitor:(id)monitor
 {
@@ -29,18 +49,18 @@
 
 - (void)_run
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   getCurrentLocation = [(ATXLocationManagerProtocol *)self->_locationManager getCurrentLocation];
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(getCurrentLocation);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (getCurrentLocation)
   {
     if (v5)
     {
       v6 = [getCurrentLocation description];
-      v15 = 138412290;
-      v16 = v6;
-      _os_log_impl(&dword_23E3EA000, v4, OS_LOG_TYPE_DEFAULT, "[Location] Received %@", &v15, 0xCu);
+      v16 = 138412290;
+      v17 = v6;
+      _os_log_impl(&dword_23E3EA000, v4, OS_LOG_TYPE_DEFAULT, "[Location] Received %@", &v16, 0xCu);
     }
 
     v7 = objc_opt_class();
@@ -52,28 +72,30 @@
       regionToMonitor = self->_regionToMonitor;
       [getCurrentLocation coordinate];
       v10 = [(CLCircularRegion *)regionToMonitor containsCoordinate:?];
-      if ([(CLCircularRegion *)self->_regionToMonitor notifyOnEntry]&& self->_previouslyOutsideRegion && v10)
+      notifyOnEntry = [(CLCircularRegion *)self->_regionToMonitor notifyOnEntry];
+      if (notifyOnEntry && self->_previouslyOutsideRegion && v10)
       {
-        v11 = __atxlog_handle_gi();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = __atxlog_handle_gi(notifyOnEntry);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v15) = 0;
-          _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshLocationTrigger: Entering monitored region. Triggering heuristics refresh.", &v15, 2u);
+          LOWORD(v16) = 0;
+          _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshLocationTrigger: Entering monitored region. Triggering heuristics refresh.", &v16, 2u);
         }
       }
 
       else
       {
-        if (![(CLCircularRegion *)self->_regionToMonitor notifyOnExit]|| !self->_previouslyInsideRegion || v10)
+        notifyOnExit = [(CLCircularRegion *)self->_regionToMonitor notifyOnExit];
+        if (!notifyOnExit || !self->_previouslyInsideRegion || v10)
         {
           goto LABEL_20;
         }
 
-        v11 = __atxlog_handle_gi();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = __atxlog_handle_gi(notifyOnExit);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v15) = 0;
-          _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshLocationTrigger: Leaving monitored region. Triggering heuristics refresh.", &v15, 2u);
+          LOWORD(v16) = 0;
+          _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshLocationTrigger: Leaving monitored region. Triggering heuristics refresh.", &v16, 2u);
         }
       }
 
@@ -91,12 +113,10 @@ LABEL_20:
   {
     if (v5)
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_23E3EA000, v4, OS_LOG_TYPE_DEFAULT, "[Location] Nil location received. Ignoring trigger.", &v15, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_23E3EA000, v4, OS_LOG_TYPE_DEFAULT, "[Location] Nil location received. Ignoring trigger.", &v16, 2u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_start
@@ -132,7 +152,7 @@ void __55__ATXInformationHeuristicRefreshLocationTrigger__start__block_invoke(ui
 
   else
   {
-    v3 = __atxlog_handle_gi();
+    v3 = __atxlog_handle_gi(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __55__ATXInformationHeuristicRefreshLocationTrigger__start__block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
@@ -142,7 +162,7 @@ void __55__ATXInformationHeuristicRefreshLocationTrigger__start__block_invoke(ui
 
 + (BOOL)_locationIsStaleOrNotAccurateEnough:(id)enough now:(id)now
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   enoughCopy = enough;
   nowCopy = now;
   timestamp = [enoughCopy timestamp];
@@ -151,42 +171,41 @@ void __55__ATXInformationHeuristicRefreshLocationTrigger__start__block_invoke(ui
 
   if (v9 <= 900.0)
   {
-    [enoughCopy horizontalAccuracy];
-    if (v12 <= 200.0)
+    horizontalAccuracy = [enoughCopy horizontalAccuracy];
+    if (v14 <= 200.0)
     {
-      v14 = 0;
+      v16 = 0;
       goto LABEL_10;
     }
 
-    v10 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_gi(horizontalAccuracy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       [enoughCopy horizontalAccuracy];
-      v17 = 134217984;
-      v18 = v13;
-      v11 = "[Location] Uncertainty too large, horizontalAccuracy, %f. Ignoring trigger.";
+      v18 = 134217984;
+      v19 = v15;
+      v12 = "[Location] Uncertainty too large, horizontalAccuracy, %f. Ignoring trigger.";
       goto LABEL_7;
     }
   }
 
   else
   {
-    v10 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_gi(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 134217984;
-      v18 = v9;
-      v11 = "[Location] Location is stale. Age: %f. Ignoring trigger.";
+      v18 = 134217984;
+      v19 = v9;
+      v12 = "[Location] Location is stale. Age: %f. Ignoring trigger.";
 LABEL_7:
-      _os_log_impl(&dword_23E3EA000, v10, OS_LOG_TYPE_DEFAULT, v11, &v17, 0xCu);
+      _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, v12, &v18, 0xCu);
     }
   }
 
-  v14 = 1;
+  v16 = 1;
 LABEL_10:
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v16;
 }
 
 - (void)_stop

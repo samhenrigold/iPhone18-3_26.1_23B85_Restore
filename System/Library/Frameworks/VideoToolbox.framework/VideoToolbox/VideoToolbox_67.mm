@@ -190,7 +190,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
   v45 = v62;
   v32 = v63;
   v27 = v44;
@@ -867,7 +867,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
   v45 = v62;
   v32 = v63;
   v27 = v44;
@@ -1719,7 +1719,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
   v45 = v62;
   v32 = v63;
   v27 = v44;
@@ -2361,7 +2361,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
   v45 = v62;
   v32 = v63;
   v27 = v44;
@@ -2969,7 +2969,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
   v45 = v62;
   v32 = v63;
   v27 = v44;
@@ -3283,28 +3283,28 @@ unsigned __int8 *vt_Copy_422vf_rgb_BGRA_GCD(unsigned __int8 *result, uint64_t a2
 
 uint64_t vt_Copy_422vf_TRC_Tone_Mat_TRC_l10r(uint64_t a1, uint64_t *a2, uint64_t a3, unint64_t *a4, unint64_t *a5, uint64_t *a6, uint64_t a7, void *a8, void *a9)
 {
-  v64 = a7;
-  v65 = a8;
-  v73 = a5;
-  v66 = a3;
-  v67 = a4;
-  v74 = *MEMORY[0x1E69E9840];
+  v65 = a7;
+  v66 = a8;
+  v74 = a5;
+  v67 = a3;
+  v68 = a4;
+  v75 = *MEMORY[0x1E69E9840];
   v10 = *(a1 + 162);
   v12 = *a2;
   v11 = a2[1];
   v13 = a2[2];
-  v63 = a2[3];
+  v64 = a2[3];
   v14 = a2[4];
-  v69 = a2[5];
-  v70 = v11;
+  v70 = a2[5];
+  v71 = v11;
   v15 = *a6;
-  v68 = a6[1];
+  v69 = a6[1];
   v16 = a6[2];
   v17 = a6[3];
   v19 = a6[4];
   v18 = a6[5];
-  v71 = v15;
-  v72 = v18;
+  v72 = v15;
+  v73 = v18;
   v21 = v14 + v13 != v12 || v19 + v16 != v15;
   if (v10 == 255)
   {
@@ -3325,7 +3325,7 @@ LABEL_64:
     bzero(&v60 - v24, v25);
   }
 
-  v62 = a1;
+  v63 = a1;
   v26 = a9;
   v27 = v16 - 1;
   v28 = v13 - 1;
@@ -3353,8 +3353,8 @@ LABEL_64:
 
   if (v27)
   {
-    v31 = v67;
-    if (v21 || (v32 = v28 + 1 + v29, v32 > *v67) || ((v32 + (v32 >> 63)) & 0xFFFFFFFFFFFFFFFELL) > v67[1] || (v33 = v67[2], v32 > v33) && v33 || (v34 = v27 + 1 + v30, *v65 < 4 * v34) || (v35 = v65[1], v34 > v35) && v35)
+    v31 = v68;
+    if (v21 || (v32 = v28 + 1 + v29, v32 > *v68) || ((v32 + (v32 >> 63)) & 0xFFFFFFFFFFFFFFFELL) > v68[1] || (v33 = v68[2], v32 > v33) && v33 || (v34 = v27 + 1 + v30, *v66 < 4 * v34) || (v35 = v66[1], v34 > v35) && v35)
     {
       --v27;
       --v28;
@@ -3362,7 +3362,7 @@ LABEL_64:
 
     else
     {
-      ++v71;
+      ++v72;
       ++v12;
       ++v28;
       ++v27;
@@ -3371,7 +3371,7 @@ LABEL_64:
 
   else
   {
-    v31 = v67;
+    v31 = v68;
   }
 
   if (v28 + v29 > v12)
@@ -3379,29 +3379,29 @@ LABEL_64:
     v28 = v12 - v29;
   }
 
-  if (v27 + v30 > v71)
+  if (v27 + v30 > v72)
   {
-    v27 = v71 - v30;
+    v27 = v72 - v30;
   }
 
-  if (v69 + v63 <= v70)
+  if (v70 + v64 <= v71)
   {
-    v36 = v63;
+    v36 = v64;
   }
 
   else
   {
-    v36 = v70 - v69;
+    v36 = v71 - v70;
   }
 
-  if (v72 + v17 <= v68)
+  if (v73 + v17 <= v69)
   {
     v37 = v17;
   }
 
   else
   {
-    v37 = v68 - v72;
+    v37 = v69 - v73;
   }
 
   if (v28 >= v27)
@@ -3424,10 +3424,10 @@ LABEL_64:
     v39 = v36;
   }
 
-  v40 = v69 + v39 - 1;
+  v40 = v70 + v39 - 1;
   v41 = v38 + v29;
   v42 = v38 + v29 + *v31 * v40;
-  v43 = *v73;
+  v43 = *v74;
   v61 = v29;
   if (v42 > v43)
   {
@@ -3435,13 +3435,13 @@ LABEL_64:
     v45 = v30;
     v46 = v12;
     v47 = a9;
-    v48 = v65;
+    v48 = v66;
     goto LABEL_57;
   }
 
-  v48 = v65;
-  v49 = v66;
-  if (*(v66 + 8) && ((v41 + 1 + ((v41 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + v31[1] * v40 > v73[1])
+  v48 = v66;
+  v49 = v67;
+  if (*(v67 + 8) && ((v41 + 1 + ((v41 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + v31[1] * v40 > v74[1])
   {
     v44 = v10;
     v45 = v30;
@@ -3450,7 +3450,7 @@ LABEL_64:
     goto LABEL_57;
   }
 
-  if (*(v66 + 16) && v41 + v31[2] * v40 > v73[2])
+  if (*(v67 + 16) && v41 + v31[2] * v40 > v74[2])
   {
     v44 = v10;
     v45 = v30;
@@ -3459,8 +3459,8 @@ LABEL_64:
     goto LABEL_57;
   }
 
-  v50 = v72 + v39 - 1;
-  if ((*v65 * v50 + 4 * (v38 + v30)) > *a9)
+  v50 = v73 + v39 - 1;
+  if ((*v66 * v50 + 4 * (v38 + v30)) > *a9)
   {
     v44 = v10;
     v45 = v30;
@@ -3469,8 +3469,8 @@ LABEL_64:
     goto LABEL_57;
   }
 
-  v51 = v64;
-  if (*(v64 + 8) && (v38 + v30 + v65[1] * v50) > a9[1])
+  v51 = v65;
+  if (*(v65 + 8) && (v38 + v30 + v66[1] * v50) > a9[1])
   {
     v44 = v10;
     v45 = v30;
@@ -3478,10 +3478,10 @@ LABEL_64:
     v47 = a9;
 LABEL_57:
     fig_log_get_emitter();
-    v23 = FigSignalErrorAtGM();
-    v51 = v64;
-    v49 = v66;
-    v31 = v67;
+    v23 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v60, v61, v62);
+    v51 = v65;
+    v49 = v67;
+    v31 = v68;
     v26 = v47;
     v12 = v46;
     v30 = v45;
@@ -3495,27 +3495,27 @@ LABEL_57:
 
   *v22 = v10;
   *(v22 + 4) = v12;
-  v52 = v69;
-  *(v22 + 12) = v70;
+  v52 = v70;
+  *(v22 + 12) = v71;
   *(v22 + 20) = v38;
   *(v22 + 28) = v39;
   *(v22 + 36) = v29;
   *(v22 + 44) = v52;
-  v22[11] = v68;
+  v22[11] = v69;
   v22[12] = v38;
   v22[13] = v39;
   v22[14] = v30;
   v22[7] = v49;
   v22[8] = v31;
-  v53 = v71;
-  v54 = v72;
-  v22[9] = v73;
+  v53 = v72;
+  v54 = v73;
+  v22[9] = v74;
   v22[10] = v53;
   v22[15] = v54;
   v22[16] = v51;
   v22[17] = v48;
   v22[18] = v26;
-  v22[19] = v62;
+  v22[19] = v63;
   global_queue = dispatch_get_global_queue(0, 0);
   dispatch_apply_f(v10, global_queue, v22, vt_Copy_422vf_TRC_Tone_Mat_TRC_l10r_GCD);
   if (!v10)
@@ -3939,28 +3939,28 @@ unsigned __int8 *vt_Copy_422vf_TRC_Tone_Mat_TRC_l10r_GCD(unsigned __int8 *result
 
 uint64_t vt_Copy_422vf_TRC_Mat_TRC_l10r(uint64_t a1, uint64_t *a2, uint64_t a3, unint64_t *a4, unint64_t *a5, uint64_t *a6, uint64_t a7, void *a8, void *a9)
 {
-  v64 = a7;
-  v65 = a8;
-  v73 = a5;
-  v66 = a3;
-  v67 = a4;
-  v74 = *MEMORY[0x1E69E9840];
+  v65 = a7;
+  v66 = a8;
+  v74 = a5;
+  v67 = a3;
+  v68 = a4;
+  v75 = *MEMORY[0x1E69E9840];
   v10 = *(a1 + 162);
   v12 = *a2;
   v11 = a2[1];
   v13 = a2[2];
-  v63 = a2[3];
+  v64 = a2[3];
   v14 = a2[4];
-  v69 = a2[5];
-  v70 = v11;
+  v70 = a2[5];
+  v71 = v11;
   v15 = *a6;
-  v68 = a6[1];
+  v69 = a6[1];
   v16 = a6[2];
   v17 = a6[3];
   v19 = a6[4];
   v18 = a6[5];
-  v71 = v15;
-  v72 = v18;
+  v72 = v15;
+  v73 = v18;
   v21 = v14 + v13 != v12 || v19 + v16 != v15;
   if (v10 == 255)
   {
@@ -3981,7 +3981,7 @@ LABEL_64:
     bzero(&v60 - v24, v25);
   }
 
-  v62 = a1;
+  v63 = a1;
   v26 = a9;
   v27 = v16 - 1;
   v28 = v13 - 1;
@@ -4009,8 +4009,8 @@ LABEL_64:
 
   if (v27)
   {
-    v31 = v67;
-    if (v21 || (v32 = v28 + 1 + v29, v32 > *v67) || ((v32 + (v32 >> 63)) & 0xFFFFFFFFFFFFFFFELL) > v67[1] || (v33 = v67[2], v32 > v33) && v33 || (v34 = v27 + 1 + v30, *v65 < 4 * v34) || (v35 = v65[1], v34 > v35) && v35)
+    v31 = v68;
+    if (v21 || (v32 = v28 + 1 + v29, v32 > *v68) || ((v32 + (v32 >> 63)) & 0xFFFFFFFFFFFFFFFELL) > v68[1] || (v33 = v68[2], v32 > v33) && v33 || (v34 = v27 + 1 + v30, *v66 < 4 * v34) || (v35 = v66[1], v34 > v35) && v35)
     {
       --v27;
       --v28;
@@ -4018,7 +4018,7 @@ LABEL_64:
 
     else
     {
-      ++v71;
+      ++v72;
       ++v12;
       ++v28;
       ++v27;
@@ -4027,7 +4027,7 @@ LABEL_64:
 
   else
   {
-    v31 = v67;
+    v31 = v68;
   }
 
   if (v28 + v29 > v12)
@@ -4035,29 +4035,29 @@ LABEL_64:
     v28 = v12 - v29;
   }
 
-  if (v27 + v30 > v71)
+  if (v27 + v30 > v72)
   {
-    v27 = v71 - v30;
+    v27 = v72 - v30;
   }
 
-  if (v69 + v63 <= v70)
+  if (v70 + v64 <= v71)
   {
-    v36 = v63;
+    v36 = v64;
   }
 
   else
   {
-    v36 = v70 - v69;
+    v36 = v71 - v70;
   }
 
-  if (v72 + v17 <= v68)
+  if (v73 + v17 <= v69)
   {
     v37 = v17;
   }
 
   else
   {
-    v37 = v68 - v72;
+    v37 = v69 - v73;
   }
 
   if (v28 >= v27)
@@ -4080,10 +4080,10 @@ LABEL_64:
     v39 = v36;
   }
 
-  v40 = v69 + v39 - 1;
+  v40 = v70 + v39 - 1;
   v41 = v38 + v29;
   v42 = v38 + v29 + *v31 * v40;
-  v43 = *v73;
+  v43 = *v74;
   v61 = v29;
   if (v42 > v43)
   {
@@ -4091,13 +4091,13 @@ LABEL_64:
     v45 = v30;
     v46 = v12;
     v47 = a9;
-    v48 = v65;
+    v48 = v66;
     goto LABEL_57;
   }
 
-  v48 = v65;
-  v49 = v66;
-  if (*(v66 + 8) && ((v41 + 1 + ((v41 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + v31[1] * v40 > v73[1])
+  v48 = v66;
+  v49 = v67;
+  if (*(v67 + 8) && ((v41 + 1 + ((v41 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + v31[1] * v40 > v74[1])
   {
     v44 = v10;
     v45 = v30;
@@ -4106,7 +4106,7 @@ LABEL_64:
     goto LABEL_57;
   }
 
-  if (*(v66 + 16) && v41 + v31[2] * v40 > v73[2])
+  if (*(v67 + 16) && v41 + v31[2] * v40 > v74[2])
   {
     v44 = v10;
     v45 = v30;
@@ -4115,8 +4115,8 @@ LABEL_64:
     goto LABEL_57;
   }
 
-  v50 = v72 + v39 - 1;
-  if ((*v65 * v50 + 4 * (v38 + v30)) > *a9)
+  v50 = v73 + v39 - 1;
+  if ((*v66 * v50 + 4 * (v38 + v30)) > *a9)
   {
     v44 = v10;
     v45 = v30;
@@ -4125,8 +4125,8 @@ LABEL_64:
     goto LABEL_57;
   }
 
-  v51 = v64;
-  if (*(v64 + 8) && (v38 + v30 + v65[1] * v50) > a9[1])
+  v51 = v65;
+  if (*(v65 + 8) && (v38 + v30 + v66[1] * v50) > a9[1])
   {
     v44 = v10;
     v45 = v30;
@@ -4134,10 +4134,10 @@ LABEL_64:
     v47 = a9;
 LABEL_57:
     fig_log_get_emitter();
-    v23 = FigSignalErrorAtGM();
-    v51 = v64;
-    v49 = v66;
-    v31 = v67;
+    v23 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v60, v61, v62);
+    v51 = v65;
+    v49 = v67;
+    v31 = v68;
     v26 = v47;
     v12 = v46;
     v30 = v45;
@@ -4151,27 +4151,27 @@ LABEL_57:
 
   *v22 = v10;
   *(v22 + 4) = v12;
-  v52 = v69;
-  *(v22 + 12) = v70;
+  v52 = v70;
+  *(v22 + 12) = v71;
   *(v22 + 20) = v38;
   *(v22 + 28) = v39;
   *(v22 + 36) = v29;
   *(v22 + 44) = v52;
-  v22[11] = v68;
+  v22[11] = v69;
   v22[12] = v38;
   v22[13] = v39;
   v22[14] = v30;
   v22[7] = v49;
   v22[8] = v31;
-  v53 = v71;
-  v54 = v72;
-  v22[9] = v73;
+  v53 = v72;
+  v54 = v73;
+  v22[9] = v74;
   v22[10] = v53;
   v22[15] = v54;
   v22[16] = v51;
   v22[17] = v48;
   v22[18] = v26;
-  v22[19] = v62;
+  v22[19] = v63;
   global_queue = dispatch_get_global_queue(0, 0);
   dispatch_apply_f(v10, global_queue, v22, vt_Copy_422vf_TRC_Mat_TRC_l10r_GCD);
   if (!v10)
@@ -4554,28 +4554,28 @@ unsigned __int8 *vt_Copy_422vf_TRC_Mat_TRC_l10r_GCD(unsigned __int8 *result, uin
 
 uint64_t vt_Copy_422vf_rgb_l10r(uint64_t a1, uint64_t *a2, uint64_t a3, unint64_t *a4, unint64_t *a5, uint64_t *a6, uint64_t a7, void *a8, void *a9)
 {
-  v64 = a7;
-  v65 = a8;
-  v73 = a5;
-  v66 = a3;
-  v67 = a4;
-  v74 = *MEMORY[0x1E69E9840];
+  v65 = a7;
+  v66 = a8;
+  v74 = a5;
+  v67 = a3;
+  v68 = a4;
+  v75 = *MEMORY[0x1E69E9840];
   v10 = *(a1 + 162);
   v12 = *a2;
   v11 = a2[1];
   v13 = a2[2];
-  v63 = a2[3];
+  v64 = a2[3];
   v14 = a2[4];
-  v69 = a2[5];
-  v70 = v11;
+  v70 = a2[5];
+  v71 = v11;
   v15 = *a6;
-  v68 = a6[1];
+  v69 = a6[1];
   v16 = a6[2];
   v17 = a6[3];
   v19 = a6[4];
   v18 = a6[5];
-  v71 = v15;
-  v72 = v18;
+  v72 = v15;
+  v73 = v18;
   v21 = v14 + v13 != v12 || v19 + v16 != v15;
   if (v10 == 255)
   {
@@ -4596,7 +4596,7 @@ LABEL_64:
     bzero(&v60 - v24, v25);
   }
 
-  v62 = a1;
+  v63 = a1;
   v26 = a9;
   v27 = v16 - 1;
   v28 = v13 - 1;
@@ -4624,8 +4624,8 @@ LABEL_64:
 
   if (v27)
   {
-    v31 = v67;
-    if (v21 || (v32 = v28 + 1 + v29, v32 > *v67) || ((v32 + (v32 >> 63)) & 0xFFFFFFFFFFFFFFFELL) > v67[1] || (v33 = v67[2], v32 > v33) && v33 || (v34 = v27 + 1 + v30, *v65 < 4 * v34) || (v35 = v65[1], v34 > v35) && v35)
+    v31 = v68;
+    if (v21 || (v32 = v28 + 1 + v29, v32 > *v68) || ((v32 + (v32 >> 63)) & 0xFFFFFFFFFFFFFFFELL) > v68[1] || (v33 = v68[2], v32 > v33) && v33 || (v34 = v27 + 1 + v30, *v66 < 4 * v34) || (v35 = v66[1], v34 > v35) && v35)
     {
       --v27;
       --v28;
@@ -4633,7 +4633,7 @@ LABEL_64:
 
     else
     {
-      ++v71;
+      ++v72;
       ++v12;
       ++v28;
       ++v27;
@@ -4642,7 +4642,7 @@ LABEL_64:
 
   else
   {
-    v31 = v67;
+    v31 = v68;
   }
 
   if (v28 + v29 > v12)
@@ -4650,29 +4650,29 @@ LABEL_64:
     v28 = v12 - v29;
   }
 
-  if (v27 + v30 > v71)
+  if (v27 + v30 > v72)
   {
-    v27 = v71 - v30;
+    v27 = v72 - v30;
   }
 
-  if (v69 + v63 <= v70)
+  if (v70 + v64 <= v71)
   {
-    v36 = v63;
+    v36 = v64;
   }
 
   else
   {
-    v36 = v70 - v69;
+    v36 = v71 - v70;
   }
 
-  if (v72 + v17 <= v68)
+  if (v73 + v17 <= v69)
   {
     v37 = v17;
   }
 
   else
   {
-    v37 = v68 - v72;
+    v37 = v69 - v73;
   }
 
   if (v28 >= v27)
@@ -4695,10 +4695,10 @@ LABEL_64:
     v39 = v36;
   }
 
-  v40 = v69 + v39 - 1;
+  v40 = v70 + v39 - 1;
   v41 = v38 + v29;
   v42 = v38 + v29 + *v31 * v40;
-  v43 = *v73;
+  v43 = *v74;
   v61 = v29;
   if (v42 > v43)
   {
@@ -4706,13 +4706,13 @@ LABEL_64:
     v45 = v30;
     v46 = v12;
     v47 = a9;
-    v48 = v65;
+    v48 = v66;
     goto LABEL_57;
   }
 
-  v48 = v65;
-  v49 = v66;
-  if (*(v66 + 8) && ((v41 + 1 + ((v41 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + v31[1] * v40 > v73[1])
+  v48 = v66;
+  v49 = v67;
+  if (*(v67 + 8) && ((v41 + 1 + ((v41 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + v31[1] * v40 > v74[1])
   {
     v44 = v10;
     v45 = v30;
@@ -4721,7 +4721,7 @@ LABEL_64:
     goto LABEL_57;
   }
 
-  if (*(v66 + 16) && v41 + v31[2] * v40 > v73[2])
+  if (*(v67 + 16) && v41 + v31[2] * v40 > v74[2])
   {
     v44 = v10;
     v45 = v30;
@@ -4730,8 +4730,8 @@ LABEL_64:
     goto LABEL_57;
   }
 
-  v50 = v72 + v39 - 1;
-  if ((*v65 * v50 + 4 * (v38 + v30)) > *a9)
+  v50 = v73 + v39 - 1;
+  if ((*v66 * v50 + 4 * (v38 + v30)) > *a9)
   {
     v44 = v10;
     v45 = v30;
@@ -4740,8 +4740,8 @@ LABEL_64:
     goto LABEL_57;
   }
 
-  v51 = v64;
-  if (*(v64 + 8) && (v38 + v30 + v65[1] * v50) > a9[1])
+  v51 = v65;
+  if (*(v65 + 8) && (v38 + v30 + v66[1] * v50) > a9[1])
   {
     v44 = v10;
     v45 = v30;
@@ -4749,10 +4749,10 @@ LABEL_64:
     v47 = a9;
 LABEL_57:
     fig_log_get_emitter();
-    v23 = FigSignalErrorAtGM();
-    v51 = v64;
-    v49 = v66;
-    v31 = v67;
+    v23 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v60, v61, v62);
+    v51 = v65;
+    v49 = v67;
+    v31 = v68;
     v26 = v47;
     v12 = v46;
     v30 = v45;
@@ -4766,27 +4766,27 @@ LABEL_57:
 
   *v22 = v10;
   *(v22 + 4) = v12;
-  v52 = v69;
-  *(v22 + 12) = v70;
+  v52 = v70;
+  *(v22 + 12) = v71;
   *(v22 + 20) = v38;
   *(v22 + 28) = v39;
   *(v22 + 36) = v29;
   *(v22 + 44) = v52;
-  v22[11] = v68;
+  v22[11] = v69;
   v22[12] = v38;
   v22[13] = v39;
   v22[14] = v30;
   v22[7] = v49;
   v22[8] = v31;
-  v53 = v71;
-  v54 = v72;
-  v22[9] = v73;
+  v53 = v72;
+  v54 = v73;
+  v22[9] = v74;
   v22[10] = v53;
   v22[15] = v54;
   v22[16] = v51;
   v22[17] = v48;
   v22[18] = v26;
-  v22[19] = v62;
+  v22[19] = v63;
   global_queue = dispatch_get_global_queue(0, 0);
   dispatch_apply_f(v10, global_queue, v22, vt_Copy_422vf_rgb_l10r_GCD);
   if (!v10)
@@ -5237,7 +5237,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
   v45 = v62;
   v32 = v63;
   v27 = v44;
@@ -5871,7 +5871,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
   v45 = v62;
   v32 = v63;
   v27 = v44;
@@ -6469,7 +6469,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
   v45 = v62;
   v32 = v63;
   v27 = v44;
@@ -6965,7 +6965,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
   v45 = v62;
   v32 = v63;
   v27 = v44;
@@ -7599,7 +7599,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
   v45 = v62;
   v32 = v63;
   v27 = v44;
@@ -8198,7 +8198,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
   v45 = v62;
   v32 = v63;
   v27 = v44;
@@ -8686,7 +8686,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
   v45 = v62;
   v32 = v63;
   v27 = v44;
@@ -9413,7 +9413,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
   v45 = v62;
   v32 = v63;
   v27 = v44;

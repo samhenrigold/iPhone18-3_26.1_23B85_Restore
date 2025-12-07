@@ -6,11 +6,11 @@
 
 + (id)nss_sessionBatchWithIdentifier
 {
-  v0 = objc_opt_new();
-  v1 = NSSNTPBAnalyticsUUIDData();
-  [v0 setIdentifier:v1];
+  v1 = objc_opt_new();
+  v2 = NSSNTPBAnalyticsUUIDData();
+  [v1 setIdentifier:v2];
 
-  return v0;
+  return v1;
 }
 
 @end

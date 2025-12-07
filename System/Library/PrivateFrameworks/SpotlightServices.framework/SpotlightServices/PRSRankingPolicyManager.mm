@@ -35,37 +35,37 @@ uint64_t __56__PRSRankingPolicyManager_getSharedRankingPolicyManager__block_invo
 + (double)termFrequencyComponentFor:(id)for matchingString:(id)string weighted:(BOOL)weighted
 {
   weightedCopy = weighted;
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   forCopy = for;
   stringCopy = string;
   v9 = objc_opt_new();
   v10 = [forCopy length];
   whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-  v36 = stringCopy;
+  v35 = stringCopy;
   v12 = [stringCopy componentsSeparatedByCharactersInSet:whitespaceCharacterSet];
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obj = v12;
-  v13 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v13 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = v10;
     v16 = v10;
-    v17 = *v43;
+    v17 = *v42;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v43 != v17)
+        if (*v42 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v42 + 1) + 8 * i);
+        v19 = *(*(&v41 + 1) + 8 * i);
         if (v15 <= [v19 length] && !objc_msgSend(v19, "compare:options:range:", forCopy, 129, 0, v16))
         {
           v20 = [v9 objectForKey:v19];
@@ -84,33 +84,33 @@ uint64_t __56__PRSRankingPolicyManager_getSharedRankingPolicyManager__block_invo
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v14 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
     while (v14);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   allKeys = [v9 allKeys];
-  v24 = [allKeys countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v24 = [allKeys countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v39;
+    v26 = *v38;
     v27 = 0.0;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v39 != v26)
+        if (*v38 != v26)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v29 = *(*(&v38 + 1) + 8 * j);
+        v29 = *(*(&v37 + 1) + 8 * j);
         v30 = [v9 objectForKey:v29];
         unsignedIntegerValue = [v30 unsignedIntegerValue];
 
@@ -124,7 +124,7 @@ uint64_t __56__PRSRankingPolicyManager_getSharedRankingPolicyManager__block_invo
         v27 = v27 + v32;
       }
 
-      v25 = [allKeys countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v25 = [allKeys countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v25);
@@ -135,24 +135,23 @@ uint64_t __56__PRSRankingPolicyManager_getSharedRankingPolicyManager__block_invo
     v27 = 0.0;
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
 + (double)termFrequencyComponentForWord:(id)word inString:(id)string
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   wordCopy = word;
   stringCopy = string;
   whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
   v8 = [stringCopy componentsSeparatedByCharactersInSet:whitespaceCharacterSet];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (!v10)
   {
 
@@ -162,24 +161,24 @@ LABEL_13:
   }
 
   v11 = v10;
-  v12 = *v19;
+  v12 = *v18;
   v13 = 0.0;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v19 != v12)
+      if (*v18 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      if (![*(*(&v18 + 1) + 8 * i) compare:wordCopy options:{129, v18}])
+      if (![*(*(&v17 + 1) + 8 * i) compare:wordCopy options:{129, v17}])
       {
         v13 = v13 + 1.0;
       }
     }
 
-    v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   }
 
   while (v11);
@@ -192,7 +191,6 @@ LABEL_13:
   v15 = log(v13) + 1.0;
 LABEL_14:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -205,9 +203,9 @@ LABEL_14:
   whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
   v13 = [fieldCopy componentsSeparatedByCharactersInSet:whitespaceAndNewlineCharacterSet];
 
-  if ([v13 count])
+  if (objc_msgSend_count(v13))
   {
-    v14 = [matchesCopy count];
+    v14 = objc_msgSend_count(matchesCopy);
     v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v14];
     if (versionCopy)
     {
@@ -254,7 +252,7 @@ LABEL_14:
     [v11 setInverseDocFrequencies:v24];
     [v11 setTermInverseDoc:v21];
     [v11 setTermInverseDocWeighted:v20];
-    [v11 setFieldLength:{objc_msgSend(v13, "count")}];
+    [v11 setFieldLength:objc_msgSend_count(v13)];
   }
 
   return v11;
@@ -321,7 +319,7 @@ void __100__PRSRankingPolicyManager_cosineComponentsUsingWordMatches_withField_w
 {
   arrayCopy = array;
   arraysCopy = arrays;
-  if ([arraysCopy count] == level)
+  if (objc_msgSend_count(arraysCopy) == level)
   {
     v15 = PRSLogCategoryDefault();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -330,7 +328,7 @@ void __100__PRSRankingPolicyManager_cosineComponentsUsingWordMatches_withField_w
     }
   }
 
-  else if ([arrayCopy count])
+  else if (objc_msgSend_count(arrayCopy))
   {
     v16 = 0;
     v17 = level + 1;
@@ -393,7 +391,7 @@ void __100__PRSRankingPolicyManager_cosineComponentsUsingWordMatches_withField_w
       }
 
       v25 = v21 + span;
-      if (v17 == [arraysCopy count])
+      if (v17 == objc_msgSend_count(arraysCopy))
       {
         if (*minimumSpan > v25)
         {
@@ -412,7 +410,7 @@ void __100__PRSRankingPolicyManager_cosineComponentsUsingWordMatches_withField_w
       ++v16;
     }
 
-    while ([arrayCopy count] > v16);
+    while (objc_msgSend_count(arrayCopy) > v16);
   }
 }
 
@@ -420,9 +418,9 @@ void __100__PRSRankingPolicyManager_cosineComponentsUsingWordMatches_withField_w
 {
   arrayCopy = array;
   arraysCopy = arrays;
-  if ([arraysCopy count] != level)
+  if (objc_msgSend_count(arraysCopy) != level)
   {
-    if (![arrayCopy count])
+    if (!objc_msgSend_count(arrayCopy))
     {
 LABEL_7:
       v14 = 0;
@@ -440,7 +438,7 @@ LABEL_7:
         break;
       }
 
-      if ([arrayCopy count] <= ++v15)
+      if (objc_msgSend_count(arrayCopy) <= ++v15)
       {
         goto LABEL_7;
       }
@@ -448,7 +446,7 @@ LABEL_7:
 
     *span += integerValue - index;
     v19 = level + 1;
-    if (v19 != [arraysCopy count])
+    if (v19 != objc_msgSend_count(arraysCopy))
     {
       v20 = [arraysCopy objectAtIndex:v19];
       v14 = [(PRSRankingPolicyManager *)self doesOrderedSpanExistWithStartingIndex:integerValue nextArray:v20 arrayOfIndexArrays:arraysCopy level:v19 currentOrderedSpan:span];
@@ -484,28 +482,28 @@ LABEL_8:
 
 - (void)computeNewFeaturesForProperty:(id)property query:(id)query qr_prop_query_norm_min_ordered_span:(double *)qr_prop_query_norm_min_ordered_span qr_prop_query_norm_min_unordered_span:(double *)qr_prop_query_norm_min_unordered_span qr_query_min_pair_dist_in_title:(double *)qr_query_min_pair_dist_in_title prefix_match_norm_count:(double *)prefix_match_norm_count ordered_first_term_position:(double *)ordered_first_term_position prefixMatch:(BOOL)self0 queryBreakDown:(id)self1 isVirtualField:(BOOL)self2 locale:(id)self3
 {
-  v130 = *MEMORY[0x1E69E9840];
+  v129 = *MEMORY[0x1E69E9840];
   propertyCopy = property;
   downCopy = down;
   localeCopy = locale;
-  v80 = [downCopy count];
-  v87 = objc_opt_new();
+  v79 = objc_msgSend_count(downCopy);
+  v86 = objc_opt_new();
   whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-  v94 = [propertyCopy componentsSeparatedByCharactersInSet:whitespaceAndNewlineCharacterSet];
+  v93 = [propertyCopy componentsSeparatedByCharactersInSet:whitespaceAndNewlineCharacterSet];
 
-  v123 = 0u;
-  v124 = 0u;
-  v121 = 0u;
   v122 = 0u;
+  v123 = 0u;
+  v120 = 0u;
+  v121 = 0u;
   obj = downCopy;
-  v91 = [obj countByEnumeratingWithState:&v121 objects:v129 count:16];
-  if (v91)
+  v90 = [obj countByEnumeratingWithState:&v120 objects:v128 count:16];
+  if (v90)
   {
     v16 = 0;
-    v101 = 0;
-    v88 = propertyCopy;
-    v89 = *v122;
-    v86 = 1;
+    v100 = 0;
+    v87 = propertyCopy;
+    v88 = *v121;
+    v85 = 1;
 LABEL_3:
     v17 = 0;
     v18 = 5;
@@ -514,94 +512,94 @@ LABEL_3:
       v18 = v16;
     }
 
-    v93 = v18 - v16;
+    v92 = v18 - v16;
     while (1)
     {
-      if (*v122 != v89)
+      if (*v121 != v88)
       {
         objc_enumerationMutation(obj);
       }
 
-      if (v17 == v93)
+      if (v17 == v92)
       {
         break;
       }
 
-      v96 = v17;
-      v98 = v16;
-      v19 = *(*(&v121 + 1) + 8 * v17);
+      v95 = v17;
+      v97 = v16;
+      v19 = *(*(&v120 + 1) + 8 * v17);
       v20 = objc_opt_new();
+      v116 = 0u;
       v117 = 0u;
       v118 = 0u;
       v119 = 0u;
-      v120 = 0u;
-      v21 = v94;
-      v22 = [v21 countByEnumeratingWithState:&v117 objects:v128 count:16];
+      v21 = v93;
+      v22 = [v21 countByEnumeratingWithState:&v116 objects:v127 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v118;
+        v24 = *v117;
         while (2)
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v118 != v24)
+            if (*v117 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            v26 = *(*(&v117 + 1) + 8 * i);
+            v26 = *(*(&v116 + 1) + 8 * i);
             if ([PRSRankingUtilities caseAndDiacriticInsensitiveLocalizedString:v26 isEqualToString:v19]|| match && [PRSRankingUtilities caseAndDiacriticInsensitiveLocalizedString:v26 hasPrefix:v19 locale:localeCopy])
             {
 
-              v115 = 0u;
-              v116 = 0u;
-              v113 = 0u;
               v114 = 0u;
+              v115 = 0u;
+              v112 = 0u;
+              v113 = 0u;
               v27 = v21;
-              v28 = [v27 countByEnumeratingWithState:&v113 objects:v127 count:16];
+              v28 = [v27 countByEnumeratingWithState:&v112 objects:v126 count:16];
               if (v28)
               {
                 v29 = v28;
                 v30 = 0;
-                v31 = *v114;
+                v31 = *v113;
                 do
                 {
                   for (j = 0; j != v29; ++j)
                   {
-                    if (*v114 != v31)
+                    if (*v113 != v31)
                     {
                       objc_enumerationMutation(v27);
                     }
 
-                    v33 = *(*(&v113 + 1) + 8 * j);
+                    v33 = *(*(&v112 + 1) + 8 * j);
                     if ([PRSRankingUtilities caseAndDiacriticInsensitiveLocalizedString:v33 isEqualToString:v19]|| match && [PRSRankingUtilities caseAndDiacriticInsensitiveLocalizedString:v33 hasPrefix:v19 locale:localeCopy])
                     {
                       v34 = [MEMORY[0x1E696AD98] numberWithInteger:v30];
                       [v20 addObject:v34];
 
-                      ++v101;
+                      ++v100;
                     }
 
                     ++v30;
                   }
 
-                  v29 = [v27 countByEnumeratingWithState:&v113 objects:v127 count:16];
+                  v29 = [v27 countByEnumeratingWithState:&v112 objects:v126 count:16];
                 }
 
                 while (v29);
               }
 
-              if ([v20 count])
+              if (objc_msgSend_count(v20))
               {
-                [v87 addObject:v20];
+                [v86 addObject:v20];
               }
 
               goto LABEL_33;
             }
           }
 
-          v23 = [v21 countByEnumeratingWithState:&v117 objects:v128 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v116 objects:v127 count:16];
           if (v23)
           {
             continue;
@@ -611,16 +609,16 @@ LABEL_3:
         }
       }
 
-      v86 = 0;
+      v85 = 0;
 LABEL_33:
-      propertyCopy = v88;
-      v16 = v98 + 1;
+      propertyCopy = v87;
+      v16 = v97 + 1;
 
-      v17 = v96 + 1;
-      if (v96 + 1 == v91)
+      v17 = v95 + 1;
+      if (v95 + 1 == v90)
       {
-        v91 = [obj countByEnumeratingWithState:&v121 objects:v129 count:16];
-        if (v91)
+        v90 = [obj countByEnumeratingWithState:&v120 objects:v128 count:16];
+        if (v90)
         {
           goto LABEL_3;
         }
@@ -632,12 +630,12 @@ LABEL_33:
 
   else
   {
-    v101 = 0;
-    v86 = 1;
+    v100 = 0;
+    v85 = 1;
   }
 
-  v35 = v87;
-  if (![v87 count])
+  v35 = v86;
+  if (!objc_msgSend_count(v86))
   {
     *qr_prop_query_norm_min_ordered_span = 2147483650.0;
     *qr_prop_query_norm_min_unordered_span = 2147483650.0;
@@ -647,18 +645,18 @@ LABEL_33:
     goto LABEL_92;
   }
 
-  [v87 firstObject];
-  v111 = 0x7FFFFFFFLL;
-  v99 = v112 = 0x7FFFFFFFLL;
-  v36 = [v99 count];
+  [v86 firstObject];
+  v110 = 0x7FFFFFFFLL;
+  v98 = v111 = 0x7FFFFFFFLL;
+  v36 = objc_msgSend_count(v98);
   if (!v36)
   {
-    *qr_query_min_pair_dist_in_title = v111;
+    *qr_query_min_pair_dist_in_title = v110;
     *qr_prop_query_norm_min_ordered_span = 2147483650.0;
     *ordered_first_term_position = 2147483650.0;
     v74 = 2147483650.0;
-    v77 = v101;
-    v41 = v86;
+    v77 = v100;
+    v41 = v85;
     goto LABEL_88;
   }
 
@@ -667,33 +665,33 @@ LABEL_33:
   integerValue2 = 0x7FFFFFFFLL;
   v39 = 0x7FFFFFFFLL;
   v40 = 0x7FFFFFFFLL;
-  v41 = v86;
+  v41 = v85;
   do
   {
-    v110 = 0;
-    if ([v35 count] < 2)
+    v109 = 0;
+    if (objc_msgSend_count(v35) < 2)
     {
-      v108 = 0u;
-      v109 = 0u;
-      v106 = 0u;
       v107 = 0u;
+      v108 = 0u;
+      v105 = 0u;
+      v106 = 0u;
       firstObject = [v35 firstObject];
-      v58 = [firstObject countByEnumeratingWithState:&v106 objects:v126 count:16];
+      v58 = [firstObject countByEnumeratingWithState:&v105 objects:v125 count:16];
       if (v58)
       {
         v59 = v58;
-        v60 = *v107;
+        v60 = *v106;
         v61 = 1.79769313e308;
         do
         {
           for (k = 0; k != v59; ++k)
           {
-            if (*v107 != v60)
+            if (*v106 != v60)
             {
               objc_enumerationMutation(firstObject);
             }
 
-            v63 = *(*(&v106 + 1) + 8 * k);
+            v63 = *(*(&v105 + 1) + 8 * k);
             [v63 doubleValue];
             if (v64 < v61)
             {
@@ -702,30 +700,30 @@ LABEL_33:
             }
           }
 
-          v59 = [firstObject countByEnumeratingWithState:&v106 objects:v126 count:16];
+          v59 = [firstObject countByEnumeratingWithState:&v105 objects:v125 count:16];
         }
 
         while (v59);
         integerValue2 = v61;
-        v35 = v87;
-        v41 = v86;
+        v35 = v86;
+        v41 = v85;
       }
 
-      v66 = [obj count];
+      v66 = objc_msgSend_count(obj);
       if (v41)
       {
         if (v66 == 1)
         {
           v40 = 0;
           v39 = 0;
-          v111 = 0;
+          v110 = 0;
           goto LABEL_81;
         }
 
 LABEL_75:
         v40 = 0;
         v39 = 0;
-        v111 = 0x7FFFFFFFLL;
+        v110 = 0x7FFFFFFFLL;
         goto LABEL_81;
       }
 
@@ -734,30 +732,30 @@ LABEL_75:
         goto LABEL_75;
       }
 
-      v104 = 0u;
-      v105 = 0u;
-      v102 = 0u;
       v103 = 0u;
+      v104 = 0u;
+      v101 = 0u;
+      v102 = 0u;
       v67 = obj;
-      v68 = [v67 countByEnumeratingWithState:&v102 objects:v125 count:16];
+      v68 = [v67 countByEnumeratingWithState:&v101 objects:v124 count:16];
       if (v68)
       {
         v69 = v68;
         v70 = 0;
-        v71 = *v103;
+        v71 = *v102;
         do
         {
           for (m = 0; m != v69; ++m)
           {
-            if (*v103 != v71)
+            if (*v102 != v71)
             {
               objc_enumerationMutation(v67);
             }
 
-            v70 += [propertyCopy localizedStandardContainsString:*(*(&v102 + 1) + 8 * m)];
+            v70 += [propertyCopy localizedStandardContainsString:*(*(&v101 + 1) + 8 * m)];
           }
 
-          v69 = [v67 countByEnumeratingWithState:&v102 objects:v125 count:16];
+          v69 = [v67 countByEnumeratingWithState:&v101 objects:v124 count:16];
         }
 
         while (v69);
@@ -765,13 +763,13 @@ LABEL_75:
         if (v70 == 1)
         {
           v73 = [propertyCopy componentsSeparatedByString:@" "];
-          v111 = [v73 count];
+          v110 = objc_msgSend_count(v73);
         }
 
         v40 = 0;
         v39 = 0;
-        v35 = v87;
-        v41 = v86;
+        v35 = v86;
+        v41 = v85;
       }
 
       else
@@ -786,59 +784,59 @@ LABEL_75:
     {
       if (v41)
       {
-        v42 = [v99 objectAtIndexedSubscript:v38];
+        v42 = [v98 objectAtIndexedSubscript:v38];
         integerValue = [v42 integerValue];
         v44 = [v35 objectAtIndex:1];
-        LODWORD(integerValue) = [(PRSRankingPolicyManager *)self doesOrderedSpanExistWithStartingIndex:integerValue nextArray:v44 arrayOfIndexArrays:v35 level:1 currentOrderedSpan:&v110];
+        LODWORD(integerValue) = [(PRSRankingPolicyManager *)self doesOrderedSpanExistWithStartingIndex:integerValue nextArray:v44 arrayOfIndexArrays:v35 level:1 currentOrderedSpan:&v109];
 
         if (integerValue)
         {
-          if (v40 > v110)
+          if (v40 > v109)
           {
-            v45 = [v99 objectAtIndexedSubscript:v38];
+            v45 = [v98 objectAtIndexedSubscript:v38];
             integerValue2 = [v45 integerValue];
 
-            v40 = v110;
+            v40 = v109;
           }
         }
       }
 
       if (field)
       {
-        v92 = v40;
-        v97 = v39;
+        v91 = v40;
+        v96 = v39;
         v46 = v37;
-        v47 = [v99 objectAtIndexedSubscript:v38];
+        v47 = [v98 objectAtIndexedSubscript:v38];
         integerValue3 = [v47 integerValue];
         v49 = [v35 objectAtIndex:1];
-        v50 = [v99 objectAtIndexedSubscript:v38];
+        v50 = [v98 objectAtIndexedSubscript:v38];
         integerValue4 = [v50 integerValue];
-        [v99 objectAtIndexedSubscript:v38];
+        [v98 objectAtIndexedSubscript:v38];
         v53 = v52 = v35;
         integerValue5 = [v53 integerValue];
         v55 = v52;
-        v41 = v86;
-        [(PRSRankingPolicyManager *)self minimumAnyOrderSpanWithStartingIndex:integerValue3 nextArray:v49 arrayOfIndexArrays:v55 level:1 currentAnyOrderSpan:0 minimumSpan:&v112 minimumDistancePair:&v111 currentMinimumIndex:integerValue4 currentMaximumIndex:integerValue5];
+        v41 = v85;
+        [(PRSRankingPolicyManager *)self minimumAnyOrderSpanWithStartingIndex:integerValue3 nextArray:v49 arrayOfIndexArrays:v55 level:1 currentAnyOrderSpan:0 minimumSpan:&v111 minimumDistancePair:&v110 currentMinimumIndex:integerValue4 currentMaximumIndex:integerValue5];
 
-        if (v86)
+        if (v85)
         {
-          v56 = v112;
-          if (v97 < v112)
+          v56 = v111;
+          if (v96 < v111)
           {
-            v56 = v97;
+            v56 = v96;
           }
 
-          v35 = v87;
+          v35 = v86;
           v37 = v46;
-          v40 = v92;
-          if (v97 <= v112)
+          v40 = v91;
+          if (v96 <= v111)
           {
-            if ([obj count] == 1)
+            if (objc_msgSend_count(obj) == 1)
             {
-              v111 = 0;
+              v110 = 0;
             }
 
-            v39 = v97;
+            v39 = v96;
           }
 
           else
@@ -849,10 +847,10 @@ LABEL_75:
 
         else
         {
-          v35 = v87;
+          v35 = v86;
           v37 = v46;
-          v39 = v97;
-          v40 = v92;
+          v39 = v96;
+          v40 = v91;
         }
       }
     }
@@ -862,29 +860,29 @@ LABEL_81:
   }
 
   while (v38 != v37);
-  *qr_query_min_pair_dist_in_title = v111;
+  *qr_query_min_pair_dist_in_title = v110;
   v74 = 2147483650.0;
   v75 = 2147483650.0;
   v76 = 2147483650.0;
-  v77 = v101;
+  v77 = v100;
   if (((v40 != 0x7FFFFFFF) & v41) != 0)
   {
     v76 = integerValue2;
-    v75 = (v40 + 2.0) / v80;
+    v75 = (v40 + 2.0) / v79;
   }
 
   *qr_prop_query_norm_min_ordered_span = v75;
   *ordered_first_term_position = v76;
   if (((v39 != 0x7FFFFFFF) & v41) == 1)
   {
-    v74 = (v39 + 2.0) / v80;
+    v74 = (v39 + 2.0) / v79;
   }
 
 LABEL_88:
   *qr_prop_query_norm_min_unordered_span = v74;
   if (((v77 != 0) & v41) == 1)
   {
-    v78 = (v77 / v80);
+    v78 = (v77 / v79);
   }
 
   else
@@ -895,96 +893,95 @@ LABEL_88:
   *prefix_match_norm_count = v78;
 
 LABEL_92:
-  v79 = *MEMORY[0x1E69E9840];
 }
 
 - (id)cookSQFOnClientWithServerProbabilities:(id)probabilities qiCEPValues:(id)values localResultOrder:(id)order poorTextMatchCategories:(id)categories minimumBagCEP:(double)p cook_sqf_topdown:(BOOL)cook_sqf_topdown cook_sqf_fallback_qi_cep:(BOOL)cook_sqf_fallback_qi_cep
 {
   cook_sqf_topdownCopy = cook_sqf_topdown;
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   probabilitiesCopy = probabilities;
   valuesCopy = values;
   orderCopy = order;
   categoriesCopy = categories;
-  v52 = objc_opt_new();
-  v55 = objc_opt_new();
+  v51 = objc_opt_new();
+  v54 = objc_opt_new();
   v16 = objc_opt_new();
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
   obj = orderCopy;
-  v17 = [obj countByEnumeratingWithState:&v75 objects:v87 count:16];
+  v17 = [obj countByEnumeratingWithState:&v74 objects:v86 count:16];
   if (v17)
   {
-    v18 = *v76;
+    v18 = *v75;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v76 != v18)
+        if (*v75 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        valuesCopy = [PRSRankingUtilities bundleIDForCategory:*(*(&v75 + 1) + 8 * i), valuesCopy];
-        [v55 addObject:valuesCopy];
+        valuesCopy = [PRSRankingUtilities bundleIDForCategory:*(*(&v74 + 1) + 8 * i), valuesCopy];
+        [v54 addObject:valuesCopy];
       }
 
-      v17 = [obj countByEnumeratingWithState:&v75 objects:v87 count:16];
+      v17 = [obj countByEnumeratingWithState:&v74 objects:v86 count:16];
     }
 
     while (v17);
   }
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
-  v53 = categoriesCopy;
-  v21 = [v53 countByEnumeratingWithState:&v71 objects:v86 count:16];
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v52 = categoriesCopy;
+  v21 = [v52 countByEnumeratingWithState:&v70 objects:v85 count:16];
   if (v21)
   {
-    v22 = *v72;
+    v22 = *v71;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v72 != v22)
+        if (*v71 != v22)
         {
-          objc_enumerationMutation(v53);
+          objc_enumerationMutation(v52);
         }
 
-        valuesCopy2 = [PRSRankingUtilities bundleIDForCategory:*(*(&v71 + 1) + 8 * j), valuesCopy];
+        valuesCopy2 = [PRSRankingUtilities bundleIDForCategory:*(*(&v70 + 1) + 8 * j), valuesCopy];
         [v16 addObject:valuesCopy2];
       }
 
-      v21 = [v53 countByEnumeratingWithState:&v71 objects:v86 count:16];
+      v21 = [v52 countByEnumeratingWithState:&v70 objects:v85 count:16];
     }
 
     while (v21);
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   allKeys = [probabilitiesCopy allKeys];
   v26 = 0;
-  v27 = [allKeys countByEnumeratingWithState:&v67 objects:v85 count:16];
+  v27 = [allKeys countByEnumeratingWithState:&v66 objects:v84 count:16];
   if (v27)
   {
-    v28 = *v68;
+    v28 = *v67;
     do
     {
       for (k = 0; k != v27; ++k)
       {
-        if (*v68 != v28)
+        if (*v67 != v28)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v30 = *(*(&v67 + 1) + 8 * k);
+        v30 = *(*(&v66 + 1) + 8 * k);
         v31 = [probabilitiesCopy objectForKey:{v30, valuesCopy}];
         [v31 doubleValue];
         v33 = v32;
@@ -1001,30 +998,30 @@ LABEL_92:
 
         else
         {
-          v26 = [v55 containsObject:v30];
+          v26 = [v54 containsObject:v30];
         }
 
         if ([v30 hasPrefix:@"com.apple.parsec."])
         {
           v34 = [MEMORY[0x1E696AD98] numberWithDouble:v33];
-          [v52 setObject:v34 forKey:v30];
+          [v51 setObject:v34 forKey:v30];
         }
       }
 
-      v27 = [allKeys countByEnumeratingWithState:&v67 objects:v85 count:16];
+      v27 = [allKeys countByEnumeratingWithState:&v66 objects:v84 count:16];
     }
 
     while (v27);
   }
 
-  v65[0] = 0;
-  v65[1] = v65;
-  v65[2] = 0x2020000000;
-  pCopy = 0.0;
   v64[0] = 0;
   v64[1] = v64;
   v64[2] = 0x2020000000;
-  v64[3] = 0;
+  pCopy = 0.0;
+  v63[0] = 0;
+  v63[1] = v63;
+  v63[2] = 0x2020000000;
+  v63[3] = 0;
   if (!cook_sqf_fallback_qi_cep)
   {
     pCopy = p;
@@ -1034,17 +1031,17 @@ LABEL_92:
   aBlock[1] = 3221225472;
   aBlock[2] = __175__PRSRankingPolicyManager_cookSQFOnClientWithServerProbabilities_qiCEPValues_localResultOrder_poorTextMatchCategories_minimumBagCEP_cook_sqf_topdown_cook_sqf_fallback_qi_cep___block_invoke;
   aBlock[3] = &unk_1E8596C78;
-  v63 = v26;
-  v50 = valuesCopy;
-  v57 = v50;
+  v62 = v26;
+  v49 = valuesCopy;
+  v56 = v49;
+  v60 = v63;
   v61 = v64;
-  v62 = v65;
-  v35 = v52;
-  v58 = v35;
+  v35 = v51;
+  v57 = v35;
   v36 = probabilitiesCopy;
-  v59 = v36;
+  v58 = v36;
   v37 = v16;
-  v60 = v37;
+  v59 = v37;
   v38 = _Block_copy(aBlock);
   if (cook_sqf_topdownCopy)
   {
@@ -1054,15 +1051,15 @@ LABEL_92:
 
   else
   {
-    v39 = [obj count] - 1;
+    v39 = objc_msgSend_count(obj) - 1;
     v40 = -1;
   }
 
   v41 = 0;
   v42 = 0;
-  while (v41 < [obj count])
+  while (v41 < objc_msgSend_count(obj, valuesCopy))
   {
-    v43 = [v55 objectAtIndex:v39];
+    v43 = [v54 objectAtIndex:v39];
 
     (v38)[2](v38, v43, !cook_sqf_topdownCopy);
     ++v41;
@@ -1074,19 +1071,17 @@ LABEL_92:
   if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
-    v80 = v36;
-    v81 = 2112;
-    v82 = v55;
-    v83 = 2112;
-    v84 = v35;
+    v79 = v36;
+    v80 = 2112;
+    v81 = v54;
+    v82 = 2112;
+    v83 = v35;
     _os_log_impl(&dword_1D9F69000, v44, OS_LOG_TYPE_INFO, "[Ranking Log] Cooking SQF: Server SQF received:%@ \n Local sorted categories(desc order): %@\n Final cooked SQF dictionary: %@\n", buf, 0x20u);
   }
 
   v45 = v35;
+  _Block_object_dispose(v63, 8);
   _Block_object_dispose(v64, 8);
-  _Block_object_dispose(v65, 8);
-
-  v46 = *MEMORY[0x1E69E9840];
 
   return v45;
 }

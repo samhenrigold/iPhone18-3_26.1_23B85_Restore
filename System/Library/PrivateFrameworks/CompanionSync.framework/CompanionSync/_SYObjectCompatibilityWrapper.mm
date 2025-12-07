@@ -25,9 +25,9 @@
 
 - (id)methodSignatureForSelector:(SEL)selector
 {
-  v5 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v5, selector);
-  if (InstanceMethod || (syObject = self->_syObject, v8 = objc_opt_class(), (InstanceMethod = class_getInstanceMethod(v8, selector)) != 0))
+  v4 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v4, selector);
+  if (InstanceMethod || (v6 = objc_opt_class(), (InstanceMethod = class_getInstanceMethod(v6, selector)) != 0))
   {
     InstanceMethod = [MEMORY[0x1E695DF68] signatureWithObjCTypes:method_getTypeEncoding(InstanceMethod)];
   }

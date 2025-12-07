@@ -1,9 +1,9 @@
 @interface PKTextInputRecognitionManager
 - (NSArray)textInputTargets;
+- (_BYTE)setPreferOutOfProcessRecognition:(_BYTE *)result;
 - (id)strokeProviderSnapshot;
 - (id)textInputTargetForItemStableIdentifier:(id)identifier strokeIdentifiers:(id)identifiers simultaneousItemStableIdentifiers:(id)stableIdentifiers;
 - (uint64_t)_updateRecognitionSession;
-- (uint64_t)setPreferOutOfProcessRecognition:(uint64_t)result;
 - (void)_processQueryDidUpdateResult:(uint64_t)result;
 - (void)beginRecognitionRequestWithDataSource:(void *)source;
 - (void)dealloc;
@@ -207,11 +207,11 @@ LABEL_9:
   return +[PKTextInputDebugStateIntrospector debugStateDidChange];
 }
 
-- (uint64_t)setPreferOutOfProcessRecognition:(uint64_t)result
+- (_BYTE)setPreferOutOfProcessRecognition:(_BYTE *)result
 {
-  if (result && *(result + 8) != a2)
+  if (result && result[8] != a2)
   {
-    *(result + 8) = a2;
+    result[8] = a2;
     [(PKTextInputRecognitionManager *)result _updateRecognitionSession];
 
     return +[PKTextInputDebugStateIntrospector debugStateDidChange];

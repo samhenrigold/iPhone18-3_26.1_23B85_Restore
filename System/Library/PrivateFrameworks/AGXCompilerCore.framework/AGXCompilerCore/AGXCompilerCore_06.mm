@@ -1,557 +1,3 @@
-uint64_t std::string::basic_string[abi:nn200100](uint64_t result, unint64_t a2)
-{
-  if (a2 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  if (a2 > 0x16)
-  {
-    operator new();
-  }
-
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
-}
-
-uint64_t *llvm::StringMap<AGCLLVMUserObject::BuiltinArg,llvm::MallocAllocator>::try_emplace<>(llvm::StringMapImpl *a1, const void *a2, size_t a3)
-{
-  i = (*a1 + 8 * llvm::StringMapImpl::LookupBucketFor());
-  v7 = *i;
-  if (*i == -8)
-  {
-    --*(a1 + 4);
-  }
-
-  else if (v7)
-  {
-    while (!v7 || v7 == -8)
-    {
-      v8 = i[1];
-      ++i;
-      v7 = v8;
-    }
-
-    return i;
-  }
-
-  v10 = MEMORY[0x20F330650](a3 + 33, 8);
-  v11 = v10;
-  v12 = v10 + 32;
-  if (a3)
-  {
-    memcpy((v10 + 32), a2, a3);
-  }
-
-  *(v12 + a3) = 0;
-  v11[1] = 0;
-  v11[2] = 0;
-  *v11 = a3;
-  *i = v11;
-  ++*(a1 + 3);
-    ;
-  }
-
-  return i;
-}
-
-uint64_t *AGCLLVMTargetConfig::createTargetConfig(int a1)
-{
-  v1 = 0;
-  if (a1 > 0x18u)
-  {
-    if (a1 > 0x1Fu)
-    {
-      if (a1 > 0x22u)
-      {
-        if (a1 == 35 || a1 == 38)
-        {
-          {
-            v43 = a1;
-            a1 = v43;
-            if (v44)
-            {
-              AGCLLVMG17GA0TargetConfig::AGCLLVMG17GA0TargetConfig();
-              __cxa_atexit(AGCLLVMG17GA0TargetConfig::~AGCLLVMG17GA0TargetConfig, &AGCLLVMCreateHAL300TargetConfig(AGCTargetArch)::g17g_a0, &dword_20E4E1000);
-              a1 = v43;
-            }
-          }
-
-          {
-            v45 = a1;
-            a1 = v45;
-            if (v46)
-            {
-              AGCLLVMG18PA0TargetConfig::AGCLLVMG18PA0TargetConfig();
-              __cxa_atexit(AGCLLVMG18PA0TargetConfig::~AGCLLVMG18PA0TargetConfig, &AGCLLVMCreateHAL300TargetConfig(AGCTargetArch)::g18p_a0, &dword_20E4E1000);
-              a1 = v45;
-            }
-          }
-
-          if (a1 == 65574)
-          {
-            return &AGCLLVMCreateHAL300TargetConfig(AGCTargetArch)::g18p_a0;
-          }
-
-          else
-          {
-            return &AGCLLVMCreateHAL300TargetConfig(AGCTargetArch)::g17g_a0;
-          }
-        }
-
-        return v1;
-      }
-
-      if (a1 == 32 || a1 == 34)
-      {
-        {
-          v37 = a1;
-          a1 = v37;
-          if (v38)
-          {
-            AGCLLVMG16GA0TargetConfig::AGCLLVMG16GA0TargetConfig();
-            __cxa_atexit(AGCLLVMG16GA0TargetConfig::~AGCLLVMG16GA0TargetConfig, &AGCLLVMCreateHAL200TargetConfig(AGCTargetArch)::g16g_a0, &dword_20E4E1000);
-            a1 = v37;
-          }
-        }
-
-        {
-          v39 = a1;
-          a1 = v39;
-          if (v40)
-          {
-            AGCLLVMG16GB0TargetConfig::AGCLLVMG16GB0TargetConfig();
-            __cxa_atexit(AGCLLVMG16GB0TargetConfig::~AGCLLVMG16GB0TargetConfig, &AGCLLVMCreateHAL200TargetConfig(AGCTargetArch)::g16g_b0, &dword_20E4E1000);
-            a1 = v39;
-          }
-        }
-
-        {
-          v41 = a1;
-          a1 = v41;
-          if (v42)
-          {
-            AGCLLVMG17PA0TargetConfig::AGCLLVMG17PA0TargetConfig();
-            __cxa_atexit(AGCLLVMG17PA0TargetConfig::~AGCLLVMG17PA0TargetConfig, &AGCLLVMCreateHAL200TargetConfig(AGCTargetArch)::g17p_a0, &dword_20E4E1000);
-            a1 = v41;
-          }
-        }
-
-        if (a1 == 196640)
-        {
-          v1 = &AGCLLVMCreateHAL200TargetConfig(AGCTargetArch)::g16g_b0;
-        }
-
-        else
-        {
-          v1 = &AGCLLVMCreateHAL200TargetConfig(AGCTargetArch)::g16g_a0;
-        }
-
-        v2 = 65570;
-        v3 = &AGCLLVMCreateHAL200TargetConfig(AGCTargetArch)::g17p_a0;
-        goto LABEL_53;
-      }
-    }
-
-    else
-    {
-      if (a1 - 25 < 3)
-      {
-        goto LABEL_27;
-      }
-
-      if (a1 == 31)
-      {
-        {
-          v47 = a1;
-          a1 = v47;
-          if (v48)
-          {
-            AGCLLVMG16PA0TargetConfig::AGCLLVMG16PA0TargetConfig();
-            __cxa_atexit(AGCLLVMG16PA0TargetConfig::~AGCLLVMG16PA0TargetConfig, &AGCLLVMCreateG16TargetConfig(AGCTargetArch)::g16pA0, &dword_20E4E1000);
-            a1 = v47;
-          }
-        }
-
-        {
-          v49 = a1;
-          a1 = v49;
-          if (v50)
-          {
-            AGCLLVMG16PB0TargetConfig::AGCLLVMG16PB0TargetConfig(&AGCLLVMCreateG16TargetConfig(AGCTargetArch)::g16pB0, 196639);
-            __cxa_atexit(AGCLLVMG16PB0TargetConfig::~AGCLLVMG16PB0TargetConfig, &AGCLLVMCreateG16TargetConfig(AGCTargetArch)::g16pB0, &dword_20E4E1000);
-            a1 = v49;
-          }
-        }
-
-        v2 = 262175;
-        {
-          v51 = a1;
-          v2 = 262175;
-          v53 = v52;
-          a1 = v51;
-          if (v53)
-          {
-            AGCLLVMG16PB0TargetConfig::AGCLLVMG16PB0TargetConfig(&AGCLLVMCreateG16TargetConfig(AGCTargetArch)::g16pB1, 262175);
-            __cxa_atexit(AGCLLVMG16PB0TargetConfig::~AGCLLVMG16PB0TargetConfig, &AGCLLVMCreateG16TargetConfig(AGCTargetArch)::g16pB1, &dword_20E4E1000);
-            v2 = 262175;
-            a1 = v51;
-          }
-        }
-
-        v1 = &AGCLLVMCreateG16TargetConfig(AGCTargetArch)::g16pA0;
-        if (a1 == 196639)
-        {
-          v1 = &AGCLLVMCreateG16TargetConfig(AGCTargetArch)::g16pB0;
-        }
-
-        v3 = &AGCLLVMCreateG16TargetConfig(AGCTargetArch)::g16pB1;
-LABEL_53:
-        if (a1 == v2)
-        {
-          return v3;
-        }
-      }
-    }
-
-    return v1;
-  }
-
-  if (a1 <= 0x12u)
-  {
-    if (a1 - 17 < 2)
-    {
-      goto LABEL_82;
-    }
-
-    if (a1 != 14 && a1 != 16)
-    {
-      return v1;
-    }
-
-LABEL_27:
-    {
-      v5 = a1;
-      a1 = v5;
-      if (v6)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13pA0, 65550);
-        AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13pA0 = &unk_2825B03B8;
-        dword_27C8D8744 = 64;
-        __cxa_atexit(AGCLLVMG13TargetConfig::~AGCLLVMG13TargetConfig, &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13pA0, &dword_20E4E1000);
-        a1 = v5;
-      }
-    }
-
-    {
-      v7 = a1;
-      a1 = v7;
-      if (v8)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13gA0, 65552);
-        AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13gA0 = &unk_2825B03B8;
-        dword_27C8D8854 = 64;
-        __cxa_atexit(AGCLLVMG13TargetConfig::~AGCLLVMG13TargetConfig, &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13gA0, &dword_20E4E1000);
-        a1 = v7;
-      }
-    }
-
-    {
-      v9 = a1;
-      a1 = v9;
-      if (v10)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13pB0, 196622);
-        AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13pB0 = &unk_2825B03B8;
-        dword_27C8D86BC = 64;
-        __cxa_atexit(AGCLLVMG13TargetConfig::~AGCLLVMG13TargetConfig, &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13pB0, &dword_20E4E1000);
-        a1 = v9;
-      }
-    }
-
-    {
-      v11 = a1;
-      a1 = v11;
-      if (v12)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13gB0, 196624);
-        AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13gB0 = &unk_2825B03B8;
-        dword_27C8D87CC = 64;
-        __cxa_atexit(AGCLLVMG13TargetConfig::~AGCLLVMG13TargetConfig, &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13gB0, &dword_20E4E1000);
-        a1 = v11;
-      }
-    }
-
-    {
-      v13 = a1;
-      a1 = v13;
-      if (v14)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13sA0, 65561);
-        AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13sA0 = &unk_2825B03B8;
-        dword_27C8DA9DC = 64;
-        __cxa_atexit(AGCLLVMG13TargetConfig::~AGCLLVMG13TargetConfig, &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13sA0, &dword_20E4E1000);
-        a1 = v13;
-      }
-    }
-
-    {
-      v15 = a1;
-      a1 = v15;
-      if (v16)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13cA0, 65562);
-        AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13cA0 = &unk_2825B03B8;
-        dword_27C8DAA6C = 64;
-        __cxa_atexit(AGCLLVMG13TargetConfig::~AGCLLVMG13TargetConfig, &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13cA0, &dword_20E4E1000);
-        a1 = v15;
-      }
-    }
-
-    {
-      v17 = a1;
-      a1 = v17;
-      if (v18)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13dA0, 65563);
-        AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13dA0 = &unk_2825B03B8;
-        dword_27C8DAAFC = 64;
-        __cxa_atexit(AGCLLVMG13TargetConfig::~AGCLLVMG13TargetConfig, &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13dA0, &dword_20E4E1000);
-        a1 = v17;
-      }
-    }
-
-    {
-      v19 = a1;
-      a1 = v19;
-      if (v20)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13sB0, 196633);
-        AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13sB0 = &unk_2825B03B8;
-        dword_27C8DAB8C = 64;
-        __cxa_atexit(AGCLLVMG13TargetConfig::~AGCLLVMG13TargetConfig, &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13sB0, &dword_20E4E1000);
-        a1 = v19;
-      }
-    }
-
-    {
-      v21 = a1;
-      a1 = v21;
-      if (v22)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13cB0, 196634);
-        AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13cB0 = &unk_2825B03B8;
-        dword_27C8DAC1C = 64;
-        __cxa_atexit(AGCLLVMG13TargetConfig::~AGCLLVMG13TargetConfig, &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13cB0, &dword_20E4E1000);
-        a1 = v21;
-      }
-    }
-
-    {
-      v23 = a1;
-      a1 = v23;
-      if (v24)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13dB0, 196635);
-        AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13dB0 = &unk_2825B03B8;
-        dword_27C8DACAC = 64;
-        __cxa_atexit(AGCLLVMG13TargetConfig::~AGCLLVMG13TargetConfig, &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13dB0, &dword_20E4E1000);
-        a1 = v23;
-      }
-    }
-
-    v1 = &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13pA0;
-    if (a1 <= 196621)
-    {
-      if (a1 > 65561)
-      {
-        if (a1 == 65562)
-        {
-          return &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13cA0;
-        }
-
-        else if (a1 == 65563)
-        {
-          return &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13dA0;
-        }
-      }
-
-      else if (a1 == 65552)
-      {
-        return &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13gA0;
-      }
-
-      else if (a1 == 65561)
-      {
-        return &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13sA0;
-      }
-    }
-
-    else if (a1 <= 196632)
-    {
-      if (a1 == 196622)
-      {
-        return &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13pB0;
-      }
-
-      else if (a1 == 196624)
-      {
-        return &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13gB0;
-      }
-    }
-
-    else
-    {
-      switch(a1)
-      {
-        case 196633:
-          return &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13sB0;
-        case 196634:
-          return &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13cB0;
-        case 196635:
-          return &AGCLLVMCreateG13TargetConfig(AGCTargetArch)::g13dB0;
-      }
-    }
-
-    return v1;
-  }
-
-  if (a1 - 19 < 3)
-  {
-    {
-      v25 = a1;
-      a1 = v25;
-      if (v26)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14sA0, 65555);
-        AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14sA0 = &unk_2825B1558;
-        dword_27C8DAD3C = 64;
-        __cxa_atexit(AGCLLVMG14XTargetConfig::~AGCLLVMG14XTargetConfig, &AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14sA0, &dword_20E4E1000);
-        a1 = v25;
-      }
-    }
-
-    {
-      v27 = a1;
-      a1 = v27;
-      if (v28)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14sB0, 196627);
-        AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14sB0 = &unk_2825B1558;
-        dword_27C8DADCC = 64;
-        __cxa_atexit(AGCLLVMG14XTargetConfig::~AGCLLVMG14XTargetConfig, &AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14sB0, &dword_20E4E1000);
-        a1 = v27;
-      }
-    }
-
-    {
-      v29 = a1;
-      a1 = v29;
-      if (v30)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14cA0, 65556);
-        AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14cA0 = &unk_2825B1558;
-        dword_27C8DAE5C = 64;
-        __cxa_atexit(AGCLLVMG14XTargetConfig::~AGCLLVMG14XTargetConfig, &AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14cA0, &dword_20E4E1000);
-        a1 = v29;
-      }
-    }
-
-    {
-      v31 = a1;
-      a1 = v31;
-      if (v32)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14cB0, 196628);
-        AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14cB0 = &unk_2825B1558;
-        dword_27C8DAEEC = 64;
-        __cxa_atexit(AGCLLVMG14XTargetConfig::~AGCLLVMG14XTargetConfig, &AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14cB0, &dword_20E4E1000);
-        a1 = v31;
-      }
-    }
-
-    {
-      v33 = a1;
-      a1 = v33;
-      if (v34)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14dA0, 65557);
-        AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14dA0 = &unk_2825B1558;
-        dword_27C8DAF7C = 64;
-        __cxa_atexit(AGCLLVMG14XTargetConfig::~AGCLLVMG14XTargetConfig, &AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14dA0, &dword_20E4E1000);
-        a1 = v33;
-      }
-    }
-
-    {
-      v35 = a1;
-      a1 = v35;
-      if (v36)
-      {
-        AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14dB0, 196629);
-        AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14dB0 = &unk_2825B1558;
-        dword_27C8DB00C = 64;
-        __cxa_atexit(AGCLLVMG14XTargetConfig::~AGCLLVMG14XTargetConfig, &AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14dB0, &dword_20E4E1000);
-        a1 = v35;
-      }
-    }
-
-    v1 = &AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14sA0;
-    if (a1 <= 196626)
-    {
-      if (a1 == 65556)
-      {
-        return &AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14cA0;
-      }
-
-      else if (a1 == 65557)
-      {
-        return &AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14dA0;
-      }
-    }
-
-    else
-    {
-      switch(a1)
-      {
-        case 196629:
-          return &AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14dB0;
-        case 196628:
-          return &AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14cB0;
-        case 196627:
-          return &AGCLLVMCreateG14XTargetConfig(AGCTargetArch)::g14sB0;
-      }
-    }
-
-    return v1;
-  }
-
-  if (a1 != 22)
-  {
-    if (a1 != 24)
-    {
-      return v1;
-    }
-
-    goto LABEL_85;
-  }
-
-  if (a1 != 196630)
-  {
-LABEL_85:
-
-    return AGCLLVMCreateG15TargetConfig(a1);
-  }
-
-  a1 = 196625;
-LABEL_82:
-
-  return AGCLLVMCreateG14TargetConfig(a1);
-}
-
 void AGCLLVMG16PA0TargetConfig::AGCLLVMG16PA0TargetConfig()
 {
   AGCLLVMGen5TargetConfig::AGCLLVMGen5TargetConfig(&AGCLLVMCreateG16TargetConfig(AGCTargetArch)::g16pA0, 65567);
@@ -616,7 +62,7 @@ uint64_t AGCEnv::isEnabled(AGCEnv *this)
 
 void std::__call_once_proxy[abi:nn200100]<std::tuple<AGCLLVMUserObject::getRaytracingFunctionMap(void)::$_0 &&>>()
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35[3] = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:nn200100]<0>(&v0, "air.get_intersection_params_intersection_query");
   std::string::basic_string[abi:nn200100]<0>(v1, "air.get_world_space_ray_origin_intersection_query");
   std::string::basic_string[abi:nn200100]<0>(v2, "air.get_world_space_ray_direction_intersection_query");
@@ -930,7 +376,7 @@ LABEL_19:
 void AGCEnv::deserialize(AGCEnv *a1)
 {
   v1 = a1;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   {
     if (a1)
     {
@@ -979,34 +425,34 @@ void AGCEnv::deserialize(AGCEnv *a1)
         }
 
         v8 = v5;
-        std::string::basic_string(&v20, v1, v6, v5 - v6, buf);
+        std::string::basic_string(&v19, v1, v6, v5 - v6, buf);
         v6 = v8 + 1;
         v5 = std::string::find(v1, 10, v8 + 1);
         v9 = v5;
         if (v5 != -1)
         {
           std::string::basic_string(&__str, v1, v6, v5 - v6, buf);
-          *buf = &v20;
-          v10 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v20.__r_.__value_.__l.__data_);
-          v11 = std::string::operator=((v10 + 56), &__str);
+          *buf = &v19;
+          v10 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v19.__r_.__value_.__l.__data_, buf);
+          v11 = std::string::operator=((v10 + 7), &__str);
           v12 = AGCEnv::getOSLog(v11);
           v5 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
           if (v5)
           {
-            size = HIBYTE(v20.__r_.__value_.__r.__words[2]);
-            if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            size = HIBYTE(v19.__r_.__value_.__r.__words[2]);
+            if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v14 = &v20;
+              v14 = &v19;
             }
 
             else
             {
-              v14 = v20.__r_.__value_.__r.__words[0];
+              v14 = v19.__r_.__value_.__r.__words[0];
             }
 
-            if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+            if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              size = v20.__r_.__value_.__l.__size_;
+              size = v19.__r_.__value_.__l.__size_;
             }
 
             v15 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
@@ -1027,12 +473,12 @@ void AGCEnv::deserialize(AGCEnv *a1)
 
             *buf = 136315906;
             *&buf[4] = v14;
-            v22 = 2048;
-            v23 = size;
-            v24 = 2080;
-            v25 = p_str;
-            v26 = 2048;
-            v27 = v15;
+            v21 = 2048;
+            v22 = size;
+            v23 = 2080;
+            v24 = p_str;
+            v25 = 2048;
+            v26 = v15;
             _os_log_debug_impl(&dword_20E4E1000, v12, OS_LOG_TYPE_DEBUG, "\t%s[%zu] = %s[%zu]\n", buf, 0x2Au);
           }
 
@@ -1044,9 +490,9 @@ void AGCEnv::deserialize(AGCEnv *a1)
           v6 = v9 + 1;
         }
 
-        if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v20.__r_.__value_.__l.__data_);
+          operator delete(v19.__r_.__value_.__l.__data_);
         }
       }
 
@@ -1059,8 +505,6 @@ void AGCEnv::deserialize(AGCEnv *a1)
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void AGCNativeTranslator::init(AGCNativeTranslator *this)
@@ -1074,11 +518,12 @@ void AGCNativeTranslator::init(AGCNativeTranslator *this)
     {
       v4 = AGCTarget::TargetArchToCPUSubtypeImpl(*(v2 + 4 * v3));
       v5 = HIDWORD(v4);
-      v7 = v4;
-      std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(this, v4);
-      v8 = &v7;
-      v6 = std::__hash_table<std::__hash_value_type<unsigned int,std::set<unsigned int>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::set<unsigned int>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::set<unsigned int>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::set<unsigned int>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 3, v7);
-      std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>((v6 + 3), v5);
+      v7 = HIDWORD(v4);
+      v8 = v4;
+      std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(this, v4, &v8);
+      v9 = &v8;
+      v6 = std::__hash_table<std::__hash_value_type<unsigned int,std::set<unsigned int>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::set<unsigned int>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::set<unsigned int>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::set<unsigned int>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 6, v8, &v9);
+      std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(v6 + 3, v5, &v7);
       ++v3;
       v2 = GetAGCActiveTargets(void)::active_impls;
     }
@@ -1348,7 +793,7 @@ void std::__call_once_proxy[abi:nn200100]<std::tuple<GetAGCActiveTargets(void)::
   }
 }
 
-void std::vector<AGCTargetArchMajor>::push_back[abi:nn200100](uint64_t a1, _DWORD *a2)
+void std::vector<AGCTargetArchMajor>::push_back[abi:nn200100](uint64_t a1, int *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -1410,7 +855,7 @@ void std::vector<AGCTargetArchMajor>::push_back[abi:nn200100](uint64_t a1, _DWOR
   *(a1 + 8) = v5;
 }
 
-void std::vector<AGCTargetArch>::push_back[abi:nn200100](_DWORD *a1)
+void std::vector<AGCTargetArch>::push_back[abi:nn200100](int *a1)
 {
   v1 = qword_27C8D88B0;
   if (qword_27C8D88B0 >= qword_27C8D88B8)
@@ -1473,10 +918,10 @@ void std::vector<AGCTargetArch>::push_back[abi:nn200100](_DWORD *a1)
   qword_27C8D88B0 = v2;
 }
 
-uint64_t std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(uint64_t result, unsigned int a2)
+uint64_t *std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(uint64_t *result, unsigned int a2, _DWORD *a3)
 {
-  v2 = *(result + 8);
-  if (!v2)
+  v3 = result[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -1486,27 +931,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 28);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 28);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
       return result;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -1625,32 +1070,32 @@ LABEL_33:
   return v3 | v2;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::set<unsigned int>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::set<unsigned int>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::set<unsigned int>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::set<unsigned int>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::set<unsigned int>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::set<unsigned int>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::set<unsigned int>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::set<unsigned int>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(float *a1, unsigned int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -1658,44 +1103,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t AIRNTSupportsThreads()
@@ -2168,35 +1613,35 @@ uint64_t *AGCLLVMGen5TargetConfig::initializeAirBuiltinsMap(AGCLLVMGen5TargetCon
   return result;
 }
 
-uint64_t *std::unique_ptr<AGCLLVMAirBuiltinsMap>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
+uint64_t *std::unique_ptr<AGCLLVMAirBuiltinsMap>::reset[abi:nn200100](uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v2 = *result;
+  v4 = *result;
   *result = a2;
-  if (v2)
+  if (v4)
   {
-    if (*(v2 + 12))
+    if (*(v4 + 12))
     {
-      v3 = *(v2 + 8);
-      if (v3)
+      v5 = *(v4 + 8);
+      if (v5)
       {
-        v4 = 0;
-        v5 = 8 * v3;
+        v6 = 0;
+        v7 = 8 * v5;
         do
         {
-          v6 = *(*v2 + v4);
-          if (v6 != -8 && v6 != 0)
+          v8 = *(*v4 + v6);
+          if (v8 != -8 && v8 != 0)
           {
-            llvm::deallocate_buffer(v6, (*v6 + 41));
+            llvm::deallocate_buffer(*v8, v8, *v8 + 41);
           }
 
-          v4 += 8;
+          v6 += 8;
         }
 
-        while (v5 != v4);
+        while (v7 != v6);
       }
     }
 
-    free(*v2);
+    free(*v4);
 
     JUMPOUT(0x20F331DC0);
   }
@@ -3252,7 +2697,7 @@ uint64_t llvm::IRBuilderBase::CreateUIToFP(llvm::IRBuilderBase *this, llvm::Valu
   return llvm::IRBuilderBase::CreateCast(this, 43, a2, a3, a4);
 }
 
-llvm::Value *AGCLLVMTargetBuilder::CreateFloor(AGCLLVMTargetBuilder *this, llvm::Value *a2)
+llvm::Instruction *AGCLLVMTargetBuilder::CreateFloor(AGCLLVMTargetBuilder *this, llvm::Value *a2)
 {
   v4 = *(this + 58);
   v8 = *(this + 56);
@@ -3284,121 +2729,121 @@ llvm::Value *AGCLLVMTargetBuilder::CreateFloor(AGCLLVMTargetBuilder *this, llvm:
 
 void std::__call_once_proxy[abi:nn200100]<std::tuple<AGCLLVMAirBuiltins::initializeTypeConversionMap(void)::$_0 &&>>(uint64_t ***a1)
 {
-  v44 = 0;
-  v58[8] = *MEMORY[0x277D85DE8];
-  v43 = ***a1;
-  v56 = v58;
-  v57 = xmmword_20E70C500;
+  v43 = 0;
+  v57[8] = *MEMORY[0x277D85DE8];
+  v42 = ***a1;
+  v55 = v57;
+  v56 = xmmword_20E70C500;
   do
   {
     v1 = 0;
     do
     {
-      v38 = v1;
-      v39 = 0;
+      v37 = v1;
+      v38 = 0;
       v2 = off_277E20200[v1];
-      v45 = *v2;
+      v44 = *v2;
       __s = v2 + 2;
-      v42 = 0x847uLL >> v1;
+      v41 = 0x847uLL >> v1;
       do
       {
         if (*v2 == 102)
         {
-          v37 = 1;
+          v36 = 1;
         }
 
         else
         {
-          v37 = 2;
-          if (*off_277E20200[v39] != 102)
+          v36 = 2;
+          if (*off_277E20200[v38] != 102)
           {
-            v36 = 0;
+            v35 = 0;
             v3 = 1;
             goto LABEL_9;
           }
         }
 
-        v36 = 1;
+        v35 = 1;
         v3 = 4;
 LABEL_9:
-        v41 = v3;
+        v40 = v3;
         v4 = 0;
-        v6 = v1 > 2 && v39 > 2;
-        v40 = v6;
+        v6 = v1 > 2 && v38 > 2;
+        v39 = v6;
         do
         {
-          if (((v4 != 0) & ~v40) == 0)
+          if (((v4 != 0) & ~v39) == 0)
           {
             v7 = 0;
             v8 = 0;
-            v48 = byte_20E70CF8C[v38];
-            v9 = off_277E20200[v39];
-            v47 = byte_20E70CF8C[v39];
-            v10 = v37;
-            if ((v36 & (v4 == 0)) == 0)
+            v47 = byte_20E70CF8C[v37];
+            v9 = off_277E20200[v38];
+            v46 = byte_20E70CF8C[v38];
+            v10 = v36;
+            if ((v35 & (v4 == 0)) == 0)
             {
               v10 = v4;
             }
 
-            v46 = v10;
-            v50 = v9 + 2;
+            v45 = v10;
+            v49 = v9 + 2;
             v11 = 1;
             while (1)
             {
-              LOBYTE(v54) = 0;
+              LOBYTE(v53) = 0;
               memset(__p, 0, sizeof(__p));
               v12 = *v2;
-              BYTE1(v52) = v12 == 102;
-              HIBYTE(v52) = *v2 == 115;
-              BYTE1(v54) = v2[2] == 98;
-              BYTE3(v54) = v48;
+              BYTE1(v51) = v12 == 102;
+              HIBYTE(v51) = *v2 == 115;
+              BYTE1(v53) = v2[2] == 98;
+              BYTE3(v53) = v47;
               v13 = *v9;
-              LOBYTE(v52) = v13 == 102;
-              BYTE2(v52) = *v9 == 115;
-              BYTE2(v54) = v47;
-              HIDWORD(v54) = v46;
-              v55 = v7 & 1;
-              if (*(*(v43 + 464) + 1947) == 1 && (((v13 == 102) & (0x847uLL >> v39)) != 0 || ((v12 == 102) & v42) != 0))
+              LOBYTE(v51) = v13 == 102;
+              BYTE2(v51) = *v9 == 115;
+              BYTE2(v53) = v46;
+              HIDWORD(v53) = v45;
+              v54 = v7 & 1;
+              if (*(*(v42 + 464) + 1947) == 1 && (((v13 == 102) & (0x847uLL >> v38)) != 0 || ((v12 == 102) & v41) != 0))
               {
-                std::string::basic_string[abi:nn200100]<0>(&v51, v50);
+                std::string::basic_string[abi:nn200100]<0>(&v50, v49);
                 if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
                 {
                   operator delete(__p[0].__r_.__value_.__l.__data_);
                 }
 
-                __p[0] = v51;
-                std::string::basic_string[abi:nn200100]<0>(&v51, __s);
+                __p[0] = v50;
+                std::string::basic_string[abi:nn200100]<0>(&v50, __s);
                 if (SHIBYTE(__p[1].__r_.__value_.__r.__words[2]) < 0)
                 {
                   operator delete(__p[1].__r_.__value_.__l.__data_);
                 }
 
-                __p[1] = v51;
-                LOBYTE(v54) = 1;
+                __p[1] = v50;
+                LOBYTE(v53) = 1;
               }
 
-              *&v57 = 0;
-              llvm::SmallVectorTemplateBase<char,true>::push_back(&v56, *v2);
-              llvm::SmallVectorTemplateBase<char,true>::push_back(&v56, v2[1]);
-              v14 = *(&off_277E201D0 + v44);
+              *&v56 = 0;
+              llvm::SmallVectorTemplateBase<char,true>::push_back(&v55, *v2);
+              llvm::SmallVectorTemplateBase<char,true>::push_back(&v55, v2[1]);
+              v14 = *(&off_277E201D0 + v43);
               v15 = strlen(v14);
-              llvm::SmallVectorImpl<char>::append<char const*,void>(&v56, v14, &v14[v15]);
+              llvm::SmallVectorImpl<char>::append<char const*,void>(&v55, v14, &v14[v15]);
               v16 = strlen(__s);
-              llvm::SmallVectorImpl<char>::append<char const*,void>(&v56, __s, &__s[v16]);
-              llvm::SmallVectorImpl<char>::append<char const*,void>(&v56, ".", "");
-              llvm::SmallVectorTemplateBase<char,true>::push_back(&v56, *v9);
-              llvm::SmallVectorTemplateBase<char,true>::push_back(&v56, v9[1]);
+              llvm::SmallVectorImpl<char>::append<char const*,void>(&v55, __s, &__s[v16]);
+              llvm::SmallVectorImpl<char>::append<char const*,void>(&v55, ".", "");
+              llvm::SmallVectorTemplateBase<char,true>::push_back(&v55, *v9);
+              llvm::SmallVectorTemplateBase<char,true>::push_back(&v55, v9[1]);
               v17 = strlen(v14);
-              llvm::SmallVectorImpl<char>::append<char const*,void>(&v56, v14, &v14[v17]);
-              v18 = strlen(v50);
-              llvm::SmallVectorImpl<char>::append<char const*,void>(&v56, v50, &v50[v18]);
+              llvm::SmallVectorImpl<char>::append<char const*,void>(&v55, v14, &v14[v17]);
+              v18 = strlen(v49);
+              llvm::SmallVectorImpl<char>::append<char const*,void>(&v55, v49, &v49[v18]);
               v19 = v4;
               v20 = strlen(*(&off_277E20278 + v4));
-              llvm::SmallVectorImpl<char>::append<char const*,void>(&v56, *(&off_277E20278 + v4), *(&off_277E20278 + v4) + v20);
+              llvm::SmallVectorImpl<char>::append<char const*,void>(&v55, *(&off_277E20278 + v4), *(&off_277E20278 + v4) + v20);
               v21 = strlen(*(&off_277E202A8 + v8));
-              llvm::SmallVectorImpl<char>::append<char const*,void>(&v56, *(&off_277E202A8 + v8), *(&off_277E202A8 + v8) + v21);
-              v23 = v56;
-              v22 = v57;
+              llvm::SmallVectorImpl<char>::append<char const*,void>(&v55, *(&off_277E202A8 + v8), *(&off_277E202A8 + v8) + v21);
+              v23 = v55;
+              v22 = v56;
               v24 = llvm::StringMapImpl::LookupBucketFor();
               v25 = AGCLLVMAirBuiltins::initializeTypeConversionMap(void)::convert_map;
               v26 = v24;
@@ -3414,11 +2859,11 @@ LABEL_9:
               }
 
 LABEL_41:
-              *(v27 + 8) = v52;
+              *(v27 + 8) = v51;
               std::string::operator=((v27 + 16), __p);
               std::string::operator=((v27 + 40), &__p[1]);
-              v33 = v55;
-              *(v27 + 64) = v54;
+              v33 = v54;
+              *(v27 + 64) = v53;
               *(v27 + 72) = v33;
               if (SHIBYTE(__p[1].__r_.__value_.__r.__words[2]) < 0)
               {
@@ -3431,7 +2876,7 @@ LABEL_41:
                 operator delete(__p[0].__r_.__value_.__l.__data_);
               }
 
-              v34 = (v45 != 102) & v11;
+              v34 = (v44 != 102) & v11;
               v7 = 1;
               v8 = 1;
               v11 = 0;
@@ -3476,26 +2921,24 @@ LABEL_46:
           ++v4;
         }
 
-        while (v4 != v41);
-        v1 = v38;
-        ++v39;
+        while (v4 != v40);
+        v1 = v37;
+        ++v38;
       }
 
-      while (v39 != 15);
-      v1 = v38 + 1;
+      while (v38 != 15);
+      v1 = v37 + 1;
     }
 
-    while (v38 != 14);
-    ++v44;
+    while (v37 != 14);
+    ++v43;
   }
 
-  while (v44 != 6);
-  if (v56 != v58)
+  while (v43 != 6);
+  if (v55 != v57)
   {
-    free(v56);
+    free(v55);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void *llvm::SmallVectorTemplateBase<char,true>::push_back(void *result, char a2)
@@ -3511,12 +2954,12 @@ void *llvm::SmallVectorTemplateBase<char,true>::push_back(void *result, char a2)
   return result;
 }
 
-uint64_t AGCLLVMAirBuiltins::buildClamp(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
+uint64_t AGCLLVMAirBuiltins::buildClamp(uint64_t a1, llvm::CmpInst ***a2, unsigned __int8 *a3)
 {
   v4 = *a3;
   v6 = *a2;
-  v5 = *(a2 + 8);
-  v7 = *(a2 + 16);
+  v5 = a2[1];
+  v7 = a2[2];
   if (v4 == 117)
   {
     v8 = AGCLLVMBuilder::buildICmpSel(a1, *a2, v5, 34);
@@ -3588,26 +3031,26 @@ uint64_t *std::__call_once_proxy[abi:nn200100]<std::tuple<AGCLLVMBuilder::getVar
 void std::__call_once_proxy[abi:nn200100]<std::tuple<AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::$_0 &&>>()
 {
   v0 = 0;
-  v67[8] = *MEMORY[0x277D85DE8];
+  v66[8] = *MEMORY[0x277D85DE8];
   __s = "_center";
-  v60 = &AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_loc;
+  v59 = &AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_loc;
   do
   {
-    v56 = v0;
+    v55 = v0;
     v1 = 0;
     v2 = 1;
     v3 = "_perspective";
-    v62 = &AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_mode;
+    v61 = &AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_mode;
     do
     {
-      v58 = v2;
+      v57 = v2;
       v4 = 0;
-      v57 = v1;
+      v56 = v1;
       v5 = ".";
-      v63 = &AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_comps;
+      v62 = &AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_comps;
       do
       {
-        v59 = v4;
+        v58 = v4;
         v6 = 0;
         v7 = 1;
         v8 = "f16";
@@ -3615,21 +3058,21 @@ void std::__call_once_proxy[abi:nn200100]<std::tuple<AGCLLVMAGPFragmentShader::i
         do
         {
           v10 = v6;
-          v65 = v67;
-          v66 = xmmword_20E70C500;
-          llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, "air.interpolate", "");
+          v64 = v66;
+          v65 = xmmword_20E70C500;
+          llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, "air.interpolate", "");
           v11 = strlen(__s);
-          llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, __s, &__s[v11]);
+          llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, __s, &__s[v11]);
           v12 = strlen(v3);
-          llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, v3, &v3[v12]);
+          llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, v3, &v3[v12]);
           v13 = strlen(v5);
-          llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, v5, &v5[v13]);
+          llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, v5, &v5[v13]);
           v14 = strlen(v8);
-          llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, v8, &v8[v14]);
+          llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, v8, &v8[v14]);
           v15 = *(v9 + 2);
-          v16 = *(v60 + 2);
-          v17 = *(v62 + 2);
-          v18 = *(v63 + 8);
+          v16 = *(v59 + 2);
+          v17 = *(v61 + 2);
+          v18 = *(v62 + 8);
           if (v16 == 4 || v16 == 1)
           {
             v20 = 1;
@@ -3640,16 +3083,16 @@ void std::__call_once_proxy[abi:nn200100]<std::tuple<AGCLLVMAGPFragmentShader::i
             v20 = -1;
           }
 
-          v21 = *llvm::StringMap<AGCLLVMAGPFragmentShader::InterpolationFunction,llvm::MallocAllocator>::try_emplace<>(v65, v66);
+          v21 = *llvm::StringMap<AGCLLVMAGPFragmentShader::InterpolationFunction,llvm::MallocAllocator>::try_emplace<>(v64, v65);
           *(v21 + 8) = v16;
           *(v21 + 12) = v17;
           *(v21 + 16) = v15;
           *(v21 + 20) = v18;
           *(v21 + 21) = 0;
           *(v21 + 22) = v20;
-          if (v65 != v67)
+          if (v64 != v66)
           {
-            free(v65);
+            free(v64);
           }
 
           v9 = &(&AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_comp_type)[2 * v7];
@@ -3659,25 +3102,25 @@ void std::__call_once_proxy[abi:nn200100]<std::tuple<AGCLLVMAGPFragmentShader::i
         }
 
         while ((v10 & 1) == 0);
-        v4 = v59 + 1;
-        v63 = &(&AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_comps)[2 * v59 + 2];
-        v5 = *v63;
+        v4 = v58 + 1;
+        v62 = &(&AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_comps)[2 * v58 + 2];
+        v5 = *v62;
       }
 
-      while (v59 != 3);
-      v62 = &(&AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_mode)[2 * v58];
-      v3 = *v62;
+      while (v58 != 3);
+      v61 = &(&AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_mode)[2 * v57];
+      v3 = *v61;
       v1 = 1;
       v2 = 2;
     }
 
-    while ((v57 & 1) == 0);
-    v0 = v56 + 1;
-    v60 = &(&AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_loc)[2 * v56 + 2];
-    __s = *v60;
+    while ((v56 & 1) == 0);
+    v0 = v55 + 1;
+    v59 = &(&AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_loc)[2 * v55 + 2];
+    __s = *v59;
   }
 
-  while (v56 != 3);
+  while (v55 != 3);
   v22 = 0;
   v23 = ".";
   v24 = &AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_comps;
@@ -3690,23 +3133,23 @@ void std::__call_once_proxy[abi:nn200100]<std::tuple<AGCLLVMAGPFragmentShader::i
     do
     {
       v29 = v25;
-      v65 = v67;
-      v66 = xmmword_20E70C500;
-      llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, "air.get_vertex_value", "");
+      v64 = v66;
+      v65 = xmmword_20E70C500;
+      llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, "air.get_vertex_value", "");
       v30 = strlen(v23);
-      llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, v23, &v23[v30]);
+      llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, v23, &v23[v30]);
       v31 = strlen(v27);
-      llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, v27, &v27[v31]);
+      llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, v27, &v27[v31]);
       v32 = *(v28 + 2);
       v33 = *(v24 + 8);
-      v34 = *llvm::StringMap<AGCLLVMAGPFragmentShader::InterpolationFunction,llvm::MallocAllocator>::try_emplace<>(v65, v66);
+      v34 = *llvm::StringMap<AGCLLVMAGPFragmentShader::InterpolationFunction,llvm::MallocAllocator>::try_emplace<>(v64, v65);
       *(v34 + 8) = 0x500000000;
       *(v34 + 16) = v32;
       *(v34 + 20) = v33;
       *(v34 + 21) = -256;
-      if (v65 != v67)
+      if (v64 != v66)
       {
-        free(v65);
+        free(v64);
       }
 
       v28 = &(&AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_comp_type)[2 * v26];
@@ -3727,30 +3170,30 @@ void std::__call_once_proxy[abi:nn200100]<std::tuple<AGCLLVMAGPFragmentShader::i
   v37 = &AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_comps;
   do
   {
-    v64 = v35;
+    v63 = v35;
     v38 = &off_277E1FC30;
     v39 = 3;
     v40 = "i8";
     do
     {
-      v65 = v67;
-      v66 = xmmword_20E70C500;
-      llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, "air.get_vertex_value", "");
-      llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, ".s", "");
+      v64 = v66;
+      v65 = xmmword_20E70C500;
+      llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, "air.get_vertex_value", "");
+      llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, ".s", "");
       v41 = strlen(v36);
-      llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, v36, &v36[v41]);
+      llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, v36, &v36[v41]);
       v42 = strlen(v40);
-      llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, v40, &v40[v42]);
+      llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, v40, &v40[v42]);
       v43 = *(v38 - 4);
       v44 = *(v37 + 8);
-      v45 = *llvm::StringMap<AGCLLVMAGPFragmentShader::InterpolationFunction,llvm::MallocAllocator>::try_emplace<>(v65, v66);
+      v45 = *llvm::StringMap<AGCLLVMAGPFragmentShader::InterpolationFunction,llvm::MallocAllocator>::try_emplace<>(v64, v65);
       *(v45 + 8) = 0x500000000;
       *(v45 + 16) = v43;
       *(v45 + 20) = v44;
       *(v45 + 21) = -256;
-      if (v65 != v67)
+      if (v64 != v66)
       {
-        free(v65);
+        free(v64);
       }
 
       v46 = *v38;
@@ -3765,23 +3208,23 @@ void std::__call_once_proxy[abi:nn200100]<std::tuple<AGCLLVMAGPFragmentShader::i
     v49 = "i1";
     do
     {
-      v65 = v67;
-      v66 = xmmword_20E70C500;
-      llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, "air.get_vertex_value", "");
-      llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, ".u", "");
+      v64 = v66;
+      v65 = xmmword_20E70C500;
+      llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, "air.get_vertex_value", "");
+      llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, ".u", "");
       v50 = strlen(v36);
-      llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, v36, &v36[v50]);
+      llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, v36, &v36[v50]);
       v51 = strlen(v49);
-      llvm::SmallVectorImpl<char>::append<char const*,void>(&v65, v49, &v49[v51]);
+      llvm::SmallVectorImpl<char>::append<char const*,void>(&v64, v49, &v49[v51]);
       v52 = *(v47 - 4);
-      v53 = *llvm::StringMap<AGCLLVMAGPFragmentShader::InterpolationFunction,llvm::MallocAllocator>::try_emplace<>(v65, v66);
+      v53 = *llvm::StringMap<AGCLLVMAGPFragmentShader::InterpolationFunction,llvm::MallocAllocator>::try_emplace<>(v64, v65);
       *(v53 + 8) = 0x500000000;
       *(v53 + 16) = v52;
       *(v53 + 20) = v44;
       *(v53 + 21) = -256;
-      if (v65 != v67)
+      if (v64 != v66)
       {
-        free(v65);
+        free(v64);
       }
 
       v54 = *v47;
@@ -3791,13 +3234,12 @@ void std::__call_once_proxy[abi:nn200100]<std::tuple<AGCLLVMAGPFragmentShader::i
     }
 
     while (v48);
-    v35 = v64 + 1;
-    v37 = &(&AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_comps)[2 * v64 + 2];
+    v35 = v63 + 1;
+    v37 = &(&AGCLLVMAGPFragmentShader::initializeInterpolationFunctionsMap(void)::interp_comps)[2 * v63 + 2];
     v36 = *v37;
   }
 
-  while (v64 != 3);
-  v55 = *MEMORY[0x277D85DE8];
+  while (v63 != 3);
 }
 
 uint64_t *llvm::StringMap<AGCLLVMAGPFragmentShader::InterpolationFunction,llvm::MallocAllocator>::try_emplace<>(const void *a1, size_t a2)
@@ -3927,80 +3369,73 @@ uint64_t *llvm::StringMap<llvm::StringMap<llvm::Value * (AGCLLVMAirTrigIdentitie
   return i;
 }
 
-llvm::Value *AGCLLVMGen3TargetLowerer::buildMovmsk(uint64_t a1, uint64_t a2, llvm::Type **a3)
+llvm::Instruction *AGCLLVMGen3TargetLowerer::buildMovmsk(uint64_t a1, uint64_t a2, llvm::Type **a3)
 {
-  v25[2] = *MEMORY[0x277D85DE8];
-  v22 = *a2;
-  v23 = *(a2 + 16);
-  if (v23)
+  v22[2] = *MEMORY[0x277D85DE8];
+  v19 = *a2;
+  v20 = *(a2 + 16);
+  if (v20)
   {
     llvm::MetadataTracking::track();
   }
 
-  v24 = *(a2 + 24);
-  AGCLLVMTargetLowerer::SetIP(a1, &v22);
-  if (v23)
-  {
-    llvm::MetadataTracking::untrack();
-  }
-
-  v6 = *(a1 + 72);
-  v7 = *(a1 + 936);
-  v8 = llvm::IntegerType::get();
-  v9 = *(a1 + 1624);
-  if (v9)
-  {
-    v10 = strlen(*(a1 + 1624));
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  v11 = AGCLLVMBuilder::getOrInsertFunction<llvm::PointerType *,llvm::Type *>(a1, v9, v10, *(a1 + 144), v8, *(a1 + 192));
-  v12 = *(a1 + 192);
-  v13 = llvm::ConstantInt::get();
-  v19 = *(a1 + 56);
-  llvm::IRBuilderBase::getCurrentDebugLocation(&v20, (a1 + 8));
-  v21 = *(a1 + 104);
-  v14 = (*(*a1 + 208))(a1, &v19, v13);
+  v21 = *(a2 + 24);
+  AGCLLVMTargetLowerer::SetIP(a1, &v19);
   if (v20)
   {
     llvm::MetadataTracking::untrack();
   }
 
-  v18 = 257;
-  v25[0] = llvm::IRBuilderBase::CreateIntCast((a1 + 8), a3, v8, 1, v17);
-  v25[1] = v14;
-  v18 = 257;
-  result = llvm::IRBuilderBase::CreateCall(a1 + 8, *(v11 + 24), v11, v25, 2, v17);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = llvm::IntegerType::get();
+  v7 = *(a1 + 1624);
+  if (v7)
+  {
+    v8 = strlen(*(a1 + 1624));
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = AGCLLVMBuilder::getOrInsertFunction<llvm::PointerType *,llvm::Type *>(a1, v7, v8, *(a1 + 144), v6, *(a1 + 192));
+  v10 = llvm::ConstantInt::get();
+  v16 = *(a1 + 56);
+  llvm::IRBuilderBase::getCurrentDebugLocation(&v17, (a1 + 8));
+  v18 = *(a1 + 104);
+  v12 = (*(*a1 + 208))(a1, &v16, v10);
+  if (v17)
+  {
+    llvm::MetadataTracking::untrack();
+  }
+
+  v15 = 257;
+  v22[0] = llvm::IRBuilderBase::CreateIntCast((a1 + 8), a3, v6, 1, v14, v11);
+  v22[1] = v12;
+  v15 = 257;
+  return llvm::IRBuilderBase::CreateCall((a1 + 8), *(v9 + 24), v9, v22, 2, v14);
 }
 
 uint64_t AGCLLVMBuilder::getOrInsertFunction<llvm::PointerType *,llvm::Type *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   __src[0] = a5;
   __src[1] = a6;
-  v13[0] = v14;
-  v13[1] = 0x200000000;
-  llvm::SmallVectorImpl<llvm::Type *>::append<llvm::Type * const*,void>(v13, __src, v13);
+  v10[0] = v11;
+  v10[1] = 0x200000000;
+  llvm::SmallVectorImpl<llvm::Type *>::append<llvm::Type * const*,void>(v10, __src, v10);
   llvm::FunctionType::get();
-  v7 = *(a1 + 432);
   llvm::Module::getOrInsertFunction();
-  v9 = v8;
-  if (v13[0] != v14)
+  v7 = v6;
+  if (v10[0] != v11)
   {
-    free(v13[0]);
+    free(v10[0]);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v7;
 }
 
-llvm::Value *llvm::IRBuilderBase::CreateIntCast(unsigned int **this, llvm::Type **a2, llvm::Type *a3, BOOL a4, const llvm::Twine *a5)
+llvm::Value *llvm::IRBuilderBase::CreateIntCast(unsigned int **this, llvm::Type **a2, llvm::Type *a3, llvm::Type *a4, const llvm::Twine *a5, llvm::Instruction *a6)
 {
   IntegerCast = a2;
   if (*a2 != a3)
@@ -4016,15 +3451,15 @@ llvm::Value *llvm::IRBuilderBase::CreateIntCast(unsigned int **this, llvm::Type 
       IntegerCast = (*(*this[9] + 248))(this[9], a2);
       if (IntegerCast)
       {
-        v8 = *(IntegerCast + 16) >= 0x1Cu;
+        v9 = *(IntegerCast + 16) >= 0x1Cu;
       }
 
       else
       {
-        v8 = 0;
+        v9 = 0;
       }
 
-      if (v8)
+      if (v9)
       {
         llvm::IRBuilderBase::Insert<llvm::CastInst>(this, IntegerCast, a5);
       }
@@ -4180,7 +3615,6 @@ uint64_t AGCLLVMUserVertexShader::AGCLLVMUserVertexShader(uint64_t a1, uint64_t 
   *v9 = *a2;
   *(a1 + *(v10 - 24)) = a2[7];
   *(a1 + *(*a1 - 24) + 1704) = a2[8];
-  v11 = *a1;
   LOBYTE(v10) = *(*(a1 + *(*a1 - 24) + 2168) + 1878);
   *(a1 + 4536) = 0;
   *(a1 + 4544) = 0u;
@@ -4202,9 +3636,7 @@ uint64_t AGCLLVMUserVertexShader::AGCLLVMUserVertexShader(uint64_t a1, uint64_t 
   *(a1 + 5240) = 0;
   v8[1181] = 0;
   *(a1 + 5272) = 0;
-  v12 = *(a1 + *(v11 - 24) + 4584);
   *(a1 + 5280) = llvm::ConstantInt::get();
-  v13 = *(a1 + *(*a1 - 24) + 4584);
   *(a1 + 5288) = llvm::ConstantInt::get();
   *(a1 + 5296) = 0;
   v8[1202] = 0;
@@ -4219,75 +3651,73 @@ uint64_t AGCLLVMUserVertexShader::AGCLLVMUserVertexShader(uint64_t a1, uint64_t 
   *(a1 + 5320) = 0u;
   *(a1 + 5416) = 0u;
   *(a1 + 5412) = -1;
-  v14 = *(a1 + *(*a1 - 24) + 4584);
   *(a1 + 5432) = llvm::ConstantInt::get();
-  v15 = *(a1 + *(*a1 - 24) + 4584);
   *(a1 + 5440) = llvm::ConstantInt::get();
-  v16 = -3432;
+  v11 = -3432;
   do
   {
-    v17 = a1 + v16;
-    *(v17 + 9712) = 4;
-    *(v17 + 9720) = 0uLL;
-    v16 += 24;
+    v12 = a1 + v11;
+    *(v12 + 9712) = 4;
+    *(v12 + 9720) = 0uLL;
+    v11 += 24;
   }
 
-  while (v16);
-  v18 = a3 + 168;
-  v19 = *(a3 + 191);
-  if (v19 < 0)
+  while (v11);
+  v13 = (a3 + 168);
+  v14 = *(a3 + 191);
+  if (v14 < 0)
   {
     if (*(a3 + 176) != 20)
     {
 LABEL_17:
-      v25 = 0;
+      v20 = 0;
       goto LABEL_18;
     }
 
-    v18 = *v18;
+    v13 = *v13;
   }
 
-  else if (v19 != 20)
+  else if (v14 != 20)
   {
     goto LABEL_17;
   }
 
-  v20 = *v18;
-  v21 = *(v18 + 8);
-  v22 = *(v18 + 16);
-  v25 = v20 == 0x535F786574726556 && v21 == 0x6F72505F65746174 && v22 == 1835102823;
+  v15 = *v13;
+  v16 = v13[1];
+  v17 = *(v13 + 4);
+  v20 = v15 == 0x535F786574726556 && v16 == 0x6F72505F65746174 && v17 == 1835102823;
 LABEL_18:
-  v8[1176] = v25;
-  v26 = *a1;
+  v8[1176] = v20;
+  v21 = *a1;
   *(a1 + 9712) = *(a1 + *(*a1 - 24) + 1872);
-  *(a1 + 9720) = *(a1 + *(v26 - 24) + 1856);
-  *(a1 + 9728) = *(a1 + *(v26 - 24) + 1880);
-  *(a1 + 9736) = *(a1 + *(v26 - 24) + 1904);
-  *(a1 + 9744) = *(a1 + *(v26 - 24) + 1896);
-  *(a1 + 9752) = *(a1 + *(v26 - 24) + 1888);
-  *(a1 + 9768) = *(a1 + *(v26 - 24) + 1904);
-  *(a1 + 9776) = *(a1 + *(v26 - 24) + 1896);
-  *(a1 + 9784) = *(a1 + *(v26 - 24) + 1888);
+  *(a1 + 9720) = *(a1 + *(v21 - 24) + 1856);
+  *(a1 + 9728) = *(a1 + *(v21 - 24) + 1880);
+  *(a1 + 9736) = *(a1 + *(v21 - 24) + 1904);
+  *(a1 + 9744) = *(a1 + *(v21 - 24) + 1896);
+  *(a1 + 9752) = *(a1 + *(v21 - 24) + 1888);
+  *(a1 + 9768) = *(a1 + *(v21 - 24) + 1904);
+  *(a1 + 9776) = *(a1 + *(v21 - 24) + 1896);
+  *(a1 + 9784) = *(a1 + *(v21 - 24) + 1888);
   return a1;
 }
 
-uint64_t AGCLLVMAGPVertexShader::AGCLLVMAGPVertexShader(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, unsigned int *a5, unsigned int *a6)
+uint64_t *AGCLLVMAGPVertexShader::AGCLLVMAGPVertexShader(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, unsigned int *a5, unsigned int *a6)
 {
-  v11 = (a1 + 9824);
-  v12 = (a1 + 5273);
+  v11 = (a1 + 1228);
+  v12 = a1 + 5273;
   v13 = AGCLLVMUserVertexShader::AGCLLVMUserVertexShader(a1, a2 + 1, a3, a4, 0);
   v14 = *a2;
   *v13 = *a2;
   *(a1 + *(v14 - 24)) = a2[10];
   *(a1 + *(*a1 - 24) + 1704) = a2[11];
-  *(a1 + 9808) = 0;
-  *(a1 + 9792) = 0u;
-  *(a1 + 9812) = 16;
-  *(a1 + 9824) = 0;
-  *(a1 + 9832) = a1 + 9848;
-  *(a1 + 9840) = 0x1000000000;
-  *(a1 + 10360) = a1 + 10376;
-  *(a1 + 10368) = 0x400000000;
+  *(a1 + 2452) = 0;
+  *(a1 + 612) = 0u;
+  *(a1 + 2453) = 16;
+  a1[1228] = 0;
+  a1[1229] = (a1 + 1231);
+  a1[1230] = 0x1000000000;
+  a1[1295] = (a1 + 1297);
+  a1[1296] = 0x400000000;
   *(a1 + 10417) = 0;
   if (a5 && a6)
   {
@@ -4328,7 +3758,7 @@ uint64_t AGCLLVMAGPVertexShader::AGCLLVMAGPVertexShader(uint64_t a1, uint64_t *a
         v27 = *&v24[4 * v23];
         v28 = *(v25 - 1);
         v29 = strlen(&v25[v28]);
-        *(*llvm::StringMap<unsigned int,llvm::MallocAllocator>::try_emplace<>((a1 + 9792), v26 + v28, v29) + 8) = v27;
+        *(*llvm::StringMap<unsigned int,llvm::MallocAllocator>::try_emplace<>((a1 + 1224), v26 + v28, v29) + 8) = v27;
         ++v23;
         ++v26;
         v25 += 4;
@@ -4342,16 +3772,16 @@ uint64_t AGCLLVMAGPVertexShader::AGCLLVMAGPVertexShader(uint64_t a1, uint64_t *a
     *v45 = (*(a4 + 16) & 0x40000) != 0;
   }
 
-  *(a1 + 5264) = *(a4 + 16);
-  *(a1 + 5268) = *(a4 + 8);
+  *(a1 + 1316) = *(a4 + 16);
+  *(a1 + 1317) = *(a4 + 8);
   AGCLLVMUserShader::enableStatistics(a1, *(a4 + 12) & 1, (*(a4 + 12) >> 1) & 1);
   *(a1 + 18) = (*(a4 + 12) & 8) != 0;
   v30 = *a1;
   *(a1 + *(*a1 - 24) + 4576) = (*(a4 + 12) & 0x4000000) != 0;
-  *(a1 + 3504) = *a4;
-  *(a1 + 5304) = (*(a4 + 16) >> 12) & 3;
+  a1[438] = *a4;
+  *(a1 + 1326) = (*(a4 + 16) >> 12) & 3;
   v31 = (*(a4 + 16) >> 14) & 0xF;
-  *(a1 + 5300) = v31;
+  *(a1 + 1325) = v31;
   if (v31 > 1)
   {
     v32 = *(*(a1 + *(v30 - 24) + 2168) + 1867);
@@ -4376,13 +3806,13 @@ uint64_t AGCLLVMAGPVertexShader::AGCLLVMAGPVertexShader(uint64_t a1, uint64_t *a
   v12[4] = v33;
   if (v32)
   {
-    *(a1 + 5304) = 0;
+    *(a1 + 1326) = 0;
   }
 
   *(a1 + 20) = (*(a4 + 12) & 4) != 0;
   v11[1] = (*(a4 + 16) & 0x80000) != 0;
-  *(a1 + 10408) = (*(a4 + 12) >> 4) & 7;
-  *(a1 + 10412) = *(a4 + 12) >> 31;
+  *(a1 + 2602) = (*(a4 + 12) >> 4) & 7;
+  *(a1 + 2603) = *(a4 + 12) >> 31;
   v11[595] = (*(a4 + 12) & 0x40000000) != 0;
   v11[2] = (*(a4 + 16) & 0x100000) != 0;
   v11[592] = (*(a4 + 12) & 0x80) != 0;
@@ -4438,7 +3868,7 @@ LABEL_25:
   return a1;
 }
 
-void *AGCLLVMAGPVertexShaderRegular::AGCLLVMAGPVertexShaderRegular(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, unsigned int *a5, unsigned int *a6)
+uint64_t *AGCLLVMAGPVertexShaderRegular::AGCLLVMAGPVertexShaderRegular(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, unsigned int *a5, unsigned int *a6)
 {
   result = AGCLLVMAGPVertexShader::AGCLLVMAGPVertexShader(a1, a2 + 1, a3, a4, a5, a6);
   v8 = *a2;
@@ -4452,7 +3882,7 @@ void AGCLLVMAGPVertexShaderRegular::addSimplifyGenericIRPasses(AGCLLVMAGPVertexS
 {
   v1 = this + *(*this - 24);
   LOBYTE(v2) = 0;
-  AGCModulePassManager::addPass<llvm::AlwaysInlinerPass>();
+  AGCModulePassManager::addPass<llvm::AlwaysInlinerPass>((v1 + 8), &v2, "AlwaysInlinerPass", 17);
 }
 
 char *llvm::PassInfoMixin<llvm::GlobalOptPass>::name()
@@ -4605,7 +4035,7 @@ char *llvm::PassInfoMixin<InitCompileAGPVertexShaderRegularPass>::name()
 
 uint64_t AGCLLVMAGPVertexShader::setupShaderInputs(AGCLLVMAGPVertexShader *this)
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   AGCLLVMUserVertexShader::setupShaderInputs(this);
   v2 = *(this + 21);
   if (*(v2 + 18))
@@ -4633,57 +4063,55 @@ uint64_t AGCLLVMAGPVertexShader::setupShaderInputs(AGCLLVMAGPVertexShader *this)
     {
       v6 = *(*(this + 21) + 80);
       v7 = v6 ? v6 - 24 : 0;
-      v8 = *this;
-      v9 = *(v7 + 40);
-      v10 = v9 ? (v9 - 24) : 0;
-      AGCLLVMBuilder::SetInsertPoint(&i[*(*this - 24)], v10, *(this + 5));
-      v11 = *(v3 + 32);
-      v12 = *(*(this + 10) + 8 * v11);
-      if ((AGCLLVMUserShader::replaceInputArgument(this, v3, v11, v12) & 1) == 0)
+      v8 = *(v7 + 40);
+      v9 = v8 ? (v8 - 24) : 0;
+      AGCLLVMBuilder::SetInsertPoint(&i[*(*this - 24)], v9, *(this + 5));
+      v10 = *(v3 + 32);
+      v11 = *(*(this + 10) + 8 * v10);
+      if ((AGCLLVMUserShader::replaceInputArgument(this, v3, v10, v11) & 1) == 0)
       {
-        if (isStringMDNode(*(v12 - 8 * *(v12 + 8) + 8), "air.amplification_count"))
+        if (isStringMDNode(*(v11 - 8 * *(v11 + 8) + 8), "air.amplification_count"))
         {
           v13 = *(*this - 24);
           v14 = (this + v13);
           if ((*(*(this + v13 + 2168) + 1867) & 1) == 0)
           {
-            goto LABEL_84;
+            goto LABEL_83;
           }
 
-          DriverGlobalConstant = AGCLLVMUserVertexShader::getDriverGlobalConstant(this, 0x54u);
+          DriverGlobalConstant = AGCLLVMUserVertexShader::getDriverGlobalConstant(this, 0x54u, v12);
           *(this + 661) = AGCLLVMBuilder::truncateToSmall(&i[v13], DriverGlobalConstant, *v3);
           llvm::Value::replaceAllUsesWith();
           *(this + 5297) = 1;
         }
 
-        else if (isStringMDNode(*(v12 - 8 * *(v12 + 8) + 8), "air.amplification_mask"))
+        else if (isStringMDNode(*(v11 - 8 * *(v11 + 8) + 8), "air.amplification_mask"))
         {
-          v16 = *(*this - 24);
-          v14 = (this + v16);
-          if ((*(*(this + v16 + 2168) + 1867) & 1) == 0)
+          v17 = *(*this - 24);
+          v14 = (this + v17);
+          if ((*(*(this + v17 + 2168) + 1867) & 1) == 0)
           {
-            goto LABEL_84;
-          }
-
-          v17 = AGCLLVMUserVertexShader::getDriverGlobalConstant(this, 0x55u);
-          *(this + 661) = AGCLLVMBuilder::truncateToSmall(&i[v16], v17, *v3);
-          llvm::Value::replaceAllUsesWith();
-        }
-
-        else if (isStringMDNode(*(v12 - 8 * *(v12 + 8) + 8), "air.amplification_id"))
-        {
-          v18 = *(*this - 24);
-          v14 = (this + v18);
-          if ((*(*(this + v18 + 2168) + 1867) & 1) == 0)
-          {
-LABEL_84:
-            std::string::append(v14 + 69, "Vertex amplification is not supported by target architecture.");
-            result = 0;
             goto LABEL_83;
           }
 
-          VertexAmpId = AGCLLVMUserVertexShader::getVertexAmpId(this, *(this + 1326));
-          *(this + 660) = AGCLLVMBuilder::truncateToSmall(&i[v18], VertexAmpId, *v3);
+          v18 = AGCLLVMUserVertexShader::getDriverGlobalConstant(this, 0x55u, v16);
+          *(this + 661) = AGCLLVMBuilder::truncateToSmall(&i[v17], v18, *v3);
+          llvm::Value::replaceAllUsesWith();
+        }
+
+        else if (isStringMDNode(*(v11 - 8 * *(v11 + 8) + 8), "air.amplification_id"))
+        {
+          v20 = *(*this - 24);
+          v14 = (this + v20);
+          if ((*(*(this + v20 + 2168) + 1867) & 1) == 0)
+          {
+LABEL_83:
+            std::string::append(v14 + 69, "Vertex amplification is not supported by target architecture.");
+            return 0;
+          }
+
+          VertexAmpId = AGCLLVMUserVertexShader::getVertexAmpId(this, *(this + 1326), v19);
+          *(this + 660) = AGCLLVMBuilder::truncateToSmall(&i[v20], VertexAmpId, *v3);
           llvm::Value::replaceAllUsesWith();
           *(this + 5296) = 1;
         }
@@ -4691,43 +4119,41 @@ LABEL_84:
     }
   }
 
-  v20 = 0;
-  v21 = 0;
   v22 = 0;
-  v23 = *(*(this + 21) + 80);
-  if (v23)
+  v23 = 0;
+  v24 = 0;
+  v25 = *(*(this + 21) + 80);
+  if (v25)
   {
-    v24 = (v23 - 24);
+    v26 = (v25 - 24);
   }
 
   else
   {
-    v24 = 0;
+    v26 = 0;
   }
 
-  v88 = this + 2136;
-  v89 = v24;
-  v25 = this + 1712;
-  v26 = this + 2168;
-  v91 = this + 1904;
+  v82 = v26;
+  v27 = this + 1712;
+  v28 = this + 2168;
+  v84 = this + 1904;
   do
   {
-    v27 = *&v88[*(*this - 24)];
-    v87 = v20;
-    v28 = &(&off_277E1FFC8)[2 * v20];
-    if (*v28)
+    v81 = v22;
+    v29 = &(&off_277E1FFC8)[2 * v22];
+    if (*v29)
     {
-      v29 = strlen(*v28);
+      strlen(*v29);
     }
 
     Function = llvm::Module::getFunction();
     if (Function)
     {
-      v86 = Function;
+      v80 = Function;
       v31 = *(Function + 8);
       if (v31)
       {
-        v32 = *(v28 + 2);
+        v32 = *(v29 + 2);
         do
         {
           v33 = *(v31 + 24);
@@ -4736,32 +4162,32 @@ LABEL_84:
           {
             if (v32 == 3)
             {
-              v34 = v21;
+              v34 = v23;
             }
 
             else
             {
-              v34 = v22;
+              v34 = v24;
             }
 
             if (!v34)
             {
               v35 = *(*this - 24);
-              FirstInsertionPt = llvm::BasicBlock::getFirstInsertionPt(v89);
-              llvm::IRBuilderBase::SetInsertPoint(&v25[v35], v89, FirstInsertionPt);
-              v37 = (*(**&v26[*(*this - 24)] + 472))();
+              FirstInsertionPt = llvm::BasicBlock::getFirstInsertionPt(v82);
+              llvm::IRBuilderBase::SetInsertPoint(&v27[v35], v82, FirstInsertionPt);
+              v37 = (*(**&v28[*(*this - 24)] + 472))();
               v38 = *(*this - 24);
               if (v37)
               {
                 VIRead = AGCLLVMUserVertexShader::createVIRead(this, this + 5240, v32);
-                v40 = *&v91[*(*this - 24)];
-                LOWORD(v100) = 257;
-                Cast = llvm::IRBuilderBase::CreateCast(&v25[v38], 49, VIRead, v40, v96);
+                v40 = *&v84[*(*this - 24)];
+                LOWORD(v93) = 257;
+                Cast = llvm::IRBuilderBase::CreateCast(&v27[v38], 49, VIRead, v40, v89);
                 v42 = Cast;
-                v43 = v26;
+                v43 = v28;
                 if (v32 == 3)
                 {
-                  v44 = v22;
+                  v44 = v24;
                 }
 
                 else
@@ -4776,83 +4202,81 @@ LABEL_84:
 
                 else
                 {
-                  v45 = v21;
+                  v45 = v23;
                 }
 
                 if ((*(**&v43[*(*this - 24)] + 480))())
                 {
-                  v46 = this + *(*this - 24);
-                  v47 = *(v46 + 238);
-                  inserted = AGCLLVMBuilder::getOrInsertFunction<>((v46 + 1704));
-                  v49 = *(*this - 24);
-                  LOWORD(v100) = 257;
-                  v50 = llvm::IRBuilderBase::CreateCall(&v25[v49], *(inserted + 24), inserted, 0, 0, v96);
-                  v94 = 257;
-                  Add = llvm::IRBuilderBase::CreateAdd(&v25[v49], v42, v50, v93);
+                  inserted = AGCLLVMBuilder::getOrInsertFunction<>(this + *(*this - 24) + 1704, "air.get_base_instance.i32", 25, *(this + *(*this - 24) + 1904));
+                  v47 = *(*this - 24);
+                  LOWORD(v93) = 257;
+                  v48 = llvm::IRBuilderBase::CreateCall(&v27[v47], *(inserted + 24), inserted, 0, 0, v89);
+                  v87 = 257;
+                  Add = llvm::IRBuilderBase::CreateAdd(&v27[v47], v42, v48, v86);
                   if (v32 == 3)
                   {
-                    v21 = Add;
+                    v23 = Add;
                   }
 
                   else
                   {
-                    v22 = Add;
+                    v24 = Add;
                   }
                 }
 
                 else
                 {
-                  v22 = v44;
-                  v21 = v45;
+                  v24 = v44;
+                  v23 = v45;
                 }
 
-                v26 = this + 2168;
+                v28 = this + 2168;
               }
 
               else
               {
-                v52 = (*(**&v26[v38] + 448))(*&v26[v38], this + 5240, v32);
-                v53 = *(this + 2592);
-                if (v53 >= *(this + 2593))
+                v50 = (*(**&v28[v38] + 448))(*&v28[v38], this + 5240, v32);
+                v51 = *(this + 2592);
+                if (v51 >= *(this + 2593))
                 {
                   llvm::SmallVectorBase<unsigned int>::grow_pod();
                 }
 
-                *(*(this + 1295) + 8 * v53) = (v32 << 32) | v52;
+                *(*(this + 1295) + 8 * v51) = (v32 << 32) | v50;
                 ++*(this + 2592);
-                v54 = *(*this - 24);
-                v55 = AGCLLVMUserVertexShader::createVIRead(this);
-                v56 = *&v91[*(*this - 24)];
-                LOWORD(v100) = 257;
-                v57 = llvm::IRBuilderBase::CreateCast(&v25[v54], 49, v55, v56, v96);
+                v52 = *(*this - 24);
+                v53 = AGCLLVMUserVertexShader::createVIRead(this, v50);
+                v54 = *&v84[*(*this - 24)];
+                LOWORD(v93) = 257;
+                v55 = llvm::IRBuilderBase::CreateCast(&v27[v52], 49, v53, v54, v89);
                 if (v32 == 3)
                 {
-                  v21 = v57;
+                  v23 = v55;
                 }
 
                 else
                 {
-                  v22 = v57;
+                  v24 = v55;
                 }
               }
             }
 
             if (v32 == 3)
             {
-              v58 = v21;
+              v56 = v23;
             }
 
             else
             {
-              v58 = v22;
+              v56 = v24;
             }
 
-            v59 = *v33;
-            if (*v58 != *v33)
+            v57 = *v33;
+            if (*v56 != *v33)
             {
-              v60 = *(*this - 24);
-              LOWORD(v100) = 257;
-              llvm::IRBuilderBase::CreateCast(&v25[v60], 38, v58, v59, v96);
+              v58 = *(*this - 24);
+              LOWORD(v93) = 257;
+              llvm::IRBuilderBase::CreateCast(&v27[v58], 38, v56, v57, v89);
             }
 
             llvm::Value::replaceAllUsesWith();
@@ -4864,110 +4288,105 @@ LABEL_84:
         while (v31);
       }
 
-      llvm::Function::eraseFromParent(v86);
+      llvm::Function::eraseFromParent(v80);
     }
 
-    v20 = v87 + 1;
+    v22 = v81 + 1;
   }
 
-  while (v87 != 3);
-  v96[0] = "air.get_base_vertex.i32";
-  v96[1] = "base_vertex";
+  while (v81 != 3);
+  v89[0] = "air.get_base_vertex.i32";
+  v89[1] = "base_vertex";
+  v59 = *(*(this + *(*this - 24) + 2168) + 920);
+  v90 = (*(*v59 + 216))(v59);
+  v91 = 0;
+  v92 = "air.get_base_vertex.i16";
+  v93 = "base_vertex";
+  v60 = *(*(this + *(*this - 24) + 2168) + 920);
+  v94 = (*(*v60 + 216))(v60);
+  v95 = 0;
+  v96 = "air.get_base_instance.i32";
+  v97 = "base_instance";
   v61 = *(*(this + *(*this - 24) + 2168) + 920);
-  v97 = (*(*v61 + 216))(v61);
-  v98 = 0;
-  v99 = "air.get_base_vertex.i16";
-  v100 = "base_vertex";
+  v98 = (*(*v61 + 224))(v61);
+  v99 = 1;
+  v100 = "air.get_base_instance.i16";
+  v101 = "base_instance";
   v62 = *(*(this + *(*this - 24) + 2168) + 920);
-  v101 = (*(*v62 + 216))(v62);
-  v102 = 0;
-  v103 = "air.get_base_instance.i32";
-  v104 = "base_instance";
-  v63 = *(*(this + *(*this - 24) + 2168) + 920);
-  v105 = (*(*v63 + 224))(v63);
-  v106 = 1;
-  v107 = "air.get_base_instance.i16";
-  v108 = "base_instance";
-  v64 = *(*(this + *(*this - 24) + 2168) + 920);
-  v65 = 0;
-  v109 = (*(*v64 + 224))(v64);
-  v110 = 1;
-  v95[0] = 0;
-  v95[1] = 0;
+  v63 = 0;
+  v102 = (*(*v62 + 224))(v62);
+  v103 = 1;
+  v88[0] = 0;
+  v88[1] = 0;
   do
   {
-    v66 = *&v88[*(*this - 24)];
-    v67 = &v96[3 * v65];
-    if (*v67)
+    v64 = &v89[3 * v63];
+    if (*v64)
     {
-      v68 = strlen(*v67);
+      strlen(*v64);
     }
 
-    v69 = llvm::Module::getFunction();
-    if (v69)
+    v65 = llvm::Module::getFunction();
+    if (v65)
     {
-      v90 = v69;
-      v70 = *(v69 + 8);
-      while (v70)
+      v83 = v65;
+      v66 = *(v65 + 8);
+      while (v66)
       {
-        v71 = *(v70 + 24);
-        v70 = *(v70 + 8);
-        if (*(v71 + 1))
+        v67 = *(v66 + 24);
+        v66 = *(v66 + 8);
+        if (*(v67 + 1))
         {
-          v72 = *(v67 + 5);
-          GlobalBufferBinding = v95[v72];
+          v68 = *(v64 + 5);
+          GlobalBufferBinding = v88[v68];
           if (!GlobalBufferBinding)
           {
-            v74 = *&v91[*(*this - 24)];
-            v75 = llvm::PointerType::get();
-            if (*v67[1])
+            v70 = llvm::PointerType::get();
+            if (*v64[1])
             {
-              v93[2] = v67[1];
-              v76 = 3;
+              v86[2] = v64[1];
+              v71 = 3;
             }
 
             else
             {
-              v76 = 1;
+              v71 = 1;
             }
 
-            v93[0] = "agc.buffer_pointers.";
-            LOBYTE(v94) = 3;
-            HIBYTE(v94) = v76;
-            GlobalBufferBinding = AGCLLVMUserObject::createGlobalBufferBinding(this, v75, v93, *(v67 + 4), 4, 5, 0);
-            v95[v72] = GlobalBufferBinding;
+            v86[0] = "agc.buffer_pointers.";
+            LOBYTE(v87) = 3;
+            HIBYTE(v87) = v71;
+            GlobalBufferBinding = AGCLLVMUserObject::createGlobalBufferBinding(this, v70, v86, *(v64 + 4), 4u, 5u, 0);
+            v88[v68] = GlobalBufferBinding;
           }
 
-          llvm::IRBuilderBase::SetInsertPoint(&v25[*(*this - 24)], v71);
-          v77 = *(*this - 24);
-          v94 = 257;
-          Load = AGCLLVMBuilder::CreateLoad(&i[v77], GlobalBufferBinding, v93);
-          v79 = this + *(*this - 24);
-          v80 = *(v79 + 238);
-          v94 = 257;
+          llvm::IRBuilderBase::SetInsertPoint(&v27[*(*this - 24)], v67);
+          v72 = *(*this - 24);
+          v87 = 257;
+          Load = AGCLLVMBuilder::CreateLoad(&i[v72], GlobalBufferBinding, v86);
+          v74 = this + *(*this - 24);
+          v75 = *(v74 + 238);
+          v87 = 257;
           llvm::Type::isOpaquePointerTy(*Load);
-          AlignedLoad = llvm::IRBuilderBase::CreateAlignedLoad(v79 + 214, v80, Load, 0, v93);
-          v82 = *(*this - 24);
-          v83 = *v71;
-          v94 = 257;
-          llvm::IRBuilderBase::CreateCast(&v25[v82], 38, AlignedLoad, v83, v93);
+          AlignedLoad = llvm::IRBuilderBase::CreateAlignedLoad(v74 + 214, v75, Load, 0, v86);
+          v77 = *(*this - 24);
+          v78 = *v67;
+          v87 = 257;
+          llvm::IRBuilderBase::CreateCast(&v27[v77], 38, AlignedLoad, v78, v86);
           llvm::Value::replaceAllUsesWith();
         }
 
-        llvm::Instruction::eraseFromParent(v71);
+        llvm::Instruction::eraseFromParent(v67);
       }
 
-      llvm::Function::eraseFromParent(v90);
+      llvm::Function::eraseFromParent(v83);
     }
 
-    ++v65;
+    ++v63;
   }
 
-  while (v65 != 4);
-  result = 1;
-LABEL_83:
-  v85 = *MEMORY[0x277D85DE8];
-  return result;
+  while (v63 != 4);
+  return 1;
 }
 
 uint64_t AGCLLVMUserVertexShader::setupShaderInputs(AGCLLVMUserVertexShader *this)
@@ -5046,7 +4465,7 @@ uint64_t AGCLLVMUserVertexShader::setupShaderInputs(AGCLLVMUserVertexShader *thi
 
 void AGCLLVMAGPVertexShaderRegular::promoteInput(AGCLLVMAGPVertexShaderRegular *this, llvm::Value *a2, int a3, int a4)
 {
-  v177 = *MEMORY[0x277D85DE8];
+  v175 = *MEMORY[0x277D85DE8];
   if ((*(*(this + *(*this - 24) + 2168) + 1848) & 1) == 0 && *(this + 10424) != 0)
   {
     if (a4 == -1)
@@ -5062,12 +4481,12 @@ void AGCLLVMAGPVertexShaderRegular::promoteInput(AGCLLVMAGPVertexShaderRegular *
     if ((llvm::Type::isOpaquePointerTy(*a2) & 1) == 0)
     {
       v8 = **(*a2 + 16);
-      v146 = v8;
+      v144 = v8;
       v9 = (*(v8 + 2) & 0xFE) == 0x12 ? *(**(v8 + 2) + 8) : *(v8 + 2);
       if (v9 != 15 && llvm::Type::isSized(v8))
       {
         TypeAllocSize = llvm::DataLayout::getTypeAllocSize((this + 224), v8);
-        LODWORD(v158) = v10;
+        LODWORD(v156) = v10;
         v11 = llvm::TypeSize::operator unsigned long long();
         if ((v11 & 3) != 0)
         {
@@ -5076,119 +4495,119 @@ void AGCLLVMAGPVertexShaderRegular::promoteInput(AGCLLVMAGPVertexShaderRegular *
             AGCTargetPrinter::printMessage(*(this + *(*this - 24) + 1696), "Cannot DMA promote %s : type size %u not a multiple of 4", __str, v11);
           }
 
-          goto LABEL_152;
+          return;
         }
 
-        v145 = 0;
+        v143 = 0;
+        v139 = 0;
+        v138 = 0;
         v141 = 0;
         v140 = 0;
-        v143 = 0;
         v142 = 0;
-        v144 = 0;
-        v170 = 128;
-        v168 = MEMORY[0x20F330650](0x4000, 8);
-        llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo>>,llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo>>::initEmpty(&v168);
-        LOBYTE(v171) = 0;
+        v168 = 128;
+        v166 = MEMORY[0x20F330650](0x4000, 8);
+        llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo>>,llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo>>::initEmpty(&v166);
+        LOBYTE(v169) = 0;
+        v171 = 0;
+        v172 = 1;
         v173 = 0;
-        v174 = 1;
-        v175 = 0;
-        if (AGCLLVMAGPVertexShaderRegular::canDMAPromote(this, a2, __str, &v145, &v140, &v168) || AGCLLVMAGPVertexShaderRegular::coerceStridedAccess(this, a2, __str, &v146) && (v8 = v146, TypeAllocSize = llvm::DataLayout::getTypeAllocSize((this + 224), v146), LODWORD(v158) = v36, v11 = llvm::TypeSize::operator unsigned long long(), AGCLLVMAGPVertexShaderRegular::canDMAPromote(this, a2, __str, &v145, &v140, &v168)))
+        if (AGCLLVMAGPVertexShaderRegular::canDMAPromote(this, a2, __str, &v143, &v138, &v166) || AGCLLVMAGPVertexShaderRegular::coerceStridedAccess(this, a2, __str, &v144) && (v8 = v144, TypeAllocSize = llvm::DataLayout::getTypeAllocSize((this + 224), v144), LODWORD(v156) = v36, v11 = llvm::TypeSize::operator unsigned long long(), AGCLLVMAGPVertexShaderRegular::canDMAPromote(this, a2, __str, &v143, &v138, &v166)))
         {
           v12 = v11 >> 2;
-          v13 = *(this + *(*this - 24) + 1872);
-          v14 = llvm::UndefValue::get();
-          v163 = &v165;
-          v164 = 0x800000000;
-          llvm::SmallVectorImpl<llvm::Value *>::assign(&v163, v12, v14);
-          v15 = AGCLLVMAGPVertexShaderRegular::analyzeLoads(this, v8, &v168);
-          v17 = v16 + 3;
-          v18 = (v16 + 3) >> 2;
-          v135 = v15 >> 2;
-          v19 = this + *(*this - 24);
-          v20 = *(*(v19 + 271) + 984);
-          if (v20 >= 0x80)
+          v13 = llvm::UndefValue::get();
+          v161 = &v163;
+          v162 = 0x800000000;
+          llvm::SmallVectorImpl<llvm::Value *>::assign(&v161, v12, v13);
+          v14 = AGCLLVMAGPVertexShaderRegular::analyzeLoads(this, v8, &v166);
+          v16 = v15 + 3;
+          v17 = (v15 + 3) >> 2;
+          v133 = v14 >> 2;
+          v18 = this + *(*this - 24);
+          v19 = *(*(v18 + 271) + 984);
+          if (v19 >= 0x80)
           {
-            v21 = 126;
+            v20 = 126;
           }
 
           else
           {
-            v21 = v20 - 2;
+            v20 = v19 - 2;
           }
 
-          v136 = v18 - (v15 >> 2);
-          if (*(this + 1310) + v136 >= v21)
+          v134 = v17 - (v14 >> 2);
+          if (*(this + 1310) + v134 >= v20)
           {
-            if (AGCTargetPrinter::isValidToPrintMessage(*(v19 + 212)))
+            if (AGCTargetPrinter::isValidToPrintMessage(*(v18 + 212)))
             {
-              AGCTargetPrinter::printMessage(*(this + *(*this - 24) + 1696), "Cannot DMA promote %s : ran out of vi's, need %u, already allocated %u, limit %u", __str, v136, *(this + 1310), v21);
+              AGCTargetPrinter::printMessage(*(this + *(*this - 24) + 1696), "Cannot DMA promote %s : ran out of vi's, need %u, already allocated %u, limit %u", __str, v134, *(this + 1310), v20);
             }
           }
 
           else
           {
-            v22 = v15;
-            v23 = *(*(this + 21) + 80);
-            if (v23)
+            v21 = v14;
+            v22 = *(*(this + 21) + 80);
+            if (v22)
             {
-              v24 = v23 - 24;
+              v23 = v22 - 24;
             }
 
             else
             {
-              v24 = 0;
+              v23 = 0;
             }
 
-            v25 = *(v24 + 40);
-            if (v25)
+            v24 = *(v23 + 40);
+            if (v24)
             {
-              v26 = (v25 - 24);
+              v25 = (v24 - 24);
             }
 
             else
             {
-              v26 = 0;
+              v25 = 0;
             }
 
-            llvm::IRBuilderBase::SetInsertPoint((v19 + 1712), v26);
-            v27 = *(this + 1310);
+            llvm::IRBuilderBase::SetInsertPoint((v18 + 1712), v25);
+            v26 = *(this + 1310);
             if (v11 >= 4)
             {
-              v28 = 0;
-              v29 = (v17 >> 2);
-              v30 = (v22 >> 2);
+              v27 = 0;
+              v28 = (v16 >> 2);
+              v29 = (v21 >> 2);
               do
               {
-                if (v28 >= v30 && v28 < v29)
+                if (v27 >= v29 && v27 < v28)
                 {
-                  ++*(this + 1310);
-                  VIRead = AGCLLVMUserVertexShader::createVIRead(this);
-                  *(v163 + v28) = VIRead;
+                  v30 = *(this + 1310);
+                  *(this + 1310) = v30 + 1;
+                  VIRead = AGCLLVMUserVertexShader::createVIRead(this, v30);
+                  *(v161 + v27) = VIRead;
                 }
 
-                ++v28;
+                ++v27;
               }
 
-              while (v12 != v28);
+              while (v12 != v27);
             }
 
-            v32 = v174;
-            v149 = "vertex_input";
-            v152 = 259;
-            v156 = 264;
-            LODWORD(v153) = a3;
-            llvm::Twine::concat(&TypeAllocSize, &v149, &v153);
-            v132 = AGCLLVMAGPVertexShaderRegular::materializeVertexAttribute(this, v8, v32, &v163, &TypeAllocSize);
+            v32 = v172;
+            v147 = "vertex_input";
+            v150 = 259;
+            v154 = 264;
+            LODWORD(v151) = a3;
+            llvm::Twine::concat(&TypeAllocSize, &v147, &v151);
+            v131 = AGCLLVMAGPVertexShaderRegular::materializeVertexAttribute(this, v8, v32, &v161, &TypeAllocSize);
             if (AGCTargetPrinter::isValidToPrintMessage(*(this + *(*this - 24) + 1696)))
             {
-              AGCTargetPrinter::printMessage(*(this + *(*this - 24) + 1696), "DMA promoting %s to VI, attribute size = %u words, only words [%u .. %u] actually used", __str, v12, v135, v18 - 1);
+              AGCTargetPrinter::printMessage(*(this + *(*this - 24) + 1696), "DMA promoting %s to VI, attribute size = %u words, only words [%u .. %u] actually used", __str, v12, v133, v17 - 1);
             }
 
             if (AGCTargetPrinter::isValidToPrintMessage(*(this + *(*this - 24) + 1696)))
             {
-              v33 = v145;
+              v33 = v143;
               v34 = "false";
-              if (v145 == 2)
+              if (v143 == 2)
               {
                 v35 = "true";
               }
@@ -5198,43 +4617,43 @@ void AGCLLVMAGPVertexShaderRegular::promoteInput(AGCLLVMAGPVertexShaderRegular *
                 v35 = "false";
               }
 
-              if (v144)
+              if (v142)
               {
                 v34 = "true";
               }
 
-              AGCTargetPrinter::printMessage(*(this + *(*this - 24) + 1696), "DMA Entry = {reg_offset: %u, size : %u, offset %u, stride; %u, instanced: %s, div: %u, base_after_divisor: %s}", v27, v136, v135, v12, v35, HIDWORD(v143), v34);
+              AGCTargetPrinter::printMessage(*(this + *(*this - 24) + 1696), "DMA Entry = {reg_offset: %u, size : %u, offset %u, stride; %u, instanced: %s, div: %u, base_after_divisor: %s}", v26, v134, v133, v12, v35, HIDWORD(v141), v34);
             }
 
             else
             {
-              v33 = v145;
+              v33 = v143;
             }
 
-            LODWORD(v140) = v27;
+            LODWORD(v138) = v26;
             _AGCBindingInfo::_AGCBindingInfo(&TypeAllocSize, a3, a4);
-            HIDWORD(v140) = TypeAllocSize;
-            v142 = __PAIR64__(v135, v136);
-            LODWORD(v143) = v12;
-            v141 = v33 == 2;
-            v37 = llvm::SmallVectorTemplateCommon<AGCLLVMAGPVertexShader::VertexAttribInputInfo,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<AGCLLVMAGPVertexShader::VertexAttribInputInfo,true>>(this + 9832, &v140);
+            HIDWORD(v138) = TypeAllocSize;
+            v140 = __PAIR64__(v133, v134);
+            LODWORD(v141) = v12;
+            v139 = v33 == 2;
+            v37 = llvm::SmallVectorTemplateCommon<AGCLLVMAGPVertexShader::VertexAttribInputInfo,void>::reserveForParamAndGetAddressImpl<llvm::SmallVectorTemplateBase<AGCLLVMAGPVertexShader::VertexAttribInputInfo,true>>(this + 9832, &v138);
             v38 = (*(this + 1229) + 32 * *(this + 2460));
             v39 = v37[1];
             *v38 = *v37;
             v38[1] = v39;
             ++*(this + 2460);
-            v40 = v132;
-            if (*(v132 + 16) == 60)
+            v40 = v131;
+            if (v131[16] == 60)
             {
-              Alloca = *(v132 - 4);
+              Alloca = *(v131 - 4);
             }
 
-            else if (v175 == 1)
+            else if (v173 == 1)
             {
               v42 = (this + *(*this - 24));
-              LOWORD(v161) = 257;
+              LOWORD(v159) = 257;
               Alloca = llvm::IRBuilderBase::CreateAlloca(v42 + 214, v8, 0, &TypeAllocSize);
-              llvm::IRBuilderBase::CreateAlignedStore((this + *(*this - 24) + 1712), v132, Alloca, 0);
+              llvm::IRBuilderBase::CreateAlignedStore((this + *(*this - 24) + 1712), v131, Alloca, 0, 0);
             }
 
             else
@@ -5242,21 +4661,20 @@ void AGCLLVMAGPVertexShaderRegular::promoteInput(AGCLLVMAGPVertexShaderRegular *
               Alloca = 0;
             }
 
-            if (v169)
+            if (v167)
             {
               v43 = this + 1712;
-              v133 = this + 1904;
-              v134 = this + 1704;
-              v130 = Alloca;
+              v132 = this + 1704;
+              v129 = Alloca;
               do
               {
-                v44 = v168;
-                v45 = v170;
-                v46 = v168 + (v170 << 7);
-                if (v170)
+                v44 = v166;
+                v45 = v168;
+                v46 = v166 + (v168 << 7);
+                if (v168)
                 {
-                  v47 = v170 << 7;
-                  v48 = (v168 + 24);
+                  v47 = v168 << 7;
+                  v48 = (v166 + 24);
                   v49 = v47;
                   while (1)
                   {
@@ -5275,14 +4693,14 @@ void AGCLLVMAGPVertexShaderRegular::promoteInput(AGCLLVMAGPVertexShaderRegular *
                     }
                   }
 
-                  v51 = v168;
+                  v51 = v166;
                   while ((*(v51 + 24) | 0x1000) == 0xFFFFFFFFFFFFF000)
                   {
                     v51 += 128;
                     v47 -= 128;
                     if (!v47)
                     {
-                      v51 = v168 + (v170 << 7);
+                      v51 = v166 + (v168 << 7);
                       break;
                     }
                   }
@@ -5290,20 +4708,20 @@ void AGCLLVMAGPVertexShaderRegular::promoteInput(AGCLLVMAGPVertexShaderRegular *
 
                 else
                 {
-                  v50 = *(v168 + 24);
-                  v51 = v168;
+                  v50 = *(v166 + 24);
+                  v51 = v166;
                 }
 
-                TypeAllocSize = &v159;
-                v158 = 0x800000000;
+                TypeAllocSize = &v157;
+                v156 = 0x800000000;
                 if (*(v51 + 48))
                 {
                   llvm::SmallVectorImpl<llvm::MDNode const*>::operator=(&TypeAllocSize, v51 + 40);
-                  v44 = v168;
-                  v45 = v170;
-                  v162 = *(v51 + 120);
-                  v46 = v168 + (v170 << 7);
-                  if (!v169)
+                  v44 = v166;
+                  v45 = v168;
+                  v160 = *(v51 + 120);
+                  v46 = v166 + (v168 << 7);
+                  if (!v167)
                   {
 LABEL_71:
                     v44 = v46;
@@ -5313,7 +4731,7 @@ LABEL_71:
 
                 else
                 {
-                  v162 = *(v51 + 120);
+                  v160 = *(v51 + 120);
                 }
 
                 if (v45)
@@ -5329,310 +4747,306 @@ LABEL_71:
                 }
 
 LABEL_72:
-                llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo>>,llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo>>::erase(&v168, v44);
-                v52 = v158;
+                llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo>>,llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::LoadInst *,AGCLLVMAGPVertexShaderRegular::GEPInfo,llvm::ValueMapConfig<llvm::LoadInst *,llvm::sys::SmartMutex<false>>>,AGCLLVMAGPVertexShaderRegular::GEPInfo>>::erase(&v166, v44);
+                v52 = v156;
                 llvm::IRBuilderBase::SetInsertPoint(&v43[*(*this - 24)], v50);
                 if (!v52)
                 {
-                  if (HIDWORD(v162) == 3)
+                  if (HIDWORD(v160) == 3)
                   {
-                    v85 = *(*this - 24);
-                    v86 = *v50;
-                    v87 = llvm::PointerType::get();
-                    v152 = 257;
-                    Cast = llvm::IRBuilderBase::CreateCast(&v43[v85], 49, Alloca, v87, &v149);
-                    v89 = *(*this - 24);
-                    v152 = 257;
-                    AGCLLVMBuilder::CreateLoad(&v134[v89], Cast, &v149);
+                    v87 = *(*this - 24);
+                    v88 = llvm::PointerType::get();
+                    v150 = 257;
+                    Cast = llvm::IRBuilderBase::CreateCast(&v43[v87], 49, Alloca, v88, &v147);
+                    v90 = *(*this - 24);
+                    v150 = 257;
+                    AGCLLVMBuilder::CreateLoad(&v132[v90], Cast, &v147);
                   }
 
-                  else if (HIDWORD(v162) == 1)
+                  else if (HIDWORD(v160) == 1)
                   {
-                    AGCLLVMBuilder::extendVector(&v134[*(*this - 24)], v40, *(*v50 + 32));
+                    AGCLLVMBuilder::extendVector(&v132[*(*this - 24)], v40, *(*v50 + 32), v53);
                   }
 
                   goto LABEL_117;
                 }
 
-                if (v162 != 1)
+                if (v160 != 1)
                 {
-                  v149 = v151;
-                  v150 = 0x800000000;
-                  llvm::SmallVectorImpl<llvm::Value *>::assign(&v149, (v52 + 1), 0);
-                  v59 = *&v133[*(*this - 24)];
-                  v60 = llvm::ConstantInt::get();
-                  v61 = 0;
-                  *v149 = v60;
+                  v147 = v149;
+                  v148 = 0x800000000;
+                  llvm::SmallVectorImpl<llvm::Value *>::assign(&v147, (v52 + 1), 0);
+                  v61 = llvm::ConstantInt::get();
+                  v62 = 0;
+                  *v147 = v61;
                   do
                   {
-                    *(v149 + v61 + 8) = *(TypeAllocSize + v61);
-                    v61 += 8;
+                    *(v147 + v62 + 8) = *(TypeAllocSize + v62);
+                    v62 += 8;
                   }
 
-                  while (8 * v52 != v61);
-                  v62 = *(*this - 24);
-                  v63 = v146;
-                  v64 = v149;
-                  v65 = v150;
-                  v156 = 257;
+                  while (8 * v52 != v62);
+                  v63 = *(*this - 24);
+                  v64 = v144;
+                  v65 = v147;
+                  v66 = v148;
+                  v154 = 257;
                   llvm::Type::isOpaquePointerTy(*Alloca);
-                  GEP = llvm::IRBuilderBase::CreateGEP(&v43[v62], v63, Alloca, v64, v65, &v153);
-                  v67 = *v50;
-                  if ((HIDWORD(v162) | 2) == 3)
+                  GEP = llvm::IRBuilderBase::CreateGEP(&v43[v63], v64, Alloca, v65, v66, &v151);
+                  v69 = *v50;
+                  if ((HIDWORD(v160) | 2) == 3)
                   {
-                    v68 = *(*this - 24);
-                    v69 = llvm::PointerType::getWithSamePointeeType(**(v50 - 4), 0);
-                    v156 = 257;
-                    GEP = llvm::IRBuilderBase::CreateCast(&v43[v68], 49, GEP, v69, &v153);
+                    v70 = *(*this - 24);
+                    v71 = llvm::PointerType::getWithSamePointeeType(**(v50 - 4), 0, v67);
+                    v154 = 257;
+                    GEP = llvm::IRBuilderBase::CreateCast(&v43[v70], 49, GEP, v71, &v151);
                   }
 
-                  v70 = *(*this - 24);
-                  v156 = 257;
+                  v72 = *(*this - 24);
+                  v154 = 257;
                   llvm::Type::isOpaquePointerTy(*GEP);
-                  llvm::IRBuilderBase::CreateAlignedLoad(&v43[v70], v67, GEP, 0, &v153);
-                  v71 = v149;
-                  v72 = v151;
+                  llvm::IRBuilderBase::CreateAlignedLoad(&v43[v72], v69, GEP, 0, &v151);
+                  v73 = v147;
+                  v74 = v149;
                   goto LABEL_115;
                 }
 
-                v153 = v155;
-                v154 = 0xC00000000;
-                llvm::SmallVectorImpl<unsigned int>::assign(&v153, v52, 0);
-                v53 = TypeAllocSize;
-                v54 = v153;
-                v55 = v153;
-                v56 = v52;
+                v151 = v153;
+                v152 = 0xC00000000;
+                llvm::SmallVectorImpl<unsigned int>::assign(&v151, v52, 0);
+                v54 = TypeAllocSize;
+                v55 = v151;
+                v56 = v151;
+                v57 = v52;
                 do
                 {
-                  v57 = (*v53 + 24);
-                  if (*(*v53 + 32) >= 0x41u)
+                  v58 = (*v54 + 24);
+                  if (*(*v54 + 32) >= 0x41u)
                   {
-                    v57 = *v57;
+                    v58 = *v58;
                   }
 
-                  *v55++ = *v57;
-                  v53 += 8;
-                  --v56;
+                  *v56++ = *v58;
+                  v54 += 8;
+                  --v57;
                 }
 
-                while (v56);
-                if (SHIDWORD(v162) <= 1)
+                while (v57);
+                if (SHIDWORD(v160) <= 1)
                 {
-                  if (HIDWORD(v162))
+                  if (HIDWORD(v160))
                   {
-                    if (HIDWORD(v162) == 1)
+                    if (HIDWORD(v160) == 1)
                     {
-                      v58 = AGCLLVMAGPVertexShaderRegular::createExtractFromVertexAttribute(this, v40, v54, v154);
-                      AGCLLVMBuilder::extendVector(&v134[*(*this - 24)], v58, *(*v50 + 32));
+                      v59 = AGCLLVMAGPVertexShaderRegular::createExtractFromVertexAttribute(this, v40, v55, v152);
+                      AGCLLVMBuilder::extendVector(&v132[*(*this - 24)], v59, *(*v50 + 32), v60);
                     }
                   }
 
                   else
                   {
-                    AGCLLVMAGPVertexShaderRegular::createExtractFromVertexAttribute(this, v40, v54, v154);
+                    AGCLLVMAGPVertexShaderRegular::createExtractFromVertexAttribute(this, v40, v55, v152);
                   }
 
                   goto LABEL_114;
                 }
 
-                if (HIDWORD(v162) != 2)
+                if (HIDWORD(v160) != 2)
                 {
-                  if (HIDWORD(v162) == 3)
+                  if (HIDWORD(v160) == 3)
                   {
-                    v149 = v151;
-                    v150 = 0x800000000;
-                    llvm::SmallVectorImpl<llvm::Value *>::assign(&v149, (v52 + 1), 0);
-                    v73 = *&v133[*(*this - 24)];
-                    v74 = llvm::ConstantInt::get();
-                    v75 = 0;
-                    *v149 = v74;
+                    v147 = v149;
+                    v148 = 0x800000000;
+                    llvm::SmallVectorImpl<llvm::Value *>::assign(&v147, (v52 + 1), 0);
+                    v75 = llvm::ConstantInt::get();
+                    v76 = 0;
+                    *v147 = v75;
                     do
                     {
-                      *(v149 + v75 + 8) = *(TypeAllocSize + v75);
-                      v75 += 8;
+                      *(v147 + v76 + 8) = *(TypeAllocSize + v76);
+                      v76 += 8;
                     }
 
-                    while (8 * v52 != v75);
-                    v76 = *(*this - 24);
-                    v77 = v146;
-                    v78 = v149;
-                    v79 = v150;
-                    v138 = 257;
+                    while (8 * v52 != v76);
+                    v77 = *(*this - 24);
+                    v78 = v144;
+                    v79 = v147;
+                    v80 = v148;
+                    v136 = 257;
                     llvm::Type::isOpaquePointerTy(*Alloca);
-                    v80 = llvm::IRBuilderBase::CreateGEP(&v43[v76], v77, Alloca, v78, v79, v137);
-                    v81 = *(*this - 24);
-                    v82 = llvm::PointerType::getWithSamePointeeType(**(v50 - 4), 0);
-                    v138 = 257;
-                    v83 = llvm::IRBuilderBase::CreateCast(&v43[v81], 49, v80, v82, v137);
-                    v84 = *(*this - 24);
-                    v138 = 257;
-                    AGCLLVMBuilder::CreateLoad(&v134[v84], v83, v137);
-                    if (v149 != v151)
+                    v81 = llvm::IRBuilderBase::CreateGEP(&v43[v77], v78, Alloca, v79, v80, v135);
+                    v82 = *(*this - 24);
+                    v84 = llvm::PointerType::getWithSamePointeeType(**(v50 - 4), 0, v83);
+                    v136 = 257;
+                    v85 = llvm::IRBuilderBase::CreateCast(&v43[v82], 49, v81, v84, v135);
+                    v86 = *(*this - 24);
+                    v136 = 257;
+                    AGCLLVMBuilder::CreateLoad(&v132[v86], v85, v135);
+                    if (v147 != v149)
                     {
-                      free(v149);
+                      free(v147);
                     }
                   }
 
                   goto LABEL_114;
                 }
 
-                v149 = ((llvm::DataLayout::getTypeSizeInBits((this + 224), *v50) + 7) >> 3);
-                LODWORD(v150) = v90 == 1;
-                v91 = llvm::TypeSize::operator unsigned long long();
-                LODWORD(v92) = v91 >> 2;
+                v147 = ((llvm::DataLayout::getTypeSizeInBits((this + 224), *v50) + 7) >> 3);
+                LODWORD(v148) = v91 == 1;
+                v92 = llvm::TypeSize::operator unsigned long long();
+                LODWORD(v93) = v92 >> 2;
                 if ((*(*v50 + 8) & 0xFE) == 0x10)
                 {
-                  v93 = *(**(*v50 + 16) + 24);
-                  llvm::ArrayType::get(v93, v92);
+                  v94 = *(**(*v50 + 16) + 24);
+                  llvm::ArrayType::get(v94, v93);
                   InsertValue = llvm::UndefValue::get();
-                  v139 = 0;
-                  if (v91 >= 4)
+                  v137 = 0;
+                  if (v92 >= 4)
                   {
-                    v99 = v52 - 1;
-                    v100 = v153;
+                    v100 = v52 - 1;
+                    v101 = v151;
                     do
                     {
-                      v101 = AGCLLVMAGPVertexShaderRegular::createExtractFromVertexAttribute(this, v40, v100, v154);
-                      v102 = *(*this - 24);
-                      v152 = 257;
-                      v103 = llvm::IRBuilderBase::CreateCast(&v43[v102], 49, v101, v93, &v149);
-                      v138 = 257;
-                      InsertValue = llvm::IRBuilderBase::CreateInsertValue(&v43[v102], InsertValue, v103, &v139, 1, v137);
-                      v100 = v153;
-                      ++*(v153 + v99);
-                      ++v139;
+                      v102 = AGCLLVMAGPVertexShaderRegular::createExtractFromVertexAttribute(this, v40, v101, v152);
+                      v103 = *(*this - 24);
+                      v150 = 257;
+                      v104 = llvm::IRBuilderBase::CreateCast(&v43[v103], 49, v102, v94, &v147);
+                      v136 = 257;
+                      InsertValue = llvm::IRBuilderBase::CreateInsertValue(&v43[v103], InsertValue, v104, &v137, 1, v135);
+                      v101 = v151;
+                      ++*(v151 + v100);
+                      ++v137;
                     }
 
-                    while (v139 < v92);
+                    while (v137 < v93);
                   }
 
-                  v104 = *v50;
                   v105 = llvm::UndefValue::get();
                   v106 = *(*this - 24);
-                  v137[0] = 0;
-                  v152 = 257;
-                  llvm::IRBuilderBase::CreateInsertValue(&v43[v106], v105, InsertValue, v137, 1, &v149);
+                  v135[0] = 0;
+                  v150 = 257;
+                  llvm::IRBuilderBase::CreateInsertValue(&v43[v106], v105, InsertValue, v135, 1, &v147);
 LABEL_113:
-                  Alloca = v130;
+                  Alloca = v129;
                   goto LABEL_114;
                 }
 
-                v95 = *(v50 - 4);
-                if (*(v95 + 16) != 62)
+                v96 = *(v50 - 4);
+                if (*(v96 + 16) != 62)
                 {
-                  v107 = **(**(v95 - 32) + 16);
+                  v107 = **(**(v96 - 32) + 16);
                   llvm::FixedVectorType::get();
                   InsertElement = llvm::UndefValue::get();
-                  if (v91 >= 4)
+                  if (v92 >= 4)
                   {
                     v109 = 0;
-                    v131 = v107;
+                    v130 = v107;
                     v110 = v52 - 1;
-                    if (v92 <= 1)
+                    if (v93 <= 1)
                     {
-                      v92 = 1;
+                      v93 = 1;
                     }
 
                     else
                     {
-                      v92 = v92;
+                      v93 = v93;
                     }
 
-                    v111 = v153;
+                    v111 = v151;
                     do
                     {
-                      v112 = AGCLLVMAGPVertexShaderRegular::createExtractFromVertexAttribute(this, v40, v111, v154);
+                      v112 = AGCLLVMAGPVertexShaderRegular::createExtractFromVertexAttribute(this, v40, v111, v152);
                       v113 = this + *(*this - 24);
-                      v152 = 257;
-                      v114 = llvm::IRBuilderBase::CreateCast((v113 + 1712), 49, v112, v131, &v149);
-                      v138 = 257;
-                      v115 = *(v113 + 238);
-                      v116 = llvm::ConstantInt::get();
-                      v117 = (v113 + 1712);
-                      v40 = v132;
-                      InsertElement = llvm::IRBuilderBase::CreateInsertElement(v117, InsertElement, v114, v116, v137);
-                      v111 = v153;
-                      ++*(v153 + v110);
+                      v150 = 257;
+                      v114 = llvm::IRBuilderBase::CreateCast((v113 + 1712), 49, v112, v130, &v147);
+                      v136 = 257;
+                      v115 = llvm::ConstantInt::get();
+                      v116 = (v113 + 1712);
+                      v40 = v131;
+                      InsertElement = llvm::IRBuilderBase::CreateInsertElement(v116, InsertElement, v114, v115, v135);
+                      v111 = v151;
+                      ++*(v151 + v110);
                       ++v109;
                     }
 
-                    while (v92 != v109);
+                    while (v93 != v109);
                   }
 
-                  v118 = *(*this - 24);
-                  v119 = *v50;
-                  v152 = 257;
-                  llvm::IRBuilderBase::CreateCast(&v43[v118], 49, InsertElement, v119, &v149);
+                  v117 = *(*this - 24);
+                  v118 = *v50;
+                  v150 = 257;
+                  llvm::IRBuilderBase::CreateCast(&v43[v117], 49, InsertElement, v118, &v147);
                   goto LABEL_113;
                 }
 
-                v96 = AGCLLVMAGPVertexShaderRegular::createExtractFromVertexAttribute(this, v40, v153, v154);
-                v97 = *(*this - 24);
-                v98 = *v50;
-                v152 = 257;
-                llvm::IRBuilderBase::CreateCast(&v43[v97], 49, v96, v98, &v149);
+                v97 = AGCLLVMAGPVertexShaderRegular::createExtractFromVertexAttribute(this, v40, v151, v152);
+                v98 = *(*this - 24);
+                v99 = *v50;
+                v150 = 257;
+                llvm::IRBuilderBase::CreateCast(&v43[v98], 49, v97, v99, &v147);
 LABEL_114:
-                v71 = v153;
-                v72 = v155;
+                v73 = v151;
+                v74 = v153;
 LABEL_115:
-                if (v71 != v72)
+                if (v73 != v74)
                 {
-                  free(v71);
+                  free(v73);
                 }
 
 LABEL_117:
-                v120 = *(v50 - 4);
+                v119 = *(v50 - 4);
                 llvm::Value::replaceAllUsesWith();
                 llvm::Instruction::eraseFromParent(v50);
-                if (!*(v120 + 8))
+                if (!*(v119 + 8))
                 {
-                  v148 = 0;
+                  v146 = 0;
                   llvm::RecursivelyDeleteTriviallyDeadInstructions();
-                  std::__function::__value_func<void ()(llvm::Value *)>::~__value_func[abi:nn200100](v147);
+                  std::__function::__value_func<void ()(llvm::Value *)>::~__value_func[abi:nn200100](v145);
                 }
 
-                if (TypeAllocSize != &v159)
+                if (TypeAllocSize != &v157)
                 {
                   free(TypeAllocSize);
                 }
               }
 
-              while (v169);
+              while (v167);
             }
           }
 
-          if (v163 != &v165)
+          if (v161 != &v163)
           {
-            free(v163);
+            free(v161);
           }
         }
 
-        if (v173 == 1)
+        if (v171 == 1)
         {
-          llvm::DenseMapBase<llvm::DenseMap<llvm::Metadata const*,llvm::TrackingMDRef,llvm::DenseMapInfo<llvm::Metadata const*,void>,llvm::detail::DenseMapPair<llvm::Metadata const*,llvm::TrackingMDRef>>,llvm::Metadata const*,llvm::TrackingMDRef,llvm::DenseMapInfo<llvm::Metadata const*,void>,llvm::detail::DenseMapPair<llvm::Metadata const*,llvm::TrackingMDRef>>::destroyAll(&v171);
-          llvm::deallocate_buffer(v171, (16 * v172));
-          v173 = 0;
+          llvm::DenseMapBase<llvm::DenseMap<llvm::Metadata const*,llvm::TrackingMDRef,llvm::DenseMapInfo<llvm::Metadata const*,void>,llvm::detail::DenseMapPair<llvm::Metadata const*,llvm::TrackingMDRef>>,llvm::Metadata const*,llvm::TrackingMDRef,llvm::DenseMapInfo<llvm::Metadata const*,void>,llvm::detail::DenseMapPair<llvm::Metadata const*,llvm::TrackingMDRef>>::destroyAll(&v169);
+          llvm::deallocate_buffer(v170, v169, (16 * v170));
+          v171 = 0;
         }
 
-        v121 = v168;
-        if (v170)
+        v120 = v168;
+        v121 = v166;
+        if (v168)
         {
-          v158 = 2;
+          v156 = 2;
+          v157 = 0;
+          v158 = -4096;
           v159 = 0;
-          v160 = -4096;
-          v161 = 0;
           TypeAllocSize = &unk_28257BDA0;
-          v164 = 2;
+          v162 = 2;
+          v163 = 0;
+          v164 = -8192;
+          v161 = &unk_28257BDA0;
           v165 = 0;
-          v166 = -8192;
-          v163 = &unk_28257BDA0;
-          v167 = 0;
-          v122 = v168 + 56;
-          v123 = v170 << 7;
+          v122 = v166 + 56;
+          v123 = v168 << 7;
           do
           {
             v124 = *(v122 - 32);
-            if (v124 != v160 && v124 != v166)
+            if (v124 != v158 && v124 != v164)
             {
               v126 = *(v122 - 16);
               if (v122 != v126)
@@ -5652,18 +5066,19 @@ LABEL_117:
           }
 
           while (v123);
-          if (v166 != -8192 && v166 != -4096 && v166)
+          if (v164 != -8192 && v164 != -4096 && v164)
           {
-            llvm::ValueHandleBase::RemoveFromUseList(&v164);
+            llvm::ValueHandleBase::RemoveFromUseList(&v162);
           }
 
-          if (v160 != -8192 && v160 != -4096 && v160)
+          if (v158 != -8192 && v158 != -4096 && v158)
           {
-            llvm::ValueHandleBase::RemoveFromUseList(&v158);
+            llvm::ValueHandleBase::RemoveFromUseList(&v156);
           }
 
-          v121 = v168;
-          v128 = (v170 << 7);
+          v121 = v166;
+          v120 = v168;
+          v128 = (v168 << 7);
         }
 
         else
@@ -5671,13 +5086,10 @@ LABEL_117:
           v128 = 0;
         }
 
-        llvm::deallocate_buffer(v121, v128);
+        llvm::deallocate_buffer(v120, v121, v128);
       }
     }
   }
-
-LABEL_152:
-  v129 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t AGCLLVMUserVertexShader::createVIRead(void *a1, uint64_t a2, uint64_t a3)
@@ -5696,7 +5108,7 @@ uint64_t AGCLLVMUserVertexShader::createVIRead(void *a1, uint64_t a2, uint64_t a
   return v7;
 }
 
-llvm::Value *AGCLLVMGen6TargetLowerer<RaytracingConstantsGen1>::getVertexInputCall(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+llvm::Instruction *AGCLLVMGen6TargetLowerer<RaytracingConstantsGen1>::getVertexInputCall(unsigned int **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v11 = *a2;
   v12 = *(a2 + 16);
@@ -5712,48 +5124,67 @@ llvm::Value *AGCLLVMGen6TargetLowerer<RaytracingConstantsGen1>::getVertexInputCa
     llvm::MetadataTracking::untrack();
   }
 
-  v7 = (*(*a1 + 456))(a1, a4);
+  v7 = (*(*a1 + 57))(a1, a4);
   v10 = 257;
-  return llvm::IRBuilderBase::CreateCall(a1 + 8, *(v7 + 24), v7, 0, 0, v9);
+  return llvm::IRBuilderBase::CreateCall(a1 + 1, *(v7 + 24), v7, 0, 0, v9);
 }
 
 uint64_t AGCLLVMGen6TargetLowerer<RaytracingConstantsGen1>::getVertexInputIntrinsic(uint64_t a1, int a2)
 {
   if (a2 <= 4)
   {
-    if ((a2 - 1) >= 2 && (a2 - 3) >= 2)
+    if ((a2 - 1) < 2)
     {
-      return 0;
+      v2 = "llvm.agx3.instance.id";
+      v3 = 21;
     }
 
-LABEL_14:
-    v2 = 200;
-    goto LABEL_15;
+    else
+    {
+      if ((a2 - 3) >= 2)
+      {
+        return 0;
+      }
+
+      v2 = "llvm.agx3.vertex.id";
+      v3 = 19;
+    }
+
+    goto LABEL_17;
   }
 
   if (a2 <= 6)
   {
-    if (a2 == 5)
+    if (a2 != 5)
     {
-      goto LABEL_14;
+      v2 = "llvm.agx3.position.in.patch.u";
+LABEL_14:
+      v3 = 29;
+      v4 = 168;
+      return AGCLLVMBuilder::getOrInsertFunction<>(a1, v2, v3, *(a1 + v4));
     }
 
-LABEL_13:
-    v2 = 168;
-    goto LABEL_15;
+    v2 = "llvm.agx3.transform.feedback.vertex.id";
+    v3 = 38;
+LABEL_17:
+    v4 = 200;
+    return AGCLLVMBuilder::getOrInsertFunction<>(a1, v2, v3, *(a1 + v4));
   }
 
   switch(a2)
   {
     case 7:
-      goto LABEL_13;
-    case 8:
+      v2 = "llvm.agx3.position.in.patch.v";
       goto LABEL_14;
+    case 8:
+      v2 = "llvm.agx3.patch.id";
+      v3 = 18;
+      goto LABEL_17;
     case 9:
-      v2 = 192;
-LABEL_15:
-      v3 = *(a1 + v2);
-      return AGCLLVMBuilder::getOrInsertFunction<>(a1);
+      v2 = "llvm.agx3.patch.ring.edge.vertex";
+      v3 = 32;
+      v4 = 192;
+      return AGCLLVMBuilder::getOrInsertFunction<>(a1, v2, v3, *(a1 + v4));
   }
 
   return 0;
@@ -5761,69 +5192,59 @@ LABEL_15:
 
 uint64_t AGCLLVMUserVertexShader::setupShaderWrapper(llvm::Function **this)
 {
-  v18[16] = *MEMORY[0x277D85DE8];
+  v13[16] = *MEMORY[0x277D85DE8];
   v2 = AGCLLVMUserObject::setupShaderWrapper(this);
   if (v2)
   {
-    v3 = *(this + *(*this - 3) + 2136);
     Function = llvm::Module::getFunction();
     if (Function)
     {
-      v5 = Function;
-      v17[0] = v18;
-      v17[1] = 0x1000000000;
-      v6 = this[20];
-      if (*(v6 + 18))
+      v4 = Function;
+      v12[0] = v13;
+      v12[1] = 0x1000000000;
+      v5 = this[20];
+      if (*(v5 + 18))
       {
         llvm::Function::BuildLazyArguments(this[20]);
-        v8 = this[20];
-        v7 = *(v6 + 11);
-        if (*(v8 + 9))
+        v7 = this[20];
+        v6 = *(v5 + 11);
+        if (*(v7 + 9))
         {
-          llvm::Function::BuildLazyArguments(v8);
+          llvm::Function::BuildLazyArguments(v7);
         }
 
-        v6 = v8;
+        v5 = v7;
       }
 
       else
       {
-        v7 = *(v6 + 11);
+        v6 = *(v5 + 11);
       }
 
-      v9 = *(v6 + 11) + 40 * *(v6 + 12);
-      while (v7 != v9)
+      v8 = *(v5 + 11) + 40 * *(v5 + 12);
+      while (v6 != v8)
       {
-        llvm::SmallVectorTemplateBase<llvm::Metadata *,true>::push_back(v17, v7);
-        v7 += 40;
+        llvm::SmallVectorTemplateBase<llvm::Metadata *,true>::push_back(v12, v6);
+        v6 += 40;
       }
 
-      v10 = *(v5 + 1);
-      while (v10)
+      v9 = *(v4 + 1);
+      while (v9)
       {
-        v11 = *(v10 + 24);
-        v12 = *(v11 - 4 * (*(v11 + 5) & 0x7FFFFFF));
-        v13 = (v12 + 24);
-        if (*(v12 + 32) >= 0x41u)
-        {
-          v13 = *v13;
-        }
-
-        v10 = *(v10 + 8);
-        v14 = *(v17[0] + *v13);
+        v10 = *(v9 + 24);
+        v9 = *(v9 + 8);
         llvm::Value::replaceAllUsesWith();
-        llvm::Instruction::eraseFromParent(v11);
+        llvm::Instruction::eraseFromParent(v10);
       }
 
-      llvm::Function::eraseFromParent(v5);
-      if (v17[0] != v18)
+      llvm::Function::eraseFromParent(v4);
+      if (v12[0] != v13)
       {
-        free(v17[0]);
+        free(v12[0]);
       }
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -5874,11 +5295,9 @@ uint64_t AGCLLVMUserVertexShader::wrapperFunctionType(AGCLLVMUserVertexShader *t
   v1 = *(this + 1310);
   if (v1)
   {
-    v2 = this + *(*this - 24);
     std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::User *>>(v1);
   }
 
-  v3 = *(this + *(*this - 24) + 1848);
   return llvm::FunctionType::get();
 }
 
@@ -5894,11 +5313,10 @@ uint64_t AGCLLVMUserVertexShader::addWrapperPostfix(uint64_t this)
     {
       llvm::Type::getVoidTy(*(v3 + *(*v3 - 24) + 2160), v4);
       llvm::FunctionType::get();
-      v5 = *(v3 + *(*v3 - 24) + 2136);
       llvm::Module::getOrInsertFunction();
-      v6 = v3 + *(*v3 - 24);
-      v9 = 257;
-      return llvm::IRBuilderBase::CreateCall((v6 + 1712), *(v7 + 24), v7, 0, 0, v8);
+      v5 = (v3 + *(*v3 - 24));
+      v8 = 257;
+      return llvm::IRBuilderBase::CreateCall(v5 + 214, *(v6 + 24), v6, 0, 0, v7);
     }
   }
 
@@ -5907,41 +5325,38 @@ uint64_t AGCLLVMUserVertexShader::addWrapperPostfix(uint64_t this)
 
 BOOL AGCLLVMAGPVertexShader::setupShaderOutputs(AGCLLVMAGPVertexShader *this)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = this + 4096;
   v3 = AGCLLVMUserVertexShader::setupShaderOutputs(this);
-  v4 = (this + *(*this - 24));
-  if (**(*(*(this + 21) + 24) + 16) == v4[231] && *(v4[271] + 1841) == 1)
+  v4 = this + *(*this - 24);
+  if (**(*(*(this + 21) + 24) + 16) == *(v4 + 231) && *(*(v4 + 271) + 1841) == 1)
   {
-    v5 = v4[234];
-    v6 = llvm::ConstantFP::get();
-    v7 = *(this + *(*this - 24) + 1872);
-    __p.__r_.__value_.__r.__words[0] = v6;
-    __p.__r_.__value_.__l.__size_ = v6;
-    __p.__r_.__value_.__r.__words[2] = v6;
-    v46 = llvm::ConstantFP::get();
-    v8 = llvm::ConstantVector::get();
-    v9 = this + *(*this - 24);
-    v10 = *(this + 681);
-    v11 = *(this + 683);
-    v12 = *(this + 682);
-    v47 = 257;
-    Mul = llvm::IRBuilderBase::CreateMul((v9 + 1712), v11, v12, &__p);
-    v44 = 257;
-    Add = llvm::IRBuilderBase::CreateAdd((v9 + 1712), v10, Mul, &__dst);
-    AGCLLVMUserVertexShader::replaceOutputUses(this, v8, Add, 0, v2[1212], 4u);
+    __p.__r_.__value_.__r.__words[0] = llvm::ConstantFP::get();
+    __p.__r_.__value_.__l.__size_ = __p.__r_.__value_.__r.__words[0];
+    __p.__r_.__value_.__r.__words[2] = __p.__r_.__value_.__r.__words[0];
+    v39 = llvm::ConstantFP::get();
+    v5 = llvm::ConstantVector::get();
+    v6 = this + *(*this - 24);
+    v7 = *(this + 681);
+    v8 = *(this + 683);
+    v9 = *(this + 682);
+    v40 = 257;
+    Mul = llvm::IRBuilderBase::CreateMul((v6 + 1712), v8, v9, &__p);
+    v37 = 257;
+    Add = llvm::IRBuilderBase::CreateAdd((v6 + 1712), v7, Mul, &__dst);
+    AGCLLVMUserVertexShader::replaceOutputUses(this, v5, Add, 0, v2[1212], 4u);
   }
 
-  v15 = *(this + 2451);
-  if (v15)
+  v12 = *(this + 2451);
+  if (v12)
   {
     if (AGCTargetPrinter::isValidToPrintMessage(*(this + *(*this - 24) + 1696)))
     {
       AGCTargetPrinter::printMessage(*(this + *(*this - 24) + 1696), "Following fragment input(s) mismatching vertex shader output type(s) or not written by vertex shader: ");
     }
 
-    v16 = *(this + 2450);
-    if (v16)
+    v13 = *(this + 2450);
+    if (v13)
     {
         ;
       }
@@ -5952,18 +5367,18 @@ BOOL AGCLLVMAGPVertexShader::setupShaderOutputs(AGCLLVMAGPVertexShader *this)
       i = *(this + 1224);
     }
 
-    v19 = *(this + 1224) + 8 * v16;
-    if (i != v19)
+    v16 = *(this + 1224) + 8 * v13;
+    if (i != v16)
     {
-      v20 = this + 1696;
+      v17 = this + 1696;
       do
       {
-        if (AGCTargetPrinter::isValidToPrintMessage(*&v20[*(*this - 24)]))
+        if (AGCTargetPrinter::isValidToPrintMessage(*&v17[*(*this - 24)]))
         {
-          v21 = *&v20[*(*this - 24)];
+          v18 = *&v17[*(*this - 24)];
           std::string::basic_string[abi:nn200100](&__p, (*i + 16), **i);
-          v22 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
-          AGCTargetPrinter::printMessage(v21, "\t%s", v22);
+          v19 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
+          AGCTargetPrinter::printMessage(v18, "\t%s", v19);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
@@ -5972,28 +5387,28 @@ BOOL AGCLLVMAGPVertexShader::setupShaderOutputs(AGCLLVMAGPVertexShader *this)
 
         do
         {
-          v24 = *(i + 8);
+          v21 = *(i + 8);
           i += 8;
-          v23 = v24;
-          if (v24)
+          v20 = v21;
+          if (v21)
           {
-            v25 = v23 == -8;
+            v22 = v20 == -8;
           }
 
           else
           {
-            v25 = 1;
+            v22 = 1;
           }
         }
 
-        while (v25);
+        while (v22);
       }
 
-      while (i != v19);
+      while (i != v16);
     }
 
-    v26 = *(this + 2450);
-    if (v26)
+    v23 = *(this + 2450);
+    if (v23)
     {
         ;
       }
@@ -6004,14 +5419,14 @@ BOOL AGCLLVMAGPVertexShader::setupShaderOutputs(AGCLLVMAGPVertexShader *this)
       j = *(this + 1224);
     }
 
-    v29 = *(this + 1224) + 8 * v26;
-    if (j != v29)
+    v26 = *(this + 1224) + 8 * v23;
+    if (j != v26)
     {
-      v30 = this + 1656;
-      v31 = &unk_20E75F419;
+      v27 = this + 1656;
+      v28 = &unk_20E75F419;
       do
       {
-        std::string::append(&v30[*(*this - 24)], v31);
+        std::string::append(&v27[*(*this - 24)], v28);
         std::string::basic_string[abi:nn200100](&__dst, (*j + 16), **j);
         attribute_name(&__p, &__dst);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -6034,7 +5449,7 @@ BOOL AGCLLVMAGPVertexShader::setupShaderOutputs(AGCLLVMAGPVertexShader *this)
           size = __p.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(&v30[*(*this - 24)], p_p, size);
+        std::string::append(&v27[*(*this - 24)], p_p, size);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -6047,86 +5462,71 @@ BOOL AGCLLVMAGPVertexShader::setupShaderOutputs(AGCLLVMAGPVertexShader *this)
 
         do
         {
-          v35 = *(j + 8);
+          v32 = *(j + 8);
           j += 8;
-          v34 = v35;
-          if (v35)
+          v31 = v32;
+          if (v32)
           {
-            v36 = v34 == -8;
+            v33 = v31 == -8;
           }
 
           else
           {
-            v36 = 1;
+            v33 = 1;
           }
         }
 
-        while (v36);
-        v31 = ",";
+        while (v33);
+        v28 = ",";
       }
 
-      while (j != v29);
+      while (j != v26);
     }
   }
 
   if (v2[1200] == 1)
   {
-    v37 = *(this + *(*this - 24) + 2136);
     llvm::Module::getOrInsertNamedMetadata();
     if (*(this + 1326) > 1u)
     {
-      v39 = 0;
+      v34 = 0;
     }
 
     else
     {
-      v38 = *(this + *(*this - 24) + 1776);
-      v39 = llvm::MDString::get();
+      v34 = llvm::MDString::get();
     }
 
-    v40 = *(this + *(*this - 24) + 2160);
-    __p.__r_.__value_.__r.__words[0] = v39;
+    __p.__r_.__value_.__r.__words[0] = v34;
     llvm::MDTuple::getImpl();
     llvm::NamedMDNode::addOperand();
   }
 
-  if (v15)
-  {
-    result = 0;
-  }
-
-  else
-  {
-    result = v3;
-  }
-
-  v42 = *MEMORY[0x277D85DE8];
-  return result;
+  return !v12 && v3;
 }
 
 BOOL AGCLLVMUserVertexShader::setupShaderOutputs(AGCLLVMUserVertexShader *this)
 {
-  v682 = *MEMORY[0x277D85DE8];
+  v594 = *MEMORY[0x277D85DE8];
   v2 = this + 4096;
-  v3 = *(this + *(*this - 24) + 2136);
   Function = llvm::Module::getFunction();
-  v5 = *(*(Function + 8) + 24);
-  v6 = llvm::CallBase::arg_end(v5);
-  v600 = v5;
-  v7 = (v5 - 32 * (*(v5 + 5) & 0x7FFFFFF));
-  if (((v6 - v7) & 0x1FFFFFFFE0) != 0)
+  v4 = *(*(Function + 8) + 24);
+  v5 = llvm::CallBase::arg_end(v4);
+  v512 = v4;
+  v6 = (v4 - 32 * (*(v4 + 5) & 0x7FFFFFF));
+  if (((v5 - v6) & 0x1FFFFFFFE0) != 0)
   {
-    v8 = *v7;
-    v9 = **v7;
-    v615 = v9;
-    if (*(v9 + 8) == 16)
+    v7 = *v6;
+    v8 = **v6;
+    v527 = v8;
+    if (*(v8 + 8) == 16)
     {
-      v10 = *(v9 + 12);
-      v668 = v670;
-      v669 = 0x1000000000;
-      v665 = v667;
-      v666 = 0x1000000000;
-      if (!v10)
+      v9 = *(v8 + 12);
+      v580 = v582;
+      v581 = 0x1000000000;
+      v577 = v579;
+      v578 = 0x1000000000;
+      if (!v9)
       {
         goto LABEL_6;
       }
@@ -6134,127 +5534,125 @@ BOOL AGCLLVMUserVertexShader::setupShaderOutputs(AGCLLVMUserVertexShader *this)
 
     else
     {
-      v668 = v670;
-      v669 = 0x1000000000;
-      v665 = v667;
-      v666 = 0x1000000000;
-      v10 = 1;
+      v580 = v582;
+      v581 = 0x1000000000;
+      v577 = v579;
+      v578 = 0x1000000000;
+      v9 = 1;
     }
 
-    llvm::SmallVectorImpl<unsigned int>::append(&v665, v10);
-    v11 = 0;
+    llvm::SmallVectorImpl<unsigned int>::append(&v577, v9);
+    v10 = 0;
     goto LABEL_9;
   }
 
-  v10 = 0;
-  v8 = 0;
-  v615 = 0;
-  v668 = v670;
-  v669 = 0x1000000000;
-  v665 = v667;
-  v666 = 0x1000000000;
+  v9 = 0;
+  v7 = 0;
+  v527 = 0;
+  v580 = v582;
+  v581 = 0x1000000000;
+  v577 = v579;
+  v578 = 0x1000000000;
 LABEL_6:
-  v11 = 1;
+  v10 = 1;
 LABEL_9:
-  memset(v664, 0, sizeof(v664));
-  v622 = 0;
-  v12 = *(this + *(*this - 24) + 1888);
+  memset(v576, 0, sizeof(v576));
+  v534 = 0;
   NullValue = llvm::ConstantInt::get();
-  v13 = *(this + *(*this - 24) + 1888);
-  v596 = llvm::ConstantInt::get();
-  llvm::IRBuilderBase::SetInsertPoint((this + *(*this - 24) + 1712), v600);
-  v662[0] = v663;
-  v662[1] = 0x800000000;
-  llvm::SmallVectorImpl<llvm::Value *>::assign(v662, v10, 0);
-  v618 = this;
-  v612 = v2;
-  v594 = v8;
-  v593 = Function;
-  if (v11)
+  v508 = llvm::ConstantInt::get();
+  llvm::IRBuilderBase::SetInsertPoint((this + *(*this - 24) + 1712), v512);
+  v574[0] = v575;
+  v574[1] = 0x800000000;
+  llvm::SmallVectorImpl<llvm::Value *>::assign(v574, v9, 0);
+  v530 = this;
+  v524 = v2;
+  v506 = v7;
+  v505 = Function;
+  if (v10)
   {
-    v595 = 0;
-    v613 = 0;
+    v507 = 0;
+    v525 = 0;
   }
 
   else
   {
-    if (*(v615 + 8) == 16)
+    if (*(v527 + 8) == 16)
     {
-      AGCLLVMBuilder::unboxStruct(this + *(*this - 24) + 1704, v8, v662);
+      AGCLLVMBuilder::unboxStruct(this + *(*this - 24) + 1704, v7, v574);
     }
 
     else
     {
-      *v662[0] = v8;
+      *v574[0] = v7;
     }
 
-    v77 = 0;
-    v78 = 0;
-    v613 = 0;
-    v595 = 0;
-    v609 = this + 1704;
+    v74 = 0;
+    v75 = 0;
+    v525 = 0;
+    v507 = 0;
+    v521 = this + 1704;
     do
     {
-      v79 = *(*(v618 + 8) - 8 * *(*(v618 + 8) + 8) + 8 * v77);
-      v80 = (v79 + 8);
-      String = llvm::MDString::getString(*(v79 - 8 * *(v79 + 8)));
-      v83 = v82;
-      v84 = *(v662[0] + v77);
+      v76 = *(*(v530 + 8) - 8 * *(*(v530 + 8) + 8) + 8 * v74);
+      v77 = (v76 + 8);
+      String = llvm::MDString::getString(*(v76 - 8 * *(v76 + 8)));
+      v80 = v79;
+      v81 = *(v574[0] + v74);
       if (v2[1202] == 1)
       {
-        v85 = v79 + 8;
-        v86 = 1;
+        v82 = v76 + 8;
+        v83 = 1;
         while (1)
         {
-          v87 = *v80;
-          if (v86 >= v87)
+          v84 = *v77;
+          if (v83 >= v84)
           {
 LABEL_99:
-            v88 = 1;
+            v85 = 1;
             goto LABEL_102;
           }
 
-          if (isStringMDNode(*(v85 - 8 * v87), "air.shared"))
+          if (isStringMDNode(*(v82 - 8 * v84), "air.shared"))
           {
             break;
           }
 
-          ++v86;
-          v85 += 8;
-          if (v612[1202] != 1)
+          ++v83;
+          v82 += 8;
+          if (v524[1202] != 1)
           {
             goto LABEL_99;
           }
         }
 
-        v88 = 0;
+        v85 = 0;
 LABEL_102:
-        v2 = v612;
+        v2 = v524;
       }
 
       else
       {
-        v88 = 0;
+        v85 = 0;
       }
 
-      if (v83 <= 16)
+      if (v80 <= 16)
       {
-        if (v83 == 12)
+        if (v80 == 12)
         {
           if (*String == 0x69736F702E726961 && *(String + 8) == 1852795252)
           {
-            v2[1212] = v88;
-            v101 = *v80;
-            if (v101 >= 2)
+            v2[1212] = v85;
+            v98 = *v77;
+            if (v98 >= 2)
             {
-              v102 = v79 + 8;
-              v103 = 1;
-              while (!isStringMDNode(*(v102 - 8 * v101), "air.invariant"))
+              v99 = v76 + 8;
+              v100 = 1;
+              while (!isStringMDNode(*(v99 - 8 * v98), "air.invariant"))
               {
-                ++v103;
-                v101 = *v80;
-                v102 += 8;
-                if (v103 >= v101)
+                ++v100;
+                v98 = *v77;
+                v99 += 8;
+                if (v100 >= v98)
                 {
                   goto LABEL_184;
                 }
@@ -6264,27 +5662,27 @@ LABEL_102:
             }
 
 LABEL_184:
-            v613 = v84;
+            v525 = v81;
           }
         }
 
-        else if (v83 == 14 && *String == 0x6E696F702E726961 && *(String + 6) == 0x657A69735F746E69)
+        else if (v80 == 14 && *String == 0x6E696F702E726961 && *(String + 6) == 0x657A69735F746E69)
         {
-          v2[1213] = v88;
-          v595 = v84;
+          v2[1213] = v85;
+          v507 = v81;
         }
       }
 
       else
       {
-        switch(v83)
+        switch(v80)
         {
           case 17:
             if (*String == 0x70696C632E726961 && *(String + 8) == 0x636E61747369645FLL && *(String + 16) == 101)
             {
-              v104 = (*(*v618 + 504))(v618, v84, v79, v664, &v622);
-              v2[1216] = v88;
-              if ((v104 & 1) == 0)
+              v101 = (*(*v530 + 504))(v530, v81, v76, v576, &v534);
+              v2[1216] = v85;
+              if ((v101 & 1) == 0)
               {
                 goto LABEL_559;
               }
@@ -6293,17 +5691,17 @@ LABEL_184:
             else if (*String == 0x747265762E726961 && *(String + 8) == 0x757074756F5F7865 && *(String + 16) == 116)
             {
               __p = 0;
-              v632 = 0;
-              v633 = 0;
-              if ((*(*v618 + 512))(v618, v615, v77, v79, &v628, v88))
+              v544 = 0;
+              v545 = 0;
+              if ((*(*v530 + 512))(v530, v527, v74, v76, &v540, v85))
               {
-                llvm::SmallVectorTemplateBase<std::pair<unsigned int,llvm::MDNode *>,true>::push_back(&v668, v630, v84);
-                GenericVaryingAllocator::addVarying(v618 + 4536, &v628);
+                llvm::SmallVectorTemplateBase<std::pair<unsigned int,llvm::MDNode *>,true>::push_back(&v580, v542, v81);
+                GenericVaryingAllocator::addVarying(v530 + 4536, &v540);
               }
 
               else
               {
-                if ((*(*v84 + 8) & 0xFE) == 0x12)
+                if ((*(*v81 + 8) & 0xFE) == 0x12)
                 {
                   {
                     AGCEnv::isEnabled(void)::is_internal = os_variant_has_internal_diagnostics();
@@ -6314,7 +5712,7 @@ LABEL_184:
                     goto LABEL_176;
                   }
 
-                  Value = AGCEnv::getValue("AGC_DISABLE_VARYING_SPLITTING", v97);
+                  Value = AGCEnv::getValue("AGC_DISABLE_VARYING_SPLITTING", v94);
                   if (!Value || *Value == 48 || !atoi(Value))
                   {
                     goto LABEL_176;
@@ -6327,38 +5725,38 @@ LABEL_184:
 
                 if (AGCEnv::isEnabled(void)::is_internal == 1)
                 {
-                  v106 = AGCEnv::getValue("AGC_FORCE_VARYING_SPLITTING", v97);
-                  if (v106)
+                  v103 = AGCEnv::getValue("AGC_FORCE_VARYING_SPLITTING", v94);
+                  if (v103)
                   {
-                    if (*v106 != 48 && atoi(v106))
+                    if (*v103 != 48 && atoi(v103))
                     {
 LABEL_176:
-                      *v677 = 0u;
-                      v678 = 0u;
-                      v107 = AGCLLVMBuilder::unboxVector(&v609[*(*v618 - 24)], v84, v677);
-                      if (v107)
+                      *v589 = 0u;
+                      v590 = 0u;
+                      v104 = AGCLLVMBuilder::unboxVector(&v521[*(*v530 - 24)], v81, v589);
+                      if (v104)
                       {
-                        v108 = 0;
-                        v109 = v107;
+                        v105 = 0;
+                        v106 = v104;
                         do
                         {
-                          if ((*(*v618 + 520))(v618, v615, v77, v79, &v628, v88, v108))
+                          if ((*(*v530 + 520))(v530, v527, v74, v76, &v540, v85, v105))
                           {
-                            llvm::SmallVectorTemplateBase<std::pair<unsigned int,llvm::MDNode *>,true>::push_back(&v668, v630, v677[v108]);
-                            GenericVaryingAllocator::addVarying(v618 + 4536, &v628);
+                            llvm::SmallVectorTemplateBase<std::pair<unsigned int,llvm::MDNode *>,true>::push_back(&v580, v542, v589[v105]);
+                            GenericVaryingAllocator::addVarying(v530 + 4536, &v540);
                           }
 
-                          ++v108;
+                          ++v105;
                         }
 
-                        while (v109 != v108);
+                        while (v106 != v105);
                       }
                     }
                   }
                 }
               }
 
-              if (SHIBYTE(v633) < 0)
+              if (SHIBYTE(v545) < 0)
               {
                 operator delete(__p);
               }
@@ -6368,188 +5766,188 @@ LABEL_176:
           case 24:
             if (*String == 0x776569762E726961 && *(String + 8) == 0x7272615F74726F70 && *(String + 16) == 0x7865646E695F7961)
             {
-              v2[1214] = v88;
+              v2[1214] = v85;
               v2[1153] = 1;
-              NullValue = v84;
+              NullValue = v81;
             }
 
             break;
           case 29:
-            v89 = *String == 0x646E65722E726961 && *(String + 8) == 0x65677261745F7265;
-            v90 = v89 && *(String + 16) == 0x5F79617272615F74;
-            if (v90 && *(String + 21) == 0x7865646E695F7961)
+            v86 = *String == 0x646E65722E726961 && *(String + 8) == 0x65677261745F7265;
+            v87 = v86 && *(String + 16) == 0x5F79617272615F74;
+            if (v87 && *(String + 21) == 0x7865646E695F7961)
             {
-              v2[1215] = v88;
+              v2[1215] = v85;
               v2[1154] = 1;
-              v596 = v84;
+              v508 = v81;
             }
 
             break;
         }
       }
 
-      v78 = ++v77 >= v10;
+      v75 = ++v74 >= v9;
     }
 
-    while (v77 != v10);
+    while (v74 != v9);
   }
 
-  v15 = v618;
-  v16 = *(v618 + 1316) & v622;
-  *(v618 + 1316) = v16;
-  v14.i32[0] = v16;
-  v17 = vcnt_s8(v14);
-  v17.i16[0] = vaddlv_u8(v17);
-  *(v618 + 1315) = v17.i32[0];
-  if (v16 && ((v2[1216] & 1) != 0 || v2[1212] == 1))
+  v12 = v530;
+  v13 = *(v530 + 1316) & v534;
+  *(v530 + 1316) = v13;
+  v11.i32[0] = v13;
+  v14 = vcnt_s8(v11);
+  v14.i16[0] = vaddlv_u8(v14);
+  *(v530 + 1315) = v14.i32[0];
+  if (v13 && ((v2[1216] & 1) != 0 || v2[1212] == 1))
   {
     v2[1216] = 1;
     v2[1212] = 1;
   }
 
-  v2[1152] = (*(*v618 + 544))(v618, v595);
+  v2[1152] = (*(*v530 + 544))(v530, v507);
   if (v2[1202] == 1)
   {
     if ((v2[1200] & 1) == 0)
     {
-      *(v618 + 660) = AGCLLVMUserVertexShader::getVertexAmpId(v618, *(v618 + 1326));
+      *(v530 + 660) = AGCLLVMUserVertexShader::getVertexAmpId(v530, *(v530 + 1326), v15);
       v2[1200] = 1;
     }
 
     if ((v2[1201] & 1) == 0)
     {
-      *(v618 + 661) = AGCLLVMUserVertexShader::getDriverGlobalConstant(v618, 0x54u);
+      *(v530 + 661) = AGCLLVMUserVertexShader::getDriverGlobalConstant(v530, 0x54u, v15);
       v2[1201] = 1;
     }
 
-    v18 = v618 + *(*v618 - 24);
-    v19 = *(v618 + 677);
-    LOWORD(v632) = 257;
-    Load = AGCLLVMBuilder::CreateLoad((v18 + 1704), v19, &v628);
-    v21 = v618 + *(*v618 - 24);
-    v22 = *(v618 + 678);
-    v23 = *(v618 + 660);
-    LOWORD(v632) = 257;
-    GEP = llvm::IRBuilderBase::CreateGEP((v21 + 1712), v22, Load, v23, &v628);
-    v25 = v618 + *(*v618 - 24);
-    LOWORD(v632) = 257;
-    v26 = AGCLLVMBuilder::CreateLoad((v25 + 1704), GEP, &v628);
-    v628 = &v630;
-    v629 = 0x800000000;
-    AGCLLVMBuilder::unboxStruct(v618 + *(*v618 - 24) + 1704, v26, &v628);
+    v16 = v530 + *(*v530 - 24);
+    v17 = *(v530 + 677);
+    LOWORD(v544) = 257;
+    Load = AGCLLVMBuilder::CreateLoad((v16 + 1704), v17, &v540);
+    v19 = v530 + *(*v530 - 24);
+    v20 = *(v530 + 678);
+    v21 = *(v530 + 660);
+    LOWORD(v544) = 257;
+    GEP = llvm::IRBuilderBase::CreateGEP((v19 + 1712), v20, Load, v21, &v540);
+    v23 = v530 + *(*v530 - 24);
+    LOWORD(v544) = 257;
+    v24 = AGCLLVMBuilder::CreateLoad((v23 + 1704), GEP, &v540);
+    v540 = &v542;
+    v541 = 0x800000000;
+    AGCLLVMBuilder::unboxStruct(v530 + *(*v530 - 24) + 1704, v24, &v540);
     if ((v2[1153] & 1) == 0)
     {
-      NullValue = llvm::Constant::getNullValue(**(v618 + 679), v27);
+      NullValue = llvm::Constant::getNullValue(**(v530 + 679), v25);
       v2[1153] = 1;
     }
 
     v2[1214] = 1;
-    v28 = AGCLLVMBuilder::truncateToSmall((v618 + *(*v618 - 24) + 1704), *v628, *NullValue);
-    *(v618 + 679) = v28;
-    v29 = v618 + *(*v618 - 24);
-    v30 = *v28;
-    LOWORD(v679) = 257;
-    Cast = llvm::IRBuilderBase::CreateCast((v29 + 1712), 39, NullValue, v30, v677);
-    v32 = v618 + *(*v618 - 24);
-    v33 = *(v618 + 679);
-    LOWORD(v679) = 257;
-    NullValue = llvm::IRBuilderBase::CreateAdd((v32 + 1712), Cast, v33, v677);
-    v35 = v596;
+    v26 = AGCLLVMBuilder::truncateToSmall((v530 + *(*v530 - 24) + 1704), *v540, *NullValue);
+    *(v530 + 679) = v26;
+    v27 = v530 + *(*v530 - 24);
+    v28 = *v26;
+    LOWORD(v591) = 257;
+    Cast = llvm::IRBuilderBase::CreateCast((v27 + 1712), 39, NullValue, v28, v589);
+    v30 = v530 + *(*v530 - 24);
+    v31 = *(v530 + 679);
+    LOWORD(v591) = 257;
+    NullValue = llvm::IRBuilderBase::CreateAdd((v30 + 1712), Cast, v31, v589);
+    v33 = v508;
     if ((v2[1154] & 1) == 0)
     {
-      v35 = llvm::Constant::getNullValue(**(v618 + 680), v34);
+      v33 = llvm::Constant::getNullValue(**(v530 + 680), v32);
       v2[1154] = 1;
     }
 
     v2[1215] = 1;
-    v36 = v35;
-    v37 = AGCLLVMBuilder::truncateToSmall((v618 + *(*v618 - 24) + 1704), *(v628 + 1), *v35);
-    *(v618 + 680) = v37;
-    v38 = v618 + *(*v618 - 24);
-    v39 = *v37;
-    LOWORD(v679) = 257;
-    v40 = llvm::IRBuilderBase::CreateCast((v38 + 1712), 39, v36, v39, v677);
-    v41 = v618 + *(*v618 - 24);
-    v42 = *(v618 + 680);
-    LOWORD(v679) = 257;
-    Add = llvm::IRBuilderBase::CreateAdd((v41 + 1712), v40, v42, v677);
-    if (v628 != &v630)
+    v34 = v33;
+    v35 = AGCLLVMBuilder::truncateToSmall((v530 + *(*v530 - 24) + 1704), *(v540 + 1), *v33);
+    *(v530 + 680) = v35;
+    v36 = v530 + *(*v530 - 24);
+    v37 = *v35;
+    LOWORD(v591) = 257;
+    v38 = llvm::IRBuilderBase::CreateCast((v36 + 1712), 39, v34, v37, v589);
+    v39 = v530 + *(*v530 - 24);
+    v40 = *(v530 + 680);
+    LOWORD(v591) = 257;
+    Add = llvm::IRBuilderBase::CreateAdd((v39 + 1712), v38, v40, v589);
+    if (v540 != &v542)
     {
-      v44 = Add;
-      free(v628);
-      Add = v44;
+      v42 = Add;
+      free(v540);
+      Add = v42;
     }
   }
 
   else
   {
-    Add = v596;
+    Add = v508;
   }
 
-  v45 = 0;
-  LOBYTE(v628) = 1;
-  BYTE1(v628) = v2[1200];
-  v629 = "air.amplification_id";
-  v630 = 20;
-  __p = *(v618 + 660);
-  v635 = 0;
-  v636 = 0;
-  v637 = 0;
-  v638 = 0;
-  v639 = v2[1201];
-  v640 = "air.amplification_count";
-  v641 = 23;
-  v642 = *(v618 + 661);
-  v643 = 0;
-  v644 = 0;
-  v645 = 0;
-  v646 = v2[1214];
-  v647 = v2[1153];
-  v648 = "air.viewport_array_index";
-  v649 = 24;
-  v650 = NullValue;
-  v651 = 0;
-  v653 = 0;
-  v652 = 0;
-  v654 = v2[1215];
-  v655 = v2[1154];
-  v602 = v618 + 1712;
-  v656 = "air.render_target_array_index";
-  v657 = 29;
-  v603 = v618 + 1704;
-  v597 = Add;
-  v658 = Add;
-  v659 = 0;
-  v660 = 0;
-  v661 = 0;
+  v43 = 0;
+  LOBYTE(v540) = 1;
+  BYTE1(v540) = v2[1200];
+  v541 = "air.amplification_id";
+  v542 = 20;
+  __p = *(v530 + 660);
+  v547 = 0;
+  v548 = 0;
+  v549 = 0;
+  v550 = 0;
+  v551 = v2[1201];
+  v552 = "air.amplification_count";
+  v553 = 23;
+  v554 = *(v530 + 661);
+  v555 = 0;
+  v556 = 0;
+  v557 = 0;
+  v558 = v2[1214];
+  v559 = v2[1153];
+  v560 = "air.viewport_array_index";
+  v561 = 24;
+  v562 = NullValue;
+  v563 = 0;
+  v565 = 0;
+  v564 = 0;
+  v566 = v2[1215];
+  v567 = v2[1154];
+  v514 = v530 + 1712;
+  v568 = "air.render_target_array_index";
+  v569 = 29;
+  v515 = v530 + 1704;
+  v509 = Add;
+  v570 = Add;
+  v571 = 0;
+  v572 = 0;
+  v573 = 0;
   do
   {
-    v46 = &v628 + v45;
-    if (!(*(*v15 + 528))(v15, *(&v628 + v45 + 8), *(&v630 + v45), &v632 + v45, *(&v628 + v45)))
+    v44 = &v540 + v43;
+    if (!(*(*v12 + 528))(v12, *(&v540 + v43 + 8), *(&v542 + v43), &v544 + v43, *(&v540 + v43)))
     {
       goto LABEL_65;
     }
 
-    v47 = *(*v15 - 24);
-    v48 = *(v46 + 3);
-    ComponentType = AGCLLVMBuilder::getComponentType(&v603[v47], *v48, v677);
-    if (v46[1] != 1)
+    v45 = *(*v12 - 24);
+    v46 = *(v44 + 3);
+    ComponentType = AGCLLVMBuilder::getComponentType(&v515[v45], *v46, v589);
+    if (v44[1] != 1)
     {
       goto LABEL_64;
     }
 
-    v50 = *(&v632 + v45 + 4);
+    v48 = *(&v544 + v43 + 4);
     if (ComponentType <= 3)
     {
       if (!ComponentType)
       {
-        if (!v50)
+        if (!v48)
         {
           goto LABEL_64;
         }
 
 LABEL_62:
-        v52 = AGCLLVMBuilder::truncateToSmall(&v603[v47], v48, v50);
+        v50 = AGCLLVMBuilder::truncateToSmall(&v515[v45], v46, v48);
         goto LABEL_63;
       }
 
@@ -6558,14 +5956,14 @@ LABEL_62:
         goto LABEL_53;
       }
 
-      if (v50 != 3)
+      if (v48 != 3)
       {
-        if (v50 == 6)
+        if (v48 == 6)
         {
           goto LABEL_50;
         }
 
-        if (v50 == 7)
+        if (v48 == 7)
         {
           goto LABEL_64;
         }
@@ -6580,14 +5978,14 @@ LABEL_62:
       {
         if (ComponentType == 5)
         {
-          if (v50 <= 6)
+          if (v48 <= 6)
           {
-            if (((1 << v50) & 0x59) != 0)
+            if (((1 << v48) & 0x59) != 0)
             {
               goto LABEL_50;
             }
 
-            if (v50 == 2)
+            if (v48 == 2)
             {
               goto LABEL_62;
             }
@@ -6598,7 +5996,7 @@ LABEL_62:
 
         if (ComponentType == 6)
         {
-          if (v50 == 6)
+          if (v48 == 6)
           {
             goto LABEL_64;
           }
@@ -6607,43 +6005,43 @@ LABEL_62:
         }
 
 LABEL_53:
-        if (v50 <= 3)
+        if (v48 <= 3)
         {
-          if (!v50)
+          if (!v48)
           {
             goto LABEL_50;
           }
 
-          if (v50 == 3)
+          if (v48 == 3)
           {
-            v53 = ComponentType > 7;
-            v54 = 1 << ComponentType;
-            v55 = 200;
+            v51 = ComponentType > 7;
+            v52 = 1 << ComponentType;
+            v53 = 200;
 LABEL_68:
-            v56 = v54 & v55;
-            if (!v53 && v56 != 0)
+            v54 = v52 & v53;
+            if (!v51 && v54 != 0)
             {
               goto LABEL_64;
             }
 
 LABEL_50:
-            v51 = *(v618 + v50 + 1214);
-            LOWORD(v679) = 257;
-            v52 = llvm::IRBuilderBase::CreateCast(&v602[v47], 39, v48, v51, v677);
+            v49 = *(v530 + v48 + 1214);
+            LOWORD(v591) = 257;
+            v50 = llvm::IRBuilderBase::CreateCast(&v514[v45], 39, v46, v49, v589);
 LABEL_63:
-            *(v46 + 3) = v52;
+            *(v44 + 3) = v50;
             goto LABEL_64;
           }
         }
 
         else
         {
-          switch(v50)
+          switch(v48)
           {
             case 4:
-              v53 = ComponentType > 8;
-              v54 = 1 << ComponentType;
-              v55 = 472;
+              v51 = ComponentType > 8;
+              v52 = 1 << ComponentType;
+              v53 = 472;
               goto LABEL_68;
             case 5:
               if (ComponentType != 2)
@@ -6660,14 +6058,14 @@ LABEL_63:
         goto LABEL_64;
       }
 
-      if (v50 > 8)
+      if (v48 > 8)
       {
         goto LABEL_62;
       }
 
-      if (((1 << v50) & 0x190) == 0)
+      if (((1 << v48) & 0x190) == 0)
       {
-        if (((1 << v50) & 0x48) != 0)
+        if (((1 << v48) & 0x48) != 0)
         {
           goto LABEL_50;
         }
@@ -6677,1373 +6075,1290 @@ LABEL_63:
     }
 
 LABEL_64:
-    v15 = v618;
-    GenericVaryingAllocator::addVarying(v618 + 4536, (v46 + 32));
-    llvm::SmallVectorTemplateBase<std::pair<unsigned int,llvm::MDNode *>,true>::push_back(&v668, *&v634[v45], *(v46 + 3));
+    v12 = v530;
+    GenericVaryingAllocator::addVarying(v530 + 4536, (v44 + 32));
+    llvm::SmallVectorTemplateBase<std::pair<unsigned int,llvm::MDNode *>,true>::push_back(&v580, *&v546[v43], *(v44 + 3));
 LABEL_65:
-    v45 += 96;
+    v43 += 96;
   }
 
-  while (v45 != 384);
-  *(&v678 + 1) = 0;
-  v679 = 0;
-  v680 = 0;
-  if ((*(*v15 + 536))(v15, v677))
+  while (v43 != 384);
+  *(&v590 + 1) = 0;
+  v591 = 0;
+  v592 = 0;
+  if ((*(*v12 + 536))(v12, v589))
   {
     do
     {
-      GenericVaryingAllocator::addVarying(v15 + 4536, v677);
+      GenericVaryingAllocator::addVarying(v12 + 4536, v589);
     }
 
-    while (((*(*v15 + 536))(v15, v677) & 1) != 0);
+    while (((*(*v12 + 536))(v12, v589) & 1) != 0);
   }
 
-  v60 = v612;
-  v59 = v613;
-  if (SHIBYTE(v680) < 0)
+  v58 = v524;
+  v57 = v525;
+  if (SHIBYTE(v592) < 0)
   {
-    operator delete(*(&v678 + 1));
+    operator delete(*(&v590 + 1));
   }
 
-  v61 = 126 - 2 * __clz(v669);
-  if (v669)
+  v59 = 126 - 2 * __clz(v581);
+  if (v581)
   {
-    v62 = v61;
+    v60 = v59;
   }
 
   else
   {
-    v62 = 0;
+    v60 = 0;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,false>(v668, v668 + 16 * v669, v62, 1);
-  GenericVaryingAllocator::allocate((v15 + 4536), *(v15 + *(*v15 - 24) + 2168));
-  v63 = v600[5];
-  v64 = *(v15 + *(*v15 - 24) + 4584);
-  v65 = llvm::ConstantInt::get();
-  v66 = *(v15 + *(*v15 - 24) + 4584);
-  v616 = llvm::ConstantInt::get();
-  *(v612 + 1156) = 0;
-  v67 = *v15;
-  v68 = v15 + *(*v15 - 24);
-  if (*(*(v68 + 271) + 1867) == 1 && v612[1200] == 1)
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,false>(v580, v580 + 4 * v581, v60, 1);
+  GenericVaryingAllocator::allocate((v12 + 4536), *(v12 + *(*v12 - 24) + 2168));
+  v61 = v512[5];
+  v62 = llvm::ConstantInt::get();
+  v528 = llvm::ConstantInt::get();
+  *(v524 + 1156) = 0;
+  v64 = v12 + *(*v12 - 24);
+  if (*(*(v64 + 271) + 1867) == 1 && v524[1200] == 1)
   {
-    DriverGlobalConstant = AGCLLVMUserVertexShader::getDriverGlobalConstant(v15, 0x54u);
-    v616 = AGCLLVMBuilder::truncateToSmall((v68 + 1704), DriverGlobalConstant, *(v15 + *(*v15 - 24) + 4584));
-    v70 = v15 + *(*v15 - 24);
-    if (*(v15 + 1326))
+    DriverGlobalConstant = AGCLLVMUserVertexShader::getDriverGlobalConstant(v12, 0x54u, v63);
+    v528 = AGCLLVMBuilder::truncateToSmall((v64 + 1704), DriverGlobalConstant, *(v12 + *(*v12 - 24) + 4584));
+    v67 = v12 + *(*v12 - 24);
+    if (*(v12 + 1326))
     {
-      v71 = 85;
+      v68 = 85;
     }
 
     else
     {
-      v71 = 84;
+      v68 = 84;
     }
 
-    v671 = AGCLLVMUserVertexShader::getDriverGlobalConstant(v15, v71);
-    v72 = v15 + *(*v15 - 24);
-    v73 = *(v72 + 271);
-    v74 = *(v73 + 1600);
-    if (v74)
+    v583 = AGCLLVMUserVertexShader::getDriverGlobalConstant(v12, v68, v66);
+    v69 = v12 + *(*v12 - 24);
+    v70 = *(v69 + 271);
+    v71 = *(v70 + 1600);
+    if (v71)
     {
-      v75 = strlen(*(v73 + 1600));
+      v72 = strlen(*(v70 + 1600));
     }
 
     else
     {
-      v75 = 0;
+      v72 = 0;
     }
 
-    v110 = AGCLLVMBuilder::getOrInsertFunction<llvm::Type *>((v72 + 1704), v74, v75, *(v72 + 238), *(v72 + 238));
-    v111 = v15 + *(*v15 - 24);
-    LOWORD(v679) = 257;
-    v112 = llvm::IRBuilderBase::CreateCall((v111 + 1712), *(v110 + 24), v110, &v671, 1, v677);
-    v76 = AGCLLVMBuilder::truncateToSmall((v70 + 1704), v112, *(v15 + *(*v15 - 24) + 4584));
-    v67 = *v15;
+    v107 = AGCLLVMBuilder::getOrInsertFunction<llvm::Type *>((v69 + 1704), v71, v72, *(v69 + 238), *(v69 + 238));
+    v108 = (v12 + *(*v12 - 24));
+    LOWORD(v591) = 257;
+    v109 = llvm::IRBuilderBase::CreateCall(v108 + 214, *(v107 + 24), v107, &v583, 1, v589);
+    v73 = AGCLLVMBuilder::truncateToSmall((v67 + 1704), v109, *(v12 + *(*v12 - 24) + 4584));
   }
 
   else
   {
-    v76 = v65;
+    v73 = v62;
   }
 
-  v113 = *(v15 + *(v67 - 24) + 4584);
-  *(v15 + 681) = llvm::ConstantInt::get();
-  v114 = *(v15 + *(*v15 - 24) + 4584);
-  v115 = llvm::ConstantInt::get();
-  Mul = v115;
-  *(v15 + 682) = v115;
-  v117 = v612[1212];
-  v605 = v612 + 1156;
-  v607 = v76;
-  if (v612[1212])
+  *(v12 + 681) = llvm::ConstantInt::get();
+  v110 = llvm::ConstantInt::get();
+  Mul = v110;
+  *(v12 + 682) = v110;
+  v112 = v524[1212];
+  v517 = v524 + 1156;
+  v519 = v73;
+  if (v524[1212])
   {
-    v118 = v76;
+    v113 = v73;
   }
 
   else
   {
-    v118 = v65;
+    v113 = v62;
   }
 
-  *(v15 + 683) = v118;
-  if (v117 != 1)
+  *(v12 + 683) = v113;
+  if (v112 != 1)
   {
-    *(v15 + 684) = v115;
+    *(v12 + 684) = v110;
     goto LABEL_200;
   }
 
-  v119 = v15 + *(*v15 - 24);
-  LOWORD(v679) = 257;
-  Mul = llvm::IRBuilderBase::CreateMul((v119 + 1712), v115, v616, v677);
-  v120 = v612[1212];
-  *(v15 + 684) = Mul;
-  if ((v120 & 1) == 0)
+  v114 = v12 + *(*v12 - 24);
+  LOWORD(v591) = 257;
+  Mul = llvm::IRBuilderBase::CreateMul((v114 + 1712), v110, v528, v589);
+  v115 = v524[1212];
+  *(v12 + 684) = Mul;
+  if ((v115 & 1) == 0)
   {
 LABEL_200:
-    *(v612 + 289) += 4;
+    *(v524 + 289) += 4;
     goto LABEL_201;
   }
 
-  *(v15 + 1314) += 4;
+  *(v12 + 1314) += 4;
 LABEL_201:
-  v121 = v15 + *(*v15 - 24);
-  v122 = *(v15 + 681);
-  LOWORD(v679) = 257;
-  *(v15 + 685) = llvm::IRBuilderBase::CreateAdd((v121 + 1712), v122, Mul, v677);
-  v123 = *(v15 + 1282);
-  v124 = *(v15 + *(*v15 - 24) + 4584);
-  v125 = llvm::ConstantInt::get();
-  *(v15 + 686) = v125;
-  *(v15 + 687) = v65;
-  *(v15 + 688) = v125;
-  v126 = v15 + *(*v15 - 24);
-  v127 = *(v15 + 685);
-  LOWORD(v679) = 257;
-  *(v15 + 689) = llvm::IRBuilderBase::CreateAdd((v126 + 1712), v127, v125, v677);
-  v128 = v65;
-  v129 = (v15 + 5152);
-  v130 = *(v15 + 1283);
-  v131 = *(v15 + *(*v15 - 24) + 4584);
+  v116 = v12 + *(*v12 - 24);
+  v117 = *(v12 + 681);
+  LOWORD(v591) = 257;
+  *(v12 + 685) = llvm::IRBuilderBase::CreateAdd((v116 + 1712), v117, Mul, v589);
+  v118 = llvm::ConstantInt::get();
+  *(v12 + 686) = v118;
+  *(v12 + 687) = v62;
+  *(v12 + 688) = v118;
+  v119 = v12 + *(*v12 - 24);
+  v120 = *(v12 + 685);
+  LOWORD(v591) = 257;
+  *(v12 + 689) = llvm::IRBuilderBase::CreateAdd((v119 + 1712), v120, v118, v589);
+  v121 = v62;
+  v122 = (v12 + 5152);
+  v123 = llvm::ConstantInt::get();
+  *(v12 + 690) = v123;
+  *(v12 + 691) = v121;
+  *(v12 + 692) = v123;
+  v124 = v12 + *(*v12 - 24);
+  v125 = *(v12 + 689);
+  LOWORD(v591) = 257;
+  *(v12 + 693) = llvm::IRBuilderBase::CreateAdd((v124 + 1712), v125, v123, v589);
+  v126 = llvm::ConstantInt::get();
+  *(v12 + 694) = v126;
+  *(v12 + 695) = v121;
+  *(v12 + 696) = v126;
+  v127 = v12 + *(*v12 - 24);
+  v128 = *(v12 + 693);
+  LOWORD(v591) = 257;
+  *(v12 + 697) = llvm::IRBuilderBase::CreateAdd((v127 + 1712), v128, v126, v589);
+  v129 = llvm::ConstantInt::get();
+  *(v12 + 698) = v129;
+  *(v12 + 699) = v121;
+  *(v12 + 700) = v129;
+  v130 = v12 + *(*v12 - 24);
+  v131 = *(v12 + 697);
+  LOWORD(v591) = 257;
+  *(v12 + 701) = llvm::IRBuilderBase::CreateAdd((v130 + 1712), v131, v129, v589);
   v132 = llvm::ConstantInt::get();
-  *(v15 + 690) = v132;
-  *(v15 + 691) = v128;
-  *(v15 + 692) = v132;
-  v133 = v15 + *(*v15 - 24);
-  v134 = *(v15 + 689);
-  LOWORD(v679) = 257;
-  *(v15 + 693) = llvm::IRBuilderBase::CreateAdd((v133 + 1712), v134, v132, v677);
-  v135 = *(v15 + 1284);
-  v136 = *(v15 + *(*v15 - 24) + 4584);
-  v137 = llvm::ConstantInt::get();
-  *(v15 + 694) = v137;
-  *(v15 + 695) = v128;
-  *(v15 + 696) = v137;
-  v138 = v15 + *(*v15 - 24);
-  v139 = *(v15 + 693);
-  LOWORD(v679) = 257;
-  *(v15 + 697) = llvm::IRBuilderBase::CreateAdd((v138 + 1712), v139, v137, v677);
-  v140 = *(v15 + 1287);
-  v141 = *(v15 + *(*v15 - 24) + 4584);
-  v142 = llvm::ConstantInt::get();
-  *(v15 + 698) = v142;
-  *(v15 + 699) = v128;
-  *(v15 + 700) = v142;
-  v143 = v15 + *(*v15 - 24);
-  v144 = *(v15 + 697);
-  LOWORD(v679) = 257;
-  *(v15 + 701) = llvm::IRBuilderBase::CreateAdd((v143 + 1712), v144, v142, v677);
-  v145 = (*(v15 + 1288) + 1) >> 1;
-  v612[1000];
-  v146 = *(v15 + *(*v15 - 24) + 4584);
-  v147 = llvm::ConstantInt::get();
-  *(v15 + 702) = v147;
-  *(v15 + 703) = v128;
-  *(v15 + 704) = v147;
-  v148 = v15 + *(*v15 - 24);
-  v149 = *(v15 + 701);
-  LOWORD(v679) = 257;
-  *(v15 + 705) = llvm::IRBuilderBase::CreateAdd((v148 + 1712), v149, v147, v677);
-  v150 = (*(v15 + 1289) + 1) >> 1;
-  v612[1000];
-  v151 = *(v15 + *(*v15 - 24) + 4584);
-  v152 = llvm::ConstantInt::get();
-  *(v15 + 706) = v152;
-  *(v15 + 707) = v128;
-  *(v15 + 708) = v152;
-  v153 = v15 + *(*v15 - 24);
-  v154 = *(v15 + 705);
-  LOWORD(v679) = 257;
-  *(v15 + 709) = llvm::IRBuilderBase::CreateAdd((v153 + 1712), v154, v152, v677);
-  v155 = (*(v15 + 1290) + 1) >> 1;
-  v612[1000];
-  v156 = *(v15 + *(*v15 - 24) + 4584);
-  v157 = llvm::ConstantInt::get();
-  *(v15 + 710) = v157;
-  *(v15 + 711) = v128;
-  *(v15 + 712) = v157;
-  v158 = v15 + *(*v15 - 24);
-  v159 = *(v15 + 709);
-  LOWORD(v679) = 257;
-  *(v15 + 713) = llvm::IRBuilderBase::CreateAdd((v158 + 1712), v159, v157, v677);
-  v160 = (*(v15 + 1293) + 1) >> 1;
-  v612[1000];
-  v161 = *(v15 + *(*v15 - 24) + 4584);
-  v162 = llvm::ConstantInt::get();
-  *(v15 + 714) = v162;
-  v610 = v128;
-  *(v15 + 715) = v128;
-  *(v15 + 716) = v162;
-  v163 = v15 + *(*v15 - 24);
-  v164 = *(v15 + 713);
-  LOWORD(v679) = 257;
-  v165 = llvm::IRBuilderBase::CreateAdd((v163 + 1712), v164, v162, v677);
-  *(v15 + 717) = v165;
-  v166 = *v15;
-  if (*(v15 + 1352))
+  *(v12 + 702) = v132;
+  *(v12 + 703) = v121;
+  *(v12 + 704) = v132;
+  v133 = v12 + *(*v12 - 24);
+  v134 = *(v12 + 701);
+  LOWORD(v591) = 257;
+  *(v12 + 705) = llvm::IRBuilderBase::CreateAdd((v133 + 1712), v134, v132, v589);
+  v135 = llvm::ConstantInt::get();
+  *(v12 + 706) = v135;
+  *(v12 + 707) = v121;
+  *(v12 + 708) = v135;
+  v136 = v12 + *(*v12 - 24);
+  v137 = *(v12 + 705);
+  LOWORD(v591) = 257;
+  *(v12 + 709) = llvm::IRBuilderBase::CreateAdd((v136 + 1712), v137, v135, v589);
+  v138 = llvm::ConstantInt::get();
+  *(v12 + 710) = v138;
+  *(v12 + 711) = v121;
+  *(v12 + 712) = v138;
+  v139 = v12 + *(*v12 - 24);
+  v140 = *(v12 + 709);
+  LOWORD(v591) = 257;
+  *(v12 + 713) = llvm::IRBuilderBase::CreateAdd((v139 + 1712), v140, v138, v589);
+  v141 = llvm::ConstantInt::get();
+  *(v12 + 714) = v141;
+  v522 = v121;
+  *(v12 + 715) = v121;
+  *(v12 + 716) = v141;
+  v142 = v12 + *(*v12 - 24);
+  v143 = *(v12 + 713);
+  LOWORD(v591) = 257;
+  v144 = llvm::IRBuilderBase::CreateAdd((v142 + 1712), v143, v141, v589);
+  *(v12 + 717) = v144;
+  if (*(v12 + 1352) && (*(*(v12 + *(*v12 - 24) + 2168) + 1849) & 1) == 0)
   {
-    v167 = *v15;
-    if ((*(*(v15 + *(v166 - 24) + 2168) + 1849) & 1) == 0)
+    if (v506)
     {
-      if (v594)
+      LODWORD(v590) = 128;
+      v589[0] = MEMORY[0x20F330650](6144, 8);
+      llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>,llvm::Value *,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>,llvm::Value *>>,llvm::ValueMapCallbackVH<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>,llvm::Value *,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>,llvm::Value *>>::initEmpty(v589);
+      BYTE8(v590) = 0;
+      v593 = 0;
+      if (*(v506 + 16) == 83)
       {
-        LODWORD(v678) = 128;
-        v677[0] = MEMORY[0x20F330650](6144, 8);
-        llvm::DenseMapBase<llvm::DenseMap<llvm::ValueMapCallbackVH<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>,llvm::Value *,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>,llvm::Value *>>,llvm::ValueMapCallbackVH<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>,llvm::Value *,llvm::DenseMapInfo<llvm::ValueMapCallbackVH<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>,void>,llvm::detail::DenseMapPair<llvm::ValueMapCallbackVH<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>,llvm::Value *>>::initEmpty(v677);
-        BYTE8(v678) = 0;
-        v681 = 0;
-        if (*(v594 + 16) == 83)
+        v145 = *(v506 + 5);
+        v146 = v145 & 0x7FFFFFF;
+        if ((v145 & 0x7FFFFFF) != 0)
         {
-          v168 = *(v594 + 5);
-          v169 = v168 & 0x7FFFFFF;
-          if ((v168 & 0x7FFFFFF) != 0)
+          v147 = 0;
+          v148 = 0;
+          do
           {
-            v170 = 0;
-            v171 = 0;
-            do
+            if ((v145 & 0x40000000) != 0)
             {
-              if ((v168 & 0x40000000) != 0)
-              {
-                v172 = *(v594 - 1);
-              }
-
-              else
-              {
-                v172 = v594 - 32 * v169;
-              }
-
-              v173 = *&v172[v170];
-              *llvm::ValueMap<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>::operator[](v677, *&v172[32 * *(v594 + 15) + 8 * v171++]) = v173;
-              v168 = *(v594 + 5);
-              v169 = v168 & 0x7FFFFFF;
-              v170 += 32;
-            }
-
-            while (v171 < v169);
-          }
-        }
-
-        else
-        {
-          SinglePredecessor = llvm::BasicBlock::getSinglePredecessor(v63);
-          *llvm::ValueMap<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>::operator[](v677, SinglePredecessor) = v594;
-        }
-
-        v175 = *(v15 + 665);
-        v176 = *(v15 + 666);
-        if (v175 != v176)
-        {
-          while (2)
-          {
-            v177 = *(v175 + 3);
-            if (!v177)
-            {
-              goto LABEL_243;
-            }
-
-            v178 = **(v177 - 64);
-            if ((*(v178 + 8) & 0xFE) == 0x12)
-            {
-              v179 = *(v178 + 32);
+              v149 = *(v506 - 1);
             }
 
             else
             {
-              v179 = 1;
+              v149 = v506 - 32 * v146;
             }
 
-            v181 = *v175;
-            v180 = v175[1];
-            v182 = llvm::ValueMap<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>::operator[](v677, *(v177 + 40));
-            v183 = *v182;
-            if (*(*v182 + 16) - 11 >= 2)
+            v150 = *&v149[v147];
+            *llvm::ValueMap<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>::operator[](v589, *&v149[32 * *(v506 + 15) + 8 * v148++]) = v150;
+            v145 = *(v506 + 5);
+            v146 = v145 & 0x7FFFFFF;
+            v147 += 32;
+          }
+
+          while (v148 < v146);
+        }
+      }
+
+      else
+      {
+        SinglePredecessor = llvm::BasicBlock::getSinglePredecessor(v61);
+        *llvm::ValueMap<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>::operator[](v589, SinglePredecessor) = v506;
+      }
+
+      v152 = *(v12 + 665);
+      v153 = *(v12 + 666);
+      if (v152 != v153)
+      {
+        while (2)
+        {
+          v154 = *(v152 + 3);
+          if (!v154)
+          {
+            goto LABEL_243;
+          }
+
+          v155 = **(v154 - 64);
+          if ((*(v155 + 8) & 0xFE) == 0x12)
+          {
+            v156 = *(v155 + 32);
+          }
+
+          else
+          {
+            v156 = 1;
+          }
+
+          v158 = *v152;
+          v157 = v152[1];
+          v159 = llvm::ValueMap<llvm::BasicBlock *,llvm::Value *,llvm::ValueMapConfig<llvm::BasicBlock *,llvm::sys::SmartMutex<false>>>::operator[](v589, *(v154 + 40));
+          v160 = *v159;
+          if (*(*v159 + 16) - 11 >= 2)
+          {
+            while (*(v160 - 32) != *(v154 - 64))
             {
-              while (*(v183 - 32) != *(v177 - 64))
+              v160 = *(v160 - 64);
+              if (*(v160 + 16) - 11 <= 1)
               {
-                v183 = *(v183 - 64);
-                if (*(v183 + 16) - 11 <= 1)
-                {
-                  goto LABEL_234;
-                }
+                goto LABEL_234;
               }
+            }
 
-              v184 = **(v183 + 64);
-              v185 = *(*(v618 + 8) - 8 * *(*(v618 + 8) + 8) + 8 * v184);
-              v186 = llvm::MDString::getString(*(v185 - 8 * *(v185 + 8)));
-              if (v187 == 17)
+            v161 = **(v160 + 64);
+            v162 = *(*(v530 + 8) - 8 * *(*(v530 + 8) + 8) + 8 * v161);
+            v163 = llvm::MDString::getString(*(v162 - 8 * *(v162 + 8)));
+            if (v164 == 17)
+            {
+              if (*v163 == 0x747265762E726961 && *(v163 + 8) == 0x757074756F5F7865 && *(v163 + 16) == 116)
               {
-                if (*v186 == 0x747265762E726961 && *(v186 + 8) == 0x757074756F5F7865 && *(v186 + 16) == 116)
+                v586 = 0;
+                v587 = 0;
+                v588 = 0;
+                if ((*(*v530 + 512))(v530, *v506, v161, v162, &v583, 0))
                 {
-                  v674 = 0;
-                  v675 = 0;
-                  v676 = 0;
-                  if ((*(*v618 + 512))(v618, *v594, v184, v185, &v671, 0))
+                  v171 = *(v530 + 1142);
+                  if (v171)
                   {
-                    v194 = *(v618 + 1142);
-                    if (v194)
+                    v172 = *(v530 + 570);
+                    v173 = v171 << 6;
+                    while (*(v172 + 16) != v585)
                     {
-                      v195 = *(v618 + 570);
-                      v196 = v194 << 6;
-                      while (*(v195 + 16) != v673)
+                      v172 += 64;
+                      v173 -= 64;
+                      if (!v173)
                       {
-                        v195 += 64;
-                        v196 -= 64;
-                        if (!v196)
-                        {
-                          goto LABEL_250;
-                        }
+                        goto LABEL_250;
                       }
-
-                      v188 = *(v195 + 48);
                     }
 
-                    else
-                    {
-LABEL_250:
-                      v188 = 0xFFFF;
-                    }
+                    v165 = *(v172 + 48);
                   }
 
                   else
                   {
-                    v188 = -2;
+LABEL_250:
+                    v165 = 0xFFFF;
                   }
-
-                  if (SHIBYTE(v676) < 0)
-                  {
-                    operator delete(v674);
-                  }
-
-                  goto LABEL_235;
-                }
-              }
-
-              else if (v187 == 12)
-              {
-                if (*v186 ^ 0x69736F702E726961 | *(v186 + 8) ^ 0x6E6F6974)
-                {
-                  v188 = -2;
                 }
 
                 else
                 {
-                  v188 = 0;
+                  v165 = -2;
+                }
+
+                if (SHIBYTE(v588) < 0)
+                {
+                  operator delete(v586);
                 }
 
                 goto LABEL_235;
               }
             }
 
-LABEL_234:
-            v188 = -2;
-LABEL_235:
-            if (v179)
+            else if (v164 == 12)
             {
-              v191 = *(*(v618 + v180 + 668) + 8);
-              while (1)
+              if (*v163 ^ 0x69736F702E726961 | *(v163 + 8) ^ 0x6E6F6974)
               {
-                v192 = *(v191 + 4 * v181);
-                if (v192 != -2)
-                {
-                  v193 = v188;
-                  if (v192 == -1)
-                  {
-                    goto LABEL_241;
-                  }
-
-                  if (v188 != v192)
-                  {
-                    break;
-                  }
-                }
-
-LABEL_242:
-                ++v188;
-                ++v181;
-                if (!--v179)
-                {
-                  goto LABEL_243;
-                }
-              }
-
-              v193 = -2;
-LABEL_241:
-              *(v191 + 4 * v181) = v193;
-              goto LABEL_242;
-            }
-
-LABEL_243:
-            v175 += 8;
-            if (v175 == v176)
-            {
-              break;
-            }
-
-            continue;
-          }
-        }
-
-        v15 = v618;
-        v197 = *(v618 + 1352);
-        if (v197 >= 2)
-        {
-          for (i = 0; i < v197; ++i)
-          {
-            v199 = *(v618 + i + 668);
-            v200 = *(v199 + 1);
-            v201 = *v199;
-            if (*v200 < 0xFFFFFFFE)
-            {
-              if (v201 < 2)
-              {
-                continue;
-              }
-
-              v202 = v201 - 1;
-              v203 = v200 + 1;
-              v204 = *v200 + 1;
-              while (1)
-              {
-                v205 = *v203++;
-                if (v204 != v205)
-                {
-                  break;
-                }
-
-                ++v204;
-                if (!--v202)
-                {
-                  goto LABEL_263;
-                }
-              }
-            }
-
-            memset_pattern4(v200, &TFBufferMap::MAP_CONFLICT, 4 * v201);
-            v197 = *(v618 + 1352);
-LABEL_263:
-            ;
-          }
-        }
-
-        v206 = *(v618 + 665);
-        v207 = *(v618 + 666);
-        if (v206 != v207)
-        {
-          while (2)
-          {
-            v208 = *(v206 + 3);
-            if (v208)
-            {
-              v209 = *v206;
-              v210 = **(v208 - 8);
-              if ((*(v210 + 8) & 0xFE) == 0x12)
-              {
-                v211 = *(v210 + 32);
-                if (!v211)
-                {
-                  goto LABEL_275;
-                }
+                v165 = -2;
               }
 
               else
               {
-                v211 = 1;
+                v165 = 0;
               }
 
-              v212 = *(*(v618 + v206[1] + 668) + 8);
-              if (*(v212 + 4 * v209) <= 0xFFFFFFFD)
+              goto LABEL_235;
+            }
+          }
+
+LABEL_234:
+          v165 = -2;
+LABEL_235:
+          if (v156)
+          {
+            v168 = *(*(v530 + v157 + 668) + 8);
+            while (1)
+            {
+              v169 = *(v168 + 4 * v158);
+              if (v169 != -2)
               {
-                v213 = 0;
-                v214 = v209 + 1;
-                while (v211 - 1 != v213)
+                v170 = v165;
+                if (v169 == -1)
                 {
-                  v215 = *(v212 + 4 * (v214 + v213++));
-                  if (v215 >= 0xFFFFFFFE)
-                  {
-                    if (v213 < v211)
-                    {
-                      goto LABEL_276;
-                    }
-
-                    break;
-                  }
+                  goto LABEL_241;
                 }
 
-LABEL_275:
-                v216 = *(v208 - 4);
-                llvm::Instruction::eraseFromParent(v208);
-                EraseInstructionChain(v216);
+                if (v165 != v169)
+                {
+                  break;
+                }
               }
-            }
 
-LABEL_276:
-            v206 += 8;
-            if (v206 == v207)
-            {
-              break;
-            }
-
-            continue;
-          }
-        }
-
-        if (v681 == 1)
-        {
-          llvm::DenseMapBase<llvm::DenseMap<llvm::Metadata const*,llvm::TrackingMDRef,llvm::DenseMapInfo<llvm::Metadata const*,void>,llvm::detail::DenseMapPair<llvm::Metadata const*,llvm::TrackingMDRef>>,llvm::Metadata const*,llvm::TrackingMDRef,llvm::DenseMapInfo<llvm::Metadata const*,void>,llvm::detail::DenseMapPair<llvm::Metadata const*,llvm::TrackingMDRef>>::destroyAll(&v678 + 8);
-          llvm::deallocate_buffer(*(&v678 + 1), (16 * v680));
-          v681 = 0;
-        }
-
-        v217 = v677[0];
-        if (v678)
-        {
-          v672 = 2;
-          v673 = 0;
-          v674 = -4096;
-          v675 = 0;
-          v671 = &unk_2825A95E0;
-          v624 = 2;
-          v625 = 0;
-          v626 = -8192;
-          v627 = 0;
-          v623 = &unk_2825A95E0;
-          v218 = (v677[0] + 24);
-          v219 = 48 * v678;
-          do
-          {
-            v220 = *v218;
-            if (*v218 != -8192 && v220 != -4096 && v220 != 0)
-            {
-              llvm::ValueHandleBase::RemoveFromUseList((v218 - 2));
-            }
-
-            v218 += 6;
-            v219 -= 48;
-          }
-
-          while (v219);
-          if (v626 != -8192 && v626 != -4096 && v626 != 0)
-          {
-            llvm::ValueHandleBase::RemoveFromUseList(&v624);
-          }
-
-          if (v674 != -8192 && v674 != -4096 && v674)
-          {
-            llvm::ValueHandleBase::RemoveFromUseList(&v672);
-          }
-
-          v217 = v677[0];
-          v223 = 48 * v678;
-        }
-
-        else
-        {
-          v223 = 0;
-        }
-
-        llvm::deallocate_buffer(v217, v223);
-        v165 = *(v618 + 717);
-      }
-
-      if (*(v165 + 16) == 16)
-      {
-        v224 = v165;
-      }
-
-      else
-      {
-        v224 = 0;
-      }
-
-      v225 = (v224 + 24);
-      if (*(v224 + 32) >= 0x41u)
-      {
-        v225 = *v225;
-      }
-
-      v226 = *v225;
-      v227 = *(v15 + 1352);
-      if (v227 < 2)
-      {
-        v230 = 0;
-      }
-
-      else
-      {
-        v228 = v15;
-        v229 = 0;
-        v230 = 0;
-        v231 = v228 + 5344;
-        v232 = vdupq_n_s64(4uLL);
-        do
-        {
-          v233 = *(v231 + 8 * v229);
-          v234 = *(v233 + 1);
-          if (*v234 >= 0xFFFFFFFE)
-          {
-            v235 = *v233;
-            if (v235)
-            {
-              v236 = (v235 + 3) & 0x1FFFFFFFCLL;
-              v237 = vdupq_n_s64(v235 - 1);
-              v238 = v234 + 2;
-              v239 = v226;
-              v240 = xmmword_20E70C4F0;
-              v241 = xmmword_20E70C4E0;
-              do
+LABEL_242:
+              ++v165;
+              ++v158;
+              if (!--v156)
               {
-                v242 = vmovn_s64(vcgeq_u64(v237, v240));
-                if (vuzp1_s16(v242, 2).u8[0])
-                {
-                  *(v238 - 2) = v239;
-                }
-
-                if (vuzp1_s16(v242, 2).i8[2])
-                {
-                  *(v238 - 1) = v239 + 1;
-                }
-
-                if (vuzp1_s16(2, vmovn_s64(vcgeq_u64(v237, *&v241))).i32[1])
-                {
-                  *v238 = v239 + 2;
-                  v238[1] = v239 + 3;
-                }
-
-                v241 = vaddq_s64(v241, v232);
-                v240 = vaddq_s64(v240, v232);
-                v239 += 4;
-                v238 += 4;
-                v236 -= 4;
+                goto LABEL_243;
               }
-
-              while (v236);
-              v227 = *(v618 + 1352);
             }
 
-            v226 += v235;
-            v230 += v235;
+            v170 = -2;
+LABEL_241:
+            *(v168 + 4 * v158) = v170;
+            goto LABEL_242;
           }
 
-          ++v229;
-        }
-
-        while (v229 < v227);
-      }
-
-      v243 = *(v618 + 665);
-      v244 = *(v618 + 666);
-      if (v243 != v244)
-      {
-        v245 = v618 + 5344;
-        while (1)
-        {
-          v246 = *(v243 + 3);
-          if (v246)
+LABEL_243:
+          v152 += 8;
+          if (v152 == v153)
           {
             break;
           }
 
-LABEL_335:
-          v243 += 8;
-          if (v243 == v244)
-          {
-            goto LABEL_342;
-          }
+          continue;
         }
+      }
 
-        v247 = *v243;
-        v248 = v243[1];
-        v249 = *(v246 - 8);
-        if ((*(*v246 + 8) & 0xFE) == 0x12)
+      v12 = v530;
+      v174 = *(v530 + 1352);
+      if (v174 >= 2)
+      {
+        for (i = 0; i < v174; ++i)
         {
-          v250 = *(*v246 + 32);
-          v251 = *&v245[8 * v248];
-          if (!v250)
+          v176 = *(v530 + i + 668);
+          v177 = *(v176 + 1);
+          v178 = *v176;
+          if (*v177 < 0xFFFFFFFE)
           {
-LABEL_334:
-            v256 = *(*(v251 + 8) + 4 * v247);
-            v257 = *(v618 + *(*v618 - 24) + 4584);
-            v258 = llvm::ConstantInt::get();
-            AGCLLVMUserVertexShader::replaceOutputUses(v618, v249, v258, 1, 0, 4u);
-            v259 = *(v246 - 4);
-            llvm::Instruction::eraseFromParent(v246);
-            EraseInstructionChain(v259);
-            goto LABEL_335;
-          }
-        }
-
-        else
-        {
-          v251 = *&v245[8 * v248];
-          v250 = 1;
-        }
-
-        v252 = *(v251 + 8);
-        if (*(v252 + 4 * v247) <= 0xFFFFFFFD)
-        {
-          v260 = 0;
-          while (v250 - 1 != v260)
-          {
-            v261 = *(v252 + 4 * (v247 + 1 + v260++));
-            if (v261 >= 0xFFFFFFFE)
+            if (v178 < 2)
             {
-              if (v260 < v250)
+              continue;
+            }
+
+            v179 = v178 - 1;
+            v180 = v177 + 1;
+            v181 = *v177 + 1;
+            while (1)
+            {
+              v182 = *v180++;
+              if (v181 != v182)
               {
-                goto LABEL_331;
+                break;
               }
 
-              goto LABEL_334;
+              ++v181;
+              if (!--v179)
+              {
+                goto LABEL_263;
+              }
             }
           }
-        }
 
-        else
+          memset_pattern4(v177, &TFBufferMap::MAP_CONFLICT, 4 * v178);
+          v174 = *(v530 + 1352);
+LABEL_263:
+          ;
+        }
+      }
+
+      v183 = *(v530 + 665);
+      v184 = *(v530 + 666);
+      if (v183 != v184)
+      {
+        while (2)
         {
-LABEL_331:
-          v253 = v226;
-          v254 = *v243;
-          v255 = v250;
-          do
+          v185 = *(v183 + 3);
+          if (v185)
           {
-            *(v252 + 4 * v254++) = v253++;
-            --v255;
+            v186 = *v183;
+            v187 = **(v185 - 8);
+            if ((*(v187 + 8) & 0xFE) == 0x12)
+            {
+              v188 = *(v187 + 32);
+              if (!v188)
+              {
+                goto LABEL_275;
+              }
+            }
+
+            else
+            {
+              v188 = 1;
+            }
+
+            v189 = *(*(v530 + v183[1] + 668) + 8);
+            if (*(v189 + 4 * v186) <= 0xFFFFFFFD)
+            {
+              v190 = 0;
+              v191 = v186 + 1;
+              while (v188 - 1 != v190)
+              {
+                v192 = *(v189 + 4 * (v191 + v190++));
+                if (v192 >= 0xFFFFFFFE)
+                {
+                  if (v190 < v188)
+                  {
+                    goto LABEL_276;
+                  }
+
+                  break;
+                }
+              }
+
+LABEL_275:
+              v193 = *(v185 - 4);
+              llvm::Instruction::eraseFromParent(v185);
+              EraseInstructionChain(v193);
+            }
           }
 
-          while (v255);
-          v226 += v250;
-          v230 += v250;
+LABEL_276:
+          v183 += 8;
+          if (v183 == v184)
+          {
+            break;
+          }
+
+          continue;
+        }
+      }
+
+      if (v593 == 1)
+      {
+        llvm::DenseMapBase<llvm::DenseMap<llvm::Metadata const*,llvm::TrackingMDRef,llvm::DenseMapInfo<llvm::Metadata const*,void>,llvm::detail::DenseMapPair<llvm::Metadata const*,llvm::TrackingMDRef>>,llvm::Metadata const*,llvm::TrackingMDRef,llvm::DenseMapInfo<llvm::Metadata const*,void>,llvm::detail::DenseMapPair<llvm::Metadata const*,llvm::TrackingMDRef>>::destroyAll(&v590 + 2);
+        llvm::deallocate_buffer(v592, *(&v590 + 1), (16 * v592));
+        v593 = 0;
+      }
+
+      v194 = v590;
+      v195 = v589[0];
+      if (v590)
+      {
+        v584 = 2;
+        v585 = 0;
+        v586 = -4096;
+        v587 = 0;
+        v583 = &unk_2825A95E0;
+        v536 = 2;
+        v537 = 0;
+        v538 = -8192;
+        v539 = 0;
+        v535 = &unk_2825A95E0;
+        v196 = (v589[0] + 24);
+        v197 = 48 * v590;
+        do
+        {
+          v198 = *v196;
+          if (*v196 != -8192 && v198 != -4096 && v198 != 0)
+          {
+            llvm::ValueHandleBase::RemoveFromUseList((v196 - 2));
+          }
+
+          v196 += 6;
+          v197 -= 48;
         }
 
-        goto LABEL_334;
-      }
+        while (v197);
+        if (v538 != -8192 && v538 != -4096 && v538 != 0)
+        {
+          llvm::ValueHandleBase::RemoveFromUseList(&v536);
+        }
 
-LABEL_342:
-      v262 = *(v618 + 1311) + v230;
-      v15 = v618;
-      *(v618 + 1311) = v262;
-      v166 = *v618;
-      v60 = v612;
-      v59 = v613;
-    }
-  }
+        if (v586 != -8192 && v586 != -4096 && v586)
+        {
+          llvm::ValueHandleBase::RemoveFromUseList(&v584);
+        }
 
-  v263 = *(v15 + 1311);
-  v264 = *(v15 + *(v166 - 24) + 4584);
-  v265 = llvm::ConstantInt::get();
-  v266 = 0;
-  *(v15 + 718) = v265;
-  *(v15 + 719) = v610;
-  *(v15 + 720) = v265;
-  v267 = -6;
-  do
-  {
-    if ((v267 + 6) <= 5 && ((1 << (v267 + 6)) & 0x27) != 0)
-    {
-      v268 = *(v129 - 6) + v266;
-      v269 = v268 + *v129;
-      v266 = v268 + ((*v129 + 1) >> 1);
-      if (v60[1000] != 1)
-      {
-        v266 = v269;
-      }
-    }
-
-    ++v129;
-    v270 = __CFADD__(v267++, 1);
-  }
-
-  while (!v270);
-  *(v15 + 1313) += *(v15 + 1311) + v266;
-  v271 = v15 + *(*v15 - 24);
-  v272 = *(v15 + 717);
-  LOWORD(v679) = 257;
-  v273 = llvm::IRBuilderBase::CreateAdd((v271 + 1712), v272, v265, v677);
-  v274 = 0;
-  *(v15 + 721) = v273;
-  v275 = *v15;
-  v276 = (v15 + 5200);
-  v277 = -6;
-  v278 = (v15 + 5200);
-  do
-  {
-    if ((v277 + 6) <= 5 && ((1 << (v277 + 6)) & 0x27) != 0)
-    {
-      v279 = *(v278 - 6) + v274;
-      v280 = v279 + *v278;
-      v274 = v279 + ((*v278 + 1) >> 1);
-      if (v60[1000] != 1)
-      {
-        v274 = v280;
-      }
-    }
-
-    ++v278;
-    v270 = __CFADD__(v277++, 1);
-  }
-
-  while (!v270);
-  v281 = *(v15 + *(*v15 - 24) + 4584);
-  *(v15 + 722) = llvm::ConstantInt::get();
-  *(v15 + 723) = v607;
-  v282 = *(v15 + 1294);
-  v283 = *(v15 + *(*v15 - 24) + 4584);
-  v284 = llvm::ConstantInt::get();
-  *(v15 + 724) = v284;
-  v285 = v15 + *(*v15 - 24);
-  v286 = *(v15 + 721);
-  LOWORD(v679) = 257;
-  v287 = llvm::IRBuilderBase::CreateAdd((v285 + 1712), v286, v284, v677);
-  v288 = 0;
-  *(v15 + 725) = v287;
-  v289 = *v15;
-  v290 = -6;
-  v291 = (v15 + 5200);
-  do
-  {
-    if ((v290 + 6) <= 5 && ((1 << (v290 + 6)) & 0x27) != 0)
-    {
-      v292 = *(v291 - 6) + v288;
-      v293 = v292 + *v291;
-      v288 = v292 + ((*v291 + 1) >> 1);
-      if (v60[1000] != 1)
-      {
-        v288 = v293;
-      }
-    }
-
-    ++v291;
-    v270 = __CFADD__(v290++, 1);
-  }
-
-  while (!v270);
-  v294 = *(v15 + *(*v15 - 24) + 4584);
-  *(v15 + 726) = llvm::ConstantInt::get();
-  *(v15 + 727) = v607;
-  v295 = *(v15 + 1295);
-  v296 = *(v15 + *(*v15 - 24) + 4584);
-  v297 = llvm::ConstantInt::get();
-  *(v15 + 728) = v297;
-  v298 = v15 + *(*v15 - 24);
-  v299 = *(v15 + 725);
-  LOWORD(v679) = 257;
-  v300 = llvm::IRBuilderBase::CreateAdd((v298 + 1712), v299, v297, v677);
-  v301 = 0;
-  *(v15 + 729) = v300;
-  v302 = *v15;
-  v303 = -6;
-  v304 = (v15 + 5200);
-  do
-  {
-    if ((v303 + 6) <= 5 && ((1 << (v303 + 6)) & 0x27) != 0)
-    {
-      v305 = *(v304 - 6) + v301;
-      v306 = v305 + *v304;
-      v301 = v305 + ((*v304 + 1) >> 1);
-      if (v60[1000] != 1)
-      {
-        v301 = v306;
-      }
-    }
-
-    ++v304;
-    v270 = __CFADD__(v303++, 1);
-  }
-
-  while (!v270);
-  v307 = *(v15 + *(*v15 - 24) + 4584);
-  *(v15 + 730) = llvm::ConstantInt::get();
-  *(v15 + 731) = v607;
-  v308 = *(v15 + 1296);
-  v309 = *(v15 + *(*v15 - 24) + 4584);
-  v310 = llvm::ConstantInt::get();
-  *(v15 + 732) = v310;
-  v311 = v15 + *(*v15 - 24);
-  v312 = *(v15 + 729);
-  LOWORD(v679) = 257;
-  v313 = llvm::IRBuilderBase::CreateAdd((v311 + 1712), v312, v310, v677);
-  v314 = 0;
-  *(v15 + 733) = v313;
-  v315 = *v15;
-  v316 = -6;
-  v317 = (v15 + 5200);
-  do
-  {
-    if ((v316 + 6) <= 5 && ((1 << (v316 + 6)) & 0x27) != 0)
-    {
-      v318 = *(v317 - 6) + v314;
-      v319 = v318 + *v317;
-      v314 = v318 + ((*v317 + 1) >> 1);
-      if (v60[1000] != 1)
-      {
-        v314 = v319;
-      }
-    }
-
-    ++v317;
-    v270 = __CFADD__(v316++, 1);
-  }
-
-  while (!v270);
-  v320 = *(v15 + *(*v15 - 24) + 4584);
-  *(v15 + 734) = llvm::ConstantInt::get();
-  *(v15 + 735) = v607;
-  v321 = *(v15 + 1299);
-  v322 = *(v15 + *(*v15 - 24) + 4584);
-  v323 = llvm::ConstantInt::get();
-  *(v15 + 736) = v323;
-  v324 = v15 + *(*v15 - 24);
-  v325 = *(v15 + 733);
-  LOWORD(v679) = 257;
-  v326 = llvm::IRBuilderBase::CreateAdd((v324 + 1712), v325, v323, v677);
-  v327 = 0;
-  *(v15 + 737) = v326;
-  v328 = *v15;
-  v329 = -6;
-  v330 = (v15 + 5200);
-  do
-  {
-    if ((v329 + 6) <= 5 && ((1 << (v329 + 6)) & 0x27) != 0)
-    {
-      v331 = *(v330 - 6) + v327;
-      v332 = v331 + *v330;
-      v327 = v331 + ((*v330 + 1) >> 1);
-      if (v60[1000] != 1)
-      {
-        v327 = v332;
-      }
-    }
-
-    ++v330;
-    v270 = __CFADD__(v329++, 1);
-  }
-
-  while (!v270);
-  v333 = *(v15 + *(*v15 - 24) + 4584);
-  *(v15 + 738) = llvm::ConstantInt::get();
-  *(v15 + 739) = v607;
-  v334 = (*(v15 + 1300) + 1) >> 1;
-  v60[1000];
-  v335 = *(v15 + *(*v15 - 24) + 4584);
-  v336 = llvm::ConstantInt::get();
-  *(v15 + 740) = v336;
-  v337 = v15 + *(*v15 - 24);
-  v338 = *(v15 + 737);
-  LOWORD(v679) = 257;
-  v339 = llvm::IRBuilderBase::CreateAdd((v337 + 1712), v338, v336, v677);
-  v340 = 0;
-  *(v15 + 741) = v339;
-  v341 = *v15;
-  v342 = -6;
-  v343 = (v15 + 5200);
-  do
-  {
-    if ((v342 + 6) <= 5 && ((1 << (v342 + 6)) & 0x27) != 0)
-    {
-      v344 = *(v343 - 6) + v340;
-      v345 = v344 + *v343;
-      v340 = v344 + ((*v343 + 1) >> 1);
-      if (v60[1000] != 1)
-      {
-        v340 = v345;
-      }
-    }
-
-    ++v343;
-    v270 = __CFADD__(v342++, 1);
-  }
-
-  while (!v270);
-  v346 = *(v15 + *(*v15 - 24) + 4584);
-  *(v15 + 742) = llvm::ConstantInt::get();
-  *(v15 + 743) = v607;
-  v347 = (*(v15 + 1301) + 1) >> 1;
-  v60[1000];
-  v348 = *(v15 + *(*v15 - 24) + 4584);
-  v349 = llvm::ConstantInt::get();
-  *(v15 + 744) = v349;
-  v350 = v15 + *(*v15 - 24);
-  v351 = *(v15 + 741);
-  LOWORD(v679) = 257;
-  v352 = llvm::IRBuilderBase::CreateAdd((v350 + 1712), v351, v349, v677);
-  v353 = 0;
-  *(v15 + 745) = v352;
-  v354 = *v15;
-  v355 = -6;
-  v356 = (v15 + 5200);
-  do
-  {
-    if ((v355 + 6) <= 5 && ((1 << (v355 + 6)) & 0x27) != 0)
-    {
-      v357 = *(v356 - 6) + v353;
-      v358 = v357 + *v356;
-      v353 = v357 + ((*v356 + 1) >> 1);
-      if (v60[1000] != 1)
-      {
-        v353 = v358;
-      }
-    }
-
-    ++v356;
-    v270 = __CFADD__(v355++, 1);
-  }
-
-  while (!v270);
-  v359 = *(v15 + *(*v15 - 24) + 4584);
-  *(v15 + 746) = llvm::ConstantInt::get();
-  *(v15 + 747) = v607;
-  v360 = (*(v15 + 1302) + 1) >> 1;
-  v60[1000];
-  v361 = *(v15 + *(*v15 - 24) + 4584);
-  v362 = llvm::ConstantInt::get();
-  *(v15 + 748) = v362;
-  v363 = v15 + *(*v15 - 24);
-  v364 = *(v15 + 745);
-  LOWORD(v679) = 257;
-  v365 = llvm::IRBuilderBase::CreateAdd((v363 + 1712), v364, v362, v677);
-  v366 = 0;
-  *(v15 + 749) = v365;
-  v367 = *v15;
-  v368 = -6;
-  v369 = (v15 + 5200);
-  do
-  {
-    if ((v368 + 6) <= 5 && ((1 << (v368 + 6)) & 0x27) != 0)
-    {
-      v370 = *(v369 - 6) + v366;
-      v371 = v370 + *v369;
-      v366 = v370 + ((*v369 + 1) >> 1);
-      if (v60[1000] != 1)
-      {
-        v366 = v371;
-      }
-    }
-
-    ++v369;
-    v270 = __CFADD__(v368++, 1);
-  }
-
-  while (!v270);
-  v372 = *(v15 + *(*v15 - 24) + 4584);
-  *(v15 + 750) = llvm::ConstantInt::get();
-  *(v15 + 751) = v607;
-  v373 = (*(v15 + 1305) + 1) >> 1;
-  v60[1000];
-  v374 = *(v15 + *(*v15 - 24) + 4584);
-  v375 = llvm::ConstantInt::get();
-  v376 = 0;
-  *(v15 + 752) = v375;
-  v377 = *(*v15 - 24);
-  v378 = -6;
-  v379 = (v15 + 5200);
-  do
-  {
-    if ((v378 + 6) <= 5 && ((1 << (v378 + 6)) & 0x27) != 0)
-    {
-      v380 = *(v379 - 6) + v376;
-      v381 = v380 + *v379;
-      v376 = v380 + ((*v379 + 1) >> 1);
-      if (v60[1000] != 1)
-      {
-        v376 = v381;
-      }
-    }
-
-    ++v379;
-    v270 = __CFADD__(v378++, 1);
-  }
-
-  while (!v270);
-  v598 = v15 + 5448;
-  v382 = v15 + v377;
-  v383 = *(v15 + v377 + 4584);
-  v384 = llvm::ConstantInt::get();
-  v385 = v15 + *(*v15 - 24);
-  v386 = *(v385 + 573);
-  v387 = llvm::ConstantInt::get();
-  LOWORD(v679) = 257;
-  Sub = llvm::IRBuilderBase::CreateSub((v385 + 1712), v616, v387, v677);
-  LOWORD(v675) = 257;
-  v389 = llvm::IRBuilderBase::CreateMul((v382 + 1712), v384, Sub, &v671);
-  LOWORD(v627) = 257;
-  v390 = llvm::IRBuilderBase::CreateAdd((v382 + 1712), v375, v389, &v623);
-  v391 = 0;
-  *(v15 + 752) = v390;
-  v392 = -6;
-  do
-  {
-    if ((v392 + 6) <= 5 && ((1 << (v392 + 6)) & 0x27) != 0)
-    {
-      v393 = *(v276 - 6) + v391;
-      v394 = v393 + *v276;
-      v391 = v393 + ((*v276 + 1) >> 1);
-      if (v60[1000] != 1)
-      {
-        v391 = v394;
-      }
-    }
-
-    ++v276;
-    v270 = __CFADD__(v392++, 1);
-  }
-
-  while (!v270);
-  *(v15 + 1314) += v391;
-  v395 = v15 + *(*v15 - 24);
-  v396 = *(v395 + 573);
-  v397 = llvm::ConstantInt::get();
-  LOWORD(v679) = 257;
-  v398 = llvm::IRBuilderBase::CreateMul((v395 + 1712), v397, v616, v677);
-  v399 = v15 + *(*v15 - 24);
-  v400 = *(v15 + 721);
-  LOWORD(v679) = 257;
-  *(v15 + 769) = llvm::IRBuilderBase::CreateAdd((v399 + 1712), v400, v398, v677);
-  v401 = v60[1152];
-  v402 = *(v15 + *(*v15 - 24) + 4584);
-  v403 = llvm::ConstantInt::get();
-  *(v15 + 770) = v403;
-  v404 = v60[1213];
-  if (v60[1213])
-  {
-    v405 = v607;
-  }
-
-  else
-  {
-    v405 = v610;
-  }
-
-  *(v15 + 771) = v405;
-  if (v404 == 1)
-  {
-    v406 = v15 + *(*v15 - 24);
-    LOWORD(v679) = 257;
-    v403 = llvm::IRBuilderBase::CreateMul((v406 + 1712), v403, v616, v677);
-  }
-
-  *(v15 + 772) = v403;
-  if (v60[1152] == 1)
-  {
-    if (v60[1213] == 1)
-    {
-      ++*(v15 + 1314);
-    }
-
-    else
-    {
-      ++*v605;
-    }
-  }
-
-  v407 = v15 + *(*v15 - 24);
-  if (*(*(v407 + 271) + 1862) != 1)
-  {
-    v409 = *(v15 + 769);
-    LOWORD(v679) = 257;
-    *(v15 + 773) = llvm::IRBuilderBase::CreateAdd((v407 + 1712), v409, v403, v677);
-    v410 = v60[1153];
-    v411 = *(v15 + *(*v15 - 24) + 4584);
-    v412 = llvm::ConstantInt::get();
-    *(v15 + 774) = v412;
-    v413 = v60[1214];
-    if (v60[1214])
-    {
-      v414 = v607;
-    }
-
-    else
-    {
-      v414 = v610;
-    }
-
-    *(v15 + 775) = v414;
-    if (v413 == 1)
-    {
-      v415 = v15 + *(*v15 - 24);
-      LOWORD(v679) = 257;
-      v412 = llvm::IRBuilderBase::CreateMul((v415 + 1712), v412, v616, v677);
-    }
-
-    *(v15 + 776) = v412;
-    if (v60[1153] == 1)
-    {
-      if (v60[1214] == 1)
-      {
-        ++*(v15 + 1314);
+        v195 = v589[0];
+        v194 = 3 * v590;
+        v201 = 48 * v590;
       }
 
       else
       {
-        ++*v605;
+        v201 = 0;
       }
+
+      llvm::deallocate_buffer(v194, v195, v201);
+      v144 = *(v530 + 717);
     }
 
-    v424 = v15 + *(*v15 - 24);
-    v425 = *(v15 + 773);
-    LOWORD(v679) = 257;
-    *(v15 + 777) = llvm::IRBuilderBase::CreateAdd((v424 + 1712), v425, v412, v677);
-    v426 = v60[1154];
-    v427 = *(v15 + *(*v15 - 24) + 4584);
-    v420 = llvm::ConstantInt::get();
-    *(v15 + 778) = v420;
-    v428 = v60[1215];
-    if (v60[1215])
+    if (*(v144 + 16) == 16)
     {
-      v429 = v607;
+      v202 = v144;
     }
 
     else
     {
-      v429 = v610;
+      v202 = 0;
     }
 
-    *(v15 + 779) = v429;
-    if (v428 == 1)
+    v203 = (v202 + 24);
+    if (*(v202 + 32) >= 0x41u)
     {
-      v430 = v15 + *(*v15 - 24);
-      LOWORD(v679) = 257;
-      v420 = llvm::IRBuilderBase::CreateMul((v430 + 1712), v420, v616, v677);
+      v203 = *v203;
     }
 
-    *(v15 + 780) = v420;
-    if (v60[1154] != 1)
+    v204 = *v203;
+    v205 = *(v12 + 1352);
+    if (v205 < 2)
+    {
+      v208 = 0;
+    }
+
+    else
+    {
+      v206 = v12;
+      v207 = 0;
+      v208 = 0;
+      v209 = v206 + 5344;
+      v210 = vdupq_n_s64(4uLL);
+      do
+      {
+        v211 = *(v209 + 8 * v207);
+        v212 = *(v211 + 1);
+        if (*v212 >= 0xFFFFFFFE)
+        {
+          v213 = *v211;
+          if (v213)
+          {
+            v214 = (v213 + 3) & 0x1FFFFFFFCLL;
+            v215 = vdupq_n_s64(v213 - 1);
+            v216 = v212 + 2;
+            v217 = v204;
+            v218 = xmmword_20E70C4F0;
+            v219 = xmmword_20E70C4E0;
+            do
+            {
+              v220 = vmovn_s64(vcgeq_u64(v215, v218));
+              if (vuzp1_s16(v220, 2).u8[0])
+              {
+                *(v216 - 2) = v217;
+              }
+
+              if (vuzp1_s16(v220, 2).i8[2])
+              {
+                *(v216 - 1) = v217 + 1;
+              }
+
+              if (vuzp1_s16(2, vmovn_s64(vcgeq_u64(v215, *&v219))).i32[1])
+              {
+                *v216 = v217 + 2;
+                v216[1] = v217 + 3;
+              }
+
+              v219 = vaddq_s64(v219, v210);
+              v218 = vaddq_s64(v218, v210);
+              v217 += 4;
+              v216 += 4;
+              v214 -= 4;
+            }
+
+            while (v214);
+            v205 = *(v530 + 1352);
+          }
+
+          v204 += v213;
+          v208 += v213;
+        }
+
+        ++v207;
+      }
+
+      while (v207 < v205);
+    }
+
+    v221 = *(v530 + 665);
+    v222 = *(v530 + 666);
+    if (v221 != v222)
+    {
+      v223 = v530 + 5344;
+      while (1)
+      {
+        v224 = *(v221 + 3);
+        if (v224)
+        {
+          break;
+        }
+
+LABEL_335:
+        v221 += 8;
+        if (v221 == v222)
+        {
+          goto LABEL_342;
+        }
+      }
+
+      v225 = *v221;
+      v226 = v221[1];
+      v227 = *(v224 - 8);
+      if ((*(*v224 + 8) & 0xFE) == 0x12)
+      {
+        v228 = *(*v224 + 32);
+        v229 = *&v223[8 * v226];
+        if (!v228)
+        {
+LABEL_334:
+          v234 = llvm::ConstantInt::get();
+          AGCLLVMUserVertexShader::replaceOutputUses(v530, v227, v234, 1, 0, 4u);
+          v235 = *(v224 - 4);
+          llvm::Instruction::eraseFromParent(v224);
+          EraseInstructionChain(v235);
+          goto LABEL_335;
+        }
+      }
+
+      else
+      {
+        v229 = *&v223[8 * v226];
+        v228 = 1;
+      }
+
+      v230 = *(v229 + 8);
+      if (*(v230 + 4 * v225) <= 0xFFFFFFFD)
+      {
+        v236 = 0;
+        while (v228 - 1 != v236)
+        {
+          v237 = *(v230 + 4 * (v225 + 1 + v236++));
+          if (v237 >= 0xFFFFFFFE)
+          {
+            if (v236 < v228)
+            {
+              goto LABEL_331;
+            }
+
+            goto LABEL_334;
+          }
+        }
+      }
+
+      else
+      {
+LABEL_331:
+        v231 = v204;
+        v232 = *v221;
+        v233 = v228;
+        do
+        {
+          *(v230 + 4 * v232++) = v231++;
+          --v233;
+        }
+
+        while (v233);
+        v204 += v228;
+        v208 += v228;
+      }
+
+      goto LABEL_334;
+    }
+
+LABEL_342:
+    v238 = *(v530 + 1311) + v208;
+    v12 = v530;
+    *(v530 + 1311) = v238;
+    v58 = v524;
+    v57 = v525;
+  }
+
+  v239 = llvm::ConstantInt::get();
+  v240 = 0;
+  *(v12 + 718) = v239;
+  *(v12 + 719) = v522;
+  *(v12 + 720) = v239;
+  v241 = -6;
+  do
+  {
+    if ((v241 + 6) <= 5 && ((1 << (v241 + 6)) & 0x27) != 0)
+    {
+      v242 = *(v122 - 6) + v240;
+      v243 = v242 + *v122;
+      v240 = v242 + ((*v122 + 1) >> 1);
+      if (v58[1000] != 1)
+      {
+        v240 = v243;
+      }
+    }
+
+    ++v122;
+    v244 = __CFADD__(v241++, 1);
+  }
+
+  while (!v244);
+  *(v12 + 1313) += *(v12 + 1311) + v240;
+  v245 = v12 + *(*v12 - 24);
+  v246 = *(v12 + 717);
+  LOWORD(v591) = 257;
+  v247 = llvm::IRBuilderBase::CreateAdd((v245 + 1712), v246, v239, v589);
+  v248 = 0;
+  *(v12 + 721) = v247;
+  v249 = (v12 + 5200);
+  v250 = -6;
+  v251 = (v12 + 5200);
+  do
+  {
+    if ((v250 + 6) <= 5 && ((1 << (v250 + 6)) & 0x27) != 0)
+    {
+      v252 = *(v251 - 6) + v248;
+      v253 = v252 + *v251;
+      v248 = v252 + ((*v251 + 1) >> 1);
+      if (v58[1000] != 1)
+      {
+        v248 = v253;
+      }
+    }
+
+    ++v251;
+    v244 = __CFADD__(v250++, 1);
+  }
+
+  while (!v244);
+  *(v12 + 722) = llvm::ConstantInt::get();
+  *(v12 + 723) = v519;
+  v254 = llvm::ConstantInt::get();
+  *(v12 + 724) = v254;
+  v255 = v12 + *(*v12 - 24);
+  v256 = *(v12 + 721);
+  LOWORD(v591) = 257;
+  v257 = llvm::IRBuilderBase::CreateAdd((v255 + 1712), v256, v254, v589);
+  v258 = 0;
+  *(v12 + 725) = v257;
+  v259 = -6;
+  v260 = (v12 + 5200);
+  do
+  {
+    if ((v259 + 6) <= 5 && ((1 << (v259 + 6)) & 0x27) != 0)
+    {
+      v261 = *(v260 - 6) + v258;
+      v262 = v261 + *v260;
+      v258 = v261 + ((*v260 + 1) >> 1);
+      if (v58[1000] != 1)
+      {
+        v258 = v262;
+      }
+    }
+
+    ++v260;
+    v244 = __CFADD__(v259++, 1);
+  }
+
+  while (!v244);
+  *(v12 + 726) = llvm::ConstantInt::get();
+  *(v12 + 727) = v519;
+  v263 = llvm::ConstantInt::get();
+  *(v12 + 728) = v263;
+  v264 = v12 + *(*v12 - 24);
+  v265 = *(v12 + 725);
+  LOWORD(v591) = 257;
+  v266 = llvm::IRBuilderBase::CreateAdd((v264 + 1712), v265, v263, v589);
+  v267 = 0;
+  *(v12 + 729) = v266;
+  v268 = -6;
+  v269 = (v12 + 5200);
+  do
+  {
+    if ((v268 + 6) <= 5 && ((1 << (v268 + 6)) & 0x27) != 0)
+    {
+      v270 = *(v269 - 6) + v267;
+      v271 = v270 + *v269;
+      v267 = v270 + ((*v269 + 1) >> 1);
+      if (v58[1000] != 1)
+      {
+        v267 = v271;
+      }
+    }
+
+    ++v269;
+    v244 = __CFADD__(v268++, 1);
+  }
+
+  while (!v244);
+  *(v12 + 730) = llvm::ConstantInt::get();
+  *(v12 + 731) = v519;
+  v272 = llvm::ConstantInt::get();
+  *(v12 + 732) = v272;
+  v273 = v12 + *(*v12 - 24);
+  v274 = *(v12 + 729);
+  LOWORD(v591) = 257;
+  v275 = llvm::IRBuilderBase::CreateAdd((v273 + 1712), v274, v272, v589);
+  v276 = 0;
+  *(v12 + 733) = v275;
+  v277 = -6;
+  v278 = (v12 + 5200);
+  do
+  {
+    if ((v277 + 6) <= 5 && ((1 << (v277 + 6)) & 0x27) != 0)
+    {
+      v279 = *(v278 - 6) + v276;
+      v280 = v279 + *v278;
+      v276 = v279 + ((*v278 + 1) >> 1);
+      if (v58[1000] != 1)
+      {
+        v276 = v280;
+      }
+    }
+
+    ++v278;
+    v244 = __CFADD__(v277++, 1);
+  }
+
+  while (!v244);
+  *(v12 + 734) = llvm::ConstantInt::get();
+  *(v12 + 735) = v519;
+  v281 = llvm::ConstantInt::get();
+  *(v12 + 736) = v281;
+  v282 = v12 + *(*v12 - 24);
+  v283 = *(v12 + 733);
+  LOWORD(v591) = 257;
+  v284 = llvm::IRBuilderBase::CreateAdd((v282 + 1712), v283, v281, v589);
+  v285 = 0;
+  *(v12 + 737) = v284;
+  v286 = -6;
+  v287 = (v12 + 5200);
+  do
+  {
+    if ((v286 + 6) <= 5 && ((1 << (v286 + 6)) & 0x27) != 0)
+    {
+      v288 = *(v287 - 6) + v285;
+      v289 = v288 + *v287;
+      v285 = v288 + ((*v287 + 1) >> 1);
+      if (v58[1000] != 1)
+      {
+        v285 = v289;
+      }
+    }
+
+    ++v287;
+    v244 = __CFADD__(v286++, 1);
+  }
+
+  while (!v244);
+  *(v12 + 738) = llvm::ConstantInt::get();
+  *(v12 + 739) = v519;
+  v290 = llvm::ConstantInt::get();
+  *(v12 + 740) = v290;
+  v291 = v12 + *(*v12 - 24);
+  v292 = *(v12 + 737);
+  LOWORD(v591) = 257;
+  v293 = llvm::IRBuilderBase::CreateAdd((v291 + 1712), v292, v290, v589);
+  v294 = 0;
+  *(v12 + 741) = v293;
+  v295 = -6;
+  v296 = (v12 + 5200);
+  do
+  {
+    if ((v295 + 6) <= 5 && ((1 << (v295 + 6)) & 0x27) != 0)
+    {
+      v297 = *(v296 - 6) + v294;
+      v298 = v297 + *v296;
+      v294 = v297 + ((*v296 + 1) >> 1);
+      if (v58[1000] != 1)
+      {
+        v294 = v298;
+      }
+    }
+
+    ++v296;
+    v244 = __CFADD__(v295++, 1);
+  }
+
+  while (!v244);
+  *(v12 + 742) = llvm::ConstantInt::get();
+  *(v12 + 743) = v519;
+  v299 = llvm::ConstantInt::get();
+  *(v12 + 744) = v299;
+  v300 = v12 + *(*v12 - 24);
+  v301 = *(v12 + 741);
+  LOWORD(v591) = 257;
+  v302 = llvm::IRBuilderBase::CreateAdd((v300 + 1712), v301, v299, v589);
+  v303 = 0;
+  *(v12 + 745) = v302;
+  v304 = -6;
+  v305 = (v12 + 5200);
+  do
+  {
+    if ((v304 + 6) <= 5 && ((1 << (v304 + 6)) & 0x27) != 0)
+    {
+      v306 = *(v305 - 6) + v303;
+      v307 = v306 + *v305;
+      v303 = v306 + ((*v305 + 1) >> 1);
+      if (v58[1000] != 1)
+      {
+        v303 = v307;
+      }
+    }
+
+    ++v305;
+    v244 = __CFADD__(v304++, 1);
+  }
+
+  while (!v244);
+  *(v12 + 746) = llvm::ConstantInt::get();
+  *(v12 + 747) = v519;
+  v308 = llvm::ConstantInt::get();
+  *(v12 + 748) = v308;
+  v309 = v12 + *(*v12 - 24);
+  v310 = *(v12 + 745);
+  LOWORD(v591) = 257;
+  v311 = llvm::IRBuilderBase::CreateAdd((v309 + 1712), v310, v308, v589);
+  v312 = 0;
+  *(v12 + 749) = v311;
+  v313 = -6;
+  v314 = (v12 + 5200);
+  do
+  {
+    if ((v313 + 6) <= 5 && ((1 << (v313 + 6)) & 0x27) != 0)
+    {
+      v315 = *(v314 - 6) + v312;
+      v316 = v315 + *v314;
+      v312 = v315 + ((*v314 + 1) >> 1);
+      if (v58[1000] != 1)
+      {
+        v312 = v316;
+      }
+    }
+
+    ++v314;
+    v244 = __CFADD__(v313++, 1);
+  }
+
+  while (!v244);
+  *(v12 + 750) = llvm::ConstantInt::get();
+  *(v12 + 751) = v519;
+  v317 = llvm::ConstantInt::get();
+  v318 = 0;
+  *(v12 + 752) = v317;
+  v319 = -6;
+  v320 = (v12 + 5200);
+  do
+  {
+    if ((v319 + 6) <= 5 && ((1 << (v319 + 6)) & 0x27) != 0)
+    {
+      v321 = *(v320 - 6) + v318;
+      v322 = v321 + *v320;
+      v318 = v321 + ((*v320 + 1) >> 1);
+      if (v58[1000] != 1)
+      {
+        v318 = v322;
+      }
+    }
+
+    ++v320;
+    v244 = __CFADD__(v319++, 1);
+  }
+
+  while (!v244);
+  v510 = v12 + 5448;
+  v323 = v12 + *(*v12 - 24);
+  v324 = llvm::ConstantInt::get();
+  v325 = v12 + *(*v12 - 24);
+  v326 = llvm::ConstantInt::get();
+  LOWORD(v591) = 257;
+  Sub = llvm::IRBuilderBase::CreateSub((v325 + 1712), v528, v326, v589);
+  LOWORD(v587) = 257;
+  v328 = llvm::IRBuilderBase::CreateMul((v323 + 1712), v324, Sub, &v583);
+  LOWORD(v539) = 257;
+  v329 = llvm::IRBuilderBase::CreateAdd((v323 + 1712), v317, v328, &v535);
+  v330 = 0;
+  *(v12 + 752) = v329;
+  v331 = -6;
+  do
+  {
+    if ((v331 + 6) <= 5 && ((1 << (v331 + 6)) & 0x27) != 0)
+    {
+      v332 = *(v249 - 6) + v330;
+      v333 = v332 + *v249;
+      v330 = v332 + ((*v249 + 1) >> 1);
+      if (v58[1000] != 1)
+      {
+        v330 = v333;
+      }
+    }
+
+    ++v249;
+    v244 = __CFADD__(v331++, 1);
+  }
+
+  while (!v244);
+  *(v12 + 1314) += v330;
+  v334 = v12 + *(*v12 - 24);
+  v335 = llvm::ConstantInt::get();
+  LOWORD(v591) = 257;
+  v336 = llvm::IRBuilderBase::CreateMul((v334 + 1712), v335, v528, v589);
+  v337 = v12 + *(*v12 - 24);
+  v338 = *(v12 + 721);
+  LOWORD(v591) = 257;
+  *(v12 + 769) = llvm::IRBuilderBase::CreateAdd((v337 + 1712), v338, v336, v589);
+  v339 = llvm::ConstantInt::get();
+  *(v12 + 770) = v339;
+  v340 = v58[1213];
+  if (v58[1213])
+  {
+    v341 = v519;
+  }
+
+  else
+  {
+    v341 = v522;
+  }
+
+  *(v12 + 771) = v341;
+  if (v340 == 1)
+  {
+    v342 = v12 + *(*v12 - 24);
+    LOWORD(v591) = 257;
+    v339 = llvm::IRBuilderBase::CreateMul((v342 + 1712), v339, v528, v589);
+  }
+
+  *(v12 + 772) = v339;
+  if (v58[1152] == 1)
+  {
+    if (v58[1213] == 1)
+    {
+      ++*(v12 + 1314);
+    }
+
+    else
+    {
+      ++*v517;
+    }
+  }
+
+  v343 = v12 + *(*v12 - 24);
+  if (*(*(v343 + 271) + 1862) != 1)
+  {
+    v345 = *(v12 + 769);
+    LOWORD(v591) = 257;
+    *(v12 + 773) = llvm::IRBuilderBase::CreateAdd((v343 + 1712), v345, v339, v589);
+    v346 = llvm::ConstantInt::get();
+    *(v12 + 774) = v346;
+    v347 = v58[1214];
+    if (v58[1214])
+    {
+      v348 = v519;
+    }
+
+    else
+    {
+      v348 = v522;
+    }
+
+    *(v12 + 775) = v348;
+    if (v347 == 1)
+    {
+      v349 = v12 + *(*v12 - 24);
+      LOWORD(v591) = 257;
+      v346 = llvm::IRBuilderBase::CreateMul((v349 + 1712), v346, v528, v589);
+    }
+
+    *(v12 + 776) = v346;
+    if (v58[1153] == 1)
+    {
+      if (v58[1214] == 1)
+      {
+        ++*(v12 + 1314);
+      }
+
+      else
+      {
+        ++*v517;
+      }
+    }
+
+    v357 = v12 + *(*v12 - 24);
+    v358 = *(v12 + 773);
+    LOWORD(v591) = 257;
+    *(v12 + 777) = llvm::IRBuilderBase::CreateAdd((v357 + 1712), v358, v346, v589);
+    v353 = llvm::ConstantInt::get();
+    *(v12 + 778) = v353;
+    v359 = v58[1215];
+    if (v58[1215])
+    {
+      v360 = v519;
+    }
+
+    else
+    {
+      v360 = v522;
+    }
+
+    *(v12 + 779) = v360;
+    if (v359 == 1)
+    {
+      v361 = v12 + *(*v12 - 24);
+      LOWORD(v591) = 257;
+      v353 = llvm::IRBuilderBase::CreateMul((v361 + 1712), v353, v528, v589);
+    }
+
+    *(v12 + 780) = v353;
+    if (v58[1154] != 1)
     {
       goto LABEL_462;
     }
 
-    if (v60[1215] == 1)
+    if (v58[1215] == 1)
     {
       goto LABEL_460;
     }
 
 LABEL_461:
-    ++*v605;
+    ++*v517;
     goto LABEL_462;
   }
 
-  if (v60[1153])
+  if (v58[1153])
   {
-    v408 = 1;
+    v344 = 1;
   }
 
   else
   {
-    v408 = v60[1154];
+    v344 = v58[1154];
   }
 
-  if (v60[1214])
+  if (v58[1214])
   {
-    v416 = 1;
-  }
-
-  else
-  {
-    v416 = v60[1215];
-  }
-
-  v417 = *(v15 + 769);
-  LOWORD(v679) = 257;
-  *(v15 + 773) = llvm::IRBuilderBase::CreateAdd((v407 + 1712), v417, v403, v677);
-  v418 = *(v15 + *(*v15 - 24) + 4584);
-  v419 = llvm::ConstantInt::get();
-  v420 = v419;
-  *(v15 + 774) = v419;
-  if (v416)
-  {
-    v421 = v607;
+    v350 = 1;
   }
 
   else
   {
-    v421 = v610;
+    v350 = v58[1215];
   }
 
-  *(v15 + 775) = v421;
-  if (v416)
+  v351 = *(v12 + 769);
+  LOWORD(v591) = 257;
+  *(v12 + 773) = llvm::IRBuilderBase::CreateAdd((v343 + 1712), v351, v339, v589);
+  v352 = llvm::ConstantInt::get();
+  v353 = v352;
+  *(v12 + 774) = v352;
+  if (v350)
   {
-    v422 = v15 + *(*v15 - 24);
-    LOWORD(v679) = 257;
-    v420 = llvm::IRBuilderBase::CreateMul((v422 + 1712), v419, v616, v677);
-    v423 = *(v15 + 775);
-    *(v15 + 776) = v420;
-    *(v60 + 2120) = *(v60 + 2088);
-    *(v15 + 779) = v423;
-    *(v15 + 780) = v420;
-    if ((v408 & 1) == 0)
+    v354 = v519;
+  }
+
+  else
+  {
+    v354 = v522;
+  }
+
+  *(v12 + 775) = v354;
+  if (v350)
+  {
+    v355 = v12 + *(*v12 - 24);
+    LOWORD(v591) = 257;
+    v353 = llvm::IRBuilderBase::CreateMul((v355 + 1712), v352, v528, v589);
+    v356 = *(v12 + 775);
+    *(v12 + 776) = v353;
+    *(v58 + 2120) = *(v58 + 2088);
+    *(v12 + 779) = v356;
+    *(v12 + 780) = v353;
+    if ((v344 & 1) == 0)
     {
       goto LABEL_462;
     }
 
 LABEL_460:
-    ++*(v15 + 1314);
+    ++*(v12 + 1314);
     goto LABEL_462;
   }
 
-  *(v15 + 776) = v419;
-  *(v15 + 777) = *(v15 + 773);
-  *(v15 + 778) = v419;
-  *(v15 + 779) = v610;
-  *(v15 + 780) = v419;
-  if (v408)
+  *(v12 + 776) = v352;
+  *(v12 + 777) = *(v12 + 773);
+  *(v12 + 778) = v352;
+  *(v12 + 779) = v522;
+  *(v12 + 780) = v352;
+  if (v344)
   {
     goto LABEL_461;
   }
 
 LABEL_462:
-  v431 = v15 + *(*v15 - 24);
-  v432 = *(v15 + 777);
-  LOWORD(v679) = 257;
-  *(v15 + 781) = llvm::IRBuilderBase::CreateAdd((v431 + 1712), v432, v420, v677);
-  v433 = *(v15 + 1315);
-  v434 = *(v15 + *(*v15 - 24) + 4584);
-  v435 = llvm::ConstantInt::get();
-  *(v15 + 782) = v435;
-  v436 = v60[1212];
-  if (v60[1212])
+  v362 = v12 + *(*v12 - 24);
+  v363 = *(v12 + 777);
+  LOWORD(v591) = 257;
+  *(v12 + 781) = llvm::IRBuilderBase::CreateAdd((v362 + 1712), v363, v353, v589);
+  v364 = llvm::ConstantInt::get();
+  *(v12 + 782) = v364;
+  v365 = v58[1212];
+  if (v58[1212])
   {
-    v437 = v607;
+    v366 = v519;
   }
 
   else
   {
-    v437 = v610;
+    v366 = v522;
   }
 
-  *(v15 + 783) = v437;
-  if (v436 == 1)
+  *(v12 + 783) = v366;
+  if (v365 == 1)
   {
-    v438 = v15 + *(*v15 - 24);
-    LOWORD(v679) = 257;
-    v435 = llvm::IRBuilderBase::CreateMul((v438 + 1712), v435, v616, v677);
+    v367 = v12 + *(*v12 - 24);
+    LOWORD(v591) = 257;
+    v364 = llvm::IRBuilderBase::CreateMul((v367 + 1712), v364, v528, v589);
   }
 
-  v439 = v15 + 5448;
-  *(v15 + 784) = v435;
-  v440 = *(v15 + 1315);
-  if (!v440)
+  v368 = v12 + 5448;
+  *(v12 + 784) = v364;
+  v369 = *(v12 + 1315);
+  if (!v369)
   {
 LABEL_470:
-    if (!v59)
+    if (!v57)
     {
       goto LABEL_472;
     }
@@ -8051,494 +7366,472 @@ LABEL_470:
     goto LABEL_471;
   }
 
-  if (v60[1212] == 1)
+  if (v58[1212] == 1)
   {
-    *(v15 + 1314) += v440;
+    *(v12 + 1314) += v369;
     goto LABEL_470;
   }
 
-  *v605 += v440;
-  if (v59)
+  *v517 += v369;
+  if (v57)
   {
 LABEL_471:
-    v441 = v15 + *(*v15 - 24);
-    v442 = *(v15 + 681);
-    v443 = *(v15 + 683);
-    v444 = *(v15 + 682);
-    LOWORD(v679) = 257;
-    v445 = llvm::IRBuilderBase::CreateMul((v441 + 1712), v443, v444, v677);
-    LOWORD(v675) = 257;
-    v446 = llvm::IRBuilderBase::CreateAdd((v441 + 1712), v442, v445, &v671);
-    AGCLLVMUserVertexShader::replaceOutputUses(v15, v59, v446, 0, v60[1212], 4u);
+    v370 = v12 + *(*v12 - 24);
+    v371 = *(v12 + 681);
+    v372 = *(v12 + 683);
+    v373 = *(v12 + 682);
+    LOWORD(v591) = 257;
+    v374 = llvm::IRBuilderBase::CreateMul((v370 + 1712), v372, v373, v589);
+    LOWORD(v587) = 257;
+    v375 = llvm::IRBuilderBase::CreateAdd((v370 + 1712), v371, v374, &v583);
+    AGCLLVMUserVertexShader::replaceOutputUses(v12, v57, v375, 0, v58[1212], 4u);
   }
 
 LABEL_472:
-  v447 = *(v15 + 1142);
-  if (v447)
+  v376 = *(v12 + 1142);
+  if (v376)
   {
-    v448 = 0;
-    v606 = 0;
-    v608 = 0;
-    v611 = 0;
-    v449 = 0;
-    v450 = *(v15 + 570);
-    v601 = v450 + (v447 << 6);
+    v377 = 0;
+    v518 = 0;
+    v520 = 0;
+    v523 = 0;
+    v378 = 0;
+    v379 = *(v12 + 570);
+    v513 = v379 + (v376 << 6);
     do
     {
-      if (v612[1000] == 1)
+      if (v524[1000] == 1)
       {
-        v451 = *(v450 + 56);
+        v380 = *(v379 + 56);
       }
 
       else
       {
-        v451 = 0;
+        v380 = 0;
       }
 
-      v452 = *(v450 + 16);
-      if (v669)
+      v381 = *(v379 + 16);
+      if (v581)
       {
-        v453 = v668;
-        v454 = v669;
+        v382 = v580;
+        v383 = v581;
         do
         {
-          v455 = v454 >> 1;
-          v456 = &v453[2 * (v454 >> 1)];
-          v458 = *v456;
-          v457 = v456 + 4;
-          v454 += ~(v454 >> 1);
-          if (v458 < v452)
+          v384 = v383 >> 1;
+          v385 = &v382[2 * (v383 >> 1)];
+          v387 = *v385;
+          v386 = v385 + 4;
+          v383 += ~(v383 >> 1);
+          if (v387 < v381)
           {
-            v453 = v457;
+            v382 = v386;
           }
 
           else
           {
-            v454 = v455;
+            v383 = v384;
           }
         }
 
-        while (v454);
+        while (v383);
       }
 
       else
       {
-        v453 = v668;
+        v382 = v580;
       }
 
-      if (v453 != (v668 + 16 * v669) && *v453 == v452)
+      if (v382 != (v580 + 16 * v581) && *v382 == v381)
       {
-        v617 = v449;
-        v459 = *(*v15 - 24);
-        v614 = *(v450 + 60);
-        v460 = &v439[32 * v614];
-        v462 = v460[1];
-        v461 = v460[2];
-        v463 = *v460;
-        LOWORD(v679) = 257;
-        v464 = llvm::IRBuilderBase::CreateMul(&v602[v459], v461, v462, v677);
-        LOWORD(v675) = 257;
-        v465 = llvm::IRBuilderBase::CreateAdd(&v602[v459], v463, v464, &v671);
-        v466 = v453[1];
-        if ((v451 & 1) == 0)
+        v529 = v378;
+        v388 = *(*v12 - 24);
+        v526 = *(v379 + 60);
+        v389 = &v368[32 * v526];
+        v391 = v389[1];
+        v390 = v389[2];
+        v392 = *v389;
+        LOWORD(v591) = 257;
+        v393 = llvm::IRBuilderBase::CreateMul(&v514[v388], v390, v391, v589);
+        LOWORD(v587) = 257;
+        v394 = llvm::IRBuilderBase::CreateAdd(&v514[v388], v392, v393, &v583);
+        v395 = v382[1];
+        if ((v380 & 1) == 0)
         {
-          v469 = v15 + *(*v15 - 24);
-          v470 = *(v450 + 52);
-          v471 = *(v469 + 573);
-          v472 = llvm::ConstantInt::get();
-          LOWORD(v679) = 257;
-          v473 = llvm::IRBuilderBase::CreateAdd((v469 + 1712), v465, v472, v677);
-          AGCLLVMUserVertexShader::replaceOutputUses(v15, v466, v473, 1, *(v450 + 57), *v450);
+          v398 = v12 + *(*v12 - 24);
+          v399 = llvm::ConstantInt::get();
+          LOWORD(v591) = 257;
+          v400 = llvm::IRBuilderBase::CreateAdd((v398 + 1712), v394, v399, v589);
+          AGCLLVMUserVertexShader::replaceOutputUses(v12, v395, v400, 1, *(v379 + 57), *v379);
           goto LABEL_509;
         }
 
-        v672 = 0;
-        v673 = 0;
-        v674 = 0;
-        v671 = v466;
-        if (*v466)
+        v584 = 0;
+        v585 = 0;
+        v586 = 0;
+        v583 = v395;
+        if (*v395)
         {
-          v467 = *(*v466 + 8) == 18;
+          v396 = *(*v395 + 8) == 18;
         }
 
         else
         {
-          v467 = 0;
+          v396 = 0;
         }
 
-        if (!v467)
+        if (!v396)
         {
-          v468 = 1;
+          v397 = 1;
 LABEL_498:
-          v604 = v465;
-          v474 = *(v450 + 52);
-          v475 = v468;
-          v476 = &v671;
+          v516 = v394;
+          v401 = *(v379 + 52);
+          v402 = v397;
+          v403 = &v583;
           while (2)
           {
-            v477 = v618;
-            v478 = v618 + *(*v618 - 24);
-            v479 = *(v478 + 573);
-            v480 = llvm::ConstantInt::get();
-            LOWORD(v679) = 257;
-            v482 = llvm::IRBuilderBase::CreateAdd((v478 + 1712), v465, v480, v677);
-            v483 = *v476;
-            v484 = *(v450 + 57);
-            if (v617)
+            v404 = v530;
+            v405 = v530 + *(*v530 - 24);
+            v406 = llvm::ConstantInt::get();
+            LOWORD(v591) = 257;
+            v408 = llvm::IRBuilderBase::CreateAdd((v405 + 1712), v394, v406, v589);
+            v409 = *v403;
+            v410 = *(v379 + 57);
+            if (v529)
             {
-              v485 = *(*v618 - 24);
-              if (v448 == v614 && v606 == (v474 & 0xFFFFFFFE))
+              v411 = *(*v530 - 24);
+              if (v377 == v526 && v518 == (v401 & 0xFFFFFFFE))
               {
-                v486 = &v603[v485];
-                LOWORD(v679) = 257;
-                v487 = *&v603[v485 + 200];
-                v488 = llvm::ConstantInt::get();
-                InsertElement = llvm::IRBuilderBase::CreateInsertElement((v486 + 8), v617, v483, v488, v677);
+                v412 = &v515[v411];
+                LOWORD(v591) = 257;
+                v413 = llvm::ConstantInt::get();
+                InsertElement = llvm::IRBuilderBase::CreateInsertElement((v412 + 8), v529, v409, v413, v589);
                 if (InsertElement)
                 {
-                  v490 = v618 + *(*v618 - 24);
-                  v491 = *(v490 + 238);
-                  LOWORD(v679) = 257;
-                  v492 = llvm::IRBuilderBase::CreateCast((v490 + 1712), 49, InsertElement, v491, v677);
-                  AGCLLVMUserVertexShader::replaceOutputUses(v618, v492, v611, 1, v608 & 1, 4u);
-                  v617 = 0;
-                  v611 = 0;
+                  v415 = v530 + *(*v530 - 24);
+                  v416 = *(v415 + 238);
+                  LOWORD(v591) = 257;
+                  v417 = llvm::IRBuilderBase::CreateCast((v415 + 1712), 49, InsertElement, v416, v589);
+                  AGCLLVMUserVertexShader::replaceOutputUses(v530, v417, v523, 1, v520 & 1, 4u);
+                  v529 = 0;
+                  v523 = 0;
                 }
 
                 else
                 {
-                  v617 = 0;
+                  v529 = 0;
                 }
 
 LABEL_506:
-                v465 = v604;
-                ++v474;
-                ++v476;
-                v448 = v614;
-                if (!--v475)
+                v394 = v516;
+                ++v401;
+                ++v403;
+                v377 = v526;
+                if (!--v402)
                 {
-                  v448 = v614;
-                  v15 = v618;
-                  v439 = v598;
+                  v377 = v526;
+                  v12 = v530;
+                  v368 = v510;
                   goto LABEL_509;
                 }
 
                 continue;
               }
 
-              v477 = v618;
-              v493 = v618 + v485;
-              v494 = *(v493 + 238);
-              LOWORD(v679) = 257;
-              v495 = llvm::IRBuilderBase::CreateCast((v493 + 1712), 49, v617, v494, v677);
-              AGCLLVMUserVertexShader::replaceOutputUses(v618, v495, v611, 1, v608 & 1, 4u);
+              v404 = v530;
+              v418 = v530 + v411;
+              v419 = *(v418 + 238);
+              LOWORD(v591) = 257;
+              v420 = llvm::IRBuilderBase::CreateCast((v418 + 1712), 49, v529, v419, v589);
+              AGCLLVMUserVertexShader::replaceOutputUses(v530, v420, v523, 1, v520 & 1, 4u);
             }
 
             break;
           }
 
-          v496 = (v477 + *(*v477 - 24));
-          v497 = llvm::Constant::getNullValue(v496[240], v481);
-          LOWORD(v679) = 257;
-          v498 = v496[238];
-          v499 = llvm::ConstantInt::get();
-          v617 = llvm::IRBuilderBase::CreateInsertElement((v496 + 214), v497, v483, v499, v677);
-          v611 = v482;
-          v608 = v484;
-          v606 = v474;
+          v421 = (v404 + *(*v404 - 24));
+          v422 = llvm::Constant::getNullValue(v421[240], v407);
+          LOWORD(v591) = 257;
+          v423 = llvm::ConstantInt::get();
+          v529 = llvm::IRBuilderBase::CreateInsertElement((v421 + 214), v422, v409, v423, v589);
+          v523 = v408;
+          v520 = v410;
+          v518 = v401;
           goto LABEL_506;
         }
 
-        if (*v450 >= *(*v466 + 32))
+        if (*v379 >= *(*v395 + 32))
         {
-          v468 = *(*v466 + 32);
+          v397 = *(*v395 + 32);
         }
 
         else
         {
-          v468 = *v450;
+          v397 = *v379;
         }
 
-        AGCLLVMBuilder::unboxVector(&v603[*(*v15 - 24)], v466, &v671);
-        if (v468)
+        AGCLLVMBuilder::unboxVector(&v515[*(*v12 - 24)], v395, &v583);
+        if (v397)
         {
           goto LABEL_498;
         }
 
 LABEL_509:
-        v449 = v617;
+        v378 = v529;
       }
 
-      v450 += 64;
+      v379 += 64;
     }
 
-    while (v450 != v601);
-    v60 = v612;
-    if (v449)
+    while (v379 != v513);
+    v58 = v524;
+    if (v378)
     {
-      v500 = v15 + *(*v15 - 24);
-      v501 = *(v500 + 238);
-      LOWORD(v679) = 257;
-      v502 = llvm::IRBuilderBase::CreateCast((v500 + 1712), 49, v449, v501, v677);
-      AGCLLVMUserVertexShader::replaceOutputUses(v15, v502, v611, 1, v608 & 1, 4u);
+      v424 = v12 + *(*v12 - 24);
+      v425 = *(v424 + 238);
+      LOWORD(v591) = 257;
+      v426 = llvm::IRBuilderBase::CreateCast((v424 + 1712), 49, v378, v425, v589);
+      AGCLLVMUserVertexShader::replaceOutputUses(v12, v426, v523, 1, v520 & 1, 4u);
     }
   }
 
-  v503 = *v15;
-  if (*(v15 + 1352))
+  v427 = *v12;
+  if (*(v12 + 1352) && *(*(v12 + *(v427 - 24) + 2168) + 1849) == 1)
   {
-    v504 = *v15;
-    v505 = (v15 + *(v503 - 24));
-    if (*(v505[271] + 1849) == 1)
-    {
-      v506 = v505[220];
-      v507 = v505[221];
-      v677[0] = "return_block";
-      LOWORD(v679) = 259;
-      llvm::BasicBlock::splitBasicBlock();
-      v508 = *(v15 + *(*v15 - 24) + 2160);
-      v677[0] = "tf_write_block";
-      LOWORD(v679) = 259;
-      v509 = *(v506 + 56);
-      operator new();
-    }
+    v589[0] = "return_block";
+    LOWORD(v591) = 259;
+    llvm::BasicBlock::splitBasicBlock();
+    v589[0] = "tf_write_block";
+    LOWORD(v591) = 259;
+    operator new();
   }
 
-  llvm::IRBuilderBase::SetInsertPoint((v15 + *(v503 - 24) + 1712), v600);
-  if (v60[1152] == 1)
+  llvm::IRBuilderBase::SetInsertPoint((v12 + *(v427 - 24) + 1712), v512);
+  if (v58[1152] == 1)
   {
-    v510 = (*(*v15 + 552))(v15, v595);
-    v511 = *v510;
-    v512 = llvm::ConstantFP::get();
-    v513 = v15 + *(*v15 - 24);
-    v514 = *(v513 + 271);
-    v619 = *(v513 + 110);
-    llvm::IRBuilderBase::getCurrentDebugLocation(&v620, (v513 + 1712));
-    v621 = *(v513 + 452);
-    v515 = (*(*v514 + 48))(v514, &v619, v510, v512, 0);
-    if (v620)
+    v428 = (*(*v12 + 552))(v12, v507);
+    v429 = llvm::ConstantFP::get();
+    v430 = v12 + *(*v12 - 24);
+    v431 = *(v430 + 271);
+    v531 = *(v430 + 110);
+    llvm::IRBuilderBase::getCurrentDebugLocation(&v532, (v430 + 1712));
+    v533 = *(v430 + 452);
+    v432 = (*(*v431 + 48))(v431, &v531, v428, v429, 0);
+    if (v532)
     {
       llvm::MetadataTracking::untrack();
     }
 
-    v516 = v15 + *(*v15 - 24);
-    v517 = *(v15 + 769);
-    v518 = *(v15 + 771);
-    v519 = *(v15 + 770);
-    LOWORD(v679) = 257;
-    v520 = llvm::IRBuilderBase::CreateMul((v516 + 1712), v518, v519, v677);
-    LOWORD(v675) = 257;
-    v521 = llvm::IRBuilderBase::CreateAdd((v516 + 1712), v517, v520, &v671);
-    AGCLLVMUserVertexShader::replaceOutputUses(v15, v515, v521, 2, v60[1213], 4u);
+    v433 = v12 + *(*v12 - 24);
+    v434 = *(v12 + 769);
+    v435 = *(v12 + 771);
+    v436 = *(v12 + 770);
+    LOWORD(v591) = 257;
+    v437 = llvm::IRBuilderBase::CreateMul((v433 + 1712), v435, v436, v589);
+    LOWORD(v587) = 257;
+    v438 = llvm::IRBuilderBase::CreateAdd((v433 + 1712), v434, v437, &v583);
+    AGCLLVMUserVertexShader::replaceOutputUses(v12, v432, v438, 2, v58[1213], 4u);
   }
 
-  v522 = *v15;
-  v523 = (v15 + *(*v15 - 24));
-  v524 = v523[271];
-  if (*(v524 + 1862) == 1)
+  v439 = *v12;
+  v440 = v12 + *(*v12 - 24);
+  v441 = *(v440 + 271);
+  if (*(v441 + 1862) == 1)
   {
-    if ((v60[1153] & 1) != 0 || v60[1154] == 1)
+    if ((v58[1153] & 1) != 0 || v58[1154] == 1)
     {
-      v525 = v523[238];
-      v526 = llvm::ConstantInt::get();
-      if (v60[1153] == 1)
+      v442 = llvm::ConstantInt::get();
+      if (v58[1153] == 1)
       {
-        v527 = v15 + *(*v15 - 24);
-        v528 = *(v527 + 238);
-        if (*NullValue == v528)
+        v443 = v12 + *(*v12 - 24);
+        v444 = *(v443 + 238);
+        if (*NullValue == v444)
         {
-          v545 = *(v527 + 238);
-          v546 = llvm::ConstantInt::get();
-          v529 = AGCLLVMBuilder::buildICmpSel(v527 + 213, NullValue, v546, 36);
+          v462 = llvm::ConstantInt::get();
+          v445 = AGCLLVMBuilder::buildICmpSel((v443 + 1704), NullValue, v462, 36);
         }
 
         else
         {
-          LOWORD(v679) = 257;
-          v529 = llvm::IRBuilderBase::CreateCast((v527 + 1712), 39, NullValue, v528, v677);
+          LOWORD(v591) = 257;
+          v445 = llvm::IRBuilderBase::CreateCast((v443 + 1712), 39, NullValue, v444, v589);
         }
 
-        v547 = v529;
-        v548 = AGCLLVMUserVertexShader::getDriverGlobalConstant(v15, 0x6Cu);
-        v549 = v15 + *(*v15 - 24);
-        LOWORD(v679) = 257;
-        Shl = llvm::IRBuilderBase::CreateShl((v549 + 1712), v547, v548, v677);
-        v551 = v15 + *(*v15 - 24);
-        LOWORD(v679) = 257;
-        v552 = *Shl;
-        v553 = llvm::ConstantInt::get();
-        v526 = llvm::IRBuilderBase::CreateShl((v551 + 1712), Shl, v553, v677);
+        v463 = v445;
+        v464 = AGCLLVMUserVertexShader::getDriverGlobalConstant(v12, 0x6Cu, v446);
+        v465 = v12 + *(*v12 - 24);
+        LOWORD(v591) = 257;
+        Shl = llvm::IRBuilderBase::CreateShl((v465 + 1712), v463, v464, v589);
+        v467 = v12 + *(*v12 - 24);
+        LOWORD(v591) = 257;
+        v468 = llvm::ConstantInt::get();
+        v442 = llvm::IRBuilderBase::CreateShl((v467 + 1712), Shl, v468, v589);
       }
 
-      v554 = v526;
-      if (v60[1154] == 1)
+      v469 = v442;
+      if (v58[1154] == 1)
       {
-        v555 = v15 + *(*v15 - 24);
-        v556 = *(v555 + 238);
-        if (*v597 == v556)
+        v470 = v12 + *(*v12 - 24);
+        v471 = *(v470 + 238);
+        if (*v509 == v471)
         {
-          v558 = *(v555 + 238);
-          v559 = llvm::ConstantInt::get();
-          v557 = AGCLLVMBuilder::buildICmpSel(v555 + 213, v597, v559, 36);
+          v474 = llvm::ConstantInt::get();
+          v472 = AGCLLVMBuilder::buildICmpSel((v470 + 1704), v509, v474, 36);
         }
 
         else
         {
-          LOWORD(v679) = 257;
-          v557 = llvm::IRBuilderBase::CreateCast((v555 + 1712), 39, v597, v556, v677);
+          LOWORD(v591) = 257;
+          v472 = llvm::IRBuilderBase::CreateCast((v470 + 1712), 39, v509, v471, v589);
         }
 
-        v560 = v557;
-        v561 = AGCLLVMUserVertexShader::getDriverGlobalConstant(v15, 0x6Cu);
-        v562 = v15 + *(*v15 - 24);
-        LOWORD(v679) = 257;
-        v563 = llvm::IRBuilderBase::CreateAnd((v562 + 1712), v560, v561, v677);
-        v564 = v15 + *(*v15 - 24);
-        LOWORD(v679) = 257;
-        v565 = *v563;
-        v566 = llvm::ConstantInt::get();
-        v567 = llvm::IRBuilderBase::CreateShl((v564 + 1712), v563, v566, v677);
-        v568 = v15 + *(*v15 - 24);
-        LOWORD(v679) = 257;
-        v569 = llvm::IRBuilderBase::CreateAdd((v568 + 1712), v554, v567, v677);
-        v570 = v15 + *(*v15 - 24);
-        LOWORD(v679) = 257;
-        v554 = llvm::IRBuilderBase::CreateOr((v570 + 1712), v569, v560, v677);
+        v475 = v472;
+        v476 = AGCLLVMUserVertexShader::getDriverGlobalConstant(v12, 0x6Cu, v473);
+        v477 = v12 + *(*v12 - 24);
+        LOWORD(v591) = 257;
+        v478 = llvm::IRBuilderBase::CreateAnd((v477 + 1712), v475, v476, v589);
+        v479 = v12 + *(*v12 - 24);
+        LOWORD(v591) = 257;
+        v480 = llvm::ConstantInt::get();
+        v481 = llvm::IRBuilderBase::CreateShl((v479 + 1712), v478, v480, v589);
+        v482 = v12 + *(*v12 - 24);
+        LOWORD(v591) = 257;
+        v483 = llvm::IRBuilderBase::CreateAdd((v482 + 1712), v469, v481, v589);
+        v484 = v12 + *(*v12 - 24);
+        LOWORD(v591) = 257;
+        v469 = llvm::IRBuilderBase::CreateOr((v484 + 1712), v483, v475, v589);
       }
 
-      v571 = v15 + *(*v15 - 24);
-      v572 = *(v15 + 773);
-      v573 = *(v15 + 775);
-      v574 = *(v15 + 774);
-      LOWORD(v679) = 257;
-      v575 = llvm::IRBuilderBase::CreateMul((v571 + 1712), v573, v574, v677);
-      LOWORD(v675) = 257;
-      v540 = llvm::IRBuilderBase::CreateAdd((v571 + 1712), v572, v575, &v671);
-      if (v60[1214])
+      v485 = v12 + *(*v12 - 24);
+      v486 = *(v12 + 773);
+      v487 = *(v12 + 775);
+      v488 = *(v12 + 774);
+      LOWORD(v591) = 257;
+      v489 = llvm::IRBuilderBase::CreateMul((v485 + 1712), v487, v488, v589);
+      LOWORD(v587) = 257;
+      v457 = llvm::IRBuilderBase::CreateAdd((v485 + 1712), v486, v489, &v583);
+      if (v58[1214])
       {
-        v576 = 1;
+        v490 = 1;
       }
 
       else
       {
-        v576 = v60[1215];
+        v490 = v58[1215];
       }
 
-      v541 = v576 & 1;
-      v542 = v15;
-      v543 = v554;
-      v544 = 4;
+      v458 = v490 & 1;
+      v459 = v12;
+      v460 = v469;
+      v461 = 4;
 LABEL_545:
-      AGCLLVMUserVertexShader::replaceOutputUses(v542, v543, v540, v544, v541, 4u);
+      AGCLLVMUserVertexShader::replaceOutputUses(v459, v460, v457, v461, v458, 4u);
     }
   }
 
   else
   {
-    if (*(v524 + 1860) == 1 && v60[1153] == 1)
+    if (*(v441 + 1860) == 1 && v58[1153] == 1)
     {
-      v530 = *(v15 + 773);
-      v531 = *(v15 + 775);
-      v532 = *(v15 + 774);
-      LOWORD(v679) = 257;
-      v533 = llvm::IRBuilderBase::CreateMul((v523 + 214), v531, v532, v677);
-      LOWORD(v675) = 257;
-      v534 = llvm::IRBuilderBase::CreateAdd((v523 + 214), v530, v533, &v671);
-      AGCLLVMUserVertexShader::replaceOutputUses(v15, NullValue, v534, 4, v60[1214], 4u);
-      v522 = *v15;
+      v447 = *(v12 + 773);
+      v448 = *(v12 + 775);
+      v449 = *(v12 + 774);
+      LOWORD(v591) = 257;
+      v450 = llvm::IRBuilderBase::CreateMul((v440 + 1712), v448, v449, v589);
+      LOWORD(v587) = 257;
+      v451 = llvm::IRBuilderBase::CreateAdd((v440 + 1712), v447, v450, &v583);
+      AGCLLVMUserVertexShader::replaceOutputUses(v12, NullValue, v451, 4, v58[1214], 4u);
+      v439 = *v12;
     }
 
-    v535 = v15 + *(v522 - 24);
-    if (*(*(v535 + 271) + 1861) == 1 && v60[1154] == 1)
+    v452 = v12 + *(v439 - 24);
+    if (*(*(v452 + 271) + 1861) == 1 && v58[1154] == 1)
     {
-      v536 = *(v15 + 777);
-      v537 = *(v15 + 779);
-      v538 = *(v15 + 778);
-      LOWORD(v679) = 257;
-      v539 = llvm::IRBuilderBase::CreateMul((v535 + 1712), v537, v538, v677);
-      LOWORD(v675) = 257;
-      v540 = llvm::IRBuilderBase::CreateAdd((v535 + 1712), v536, v539, &v671);
-      v541 = v60[1215];
-      v542 = v15;
-      v543 = v597;
-      v544 = 5;
+      v453 = *(v12 + 777);
+      v454 = *(v12 + 779);
+      v455 = *(v12 + 778);
+      LOWORD(v591) = 257;
+      v456 = llvm::IRBuilderBase::CreateMul((v452 + 1712), v454, v455, v589);
+      LOWORD(v587) = 257;
+      v457 = llvm::IRBuilderBase::CreateAdd((v452 + 1712), v453, v456, &v583);
+      v458 = v58[1215];
+      v459 = v12;
+      v460 = v509;
+      v461 = 5;
       goto LABEL_545;
     }
   }
 
-  v577 = 0;
-  v578 = 0;
-  v579 = 1;
+  v491 = 0;
+  v492 = 0;
+  v493 = 1;
   do
   {
-    if ((*(v15 + 1316) & v579) != 0)
+    if ((*(v12 + 1316) & v493) != 0)
     {
-      v580 = *(v15 + *(*v15 - 24) + 4584);
-      v581 = llvm::ConstantInt::get();
-      v582 = *(*v15 - 24);
-      v583 = *(v15 + 781);
-      v584 = *(v15 + 783);
-      v585 = *(v15 + 782);
-      LOWORD(v679) = 257;
-      v586 = llvm::IRBuilderBase::CreateMul(&v602[v582], v584, v585, v677);
-      LOWORD(v675) = 257;
-      v587 = llvm::IRBuilderBase::CreateAdd(&v602[v582], v583, v586, &v671);
-      LOWORD(v627) = 257;
-      v588 = llvm::IRBuilderBase::CreateAdd(&v602[v582], v581, v587, &v623);
-      AGCLLVMUserVertexShader::replaceOutputUses(v15, *(v664 + v577), v588, 3, v612[1212], 4u);
-      ++v578;
+      v494 = llvm::ConstantInt::get();
+      v495 = *(*v12 - 24);
+      v496 = *(v12 + 781);
+      v497 = *(v12 + 783);
+      v498 = *(v12 + 782);
+      LOWORD(v591) = 257;
+      v499 = llvm::IRBuilderBase::CreateMul(&v514[v495], v497, v498, v589);
+      LOWORD(v587) = 257;
+      v500 = llvm::IRBuilderBase::CreateAdd(&v514[v495], v496, v499, &v583);
+      LOWORD(v539) = 257;
+      v501 = llvm::IRBuilderBase::CreateAdd(&v514[v495], v494, v500, &v535);
+      AGCLLVMUserVertexShader::replaceOutputUses(v12, *(v576 + v491), v501, 3, v524[1212], 4u);
+      ++v492;
     }
 
-    v579 *= 2;
-    v577 += 8;
+    v493 *= 2;
+    v491 += 8;
   }
 
-  while (v577 != 64);
-  if (v594)
+  while (v491 != 64);
+  if (v506)
   {
-    EraseInstructionChain(v594);
+    EraseInstructionChain(v506);
   }
 
-  v589 = v600 + 3;
-  if (!v600)
+  v502 = v512 + 3;
+  if (!v512)
   {
-    v589 = 0;
+    v502 = 0;
   }
 
-  llvm::IRBuilderBase::SetInsertPoint(v15 + *(*v15 - 24) + 1712, v600[5], v589[1]);
-  llvm::Instruction::eraseFromParent(v600);
-  llvm::Function::eraseFromParent(v593);
-  v590 = 384;
+  llvm::IRBuilderBase::SetInsertPoint(v12 + *(*v12 - 24) + 1712, v512[5], v502[1]);
+  llvm::Instruction::eraseFromParent(v512);
+  llvm::Function::eraseFromParent(v505);
+  v503 = 384;
   do
   {
-    if (*(&v625 + v590 + 7) < 0)
+    if (*(&v537 + v503 + 7) < 0)
     {
-      operator delete(*(&v623 + v590));
+      operator delete(*(&v535 + v503));
     }
 
-    v590 -= 96;
+    v503 -= 96;
   }
 
-  while (v590);
-  v78 = 1;
+  while (v503);
+  v75 = 1;
 LABEL_559:
-  if (v662[0] != v663)
+  if (v574[0] != v575)
   {
-    free(v662[0]);
+    free(v574[0]);
   }
 
-  if (v665 != v667)
+  if (v577 != v579)
   {
-    free(v665);
+    free(v577);
   }
 
-  if (v668 != v670)
+  if (v580 != v582)
   {
-    free(v668);
+    free(v580);
   }
 
-  v591 = *MEMORY[0x277D85DE8];
-  return v78;
+  return v75;
 }
 
 uint64_t llvm::SmallVectorImpl<unsigned int>::append(uint64_t result, uint64_t a2)
@@ -8586,8 +7879,9 @@ uint64_t llvm::SmallVectorImpl<unsigned int>::append(uint64_t result, uint64_t a
   return result;
 }
 
-uint64_t AGCLLVMAGPVertexShader::getGenericVaryingInfo(void *a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t AGCLLVMAGPVertexShader::getGenericVaryingInfo(void *a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v6 = a6;
   String = llvm::MDString::getString(*(a4 - 8 * *(a4 + 8) + 8));
   v13 = v12;
   v14 = *(*(a2 + 16) + 8 * a3);
@@ -8602,12 +7896,12 @@ uint64_t AGCLLVMAGPVertexShader::getGenericVaryingInfo(void *a1, uint64_t a2, un
     v16 = 1;
   }
 
-  return AGCLLVMAGPVertexShader::getGenericVaryingInfo(a1, ComponentType, v16, String, v13, a5, a6);
+  return AGCLLVMAGPVertexShader::getGenericVaryingInfo(a1, ComponentType, v16, String, v13, a5, v6);
 }
 
 uint64_t AGCLLVMBuilder::getComponentType(int8x16_t *this, const llvm::Type *a2, unsigned int *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   *a3 = 1;
   if ((*(a2 + 2) & 0xFE) == 0x12)
   {
@@ -8618,25 +7912,23 @@ uint64_t AGCLLVMBuilder::getComponentType(int8x16_t *this, const llvm::Type *a2,
   result = 0;
   v5 = this[9].i64[1];
   v6 = this[11].i64[0];
-  v8[0] = this[10].i64[1];
-  v8[1] = v5;
-  v8[2] = v6;
-  v9 = vextq_s8(this[12], this[12], 8uLL);
-  v10 = this[11].i64[1];
-  while (a2 != v8[result])
+  v7[0] = this[10].i64[1];
+  v7[1] = v5;
+  v7[2] = v6;
+  v8 = vextq_s8(this[12], this[12], 8uLL);
+  v9 = this[11].i64[1];
+  while (a2 != v7[result])
   {
     if (++result == 6)
     {
-      result = 10;
-      break;
+      return 10;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t AGCLLVMAGPVertexShader::getGenericVaryingInfo(uint64_t a1, int a2, int a3, void *a4, size_t a5, uint64_t a6, int a7)
+uint64_t AGCLLVMAGPVertexShader::getGenericVaryingInfo(uint64_t a1, int a2, unsigned int a3, void *a4, size_t a5, uint64_t a6, int a7)
 {
   Key = llvm::StringMapImpl::FindKey();
   if (Key == -1)
@@ -8699,7 +7991,7 @@ uint64_t AGCLLVMAGPVertexShader::getGenericVaryingInfo(uint64_t a1, int a2, int 
   *(a6 + 40) = v22;
   v20 = *(v16 + 8 * v15);
   llvm::StringMapImpl::RemoveKey();
-  llvm::deallocate_buffer(v20, (*v20 + 17));
+  llvm::deallocate_buffer(*v20, v20, *v20 + 17);
   return 1;
 }
 
@@ -8785,7 +8077,7 @@ uint64_t AGCLLVMAGPVertexShader::getGenericVaryingInfo(uint64_t a1, void *a2, si
   *(a4 + 40) = v19;
   v17 = *(v12 + 8 * v11);
   llvm::StringMapImpl::RemoveKey();
-  llvm::deallocate_buffer(v17, (*v17 + 17));
+  llvm::deallocate_buffer(*v17, v17, *v17 + 17);
   return 1;
 }
 
@@ -8941,15 +8233,15 @@ uint64_t AGCLLVMAGPVertexShader::getNextUnlinkedVarying(uint64_t a1, uint64_t a2
   *(a2 + 40) = v24;
   v21 = *v5;
   llvm::StringMapImpl::RemoveKey();
-  llvm::deallocate_buffer(v21, (*v21 + 17));
+  llvm::deallocate_buffer(*v21, v21, (*v21 + 17));
   return 1;
 }
 
-unint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,false>(unint64_t result, unint64_t a2, uint64_t a3, char a4)
+unint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,false>(unint64_t result, int *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
-  v8 = (a2 - 16);
+  v8 = a2 - 4;
   k = v7;
   while (1)
   {
@@ -8961,7 +8253,7 @@ LABEL_2:
       {
         case 3:
 
-          return std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,0>(k, (k + 16), (a2 - 16));
+          return std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,0>(k, (k + 16), a2 - 4);
         case 4:
           result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,0>(k, (k + 16), (k + 32));
           v44 = *v8;
@@ -8973,7 +8265,7 @@ LABEL_2:
               return result;
             }
 
-            v47 = *(a2 - 8);
+            v47 = *(a2 - 1);
             v46 = *(k + 40);
             if (v47 >= v46)
             {
@@ -8984,13 +8276,13 @@ LABEL_2:
           else
           {
             v46 = *(k + 40);
-            v47 = *(a2 - 8);
+            v47 = *(a2 - 1);
           }
 
           *(k + 32) = v44;
-          *(a2 - 16) = v45;
+          *(a2 - 4) = v45;
           *(k + 40) = v47;
-          *(a2 - 8) = v46;
+          *(a2 - 1) = v46;
           v48 = *(k + 32);
           v49 = *(k + 16);
           if (v48 >= v49)
@@ -9045,7 +8337,7 @@ LABEL_2:
           return result;
         case 5:
 
-          return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,0>(k, k + 16, k + 32, k + 48, (a2 - 16));
+          return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,0>(k, k + 16, k + 32, k + 48, a2 - 4);
       }
     }
 
@@ -9067,7 +8359,7 @@ LABEL_2:
             return result;
           }
 
-          v57 = *(a2 - 8);
+          v57 = *(a2 - 1);
           v56 = *(k + 8);
           if (v57 >= v56)
           {
@@ -9078,13 +8370,13 @@ LABEL_2:
         else
         {
           v56 = *(k + 8);
-          v57 = *(a2 - 8);
+          v57 = *(a2 - 1);
         }
 
         *k = v54;
-        *(a2 - 16) = v55;
+        *(a2 - 4) = v55;
         *(k + 8) = v57;
-        *(a2 - 8) = v56;
+        *(a2 - 1) = v56;
         return result;
       }
     }
@@ -9222,7 +8514,7 @@ LABEL_150:
             }
 
             while (v92 <= (v10 - 2) / 2);
-            if (v95 == a2 - 16)
+            if (v95 == a2 - 4)
             {
               *v95 = v93;
               *(v95 + 8) = v94;
@@ -9230,10 +8522,10 @@ LABEL_150:
 
             else
             {
-              *v95 = *(a2 - 16);
-              *(v95 + 8) = *(a2 - 8);
-              *(a2 - 16) = v93;
-              *(a2 - 8) = v94;
+              *v95 = *(a2 - 4);
+              *(v95 + 8) = *(a2 - 1);
+              *(a2 - 4) = v93;
+              *(a2 - 1) = v94;
               v101 = (v95 - k + 16) >> 4;
               v102 = v101 - 2;
               if (v101 >= 2)
@@ -9306,7 +8598,7 @@ LABEL_186:
             }
 
 LABEL_188:
-            a2 -= 16;
+            a2 -= 4;
             if (v10-- <= 2)
             {
               return result;
@@ -9320,14 +8612,14 @@ LABEL_188:
     v12 = k + 16 * (v10 >> 1);
     if (v10 < 0x81)
     {
-      result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,0>((v7 + 16 * (v10 >> 1)), v7, (a2 - 16));
+      result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,0>((v7 + 16 * (v10 >> 1)), v7, a2 - 4);
     }
 
     else
     {
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,0>(v7, (v7 + 16 * (v10 >> 1)), (a2 - 16));
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,0>((v7 + 16), (v12 - 16), (a2 - 32));
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,0>((v7 + 32), (v7 + 16 + 16 * v11), (a2 - 48));
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,0>(v7, (v7 + 16 * (v10 >> 1)), a2 - 4);
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,0>((v7 + 16), (v12 - 16), a2 - 8);
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,0>((v7 + 32), (v7 + 16 + 16 * v11), a2 - 12);
       result = std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,0>((v12 - 16), v12, (v7 + 16 + 16 * v11));
       v13 = *v7;
       *v7 = *v12;
@@ -9358,15 +8650,15 @@ LABEL_19:
         if (i < a2)
         {
           v24 = *v8;
-          j = a2 - 16;
+          j = a2 - 4;
           if (*v8 >= v15)
           {
-            j = a2 - 16;
+            j = a2 - 4;
             do
             {
               if (v15 >= v24)
               {
-                if (*(j + 8) < v18 || i >= j)
+                if (*(j + 1) < v18 || i >= j)
                 {
                   break;
                 }
@@ -9377,8 +8669,8 @@ LABEL_19:
                 break;
               }
 
-              v26 = *(j - 16);
-              j -= 16;
+              v26 = *(j - 4);
+              j -= 4;
               v24 = v26;
             }
 
@@ -9390,9 +8682,9 @@ LABEL_19:
       else
       {
         v21 = *v8;
-        for (j = a2 - 16; v21 >= v15 && (v15 < v21 || *(j + 8) >= v18); j -= 16)
+        for (j = a2 - 4; v21 >= v15 && (v15 < v21 || *(j + 1) >= v18); j -= 4)
         {
-          v23 = *(j - 16);
+          v23 = *(j - 4);
           v21 = v23;
         }
       }
@@ -9408,8 +8700,8 @@ LABEL_19:
           *k = v27;
           *v28 = v20;
           v29 = *(k + 8);
-          *(k + 8) = *(v28 + 8);
-          *(v28 + 8) = v29;
+          *(k + 8) = *(v28 + 1);
+          *(v28 + 1) = v29;
           do
           {
             do
@@ -9425,12 +8717,12 @@ LABEL_19:
           while (v15 >= v20 && *(k + 8) < v18);
           do
           {
-            v31 = *(v28 - 16);
-            v28 -= 16;
+            v31 = *(v28 - 4);
+            v28 -= 4;
             v27 = v31;
           }
 
-          while (v31 >= v15 && (v15 < v27 || *(v28 + 8) >= v18));
+          while (v31 >= v15 && (v15 < v27 || *(v28 + 1) >= v18));
         }
 
         while (k < v28);
@@ -9447,7 +8739,7 @@ LABEL_19:
       if (i < j)
       {
 LABEL_56:
-        result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,false>(v7, k - 16, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *,false>(v7, (k - 16), a3, a4 & 1);
         a4 = 0;
       }
 
@@ -9457,7 +8749,7 @@ LABEL_56:
         result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned int,llvm::Value *> *>(k, a2);
         if (result)
         {
-          a2 = k - 16;
+          a2 = (k - 16);
           if (v32)
           {
             return result;
@@ -9490,7 +8782,7 @@ LABEL_56:
       }
 
       v33 = *v8;
-      if (v15 < *v8 || v33 >= v15 && v17 < *(a2 - 8))
+      if (v15 < *v8 || v33 >= v15 && v17 < *(a2 - 1))
       {
         k = v7;
         do
@@ -9512,9 +8804,9 @@ LABEL_56:
       m = a2;
       if (k < a2)
       {
-        for (m = a2 - 16; v15 < v33 || v33 >= v15 && v17 < *(m + 8); m -= 16)
+        for (m = a2 - 4; v15 < v33 || v33 >= v15 && v17 < *(m + 1); m -= 4)
         {
-          v37 = *(m - 16);
+          v37 = *(m - 4);
           v33 = v37;
         }
       }
@@ -9531,8 +8823,8 @@ LABEL_56:
           k += 16;
           v38 = v40;
           v41 = *(k - 8);
-          *(k - 8) = *(m + 8);
-          *(m + 8) = v41;
+          *(k - 8) = *(m + 1);
+          *(m + 1) = v41;
           while (v15 >= v38 && (v38 < v15 || v17 >= *(k + 8)))
           {
             v42 = *(k + 16);
@@ -9544,15 +8836,15 @@ LABEL_56:
           {
             do
             {
-              v43 = *(m - 16);
-              m -= 16;
+              v43 = *(m - 4);
+              m -= 4;
               v39 = v43;
             }
 
             while (v15 < v43);
           }
 
-          while (v39 >= v15 && v17 < *(m + 8));
+          while (v39 >= v15 && v17 < *(m + 1));
         }
 
         while (k < m);
@@ -9570,7 +8862,7 @@ LABEL_56:
     }
   }
 
-  v58 = k + 16;
+  v58 = (k + 16);
   v60 = k == a2 || v58 == a2;
   if ((a4 & 1) == 0)
   {
@@ -9600,8 +8892,8 @@ LABEL_56:
       }
 
 LABEL_206:
-      v58 = v7 + 16;
-      if (v7 + 16 == a2)
+      v58 = (v7 + 16);
+      if ((v7 + 16) == a2)
       {
         return result;
       }
@@ -9715,9 +9007,9 @@ LABEL_132:
     *v68 = v64;
     *(v68 + 8) = v66;
 LABEL_133:
-    v58 = v62 + 16;
+    v58 = (v62 + 16);
     v61 += 16;
-    if (v62 + 16 != a2)
+    if ((v62 + 16) != a2)
     {
       continue;
     }
@@ -9839,6 +9131,677 @@ LABEL_11:
     if (v14 < v13)
     {
       goto LABEL_11;
+    }
+  }
+
+  return result;
+}
+
+uint64_t llvm::IRBuilderBase::CreateSub(llvm::IRBuilderBase *this, llvm::Value *a2, llvm::Value *a3, const llvm::Twine *a4)
+{
+  if (a2 && *(a2 + 16) <= 0x14u && a3 && *(a3 + 16) <= 0x14u)
+  {
+    v6 = (*(**(this + 9) + 72))(*(this + 9));
+    if (v6)
+    {
+      v7 = *(v6 + 16) >= 0x1Cu;
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    if (v7)
+    {
+      llvm::IRBuilderBase::Insert<llvm::CastInst>(this, v6, a4);
+    }
+  }
+
+  else
+  {
+    v6 = llvm::BinaryOperator::Create();
+    llvm::IRBuilderBase::Insert<llvm::CastInst>(this, v6, a4);
+  }
+
+  return v6;
+}
+
+llvm::Instruction *AGCLLVMUserVertexShader::replaceOutputUses(uint64_t *a1, unsigned __int8 *a2, llvm::Value *a3, int a4, int a5, unsigned int a6)
+{
+  v8 = a2;
+  v64 = *MEMORY[0x277D85DE8];
+  v10 = *a2;
+  if ((*(*a2 + 8) & 0xFE) == 0x12)
+  {
+    v10 = **(v10 + 2);
+  }
+
+  v11 = (a1 + *(*a1 - 24));
+  v12 = v10 == v11[234] || v10 == v11[232];
+  if (a4 > 2)
+  {
+    v13 = 1520;
+    if (a5)
+    {
+      v13 = 1576;
+    }
+
+    v14 = 1528;
+    if (a5)
+    {
+      v14 = 1584;
+    }
+
+    v16 = 1536;
+    if (a5)
+    {
+      v16 = 1592;
+    }
+
+    if (a4 != 4)
+    {
+      v14 = v16;
+    }
+
+    v15 = a4 == 3;
+    goto LABEL_23;
+  }
+
+  if (a4)
+  {
+    if (a4 == 1)
+    {
+      v13 = 1488;
+      if (v12)
+      {
+        v13 = 1496;
+      }
+
+      v14 = 1544;
+      if (v12)
+      {
+        v14 = 1552;
+      }
+
+      v15 = a5 == 0;
+LABEL_23:
+      if (!v15)
+      {
+        v13 = v14;
+      }
+
+      goto LABEL_30;
+    }
+
+    v17 = a5 == 0;
+    v13 = 1512;
+    v18 = 1568;
+  }
+
+  else
+  {
+    v17 = a5 == 0;
+    v13 = 1504;
+    v18 = 1560;
+  }
+
+  if (!v17)
+  {
+    v13 = v18;
+  }
+
+LABEL_30:
+  v19 = *(v11[271] + v13);
+  v15 = !v12;
+  v20 = 238;
+  if (!v15)
+  {
+    v20 = 234;
+  }
+
+  v21 = v11[v20];
+  if (v19)
+  {
+    v22 = strlen(*(v11[271] + v13));
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  v54 = AGCLLVMBuilder::getOrInsertFunction<llvm::PointerType *,llvm::Type *>((v11 + 213), v19, v22, v11[231], v11[573], v21);
+  v23 = *v8;
+  if (*v8 && *(v23 + 8) == 18)
+  {
+    v24 = *(v23 + 32);
+    if (v24 >= a6)
+    {
+      v25 = a6;
+    }
+
+    else
+    {
+      v25 = v24;
+    }
+
+    *v62 = 0u;
+    v63 = 0u;
+    v26 = v8[16];
+    v27 = (a1 + *(*a1 - 24));
+    if (v26 < 0x15 || (v26 & 0xFE) == 0x5A)
+    {
+      AGCLLVMBuilder::unboxVector(v27 + 213, v8, v62);
+      if (!v25)
+      {
+        return EraseInstructionChain(v8);
+      }
+
+      v38 = v62;
+      v39 = v25;
+      do
+      {
+        *v38 = AGCLLVMBuilder::extendFromSmall((a1 + *(*a1 - 24) + 1704), *v38, v10, 1);
+        ++v38;
+        --v39;
+      }
+
+      while (v39);
+    }
+
+    else
+    {
+      v8 = AGCLLVMBuilder::extendFromSmall(v27 + 213, v8, v10, 1);
+      AGCLLVMBuilder::unboxVector((a1 + *(*a1 - 24) + 1704), v8, v62);
+    }
+
+    if (v25)
+    {
+      v40 = 0;
+      v41 = a1 + 214;
+      v53 = a3;
+      v52 = v8;
+      do
+      {
+        Select = v62[v40];
+        v43 = (a1 + *(*a1 - 24));
+        if (v10 == v43[234] && *(a1 + 5277) == 1)
+        {
+          v44 = v43[238];
+          v58 = 257;
+          Cast = llvm::IRBuilderBase::CreateCast((v43 + 214), 49, Select, v44, v57);
+          v46 = llvm::ConstantInt::get();
+          v61 = 257;
+          v47 = llvm::IRBuilderBase::CreateAnd((v43 + 214), Cast, v46, &Add);
+          v48 = llvm::ConstantInt::get();
+          v56 = 257;
+          llvm::IRBuilderBase::CreateICmp(v43 + 214, 34, v47, v48, v55);
+          llvm::ConstantFP::get();
+          a3 = v53;
+          Select = llvm::IRBuilderBase::CreateSelect();
+        }
+
+        v49 = llvm::ConstantInt::get();
+        v50 = *(*a1 - 24);
+        v58 = 257;
+        Add = llvm::IRBuilderBase::CreateAdd((v41 + v50), a3, v49, v57);
+        v60 = Select;
+        v51 = *(*a1 - 24);
+        v58 = 257;
+        llvm::IRBuilderBase::CreateCall((v41 + v51), *(v54 + 24), v54, &Add, 2, v57);
+        ++v40;
+      }
+
+      while (v25 != v40);
+      v8 = v52;
+    }
+
+    return EraseInstructionChain(v8);
+  }
+
+  v28 = AGCLLVMBuilder::extendFromSmall((a1 + *(*a1 - 24) + 1704), v8, v10, 1);
+  v29 = *a1;
+  v30 = (a1 + *(*a1 - 24));
+  if (v10 == v30[234] && *(a1 + 5277) == 1)
+  {
+    v31 = v30[238];
+    v58 = 257;
+    v32 = llvm::IRBuilderBase::CreateCast((v30 + 214), 49, v28, v31, v57);
+    v33 = llvm::ConstantInt::get();
+    v61 = 257;
+    v34 = llvm::IRBuilderBase::CreateAnd((v30 + 214), v32, v33, &Add);
+    v35 = llvm::ConstantInt::get();
+    v56 = 257;
+    llvm::IRBuilderBase::CreateICmp(v30 + 214, 34, v34, v35, v55);
+    llvm::ConstantFP::get();
+    v28 = llvm::IRBuilderBase::CreateSelect();
+    v29 = *a1;
+  }
+
+  Add = a3;
+  v60 = v28;
+  v36 = (a1 + *(v29 - 24));
+  v58 = 257;
+  return llvm::IRBuilderBase::CreateCall(v36 + 214, *(v54 + 24), v54, &Add, 2, v57);
+}
+
+llvm::Value *AGCLLVMBuilder::extendFromSmall(llvm::Type **this, llvm::Value *a2, llvm::Type *a3, int a4)
+{
+  v5 = a2;
+  if (this[19] == a3)
+  {
+    v7 = 21;
+  }
+
+  else
+  {
+    if (this[24] != a3 && this[23] != a3 && this[22] != a3)
+    {
+      return v5;
+    }
+
+    v7 = 25;
+  }
+
+  v8 = this[v7];
+  if ((*(*a2 + 8) & 0xFE) == 0x12)
+  {
+    v8 = llvm::FixedVectorType::get();
+  }
+
+  if ((*(v8 + 2) & 0xFE) == 0x12)
+  {
+    v9 = *(**(v8 + 2) + 8);
+  }
+
+  else
+  {
+    v9 = *(v8 + 2);
+  }
+
+  if (v9 > 6)
+  {
+    v14 = 257;
+    if (a4)
+    {
+      v11 = 40;
+    }
+
+    else
+    {
+      v11 = 39;
+    }
+
+    return llvm::IRBuilderBase::CreateCast((this + 1), v11, v5, v8, v13);
+  }
+
+  else
+  {
+    v14 = 257;
+    return llvm::IRBuilderBase::CreateFPExt((this + 1), v5, v8, v13);
+  }
+}
+
+uint64_t AGCLLVMUserVertexShader::markInvariantOutputs(AGCLLVMUserVertexShader *this, const char *a2)
+{
+  {
+    AGCEnv::isEnabled(void)::is_internal = os_variant_has_internal_diagnostics();
+  }
+
+  if (AGCEnv::isEnabled(void)::is_internal == 1 && AGCEnv::getValue("AGC_POS_INVARIANCE", a2))
+  {
+    {
+      AGCEnv::isEnabled(void)::is_internal = os_variant_has_internal_diagnostics();
+    }
+
+    v5 = AGCEnv::isEnabled(void)::is_internal == 1 && (Value = AGCEnv::getValue("AGC_POS_INVARIANCE", v3)) != 0 && *Value != 48 && atoi(Value) != 0;
+    *(this + 5273) = v5;
+  }
+
+  if ((*(this + 5272) & 1) != 0 || ((*(this + 5273) & 1) != 0 || *(this + 5275) == 1) && *(this + 32) == 1)
+  {
+    v6 = *(this + *(*this - 24) + 2168);
+    if (*(v6 + 1504))
+    {
+      strlen(*(v6 + 1504));
+    }
+
+    Function = llvm::Module::getFunction();
+    if (Function)
+    {
+      if (*(this + 32) == 1 && (*(this + 5275) != 1 || *(this + 5273) == 1))
+      {
+        v8 = *(this + 5274);
+      }
+
+      else
+      {
+        v8 = 0;
+      }
+
+      v9 = *this;
+      v10 = *(this + *(*this - 24) + 2136);
+      __p = 0;
+      v26 = 0;
+      v29[0] = 0;
+      v29[1] = 0;
+      v27 = 0;
+      v28 = v29;
+      v29[2] = v10;
+      v30 = v8 & 1;
+      v11 = *(Function + 8);
+      if (v11)
+      {
+        do
+        {
+          v12 = (*(v11 + 24) - 32 * (*(*(v11 + 24) + 20) & 0x7FFFFFF));
+          v13 = (*v12 + 24);
+          if (*(*v12 + 8) >= 0x41u)
+          {
+            v13 = *v13;
+          }
+
+          if ((*v13 & 0xFFFFFFFC) == 0)
+          {
+            MarkInvariants::addSeed(&__p, v12[4], 0);
+          }
+
+          v11 = *(v11 + 8);
+        }
+
+        while (v11);
+        v9 = *this;
+      }
+
+      if ((MarkInvariants::markInvariant(&__p, (this + *(v9 - 24) + 1704)) & 1) == 0)
+      {
+        v15 = *(this + *(*this - 24) + 2136);
+        v16 = v15 + 24;
+        for (i = *(v15 + 32); i != v16; i = *(i + 8))
+        {
+          v18 = i - 56;
+          if (!i)
+          {
+            v18 = 0;
+          }
+
+          v19 = v18 + 72;
+          v20 = *(v18 + 80);
+          if (v20 == v18 + 72)
+          {
+            v22 = 0;
+          }
+
+          else
+          {
+            do
+            {
+              v21 = v20 - 24;
+              if (!v20)
+              {
+                v21 = 0;
+              }
+
+              v22 = *(v21 + 48);
+              if (v22 != v21 + 40)
+              {
+                break;
+              }
+
+              v20 = *(v20 + 8);
+            }
+
+            while (v20 != v19);
+          }
+
+          while (v20 != v19)
+          {
+            if (v22)
+            {
+              v23 = (v22 - 24);
+            }
+
+            else
+            {
+              v23 = 0;
+            }
+
+            if (llvm::FPMathOperator::classof(v23))
+            {
+              llvm::Instruction::setFast(v23);
+            }
+
+            v22 = *(v22 + 8);
+            v24 = v20 - 24;
+            if (!v20)
+            {
+              v24 = 0;
+            }
+
+            while (v22 == v24 + 40)
+            {
+              v20 = *(v20 + 8);
+              if (v20 == v19)
+              {
+                break;
+              }
+
+              v24 = v20 - 24;
+              if (!v20)
+              {
+                v24 = 0;
+              }
+
+              v22 = *(v24 + 48);
+            }
+          }
+        }
+      }
+
+      std::__tree<std::__value_type<llvm::Function *,std::pair<unsigned char,unsigned char>>,std::__map_value_compare<llvm::Function *,std::__value_type<llvm::Function *,std::pair<unsigned char,unsigned char>>,std::less<llvm::Function *>,true>,std::allocator<std::__value_type<llvm::Function *,std::pair<unsigned char,unsigned char>>>>::destroy(v29[0]);
+      if (__p)
+      {
+        v26 = __p;
+        operator delete(__p);
+      }
+    }
+  }
+
+  return 1;
+}
+
+double std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,GenericVaryingAllocator::getVaryingSignature(flatbuffers::FlatBufferBuilder &,flatbuffers::Offset<flatbuffers::Vector<unsigned char>> *,flatbuffers::Offset<flatbuffers::Vector<unsigned char>> *)::$_0 &,GenericVarying *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,GenericVaryingAllocator::getVaryingSignature(flatbuffers::FlatBufferBuilder &,flatbuffers::Offset<flatbuffers::Vector<unsigned char>> *,flatbuffers::Offset<flatbuffers::Vector<unsigned char>> *)::$_0 &,GenericVarying *,0>(a1, a2, a3);
+  v8 = *(a3 + 47);
+  v9 = *(a4 + 47);
+  if (v9 >= 0)
+  {
+    v10 = *(a4 + 47);
+  }
+
+  else
+  {
+    v10 = *(a4 + 32);
+  }
+
+  if (v9 >= 0)
+  {
+    v11 = (a4 + 24);
+  }
+
+  else
+  {
+    v11 = *(a4 + 24);
+  }
+
+  if (v8 >= 0)
+  {
+    v12 = *(a3 + 47);
+  }
+
+  else
+  {
+    v12 = *(a3 + 32);
+  }
+
+  if (v8 >= 0)
+  {
+    v13 = (a3 + 24);
+  }
+
+  else
+  {
+    v13 = *(a3 + 24);
+  }
+
+  if (v12 >= v10)
+  {
+    v14 = v10;
+  }
+
+  else
+  {
+    v14 = v12;
+  }
+
+  v15 = memcmp(v11, v13, v14);
+  v17 = v10 < v12;
+  if (v15)
+  {
+    v17 = v15 < 0;
+  }
+
+  if (v17)
+  {
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<GenericVarying *&,GenericVarying *&>(a3, a4);
+    v18 = *(a2 + 47);
+    v19 = *(a3 + 47);
+    if (v19 >= 0)
+    {
+      v20 = *(a3 + 47);
+    }
+
+    else
+    {
+      v20 = *(a3 + 32);
+    }
+
+    if (v19 >= 0)
+    {
+      v21 = (a3 + 24);
+    }
+
+    else
+    {
+      v21 = *(a3 + 24);
+    }
+
+    if (v18 >= 0)
+    {
+      v22 = *(a2 + 47);
+    }
+
+    else
+    {
+      v22 = *(a2 + 32);
+    }
+
+    if (v18 >= 0)
+    {
+      v23 = (a2 + 24);
+    }
+
+    else
+    {
+      v23 = *(a2 + 24);
+    }
+
+    if (v22 >= v20)
+    {
+      v24 = v20;
+    }
+
+    else
+    {
+      v24 = v22;
+    }
+
+    v25 = memcmp(v21, v23, v24);
+    v26 = v20 < v22;
+    if (v25)
+    {
+      v26 = v25 < 0;
+    }
+
+    if (v26)
+    {
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<GenericVarying *&,GenericVarying *&>(a2, a3);
+      v27 = *(a1 + 47);
+      v28 = *(a2 + 47);
+      if (v28 >= 0)
+      {
+        v29 = *(a2 + 47);
+      }
+
+      else
+      {
+        v29 = *(a2 + 32);
+      }
+
+      if (v28 >= 0)
+      {
+        v30 = (a2 + 24);
+      }
+
+      else
+      {
+        v30 = *(a2 + 24);
+      }
+
+      if (v27 >= 0)
+      {
+        v31 = *(a1 + 47);
+      }
+
+      else
+      {
+        v31 = *(a1 + 32);
+      }
+
+      if (v27 >= 0)
+      {
+        v32 = (a1 + 24);
+      }
+
+      else
+      {
+        v32 = *(a1 + 24);
+      }
+
+      if (v31 >= v29)
+      {
+        v33 = v29;
+      }
+
+      else
+      {
+        v33 = v31;
+      }
+
+      v34 = memcmp(v30, v32, v33);
+      v35 = v29 < v31;
+      if (v34)
+      {
+        v35 = v34 < 0;
+      }
+
+      if (v35)
+      {
+
+        *&result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<GenericVarying *&,GenericVarying *&>(a1, a2).n128_u64[0];
+      }
     }
   }
 

@@ -11,7 +11,7 @@
     goto LABEL_9;
   }
 
-  v5 = MEMORY[0x1DA6E0380](a3);
+  v5 = MEMORY[0x1DA6E0380](a3, a2);
   if (v5 == MEMORY[0x1E69E9F10])
   {
     v9 = SSXPCCreateCFObjectFromXPCObject(a3);

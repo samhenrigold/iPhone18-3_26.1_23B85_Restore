@@ -33,11 +33,14 @@
 - (void)_publishBiomeSignalEventForGlobalNotificationListDisplayStyleSettingChangeToSetting:(int64_t)setting;
 - (void)_queue_loadCarPlayCapabilities;
 - (void)_queue_loadSiriCapabilities;
+- (void)_queue_setAnnounceSupportedForCarPlay:(BOOL)play;
+- (void)_queue_setAnnounceSupportedForHeadphones:(BOOL)headphones;
 - (void)_queue_setGlobalAnnounceCarPlaySetting:(int64_t)setting;
 - (void)_queue_setGlobalAnnounceHeadphonesSetting:(int64_t)setting;
 - (void)_queue_setGlobalAnnounceSetting:(int64_t)setting;
 - (void)_queue_setGlobalContentPreviewsSetting:(int64_t)setting;
 - (void)_queue_setGlobalScheduledDeliveryTimes:(id)times;
+- (void)_queue_setPairedVehiclesForCarPlay:(BOOL)play;
 - (void)_queue_updateAnnounceControlCenterModuleAvailability;
 - (void)_queue_updateAnnounceSettings;
 - (void)_queue_updateSiriPreferences;
@@ -141,7 +144,7 @@ uint64_t __67__UNCEffectiveSettings_initWithBulletinDefaults_biometricResource__
 
 - (void)_queue_loadSiriCapabilities
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E698D1E8]) initWithPlatform:1];
   announcementCapabilityManagerForHeadphones = self->_announcementCapabilityManagerForHeadphones;
   self->_announcementCapabilityManagerForHeadphones = v3;
@@ -152,17 +155,17 @@ uint64_t __67__UNCEffectiveSettings_initWithBulletinDefaults_biometricResource__
   if (os_log_type_enabled(*MEMORY[0x1E69833A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v30 = _queue_isAnnounceSupportedForHeadphones;
+    v29 = _queue_isAnnounceSupportedForHeadphones;
     _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[UNCES] Cached value of eligible setup for announce for headphones: %{BOOL}d", buf, 8u);
   }
 
   v8 = self->_announcementCapabilityManagerForHeadphones;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __51__UNCEffectiveSettings__queue_loadSiriCapabilities__block_invoke;
-  v28[3] = &unk_1E85D7D90;
-  v28[4] = self;
-  [(AFSiriAnnouncementRequestCapabilityManager *)v8 fetchEligibleAnnouncementRequestTypesWithCompletion:v28];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __51__UNCEffectiveSettings__queue_loadSiriCapabilities__block_invoke;
+  v27[3] = &unk_1E85D7D90;
+  v27[4] = self;
+  [(AFSiriAnnouncementRequestCapabilityManager *)v8 fetchEligibleAnnouncementRequestTypesWithCompletion:v27];
   v9 = [objc_alloc(MEMORY[0x1E698D1E8]) initWithPlatform:2];
   announcementCapabilityManagerForCarPlay = self->_announcementCapabilityManagerForCarPlay;
   self->_announcementCapabilityManagerForCarPlay = v9;
@@ -172,17 +175,17 @@ uint64_t __67__UNCEffectiveSettings_initWithBulletinDefaults_biometricResource__
   if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v30 = _queue_isAnnounceSupportedForCarPlay;
+    v29 = _queue_isAnnounceSupportedForCarPlay;
     _os_log_impl(&dword_1DA7A9000, v12, OS_LOG_TYPE_DEFAULT, "[UNCES] Cached value of eligible setup for announce for CarPlay: %{BOOL}d", buf, 8u);
   }
 
   v13 = self->_announcementCapabilityManagerForCarPlay;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __51__UNCEffectiveSettings__queue_loadSiriCapabilities__block_invoke_46;
-  v27[3] = &unk_1E85D7D90;
-  v27[4] = self;
-  [(AFSiriAnnouncementRequestCapabilityManager *)v13 fetchEligibleAnnouncementRequestTypesWithCompletion:v27];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __51__UNCEffectiveSettings__queue_loadSiriCapabilities__block_invoke_46;
+  v26[3] = &unk_1E85D7D90;
+  v26[4] = self;
+  [(AFSiriAnnouncementRequestCapabilityManager *)v13 fetchEligibleAnnouncementRequestTypesWithCompletion:v26];
   mEMORY[0x1E698D1C0] = [MEMORY[0x1E698D1C0] sharedPreferences];
   self->_siriEnabled = [mEMORY[0x1E698D1C0] assistantIsEnabled];
 
@@ -207,15 +210,15 @@ uint64_t __67__UNCEffectiveSettings_initWithBulletinDefaults_biometricResource__
     announceOnHearingAidsSupported = self->_announceOnHearingAidsSupported;
     announceOnBuiltInSpeakerEnabled = self->_announceOnBuiltInSpeakerEnabled;
     *buf = 67110144;
-    v30 = siriEnabled;
-    v31 = 1024;
-    v32 = siriAllowedWhenLocked;
-    v33 = 1024;
-    v34 = announceOnHearingAidsEnabled;
-    v35 = 1024;
-    v36 = announceOnHearingAidsSupported;
-    v37 = 1024;
-    v38 = announceOnBuiltInSpeakerEnabled;
+    v29 = siriEnabled;
+    v30 = 1024;
+    v31 = siriAllowedWhenLocked;
+    v32 = 1024;
+    v33 = announceOnHearingAidsEnabled;
+    v34 = 1024;
+    v35 = announceOnHearingAidsSupported;
+    v36 = 1024;
+    v37 = announceOnBuiltInSpeakerEnabled;
     _os_log_impl(&dword_1DA7A9000, v19, OS_LOG_TYPE_DEFAULT, "[UNCES] Siri preferences did load [ Siri enabled: %{BOOL}d, Siri allowed when locked: %{BOOL}d Announce On Hearing Aids Enabled: %{BOOL}d, Announce on Hearing Aids Supported: %{BOOL}d, Announce on Built-In Speaker: %{BOOL}d]", buf, 0x20u);
   }
 
@@ -224,55 +227,52 @@ uint64_t __67__UNCEffectiveSettings_initWithBulletinDefaults_biometricResource__
 
   [(AFSiriAnnouncementRequestCapabilityManager *)self->_announcementCapabilityManagerForHeadphones addObserver:self];
   [(AFSiriAnnouncementRequestCapabilityManager *)self->_announcementCapabilityManagerForCarPlay addObserver:self];
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __51__UNCEffectiveSettings__queue_loadSiriCapabilities__block_invoke(uint64_t a1, char a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2 & 1;
   v4 = *MEMORY[0x1E69833A0];
   if (os_log_type_enabled(*MEMORY[0x1E69833A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_DEFAULT, "[UNCES] Fetched value of eligible setup for announce for headphones: %{BOOL}d", buf, 8u);
   }
 
   v5 = *(a1 + 32);
   v6 = *(v5 + 56);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __51__UNCEffectiveSettings__queue_loadSiriCapabilities__block_invoke_44;
-  v8[3] = &unk_1E85D7858;
-  v8[4] = v5;
-  v9 = v3;
-  dispatch_async(v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __51__UNCEffectiveSettings__queue_loadSiriCapabilities__block_invoke_44;
+  v7[3] = &unk_1E85D7858;
+  v7[4] = v5;
+  v8 = v3;
+  dispatch_async(v6, v7);
 }
 
 void __51__UNCEffectiveSettings__queue_loadSiriCapabilities__block_invoke_46(uint64_t a1, char a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2 & 1;
   v4 = *MEMORY[0x1E69833A0];
   if (os_log_type_enabled(*MEMORY[0x1E69833A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_DEFAULT, "[UNCES] Fetched value of eligible setup for announce for CarPlay: %{BOOL}d", buf, 8u);
   }
 
   v5 = *(a1 + 32);
   v6 = *(v5 + 56);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __51__UNCEffectiveSettings__queue_loadSiriCapabilities__block_invoke_47;
-  v8[3] = &unk_1E85D7858;
-  v8[4] = v5;
-  v9 = v3;
-  dispatch_async(v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __51__UNCEffectiveSettings__queue_loadSiriCapabilities__block_invoke_47;
+  v7[3] = &unk_1E85D7858;
+  v7[4] = v5;
+  v8 = v3;
+  dispatch_async(v6, v7);
 }
 
 - (void)_siriPreferencesDidChange:(id)change
@@ -288,7 +288,7 @@ void __51__UNCEffectiveSettings__queue_loadSiriCapabilities__block_invoke_46(uin
 
 - (void)_queue_updateSiriPreferences
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   mEMORY[0x1E698D1C0] = [MEMORY[0x1E698D1C0] sharedPreferences];
   assistantIsEnabled = [mEMORY[0x1E698D1C0] assistantIsEnabled];
@@ -334,7 +334,7 @@ void __51__UNCEffectiveSettings__queue_loadSiriCapabilities__block_invoke_46(uin
   {
     if (!v6)
     {
-      goto LABEL_16;
+      return;
     }
   }
 
@@ -351,22 +351,20 @@ void __51__UNCEffectiveSettings__queue_loadSiriCapabilities__block_invoke_46(uin
     announceOnHearingAidsEnabled = self->_announceOnHearingAidsEnabled;
     announceOnHearingAidsSupported = self->_announceOnHearingAidsSupported;
     announceOnBuiltInSpeakerEnabled = self->_announceOnBuiltInSpeakerEnabled;
-    v22[0] = 67110144;
-    v22[1] = v16;
-    v23 = 1024;
-    v24 = siriAllowedWhenLocked;
-    v25 = 1024;
-    v26 = announceOnHearingAidsEnabled;
-    v27 = 1024;
-    v28 = announceOnHearingAidsSupported;
-    v29 = 1024;
-    v30 = announceOnBuiltInSpeakerEnabled;
-    _os_log_impl(&dword_1DA7A9000, v15, OS_LOG_TYPE_DEFAULT, "[UNCES] Siri preferences did change [ Siri enabled: %{BOOL}d, Siri allowed when locked: %{BOOL}d, Announce on hearing aids enabled: %{BOOL}d, Announce on hearing aids supported: %{BOOL}d, Announce on built in speaker enabled: %{BOOL}d]", v22, 0x20u);
+    v21[0] = 67110144;
+    v21[1] = v16;
+    v22 = 1024;
+    v23 = siriAllowedWhenLocked;
+    v24 = 1024;
+    v25 = announceOnHearingAidsEnabled;
+    v26 = 1024;
+    v27 = announceOnHearingAidsSupported;
+    v28 = 1024;
+    v29 = announceOnBuiltInSpeakerEnabled;
+    _os_log_impl(&dword_1DA7A9000, v15, OS_LOG_TYPE_DEFAULT, "[UNCES] Siri preferences did change [ Siri enabled: %{BOOL}d, Siri allowed when locked: %{BOOL}d, Announce on hearing aids enabled: %{BOOL}d, Announce on hearing aids supported: %{BOOL}d, Announce on built in speaker enabled: %{BOOL}d]", v21, 0x20u);
   }
 
   [(UNCEffectiveSettings *)self _queue_updateAnnounceSettings];
-LABEL_16:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)availableAnnouncementRequestTypesChanged:(unint64_t)changed onPlatform:(int64_t)platform
@@ -382,23 +380,23 @@ LABEL_16:
   dispatch_async(queue, block);
 }
 
-uint64_t __76__UNCEffectiveSettings_availableAnnouncementRequestTypesChanged_onPlatform___block_invoke(uint64_t result)
+void *__76__UNCEffectiveSettings_availableAnnouncementRequestTypesChanged_onPlatform___block_invoke(void *result)
 {
   v1 = result;
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(result + 40);
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = result[5];
   if (v2 == 2)
   {
     v5 = *MEMORY[0x1E69833A0];
     if (os_log_type_enabled(*MEMORY[0x1E69833A0], OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(v1 + 48);
-      v8 = 67109120;
-      v9 = v6;
-      _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "[UNCES] Changed value of eligible setup for announce for CarPlay: %{BOOL}d", &v8, 8u);
+      v7 = 67109120;
+      v8 = v6;
+      _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "[UNCES] Changed value of eligible setup for announce for CarPlay: %{BOOL}d", &v7, 8u);
     }
 
-    result = [*(v1 + 32) _queue_setAnnounceSupportedForCarPlay:*(v1 + 48)];
+    return [v1[4] _queue_setAnnounceSupportedForCarPlay:*(v1 + 48)];
   }
 
   else if (v2 == 1)
@@ -407,15 +405,14 @@ uint64_t __76__UNCEffectiveSettings_availableAnnouncementRequestTypesChanged_onP
     if (os_log_type_enabled(*MEMORY[0x1E69833A0], OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(v1 + 48);
-      v8 = 67109120;
-      v9 = v4;
-      _os_log_impl(&dword_1DA7A9000, v3, OS_LOG_TYPE_DEFAULT, "[UNCES] Changed value of eligible setup for announce for headphones: %{BOOL}d", &v8, 8u);
+      v7 = 67109120;
+      v8 = v4;
+      _os_log_impl(&dword_1DA7A9000, v3, OS_LOG_TYPE_DEFAULT, "[UNCES] Changed value of eligible setup for announce for headphones: %{BOOL}d", &v7, 8u);
     }
 
-    result = [*(v1 + 32) _queue_setAnnounceSupportedForHeadphones:*(v1 + 48)];
+    return [v1[4] _queue_setAnnounceSupportedForHeadphones:*(v1 + 48)];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -461,7 +458,7 @@ uint64_t __76__UNCEffectiveSettings_availableAnnouncementRequestTypesChanged_onP
 
 - (void)_queue_setGlobalAnnounceSetting:(int64_t)setting
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   globalAnnounceSetting = [(UNCBulletinDefaultsInterface *)self->_bulletinDefaults globalAnnounceSetting];
   if (setting != -1 && globalAnnounceSetting != setting)
@@ -471,9 +468,9 @@ uint64_t __76__UNCEffectiveSettings_availableAnnouncementRequestTypesChanged_onP
     {
       v7 = v6;
       v8 = UNCStringFromUNCAnnounceSetting(setting);
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[UNCES] Set effectiveGlobalAnnounceSetting: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[UNCES] Set effectiveGlobalAnnounceSetting: %{public}@", &v9, 0xCu);
     }
 
     [(UNCBulletinDefaultsInterface *)self->_bulletinDefaults setGlobalAnnounceSetting:setting];
@@ -486,13 +483,11 @@ uint64_t __76__UNCEffectiveSettings_availableAnnouncementRequestTypesChanged_onP
     [(UNCEffectiveSettings *)self _queue_updateGlobalSettings];
     [(UNCEffectiveSettings *)self _queue_updateAllSectionInfos];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)_queue_effectiveGlobalAnnounceSetting
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if ([(UNCEffectiveSettings *)self _queue_isAnnounceSupportedForHeadphones]|| [(UNCEffectiveSettings *)self _queue_isAnnounceSupportedForCarPlay]&& [(UNCEffectiveSettings *)self _queue_hasPairedVehiclesForCarPlay]|| self->_announceOnHearingAidsSupported || self->_announceOnBuiltInSpeakerEnabled)
   {
@@ -526,12 +521,11 @@ uint64_t __76__UNCEffectiveSettings_availableAnnouncementRequestTypesChanged_onP
   {
     v6 = v5;
     v7 = UNCStringFromUNCAnnounceSetting(v4);
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_DEFAULT, "[UNCES] Got effectiveGlobalAnnounceSetting: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_DEFAULT, "[UNCES] Got effectiveGlobalAnnounceSetting: %{public}@", &v9, 0xCu);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -554,7 +548,7 @@ uint64_t __76__UNCEffectiveSettings_availableAnnouncementRequestTypesChanged_onP
   return v3;
 }
 
-uint64_t __54__UNCEffectiveSettings_effectiveGlobalAnnounceSetting__block_invoke(uint64_t a1)
+void *__54__UNCEffectiveSettings_effectiveGlobalAnnounceSetting__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_effectiveGlobalAnnounceSetting];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -575,7 +569,7 @@ uint64_t __54__UNCEffectiveSettings_effectiveGlobalAnnounceSetting__block_invoke
 
 - (void)_saveGlobalAnnounceSettingEnabledEvent
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E6997970] eventStreamWithName:@"/discoverability/signals"];
   type = [MEMORY[0x1E6997940] type];
   v4 = [MEMORY[0x1E6997988] identifierWithString:@"com.apple.siri.spoken-notifications.enabled" type:type];
@@ -584,19 +578,17 @@ uint64_t __54__UNCEffectiveSettings_effectiveGlobalAnnounceSetting__block_invoke
   if (v6)
   {
     knowledgeStore = [MEMORY[0x1E69979A0] knowledgeStore];
-    v12[0] = v6;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = v6;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     [knowledgeStore saveObjects:v8 responseQueue:0 withCompletion:&__block_literal_global_23];
 
     v9 = *MEMORY[0x1E69833A0];
     if (os_log_type_enabled(*MEMORY[0x1E69833A0], OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_1DA7A9000, v9, OS_LOG_TYPE_DEFAULT, "[UNCES] Told CoreDuet about global announce setting change", v11, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1DA7A9000, v9, OS_LOG_TYPE_DEFAULT, "[UNCES] Told CoreDuet about global announce setting change", v10, 2u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __62__UNCEffectiveSettings__saveGlobalAnnounceSettingEnabledEvent__block_invoke(uint64_t a1, int a2, void *a3)
@@ -629,6 +621,18 @@ void __62__UNCEffectiveSettings__saveGlobalAnnounceSettingEnabledEvent__block_in
   return [(UNCBulletinDefaultsInterface *)bulletinDefaults isAnnounceSupportedForHeadphones];
 }
 
+- (void)_queue_setAnnounceSupportedForHeadphones:(BOOL)headphones
+{
+  headphonesCopy = headphones;
+  dispatch_assert_queue_V2(self->_queue);
+  if ([(UNCEffectiveSettings *)self _queue_isAnnounceSupportedForHeadphones]!= headphonesCopy)
+  {
+    [(UNCBulletinDefaultsInterface *)self->_bulletinDefaults setAnnounceSupportedForHeadphones:headphonesCopy];
+
+    [(UNCEffectiveSettings *)self _queue_updateAnnounceSettings];
+  }
+}
+
 - (int64_t)_queue_globalAnnounceHeadphonesSetting
 {
   dispatch_assert_queue_V2(self->_queue);
@@ -644,7 +648,7 @@ void __62__UNCEffectiveSettings__saveGlobalAnnounceSettingEnabledEvent__block_in
 
 - (void)_queue_setGlobalAnnounceHeadphonesSetting:(int64_t)setting
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   globalAnnounceHeadphonesSetting = [(UNCBulletinDefaultsInterface *)self->_bulletinDefaults globalAnnounceHeadphonesSetting];
   if (setting != -1 && globalAnnounceHeadphonesSetting != setting)
@@ -654,21 +658,19 @@ void __62__UNCEffectiveSettings__saveGlobalAnnounceSettingEnabledEvent__block_in
     {
       v7 = v6;
       v8 = UNCStringFromUNCAnnounceSetting(setting);
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[UNCES] Set setEffectiveGlobalAnnounceHeadphonesSetting: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[UNCES] Set setEffectiveGlobalAnnounceHeadphonesSetting: %{public}@", &v9, 0xCu);
     }
 
     [(UNCBulletinDefaultsInterface *)self->_bulletinDefaults setGlobalAnnounceHeadphonesSetting:setting];
     [(UNCEffectiveSettings *)self _queue_updateGlobalSettings];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)_queue_effectiveGlobalAnnounceHeadphoneSetting
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if ([(UNCEffectiveSettings *)self _queue_isAnnounceSupportedForHeadphones])
   {
@@ -702,12 +704,11 @@ void __62__UNCEffectiveSettings__saveGlobalAnnounceSettingEnabledEvent__block_in
   {
     v6 = v5;
     v7 = UNCStringFromUNCAnnounceSetting(v4);
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_DEFAULT, "[UNCES] Got effectiveGlobalAnnounceHeadphonesSetting: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_DEFAULT, "[UNCES] Got effectiveGlobalAnnounceHeadphonesSetting: %{public}@", &v9, 0xCu);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -730,7 +731,7 @@ void __62__UNCEffectiveSettings__saveGlobalAnnounceSettingEnabledEvent__block_in
   return v3;
 }
 
-uint64_t __63__UNCEffectiveSettings_effectiveGlobalAnnounceHeadphoneSetting__block_invoke(uint64_t a1)
+void *__63__UNCEffectiveSettings_effectiveGlobalAnnounceHeadphoneSetting__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_effectiveGlobalAnnounceHeadphoneSetting];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -762,21 +763,19 @@ uint64_t __63__UNCEffectiveSettings_effectiveGlobalAnnounceHeadphoneSetting__blo
 
 - (void)_queue_loadCarPlayCapabilities
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   _queue_hasPairedVehiclesForCarPlay = [(UNCEffectiveSettings *)self _queue_hasPairedVehiclesForCarPlay];
   v4 = *MEMORY[0x1E69833A0];
   if (os_log_type_enabled(*MEMORY[0x1E69833A0], OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = _queue_hasPairedVehiclesForCarPlay;
-    _os_log_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_DEFAULT, "[UNCES] Cached value of vehicles for CarPlay: %{BOOL}d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = _queue_hasPairedVehiclesForCarPlay;
+    _os_log_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_DEFAULT, "[UNCES] Cached value of vehicles for CarPlay: %{BOOL}d", v6, 8u);
   }
 
   [(UNCEffectiveSettings *)self _fetchAllVehiclesForCarPlay];
   defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
   [defaultCenter addObserver:self selector:sel__pairedVehiclesForCarPlayDidChange_ name:@"CRPairedVehiclesDidChangeNotification" object:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchAllVehiclesForCarPlay
@@ -810,26 +809,25 @@ uint64_t __63__UNCEffectiveSettings_effectiveGlobalAnnounceHeadphoneSetting__blo
 
 void __51__UNCEffectiveSettings__fetchAllVehiclesForCarPlay__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = [a2 count];
   v4 = *MEMORY[0x1E69833A0];
   if (os_log_type_enabled(*MEMORY[0x1E69833A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v11 = v3 != 0;
+    v10 = v3 != 0;
     _os_log_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_DEFAULT, "[UNCES] Changed value of vehicles for CarPlay: %{BOOL}d", buf, 8u);
   }
 
   v5 = *(a1 + 32);
   v6 = *(v5 + 56);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __51__UNCEffectiveSettings__fetchAllVehiclesForCarPlay__block_invoke_88;
-  v8[3] = &unk_1E85D7858;
-  v8[4] = v5;
-  v9 = v3 != 0;
-  dispatch_async(v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __51__UNCEffectiveSettings__fetchAllVehiclesForCarPlay__block_invoke_88;
+  v7[3] = &unk_1E85D7858;
+  v7[4] = v5;
+  v8 = v3 != 0;
+  dispatch_async(v6, v7);
 }
 
 - (BOOL)_queue_hasPairedVehiclesForCarPlay
@@ -840,12 +838,36 @@ void __51__UNCEffectiveSettings__fetchAllVehiclesForCarPlay__block_invoke(uint64
   return [(UNCBulletinDefaultsInterface *)bulletinDefaults hasPairedVehiclesForCarPlay];
 }
 
+- (void)_queue_setPairedVehiclesForCarPlay:(BOOL)play
+{
+  playCopy = play;
+  dispatch_assert_queue_V2(self->_queue);
+  if ([(UNCEffectiveSettings *)self _queue_hasPairedVehiclesForCarPlay]!= playCopy)
+  {
+    [(UNCBulletinDefaultsInterface *)self->_bulletinDefaults setPairedVehiclesForCarPlay:playCopy];
+
+    [(UNCEffectiveSettings *)self _queue_updateAnnounceSettings];
+  }
+}
+
 - (BOOL)_queue_isAnnounceSupportedForCarPlay
 {
   dispatch_assert_queue_V2(self->_queue);
   bulletinDefaults = self->_bulletinDefaults;
 
   return [(UNCBulletinDefaultsInterface *)bulletinDefaults isAnnounceSupportedForCarPlay];
+}
+
+- (void)_queue_setAnnounceSupportedForCarPlay:(BOOL)play
+{
+  playCopy = play;
+  dispatch_assert_queue_V2(self->_queue);
+  if ([(UNCEffectiveSettings *)self _queue_isAnnounceSupportedForCarPlay]!= playCopy)
+  {
+    [(UNCBulletinDefaultsInterface *)self->_bulletinDefaults setAnnounceSupportedForCarPlay:playCopy];
+
+    [(UNCEffectiveSettings *)self _queue_updateAnnounceSettings];
+  }
 }
 
 - (int64_t)_queue_globalAnnounceCarPlaySetting
@@ -863,7 +885,7 @@ void __51__UNCEffectiveSettings__fetchAllVehiclesForCarPlay__block_invoke(uint64
 
 - (void)_queue_setGlobalAnnounceCarPlaySetting:(int64_t)setting
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   globalAnnounceCarPlaySetting = [(UNCBulletinDefaultsInterface *)self->_bulletinDefaults globalAnnounceCarPlaySetting];
   if (setting != -1 && globalAnnounceCarPlaySetting != setting)
@@ -873,21 +895,19 @@ void __51__UNCEffectiveSettings__fetchAllVehiclesForCarPlay__block_invoke(uint64
     {
       v7 = v6;
       v8 = UNCStringFromUNCAnnounceCarPlaySetting(setting);
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[UNCES] Set GlobalAnnounceCarPlaySetting: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_1DA7A9000, v7, OS_LOG_TYPE_DEFAULT, "[UNCES] Set GlobalAnnounceCarPlaySetting: %{public}@", &v9, 0xCu);
     }
 
     [(UNCBulletinDefaultsInterface *)self->_bulletinDefaults setGlobalAnnounceCarPlaySetting:setting];
     [(UNCEffectiveSettings *)self _queue_updateGlobalSettings];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)_queue_effectiveGlobalAnnounceCarPlaySetting
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if ([(UNCEffectiveSettings *)self _queue_isAnnounceSupportedForCarPlay]&& [(UNCEffectiveSettings *)self _queue_hasPairedVehiclesForCarPlay])
   {
@@ -921,12 +941,11 @@ void __51__UNCEffectiveSettings__fetchAllVehiclesForCarPlay__block_invoke(uint64
   {
     v6 = v5;
     v7 = UNCStringFromUNCAnnounceCarPlaySetting(v4);
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_DEFAULT, "[UNCES] Got effectiveGlobalAnnounceCarPlaySetting: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_DEFAULT, "[UNCES] Got effectiveGlobalAnnounceCarPlaySetting: %{public}@", &v9, 0xCu);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -949,7 +968,7 @@ void __51__UNCEffectiveSettings__fetchAllVehiclesForCarPlay__block_invoke(uint64
   return v3;
 }
 
-uint64_t __61__UNCEffectiveSettings_effectiveGlobalAnnounceCarPlaySetting__block_invoke(uint64_t a1)
+void *__61__UNCEffectiveSettings_effectiveGlobalAnnounceCarPlaySetting__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_effectiveGlobalAnnounceCarPlaySetting];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -968,11 +987,11 @@ uint64_t __61__UNCEffectiveSettings_effectiveGlobalAnnounceCarPlaySetting__block
   dispatch_sync(queue, v4);
 }
 
-uint64_t __56__UNCEffectiveSettings_setGlobalAnnounceCarPlaySetting___block_invoke(uint64_t a1)
+char *__56__UNCEffectiveSettings_setGlobalAnnounceCarPlaySetting___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) globalAnnounceCarPlaySetting];
   v3 = *(a1 + 40);
-  if (result != v3 && v3 != -1)
+  if (result != v3 && v3 + 1 != 0)
   {
     [*(*(a1 + 32) + 8) setGlobalAnnounceCarPlaySetting:?];
     v5 = *(a1 + 32);
@@ -1012,7 +1031,7 @@ uint64_t __56__UNCEffectiveSettings_setGlobalAnnounceCarPlaySetting___block_invo
 
 void __63__UNCEffectiveSettings_effectiveGlobalScheduledDeliverySetting__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) _queue_globalScheduledDeliverySetting])
   {
     v2 = [*(a1 + 32) _queue_globalScheduledDeliverySetting];
@@ -1030,12 +1049,10 @@ void __63__UNCEffectiveSettings_effectiveGlobalScheduledDeliverySetting__block_i
     v4 = *(*(*(a1 + 40) + 8) + 24);
     v5 = v3;
     v6 = UNCStringFromUNCScheduledDeliverySetting(v4);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "[UNCES] Got effectiveGlobalScheduledDeliverySetting: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "[UNCES] Got effectiveGlobalScheduledDeliverySetting: %{public}@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setGlobalScheduledDeliverySetting:(int64_t)setting
@@ -1050,9 +1067,9 @@ void __63__UNCEffectiveSettings_effectiveGlobalScheduledDeliverySetting__block_i
   dispatch_sync(queue, v4);
 }
 
-uint64_t __58__UNCEffectiveSettings_setGlobalScheduledDeliverySetting___block_invoke(uint64_t a1)
+void *__58__UNCEffectiveSettings_setGlobalScheduledDeliverySetting___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) _queue_globalScheduledDeliverySetting];
   if (result != *(a1 + 40))
   {
@@ -1062,58 +1079,55 @@ uint64_t __58__UNCEffectiveSettings_setGlobalScheduledDeliverySetting___block_in
       v4 = *(a1 + 40);
       v5 = v3;
       v6 = UNCStringFromUNCScheduledDeliverySetting(v4);
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "[UNCES] Set setEffectiveGlobalScheduledDeliverySetting: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "[UNCES] Set setEffectiveGlobalScheduledDeliverySetting: %{public}@", &v7, 0xCu);
     }
 
     [*(*(a1 + 32) + 8) setGlobalScheduledDeliverySetting:*(a1 + 40)];
-    result = [*(a1 + 32) _queue_updateGlobalSettings];
+    return [*(a1 + 32) _queue_updateGlobalSettings];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)_encodedScheduledDeliveryTimesForDeliveryTimes:(id)times
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   timesCopy = times;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = timesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        v11 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v10, "hour", v15)}];
+        v10 = *(*(&v14 + 1) + 8 * i);
+        v11 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v10, "hour", v14)}];
         [v4 addObject:v11];
 
         v12 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v10, "minute")}];
         [v4 addObject:v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1158,7 +1172,7 @@ uint64_t __58__UNCEffectiveSettings_setGlobalScheduledDeliverySetting___block_in
 
 - (void)_queue_setGlobalScheduledDeliveryTimes:(id)times
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   timesCopy = times;
   dispatch_assert_queue_V2(self->_queue);
   _queue_globalScheduledDeliveryTimes = [(UNCEffectiveSettings *)self _queue_globalScheduledDeliveryTimes];
@@ -1168,17 +1182,15 @@ uint64_t __58__UNCEffectiveSettings_setGlobalScheduledDeliverySetting___block_in
     v6 = *MEMORY[0x1E69833A0];
     if (os_log_type_enabled(*MEMORY[0x1E69833A0], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
-      v10 = timesCopy;
-      _os_log_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_DEFAULT, "[UNCES] setEffectiveGlobalScheduledDeliveryTimes: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = timesCopy;
+      _os_log_impl(&dword_1DA7A9000, v6, OS_LOG_TYPE_DEFAULT, "[UNCES] setEffectiveGlobalScheduledDeliveryTimes: %{public}@", &v8, 0xCu);
     }
 
     v7 = [(UNCEffectiveSettings *)self _encodedScheduledDeliveryTimesForDeliveryTimes:timesCopy];
     [(UNCBulletinDefaultsInterface *)self->_bulletinDefaults setGlobalScheduledDeliveryTimes:v7];
     [(UNCEffectiveSettings *)self _queue_updateGlobalSettings];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)effectiveGlobalScheduledDeliveryTimes
@@ -1205,7 +1217,7 @@ uint64_t __58__UNCEffectiveSettings_setGlobalScheduledDeliverySetting___block_in
 
 void __61__UNCEffectiveSettings_effectiveGlobalScheduledDeliveryTimes__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _queue_globalScheduledDeliveryTimes];
   v3 = *(*(a1 + 40) + 8);
   v4 = *(v3 + 40);
@@ -1215,12 +1227,10 @@ void __61__UNCEffectiveSettings_effectiveGlobalScheduledDeliveryTimes__block_inv
   if (os_log_type_enabled(*MEMORY[0x1E69833A0], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(*(*(a1 + 40) + 8) + 40);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "[UNCES] Got effectiveGlobalScheduledDeliveryTimes: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "[UNCES] Got effectiveGlobalScheduledDeliveryTimes: %{public}@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setGlobalScheduledDeliveryTimes:(id)times
@@ -1239,19 +1249,18 @@ void __61__UNCEffectiveSettings_effectiveGlobalScheduledDeliveryTimes__block_inv
 
 - (int64_t)_queue_effectiveGlobalScheduledDeliveryShowNextSummarySetting
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   globalScheduledDeliveryShowNextSummarySetting = [(UNCBulletinDefaultsInterface *)self->_bulletinDefaults globalScheduledDeliveryShowNextSummarySetting];
   v3 = *MEMORY[0x1E69833A0];
   if (os_log_type_enabled(*MEMORY[0x1E69833A0], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     v5 = UNCStringFromUNCSystemSetting(globalScheduledDeliveryShowNextSummarySetting);
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_DEFAULT, "[UNCES] Got effectiveGlobalScheduledDeliveryShowNextSummarySetting: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_DEFAULT, "[UNCES] Got effectiveGlobalScheduledDeliveryShowNextSummarySetting: %{public}@", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return globalScheduledDeliveryShowNextSummarySetting;
 }
 
@@ -1274,7 +1283,7 @@ void __61__UNCEffectiveSettings_effectiveGlobalScheduledDeliveryTimes__block_inv
   return v3;
 }
 
-uint64_t __78__UNCEffectiveSettings_effectiveGlobalScheduledDeliveryShowNextSummarySetting__block_invoke(uint64_t a1)
+void *__78__UNCEffectiveSettings_effectiveGlobalScheduledDeliveryShowNextSummarySetting__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_effectiveGlobalScheduledDeliveryShowNextSummarySetting];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1295,22 +1304,20 @@ uint64_t __78__UNCEffectiveSettings_effectiveGlobalScheduledDeliveryShowNextSumm
 
 uint64_t __73__UNCEffectiveSettings_setGlobalScheduledDeliveryShowNextSummarySetting___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E69833A0];
   if (os_log_type_enabled(*MEMORY[0x1E69833A0], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
     v4 = v2;
     v5 = UNCStringFromUNCSystemSetting(v3);
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_DEFAULT, "[UNCES] Set setEffectiveGlobalScheduledDeliveryShowNextSummarySetting: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_DEFAULT, "[UNCES] Set setEffectiveGlobalScheduledDeliveryShowNextSummarySetting: %{public}@", &v7, 0xCu);
   }
 
   [*(*(a1 + 32) + 8) setGlobalScheduledDeliveryShowNextSummarySetting:*(a1 + 40)];
-  result = [*(a1 + 32) _queue_updateGlobalSettings];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _queue_updateGlobalSettings];
 }
 
 - (void)_biometricResourceStateChanged
@@ -1324,7 +1331,7 @@ uint64_t __73__UNCEffectiveSettings_setGlobalScheduledDeliveryShowNextSummarySet
   dispatch_sync(queue, block);
 }
 
-uint64_t __54__UNCEffectiveSettings__biometricResourceStateChanged__block_invoke(uint64_t a1)
+void *__54__UNCEffectiveSettings__biometricResourceStateChanged__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_globalContentPreviewsSetting];
   if (!result)
@@ -1397,7 +1404,7 @@ uint64_t __54__UNCEffectiveSettings__biometricResourceStateChanged__block_invoke
   return v3;
 }
 
-uint64_t __60__UNCEffectiveSettings_effectiveGlobalContentPreviewSetting__block_invoke(uint64_t a1)
+void *__60__UNCEffectiveSettings_effectiveGlobalContentPreviewSetting__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _queue_globalContentPreviewsSetting];
   v3 = *(a1 + 32);
@@ -1505,7 +1512,7 @@ uint64_t __74__UNCEffectiveSettings_effectiveGlobalNotificationListDisplayStyleS
   dispatch_sync(queue, v4);
 }
 
-uint64_t __69__UNCEffectiveSettings_setGlobalNotificationListDisplayStyleSetting___block_invoke(uint64_t a1)
+void *__69__UNCEffectiveSettings_setGlobalNotificationListDisplayStyleSetting___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) globalNotificationListDisplayStyleSetting];
   if (result != *(a1 + 40))
@@ -1523,27 +1530,25 @@ uint64_t __69__UNCEffectiveSettings_setGlobalNotificationListDisplayStyleSetting
 
 - (void)_publishBiomeSignalEventForGlobalNotificationListDisplayStyleSettingChangeToSetting:(int64_t)setting
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   discoverabilitySignal = [MEMORY[0x1E698F350] discoverabilitySignal];
   source = [discoverabilitySignal source];
   v6 = objc_alloc(MEMORY[0x1E698F278]);
-  v11 = @"notificationListDisplayStyleSetting";
+  v10 = @"notificationListDisplayStyleSetting";
   v7 = UNCStringFromUNCNotificationListDisplayStyleSetting(setting);
-  v12[0] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v9 = [v6 initWithIdentifier:@"com.apple.SpringBoard.notificationListDisplayStyleSetting.changed" bundleID:@"com.apple.SpringBoard" context:@"NotificationListDisplayStyleSetting" userInfo:v8];
 
   [source sendEvent:v9];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __62__UNCEffectiveSettings__saveGlobalAnnounceSettingEnabledEvent__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DA7A9000, a2, OS_LOG_TYPE_ERROR, "[UNCES] Error saving spoken notification setting change to Duet: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DA7A9000, a2, OS_LOG_TYPE_ERROR, "[UNCES] Error saving spoken notification setting change to Duet: %{public}@", &v2, 0xCu);
 }
 
 @end

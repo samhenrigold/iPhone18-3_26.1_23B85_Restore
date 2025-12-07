@@ -12,16 +12,16 @@
 
 - (NLCFROLanguageRecognizer)init
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v11[0] = *MEMORY[0x1E6998248];
-  [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[1] = *MEMORY[0x1E69E9840];
+  v10[0] = *MEMORY[0x1E6998248];
+  [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   v3 = NLTaggerCreate();
   if (v3)
   {
     v4 = v3;
-    v10.receiver = self;
-    v10.super_class = NLCFROLanguageRecognizer;
-    v5 = [(NLLanguageRecognizer *)&v10 init];
+    v9.receiver = self;
+    v9.super_class = NLCFROLanguageRecognizer;
+    v5 = [(NLLanguageRecognizer *)&v9 init];
     self = v5;
     if (v5)
     {
@@ -32,7 +32,6 @@
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -51,21 +50,18 @@
 
 + (id)dominantLanguageForString:(id)string
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v3 = MEMORY[0x1E6998248];
-  v11[0] = *MEMORY[0x1E6998248];
-  v4 = MEMORY[0x1E695DEC8];
+  v8[1] = *MEMORY[0x1E69E9840];
+  v8[0] = *MEMORY[0x1E6998248];
+  v3 = MEMORY[0x1E695DEC8];
   stringCopy = string;
-  [v4 arrayWithObjects:v11 count:1];
-  v6 = NLTaggerCreate();
+  [v3 arrayWithObjects:v8 count:1];
+  v5 = NLTaggerCreate();
   NLTaggerSetString();
 
-  v7 = *v3;
-  v8 = NLTaggerCopyTagAtIndex();
-  CFRelease(v6);
-  v9 = *MEMORY[0x1E69E9840];
+  v6 = NLTaggerCopyTagAtIndex();
+  CFRelease(v5);
 
-  return v8;
+  return v6;
 }
 
 - (void)processString:(id)string
@@ -89,16 +85,11 @@
 
 - (id)dominantLanguage
 {
-  tagger = self->_tagger;
-  string = self->_string;
   NLTaggerSetString();
-  v5 = self->_tagger;
-  v6 = *MEMORY[0x1E6998248];
-  v7 = NLTaggerCopyTagAtIndex();
-  v8 = self->_tagger;
+  v2 = NLTaggerCopyTagAtIndex();
   NLTaggerSetString();
 
-  return v7;
+  return v2;
 }
 
 - (id)languageHypothesesWithMaximum:(unint64_t)maximum

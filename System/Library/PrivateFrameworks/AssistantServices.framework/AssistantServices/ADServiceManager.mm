@@ -270,7 +270,7 @@
   if (notificationCopy)
   {
     v5 = [ADServiceManager _serviceBundleIDFromServiceReloadNotification:notificationCopy];
-    v6 = [(NSMutableDictionary *)self->_serviceMap objectForKey:v5];
+    v6 = objc_msgSend_objectForKey_(self->_serviceMap);
     v7 = v6;
     if (v6)
     {
@@ -576,7 +576,7 @@
   }
 
   _syncKeyMap = [(ADServiceManager *)self _syncKeyMap];
-  v6 = [_syncKeyMap objectForKey:keyCopy];
+  v6 = objc_msgSend_objectForKey_(_syncKeyMap);
 
   if (!v6)
   {
@@ -645,9 +645,9 @@ LABEL_14:
   domainCopy = domain;
   commandCopy = command;
   _commandMap = [(ADServiceManager *)self _commandMap];
-  v9 = [_commandMap objectForKey:domainCopy];
+  v9 = objc_msgSend_objectForKey_(_commandMap);
 
-  v10 = [v9 objectForKey:commandCopy];
+  v10 = objc_msgSend_objectForKey_(v9);
 
   if (v10)
   {
@@ -656,7 +656,7 @@ LABEL_14:
 
   else
   {
-    v11 = [v9 objectForKey:domainCopy];
+    v11 = objc_msgSend_objectForKey_(v9);
   }
 
   v12 = v11;
@@ -671,7 +671,7 @@ LABEL_14:
 {
   identifierCopy = identifier;
   _serviceMap = [(ADServiceManager *)self _serviceMap];
-  v6 = [_serviceMap objectForKey:identifierCopy];
+  v6 = objc_msgSend_objectForKey_(_serviceMap);
 
   return v6;
 }
@@ -715,7 +715,7 @@ LABEL_14:
   dictionaryCopy = dictionary;
   pathCopy = path;
   v8 = objc_opt_class();
-  v9 = [dictionaryCopy objectForKey:kCFBundleIdentifierKey];
+  v9 = objc_msgSend_objectForKey_(dictionaryCopy);
   if ([v9 isEqual:@"com.apple.siri.SynapseSyncPlugin"])
   {
     v8 = objc_opt_class();
@@ -748,7 +748,7 @@ LABEL_14:
   v5 = AFBundleServicesCachePath();
   _generatedBundleServicesCache = [[NSMutableDictionary alloc] initWithContentsOfFile:v5];
   v7 = AFBuildVersion();
-  v8 = [_generatedBundleServicesCache objectForKey:@"Build"];
+  v8 = objc_msgSend_objectForKey_(_generatedBundleServicesCache);
   if ([v7 isEqualToString:v8])
   {
     if (_generatedBundleServicesCache)
@@ -966,72 +966,71 @@ LABEL_8:
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v42 = "[ADServiceManager _reprioritizeService:]";
-    v43 = 2112;
-    v44 = serviceCopy;
+    v41 = "[ADServiceManager _reprioritizeService:]";
+    v42 = 2112;
+    v43 = serviceCopy;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
   }
 
   [serviceCopy domains];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  obj = v38 = 0u;
-  v26 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
-  if (v26)
+  obj = v37 = 0u;
+  v25 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+  if (v25)
   {
-    v24 = *v36;
+    v23 = *v35;
     do
     {
       v5 = 0;
       do
       {
-        if (*v36 != v24)
+        if (*v35 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = v5;
-        v6 = *(*(&v35 + 1) + 8 * v5);
-        v7 = [serviceCopy commandsForDomain:v6];
-        v30 = [(NSMutableDictionary *)self->_commandMap objectForKey:v6];
+        v26 = v5;
+        v6 = [serviceCopy commandsForDomain:*(*(&v34 + 1) + 8 * v5)];
+        v29 = objc_msgSend_objectForKey_(self->_commandMap);
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
-        v28 = v7;
-        v8 = [v28 countByEnumeratingWithState:&v31 objects:v39 count:16];
-        if (v8)
+        v27 = v6;
+        v7 = [v27 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        if (v7)
         {
-          v9 = v8;
-          v29 = *v32;
+          v8 = v7;
+          v28 = *v31;
           do
           {
-            for (i = 0; i != v9; i = i + 1)
+            for (i = 0; i != v8; i = i + 1)
             {
-              if (*v32 != v29)
+              if (*v31 != v28)
               {
-                objc_enumerationMutation(v28);
+                objc_enumerationMutation(v27);
               }
 
-              v11 = *(*(&v31 + 1) + 8 * i);
-              v12 = [v30 objectForKey:v11];
-              v13 = v12;
+              v10 = *(*(&v30 + 1) + 8 * i);
+              v11 = objc_msgSend_objectForKey_(v29);
+              v12 = v11;
               while (1)
               {
-                object = [v13 object];
+                object = [v12 object];
                 precedence = [object precedence];
-                object2 = [v12 object];
+                object2 = [v11 object];
                 precedence2 = [object2 precedence];
 
                 if (precedence != precedence2)
                 {
-                  v18 = v12;
+                  v17 = v11;
 
-                  v13 = v18;
+                  v12 = v17;
                 }
 
-                object3 = [v12 object];
+                object3 = [v11 object];
                 service = [object3 service];
 
                 if (service == serviceCopy)
@@ -1039,44 +1038,44 @@ LABEL_8:
                   break;
                 }
 
-                nextItem = [v12 nextItem];
+                nextItem = [v11 nextItem];
 
-                v12 = nextItem;
+                v11 = nextItem;
                 if (!nextItem)
                 {
                   goto LABEL_22;
                 }
               }
 
-              if (v12 != v13)
+              if (v11 != v12)
               {
-                [v12 removeFromList];
-                [v12 insertBeforeItem:v13];
-                previousItem = [v12 previousItem];
+                [v11 removeFromList];
+                [v11 insertBeforeItem:v12];
+                previousItem = [v11 previousItem];
 
                 if (!previousItem)
                 {
-                  [v30 setObject:v12 forKey:v11];
+                  [v29 setObject:v11 forKey:v10];
                 }
               }
 
 LABEL_22:
             }
 
-            v9 = [v28 countByEnumeratingWithState:&v31 objects:v39 count:16];
+            v8 = [v27 countByEnumeratingWithState:&v30 objects:v38 count:16];
           }
 
-          while (v9);
+          while (v8);
         }
 
-        v5 = v27 + 1;
+        v5 = v26 + 1;
       }
 
-      while ((v27 + 1) != v26);
-      v26 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+      while ((v26 + 1) != v25);
+      v25 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 }
 
@@ -1121,7 +1120,7 @@ LABEL_22:
         v9 = *(*(&v45 + 1) + 8 * v8);
         v10 = [serviceCopy commandsForDomain:v9];
         v35 = v9;
-        v11 = [(NSMutableDictionary *)self->_commandMap objectForKey:v9];
+        v11 = objc_msgSend_objectForKey_(self->_commandMap);
         v41 = 0u;
         v42 = 0u;
         v43 = 0u;
@@ -1142,7 +1141,7 @@ LABEL_22:
               }
 
               v17 = *(*(&v41 + 1) + 8 * i);
-              v18 = [v11 objectForKey:v17];
+              v18 = objc_msgSend_objectForKey_(v11);
               while (1)
               {
                 object = [v18 object];
@@ -1224,7 +1223,7 @@ LABEL_22:
         }
 
         v29 = *(*(&v37 + 1) + 8 * j);
-        v30 = [(NSMutableDictionary *)self->_syncKeyMap objectForKey:v29];
+        v30 = objc_msgSend_objectForKey_(self->_syncKeyMap);
 
         if (v30 == serviceCopy)
         {
@@ -1254,7 +1253,7 @@ LABEL_22:
   identifier = [service identifier];
   if (identifier)
   {
-    v8 = [(NSMutableDictionary *)self->_serviceMap objectForKey:identifier];
+    v8 = objc_msgSend_objectForKey_(self->_serviceMap);
 
     if (v8)
     {
@@ -1288,7 +1287,7 @@ LABEL_22:
           v40 = v9;
           v10 = *(*(&v51 + 1) + 8 * v9);
           v11 = [service commandsForDomain:v10];
-          v12 = [(NSMutableDictionary *)self->_commandMap objectForKey:v10];
+          v12 = objc_msgSend_objectForKey_(self->_commandMap);
           v13 = [v12 mutableCopy];
 
           if (!v13)
@@ -1319,7 +1318,7 @@ LABEL_22:
 
                 v17 = *(*(&v47 + 1) + 8 * i);
                 v18 = [[AFLinkedListItem alloc] initWithObject:recordCopy];
-                nextItem = [v13 objectForKey:v17];
+                nextItem = objc_msgSend_objectForKey_(v13);
                 object = [nextItem object];
                 v21 = [recordCopy hasEqualOrHigherPrecedenceThanServiceRecord:object];
 

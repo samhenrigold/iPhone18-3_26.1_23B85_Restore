@@ -10,13 +10,15 @@
 - (void)updateEntryPoint:(int)point;
 - (void)updateFeatureChangeCount:(int)count;
 - (void)updateFeatureValue:(int)value value:(unsigned int)a4 featureValueString:(id)string;
+- (void)updateFitTestValue:(int)value value:(int)a4;
+- (void)updateProductID:(unsigned int)d;
 @end
 
 @implementation HPSDeviceAnalytics
 
 - (HPSDeviceAnalytics)init
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -37,9 +39,26 @@
   return v5;
 }
 
-- (void)updateEntryPoint:(int)point
+- (void)updateProductID:(unsigned int)d
 {
   v10 = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*&d];
+  [(NSMutableDictionary *)self->_analyticDict setObject:v4 forKeyedSubscript:@"ProductID"];
+
+  v6 = sharedBluetoothSettingsLogComponent(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = [(NSMutableDictionary *)self->_analyticDict valueForKey:@"ProductID"];
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_251143000, v6, OS_LOG_TYPE_DEFAULT, "Headphone Configs: Analytics, Update Product ID: %@", &v8, 0xCu);
+  }
+}
+
+- (void)updateEntryPoint:(int)point
+{
+  selfCopy = self;
+  v9 = *MEMORY[0x277D85DE8];
   if (point)
   {
     if (point != 1)
@@ -55,23 +74,21 @@
     v4 = @"iOS_Top_Level";
   }
 
-  [(NSMutableDictionary *)self->_analyticDict setValue:v4 forKey:@"EntryPoint"];
+  self = [(NSMutableDictionary *)self->_analyticDict setValue:v4 forKey:@"EntryPoint"];
 LABEL_6:
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [(NSMutableDictionary *)self->_analyticDict valueForKey:@"EntryPoint"];
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Headphone Configs: Analytics, Update Entry Point: %@", &v8, 0xCu);
+    v6 = [(NSMutableDictionary *)selfCopy->_analyticDict valueForKey:@"EntryPoint"];
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Headphone Configs: Analytics, Update Entry Point: %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateFeatureChangeCount:(int)count
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (count > 0x36)
   {
     v4 = &stru_286339F58;
@@ -82,25 +99,23 @@ LABEL_6:
     v4 = off_2796ADF68[count];
   }
 
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v4;
-    _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Headphone Configs: Analytics, Update Feature: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v4;
+    _os_log_impl(&dword_251143000, v5, OS_LOG_TYPE_DEFAULT, "Headphone Configs: Analytics, Update Feature: %@", &v9, 0xCu);
   }
 
   v6 = MEMORY[0x277CCABB0];
   v7 = [(NSMutableDictionary *)self->_analyticDict objectForKeyedSubscript:v4];
   v8 = [v6 numberWithInt:{objc_msgSend(v7, "intValue") + 1}];
   [(NSMutableDictionary *)self->_analyticDict setObject:v8 forKeyedSubscript:v4];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateFeatureValue:(int)value value:(unsigned int)a4 featureValueString:(id)string
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v9 = stringCopy;
   v10 = &stru_286339F58;
@@ -271,21 +286,21 @@ LABEL_61:
 LABEL_62:
       if (stringCopy)
       {
+        stringCopy = stringCopy;
         v10 = stringCopy;
       }
 
-      v21 = sharedBluetoothSettingsLogComponent();
+      v21 = sharedBluetoothSettingsLogComponent(stringCopy);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 138412546;
-        v24 = v12;
-        v25 = 2112;
-        v26 = v10;
-        _os_log_impl(&dword_251143000, v21, OS_LOG_TYPE_DEFAULT, "Headphone Configs: Analytics, Update Feature: %@ Value: %@", &v23, 0x16u);
+        v22 = 138412546;
+        v23 = v12;
+        v24 = 2112;
+        v25 = v10;
+        _os_log_impl(&dword_251143000, v21, OS_LOG_TYPE_DEFAULT, "Headphone Configs: Analytics, Update Feature: %@ Value: %@", &v22, 0x16u);
       }
 
       [(NSMutableDictionary *)self->_analyticDict setObject:v10 forKeyedSubscript:v12];
-      v22 = *MEMORY[0x277D85DE8];
       return;
     case 48:
       v13 = @"SmartRoutingValue";
@@ -348,7 +363,7 @@ LABEL_36:
   analyticDict = self->_analyticDict;
   self->_analyticDict = v3;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v3, analyticDict);
 }
 
 - (void)resetAnalyticDictFitTest
@@ -357,7 +372,7 @@ LABEL_36:
   analyticDictFitTest = self->_analyticDictFitTest;
   self->_analyticDictFitTest = v3;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v3, analyticDictFitTest);
 }
 
 - (void)resetAnalyticDictV2
@@ -366,72 +381,169 @@ LABEL_36:
   analyticDictV2 = self->_analyticDictV2;
   self->_analyticDictV2 = v3;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v3, analyticDictV2);
+}
+
+- (void)updateFitTestValue:(int)value value:(int)a4
+{
+  v4 = *&a4;
+  v19 = *MEMORY[0x277D85DE8];
+  v6 = &stru_286339F58;
+  if (value > 4)
+  {
+    v9 = @"SealMetricR";
+    v10 = @"SessionTime";
+    v11 = @"TestResult";
+    if (value != 9)
+    {
+      v11 = &stru_286339F58;
+    }
+
+    if (value != 8)
+    {
+      v10 = v11;
+    }
+
+    if (value != 7)
+    {
+      v9 = v10;
+    }
+
+    if (value == 6)
+    {
+      v6 = @"SealMetricL";
+    }
+
+    if (value == 5)
+    {
+      v6 = @"HeadphonePID";
+    }
+
+    if (value <= 6)
+    {
+      v12 = v6;
+    }
+
+    else
+    {
+      v12 = v9;
+    }
+
+    goto LABEL_25;
+  }
+
+  if (value <= 1)
+  {
+    if (!value)
+    {
+      return;
+    }
+
+    v7 = value == 1;
+    v8 = @"ConfidenceL";
+  }
+
+  else
+  {
+    if (value == 2)
+    {
+      v12 = @"ConfidenceR";
+      goto LABEL_25;
+    }
+
+    if (value == 3)
+    {
+      return;
+    }
+
+    v7 = value == 4;
+    v8 = @"FitTestType";
+  }
+
+  if (v7)
+  {
+    v12 = v8;
+  }
+
+  else
+  {
+    v12 = &stru_286339F58;
+  }
+
+LABEL_25:
+  v13 = sharedBluetoothSettingsLogComponent(self);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 138412546;
+    v16 = v12;
+    v17 = 1024;
+    v18 = v4;
+    _os_log_impl(&dword_251143000, v13, OS_LOG_TYPE_DEFAULT, "Headphone Configs: Analytics, Update Feature: %@ Value: %d", &v15, 0x12u);
+  }
+
+  v14 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+  [(NSMutableDictionary *)self->_analyticDictFitTest setObject:v14 forKeyedSubscript:v12];
 }
 
 - (void)submitFitTestAnalytics
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = self->_analyticDictFitTest;
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = v2;
+    v7 = v2;
     _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Headphone Configs: Analytics, Submit Analytics: %@", buf, 0xCu);
   }
 
-  v6 = v2;
+  v5 = v2;
   v4 = v2;
   AnalyticsSendEventLazy();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitDeviceAnalyticsVer2
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = self->_analyticDictV2;
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = v2;
+    v7 = v2;
     _os_log_impl(&dword_251143000, v3, OS_LOG_TYPE_DEFAULT, "Headphone Configs: Analytics, Submit Analytics: %@", buf, 0xCu);
   }
 
-  v6 = v2;
+  v5 = v2;
   v4 = v2;
   AnalyticsSendEventLazy();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendFeatureInfoEvent
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEA60] arrayWithObjects:{@"AdaptiveVolume", @"CycleBetweenV2LeftBud", @"CycleBetweenV2RightBud", @"EndCall", @"ListeningModeV2", @"MuteCall", @"SpeechDetection", 0}];
   v4 = self->_analyticDict;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = v3;
-  v5 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v5 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v21 + 1) + 8 * i);
         v10 = [(NSMutableDictionary *)v4 objectForKeyedSubscript:v9];
         [(NSMutableDictionary *)self->_analyticDictV2 setObject:v10 forKeyedSubscript:@"FeatureChangeCount"];
 
@@ -446,7 +558,7 @@ LABEL_36:
         [(HPSDeviceAnalytics *)self submitDeviceAnalyticsVer2];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v6);
@@ -465,29 +577,26 @@ LABEL_36:
   [(NSMutableDictionary *)self->_analyticDictV2 setObject:v19 forKeyedSubscript:@"HeadphonePID"];
 
   [(HPSDeviceAnalytics *)self submitDeviceAnalyticsVer2];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitDeviceAnalytics
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [(HPSDeviceAnalytics *)self sendFeatureInfoEvent];
   v3 = self->_analyticDict;
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v9 = v3;
+    v8 = v3;
     _os_log_impl(&dword_251143000, v4, OS_LOG_TYPE_DEFAULT, "Headphone Configs: Analytics, Submit Analytics: %@", buf, 0xCu);
   }
 
-  v7 = v3;
+  v6 = v3;
   v5 = v3;
   AnalyticsSendEventLazy();
   [(HPSDeviceAnalytics *)self resetAnalyticDict];
   [(HPSDeviceAnalytics *)self resetAnalyticDictV2];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

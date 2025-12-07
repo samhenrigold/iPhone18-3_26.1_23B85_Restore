@@ -40,7 +40,7 @@
 - (void)connectAutomatically
 {
   selfCopy = self;
-  sub_1004FB840();
+  sub_1004FB840(v2);
 }
 
 - (NLTVConnectionManager)init

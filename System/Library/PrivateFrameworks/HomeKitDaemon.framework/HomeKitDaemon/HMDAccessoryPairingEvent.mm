@@ -1,5 +1,6 @@
 @interface HMDAccessoryPairingEvent
 + (id)logCategory;
++ (id)pairingAccessory:(id)accessory home:(id)home appIdentifier:(id)identifier retry:(BOOL)retry;
 + (id)pairingAccessoryWithDescription:(id)description home:(id)home;
 + (id)removingAccessory:(id)accessory hapAccessory:(id)hapAccessory;
 - (HMDAccessoryPairingEvent)initWithAccessoryDescription:(id)description home:(id)home;
@@ -13,6 +14,7 @@
 - (void)handleUnauthenticatedMatterAccessoryPromptEnd;
 - (void)handleUnauthenticatedMatterAccessoryPromptStart;
 - (void)markEndTime;
+- (void)pairedToServer:(id)server certificationStatus:(int64_t)status addedViaWAC:(BOOL)c legacyWAC:(BOOL)aC;
 - (void)prepareForObservation;
 - (void)setHmdAccessoryPairingEventResidentConfirmation:(int64_t)confirmation;
 - (void)updateEventPropertiesWithHAPAccessory:(id)accessory;
@@ -402,7 +404,7 @@ LABEL_16:
 
   [dictionary setObject:unauthenticatedMatterAccessoryPromptDuration forKeyedSubscript:v87];
 
-  v94 = [dictionary copy];
+  v94 = objc_msgSend_copy(dictionary);
 
   return v94;
 }
@@ -417,10 +419,10 @@ void __56__HMDAccessoryPairingEvent_coreAnalyticsEventDictionary__block_invoke(u
 
 - (void)prepareForObservation
 {
-  v81 = *MEMORY[0x277D85DE8];
-  v74.receiver = self;
-  v74.super_class = HMDAccessoryPairingEvent;
-  [(HMMLogEvent *)&v74 prepareForObservation];
+  v80 = *MEMORY[0x277D85DE8];
+  v73.receiver = self;
+  v73.super_class = HMDAccessoryPairingEvent;
+  [(HMMLogEvent *)&v73 prepareForObservation];
   if ([(HMDAccessoryPairingEvent *)self _isMatterAccessory])
   {
     v3 = [HMDAccessoryMetricVendorDetails alloc];
@@ -557,9 +559,9 @@ LABEL_11:
           v49 = HMFGetLogIdentifier();
           accessoryAddRequestIdentifier5 = [(HMDAccessoryPairingEvent *)selfCopy accessoryAddRequestIdentifier];
           *buf = 138543618;
-          v76 = v49;
-          v77 = 2112;
-          v78 = accessoryAddRequestIdentifier5;
+          v75 = v49;
+          v76 = 2112;
+          v77 = accessoryAddRequestIdentifier5;
           _os_log_impl(&dword_229538000, v48, OS_LOG_TYPE_INFO, "%{public}@Submitting placeholder metric values since same accessory request UUID %@ being paired multiple times before CA event submission", buf, 0x16u);
         }
 
@@ -627,11 +629,11 @@ LABEL_11:
         error4 = [(HMMLogEvent *)selfCopy2 error];
         v64 = HMDMatterAccessoryPairingStepAsString([(HMDAccessoryPairingEvent *)selfCopy2 matterAccessoryPairingStep]);
         *buf = 138543874;
-        v76 = v62;
-        v77 = 2112;
-        v78 = error4;
-        v79 = 2112;
-        v80 = v64;
+        v75 = v62;
+        v76 = 2112;
+        v77 = error4;
+        v78 = 2112;
+        v79 = v64;
         _os_log_impl(&dword_229538000, v61, OS_LOG_TYPE_ERROR, "%{public}@Unexpected step and error in submitting pairing log event %@ %@", buf, 0x20u);
       }
 
@@ -652,17 +654,15 @@ LABEL_11:
         v71 = HMFGetLogIdentifier();
         error6 = [(HMMLogEvent *)selfCopy3 error];
         *buf = 138543618;
-        v76 = v71;
-        v77 = 2112;
-        v78 = error6;
+        v75 = v71;
+        v76 = 2112;
+        v77 = error6;
         _os_log_impl(&dword_229538000, v70, OS_LOG_TYPE_ERROR, "%{public}@Unexpected error contains underlying error %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v68);
     }
   }
-
-  v73 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDate)endDate
@@ -716,7 +716,7 @@ LABEL_11:
 
 - (void)_setBtLoad
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = +[HMDWirelessLoadManager sharedInstance];
   getBtLoadData = [v3 getBtLoadData];
   v5 = [getBtLoadData objectForKeyedSubscript:@"kBtLoadKey"];
@@ -734,19 +734,18 @@ LABEL_11:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138544130;
-    v14 = v11;
-    v15 = 1024;
+    v12 = 138544130;
+    v13 = v11;
+    v14 = 1024;
     btLoad = [(HMDAccessoryPairingEvent *)selfCopy btLoad];
-    v17 = 1024;
+    v16 = 1024;
     btAudioTask = [(HMDAccessoryPairingEvent *)selfCopy btAudioTask];
-    v19 = 1024;
+    v18 = 1024;
     btNonAudioTask = [(HMDAccessoryPairingEvent *)selfCopy btNonAudioTask];
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Pairing BT Load: %d AudioTsk: %d NonAudioTsk: %d", &v13, 0x1Eu);
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Pairing BT Load: %d AudioTsk: %d NonAudioTsk: %d", &v12, 0x1Eu);
   }
 
   objc_autoreleasePoolPop(v8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateThreadPropertiesWithPairedAccessory:(id)accessory
@@ -866,12 +865,10 @@ LABEL_11:
 
 - (int)currentWiFiBand
 {
-  v6 = *MEMORY[0x277D85DE8];
   v2 = WiFiCopyCurrentNetworkInfoEx();
   [v2 objectForKey:@"platformNetwork"];
   OperatingBand = WiFiNetworkGetOperatingBand();
 
-  v4 = *MEMORY[0x277D85DE8];
   return OperatingBand;
 }
 
@@ -909,6 +906,90 @@ LABEL_11:
 
     [(HMDAccessoryPairingEvent *)self _updateThreadPropertiesWithPairedAccessory:v12];
     accessoryCopy = v12;
+  }
+}
+
+- (void)pairedToServer:(id)server certificationStatus:(int64_t)status addedViaWAC:(BOOL)c legacyWAC:(BOOL)aC
+{
+  aCCopy = aC;
+  cCopy = c;
+  serverCopy = server;
+  if (serverCopy)
+  {
+    if (![(HMDAccessoryPairingEvent *)self linkType])
+    {
+      -[HMDAccessoryPairingEvent setLinkType:](self, "setLinkType:", [serverCopy linkType]);
+    }
+
+    supportedLinkLayerTypes = [(HMDAccessoryPairingEvent *)self supportedLinkLayerTypes];
+
+    if (!supportedLinkLayerTypes)
+    {
+      v11 = serverCopy;
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v12 = v11;
+      }
+
+      else
+      {
+        v12 = 0;
+      }
+
+      v13 = v12;
+
+      supportedLinkLayerTypes2 = [v13 supportedLinkLayerTypes];
+
+      [(HMDAccessoryPairingEvent *)self setSupportedLinkLayerTypes:supportedLinkLayerTypes2];
+    }
+
+    v15 = serverCopy;
+    objc_opt_class();
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
+    {
+      v17 = v15;
+    }
+
+    else
+    {
+      v17 = 0;
+    }
+
+    v18 = v17;
+
+    if (isKindOfClass)
+    {
+      accessoryModel = [(HMDAccessoryPairingEvent *)self accessoryModel];
+
+      if (!accessoryModel)
+      {
+        model = [v15 model];
+        [(HMDAccessoryPairingEvent *)self setAccessoryModel:model];
+
+        if ([v15 isWacAccessory])
+        {
+          hapWACAccessory = [v15 hapWACAccessory];
+          model2 = [hapWACAccessory model];
+          [(HMDAccessoryPairingEvent *)self setAccessoryModel:model2];
+
+          hapWACAccessory2 = [v15 hapWACAccessory];
+          manufacturer = [hapWACAccessory2 manufacturer];
+          [(HMDAccessoryPairingEvent *)self setAccessoryManufacturer:manufacturer];
+        }
+      }
+    }
+  }
+
+  if ([(HMDAccessoryPairingEvent *)self isAddOperation])
+  {
+    [(HMDAccessoryPairingEvent *)self setCertificationStatus:status];
+    [(HMDAccessoryPairingEvent *)self setAddViaWAC:cCopy];
+    if ([(HMDAccessoryPairingEvent *)self isAddViaWAC])
+    {
+      [(HMDAccessoryPairingEvent *)self setWacLegacy:aCCopy];
+    }
   }
 }
 
@@ -1177,7 +1258,7 @@ LABEL_11:
     v21->_accessoryCategory = categoryType;
 
     identifier = [accessoryCopy identifier];
-    v32 = [identifier copy];
+    v32 = objc_msgSend_copy(identifier);
     accessoryServerIdentifier = v21->_accessoryServerIdentifier;
     v21->_accessoryServerIdentifier = v32;
 
@@ -1385,7 +1466,7 @@ LABEL_11:
     v21->_accessoryCategory = categoryType2;
 
     identifier2 = [pairedAccessoryCopy identifier];
-    v98 = [identifier2 copy];
+    v98 = objc_msgSend_copy(identifier2);
     v99 = v21->_accessoryServerIdentifier;
     v21->_accessoryServerIdentifier = v98;
 
@@ -1594,10 +1675,9 @@ LABEL_77:
 
 void __39__HMDAccessoryPairingEvent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v16_110848;
-  logCategory__hmf_once_v16_110848 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v16_110848;
+  logCategory__hmf_once_v16_110848 = v0;
 }
 
 + (id)removingAccessory:(id)accessory hapAccessory:(id)hapAccessory
@@ -1611,6 +1691,20 @@ void __39__HMDAccessoryPairingEvent_logCategory__block_invoke()
   v10 = [(HMDAccessoryPairingEvent *)v7 initWithUnpairedAccessory:0 pairedAccessory:accessoryCopy hapAccessory:hapAccessoryCopy appIdentifier:0 retry:0 home:home isAddOperation:v12 logEventStateManager:v9];
 
   return v10;
+}
+
++ (id)pairingAccessory:(id)accessory home:(id)home appIdentifier:(id)identifier retry:(BOOL)retry
+{
+  retryCopy = retry;
+  identifierCopy = identifier;
+  homeCopy = home;
+  accessoryCopy = accessory;
+  v12 = [HMDAccessoryPairingEvent alloc];
+  v13 = +[HMDAccessoryPairingLogEventStateManager sharedManager];
+  LOBYTE(v16) = 1;
+  v14 = [(HMDAccessoryPairingEvent *)v12 initWithUnpairedAccessory:accessoryCopy pairedAccessory:0 hapAccessory:0 appIdentifier:identifierCopy retry:retryCopy home:homeCopy isAddOperation:v16 logEventStateManager:v13];
+
+  return v14;
 }
 
 + (id)pairingAccessoryWithDescription:(id)description home:(id)home

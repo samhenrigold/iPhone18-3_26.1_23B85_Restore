@@ -215,11 +215,11 @@ LABEL_22:
 - (id)newUnarchiverWithArchiveInfo:(const void *)info stream:(DispatchDataInputStream *)stream isUnknownObject:(BOOL *)object
 {
   v7 = objc_msgSend_context(self, a2, info);
-  v162 = objc_msgSend_registry(v7, v8, v9);
+  v163 = objc_msgSend_registry(v7, v8, v9);
   selfCopy = self;
 
   v12 = *(info + 8);
-  v176 = v12;
+  v177 = v12;
   infoCopy = info;
   if (v12 >= 1)
   {
@@ -235,8 +235,8 @@ LABEL_22:
       v20 = UnsafePointer(v18 + 24, v10);
       if (!v19)
       {
-        v21 = v176;
-        if (v12 == v176)
+        v21 = v177;
+        if (v12 == v177)
         {
           v12 = v13;
         }
@@ -254,7 +254,7 @@ LABEL_22:
           goto LABEL_16;
         }
 
-        if ((*&selfCopy->_flags & 4) != 0 && v22 >= v15 && objc_msgSend_messagePrototypeForMessageType_(v162, v10, v19))
+        if ((*&selfCopy->_flags & 4) != 0 && v22 >= v15 && objc_msgSend_messagePrototypeForMessageType_(v163, v10, v19))
         {
           v15 = v22;
           v17 = v13;
@@ -263,7 +263,7 @@ LABEL_22:
 
       v22 = v14;
 LABEL_16:
-      v21 = v176;
+      v21 = v177;
 LABEL_17:
       ++v13;
       v14 = v22;
@@ -297,17 +297,17 @@ LABEL_20:
     {
       v22 = 0;
 LABEL_29:
-      v156 = *(v23 + 48);
+      v157 = *(v23 + 48);
       v26 = objc_msgSend_unknownObjectMessageInfo(selfCopy, v10, v11);
-      v157 = v22;
+      v158 = v22;
       v27 = 0;
-      v166 = -1;
-      v170 = 1;
+      v167 = -1;
+      v171 = 1;
       goto LABEL_37;
     }
   }
 
-  v166 = v16;
+  v167 = v16;
   if (v16 == -1)
   {
     goto LABEL_29;
@@ -329,22 +329,22 @@ LABEL_29:
       }
 
       LOBYTE(v28) = 0;
-      v12 = v176;
+      v12 = v177;
     }
 
     v25 = v28 ^ 1;
   }
 
-  v170 = v25;
-  v156 = *(v23 + 48);
-  v157 = v22;
+  v171 = v25;
+  v157 = *(v23 + 48);
+  v158 = v22;
   v26 = *(*(v23 + 40) + 8 * v16 + 8);
   v27 = 1;
 LABEL_37:
-  v161 = v26;
+  v162 = v26;
   v29 = *(v26 + 200);
-  v30 = objc_msgSend_messagePrototypeForMessageType_(v162, v24, v29);
-  v154 = objc_msgSend_unarchiveClassForMessageType_(v162, v31, v29);
+  v30 = objc_msgSend_messagePrototypeForMessageType_(v163, v24, v29);
+  v155 = objc_msgSend_unarchiveClassForMessageType_(v163, v31, v29);
   if (v30)
   {
     aBlock[0] = MEMORY[0x277D85DD0];
@@ -352,33 +352,33 @@ LABEL_37:
     aBlock[2] = sub_276A753D8;
     aBlock[3] = &unk_27A6E58F8;
     aBlock[4] = selfCopy;
-    aBlock[5] = v157;
-    v174 = _Block_copy(aBlock);
-    if (v166 < 1)
+    aBlock[5] = v158;
+    v175 = _Block_copy(aBlock);
+    if (v167 < 1)
     {
-      v171 = 0;
+      v172 = 0;
     }
 
     else
     {
-      v171 = 0;
+      v172 = 0;
       v34 = 8;
-      v35 = v166;
+      v35 = v167;
       do
       {
         v36 = *(infoCopy[5] + v34);
-        if (v174[2](v174, v36))
+        if (v175[2](v175, v36))
         {
           v39 = objc_msgSend_unknownMessageFromMessageInfo_stream_(selfCopy, v37, v36, stream);
-          if (v171)
+          if (v172)
           {
-            objc_msgSend_addObject_(v171, v38, v39);
+            objc_msgSend_addObject_(v172, v38, v39);
           }
 
           else
           {
             v40 = objc_alloc(MEMORY[0x277CBEB18]);
-            v171 = objc_msgSend_initWithObjects_(v40, v41, v39, 0);
+            v172 = objc_msgSend_initWithObjects_(v40, v41, v39, 0);
           }
         }
 
@@ -395,23 +395,23 @@ LABEL_37:
     }
 
     v45 = (*(*v30 + 24))(v30);
-    v214 = v45;
-    if (*(v161 + 204))
+    v215 = v45;
+    if (*(v162 + 204))
     {
-      v205 = 0uLL;
+      v206 = 0uLL;
       streamCopy2 = stream;
-      v207[0] = 0;
-      *(v207 + 6) = 0;
-      v208 = 0x7FFFFFFFLL;
-      v209 = 0x7FFFFFFF;
-      v210 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
+      v208[0] = 0;
+      *(v208 + 6) = 0;
+      v209 = 0x7FFFFFFFLL;
+      v210 = 0x7FFFFFFF;
       v211 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
-      v212 = 0;
+      v212 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
       v213 = 0;
-      google::protobuf::io::CodedInputStream::Refresh(&v205);
-      google::protobuf::io::CodedInputStream::PushLimit(&v205, *(v161 + 204));
-      v46 = google::protobuf::MessageLite::ParsePartialFromCodedStream(v45, &v205);
-      google::protobuf::io::CodedInputStream::~CodedInputStream(&v205);
+      v214 = 0;
+      google::protobuf::io::CodedInputStream::Refresh(&v206);
+      google::protobuf::io::CodedInputStream::PushLimit(&v206, *(v162 + 204));
+      v46 = google::protobuf::MessageLite::ParsePartialFromCodedStream(v45, &v206);
+      google::protobuf::io::CodedInputStream::~CodedInputStream(&v206);
     }
 
     else
@@ -419,37 +419,37 @@ LABEL_37:
       v46 = 1;
     }
 
+    v200 = 0;
+    v201 = &v200;
+    v202 = 0x3032000000;
+    v203 = sub_276A75444;
+    v204 = sub_276A75454;
+    v205 = 0;
+    v194 = 0;
+    v195 = &v194;
+    v196 = 0x3032000000;
+    v197 = sub_276A75444;
+    v198 = sub_276A75454;
     v199 = 0;
-    v200 = &v199;
-    v201 = 0x3032000000;
-    v202 = sub_276A75444;
-    v203 = sub_276A75454;
-    v204 = 0;
-    v193 = 0;
-    v194 = &v193;
-    v195 = 0x3032000000;
-    v196 = sub_276A75444;
-    v197 = sub_276A75454;
-    v198 = 0;
     if (v46)
     {
-      if ((*&selfCopy->_flags & 2) != 0 || (v47 = sub_276A7545C(v161 + 48), (v48 = v47) == 0))
+      if ((*&selfCopy->_flags & 2) != 0 || (v47 = sub_276A7545C(v162 + 48), (v48 = v47) == 0))
       {
         v55 = 1;
       }
 
       else
       {
-        v50 = (v200 + 5);
-        v49 = v200[5];
-        LOBYTE(v205) = 0;
-        v51 = (v194 + 5);
-        v191 = v194[5];
+        v50 = (v201 + 5);
+        v49 = v201[5];
+        LOBYTE(v206) = 0;
+        v51 = (v195 + 5);
+        v192 = v195[5];
         obj = v49;
-        sub_276AD117C(v47, v45, 0, &obj, &v191, &v205);
+        sub_276AD117C(v47, v45, 0, &obj, &v192, &v206);
         objc_storeStrong(v50, obj);
-        objc_storeStrong(v51, v191);
-        if (v205 != 1 || (*&selfCopy->_flags & 4) != 0)
+        objc_storeStrong(v51, v192);
+        if (v206 != 1 || (*&selfCopy->_flags & 4) != 0)
         {
           v55 = 1;
         }
@@ -462,7 +462,7 @@ LABEL_37:
           v55 = 0;
         }
 
-        v57 = sub_2769C1374(v48, v52);
+        v57 = sub_2769C1374(v48);
         MEMORY[0x277C9F670](v57, 0x1060C4094AFC76ALL);
       }
     }
@@ -472,22 +472,22 @@ LABEL_37:
       v55 = 0;
     }
 
-    v187 = 0;
-    v188 = &v187;
-    v189 = 0x2020000000;
-    v190 = 0;
-    v186[0] = MEMORY[0x277D85DD0];
-    v186[1] = 3221225472;
-    v186[2] = sub_276A7556C;
-    v186[3] = &unk_27A6E5920;
-    v186[4] = &v187;
-    v186[5] = &v199;
-    v186[6] = &v193;
-    v158 = _Block_copy(v186);
+    v188 = 0;
+    v189 = &v188;
+    v190 = 0x2020000000;
+    v191 = 0;
+    v187[0] = MEMORY[0x277D85DD0];
+    v187[1] = 3221225472;
+    v187[2] = sub_276A7556C;
+    v187[3] = &unk_27A6E5920;
+    v187[4] = &v188;
+    v187[5] = &v200;
+    v187[6] = &v194;
+    v159 = _Block_copy(v187);
     if (v55)
     {
-      v59 = v176;
-      if (*(v161 + 72) >= 1)
+      v59 = v177;
+      if (*(v162 + 72) >= 1)
       {
         operator new();
       }
@@ -495,42 +495,42 @@ LABEL_37:
 
     else
     {
-      v59 = v176;
+      v59 = v177;
     }
 
-    if (v166 + 1 < v59)
+    if (v167 + 1 < v59)
     {
-      v169 = 0;
-      v60 = v166 + 1;
-      v167 = v12;
+      v170 = 0;
+      v60 = v167 + 1;
+      v168 = v12;
       while (1)
       {
         v61 = *(infoCopy[5] + 8 * v60 + 8);
-        v62 = v170;
-        if (v60 < v167)
+        v62 = v171;
+        if (v60 < v168)
         {
           v62 = 1;
         }
 
-        if ((v62 & 1) == 0 && v61[52] == v166 && (v61[51] || v61[38] >= 1))
+        if ((v62 & 1) == 0 && v61[52] == v167 && (v61[51] || v61[38] >= 1))
         {
           break;
         }
 
-        if ((v169 & 1) == 0 && v174[2](v174, *(infoCopy[5] + 8 * v60 + 8)))
+        if ((v170 & 1) == 0 && v175[2](v175, *(infoCopy[5] + 8 * v60 + 8)))
         {
-          v168 = objc_msgSend_unknownMessageFromMessageInfo_stream_(selfCopy, v73, v61, stream);
-          if (v171)
+          v169 = objc_msgSend_unknownMessageFromMessageInfo_stream_(selfCopy, v73, v61, stream);
+          if (v172)
           {
-            objc_msgSend_addObject_(v171, v74, v168);
-            v169 = 0;
+            objc_msgSend_addObject_(v172, v74, v169);
+            v170 = 0;
           }
 
           else
           {
             v78 = objc_alloc(MEMORY[0x277CBEB18]);
-            v169 = 0;
-            v171 = objc_msgSend_initWithObjects_(v78, v79, v168, 0);
+            v170 = 0;
+            v172 = objc_msgSend_initWithObjects_(v78, v79, v169, 0);
           }
 
           goto LABEL_177;
@@ -538,13 +538,13 @@ LABEL_37:
 
         (*(stream->var0 + 4))(stream, v61[51]);
 LABEL_178:
-        if (v176 == ++v60)
+        if (v177 == ++v60)
         {
           goto LABEL_182;
         }
       }
 
-      v173 = *(infoCopy[5] + 8 * v60 + 8);
+      v174 = *(infoCopy[5] + 8 * v60 + 8);
       v63 = UnsafePointer((v61 + 30), v58);
       if (v55)
       {
@@ -554,18 +554,18 @@ LABEL_178:
           goto LABEL_105;
         }
 
-        v67 = *(v173 + 56);
+        v67 = *(v174 + 56);
         if (v67 < 1)
         {
           goto LABEL_105;
         }
 
         v68 = 1;
-        v69 = *(v173 + 56);
+        v69 = *(v174 + 56);
         v70 = 1;
         do
         {
-          v71 = *(*(v173 + 64) + 8 * v68);
+          v71 = *(*(v174 + 64) + 8 * v68);
           if ((*(v71 + 16) & 0x10) != 0 && *(v71 + 116) == -1 && (*(v71 + 120) - 1) < 2)
           {
             break;
@@ -579,55 +579,55 @@ LABEL_178:
         if (!v70)
         {
 LABEL_105:
-          v168 = 0;
-          v160 = 0;
+          v169 = 0;
+          v161 = 0;
         }
 
         else
         {
-          if ((v169 & 1) == 0)
+          if ((v170 & 1) == 0)
           {
-            objc_msgSend_removeAllObjects(v171, v64, v65);
+            objc_msgSend_removeAllObjects(v172, v64, v65);
           }
 
-          v168 = objc_msgSend_unknownMessageFromMessageInfo_stream_(selfCopy, v64, v173, stream);
-          if (v171)
+          v169 = objc_msgSend_unknownMessageFromMessageInfo_stream_(selfCopy, v64, v174, stream);
+          if (v172)
           {
-            objc_msgSend_addObject_(v171, v72, v168);
-            v169 = 1;
-            v160 = 1;
+            objc_msgSend_addObject_(v172, v72, v169);
+            v170 = 1;
+            v161 = 1;
           }
 
           else
           {
-            v131 = objc_alloc(MEMORY[0x277CBEB18]);
-            v169 = 1;
-            v160 = 1;
-            v171 = objc_msgSend_initWithObjects_(v131, v132, v168, 0);
+            v132 = objc_alloc(MEMORY[0x277CBEB18]);
+            v170 = 1;
+            v161 = 1;
+            v172 = objc_msgSend_initWithObjects_(v132, v133, v169, 0);
           }
         }
 
         v76 = v66 >= 0xF000000000000;
-        v75 = v173;
+        v75 = v174;
         if (v76)
         {
-          v77 = v214;
+          v77 = v215;
           if ((*&selfCopy->_flags & 2) != 0)
           {
-            v155 = 0;
+            v156 = 0;
           }
 
           else
           {
-            v155 = sub_276A7545C(v173 + 48);
+            v156 = sub_276A7545C(v174 + 48);
           }
 
-          if ((*(v173 + 16) & 1) != 0 && v77 && (v101 = *(v173 + 192), v102 = *(v101 + 16), v102 >= 1))
+          if ((*(v174 + 16) & 1) != 0 && v77 && (v101 = *(v174 + 192), v102 = *(v101 + 16), v102 >= 1))
           {
             v103 = 0;
             v104 = *(v101 + 16);
-            v164 = (v102 - 1);
-            v165 = v155;
+            v165 = (v102 - 1);
+            v166 = v156;
             while (1)
             {
               v105 = *(*(v101 + 24) + 4 * v103);
@@ -645,45 +645,45 @@ LABEL_105:
               }
 
               v77 = google::protobuf::Reflection::MutableMessage(v108, v77, FieldByNumber, 0);
-              if (!v165)
+              if (!v166)
               {
                 goto LABEL_142;
               }
 
-              v110 = v165 + 4;
-              v111 = v165[4];
-              if (!v111)
+              v111 = v166 + 4;
+              v112 = v166[4];
+              if (!v112)
               {
                 goto LABEL_142;
               }
 
               do
               {
-                if (*(v111 + 32) >= v105)
+                if (*(v112 + 32) >= v105)
                 {
-                  v110 = v111;
+                  v111 = v112;
                 }
 
-                v111 = *(v111 + 8 * (*(v111 + 32) < v105));
+                v112 = *(v112 + 8 * (*(v112 + 32) < v105));
               }
 
-              while (v111);
-              if (v110 != v165 + 4 && v105 >= *(v110 + 8) && (v112 = v110[5]) != 0)
+              while (v112);
+              if (v111 != v166 + 4 && v105 >= *(v111 + 8) && (v113 = v111[5]) != 0)
               {
-                v165 = v112;
-                v113 = v112[1];
-                if (v113)
+                v166 = v113;
+                v114 = v113[1];
+                if (v114)
                 {
-                  if (*(v113 + 112) != 3 && v103 != v164)
+                  if (*(v114 + 112) != 3 && v103 != v165)
                   {
-                    v115 = MEMORY[0x277D81150];
-                    v116 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v64, "[TSPComponentReader newUnarchiverWithArchiveInfo:stream:isUnknownObject:]");
-                    v118 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v117, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentReader.mm");
-                    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v115, v119, v116, v118, 450, 0, "Field path size for diff archiver field rules does not match.");
+                    v116 = MEMORY[0x277D81150];
+                    v117 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v110, "[TSPComponentReader newUnarchiverWithArchiveInfo:stream:isUnknownObject:]");
+                    v119 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v118, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentReader.mm");
+                    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v116, v120, v117, v119, 450, 0, "Field path size for diff archiver field rules does not match.");
 
-                    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v120, v121);
-                    v165 = 0;
-                    v75 = v173;
+                    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v121, v122);
+                    v166 = 0;
+                    v75 = v174;
                   }
                 }
               }
@@ -691,7 +691,7 @@ LABEL_105:
               else
               {
 LABEL_142:
-                v165 = 0;
+                v166 = 0;
               }
 
               if (v77)
@@ -708,28 +708,28 @@ LABEL_142:
 
           else
           {
-            v165 = v155;
+            v166 = v156;
 LABEL_114:
             if (v77)
             {
-              if (v165)
+              if (v166)
               {
-                v80 = v188[3];
-                v184 = 0;
+                v80 = v189[3];
                 v185 = 0;
-                sub_276AD1988(v165, v77, v80, &v185, &v184);
-                v81 = v185;
-                v82 = v184;
+                v186 = 0;
+                sub_276AD1988(v166, v77, v80, &v186, &v185);
+                v81 = v186;
+                v82 = v185;
                 if (objc_msgSend_count(v81, v83, v84) || objc_msgSend_count(v82, v85, v86))
                 {
-                  v158[2](v158, v81, v82);
+                  v159[2](v159, v81, v82);
                 }
               }
 
-              v163 = *(v75 + 152);
-              if (v163 >= 1)
+              v164 = *(v75 + 152);
+              if (v164 >= 1)
               {
-                for (i = 0; i != v163; ++i)
+                for (i = 0; i != v164; ++i)
                 {
                   v88 = *(*(v75 + 160) + 8 * i + 8);
                   v89 = *(v88 + 16);
@@ -778,64 +778,64 @@ LABEL_114:
                     while (v90 < v89);
                   }
 
-                  v75 = v173;
+                  v75 = v174;
                 }
               }
 
               if (*(v75 + 204))
               {
-                if (v160)
+                if (v161)
                 {
                   v97 = v77;
-                  if (!v168)
+                  if (!v169)
                   {
-                    TSUSetCrashReporterInfo();
-                    v148 = MEMORY[0x277D81150];
-                    v150 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v149, "[TSPComponentReader newUnarchiverWithArchiveInfo:stream:isUnknownObject:]", "[TSPComponentReader newUnarchiverWithArchiveInfo:stream:isUnknownObject:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentReader.mm", 507);
-                    v152 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v151, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentReader.mm");
-                    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v148, v153, v150, v152, 507, 1, "Unknown message should be initialized here.");
+                    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unknown message should be initialized here.", "[TSPComponentReader newUnarchiverWithArchiveInfo:stream:isUnknownObject:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentReader.mm", 507);
+                    v149 = MEMORY[0x277D81150];
+                    v151 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v150, "[TSPComponentReader newUnarchiverWithArchiveInfo:stream:isUnknownObject:]");
+                    v153 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v152, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPComponentReader.mm");
+                    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v149, v154, v151, v153, 507, 1, "Unknown message should be initialized here.");
 
                     TSUCrashBreakpoint();
                     abort();
                   }
 
-                  sub_276A00FEC(v181);
-                  v100 = objc_msgSend_messageData(v168, v98, v99);
-                  sub_276A01048(v181, v100);
+                  sub_276A00FEC(v182);
+                  v100 = objc_msgSend_messageData(v169, v98, v99);
+                  sub_276A01048(v182, v100);
 
-                  v205 = 0u;
-                  streamCopy2 = v181;
-                  v207[0] = 0;
-                  *(v207 + 6) = 0;
-                  v208 = 0x7FFFFFFFLL;
-                  v209 = 0x7FFFFFFF;
-                  v210 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
+                  v206 = 0u;
+                  streamCopy2 = v182;
+                  v208[0] = 0;
+                  *(v208 + 6) = 0;
+                  v209 = 0x7FFFFFFFLL;
+                  v210 = 0x7FFFFFFF;
                   v211 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
-                  v212 = 0;
+                  v212 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
                   v213 = 0;
-                  google::protobuf::io::CodedInputStream::Refresh(&v205);
-                  google::protobuf::io::CodedInputStream::PushLimit(&v205, *(v75 + 204));
-                  v55 = google::protobuf::MessageLite::MergePartialFromCodedStream(v77, &v205);
-                  google::protobuf::io::CodedInputStream::~CodedInputStream(&v205);
+                  v214 = 0;
+                  google::protobuf::io::CodedInputStream::Refresh(&v206);
+                  google::protobuf::io::CodedInputStream::PushLimit(&v206, *(v75 + 204));
+                  v55 = google::protobuf::MessageLite::MergePartialFromCodedStream(v77, &v206);
+                  google::protobuf::io::CodedInputStream::~CodedInputStream(&v206);
                 }
 
                 else
                 {
-                  v205 = 0u;
+                  v206 = 0u;
                   streamCopy2 = stream;
-                  v207[0] = 0;
-                  *(v207 + 6) = 0;
-                  v208 = 0x7FFFFFFFLL;
-                  v209 = 0x7FFFFFFF;
-                  v210 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
+                  v208[0] = 0;
+                  *(v208 + 6) = 0;
+                  v209 = 0x7FFFFFFFLL;
+                  v210 = 0x7FFFFFFF;
                   v211 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
-                  v212 = 0;
+                  v212 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
                   v213 = 0;
-                  google::protobuf::io::CodedInputStream::Refresh(&v205);
+                  v214 = 0;
+                  google::protobuf::io::CodedInputStream::Refresh(&v206);
                   v97 = v77;
-                  google::protobuf::io::CodedInputStream::PushLimit(&v205, *(v75 + 204));
-                  v55 = google::protobuf::MessageLite::MergePartialFromCodedStream(v77, &v205);
-                  google::protobuf::io::CodedInputStream::~CodedInputStream(&v205);
+                  google::protobuf::io::CodedInputStream::PushLimit(&v206, *(v75 + 204));
+                  v55 = google::protobuf::MessageLite::MergePartialFromCodedStream(v77, &v206);
+                  google::protobuf::io::CodedInputStream::~CodedInputStream(&v206);
                 }
               }
 
@@ -845,37 +845,37 @@ LABEL_114:
                 v97 = v77;
               }
 
-              if (v165 && v55)
+              if (v166 && v55)
               {
-                v122 = v188[3];
-                v179 = 0;
+                v123 = v189[3];
                 v180 = 0;
-                sub_276AD11A0(v165, v97, v122, &v180, &v179, 0);
-                v123 = v180;
-                v124 = v179;
-                if (objc_msgSend_count(v123, v125, v126) || objc_msgSend_count(v124, v127, v128))
+                v181 = 0;
+                sub_276AD11A0(v166, v97, v123, &v181, &v180, 0);
+                v124 = v181;
+                v125 = v180;
+                if (objc_msgSend_count(v124, v126, v127) || objc_msgSend_count(v125, v128, v129))
                 {
-                  v158[2](v158, v123, v124);
+                  v159[2](v159, v124, v125);
                 }
               }
 
-              if (v155)
+              if (v156)
               {
-                v129 = sub_2769C1374(v155, v64);
-                MEMORY[0x277C9F670](v129, 0x1060C4094AFC76ALL);
+                v130 = sub_2769C1374(v156);
+                MEMORY[0x277C9F670](v130, 0x1060C4094AFC76ALL);
               }
 
               if (*(v75 + 72) > 0)
               {
-                v130 = v55;
+                v131 = v55;
               }
 
               else
               {
-                v130 = 0;
+                v131 = 0;
               }
 
-              if (v130 == 1)
+              if (v131 == 1)
               {
                 operator new();
               }
@@ -885,7 +885,7 @@ LABEL_114:
           }
         }
 
-        if (v160)
+        if (v161)
         {
           LOBYTE(v55) = 1;
           goto LABEL_177;
@@ -894,8 +894,8 @@ LABEL_114:
 
       else
       {
-        v168 = 0;
-        v75 = v173;
+        v169 = 0;
+        v75 = v174;
       }
 
       (*(stream->var0 + 4))(stream, *(v75 + 204));
@@ -904,26 +904,26 @@ LABEL_177:
       goto LABEL_178;
     }
 
-    v169 = 0;
+    v170 = 0;
 LABEL_182:
     if (v55)
     {
-      if ((*(*v214 + 48))(v214))
+      if ((*(*v215 + 48))(v215))
       {
-        if (objc_msgSend_count(v171, v58, v133) || objc_msgSend_count(v200[5], v134, v135) || objc_msgSend_count(v194[5], v136, v137))
+        if (objc_msgSend_count(v172, v58, v134) || objc_msgSend_count(v201[5], v135, v136) || objc_msgSend_count(v195[5], v137, v138))
         {
-          v139 = [TSPUnknownContent alloc];
-          v141 = objc_msgSend_initWithMessages_messagesAreDiffs_preserveFields_preserveUntilModifiedFields_(v139, v140, v171, v169 & 1, v200[5], v194[5]);
+          v140 = [TSPUnknownContent alloc];
+          v142 = objc_msgSend_initWithMessages_messagesAreDiffs_preserveFields_preserveUntilModifiedFields_(v140, v141, v172, v170 & 1, v201[5], v195[5]);
         }
 
         else
         {
-          v141 = 0;
+          v142 = 0;
         }
 
-        v178 = 0;
-        hasAlternateMessages = objc_msgSend_newUnarchiverWithObjectIdentifier_messageInfo_unarchiveClass_message_messageVersion_strongReferences_unknownContent_hasAlternateMessages_(selfCopy, v138, v156, v161, v154, &v214, v157, &v178, v141, v176 > 1);
-        sub_276A519D8(&v178);
+        v179 = 0;
+        hasAlternateMessages = objc_msgSend_newUnarchiverWithObjectIdentifier_messageInfo_unarchiveClass_message_messageVersion_strongReferences_unknownContent_hasAlternateMessages_(selfCopy, v139, v157, v162, v155, &v215, v158, &v179, v142, v177 > 1);
+        sub_276A519D8(&v179);
 
         goto LABEL_195;
       }
@@ -936,8 +936,8 @@ LABEL_182:
 
     if ((*&selfCopy->_flags & 2) != 0)
     {
-      v143 = 1;
-      hasAlternateMessages = objc_msgSend_unknownObjectUnarchiverWithArchiveInfo_stream_ignoreMessageData_hasAlternateMessages_(selfCopy, v58, infoCopy, 0, 1, v176 > 1);
+      v144 = 1;
+      hasAlternateMessages = objc_msgSend_unknownObjectUnarchiverWithArchiveInfo_stream_ignoreMessageData_hasAlternateMessages_(selfCopy, v58, infoCopy, 0, 1, v177 > 1);
       goto LABEL_197;
     }
 
@@ -948,45 +948,45 @@ LABEL_182:
 
     hasAlternateMessages = 0;
 LABEL_195:
-    v143 = 0;
+    v144 = 0;
 LABEL_197:
-    v144 = v188[3];
-    if (v144)
+    v145 = v189[3];
+    if (v145)
     {
-      v145 = sub_276A762A8(v144);
-      MEMORY[0x277C9F670](v145, 0x10A0C408EF24B1CLL);
+      v146 = sub_276A762A8(v145);
+      MEMORY[0x277C9F670](v146, 0x10A0C408EF24B1CLL);
     }
 
     if (object)
     {
-      *object = v143;
+      *object = v144;
     }
 
     v56 = hasAlternateMessages;
 
-    _Block_object_dispose(&v187, 8);
-    _Block_object_dispose(&v193, 8);
+    _Block_object_dispose(&v188, 8);
+    _Block_object_dispose(&v194, 8);
 
-    _Block_object_dispose(&v199, 8);
-    v146 = v214;
-    v214 = 0;
-    if (v146)
+    _Block_object_dispose(&v200, 8);
+    v147 = v215;
+    v215 = 0;
+    if (v147)
     {
-      (*(*v146 + 8))(v146);
+      (*(*v147 + 8))(v147);
     }
 
     goto LABEL_204;
   }
 
-  if (((v27 ^ 1 | ((*&selfCopy->_flags & 2) >> 1)) & 1) == 0 && (objc_msgSend_isCrossAppPaste(selfCopy, v32, v33) & 1) == 0 && v154 != objc_opt_class() && UnsafePointer != -1)
+  if (((v27 ^ 1 | ((*&selfCopy->_flags & 2) >> 1)) & 1) == 0 && (objc_msgSend_isCrossAppPaste(selfCopy, v32, v33) & 1) == 0 && v155 != objc_opt_class() && UnsafePointer != -1)
   {
     sub_276BD5AAC();
   }
 
   flags = selfCopy->_flags;
-  if (v156 != 1 || (*&flags & 0x10) != 0)
+  if (v157 != 1 || (*&flags & 0x10) != 0)
   {
-    v44 = objc_msgSend_unknownObjectUnarchiverWithArchiveInfo_stream_ignoreMessageData_hasAlternateMessages_(selfCopy, v32, v23, stream, (*&flags >> 1) & 1, v176 > 1);
+    v44 = objc_msgSend_unknownObjectUnarchiverWithArchiveInfo_stream_ignoreMessageData_hasAlternateMessages_(selfCopy, v32, v23, stream, (*&flags >> 1) & 1, v177 > 1);
   }
 
   else

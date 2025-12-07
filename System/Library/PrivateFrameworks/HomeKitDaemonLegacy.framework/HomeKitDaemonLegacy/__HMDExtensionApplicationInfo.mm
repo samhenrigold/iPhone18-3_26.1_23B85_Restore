@@ -97,31 +97,29 @@
 
 - (id)attributeDescriptions
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = __HMDExtensionApplicationInfo;
-  attributeDescriptions = [(HMDApplicationInfo *)&v11 attributeDescriptions];
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = __HMDExtensionApplicationInfo;
+  attributeDescriptions = [(HMDApplicationInfo *)&v10 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   hostApplicationInfo = [(__HMDExtensionApplicationInfo *)self hostApplicationInfo];
   v6 = [v4 initWithName:@"Host Application" value:hostApplicationInfo];
-  v12[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v8 = [attributeDescriptions arrayByAddingObjectsFromArray:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (__HMDExtensionApplicationInfo)initWithRecord:(id)record
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (recordCopy)
   {
-    v27.receiver = self;
-    v27.super_class = __HMDExtensionApplicationInfo;
-    v5 = [(__HMDBundleApplicationInfo *)&v27 initWithRecord:recordCopy];
+    v26.receiver = self;
+    v26.super_class = __HMDExtensionApplicationInfo;
+    v5 = [(__HMDBundleApplicationInfo *)&v26 initWithRecord:recordCopy];
     if (v5)
     {
       containingBundleRecord = [recordCopy containingBundleRecord];
@@ -134,13 +132,13 @@
         bundleIdentifier = [recordCopy bundleIdentifier];
         effectiveBundleIdentifier = [recordCopy effectiveBundleIdentifier];
         *buf = 138544130;
-        v29 = v10;
-        v30 = 2112;
-        v31 = containingBundleRecord;
-        v32 = 2112;
-        v33 = bundleIdentifier;
-        v34 = 2112;
-        v35 = effectiveBundleIdentifier;
+        v28 = v10;
+        v29 = 2112;
+        v30 = containingBundleRecord;
+        v31 = 2112;
+        v32 = bundleIdentifier;
+        v33 = 2112;
+        v34 = effectiveBundleIdentifier;
         _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@container: %@/ bundleID: %@, effective bundle id: %@", buf, 0x2Au);
       }
 
@@ -172,9 +170,9 @@
         {
           v21 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v29 = v21;
-          v30 = 2112;
-          v31 = v17;
+          v28 = v21;
+          v29 = 2112;
+          v30 = v17;
           _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@host record: %@", buf, 0x16u);
         }
 
@@ -194,7 +192,6 @@
     selfCopy = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

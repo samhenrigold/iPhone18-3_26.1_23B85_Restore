@@ -1,68 +1,68 @@
-uint64_t ___ZN40PSVR2SenseDeviceHIDEventServerUserClient24applyTransportPropertiesEP12OSDictionaryS1__block_invoke_4(void *a1)
+uint64_t ___ZN40PSVR2SenseDeviceHIDEventServerUserClient24applyTransportPropertiesEP12OSDictionaryS1__block_invoke_4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = a1[4];
-  v2 = a1[5];
-  v4 = a1[6];
-  if (v2)
+  v6 = a1[4];
+  v5 = a1[5];
+  v7 = a1[6];
+  if (v5)
   {
-    *(v4 + 184) = 1;
-    v5 = (*(*v2 + 168))(v2);
-    v7 = a1[6];
-    v6 = a1[7];
-    *(v7 + 188) = v5;
-    if (v6)
+    *(v7 + 184) = 1;
+    v8 = (*(*v5 + 168))(v5, a2, a3, a4);
+    v10 = a1[6];
+    v9 = a1[7];
+    *(v10 + 188) = v8;
+    if (v9)
     {
-      LODWORD(v6) = (*(*v6 + 168))(v6);
-      v7 = a1[6];
+      LODWORD(v9) = (*(*v9 + 168))(v9);
+      v10 = a1[6];
     }
 
-    *(v7 + 192) = v6;
-    v8 = _gc_log_psvr2();
-    RegistryEntryID = IORegistryEntry::getRegistryEntryID(v3);
-    _os_log_internal(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "[%#010llx] Apply 'Transport.OutputDelay' override {\n\t outputEnqueueDelay {\n\t\t timeUS = %u\n\t\t uncertaintyUS = %u\n\t}\n}", RegistryEntryID, *(a1[6] + 188), *(a1[6] + 192));
+    *(v10 + 192) = v9;
+    v11 = _gc_log_psvr2();
+    RegistryEntryID = IORegistryEntry::getRegistryEntryID(v6);
+    _os_log_internal(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "[%#010llx] Apply 'Transport.OutputDelay' override {\n\t outputEnqueueDelay {\n\t\t timeUS = %u\n\t\t uncertaintyUS = %u\n\t}\n}", RegistryEntryID, *(a1[6] + 188), *(a1[6] + 192));
   }
 
   else
   {
-    *(v4 + 184) = 0;
-    v10 = _gc_log_psvr2();
-    v11 = IORegistryEntry::getRegistryEntryID(v3);
-    _os_log_internal(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "[%#010llx] Remove 'Transport.OutputDelay' override", v11);
+    *(v7 + 184) = 0;
+    v13 = _gc_log_psvr2();
+    v14 = IORegistryEntry::getRegistryEntryID(v6);
+    _os_log_internal(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "[%#010llx] Remove 'Transport.OutputDelay' override", v14);
   }
 
   return 0;
 }
 
-uint64_t ___ZN40PSVR2SenseDeviceHIDEventServerUserClient24applyAccessoryPropertiesEP12OSDictionaryS1__block_invoke(void *a1)
+uint64_t ___ZN40PSVR2SenseDeviceHIDEventServerUserClient24applyAccessoryPropertiesEP12OSDictionaryS1__block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = a1[4];
-  v2 = a1[5];
-  v4 = a1[6];
-  if (v2)
+  v6 = a1[4];
+  v5 = a1[5];
+  v7 = a1[6];
+  if (v5)
   {
-    *(v4 + 256) = 1;
-    v5 = (*(*v2 + 168))(v2);
-    v7 = a1[6];
-    v6 = a1[7];
-    *(v7 + 260) = v5;
-    if (v6)
+    *(v7 + 256) = 1;
+    v8 = (*(*v5 + 168))(v5, a2, a3, a4);
+    v10 = a1[6];
+    v9 = a1[7];
+    *(v10 + 260) = v8;
+    if (v9)
     {
-      LODWORD(v6) = (*(*v6 + 168))(v6);
-      v7 = a1[6];
+      LODWORD(v9) = (*(*v9 + 168))(v9);
+      v10 = a1[6];
     }
 
-    *(v7 + 264) = v6;
-    v8 = _gc_log_psvr2();
-    RegistryEntryID = IORegistryEntry::getRegistryEntryID(v3);
-    _os_log_internal(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "[%#010llx] Apply 'Accessory.InputBTSubmissionDelay' override {\n\t inputBTSubmissionDelay {\n\t\t timeUS = %u\n\t\t uncertaintyUS = %u\n\t}\n}", RegistryEntryID, *(a1[6] + 260), *(a1[6] + 264));
+    *(v10 + 264) = v9;
+    v11 = _gc_log_psvr2();
+    RegistryEntryID = IORegistryEntry::getRegistryEntryID(v6);
+    _os_log_internal(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "[%#010llx] Apply 'Accessory.InputBTSubmissionDelay' override {\n\t inputBTSubmissionDelay {\n\t\t timeUS = %u\n\t\t uncertaintyUS = %u\n\t}\n}", RegistryEntryID, *(a1[6] + 260), *(a1[6] + 264));
   }
 
   else
   {
-    *(v4 + 256) = 0;
-    v10 = _gc_log_psvr2();
-    v11 = IORegistryEntry::getRegistryEntryID(v3);
-    _os_log_internal(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "[%#010llx] Remove 'Accessory.InputBTSubmissionDelay' override", v11);
+    *(v7 + 256) = 0;
+    v13 = _gc_log_psvr2();
+    v14 = IORegistryEntry::getRegistryEntryID(v6);
+    _os_log_internal(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "[%#010llx] Remove 'Accessory.InputBTSubmissionDelay' override", v14);
   }
 
   return 0;
@@ -151,112 +151,112 @@ uint64_t ___ZN40PSVR2SenseDeviceHIDEventServerUserClient20applyInputPropertiesEP
   return 0;
 }
 
-uint64_t ___ZN40PSVR2SenseDeviceHIDEventServerUserClient25setStatusOverridePropertyEP12OSDictionary_block_invoke(uint64_t a1)
+uint64_t ___ZN40PSVR2SenseDeviceHIDEventServerUserClient25setStatusOverridePropertyEP12OSDictionary_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v21 = v3;
-  if (v2)
+  v6 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v24 = v6;
+  if (v5)
   {
-    v4 = (*(*v2 + 136))(v2);
-    v5 = *(a1 + 48);
-    if (!v5)
+    v7 = (*(*v5 + 136))(v5, a2, a3, a4);
+    v8 = *(a1 + 48);
+    if (!v8)
     {
       goto LABEL_12;
     }
 
 LABEL_6:
-    v6 = (*(*v5 + 136))(v5);
-    v7 = 1;
+    v9 = (*(*v8 + 136))(v8);
+    v10 = 1;
     goto LABEL_14;
   }
 
-  v5 = *(a1 + 48);
-  if (v5)
+  v8 = *(a1 + 48);
+  if (v8)
   {
-    v4 = 1;
+    v7 = 1;
     goto LABEL_6;
   }
 
   if (!*(a1 + 56) && !*(a1 + 64) && !*(a1 + 72) && !*(a1 + 80))
   {
-    v7 = *(a1 + 88) != 0;
-    v4 = 1;
+    v10 = *(a1 + 88) != 0;
+    v7 = 1;
     goto LABEL_13;
   }
 
-  v4 = 1;
-LABEL_12:
   v7 = 1;
+LABEL_12:
+  v10 = 1;
 LABEL_13:
-  v6 = 1;
+  v9 = 1;
 LABEL_14:
-  v8 = *(a1 + 56);
-  if (v8)
+  v11 = *(a1 + 56);
+  if (v11)
   {
-    v9 = (*(*v8 + 136))(v8);
+    v12 = (*(*v11 + 136))(v11);
   }
 
   else
   {
-    v9 = 0;
+    v12 = 0;
   }
 
-  v10 = *(a1 + 64);
-  if (v10)
+  v13 = *(a1 + 64);
+  if (v13)
   {
-    v11 = (*(*v10 + 136))(v10);
+    v14 = (*(*v13 + 136))(v13);
   }
 
   else
   {
-    v11 = 1;
+    v14 = 1;
   }
 
-  v12 = *(a1 + 72);
-  if (v12)
+  v15 = *(a1 + 72);
+  if (v15)
   {
-    v13 = (*(*v12 + 152))(v12);
+    v16 = (*(*v15 + 152))(v15);
   }
 
   else
   {
-    v13 = 0;
+    v16 = 0;
   }
 
-  v14 = *(a1 + 80);
-  if (v14)
+  v17 = *(a1 + 80);
+  if (v17)
   {
-    v15 = (*(*v14 + 152))(v14);
+    v18 = (*(*v17 + 152))(v17);
   }
 
   else
   {
-    v15 = 0;
+    v18 = 0;
   }
 
-  v16 = *(a1 + 88);
-  if (v16)
+  v19 = *(a1 + 88);
+  if (v19)
   {
-    v17 = (*(*v16 + 152))(v16);
+    v20 = (*(*v19 + 152))(v19);
   }
 
   else
   {
-    v17 = 0;
+    v20 = 0;
   }
 
-  v18 = _gc_log_psvr2();
-  RegistryEntryID = IORegistryEntry::getRegistryEntryID(v21);
-  _os_log_internal(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "[%#010llx] Apply 'Status' override {\n\t enabled = %d\n\t statusLEDControl = %{BOOL}d\n\t statusLEDBrightnessControl = %{BOOL}d\n\t statusLEDRelease = %{BOOL}d\n\t on = %{BOOL}d\n\t brightness = %hhu\n\t reserved = %hhu\n\t reserved2 = %hhu\n}", RegistryEntryID, v7, v4, v6, v9, v11, v13, v15, v17);
-  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26074) = v7;
-  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26075) = v4;
-  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26076) = v6;
-  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26077) = v9;
-  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26078) = v11;
-  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26079) = v13;
-  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26080) = v15;
-  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26081) = v17;
+  v21 = _gc_log_psvr2();
+  RegistryEntryID = IORegistryEntry::getRegistryEntryID(v24);
+  _os_log_internal(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "[%#010llx] Apply 'Status' override {\n\t enabled = %d\n\t statusLEDControl = %{BOOL}d\n\t statusLEDBrightnessControl = %{BOOL}d\n\t statusLEDRelease = %{BOOL}d\n\t on = %{BOOL}d\n\t brightness = %hhu\n\t reserved = %hhu\n\t reserved2 = %hhu\n}", RegistryEntryID, v10, v7, v9, v12, v14, v16, v18, v20);
+  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26074) = v10;
+  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26075) = v7;
+  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26076) = v9;
+  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26077) = v12;
+  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26078) = v14;
+  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26079) = v16;
+  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26080) = v18;
+  *(PSVR2SenseDevice::getSharedPage(*(a1 + 96)) + 26081) = v20;
   return 0;
 }
 
@@ -330,28 +330,28 @@ uint64_t ___ZN40PSVR2SenseDeviceHIDEventServerUserClient23applyTrackingPropertie
   return 0;
 }
 
-uint64_t ___ZN40PSVR2SenseDeviceHIDEventServerUserClient23applyTrackingPropertiesEP12OSDictionaryS1__block_invoke_5(void *a1)
+uint64_t ___ZN40PSVR2SenseDeviceHIDEventServerUserClient23applyTrackingPropertiesEP12OSDictionaryS1__block_invoke_5(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = a1[5];
-  v3 = a1[9] || a1[10] || a1[11] || a1[12] != 0;
-  v33 = v3;
-  v35 = a1[4];
-  v4 = a1[6];
-  v27 = a1[8];
-  v29 = a1[7];
-  v5 = *(a1[13] + 26168);
-  v6 = *(a1[13] + 26172);
-  v7 = *(a1[13] + 26176);
-  v8 = *(a1[13] + 26180);
-  v9 = *(a1[13] + 26181);
-  v10 = *(a1[13] + 26182);
-  v11 = *(a1[13] + 26183);
-  v31 = v4;
-  if (v2)
+  v5 = a1[5];
+  v6 = a1[9] || a1[10] || a1[11] || a1[12] != 0;
+  v36 = v6;
+  v38 = a1[4];
+  v7 = a1[6];
+  v30 = a1[8];
+  v32 = a1[7];
+  v8 = *(a1[13] + 26168);
+  v9 = *(a1[13] + 26172);
+  v10 = *(a1[13] + 26176);
+  v11 = *(a1[13] + 26180);
+  v12 = *(a1[13] + 26181);
+  v13 = *(a1[13] + 26182);
+  v14 = *(a1[13] + 26183);
+  v34 = v7;
+  if (v5)
   {
-    v36 = (*(*v2 + 152))(v2);
-    v4 = a1[6];
-    if (!v4)
+    v39 = (*(*v5 + 152))(v5, a2, a3, a4);
+    v7 = a1[6];
+    if (!v7)
     {
       goto LABEL_8;
     }
@@ -359,93 +359,93 @@ uint64_t ___ZN40PSVR2SenseDeviceHIDEventServerUserClient23applyTrackingPropertie
     goto LABEL_7;
   }
 
-  v36 = *(a1[13] + 26166);
-  if (v4)
+  v39 = *(a1[13] + 26166);
+  if (v7)
   {
 LABEL_7:
-    v5 = (*(*v4 + 168))(v4);
+    v8 = (*(*v7 + 168))(v7);
   }
 
 LABEL_8:
-  v12 = a1[7];
-  if (v12)
-  {
-    v6 = (*(*v12 + 152))(v12);
-  }
-
-  v13 = a1[8];
-  if (v13)
-  {
-    v7 = (*(*v13 + 168))(v13);
-  }
-
-  v14 = a1[9];
-  if (v14)
-  {
-    v8 = (*(*v14 + 152))(v14);
-  }
-
-  v15 = a1[10];
+  v15 = a1[7];
   if (v15)
   {
     v9 = (*(*v15 + 152))(v15);
   }
 
-  v16 = a1[11];
-  v34 = v9;
+  v16 = a1[8];
   if (v16)
   {
-    v10 = (*(*v16 + 152))(v16);
+    v10 = (*(*v16 + 168))(v16);
   }
 
-  v17 = v8;
-  v18 = a1[12];
-  v19 = v7;
+  v17 = a1[9];
+  if (v17)
+  {
+    v11 = (*(*v17 + 152))(v17);
+  }
+
+  v18 = a1[10];
   if (v18)
   {
-    v11 = (*(*v18 + 152))(v18);
+    v12 = (*(*v18 + 152))(v18);
   }
 
-  v20 = v27 != 0;
-  v21 = v29 != 0;
-  v28 = v29 != 0;
-  v22 = v31 != 0;
-  v30 = v31 != 0;
-  v32 = v2 != 0;
-  v23 = a1[13] + 24576;
-  *(v23 + 1584) = 1;
-  *(v23 + 1585) = v32;
-  *(v23 + 1586) = v22;
-  *(v23 + 1587) = v21;
-  *(v23 + 1588) = v20;
-  *(v23 + 1589) = v33;
-  *(v23 + 1590) = v36;
-  *(v23 + 1592) = v5;
-  *(v23 + 1596) = v6;
-  *(v23 + 1600) = v19;
-  *(v23 + 1604) = v17;
-  *(a1[13] + 26181) = v34;
-  *(a1[13] + 26182) = v10;
-  *(a1[13] + 26183) = v11;
-  v24 = _gc_log_psvr2();
-  RegistryEntryID = IORegistryEntry::getRegistryEntryID(v35);
-  _os_log_internal(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "[%#010llx] Apply 'Tracking' override {\n\t mode = %hhu (Apply: %d)\n\t emissionTime = %u (Apply: %d)\n\t emissionLength = %hhu (Apply: %d)\n\t cyclePeriod = %u (Apply: %d)\n\t channel1 = %hhu (Apply: %d)\n\t channel2 = %hhu (Apply: %d)\n\t channel3 = %hhu (Apply: %d)\n\t channel4 = %hhu (Apply: %d)\n}", RegistryEntryID, v36, v32, v5, v30, v6, v28, v19, v20, v17, v33, v34, v33, v10, v33, v11, v33);
+  v19 = a1[11];
+  v37 = v12;
+  if (v19)
+  {
+    v13 = (*(*v19 + 152))(v19);
+  }
+
+  v20 = v11;
+  v21 = a1[12];
+  v22 = v10;
+  if (v21)
+  {
+    v14 = (*(*v21 + 152))(v21);
+  }
+
+  v23 = v30 != 0;
+  v24 = v32 != 0;
+  v31 = v32 != 0;
+  v25 = v34 != 0;
+  v33 = v34 != 0;
+  v35 = v5 != 0;
+  v26 = a1[13] + 24576;
+  *(v26 + 1584) = 1;
+  *(v26 + 1585) = v35;
+  *(v26 + 1586) = v25;
+  *(v26 + 1587) = v24;
+  *(v26 + 1588) = v23;
+  *(v26 + 1589) = v36;
+  *(v26 + 1590) = v39;
+  *(v26 + 1592) = v8;
+  *(v26 + 1596) = v9;
+  *(v26 + 1600) = v22;
+  *(v26 + 1604) = v20;
+  *(a1[13] + 26181) = v37;
+  *(a1[13] + 26182) = v13;
+  *(a1[13] + 26183) = v14;
+  v27 = _gc_log_psvr2();
+  RegistryEntryID = IORegistryEntry::getRegistryEntryID(v38);
+  _os_log_internal(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "[%#010llx] Apply 'Tracking' override {\n\t mode = %hhu (Apply: %d)\n\t emissionTime = %u (Apply: %d)\n\t emissionLength = %hhu (Apply: %d)\n\t cyclePeriod = %u (Apply: %d)\n\t channel1 = %hhu (Apply: %d)\n\t channel2 = %hhu (Apply: %d)\n\t channel3 = %hhu (Apply: %d)\n\t channel4 = %hhu (Apply: %d)\n}", RegistryEntryID, v39, v35, v8, v33, v9, v31, v22, v23, v20, v36, v37, v36, v13, v36, v14, v36);
   return 0;
 }
 
-uint64_t ___ZN40PSVR2SenseDeviceHIDEventServerUserClient22applyHapticsPropertiesEP12OSDictionaryS1__block_invoke(void *a1)
+uint64_t ___ZN40PSVR2SenseDeviceHIDEventServerUserClient22applyHapticsPropertiesEP12OSDictionaryS1__block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
-  v5 = a1[7];
-  v6 = *(a1[8] + 26189);
-  v7 = *(a1[8] + 26190);
-  if (v3)
+  v5 = a1[4];
+  v6 = a1[5];
+  v7 = a1[6];
+  v8 = a1[7];
+  v9 = *(a1[8] + 26189);
+  v10 = *(a1[8] + 26190);
+  if (v6)
   {
-    v8 = (*(*v3 + 152))(a1[5]);
-    v9 = a1[6];
-    if (!v9)
+    v11 = (*(*v6 + 152))(a1[5], a2, a3, a4);
+    v12 = a1[6];
+    if (!v12)
     {
       goto LABEL_4;
     }
@@ -453,35 +453,35 @@ uint64_t ___ZN40PSVR2SenseDeviceHIDEventServerUserClient22applyHapticsProperties
     goto LABEL_3;
   }
 
-  v8 = *(a1[8] + 26188);
-  v9 = a1[6];
-  if (v4)
+  v11 = *(a1[8] + 26188);
+  v12 = a1[6];
+  if (v7)
   {
 LABEL_3:
-    v6 = (*(*v9 + 152))(v9);
+    v9 = (*(*v12 + 152))(v12);
   }
 
 LABEL_4:
-  v10 = a1[7];
-  if (v10)
+  v13 = a1[7];
+  if (v13)
   {
-    v7 = (*(*v10 + 152))(v10);
+    v10 = (*(*v13 + 152))(v13);
   }
 
-  v11 = v3 != 0;
-  v12 = (a1[8] + 24576);
+  v14 = v6 != 0;
+  v15 = (a1[8] + 24576);
   *(a1[8] + 26184) = 1;
-  v13 = v5 != 0;
-  v12[1609] = v11;
-  v14 = v4 != 0;
-  v12[1610] = v14;
-  v12[1611] = v13;
-  v12[1612] = v8;
-  v12[1613] = v6;
-  v12[1614] = v7;
-  v15 = _gc_log_psvr2();
-  RegistryEntryID = IORegistryEntry::getRegistryEntryID(v2);
-  _os_log_internal(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "[%#010llx] Apply 'Haptics' override {\n\t rumbleMode = %hhu (Apply: %d)\n\t rumbleStrength = %hhu (Apply: %d)\n\t rumbleMaxAmplitude = %hhu (Apply: %d)\n}", RegistryEntryID, v8, v11, v6, v14, v7, v13);
+  v16 = v8 != 0;
+  v15[1609] = v14;
+  v17 = v7 != 0;
+  v15[1610] = v17;
+  v15[1611] = v16;
+  v15[1612] = v11;
+  v15[1613] = v9;
+  v15[1614] = v10;
+  v18 = _gc_log_psvr2();
+  RegistryEntryID = IORegistryEntry::getRegistryEntryID(v5);
+  _os_log_internal(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "[%#010llx] Apply 'Haptics' override {\n\t rumbleMode = %hhu (Apply: %d)\n\t rumbleStrength = %hhu (Apply: %d)\n\t rumbleMaxAmplitude = %hhu (Apply: %d)\n}", RegistryEntryID, v11, v14, v9, v17, v10, v16);
   return 0;
 }
 
@@ -568,7 +568,7 @@ void IOGCCircularDataQueue::IOGCCircularDataQueue(IOGCCircularDataQueue *this)
 
 uint64_t IOGCCircularDataQueue::withEntries(IOGCCircularDataQueue *this, uint64_t a2)
 {
-  v4 = (*(IOGCCircularDataQueue::gMetaClass + 104))();
+  v4 = (IOGCCircularDataQueue::gMetaClass.alloc)();
   v5 = v4;
   if (v4 && ((*(*v4 + 136))(v4, this, a2) & 1) == 0)
   {
@@ -972,7 +972,7 @@ uint64_t PSVR2SenseDeviceFastPathUserClientQueue::start(PSVR2SenseDeviceFastPath
         *(this + 17) = v9;
         if (!*(this + 19))
         {
-          v12 = (*(IOGCPortNotifier::gMetaClass + 104))();
+          v12 = (IOGCPortNotifier::gMetaClass.alloc)();
           if (v12)
           {
             v13 = v12;
@@ -1271,51 +1271,51 @@ void PSVR2SenseDeviceFastPathUserClientInputQueue::PSVR2SenseDeviceFastPathUserC
   OSMetaClass::instanceConstructed(&PSVR2SenseDeviceFastPathUserClientInputQueue::gMetaClass);
 }
 
-uint64_t PSVR2SenseDeviceFastPathUserClientInputQueue::start(IORegistryEntry *this, IOService *a2)
+uint64_t PSVR2SenseDeviceFastPathUserClientInputQueue::start(IORegistryEntry *this, IOService *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = _gc_log_psvr2();
+  v6 = _gc_log_psvr2();
   RegistryEntryID = IORegistryEntry::getRegistryEntryID(this);
   if (a2)
   {
-    v6 = IORegistryEntry::getRegistryEntryID(a2);
+    v8 = IORegistryEntry::getRegistryEntryID(a2);
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  _os_log_internal(&dword_0, v4, OS_LOG_TYPE_DEBUG, "[%#010llx] PSVR2SenseDeviceFastPathUserClientInputQueue::start(<IOService %#010llx>)", RegistryEntryID, v6);
-  v7 = PSVR2SenseDeviceFastPathUserClientQueue::start(this, a2);
-  if (v7)
+  _os_log_internal(&dword_0, v6, OS_LOG_TYPE_DEBUG, "[%#010llx] PSVR2SenseDeviceFastPathUserClientInputQueue::start(<IOService %#010llx>)", RegistryEntryID, v8);
+  v9 = PSVR2SenseDeviceFastPathUserClientQueue::start(this, a2);
+  if (v9)
   {
     reserved = this[3].reserved;
     if (reserved)
     {
       (*(*reserved + 32))(this[3].reserved);
-      v9 = (*(*reserved + 1552))(reserved);
-      v10 = this[4].__vftable;
-      if (v10)
+      v11 = (*(*reserved + 1552))(reserved);
+      v12 = this[4].__vftable;
+      if (v12)
       {
-        (*(v10->~IORegistryEntry + 5))(v10);
+        (*(v12->~IORegistryEntry + 5))(v12);
       }
 
-      this[4].__vftable = v9;
-      if (v9)
+      this[4].__vftable = v11;
+      if (v11)
       {
-        v11 = OSNumber::withNumber(1uLL, 0x20u);
-        (this->setProperty_1)(this, "HasDeviceSequenceIdentifiers", v11);
-        v12 = (*(this[4].~IORegistryEntry + 21))();
-        (this->setProperty_4)(this, "QueueID", v12, 64);
-        v13 = (*(this[4].~IORegistryEntry + 22))();
-        (this->setProperty_4)(this, "QueueGuard", v13, 64);
-        v14 = (*(this[4].~IORegistryEntry + 23))();
-        (this->setProperty_4)(this, "QueueMemorySize", v14, 32);
-        v15 = (*(this[4].~IORegistryEntry + 24))();
-        (this->setProperty_4)(this, "QueueEntrySize", v15, 32);
-        if (v11)
+        v13 = OSNumber::withNumber(1uLL, 0x20u);
+        (this->setProperty_1)(this, "HasDeviceSequenceIdentifiers", v13);
+        v14 = (*(this[4].~IORegistryEntry + 21))();
+        (this->setProperty_4)(this, "QueueID", v14, 64);
+        v15 = (*(this[4].~IORegistryEntry + 22))();
+        (this->setProperty_4)(this, "QueueGuard", v15, 64);
+        v16 = (*(this[4].~IORegistryEntry + 23))();
+        (this->setProperty_4)(this, "QueueMemorySize", v16, 32);
+        v17 = (*(this[4].~IORegistryEntry + 24))();
+        (this->setProperty_4)(this, "QueueEntrySize", v17, 32);
+        if (v13)
         {
-          (v11->release_0)(v11);
+          (v13->release_0)(v13);
         }
       }
 
@@ -1329,8 +1329,8 @@ uint64_t PSVR2SenseDeviceFastPathUserClientInputQueue::start(IORegistryEntry *th
 
     else
     {
-      v16 = _gc_log_debug();
-      _os_log_internal(&dword_0, v16, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", "device", "", "/Library/Caches/com.apple.xbs/Sources/CoreController_kext/GameControllerDrivers/Sony/PSVR2/Kernel/PSVR2SenseDeviceFastPathUserClientQueue.cpp", 192, 0);
+      v18 = _gc_log_debug();
+      _os_log_internal(&dword_0, v18, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", "device", "", "/Library/Caches/com.apple.xbs/Sources/CoreController_kext/GameControllerDrivers/Sony/PSVR2/Kernel/PSVR2SenseDeviceFastPathUserClientQueue.cpp", 192, 0);
     }
   }
 
@@ -1339,24 +1339,24 @@ uint64_t PSVR2SenseDeviceFastPathUserClientInputQueue::start(IORegistryEntry *th
     PSVR2SenseDeviceFastPathUserClientInputQueue::start();
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t PSVR2SenseDeviceFastPathUserClientInputQueue::stop(IORegistryEntry *this, IOService *a2)
+uint64_t PSVR2SenseDeviceFastPathUserClientInputQueue::stop(IORegistryEntry *this, IOService *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = _gc_log_psvr2();
+  v6 = _gc_log_psvr2();
   RegistryEntryID = IORegistryEntry::getRegistryEntryID(this);
   if (a2)
   {
-    v6 = IORegistryEntry::getRegistryEntryID(a2);
+    v8 = IORegistryEntry::getRegistryEntryID(a2);
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  _os_log_internal(&dword_0, v4, OS_LOG_TYPE_DEBUG, "[%#010llx] PSVR2SenseDeviceFastPathUserClientInputQueue::stop(<IOService %#010llx>)", RegistryEntryID, v6);
+  _os_log_internal(&dword_0, v6, OS_LOG_TYPE_DEBUG, "[%#010llx] PSVR2SenseDeviceFastPathUserClientInputQueue::stop(<IOService %#010llx>)", RegistryEntryID, v8);
 
   return PSVR2SenseDeviceFastPathUserClientQueue::stop(this, a2);
 }
@@ -1527,51 +1527,51 @@ void PSVR2SenseDeviceFastPathUserClientTrackingQueue::PSVR2SenseDeviceFastPathUs
   OSMetaClass::instanceConstructed(&PSVR2SenseDeviceFastPathUserClientTrackingQueue::gMetaClass);
 }
 
-uint64_t PSVR2SenseDeviceFastPathUserClientTrackingQueue::start(IORegistryEntry *this, IOService *a2)
+uint64_t PSVR2SenseDeviceFastPathUserClientTrackingQueue::start(IORegistryEntry *this, IOService *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = _gc_log_psvr2();
+  v6 = _gc_log_psvr2();
   RegistryEntryID = IORegistryEntry::getRegistryEntryID(this);
   if (a2)
   {
-    v6 = IORegistryEntry::getRegistryEntryID(a2);
+    v8 = IORegistryEntry::getRegistryEntryID(a2);
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  _os_log_internal(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "[%#010llx] PSVR2SenseDeviceFastPathUserClientTrackingQueue::start(<IOService %#010llx>)", RegistryEntryID, v6);
-  v7 = PSVR2SenseDeviceFastPathUserClientQueue::start(this, a2);
-  if (v7)
+  _os_log_internal(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "[%#010llx] PSVR2SenseDeviceFastPathUserClientTrackingQueue::start(<IOService %#010llx>)", RegistryEntryID, v8);
+  v9 = PSVR2SenseDeviceFastPathUserClientQueue::start(this, a2);
+  if (v9)
   {
     reserved = this[3].reserved;
     if (reserved)
     {
       (*(*reserved + 32))(this[3].reserved);
-      v9 = IOGCCircularControlQueue::withEntries((&dword_8 + 2), 40);
-      v10 = this[4].__vftable;
-      if (v10)
+      v11 = IOGCCircularControlQueue::withEntries((&dword_8 + 2), 40);
+      v12 = this[4].__vftable;
+      if (v12)
       {
-        (*(v10->~IORegistryEntry + 5))(v10);
+        (*(v12->~IORegistryEntry + 5))(v12);
       }
 
-      this[4].__vftable = v9;
-      if (v9)
+      this[4].__vftable = v11;
+      if (v11)
       {
-        if ((*(*reserved + 1568))(reserved, this, 0, v9))
+        if ((*(*reserved + 1568))(reserved, this, 0, v11))
         {
           PSVR2SenseDeviceFastPathUserClientTrackingQueue::start();
         }
 
         else
         {
-          v11 = (*(this[4].~IORegistryEntry + 21))(this[4].__vftable);
-          (this->setProperty_4)(this, "QueueGuard", v11, 64);
-          v12 = (*(this[4].~IORegistryEntry + 22))();
-          (this->setProperty_4)(this, "QueueMemorySize", v12, 32);
-          v13 = (*(this[4].~IORegistryEntry + 23))();
-          (this->setProperty_4)(this, "QueueEntrySize", v13, 32);
+          v13 = (*(this[4].~IORegistryEntry + 21))(this[4].__vftable);
+          (this->setProperty_4)(this, "QueueGuard", v13, 64);
+          v14 = (*(this[4].~IORegistryEntry + 22))();
+          (this->setProperty_4)(this, "QueueMemorySize", v14, 32);
+          v15 = (*(this[4].~IORegistryEntry + 23))();
+          (this->setProperty_4)(this, "QueueEntrySize", v15, 32);
         }
       }
 
@@ -1585,8 +1585,8 @@ uint64_t PSVR2SenseDeviceFastPathUserClientTrackingQueue::start(IORegistryEntry 
 
     else
     {
-      v14 = _gc_log_debug();
-      _os_log_internal(&dword_0, v14, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", "device", "", "/Library/Caches/com.apple.xbs/Sources/CoreController_kext/GameControllerDrivers/Sony/PSVR2/Kernel/PSVR2SenseDeviceFastPathUserClientQueue.cpp", 285, 0);
+      v16 = _gc_log_debug();
+      _os_log_internal(&dword_0, v16, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", "device", "", "/Library/Caches/com.apple.xbs/Sources/CoreController_kext/GameControllerDrivers/Sony/PSVR2/Kernel/PSVR2SenseDeviceFastPathUserClientQueue.cpp", 285, 0);
     }
   }
 
@@ -1595,46 +1595,46 @@ uint64_t PSVR2SenseDeviceFastPathUserClientTrackingQueue::start(IORegistryEntry 
     PSVR2SenseDeviceFastPathUserClientTrackingQueue::start();
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t PSVR2SenseDeviceFastPathUserClientTrackingQueue::stop(IORegistryEntry *this, IOService *a2)
+uint64_t PSVR2SenseDeviceFastPathUserClientTrackingQueue::stop(IORegistryEntry *this, IOService *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = _gc_log_psvr2();
+  v6 = _gc_log_psvr2();
   RegistryEntryID = IORegistryEntry::getRegistryEntryID(this);
   if (a2)
   {
-    v6 = IORegistryEntry::getRegistryEntryID(a2);
+    v8 = IORegistryEntry::getRegistryEntryID(a2);
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  _os_log_internal(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "[%#010llx] PSVR2SenseDeviceFastPathUserClientTrackingQueue::stop(<IOService %#010llx>)", RegistryEntryID, v6);
+  _os_log_internal(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "[%#010llx] PSVR2SenseDeviceFastPathUserClientTrackingQueue::stop(<IOService %#010llx>)", RegistryEntryID, v8);
   reserved = this[3].reserved;
   if (reserved)
   {
     (*(*reserved + 32))(this[3].reserved);
     (*(*reserved + 1576))(reserved, this, 0);
-    v8 = this[4].__vftable;
-    if (v8)
+    v10 = this[4].__vftable;
+    if (v10)
     {
-      (*(v8->~IORegistryEntry + 5))(v8);
+      (*(v10->~IORegistryEntry + 5))(v10);
     }
 
     this[4].__vftable = 0;
     PSVR2SenseDeviceFastPathUserClientQueue::stop(this, a2);
-    v9 = *(*reserved + 40);
+    v11 = *(*reserved + 40);
 
-    return v9(reserved);
+    return v11(reserved);
   }
 
   else
   {
-    v11 = _gc_log_debug();
-    _os_log_internal(&dword_0, v11, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", "device", "", "/Library/Caches/com.apple.xbs/Sources/CoreController_kext/GameControllerDrivers/Sony/PSVR2/Kernel/PSVR2SenseDeviceFastPathUserClientQueue.cpp", 315, 0);
+    v13 = _gc_log_debug();
+    _os_log_internal(&dword_0, v13, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", "device", "", "/Library/Caches/com.apple.xbs/Sources/CoreController_kext/GameControllerDrivers/Sony/PSVR2/Kernel/PSVR2SenseDeviceFastPathUserClientQueue.cpp", 315, 0);
 
     return PSVR2SenseDeviceFastPathUserClientQueue::stop(this, a2);
   }
@@ -1772,57 +1772,57 @@ void PSVR2SenseDeviceFastPathUserClientHapticsQueue::PSVR2SenseDeviceFastPathUse
   OSMetaClass::instanceConstructed(&PSVR2SenseDeviceFastPathUserClientHapticsQueue::gMetaClass);
 }
 
-uint64_t PSVR2SenseDeviceFastPathUserClientHapticsQueue::start(IORegistryEntry *this, IOService *a2)
+uint64_t PSVR2SenseDeviceFastPathUserClientHapticsQueue::start(IORegistryEntry *this, IOService *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = _gc_log_psvr2();
+  v6 = _gc_log_psvr2();
   RegistryEntryID = IORegistryEntry::getRegistryEntryID(this);
   if (a2)
   {
-    v6 = IORegistryEntry::getRegistryEntryID(a2);
+    v8 = IORegistryEntry::getRegistryEntryID(a2);
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  _os_log_internal(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "[%#010llx] PSVR2SenseDeviceFastPathUserClientHapticsQueue::start(<IOService %#010llx>)", RegistryEntryID, v6);
-  v7 = PSVR2SenseDeviceFastPathUserClientQueue::start(this, a2);
-  if (v7)
+  _os_log_internal(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "[%#010llx] PSVR2SenseDeviceFastPathUserClientHapticsQueue::start(<IOService %#010llx>)", RegistryEntryID, v8);
+  v9 = PSVR2SenseDeviceFastPathUserClientQueue::start(this, a2);
+  if (v9)
   {
     reserved = this[3].reserved;
     if (reserved)
     {
       (*(*reserved + 32))(this[3].reserved);
-      v9 = (this->copyProperty_4)(this, "QueueCapacity");
-      v10 = OSMetaClassBase::safeMetaCast(v9, OSNumber::metaClass);
-      if (v10)
+      v11 = (this->copyProperty_4)(this, "QueueCapacity");
+      v12 = OSMetaClassBase::safeMetaCast(v11, OSNumber::metaClass);
+      if (v12)
       {
-        v11 = v10;
-        v12 = (v10->__vftable[1].isEqualTo)(v10);
-        v13 = IOGCCircularControlQueue::withEntries(v12, 16);
-        v14 = this[4].__vftable;
-        if (v14)
+        v13 = v12;
+        v14 = (v12->__vftable[1].isEqualTo)(v12);
+        v15 = IOGCCircularControlQueue::withEntries(v14, 16);
+        v16 = this[4].__vftable;
+        if (v16)
         {
-          (*(v14->~IORegistryEntry + 5))(v14);
+          (*(v16->~IORegistryEntry + 5))(v16);
         }
 
-        this[4].__vftable = v13;
-        if (v13)
+        this[4].__vftable = v15;
+        if (v15)
         {
-          if ((*(*reserved + 1584))(reserved, this, 0, v13))
+          if ((*(*reserved + 1584))(reserved, this, 0, v15))
           {
             PSVR2SenseDeviceFastPathUserClientHapticsQueue::start();
           }
 
           else
           {
-            v15 = (*(this[4].~IORegistryEntry + 21))(this[4].__vftable);
-            (this->setProperty_4)(this, "QueueGuard", v15, 64);
-            v16 = (*(this[4].~IORegistryEntry + 22))();
-            (this->setProperty_4)(this, "QueueMemorySize", v16, 32);
-            v17 = (*(this[4].~IORegistryEntry + 23))();
-            (this->setProperty_4)(this, "QueueEntrySize", v17, 32);
+            v17 = (*(this[4].~IORegistryEntry + 21))(this[4].__vftable);
+            (this->setProperty_4)(this, "QueueGuard", v17, 64);
+            v18 = (*(this[4].~IORegistryEntry + 22))();
+            (this->setProperty_4)(this, "QueueMemorySize", v18, 32);
+            v19 = (*(this[4].~IORegistryEntry + 23))();
+            (this->setProperty_4)(this, "QueueEntrySize", v19, 32);
           }
         }
 
@@ -1831,18 +1831,18 @@ uint64_t PSVR2SenseDeviceFastPathUserClientHapticsQueue::start(IORegistryEntry *
           PSVR2SenseDeviceFastPathUserClientHapticsQueue::start();
         }
 
-        (v11->release_0)(v11);
+        (v13->release_0)(v13);
       }
 
       else
       {
-        if (v9)
+        if (v11)
         {
-          (v9->release_0)(v9);
+          (v11->release_0)(v11);
         }
 
-        v19 = _gc_log_debug();
-        _os_log_internal(&dword_0, v19, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", "queueCapacity", "", "/Library/Caches/com.apple.xbs/Sources/CoreController_kext/GameControllerDrivers/Sony/PSVR2/Kernel/PSVR2SenseDeviceFastPathUserClientQueue.cpp", 362, 0);
+        v21 = _gc_log_debug();
+        _os_log_internal(&dword_0, v21, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", "queueCapacity", "", "/Library/Caches/com.apple.xbs/Sources/CoreController_kext/GameControllerDrivers/Sony/PSVR2/Kernel/PSVR2SenseDeviceFastPathUserClientQueue.cpp", 362, 0);
       }
 
       (*(*reserved + 40))(reserved);
@@ -1850,8 +1850,8 @@ uint64_t PSVR2SenseDeviceFastPathUserClientHapticsQueue::start(IORegistryEntry *
 
     else
     {
-      v18 = _gc_log_debug();
-      _os_log_internal(&dword_0, v18, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", "device", "", "/Library/Caches/com.apple.xbs/Sources/CoreController_kext/GameControllerDrivers/Sony/PSVR2/Kernel/PSVR2SenseDeviceFastPathUserClientQueue.cpp", 359, 0);
+      v20 = _gc_log_debug();
+      _os_log_internal(&dword_0, v20, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", "device", "", "/Library/Caches/com.apple.xbs/Sources/CoreController_kext/GameControllerDrivers/Sony/PSVR2/Kernel/PSVR2SenseDeviceFastPathUserClientQueue.cpp", 359, 0);
     }
   }
 
@@ -1860,46 +1860,46 @@ uint64_t PSVR2SenseDeviceFastPathUserClientHapticsQueue::start(IORegistryEntry *
     PSVR2SenseDeviceFastPathUserClientHapticsQueue::start();
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t PSVR2SenseDeviceFastPathUserClientHapticsQueue::stop(IORegistryEntry *this, IOService *a2)
+uint64_t PSVR2SenseDeviceFastPathUserClientHapticsQueue::stop(IORegistryEntry *this, IOService *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = _gc_log_psvr2();
+  v6 = _gc_log_psvr2();
   RegistryEntryID = IORegistryEntry::getRegistryEntryID(this);
   if (a2)
   {
-    v6 = IORegistryEntry::getRegistryEntryID(a2);
+    v8 = IORegistryEntry::getRegistryEntryID(a2);
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  _os_log_internal(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "[%#010llx] PSVR2SenseDeviceFastPathUserClientHapticsQueue::stop(<IOService %#010llx>)", RegistryEntryID, v6);
+  _os_log_internal(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "[%#010llx] PSVR2SenseDeviceFastPathUserClientHapticsQueue::stop(<IOService %#010llx>)", RegistryEntryID, v8);
   reserved = this[3].reserved;
   if (reserved)
   {
     (*(*reserved + 32))(this[3].reserved);
     (*(*reserved + 1592))(reserved, this, 0);
-    v8 = this[4].__vftable;
-    if (v8)
+    v10 = this[4].__vftable;
+    if (v10)
     {
-      (*(v8->~IORegistryEntry + 5))(v8);
+      (*(v10->~IORegistryEntry + 5))(v10);
     }
 
     this[4].__vftable = 0;
     PSVR2SenseDeviceFastPathUserClientQueue::stop(this, a2);
-    v9 = *(*reserved + 40);
+    v11 = *(*reserved + 40);
 
-    return v9(reserved);
+    return v11(reserved);
   }
 
   else
   {
-    v11 = _gc_log_debug();
-    _os_log_internal(&dword_0, v11, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", "device", "", "/Library/Caches/com.apple.xbs/Sources/CoreController_kext/GameControllerDrivers/Sony/PSVR2/Kernel/PSVR2SenseDeviceFastPathUserClientQueue.cpp", 392, 0);
+    v13 = _gc_log_debug();
+    _os_log_internal(&dword_0, v13, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", "device", "", "/Library/Caches/com.apple.xbs/Sources/CoreController_kext/GameControllerDrivers/Sony/PSVR2/Kernel/PSVR2SenseDeviceFastPathUserClientQueue.cpp", 392, 0);
 
     return PSVR2SenseDeviceFastPathUserClientQueue::stop(this, a2);
   }
@@ -2037,49 +2037,49 @@ void PSVR2SenseDeviceFastPathUserClientDriverDebugTimesyncQueue::PSVR2SenseDevic
   OSMetaClass::instanceConstructed(&PSVR2SenseDeviceFastPathUserClientDriverDebugTimesyncQueue::gMetaClass);
 }
 
-uint64_t PSVR2SenseDeviceFastPathUserClientDriverDebugTimesyncQueue::start(IORegistryEntry *this, IOService *a2)
+uint64_t PSVR2SenseDeviceFastPathUserClientDriverDebugTimesyncQueue::start(IORegistryEntry *this, IOService *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = _gc_log_psvr2();
+  v6 = _gc_log_psvr2();
   RegistryEntryID = IORegistryEntry::getRegistryEntryID(this);
   if (a2)
   {
-    v6 = IORegistryEntry::getRegistryEntryID(a2);
+    v8 = IORegistryEntry::getRegistryEntryID(a2);
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  _os_log_internal(&dword_0, v4, OS_LOG_TYPE_DEBUG, "[%#010llx] PSVR2SenseDeviceFastPathUserClientDriverDebugTimesyncQueue::start(<IOService %#010llx>)", RegistryEntryID, v6);
-  v7 = PSVR2SenseDeviceFastPathUserClientQueue::start(this, a2);
-  if (v7)
+  _os_log_internal(&dword_0, v6, OS_LOG_TYPE_DEBUG, "[%#010llx] PSVR2SenseDeviceFastPathUserClientDriverDebugTimesyncQueue::start(<IOService %#010llx>)", RegistryEntryID, v8);
+  v9 = PSVR2SenseDeviceFastPathUserClientQueue::start(this, a2);
+  if (v9)
   {
     reserved = this[3].reserved;
     if (reserved)
     {
       (*(*reserved + 32))(this[3].reserved);
-      v9 = (*(*reserved + 1560))(reserved);
-      v10 = this[4].__vftable;
-      if (v10)
+      v11 = (*(*reserved + 1560))(reserved);
+      v12 = this[4].__vftable;
+      if (v12)
       {
-        (*(v10->~IORegistryEntry + 5))(v10);
+        (*(v12->~IORegistryEntry + 5))(v12);
       }
 
-      this[4].__vftable = v9;
-      if (v9)
+      this[4].__vftable = v11;
+      if (v11)
       {
-        v11 = OSNumber::withNumber(1uLL, 0x20u);
-        (this->setProperty_1)(this, "HasDeviceSequenceIdentifiers", v11);
-        v12 = (*(this[4].~IORegistryEntry + 22))();
-        (this->setProperty_4)(this, "QueueGuard", v12, 64);
-        v13 = (*(this[4].~IORegistryEntry + 23))();
-        (this->setProperty_4)(this, "QueueMemorySize", v13, 32);
-        v14 = (*(this[4].~IORegistryEntry + 24))();
-        (this->setProperty_4)(this, "QueueEntrySize", v14, 32);
-        if (v11)
+        v13 = OSNumber::withNumber(1uLL, 0x20u);
+        (this->setProperty_1)(this, "HasDeviceSequenceIdentifiers", v13);
+        v14 = (*(this[4].~IORegistryEntry + 22))();
+        (this->setProperty_4)(this, "QueueGuard", v14, 64);
+        v15 = (*(this[4].~IORegistryEntry + 23))();
+        (this->setProperty_4)(this, "QueueMemorySize", v15, 32);
+        v16 = (*(this[4].~IORegistryEntry + 24))();
+        (this->setProperty_4)(this, "QueueEntrySize", v16, 32);
+        if (v13)
         {
-          (v11->release_0)(v11);
+          (v13->release_0)(v13);
         }
       }
 
@@ -2093,8 +2093,8 @@ uint64_t PSVR2SenseDeviceFastPathUserClientDriverDebugTimesyncQueue::start(IOReg
 
     else
     {
-      v15 = _gc_log_debug();
-      _os_log_internal(&dword_0, v15, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", "device", "", "/Library/Caches/com.apple.xbs/Sources/CoreController_kext/GameControllerDrivers/Sony/PSVR2/Kernel/PSVR2SenseDeviceFastPathUserClientQueue.cpp", 431, 0);
+      v17 = _gc_log_debug();
+      _os_log_internal(&dword_0, v17, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", "device", "", "/Library/Caches/com.apple.xbs/Sources/CoreController_kext/GameControllerDrivers/Sony/PSVR2/Kernel/PSVR2SenseDeviceFastPathUserClientQueue.cpp", 431, 0);
     }
   }
 
@@ -2103,24 +2103,24 @@ uint64_t PSVR2SenseDeviceFastPathUserClientDriverDebugTimesyncQueue::start(IOReg
     PSVR2SenseDeviceFastPathUserClientDriverDebugTimesyncQueue::start();
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t PSVR2SenseDeviceFastPathUserClientDriverDebugTimesyncQueue::stop(IORegistryEntry *this, IOService *a2)
+uint64_t PSVR2SenseDeviceFastPathUserClientDriverDebugTimesyncQueue::stop(IORegistryEntry *this, IOService *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = _gc_log_psvr2();
+  v6 = _gc_log_psvr2();
   RegistryEntryID = IORegistryEntry::getRegistryEntryID(this);
   if (a2)
   {
-    v6 = IORegistryEntry::getRegistryEntryID(a2);
+    v8 = IORegistryEntry::getRegistryEntryID(a2);
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  _os_log_internal(&dword_0, v4, OS_LOG_TYPE_DEBUG, "[%#010llx] PSVR2SenseDeviceFastPathUserClientDriverDebugTimesyncQueue::stop(<IOService %#010llx>)", RegistryEntryID, v6);
+  _os_log_internal(&dword_0, v6, OS_LOG_TYPE_DEBUG, "[%#010llx] PSVR2SenseDeviceFastPathUserClientDriverDebugTimesyncQueue::stop(<IOService %#010llx>)", RegistryEntryID, v8);
 
   return PSVR2SenseDeviceFastPathUserClientQueue::stop(this, a2);
 }
@@ -2246,7 +2246,7 @@ void IOGCCircularControlQueue::IOGCCircularControlQueue(IOGCCircularControlQueue
 
 uint64_t IOGCCircularControlQueue::withEntries(IOGCCircularControlQueue *this, uint64_t a2)
 {
-  v4 = (*(IOGCCircularControlQueue::gMetaClass + 104))();
+  v4 = (IOGCCircularControlQueue::gMetaClass.alloc)();
   v5 = v4;
   if (v4 && ((*(*v4 + 136))(v4, this, a2) & 1) == 0)
   {
@@ -2257,11 +2257,13 @@ uint64_t IOGCCircularControlQueue::withEntries(IOGCCircularControlQueue *this, u
   return v5;
 }
 
-uint64_t IOGCCircularControlQueue::initWithEntries(IOGCCircularControlQueue *this, int a2, unsigned int a3)
+uint64_t IOGCCircularControlQueue::initWithEntries(IOGCCircularControlQueue *this, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   if (result)
   {
-    v7 = IOGCCircularControlQueueMemorySize(a3, a2);
+    v7 = IOGCCircularControlQueueMemorySize(v3, v4);
     if (v7)
     {
       v8 = (v7 + ~(-1 << PAGE_SHIFT_CONST)) & ~~(-1 << PAGE_SHIFT_CONST);
@@ -2278,7 +2280,7 @@ uint64_t IOGCCircularControlQueue::initWithEntries(IOGCCircularControlQueue *thi
         v11 = (v9->getBytesNoCopy)(v9);
         *(this + 2) = v11;
         *(this + 5) = v11;
-        return IOGCCircularControlQueueMemoryInit(v11, this + 48, v8, a3, 0x1111111111111111uLL) == 0;
+        return IOGCCircularControlQueueMemoryInit(v11, this + 48, v8, v3, 0x1111111111111111uLL) == 0;
       }
 
       else
@@ -2292,7 +2294,7 @@ uint64_t IOGCCircularControlQueue::initWithEntries(IOGCCircularControlQueue *thi
     else
     {
       v12 = _gc_log_debug();
-      _os_log_internal(&dword_0, v12, OS_LOG_TYPE_DEBUG, "::initWithEntries failed: invalid entry data size [%u].", a3);
+      _os_log_internal(&dword_0, v12, OS_LOG_TYPE_DEBUG, "::initWithEntries failed: invalid entry data size [%u].", v3);
       return 0;
     }
   }
@@ -2455,7 +2457,7 @@ uint64_t IOHIDGCDevice::start(OSObject *this, IOService *anObject)
   this[9].__vftable = v5;
   if (v5)
   {
-    v7 = (v5->__vftable[8].serialize)(v5);
+    v7 = (*(v5->~OSObject + 110))(v5);
     v8 = OSMetaClassBase::safeMetaCast(v7, IOHIDDevice::metaClass);
     v9 = v8;
     if (v8)
@@ -3867,7 +3869,7 @@ IOEventSource *IOGCCommandQueue::MetaClass::alloc(IOGCCommandQueue::MetaClass *t
 
 uint64_t IOGCCommandQueue::commandQueue(IOGCCommandQueue *this, OSObject *a2, int (*a3)(OSObject *, void *))
 {
-  v5 = (*(IOGCCommandQueue::gMetaClass + 104))();
+  v5 = (IOGCCommandQueue::gMetaClass.alloc)();
   v6 = v5;
   if (v5 && ((*(*v5 + 216))(v5, this, a2) & 1) == 0)
   {
@@ -4075,51 +4077,43 @@ uint64_t IOGCCommandQueue::asyncCommand(uint64_t a1, uint64_t a2, uint64_t a3, u
 
 uint64_t IOGCCommandQueue::asyncBlock(uint64_t a1, _DWORD *aBlock, uint64_t a3, uint64_t a4)
 {
-  if ((a3 & 3) != 0)
+  if ((a3 & 3) != 0 && (aBlock[2] & 0x11000000) == 0)
   {
-    v7 = aBlock[2] & 0x10000000;
-    if ((aBlock[2] & 0x11000000) == 0)
-    {
-      v8 = 0;
-      v9 = 3758097085;
+    v7 = 0;
+    v8 = 3758097085;
 LABEL_5:
-      _Block_release(v8);
-      return v9;
-    }
+    _Block_release(v7);
+    return v8;
   }
 
-  v8 = _Block_copy(aBlock);
-  v9 = (*(*a1 + 280))(a1, _async_action_block_thunk_, v8, a3, a4);
-  if (v9)
+  v7 = _Block_copy(aBlock);
+  v8 = (*(*a1 + 280))(a1, _async_action_block_thunk_, v7, a3, a4);
+  if (v8)
   {
     goto LABEL_5;
   }
 
-  return v9;
+  return v8;
 }
 
 {
-  if ((a3 & 3) != 0)
+  if ((a3 & 3) != 0 && (aBlock[2] & 0x11000000) == 0)
   {
-    v7 = aBlock[2] & 0x10000000;
-    if ((aBlock[2] & 0x11000000) == 0)
-    {
-      v8 = 0;
-      v9 = 3758097085;
+    v7 = 0;
+    v8 = 3758097085;
 LABEL_5:
-      _Block_release(v8);
-      return v9;
-    }
+    _Block_release(v7);
+    return v8;
   }
 
-  v8 = _Block_copy(aBlock);
-  v9 = (*(*a1 + 288))(a1, _async_function_block_thunk_, v8, a3, a4);
-  if (v9)
+  v7 = _Block_copy(aBlock);
+  v8 = (*(*a1 + 288))(a1, _async_function_block_thunk_, v7, a3, a4);
+  if (v8)
   {
     goto LABEL_5;
   }
 
-  return v9;
+  return v8;
 }
 
 uint64_t _async_action_block_thunk_(OSObject *a1, uint64_t (**a2)(void))
@@ -4309,7 +4303,7 @@ LABEL_9:
       v23[4] = v18;
       v23[5] = v12;
       v23[6] = a7;
-      v19 = (*(a12 + 16))(a12, a6, v23);
+      v19 = (*(a12 + 16))(a12, a6, v23, a4, a5);
       if (v19 == -536870166)
       {
         return 3758097136;
@@ -4334,7 +4328,7 @@ LABEL_9:
       v24[5] = v12;
       v24[6] = a7;
       v24[7] = a9;
-      v16 = (*(a12 + 16))(a12, v12, v24);
+      v16 = (*(a12 + 16))(a12, v12, v24, a4, a5);
       if (v16 != -536870166 && v16 != -536870184)
       {
         return v16;
@@ -4352,22 +4346,20 @@ LABEL_9:
 
 uint64_t __IOGCCircularControlQueueReadBackwardsFromLatestEnqueued_block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   if (!(*(*(a1 + 32) + 16))())
   {
     return 3758097130;
   }
 
   result = 0;
-  v4 = *(a1 + 40);
-  **(a1 + 48) = v4;
-  atomic_store(v4 + 1, *(a1 + 56));
+  v3 = *(a1 + 40);
+  **(a1 + 48) = v3;
+  atomic_store(v3 + 1, *(a1 + 56));
   return result;
 }
 
 uint64_t __IOGCCircularControlQueueReadBackwardsFromLatestEnqueued_block_invoke_9(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   if (!(*(*(a1 + 32) + 16))())
   {
     return 3758097130;
@@ -4394,7 +4386,7 @@ uint64_t __IOGCCircularControlQueueReadForwardFromNextApply_block_invoke(uint64_
       v20[5] = v14;
       v20[6] = a7;
       v20[7] = a9;
-      result = (*(a12 + 16))(a12, v14, v20);
+      result = (*(a12 + 16))(a12, v14, v20, a4, a5);
       if (result != -536870166 && result != -536870184)
       {
         break;
@@ -4434,16 +4426,15 @@ uint64_t __IOGCCircularControlQueueReadForwardFromNextApply_block_invoke(uint64_
 
 uint64_t __IOGCCircularControlQueueReadForwardFromNextApply_block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   if (!(*(*(a1 + 32) + 16))())
   {
     return 3758097130;
   }
 
   result = 0;
-  v4 = *(a1 + 40);
-  **(a1 + 48) = v4;
-  atomic_store(v4 + 1, *(a1 + 56));
+  v3 = *(a1 + 40);
+  **(a1 + 48) = v3;
+  atomic_store(v3 + 1, *(a1 + 56));
   return result;
 }
 
@@ -4635,7 +4626,7 @@ OSMetaClass *_GLOBAL__sub_I_IOGCPortNotifier_cpp()
   return result;
 }
 
-uint64_t IOCircularDataQueueMemorySize(unsigned int a1, unsigned int a2)
+unint64_t IOCircularDataQueueMemorySize(unsigned int a1, unsigned int a2)
 {
   v2 = (a1 + 63) & 0x1FFFFFFF8;
   if ((v2 * a2 + 64) >> 32)
@@ -4996,14 +4987,13 @@ void PSVR2SenseDeviceFastPathUserClient::unserializeInputArguments()
 
 IONotifier *PSVR2SenseDevice::registerInterest(IOService *this, const OSSymbol *a2, IOReturn (__cdecl *a3)(void *, void *, UInt32, IOService *, void *, vm_size_t), void *a4, void *a5)
 {
-  v7 = IOService::registerInterest(this, a2, a3, a4, a5);
-  if (v7)
+  v6 = IOService::registerInterest(this, a2, a3, a4, a5);
+  if (v6)
   {
     if (gIOGeneralInterest == a2)
     {
-      timeBusy = this[1].__timeBusy;
       OUTLINED_FUNCTION_9();
-      atomic_fetch_or(v9, 1u);
+      atomic_fetch_or(v7, 1u);
     }
   }
 
@@ -5011,10 +5001,10 @@ IONotifier *PSVR2SenseDevice::registerInterest(IOService *this, const OSSymbol *
   {
     _gc_log_debug();
     OUTLINED_FUNCTION_0();
-    _os_log_internal(&dword_0, v11, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v12, v13, v14, 476, 0);
+    _os_log_internal(&dword_0, v9, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v10, v11, v12, 476, 0);
   }
 
-  return v7;
+  return v6;
 }
 
 void PSVR2SenseDevice::handleInputDataForTimesync(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5060,9 +5050,7 @@ void PSVR2SenseDevice::handleInputDataForTimesync(uint64_t a1, uint64_t a2, uint
 LABEL_68:
     _gc_log_psvr2();
     OUTLINED_FUNCTION_10();
-    v166 = *a3;
-    v161 = *(*(a1 + 216) + 196) & 1;
-    OUTLINED_FUNCTION_24(&dword_0, v143, v144, "[%#010llx] #TRANSPORT Time synchronization state changed: %d -> %d (%llu)");
+    OUTLINED_FUNCTION_24(&dword_0, v130, v131, "[%#010llx] #TRANSPORT Time synchronization state changed: %d -> %d (%llu)");
     v6 = *(a1 + 216);
     *(v6 + 196) = v12 & 1;
     ++*(v6 + 224);
@@ -5086,10 +5074,10 @@ LABEL_10:
   v14 = 0;
   if (*(v6 + 164))
   {
-    v141 = *(a1 + 232);
-    v142 = *(a1 + 236);
-    v7 = (v7 * v141 / v142 - 1000 * *(v6 + 168)) * v142 / v141;
-    v13 = 1000 * v142 * *(v6 + 172) / v141;
+    v128 = *(a1 + 232);
+    v129 = *(a1 + 236);
+    v7 = (v7 * v128 / v129 - 1000 * *(v6 + 168)) * v129 / v128;
+    v13 = 1000 * v129 * *(v6 + 172) / v128;
   }
 
   else
@@ -5153,19 +5141,7 @@ LABEL_12:
     {
       _gc_log_psvr2();
       OUTLINED_FUNCTION_11();
-      v140 = *(a3 + 40);
-      v139 = *(a3 + 48);
-      v180 = v139[13];
-      v181 = v140[13];
-      v177 = v139[5];
-      v179 = v140[5];
-      v173 = v139[8];
-      v175 = v140[8];
-      v169 = v139[2];
-      v171 = v140[2];
-      v160 = *v139;
-      v164 = *v140;
-      OUTLINED_FUNCTION_26(&dword_0, v139[12], v140[12], "[%#010llx] #ACCESSORY Unexpected sequence number delta between input reports %llu -> %llu{\n\t deviceSequenceNumber: %llu -> %llu\n\t reportTimestampHost: %llu -> %llu\n\t receiveTimestamp3US: %llu -> %llu\n\t driverTimestamp3US: %llu -> %llu\n\t deviceTimestamp3US: %llu -> %llu\n}");
+      OUTLINED_FUNCTION_26(&dword_0, *(*(a3 + 48) + 96), *(*(a3 + 40) + 96), "[%#010llx] #ACCESSORY Unexpected sequence number delta between input reports %llu -> %llu{\n\t deviceSequenceNumber: %llu -> %llu\n\t reportTimestampHost: %llu -> %llu\n\t receiveTimestamp3US: %llu -> %llu\n\t driverTimestamp3US: %llu -> %llu\n\t deviceTimestamp3US: %llu -> %llu\n}");
       ++*(*(a1 + 216) + 25984);
       v16 = *(a3 + 48);
     }
@@ -5175,23 +5151,7 @@ LABEL_12:
     {
       _gc_log_psvr2();
       OUTLINED_FUNCTION_11();
-      v138 = *(a3 + 40);
-      v137 = *(a3 + 48);
-      v185 = v138[14];
-      v184 = v137[14];
-      v182 = v137[13];
-      v183 = v138[13];
-      v176 = v137[8];
-      v178 = v138[8];
-      v172 = v137[3];
-      v174 = v138[3];
-      v168 = v137[2];
-      v170 = v138[2];
-      v165 = v137[12];
-      v167 = v138[12];
-      v159 = *v137;
-      v163 = *v138;
-      OUTLINED_FUNCTION_26(&dword_0, v137[5], v138[5], "[%#010llx] #TIMESYNC Detected suspicious timestamp delta between input reports %llu -> %llu{\n\t deviceSequenceNumber: %llu -> %llu\n\t reportTimestampHost: %llu -> %llu\n\t reportTimestamp3US: %llu -> %llu\n\t receiveTimestamp3US: %llu -> %llu (%d)\n\t driverTimestamp3US: %llu -> %llu (%d)\n\t deviceTimestamp3US: %llu -> %llu (%d)\n\t deviceMotionTimestamp3US: %llu -> %llu (%d)\n}");
+      OUTLINED_FUNCTION_26(&dword_0, *(*(a3 + 48) + 40), *(*(a3 + 40) + 40), "[%#010llx] #TIMESYNC Detected suspicious timestamp delta between input reports %llu -> %llu{\n\t deviceSequenceNumber: %llu -> %llu\n\t reportTimestampHost: %llu -> %llu\n\t reportTimestamp3US: %llu -> %llu\n\t receiveTimestamp3US: %llu -> %llu (%d)\n\t driverTimestamp3US: %llu -> %llu (%d)\n\t deviceTimestamp3US: %llu -> %llu (%d)\n\t deviceMotionTimestamp3US: %llu -> %llu (%d)\n}");
       ++*(*(a1 + 216) + 25992);
       v32 = *(a3 + 40);
       v16 = *(a3 + 48);
@@ -5249,156 +5209,135 @@ LABEL_46:
         *(v32 + 150) = *(*(a1 + 216) + 2424);
         _gc_log_psvr2();
         OUTLINED_FUNCTION_10();
-        v43 = **(a3 + 40);
-        v44 = *(a3 + 24);
         OUTLINED_FUNCTION_28();
-        OUTLINED_FUNCTION_3(v45, v46, v47, "[%#010llx] --- TIMESYNC %llu (prev %llu) (IN) ---");
+        OUTLINED_FUNCTION_3(v43, v44, v45, "[%#010llx] --- TIMESYNC %llu (prev %llu) (IN) ---");
         _gc_log_psvr2();
-        v48 = OUTLINED_FUNCTION_10();
-        v148 = *(*(a3 + 40) + 12) & 1;
-        OUTLINED_FUNCTION_3(v48, v49, v50, "[%#010llx] \t isTransportTimeSynchronized = %d");
+        v46 = OUTLINED_FUNCTION_10();
+        OUTLINED_FUNCTION_3(v46, v47, v48, "[%#010llx] \t isTransportTimeSynchronized = %d");
         _gc_log_psvr2();
-        v51 = OUTLINED_FUNCTION_10();
-        v149 = *(*(a3 + 40) + 13) & 1;
-        OUTLINED_FUNCTION_3(v51, v52, v53, "[%#010llx] \t invalidChecksum = %d");
+        v49 = OUTLINED_FUNCTION_10();
+        OUTLINED_FUNCTION_3(v49, v50, v51, "[%#010llx] \t invalidChecksum = %d");
         _gc_log_psvr2();
-        v54 = OUTLINED_FUNCTION_10();
-        v150 = *(*(a3 + 40) + 96);
-        OUTLINED_FUNCTION_3(v54, v55, v56, "[%#010llx] \t deviceSequenceNumber = %llu");
+        v52 = OUTLINED_FUNCTION_10();
+        OUTLINED_FUNCTION_3(v52, v53, v54, "[%#010llx] \t deviceSequenceNumber = %llu");
         _gc_log_psvr2();
-        v57 = OUTLINED_FUNCTION_10();
-        v151 = *(*(a3 + 40) + 16);
-        OUTLINED_FUNCTION_3(v57, v58, v59, "[%#010llx] \t reportTimestampHost = %llu");
+        v55 = OUTLINED_FUNCTION_10();
+        OUTLINED_FUNCTION_3(v55, v56, v57, "[%#010llx] \t reportTimestampHost = %llu");
         _gc_log_psvr2();
-        v60 = OUTLINED_FUNCTION_10();
-        v152 = *(*(a3 + 40) + 48);
-        OUTLINED_FUNCTION_3(v60, v61, v62, "[%#010llx] \t receiveTimestampHost = %llu");
+        v58 = OUTLINED_FUNCTION_10();
+        OUTLINED_FUNCTION_3(v58, v59, v60, "[%#010llx] \t receiveTimestampHost = %llu");
         _gc_log_psvr2();
-        v63 = OUTLINED_FUNCTION_10();
-        v153 = *(*(a3 + 40) + 64);
-        OUTLINED_FUNCTION_3(v63, v64, v65, "[%#010llx] \t receiveTimestamp3US = %llu");
+        v61 = OUTLINED_FUNCTION_10();
+        OUTLINED_FUNCTION_3(v61, v62, v63, "[%#010llx] \t receiveTimestamp3US = %llu");
         _gc_log_psvr2();
-        v66 = OUTLINED_FUNCTION_10();
-        v154 = *(*(a3 + 40) + 104);
-        OUTLINED_FUNCTION_3(v66, v67, v68, "[%#010llx] \t deviceTimestamp3US = %llu");
+        v64 = OUTLINED_FUNCTION_10();
+        OUTLINED_FUNCTION_3(v64, v65, v66, "[%#010llx] \t deviceTimestamp3US = %llu");
         _gc_log_psvr2();
-        v69 = OUTLINED_FUNCTION_10();
-        v155 = *(*(a3 + 40) + 112);
-        OUTLINED_FUNCTION_3(v69, v70, v71, "[%#010llx] \t deviceMotionTimestamp3US = %llu");
+        v67 = OUTLINED_FUNCTION_10();
+        OUTLINED_FUNCTION_3(v67, v68, v69, "[%#010llx] \t deviceMotionTimestamp3US = %llu");
         _gc_log_psvr2();
-        v72 = OUTLINED_FUNCTION_10();
-        v156 = *(*(a3 + 40) + 148);
-        OUTLINED_FUNCTION_3(v72, v73, v74, "[%#010llx] \t retransmissions (rts estimated) = %hhi");
+        v70 = OUTLINED_FUNCTION_10();
+        OUTLINED_FUNCTION_3(v70, v71, v72, "[%#010llx] \t retransmissions (rts estimated) = %hhi");
         _gc_log_psvr2();
-        v75 = OUTLINED_FUNCTION_10();
-        v76 = *(a3 + 40);
-        v157 = *(v76 + 149);
-        v162 = *(v76 + 8);
-        OUTLINED_FUNCTION_3(v75, v77, v78, "[%#010llx] \t retransmissions (dts estimated) = %hhi (@%uus)");
+        v73 = OUTLINED_FUNCTION_10();
+        OUTLINED_FUNCTION_3(v73, v74, v75, "[%#010llx] \t retransmissions (dts estimated) = %hhi (@%uus)");
         _gc_log_psvr2();
-        v145 = OUTLINED_FUNCTION_10();
-        v158 = *(*(a3 + 40) + 150);
-        OUTLINED_FUNCTION_3(v145, v79, v80, "[%#010llx] \t retransmission bubble = %hhi");
+        v132 = OUTLINED_FUNCTION_10();
+        OUTLINED_FUNCTION_3(v132, v76, v77, "[%#010llx] \t retransmission bubble = %hhi");
         _gc_log_psvr2();
         OUTLINED_FUNCTION_10();
-        v81 = *(*(a3 + 40) + 128);
         OUTLINED_FUNCTION_6();
-        OUTLINED_FUNCTION_3(v82, v83, v84, "[%#010llx] \t reportTimestampDelta3US = %u (%uus)");
+        OUTLINED_FUNCTION_3(v78, v79, v80, "[%#010llx] \t reportTimestampDelta3US = %u (%uus)");
         _gc_log_psvr2();
         OUTLINED_FUNCTION_10();
-        v85 = *(*(a3 + 40) + 136);
         OUTLINED_FUNCTION_6();
-        OUTLINED_FUNCTION_3(v86, v87, v88, "[%#010llx] \t receiveTimestampDelta3US = %u (%uus)");
+        OUTLINED_FUNCTION_3(v81, v82, v83, "[%#010llx] \t receiveTimestampDelta3US = %u (%uus)");
         _gc_log_psvr2();
         OUTLINED_FUNCTION_10();
-        v89 = *(*(a3 + 40) + 140);
         OUTLINED_FUNCTION_6();
-        OUTLINED_FUNCTION_3(v90, v91, v92, "[%#010llx] \t deviceTimestampDelta3US = %u (%uus)");
+        OUTLINED_FUNCTION_3(v84, v85, v86, "[%#010llx] \t deviceTimestampDelta3US = %u (%uus)");
         _gc_log_psvr2();
         OUTLINED_FUNCTION_10();
-        v93 = *(*(a3 + 40) + 144);
         OUTLINED_FUNCTION_6();
-        OUTLINED_FUNCTION_3(v94, v95, v96, "[%#010llx] \t deviceMotionTimestampDelta3US = %u (%uus)");
-        v97 = *(a1 + 216);
-        if (*(v97 + 256))
+        OUTLINED_FUNCTION_3(v87, v88, v89, "[%#010llx] \t deviceMotionTimestampDelta3US = %u (%uus)");
+        v90 = *(a1 + 216);
+        if (*(v90 + 256))
         {
-          v98 = (v97 + 260);
+          v91 = (v90 + 260);
         }
 
         else
         {
-          v98 = (v97 + 248);
+          v91 = (v90 + 248);
         }
 
-        v99 = *v98;
-        v100 = *(a3 + 40);
-        v101 = v100[8] - 3 * v99 - 1875;
-        v102 = v100[13];
-        v100[19] = v102 - v101;
-        v100[20] = v101 - v102;
+        v92 = *v91;
+        v93 = *(a3 + 40);
+        v94 = v93[8] - 3 * v92 - 1875;
+        v95 = v93[13];
+        v93[19] = v95 - v94;
+        v93[20] = v94 - v95;
         _gc_log_psvr2();
         OUTLINED_FUNCTION_11();
-        v103 = (*(*(a3 + 40) + 152) - *(*(a3 + 48) + 152)) / 3;
         OUTLINED_FUNCTION_28();
-        OUTLINED_FUNCTION_7(v104, v105, v106, "[%#010llx] \t hostToDeviceTimestampConversion3US = %lli (delta %llius)");
+        OUTLINED_FUNCTION_7(v96, v97, v98, "[%#010llx] \t hostToDeviceTimestampConversion3US = %lli (delta %llius)");
         _gc_log_psvr2();
         OUTLINED_FUNCTION_11();
-        v107 = (*(*(a3 + 40) + 160) - *(*(a3 + 48) + 160)) / 3;
         OUTLINED_FUNCTION_28();
-        OUTLINED_FUNCTION_7(v108, v109, v110, "[%#010llx] \t deviceToHostTimestampConversion3US = %lli (delta %llius)");
+        OUTLINED_FUNCTION_7(v99, v100, v101, "[%#010llx] \t deviceToHostTimestampConversion3US = %lli (delta %llius)");
         _gc_log_psvr2();
-        v146 = OUTLINED_FUNCTION_11();
-        OUTLINED_FUNCTION_7(v146, v111, v112, "[%#010llx] \t accessoryInputBTSubmissionDelayUS = %llu");
+        v133 = OUTLINED_FUNCTION_11();
+        OUTLINED_FUNCTION_7(v133, v102, v103, "[%#010llx] \t accessoryInputBTSubmissionDelayUS = %llu");
         if (!(*(a3 + 16) % 0x14uLL))
         {
-          v113 = *(a1 + 216);
-          if ((*(v113 + 2416) & 1) == 0)
+          v104 = *(a1 + 216);
+          if ((*(v104 + 2416) & 1) == 0)
           {
-            if (*(v113 + 256))
+            if (*(v104 + 256))
             {
-              v114 = (v113 + 260);
+              v105 = (v104 + 260);
             }
 
             else
             {
-              v114 = (v113 + 248);
+              v105 = (v104 + 248);
             }
 
-            v115 = 0;
-            v116 = 0;
-            v117 = 0;
-            v118 = -3 * *v114 - 1875;
-            v119 = (v113 + 2614);
-            v120 = 1;
-            v121 = 140;
+            v106 = 0;
+            v107 = 0;
+            v108 = 0;
+            v109 = -3 * *v105 - 1875;
+            v110 = (v104 + 2614);
+            v111 = 1;
+            v112 = 140;
             do
             {
-              if (!*(v119 - 2) && !*(v119 - 1) && !*v119)
+              if (!*(v110 - 2) && !*(v110 - 1) && !*v110)
               {
-                v122 = v118 + *(v119 - 86);
-                v123 = *(v119 - 46);
-                v116 = v123 + v116 - v122;
-                v115 = v115 - v123 + v122;
-                v120 &= *(v119 - 138);
-                ++v117;
+                v113 = v109 + *(v110 - 86);
+                v114 = *(v110 - 46);
+                v107 = v114 + v107 - v113;
+                v106 = v106 - v114 + v113;
+                v111 &= *(v110 - 138);
+                ++v108;
               }
 
-              v119 += 168;
-              --v121;
+              v110 += 168;
+              --v112;
             }
 
-            while (v121);
-            *(v113 + 2432) = v116 / v117;
-            *(v113 + 2448) = v115 / v117;
+            while (v112);
+            *(v104 + 2432) = v107 / v108;
+            *(v104 + 2448) = v106 / v108;
             _gc_log_psvr2();
-            v124 = OUTLINED_FUNCTION_11();
-            OUTLINED_FUNCTION_7(v124, v125, v126, "[%#010llx] (AVG) isTransportTimeSynchronized = %d / %u");
+            v115 = OUTLINED_FUNCTION_11();
+            OUTLINED_FUNCTION_7(v115, v116, v117, "[%#010llx] (AVG) isTransportTimeSynchronized = %d / %u");
             _gc_log_psvr2();
-            v127 = OUTLINED_FUNCTION_11();
-            OUTLINED_FUNCTION_7(v127, v128, v129, "[%#010llx] (AVG) hostToDeviceTimestampConversion3US = %lli / %u");
+            v118 = OUTLINED_FUNCTION_11();
+            OUTLINED_FUNCTION_7(v118, v119, v120, "[%#010llx] (AVG) hostToDeviceTimestampConversion3US = %lli / %u");
             _gc_log_psvr2();
-            v147 = OUTLINED_FUNCTION_11();
-            OUTLINED_FUNCTION_7(v147, v130, v131, "[%#010llx] (AVG) deviceToHostTimestampConversion3US = %lli / %u");
+            v134 = OUTLINED_FUNCTION_11();
+            OUTLINED_FUNCTION_7(v134, v121, v122, "[%#010llx] (AVG) deviceToHostTimestampConversion3US = %lli / %u");
           }
         }
 
@@ -5419,35 +5358,35 @@ LABEL_46:
   }
 
 LABEL_59:
-  v132 = *(a1 + 344);
-  if (v132)
+  v123 = *(a1 + 344);
+  if (v123)
   {
-    v192 = 0;
-    memset(v191, 0, sizeof(v191));
-    v189 = 0u;
-    v190 = 0u;
-    v187 = 0u;
-    v188 = 0u;
-    v186 = 0u;
-    LODWORD(v186) = v10;
-    BYTE4(v186) = v14;
-    v133 = *(a3 + 40);
-    *(&v186 + 1) = *v133;
-    v187 = *(v133 + 16);
-    v134 = *(v133 + 64);
-    *&v188 = *(v133 + 48);
-    *(&v188 + 1) = v134;
-    v190 = *(v133 + 96);
-    *&v191[0] = *(v133 + 112);
-    DWORD2(v191[0]) = *(v133 + 92);
-    *(v191 + 12) = vuzp1q_s32(*(v133 + 128), vrev64q_s32(*(v133 + 128)));
-    HIDWORD(v191[1]) = *(v133 + 144);
-    LOWORD(v192) = *(v133 + 148);
-    if (((*(*v132 + 144))(v132, &v186, 120) & 1) == 0)
+    v141 = 0;
+    memset(v140, 0, sizeof(v140));
+    v138 = 0u;
+    v139 = 0u;
+    v136 = 0u;
+    v137 = 0u;
+    v135 = 0u;
+    LODWORD(v135) = v10;
+    BYTE4(v135) = v14;
+    v124 = *(a3 + 40);
+    *(&v135 + 1) = *v124;
+    v136 = *(v124 + 16);
+    v125 = *(v124 + 64);
+    *&v137 = *(v124 + 48);
+    *(&v137 + 1) = v125;
+    v139 = *(v124 + 96);
+    *&v140[0] = *(v124 + 112);
+    DWORD2(v140[0]) = *(v124 + 92);
+    *(v140 + 12) = vuzp1q_s32(*(v124 + 128), vrev64q_s32(*(v124 + 128)));
+    HIDWORD(v140[1]) = *(v124 + 144);
+    LOWORD(v141) = *(v124 + 148);
+    if (((*(*v123 + 144))(v123, &v135, 120) & 1) == 0)
     {
       _gc_log_psvr2();
       OUTLINED_FUNCTION_22();
-      OUTLINED_FUNCTION_21(&dword_0, v135, v136, "[%#010llx] Driver Debug Timesync Queue Enqueue failed");
+      OUTLINED_FUNCTION_21(&dword_0, v126, v127, "[%#010llx] Driver Debug Timesync Queue Enqueue failed");
     }
   }
 }
@@ -5465,7 +5404,6 @@ void PSVR2SenseDevice::handleSensePowerData()
     {
       _gc_log_psvr2();
       OUTLINED_FUNCTION_15();
-      v43 = (*(v0 + 41) >> 14) & 1;
       OUTLINED_FUNCTION_8(&dword_0, v32, v33, "[%#010llx] #POWER Power detection changed %d -> %d");
       v6 = *(v0 + 41);
     }
@@ -5475,7 +5413,6 @@ void PSVR2SenseDevice::handleSensePowerData()
     {
       _gc_log_psvr2();
       OUTLINED_FUNCTION_15();
-      v44 = *(v0 + 41) & 0xF;
       OUTLINED_FUNCTION_8(&dword_0, v34, v35, "[%#010llx] #POWER Battery level changed %d -> %d");
       v6 = *(v0 + 41);
     }
@@ -5485,7 +5422,6 @@ void PSVR2SenseDevice::handleSensePowerData()
     {
       _gc_log_psvr2();
       OUTLINED_FUNCTION_15();
-      v45 = *(v0 + 41) >> 15;
       OUTLINED_FUNCTION_8(&dword_0, v36, v37, "[%#010llx] #POWER Battery low voltage changed %d -> %d");
       LOWORD(v6) = *(v0 + 41);
     }
@@ -5515,7 +5451,6 @@ void PSVR2SenseDevice::handleSensePowerData()
       {
         _gc_log_psvr2();
         OUTLINED_FUNCTION_15();
-        v42 = *(v0 + 41) & 0xF;
         OUTLINED_FUNCTION_8(&dword_0, v16, v17, "[%#010llx] #POWER Battery level %d meets BATTERY disconnect criteria.");
       }
 
@@ -5568,16 +5503,15 @@ LABEL_19:
             goto LABEL_32;
           }
 
-          v38 = *(v1 + 216);
           v18 = v15 | 0x80000000;
         }
 
 LABEL_34:
         OUTLINED_FUNCTION_9();
-        atomic_store(0, v39);
+        atomic_store(0, v38);
         _gc_log_psvr2();
         OUTLINED_FUNCTION_25();
-        OUTLINED_FUNCTION_26(&dword_0, v40, v41, "[%#010llx] #POWER Notifying clients that 'should disconnect' state changed %#x -> %#x");
+        OUTLINED_FUNCTION_26(&dword_0, v39, v40, "[%#010llx] #POWER Notifying clients that 'should disconnect' state changed %#x -> %#x");
         (*(*v1 + 1072))(v1, 3758096896, v18, 0);
         goto LABEL_32;
       }
@@ -5626,12 +5560,12 @@ const OSMetaClassBase *PSVR2SenseDevice::handleInputReportData(uint64_t a1)
   OUTLINED_FUNCTION_16();
   PSVR2SenseDevice::handleSensePowerData();
   ++*(*(a1 + 216) + 280);
-  v11 = OUTLINED_FUNCTION_18(*(a1 + 328));
-  (*(v12 + 120))(v11);
+  OUTLINED_FUNCTION_18();
+  (*(v11 + 120))();
   for (result = (*(**(a1 + 328) + 136))(); result; result = (*(**(a1 + 328) + 136))())
   {
-    v14 = OSMetaClassBase::requiredMetaCast(result, &PSVR2SenseDeviceFastPathUserClient::gMetaClass);
-    PSVR2SenseDeviceFastPathUserClient::inputDataAvailable(v14);
+    v13 = OSMetaClassBase::requiredMetaCast(result, &PSVR2SenseDeviceFastPathUserClient::gMetaClass);
+    PSVR2SenseDeviceFastPathUserClient::inputDataAvailable(v13);
   }
 
   return result;
@@ -5682,10 +5616,7 @@ uint64_t ___ZN16PSVR2SenseDevice19prepareOutputReportER19OutputWakeupContext_blo
     *(v3 + 180) = v4 - v11;
     _gc_log_psvr2();
     OUTLINED_FUNCTION_22();
-    v12 = *(v1 + 216);
-    v16 = *(v12 + 176);
-    v17 = *(v12 + 180);
-    OUTLINED_FUNCTION_21(&dword_0, v13, v14, "[%#010llx] >>>> Calculated new transport delay %uus +/-%u");
+    OUTLINED_FUNCTION_21(&dword_0, v12, v13, "[%#010llx] >>>> Calculated new transport delay %uus +/-%u");
   }
 
   return 0;
@@ -5869,10 +5800,9 @@ LABEL_17:
   _gc_log_psvr2();
   OUTLINED_FUNCTION_22();
   OUTLINED_FUNCTION_21(&dword_0, v39, v40, "[%#010llx] (^)\t Schedule next wakeup in %uus");
-  v41 = *(v4 + 208);
   *(*(v4 + 216) + 320) = 1000 * (v15 + v38) * *(v4 + 236) / *(v4 + 232);
-  v42 = OUTLINED_FUNCTION_18(v41);
-  (*(v43 + 304))(v42);
+  OUTLINED_FUNCTION_18();
+  (*(v41 + 304))(v42, v43);
   return 0;
 }
 
@@ -5983,18 +5913,18 @@ uint64_t PSVR2SenseDevice::refreshMotionCorrectionData(uint64_t a1, void ***a2)
   return IOGCCommandQueue::asyncBlock(v9, v10, v11, v12);
 }
 
-uint64_t PSVR2SenseDevice::refreshMotionCorrectionData()
+uint64_t PSVR2SenseDevice::refreshMotionCorrectionData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  OUTLINED_FUNCTION_23();
+  OUTLINED_FUNCTION_23(a1, a2, a3, a4);
   OUTLINED_FUNCTION_20();
-  OUTLINED_FUNCTION_8(&dword_0, v2, v3, "[%#010llx] Motion correction fetch request is outdated.");
+  OUTLINED_FUNCTION_8(&dword_0, v6, v7, "[%#010llx] Motion correction fetch request is outdated.");
   OUTLINED_FUNCTION_5();
-  v1[1] = 1107296256;
-  v1[2] = ___ZN16PSVR2SenseDevice27refreshMotionCorrectionDataEybU13block_pointerFviE_block_invoke_122;
-  v1[3] = &__block_descriptor_tmp_125;
-  v1[4] = v0;
+  v5[1] = 1107296256;
+  v5[2] = ___ZN16PSVR2SenseDevice27refreshMotionCorrectionDataEybU13block_pointerFviE_block_invoke_122;
+  v5[3] = &__block_descriptor_tmp_125;
+  v5[4] = v4;
   OUTLINED_FUNCTION_29();
-  return IOGCCommandQueue::asyncBlock(v4, v5, v6, 0);
+  return IOGCCommandQueue::asyncBlock(v8, v9, v10, 0);
 }
 
 uint64_t PSVR2SenseDevice::refreshFirmwareInfo(uint64_t a1, void ***a2)
@@ -6022,18 +5952,18 @@ uint64_t PSVR2SenseDevice::refreshFirmwareInfo(uint64_t a1, void ***a2)
   return IOGCCommandQueue::asyncBlock(v9, v10, v11, v12);
 }
 
-uint64_t PSVR2SenseDevice::refreshFirmwareInfo()
+uint64_t PSVR2SenseDevice::refreshFirmwareInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  OUTLINED_FUNCTION_23();
+  OUTLINED_FUNCTION_23(a1, a2, a3, a4);
   OUTLINED_FUNCTION_20();
-  OUTLINED_FUNCTION_8(&dword_0, v2, v3, "[%#010llx] Firmware info fetch request is outdated.");
+  OUTLINED_FUNCTION_8(&dword_0, v6, v7, "[%#010llx] Firmware info fetch request is outdated.");
   OUTLINED_FUNCTION_5();
-  v1[1] = 1107296256;
-  v1[2] = ___ZN16PSVR2SenseDevice19refreshFirmwareInfoEybU13block_pointerFviE_block_invoke_67;
-  v1[3] = &__block_descriptor_tmp_70;
-  v1[4] = v0;
+  v5[1] = 1107296256;
+  v5[2] = ___ZN16PSVR2SenseDevice19refreshFirmwareInfoEybU13block_pointerFviE_block_invoke_67;
+  v5[3] = &__block_descriptor_tmp_70;
+  v5[4] = v4;
   OUTLINED_FUNCTION_29();
-  return IOGCCommandQueue::asyncBlock(v4, v5, v6, 0);
+  return IOGCCommandQueue::asyncBlock(v8, v9, v10, 0);
 }
 
 void ___ZN16PSVR2SenseDevice19refreshFirmwareInfoEybU13block_pointerFviE_block_invoke_4_cold_1(void *a1)
@@ -6499,18 +6429,17 @@ void PSVR2SenseDevice::getFeatureReport()
   _os_log_internal(&dword_0, v0, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v1, v2, v3, 2880, 0);
 }
 
-uint64_t ___ZN16PSVR2SenseDevice16getFeatureReportEhmbU13block_pointerFviPKvmNS_9CRCResultEE_block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t ___ZN16PSVR2SenseDevice16getFeatureReportEhmbU13block_pointerFviPKvmNS_9CRCResultEE_block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
   _gc_log_psvr2();
   OUTLINED_FUNCTION_20();
-  v10 = *(a2 + 56);
-  OUTLINED_FUNCTION_24(&dword_0, v5, v6, "[%#010llx] Get feature report %#0.2x failed: %#x");
+  OUTLINED_FUNCTION_24(&dword_0, v3, v4, "[%#010llx] Get feature report %#0.2x failed: %#x");
   result = *(a2 + 32);
   if (result)
   {
-    v8 = OUTLINED_FUNCTION_17(result);
+    OUTLINED_FUNCTION_17();
 
-    return v9(v8, a3, 0, 0, 0, 0);
+    return v6();
   }
 
   return result;
@@ -6524,9 +6453,9 @@ uint64_t ___ZN16PSVR2SenseDevice16getFeatureReportEhmbU13block_pointerFviPKvmNS_
   result = *(a2 + 32);
   if (result)
   {
-    v11 = OUTLINED_FUNCTION_17(result);
+    OUTLINED_FUNCTION_17();
 
-    return v12(v11, 3758097127, 0, 0, 0, 0);
+    return v11();
   }
 
   return result;
@@ -6537,33 +6466,30 @@ uint64_t ___ZN16PSVR2SenseDevice16getFeatureReportEhmbU13block_pointerFviPKvmNS_
   OUTLINED_FUNCTION_19();
   _gc_log_psvr2();
   OUTLINED_FUNCTION_25();
-  v1 = *(v0 + 56);
-  v2 = *(v0 + 48);
   OUTLINED_FUNCTION_28();
-  OUTLINED_FUNCTION_26(&dword_0, v3, v4, "[%#010llx] Get feature report %#0.2x error: Response is empty. Expected at least %zu bytes.");
+  OUTLINED_FUNCTION_26(&dword_0, v1, v2, "[%#010llx] Get feature report %#0.2x error: Response is empty. Expected at least %zu bytes.");
   result = *(v0 + 32);
   if (result)
   {
-    v6 = OUTLINED_FUNCTION_17(result);
+    OUTLINED_FUNCTION_17();
 
-    return v7(v6, 3758097127, 0, 0, 0, 0);
+    return v4();
   }
 
   return result;
 }
 
-uint64_t ___ZN16PSVR2SenseDevice16getFeatureReportEhmbU13block_pointerFviPKvmNS_9CRCResultEE_block_invoke_cold_4()
+uint64_t ___ZN16PSVR2SenseDevice16getFeatureReportEhmbU13block_pointerFviPKvmNS_9CRCResultEE_block_invoke_cold_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  OUTLINED_FUNCTION_23();
+  OUTLINED_FUNCTION_23(a1, a2, a3, a4);
   OUTLINED_FUNCTION_20();
-  v6 = *(v0 + 56);
-  OUTLINED_FUNCTION_24(&dword_0, v1, v2, "[%#010llx] Get feature report %#0.2x error: Response has length %{bytes}zu, which is abnormally large.");
-  result = *(v0 + 32);
+  OUTLINED_FUNCTION_24(&dword_0, v5, v6, "[%#010llx] Get feature report %#0.2x error: Response has length %{bytes}zu, which is abnormally large.");
+  result = *(v4 + 32);
   if (result)
   {
-    v4 = OUTLINED_FUNCTION_17(result);
+    OUTLINED_FUNCTION_17();
 
-    return v5(v4, 3758097128, 0, 0, 0, 0);
+    return v8();
   }
 
   return result;
@@ -6574,14 +6500,13 @@ uint64_t ___ZN16PSVR2SenseDevice16getFeatureReportEhmbU13block_pointerFviPKvmNS_
   OUTLINED_FUNCTION_19();
   _gc_log_psvr2();
   OUTLINED_FUNCTION_25();
-  v6 = *(v0 + 56);
   OUTLINED_FUNCTION_26(&dword_0, v1, v2, "[%#010llx] Get feature report %#0.2x error: Could not map response.");
   result = *(v0 + 32);
   if (result)
   {
-    v4 = OUTLINED_FUNCTION_17(result);
+    OUTLINED_FUNCTION_17();
 
-    return v5(v4, 3758097096, 0, 0, 0, 0);
+    return v4();
   }
 
   return result;
@@ -6617,11 +6542,9 @@ void PSVR2SenseDevice::setFeatureReport()
 void ___ZN16PSVR2SenseDevice16setFeatureReportEPvmbbU13block_pointerFviE_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_19();
-  v2 = *(v1 + 40);
   _gc_log_psvr2();
   OUTLINED_FUNCTION_20();
-  v5 = *(v0 + 48);
-  OUTLINED_FUNCTION_24(&dword_0, v3, v4, "[%#010llx] Set feature report %#0.2x failed: %#x");
+  OUTLINED_FUNCTION_24(&dword_0, v0, v1, "[%#010llx] Set feature report %#0.2x failed: %#x");
 }
 
 void ___ZN16PSVR2SenseDevice19openTrackingControlEP9IOServicejP24IOGCCircularControlQueue_block_invoke_cold_1()
@@ -6720,84 +6643,81 @@ void PSVR2SenseDevice::handleStart(IOHIDInterface *)::$_0::__invoke()
   _os_log_internal(&dword_0, v0, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v1, v2, v3, 217, 0);
 }
 
-uint64_t ___ZL17fetchFirmwareInfoP28FirmwareInfoDataFetchContext_block_invoke_cold_1(uint64_t a1, uint64_t a2, IORegistryEntry ***a3)
+uint64_t ___ZL17fetchFirmwareInfoP28FirmwareInfoDataFetchContext_block_invoke_cold_1(uint64_t a1, uint64_t a2, IORegistryEntry ***a3, uint64_t a4)
 {
-  OUTLINED_FUNCTION_30();
-  IORegistryEntry::getRegistryEntryID(**v3);
-  v9 = (*v3)[9];
-  v10 = *(*v3 + 21);
-  if (v4 == v5)
+  OUTLINED_FUNCTION_30(a1, a2, a3, a4);
+  IORegistryEntry::getRegistryEntryID(**v4);
+  if (v5 == v6)
   {
-    OUTLINED_FUNCTION_24(&dword_0, v7, v8, "[%#010llx] Fetch accessory firmware info (g: %llu a:%u) failed: %#x (will retry)");
-    v11 = *v3;
-    *a3 = *v3;
-    v12 = *(v11 + 21);
-    ++*(v11 + 22);
-    *(v11 + 23) = v12;
+    OUTLINED_FUNCTION_24(&dword_0, v8, v9, "[%#010llx] Fetch accessory firmware info (g: %llu a:%u) failed: %#x (will retry)");
+    v10 = *v4;
+    *a3 = *v4;
+    v11 = *(v10 + 21);
+    ++*(v10 + 22);
+    *(v10 + 23) = v11;
     return 1;
   }
 
   else
   {
-    OUTLINED_FUNCTION_24(&dword_0, v7, v8, "[%#010llx] Fetch accessory firmware info (g: %llu a:%u) failed: %#x");
-    v14 = *v3;
-    v15 = *(*v3 + 21);
-    *(v14 + 32) = v4;
-    *(v14 + 33) = v15;
-    (v14[19]->reserved)(v14[19], 0, v16, v17);
+    OUTLINED_FUNCTION_24(&dword_0, v8, v9, "[%#010llx] Fetch accessory firmware info (g: %llu a:%u) failed: %#x");
+    v13 = *v4;
+    v14 = *(*v4 + 21);
+    *(v13 + 32) = v5;
+    *(v13 + 33) = v14;
+    (v13[19]->reserved)(v13[19], 0, v15, v16);
     return 0;
   }
 }
 
 OSMetaClassBase *___ZL33fetchNextMotionCorrectionDataPageP32MotionCorrectionDataFetchContext_block_invoke_cold_1(uint64_t a1, unsigned int index)
 {
-  v4 = *(*a1 + 16);
-  v3 = *(*a1 + 24);
-  anObject = v3;
-  if (v3)
+  v3 = *(*a1 + 16);
+  anObject = *(*a1 + 24);
+  if (anObject)
   {
-    v5 = OUTLINED_FUNCTION_18(v3);
-    (*(v6 + 32))(v5);
+    OUTLINED_FUNCTION_18();
+    (*(v4 + 32))();
   }
 
-  OSArray::setObject(v4, index, &anObject);
+  OSArray::setObject(v3, index, &anObject);
   result = anObject;
   if (anObject)
   {
-    v8 = OUTLINED_FUNCTION_18(anObject);
-    return (*(v9 + 40))(v8);
+    OUTLINED_FUNCTION_18();
+    return (*(v6 + 40))();
   }
 
   return result;
 }
 
-uint64_t ___ZL33fetchNextMotionCorrectionDataPageP32MotionCorrectionDataFetchContext_block_invoke_cold_2()
+uint64_t ___ZL33fetchNextMotionCorrectionDataPageP32MotionCorrectionDataFetchContext_block_invoke_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  OUTLINED_FUNCTION_30();
-  RegistryEntryID = IORegistryEntry::getRegistryEntryID(**v0);
-  v4 = *(*v0 + 9);
-  v5 = (*v0)[1];
-  v6 = OUTLINED_FUNCTION_18((*v0)[2]);
-  v17 = (*(v7 + 144))(v6);
+  OUTLINED_FUNCTION_30(a1, a2, a3, a4);
+  RegistryEntryID = IORegistryEntry::getRegistryEntryID(**v4);
+  v8 = *(*v4 + 9);
+  v9 = (*v4)[1];
+  OUTLINED_FUNCTION_18();
+  v20 = (*(v10 + 144))();
   OUTLINED_FUNCTION_29();
-  if (v1 == v2)
+  if (v5 == v6)
   {
-    _os_log_internal(v8, v9, v10, v11, RegistryEntryID, v5, v4, v17, v2);
-    v12 = *v0;
-    v13 = *(*v0 + 9);
-    *(v12 + 10) = *(*v0 + 10) + 1;
-    *(v12 + 11) = v13;
+    _os_log_internal(v11, v12, v13, v14, RegistryEntryID, v9, v8, v20, v6);
+    v15 = *v4;
+    v16 = *(*v4 + 9);
+    *(v15 + 10) = *(*v4 + 10) + 1;
+    *(v15 + 11) = v16;
     return 1;
   }
 
   else
   {
-    _os_log_internal(v8, v9, v10, v11, RegistryEntryID, v5, v4, v17, v1);
-    v15 = *v0;
-    v16 = *(*v0 + 9);
-    *(v15 + 20) = v1;
-    *(v15 + 21) = v16;
-    (v15[13]->reserved)();
+    _os_log_internal(v11, v12, v13, v14, RegistryEntryID, v9, v8, v20, v5);
+    v18 = *v4;
+    v19 = *(*v4 + 9);
+    *(v18 + 20) = v5;
+    *(v18 + 21) = v19;
+    (v18[13]->reserved)();
     return 0;
   }
 }
@@ -7596,23 +7516,21 @@ uint64_t IOGCCircularControlQueueMemorySize(unsigned int a1, int a2)
 
 uint64_t _IOGCCircularControlQueueValidateAndAccess(uint64_t a1)
 {
-  v2 = *a1;
   if (**a1 == *(a1 + 8))
   {
-    if (*(v2 + 2) == *(a1 + 16))
+    if (*(*a1 + 8) == *(a1 + 16))
     {
-      v3 = *(v2 + 3);
       OUTLINED_FUNCTION_1_1();
-      if (v7 == *(v6 + 20))
+      if (v5 == *(v4 + 20))
       {
-        explicit = atomic_load_explicit((v5 + 16), memory_order_acquire);
-        v9 = (v5 + 24 + 24 * (explicit & 1));
-        atomic_load_explicit(v9, memory_order_acquire);
-        atomic_load_explicit(v9 + 1, memory_order_acquire);
-        atomic_load_explicit(v9 + 2, memory_order_acquire);
-        if (explicit == atomic_load_explicit((v5 + 16), memory_order_acquire))
+        explicit = atomic_load_explicit((v3 + 16), memory_order_acquire);
+        v7 = (v3 + 24 + 24 * (explicit & 1));
+        atomic_load_explicit(v7, memory_order_acquire);
+        atomic_load_explicit(v7 + 1, memory_order_acquire);
+        atomic_load_explicit(v7 + 2, memory_order_acquire);
+        if (explicit == atomic_load_explicit((v3 + 16), memory_order_acquire))
         {
-          return (*(v4 + 16))(v4, v5);
+          return (*(v2 + 16))(v2, v3);
         }
 
         else
@@ -7625,7 +7543,7 @@ uint64_t _IOGCCircularControlQueueValidateAndAccess(uint64_t a1)
       {
         _gc_log_debug();
         OUTLINED_FUNCTION_0();
-        _os_log_internal(&dword_0, v13, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v14, v15, v16, 258, 0);
+        _os_log_internal(&dword_0, v11, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v12, v13, v14, 258, 0);
       }
     }
 
@@ -7634,7 +7552,7 @@ uint64_t _IOGCCircularControlQueueValidateAndAccess(uint64_t a1)
       OUTLINED_FUNCTION_1_1();
       _gc_log_debug();
       OUTLINED_FUNCTION_0();
-      _os_log_internal(&dword_0, v12, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v14, v15, v16, 257, 0);
+      _os_log_internal(&dword_0, v10, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v12, v13, v14, 257, 0);
     }
   }
 
@@ -7643,7 +7561,7 @@ uint64_t _IOGCCircularControlQueueValidateAndAccess(uint64_t a1)
     OUTLINED_FUNCTION_1_1();
     _gc_log_debug();
     OUTLINED_FUNCTION_0();
-    _os_log_internal(&dword_0, v11, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v14, v15, v16, 256, 0);
+    _os_log_internal(&dword_0, v9, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v12, v13, v14, 256, 0);
   }
 
   return v1;
@@ -7651,65 +7569,63 @@ uint64_t _IOGCCircularControlQueueValidateAndAccess(uint64_t a1)
 
 uint64_t IOGCCircularControlQueueReadNext(uint64_t a1)
 {
-  v2 = *a1;
   if (**a1 == *(a1 + 8))
   {
-    if (*(v2 + 2) == *(a1 + 16))
+    if (*(*a1 + 8) == *(a1 + 16))
     {
-      v3 = *(v2 + 3);
       OUTLINED_FUNCTION_1_1();
-      if (v5 == *(v9 + 20))
+      if (v3 == *(v7 + 20))
       {
-        explicit = atomic_load_explicit((v7 + 16), memory_order_acquire);
-        v11 = (v7 + 24 + 24 * (explicit & 1));
-        v12 = atomic_load_explicit(v11 + 1, memory_order_acquire);
-        if (v12 == -1)
+        explicit = atomic_load_explicit((v5 + 16), memory_order_acquire);
+        v9 = (v5 + 24 + 24 * (explicit & 1));
+        v10 = atomic_load_explicit(v9 + 1, memory_order_acquire);
+        if (v10 == -1)
         {
           return (v1 + 7);
         }
 
         else
         {
-          v13 = ((2 * v5 + 14) & 0xFFFFFFF0) + 64;
-          v14 = v13 * (v12 % ((v8 - 72) / v13));
-          v15 = (v7 + 72 + v14);
-          if (v14 != v14)
+          v11 = ((2 * v3 + 14) & 0xFFFFFFF0) + 64;
+          v12 = v11 * (v10 % ((v6 - 72) / v11));
+          v13 = (v5 + 72 + v12);
+          if (v12 != v12)
           {
-            v15 = ((v7 + 72 + v14) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+            v13 = ((v5 + 72 + v12) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
           }
 
-          if (v15 + v13 > v7 + v8)
+          if (v13 + v11 > v5 + v6)
           {
             _gc_log_debug();
             OUTLINED_FUNCTION_0();
-            _os_log_internal(&dword_0, v25, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v27, v28, v29, 585, 0);
+            _os_log_internal(&dword_0, v23, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v25, v26, v27, 585, 0);
           }
 
-          else if (*v15 == v6)
+          else if (*v13 == v4)
           {
-            v16 = atomic_load_explicit(v15 + 1, memory_order_acquire) & 1;
-            v17 = (8 * v16) & 0xFFFFFFFFFFFFFFEFLL | (16 * v16);
-            v18 = v15 + v17 + 16;
-            if (v17 != v17)
+            v14 = atomic_load_explicit(v13 + 1, memory_order_acquire) & 1;
+            v15 = (8 * v14) & 0xFFFFFFFFFFFFFFEFLL | (16 * v14);
+            v16 = v13 + v15 + 16;
+            if (v15 != v15)
             {
-              v18 = (v15 + v17 + 16) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
+              v16 = (v13 + v15 + 16) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
             }
 
             v1 = (v1 + 7);
-            if (*(v18 + 8) == explicit && *(v18 + 16) == v12)
+            if (*(v16 + 8) == explicit && *(v16 + 16) == v10)
             {
-              v19 = v16 * ((v5 + 7) & 0xFFFFFFF8);
-              v20 = v15 + v19 + 64;
-              if (v19 != v19)
+              v17 = v14 * ((v3 + 7) & 0xFFFFFFF8);
+              v18 = v13 + v17 + 64;
+              if (v17 != v17)
               {
-                v20 = (v15 + v19 + 64) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
+                v18 = (v13 + v17 + 64) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
               }
 
               v1 = 0;
-              if ((*(v4 + 16))(v4, v12, v20))
+              if ((*(v2 + 16))(v2, v10, v18))
               {
-                *v11 = v12;
-                atomic_store(v12 + 1, v11 + 1);
+                *v9 = v10;
+                atomic_store(v10 + 1, v9 + 1);
               }
             }
           }
@@ -7718,7 +7634,7 @@ uint64_t IOGCCircularControlQueueReadNext(uint64_t a1)
           {
             _gc_log_debug();
             OUTLINED_FUNCTION_0();
-            _os_log_internal(&dword_0, v26, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v27, v28, v29, 586, 0);
+            _os_log_internal(&dword_0, v24, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v25, v26, v27, 586, 0);
           }
         }
       }
@@ -7727,7 +7643,7 @@ uint64_t IOGCCircularControlQueueReadNext(uint64_t a1)
       {
         _gc_log_debug();
         OUTLINED_FUNCTION_0();
-        _os_log_internal(&dword_0, v24, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v27, v28, v29, 571, 0);
+        _os_log_internal(&dword_0, v22, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v25, v26, v27, 571, 0);
       }
     }
 
@@ -7736,7 +7652,7 @@ uint64_t IOGCCircularControlQueueReadNext(uint64_t a1)
       OUTLINED_FUNCTION_1_1();
       _gc_log_debug();
       OUTLINED_FUNCTION_0();
-      _os_log_internal(&dword_0, v23, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v27, v28, v29, 570, 0);
+      _os_log_internal(&dword_0, v21, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v25, v26, v27, 570, 0);
     }
   }
 
@@ -7745,7 +7661,7 @@ uint64_t IOGCCircularControlQueueReadNext(uint64_t a1)
     OUTLINED_FUNCTION_1_1();
     _gc_log_debug();
     OUTLINED_FUNCTION_0();
-    _os_log_internal(&dword_0, v22, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v27, v28, v29, 569, 0);
+    _os_log_internal(&dword_0, v20, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v25, v26, v27, 569, 0);
   }
 
   return v1;
@@ -7753,79 +7669,77 @@ uint64_t IOGCCircularControlQueueReadNext(uint64_t a1)
 
 uint64_t IOGCCircularControlQueueEntryModify(uint64_t a1)
 {
-  v2 = *a1;
   if (**a1 == *(a1 + 8))
   {
-    if (*(v2 + 2) == *(a1 + 16))
+    if (*(*a1 + 8) == *(a1 + 16))
     {
-      v3 = *(v2 + 3);
       OUTLINED_FUNCTION_1_1();
-      if (v6 == *(v10 + 20))
+      if (v4 == *(v8 + 20))
       {
-        explicit = atomic_load_explicit((v8 + 16), memory_order_acquire);
-        v12 = atomic_load_explicit((v8 + 24 + 24 * (explicit & 1) + 8), memory_order_acquire);
-        if (v12 == -1)
+        explicit = atomic_load_explicit((v6 + 16), memory_order_acquire);
+        v10 = atomic_load_explicit((v6 + 24 + 24 * (explicit & 1) + 8), memory_order_acquire);
+        if (v10 == -1)
         {
           return (v1 + 7);
         }
 
         else
         {
-          v13 = (v6 + 7) & 0xFFFFFFF8;
-          v14 = ((v9 - 72) / (2 * v13 + 64)) >> 1;
-          if (v12 + v14 <= v4)
+          v11 = (v4 + 7) & 0xFFFFFFF8;
+          v12 = ((v7 - 72) / (2 * v11 + 64)) >> 1;
+          if (v10 + v12 <= v2)
           {
             return (v1 + 23);
           }
 
-          else if (v14 + v4 <= v12)
+          else if (v12 + v2 <= v10)
           {
             return (v1 + 22);
           }
 
           else
           {
-            v15 = ((2 * v6 + 14) & 0xFFFFFFF0) + 64;
-            v16 = v15 * (v4 % ((v9 - 72) / v15));
-            v17 = v16 == v16;
-            v18 = (v8 + 72 + v16);
-            v19 = (v8 + 72 + v16) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
-            if (!v17)
+            v13 = ((2 * v4 + 14) & 0xFFFFFFF0) + 64;
+            v14 = v13 * (v2 % ((v7 - 72) / v13));
+            v15 = v14 == v14;
+            v16 = (v6 + 72 + v14);
+            v17 = (v6 + 72 + v14) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
+            if (!v15)
             {
-              v18 = v19;
+              v16 = v17;
             }
 
-            if (v18 + v15 > v8 + v9)
+            if (v16 + v13 > v6 + v7)
             {
               _gc_log_debug();
               OUTLINED_FUNCTION_0();
-              _os_log_internal(&dword_0, v31, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v33, v34, v35, 664, 0);
+              _os_log_internal(&dword_0, v29, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v31, v32, v33, 664, 0);
             }
 
-            else if (*v18 == v7)
+            else if (*v16 == v5)
             {
-              v20 = atomic_load_explicit(v18 + 1, memory_order_acquire);
-              v21 = (8 * (~v20 & 1)) & 0xFFFFFFFFFFFFFFEFLL | (16 * (~v20 & 1));
-              v17 = v21 == v21;
-              v22 = (v18 + ((8 * ((v20 & 1) == 0)) & 0xEF | (16 * ((v20 & 1) == 0))) + 16);
-              v23 = (v18 + v21 + 16) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
-              if (!v17)
+              v18 = atomic_load_explicit(v16 + 1, memory_order_acquire);
+              v19 = (8 * (~v18 & 1)) & 0xFFFFFFFFFFFFFFEFLL | (16 * (~v18 & 1));
+              v15 = v19 == v19;
+              v20 = (v16 + ((8 * ((v18 & 1) == 0)) & 0xEF | (16 * ((v18 & 1) == 0))) + 16);
+              v21 = (v16 + v19 + 16) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
+              if (!v15)
               {
-                v22 = v23;
+                v20 = v21;
               }
 
-              v24 = v18 + 8;
-              v25 = ((v20 & 1) == 0) * v13;
-              v26 = v24 + v25;
-              if (v25 != v25)
+              v22 = v16 + 8;
+              v23 = ((v18 & 1) == 0) * v11;
+              v24 = v22 + v23;
+              if (v23 != v23)
               {
-                v26 = (v24 + v25) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
+                v24 = (v22 + v23) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
               }
 
-              *v22 = v20;
-              v22[1] = explicit;
-              v22[2] = v4;
-              (*(v5 + 16))(v5, v26, v6);
+              *v20 = v18;
+              v20[1] = explicit;
+              v20[2] = v2;
+              (*(v3 + 16))(v3, v24, v4);
               return 0;
             }
 
@@ -7833,7 +7747,7 @@ uint64_t IOGCCircularControlQueueEntryModify(uint64_t a1)
             {
               _gc_log_debug();
               OUTLINED_FUNCTION_0();
-              _os_log_internal(&dword_0, v32, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v33, v34, v35, 665, 0);
+              _os_log_internal(&dword_0, v30, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v31, v32, v33, 665, 0);
             }
           }
         }
@@ -7843,7 +7757,7 @@ uint64_t IOGCCircularControlQueueEntryModify(uint64_t a1)
       {
         _gc_log_debug();
         OUTLINED_FUNCTION_0();
-        _os_log_internal(&dword_0, v30, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v33, v34, v35, 635, 0);
+        _os_log_internal(&dword_0, v28, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v31, v32, v33, 635, 0);
       }
     }
 
@@ -7852,7 +7766,7 @@ uint64_t IOGCCircularControlQueueEntryModify(uint64_t a1)
       OUTLINED_FUNCTION_1_1();
       _gc_log_debug();
       OUTLINED_FUNCTION_0();
-      _os_log_internal(&dword_0, v29, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v33, v34, v35, 634, 0);
+      _os_log_internal(&dword_0, v27, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v31, v32, v33, 634, 0);
     }
   }
 
@@ -7861,7 +7775,7 @@ uint64_t IOGCCircularControlQueueEntryModify(uint64_t a1)
     OUTLINED_FUNCTION_1_1();
     _gc_log_debug();
     OUTLINED_FUNCTION_0();
-    _os_log_internal(&dword_0, v28, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v33, v34, v35, 633, 0);
+    _os_log_internal(&dword_0, v26, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v31, v32, v33, 633, 0);
   }
 
   return v1;
@@ -7869,106 +7783,104 @@ uint64_t IOGCCircularControlQueueEntryModify(uint64_t a1)
 
 uint64_t IOGCCircularControlQueueEntryCommitModifications(uint64_t a1)
 {
-  v2 = *a1;
   if (**a1 != *(a1 + 8))
   {
     OUTLINED_FUNCTION_1_1();
     _gc_log_debug();
     OUTLINED_FUNCTION_0();
-    _os_log_internal(&dword_0, v27, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v32, v33, v34, 699, 0);
+    _os_log_internal(&dword_0, v25, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v30, v31, v32, 699, 0);
     return v1;
   }
 
-  if (*(v2 + 2) != *(a1 + 16))
+  if (*(*a1 + 8) != *(a1 + 16))
   {
     OUTLINED_FUNCTION_1_1();
     _gc_log_debug();
     OUTLINED_FUNCTION_0();
-    _os_log_internal(&dword_0, v28, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v32, v33, v34, 700, 0);
+    _os_log_internal(&dword_0, v26, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v30, v31, v32, 700, 0);
     return v1;
   }
 
-  v3 = *(v2 + 3);
   OUTLINED_FUNCTION_1_1();
-  if (v8 != *(v9 + 20))
+  if (v6 != *(v7 + 20))
   {
     _gc_log_debug();
     OUTLINED_FUNCTION_0();
-    _os_log_internal(&dword_0, v29, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v32, v33, v34, 701, 0);
+    _os_log_internal(&dword_0, v27, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v30, v31, v32, 701, 0);
     return v1;
   }
 
-  explicit = atomic_load_explicit((v6 + 16), memory_order_acquire);
-  v11 = v6 + 24 + 24 * (explicit & 1);
-  v12 = atomic_load_explicit((v11 + 8), memory_order_acquire);
-  v13 = (v11 + 16);
-  v14 = atomic_load_explicit(v13, memory_order_acquire);
-  if (v12 == -1)
+  explicit = atomic_load_explicit((v4 + 16), memory_order_acquire);
+  v9 = v4 + 24 + 24 * (explicit & 1);
+  v10 = atomic_load_explicit((v9 + 8), memory_order_acquire);
+  v11 = (v9 + 16);
+  v12 = atomic_load_explicit(v11, memory_order_acquire);
+  if (v10 == -1)
   {
     return (v1 + 7);
   }
 
-  v15 = ((2 * v8 + 14) & 0xFFFFFFF0) + 64;
-  v16 = (v7 - 72) / v15;
-  v17 = v16 >> 1;
-  if (v12 + v17 <= v4)
+  v13 = ((2 * v6 + 14) & 0xFFFFFFF0) + 64;
+  v14 = (v5 - 72) / v13;
+  v15 = v14 >> 1;
+  if (v10 + v15 <= v2)
   {
     return (v1 + 23);
   }
 
-  if (v17 + v4 <= v12)
+  if (v15 + v2 <= v10)
   {
     return (v1 + 22);
   }
 
-  v18 = v15 * (v4 % v16);
-  v19 = (v6 + 72 + v18);
-  if (v18 != v18)
+  v16 = v13 * (v2 % v14);
+  v17 = (v4 + 72 + v16);
+  if (v16 != v16)
   {
-    v19 = ((v6 + 72 + v18) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+    v17 = ((v4 + 72 + v16) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
   }
 
-  if (v19 + v15 > v6 + v7)
-  {
-    _gc_log_debug();
-    OUTLINED_FUNCTION_0();
-    _os_log_internal(&dword_0, v30, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v32, v33, v34, 731, 0);
-    return v1;
-  }
-
-  if (*v19 != v5)
+  if (v17 + v13 > v4 + v5)
   {
     _gc_log_debug();
     OUTLINED_FUNCTION_0();
-    _os_log_internal(&dword_0, v31, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v32, v33, v34, 732, 0);
+    _os_log_internal(&dword_0, v28, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v30, v31, v32, 731, 0);
     return v1;
   }
 
-  v20 = v19 + 1;
-  v21 = atomic_load_explicit(v19 + 1, memory_order_acquire) + 1;
-  v22 = v19 + 2;
-  v23 = (8 * (v21 & 1)) & 0xEF | (16 * (v21 & 1));
-  v24 = v22 + v23;
-  if (v23 != v23)
+  if (*v17 != v3)
   {
-    v24 = (v22 + v23) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
+    _gc_log_debug();
+    OUTLINED_FUNCTION_0();
+    _os_log_internal(&dword_0, v29, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v30, v31, v32, 732, 0);
+    return v1;
   }
 
-  if (*(v24 + 8) != explicit)
+  v18 = v17 + 1;
+  v19 = atomic_load_explicit(v17 + 1, memory_order_acquire) + 1;
+  v20 = v17 + 2;
+  v21 = (8 * (v19 & 1)) & 0xEF | (16 * (v19 & 1));
+  v22 = v20 + v21;
+  if (v21 != v21)
+  {
+    v22 = (v20 + v21) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
+  }
+
+  if (*(v22 + 8) != explicit)
   {
     return (v1 + 26);
   }
 
-  if (*(v24 + 16) != v4)
+  if (*(v22 + 16) != v2)
   {
     return (v1 + 7);
   }
 
-  atomic_store(v21, v20);
+  atomic_store(v19, v18);
   v1 = 0;
-  if (v14 == -1 || v14 < v4)
+  if (v12 == -1 || v12 < v2)
   {
-    atomic_store(v4, v13);
+    atomic_store(v2, v11);
   }
 
   return v1;
@@ -7976,16 +7888,14 @@ uint64_t IOGCCircularControlQueueEntryCommitModifications(uint64_t a1)
 
 uint64_t IOGCCircularControlQueueEntryResetModifications(uint64_t a1)
 {
-  v2 = *a1;
   if (**a1 == *(a1 + 8))
   {
-    if (*(v2 + 2) == *(a1 + 16))
+    if (*(*a1 + 8) == *(a1 + 16))
     {
-      v3 = *(v2 + 3);
       OUTLINED_FUNCTION_1_1();
-      if (v5 == *(v9 + 20))
+      if (v3 == *(v7 + 20))
       {
-        explicit = atomic_load_explicit((v7 + 24 + 24 * (atomic_load_explicit((v7 + 16), memory_order_acquire) & 1) + 8), memory_order_acquire);
+        explicit = atomic_load_explicit((v5 + 24 + 24 * (atomic_load_explicit((v5 + 16), memory_order_acquire) & 1) + 8), memory_order_acquire);
         if (explicit == -1)
         {
           return (v1 + 7);
@@ -7993,79 +7903,79 @@ uint64_t IOGCCircularControlQueueEntryResetModifications(uint64_t a1)
 
         else
         {
-          v11 = (v5 + 7) & 0xFFFFFFF8;
-          v12 = ((v8 - 72) / (2 * v11 + 64)) >> 1;
-          if (explicit + v12 <= v4)
+          v9 = (v3 + 7) & 0xFFFFFFF8;
+          v10 = ((v6 - 72) / (2 * v9 + 64)) >> 1;
+          if (explicit + v10 <= v2)
           {
             return (v1 + 23);
           }
 
-          else if (v12 + v4 <= explicit)
+          else if (v10 + v2 <= explicit)
           {
             return (v1 + 22);
           }
 
           else
           {
-            v13 = ((2 * v5 + 14) & 0xFFFFFFF0) + 64;
-            v14 = v13 * (v4 % ((v8 - 72) / v13));
-            v15 = (v7 + 72 + v14);
-            if (v14 != v14)
+            v11 = ((2 * v3 + 14) & 0xFFFFFFF0) + 64;
+            v12 = v11 * (v2 % ((v6 - 72) / v11));
+            v13 = (v5 + 72 + v12);
+            if (v12 != v12)
             {
-              v15 = ((v7 + 72 + v14) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+              v13 = ((v5 + 72 + v12) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
             }
 
-            if (v15 + v13 > v7 + v8)
+            if (v13 + v11 > v5 + v6)
             {
               _gc_log_debug();
               OUTLINED_FUNCTION_0();
-              _os_log_internal(&dword_0, v31, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v33, v34, v35, 802, 0);
+              _os_log_internal(&dword_0, v29, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v31, v32, v33, 802, 0);
             }
 
-            else if (*v15 == v6)
+            else if (*v13 == v4)
             {
-              v16 = atomic_load_explicit(v15 + 1, memory_order_acquire);
-              v17 = v15 + 8;
-              v18 = !(v16 & 1) * v11;
-              v19 = v15 + v18 + 64;
+              v14 = atomic_load_explicit(v13 + 1, memory_order_acquire);
+              v15 = v13 + 8;
+              v16 = !(v14 & 1) * v9;
+              v17 = v13 + v16 + 64;
+              if (v16 != v16)
+              {
+                v17 = ((v13 + v16 + 64) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+              }
+
+              v18 = (v14 & 1) * v9;
+              v19 = v15 + v18;
               if (v18 != v18)
               {
-                v19 = ((v15 + v18 + 64) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+                v19 = ((v15 + v18) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
               }
 
-              v20 = (v16 & 1) * v11;
-              v21 = v17 + v20;
-              if (v20 != v20)
+              v20 = v13 + 2;
+              v21 = (8 * !(v14 & 1)) | (16 * !(v14 & 1));
+              v22 = v13 + v21 + 16;
+              if (v21 != v21)
               {
-                v21 = ((v17 + v20) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+                v22 = (v13 + v21 + 16) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
               }
 
-              v22 = v15 + 2;
-              v23 = (8 * !(v16 & 1)) | (16 * !(v16 & 1));
-              v24 = v15 + v23 + 16;
+              v23 = (8 * (v14 & 1)) & 0xEF | (16 * (v14 & 1));
+              v24 = v20 + v23;
               if (v23 != v23)
               {
-                v24 = (v15 + v23 + 16) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
+                v24 = (v20 + v23) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
               }
 
-              v25 = (8 * (v16 & 1)) & 0xEF | (16 * (v16 & 1));
-              v26 = v22 + v25;
-              if (v25 != v25)
-              {
-                v26 = (v22 + v25) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000;
-              }
-
-              memmove(v19, v21, v5);
+              memmove(v17, v19, v3);
               v1 = 0;
-              *v24 = *v26;
-              *(v24 + 16) = *(v26 + 16);
+              *v22 = *v24;
+              *(v22 + 16) = *(v24 + 16);
             }
 
             else
             {
               _gc_log_debug();
               OUTLINED_FUNCTION_0();
-              _os_log_internal(&dword_0, v32, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v33, v34, v35, 803, 0);
+              _os_log_internal(&dword_0, v30, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v31, v32, v33, 803, 0);
             }
           }
         }
@@ -8075,7 +7985,7 @@ uint64_t IOGCCircularControlQueueEntryResetModifications(uint64_t a1)
       {
         _gc_log_debug();
         OUTLINED_FUNCTION_0();
-        _os_log_internal(&dword_0, v30, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v33, v34, v35, 773, 0);
+        _os_log_internal(&dword_0, v28, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v31, v32, v33, 773, 0);
       }
     }
 
@@ -8084,7 +7994,7 @@ uint64_t IOGCCircularControlQueueEntryResetModifications(uint64_t a1)
       OUTLINED_FUNCTION_1_1();
       _gc_log_debug();
       OUTLINED_FUNCTION_0();
-      _os_log_internal(&dword_0, v29, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v33, v34, v35, 772, 0);
+      _os_log_internal(&dword_0, v27, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v31, v32, v33, 772, 0);
     }
   }
 
@@ -8093,7 +8003,7 @@ uint64_t IOGCCircularControlQueueEntryResetModifications(uint64_t a1)
     OUTLINED_FUNCTION_1_1();
     _gc_log_debug();
     OUTLINED_FUNCTION_0();
-    _os_log_internal(&dword_0, v28, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v33, v34, v35, 771, 0);
+    _os_log_internal(&dword_0, v26, OS_LOG_TYPE_DEBUG, "AssertMacros: %s, %s file: %s, line: %d, value: %ld\n", v31, v32, v33, 771, 0);
   }
 
   return v1;

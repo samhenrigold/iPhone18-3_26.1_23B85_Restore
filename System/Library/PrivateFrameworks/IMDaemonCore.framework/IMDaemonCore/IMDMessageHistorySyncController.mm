@@ -137,7 +137,7 @@ LABEL_16:
 
 - (void)_scheduleNextEvaluation
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
 
   self->_currentlyExecutingSyncTask = 0;
   if (IMOSLoggingEnabled())
@@ -146,7 +146,7 @@ LABEL_16:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v8 = 4;
+      v7 = 4;
       _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Will check in %u seconds if another sync needs to be done", buf, 8u);
     }
   }
@@ -158,7 +158,6 @@ LABEL_16:
   block[3] = &unk_278704F90;
   block[4] = self;
   dispatch_after(v4, MEMORY[0x277D85CD0], block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

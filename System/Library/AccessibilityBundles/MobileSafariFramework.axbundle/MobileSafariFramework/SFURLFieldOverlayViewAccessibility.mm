@@ -6,61 +6,58 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v21 = *MEMORY[0x29EDCA608];
-  v19.receiver = self;
-  v19.super_class = SFURLFieldOverlayViewAccessibility;
-  [(SFURLFieldOverlayViewAccessibility *)&v19 _accessibilityLoadAccessibilityInformation];
-  v17 = 0u;
-  v18 = 0u;
+  v19 = *MEMORY[0x29EDCA608];
+  v17.receiver = self;
+  v17.super_class = SFURLFieldOverlayViewAccessibility;
+  [(SFURLFieldOverlayViewAccessibility *)&v17 _accessibilityLoadAccessibilityInformation];
   v15 = 0u;
   v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v3 = [(SFURLFieldOverlayViewAccessibility *)self safeArrayForKey:@"_buttons"];
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v4)
   {
-    v5 = *v16;
+    v5 = *v14;
     v6 = MEMORY[0x29EDCA5F8];
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * v7);
         LOBYTE(location) = 0;
         objc_opt_class();
-        v9 = __UIAccessibilityCastAsClass();
+        v8 = __UIAccessibilityCastAsClass();
         if (location == 1)
         {
           abort();
         }
 
-        v10 = v9;
-        objc_initWeak(&location, v9);
-        v12[0] = v6;
-        v12[1] = 3221225472;
-        v12[2] = __80__SFURLFieldOverlayViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke;
-        v12[3] = &unk_29F2D67E0;
-        objc_copyWeak(&v13, &location);
-        [v10 setAccessibilityTraitsBlock:v12];
-        objc_destroyWeak(&v13);
+        v9 = v8;
+        objc_initWeak(&location, v8);
+        v10[0] = v6;
+        v10[1] = 3221225472;
+        v10[2] = __80__SFURLFieldOverlayViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke;
+        v10[3] = &unk_29F2D67E0;
+        objc_copyWeak(&v11, &location);
+        [v9 setAccessibilityTraitsBlock:v10];
+        objc_destroyWeak(&v11);
         objc_destroyWeak(&location);
 
         ++v7;
       }
 
       while (v4 != v7);
-      v4 = [v3 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __80__SFURLFieldOverlayViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)

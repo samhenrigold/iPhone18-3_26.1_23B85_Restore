@@ -41,15 +41,15 @@
         dispatch_once(&qword_100229100, &stru_1001FB6C8);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002290F8, 16, "%s%.30s:%-4d ABORTING: NOT IMPLEMENTED - USE SUBCLASS!", ", "[NRBabelInterface sendPacket:iovLen:toAddr:]"", 764);
     }
 
     v5 = _os_log_pack_size();
-    __chkstk_darwin();
-    v6 = *__error();
-    v7 = _os_log_pack_fill();
-    *v7 = 136446210;
-    *(v7 + 4) = "[NRBabelInterface sendPacket:iovLen:toAddr:]";
+    v6 = &v9 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+    v7 = __error();
+    v8 = _os_log_pack_fill(v6, v5, *v7, &_mh_execute_header, "%{public}s NOT IMPLEMENTED - USE SUBCLASS!");
+    *v8 = 136446210;
+    *(v8 + 4) = "[NRBabelInterface sendPacket:iovLen:toAddr:]";
     sub_1000CB9A8();
     _NRLogAbortWithPack();
 LABEL_7:
@@ -75,9 +75,9 @@ LABEL_7:
 - (NRBabelInterface)initWithInstance:(id)instance
 {
   instanceCopy = instance;
-  v20.receiver = self;
-  v20.super_class = NRBabelInterface;
-  v5 = [(NRBabelInterface *)&v20 init];
+  v23.receiver = self;
+  v23.super_class = NRBabelInterface;
+  v5 = [(NRBabelInterface *)&v23 init];
   if (!v5)
   {
     v12 = sub_1000CB9A8();
@@ -86,15 +86,15 @@ LABEL_7:
     if (IsLevelEnabled)
     {
       v14 = sub_1000CB9A8();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v14, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRBabelInterface initWithInstance:]"", 693);
     }
 
-    _os_log_pack_size();
-    __chkstk_darwin();
-    v15 = *__error();
-    v16 = _os_log_pack_fill();
-    *v16 = 136446210;
-    *(v16 + 4) = "[NRBabelInterface initWithInstance:]";
+    v15 = _os_log_pack_size();
+    v16 = &handler[-1] - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+    v17 = __error();
+    v18 = _os_log_pack_fill(v16, v15, *v17, &_mh_execute_header, "%{public}s [super init] failed");
+    *v18 = 136446210;
+    *(v18 + 4) = "[NRBabelInterface initWithInstance:]";
     sub_1000CB9A8();
     _NRLogAbortWithPack();
   }
@@ -115,10 +115,10 @@ LABEL_7:
   handler[1] = 3221225472;
   handler[2] = sub_1000CBEE4;
   handler[3] = &unk_1001FC730;
-  objc_copyWeak(&v18, &location);
+  objc_copyWeak(&v21, &location);
   dispatch_source_set_event_handler(v10, handler);
   dispatch_activate(v6->_outgoingPublicHelloTimer);
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
 
   return v6;

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -301,7 +302,6 @@ LABEL_23:
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
@@ -313,44 +313,41 @@ LABEL_23:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestampStart = self->_timestampStart;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if (has)
   {
-    timestampEnd = self->_timestampEnd;
     PBDataWriterWriteUint64Field();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v9 = self->_metrics;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v10)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_metrics;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v11 = v10;
-    v12 = *v16;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v12)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v15 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v11);
+    while (v8);
   }
 }
 
@@ -527,6 +524,49 @@ LABEL_13:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string > 200)
+  {
+    if (string == 201)
+    {
+      v4 = @"cloudkit_client";
+    }
+
+    else
+    {
+      if (string != 301)
+      {
+LABEL_12:
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"server";
+    }
+  }
+
+  else
+  {
+    if (string)
+    {
+      if (string == 101)
+      {
+        v4 = @"cloudkit";
+
+        return v4;
+      }
+
+      goto LABEL_12;
+    }
+
+    v4 = @"none";
   }
 
   return v4;

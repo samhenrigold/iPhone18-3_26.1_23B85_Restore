@@ -18,7 +18,7 @@
 
 - (void)_generateTitleAndSubtitleWithResult:(id)result
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   if ([(NSSet *)self->_activityLabels containsObject:@"PersonActionPlayingOnASwing"]&& [(NSSet *)self->_activityLabels containsObject:@"PersonActionPlayingOnASlide"])
   {
@@ -34,9 +34,9 @@
 
   if ([(NSSet *)self->_activityLabels count]== 1)
   {
-    v19 = MEMORY[0x277CCACA8];
+    v18 = MEMORY[0x277CCACA8];
     anyObject = [(NSSet *)self->_activityLabels anyObject];
-    v5 = [v19 stringWithFormat:@"PGChildActivityMemoryTitle%@", anyObject];
+    v5 = [v18 stringWithFormat:@"PGChildActivityMemoryTitle%@", anyObject];
 
     if (v5)
     {
@@ -64,7 +64,6 @@ LABEL_7:
 
         v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
         v10 = [v9 localizedStringForKey:v8 value:v8 table:@"Localizable"];
-        childName = self->_childName;
         v11 = PFStringWithValidatedFormat();
 
         v5 = v8;
@@ -91,17 +90,15 @@ LABEL_7:
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
     activityLabels = self->_activityLabels;
-    v23 = loggingConnection;
+    v22 = loggingConnection;
     allObjects = [(NSSet *)activityLabels allObjects];
     *buf = 138412290;
-    v27 = allObjects;
-    _os_log_error_impl(&dword_22F0FC000, v23, OS_LOG_TYPE_ERROR, "[PGChildActivityMemoryTitleGenerator] Invalid Combination:%@", buf, 0xCu);
+    v25 = allObjects;
+    _os_log_error_impl(&dword_22F0FC000, v22, OS_LOG_TYPE_ERROR, "[PGChildActivityMemoryTitleGenerator] Invalid Combination:%@", buf, 0xCu);
   }
 
   resultCopy[2](resultCopy, 0, 0);
 LABEL_14:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (PGChildActivityMemoryTitleGenerator)initWithMomentNodes:(id)nodes activityLabels:(id)labels childName:(id)name titleGenerationContext:(id)context loggingConnection:(id)connection

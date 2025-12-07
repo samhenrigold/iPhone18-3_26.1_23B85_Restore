@@ -22,8 +22,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11[0] = @"originDevice";
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10[0] = @"originDevice";
   originDevice = [(INListShortcutsIntent *)self originDevice];
   if ((originDevice - 1) > 6)
   {
@@ -36,8 +36,8 @@
   }
 
   v5 = v4;
-  v11[1] = @"appTitles";
-  v12[0] = v5;
+  v10[1] = @"appTitles";
+  v11[0] = v5;
   appTitles = [(INListShortcutsIntent *)self appTitles];
   null = appTitles;
   if (!appTitles)
@@ -45,13 +45,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = null;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (!appTitles)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

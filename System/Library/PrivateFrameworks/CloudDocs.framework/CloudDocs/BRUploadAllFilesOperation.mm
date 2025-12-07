@@ -29,16 +29,15 @@
 
 - (void)main
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] wait for uploading all files%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] wait for uploading all files%@", &v2, 0xCu);
 }
 
 - (void)finishWithResult:(id)result error:(id)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   resultCopy = result;
   userInfo = [errorCopy userInfo];
@@ -51,20 +50,20 @@
 
   v10 = +[BRContainer allContainersByContainerID];
   allKeys = [dictionary allKeys];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __52__BRUploadAllFilesOperation_finishWithResult_error___block_invoke;
-  v22[3] = &unk_1E7A153C0;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __52__BRUploadAllFilesOperation_finishWithResult_error___block_invoke;
+  v21[3] = &unk_1E7A153C0;
   v12 = v10;
-  v23 = v12;
-  v13 = [allKeys br_copy_if:v22];
+  v22 = v12;
+  v13 = [allKeys br_copy_if:v21];
 
   if ([v13 count])
   {
     v14 = MEMORY[0x1E696ABC0];
-    v24 = @"BRErrorAffectedContainersKey";
-    v25[0] = v13;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = @"BRErrorAffectedContainersKey";
+    v24[0] = v13;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v16 = [v14 errorWithDomain:@"BRCloudDocsErrorDomain" code:1002 userInfo:v15];
 
     errorCopy = v15;
@@ -90,11 +89,9 @@ LABEL_9:
     self->_uploadAllFilesCompletion = 0;
   }
 
-  v21.receiver = self;
-  v21.super_class = BRUploadAllFilesOperation;
-  [(BROperation *)&v21 finishWithResult:resultCopy error:v16];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = BRUploadAllFilesOperation;
+  [(BROperation *)&v20 finishWithResult:resultCopy error:v16];
 }
 
 uint64_t __52__BRUploadAllFilesOperation_finishWithResult_error___block_invoke(uint64_t a1, uint64_t a2)

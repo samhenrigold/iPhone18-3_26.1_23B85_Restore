@@ -59,7 +59,7 @@
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -112,28 +112,26 @@
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKFetchDatabaseChangesOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKFetchDatabaseChangesOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performCKOperation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (ck_log_initialization_predicate != -1)
   {
     dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
@@ -142,26 +140,25 @@
   v3 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v5 = v3;
-    v8 = objc_msgSend_operationID(self, v6, v7);
-    v11 = objc_msgSend_databaseScope(self, v9, v10);
-    v12 = CKDatabaseScopeString(v11);
+    v4 = v3;
+    v7 = objc_msgSend_operationID(self, v5, v6);
+    v10 = objc_msgSend_databaseScope(self, v8, v9);
+    v11 = CKDatabaseScopeString(v10);
     *buf = 138543618;
-    v15 = v8;
-    v16 = 2114;
-    v17 = v12;
-    _os_log_debug_impl(&dword_1883EA000, v5, OS_LOG_TYPE_DEBUG, "Fetching database changes with operation %{public}@ for database scope %{public}@", buf, 0x16u);
+    v14 = v7;
+    v15 = 2114;
+    v16 = v11;
+    _os_log_debug_impl(&dword_1883EA000, v4, OS_LOG_TYPE_DEBUG, "Fetching database changes with operation %{public}@ for database scope %{public}@", buf, 0x16u);
   }
 
-  v13.receiver = self;
-  v13.super_class = CKFetchDatabaseChangesOperation;
-  [(CKOperation *)&v13 performCKOperation];
-  v4 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = CKFetchDatabaseChangesOperation;
+  [(CKOperation *)&v12 performCKOperation];
 }
 
 - (void)changeTokenUpdatedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -197,7 +194,7 @@
 
 - (void)fetchDatabaseChangesCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -248,7 +245,7 @@
 - (void)setRecordZoneWithIDChangedBlock:(void *)recordZoneWithIDChangedBlock
 {
   v6 = recordZoneWithIDChangedBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -279,7 +276,7 @@ LABEL_9:
 
 - (void)recordZoneWithIDChangedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -316,7 +313,7 @@ LABEL_9:
 - (void)setRecordZoneWithIDWasDeletedBlock:(void *)recordZoneWithIDWasDeletedBlock
 {
   v6 = recordZoneWithIDWasDeletedBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -347,7 +344,7 @@ LABEL_9:
 
 - (void)recordZoneWithIDWasDeletedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -384,7 +381,7 @@ LABEL_9:
 - (void)setRecordZoneWithIDWasPurgedBlock:(void *)recordZoneWithIDWasPurgedBlock
 {
   v6 = recordZoneWithIDWasPurgedBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -415,7 +412,7 @@ LABEL_9:
 
 - (void)recordZoneWithIDWasPurgedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -452,7 +449,7 @@ LABEL_9:
 - (void)setChangeTokenUpdatedBlock:(void *)changeTokenUpdatedBlock
 {
   v6 = changeTokenUpdatedBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -484,7 +481,7 @@ LABEL_9:
 - (void)setFetchDatabaseChangesCompletionBlock:(void *)fetchDatabaseChangesCompletionBlock
 {
   v6 = fetchDatabaseChangesCompletionBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -516,7 +513,7 @@ LABEL_9:
 - (void)setRecordZoneWithIDWasDeletedDueToUserEncryptedDataResetBlock:(void *)recordZoneWithIDWasDeletedDueToUserEncryptedDataResetBlock
 {
   v6 = recordZoneWithIDWasDeletedDueToUserEncryptedDataResetBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -547,7 +544,7 @@ LABEL_9:
 
 - (void)recordZoneWithIDWasDeletedDueToUserEncryptedDataResetBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -584,7 +581,7 @@ LABEL_9:
 - (void)setHierarchicalRecordZoneWithIDChangedBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -615,7 +612,7 @@ LABEL_9:
 
 - (id)hierarchicalRecordZoneWithIDChangedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -733,7 +730,7 @@ LABEL_9:
 
 - (void)handleChangeForRecordZoneID:(id)d parentZoneID:(id)iD
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   if (self)
@@ -778,9 +775,9 @@ LABEL_9:
 
     if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
-      v51 = 138412290;
-      v52 = dCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v16, OS_SIGNPOST_EVENT, v21, "CKFetchDatabaseChangesOperation", "Record zone %@ changed", &v51, 0xCu);
+      v50 = 138412290;
+      v51 = dCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v16, OS_SIGNPOST_EVENT, v21, "CKFetchDatabaseChangesOperation", "Record zone %@ changed", &v50, 0xCu);
     }
   }
 
@@ -823,15 +820,15 @@ LABEL_9:
     v40 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v43 = v40;
-      v46 = objc_msgSend_operationID(self, v44, v45);
-      v51 = 138543874;
-      v52 = v46;
-      v53 = 2112;
-      v54 = dCopy;
-      v55 = 2112;
-      v56 = iDCopy;
-      _os_log_debug_impl(&dword_1883EA000, v43, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a hierarchical changed zone with ID %@ with parent zone ID %@", &v51, 0x20u);
+      v42 = v40;
+      v45 = objc_msgSend_operationID(self, v43, v44);
+      v50 = 138543874;
+      v51 = v45;
+      v52 = 2112;
+      v53 = dCopy;
+      v54 = 2112;
+      v55 = iDCopy;
+      _os_log_debug_impl(&dword_1883EA000, v42, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a hierarchical changed zone with ID %@ with parent zone ID %@", &v50, 0x20u);
     }
 
     v30[2](v30, dCopy, iDCopy);
@@ -847,24 +844,22 @@ LABEL_9:
     v41 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v47 = v41;
-      v50 = objc_msgSend_operationID(self, v48, v49);
-      v51 = 138543618;
-      v52 = v50;
-      v53 = 2112;
-      v54 = dCopy;
-      _os_log_debug_impl(&dword_1883EA000, v47, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a changed zone with ID %@", &v51, 0x16u);
+      v46 = v41;
+      v49 = objc_msgSend_operationID(self, v47, v48);
+      v50 = 138543618;
+      v51 = v49;
+      v52 = 2112;
+      v53 = dCopy;
+      _os_log_debug_impl(&dword_1883EA000, v46, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a changed zone with ID %@", &v50, 0x16u);
     }
 
     v38[2](v38, dCopy);
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleDeleteForRecordZoneID:(id)d
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (self)
   {
@@ -908,9 +903,9 @@ LABEL_9:
 
     if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
-      v35 = 138412290;
-      v36 = dCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v13, OS_SIGNPOST_EVENT, v18, "CKFetchDatabaseChangesOperation", "Record zone %@ deleted", &v35, 0xCu);
+      v34 = 138412290;
+      v35 = dCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v13, OS_SIGNPOST_EVENT, v18, "CKFetchDatabaseChangesOperation", "Record zone %@ deleted", &v34, 0xCu);
     }
   }
 
@@ -940,24 +935,22 @@ LABEL_9:
     v29 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v31 = v29;
-      v34 = objc_msgSend_operationID(self, v32, v33);
-      v35 = 138543618;
-      v36 = v34;
-      v37 = 2112;
-      v38 = dCopy;
-      _os_log_debug_impl(&dword_1883EA000, v31, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a deleted zone with ID %@", &v35, 0x16u);
+      v30 = v29;
+      v33 = objc_msgSend_operationID(self, v31, v32);
+      v34 = 138543618;
+      v35 = v33;
+      v36 = 2112;
+      v37 = dCopy;
+      _os_log_debug_impl(&dword_1883EA000, v30, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a deleted zone with ID %@", &v34, 0x16u);
     }
 
     v27[2](v27, dCopy);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handlePurgeForRecordZoneID:(id)d
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (self)
   {
@@ -1001,9 +994,9 @@ LABEL_9:
 
     if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
-      v51 = 138412290;
-      v52 = dCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v13, OS_SIGNPOST_EVENT, v18, "CKFetchDatabaseChangesOperation", "Record zone %@ purged", &v51, 0xCu);
+      v50 = 138412290;
+      v51 = dCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v13, OS_SIGNPOST_EVENT, v18, "CKFetchDatabaseChangesOperation", "Record zone %@ purged", &v50, 0xCu);
     }
   }
 
@@ -1050,11 +1043,11 @@ LABEL_9:
     {
       v40 = v37;
       v43 = objc_msgSend_operationID(self, v41, v42);
-      v51 = 138543618;
-      v52 = v43;
-      v53 = 2112;
-      v54 = dCopy;
-      _os_log_debug_impl(&dword_1883EA000, v40, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a purged zone with ID %@", &v51, 0x16u);
+      v50 = 138543618;
+      v51 = v43;
+      v52 = 2112;
+      v53 = dCopy;
+      _os_log_debug_impl(&dword_1883EA000, v40, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a purged zone with ID %@", &v50, 0x16u);
 
       v39 = v27;
     }
@@ -1076,13 +1069,13 @@ LABEL_28:
     v39 = v35;
     if (v45)
     {
-      v47 = v44;
-      v50 = objc_msgSend_operationID(self, v48, v49);
-      v51 = 138543618;
-      v52 = v50;
-      v53 = 2112;
-      v54 = dCopy;
-      _os_log_debug_impl(&dword_1883EA000, v47, OS_LOG_TYPE_DEBUG, "Operation %{public}@ making a delete callback about a purged zone with ID %@", &v51, 0x16u);
+      v46 = v44;
+      v49 = objc_msgSend_operationID(self, v47, v48);
+      v50 = 138543618;
+      v51 = v49;
+      v52 = 2112;
+      v53 = dCopy;
+      _os_log_debug_impl(&dword_1883EA000, v46, OS_LOG_TYPE_DEBUG, "Operation %{public}@ making a delete callback about a purged zone with ID %@", &v50, 0x16u);
 
       v39 = v35;
     }
@@ -1091,13 +1084,11 @@ LABEL_28:
   }
 
 LABEL_29:
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleEncryptedDataResetForRecordZoneID:(id)d
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (self)
   {
@@ -1141,9 +1132,9 @@ LABEL_29:
 
     if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
-      v51 = 138412290;
-      v52 = dCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v13, OS_SIGNPOST_EVENT, v18, "CKFetchDatabaseChangesOperation", "Record zone %@ encrypted data reset", &v51, 0xCu);
+      v50 = 138412290;
+      v51 = dCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v13, OS_SIGNPOST_EVENT, v18, "CKFetchDatabaseChangesOperation", "Record zone %@ encrypted data reset", &v50, 0xCu);
     }
   }
 
@@ -1190,11 +1181,11 @@ LABEL_29:
     {
       v40 = v37;
       v43 = objc_msgSend_operationID(self, v41, v42);
-      v51 = 138543618;
-      v52 = v43;
-      v53 = 2112;
-      v54 = dCopy;
-      _os_log_debug_impl(&dword_1883EA000, v40, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a zone deleted due to encrypted data reset with ID %@", &v51, 0x16u);
+      v50 = 138543618;
+      v51 = v43;
+      v52 = 2112;
+      v53 = dCopy;
+      _os_log_debug_impl(&dword_1883EA000, v40, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a zone deleted due to encrypted data reset with ID %@", &v50, 0x16u);
 
       v39 = v27;
     }
@@ -1216,13 +1207,13 @@ LABEL_28:
     v39 = v35;
     if (v45)
     {
-      v47 = v44;
-      v50 = objc_msgSend_operationID(self, v48, v49);
-      v51 = 138543618;
-      v52 = v50;
-      v53 = 2112;
-      v54 = dCopy;
-      _os_log_debug_impl(&dword_1883EA000, v47, OS_LOG_TYPE_DEBUG, "Operation %{public}@ making a delete callback about a zone deleted due to encrypted data reset with ID %@", &v51, 0x16u);
+      v46 = v44;
+      v49 = objc_msgSend_operationID(self, v47, v48);
+      v50 = 138543618;
+      v51 = v49;
+      v52 = 2112;
+      v53 = dCopy;
+      _os_log_debug_impl(&dword_1883EA000, v46, OS_LOG_TYPE_DEBUG, "Operation %{public}@ making a delete callback about a zone deleted due to encrypted data reset with ID %@", &v50, 0x16u);
 
       v39 = v35;
     }
@@ -1231,13 +1222,11 @@ LABEL_28:
   }
 
 LABEL_29:
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleChangeSetCompletionWithServerChangeToken:(id)token databaseChangesStatus:(int64_t)status error:(id)error reply:(id)reply
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   replyCopy = reply;
   v14 = objc_msgSend_CKClientSuitableError(error, v12, v13);
@@ -1291,10 +1280,10 @@ LABEL_29:
       goto LABEL_21;
     }
 
-    *v69 = 138412546;
-    *&v69[4] = tokenCopy;
-    *&v69[12] = 2112;
-    *&v69[14] = v14;
+    *v68 = 138412546;
+    *&v68[4] = tokenCopy;
+    *&v68[12] = 2112;
+    *&v68[14] = v14;
     v29 = "Server change token updated to %@ with error: %@";
     v30 = v23;
     v31 = v28;
@@ -1335,14 +1324,14 @@ LABEL_29:
 
   if ((v41 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
   {
-    *v69 = 138412290;
-    *&v69[4] = tokenCopy;
+    *v68 = 138412290;
+    *&v68[4] = tokenCopy;
     v29 = "Server change token updated to %@";
     v30 = v23;
     v31 = v41;
     v32 = 12;
 LABEL_20:
-    _os_signpost_emit_with_name_impl(&dword_1883EA000, v30, OS_SIGNPOST_EVENT, v31, "CKFetchDatabaseChangesOperation", v29, v69, v32);
+    _os_signpost_emit_with_name_impl(&dword_1883EA000, v30, OS_SIGNPOST_EVENT, v31, "CKFetchDatabaseChangesOperation", v29, v68, v32);
   }
 
 LABEL_21:
@@ -1358,16 +1347,16 @@ LABEL_22:
     v42 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v58 = v42;
-      v61 = objc_msgSend_operationID(self, v59, v60);
-      *v69 = 138543618;
-      *&v69[4] = v61;
-      *&v69[12] = 2048;
-      *&v69[14] = status;
-      _os_log_debug_impl(&dword_1883EA000, v58, OS_LOG_TYPE_DEBUG, "Operation %{public}@ updating databaseChangesStatus to %ld", v69, 0x16u);
+      v57 = v42;
+      v60 = objc_msgSend_operationID(self, v58, v59);
+      *v68 = 138543618;
+      *&v68[4] = v60;
+      *&v68[12] = 2048;
+      *&v68[14] = status;
+      _os_log_debug_impl(&dword_1883EA000, v57, OS_LOG_TYPE_DEBUG, "Operation %{public}@ updating databaseChangesStatus to %ld", v68, 0x16u);
     }
 
-    objc_msgSend_setStatus_(self, v43, status, *v69, *&v69[16], v70);
+    objc_msgSend_setStatus_(self, v43, status, *v68, *&v68[8], v69);
   }
 
   if (tokenCopy)
@@ -1385,16 +1374,16 @@ LABEL_22:
       v47 = ck_log_facility_ck;
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
       {
-        v62 = v47;
-        v65 = objc_msgSend_operationID(self, v63, v64);
-        *v69 = 138543618;
-        *&v69[4] = v65;
-        *&v69[12] = 2114;
-        *&v69[14] = tokenCopy;
-        _os_log_debug_impl(&dword_1883EA000, v62, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a server change token %{public}@", v69, 0x16u);
+        v61 = v47;
+        v64 = objc_msgSend_operationID(self, v62, v63);
+        *v68 = 138543618;
+        *&v68[4] = v64;
+        *&v68[12] = 2114;
+        *&v68[14] = tokenCopy;
+        _os_log_debug_impl(&dword_1883EA000, v61, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about a server change token %{public}@", v68, 0x16u);
       }
 
-      v50 = objc_msgSend_changeTokenUpdatedBlock(self, v48, v49, *v69, *&v69[8]);
+      v50 = objc_msgSend_changeTokenUpdatedBlock(self, v48, v49, *v68, *&v68[8]);
       v50[2](v50, tokenCopy);
       goto LABEL_35;
     }
@@ -1408,18 +1397,18 @@ LABEL_22:
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
       v50 = v51;
-      v68 = objc_msgSend_operationID(self, v66, v67);
-      *v69 = 138543618;
-      *&v69[4] = v68;
-      *&v69[12] = 2114;
-      *&v69[14] = tokenCopy;
-      _os_log_debug_impl(&dword_1883EA000, v50, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received a server change token (%{public}@) but no changeTokenUpdatedBlock has been set.", v69, 0x16u);
+      v67 = objc_msgSend_operationID(self, v65, v66);
+      *v68 = 138543618;
+      *&v68[4] = v67;
+      *&v68[12] = 2114;
+      *&v68[14] = tokenCopy;
+      _os_log_debug_impl(&dword_1883EA000, v50, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received a server change token (%{public}@) but no changeTokenUpdatedBlock has been set.", v68, 0x16u);
 
 LABEL_35:
     }
   }
 
-  if (__sTestOverridesAvailable[0] == 1 && (objc_msgSend_unitTestOverrides(self, v17, v18), v52 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKeyedSubscript_(v52, v53, @"FailMetasyncOperationDueToClientReturnedCancellationError"), v54 = objc_claimAutoreleasedReturnValue(), v54, v52, v54))
+  if (__sTestOverridesAvailable == 1 && (objc_msgSend_unitTestOverrides(self, v17, v18), v52 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKeyedSubscript_(v52, v53, @"FailMetasyncOperationDueToClientReturnedCancellationError"), v54 = objc_claimAutoreleasedReturnValue(), v54, v52, v54))
   {
     v56 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v55, @"CKInternalErrorDomain", 1, @"Cancelling operation for tests");
   }
@@ -1430,13 +1419,11 @@ LABEL_35:
   }
 
   replyCopy[2](replyCopy, v56);
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -1522,13 +1509,13 @@ LABEL_35:
       v41 = ck_log_facility_ck;
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
       {
-        v67 = v41;
-        v70 = objc_msgSend_operationID(self, v68, v69);
+        v66 = v41;
+        v69 = objc_msgSend_operationID(self, v67, v68);
         *buf = 138543618;
-        v80 = v70;
-        v81 = 2112;
-        v82 = v40;
-        _os_log_debug_impl(&dword_1883EA000, v67, OS_LOG_TYPE_DEBUG, "Operation %{public}@ has completed - error:%@", buf, 0x16u);
+        v79 = v69;
+        v80 = 2112;
+        v81 = v40;
+        _os_log_debug_impl(&dword_1883EA000, v66, OS_LOG_TYPE_DEBUG, "Operation %{public}@ has completed - error:%@", buf, 0x16u);
       }
 
       (*(v36 + 2))(v36, 0, 0, v40);
@@ -1544,14 +1531,14 @@ LABEL_35:
       v54 = ck_log_facility_ck;
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
       {
-        v71 = v54;
-        v74 = objc_msgSend_operationID(self, v72, v73);
-        v77 = objc_msgSend_serverChangeToken(self, v75, v76);
+        v70 = v54;
+        v73 = objc_msgSend_operationID(self, v71, v72);
+        v76 = objc_msgSend_serverChangeToken(self, v74, v75);
         *buf = 138543618;
-        v80 = v74;
-        v81 = 2114;
-        v82 = v77;
-        _os_log_debug_impl(&dword_1883EA000, v71, OS_LOG_TYPE_DEBUG, "Operation %{public}@ has completed - server-change-token:%{public}@", buf, 0x16u);
+        v79 = v73;
+        v80 = 2114;
+        v81 = v76;
+        _os_log_debug_impl(&dword_1883EA000, v70, OS_LOG_TYPE_DEBUG, "Operation %{public}@ has completed - server-change-token:%{public}@", buf, 0x16u);
       }
 
       v57 = objc_msgSend_serverChangeToken(self, v55, v56);
@@ -1576,11 +1563,11 @@ LABEL_35:
     v50 = objc_msgSend_serverChangeToken(self, v48, v49);
     v53 = objc_msgSend_CKClientSuitableError(errorCopy, v51, v52);
     *buf = 138543874;
-    v80 = v47;
-    v81 = 2114;
-    v82 = v50;
-    v83 = 2112;
-    v84 = v53;
+    v79 = v47;
+    v80 = 2114;
+    v81 = v50;
+    v82 = 2112;
+    v83 = v53;
     _os_log_debug_impl(&dword_1883EA000, v40, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished but no fetchDatabaseChangesCompletionBlock - server-change-token:%{public}@, error:%@", buf, 0x20u);
 
 LABEL_34:
@@ -1592,16 +1579,14 @@ LABEL_34:
   objc_msgSend_setRecordZoneWithIDWasDeletedDueToUserEncryptedDataResetBlock_(self, v63, 0);
   objc_msgSend_setChangeTokenUpdatedBlock_(self, v64, 0);
   objc_msgSend_setHierarchicalRecordZoneWithIDChangedBlock_(self, v65, 0);
-  v78.receiver = self;
-  v78.super_class = CKFetchDatabaseChangesOperation;
-  [(CKOperation *)&v78 _finishOnCallbackQueueWithError:errorCopy];
-
-  v66 = *MEMORY[0x1E69E9840];
+  v77.receiver = self;
+  v77.super_class = CKFetchDatabaseChangesOperation;
+  [(CKOperation *)&v77 _finishOnCallbackQueueWithError:errorCopy];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -1645,13 +1630,11 @@ LABEL_34:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKFetchDatabaseChangesOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKFetchDatabaseChangesOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (void)applyDaemonCallbackInterfaceTweaks:(id)tweaks

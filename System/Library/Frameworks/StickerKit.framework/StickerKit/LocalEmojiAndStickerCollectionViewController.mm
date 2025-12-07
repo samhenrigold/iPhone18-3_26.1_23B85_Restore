@@ -88,7 +88,7 @@
     if (_hostedWindowScene)
     {
       v8 = _hostedWindowScene;
-      v9 = sub_19A7A657C(v6, 8, 0, 0);
+      v9 = sub_19A7A657C(8, 0, 0, v6);
       [v8 sendAction_];
     }
   }
@@ -183,7 +183,7 @@
     swift_once();
   }
 
-  v5 = type metadata accessor for Signposts.Signpost();
+  v5 = type metadata accessor for Signposts.Signpost(0);
   __swift_project_value_buffer(v5, qword_1EAFDD518);
   return sub_19A7140CC();
 }

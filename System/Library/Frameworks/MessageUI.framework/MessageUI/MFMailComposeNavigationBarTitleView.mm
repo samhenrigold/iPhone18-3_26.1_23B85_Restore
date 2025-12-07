@@ -494,7 +494,7 @@ LABEL_8:
 
 - (void)_updateTrailingBarButtonItemsAlpha
 {
-  if ((MFSolariumFeatureEnabled() & 1) == 0)
+  if ((MFSolariumFeatureEnabled(self, a2) & 1) == 0)
   {
     [(_UINavigationBarTitleView *)self largeTitleHeight];
     if (v3 <= 16.0 && ([(_UINavigationBarTitleView *)self trailingBarAlpha], v4 == 0.0))

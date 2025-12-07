@@ -1,4 +1,5 @@
 @interface SGStructuredEventExtractionModel
++ (id)inputFromTaggedCharacterRanges:(id)ranges usingInputMapping:(id)mapping forModel:(id)model pflTraining:(BOOL)training hasEvent:(BOOL)event;
 + (id)sharedInstance;
 - (BOOL)isSenderSupportedForExtraction:(id)extraction;
 - (BOOL)isSenderSupportedForMLDefaultExtraction:(id)extraction;
@@ -10,6 +11,7 @@
 - (id)gazetteer;
 - (id)inputMapping;
 - (id)loadModel;
+- (id)modelInferences:(id)inferences pflTraining:(BOOL)training hasEvent:(BOOL)event;
 - (id)outputMapping;
 - (id)supportedProviders;
 - (unint64_t)addressComponentThreshold;
@@ -22,13 +24,13 @@
 
 - (id)gazetteer
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [(SGExtractionModel *)self currentModelURLForModelName:@"structuredEventGazetteer"];
   if (v2)
   {
-    v9 = 0;
-    v3 = [objc_alloc(MEMORY[0x277CD89B8]) initWithContentsOfURL:v2 error:&v9];
-    v4 = v9;
+    v8 = 0;
+    v3 = [objc_alloc(MEMORY[0x277CD89B8]) initWithContentsOfURL:v2 error:&v8];
+    v4 = v8;
     if (v3)
     {
       v5 = v3;
@@ -40,7 +42,7 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v11 = v4;
+        v10 = v4;
         _os_log_error_impl(&dword_231E60000, v6, OS_LOG_TYPE_ERROR, "SGPOSTagger: Unable to create gazetteer %@", buf, 0xCu);
       }
     }
@@ -57,8 +59,6 @@
 
     v3 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -231,30 +231,21 @@ LABEL_13:
   extractionCopy = extraction;
   supportedProviders = [(SGStructuredEventExtractionModel *)self supportedProviders];
   v6 = supportedProviders;
-  if (!supportedProviders)
+  v10 = 0;
+  if (supportedProviders)
   {
-    goto LABEL_5;
-  }
+    v7 = [supportedProviders objectForKeyedSubscript:@"mlHybridExtractionSenders"];
 
-  v7 = [supportedProviders objectForKeyedSubscript:@"mlHybridExtractionSenders"];
+    if (v7)
+    {
+      v8 = [v6 objectForKeyedSubscript:@"mlHybridExtractionSenders"];
+      v9 = [v8 objectForKeyedSubscript:extractionCopy];
 
-  if (!v7)
-  {
-    goto LABEL_5;
-  }
-
-  v8 = [v6 objectForKeyedSubscript:@"mlHybridExtractionSenders"];
-  v9 = [v8 objectForKeyedSubscript:extractionCopy];
-
-  if (v9)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-LABEL_5:
-    v10 = 0;
+      if (v9)
+      {
+        v10 = 1;
+      }
+    }
   }
 
   return v10;
@@ -265,30 +256,21 @@ LABEL_5:
   trainingCopy = training;
   supportedProviders = [(SGStructuredEventExtractionModel *)self supportedProviders];
   v6 = supportedProviders;
-  if (!supportedProviders)
+  v10 = 0;
+  if (supportedProviders)
   {
-    goto LABEL_5;
-  }
+    v7 = [supportedProviders objectForKeyedSubscript:@"schemaOrgSenders"];
 
-  v7 = [supportedProviders objectForKeyedSubscript:@"schemaOrgSenders"];
+    if (v7)
+    {
+      v8 = [v6 objectForKeyedSubscript:@"schemaOrgSenders"];
+      v9 = [v8 objectForKeyedSubscript:trainingCopy];
 
-  if (!v7)
-  {
-    goto LABEL_5;
-  }
-
-  v8 = [v6 objectForKeyedSubscript:@"schemaOrgSenders"];
-  v9 = [v8 objectForKeyedSubscript:trainingCopy];
-
-  if (v9)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-LABEL_5:
-    v10 = 0;
+      if (v9)
+      {
+        v10 = 1;
+      }
+    }
   }
 
   return v10;
@@ -299,30 +281,21 @@ LABEL_5:
   extractionCopy = extraction;
   supportedProviders = [(SGStructuredEventExtractionModel *)self supportedProviders];
   v6 = supportedProviders;
-  if (!supportedProviders)
+  v10 = 0;
+  if (supportedProviders)
   {
-    goto LABEL_5;
-  }
+    v7 = [supportedProviders objectForKeyedSubscript:@"mlDefaultExtractionSenders"];
 
-  v7 = [supportedProviders objectForKeyedSubscript:@"mlDefaultExtractionSenders"];
+    if (v7)
+    {
+      v8 = [v6 objectForKeyedSubscript:@"mlDefaultExtractionSenders"];
+      v9 = [v8 objectForKeyedSubscript:extractionCopy];
 
-  if (!v7)
-  {
-    goto LABEL_5;
-  }
-
-  v8 = [v6 objectForKeyedSubscript:@"mlDefaultExtractionSenders"];
-  v9 = [v8 objectForKeyedSubscript:extractionCopy];
-
-  if (v9)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-LABEL_5:
-    v10 = 0;
+      if (v9)
+      {
+        v10 = 1;
+      }
+    }
   }
 
   return v10;
@@ -333,30 +306,21 @@ LABEL_5:
   extractionCopy = extraction;
   supportedProviders = [(SGStructuredEventExtractionModel *)self supportedProviders];
   v6 = supportedProviders;
-  if (!supportedProviders)
+  v10 = 0;
+  if (supportedProviders)
   {
-    goto LABEL_5;
-  }
+    v7 = [supportedProviders objectForKeyedSubscript:@"shadowSenders"];
 
-  v7 = [supportedProviders objectForKeyedSubscript:@"shadowSenders"];
+    if (v7)
+    {
+      v8 = [v6 objectForKeyedSubscript:@"shadowSenders"];
+      v9 = [v8 objectForKeyedSubscript:extractionCopy];
 
-  if (!v7)
-  {
-    goto LABEL_5;
-  }
-
-  v8 = [v6 objectForKeyedSubscript:@"shadowSenders"];
-  v9 = [v8 objectForKeyedSubscript:extractionCopy];
-
-  if (v9)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-LABEL_5:
-    v10 = 0;
+      if (v9)
+      {
+        v10 = 1;
+      }
+    }
   }
 
   return v10;
@@ -367,30 +331,21 @@ LABEL_5:
   extractionCopy = extraction;
   supportedProviders = [(SGStructuredEventExtractionModel *)self supportedProviders];
   v6 = supportedProviders;
-  if (!supportedProviders)
+  v10 = 0;
+  if (supportedProviders)
   {
-    goto LABEL_5;
-  }
+    v7 = [supportedProviders objectForKeyedSubscript:@"extractionSenders"];
 
-  v7 = [supportedProviders objectForKeyedSubscript:@"extractionSenders"];
+    if (v7)
+    {
+      v8 = [v6 objectForKeyedSubscript:@"extractionSenders"];
+      v9 = [v8 objectForKeyedSubscript:extractionCopy];
 
-  if (!v7)
-  {
-    goto LABEL_5;
-  }
-
-  v8 = [v6 objectForKeyedSubscript:@"extractionSenders"];
-  v9 = [v8 objectForKeyedSubscript:extractionCopy];
-
-  if (v9)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-LABEL_5:
-    v10 = 0;
+      if (v9)
+      {
+        v10 = 1;
+      }
+    }
   }
 
   return v10;
@@ -414,7 +369,7 @@ LABEL_5:
 
 - (id)loadModel
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 setComputeUnits:0];
   v4 = +[SGStructuredEventTrialClientWrapper sharedInstance];
@@ -426,7 +381,7 @@ LABEL_5:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v18 = v6;
+      v17 = v6;
       _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_INFO, "SGStructuredEventExtractionModel: Loading model from trial override at path: %@", buf, 0xCu);
     }
 
@@ -441,9 +396,9 @@ LABEL_5:
   v9 = v8;
   if (v8)
   {
-    v16 = 0;
-    v10 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v8 configuration:v3 error:&v16];
-    v11 = v16;
+    v15 = 0;
+    v10 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v8 configuration:v3 error:&v15];
+    v11 = v15;
     if (v10)
     {
       v12 = v10;
@@ -455,7 +410,7 @@ LABEL_5:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v11;
+        v17 = v11;
         _os_log_error_impl(&dword_231E60000, v13, OS_LOG_TYPE_ERROR, "Unable to load model from URL: %@", buf, 0xCu);
       }
     }
@@ -467,9 +422,132 @@ LABEL_5:
     v10 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v10;
+}
+
+- (id)modelInferences:(id)inferences pflTraining:(BOOL)training hasEvent:(BOOL)event
+{
+  eventCopy = event;
+  trainingCopy = training;
+  v32 = *MEMORY[0x277D85DE8];
+  inferencesCopy = inferences;
+  if (self->_inputMapping && self->_outputMapping)
+  {
+    v29 = 0;
+    *buf = @"Structured Event model inference";
+    v9 = mach_absolute_time();
+    v28 = v9;
+    v10 = sgEventsLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    {
+      *v30 = 0;
+      _os_log_debug_impl(&dword_231E60000, v10, OS_LOG_TYPE_DEBUG, "Preparing Structured Event model inference", v30, 2u);
+    }
+
+    loadModel = [(SGStructuredEventExtractionModel *)self loadModel];
+    if (loadModel)
+    {
+      v12 = [objc_opt_class() inputFromTaggedCharacterRanges:inferencesCopy usingInputMapping:self->_inputMapping forModel:loadModel pflTraining:trainingCopy hasEvent:eventCopy];
+      if (v12)
+      {
+        v26 = 0;
+        v13 = [loadModel predictionFromFeatures:v12 error:&v26];
+        v14 = v26;
+        if (v13)
+        {
+          v15 = [[SGExtractionModelCoreMLFeatureWrapper alloc] initWithFeatureProvider:v13];
+        }
+
+        else
+        {
+          v18 = sgEventsLogHandle();
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          {
+            *v30 = 138412290;
+            v31 = *&v14;
+            _os_log_error_impl(&dword_231E60000, v18, OS_LOG_TYPE_ERROR, "Model inference failed: %@", v30, 0xCu);
+          }
+
+          v15 = 0;
+        }
+
+        v19 = sgEventsLogHandle();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        {
+          v24 = mach_absolute_time();
+          v25 = SGMachTimeToNanoseconds(v24 - v9);
+          *v30 = 134217984;
+          v31 = v25 * 0.000000001;
+          _os_log_debug_impl(&dword_231E60000, v19, OS_LOG_TYPE_DEBUG, "Model inference done in %f", v30, 0xCu);
+        }
+
+        if (v15)
+        {
+          v20 = [objc_opt_class() modelOutputFromOutputMapping:self->_outputMapping modelOutput:v15 modelInput:v12];
+          v21 = v20;
+          v22 = MEMORY[0x277CBEC10];
+          if (v20)
+          {
+            v22 = v20;
+          }
+
+          v17 = v22;
+        }
+
+        else
+        {
+          v21 = sgEventsLogHandle();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          {
+            *v30 = 0;
+            _os_log_error_impl(&dword_231E60000, v21, OS_LOG_TYPE_ERROR, "Unable to convert to instantiate SGExtractionModelCoreMLFeatureWrapper", v30, 2u);
+          }
+
+          v17 = MEMORY[0x277CBEC10];
+        }
+      }
+
+      else
+      {
+        v15 = sgEventsLogHandle();
+        if (os_log_type_enabled(&v15->super, OS_LOG_TYPE_ERROR))
+        {
+          *v30 = 0;
+          _os_log_error_impl(&dword_231E60000, &v15->super, OS_LOG_TYPE_ERROR, "Model input feature construction failed.", v30, 2u);
+        }
+
+        v17 = MEMORY[0x277CBEC10];
+      }
+    }
+
+    else
+    {
+      v12 = sgEventsLogHandle();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        *v30 = 0;
+        _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "SGStructuredEventExtractionModel: Model initialization failed", v30, 2u);
+      }
+
+      v17 = MEMORY[0x277CBEC10];
+    }
+
+    SGRecordMeasurementState(buf);
+  }
+
+  else
+  {
+    v16 = sgEventsLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_231E60000, v16, OS_LOG_TYPE_ERROR, "SGStructuredEventExtractionModel: No input or output mapping", buf, 2u);
+    }
+
+    v17 = MEMORY[0x277CBEC10];
+  }
+
+  return v17;
 }
 
 - (void)updateAll
@@ -515,6 +593,28 @@ LABEL_5:
   }
 
   return v3;
+}
+
++ (id)inputFromTaggedCharacterRanges:(id)ranges usingInputMapping:(id)mapping forModel:(id)model pflTraining:(BOOL)training hasEvent:(BOOL)event
+{
+  eventCopy = event;
+  trainingCopy = training;
+  modelCopy = model;
+  mappingCopy = mapping;
+  rangesCopy = ranges;
+  v14 = [objc_opt_class() inputDictFromTaggedCharacterRanges:rangesCopy usingTokenMapping:mappingCopy forModel:modelCopy pflTraining:trainingCopy hasEvent:eventCopy];
+
+  if (v14)
+  {
+    v15 = [[SGExtractionModelCoreMLFeatureWrapper alloc] initWithFeatureDict:v14];
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  return v15;
 }
 
 + (id)sharedInstance

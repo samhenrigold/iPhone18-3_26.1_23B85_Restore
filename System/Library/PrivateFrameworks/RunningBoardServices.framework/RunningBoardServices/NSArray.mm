@@ -32,7 +32,7 @@
 
 void __48__NSArray_RunningBoard__elementsToString_debug___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v26 = a2;
+  v24 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -44,7 +44,7 @@ void __48__NSArray_RunningBoard__elementsToString_debug___block_invoke(uint64_t 
     }
 
     v7 = &_indentPrefix_tabs[8 - v6];
-    v8 = v26;
+    v8 = v24;
     [v5 appendFormat:@"%s%lu:{\n", v7, a3];
     v9 = *(*(*(a1 + 32) + 8) + 40);
     v10 = [v8 entriesToStringWithIndent:(*(a1 + 40) + 1) debug:*(a1 + 44)];
@@ -56,7 +56,7 @@ void __48__NSArray_RunningBoard__elementsToString_debug___block_invoke(uint64_t 
       v11 = 8;
     }
 
-    [*(*(*(a1 + 32) + 8) + 40) appendFormat:@"%s}\n", &_indentPrefix_tabs[8 - v11], v23, v25];
+    [*(*(*(a1 + 32) + 8) + 40) appendFormat:@"%s}\n", &_indentPrefix_tabs[8 - v11], v21, v23];
   }
 
   else
@@ -73,32 +73,30 @@ void __48__NSArray_RunningBoard__elementsToString_debug___block_invoke(uint64_t 
     v15 = &_indentPrefix_tabs[8 - v14];
     if (isKindOfClass)
     {
-      v16 = v26;
+      v16 = v24;
       [v13 appendFormat:@"%s%lu:[\n", v15, a3];
       v17 = *(*(*(a1 + 32) + 8) + 40);
-      v18 = *(a1 + 40);
-      v19 = *(a1 + 44);
-      v20 = [NSArray elementsToString:v16 debug:?];
+      v18 = [(NSArray *)v16 elementsToString:*(a1 + 44) debug:?];
 
-      [v17 appendFormat:@"%@", v20];
-      v21 = *(a1 + 40);
-      if (v21 >= 8)
+      [v17 appendFormat:@"%@", v18];
+      v19 = *(a1 + 40);
+      if (v19 >= 8)
       {
-        v21 = 8;
+        v19 = 8;
       }
 
-      [*(*(*(a1 + 32) + 8) + 40) appendFormat:@"%s]\n", &_indentPrefix_tabs[8 - v21], v24, v25];
+      [*(*(*(a1 + 32) + 8) + 40) appendFormat:@"%s]\n", &_indentPrefix_tabs[8 - v19], v22, v23];
     }
 
     else if (*(a1 + 44) == 1)
     {
-      [v13 appendFormat:@"%s%lu:%@\n", v15, a3, v26];
+      [v13 appendFormat:@"%s%lu:%@\n", v15, a3, v24];
     }
 
     else
     {
-      v22 = [v26 debugDescription];
-      [v13 appendFormat:@"%s%lu:%@\n", v15, a3, v22];
+      v20 = [v24 debugDescription];
+      [v13 appendFormat:@"%s%lu:%@\n", v15, a3, v20];
     }
   }
 }

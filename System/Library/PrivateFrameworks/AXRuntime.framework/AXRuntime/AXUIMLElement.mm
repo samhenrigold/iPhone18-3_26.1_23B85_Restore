@@ -1828,10 +1828,10 @@ uint64_t __35__AXUIMLElement__currentMLElements__block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-intptr_t __35__AXUIMLElement__currentMLElements__block_invoke_350(uint64_t a1)
+intptr_t __35__AXUIMLElement__currentMLElements__block_invoke_350(void *a1)
 {
-  [objc_opt_class() _queue_createMLElements:*(a1 + 40) postDelegateCallback:1];
-  v2 = *(a1 + 48);
+  [objc_opt_class() _queue_createMLElements:a1[5] postDelegateCallback:1];
+  v2 = a1[6];
 
   return dispatch_semaphore_signal(v2);
 }
@@ -2172,7 +2172,7 @@ LABEL_15:
     [defaultOptions setIsRTL:{objc_msgSend(elementsCopy, "BOOLWithAXAttribute:", 3066)}];
     [defaultOptions setOrientation:{objc_msgSend(self, "_interfaceOrientationForElement:", elementsCopy)}];
     memset(v155, 0, 40);
-    [self _windowContextInformation:elementsCopy];
+    objc_msgSend__windowContextInformation_(self);
     [defaultOptions setFullRect:{*(v155 + 1), v155[1], *&v155[2]}];
     [defaultOptions setIncludedLayerContextIDs:*&v155[0]];
     [defaultOptions setPreserveInputImageSize:1];
@@ -2212,7 +2212,7 @@ LABEL_15:
     v124 = sharedInstance;
     if (sharedInstance)
     {
-      [sharedInstance processFeatures:defaultOptions];
+      objc_msgSend_processFeatures_(sharedInstance);
       sharedInstance = *buf;
     }
 
@@ -3469,15 +3469,16 @@ void __81__AXUIMLElement__simulateScrollAction_withScreenDistanceFactor_forVisib
   {
     if ([EquivalenceToken isEqualToData:*(a1 + 32)])
     {
+      v1 = kAXPageScrollFailed[0];
 
-      AXPushNotificationToSystemForBroadcast();
+      AXPushNotificationToSystemForBroadcast(1009, 0, v1);
     }
 
     else
     {
-      v1 = [AXAttributedString axAttributedStringWithString:@" "];
-      [v1 setAttribute:*MEMORY[0x1E695E4D0] forKey:kAXPageScrollShouldSpeakElement[0]];
-      AXPushNotificationToSystemForBroadcast();
+      v2 = [AXAttributedString axAttributedStringWithString:@" "];
+      [v2 setAttribute:*MEMORY[0x1E695E4D0] forKey:kAXPageScrollShouldSpeakElement[0]];
+      AXPushNotificationToSystemForBroadcast(1009, 0, v2);
     }
   }
 }

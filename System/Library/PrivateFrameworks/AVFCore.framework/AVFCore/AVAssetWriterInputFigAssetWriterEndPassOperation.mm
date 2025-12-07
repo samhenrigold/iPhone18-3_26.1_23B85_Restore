@@ -93,7 +93,7 @@ LABEL_3:
 
     else
     {
-      v6 = -12782;
+      v6 = 4294954514;
     }
 
     [(AVOperation *)self markAsFailedWithError:AVLocalizedErrorWithUnderlyingOSStatus(v6, 0)];

@@ -206,13 +206,13 @@
 
 + (id)getDictionaryForData:(id)data error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (dataCopy)
   {
-    v14 = 0;
-    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v14];
-    v7 = v14;
+    v13 = 0;
+    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v13];
+    v7 = v13;
     if (v7)
     {
       goto LABEL_10;
@@ -230,7 +230,7 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v16 = v6;
+      v15 = v6;
       _os_log_impl(&dword_22D8C5000, v8, OS_LOG_TYPE_INFO, "resource data dictionary , %@", buf, 0xCu);
     }
 
@@ -261,8 +261,6 @@ LABEL_10:
   }
 
 LABEL_15:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -451,7 +449,7 @@ LABEL_13:
 
 + (id)getDedupeKeyForResourceData:(id)data type:(unint64_t)type error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (!dataCopy)
   {
@@ -474,9 +472,9 @@ LABEL_13:
     goto LABEL_6;
   }
 
-  v32 = 0;
-  v9 = [MOResource getDictionaryForData:dataCopy error:&v32];
-  v10 = v32;
+  v31 = 0;
+  v9 = [MOResource getDictionaryForData:dataCopy error:&v31];
+  v10 = v31;
   if (v10 || ![v9 count])
   {
     if (error)
@@ -513,26 +511,26 @@ LABEL_18:
         if ([allKeys2 containsObject:@"MOActivityMetaDataKeyStartDate"])
         {
           allKeys3 = [v9 allKeys];
-          v18 = [allKeys3 containsObject:@"MOActivityMetaDataKeyEndDate"];
+          v17 = [allKeys3 containsObject:@"MOActivityMetaDataKeyEndDate"];
 
-          if (v18)
+          if (v17)
           {
             type = [MEMORY[0x277CBEB38] dictionary];
-            v19 = [v9 objectForKeyedSubscript:@"MOActivityMetaDataMotionType"];
-            [type setObject:v19 forKey:@"MOActivityMetaDataMotionType"];
+            v18 = [v9 objectForKeyedSubscript:@"MOActivityMetaDataMotionType"];
+            [type setObject:v18 forKey:@"MOActivityMetaDataMotionType"];
 
-            v20 = [v9 objectForKeyedSubscript:@"MOActivityMetaDataKeyStartDate"];
-            [type setObject:v20 forKey:@"MOActivityMetaDataKeyStartDate"];
+            v19 = [v9 objectForKeyedSubscript:@"MOActivityMetaDataKeyStartDate"];
+            [type setObject:v19 forKey:@"MOActivityMetaDataKeyStartDate"];
 
-            v21 = [v9 objectForKeyedSubscript:@"MOActivityMetaDataKeyEndDate"];
-            [type setObject:v21 forKey:@"MOActivityMetaDataKeyEndDate"];
+            v20 = [v9 objectForKeyedSubscript:@"MOActivityMetaDataKeyEndDate"];
+            [type setObject:v20 forKey:@"MOActivityMetaDataKeyEndDate"];
 
-            v22 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+            v21 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
               typeCopy = type;
-              _os_log_impl(&dword_22D8C5000, v22, OS_LOG_TYPE_INFO, "Using for the dedupe key the dictionary, %@", buf, 0xCu);
+              _os_log_impl(&dword_22D8C5000, v21, OS_LOG_TYPE_INFO, "Using for the dedupe key the dictionary, %@", buf, 0xCu);
             }
 
             goto LABEL_6;
@@ -543,8 +541,8 @@ LABEL_18:
       }
 
 LABEL_48:
-      v31 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v30 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         +[MOResource getDedupeKeyForResourceData:type:error:];
       }
@@ -576,14 +574,14 @@ LABEL_17:
     }
 
     allKeys4 = [v9 allKeys];
-    v24 = @"MOPhotoResourceLocalIdentifier";
-    v25 = [allKeys4 containsObject:@"MOPhotoResourceLocalIdentifier"];
+    v23 = @"MOPhotoResourceLocalIdentifier";
+    v24 = [allKeys4 containsObject:@"MOPhotoResourceLocalIdentifier"];
 
-    v26 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
-    v12 = v26;
-    if (!v25)
+    v25 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
+    v12 = v25;
+    if (!v24)
     {
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         +[MOResource getDedupeKeyForResourceData:type:error:];
       }
@@ -591,11 +589,11 @@ LABEL_17:
       goto LABEL_16;
     }
 
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v27 = [v9 objectForKeyedSubscript:@"MOPhotoResourceLocalIdentifier"];
+      v26 = [v9 objectForKeyedSubscript:@"MOPhotoResourceLocalIdentifier"];
       *buf = 138412290;
-      typeCopy = v27;
+      typeCopy = v26;
 LABEL_40:
       _os_log_impl(&dword_22D8C5000, v12, OS_LOG_TYPE_INFO, "Using for the dedupe key, %@", buf, 0xCu);
 
@@ -606,14 +604,14 @@ LABEL_40:
   }
 
   allKeys5 = [v9 allKeys];
-  v24 = @"MOWorkoutMetaDataKeyWorkoutID";
-  v29 = [allKeys5 containsObject:@"MOWorkoutMetaDataKeyWorkoutID"];
+  v23 = @"MOWorkoutMetaDataKeyWorkoutID";
+  v28 = [allKeys5 containsObject:@"MOWorkoutMetaDataKeyWorkoutID"];
 
-  v30 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
-  v12 = v30;
-  if (!v29)
+  v29 = _mo_log_facility_get_os_log(MOLogFacilityGeneral);
+  v12 = v29;
+  if (!v28)
   {
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       +[MOResource getDedupeKeyForResourceData:type:error:];
     }
@@ -621,23 +619,22 @@ LABEL_40:
     goto LABEL_16;
   }
 
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
   {
-    v27 = [v9 objectForKeyedSubscript:@"MOWorkoutMetaDataKeyWorkoutID"];
+    v26 = [v9 objectForKeyedSubscript:@"MOWorkoutMetaDataKeyWorkoutID"];
     *buf = 138412290;
-    typeCopy = v27;
+    typeCopy = v26;
     goto LABEL_40;
   }
 
 LABEL_41:
 
-  type = [v9 objectForKeyedSubscript:v24];
+  type = [v9 objectForKeyedSubscript:v23];
 LABEL_6:
   v10 = 0;
 LABEL_19:
 
 LABEL_20:
-  v13 = *MEMORY[0x277D85DE8];
 
   return type;
 }
@@ -1182,40 +1179,38 @@ LABEL_30:
 
 - (MOResource)initWithEvergreenTypeName:(id)name promptIndex:(unint64_t)index
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v7 = [MOResource evergreenTypeFromEvergreenTypeString:nameCopy];
-  v14[0] = @"evergreen_type";
+  v13[0] = @"evergreen_type";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v7];
-  v15[0] = v8;
-  v14[1] = @"evergreen_index";
+  v14[0] = v8;
+  v13[1] = @"evergreen_index";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:index];
-  v15[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v14[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   v11 = [(MOResource *)self initWithName:nameCopy type:9 dict:v10 value:index];
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (MOResource)initWithEvergreenTypeName:(id)name promptIndexes:(id)indexes
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   indexesCopy = indexes;
   nameCopy = name;
   v8 = [MOResource evergreenTypeFromEvergreenTypeString:nameCopy];
-  v15[0] = @"evergreen_type";
+  v14[0] = @"evergreen_type";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
-  v16[0] = v9;
-  v16[1] = indexesCopy;
-  v15[1] = @"evergreen_indexes";
-  v15[2] = @"evergreen_count";
+  v15[0] = v9;
+  v15[1] = indexesCopy;
+  v14[1] = @"evergreen_indexes";
+  v14[2] = @"evergreen_count";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(indexesCopy, "count")}];
-  v16[2] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v15[2] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   v12 = [(MOResource *)self initWithName:nameCopy type:9 dict:v11 value:0.0];
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1351,76 +1346,61 @@ LABEL_30:
 
 - (void)initWithIdentifier:(os_log_t)log .cold.1(os_log_t log)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "[MOResource initWithIdentifier:]";
-  v4 = 1024;
-  v5 = 29;
-  _os_log_error_impl(&dword_22D8C5000, log, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: identifier (in %s:%d)", &v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "[MOResource initWithIdentifier:]";
+  v3 = 1024;
+  v4 = 29;
+  _os_log_error_impl(&dword_22D8C5000, log, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: identifier (in %s:%d)", &v1, 0x12u);
 }
 
 - (void)initWithName:(uint64_t)a1 type:(NSObject *)a2 dict:value:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_DEBUG, "Error when serialization to json, %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_DEBUG, "Error when serialization to json, %@", &v2, 0xCu);
 }
 
 + (void)getDictionaryForData:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_ERROR, "Unable to deserialize data to dictionary, %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_ERROR, "Unable to deserialize data to dictionary, %@", &v2, 0xCu);
 }
 
 + (void)getDedupeKeyForResourceData:(uint64_t)a1 type:error:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [MOResource getStringTypeForResources:a1];
+  v6 = [MOResource getStringTypeForResources:a1];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)getDedupeKeyForResourceData:type:error:.cold.2()
 {
   OUTLINED_FUNCTION_2();
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = [MOResource getStringTypeForResources:13];
+  v5 = [MOResource getStringTypeForResources:13];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x34u);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)getDedupeKeyForResourceData:type:error:.cold.3()
 {
   OUTLINED_FUNCTION_2();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [MOResource getStringTypeForResources:10];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)getDedupeKeyForResourceData:type:error:.cold.4()
 {
   OUTLINED_FUNCTION_2();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [MOResource getStringTypeForResources:2];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

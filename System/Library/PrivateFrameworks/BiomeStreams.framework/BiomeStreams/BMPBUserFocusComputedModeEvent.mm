@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)modeSemanticTypeAsString:(int)string;
+- (id)modeUpdateReasonAsString:(int)string;
+- (id)modeUpdateSourceAsString:(int)string;
 - (int)StringAsModeSemanticType:(id)type;
 - (int)StringAsModeUpdateReason:(id)reason;
 - (int)StringAsModeUpdateSource:(id)source;
@@ -63,6 +66,21 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)modeUpdateReasonAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E54178[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsModeUpdateReason:(id)reason
 {
   reasonCopy = reason;
@@ -105,6 +123,21 @@
   {
     return 0;
   }
+}
+
+- (id)modeSemanticTypeAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E54198[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsModeSemanticType:(id)type
@@ -194,6 +227,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)modeUpdateSourceAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E541E8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsModeUpdateSource:(id)source
@@ -342,19 +390,18 @@ LABEL_21:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_mode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    starting = self->_starting;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -373,9 +420,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  modeUpdateReason = self->_modeUpdateReason;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -389,22 +435,20 @@ LABEL_6:
   }
 
 LABEL_15:
-  modeSemanticType = self->_modeSemanticType;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_7:
-    modeUpdateSource = self->_modeUpdateSource;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_8:
   if (self->_semanticModeIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -552,7 +596,6 @@ LABEL_6:
     }
   }
 
-  v6 = *(equalCopy + 44);
   if ((*&self->_has & 8) == 0)
   {
     if ((*(equalCopy + 44) & 8) == 0)
@@ -561,7 +604,7 @@ LABEL_6:
     }
 
 LABEL_29:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_30;
   }
 
@@ -570,7 +613,6 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  v7 = *(equalCopy + 40);
   if (self->_starting)
   {
     if ((*(equalCopy + 40) & 1) == 0)
@@ -627,17 +669,17 @@ LABEL_6:
   semanticModeIdentifier = self->_semanticModeIdentifier;
   if (semanticModeIdentifier | *(equalCopy + 4))
   {
-    v9 = [(NSString *)semanticModeIdentifier isEqual:?];
+    v7 = [(NSString *)semanticModeIdentifier isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v7 = 1;
   }
 
 LABEL_30:
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash

@@ -7,11 +7,10 @@
 - (id)userAvailabilityTCCApprovedBundleIds
 {
   v2 = MEMORY[0x277CBEB98];
-  v3 = *MEMORY[0x277D6C180];
-  v4 = TCCAccessCopyBundleIdentifiersForService();
-  v5 = [v2 setWithArray:v4];
+  v3 = TCCAccessCopyBundleIdentifiersForService();
+  v4 = [v2 setWithArray:v3];
 
-  return v5;
+  return v4;
 }
 
 @end

@@ -123,13 +123,13 @@
   v7[1] = v6;
   selfCopy = self;
 
-  sub_20CEDC118(MEMORY[0x277D85B58], &unk_20D5BC550, &OBJC_IVAR____TtC6HomeUI24UtilityOnboardingContext__utilityID, "Setting utility id %s");
+  sub_20CEDC118(MEMORY[0x277D85B58], &unk_20D5BC550, &OBJC_IVAR____TtC6HomeUI24UtilityOnboardingContext__utilityID, "Setting utility id %s", v9);
 }
 
 - (NSString)utilityID
 {
   swift_getKeyPath();
-  sub_20CEF5EB0(&qword_27C81D080, type metadata accessor for UtilityOnboardingContext);
+  sub_20CEF5EB0(&qword_27C81D080, type metadata accessor for UtilityOnboardingContext, &protocol conformance descriptor for UtilityOnboardingContext);
   selfCopy = self;
   sub_20D563908();
 
@@ -199,7 +199,7 @@
 
 - (void)set_allUtilities:(id)utilities
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C820E30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C820E30, &qword_20D5BC900);
   v4 = sub_20D567A78();
   v5 = OBJC_IVAR____TtC6HomeUI24UtilityOnboardingContext__allUtilities;
   swift_beginAccess();
@@ -250,7 +250,7 @@
 - (BOOL)didAttemptPasswordlessMethod
 {
   swift_getKeyPath();
-  sub_20CEF5EB0(&qword_27C81D080, type metadata accessor for UtilityOnboardingContext);
+  sub_20CEF5EB0(&qword_27C81D080, type metadata accessor for UtilityOnboardingContext, &protocol conformance descriptor for UtilityOnboardingContext);
   selfCopy = self;
   sub_20D563908();
 
@@ -307,21 +307,21 @@
 
 - (void)set_otpFactors:(id)factors
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C820E30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C820E30, &qword_20D5BC900);
   v4 = sub_20D567A78();
   v5 = OBJC_IVAR____TtC6HomeUI24UtilityOnboardingContext__otpFactors;
   swift_beginAccess();
   *(self + v5) = v4;
   selfCopy = self;
 
-  sub_20CEDD5B8(MEMORY[0x277D85B58], &unk_20D5BC738, &OBJC_IVAR____TtC6HomeUI24UtilityOnboardingContext__otpFactors, "Setting factors %s");
+  sub_20CEDD5B8(MEMORY[0x277D85B58], &unk_20D5BC738, &OBJC_IVAR____TtC6HomeUI24UtilityOnboardingContext__otpFactors, "Setting factors %s", v7);
 }
 
 - (void)setTokens:(id)tokens
 {
   sub_20D567758();
   swift_getKeyPath();
-  sub_20CEF5EB0(&qword_27C81D080, type metadata accessor for UtilityOnboardingContext);
+  sub_20CEF5EB0(&qword_27C81D080, type metadata accessor for UtilityOnboardingContext, &protocol conformance descriptor for UtilityOnboardingContext);
   selfCopy = self;
   sub_20D5638F8();
 }
@@ -335,7 +335,7 @@
 
 - (void)verifyAddressAndSubmitTAFWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -360,7 +360,7 @@
 
 - (void)requestOTPWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -385,7 +385,7 @@
 
 - (void)createAccessTokenWithAuthCode:(NSString *)code completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

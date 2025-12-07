@@ -49,7 +49,7 @@
   }
 
   [dictionary setObject:v16 forKeyedSubscript:@"status"];
-  v17 = [dictionary copy];
+  v17 = objc_msgSend_copy(dictionary);
 
   return v17;
 }

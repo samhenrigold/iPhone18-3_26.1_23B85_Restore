@@ -112,7 +112,6 @@
   objc_storeStrong(&v26, 0);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __96__AKAppleIDAuthenticationWatchBuddyContext_presentLoginAlertWithError_title_message_completion___block_invoke(uint64_t a1)

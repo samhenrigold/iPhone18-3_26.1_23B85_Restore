@@ -1,9 +1,22 @@
 @interface NRDeviceMonitorObjc
 - (BOOL)isAsleep;
 - (NRDeviceMonitorObjc)initWithDeviceIdentifier:(id)identifier callback:(id)callback queue:(id)queue;
+- (void)deviceIsAsleepDidChange:(id)change isAsleep:(BOOL)asleep;
 @end
 
 @implementation NRDeviceMonitorObjc
+
+- (void)deviceIsAsleepDidChange:(id)change isAsleep:(BOOL)asleep
+{
+  asleepCopy = asleep;
+  callback = [(NRDeviceMonitorObjc *)self callback];
+
+  if (callback)
+  {
+    callback2 = [(NRDeviceMonitorObjc *)self callback];
+    callback2[2](callback2, asleepCopy);
+  }
+}
 
 - (BOOL)isAsleep
 {

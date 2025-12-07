@@ -42,23 +42,22 @@
 
     if (self == settingsCopy)
     {
-      v6 = 1;
+      v5 = 1;
     }
 
     else
     {
-      zOrderLevel = self->_zOrderLevel;
       [(TRASettingsZOrderLevel *)settingsCopy zOrderLevel];
-      v6 = BSFloatEqualToFloat();
+      v5 = BSFloatEqualToFloat();
     }
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone

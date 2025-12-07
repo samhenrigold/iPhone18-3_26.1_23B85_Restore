@@ -125,7 +125,6 @@
   objc_storeStrong(&v13, 0);
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)copyFloat32Values:(int)values toBuffer:(float *)buffer withDefaultValue:(float)value withMapOp:(id)op withRemapDictionary:(id)dictionary andPostRemapOperation:(id)operation
@@ -165,7 +164,6 @@
   objc_storeStrong(&v13, 0);
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)copyDoubleValues:(int)values toBuffer:(double *)buffer withDefaultValue:(double)value withMapOp:(id)op withRemapDictionary:(id)dictionary andPostRemapOperation:(id)operation
@@ -205,7 +203,6 @@
   objc_storeStrong(&v13, 0);
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

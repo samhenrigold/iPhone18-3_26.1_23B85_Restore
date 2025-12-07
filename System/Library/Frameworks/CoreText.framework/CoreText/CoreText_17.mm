@@ -162,7 +162,7 @@ __CFString *FindMonospacedWithTraits(unint64_t a1, char a2, char a3)
   }
 }
 
-TDescriptorSource *TDescriptorSource::CreateVariableSizeTextStyle@<X0>(TDescriptorSource *this@<X0>, CFDictionaryRef theDict@<X1>, TDescriptorSource **a3@<X8>)
+TDescriptorSource *TDescriptorSource::CreateVariableSizeTextStyle@<X0>(TDescriptorSource **__return_ptr a1@<X8>, TDescriptorSource *this@<X0>, CFDictionaryRef theDict@<X1>)
 {
   if (theDict)
   {
@@ -175,7 +175,7 @@ TDescriptorSource *TDescriptorSource::CreateVariableSizeTextStyle@<X0>(TDescript
   }
 
   [Value doubleValue];
-  if (v7 <= 0.0)
+  if (v6 <= 0.0)
   {
     result = this;
   }
@@ -185,7 +185,7 @@ TDescriptorSource *TDescriptorSource::CreateVariableSizeTextStyle@<X0>(TDescript
     result = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%@-%@", this, [objc_msgSend(MEMORY[0x1E696AD98] "numberWithDouble:"stringValue"")]);
   }
 
-  *a3 = result;
+  *a1 = result;
   return result;
 }
 
@@ -196,7 +196,7 @@ __CFString *CTFontDescriptorCopyNameForSystemFontOfWeight(__CFString *a1, double
   return NameForSystemFontOfWeight;
 }
 
-uint64_t TDescriptorSource::UIFontNameForFullName(uint64_t this, const __CFString *a2)
+void *TDescriptorSource::UIFontNameForFullName(void *this, const __CFString *a2)
 {
   if (this)
   {
@@ -249,20 +249,20 @@ double CTFontGetExuberatedLineHeightForLineHeight(double a1)
   return a1;
 }
 
-void CreateTrimmedCharacterSetForKey(const __CFCharacterSet *a1@<X0>, const __CFString *a2@<X1>, CFCharacterSetRef *a3@<X8>)
+void CreateTrimmedCharacterSetForKey(CFCharacterSetRef *__return_ptr a1@<X8>, const __CFCharacterSet *a2@<X0>, const __CFString *a3@<X1>)
 {
   v16 = 0xAAAAAAAAAAAAAAAALL;
-  TCFMutableCharacterSet::TCFMutableCharacterSet(&v16, a1);
-  if (a2 != @"system-ui")
+  TCFMutableCharacterSet::TCFMutableCharacterSet(&v16, a2);
+  if (a3 != @"system-ui")
   {
-    if (!a2)
+    if (!a3)
     {
       goto LABEL_23;
     }
 
-    if (!CFEqual(a2, @"system-ui"))
+    if (!CFEqual(a3, @"system-ui"))
     {
-      if (a2 == @"zh" || CFEqual(a2, @"zh"))
+      if (a3 == @"zh" || CFEqual(a3, @"zh"))
       {
         v17.location = 8853;
         v17.length = 1;
@@ -293,7 +293,7 @@ void CreateTrimmedCharacterSetForKey(const __CFCharacterSet *a1@<X0>, const __CF
         v8.length = 2;
       }
 
-      else if (a2 == @"ja" || CFEqual(a2, @"ja"))
+      else if (a3 == @"ja" || CFEqual(a3, @"ja"))
       {
         v25.location = 8252;
         v25.length = 1;
@@ -368,7 +368,7 @@ void CreateTrimmedCharacterSetForKey(const __CFCharacterSet *a1@<X0>, const __CF
 
       else
       {
-        if (a2 != @"ko" && !CFEqual(a2, @"ko"))
+        if (a3 != @"ko" && !CFEqual(a3, @"ko"))
         {
           goto LABEL_23;
         }
@@ -490,7 +490,7 @@ LABEL_15:
 
 LABEL_23:
   AddSynthesizedCharactersToCharacterSet(&v16, 0);
-  *a3 = CFCharacterSetCreateCopy(*MEMORY[0x1E695E480], atomic_load_explicit(&v16, memory_order_acquire));
+  *a1 = CFCharacterSetCreateCopy(*MEMORY[0x1E695E480], atomic_load_explicit(&v16, memory_order_acquire));
 }
 
 __CFString *GetTrimStringForNumberingSystem(void)
@@ -1427,77 +1427,77 @@ unint64_t CreateSFTrimCharacterSetForChineseOrJapanese(const __CFString *a1, int
 
 uint64_t TJustEngine::ApplyTrackingToRun(TJustEngine *this, TRunGlue *a2, unint64_t a3, uint64_t a4, double a5)
 {
-  v104 = *MEMORY[0x1E69E9840];
+  v106 = *MEMORY[0x1E69E9840];
   v6 = *this;
-  v98 = unk_18477382C;
-  v100 = unk_184773840;
-  v88 = xmmword_184773790;
-  memset(&v90[8], 170, 24);
-  *v90 = 0;
-  v89 = 0u;
-  v91 = &v90[8];
-  BYTE8(v100) = 0;
-  v95 = 0;
-  v92 = 0u;
-  v93 = 0u;
+  v100 = unk_18477382C;
+  v102 = unk_184773840;
+  v90 = xmmword_184773790;
+  memset(&v92[8], 170, 24);
+  *v92 = 0;
+  v91 = 0u;
+  v93 = &v92[8];
+  BYTE8(v102) = 0;
+  v97 = 0;
   v94 = 0u;
-  memset(v97, 0, sizeof(v97));
-  LOBYTE(v100) = 0;
+  v95 = 0u;
+  v96 = 0u;
+  memset(v99, 0, sizeof(v99));
+  LOBYTE(v102) = 0;
+  v105 = 0;
   v103 = 0;
-  v101 = 0;
-  v102 = 0;
-  v99 = 0uLL;
-  v96 = 0xFFEFFFFFFFFFFFFFLL;
+  v104 = 0;
+  v101 = 0uLL;
+  v98 = 0xFFEFFFFFFFFFFFFFLL;
   v7 = *(v6 + 16);
   v8 = *(v6 + 24) - v7;
-  v88 = 0u;
+  v90 = 0u;
   if (a3 >= v8 >> 3)
   {
     goto LABEL_47;
   }
 
-  (*(*(v7 + 8 * a3) + 56))(&v71);
-  p_src = atomic_exchange(&v71, 0);
+  (*(*(v7 + 8 * a3) + 56))(&v73);
+  p_src = atomic_exchange(&v73, 0);
   v13 = atomic_exchange(&p_src, 0);
   __src = v13;
-  std::vector<CTRun *,TInlineBufferAllocator<CTRun *,3ul>>::push_back[abi:fn200100](&v89, &__src);
-  TLine::UpdateCachedMetricsForRun(&v88, v13[5]);
+  std::vector<CTRun *,TInlineBufferAllocator<CTRun *,3ul>>::push_back[abi:fn200100](&v91, &__src);
+  TLine::UpdateCachedMetricsForRun(&v90, v13[5]);
 
-  v92 = *(v6 + 72);
-  if (*(&v89 + 1) - v89 == 8 && *&v97[8] >= 1)
+  v94 = *(v6 + 72);
+  if (*(&v91 + 1) - v91 == 8 && *&v99[8] >= 1)
   {
-    v60 = v6;
+    v62 = v6;
     v14 = a2;
-    v59 = this;
-    memset(v86, 170, sizeof(v86));
+    v61 = this;
+    memset(v88, 170, sizeof(v88));
     __src = 0;
-    v84 = 0;
-    v85 = 0;
-    v87 = v86;
-    if (*&v97[8] > 0xAAAAAAAAAAAAAAAuLL)
+    v86 = 0;
+    v87 = 0;
+    v89 = v88;
+    if (*&v99[8] > 0xAAAAAAAAAAAAAAAuLL)
     {
 LABEL_57:
       std::__throw_bad_array_new_length[abi:fn200100]();
     }
 
-    v61 = a3;
-    v79[1] = v86;
-    v15 = std::allocator_traits<TInlineBufferAllocator<JustLeftRightMaxima,30ul>>::allocate_at_least[abi:fn200100]<TInlineBufferAllocator<JustLeftRightMaxima,30ul>>(v86, *&v97[8]);
+    v63 = a3;
+    v81[1] = v88;
+    v15 = std::allocator_traits<TInlineBufferAllocator<JustLeftRightMaxima,30ul>>::allocate_at_least[abi:fn200100]<TInlineBufferAllocator<JustLeftRightMaxima,30ul>>(v88, *&v99[8]);
     v17 = &v15[24 * v16];
-    v18 = &v15[-(v84 - __src)];
-    memcpy(v18, __src, v84 - __src);
+    v18 = &v15[-(v86 - __src)];
+    memcpy(v18, __src, v86 - __src);
     v19 = __src;
-    v20 = v85;
+    v20 = v87;
     __src = v18;
-    v84 = v15;
-    v85 = v17;
-    v78 = v19;
-    v79[0] = v20;
-    v77 = v19;
+    v86 = v15;
+    v87 = v17;
+    v80 = v19;
+    v81[0] = v20;
+    v79 = v19;
     p_src = v19;
     std::__split_buffer<std::pair<double,CFRange>,TInlineBufferAllocator<std::pair<double,CFRange>,30ul> &>::~__split_buffer(&p_src);
-    v21 = v89;
-    if (*(&v89 + 1) == v89)
+    v21 = v91;
+    if (*(&v91 + 1) == v91)
     {
       goto LABEL_47;
     }
@@ -1510,252 +1510,252 @@ LABEL_57:
 
       *(v23 + 216) = v24;
       *(v23 + 200) = 0;
-      v25 = *(v23 + 208);
-      if (v25 < 0)
+      v27 = *(v23 + 208);
+      if (v27 < 0)
       {
         goto LABEL_48;
       }
 
-      v62 = 0;
-      v26 = 0;
-      v27 = 0;
+      v64 = 0;
       v28 = 0;
-      v29 = **(v24 + 40) & 1;
+      v29 = 0;
+      v30 = 0;
+      v31 = **(v24 + 40) & 1;
       do
       {
-        if (v28 >= v25 || (v29 & 1) != (*(*(*(v23 + 216) + 40) + 4 * *(v23 + 200) + 4 * v28) & 1))
+        if (v30 >= v27 || (v31 & 1) != (*(*(*(v23 + 216) + 40) + 4 * *(v23 + 200) + 4 * v30) & 1))
         {
-          v63 = v29;
-          v105.length = v28 - v26;
-          v105.location = v26;
-          Width = TStorageRange::GetWidth((v23 + 192), v105);
-          v31 = 0.0;
+          v65 = v31;
+          v107.length = v30 - v28;
+          v107.location = v28;
+          Width = TStorageRange::GetWidth((v23 + 192), v107);
+          v33 = 0.0;
+          v68 = v30;
           v66 = v28;
-          v64 = v26;
-          v65 = v28 - v26;
-          if (v28 > v26)
+          v67 = v30 - v28;
+          if (v30 > v28)
           {
-            v32 = 0;
-            v67 = v27 - a4;
+            v34 = 0;
+            v69 = v29 - a4;
             do
             {
-              v77 = 0xAAAAAAAAAAAAAAAALL;
+              v79 = 0xAAAAAAAAAAAAAAAALL;
               p_src = 0xAAAAAAAAAAAAAAAALL;
-              TLine::GetClusterRange(v60, v22, v61, a4, *(*(*(v23 + 216) + 48) + 8 * *(v23 + 200) + 8 * v26), 2, &p_src, 0, 0);
-              v33 = &v77[p_src + v67];
-              v34 = v64 >= v33 || v28 < v33;
-              if (!v34)
+              TLine::GetClusterRange(v62, v22, v63, a4, *(*(*(v23 + 216) + 48) + 8 * *(v23 + 200) + 8 * v28), 2, &p_src, 0, 0);
+              v35 = &v79[p_src + v69];
+              v36 = v66 >= v35 || v30 < v35;
+              if (!v36)
               {
-                ++v32;
+                ++v34;
               }
 
-              if (v33 <= v26 + 1)
+              if (v35 <= v28 + 1)
               {
-                ++v26;
+                ++v28;
               }
 
               else
               {
-                v26 = &v77[p_src + v67];
+                v28 = &v79[p_src + v69];
               }
             }
 
-            while (v26 < v28);
-            v31 = v32;
+            while (v28 < v30);
+            v33 = v34;
           }
 
-          *&v35 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v35 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v81[13] = v35;
-          v81[14] = v35;
-          v81[11] = v35;
-          v81[12] = v35;
-          v81[9] = v35;
-          v81[10] = v35;
-          v81[7] = v35;
-          v81[8] = v35;
-          v81[5] = v35;
-          v81[6] = v35;
-          v81[3] = v35;
-          v81[4] = v35;
-          v81[1] = v35;
-          v81[2] = v35;
-          v81[0] = v35;
-          memset(v80, 0, sizeof(v80));
-          v82 = v81;
-          v69[0] = 0.0;
-          v69[1] = 0.0;
-          v36 = v84;
-          v37 = v84 - __src;
-          v38 = 0xAAAAAAAAAAAAAAABLL * ((v84 - __src) >> 3);
-          v39 = v89;
-          v40 = v66 - v38;
-          if (v66 <= v38)
+          *&v37 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v37 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v83[13] = v37;
+          v83[14] = v37;
+          v83[11] = v37;
+          v83[12] = v37;
+          v83[9] = v37;
+          v83[10] = v37;
+          v83[7] = v37;
+          v83[8] = v37;
+          v83[5] = v37;
+          v83[6] = v37;
+          v83[3] = v37;
+          v83[4] = v37;
+          v83[1] = v37;
+          v83[2] = v37;
+          v83[0] = v37;
+          memset(v82, 0, sizeof(v82));
+          v84 = v83;
+          v71[0] = 0.0;
+          v71[1] = 0.0;
+          v38 = v86;
+          v39 = v86 - __src;
+          v40 = 0xAAAAAAAAAAAAAAABLL * ((v86 - __src) >> 3);
+          v41 = v91;
+          v42 = v68 - v40;
+          if (v68 <= v40)
           {
-            v28 = v66;
-            if (v66 < v38)
+            v30 = v68;
+            if (v68 < v40)
             {
-              v84 = __src + 24 * v66;
+              v86 = __src + 24 * v68;
             }
           }
 
-          else if (0xAAAAAAAAAAAAAAABLL * ((v85 - v84) >> 3) >= v40)
+          else if (0xAAAAAAAAAAAAAAABLL * ((v87 - v86) >> 3) >= v42)
           {
-            bzero(v84, 24 * ((24 * v40 - 24) / 0x18) + 24);
-            v84 = &v36[24 * ((24 * v40 - 24) / 0x18) + 24];
-            v28 = v66;
+            bzero(v86, 24 * ((24 * v42 - 24) / 0x18) + 24);
+            v86 = &v38[24 * ((24 * v42 - 24) / 0x18) + 24];
+            v30 = v68;
           }
 
           else
           {
-            if (v66 > 0xAAAAAAAAAAAAAAALL)
+            if (v68 > 0xAAAAAAAAAAAAAAALL)
             {
               goto LABEL_57;
             }
 
-            v41 = 0x5555555555555556 * ((v85 - __src) >> 3);
-            if (v41 <= v66)
+            v43 = 0x5555555555555556 * ((v87 - __src) >> 3);
+            if (v43 <= v68)
             {
-              v41 = v66;
+              v43 = v68;
             }
 
-            if (0xAAAAAAAAAAAAAAABLL * ((v85 - __src) >> 3) >= 0x555555555555555)
+            if (0xAAAAAAAAAAAAAAABLL * ((v87 - __src) >> 3) >= 0x555555555555555)
             {
-              v42 = 0xAAAAAAAAAAAAAAALL;
+              v44 = 0xAAAAAAAAAAAAAAALL;
             }
 
             else
             {
-              v42 = v41;
+              v44 = v43;
             }
 
-            v79[1] = v86;
-            v43 = std::allocator_traits<TInlineBufferAllocator<JustLeftRightMaxima,30ul>>::allocate_at_least[abi:fn200100]<TInlineBufferAllocator<JustLeftRightMaxima,30ul>>(v86, v42);
-            v44 = (v43 + v37);
-            v46 = v43 + 24 * v45;
-            bzero(v44, 24 * ((24 * v40 - 24) / 0x18) + 24);
-            v47 = &v44[24 * ((24 * v40 - 24) / 0x18) + 24];
-            v48 = &v44[-(v84 - __src)];
-            memcpy(v48, __src, v84 - __src);
-            v49 = __src;
-            v50 = v85;
-            __src = v48;
-            v84 = v47;
-            v28 = v66;
-            v85 = v46;
-            v78 = v49;
-            v79[0] = v50;
-            v77 = v49;
-            p_src = v49;
+            v81[1] = v88;
+            v45 = std::allocator_traits<TInlineBufferAllocator<JustLeftRightMaxima,30ul>>::allocate_at_least[abi:fn200100]<TInlineBufferAllocator<JustLeftRightMaxima,30ul>>(v88, v44);
+            v46 = (v45 + v39);
+            v48 = v45 + 24 * v47;
+            bzero(v46, 24 * ((24 * v42 - 24) / 0x18) + 24);
+            v49 = &v46[24 * ((24 * v42 - 24) / 0x18) + 24];
+            v50 = &v46[-(v86 - __src)];
+            memcpy(v50, __src, v86 - __src);
+            v51 = __src;
+            v52 = v87;
+            __src = v50;
+            v86 = v49;
+            v30 = v68;
+            v87 = v48;
+            v80 = v51;
+            v81[0] = v52;
+            v79 = v51;
+            p_src = v51;
             std::__split_buffer<std::pair<double,CFRange>,TInlineBufferAllocator<std::pair<double,CFRange>,30ul> &>::~__split_buffer(&p_src);
           }
 
-          v51 = Width + a5 * v31 - Width;
-          memset(v79, 170, 0x2D0uLL);
+          v53 = Width + a5 * v33 - Width;
+          memset(v81, 170, 0x2D0uLL);
           p_src = 0;
-          v77 = 0;
-          v78 = 0;
-          v79[90] = v79;
-          TJustEngine::GenerateMaximaList(&v88, v22, v64, v65, 1, 0, &__src, &p_src, v51);
-          std::vector<double,TInlineBufferAllocator<double,30ul>>::resize(v80, v28);
-          TJustEngine::DistributeGap(v39, *(&v39 + 1), v64, v65, 1, 0, __src, v84, v51, v80[0], v69);
-          if (p_src == v77)
+          v79 = 0;
+          v80 = 0;
+          v81[90] = v81;
+          TJustEngine::GenerateMaximaList(&v90, v22, v66, v67, 1, 0, &__src, &p_src, v53);
+          std::vector<double,TInlineBufferAllocator<double,30ul>>::resize(v82, v30);
+          TJustEngine::DistributeGap(v41, *(&v41 + 1), v66, v67, 1, 0, __src, v86, v53, v82[0], v71);
+          if (p_src == v79)
           {
-            v54 = v63;
+            v56 = v65;
           }
 
           else
           {
-            v68 = 0xAAAAAAAAAAAAAAAALL;
-            *&v52 = 0xAAAAAAAAAAAAAAAALL;
-            *(&v52 + 1) = 0xAAAAAAAAAAAAAAAALL;
-            v74[28] = v52;
-            v74[29] = v52;
-            v74[26] = v52;
-            v74[27] = v52;
-            v74[24] = v52;
-            v74[25] = v52;
-            v74[22] = v52;
-            v74[23] = v52;
-            v74[20] = v52;
-            v74[21] = v52;
-            v74[18] = v52;
-            v74[19] = v52;
-            v74[16] = v52;
-            v74[17] = v52;
-            v74[14] = v52;
-            v74[15] = v52;
-            v74[12] = v52;
-            v74[13] = v52;
-            v74[10] = v52;
-            v74[11] = v52;
-            v74[8] = v52;
-            v74[9] = v52;
-            v74[6] = v52;
-            v74[7] = v52;
-            v74[4] = v52;
-            v74[5] = v52;
-            v74[2] = v52;
-            v74[3] = v52;
-            v74[0] = v52;
-            v74[1] = v52;
-            v71 = 0;
-            v72 = 0;
+            v70 = 0xAAAAAAAAAAAAAAAALL;
+            *&v54 = 0xAAAAAAAAAAAAAAAALL;
+            *(&v54 + 1) = 0xAAAAAAAAAAAAAAAALL;
+            v76[28] = v54;
+            v76[29] = v54;
+            v76[26] = v54;
+            v76[27] = v54;
+            v76[24] = v54;
+            v76[25] = v54;
+            v76[22] = v54;
+            v76[23] = v54;
+            v76[20] = v54;
+            v76[21] = v54;
+            v76[18] = v54;
+            v76[19] = v54;
+            v76[16] = v54;
+            v76[17] = v54;
+            v76[14] = v54;
+            v76[15] = v54;
+            v76[12] = v54;
+            v76[13] = v54;
+            v76[10] = v54;
+            v76[11] = v54;
+            v76[8] = v54;
+            v76[9] = v54;
+            v76[6] = v54;
+            v76[7] = v54;
+            v76[4] = v54;
+            v76[5] = v54;
+            v76[2] = v54;
+            v76[3] = v54;
+            v76[0] = v54;
+            v76[1] = v54;
             v73 = 0;
-            v75 = v74;
-            v53 = TPostcompEngine::DoActions(v39, *(&v39 + 1), v64, v65, &p_src, v80[0], &v68, &v71);
-            v54 = v63;
-            if (v68 >= 1)
+            v74 = 0;
+            v75 = 0;
+            v77 = v76;
+            v55 = TPostcompEngine::DoActions(v41, *(&v41 + 1), v66, v67, &p_src, v82[0], &v70, &v73);
+            v56 = v65;
+            if (v70 >= 1)
             {
-              *&v97[8] += v68;
-              v27 += v68;
-              v65 += v68;
-              v66 += v68;
+              *&v99[8] += v70;
+              v29 += v70;
+              v67 += v70;
+              v68 += v70;
             }
 
-            if (v71 != v72)
+            if (v73 != v74)
             {
-              TAATPostcompEngine::ApplyKashidas(v39, *(&v39 + 1), &v71, v80[0]);
-              v68 = v55;
-              if (v55 >= 1)
+              TAATPostcompEngine::ApplyKashidas(v41, *(&v41 + 1), &v73, v82[0]);
+              v70 = v57;
+              if (v57 >= 1)
               {
-                *&v97[8] += v55;
-                v65 += v55;
-                v27 += v55;
-                v66 += v55;
-                ApplyArabicLowConnections<std::__wrap_iter<CTRun **>>(v39, *(&v39 + 1));
+                *&v99[8] += v57;
+                v67 += v57;
+                v29 += v57;
+                v68 += v57;
+                ApplyArabicLowConnections<std::__wrap_iter<CTRun **>>(v41, *(&v41 + 1));
               }
             }
 
-            v62 |= v53;
-            v70 = &v71;
-            std::vector<CGPoint,TInlineBufferAllocator<CGPoint,30ul>>::__destroy_vector::operator()[abi:fn200100](&v70);
-            v28 = v66;
+            v64 |= v55;
+            v72 = &v73;
+            std::vector<CGPoint,TInlineBufferAllocator<CGPoint,30ul>>::__destroy_vector::operator()[abi:fn200100](&v72);
+            v30 = v68;
           }
 
-          v71 = &p_src;
-          std::vector<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,TCFRef<__CFData const*>>,TInlineBufferAllocator<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,TCFRef<__CFData const*>>,30ul>>::__destroy_vector::operator()[abi:fn200100](&v71);
-          v26 = v65 + v64;
-          v29 = v54 ^ 1;
-          p_src = v80;
+          v73 = &p_src;
+          std::vector<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,TCFRef<__CFData const*>>,TInlineBufferAllocator<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,TCFRef<__CFData const*>>,30ul>>::__destroy_vector::operator()[abi:fn200100](&v73);
+          v28 = v67 + v66;
+          v31 = v56 ^ 1;
+          p_src = v82;
           std::vector<std::pair<unsigned int,unsigned int>,TInlineBufferAllocator<std::pair<unsigned int,unsigned int>,30ul>>::__destroy_vector::operator()[abi:fn200100](&p_src);
-          v25 = *(v23 + 208);
+          v27 = *(v23 + 208);
         }
 
-        v34 = v28++ < v25;
+        v36 = v30++ < v27;
       }
 
-      while (v34);
-      if ((v62 & 1) == 0)
+      while (v36);
+      if ((v64 & 1) == 0)
       {
         goto LABEL_48;
       }
 
-      TLine::ResetLine(&v88, v22);
-      v21 = v89;
+      TLine::ResetLine(&v90, v22, v25, v26);
+      v21 = v91;
     }
 
-    while (*(&v89 + 1) != v89);
+    while (*(&v91 + 1) != v91);
     while (1)
     {
       do
@@ -1766,26 +1766,26 @@ LABEL_48:
         ;
       }
 
-      while (*(&v89 + 1) == v89);
-      v80[0] = *v89;
-      v71 = atomic_exchange(v80, 0);
-      if (!*(v59 + 18))
+      while (*(&v91 + 1) == v91);
+      v82[0] = *v91;
+      v73 = atomic_exchange(v82, 0);
+      if (!*(v61 + 18))
       {
         break;
       }
 
       p_src = 0xAAAAAAAAAAAAAAAALL;
-      TLine::ReplaceRun(*v59, v61, &v71, &p_src);
-      if (*(atomic_load_explicit(&p_src, memory_order_acquire) + 40) != *(v59 + 18))
+      TLine::ReplaceRun(*v61, v63, &v73, &p_src);
+      if (*(atomic_load_explicit(&p_src, memory_order_acquire) + 40) != *(v61 + 18))
       {
         goto LABEL_53;
       }
 
-      v56 = *(*v59 + 16);
-      if (v61 < (*(*v59 + 24) - v56) >> 3)
+      v58 = *(*v61 + 16);
+      if (v63 < (*(*v61 + 24) - v58) >> 3)
       {
-        *(v59 + 18) = *(*(v56 + 8 * v61) + 48);
-        TRunGlue::UpdateForCurrentRealRun(v59);
+        *(v61 + 18) = *(*(v58 + 8 * v63) + 48);
+        TRunGlue::UpdateForCurrentRealRun(v61);
 LABEL_53:
 
         break;
@@ -1794,16 +1794,16 @@ LABEL_53:
 
     p_src = &__src;
     std::vector<JustLeftRightMaxima,TInlineBufferAllocator<JustLeftRightMaxima,30ul>>::__destroy_vector::operator()[abi:fn200100](&p_src);
-    v57 = 1;
+    v59 = 1;
   }
 
   else
   {
-    v57 = 0;
+    v59 = 0;
   }
 
-  TLine::~TLine(&v88);
-  return v57;
+  TLine::~TLine(&v90);
+  return v59;
 }
 
 void ApplyArabicLowConnections<std::__wrap_iter<CTRun **>>(uint64_t a1, uint64_t a2)
@@ -1871,7 +1871,8 @@ void ApplyArabicLowConnections<std::__wrap_iter<CTRun **>>(uint64_t a1, uint64_t
             v14 = v36;
             while (v15 != v14)
             {
-              v16 = *v15++;
+              v16 = *v15;
+              v15 += 2;
               v6 = v6 & 0xFFFFFFFF00000000 | v16;
               OTL::GlyphLookups::SetLookupInRange<false>(&v31, v6, 0, v13);
             }
@@ -1962,21 +1963,21 @@ void ApplyArabicLowConnections<std::__wrap_iter<CTRun **>>(uint64_t a1, uint64_t
   }
 }
 
-uint64_t TJustEngine::ZeroRange(uint64_t this, TLine *a2, CFRange a3)
+void *TJustEngine::ZeroRange(void *this, TLine *a2, CFRange a3)
 {
   v3 = this;
-  v4 = *(this + 16);
-  v5 = *(this + 24);
+  v4 = this[2];
+  v5 = this[3];
   if (v4 == v5)
   {
     v10 = 0;
-    v7 = *(this + 16);
+    v7 = this[2];
   }
 
   else
   {
     v6 = 0;
-    v7 = *(this + 16);
+    v7 = this[2];
     v8 = v7;
     while (1)
     {
@@ -1992,7 +1993,7 @@ uint64_t TJustEngine::ZeroRange(uint64_t this, TLine *a2, CFRange a3)
       if (v8 == v5)
       {
         v10 = 0;
-        v7 = *(this + 24);
+        v7 = this[3];
         goto LABEL_8;
       }
     }
@@ -2035,8 +2036,8 @@ LABEL_19:
       }
 
       ++v12;
-      v19 = *(v3 + 16);
-      v20 = *(v3 + 24) - v19;
+      v19 = v3[2];
+      v20 = v3[3] - v19;
       if (v12 >= v20 >> 3)
       {
         return this;
@@ -2093,7 +2094,7 @@ void std::default_delete<std::vector<unsigned short>>::operator()[abi:fn200100](
   }
 }
 
-void *std::vector<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,TCFRef<__CFData const*>>,TInlineBufferAllocator<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,TCFRef<__CFData const*>>,30ul>>::__emplace_back_slow_path<long,std::unique_ptr<std::vector<unsigned short>>,TCFRef<__CFData const*>>(void *a1, uint64_t *a2, uint64_t *a3, atomic_ullong *a4)
+void *std::vector<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,TCFRef<__CFData const*>>,TInlineBufferAllocator<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,TCFRef<__CFData const*>>,30ul>>::__emplace_back_slow_path<long,std::unique_ptr<std::vector<unsigned short>>,TCFRef<__CFData const*>>(void **a1, uint64_t *a2, uint64_t *a3, atomic_ullong *a4)
 {
   v4 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v5 = v4 + 1;
@@ -2120,7 +2121,7 @@ void *std::vector<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,T
   if (v7)
   {
     v8 = a1[93];
-    v9 = v8 + 24 * v7;
+    v9 = &v8[24 * v7];
     if (v9 > (a1 + 93))
     {
       if (v7 <= 0xAAAAAAAAAAAAAAALL)
@@ -2139,32 +2140,32 @@ void *std::vector<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,T
     v8 = 0;
   }
 
-  v10 = (v8 + 24 * v4);
-  v11 = v8 + 24 * v7;
+  v10 = &v8[24 * v4];
+  v11 = &v8[24 * v7];
   v12 = *a2;
   v13 = *a3;
   *a3 = 0;
   *v10 = v12;
-  v10[1] = v13;
-  v10[2] = atomic_exchange(a4, 0);
-  v14 = v10 + 3;
+  *(v10 + 1) = v13;
+  *(v10 + 2) = atomic_exchange(a4, 0);
+  v14 = v10 + 24;
   v15 = *a1;
   v16 = a1[1];
-  v17 = v10 + *a1 - v16;
+  v17 = &v10[*a1 - v16];
   if (*a1 != v16)
   {
     v18 = *a1;
-    v19 = (v10 + *a1 - v16);
+    v19 = &v10[*a1 - v16];
     do
     {
       v20 = *v18;
       v21 = v18[1];
       v18[1] = 0;
       *v19 = v20;
-      v19[1] = v21;
-      v19[2] = atomic_exchange(v18 + 2, 0);
+      *(v19 + 1) = v21;
+      *(v19 + 2) = atomic_exchange(v18 + 2, 0);
       v18 += 3;
-      v19 += 3;
+      v19 += 24;
     }
 
     while (v18 != v16);
@@ -2202,26 +2203,26 @@ void *std::vector<std::tuple<long,std::unique_ptr<std::vector<unsigned short>>,T
   return v14;
 }
 
-void TAATJustEngine::PostcompTable(atomic_ullong *this@<X0>, void *a2@<X8>)
+void TAATJustEngine::PostcompTable(uint64_t *__return_ptr a1@<X8>, atomic_ullong *this@<X0>)
 {
   v3 = [atomic_load_explicit(this + 2 memory:"subdataWithRange:" order:{this[6] - CFDataGetBytePtr(atomic_load_explicit(this + 2, memory_order_acquire)), this[4] - this[6]}acquire)];
-  *a2 = atomic_exchange(&v3, 0);
+  *a1 = atomic_exchange(&v3, 0);
 }
 
-void std::vector<unsigned short>::resize(void *a1, unint64_t a2, __int16 *a3)
+void std::vector<unsigned short>::resize(void *result, unint64_t a2, __int16 *a3)
 {
-  v3 = (a1[1] - *a1) >> 1;
+  v3 = (result[1] - *result) >> 1;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned short>::__append(a1, a2 - v3, a3);
+    std::vector<unsigned short>::__append(result, a2 - v3, a3);
   }
 }
 
@@ -2682,7 +2683,7 @@ LABEL_123:
   v179 = a3;
   v180 = v16 + v17;
   v178 = (v11 + 68);
-  v172 = (v11 + 3);
+  v172 = v11 + 3;
   v173 = (v11 + 63);
   while (1)
   {
@@ -2766,7 +2767,7 @@ LABEL_122:
       GlyphIndexForChar = TRun::GetGlyphIndexForCharIndex<false>(v50, v51);
       v52 = v50;
       v11 = v184;
-      v53 = TRun::GetNextChar(v52, v51, &GlyphIndexForChar) - v51;
+      v53 = &TRun::GetNextChar(v52, v51, &GlyphIndexForChar)[-v51];
       a5 = v182;
       if (v53 >= 2)
       {
@@ -3487,8 +3488,8 @@ void TAATPostcompEngine::ApplyKashidas(uint64_t a1, uint64_t a2, uint64_t **a3, 
 
     v10 = 0;
     v11 = *v4;
-    v12 = *(v4 + 4);
-    v13 = *(v4 + 3);
+    v12 = *(v4 + 8);
+    v13 = *(v4 + 12);
     v14 = *v4 + v8;
     v15 = v9;
     v16 = v7;
@@ -3607,7 +3608,7 @@ LABEL_50:
 
     v5 = v56;
 LABEL_53:
-    v4 += 2;
+    v4 += 16;
     if (v4 == v5)
     {
       return;
@@ -3750,7 +3751,7 @@ uint64_t std::__allocate_at_least[abi:fn200100]<TInlineBufferAllocator<KashidaEn
   return result;
 }
 
-BOOL DecomposeInitialChar(void *a1, uint64_t *a2, uint64_t a3)
+BOOL DecomposeInitialChar(char **a1, uint64_t *a2, uint64_t a3)
 {
   v32 = *MEMORY[0x1E69E9840];
   unorm2_getNFDInstance();
@@ -3759,7 +3760,7 @@ BOOL DecomposeInitialChar(void *a1, uint64_t *a2, uint64_t a3)
     v8 = *a1;
     if ((**a1 & 0xFC00) == 0xD800 && a1[1] - v8 != 2)
     {
-      if ((v8[1] & 0xFC00) == 0xDC00)
+      if ((*(v8 + 1) & 0xFC00) == 0xDC00)
       {
         v9 = 2;
       }
@@ -3800,7 +3801,7 @@ BOOL DecomposeInitialChar(void *a1, uint64_t *a2, uint64_t a3)
       std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__insert_with_size[abi:fn200100]<std::__wrap_iter<unsigned short *>,std::__wrap_iter<unsigned short *>>(a3, *(a3 + 8), v27, v28, (v28 - v27) >> 1);
       v16 = *a2;
       v17 = a2[1];
-      v18 = &v17[4 * (*a1 - a1[1]) - *a2] & 0xFFFFFFFFFFFFFFF8;
+      v18 = (v17 - *a2 + 4 * (*a1 - a1[1])) & 0xFFFFFFFFFFFFFFF8;
       v19 = (v18 + *a2);
       if (v17 == v19)
       {
@@ -3816,7 +3817,7 @@ BOOL DecomposeInitialChar(void *a1, uint64_t *a2, uint64_t a3)
         v19 = (v18 + *a2);
       }
 
-      a2[1] = &v20[v22];
+      a2[1] = v20 + v22;
       v26 = 0;
       std::vector<long,TInlineBufferAllocator<long,30ul>>::insert(a2, v19, v14, &v26);
       v26 = &v27;
@@ -3834,7 +3835,7 @@ BOOL DecomposeInitialChar(void *a1, uint64_t *a2, uint64_t a3)
     v25 = 2 * v11;
     while (v11 < (a1[1] - *a1) >> 1)
     {
-      std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::push_back[abi:fn200100](a3, (*a1 + v25));
+      std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::push_back[abi:fn200100](a3, &(*a1)[v25]);
       ++v11;
       v25 += 2;
       if (v24 == v11)
@@ -3850,7 +3851,7 @@ LABEL_21:
   return 0;
 }
 
-uint64_t ComposeArabicDecompositions(__int16 **a1, void *a2, __int16 **a3)
+uint64_t ComposeArabicDecompositions(void **a1, void *a2, uint64_t a3)
 {
   result = unorm2_getNFDInstance();
   if ((a1[1] - *a1) <= 2)
@@ -3867,12 +3868,12 @@ uint64_t ComposeArabicDecompositions(__int16 **a1, void *a2, __int16 **a3)
   v7 = result;
   if (a1 != a3)
   {
-    result = std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a3, *a1, a1[1], a1[1] - *a1);
+    result = std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a3, *a1, a1[1], (a1[1] - *a1) >> 1);
   }
 
   v8 = *a3;
-  v9 = a3[1];
-  if (*a3 == v9 || (*v8 = v7, v9 == v8 + 1))
+  v9 = *(a3 + 8);
+  if (*a3 == v9 || (*v8 = v7, v9 == (v8 + 1)))
   {
 LABEL_17:
     __break(1u);
@@ -3882,12 +3883,12 @@ LABEL_17:
   {
     v10 = v8 + 1;
     v11 = v9 - (v8 + 2);
-    if (v9 != v8 + 2)
+    if (v9 != (v8 + 2))
     {
       memmove(v8 + 1, v8 + 2, v9 - (v8 + 2));
     }
 
-    a3[1] = (v10 + v11);
+    *(a3 + 8) = v10 + v11;
     v12 = a2[1];
     v13 = v12 - *a2;
     if (v12 != *a2)
@@ -3911,7 +3912,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t TCombiningEngine::ComposeHebrewPresentationForms(__int16 **a1, __int16 **a2, uint64_t a3)
+uint64_t TCombiningEngine::ComposeHebrewPresentationForms(char **a1, uint64_t a2, uint64_t a3)
 {
   v90 = *MEMORY[0x1E69E9840];
   v3 = *a1;
@@ -3994,7 +3995,7 @@ uint64_t TCombiningEngine::ComposeHebrewPresentationForms(__int16 **a1, __int16 
   v88 = 96404964;
   v89 = -1202;
   v7 = *v3;
-  v8 = v3[1];
+  v8 = *(v3 + 1);
   while (*(&v18 + v6) != v7 || *(&v18 + v6 + 2) != v8)
   {
     v6 += 6;
@@ -4011,11 +4012,11 @@ uint64_t TCombiningEngine::ComposeHebrewPresentationForms(__int16 **a1, __int16 
   {
     if (a1 != a2)
     {
-      std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a2, *a1, a1[1], a1[1] - *a1);
+      std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a2, *a1, a1[1], (a1[1] - *a1) >> 1);
     }
 
     v13 = *a2;
-    v14 = a2[1];
+    v14 = *(a2 + 8);
     if (*a2 == v14 || (*v13 = v12, v14 == (v13 + 1)))
     {
       __break(1u);
@@ -4028,7 +4029,7 @@ uint64_t TCombiningEngine::ComposeHebrewPresentationForms(__int16 **a1, __int16 
       memmove(v13 + 1, v13 + 2, v14 - (v13 + 2));
     }
 
-    a2[1] = (v15 + v16);
+    *(a2 + 8) = v15 + v16;
     v10 = 1;
   }
 
@@ -4166,7 +4167,7 @@ char *std::vector<long,TInlineBufferAllocator<long,30ul>>::insert(void *a1, char
     }
 
     v15 = v12 >> 3;
-    v16 = (a1 + 3);
+    v16 = a1 + 3;
     v52[4] = a1 + 3;
     if (v14)
     {
@@ -4368,7 +4369,7 @@ unint64_t TRunGlue::InsertedGlyphsAtCharIndex(unint64_t this, uint64_t a2, uint6
   return this;
 }
 
-uint64_t ApplyModifiedCombiningClasses(__int16 **a1, char a2, void *a3, __int16 **a4)
+uint64_t ApplyModifiedCombiningClasses(char **a1, char a2, void *a3, void **a4)
 {
   v70 = *MEMORY[0x1E69E9840];
   v6 = *a1;
@@ -4379,7 +4380,7 @@ uint64_t ApplyModifiedCombiningClasses(__int16 **a1, char a2, void *a3, __int16 
     v10 = 1;
   }
 
-  else if ((v6[1] & 0xFC00) == 0xDC00)
+  else if ((*(v6 + 1) & 0xFC00) == 0xDC00)
   {
     v10 = 2;
   }
@@ -4418,10 +4419,10 @@ uint64_t ApplyModifiedCombiningClasses(__int16 **a1, char a2, void *a3, __int16 
   {
     v16 = *a1;
     v17 = v10 + 1;
-    v18 = (*a1)[v10];
-    if ((v18 & 0xFC00) == 0xD800 && v17 != a1[1] - v16)
+    v18 = *&(*a1)[2 * v10];
+    if ((v18 & 0xFC00) == 0xD800 && v17 != (a1[1] - v16) >> 1)
     {
-      v19 = v16[v17];
+      v19 = *&v16[2 * v17];
       v20 = (v19 & 0xFC00) == 56320;
       v21 = v19 + (v18 << 10) - 56613888;
       v17 = v20 ? v10 + 2 : v10 + 1;
@@ -4491,7 +4492,7 @@ LABEL_31:
 
   v62 = -86;
   v61 = 0;
-  v60 = a1[1] - *a1;
+  v60 = (a1[1] - *a1) >> 1;
   v68 = &v60;
   *v69 = &v63;
   *&v69[8] = &v62;
@@ -4502,7 +4503,7 @@ LABEL_31:
 LABEL_37:
   if (a1 != a4)
   {
-    std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a4, *a1, a1[1], a1[1] - *a1);
+    std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(a4, *a1, a1[1], (a1[1] - *a1) >> 1);
   }
 
   v26 = v63;
@@ -4549,7 +4550,7 @@ LABEL_37:
       {
         v30 = 0;
         v31 = *v25 + 8 * &v28[-v26] - 8 * v28 + 8 * (v29 - 1) - 8;
-        v32 = &(*a4)[&v28[-v26] - v28 + (v29 - 1)];
+        v32 = *a4 + 2 * &v28[-v26] + 2 * (v29 - 1) + -2 * v28;
         do
         {
           if (v28 != v29 - 1)
@@ -4611,7 +4612,7 @@ LABEL_37:
   {
     v40 = 0;
     v41 = *a1;
-    v42 = a1[1] - *a1;
+    v42 = (a1[1] - *a1) >> 1;
     v43 = v64 - v63;
     if (v42 <= 1)
     {
@@ -4620,7 +4621,7 @@ LABEL_37:
 
     else
     {
-      v44 = a1[1] - *a1;
+      v44 = (a1[1] - *a1) >> 1;
     }
 
     if (v42 <= 2)
@@ -4630,13 +4631,13 @@ LABEL_37:
 
     else
     {
-      v45 = a1[1] - *a1;
+      v45 = (a1[1] - *a1) >> 1;
     }
 
     v46 = 3;
     if (v42 > 3)
     {
-      v46 = a1[1] - *a1;
+      v46 = (a1[1] - *a1) >> 1;
     }
 
     v47 = v63 + 3;
@@ -4646,7 +4647,7 @@ LABEL_37:
     v51 = 16;
     while (v50 != v40 && v49 != v40 && v48 != v40)
     {
-      v52 = &v41[v40];
+      v52 = &v41[2 * v40];
       if (v52[1] - 1463 <= 1 && (v52[2] & 0xFFFB) == 0x5B0)
       {
         v53 = v40 + 3;
@@ -4669,15 +4670,15 @@ LABEL_98:
           }
 
           *(*v25 + v51) = vextq_s8(*(*v25 + v51), *(*v25 + v51), 8uLL);
-          if (v53 >= a4[1] - *a4)
+          if (v53 >= (a4[1] - *a4) >> 1)
           {
             goto LABEL_92;
           }
 
-          v54 = &(*a4)[v40];
-          HIDWORD(v55) = *(v54 + 4);
+          v54 = *a4 + 2 * v40;
+          HIDWORD(v55) = *(v54 + 1);
           LODWORD(v55) = HIDWORD(v55);
-          *(v54 + 4) = v55 >> 16;
+          *(v54 + 1) = v55 >> 16;
           v12 = 1;
         }
       }
@@ -4699,7 +4700,7 @@ LABEL_94:
   return v12 & 1;
 }
 
-uint64_t std::vector<unsigned char,TInlineBufferAllocator<unsigned char,30ul>>::__vallocate[abi:fn200100](void *a1, uint64_t a2)
+uint64_t std::vector<unsigned char,TInlineBufferAllocator<unsigned char,30ul>>::__vallocate[abi:fn200100](uint64_t *a1, uint64_t a2)
 {
   if (a2 < 0)
   {
@@ -4848,7 +4849,7 @@ BOOL OTL::GCommon::HasFeature(OTL::GCommon *this, unsigned int a2)
   return v3;
 }
 
-void *std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(void *result, __int16 *__src, __int16 *a3, unint64_t a4)
+void **std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__assign_with_size[abi:fn200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = __src;
   v7 = result;
@@ -4866,7 +4867,7 @@ void *std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::_
         result = memmove(*result, __src, v18);
       }
 
-      i = &v9[v18];
+      i = (v9 + v18);
     }
 
     else
@@ -4879,16 +4880,15 @@ void *std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::_
 
       v13 = (v6 + v12);
       v14 = v11;
-      if ((v6 + v12) != a3)
+      if (v6 + v12 != a3)
       {
         v14 = v11;
         v15 = v11;
         do
         {
           v16 = *v13++;
-          *v15 = v16;
-          v15 += 2;
-          v14 += 2;
+          *v15++ = v16;
+          ++v14;
         }
 
         while (v13 != a3);
@@ -4903,7 +4903,7 @@ void *std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::_
     if (v9)
     {
       result[1] = v9;
-      if (result + 3 <= v9 && result + 84 > v9)
+      if (result + 3 <= v9 && (result + 84) > v9)
       {
         if (v8 == result[11])
         {
@@ -4948,7 +4948,7 @@ void *std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::_
     }
 
     result = std::vector<unsigned short,TInlineBufferAllocator<unsigned short,30ul>>::__vallocate[abi:fn200100](v7, v20);
-    for (i = v7[1]; v6 != a3; i += 2)
+    for (i = v7[1]; v6 != a3; ++i)
     {
       v21 = *v6++;
       *i = v21;
@@ -4982,7 +4982,7 @@ uint64_t TCharComposer::ComposeChars(uint64_t a1, unint64_t a2, void *a3, int a4
   return 1;
 }
 
-BOOL TGlyphComposer::ComposeGlyphs(unint64_t *a1, uint64_t a2, uint64_t a3, char **a4)
+BOOL TGlyphComposer::ComposeGlyphs(unint64_t *a1, char *a2, uint64_t a3, char **a4)
 {
   v5 = a2;
   v248[2] = *MEMORY[0x1E69E9840];
@@ -5199,10 +5199,24 @@ LABEL_68:
         v28 = v202[v26];
         v29 = (v28 & 0xFC00) == 56320;
         v30 = (v27 << 10) - 56613888 + v28;
-        v26 = v29 ? v21 + 2 : v21 + 1;
+        if (v29)
+        {
+          v26 = v21 + 2;
+        }
+
+        else
+        {
+          v26 = v21 + 1;
+        }
+
         if (v29)
         {
           v27 = v30;
+        }
+
+        else
+        {
+          v27 = v202[v21];
         }
       }
 
@@ -5227,7 +5241,7 @@ LABEL_68:
             if (++v32 == 9)
             {
               v33 = ScriptTagForScriptCode(v31);
-              FirstBlockForScript(0, v33, v218);
+              FirstBlockForScript(v218, 0, v33);
               if (*v218)
               {
                 goto LABEL_42;
@@ -5249,7 +5263,7 @@ LABEL_35:
 
       v204.origin.x = *&(*a4)[8 * v21];
       *v218 = &v204;
-      *(std::__hash_table<std::__hash_value_type<long,CGPoint>,std::__unordered_map_hasher<long,std::__hash_value_type<long,CGPoint>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,CGPoint>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,CGPoint>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v210, *&v204.origin.x) + 3) = *MEMORY[0x1E695EFF8];
+      *(std::__hash_table<std::__hash_value_type<long,CGPoint>,std::__unordered_map_hasher<long,std::__hash_value_type<long,CGPoint>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,CGPoint>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,CGPoint>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v210, *&v204.origin.x, v218) + 3) = *MEMORY[0x1E695EFF8];
       v21 = v26;
       v25 = v199;
       if (v26 >= v199)
@@ -5323,10 +5337,10 @@ LABEL_43:
 
   rect = v76;
   v209 = v5;
-  v77 = v26 + v5;
+  v77 = &v5[v26];
   BoundingBoxForGlyph = NAN;
   v182 = NAN;
-  if ((v26 + v5) >= *(*v196 + 80) + *(*v196 + 72))
+  if (&v5[v26] >= *(*v196 + 80) + *(*v196 + 72))
   {
     v82 = 0;
 LABEL_100:
@@ -5753,7 +5767,7 @@ LABEL_196:
 
           v194 = v145;
           *&v204.origin.x = &v209;
-          v146 = std::__hash_table<std::__hash_value_type<long,CGPoint>,std::__unordered_map_hasher<long,std::__hash_value_type<long,CGPoint>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,CGPoint>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,CGPoint>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v210, v209);
+          v146 = std::__hash_table<std::__hash_value_type<long,CGPoint>,std::__unordered_map_hasher<long,std::__hash_value_type<long,CGPoint>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,CGPoint>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,CGPoint>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v210, v209, &v204);
           v146[3] = MaxX;
           v146[4] = v139;
           TStorageRange::SetAdvance(v183, v184, *MEMORY[0x1E695F060]);
@@ -5897,8 +5911,8 @@ LABEL_196:
   v38 = v196;
   v73 = v190;
 LABEL_207:
-  v152 = *&v218[8];
   v151 = *v218;
+  v152 = *&v218[8];
   v153 = (*&v218[8] - 16);
   v154 = MEMORY[0x1E695EFF8];
   if (*v218 != *&v218[8] && v153 > *v218)
@@ -5916,8 +5930,8 @@ LABEL_207:
     }
 
     while (v151 < v153);
-    v152 = *&v218[8];
     v151 = *v218;
+    v152 = *&v218[8];
   }
 
   if (v151 != v152)
@@ -6045,10 +6059,10 @@ double TFont::GetBoundingBoxForGlyph(TFont *this, unsigned __int16 a2)
 
 void TGlyphComposer::GetPositionForGlyph(uint64_t a1@<X0>, unsigned int a2@<W1>, _DWORD *a3@<X2>, CGPoint a4@<X4:X3>, double a5@<D0>, double a6@<D1>, double a7@<D2>, double a8@<D3>, CGFloat a9@<D4>, CGFloat a10@<D5>, CGFloat a11@<D6>, CGFloat a12@<D7>, double a13)
 {
-  v21 = a8;
-  v23 = a6;
-  v25 = a2;
-  v26 = a13;
+  v18 = a8;
+  v20 = a6;
+  v22 = a2;
+  v23 = a13;
   if (a2 >= 0xDA)
   {
     if (a2 == 224 || a2 == 226)
@@ -6056,167 +6070,167 @@ void TGlyphComposer::GetPositionForGlyph(uint64_t a1@<X0>, unsigned int a2@<W1>,
       goto LABEL_9;
     }
 
-    v28 = *(a1 + 408);
-    TFont::GetScaledMatrix(a1, &v45);
-    v29 = (*(*v28 + 616))(v28, &v45);
-    v30 = v29;
-    v31 = a1 + 56;
+    v25 = *(a1 + 408);
+    TFont::GetScaledMatrix(&v42, a1);
+    v26 = (*(*v25 + 616))(v25, &v42);
+    v27 = v26;
+    v28 = a1 + 56;
     if (!*(a1 + 56))
     {
-      v32 = v29;
+      v29 = v26;
       TFont::InitStrikeMetrics(a1);
-      v30 = v32;
+      v27 = v29;
     }
 
-    v33 = *(v31 + 32);
-    if ((v30 == 0.0 || (v46.origin.x = a9, v46.origin.y = a10, v46.size.width = a11, v46.size.height = a12, CGRectGetMaxY(v46) >= v33)) && v33 == 0.0)
+    v30 = *(v28 + 32);
+    if ((v27 == 0.0 || (v43.origin.x = a9, v43.origin.y = a10, v43.size.width = a11, v43.size.height = a12, CGRectGetMaxY(v43) >= v30)) && v30 == 0.0)
     {
       if (!*(a1 + 56))
       {
         TFont::InitStrikeMetrics(a1);
       }
 
-      v21 = a8;
+      v18 = a8;
     }
 
     else
     {
-      v21 = a8;
+      v18 = a8;
     }
 
-    if ((v25 + 23) <= 1u)
+    if ((v22 + 23) <= 1u)
     {
       *a3 = 2;
-      v42 = a7 * 0.5;
-      v23 = a6;
+      v39 = a7 * 0.5;
+      v20 = a6;
       if (a13 >= 0.0)
       {
-        v39 = a13;
+        v36 = a13;
       }
 
       else
       {
-        v39 = 0.0;
+        v36 = 0.0;
       }
 
-      v37 = v39 - a13;
-      if (v25 == 234)
+      v34 = v36 - a13;
+      if (v22 == 234)
       {
-        v34 = 1;
+        v31 = 1;
       }
 
       else
       {
-        v34 = 2;
+        v31 = 2;
       }
 
-      v38 = a10;
-      v40 = a12;
-      v41 = a5;
-      v35 = 4;
+      v35 = a10;
+      v37 = a12;
+      v38 = a5;
+      v32 = 4;
       goto LABEL_26;
     }
 
-    v26 = a13;
-    v23 = a6;
-    if (v25 > 0xDF)
+    v23 = a13;
+    v20 = a6;
+    if (v22 > 0xDF)
     {
 LABEL_9:
-      LOBYTE(v25) = v25 - 16;
+      LOBYTE(v22) = v22 - 16;
     }
 
     else
     {
-      LOBYTE(v25) = v25 - 18;
+      LOBYTE(v22) = v22 - 18;
     }
   }
 
-  switch(v25)
+  switch(v22)
   {
     case 1u:
-      v35 = 2;
-      v34 = 3;
+      v32 = 2;
+      v31 = 3;
       break;
     case 0xD2u:
-      v34 = 0;
-      v35 = 4;
+      v31 = 0;
+      v32 = 4;
       break;
     case 0xD0u:
-      v34 = 0;
-      v35 = 0;
+      v31 = 0;
+      v32 = 0;
       break;
     default:
-      if (v25 >= 0xD0u)
+      if (v22 >= 0xD0u)
       {
-        v34 = 1;
+        v31 = 1;
       }
 
       else
       {
-        v34 = 2;
+        v31 = 2;
       }
 
-      if (v25 >= 0xD0u)
+      if (v22 >= 0xD0u)
       {
-        v36 = v25 - 12;
+        v33 = v22 - 12;
       }
 
       else
       {
-        v36 = v25;
+        v33 = v22;
       }
 
-      v35 = v36 - 200;
-      if (v36 == 202)
+      v32 = v33 - 200;
+      if (v33 == 202)
       {
         *a3 = 2;
-        v35 = 2;
-        if (v26 > 0.0)
+        v32 = 2;
+        if (v23 > 0.0)
         {
           a9 = 0.0;
-          a11 = v26;
+          a11 = v23;
         }
       }
 
       break;
   }
 
-  v37 = a9;
-  v38 = a10;
-  v39 = a11;
-  v40 = a12;
-  v41 = a5;
-  v42 = a7;
+  v34 = a9;
+  v35 = a10;
+  v36 = a11;
+  v37 = a12;
+  v38 = a5;
+  v39 = a7;
 LABEL_26:
-  TGlyphComposer::PositionBaseOtherTopCenteringGap(v35, *&v37, *(&v23 - 1), v34, a3, a4);
+  TGlyphComposer::PositionBaseOtherTopCenteringGap(v32, *&v34, *(&v20 - 1), v31, a3, a4);
 }
 
-void *std::__hash_table<std::__hash_value_type<long,CGPoint>,std::__unordered_map_hasher<long,std::__hash_value_type<long,CGPoint>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,CGPoint>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,CGPoint>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<long,CGPoint>,std::__unordered_map_hasher<long,std::__hash_value_type<long,CGPoint>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,CGPoint>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,CGPoint>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(void *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = a1[1];
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -6224,44 +6238,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 void *std::__hash_table<std::__hash_value_type<long,CGPoint>,std::__unordered_map_hasher<long,std::__hash_value_type<long,CGPoint>,std::hash<long>,std::equal_to<long>,true>,std::__unordered_map_equal<long,std::__hash_value_type<long,CGPoint>,std::equal_to<long>,std::hash<long>,true>,std::allocator<std::__hash_value_type<long,CGPoint>>>::find<long>(uint64_t a1, unint64_t a2, unint64_t a3)
@@ -6293,45 +6307,37 @@ void *std::__hash_table<std::__hash_value_type<long,CGPoint>,std::__unordered_ma
     return 0;
   }
 
-  result = *v5;
-  if (*v5)
+  for (result = *v5; result; result = *result)
   {
-    do
+    v7 = result[1];
+    if (v7 == a3)
     {
-      v7 = result[1];
-      if (v7 == a3)
+      if (result[2] == a3)
       {
-        if (result[2] == a3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v3.u32[0] > 1uLL)
+      {
+        if (v7 >= a2)
         {
-          return result;
+          v7 %= a2;
         }
       }
 
       else
       {
-        if (v3.u32[0] > 1uLL)
-        {
-          if (v7 >= a2)
-          {
-            v7 %= a2;
-          }
-        }
-
-        else
-        {
-          v7 &= a2 - 1;
-        }
-
-        if (v7 != v4)
-        {
-          return 0;
-        }
+        v7 &= a2 - 1;
       }
 
-      result = *result;
+      if (v7 != v4)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -6686,12 +6692,12 @@ void ZapfTable::AppendVariants(uint64_t a1, unsigned __int16 *a2, atomic_ullong 
   }
 }
 
-void ZapfTable::VariantsForGlyph(ZapfTable *this@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X8>)
+void ZapfTable::VariantsForGlyph(uint64_t *__return_ptr a1@<X8>, ZapfTable *this@<X0>, uint64_t a3@<X1>)
 {
-  v5 = ZapfTable::GlyphInfoForGlyph(this, a2);
+  v5 = ZapfTable::GlyphInfoForGlyph(this, a3);
   if (!v5 || *v5 == -1 || (v6 = *(this + 1), v7 = bswap32(*(v6 + 4)), v8 = (v6 + v7 + bswap32(*v5)), (v8 + 1) > *(this + 2)))
   {
-    *a3 = 0;
+    *a1 = 0;
     return;
   }
 
@@ -6752,7 +6758,7 @@ LABEL_29:
 
   v22 = atomic_exchange(&Mutable, 0);
 LABEL_28:
-  *a3 = v22;
+  *a1 = v22;
 }
 
 CFTypeID CTTextTabGetTypeID(void)
@@ -6772,7 +6778,7 @@ CTTextTabRef CTTextTabCreate(CTTextAlignment alignment, double location, CFDicti
     return 0;
   }
 
-  v6 = TCFBase<TNativeTextTab>::Allocate();
+  v6 = TCFBase<TNativeTextTab>::Allocate(72);
   v7 = v6;
   if (v6)
   {
@@ -6979,7 +6985,7 @@ uint64_t TICUBidiLevelsProvider::GetLevels(TICUBidiLevelsProvider *this, CFRange
   return result;
 }
 
-uint64_t TICUBidiLevelsProvider::ConfigureBidiEngine(TICUBidiLevelsProvider *this, CFRange a2, CTWritingDirection a3)
+uint64_t TICUBidiLevelsProvider::ConfigureBidiEngine(TICUBidiLevelsProvider *this, CFRange a2, int a3)
 {
   if (a2.location != *(this + 3) || a2.length != *(this + 4))
   {
@@ -6994,11 +7000,11 @@ uint64_t TICUBidiLevelsProvider::ConfigureBidiEngine(TICUBidiLevelsProvider *thi
   return 0;
 }
 
-uint64_t TICUBidiLevelsProvider::GetDefaultParagraphDirection(TICUBidiLevelsProvider *this)
+uint64_t TICUBidiLevelsProvider::GetDefaultParagraphDirection(TICUBidiLevelsProvider *this, uint64_t a2)
 {
-  v2.length = *(*(this + 1) + 16);
-  v2.location = 0;
-  TICUBidiLevelsProvider::ConfigureBidiEngine(this, v2, kCTWritingDirectionNatural);
+  v3.length = *(*(this + 1) + 16);
+  v3.location = 0;
+  TICUBidiLevelsProvider::ConfigureBidiEngine(this, v3, -1);
   ubidi_getParagraph();
   return 0;
 }
@@ -7142,7 +7148,7 @@ void TAttributes::ApplyTateChuYoko(TAttributes *this)
               *(this + 69) |= 0x1000u;
             }
 
-            CreateCopyOfFontWithFeature(explicit, 22, v2, &v7);
+            CreateCopyOfFontWithFeature(&v7, explicit, 22, v2);
             if (atomic_load_explicit(&v7, memory_order_acquire))
             {
 
@@ -7336,7 +7342,7 @@ const __CFNumber *TAttributes::HandleSuperscriptAttribute(const __CFNumber *resu
   return result;
 }
 
-void std::vector<std::function<void ()(TAttributes &)>,TInlineBufferAllocator<std::function<void ()(TAttributes &)>,30ul>>::push_back[abi:fn200100](uint64_t *a1, uint64_t a2)
+void std::vector<std::function<void ()(TAttributes &)>,TInlineBufferAllocator<std::function<void ()(TAttributes &)>,30ul>>::push_back[abi:fn200100](void **a1, uint64_t a2)
 {
   v3 = a1[1];
   v4 = a1[2];
@@ -7393,11 +7399,11 @@ void std::vector<std::function<void ()(TAttributes &)>,TInlineBufferAllocator<st
     v5 = v12 + 32;
     v14 = *a1;
     v15 = a1[1];
-    v16 = v12 + *a1 - v15;
+    v16 = *a1 + v12 - v15;
     if (v15 != *a1)
     {
       v17 = *a1;
-      v18 = v12 + *a1 - v15;
+      v18 = *a1 + v12 - v15;
       do
       {
         v19 = v17[3];
@@ -7405,20 +7411,20 @@ void std::vector<std::function<void ()(TAttributes &)>,TInlineBufferAllocator<st
         {
           if (v17 == v19)
           {
-            *(v18 + 24) = v18;
+            *(v18 + 3) = v18;
             (*(*v17[3] + 24))(v17[3], v18);
           }
 
           else
           {
-            *(v18 + 24) = v19;
+            *(v18 + 3) = v19;
             v17[3] = 0;
           }
         }
 
         else
         {
-          *(v18 + 24) = 0;
+          *(v18 + 3) = 0;
         }
 
         v17 += 4;
@@ -7442,7 +7448,7 @@ void std::vector<std::function<void ()(TAttributes &)>,TInlineBufferAllocator<st
     a1[2] = v13;
     if (v14)
     {
-      v21 = a1 + 123;
+      v21 = (a1 + 123);
       if (a1 + 3 <= v14 && v21 > v14)
       {
         if (v20 == *v21)
@@ -7517,28 +7523,28 @@ const __CFBoolean *TAttributes::HandleVerticalFormsAttribute(const __CFBoolean *
   return result;
 }
 
-void CreateCopyOfFontWithFeature(TFont **a1@<X0>, int a2@<W1>, int a3@<W2>, CTFontRef *a4@<X8>)
+void CreateCopyOfFontWithFeature(CTFontRef *__return_ptr a1@<X8>, TFont **a2@<X0>, int a3@<W1>, int a4@<W2>)
 {
-  if (a1)
+  if (a2)
   {
-    TFont::CopyDescriptor(a1[5], 0, &v13);
+    TFont::CopyDescriptor(&v13, a2[5], 0);
     v7 = atomic_exchange(&v13, 0);
 
     v13 = v7;
     explicit = atomic_load_explicit(&v13, memory_order_acquire);
-    LODWORD(CopyWithFeature) = a2;
+    LODWORD(CopyWithFeature) = a3;
     v9 = *MEMORY[0x1E695E480];
     v10 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &CopyWithFeature);
-    LODWORD(CopyWithFeature) = a3;
+    LODWORD(CopyWithFeature) = a4;
     v11 = CFNumberCreate(v9, kCFNumberIntType, &CopyWithFeature);
     CopyWithFeature = CTFontDescriptorCreateCopyWithFeature(explicit, v10, v11);
 
-    *a4 = CTFontCreateWithFontDescriptor(atomic_load_explicit(&v13, memory_order_acquire), 0.0, 0);
+    *a1 = CTFontCreateWithFontDescriptor(atomic_load_explicit(&v13, memory_order_acquire), 0.0, 0);
   }
 
   else
   {
-    *a4 = 0;
+    *a1 = 0;
   }
 }
 
@@ -7895,7 +7901,7 @@ uint64_t TAttributes::HandleRubyAnnotationAttribute(uint64_t result, uint64_t a2
   return result;
 }
 
-const void *TAttributes::HandleTextEncapsulationAttribute(const void *result, uint64_t **a2)
+const __CFDictionary *TAttributes::HandleTextEncapsulationAttribute(const __CFDictionary *result, TAttributes **a2)
 {
   v13 = *MEMORY[0x1E69E9840];
   if (result)
@@ -7929,7 +7935,7 @@ const void *TAttributes::HandleTextEncapsulationAttribute(const void *result, ui
   return result;
 }
 
-uint64_t TAttributes::HandleTextEncapsulationAttributeNeue(uint64_t a1, uint64_t **a2)
+uint64_t TAttributes::HandleTextEncapsulationAttributeNeue(NSTextEncapsulation *a1, TAttributes **a2)
 {
   v13 = *MEMORY[0x1E69E9840];
   objc_opt_class();
@@ -8022,7 +8028,7 @@ uint64_t TAttributes::HandleRunMetricsDelegateAttribute(uint64_t a1, uint64_t a2
   return result;
 }
 
-unint64_t CTFontCopyTextScaleRecipeForStringAttributes(TBaseFont ***a1, CFDictionaryRef theDict)
+unint64_t CTFontCopyTextScaleRecipeForStringAttributes(const __CTFont **a1, CFDictionaryRef theDict)
 {
   Value = CFDictionaryGetValue(theDict, @"NSTextScale");
   if (Value != @"NSTextScaleSecondary" && (!Value || !CFEqual(Value, @"NSTextScaleSecondary")))
@@ -8183,7 +8189,7 @@ LABEL_16:
   }
 }
 
-void TAttributes::CopyForegroundColorForContext(TAttributes *this@<X0>, CGContext *a2@<X1>, const __CFString **a3@<X2>, CGColorRef *a4@<X8>)
+void TAttributes::CopyForegroundColorForContext(CGColorRef *__return_ptr a1@<X8>, TAttributes *this@<X0>, CGContext *a3@<X1>, const __CFString **a4@<X2>)
 {
   if (*(this + 136))
   {
@@ -8193,7 +8199,7 @@ LABEL_11:
     goto LABEL_13;
   }
 
-  ForegroundColor = TAttributes::GetForegroundColor(atomic_load_explicit(this, memory_order_acquire), a2, a3);
+  ForegroundColor = TAttributes::GetForegroundColor(atomic_load_explicit(this, memory_order_acquire), a3, a4);
   if (!ForegroundColor && ((*(this + 136) & 2) == 0 || (ForegroundColor = atomic_load_explicit(this + 4, memory_order_acquire)) == 0))
   {
     if (qword_1ED567C40 != -1)
@@ -8209,14 +8215,14 @@ LABEL_11:
   if (v7 == CGColorGetTypeID())
   {
     v10 = ForegroundColor;
-    *a4 = atomic_exchange(&v10, 0);
+    *a1 = atomic_exchange(&v10, 0);
 
     return;
   }
 
   v9 = CopyCGColor(ForegroundColor);
 LABEL_13:
-  *a4 = v9;
+  *a1 = v9;
 }
 
 const void *TAttributes::GetStrikethroughColor(TAttributes *this, uint64_t a2, const __CFString **a3)
@@ -8322,7 +8328,7 @@ uint64_t std::__function::__func<TAttributes::HandleSuperscriptAttribute(void co
 void std::__function::__func<TAttributes::HandleSuperscriptAttribute(void const*,TAttributes::AttributeHandlerContext *)::$_0,std::allocator<TAttributes::HandleSuperscriptAttribute(void const*,TAttributes::AttributeHandlerContext *)::$_0>,void ()(TAttributes&)>::operator()(uint64_t a1, uint64_t a2)
 {
   v3 = (a2 + 16);
-  CreateCopyOfFontWithFeature(atomic_load_explicit((a2 + 16), memory_order_acquire), 10, *(a1 + 8), &v4);
+  CreateCopyOfFontWithFeature(&v4, atomic_load_explicit((a2 + 16), memory_order_acquire), 10, *(a1 + 8));
   if (atomic_load_explicit(&v4, memory_order_acquire))
   {
 
@@ -8340,7 +8346,7 @@ uint64_t std::__function::__func<TAttributes::HandleCharacterShapeAttribute(void
 void std::__function::__func<TAttributes::HandleCharacterShapeAttribute(void const*,TAttributes::AttributeHandlerContext *)::$_0,std::allocator<TAttributes::HandleCharacterShapeAttribute(void const*,TAttributes::AttributeHandlerContext *)::$_0>,void ()(TAttributes&)>::operator()(uint64_t a1, uint64_t a2)
 {
   v3 = (a2 + 16);
-  CreateCopyOfFontWithFeature(atomic_load_explicit((a2 + 16), memory_order_acquire), 20, *(a1 + 8), &v4);
+  CreateCopyOfFontWithFeature(&v4, atomic_load_explicit((a2 + 16), memory_order_acquire), 20, *(a1 + 8));
   if (atomic_load_explicit(&v4, memory_order_acquire))
   {
 
@@ -8482,7 +8488,7 @@ void std::__function::__func<TAttributes::HandlePaletteAttribute(void const*,TAt
   if (explicit)
   {
     v4 = *(a1 + 8);
-    TFont::CopyDescriptor(*(explicit + 40), 0, &keys);
+    TFont::CopyDescriptor(&keys, *(explicit + 40), 0);
     v5 = atomic_exchange(&keys, 0);
 
     v8 = v5;
@@ -8507,7 +8513,7 @@ void std::__function::__func<TAttributes::HandlePaletteAttribute(void const*,TAt
   }
 }
 
-uint64_t OTL::GPOS::ApplySinglePos(uint64_t a1, unsigned __int16 *a2, uint64_t a3, unsigned int a4)
+uint64_t OTL::GPOS::ApplySinglePos(uint64_t a1, unsigned __int16 *a2, uint64_t a3, uint64_t a4)
 {
   v7 = *(a1 + 40);
   v8 = ValueForSinglePos(a2, v7, a4);
@@ -8815,7 +8821,7 @@ LABEL_128:
               if (v82 != 0.0)
               {
                 v83 = *v98;
-                v121.width = TRunGlue::GetAdvance(*v98, v11) + *(v83 + 65) * v82;
+                v121.width = TRunGlue::GetAdvance(*v98, v11) + v83[65] * v82;
                 TRunGlue::SetAdvance(v83, v11, v121);
                 goto LABEL_125;
               }
@@ -9010,14 +9016,14 @@ LABEL_128:
             goto LABEL_62;
           }
 
-          v48 = v34 + 5;
+          v48 = (v34 + 5);
           if (v34 + 5 > v104)
           {
             goto LABEL_128;
           }
 
           v49 = bswap32(v34[4]) >> 16;
-          v50 = &v48[v49];
+          v50 = &v48[2 * v49];
           v51 = v34 + 6 <= v104 ? (v104 - v48) >> 1 : 0;
           v52 = v50 <= v104 && v50 >= v48;
           if (!v52 && v51 != v49)
@@ -9258,16 +9264,16 @@ LABEL_130:
   return v46 & 1;
 }
 
-void *TRunGlue::TGlyph::clearSafeToBreakAfter(void *this, int64_t a2)
+TRunGlue *TRunGlue::TGlyph::clearSafeToBreakAfter(TRunGlue *this, uint64_t a2)
 {
-  if (this[18])
+  if (*(this + 18))
   {
     v3 = this;
     TRunGlue::FocusOnIndex(this, a2);
-    v4 = v3[18];
-    v5 = a2 - v3[19];
+    v4 = *(v3 + 18);
+    v5 = a2 - *(v3 + 19);
     v6 = *(v4 + 216);
-    v7 = *(v3[51] + 4 * v5) | 8u;
+    v7 = *(*(v3 + 51) + 4 * v5) | 8u;
     v8 = *(v4 + 200) + v5;
 
     return [v6 setProps:v7 atIndex:v8];
@@ -9440,13 +9446,13 @@ uint64_t OTL::GPOS::ApplyCursivePos(void *a1, uint64_t a2, TGlyphIterator *this,
     v51 = *this;
     v52 = *(*this + 516);
     Advance = TRunGlue::GetAdvance(*this, v43);
-    v55 = 65;
+    v55 = 520;
     if (v52)
     {
-      v55 = 66;
+      v55 = 528;
     }
 
-    v56 = Advance + *&v51[v55] * v50;
+    v56 = Advance + *(v51 + v55) * v50;
     TRunGlue::SetAdvance(v51, v43, *(&v54 - 1));
     if (v64)
     {
@@ -9560,30 +9566,33 @@ double *TRunGlue::TGlyph::AdjustYPositionBy(TRunGlue::TGlyph *this, double a2)
   if ((*(v4 + 144) || *(v4 + 184)) && (*(v4 + 516) & 1) == 0)
   {
     Origin = TRunGlue::GetOrigin(v4, *(this + 1));
-    v9 = *this;
-    v10 = *(this + 1);
-    v12 = v11 + *(*this + 528) * a2;
+    v11 = *this;
+    v12 = *(this + 1);
+    v14 = v13 + *(*this + 528) * a2;
 
-    return TRunGlue::SetOrigin(v9, v10, *&Origin);
+    return TRunGlue::SetOrigin(v11, v12, *&Origin);
   }
 
   else
   {
-    result = std::__tree<std::__value_type<long,TGlyphDeltaListEntry>,std::__map_value_compare<long,std::__value_type<long,TGlyphDeltaListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TGlyphDeltaListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(*(v4 + 112), *(this + 1));
-    v6 = result[5];
-    v7 = result[6];
+    v5 = *(v4 + 112);
+    v6 = *(this + 1);
+    v15 = (this + 8);
+    result = std::__tree<std::__value_type<long,TGlyphDeltaListEntry>,std::__map_value_compare<long,std::__value_type<long,TGlyphDeltaListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TGlyphDeltaListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v5, v6, &v15);
+    v8 = result[5];
+    v9 = result[6];
     if (*(*this + 516))
     {
-      v6 = v6 + a2;
+      v8 = v8 + a2;
     }
 
     else
     {
-      v7 = v7 + a2;
+      v9 = v9 + a2;
     }
 
-    result[5] = v6;
-    result[6] = v7;
+    result[5] = v8;
+    result[6] = v9;
   }
 
   return result;

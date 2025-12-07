@@ -354,7 +354,7 @@ LABEL_8:
     v13 = v12;
     if (v12)
     {
-      [v12 metricsForSeparatorWithListStyle:styleCopy traitCollection:_traitCollection];
+      objc_msgSend_metricsForSeparatorWithListStyle_traitCollection_(v12);
     }
 
     else

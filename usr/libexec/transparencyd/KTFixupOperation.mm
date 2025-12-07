@@ -36,79 +36,78 @@
   finishedOp = [(KTFixupOperation *)self finishedOp];
   [(KTGroupOperation *)self dependOnBeforeGroupFinished:finishedOp];
 
-  v43[0] = objc_opt_class();
-  v43[1] = objc_opt_class();
-  [NSArray arrayWithObjects:v43 count:2];
+  v42[0] = objc_opt_class();
+  v42[1] = objc_opt_class();
+  [NSArray arrayWithObjects:v42 count:2];
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  obj = v37 = 0u;
+  v35 = 0u;
+  obj = v36 = 0u;
   v6 = 0;
-  v7 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+  v7 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
   if (v7)
   {
-    v31 = *v37;
+    v30 = *v36;
     *&v8 = 138412290;
-    v29 = v8;
+    v28 = v8;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v37 != v31)
+        if (*v36 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v36 + 1) + 8 * v9);
         fixupName = [objc_opt_class() fixupName];
         deps = [(KTFixupOperation *)self deps];
         smDataStore = [deps smDataStore];
-        v14 = [smDataStore haveDoneFixup:fixupName];
+        v13 = [smDataStore haveDoneFixup:fixupName];
 
-        if (v14)
+        if (v13)
         {
           if (qword_10038BBB0 != -1)
           {
             sub_100247260();
           }
 
-          v15 = qword_10038BBB8;
+          v14 = qword_10038BBB8;
           if (os_log_type_enabled(qword_10038BBB8, OS_LOG_TYPE_INFO))
           {
-            *buf = v29;
-            v41 = fixupName;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Already performed fixup %@", buf, 0xCu);
+            *buf = v28;
+            v40 = fixupName;
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Already performed fixup %@", buf, 0xCu);
           }
         }
 
         else
         {
-          v16 = objc_alloc(objc_opt_class());
+          v15 = objc_alloc(objc_opt_class());
           deps2 = [(KTFixupOperation *)self deps];
-          v18 = [v16 initWithDependencies:deps2];
+          v17 = [v15 initWithDependencies:deps2];
 
-          if (!v18)
+          if (!v17)
           {
             if (qword_10038BBB0 != -1)
             {
               sub_100247238();
             }
 
-            v27 = qword_10038BBB8;
+            v26 = qword_10038BBB8;
             if (os_log_type_enabled(qword_10038BBB8, OS_LOG_TYPE_ERROR))
             {
-              *buf = v29;
-              v41 = fixupName;
-              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Failed to create fixup operation %@", buf, 0xCu);
+              *buf = v28;
+              v40 = fixupName;
+              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Failed to create fixup operation %@", buf, 0xCu);
             }
 
             operationQueue3 = obj;
             goto LABEL_33;
           }
 
-          doFixupOperation = [v18 doFixupOperation];
-          v20 = doFixupOperation;
+          doFixupOperation = [v17 doFixupOperation];
+          v19 = doFixupOperation;
           if (doFixupOperation)
           {
             if (v6)
@@ -117,27 +116,27 @@
             }
 
             objc_initWeak(buf, self);
-            v32[0] = _NSConcreteStackBlock;
-            v32[1] = 3221225472;
-            v32[2] = sub_100015A14;
-            v32[3] = &unk_1003174D8;
-            objc_copyWeak(&v35, buf);
-            v33 = fixupName;
-            v21 = v20;
-            v34 = v21;
-            v22 = [NSBlockOperation blockOperationWithBlock:v32];
+            v31[0] = _NSConcreteStackBlock;
+            v31[1] = 3221225472;
+            v31[2] = sub_100015A14;
+            v31[3] = &unk_1003174D8;
+            objc_copyWeak(&v34, buf);
+            v32 = fixupName;
+            v20 = v19;
+            v33 = v20;
+            v21 = [NSBlockOperation blockOperationWithBlock:v31];
 
-            [v22 addDependency:v21];
+            [v21 addDependency:v20];
             operationQueue = [(KTGroupOperation *)self operationQueue];
-            [operationQueue addOperation:v21];
+            [operationQueue addOperation:v20];
 
             operationQueue2 = [(KTGroupOperation *)self operationQueue];
-            [operationQueue2 addOperation:v22];
+            [operationQueue2 addOperation:v21];
 
-            objc_destroyWeak(&v35);
+            objc_destroyWeak(&v34);
             objc_destroyWeak(buf);
 
-            v6 = v22;
+            v6 = v21;
           }
 
           else
@@ -147,21 +146,21 @@
               sub_100247210();
             }
 
-            v25 = qword_10038BBB8;
+            v24 = qword_10038BBB8;
             if (os_log_type_enabled(qword_10038BBB8, OS_LOG_TYPE_INFO))
             {
-              *buf = v29;
-              v41 = fixupName;
-              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Fixup %@ can't run right now, skipping for now", buf, 0xCu);
+              *buf = v28;
+              v40 = fixupName;
+              _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Fixup %@ can't run right now, skipping for now", buf, 0xCu);
             }
           }
         }
 
-        v9 = v9 + 1;
+        ++v9;
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v7 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
       if (v7)
       {
         continue;

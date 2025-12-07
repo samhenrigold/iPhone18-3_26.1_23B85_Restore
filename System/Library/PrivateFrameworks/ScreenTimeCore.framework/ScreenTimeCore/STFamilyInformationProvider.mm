@@ -5,11 +5,14 @@
 - (STFamilyProvidingObserver)observer;
 - (STMessageTransportMessageAddress)returnAddress;
 - (id)_fetchFamilyMemberWithPredicate:(id)predicate;
+- (id)_fetchFamilyMembersWithTimeout:(unint64_t)timeout forceServerCacheRefresh:(BOOL)refresh error:(id *)error;
 - (id)_refreshFamilyMemberCacheWithError:(id *)error;
 - (id)appleIDForUserDSID:(id)d;
 - (id)fetchNumberOfContactsForUserID:(id)d;
 - (id)fetchTargetableFamilyMembersWithError:(id *)error;
 - (id)userDSIDForAppleID:(id)d;
+- (void)_atomicallyFetchFamilyMembersForcingServerCacheRefresh:(BOOL)refresh completionHandler:(id)handler;
+- (void)_fetchFamilyMembersForcingServerCacheRefresh:(BOOL)refresh completionHandler:(id)handler;
 - (void)primitives:(id)primitives didFetchFamilyMembers:(id)members error:(id)error;
 @end
 
@@ -42,6 +45,111 @@
   v11->_cachedFamilyMembers = v18;
 
   return v11;
+}
+
+- (id)_fetchFamilyMembersWithTimeout:(unint64_t)timeout forceServerCacheRefresh:(BOOL)refresh error:(id *)error
+{
+  refreshCopy = refresh;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = sub_100030014;
+  v31 = sub_100030024;
+  v32 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = sub_100030014;
+  v25 = sub_100030024;
+  v26 = 0;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10003002C;
+  v17[3] = &unk_1001A3CE0;
+  v19 = &v21;
+  v20 = &v27;
+  v9 = dispatch_semaphore_create(0);
+  v18 = v9;
+  [(STFamilyInformationProvider *)self _atomicallyFetchFamilyMembersForcingServerCacheRefresh:refreshCopy completionHandler:v17];
+  v10 = dispatch_time(0, 1000000000 * timeout);
+  if (dispatch_semaphore_wait(v9, v10))
+  {
+    v11 = +[STLog familyInformationProvider];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      sub_100114C64();
+    }
+
+    v12 = [NSError alloc];
+    v13 = [v12 initWithDomain:STErrorDomain code:31 userInfo:0];
+    v14 = v28[5];
+    v28[5] = v13;
+  }
+
+  if (error)
+  {
+    *error = v28[5];
+  }
+
+  if (v28[5])
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = v22[5];
+  }
+
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v27, 8);
+
+  return v15;
+}
+
+- (void)_atomicallyFetchFamilyMembersForcingServerCacheRefresh:(BOOL)refresh completionHandler:(id)handler
+{
+  refreshCopy = refresh;
+  handlerCopy = handler;
+  v7 = handlerCopy;
+  if (atomic_exchange(&self->_familyCircleCacheRefreshInProgress._Value, 1u))
+  {
+    os_unfair_lock_lock(&self->_queuedCompletionHandlersLock);
+    queuedCompletionHandlers = [(STFamilyInformationProvider *)self queuedCompletionHandlers];
+    v9 = [queuedCompletionHandlers mutableCopy];
+
+    if (!v9)
+    {
+      v9 = objc_opt_new();
+    }
+
+    v10 = objc_retainBlock(v7);
+    [v9 addObject:v10];
+
+    v11 = [v9 copy];
+    [(STFamilyInformationProvider *)self setQueuedCompletionHandlers:v11];
+
+    os_unfair_lock_unlock(&self->_queuedCompletionHandlersLock);
+  }
+
+  else
+  {
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100030200;
+    v12[3] = &unk_1001A3D08;
+    v12[4] = self;
+    v13 = handlerCopy;
+    [(STFamilyInformationProvider *)self _fetchFamilyMembersForcingServerCacheRefresh:refreshCopy completionHandler:v12];
+  }
+}
+
+- (void)_fetchFamilyMembersForcingServerCacheRefresh:(BOOL)refresh completionHandler:(id)handler
+{
+  refreshCopy = refresh;
+  handlerCopy = handler;
+  familyCirclePrimitives = [(STFamilyInformationProvider *)self familyCirclePrimitives];
+  [familyCirclePrimitives fetchFamilyMembersForcingCacheRefresh:refreshCopy completionHandler:handlerCopy];
 }
 
 - (id)_refreshFamilyMemberCacheWithError:(id *)error

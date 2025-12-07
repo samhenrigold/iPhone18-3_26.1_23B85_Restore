@@ -13,7 +13,7 @@
   value = [state value];
   identifier = [value identifier];
 
-  if ([identifier isEqualToString:@"AllShortcuts"])
+  if (objc_msgSend_isEqualToString_(identifier))
   {
     v5 = objc_alloc(MEMORY[0x1E69E0D70]);
     clearBackground = [MEMORY[0x1E69E0B48] clearBackground];
@@ -80,7 +80,7 @@
 
 - (id)possibleStates
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   possibleStates = self->_possibleStates;
   if (!possibleStates)
   {
@@ -98,16 +98,14 @@
     v9 = [v8 if_map:&__block_literal_global_69862];
 
     v10 = WFAllShortcutsParameterState();
-    v16[0] = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = v10;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
     v12 = [v11 arrayByAddingObjectsFromArray:v9];
     v13 = self->_possibleStates;
     self->_possibleStates = v12;
 
     possibleStates = self->_possibleStates;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return possibleStates;
 }

@@ -3,7 +3,7 @@
 
 @implementation UIEventHIDIgnoresDragEvents
 
-uint64_t ___UIEventHIDIgnoresDragEvents_block_invoke()
+void *___UIEventHIDIgnoresDragEvents_block_invoke()
 {
   result = [objc_opt_class() _isUIKitSystemProcess];
   if (result)

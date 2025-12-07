@@ -318,7 +318,7 @@ LABEL_19:
 
   else if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
-    __40__MOContextStore_storeContexts_handler___block_invoke_cold_2(v23);
+    __40__MOContextStore_storeContexts_handler___block_invoke_cold_2();
   }
 
   if (*(*(*v23 + 8) + 40))
@@ -491,7 +491,7 @@ void __41__MOContextStore_removeContexts_handler___block_invoke(uint64_t a1, voi
 
     else if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      __41__MOContextStore_removeContexts_handler___block_invoke_cold_1(v13);
+      __41__MOContextStore_removeContexts_handler___block_invoke_cold_1();
     }
   }
 
@@ -609,7 +609,7 @@ void __50__MOContextStore_removeExpiredContextWithHandler___block_invoke(uint64_
 
     else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      __50__MOContextStore_removeExpiredContextWithHandler___block_invoke_cold_1(v8);
+      __50__MOContextStore_removeExpiredContextWithHandler___block_invoke_cold_1();
     }
   }
 
@@ -759,28 +759,28 @@ void __40__MOContextStore_storeContexts_handler___block_invoke_cold_1(uint8_t *a
   _os_log_error_impl(&_mh_execute_header, a4, OS_LOG_TYPE_ERROR, "storeContexts: '%@'", a1, 0xCu);
 }
 
-void __40__MOContextStore_storeContexts_handler___block_invoke_cold_2(uint64_t a1)
+void __40__MOContextStore_storeContexts_handler___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_1_1(a1);
-  [*v1 count];
+  OUTLINED_FUNCTION_1_1();
+  [*v0 count];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_0(&_mh_execute_header, v2, v3, "saving contexts error, %@, contexts count, %lu", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&_mh_execute_header, v1, v2, "saving contexts error, %@, contexts count, %lu", v3, v4, v5, v6);
 }
 
-void __41__MOContextStore_removeContexts_handler___block_invoke_cold_1(uint64_t a1)
+void __41__MOContextStore_removeContexts_handler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_1_1(a1);
-  [v1 count];
+  OUTLINED_FUNCTION_1_1();
+  [v0 count];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_0(&_mh_execute_header, v2, v3, "context deletion operation error, %@, contexts count %lu", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&_mh_execute_header, v1, v2, "context deletion operation error, %@, contexts count %lu", v3, v4, v5, v6);
 }
 
-void __50__MOContextStore_removeExpiredContextWithHandler___block_invoke_cold_1(uint64_t a1)
+void __50__MOContextStore_removeExpiredContextWithHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_1_1(a1);
-  [v1 count];
+  OUTLINED_FUNCTION_1_1();
+  [v0 count];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_0(&_mh_execute_header, v2, v3, "expired context deletion operation error, %@, contexts count %lu", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&_mh_execute_header, v1, v2, "expired context deletion operation error, %@, contexts count %lu", v3, v4, v5, v6);
 }
 
 @end

@@ -56,7 +56,7 @@ LABEL_4:
   return this;
 }
 
-unsigned __int8 *arb::obj_write(int a1, uint64_t a2, const HGLimits *a3, char *__s1)
+unsigned __int8 *arb::obj_write(uint64_t result, uint64_t a2, const HGLimits *a3, char *__s1)
 {
   v17[1] = 0;
   __src = 0;
@@ -107,9 +107,9 @@ LABEL_4:
   __s1a = __s1;
   if (*__s1)
   {
-    result = header(__s1, &v17[1]);
-    __s1a = result;
-    if (result)
+    v9 = header(__s1, &v17[1]);
+    __s1a = v9;
+    if (v9)
     {
       arb::begin(a2, HGString::_distill(char const*,unsigned int)::head, a3, v10);
       v12 = *(a2 + 8);
@@ -139,7 +139,7 @@ LABEL_4:
     }
   }
 
-  return result;
+  return v9;
 }
 
 uint64_t arb::end(string_t *a1, uint64_t a2, unsigned int *a3, double a4, double a5, uint32x4_t a6)
@@ -1907,52 +1907,52 @@ const char *str_ext(string_t *a1, uint64_t a2, uint64_t a3)
   return &v6[v11];
 }
 
-void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, double a6, uint32x4_t a7)
+void glsl::end(string_t *result, uint64_t a2, unsigned int *a3, char a4, double a5, double a6, uint32x4_t a7)
 {
-  v12 = a1[1];
-  v11 = a1[2];
+  v12 = result[1];
+  v11 = result[2];
   v13 = (v12 + 6);
   if (v11)
   {
     if (v13 >= *v11)
     {
       v14 = malloc_type_realloc(*(v11 + 2), (v12 + 261) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v15 = a1[2];
+      v15 = result[2];
       *(v15 + 2) = v14;
       *v15 = (v12 + 261) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v14;
+      *result = v14;
     }
   }
 
   else
   {
-    str_alloc(a1, v13);
+    str_alloc(result, v13);
   }
 
-  v16 = *a1;
-  a1[1] += 6;
+  v16 = *result;
+  result[1] += 6;
   v17 = &v12[v16];
   *(v17 + 2) = 15669;
   *v17 = 1145909039;
   v18 = *a3;
-  v20 = a1[1];
-  v19 = a1[2];
+  v20 = result[1];
+  v19 = result[2];
   v21 = (v20 + 8);
   if (v19)
   {
     if (v21 >= *v19)
     {
       v22 = malloc_type_realloc(*(v19 + 2), (v20 + 263) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v23 = a1[2];
+      v23 = result[2];
       *(v23 + 2) = v22;
       *v23 = (v20 + 263) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v22;
+      *result = v22;
     }
   }
 
   else
   {
-    str_alloc(a1, v21);
+    str_alloc(result, v21);
   }
 
   v24 = vdup_n_s32(v18);
@@ -1976,51 +1976,51 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   v33 = vuzp1q_s16(vcgtq_u32(xmmword_260391100, v29), vcgtq_u32(v32, v30));
   *v33.i8 = vmovn_s16(v33);
   *v30.i8 = vmovn_s16(vuzp1q_s16(v31, v30));
-  *&v20[*a1] = vbsl_s8(*v33.i8, vorr_s8(*v30.i8, 0x3030303030303030), vadd_s8(*v30.i8, 0x5757575757575757));
-  v35 = a1[1];
-  v34 = a1[2];
+  *&v20[*result] = vbsl_s8(*v33.i8, vorr_s8(*v30.i8, 0x3030303030303030), vadd_s8(*v30.i8, 0x5757575757575757));
+  v35 = result[1];
+  v34 = result[2];
   v36 = (v35 + 8);
-  a1[1] = v35 + 8;
+  result[1] = v35 + 8;
   v37 = (v35 + 9);
   if (v34)
   {
     if (v37 >= *v34)
     {
       v38 = malloc_type_realloc(*(v34 + 2), (v36 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v39 = a1[2];
+      v39 = result[2];
       *(v39 + 2) = v38;
       *v39 = (v36 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v38;
+      *result = v38;
     }
   }
 
   else
   {
-    str_alloc(a1, v37);
+    str_alloc(result, v37);
   }
 
-  v40 = *a1;
-  ++a1[1];
+  v40 = *result;
+  ++result[1];
   v40[v36] = 58;
   v41 = a3[1];
-  v43 = a1[1];
-  v42 = a1[2];
+  v43 = result[1];
+  v42 = result[2];
   v44 = (v43 + 8);
   if (v42)
   {
     if (v44 >= *v42)
     {
       v45 = malloc_type_realloc(*(v42 + 2), (v43 + 263) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v46 = a1[2];
+      v46 = result[2];
       *(v46 + 2) = v45;
       *v46 = (v43 + 263) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v45;
+      *result = v45;
     }
   }
 
   else
   {
-    str_alloc(a1, v44);
+    str_alloc(result, v44);
   }
 
   v47 = vdup_n_s32(v41);
@@ -2044,51 +2044,51 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   v56 = vuzp1q_s16(vcgtq_u32(xmmword_260391100, v52), vcgtq_u32(v55, v53));
   *v56.i8 = vmovn_s16(v56);
   *v53.i8 = vmovn_s16(vuzp1q_s16(v54, v53));
-  *&v43[*a1] = vbsl_s8(*v56.i8, vorr_s8(*v53.i8, 0x3030303030303030), vadd_s8(*v53.i8, 0x5757575757575757));
-  v58 = a1[1];
-  v57 = a1[2];
+  *&v43[*result] = vbsl_s8(*v56.i8, vorr_s8(*v53.i8, 0x3030303030303030), vadd_s8(*v53.i8, 0x5757575757575757));
+  v58 = result[1];
+  v57 = result[2];
   v59 = (v58 + 8);
-  a1[1] = v58 + 8;
+  result[1] = v58 + 8;
   v60 = (v58 + 9);
   if (v57)
   {
     if (v60 >= *v57)
     {
       v61 = malloc_type_realloc(*(v57 + 2), (v59 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v62 = a1[2];
+      v62 = result[2];
       *(v62 + 2) = v61;
       *v62 = (v59 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v61;
+      *result = v61;
     }
   }
 
   else
   {
-    str_alloc(a1, v60);
+    str_alloc(result, v60);
   }
 
-  v63 = *a1;
-  ++a1[1];
+  v63 = *result;
+  ++result[1];
   v63[v59] = 58;
   v64 = a3[2];
-  v66 = a1[1];
-  v65 = a1[2];
+  v66 = result[1];
+  v65 = result[2];
   v67 = (v66 + 8);
   if (v65)
   {
     if (v67 >= *v65)
     {
       v68 = malloc_type_realloc(*(v65 + 2), (v66 + 263) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v69 = a1[2];
+      v69 = result[2];
       *(v69 + 2) = v68;
       *v69 = (v66 + 263) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v68;
+      *result = v68;
     }
   }
 
   else
   {
-    str_alloc(a1, v67);
+    str_alloc(result, v67);
   }
 
   v70 = vdup_n_s32(v64);
@@ -2112,51 +2112,51 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   v79 = vuzp1q_s16(vcgtq_u32(xmmword_260391100, v75), vcgtq_u32(v78, v76));
   *v79.i8 = vmovn_s16(v79);
   *v76.i8 = vmovn_s16(vuzp1q_s16(v77, v76));
-  *&v66[*a1] = vbsl_s8(*v79.i8, vorr_s8(*v76.i8, 0x3030303030303030), vadd_s8(*v76.i8, 0x5757575757575757));
-  v81 = a1[1];
-  v80 = a1[2];
+  *&v66[*result] = vbsl_s8(*v79.i8, vorr_s8(*v76.i8, 0x3030303030303030), vadd_s8(*v76.i8, 0x5757575757575757));
+  v81 = result[1];
+  v80 = result[2];
   v82 = (v81 + 8);
-  a1[1] = v81 + 8;
+  result[1] = v81 + 8;
   v83 = (v81 + 9);
   if (v80)
   {
     if (v83 >= *v80)
     {
       v84 = malloc_type_realloc(*(v80 + 2), (v82 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v85 = a1[2];
+      v85 = result[2];
       *(v85 + 2) = v84;
       *v85 = (v82 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v84;
+      *result = v84;
     }
   }
 
   else
   {
-    str_alloc(a1, v83);
+    str_alloc(result, v83);
   }
 
-  v86 = *a1;
-  ++a1[1];
+  v86 = *result;
+  ++result[1];
   v86[v82] = 58;
   v87 = a3[3];
-  v89 = a1[1];
-  v88 = a1[2];
+  v89 = result[1];
+  v88 = result[2];
   v90 = (v89 + 8);
   if (v88)
   {
     if (v90 >= *v88)
     {
       v91 = malloc_type_realloc(*(v88 + 2), (v89 + 263) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v92 = a1[2];
+      v92 = result[2];
       *(v92 + 2) = v91;
       *v92 = (v89 + 263) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v91;
+      *result = v91;
     }
   }
 
   else
   {
-    str_alloc(a1, v90);
+    str_alloc(result, v90);
   }
 
   v93 = vdup_n_s32(v87);
@@ -2180,76 +2180,76 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   v102 = vuzp1q_s16(vcgtq_u32(xmmword_260391100, v98), vcgtq_u32(v101, v99));
   *v102.i8 = vmovn_s16(v102);
   *v99.i8 = vmovn_s16(vuzp1q_s16(v100, v99));
-  *&v89[*a1] = vbsl_s8(*v102.i8, vorr_s8(*v99.i8, 0x3030303030303030), vadd_s8(*v99.i8, 0x5757575757575757));
-  v104 = a1[1];
-  v103 = a1[2];
+  *&v89[*result] = vbsl_s8(*v102.i8, vorr_s8(*v99.i8, 0x3030303030303030), vadd_s8(*v99.i8, 0x5757575757575757));
+  v104 = result[1];
+  v103 = result[2];
   v105 = (v104 + 8);
-  a1[1] = v104 + 8;
+  result[1] = v104 + 8;
   v106 = (v104 + 9);
   if (v103)
   {
     if (v106 >= *v103)
     {
       v107 = malloc_type_realloc(*(v103 + 2), (v105 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v108 = a1[2];
+      v108 = result[2];
       *(v108 + 2) = v107;
       *v108 = (v105 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v107;
+      *result = v107;
     }
   }
 
   else
   {
-    str_alloc(a1, v106);
+    str_alloc(result, v106);
   }
 
-  v109 = *a1;
-  ++a1[1];
+  v109 = *result;
+  ++result[1];
   v109[v105] = 10;
-  v111 = a1[1];
-  v110 = a1[2];
+  v111 = result[1];
+  v110 = result[2];
   v112 = (v111 + 6);
   if (v110)
   {
     if (v112 >= *v110)
     {
       v113 = malloc_type_realloc(*(v110 + 2), (v111 + 261) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v114 = a1[2];
+      v114 = result[2];
       *(v114 + 2) = v113;
       *v114 = (v111 + 261) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v113;
+      *result = v113;
     }
   }
 
   else
   {
-    str_alloc(a1, v112);
+    str_alloc(result, v112);
   }
 
-  v115 = *a1;
-  a1[1] += 6;
+  v115 = *result;
+  result[1] += 6;
   v116 = &v111[v115];
   *(v116 + 2) = 15687;
   *v116 = 1230188335;
   v117 = *(a2 + 4);
-  v119 = a1[1];
-  v118 = a1[2];
+  v119 = result[1];
+  v118 = result[2];
   v120 = (v119 + 8);
   if (v118)
   {
     if (v120 >= *v118)
     {
       v121 = malloc_type_realloc(*(v118 + 2), (v119 + 263) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v122 = a1[2];
+      v122 = result[2];
       *(v122 + 2) = v121;
       *v122 = (v119 + 263) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v121;
+      *result = v121;
     }
   }
 
   else
   {
-    str_alloc(a1, v120);
+    str_alloc(result, v120);
   }
 
   v123 = vdup_n_s32(v117);
@@ -2273,51 +2273,51 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   v132 = vuzp1q_s16(vcgtq_u32(xmmword_260391100, v128), vcgtq_u32(v131, v129));
   *v132.i8 = vmovn_s16(v132);
   *v129.i8 = vmovn_s16(vuzp1q_s16(v130, v129));
-  *&v119[*a1] = vbsl_s8(*v132.i8, vorr_s8(*v129.i8, 0x3030303030303030), vadd_s8(*v129.i8, 0x5757575757575757));
-  v134 = a1[1];
-  v133 = a1[2];
+  *&v119[*result] = vbsl_s8(*v132.i8, vorr_s8(*v129.i8, 0x3030303030303030), vadd_s8(*v129.i8, 0x5757575757575757));
+  v134 = result[1];
+  v133 = result[2];
   v135 = (v134 + 8);
-  a1[1] = v134 + 8;
+  result[1] = v134 + 8;
   v136 = (v134 + 9);
   if (v133)
   {
     if (v136 >= *v133)
     {
       v137 = malloc_type_realloc(*(v133 + 2), (v135 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v138 = a1[2];
+      v138 = result[2];
       *(v138 + 2) = v137;
       *v138 = (v135 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v137;
+      *result = v137;
     }
   }
 
   else
   {
-    str_alloc(a1, v136);
+    str_alloc(result, v136);
   }
 
-  v139 = *a1;
-  ++a1[1];
+  v139 = *result;
+  ++result[1];
   v139[v135] = 58;
   v140 = *(a2 + 8);
-  v142 = a1[1];
-  v141 = a1[2];
+  v142 = result[1];
+  v141 = result[2];
   v143 = (v142 + 8);
   if (v141)
   {
     if (v143 >= *v141)
     {
       v144 = malloc_type_realloc(*(v141 + 2), (v142 + 263) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v145 = a1[2];
+      v145 = result[2];
       *(v145 + 2) = v144;
       *v145 = (v142 + 263) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v144;
+      *result = v144;
     }
   }
 
   else
   {
-    str_alloc(a1, v143);
+    str_alloc(result, v143);
   }
 
   v146 = vdup_n_s32(v140);
@@ -2341,51 +2341,51 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   v155 = vuzp1q_s16(vcgtq_u32(xmmword_260391100, v151), vcgtq_u32(v154, v152));
   *v155.i8 = vmovn_s16(v155);
   *v152.i8 = vmovn_s16(vuzp1q_s16(v153, v152));
-  *&v142[*a1] = vbsl_s8(*v155.i8, vorr_s8(*v152.i8, 0x3030303030303030), vadd_s8(*v152.i8, 0x5757575757575757));
-  v157 = a1[1];
-  v156 = a1[2];
+  *&v142[*result] = vbsl_s8(*v155.i8, vorr_s8(*v152.i8, 0x3030303030303030), vadd_s8(*v152.i8, 0x5757575757575757));
+  v157 = result[1];
+  v156 = result[2];
   v158 = (v157 + 8);
-  a1[1] = v157 + 8;
+  result[1] = v157 + 8;
   v159 = (v157 + 9);
   if (v156)
   {
     if (v159 >= *v156)
     {
       v160 = malloc_type_realloc(*(v156 + 2), (v158 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v161 = a1[2];
+      v161 = result[2];
       *(v161 + 2) = v160;
       *v161 = (v158 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v160;
+      *result = v160;
     }
   }
 
   else
   {
-    str_alloc(a1, v159);
+    str_alloc(result, v159);
   }
 
-  v162 = *a1;
-  ++a1[1];
+  v162 = *result;
+  ++result[1];
   v162[v158] = 58;
   v163 = *(a2 + 12);
-  v165 = a1[1];
-  v164 = a1[2];
+  v165 = result[1];
+  v164 = result[2];
   v166 = (v165 + 8);
   if (v164)
   {
     if (v166 >= *v164)
     {
       v167 = malloc_type_realloc(*(v164 + 2), (v165 + 263) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v168 = a1[2];
+      v168 = result[2];
       *(v168 + 2) = v167;
       *v168 = (v165 + 263) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v167;
+      *result = v167;
     }
   }
 
   else
   {
-    str_alloc(a1, v166);
+    str_alloc(result, v166);
   }
 
   v169 = vdup_n_s32(v163);
@@ -2409,51 +2409,51 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   v178 = vuzp1q_s16(vcgtq_u32(xmmword_260391100, v174), vcgtq_u32(v177, v175));
   *v178.i8 = vmovn_s16(v178);
   *v175.i8 = vmovn_s16(vuzp1q_s16(v176, v175));
-  *&v165[*a1] = vbsl_s8(*v178.i8, vorr_s8(*v175.i8, 0x3030303030303030), vadd_s8(*v175.i8, 0x5757575757575757));
-  v180 = a1[1];
-  v179 = a1[2];
+  *&v165[*result] = vbsl_s8(*v178.i8, vorr_s8(*v175.i8, 0x3030303030303030), vadd_s8(*v175.i8, 0x5757575757575757));
+  v180 = result[1];
+  v179 = result[2];
   v181 = (v180 + 8);
-  a1[1] = v180 + 8;
+  result[1] = v180 + 8;
   v182 = (v180 + 9);
   if (v179)
   {
     if (v182 >= *v179)
     {
       v183 = malloc_type_realloc(*(v179 + 2), (v181 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v184 = a1[2];
+      v184 = result[2];
       *(v184 + 2) = v183;
       *v184 = (v181 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v183;
+      *result = v183;
     }
   }
 
   else
   {
-    str_alloc(a1, v182);
+    str_alloc(result, v182);
   }
 
-  v185 = *a1;
-  ++a1[1];
+  v185 = *result;
+  ++result[1];
   v185[v181] = 58;
   v186 = *(a2 + 16);
-  v188 = a1[1];
-  v187 = a1[2];
+  v188 = result[1];
+  v187 = result[2];
   v189 = (v188 + 8);
   if (v187)
   {
     if (v189 >= *v187)
     {
       v190 = malloc_type_realloc(*(v187 + 2), (v188 + 263) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v191 = a1[2];
+      v191 = result[2];
       *(v191 + 2) = v190;
       *v191 = (v188 + 263) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v190;
+      *result = v190;
     }
   }
 
   else
   {
-    str_alloc(a1, v189);
+    str_alloc(result, v189);
   }
 
   v192 = vdup_n_s32(v186);
@@ -2479,54 +2479,54 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   *v198.i8 = vmovn_s16(vuzp1q_s16(v199, v198));
   v202 = vorr_s8(*v198.i8, 0x3030303030303030);
   v203 = COERCE_DOUBLE(vbsl_s8(*v201.i8, v202, vadd_s8(*v198.i8, 0x5757575757575757)));
-  *&v188[*a1] = v203;
-  v205 = a1[1];
-  v204 = a1[2];
+  *&v188[*result] = v203;
+  v205 = result[1];
+  v204 = result[2];
   v206 = (v205 + 8);
-  a1[1] = v205 + 8;
+  result[1] = v205 + 8;
   v207 = (v205 + 9);
   if (v204)
   {
     if (v207 >= *v204)
     {
       v208 = malloc_type_realloc(*(v204 + 2), (v206 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v209 = a1[2];
+      v209 = result[2];
       *(v209 + 2) = v208;
       *v209 = (v206 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v208;
+      *result = v208;
     }
   }
 
   else
   {
-    str_alloc(a1, v207);
+    str_alloc(result, v207);
   }
 
-  v210 = *a1;
-  ++a1[1];
+  v210 = *result;
+  ++result[1];
   v210[v206] = 58;
   v211 = *(a2 + 20);
-  v213 = a1[1];
-  v212 = a1[2];
+  v213 = result[1];
+  v212 = result[2];
   v214 = (v213 + 4);
   if (v212)
   {
     if (v214 >= *v212)
     {
       v215 = malloc_type_realloc(*(v212 + 2), (v213 + 259) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v216 = a1[2];
+      v216 = result[2];
       *(v216 + 2) = v215;
       *v216 = (v213 + 259) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v215;
+      *result = v215;
     }
   }
 
   else
   {
-    str_alloc(a1, v214);
+    str_alloc(result, v214);
   }
 
-  v217 = &v213[*a1];
+  v217 = &v213[*result];
   v218 = (v211 >> 12) + 87;
   if (v211 < 0xA000)
   {
@@ -2569,53 +2569,53 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   }
 
   v217[3] = v223;
-  v225 = a1[1];
-  v224 = a1[2];
+  v225 = result[1];
+  v224 = result[2];
   v226 = (v225 + 4);
-  a1[1] = v225 + 4;
+  result[1] = v225 + 4;
   v227 = (v225 + 5);
   if (v224)
   {
     if (v227 >= *v224)
     {
       v228 = malloc_type_realloc(*(v224 + 2), (v226 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v229 = a1[2];
+      v229 = result[2];
       *(v229 + 2) = v228;
       *v229 = (v226 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v228;
+      *result = v228;
     }
   }
 
   else
   {
-    str_alloc(a1, v227);
+    str_alloc(result, v227);
   }
 
-  v230 = *a1;
-  ++a1[1];
+  v230 = *result;
+  ++result[1];
   v230[v226] = 58;
   v231 = *(a2 + 22);
-  v233 = a1[1];
-  v232 = a1[2];
+  v233 = result[1];
+  v232 = result[2];
   v234 = (v233 + 4);
   if (v232)
   {
     if (v234 >= *v232)
     {
       v235 = malloc_type_realloc(*(v232 + 2), (v233 + 259) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v236 = a1[2];
+      v236 = result[2];
       *(v236 + 2) = v235;
       *v236 = (v233 + 259) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v235;
+      *result = v235;
     }
   }
 
   else
   {
-    str_alloc(a1, v234);
+    str_alloc(result, v234);
   }
 
-  v237 = &v233[*a1];
+  v237 = &v233[*result];
   v238 = (v231 >> 12) + 87;
   if (v231 < 0xA000)
   {
@@ -2658,53 +2658,53 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   }
 
   v237[3] = v243;
-  v245 = a1[1];
-  v244 = a1[2];
+  v245 = result[1];
+  v244 = result[2];
   v246 = (v245 + 4);
-  a1[1] = v245 + 4;
+  result[1] = v245 + 4;
   v247 = (v245 + 5);
   if (v244)
   {
     if (v247 >= *v244)
     {
       v248 = malloc_type_realloc(*(v244 + 2), (v246 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v249 = a1[2];
+      v249 = result[2];
       *(v249 + 2) = v248;
       *v249 = (v246 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v248;
+      *result = v248;
     }
   }
 
   else
   {
-    str_alloc(a1, v247);
+    str_alloc(result, v247);
   }
 
-  v250 = *a1;
-  ++a1[1];
+  v250 = *result;
+  ++result[1];
   v250[v246] = 58;
   v251 = *(a2 + 24);
-  v253 = a1[1];
-  v252 = a1[2];
+  v253 = result[1];
+  v252 = result[2];
   v254 = (v253 + 4);
   if (v252)
   {
     if (v254 >= *v252)
     {
       v255 = malloc_type_realloc(*(v252 + 2), (v253 + 259) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v256 = a1[2];
+      v256 = result[2];
       *(v256 + 2) = v255;
       *v256 = (v253 + 259) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v255;
+      *result = v255;
     }
   }
 
   else
   {
-    str_alloc(a1, v254);
+    str_alloc(result, v254);
   }
 
-  v257 = &v253[*a1];
+  v257 = &v253[*result];
   v258 = (v251 >> 12) + 87;
   if (v251 < 0xA000)
   {
@@ -2747,53 +2747,53 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   }
 
   v257[3] = v263;
-  v265 = a1[1];
-  v264 = a1[2];
+  v265 = result[1];
+  v264 = result[2];
   v266 = (v265 + 4);
-  a1[1] = v265 + 4;
+  result[1] = v265 + 4;
   v267 = (v265 + 5);
   if (v264)
   {
     if (v267 >= *v264)
     {
       v268 = malloc_type_realloc(*(v264 + 2), (v266 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v269 = a1[2];
+      v269 = result[2];
       *(v269 + 2) = v268;
       *v269 = (v266 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v268;
+      *result = v268;
     }
   }
 
   else
   {
-    str_alloc(a1, v267);
+    str_alloc(result, v267);
   }
 
-  v270 = *a1;
-  ++a1[1];
+  v270 = *result;
+  ++result[1];
   v270[v266] = 58;
   v271 = *(a2 + 26);
-  v273 = a1[1];
-  v272 = a1[2];
+  v273 = result[1];
+  v272 = result[2];
   v274 = (v273 + 2);
   if (v272)
   {
     if (v274 >= *v272)
     {
       v275 = malloc_type_realloc(*(v272 + 2), (v273 + 257) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v276 = a1[2];
+      v276 = result[2];
       *(v276 + 2) = v275;
       *v276 = (v273 + 257) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v275;
+      *result = v275;
     }
   }
 
   else
   {
-    str_alloc(a1, v274);
+    str_alloc(result, v274);
   }
 
-  v277 = &v273[*a1];
+  v277 = &v273[*result];
   v278 = (v271 >> 4) + 87;
   if (v271 < 0xA0)
   {
@@ -2812,10 +2812,10 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   }
 
   v277[1] = v279;
-  v280 = a1[1];
-  v281 = a1[2];
+  v280 = result[1];
+  v281 = result[2];
   v282 = v280 + 2;
-  a1[1] = v280 + 2;
+  result[1] = v280 + 2;
   v283 = *(a2 + 27);
   v284 = (v280 + 4);
   if (v281)
@@ -2824,19 +2824,19 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
     {
       v285 = (v280 + 259) & 0xFFFFFFFFFFFFFF00;
       v286 = malloc_type_realloc(*(v281 + 2), v285, 0x100004077774924uLL);
-      v287 = a1[2];
+      v287 = result[2];
       *(v287 + 2) = v286;
       *v287 = v285;
-      *a1 = v286;
+      *result = v286;
     }
   }
 
   else
   {
-    str_alloc(a1, v284);
+    str_alloc(result, v284);
   }
 
-  v288 = &v282[*a1];
+  v288 = &v282[*result];
   v289 = (v283 >> 4) + 87;
   if (v283 < 0xA0)
   {
@@ -2855,53 +2855,53 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   }
 
   v288[1] = v290;
-  v292 = a1[1];
-  v291 = a1[2];
+  v292 = result[1];
+  v291 = result[2];
   v293 = (v292 + 2);
-  a1[1] = v292 + 2;
+  result[1] = v292 + 2;
   v294 = (v292 + 3);
   if (v291)
   {
     if (v294 >= *v291)
     {
       v295 = malloc_type_realloc(*(v291 + 2), (v293 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v296 = a1[2];
+      v296 = result[2];
       *(v296 + 2) = v295;
       *v296 = (v293 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v295;
+      *result = v295;
     }
   }
 
   else
   {
-    str_alloc(a1, v294);
+    str_alloc(result, v294);
   }
 
-  v297 = *a1;
-  ++a1[1];
+  v297 = *result;
+  ++result[1];
   v297[v293] = 58;
   v298 = *(a2 + 28);
-  v300 = a1[1];
-  v299 = a1[2];
+  v300 = result[1];
+  v299 = result[2];
   v301 = (v300 + 2);
   if (v299)
   {
     if (v301 >= *v299)
     {
       v302 = malloc_type_realloc(*(v299 + 2), (v300 + 257) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v303 = a1[2];
+      v303 = result[2];
       *(v303 + 2) = v302;
       *v303 = (v300 + 257) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v302;
+      *result = v302;
     }
   }
 
   else
   {
-    str_alloc(a1, v301);
+    str_alloc(result, v301);
   }
 
-  v304 = &v300[*a1];
+  v304 = &v300[*result];
   v305 = (v298 >> 4) + 87;
   if (v298 < 0xA0)
   {
@@ -2920,10 +2920,10 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   }
 
   v304[1] = v306;
-  v307 = a1[1];
-  v308 = a1[2];
+  v307 = result[1];
+  v308 = result[2];
   v309 = v307 + 2;
-  a1[1] = v307 + 2;
+  result[1] = v307 + 2;
   v310 = *(a2 + 29);
   v311 = (v307 + 4);
   if (v308)
@@ -2932,19 +2932,19 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
     {
       v312 = (v307 + 259) & 0xFFFFFFFFFFFFFF00;
       v313 = malloc_type_realloc(*(v308 + 2), v312, 0x100004077774924uLL);
-      v314 = a1[2];
+      v314 = result[2];
       *(v314 + 2) = v313;
       *v314 = v312;
-      *a1 = v313;
+      *result = v313;
     }
   }
 
   else
   {
-    str_alloc(a1, v311);
+    str_alloc(result, v311);
   }
 
-  v315 = &v309[*a1];
+  v315 = &v309[*result];
   v316 = (v310 >> 4) + 87;
   if (v310 < 0xA0)
   {
@@ -2963,53 +2963,53 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   }
 
   v315[1] = v317;
-  v319 = a1[1];
-  v318 = a1[2];
+  v319 = result[1];
+  v318 = result[2];
   v320 = (v319 + 2);
-  a1[1] = v319 + 2;
+  result[1] = v319 + 2;
   v321 = (v319 + 3);
   if (v318)
   {
     if (v321 >= *v318)
     {
       v322 = malloc_type_realloc(*(v318 + 2), (v320 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v323 = a1[2];
+      v323 = result[2];
       *(v323 + 2) = v322;
       *v323 = (v320 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v322;
+      *result = v322;
     }
   }
 
   else
   {
-    str_alloc(a1, v321);
+    str_alloc(result, v321);
   }
 
-  v324 = *a1;
-  ++a1[1];
+  v324 = *result;
+  ++result[1];
   v324[v320] = 58;
   v325 = *(a2 + 30);
-  v327 = a1[1];
-  v326 = a1[2];
+  v327 = result[1];
+  v326 = result[2];
   v328 = (v327 + 4);
   if (v326)
   {
     if (v328 >= *v326)
     {
       v329 = malloc_type_realloc(*(v326 + 2), (v327 + 259) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v330 = a1[2];
+      v330 = result[2];
       *(v330 + 2) = v329;
       *v330 = (v327 + 259) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v329;
+      *result = v329;
     }
   }
 
   else
   {
-    str_alloc(a1, v328);
+    str_alloc(result, v328);
   }
 
-  v331 = &v327[*a1];
+  v331 = &v327[*result];
   v332 = (v325 >> 12) + 87;
   if (v325 < 0xA000)
   {
@@ -3052,53 +3052,53 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   }
 
   v331[3] = v337;
-  v339 = a1[1];
-  v338 = a1[2];
+  v339 = result[1];
+  v338 = result[2];
   v340 = (v339 + 4);
-  a1[1] = v339 + 4;
+  result[1] = v339 + 4;
   v341 = (v339 + 5);
   if (v338)
   {
     if (v341 >= *v338)
     {
       v342 = malloc_type_realloc(*(v338 + 2), (v340 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v343 = a1[2];
+      v343 = result[2];
       *(v343 + 2) = v342;
       *v343 = (v340 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v342;
+      *result = v342;
     }
   }
 
   else
   {
-    str_alloc(a1, v341);
+    str_alloc(result, v341);
   }
 
-  v344 = *a1;
-  ++a1[1];
+  v344 = *result;
+  ++result[1];
   v344[v340] = 58;
   v345 = *(a2 + 32);
-  v347 = a1[1];
-  v346 = a1[2];
+  v347 = result[1];
+  v346 = result[2];
   v348 = (v347 + 4);
   if (v346)
   {
     if (v348 >= *v346)
     {
       v349 = malloc_type_realloc(*(v346 + 2), (v347 + 259) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v350 = a1[2];
+      v350 = result[2];
       *(v350 + 2) = v349;
       *v350 = (v347 + 259) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v349;
+      *result = v349;
     }
   }
 
   else
   {
-    str_alloc(a1, v348);
+    str_alloc(result, v348);
   }
 
-  v351 = &v347[*a1];
+  v351 = &v347[*result];
   v352 = (v345 >> 12) + 87;
   if (v345 < 0xA000)
   {
@@ -3141,53 +3141,53 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   }
 
   v351[3] = v357;
-  v359 = a1[1];
-  v358 = a1[2];
+  v359 = result[1];
+  v358 = result[2];
   v360 = (v359 + 4);
-  a1[1] = v359 + 4;
+  result[1] = v359 + 4;
   v361 = (v359 + 5);
   if (v358)
   {
     if (v361 >= *v358)
     {
       v362 = malloc_type_realloc(*(v358 + 2), (v360 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v363 = a1[2];
+      v363 = result[2];
       *(v363 + 2) = v362;
       *v363 = (v360 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v362;
+      *result = v362;
     }
   }
 
   else
   {
-    str_alloc(a1, v361);
+    str_alloc(result, v361);
   }
 
-  v364 = *a1;
-  ++a1[1];
+  v364 = *result;
+  ++result[1];
   v364[v360] = 58;
   v365 = *(a2 + 34);
-  v367 = a1[1];
-  v366 = a1[2];
+  v367 = result[1];
+  v366 = result[2];
   v368 = (v367 + 4);
   if (v366)
   {
     if (v368 >= *v366)
     {
       v369 = malloc_type_realloc(*(v366 + 2), (v367 + 259) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v370 = a1[2];
+      v370 = result[2];
       *(v370 + 2) = v369;
       *v370 = (v367 + 259) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v369;
+      *result = v369;
     }
   }
 
   else
   {
-    str_alloc(a1, v368);
+    str_alloc(result, v368);
   }
 
-  v371 = &v367[*a1];
+  v371 = &v367[*result];
   v372 = (v365 >> 12) + 87;
   if (v365 < 0xA000)
   {
@@ -3230,53 +3230,53 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   }
 
   v371[3] = v377;
-  v379 = a1[1];
-  v378 = a1[2];
+  v379 = result[1];
+  v378 = result[2];
   v380 = (v379 + 4);
-  a1[1] = v379 + 4;
+  result[1] = v379 + 4;
   v381 = (v379 + 5);
   if (v378)
   {
     if (v381 >= *v378)
     {
       v382 = malloc_type_realloc(*(v378 + 2), (v380 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v383 = a1[2];
+      v383 = result[2];
       *(v383 + 2) = v382;
       *v383 = (v380 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v382;
+      *result = v382;
     }
   }
 
   else
   {
-    str_alloc(a1, v381);
+    str_alloc(result, v381);
   }
 
-  v384 = *a1;
-  ++a1[1];
+  v384 = *result;
+  ++result[1];
   v384[v380] = 58;
   v385 = *(a2 + 36);
-  v387 = a1[1];
-  v386 = a1[2];
+  v387 = result[1];
+  v386 = result[2];
   v388 = (v387 + 4);
   if (v386)
   {
     if (v388 >= *v386)
     {
       v389 = malloc_type_realloc(*(v386 + 2), (v387 + 259) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v390 = a1[2];
+      v390 = result[2];
       *(v390 + 2) = v389;
       *v390 = (v387 + 259) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v389;
+      *result = v389;
     }
   }
 
   else
   {
-    str_alloc(a1, v388);
+    str_alloc(result, v388);
   }
 
-  v391 = &v387[*a1];
+  v391 = &v387[*result];
   v392 = (v385 >> 12) + 87;
   if (v385 < 0xA000)
   {
@@ -3319,53 +3319,53 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   }
 
   v391[3] = v397;
-  v399 = a1[1];
-  v398 = a1[2];
+  v399 = result[1];
+  v398 = result[2];
   v400 = (v399 + 4);
-  a1[1] = v399 + 4;
+  result[1] = v399 + 4;
   v401 = (v399 + 5);
   if (v398)
   {
     if (v401 >= *v398)
     {
       v402 = malloc_type_realloc(*(v398 + 2), (v400 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v403 = a1[2];
+      v403 = result[2];
       *(v403 + 2) = v402;
       *v403 = (v400 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v402;
+      *result = v402;
     }
   }
 
   else
   {
-    str_alloc(a1, v401);
+    str_alloc(result, v401);
   }
 
-  v404 = *a1;
-  ++a1[1];
+  v404 = *result;
+  ++result[1];
   v404[v400] = 58;
   v405 = *(a2 + 40);
-  v407 = a1[1];
-  v406 = a1[2];
+  v407 = result[1];
+  v406 = result[2];
   v408 = (v407 + 2);
   if (v406)
   {
     if (v408 >= *v406)
     {
       v409 = malloc_type_realloc(*(v406 + 2), (v407 + 257) & 0xFFFFFFFFFFFFFF00, 0x100004077774924uLL);
-      v410 = a1[2];
+      v410 = result[2];
       *(v410 + 2) = v409;
       *v410 = (v407 + 257) & 0xFFFFFFFFFFFFFF00;
-      *a1 = v409;
+      *result = v409;
     }
   }
 
   else
   {
-    str_alloc(a1, v408);
+    str_alloc(result, v408);
   }
 
-  v411 = &v407[*a1];
+  v411 = &v407[*result];
   v412 = (v405 >> 4) + 87;
   if (v405 < 0xA0)
   {
@@ -3384,50 +3384,50 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   }
 
   v411[1] = v413;
-  v415 = a1[1];
-  v414 = a1[2];
+  v415 = result[1];
+  v414 = result[2];
   v416 = (v415 + 2);
-  a1[1] = v415 + 2;
+  result[1] = v415 + 2;
   v417 = (v415 + 3);
   if (v414)
   {
     if (v417 >= *v414)
     {
       v418 = malloc_type_realloc(*(v414 + 2), (v416 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v419 = a1[2];
+      v419 = result[2];
       *(v419 + 2) = v418;
       *v419 = (v416 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v418;
+      *result = v418;
     }
   }
 
   else
   {
-    str_alloc(a1, v417);
+    str_alloc(result, v417);
   }
 
-  v420 = *a1;
-  ++a1[1];
+  v420 = *result;
+  ++result[1];
   v420[v416] = 58;
   v421 = *(a2 + 41);
-  v423 = a1[1];
-  v422 = a1[2];
+  v423 = result[1];
+  v422 = result[2];
   v424 = v423 + 1;
   if (v422)
   {
     if (v424 >= *v422)
     {
       v425 = malloc_type_realloc(*(v422 + 2), (v423 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v426 = a1[2];
+      v426 = result[2];
       *(v426 + 2) = v425;
       *v426 = (v423 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v425;
+      *result = v425;
     }
   }
 
   else
   {
-    str_alloc(a1, v424);
+    str_alloc(result, v424);
   }
 
   if ((v421 & 0xFu) >= 0xA)
@@ -3440,51 +3440,51 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
     v427 = v421 & 0xF | 0x30;
   }
 
-  (*a1)[v423] = v427;
-  v429 = a1[1];
-  v428 = a1[2];
+  (*result)[v423] = v427;
+  v429 = result[1];
+  v428 = result[2];
   v430 = (v429 + 1);
-  a1[1] = v429 + 1;
+  result[1] = v429 + 1;
   v431 = (v429 + 2);
   if (v428)
   {
     if (v431 >= *v428)
     {
       v432 = malloc_type_realloc(*(v428 + 2), (v430 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v433 = a1[2];
+      v433 = result[2];
       *(v433 + 2) = v432;
       *v433 = (v430 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v432;
+      *result = v432;
     }
   }
 
   else
   {
-    str_alloc(a1, v431);
+    str_alloc(result, v431);
   }
 
-  v434 = *a1;
-  ++a1[1];
+  v434 = *result;
+  ++result[1];
   v434[v430] = 58;
   v435 = *(a2 + 42);
-  v437 = a1[1];
-  v436 = a1[2];
+  v437 = result[1];
+  v436 = result[2];
   v438 = v437 + 1;
   if (v436)
   {
     if (v438 >= *v436)
     {
       v439 = malloc_type_realloc(*(v436 + 2), (v437 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v440 = a1[2];
+      v440 = result[2];
       *(v440 + 2) = v439;
       *v440 = (v437 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v439;
+      *result = v439;
     }
   }
 
   else
   {
-    str_alloc(a1, v438);
+    str_alloc(result, v438);
   }
 
   if ((v435 & 0xFu) >= 0xA)
@@ -3497,51 +3497,51 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
     v441 = v435 & 0xF | 0x30;
   }
 
-  (*a1)[v437] = v441;
-  v443 = a1[1];
-  v442 = a1[2];
+  (*result)[v437] = v441;
+  v443 = result[1];
+  v442 = result[2];
   v444 = (v443 + 1);
-  a1[1] = v443 + 1;
+  result[1] = v443 + 1;
   v445 = (v443 + 2);
   if (v442)
   {
     if (v445 >= *v442)
     {
       v446 = malloc_type_realloc(*(v442 + 2), (v444 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v447 = a1[2];
+      v447 = result[2];
       *(v447 + 2) = v446;
       *v447 = (v444 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v446;
+      *result = v446;
     }
   }
 
   else
   {
-    str_alloc(a1, v445);
+    str_alloc(result, v445);
   }
 
-  v448 = *a1;
-  ++a1[1];
+  v448 = *result;
+  ++result[1];
   v448[v444] = 58;
   v449 = *(a2 + 43);
-  v451 = a1[1];
-  v450 = a1[2];
+  v451 = result[1];
+  v450 = result[2];
   v452 = v451 + 1;
   if (v450)
   {
     if (v452 >= *v450)
     {
       v453 = malloc_type_realloc(*(v450 + 2), (v451 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-      v454 = a1[2];
+      v454 = result[2];
       *(v454 + 2) = v453;
       *v454 = (v451 & 0xFFFFFFFFFFFFFF00) + 256;
-      *a1 = v453;
+      *result = v453;
     }
   }
 
   else
   {
-    str_alloc(a1, v452);
+    str_alloc(result, v452);
   }
 
   if ((v449 & 0xFu) >= 0xA)
@@ -3554,17 +3554,17 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
     v455 = v449 & 0xF | 0x30;
   }
 
-  (*a1)[v451] = v455;
-  v457 = a1[1];
-  v456 = a1[2];
+  (*result)[v451] = v455;
+  v457 = result[1];
+  v456 = result[2];
   v458 = (v457 + 1);
-  a1[1] = v457 + 1;
+  result[1] = v457 + 1;
   v459 = (v457 + 2);
   if (!v456)
   {
-    str_alloc(a1, v459);
-    v463 = *a1;
-    ++a1[1];
+    str_alloc(result, v459);
+    v463 = *result;
+    ++result[1];
     v463[v458] = 10;
     if (a4)
     {
@@ -3577,20 +3577,20 @@ void glsl::end(string_t *a1, uint64_t a2, unsigned int *a3, char a4, double a5, 
   if (v459 >= *v456)
   {
     v460 = malloc_type_realloc(*(v456 + 2), (v458 & 0xFFFFFFFFFFFFFF00) + 256, 0x100004077774924uLL);
-    v461 = a1[2];
+    v461 = result[2];
     *(v461 + 2) = v460;
     *v461 = (v458 & 0xFFFFFFFFFFFFFF00) + 256;
-    *a1 = v460;
+    *result = v460;
   }
 
-  v462 = *a1;
-  ++a1[1];
+  v462 = *result;
+  ++result[1];
   v462[v458] = 10;
   if ((a4 & 1) == 0)
   {
 LABEL_298:
 
-    str_close(a1, v203, *&v202, v201);
+    str_close(result, v203, *&v202, v201);
   }
 }
 
@@ -4283,7 +4283,7 @@ unint64_t HGString::hash(HGString *this, uint8x8_t a2)
   return v25 | ((vorr_s8(*v47.i8, *&vextq_s8(v47, v47, 8uLL)).u32[0] | v31 | v28 | (16 * v43) | (v45 + v46)) << 32);
 }
 
-string_t HGString::c_str(string_t *this, double a2, double a3, uint32x4_t a4)
+uint64_t HGString::c_str(string_t *this, double a2, double a3, uint32x4_t a4)
 {
   if (!*this || this[2] || this[1][*this])
   {
@@ -5272,7 +5272,7 @@ double HGString::digest@<D0>(HGString *this@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-double HGString::sample2d@<D0>(HGString *this@<X0>, int a2@<W1>, int a3@<W2>, HGString *a4@<X8>)
+double HGString::sample2d@<D0>(HGString *this@<X0>, uint64_t a2@<X1>, int a3@<W2>, HGString *a4@<X8>)
 {
   if (this != 394784)
   {
@@ -5286,7 +5286,7 @@ double HGString::sample2d@<D0>(HGString *this@<X0>, int a2@<W1>, int a3@<W2>, HG
           {
             if (a2 == 6)
             {
-              metal_sample2d6_half_s();
+              metal_sample2d6_half_s(this, a2);
               v9 = &qword_280C5D650;
               v10 = a4;
             }
@@ -5298,7 +5298,7 @@ double HGString::sample2d@<D0>(HGString *this@<X0>, int a2@<W1>, int a3@<W2>, HG
                 goto LABEL_163;
               }
 
-              metal_sample2d7_half_s();
+              metal_sample2d7_half_s(this, a2);
               v9 = &qword_280C5D680;
               v10 = a4;
             }
@@ -5306,14 +5306,14 @@ double HGString::sample2d@<D0>(HGString *this@<X0>, int a2@<W1>, int a3@<W2>, HG
 
           else if (a2 == 4)
           {
-            metal_sample2d4_half_s();
+            metal_sample2d4_half_s(this, a2);
             v9 = &qword_280C5D5F0;
             v10 = a4;
           }
 
           else
           {
-            metal_sample2d5_half_s();
+            metal_sample2d5_half_s(this, a2);
             v9 = &qword_280C5D620;
             v10 = a4;
           }
@@ -5323,14 +5323,14 @@ double HGString::sample2d@<D0>(HGString *this@<X0>, int a2@<W1>, int a3@<W2>, HG
         {
           if (a2 == 2)
           {
-            metal_sample2d2_half_s();
+            metal_sample2d2_half_s(this, a2);
             v9 = &qword_280C5D590;
             v10 = a4;
           }
 
           else
           {
-            metal_sample2d3_half_s();
+            metal_sample2d3_half_s(this, a2);
             v9 = &qword_280C5D5C0;
             v10 = a4;
           }
@@ -5343,14 +5343,14 @@ double HGString::sample2d@<D0>(HGString *this@<X0>, int a2@<W1>, int a3@<W2>, HG
             goto LABEL_163;
           }
 
-          metal_sample2d1_half_s();
+          metal_sample2d1_half_s(this, a2);
           v9 = &qword_280C5D560;
           v10 = a4;
         }
 
         else
         {
-          metal_sample2d0_half_s();
+          metal_sample2d0_half_s(this, a2);
           v9 = &qword_280C5D530;
           v10 = a4;
         }
@@ -5369,7 +5369,7 @@ double HGString::sample2d@<D0>(HGString *this@<X0>, int a2@<W1>, int a3@<W2>, HG
           {
             if (a2 == 6)
             {
-              metal_sample2d6_s();
+              metal_sample2d6_s(this, a2);
               v9 = &qword_280C5D7D0;
               v10 = a4;
             }
@@ -5381,7 +5381,7 @@ double HGString::sample2d@<D0>(HGString *this@<X0>, int a2@<W1>, int a3@<W2>, HG
                 goto LABEL_163;
               }
 
-              metal_sample2d7_s();
+              metal_sample2d7_s(this, a2);
               v9 = &qword_280C5D800;
               v10 = a4;
             }
@@ -5389,14 +5389,14 @@ double HGString::sample2d@<D0>(HGString *this@<X0>, int a2@<W1>, int a3@<W2>, HG
 
           else if (a2 == 4)
           {
-            metal_sample2d4_s();
+            metal_sample2d4_s(this, a2);
             v9 = &qword_280C5D770;
             v10 = a4;
           }
 
           else
           {
-            metal_sample2d5_s();
+            metal_sample2d5_s(this, a2);
             v9 = &qword_280C5D7A0;
             v10 = a4;
           }
@@ -5406,14 +5406,14 @@ double HGString::sample2d@<D0>(HGString *this@<X0>, int a2@<W1>, int a3@<W2>, HG
         {
           if (a2 == 2)
           {
-            metal_sample2d2_s();
+            metal_sample2d2_s(this, a2);
             v9 = &qword_280C5D710;
             v10 = a4;
           }
 
           else
           {
-            metal_sample2d3_s();
+            metal_sample2d3_s(this, a2);
             v9 = &qword_280C5D740;
             v10 = a4;
           }
@@ -5426,14 +5426,14 @@ double HGString::sample2d@<D0>(HGString *this@<X0>, int a2@<W1>, int a3@<W2>, HG
             goto LABEL_163;
           }
 
-          metal_sample2d1_s();
+          metal_sample2d1_s(this, a2);
           v9 = &qword_280C5D6E0;
           v10 = a4;
         }
 
         else
         {
-          metal_sample2d0_s();
+          metal_sample2d0_s(this, a2);
           v9 = &qword_280C5D6B0;
           v10 = a4;
         }
@@ -5451,7 +5451,7 @@ double HGString::sample2d@<D0>(HGString *this@<X0>, int a2@<W1>, int a3@<W2>, HG
         {
           if (a2 == 1)
           {
-            if (atomic_load_explicit(&qword_280C5D048, memory_order_acquire))
+            if (atomic_load_explicit(byte_280C5D048, memory_order_acquire))
             {
               v5 = qword_280C5D268;
               *a4 = qword_280C5D260;
@@ -5503,7 +5503,7 @@ LABEL_163:
           return result;
         }
 
-        if (atomic_load_explicit(&_MergedGlobals_15, memory_order_acquire))
+        if (atomic_load_explicit(_MergedGlobals_15, memory_order_acquire))
         {
           v24 = unk_280C5D238;
           *a4 = qword_280C5D230;
@@ -5549,7 +5549,7 @@ LABEL_108:
 
       if (a2 != 2)
       {
-        if (atomic_load_explicit(&qword_280C5D058, memory_order_acquire))
+        if (atomic_load_explicit(byte_280C5D058, memory_order_acquire))
         {
           v16 = qword_280C5D2C8;
           *a4 = qword_280C5D2C0;
@@ -5593,7 +5593,7 @@ LABEL_60:
         goto LABEL_60;
       }
 
-      if (atomic_load_explicit(&qword_280C5D050, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5D050, memory_order_acquire))
       {
         v28 = qword_280C5D298;
         *a4 = qword_280C5D290;
@@ -5641,7 +5641,7 @@ LABEL_120:
     {
       if (a2 != 4)
       {
-        if (atomic_load_explicit(&qword_280C5D068, memory_order_acquire))
+        if (atomic_load_explicit(byte_280C5D068, memory_order_acquire))
         {
           v12 = qword_280C5D328;
           *a4 = qword_280C5D320;
@@ -5685,7 +5685,7 @@ LABEL_37:
         goto LABEL_37;
       }
 
-      if (atomic_load_explicit(&qword_280C5D060, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5D060, memory_order_acquire))
       {
         v26 = qword_280C5D2F8;
         *a4 = qword_280C5D2F0;
@@ -5736,7 +5736,7 @@ LABEL_114:
         goto LABEL_163;
       }
 
-      if (atomic_load_explicit(&qword_280C5D078, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5D078, memory_order_acquire))
       {
         v18 = qword_280C5D388;
         *a4 = qword_280C5D380;
@@ -5780,7 +5780,7 @@ LABEL_68:
       goto LABEL_68;
     }
 
-    if (atomic_load_explicit(&qword_280C5D070, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D070, memory_order_acquire))
     {
       v30 = qword_280C5D358;
       *a4 = qword_280C5D350;
@@ -5835,7 +5835,7 @@ LABEL_126:
           goto LABEL_163;
         }
 
-        if (atomic_load_explicit(&qword_280C5D088, memory_order_acquire))
+        if (atomic_load_explicit(byte_280C5D088, memory_order_acquire))
         {
           v7 = qword_280C5D3E8;
           *a4 = qword_280C5D3E0;
@@ -5879,7 +5879,7 @@ LABEL_20:
         goto LABEL_20;
       }
 
-      if (atomic_load_explicit(&qword_280C5D080, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5D080, memory_order_acquire))
       {
         v32 = qword_280C5D3B8;
         *a4 = qword_280C5D3B0;
@@ -5925,7 +5925,7 @@ LABEL_132:
 
     if (a2 != 2)
     {
-      if (atomic_load_explicit(&qword_280C5D098, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5D098, memory_order_acquire))
       {
         v20 = qword_280C5D448;
         *a4 = qword_280C5D440;
@@ -5969,7 +5969,7 @@ LABEL_75:
       goto LABEL_75;
     }
 
-    if (atomic_load_explicit(&qword_280C5D090, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D090, memory_order_acquire))
     {
       v36 = qword_280C5D418;
       *a4 = qword_280C5D410;
@@ -6017,7 +6017,7 @@ LABEL_144:
   {
     if (a2 != 4)
     {
-      if (atomic_load_explicit(&qword_280C5D0A8, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5D0A8, memory_order_acquire))
       {
         v14 = qword_280C5D4A8;
         *a4 = qword_280C5D4A0;
@@ -6061,7 +6061,7 @@ LABEL_45:
       goto LABEL_45;
     }
 
-    if (atomic_load_explicit(&qword_280C5D0A0, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D0A0, memory_order_acquire))
     {
       v34 = qword_280C5D478;
       *a4 = qword_280C5D470;
@@ -6112,7 +6112,7 @@ LABEL_138:
       goto LABEL_163;
     }
 
-    if (atomic_load_explicit(&qword_280C5D0B8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D0B8, memory_order_acquire))
     {
       v22 = qword_280C5D508;
       *a4 = qword_280C5D500;
@@ -6156,7 +6156,7 @@ LABEL_83:
     goto LABEL_83;
   }
 
-  if (atomic_load_explicit(&qword_280C5D0B0, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5D0B0, memory_order_acquire))
   {
     v38 = qword_280C5D4D8;
     *a4 = qword_280C5D4D0;
@@ -6211,135 +6211,135 @@ void sub_25FC2377C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void metal_sample2d0_half_s(void)
+void metal_sample2d0_half_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D0C0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D0C0, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d0_half_s();
   }
 }
 
-void metal_sample2d1_half_s(void)
+void metal_sample2d1_half_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D0C8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D0C8, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d1_half_s();
   }
 }
 
-void metal_sample2d2_half_s(void)
+void metal_sample2d2_half_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D0D0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D0D0, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d2_half_s();
   }
 }
 
-void metal_sample2d3_half_s(void)
+void metal_sample2d3_half_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D0D8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D0D8, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d3_half_s();
   }
 }
 
-void metal_sample2d4_half_s(void)
+void metal_sample2d4_half_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D0E0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D0E0, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d4_half_s();
   }
 }
 
-void metal_sample2d5_half_s(void)
+void metal_sample2d5_half_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D0E8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D0E8, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d5_half_s();
   }
 }
 
-void metal_sample2d6_half_s(void)
+void metal_sample2d6_half_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D0F0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D0F0, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d6_half_s();
   }
 }
 
-void metal_sample2d7_half_s(void)
+void metal_sample2d7_half_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D0F8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D0F8, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d7_half_s();
   }
 }
 
-void metal_sample2d0_s(void)
+void metal_sample2d0_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D100, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D100, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d0_s();
   }
 }
 
-void metal_sample2d1_s(void)
+void metal_sample2d1_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D108, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D108, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d1_s();
   }
 }
 
-void metal_sample2d2_s(void)
+void metal_sample2d2_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D110, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D110, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d2_s();
   }
 }
 
-void metal_sample2d3_s(void)
+void metal_sample2d3_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D118, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D118, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d3_s();
   }
 }
 
-void metal_sample2d4_s(void)
+void metal_sample2d4_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D120, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D120, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d4_s();
   }
 }
 
-void metal_sample2d5_s(void)
+void metal_sample2d5_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D128, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D128, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d5_s();
   }
 }
 
-void metal_sample2d6_s(void)
+void metal_sample2d6_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D130, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D130, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d6_s();
   }
 }
 
-void metal_sample2d7_s(void)
+void metal_sample2d7_s(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5D138, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5D138, memory_order_acquire) & 1) == 0)
   {
     metal_sample2d7_s();
   }
 }
 
-void HGString::sampleRect(HGString *this@<X0>, int a2@<W1>, void *a3@<X8>)
+void HGString::sampleRect(void *this@<X0>, int a2@<W1>, void *a3@<X8>)
 {
   if (this != 394000)
   {
@@ -6354,7 +6354,7 @@ void HGString::sampleRect(HGString *this@<X0>, int a2@<W1>, void *a3@<X8>)
       {
         if (a2 == 1)
         {
-          if (atomic_load_explicit(&qword_280C5D148, memory_order_acquire))
+          if (atomic_load_explicit(byte_280C5D148, memory_order_acquire))
           {
             v4 = qword_280C5D868;
             *a3 = qword_280C5D860;
@@ -6405,7 +6405,7 @@ LABEL_35:
         return;
       }
 
-      if (atomic_load_explicit(&qword_280C5D140, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5D140, memory_order_acquire))
       {
         v12 = qword_280C5D838;
         *a3 = qword_280C5D830;
@@ -6451,7 +6451,7 @@ LABEL_40:
 
     if (a2 != 2)
     {
-      if (atomic_load_explicit(&qword_280C5D158, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5D158, memory_order_acquire))
       {
         v8 = qword_280C5D8C8;
         *a3 = qword_280C5D8C0;
@@ -6495,7 +6495,7 @@ LABEL_24:
       goto LABEL_24;
     }
 
-    if (atomic_load_explicit(&qword_280C5D150, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D150, memory_order_acquire))
     {
       v16 = qword_280C5D898;
       *a3 = qword_280C5D890;
@@ -6543,7 +6543,7 @@ LABEL_52:
   {
     if (a2 != 4)
     {
-      if (atomic_load_explicit(&qword_280C5D168, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5D168, memory_order_acquire))
       {
         v6 = qword_280C5D928;
         *a3 = qword_280C5D920;
@@ -6587,7 +6587,7 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    if (atomic_load_explicit(&qword_280C5D160, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D160, memory_order_acquire))
     {
       v14 = qword_280C5D8F8;
       *a3 = qword_280C5D8F0;
@@ -6638,7 +6638,7 @@ LABEL_46:
       goto LABEL_35;
     }
 
-    if (atomic_load_explicit(&qword_280C5D178, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D178, memory_order_acquire))
     {
       v10 = qword_280C5D988;
       *a3 = qword_280C5D980;
@@ -6682,7 +6682,7 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  if (atomic_load_explicit(&qword_280C5D170, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5D170, memory_order_acquire))
   {
     v18 = qword_280C5D958;
     *a3 = qword_280C5D950;
@@ -6735,7 +6735,7 @@ void sub_25FC24090(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-double HGString::zero@<D0>(HGString *this@<X0>, int a2@<W1>, void *a3@<X8>)
+double HGString::zero@<D0>(void *this@<X0>, int a2@<W1>, void *a3@<X8>)
 {
   if (this == 394784)
   {
@@ -6744,7 +6744,7 @@ double HGString::zero@<D0>(HGString *this@<X0>, int a2@<W1>, void *a3@<X8>)
       goto LABEL_31;
     }
 
-    if (atomic_load_explicit(&qword_280C5D1A0, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D1A0, memory_order_acquire))
     {
       v7 = qword_280C5DA78;
       *a3 = qword_280C5DA70;
@@ -6791,7 +6791,7 @@ LABEL_15:
       goto LABEL_31;
     }
 
-    if (atomic_load_explicit(&qword_280C5D1A8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D1A8, memory_order_acquire))
     {
       v9 = qword_280C5DAA8;
       *a3 = qword_280C5DAA0;
@@ -6837,7 +6837,7 @@ LABEL_22:
     {
       if (a2 == 2)
       {
-        if (atomic_load_explicit(&qword_280C5D188, memory_order_acquire))
+        if (atomic_load_explicit(byte_280C5D188, memory_order_acquire))
         {
           v4 = qword_280C5D9E8;
           *a3 = qword_280C5D9E0;
@@ -6891,7 +6891,7 @@ LABEL_31:
       return result;
     }
 
-    if (atomic_load_explicit(&qword_280C5D180, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D180, memory_order_acquire))
     {
       v14 = qword_280C5D9B8;
       *a3 = qword_280C5D9B0;
@@ -6938,7 +6938,7 @@ LABEL_35:
       goto LABEL_31;
     }
 
-    if (atomic_load_explicit(&qword_280C5D198, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D198, memory_order_acquire))
     {
       v11 = qword_280C5DA48;
       *a3 = qword_280C5DA40;
@@ -6978,7 +6978,7 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  if (atomic_load_explicit(&qword_280C5D190, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5D190, memory_order_acquire))
   {
     v16 = qword_280C5DA18;
     *a3 = qword_280C5DA10;
@@ -7017,7 +7017,7 @@ LABEL_40:
   return result;
 }
 
-double HGString::uniform@<D0>(HGString *this@<X0>, int a2@<W1>, void *a3@<X8>)
+double HGString::uniform@<D0>(void *this@<X0>, int a2@<W1>, void *a3@<X8>)
 {
   if (this == 394784)
   {
@@ -7026,7 +7026,7 @@ double HGString::uniform@<D0>(HGString *this@<X0>, int a2@<W1>, void *a3@<X8>)
       goto LABEL_31;
     }
 
-    if (atomic_load_explicit(&qword_280C5D1D0, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D1D0, memory_order_acquire))
     {
       v7 = qword_280C5DB98;
       *a3 = qword_280C5DB90;
@@ -7073,7 +7073,7 @@ LABEL_15:
       goto LABEL_31;
     }
 
-    if (atomic_load_explicit(&qword_280C5D1D8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D1D8, memory_order_acquire))
     {
       v9 = qword_280C5DBC8;
       *a3 = qword_280C5DBC0;
@@ -7119,7 +7119,7 @@ LABEL_22:
     {
       if (a2 == 2)
       {
-        if (atomic_load_explicit(&qword_280C5D1B8, memory_order_acquire))
+        if (atomic_load_explicit(byte_280C5D1B8, memory_order_acquire))
         {
           v4 = qword_280C5DB08;
           *a3 = qword_280C5DB00;
@@ -7173,7 +7173,7 @@ LABEL_31:
       return result;
     }
 
-    if (atomic_load_explicit(&qword_280C5D1B0, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D1B0, memory_order_acquire))
     {
       v14 = qword_280C5DAD8;
       *a3 = qword_280C5DAD0;
@@ -7220,7 +7220,7 @@ LABEL_35:
       goto LABEL_31;
     }
 
-    if (atomic_load_explicit(&qword_280C5D1C8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D1C8, memory_order_acquire))
     {
       v11 = qword_280C5DB68;
       *a3 = qword_280C5DB60;
@@ -7260,7 +7260,7 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  if (atomic_load_explicit(&qword_280C5D1C0, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5D1C0, memory_order_acquire))
   {
     v16 = qword_280C5DB38;
     *a3 = qword_280C5DB30;
@@ -7299,7 +7299,7 @@ LABEL_40:
   return result;
 }
 
-void HGString::transform(HGString *this@<X0>, int a2@<W1>, void *a3@<X8>)
+void HGString::transform(void *this@<X0>, int a2@<W1>, void *a3@<X8>)
 {
   if (this != 329232)
   {
@@ -7316,7 +7316,7 @@ void HGString::transform(HGString *this@<X0>, int a2@<W1>, void *a3@<X8>)
         {
           if (a2 == 8)
           {
-            if (atomic_load_explicit(qword_280C5D220, memory_order_acquire))
+            if (atomic_load_explicit(byte_280C5D220, memory_order_acquire))
             {
               v4 = qword_280C5DD78;
               *a3 = qword_280C5DD70;
@@ -7367,7 +7367,7 @@ LABEL_36:
           return;
         }
 
-        if (atomic_load_explicit(&qword_280C5D218, memory_order_acquire))
+        if (atomic_load_explicit(byte_280C5D218, memory_order_acquire))
         {
           v20 = qword_280C5DD48;
           *a3 = qword_280C5DD40;
@@ -7411,7 +7411,7 @@ LABEL_65:
         goto LABEL_65;
       }
 
-      if (atomic_load_explicit(&qword_280C5D210, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5D210, memory_order_acquire))
       {
         v16 = qword_280C5DD18;
         *a3 = qword_280C5DD10;
@@ -7457,7 +7457,7 @@ LABEL_53:
 
     if (a2 != 4)
     {
-      if (atomic_load_explicit(&qword_280C5D208, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5D208, memory_order_acquire))
       {
         v10 = qword_280C5DCE8;
         *a3 = qword_280C5DCE0;
@@ -7501,7 +7501,7 @@ LABEL_33:
       goto LABEL_33;
     }
 
-    if (atomic_load_explicit(&qword_280C5D200, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D200, memory_order_acquire))
     {
       v18 = qword_280C5DCB8;
       *a3 = qword_280C5DCB0;
@@ -7554,7 +7554,7 @@ LABEL_59:
         goto LABEL_36;
       }
 
-      if (atomic_load_explicit(&qword_280C5D1E8, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5D1E8, memory_order_acquire))
       {
         v6 = qword_280C5DC28;
         *a3 = qword_280C5DC20;
@@ -7598,7 +7598,7 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    if (atomic_load_explicit(&qword_280C5D1E0, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D1E0, memory_order_acquire))
     {
       v12 = qword_280C5DBF8;
       *a3 = qword_280C5DBF0;
@@ -7644,7 +7644,7 @@ LABEL_41:
 
   if (a2 != 2)
   {
-    if (atomic_load_explicit(&qword_280C5D1F8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5D1F8, memory_order_acquire))
     {
       v8 = qword_280C5DC88;
       *a3 = qword_280C5DC80;
@@ -7688,7 +7688,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  if (atomic_load_explicit(&qword_280C5D1F0, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5D1F0, memory_order_acquire))
   {
     v14 = qword_280C5DC58;
     *a3 = qword_280C5DC50;
@@ -8070,7 +8070,7 @@ LABEL_81:
     }
 
 LABEL_84:
-    v13 = v30 + 47;
+    v13 = (v30 + 47);
     if (v9 >= 0x600)
     {
       qmemcpy((v30 + 18), "//                          \n", 29);
@@ -8104,7 +8104,7 @@ LABEL_77:
 LABEL_88:
   *(v30 + 18) = *v31;
   *(v30 + 31) = *(v31 + 13);
-  v13 = v30 + 47;
+  v13 = (v30 + 47);
 LABEL_89:
   v11 = *a2;
 LABEL_90:

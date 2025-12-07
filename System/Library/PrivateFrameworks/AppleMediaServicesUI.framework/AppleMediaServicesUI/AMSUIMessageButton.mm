@@ -413,7 +413,7 @@ LABEL_15:
 
 - (void)setPreferredForegroundColor:(id)color
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   colorCopy = color;
   objc_storeStrong(&self->_preferredForegroundColor, color);
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
@@ -425,25 +425,23 @@ LABEL_15:
   oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
   if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
-    v12 = objc_opt_class();
-    v13 = 2112;
-    v14 = colorCopy;
-    v8 = v12;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: (setPreferredForegroundColor: %@)", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = objc_opt_class();
+    v12 = 2112;
+    v13 = colorCopy;
+    v8 = v11;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: (setPreferredForegroundColor: %@)", &v10, 0x16u);
   }
 
   configuration = [(AMSUIMessageButton *)self configuration];
   [configuration setBaseForegroundColor:colorCopy];
   [(AMSUIMessageButton *)self setConfiguration:configuration];
   [(AMSUIMessageButton *)self setNeedsUpdateConfiguration];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPreferredBackgroundColor:(id)color
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   colorCopy = color;
   objc_storeStrong(&self->_preferredBackgroundColor, color);
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
@@ -455,20 +453,18 @@ LABEL_15:
   oSLogObject = [mEMORY[0x1E698C968] OSLogObject];
   if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
-    v12 = objc_opt_class();
-    v13 = 2112;
-    v14 = colorCopy;
-    v8 = v12;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: (setPreferredBackgroundColor: %@)", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = objc_opt_class();
+    v12 = 2112;
+    v13 = colorCopy;
+    v8 = v11;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: (setPreferredBackgroundColor: %@)", &v10, 0x16u);
   }
 
   configuration = [(AMSUIMessageButton *)self configuration];
   [configuration setBaseBackgroundColor:colorCopy];
   [(AMSUIMessageButton *)self setConfiguration:configuration];
   [(AMSUIMessageButton *)self setNeedsUpdateConfiguration];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

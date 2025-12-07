@@ -150,7 +150,7 @@
 
 id __63__MUPlaceRibbonItemViewModel_accoladesItemViewModelForMapItem___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v3 = [MEMORY[0x1E696F220] imageForIconID:objc_msgSend(*(a1 + 32) contentScale:"iconId") sizeGroup:1 nightMode:{0, *(a1 + 40)}];
   v4 = *MEMORY[0x1E69DDCF8];
@@ -160,69 +160,66 @@ id __63__MUPlaceRibbonItemViewModel_accoladesItemViewModelForMapItem___block_inv
   [v7 capHeight];
 
   [v3 size];
-  v8 = *(a1 + 40);
   UIRoundToScale();
-  v10 = [objc_alloc(MEMORY[0x1E696F228]) initWithImage:v3 verticalOffset:v9];
-  [v10 setMaxHeight:18.0];
-  v11 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v10];
-  [v2 addObject:v11];
-  v12 = [*(a1 + 32) shouldDisplayAccoladeText];
-  v13 = objc_alloc(MEMORY[0x1E696AAB0]);
-  if (v12)
+  v9 = [objc_alloc(MEMORY[0x1E696F228]) initWithImage:v3 verticalOffset:v8];
+  [v9 setMaxHeight:18.0];
+  v10 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v9];
+  [v2 addObject:v10];
+  v11 = [*(a1 + 32) shouldDisplayAccoladeText];
+  v12 = objc_alloc(MEMORY[0x1E696AAB0]);
+  if (v11)
   {
-    v14 = [*(a1 + 32) accoladeText];
-    v15 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:v4];
-    v16 = [v15 _mapkit_fontWithWeight:v6];
-    v40 = v11;
-    v17 = v3;
-    v18 = [MEMORY[0x1E69DC888] labelColor];
-    v19 = [MUInfoCardStyle resolvedPrimaryColorForProposedColor:v18];
-    v20 = *MEMORY[0x1E69DB650];
-    v42 = *MEMORY[0x1E69DB648];
-    v43 = v20;
-    v44 = v16;
-    v45 = v19;
-    v21 = MEMORY[0x1E695DF20];
-    v22 = v16;
-    v23 = [v21 dictionaryWithObjects:&v44 forKeys:&v42 count:2];
+    v13 = [*(a1 + 32) accoladeText];
+    v14 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:v4];
+    v15 = [v14 _mapkit_fontWithWeight:v6];
+    v38 = v10;
+    v16 = v3;
+    v17 = [MEMORY[0x1E69DC888] labelColor];
+    v18 = [MUInfoCardStyle resolvedPrimaryColorForProposedColor:v17];
+    v19 = *MEMORY[0x1E69DB650];
+    v40 = *MEMORY[0x1E69DB648];
+    v41 = v19;
+    v42 = v15;
+    v43 = v18;
+    v20 = MEMORY[0x1E695DF20];
+    v21 = v15;
+    v22 = [v20 dictionaryWithObjects:&v42 forKeys:&v40 count:2];
 
-    v24 = [v13 initWithString:v14 attributes:v23];
-    v3 = v17;
-    v11 = v40;
+    v23 = [v12 initWithString:v13 attributes:v22];
+    v3 = v16;
+    v10 = v38;
 
-    v25 = [objc_alloc(MEMORY[0x1E696F1D8]) initWithWidth:6.0];
-    v26 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v25];
-    v41[0] = v26;
-    v41[1] = v24;
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
-    [v2 addObjectsFromArray:v27];
+    v24 = [objc_alloc(MEMORY[0x1E696F1D8]) initWithWidth:6.0];
+    v25 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v24];
+    v39[0] = v25;
+    v39[1] = v23;
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
+    [v2 addObjectsFromArray:v26];
   }
 
   else
   {
-    v28 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:v4];
-    v29 = [v28 _mapkit_fontWithWeight:v6];
-    v30 = [MEMORY[0x1E69DC888] labelColor];
-    v31 = [MUInfoCardStyle resolvedPrimaryColorForProposedColor:v30];
-    v32 = *MEMORY[0x1E69DB650];
-    v42 = *MEMORY[0x1E69DB648];
-    v43 = v32;
-    v44 = v29;
-    v45 = v31;
-    v33 = MEMORY[0x1E695DF20];
-    v34 = v29;
-    v35 = [v33 dictionaryWithObjects:&v44 forKeys:&v42 count:2];
+    v27 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:v4];
+    v28 = [v27 _mapkit_fontWithWeight:v6];
+    v29 = [MEMORY[0x1E69DC888] labelColor];
+    v30 = [MUInfoCardStyle resolvedPrimaryColorForProposedColor:v29];
+    v31 = *MEMORY[0x1E69DB650];
+    v40 = *MEMORY[0x1E69DB648];
+    v41 = v31;
+    v42 = v28;
+    v43 = v30;
+    v32 = MEMORY[0x1E695DF20];
+    v33 = v28;
+    v34 = [v32 dictionaryWithObjects:&v42 forKeys:&v40 count:2];
 
-    v24 = [v13 initWithString:@" " attributes:v35];
-    [v2 addObject:v24];
+    v23 = [v12 initWithString:@" " attributes:v34];
+    [v2 addObject:v23];
   }
 
-  v36 = [v2 copy];
-  v37 = [MapsUILayout buildAttributedDisplayStringForComponents:v36 reverseIfRTLLayout:1];
+  v35 = [v2 copy];
+  v36 = [MapsUILayout buildAttributedDisplayStringForComponents:v35 reverseIfRTLLayout:1];
 
-  v38 = *MEMORY[0x1E69E9840];
-
-  return v37;
+  return v36;
 }
 
 + (id)ratingSubmissionStatusViewModelForRatingState:(int64_t)state
@@ -265,7 +262,7 @@ id __63__MUPlaceRibbonItemViewModel_accoladesItemViewModelForMapItem___block_inv
 
 id __76__MUPlaceRibbonItemViewModel_ratingSubmissionStatusViewModelForRatingState___block_invoke(uint64_t a1)
 {
-  v60[2] = *MEMORY[0x1E69E9840];
+  v59[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E69DCAB8];
   v3 = MEMORY[0x1E69DCAD8];
   v4 = MEMORY[0x1E69DB878];
@@ -288,15 +285,15 @@ id __76__MUPlaceRibbonItemViewModel_ratingSubmissionStatusViewModelForRatingStat
   [v16 setImage:v17];
   v18 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v16];
   v19 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:v18];
-  v59[0] = *MEMORY[0x1E69DB650];
-  v20 = v59[0];
-  v60[0] = v13;
+  v58[0] = *MEMORY[0x1E69DB650];
+  v20 = v58[0];
+  v59[0] = v13;
   v21 = MEMORY[0x1E695DF20];
   v22 = v13;
-  v23 = [v21 dictionaryWithObjects:v60 forKeys:v59 count:1];
+  v23 = [v21 dictionaryWithObjects:v59 forKeys:v58 count:1];
 
   [v19 addAttributes:v23 range:{0, objc_msgSend(v19, "length")}];
-  v57 = [v19 copy];
+  v56 = [v19 copy];
 
   v24 = *(a1 + 40);
   v25 = MEMORY[0x1E69DCAB8];
@@ -319,35 +316,33 @@ id __76__MUPlaceRibbonItemViewModel_ratingSubmissionStatusViewModelForRatingStat
   [v37 setImage:v38];
   v39 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v37];
   v40 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:v39];
-  v59[0] = v20;
-  v60[0] = v34;
+  v58[0] = v20;
+  v59[0] = v34;
   v41 = MEMORY[0x1E695DF20];
   v42 = v34;
-  v43 = [v41 dictionaryWithObjects:v60 forKeys:v59 count:1];
+  v43 = [v41 dictionaryWithObjects:v59 forKeys:v58 count:1];
 
   [v40 addAttributes:v43 range:{0, objc_msgSend(v40, "length")}];
   v44 = [v40 copy];
 
-  v58[0] = v57;
+  v57[0] = v56;
   v45 = objc_alloc(MEMORY[0x1E696AAB0]);
   v46 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
   v47 = [v46 _mapkit_fontWithWeight:*MEMORY[0x1E69DB970]];
   v48 = [MEMORY[0x1E69DC888] linkColor];
-  v59[0] = *MEMORY[0x1E69DB648];
-  v59[1] = v20;
-  v60[0] = v47;
-  v60[1] = v48;
+  v58[0] = *MEMORY[0x1E69DB648];
+  v58[1] = v20;
+  v59[0] = v47;
+  v59[1] = v48;
   v49 = MEMORY[0x1E695DF20];
   v50 = v47;
-  v51 = [v49 dictionaryWithObjects:v60 forKeys:v59 count:2];
+  v51 = [v49 dictionaryWithObjects:v59 forKeys:v58 count:2];
 
   v52 = [v45 initWithString:@" " attributes:v51];
-  v58[1] = v52;
-  v58[2] = v44;
-  v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:3];
+  v57[1] = v52;
+  v57[2] = v44;
+  v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:3];
   v54 = [MapsUILayout buildAttributedDisplayStringForComponents:v53 reverseIfRTLLayout:1];
-
-  v55 = *MEMORY[0x1E69E9840];
 
   return v54;
 }
@@ -380,7 +375,7 @@ id __76__MUPlaceRibbonItemViewModel_ratingSubmissionStatusViewModelForRatingStat
 
 id __88__MUPlaceRibbonItemViewModel_distanceFromCurrentLocationItemViewModelForDistanceString___block_invoke(uint64_t a1)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E69DCAB8];
   v2 = MEMORY[0x1E69DCAD8];
   v3 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD80]];
@@ -400,15 +395,15 @@ id __88__MUPlaceRibbonItemViewModel_distanceFromCurrentLocationItemViewModelForD
   [v12 setImage:v13];
   v14 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v12];
   v15 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:v14];
-  v49 = *MEMORY[0x1E69DB650];
-  v16 = v49;
-  v51 = v9;
+  v48 = *MEMORY[0x1E69DB650];
+  v16 = v48;
+  v50 = v9;
   v17 = MEMORY[0x1E695DF20];
   v18 = v9;
-  v19 = [v17 dictionaryWithObjects:&v51 forKeys:&v49 count:1];
+  v19 = [v17 dictionaryWithObjects:&v50 forKeys:&v48 count:1];
 
   [v15 addAttributes:v19 range:{0, objc_msgSend(v15, "length")}];
-  v47 = [v15 copy];
+  v46 = [v15 copy];
 
   v20 = objc_alloc(MEMORY[0x1E696AAB0]);
   v21 = *(a1 + 32);
@@ -418,14 +413,14 @@ id __88__MUPlaceRibbonItemViewModel_distanceFromCurrentLocationItemViewModelForD
   v25 = [v23 _mapkit_fontWithWeight:*MEMORY[0x1E69DB970]];
   v26 = [MEMORY[0x1E69DC888] labelColor];
   v27 = [MUInfoCardStyle resolvedPrimaryColorForProposedColor:v26];
-  v49 = *MEMORY[0x1E69DB648];
-  v28 = v49;
-  v50 = v16;
-  v51 = v25;
-  v52 = v27;
+  v48 = *MEMORY[0x1E69DB648];
+  v28 = v48;
+  v49 = v16;
+  v50 = v25;
+  v51 = v27;
   v29 = MEMORY[0x1E695DF20];
   v30 = v25;
-  v31 = [v29 dictionaryWithObjects:&v51 forKeys:&v49 count:2];
+  v31 = [v29 dictionaryWithObjects:&v50 forKeys:&v48 count:2];
 
   v32 = [v20 initWithString:v21 attributes:v31];
   v33 = objc_alloc(MEMORY[0x1E696AAB0]);
@@ -433,22 +428,20 @@ id __88__MUPlaceRibbonItemViewModel_distanceFromCurrentLocationItemViewModelForD
   v35 = [v34 _mapkit_fontWithWeight:v24];
   v36 = [MEMORY[0x1E69DC888] labelColor];
   v37 = [MUInfoCardStyle resolvedPrimaryColorForProposedColor:v36];
-  v49 = v28;
-  v50 = v16;
-  v51 = v35;
-  v52 = v37;
+  v48 = v28;
+  v49 = v16;
+  v50 = v35;
+  v51 = v37;
   v38 = MEMORY[0x1E695DF20];
   v39 = v35;
-  v40 = [v38 dictionaryWithObjects:&v51 forKeys:&v49 count:2];
+  v40 = [v38 dictionaryWithObjects:&v50 forKeys:&v48 count:2];
 
   v41 = [v33 initWithString:@" " attributes:v40];
-  v48[0] = v47;
-  v48[1] = v41;
-  v48[2] = v32;
-  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:3];
+  v47[0] = v46;
+  v47[1] = v41;
+  v47[2] = v32;
+  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:3];
   v43 = [MapsUILayout buildAttributedDisplayStringForComponents:v42 reverseIfRTLLayout:0];
-
-  v44 = *MEMORY[0x1E69E9840];
 
   return v43;
 }
@@ -545,7 +538,7 @@ LABEL_11:
 
 id __52__MUPlaceRibbonItemViewModel_factoidItemForFactoid___block_invoke(uint64_t a1)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v3 = [*(a1 + 32) symbolName];
   v4 = [v3 length];
@@ -583,11 +576,11 @@ id __52__MUPlaceRibbonItemViewModel_factoidItemForFactoid___block_invoke(uint64_
       [v18 setImage:v19];
       v20 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v18];
       v21 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:v20];
-      v52 = *MEMORY[0x1E69DB650];
-      v54 = v15;
+      v51 = *MEMORY[0x1E69DB650];
+      v53 = v15;
       v22 = MEMORY[0x1E695DF20];
       v23 = v15;
-      v24 = [v22 dictionaryWithObjects:&v54 forKeys:&v52 count:1];
+      v24 = [v22 dictionaryWithObjects:&v53 forKeys:&v51 count:1];
 
       [v21 addAttributes:v24 range:{0, objc_msgSend(v21, "length")}];
       v25 = [v21 copy];
@@ -608,13 +601,13 @@ id __52__MUPlaceRibbonItemViewModel_factoidItemForFactoid___block_invoke(uint64_
     v30 = [MEMORY[0x1E69DC888] labelColor];
     v31 = [MUInfoCardStyle resolvedPrimaryColorForProposedColor:v30];
     v32 = *MEMORY[0x1E69DB650];
-    v52 = *MEMORY[0x1E69DB648];
-    v53 = v32;
-    v54 = v28;
-    v55 = v31;
+    v51 = *MEMORY[0x1E69DB648];
+    v52 = v32;
+    v53 = v28;
+    v54 = v31;
     v33 = MEMORY[0x1E695DF20];
     v34 = v28;
-    v35 = [v33 dictionaryWithObjects:&v54 forKeys:&v52 count:2];
+    v35 = [v33 dictionaryWithObjects:&v53 forKeys:&v51 count:2];
 
     v36 = [v26 initWithString:@" " attributes:v35];
     v6 = v29;
@@ -630,27 +623,25 @@ id __52__MUPlaceRibbonItemViewModel_factoidItemForFactoid___block_invoke(uint64_
   v41 = [MEMORY[0x1E69DC888] labelColor];
   v42 = [MUInfoCardStyle resolvedPrimaryColorForProposedColor:v41];
   v43 = *MEMORY[0x1E69DB650];
-  v52 = *MEMORY[0x1E69DB648];
-  v53 = v43;
-  v54 = v40;
-  v55 = v42;
+  v51 = *MEMORY[0x1E69DB648];
+  v52 = v43;
+  v53 = v40;
+  v54 = v42;
   v44 = MEMORY[0x1E695DF20];
   v45 = v40;
-  v46 = [v44 dictionaryWithObjects:&v54 forKeys:&v52 count:2];
+  v46 = [v44 dictionaryWithObjects:&v53 forKeys:&v51 count:2];
 
   v47 = [v37 initWithString:v38 attributes:v46];
   [v2 addObject:v47];
   v48 = [v2 copy];
   v49 = +[MapsUILayout buildAttributedDisplayStringForComponents:reverseIfRTLLayout:](MapsUILayout, "buildAttributedDisplayStringForComponents:reverseIfRTLLayout:", v48, [*(a1 + 32) shouldReverseForRTLLayout]);
 
-  v50 = *MEMORY[0x1E69E9840];
-
   return v49;
 }
 
 + (id)acceptsPaymentsViewForMapItem:(id)item contactlessPaymentsRibbonItem:(id)ribbonItem
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   ribbonItemCopy = ribbonItem;
   if (!MapsFeature_IsEnabled_ApplePayEnhancementsEnabled())
@@ -679,26 +670,26 @@ LABEL_15:
   indexesWithinAmenityComponent2 = [ribbonItemCopy indexesWithinAmenityComponent];
   v12 = [v10 initWithCapacity:{objc_msgSend(indexesWithinAmenityComponent2, "count")}];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   indexesWithinAmenityComponent3 = [ribbonItemCopy indexesWithinAmenityComponent];
-  v14 = [indexesWithinAmenityComponent3 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v14 = [indexesWithinAmenityComponent3 countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v35;
+    v16 = *v34;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v35 != v16)
+        if (*v34 != v16)
         {
           objc_enumerationMutation(indexesWithinAmenityComponent3);
         }
 
-        unsignedIntegerValue = [*(*(&v34 + 1) + 8 * i) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v33 + 1) + 8 * i) unsignedIntegerValue];
         _amenities2 = [itemCopy _amenities];
         v20 = [_amenities2 count];
 
@@ -711,7 +702,7 @@ LABEL_15:
         }
       }
 
-      v15 = [indexesWithinAmenityComponent3 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v15 = [indexesWithinAmenityComponent3 countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v15);
@@ -724,42 +715,41 @@ LABEL_15:
   aBlock[1] = 3221225472;
   aBlock[2] = ___defaultTitleAttributedStringForString_block_invoke;
   aBlock[3] = &unk_1E8219A48;
-  v39 = ribbonText;
+  v38 = ribbonText;
   v25 = ribbonText;
   v26 = _Block_copy(aBlock);
 
   [(MUPlaceRibbonItemViewModel *)v23 setTitleStringProvider:v26];
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __90__MUPlaceRibbonItemViewModel_acceptsPaymentsViewForMapItem_contactlessPaymentsRibbonItem___block_invoke;
-  v32[3] = &unk_1E8219A48;
-  v33 = v12;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __90__MUPlaceRibbonItemViewModel_acceptsPaymentsViewForMapItem_contactlessPaymentsRibbonItem___block_invoke;
+  v31[3] = &unk_1E8219A48;
+  v32 = v12;
   v27 = v12;
-  [(MUPlaceRibbonItemViewModel *)v23 setValueStringProvider:v32];
+  [(MUPlaceRibbonItemViewModel *)v23 setValueStringProvider:v31];
   v28 = MUMap(v27, &__block_literal_global_89);
   v29 = [v28 componentsJoinedByString:@" "];
   [(MUPlaceRibbonItemViewModel *)v23 setPreferredAccessibilityValue:v29];
 
 LABEL_16:
-  v30 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
 
 id __90__MUPlaceRibbonItemViewModel_acceptsPaymentsViewForMapItem_contactlessPaymentsRibbonItem___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v39 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v45 = *MEMORY[0x1E69E9840];
+  v38 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = *(a1 + 32);
-  v37 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
-  if (v37)
+  v36 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  if (v36)
   {
-    v36 = *v42;
-    v38 = *MEMORY[0x1E69DDD80];
+    v35 = *v41;
+    v37 = *MEMORY[0x1E69DDD80];
     v2 = *MEMORY[0x1E69DB980];
     v3 = 0x1E69DC000uLL;
     v4 = 0x1E69DB000uLL;
@@ -768,18 +758,18 @@ id __90__MUPlaceRibbonItemViewModel_acceptsPaymentsViewForMapItem_contactlessPay
       v5 = 0;
       do
       {
-        if (*v42 != v36)
+        if (*v41 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v41 + 1) + 8 * v5);
+        v6 = *(*(&v40 + 1) + 8 * v5);
         v7 = [v6 resolvedRibbonSymbolName];
         if ([v7 length])
         {
           v8 = MEMORY[0x1E69DB878];
           v9 = v7;
-          [v8 preferredFontForTextStyle:v38];
+          [v8 preferredFontForTextStyle:v37];
           v11 = v10 = v4;
           v12 = [v11 _mapkit_fontWithWeight:v2];
 
@@ -794,14 +784,14 @@ id __90__MUPlaceRibbonItemViewModel_acceptsPaymentsViewForMapItem_contactlessPay
           [v17 setImage:v16];
 
           v18 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v17];
-          [v39 addObject:v18];
+          [v38 addObject:v18];
 
           v19 = [v6 ribbonSymbolImageName];
           if ([v19 length])
           {
             v20 = MEMORY[0x1E69DB878];
             v21 = v19;
-            v22 = [v20 preferredFontForTextStyle:v38];
+            v22 = [v20 preferredFontForTextStyle:v37];
             v23 = [v22 _mapkit_fontWithWeight:v2];
 
             v24 = *(v3 + 2744);
@@ -815,7 +805,7 @@ id __90__MUPlaceRibbonItemViewModel_acceptsPaymentsViewForMapItem_contactlessPay
             [v28 setImage:v27];
 
             v29 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v28];
-            [v39 addObject:v29];
+            [v38 addObject:v29];
 
             v17 = v28;
           }
@@ -832,25 +822,23 @@ id __90__MUPlaceRibbonItemViewModel_acceptsPaymentsViewForMapItem_contactlessPay
         ++v5;
       }
 
-      while (v37 != v5);
-      v30 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
-      v37 = v30;
+      while (v36 != v5);
+      v30 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v36 = v30;
     }
 
     while (v30);
   }
 
-  v31 = [v39 copy];
+  v31 = [v38 copy];
   v32 = [MapsUILayout buildAttributedDisplayStringForComponents:v31 reverseIfRTLLayout:1];
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
 
 + (id)amenityItemViewForMapItem:(id)item amenityItemConfiguration:(id)configuration
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   configurationCopy = configuration;
   _amenities = [itemCopy _amenities];
@@ -860,30 +848,30 @@ id __90__MUPlaceRibbonItemViewModel_acceptsPaymentsViewForMapItem_contactlessPay
   {
     indexesWithinAmenityComponent = [configurationCopy indexesWithinAmenityComponent];
 
-    v46 = configurationCopy;
+    v45 = configurationCopy;
     if (indexesWithinAmenityComponent)
     {
       v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v56 = 0u;
       v57 = 0u;
       v58 = 0u;
       v59 = 0u;
-      v60 = 0u;
       indexesWithinAmenityComponent2 = [configurationCopy indexesWithinAmenityComponent];
-      v12 = [indexesWithinAmenityComponent2 countByEnumeratingWithState:&v57 objects:v64 count:16];
+      v12 = [indexesWithinAmenityComponent2 countByEnumeratingWithState:&v56 objects:v63 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v58;
+        v14 = *v57;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v58 != v14)
+            if (*v57 != v14)
             {
               objc_enumerationMutation(indexesWithinAmenityComponent2);
             }
 
-            unsignedIntegerValue = [*(*(&v57 + 1) + 8 * i) unsignedIntegerValue];
+            unsignedIntegerValue = [*(*(&v56 + 1) + 8 * i) unsignedIntegerValue];
             _amenities2 = [itemCopy _amenities];
             v18 = [_amenities2 count];
 
@@ -896,7 +884,7 @@ id __90__MUPlaceRibbonItemViewModel_acceptsPaymentsViewForMapItem_contactlessPay
             }
           }
 
-          v13 = [indexesWithinAmenityComponent2 countByEnumeratingWithState:&v57 objects:v64 count:16];
+          v13 = [indexesWithinAmenityComponent2 countByEnumeratingWithState:&v56 objects:v63 count:16];
         }
 
         while (v13);
@@ -911,27 +899,27 @@ id __90__MUPlaceRibbonItemViewModel_acceptsPaymentsViewForMapItem_contactlessPay
     }
 
     v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
     obj = _amenities4;
-    v50 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
-    if (v50)
+    v49 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
+    if (v49)
     {
-      v49 = *v54;
-      v47 = *MEMORY[0x1E69DDD80];
+      v48 = *v53;
+      v46 = *MEMORY[0x1E69DDD80];
       v24 = *MEMORY[0x1E69DB980];
 LABEL_17:
       v25 = 0;
       while (1)
       {
-        if (*v54 != v49)
+        if (*v53 != v48)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v53 + 1) + 8 * v25);
+        v26 = *(*(&v52 + 1) + 8 * v25);
         resolvedRibbonSymbolName = [v26 resolvedRibbonSymbolName];
         if ([resolvedRibbonSymbolName length])
         {
@@ -940,7 +928,7 @@ LABEL_17:
           v30 = MEMORY[0x1E69DCAD8];
           v31 = MEMORY[0x1E69DB878];
           v32 = resolvedRibbonSymbolName;
-          v33 = [v31 preferredFontForTextStyle:v47];
+          v33 = [v31 preferredFontForTextStyle:v46];
           v34 = [v33 _mapkit_fontWithWeight:v24];
           v35 = [v30 configurationWithFont:v34 scale:1];
           v36 = [v29 _mapsui_resolvedSymbolImageNamed:v32 withConfiguration:v35];
@@ -961,10 +949,10 @@ LABEL_17:
           break;
         }
 
-        if (v50 == ++v25)
+        if (v49 == ++v25)
         {
-          v50 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
-          if (v50)
+          v49 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
+          if (v49)
           {
             goto LABEL_17;
           }
@@ -983,17 +971,17 @@ LABEL_17:
       aBlock[1] = 3221225472;
       aBlock[2] = ___defaultTitleAttributedStringForString_block_invoke;
       aBlock[3] = &unk_1E8219A48;
-      v62 = v39;
+      v61 = v39;
       v40 = _Block_copy(aBlock);
 
       [(MUPlaceRibbonItemViewModel *)v22 setTitleStringProvider:v40];
-      v51[0] = MEMORY[0x1E69E9820];
-      v51[1] = 3221225472;
-      v51[2] = __81__MUPlaceRibbonItemViewModel_amenityItemViewForMapItem_amenityItemConfiguration___block_invoke;
-      v51[3] = &unk_1E8219A48;
+      v50[0] = MEMORY[0x1E69E9820];
+      v50[1] = 3221225472;
+      v50[2] = __81__MUPlaceRibbonItemViewModel_amenityItemViewForMapItem_amenityItemConfiguration___block_invoke;
+      v50[3] = &unk_1E8219A48;
       v41 = v23;
-      v52 = v41;
-      [(MUPlaceRibbonItemViewModel *)v22 setValueStringProvider:v51];
+      v51 = v41;
+      [(MUPlaceRibbonItemViewModel *)v22 setValueStringProvider:v50];
       v42 = MUMap(v41, &__block_literal_global_14883);
       v43 = [v42 componentsJoinedByString:@" "];
       [(MUPlaceRibbonItemViewModel *)v22 setPreferredAccessibilityValue:v43];
@@ -1004,7 +992,7 @@ LABEL_17:
       v22 = 0;
     }
 
-    configurationCopy = v46;
+    configurationCopy = v45;
   }
 
   else
@@ -1012,25 +1000,23 @@ LABEL_17:
     v22 = 0;
   }
 
-  v44 = *MEMORY[0x1E69E9840];
-
   return v22;
 }
 
 id __81__MUPlaceRibbonItemViewModel_amenityItemViewForMapItem_amenityItemConfiguration___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v32 = *MEMORY[0x1E69E9840];
+  v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v2 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v2)
   {
     v3 = v2;
-    v25 = *v29;
+    v24 = *v28;
     v4 = *MEMORY[0x1E69DDD80];
     v5 = *MEMORY[0x1E69DB980];
     do
@@ -1038,12 +1024,12 @@ id __81__MUPlaceRibbonItemViewModel_amenityItemViewForMapItem_amenityItemConfigu
       v6 = 0;
       do
       {
-        if (*v29 != v25)
+        if (*v28 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = [*(*(&v28 + 1) + 8 * v6) resolvedRibbonSymbolName];
+        v7 = [*(*(&v27 + 1) + 8 * v6) resolvedRibbonSymbolName];
         if ([v7 length])
         {
           v8 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
@@ -1060,7 +1046,7 @@ id __81__MUPlaceRibbonItemViewModel_amenityItemViewForMapItem_amenityItemConfigu
 
           [v8 setImage:v17];
           v18 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v8];
-          [v26 addObject:v18];
+          [v25 addObject:v18];
         }
 
         else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
@@ -1073,17 +1059,15 @@ id __81__MUPlaceRibbonItemViewModel_amenityItemViewForMapItem_amenityItemConfigu
       }
 
       while (v3 != v6);
-      v19 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v19 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       v3 = v19;
     }
 
     while (v19);
   }
 
-  v20 = [v26 copy];
+  v20 = [v25 copy];
   v21 = [MapsUILayout buildAttributedDisplayStringForComponents:v20 reverseIfRTLLayout:1];
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -1129,11 +1113,11 @@ id __81__MUPlaceRibbonItemViewModel_amenityItemViewForMapItem_amenityItemConfigu
 
 id __53__MUPlaceRibbonItemViewModel_costItemViewForMapItem___block_invoke(uint64_t a1)
 {
-  v56 = *MEMORY[0x1E69E9840];
-  v51 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v55 = *MEMORY[0x1E69E9840];
+  v50 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v2 = [*(a1 + 32) _geoMapItem];
   v3 = [v2 _priceRange];
-  v50 = *MEMORY[0x1E69DDCF8];
+  v49 = *MEMORY[0x1E69DDCF8];
   v4 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:?];
   v5 = *MEMORY[0x1E69DB970];
   v6 = [v4 _mapkit_fontWithWeight:*MEMORY[0x1E69DB970]];
@@ -1146,27 +1130,27 @@ id __53__MUPlaceRibbonItemViewModel_costItemViewForMapItem___block_invoke(uint64
   v13 = [MUPlaceRibbonHelper costStringForValue:v3 locale:v12];
   if ([v13 length])
   {
-    v48 = objc_alloc(MEMORY[0x1E696AAB0]);
+    v47 = objc_alloc(MEMORY[0x1E696AAB0]);
     v14 = *MEMORY[0x1E69DB650];
-    v52 = *MEMORY[0x1E69DB648];
-    v53 = v14;
-    v54 = v10;
-    v55 = v11;
-    v49 = v12;
+    v51 = *MEMORY[0x1E69DB648];
+    v52 = v14;
+    v53 = v10;
+    v54 = v11;
+    v48 = v12;
     v15 = MEMORY[0x1E695DF20];
     v16 = v2;
     v17 = v10;
     v18 = v7;
     v19 = v4;
     v20 = v11;
-    v21 = [v15 dictionaryWithObjects:&v54 forKeys:&v52 count:2];
+    v21 = [v15 dictionaryWithObjects:&v53 forKeys:&v51 count:2];
 
     v2 = v16;
     v4 = v19;
     v7 = v18;
-    v22 = [v48 initWithString:v13 attributes:v21];
+    v22 = [v47 initWithString:v13 attributes:v21];
 
-    v12 = v49;
+    v12 = v48;
   }
 
   else
@@ -1174,10 +1158,10 @@ id __53__MUPlaceRibbonItemViewModel_costItemViewForMapItem___block_invoke(uint64
     v22 = 0;
   }
 
-  v23 = v51;
+  v23 = v50;
   if ([v22 length])
   {
-    [v51 addObject:v22];
+    [v50 addObject:v22];
   }
 
   v24 = [*(a1 + 32) _geoMapItem];
@@ -1188,7 +1172,7 @@ id __53__MUPlaceRibbonItemViewModel_costItemViewForMapItem___block_invoke(uint64
   v28 = (v25 - v27);
   if (v25 != v27)
   {
-    v29 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:v50];
+    v29 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:v49];
     v30 = [v29 _mapkit_fontWithWeight:v5];
     v31 = [MEMORY[0x1E69DC888] quaternaryLabelColor];
     v32 = *(a1 + 40);
@@ -1200,17 +1184,17 @@ id __53__MUPlaceRibbonItemViewModel_costItemViewForMapItem___block_invoke(uint64
     {
       v37 = objc_alloc(MEMORY[0x1E696AAB0]);
       v38 = *MEMORY[0x1E69DB650];
-      v52 = *MEMORY[0x1E69DB648];
-      v53 = v38;
-      v54 = v33;
-      v55 = v34;
+      v51 = *MEMORY[0x1E69DB648];
+      v52 = v38;
+      v53 = v33;
+      v54 = v34;
       v39 = MEMORY[0x1E695DF20];
       v40 = v33;
       v41 = v34;
-      v42 = [v39 dictionaryWithObjects:&v54 forKeys:&v52 count:2];
+      v42 = [v39 dictionaryWithObjects:&v53 forKeys:&v51 count:2];
 
       v43 = [v37 initWithString:v36 attributes:v42];
-      v23 = v51;
+      v23 = v50;
     }
 
     else
@@ -1223,8 +1207,6 @@ id __53__MUPlaceRibbonItemViewModel_costItemViewForMapItem___block_invoke(uint64
 
   v44 = [v23 copy];
   v45 = [MapsUILayout buildAttributedDisplayStringForComponents:v44 reverseIfRTLLayout:1];
-
-  v46 = *MEMORY[0x1E69E9840];
 
   return v45;
 }
@@ -1271,7 +1253,7 @@ id __53__MUPlaceRibbonItemViewModel_costItemViewForMapItem___block_invoke(uint64
 
 id __59__MUPlaceRibbonItemViewModel_hoursItemViewModelForMapItem___block_invoke(uint64_t a1)
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E696AAB0]);
   v3 = *(a1 + 32);
   v4 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
@@ -1279,16 +1261,15 @@ id __59__MUPlaceRibbonItemViewModel_hoursItemViewModelForMapItem___block_invoke(
   v6 = [*(a1 + 40) hoursStateLabelColor];
   v7 = [MUInfoCardStyle resolvedPrimaryColorForProposedColor:v6];
   v8 = *MEMORY[0x1E69DB650];
-  v15[0] = *MEMORY[0x1E69DB648];
-  v15[1] = v8;
-  v16[0] = v5;
-  v16[1] = v7;
+  v14[0] = *MEMORY[0x1E69DB648];
+  v14[1] = v8;
+  v15[0] = v5;
+  v15[1] = v7;
   v9 = MEMORY[0x1E695DF20];
   v10 = v5;
-  v11 = [v9 dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v11 = [v9 dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   v12 = [v2 initWithString:v3 attributes:v11];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1336,7 +1317,7 @@ id __59__MUPlaceRibbonItemViewModel_hoursItemViewModelForMapItem___block_invoke(
 
 id __60__MUPlaceRibbonItemViewModel_guidesItemViewModelForMapItem___block_invoke(uint64_t a1)
 {
-  v37[2] = *MEMORY[0x1E69E9840];
+  v36[2] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E69DCAB8];
   v2 = MEMORY[0x1E69DCAD8];
   v3 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD80]];
@@ -1356,12 +1337,12 @@ id __60__MUPlaceRibbonItemViewModel_guidesItemViewModelForMapItem___block_invoke
   [v12 setImage:v13];
   v14 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v12];
   v15 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:v14];
-  v36[0] = *MEMORY[0x1E69DB650];
-  v16 = v36[0];
-  v37[0] = v9;
+  v35[0] = *MEMORY[0x1E69DB650];
+  v16 = v35[0];
+  v36[0] = v9;
   v17 = MEMORY[0x1E695DF20];
   v18 = v9;
-  v19 = [v17 dictionaryWithObjects:v37 forKeys:v36 count:1];
+  v19 = [v17 dictionaryWithObjects:v36 forKeys:v35 count:1];
 
   [v15 addAttributes:v19 range:{0, objc_msgSend(v15, "length")}];
   v20 = [v15 copy];
@@ -1372,20 +1353,18 @@ id __60__MUPlaceRibbonItemViewModel_guidesItemViewModelForMapItem___block_invoke
   v24 = [v23 _mapkit_fontWithWeight:*MEMORY[0x1E69DB970]];
   v25 = [MEMORY[0x1E69DC888] labelColor];
   v26 = [MUInfoCardStyle resolvedPrimaryColorForProposedColor:v25];
-  v36[0] = *MEMORY[0x1E69DB648];
-  v36[1] = v16;
-  v37[0] = v24;
-  v37[1] = v26;
+  v35[0] = *MEMORY[0x1E69DB648];
+  v35[1] = v16;
+  v36[0] = v24;
+  v36[1] = v26;
   v27 = MEMORY[0x1E695DF20];
   v28 = v24;
-  v29 = [v27 dictionaryWithObjects:v37 forKeys:v36 count:2];
+  v29 = [v27 dictionaryWithObjects:v36 forKeys:v35 count:2];
 
   v30 = [v21 initWithString:v22 attributes:v29];
   v31 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:v20];
   [v31 appendAttributedString:v30];
   v32 = [v31 copy];
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v32;
 }

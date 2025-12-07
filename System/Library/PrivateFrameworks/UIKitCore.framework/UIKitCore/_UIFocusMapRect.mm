@@ -167,9 +167,9 @@
   snapshotCopy = snapshot;
   coordinateSpace = [snapshotCopy coordinateSpace];
   coordinateSpace2 = [(_UIFocusMapRect *)self coordinateSpace];
-  v11 = [coordinateSpace isEqual:coordinateSpace2];
+  isEqual = objc_msgSend_isEqual_(coordinateSpace);
 
-  if ((v11 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"_UIFocusMapArea.m" lineNumber:39 description:@"Focus: unable to compare intersecting regions from a snapshot using a different coordinate space than the map area's coordinate space. This is a UIKit bug."];

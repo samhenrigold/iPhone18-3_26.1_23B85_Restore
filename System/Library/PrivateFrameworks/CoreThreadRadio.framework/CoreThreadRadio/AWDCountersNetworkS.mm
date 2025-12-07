@@ -172,15 +172,14 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v20 = toCopy;
+  v13 = toCopy;
   if (self->_packetRssiNbrRouterHistograms.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_packetRssiNbrRouterHistograms.list[v5];
       PBDataWriterWriteUint32Field();
-      toCopy = v20;
+      toCopy = v13;
       ++v5;
     }
 
@@ -189,87 +188,81 @@
 
   if (self->_packetRssiNbrAccessoryHistograms.count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = self->_packetRssiNbrAccessoryHistograms.list[v7];
       PBDataWriterWriteUint32Field();
-      toCopy = v20;
-      ++v7;
+      toCopy = v13;
+      ++v6;
     }
 
-    while (v7 < self->_packetRssiNbrAccessoryHistograms.count);
+    while (v6 < self->_packetRssiNbrAccessoryHistograms.count);
   }
 
   if (self->_channelSelectionsHistograms.count)
   {
-    v9 = 0;
+    v7 = 0;
     do
     {
-      v10 = self->_channelSelectionsHistograms.list[v9];
       PBDataWriterWriteUint32Field();
-      toCopy = v20;
-      ++v9;
+      toCopy = v13;
+      ++v7;
     }
 
-    while (v9 < self->_channelSelectionsHistograms.count);
+    while (v7 < self->_channelSelectionsHistograms.count);
   }
 
   if (self->_packetLqiHistograms.count)
   {
-    v11 = 0;
+    v8 = 0;
     do
     {
-      v12 = self->_packetLqiHistograms.list[v11];
       PBDataWriterWriteUint32Field();
-      toCopy = v20;
-      ++v11;
+      toCopy = v13;
+      ++v8;
     }
 
-    while (v11 < self->_packetLqiHistograms.count);
+    while (v8 < self->_packetLqiHistograms.count);
   }
 
   if (self->_frameTxpowerHistograms.count)
   {
-    v13 = 0;
+    v9 = 0;
     do
     {
-      v14 = self->_frameTxpowerHistograms.list[v13];
       PBDataWriterWriteUint32Field();
-      toCopy = v20;
-      ++v13;
+      toCopy = v13;
+      ++v9;
     }
 
-    while (v13 < self->_frameTxpowerHistograms.count);
+    while (v9 < self->_frameTxpowerHistograms.count);
   }
 
   if (self->_nbrTxpowerHistograms.count)
   {
-    v15 = 0;
+    v10 = 0;
     do
     {
-      v16 = self->_nbrTxpowerHistograms.list[v15];
       PBDataWriterWriteUint32Field();
-      toCopy = v20;
-      ++v15;
+      toCopy = v13;
+      ++v10;
     }
 
-    while (v15 < self->_nbrTxpowerHistograms.count);
+    while (v10 < self->_nbrTxpowerHistograms.count);
   }
 
   p_nbrBatteryExtensionFactorHistograms = &self->_nbrBatteryExtensionFactorHistograms;
   if (p_nbrBatteryExtensionFactorHistograms->count)
   {
-    v18 = 0;
+    v12 = 0;
     do
     {
-      v19 = p_nbrBatteryExtensionFactorHistograms->list[v18];
       PBDataWriterWriteUint32Field();
-      toCopy = v20;
-      ++v18;
+      toCopy = v13;
+      ++v12;
     }
 
-    while (v18 < p_nbrBatteryExtensionFactorHistograms->count);
+    while (v12 < p_nbrBatteryExtensionFactorHistograms->count);
   }
 }
 

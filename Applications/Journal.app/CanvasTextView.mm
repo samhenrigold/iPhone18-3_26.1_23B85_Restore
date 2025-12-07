@@ -111,7 +111,7 @@
 
 - (id)editMenuForTextRange:(id)range suggestedActions:(id)actions
 {
-  sub_1000065A8(0, &unk_100ADC630);
+  sub_1000065A8(0, &unk_100ADC630, UIMenuElement_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   rangeCopy = range;
   selfCopy = self;
@@ -211,7 +211,7 @@
   sub_1002D42C8(drag);
 
   swift_unknownObjectRelease();
-  sub_1000065A8(0, &unk_100AD4C90);
+  sub_1000065A8(0, &unk_100AD4C90, UIDragItem_ptr);
   v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;
@@ -225,7 +225,7 @@
   sub_1002D4654(interactionCopy);
 
   swift_unknownObjectRelease();
-  sub_1000065A8(0, &unk_100AD4C90);
+  sub_1000065A8(0, &unk_100AD4C90, UIDragItem_ptr);
   v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v7.super.isa;
@@ -253,7 +253,7 @@
 
 - (BOOL)canPasteItemProviders:(id)providers
 {
-  sub_1000065A8(0, &unk_100AD8660);
+  sub_1000065A8(0, &unk_100AD8660, NSItemProvider_ptr);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   v6 = sub_1002D4C68(v4);
@@ -278,10 +278,11 @@
   interactionCopy = interaction;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v8 = sub_1002D5050(session);
+  sub_1002D5050(session);
+  v9 = v8;
 
   swift_unknownObjectRelease();
-  return v8 & 1;
+  return v9 & 1;
 }
 
 - (id)dropInteraction:(id)interaction sessionDidUpdate:(id)update

@@ -18,6 +18,8 @@
 - (id)serialize;
 - (unint64_t)continuousNanosecondsSinceBoot;
 - (unint64_t)suspendingNanosecondsSinceBoot;
+- (void)setHasContinuousNanosecondsSinceBoot:(BOOL)boot;
+- (void)setHasSuspendingNanosecondsSinceBoot:(BOOL)boot;
 - (void)writeTo:(id)to;
 @end
 
@@ -25,30 +27,30 @@
 
 - (id)jsonDictionary
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   bootSessionUUID = [(BMMonotonicTimestamp *)self bootSessionUUID];
   uUIDString = [bootSessionUUID UUIDString];
 
   value = [(BMMonotonicTimestamp *)self value];
   jsonDictionary = [value jsonDictionary];
 
-  v12[0] = @"bootSessionUUID";
+  v11[0] = @"bootSessionUUID";
   null = uUIDString;
   if (!uUIDString)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = @"value";
-  v13[0] = null;
+  v11[1] = @"value";
+  v12[0] = null;
   null2 = jsonDictionary;
   if (!jsonDictionary)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = null2;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   if (jsonDictionary)
   {
     if (uUIDString)
@@ -67,7 +69,6 @@
   }
 
 LABEL_7:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -210,7 +211,7 @@ LABEL_12:
 
 - (BMMonotonicTimestamp)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"bootSessionUUID"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -226,10 +227,10 @@ LABEL_12:
 
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
       v17 = *MEMORY[0x1E698F240];
-      v30 = *MEMORY[0x1E696A578];
+      v29 = *MEMORY[0x1E696A578];
       v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"bootSessionUUID"];
-      v31 = v8;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v30 = v8;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
       v18 = [v16 initWithDomain:v17 code:2 userInfo:v9];
       selfCopy = 0;
       *error = v18;
@@ -246,13 +247,13 @@ LABEL_12:
         goto LABEL_23;
       }
 
-      v23 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v24 = *MEMORY[0x1E698F240];
-      v32 = *MEMORY[0x1E696A578];
+      v22 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v23 = *MEMORY[0x1E698F240];
+      v31 = *MEMORY[0x1E696A578];
       v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-initWithUUIDString: for %@ returned nil", @"bootSessionUUID"];
-      v33[0] = v9;
-      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
-      *error = [v23 initWithDomain:v24 code:2 userInfo:v25];
+      v32[0] = v9;
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+      *error = [v22 initWithDomain:v23 code:2 userInfo:v24];
 
       goto LABEL_27;
     }
@@ -277,9 +278,9 @@ LABEL_12:
       if (objc_opt_isKindOfClass())
       {
         v14 = v9;
-        v27 = 0;
-        v10 = [[BMMonotonicTimestampValue alloc] initWithJSONDictionary:v14 error:&v27];
-        v15 = v27;
+        v26 = 0;
+        v10 = [[BMMonotonicTimestampValue alloc] initWithJSONDictionary:v14 error:&v26];
+        v15 = v26;
         if (!v15)
         {
 
@@ -299,13 +300,13 @@ LABEL_20:
 
       if (error)
       {
-        v26 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v25 = objc_alloc(MEMORY[0x1E696ABC0]);
         v19 = *MEMORY[0x1E698F240];
-        v28 = *MEMORY[0x1E696A578];
+        v27 = *MEMORY[0x1E696A578];
         v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"value"];
-        v29 = v10;
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-        *error = [v26 initWithDomain:v19 code:2 userInfo:v20];
+        v28 = v10;
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+        *error = [v25 initWithDomain:v19 code:2 userInfo:v20];
 
         goto LABEL_20;
       }
@@ -326,7 +327,6 @@ LABEL_22:
 LABEL_23:
 
 LABEL_24:
-  v21 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -489,21 +489,21 @@ LABEL_29:
 
 - (BMMonotonicTimestamp)initWithBootSessionUUID:(id)d value:(id)value
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
   valueCopy = value;
-  v13.receiver = self;
-  v13.super_class = BMMonotonicTimestamp;
-  v8 = [(BMEventBase *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = BMMonotonicTimestamp;
+  v8 = [(BMEventBase *)&v12 init];
   if (v8)
   {
     v8->_dataVersion = [objc_opt_class() latestDataVersion];
     if (dCopy)
     {
-      v14[0] = 0;
-      v14[1] = 0;
-      [dCopy getUUIDBytes:v14];
-      v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v14 length:16];
+      v13[0] = 0;
+      v13[1] = 0;
+      [dCopy getUUIDBytes:v13];
+      v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v13 length:16];
       raw_bootSessionUUID = v8->_raw_bootSessionUUID;
       v8->_raw_bootSessionUUID = v9;
     }
@@ -517,46 +517,41 @@ LABEL_29:
     objc_storeStrong(&v8->_value, value);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"bootSessionUUID" number:1 type:14 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"value" number:2 type:14 subMessageClass:objc_opt_class()];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"bootSessionUUID" dataType:6 requestOnly:0 fieldNumber:1 protoDataType:14 convertedType:3];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"value_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_13149];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
-id __31__BMMonotonicTimestamp_columns__block_invoke(uint64_t a1, void *a2)
+id __31__BMMonotonicTimestamp_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 value];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 value];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version
@@ -583,6 +578,13 @@ id __31__BMMonotonicTimestamp_columns__block_invoke(uint64_t a1, void *a2)
   return v4;
 }
 
+- (void)setHasContinuousNanosecondsSinceBoot:(BOOL)boot
+{
+  bootCopy = boot;
+  value = [(BMMonotonicTimestamp *)self value];
+  [value setHasContinuousNanosecondsSinceBoot:bootCopy];
+}
+
 - (BOOL)hasContinuousNanosecondsSinceBoot
 {
   value = [(BMMonotonicTimestamp *)self value];
@@ -597,6 +599,13 @@ id __31__BMMonotonicTimestamp_columns__block_invoke(uint64_t a1, void *a2)
   continuousNanosecondsSinceBoot = [value continuousNanosecondsSinceBoot];
 
   return continuousNanosecondsSinceBoot;
+}
+
+- (void)setHasSuspendingNanosecondsSinceBoot:(BOOL)boot
+{
+  bootCopy = boot;
+  value = [(BMMonotonicTimestamp *)self value];
+  [value setHasSuspendingNanosecondsSinceBoot:bootCopy];
 }
 
 - (BOOL)hasSuspendingNanosecondsSinceBoot

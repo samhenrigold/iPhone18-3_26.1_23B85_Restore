@@ -32,18 +32,20 @@ uint64_t __56__CARSessionChangedNotificationConverter_sharedInstance__block_invo
 
 - (CARSessionChangedNotificationConverter)init
 {
-  v5.receiver = self;
-  v5.super_class = CARSessionChangedNotificationConverter;
-  v2 = [(CARSessionChangedNotificationConverter *)&v5 init];
+  v8.receiver = self;
+  v8.super_class = CARSessionChangedNotificationConverter;
+  v2 = [(CARSessionChangedNotificationConverter *)&v8 init];
   if (v2)
   {
     CMNotificationCenterGetDefaultLocalCenter();
-    if (CMNotificationCenterAddListener())
+    v3 = CMNotificationCenterAddListener();
+    if (v3)
     {
-      v3 = CarGeneralLogging();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = v3;
+      v5 = CarGeneralLogging(v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        [CARSessionChangedNotificationConverter init];
+        [(CARSessionChangedNotificationConverter *)v4 init];
       }
     }
   }

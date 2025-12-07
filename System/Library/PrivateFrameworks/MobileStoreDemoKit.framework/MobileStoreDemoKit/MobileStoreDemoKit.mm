@@ -1,25 +1,27 @@
-id defaultLogHandle()
+id defaultLogHandle(uint64_t a1)
 {
   if (defaultLogHandle_once != -1)
   {
     defaultLogHandle_cold_1();
   }
 
-  v1 = defaultLogHandle_defaultLogObj;
+  v2 = defaultLogHandle_defaultLogObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __defaultLogHandle_block_invoke()
 {
-  defaultLogHandle_defaultLogObj = os_log_create("com.apple.MobileStoreDemo", "Default");
+  v0 = os_log_create("com.apple.MobileStoreDemo", "Default");
+  v1 = defaultLogHandle_defaultLogObj;
+  defaultLogHandle_defaultLogObj = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-void sub_259B7E9B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_259B7E9B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -31,11 +33,33 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_259B7ED98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_259B7ED98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
+}
+
+void sub_259B7F5BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, __int128 a10)
+{
+  if (a2 == 1)
+  {
+    v10 = objc_begin_catch(exception_object);
+    v11 = defaultLogHandle(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = [v10 reason];
+      a9 = 138412546;
+      WORD2(a10) = 2112;
+      *(&a10 + 6) = v12;
+      _os_log_impl(&dword_259B7D000, v11, OS_LOG_TYPE_DEFAULT, "Property list serialization failed for object: %@, error: %@", &a9, 0x16u);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x259B7F514);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 void *safeAssignError(void *result, uint64_t a2, uint64_t a3)
@@ -77,22 +101,23 @@ uint64_t safeAssignErrorNoOverwrite(void *a1, uint64_t a2, void *a3)
   return MEMORY[0x2821F96F8](v5, v6);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-id contentRootList()
+id contentRootList(uint64_t a1)
 {
   if (contentRootList_onceToken != -1)
   {
     contentRootList_cold_1();
   }
 
-  v1 = contentRootList_shared;
+  v2 = contentRootList_shared;
 
-  return v1;
+  return v2;
 }
 
 void __contentRootList_block_invoke()
@@ -102,7 +127,21 @@ void __contentRootList_block_invoke()
 
   if (v1)
   {
-    [MEMORY[0x277CBEA60] arrayWithObjects:{@"/var/mobile/Demo.mov", @"/var/mobile/Demo.plist", @"/var/mobile/Media", @"/var/mobile/Library/AddressBook", @"/var/mobile/Library/Alarms", @"/var/mobile/Library/Calendar", @"/var/mobile/Library/CallHistoryDB", @"/var/mobile/Library/Carousel", @"/var/mobile/Library/Health", @"/var/mobile/Library/Maps", @"/var/mobile/Library/MapsHistory.plist", @"/var/mobile/Library/NanoMailKit", @"/var/mobile/Library/NanoMusicSync", @"/var/mobile/Library/NanoNotes/DemoBackup/NotesLocalDemoData", @"/var/mobile/Library/NanoPasses", @"/var/mobile/Library/NanoPodcasts", @"/var/mobile/Library/NanoPhotos", @"/var/mobile/Library/NanoWeatherDemo", @"/var/mobile/Library/News", @"/var/mobile/Library/RetailDemo", @"/var/mobile/Library/Reminders", @"/var/mobile/Library/SMS", @"/var/mobile/Library/UserConfigurationProfiles", @"/var/mobile/Library/Preferences/.GlobalPreferences.plist", @"/var/mobile/Library/Preferences/.GlobalPreferences_m.plist", @"/var/mobile/Library/Preferences/com.apple.Accessibility.plist", @"/var/mobile/Library/Preferences/com.apple.ActivitySharing.plist", @"/var/mobile/Library/Preferences/com.apple.AppleMediaServices.plist", @"/var/mobile/Library/Preferences/com.apple.assistant.backedup.plist", @"/var/mobile/Library/Preferences/com.apple.assistant.nano.plist", @"/var/mobile/Library/Preferences/com.apple.assistant.support.plist", @"/var/mobile/Library/Preferences/com.apple.backboardd.plist", @"/var/mobile/Library/Preferences/com.apple.Carousel.plist", @"/var/mobile/Library/Preferences/com.apple.coremedia.plist", @"/var/mobile/Library/Preferences/com.apple.ControlCenter.plist", @"/var/mobile/Library/Preferences/com.apple.DeepBreathing.plist", @"/var/mobile/Library/Preferences/com.apple.demo-settings.plist", @"/var/mobile/Library/Preferences/com.apple.findmy.plist", @"/var/mobile/Library/Preferences/com.apple.healthd.plist", @"/var/mobile/Library/Preferences/com.apple.ids.plist", @"/var/mobile/Library/Preferences/com.apple.locationd.plist", @"/var/mobile/Library/Preferences/com.apple.mobileme.fmf1.plist", @"/var/mobile/Library/Preferences/com.apple.mobilephone.plist", @"/var/mobile/Library/Preferences/com.apple.mobilephone.speeddial.plist", @"/var/mobile/Library/Preferences/com.apple.mobiletimer.plist", @"/var/mobile/Library/Preferences/com.apple.nanobuddy.plist", @"/var/mobile/Library/Preferences/com.apple.nanolifestyle.plist", @"/var/mobile/Library/Preferences/com.apple.nanolifestyle.privacy.plist", @"/var/mobile/Library/Preferences/com.apple.NanoMediaUI.plist", @"/var/mobile/Library/Preferences/com.apple.NanoMusicSync.plist", @"/var/mobile/Library/Preferences/com.apple.NanoNotes.plist", @"/var/mobile/Library/Preferences/com.apple.nanopassbook.plist", @"/var/mobile/Library/Preferences/com.apple.nanophotos.plist", @"/var/mobile/Library/Preferences/com.apple.nanonews.sync.plist", @"/var/mobile/Library/Preferences/com.apple.Noise.plist", @"/var/mobile/Library/Preferences/com.apple.podcasts.plist", @"/var/mobile/Library/Preferences/com.apple.SessionTrackerApp.plist", @"/var/mobile/Library/Preferences/com.apple.stockholm.plist", @"/var/mobile/Library/Preferences/com.apple.system.prefs.plist", @"/var/mobile/Library/Preferences/com.apple.timed.plist", @"/var/mobile/Library/Preferences/com.apple.voicememod.plist"}];
+    objc_msgSend( MEMORY[0x277CBEA60],  "arrayWithObjects:",  @"/var/mobile/Demo.mov",  @"/var/mobile/Demo.plist",  @"/var/mobile/Media",  @"/var/mobile/Library/AddressBook",  @"/var/mobile/Library/Alarms",  @"/var/mobile/Library/Calendar",  @"/var/mobile/Library/CallHistoryDB",  @"/var/mobile/Library/Carousel",  @"/var/mobile/Library/Health",  @"/var/mobile/Library/Maps",  @"/var/mobile/Library/MapsHistory.plist",  @"/var/mobile/Library/NanoMailKit",  @"/var/mobile/Library/NanoMusicSync",  @"/var/mobile/Library/NanoNotes/DemoBackup/NotesLocalDemoData",  @"/var/mobile/Library/NanoPasses",  @"/var/mobile/Library/NanoPodcasts",  @"/var/mobile/Library/NanoPhotos",  @"/var/mobile/Library/NanoWeatherDemo",  @"/var/mobile/Library/News",  @"/var/mobile/Library/RetailDemo",  @"/var/mobile/Library/Reminders",  @"/var/mobile/Library/SMS",  @"/var/mobile/Library/UserConfigurationProfiles",  @"/var/mobile/Library/Preferences/.GlobalPreferences.plist",  @"/var/mobile/Library/Preferences/.GlobalPreferences_m.plist",  @"/var/mobile/Library/Preferences/com.apple.Accessibility.plist",  @"/var/mobile/Library/Preferences/com.apple.ActivitySharing.plist",  @"/var/mobile/Library/Preferences/com.apple.AppleMediaServices.plist",  @"/var/mobile/Library/Preferences/com.apple.assistant.backedup.plist",  @"/var/mobile/Library/Preferences/com.apple.assistant.nano.plist",  @"/var/mobile/Library/Preferences/com.apple.assistant.support.plist",  @"/var/mobile/Library/Preferences/com.apple.backboardd.plist",  @"/var/mobile/Library/Preferences/com.apple.Carousel.plist",  @"/var/mobile/Library/Preferences/com.apple.coremedia.plist",  @"/var/mobile/Library/Preferences/com.apple.ControlCenter.plist",  @"/var/mobile/Library/Preferences/com.apple.DeepBreathing.plist",  @"/var/mobile/Library/Preferences/com.apple.demo-settings.plist",  @"/var/mobile/Library/Preferences/com.apple.findmy.plist",  @"/var/mobile/Library/Preferences/com.apple.healthd.plist",  @"/var/mobile/Library/Preferences/com.apple.ids.plist",  @"/var/mobile/Library/Preferences/com.apple.locationd.plist",  @"/var/mobile/Library/Preferences/com.apple.mobileme.fmf1.plist",  @"/var/mobile/Library/Preferences/com.apple.mobilephone.plist",  @"/var/mobile/Library/Preferences/com.apple.mobilephone.speeddial.plist",  @"/var/mobile/Library/Preferences/com.apple.mobiletimer.plist",  @"/var/mobile/Library/Preferences/com.apple.nanobuddy.plist",  @"/var/mobile/Library/Preferences/com.apple.nanolifestyle.plist",
+      @"/var/mobile/Library/Preferences/com.apple.nanolifestyle.privacy.plist",
+      @"/var/mobile/Library/Preferences/com.apple.NanoMediaUI.plist",
+      @"/var/mobile/Library/Preferences/com.apple.NanoMusicSync.plist",
+      @"/var/mobile/Library/Preferences/com.apple.NanoNotes.plist",
+      @"/var/mobile/Library/Preferences/com.apple.nanopassbook.plist",
+      @"/var/mobile/Library/Preferences/com.apple.nanophotos.plist",
+      @"/var/mobile/Library/Preferences/com.apple.nanonews.sync.plist",
+      @"/var/mobile/Library/Preferences/com.apple.Noise.plist",
+      @"/var/mobile/Library/Preferences/com.apple.podcasts.plist",
+      @"/var/mobile/Library/Preferences/com.apple.SessionTrackerApp.plist",
+      @"/var/mobile/Library/Preferences/com.apple.stockholm.plist",
+      @"/var/mobile/Library/Preferences/com.apple.system.prefs.plist",
+      @"/var/mobile/Library/Preferences/com.apple.timed.plist",
+      @"/var/mobile/Library/Preferences/com.apple.voicememod.plist");
   }
 
   else
@@ -115,23 +154,25 @@ void __contentRootList_block_invoke()
       return;
     }
 
-    [MEMORY[0x277CBEA60] arrayWithObjects:{@"/var/mobile/Media/DCIM", @"/var/mobile/Media/PhotoData", @"/var/mobile/Library/Preferences/com.apple.demo-settings.plist", @"/var/MobileDevice/ProvisioningProfiles", @"/var/mobile/Library/com.apple.HeadBoard/HBDemoModeAppOrder", @"/var/mobile/Library/com.apple.HeadBoard/AppOrder.plist", @"/var/mobile/Library/Preferences/.GlobalPreferences.plist", @"/var/mobile/Library/Preferences/.GlobalPreferences_m.plist", @"/var/mobile/Library/DemoLoop", 0, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54}];
+    [MEMORY[0x277CBEA60] arrayWithObjects:{@"/var/mobile/Media/DCIM", @"/var/mobile/Media/PhotoData", @"/var/mobile/Library/Preferences/com.apple.demo-settings.plist", @"/var/MobileDevice/ProvisioningProfiles", @"/var/mobile/Library/com.apple.HeadBoard/HBDemoModeAppOrder", @"/var/mobile/Library/com.apple.HeadBoard/AppOrder.plist", @"/var/mobile/Library/Preferences/.GlobalPreferences.plist", @"/var/mobile/Library/Preferences/.GlobalPreferences_m.plist", @"/var/mobile/Library/DemoLoop", 0, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56}];
   }
-  contentRootList_shared = ;
+  v4 = ;
+  v5 = contentRootList_shared;
+  contentRootList_shared = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, v5);
 }
 
-id doNotExtractList()
+id doNotExtractList(uint64_t a1)
 {
   if (doNotExtractList_onceToken != -1)
   {
     doNotExtractList_cold_1();
   }
 
-  v1 = doNotExtractList_shared;
+  v2 = doNotExtractList_shared;
 
-  return v1;
+  return v2;
 }
 
 void __doNotExtractList_block_invoke()
@@ -157,21 +198,22 @@ void __doNotExtractList_block_invoke()
     v2 = [MEMORY[0x277CBEA60] array];
   }
 
+  v5 = doNotExtractList_shared;
   doNotExtractList_shared = v2;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v2, v5);
 }
 
-id systemContainerShouldRestoreList()
+id systemContainerShouldRestoreList(uint64_t a1)
 {
   if (systemContainerShouldRestoreList_onceToken != -1)
   {
     systemContainerShouldRestoreList_cold_1();
   }
 
-  v1 = systemContainerShouldRestoreList_shared;
+  v2 = systemContainerShouldRestoreList_shared;
 
-  return v1;
+  return v2;
 }
 
 void __systemContainerShouldRestoreList_block_invoke()
@@ -197,63 +239,66 @@ void __systemContainerShouldRestoreList_block_invoke()
     v2 = [MEMORY[0x277CBEA60] array];
   }
 
+  v5 = systemContainerShouldRestoreList_shared;
   systemContainerShouldRestoreList_shared = v2;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v2, v5);
 }
 
-id appContainerDoNotExtractList()
+id appContainerDoNotExtractList(uint64_t a1)
 {
   if (appContainerDoNotExtractList_onceToken != -1)
   {
     appContainerDoNotExtractList_cold_1();
   }
 
-  v1 = appContainerDoNotExtractList_shared;
+  v2 = appContainerDoNotExtractList_shared;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __appContainerDoNotExtractList_block_invoke()
 {
-  appContainerDoNotExtractList_shared = [MEMORY[0x277CBEA60] arrayWithObjects:{@"/.com.apple.mobile_container_manager.metadata.plist", @"/Library/Caches", @"/Library/SyncedPreferences", @"/Library/Saved Application State", @"/SystemData/com.apple.AuthenticationServices", 0}];
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:{@"/.com.apple.mobile_container_manager.metadata.plist", @"/Library/Caches", @"/Library/SyncedPreferences", @"/Library/Saved Application State", @"/SystemData/com.apple.AuthenticationServices", 0}];
+  v1 = appContainerDoNotExtractList_shared;
+  appContainerDoNotExtractList_shared = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id systemContainerDoNotExtractList()
+id systemContainerDoNotExtractList(uint64_t a1)
 {
   if (systemContainerDoNotExtractList_onceToken != -1)
   {
     systemContainerDoNotExtractList_cold_1();
   }
 
-  v1 = systemContainerDoNotExtractList_shared;
+  v2 = systemContainerDoNotExtractList_shared;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __systemContainerDoNotExtractList_block_invoke()
 {
-  systemContainerDoNotExtractList_shared = [MEMORY[0x277CBEA60] arrayWithObjects:{@"/.com.apple.mobile_container_manager.metadata.plist", @"/Library/Caches", @"/Library/SyncedPreferences", @"/Library/Saved Application State", @"/SystemData/com.apple.AuthenticationServices", 0}];
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:{@"/.com.apple.mobile_container_manager.metadata.plist", @"/Library/Caches", @"/Library/SyncedPreferences", @"/Library/Saved Application State", @"/SystemData/com.apple.AuthenticationServices", 0}];
+  v1 = systemContainerDoNotExtractList_shared;
+  systemContainerDoNotExtractList_shared = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id generateCustomDomainsPlistForSecurityRulesCheck()
+id generateCustomDomainsPlistForSecurityRulesCheck(uint64_t a1)
 {
   v6[2] = *MEMORY[0x277D85DE8];
   v5[0] = @"ContentRootDomain";
-  v0 = contentRootList();
+  v1 = contentRootList(a1);
   v5[1] = @"SystemContainerDomain";
-  v6[0] = v0;
-  v1 = systemContainerShouldRestoreList();
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v6[0] = v1;
+  v2 = systemContainerShouldRestoreList(v1);
+  v6[1] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
-  v3 = *MEMORY[0x277D85DE8];
-
-  return v2;
+  return v3;
 }
 
 BOOL OUTLINED_FUNCTION_4(NSObject *a1)
@@ -268,54 +313,58 @@ BOOL OUTLINED_FUNCTION_5(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-id screenSaverLogHandle()
+id screenSaverLogHandle(uint64_t a1)
 {
   if (screenSaverLogHandle_once != -1)
   {
     screenSaverLogHandle_cold_1();
   }
 
-  v1 = screenSaverLogHandle_currentLogObj;
+  v2 = screenSaverLogHandle_currentLogObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __screenSaverLogHandle_block_invoke()
 {
-  screenSaverLogHandle_currentLogObj = os_log_create("com.apple.MobileStoreDemo", "ScreenSaver");
+  v0 = os_log_create("com.apple.MobileStoreDemo", "ScreenSaver");
+  v1 = screenSaverLogHandle_currentLogObj;
+  screenSaverLogHandle_currentLogObj = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id messageLogHandle()
+id messageLogHandle(uint64_t a1)
 {
   if (messageLogHandle_once != -1)
   {
     messageLogHandle_cold_1();
   }
 
-  v1 = messageLogHandle_messageLogObj;
+  v2 = messageLogHandle_messageLogObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __messageLogHandle_block_invoke()
 {
-  messageLogHandle_messageLogObj = os_log_create("com.apple.MobileStoreDemo", "Message");
+  v0 = os_log_create("com.apple.MobileStoreDemo", "Message");
+  v1 = messageLogHandle_messageLogObj;
+  messageLogHandle_messageLogObj = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id signpostLogHandle()
+id signpostLogHandle(uint64_t a1)
 {
   if (signpostLogHandle_once != -1)
   {
     signpostLogHandle_cold_1();
   }
 
-  v1 = signpostLogHandle_signpostLogObj;
+  v2 = signpostLogHandle_signpostLogObj;
 
-  return v1;
+  return v2;
 }
 
 void __signpostLogHandle_block_invoke()
@@ -342,9 +391,9 @@ void MSDLogToFile(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, 
   [v10 logWithFormat:v9 andArgs:&a9];
 }
 
-void sub_259B86F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_259B86F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -356,16 +405,16 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_259B8781C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_259B8781C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -385,45 +434,46 @@ uint64_t __Block_byref_object_copy__10(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_259B87BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_259B87BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_259B87F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_259B87F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_259B8A558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_259B8A558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -435,9 +485,9 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_259B8AD38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_259B8AD38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -468,16 +518,18 @@ void sub_259B9350C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 BOOL OUTLINED_FUNCTION_4_1(NSObject *a1)
@@ -486,21 +538,23 @@ BOOL OUTLINED_FUNCTION_4_1(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-void OUTLINED_FUNCTION_2_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
-void OUTLINED_FUNCTION_4_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
-void sub_259B99920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_259B99920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -512,11 +566,11 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_259B9E27C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_259B9E27C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 64), 8);
+  _Block_object_dispose((v22 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -547,10 +601,11 @@ id OUTLINED_FUNCTION_9_0()
   return v3;
 }
 
-void OUTLINED_FUNCTION_10_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_10_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void *OUTLINED_FUNCTION_11(uint64_t a1)
@@ -559,25 +614,25 @@ void *OUTLINED_FUNCTION_11(uint64_t a1)
   return safeAssignError(v1, 3727744515, a1);
 }
 
-void OUTLINED_FUNCTION_13(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_13(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_3_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 CFStringRef _hashToCFString(unsigned __int8 *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   snprintf(__str, 0x64uLL, "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x", *a1, a1[1], a1[2], a1[3], a1[4], a1[5], a1[6], a1[7], a1[8], a1[9], a1[10], a1[11], a1[12], a1[13], a1[14], a1[15], a1[16], a1[17], a1[18], a1[19]);
-  result = CFStringCreateWithCString(*MEMORY[0x277CBECE8], __str, 0x8000100u);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return CFStringCreateWithCString(*MEMORY[0x277CBECE8], __str, 0x8000100u);
 }
 
 unsigned __int8 *_MobileAssetHashAssetData(uint64_t a1, const __CFString *a2, const __CFString *a3)
@@ -668,17 +723,18 @@ LABEL_4:
   return _hashCFNumber(a1);
 }
 
-CFDataRef _MobileAssetCopyFileHash(const __CFAllocator *a1, const __CFString *a2, CFStringRef theString1, uint64_t a4, void (*a5)(uint64_t, double, float), uint64_t a6)
+CFDataRef _MobileAssetCopyFileHash(const __CFAllocator *a1, const __CFString *a2, CFStringRef theString1, uint64_t a4, uint64_t (*a5)(uint64_t, __n128, float), uint64_t a6)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   memset(&c, 0, sizeof(c));
-  if (CFStringCompare(theString1, @"SHA-1", 0) == kCFCompareEqualTo)
+  v11 = CFStringCompare(theString1, @"SHA-1", 0);
+  if (v11 == kCFCompareEqualTo)
   {
-    v13 = CFURLCreateWithFileSystemPath(a1, a2, kCFURLPOSIXPathStyle, 0);
-    if (!v13)
+    v14 = CFURLCreateWithFileSystemPath(a1, a2, kCFURLPOSIXPathStyle, 0);
+    if (!v14)
     {
-      v11 = defaultLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = defaultLogHandle(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         _MobileAssetCopyFileHash_cold_7();
       }
@@ -686,61 +742,62 @@ CFDataRef _MobileAssetCopyFileHash(const __CFAllocator *a1, const __CFString *a2
       goto LABEL_4;
     }
 
-    v14 = v13;
-    v15 = CFReadStreamCreateWithFile(a1, v13);
-    if (!v15)
+    v15 = v14;
+    v16 = CFReadStreamCreateWithFile(a1, v14);
+    if (!v16)
     {
-      v25 = defaultLogHandle();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v28 = defaultLogHandle(0);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         _MobileAssetCopyFileHash_cold_6();
       }
 
-      v12 = 0;
+      v13 = 0;
       goto LABEL_40;
     }
 
-    v16 = v15;
-    if (CFReadStreamOpen(v15))
+    v17 = v16;
+    v18 = CFReadStreamOpen(v16);
+    if (v18)
     {
       if (a5)
       {
-        a5(a6, 0.0, -1.0);
+        (a5)(a6, 0.0, -1.0);
       }
 
       CC_SHA1_Init(&c);
-      v17 = malloc_type_calloc(1uLL, 0x10000uLL, 0x100004077774924uLL);
-      if (v17)
+      v19 = malloc_type_calloc(1uLL, 0x10000uLL, 0x100004077774924uLL);
+      if (v19)
       {
-        v18 = v17;
-        v30.tv_sec = 0;
-        *&v30.tv_usec = 0;
-        gettimeofday(&v30, 0);
-        v19 = CFReadStreamRead(v16, v18, 0x10000);
-        if (v19 < 1)
+        v20 = v19;
+        v32.tv_sec = 0;
+        *&v32.tv_usec = 0;
+        gettimeofday(&v32, 0);
+        v21 = CFReadStreamRead(v17, v20, 0x10000);
+        if (v21 < 1)
         {
 LABEL_18:
           CC_SHA1_Final(md, &c);
-          v23 = CFDataCreate(a1, md, 20);
-          if (v23)
+          v26 = CFDataCreate(a1, md, 20);
+          if (v26)
           {
-            v12 = v23;
-            v24 = _hashToCFString(md);
-            if (v24)
+            v13 = v26;
+            v27 = _hashToCFString(md);
+            if (v27)
             {
-              CFRelease(v24);
+              CFRelease(v27);
             }
 
             if (a5)
             {
-              a5(a6, 1.0, -1.0);
+              (a5)(a6, 1.0, -1.0);
             }
 
             goto LABEL_38;
           }
 
-          v27 = defaultLogHandle();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v30 = defaultLogHandle(0);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             _MobileAssetCopyFileHash_cold_3();
           }
@@ -748,45 +805,49 @@ LABEL_18:
 
         else
         {
-          v20 = v19;
-          v21 = 0;
+          v22 = v21;
+          v23 = 0;
           while (1)
           {
-            CC_SHA1_Update(&c, v18, v20);
-            v21 += v20;
-            v22.n128_u32[0] = -1.0;
+            CC_SHA1_Update(&c, v20, v22);
+            v23 += v22;
+            v24.n128_u32[0] = -1.0;
             if (a4)
             {
-              v22.n128_f32[0] = v21 / a4;
+              v24.n128_f32[0] = v23 / a4;
             }
 
-            if (a5 && (a5)(a6, v22, -1.0))
+            if (a5)
             {
-              break;
+              v25 = a5(a6, v24, -1.0);
+              if (v25)
+              {
+                break;
+              }
             }
 
-            v20 = CFReadStreamRead(v16, v18, 0x10000);
-            if (v20 <= 0)
+            v22 = CFReadStreamRead(v17, v20, 0x10000);
+            if (v22 <= 0)
             {
               goto LABEL_18;
             }
           }
 
-          v27 = defaultLogHandle();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v30 = defaultLogHandle(v25);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             _MobileAssetCopyFileHash_cold_2();
           }
         }
 
-        v12 = 0;
+        v13 = 0;
 LABEL_38:
-        free(v18);
+        free(v20);
         goto LABEL_39;
       }
 
-      v26 = defaultLogHandle();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v29 = defaultLogHandle(0);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         _MobileAssetCopyFileHash_cold_4();
       }
@@ -794,34 +855,31 @@ LABEL_38:
 
     else
     {
-      v26 = defaultLogHandle();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v29 = defaultLogHandle(v18);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         _MobileAssetCopyFileHash_cold_5();
       }
     }
 
-    v12 = 0;
+    v13 = 0;
 LABEL_39:
-    CFReadStreamClose(v16);
-    CFRelease(v16);
+    CFReadStreamClose(v17);
+    CFRelease(v17);
 LABEL_40:
-    CFRelease(v14);
-    goto LABEL_41;
+    CFRelease(v15);
+    return v13;
   }
 
-  v11 = defaultLogHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = defaultLogHandle(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     _MobileAssetCopyFileHash_cold_1();
   }
 
 LABEL_4:
 
-  v12 = 0;
-LABEL_41:
-  v28 = *MEMORY[0x277D85DE8];
-  return v12;
+  return 0;
 }
 
 uint64_t _hashCFArray(const __CFArray *a1)
@@ -840,9 +898,10 @@ uint64_t _hashCFArray(const __CFArray *a1)
     while (1)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(a1, v4);
-      v16.location = 0;
-      v16.length = v3;
-      if (CFArrayGetCountOfValue(a1, v16, ValueAtIndex) >= 2)
+      v17.location = 0;
+      v17.length = v3;
+      CountOfValue = CFArrayGetCountOfValue(a1, v17, ValueAtIndex);
+      if (CountOfValue >= 2)
       {
         break;
       }
@@ -853,50 +912,50 @@ uint64_t _hashCFArray(const __CFArray *a1)
       }
     }
 
-    v12 = defaultLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = defaultLogHandle(CountOfValue);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_259B7D000, v12, OS_LOG_TYPE_DEFAULT, "Failing to hash due to duplicate array entries", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_259B7D000, v13, OS_LOG_TYPE_DEFAULT, "Failing to hash due to duplicate array entries", v15, 2u);
     }
 
     return 0;
   }
 
 LABEL_6:
-  v6 = _hashCFType(@"array");
+  v7 = _hashCFType(@"array");
   CC_SHA1_Init(&c);
   if (CFArrayGetCount(a1) >= 1)
   {
-    v7 = 0;
+    v8 = 0;
     do
     {
-      v8 = CFArrayGetValueAtIndex(a1, v7);
-      v9 = _hashCFType(v8);
-      if (!v9)
+      v9 = CFArrayGetValueAtIndex(a1, v8);
+      v10 = _hashCFType(v9);
+      if (!v10)
       {
         break;
       }
 
-      v10 = v9;
-      CC_SHA1_Update(&c, v9, 0x14u);
-      CC_SHA1_Final(v10, &c);
-      if (v6)
+      v11 = v10;
+      CC_SHA1_Update(&c, v10, 0x14u);
+      CC_SHA1_Final(v11, &c);
+      if (v7)
       {
         for (i = 0; i != 20; ++i)
         {
-          *(v6 + i) ^= v10[i];
+          *(v7 + i) ^= v11[i];
         }
       }
 
-      free(v10);
-      ++v7;
+      free(v11);
+      ++v8;
     }
 
-    while (CFArrayGetCount(a1) > v7);
+    while (CFArrayGetCount(a1) > v8);
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t _hashCFDictionary(const __CFDictionary *a1)
@@ -986,36 +1045,4 @@ void OUTLINED_FUNCTION_2_3(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   va_start(va, a4);
 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
-}
-
-void _MobileAssetCopyFileHash_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void _MobileAssetCopyFileHash_cold_5()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_2_3(&dword_259B7D000, v0, v1, "Can't open read stream %{public}@ *** %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void _MobileAssetCopyFileHash_cold_6()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_2_3(&dword_259B7D000, v0, v1, "Can't create read stream, %{public}@ %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void _MobileAssetCopyFileHash_cold_7()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }

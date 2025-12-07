@@ -397,27 +397,25 @@ LABEL_8:
   installCopy = install;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  expired = selfCopy->_expired;
   if (selfCopy->_canceled || selfCopy->_expired)
   {
-    selfCopy->_canceled;
     SULogInfo(@"auto install operation (%@) not ready: canceled: %@, expired: %@", v5, v6, v7, v8, v9, v10, v11, selfCopy->_id);
-    v17 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.softwareupdateservices.errors" code:49 userInfo:0];
-    installCopy[2](installCopy, 0, v17);
+    v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.softwareupdateservices.errors" code:49 userInfo:0];
+    installCopy[2](installCopy, 0, v16);
     goto LABEL_7;
   }
 
   WeakRetained = objc_loadWeakRetained(&selfCopy->_delegate);
   if (WeakRetained)
   {
-    v14 = WeakRetained;
-    v15 = objc_loadWeakRetained(&selfCopy->_delegate);
-    v16 = objc_opt_respondsToSelector();
+    v13 = WeakRetained;
+    v14 = objc_loadWeakRetained(&selfCopy->_delegate);
+    v15 = objc_opt_respondsToSelector();
 
-    if (v16)
+    if (v15)
     {
-      v17 = objc_loadWeakRetained(&selfCopy->_delegate);
-      [v17 autoInstallOperationIsReadyToInstall:selfCopy withResponse:installCopy];
+      v16 = objc_loadWeakRetained(&selfCopy->_delegate);
+      [v16 autoInstallOperationIsReadyToInstall:selfCopy withResponse:installCopy];
 LABEL_7:
     }
   }

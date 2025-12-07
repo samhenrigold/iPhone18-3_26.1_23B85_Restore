@@ -741,8 +741,8 @@ LABEL_31:
       if (_currentRequest)
       {
 LABEL_19:
-        options = [_currentRequest options];
-        [options normalizedCropRect];
+        v27 = objc_msgSend_options(_currentRequest);
+        [v27 normalizedCropRect];
         v37.origin.x = v28;
         v37.origin.y = v29;
         v37.size.width = v30;
@@ -751,8 +751,8 @@ LABEL_19:
 
 LABEL_20:
         preferHDR = [(PXImageRequester *)self preferHDR];
-        options2 = [_currentRequest options];
-        preferHDR2 = [options2 preferHDR];
+        v33 = objc_msgSend_options(_currentRequest);
+        preferHDR2 = [v33 preferHDR];
 
         if (preferHDR != preferHDR2)
         {

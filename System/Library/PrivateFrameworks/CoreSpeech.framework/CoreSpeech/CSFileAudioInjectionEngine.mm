@@ -61,7 +61,7 @@
   else
   {
 
-    return +[CSFAudioStreamBasicDescriptionFactory lpcmInt16ASBD];
+    return objc_msgSend_lpcmInt16ASBD(CSFAudioStreamBasicDescriptionFactory);
   }
 }
 
@@ -121,7 +121,7 @@
 
     while (v8 < needed->mBuffers[0].mNumberChannels);
     deinterleaver = self->_deinterleaver;
-    +[CSFAudioStreamBasicDescriptionFactory lpcmNonInterleavedASBD];
+    objc_msgSend_lpcmNonInterleavedASBD(CSFAudioStreamBasicDescriptionFactory);
     v12 = AudioConverterConvertComplexBuffer(deinterleaver, v9 / v16, needed, self->_pNonInterleavedABL);
     if (v12)
     {
@@ -273,7 +273,7 @@ LABEL_9:
   completionCopy = completion;
   startedCopy = started;
   audioCopy = audio;
-  [(CSFileAudioInjectionEngine *)self _defaultOutASBD];
+  objc_msgSend__defaultOutASBD(self);
   *&v13 = factor;
   LOBYTE(self) = [(CSFileAudioInjectionEngine *)self injectAudio:audioCopy withScaleFactor:v15 outASBD:startedCopy playbackStarted:completionCopy completion:v13];
 
@@ -318,7 +318,7 @@ LABEL_9:
       memset(inPropertyData, 0, sizeof(inPropertyData));
       if (v16)
       {
-        [v16 outASBD];
+        objc_msgSend_outASBD(v16);
       }
 
       ExtAudioFileSetProperty(outExtAudioFile, 0x63666D74u, 0x28u, inPropertyData);
@@ -349,16 +349,16 @@ LABEL_9:
       }
 
       bufferDuration = self->_bufferDuration;
-      [(CSFileAudioInjectionEngine *)self _defaultOutASBD];
-      [(CSFileAudioInjectionEngine *)self _defaultOutASBD];
+      objc_msgSend__defaultOutASBD(self);
+      objc_msgSend__defaultOutASBD(self);
       LODWORD(v25) = v73;
       v26 = bufferDuration * v74 * v25;
-      [(CSFileAudioInjectionEngine *)self _defaultOutASBD];
+      objc_msgSend__defaultOutASBD(self);
       LODWORD(v27) = v72;
       v28 = (v26 * v27);
       v16 = [NSMutableData dataWithLength:v28];
       *inPropertyData = 1;
-      [(CSFileAudioInjectionEngine *)self _defaultOutASBD];
+      objc_msgSend__defaultOutASBD(self);
       *&inPropertyData[8] = v71;
       *&inPropertyData[12] = v28;
       *&inPropertyData[16] = [v16 bytes];
@@ -395,7 +395,7 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  [(CSAudioInjectionFileOption *)v5 outASBD];
+  objc_msgSend_outASBD(v5);
   v6 = self->_fileOption;
   v7 = (v4 * *&v97);
   v8 = self->_bufferDuration;
@@ -405,7 +405,7 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  [(CSAudioInjectionFileOption *)v6 outASBD];
+  objc_msgSend_outASBD(v6);
   v9 = self->_fileOption;
   v10 = v8 * *&v94;
   if (!v9)
@@ -418,7 +418,7 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  [(CSAudioInjectionFileOption *)v9 outASBD];
+  objc_msgSend_outASBD(v9);
   v11 = self->_fileOption;
   LODWORD(v12) = DWORD2(v92);
   v13 = v10 * v12;
@@ -432,7 +432,7 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  [(CSAudioInjectionFileOption *)v11 outASBD];
+  objc_msgSend_outASBD(v11);
   LODWORD(v14) = HIDWORD(v89);
   v15 = v14;
 LABEL_25:
@@ -442,7 +442,7 @@ LABEL_25:
   v35 = self->_fileOption;
   if (v35)
   {
-    [(CSAudioInjectionFileOption *)v35 outASBD];
+    objc_msgSend_outASBD(v35);
     v36 = HIDWORD(v86);
   }
 
@@ -516,7 +516,7 @@ LABEL_70:
     v42 = self->_fileOption;
     if (v42)
     {
-      [(CSAudioInjectionFileOption *)v42 outASBD];
+      objc_msgSend_outASBD(v42);
       v43 = HIDWORD(v83);
     }
 
@@ -535,7 +535,7 @@ LABEL_70:
     v49 = self->_fileOption;
     if (v49)
     {
-      [(CSAudioInjectionFileOption *)v49 outASBD];
+      objc_msgSend_outASBD(v49);
       v50 = HIDWORD(v80);
     }
 
@@ -564,7 +564,7 @@ LABEL_70:
               v55 = self->_fileOption;
               if (v55)
               {
-                [(CSAudioInjectionFileOption *)v55 outASBD];
+                objc_msgSend_outASBD(v55);
                 v56 = HIDWORD(v77);
               }
 
@@ -669,7 +669,7 @@ LABEL_71:
 {
   self->_deinterleaver = 0;
   p_deinterleaver = &self->_deinterleaver;
-  +[CSFAudioStreamBasicDescriptionFactory lpcmNonInterleavedASBD];
+  objc_msgSend_lpcmNonInterleavedASBD(CSFAudioStreamBasicDescriptionFactory, a2);
   v4 = v14;
   if (+[CSUtils shouldDeinterleaveAudioOnCS])
   {
@@ -684,8 +684,8 @@ LABEL_71:
   if (v5)
   {
     memset(&inSourceFormat, 0, sizeof(inSourceFormat));
-    +[CSFAudioStreamBasicDescriptionFactory lpcmInterleavedASBD];
-    [CSFAudioStreamBasicDescriptionFactory lpcmNonInterleavedASBD:0];
+    objc_msgSend_lpcmInterleavedASBD(CSFAudioStreamBasicDescriptionFactory);
+    objc_msgSend_lpcmNonInterleavedASBD(CSFAudioStreamBasicDescriptionFactory, 0, 0, 0, 0, 0);
     v6 = AudioConverterNew(&inSourceFormat, &v12, p_deinterleaver);
     if (v6)
     {

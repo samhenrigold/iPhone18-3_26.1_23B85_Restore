@@ -108,10 +108,7 @@ void __53__CCSModuleRepository__updateAvailableModuleMetadata__block_invoke(uint
 
 uint64_t __48__CCSModuleRepository_loadableModuleIdentifiers__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 72) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 72) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -169,10 +166,11 @@ void __37__CCSModuleRepository_sharedInstance__block_invoke(uint64_t a1)
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
 
-    CCSRegisterControlCenterLogging();
+    CCSRegisterControlCenterLogging(v3, v4);
   }
 }
 
@@ -430,18 +428,16 @@ uint64_t __46__CCSModuleRepository__applicationsDidChange___block_invoke(uint64_
 
 id __48__CCSModuleRepository__defaultModuleDirectories__block_invoke(uint64_t a1, void *a2)
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEBC0];
   v3 = a2;
   v4 = BSSystemRootDirectory();
-  v9[0] = v4;
-  v9[1] = v3;
-  v9[2] = @"ControlCenter";
-  v9[3] = @"Bundles";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
+  v8[0] = v4;
+  v8[1] = v3;
+  v8[2] = @"ControlCenter";
+  v8[3] = @"Bundles";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
   v6 = [v2 fileURLWithPathComponents:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -480,145 +476,10 @@ id __48__CCSModuleRepository__defaultModuleDirectories__block_invoke(uint64_t a1
 
 - (void)_queue_updateAllModuleMetadataForAllModuleMetadata:(id)metadata
 {
-  v22 = *MEMORY[0x277D85DE8];
-  metadataCopy = metadata;
-  dispatch_assert_queue_V2(self->_queue);
-  v5 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(metadataCopy, "count")}];
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v6 = metadataCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = *v18;
-    do
-    {
-      for (i = 0; i != v8; ++i)
-      {
-        if (*v18 != v9)
-        {
-          objc_enumerationMutation(v6);
-        }
-
-        v11 = *(*(&v17 + 1) + 8 * i);
-        moduleIdentifier = [v11 moduleIdentifier];
-        [v5 setObject:v11 forKey:moduleIdentifier];
-      }
-
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    }
-
-    while (v8);
-  }
-
-  allModuleMetadataByIdentifier = self->_allModuleMetadataByIdentifier;
-  if ((BSEqualObjects() & 1) == 0)
-  {
-    v14 = [v5 copy];
-    v15 = self->_allModuleMetadataByIdentifier;
-    self->_allModuleMetadataByIdentifier = v14;
-
-    [(CCSModuleRepository *)self _queue_updateInterestingBundleIdentifiersForModuleMetadata:v6];
-    [(CCSModuleRepository *)self _queue_updateAvailableModuleMetadataForAllModuleMetadata:v6];
-  }
-
-  v16 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_updateAvailableModuleMetadataForAllModuleMetadata:(id)metadata
-{
-  metadataCopy = metadata;
-  dispatch_assert_queue_V2(self->_queue);
-  v4 = [(CCSModuleRepository *)self _queue_filterModuleMetadataByAssociatedBundleAvailability:metadataCopy];
-  v5 = [(CCSModuleRepository *)self _queue_filterModuleMetadataByVisibilityPreference:v4];
-
-  v6 = [(CCSModuleRepository *)self _queue_moduleIdentifiersForMetadata:v5];
-  availableModuleIdentifiers = self->_availableModuleIdentifiers;
-  if ((BSEqualObjects() & 1) == 0)
-  {
-    objc_storeStrong(&self->_availableModuleIdentifiers, v6);
-    [(CCSModuleRepository *)self _queue_updateGestaltQuestionsForModuleMetadata:v5];
-    [(CCSModuleRepository *)self _queue_updateLoadableModuleMetadataForAvailableModuleMetadata:v5];
-  }
-}
-
-- (void)_queue_updateLoadableModuleMetadataForAvailableModuleMetadata:(id)metadata
-{
-  v27 = *MEMORY[0x277D85DE8];
-  metadataCopy = metadata;
-  dispatch_assert_queue_V2(self->_queue);
-  v5 = [(CCSModuleRepository *)self _queue_filterModuleMetadataByGestalt:metadataCopy];
-  v6 = [(CCSModuleRepository *)self _queue_moduleIdentifiersForMetadata:v5];
-  loadableModuleIdentifiers = self->_loadableModuleIdentifiers;
-  if ((BSEqualObjects() & 1) == 0)
-  {
-    v18 = v5;
-    v8 = CCSLogModuleSettings;
-    if (os_log_type_enabled(CCSLogModuleSettings, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_24427F000, v8, OS_LOG_TYPE_DEFAULT, "[CCSModuleRepository] Loadable modules changed...", buf, 2u);
-    }
-
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    obj = v6;
-    v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v26 count:16];
-    if (v10)
-    {
-      v11 = v10;
-      v12 = *v21;
-      do
-      {
-        for (i = 0; i != v11; ++i)
-        {
-          if (*v21 != v12)
-          {
-            objc_enumerationMutation(v9);
-          }
-
-          v14 = CCSLogModuleSettings;
-          if (os_log_type_enabled(CCSLogModuleSettings, OS_LOG_TYPE_DEFAULT))
-          {
-            v15 = *(*(&v20 + 1) + 8 * i);
-            *buf = 138543362;
-            v25 = v15;
-            _os_log_impl(&dword_24427F000, v14, OS_LOG_TYPE_DEFAULT, "[CCSModuleRepository] Loadable module: %{public}@", buf, 0xCu);
-          }
-        }
-
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v26 count:16];
-      }
-
-      while (v11);
-    }
-
-    v6 = obj;
-    objc_storeStrong(&self->_loadableModuleIdentifiers, obj);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __85__CCSModuleRepository__queue_updateLoadableModuleMetadataForAvailableModuleMetadata___block_invoke;
-    v19[3] = &unk_278E0F800;
-    v19[4] = self;
-    [(CCSModuleRepository *)self _queue_runBlockOnObservers:v19];
-    v5 = v18;
-  }
-
-  v16 = *MEMORY[0x277D85DE8];
-}
-
-- (id)_queue_moduleIdentifiersForMetadata:(id)metadata
-{
   v20 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   dispatch_assert_queue_V2(self->_queue);
-  v5 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(metadataCopy, "count")}];
+  v5 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(metadataCopy, "count")}];
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
@@ -638,8 +499,9 @@ id __48__CCSModuleRepository__defaultModuleDirectories__block_invoke(uint64_t a1
           objc_enumerationMutation(v6);
         }
 
-        moduleIdentifier = [*(*(&v15 + 1) + 8 * i) moduleIdentifier];
-        [v5 addObject:moduleIdentifier];
+        v11 = *(*(&v15 + 1) + 8 * i);
+        moduleIdentifier = [v11 moduleIdentifier];
+        [v5 setObject:v11 forKey:moduleIdentifier];
       }
 
       v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
@@ -648,8 +510,134 @@ id __48__CCSModuleRepository__defaultModuleDirectories__block_invoke(uint64_t a1
     while (v8);
   }
 
+  if ((BSEqualObjects() & 1) == 0)
+  {
+    v13 = [v5 copy];
+    allModuleMetadataByIdentifier = self->_allModuleMetadataByIdentifier;
+    self->_allModuleMetadataByIdentifier = v13;
+
+    [(CCSModuleRepository *)self _queue_updateInterestingBundleIdentifiersForModuleMetadata:v6];
+    [(CCSModuleRepository *)self _queue_updateAvailableModuleMetadataForAllModuleMetadata:v6];
+  }
+}
+
+- (void)_queue_updateAvailableModuleMetadataForAllModuleMetadata:(id)metadata
+{
+  metadataCopy = metadata;
+  dispatch_assert_queue_V2(self->_queue);
+  v4 = [(CCSModuleRepository *)self _queue_filterModuleMetadataByAssociatedBundleAvailability:metadataCopy];
+  v5 = [(CCSModuleRepository *)self _queue_filterModuleMetadataByVisibilityPreference:v4];
+
+  v6 = [(CCSModuleRepository *)self _queue_moduleIdentifiersForMetadata:v5];
+  if ((BSEqualObjects() & 1) == 0)
+  {
+    objc_storeStrong(&self->_availableModuleIdentifiers, v6);
+    [(CCSModuleRepository *)self _queue_updateGestaltQuestionsForModuleMetadata:v5];
+    [(CCSModuleRepository *)self _queue_updateLoadableModuleMetadataForAvailableModuleMetadata:v5];
+  }
+}
+
+- (void)_queue_updateLoadableModuleMetadataForAvailableModuleMetadata:(id)metadata
+{
+  v25 = *MEMORY[0x277D85DE8];
+  metadataCopy = metadata;
+  dispatch_assert_queue_V2(self->_queue);
+  v5 = [(CCSModuleRepository *)self _queue_filterModuleMetadataByGestalt:metadataCopy];
+  v6 = [(CCSModuleRepository *)self _queue_moduleIdentifiersForMetadata:v5];
+  if ((BSEqualObjects() & 1) == 0)
+  {
+    v16 = v5;
+    v7 = CCSLogModuleSettings;
+    if (os_log_type_enabled(CCSLogModuleSettings, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_24427F000, v7, OS_LOG_TYPE_DEFAULT, "[CCSModuleRepository] Loadable modules changed...", buf, 2u);
+    }
+
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    obj = v6;
+    v8 = v6;
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v24 count:16];
+    if (v9)
+    {
+      v10 = v9;
+      v11 = *v19;
+      do
+      {
+        for (i = 0; i != v10; ++i)
+        {
+          if (*v19 != v11)
+          {
+            objc_enumerationMutation(v8);
+          }
+
+          v13 = CCSLogModuleSettings;
+          if (os_log_type_enabled(CCSLogModuleSettings, OS_LOG_TYPE_DEFAULT))
+          {
+            v14 = *(*(&v18 + 1) + 8 * i);
+            *buf = 138543362;
+            v23 = v14;
+            _os_log_impl(&dword_24427F000, v13, OS_LOG_TYPE_DEFAULT, "[CCSModuleRepository] Loadable module: %{public}@", buf, 0xCu);
+          }
+        }
+
+        v10 = [v8 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      }
+
+      while (v10);
+    }
+
+    v6 = obj;
+    objc_storeStrong(&self->_loadableModuleIdentifiers, obj);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __85__CCSModuleRepository__queue_updateLoadableModuleMetadataForAvailableModuleMetadata___block_invoke;
+    v17[3] = &unk_278E0F800;
+    v17[4] = self;
+    [(CCSModuleRepository *)self _queue_runBlockOnObservers:v17];
+    v5 = v16;
+  }
+}
+
+- (id)_queue_moduleIdentifiersForMetadata:(id)metadata
+{
+  v19 = *MEMORY[0x277D85DE8];
+  metadataCopy = metadata;
+  dispatch_assert_queue_V2(self->_queue);
+  v5 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(metadataCopy, "count")}];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v6 = metadataCopy;
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v15;
+    do
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v15 != v9)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        moduleIdentifier = [*(*(&v14 + 1) + 8 * i) moduleIdentifier];
+        [v5 addObject:moduleIdentifier];
+      }
+
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v8);
+  }
+
   v12 = [v5 copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -690,62 +678,59 @@ BOOL __51__CCSModuleRepository__queue_loadAllModuleMetadata__block_invoke_2(uint
 
 id __51__CCSModuleRepository__queue_loadAllModuleMetadata__block_invoke_3(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [CCSModuleMetadata metadataForBundleAtURL:v3];
   v5 = CCSLogModuleSettings;
   if (os_log_type_enabled(CCSLogModuleSettings, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138543618;
-    v19 = v3;
-    v20 = 2114;
-    v21 = v4;
-    _os_log_impl(&dword_24427F000, v5, OS_LOG_TYPE_DEFAULT, "Found module metadata at URL %{public}@: %{public}@", &v18, 0x16u);
+    v16 = 138543618;
+    v17 = v3;
+    v18 = 2114;
+    v19 = v4;
+    _os_log_impl(&dword_24427F000, v5, OS_LOG_TYPE_DEFAULT, "Found module metadata at URL %{public}@: %{public}@", &v16, 0x16u);
   }
 
   v6 = *(a1 + 32);
   if (*(v6 + 80) & 1) != 0 || (v7 = *(v6 + 16), [v4 moduleIdentifier], v8 = objc_claimAutoreleasedReturnValue(), LOBYTE(v7) = objc_msgSend(v7, "containsObject:", v8), v8, (v7))
   {
     v9 = [v4 supportedDeviceFamilies];
-    v10 = *(a1 + 32);
-    v11 = [objc_opt_class() _deviceFamily];
-    v12 = [v9 containsObject:v11];
+    v10 = [objc_opt_class() _deviceFamily];
+    v11 = [v9 containsObject:v10];
 
-    if (v12)
+    if (v11)
     {
-      v13 = v4;
+      v12 = v4;
       goto LABEL_13;
     }
 
-    v14 = CCSLogModuleSettings;
+    v13 = CCSLogModuleSettings;
     if (os_log_type_enabled(CCSLogModuleSettings, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138543362;
-      v19 = v3;
-      v15 = "Ignoring unsupported module at URL: %{public}@";
+      v16 = 138543362;
+      v17 = v3;
+      v14 = "Ignoring unsupported module at URL: %{public}@";
 LABEL_11:
-      _os_log_impl(&dword_24427F000, v14, OS_LOG_TYPE_DEFAULT, v15, &v18, 0xCu);
+      _os_log_impl(&dword_24427F000, v13, OS_LOG_TYPE_DEFAULT, v14, &v16, 0xCu);
     }
   }
 
   else
   {
-    v14 = CCSLogModuleSettings;
+    v13 = CCSLogModuleSettings;
     if (os_log_type_enabled(CCSLogModuleSettings, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138543362;
-      v19 = v3;
-      v15 = "Ignoring disallowed module at URL: %{public}@";
+      v16 = 138543362;
+      v17 = v3;
+      v14 = "Ignoring disallowed module at URL: %{public}@";
       goto LABEL_11;
     }
   }
 
-  v13 = 0;
+  v12 = 0;
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v12;
 }
 
 - (id)_queue_filterModuleMetadataByAssociatedBundleAvailability:(id)availability
@@ -770,35 +755,13 @@ uint64_t __81__CCSModuleRepository__queue_filterModuleMetadataByAssociatedBundle
     if (v4)
     {
       v6 = [v4 applicationState];
-      if (![v6 isInstalled])
+      if (![v6 isInstalled] || (objc_msgSend(v6, "isRestricted") & 1) != 0 || (objc_msgSend(v2, "associatedBundleMinimumVersion"), (v7 = objc_claimAutoreleasedReturnValue()) != 0) && (v8 = v7, objc_msgSend(v4, "shortVersionString"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "compare:options:", v9, 65), v9, v8, v10 == 1))
       {
-        goto LABEL_7;
-      }
-
-      if ([v6 isRestricted])
-      {
-        goto LABEL_7;
-      }
-
-      v7 = [v2 associatedBundleMinimumVersion];
-      if (!v7)
-      {
-        goto LABEL_15;
-      }
-
-      v8 = v7;
-      v9 = [v4 shortVersionString];
-      v10 = [v8 compare:v9 options:65];
-
-      if (v10 == 1)
-      {
-LABEL_7:
         v11 = 0;
       }
 
       else
       {
-LABEL_15:
         v14 = CFPreferencesCopyAppValue(@"SBIconVisibility", v3);
         v15 = CCSVisibilityPreferenceForBundleRecord(v4);
         v11 = CCSResolveModuleVisibility(v14, v15, 1);
@@ -838,41 +801,40 @@ LABEL_15:
 
 - (id)_queue_associatedBundleIdentifiersForModuleMetadata:(id)metadata
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   dispatch_assert_queue_V2(self->_queue);
   v5 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(metadataCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = metadataCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        associatedBundleIdentifier = [*(*(&v15 + 1) + 8 * i) associatedBundleIdentifier];
+        associatedBundleIdentifier = [*(*(&v14 + 1) + 8 * i) associatedBundleIdentifier];
         [v5 bs_safeAddObject:associatedBundleIdentifier];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [v5 copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1026,30 +988,30 @@ void __70__CCSModuleRepository__queue_updateGestaltQuestionsForModuleMetadata___
 
 - (id)_queue_gestaltQuestionsForModuleMetadata:(id)metadata
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   dispatch_assert_queue_V2(self->_queue);
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = metadataCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         requiredDeviceCapabilities = [v11 requiredDeviceCapabilities];
         [v5 unionSet:requiredDeviceCapabilities];
 
@@ -1057,15 +1019,13 @@ void __70__CCSModuleRepository__queue_updateGestaltQuestionsForModuleMetadata___
         [v5 unionSet:requiredDeviceIncapabilities];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
   allObjects = [v5 allObjects];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
@@ -1077,8 +1037,7 @@ void __70__CCSModuleRepository__queue_updateGestaltQuestionsForModuleMetadata___
   dispatch_assert_queue_V2(self->_queue);
   if ([questionsCopy count])
   {
-    queue = self->_queue;
-    v9 = handlerCopy;
+    v8 = handlerCopy;
     self->_mobileGestaltNotificationToken = MGRegisterForBulkUpdates();
   }
 }
@@ -1119,13 +1078,12 @@ void __66__CCSModuleRepository__queue_registerForInternalPreferenceChanges__bloc
 
 void __81__CCSModuleRepository__queue_filterModuleMetadataByAssociatedBundleAvailability___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_24427F000, log, OS_LOG_TYPE_ERROR, "Error obtaining application record for object with associated bundleID %{public}@: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_24427F000, log, OS_LOG_TYPE_ERROR, "Error obtaining application record for object with associated bundleID %{public}@: %{public}@", &v3, 0x16u);
 }
 
 @end

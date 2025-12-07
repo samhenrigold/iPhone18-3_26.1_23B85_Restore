@@ -8,7 +8,7 @@
 - (BOOL)su_containsExcessiveLineHeightCharacter
 {
   string = [self string];
-  v2 = su_excessiveLineHeightCharacters();
+  v2 = su_excessiveLineHeightCharacters(string);
   v3 = [string rangeOfCharacterFromSet:v2] != 0x7FFFFFFFFFFFFFFFLL;
 
   return v3;

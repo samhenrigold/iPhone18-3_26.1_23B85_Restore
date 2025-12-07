@@ -577,9 +577,9 @@ void __68__MADChangeRequest_PersistentHistory___fetchEarliestNthTransaction___bl
       {
         v19 = [v9 count];
         v18 = [v10 transactionNumber];
-        v20 = [v10 timestamp];
+        v20 = objc_msgSend_timestamp(v10);
         v17 = [v11 transactionNumber];
-        v12 = [v11 timestamp];
+        v12 = objc_msgSend_timestamp(v11);
         *buf = 67110146;
         v23 = v19;
         v24 = 2048;
@@ -642,7 +642,7 @@ BOOL __80__MADChangeRequest_PersistentHistory___prunePersistentHistoryBeforeTran
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     v4 = [*(a1 + 32) transactionNumber];
-    v5 = [*(a1 + 32) timestamp];
+    v5 = objc_msgSend_timestamp(*(a1 + 32));
     *buf = 134218242;
     v19 = v4;
     v20 = 2112;
@@ -678,7 +678,7 @@ BOOL __80__MADChangeRequest_PersistentHistory___prunePersistentHistoryBeforeTran
 
 - (void)prunePersistentHistoryWithCancelBlock:(id)block extendTimeoutBlock:(id)timeoutBlock
 {
-  v81[1] = *MEMORY[0x1E69E9840];
+  v91[1] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   timeoutBlockCopy = timeoutBlock;
   if (!self->_error)
@@ -687,134 +687,142 @@ BOOL __80__MADChangeRequest_PersistentHistory___prunePersistentHistoryBeforeTran
     aBlock[1] = 3221225472;
     aBlock[2] = __96__MADChangeRequest_PersistentHistory__prunePersistentHistoryWithCancelBlock_extendTimeoutBlock___block_invoke;
     aBlock[3] = &unk_1E8350160;
-    v70 = blockCopy;
-    v68 = timeoutBlockCopy;
-    v71 = timeoutBlockCopy;
+    v80 = blockCopy;
+    v78 = timeoutBlockCopy;
+    v81 = timeoutBlockCopy;
     v8 = _Block_copy(aBlock);
-    if ((v8[2])())
+    v9 = v8[2]();
+    if (v9)
     {
-      v9 = MEMORY[0x1E696ABC0];
-      v10 = *MEMORY[0x1E696A768];
-      v80 = *MEMORY[0x1E696A578];
-      v11 = MEMORY[0x1E696AEC0];
-      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"[MACD|PersistentHistory] Cancelled during pruning history"];
-      v13 = [v11 stringWithFormat:v12];
-      v81[0] = v13;
-      [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:&v80 count:1];
-      v15 = v14 = blockCopy;
-      v16 = [v9 errorWithDomain:v10 code:-128 userInfo:v15];
+      v10 = MEMORY[0x1E696ABC0];
+      v11 = *MEMORY[0x1E696A768];
+      v90 = *MEMORY[0x1E696A578];
+      v12 = MEMORY[0x1E696AEC0];
+      v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"[MACD|PersistentHistory] Cancelled during pruning history"];
+      v14 = [v12 stringWithFormat:v13];
+      v91[0] = v14;
+      [MEMORY[0x1E695DF20] dictionaryWithObjects:v91 forKeys:&v90 count:1];
+      v16 = v15 = blockCopy;
+      v17 = [v10 errorWithDomain:v11 code:-128 userInfo:v16];
       error = self->_error;
-      self->_error = v16;
+      self->_error = v17;
 
-      blockCopy = v14;
-      timeoutBlockCopy = v68;
+      blockCopy = v15;
+      timeoutBlockCopy = v78;
       if (MediaAnalysisLogLevel() < 3 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_51;
       }
 
       *buf = 0;
-      v18 = MEMORY[0x1E69E9C10];
-      v19 = "[MACD|PersistentHistory] Cancelled during pruning history";
+      v19 = MEMORY[0x1E69E9C10];
+      v20 = "[MACD|PersistentHistory] Cancelled during pruning history";
 LABEL_6:
-      v20 = OS_LOG_TYPE_ERROR;
-      v21 = 2;
+      v21 = OS_LOG_TYPE_ERROR;
+      v22 = 2;
     }
 
     else
     {
-      v22 = VCPSignPostLog();
-      v23 = os_signpost_id_generate(v22);
+      v23 = VCPSignPostLog(v9);
+      v24 = os_signpost_id_generate(v23);
 
-      v24 = VCPSignPostLog();
-      v25 = v24;
-      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+      v26 = VCPSignPostLog(v25);
+      v27 = v26;
+      if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "MADChangeRequest_PersistentHistory_QueryCount", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v24, "MADChangeRequest_PersistentHistory_QueryCount", "", buf, 2u);
       }
 
       _queryTransactionRecordCount = [(MADChangeRequest *)self _queryTransactionRecordCount];
-      v27 = VCPSignPostLog();
-      v28 = v27;
-      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+      v29 = VCPSignPostLog(_queryTransactionRecordCount);
+      v30 = v29;
+      if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_END, v23, "MADChangeRequest_PersistentHistory_QueryCount", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v30, OS_SIGNPOST_INTERVAL_END, v24, "MADChangeRequest_PersistentHistory_QueryCount", "", buf, 2u);
       }
 
       if (_queryTransactionRecordCount >= 0x186A1)
       {
-        v67 = blockCopy;
-        v29 = VCPSignPostLog();
-        v30 = os_signpost_id_generate(v29);
+        v77 = blockCopy;
+        v32 = VCPSignPostLog(v31);
+        v33 = os_signpost_id_generate(v32);
 
-        v31 = VCPSignPostLog();
-        v32 = v31;
-        v65 = v30 - 1;
-        spid = v30;
-        if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+        v35 = VCPSignPostLog(v34);
+        v36 = v35;
+        v75 = v33 - 1;
+        spid = v33;
+        if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_BEGIN, v30, "MADChangeRequest_PersistentHistory_Prune", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v36, OS_SIGNPOST_INTERVAL_BEGIN, v33, "MADChangeRequest_PersistentHistory_Prune", "", buf, 2u);
         }
 
-        while (!v8[2](v8))
+        while (1)
         {
+          v37 = (v8[2])(v8);
+          if (v37)
+          {
+            break;
+          }
+
           if (_queryTransactionRecordCount - 100000 >= 0x2710)
           {
-            v33 = 10000;
+            v38 = 10000;
           }
 
           else
           {
-            v33 = _queryTransactionRecordCount - 100000;
+            v38 = _queryTransactionRecordCount - 100000;
           }
 
-          v34 = VCPSignPostLog();
-          v35 = os_signpost_id_generate(v34);
+          v39 = VCPSignPostLog(v37);
+          v40 = os_signpost_id_generate(v39);
 
-          v36 = VCPSignPostLog();
-          v37 = v36;
-          if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
+          v42 = VCPSignPostLog(v41);
+          v43 = v42;
+          if (v40 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v37, OS_SIGNPOST_INTERVAL_BEGIN, v35, "MADChangeRequest_PersistentHistory_FetchPruneDivision", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v43, OS_SIGNPOST_INTERVAL_BEGIN, v40, "MADChangeRequest_PersistentHistory_FetchPruneDivision", "", buf, 2u);
           }
 
-          v38 = [(MADChangeRequest *)self _fetchEarliestNthTransaction:v33 + 1];
-          v39 = VCPSignPostLog();
-          v40 = v39;
-          if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
+          v44 = [(MADChangeRequest *)self _fetchEarliestNthTransaction:v38 + 1];
+          v45 = VCPSignPostLog(v44);
+          v46 = v45;
+          if (v40 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v40, OS_SIGNPOST_INTERVAL_END, v35, "MADChangeRequest_PersistentHistory_FetchPruneDivision", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v46, OS_SIGNPOST_INTERVAL_END, v40, "MADChangeRequest_PersistentHistory_FetchPruneDivision", "", buf, 2u);
           }
 
-          v41 = VCPSignPostLog();
-          v42 = os_signpost_id_generate(v41);
+          v48 = VCPSignPostLog(v47);
+          v49 = os_signpost_id_generate(v48);
 
-          v43 = VCPSignPostLog();
-          v44 = v43;
-          if (v42 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
+          v51 = VCPSignPostLog(v50);
+          v52 = v51;
+          if (v49 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v51))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v44, OS_SIGNPOST_INTERVAL_BEGIN, v42, "MADChangeRequest_PersistentHistory_PruneStep", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v52, OS_SIGNPOST_INTERVAL_BEGIN, v49, "MADChangeRequest_PersistentHistory_PruneStep", "", buf, 2u);
           }
 
-          if ([(MADChangeRequest *)self _prunePersistentHistoryBeforeTransaction:v38])
+          v53 = [(MADChangeRequest *)self _prunePersistentHistoryBeforeTransaction:v44];
+          if (v53)
           {
-            v57 = MEMORY[0x1E696ABC0];
-            v58 = *MEMORY[0x1E696A768];
-            v72 = *MEMORY[0x1E696A578];
-            v59 = MEMORY[0x1E696AEC0];
-            v60 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Failed to prune persistent history before transaction"];
-            v61 = [v59 stringWithFormat:v60];
-            v73 = v61;
-            v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
-            v63 = [v57 errorWithDomain:v58 code:-18 userInfo:v62];
-            v64 = self->_error;
-            self->_error = v63;
+            v67 = MEMORY[0x1E696ABC0];
+            v68 = *MEMORY[0x1E696A768];
+            v82 = *MEMORY[0x1E696A578];
+            v69 = MEMORY[0x1E696AEC0];
+            v70 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Failed to prune persistent history before transaction"];
+            v71 = [v69 stringWithFormat:v70];
+            v83 = v71;
+            v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+            v73 = [v67 errorWithDomain:v68 code:-18 userInfo:v72];
+            v74 = self->_error;
+            self->_error = v73;
 
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
@@ -822,52 +830,52 @@ LABEL_6:
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to prune persistent history before transaction", buf, 2u);
             }
 
-            blockCopy = v67;
+            blockCopy = v77;
             goto LABEL_51;
           }
 
-          v45 = VCPSignPostLog();
-          v46 = v45;
-          if (v42 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
+          v54 = VCPSignPostLog(v53);
+          v55 = v54;
+          if (v49 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v54))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v46, OS_SIGNPOST_INTERVAL_END, v42, "MADChangeRequest_PersistentHistory_PruneStep", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v55, OS_SIGNPOST_INTERVAL_END, v49, "MADChangeRequest_PersistentHistory_PruneStep", "", buf, 2u);
           }
 
-          _queryTransactionRecordCount -= v33;
+          _queryTransactionRecordCount -= v38;
           if (_queryTransactionRecordCount <= 0x186A0)
           {
-            v47 = VCPSignPostLog();
-            v48 = v47;
-            if (v65 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
+            v57 = VCPSignPostLog(v56);
+            v58 = v57;
+            if (v75 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v57))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v48, OS_SIGNPOST_INTERVAL_END, spid, "MADChangeRequest_PersistentHistory_Prune", "", buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v58, OS_SIGNPOST_INTERVAL_END, spid, "MADChangeRequest_PersistentHistory_Prune", "", buf, 2u);
             }
 
-            blockCopy = v67;
+            blockCopy = v77;
             goto LABEL_51;
           }
         }
 
-        v49 = MEMORY[0x1E696ABC0];
-        v50 = *MEMORY[0x1E696A768];
-        v74 = *MEMORY[0x1E696A578];
-        v51 = MEMORY[0x1E696AEC0];
-        v52 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"[MACD|PersistentHistory] Cancelled during pruning history"];
-        v53 = [v51 stringWithFormat:v52];
-        v75 = v53;
-        v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
-        v55 = [v49 errorWithDomain:v50 code:-128 userInfo:v54];
-        v56 = self->_error;
-        self->_error = v55;
+        v59 = MEMORY[0x1E696ABC0];
+        v60 = *MEMORY[0x1E696A768];
+        v84 = *MEMORY[0x1E696A578];
+        v61 = MEMORY[0x1E696AEC0];
+        v62 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"[MACD|PersistentHistory] Cancelled during pruning history"];
+        v63 = [v61 stringWithFormat:v62];
+        v85 = v63;
+        v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+        v65 = [v59 errorWithDomain:v60 code:-128 userInfo:v64];
+        v66 = self->_error;
+        self->_error = v65;
 
-        blockCopy = v67;
+        blockCopy = v77;
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          v18 = MEMORY[0x1E69E9C10];
-          v19 = "[MACD|PersistentHistory] Cancelled during pruning history";
+          v19 = MEMORY[0x1E69E9C10];
+          v20 = "[MACD|PersistentHistory] Cancelled during pruning history";
           goto LABEL_6;
         }
 
@@ -882,16 +890,16 @@ LABEL_51:
       }
 
       *buf = 67109376;
-      v77 = _queryTransactionRecordCount;
-      v78 = 1024;
-      v79 = 100000;
-      v18 = MEMORY[0x1E69E9C10];
-      v19 = "[MACD|PersistentHistory] Persistent history transaction count %d below threshold %d, skip pruning";
-      v20 = OS_LOG_TYPE_INFO;
-      v21 = 14;
+      v87 = _queryTransactionRecordCount;
+      v88 = 1024;
+      v89 = 100000;
+      v19 = MEMORY[0x1E69E9C10];
+      v20 = "[MACD|PersistentHistory] Persistent history transaction count %d below threshold %d, skip pruning";
+      v21 = OS_LOG_TYPE_INFO;
+      v22 = 14;
     }
 
-    _os_log_impl(&dword_1C9B70000, v18, v20, v19, buf, v21);
+    _os_log_impl(&dword_1C9B70000, v19, v21, v20, buf, v22);
     goto LABEL_51;
   }
 
@@ -918,7 +926,7 @@ uint64_t __96__MADChangeRequest_PersistentHistory__prunePersistentHistoryWithCan
 
 - (void)deleteAnalysisResultsImmediatelyWithType:(unint64_t)type
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   if (!self->_error)
   {
     v5 = +[MADManagedPhotosResult fetchRequest];
@@ -927,21 +935,22 @@ uint64_t __96__MADChangeRequest_PersistentHistory__prunePersistentHistoryWithCan
     type = [v6 predicateWithFormat:@"%K == %ld", v7, type];
     [v5 setPredicate:type];
 
-    v28 = 0;
+    v29 = 0;
     v9 = mach_continuous_time();
-    if ([(NSManagedObjectContext *)self->_moc mad_batchDeleteAndSync:v5 deleteCount:&v28])
+    v10 = [(NSManagedObjectContext *)self->_moc mad_batchDeleteAndSync:v5 deleteCount:&v29];
+    if (v10)
     {
-      v10 = MEMORY[0x1E696ABC0];
-      v11 = *MEMORY[0x1E696A768];
-      v37 = *MEMORY[0x1E696A578];
-      v12 = MEMORY[0x1E696AEC0];
-      v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"[MACD|Result] Failed to batch delete managed results"];
-      v14 = [v12 stringWithFormat:v13];
-      v38[0] = v14;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
-      v16 = [v10 errorWithDomain:v11 code:-18 userInfo:v15];
+      v11 = MEMORY[0x1E696ABC0];
+      v12 = *MEMORY[0x1E696A768];
+      v38 = *MEMORY[0x1E696A578];
+      v13 = MEMORY[0x1E696AEC0];
+      v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"[MACD|Result] Failed to batch delete managed results"];
+      v15 = [v13 stringWithFormat:v14];
+      v39[0] = v15;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+      v17 = [v11 errorWithDomain:v12 code:-18 userInfo:v16];
       error = self->_error;
-      self->_error = v16;
+      self->_error = v17;
 
       if (MediaAnalysisLogLevel() < 3 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
@@ -949,32 +958,32 @@ uint64_t __96__MADChangeRequest_PersistentHistory__prunePersistentHistoryWithCan
       }
 
       *buf = 0;
-      v18 = MEMORY[0x1E69E9C10];
-      v19 = "[MACD|Result] Failed to batch delete managed results";
-      v20 = OS_LOG_TYPE_ERROR;
-      v21 = 2;
+      v19 = MEMORY[0x1E69E9C10];
+      v20 = "[MACD|Result] Failed to batch delete managed results";
+      v21 = OS_LOG_TYPE_ERROR;
+      v22 = 2;
     }
 
     else
     {
-      v22 = VCPSignPostPersistentLog();
-      v23 = VCPSignPostPersistentLog();
-      v24 = os_signpost_id_generate(v23);
+      v23 = VCPSignPostPersistentLog(v10);
+      v24 = VCPSignPostPersistentLog(v23);
+      v25 = os_signpost_id_generate(v24);
 
-      if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+      if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
       {
-        v25 = qos_class_self();
-        v26 = VCPMAQoSDescription(v25);
-        uTF8String = [v26 UTF8String];
+        v26 = qos_class_self();
+        v27 = VCPMAQoSDescription(v26);
+        uTF8String = [v27 UTF8String];
         *buf = 134349826;
-        v30 = v9;
-        v31 = 2082;
-        v32 = "DeleteResult";
-        v33 = 2082;
-        v34 = uTF8String;
-        v35 = 2050;
-        v36 = v28;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_EVENT, v24, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld  enableTelemetry=YES ", buf, 0x2Au);
+        v31 = v9;
+        v32 = 2082;
+        v33 = "DeleteResult";
+        v34 = 2082;
+        v35 = uTF8String;
+        v36 = 2050;
+        v37 = v29;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_EVENT, v25, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld  enableTelemetry=YES ", buf, 0x2Au);
       }
 
       if (MediaAnalysisLogLevel() < 7 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
@@ -983,14 +992,14 @@ uint64_t __96__MADChangeRequest_PersistentHistory__prunePersistentHistoryWithCan
       }
 
       *buf = 67109120;
-      LODWORD(v30) = v28;
-      v18 = MEMORY[0x1E69E9C10];
-      v19 = "[MACD|Result] Batch deleted %d managed results";
-      v20 = OS_LOG_TYPE_DEBUG;
-      v21 = 8;
+      LODWORD(v31) = v29;
+      v19 = MEMORY[0x1E69E9C10];
+      v20 = "[MACD|Result] Batch deleted %d managed results";
+      v21 = OS_LOG_TYPE_DEBUG;
+      v22 = 8;
     }
 
-    _os_log_impl(&dword_1C9B70000, v18, v20, v19, buf, v21);
+    _os_log_impl(&dword_1C9B70000, v19, v21, v20, buf, v22);
 LABEL_13:
   }
 }
@@ -1125,13 +1134,13 @@ LABEL_10:
 
 - (int)_fetchOrCreateManagedProcessingStatusWithTaskID:(unint64_t)d localIdentifier:(id)identifier managedProcessingStatus:(id *)status
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (status)
   {
-    v28 = 0;
-    v9 = [MADManagedProcessingStatus fetchManagedProcessingStatus:&v28 taskID:d localIdentifier:identifierCopy managedObjectContext:self->_moc];
-    v10 = v28;
+    v29 = 0;
+    v9 = [MADManagedProcessingStatus fetchManagedProcessingStatus:&v29 taskID:d localIdentifier:identifierCopy managedObjectContext:self->_moc];
+    v10 = v29;
     v11 = v10;
     if (v9)
     {
@@ -1145,23 +1154,23 @@ LABEL_10:
 
     if (!v12)
     {
-      v24 = MediaAnalysisLogLevel();
-      if (v24 >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
+      v25 = MediaAnalysisLogLevel();
+      if (v25 >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
         objectID = [(MADManagedProcessingStatus *)v11 objectID];
         *buf = 138412546;
-        v30 = identifierCopy;
-        v31 = 2112;
-        v32 = objectID;
+        v31 = identifierCopy;
+        v32 = 2112;
+        v33 = objectID;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[MACD|ProcessingStatus][%@] Fetched managed asset %@", buf, 0x16u);
       }
 
       v14 = v11;
 LABEL_22:
-      v26 = v14;
+      v27 = v14;
       *status = v14;
 
-      v23 = 0;
+      v24 = 0;
       goto LABEL_23;
     }
 
@@ -1170,25 +1179,25 @@ LABEL_22:
 
     if (v14)
     {
-      v15 = VCPSignPostPersistentLog();
-      v16 = VCPSignPostPersistentLog();
-      v17 = os_signpost_id_generate(v16);
+      v16 = VCPSignPostPersistentLog(v15);
+      v17 = VCPSignPostPersistentLog(v16);
+      v18 = os_signpost_id_generate(v17);
 
-      if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+      if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
       {
-        v18 = qos_class_self();
-        v19 = VCPMAQoSDescription(v18);
-        v20 = v19;
-        uTF8String = [v19 UTF8String];
+        v19 = qos_class_self();
+        v20 = VCPMAQoSDescription(v19);
+        v21 = v20;
+        uTF8String = [v20 UTF8String];
         *buf = 134349826;
-        v30 = v13;
-        v31 = 2082;
-        v32 = "CreateProcessingStatus";
-        v33 = 2082;
-        v34 = uTF8String;
-        v35 = 2050;
-        v36 = 1;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_EVENT, v17, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld  enableTelemetry=YES ", buf, 0x2Au);
+        v31 = v13;
+        v32 = 2082;
+        v33 = "CreateProcessingStatus";
+        v34 = 2082;
+        v35 = uTF8String;
+        v36 = 2050;
+        v37 = 1;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_EVENT, v18, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld  enableTelemetry=YES ", buf, 0x2Au);
       }
 
       [(MADManagedProcessingStatus *)v14 setLocalIdentifier:identifierCopy];
@@ -1197,9 +1206,9 @@ LABEL_22:
       {
         objectID2 = [(MADManagedProcessingStatus *)v14 objectID];
         *buf = 138412546;
-        v30 = identifierCopy;
-        v31 = 2112;
-        v32 = objectID2;
+        v31 = identifierCopy;
+        v32 = 2112;
+        v33 = objectID2;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[MACD|ProcessingStatus][%@] Created new managed processing status %@", buf, 0x16u);
       }
 
@@ -1209,13 +1218,13 @@ LABEL_22:
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v30 = identifierCopy;
-      v31 = 1024;
-      LODWORD(v32) = d;
+      v31 = identifierCopy;
+      v32 = 1024;
+      LODWORD(v33) = d;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[MACD|ProcessingStatus][%@] Failed to create managed processing status object for task %d", buf, 0x12u);
     }
 
-    v23 = -18;
+    v24 = -18;
   }
 
   else
@@ -1226,12 +1235,12 @@ LABEL_22:
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Nil return object for managedProcessingStatus", buf, 2u);
     }
 
-    v23 = -50;
+    v24 = -50;
   }
 
 LABEL_23:
 
-  return v23;
+  return v24;
 }
 
 - (int)_setAttempts:(unint64_t)attempts asset:(id)asset taskID:(unint64_t)d status:(unint64_t)status lastAttemptDate:(id)date mediaType:(int64_t)type mediaSubtypes:(unint64_t)subtypes errorCode:(unint64_t)self0 errorLine:(unint64_t)self1
@@ -1275,9 +1284,8 @@ LABEL_23:
     [v21 setMediaType:type];
     [v21 setMediaSubtypes:subtypes];
     [v21 setAttemptCount:attempts];
-    [v21 setStatus:status];
-    v28 = VCPSignPostPersistentLog();
-    v29 = VCPSignPostPersistentLog();
+    v28 = VCPSignPostPersistentLog([v21 setStatus:status]);
+    v29 = VCPSignPostPersistentLog(v28);
     v30 = os_signpost_id_generate(v29);
 
     if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
@@ -1379,10 +1387,10 @@ LABEL_23:
 
 - (int)_removeProcessingStatusWithPredicate:(id)predicate
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v28 = 0;
-  v4 = [MADManagedProcessingStatus fetchManagedProcessingStatusBatch:&v28 predicate:predicate fetchLimit:0 sortDescriptors:0 managedObjectContext:self->_moc];
-  v5 = v28;
+  v39 = *MEMORY[0x1E69E9840];
+  v29 = 0;
+  v4 = [MADManagedProcessingStatus fetchManagedProcessingStatusBatch:&v29 predicate:predicate fetchLimit:0 sortDescriptors:0 managedObjectContext:self->_moc];
+  v5 = v29;
   v6 = v5;
   if (!v4)
   {
@@ -1390,61 +1398,61 @@ LABEL_23:
     if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      LODWORD(v30) = v7;
+      LODWORD(v31) = v7;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[MACD|ProcessingStatus] Deleting %d processing status", buf, 8u);
     }
 
     v8 = mach_continuous_time();
-    v23 = v7;
-    v26 = 0u;
+    v24 = v7;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
+    v26 = 0u;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v24 objects:v37 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v25 objects:v38 count:16];
     if (v10)
     {
-      v11 = *v25;
+      v11 = *v26;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v25 != v11)
+          if (*v26 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v24 + 1) + 8 * i);
+          v13 = *(*(&v25 + 1) + 8 * i);
           v14 = objc_autoreleasePoolPush();
           [(NSManagedObjectContext *)self->_moc deleteObject:v13];
           objc_autoreleasePoolPop(v14);
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v24 objects:v37 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v25 objects:v38 count:16];
       }
 
       while (v10);
     }
 
-    v15 = VCPSignPostPersistentLog();
-    v16 = VCPSignPostPersistentLog();
-    v17 = os_signpost_id_generate(v16);
+    v16 = VCPSignPostPersistentLog(v15);
+    v17 = VCPSignPostPersistentLog(v16);
+    v18 = os_signpost_id_generate(v17);
 
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
-      v18 = qos_class_self();
-      v19 = VCPMAQoSDescription(v18);
-      v20 = v19;
-      uTF8String = [v19 UTF8String];
+      v19 = qos_class_self();
+      v20 = VCPMAQoSDescription(v19);
+      v21 = v20;
+      uTF8String = [v20 UTF8String];
       *buf = 134349826;
-      v30 = v8;
-      v31 = 2082;
-      v32 = "DeleteProcessingStatus";
-      v33 = 2082;
-      v34 = uTF8String;
-      v35 = 2050;
-      v36 = v23;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_EVENT, v17, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld  enableTelemetry=YES ", buf, 0x2Au);
+      v31 = v8;
+      v32 = 2082;
+      v33 = "DeleteProcessingStatus";
+      v34 = 2082;
+      v35 = uTF8String;
+      v36 = 2050;
+      v37 = v24;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_EVENT, v18, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld  enableTelemetry=YES ", buf, 0x2Au);
     }
 
     v4 = 0;
@@ -1533,7 +1541,7 @@ LABEL_23:
 
 - (int)_removeProcessingStatusImmediatelyWithPredicate:(id)predicate
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v5 = +[MADManagedProcessingStatus fetchRequest];
   v6 = v5;
@@ -1542,60 +1550,61 @@ LABEL_23:
     [v5 setPredicate:predicateCopy];
   }
 
-  v21 = 0;
+  v22 = 0;
   v7 = mach_continuous_time();
-  v8 = [(NSManagedObjectContext *)self->_moc mad_batchDeleteAndSync:v6 deleteCount:&v21];
+  v8 = [(NSManagedObjectContext *)self->_moc mad_batchDeleteAndSync:v6 deleteCount:&v22];
+  v9 = v8;
   if (v8)
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v23 = predicateCopy;
-      v9 = MEMORY[0x1E69E9C10];
-      v10 = "[MACD|ProcessingStatus] Failed to batch delete processing status with predicate %@";
-      v11 = OS_LOG_TYPE_ERROR;
-      v12 = 12;
+      v24 = predicateCopy;
+      v10 = MEMORY[0x1E69E9C10];
+      v11 = "[MACD|ProcessingStatus] Failed to batch delete processing status with predicate %@";
+      v12 = OS_LOG_TYPE_ERROR;
+      v13 = 12;
 LABEL_13:
-      _os_log_impl(&dword_1C9B70000, v9, v11, v10, buf, v12);
+      _os_log_impl(&dword_1C9B70000, v10, v12, v11, buf, v13);
     }
   }
 
   else
   {
-    v13 = VCPSignPostPersistentLog();
-    v14 = VCPSignPostPersistentLog();
-    v15 = os_signpost_id_generate(v14);
+    v14 = VCPSignPostPersistentLog(v8);
+    v15 = VCPSignPostPersistentLog(v14);
+    v16 = os_signpost_id_generate(v15);
 
-    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
-      v16 = qos_class_self();
-      v17 = VCPMAQoSDescription(v16);
-      v18 = v17;
-      uTF8String = [v17 UTF8String];
+      v17 = qos_class_self();
+      v18 = VCPMAQoSDescription(v17);
+      v19 = v18;
+      uTF8String = [v18 UTF8String];
       *buf = 134349826;
-      v23 = v7;
-      v24 = 2082;
-      v25 = "DeleteProcessingStatus";
-      v26 = 2082;
-      v27 = uTF8String;
-      v28 = 2050;
-      v29 = v21;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_EVENT, v15, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld  enableTelemetry=YES ", buf, 0x2Au);
+      v24 = v7;
+      v25 = 2082;
+      v26 = "DeleteProcessingStatus";
+      v27 = 2082;
+      v28 = uTF8String;
+      v29 = 2050;
+      v30 = v22;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_EVENT, v16, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld  enableTelemetry=YES ", buf, 0x2Au);
     }
 
     if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      LODWORD(v23) = v21;
-      v9 = MEMORY[0x1E69E9C10];
-      v10 = "[MACD|ProcessingStatus] Batch deleted %d processing status records";
-      v11 = OS_LOG_TYPE_DEBUG;
-      v12 = 8;
+      LODWORD(v24) = v22;
+      v10 = MEMORY[0x1E69E9C10];
+      v11 = "[MACD|ProcessingStatus] Batch deleted %d processing status records";
+      v12 = OS_LOG_TYPE_DEBUG;
+      v13 = 8;
       goto LABEL_13;
     }
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)removeAllProcessingStatusImmediatelyForTaskID:(unint64_t)d
@@ -1732,9 +1741,8 @@ LABEL_13:
     [v17 setStatus:status];
     [v17 setNextAttemptDate:dateCopy];
     [v17 setErrorCode:code];
-    [v17 setErrorLine:line];
-    v21 = VCPSignPostPersistentLog();
-    v22 = VCPSignPostPersistentLog();
+    v21 = VCPSignPostPersistentLog([v17 setErrorLine:line]);
+    v22 = VCPSignPostPersistentLog(v21);
     v23 = os_signpost_id_generate(v22);
 
     if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
@@ -1832,62 +1840,62 @@ LABEL_13:
 
 - (int)_hardFailAllRunningProcessingStatusWithPredicate:(id)predicate
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v23 = 0;
-  v3 = [MADManagedProcessingStatus fetchManagedProcessingStatusBatch:&v23 predicate:predicate fetchLimit:0 sortDescriptors:0 managedObjectContext:self->_moc];
-  v4 = v23;
+  v36 = *MEMORY[0x1E69E9840];
+  v24 = 0;
+  v3 = [MADManagedProcessingStatus fetchManagedProcessingStatusBatch:&v24 predicate:predicate fetchLimit:0 sortDescriptors:0 managedObjectContext:self->_moc];
+  v4 = v24;
   if (!v3)
   {
     v5 = mach_continuous_time();
-    v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    v23 = 0u;
     v20 = 0u;
+    v21 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v34 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v20 objects:v35 count:16];
     if (v7)
     {
-      v8 = *v20;
+      v8 = *v21;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v19 + 1) + 8 * i) setStatus:{4, v19}];
+          [*(*(&v20 + 1) + 8 * i) setStatus:{4, v20}];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v19 objects:v34 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v20 objects:v35 count:16];
       }
 
       while (v7);
     }
 
-    v10 = VCPSignPostPersistentLog();
-    v11 = VCPSignPostPersistentLog();
-    v12 = os_signpost_id_generate(v11);
+    v11 = VCPSignPostPersistentLog(v10);
+    v12 = VCPSignPostPersistentLog(v11);
+    v13 = os_signpost_id_generate(v12);
 
-    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v13 = qos_class_self();
-      v14 = VCPMAQoSDescription(v13);
-      v15 = v14;
-      uTF8String = [v14 UTF8String];
-      v17 = [v6 count];
+      v14 = qos_class_self();
+      v15 = VCPMAQoSDescription(v14);
+      v16 = v15;
+      uTF8String = [v15 UTF8String];
+      v18 = [v6 count];
       *buf = 134350082;
-      v25 = v5;
-      v26 = 2082;
-      v27 = "ModifyProcessingStatus";
-      v28 = 2082;
-      v29 = uTF8String;
-      v30 = 2050;
-      v31 = v17;
-      v32 = 2050;
-      v33 = 4;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_EVENT, v12, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld ColumnsPerRow=%{public, signpost.telemetry:number2}lld  enableTelemetry=YES ", buf, 0x34u);
+      v26 = v5;
+      v27 = 2082;
+      v28 = "ModifyProcessingStatus";
+      v29 = 2082;
+      v30 = uTF8String;
+      v31 = 2050;
+      v32 = v18;
+      v33 = 2050;
+      v34 = 4;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_EVENT, v13, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld ColumnsPerRow=%{public, signpost.telemetry:number2}lld  enableTelemetry=YES ", buf, 0x34u);
     }
 
     v3 = 0;
@@ -2019,9 +2027,9 @@ LABEL_13:
 
 - (int)_removeAssetsWithPredicate:(id)predicate
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
-  v30 = predicateCopy;
+  v31 = predicateCopy;
   v5 = +[MADManagedPhotosAsset fetchRequest];
   v6 = v5;
   if (predicateCopy)
@@ -2030,71 +2038,71 @@ LABEL_13:
   }
 
   moc = self->_moc;
-  v35 = 0;
-  v8 = [(NSManagedObjectContext *)moc executeFetchRequest:v6 error:&v35];
-  v9 = v35;
+  v36 = 0;
+  v8 = [(NSManagedObjectContext *)moc executeFetchRequest:v6 error:&v36];
+  v9 = v36;
   if (!v9)
   {
-    v29 = v8;
+    v30 = v8;
     v12 = [v8 count];
     if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      LODWORD(v37) = v12;
+      LODWORD(v38) = v12;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[MACD|Asset] Deleting %d asset records", buf, 8u);
     }
 
-    v28 = v12;
-    v27 = mach_continuous_time();
-    v33 = 0u;
+    v29 = v12;
+    v28 = mach_continuous_time();
     v34 = 0u;
-    v31 = 0u;
+    v35 = 0u;
     v32 = 0u;
+    v33 = 0u;
     v13 = v8;
-    v14 = [v13 countByEnumeratingWithState:&v31 objects:v44 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v32 objects:v45 count:16];
     if (v14)
     {
-      v15 = *v32;
+      v15 = *v33;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v32 != v15)
+          if (*v33 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v31 + 1) + 8 * i);
+          v17 = *(*(&v32 + 1) + 8 * i);
           v18 = objc_autoreleasePoolPush();
           [(NSManagedObjectContext *)self->_moc deleteObject:v17];
           objc_autoreleasePoolPop(v18);
         }
 
-        v14 = [v13 countByEnumeratingWithState:&v31 objects:v44 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v32 objects:v45 count:16];
       }
 
       while (v14);
     }
 
-    v19 = VCPSignPostPersistentLog();
-    v20 = VCPSignPostPersistentLog();
-    v21 = os_signpost_id_generate(v20);
+    v20 = VCPSignPostPersistentLog(v19);
+    v21 = VCPSignPostPersistentLog(v20);
+    v22 = os_signpost_id_generate(v21);
 
-    if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+    if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
     {
-      v22 = qos_class_self();
-      v23 = VCPMAQoSDescription(v22);
-      v24 = v23;
-      uTF8String = [v23 UTF8String];
+      v23 = qos_class_self();
+      v24 = VCPMAQoSDescription(v23);
+      v25 = v24;
+      uTF8String = [v24 UTF8String];
       *buf = 134349826;
-      v37 = v27;
-      v38 = 2082;
-      v39 = "DeleteAsset";
-      v40 = 2082;
-      v41 = uTF8String;
-      v42 = 2050;
-      v43 = v28;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_EVENT, v21, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld  enableTelemetry=YES ", buf, 0x2Au);
+      v38 = v28;
+      v39 = 2082;
+      v40 = "DeleteAsset";
+      v41 = 2082;
+      v42 = uTF8String;
+      v43 = 2050;
+      v44 = v29;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_EVENT, v22, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld  enableTelemetry=YES ", buf, 0x2Au);
     }
 
     v11 = 0;
@@ -2103,17 +2111,17 @@ LABEL_13:
 
   if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v29 = v8;
+    v30 = v8;
     v10 = [v6 debugDescription];
     *buf = 138412546;
-    v37 = v10;
-    v38 = 2112;
-    v39 = v9;
+    v38 = v10;
+    v39 = 2112;
+    v40 = v9;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[MACD|Asset] Failed to execute fetch request %@: %@", buf, 0x16u);
 
     v11 = -18;
 LABEL_22:
-    v8 = v29;
+    v8 = v30;
     goto LABEL_23;
   }
 
@@ -2255,8 +2263,8 @@ LABEL_23:
   {
     v23 = mach_continuous_time();
     firstObject = [[MADManagedPhotosAsset alloc] initWithContext:self->_moc];
-    v24 = VCPSignPostPersistentLog();
-    v25 = VCPSignPostPersistentLog();
+    v24 = VCPSignPostPersistentLog(firstObject);
+    v25 = VCPSignPostPersistentLog(v24);
     v26 = os_signpost_id_generate(v25);
 
     if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
@@ -2326,9 +2334,8 @@ LABEL_23:
   *&v36 = v36;
   [(MADManagedPhotosAsset *)firstObject setQuality:v36];
   -[MADManagedPhotosAsset setStatsFlags:](firstObject, "setStatsFlags:", [v121 vcp_statsFlags]);
-  -[MADManagedPhotosAsset setAnalysisTypes:](firstObject, "setAnalysisTypes:", [v121 vcp_types]);
-  v37 = VCPSignPostPersistentLog();
-  v38 = VCPSignPostPersistentLog();
+  v37 = VCPSignPostPersistentLog(-[MADManagedPhotosAsset setAnalysisTypes:](firstObject, "setAnalysisTypes:", [v121 vcp_types]));
+  v38 = VCPSignPostPersistentLog(v37);
   v39 = os_signpost_id_generate(v38);
 
   if (v39 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
@@ -2515,8 +2522,8 @@ LABEL_23:
 
             v73 = mach_continuous_time();
             v108 = [[MADManagedPhotosResult alloc] initWithContext:selfCopy->_moc];
-            log = VCPSignPostPersistentLog();
-            v74 = VCPSignPostPersistentLog();
+            log = VCPSignPostPersistentLog(v108);
+            v74 = VCPSignPostPersistentLog(log);
             v75 = os_signpost_id_generate(v74);
 
             if (v75 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(log))
@@ -2541,10 +2548,9 @@ LABEL_23:
               v80 = mach_continuous_time();
               [(MADManagedPhotosResult *)v108 setAsset:firstObject];
               [(MADManagedPhotosResult *)v108 setResultsType:v58];
-              [(MADManagedPhotosResult *)v108 setResults:v114];
-              v81 = VCPSignPostPersistentLog();
+              v81 = VCPSignPostPersistentLog([(MADManagedPhotosResult *)v108 setResults:v114]);
               v82 = v80;
-              v83 = VCPSignPostPersistentLog();
+              v83 = VCPSignPostPersistentLog(v81);
               v84 = os_signpost_id_generate(v83);
 
               if (v84 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v81))
@@ -2768,9 +2774,8 @@ void __57__MADChangeRequest_Asset__assetWithPhotosAsset_analysis___block_invoke(
     else
     {
       v22 = mach_continuous_time();
-      [firstObject setStatsFlags:flags];
-      v23 = VCPSignPostPersistentLog();
-      v24 = VCPSignPostPersistentLog();
+      v23 = VCPSignPostPersistentLog([firstObject setStatsFlags:flags]);
+      v24 = VCPSignPostPersistentLog(v23);
       v25 = os_signpost_id_generate(v24);
 
       if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
@@ -2798,7 +2803,7 @@ void __57__MADChangeRequest_Asset__assetWithPhotosAsset_analysis___block_invoke(
 - (void)setDeletePendingFlag:(BOOL)flag forLocalIdentifier:(id)identifier
 {
   flagCopy = flag;
-  v44[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!self->_error)
   {
@@ -2809,20 +2814,20 @@ void __57__MADChangeRequest_Asset__assetWithPhotosAsset_analysis___block_invoke(
     [v7 setPredicate:identifierCopy];
 
     moc = self->_moc;
-    v32 = 0;
-    v12 = [(NSManagedObjectContext *)moc executeFetchRequest:v7 error:&v32];
-    v13 = v32;
+    v33 = 0;
+    v12 = [(NSManagedObjectContext *)moc executeFetchRequest:v7 error:&v33];
+    v13 = v33;
     firstObject = [v12 firstObject];
 
     if (v13)
     {
       v15 = MEMORY[0x1E696ABC0];
-      v43 = *MEMORY[0x1E696A578];
+      v44 = *MEMORY[0x1E696A578];
       v16 = MEMORY[0x1E696AEC0];
       v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Failed to fetch asset with local identifier: %@ - %@"];
       v18 = [v16 stringWithFormat:v17, identifierCopy, v13];
-      v44[0] = v18;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+      v45[0] = v18;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
       v20 = [v15 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v19];
       error = self->_error;
       self->_error = v20;
@@ -2830,9 +2835,9 @@ void __57__MADChangeRequest_Asset__assetWithPhotosAsset_analysis___block_invoke(
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v34 = identifierCopy;
-        v35 = 2112;
-        v36 = v13;
+        v35 = identifierCopy;
+        v36 = 2112;
+        v37 = v13;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to fetch asset with local identifier: %@ - %@", buf, 0x16u);
       }
     }
@@ -2854,27 +2859,27 @@ void __57__MADChangeRequest_Asset__assetWithPhotosAsset_analysis___block_invoke(
       date = [MEMORY[0x1E695DF00] date];
       [firstObject setDateAnalyzed:date];
 
-      v25 = VCPSignPostPersistentLog();
-      v26 = VCPSignPostPersistentLog();
-      v27 = os_signpost_id_generate(v26);
+      v26 = VCPSignPostPersistentLog(v25);
+      v27 = VCPSignPostPersistentLog(v26);
+      v28 = os_signpost_id_generate(v27);
 
-      if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+      if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
       {
-        v28 = qos_class_self();
-        v29 = VCPMAQoSDescription(v28);
-        v30 = v29;
-        uTF8String = [v29 UTF8String];
+        v29 = qos_class_self();
+        v30 = VCPMAQoSDescription(v29);
+        v31 = v30;
+        uTF8String = [v30 UTF8String];
         *buf = 134350082;
-        v34 = v22;
-        v35 = 2082;
-        v36 = "ModifyAsset";
-        v37 = 2082;
-        v38 = uTF8String;
-        v39 = 2050;
-        v40 = 1;
-        v41 = 2050;
-        v42 = 2;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_EVENT, v27, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld ColumnsPerRow=%{public, signpost.telemetry:number2}lld  enableTelemetry=YES ", buf, 0x34u);
+        v35 = v22;
+        v36 = 2082;
+        v37 = "ModifyAsset";
+        v38 = 2082;
+        v39 = uTF8String;
+        v40 = 2050;
+        v41 = 1;
+        v42 = 2050;
+        v43 = 2;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_EVENT, v28, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld ColumnsPerRow=%{public, signpost.telemetry:number2}lld  enableTelemetry=YES ", buf, 0x34u);
       }
     }
   }
@@ -2902,9 +2907,8 @@ void __57__MADChangeRequest_Asset__assetWithPhotosAsset_analysis___block_invoke(
     if (firstObject)
     {
       v15 = mach_continuous_time();
-      [firstObject setVersion:v4];
-      v16 = VCPSignPostPersistentLog();
-      v17 = VCPSignPostPersistentLog();
+      v16 = VCPSignPostPersistentLog([firstObject setVersion:v4]);
+      v17 = VCPSignPostPersistentLog(v16);
       v18 = os_signpost_id_generate(v17);
 
       if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
@@ -2954,16 +2958,16 @@ void __57__MADChangeRequest_Asset__assetWithPhotosAsset_analysis___block_invoke(
 
 - (void)setChangeToken:(id)token taskID:(unint64_t)d changeTokenType:(unint64_t)type date:(id)date
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   dateCopy = date;
   if (!self->_error)
   {
-    v33 = dateCopy;
-    v36 = 0;
-    v34 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:tokenCopy requiringSecureCoding:1 error:&v36];
-    v35 = v36;
-    if (v34)
+    v34 = dateCopy;
+    v37 = 0;
+    v35 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:tokenCopy requiringSecureCoding:1 error:&v37];
+    v36 = v37;
+    if (v35)
     {
       v12 = [[MADManagedChangeToken alloc] initWithContext:self->_moc];
       v13 = v12;
@@ -2971,15 +2975,15 @@ void __57__MADChangeRequest_Asset__assetWithPhotosAsset_analysis___block_invoke(
       {
         [(MADManagedChangeToken *)v12 setTokenID:d];
         [(MADManagedChangeToken *)v13 setTokenType:type];
-        [(MADManagedChangeToken *)v13 setTokenData:v34];
-        [(MADManagedChangeToken *)v13 setDate:v33];
-        [(MADManagedChangeToken *)v13 setVersion:VCPVersionForTask(d)];
+        [(MADManagedChangeToken *)v13 setTokenData:v35];
+        [(MADManagedChangeToken *)v13 setDate:v34];
+        [(MADManagedChangeToken *)v13 setVersion:VCPVersionForTask(d, v14)];
         if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
         {
-          v14 = VCPTaskIDDescription(d);
+          v15 = VCPTaskIDDescription(d);
           *buf = 138412546;
-          v40 = v14;
-          v41 = 1024;
+          v41 = v15;
+          v42 = 1024;
           typeCopy3 = type;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[MACD|ChangeToken] Successfully set change token for taskID %@ and changeTokenType %d", buf, 0x12u);
         }
@@ -2987,24 +2991,24 @@ void __57__MADChangeRequest_Asset__assetWithPhotosAsset_analysis___block_invoke(
 
       else
       {
-        v24 = MEMORY[0x1E696ABC0];
-        v37 = *MEMORY[0x1E696A578];
-        v25 = MEMORY[0x1E696AEC0];
-        v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"[MACD|ChangeToken] Failed to create managed change token object for task %@ and changeTokenType %d"];
-        v26 = VCPTaskIDDescription(d);
-        type = [v25 stringWithFormat:v32, v26, type];
-        v38 = type;
-        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-        v29 = [v24 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v28];
+        v25 = MEMORY[0x1E696ABC0];
+        v38 = *MEMORY[0x1E696A578];
+        v26 = MEMORY[0x1E696AEC0];
+        v33 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"[MACD|ChangeToken] Failed to create managed change token object for task %@ and changeTokenType %d"];
+        v27 = VCPTaskIDDescription(d);
+        type = [v26 stringWithFormat:v33, v27, type];
+        v39 = type;
+        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        v30 = [v25 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v29];
         error = self->_error;
-        self->_error = v29;
+        self->_error = v30;
 
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v31 = VCPTaskIDDescription(d);
+          v32 = VCPTaskIDDescription(d);
           *buf = 138412546;
-          v40 = v31;
-          v41 = 1024;
+          v41 = v32;
+          v42 = 1024;
           typeCopy3 = type;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[MACD|ChangeToken] Failed to create managed change token object for task %@ and changeTokenType %d", buf, 0x12u);
         }
@@ -3013,32 +3017,32 @@ void __57__MADChangeRequest_Asset__assetWithPhotosAsset_analysis___block_invoke(
 
     else
     {
-      v15 = MEMORY[0x1E696ABC0];
-      v45 = *MEMORY[0x1E696A578];
-      v16 = MEMORY[0x1E696AEC0];
-      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"[MACD|ChangeToken] Failed to encode data from changeToken content for taskID %@ and changeTokenType %d (error:%@)"];
-      v18 = VCPTaskIDDescription(d);
-      v19 = [v16 stringWithFormat:v17, v18, type, v35];
-      v46[0] = v19;
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
-      v21 = [v15 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v20];
-      v22 = self->_error;
-      self->_error = v21;
+      v16 = MEMORY[0x1E696ABC0];
+      v46 = *MEMORY[0x1E696A578];
+      v17 = MEMORY[0x1E696AEC0];
+      v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"[MACD|ChangeToken] Failed to encode data from changeToken content for taskID %@ and changeTokenType %d (error:%@)"];
+      v19 = VCPTaskIDDescription(d);
+      v20 = [v17 stringWithFormat:v18, v19, type, v36];
+      v47[0] = v20;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+      v22 = [v16 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v21];
+      v23 = self->_error;
+      self->_error = v22;
 
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v23 = VCPTaskIDDescription(d);
+        v24 = VCPTaskIDDescription(d);
         *buf = 138412802;
-        v40 = v23;
-        v41 = 1024;
+        v41 = v24;
+        v42 = 1024;
         typeCopy3 = type;
-        v43 = 2112;
-        v44 = v35;
+        v44 = 2112;
+        v45 = v36;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[MACD|ChangeToken] Failed to encode data from changeToken content for taskID %@ and changeTokenType %d (error:%@)", buf, 0x1Cu);
       }
     }
 
-    dateCopy = v33;
+    dateCopy = v34;
   }
 }
 

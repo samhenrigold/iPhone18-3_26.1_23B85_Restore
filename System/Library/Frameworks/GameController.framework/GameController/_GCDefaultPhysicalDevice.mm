@@ -41,6 +41,7 @@
 - (void)handleButton:(unsigned int)button gesture:(unint64_t)gesture;
 - (void)refreshHomeButtonConfiguration;
 - (void)requestIdleDisconnect:(id)disconnect;
+- (void)setAdaptiveTriggersPayload:(id)payload forIndex:(int)index;
 - (void)setDeviceAdaptiveTriggersComponentStatusUpdatedHandler:(id)handler;
 - (void)setDeviceAdaptiveTriggersServiceConnectedHandler:(id)handler;
 - (void)setDeviceBatteryComponentBatteryUpdatedHandler:(id)handler;
@@ -52,7 +53,9 @@
 - (void)setFilterConnection:(id)connection;
 - (void)setIndicatedPlayerIndex:(int64_t)index;
 - (void)setLight:(id)light;
+- (void)setSensorsActive:(BOOL)active;
 - (void)updateAdaptiveTriggerStatusWithLeftMode:(unsigned __int8)mode leftStatus:(unsigned __int8)status leftArmPosition:(unsigned __int8)position rightMode:(unsigned __int8)rightMode rightStatus:(unsigned __int8)rightStatus rightArmPosition:(unsigned __int8)armPosition;
+- (void)updateBattery:(unsigned __int8)battery isCharging:(BOOL)charging;
 - (void)updateGlyphFlags;
 @end
 
@@ -88,11 +91,12 @@
   v5 = [_workaround_backbone_97462229Copy numberPropertyForKey:@"VendorID"];
   v6 = [_workaround_backbone_97462229Copy numberPropertyForKey:@"ProductID"];
 
-  if ([v5 intValue] == 5901 && objc_msgSend(v6, "intValue") == 1359 || objc_msgSend(v5, "intValue") == 13706)
+  if ([v5 intValue] == 5901 && (v7 = objc_msgSend(v6, "intValue"), v7 == 1359) || (v7 = objc_msgSend(v5, "intValue"), v7 == 13706))
   {
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(v7, v8);
+    if (isInternalBuild)
     {
-      [_GCDefaultPhysicalDevice _workaround_backbone_97462229:];
+      [_GCDefaultPhysicalDevice _workaround_backbone_97462229:?];
     }
 
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -108,16 +112,18 @@
   v5 = [buttonCopy numberPropertyForKey:@"VendorID"];
   v6 = [buttonCopy numberPropertyForKey:@"ProductID"];
 
-  if ([v5 intValue] == 13706 || objc_msgSend(v5, "intValue") == 5901 && objc_msgSend(v6, "intValue") == 1359 || objc_msgSend(v5, "intValue") == 5901 && objc_msgSend(v6, "intValue") == 1358)
+  intValue = [v5 intValue];
+  if (intValue == 13706 || [v5 intValue] == 5901 && (intValue = objc_msgSend(v6, "intValue"), intValue == 1359) || objc_msgSend(v5, "intValue") == 5901 && (intValue = objc_msgSend(v6, "intValue"), intValue == 1358))
   {
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(intValue, v8);
+    if (isInternalBuild)
     {
-      v7 = getGCLogger();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v13 = getGCLogger(isInternalBuild);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        v8 = "Backbone detected, deploying HOME button workaround...";
-        v9 = buf;
+        v14 = "Backbone detected, deploying HOME button workaround...";
+        v15 = buf;
         goto LABEL_15;
       }
 
@@ -127,21 +133,23 @@ LABEL_16:
 
   else
   {
-    if ([v5 intValue] != 1155)
+    intValue2 = [v5 intValue];
+    if (intValue2 != 1155)
     {
       goto LABEL_4;
     }
 
-    if (gc_isInternalBuild())
+    v12 = gc_isInternalBuild(intValue2, v11);
+    if (v12)
     {
-      v7 = getGCLogger();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v13 = getGCLogger(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v10 = 0;
-        v8 = "ELO detected, deploying HOME button workaround...";
-        v9 = &v10;
+        v16 = 0;
+        v14 = "ELO detected, deploying HOME button workaround...";
+        v15 = &v16;
 LABEL_15:
-        _os_log_impl(&dword_1D2CD5000, v7, OS_LOG_TYPE_INFO, v8, v9, 2u);
+        _os_log_impl(&dword_1D2CD5000, v13, OS_LOG_TYPE_INFO, v14, v15, 2u);
         goto LABEL_16;
       }
 
@@ -453,15 +461,12 @@ LABEL_4:
 - (void)updateGlyphFlags
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (_GCDeviceManager)manager
@@ -480,7 +485,7 @@ LABEL_4:
 
 - (_GCGamepadEventSourceDescription)gamepadEventSource
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(_GCCControllerManagerDescription);
   v4 = [[_GCCControllerHIDServiceInfoDescription alloc] initWithServiceInfo:self->_serviceInfo];
   v5 = [[_GCKeyboardEventHIDAdapterDescription alloc] initWithSource:v3 service:v4];
@@ -521,12 +526,10 @@ LABEL_6:
   }
 
   v18 = [_GCGamepadEventFusionDescription alloc];
-  v23[0] = v14;
-  v23[1] = v6;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v22[0] = v14;
+  v22[1] = v6;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
   v20 = [(_GCGamepadEventFusionDescription *)v18 initWithConfiguration:v15 sources:v19];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -609,6 +612,13 @@ LABEL_6:
 
   _Block_object_dispose(&v11, 8);
   return self;
+}
+
+- (void)setSensorsActive:(BOOL)active
+{
+  activeCopy = active;
+  delegate = [(_GCDefaultPhysicalDevice *)self delegate];
+  [delegate physicalDevice:self setSensorsActive:activeCopy];
 }
 
 - (BOOL)supportsPlayerIndicator
@@ -768,6 +778,14 @@ LABEL_6:
   }
 }
 
+- (void)setAdaptiveTriggersPayload:(id)payload forIndex:(int)index
+{
+  v4 = *&index;
+  payloadCopy = payload;
+  delegate = [(_GCDefaultPhysicalDevice *)self delegate];
+  [delegate physicalDevice:self setAdaptiveTriggersPayload:payloadCopy forIndex:v4];
+}
+
 - (id)deviceAdaptiveTriggersComponentStatusUpdatedHandler
 {
   v2 = _Block_copy(self->_adaptiveTriggersComponentStatusUpdatedHandler);
@@ -925,7 +943,7 @@ LABEL_6:
   delegate = [(_GCDefaultPhysicalDevice *)self delegate];
   if ((objc_opt_respondsToSelector() & 1) != 0 && [delegate physicalDeviceShouldPublishPowerSource:self])
   {
-    if (self->_powerSourceID || !IOPSCreatePowerSource() && self->_powerSourceID)
+    if (self->_powerSourceID || (v5 = IOPSCreatePowerSource(), v7 = v5, !v5) && self->_powerSourceID)
     {
       powerSourceProperties = self->_powerSourceProperties;
       if (powerSourceProperties)
@@ -938,40 +956,40 @@ LABEL_6:
         self->_powerSourceProperties = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E528], MEMORY[0x1E695E9E8]);
       }
 
-      v5 = [(_GCDefaultPhysicalDevice *)self propertyForKey:@"Transport"];
-      if (v5)
-      {
-        CFDictionarySetValue(self->_powerSourceProperties, @"Transport Type", v5);
-      }
-
-      v6 = [(_GCDefaultPhysicalDevice *)self propertyForKey:@"Product"];
-      if (v6)
-      {
-        CFDictionarySetValue(self->_powerSourceProperties, @"Name", v6);
-      }
-
-      v7 = [(_GCDefaultPhysicalDevice *)self propertyForKey:@"VendorID"];
-      if (v7)
-      {
-        CFDictionarySetValue(self->_powerSourceProperties, @"Vendor ID", v7);
-      }
-
-      v8 = [(_GCDefaultPhysicalDevice *)self propertyForKey:@"ProductID"];
+      v8 = [(_GCDefaultPhysicalDevice *)self propertyForKey:@"Transport"];
       if (v8)
       {
-        CFDictionarySetValue(self->_powerSourceProperties, @"Product ID", v8);
+        CFDictionarySetValue(self->_powerSourceProperties, @"Transport Type", v8);
       }
 
-      v9 = [(_GCDefaultPhysicalDevice *)self propertyForKey:@"ModelNumber"];
+      v9 = [(_GCDefaultPhysicalDevice *)self propertyForKey:@"Product"];
       if (v9)
       {
-        CFDictionarySetValue(self->_powerSourceProperties, @"Model Number", v9);
+        CFDictionarySetValue(self->_powerSourceProperties, @"Name", v9);
       }
 
-      v10 = [(_GCDefaultPhysicalDevice *)self propertyForKey:@"SerialNumber"];
+      v10 = [(_GCDefaultPhysicalDevice *)self propertyForKey:@"VendorID"];
       if (v10)
       {
-        CFDictionarySetValue(self->_powerSourceProperties, @"Accessory Identifier", v10);
+        CFDictionarySetValue(self->_powerSourceProperties, @"Vendor ID", v10);
+      }
+
+      v11 = [(_GCDefaultPhysicalDevice *)self propertyForKey:@"ProductID"];
+      if (v11)
+      {
+        CFDictionarySetValue(self->_powerSourceProperties, @"Product ID", v11);
+      }
+
+      v12 = [(_GCDefaultPhysicalDevice *)self propertyForKey:@"ModelNumber"];
+      if (v12)
+      {
+        CFDictionarySetValue(self->_powerSourceProperties, @"Model Number", v12);
+      }
+
+      v13 = [(_GCDefaultPhysicalDevice *)self propertyForKey:@"SerialNumber"];
+      if (v13)
+      {
+        CFDictionarySetValue(self->_powerSourceProperties, @"Accessory Identifier", v13);
       }
 
       CFDictionarySetValue(self->_powerSourceProperties, @"Accessory Category", @"Game Controller");
@@ -982,48 +1000,52 @@ LABEL_6:
       CFDictionarySetValue(self->_powerSourceProperties, @"Power Source State", @"Battery Power");
       CFDictionarySetValue(self->_powerSourceProperties, @"Max Capacity", &unk_1F4E8E378);
       CFDictionarySetValue(self->_powerSourceProperties, @"Current Capacity", &unk_1F4E8E378);
-      powerSourceID = self->_powerSourceID;
-      v12 = self->_powerSourceProperties;
-      if (IOPSSetPowerSourceDetails() && gc_isInternalBuild())
+      v14 = IOPSSetPowerSourceDetails();
+      if (v14)
       {
-        [_GCDefaultPhysicalDevice(Battery) createPowerSource];
+        v16 = v14;
+        if (gc_isInternalBuild(v14, v15))
+        {
+          [(_GCDefaultPhysicalDevice(Battery) *)v16 createPowerSource];
+        }
       }
 
       objc_initWeak(&location, self);
       batteryServiceServer = [(_GCDefaultPhysicalDevice *)self batteryServiceServer];
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __54___GCDefaultPhysicalDevice_Battery__createPowerSource__block_invoke;
-      v18[3] = &unk_1E841A7F8;
-      objc_copyWeak(&v19, &location);
-      [batteryServiceServer readBatteryWithReply:v18];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __54___GCDefaultPhysicalDevice_Battery__createPowerSource__block_invoke;
+      v25[3] = &unk_1E841A7F8;
+      objc_copyWeak(&v26, &location);
+      [batteryServiceServer readBatteryWithReply:v25];
 
-      if (gc_isInternalBuild())
+      isInternalBuild = gc_isInternalBuild(v18, v19);
+      if (isInternalBuild)
       {
-        v15 = getGCLogger();
-        [(_GCDefaultPhysicalDevice(Battery) *)v15 createPowerSource];
+        v22 = getGCLogger(isInternalBuild);
+        [(_GCDefaultPhysicalDevice(Battery) *)v22 createPowerSource];
       }
 
       if (os_variant_allows_internal_security_policies())
       {
-        v14 = dispatch_get_global_queue(21, 0);
+        v21 = dispatch_get_global_queue(21, 0);
         handler[0] = MEMORY[0x1E69E9820];
         handler[1] = 3221225472;
         handler[2] = __54___GCDefaultPhysicalDevice_Battery__createPowerSource__block_invoke_496;
         handler[3] = &unk_1E8419C10;
-        objc_copyWeak(&v17, &location);
-        notify_register_dispatch("com.apple.gamecontroller.simulatedbatteryalert", &self->_batteryAlertTestNotificationToken, v14, handler);
+        objc_copyWeak(&v24, &location);
+        notify_register_dispatch("com.apple.gamecontroller.simulatedbatteryalert", &self->_batteryAlertTestNotificationToken, v21, handler);
 
-        objc_destroyWeak(&v17);
+        objc_destroyWeak(&v24);
       }
 
-      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v26);
       objc_destroyWeak(&location);
     }
 
-    else if (gc_isInternalBuild())
+    else if (gc_isInternalBuild(v5, v6))
     {
-      [_GCDefaultPhysicalDevice(Battery) createPowerSource];
+      [(_GCDefaultPhysicalDevice(Battery) *)v7 createPowerSource];
     }
   }
 }
@@ -1152,13 +1174,13 @@ LABEL_6:
   {
   }
 
-  v12 = _gc_log_physical_device();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = _gc_log_physical_device(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     registryID = [(GCHIDServiceInfo *)self->_serviceInfo registryID];
     unsignedLongLongValue = [registryID unsignedLongLongValue];
     hasCombinedMFiHomeVendorButton = self->_hasCombinedMFiHomeVendorButton;
-    v16 = v8;
+    v17 = v8;
     v18 = 134219264;
     v19 = unsignedLongLongValue;
     v20 = 1024;
@@ -1171,16 +1193,15 @@ LABEL_6:
     v27 = enableHomeButtonGestures;
     v28 = 1024;
     v29 = forwardHomeButtonPress;
-    _os_log_impl(&dword_1D2CD5000, v12, OS_LOG_TYPE_DEFAULT, "[%#010llx] Apply button:%#x (combined: %{BOOL}d) configuration:%#llx (system: %{BOOL}d, app: %{BOOL}d)", &v18, 0x2Eu);
+    _os_log_impl(&dword_1D2CD5000, v13, OS_LOG_TYPE_DEFAULT, "[%#010llx] Apply button:%#x (combined: %{BOOL}d) configuration:%#llx (system: %{BOOL}d, app: %{BOOL}d)", &v18, 0x2Eu);
   }
 
   else
   {
-    v16 = v8;
+    v17 = v8;
   }
 
-  [(GCGameIntentServiceServerInterface *)self->_gameIntentServiceServer setConfiguration:v16 forButton:786979];
-  v17 = *MEMORY[0x1E69E9840];
+  [(GCGameIntentServiceServerInterface *)self->_gameIntentServiceServer setConfiguration:v17 forButton:786979];
 }
 
 - (id)deviceSystemGestureTriggeredHandler
@@ -1199,16 +1220,16 @@ LABEL_6:
 
 - (void)handleButton:(unsigned int)button gesture:(unint64_t)gesture
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v7 = _gc_log_physical_device();
+  v17 = *MEMORY[0x1E69E9840];
+  v7 = _gc_log_physical_device(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     registryID = [(GCHIDServiceInfo *)self->_serviceInfo registryID];
     *buf = 134218496;
     unsignedLongLongValue = [registryID unsignedLongLongValue];
-    v14 = 1024;
+    v13 = 1024;
     buttonCopy = button;
-    v16 = 2048;
+    v15 = 2048;
     gestureCopy = gesture;
     _os_log_impl(&dword_1D2CD5000, v7, OS_LOG_TYPE_DEFAULT, "[%#010llx] Handle button:%#x gesture:%zu", buf, 0x1Cu);
   }
@@ -1221,36 +1242,33 @@ LABEL_6:
     }
 
     objc_initWeak(buf, self);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __67___GCDefaultPhysicalDevice_GameIntentClient__handleButton_gesture___block_invoke;
-    v10[3] = &unk_1E841A848;
-    objc_copyWeak(v11, buf);
-    v11[1] = gesture;
-    dispatch_async(MEMORY[0x1E69E96A0], v10);
-    objc_destroyWeak(v11);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __67___GCDefaultPhysicalDevice_GameIntentClient__handleButton_gesture___block_invoke;
+    v9[3] = &unk_1E841A848;
+    objc_copyWeak(v10, buf);
+    v10[1] = gesture;
+    dispatch_async(MEMORY[0x1E69E96A0], v9);
+    objc_destroyWeak(v10);
     objc_destroyWeak(buf);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestIdleDisconnect:(id)disconnect
 {
   disconnectCopy = disconnect;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(disconnectCopy, v4))
   {
-    [_GCDefaultPhysicalDevice(Idle) requestIdleDisconnect:];
+    [_GCDefaultPhysicalDevice(Idle) requestIdleDisconnect:disconnectCopy];
   }
 
-  v4 = [_GCBluetoothDeviceIdentifier identifierWithHardwareAddressString:disconnectCopy];
-  v5 = [[_GCBluetoothDeviceDisconnectionRequest alloc] initWithDeviceIdentifier:v4];
-  [(_GCBluetoothDeviceDisconnectionRequest *)v5 performRequest:0];
+  v5 = [_GCBluetoothDeviceIdentifier identifierWithHardwareAddressString:disconnectCopy];
+  v6 = [[_GCBluetoothDeviceDisconnectionRequest alloc] initWithDeviceIdentifier:v5];
+  [(_GCBluetoothDeviceDisconnectionRequest *)v6 performRequest:0];
 }
 
 - (void)_updatePowerSourceWithBatteryLevel:(uint64_t)level charging:(uint64_t)charging
 {
-  v13 = *MEMORY[0x1E69E9840];
   if (level)
   {
     if (*(level + 72))
@@ -1261,13 +1279,13 @@ LABEL_6:
         CFDictionarySetValue(v3, @"Is Charging", [MEMORY[0x1E696AD98] numberWithBool:?]);
         CFDictionarySetValue(*(level + 80), @"Max Capacity", &unk_1F4E8E390);
         CFDictionarySetValue(*(level + 80), @"Current Capacity", [MEMORY[0x1E696AD98] numberWithUnsignedChar:charging]);
-        v5 = *(level + 72);
-        v6 = *(level + 80);
-        if (IOPSSetPowerSourceDetails())
+        v5 = IOPSSetPowerSourceDetails();
+        if (v5)
         {
-          if (gc_isInternalBuild())
+          isInternalBuild = gc_isInternalBuild(v5, v6);
+          if (isInternalBuild)
           {
-            v8 = getGCLogger();
+            v8 = getGCLogger(isInternalBuild);
             if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
             {
               OUTLINED_FUNCTION_1_0();
@@ -1278,17 +1296,37 @@ LABEL_6:
       }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-- (void)_workaround_backbone_97462229:.cold.1()
+- (void)updateBattery:(unsigned __int8)battery isCharging:(BOOL)charging
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  batteryCopy = battery;
+  if (self->_batteryComponentBatteryUpdatedHandler)
+  {
+    objc_initWeak(&location, self);
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __68___GCDefaultPhysicalDevice_BatteryClient__updateBattery_isCharging___block_invoke;
+    block[3] = &unk_1E841A820;
+    objc_copyWeak(&v8, &location);
+    v9 = batteryCopy;
+    chargingCopy = charging;
+    dispatch_async(MEMORY[0x1E69E96A0], block);
+    objc_destroyWeak(&v8);
+    objc_destroyWeak(&location);
+  }
+
+  [_GCDefaultPhysicalDevice _updatePowerSourceWithBatteryLevel:batteryCopy charging:?];
+  [(_GCDefaultPhysicalDevice *)self _displayBatteryAlertIfNeededForBatteryLevel:batteryCopy charging:charging];
+}
+
+- (void)_workaround_backbone_97462229:(uint64_t)a1 .cold.1(uint64_t a1)
+{
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 

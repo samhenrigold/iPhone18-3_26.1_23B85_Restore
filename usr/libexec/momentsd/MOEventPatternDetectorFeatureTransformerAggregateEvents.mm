@@ -58,23 +58,7 @@
           v15 = 0;
           do
           {
-            if ([v7 count] <= v15 + 1)
-            {
-              goto LABEL_12;
-            }
-
-            currentCalendar = self->_currentCalendar;
-            v16 = [v7 objectAtIndex:v15 + 1];
-            endDate = [v16 endDate];
-            [endDate dateByAddingTimeInterval:-10800.0];
-            v18 = firstObject;
-            v20 = v19 = v8;
-            v21 = [(NSCalendar *)currentCalendar isDate:v11 equalToDate:v20 toUnitGranularity:self->_aggregationWindow];
-
-            v8 = v19;
-            firstObject = v18;
-
-            if (v21)
+            if ([v7 count] > v15 + 1 && (currentCalendar = self->_currentCalendar, objc_msgSend(v7, "objectAtIndex:", v15 + 1), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "endDate"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "dateByAddingTimeInterval:", -10800.0), v18 = firstObject, v19 = v8, v20 = objc_claimAutoreleasedReturnValue(), v21 = -[NSCalendar isDate:equalToDate:toUnitGranularity:](currentCalendar, "isDate:equalToDate:toUnitGranularity:", v11, v20, self->_aggregationWindow), v20, v8 = v19, firstObject = v18, v17, v16, v21))
             {
               v22 = [v8 objectAtIndex:v15 + 1];
               [v22 doubleValue];
@@ -100,7 +84,6 @@
 
             else
             {
-LABEL_12:
               v26 = [NSNumber numberWithDouble:v14];
               [v44 addObject:v26];
 

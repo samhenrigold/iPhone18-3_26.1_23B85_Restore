@@ -710,7 +710,7 @@ LABEL_24:
 
   v13 = formatCopy;
   memset(buf, 0, 32);
-  [(_PIParallaxColorAnalysisJob *)self imageRect];
+  objc_msgSend_imageRect(self);
   v46[0] = 0;
   v46[1] = 0;
   v46[2] = [(NURenderJob *)self imageSize];
@@ -1253,9 +1253,9 @@ LABEL_33:
 
   if ([colorAnalysisRequest analyzeHeadroom])
   {
-    [outputImage extent];
+    objc_msgSend_extent(outputImage);
     v12 = v11;
-    [outputImage extent];
+    objc_msgSend_extent(outputImage);
     v14 = *MEMORY[0x1E69C0C68] * v13;
     v15 = objc_alloc_init(PIPortraitHeadroomFilter);
     [(PIPortraitHeadroomFilter *)v15 setInputImage:outputImage];
@@ -1278,7 +1278,7 @@ LABEL_33:
 
   else
   {
-    [outputImage extent];
+    objc_msgSend_extent(outputImage);
     NURectDenormalize();
     NUPixelRectFromCGRect();
     v20 = *buf;

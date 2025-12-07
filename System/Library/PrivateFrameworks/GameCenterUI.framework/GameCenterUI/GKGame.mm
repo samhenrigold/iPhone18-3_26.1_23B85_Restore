@@ -17,23 +17,29 @@ uint64_t __91__GKGame_GKSpringboardSupport__removeHistoryForGameWithBundleIdenti
 uint64_t __41__GKGame_UI__imageSourceForiOSIconStyle___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setOutputSize:{87.0, 87.0}];
-  imageSourceForiOSIconStyle__sharingImageSource = [*(a1 + 40) networkImageSourceWithName:@"DWIconsSharing" imageBrush:*(a1 + 32)];
+  v2 = [*(a1 + 40) networkImageSourceWithName:@"DWIconsSharing" imageBrush:*(a1 + 32)];
+  v3 = imageSourceForiOSIconStyle__sharingImageSource;
+  imageSourceForiOSIconStyle__sharingImageSource = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 uint64_t __41__GKGame_UI__imageSourceForiOSIconStyle___block_invoke_2(uint64_t a1)
 {
-  imageSourceForiOSIconStyle__sImageSource = [*(a1 + 32) networkImageSourceWithName:@"DWIconsList" imageBrush:*(a1 + 40)];
+  v1 = [*(a1 + 32) networkImageSourceWithName:@"DWIconsList" imageBrush:*(a1 + 40)];
+  v2 = imageSourceForiOSIconStyle__sImageSource;
+  imageSourceForiOSIconStyle__sImageSource = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t __41__GKGame_UI__imageSourceForiOSIconStyle___block_invoke_3(uint64_t a1)
 {
-  imageSourceForiOSIconStyle__sImageSource_11 = [*(a1 + 32) networkImageSourceWithName:@"DWIconsDetail" imageBrush:*(a1 + 40)];
+  v1 = [*(a1 + 32) networkImageSourceWithName:@"DWIconsDetail" imageBrush:*(a1 + 40)];
+  v2 = imageSourceForiOSIconStyle__sImageSource_11;
+  imageSourceForiOSIconStyle__sImageSource_11 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 void __41__GKGame_UI__imageSourceForiOSIconStyle___block_invoke_4(uint64_t a1)
@@ -46,30 +52,38 @@ void __41__GKGame_UI__imageSourceForiOSIconStyle___block_invoke_4(uint64_t a1)
 
 uint64_t __38__GKGame_UI___imageSourceForIconSize___block_invoke(uint64_t a1)
 {
-  _imageSourceForIconSize__source64 = [*(a1 + 32) networkImageSourceWithName:@"app-icon-64" imageBrush:*(a1 + 40)];
+  v1 = [*(a1 + 32) networkImageSourceWithName:@"app-icon-64" imageBrush:*(a1 + 40)];
+  v2 = _imageSourceForIconSize__source64;
+  _imageSourceForIconSize__source64 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t __38__GKGame_UI___imageSourceForIconSize___block_invoke_2(uint64_t a1)
 {
-  _imageSourceForIconSize__source128 = [*(a1 + 32) networkImageSourceWithName:@"app-icon-128" imageBrush:*(a1 + 40)];
+  v1 = [*(a1 + 32) networkImageSourceWithName:@"app-icon-128" imageBrush:*(a1 + 40)];
+  v2 = _imageSourceForIconSize__source128;
+  _imageSourceForIconSize__source128 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t __38__GKGame_UI___imageSourceForIconSize___block_invoke_3(uint64_t a1)
 {
-  _imageSourceForIconSize__source256 = [*(a1 + 32) networkImageSourceWithName:@"app-icon-256" imageBrush:*(a1 + 40)];
+  v1 = [*(a1 + 32) networkImageSourceWithName:@"app-icon-256" imageBrush:*(a1 + 40)];
+  v2 = _imageSourceForIconSize__source256;
+  _imageSourceForIconSize__source256 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t __38__GKGame_UI___imageSourceForIconSize___block_invoke_4(uint64_t a1)
 {
-  _imageSourceForIconSize__source512 = [*(a1 + 32) networkImageSourceWithName:@"app-icon-512" imageBrush:*(a1 + 40)];
+  v1 = [*(a1 + 32) networkImageSourceWithName:@"app-icon-512" imageBrush:*(a1 + 40)];
+  v2 = _imageSourceForIconSize__source512;
+  _imageSourceForIconSize__source512 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t __58__GKGame_UI__loadIconForSize_scale_withCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -129,9 +143,11 @@ void __49__GKGame_UI__preloadIconsForGames_style_handler___block_invoke_2(uint64
 
 uint64_t __39__GKGame_UI__logoImageWithMaximumSize___block_invoke(uint64_t a1)
 {
-  logoImageWithMaximumSize__sImageSource = [*(a1 + 32) localImageSourceWithName:@"logo" imageBrush:0];
+  v1 = [*(a1 + 32) localImageSourceWithName:@"logo" imageBrush:0];
+  v2 = logoImageWithMaximumSize__sImageSource;
+  logoImageWithMaximumSize__sImageSource = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 @end

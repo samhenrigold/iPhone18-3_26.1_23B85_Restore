@@ -45,25 +45,26 @@
   {
     if (error)
     {
-      goto LABEL_8;
+      ENErrorF(2, "super init failed");
+LABEL_9:
+      *error = v8 = 0;
+      goto LABEL_4;
     }
 
-    goto LABEL_9;
+LABEL_10:
+    v8 = 0;
+    goto LABEL_4;
   }
 
   if (MEMORY[0x2383EE9C0](objectCopy) != MEMORY[0x277D86468])
   {
     if (error)
     {
-LABEL_8:
-      ENErrorF(2);
-      *error = v8 = 0;
-      goto LABEL_4;
+      ENErrorF(2, "XPC non-dict");
+      goto LABEL_9;
     }
 
-LABEL_9:
-    v8 = 0;
-    goto LABEL_4;
+    goto LABEL_10;
   }
 
   [(ENExposureDetectionSession *)objectCopy initWithXPCObject:error error:v7, &v10];
@@ -91,7 +92,7 @@ LABEL_4:
 {
   if (self->_activateCalled && !self->_invalidateDone)
   {
-    v2 = [ENExposureDetectionSession dealloc];
+    [ENExposureDetectionSession dealloc];
     [(ENExposureDetectionSession *)v2 description];
   }
 
@@ -105,9 +106,11 @@ LABEL_4:
 
 - (id)description
 {
-  NSAppendPrintF_safe();
+  v4 = 0;
+  NSAppendPrintF_safe(&v4, "ENExposureDetectionSession");
+  v2 = v4;
 
-  return 0;
+  return v2;
 }
 
 - (void)activateWithCompletionHandler:(id)handler
@@ -127,7 +130,22 @@ LABEL_4:
 void __60__ENExposureDetectionSession_activateWithCompletionHandler___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (((*(v2 + 8) & 1) != 0 || *(v2 + 9) == 1) && (ENErrorF(10), (v3 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (*(v2 + 8))
+  {
+    ENErrorF(10, "activate already called");
+  }
+
+  else
+  {
+    if (*(v2 + 9) != 1)
+    {
+      goto LABEL_12;
+    }
+
+    ENErrorF(10, "activate after invalidate");
+  }
+  v3 = ;
+  if (v3)
   {
     v6 = v3;
     if (gLogCategory__ENExposureDetection <= 90 && (gLogCategory__ENExposureDetection != -1 || _LogCategory_Initialize()))
@@ -136,21 +154,21 @@ void __60__ENExposureDetectionSession_activateWithCompletionHandler___block_invo
     }
 
     (*(*(a1 + 40) + 16))();
+
+    return;
   }
 
-  else
+LABEL_12:
+  if (gLogCategory_ENExposureDetection <= 30 && (gLogCategory_ENExposureDetection != -1 || _LogCategory_Initialize()))
   {
-    if (gLogCategory_ENExposureDetection <= 30 && (gLogCategory_ENExposureDetection != -1 || _LogCategory_Initialize()))
-    {
-      __60__ENExposureDetectionSession_activateWithCompletionHandler___block_invoke_cold_2();
-    }
-
-    *(*(a1 + 32) + 8) = 1;
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-
-    [v4 _activateWithCompletionHandler:v5];
+    __60__ENExposureDetectionSession_activateWithCompletionHandler___block_invoke_cold_2();
   }
+
+  *(*(a1 + 32) + 8) = 1;
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 40);
+
+  [v4 _activateWithCompletionHandler:v5];
 }
 
 - (void)_activateWithCompletionHandler:(id)handler
@@ -202,7 +220,7 @@ void __61__ENExposureDetectionSession__activateWithCompletionHandler___block_inv
 
   else if (gLogCategory_ENExposureDetection <= 30 && (gLogCategory_ENExposureDetection != -1 || _LogCategory_Initialize()))
   {
-    __61__ENExposureDetectionSession__activateWithCompletionHandler___block_invoke_2_cold_2(a1);
+    __61__ENExposureDetectionSession__activateWithCompletionHandler___block_invoke_2_cold_2();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -219,7 +237,7 @@ void __61__ENExposureDetectionSession__activateWithCompletionHandler___block_inv
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __40__ENExposureDetectionSession_invalidate__block_invoke(uint64_t result)
+void *__40__ENExposureDetectionSession_invalidate__block_invoke(void *result)
 {
   v1 = result;
   if (gLogCategory_ENExposureDetection <= 30)
@@ -230,12 +248,12 @@ uint64_t __40__ENExposureDetectionSession_invalidate__block_invoke(uint64_t resu
     }
   }
 
-  v2 = *(v1 + 32);
+  v2 = v1[4];
   if ((*(v2 + 9) & 1) == 0)
   {
     *(v2 + 9) = 1;
-    [*(*(v1 + 32) + 24) invalidate];
-    v3 = *(v1 + 32);
+    [*(v1[4] + 24) invalidate];
+    v3 = v1[4];
 
     return [v3 _invalidated];
   }
@@ -292,42 +310,66 @@ void __65__ENExposureDetectionSession_addDiagnosisKeys_completionHandler___block
   v2 = [*(a1 + 32) count];
   v3 = v2;
   v4 = *(a1 + 40);
-  if ((*(v4 + 8) != 1 || !*(v4 + 24) || *(v4 + 9) == 1 || *(v4 + 11) == 1 || v2 > *(v4 + 64) - *(v4 + 16)) && (ENErrorF(10), v5 = objc_claimAutoreleasedReturnValue(), (v8 = v5) != 0))
+  if (*(v4 + 8) == 1 && *(v4 + 24))
   {
-    v13 = v5;
-    if (gLogCategory__ENExposureDetection <= 90)
+    if (*(v4 + 9) == 1)
     {
-      if (gLogCategory__ENExposureDetection != -1 || (v9 = _LogCategory_Initialize(), v8 = v13, v9))
-      {
-        __65__ENExposureDetectionSession_addDiagnosisKeys_completionHandler___block_invoke_cold_1();
-        v8 = v13;
-      }
+      ENErrorF(10, "AddKeys after invalidate");
     }
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48), v8, v6, v7);
+    else if (*(v4 + 11) == 1)
+    {
+      ENErrorF(10, "AddKeys after finish");
+    }
+
+    else
+    {
+      if (v2 <= *(v4 + 64) - *(v4 + 16))
+      {
+        goto LABEL_17;
+      }
+
+      ENErrorF(10, "AddKeys too many: %zu > max %d - %d outstanding (%d)");
+    }
   }
 
   else
   {
-    if (gLogCategory_ENExposureDetection <= 30 && (gLogCategory_ENExposureDetection != -1 || _LogCategory_Initialize()))
+    ENErrorF(10, "AddKeys before activate");
+  }
+  v5 = ;
+  if (v5)
+  {
+    v9 = v5;
+    if (gLogCategory__ENExposureDetection <= 90 && (gLogCategory__ENExposureDetection != -1 || _LogCategory_Initialize()))
     {
-      __65__ENExposureDetectionSession_addDiagnosisKeys_completionHandler___block_invoke_cold_2();
+      __65__ENExposureDetectionSession_addDiagnosisKeys_completionHandler___block_invoke_cold_1();
     }
 
-    *(*(a1 + 40) + 16) += v3;
-    v11 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v12 = *(v10 + 24);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __65__ENExposureDetectionSession_addDiagnosisKeys_completionHandler___block_invoke_2;
-    v14[3] = &unk_278A4B0A8;
-    v14[4] = v10;
-    v16 = v3;
-    v15 = *(a1 + 48);
-    [v12 exposureDetectionAddKeys:v11 completion:v14];
-    *(*(a1 + 40) + 32) += v3;
+    (*(*(a1 + 48) + 16))();
+
+    return;
   }
+
+LABEL_17:
+  if (gLogCategory_ENExposureDetection <= 30 && (gLogCategory_ENExposureDetection != -1 || _LogCategory_Initialize()))
+  {
+    __65__ENExposureDetectionSession_addDiagnosisKeys_completionHandler___block_invoke_cold_2();
+  }
+
+  *(*(a1 + 40) + 16) += v3;
+  v7 = *(a1 + 32);
+  v6 = *(a1 + 40);
+  v8 = *(v6 + 24);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __65__ENExposureDetectionSession_addDiagnosisKeys_completionHandler___block_invoke_2;
+  v10[3] = &unk_278A4B0A8;
+  v10[4] = v6;
+  v12 = v3;
+  v11 = *(a1 + 48);
+  [v8 exposureDetectionAddKeys:v7 completion:v10];
+  *(*(a1 + 40) + 32) += v3;
 }
 
 - (void)finishedDiagnosisKeysWithCompletionHandler:(id)handler
@@ -346,32 +388,54 @@ void __65__ENExposureDetectionSession_addDiagnosisKeys_completionHandler___block
 
 void __73__ENExposureDetectionSession_finishedDiagnosisKeysWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v3 = a1 + 32;
   v2 = *(a1 + 32);
-  if ((*(v2 + 8) != 1 || !*(v2 + 24) || (*(v2 + 9) & 1) != 0 || *(v2 + 11) == 1) && (ENErrorF(10), (v4 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (*(v2 + 8) == 1 && *(v2 + 24))
   {
-    v7 = v4;
+    if (*(v2 + 9))
+    {
+      ENErrorF(10, "Finish after invalidate");
+    }
+
+    else
+    {
+      if (*(v2 + 11) != 1)
+      {
+        goto LABEL_15;
+      }
+
+      ENErrorF(10, "Finish already called");
+    }
+  }
+
+  else
+  {
+    ENErrorF(10, "Finish before activate");
+  }
+  v3 = ;
+  if (v3)
+  {
+    v6 = v3;
     if (gLogCategory__ENExposureDetection <= 90 && (gLogCategory__ENExposureDetection != -1 || _LogCategory_Initialize()))
     {
       __73__ENExposureDetectionSession_finishedDiagnosisKeysWithCompletionHandler___block_invoke_cold_1();
     }
 
     (*(*(a1 + 40) + 16))();
+
+    return;
   }
 
-  else
+LABEL_15:
+  if (gLogCategory_ENExposureDetection <= 30 && (gLogCategory_ENExposureDetection != -1 || _LogCategory_Initialize()))
   {
-    if (gLogCategory_ENExposureDetection <= 30 && (gLogCategory_ENExposureDetection != -1 || _LogCategory_Initialize()))
-    {
-      __73__ENExposureDetectionSession_finishedDiagnosisKeysWithCompletionHandler___block_invoke_cold_2(v3);
-    }
-
-    *(*(a1 + 32) + 11) = 1;
-    v5 = *(a1 + 40);
-    v6 = *(*(a1 + 32) + 24);
-
-    [v6 exposureDetectionFinishWithCompletion:v5];
+    __73__ENExposureDetectionSession_finishedDiagnosisKeysWithCompletionHandler___block_invoke_cold_2();
   }
+
+  *(*(a1 + 32) + 11) = 1;
+  v4 = *(a1 + 40);
+  v5 = *(*(a1 + 32) + 24);
+
+  [v5 exposureDetectionFinishWithCompletion:v4];
 }
 
 - (void)getExposureInfoWithMaximumCount:(unint64_t)count completionHandler:(id)handler
@@ -392,20 +456,39 @@ void __73__ENExposureDetectionSession_finishedDiagnosisKeysWithCompletionHandler
 void __80__ENExposureDetectionSession_getExposureInfoWithMaximumCount_completionHandler___block_invoke(void *a1)
 {
   v2 = a1[4];
-  if (*(v2 + 8) != 1 || (v3 = *(v2 + 24)) == 0 || (*(v2 + 9) & 1) != 0 || (*(v2 + 11) & 1) == 0)
+  if (*(v2 + 8) == 1 && (v3 = *(v2 + 24)) != 0)
   {
-    v4 = ENErrorF(10);
-    if (v4)
+    if (*(v2 + 9))
     {
-      v7 = v4;
-      (*(a1[5] + 16))();
-
-      return;
+      ENErrorF(10, "GetExposureInfo after invalidate");
     }
 
-    v3 = *(a1[4] + 24);
+    else
+    {
+      if (*(v2 + 11))
+      {
+        goto LABEL_11;
+      }
+
+      ENErrorF(10, "GetExposureInfo before finish");
+    }
   }
 
+  else
+  {
+    ENErrorF(10, "GetExposureInfo before activate");
+  }
+  v4 = ;
+  if (v4)
+  {
+    v7 = v4;
+    (*(a1[5] + 16))();
+
+    return;
+  }
+
+  v3 = *(a1[4] + 24);
+LABEL_11:
   v6 = a1[5];
   v5 = a1[6];
 

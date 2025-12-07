@@ -12,7 +12,7 @@ uint64_t __56___ASAccountSharingGroupMemberDataManager_sharedManager__block_invo
 
 _ASAccountSharingGroupMemberData *__72___ASAccountSharingGroupMemberDataManager_groupMemberDataForRecipients___block_invoke(uint64_t a1, void *a2)
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc_init(_ASAccountSharingGroupMemberData);
   v5 = *(a1 + 32);
@@ -39,8 +39,8 @@ _ASAccountSharingGroupMemberData *__72___ASAccountSharingGroupMemberDataManager_
 
   v19 = *(*(a1 + 32) + 16);
   v20 = [v3 contact];
-  v27[0] = v20;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+  v26[0] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
   v22 = [*(a1 + 32) _renderingScopeForDiameter:37.0];
   v23 = [v19 avatarImageForContacts:v21 scope:v22];
   [(_ASAccountSharingGroupMemberData *)v4 setAvatarImageForGroupMemberCell:v23];
@@ -49,7 +49,6 @@ _ASAccountSharingGroupMemberData *__72___ASAccountSharingGroupMemberDataManager_
   v24 = [v3 contact];
 
   [(_ASAccountSharingGroupMemberData *)v4 setContact:v24];
-  v25 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

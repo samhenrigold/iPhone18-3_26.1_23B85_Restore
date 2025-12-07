@@ -40,8 +40,8 @@
   }
 
   [(SFWirelessSettingsController *)self->_settingsController setDelegate:0];
-  [(SFWirelessSettingsController *)self->_settingsController invalidate];
-  sharedHardwareManagerWithNoUI = [(objc_class *)getNFHardwareManagerClass() sharedHardwareManagerWithNoUI];
+  invalidate = [(SFWirelessSettingsController *)self->_settingsController invalidate];
+  sharedHardwareManagerWithNoUI = [getNFHardwareManagerClass(invalidate) sharedHardwareManagerWithNoUI];
   [sharedHardwareManagerWithNoUI unregisterEventListener:self];
 }
 
@@ -189,15 +189,15 @@ uint64_t __47__SFAirDropDiscoveryController_isStoreDemoMode__block_invoke()
 
 - (BOOL)isNearbySharingSupported
 {
-  sharedHardwareManagerWithNoUI = [(objc_class *)getNFHardwareManagerClass() sharedHardwareManagerWithNoUI];
-  v14 = 0;
-  v4 = [sharedHardwareManagerWithNoUI areFeaturesSupported:1 outError:&v14];
-  v5 = v14;
+  sharedHardwareManagerWithNoUI = [getNFHardwareManagerClass(self) sharedHardwareManagerWithNoUI];
+  v15 = 0;
+  v4 = [sharedHardwareManagerWithNoUI areFeaturesSupported:1 outError:&v15];
+  v5 = v15;
 
   if (v5)
   {
-    v6 = airdrop_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = airdrop_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SFAirDropDiscoveryController isNearbySharingSupported];
     }
@@ -208,44 +208,44 @@ uint64_t __47__SFAirDropDiscoveryController_isStoreDemoMode__block_invoke()
   if (!v4)
   {
 LABEL_10:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_11;
   }
 
-  v13 = 0;
-  sharedHardwareManagerWithNoUI2 = [(objc_class *)getNFHardwareManagerClass() sharedHardwareManagerWithNoUI];
-  v8 = [sharedHardwareManagerWithNoUI2 getRadioEnabledState:&v13];
+  v14 = 0;
+  sharedHardwareManagerWithNoUI2 = [getNFHardwareManagerClass(v6) sharedHardwareManagerWithNoUI];
+  v9 = [sharedHardwareManagerWithNoUI2 getRadioEnabledState:&v14];
 
-  if (v8)
+  if (v9)
   {
-    v9 = airdrop_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = airdrop_log();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [SFAirDropDiscoveryController isNearbySharingSupported];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v10 = v13 == 1;
+    v11 = v14 == 1;
   }
 
 LABEL_11:
   if ([(SFAirDropDiscoveryController *)self isStoreDemoMode])
   {
-    v11 = airdrop_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = airdrop_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_1B9E4B000, v11, OS_LOG_TYPE_DEFAULT, "Nearby sharing not supported for store demo devices", &v13, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_1B9E4B000, v12, OS_LOG_TYPE_DEFAULT, "Nearby sharing not supported for store demo devices", &v14, 2u);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)setNearbySharingEnabled:(BOOL)enabled
@@ -269,7 +269,7 @@ LABEL_11:
 
 - (void)startNFCMonitoring
 {
-  sharedHardwareManagerWithNoUI = [(objc_class *)getNFHardwareManagerClass() sharedHardwareManagerWithNoUI];
+  sharedHardwareManagerWithNoUI = [getNFHardwareManagerClass(self) sharedHardwareManagerWithNoUI];
   [sharedHardwareManagerWithNoUI registerEventListener:self];
 }
 
@@ -331,11 +331,11 @@ LABEL_11:
   alertController = self->_alertController;
   if (!alertController)
   {
-    sharedManager = [getUMUserManagerClass[0]() sharedManager];
-    v30 = sharedManager;
-    if ([sharedManager isMultiUser])
+    v4 = [getUMUserManagerClass(0 a2)];
+    v30 = v4;
+    if ([v4 isMultiUser])
     {
-      currentUser = [sharedManager currentUser];
+      currentUser = [v4 currentUser];
       v6 = [currentUser userType] == 1;
     }
 

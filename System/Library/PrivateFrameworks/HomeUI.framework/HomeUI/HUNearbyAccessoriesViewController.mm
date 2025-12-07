@@ -75,7 +75,7 @@
 - (void)updateViewConstraints
 {
   selfCopy = self;
-  sub_20CF3C944();
+  sub_20CF3C944(selfCopy, v2);
 }
 
 - (id)layoutSectionForSection:(int64_t)section layoutEnvironment:(id)environment
@@ -104,7 +104,7 @@
 
   else
   {
-    sub_20CECF940(0, &qword_28111FEA0);
+    sub_20CECF940(0, &qword_28111FEA0, 0x277D752A8);
   }
 
   return swift_getObjCClassFromMetadata();
@@ -156,7 +156,7 @@
 
   if (!v7)
   {
-    sub_20CECF940(0, &qword_281120AC0);
+    sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
     sub_20D567A78();
     v7 = sub_20D567A58();
   }

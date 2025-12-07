@@ -10,52 +10,52 @@
 
 - (void)allAttributesReady
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   [(HMMTRAttributeReportDistributor *)self setAllAttributesReported:1];
   receivers = [(HMMTRAttributeReportDistributor *)self receivers];
   v4 = [receivers copy];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = v4;
-  v17 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
-  if (v17)
+  v16 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  if (v16)
   {
-    v16 = *v25;
+    v15 = *v24;
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v25 != v16)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = [obj objectForKeyedSubscript:{*(*(&v24 + 1) + 8 * i), v16}];
+        v6 = [obj objectForKeyedSubscript:{*(*(&v23 + 1) + 8 * i), v15}];
         v7 = [v6 copy];
 
-        v22 = 0u;
-        v23 = 0u;
-        v20 = 0u;
         v21 = 0u;
+        v22 = 0u;
+        v19 = 0u;
+        v20 = 0u;
         v8 = v7;
-        v9 = [v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v21;
+          v11 = *v20;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v21 != v11)
+              if (*v20 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v20 + 1) + 8 * j);
+              v13 = *(*(&v19 + 1) + 8 * j);
               queue = [v13 queue];
               block[0] = MEMORY[0x277D85DD0];
               block[1] = 3221225472;
@@ -65,20 +65,18 @@
               dispatch_async(queue, block);
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v10);
         }
       }
 
-      v17 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v16 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
-    while (v17);
+    while (v16);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HMMTRAttributeReportDistributor_allAttributesReady__block_invoke(uint64_t a1)
@@ -89,7 +87,7 @@ void __53__HMMTRAttributeReportDistributor_allAttributesReady__block_invoke(uint
 
 - (void)distributeAttributeReport:(id)report
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   v5 = [reportCopy objectForKeyedSubscript:*MEMORY[0x277CD50B8]];
   objc_opt_class();
@@ -113,50 +111,48 @@ void __53__HMMTRAttributeReportDistributor_allAttributesReady__block_invoke(uint
 
     if (v10)
     {
-      v19 = v10;
-      v20 = v7;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
+      v18 = v10;
+      v19 = v7;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v11 = v10;
-      v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v24;
+        v14 = *v23;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v24 != v14)
+            if (*v23 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v23 + 1) + 8 * i);
+            v16 = *(*(&v22 + 1) + 8 * i);
             queue = [v16 queue];
             block[0] = MEMORY[0x277D85DD0];
             block[1] = 3221225472;
             block[2] = __61__HMMTRAttributeReportDistributor_distributeAttributeReport___block_invoke;
             block[3] = &unk_2786EF328;
             block[4] = v16;
-            v22 = reportCopy;
+            v21 = reportCopy;
             dispatch_async(queue, block);
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
         while (v13);
       }
 
-      v10 = v19;
-      v7 = v20;
+      v10 = v18;
+      v7 = v19;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMMTRAttributeReportDistributor_distributeAttributeReport___block_invoke(uint64_t a1)

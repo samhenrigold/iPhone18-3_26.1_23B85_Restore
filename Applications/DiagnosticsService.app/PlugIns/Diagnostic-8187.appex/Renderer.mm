@@ -49,9 +49,7 @@
   library = self->_library;
   self->_library = newDefaultLibrary;
 
-  newCommandQueue = [(MTLDevice *)self->_device newCommandQueue];
-  queue = self->_queue;
-  self->_queue = newCommandQueue;
+  self->_queue = [(MTLDevice *)self->_device newCommandQueue];
 
   _objc_release_x1();
 }
@@ -412,7 +410,7 @@ LABEL_19:
   device = self->_device;
   if (device)
   {
-    [(MTLDevice *)device accelerationStructureSizesWithDescriptor:descriptorCopy];
+    objc_msgSend_accelerationStructureSizesWithDescriptor_(device);
     device = self->_device;
     v6 = v16;
   }

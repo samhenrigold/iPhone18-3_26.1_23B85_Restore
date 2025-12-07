@@ -1389,7 +1389,7 @@ LABEL_10:
     {
       endLocation2 = [rangeInElement endLocation];
       endLocation3 = [animatingTextRange2 endLocation];
-      if (![endLocation2 isEqual:endLocation3])
+      if (!objc_msgSend_isEqual_(endLocation2))
       {
         v39 = [rangeInElement isEqualToTextRange:animatingTextRange2];
 

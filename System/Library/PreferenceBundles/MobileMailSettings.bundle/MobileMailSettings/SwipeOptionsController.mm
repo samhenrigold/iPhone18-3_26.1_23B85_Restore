@@ -12,9 +12,25 @@
 - (void)_configureSwipeDiagramInCell:(id)cell atIndexPath:(id)path;
 - (void)_removeImageViewsFromCell:(id)cell;
 - (void)setRightSwipeAction:(id)action withSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation SwipeOptionsController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = SwipeOptionsController;
+  [(SwipeOptionsController *)&v10 viewDidAppear:appear];
+  table = [(SwipeOptionsController *)self table];
+  [table contentOffset];
+  v6 = v5;
+  v8 = v7;
+
+  [(SwipeOptionsController *)self reloadSpecifiers];
+  table2 = [(SwipeOptionsController *)self table];
+  [table2 setContentOffset:{v6, v8}];
+}
 
 - (BOOL)_shouldReverseLayoutDirection
 {

@@ -27,12 +27,12 @@
   if (v14)
   {
     v14->_lock._os_unfair_lock_opaque = 0;
-    v16 = [infoCopy copy];
+    v16 = objc_msgSend_copy(infoCopy);
     identityLookupInfo = v15->_identityLookupInfo;
     v15->_identityLookupInfo = v16;
 
     v15->_requireExistingRelationship = relationship;
-    v18 = [modeCopy copy];
+    v18 = objc_msgSend_copy(modeCopy);
     expectedDeviceMode = v15->_expectedDeviceMode;
     v15->_expectedDeviceMode = v18;
   }
@@ -42,7 +42,7 @@
 
 - (void)main
 {
-  v50[1] = *MEMORY[0x277D85DE8];
+  v49[1] = *MEMORY[0x277D85DE8];
   v3 = [HDCloudSyncCompoundOperation alloc];
   configuration = [(HDCloudSyncOperation *)self configuration];
   v5 = [(HDCloudSyncCompoundOperation *)v3 initWithConfiguration:configuration cloudState:0 name:@"Add Sharing Participant" continueOnSubOperationError:0];
@@ -56,15 +56,15 @@
   configuration3 = [(HDCloudSyncOperation *)self configuration];
   v11 = [(HDCloudSyncRemoveInvalidShareParticipantsOperation *)v9 initWithConfiguration:configuration3 cloudState:0];
 
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __46__HDCloudSyncShareToParticipantOperation_main__block_invoke;
-  v47[3] = &unk_278614D48;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __46__HDCloudSyncShareToParticipantOperation_main__block_invoke;
+  v46[3] = &unk_278614D48;
   v12 = v8;
-  v48 = v12;
-  v49 = v11;
-  v39 = v11;
-  [(HDCloudSyncCompoundOperation *)v5 addOperation:v39 transitionHandler:v47];
+  v47 = v12;
+  v48 = v11;
+  v38 = v11;
+  [(HDCloudSyncCompoundOperation *)v5 addOperation:v38 transitionHandler:v46];
   v13 = objc_alloc(MEMORY[0x277CBC5E8]);
   v14 = MEMORY[0x277CBC5F8];
   configuration4 = [(HDCloudSyncOperation *)self configuration];
@@ -75,8 +75,8 @@
 
   v20 = [HDCloudSyncCreateZonesOperation alloc];
   configuration5 = [(HDCloudSyncOperation *)self configuration];
-  v50[0] = v19;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:1];
+  v49[0] = v19;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:1];
   configuration6 = [(HDCloudSyncOperation *)self configuration];
   repository2 = [configuration6 repository];
   primaryCKContainer = [repository2 primaryCKContainer];
@@ -88,30 +88,30 @@
   v29 = [(HDCloudSyncAddSharingParticipantOperation *)v27 initWithConfiguration:configuration7 cloudState:0];
 
   [(HDCloudSyncAddSharingParticipantOperation *)v29 setRequireExistingRelationship:self->_requireExistingRelationship];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_2;
-  v43[3] = &unk_2786261A0;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_2;
+  v42[3] = &unk_2786261A0;
   v30 = v29;
-  v44 = v30;
-  v45 = v12;
+  v43 = v30;
+  v44 = v12;
   selfCopy = self;
   v31 = v12;
-  [(HDCloudSyncCompoundOperation *)v5 addOperation:v30 transitionHandler:v43];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_307;
-  v41[3] = &unk_278614BA8;
-  v41[4] = self;
-  v42 = v30;
-  v32 = v30;
-  [(HDCloudSyncOperation *)v5 setOnSuccess:v41];
+  [(HDCloudSyncCompoundOperation *)v5 addOperation:v30 transitionHandler:v42];
   v40[0] = MEMORY[0x277D85DD0];
   v40[1] = 3221225472;
-  v40[2] = __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_2_313;
-  v40[3] = &unk_278613088;
+  v40[2] = __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_307;
+  v40[3] = &unk_278614BA8;
   v40[4] = self;
-  [(HDCloudSyncOperation *)v5 setOnError:v40];
+  v41 = v30;
+  v32 = v30;
+  [(HDCloudSyncOperation *)v5 setOnSuccess:v40];
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_2_313;
+  v39[3] = &unk_278613088;
+  v39[4] = self;
+  [(HDCloudSyncOperation *)v5 setOnError:v39];
   [(HDCloudSyncCompoundOperation *)v5 start];
   progress = [(HDCloudSyncOperation *)v5 progress];
   totalUnitCount = [progress totalUnitCount];
@@ -122,46 +122,41 @@
   progress3 = [(HDCloudSyncOperation *)self progress];
   progress4 = [(HDCloudSyncOperation *)v5 progress];
   [progress3 addChild:progress4 withPendingUnitCount:totalUnitCount];
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HDCloudSyncShareToParticipantOperation_main__block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) participant];
 
   if (v2)
   {
     v3 = [*(a1 + 32) participant];
-    v9[0] = v3;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v7[0] = v3;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
     [*(a1 + 40) setParticipantsToCheck:v4];
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v6 = *(a1 + 40);
-    v7 = *MEMORY[0x277D85DE8];
-    v8 = MEMORY[0x277CBEBF8];
+    v5 = *(a1 + 40);
+    v6 = MEMORY[0x277CBEBF8];
 
-    [v6 setParticipantsToCheck:v8];
+    [v5 setParticipantsToCheck:v6];
   }
 }
 
 void __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_2(id *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [a1[5] participant];
   [a1[4] setParticipant:v2];
 
   v3 = [a1[6] configuration];
   v4 = [v3 cachedCloudState];
-  v11 = 0;
-  v5 = [v4 zonesByIdentifierWithError:&v11];
-  v6 = v11;
+  v10 = 0;
+  v5 = [v4 zonesByIdentifierWithError:&v10];
+  v6 = v10;
 
   if (v5)
   {
@@ -175,21 +170,19 @@ void __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_2(id *a1)
     v8 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v10 = a1[6];
+      v9 = a1[6];
       *buf = 138543618;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v6;
+      v12 = v9;
+      v13 = 2114;
+      v14 = v6;
       _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get cached zones, %{public}@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_307(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) configuration];
   v3 = [v2 repository];
 
@@ -197,9 +190,9 @@ void __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_307(uint64_
   v5 = [v4 cachedCloudState];
   v6 = [v3 primaryCKContainer];
   v7 = [v6 containerIdentifier];
-  v39 = 0;
-  v8 = [v5 unifiedSyncZoneForContainerID:v7 error:&v39];
-  v9 = v39;
+  v38 = 0;
+  v8 = [v5 unifiedSyncZoneForContainerID:v7 error:&v38];
+  v9 = v38;
 
   if (v8)
   {
@@ -218,18 +211,18 @@ void __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_307(uint64_
     v12 = *v11;
     if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
     {
-      v26 = *(a1 + 32);
+      v25 = *(a1 + 32);
       *buf = 138543618;
-      v41 = v26;
-      v42 = 2114;
-      v43 = v9;
+      v40 = v25;
+      v41 = 2114;
+      v42 = v9;
       _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get cached unified zone, %{public}@", buf, 0x16u);
     }
   }
 
-  v38 = 0;
-  v13 = [v8 recordsForClass:objc_opt_class() error:&v38];
-  v14 = v38;
+  v37 = 0;
+  v13 = [v8 recordsForClass:objc_opt_class() error:&v37];
+  v14 = v37;
   v15 = v14;
   if (!v13)
   {
@@ -239,16 +232,16 @@ void __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_307(uint64_
       v16 = *v11;
       if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
       {
-        v30 = *(a1 + 32);
-        v31 = v16;
-        v32 = [v8 zoneIdentifier];
+        v29 = *(a1 + 32);
+        v30 = v16;
+        v31 = [v8 zoneIdentifier];
         *buf = 138543874;
-        v41 = v30;
-        v42 = 2114;
-        v43 = v32;
-        v44 = 2114;
-        v45 = v15;
-        _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get registry records for %{public}@, %{public}@", buf, 0x20u);
+        v40 = v29;
+        v41 = 2114;
+        v42 = v31;
+        v43 = 2114;
+        v44 = v15;
+        _os_log_error_impl(&dword_228986000, v30, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get registry records for %{public}@, %{public}@", buf, 0x20u);
       }
     }
   }
@@ -259,14 +252,14 @@ void __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_307(uint64_
     v17 = *v11;
     if (os_log_type_enabled(*v11, OS_LOG_TYPE_FAULT))
     {
-      v27 = *(a1 + 32);
-      v28 = v17;
-      v29 = [v8 zoneIdentifier];
+      v26 = *(a1 + 32);
+      v27 = v17;
+      v28 = [v8 zoneIdentifier];
       *buf = 138543618;
-      v41 = v27;
-      v42 = 2114;
-      v43 = v29;
-      _os_log_fault_impl(&dword_228986000, v28, OS_LOG_TYPE_FAULT, "%{public}@ Retrieved multiple registry records for %{public}@. This is unexpected.", buf, 0x16u);
+      v40 = v26;
+      v41 = 2114;
+      v42 = v28;
+      _os_log_fault_impl(&dword_228986000, v27, OS_LOG_TYPE_FAULT, "%{public}@ Retrieved multiple registry records for %{public}@. This is unexpected.", buf, 0x16u);
     }
   }
 
@@ -278,28 +271,26 @@ void __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_307(uint64_
     v20 = *v11;
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v33 = *(a1 + 32);
+      v32 = *(a1 + 32);
       *buf = 138543362;
-      v41 = v33;
+      v40 = v32;
       _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "%{public}@: Failed to retrieved shared profile identifier for registry record when adding a sharing participant.", buf, 0xCu);
     }
   }
 
   v21 = [v3 primaryCKContainer];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_309;
-  v34[3] = &unk_2786261C8;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_309;
+  v33[3] = &unk_2786261C8;
   v22 = *(a1 + 40);
-  v34[4] = *(a1 + 32);
-  v35 = v3;
-  v36 = v19;
-  v37 = v22;
+  v33[4] = *(a1 + 32);
+  v34 = v3;
+  v35 = v19;
+  v36 = v22;
   v23 = v19;
   v24 = v3;
-  [v21 fetchFullNameAndPrimaryEmailOnAccountWithCompletionHandler:v34];
-
-  v25 = *MEMORY[0x277D85DE8];
+  [v21 fetchFullNameAndPrimaryEmailOnAccountWithCompletionHandler:v33];
 }
 
 void __46__HDCloudSyncShareToParticipantOperation_main__block_invoke_309(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)

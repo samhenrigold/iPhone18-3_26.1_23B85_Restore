@@ -41,7 +41,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFMinimalRemoteNotificationObservable.minimalRemoteNotificationService(_:didUpdateTrailingButtonState:)();
+  CAFMinimalRemoteNotificationObservable.minimalRemoteNotificationService(_:didUpdateTrailingButtonState:)(selfCopy, state);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

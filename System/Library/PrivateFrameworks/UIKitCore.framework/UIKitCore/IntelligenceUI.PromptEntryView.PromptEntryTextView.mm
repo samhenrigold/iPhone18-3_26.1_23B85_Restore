@@ -10,9 +10,10 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v10.receiver = self;
-  v10.super_class = _s15PromptEntryViewC19PromptEntryTextViewCMa();
-  return [(UITextView *)&v10 initWithFrame:container textContainer:x, y, width, height];
+  _s15PromptEntryViewC19PromptEntryTextViewCMa();
+  v12.receiver = self;
+  v12.super_class = v10;
+  return [(UITextView *)&v12 initWithFrame:container textContainer:x, y, width, height];
 }
 
 @end

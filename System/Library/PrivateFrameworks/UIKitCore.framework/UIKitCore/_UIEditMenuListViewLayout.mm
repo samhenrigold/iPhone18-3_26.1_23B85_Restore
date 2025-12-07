@@ -28,9 +28,9 @@
     goto LABEL_8;
   }
 
-  v8 = [(NSArray *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_pages, pages);
@@ -61,9 +61,9 @@ LABEL_12:
     goto LABEL_7;
   }
 
-  v10 = [(NSIndexPath *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if ((v10 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_7:
     objc_storeStrong(&self->_indexPathForHighlightedItem, item);
@@ -130,9 +130,9 @@ LABEL_13:
         if ([v9 representedElementCategory])
         {
           representedElementKind = [v9 representedElementKind];
-          v11 = [representedElementKind isEqualToString:@"_UIEditMenuListViewSeparator"];
+          isEqualToString = objc_msgSend_isEqualToString_(representedElementKind);
 
-          if (!v11)
+          if (!isEqualToString)
           {
             continue;
           }
@@ -180,9 +180,9 @@ LABEL_13:
   v11.super_class = _UIEditMenuListViewLayout;
   kindCopy = kind;
   v8 = [(UICollectionViewCompositionalLayout *)&v11 layoutAttributesForSupplementaryViewOfKind:kindCopy atIndexPath:pathCopy];
-  v9 = [kindCopy isEqualToString:{@"_UIEditMenuListViewSeparator", v11.receiver, v11.super_class}];
+  isEqualToString = objc_msgSend_isEqualToString_(kindCopy, v11.receiver, v11.super_class);
 
-  if (v9)
+  if (isEqualToString)
   {
     [v8 setHidden:{-[_UIEditMenuListViewLayout _canDisplaySeparatorForItemAtIndexPath:](self, "_canDisplaySeparatorForItemAtIndexPath:", pathCopy) ^ 1}];
   }
@@ -206,13 +206,13 @@ LABEL_13:
   }
 
   indexPathForHighlightedItem2 = [(_UIEditMenuListViewLayout *)self indexPathForHighlightedItem];
-  if (![pathCopy isEqual:indexPathForHighlightedItem2])
+  if (!objc_msgSend_isEqual_(pathCopy))
   {
     indexPathForHighlightedItem3 = [(_UIEditMenuListViewLayout *)self indexPathForHighlightedItem];
     v8 = [MEMORY[0x1E696AC88] indexPathForItem:objc_msgSend(indexPathForHighlightedItem3 inSection:{"item") + 1, objc_msgSend(indexPathForHighlightedItem3, "section")}];
-    v9 = [pathCopy isEqual:v8];
+    isEqual = objc_msgSend_isEqual_(pathCopy);
 
-    if (v9)
+    if (isEqual)
     {
       goto LABEL_6;
     }

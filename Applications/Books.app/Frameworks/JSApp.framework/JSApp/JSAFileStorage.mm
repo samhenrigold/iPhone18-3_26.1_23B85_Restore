@@ -24,28 +24,27 @@
 {
   itemCopy = item;
   selfCopy = self;
-  sub_44DA8(v14);
+  sub_44DA8(&v13);
 
-  v6 = v15;
-  if (v15)
+  v6 = v14;
+  if (v14)
   {
-    v7 = sub_40E4C(v14, v15);
+    v7 = sub_40E4C(&v13, v14);
     v8 = *(v6 - 8);
-    v9 = *(v8 + 64);
     __chkstk_darwin(v7);
-    v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v8 + 16))(v11);
-    v12 = sub_84BDC();
-    (*(v8 + 8))(v11, v6);
-    sub_371A8(v14);
+    v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v8 + 16))(v10);
+    v11 = sub_84BDC();
+    (*(v8 + 8))(v10, v6);
+    sub_371A8(&v13);
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 - (void)setItem:(id)item :(id)a4

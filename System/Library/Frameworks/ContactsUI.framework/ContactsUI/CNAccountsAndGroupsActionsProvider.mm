@@ -777,7 +777,7 @@ uint64_t __90__CNAccountsAndGroupsActionsProvider_trailingActionsForItem_cell_is
 
 void __90__CNAccountsAndGroupsActionsProvider_trailingActionsForItem_cell_isCollectionViewEditing___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  (*(a4 + 16))(a4, 1);
+  (*(a4 + 16))(a4, 1, a3);
   v5 = dispatch_time(0, 250000000);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;

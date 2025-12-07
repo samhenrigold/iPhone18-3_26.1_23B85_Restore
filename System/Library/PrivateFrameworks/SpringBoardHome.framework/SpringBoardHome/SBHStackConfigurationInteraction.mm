@@ -157,7 +157,7 @@
   }
 
   [(SBHStackConfigurationInteraction *)self setContainerView:view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v9 = v8;
   v11 = v10;
   v13 = v12;
@@ -221,8 +221,7 @@
   configurationViewController = [(SBHStackConfigurationInteraction *)self configurationViewController];
   [appearanceDelegate stackConfigurationViewControllerWillAppear:configurationViewController];
 
-  [(SBHStackConfigurationInteraction *)self _handleTransitionWillProgressToEndState:1];
-  v7 = SBLogTelemetrySignposts();
+  v7 = SBLogTelemetrySignposts([(SBHStackConfigurationInteraction *)self _handleTransitionWillProgressToEndState:1]);
   if (os_signpost_enabled(v7))
   {
     *v9 = 0;
@@ -235,7 +234,7 @@
 
 - (void)transitionDidProgressToEndState:(id)state
 {
-  v4 = SBLogTelemetrySignposts();
+  v4 = SBLogTelemetrySignposts(self);
   if (os_signpost_enabled(v4))
   {
     *v9 = 0;
@@ -268,8 +267,7 @@
   configurationViewController = [(SBHStackConfigurationInteraction *)self configurationViewController];
   [appearanceDelegate stackConfigurationViewControllerWillDisappear:configurationViewController];
 
-  [(SBHStackConfigurationInteraction *)self _handleTransitionWillProgressToEndState:0];
-  v7 = SBLogTelemetrySignposts();
+  v7 = SBLogTelemetrySignposts([(SBHStackConfigurationInteraction *)self _handleTransitionWillProgressToEndState:0]);
   if (os_signpost_enabled(v7))
   {
     *v9 = 0;
@@ -283,7 +281,7 @@
 - (void)transitionDidReturnToBeginningState:(id)state
 {
   stateCopy = state;
-  v5 = SBLogTelemetrySignposts();
+  v5 = SBLogTelemetrySignposts(stateCopy);
   if (os_signpost_enabled(v5))
   {
     *v15 = 0;
@@ -585,11 +583,11 @@
 
 - (CGRect)_contentBoundingFrame
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   delegate = [(SBHStackConfigurationInteraction *)self delegate];
   [(SBHStackConfigurationInteraction *)self _sourceContentFrame];
   containerView = [(SBHStackConfigurationInteraction *)self containerView];
-  [containerView bounds];
+  objc_msgSend_bounds(containerView);
   v6 = v5;
   v8 = v7;
   v10 = v9;
@@ -599,9 +597,9 @@
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
   v16 = v12;
-  v50 = v6;
-  v51 = v10;
-  v49 = v12;
+  v51 = v6;
+  v52 = v10;
+  v50 = v12;
   v17 = v8;
   if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
   {
@@ -628,7 +626,7 @@
 
     if (icon)
     {
-      v46 = 0;
+      v47 = 0;
       UIRectCenteredXInRectScale();
     }
 
@@ -644,9 +642,9 @@
     v10 = v25;
     v16 = v26;
     v28 = fmax(v23, 0.0);
-    if (v51 - v25 <= v28)
+    if (v52 - v25 <= v28)
     {
-      v6 = v51 - v25;
+      v6 = v52 - v25;
     }
 
     else
@@ -657,42 +655,43 @@
     v17 = v27;
   }
 
-  v47 = v12 + v16 * 0.1;
+  v48 = v12 + v16 * 0.1;
   rect = v17;
   UIRectContainInRect();
-  x = v61.origin.x;
-  y = v61.origin.y;
-  width = v61.size.width;
-  height = v61.size.height;
-  if (CGRectIsEmpty(v61))
+  x = v62.origin.x;
+  y = v62.origin.y;
+  width = v62.size.width;
+  height = v62.size.height;
+  IsEmpty = CGRectIsEmpty(v62);
+  if (IsEmpty)
   {
-    v33 = SBLogIcon();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+    v34 = SBLogIcon(IsEmpty);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
     {
-      v62.origin.x = v6;
-      v62.origin.y = rect;
-      v62.size.width = v10;
-      v62.size.height = v16;
-      v43 = NSStringFromCGRect(v62);
       v63.origin.x = v6;
-      v63.origin.y = -(v16 * 0.1);
+      v63.origin.y = rect;
       v63.size.width = v10;
-      v63.size.height = v47;
+      v63.size.height = v16;
       v44 = NSStringFromCGRect(v63);
-      v64.origin.y = v8;
-      v64.origin.x = v50;
-      v64.size.width = v51;
-      v64.size.height = v49;
+      v64.origin.x = v6;
+      v64.origin.y = -(v16 * 0.1);
+      v64.size.width = v10;
+      v64.size.height = v48;
       v45 = NSStringFromCGRect(v64);
+      v65.origin.y = v8;
+      v65.origin.x = v51;
+      v65.size.width = v52;
+      v65.size.height = v50;
+      v46 = NSStringFromCGRect(v65);
       *buf = 138544130;
-      v53 = v43;
-      v54 = 2114;
-      v55 = v44;
-      v56 = 2114;
-      v57 = v45;
-      v58 = 2114;
-      v59 = containerView;
-      _os_log_fault_impl(&dword_1BEB18000, v33, OS_LOG_TYPE_FAULT, "Stack Configuration target content frame is empty with preferredContentRect(%{public}@), allowableRect(%{public}@), containerBounds(%{public}@), containerView(%{public}@).", buf, 0x2Au);
+      v54 = v44;
+      v55 = 2114;
+      v56 = v45;
+      v57 = 2114;
+      v58 = v46;
+      v59 = 2114;
+      v60 = containerView;
+      _os_log_fault_impl(&dword_1BEB18000, v34, OS_LOG_TYPE_FAULT, "Stack Configuration target content frame is empty with preferredContentRect(%{public}@), allowableRect(%{public}@), containerBounds(%{public}@), containerView(%{public}@).", buf, 0x2Au);
     }
 
     if (iconView)
@@ -704,22 +703,22 @@
     {
       [MEMORY[0x1E69DCEB0] mainScreen];
     }
-    v34 = ;
-    [v34 bounds];
-    x = v35;
-    y = v36;
-    width = v37;
-    height = v38;
+    v35 = ;
+    objc_msgSend_bounds(v35, v47);
+    x = v36;
+    y = v37;
+    width = v38;
+    height = v39;
   }
 
-  v39 = x;
-  v40 = y;
-  v41 = width;
-  v42 = height;
-  result.size.height = v42;
-  result.size.width = v41;
-  result.origin.y = v40;
-  result.origin.x = v39;
+  v40 = x;
+  v41 = y;
+  v42 = width;
+  v43 = height;
+  result.size.height = v43;
+  result.size.width = v42;
+  result.origin.y = v41;
+  result.origin.x = v40;
   return result;
 }
 

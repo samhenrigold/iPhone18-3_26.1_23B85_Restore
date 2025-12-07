@@ -16,11 +16,11 @@
 
 - (BCSBlastDoorHelper)initWithPersistentStore:(id)store
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   storeCopy = store;
-  v16.receiver = self;
-  v16.super_class = BCSBlastDoorHelper;
-  v6 = [(BCSBlastDoorHelper *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = BCSBlastDoorHelper;
+  v6 = [(BCSBlastDoorHelper *)&v15 init];
   v7 = v6;
   if (v6)
   {
@@ -36,22 +36,21 @@
     {
       milliseconds = [(BCSExecutionTimer *)v8 milliseconds];
       *buf = 134217984;
-      v18 = milliseconds;
+      v17 = milliseconds;
       _os_log_impl(&dword_242072000, v12, OS_LOG_TYPE_DEFAULT, "BlastDoor init took  %llu ms", buf, 0xCu);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 + (BCSBlastDoorHelper)defaultHelper
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v10 = 0;
-  v3 = [defaultManager URLForDirectory:13 inDomain:1 appropriateForURL:0 create:1 error:&v10];
-  v4 = v10;
+  v9 = 0;
+  v3 = [defaultManager URLForDirectory:13 inDomain:1 appropriateForURL:0 create:1 error:&v9];
+  v4 = v9;
 
   if (v3)
   {
@@ -66,21 +65,19 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v4;
+      v11 = v4;
       _os_log_error_impl(&dword_242072000, v5, OS_LOG_TYPE_ERROR, "Error finding default cache directory for BlastDoor image store: %@", buf, 0xCu);
     }
 
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (void)warmUpBlastDoor
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = ABSLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -89,27 +86,27 @@
   }
 
   store = [(BCSBlastDoorHelper *)self store];
-  v14 = 0;
-  v5 = [store fileURLForImageWithName:@"warmUp.gif" error:&v14];
-  v6 = v14;
+  v13 = 0;
+  v5 = [store fileURLForImageWithName:@"warmUp.gif" error:&v13];
+  v6 = v13;
 
   if (v5)
   {
     v7 = [MEMORY[0x277CBEA90] dataWithBytes:&warmUpBlastDoor_warmUpGIFBytes length:37];
     if (([v7 writeToURL:v5 atomically:0]& 1) != 0)
     {
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __37__BCSBlastDoorHelper_warmUpBlastDoor__block_invoke;
-      v12[3] = &unk_278D38930;
-      v12[4] = self;
-      v13 = v5;
-      v8 = BCSTimeExecutionOfBlock(v12);
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __37__BCSBlastDoorHelper_warmUpBlastDoor__block_invoke;
+      v11[3] = &unk_278D38930;
+      v11[4] = self;
+      v12 = v5;
+      v8 = BCSTimeExecutionOfBlock(v11);
       v9 = ABSLogCommon();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v16 = v8 / 0xF4240;
+        v15 = v8 / 0xF4240;
         _os_log_impl(&dword_242072000, v9, OS_LOG_TYPE_DEFAULT, "Warmed up BlastDoor interface in %llu ms", buf, 0xCu);
       }
     }
@@ -131,12 +128,10 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v6;
+      v15 = v6;
       _os_log_error_impl(&dword_242072000, v7, OS_LOG_TYPE_ERROR, "Error creating temp file for warm up image: %@", buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __37__BCSBlastDoorHelper_warmUpBlastDoor__block_invoke(uint64_t a1)
@@ -161,34 +156,32 @@ void __37__BCSBlastDoorHelper_warmUpBlastDoor__block_invoke_2(uint64_t a1)
 
 - (id)safeImageURLFromImageURL:(id)l error:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v7 = ABSLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[BCSBlastDoorHelper safeImageURLFromImageURL:error:]";
-    _os_log_impl(&dword_242072000, v7, OS_LOG_TYPE_DEFAULT, "%s", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[BCSBlastDoorHelper safeImageURLFromImageURL:error:]";
+    _os_log_impl(&dword_242072000, v7, OS_LOG_TYPE_DEFAULT, "%s", &v12, 0xCu);
   }
 
   LODWORD(v8) = 1127153664;
   LODWORD(v9) = 1.0;
   v10 = [(BCSBlastDoorHelper *)self safeImageURLFromImageURL:lCopy maxPixelDimension:error scale:v8 error:v9];
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)safeImageURLFromImageURL:(id)l maxPixelDimension:(float)dimension scale:(float)scale error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v11 = ABSLogCommon();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v35 = "[BCSBlastDoorHelper safeImageURLFromImageURL:maxPixelDimension:scale:error:]";
+    v34 = "[BCSBlastDoorHelper safeImageURLFromImageURL:maxPixelDimension:scale:error:]";
     _os_log_impl(&dword_242072000, v11, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -219,7 +212,7 @@ LABEL_11:
 
     v29 = *error;
     *buf = 138412290;
-    v35 = v29;
+    v34 = v29;
     v30 = "Error creating temp file for image copy: %@";
 LABEL_16:
     _os_log_error_impl(&dword_242072000, v26, OS_LOG_TYPE_ERROR, v30, buf, 0xCu);
@@ -238,9 +231,9 @@ LABEL_16:
       goto LABEL_11;
     }
 
-    v33 = *error;
+    v32 = *error;
     *buf = 138412290;
-    v35 = v33;
+    v34 = v32;
     v30 = "Error writing BlastDoor image copy: %@";
     goto LABEL_16;
   }
@@ -249,21 +242,19 @@ LABEL_16:
   {
     milliseconds = [(BCSExecutionTimer *)v12 milliseconds];
     *buf = 134217984;
-    v35 = milliseconds;
+    v34 = milliseconds;
     _os_log_impl(&dword_242072000, v26, OS_LOG_TYPE_DEFAULT, "safeImageURLFromImageURL processing took  %llu ms (total)", buf, 0xCu);
   }
 
   v28 = v22;
 LABEL_12:
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v28;
 }
 
 - (id)_blastDoorImagePreviewFromImageURL:(id)l maxPixelDimension:(float)dimension scale:(float)scale error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v11 = objc_alloc_init(BCSExecutionTimer);
   *&v12 = dimension;
@@ -276,9 +267,9 @@ LABEL_12:
   {
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 134217984;
+      v20 = 134217984;
       milliseconds = [(BCSExecutionTimer *)v11 milliseconds];
-      _os_log_impl(&dword_242072000, v16, OS_LOG_TYPE_DEFAULT, "BlastDoor processing took  %llu ms", &v21, 0xCu);
+      _os_log_impl(&dword_242072000, v16, OS_LOG_TYPE_DEFAULT, "BlastDoor processing took  %llu ms", &v20, 0xCu);
     }
 
     v17 = v14;
@@ -288,29 +279,27 @@ LABEL_12:
   {
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v20 = *error;
-      v21 = 138412290;
-      milliseconds = v20;
-      _os_log_error_impl(&dword_242072000, v16, OS_LOG_TYPE_ERROR, "Error generating BlastDoor preview: %@", &v21, 0xCu);
+      v19 = *error;
+      v20 = 138412290;
+      milliseconds = v19;
+      _os_log_error_impl(&dword_242072000, v16, OS_LOG_TYPE_ERROR, "Error generating BlastDoor preview: %@", &v20, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (id)safeImageURLFromImage:(id)image imageFormat:(id)format maxPixelDimension:(float)dimension scale:(float)scale error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   formatCopy = format;
   imageCopy = image;
   v14 = ABSLogCommon();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 136315138;
-    v23 = "[BCSBlastDoorHelper safeImageURLFromImage:imageFormat:maxPixelDimension:scale:error:]";
-    _os_log_impl(&dword_242072000, v14, OS_LOG_TYPE_DEFAULT, "%s", &v22, 0xCu);
+    v21 = 136315138;
+    v22 = "[BCSBlastDoorHelper safeImageURLFromImage:imageFormat:maxPixelDimension:scale:error:]";
+    _os_log_impl(&dword_242072000, v14, OS_LOG_TYPE_DEFAULT, "%s", &v21, 0xCu);
   }
 
   v15 = [(BCSBlastDoorHelper *)self _fileURLAfterWritingData:imageCopy extension:formatCopy error:error];
@@ -321,43 +310,39 @@ LABEL_12:
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   [defaultManager removeItemAtURL:v15 error:0];
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)safeImageURLFromImage:(id)image imageFormat:(id)format error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   formatCopy = format;
   imageCopy = image;
   v10 = ABSLogCommon();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315138;
-    v17 = "[BCSBlastDoorHelper safeImageURLFromImage:imageFormat:error:]";
-    _os_log_impl(&dword_242072000, v10, OS_LOG_TYPE_DEFAULT, "%s", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[BCSBlastDoorHelper safeImageURLFromImage:imageFormat:error:]";
+    _os_log_impl(&dword_242072000, v10, OS_LOG_TYPE_DEFAULT, "%s", &v15, 0xCu);
   }
 
   LODWORD(v11) = 1127153664;
   LODWORD(v12) = 1.0;
   v13 = [(BCSBlastDoorHelper *)self safeImageURLFromImage:imageCopy imageFormat:formatCopy maxPixelDimension:error scale:v11 error:v12];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)safeImageFromImage:(id)image maxPixelDimension:(float)dimension scale:(float)scale error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   imageCopy = image;
   v11 = ABSLogCommon();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 136315138;
-    v22 = "[BCSBlastDoorHelper safeImageFromImage:maxPixelDimension:scale:error:]";
-    _os_log_impl(&dword_242072000, v11, OS_LOG_TYPE_DEFAULT, "%s", &v21, 0xCu);
+    v20 = 136315138;
+    v21 = "[BCSBlastDoorHelper safeImageFromImage:maxPixelDimension:scale:error:]";
+    _os_log_impl(&dword_242072000, v11, OS_LOG_TYPE_DEFAULT, "%s", &v20, 0xCu);
   }
 
   v12 = [(BCSBlastDoorHelper *)self _fileURLAfterWritingData:imageCopy extension:@"unknown" error:error];
@@ -370,8 +355,6 @@ LABEL_12:
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   [defaultManager removeItemAtURL:v12 error:0];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

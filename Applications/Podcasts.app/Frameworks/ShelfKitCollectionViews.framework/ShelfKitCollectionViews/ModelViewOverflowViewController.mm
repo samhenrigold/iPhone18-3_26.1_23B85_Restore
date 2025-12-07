@@ -25,7 +25,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_28363C();
+  sub_28363C(selfCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear

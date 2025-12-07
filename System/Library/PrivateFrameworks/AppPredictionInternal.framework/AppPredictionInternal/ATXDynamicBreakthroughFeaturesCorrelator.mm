@@ -70,7 +70,7 @@
 
     if (v21)
     {
-      emailAddresses = __atxlog_handle_notification_categorization();
+      emailAddresses = __atxlog_handle_notification_categorization(v22);
       if (os_log_type_enabled(emailAddresses, OS_LOG_TYPE_ERROR))
       {
         [ATXDynamicBreakthroughFeaturesCorrelator _contactRelationshipsFromNotification:v21 contactStore:emailAddresses withRelationships:?];
@@ -84,37 +84,37 @@
       v35 = 0u;
       v36 = 0u;
       emailAddresses = [v20 emailAddresses];
-      v23 = [emailAddresses countByEnumeratingWithState:&v35 objects:v40 count:16];
-      if (v23)
+      v24 = [emailAddresses countByEnumeratingWithState:&v35 objects:v40 count:16];
+      if (v24)
       {
-        v24 = v23;
+        v25 = v24;
         v33 = v20;
         v34 = storeCopy;
-        v25 = *v36;
+        v26 = *v36;
         do
         {
-          for (i = 0; i != v24; ++i)
+          for (i = 0; i != v25; ++i)
           {
-            if (*v36 != v25)
+            if (*v36 != v26)
             {
               objc_enumerationMutation(emailAddresses);
             }
 
-            v27 = *(*(&v35 + 1) + 8 * i);
+            v28 = *(*(&v35 + 1) + 8 * i);
             vipContactEmailAddresses = [relationshipsCopy vipContactEmailAddresses];
-            value = [v27 value];
-            v30 = [vipContactEmailAddresses containsObject:value];
+            value = [v28 value];
+            v31 = [vipContactEmailAddresses containsObject:value];
 
-            if (v30)
+            if (v31)
             {
               v18 |= 8uLL;
             }
           }
 
-          v24 = [emailAddresses countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v25 = [emailAddresses countByEnumeratingWithState:&v35 objects:v40 count:16];
         }
 
-        while (v24);
+        while (v25);
         v20 = v33;
         storeCopy = v34;
         v21 = 0;
@@ -127,7 +127,6 @@
     v18 = 16;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -187,10 +186,10 @@ void __80__ATXDynamicBreakthroughFeaturesCorrelator_currentLocationSemanticForGi
 
   if (v3)
   {
-    v4 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_notification_categorization(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __80__ATXDynamicBreakthroughFeaturesCorrelator_currentLocationSemanticForGivenDate___block_invoke_cold_1(v2, v4);
+      __80__ATXDynamicBreakthroughFeaturesCorrelator_currentLocationSemanticForGivenDate___block_invoke_cold_1(v2, v5);
     }
   }
 }
@@ -371,30 +370,13 @@ void __103__ATXDynamicBreakthroughFeaturesCorrelator_notificationModeAffinitySco
     v10 = [*(a1 + 32) contactIDs];
     v11 = [v10 count];
 
-    if (!v11)
+    if (!v11 || ([v20 contactEntity], v12 = objc_claimAutoreleasedReturnValue(), v12, v12) && (objc_msgSend(v20, "contactEntity"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "identifier"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "contactIDs"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "firstObject"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v14, "isEqualToString:", v16), v16, v15, v14, v13, v17))
     {
-      goto LABEL_5;
-    }
+      v18 = [v20 scoreMetadata];
+      [v18 score];
+      *(*(*(a1 + 40) + 8) + 24) = v19;
 
-    v12 = [v20 contactEntity];
-
-    if (v12)
-    {
-      v13 = [v20 contactEntity];
-      v14 = [v13 identifier];
-      v15 = [*(a1 + 32) contactIDs];
-      v16 = [v15 firstObject];
-      v17 = [v14 isEqualToString:v16];
-
-      if (v17)
-      {
-LABEL_5:
-        v18 = [v20 scoreMetadata];
-        [v18 score];
-        *(*(*(a1 + 40) + 8) + 24) = v19;
-
-        *a4 = 1;
-      }
+      *a4 = 1;
     }
   }
 }
@@ -421,7 +403,7 @@ LABEL_5:
   notificationCopy = notification;
   relationshipsCopy = relationships;
   storeCopy = store;
-  v11 = __atxlog_handle_notification_categorization();
+  v11 = __atxlog_handle_notification_categorization(storeCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -441,13 +423,13 @@ LABEL_5:
   weekday = [v53 weekday];
   v54 = currentCalendar;
   *buf = 0;
-  [currentCalendar getHour:buf minute:0 second:0 nanosecond:0 fromDate:v13];
+  v17 = [currentCalendar getHour:buf minute:0 second:0 nanosecond:0 fromDate:v13];
   if (*buf > 0x17uLL)
   {
-    v19 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v20 = __atxlog_handle_notification_categorization(v17);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      [ATXDynamicBreakthroughFeaturesCorrelator collectDynamicBreakthroughFeaturesForNotification:v19 contactStore:? withContactRelationships:?];
+      [ATXDynamicBreakthroughFeaturesCorrelator collectDynamicBreakthroughFeaturesForNotification:v20 contactStore:? withContactRelationships:?];
     }
 
     v51 = 0;
@@ -457,40 +439,40 @@ LABEL_5:
   {
     if (*buf < 0x11uLL)
     {
-      v17 = 2;
+      v18 = 2;
     }
 
     else
     {
-      v17 = 3;
+      v18 = 3;
     }
 
     if (*buf >= 0xCuLL)
     {
-      v18 = v17;
+      v19 = v18;
     }
 
     else
     {
-      v18 = 1;
+      v19 = 1;
     }
 
-    v51 = v18;
+    v51 = v19;
   }
 
   bodyLength = [notificationCopy bodyLength];
-  v21 = 10 * (bodyLength / 10);
+  v22 = 10 * (bodyLength / 10);
   if (bodyLength % 10 >= 5)
   {
-    v21 += 10;
+    v22 += 10;
   }
 
-  if (v21 <= 0xA)
+  if (v22 <= 0xA)
   {
-    v21 = 10;
+    v22 = 10;
   }
 
-  v50 = v21;
+  v50 = v22;
   [(ATXNotificationResolutionAccumulator *)self->_resolutionAccumulator computeFeaturesForNotification:notificationCopy mode:mode];
   v49 = objc_alloc(MEMORY[0x277CEB6D8]);
   bundleID = [notificationCopy bundleID];
@@ -500,13 +482,13 @@ LABEL_5:
   megadomeRelationshipsFromLastNotification = self->_megadomeRelationshipsFromLastNotification;
   v43 = [(ATXDynamicBreakthroughFeaturesCorrelator *)self currentLocationSemanticForGivenDate:v13];
   [(ATXDynamicBreakthroughFeaturesCorrelator *)self appModeAffinityScoreForNotification:notificationCopy inCurrentMode:mode];
-  v23 = v22;
+  v24 = v23;
   [(ATXDynamicBreakthroughFeaturesCorrelator *)self contactModeAffinityScoreForNotification:notificationCopy inCurrentMode:mode];
-  v25 = v24;
+  v26 = v25;
   [(ATXDynamicBreakthroughFeaturesCorrelator *)self notificationModeAffinityScoreForNotification:notificationCopy inCurrentMode:mode];
-  v27 = v26;
+  v28 = v27;
   [(ATXDynamicBreakthroughFeaturesCorrelator *)self appCategoryScoreForNotification:notificationCopy inCurrentMode:mode];
-  v29 = v28;
+  v30 = v29;
   timeToLaunchApp = [(ATXNotificationResolutionAccumulator *)self->_resolutionAccumulator timeToLaunchApp];
   historicalResolutionsForNotification = [(ATXNotificationResolutionAccumulator *)self->_resolutionAccumulator historicalResolutionsForNotification];
   historicalVolumeByCountAndPercentage = [historicalResolutionsForNotification historicalVolumeByCountAndPercentage];
@@ -515,34 +497,29 @@ LABEL_5:
   historicalResolutionsForNotification3 = [(ATXNotificationResolutionAccumulator *)self->_resolutionAccumulator historicalResolutionsForNotification];
   historicalResolutionByPercentage = [historicalResolutionsForNotification3 historicalResolutionByPercentage];
   [(ATXNotificationResolutionAccumulator *)self->_resolutionAccumulator historicalResolutionsForNotification];
-  v35 = v42 = v13;
-  modeConditionedHistoricalResolutionByPercentage = [v35 modeConditionedHistoricalResolutionByPercentage];
+  v36 = v42 = v13;
+  modeConditionedHistoricalResolutionByPercentage = [v36 modeConditionedHistoricalResolutionByPercentage];
   LODWORD(v40) = v43;
-  v37 = [v49 initWithBundleID:bundleID notificationDeliveryUrgency:urgency contactRelationships:v46 relationshipsFromMegadome:megadomeRelationshipsFromLastNotification dayOfWeek:weekday timeOfDay:v51 locationSemantic:v23 appModeAffinityScore:v25 contactModeAffinityScore:v27 notificationModeAffinityScore:v29 appCategoryScoreInMode:0.0 urgencyScore:0.0 importanceScore:v40 bucketizedLengthOfNotificationBody:v50 currentMode:mode timeToLaunchApp:timeToLaunchApp historicalVolumeByCountAndPercentage:historicalVolumeByCountAndPercentage modeConditionedHistoricalVolumeByCountAndPercentage:modeConditionedHistoricalVolumeByCountAndPercentage historicalResolutionByPercentage:historicalResolutionByPercentage modeConditionedHistoricalResolutionByPercentage:modeConditionedHistoricalResolutionByPercentage];
+  v38 = [v49 initWithBundleID:bundleID notificationDeliveryUrgency:urgency contactRelationships:v46 relationshipsFromMegadome:megadomeRelationshipsFromLastNotification dayOfWeek:weekday timeOfDay:v51 locationSemantic:v24 appModeAffinityScore:v26 contactModeAffinityScore:v28 notificationModeAffinityScore:v30 appCategoryScoreInMode:0.0 urgencyScore:0.0 importanceScore:v40 bucketizedLengthOfNotificationBody:v50 currentMode:mode timeToLaunchApp:timeToLaunchApp historicalVolumeByCountAndPercentage:historicalVolumeByCountAndPercentage modeConditionedHistoricalVolumeByCountAndPercentage:modeConditionedHistoricalVolumeByCountAndPercentage historicalResolutionByPercentage:historicalResolutionByPercentage modeConditionedHistoricalResolutionByPercentage:modeConditionedHistoricalResolutionByPercentage];
 
-  v38 = *MEMORY[0x277D85DE8];
-
-  return v37;
+  return v38;
 }
 
 - (void)_contactRelationshipsFromNotification:(uint64_t)a1 contactStore:(NSObject *)a2 withRelationships:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXDynamicBreakthroughFeaturesCorrelator: Error fetching unified contact email addresses: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXDynamicBreakthroughFeaturesCorrelator: Error fetching unified contact email addresses: %@", &v2, 0xCu);
 }
 
 void __80__ATXDynamicBreakthroughFeaturesCorrelator_currentLocationSemanticForGivenDate___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXDynamicBreakthroughFeaturesCorrelator: Error fetching last location event: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXDynamicBreakthroughFeaturesCorrelator: Error fetching last location event: %@", &v4, 0xCu);
 }
 
 @end

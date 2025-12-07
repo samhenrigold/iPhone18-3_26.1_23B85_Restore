@@ -364,7 +364,7 @@ LABEL_31:
             memset(&transform, 0, sizeof(transform));
             if (v14)
             {
-              [v14 transform];
+              objc_msgSend_transform(v14);
             }
 
             path2 = [v14 path];

@@ -14,6 +14,7 @@
 - (void)dealloc;
 - (void)generateStateDump;
 - (void)update;
+- (void)updateState:(int64_t)state Restricted:(BOOL)restricted;
 @end
 
 @implementation WPDManager
@@ -27,7 +28,7 @@
 
 + (void)initialize
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == self)
   {
     _isInternalBuild = os_variant_has_internal_diagnostics();
@@ -39,9 +40,9 @@
     v2 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 67109120;
-      LODWORD(v13) = _isInternalBuild;
-      _os_log_impl(&dword_272965000, v2, OS_LOG_TYPE_DEFAULT, "WPDManager _isInternalBuild: %d", &v12, 8u);
+      v11 = 67109120;
+      LODWORD(v12) = _isInternalBuild;
+      _os_log_impl(&dword_272965000, v2, OS_LOG_TYPE_DEFAULT, "WPDManager _isInternalBuild: %d", &v11, 8u);
     }
 
     if (_isInternalBuild == 1)
@@ -58,9 +59,9 @@
       v5 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = _scanAllowlist;
-        _os_log_impl(&dword_272965000, v5, OS_LOG_TYPE_DEFAULT, "WPDManager scanAllowlist: %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = _scanAllowlist;
+        _os_log_impl(&dword_272965000, v5, OS_LOG_TYPE_DEFAULT, "WPDManager scanAllowlist: %@", &v11, 0xCu);
       }
 
       v6 = _getCombinedAllowlist(@"AdvDenylist", @"AdvAllowlist");
@@ -75,9 +76,9 @@
       v8 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = _advAllowlist;
-        _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "WPDManager advAllowlist %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = _advAllowlist;
+        _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "WPDManager advAllowlist %@", &v11, 0xCu);
       }
     }
 
@@ -90,8 +91,6 @@
       _advAllowlist = 0;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (WPDManager)initWithServer:(id)server Name:(id)name
@@ -119,7 +118,7 @@
 
 - (void)cleanup
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDManager cleanup];
@@ -129,13 +128,12 @@
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     name = self->_name;
-    v6 = 138412290;
-    v7 = name;
-    _os_log_impl(&dword_272965000, v3, OS_LOG_TYPE_DEFAULT, "%@ dealloc", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = name;
+    _os_log_impl(&dword_272965000, v3, OS_LOG_TYPE_DEFAULT, "%@ dealloc", &v5, 0xCu);
   }
 
   [(WPDManager *)self setState:0];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -148,34 +146,34 @@
 
 - (NSString)description
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   generateStateDumpStrings = [(WPDManager *)self generateStateDumpStrings];
   v5 = [generateStateDumpStrings count] - 1;
   v6 = [MEMORY[0x277CCAB68] stringWithFormat:@"%@\n", self->_name];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = [generateStateDumpStrings subarrayWithRange:{1, v5}];
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [v6 appendString:*(*(&v15 + 1) + 8 * i)];
+        [v6 appendString:*(*(&v14 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -184,7 +182,6 @@
   v12 = [MEMORY[0x277CCACA8] stringWithString:v6];
 
   objc_autoreleasePoolPop(v3);
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -218,28 +215,28 @@
 
 - (void)generateStateDump
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   generateStateDumpStrings = [(WPDManager *)self generateStateDumpStrings];
-  v3 = [generateStateDumpStrings countByEnumeratingWithState:&v10 objects:v16 count:16];
+  v3 = [generateStateDumpStrings countByEnumeratingWithState:&v9 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(generateStateDumpStrings);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         if (WPLogInitOnce != -1)
         {
           [WPDManager generateStateDump];
@@ -249,7 +246,7 @@
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v15 = v7;
+          v14 = v7;
           _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: %@", buf, 0xCu);
         }
 
@@ -257,13 +254,11 @@
       }
 
       while (v4 != v6);
-      v4 = [generateStateDumpStrings countByEnumeratingWithState:&v10 objects:v16 count:16];
+      v4 = [generateStateDumpStrings countByEnumeratingWithState:&v9 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cbManagerDidUpdateState:(id)state
@@ -293,13 +288,41 @@
   }
 }
 
+- (void)updateState:(int64_t)state Restricted:(BOOL)restricted
+{
+  restrictedCopy = restricted;
+  stateCopy = state;
+  v16 = *MEMORY[0x277D85DE8];
+  [(WPDManager *)self setState:?];
+  [(WPDManager *)self setRestricted:restrictedCopy];
+  if (WPLogInitOnce != -1)
+  {
+    [WPDManager updateState:Restricted:];
+  }
+
+  v7 = WiProxLog;
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
+  {
+    v8 = v7;
+    name = [(WPDManager *)self name];
+    v10 = 138412802;
+    v11 = name;
+    v12 = 1024;
+    v13 = stateCopy;
+    v14 = 1024;
+    v15 = restrictedCopy;
+    _os_log_debug_impl(&dword_272965000, v8, OS_LOG_TYPE_DEBUG, "Manager %@ updated state:%d restricted:%d", &v10, 0x18u);
+  }
+
+  [(WPDManager *)self update];
+}
+
 - (void)update
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[WPDManager update]";
-  _os_log_error_impl(&dword_272965000, log, OS_LOG_TYPE_ERROR, "%s must override", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[WPDManager update]";
+  _os_log_error_impl(&dword_272965000, log, OS_LOG_TYPE_ERROR, "%s must override", &v1, 0xCu);
 }
 
 - (BOOL)isScanAllowlistedForType:(unsigned __int8)type
@@ -366,7 +389,7 @@
 
 + (void)initializeAdvDenylist:(id)denylist AdvAllowlist:(id)allowlist ScanDenylist:(id)scanDenylist ScanAllowlist:(id)scanAllowlist
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   denylistCopy = denylist;
   allowlistCopy = allowlist;
   scanDenylistCopy = scanDenylist;
@@ -394,13 +417,13 @@
     v15 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412802;
-      v21 = @"ScanDenylist";
-      v22 = 2112;
-      v23 = @"ScanAllowlist";
-      v24 = 2112;
-      v25 = _scanAllowlist;
-      _os_log_impl(&dword_272965000, v15, OS_LOG_TYPE_DEFAULT, "Combined %@ and %@ into allowlist: %@", &v20, 0x20u);
+      v19 = 138412802;
+      v20 = @"ScanDenylist";
+      v21 = 2112;
+      v22 = @"ScanAllowlist";
+      v23 = 2112;
+      v24 = _scanAllowlist;
+      _os_log_impl(&dword_272965000, v15, OS_LOG_TYPE_DEFAULT, "Combined %@ and %@ into allowlist: %@", &v19, 0x20u);
     }
   }
 
@@ -427,31 +450,27 @@
     v18 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412802;
-      v21 = @"AdvDenylist";
-      v22 = 2112;
-      v23 = @"AdvAllowlist";
-      v24 = 2112;
-      v25 = _advAllowlist;
-      _os_log_impl(&dword_272965000, v18, OS_LOG_TYPE_DEFAULT, "Combined %@ and %@ into allowlist: %@", &v20, 0x20u);
+      v19 = 138412802;
+      v20 = @"AdvDenylist";
+      v21 = 2112;
+      v22 = @"AdvAllowlist";
+      v23 = 2112;
+      v24 = _advAllowlist;
+      _os_log_impl(&dword_272965000, v18, OS_LOG_TYPE_DEFAULT, "Combined %@ and %@ into allowlist: %@", &v19, 0x20u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cbManagerDidUpdateState:(uint64_t)a3 .cold.2(void *a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 name];
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 2112;
-  v11 = a3;
-  _os_log_error_impl(&dword_272965000, v5, OS_LOG_TYPE_ERROR, "%@ manager - unexpected CB manager %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v6;
+  v9 = 2112;
+  v10 = a3;
+  _os_log_error_impl(&dword_272965000, v5, OS_LOG_TYPE_ERROR, "%@ manager - unexpected CB manager %@", &v7, 0x16u);
 }
 
 @end

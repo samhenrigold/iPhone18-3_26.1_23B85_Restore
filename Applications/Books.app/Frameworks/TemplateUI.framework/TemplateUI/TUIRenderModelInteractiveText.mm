@@ -160,57 +160,57 @@
 - (unint64_t)_returnKeyTypeForString:(id)string
 {
   stringCopy = string;
-  if ([stringCopy isEqualToString:@"Go"])
+  if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 1;
   }
 
-  else if ([stringCopy isEqualToString:@"Google"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 2;
   }
 
-  else if ([stringCopy isEqualToString:@"Join"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 3;
   }
 
-  else if ([stringCopy isEqualToString:@"Next"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 4;
   }
 
-  else if ([stringCopy isEqualToString:@"Route"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 5;
   }
 
-  else if ([stringCopy isEqualToString:@"Search"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 6;
   }
 
-  else if ([stringCopy isEqualToString:@"Send"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 7;
   }
 
-  else if ([stringCopy isEqualToString:@"Yahoo"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 8;
   }
 
-  else if ([stringCopy isEqualToString:@"Done"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 9;
   }
 
-  else if ([stringCopy isEqualToString:@"EmergencyCall"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 10;
   }
 
-  else if ([stringCopy isEqualToString:@"Continue"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 11;
   }

@@ -9,7 +9,7 @@
 
 - (id)applicationIdentifierForTargetPlatform:(unint64_t)platform withSourceApplicationIdentifier:(id)identifier
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   platformCopy = [identifierCopy platform];
   bundleID = [identifierCopy bundleID];
@@ -66,13 +66,13 @@ LABEL_16:
       v16 = v15;
       v17 = NSStringFromDNDPlatform();
       v18 = NSStringFromDNDPlatform();
-      v22 = 138478339;
-      v23 = v10;
-      v24 = 2114;
-      v25 = v17;
-      v26 = 2114;
-      v27 = v18;
-      _os_log_impl(&dword_24912E000, v16, OS_LOG_TYPE_DEFAULT, "Cannot map %{private}@ from %{public}@ to %{public}@ on this device", &v22, 0x20u);
+      v21 = 138478339;
+      v22 = v10;
+      v23 = 2114;
+      v24 = v17;
+      v25 = 2114;
+      v26 = v18;
+      _os_log_impl(&dword_24912E000, v16, OS_LOG_TYPE_DEFAULT, "Cannot map %{private}@ from %{public}@ to %{public}@ on this device", &v21, 0x20u);
     }
 
     v13 = v10;
@@ -80,8 +80,6 @@ LABEL_16:
 
 LABEL_18:
   v19 = [objc_alloc(MEMORY[0x277D058C8]) initWithBundleID:v13 platform:platformCopy];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

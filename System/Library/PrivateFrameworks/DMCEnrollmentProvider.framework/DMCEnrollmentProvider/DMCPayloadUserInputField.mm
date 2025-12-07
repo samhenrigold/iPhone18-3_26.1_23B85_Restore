@@ -28,9 +28,11 @@
 
 - (void)setUserResponse:(id)response
 {
-  self->_response = [response copy];
+  v4 = [response copy];
+  response = self->_response;
+  self->_response = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, response);
 }
 
 - (id)description

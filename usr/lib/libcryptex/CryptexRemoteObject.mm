@@ -7,11 +7,11 @@
 
 - (CryptexRemoteObject)initWithDesc:(id)desc
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   descCopy = desc;
-  v12.receiver = self;
-  v12.super_class = CryptexRemoteObject;
-  v5 = [(CryptexRemoteObject *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = CryptexRemoteObject;
+  v5 = [(CryptexRemoteObject *)&v11 init];
   string = xpc_dictionary_get_string(descCopy, "remote-cryptex-identifier");
   if (_dispatch_is_multithreaded())
   {
@@ -32,7 +32,7 @@
     v7 = strdup(string);
     if (!v7)
     {
-      [(CryptexRemoteObject *)string initWithDesc:v14];
+      [(CryptexRemoteObject *)string initWithDesc:v13];
     }
   }
 
@@ -57,13 +57,12 @@
     v9 = strdup(v8);
     if (!v9)
     {
-      [(CryptexRemoteObject *)v8 initWithDesc:v14];
+      [(CryptexRemoteObject *)v8 initWithDesc:v13];
     }
   }
 
   v5->_version = v9;
 
-  v10 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -87,12 +86,21 @@
   a3[2] = 0u;
   a3[3] = 0u;
   a3[4] = 0u;
-  OUTLINED_FUNCTION_4();
-  v5 = __error();
-  strerror(*v5);
+  if (OUTLINED_FUNCTION_4())
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  v6 = __error();
+  strerror(*v6);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5_0();
+  v11 = OUTLINED_FUNCTION_0_0(v5, a2, v7, v8, &dword_2986C0000, v9, v10, "allocation failed: obj = %s, size = %lu, error = %s");
+  OUTLINED_FUNCTION_5_0(v11);
   __break(1u);
 }
 

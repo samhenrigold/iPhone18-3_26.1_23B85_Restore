@@ -26,7 +26,7 @@
   if (_affectsScreenOrientation && (v11 & 1) == 0)
   {
     v12 = objc_loadWeakRetained(&self->_scene);
-    LODWORD(v13) = [v12 isEqual:v8];
+    LODWORD(v13) = objc_msgSend_isEqual_(v12);
 
     if ((v13 & 1) == 0 && !v8)
     {
@@ -127,11 +127,11 @@
           {
             if (v39)
             {
-              v41 = [_viewControllerForSupportedInterfaceOrientations isEqual:v39];
+              isEqual = objc_msgSend_isEqual_(_viewControllerForSupportedInterfaceOrientations);
 
               v31 = interfaceOrientation;
               v36 = interfaceOrientation;
-              if (v41)
+              if (isEqual)
               {
                 goto LABEL_34;
               }

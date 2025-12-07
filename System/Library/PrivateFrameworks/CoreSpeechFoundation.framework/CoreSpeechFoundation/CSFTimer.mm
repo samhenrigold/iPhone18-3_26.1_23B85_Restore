@@ -49,7 +49,7 @@ uint64_t __19__CSFTimer_resume___block_invoke(uint64_t a1)
 
 - (void)_disarmTimer
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   timer = self->_timer;
   if (timer && !dispatch_source_testcancel(self->_timer))
   {
@@ -59,11 +59,11 @@ uint64_t __19__CSFTimer_resume___block_invoke(uint64_t a1)
       v5 = v4;
       context = [(CSFTimer *)self context];
       identifier = [context identifier];
-      v9 = 136315394;
-      v10 = "[CSFTimer _disarmTimer]";
-      v11 = 2112;
-      v12 = identifier;
-      _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s [%@] Canceling timer", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[CSFTimer _disarmTimer]";
+      v10 = 2112;
+      v11 = identifier;
+      _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s [%@] Canceling timer", &v8, 0x16u);
 
       timer = self->_timer;
     }
@@ -74,13 +74,11 @@ uint64_t __19__CSFTimer_resume___block_invoke(uint64_t a1)
 
   self->_isCancelled = 1;
   self->_timer = 0;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_armTimer
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   isCancelled = self->_isCancelled;
   if (isCancelled)
   {
@@ -91,9 +89,9 @@ uint64_t __19__CSFTimer_resume___block_invoke(uint64_t a1)
       context = [(CSFTimer *)self context];
       identifier = [context identifier];
       *buf = 136315394;
-      v22 = "[CSFTimer _armTimer]";
-      v23 = 2112;
-      v24 = identifier;
+      v21 = "[CSFTimer _armTimer]";
+      v22 = 2112;
+      v23 = identifier;
       _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s [%@] Not resuming timer in cancelled state", buf, 0x16u);
     }
   }
@@ -122,16 +120,15 @@ uint64_t __19__CSFTimer_resume___block_invoke(uint64_t a1)
       context2 = [(CSFTimer *)self context];
       identifier2 = [context2 identifier];
       *buf = 136315394;
-      v22 = "[CSFTimer _armTimer]";
-      v23 = 2112;
-      v24 = identifier2;
+      v21 = "[CSFTimer _armTimer]";
+      v22 = 2112;
+      v23 = identifier2;
       _os_log_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_DEFAULT, "%s [%@] Resuming timer", buf, 0x16u);
     }
 
     dispatch_resume(self->_timer);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return !isCancelled;
 }
 

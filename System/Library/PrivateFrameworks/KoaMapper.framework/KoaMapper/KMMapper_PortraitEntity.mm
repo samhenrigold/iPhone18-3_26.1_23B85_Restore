@@ -7,14 +7,14 @@
 
 - (id)itemsFromExternalObject:(id)object additionalFields:(id)fields error:(id *)error
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   alternativeItemIdKey = self->_alternativeItemIdKey;
   objectCopy = object;
   v10 = [fields objectForKey:alternativeItemIdKey];
   builder = self->_builder;
-  v26 = 0;
-  v12 = [(KVItemBuilder *)builder setItemType:13 itemId:v10 error:&v26];
-  v13 = v26;
+  v25 = 0;
+  v12 = [(KVItemBuilder *)builder setItemType:13 itemId:v10 error:&v25];
+  v13 = v25;
   item = [objectCopy item];
 
   name = [item name];
@@ -23,14 +23,14 @@
   {
 LABEL_4:
     v19 = self->_builder;
-    v24 = v13;
-    v20 = [(KVItemBuilder *)v19 buildItemWithError:&v24];
-    v18 = v24;
+    v23 = v13;
+    v20 = [(KVItemBuilder *)v19 buildItemWithError:&v23];
+    v18 = v23;
 
     if (v20)
     {
-      v27[0] = v20;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+      v26[0] = v20;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
     }
 
     else
@@ -43,9 +43,9 @@ LABEL_4:
   }
 
   v16 = self->_builder;
-  v25 = v13;
-  v17 = [(KVItemBuilder *)v16 addFieldWithType:553 value:name error:&v25];
-  v18 = v25;
+  v24 = v13;
+  v17 = [(KVItemBuilder *)v16 addFieldWithType:553 value:name error:&v24];
+  v18 = v24;
 
   if (v17)
   {
@@ -56,8 +56,6 @@ LABEL_4:
   KMMapperSetBuilderError(error, v18);
   v21 = 0;
 LABEL_9:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

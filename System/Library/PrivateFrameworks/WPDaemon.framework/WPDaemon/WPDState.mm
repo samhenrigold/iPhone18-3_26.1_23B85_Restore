@@ -91,7 +91,7 @@
 
 - (void)updateWithManager:(id)manager Completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   completionCopy = completion;
   if ([(WPDState *)self initialUpdate])
@@ -108,21 +108,21 @@
       [cbStates setObject:v11 forKeyedSubscript:v13];
 
       v14 = [WPDState getWPStateFromCBManagerState:state];
-      v23 = v14;
+      v22 = v14;
       v15 = [MEMORY[0x277CCABB0] numberWithInteger:state];
       v16 = [&unk_288201970 isEqualToNumber:v15];
 
-      v22 = v16;
+      v21 = v16;
       if (v14 > [(WPDState *)self state]|| (v16 & 1) == 0)
       {
-        [(WPDState *)self coalesceState:&v23 Restricted:&v22 UpdateCache:0];
-        v14 = v23;
+        [(WPDState *)self coalesceState:&v22 Restricted:&v21 UpdateCache:0];
+        v14 = v22;
       }
 
-      if (v14 != [(WPDState *)self state]|| (v17 = v22, v17 != [(WPDState *)self restricted]))
+      if (v14 != [(WPDState *)self state]|| (v17 = v21, v17 != [(WPDState *)self restricted]))
       {
-        [(WPDState *)self setState:v23];
-        [(WPDState *)self setRestricted:v22];
+        [(WPDState *)self setState:v22];
+        [(WPDState *)self setRestricted:v21];
         if (completionCopy)
         {
           completionCopy[2](completionCopy);
@@ -137,11 +137,11 @@
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412802;
-          v25 = managerCopy;
-          v26 = 1024;
-          v27 = v23;
-          v28 = 1024;
-          v29 = v22;
+          v24 = managerCopy;
+          v25 = 1024;
+          v26 = v22;
+          v27 = 1024;
+          v28 = v21;
           _os_log_debug_impl(&dword_272965000, v18, OS_LOG_TYPE_DEBUG, "WPDState updated with manager %@ to state: %d restricted: %d", buf, 0x18u);
         }
       }
@@ -175,8 +175,6 @@
       [WPDState updateWithManager:v19 Completion:?];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithCompletion:(id)completion
@@ -211,42 +209,42 @@
 
 - (void)coalesceState:(int64_t *)state Restricted:(BOOL *)restricted UpdateCache:(BOOL)cache
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   if (cache)
   {
     cbManagers = [(WPDState *)self cbManagers];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __49__WPDState_coalesceState_Restricted_UpdateCache___block_invoke;
-    v27[3] = &unk_279E58E38;
-    v27[4] = self;
-    [cbManagers enumerateObjectsUsingBlock:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __49__WPDState_coalesceState_Restricted_UpdateCache___block_invoke;
+    v26[3] = &unk_279E58E38;
+    v26[4] = self;
+    [cbManagers enumerateObjectsUsingBlock:v26];
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   cbStates = [(WPDState *)self cbStates];
   allValues = [cbStates allValues];
 
-  v11 = [allValues countByEnumeratingWithState:&v23 objects:v34 count:16];
+  v11 = [allValues countByEnumeratingWithState:&v22 objects:v33 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     v14 = 3;
 LABEL_5:
     v15 = 0;
     while (1)
     {
-      if (*v24 != v13)
+      if (*v23 != v13)
       {
         objc_enumerationMutation(allValues);
       }
 
-      integerValue = [*(*(&v23 + 1) + 8 * v15) integerValue];
+      integerValue = [*(*(&v22 + 1) + 8 * v15) integerValue];
       v17 = [WPDState getWPStateFromCBManagerState:integerValue];
       if (v17 < v14)
       {
@@ -263,7 +261,7 @@ LABEL_5:
 
       if (v12 == ++v15)
       {
-        v12 = [allValues countByEnumeratingWithState:&v23 objects:v34 count:16];
+        v12 = [allValues countByEnumeratingWithState:&v22 objects:v33 count:16];
         if (v12)
         {
           goto LABEL_5;
@@ -290,17 +288,16 @@ LABEL_5:
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109632;
-    v29 = v14;
-    v30 = 1024;
-    v31 = v19;
-    v32 = 1024;
-    v33 = cacheCopy;
+    v28 = v14;
+    v29 = 1024;
+    v30 = v19;
+    v31 = 1024;
+    v32 = cacheCopy;
     _os_log_debug_impl(&dword_272965000, v20, OS_LOG_TYPE_DEBUG, "WPDState coalesce state:%d restricted:%d cache updated:%d ", buf, 0x14u);
   }
 
   *state = v14;
   *restricted = v19;
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __49__WPDState_coalesceState_Restricted_UpdateCache___block_invoke(uint64_t a1, void *a2)
@@ -345,33 +342,30 @@ void __49__WPDState_coalesceState_Restricted_UpdateCache___block_invoke(uint64_t
 
 - (void)registerManager:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_272965000, a2, OS_LOG_TYPE_DEBUG, "WPDState registered manager %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_272965000, a2, OS_LOG_TYPE_DEBUG, "WPDState registered manager %@", &v2, 0xCu);
 }
 
 - (void)updateWithManager:(uint64_t)a1 Completion:(NSObject *)a2 .cold.4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_272965000, a2, OS_LOG_TYPE_ERROR, "WPDState update with manager - unexpected CBManager %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_272965000, a2, OS_LOG_TYPE_ERROR, "WPDState update with manager - unexpected CBManager %@", &v2, 0xCu);
 }
 
 - (void)updateWithCompletion:(os_log_t)log .cold.2(uint64_t *a1, unsigned __int8 *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *a2;
-  v6[0] = 67109376;
-  v6[1] = v3;
-  v7 = 1024;
-  v8 = v4;
-  _os_log_debug_impl(&dword_272965000, log, OS_LOG_TYPE_DEBUG, "WPDState updated to state:%d restricted:%d", v6, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = 67109376;
+  v5[1] = v3;
+  v6 = 1024;
+  v7 = v4;
+  _os_log_debug_impl(&dword_272965000, log, OS_LOG_TYPE_DEBUG, "WPDState updated to state:%d restricted:%d", v5, 0xEu);
 }
 
 @end

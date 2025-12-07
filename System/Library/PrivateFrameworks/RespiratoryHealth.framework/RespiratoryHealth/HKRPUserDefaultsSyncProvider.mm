@@ -27,7 +27,7 @@
 
 - (void)synchronizeKeys:(id)keys
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   _HKInitializeLogging();
   v5 = HKLogRespiratoryCategory();
@@ -35,18 +35,17 @@
   {
     v6 = objc_opt_class();
     userDefaultsDomain = self->_userDefaultsDomain;
-    v10 = 138543874;
-    v11 = v6;
-    v12 = 2114;
-    v13 = userDefaultsDomain;
-    v14 = 2114;
-    v15 = keysCopy;
+    v9 = 138543874;
+    v10 = v6;
+    v11 = 2114;
+    v12 = userDefaultsDomain;
+    v13 = 2114;
+    v14 = keysCopy;
     v8 = v6;
-    _os_log_impl(&dword_262078000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requesting NanoSync to sync %{public}@ user defaults domain for keys: %{public}@", &v10, 0x20u);
+    _os_log_impl(&dword_262078000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requesting NanoSync to sync %{public}@ user defaults domain for keys: %{public}@", &v9, 0x20u);
   }
 
   [(NPSManager *)self->_manager synchronizeUserDefaultsDomain:self->_userDefaultsDomain keys:keysCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end
